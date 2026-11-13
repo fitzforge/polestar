@@ -1171,6 +1171,8 @@ pub fn validate_guides(guides: &[V], data: &Data, diag: &mut Diagnostics) {
 		let mut turned_in: FxHashSet<Key> = FxHashSet::default();
 		let mut when_only: FxHashSet<Key> = FxHashSet::default();
 		let mut learned: FxHashSet<Key> = FxHashSet::default();
+		// Quests abandoned on the path and not taken again since (a breadcrumb abandoned holds nothing back).
+		let mut abandoned: FxHashSet<Key> = FxHashSet::default();
 		// Quests accepted or turned in earlier on the path -> their character sets.
 		let mut taken: FxHashMap<Key, Vec<Rc<CharSet>>> = FxHashMap::default();
 		fn take(taken: &mut FxHashMap<Key, Vec<Rc<CharSet>>>, t: &QuestGoal) {
@@ -1181,9 +1183,13 @@ pub fn validate_guides(guides: &[V], data: &Data, diag: &mut Diagnostics) {
 				match t_of(&goal).as_str() {
 					"accept" => {
 						accepted.insert(key(&goal.get("quest")));
+						abandoned.remove(&key(&goal.get("quest")));
 					}
 					"turnin" => {
 						turned_in.insert(key(&goal.get("quest")));
+					}
+					"abandon" => {
+						abandoned.insert(key(&goal.get("quest")));
 					}
 					"learn" => {
 						learned.insert(key(&goal.get("spell")));
@@ -1217,6 +1223,9 @@ pub fn validate_guides(guides: &[V], data: &Data, diag: &mut Diagnostics) {
 			let qk = key(&quest);
 			let t = t_of(&goal);
 			let q = if !quest.is_undef() { data.quest(&quest) } else { V::Null };
+			if t == "abandon" {
+				abandoned.insert(qk.clone());
+			}
 			let layers = [gl.clone(), step.hidden("_only"), goal.hidden("_only")];
 			if leveling && !goal.get("optional").truthy() && !party_work(&step, &goal, &chosen) {
 				if let Some(elite) = elite_goal(&goal, &applicable(&layers).get("factions"), data) {
@@ -1285,6 +1294,22 @@ pub fn validate_guides(guides: &[V], data: &Data, diag: &mut Diagnostics) {
 							);
 						}
 					}
+					// A breadcrumb in the log holds this quest back until it is handed in (or abandoned).
+					for c in crate::prereqs::crumbs_of(&quest, &data.quests) {
+						let ck = key(&V::Num(c));
+						if !turned_in.contains(&ck) && !abandoned.contains(&ck) && taken.get(&ck).is_some_and(|l| l.iter().any(|chars| meets(chars, &mine.chars))) {
+							diag.warn(
+								&file,
+								ln,
+								format!(
+									"quest {} is not offered while its breadcrumb {} is in the log, and the chain takes that breadcrumb earlier without handing it in: hand it in first",
+									quest_name(data, &quest, &goal.get("title")),
+									quest_name(data, &V::Num(c), &V::Undef)
+								),
+								None,
+							);
+						}
+					}
 				}
 				if direct_turnin {
 					if accepted.contains(&qk) {
@@ -1301,6 +1326,7 @@ pub fn validate_guides(guides: &[V], data: &Data, diag: &mut Diagnostics) {
 						when_only.remove(&qk);
 					}
 					accepted.insert(qk.clone());
+					abandoned.remove(&qk);
 				}
 				if let Some(&i) = own.get(&key(&goal)) {
 					take(&mut taken, &qg[i]);

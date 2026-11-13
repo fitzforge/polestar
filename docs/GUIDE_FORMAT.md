@@ -1157,6 +1157,9 @@ Warnings:
 - an `accept` of a quest whose `excl` (exclusive) quest is accepted or turned in
   earlier in the chain: the game does not offer it while that quest is in the
   log or done
+- an `accept` of a quest while one of its breadcrumbs is in the log (accepted
+  earlier in the chain, not yet turned in or abandoned): the game does not
+  offer it until the breadcrumb is handed in
 - a non-`optional` `accept` never turned in later in the guide or the guides
   after it, checked for every route choice; when a next guide's race or class
   leaves out the characters still holding the quest, the warning says so (its

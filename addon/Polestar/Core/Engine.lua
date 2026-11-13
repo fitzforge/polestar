@@ -128,7 +128,10 @@ end
 
 -- First blocking prerequisite of an `accept` the character still lacks, or
 -- nil. The compiler drops breadcrumbs: every `preAll` must be done, and one
--- of `pre` when it lists any.
+-- of `pre` when it lists any. A breadcrumb (`crumbs`) never blocks, but one
+-- in the log holds the quest back until it is handed in (players'
+-- recordings: The Forgotten Pools while The Barrens Oases is in the log):
+-- it is returned too, so the accept says to hand it in first.
 local function missingPre(goal)
 	if type(goal.preAll) == "table" then
 		for _, q in ipairs(goal.preAll) do
@@ -136,10 +139,20 @@ local function missingPre(goal)
 		end
 	end
 	if type(goal.pre) == "table" and #goal.pre > 0 then
+		local met = false
 		for _, q in ipairs(goal.pre) do
-			if questDone(q) then return nil end
+			if questDone(q) then
+				met = true
+				break
+			end
 		end
-		return goal.pre[1]
+		if not met then return goal.pre[1] end
+	end
+	if type(goal.crumbs) == "table" then
+		local C = Compat()
+		for _, q in ipairs(goal.crumbs) do
+			if C.IsOnQuest(q) then return q end
+		end
 	end
 	return nil
 end
@@ -533,7 +546,9 @@ end
 -- "pre": the accept lacks a prerequisite the route no longer brings
 -- (Own.preBlocked), a mark that goes the moment that prerequisite is done,
 -- or its `parent` is not in the log and the route no longer brings it
--- (Own.coming), a mark that goes the moment the parent is taken.
+-- (Own.coming), a mark that goes the moment the parent is taken, or one of
+-- its breadcrumbs is in the log and the route does not hand it in
+-- (Own.crumbHeld), a mark that goes the moment it is handed in.
 -- `depth`: how far Own.coming has followed a chain of prerequisites.
 local function unavailableFor(goal, depth)
 	local q = goal.quest
@@ -589,6 +604,7 @@ local function unavailableFor(goal, depth)
 		local parent = tonumber(a.parent)
 		local pre = parent and not C.IsOnQuest(parent) and not Own.coming(parent, depth) and parent
 			or (a.pre or a.preAll) and Own.preBlocked(a, depth)
+			or Own.crumbHeld(a, depth)
 		if pre then
 			local m = Own.preMarks[a]
 			if not m then
@@ -1223,6 +1239,20 @@ function Own.preBlocked(a, depth)
 			if questDone(p) or Own.coming(p, depth) then return nil end
 		end
 		return Own.heldOf(any) or any[1]
+	end
+	return nil
+end
+
+-- A breadcrumb of accept a (`crumbs`) the player holds (in the log, not
+-- skipped) that this guide does not hand in (Own.coming), or nil: the game
+-- holds the quest back until it is handed in, so the accept says "Hand in
+-- ... first" and waits for that. One the guide still hands in is the route's
+-- own business, as a prerequisite's is.
+function Own.crumbHeld(a, depth)
+	if not (guide and type(a.crumbs) == "table") then return nil end
+	local C = Compat()
+	for _, c in ipairs(a.crumbs) do
+		if C.IsOnQuest(c) and not Own.questSkipped(c) and not Own.coming(c, depth) then return c end
 	end
 	return nil
 end

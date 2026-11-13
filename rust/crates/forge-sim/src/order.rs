@@ -1339,6 +1339,8 @@ pub fn chain_breaks(run: &Run, steps: &[Step], leads: &[Pair]) -> Vec<(u32, u32)
 			out.extend(pre.into_iter().map(|x| (x, s.q)));
 		}
 		out.extend(leads.iter().filter(|p| p.kb == K_ACCEPT && p.qb == s.q && p.ka == K_TURNIN && late(p.qa)).map(|p| (p.qa, s.q)));
+		// A breadcrumb taken before and handed in after: it holds the quest back while in the log.
+		out.extend(run.crumbs(q).iter().copied().filter(|&c| late(c) && steps[..i].iter().any(|x| x.kind == K_ACCEPT && x.q == c)).map(|c| (c, s.q)));
 	}
 	out.sort_unstable();
 	out.dedup();

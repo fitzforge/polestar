@@ -80,7 +80,7 @@ pub const WHEN_KEYS: [&str; 18] = ["k", "neg", "op", "n", "frac", "q", "item", "
 // where no other goal has a value, so adding them left older output unchanged.
 // `z` (heights.js) follows y, `node` and `area` (places.js) precede map: a
 // goal without them is emitted as before.
-pub const GOAL_KEYS: [&str; 83] = [
+pub const GOAL_KEYS: [&str; 84] = [
 	"t",
 	"class",
 	// `train class`: its step's zone (uiMapID), whose trainers the Engine ranks first (#1357).
@@ -133,6 +133,8 @@ pub const GOAL_KEYS: [&str; 83] = [
 	"xp",
 	// A child quest's parent (the data's `parent`): its giver offers it only while the parent is in the log (#1661).
 	"parent",
+	// An accept's breadcrumbs: the game holds the quest back while one is in the log, until it is handed in.
+	"crumbs",
 	"preTitles",
 	"text",
 	"node",

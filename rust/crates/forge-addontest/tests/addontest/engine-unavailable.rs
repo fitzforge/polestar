@@ -967,3 +967,42 @@ Polestar.RegisterGuide({ id = "test/xr", pack = "test", title = "Arathi", factio
 	assert_eq!(out["live"], 2, "{out}");
 	assert_eq!(out["events"], json!([{ "from": 1, "to": 2, "quests": ["522:Assassin's Plot:closed"] }]), "{out}");
 }
+
+// Players' recordings: the game holds a breadcrumb's target back while the breadcrumb is in the log (The Forgotten
+// Pools 870 was refused to 12 people while The Barrens Oases 886 was in their log, and offered to 30 who never had
+// it). An accept whose breadcrumb (`crumbs`) is in the log, when the guide no longer hands that breadcrumb in (its
+// turn-in step skipped), says to hand it in first, as a missing prerequisite in the log does; while the guide still
+// hands it in, the accept keeps its place; handed in, it is open.
+#[test]
+fn an_accept_whose_breadcrumb_is_in_the_log_says_to_hand_the_breadcrumb_in_first() {
+	let guide = r#"
+	Polestar.RegisterGuide({ id = "test/xr", pack = "test", title = "Crossroads", faction = "Horde", minLevel = 10, maxLevel = 20, steps = {
+		{ title = "Tonga", goals = {
+			{ t = "accept", quest = 886, title = "The Barrens Oases", npc = 3448, npcName = "Tonga Runetotem", map = 1413, x = 51, y = 30 },
+			{ t = "accept", quest = 870, title = "The Forgotten Pools", npc = 3448, npcName = "Tonga Runetotem", crumbs = { 886 }, preTitles = { [886] = "The Barrens Oases" }, map = 1413, x = 51, y = 30 },
+		} },
+		{ title = "Back", goals = {
+			{ t = "turnin", quest = 886, title = "The Barrens Oases", npc = 3448, npcName = "Tonga Runetotem", map = 1413, x = 51, y = 30 },
+		} },
+		{ goals = { { t = "level", level = 30 } } },
+	} })"#;
+	let out = run(
+		"",
+		guide,
+		r#"
+			local w = stub.world
+			stub.fire("QUEST_LOG_UPDATE"); flush()
+			w.accept(886, {}); flush()
+			local r = { kept = brief(1) }
+			-- The player skips the step that hands 886 in.
+			E.Next(); E.Skip(); flush()
+			r.skipped = brief(1)
+			w.turnIn(886); flush()
+			r.handedIn = brief(1)
+			emit(r)"#,
+	);
+	assert_eq!(out["kept"], json!(["done:nil:nil", "active:nil:nil"]), "the guide still hands it in: the accept keeps its place");
+	assert_eq!(out["skipped"], json!(["done:nil:nil", "skipped:pre:Hand in “The Barrens Oases” first"]), "held back while the breadcrumb is in the log");
+	let after = out["handedIn"][1].as_str().unwrap_or_default();
+	assert!(after.ends_with(":nil:nil"), "no mark once it is handed in: {after}");
+}

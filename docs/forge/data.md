@@ -379,6 +379,12 @@ Rules:
   quest's breadcrumb (its `breadcrumbs`, or the other quest's `breadcrumbFor`) is dropped, and
   `forge data check-corrections` warns. When it is a real prerequisite, also set `breadcrumbs`
   without it and `breadcrumbFor: null` on the other quest (#1490, The Great Outdoors).
+- A breadcrumb in the log does hold its quest back: the game offers the quest only once the
+  breadcrumb is handed in (or abandoned). The route search, the judge, `forge guide lint`, the
+  engine and the pick-up guides all follow that. So players' recordings that show a quest
+  refused while the earlier quest was in the log, and offered after its hand-in, prove nothing
+  about a prerequisite: only a character who never took the earlier quest, refused at the giver,
+  does.
 
 After editing, run `forge data check-corrections`, then `forge data build`, and look at the changed
 record in `data/forever`.

@@ -603,7 +603,7 @@ frame; absent: the live frame), `r` (arrival radius in yards), `spots`
 
 | Verb `t` | Required | Optional |
 |---|---|---|
-| `accept` | `quest`, `title` | `npc`/`npcName`, `object`/`objName`, `item`/`itemName`, `minLevel`, `qlvl`, `limit`, `pre`, `preAll`, `closedBy`, `parent`, `preTitles` |
+| `accept` | `quest`, `title` | `npc`/`npcName`, `object`/`objName`, `item`/`itemName`, `minLevel`, `qlvl`, `limit`, `pre`, `preAll`, `closedBy`, `parent`, `crumbs`, `preTitles` |
 | `turnin` | `quest`, `title` | `npc`/`npcName`, `object`/`objName`, `rewards = { choices = { { item, itemName, quality } }, items = { ... }, xp, money }`, `direct` |
 | `complete` | `quest`, `title` | `objs`, `startItem`, `startItemName`, `carriedTo` |
 | `abandon` | `quest`, `title` (format 5) | — |
@@ -650,6 +650,7 @@ The fields:
 | `closedBy` | quest ids that close this one once taken or done |
 | `endNpcs`, `xp` | on an `accept` with `closedBy`: the NPC ids the quest is handed in to and its XP. Polestar 0.3.8 and later say nothing of such a quest when a quest that closes it is offered at one of those NPCs (a breadcrumb to where the player stands), or when its `xp` is 0, and otherwise name its giver, distance and XP |
 | `parent` | on an `accept` of a child quest: the quest id its giver offers it under, only while that quest is in the log. Polestar 0.3.7 and later pass the accept once the parent is handed in, and while the parent is not in the log and the guide no longer brings it; older Polestar ignores it |
+| `crumbs` | on an `accept`: the quest's breadcrumbs (quest ids). None is a prerequisite, but the game does not offer the quest while one of them is in the log. Polestar 0.4.0 and later say "Hand in … first" on the accept while one is in the log and the guide does not hand it in, and Dynamic Questing does not offer the quest meanwhile; older Polestar ignores it |
 | `preTitles` | `{ [questId] = title }` for the quests those name |
 | `profLine`, `profName`, `profRank` | on any goal of a quest only characters with a profession can take: its skill line id, name and the rank it needs; the goal is hidden from characters without it |
 | `location` | an inn, flight point or zone name as the game shows it |

@@ -1454,6 +1454,10 @@ impl<'a> Evaluator<'a> {
 				return false;
 			}
 		}
+		// A breadcrumb in the log holds its target back until it is handed in (or abandoned).
+		if r.crumbs(q).iter().any(|&c| self.active[c as usize] != 0) {
+			return false;
+		}
 		let pre = &r.q_pre[q];
 		pre.is_empty() || pre.iter().any(|&p| self.done[p as usize] != 0)
 	}

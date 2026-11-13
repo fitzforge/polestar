@@ -1938,8 +1938,9 @@ fn check_background(steps: &[V], gsteps: &[V], r: &mut R) {
 }
 
 /// What an accept of quest `id` (record `q`, or Null) waits on, for the engine: its blocking prerequisites, the
-/// quests that close it for good, and its `parent` (a child quest, which its giver offers only while the parent is
-/// in the log and never once it is handed in: Valik with Infiltration, #1661). A quest something closes for good
+/// quests that close it for good, its `parent` (a child quest, which its giver offers only while the parent is
+/// in the log and never once it is handed in: Valik with Infiltration, #1661), and its breadcrumbs (`crumbs`: the
+/// game holds the quest back while one is in the log, until it is handed in). A quest something closes for good
 /// also carries the NPCs it is handed in to (`endNpcs`) and its XP (`xp`), from the data: the missable-quest line
 /// (Core/Closes.lua) says nothing of a breadcrumb to the NPC offering the closing quest, or of one worth no XP.
 fn accept_gate(q: &V, id: &V, data: &Data) -> V {
@@ -1970,8 +1971,12 @@ fn accept_gate(q: &V, id: &V, data: &Data) -> V {
 	if let Some(p) = parent.first() {
 		out.set("parent", p.clone());
 	}
+	let crumbs: Vec<V> = crate::prereqs::crumbs_of(id, &data.quests).into_iter().map(V::from).collect();
+	if !crumbs.is_empty() {
+		out.set("crumbs", crumbs.clone());
+	}
 	let titles: V = V::obj();
-	for p in all.iter().chain(any.iter()).chain(closed_by.iter()).chain(parent.iter()) {
+	for p in all.iter().chain(any.iter()).chain(closed_by.iter()).chain(parent.iter()).chain(crumbs.iter()) {
 		let pq = data.quest(p);
 		if pq.truthy() && pq.get("title").truthy() {
 			titles.set(&p.to_js_string(), pq.get("title").to_js_string());

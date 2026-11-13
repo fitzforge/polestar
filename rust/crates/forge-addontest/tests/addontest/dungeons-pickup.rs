@@ -669,12 +669,73 @@ for _, s in ipairs((D.PickupGuide("{KEY}") or { steps = {} }).steps) do
 end
 emit({ take = take, closedBy = closedBy })"#);
 	let open = run(&own, &script, Opts::default()).remove(0);
-	assert_eq!(open["take"], json!([1014, 1740, 90300, 90301]), "Doan's quest not taken yet: its breadcrumbs are offered");
+	// Each is handed in to Doan on the way, before his quest is taken: the game holds it back while one is in the
+	// log (#2046).
+	assert_eq!(open["take"], json!([1014, 1740]), "Doan's quest not taken yet: its breadcrumbs are offered, on its way");
 	assert_eq!(open["closedBy"], json!({ "90300": "1740", "90301": "1740" }), "each accept knows the quest that closes it, so the Engine passes it once that is taken");
 	let turned_in = run(&own, &script, Opts { done: vec![1098, 1740], ..Default::default() }).remove(0);
 	assert_eq!(turned_in["take"], json!([1014]), "Doan's quest turned in: no giver offers its breadcrumbs any more");
 	let carried = run(&own, &script, Opts { log: vec![1013, 1740], ..Default::default() }).remove(0);
 	assert_eq!(carried["take"], json!([1014]), "Doan's quest in the log: neither");
+}
+
+// Players' recordings: the game holds a breadcrumb's target back while the breadcrumb is in the log (The Forgotten
+// Pools refused to 12 people while The Barrens Oases was in their log, offered to 30 who never had it). The Gnomeregan
+// guide took The Day After and then asked Ozzie Togglevolt for Gnogaine (#2046). A breadcrumb the plan takes, or one
+// in the log, goes on its target's way: handed in right before the target's accept.
+#[test]
+fn a_breadcrumb_the_pick_up_takes_or_carries_is_handed_in_before_the_quest_it_leads_to_2046_gnogaine_after_the_day_after() {
+	let (codex, inputs) = fixture_parts();
+	let mut c = codex.clone();
+	let mut i = inputs.clone();
+	let npc = |id: i32, name: &str, x: i32| {
+		json!({
+			"id": id, "name": name, "level": 30, "levelMax": null, "faction": "H", "rare": false, "elite": false, "boss": false,
+			"instance": null, "roles": [], "spawns": [{ "map": 1421, "x": x, "y": x, "f": "e" }],
+		})
+	};
+	c["npcs"]["90910"] = npc(90910, "Gnoarn", 30);
+	c["npcs"]["90911"] = npc(90911, "Ozzie Togglevolt", 40);
+	let quest = |id: i32, title: &str, giver: i32, objectives: Value| {
+		json!({
+			"id": id, "title": title, "level": 25, "minLevel": 18, "faction": "H", "races": null, "classes": null,
+			"start": { "npc": [giver], "object": [], "item": [] }, "end": { "npc": [90911], "object": [] },
+			"objectives": objectives, "pre": [], "zone": 1421, "rewards": [], "choices": [], "preAny": [],
+		})
+	};
+	c["quests"]["90900"] = quest(90900, "The Day After", 90910, json!([]));
+	c["quests"]["90901"] = quest(90901, "Gnogaine", 90911, json!([{ "type": "kill", "id": 90920, "count": 1, "text": "Irradiated Pillager" }]));
+	i["forever"]["quests"]["90900"] = json!({ "area": 209, "breadcrumbFor": 90901 });
+	i["forever"]["quests"]["90901"] = json!({ "area": 209, "breadcrumbs": [90900] });
+	let own = pack_of(&c, &i);
+	let script = k(r#"
+local plan = D.PickupPlan("{KEY}")
+local take, pre, carried = {}, {}, {}
+for _, t in ipairs(plan.take) do
+	take[#take + 1] = t.quest.id
+	if t.quest.id == 90901 then for _, r in ipairs(t.pre) do pre[#pre + 1] = r.id end end
+end
+table.sort(take)
+for _, pq in ipairs(plan.carried) do carried[#carried + 1] = pq.id end
+local steps = {}
+for _, s in ipairs((D.PickupGuide("{KEY}") or { steps = {} }).steps) do
+	local verbs = {}
+	for _, g in ipairs(s.goals) do
+		if g.quest and g.quest >= 90900 and (g.t == "accept" or g.t == "turnin") then verbs[#verbs + 1] = g.t .. ":" .. g.quest end
+	end
+	if #verbs > 0 then steps[#steps + 1] = table.concat(verbs, " ") end
+end
+emit({ take = take, pre = pre, carried = carried, steps = steps })"#);
+	let open = run(&own, &script, Opts { done: vec![1098], ..Default::default() }).remove(0);
+	assert!(takes(&open, 90901) && !takes(&open, 90900), "the breadcrumb is no take of its own: {}", open["take"]);
+	assert_eq!(open["pre"], json!([90900]), "it is on Gnogaine's way");
+	assert_eq!(open["steps"], json!(["accept:90900 turnin:90900", "accept:90901"]), "handed in to Ozzie before Gnogaine is asked for");
+	// Already in the log: handed in first, not carried into the run.
+	let carried = run(&own, &script, Opts { done: vec![1098], log: vec![1013, 90900], ..Default::default() }).remove(0);
+	assert_eq!(carried["pre"], json!([90900]));
+	assert!(!carried["carried"].as_array().unwrap().iter().any(|x| *x == 90900), "not carried: {}", carried["carried"]);
+	assert_eq!(carried["steps"].as_array().unwrap().last(), Some(&json!("accept:90901")));
+	assert!(carried["steps"].as_array().unwrap().iter().any(|s| s.as_str().unwrap().contains("turnin:90900")), "handed in first: {}", carried["steps"]);
 }
 
 /// A quest of the fixture's page (area 209: Shadowfang Keep) in the Codex shape.
@@ -721,7 +782,10 @@ fn a_quest_the_codex_gives_no_side_whose_follow_up_is_the_alliance_s_is_never_in
 	let horde = run(&own, &k(TAKE), Opts::default()).remove(0);
 	assert_eq!(horde, json!({ "take": [1014, 1740], "accepts": [1010, 1011, 1014, 1740] }), "the Horde warlock is never sent to Shaedlass");
 	let human = run(&own, &k(TAKE), Opts { race: "Human", faction: "Alliance", cls: "MAGE", log: vec![], ..Default::default() }).remove(0);
-	assert!(takes(&human, 90400), "an Alliance character still takes it: {}", human["take"]);
+	// An Alliance character still takes it, on its follow-up's way: it is turned in to the follow-up's giver, so the
+	// pick-up hands it in right before Blackfathom Villainy's accept.
+	let accepts = human["accepts"].as_array().cloned().unwrap_or_default();
+	assert!(accepts.contains(&json!(90400)) && accepts.contains(&json!(90401)), "an Alliance character still takes it: {human}");
 }
 
 #[test]
@@ -1567,12 +1631,14 @@ emit({{ take = take, pre = pre, crumbs = crumbs, accepts = accepts }})"#
 	assert!(uc["crumbs"]["90813"]["detour"].as_i64().unwrap_or(0) > 300, "Hillsbrad is a detour over 300 s: {show}");
 	assert!(!takes(&uc, 90813), "left out: {show}");
 	assert!(uc["crumbs"]["90812"]["detour"].as_i64().unwrap_or(9999) <= 300, "the Undercity one is on the way: {show}");
-	assert!(takes(&uc, 90812), "the breadcrumb next to the player stays: {show}");
+	// A kept breadcrumb goes on its target's way (handed in before the target is asked for, #2046): no take of its
+	// own, but the guide takes it.
 	let accepts: Vec<i64> = uc["accepts"].as_array().unwrap().iter().filter_map(Value::as_i64).collect();
+	assert!(accepts.contains(&90812) && !takes(&uc, 90812), "the breadcrumb next to the player stays, on its target's way: {show}");
 	assert!(!accepts.contains(&90811) && !accepts.contains(&90813), "no accept of a left-out breadcrumb: {show}");
 	// From Hillsbrad, Word from Hillsbrad is on the way out: it stays.
 	let hb = run(&pack, &script, Opts { cls: "MAGE", at: Some([1424, 60, 21]), ..Default::default() }).remove(0);
-	assert!(takes(&hb, 90813), "taken by a player standing beside its giver: {}", serde_json::to_string(&hb).unwrap());
+	assert!(accepts_of(&hb, 90813), "taken by a player standing beside its giver: {}", serde_json::to_string(&hb).unwrap());
 	// #1402 (Geekmandem at Stonetalon Peak, Castpipe's Task 200 s out of his way): a breadcrumb that crosses the
 	// sea to its target is taken only from the town of its giver (150 s). From beside the Barrens Runner, Word
 	// from the Barrens stays; from the zone's far corner it is 190 s out of the way, under 300 s, and left out.
@@ -1580,7 +1646,7 @@ emit({{ take = take, pre = pre, crumbs = crumbs, accepts = accepts }})"#
 	let show = serde_json::to_string(&beside).unwrap();
 	assert_eq!(beside["crumbs"]["90811"]["far"], false, "the player is on its continent: {show}");
 	assert!(beside["crumbs"]["90811"]["detour"].as_i64().unwrap_or(9999) <= 150, "beside the player: {show}");
-	assert!(takes(&beside, 90811), "taken from beside its giver: {show}");
+	assert!(accepts_of(&beside, 90811), "taken from beside its giver: {show}");
 	let corner = run(&pack, &script, Opts { cls: "MAGE", at: Some([1413, 5, 5]), ..Default::default() }).remove(0);
 	let show = serde_json::to_string(&corner).unwrap();
 	let detour = corner["crumbs"]["90811"]["detour"].as_i64().unwrap_or(0);
@@ -1598,7 +1664,12 @@ emit({{ take = take, pre = pre, crumbs = crumbs, accepts = accepts }})"#
 	let show = serde_json::to_string(&req).unwrap();
 	assert!(takes(&req, 90815), "Lost Letters taken: {show}");
 	assert_eq!(req["pre"], json!([90814]), "after the required Hillsbrad Orders: {show}");
-	assert!(takes(&req, 90813), "Word from Hillsbrad rides along with it: {show}");
+	assert!(accepts_of(&req, 90813), "Word from Hillsbrad rides along with it: {show}");
+}
+
+/// Whether the guide (its `accepts` list) takes quest `id`: as a take of its own, or on another's way.
+fn accepts_of(v: &Value, id: i64) -> bool {
+	v["accepts"].as_array().into_iter().flatten().any(|x| x.as_i64() == Some(id))
 }
 
 // Travel between the fixture's zones by the way a player goes (seconds): Undercity and Silverpine are next
