@@ -385,25 +385,61 @@ end
 -- the same: its turn-in holds only those who took the quest.
 -- Taking the quest brings the goals back.
 -- A `turnin ... direct` has no accept by definition: it is handed in from the
--- giver's own window, so it is never orphaned. Nor is an `abandon`: a quest
--- the character does not have is already off the log, so it is done, and
--- taking the quest later must not bring the step back.
-local function orphaned(goal)
-	local q = goal.quest
-	if not q or goal.t == "accept" or goal.t == "abandon" or goal.direct or not guide then return false end
+-- giver's own window. It is orphaned the same way through the quest it waits
+-- on (its `parent`, which the giver wants in the log, or its `pre`/`preAll`),
+-- when this guide accepts that quest and the character neither has it, nor
+-- has done it, nor takes it at or before that step (Own.acceptMissing):
+-- Unbagwa offers Stranglethorn Fever (349) only to one carrying Fin
+-- Fizracket's (348). Taking that quest brings the goal back. Nor is an
+-- `abandon` ever orphaned: a quest the character does not have is already
+-- off the log, so it is done, and taking the quest later must not bring the
+-- step back.
+function Own.acceptMissing(q, s, l)
+	local list = l.accepts[q]
+	if not list then return false end
 	local C = Compat()
 	if C.IsOnQuest(q) or questDone(q) then return false end
-	local l = layoutOf(guide)
-	local s = l.stepOf[goal]
-	if not s then return false end
 	local skipped = ns.CharState().skipped[guide.id]
-	for _, a in ipairs(l.accepts[q] or NONE) do
+	for _, a in ipairs(list) do
 		if a.s <= s and not a.goal.optional and not (skipped and skipped[a.s])
 			and stepApplies(a.step) and Guides.Matches(a.goal.only, player) and not Own.barred(a.goal) and greyNeed(a.goal) ~= false then
 			return false
 		end
 	end
 	return true
+end
+
+function Own.directOrphaned(goal, s, l)
+	local C, q = Compat(), goal.quest
+	if C.IsOnQuest(q) or questDone(q) then return false end
+	local parent = tonumber(goal.parent)
+	if parent and Own.acceptMissing(parent, s, l) then return true end
+	if type(goal.preAll) == "table" then
+		for _, p in ipairs(goal.preAll) do
+			if Own.acceptMissing(p, s, l) then return true end
+		end
+	end
+	-- `pre`: any one of them opens it, so all must be missing.
+	local any = goal.pre
+	if type(any) ~= "table" or #any == 0 then return false end
+	for _, p in ipairs(any) do
+		if not Own.acceptMissing(p, s, l) then return false end
+	end
+	return true
+end
+
+local function orphaned(goal)
+	local q = goal.quest
+	if not q or goal.t == "accept" or goal.t == "abandon" or not guide then return false end
+	local l = layoutOf(guide)
+	local s = l.stepOf[goal]
+	if not s then return false end
+	if goal.direct then return Own.directOrphaned(goal, s, l) end
+	if not l.accepts[q] then
+		local C = Compat()
+		return not (C.IsOnQuest(q) or questDone(q))
+	end
+	return Own.acceptMissing(q, s, l)
 end
 
 -- A goal of a quest only characters with a profession can take (`profLine`,

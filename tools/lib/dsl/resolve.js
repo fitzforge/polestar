@@ -2154,6 +2154,12 @@ function resolveGoal(g, zoneMap, prev, data, err, warn, ctx = { sides: ['Allianc
 		goal.direct = true;
 		const q = goal.quest !== undefined ? data.quest(goal.quest) : null;
 		if (q && Number(q.level) > 0) goal.qlvl = Number(q.level);
+		// What its giver waits on, as for an accept: the engine lets the goal go when the guide's accept of
+		// that quest is skipped or never taken (Stranglethorn Fever 349 wants Fin Fizracket's 348 in the log).
+		const gate = acceptGate(q, goal.quest, data);
+		setIf(goal, 'pre', gate.pre);
+		setIf(goal, 'preAll', gate.preAll);
+		setIf(goal, 'parent', gate.parent);
 	}
 	// A kill's or use's credited creatures (#1614).
 	if ((v === 'kill' || v === 'use') && goal.fromNpcs === undefined) setIf(goal, 'fromNpcs', creditNpcs(data, goal));

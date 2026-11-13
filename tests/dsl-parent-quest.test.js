@@ -30,3 +30,10 @@ test("a child quest's accept carries its parent, and lint says when the chain do
 	const handed = guideText(['step A', '  accept 9341', '  turnin 9341', 'step B', '  accept 9340']);
 	assert.deepEqual(parentWarnings(compile(handed, data)), [`test.guide:${lineOf(handed, '  accept 9340')}: quest 9340 is offered only while 9341 (The Parent) is in the log, but the chain hands that quest in earlier`]);
 });
+
+test("a direct turn-in carries its giver's wait as an accept does (the parent), not the accept's titles", () => {
+	const data = parentData();
+	const r = compile(guideText(['step A', '  accept 9341', '  turnin 9340 direct']), data);
+	const g = plain(r.guides[0].steps)[0].goals[1];
+	assert.deepEqual([g.direct, g.parent, g.pre, g.preTitles], [true, 9341, undefined, undefined]);
+});

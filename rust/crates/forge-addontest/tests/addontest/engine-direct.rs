@@ -1,6 +1,8 @@
 //! A `turnin ... direct` (addon/Polestar/Core/Engine.lua): its giver offers the quest and takes it back in one
 //! talk, so the step says "Hand in" with a line that the quest never goes in the log, where a plain turn-in says
-//! "Turn in". On the shipped Horde Stranglethorn Vale guide (40-50/01, compiled
+//! "Turn in"; and a direct hand-in whose giver waits on a quest the guide accepts earlier (its `parent`, or
+//! `pre`/`preAll`, compiled onto the goal as for an accept) lets go when the player skipped that accept, as an
+//! ordinary turn-in of a skipped quest does. On the shipped Horde Stranglethorn Vale guide (40-50/01, compiled
 //! from guides/ with data/forever; skipped with a note without it): Witch Doctor Unbagwa offers Stranglethorn
 //! Fever (349) only to one carrying Fin Fizracket's (348, taken at Booty Bay).
 
@@ -87,6 +89,15 @@ fn run(log: &str) -> Option<Value> {
 /// The goal of `quest` with verb `t` among the step's goals.
 fn goal<'a>(out: &'a Value, t: &str, quest: u64) -> &'a Value {
 	out["unbagwa"].as_array().unwrap().iter().find(|g| g["t"] == t && g["quest"] == quest).unwrap_or_else(|| panic!("no {t} {quest}: {out}"))
+}
+
+#[test]
+fn stranglethorn_fever_without_fin_fizrackets_quest_lets_unbagwas_step_go() {
+	let Some(out) = run("") else { return };
+	assert_eq!(out["compiled"], json!({ "parent": 348, "pre": false }), "the giver's wait compiled onto the direct goal: {out}");
+	assert_eq!(goal(&out, "turnin", 349)["status"], "na", "{out}");
+	assert_eq!(goal(&out, "collect", 348)["status"], "na", "{out}");
+	assert_eq!(out["live"], false, "the route goes on past Unbagwa: {out}");
 }
 
 #[test]
