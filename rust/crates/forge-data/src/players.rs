@@ -10,9 +10,10 @@ use serde_json::Value as J;
 
 pub const EG_NAME: &str = "EG Link output: World of Warcraft: Forever";
 pub const EG_URL: &str = "https://github.com/JIVESCORP/eg-link-output-wowf";
-pub const EG_COMMIT: &str = "d98f94821b69cccf81b03a542df3755b60055217";
+pub const EG_COMMIT: &str = "156f29c9af78b1586883e8eb94a13467eb89638c";
 pub const EG_CREDIT: &str = "EG Link output: World of Warcraft: Forever (https://github.com/JIVESCORP/eg-link-output-wowf), data from Efficient Games (https://efficient.games), licensed under CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/); reduced to quest facts for Polestar.";
-pub const EG_PRODUCT: &str = "wow_classic_beta";
+/// The products read: the beta first, the live game second (at one build number the live record wins).
+pub const EG_PRODUCTS: [&str; 2] = ["wow_classic_beta", "wowf"];
 pub const DATASETS: [&str; 5] = ["quests.enUS", "quest_scan", "turn_ins", "npcs", "loot"];
 const MAX_LEVEL: f64 = 60.0;
 
@@ -150,24 +151,37 @@ fn percent(c: f64) -> f64 {
 	crate::jsv::math_round(c * 10000.0) / 100.0
 }
 
-/// The cached EG Link output (None when a file is not cached).
+/// The cached EG Link output (None when a file is not cached, or when no product has data).
 pub fn load_eg(sources: &Path, quest_xp: Option<&QuestXp>, log: &dyn Fn(&str)) -> Result<Option<Eg>, String> {
 	let dir = sources.join("eg-link").join(&EG_COMMIT[..12]);
 	let Some(index) = read(&dir.join("index.json"))? else {
 		log(&format!("eg-link: --offline, {} not cached", dir.join("index.json").display()));
 		return Ok(None);
 	};
-	let Some(prod) = index.get("products").and_then(|p| p.get(EG_PRODUCT)).and_then(J::as_object) else { return Ok(None) };
-	let mut builds: Vec<String> = prod.iter().filter(|(_, v)| DATASETS.iter().any(|d| v.get(*d).is_some_and(truthy))).map(|(k, _)| k.clone()).collect();
-	builds.sort_by(|a, b| build_number(a).partial_cmp(&build_number(b)).unwrap_or(std::cmp::Ordering::Equal));
+	// (product order, product, build, its datasets) for every build with data of every product the
+	// index lists, oldest first. At one build number the live product sorts after the beta, so the
+	// newest-first walk below sees its records first.
+	let mut builds: Vec<(usize, &str, &str, &J)> = Vec::new();
+	for (order, &product) in EG_PRODUCTS.iter().enumerate() {
+		let Some(prod) = index.get("products").and_then(|p| p.get(product)).and_then(J::as_object) else { continue };
+		for (b, sets) in prod {
+			if DATASETS.iter().any(|d| sets.get(*d).is_some_and(truthy)) {
+				builds.push((order, product, b.as_str(), sets));
+			}
+		}
+	}
+	if builds.is_empty() {
+		return Ok(None);
+	}
+	builds.sort_by(|a, b| build_number(a.2).partial_cmp(&build_number(b.2)).unwrap_or(std::cmp::Ordering::Equal).then(a.0.cmp(&b.0)));
 	let mut data: Vec<IndexMap<&str, J>> = Vec::new();
-	for b in &builds {
+	for &(_, product, b, sets) in &builds {
 		let mut m = IndexMap::new();
 		for d in DATASETS {
-			if !prod[b].get(d).is_some_and(truthy) {
+			if !sets.get(d).is_some_and(truthy) {
 				continue;
 			}
-			let file = dir.join(EG_PRODUCT).join(b).join(format!("{d}.json"));
+			let file = dir.join(product).join(b).join(format!("{d}.json"));
 			let Some(j) = read(&file)? else {
 				log(&format!("eg-link: --offline, {} not cached", file.display()));
 				return Ok(None);
@@ -182,7 +196,7 @@ pub fn load_eg(sources: &Path, quest_xp: Option<&QuestXp>, log: &dyn Fn(&str)) -
 	for &i in &newest {
 		let Some(qs) = data[i].get("quests.enUS") else { continue };
 		for (id, rec) in qs.get("quests").and_then(J::as_object).into_iter().flatten() {
-			records.entry(id.clone()).or_insert((build_number(&builds[i]), rec.clone()));
+			records.entry(id.clone()).or_insert((build_number(builds[i].2), rec.clone()));
 		}
 	}
 	let mut scanned: IndexMap<String, bool> = IndexMap::new();
@@ -249,7 +263,7 @@ pub fn load_eg(sources: &Path, quest_xp: Option<&QuestXp>, log: &dyn Fn(&str)) -
 				let srcs = o.get("sources").filter(|s| truthy(s)).and_then(f).unwrap_or(1.0);
 				let e = counts.entry(xp.to_bits()).or_insert((xp, 0.0, 0.0));
 				e.1 += srcs;
-				e.2 = build_number(&builds[bi]);
+				e.2 = build_number(builds[bi].2);
 			}
 		}
 	}
@@ -489,4 +503,63 @@ pub fn load_vo(sources: &Path, log: &dyn Fn(&str)) -> Result<Option<Vo>, String>
 	sides.sort_keys();
 	let quests = sides.into_iter().map(|(id, [s, e])| (id, (ends(&s), ends(&e)))).collect();
 	Ok(Some(Vo { commit: VO_COMMIT.to_string(), quests }))
+}
+
+#[cfg(test)]
+mod tests {
+	use super::*;
+
+	/// A fresh sources folder holding `files` (paths under eg-link/<the pinned commit>).
+	fn sources(name: &str, files: &[(&str, &str)]) -> std::path::PathBuf {
+		let root = std::env::temp_dir().join(format!("forge-eg-{name}-{}", std::process::id()));
+		let _ = std::fs::remove_dir_all(&root);
+		std::fs::create_dir_all(&root).unwrap();
+		for (rel, text) in files {
+			let file = root.join("eg-link").join(&EG_COMMIT[..12]).join(rel);
+			std::fs::create_dir_all(file.parent().unwrap()).unwrap();
+			std::fs::write(file, text).unwrap();
+		}
+		root
+	}
+
+	/// The beta's builds A and B and the live game's B and C (C newest): the live record wins at B,
+	/// givers union across products, and builds only one product saw are still read.
+	#[test]
+	fn load_eg_reads_the_beta_and_the_live_product() {
+		let set = r#"{"records":1}"#;
+		let index = format!(
+			r#"{{"products":{{"wowf":{{"1.60.1.70300":{{"quests.enUS":{set},"turn_ins":{set}}},"1.60.1.70200":{{"quests.enUS":{set},"npcs":{set}}}}},"wow_classic_beta":{{"1.60.1.70200":{{"quests.enUS":{set},"npcs":{set}}},"1.60.1.70100":{{"quests.enUS":{set}}}}}}}}}"#
+		);
+		let root = sources(
+			"both",
+			&[
+				("index.json", index.as_str()),
+				("wow_classic_beta/1.60.1.70100/quests.enUS.json", r#"{"quests":{"1":{"level":5}}}"#),
+				("wow_classic_beta/1.60.1.70200/quests.enUS.json", r#"{"quests":{"2":{"level":10}}}"#),
+				("wow_classic_beta/1.60.1.70200/npcs.json", r#"{"npcs":{"100":{"offers":{"2":1}}}}"#),
+				("wowf/1.60.1.70200/quests.enUS.json", r#"{"quests":{"2":{"level":12}}}"#),
+				("wowf/1.60.1.70200/npcs.json", r#"{"npcs":{"200":{"offers":{"2":1},"takes":{"2":1}}}}"#),
+				("wowf/1.60.1.70300/quests.enUS.json", r#"{"quests":{"3":{"level":20}}}"#),
+				("wowf/1.60.1.70300/turn_ins.json", r#"{"quests":{"3":[{"xp":1400,"level":20}]}}"#),
+			],
+		);
+		let eg = load_eg(&root, None, &|_| {}).unwrap().expect("both products read");
+		let q = |id: i64| eg.quests.get(&id).unwrap_or_else(|| panic!("quest {id} not read"));
+		assert_eq!((q(1).build, q(1).level), (Some(70100.0), Some(5.0)), "a quest only the beta's build A saw");
+		assert_eq!((q(2).build, q(2).level), (Some(70200.0), Some(12.0)), "the live record wins at one build");
+		assert_eq!((q(3).build, q(3).level, q(3).xp_observed), (Some(70300.0), Some(20.0), Some(1400.0)), "a quest only the live build C saw");
+		assert_eq!(q(2).start, vec![("npc".to_string(), 100.0), ("npc".to_string(), 200.0)]);
+		assert_eq!(q(2).end, vec![("npc".to_string(), 200.0)]);
+		let _ = std::fs::remove_dir_all(&root);
+
+		let root =
+			sources("one", &[("index.json", r#"{"products":{"wowf":{"1.60.1.70300":{"quests.enUS":{"records":1}}}}}"#), ("wowf/1.60.1.70300/quests.enUS.json", r#"{"quests":{"3":{"level":20}}}"#)]);
+		let eg = load_eg(&root, None, &|_| {}).unwrap().expect("one product listed");
+		assert_eq!(eg.quests.get(&3).and_then(|q| q.level), Some(20.0));
+		let _ = std::fs::remove_dir_all(&root);
+
+		let root = sources("none", &[]);
+		assert!(load_eg(&root, None, &|_| {}).unwrap().is_none(), "no index cached");
+		let _ = std::fs::remove_dir_all(&root);
+	}
 }
