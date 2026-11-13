@@ -2854,3 +2854,73 @@ fn following_the_arrow_from_ashenvale_to_a_darkshore_goal_250_yd_over_the_border
 	assert_eq!(out["stalled"], false, "the arrow never stays on the player's feet: {out}");
 	assert!(out["arrived"].as_f64().is_some(), "following the arrow gets the player to the goal: {out}");
 }
+
+// Following the arrow as the 0.4.0 border sweep does: 7 yd a second toward its aim, on the walking maps' ground nearest
+// the last height, the client's zone under the player, for up to `secs` seconds. -> { arrived = seconds | false,
+// stalled = second | false (5 s with the aim on the player's feet), left = yards }.
+const FOLLOW_ARROW: &str = r#"
+local G = stub.navNs.PathGrid
+local function ground(c, x, y, h)
+	local st = G.State(c)
+	local k, lc
+	if st then k, lc = G.locate(st, x, y) end
+	if not k then return nil end
+	local n = G.snap(st, k, lc, x, y, h)
+	return n and G.zOf(G.grid(st, k), n) or nil
+end
+function follow(c, x, y, z, secs)
+	local map = N.danger.ZoneAt(c, x, y)
+	place(map, x, y, z)
+	stub.fire("ZONE_CHANGED_NEW_AREA")
+	local _, tx, ty = N.GetTargetWorld()
+	for _ = 1, 100 do N.Sample(); stub.advance(0.05) end
+	local still = 0
+	for t = 1, secs do
+		for _ = 1, 20 do N.Sample(); stub.advance(0.05) end
+		if dist(x, y, tx, ty) <= 10 then return { arrived = t, stalled = false, left = 0 } end
+		local _, _, _, dn, dw = N.Sample()
+		if not dn then break end
+		local da = sqrt(dn * dn + dw * dw)
+		if da < 0.5 then still = still + 1 else still = 0 end
+		if still >= 5 then return { arrived = false, stalled = t, left = floor(dist(x, y, tx, ty)) } end
+		local step = math.min(7, da)
+		if da > 0 then x, y = x + dn / da * step, y + dw / da * step end
+		z = ground(c, x, y, z) or z
+		local zm = N.danger.ZoneAt(c, x, y) or map
+		place(zm, x, y, z)
+		if zm ~= map then
+			map = zm
+			stub.fire("ZONE_CHANGED_NEW_AREA")
+		end
+	end
+	return { arrived = false, stalled = false, left = floor(dist(x, y, tx, ty)) }
+end
+"#;
+
+// The border sweep's Badlands rim start 250 yd from a Burning Steppes goal (an Alliance player at UnitPosition
+// (-7397.3, -3052), height 376; the goal at Burning Steppes 95.09,31.56): the walk down to it turns through a
+// switchback of points 4 yd apart. The arrow aimed at a corner on the far side of it; the player walked to that spot,
+// but their place on the path stayed on the segment before (a later one takes over only when 4 yd nearer, so the two
+// sides of a hairpin don't swap), and the arrow kept aiming at the spot they stood on. Once the player reaches the
+// arrow's aim, their place moves up to it: following the arrow, they get to the goal.
+#[test]
+fn following_the_arrow_down_a_switchback_from_the_badlands_rim_to_a_burning_steppes_goal_never_stops_at_its_own_aim() {
+	skip_unless_ready!();
+	let out = run(
+		&[
+			FOLLOW_ARROW,
+			r#"
+		w.faction = "Alliance"
+		w.race, w.raceName = "Human", "Human"
+		place(1418, -7397.3, -3052, 376)
+		stub.advance(1)
+		N.Sample()
+		N.SetTarget(1428, 95.09, 31.56, "Goal", "e", nil, 131.3)
+		emit(follow(0, -7397.3, -3052, 376, 240))"#,
+		]
+		.concat(),
+		true,
+	);
+	assert_eq!(out["stalled"], false, "the arrow never stays on the player's feet: {out}");
+	assert!(out["arrived"].as_f64().is_some(), "following the arrow gets the player to the goal: {out}");
+}

@@ -20,7 +20,13 @@
 --     was held behind it for good once past REACH, the arrow at their feet
 --     (0.4.0, the border sweep, #1543);
 --   - a later segment takes over only when it is HYST yards nearer than the
---     current one, so the two sides of a hairpin don't swap back and forth.
+--     current one, so the two sides of a hairpin don't swap back and forth;
+--     but once the player comes within REACH of the corridor's last aim (a
+--     point on the path ahead, within AHEAD of the projection), the segments
+--     up to the aim's own take over at once: in a switchback of points 4 yd
+--     apart the player walked to the aim on its far side while their place
+--     stayed before it, and the arrow kept aiming at the spot they stood on
+--     (0.4.0, the border sweep, #1543).
 --
 -- Another floor: a point more than FLOOR_STEP yards above or below. With
 -- `hill` (the caller passes it outdoors) it must also be steeper than
@@ -170,6 +176,7 @@ function Follow.Reset(S)
 	S.sightAt, S.sightX, S.sightY, S.heldX, S.heldY = nil, nil, nil, nil, nil
 	S.marked = false -- S.dbl is the last path's until Follow.Mark
 	S.reached = 0 -- the furthest floor change come within REACH of, outdoors (blocked)
+	S.aimSeg = nil -- the corridor's last aim's segment (Step)
 end
 
 -- Marks, into S.dbl (reused; true or false per point), the points where the
@@ -370,6 +377,10 @@ function Follow.Step(xs, ys, zs, left, n, S, px, py, stop, join, sight, hill)
 	if idx < 2 then idx = 2 end
 	if idx > n then return nil end
 
+	-- The corridor's last aim reached (within REACH): the segments up to its own may take over at once.
+	local passTo = 0
+	if S.aimSeg and (S.aimQX - px) ^ 2 + (S.aimQY - py) ^ 2 <= REACH * REACH then passTo = S.aimSeg end
+	S.aimSeg = nil
 	-- Projection: the nearest segment from the current one to WINDOW yards on.
 	local start = left[1]
 	local limitAlong = (S.along or 0) + WINDOW
@@ -393,7 +404,7 @@ function Follow.Step(xs, ys, zs, left, n, S, px, py, stop, join, sight, hill)
 		-- with the projection at the end of the current one (the player on
 		-- the point between them: aiming on, not at their feet); any later one
 		-- (the far side of a hairpin) must be HYST yards nearer.
-		local need = a == best + 1 and 0 or HYST
+		local need = (a == best + 1 or a <= passTo) and 0 or HYST
 		if bestD == nil or d + need < bestD or (need == 0 and d == bestD and bestT == 1) then
 			best, bestD, bestT = a, d, t
 		end
@@ -455,7 +466,7 @@ function Follow.Step(xs, ys, zs, left, n, S, px, py, stop, join, sight, hill)
 	S.sighted = sat ~= nil
 	local r2 = RADIUS * RADIUS
 	local sx, sy, done = p0x, p0y, 0
-	local qx, qy, qAlong -- the corridor's aim and its yards along the path past the projection
+	local qx, qy, qAlong, qSeg -- the corridor's aim, its yards along the path past the projection and its segment
 	local open = false -- the aim stopped mid-path at RADIUS or AHEAD (not at a corner, a floor change or the end)
 	local from = idx    -- the first path point the corridor holds to (past a road's join, the points after it)
 	local joined = false
@@ -525,10 +536,10 @@ function Follow.Step(xs, ys, zs, left, n, S, px, py, stop, join, sight, hill)
 					local mid = (lo + hi) * 0.5
 					if inCorridor(xs, ys, from, j - 1, p0x, p0y, sx + dx * mid, sy + dy * mid, CORNER_PAD) then lo = mid else hi = mid end
 				end
-				if lo > 0 then qx, qy, qAlong = sx + dx * lo, sy + dy * lo, done + L * lo end
+				if lo > 0 then qx, qy, qAlong, qSeg = sx + dx * lo, sy + dy * lo, done + L * lo, j - 1 end
 				break
 			end
-			qx, qy, qAlong = cx, cy, done + L * u
+			qx, qy, qAlong, qSeg = cx, cy, done + L * u, j - 1
 			if u < 1 then open = true break end
 			done = done + L
 		end
@@ -541,6 +552,7 @@ function Follow.Step(xs, ys, zs, left, n, S, px, py, stop, join, sight, hill)
 		return pointAlong(xs, ys, left, a, n, sat)
 	end
 	if qx then
+		if qSeg and qSeg > a then S.aimSeg, S.aimQX, S.aimQY = qSeg, qx, qy end
 		-- The body: walking beside the path within BODY yards, the arrow points
 		-- along it from where the player is (the aim carried sideways by the
 		-- player's offset) instead of pulling back to the line. At a corner, a
