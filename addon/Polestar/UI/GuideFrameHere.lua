@@ -61,9 +61,10 @@ function GF.LayoutHere(width)
 			r.Sub:SetWidth(tw)
 			local h = 8 + max(16, floor(r.Text:GetStringHeight() + 0.5)) + 4
 			if r.Sub:IsShown() then h = h + 2 + floor(r.Sub:GetStringHeight() + 0.5) end
-			if r.Chip and r.Chip:IsShown() then
-				r.Chip:ClearAllPoints()
-				r.Chip:SetPoint("TOPLEFT", r.Sub:IsShown() and r.Sub or r.Text, "BOTTOMLEFT", 0, -4)
+			local chip = r.psChip
+			if chip and chip:IsShown() then
+				chip:ClearAllPoints()
+				chip:SetPoint("TOPLEFT", r.Sub:IsShown() and r.Sub or r.Text, "BOTTOMLEFT", 0, -4)
 				h = h + 4 + W.CHIP_H
 			end
 			r:ClearAllPoints()
@@ -141,7 +142,7 @@ function GF.FillHere(E)
 			r.Sub:SetText(sub)
 		end
 		r.Sub:SetShown(true)
-		if r.Chip then r.Chip:Hide() end
+		if r.psChip then r.psChip:Hide() end
 		r.Dist:SetText("")
 		r:Show()
 	end
@@ -153,12 +154,13 @@ function GF.FillHere(E)
 		UI.SetCounted(r.Text, v.here ~= "work" and UI.HereText(v) or UI.GoalLine(v, nil, true))
 		r.Sub:SetText(UI.HereStep(v))
 		r.Sub:SetShown(not tight)
-		-- A gathering spot's line while the minimap tracks its profession's nodes (Engine's `tracking`): a chip.
+		-- A gathering spot's line while the minimap tracks its profession's nodes (Engine's `tracking`): a chip,
+		-- made on the first such line (psChip).
 		if v.tracking and not tight then
-			if not r.Chip then r.Chip = W.Chip(r) end
-			W.SetChip(r.Chip, L["Tracking is on"], "success")
-		elseif r.Chip then
-			r.Chip:Hide()
+			if not r.psChip then r.psChip = W.Chip(r) end
+			W.SetChip(r.psChip, L["Tracking is on"], "success")
+		elseif r.psChip then
+			r.psChip:Hide()
 		end
 		r.Dist:SetText(v.yards and ns.FormatDistance(v.yards, GF.HERE_DIST) or "")
 		r:Show()
