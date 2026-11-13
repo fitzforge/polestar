@@ -521,15 +521,18 @@ add({ page = L["Integrations"], key = "integrations", icon = "plug", order = 65,
 	subtitle = L["Settings for other addons Polestar works with, shown when they are installed."],
 	empty = L["None of the addons Polestar works with is installed."] }, true)
 -- EllesmereUI's skinning contract, or ErgoBars' under its own name
--- (Theme.SkinProvider): the section and its two switches name the suite.
+-- (Theme.SkinProvider): the section and its two switches name the suite
+-- (EllesmereUI's strings kept as they were, so their translations stay).
 do
-	local suite = Theme.SkinProvider() or "EllesmereUI"
-	add({ page = L["Integrations"], section = suite, controls = {
-		{ kind = "toggle", key = "ui.matchAccent", label = L["Match %s accent"]:format(suite),
-			help = L["Follow %s's accent, live. Picking your own accent turns this off."]:format(suite),
+	local ergo = Theme.SkinProvider() == "ErgoBars"
+	add({ page = L["Integrations"], section = ergo and "ErgoBars" or "EllesmereUI", controls = {
+		{ kind = "toggle", key = "ui.matchAccent", label = ergo and L["Match ErgoBars accent"] or L["Match EllesmereUI accent"],
+			help = ergo and L["Follow ErgoBars' accent, live. Picking your own accent turns this off."]
+				or L["Follow EllesmereUI's accent, live. Picking your own accent turns this off."],
 			needs = function() return Theme.IsEllesmere() end },
-		{ kind = "toggle", key = "ui.matchFont", label = L["Match %s font"]:format(suite),
-			help = L["Follow %s's font, live. Choosing another font turns this off."]:format(suite),
+		{ kind = "toggle", key = "ui.matchFont", label = ergo and L["Match ErgoBars font"] or L["Match EllesmereUI font"],
+			help = ergo and L["Follow ErgoBars' font, live. Choosing another font turns this off."]
+				or L["Follow EllesmereUI's font, live. Choosing another font turns this off."],
 			needs = function() return Theme.IsEllesmere() end },
 	} }, true)
 end
