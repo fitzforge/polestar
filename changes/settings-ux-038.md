@@ -35,3 +35,5 @@ section: players
 - Move frames' bar lists every mouse and key control under its (i), fades
   away while you hold Shift so you can reach a frame under it, and the first
   time explains how it works.
+- Long lists (a profile menu with many profiles, a long dropdown) scroll
+  and have a filter box: type to narrow them, Enter picks the first match.

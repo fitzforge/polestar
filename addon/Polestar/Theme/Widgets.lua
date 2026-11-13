@@ -1594,6 +1594,8 @@ local function buildMenu()
 	menu:SetScript("OnHide", function()
 		catcher:Hide()
 		previewToken = previewToken + 1
+		local f = rawget(menu, "Filter")
+		if f then f:ClearFocus() end
 	end)
 	menu:Hide()
 	ns.CloseOnEscape("PolestarMenu")
@@ -1637,37 +1639,100 @@ local function menuRow(i)
 	return row
 end
 
--- items: { { text, icon, checked, disabled, onClick, tip, color, confirm, preview }, { separator = true }, ... }
--- opts: { point = "TOPRIGHT", relPoint = "BOTTOMRIGHT", x = 0, y = -4, minWidth = 168 }
-function W.ShowMenu(anchor, items, opts)
-	if not menu then buildMenu() end
-	opts = opts or {}
+-- A list longer than MENU_MAX rows scrolls in an area under a filter box
+-- that narrows the rows to those holding what is typed (the box takes the
+-- keys as the list opens): Enter picks the first one left, Escape empties
+-- the box, then closes the list.
+local MENU_MAX, MENU_FILTER = 12, 26
+local layoutMenu -- (): the open list's rows laid out anew (below)
+
+local function menuLong()
+	local sc = rawget(menu, "Scroll")
+	if sc then return sc end
+	sc = W.Scroll(menu)
+	menu.Scroll = sc
+	local f = CreateFrame("EditBox", nil, menu)
+	f:SetAutoFocus(false)
+	f:SetHeight(MENU_FILTER)
+	f:SetTextInsets(26, 8, 0, 0)
+	Theme.Font(f, "label")
+	W.Color(f, "text")
+	Theme.Skin(f, "editbox")
+	f.Icon = W.Tex(f, "OVERLAY", "search", "textMuted")
+	f.Icon:SetSize(12, 12)
+	f.Icon:SetPoint("LEFT", f, "LEFT", 8, 0)
+	f.Hint = W.Text(f, "label", "textMuted")
+	f.Hint:SetPoint("LEFT", f, "LEFT", 26, 0)
+	f.Hint:SetText(L["Filter"])
+	f:SetScript("OnTextChanged", function(self)
+		self.Hint:SetShown((self:GetText() or "") == "")
+		if menu:IsShown() then layoutMenu() end
+	end)
+	f:SetScript("OnEscapePressed", function(self)
+		if (self:GetText() or "") ~= "" then self:SetText("") else W.HideMenu() end
+	end)
+	f:SetScript("OnEnterPressed", function()
+		for _, r in ipairs(menu.rows) do
+			if r:IsShown() and r.psItem and not r.psItem.disabled then return menuRowClick(r) end
+		end
+	end)
+	f:SetScript("OnEditFocusGained", function(self) Theme.SetFocused(self, true) end)
+	f:SetScript("OnEditFocusLost", function(self) Theme.SetFocused(self, false) end)
+	menu.Filter = f
+	menu.Empty = W.Text(sc.Child, "label", "textMuted")
+	menu.Empty:SetText(L["Nothing matches."])
+	return sc
+end
+
+-- Does an item hold the filter's text (any case)?
+local function holds(item, needle)
+	if needle == "" then return true end
+	local text = item.text and tostring(item.text):lower()
+	return text ~= nil and text:find(needle, 1, true) ~= nil
+end
+
+function layoutMenu()
+	local items, opts = menu.psItems, menu.psOpts
 	local pad, rowH = Theme.Metric("menuPad", MENU_PAD), Theme.Metric("menuRow", MENU_ROW)
-	local y, width, nrow, nsep = -pad, opts.minWidth or Theme.Metric(opts.wide and "servicesWidth" or "menuWidth", 176), 0, 0
-	local anyIcon, anyPreview = false, false
+	local width = opts.minWidth or Theme.Metric(opts.wide and "servicesWidth" or "menuWidth", 176)
+	local anyIcon, anyPreview, total = false, false, 0
 	for i = 1, #items do
-		if items[i].icon then anyIcon = true end
-		if items[i].preview then anyPreview = true end
+		local it = items[i]
+		if it.icon then anyIcon = true end
+		if it.preview then anyPreview = true end
+		if not it.separator then total = total + 1 end
 	end
+	local long = total > MENU_MAX
+	local sc = long and menuLong() or rawget(menu, "Scroll")
+	-- Rows hang from the menu, or from the scroll area's child in a long list.
+	local holder = long and sc.Child or menu
+	local needle = long and (menu.Filter:GetText() or ""):lower() or ""
+	local y = long and 0 or -pad
+	local nrow, nsep, shownRows = 0, 0, 0
+	menu.psCheckedY = nil
 	for i = 1, #menu.rows do menu.rows[i]:Hide() end
 	for i = 1, #menu.seps do menu.seps[i]:Hide() end
 	for i = 1, #items do
 		local item = items[i]
 		if item.separator then
-			nsep = nsep + 1
-			local sep = menu.seps[nsep]
-			if not sep then
-				sep = W.Divider(menu)
-				menu.seps[nsep] = sep
+			if needle == "" then
+				nsep = nsep + 1
+				local sep = menu.seps[nsep]
+				if not sep then
+					sep = W.Divider(menu)
+					menu.seps[nsep] = sep
+				end
+				if sep:GetParent() ~= holder then sep:SetParent(holder) end
+				sep:ClearAllPoints()
+				sep:SetPoint("TOPLEFT", holder, "TOPLEFT", 8, y - 4)
+				sep:SetPoint("TOPRIGHT", holder, "TOPRIGHT", -8, y - 4)
+				sep:Show()
+				y = y - MENU_SEP
 			end
-			sep:ClearAllPoints()
-			sep:SetPoint("TOPLEFT", menu, "TOPLEFT", 8, y - 4)
-			sep:SetPoint("TOPRIGHT", menu, "TOPRIGHT", -8, y - 4)
-			sep:Show()
-			y = y - MENU_SEP
 		else
 			nrow = nrow + 1
 			local row = menuRow(nrow)
+			if row:GetParent() ~= holder then row:SetParent(holder) end
 			row.psItem = item
 			row.psArmed = nil
 			row.Text:SetText(item.text)
@@ -1709,23 +1774,73 @@ function W.ShowMenu(anchor, items, opts)
 			end
 			row.Check:ClearAllPoints()
 			row.Check:SetPoint("RIGHT", row, "RIGHT", item.preview and -32 or -10, 0)
-			row:ClearAllPoints()
-			row:SetHeight(rowH)
-			row:SetPoint("TOPLEFT", menu, "TOPLEFT", 1, y)
-			row:SetPoint("TOPRIGHT", menu, "TOPRIGHT", -1, y)
-			row:Show()
 			local shownText = (item.font and face) or row.Text
-			width = max(width, shownText:GetStringWidth() + (anyIcon and 32 or 12) + 36 + (anyPreview and 26 or 0))
-			y = y - rowH
+			width = max(width, shownText:GetStringWidth() + (anyIcon and 32 or 12) + 36 + (anyPreview and 26 or 0) + (long and 10 or 0))
+			if holds(item, needle) then
+				row:ClearAllPoints()
+				row:SetHeight(rowH)
+				-- In a long list, clear of its scroll bar.
+				row:SetPoint("TOPLEFT", holder, "TOPLEFT", 1, y)
+				row:SetPoint("TOPRIGHT", holder, "TOPRIGHT", long and -10 or -1, y)
+				row:Show()
+				shownRows = shownRows + 1
+				if item.checked then menu.psCheckedY = -y end
+				y = y - rowH
+			end
 		end
 	end
-	menu:SetSize(floor(width + 0.5), -y + pad)
+	width = floor(width + 0.5)
+	if long then
+		local f = menu.Filter
+		f:ClearAllPoints()
+		f:SetPoint("TOPLEFT", menu, "TOPLEFT", pad + 4, -(pad + 4))
+		f:SetPoint("TOPRIGHT", menu, "TOPRIGHT", -(pad + 4), -(pad + 4))
+		f:Show()
+		menu.Empty:ClearAllPoints()
+		menu.Empty:SetPoint("TOPLEFT", sc.Child, "TOPLEFT", 12, -6)
+		menu.Empty:SetShown(shownRows == 0)
+		if shownRows == 0 then y = -rowH end
+		-- The view holds MENU_MAX rows whatever the filter leaves, so the list
+		-- keeps its size as it narrows.
+		local top = pad + 4 + MENU_FILTER + 6
+		local viewH = MENU_MAX * rowH
+		sc:ClearAllPoints()
+		sc:SetPoint("TOPLEFT", menu, "TOPLEFT", 0, -top)
+		sc:SetSize(width, viewH)
+		sc.Child:SetWidth(width)
+		W.SetScrollContent(sc, -y, viewH)
+		sc:Show()
+		menu:SetSize(width, top + viewH + pad)
+	else
+		if sc then
+			sc:Hide()
+			menu.Filter:Hide()
+		end
+		menu:SetSize(width, -y + pad)
+	end
+end
+
+-- items: { { text, icon, checked, disabled, onClick, tip, color, confirm, preview }, { separator = true }, ... }
+-- opts: { point = "TOPRIGHT", relPoint = "BOTTOMRIGHT", x = 0, y = -4, minWidth = 168 }
+function W.ShowMenu(anchor, items, opts)
+	if not menu then buildMenu() end
+	menu.psItems, menu.psOpts = items, opts or {}
+	opts = menu.psOpts
+	local f = rawget(menu, "Filter")
+	if f then f:SetText("") end
+	layoutMenu()
+	-- A long list opens with its current choice in view.
+	local long = rawget(menu, "Scroll") and menu.Scroll:IsShown()
+	if long then W.ScrollTo(menu.Scroll, max(0, (menu.psCheckedY or 0) - (menu.Scroll.psView or 0) / 2)) end
 	menu:ClearAllPoints()
 	menu.psOwner = anchor
 	local point, relPoint = opts.point or "TOPRIGHT", opts.relPoint or "BOTTOMRIGHT"
 	Anim.Anchor(menu, point, anchor, relPoint, opts.x or 0, opts.y or -4)
 	catcher:Show()
 	menu:Show()
+	-- A long list's filter takes the keys at once (not while a gamepad
+	-- drives: its buttons would go to the box).
+	if long and not (ns.Gamepad and ns.Gamepad.IsActive and ns.Gamepad.IsActive()) then menu.Filter:SetFocus() end
 	-- Popovers grow out of their trigger: a short fade with a 4px drop.
 	Anim.To(menu, "alpha", 0, 1, Anim.FAST, "out")
 	Anim.To(menu, "offset", 4, 0, Anim.FAST, "out")

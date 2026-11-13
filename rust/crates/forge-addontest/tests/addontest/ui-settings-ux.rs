@@ -342,3 +342,58 @@ fn the_settings_scroll_glides_on_whole_pixels_and_the_sidebar_nudges_to_its_bott
 	assert_eq!(out["bottom"], true, "its click glides to the bottom");
 	assert_eq!(out["gone"], false, "at the bottom it goes");
 }
+
+// A list longer than twelve rows (a profile menu, a long dropdown) scrolls under a filter box that takes the keys:
+// it opens with its current choice in view, typing narrows the rows (nothing left says so), Enter picks the first
+// left, Escape empties the box and then closes the list. A short list stays as it was: no box, no scroll.
+#[test]
+fn a_long_list_scrolls_under_a_filter_that_narrows_it_and_enter_picks_the_first_left() {
+	let out = run(r#"
+		local anchor = CreateFrame("Frame", nil, UIParent)
+		anchor:SetSize(100, 20)
+		anchor:SetPoint("CENTER")
+		local picked
+		local items = {}
+		for i = 1, 20 do items[i] = { text = "Choice " .. i, checked = i == 15, onClick = function() picked = i end } end
+		W.ShowMenu(anchor, items)
+		local m = PolestarMenu
+		local function shown()
+			local n = 0
+			for _, r in ipairs(m.rows) do if r:IsShown() then n = n + 1 end end
+			return n
+		end
+		local long = { scroll = m.Scroll:IsShown(), filter = m.Filter:IsShown(), focus = m.Filter:HasFocus(), rows = shown(),
+			view = m.Scroll.psView, content = m.Scroll.psContent, choiceInView = m.Scroll:GetVerticalScroll() > 0 }
+		local h = m:GetHeight()
+		m.Filter:SetText("1")
+		stub.RunScript(m.Filter, "OnTextChanged", true)
+		local narrowed = { shown(), m:GetHeight() == h }
+		m.Filter:SetText("zzz")
+		stub.RunScript(m.Filter, "OnTextChanged", true)
+		local none = { shown(), m.Empty:IsShown() }
+		m.Filter:SetText("Choice 7")
+		stub.RunScript(m.Filter, "OnTextChanged", true)
+		stub.RunScript(m.Filter, "OnEnterPressed")
+		local enter = { picked, m:IsShown() }
+		W.ShowMenu(anchor, items)
+		m.Filter:SetText("Choice")
+		stub.RunScript(m.Filter, "OnTextChanged", true)
+		stub.RunScript(m.Filter, "OnEscapePressed")
+		local esc1 = { m.Filter:GetText(), m:IsShown() }
+		stub.RunScript(m.Filter, "OnEscapePressed")
+		local esc2 = m:IsShown()
+		local few = {}
+		for i = 1, 5 do few[i] = { text = "Few " .. i } end
+		W.ShowMenu(anchor, few)
+		local short = { filter = m.Filter:IsShown(), scroll = m.Scroll:IsShown(), rows = shown(), parent = m.rows[1]:GetParent() == m }
+		W.HideMenu()
+		emit({ long = long, narrowed = narrowed, none = none, enter = enter, esc1 = esc1, esc2 = esc2, short = short })"#);
+	assert_eq!(out["long"], json!({ "scroll": true, "filter": true, "focus": true, "rows": 20, "view": 312, "content": 520, "choiceInView": true }));
+	assert_eq!(out["narrowed"], json!([11, true]), "\"1\": Choice 1 and 10 to 19; the list keeps its size");
+	assert_eq!(out["none"], json!([0, true]), "nothing left: it says so");
+	assert_eq!(out["enter"], json!([7, false]), "Enter picks the first left");
+	assert_eq!(out["esc1"], json!(["", true]), "Escape empties the box first");
+	assert_eq!(out["esc2"], false, "then closes the list");
+	assert_eq!(out["short"], json!({ "filter": false, "scroll": false, "rows": 5, "parent": true }), "a short list as it was");
+}
+
