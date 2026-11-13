@@ -3386,9 +3386,13 @@ Polestar.Engine.RefreshMaterials()                               -- the ways cha
   (`COMMODITY_PURCHASED`, `ITEM_PURCHASED`: it comes by mail); the account's
   other characters of this realm and faction from their Characters entry
   (`mats`), shown always and counted only with `professions.altMaterials`
-  (off by default). Only the materials of the profession guides and of the
-  guides in the tabs are read (`Materials.Tracked`), never the whole bags,
-  bank or mail. `MATERIALS_COUNTS` follows a new bank or mail count.
+  (off by default). `Materials.Have` is the one count of what a character
+  holds: the auction house buys (`Quests/AuctionBuys.lua`) count quest items
+  with it too, so the mail and the purchases on their way count every item;
+  the bank snapshot holds the materials of the profession guides and of the
+  guides in the tabs (`Materials.Tracked`), never the whole bank, and an item
+  it does not hold reads what the client reports. `MATERIALS_COUNTS` follows a
+  new bank or mail count.
 - **The goal.** A material goal still to do carries `materials` in its view
   (`Own.materialView`: way, reason, need, bags, bank, mail with what is on its
   way, alts, toGet, and on an `auction` goal the price for the count still to

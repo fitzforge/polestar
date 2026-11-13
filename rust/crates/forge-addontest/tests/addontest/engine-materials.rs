@@ -223,6 +223,36 @@ fn the_bank_the_mail_and_purchases_count_the_arrow_fetches_what_waits_and_other_
 }
 
 #[test]
+fn an_item_no_profession_guide_has_counts_its_mail_its_purchases_and_the_bank_the_client_reports() {
+	// Materials.Have is the one count of what the character holds: the auction house buys (Quests/AuctionBuys.lua)
+	// read it for quest items, which no profession guide tracks.
+	let out = run(
+		CORE,
+		"",
+		r#"
+		local bank, inbox = {}, {}
+		local bags = C_Item.GetItemCount
+		C_Item.GetItemCount = function(id, withBank) return bags(id) + (withBank and bank[id] or 0) end
+		function GetInboxNumItems() return #inbox, #inbox end
+		function GetInboxHeaderInfo(i) return nil, nil, "Auction House", "Auction won", 0, 0, 30, #inbox[i] end
+		function GetInboxItem(i, a) local it = inbox[i][a]; if it then return "item", it[1], nil, it[2] end end
+		w.addItem(5000, 3)
+		stub.fire("BANKFRAME_OPENED"); stub.fire("BANKFRAME_CLOSED"); flush()
+		-- The snapshot holds no item 5000: the client's count. A tracked material keeps the snapshot's.
+		bank[5000], bank[2318] = 2, 7
+		r.bank = { M.Have(5000) }
+		r.tracked = { M.Have(2318) }
+		inbox = { { { 5000, 4 } } }; stub.fire("MAIL_INBOX_UPDATE")
+		stub.fire("COMMODITY_PURCHASED", 5000, 5); flush()
+		r.all = { M.Have(5000) }
+		"#,
+	);
+	assert_eq!(out["bank"], json!([5, { "bags": 3, "bank": 2, "mail": 0, "coming": 0, "alts": {}, "altsCounted": false }]));
+	assert_eq!(out["tracked"], json!([0, { "bags": 0, "bank": 0, "mail": 0, "coming": 0, "alts": {}, "altsCounted": false }]), "the bank held none at the visit");
+	assert_eq!(out["all"], json!([14, { "bags": 3, "bank": 2, "mail": 4, "coming": 5, "alts": {}, "altsCounted": false }]), "4 in the mail, 5 bought on their way");
+}
+
+#[test]
 fn prices_are_for_the_count_cheapest_first_auctionator_fills_in_and_counts_shrink_with_the_skill() {
 	let out = run(
 		WITH_UI,

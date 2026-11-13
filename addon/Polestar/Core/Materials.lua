@@ -30,8 +30,10 @@
 -- look at the inbox (MAIL_INBOX_UPDATE; cash-on-delivery mail left out), plus what the character bought at the
 -- Auction House since (COMMODITY_PURCHASED, ITEM_PURCHASED: it comes by mail); the account's other characters of
 -- this realm and faction from their Characters snapshot (Alts/Snapshot.lua, `mats`), shown always and counted only
--- with professions.altMaterials on (Fitz). Only the materials of the profession guides and of the guides in the
--- tabs are counted (Materials.Tracked), never the whole bags or bank.
+-- with professions.altMaterials on (Fitz). The mail and the purchases count every item: Materials.Have is the one
+-- count of what the character holds, the auction house buys' too (Quests/AuctionBuys.lua). The bank snapshot holds
+-- the materials of the profession guides and of the guides in the tabs (Materials.Tracked), never the whole bank;
+-- an item it does not hold reads what the client reports.
 --
 -- Prices: what the searches made through Polestar's shopping list showed (Materials.NoteSearch), the cheapest
 -- listings, so a count is priced for that many, kept per auction house (realm and faction) for PRICE_DAYS; else
@@ -267,27 +269,28 @@ local function liveBank(item)
 	return max(0, (Compat.GetItemCount(item, true) or 0) - bagCount(item))
 end
 
+-- The bank: live while it is open or before the first visit; else the snapshot, and for an item it does not hold
+-- (tracked only since), what the client reports.
 local function bankCount(item)
 	local s = state()
 	if bankOpen or not s.bankSeen then return liveBank(item) end
-	return s.bank[item] or 0
+	local n = s.bank[item]
+	if n == nil then return liveBank(item) end
+	return n
 end
 
--- The bank as it is now, for every tracked item.
+-- The bank as it is now, for every tracked item (0 kept: the snapshot holds the item).
 local function takeBank()
 	local s = state()
 	local bank = {}
-	for item in pairs(Materials.Tracked()) do
-		local n = liveBank(item)
-		if n > 0 then bank[item] = n end
-	end
+	for item in pairs(Materials.Tracked()) do bank[item] = liveBank(item) end
 	s.bank, s.bankSeen = bank, true
 end
 
--- The mail as the inbox lists it now, cash on delivery left out; what was bought since the last look is in it.
+-- The mail as the inbox lists it now, every item, cash on delivery left out; what was bought since the last look
+-- is in it.
 local function takeMail()
 	if not (GetInboxNumItems and GetInboxHeaderInfo and GetInboxItem) then return end
-	local want = Materials.Tracked()
 	local mail = {}
 	for i = 1, Compat.Readable(GetInboxNumItems()) or 0 do
 		local _, _, _, _, _, cod, _, itemCount = GetInboxHeaderInfo(i)
@@ -295,7 +298,7 @@ local function takeMail()
 			for a = 1, ATTACHMENTS_MAX_RECEIVE or 16 do
 				local _, id, _, count = GetInboxItem(i, a)
 				id, count = Compat.Readable(id), Compat.Readable(count)
-				if id and want[id] and (count or 0) > 0 then mail[id] = (mail[id] or 0) + count end
+				if id and (count or 0) > 0 then mail[id] = (mail[id] or 0) + count end
 			end
 		end
 	end
@@ -328,10 +331,10 @@ ns.RegisterEvent("MAIL_INBOX_UPDATE", function()
 	counted()
 end)
 
--- Bought at the Auction House: on its way by mail until the next look at the inbox.
+-- Bought at the Auction House (any item): on its way by mail until the next look at the inbox.
 local function bought(item, quantity)
 	item = Compat.Readable(item)
-	if type(item) ~= "number" or not Materials.Tracked()[item] then return end
+	if type(item) ~= "number" then return end
 	local coming = state().coming
 	coming[item] = (coming[item] or 0) + max(1, Compat.Readable(quantity) or 1)
 	counted()
