@@ -11863,3 +11863,23 @@ test(`${ASHENVALE_HORDE}: Discord report: Sharptalon's Claw on the later pass, w
 	assert.ok(at(list, 'kill 3917', (g) => g.t === 'kill' && g.npc === 3917) < list.indexOf(claws[0]), 'after Mystral Lake');
 	assert.match([claws[0].step.note, claws[0].step.tip].flat().filter(Boolean).join(' '), /level 31/, 'the tip names her level');
 });
+
+// Horde 21-30 audit (0.4.0, danger gate #1575, #2025): the band's spots with mobs well above the player (players'
+// recordings and Forever's spawn data) say so on the step: who stands there, their level, what to do.
+test('Horde 21-30 audit: steps beside dangerous mobs name them (#1575, #2025)', { skip }, () => {
+	for (const [guide, title, re] of [
+		['forever/horde/05-stonetalon-mountains.guide', 'Silverpine Forest: kill these as you meet them', /High Order Mages \(30\)/],
+		['forever/horde/04-the-barrens.guide', 'Field to Clear', /Qiraji Lieutenants \(28, elite\)/],
+		['forever/horde/04-the-barrens.guide', "Bael'dun fortress", /General Twinbraid \(30\)/],
+		['forever/horde/04-the-barrens.guide', 'The Charred Vale: kill these as you meet them', /level 27/],
+		['forever/horde/07-ashenvale.guide', 'Felmusk satyrs', /stealth/],
+		['forever/horde/07-ashenvale.guide', 'Gloomrise: kill these as you meet them', /Broodmother Valraxx \(30, elite\)/],
+		['forever/horde/07-ashenvale.guide', 'Galak centaurs', /Stormheart \(30\).*Ravaging Tempests \(40\).*Ailgrha Splittusk \(38\)/],
+	]) {
+		const step = compiled(guide).steps.find((s) => s.title === title);
+		assert.ok(step, `${guide}: ${title}`);
+		assert.match([step.tip, step.note].flat().filter(Boolean).join(' '), re, `${guide}: ${title}`);
+	}
+	const take = goals(ASHENVALE_HORDE).find(({ goal }) => goal.t === 'accept' && goal.quest === 6621);
+	assert.match(take.goal.note || '', /banner defence/, 'King of the Foulweald says what it asks');
+});

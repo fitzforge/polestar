@@ -180,8 +180,8 @@
 			"id": "horde-thousand-needles-galak-messenger-roams",
 			"faction": "Horde",
 			"at": { "quest": 4841, "goal": "objective", "objective": 1 },
-			"tip": "The Galak camps fill the canyon north of Freewind; Scouts, Wranglers and Windchasers share every camp. A lone Galak Messenger walks a long path between the camps: if you meet him, kill him, his note starts a quest for Whitereach Post. Don't wait for him.",
-			"note": "Discord question (2026-11-09): the Galak Messenger (10617), whose note (12564) starts Assassination Plot (4881), walks a waypoint path of about 1,300 yd between the camps. The note and the accept are optional (route-fixes deliberate.optional 4881); the tip says not to wait for him. Kanati Greycloud's hand-in has its own step for whoever carries the plot.",
+			"tip": "The Galak camps fill the canyon north of Freewind; Scouts, Wranglers and Windchasers share every camp. A lone Galak Messenger walks a long path between the camps: if you meet him, kill him, his note starts a quest for Whitereach Post. Don't wait for him. Careful: storm elementals roam the canyon floor around the camps: Stormheart (30), the Ravaging Tempests (40) and Ailgrha Splittusk (38), all elite. Keep clear of them.",
+			"note": "Discord question (2026-11-09): the Galak Messenger (10617), whose note (12564) starts Assassination Plot (4881), walks a waypoint path of about 1,300 yd between the camps. The note and the accept are optional (route-fixes deliberate.optional 4881); the tip says not to wait for him. Kanati Greycloud's hand-in has its own step for whoever carries the plot. Horde 21-30 audit (0.4.0, danger gate #1575): Forever's spawn data puts elite storm elementals (Stormheart 270094 level 30, Ravaging Tempest 216474 level 40, Ailgrha Splittusk 216463 level 38) on the canyon floor around the Galak camps; the tip names them. Players' recordings: 44 people did the step, 1 died within 60 yd; the 13 people who died around the camps were killed by Grimtotem and Galak where the killer is known.",
 			"source": [
 				{ "kind": "tdb", "ref": "creature 10617: MovementType 2, waypoint path 810106170 (66 nodes, 487 x 1215 yd)" }
 			]
@@ -3628,8 +3628,8 @@
 				"objective": 1
 			},
 			"faction": "Horde",
-			"tip": "On the way back east to Gann: Hecklefang Stalkers and Stormhide lizards roam the plain between the ridge and his camp.",
-			"note": "Field to Clear: its Hecklefang Stalkers (44,76.5) and Stormhide (44.2,76.5) are on the plain between Blackthorn Ridge and Gann, worked on the walk back from the ridge (final route review).",
+			"tip": "On the way back east to Gann: Hecklefang Stalkers and Stormhide lizards roam the plain between the ridge and his camp. Careful: Qiraji Lieutenants (28, elite) sometimes stand on that plain: give them a wide berth.",
+			"note": "Field to Clear: its Hecklefang Stalkers (44,76.5) and Stormhide (44.2,76.5) are on the plain between Blackthorn Ridge and Gann, worked on the walk back from the ridge (final route review). Horde 21-30 audit (0.4.0, danger gate #1575): with the southern Barrens first in this guide (about a level earlier), the Qiraji Lieutenants (15806, level 28, elite) on the plain flag at the spot; the tip names them. Players' recordings: 29 people did it; the 1 who died there fought a Razormane Pathfinder.",
 			"source": [
 				{
 					"kind": "tdb",
@@ -3689,6 +3689,125 @@
 				}
 			],
 			"pr": 1175
+		},
+		{
+			"id": "2025-h21-charred-vale-level-27",
+			"faction": "Horde",
+			"at": {
+				"quest": 6393,
+				"goal": "objective",
+				"objective": 1
+			},
+			"tip": "South-west of Sun Rock lies the burned Charred Vale. Plant the Gaea Seeds in the dirt mounds on the valley floor; the fire elementals drop Incendrites. Bloodfury Harpies and Ambushers nest on the north side, Slayers and Roguefeathers to the south. Careful: the Burning Destroyers, Scorched Basilisks and Bloodfury Storm Witches here are level 27 and the valley floor is crowded: pull one at a time and keep to its edges.",
+			"note": "Horde 21-30 audit (0.4.0): the Charred Vale is the band's main death spot. Players' recordings (0.3.7+): 16 deaths by 4 of the 7 people recorded on the step, at 25.1-28.4, to Burning Destroyers and Scorched Basilisks (27), Bloodfury Storm Witches (27) and a Blackened Ancient (28). The tip names them and says to pull one at a time.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "players' recordings (shared index, 2026-11-13): deaths and killers at the spot"
+				}
+			],
+			"issue": 2025
+		},
+		{
+			"id": "2025-h21-baeldun-fortress-twinbraid",
+			"faction": "Horde",
+			"at": {
+				"quest": 846,
+				"goal": "objective",
+				"objective": 1
+			},
+			"tip": "The Bael'dun Soldiers, Riflemen and Officers guard the fortress on the east side of the dig; all three items drop from them. General Twinbraid (30) and his Officers stand on the bottom floor: work the soldiers and riflemen on the upper levels and keep away from him.",
+			"note": "Horde 21-30 audit (0.4.0, danger gate #1575): General Twinbraid (3414, level 30) stands on the Bael'dun fortress's bottom floor; with the southern Barrens about a level earlier in this guide he is 3.8 levels over the route at Revenge of Gann's spot. The tip keeps players on the upper levels. Players' recordings: 27 people did it; the 4 who died there fought Bael'dun Riflemen.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "players' recordings (shared index, 2026-11-13): deaths and killers at the spot"
+				},
+				{
+					"kind": "questie",
+					"ref": "npc 3414 spawn Barrens 49.19,84.21"
+				}
+			],
+			"issue": 2025
+		},
+		{
+			"id": "2025-h21-king-of-the-foulweald-heads-up",
+			"faction": "Horde",
+			"at": {
+				"quest": 6621,
+				"goal": "accept"
+			},
+			"goalNote": "Karang Amakkar: a banner defence in the Foulweald, east of Mystral Lake: furbolg waves, then Chief Murgut",
+			"note": "Horde 21-30 audit (0.4.0, #2025's heads-up row for the Ashenvale hard quests): King of the Foulweald is a banner defence (Karang's Banner on the Foulweald Totem Mound, furbolg waves, then Chief Murgut), and its accept said only the giver's name. Players' recordings: 3 people took it, 2 handed it in; 5 deaths by 1 person on its step at 28.1.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "players' recordings (shared index, 2026-11-13): deaths and killers at the spot"
+				},
+				{
+					"kind": "questie",
+					"ref": "quest 6621 objectives"
+				}
+			],
+			"issue": 2025
+		},
+		{
+			"id": "2025-h21-felmusk-stealth",
+			"faction": "Horde",
+			"at": {
+				"quest": 6441,
+				"goal": "objective",
+				"objective": 1
+			},
+			"tip": "North-west of Splintertree, the Felmusk satyrs camp in the woods. Every satyr can drop horns. Careful: Felmusk Rogues and Shadowstalkers move in stealth and join fights without warning.",
+			"note": "Horde 21-30 audit (0.4.0): Satyr Horns' Felmusk camp is the band's second death spot in Ashenvale: players' recordings, 5 deaths by 2 people at 28-29, to Felmusk Rogues and Shadowstalkers (26), which stealth, and a Felsworn. The tip warns of them.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "players' recordings (shared index, 2026-11-13): deaths and killers at the spot"
+				}
+			],
+			"issue": 2025
+		},
+		{
+			"id": "2025-h21-gloomrise-broodmother-elite",
+			"faction": "Horde",
+			"at": {
+				"quest": 96260,
+				"goal": "objective",
+				"objective": 1
+			},
+			"tip": "North of the camp, spiders overrun the burial ground at Gloomrise. Use Mazu'kon's Toxin Extractor on the Gnawed Corpses; the Spinners drop the Crystalline Silk. Broodmother Valraxx (30, elite) sits at the north end: leave her unless you do The Broodmother with a group; her Bloody Parchment starts A Darker Truth.",
+			"note": "Horde 21-30 audit (0.4.0, danger gate #1575): Broodmother Valraxx (264082, level 30, elite) sits at Gloomrise's north end beside the spiders the Earthen Ring's three quests ask for (route level 27.5). The tip gives her level and says to leave her unless doing The Broodmother (96261, a group choice). Players' recordings: 44 people did the step, 1 died within 60 yd.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "players' recordings (shared index, 2026-11-13): deaths and killers at the spot"
+				}
+			],
+			"issue": 2025
+		},
+		{
+			"id": "2025-h21-ambermill-high-order-mages",
+			"faction": "Horde",
+			"at": {
+				"quest": 95981,
+				"goal": "objective",
+				"objective": 2
+			},
+			"tip": "South down the road past Pyrewood: Dalaran Watchers and Wizards patrol the roads around Ambermill, and south-west of the town the Ravenclaw Drudgers and Guardians haunt the ruins of Beren's Peril in the south-east of the forest. Careful: High Order Mages (30) walk the same roads among the Watchers and Wizards: leave them.",
+			"note": "Horde 21-30 audit (0.4.0, danger gate #1575): Forever's spawn data puts High Order Mages (265675, level 30) along the Ambermill road, within 40 yd of the Dalaran Watchers and Wizards Watching the Roads asks for, at a route level of 22.7. The tip names them. Players' recordings: 29 people did the step; none of the 30 people who died on that road was killed by a High Order Mage (Dalaran Mages, Wizards, Serpents and Conjurors of 14-20 where the killer is known).",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "players' recordings (shared index, 2026-11-13): deaths and killers at the spot"
+				},
+				{
+					"kind": "questie",
+					"ref": "npc 265675 spawns, Silverpine 59-69,41-67"
+				}
+			],
+			"issue": 2025
 		},
 		{
 			"id": "2025-h21-sharptalon-level-31",

@@ -177,7 +177,7 @@ step Blackthorn Ridge
   collect 5074 quest 879.1
 
 step Field to Clear
-  tip On the way back east to Gann: Hecklefang Stalkers and Stormhide lizards roam the plain between the ridge and his camp.
+  tip On the way back east to Gann: Hecklefang Stalkers and Stormhide lizards roam the plain between the ridge and his camp. Careful: Qiraji Lieutenants (28, elite) sometimes stand on that plain: give them a wide berth.
   kill 4128 quest 98093.1             -- Hecklefang Stalker walks around Southern Barrens: look inside the circle on the map
   kill 3238 quest 98093.2             -- Stormhide
 
@@ -187,7 +187,7 @@ step Gann Stonespire
   turnin 98093 @47.8,77.6             -- Sulhasa
 
 step Bael'dun fortress
-  tip The Bael'dun Soldiers, Riflemen and Officers guard the fortress on the east side of the dig; all three items drop from them.
+  tip The Bael'dun Soldiers, Riflemen and Officers guard the fortress on the east side of the dig; all three items drop from them. General Twinbraid (30) and his Officers stand on the bottom floor: work the soldiers and riflemen on the upper levels and keep away from him.
   tip Careful: Riflemen (level 24-25) Shoot from 5-30 yd, so nearby ones can join a fight from range.
   collect 5017 quest 846.1
   collect 5018 quest 846.2
@@ -339,7 +339,7 @@ step Sun Rock Retreat
 
 step The Charred Vale: kill these as you meet them
   zone Stonetalon Mountains
-  tip South-west of Sun Rock lies the burned Charred Vale. Plant the Gaea Seeds in the dirt mounds on the valley floor; the fire elementals drop Incendrites. Bloodfury Harpies and Ambushers nest on the north side, Slayers and Roguefeathers to the south.
+  tip South-west of Sun Rock lies the burned Charred Vale. Plant the Gaea Seeds in the dirt mounds on the valley floor; the fire elementals drop Incendrites. Bloodfury Harpies and Ambushers nest on the north side, Slayers and Roguefeathers to the south. Careful: the Burning Destroyers, Scorched Basilisks and Bloodfury Storm Witches here are level 27 and the valley floor is crowded: pull one at a time and keep to its edges.
   collect 16312 quest 6393
   collect 277936 quest 86576.1        -- Glittering Sunstone, from any Bloodfury harpy
   kill 4022 quest 6282.1

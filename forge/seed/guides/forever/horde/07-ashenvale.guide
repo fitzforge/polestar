@@ -70,7 +70,7 @@ step Zoram'gar Outpost
   note Je'neu offers a Blackfathom Deeps quest next; leave it unless you have a group.
   tip Back to Zoram'gar from the ruins before heading east for good.
   turnin 6563                         -- Je'neu Sancrea
-  accept 6621                         -- Karang Amakkar
+  accept 6621                         -- Karang Amakkar: a banner defence in the Foulweald, east of Mystral Lake: furbolg waves, then Chief Murgut
 
 # ---------------------------------------------------------------- East along the road
 
@@ -132,7 +132,7 @@ step Splintertree Post
   vendor nearest
 
 step Felmusk satyrs
-  tip North-west of Splintertree, the Felmusk satyrs camp in the woods. Every satyr can drop horns.
+  tip North-west of Splintertree, the Felmusk satyrs camp in the woods. Every satyr can drop horns. Careful: Felmusk Rogues and Shadowstalkers move in stealth and join fights without warning.
   collect 5481 quest 6441
 
 step Shadumbra
@@ -234,7 +234,7 @@ step The Earthen Ring
 
 step Gloomrise: kill these as you meet them
   zone Mulgore
-  tip North of the camp, spiders overrun the burial ground at Gloomrise. Use Mazu'kon's Toxin Extractor on the Gnawed Corpses; the Spinners drop the Crystalline Silk. Broodmother Valraxx sits at the north end: her Bloody Parchment starts A Darker Truth.
+  tip North of the camp, spiders overrun the burial ground at Gloomrise. Use Mazu'kon's Toxin Extractor on the Gnawed Corpses; the Spinners drop the Crystalline Silk. Broodmother Valraxx (30, elite) sits at the north end: leave her unless you do The Broodmother with a group; her Bloody Parchment starts A Darker Truth.
   collect 273181 quest 96260.1        -- Crystalline Silk, from Gloomrise Spinners
   kill 264083 quest 96259.2
   kill 264079 quest 96259.1
@@ -360,7 +360,7 @@ step Alien Egg
   collect 12467 quest 4821 @37.6,56.1 map 1441
 
 step Galak centaurs
-  tip The Galak camps fill the canyon north of Freewind; Scouts, Wranglers and Windchasers share every camp. A lone Galak Messenger walks a long path between the camps: if you meet him, kill him, his note starts a quest for Whitereach Post. Don't wait for him.
+  tip The Galak camps fill the canyon north of Freewind; Scouts, Wranglers and Windchasers share every camp. A lone Galak Messenger walks a long path between the camps: if you meet him, kill him, his note starts a quest for Whitereach Post. Don't wait for him. Careful: storm elementals roam the canyon floor around the camps: Stormheart (30), the Ravaging Tempests (40) and Ailgrha Splittusk (38), all elite. Keep clear of them.
   kill 4094 quest 4841.1
   kill 4093 quest 4841.2
   kill 4096 quest 4841.3
