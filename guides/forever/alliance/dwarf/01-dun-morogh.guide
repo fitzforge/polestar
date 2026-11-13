@@ -823,7 +823,7 @@ step Gakin the Darkbinder
   zone Stormwind City
   tip Gakin the Darkbinder waits in the cellar of the Slaughtered Lamb, in the Mage Quarter.
   turnin 1715                                 -- Gakin the Darkbinder
-  accept 1688
+  accept 1688                                 -- Surena Caledon: her choker and The Binding are on Westfall's east-Elwynn loop
 
 step Woo Ping
   only Warlock
@@ -832,21 +832,6 @@ step Woo Ping
   when !skill "Staves" 1
   tip While you're here: learn Staves from Woo Ping (Trade District, 10 silver); a staff carries more spell stats than a one-hander while you level.
   train 11867                         -- Woo Ping
-
-step Surena Caledon
-  only Warlock
-  zone Elwynn Forest
-  tip Leave Stormwind by the main gate, go south to Goldshire and east along the road to the Brackwell Pumpkin Patch. Surena Caledon (level 9) stands by its farmhouse.
-  collect 6810 quest 1688.1                   -- Surena's Choker: Surena Caledon
-
-step The Binding
-  only Warlock
-  zone Stormwind City
-  tip Back to Gakin. Use the Bloodstone Choker at the summoning circle in the Slaughtered Lamb's cellar and defeat the voidwalker it calls. Goldshire and east Elwynn are next, then Westfall.
-  turnin 1688                                 -- Gakin the Darkbinder
-  accept 1689
-  complete 1689                               -- Subdue the voidwalker
-  turnin 1689                                 -- Summon Voidwalker
 
 step Goldshire
   zone Elwynn Forest

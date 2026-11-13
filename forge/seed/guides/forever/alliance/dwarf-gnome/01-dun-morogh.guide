@@ -113,8 +113,9 @@ next forever/alliance/02-westfall
 # Class quests, as class-only steps:
 # - Warlock (Gnome): Beginnings (1599, Summon Imp) in Coldridge Valley; The
 #   Slaughtered Lamb (1715) from Lago Blackwrench in Ironforge; on arrival in
-#   Stormwind, Gakin, Surena Caledon at the Brackwell Pumpkin Patch in Elwynn
-#   and The Binding (1688, 1689, Summon Voidwalker).
+#   Stormwind, Gakin gives Surena Caledon (1688); Surena's Choker at the
+#   Brackwell Pumpkin Patch and The Binding (1689, Summon Voidwalker) are on
+#   02-westfall's east-Elwynn loop, which walks past Brackwell anyway.
 # - Shaman (Dwarf): Call of Earth (94373-94375) in Coldridge Valley; Call of
 #   Fire (94449, 94465-94468) from Kharanos through Bruegs Kindleborn's cave
 #   by the South Gate and Braldir Ashmantle in Loch Modan, at about 11-12.
@@ -717,21 +718,6 @@ step Gakin the Darkbinder
   tip Gakin the Darkbinder waits in the cellar of the Slaughtered Lamb, in the Mage Quarter.
   turnin 1715                                 -- Gakin the Darkbinder
   accept 1688
-
-step Surena Caledon
-  only Warlock
-  zone Elwynn Forest
-  tip Leave Stormwind by the main gate, go south to Goldshire and east along the road to the Brackwell Pumpkin Patch. Surena Caledon (level 9) stands by its farmhouse.
-  collect 6810 quest 1688.1                   -- Surena's Choker: Surena Caledon
-
-step The Binding
-  only Warlock
-  zone Stormwind City
-  tip Back to Gakin. Use the Bloodstone Choker at the summoning circle in the Slaughtered Lamb's cellar and defeat the voidwalker it calls. Westfall is next, west of Goldshire.
-  turnin 1688                                 -- Gakin the Darkbinder
-  accept 1689
-  complete 1689                               -- Subdue the voidwalker
-  turnin 1689                                 -- Summon Voidwalker
 
 step Jennea Cannon
   only Mage
