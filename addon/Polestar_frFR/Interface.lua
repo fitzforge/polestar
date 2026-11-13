@@ -253,6 +253,9 @@ L["Polestar is hidden: /polestar hide or the minimap button shows it again."] = 
 L["Hide or show everything Polestar shows (hide arrow: keep the arrow when hidden)"] = "Masquer ou afficher tout ce qu'affiche Polestar (hide arrow : garder la flèche une fois masqué)"
 -- L["Set Polestar up again, a page at a time (Install)"] = ""
 -- L["Opens Install, as /polestar install does"] = ""
+-- L["Pause the guide"] = ""
+-- L["Mark as junk"] = ""
+-- L["Mark to keep"] = ""
 
 -- Theme/Theme.lua
 L["Dusk"] = "Crépuscule"
@@ -300,6 +303,7 @@ L["Shortest Path Forever is guiding a journey of its own. Polestar's arrow comes
 L["Shortest Path Forever is guiding. Turn off \"Hand guiding to Shortest Path Forever\" (Options, Integrations) to use Polestar's arrow."] = "Shortest Path Forever guide. Désactivez \"Confier le guidage à Shortest Path Forever\" (Options, Intégrations) pour utiliser la flèche de Polestar."
 L["The guide is hidden and \"Hide the arrow with the guide\" is on, so the arrow is hidden too: /polestar show brings them back."] = "Le guide est masqué et « Masquer la flèche avec le guide » est activé, donc la flèche l'est aussi : /polestar show les fait revenir."
 L["Polestar is hidden, the arrow with it: \"Keep the arrow when hidden\" in the minimap button's menu keeps it."] = "Polestar est masqué, et la flèche avec lui : « Garder la flèche une fois masqué » dans le menu du bouton de la minicarte la garde."
+-- L["Polestar is paused: the arrow follows the guide again once you leave the dungeon alive, or after /polestar resume."] = ""
 
 -- Nav/Arrow.lua
 L["Search here"] = "Cherchez ici"
@@ -663,6 +667,7 @@ L["Custom: %s"] = "Personnalisée : %s"
 L["custom"] = "personnalisée"
 L["No custom scales yet. /polestar gear import adds one."] = "Aucune échelle personnalisée pour l'instant. /polestar gear import en ajoute une."
 L["Custom scales"] = "Échelles personnalisées"
+-- L["%s (adjusted)"] = ""
 
 -- Gear/Tooltip.lua
 L["Polestar"] = "Polestar"
@@ -704,6 +709,8 @@ L["Import a Pawn scale string, and use, rename, export or delete the scales you 
 L["Leave bag arrows to Pawn"] = "Laisser les flèches des sacs à Pawn"
 L["Pawn is installed and draws its own upgrade arrows in your bags. Turn this on to hide Polestar's, so an item does not carry two."] = "Pawn est installé et affiche ses propres flèches d'amélioration dans vos sacs. Activez ceci pour masquer celles de Polestar, afin qu'un objet n'en porte pas deux."
 L["Manage"] = "Gérer"
+-- L["Adjust weights"] = ""
+-- L["Weigh a stat more or less than Polestar does for your spec. Revert to default puts Polestar's weights back."] = ""
 
 -- Maps/Maps.lua
 L["Dungeons and travel"] = "Donjons et voyages"
@@ -1033,6 +1040,9 @@ L["Travel button under the arrow"] = "Bouton de voyage sous la flèche"
 -- L["Increase game image quality"] = ""
 -- L["Sharpens the game's image. Most noticeable when Render Scale is below 100%. This is a game setting: it stays until you turn it off here or in the console."] = ""
 -- L["The target button and the step key ping the mob or NPC they target, so your group sees it behind rocks and buildings. Never in a raid unless you lead or assist. The rare buttons always ping."] = ""
+-- L["Or bind keys for it in Key Bindings, Polestar: Mark as junk and Mark to keep mark the item under the cursor, and take that mark off again."] = ""
+-- L["Ctrl+Alt-click cycles"] = ""
+-- L["Ctrl+Alt-click an item to mark it as junk, again to keep it, and again to clear it. Turn it off to mark items only with the Mark as junk and Mark to keep keys."] = ""
 
 -- Lookup/Sources.lua
 L["Alliance only"] = "Alliance uniquement"
@@ -1837,7 +1847,6 @@ L["Both routes meet again in %s."] = "Les deux itinéraires se rejoignent à %s.
 L["Every route meets again in %s."] = "Tous les itinéraires se rejoignent à %s."
 L["Pick where you want to level next."] = "Choisissez où monter en niveau ensuite."
 L["The experimental guides could not load (%s)."] = "Les guides expérimentaux n'ont pas pu se charger (%s)."
--- L["~%d min"] = ""
 -- L["A detour through %s"] = ""
 -- L["Experimental"] = ""
 -- L["Try %s"] = ""
@@ -2233,7 +2242,6 @@ L["Reset guide progress?"] = "Réinitialiser la progression du guide ?"
 L["Reset progress"] = "Réinitialiser la progression"
 L["Reset all settings?"] = "Réinitialiser tous les réglages ?"
 L["Reset all"] = "Tout réinitialiser"
-L["Every Polestar setting goes back to its default. Your guides and progress are kept."] = "Chaque réglage de Polestar revient à sa valeur par défaut. Vos guides et votre progression sont conservés."
 L["Live"] = "En direct"
 L["Rot Hide Mongrel"] = "Bâtard Peau-pourrie"
 L["Run"] = "Lancer"
@@ -2360,6 +2368,18 @@ L["Your manual check-offs and skipped steps in the current guide are cleared fro
 -- L["Peek"] = ""
 -- L["Hold it down to see what the window covers."] = ""
 -- L["More below"] = ""
+-- L["The arrow, the guide window and its nudges step aside. Polestar resumes by itself when you leave a dungeon alive. Your quest progress keeps following your log. This character only."] = ""
+-- L["Hide the step's map pins while paused"] = ""
+-- L["While paused, the pins of the step's goals, their areas, While you're here and the upcoming steps go from the maps as well."] = ""
+-- L["No quest automation while paused"] = ""
+-- L["While paused, quests are not accepted or turned in for you, and no reward is picked, until Polestar resumes."] = ""
+-- L["A key or gamepad button that pauses Polestar or resumes it. It also resumes by itself when you leave a dungeon alive."] = ""
+-- L["Let a following addon show the way"] = ""
+-- L["Hides Polestar's arrow while another addon shows Polestar's target itself, as Naowh Forever's Waypoint Pin does with Follow Polestar on. That addon also sets the game's map pin then."] = ""
+-- L["Match ErgoBars accent"] = ""
+-- L["Follow ErgoBars' accent, live. Picking your own accent turns this off."] = ""
+-- L["Match ErgoBars font"] = ""
+-- L["Follow ErgoBars' font, live. Choosing another font turns this off."] = ""
 
 -- Rares/Rares.lua
 L["Raid warning"] = "Avertissement de raid"
@@ -2585,6 +2605,8 @@ L["Show Polestar"] = "Afficher Polestar"
 L["Hide Polestar"] = "Masquer Polestar"
 L["Keep the arrow when hidden"] = "Garder la flèche une fois masqué"
 -- L["Settings"] = ""
+-- L["Polestar is paused: right-click to resume"] = ""
+-- L["Pause"] = ""
 
 -- UI/Gamepad.lua
 L["D-pad up"] = "Croix haut"
@@ -2996,6 +3018,26 @@ L["Now: %d%% into level %d"] = "Maintenant : %d%% du niveau %d"
 L["After: level %d"] = "Après : niveau %d"
 L["After: %d%% into level %d"] = "Après : %d%% du niveau %d"
 L["Recommended: level %d"] = "Recommandé : niveau %d"
+-- L["<1%"] = ""
+-- L["+%d%%"] = ""
+-- L["Need level %d first"] = ""
+-- L["Need a quest chain first"] = ""
+-- L["Ready to take and hand in"] = ""
+-- L["1 not for your class"] = ""
+-- L["%d not for your class"] = ""
+-- L["1 not for your race"] = ""
+-- L["%d not for your race"] = ""
+-- L["1 for the other faction"] = ""
+-- L["%d for the other faction"] = ""
+-- L["1 closed by a quest you took"] = ""
+-- L["%d closed by a quest you took"] = ""
+-- L["1 alternative to another quest"] = ""
+-- L["%d alternatives to other quests"] = ""
+-- L["1 already done"] = ""
+-- L["%d already done"] = ""
+-- L["1 with no XP known"] = ""
+-- L["%d with no XP known"] = ""
+-- L["Not counted: %s"] = ""
 
 -- Gear/Pawn.lua
 L["Pawn scale"] = "Échelle Pawn"
@@ -3094,6 +3136,9 @@ L["Custom stat weights"] = "Pondérations personnalisées"
 L["Copy a built-in spec"] = "Copier une spé intégrée"
 L["Copied %s. Change its weights below."] = "Copie de %s créée. Modifiez ses pondérations ci-dessous."
 L["No custom scales yet. Paste a Pawn string above."] = "Aucune échelle personnalisée. Collez une chaîne Pawn ci-dessus."
+-- L["Haste (%)"] = ""
+-- L["Expertise (%)"] = ""
+-- L["Armor penetration (%)"] = ""
 
 -- UI/Thanks.lua
 L["Special thanks to:"] = "Remerciements spéciaux à :"
@@ -3172,6 +3217,9 @@ L["%s is kept now: Polestar never sells or deletes it."] = "%s est désormais co
 L["%s: mark cleared."] = "%s : marque effacée."
 L["Marked as junk"] = "Marqué comme camelote"
 L["Marked to keep"] = "Marqué à conserver"
+-- L["Point at an item to mark it."] = ""
+-- L["Marked as junk (%s clears it)"] = ""
+-- L["Marked to keep (%s clears it)"] = ""
 
 -- QoL/Space.lua
 L["Deleted %s."] = "%s supprimé."
@@ -4186,6 +4234,7 @@ L["Class quest chime"] = "Carillon des quêtes de classe"
 
 -- UI/GuideFrameMenu.lua
 -- L["Quick settings"] = ""
+-- L["The arrow and the guide window step aside. Polestar resumes by itself when you leave a dungeon alive."] = ""
 
 -- UI/QuickSettings.lua
 -- L["Auto-accept"] = ""
@@ -4270,6 +4319,40 @@ L["Part of the %s quests"] = "Fait partie des quêtes de %s"
 -- L["%d finished quests here first"] = ""
 -- L["Jump anyway? They stay in your log, and the guide lists who takes each in."] = ""
 -- L["Jump anyway"] = ""
+
+-- Core/Pause.lua
+-- L["Press %s to resume, or open the guide window."] = ""
+-- L["Right-click the minimap button and pick Pause to resume, or open the guide window."] = ""
+-- L["Open the guide window to resume."] = ""
+-- L["Type /polestar resume, or open the guide window."] = ""
+-- L["Polestar is paused: the arrow and the guide window step aside. It resumes by itself when you leave the dungeon alive."] = ""
+-- L["Polestar is paused"] = ""
+-- L["Paused for two hours without a dungeon: Polestar resumed."] = ""
+-- L["Polestar resumed: the guide window is back."] = ""
+-- L["Polestar resumed."] = ""
+-- L["Polestar resumed: you are back out of the dungeon."] = ""
+-- L["Polestar resumed: the arrow and the guide window are back."] = ""
+-- L["Polestar is not paused."] = ""
+-- L["Polestar is already paused."] = ""
+-- L["Usage: /polestar pause [on | off]"] = ""
+-- L["Pause the guide: the arrow and the guide window step aside, and it resumes by itself when you leave the dungeon alive (on, off)"] = ""
+-- L["Resume a paused guide"] = ""
+
+-- UI/StepList.lua
+-- L["Skipped for you"] = ""
+-- L["This step does not apply to you now"] = ""
+-- L["These %d steps do not apply to you now"] = ""
+
+-- UI/GearAdjust.lua
+-- L["Back to the default"] = ""
+-- L["A change is kept as a share of the default, so it carries over when Polestar's defaults change."] = ""
+-- L["A custom scale is in use: these apply once you choose a built-in spec again."] = ""
+-- L["Weights"] = ""
+-- L["Default: %s"] = ""
+-- L["Revert to default"] = ""
+-- L["Adjust stat weights"] = ""
+-- L["Put back 1 weight."] = ""
+-- L["Put back %d weights."] = ""
 
 -- No longer in the code (its English changed or it went away): reuse or delete.
 -- L["Alliance"] = "Alliance"
@@ -4496,3 +4579,4 @@ L["Part of the %s quests"] = "Fait partie des quêtes de %s"
 -- L["Leveling guides take you through this dungeon where they have steps for it. Off: they keep to the solo route. More dungeons join this list as they are added to the guides' route."] = "Les guides de montée en niveau vous font passer par ce donjon quand ils ont des étapes pour lui. Désactivé : ils s'en tiennent à l'itinéraire solo. D'autres donjons rejoignent cette liste à mesure qu'ils sont ajoutés à l'itinéraire des guides."
 -- L["Preview"] = "Aperçu"
 -- L["Brill"] = "Brill"
+-- L["Every Polestar setting goes back to its default. Your guides and progress are kept."] = "Chaque réglage de Polestar revient à sa valeur par défaut. Vos guides et votre progression sont conservés."

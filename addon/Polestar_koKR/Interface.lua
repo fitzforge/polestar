@@ -252,6 +252,9 @@ L["Polestar is hidden: /polestar hide or the minimap button shows it again."] = 
 L["Hide or show everything Polestar shows (hide arrow: keep the arrow when hidden)"] = "Polestar가 표시하는 모든 것을 숨기거나 표시합니다 (hide arrow: 숨길 때 화살표 유지)"
 -- L["Set Polestar up again, a page at a time (Install)"] = ""
 -- L["Opens Install, as /polestar install does"] = ""
+-- L["Pause the guide"] = ""
+-- L["Mark as junk"] = ""
+-- L["Mark to keep"] = ""
 
 -- Theme/Theme.lua
 L["Dusk"] = "황혼"
@@ -299,6 +302,7 @@ L["Shortest Path Forever is guiding a journey of its own. Polestar's arrow comes
 L["Shortest Path Forever is guiding. Turn off \"Hand guiding to Shortest Path Forever\" (Options, Integrations) to use Polestar's arrow."] = "Shortest Path Forever가 안내 중입니다. Polestar의 화살표를 사용하려면 \"Shortest Path Forever에 안내 맡기기\"(설정, 연동)를 끄세요."
 L["The guide is hidden and \"Hide the arrow with the guide\" is on, so the arrow is hidden too: /polestar show brings them back."] = "가이드가 숨겨져 있고 '가이드와 함께 화살표 숨기기'가 켜져 있어 화살표도 숨겨졌습니다: /polestar show로 다시 표시합니다."
 L["Polestar is hidden, the arrow with it: \"Keep the arrow when hidden\" in the minimap button's menu keeps it."] = "Polestar가 숨겨져 화살표도 숨겨졌습니다: 미니맵 버튼 메뉴의 '숨길 때 화살표 유지'를 켜면 화살표가 남습니다."
+-- L["Polestar is paused: the arrow follows the guide again once you leave the dungeon alive, or after /polestar resume."] = ""
 
 -- Nav/Arrow.lua
 L["Search here"] = "여기서 찾기"
@@ -662,6 +666,7 @@ L["Custom: %s"] = "사용자 지정: %s"
 L["custom"] = "사용자 지정"
 L["No custom scales yet. /polestar gear import adds one."] = "아직 사용자 지정 척도가 없습니다. /polestar gear import 명령어로 추가할 수 있습니다."
 L["Custom scales"] = "사용자 지정 척도"
+-- L["%s (adjusted)"] = ""
 
 -- Gear/Tooltip.lua
 L["Polestar"] = "Polestar"
@@ -703,6 +708,8 @@ L["Import a Pawn scale string, and use, rename, export or delete the scales you 
 L["Leave bag arrows to Pawn"] = "가방 화살표는 Pawn에 맡기기"
 L["Pawn is installed and draws its own upgrade arrows in your bags. Turn this on to hide Polestar's, so an item does not carry two."] = "Pawn이 설치되어 있으며 가방에 자체 업그레이드 화살표를 표시합니다. 이 옵션을 켜면 Polestar의 화살표를 숨겨 아이템에 화살표가 두 개 표시되지 않습니다."
 L["Manage"] = "관리"
+-- L["Adjust weights"] = ""
+-- L["Weigh a stat more or less than Polestar does for your spec. Revert to default puts Polestar's weights back."] = ""
 
 -- Maps/Maps.lua
 L["Dungeons and travel"] = "던전 및 이동"
@@ -1032,6 +1039,9 @@ L["Travel button under the arrow"] = "화살표 아래 이동 버튼"
 -- L["Increase game image quality"] = ""
 -- L["Sharpens the game's image. Most noticeable when Render Scale is below 100%. This is a game setting: it stays until you turn it off here or in the console."] = ""
 -- L["The target button and the step key ping the mob or NPC they target, so your group sees it behind rocks and buildings. Never in a raid unless you lead or assist. The rare buttons always ping."] = ""
+-- L["Or bind keys for it in Key Bindings, Polestar: Mark as junk and Mark to keep mark the item under the cursor, and take that mark off again."] = ""
+-- L["Ctrl+Alt-click cycles"] = ""
+-- L["Ctrl+Alt-click an item to mark it as junk, again to keep it, and again to clear it. Turn it off to mark items only with the Mark as junk and Mark to keep keys."] = ""
 
 -- Lookup/Sources.lua
 L["Alliance only"] = "얼라이언스 전용"
@@ -1836,7 +1846,6 @@ L["Both routes meet again in %s."] = "두 경로는 %s에서 다시 만납니다
 L["Every route meets again in %s."] = "모든 경로는 %s에서 다시 만납니다."
 L["Pick where you want to level next."] = "다음에 레벨업할 곳을 고르십시오."
 L["The experimental guides could not load (%s)."] = "실험 가이드를 불러오지 못했습니다 (%s)."
--- L["~%d min"] = ""
 -- L["A detour through %s"] = ""
 -- L["Experimental"] = ""
 -- L["Try %s"] = ""
@@ -2232,7 +2241,6 @@ L["Reset guide progress?"] = "가이드 진행을 초기화할까요?"
 L["Reset progress"] = "진행 초기화"
 L["Reset all settings?"] = "모든 설정을 초기화할까요?"
 L["Reset all"] = "모두 초기화"
-L["Every Polestar setting goes back to its default. Your guides and progress are kept."] = "모든 Polestar 설정이 기본값으로 돌아갑니다. 가이드와 진행 상황은 유지됩니다."
 L["Live"] = "실시간"
 L["Rot Hide Mongrel"] = "썩은가죽 잡종개"
 L["Run"] = "달리기"
@@ -2359,6 +2367,18 @@ L["Your manual check-offs and skipped steps in the current guide are cleared fro
 -- L["Peek"] = ""
 -- L["Hold it down to see what the window covers."] = ""
 -- L["More below"] = ""
+-- L["The arrow, the guide window and its nudges step aside. Polestar resumes by itself when you leave a dungeon alive. Your quest progress keeps following your log. This character only."] = ""
+-- L["Hide the step's map pins while paused"] = ""
+-- L["While paused, the pins of the step's goals, their areas, While you're here and the upcoming steps go from the maps as well."] = ""
+-- L["No quest automation while paused"] = ""
+-- L["While paused, quests are not accepted or turned in for you, and no reward is picked, until Polestar resumes."] = ""
+-- L["A key or gamepad button that pauses Polestar or resumes it. It also resumes by itself when you leave a dungeon alive."] = ""
+-- L["Let a following addon show the way"] = ""
+-- L["Hides Polestar's arrow while another addon shows Polestar's target itself, as Naowh Forever's Waypoint Pin does with Follow Polestar on. That addon also sets the game's map pin then."] = ""
+-- L["Match ErgoBars accent"] = ""
+-- L["Follow ErgoBars' accent, live. Picking your own accent turns this off."] = ""
+-- L["Match ErgoBars font"] = ""
+-- L["Follow ErgoBars' font, live. Choosing another font turns this off."] = ""
 
 -- Rares/Rares.lua
 L["Raid warning"] = "공격대 경보"
@@ -2584,6 +2604,8 @@ L["Show Polestar"] = "Polestar 표시"
 L["Hide Polestar"] = "Polestar 숨기기"
 L["Keep the arrow when hidden"] = "숨길 때 화살표 유지"
 -- L["Settings"] = ""
+-- L["Polestar is paused: right-click to resume"] = ""
+-- L["Pause"] = ""
 
 -- UI/Gamepad.lua
 L["D-pad up"] = "방향 패드 위"
@@ -2995,6 +3017,26 @@ L["Now: %d%% into level %d"] = "현재: %d%% (레벨 %d)"
 L["After: level %d"] = "이후: 레벨 %d"
 L["After: %d%% into level %d"] = "이후: %d%% (레벨 %d)"
 L["Recommended: level %d"] = "권장: 레벨 %d"
+-- L["<1%"] = ""
+-- L["+%d%%"] = ""
+-- L["Need level %d first"] = ""
+-- L["Need a quest chain first"] = ""
+-- L["Ready to take and hand in"] = ""
+-- L["1 not for your class"] = ""
+-- L["%d not for your class"] = ""
+-- L["1 not for your race"] = ""
+-- L["%d not for your race"] = ""
+-- L["1 for the other faction"] = ""
+-- L["%d for the other faction"] = ""
+-- L["1 closed by a quest you took"] = ""
+-- L["%d closed by a quest you took"] = ""
+-- L["1 alternative to another quest"] = ""
+-- L["%d alternatives to other quests"] = ""
+-- L["1 already done"] = ""
+-- L["%d already done"] = ""
+-- L["1 with no XP known"] = ""
+-- L["%d with no XP known"] = ""
+-- L["Not counted: %s"] = ""
 
 -- Gear/Pawn.lua
 L["Pawn scale"] = "Pawn 척도"
@@ -3093,6 +3135,9 @@ L["Custom stat weights"] = "사용자 지정 능력치 가중치"
 L["Copy a built-in spec"] = "기본 전문화 복사"
 L["Copied %s. Change its weights below."] = "%s 복사됨. 아래에서 가중치를 변경하십시오."
 L["No custom scales yet. Paste a Pawn string above."] = "사용자 지정 가중치가 없습니다. 위에 Pawn 문자열을 붙여넣으십시오."
+-- L["Haste (%)"] = ""
+-- L["Expertise (%)"] = ""
+-- L["Armor penetration (%)"] = ""
 
 -- UI/Thanks.lua
 L["Special thanks to:"] = "특별히 감사드립니다:"
@@ -3171,6 +3216,9 @@ L["%s is kept now: Polestar never sells or deletes it."] = "%s은(는) 이제 �
 L["%s: mark cleared."] = "%s: 표시 해제됨."
 L["Marked as junk"] = "잡동사니로 표시됨"
 L["Marked to keep"] = "보관으로 표시됨"
+-- L["Point at an item to mark it."] = ""
+-- L["Marked as junk (%s clears it)"] = ""
+-- L["Marked to keep (%s clears it)"] = ""
 
 -- QoL/Space.lua
 L["Deleted %s."] = "%s 삭제함."
@@ -4185,6 +4233,7 @@ L["Class quest chime"] = "직업 퀘스트 알림음"
 
 -- UI/GuideFrameMenu.lua
 -- L["Quick settings"] = ""
+-- L["The arrow and the guide window step aside. Polestar resumes by itself when you leave a dungeon alive."] = ""
 
 -- UI/QuickSettings.lua
 -- L["Auto-accept"] = ""
@@ -4269,6 +4318,40 @@ L["Part of the %s quests"] = "%s 퀘스트의 일부"
 -- L["%d finished quests here first"] = ""
 -- L["Jump anyway? They stay in your log, and the guide lists who takes each in."] = ""
 -- L["Jump anyway"] = ""
+
+-- Core/Pause.lua
+-- L["Press %s to resume, or open the guide window."] = ""
+-- L["Right-click the minimap button and pick Pause to resume, or open the guide window."] = ""
+-- L["Open the guide window to resume."] = ""
+-- L["Type /polestar resume, or open the guide window."] = ""
+-- L["Polestar is paused: the arrow and the guide window step aside. It resumes by itself when you leave the dungeon alive."] = ""
+-- L["Polestar is paused"] = ""
+-- L["Paused for two hours without a dungeon: Polestar resumed."] = ""
+-- L["Polestar resumed: the guide window is back."] = ""
+-- L["Polestar resumed."] = ""
+-- L["Polestar resumed: you are back out of the dungeon."] = ""
+-- L["Polestar resumed: the arrow and the guide window are back."] = ""
+-- L["Polestar is not paused."] = ""
+-- L["Polestar is already paused."] = ""
+-- L["Usage: /polestar pause [on | off]"] = ""
+-- L["Pause the guide: the arrow and the guide window step aside, and it resumes by itself when you leave the dungeon alive (on, off)"] = ""
+-- L["Resume a paused guide"] = ""
+
+-- UI/StepList.lua
+-- L["Skipped for you"] = ""
+-- L["This step does not apply to you now"] = ""
+-- L["These %d steps do not apply to you now"] = ""
+
+-- UI/GearAdjust.lua
+-- L["Back to the default"] = ""
+-- L["A change is kept as a share of the default, so it carries over when Polestar's defaults change."] = ""
+-- L["A custom scale is in use: these apply once you choose a built-in spec again."] = ""
+-- L["Weights"] = ""
+-- L["Default: %s"] = ""
+-- L["Revert to default"] = ""
+-- L["Adjust stat weights"] = ""
+-- L["Put back 1 weight."] = ""
+-- L["Put back %d weights."] = ""
 
 -- No longer in the code (its English changed or it went away): reuse or delete.
 -- L["Shortest Path Forever is guiding. Turn off \"Guide with Shortest Path Forever when it's installed\" (Options, Arrow & routes) to use Polestar's arrow."] = "Shortest Path Forever가 가이드 중입니다. Polestar 화살표를 쓰려면 \"설치 시 Shortest Path Forever로 가이드\"를 끄십시오(설정, 화살표 및 경로)."
@@ -4448,3 +4531,4 @@ L["Part of the %s quests"] = "%s 퀘스트의 일부"
 -- L["Leveling guides take you through this dungeon where they have steps for it. Off: they keep to the solo route. More dungeons join this list as they are added to the guides' route."] = "레벨업 가이드에 이 던전 단계가 있으면 이 던전을 거쳐 안내합니다. 끄면: 솔로 경로만 따릅니다. 가이드 경로에 던전이 추가되면 이 목록에도 추가됩니다."
 -- L["Preview"] = "미리보기"
 -- L["Brill"] = "브릴"
+-- L["Every Polestar setting goes back to its default. Your guides and progress are kept."] = "모든 Polestar 설정이 기본값으로 돌아갑니다. 가이드와 진행 상황은 유지됩니다."
