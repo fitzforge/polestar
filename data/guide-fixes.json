@@ -7993,6 +7993,24 @@
 				"ref": "players' in-game recordings to 2026-11-13: Black Shield (1322) objective ticks after kills of npc 4411, 4414, 4413 and 4415 (#1985)"
 			},
 			"issue": 1985
+		},
+		{
+			"id": "2025-great-lift-wait",
+			"faction": "Alliance",
+			"at": {
+				"quest": 1135,
+				"goal": "objective",
+				"objective": 1
+			},
+			"tip": "Down the Great Lift into Thousand Needles, then west to the wyverns' cliffs at Highperch. Every wyvern there can drop a venom sac. Careful: wait on the platform until the lift is level with it before you step on, and stay on it until it stops; the drop beside it kills.",
+			"note": "0.4.0 route audit (Refs #2025): the step sent players down the Great Lift with no word on it. The step's earlier tip (the lift, the cliffs, the venom sacs) is kept in this one.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "players' recordings (shared index, to 2026-11-13): 11 deaths of 3 people at The Great Lift while on this guide's way down to Highperch, none with an attacker recorded (falls); 16 deaths of 6 Alliance people there over every guide"
+				}
+			],
+			"issue": 2025
 		}
 	]
 }

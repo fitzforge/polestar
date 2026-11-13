@@ -11851,3 +11851,16 @@ test(`${ARATHI}: Ironforge to Thelsamar by flight when you know the flight path,
 	assert.ok(walk, 'the tunnel walk is when !taxi "Thelsamar"');
 	assert.ok(!list.some(({ step }) => step.only && step.only.races), 'no step of this guide goes by race');
 });
+
+// 0.4.0 route audit (Refs #2025): 30-40/03 sends players down the Great Lift into Thousand Needles for Highperch with no
+// word on the lift; players' recordings show 11 deaths of 3 people there on this guide's way down, none with an attacker
+// recorded (falls). The step says to wait for the lift.
+test(`${ASHENVALE_30}: the Great Lift step says to wait for the lift`, { skip }, () => {
+	const list = goals(ASHENVALE_30);
+	const sac = list[at(list, 'collect 5809', (g) => g.t === 'collect' && g.item === 5809)];
+	const tip = [].concat(sac.step.note || []).join(' ');
+	assert.match(tip, /Careful:.*lift is level/, tip);
+	const rec = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', 'guide-fixes.json'), 'utf8')).fixes.find((f) => f.id === '2025-great-lift-wait');
+	assert.ok(rec, 'a record the build keeps');
+	assert.equal(rec.tip, tip, 'the guide carries the record\'s tip');
+});

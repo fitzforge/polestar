@@ -97,7 +97,7 @@ step Takar the Seer
 
 step Highperch
   zone Thousand Needles
-  tip Down the Great Lift into Thousand Needles, then west to the wyverns' cliffs at Highperch. Every wyvern there can drop a venom sac.
+  tip Down the Great Lift into Thousand Needles, then west to the wyverns' cliffs at Highperch. Every wyvern there can drop a venom sac. Careful: wait on the platform until the lift is level with it before you step on, and stay on it until it stops; the drop beside it kills.
   collect 5809 quest 1135             -- Highperch Venom Sac
 
 step Thousand Needles
