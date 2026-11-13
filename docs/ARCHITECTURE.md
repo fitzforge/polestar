@@ -4601,7 +4601,13 @@ walk stays inside one zone; between zones it goes only through
   Deeprun Tram's Stormwind end lies down its building, under the Keep's Royal
   Gallery, and `deeprun-tram-stormwind` (from players' recorded walks in)
   takes the walk to the building's door first, not across from the street to
-  the point under the Keep (#1242);
+  the point under the Keep (#1242). A den the walking maps join to the world
+  nowhere is led out the same way: the Stormrage Barrow Dens
+  (`stormrage-barrow-dens`, `-west`, #1919) and the Ban'ethil Barrow Den
+  (`banethil-barrow-den`, `-east`, `-lower`, #1341), one chain per branch
+  sharing the way in, each node with its floor's height, so a player at a
+  relic or at Oben Rageclaw is routed back to the mouth, never through the
+  rock, and one on the hill above is not held by them;
 - an area: a box of a zone's map no walk joins to the rest of the zone. It is
   a zone of its own, reached by no crossing, only by portals, ships and
   flights. Rut'theran Village, `rutheran-village`, lies on Teldrassil's map at
