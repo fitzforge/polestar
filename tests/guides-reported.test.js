@@ -4336,6 +4336,22 @@ test("forever/miscellaneous/cozy-sleeping-bag.guide: shatteredeagle's report (#1
 	assert.ok(!(hills.step.when || []).some((p) => p.k === 'zone'), 'the Stonetalon step itself applies wherever the character is');
 });
 
+// Schenkee (#1982), Orc Warlock 19 on the Savage Coast (Stranglethorn 23.52,21.41): the arrow to Westfall's
+// twin note led north through Stranglethorn's level 30+ jungle and Duskwood. Players' recordings: 20 Horde
+// followed Stranglethorn's west coast into Westfall, 16 took the road through Duskwood; from Grom'gol the coast is
+// the shorter walk too. Horde now get a goto on the coast (about 12.5,12.7) before the Westfall hand-in, only while
+// they are not in Westfall yet.
+test("forever/miscellaneous/cozy-sleeping-bag.guide: Schenkee's report (#1982): Horde go to Westfall along Stranglethorn's west coast", { skip }, () => {
+	const list = goals('forever/miscellaneous/cozy-sleeping-bag.guide');
+	const twin = at(list, 'turnin 79007 in Westfall', is('turnin', 79007));
+	const coast = list.findIndex(({ goal }) => goal.t === 'goto' && goal.map === 1434 && yards(goal, { map: 1434, x: 12.5, y: 12.7 }) <= 40);
+	assert.ok(coast >= 0, "a goto on Stranglethorn's west coast");
+	const way = list[coast];
+	assert.equal(way.s, list[twin].s - 1, 'the step right before the Westfall hand-in');
+	assert.deepEqual((way.step.only || way.goal.only || {}).factions, ['Horde'], 'Horde only');
+	assert.ok((way.step.when || []).some((p) => p.k === 'zone' && p.neg && p.name === 'Westfall'), 'only while the character is not in Westfall yet');
+});
+
 // Syrael (#575): "Collect the ghost plasma is in the wrong spot, it shows the
 // same spot as for the collect the kodo bone quest above it." The Horde guide
 // had a bare `complete 6134` in the Kodo Graveyard step, so it had no place

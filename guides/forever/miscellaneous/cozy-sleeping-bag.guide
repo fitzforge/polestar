@@ -44,6 +44,14 @@ zone Westfall
 #   step's two gotos follow the survivors' tracks out of the river (64.4,79.4
 #   then 62.2,76.8); those who died turned back north-east into the river at
 #   the first of them.
+# - Horde's way to Westfall (#1982): players' recordings (2026-11-12 pull) of
+#   the Westfall hand-in by Horde coming from Stranglethorn: 20 people followed
+#   Stranglethorn's west coast north (last seen there about 12.5,12.7) into
+#   Westfall's southern shore, 16 took the jungle road north through Duskwood.
+#   From Grom'gol the coast is the shorter walk on our walking maps too (about
+#   2,870 yards against 3,100), and it stays clear of Stranglethorn's level 30+
+#   jungle and of Duskwood, so Horde get a goto on the coast; it drops once
+#   they are in Westfall.
 # Not play-tested on Forever yet.
 
 step The note in Westfall
@@ -65,6 +73,14 @@ step The note in the Barrens
   tip The chain opens at level 14. A burned-out campfire in the southern Barrens, with a nailed plank beside it.
   level 14
   accept 79007
+
+# Only for a Horde player not yet in Westfall (#1982): from Grom'gol the arrow then follows the coast.
+step Along the coast to Westfall
+  only Horde
+  zone Stranglethorn Vale
+  when !zone "Westfall"
+  tip From Grom'gol follow Stranglethorn's west coast north to Westfall, swimming where the beach runs out. It is shorter than the jungle road north and keeps you clear of Stranglethorn's level 30+ beasts and of Duskwood.
+  goto 12.5,12.7 "Stranglethorn's west coast" r 25
 
 step Its twin in Westfall
   only Horde
