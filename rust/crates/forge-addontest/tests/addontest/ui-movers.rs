@@ -404,10 +404,7 @@ fn exit_asks_when_something_moved_discard_puts_it_back_and_save_keeps_it() {
 		PolestarMoversBar.Save:Click()
 		emit({ asked = asked, kept = kept, discarded = discarded, saved = saved,
 			bar = { shown(), M.IsUnlocked(), Polestar.Get("ui.launcherPos") } })"#);
-	assert_eq!(
-		out["asked"],
-		json!([true, true, "Discard your changes?", "One frame moved since you unlocked. Discard puts it back where it stood.", "Discard", "Keep editing", "Save and exit"])
-	);
+	assert_eq!(out["asked"], json!([true, true, "Discard your changes?", "One frame moved since you unlocked. Discard puts it back where it stood.", "Discard", "Keep editing", "Save and exit"]));
 	assert_eq!(out["kept"], json!([false, true, [501, 500]]), "Keep editing: still unlocked, the move kept");
 	assert_eq!(out["discarded"], json!([false, false, [500, 500]]), "Discard: back where it stood, locked");
 	assert_eq!(out["saved"], json!([false, false, [502, 500]]), "Save and exit from the question");

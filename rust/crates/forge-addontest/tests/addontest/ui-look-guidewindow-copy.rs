@@ -100,15 +100,7 @@ end
 fn run(script: &str) -> Value {
 	let mut addons = vec![Addon::name("Polestar")];
 	addons.extend(SKINS.iter().map(|(_, a)| Addon::name(a)));
-	emitted(&RunAddon {
-		stubs: vec!["stub_world.lua"],
-		before: BEFORE.into(),
-		addons,
-		login: true,
-		script: format!("{HELPERS}\n{script}"),
-		..Default::default()
-	})
-	.remove(0)
+	emitted(&RunAddon { stubs: vec!["stub_world.lua"], before: BEFORE.into(), addons, login: true, script: format!("{HELPERS}\n{script}"), ..Default::default() }).remove(0)
 }
 
 #[test]
