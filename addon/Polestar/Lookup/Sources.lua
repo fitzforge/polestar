@@ -701,6 +701,26 @@ local function itemSources(id, p, from, direct)
 	local spell = item.spell and C.Spell(item.spell)
 	local class = spell and spell.class
 	for _, r in ipairs(list) do
+		if (r.type == "drop" or r.type == "object") and r.src.requiresQuests and (ns.Compat.GetItemCount(id, true) or 0) == 0 then
+			local steps, why, q = Lookup.DropQuestSteps(r.src, p, from, direct)
+			if not steps then
+				block(r, why, L["Requires"] .. " " .. (q and q.title or L["Quest"]))
+				r.guideable = false
+			elseif #steps > 0 then
+				local here = from
+				local required
+				for _, step in ipairs(steps) do
+					local goal = step.goals[1]
+					if #step.goals > 1 or not ns.Compat.IsOnQuest(goal.quest) then
+						required = step.title
+						r.effort = r.effort + QUEST_BASE
+						if located(goal) then r.effort = r.effort + (travel(here, goal, direct) or 0) end
+						here = step.goals[#step.goals] or here
+					end
+				end
+				if required then r.detail = detail(r.detail, L["Requires"] .. " " .. required) end
+			end
+		end
 		if class and p.class and class ~= p.class then
 			r.available, r.why, r.whyText = false, "class", L["Class mount"]
 		elseif item.reqLevel and item.reqLevel > p.level then
@@ -891,6 +911,8 @@ end
 
 if ns.RegisterEvent then
 	ns.RegisterEvent("QUEST_TURNED_IN", Lookup.ResetSources)
+	ns.RegisterEvent("QUEST_ACCEPTED", Lookup.ResetSources)
+	ns.RegisterEvent("QUEST_REMOVED", Lookup.ResetSources)
 	ns.RegisterEvent("SKILL_LINES_CHANGED", Lookup.ResetSources)
 	ns.RegisterEvent("ZONE_CHANGED_NEW_AREA", Lookup.ResetSources)
 end
