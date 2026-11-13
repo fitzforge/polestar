@@ -9737,6 +9737,18 @@ fileDataID from wago.tools into `data/sources/casc` (local, never shipped):
   with the first search there.
   The router gives up on a walk past 8 times the straight line plus 2000 yd (`Path.lua` DETOUR): a start on
   ground his maps join to the world only far away no longer searches most of a continent.
+  Three rules ported from Shortest Path Forever v1.33.0, each off until measured on the walking-map judges
+  (`forge nav pack --ground reached --ledges on --spawns on`). Only ground a player can reach stays (`pack/reach.rs`): a walk
+  from every fixed place (flight masters, inns, boat, zeppelin, tram and lift landings, portal ends, the travel
+  chains' nodes, each on its surface nearest its height within 5 yd) over steps, links, arcs, ledge drops and the
+  graph's kept edges, one way where they are; every surface it never reaches is dropped (a floor), left without a
+  surface (a base cell) or loses its entrance, so a start or goal without a height never stands on a statue's top
+  or a sealed room (Stormwind's Valley of Heroes: its statue bases were all a start between the street's cells
+  could stand on; to be checked on the regenerated maps). Our grid's ledge drops come in as one-way arcs (`pack/drops.rs`, Shortest Path Forever v1.31's
+  rule on our grid's falls): 2 to 14.57 yd down into the cell beside a ledge, where his maps lack the walk.
+  The maps also carry the heights of the NPC and quest object spawns that stand where floors overlap
+  (`pack/spawns.rs`, his v1.30 rule: the `spawn` field), and a goal without a height within 8 yd of one is walked
+  to on that spawn's floor first (`Path.lua` spawnHeight): the NPC in the cellar, not the street over it.
 
 ## Tests
 

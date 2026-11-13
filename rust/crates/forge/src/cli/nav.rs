@@ -19,7 +19,7 @@ Polestar checkout (default: the nearest folder above the working directory with 
 slots, files not downloaded: forge gamedata check) is refused, since the grid would be wrong
 there: run Scan and Repair in the launcher, or pass --allow-incomplete.
 
-usage: forge nav pack [--dir <grid>] [--layers <dir>] [--out <addon dir>] [--cells N] [--date YYYY-MM-DD] [--root <dir>] [--leffe <dir> [--leffe-maps 0,1,2991] [--literals zlib|base64]]
+usage: forge nav pack [--dir <grid>] [--layers <dir>] [--out <addon dir>] [--cells N] [--date YYYY-MM-DD] [--root <dir>] [--leffe <dir> [--leffe-maps 0,1,2991] [--literals zlib|base64] [--ground reached|all] [--ledges on|off] [--spawns on|off]]
 
 Writes Polestar's walking maps of maps 0, 1 and 2991 from the grid (--dir, default $POLESTAR_GRID,
 else <root>/data/local/nav4; grid format 4) and the ground layers (--layers, default
@@ -39,7 +39,15 @@ surface's area from the grid's surface nearest it (maps format 5); the chokepoin
 --leffe-maps names the maps taken from his (default all three); the rest stay the grid's. His
 continents' map parts ship in their own load-on-demand addons beside the folder (Polestar_Nav_EK,
 Polestar_Nav_Kalimdor; their metadata stays in Polestar_Nav), and their blocks as zlib bytes in the
-string literals (--literals base64 keeps base64).
+string literals (--literals base64 keeps base64). Three rules, each off until measured on the
+walking-map judges: --ground reached keeps only the ground a walk from a fixed place reaches
+(flight masters and inns by their NPC's spawn, boat, zeppelin, tram and lift landings and portal
+ends from <root>/data/forever travel.json and spawnz.json, and the travel chains' nodes in
+<root>/data/crossings.json; default all); --ledges on takes our grid's falls of 2 to 14.57 yd (the
+height a fall starts to hurt) into the cell beside a ledge as one-way arcs where his maps lack the
+walk down; --spawns on carries the heights of the NPC and quest object spawns (<root>/data/forever
+spawnz.json, quests.json) that stand within a cell of another floor (the spawn field: a goal with
+no height beside one ends on its floor).
 
 usage: forge nav check [--out <addon dir>] [--root <dir>]
 
@@ -201,7 +209,7 @@ fn today() -> String {
 }
 
 fn pack(args: &[String]) -> Result<(), Fail> {
-	let o = options(args, &["--dir", "--layers", "--out", "--cells", "--date", "--root", "--leffe", "--leffe-maps", "--literals"])?;
+	let o = options(args, &["--dir", "--layers", "--out", "--cells", "--date", "--root", "--leffe", "--leffe-maps", "--literals", "--ground", "--ledges", "--spawns"])?;
 	let cells: usize = match o.get("--cells") {
 		None => 128,
 		Some(v) => v.parse().ok().filter(|n| (8..=256).contains(n)).ok_or_else(|| usage("--cells needs a whole number from 8 to 256"))?,
@@ -223,6 +231,21 @@ fn pack(args: &[String]) -> Result<(), Fail> {
 		None | Some("zlib") => leffe.is_some(),
 		Some("base64") => false,
 		Some(_) => return Err(usage("--literals needs zlib or base64")),
+	};
+	let reached = match o.get("--ground").map(String::as_str) {
+		Some("reached") => true,
+		None | Some("all") => false,
+		Some(_) => return Err(usage("--ground needs reached or all")),
+	};
+	let ledges = match o.get("--ledges").map(String::as_str) {
+		Some("on") => leffe.is_some(),
+		None | Some("off") => false,
+		Some(_) => return Err(usage("--ledges needs on or off")),
+	};
+	let with_spawns = match o.get("--spawns").map(String::as_str) {
+		Some("on") => leffe.is_some(),
+		None | Some("off") => false,
+		Some(_) => return Err(usage("--spawns needs on or off")),
 	};
 	let date = o.get("--date").cloned().unwrap_or_else(today);
 	let ok_date = date.len() == 10 && date.bytes().enumerate().all(|(n, b)| if n == 4 || n == 7 { b == b'-' } else { b.is_ascii_digit() });
@@ -247,6 +270,10 @@ fn pack(args: &[String]) -> Result<(), Fail> {
 	let log = |m: &str| eprintln!("{m}");
 	let aids = grid.join("aids.json");
 	let t0 = Instant::now();
+	// The fixed places Leffe's maps keep the ground of (pack/reach.rs).
+	let places = if leffe.is_some() && reached { Some(forge_nav::pack::reach::fixed_places(&root)?) } else { None };
+	// The spawns whose heights go in where floors overlap (pack/spawns.rs).
+	let spawns = if with_spawns { Some(forge_nav::pack::spawns::spawn_points(&root)?) } else { None };
 	let p = forge_nav::pack::pack_nav(&forge_nav::pack::PackIn {
 		grid: &grid,
 		layers: &layers,
@@ -260,6 +287,9 @@ fn pack(args: &[String]) -> Result<(), Fail> {
 		generator: "forge nav pack",
 		leffe: leffe.as_ref().map(|(d, m)| (d.as_path(), m.as_slice())),
 		zlib_literals,
+		places: places.as_deref(),
+		ledges,
+		spawns: spawns.as_deref(),
 		log: &log,
 	})?;
 	let (written, removed) = forge_nav::pack::ship_pack(&p, &out)?;
