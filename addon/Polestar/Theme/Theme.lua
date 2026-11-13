@@ -471,8 +471,11 @@ end
 local S -- EllesmereUI's (or ErgoBars') primitive table, once its callback ran
 local provider -- "EllesmereUI" or "ErgoBars": whose skinning API registered us
 
--- The name of the UI suite Polestar can follow (both offer the same skinning contract), or nil.
-function Theme.SkinProvider() return S and provider or nil end
+-- The name of the UI suite whose skinning contract Polestar registered with
+-- (both offer the same one), or nil: known from the load on, before its
+-- callback hands the primitives over at login, so a settings page built
+-- early names it too.
+function Theme.SkinProvider() return provider end
 
 function Theme.IsEllesmere()
 	return S ~= nil

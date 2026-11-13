@@ -518,14 +518,19 @@ add({ page = QOL, tab = L["Vendors"], section = L["Trainers"], controls = { trai
 add({ page = L["Integrations"], key = "integrations", icon = "plug", order = 65,
 	subtitle = L["Settings for other addons Polestar works with, shown when they are installed."],
 	empty = L["None of the addons Polestar works with is installed."] }, true)
-add({ page = L["Integrations"], section = Theme.SkinProvider() or "EllesmereUI", controls = {
-	{ kind = "toggle", key = "ui.matchAccent", label = L["Match EllesmereUI accent"],
-		help = L["Follow EllesmereUI's accent, live. Picking your own accent turns this off."],
-		needs = function() return Theme.IsEllesmere() end },
-	{ kind = "toggle", key = "ui.matchFont", label = L["Match EllesmereUI font"],
-		help = L["Follow EllesmereUI's font, live. Choosing another font turns this off."],
-		needs = function() return Theme.IsEllesmere() end },
-} }, true)
+-- EllesmereUI's skinning contract, or ErgoBars' under its own name
+-- (Theme.SkinProvider): the section and its two switches name the suite.
+do
+	local suite = Theme.SkinProvider() or "EllesmereUI"
+	add({ page = L["Integrations"], section = suite, controls = {
+		{ kind = "toggle", key = "ui.matchAccent", label = L["Match %s accent"]:format(suite),
+			help = L["Follow %s's accent, live. Picking your own accent turns this off."]:format(suite),
+			needs = function() return Theme.IsEllesmere() end },
+		{ kind = "toggle", key = "ui.matchFont", label = L["Match %s font"]:format(suite),
+			help = L["Follow %s's font, live. Choosing another font turns this off."]:format(suite),
+			needs = function() return Theme.IsEllesmere() end },
+	} }, true)
+end
 add({ page = L["Integrations"], section = "Spoken", controls = {
 	{ kind = "toggle", key = "behavior.spokenDelay", label = L["Wait for Spoken"],
 		help = L["Waits 200 ms before each automatic quest accept, turn-in and reward pick, so Spoken has time to notice the window and read it."],
