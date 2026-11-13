@@ -5398,11 +5398,11 @@
 				"goal": "turnin"
 			},
 			"tip": "Swim to the small island off the southern tip of Azshara. If Pilot Xiggs Fuselighter isn't there, fire your Standard Issue Flare Gun to signal him, and wait for him to land.",
-			"note": "Review (0.3.6): the tip said Xiggs 'waits by the monument'. Quest text 3449 ('signaling Pilot Xiggs Fuselighter to pick them up'; completion: 'toss the flare gun') and the knowledge base (step 5: fire the Standard Issue Flare Gun 10444 on the island, wait for the pilot) say he comes on the flare; no recording has met him. Worded so it holds either way: verify in game whether he stands there.",
+			"note": "Review (0.3.6): the tip said Xiggs 'waits by the monument'. Quest text 3449 ('signaling Pilot Xiggs Fuselighter to pick them up'; completion: 'toss the flare gun') says he comes on the flare (fire the Standard Issue Flare Gun 10444 on the island, then wait for the pilot); no recording has met him. Worded so it holds either way: verify in game whether he stands there.",
 			"source": [
 				{
 					"kind": "client",
-					"ref": "quests.json 3449 objectiveText; page snapshot 3449; quest-steps.json 3449"
+					"ref": "quests.json 3449 objectiveText"
 				}
 			]
 		},
