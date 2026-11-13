@@ -152,6 +152,8 @@
 --     and the yards between the player and that place
 --   Walk.SightAim() -> c, wx, wy | nil: the last Aim's point when it was in
 --     sight beside the path (the route line's walk starts toward it)
+--   Walk.LastAim() -> c, wx, wy | nil: the last Aim's point, whatever it was
+--     (the route line's walk starts toward it when the player is far off it)
 --   Walk.Left(c, x, y) -> yards left along the path to that goal at the last Aim | nil
 --   Walk.Passed(c, x, y, seg) -> the player is past segment `seg` of that goal's path
 --   Walk.Stops(pc, px, py) -> stops, total: the chokepoints along the path
@@ -813,7 +815,7 @@ end
 -- line crosses a cluster the router has not decoded (nil: it decodes nothing).
 -- One function for every Aim, so passing it allocates nothing.
 local sightC, sightZ
-local sightAimC, sightAimX, sightAimY -- the arrow's last aim when it was by sight (Walk.SightAim)
+local aimC, aimX, aimY -- the arrow's aim at the last Aim, a point on the path (Walk.LastAim; Walk.SightAim while by sight)
 local function sight(x1, y1, x2, y2, z2)
 	local P = Nav.Path
 	local C = ns.Compat
@@ -1128,6 +1130,7 @@ function Walk.Aim(pc, px, py, goalC, goalX, goalY, handmade, goalZ, stop)
 	end
 	local ax, ay = Nav.follow.Step(ptsX, ptsY, ptsZ, left, count, fstate, px, py, stop, join, look, outdoors)
 	idx = fstate.idx
+	aimC, aimX, aimY = ax and pc, ax, ay
 	if not ax then
 		lastLeft = nil
 		return nil
@@ -1157,7 +1160,6 @@ function Walk.Aim(pc, px, py, goalC, goalX, goalY, handmade, goalZ, stop)
 	-- whole walk again, and a mounted player cutting corners strayed every few seconds (a search every 4-5 s, ~1 MB of
 	-- garbage a second). A stray that long after the last ask still asks at once.
 	local every = lastLeft > ASK_FAR and ASK_FAR_EVERY or ASK_EVERY
-	if fstate.sighted then sightAimC, sightAimX, sightAimY = pc, ax, ay end
 	if fstate.off > STRAY and not fstate.sighted and token == nil and not wanted and GetTime() - askedAt >= every then ask(P, pc, px, py) end
 	return pc, ax, ay, lastLeft
 end
@@ -1184,7 +1186,17 @@ end
 -- route line's walk starts from the player toward it (Maps/RouteLines.lua).
 function Walk.SightAim()
 	if count == 0 or not fstate.sighted then return nil end
-	return sightAimC, sightAimX, sightAimY
+	return aimC, aimX, aimY
+end
+
+-- The arrow's aim at the last Aim, whatever it was (the point in sight, the
+-- corridor's aim along the path, or the point LEAD yards past the player's
+-- place when they are off it): c, wx, wy, a point on the path; else nil (no
+-- path, or the player at its end). The route line's walk starts from the
+-- player toward it when they are far off the walk (Maps/RouteLines.lua).
+function Walk.LastAim()
+	if count == 0 or not aimC then return nil end
+	return aimC, aimX, aimY
 end
 
 -- Has the player gone past segment `seg` of the path to (c, x, y)?

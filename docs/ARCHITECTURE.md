@@ -4295,7 +4295,12 @@ wobbled across 15 yd, and the arrow flipped 37-57° between the two aims at
 every crossing). While a point ahead is in sight
 (`state.sighted`) the player has not strayed: no new search. The route line's walk then starts
 from the player toward that point (`Walk.SightAim`, Maps/RouteLines.lua), not
-straight across to the nearest one. The yards it reports are
+straight across to the nearest one. More than 60 yd off the walk
+(`LIVE_REACH`), where no point of it is in reach, the line starts from the
+player toward the arrow's aim whatever it is (`Walk.LastAim`: the point in
+sight, the corridor's, or the point 10 yd past the player's place); before
+0.3.8 it kept the start it last had in reach, so line and arrow disagreed on
+every stray (12.5% of the moving time on a stray-heavy replay sample). The yards it reports are
 the yards left along the path (straight to the end of the segment the player
 is on, then along it); with the arrow on a point in sight beside the path,
 straight to that point, then along the path from it (0.3.6: beside the path
