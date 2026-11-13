@@ -2450,5 +2450,138 @@
 			}
 		],
 		"note": "The Alliance Brigadier General also stands at Northwatch Hold, beside the Darkspear Islands portal, where players hand him their marks. The merged data had no spot for him in the Barrens, so the Darkspear Islands guide sent players to Refuge Pointe. Adds the Barrens map; his other spots stay."
+	},
+	"43408": {
+		"set": {
+			"roles": [
+				"stablemaster"
+			]
+		},
+		"source": [
+			{
+				"kind": "questie",
+				"ref": "QuestieDB 1.0.16 npc 43408: subName \"Stable Master\""
+			},
+			{
+				"kind": "factoruide",
+				"ref": "Factoruide npc 43408: subName \"Stable Master\""
+			},
+			{
+				"kind": "tdb",
+				"ref": "creature_template npcflag 4194433 for entry 43408: the stable master flag (0x400000)"
+			}
+		],
+		"note": "Aili Greenwillow is a stable master (the title under the name reads \"Stable Master\"), but the merged data had no stable master role for this Forever NPC, so Nearby's stable master search passed over it and named one on another continent (#2010)."
+	},
+	"256410": {
+		"set": {
+			"roles": [
+				"stablemaster"
+			]
+		},
+		"source": [
+			{
+				"kind": "questie",
+				"ref": "QuestieDB 1.0.16 npc 256410: subName \"Stablemaster\""
+			},
+			{
+				"kind": "factoruide",
+				"ref": "Factoruide npc 256410: subName \"Stablemaster\""
+			}
+		],
+		"note": "Reginald Holmsby is a stable master (the title under the name reads \"Stablemaster\"), but the merged data had no stable master role for this Forever NPC, so Nearby's stable master search passed over it and named one on another continent (#2010)."
+	},
+	"256673": {
+		"set": {
+			"roles": [
+				"stablemaster"
+			]
+		},
+		"source": [
+			{
+				"kind": "questie",
+				"ref": "QuestieDB 1.0.16 npc 256673: subName \"Stable Master\""
+			},
+			{
+				"kind": "factoruide",
+				"ref": "Factoruide npc 256673: subName \"Stable Master\""
+			}
+		],
+		"note": "Grik is a stable master (the title under the name reads \"Stable Master\"), but the merged data had no stable master role for this Forever NPC, so Nearby's stable master search passed over it and named one on another continent (#2010)."
+	},
+	"259190": {
+		"set": {
+			"roles": [
+				"stablemaster"
+			]
+		},
+		"source": [
+			{
+				"kind": "questie",
+				"ref": "QuestieDB 1.0.16 npc 259190: subName \"Stable Master\""
+			},
+			{
+				"kind": "factoruide",
+				"ref": "Factoruide npc 259190: subName \"Stable Master\""
+			}
+		],
+		"note": "Ephram Barbaro is a stable master (the title under the name reads \"Stable Master\"), but the merged data had no stable master role for this Forever NPC, so Nearby's stable master search passed over it and named one on another continent (#2010)."
+	},
+	"259859": {
+		"set": {
+			"roles": [
+				"stablemaster"
+			]
+		},
+		"source": [
+			{
+				"kind": "questie",
+				"ref": "QuestieDB 1.0.16 npc 259859: subName \"Stable Master\""
+			},
+			{
+				"kind": "factoruide",
+				"ref": "Factoruide npc 259859: subName \"Stable Master\""
+			}
+		],
+		"note": "Wheatley is a stable master (the title under the name reads \"Stable Master\"), but the merged data had no stable master role for this Forever NPC, so Nearby's stable master search passed over it and named one on another continent (#2010)."
+	},
+	"260525": {
+		"set": {
+			"roles": [
+				"stablemaster"
+			]
+		},
+		"source": [
+			{
+				"kind": "questie",
+				"ref": "QuestieDB 1.0.16 npc 260525: subName \"Stable Master\""
+			},
+			{
+				"kind": "factoruide",
+				"ref": "Factoruide npc 260525: subName \"Stable Master\""
+			}
+		],
+		"note": "Tallow Sparksocket is a stable master (the title under the name reads \"Stable Master\"), but the merged data had no stable master role for this Forever NPC, so Nearby's stable master search passed over it and named one on another continent (#2010)."
+	},
+	"265756": {
+		"set": {
+			"roles": [
+				"repair",
+				"stablemaster",
+				"trainer",
+				"vendor"
+			]
+		},
+		"source": [
+			{
+				"kind": "questie",
+				"ref": "QuestieDB 1.0.16 npc 265756: subName \"Stablemaster and Riding Trainer\""
+			},
+			{
+				"kind": "factoruide",
+				"ref": "Factoruide npc 265756: subName \"Stablemaster and Riding Trainer\""
+			}
+		],
+		"note": "Genn Fairweather is a stable master (the title under the name reads \"Stablemaster and Riding Trainer\"), but the merged data had no stable master role for this Forever NPC, so Nearby's stable master search passed over it and named one on another continent (#2010). It keeps its repair, trainer and vendor roles."
 	}
 }

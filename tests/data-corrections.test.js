@@ -373,3 +373,13 @@ test('Lightforge Ingots waits for The Lost Ingots, which does not close it (#199
 	const ingots = { id: 526, start: { npc: [1217] }, ...corrections.quests[526].set };
 	assert.deepEqual(blockingPrereqs(ingots, (id) => (id === 324 ? lost : null)), { all: [], any: [324] });
 });
+
+// #2010: Nearby's stable master search named one on another continent to a Skyborne Hunter on Zephras Isle. Seven
+// Forever NPCs whose title reads Stable Master (Genn Fairweather at the Fairweather Stables in Valanaar among them)
+// had no stable master role in the merged data. Sweep: every spawned NPC titled stable master in data/forever.
+test('every stable master by title has the stable master role (#2010)', () => {
+	for (const id of [43408, 256410, 256673, 259190, 259859, 260525, 265756]) {
+		assert.ok(corrections.npcs[id] && corrections.npcs[id].set.roles.includes('stablemaster'), `npc ${id}`);
+	}
+	assert.deepEqual(corrections.npcs[265756].set.roles, ['repair', 'stablemaster', 'trainer', 'vendor'], 'Genn Fairweather keeps his other roles');
+});
