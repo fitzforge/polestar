@@ -8,6 +8,7 @@ mod engine_rilua;
 mod frame_default;
 mod fuzz_guide;
 mod guidetext_parity;
+mod honest_empty;
 mod honest_parity;
 mod judge_parity;
 mod judge_simlevels;

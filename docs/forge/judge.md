@@ -77,6 +77,11 @@ first `next` option without a `when`. Each chain is played by a set of
 each class an `only` in the guide names, and one class no `only` names. With
 `--class` you pick the classes instead.
 
+A run that selects guides but dispatches no eligible character fails with
+`nothing played`. An empty pack or an unmatched guide filter reports that
+no guides were selected. These errors apply in default and legacy mode;
+valid runs keep reporting the number of selected guides and their findings.
+
 ### The rules
 
 | Rule | Checks | Severity |

@@ -4,6 +4,7 @@
 use super::{arriving, honest_play, kb_from_rows, personas, Finding, HonestOpts, Kb, KbStep, Persona};
 use forge_guide::data::Data;
 use forge_guide::project::{compile_checked, find_guide_files, CompileOpts, Source};
+use std::cell::Cell;
 use std::path::Path;
 
 /// loadKb: `steps where drives = 1 and n is not null order by quest, n` from `file`; None when the file
@@ -120,6 +121,7 @@ fn race_file(r: &str) -> String {
 
 /// `playtest <pack dir> --honest [--filter f]` on a pack folder of ours, limited to a faction and race:
 /// compile the filter's guides with their `next` chain, then play every chain holding one of them.
+/// An empty selection or no eligible characters is an error, not a clean play.
 pub fn play_pack(pack_dir: &Path, data: &Data, kb: Option<&Kb>, run: &PackRun, opts: &HonestOpts) -> Result<PackResult, String> {
 	let all = find_guide_files(pack_dir, false);
 	let texts: Vec<(String, String)> = all.iter().map(|rel| (rel.clone(), std::fs::read_to_string(pack_dir.join(rel)).unwrap_or_default())).collect();
@@ -137,11 +139,22 @@ pub fn play_pack(pack_dir: &Path, data: &Data, kb: Option<&Kb>, run: &PackRun, o
 		with_chain(&texts, &wanted).into_iter().map(|rel| Source { file: format!("{shown}/{rel}"), text: by_rel.get(rel.as_str()).copied().unwrap_or("").to_string(), source: rel }).collect();
 	let guides = compile_checked(&sources, data, &CompileOpts { pack: None, author: None, context: None, pack_dir: None })?.guides;
 	let play: Vec<String> = guides.iter().filter(|g| wanted.iter().any(|w| g.hidden("_ast").get("source").as_str() == Some(w.as_str()))).map(|g| g.get("id").to_js_string()).collect();
+	if play.is_empty() {
+		return Err(run.filter.as_ref().map_or_else(|| "no guides in the pack".into(), |f| format!("no guide matches \"{f}\"")));
+	}
 	let arr = arriving(&guides);
 	let race = run.race.as_deref().map(race_file);
+	let plays = Cell::new(0);
 	let personas_of = |root: &forge_guide::js::V| -> Vec<Persona> {
-		personas(data, root, &arr, run.classes.as_deref()).into_iter().filter(|p| run.faction.as_ref().is_none_or(|f| *f == p.faction) && race.as_ref().is_none_or(|r| *r == p.race)).collect()
+		let characters: Vec<_> =
+			personas(data, root, &arr, run.classes.as_deref()).into_iter().filter(|p| run.faction.as_ref().is_none_or(|f| *f == p.faction) && race.as_ref().is_none_or(|r| *r == p.race)).collect();
+		// honest_play asks only for chains containing a selected guide.
+		plays.set(plays.get() + characters.len());
+		characters
 	};
 	let findings = honest_play(&guides, data, &personas_of, kb, Some(&play), opts);
+	if plays.get() == 0 {
+		return Err("honest playtest failed: nothing played: no eligible characters for the selected guides".into());
+	}
 	Ok(PackResult { findings, played: play.len() })
 }
