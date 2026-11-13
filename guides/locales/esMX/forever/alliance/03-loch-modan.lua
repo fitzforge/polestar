@@ -365,10 +365,4 @@ return {
 	["Cathedral of Light"] = "",
 	-- {npc:6171} Duthorian Rall
 	["{npc:6171}: Redemption"] = "{npc:6171}: Redención",
-
-	-- No longer in the guide (its English changed or it went away): reuse or delete.
-	-- ["Back down to the east shore below the boars' hills: {npc:270693}, a crocolisk, patrols it among the Loch Crocolisks."] = "Baja de nuevo a la orilla este, debajo de las colinas de los jabalíes: {npc:270693}, un crocolisco, la patrulla entre los crocoliscos del lago.",
-	-- ["Elder Mountain Boars"] = "Jabalíes monteses mayores",
-	-- ["The Elder Mountain Boars roam the hills north-west of the lodge, along the east shore. {quest:258} runs for 12 minutes: kill five and go straight back to Daryl; the crocolisks come after."] = "Los jabalíes monteses mayores recorren las colinas al noroeste del pabellón, a lo largo de la orilla este. {quest:258} dura 12 minutos: mata cinco y regresa directo con Daryl; los crocoliscos van después.",
-	-- ["{npc:270693} and the loch crocolisks"] = "{npc:270693} y los crocoliscos del lago",
 }
