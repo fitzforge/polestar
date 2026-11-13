@@ -11968,3 +11968,12 @@ test('Alliance 50-60: Taelan\'s Hammer before Tirion\'s hand-in after the fold; 
 	const mound = six[at(six, 'turnin 6024', is('turnin', 6024))].step;
 	assert.match(said(mound), /adds come with Mercutio/, 'and the adds warning at the mound');
 });
+
+// 0.4.0 audit (lint): the Lakeshire way to Morgan's Vigil leads by its getfp alone; a goto 2 yards from the flight
+// master on the same step only doubled the arrow's point.
+test('Alliance 50-60/01: Morgan\'s Vigil flight path step without a second point', { skip }, () => {
+	const bs = goals('forever/alliance/50-60/01-burning-steppes.guide');
+	const fp = bs.find(({ goal }) => goal.t === 'getfp' && /Morgan/.test(goal.location || ''));
+	assert.ok(fp, 'the getfp step');
+	assert.ok(!bs.some(({ goal, s }) => s === fp.s && goal.t === 'goto'), 'no goto beside it');
+});

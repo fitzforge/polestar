@@ -265,7 +265,6 @@ step Morgan's Vigil flight master
   when !taxi "Morgan's Vigil"
   zone Burning Steppes
   tip Ride east out of Lakeshire and up the pass into the Burning Steppes: Morgan's Vigil stands at the top.
-  goto 84.4,68.3 "Morgan's Vigil flight master"
   getfp "Morgan's Vigil"
 
 step Morgan's Vigil
