@@ -811,7 +811,8 @@ fn grow_upward_pins_the_window_by_its_bottom_left_turning_it_on_or_off_keeps_the
 fn bar_at_the_bottom_needs_grow_upward_then_the_tabs_navigator_and_progress_stack_at_the_bottom() {
 	let out = run(r#"
 		uistub.setGuide(uistub.elwynn, 3)
-		local function at() return { strip = { GF.parts.strip:GetPoint(1) }, foot = { GF.parts.foot:GetPoint(1) }, nav = { GF.parts.nav:GetPoint(1) } } end
+		-- GetPoint also returns a frame: emit only the anchor strings, not its whole object graph.
+		local function at() return { strip = GF.parts.strip:GetPoint(1), foot = select(3, GF.parts.foot:GetPoint(1)), nav = GF.parts.nav:GetPoint(1) } end
 		local normal = at()
 		Polestar.Set("ui.barsBottom", true)
 		local withoutGrow = at()
@@ -820,7 +821,7 @@ fn bar_at_the_bottom_needs_grow_upward_then_the_tabs_navigator_and_progress_stac
 		Polestar.Set("ui.barsBottom", false)
 		emit({ normal = normal, withoutGrow = withoutGrow, flipped = flipped, back = at() })"#)
 	.remove(0);
-	let pt = |o: &Value| json!([o["strip"][0].clone(), o["foot"][2].clone(), o["nav"][0].clone()]);
+	let pt = |o: &Value| json!([o["strip"].clone(), o["foot"].clone(), o["nav"].clone()]);
 	assert_eq!(pt(&out["normal"]), json!(["TOPLEFT", "BOTTOMLEFT", "TOPLEFT"]), "default: tabs on top, foot at the bottom");
 	assert_eq!(pt(&out["withoutGrow"]), json!(["TOPLEFT", "BOTTOMLEFT", "TOPLEFT"]), "without grow upward the option changes nothing");
 	assert_eq!(pt(&out["flipped"]), json!(["BOTTOMLEFT", "TOPLEFT", "BOTTOMLEFT"]), "flipped: tabs at the bottom, the navigator and the foot stacked above them");
