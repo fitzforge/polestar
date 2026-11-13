@@ -5228,7 +5228,8 @@
 			"faction": "Horde",
 			"at": {
 				"quest": 1431,
-				"goal": "accept"
+				"goal": "accept",
+				"guide": "forever/horde/30-40/02-thousand-needles"
 			},
 			"tip": "The zeppelin lands at the tower outside Orgrimmar's main gate. Craven Drok walks the Drag: if he isn't at the arrow, look along its streets to the south-west. Keldran stands in the Valley of Spirits on the west side of the city.",
 			"note": "Alliance Relations (1431): Craven Drok walks a waypoint path through the Drag from his spawn at 51.3,45.9 (the data's point); the tip said he waits there. Players' recordings: 46 people met him across the Drag (46-52,43-52, most at 48-51,49-51), and the 3 who took the quest did so at 51.8,45.1, 47.8,49.7 and 44.5,52.4.",
