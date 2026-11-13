@@ -1645,9 +1645,9 @@ end
 local function applyTarget(b)
 	QoL.Secure("target", function()
 		local list = target.list
-		-- A mob is pinged for the group; an NPC goal's NPC stays where it is.
+		-- A mob and an NPC goal's NPC are both pinged for the group (Fitz, 2026-11-13).
 		local kind = targetKind()
-		local text = Buttons.TargetMacro(list, target.cycle, Buttons.MarkLine(kind), kind == "mob" and Buttons.QuestPingLine() or nil)
+		local text = Buttons.TargetMacro(list, target.cycle, Buttons.MarkLine(kind), Buttons.QuestPingLine())
 		b:SetAttribute("type", text and "macro" or nil)
 		b:SetAttribute("macrotext", text)
 		b.applied = list[target.cycle]
@@ -1961,9 +1961,9 @@ local function applyStep(b)
 		local text, item
 		if step.kind == "target" then
 			local kind = stepKind()
-			text = Buttons.TargetMacro(step.list, step.cycle, Buttons.MarkLine(kind), kind == "mob" and Buttons.QuestPingLine() or nil)
+			text = Buttons.TargetMacro(step.list, step.cycle, Buttons.MarkLine(kind), Buttons.QuestPingLine())
 		elseif step.kind == "npc" then
-			text = Buttons.TargetMacro({ step.value }, 1, Buttons.MarkLine("npc"))
+			text = Buttons.TargetMacro({ step.value }, 1, Buttons.MarkLine("npc"), Buttons.QuestPingLine())
 		elseif step.kind == "item" then
 			item = "item:" .. step.value
 		end

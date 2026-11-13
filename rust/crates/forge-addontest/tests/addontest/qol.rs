@@ -15,6 +15,9 @@ const PRELUDE: &str = r#"
 local q = stub.qol
 local QoL = Polestar.QoL
 local function set(k, v) Polestar.Set("qol." .. k, v); stub.runTimers() end
+-- Marking is on by default (0.4.0, Fitz 2026-11-13); the button tests start from it off and turn it on
+-- where they test it. Its default has its own test (mark_target_alone_...).
+set("markTarget", false)
 local function calls(name)
 	local out = {}
 	for _, c in ipairs(q.calls) do if c[1] == name then out[#out + 1] = c[2] or true end end
@@ -913,8 +916,7 @@ fn step_key_interact_stage_never_compares_a_secret_target_name_the_npc_id_still_
 }
 
 #[test]
-fn mark_target_off_by_default_on_the_target_button_and_step_key_put_a_skull_on_a_live_hostile_mob_and_a_star_on_an_npc_friendly_or_neutral_never_take_one_off_and_clear_the_target_only_out_of_combat()
-{
+fn mark_target_switched_off_on_the_target_button_and_step_key_put_a_skull_on_a_live_hostile_mob_and_a_star_on_an_npc_friendly_or_neutral_never_take_one_off_and_clear_the_target_only_out_of_combat() {
 	let out = run(r#"
 		local t, s = PolestarTargetButton, PolestarStepButton
 		q.step({ { t = "kill", target = "Kobold Vermin", quest = 7, oi = 1 } })
@@ -930,7 +932,7 @@ fn mark_target_off_by_default_on_the_target_button_and_step_key_put_a_skull_on_a
 		emit(Polestar.QoL.Buttons.TargetMacro(long, 1, "/tm [@target,harm,nodead] !8"))
 	"#);
 	let plain = |name: &str| format!("/cleartarget [nocombat]\n/targetexact {name}\n/cleartarget [dead]");
-	assert_eq!(out[0], json!([plain("Kobold Vermin"), plain("Kobold Vermin")]), "off by default");
+	assert_eq!(out[0], json!([plain("Kobold Vermin"), plain("Kobold Vermin")]), "switched off");
 	// Cleared first: when no name is in range, nothing is left targeted to mark.
 	// Not in a fight, where clearing the target would stop melee and Auto Shot.
 	let skull = plain("Kobold Vermin") + "\n/tm [@target,harm,nodead] !8";
@@ -944,7 +946,7 @@ fn mark_target_off_by_default_on_the_target_button_and_step_key_put_a_skull_on_a
 }
 
 #[test]
-fn ping_off_by_default_on_the_target_button_and_step_key_the_rare_button_always_pings_a_mob_after_targeting_never_an_npc_the_mark_last() {
+fn mark_on_ping_off_by_default_the_target_button_and_step_key_ping_mobs_and_npcs_when_on_the_rare_button_always_pings_the_mark_last() {
 	let script = r#"
 		local t, s, r = PolestarTargetButton, PolestarStepButton, PolestarRareButton
 		local nearby = { "Thuros Lightfingers" }
@@ -952,7 +954,10 @@ fn ping_off_by_default_on_the_target_button_and_step_key_the_rare_button_always_
 		q.step({ { t = "kill", target = "Kobold Vermin", quest = 7, oi = 1 } })
 		Polestar.Fire("RARE_NEARBY")
 		stub.runTimers()
-		emit({ Polestar.GetDefault("qol.pingTarget"), t:GetAttribute("macrotext"), s:GetAttribute("macrotext"), r:GetAttribute("macrotext") })
+		local defaults = { Polestar.GetDefault("qol.pingTarget"), Polestar.GetDefault("qol.markTarget") }
+		set("pingTarget", false)
+		set("markTarget", false)
+		emit({ defaults, t:GetAttribute("macrotext"), s:GetAttribute("macrotext"), r:GetAttribute("macrotext") })
 		set("pingTarget", true)
 		emit({ t:GetAttribute("macrotext"), s:GetAttribute("macrotext") })
 		set("markTarget", true)
@@ -966,12 +971,16 @@ fn ping_off_by_default_on_the_target_button_and_step_key_the_rare_button_always_
 	let plain = |name: &str| format!("/cleartarget [nocombat]\n/targetexact {name}\n/cleartarget [dead]");
 	let out = run_with(script, "SLASH_PING1 = \"/ping\"", None);
 	let ping = |name: &str| plain(name) + "\n/ping [@target]";
-	assert_eq!(out[0], json!([false, plain("Kobold Vermin"), plain("Kobold Vermin"), ping("Thuros Lightfingers")]), "off by default; the rare button always pings");
+	assert_eq!(
+		out[0],
+		json!([[false, true], plain("Kobold Vermin"), plain("Kobold Vermin"), ping("Thuros Lightfingers")]),
+		"ping off and mark on by default (Fitz, 2026-11-13); with both off, no ping; the rare button always pings"
+	);
 	assert_eq!(out[1], json!([ping("Kobold Vermin"), ping("Kobold Vermin")]));
 	let marked = ping("Kobold Vermin") + "\n/tm [@target,harm,nodead] !8";
 	assert_eq!(out[2], json!([marked, marked]), "the ping right after the target, the mark last");
-	let star = plain("Marshal Dughan") + "\n/tm [@target,exists,nodead,nocombat][@target,noharm,nodead] !1";
-	assert_eq!(out[3], json!([star, star]), "an NPC goal's NPC is not pinged");
+	let star = ping("Marshal Dughan") + "\n/tm [@target,exists,nodead,nocombat][@target,noharm,nodead] !1";
+	assert_eq!(out[3], json!([star, star]), "an NPC goal's NPC is pinged too, the star last");
 	let long = text(&out[4]);
 	assert!(long.len() <= 255, "fits a macro");
 	assert!(long.ends_with("\n/cleartarget [dead]\n/ping [@target]\n/tm [@target,harm,nodead] !8"), "names are dropped, never the ping or the mark");
@@ -1102,7 +1111,9 @@ fn mark_target_alone_the_skull_goes_on_a_hostile_mob_a_second_press_never_takes_
 	let out = run_group(
 		r#"
 		local t, s = PolestarTargetButton, PolestarStepButton
-		emit({ Polestar.GetDefault("qol.markTarget"), tm(t), tm(s) })
+		local default = Polestar.GetDefault("qol.markTarget")
+		set("markTarget", false)
+		emit({ default, tm(t), tm(s) })
 		set("markTarget", true)
 		emit({ B.MarkRight(), tm(t), tm(s) })
 		local mob, starred = { hostile = true }, { hostile = true, icon = 1 }
@@ -1111,7 +1122,7 @@ fn mark_target_alone_the_skull_goes_on_a_hostile_mob_a_second_press_never_takes_
 		emit({ press(m, { hostile = false }) or false, press(m, { hostile = true, dead = true }) or false })
 	"#,
 	);
-	assert_eq!(out[0], json!([false, false, false]), "off by default");
+	assert_eq!(out[0], json!([true, false, false]), "on by default (Fitz, 2026-11-13); switched off, no mark");
 	assert_eq!(out[1], json!(["set", SKULL, SKULL]));
 	assert_eq!(out[2], json!([8, 8, 8, 8]), "a second press keeps the skull");
 	assert_eq!(out[3], json!([false, false]), "a friendly unit fails [harm], a corpse [nodead]");
@@ -2231,13 +2242,13 @@ fn target_button_while_you_re_here_mobs_before_the_step_s_npc_beyond_the_radius_
 	let out = run_with(&script, "SLASH_PING1 = \"/ping\"", None);
 	let mob_first =
 		"/cleartarget [nocombat]\n/targetexact Skeletal Fiend\n/cleartarget [dead]\n/targetexact [noexists] Sven Yorgen\n/cleartarget [dead]\n/ping [@target]\n/tm [@target,harm,nodead] !8";
-	let npc_first = "/cleartarget [nocombat]\n/targetexact Sven Yorgen\n/cleartarget [dead]\n/targetexact [noexists] Skeletal Fiend\n/cleartarget [dead]\n/tm [@target,exists,nodead,nocombat][@target,noharm,nodead] !1";
+	let npc_first = "/cleartarget [nocombat]\n/targetexact Sven Yorgen\n/cleartarget [dead]\n/targetexact [noexists] Skeletal Fiend\n/cleartarget [dead]\n/ping [@target]\n/tm [@target,exists,nodead,nocombat][@target,noharm,nodead] !1";
 	assert_eq!(out[0], "Sven Yorgen", "no rows: the NPC alone");
 	assert_eq!(out[1], json!(["Skeletal Fiend, Sven Yorgen", "Skeletal Fiend", mob_first]), "200 yd from Sven: the row's mob first, pinged and marked as a mob");
-	assert_eq!(out[2], json!(["Sven Yorgen, Skeletal Fiend", "Sven Yorgen", npc_first]), "100 yd: Sven first, an NPC's mark, no ping");
+	assert_eq!(out[2], json!(["Sven Yorgen, Skeletal Fiend", "Sven Yorgen", npc_first]), "100 yd: Sven first, pinged, with an NPC's mark");
 	assert_eq!(out[3], "Sven Yorgen, Skeletal Fiend", "179 yd: still within");
 	assert_eq!(out[4], "Skeletal Fiend, Sven Yorgen", "181 yd: beyond again");
-	assert_eq!(out[5], json!(["Sven Yorgen", "/cleartarget [nocombat]\n/targetexact Sven Yorgen\n/cleartarget [dead]\n/targetexact [noexists] Skeletal Fiend\n/cleartarget [dead]\n/tm [@target,exists,nodead,nocombat][@target,noharm,nodead] !1"]), "a press: Sven next, with his own kind's mark");
+	assert_eq!(out[5], json!(["Sven Yorgen", npc_first]), "a press: Sven next, pinged, with his own kind's mark");
 	assert_eq!(out[6], "Sven Yorgen, Skeletal Fiend", "a wider radius: 181 yd is within it");
 	assert_eq!(out[7], "Sven Yorgen", "the rows hid: the NPC alone, wherever the player stands");
 }
@@ -2264,7 +2275,7 @@ fn step_key_while_you_re_here_mobs_before_the_step_s_npc_beyond_the_radius_after
 	]
 	.concat();
 	let out = run_with(&script, "SLASH_PING1 = \"/ping\"", None);
-	assert_eq!(out[0], json!(["Sven Yorgen", "/cleartarget [nocombat]\n/targetexact Sven Yorgen\n/cleartarget [dead]"]), "no rows: the NPC keeps the key");
+	assert_eq!(out[0], json!(["Sven Yorgen", "/cleartarget [nocombat]\n/targetexact Sven Yorgen\n/cleartarget [dead]\n/ping [@target]"]), "no rows: the NPC keeps the key, pinged");
 	assert_eq!(
 		out[1],
 		json!(["Skeletal Fiend, Sven Yorgen", "/cleartarget [nocombat]\n/targetexact Skeletal Fiend\n/cleartarget [dead]\n/targetexact [noexists] Sven Yorgen\n/cleartarget [dead]\n/ping [@target]"]),
@@ -2272,8 +2283,8 @@ fn step_key_while_you_re_here_mobs_before_the_step_s_npc_beyond_the_radius_after
 	);
 	assert_eq!(
 		out[2],
-		json!(["Sven Yorgen, Skeletal Fiend", "/cleartarget [nocombat]\n/targetexact Sven Yorgen\n/cleartarget [dead]\n/targetexact [noexists] Skeletal Fiend\n/cleartarget [dead]"]),
-		"100 yd: Sven first, not pinged"
+		json!(["Sven Yorgen, Skeletal Fiend", "/cleartarget [nocombat]\n/targetexact Sven Yorgen\n/cleartarget [dead]\n/targetexact [noexists] Skeletal Fiend\n/cleartarget [dead]\n/ping [@target]"]),
+		"100 yd: Sven first, pinged too"
 	);
 	assert_eq!(out[3], "Skeletal Fiend, Sven Yorgen", "210 yd: the mob first again");
 }

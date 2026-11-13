@@ -988,7 +988,6 @@ L["Click objectives to target"] = "Выбор цели щелчком по за�
 L["Clicking an objective row or NPC heading also targets its NPC outside combat, using the same marking settings as the Target button. This replaces your current target; a failed search clears it."] = "Щелчок по строке задачи или заголовку NPC вне боя также выбирает этого NPC целью, с теми же настройками меток, что и у кнопки цели. Текущая цель при этом заменяется; неудачный поиск сбрасывает её."
 L["The target button and the step key put a raid icon on the mob and the NPC they target; out of combat, a press that finds neither clears your target. Pressing again never takes an icon off. In a party you don't lead, only a unit with no icon gets one; in a raid, only when you lead or assist."] = "Кнопка цели и клавиша шага ставят рейдовую метку на противника или НИП, которых выбирают целью; вне боя нажатие, не нашедшее ни того ни другого, сбрасывает вашу цель. Повторное нажатие никогда не снимает метку. В группе, где вы не лидер, метку получает только цель без метки; в рейде — только если вы лидер или помощник."
 L["Ping what they target"] = "Отмечать пингом выбранную цель"
-L["The target button and the step key ping the mob they target, so your group sees it behind rocks and buildings. Never in a raid unless you lead or assist. The rare buttons always ping."] = "Кнопка цели и клавиша шага отмечают пингом выбранного противника, чтобы группа видела его за скалами и зданиями. В рейде — только если вы лидер или помощник. Кнопки редкой цели отмечают всегда."
 L["Show quest-starting loot"] = "Показывать добычу, начинающую задания"
 L["When you loot an item that starts a quest you can take, it goes on the quest item button with a glow until you click it or take the quest. The step's own item comes first; several wait their turn, oldest first."] = "Когда вы получаете в добыче предмет, начинающий задание, которое можно взять, он появляется на кнопке предмета задания с подсветкой, пока вы не щелкнете по нему или не возьмете задание. Сначала идет предмет самого шага; несколько предметов ждут своей очереди, начиная с самого старого."
 L["Track only dungeon quests in dungeons"] = "В подземельях отслеживать только их задания"
@@ -1017,6 +1016,7 @@ L["Travel button under the arrow"] = "Кнопка пути под стрелк�
 -- L["Game options"] = ""
 -- L["Increase game image quality"] = ""
 -- L["Sharpens the game's image. Most noticeable when Render Scale is below 100%. This is a game setting: it stays until you turn it off here or in the console."] = ""
+-- L["The target button and the step key ping the mob or NPC they target, so your group sees it behind rocks and buildings. Never in a raid unless you lead or assist. The rare buttons always ping."] = ""
 
 -- Lookup/Sources.lua
 L["Alliance only"] = "Только Альянс"
@@ -1863,6 +1863,10 @@ L["Guides by other players, installed like any addon. They show under Community 
 L["A few choices to start with. Everything else is in %s."] = "Для начала несколько настроек. Все остальное — в %s."
 L["Route line"] = "Линия маршрута"
 L["How the way to your goal shows on the world map and the minimap. The line is the easiest to follow; sparkles show as dots while Reduce motion is on."] = "Как путь к цели показывается на карте мира и миникарте. Линии проще всего следовать; при включенном «Меньше анимации» искры показываются точками."
+-- L["Mark what the target button finds"] = ""
+-- L["A skull on the enemy, a star on the friendly NPC. In a group it never takes another player's icon."] = ""
+-- L["Ping it for my group"] = ""
+-- L["Your group sees what the target button and the step key found, even behind rocks and buildings."] = ""
 
 -- UI/Copy.lua
 L["Selected for you: copy it with Ctrl+C (Cmd+C on a Mac), then press Escape."] = "Выделено для вас: скопируйте Ctrl+C (Cmd+C на Mac), затем нажмите Escape."
@@ -4283,3 +4287,4 @@ L["Part of the %s quests"] = "Часть заданий: %s"
 -- L["Auto-learn new spells"] = "Автоматически изучать новые заклинания"
 -- L["Automatically learns every spell a class trainer offers that you can afford, and prints the total. Profession trainers are left alone. Hold Shift to skip."] = "Автоматически изучает у учителя классовых навыков все заклинания, на которые хватает денег, и выводит итоговую сумму. У учителей профессий эта функция не срабатывает. Удерживайте Shift, чтобы пропустить."
 -- L["A level-up card lists what to train; %s learns it (thanks RikyZ90); %s updates your bars."] = "При новом уровне карточка покажет новые заклинания; «%s» изучит всё (спасибо RikyZ90); «%s» обновит ранги на панелях."
+-- L["The target button and the step key ping the mob they target, so your group sees it behind rocks and buildings. Never in a raid unless you lead or assist. The rare buttons always ping."] = "Кнопка цели и клавиша шага отмечают пингом выбранного противника, чтобы группа видела его за скалами и зданиями. В рейде — только если вы лидер или помощник. Кнопки редкой цели отмечают всегда."
