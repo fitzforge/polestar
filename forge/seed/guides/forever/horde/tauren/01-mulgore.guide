@@ -601,6 +601,65 @@ step Jahan Hawkwing
   zone The Barrens
   turnin 6364                         -- Jahan Hawkwing
 
+# Tauren Warriors and Shamans do their level-10 class quests on this walk from the Crossroads to
+# Orgrimmar: Kranal Fiss on the ridge and Uzzek at Far Watch Post are on the road, Telf Joolam's shrine
+# is south along the river, the thunder lizards and the Dustwind Gulch cultists beside the road north
+# (AuditH01, 0.4.0 route audit). The Fire Tar and the Path of Defense hand-in wait for the next stops
+# at the Razormane camp and Far Watch Post.
+# Turn in a carried alternative here before starting the shared ritual;
+# do not add a trip to a different trainer for an uncarried breadcrumb.
+step
+  only Shaman
+  when onquest 1522
+  zone The Barrens
+  turnin 1522
+
+step
+  only Shaman
+  when onquest 2983
+  zone The Barrens
+  turnin 2983
+
+step
+  only Shaman
+  when onquest 2984
+  zone The Barrens
+  turnin 2984
+
+step Kranal Fiss
+  only Shaman
+  zone The Barrens
+  tip Kranal Fiss stands alone on the ridge above the Razormane camp, north-east of the Crossroads on the road to Far Watch Post.
+  turnin 1523
+  accept 1524
+
+step Uzzek
+  only Warrior
+  zone The Barrens
+  tip Far Watch Post sits above the Southfury River bridge on the road to Orgrimmar: Uzzek stands beside Kargal Battlescar.
+  turnin 1505                         -- Uzzek
+  accept 1498
+
+step Telf Joolam
+  only Shaman
+  zone Durotar
+  tip Over the bridge below Far Watch Post and south along the Durotar bank of the river to where a narrow trail climbs the mountain: Telf keeps the shrine at the top. Mind the edges on the way up, and come back down the same trail.
+  turnin 1524
+  accept 1525
+
+step Thunder lizards on the way north
+  only Warrior
+  zone Durotar
+  tip Thunder Lizards and Lightning Hides graze on Thunder Ridge, beside the road north to Orgrimmar; any of them can drop a Singed Scale. Uzzek takes them when the next guide passes Far Watch Post.
+  tip Careful: Halikor, a level 12 elite, roams Thunder Ridge among the lizards: watch for him before you pull.
+  collect 6486 quest 1498.1
+
+step Dustwind Gulch cultists
+  only Shaman
+  zone Durotar
+  tip Burning Blade Cultists hold Dustwind Gulch, east of the road north to Orgrimmar; they drop the Reagent Pouch. The Fire Tar comes from the Razormane on the next guide's first visit to their camp.
+  collect 6652 quest 1525.2
+
 step To Orgrimmar
   zone Orgrimmar
   tip From the Crossroads follow the road north-east to Far Watch Post, cross the Southfury River into Durotar and keep north to Orgrimmar's main gate. The next guide starts in Orgrimmar and takes the zeppelin to Tirisfal Glades and Silverpine Forest.

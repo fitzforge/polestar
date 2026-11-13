@@ -55,7 +55,7 @@ test('Horde objective follow-ups: camp discovery, Silithyst delivery and cooking
 
 test('Horde Call of Fire: hand in the carried trainer lead at Kranal before starting the shared ritual', { skip }, () => {
 	const file = 'forever/horde/02-the-barrens.guide';
-	for (const [race, durotar, carried] of [['Orc', ORC_DUROTAR, 2983], ['Troll', TROLL_DUROTAR, 2983], ['Tauren', null, 1523]]) {
+	for (const [race, durotar, carried] of [['Orc', ORC_DUROTAR, 2983], ['Troll', TROLL_DUROTAR, 2983], ['Tauren', MULGORE, 1523]]) {
 		// The Barrens guide is shared since 0.3.1 (only Orc / Troll / Tauren steps). An Orc or Troll
 		// Shaman hands Swart's lead (2983) to Kranal on a trip out of Durotar, so the race's Durotar
 		// guide comes first.
@@ -5236,7 +5236,7 @@ test('Danger at the spot (#1575): the steps players died at among elites say so,
 		[87, 1, /Nimsy \(6\)[^.]*elite/, ['forever/alliance/human/01-elwynn-forest.guide']],
 		[21, 1, /Shinyfinder Narf \(3\) is elite/, ['forever/alliance/human/01-elwynn-forest.guide']],
 		[806, 1, /Halikor, a level 12 elite/, ['forever/horde/orc/01-durotar.guide', 'forever/horde/troll/01-durotar.guide']],
-		[1498, 1, /Halikor, a level 12 elite/, ['forever/horde/orc/01-durotar.guide', 'forever/horde/troll/01-durotar.guide', 'forever/horde/02-the-barrens.guide']],
+		[1498, 1, /Halikor, a level 12 elite/, ['forever/horde/orc/01-durotar.guide', 'forever/horde/troll/01-durotar.guide', 'forever/horde/02-the-barrens.guide', 'forever/horde/tauren/01-mulgore.guide']],
 		[5041, 1, /Flesheaters and Berserkers \(18-19\) are elites/, ['forever/horde/02-the-barrens.guide']],
 		[872, 1, /Flesheaters and Berserkers \(18-19\) are elites/, ['forever/horde/02-the-barrens.guide']],
 		[966, 1, /Voidcallers \(28-29\)[^.]*Athrikus Narassin \(31\)/, ['forever/alliance/03-darkshore.guide']],
@@ -9785,7 +9785,7 @@ test('Horde Call of Fire: every Telf Joolam step sends the player up the mountai
 		const src = fs.readFileSync(path.join(OFFICIAL_DIR, f), 'utf8');
 		assert.doesNotMatch(src, /Telf waits on the riverbank/, `${f}: no riverbank Telf`);
 	}
-	const src = fs.readFileSync(path.join(OFFICIAL_DIR, 'forever/horde/02-the-barrens.guide'), 'utf8');
+	const src = fs.readFileSync(path.join(OFFICIAL_DIR, MULGORE), 'utf8');
 	const first = src.split('\nstep ').find((s) => s.startsWith('Telf Joolam') && /turnin 1524/.test(s));
 	assert.match(first, /trail climbs the mountain/, 'the Tauren Shaman is told about the trail');
 });
@@ -11811,4 +11811,32 @@ test('#1952: the Horde start guides\' Camping 101 trainer steps wait until the q
 		}
 	}
 	assert.ok(n >= 30, `${n} in-zone Camping 101 hand-ins found`);
+});
+
+// Horde start audit (0.4.0): 01-mulgore ends with the walk from the Crossroads past Far Watch Post to Orgrimmar. Tauren
+// Warriors hand Veteran Uzzek (1505) to Uzzek and gather the Singed Scales on Thunder Ridge on that walk; Shamans hand
+// Call of Fire (1523) to Kranal Fiss, take Telf Joolam's 1525 and the Reagent Pouch, instead of walking back into
+// Durotar from the Barrens at about 16.
+test(`${MULGORE}: Tauren Warriors and Shamans do their level-10 class quests on the walk to Orgrimmar`, { skip }, () => {
+	const all = goals(MULGORE);
+	const end = all.findIndex(({ step }) => step.title === 'To Orgrimmar');
+	const thork = at(all, 'turnin 854', is('turnin', 854));
+	assert.ok(end > thork, 'the walk starts at the Crossroads');
+	for (const [cls, list] of [
+		['WARRIOR', [is('turnin', 1505), is('accept', 1498), (g) => g.t === 'collect' && g.quest === 1498]],
+		['SHAMAN', [is('turnin', 1523), is('accept', 1524), is('turnin', 1524), is('accept', 1525), (g) => g.t === 'collect' && g.quest === 1525 && g.oi === 2]],
+	]) {
+		const mine = all.map((e, i) => ({ ...e, i })).filter(forClass(cls));
+		let last = thork;
+		for (const pred of list) {
+			const hit = mine.find((e) => pred(e.goal) && e.i > thork && e.i < end);
+			assert.ok(hit, `${cls}: ${list.indexOf(pred)} is on the walk`);
+			assert.ok(hit.i > last, `${cls}: in walking order`);
+			last = hit.i;
+		}
+	}
+	const fixes = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', 'route-fixes.json'), 'utf8'));
+	for (const a of ['turnin,1505', 'turnin,1523', 'accept,1525', 'task,1525,1']) {
+		assert.ok(fixes.deliberate.pairs.some((p) => `${p.a}` === a && `${p.b}` === 'accept,97246'), `${a}: a record the build keeps`);
+	}
 });

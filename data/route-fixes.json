@@ -3398,6 +3398,55 @@
 			},
 			{
 				"a": [
+					"turnin",
+					1505
+				],
+				"b": [
+					"accept",
+					97246
+				],
+				"faction": "Horde",
+				"why": "Horde start audit (0.4.0, AuditH01 with AuditH12): 01-mulgore ends with the walk Crossroads -> Far Watch Post -> Durotar road -> Orgrimmar, past Kranal Fiss (56.0,19.9), Uzzek (61.4,21.1), the thunder lizards beside the road and the Dustwind Gulch cultists. Tauren Warriors carried Veteran Uzzek (1505) and Shamans Call of Fire (1523) to 02-the-barrens at about 16 and walked Crossroads -> Far Watch -> Durotar -> back for them (about 2,650 yd for Warriors, 3,870 yd for Shamans); on the walk they cost +11 yd (Warriors) and +1,545 yd (Shamans). Uzzek takes 1505 and gives Path of Defense (1498, Defensive Stance) on that walk, before the next guide's first Orgrimmar stop (Thatog's Meal Appeal)."
+			},
+			{
+				"a": [
+					"turnin",
+					1523
+				],
+				"b": [
+					"accept",
+					97246
+				],
+				"faction": "Horde",
+				"why": "Horde start audit (0.4.0, AuditH01 with AuditH12): 01-mulgore ends with the walk Crossroads -> Far Watch Post -> Durotar road -> Orgrimmar, past Kranal Fiss (56.0,19.9), Uzzek (61.4,21.1), the thunder lizards beside the road and the Dustwind Gulch cultists. Tauren Warriors carried Veteran Uzzek (1505) and Shamans Call of Fire (1523) to 02-the-barrens at about 16 and walked Crossroads -> Far Watch -> Durotar -> back for them (about 2,650 yd for Warriors, 3,870 yd for Shamans); on the walk they cost +11 yd (Warriors) and +1,545 yd (Shamans). Kranal Fiss takes the Tauren Shaman's Call of Fire lead (1523) and gives 1524 on that walk."
+			},
+			{
+				"a": [
+					"accept",
+					1525
+				],
+				"b": [
+					"accept",
+					97246
+				],
+				"faction": "Horde",
+				"why": "Horde start audit (0.4.0, AuditH01 with AuditH12): 01-mulgore ends with the walk Crossroads -> Far Watch Post -> Durotar road -> Orgrimmar, past Kranal Fiss (56.0,19.9), Uzzek (61.4,21.1), the thunder lizards beside the road and the Dustwind Gulch cultists. Tauren Warriors carried Veteran Uzzek (1505) and Shamans Call of Fire (1523) to 02-the-barrens at about 16 and walked Crossroads -> Far Watch -> Durotar -> back for them (about 2,650 yd for Warriors, 3,870 yd for Shamans); on the walk they cost +11 yd (Warriors) and +1,545 yd (Shamans). Telf Joolam takes 1524 and gives 1525 on that walk (Orc and Troll Shamans take it at 10 in Durotar)."
+			},
+			{
+				"a": [
+					"task",
+					1525,
+					1
+				],
+				"b": [
+					"accept",
+					97246
+				],
+				"faction": "Horde",
+				"why": "Horde start audit (0.4.0, AuditH01 with AuditH12): 01-mulgore ends with the walk Crossroads -> Far Watch Post -> Durotar road -> Orgrimmar, past Kranal Fiss (56.0,19.9), Uzzek (61.4,21.1), the thunder lizards beside the road and the Dustwind Gulch cultists. Tauren Warriors carried Veteran Uzzek (1505) and Shamans Call of Fire (1523) to 02-the-barrens at about 16 and walked Crossroads -> Far Watch -> Durotar -> back for them (about 2,650 yd for Warriors, 3,870 yd for Shamans); on the walk they cost +11 yd (Warriors) and +1,545 yd (Shamans). The Reagent Pouch from the Dustwind Gulch cultists beside the road north (Orc and Troll Shamans: the Drygulch Ravine loop at 10); the Fire Tar waits for 02's Razormane camp."
+			},
+			{
+				"a": [
 					"accept",
 					1483
 				],
