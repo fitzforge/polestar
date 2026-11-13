@@ -11905,6 +11905,19 @@ test('#1952: the Horde start guides\' Camping 101 trainer steps wait until the q
 	assert.ok(n >= 30, `${n} in-zone Camping 101 hand-ins found`);
 });
 
+// #1952, the Silverpine half (0.4.0 route audit): the Orcs' and Trolls' Camping 101 hand-ins to the Orgrimmar trainers on
+// Silverpine's arrival stop, and the Undead's to the Undercity trainers on its Undercity stop, sent the player there
+// whatever the profession's skill; they wait for the quest to be complete too, each with its record.
+test('#1952: Silverpine Forest\'s Orgrimmar and Undercity Camping 101 trainer steps wait until the quest is complete', { skip }, () => {
+	const fixes = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', 'guide-fixes.json'), 'utf8')).fixes;
+	const hand = goals(SILVERPINE).filter(({ goal }) => goal.t === 'turnin' && /^Camping 101: (?!Cooking)/.test(goal.title || ''));
+	assert.deepEqual(hand.map(({ goal }) => goal.quest).sort(), [96102, 97899, 97901, 97905, 97906, 97908, 97952, 97954, 97959], 'the nine trainer hand-ins');
+	for (const { step, goal } of hand) {
+		assert.ok((step.when || []).some((p) => p.k === 'complete' && !p.neg && p.q === goal.quest), `turnin ${goal.quest} waits until the quest is complete`);
+		assert.ok(fixes.some((f) => f.at && f.at.quest === goal.quest && f.at.goal === 'turnin' && f.when === `complete ${goal.quest}`), `${goal.quest}: a record the build keeps`);
+	}
+});
+
 // Horde start audit (0.4.0): 01-mulgore ends with the walk from the Crossroads past Far Watch Post to Orgrimmar. Tauren
 // Warriors hand Veteran Uzzek (1505) to Uzzek and gather the Singed Scales on Thunder Ridge on that walk; Shamans hand
 // Call of Fire (1523) to Kranal Fiss, take Telf Joolam's 1525 and the Reagent Pouch, instead of walking back into

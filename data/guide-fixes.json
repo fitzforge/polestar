@@ -8765,6 +8765,141 @@
 			"issue": 1952
 		},
 		{
+			"id": "1952-camping-97905-turnin",
+			"faction": "Horde",
+			"at": {
+				"quest": 97905,
+				"goal": "turnin"
+			},
+			"when": "complete 97905",
+			"note": "#1952: Camping 101: Herbalism asks for Herbalism at 20 before Jandi takes it; Silverpine Forest's Orgrimmar stop sent the player to the trainer whatever the skill, so a player under 20 waited at a step that could not complete there. The step now shows only once the quest is complete, and While you're here offers the hand-in on a later pass.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log lists one objective at the accept, \"Raise your <profession> skill to 20\" (#1952; forever-db corrections of the Camping 101 quests)"
+			},
+			"issue": 1952
+		},
+		{
+			"id": "1952-camping-97901-turnin",
+			"faction": "Horde",
+			"at": {
+				"quest": 97901,
+				"goal": "turnin"
+			},
+			"when": "complete 97901",
+			"note": "#1952: Camping 101: Enchanting asks for Enchanting at 20 before Jhag takes it; Silverpine Forest's Orgrimmar stop sent the player to the trainer whatever the skill, so a player under 20 waited at a step that could not complete there. The step now shows only once the quest is complete, and While you're here offers the hand-in on a later pass.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log lists one objective at the accept, \"Raise your <profession> skill to 20\" (#1952; forever-db corrections of the Camping 101 quests)"
+			},
+			"issue": 1952
+		},
+		{
+			"id": "1952-camping-97908-turnin",
+			"faction": "Horde",
+			"at": {
+				"quest": 97908,
+				"goal": "turnin"
+			},
+			"when": "complete 97908",
+			"note": "#1952: Camping 101: Skinning asks for Skinning at 20 before Thuwd takes it; Silverpine Forest's Orgrimmar stop sent the player to the trainer whatever the skill, so a player under 20 waited at a step that could not complete there. The step now shows only once the quest is complete, and While you're here offers the hand-in on a later pass.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log lists one objective at the accept, \"Raise your <profession> skill to 20\" (#1952; forever-db corrections of the Camping 101 quests)"
+			},
+			"issue": 1952
+		},
+		{
+			"id": "1952-camping-97906-turnin",
+			"faction": "Horde",
+			"at": {
+				"quest": 97906,
+				"goal": "turnin"
+			},
+			"when": "complete 97906",
+			"note": "#1952: Camping 101: Leatherworking asks for Leatherworking at 20 before Karolek takes it; Silverpine Forest's Orgrimmar stop sent the player to the trainer whatever the skill, so a player under 20 waited at a step that could not complete there. The step now shows only once the quest is complete, and While you're here offers the hand-in on a later pass.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log lists one objective at the accept, \"Raise your <profession> skill to 20\" (#1952; forever-db corrections of the Camping 101 quests)"
+			},
+			"issue": 1952
+		},
+		{
+			"id": "1952-camping-96102-turnin",
+			"faction": "Horde",
+			"at": {
+				"quest": 96102,
+				"goal": "turnin"
+			},
+			"when": "complete 96102",
+			"note": "#1952: Camping 101: Tailoring asks for Tailoring at 20 before Snang takes it; Silverpine Forest's Orgrimmar stop sent the player to the trainer whatever the skill, so a player under 20 waited at a step that could not complete there. The step now shows only once the quest is complete, and While you're here offers the hand-in on a later pass.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log lists one objective at the accept, \"Raise your <profession> skill to 20\" (#1952; forever-db corrections of the Camping 101 quests)"
+			},
+			"issue": 1952
+		},
+		{
+			"id": "1952-camping-97899-turnin",
+			"faction": "Horde",
+			"at": {
+				"quest": 97899,
+				"goal": "turnin"
+			},
+			"when": "complete 97899",
+			"note": "#1952: Camping 101: Alchemy asks for Alchemy at 20 before Whuut takes it; Silverpine Forest's Orgrimmar stop sent the player to the trainer whatever the skill, so a player under 20 waited at a step that could not complete there. The step now shows only once the quest is complete, and While you're here offers the hand-in on a later pass.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log lists one objective at the accept, \"Raise your <profession> skill to 20\" (#1952; forever-db corrections of the Camping 101 quests)"
+			},
+			"issue": 1952
+		},
+		{
+			"id": "1952-camping-97959-turnin",
+			"faction": "Horde",
+			"at": {
+				"quest": 97959,
+				"goal": "turnin"
+			},
+			"when": "complete 97959",
+			"note": "#1952: Camping 101: Mining asks for Mining at 20 before Brom Killian takes it; Silverpine Forest's the Undercity stop sent the player to the trainer whatever the skill, so a player under 20 waited at a step that could not complete there. The step now shows only once the quest is complete, and While you're here offers the hand-in on a later pass.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log lists one objective at the accept, \"Raise your <profession> skill to 20\" (#1952; forever-db corrections of the Camping 101 quests)"
+			},
+			"issue": 1952
+		},
+		{
+			"id": "1952-camping-97952-turnin",
+			"faction": "Horde",
+			"at": {
+				"quest": 97952,
+				"goal": "turnin"
+			},
+			"when": "complete 97952",
+			"note": "#1952: Camping 101: Blacksmithing asks for Blacksmithing at 20 before Basil Frye takes it; Silverpine Forest's the Undercity stop sent the player to the trainer whatever the skill, so a player under 20 waited at a step that could not complete there. The step now shows only once the quest is complete, and While you're here offers the hand-in on a later pass.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log lists one objective at the accept, \"Raise your <profession> skill to 20\" (#1952; forever-db corrections of the Camping 101 quests)"
+			},
+			"issue": 1952
+		},
+		{
+			"id": "1952-camping-97954-turnin",
+			"faction": "Horde",
+			"at": {
+				"quest": 97954,
+				"goal": "turnin"
+			},
+			"when": "complete 97954",
+			"note": "#1952: Camping 101: Engineering asks for Engineering at 20 before Graham Van Talen takes it; Silverpine Forest's the Undercity stop sent the player to the trainer whatever the skill, so a player under 20 waited at a step that could not complete there. The step now shows only once the quest is complete, and While you're here offers the hand-in on a later pass.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log lists one objective at the accept, \"Raise your <profession> skill to 20\" (#1952; forever-db corrections of the Camping 101 quests)"
+			},
+			"issue": 1952
+		},
+		{
 			"id": "stranded-1037-carried-copies",
 			"faction": "Alliance",
 			"at": {

@@ -132,6 +132,7 @@ step Jandi
   only Orc,Troll
   zone Orgrimmar
   when onquest 97905
+  when complete 97905
   tip Jandi, the herbalism trainer, keeps her shop in the Drag.
   complete 97905 @55.62,39.46
   turnin 97905                        -- Jandi: Camping 101, from Brakk's campfire in Durotar
@@ -140,6 +141,7 @@ step Jhag
   only Orc,Troll
   zone Orgrimmar
   when onquest 97901
+  when complete 97901
   tip Jhag, the enchanting trainer, works in the Drag.
   complete 97901 @53.47,38.55
   turnin 97901                        -- Jhag: Camping 101, from Brakk's campfire in Durotar
@@ -155,6 +157,7 @@ step Thuwd
   only Orc,Troll
   zone Orgrimmar
   when onquest 97908
+  when complete 97908
   tip Thuwd, the skinning trainer, stands in the Valley of Honor.
   complete 97908 @63.36,45.42
   turnin 97908                        -- Thuwd: Camping 101, from Brakk's campfire in Durotar
@@ -163,6 +166,7 @@ step Karolek
   only Orc,Troll
   zone Orgrimmar
   when onquest 97906
+  when complete 97906
   tip Karolek, the leatherworking trainer, works in the Valley of Honor.
   complete 97906 @62.81,44.15
   turnin 97906                        -- Karolek: Camping 101, from Brakk's campfire in Durotar
@@ -171,6 +175,7 @@ step Snang
   only Orc,Troll
   zone Orgrimmar
   when onquest 96102
+  when complete 96102
   tip Snang, the tailoring trainer, is in the Valley of Honor.
   complete 96102 @62.93,49.24
   turnin 96102                        -- Snang: Camping 101, from Brakk's campfire in Durotar
@@ -225,6 +230,7 @@ step Whuut
   only Orc,Troll
   zone Orgrimmar
   when onquest 97899
+  when complete 97899
   tip Whuut, the alchemy trainer, stands next door to Kor'geld.
   complete 97899 @55.79,32.9
   turnin 97899                        -- Whuut: Camping 101, from Brakk's campfire in Durotar
@@ -453,6 +459,7 @@ step Brom Killian
   only Undead
   zone Undercity
   when onquest 97959
+  when complete 97959
   tip Brom Killian, the mining trainer, works in the Undercity.
   complete 97959 @56.03,37.45
   turnin 97959                        -- Brom Killian: Camping 101, from Eleanor Shackleton's campfire in Tirisfal
@@ -461,6 +468,7 @@ step Basil Frye
   only Undead
   zone Undercity
   when onquest 97952
+  when complete 97952
   tip Basil Frye, the blacksmithing trainer, works in the Undercity.
   complete 97952 @60.17,29.09
   turnin 97952                        -- Basil Frye: Camping 101, from Eleanor Shackleton's campfire in Tirisfal
@@ -469,6 +477,7 @@ step Graham Van Talen
   only Undead
   zone Undercity
   when onquest 97954
+  when complete 97954
   tip Graham Van Talen, the engineering trainer, works in the Undercity.
   complete 97954 @75.34,73.13
   turnin 97954                        -- Graham Van Talen: Camping 101, from Eleanor Shackleton's campfire in Tirisfal
