@@ -8179,7 +8179,9 @@ test('Horde 40-60 accept levels: quests are taken where the route reaches their 
 	const g = (n) => goals(`forever/horde/${n}.guide`);
 	const step = (list, t, q) => list[at(list, `${t} ${q}`, is(t, q))].s;
 	const stv = g('40-50/01-stranglethorn-vale');
-	assert.equal(step(stv, 'accept', 348), step(stv, 'turnin', 587), 'Stranglethorn Fever on the Booty Bay stop after the Wild Shore');
+	// #2102 (0.4.0 audit): the Wild Shore pass moved after the Cape coast; Stranglethorn Fever is taken on the Booty Bay
+	// stop back from the Bloodsail cove, still before Mistvale's gorillas.
+	assert.equal(step(stv, 'accept', 348), step(stv, 'turnin', 599), 'Stranglethorn Fever on the Booty Bay stop back from the cove');
 	assert.equal(step(stv, 'accept', 2864), step(stv, 'turnin', 209), "Tran'rek on the last Booty Bay stop");
 	for (const q of [348, 2872, 2864]) assert.ok(step(stv, 'accept', q) > step(stv, 'turnin', 595), `${q} not on arrival`);
 	const zk = stv[at(stv, 'collect 3905 quest 584', (x) => x.t === 'collect' && x.quest === 584)];
@@ -8787,7 +8789,13 @@ test('alliance 40-60: final review: every written grind step offers a dungeon fo
 test('forever/horde/40-50/01-stranglethorn-vale.guide: final review: Grom\'gol before Booty Bay on the flight from Kargath', { skip }, () => {
 	const list = goals('forever/horde/40-50/01-stranglethorn-vale.guide');
 	const cove = at(list, 'turnin 595', is('turnin', 595));
-	assert.equal(list.slice(0, cove).filter(({ goal }) => goal.t === 'fly').length, 2, "Kargath to Grom'gol, Grom'gol to Booty Bay");
+	// 0.4.0 audit (R17): the classes the Undercity trains fly Kargath to the Undercity and take the zeppelin to Grom'gol;
+	// Hunters, Shamans and Druids fly Kargath to Grom'gol. Either way two flights before the cove, the second to Booty Bay.
+	for (const cls of ['WARRIOR', 'MAGE', 'HUNTER', 'SHAMAN', 'DRUID']) {
+		const flights = list.slice(0, cove).filter(forClass(cls)).filter(({ goal }) => goal.t === 'fly').map(({ goal }) => goal.location);
+		assert.equal(flights.length, 2, `${cls}: two flights before the cove: ${flights}`);
+		assert.equal(flights[1], 'Booty Bay', `${cls}: the second flight goes to Booty Bay`);
+	}
 	const bay = at(list, 'turnin 577', is('turnin', 577));
 	assert.ok(at(list, 'turnin 1240', is('turnin', 1240)) < bay && at(list, 'accept 571', is('accept', 571)) < bay, "Grom'gol before the first Booty Bay stop");
 	assert.ok(!list.some(({ goal, s }) => s > list[bay].s && s < list[cove].s && goal.t === 'goto'), 'straight from Booty Bay to the Bloodsail cove');
@@ -8928,9 +8936,11 @@ test('Horde Swamp of Sorrows follow-up: the first stay is one pass, Tok\'Kar on 
 
 // Main's grind policy (2026-11-08): every written grind step ("Level N" top-ups and solo fallbacks) ends its tip with
 // the dungeons whose band holds N ("Or, with a group, run the <Name> dungeon instead."), the sentence the forge writer writes from the next build. Horde 40-60 by hand.
-test('Horde 40-60: every grind step offers the dungeons at its level', { skip }, () => {
-	const files = fs.readdirSync(path.join(OFFICIAL_DIR, 'forever/horde/40-50')).map((f) => `forever/horde/40-50/${f}`)
-		.concat(fs.readdirSync(path.join(OFFICIAL_DIR, 'forever/horde/50-60')).map((f) => `forever/horde/50-60/${f}`));
+// 0.4.0 audit: Horde 40-50's grind steps follow the dungeons-in-the-route rule instead (a dungeon only when its run is in
+// the same or the next guide on that continent: "Horde 40-50: grind tips name a dungeon only when its run is..."), so
+// this checks 50-60.
+test('Horde 50-60: every grind step offers the dungeons at its level', { skip }, () => {
+	const files = fs.readdirSync(path.join(OFFICIAL_DIR, 'forever/horde/50-60')).map((f) => `forever/horde/50-60/${f}`);
 	let n = 0;
 	for (const file of files) {
 		const lines = fs.readFileSync(path.join(OFFICIAL_DIR, file), 'utf8').split('\n');
@@ -8944,7 +8954,7 @@ test('Horde 40-60: every grind step offers the dungeons at its level', { skip },
 		});
 	}
 	// 0.3.7 folded six stand-alone top-ups into the quest steps beside them (the test below checks those tips)
-	assert.ok(n >= 13, `the grind steps are found (${n})`);
+	assert.ok(n >= 8, `the grind steps are found (${n})`);
 });
 
 test('Image of Archmage Modera is met at the Kirin Tor camp in Silverpine Forest, never by the Dalaran sewer entrance in Alterac (#1305)', { skip }, () => {
