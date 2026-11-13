@@ -194,7 +194,7 @@ hookBags()
 ns.OnLogin(hookBags)
 
 ---------------------------------------------------------------------------
--- Baganator and BagSmith (the same public corner-widget contract)
+-- Baganator and BagSmith
 ---------------------------------------------------------------------------
 
 local registeredBags = {}
@@ -211,7 +211,6 @@ local function registerBag(name)
 	local API = cornerAPI(name)
 	if not API then return false end
 	registeredBags[name] = true
-	-- BagSmith supplies an icon-sized slot for list rows as well as grid items.
 	local options = name == "BagSmith" and { listRows = true } or nil
 	API.RegisterCornerWidget(L["Polestar: step item"], WIDGET, function(_, details)
 		return glowing() and type(details) == "table" and wanted(details.itemID) or false

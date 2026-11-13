@@ -124,7 +124,6 @@ local function registerBag(name)
 	local API = cornerAPI(name)
 	if not API then return false end
 	registeredBags[name] = true
-	-- BagSmith supplies an icon-sized slot for list rows as well as grid items.
 	local options = name == "BagSmith" and { listRows = true } or nil
 	API.RegisterCornerWidget(ns.L["Polestar quest items"], WIDGET, function(_, details)
 		return isOn() and needed(type(details) == "table" and details.itemLink or nil)

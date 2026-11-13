@@ -2,7 +2,6 @@
 //! test binary each, which cost a link per file).
 #![recursion_limit = "512"]
 mod alts;
-mod bagsmith;
 mod automation;
 #[path = "automation-accept-off.rs"]
 mod automation_accept_off;
@@ -12,6 +11,7 @@ mod automation_close_skipped;
 mod automation_profession_quests;
 #[path = "automation-spoken.rs"]
 mod automation_spoken;
+mod bagsmith;
 #[path = "class-quests.rs"]
 mod class_quests;
 #[path = "class-skip.rs"]

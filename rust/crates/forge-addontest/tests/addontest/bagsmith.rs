@@ -1,4 +1,3 @@
-//! BagSmith's public corner-widget API: registration, verdicts and refreshes.
 use forge_addontest::{emitted, Addon, RunAddon};
 use serde_json::{json, Value};
 
@@ -88,8 +87,6 @@ fn bagsmith_verdicts_follow_settings_items_and_refresh_events() {
 		r#"
 local G, Q, QoL = Polestar.Gear, Polestar.QuestDB, Polestar.QoL
 assert(widgets.polestar_upgrade and widgets.polestar_quest_needed and widgets.polestar_step_item and widgets.polestar_kept_item)
--- The feature suites test the underlying scoring and quest database. Here
--- exercise their public verdicts through BagSmith's registered callbacks.
 G.IsUpgrade = function(link) return link == "item:9002" end
 G.FillsEmptySlot = function() return false end
 Q.IsRunning = function() return true end
