@@ -10835,12 +10835,12 @@ Own.STRAND_STEP = -2 -- the step of a stranded hand-in's built goal: no guide st
 Own.strandGoals, Own.strandMap = {}, nil -- quest -> goal | false (no ender on that map); the map
 
 -- Whether a step of the loaded guide from the live step on turns quest q in
--- for the character, or the next guide does (Own.nextHandsIn).
+-- for the character (While you're here never reads another guide).
 function Own.handedInAhead(q, live)
 	for _, t in ipairs(layoutOf(guide).turnins[q] or NONE) do
 		if t.s >= live and stepApplies(t.step) and not isSkipped(t.s) and goalApplies(t.goal) then return true end
 	end
-	return Own.nextHandsIn ~= nil and Own.nextHandsIn(q) == true
+	return false
 end
 
 -- Quest q's built hand-in goal at its ender on map `map`, or nil (no Codex

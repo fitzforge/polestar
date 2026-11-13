@@ -109,7 +109,7 @@ step A Hero's Reward
   tip Hand in the hands, then dive under the surf at the southern foot of the island: Hydraxis' Coffer holds your ring and pays the only quest reputation the Waterlords give, 200. From now on, while you are Honored or better, the Duke hands you Aqual Quintessence: pour it on a rune in the Molten Core to douse it. With every rune doused, Majordomo Executus comes out, and after him Ragnaros.
   turnin 6824 optional
   accept 7486 optional
-  turnin 7486 optional choose 18399 18398
+  turnin 7486 choose 18399 18398
   collect 17333 npc 13278 optional    -- Aqual Quintessence, ask the Duke
 
 step Molten Core to Revered

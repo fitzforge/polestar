@@ -103,7 +103,7 @@ step Camp Narache: last hand-in
   turnin 780
   turnin 757                          -- Chief Hawkwind
   turnin 3376
-  turnin 781 optional
+  turnin 781
   accept 763                          -- Rites of the Earthmother, +75: to Baine Bloodhoof
 
 step Bloodhoof Village: Baine Bloodhoof
@@ -161,7 +161,7 @@ step Morin Cloudstalker
   when done bloodhoof
   turnin 764                          -- Morin Cloudstalker
   turnin 765
-  turnin 98424 optional
+  turnin 98424
   accept 98427 optional               -- Ceasing Operations, +150: needs Fizsprocket's Notes
 
 step The Venture Co. Mine: the Clearcutter

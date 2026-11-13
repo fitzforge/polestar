@@ -2247,8 +2247,8 @@ Polestar.Engine.StepHiddenFor(step, who?) -> bool  -- no step of its own for who
   Guide me (the Lookup planner kind `carried`, `lookup/carried/log`: one
   stop per ender, nearest first). While you're here hands them in too
   (Engine `Own.hereStranded`, after `Own.hereGroups`): a finished quest no
-  step from the live one on hands in (nor the next guide, `Own.nextHandsIn`
-  when present), whose ender stands on the player's map, is a hand-in line
+  step of the loaded guide from the live one on hands in, whose ender
+  stands on the player's map, is a hand-in line
   at step `Own.STRAND_STEP` (-2) with its built goal (`Own.strandGoal`,
   cached per map), measured like a later step's hand-in and ranked after the
   route's next steps, its sub-line and tooltip saying why (`hereSub`,

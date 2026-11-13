@@ -155,7 +155,7 @@ step Adventure: Saving the Best for Last (Alliance)
   only Alliance
   zone Ironforge
   tip Deliana then offers your class's Saving the Best for Last, the last quest of the challenge: it takes your class's dungeon-set helm and chest and upgrades them.
-  turnin 8997 optional        -- Deliana, Ironforge: Back to the Beginning
+  turnin 8997                 -- Deliana, Ironforge: Back to the Beginning
   accept 8999 only Druid optional
   collect 16720 quest 8999.1 only Druid optional  -- Wildheart Cowl
   collect 16706 quest 8999.2 only Druid optional  -- Wildheart Vest
@@ -193,7 +193,7 @@ step Adventure: Saving the Best for Last (Horde)
   only Horde
   zone Orgrimmar
   tip Mokvar then offers your class's Saving the Best for Last, the last quest of the challenge: it takes your class's dungeon-set helm and chest and upgrades them.
-  turnin 8998 optional        -- Mokvar, Orgrimmar: Back to the Beginning
+  turnin 8998                 -- Mokvar, Orgrimmar: Back to the Beginning
   accept 9007 only Druid optional
   collect 16720 quest 9007.1 only Druid optional  -- Wildheart Cowl
   collect 16706 quest 9007.2 only Druid optional  -- Wildheart Vest
