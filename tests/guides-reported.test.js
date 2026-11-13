@@ -5351,6 +5351,20 @@ test('The Barrens (Horde 14-21): one bind, at the Crossroads; Ratchet and Camp T
 	assert.ok(!inStep.slice(k + 1).some(({ goal }) => goal.npc === SERGRA), 'no walk back to Sergra after the bind');
 });
 
+// 0.4.0 route audit, Horde 12-21: Orcs, Trolls, Tauren and Skyborne arrive in Orgrimmar from their starts still bound
+// at Razor Hill, Bloodhoof Village or Valanaar, inns no later step comes back to. Silverpine's first Orgrimmar stop binds
+// them at Gryshka's inn, after the flight path: the travel planner's hearth home from Silverpine Forest then lands beside
+// the zeppelin towers and the road to the Barrens (-4.3 min a branch for Orcs and Trolls, -6.6 for Tauren and Skyborne).
+test('Silverpine Forest (Horde 12-15): the starts that come by Orgrimmar bind there on arrival, after its flight path (0.4.0 audit)', { skip }, () => {
+	const list = goals(SILVERPINE);
+	const fp = at(list, 'getfp Orgrimmar', (g) => g.t === 'getfp' && g.location === 'Orgrimmar');
+	const bind = at(list, 'sethome Orgrimmar', (g) => g.t === 'sethome' && g.location === 'Orgrimmar');
+	assert.equal(list[bind].step, list[fp].step, 'the bind is on the arrival step');
+	assert.ok(bind > fp, 'after the flight path');
+	assert.deepEqual([...list[bind].step.only.races].sort(), ['Orc', 'Skyborne', 'Tauren', 'Troll'], 'not for the Undead, who keep Brill');
+	assert.equal(list.filter(({ goal }) => goal.t === 'sethome').length, 1, 'the guide binds once');
+});
+
 // #1024 (Pilk, Tauren Druid): Apothecary Zamah's arrow led up out of the Pools of Vision, the cave under
 // Spirit Rise in Thunder Bluff. The NPCs down there (spawn heights 97 to 112; Spirit Rise above them at about
 // 135-138): every step at one says so, since the arrow cannot tell the floors apart. Birgitte Cranston's tip

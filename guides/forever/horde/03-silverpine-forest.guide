@@ -23,7 +23,7 @@ next forever/horde/02-the-barrens
 # Zephras Isle come by Orgrimmar and the zeppelin. The Barrens and Stonetalon follow at 15-21 in
 # forever/horde/02-the-barrens, which starts where this guide ends, in Orgrimmar.
 #
-# Flow: Orgrimmar (flight path, the starts' hand-ins, training) -> zeppelin to Tirisfal Glades ->
+# Flow: Orgrimmar (flight path, bind, the starts' hand-ins, training) -> zeppelin to Tirisfal Glades ->
 # Brill (Terrence, Johaan) and Hadric's cultists by the zeppelin towers ->
 # the Sepulcher (flight path) -> the Dalaran crate and back -> north loop: the Dead Field,
 # Malden's Orchard, Erland's escort, worg hearts -> the Sepulcher -> north again: Valgan's Field,
@@ -108,8 +108,9 @@ next forever/horde/02-the-barrens
 step Orgrimmar
   only Orc,Troll,Tauren,Skyborne
   zone Orgrimmar
-  tip Walk in by the main gate. Doras, the wind rider master, stands on the tower in the Valley of Strength; Thatog by the bank below it.
+  tip Walk in by the main gate. Doras, the wind rider master, stands on the tower in the Valley of Strength; Innkeeper Gryshka keeps the inn below it, Thatog stands by the bank. Bind here: the Hearthstone brings you back from Silverpine Forest beside the zeppelin towers and the road to the Barrens.
   getfp "Orgrimmar"
+  sethome "Orgrimmar" npc 6929        -- Innkeeper Gryshka
   accept 97246                        -- Thatog
 
 step Borstan
