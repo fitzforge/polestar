@@ -30,7 +30,7 @@ return {
 	["{npc:6} dig in the vineyards north-east of the Abbey. Now and then one drops a {quest:91741}: right-click it."] = "Los {npc:6} excavan en los viñedos al noreste de la abadía. De vez en cuando uno suelta {quest:91741}: haz clic derecho en él.",
 
 	-- Step 5: Northshire Abbey
-	["Inside"] = "",
+	["Inside"] = "Adentro",
 	-- {npc:247229} Daniel
 	["{npc:247229}, in the library; inside"] = "",
 
@@ -280,7 +280,7 @@ return {
 	["{npc:257446} in {zone:1426}; {area:87} has no shaman trainer"] = "",
 
 	-- Step 56: Druid trainer
-	["Druid trainer"] = "",
+	["Druid trainer"] = "Instructor de druidas",
 	-- {npc:5504} Sheldras Moontree · {zone:1453} Stormwind · {area:87} Goldshire
 	["{npc:5504} in {zone:1453}; {area:87} has no druid trainer"] = "",
 
