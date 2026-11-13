@@ -2757,6 +2757,8 @@ fn a_near_target_over_a_closed_zone_border_with_a_long_walk_or_none_keeps_the_cr
 		r#"
 		w.setLevel(30)
 		w.faction = "Horde"
+		-- Flight maps opened on both continents, none listing a flight path: these starts walk (no flight it may have, #1795).
+		Polestar.CharState().flags.taxiSeen = { [0] = true, [1] = true }
 		local function legs()
 			local out = {}
 			local L, ci = N.GetRoute()

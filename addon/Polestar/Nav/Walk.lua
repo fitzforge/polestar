@@ -964,19 +964,20 @@ end
 -- walk short. From the player at (pc, px, py) to (gx, gy, gz: the target's
 -- height, or nil), from the start height or floors and with the opts the
 -- arrow's own search would take; one with heights that finds nothing, or ends
--- off the goal's floor, is asked once more without them. Not urgent: the
--- arrow's own walk and the later legs' searches go first. callback(along, sx,
--- sy) with the yards along its path from its first point (sx, sy) to the goal,
--- or callback(false) when none was found; once. -> the job (Walk.CancelProbe),
--- or nil when none was started (no engine, the continent's maps not
--- searchable, in combat).
-function Walk.Probe(pc, px, py, gx, gy, gz, callback)
+-- off the goal's floor, is asked once more without them. `place`: from a place
+-- on the route instead (the walk after a crossing, Travel.NearWalk), with no
+-- start height. Not urgent: the arrow's own walk and the later legs' searches
+-- go first. callback(along, sx, sy) with the yards along its path from its
+-- first point (sx, sy) to the goal, or callback(false) when none was found;
+-- once. -> the job (Walk.CancelProbe), or nil when none was started (no
+-- engine, the continent's maps not searchable, in combat).
+function Walk.Probe(pc, px, py, gx, gy, gz, callback, place)
 	local P = engine()
 	if not (P and pc and canSearch(P, pc)) or inCombat() then return nil end
 	local ghost = Nav.travel and Nav.travel.IsGhost and Nav.travel.IsGhost() or false
 	local o = opts(ghost, pc, px, py, gx, gy)
-	local sz = startZ(pc, px, py)
-	local floors = sz == nil and startFloors(pc, px, py) or nil
+	local sz = not place and startZ(pc, px, py) or nil
+	local floors = not place and sz == nil and startFloors(pc, px, py) or nil
 	local job = {}
 	local function find(from, to, again)
 		local ok, handle = pcall(P.Find, pc, from, to, function(points)

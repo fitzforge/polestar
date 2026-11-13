@@ -102,9 +102,10 @@ local REPLAN_AFTER, REPLAN_MOVED = 30, 50 -- seconds, yards: moved this far sinc
 local LEARN_FP = 60          -- yards: a flight path learned this close to a flight master is that one
 -- The near walk over a zone border the crossing data closes (Nav.PlanRoute's p.nearWalk, #1543): a target within
 -- CROSS straight yards (Walk.lua's MEASURE_NEAR: so near, no walk is measured) is walked to straight once the walking
--- engine has found that walk at most SLACK x the straight yards + PAD long (Travel.NearWalk); then it holds within
--- HOLD, the longest that passes. target, ok, job: the target asked for, the answer (nil not yet, true short, false long
--- or none) and the search asking (Walk.Probe). One table keeps the main chunk's locals spare.
+-- engine has found that walk at most SLACK x the straight yards + PAD long, or longer but within the hold all the way
+-- and shorter than the way without it (Travel.NearWalk); then it holds within HOLD. target, ok, job: the target asked
+-- for, the answer (nil not yet, true taken, false long or none) and the search asking (Walk.Probe). One table keeps the
+-- main chunk's locals spare.
 local nearWalk = { CROSS = 400, SLACK = 1.5, PAD = 100 }
 nearWalk.HOLD = nearWalk.CROSS * nearWalk.SLACK + nearWalk.PAD
 
@@ -2677,9 +2678,15 @@ end
 -- The walking engine's answer for the near walk over a closed zone border
 -- (Walk.Probe, asked by plan()): `along` yards along its path from its first
 -- point (sx, sy) to the target, or false: none found. The near walk is
--- planned (Travel.Remeasured, Nav.PlanRoute's p.nearWalk) only on a short path,
--- at most SLACK x straight + PAD yards (nearWalk), and the answer stands for
--- the target. A longer one or none changes nothing, so the route stays the one
+-- planned (Travel.Remeasured, Nav.PlanRoute's p.nearWalk) on a short path, at
+-- most SLACK x straight + PAD yards (nearWalk), and the answer stands for the
+-- target. A longer one is planned only while it never leads out of the hold
+-- (no point of it past HOLD from the target: `along` at most 2 x HOLD less the
+-- straight yards) and the way without it is longer still, its last walk
+-- measured too (a second Walk.Probe, from where that walk starts): from the
+-- Great Lift's top, the plateau's 860 yd to Lakota Windsong against the
+-- crossing's way down the lift, whose walk from its foot climbs back up it. A
+-- longer one otherwise, or none, changes nothing, so the route stays the one
 -- planned without it, as before #1543: a detour round a ridge took players
 -- out past the near walk's reach, where the zone rule sent them back to the
 -- crossing and its foot's walk in again, round and round (Alterac's ridge
@@ -2689,11 +2696,32 @@ end
 function Travel.NearWalk(along, sx, sy)
 	if nearWalk.ok ~= nil then return false end
 	nearWalk.job = nil
-	local tc, tx, ty = Nav.GetTargetWorld()
+	local tc, tx, ty, tz = Nav.GetTargetWorld()
 	local straight = tc and type(sx) == "number" and type(sy) == "number" and yards(tc, sx, sy, tc, tx, ty)
-	nearWalk.ok = type(along) == "number" and straight and along <= straight * nearWalk.SLACK + nearWalk.PAD or false
-	if not nearWalk.ok then return false end
-	return Travel.Remeasured()
+	if not (type(along) == "number" and straight) then
+		nearWalk.ok = false
+		return false
+	end
+	if along <= straight * nearWalk.SLACK + nearWalk.PAD then
+		nearWalk.ok = true
+		return Travel.Remeasured()
+	end
+	local W, last = Nav.walk, legs and legs[#legs]
+	local from = last and #legs > ci and last.kind == "walk" and last.from
+	if along > 2 * nearWalk.HOLD - straight or not (from and from.c == tc and W and W.Probe) then
+		nearWalk.ok = false
+		return false
+	end
+	local before, target = 0, nearWalk.target
+	for k = ci, #legs - 1 do before = before + (legs[k].seconds or 0) end
+	nearWalk.job = W.Probe(from.c, from.wx, from.wy, tx, ty, tz, function(rest)
+		if nearWalk.target ~= target or nearWalk.ok ~= nil then return end
+		nearWalk.job = nil
+		nearWalk.ok = type(rest) == "number" and along / RUN_SPEED < before + rest / RUN_SPEED
+		if nearWalk.ok then Travel.Remeasured() end
+	end, true)
+	if not nearWalk.job then nearWalk.ok = false end
+	return false
 end
 
 -- Whether skipping `leg` plans the rest of the way without it (a hearth,

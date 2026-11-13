@@ -4182,6 +4182,50 @@ fn the_near_walk_over_a_closed_zone_border_is_planned_only_once_the_engine_finds
 	}
 }
 
+// A near walk longer than 1.5 x straight + 100 yd but never out of the hold (at most 2 x 700 less the straight yards)
+// is weighed against the way without it, whose last walk (from the gate's far end) the engine is asked for too: from
+// 1,100 yd west of the gate, the 1,000 yd walk round the hill beats the gate's way (1,100 yd to the gate, its far
+// end 1,100 yd from the target) and is planned; 100 yd from the gate, the gate's way (130 yd there, 130 yd on) beats
+// the same walk and stays, untouched. Darkcloud Pinnacle's plateau walk is the real case (nav-e2e).
+#[test]
+fn a_longer_near_walk_that_stays_within_the_hold_is_planned_only_when_the_way_without_it_measures_longer_still_1543() {
+	let out = run(&format!(
+		"{NEAR}{}",
+		r#"
+		local function probeTo(x, y, after)
+			for i = #fake.calls, (after or 0) + 1, -1 do
+				local job = fake.calls[i]
+				if not job.urgent and job.to and floor(job.to.x + 0.5) == x and floor(job.to.y + 0.5) == y then return job, i end
+			end
+		end
+		local function try(sx, label, ty, path, rest)
+			N.ClearTarget()
+			nav.place(sx, 100)
+			target(sx, ty, label)
+			aim()
+			local legs, before = N.GetRoute(), nil
+			before = dump(legs)
+			local first, at = probeTo(sx, ty)
+			fake.answerXY(first, path)
+			aim()
+			local second = probeTo(sx, ty, at)
+			if second then fake.answerXY(second, rest) end
+			aim()
+			local after = N.GetRoute()
+			return { asked = second ~= nil, after = route(), untouched = rawequal(after, legs) and dump(after) == before }
+		end
+		emit({
+			far = try(-500, "Far", -100, { -500, 100, -100, 100, -100, -100, -500, -100 }, { 600, -20, -500, -100 }),
+			near = try(500, "Near", -100, { 500, 100, 100, 100, 100, -100, 500, -100 }, { 600, -20, 500, -100 }),
+		})"#
+	));
+	assert_eq!(out["far"]["asked"], true, "the gate's last walk is measured");
+	assert_eq!(out["far"]["after"], json!(["walk|Far"]), "1,000 yd round the hill beats the gate's 2,200: the near walk");
+	assert_eq!(out["near"]["asked"], true, "the gate's last walk is measured");
+	assert_eq!(out["near"]["after"], json!(["walk|Through the gate to East Vale", "walk|Through the gate to East Vale", "walk|Near"]), "the gate's 300 yd beat 1,000: the gate's way");
+	assert_eq!(out["near"]["untouched"], true, "the same legs, every field as it was, no new route");
+}
+
 // A near walk the engine finds long leaves the plan byte for byte the one made with no near walk at all (no engine to
 // ask): every field of every leg, before the answer and after it.
 #[test]
