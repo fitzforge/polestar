@@ -11854,3 +11854,17 @@ test(`${WETLANDS}: carried Darkshore quests are handed in on the stops at their 
 		assert.ok((st.when || []).some((p) => p.k === 'onquest' && !p.neg), `${q}: only while carried (when onquest)`);
 	}
 });
+
+// Alliance 20-30 audit (0.4.0, #2025): with both half pendants of Trial of the Sea Lion in the bags, Night Elf and
+// Skyborne Druids join them and take Aquatic Form on 03-darkshore-return's Cat Form trip to Moonglade and Darnassus,
+// at about 22, instead of on 06-wetlands' own trip at about 28 (which stays for a Druid still on 272).
+test(`${DARKSHORE_RETURN}: Trial of the Sea Lion and Aquatic Form on the Cat Form trip (Alliance 20-30 audit)`, { skip }, () => {
+	const list = goals(DARKSHORE_RETURN);
+	const sea = at(list, 'Trial of the Sea Lion (272) to Dendrite', is('turnin', 272));
+	const aquatic = at(list, 'Aquatic Form (5061) to Mathrengyl', is('turnin', 5061));
+	const catForm = at(list, 'Cat Form (98397) to Mathrengyl', is('turnin', 98397));
+	assert.ok(sea < aquatic && aquatic < catForm, '272 at Dendrite, then 5061 and Cat Form at Mathrengyl');
+	const when = list[sea].step.when || [];
+	for (const item of [15882, 15883]) assert.ok(when.some((p) => p.k === 'has' && !p.neg && p.item === item), `only with half pendant ${item}`);
+	assert.ok(goals(WETLANDS).some(({ goal }) => goal.t === 'turnin' && goal.quest === 272), "06-wetlands keeps its trip for a Druid still on 272");
+});

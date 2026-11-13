@@ -249,6 +249,17 @@ step The relics of the Barrow Dens
   turnin 98404 only Skyborne                  -- Avatar of Saeyleenan
   accept 98738 only Skyborne
 
+step Trial of the Sea Lion
+  only NightElf,Skyborne,Druid
+  zone Moonglade
+  when onquest 272
+  when has 15882
+  when has 15883
+  tip Both half pendants in your bags (the Westfall half from your last Westfall visit, the Darkshore half from the north coast): stand by the Shrine of Remulos on the north-west shore of the lake and use a half to join them, then take the pendant to Dendrite Starblaze with the Cat Form hand-in. Dendrite stands upstairs in his building: go up inside, the arrow cannot tell the floors apart.
+  collect 15885 quest 272.1                   -- Pendant of the Sea Lion: join the halves at the Shrine of Remulos
+  turnin 272                                  -- Dendrite Starblaze
+  accept 5061                                 -- Dendrite Starblaze: Aquatic Form, for Mathrengyl Bearwalker
+
 step Back to Dendrite
   zone Moonglade
   only Druid
@@ -264,6 +275,12 @@ step Darnassus
   only NightElf,Skyborne,Druid
   zone Darnassus
   goto 35.8,11.6 "Mathrengyl Bearwalker"
+
+step Mathrengyl Bearwalker: Aquatic Form
+  only NightElf,Skyborne,Druid
+  zone Darnassus
+  when onquest 5061
+  turnin 5061                                 -- Mathrengyl Bearwalker: Aquatic Form
 
 step To Darnassus
   only Druid
