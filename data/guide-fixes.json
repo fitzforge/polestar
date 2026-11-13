@@ -8034,6 +8034,29 @@
 				}
 			],
 			"issue": 2025
+		},
+		{
+			"id": "2025-valley-of-bones-careful",
+			"faction": "Alliance",
+			"at": {
+				"quest": 261,
+				"goal": "objective",
+				"objective": 1,
+				"guide": "forever/alliance/30-40/06b-desolace"
+			},
+			"tip": "Undead Ravagers roam the bone fields south of the Magram village, east of the Coven; at the far south-east, use the Crate of Ghost Magnets to draw the Magrami Spectres. Careful: Magram Necromancers (42) and two Magram Necrokhans (45, elite) hold the village just north of the bone fields, and the Corpsefeeder (45, elite) walks between them: keep to the fields' southern edge.",
+			"note": "0.4.0 route audit (Refs #2025, danger at the spot #1575): the Undead Ravagers (37) and the Ghost Magnets' spot lie on the bone fields at 58-64,88-92, just south of the Magram village's Necromancers (42) and Necrokhans (45, elite), with the Corpsefeeder (45, elite) between; the step gave no warning. The step's earlier tip is kept in this one.",
+			"source": [
+				{
+					"kind": "questie",
+					"ref": "data/forever npcs.json spawns (Desolace): Undead Ravager (11561, 37) 58.3-63.0,88.2-92.1; Magram Necromancer (253272, 42) 57.6-63.6,75.8-86.2; Magram Necrokhan (253274, 45, elite) 61.8,79.1 and 63.7,77.1; Corpsefeeder (253394, 45, elite) 58.1,83.6"
+				},
+				{
+					"kind": "recording",
+					"ref": "players' recordings (danger census, to 2026-11-12): Ghost-o-plasm Round Up (6134) on this step done by 8 people at a median level of 39.6; deaths within 60 yd: 5 around its Ghost Magnets goal and 3 around its Ghost-o-plasm goal; nobody died around the Ravagers (261, 18 people)"
+				}
+			],
+			"issue": 2025
 		}
 	]
 }

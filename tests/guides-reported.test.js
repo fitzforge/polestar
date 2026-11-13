@@ -11907,3 +11907,13 @@ test(`${HILLSBRAD_ALLIANCE}: Retrieval for Mauren is taken on the Mage Quarter s
 	const pairs = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', 'route-fixes.json'), 'utf8')).deliberate.pairs;
 	assert.ok(pairs.some((p) => p.faction === 'Alliance' && `${p.a}` === 'accept,690' && `${p.b}` === 'accept,1078'), 'a record the build keeps');
 });
+
+// 0.4.0 route audit (Refs #2025, danger at the spot #1575): Desolace's Valley of Bones step (Undead Ravagers, the Ghost
+// Magnets) lies just south of the Magram village's Necromancers (42) and elite Necrokhans (45), with the elite
+// Corpsefeeder (45) between; players died around the Ghost Magnets. The step warns.
+test(`${DESOLACE_SOUTH}: the Valley of Bones step warns of the Magram village`, { skip }, () => {
+	const list = goals(DESOLACE_SOUTH);
+	const fight = list[at(list, 'kill 11561', (g) => g.t === 'kill' && g.quest === 261)];
+	assert.match([].concat(fight.step.note || []).join(' '), /Careful: Magram Necromancers \(42\) and two Magram Necrokhans \(45, elite\)/);
+	assert.ok(JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', 'guide-fixes.json'), 'utf8')).fixes.some((f) => f.id === '2025-valley-of-bones-careful'), 'a record the build keeps');
+});
