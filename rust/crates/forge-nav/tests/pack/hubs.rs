@@ -115,7 +115,11 @@ fn issue_1961_forever_npcs_classic_db_lacks_join_the_hubs_kirin_tor_guards_make_
 	let hubs = &out[0].1;
 	let dalaran: Vec<&Value> = hubs.iter().filter(|h| h["side"] == "Alliance").collect();
 	assert_eq!(dalaran.len(), 1, "{hubs:?}");
-	assert_eq!((dalaran[0]["name"].as_str(), dalaran[0]["guards"].as_u64(), dalaran[0]["services"].as_u64()), (Some("Dalaran"), Some(2), Some(0)), "the Kirin Tor Guards; the Arcane Sentry is no guard by name");
+	assert_eq!(
+		(dalaran[0]["name"].as_str(), dalaran[0]["guards"].as_u64(), dalaran[0]["services"].as_u64()),
+		(Some("Dalaran"), Some(2), Some(0)),
+		"the Kirin Tor Guards; the Arcane Sentry is no guard by name"
+	);
 	assert_eq!(dalaran[0]["disks"], json!([[-27.5, 33, 50], [-12, 80, 50]]));
 	let camp: Vec<&Value> = hubs.iter().filter(|h| h["side"] == "Horde" && h["disks"][0][0] == 2000).collect();
 	assert_eq!(camp.len(), 1, "four Forever service NPCs of the Horde are a hub: {hubs:?}");

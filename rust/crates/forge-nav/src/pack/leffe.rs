@@ -19,8 +19,8 @@
 //!   nearest in height (within MATCH_YD): the Undercity's floors keep their names.
 
 use super::cells::{CellGrid, ZQ};
-use super::encode::{encode_areas, encode_heights, run_length, Maps, COST_MAX, YARDS_MAX};
 use super::drops;
+use super::encode::{encode_areas, encode_heights, run_length, Maps, COST_MAX, YARDS_MAX};
 use super::reach::{self, Place};
 use super::spawns;
 use super::{b32, enc, js_round, zigzag, B64, NONE};
@@ -530,7 +530,19 @@ pub fn walks(meta: &Meta, k: u32, c: &Cluster, g: &Graph, has: &dyn Fn(u32) -> b
 }
 
 #[allow(clippy::too_many_arguments)]
-fn cluster(meta: &Meta, k: u32, c: &Cluster, g: &Graph, fields: &FxHashMap<&str, String>, cg: &CellGrid, has: &dyn Fn(u32) -> bool, layers: &FxHashMap<u32, Vec<u8>>, reach: Option<&Reached>, ledges: &[(usize, usize, f64)], spawned: Option<(&reach::Frame, &[Place])>) -> Result<Out, String> {
+fn cluster(
+	meta: &Meta,
+	k: u32,
+	c: &Cluster,
+	g: &Graph,
+	fields: &FxHashMap<&str, String>,
+	cg: &CellGrid,
+	has: &dyn Fn(u32) -> bool,
+	layers: &FxHashMap<u32, Vec<u8>>,
+	reach: Option<&Reached>,
+	ledges: &[(usize, usize, f64)],
+	spawned: Option<(&reach::Frame, &[Place])>,
+) -> Result<Out, String> {
 	let cc = meta.c as usize;
 	let n2 = cc * cc;
 	let mut o = Out::default();

@@ -1042,10 +1042,7 @@ fn discovery_dungeons_an_answer_per_dungeon_the_guides_have_steps_for_per_charac
 	assert!(out["help"].as_str().unwrap().ends_with("As for all dungeons: Guide, Automation, Dungeons in my route answers."), "{}", out["help"]);
 	assert_eq!(out["values"], json!(["As for all dungeons", "As for all dungeons"]), "none answered by default: Dungeons in my route (Skip) answers");
 	assert_eq!(out["choices"], json!(["As for all dungeons", "Run it", "Skip it"]));
-	assert_eq!(
-		out["picked"],
-		json!({ "rfc": "Run it", "dm": "Skip it", "run": true, "skip": false, "saved": { "389": true, "36": false, "90": true }, "calls": [["ChooseDungeon", 36, false]] })
-	);
+	assert_eq!(out["picked"], json!({ "rfc": "Run it", "dm": "Skip it", "run": true, "skip": false, "saved": { "389": true, "36": false, "90": true }, "calls": [["ChooseDungeon", 36, false]] }));
 	assert_eq!(out["right"], json!(["As for all dungeons", true]), "right-click forgets the answer: As for all dungeons");
 	assert_eq!(out["back"], json!(["As for all dungeons", true]), "As for all dungeons forgets the answer");
 	assert_eq!(out["found"], 1, "search finds the dungeon by the name it shows");

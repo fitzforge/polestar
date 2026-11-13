@@ -15,13 +15,13 @@
 
 pub mod cells;
 pub mod chokepoints;
+pub mod drops;
 pub mod encode;
 pub mod fixture;
 pub mod hpa;
 pub mod layers;
 pub mod leffe;
 pub mod reach;
-pub mod drops;
 pub mod spawns;
 
 use crate::grid::{flag, Grid, Tile};

@@ -192,8 +192,8 @@ pub fn load_classic_db(sources: &Path) -> Result<ClassicDb, String> {
 	let dir = sources.join("cmangos").join(&DB_REV[..12]);
 	let file = dir.join("transit.json");
 	// A cache from before a trigger joined PORTAL_TRIGGERS lacks its portal: extracted again from the dump.
-	let stale = file.exists()
-		&& std::fs::read_to_string(&file).ok().and_then(|t| parse_json(&t).ok()).is_none_or(|d| PORTAL_TRIGGERS.iter().any(|t| !d.get("portals").has(&forge_guide::js::num_str(*t))));
+	let stale =
+		file.exists() && std::fs::read_to_string(&file).ok().and_then(|t| parse_json(&t).ok()).is_none_or(|d| PORTAL_TRIGGERS.iter().any(|t| !d.get("portals").has(&forge_guide::js::num_str(*t))));
 	if !file.exists() || (stale && dir.join("classicdb.sql.gz").exists()) {
 		let dump = dir.join("classicdb.sql.gz");
 		if !dump.exists() {

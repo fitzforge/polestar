@@ -1323,7 +1323,7 @@ fn d23_a_map_click_shortest_path_forever_plans_itself_is_its_own_polestar_keeps_
 	for (version, api) in [(1, SPF.to_string()), (2, spf_version(2))] {
 		let spf = format!("{api}{SPF_CLICKS}");
 		let out = run(
-		r#"
+			r#"
 		nav.setWaypoint(copy(FARLAND))
 		local r = {}
 		nav.showWorldMap(9000)
@@ -1347,7 +1347,7 @@ fn d23_a_map_click_shortest_path_forever_plans_itself_is_its_own_polestar_keeps_
 		r.off = { N.GetTarget().label == "Farland camp", N.IsOverride() and true or false, spf.owner or false }
 		emit(r)
 	"#,
-		Opts { saved: FRESH, spf: Some(&spf), ..Default::default() },
+			Opts { saved: FRESH, spf: Some(&spf), ..Default::default() },
 		);
 		assert_eq!(out["click"], json!([true, false, "ShortestPathForever", true]), "API version {version}: its journey guides; Polestar's target is still the guide's");
 		assert_eq!(out["after"], json!([true, false, true]), "API version {version}: that journey over, Polestar guides the guide's target");
@@ -1361,7 +1361,7 @@ fn d23_a_map_click_shortest_path_forever_plans_itself_is_its_own_polestar_keeps_
 fn d23_a_target_another_journey_replaced_goes_back_once_no_journey_runs_one_the_player_cleared_stays_cleared() {
 	for (version, spf) in [(1, SPF.to_string()), (2, spf_version(2))] {
 		let out = run(
-		r#"
+			r#"
 		nav.setWaypoint(copy(FARLAND))
 		local r = { sent = sent() }
 		spf.replace("ShortestPathForever")
@@ -1386,7 +1386,7 @@ fn d23_a_target_another_journey_replaced_goes_back_once_no_journey_runs_one_the_
 		r.own = { sent(), spf.owner or false }
 		emit(r)
 	"#,
-		Opts { spf: Some(&spf), ..Default::default() },
+			Opts { spf: Some(&spf), ..Default::default() },
 		);
 		assert_eq!(out["sent"], 1, "API version {version}");
 		assert_eq!(out["replaced"], json!([1, "ShortestPathForever", true, false]), "API version {version}: the player's journey guides; nothing is sent over it");
@@ -1432,7 +1432,7 @@ fn d23_the_game_s_pin_is_left_to_its_guide_when_polestar_steps_aside_and_a_pin_s
 		r.back = {{ N.HandedOff(), pin ~= nil, clears() }}
 		emit(r)
 	"#
-		),
+			),
 			Opts { spf: Some(&spf), ..Default::default() },
 		);
 		assert_eq!(handed["handed"], json!([true, 0]), "API version {version}: handed off: no pin of Polestar's");

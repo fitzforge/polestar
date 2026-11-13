@@ -2426,9 +2426,12 @@ const DUNGEON_ASK: &str = r#"
 
 #[test]
 fn dungeon_route_ask_banner_offers_run_it_or_skip_it_and_cannot_be_dismissed() {
-	let run_it = run(&[DUNGEON_ASK, r#"
+	let run_it = run(&[
+		DUNGEON_ASK,
+		r#"
 		B.Jump:Click()
-		emit({ shown = shown, kept = kept, call = lastCall("ChooseDungeon"), after = B:IsShown() })"#]
+		emit({ shown = shown, kept = kept, call = lastCall("ChooseDungeon"), after = B:IsShown() })"#,
+	]
 	.concat())
 	.remove(0);
 	assert_eq!(
@@ -2445,9 +2448,12 @@ fn dungeon_route_ask_banner_offers_run_it_or_skip_it_and_cannot_be_dismissed() {
 	assert_eq!(run_it["kept"], true, "dismissing does not answer");
 	assert_eq!(run_it["call"], json!(["ChooseDungeon", 36, true]));
 	assert_eq!(run_it["after"], false);
-	let skip = run(&[DUNGEON_ASK, r#"
+	let skip = run(&[
+		DUNGEON_ASK,
+		r#"
 		B.Later:Click()
-		emit({ call = lastCall("ChooseDungeon"), after = B:IsShown() })"#]
+		emit({ call = lastCall("ChooseDungeon"), after = B:IsShown() })"#,
+	]
 	.concat())
 	.remove(0);
 	assert_eq!(skip, json!({ "call": ["ChooseDungeon", 36, false], "after": false }));
