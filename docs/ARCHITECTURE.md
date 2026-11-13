@@ -2821,7 +2821,8 @@ Polestar.Theme.FontSpec(role) -> path, size, flags
 Polestar.Theme.Skin(frame, kind)          -- "window","panel","inset","button","editbox","checkbox","dropdown","scrollbar","tab","close"
 Polestar.Theme.Media(name) -> texturePath -- e.g. "icon-accept", "check", "white", "glow"
 Polestar.Theme.OnChanged(fn)              -- fn() on any scheme/colour/font change
-Polestar.Theme.IsEllesmere() -> bool
+Polestar.Theme.IsEllesmere() -> bool   -- a UI suite's look is followed (EllesmereUI, or ErgoBars: the same contract)
+Polestar.Theme.SkinProvider() -> "EllesmereUI" | "ErgoBars" | nil   -- whose; named in the scheme, accent note and Integrations
 Polestar.Theme.SkinKey() -> "polestar" | "halo" | "blizzard"   -- ui.skin
 Polestar.Theme.SkinChoices() -> { { value, text }, ... }
 Polestar.Theme.Metric(key, house) -> n   -- a size in the skin in use; `house` in the house style
@@ -2957,7 +2958,12 @@ scheme.
 
 EllesmereUI is read only through its documented skinning API
 (`EllesmereUI.RegisterSkin`, `S.GetAccentColor`, `S.GetPanelColor`, `S.GetFont`,
-`S.OnLooksChanged`); its frame primitives are not applied. Every surface paints
+`S.OnLooksChanged`); its frame primitives are not applied. ErgoBars, a whole UI
+for Forever, offers the same contract as `ErgoBarsLooks.RegisterSkin` (the same
+`S` calls, handed over at `PLAYER_LOGIN`), so Polestar follows it on the same
+path when EllesmereUI is not installed; EllesmereUI wins when both are.
+`Theme.SkinProvider()` names which, and the "ellesmere" scheme and the
+Integrations section carry that name. Every surface paints
 from tokens (`W.Color`, `W.Painter`, `Theme.Skin`, `Theme.Band`), so a scheme or
 colour change repaints live without a reload.
 
