@@ -6780,7 +6780,7 @@ test('forever/alliance/30-40/04-stranglethorn-vale.guide: final review: the isla
 	assert.equal(stepOf('accept', 601), stepOf('turnin', 578), 'the elementals too');
 	assert.deepEqual(compiled(file).steps.filter((st) => st.along).map((st) => st.title), [], 'no along steps');
 	const druid = list.filter(forClass('DRUID'));
-	const train = druid.findIndex(({ step, goal }) => goal.t === 'train' && step.only);
+	const train = druid.findIndex(({ step, goal }) => goal.t === 'train' && (step.only || goal.only));
 	const sw = druid.findIndex(({ goal }) => goal.t === 'fly' && /Stormwind/.test(JSON.stringify(goal)));
 	assert.ok(sw >= 0 && train > sw, 'Druids train after the flight to Stormwind');
 	assert.ok(!druid.some(({ goal }) => goal.t === 'goto' && /Ironforge|Tram/.test(JSON.stringify(goal))), 'no Ironforge or tram detour');
