@@ -309,12 +309,14 @@ end
 -- The line at the right of frame's Rewards heading, in the panel's own text
 -- colour (its quest material's: the choose line's), so it reads on parchment
 -- and stone alike; the arrow in the look's success colour, as on the icons;
--- the look's small font. It keeps clear of the heading's text.
+-- the look's small font. It keeps clear of the heading's text. The map's
+-- quest details (MapQuestInfoRewardsFrame) have no heading: their Header is
+-- an anchor-only frame, so they get no line.
 local function showScored(frame)
 	local head = frame.Header
 	local G = ns.Gear
 	local text = G and G.ScoredFor and G.ScoredFor(true)
-	if not (text and head and head.IsShown and head:IsShown()) then return end
+	if not (text and head and head.GetObjectType and head:GetObjectType() == "FontString" and head:IsShown()) then return end
 	local b = scoredButton()
 	if b:GetParent() ~= frame then b:SetParent(frame) end
 	b:SetFrameLevel((frame:GetFrameLevel() or 1) + 5)

@@ -583,7 +583,6 @@ end
 -- line (QuestFont, in the quest material's text colour) above the choices.
 QuestInfoRewardsFrame = CreateFrame("Frame", "QuestInfoRewardsFrame", UIParent)
 QuestInfoRewardsFrame:SetSize(285, 10)
-QuestInfoRewardsFrame:SetPoint("TOPLEFT", UIParent, "TOPLEFT", 300, -200)
 QuestInfoRewardsFrame.RewardButtons = {}
 QuestInfoRewardsFrame.Header = QuestInfoRewardsFrame:CreateFontString(nil, "ARTWORK")
 QuestInfoRewardsFrame.Header:SetFont(STANDARD_TEXT_FONT, 18, "")

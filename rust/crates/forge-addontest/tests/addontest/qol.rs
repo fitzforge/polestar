@@ -4095,10 +4095,12 @@ fn rewards_a_line_beside_the_heading_says_what_the_upgrade_arrows_were_scored_fo
 		q.questComplete(); stub.runTimers()
 		local line = QoL.Rewards.ScoredLine()
 		local r, g, b = line.Text:GetTextColor()
-		local point, rel, relPoint = line:GetPoint(1)
-		local textRight = line:GetRight()
+		-- The line ends at the heading's right edge, the heading spans the panel: its width is what the heading's
+		-- text leaves, with a gap.
+		local point, rel, relPoint, x = line:GetPoint(1)
 		emit({ shown = line:IsShown(), text = line.Text:GetText(), color = { r, g, b }, point = point, onHeading = rel == F.Header,
-			relPoint = relPoint, clear = line:GetLeft() >= F.Header:GetLeft() + F.Header:GetStringWidth(), inside = textRight <= F:GetRight() + 0.5 })
+			relPoint = relPoint, x = x, clear = line:GetWidth() + F.Header:GetStringWidth() + 12 <= F.Header:GetWidth() + 0.5,
+			whole = line.Text:GetWidth() >= line.Text:GetUnboundedStringWidth() - 0.5 })
 		stub.RunScript(line, "OnEnter")
 		emit(GameTooltip.lines)
 		line:Click()
@@ -4115,19 +4117,26 @@ fn rewards_a_line_beside_the_heading_says_what_the_upgrade_arrows_were_scored_fo
 		F.Header:Hide()
 		q.questComplete(); stub.runTimers()
 		emit(line:IsShown())
+		-- The map's quest details (MapQuestInfoRewardsFrame): their Header is an anchor-only frame, not a heading.
+		local heading = F.Header
+		F.Header = CreateFrame("Frame", nil, F)
+		local ok = pcall(QoL.Rewards.Mark)
+		emit({ ok = ok, shown = line:IsShown() })
+		F.Header = heading
 	"#);
 	let first = &out[0];
 	assert_eq!(first["shown"], true, "{first}");
 	assert_eq!(first["text"], "Scored for Arcane");
 	assert_eq!(first["color"], json!([0.18, 0.1, 0.03]), "the panel's own text colour");
-	assert_eq!((first["point"].clone(), first["onHeading"].clone(), first["relPoint"].clone()), (json!("RIGHT"), json!(true), json!("RIGHT")));
+	assert_eq!((first["point"].clone(), first["onHeading"].clone(), first["relPoint"].clone(), first["x"].clone()), (json!("RIGHT"), json!(true), json!("RIGHT"), json!(0)));
 	assert_eq!(first["clear"], true, "clear of the heading's text: {first}");
-	assert_eq!(first["inside"], true, "inside the panel: {first}");
+	assert_eq!(first["whole"], true, "the text fits whole in the room left: {first}");
 	assert_eq!(out[1], json!(["Scored for Arcane, from your talents", "Click: choose the stat weights"]));
 	assert_eq!(out[2], 1, "a click opens Stat weights");
 	assert_eq!(out[3], false, "no upgrade arrow: no line");
 	assert_eq!(out[4], false, "the marks off: no line");
 	assert_eq!(out[5], false, "no heading: no line");
+	assert_eq!(out[6], json!({ "ok": true, "shown": false }), "the map's anchor-only Header: no line, no error");
 }
 
 // ---------------------------------------------------------------------------

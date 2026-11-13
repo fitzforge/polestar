@@ -56,7 +56,8 @@ Polestar.RegisterGuide({ id = "studio/gear", pack = "studio", title = "The Barre
 } })
 stub.world.onQuest(${QUEST}, { { required = 1, fulfilled = 1 } }, "Free From the Hold")
 Polestar.Engine.SetGuide("studio/gear")
-stub.advance(1)`;
+stub.advance(1)
+studio.clearHeadsUps()`;
 
 const luaScale = (scale) => `local s = ${scale}
 UIParent:SetScale(s)
@@ -164,7 +165,7 @@ module.exports = {
 	title: 'Gear advice says what it scored with (#2035): the reward pick and the reward panel in every look at UI scales 0.64, 1.0 and 1.5',
 	character: { race: 'Troll', cls: 'WARRIOR', faction: 'Horde', level: 22, money: 4200 },
 	place: { map: 1413, x: 62.29, y: 39.03, zone: 'The Barrens', subzone: 'Ratchet' },
-	settings: {},
+	settings: { 'behavior.offerClassQuests': false },
 	data: { items: CHOICES },
 	stubs: skins.stubs,
 	art: skins.art,
