@@ -191,7 +191,7 @@
 			"faction": "Alliance",
 			"at": { "quest": 99128, "goal": "objective", "objective": 1 },
 			"tip": "Murlocs and Murloc Streamrunners hold the east shore; the Junk Piles lie in their camp. Careful: the murlocs stand close together, so a fight easily pulls two or three at once: pull them one at a time from the edge of the camp, and don't chase one into the next group.",
-			"note": "Slimy Menace (99128) and Bottles and Baubles (99143) at Crystal Lake's murloc camp, at about level 6-7 on the route: the deadliest spot of Elwynn in the recordings. A caution, not a route change (the later lake visit our comparison makes is a 0.3.7 item).",
+			"note": "Slimy Menace (99128) and Bottles and Baubles (99143) at Crystal Lake's murloc camp, at about level 6-7 on the route: the deadliest spot of Elwynn in the recordings. A caution, not a route change.",
 			"source": [
 				{
 					"kind": "recording",
