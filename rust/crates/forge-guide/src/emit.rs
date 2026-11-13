@@ -987,6 +987,41 @@ pub fn emit_retired(pack_id: &str, ids: &[String]) -> String {
 	format!("\nPolestar.RetireGuides({}, {{\n{}\n}})\n", lua_string(pack_id), lines.join("\n"))
 }
 
+/// A point of an experimental index entry (`start`, `focus`).
+const POINT_KEYS: [&str; 4] = ["map", "x", "y", "f"];
+
+/// Polestar_Guides' experimental index (project.rs experimental_index), after the guides in Guides.lua: one
+/// Polestar.RegisterExperimental call (Core/Guides.lua) with an entry per experimental guide our route
+/// choices offer, its keys in project.rs INDEX_KEYS order. Nothing without entries.
+pub fn emit_experimental(entries: &[V]) -> String {
+	if entries.is_empty() {
+		return String::new();
+	}
+	let mut out = vec![String::new(), "Polestar.RegisterExperimental({".to_string()];
+	for e in entries {
+		out.push("\t{".into());
+		for k in crate::project::INDEX_KEYS {
+			let v = e.get(k);
+			if v.is_nullish() {
+				continue;
+			}
+			let value = match k {
+				"names" | "written" => {
+					let parts: Vec<String> = sorted_keys(&v).iter().map(|t| format!("[{}] = {}", lua_string(t), lua_str_v(&v.get(t)))).collect();
+					format!("{{ {} }}", parts.join(", "))
+				}
+				"start" | "focus" => inline(&v, &Keys::Fixed(&POINT_KEYS), 2),
+				_ if v.is_arr() => list(&v, None, 2),
+				_ => scalar(&v, 2),
+			};
+			out.push(format!("\t\t{k} = {value},"));
+		}
+		out.push("\t},".into());
+	}
+	out.push("})".into());
+	format!("{}\n", out.join("\n"))
+}
+
 /// A pack's texts addon for one language (docs/TRANSLATING.md, "Guide
 /// texts"): <folder>_<locale>, which Polestar loads on demand on that client
 /// only, once the pack's own files are in (Core/GuideTexts.lua). Its TOC

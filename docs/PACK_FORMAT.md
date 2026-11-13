@@ -266,8 +266,10 @@ before a pack is built (`rust/crates/forge-addontest/tests/addontest/packs-parit
 10. **Packs that load on demand.** A pack whose addon the client loads only
     on demand (`## LoadOnDemand: 1`: Polestar's own `Polestar_Experimental`,
     below; `forge guide compile` writes it for no community addon) is `off`
-    until the player switches it on on the Community guides page. Switching
-    it on loads the addon (never in combat: then once the fight ends) and
+    until the player switches it on on the Community guides page (or, for
+    Polestar's experimental pack, chooses one of its guides at a route
+    choice, below). Switching it on loads the addon (never in combat: then
+    once the fight ends) and
     its guides come in without a reload; while it stays on it loads at every
     login, before the saved tabs reopen. Switched off, its guides hide; from
     the next login it no longer loads. Left off, it costs a login its row
@@ -309,11 +311,34 @@ testing (alpha). It is built from `experimental/` in the checkout
   without "Polestar Community: "), the AddOns list in every client language,
   `## Author: Polestar` (the Polestar Client updates it with Polestar's
   other folders), and `## LoadOnDemand: 1`, so rule 10 applies: off until
-  the player switches it on.
-- Its guides are never suggested and never part of the route: **Suggest
-  guides from** never offers the pack, a saved choice of it counts as
-  Polestar's own guides, and its guides' route choices are never offered.
-  The player opens one from the guide menu, under Community guides.
+  the player switches it on, or chooses one of its guides at a route choice.
+- Its guides are never suggested and never part of the route by themselves:
+  **Suggest guides from** never offers the pack, a saved choice of it counts
+  as Polestar's own guides, and its guides' route choices are never offered.
+  The player opens one from the guide menu, under Community guides, or
+  chooses it where one of our guides offers it.
+- **Offered by our route choices.** One of our guides may offer one of its
+  guides as one more route option: a second `next` line (GUIDE_FORMAT,
+  "Route choices"), never the first, which stays the default. `forge guide
+  compile` (and `lint`) reads `experimental/` beside our guides, checks each
+  such id (known, the guide's faction, not the default line) and writes the
+  **experimental index** after Polestar_Guides' guides in its `Guides.lua`:
+  one `Polestar.RegisterExperimental({ ... })` call (Core/Guides.lua), an
+  entry per offered guide, in id order, with its header as its guide
+  registers it (`id`, `pack`, `title`, `faction`, `races`, `classes`,
+  `minLevel`, `maxLevel`, `zone`, `zoneName`, `pitch`, `pros`, `cons` and the
+  `names`/`written` those texts use) and its route until it hands back to one
+  of ours: `topLevel` (the highest `maxLevel` on the way), `questIds` (its
+  accepts, each once; another faction's lines left out), `joins` (our guides
+  its route hands back to), `start` (its first located goal: travel time),
+  `focus` (its first goal on its zone's map: the card's art), and `viaMap` /
+  `via` (the zone its way in goes through first, when not its own: a
+  detour's). The Era frames of those points' maps join `MapFrames.lua`.
+  While the pack is off, the route choice shows the option from the index;
+  it is never recommended, never the one option taken without asking, and
+  the hand-off, the catch-up and the hand-in plan leave it out until the
+  player chose it and its guides are in. Choosing it switches the pack on
+  (rule 10), with nothing to install.
 
 ## Format 3
 

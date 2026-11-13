@@ -1386,6 +1386,8 @@ local loggedIn = false
 
 local function relocalise(packId)
 	local changed = false
+	-- The experimental index ships in our pack (Polestar.RegisterExperimental).
+	if packId == nil or packId == "guides" then Own.refreshExperimental() end
 	for id, def in pairs(guides) do
 		if (packId == nil or def.pack == packId) and GuideTexts.Refresh(def) then
 			changed = true
@@ -1624,6 +1626,110 @@ function Guides.OfferedBy(id)
 		end
 	end
 	return out
+end
+
+---------------------------------------------------------------------------
+-- Experimental route options (docs/PACK_FORMAT.md, "Polestar's own extra
+-- packs"). A route choice of ours may offer one of Polestar's experimental
+-- guides (an extra `next` line). Their pack loads on demand and stays off
+-- until the player wants it, so Polestar_Guides carries an index of the
+-- guides our route choices offer (Polestar.RegisterExperimental, written by
+-- `forge guide compile`): each as a guide header without steps (title, who
+-- it is for, levels, zone, pitch, pros, cons and their name tokens), with
+-- its route until it rejoins ours: its top level (`topLevel`), the quests
+-- it takes (`questIds`), where it starts (`start`: its first located goal;
+-- `focus`: its first on its zone's map), the zone it travels through first
+-- when that is not its own (`viaMap`, `via`: its English name) and our
+-- guides it rejoins (`joins`). The route choice shows such an option from
+-- the index until its guide is in (Engine, routeOptions); choosing it
+-- switches the pack on (Guides.SetPackShown), which loads it.
+---------------------------------------------------------------------------
+
+Own.experimental = {} -- guide id -> its index entry (texts in the client's language)
+Own.EXP_KEYS = {
+	strings = { "title", "faction", "zoneName", "pitch", "via" },
+	numbers = { "minLevel", "maxLevel", "zone", "topLevel", "viaMap" },
+	lists = { "races", "classes", "pros", "cons", "joins" },
+	maps = { "names", "written" },
+}
+
+function Own.expPoint(p)
+	if type(p) ~= "table" or not (isNum(p.map) and isNum(p.x) and isNum(p.y)) then return nil end
+	return { map = p.map, x = p.x, y = p.y, f = isStr(p.f) and p.f or nil }
+end
+
+-- list: { entry, ... }, each for a guide of a pack never suggested (ours:
+-- Polestar_Guides' Guides.lua, after its guides). Fields of the wrong type
+-- are left out; an entry without id, pack or title is dropped.
+function ns.RegisterExperimental(list)
+	if type(list) ~= "table" then return end
+	local K = Own.EXP_KEYS
+	for _, e in ipairs(list) do
+		if type(e) == "table" and isStr(e.id) and isStr(e.pack) and Guides.NEVER_SUGGESTED[e.pack] and ownsId(e.pack, e.id) and isStr(e.title) then
+			local def = { id = e.id, pack = e.pack, category = "Leveling" }
+			for _, k in ipairs(K.strings) do if isStr(e[k]) then def[k] = e[k] end end
+			for _, k in ipairs(K.numbers) do if isNum(e[k]) then def[k] = e[k] end end
+			for _, k in ipairs(K.lists) do
+				if type(e[k]) == "table" then
+					local l = {}
+					for _, v in ipairs(e[k]) do if isStr(v) then l[#l + 1] = v end end
+					def[k] = l
+				end
+			end
+			for _, k in ipairs(K.maps) do
+				if type(e[k]) == "table" then
+					local m = {}
+					for t, v in pairs(e[k]) do if isStr(t) and isStr(v) then m[t] = v end end
+					def[k] = m
+				end
+			end
+			if type(e.questIds) == "table" then
+				local q = {}
+				for _, v in ipairs(e.questIds) do if isNum(v) then q[#q + 1] = v end end
+				def.questIds = q
+			end
+			def.start, def.focus = Own.expPoint(e.start), Own.expPoint(e.focus)
+			def.steps = {}
+			-- Its texts as a guide's: English names until the names are in
+			-- (Own.refreshExperimental), escaped as at registration.
+			ns.GuideTexts.Prepare(def, false)
+			escapeTree(def, {}, ID_KEYS)
+			Own.experimental[e.id] = def
+		end
+	end
+end
+
+-- The index entries' texts again, once the names or a texts addon came in.
+function Own.refreshExperimental()
+	for _, def in pairs(Own.experimental) do ns.GuideTexts.Refresh(def) end
+end
+
+-- The index entry of experimental guide `id` (a header with no steps; see
+-- above), or nil.
+function Guides.Experimental(id)
+	return id and Own.experimental[id] or nil
+end
+
+-- Whether option `id` of guide `from`'s `next` leads from outside a pack
+-- never suggested into one (an experimental guide, registered or only in
+-- the index): an offer the player takes or leaves, never the route by
+-- itself. An experimental guide's own `next` is its route.
+function Guides.ExperimentalOffer(from, id)
+	if type(from) ~= "table" or not id or Guides.NEVER_SUGGESTED[from.pack] then return false end
+	local g = guides[id]
+	if g then return Guides.NEVER_SUGGESTED[g.pack] == true end
+	return Own.experimental[id] ~= nil
+end
+
+-- Whether experimental guide `id`'s pack can bring it in when switched on
+-- (Guides.SetPackShown): installed and enabled, and either not loaded yet or
+-- loaded with that guide (hidden while it is off).
+function Guides.ExperimentalLoadable(id)
+	local e = Own.experimental[id]
+	local r = e and Guides.Pack(e.pack)
+	if not (r and accepted(r)) then return false end
+	if r.tocOnly then return true end
+	return guides[id] ~= nil
 end
 
 local function hasLeveling(r)

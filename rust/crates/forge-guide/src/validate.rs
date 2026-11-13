@@ -1090,6 +1090,9 @@ pub fn validate_guides(guides: &[V], data: &Data, diag: &mut Diagnostics) {
 		by_id.insert(id, g.clone());
 		order.push(g.clone());
 	}
+	// Polestar's own extra packs (project.rs OWN_EXTRAS) with a guide in this compile: a `next` to an unknown id
+	// of one of them is an error; of one compiled elsewhere it is checked there (project.rs experimental_index).
+	let extras_in: Vec<&str> = crate::project::OWN_EXTRAS.iter().filter(|e| order.iter().any(|g| crate::project::extra_of(&ts(&g.get("id"))) == Some(e.id))).map(|e| e.id).collect();
 	// Predecessors through `next` and every route choice.
 	let mut preds: FxHashMap<Key, Vec<V>> = FxHashMap::default();
 	for g in &order {
@@ -1103,6 +1106,11 @@ pub fn validate_guides(guides: &[V], data: &Data, diag: &mut Diagnostics) {
 		};
 		for to in next_ids(g) {
 			let Some(other) = by_id.get(&key(&to)).cloned() else {
+				// A guide of one of Polestar's own extra packs (an experimental guide offered as a route choice)
+				// compiled without that pack: project.rs experimental_index checks it where the pack is read.
+				if crate::project::extra_of(&ts(&to)).is_some_and(|e| !extras_in.contains(&e)) {
+					continue;
+				}
 				diag.error(&file, next_line(&to), format!("`next` points to unknown guide \"{}\"", ts(&to)), Some("list guide ids with `polestar find --kind guide <text>`".into()));
 				continue;
 			};

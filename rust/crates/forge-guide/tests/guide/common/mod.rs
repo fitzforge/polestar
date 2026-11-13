@@ -370,7 +370,7 @@ pub fn manifest_of(dir: &Path) -> V {
 /// buildPackFiles({ guides, manifest, data }) -> file name -> text (bytes as lossy text).
 pub fn pack_files(guides: &[V], manifest: &V, data: &Data) -> std::collections::BTreeMap<String, String> {
 	let iface = forge_guide::project::core_interface(&repo()).unwrap();
-	forge_guide::project::build_pack_files(guides, manifest, data, None, &V::obj(), &[], &iface, Vec::new())
+	forge_guide::project::build_pack_files(guides, manifest, data, None, &V::obj(), &[], &[], &iface, Vec::new())
 		.into_iter()
 		.map(|(k, c)| {
 			let t = match c {

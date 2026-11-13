@@ -36,6 +36,7 @@ mod dsl_when_knows;
 mod dsl_when_skill;
 mod dsl_when_upgrade;
 mod exact_points;
+mod experimental_index;
 mod guidecheck;
 mod hand_spots;
 mod lint_flights;

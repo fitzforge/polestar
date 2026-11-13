@@ -343,6 +343,8 @@ mod recorder_progress;
 mod recorder_route;
 mod release;
 mod riding;
+#[path = "route-experimental.rs"]
+mod route_experimental;
 #[path = "route-plan.rs"]
 mod route_plan;
 #[path = "settings-coverage.rs"]
