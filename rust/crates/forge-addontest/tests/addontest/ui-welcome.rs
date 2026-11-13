@@ -839,6 +839,29 @@ fn the_look_page_offers_the_colour_scheme_from_its_cards_live_and_the_gamepads_b
 	assert_eq!(out["glyphs"], "playstation");
 }
 
+// A skin that brings its own ground colours leaves a scheme nothing to change: the look page offers no scheme
+// under it; a skin that leaves the grounds to the scheme keeps the cards.
+#[test]
+fn the_look_page_leaves_the_colour_scheme_out_under_a_skin_that_brings_its_own_grounds() {
+	let out = run(r#"
+		local T = Polestar.Theme
+		local function n() local k = 0 for _, c in ipairs(PolestarWelcome.Schemes) do if c:IsShown() then k = k + 1 end end return k end
+		Wel.Show("look")
+		local house = n()
+		local own = T.SkinToken
+		T.SkinToken = function(name) if name == "bg" then return 0.91, 0.86, 0.75, 1 end end
+		Wel.Show("look")
+		local paper = { n = n(), title = PolestarWelcome.pages.look.Body.SchemeTitle:IsShown() }
+		T.SkinToken = function(name) if name == "glow" then return 1, 0.5, 0, 1 end end
+		Wel.Show("look")
+		local trim = n()
+		T.SkinToken = own
+		emit({ house = house, paper = paper, trim = trim })"#);
+	assert_eq!(out["house"], 3, "the house look: its schemes");
+	assert_eq!(out["paper"], json!({ "n": 0, "title": false }), "its own grounds: a scheme would change nothing");
+	assert_eq!(out["trim"], 3, "the grounds left to the scheme: its cards stay");
+}
+
 #[test]
 fn the_last_page_says_all_is_set_with_no_reload_finish_closes_it_and_start_guide_shows_while_the_guide_is_not_open() {
 	let out = run(r#"

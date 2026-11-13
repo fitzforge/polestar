@@ -47,8 +47,8 @@
 --      Polestar_Options, and the skin addons, load when the page first
 --      shows; without them the window itself is the preview); the colour
 --      scheme (ui.scheme) as preview cards in each scheme's own colours
---      while the house look is on; the gamepad's button names
---      (gamepad.glyphs) while a gamepad is in use;
+--      while the house look is on (not a skin that brings its own grounds);
+--      the gamepad's button names (gamepad.glyphs) while a gamepad is in use;
 --   6. finish: the guide on its painting (its level range, who it is for),
 --      its pitch; You're all set; what Start guide does, or that the guide
 --      is open; where to change it all later (Settings and its search,
@@ -2092,8 +2092,9 @@ do
 			for i = #choices + 1, #F.Skins do F.Skins[i]:Hide() end
 			if looksLoaded then previewLook(p, lookInUse()) end
 			local y = max(LOOK_LIST_H, PREVIEW_ART_H + 10 + p.PreviewName:GetStringHeight() + 3 + p.PreviewLine:GetStringHeight())
-			-- The colour scheme: the house look's alone.
-			local house = Theme.SkinKey() == "polestar" and not (Theme.SkinScheme and Theme.SkinScheme())
+			-- The colour scheme: the house look's alone (a skin that brings its
+			-- own ground colours leaves a scheme nothing to change).
+			local house = Theme.SkinKey() == "polestar" and not (Theme.SkinScheme and Theme.SkinScheme()) and not Theme.SkinToken("bg")
 			y = laySchemes(p, house and y + 18 or y, house)
 			local pad = gamepadShown()
 			y = layGroup(F.Glyphs, pad and y + 18 or y, pad) + 14
