@@ -361,6 +361,27 @@ pub fn run_paths(pin: &PathInputs, opts: &RunOpts, cache: &SharedCache) -> Resul
 		// (Last, the race lists the `races` guide fixes set: no pass after them.)
 		ro.tree.insert(rel.clone(), crate::fixes::apply_races(&text, &records, route.faction.as_deref()));
 	}
+	// (Then what the pack check refuses that the passes before can leave, on the guides as written: an
+	// `along until` after its label, a flight on from a stop with nothing to do, a hand-in of a quest
+	// nothing on the chain accepts. They read the race lists, and set none.)
+	let map_land = |m: u32| -> Option<i64> {
+		let k = m.to_string();
+		let f = gdata.map_frames.get("forever").get(&k);
+		let f = if f.truthy() { f } else { gdata.map_frames.get("era").get(&k) };
+		f.truthy().then(|| f.get("c").num() as i64)
+	};
+	let zone_land = |z: &str| gdata.zone_by_name.get(&z.to_lowercase()).and_then(|v| v.first()).and_then(|r| r.get("id").as_num()).and_then(|m| map_land(m as u32));
+	let node_land = |name: &str| {
+		gdata.flight_nodes().items().into_iter().find(|x| x.get("short").to_js_string().eq_ignore_ascii_case(name) || x.get("name").to_js_string().eq_ignore_ascii_case(name)).map(|x| x.get("c").num() as i64)
+	};
+	let lands = crate::post::Lands { zone: &zone_land, map: &map_land, node: &node_land };
+	for rel in &written {
+		let text = crate::post::along_before_label(&ro.tree[rel]);
+		let (text, hops) = crate::post::flight_hops(&text, route.faction.as_deref(), &lands);
+		ro.log.extend(hops.into_iter().map(|h| format!("{rel}: {h}")));
+		ro.tree.insert(rel.clone(), text);
+	}
+	ro.log.extend(crate::post::carried_hand_ins(&mut ro.tree, &written).into_iter().map(|l| format!("carried hand-in, when onquest: {l}")));
 	// (The titles: the zones each guide as written quests in, docs/forge/writer.md "Guide titles".)
 	crate::titles::guide_titles(&mut ro.tree, &written, &|z| gdata.zone_by_name.contains_key(&z.to_lowercase()));
 	// (Travel steps that end in a town of the other faction: warned about, for a `way` guide fix. A walk
