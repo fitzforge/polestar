@@ -6915,58 +6915,6 @@
 			"evidence": "route level 14.9; Dalaran Conjuror 17-18; recordings (2026-11-11): done by 22 people at 15-23 (median 18), 0 people died within 60 yd, 5 abandoned"
 		},
 		{
-			"key": "forever/horde/04-the-barrens.guide|collect 6301.1|rare",
-			"guide": "forever/horde/04-the-barrens.guide",
-			"goal": "collect 6301.1",
-			"kind": "rare",
-			"title": "Gaea Seeds",
-			"level": 25,
-			"mobs": [
-				"Sorrow Wing 27-27"
-			],
-			"reason": "players do it (33 people, median 25); the 1 who died there fought other mobs (Deepmoss Venomspitter), not Sorrow Wing",
-			"evidence": "route level 25; Sorrow Wing 27-27; recordings (2026-11-11): done by 33 people at 21-30 (median 25), 1 people died within 60 yd (median level 17), 5 abandoned"
-		},
-		{
-			"key": "forever/horde/04-the-barrens.guide|kill 1087.2|rare",
-			"guide": "forever/horde/04-the-barrens.guide",
-			"goal": "kill 1087.2",
-			"kind": "rare",
-			"title": "Stonetalon Mountains: kill these as you meet them",
-			"level": 25,
-			"mobs": [
-				"Sentinel Amarassan 27-27"
-			],
-			"reason": "players do it (30 people, median 25); the 1 who died there fought other mobs (Cenarion Botanist), not Sentinel Amarassan",
-			"evidence": "route level 25; Sentinel Amarassan 27-27; recordings (2026-11-11): done by 30 people at 22-28 (median 25), 1 people died within 60 yd (median level 25), 2 abandoned"
-		},
-		{
-			"key": "forever/horde/04-the-barrens.guide|kill 1087.1|rare",
-			"guide": "forever/horde/04-the-barrens.guide",
-			"goal": "kill 1087.1",
-			"kind": "rare",
-			"title": "Stonetalon Mountains: kill these as you meet them",
-			"level": 25,
-			"mobs": [
-				"Sentinel Amarassan 27-27"
-			],
-			"reason": "players do it (30 people, median 25); the 2 who died there fought other mobs (Cenarion Botanist), not Sentinel Amarassan",
-			"evidence": "route level 25; Sentinel Amarassan 27-27; recordings (2026-11-11): done by 30 people at 22-28 (median 25), 2 people died within 60 yd (median level 24), 2 abandoned"
-		},
-		{
-			"key": "forever/horde/04-the-barrens.guide|kill 1087.3|rare",
-			"guide": "forever/horde/04-the-barrens.guide",
-			"goal": "kill 1087.3",
-			"kind": "rare",
-			"title": "Stonetalon Mountains: kill these as you meet them",
-			"level": 25,
-			"mobs": [
-				"Sentinel Amarassan 27-27"
-			],
-			"reason": "a kill-as-you-meet-them step: the player picks which mobs to fight",
-			"evidence": "route level 25; Sentinel Amarassan 27-27; recordings (2026-11-11): done by 30 people at 22-28 (median 25), 0 people died within 60 yd, 2 abandoned"
-		},
-		{
 			"key": "forever/horde/04-the-barrens.guide|collect 86576.1|rare",
 			"guide": "forever/horde/04-the-barrens.guide",
 			"goal": "collect 86576.1",
@@ -7027,13 +6975,13 @@
 			"goal": "kill 98093.1",
 			"kind": "elite",
 			"title": "Field to Clear",
-			"level": 26.1,
+			"level": 24.9,
 			"mobs": [
 				"Qiraji Lieutenant 28-28",
 				"Qiraji Lieutenant Jo-rel 28-28"
 			],
-			"reason": "players do it (29 people, median 25); the 1 who died there fought other mobs (Razormane Pathfinder), not Qiraji Lieutenant, Qiraji Lieutenant Jo-rel",
-			"evidence": "route level 26.1; Qiraji Lieutenant 28-28, Qiraji Lieutenant Jo-rel 28-28; recordings (2026-11-11): done by 29 people at 21-28 (median 25), 1 people died within 60 yd (median level 22), 1 abandoned"
+			"reason": "warned at the step: its tip names the Qiraji Lieutenants",
+			"evidence": "route level 24.9 (the southern Barrens first since the Horde 21-30 audit); Qiraji Lieutenant 28-28, Qiraji Lieutenant Jo-rel 28-28; recordings (2026-11-13): done by 29 people at 21-28 (median 25), 1 people died within 60 yd (median level 22, to a Razormane Pathfinder), 1 abandoned"
 		},
 		{
 			"key": "forever/horde/04-the-barrens.guide|collect 846.1|over",
@@ -7041,12 +6989,12 @@
 			"goal": "collect 846.1",
 			"kind": "over",
 			"title": "Bael'dun fortress",
-			"level": 26.3,
+			"level": 25.2,
 			"mobs": [
 				"General Twinbraid 30-30 x4"
 			],
-			"reason": "players do it (27 people, median 26); the 4 who died there fought other mobs (Bael'dun Rifleman), not General Twinbraid",
-			"evidence": "route level 26.3; General Twinbraid 30-30 x4; recordings (2026-11-11): done by 27 people at 21-28 (median 26), 4 people died within 60 yd (median level 23), 2 abandoned"
+			"reason": "warned at the step: its tip names General Twinbraid",
+			"evidence": "route level 25.2 (the southern Barrens first since the Horde 21-30 audit); General Twinbraid 30-30 x4; recordings (2026-11-13): done by 27 people at 21-28 (median 26), 4 people died within 60 yd (median level 23, to Bael'dun Riflemen), 2 abandoned"
 		},
 		{
 			"key": "forever/horde/04-the-barrens.guide|collect 846.2|over",
@@ -7054,12 +7002,12 @@
 			"goal": "collect 846.2",
 			"kind": "over",
 			"title": "Bael'dun fortress",
-			"level": 26.3,
+			"level": 25.2,
 			"mobs": [
 				"General Twinbraid 30-30 x4"
 			],
-			"reason": "players do it (27 people, median 26); the 4 who died there fought other mobs (Bael'dun Rifleman), not General Twinbraid",
-			"evidence": "route level 26.3; General Twinbraid 30-30 x4; recordings (2026-11-11): done by 27 people at 21-28 (median 26), 4 people died within 60 yd (median level 23), 2 abandoned"
+			"reason": "warned at the step: its tip names General Twinbraid",
+			"evidence": "route level 25.2 (the southern Barrens first since the Horde 21-30 audit); General Twinbraid 30-30 x4; recordings (2026-11-13): done by 27 people at 21-28 (median 26), 4 people died within 60 yd (median level 23, to Bael'dun Riflemen), 2 abandoned"
 		},
 		{
 			"key": "forever/horde/04-the-barrens.guide|collect 846.3|over",
@@ -7067,12 +7015,12 @@
 			"goal": "collect 846.3",
 			"kind": "over",
 			"title": "Bael'dun fortress",
-			"level": 26.3,
+			"level": 25.2,
 			"mobs": [
 				"General Twinbraid 30-30 x4"
 			],
-			"reason": "players do it (27 people, median 26); the 4 who died there fought other mobs (Bael'dun Rifleman), not General Twinbraid",
-			"evidence": "route level 26.3; General Twinbraid 30-30 x4; recordings (2026-11-11): done by 27 people at 21-28 (median 26), 4 people died within 60 yd (median level 23), 2 abandoned"
+			"reason": "warned at the step: its tip names General Twinbraid",
+			"evidence": "route level 25.2 (the southern Barrens first since the Horde 21-30 audit); General Twinbraid 30-30 x4; recordings (2026-11-13): done by 27 people at 21-28 (median 26), 4 people died within 60 yd (median level 23, to Bael'dun Riflemen), 2 abandoned"
 		},
 		{
 			"key": "forever/horde/05-stonetalon-mountains.guide|kill 216.1|rare",
@@ -7099,6 +7047,32 @@
 			],
 			"reason": "a rare near the goal with no recorded deaths at the spot",
 			"evidence": "route level 22.2; Rorgish Jowl 25-25; recordings (2026-11-11): done by 19 people at 21-29 (median 27), 0 people died within 60 yd, 12 abandoned"
+		},
+		{
+			"key": "forever/horde/05-stonetalon-mountains.guide|kill 95981.2|over",
+			"guide": "forever/horde/05-stonetalon-mountains.guide",
+			"goal": "kill 95981.2",
+			"kind": "over",
+			"title": "Silverpine Forest: kill these as you meet them",
+			"level": 22.7,
+			"mobs": [
+				"High Order Mage 30-30 x3"
+			],
+			"reason": "warned at the step: its tip names High Order Mage",
+			"evidence": "route level 22.7; High Order Mage 30-30 x3; recordings (2026-11-13): done by 29 people (median 21.77), 1 died within 60 yd, 9 abandoned. Forever's spawn data puts High Order Mages (30) along the Ambermill road among the Dalaran Watchers and Wizards; none of the named killers of the 30 people who died on that stretch (recordings, all versions) is a High Order Mage (Dalaran Mages, Wizards, Serpents, Conjurors 14-20); the step's tip now names them"
+		},
+		{
+			"key": "forever/horde/05-stonetalon-mountains.guide|kill 95981.1|over",
+			"guide": "forever/horde/05-stonetalon-mountains.guide",
+			"goal": "kill 95981.1",
+			"kind": "over",
+			"title": "Silverpine Forest: kill these as you meet them",
+			"level": 22.7,
+			"mobs": [
+				"High Order Mage 30-30 x3"
+			],
+			"reason": "warned at the step: its tip names High Order Mage",
+			"evidence": "route level 22.7; High Order Mage 30-30 x3; recordings (2026-11-13): done by 29 people (median 20.78), 2 died within 60 yd, 9 abandoned. Forever's spawn data puts High Order Mages (30) along the Ambermill road among the Dalaran Watchers and Wizards; none of the named killers of the 30 people who died on that stretch (recordings, all versions) is a High Order Mage (Dalaran Mages, Wizards, Serpents, Conjurors 14-20); the step's tip now names them"
 		},
 		{
 			"key": "forever/horde/06-hillsbrad-foothills.guide|collect 501.1|mixed",
@@ -7271,6 +7245,45 @@
 			"evidence": "route level 23.9; 18 spawns 25+; recordings (2026-11-11): done by 27 people at 23-33 (median 26), 8 people died within 60 yd (median level 25), 2 abandoned"
 		},
 		{
+			"key": "forever/horde/06-hillsbrad-foothills.guide|collect 1536.1|over",
+			"guide": "forever/horde/06-hillsbrad-foothills.guide",
+			"goal": "collect 1536.1",
+			"kind": "over",
+			"title": "Tarren Mill",
+			"level": 22.9,
+			"mobs": [
+				"Southshore Defender 55-55 x3"
+			],
+			"reason": "players do it at the spot with no deaths: the Spring Well is beside Tarren Mill's inn",
+			"evidence": "route level 22.9; Southshore Defender 55-55 x3 (spawn data within 30 yd of Tarren Mill's Spring Well, object 107045); recordings (2026-11-13): done by 12 people (median 24.3), 0 died within 60 yd, 0 abandoned; no Southshore Defender among the band's recorded killers; the census met a Southshore Defender at Tarren Mill only twice (2 of 221 people whose census ran by its spawns): an occasional spawn"
+		},
+		{
+			"key": "forever/horde/06-hillsbrad-foothills.guide|kill 527.1|over",
+			"guide": "forever/horde/06-hillsbrad-foothills.guide",
+			"goal": "kill 527.1",
+			"kind": "over",
+			"title": "Hillsbrad Fields",
+			"level": 22.9,
+			"mobs": [
+				"Kirin Tor Guard 55-55 x2"
+			],
+			"reason": "warned at the step: its tip names Kirin Tor Guard",
+			"evidence": "route level 22.9; Kirin Tor Guard 55-55 x2; recordings (2026-11-13): done by 45 people (median 25.34), 4 died within 60 yd, 5 abandoned. Forever's spawn data puts Kirin Tor Guards (55) at the fields' northern edge; players' recordings: 26 Horde people met them as hostile there, north of the farms; the people who died in the fields were killed by farmers, farmhands and a bear where the killer is known (the 8 recorded deaths to Kirin Tor Guards were at the Dalaran crater)"
+		},
+		{
+			"key": "forever/horde/06-hillsbrad-foothills.guide|kill 527.3|over",
+			"guide": "forever/horde/06-hillsbrad-foothills.guide",
+			"goal": "kill 527.3",
+			"kind": "over",
+			"title": "Hillsbrad Fields",
+			"level": 22.9,
+			"mobs": [
+				"Kirin Tor Guard 55-55 x2"
+			],
+			"reason": "warned at the step: its tip names Kirin Tor Guard",
+			"evidence": "route level 22.9; Kirin Tor Guard 55-55 x2; recordings (2026-11-13): done by 43 people (median 25.46), 6 died within 60 yd, 5 abandoned. Forever's spawn data puts Kirin Tor Guards (55) at the fields' northern edge; players' recordings: 26 Horde people met them as hostile there, north of the farms; the people who died in the fields were killed by farmers, farmhands and a bear where the killer is known (the 8 recorded deaths to Kirin Tor Guards were at the Dalaran crater)"
+		},
+		{
 			"key": "forever/horde/07-ashenvale.guide|kill 96259.1|elite",
 			"guide": "forever/horde/07-ashenvale.guide",
 			"goal": "kill 96259.1",
@@ -7347,6 +7360,87 @@
 			],
 			"reason": "players do it (27 people, median 30); the 4 who died there fought other mobs (Screeching Roguefeather, Grenka Bloodscreech), not ",
 			"evidence": "route level 29; 6 spawns 31+; recordings (2026-11-11): done by 27 people at 28-35 (median 30), 4 people died within 60 yd (median level 29), 0 abandoned"
+		},
+		{
+			"key": "forever/horde/07-ashenvale.guide|collect 96260.1|elite",
+			"guide": "forever/horde/07-ashenvale.guide",
+			"goal": "collect 96260.1",
+			"kind": "elite",
+			"title": "Gloomrise: kill these as you meet them",
+			"level": 27.5,
+			"mobs": [
+				"Broodmother Valraxx 30-30 x4"
+			],
+			"reason": "a kill-as-you-meet-them step: the player picks which mobs to fight; the step's tip names Broodmother Valraxx (elite) at Gloomrise's north end",
+			"evidence": "route level 27.5; Broodmother Valraxx 30-30; recordings (2026-11-13): done by 44 people (median 28.67), 1 died within 60 yd, 0 abandoned"
+		},
+		{
+			"key": "forever/horde/07-ashenvale.guide|kill 96259.2|elite",
+			"guide": "forever/horde/07-ashenvale.guide",
+			"goal": "kill 96259.2",
+			"kind": "elite",
+			"title": "Gloomrise: kill these as you meet them",
+			"level": 27.5,
+			"mobs": [
+				"Broodmother Valraxx 30-30 x2"
+			],
+			"reason": "a kill-as-you-meet-them step: the player picks which mobs to fight; the step's tip names Broodmother Valraxx (elite) at Gloomrise's north end",
+			"evidence": "route level 27.5; Broodmother Valraxx 30-30; recordings (2026-11-13): done by 44 people (median 28.61), 1 died within 60 yd, 2 abandoned"
+		},
+		{
+			"key": "forever/horde/07-ashenvale.guide|kill 4841.1|elite",
+			"guide": "forever/horde/07-ashenvale.guide",
+			"goal": "kill 4841.1",
+			"kind": "elite",
+			"title": "Galak centaurs",
+			"level": 28,
+			"mobs": [
+				"Stormheart 30-30"
+			],
+			"reason": "warned at the step: its tip names Stormheart, Ravaging Tempest and Ailgrha Splittusk",
+			"evidence": "route level 28; Stormheart 30-30; recordings (2026-11-13): done by 44 people (median 29.3), 1 died within 60 yd, 1 abandoned. the storm elementals (Stormheart 30, Ravaging Tempest 40, Ailgrha Splittusk 38, all elite) roam the canyon floor around the Galak camps; the 13 people who died there (recordings) were killed by Grimtotem and Galak where the killer is known, none by these; the step's tip now names them"
+		},
+		{
+			"key": "forever/horde/07-ashenvale.guide|kill 4841.2|over",
+			"guide": "forever/horde/07-ashenvale.guide",
+			"goal": "kill 4841.2",
+			"kind": "over",
+			"title": "Galak centaurs",
+			"level": 28,
+			"mobs": [
+				"Ravaging Tempest 40-40 x2"
+			],
+			"reason": "warned at the step: its tip names Stormheart, Ravaging Tempest and Ailgrha Splittusk",
+			"evidence": "route level 28; Ravaging Tempest 40-40 x2; recordings (2026-11-13): done by 44 people (median 29.3), 1 died within 60 yd, 1 abandoned. the storm elementals (Stormheart 30, Ravaging Tempest 40, Ailgrha Splittusk 38, all elite) roam the canyon floor around the Galak camps; the 13 people who died there (recordings) were killed by Grimtotem and Galak where the killer is known, none by these; the step's tip now names them"
+		},
+		{
+			"key": "forever/horde/07-ashenvale.guide|kill 4841.2|elite",
+			"guide": "forever/horde/07-ashenvale.guide",
+			"goal": "kill 4841.2",
+			"kind": "elite",
+			"title": "Galak centaurs",
+			"level": 28,
+			"mobs": [
+				"Stormheart 30-30",
+				"Ravaging Tempest 40-40 x2"
+			],
+			"reason": "warned at the step: its tip names Stormheart, Ravaging Tempest and Ailgrha Splittusk",
+			"evidence": "route level 28; Stormheart 30-30, Ravaging Tempest 40-40 x2; recordings (2026-11-13): done by 44 people (median 29.3), 1 died within 60 yd, 1 abandoned. the storm elementals (Stormheart 30, Ravaging Tempest 40, Ailgrha Splittusk 38, all elite) roam the canyon floor around the Galak camps; the 13 people who died there (recordings) were killed by Grimtotem and Galak where the killer is known, none by these; the step's tip now names them"
+		},
+		{
+			"key": "forever/horde/07-ashenvale.guide|kill 4841.3|elite",
+			"guide": "forever/horde/07-ashenvale.guide",
+			"goal": "kill 4841.3",
+			"kind": "elite",
+			"title": "Galak centaurs",
+			"level": 28,
+			"mobs": [
+				"Stormheart 30-30",
+				"Ravaging Tempest 40-40",
+				"Ailgrha Splittusk 38-38"
+			],
+			"reason": "warned at the step: its tip names Stormheart, Ravaging Tempest and Ailgrha Splittusk",
+			"evidence": "route level 28; Stormheart 30-30, Ravaging Tempest 40-40, Ailgrha Splittusk 38-38; recordings (2026-11-13): done by 44 people (median 29.3), 1 died within 60 yd, 1 abandoned. the storm elementals (Stormheart 30, Ravaging Tempest 40, Ailgrha Splittusk 38, all elite) roam the canyon floor around the Galak camps; the 13 people who died there (recordings) were killed by Grimtotem and Galak where the killer is known, none by these; the step's tip now names them"
 		},
 		{
 			"key": "forever/horde/30-40/01-hillsbrad-foothills.guide|collect 533.1|over",
