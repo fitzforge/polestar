@@ -410,6 +410,8 @@ mod ui_look_buttons;
 mod ui_look_glow;
 #[path = "ui-look-guidewindow.rs"]
 mod ui_look_guidewindow;
+#[path = "ui-look-guidewindow-copy.rs"]
+mod ui_look_guidewindow_copy;
 #[path = "ui-look-theme.rs"]
 mod ui_look_theme;
 #[path = "ui-look-toasts.rs"]

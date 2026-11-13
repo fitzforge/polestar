@@ -31,7 +31,9 @@ use serde_json::Value;
 const LOGIN_BASE: f64 = 11003.0;
 /// At most 50 KiB over the base, plus what 0.3.7.1, 0.3.7.2 and the 0.3.8 work so far add at login (measured
 /// 11060 KiB after the merge, 57 over the base; 11115 with 0.4.0's looks carried and polished, #2049 and #2084, 112
-/// over it). Raised rather than re-measured per release: Fitz, 2026-11-12,
+/// over it; +77 more with the settings preview drawing the guide window itself, #2103: the guide window's code kept
+/// for the preview's copy, each UI/GuideFrame*.lua file's part and the window's build, which the live window dropped
+/// once built). Raised rather than re-measured per release: Fitz, 2026-11-12,
 /// "if you hit memory budgets again, just raise them"; the login cost gets its review once 0.3.8's content is final.
 /// Install (0.4.0: UI/Welcome.lua's Questing, Targeting, Groups and dungeons and Your look pages, the option cards
 /// and the looks' picker) adds about 60 KiB of code at login: measured 11,136 KiB on 2026-11-13. The 0.4.0 work

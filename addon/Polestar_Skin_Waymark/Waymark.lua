@@ -206,9 +206,10 @@ end
 -- The picture goes behind the head of the guide window, the settings and
 -- the other windows; never behind a toast (a small card over the world:
 -- the picture would sit under its text), which keeps the paper only. A
--- heads-up card (drawn as the guide window, psGuide, and docked on it)
--- leaves the corner rose to its card hook's small one at the foot, clear of
--- its badge and close box.
+-- heads-up card (drawn as the guide window, psGuide, and docked on it; not
+-- a guide window itself, psGuideWindow, the live one or the settings
+-- preview's copy) leaves the corner rose to its card hook's small one at the
+-- foot, clear of its badge and close box.
 local PAINT = {
 	window = function(frame, base, kit)
 		base(frame)
@@ -219,7 +220,7 @@ local PAINT = {
 			if own.art then own.art:Hide() end
 			return
 		end
-		local card = frame.psGuide and frame:GetName() ~= "PolestarGuideFrame"
+		local card = frame.psGuide and not frame.psGuideWindow
 		chart(frame, kit, not card and 70 or nil)
 		neatline(frame, kit.store(frame), 0.55)
 		artOn(frame, kit, 128, 0.35)

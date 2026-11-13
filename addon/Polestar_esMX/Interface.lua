@@ -3840,7 +3840,6 @@ L["The quest item, Hearthstone, target and rare buttons, the travel button under
 -- UI/Looks/GuideWindow.lua
 -- L["Kobold Vermin"] = ""
 -- L["Kobold Worker"] = ""
--- L["from Kobold Worker (lvl 6–7)"] = ""
 -- L["Gold Dust"] = ""
 -- L["Elwynn Forest"] = ""
 -- L["Marshal Dughan"] = ""
@@ -3931,6 +3930,11 @@ L["The quest item, Hearthstone, target and rare buttons, the travel button under
 -- L["Large text"] = ""
 -- L["Every text of the window bigger, the window wider to hold it."] = ""
 -- L["Step"] = ""
+-- L["Fargodeep Mine"] = ""
+-- L["Lion's Pride Inn"] = ""
+-- L["Stonefield Farm"] = ""
+-- L["Jasperlode Mine"] = ""
+-- L["Eastvale Logging Camp"] = ""
 
 -- UI/Looks/Toasts.lua
 -- L["Alert line"] = ""

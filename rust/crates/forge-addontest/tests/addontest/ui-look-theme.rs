@@ -295,7 +295,7 @@ fn the_theme_page_lays_its_settings_out_by_element_in_full_rows_short_labels_too
 }
 
 // The preview is Theme v2, a band of the three surfaces the theme styles, drawn by their own code: the guide window
-// (the Guide window page's drawing, never the live window, cut under its third goal row), the heads-up card and the
+// (a copy the window's own code draws, never the live window, cut under its goals), the heads-up card and the
 // rare alert (Rares' own card), side by side, feet on one line, a label under each, no loose buttons (the accent
 // lights the cards' own); a change repaints them live; real size where the band holds the three, else all three
 // smaller alike, never one left out, the hint line saying so.
@@ -321,7 +321,7 @@ fn the_preview_paints_from_the_theme_and_follows_a_change_live() {
 			feet = { foot(f.Scene), foot(f.Heads), foot(f.Toast) }, arrow = rawget(f, "Arrow") == nil, tall = h < 400 }
 		Polestar.Set("ui.colors.item", { 0.6, 1, 0.6 })
 		Polestar.Set("ui.fontOutline", "outline")
-		out.item = f.Scene.Rows[3].Text:GetText()
+		out.item = f.Scene.Copy.rows[2].Text:GetText()
 		out.titleFlags = select(3, f.StepTitle:GetFont())
 		f:Layout(420)
 		out.narrow = { f.Toast:IsShown(), f.Heads:IsShown(), f.Guide:IsShown(), f.psFit < 1, f.Hint:GetText():find("to fit", 1, true) ~= nil }

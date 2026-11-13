@@ -1049,12 +1049,22 @@ band), `banner`, `foot` (the progress), `line` (its bar), `here` (While
 you're here). One table, the same every time; nil before the window is
 built.
 
+The settings window's preview of the guide window (the Guide window and
+Theme pages) is a copy of the window drawn by its own code, so every hook
+below runs for it too, handed the copy's own frames and parts:
+`guideLayout` and `guideRender` get the copy's parts, not
+`Theme.GuideParts()` (the live window's). Find the window you dress from
+what a hook is handed (a part's frames sit on the window; the window frame
+itself carries `psGuideWindow`, which a card painted like it lacks), and keep
+your pieces in that window's store, as Aurora does: a hook that reaches for
+`Theme.GuideParts()` dresses the live window instead of the copy.
+
 | Hook | Signature | When | What you get |
 |---|---|---|---|
 | `guideTitle` | `function(nav, parts)` | after the guide window's style is applied (a skin, theme or window style change), not in the transparent window; the Looks page's preview calls it too, with its own parts | `nav`: the navigator frame (the row with the step count and the menu). `parts`, each in the base's state when the hook runs: `bar` (the title bar texture, a `sky` to `skyBottom` gradient, shown on Hearth), `close` (a close square in `closeFill`, `closeEdge` and `closeGlyph` that hides the window, hidden), `rule` (the line under the navigator), `band` (the house band behind the bars, shown on the Polestar base), `menuRight` (the menu button's inset from the right edge, `8`). Show or hide parts and set `parts.menuRight`: `26` leaves room for the close square. With the bar shown, the rule takes `titleLine`. |
 | `guideRow` | `function(row, goal, info)` | after Polestar painted a goal row, at every render and repaint, for each row shown | `row`: the row. Rows are pooled: the same row shows other goals later, so set every piece you use each time. `goal`: the goal it shows (fields below). `info`: `current` (the goal the arrow is on), `done`, `skipped` (booleans; the same table each time). |
-| `guideLayout` | `function(parts, width, y)` -> height | at every layout of the window (a step, a size or a setting changed), after Polestar placed its parts | `parts`: `GuideParts()`. `width`: the window's width. `y`: how far down the body Polestar's parts reach. Place your own frames from `y` down and answer the height they take (a number; nothing or 0 for none): the window grows by it. |
-| `guideRender` | `function(view, parts)` | after every render of the window | `view`: the step on screen (`index`, `title`, `note`, `status`, `goals`: the goals below), or nil when the window shows no step (no guide open, a guide finished). `parts`: `GuideParts()`. |
+| `guideLayout` | `function(parts, width, y)` -> height | at every layout of the window (a step, a size or a setting changed), after Polestar placed its parts | `parts`: the window's, as `GuideParts()` gives the live window's. `width`: the window's width. `y`: how far down the body Polestar's parts reach. Place your own frames from `y` down and answer the height they take (a number; nothing or 0 for none): the window grows by it. |
+| `guideRender` | `function(view, parts)` | after every render of the window | `view`: the step on screen (`index`, `title`, `note`, `status`, `goals`: the goals below), or nil when the window shows no step (no guide open, a guide finished). `parts`: the window's, as for `guideLayout`. |
 | `guideProgress` | `function(foot, frac)` | after the progress is painted (every render) | `foot`: the progress part (its bar is `GuideParts().line`). `frac`: how much of the guide is done, 0-1. |
 | `guideAnchor` | `function()` -> frame | each time the heads-up card is placed on the window's edge | Answer a frame of yours (your own cards above the window) and the heads-up card sits on its edge instead of the window's; nil keeps the window's. Not asked while the player gives the card a spot of its own. |
 | `guideTab` | `function(button, parts, active)` | after Polestar painted a tab of the strip, at every render of the strip and repaint | `button`: the tab. `parts`: `selected` (the active tab's wash), `bar` (its line), `label`, `range` (the guide's levels), `icon`, `close`. `active`: whether it is the tab in view. |

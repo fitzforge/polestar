@@ -1,9 +1,9 @@
 //! The guide window's own look (addon/Polestar/UI/GuideFrame.lua, GF.LOOK and GF.ApplyLook; the settings window's
 //! Guide window page and its preview, UI/Looks/GuideWindow.lua): every guideWindow.* setting left at its default
 //! keeps the window exactly as the skin draws it; each one changed reaches the live window at once (sizes,
-//! padding, spacing, parts shown, colours, ground, border, outline, fading); the preview lays its step card out by
-//! the same numbers and never touches the live window. Against the real Core + Theme + UI manifests and the fake
-//! Engine (tests/lua/stub_ui.lua).
+//! padding, spacing, parts shown, colours, ground, border, outline, fading); the preview is a copy of the window
+//! drawn by its own code (UI.GuideFrame.Copy), takes the same settings and never touches the live window. Against
+//! the real Core + Theme + UI manifests and the fake Engine (tests/lua/stub_ui.lua).
 
 use forge_addontest::{emitted, Addon, RunAddon};
 use serde_json::{json, Value};
@@ -228,7 +228,7 @@ fn transparent_outline_backing_strength_idle_fade_and_hiding_on_a_flight() {
 }
 
 #[test]
-fn the_preview_lays_out_a_step_card_by_the_windows_numbers_without_touching_the_live_window() {
+fn the_preview_draws_a_copy_of_the_window_by_its_settings_without_touching_the_live_window() {
 	let out = run(r#"
 		uistub.openTabs(TABS, 1)
 		local live = snapshot()
@@ -238,11 +238,13 @@ fn the_preview_lays_out_a_step_card_by_the_windows_numbers_without_touching_the_
 		-- A band with the room for 220 of the window: the window, taller, is cut there.
 		local h = f:Layout(900, 305)
 		local g = f.Scene
-		local r = g.Rows[2]
+		local C = g.Copy
+		-- The sample's current goal: the kill the arrow points at.
+		local r = C.rows[1]
 		local function card()
 			local _, _, _, x = r.Text:GetPoint(1)
-			return { text = size(r.Text), name = size(g.Person.Name), x = x, rowH = r:GetHeight(), mark = r.Mark:GetWidth(),
-				strip = g.Strip:IsShown(), foot = g.Foot:IsShown(), w = g.Window:GetWidth(), line = r.Text:GetText() }
+			return { text = size(r.Text), name = size(C.parts.person.Name), x = x, rowH = r:GetHeight(), mark = r.Mark:GetWidth(),
+				strip = C.parts.strip:IsShown(), foot = C.parts.foot:IsShown(), w = g.Window:GetWidth(), line = r.Text:GetText() }
 		end
 		local before = card()
 		-- At its own size the window is taller than the band: a change scrolls to its part.
@@ -262,7 +264,8 @@ fn the_preview_lays_out_a_step_card_by_the_windows_numbers_without_touching_the_
 		local after = card()
 		local liveRow = firstRow()
 		emit({ h = h, before = before, after = after, rows = #GF.rows == rows, liveText = size(liveRow.Text),
-			window = g.Window ~= F, scale = g.psScale, footScroll = footScroll, topScroll = topScroll, hot = g.psHot or false })"#);
+			window = g.Window ~= F, unnamed = g.Window:GetName() == nil, scale = g.psScale, footScroll = footScroll, topScroll = topScroll,
+			hot = next(rawget(f, "Hots") or {}) ~= nil })"#);
 	assert_eq!(out["h"], 280, "the band: 20 over, the window cut at its room (305 less the pads and the hint line's room), 20 under");
 	let b = &out["before"];
 	let a = &out["after"];
@@ -271,7 +274,7 @@ fn the_preview_lays_out_a_step_card_by_the_windows_numbers_without_touching_the_
 	assert_eq!(b["x"], 39, "its text at the window's TEXT_X");
 	assert_eq!(b["mark"], 2);
 	assert_eq!(b["w"], 340, "the window's own width");
-	assert!(b["line"].as_str().unwrap().contains("3/8"), "the demo goal drawn by UI.GoalLine: {}", b["line"]);
+	assert!(b["line"].as_str().unwrap().contains("3/8"), "the sample's goal drawn by UI.GoalLine: {}", b["line"]);
 	assert_eq!(a["text"], 21, "goal size follows");
 	assert_eq!(a["name"], 21, "person size follows");
 	assert_eq!(a["x"], 45, "padding follows");
@@ -282,6 +285,7 @@ fn the_preview_lays_out_a_step_card_by_the_windows_numbers_without_touching_the_
 	assert!(a["rowH"].as_f64().unwrap() > b["rowH"].as_f64().unwrap());
 	assert_eq!(out["rows"], true, "no row added to the live window");
 	assert_eq!(out["window"], true, "the preview draws its own window");
+	assert_eq!(out["unnamed"], true, "a copy, unnamed");
 	assert_eq!(out["liveText"], 21, "the live window followed the same setting");
 	assert_eq!(out["scale"], 1, "drawn at 100%");
 	assert!(out["footScroll"].as_f64().unwrap() > 0.0, "scrolled down to the progress bar it edits");
@@ -289,7 +293,7 @@ fn the_preview_lays_out_a_step_card_by_the_windows_numbers_without_touching_the_
 	assert_eq!(out["hot"], true, "the parts are hotspots that jump to their rows");
 }
 
-// The drawing shows Up next only while it is on (ui.upcoming: how many steps; 0, the default, off), as the window
+// The copy shows Up next only while it is on (ui.upcoming: how many steps; 0, the default, off), as the window
 // does; compact never shows it.
 #[test]
 fn the_preview_shows_up_next_only_while_it_is_on() {
@@ -297,7 +301,7 @@ fn the_preview_shows_up_next_only_while_it_is_on() {
 		uistub.openTabs(TABS, 1)
 		local f = Polestar.UI.GuideWindowPreview(UIParent)
 		f:Layout(900)
-		local up = f.Scene.Up
+		local up = f.Scene.Copy.parts.upnext
 		local off = up:IsShown()
 		Polestar.Set("ui.upcoming", 3)
 		local on = up:IsShown()
@@ -386,7 +390,8 @@ fn a_registered_skin_s_guide_title_hook_dresses_the_navigator() {
 		Polestar.Set("ui.shown", true)
 		local f = Polestar.UI.GuideWindowPreview(UIParent)
 		f:Layout(900)
-		titled.previewBar, titled.previewClose = f.Scene.Nav.TitleBar:IsShown(), f.Scene.Nav.Close:IsShown()
+		local nav = f.Scene.Copy.parts.nav
+		titled.previewBar, titled.previewClose = nav.TitleBar:IsShown(), nav.Close:IsShown()
 		Polestar.Set("ui.style", "transparent")
 		local clear = title()
 		Polestar.Set("ui.style", "standard")

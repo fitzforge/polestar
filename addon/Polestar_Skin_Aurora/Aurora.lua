@@ -23,7 +23,9 @@
 --     taking no room), guideProgress (the progress in two colours) and
 --     guideTab (the active tab dims the aurora behind it), the pieces of
 --     their own kept in the guide window's store so a transparent window,
---     or another skin, hides them with everything else.
+--     or another skin, hides them with everything else. Every guide window
+--     runs these hooks (the settings preview draws a copy of the window), so
+--     each finds the window it dresses from the frames it is handed.
 -- Nothing here touches Polestar's own files.
 
 local ADDON = ...
@@ -109,10 +111,16 @@ end
 
 local function light(c, a) return { c[1], c[2], c[3], a } end
 
--- The guide window, and its store (its painter's pieces and the hooks').
-local function guideWindow()
-	local parts = Theme.GuideParts and Theme.GuideParts()
-	local f = parts and parts.window
+-- The guide window a hook dresses, from a frame it is handed (the window's
+-- own parts sit on it; a frame on no guide window, the live one's), and its
+-- store (its painter's pieces and the hooks').
+local function guideWindow(part)
+	local f = part
+	while f and not f.psGuideWindow do f = f:GetParent() end
+	if not f then
+		local parts = Theme.GuideParts and Theme.GuideParts()
+		f = parts and parts.window
+	end
 	if not (f and f.psSkin) then return nil end
 	return f, Theme.SkinKit.store(f)
 end
@@ -203,7 +211,7 @@ local PAINT = {
 		if frame.psBare then return kit.bare(frame) end
 		depth(frame, kit, frame.psBgAlpha or Theme.GroundAlpha())
 		local own = kit.store(frame)
-		if frame == guideWindow() and own.curtain and own.curtain:IsShown() then hide(own, { "veil" }) else veil(frame, kit) end
+		if frame.psGuideWindow and own.curtain and own.curtain:IsShown() then hide(own, { "veil" }) else veil(frame, kit) end
 		if Theme.WindowBorder() and not frame.psNoBorder then glowEdge(frame, kit) else hide(own, EDGES) end
 	end,
 	-- Menus and popups: the night's depth and a line of light on top (a menu
@@ -243,7 +251,7 @@ local HOOKS = {
 	-- band off, the window keeps the veil. Then the navigator's rule as a
 	-- line of light, teal into violet, with a soft glow falling from it.
 	guideTitle = function(nav, parts)
-		local f, own = guideWindow()
+		local f, own = guideWindow(nav)
 		if not (f and parts) then return end
 		local band, rule = parts.band, parts.rule
 		if band then
@@ -284,13 +292,13 @@ local HOOKS = {
 	end,
 	-- Every layout (the bars moved to the foot or back, the window grown
 	-- upward): the aurora turned to match. Nothing returned: no room taken.
-	guideLayout = function()
-		local _, own = guideWindow()
+	guideLayout = function(parts)
+		local _, own = guideWindow(parts and parts.window)
 		if own and own.curtain then hang(own.curtain) end
 	end,
 	-- The progress filled teal into violet.
 	guideProgress = function(foot, frac)
-		local f, own = guideWindow()
+		local f, own = guideWindow(foot)
 		local fill = foot and foot.Line and foot.Line.Fill
 		if not (f and fill) then return end
 		local t = own.progress
@@ -307,11 +315,11 @@ local HOOKS = {
 	-- light behind it (the aurora there at two fifths, while the band
 	-- shows), its line the accent seven tenths of the way to white, apart
 	-- from the curtain's glowing base beside it.
-	guideTab = function(_, parts, active)
+	guideTab = function(button, parts, active)
 		if not (active and parts and parts.selected and parts.bar) then return end
 		local ar, ag, ab = Theme.Accent()
 		parts.bar:SetVertexColor(ar + (1 - ar) * 0.7, ag + (1 - ag) * 0.7, ab + (1 - ab) * 0.7, 1)
-		local f = guideWindow()
+		local f = guideWindow(button)
 		if not (f and not f.psBare and Theme.ShowsBand()) then return end
 		local r, g, b = Theme.Color("sky")
 		parts.selected:SetVertexColor(r, g, b, 0.6)
