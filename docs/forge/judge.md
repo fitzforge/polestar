@@ -89,7 +89,7 @@ each class an `only` in the guide names, and one class no `only` names. With
 | R6 gating | The data closes the quest to this race or class and no `only` gates the line (fail). An `only` on a quest the data opens to everyone (warn). | fail / warn |
 | R7 numbers | Counts and quest levels in a goal or its tip match the data (`x10` for an objective of 8; "Kill 6" for 8). | fail / warn |
 | R8 grinds | Two `level` gates in a row with no quest work between them. | fail |
-| R9 quest log | The log holds at most 20 quests at every point (`LOG_MAX`, a guide rule kept well under the game's 40-quest log that the model and the writer use); the peak is reported. | fail |
+| R9 quest log | The log holds at most 40 quests at every point (`LOG_MAX`: Forever's quest log, the addon's `Compat.GetLogCap` when the client does not say); the peak is reported. | fail |
 | R10 loose ends | Every accept is turned in or abandoned later on the chain. | fail |
 
 Default mode runs R1-R10. It merges equal findings across personas and chains,
@@ -422,7 +422,7 @@ whole 1-60 walk.
 | trains (trips) (`trains`, `trainTrips`) | Training goals; trips whose only purpose is training, going back on yourself | fewer trips |
 | grind min (`grindMin`) | Minutes spent on `level` goals (their time, travel to the camp included) | lower |
 | grind all, shown (`grindAllMin`, `grindShownMin`) | The level model's grinding on every goal (its evaluator's grind time), and the part on `level` goals; the rest is grind no step writes. A recorded JS walk has no model grind: both are `grindMin` | lower |
-| log peak (`logPeak`) | Most quests held at once | ≤ 20 |
+| log peak (`logPeak`) | Most quests held at once | ≤ 40 |
 
 Then, per start:
 
