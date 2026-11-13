@@ -4904,6 +4904,18 @@
 				],
 				"faction": "Horde",
 				"why": "Undead Warlocks: Carendin Halgar offers Creature of the Void (1473) only once Halgar's Summons (1478, Ageron Kargal's pointer from Brill to him) is handed in. Players' recordings: 4 people carrying 1478 had 1473 refused at Carendin, and each was offered it right after handing 1478 in. The route takes 1478 on the Brill stop that trains (Ageron offered it to 3 recorded Warlocks there at 10) and hands it in to Carendin before 1473."
+			},
+			{
+				"a": [
+					"turnin",
+					8464
+				],
+				"b": [
+					"turnin",
+					5085
+				],
+				"faction": "Horde",
+				"why": "Horde 50-60 audit (0.4.0): Winterfall Activity (8464) is complete at the end of the Winterspring guide (Winterfall Village, about 55.4) and was handed in to Salfa only in the Felwood guide at about 59.7. Salfa stands where Timbermaw Hold's tunnel comes out into Winterspring (27.7,34.5), which the Eastern Plaguelands guide rides out of on its way from Moonglade to Donova Snowden (564 yd on): the hand-in goes there, three levels earlier, with no detour. The Felwood guide keeps a hand-in only while it is still carried."
 			}
 		],
 		"notes": [

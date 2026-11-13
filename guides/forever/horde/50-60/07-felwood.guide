@@ -195,7 +195,8 @@ step Winterfall Runners
   collect 12829 quest 5087.1
 
 step Salfa
-  turnin 8464
+  when complete 8464
+  turnin 8464                         -- only if still carried: the Eastern Plaguelands guide hands it in on its way through
 
 step Beads for Salfa
   tip Any Winterfall furbolg can carry the beads; the camps just south of Salfa are the closest.

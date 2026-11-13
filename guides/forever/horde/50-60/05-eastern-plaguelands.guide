@@ -309,6 +309,12 @@ step Rabine Saturna
   accept 1124
   note Both quests lead to Silithus: keep them.
 
+step Salfa
+  zone Winterspring
+  when complete 8464
+  tip Back through the tunnel and take the Winterspring exit: Salfa stands right where it comes out.
+  turnin 8464
+
 step Winterspring
   zone Winterspring
   goto 31.3,45.2 "Donova Snowden"
@@ -317,7 +323,7 @@ step Winterspring
 
 step Donova Snowden
   zone Winterspring
-  tip Back through the tunnel and take the Winterspring exit, then ride south to Frostfire Hot Springs.
+  tip From the tunnel's Winterspring exit, ride south to Frostfire Hot Springs.
   turnin 5085
   accept 5086
   turnin 3909

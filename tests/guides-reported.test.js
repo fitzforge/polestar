@@ -7148,6 +7148,20 @@ test('forever/horde/50-60/05-eastern-plaguelands.guide: only Mages bind at Light
 	assert.ok(!list.some(({ goal }) => goal.t === 'fly' && goal.location === 'Undercity'), 'no flight to the Undercity');
 });
 
+// Horde 50-60 audit (0.4.0): Winterfall Activity (8464) is complete at the end of the Winterspring guide and waited for
+// the Felwood guide (about 59.7); Salfa stands where Timbermaw Hold's tunnel comes out into Winterspring, which the
+// Eastern Plaguelands guide rides out of from Moonglade to Donova Snowden. Handed in there, three levels earlier.
+test('forever/horde/50-60/05-eastern-plaguelands.guide: Winterfall Activity handed to Salfa on the way from Moonglade to Donova', { skip }, () => {
+	const list = goals('forever/horde/50-60/05-eastern-plaguelands.guide');
+	const salfa = at(list, 'turnin 8464', is('turnin', 8464));
+	assert.equal(list[salfa].goal.npc, 11556, 'Salfa');
+	assert.ok(at(list, 'turnin 1123', is('turnin', 1123)) < salfa, 'after Moonglade');
+	assert.ok(salfa < at(list, 'turnin 5085', is('turnin', 5085)), 'before Donova');
+	const fw = goals('forever/horde/50-60/07-felwood.guide');
+	const late = fw[at(fw, 'turnin 8464', is('turnin', 8464))];
+	assert.ok((late.step.when || []).some((p) => p.k === 'complete' && !p.neg), 'the Felwood guide hands it in only while it is still carried');
+});
+
 
 // Final route review, Horde 40-60: each race learns to ride where the route already passes its trainer's city:
 // Trolls from the Orgrimmar stop (not a flight and boat from Stonard to Durotar and back), Undead on the next
