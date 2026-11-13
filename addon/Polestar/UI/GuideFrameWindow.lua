@@ -46,11 +46,13 @@ function GF.OnTaxi()
 	return ns.Get("guideWindow.hideTaxi") and UnitOnTaxi and UnitOnTaxi("player") and true or false
 end
 
+-- Pause (Core/Init.lua) hides the window too, never writing ui.shown;
+-- it stays out of GF.RulesHide, so the floating launcher stays as a way back.
 function GF.ApplyVisibility()
 	ns.SetGuideAwayInside(hiddenInside() and ns.Get("ui.shown"))
 	ns.Fire("GUIDE_VISIBILITY")
 	if not F then return end
-	local show = ns.Get("ui.shown") and not GF.RulesHide()
+	local show = ns.Get("ui.shown") and not GF.RulesHide() and not ns.PauseHides("window")
 	F:SetShown(show and true or false)
 end
 
@@ -97,11 +99,13 @@ function GF.ApplyPosition()
 	end
 end
 
+-- The corner exactly where the window stands: rounded, the re-pin would move
+-- it by part of a pixel on the drop and its text would shift on the grid.
 function GF.SavePosition()
 	if not F then return end
 	local l = F:GetLeft()
 	local _, y = pinCorner()
-	if l and y then ns.Set("ui.pos", { floor(l + 0.5), floor(y + 0.5) }) end
+	if l and y then ns.Set("ui.pos", { l, y }) end
 end
 
 function GF.ApplyLock()
@@ -138,7 +142,7 @@ function GF.ApplyScale()
 	if l and y and type(ns.Get("ui.pos")) == "table" then
 		F:ClearAllPoints()
 		F:SetPoint(corner, UIParent, "BOTTOMLEFT", l * old / new, y * old / new)
-		ns.Set("ui.pos", { floor(l * old / new + 0.5), floor(y * old / new + 0.5) })
+		ns.Set("ui.pos", { l * old / new, y * old / new })
 	end
 	Theme.Refresh()
 end
@@ -146,6 +150,11 @@ end
 local APPLY = {
 	-- Shown inside (a guide picked, /polestar show, the switch): open for the visit.
 	["ui.shown"] = function()
+		-- Turned on while paused (a guide picked, a toast's button, the
+		-- gamepad's focus): the player asked for it, so Polestar resumes (with
+		-- its chat line). Only an explicit ns.Set lands here (the load applies
+		-- everything through applyAll), so a /reload stays paused.
+		if ns.Get("ui.shown") and ns.IsLoggedIn() and ns.PauseHides("window") then ns.SetPaused(false, "window") end
 		if inInstance and ns.Get("ui.shown") then openInside = true end
 		GF.ApplyVisibility()
 	end,
@@ -316,10 +325,11 @@ end
 -- back for 12 seconds, and one chat line says where the setting is.
 -- Accounts told before by the chat line alone (instanceHideTold) see the
 -- notice once too. Not while Polestar is hidden: the player hid it all, and
--- the hint waits for an entry Polestar is shown on.
+-- the hint waits for an entry Polestar is shown on; nor while paused,
+-- which put the window away itself and said how to resume.
 local function hintHiddenOnce()
 	local db = ns.DB()
-	if db.instanceHint or ns.Hidden() then return end
+	if db.instanceHint or ns.Hidden() or ns.Paused() then return end
 	db.instanceHint = true
 	db.instanceHideTold = nil
 	local howTo = GF.HowToShow()
@@ -349,6 +359,8 @@ local function checkInstance()
 end
 ns.RegisterEvent("PLAYER_ENTERING_WORLD", checkInstance)
 ns.RegisterEvent("ZONE_CHANGED_NEW_AREA", checkInstance)
+-- Paused or resumed: the window goes or comes back as it was.
+ns.On("POLESTAR_PAUSED", function() GF.ApplyVisibility() end)
 
 GF.ApplyAll = applyAll
 GF.DragStart, GF.DragStop, GF.ResizeStart, GF.ResizeStop = dragStart, dragStop, resizeStart, resizeStop

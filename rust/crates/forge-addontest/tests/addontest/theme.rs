@@ -403,6 +403,75 @@ fn ellesmereui_an_optional_scheme_and_follow_toggles_never_a_lock() {
 	assert_eq!(out["refollow"], json!(["Interface\\AddOns\\EllesmereUI\\media\\fonts\\Expressway.ttf", 13, ""]));
 }
 
+// ErgoBars (a whole UI for Forever) offers the skinning contract EllesmereUI does, as ErgoBarsLooks: the same
+// RegisterSkin(name, fn), fn(S) at PLAYER_LOGIN with S.GetAccentColor, S.GetPanelColor, S.GetFont and S.OnLooksChanged.
+const ERGOBARS: &str = r#"
+stub.ergo = { accent = { 0.96, 0.55, 0.73 }, handlers = {}, waiting = {} }
+local S = {
+	GetAccentColor = function() return stub.ergo.accent[1], stub.ergo.accent[2], stub.ergo.accent[3] end,
+	GetPanelColor = function() return 0.06, 0.06, 0.07, 0.9 end,
+	GetFont = function() return "Interface\\AddOns\\ErgoBars\\media\\fonts\\NotoSans-Regular.ttf", "OUTLINE" end,
+	OnLooksChanged = function(fn) table.insert(stub.ergo.handlers, fn) end,
+}
+ErgoBarsLooks = { version = 1, RegisterSkin = function(name, fn)
+	stub.ergo.registered = name
+	if stub.loggedIn then fn(S) else table.insert(stub.ergo.waiting, fn) end
+	return true
+end }
+local drain = CreateFrame("Frame")
+drain:RegisterEvent("PLAYER_LOGIN")
+drain:SetScript("OnEvent", function() for _, fn in ipairs(stub.ergo.waiting) do fn(S) end end)
+stub.addonsLoaded.ErgoBars = true
+"#;
+
+#[test]
+fn ergobars_follows_its_accent_panel_and_font_through_the_same_contract_as_ellesmereui_named_ergobars() {
+	let out = run_with(
+		r#"
+		local fs = UIParent:CreateFontString()
+		T.Font(fs, "body")
+		local before = { T.Accent() }
+		stub.ergo.accent = { 0.2, 0.6, 1 }
+		for _, fn in ipairs(stub.ergo.handlers) do fn() end
+		local after = { T.Accent() }
+		local schemes = T.SchemeChoices()
+		local label
+		for _, c in ipairs(schemes) do if c.value == "ellesmere" then label = c.text end end
+		Polestar.Set("ui.scheme", "ellesmere")
+		local ground = { T.Color("bg") }
+		Polestar.Set("ui.matchFont", true)
+		local font = { fs:GetFont() }
+		Polestar.UI.ShowOptions("appearance")
+		local note = Polestar.UI.Options.Controls("appearance")["ui.accent"].Note:GetText()
+		emit({ registered = stub.ergo.registered, provider = T.SkinProvider(), follows = T.IsEllesmere(), before = before,
+			after = after, schemes = schemes, label = label, ground = ground, font = font, note = note })"#,
+		ERGOBARS,
+	);
+	assert_eq!(out["registered"], "Polestar");
+	assert_eq!(out["provider"], "ErgoBars");
+	assert_eq!(out["follows"], true);
+	assert_eq!(round(&out["before"]), vec![0.96, 0.55, 0.73], "its accent by default, as EllesmereUI's");
+	assert_eq!(round(&out["after"]), vec![0.2, 0.6, 1.0], "S.OnLooksChanged repaints it");
+	assert_eq!(values(&out["schemes"]), json!(["dusk", "night", "graphite", "ellesmere"]));
+	assert_eq!(out["label"], "ErgoBars", "the scheme is named for the UI it follows");
+	assert_eq!(out["ground"][3], 0.9, "the scheme takes its panel's opacity");
+	assert_eq!(out["font"], json!(["Interface\\AddOns\\ErgoBars\\media\\fonts\\NotoSans-Regular.ttf", 13, "OUTLINE"]));
+	assert_eq!(out["note"], "ErgoBars", "the swatch says where the accent comes from");
+}
+
+#[test]
+fn with_ellesmereui_and_ergobars_both_on_ellesmereui_is_followed_and_ergobars_never_asked() {
+	let out = run_with(
+		r#"emit({ provider = T.SkinProvider(), eui = stub.skinRegistered or false, ergo = stub.ergo.registered or false,
+			accent = { T.Accent() } })"#,
+		&format!("stub.withEllesmere()\n{ERGOBARS}"),
+	);
+	assert_eq!(out["provider"], "EllesmereUI");
+	assert_eq!(out["eui"], "Polestar");
+	assert_eq!(out["ergo"], false);
+	assert_eq!(round(&out["accent"]), vec![0.05, 0.82, 0.62]);
+}
+
 #[test]
 fn ellesmereui_font_with_an_outline_a_primary_button_s_dark_label_on_the_accent_drops_it_other_text_keeps_it_521() {
 	let out = run_with(

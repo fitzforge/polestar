@@ -165,6 +165,7 @@ step Stranglethorn Vale: kill these as you meet them
 
 step Cozzle's Footlocker
   zone Stranglethorn Vale
+  when onquest 1182
   tip Foreman Cozzle (38) is inside the Venture Co. house on Lake Nazferiti's west shore, among the geologists: his key opens Cozzle's Footlocker in the same house, which holds the blueprints for Baron Revilgaz.
   collect 5851 x1 "Cozzle's Key" @42.6,18.4 map 1434 -- from Foreman Cozzle
   collect 5852 quest 1182 @43.3,20.3 map 1434 -- Fuel Regulator Blueprints, in Cozzle's Footlocker

@@ -335,6 +335,22 @@ local BUILTIN = {
 			needs = function() return ns.SetHideKeepsArrow ~= nil end,
 			get = function() return ns.HideKeepsArrow() end, set = function(on) ns.SetHideKeepsArrow(on) end },
 	} },
+	-- Pause (Core/Init.lua, Core/Pause.lua): per character, like hiding; its two extras are
+	-- account settings. A section of its own, so its rows stay together.
+	{ page = GUIDE, tab = L["Window"], section = L["Pause"], controls = {
+		{ kind = "toggle", label = L["Pause"],
+			help = L["The arrow, the guide window and its nudges step aside. Polestar resumes by itself when you leave a dungeon alive. Your quest progress keeps following your log. This character only."],
+			search = "pause, pause the guide, resume, dungeon, raid, instance, run, group, step aside, hide arrow",
+			get = function() return ns.Paused() ~= nil end, set = function(on) ns.SetPaused(on, "hand") end },
+		{ kind = "toggle", key = "pause.map", label = L["Hide the step's map pins while paused"],
+			help = L["While paused, the pins of the step's goals, their areas, While you're here and the upcoming steps go from the maps as well."],
+			search = "pause the guide, paused, map pins, minimap, world map", child = true },
+		{ kind = "toggle", key = "pause.automation", label = L["No quest automation while paused"],
+			help = L["While paused, quests are not accepted or turned in for you, and no reward is picked, until Polestar resumes."],
+			search = "pause the guide, paused, automation", child = true },
+		{ kind = "binding", action = "POLESTAR_PAUSE", label = L["Pause the guide"],
+			help = L["A key or gamepad button that pauses Polestar or resumes it. It also resumes by itself when you leave a dungeon alive."] },
+	} },
 	{ page = GUIDE, tab = L["Window"], section = L["Position"], controls = {
 		{ kind = "toggle", key = "ui.locked", label = L["Lock window"], help = L["Prevents moving and resizing."], search = "lock, move, drag, resize, unlock" },
 		{ kind = "toggle", key = "ui.lockHud", label = L["Lock arrow and buttons"],
@@ -394,6 +410,8 @@ local BUILTIN = {
 		H({ kind = "toggle", key = "nav.tomtom", label = L["Mirror to TomTom"], help = L["Adds the target as a TomTom waypoint when TomTom is loaded."], search = "waypoints, tomtom" }),
 		H({ kind = "toggle", key = "nav.useTomTomArrow", label = L["Use TomTom's arrow"], help = L["Hides Polestar's arrow in favour of TomTom's, except on the way to another continent, where TomTom's arrow cannot point."],
 			child = true, disabled = function() return not ns.Get("nav.tomtom") end }),
+		H({ kind = "toggle", key = "nav.arrowToFollower", label = L["Let a following addon show the way"], help = L["Hides Polestar's arrow while another addon shows Polestar's target itself, as Naowh Forever's Waypoint Pin does with Follow Polestar on. That addon also sets the game's map pin then."],
+			search = "naowh, waypoint pin, navigator bar, hide arrow, follow polestar" }),
 	} },
 	{ page = GUIDE, tab = L["Automation"], section = L["Quests"], controls = {
 		{ kind = "toggle", key = "behavior.closeSkipped", label = L["Close offers the guide skips"], help = L["After Polestar accepts or turns in a quest, closes the quest window the NPC opens next when the guide skips its quests. Hold Shift to keep it open."],
@@ -513,14 +531,22 @@ add({ page = QOL, tab = L["Vendors"], section = L["Trainers"], controls = { trai
 add({ page = L["Integrations"], key = "integrations", icon = "plug", order = 65,
 	subtitle = L["Settings for other addons Polestar works with, shown when they are installed."],
 	empty = L["None of the addons Polestar works with is installed."] }, true)
-add({ page = L["Integrations"], section = "EllesmereUI", controls = {
-	{ kind = "toggle", key = "ui.matchAccent", label = L["Match EllesmereUI accent"],
-		help = L["Follow EllesmereUI's accent, live. Picking your own accent turns this off."],
-		needs = function() return Theme.IsEllesmere() end },
-	{ kind = "toggle", key = "ui.matchFont", label = L["Match EllesmereUI font"],
-		help = L["Follow EllesmereUI's font, live. Choosing another font turns this off."],
-		needs = function() return Theme.IsEllesmere() end },
-} }, true)
+-- EllesmereUI's skinning contract, or ErgoBars' under its own name
+-- (Theme.SkinProvider): the section and its two switches name the suite
+-- (EllesmereUI's strings kept as they were, so their translations stay).
+do
+	local ergo = Theme.SkinProvider() == "ErgoBars"
+	add({ page = L["Integrations"], section = ergo and "ErgoBars" or "EllesmereUI", controls = {
+		{ kind = "toggle", key = "ui.matchAccent", label = ergo and L["Match ErgoBars accent"] or L["Match EllesmereUI accent"],
+			help = ergo and L["Follow ErgoBars' accent, live. Picking your own accent turns this off."]
+				or L["Follow EllesmereUI's accent, live. Picking your own accent turns this off."],
+			needs = function() return Theme.IsEllesmere() end },
+		{ kind = "toggle", key = "ui.matchFont", label = ergo and L["Match ErgoBars font"] or L["Match EllesmereUI font"],
+			help = ergo and L["Follow ErgoBars' font, live. Choosing another font turns this off."]
+				or L["Follow EllesmereUI's font, live. Choosing another font turns this off."],
+			needs = function() return Theme.IsEllesmere() end },
+	} }, true)
+end
 add({ page = L["Integrations"], section = "Spoken", controls = {
 	{ kind = "toggle", key = "behavior.spokenDelay", label = L["Wait for Spoken"],
 		help = L["Waits 200 ms before each automatic quest accept, turn-in and reward pick, so Spoken has time to notice the window and read it."],
@@ -3328,3 +3354,16 @@ end
 
 -- Every module's registrations, now and later.
 W.OnOptionsRegistered(function(spec) add(spec, false) end)
+
+-- Polestar resumes by itself on the way out (Core/Pause.lua), maybe
+-- with a page open: the toggles of state that is no setting repaint, as
+-- O.ResetPage repaints them.
+ns.On("POLESTAR_PAUSED", function()
+	for _, p in ipairs(pageList) do
+		for _, v in pairs(p.views or {}) do
+			for _, w in pairs(v.cache or {}) do
+				if w.psControl and not w.psControl.key and w.Refresh then w:Refresh() end
+			end
+		end
+	end
+end)

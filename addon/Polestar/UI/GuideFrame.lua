@@ -1733,9 +1733,12 @@ end
 -- The open goals of along steps behind the live step (Engine.GetAlong), up to
 -- ALONG_MAX rows, hidden in the compact window. A goal the step on screen
 -- lists itself (the same quest objective, or the same kill or item for the
--- same quest) is not said twice. When every row is of `along until` steps
--- ending at one step, the heading says so: "Along the way, until step 30"
--- (#942: an along step has no card of its own).
+-- same quest) is not said twice. An objective that several along steps or a
+-- pinned quest list with the same count is one row: the first, which takes a
+-- later one's pin, and its step, goal and place when it has no place itself.
+-- When every row is of `along until` steps ending at one step, the heading
+-- says so: "Along the way, until step 30" (#942: an along step has no card
+-- of its own).
 local function fillAlong(E)
 	for i = 1, #alongRows do alongRows[i]:Hide() end
 	if compact() or not E.GetAlong then
@@ -1782,20 +1785,40 @@ local function fillAlong(E)
 		r.Text:SetText(xp > 0 and string.format(L["%s (%d XP)"], text, xp) or text)
 		r:Show()
 	end
+	local list, byKey = {}, {}
 	for _, s in ipairs(E.GetAlong()) do
 		for _, gv in ipairs(s.goals) do
 			local a, b = alongKeys(gv)
-			if n < ALONG_MAX and not ((a and inStep[a]) or (b and inStep[b])) then
-				n = n + 1
-				if not s.untilStep or (untilStep and untilStep ~= s.untilStep) then mixed = true end
-				untilStep = untilStep or s.untilStep
-				local r = alongRow(n)
-				r.psStep, r.psGoal, r.psTitle, r.psPin, r.psBehind = gv.step or s.index, gv.index, s.title or UI.GoalLine(gv), s.pin, nil
-				r.psPlace, r.psCarried = gv.map and gv.x and gv.y and true or nil, nil
-				r.Icon:SetTexture(Theme.VerbIcon(gv.t))
-				UI.SetCounted(r.Text, UI.GoalLine(gv))
-				r:Show()
+			if not ((a and inStep[a]) or (b and inStep[b])) then
+				local key = a or b
+				key = key and (key .. ":" .. (gv.progress and gv.progress.max or "")) or nil
+				local place = gv.map and gv.x and gv.y and true or nil
+				local kept = key and byKey[key]
+				if kept then
+					kept.pin = kept.pin or s.pin
+					if place and not kept.place then
+						kept.gv, kept.step, kept.place = gv, gv.step or s.index, place
+					end
+				else
+					kept = { s = s, gv = gv, step = gv.step or s.index, place = place, pin = s.pin }
+					list[#list + 1] = kept
+					if key then byKey[key] = kept end
+				end
 			end
+		end
+	end
+	for _, e in ipairs(list) do
+		if n < ALONG_MAX then
+			local s, gv = e.s, e.gv
+			n = n + 1
+			if not s.untilStep or (untilStep and untilStep ~= s.untilStep) then mixed = true end
+			untilStep = untilStep or s.untilStep
+			local r = alongRow(n)
+			r.psStep, r.psGoal, r.psTitle, r.psPin, r.psBehind = e.step, gv.index, s.title or UI.GoalLine(gv), e.pin, nil
+			r.psPlace, r.psCarried = e.place, nil
+			r.Icon:SetTexture(Theme.VerbIcon(gv.t))
+			UI.SetCounted(r.Text, UI.GoalLine(gv))
+			r:Show()
 		end
 	end
 	along.Label:SetText(back == n and L["Still to do"] or (untilStep and not mixed) and string.format(L["Along the way, until step %d"], UI.StepNo(untilStep)) or L["Along the way"])

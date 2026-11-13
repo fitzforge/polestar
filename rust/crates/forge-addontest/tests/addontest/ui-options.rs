@@ -200,6 +200,32 @@ const SHOW: &str = r#"
 			toggle = toggle ~= nil and toggle:IsShown() or false, on = Polestar.Get("routePlan.questie"),
 			nav = navLabels() })"#;
 
+// #1345: with ErgoBars (EllesmereUI's skinning contract under its own name) the Integrations section and its two
+// switches name ErgoBars, not EllesmereUI.
+#[test]
+fn integrations_names_ergobars_when_polestar_follows_its_look_1345() {
+	let ergo = r#"
+local S = { GetAccentColor = function() return 0.96, 0.55, 0.73 end, GetPanelColor = function() return 0.06, 0.06, 0.07, 0.9 end,
+	GetFont = function() return "Fonts\\FRIZQT__.TTF", "" end, OnLooksChanged = function() end }
+local waiting = {}
+ErgoBarsLooks = { version = 1, RegisterSkin = function(_, fn) table.insert(waiting, fn) return true end }
+local drain = CreateFrame("Frame")
+drain:RegisterEvent("PLAYER_LOGIN")
+drain:SetScript("OnEvent", function() for _, fn in ipairs(waiting) do fn(S) end end)
+"#;
+	let out = run_opts(
+		r#"
+		UI.ShowOptions("integrations")
+		local c = O.Controls("integrations")
+		local function label(key) return c[key] ~= nil and c[key]:IsShown() and c[key].Label:GetText() or false end
+		emit({ headers = cardTitles(), accent = label("ui.matchAccent"), font = label("ui.matchFont") })"#,
+		"",
+		ergo,
+		"",
+	);
+	assert_eq!(out, json!({ "headers": ["ErgoBars"], "accent": "Match ErgoBars accent", "font": "Match ErgoBars font" }));
+}
+
 #[test]
 fn integrations_lists_spoken_with_its_wait_off_only_while_spoken_quests_is_there() {
 	let script = r#"

@@ -11,13 +11,20 @@
 --   3 · Kobold camp
 --     [goto]  Go to Kobold camp
 --     ...     +2 more                             six lines at most
+--   10–20 · Skipped for you                         steps whose `when` does not hold
+--     [skip]  Only before "The Battle of Hillsbrad" is handed in
+--     [skip]  Only before "The Rescue" is handed in
 --
 -- A card's lines are the step's people and goals in written order, worded as
 -- the step card words them (UI.GoalLine, names in their kind's colour); done
 -- goals are ticked and muted, done and skipped steps muted whole, the step on
 -- screen on a lifted ground. A click looks at that step (GuideFrame.LookAt)
 -- and returns to the card. It opens at the step on screen and is as tall as
--- its cards, up to the window's height cap. Works in every look and in
+-- its cards, up to the window's height cap. Steps that keep their number but
+-- do not apply to the character now (a `when` that does not hold, such as a
+-- catch-up for quests already handed in) share one muted card per run that
+-- says which numbers they are and why (Engine.GetStepView `why`), so the
+-- numbers never jump without a word; hovering it names the steps. Works in every look and in
 -- compact mode. A profession guide's skill ranges head their steps ("First
 -- Aid 40-75", the range the player's skill is in in the accent colour).
 --
@@ -162,7 +169,13 @@ local function row(i)
 	end)
 	r:SetScript("OnEnter", function(self)
 		local G = GF()
-		W.Tooltip(self, G.TooltipAnchor(), self.psSummary or "", { { L["Click to jump to this step"], Theme.Accent() } })
+		if self.psRun then
+			local lines = {}
+			for _, s in ipairs(self.psRun.steps) do lines[#lines + 1] = s end
+			W.Tooltip(self, G.TooltipAnchor(), self.psSummary or "", lines)
+		else
+			W.Tooltip(self, G.TooltipAnchor(), self.psSummary or "", { { L["Click to jump to this step"], Theme.Accent() } })
+		end
 		G.HoverIn()
 	end)
 	r:SetScript("OnLeave", function(self) W.HideTooltip(self) end)
@@ -218,7 +231,7 @@ end
 -- Paint card r from step i's view v. -> a key of what it says
 local function fillRow(r, v, i, live, at)
 	local gone = v.status == "done" or v.status == "skipped" or v.skipped == true
-	r.psIndex = i
+	r.psIndex, r.psRun = i, nil
 	r.psSummary = UI.StepSummary(v)
 	-- A finished step (not the one on screen) is one muted line.
 	local one = gone and i ~= at
@@ -299,17 +312,62 @@ local function fillRow(r, v, i, live, at)
 	return table.concat(key, "\n")
 end
 
+-- Paint card r for a run of steps that keep their numbers but do not apply
+-- now (`run`: first, last, steps = { "N · title" }, whys = { reason, ... }
+-- in order, each once). -> a key of what it says
+local function fillSkipped(r, run)
+	r.psIndex, r.psRun, r.psOne, r.psHead = nil, run, false, nil
+	local nums = run.first == run.last and tostring(run.first) or (run.first .. "\226\128\147" .. run.last)
+	r.Tab:SetText(nums .. " \194\183 " .. L["Skipped for you"])
+	W.Color(r.Tab, "textMuted")
+	r.psSummary = #run.steps == 1 and L["This step does not apply to you now"] or string.format(L["These %d steps do not apply to you now"], #run.steps)
+	r.Live:Hide()
+	r.Head:Hide()
+	local n, more, key = 0, 0, { r.Tab:GetText() }
+	for _, why in ipairs(run.whys) do
+		if n >= MAX_LINES then
+			more = more + 1
+		else
+			n = n + 1
+			local g = line(r, n)
+			g.Icon:SetTexture(Theme.Media("skip"))
+			W.Color(g.Icon, "textMuted")
+			g.Text:SetText(why)
+			W.Color(g.Text, "textMuted")
+			key[#key + 1] = why
+		end
+	end
+	for j = 1, #r.G do
+		r.G[j].Icon:SetShown(j <= n)
+		r.G[j].Text:SetShown(j <= n)
+	end
+	r.psN = n
+	r.More:SetText(more > 0 and string.format(L["+%d more"], more) or "")
+	r.More:SetShown(more > 0)
+	r.Tick:Hide()
+	r.Mark:Hide()
+	r.View:Hide()
+	r:Show()
+	return table.concat(key, "\n")
+end
+
 -- The cards, in step order. Every step is read again only when the guide,
--- the step on screen, the live step or the progress moved; between those (a
--- kill, a loot) only the live and the viewed step's cards are, and the cards
--- are measured again only when what one says changed.
+-- the step on screen, the live step, the progress, a step's gate (Engine.
+-- StepGate: a later step's `when` turning, which a run card shows) or the
+-- names (Names.revision: a run card's reasons name quests) moved;
+-- between those (a kill, a loot) only the live and the viewed step's cards
+-- are, and the cards are measured again only when what one says changed.
 function SL.Fill()
 	local E = ns.Engine
 	local guide = E and E.GetGuide and E.GetGuide()
 	if not (SL.scroll and guide and E.GetStepCount and E.GetStepView) then return end
 	local count, at, live = E.GetStepCount(), E.GetStepIndex and E.GetStepIndex(), E.GetLiveStep and E.GetLiveStep()
-	local done = E.GetProgress and (E.GetProgress()) or 0
-	local sig = table.concat({ guide.id or "", count, at or 0, live or 0, done }, "|")
+	local done, total = 0, 0
+	if E.GetProgress then done, total = E.GetProgress() end
+	local gates = {}
+	for i = 1, E.StepGate and count or 0 do gates[i] = E.StepGate(i) or "" end
+	local names = ns.Names and ns.Names.revision or 0
+	local sig = table.concat({ guide.id or "", count, at or 0, live or 0, done or 0, total or 0, names, table.concat(gates, ",") }, "|")
 	if sig == SL.sig then
 		for k = 1, 2 do
 			local i = k == 1 and live or (at ~= live and at)
@@ -324,10 +382,20 @@ function SL.Fill()
 	end
 	SL.sig, SL.at, SL.live, SL.lsig = sig, at, live, nil
 	SL.rowOf = {}
-	local n, last = 0, nil
+	local n, last, run = 0, nil, nil
+	-- A run of steps that keep their number but do not apply now becomes one
+	-- card, drawn before the next step shown (or at the end).
+	local function flush()
+		if not run then return end
+		n = n + 1
+		local r = row(n)
+		r.psKey = fillSkipped(r, run)
+		run = nil
+	end
 	for i = 1, count do
 		local v = not UI.StepHidden(i) and E.GetStepView(i)
 		if v and v.status ~= "na" then
+			flush()
 			n = n + 1
 			local r = row(n)
 			local sec = v.section
@@ -335,8 +403,19 @@ function SL.Fill()
 			last = sec and sec.index or nil
 			r.psKey = fillRow(r, v, i, live, at)
 			SL.rowOf[i] = r
+		elseif v and v.why then
+			local no = UI.StepNo(i)
+			run = run or { first = no, steps = {}, whys = {}, seen = {} }
+			run.last = no
+			run.steps[#run.steps + 1] = no .. " \194\183 " .. ((v.title and v.title ~= "") and v.title or string.format(L["Step %d"], no))
+			if not run.seen[v.why] then run.seen[v.why] = true; run.whys[#run.whys + 1] = v.why end
+		elseif v then
+			-- A step that does not apply and says no why (Own.gone) ends the run:
+			-- its numbers stay true to the steps it names.
+			flush()
 		end
 	end
+	flush()
 	for i = n + 1, #SL.rows do SL.rows[i]:Hide() end
 	SL.n = n
 end
@@ -391,7 +470,7 @@ function SL.Layout(width, room)
 			local h = r.psOne and ONE_H or (r.psN == 0 and PT + TAB_H + PB or (ly - LINE_GAP + PB))
 			r:SetHeight(h)
 			r.Card:SetShown(not transparent())
-			top[r.psIndex] = y - (r.psHead and HEAD_H or 0)
+			if r.psIndex then top[r.psIndex] = y - (r.psHead and HEAD_H or 0) end
 			y = y + h + GAP
 		end
 		SL.top, SL.H = top, y
