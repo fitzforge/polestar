@@ -310,7 +310,7 @@
 				1487
 			],
 			"budget": {
-				"flow": "02-the-barrens walk +0.8 km (the Hezrul shore <-> door trip and Nalpak climb), hub visits +0; 04-the-barrens +0.1 km, +1 hub (Ratchet hand-ins on its own Ratchet stop)",
+				"flow": "flow audit (dynamic 037, Warrior, every start; off vs this dungeon): 02-the-barrens +1.0 km, +11.5 min, hub visits +1.0 (the run from Hezrul's shore and the Crossroads-Ratchet hop for Mebok and Bigglefuzz), passed givers near +3.2; the run's XP takes 22 and 21 min off the written grinds of 30-40/02-thousand-needles and 30-40/04-dustwallow-marsh",
 				"hop": "the Crossroads-Ratchet hop on 02-the-barrens: two flights and ~0.2 km on foot at Ratchet (the two NPCs are side by side by the flight master), for 2 x 1,325 XP more than the fallback pays; two log slots freed before 05/06"
 			},
 			"pickupRule": "first stop that offers it with quest level <= player level + 2 (the level sweep's 3-over rule)",
@@ -546,7 +546,7 @@
 				"97289": "Unending Torment parts 2-5 (97289-97292): Faranell's chain in the Undercity after the Head, not on the route"
 			},
 			"budget": {
-				"flow": "05-stonetalon-mountains +2.5 km, +8.0 min, hub visits +1 (the Undercity), all of it the run's own trip (landing -> Morbin in the Royal Quarter -> the ruins -> on to the Sepulcher); 06-hillsbrad-foothills +0.3 km (Morbin's hand-in); no avoidable backtracks or hub revisits (Oran Snakewrithe's Crest hand-in, 95204, added after this measurement: re-measure)"
+				"flow": "flow audit (dynamic 037, Warrior, every start; off vs this dungeon): 05-stonetalon-mountains +2.4 km, +10.2 min, hub visits +1.0 (the Undercity: Morbin, the ruins, the walk on to the Sepulcher); 03-silverpine-forest +0.1 km (Tabitha's pick-up); 06-hillsbrad-foothills +0.3 km (the Undercity hand-ins); the run's XP takes 18 and 21 min off the written grinds of 30-40/02-thousand-needles and 30-40/04-dustwallow-marsh"
 			},
 			"travel": [
 				{
@@ -1306,7 +1306,7 @@
 				"1113": "Hearts of Zeal: Faranell's follow-up, a Scarlet Monastery quest"
 			},
 			"budget": {
-				"flow": "the run's own trip on 30-40/02-thousand-needles: a flight Freewind Post -> Camp Taurajo, ~2.1 km on foot to the door, the Great Lift (161 yd) and ~1 km to Freewind Post, instead of none (the solo route flies there and goes on); 30-40/01 and 30-40/05: the Undercity stops the route already makes"
+				"flow": "flow audit (dynamic 037, Warrior, every start; off vs this dungeon): 30-40/02-thousand-needles +3.3 km, +10.4 min, backtracks +1.0 (the flight to Camp Taurajo, the ride to the kraul, the Great Lift and the ride back up to Freewind Post); 30-40/01-hillsbrad-foothills +0.2 km, hub visits +1.0 (Faranell in the Apothecarium); 30-40/05-arathi-highlands +0.1 km, hub visits +1.0 (the Undercity hand-ins); the run's XP takes 16 min off 40-50/01-stranglethorn-vale's written grind"
 			}
 		},
 		{
@@ -1347,7 +1347,7 @@
 			],
 			"leftOut": {},
 			"budget": {
-				"flow": "~1.4 km on foot, the swim from Grom'gol to Sunken Hollow and back; no extra stop"
+				"flow": "flow audit (dynamic 037, Warrior, every start; off vs this dungeon): 40-50/01-stranglethorn-vale +1.5 km, +5.8 min, hub visits +1.0, backtracks +2.0 (the swim from Grom'gol to Sunken Hollow and back); the run's XP takes 16 min off 40-50/05-the-hinterlands' written grind"
 			}
 		},
 		{
@@ -1413,7 +1413,7 @@
 				}
 			],
 			"budget": {
-				"flow": "one more flight leg (Kargath -> Stonard -> Undercity instead of Kargath -> Undercity) and ~1.1 km on foot (Fel'zerul -> the door -> Fel'zerul)"
+				"flow": "flow audit (dynamic 037, Warrior, every start; off vs this dungeon): 50-60/01-un-goro-crater +1.1 km, +21.3 min, hub visits +1.0, backtracks +1.0 (the flights from Kargath to Stonard and on to the Undercity, the ride to the temple and back to Fel'zerul); the run's XP takes 14 min off 50-60/02-felwood's written grind"
 			},
 			"checks": [
 				{
@@ -1461,7 +1461,7 @@
 				"5511": "The Key to Scholomance: the end of Apothecary Dithers' chain (5802, 5804 before it), which the route doesn't take: the run tip says someone in the group needs the Skeleton Key"
 			},
 			"budget": {
-				"flow": "~0.3 km on foot (Renfray -> Eva, the door beside her, back to Eva), no extra stop"
+				"flow": "flow audit (dynamic 037, Warrior, every start; off vs this dungeon): 50-60/06-silithus +0.4 km, +3.3 min, backtracks -1.0 (Eva Sarkhoff and the door, beside Artist Renfray's stop)"
 			},
 			"checks": [
 				{
