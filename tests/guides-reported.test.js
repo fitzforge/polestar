@@ -11725,6 +11725,9 @@ const DUNGEON_RUNS = () => JSON.parse(fs.readFileSync(path.join(__dirname, '..',
 const dungeonKey = (s) => String(s).trim().toLowerCase().replace(/^the\s+/, '');
 const whenDungeonOf = (step, name) => (step.when || []).some((p) => p.k === 'dungeon' && !p.neg && dungeonKey(p.name) === dungeonKey(name));
 const whenQuestOf = (step, kinds, quest) => (step.when || []).some((p) => kinds.includes(p.k) && !p.neg && [p.q].flat().includes(quest));
+// The lowest level a step applies at by its `when level>=`/`level>` predicates (a point inside a level counts), 1 without
+// one: forge-guide validate.rs `lowest_level`, rounded to a hundredth as the guide writes it.
+const lowestLevel = (step) => Math.round(100 * (step.when || []).filter((p) => p.k === 'level' && (p.op === '>=' || p.op === '>')).reduce((lo, p) => Math.max(lo, p.frac ? p.n + p.frac : p.op === '>' ? p.n + 1 : p.n), 1)) / 100;
 for (const run of fs.existsSync(path.join(__dirname, '..', 'data', 'dungeon-runs.json')) ? DUNGEON_RUNS() : []) {
 	test(`dungeons in the route: ${run.dungeon} (${run.faction}): the recorded pick-ups, the guarded run at the door and the hand-ins are in the guides`, { skip }, () => {
 		const steps = (guide) => compiled(`${guide}.guide`).steps;
@@ -11745,6 +11748,19 @@ for (const run of fs.existsSync(path.join(__dirname, '..', 'data', 'dungeon-runs
 			for (const s of ends) {
 				assert.ok(whenQuestOf(s, ['complete', 'onquest'], h.quest), `${h.guide}: the hand-in of ${h.quest} waits for the quest (complete or held)`);
 				assert.ok(whenDungeonOf(s, run.dungeon), `${h.guide}: the hand-in of ${h.quest} is behind \`when dungeon\`: a character who skips ${run.dungeon} keeps the solo route's steps`);
+			}
+		}
+		// Fitz, 2026-11-13: never a dungeon too low. A record with gates: the run applies from the dungeon's floor (its
+		// `gate`, the Codex's floor, which forge guide lint checks), each pick-up from the floor less the levels the
+		// route plans before the run (its own `gate`), and a pick-up at the run's own stop with the run.
+		if (run.run.gate != null) {
+			assert.equal(lowestLevel(step), run.run.gate, `${run.run.guide}: the run is gated \`when level>=${run.run.gate}\``);
+			const gated = [...(run.pickups || []).map((p) => [p.quest, (p.after && p.after.guide) || p.guide, p.gate]), ...(run.runStop || []).map((q) => [q, run.run.guide, run.run.gate])];
+			for (const [quest, guide, gate] of gated) {
+				assert.ok(gate != null, `${guide}: the pick-up of ${quest} has its gate in the record`);
+				for (const s of steps(guide).filter((x) => whenDungeonOf(x, run.dungeon) && x.goals.some(is('accept', quest)))) {
+					assert.equal(lowestLevel(s), gate, `${guide}: the pick-up of ${quest} is gated \`when level>=${gate}\``);
+				}
 			}
 		}
 	});
