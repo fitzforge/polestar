@@ -1970,7 +1970,7 @@ local HOUSE_PAINT = {
 		-- white thumb over the whole bar.
 		local thumb = f.thumb or f.psThumb
 		if f.psInset then
-			f.psInset = nil
+			f.psInset, f.psReach = nil, nil
 			f:SetWidth(6)
 			if thumb and thumb.SetTexture then
 				thumb:SetTexture(Theme.Media("white"))

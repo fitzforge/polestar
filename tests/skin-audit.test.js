@@ -23,18 +23,6 @@ const { audit, line, LOOKS } = require('../tools/preview/audit');
 // the test fails on it until its fix lands.
 const EXPECTED = [
 	{
-		look: '*', surface: '*', check: 'clickable', match: 'PolestarOptions Button "(scroll bar)": 100% covered by PolestarOptions Button "About"',
-		owner: 'settings window', reason: "The sidebar's rows cover its scroll bar, so the bar can't be dragged (the mouse wheel still scrolls); fixed before 0.3.8 ships.",
-	},
-	{
-		look: '*', surface: '*', check: 'clickable', match: 'PolestarOptions kit up: 100% covered by PolestarOptions Button "Guiding"',
-		owner: 'settings window', reason: "In the game looks the same rows cover the sidebar's top scroll arrow; fixed before 0.3.8 ships.",
-	},
-	{
-		look: '*', surface: '*', check: 'clickable', match: 'PolestarOptions kit down: 100% covered by PolestarOptions Button "Recorder"',
-		owner: 'settings window', reason: "In the game looks the same rows cover the sidebar's bottom scroll arrow; fixed before 0.3.8 ships.",
-	},
-	{
 		look: '*', surface: '*', check: 'clickable', match: 'covered by PolestarOptions kit forward',
 		owner: 'game looks', reason: "WoW Forever and Blizzard: a slider's right step arrow overlaps the value box beside it; fixed before 0.3.8 ships.",
 	},

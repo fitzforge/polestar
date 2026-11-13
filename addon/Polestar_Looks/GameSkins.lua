@@ -1054,10 +1054,14 @@ local function scrollbar(bar, kit)
 	local thumb = bar.thumb or bar.psThumb
 	bar:SetWidth(s.width)
 	bar.psInset = s.inset
+	-- The arrow buttons, centred on the bar, reach past its left edge when
+	-- wider than it (W.ScrollBarRoom: the strip the rows leave it).
+	local aw, ah = s.width == 8 and 17 or 16, s.width == 8 and 11 or 16
+	bar.psReach = max(0, (aw - s.width) / 2)
 	local sf = bar.psScroll
 	local function arrow(key, name, point, dir)
 		local b = child(bar, key, 1, "Button")
-		b:SetSize(s.width == 8 and 17 or 16, s.width == 8 and 11 or 16)
+		b:SetSize(aw, ah)
 		b:ClearAllPoints()
 		b:SetPoint(point, bar, point, 0, 0)
 		local t = tex(b, key .. "Art", "ARTWORK", 0)

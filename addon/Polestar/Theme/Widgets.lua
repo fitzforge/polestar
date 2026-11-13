@@ -2190,6 +2190,9 @@ local function scrollDrag(bar)
 	scrollUpdate(sf)
 end
 
+-- The bar stands this far in from the area's right edge.
+local BAR_IN = 2
+
 function W.Scroll(parent)
 	local sf = CreateFrame("ScrollFrame", nil, parent)
 	local child = CreateFrame("Frame", nil, sf)
@@ -2204,8 +2207,8 @@ function W.Scroll(parent)
 	sf:SetScript("OnSizeChanged", scrollUpdate)
 	local bar = CreateFrame("Button", nil, sf)
 	bar:SetWidth(6)
-	bar:SetPoint("TOPRIGHT", sf, "TOPRIGHT", -2, 0)
-	bar:SetPoint("BOTTOMRIGHT", sf, "BOTTOMRIGHT", -2, 0)
+	bar:SetPoint("TOPRIGHT", sf, "TOPRIGHT", -BAR_IN, 0)
+	bar:SetPoint("BOTTOMRIGHT", sf, "BOTTOMRIGHT", -BAR_IN, 0)
 	bar.Thumb = bar:CreateTexture(nil, "OVERLAY")
 	bar.Thumb:SetTexture(WHITE)
 	bar.Thumb:SetWidth(2)
@@ -2227,6 +2230,15 @@ function W.Scroll(parent)
 	sf.Bar = bar
 	Theme.Skin(bar, "scrollbar")
 	return sf
+end
+
+-- The strip a scroll area's bar takes at the area's right edge: its margin,
+-- its width and what a game look's arrow buttons reach past it on the left
+-- (bar.psReach, Polestar_Looks/GameSkins.lua). Rows that take the mouse end
+-- short of it while the bar shows (W.ShellNav).
+function W.ScrollBarRoom(sf)
+	local bar = sf.Bar
+	return BAR_IN + bar:GetWidth() + (bar.psReach or 0)
 end
 
 -- Scroll `child` itself (created with the scroll area as its parent) in
@@ -2591,19 +2603,20 @@ local function navButton(f, i)
 	b:SetHeight(NAV_ROW)
 	hoverTexture(b)
 	-- The selected row: in the house style an accent wash fading out to the
-	-- right (12 % to clear at 85 % of the row), elsewhere the selected wash.
+	-- right (12 % to clear at 85 % of the row), elsewhere the selected wash
+	-- across the row (which ends at the scroll bar while the list scrolls).
 	b.Selected = b:CreateTexture(nil, "BACKGROUND")
 	b.Selected:SetTexture(WHITE)
-	b.Selected:SetPoint("TOPLEFT", b, "TOPLEFT", 0, 0)
-	b.Selected:SetPoint("BOTTOMLEFT", b, "BOTTOMLEFT", 0, 0)
 	W.Painter(b.Selected, function(t)
-		local w = (f.psSidebar or SHELL.sidebar) - 1
+		t:ClearAllPoints()
+		t:SetPoint("TOPLEFT", b, "TOPLEFT", 0, 0)
+		t:SetPoint("BOTTOMLEFT", b, "BOTTOMLEFT", 0, 0)
 		if Theme.SkinKey() == "polestar" then
 			local r, g, bb = Theme.Accent()
-			t:SetWidth(w * 0.85)
+			t:SetWidth(((f.psSidebar or SHELL.sidebar) - 1) * 0.85)
 			gradient(t, r, g, bb, 0.12, r, g, bb, 0)
 		else
-			t:SetWidth(w)
+			t:SetPoint("TOPRIGHT", b, "TOPRIGHT", 0, 0)
 			if t.SetGradient and CreateColor then
 				local r, g, bb, a = Theme.Wash("selected")
 				t:SetGradient("HORIZONTAL", CreateColor(r, g, bb, a), CreateColor(r, g, bb, a))
@@ -2628,30 +2641,29 @@ local function navButton(f, i)
 	b.Label:SetWordWrap(true)
 	b.Label:SetMaxLines(2)
 	b.Label:SetPoint("LEFT", b.Icon, "RIGHT", 12, 0)
+	-- The parts at the right edge (count, warning dot, chevron, New chip) are
+	-- placed by navRow.
 	b.Count = W.Text(b, "number", "textMuted")
 	b.Count:SetJustifyH("RIGHT")
-	b.Count:SetPoint("RIGHT", b, "RIGHT", -SHELL.side, 0)
 	-- A warning dot: something on that page needs the player's attention.
 	b.Dot = b:CreateTexture(nil, "ARTWORK")
 	b.Dot:SetTexture(Theme.Media("circle"))
 	b.Dot:SetSize(6, 6)
-	b.Dot:SetPoint("RIGHT", b, "RIGHT", -SHELL.side, 0)
 	W.Color(b.Dot, "warning")
 	b.Dot:Hide()
 	-- A group's fold chevron (down open, right folded).
 	b.Chevron = b:CreateTexture(nil, "ARTWORK")
 	b.Chevron:SetSize(12, 12)
-	b.Chevron:SetPoint("RIGHT", b, "RIGHT", -SHELL.side, 0)
 	b.Chevron:Hide()
 	-- New settings not seen yet: their count in an accent chip.
 	b.New = W.Chip(b)
-	b.New:SetPoint("RIGHT", b, "RIGHT", -SHELL.side + 4, 0)
 	b.New:Hide()
 	-- Settings off their default on that page: a small accent dot.
 	b.Changed = W.Tex(b, "ARTWORK", "circle", "accent")
 	b.Changed:SetSize(6, 6)
 	b.Changed:Hide()
 	b:SetScript("OnClick", function(self) if f.psOnNav and not self.psHeading then f.psOnNav(self.psKey) end end)
+	b.psShell = f
 	f.navButtons[i] = b
 	return b
 end
@@ -2679,7 +2691,10 @@ end
 local NAV_SEP, NAV_GROUP, NAV_INDENT = 17, 32, 12
 
 local function navRow(b, item, on)
-	b.psKey = item.key
+	b.psKey, b.psItem, b.psOn = item.key, item, on
+	-- The right edge's parts keep their place on the sidebar when the rows
+	-- end at the scroll bar (W.ShellNav): their margin gives up that strip.
+	local pad = max(8, SHELL.side - (b.psShell.psNavRoom or 0))
 	local empty = item.count == 0
 	b.Icon:SetTexture(Theme.Media(item.icon or "compact"))
 	b.Icon:ClearAllPoints()
@@ -2696,10 +2711,18 @@ local function navRow(b, item, on)
 	else
 		b.New:Hide()
 	end
+	b.Count:ClearAllPoints()
+	b.Count:SetPoint("RIGHT", b, "RIGHT", -pad, 0)
+	b.Dot:ClearAllPoints()
+	b.Dot:SetPoint("RIGHT", b, "RIGHT", -pad, 0)
+	b.Chevron:ClearAllPoints()
+	b.Chevron:SetPoint("RIGHT", b, "RIGHT", -pad, 0)
+	b.New:ClearAllPoints()
+	b.New:SetPoint("RIGHT", b, "RIGHT", -pad + 4, 0)
 	-- The changed dot, left of whatever stands at the right edge.
 	local edge = b.Dot:IsShown() and 6 or new and b.New:GetWidth() - 4 or b.Count:IsShown() and math.ceil(textWidth(b.Count)) or 0
 	b.Changed:ClearAllPoints()
-	b.Changed:SetPoint("RIGHT", b, "RIGHT", -(SHELL.side + (edge > 0 and edge + 8 or 0)), 0)
+	b.Changed:SetPoint("RIGHT", b, "RIGHT", -(pad + (edge > 0 and edge + 8 or 0)), 0)
 	b.Changed:SetShown(item.changed and not item.group and true or false)
 	b.Chevron:SetShown(item.group and true or false)
 	b.Selected:SetShown(on)
@@ -2721,7 +2744,7 @@ local function navRow(b, item, on)
 	b.Label:ClearAllPoints()
 	if item.heading or item.group then
 		b.Label:SetPoint("LEFT", b, "LEFT", SHELL.side, 0)
-		b.Label:SetPoint("RIGHT", b, "RIGHT", -(SHELL.side + (item.group and 20 or 0)), 0)
+		b.Label:SetPoint("RIGHT", b, "RIGHT", -(pad + (item.group and 20 or 0)), 0)
 		W.Color(b.Label, "textMuted")
 		b:SetAlpha(1)
 		if item.group then
@@ -2735,7 +2758,7 @@ local function navRow(b, item, on)
 		local reserve = edge > 0 and edge + 8 or 0
 		if b.Changed:IsShown() then reserve = reserve + 6 + 8 end
 		b.Label:SetPoint("LEFT", b.Icon, "RIGHT", 12, 0)
-		b.Label:SetPoint("RIGHT", b, "RIGHT", -(SHELL.side + reserve), 0)
+		b.Label:SetPoint("RIGHT", b, "RIGHT", -(pad + reserve), 0)
 		b:Enable()
 	end
 end
@@ -2743,6 +2766,23 @@ end
 -- The tree's group headers are shorter than the rows.
 local function navRowH(item)
 	return item.group and NAV_GROUP or NAV_ROW
+end
+
+-- The rows' width: the sidebar's, less the scroll bar's strip while the list
+-- scrolls (its content past its view), so the bar and a game look's arrow
+-- buttons take the mouse over their whole strip: the rows covered them.
+-- Again after a repaint (content, view nil: as last laid out), as another
+-- look's bar takes another strip.
+local function navWidth(f, content, view)
+	local sf = f.NavScroll
+	content, view = content or sf.psContent or 0, view or sf.psView or 0
+	local room = content > view and view > 0 and W.ScrollBarRoom(sf) or 0
+	sf.Child:SetWidth((f.psSidebar or SHELL.sidebar) - 1 - room)
+	if room == (f.psNavRoom or 0) then return end
+	f.psNavRoom = room
+	for _, b in ipairs(f.navButtons) do
+		if b:IsShown() and b.psItem then navRow(b, b.psItem, b.psOn) end
+	end
 end
 
 function W.ShellNav(f, items, active, onSelect)
@@ -2782,7 +2822,7 @@ function W.ShellNav(f, items, active, onSelect)
 	for i = bi + 1, #f.navButtons do f.navButtons[i]:Hide() end
 	for i = ri + 1, #rules do rules[i]:Hide() end
 	local view = W.ShellNavHeight(f)
-	sf.Child:SetWidth((f.psSidebar or SHELL.sidebar) - 1)
+	navWidth(f, y, view)
 	W.SetScrollContent(sf, y, view)
 	-- A new selection is scrolled into view; a redraw with the same one (a
 	-- refresh, a guide picked in the list) keeps the place the player
@@ -3310,6 +3350,7 @@ function W.Shell(name, opts)
 	f.Close:SetShown(not Theme.Kit())
 	Theme.OnChanged(function()
 		f.Close:SetShown(not Theme.Kit())
+		navWidth(f)
 		if rawget(f, "HeaderTools") then f.HeaderTools:Place() end
 	end)
 	-- The window frame's own close button (the game's looks) stands for this
