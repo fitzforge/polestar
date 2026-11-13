@@ -6,12 +6,24 @@ coords live
 folder Shen'dralas · Experimental
 why Forever's new zone south of Desolace, an alpha route written from players' recordings.
 keywords shen'dralas, shendralas, valley of bones, evenshade's overlook, forlorn gardens, bristleback retreat, pylons, desolace, experimental, alpha
+next forever/horde/40-50/04-tanaris
+next forever/alliance/40-50/03-feralas
+pitch A detour south of Desolace into Shen'dralas: 11 quests around a fallen Highborne temple, for levels 41-45.
+pro About 27,500 quest experience plus the kills, in roughly one and a half to two hours
+pro Brings you back to the main route where you left it
+pro Its experience comes off the grinding the route asks for before level 50
+con Its quests are about on level at 43 and a few levels under you at 46
+con Elites walk the Valley of Bones: Corpsefeeders and Magram Necrokhans, level 45
+con Experimental: written from a handful of players' recordings
 
 # Polestar Experimental, Shen'dralas for both factions (2026-11-12). Hand-written from players' recordings of
 # the zone (99 sessions, 56 people, most of them passing through below level 40), with Forever's quest data for
-# titles, levels and objectives and the client's tables for item and spell names. A side trip at 42-44 between
-# Desolace and Feralas: in from the Desolace flight point, out by hearth or the way you came; it hands over to
-# no guide, so go back to your leveling guide's tab when it ends.
+# titles, levels and objectives and the client's tables for item and spell names. A detour for levels 41-45,
+# offered as a route choice. Horde: offered at the end of the Feralas, Dustwallow Marsh & Swamp of Sorrows guide
+# (40-50/03, Camp Mojache, about level 46); in from Shadowprey Village, out by hearth to Camp Mojache, where the
+# Tanaris guide picks up at the flight master. Alliance: offered at the end of the Badlands guide (40-50/02,
+# Theramore, about level 43); in from Nijel's Point, out on the ride south into Feralas, where the Feralas guide
+# picks up at the Feathermoon boat.
 # Order: the Tattered Journal from the valley's necromancers; Mordent Evenshade's pylons (find the three, the
 # fragment and the shard in Desolace's two centaur villages, the Mana Sieve and the repairs, his story, then
 # Magister Kirandis in the temple); the temple's own quests once Kirandis has been met; Mithera's Forlorn Gardens.
@@ -162,7 +174,7 @@ step The Forlorn Gardens
   turnin 93594
 
 step Mithera
-  tip Historian Biraxas, inside the temple, may have a task for you if you didn't take it earlier: the heart of a Decrepit Pylon Protector, a short ride back up the road north. Otherwise Shen'dralas is done: hearth, or ride back north through the Valley of Bones to Desolace's flight points (Shadowprey Village for the Horde, Nijel's Point for the Alliance), then go back to your leveling guide's tab.
+  tip Historian Biraxas, inside the temple, may have a task for you if you didn't take it earlier: the heart of a Decrepit Pylon Protector, a short ride back up the road north. Otherwise Shen'dralas is done: hearth, or ride back north through the Valley of Bones to Desolace's flight points (Shadowprey Village for the Horde, Nijel's Point for the Alliance).
   turnin 93362
   accept 99257 optional               -- Historian Biraxas
 
@@ -171,5 +183,13 @@ step A Heart of Crystal
   collect 286647 quest 99257.1
 
 step Historian Biraxas
-  tip Shen'dralas is done: hearth, or ride back north through the Valley of Bones to Desolace, then go back to your leveling guide's tab.
+  tip Shen'dralas is done: hearth, or ride back north through the Valley of Bones to Desolace.
   turnin 99257
+
+step Back to your route
+  only Horde
+  note Shen'dralas is done. Your Tanaris guide picks up at Camp Mojache's flight master: hearth there, or ride back north through the Valley of Bones to Shadowprey Village and fly to Camp Mojache.
+
+step Back to your route
+  only Alliance
+  note Shen'dralas is done. Your Feralas guide picks up from here: ride back north through the Valley of Bones, west along Desolace's southern edge and south into Feralas, to the dock on the Forgotten Coast where the boat crosses to Feathermoon Stronghold.

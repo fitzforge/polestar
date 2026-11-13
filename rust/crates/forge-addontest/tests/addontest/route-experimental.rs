@@ -5,14 +5,16 @@
 //! it, and the route goes on there and back to ours where its last guide hands over. It is never recommended and
 //! never taken by itself: with behavior.routeChoice "recommended", with only it left, in the hand-in plan and in
 //! the chain's needs the route is the same as without it. Each option says where it goes on ("Then"), a detour
-//! names the zone it travels through, and a shared guide goes on by the character's faction. The experimental
-//! pack's notes say no install or setting is needed.
-//! Real Core manifest, stub world; the experimental pack is a fixture addon the
+//! names the zone it travels through, and a shared guide goes on by the character's faction. The real compiled
+//! guides' default route is the same with the offers as without them, and the experimental pack's notes say no
+//! install or setting is needed. Real Core manifest, stub world; the experimental pack is a fixture addon the
 //! client loads on demand (stub_packs.lua).
 
+use forge_addontest::dsl::{compile_with, our_manifest, write_test_pack_offering};
 use forge_addontest::run::{addons_dir, lua_string, root};
 use forge_addontest::tmp::TempDir;
 use forge_addontest::{emitted, Addon, RunAddon, TEST_PACK, TEST_SOURCE};
+use forge_guide::project::find_guide_files;
 use serde_json::{json, Value};
 
 const EXP: &str = "Polestar_Experimental";
@@ -381,6 +383,144 @@ fn a_detour_names_the_zone_it_goes_through_each_card_says_where_it_goes_on_and_a
 	// Standing in Desolace already, the way in is no detour through it.
 	let desolace = run(true, "nil", "HERE = 1443", script);
 	assert_eq!(desolace["polestar-experimental/shen"]["detour"], false);
+}
+
+/// Our guides (guides/) compiled with the reference data, with their experimental `next` lines (and the index of
+/// the experimental guides they offer, from experimental/) or with those lines taken out, built into a pack
+/// folder as `forge guide compile` builds Polestar_Guides.
+fn our_route(data: &forge_guide::data::Data, offers: bool) -> forge_addontest::dsl::TestPack {
+	let dir = root().join("guides");
+	let texts: Vec<(String, String)> = find_guide_files(&dir, false)
+		.iter()
+		.map(|f| {
+			let text = std::fs::read_to_string(dir.join(f)).unwrap();
+			let text = if offers { text } else { text.split_inclusive('\n').filter(|l| !l.starts_with("next polestar-experimental/")).collect() };
+			(format!("guides/{f}"), text)
+		})
+		.collect();
+	let sources: Vec<(&str, &str)> = texts.iter().map(|(f, t)| (f.as_str(), t.as_str())).collect();
+	let compiled = compile_with(&sources, data, None);
+	assert_eq!(compiled.errors, Vec::<String>::new());
+	let index = if offers {
+		let mut diag = forge_guide::diag::Diagnostics::new();
+		let index = forge_guide::project::experimental_index(&compiled.guides, &forge_guide::project::read_extras(root(), data), data, &mut diag);
+		assert!(!diag.has_errors(), "{:?}", diag.sorted());
+		index
+	} else {
+		Vec::new()
+	};
+	write_test_pack_offering(&compiled.guides, data, &our_manifest(), &index)
+}
+
+/// The AddOns-list lines of the checkout's experimental pack (addon/Polestar_Experimental), loaded on demand: the
+/// route choices may offer its guides from the index.
+fn exp_installed() -> String {
+	let toc = std::fs::read_to_string(addons_dir().join(EXP).join(format!("{EXP}.toc"))).unwrap();
+	let meta: Vec<String> = toc.lines().filter_map(|l| l.strip_prefix("## ")?.split_once(':')).map(|(k, v)| format!("[{}] = {}", lua_string(k.trim()), lua_string(v.trim()))).collect();
+	format!(
+		"stub.addonMeta.Polestar = {{ Version = \"1.0.0\" }}\nstub.addons = {{ {{ name = \"Polestar\", loaded = true }}, {{ name = {n}, reason = \"DEMAND_LOADED\" }} }}\nstub.addonMeta[{n}] = {{ {} }}\n",
+		meta.join(", "),
+		n = lua_string(EXP)
+	)
+}
+
+/// For a character of `race` (faction `faction`) and the pack built in `pack`: for every leveling guide they fit,
+/// where the route goes on (Engine.NextGuide) with behavior.routeChoice "recommended", and whether Skip grey
+/// quests may leave quest 1 out at 60 (Engine.GreyLeftOut: false while a guide down the chain is not known); the
+/// guides whose route choice asks with "ask"; and the experimental offers of their `next` lines.
+fn route_of(pack: &forge_addontest::dsl::TestPack, race: &str, faction: &str) -> Value {
+	let loads: Vec<String> = pack.scripts.iter().map(|f| format!("assert(loadfile({}))(\"Polestar_Guides\", ns)", lua_string(&f.to_string_lossy()))).collect();
+	emitted(&RunAddon {
+		stubs: vec!["stub_world.lua"],
+		before: format!("{}stub.world.race, stub.world.raceName, stub.world.faction = {r}, {r}, {}", exp_installed(), lua_string(faction), r = lua_string(race)),
+		addons: vec![Addon::files("Polestar", &["Core/Core.xml"])],
+		script: format!(
+			r#"
+			do local ns = {{}}
+			{}
+			end
+			stub.login()
+			local E, G = Polestar.Engine, Polestar.Guides
+			Polestar.Set("behavior.skipGrey", true)
+			local player = Polestar.Compat.GetPlayerInfo()
+			local out = {{ route = {{}}, asks = {{}}, offers = {{}} }}
+			local list = {{}}
+			for _, h in ipairs(G.List()) do
+				local g = G.Get(h.id)
+				if g and (g.category == nil or g.category == "Leveling") and G.GuideMatches(g, player) then list[#list + 1] = g end
+			end
+			Polestar.Set("behavior.routeChoice", "ask")
+			for _, g in ipairs(list) do
+				local c = E.GetRouteChoice(g.id)
+				if c and #c.options >= 2 and not E.NextGuide(g.id) then out.asks[#out.asks + 1] = g.id end
+				for _, id in ipairs(g.nextChoices or {{}}) do
+					if G.ExperimentalOffer(g, id) then out.offers[#out.offers + 1] = g.id .. " -> " .. id end
+				end
+			end
+			table.sort(out.asks); table.sort(out.offers)
+			Polestar.Set("behavior.routeChoice", "recommended")
+			for _, g in ipairs(list) do out.route[g.id] = (E.NextGuide(g.id) or "-") .. " / " .. tostring(E.GreyLeftOut(g.id, 1, 60)) end
+			emit(out)"#,
+			loads.join("\n\t\t\t")
+		),
+		..Default::default()
+	})
+	.remove(0)
+}
+
+// The whole route compiled both ways, with the experimental `next` lines and without them: the files are the same
+// but for the offering guides' `nextChoices` lines and the index after Polestar_Guides' guides; loaded by the
+// addon, the default route (behavior.routeChoice "recommended": every guide's next guide, and the chain Skip grey
+// quests reads) is the same for both factions, and with "ask" the offering guides ask at their end.
+#[test]
+fn the_real_route_compiled_with_the_offers_and_without_them_has_the_same_default_route() {
+	forge_addontest::needs!("quests.json", "npcs.json", "objects.json", "items.json", "map-frames.json");
+	let data = forge_guide::data::load_data(&root().join("data/forever")).expect("data/forever");
+	let with = our_route(&data, true);
+	let without = our_route(&data, false);
+	// The files: the same but for the offers.
+	let text = |p: &forge_addontest::dsl::TestPack, name: &str| match p.files.iter().find(|(n, _)| n == name) {
+		Some((_, forge_guide::project::FileContent::Text(t))) => t.clone(),
+		_ => String::new(),
+	};
+	let names: Vec<String> = with.files.iter().map(|(n, _)| n.clone()).collect();
+	assert_eq!(names, without.files.iter().map(|(n, _)| n.clone()).collect::<Vec<_>>());
+	let mut offered: Vec<String> = Vec::new();
+	for name in &names {
+		let (a, b) = (text(&with, name), text(&without, name));
+		if a == b {
+			continue;
+		}
+		let b_lines: Vec<&str> = b.lines().collect();
+		let a_lines: Vec<&str> = a.lines().collect();
+		assert!(b_lines.iter().all(|l| a_lines.contains(l)), "{name}: nothing of the route without the offers goes");
+		if name == "Guides.lua" {
+			assert!(a.starts_with(b.as_str()) && a[b.len()..].starts_with("\nPolestar.RegisterExperimental({\n"), "{name}: only the index, after the guides");
+		} else if name == "MapFrames.lua" {
+			assert!(a_lines.iter().filter(|l| !b_lines.contains(l)).all(|l| l.starts_with("\t\t[")), "{name}: only the frames of the index's points");
+		} else {
+			for l in a_lines.iter().filter(|l| !b_lines.contains(l)) {
+				assert!(l.starts_with("\t\t\tnextChoices = { ") && l.contains("\"polestar-experimental/"), "{name}: only the offering guides' route choices, not {l}");
+				offered.push(l.to_string());
+			}
+		}
+	}
+	assert_eq!(offered.len(), 3, "the three offers: {offered:?}");
+	for (race, faction, offers) in [
+		("Orc", "Horde", json!(["forever/horde/30-40/06-badlands -> polestar-experimental/riverglades-horde-1", "forever/horde/40-50/03-feralas -> polestar-experimental/shendralas"])),
+		("Human", "Alliance", json!(["forever/alliance/50-60/04-western-plaguelands -> polestar-experimental/hyjal-1"])),
+	] {
+		let (a, b) = (route_of(&with, race, faction), route_of(&without, race, faction));
+		assert!(a["route"].as_object().unwrap().len() > 20, "{race}: the guides are in");
+		assert_eq!(a["offers"], offers, "{race}: the route choices that offer an experimental guide");
+		assert_eq!(lines(&b["offers"]), Vec::<String>::new());
+		assert_eq!(a["route"], b["route"], "{race}: the default route is the same without the offers");
+		// With "ask" (the default) the offering guides ask at their end, and no other guide asks anew.
+		let mut asks = lines(&b["asks"]);
+		asks.extend(lines(&offers).iter().map(|o| o.split(" -> ").next().unwrap().to_string()));
+		asks.sort();
+		assert_eq!(lines(&a["asks"]), asks, "{race}: the choices asked with \"ask\"");
+	}
 }
 
 // What players read about the experimental pack outside the game's route choice: its AddOns-list notes (the TOC,
