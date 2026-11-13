@@ -88,8 +88,8 @@ pub fn when_holds(w: &World, when: &V) -> bool {
 			}
 			"group" => w.opts.groups == Groups::Do,
 			"bound" => {
-				let loc = p.get("location");
-				!loc.truthy() || w.bound.is_nullish() || w.bound.to_js_string().to_lowercase() == loc.to_js_string().to_lowercase()
+				let name = p.get("name");
+				!name.truthy() || w.bound.is_nullish() || w.bound.to_js_string().to_lowercase() == name.to_js_string().to_lowercase()
 			}
 			_ => true,
 		};

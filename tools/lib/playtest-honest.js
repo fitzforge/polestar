@@ -283,7 +283,7 @@ function whenHolds(w, when) {
 				break;
 			}
 			case 'group': ok = w.groups === 'do'; break; // playtest's answer at group quests (skip: the solo route)
-			case 'bound': ok = !p.location || w.bound == null || String(w.bound).toLowerCase() === String(p.location).toLowerCase(); break;
+			case 'bound': ok = !p.name || w.bound == null || String(w.bound).toLowerCase() === String(p.name).toLowerCase(); break;
 			default: ok = true;
 		}
 		if (p.neg && p.k !== 'level') ok = !ok;
