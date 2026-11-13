@@ -51,6 +51,12 @@ step The skeletal turtle
   collect 12289 quest 4681                    -- Sea Turtle Remains, on the beach west of the docks; underwater
   turnin 4681                                 -- Gwennyth Bly'Leggonde
 
+step Buzzbox 827
+  when onquest 983
+  tip Only if you still carry Buzzbox 827's quest: the Tide Crawlers scuttle along the shore below the village, and Buzzbox 827 stands on the beach just south of the docks.
+  collect 5385 quest 983 @35.6,47.1           -- Crawler Legs: the Tide Crawlers
+  turnin 983                                  -- Buzzbox 827
+
 # ---------------------------------------------------------------- First loop: south-east and north-east
 
 step Bears and the Blackwood camp

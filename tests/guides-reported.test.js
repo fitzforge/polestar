@@ -11809,3 +11809,16 @@ test(`${NE_DARKSHORE}: Night Elves no longer take Further Concerns; A Fishy Peri
 	assert.ok(!list.some(({ goal }) => is('accept', 35)(goal)), 'no accept 35 in the Night Elf Darkshore');
 	assert.ok(at(list, 'accept 40', is('accept', 40)) < at(list, 'turnin 40', is('turnin', 40)), 'A Fishy Peril taken and handed in');
 });
+
+// Alliance 1-12 audit (0.4.0, #2025): a Night Elf who loads nightelf/02-darkshore without Teldrassil's Long Wash
+// took Buzzbox 827 (983) from Wizbang and carried it, a level 10 quest, to 03-darkshore at about 17. The crawlers
+// and Buzzbox 827 are on the beach the guide's turtle step already walks: the legs and the hand-in are there, only
+// while the quest is carried (Teldrassil's players hand it in on the Long Wash).
+test(`${NE_DARKSHORE}: Buzzbox 827 is handed in on the beach before the first loop, only while carried`, { skip }, () => {
+	const list = goals(NE_DARKSHORE).filter(nightElf);
+	const take = at(list, 'accept 983', is('accept', 983));
+	const give = at(list, 'turnin 983', is('turnin', 983));
+	assert.ok(take < give && give < at(list, 'turnin 954', is('turnin', 954)), 'taken in Auberdine, handed in before Bashal\'Aran');
+	assert.ok(list[give].step.when.some((p) => p.k === 'onquest' && !p.neg && [].concat(p.q).includes(983)), 'only while 983 is carried');
+	assert.ok(list.slice(take, give).some(({ goal }) => goal.t === 'collect' && goal.item === 5385), 'the Crawler Legs first');
+});
