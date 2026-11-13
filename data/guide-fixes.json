@@ -3691,6 +3691,25 @@
 			"pr": 1175
 		},
 		{
+			"id": "2013-h21-thunder-bluff-not-from-the-barrens",
+			"faction": "Horde",
+			"at": {
+				"quest": 93739,
+				"goal": "objective",
+				"objective": 3,
+				"guide": "forever/horde/07-ashenvale"
+			},
+			"when": "!zone \"The Barrens\"",
+			"note": "thadude3's report (#2013, Orc Warlock 28): at Camp Taurajo with nothing to do in Thunder Bluff, the guide sent him up to the central rise for its flight path and flew him straight back to Camp Taurajo. The rise's flight-path step (and the walk to the rise before it, which has no quest goal to anchor on and carries the same line by hand) is for a player who comes from the Earthen Ring on Skywatcher Plateau or flew in; from the Barrens it skips. Zangen's and Tah's hand-ins and the trainer step keep their own steps, so a player with an errand there still goes up.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#2013: the reporter's step and location line (The Barrens, Camp Taurajo, step 40 Thunder Bluff)"
+				}
+			],
+			"issue": 2013
+		},
+		{
 			"id": "1175-needles-rokalim-back-west",
 			"at": {
 				"quest": 1151,

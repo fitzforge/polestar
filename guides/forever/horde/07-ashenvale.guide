@@ -319,10 +319,12 @@ step Class trainer
 
 step Thunder Bluff
   zone Thunder Bluff
+  when !zone "The Barrens"
   goto 47.0,49.8 "Thunder Bluff's central rise"
 
 step Thunder Bluff
   zone Thunder Bluff
+  when !zone "The Barrens"
   tip Into Thunder Bluff by a lift: Tal, the wind rider master, stands on the central rise. Take his flight path if you don't know it yet.
   getfp "Thunder Bluff" npc 2995      -- Tal
   kill 3057 quest 93739.3 "Talk to Cairne Bloodhoof" only Skyborne optional -- Speak with Cairne Bloodhoof, in Thunder Bluff: Exploring the Horde
