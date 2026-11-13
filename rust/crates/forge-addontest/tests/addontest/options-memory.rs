@@ -58,8 +58,9 @@ const LOADED: f64 = 1925.0;
 /// Opened on its first page, 4,124 KiB (1,890 on 2026-11-10; 3,485 with the Look pages' previews; 3,888 with
 /// the rest moved in, then the pages' +155, then the hero previews' +67, then the Buttons and single-alert
 /// scenes and the Accent lights' +26, to 4,151; then the search's dropdown's code, +41, 4,280 to 4,322 on
-/// 2026-11-13: the list itself is built only when the player first types).
-const OPENED: f64 = 4287.0;
+/// 2026-11-13: the list itself is built only when the player first types); then the search answering
+/// questions, +15 (4,363 to 4,378 with the base rows, 2026-11-13).
+const OPENED: f64 = 4302.0;
 /// Peak, 3,964 KiB (1,190 on 2026-11-10; 2,359 with the Look pages): the files that moved in compile with the
 /// collector stopped (+1,000, to 3,365), then the pages' (+430, their files' compile with the collector stopped),
 /// then the hero previews' (+150, the same), then the Buttons and single-alert scenes and the Accent lights'
