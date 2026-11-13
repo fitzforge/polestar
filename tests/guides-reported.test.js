@@ -1518,6 +1518,15 @@ test('forever/horde/30-40/01-hillsbrad-foothills.guide: Elixir of Agony is offer
 	assert.ok(fly >= 0 && acc < fly, 'in the Undercity, before Tarren Mill');
 });
 
+// Horde 30-40 audit (0.4.0): the Badlands bound the hearthstone at Kargath, and nothing hearths back to it: the guide
+// ends at Kargath, and Stranglethorn Vale & Swamp of Sorrows binds at Grom'gol before its first hearth (the addon's
+// travel planner over every Horde branch never hearths to Kargath).
+test('forever/horde/30-40/06-badlands.guide: no bind at Kargath', { skip }, () => {
+	const list = goals('forever/horde/30-40/06-badlands.guide');
+	assert.deepEqual(list.filter(({ goal }) => goal.t === 'sethome').map(({ goal }) => goal.location), [], 'no sethome in the Badlands');
+	at(list, 'getfp Kargath', (g) => g.t === 'getfp');
+});
+
 // --- Forever chains the quest data has no prerequisite for, so the guide took
 // a follow-up at the same visit as the quest before it and the giver did not
 // offer it: Baine's chain in Mulgore (Kori, #112) and Mull's report (#51),
