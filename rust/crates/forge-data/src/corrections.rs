@@ -1444,7 +1444,8 @@ fn check_places(ck: &mut Ck, d: &V) {
 /// lists the quest's accept and objectives on the way to its own step (`when`: a predicate, e.g. `level>=5`).
 /// `when: "level>=N"`: the goal's step shows only from that level (optional work above the level the route
 /// plays it at, #977); `when: "onquest Q[,Q...]"`: only while one of the quests is in the log; `when: "[!]knows S"`:
-/// only while the character knows (or, with `!`, does not know) spell S (#1867: a camp item already learned). `at: { guide,
+/// only while the character knows (or, with `!`, does not know) spell S (#1867: a camp item already learned);
+/// `when: "[!]complete Q"` / `"[!]turnedin Q"`: only while quest Q is (or is not) ready to hand in / handed in (#1952). `at: { guide,
 /// goal: fly, fly }` (a `when` only, #1676): the flight step `fly "<fly>"` of that guide (`guide` its id), e.g.
 /// a trip only those quests need. `background: { title, tip?, mobs: [npc], mention?, finish: { title, tip?, map, x, y } }`
 /// (an objective only, #1135): a zone-wide, slow collection: the writer lists the objective on the way
@@ -1711,14 +1712,18 @@ fn check_guide_fixes(ck: &mut Ck, d: &V) {
 					// (`[!]knows <spell>`: a spell or recipe the character knows, #1867's camp items.)
 					let knows_ok = |w: &str| w.trim_start_matches('!').strip_prefix("knows ").is_some_and(|n| n.trim().parse::<u32>().is_ok_and(|n| n > 0));
 					let quests = when.as_str().and_then(|w| w.strip_prefix("onquest ")).map(|l| l.split(',').map(|q| q.trim().parse::<u32>().ok()).collect::<Option<Vec<u32>>>());
-					match quests {
-						Some(Some(qs)) if !qs.is_empty() => {
+					// (`[!]complete Q` / `[!]turnedin Q`: one quest ready to hand in, or handed in; #1952's Camping 101
+					// trainer steps wait until the profession reaches 20.)
+					let state = when.as_str().map(|w| w.trim_start_matches('!')).and_then(|w| w.strip_prefix("complete ").or_else(|| w.strip_prefix("turnedin "))).map(|q| q.trim().parse::<u32>().ok());
+					match (quests, state) {
+						(Some(Some(qs)), _) if !qs.is_empty() => {
 							for q in qs {
 								ck.refers(&format!("{at}.when"), "quests", &V::from(q as f64));
 							}
 						}
+						(_, Some(Some(q))) => ck.refers(&format!("{at}.when"), "quests", &V::from(q as f64)),
 						_ if when.as_str().is_some_and(level_ok) || when.as_str().is_some_and(knows_ok) => {}
-						_ => ck.err(format!("{at}.when"), format!("{}: `level>=N` (N a level from 2 to 60), `onquest Q[,Q...]` or `[!]knows <spell>`", show(&when))),
+						_ => ck.err(format!("{at}.when"), format!("{}: `level>=N` (N a level from 2 to 60), `onquest Q[,Q...]`, `[!]complete Q`, `[!]turnedin Q` or `[!]knows <spell>`", show(&when))),
 					}
 					"when"
 				}
@@ -2132,7 +2137,7 @@ mod tests {
 				{{ "id": "1-d", "quest": 10, "objective": 2, "faction": "Horde", "at": {{ "map": 2521, "x": 1, "y": 1, "frame": "live" }}, {src} }} ] }}"#
 		);
 		let g = format!(
-			r#"{{ "fixes": [ {{ "id": "1-t", "at": {{ "quest": 10, "goal": "accept" }}, "tip": "A tip.", {src} }}, {{ "id": "1-l", "at": {{ "quest": 11, "goal": "objective", "objective": 1 }}, "level": 14, {src} }}, {{ "id": "1-w", "at": {{ "quest": 11, "goal": "turnin" }}, "when": "level>=23", {src} }}, {{ "id": "1-k", "at": {{ "quest": 11, "goal": "accept" }}, "when": "!knows 1229517", {src} }}, {{ "id": "1-b", "at": {{ "quest": 10, "goal": "objective", "objective": 1 }}, "background": {{ "title": "Beaks as you go", "mobs": [20], "mention": "They count here.", "finish": {{ "title": "Finish the beaks", "map": 1413, "x": 50.5, "y": 25 }} }}, {src} }}, {{ "id": "1-f", "at": {{ "guide": "forever/horde/04-the-barrens", "goal": "fly", "fly": "Ratchet" }}, "when": "onquest 10,11", {src} }} ] }}"#
+			r#"{{ "fixes": [ {{ "id": "1-t", "at": {{ "quest": 10, "goal": "accept" }}, "tip": "A tip.", {src} }}, {{ "id": "1-l", "at": {{ "quest": 11, "goal": "objective", "objective": 1 }}, "level": 14, {src} }}, {{ "id": "1-w", "at": {{ "quest": 11, "goal": "turnin" }}, "when": "level>=23", {src} }}, {{ "id": "1-k", "at": {{ "quest": 11, "goal": "accept" }}, "when": "!knows 1229517", {src} }}, {{ "id": "1-c", "at": {{ "quest": 11, "goal": "turnin" }}, "when": "complete 11", {src} }}, {{ "id": "1-d", "at": {{ "quest": 10, "goal": "turnin" }}, "when": "!turnedin 11", {src} }}, {{ "id": "1-b", "at": {{ "quest": 10, "goal": "objective", "objective": 1 }}, "background": {{ "title": "Beaks as you go", "mobs": [20], "mention": "They count here.", "finish": {{ "title": "Finish the beaks", "map": 1413, "x": 50.5, "y": 25 }} }}, {src} }}, {{ "id": "1-f", "at": {{ "guide": "forever/horde/04-the-barrens", "goal": "fly", "fly": "Ratchet" }}, "when": "onquest 10,11", {src} }} ] }}"#
 		);
 		assert_eq!(record_findings(Some(&p), Some(&g)), Vec::<String>::new());
 		let bad_p = r#"{ "places": [
@@ -2140,7 +2145,7 @@ mod tests {
 			{ "id": "x", "quest": 10, "objective": 1, "write": true, "source": { "kind": "in-game-check", "ref": "r" }, "note": "n" },
 			{ "id": "y", "quest": 10, "objective": 1, "at": { "map": 1429, "x": 1, "y": 1 }, "path": { "map": 1429, "points": [] }, "source": { "kind": "in-game-check", "ref": "r" }, "note": "n" },
 			{ "id": "w", "quest": 10, "objective": 2, "faction": "Both", "at": { "map": 2521, "x": 1, "y": 1, "frame": "era" }, "source": { "kind": "in-game-check", "ref": "r" }, "note": "n" } ] }"#;
-		let bad_g = r#"{ "fixes": [ { "id": "z", "at": { "quest": 10, "goal": "pickup" }, "tip": "two\nlines", "level": 70 }, { "id": "y", "at": { "quest": 10, "goal": "accept" }, "tip": "A tip.", "after": true }, { "id": "v", "at": { "quest": 10, "goal": "turnin" }, "when": "onquest 12" }, { "id": "u", "at": { "quest": 10, "goal": "accept" }, "background": { "title": "", "mobs": [21], "finish": { "title": "F", "map": 1413, "x": 150, "y": 1 } } }, { "id": "t", "at": { "goal": "fly", "fly": "Ratchet" }, "tip": "A tip." }, { "id": "s", "at": { "quest": 10, "goal": "turnin" }, "when": "onquest" }, { "id": "r", "at": { "quest": 11, "goal": "turnin" }, "when": "!knows camp" } ] }"#;
+		let bad_g = r#"{ "fixes": [ { "id": "z", "at": { "quest": 10, "goal": "pickup" }, "tip": "two\nlines", "level": 70 }, { "id": "y", "at": { "quest": 10, "goal": "accept" }, "tip": "A tip.", "after": true }, { "id": "v", "at": { "quest": 10, "goal": "turnin" }, "when": "onquest 12" }, { "id": "u", "at": { "quest": 10, "goal": "accept" }, "background": { "title": "", "mobs": [21], "finish": { "title": "F", "map": 1413, "x": 150, "y": 1 } } }, { "id": "t", "at": { "goal": "fly", "fly": "Ratchet" }, "tip": "A tip." }, { "id": "s", "at": { "quest": 10, "goal": "turnin" }, "when": "onquest" }, { "id": "r", "at": { "quest": 11, "goal": "turnin" }, "when": "!knows camp" }, { "id": "q", "at": { "quest": 11, "goal": "turnin" }, "when": "complete 12" }, { "id": "p", "at": { "quest": 11, "goal": "turnin" }, "when": "turnedin x" } ] }"#;
 		let f = record_findings(Some(bad_p), Some(bad_g));
 		let has = |s: &str| f.iter().any(|x| x.contains(s));
 		for s in [
@@ -2163,6 +2168,8 @@ mod tests {
 			"fixes[4].at: a flight anchor carries a `when` only",
 			"fixes[5].when: \"onquest\": `level>=N`",
 			"fixes[6].when: \"!knows camp\": `level>=N`",
+			"fixes[7].when: no quest 12 in the data",
+			"fixes[8].when: \"turnedin x\": `level>=N`",
 			"fixes[3].background.title: one line of text",
 			"fixes[3].background.mobs[0]",
 			"fixes[3].background.finish.x: a map percent",
