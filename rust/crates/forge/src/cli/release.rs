@@ -14,8 +14,8 @@ Building and releasing the addon (docs/RELEASING.md):
   notes <x.y.z>      the version's release notes from CHANGELOG.md: dist/notes-<v>.md (GitHub),
                      dist/notes-curseforge-<v>.md and dist/notes-discord-<v>.txt
   credits            rewrite addon/Polestar/Core/Credits.lua (the Guiding Stars page) from data/credits.json,
-                     the repository's merged or folded pull requests and its issues (needs the GitHub CLI, gh,
-                     logged in), and the locales' translators
+                     the repository's merged pull requests and those the release ref carries, its issues
+                     (needs the GitHub CLI, gh, logged in), and the locales' translators
 
 forge release <command> --help shows the command's options. The changelog fragments: forge changelog.";
 
@@ -29,20 +29,25 @@ most 2,000 characters), each paragraph and list item joined onto one line. Each 
   --root <dir>   the checkout holding CHANGELOG.md (default: the one above here, else above the forge binary)
   --out <dir>    where to write (default <root>/dist/)";
 
-const CREDITS_USAGE: &str = "usage: forge release credits [--root <dir>]
+const CREDITS_USAGE: &str = "usage: forge release credits [--root <dir>] [--release-ref <git ref>]
 
 Rewrites addon/Polestar/Core/Credits.lua, the names on the Guiding Stars page (Options > Guiding Stars,
 and \"Special thanks to\" in the windows' headers):
 
   supporters     data/credits.json \"supporters\": Ko-fi supporters' names, highest total first.
                  Amounts are never stored.
-  contributors   everyone with a merged pull request on fitzforge/polestar, most first, fetched with
-                 the GitHub CLI (gh, logged in).
+  contributors   everyone with a pull request on fitzforge/polestar that is merged or that the release
+                 ref carries, most first, fetched with the GitHub CLI (gh, logged in). The ref carries an
+                 open pull request (a draft too) when its current head commit is on it (a batch merged
+                 it at its exact head; GitHub marks it merged once the release reaches next), and a
+                 closed one when one of its commits is on it with its authorship kept (cherry-picked).
+                 Each pull request counts once.
   bug reporters  the top 40 reporters of fitzforge/polestar's issues by useful reports, most first: the
                  Discord name the bot filed it under, else the GitHub login that opened it. A report
                  counts when it is labelled confirmed or fix-merged, or closed as completed by a fix (a
-                 pull request, a released:* label, a maintainer's comment saying fixed); never a
-                 duplicate, not planned, invalid, wontfix, resolution:* or needs-info one, nor a
+                 pull request, a released:* label, a maintainer's comment saying fixed), or still open
+                 with a fix on the release ref (an open pull request carried there that closes it);
+                 never a duplicate, not planned, invalid, wontfix, resolution:* or needs-info one, nor a
                  feature request (enhancement without bug).
   translators    every locale's translators (forge-guide's LOCALES, tools/lib/i18n/locales.js), by
                  language, the language's name beside each.
@@ -53,8 +58,10 @@ and \"Special thanks to\" in the windows' headers):
 \"exclude\" lists logins and names left out (the maintainer, anyone who asked not to be listed);
 \"names\" maps a login or Discord name to the name shown. Both apply to every list.
 
-Run it before a release.
-  --root <dir>   the checkout (default: the one above here, else above the forge binary)";
+Run it before a release, on the release's integration branch.
+  --root <dir>             the checkout (default: the one above here, else above the forge binary)
+  --release-ref <git ref>  the commit the release ships, as git in the checkout names it (default
+                           HEAD): e.g. origin/dev-040 while the batches aren't on next yet";
 
 /// The Polestar checkout: `--root`, else the nearest folder above the working directory, else above
 /// the forge binary, holding addon/Polestar/Polestar.toc and package.json.
@@ -143,33 +150,46 @@ fn notes(args: &[String]) -> Result<(), super::Fail> {
 }
 
 fn credits(args: &[String]) -> Result<(), super::Fail> {
-	super::check_args(args, &["--root"], &[], 0).map_err(super::usage)?;
+	super::check_args(args, &["--root", "--release-ref"], &[], 0).map_err(super::usage)?;
 	let root = checkout(opt(args, "--root"))?;
+	let release = opt(args, "--release-ref").unwrap_or_else(|| "HEAD".into());
 	use forge_release::credits::{
-		fetch_closed, fetch_issues, fetch_merged, fetch_open, folded, folded_open, ideas, rank_contributors, rank_reporters, read_source, ref_commits, ref_ids, render, translators, OUT, REPO,
-		REPORTERS_SHOWN, SOURCE,
+		fetch_closed, fetch_issues, fetch_merged, fetch_open, fixed_on_ref, folded, folded_open, ideas, rank_contributors, rank_reporters, read_source, ref_commits, ref_ids, render, translators, OUT,
+		REPO, REPORTERS_SHOWN, SOURCE,
 	};
 	let src = read_source(&root.join(SOURCE))?;
-	// Merged pull requests, plus closed ones whose commits were folded into this checkout's HEAD with
-	// their authorship kept (contributors' PRs carried by cherry-pick into a maintainer's branch), plus
-	// open ones whose head commit is on HEAD (merged into the release's integration branch, before the
-	// push to next marks them merged).
+	// Merged pull requests, plus closed ones whose commits were folded into the release ref with their
+	// authorship kept (contributors' PRs carried by cherry-pick into a maintainer's branch), plus open
+	// ones whose head commit is on the ref (batched into the release's integration branch, before the
+	// push to next marks them merged). rank_contributors counts each pull request once.
+	let on_ref = ref_ids(&root, &release)?;
 	let mut prs = fetch_merged(REPO)?;
-	let folded_in = folded(&fetch_closed(REPO, &src.exclude)?, &ref_commits(&root, "HEAD")?);
-	let open_in = folded_open(&fetch_open(REPO, &src.exclude)?, &ref_ids(&root, "HEAD")?);
+	let n_merged = prs.len();
+	let folded_in = folded(&fetch_closed(REPO, &src.exclude)?, &ref_commits(&root, &release)?);
+	let open = fetch_open(REPO)?;
+	let open_in = folded_open(&open, &on_ref);
 	let (n_folded, n_open) = (folded_in.len(), open_in.len());
+	let merged_only = rank_contributors(&prs, &src).len();
 	prs.extend(folded_in);
 	prs.extend(open_in);
 	let contributors = rank_contributors(&prs, &src);
-	let reporters = rank_reporters(&fetch_issues(REPO)?, &src, REPORTERS_SHOWN);
+	// Issues those open pull requests close once the release reaches next count as fixed now.
+	let fixed = fixed_on_ref(&open, &on_ref);
+	let mut issues = fetch_issues(REPO)?;
+	for issue in issues.iter_mut().filter(|i| fixed.contains(&i.number)) {
+		issue.fixed_on_ref = true;
+	}
+	let reporters = rank_reporters(&issues, &src, REPORTERS_SHOWN);
 	let (translators, ideas) = (translators(&src), ideas(&src));
 	let out = root.join(OUT);
 	std::fs::write(&out, render(&src.supporters, &contributors, &reporters, &translators, &ideas)).map_err(|e| format!("{}: {e}", out.display()))?;
 	println!(
-		"credits: {} supporters, {} contributors ({n_folded} folded closed and {n_open} folded open pull requests counted), {} bug reporters, {} translators, {} ideas -> {}",
+		"credits ({release}, {} commits): {} supporters, {} contributors ({merged_only} by {n_merged} merged pull requests alone; {n_folded} folded closed and {n_open} folded open pull requests counted), {} bug reporters ({} issues fixed on the ref), {} translators, {} ideas -> {}",
+		on_ref.len(),
 		src.supporters.len(),
 		contributors.len(),
 		reporters.len(),
+		fixed.len(),
 		translators.len(),
 		ideas.len(),
 		out.display()

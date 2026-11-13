@@ -167,7 +167,7 @@ version throughout.
    forge data questdb
    forge data itemdb && forge data gear
    forge data sources --only builders && forge data codex   # release-safe inputs only
-   forge release credits                     # Guiding Stars: data/credits.json + merged or folded PRs + issues (needs gh) + translators
+   forge release credits                     # Guiding Stars: data/credits.json + merged or folded PRs + issues (needs gh) + translators; --release-ref <branch> when HEAD isn't the release
    forge guide lint
    forge guide compile
    forge guide lint experimental && forge guide compile experimental   # Polestar Experimental (alpha guides)
@@ -237,6 +237,19 @@ version throughout.
    `areas: N of M place goals got an area (AreaTable <build>)`. Before
    packing, compare each `addon/Polestar_<locale>/Texts.lua`'s entry count
    with the last release's: a large drop means translations went missing.
+
+   Run `credits` on the commit the release ships, before it reaches
+   `next`: contributors' pull requests batched into the release's
+   integration branch (merged at their exact head commits) are still open
+   on GitHub until that push, and count only because their head is on the
+   release ref. The ref is the checkout's `HEAD`; from another checkout name
+   it with `--release-ref` (e.g. `--release-ref origin/dev-040`). Drafts
+   count the same way, only when their head is on the ref. A pull request
+   whose author pushed again after the batch doesn't count (and GitHub won't
+   mark it merged) until the batch merges its new head. Issues that such an
+   open pull request closes count for their reporters as fixed. Check the
+   printed line: "N by M merged pull requests alone" against the total
+   shows how many contributors the batches add.
 
    Before `credits`, add new Ko-fi supporters to `data/credits.json`
    (names only, highest total first; amounts are never stored), and anyone
