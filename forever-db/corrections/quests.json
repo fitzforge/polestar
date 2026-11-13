@@ -6144,6 +6144,21 @@
 		],
 		"note": "The Druid cat form chain ends with To Darnassus (98397), which Dendrite Starblaze offers once one of the two blessings is handed in to her: Blessings of the Great Cat Spirit (98731) or, for Skyborne Druids, Blessings of the Great Windborne Cat Spirit (98738). The merged data had no prerequisite."
 	},
+	"98398": {
+		"set": {
+			"end": {
+				"npc": [],
+				"object": [
+					673378
+				]
+			}
+		},
+		"source": {
+			"kind": "recording",
+			"ref": "players' in-game recordings to 2026-11-12: all 26 hand-ins of The Oracle Tree (98398), by 24 people (17 established), were at the Oracle Tree Bark (object 673378, 37.0,34.1 in Teldrassil); none at Sentinel Arynia Cloudsbreak (npc 3519)"
+		},
+		"note": "The Oracle Tree is handed in at the Oracle Tree Bark (object 673378), where Teldrassil (940) is taken next (#647). QuestieDB 1.0.16 also lists Sentinel Arynia Cloudsbreak (npc 3519), who gives the quest, as its ender, which sent the hand-in back to her."
+	},
 	"98404": {
 		"set": {
 			"classes": 1024,
