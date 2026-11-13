@@ -7251,15 +7251,20 @@ function Own.latchTurnin(questID)
 	return hit
 end
 
--- A `cast` goal that is open (in the step the guide is at, the step in view,
--- or an along step listed under them) for spellID: ticked, as the player
--- would tick it. A cast before the goal is open does not count.
+-- Tick successful casts and summons while their goal is open.
 function Own.latchCast(spellID)
 	if not (guide and spellID) then return false end
 	local hit = false
 	local function tick(s)
-		for g, goal in ipairs(guide.steps[s].goals) do
-			if goal.t == "cast" and goal.spell == spellID and goalApplies(goal) then
+		local goals = guide.steps[s].goals
+		for g, goal in ipairs(goals) do
+			local result = goals[g + 1]
+			local summoned = goal.t == "use" and goal.quest and result and result.t == "collect"
+				and result.quest == goal.quest and result.oi == goal.oi
+				and result.fromKind == "object" and (result.count or 1) == 1
+				and Compat().GetItemSpellID(goal.item) == spellID and Compat().IsOnQuest(goal.quest)
+				and not Own.goalSkipped(s, g) and not goalDone(s, g, goal)
+			if goalApplies(goal) and ((goal.t == "cast" and goal.spell == spellID) or summoned) then
 				local m = manualFor(guide.id, true)
 				local key = s .. ":" .. g
 				if not m[key] then
@@ -12818,7 +12823,7 @@ ns.RegisterEvent("QUEST_TURNED_IN", function(_, questID)
 	requestUpdate()
 end)
 
--- The player's own successful casts: `cast` goals (Own.latchCast).
+-- The player's own successful casts (Own.latchCast).
 ns.RegisterEvent("UNIT_SPELLCAST_SUCCEEDED", function(_, unit, _, spellID)
 	local C = Compat()
 	spellID = C.Readable(spellID)
