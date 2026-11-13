@@ -1599,6 +1599,23 @@ test('#2025: Report to Helgrum has no prerequisite; the Badlands take it at Karg
 	at(list, 'accept 1420 at Kargath', is('accept', 1420));
 });
 
+// Danger at the spot (#1575, release gate #2042), Horde 30-40 audit (0.4.0): Dustwallow & Desolace's second Desolace
+// visit pointed the Valley of Spears' totems and ears at the Magram's village (Necromancers 42-43) and the ghost magnet
+// at Desolace 63.5,91.6, now Shen'dralas, among Magram Necrokhans and Corpsefeeders (45, elite; players' recordings: 8
+// deaths there). The arrow now points at the Maraudine in the Valley of Spears, and at the bone fields' eastern side,
+// where players used the crate.
+test('forever/horde/30-40/04-dustwallow-marsh.guide: the Valley of Spears and the Valley of Bones point away from the high Magram', { skip }, () => {
+	const list = goals('forever/horde/30-40/04-dustwallow-marsh.guide');
+	for (const [what, pred] of [['totems', (g) => g.t === 'collect' && g.quest === 93225], ['ears', (g) => g.t === 'collect' && g.quest === 1366]]) {
+		const { goal } = list[at(list, what, pred)];
+		assert.ok(goal.map === 1443 && Math.hypot(goal.x - 31.5, goal.y - 55.5) < 1, `${what}: the Valley of Spears (got ${goal.map} ${goal.x},${goal.y})`);
+	}
+	for (const [what, pred] of [['crate', (g) => g.t === 'use' && g.quest === 6134], ['ghost-o-plasm', (g) => g.t === 'collect' && g.quest === 6134]]) {
+		const { goal } = list[at(list, what, pred)];
+		assert.ok(goal.map === 2652 && Math.hypot(goal.x - 33.5, goal.y - 29.0) < 1, `${what}: the bone fields' eastern side (got ${goal.map} ${goal.x},${goal.y})`);
+	}
+});
+
 // --- Forever chains the quest data has no prerequisite for, so the guide took
 // a follow-up at the same visit as the quest before it and the giver did not
 // offer it: Baine's chain in Mulgore (Kori, #112) and Mull's report (#51),

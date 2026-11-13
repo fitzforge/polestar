@@ -50,6 +50,57 @@
 			"issue": 1575
 		},
 		{
+			"id": "danger-desolace-centaur-totems-valley-of-spears",
+			"quest": 93225,
+			"objective": 1,
+			"faction": "Horde",
+			"at": {
+				"map": 1443,
+				"x": 31.5,
+				"y": 55.5,
+				"frame": "era"
+			},
+			"note": "Carved Centaur Totems (93225): every Desolace centaur clan drops the totem, so the goal pointed at the Magram's village in the south-east, among Magram Necromancers (42-43) and Guardians (39-41), at a route level of 37. The step is the Valley of Spears west of Ghost Walker Post, whose Maraudine (36-39) drop it as well: the arrow points at them, with no mob 3 levels over within 40 yd.",
+			"source": {
+				"kind": "pfquest",
+				"ref": "items 254432 droppers include the Maraudine Scout, Mauler, Windchaser and Wrangler; npcs.json Maraudine spawns at Desolace 30-34, 50-62"
+			}
+		},
+		{
+			"id": "danger-desolace-centaur-ears-valley-of-spears",
+			"quest": 1366,
+			"objective": 1,
+			"faction": "Horde",
+			"at": {
+				"map": 1443,
+				"x": 31.5,
+				"y": 55.5,
+				"frame": "era"
+			},
+			"note": "Centaur Bounty (1366): the Centaur Ears drop from every Desolace clan, and the goal pointed at the Magram's village among Magram Necromancers (42-43) at a route level of 37. It is collected with the totems in the Valley of Spears, whose Maraudine (36-39) drop the ears too.",
+			"source": {
+				"kind": "pfquest",
+				"ref": "items 6067 droppers include nine Maraudine kinds; npcs.json Maraudine spawns at Desolace 30-34, 50-62"
+			}
+		},
+		{
+			"id": "danger-shendralas-ghost-magnets-east-of-the-elites",
+			"quest": 6134,
+			"objective": 1,
+			"faction": "Horde",
+			"at": {
+				"map": 2652,
+				"x": 33.5,
+				"y": 29.0,
+				"frame": "live"
+			},
+			"note": "Ghost-o-plasm Round Up (6134): the Valley of Bones is now part of Shen'dralas, and the old point (Desolace 63.5,91.6) put the Crate of Ghost Magnets among Magram Necrokhans and Corpsefeeders (45, elite) at a route level of 37; players' recordings show 8 deaths there. The crate works anywhere on the bone fields: players used it at this spot, on the valley's eastern side, with no elite or mob 3 levels over within 40 yd.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' recordings: Ghost-o-plasm objective ticks of 8 people on Shen'dralas, one of them at 33.6,28.9; danger gate recordings: 5 and 3 deaths at the old point"
+			}
+		},
+		{
 			"id": "610-wetlands-fen-creepers",
 			"quest": 275,
 			"objective": 1,
