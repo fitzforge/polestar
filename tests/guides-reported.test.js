@@ -7945,7 +7945,9 @@ test('Eastern Plaguelands (Horde 55): Druids and Paladins fly from Orgrimmar to 
 	const list = goals('forever/horde/50-60/05-eastern-plaguelands.guide');
 	for (const cls of ['DRUID', 'PALADIN', 'MAGE']) {
 		const flights = list.filter(forClass(cls)).filter(({ goal }) => goal.t === 'fly').map(({ goal }) => goal.location);
-		const from = flights.indexOf('Undercity');
+		// Since the 0.4.0 audit the Plaguelands are left by Hearthstone to Orgrimmar (no flight to the Undercity): the flights
+		// after the last one to Light's Hope Chapel are the ones out of Orgrimmar.
+		const from = flights.lastIndexOf("Light's Hope Chapel");
 		const after = cls === 'MAGE' ? flights.slice(from + 1, from + 2) : flights.slice(from + 1, from + 3);
 		assert.deepEqual(after, cls === 'MAGE' ? ['Bloodvenom Post'] : ['Thunder Bluff', 'Bloodvenom Post'], `${cls}: ${flights.join(', ')}`);
 	}
@@ -8901,8 +8903,9 @@ test('Horde 40-60: every grind step offers the dungeons at its level', { skip },
 			if (Math.floor(+m[1]) >= 58) assert.match(tips, /Scholomance/, `${file}:${i + 1}: a 58-60 dungeon`);
 		});
 	}
-	// 0.3.7 folded six stand-alone top-ups into the quest steps beside them (the test below checks those tips)
-	assert.ok(n >= 13, `the grind steps are found (${n})`);
+	// 0.3.7 folded six stand-alone top-ups into the quest steps beside them (the test below checks those tips); the 0.4.0
+	// audit dropped Felwood's "Level 53.34" (Unfinished Business is handed in before the Bulwark instead)
+	assert.ok(n >= 12, `the grind steps are found (${n})`);
 });
 
 test('Image of Archmage Modera is met at the Kirin Tor camp in Silverpine Forest, never by the Dalaran sewer entrance in Alterac (#1305)', { skip }, () => {
