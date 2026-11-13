@@ -12,6 +12,14 @@ const { needs } = require('./helpers/data');
 
 const skip = needs('quests.json');
 
+test('a pool rejects worker counts that cannot schedule a bounded number of jobs', () => {
+	for (const size of [-1, 0, 0.5, Infinity, NaN, Number.MAX_SAFE_INTEGER + 1, null, '2']) {
+		assert.throws(() => new LuaPool({ size }), /worker count must be a positive integer/, String(size));
+	}
+	assert.ok(new LuaPool().size >= 1, 'the default starts at least one worker');
+	assert.equal(new LuaPool({ size: 2 }).size, 2);
+});
+
 test('a play on a reused process emits what a fresh process does, whatever ran before', { skip }, async () => {
 	const pack = buildSimPack(['forever/horde/orc/01-durotar.guide', 'forever/alliance/human/01-elwynn-forest.guide']);
 	const pool = new LuaPool({ size: 1 });
