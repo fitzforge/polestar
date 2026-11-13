@@ -14,7 +14,11 @@
 --   - it never moves forward past a blocking point the player has not come
 --     within REACH yards of: a point where the floor changes (a ramp, stairs,
 --     a lift's landing) and every point after `stop` (a split walk's
---     chokepoint: a gate, a door, a bridge end);
+--     chokepoint: a gate, a door, a bridge end). Outdoors (`hill`) a floor
+--     change once come within REACH of stays passed for the path (S.reached):
+--     a player who walked by a dip at its edge, on toward the aim beyond it,
+--     was held behind it for good once past REACH, the arrow at their feet
+--     (0.4.0, the border sweep, #1543);
 --   - a later segment takes over only when it is HYST yards nearer than the
 --     current one, so the two sides of a hairpin don't swap back and forth.
 --
@@ -165,6 +169,7 @@ function Follow.Reset(S)
 	S.idx, S.along, S.left, S.off, S.sighted, S.aimAlong = 2, 0, nil, nil, false, nil
 	S.sightAt, S.sightX, S.sightY, S.heldX, S.heldY = nil, nil, nil, nil, nil
 	S.marked = false -- S.dbl is the last path's until Follow.Mark
+	S.reached = 0 -- the furthest floor change come within REACH of, outdoors (blocked)
 end
 
 -- Marks, into S.dbl (reused; true or false per point), the points where the
@@ -268,10 +273,15 @@ local function floorChange(xs, ys, zs, i)
 end
 
 -- Point i stops the projection from moving past it until it is reached.
-local function blocked(xs, ys, zs, i, stop, px, py)
-	if not ((stop and i > stop) or floorChange(xs, ys, zs, i)) then return false end
+-- `sticky` (outdoors): a floor change reached once stays reached (S.reached).
+local function blocked(xs, ys, zs, i, stop, px, py, S, sticky)
+	local byStop = stop and i > stop
+	if not (byStop or floorChange(xs, ys, zs, i)) then return false end
+	if sticky and not byStop and (S.reached or 0) >= i then return false end
 	local dx, dy = xs[i] - px, ys[i] - py
-	return dx * dx + dy * dy > REACH * REACH
+	if dx * dx + dy * dy > REACH * REACH then return true end
+	if sticky and not byStop and i > (S.reached or 0) then S.reached = i end
+	return false
 end
 
 -- Every path point from a to b within pad of the line (sx, sy) -> (qx, qy),
@@ -367,7 +377,7 @@ function Follow.Step(xs, ys, zs, left, n, S, px, py, stop, join, sight, hill)
 	for a = idx - 1, n - 1 do
 		if a > idx - 1 then
 			if start - left[a] > limitAlong then break end
-			if blocked(xs, ys, zs, a, stop, px, py) then break end
+			if blocked(xs, ys, zs, a, stop, px, py, S, hill) then break end
 		end
 		local ax, ay = xs[a], ys[a]
 		local dx, dy = xs[a + 1] - ax, ys[a + 1] - ay

@@ -459,6 +459,37 @@ fn a_split_walk_s_piece_stops_at_the_point_before_its_chokepoint_until_the_playe
 	}
 }
 
+// Outdoors a floor change the player came within REACH of stays passed for the path (0.4.0's border sweep: a dip 9
+// yd deep right after a walk's start, walked by at its edge toward an aim beyond it; once 5 yd past it the place on
+// the path stayed behind it for good and the arrow pointed at the player's feet). A path (0, 0, 0), (0, -8, -9) (the
+// dip: steeper than 45 degrees, a floor), (0, -29, 0), (0, -200, 0): 1 yd short of the dip's point, then 6 yd past it.
+#[test]
+fn outdoors_a_dip_walked_by_at_its_edge_stays_passed_the_player_s_place_on_the_path_moves_on() {
+	let out = run(&[
+		LOOK,
+		r#"
+		local function walk(indoors)
+			nav.indoors = indoors
+			N.ClearTarget()
+			nav.place(0, 0)
+			target(0, -200)
+			N.Sample()
+			answerZ({ { 0, 0, 0 }, { 0, -8, -9 }, { 0, -29, 0 }, { 0, -200, 0 } })
+			local c = N.GetTargetWorld()
+			look(0.5, -7, 0, -200)
+			local near = N.walk.Progress(c, 0, -200)
+			look(0.5, -14, 0, -200)
+			return { near = near and math.floor(near + 0.5) or -1, past = (N.walk.Progress(c, 0, -200) or -1) }
+		end
+		emit({ outdoors = walk(false), indoors = walk(true) })"#,
+	]
+	.concat());
+	assert_eq!(out["outdoors"]["near"], 7, "1 yd short of the dip: 7 yd along ({})", out["outdoors"]);
+	assert!(num(&out["outdoors"]["past"]) > 13.0, "6 yd past it: on along the path beyond it ({})", out["outdoors"]);
+	// Indoors (stairs, the Undercity's levels) a floor still holds until the player is within REACH of it.
+	assert!(num(&out["indoors"]["past"]) <= 8.5, "indoors the place stays at the floor's point ({})", out["indoors"]);
+}
+
 // The path for the hillside cases: a corner 100 yd on and 10 yd lower (a hillside, not a floor), then on round it.
 const HILLSIDE: &str = r#"
 local pts = { { 0, 0, 0 }, { 0, -100, -10 }, { 60, -180, -20 }, { 60, -400, -30 } }
