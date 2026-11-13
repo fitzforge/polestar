@@ -453,3 +453,11 @@ test('every stable master by title has the stable master role (#2010)', () => {
 	}
 	assert.deepEqual(corrections.npcs[265756].set.roles, ['repair', 'stablemaster', 'trainer', 'vendor'], 'Genn Fairweather keeps his other roles');
 });
+
+// #1575 (danger gate census): QuestieDB places Infernal 278863, a level 30 elite, at 133 points in the starting zones
+// and capitals. No player has met it or died to it there, while 337 people's recordings logged other creatures within
+// 40 yd of those points; the danger gate flagged the starting zones' quests, and the compiler's "Elite: group advised"
+// (an object's work among hostile elites) would mark For Honor and An Enticing Offer. It stands nowhere.
+test('Infernal 278863 stands nowhere players go: no spawns (#1575)', () => {
+	assert.deepEqual(corrections.npcs[278863].set, { spawns: {} });
+});

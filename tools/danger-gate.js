@@ -12,6 +12,10 @@
 //     --data DIR           reference data (default data/forever); --guides DIR (default guides)
 //     --recordings FILE    a recordings index (the maintainer's local rec index: deaths, objective ticks, abandons):
 //                          each new flag is printed with what players' recordings show at that goal
+//     --archive DIR        the recordings archive (the session files): the Recorder's census settles which npcs are a
+//                          threat to each side (tools/lib/danger.js, "Who is a threat"), and the npcs it settles
+//                          otherwise than the data around the goals are listed. Without it every npc of no side in
+//                          the data counts as hostile; the release candidate's gate runs with it
 //     --out FILE           write every current flag (JSON)
 //     --json               print the result as JSON
 // Exit 0: no new flag past GATE_MARGIN (borderline ones and baseline rows that no longer flag are listed); 1: new
@@ -22,7 +26,7 @@ const fs = require('node:fs');
 const path = require('node:path');
 const { parseArgs } = require('./lib/cli');
 const { ROOT, DATA } = require('./lib/paths');
-const { levelsOf, sweep, compare, GATE_MARGIN } = require('./lib/danger');
+const { levelsOf, sweep, compare, GATE_MARGIN, CENSUS_MIN } = require('./lib/danger');
 const { Geo } = require('./lib/planner/geo.js');
 
 function evidence(rec, flag, geo) {
@@ -48,26 +52,34 @@ function evidence(rec, flag, geo) {
 }
 
 function main(argv) {
-	const { opts, error } = parseArgs(argv, { flags: ['--json'], options: ['--levels', '--baseline', '--data', '--guides', '--recordings', '--out'] });
+	const { opts, error } = parseArgs(argv, { flags: ['--json'], options: ['--levels', '--baseline', '--data', '--guides', '--recordings', '--archive', '--out'] });
 	if (opts.help || error || !opts.levels) {
-		console.error((error ? error + '\n' : '') + 'usage: node tools/danger-gate.js --levels <Alliance.json>,<Horde.json> [--baseline FILE] [--data DIR] [--guides DIR] [--recordings FILE] [--out FILE] [--json]');
+		console.error((error ? error + '\n' : '') + 'usage: node tools/danger-gate.js --levels <Alliance.json>,<Horde.json> [--baseline FILE] [--data DIR] [--guides DIR] [--recordings FILE] [--archive DIR] [--out FILE] [--json]');
 		return opts.help ? 0 : 2;
 	}
 	const dataDir = path.resolve(opts.data || DATA);
 	const guidesDir = path.resolve(opts.guides || path.join(ROOT, 'guides'));
 	const baseline = JSON.parse(fs.readFileSync(path.resolve(opts.baseline || path.join(ROOT, 'data', 'danger-baseline.json')), 'utf8')).flags;
-	const flags = sweep({ dataDir, guidesDir, levels: levelsOf(opts.levels.split(',').map((f) => path.resolve(f))) });
+	const { flags, census } = sweep({ dataDir, guidesDir, levels: levelsOf(opts.levels.split(',').map((f) => path.resolve(f))), archive: opts.archive ? path.resolve(opts.archive) : null });
 	if (opts.out) fs.writeFileSync(path.resolve(opts.out), JSON.stringify(flags, null, 1) + '\n');
 	const result = compare(flags, baseline);
 	const rec = opts.recordings ? JSON.parse(fs.readFileSync(path.resolve(opts.recordings), 'utf8')) : null;
 	const geo = new Geo(JSON.parse(fs.readFileSync(path.join(dataDir, 'map-frames.json'), 'utf8')), JSON.parse(fs.readFileSync(path.join(dataDir, 'zones.json'), 'utf8')));
 	for (const f of [...result.fail, ...result.borderline]) f.recordings = evidence(rec, f, geo);
 	if (opts.json) {
-		console.log(JSON.stringify({ flags: flags.length, baseline: baseline.length, ...result }, null, 1));
+		console.log(JSON.stringify({ flags: flags.length, baseline: baseline.length, census, ...result }, null, 1));
 	} else {
 		const line = (f) => `  ${f.guide} step ${f.step} "${f.title}": ${f.goal} ${f.kind} (+${f.margin}) at level ${f.level}: ${f.mobs.join(', ')}` +
 			(f.recordings ? ` | recordings: done by ${f.recordings.donePeople} (median ${f.recordings.doneMedian}), deaths ${f.recordings.deathPeople}, abandons ${f.recordings.abandons}` : '');
 		console.log(`danger gate: ${flags.length} flags, ${baseline.length} in the baseline`);
+		if (census) {
+			const npc = (s) => `${s.name} ${s.level} (${s.side}, ${s.people})`;
+			const group = (why) => census.cleared.filter((s) => s.why === why).map(npc).join(', ');
+			console.log(`census of ${census.sessions} sessions: npcs around the goals it settles otherwise than the data (side, people)`);
+			console.log(`  no threat, met as friendly and never as hostile: ${group('met friendly') || 'none'}`);
+			console.log(`  not there, never met though ${CENSUS_MIN}+ people's census ran by their spawns: ${group('never met') || 'none'}`);
+			console.log(`  a threat, met as hostile or killing one though the data has them friendly: ${census.added.map(npc).join(', ') || 'none'}`);
+		}
 		if (result.fail.length) console.log(`NEW (${result.fail.length}): fix the guide or review into data/danger-baseline.json\n${result.fail.map(line).join('\n')}`);
 		if (result.borderline.length) console.log(`borderline, under +${GATE_MARGIN} (${result.borderline.length}): not failing\n${result.borderline.map(line).join('\n')}`);
 		if (result.stale.length) console.log(`baseline rows no longer flagged (${result.stale.length}): drop them at the next review\n${result.stale.map((r) => `  ${r.key}`).join('\n')}`);
