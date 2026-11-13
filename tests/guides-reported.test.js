@@ -11825,3 +11825,16 @@ test(`${BADLANDS}: Scrounging is handed in on the Badlands loop, after the secon
 	const pairs = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', 'route-fixes.json'), 'utf8')).deliberate.pairs;
 	assert.ok(pairs.some((p) => p.faction === 'Alliance' && `${p.a}` === 'turnin,703' && `${p.b}` === 'turnin,733'), 'a record the build keeps');
 });
+
+// 0.4.0 route audit (Refs #2025): between Ironforge's training in 30-40/01 (players at about 32.5) and Stormwind's in
+// 30-40/05 (about 37.5) nobody but Druids trained, though 30-40/04's Stormwind stop (players at about 35) walks the
+// Trade District for Blessed Arm. Every class that trains in Stormwind trains there.
+test("forever/alliance/30-40/04-stranglethorn-vale.guide: every class but Shamans trains on the Stormwind stop", { skip }, () => {
+	const list = goals('forever/alliance/30-40/04-stranglethorn-vale.guide');
+	const train = list.filter(({ goal }) => goal.t === 'train');
+	assert.equal(train.length, 1, 'one training stop');
+	const arm = list[at(list, 'turnin 322 (Blessed Arm)', is('turnin', 322))].s;
+	assert.ok(train[0].s > arm && train[0].s <= arm + 2, 'on the Stormwind stop, after Grimand Elmore');
+	for (const cls of ['WARRIOR', 'PALADIN', 'HUNTER', 'ROGUE', 'PRIEST', 'MAGE', 'WARLOCK', 'DRUID']) assert.ok(forClass(cls)(train[0]), `${cls} trains there`);
+	assert.ok(!forClass('SHAMAN')(train[0]), 'Shamans train in Ironforge');
+});

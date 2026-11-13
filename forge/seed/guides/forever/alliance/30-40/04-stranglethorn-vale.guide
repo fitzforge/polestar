@@ -216,11 +216,10 @@ step Collin Mauren
   tip Collin Mauren is in the Slaughtered Lamb, in the Mage Quarter.
   turnin 1078
 
-step Druid training
-  only Druid
+step Class training
   zone Stormwind City
-  tip Sheldras Moontree, the druid trainer, stands in Stormwind, north-west of the Mage Quarter.
-  train class
+  tip Your level 34 ranks: the class trainers stand around the Trade District, Old Town, the Cathedral and the Mage Quarter; Sheldras Moontree, the druid trainer, stands north-west of the Mage Quarter. Shamans train in Ironforge, later in 30-40.
+  train class only Warrior,Paladin,Hunter,Rogue,Priest,Mage,Warlock,Druid
 
 step Boat to Auberdine
   zone Stormwind City
