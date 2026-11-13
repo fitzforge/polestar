@@ -349,6 +349,10 @@ function Compat.GetQuestObjectives(questID)
 		if req <= 0 then
 			-- Event objectives report 0/0; finished is the truth.
 			req, cur = 1, finished and 1 or 0
+		elseif cur >= req and not finished then
+			-- A skill objective ("Raise your alchemy skill to 20", Camping 101,
+			-- #1952) counts past its 1 while unfinished; finished is the truth.
+			cur = req - 1
 		end
 		out[i] = { text = o.text or "", type = o.type or "", finished = finished, numFulfilled = cur, numRequired = req }
 	end

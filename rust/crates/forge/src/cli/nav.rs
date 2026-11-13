@@ -12,7 +12,8 @@ Builds the navigation grid of every continent map-frames.json names (or --contin
 client's geometry: walkable surfaces, links, regions and the abstract graph per ADT tile, on
 --threads threads (default 6), into --out (tiles/<c>/, graph/<c>.bin.gz, index.json, lifts.json).
 A tile already built is kept unless --force. --wow: the World of Warcraft folder (default
-$POLESTAR_WOW_DIR or the detected install); --product (default wow_classic_beta). --root: the
+$POLESTAR_WOW_DIR or the detected install); --product (default: its Forever client, wowf, else the
+old beta wow_classic_beta). --root: the
 Polestar checkout (default: the nearest folder above the working directory with data/forever);
 --data its game data (default <root>/data/forever), --defs the WoWDBDefs checkout (default
 <root>/data/sources/wowdbdefs). An install that lacks files the continents use (stale archive
@@ -122,10 +123,16 @@ fn main2() -> Result<(), Fail> {
 			defs: o.get("--defs").map_or_else(|| root.join("data/sources/wowdbdefs"), PathBuf::from),
 		},
 	};
+	let product = match (o.get("--product"), &client) {
+		(Some(p), _) => p.clone(),
+		(None, Client::Install { wow, .. }) => forge_gamedata::casc::forever_product(wow)?,
+		// A cache folder is named for the product wago.tools lists Forever under.
+		(None, Client::Cache { .. }) => "wow_classic_beta".into(),
+	};
 	let opts = Opts {
 		out,
 		client,
-		product: o.get("--product").cloned().unwrap_or_else(|| "wow_classic_beta".into()),
+		product,
 		data: o.get("--data").map_or_else(|| root.join("data/forever"), PathBuf::from),
 		continents,
 		force,
@@ -362,7 +369,7 @@ fn roads_layer(args: &[String]) -> Result<(), Fail> {
 		}
 		None => {
 			let wow = o.get("--wow").map(PathBuf::from).or_else(forge_gamedata::find_install).ok_or("no World of Warcraft install found (give --wow)")?;
-			let product = o.get("--product").cloned().unwrap_or_else(|| "wow_classic_beta".into());
+			let product = o.get("--product").cloned().map_or_else(|| forge_gamedata::casc::forever_product(&wow), Ok)?;
 			let defs = o.get("--defs").map_or_else(|| root.join("data/sources/wowdbdefs"), PathBuf::from);
 			let client = forge_gamedata::Client::open(&wow, &product, &defs)?;
 			let t = forge_navbuild::geom::Tables::from_csv(|name| {

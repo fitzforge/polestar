@@ -35,7 +35,7 @@ opening or typing never stalls a frame.
 ## Consuming other addons and sites
 
 Inputs are read from the installed copies under
-`<client>/_classic_beta_/Interface/AddOns/`, from the client's own files
+`<client>/_forever_/Interface/AddOns/` (a `_classic_beta_` one on the old beta), from the client's own files
 (CASC/DB2), and from public sites (the Forever web databases: the Forever client's quest cache, Forever's quest
 chain data, and a web quest database's pages as cached in
 `data/sources/web/`). Polestar itself is GPL-3.0; each input keeps its own licence,

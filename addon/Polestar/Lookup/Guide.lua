@@ -464,6 +464,15 @@ function Lookup.AcceptPre(goal, q)
 		goal.pre = #own > 0 and own or any
 		for _, id in ipairs(goal.pre) do title(id) end
 	end
+	-- The quests whose taking closes it for good (a breadcrumb's target, an
+	-- exclusive quest): the Engine passes the accept once one is in the log
+	-- or done, "No longer offered: you took X" (#1996: The Greenwarden after
+	-- Tramping Paws).
+	local closed = q and q.closedBy
+	if type(closed) == "table" and #closed > 0 then
+		goal.closedBy = closed
+		for _, id in ipairs(closed) do title(id) end
+	end
 	goal.preTitles = titles
 	return goal
 end

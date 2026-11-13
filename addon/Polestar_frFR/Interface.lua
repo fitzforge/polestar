@@ -989,7 +989,6 @@ L["Click objectives to target"] = "Cibler en cliquant sur les objectifs"
 L["Clicking an objective row or NPC heading also targets its NPC outside combat, using the same marking settings as the Target button. This replaces your current target; a failed search clears it."] = "Un clic sur une ligne d'objectif ou sur le nom d'un PNJ en tête cible aussi ce PNJ hors combat, avec les mêmes réglages de marquage que le bouton de ciblage. Cela remplace votre cible actuelle ; une recherche infructueuse la retire."
 L["The target button and the step key put a raid icon on the mob and the NPC they target; out of combat, a press that finds neither clears your target. Pressing again never takes an icon off. In a party you don't lead, only a unit with no icon gets one; in a raid, only when you lead or assist."] = "Le bouton de ciblage et la touche d'étape placent une icône de raid sur le monstre et le PNJ qu'ils ciblent ; hors combat, un appui qui ne trouve ni l'un ni l'autre retire votre cible. Un nouvel appui ne retire jamais d'icône. Dans un groupe que vous ne menez pas, seule une unité sans icône en reçoit une ; en raid, seulement si vous êtes chef ou assistant."
 L["Ping what they target"] = "Pinger leurs cibles"
-L["The target button and the step key ping the mob they target, so your group sees it behind rocks and buildings. Never in a raid unless you lead or assist. The rare buttons always ping."] = "Le bouton de ciblage et la touche d'étape pinguent le monstre qu'ils ciblent, pour que votre groupe le voie derrière les rochers et les bâtiments. Jamais en raid, sauf si vous êtes chef ou assistant. Les boutons de rare pinguent toujours."
 L["Show quest-starting loot"] = "Afficher le butin qui lance une quête"
 L["When you loot an item that starts a quest you can take, it goes on the quest item button with a glow until you click it or take the quest. The step's own item comes first; several wait their turn, oldest first."] = "Quand vous ramassez un objet qui lance une quête que vous pouvez prendre, il va sur le bouton d'objet de quête avec une lueur jusqu'à ce que vous cliquiez dessus ou preniez la quête. L'objet de l'étape passe en premier ; s'il y en a plusieurs, ils attendent leur tour, le plus ancien d'abord."
 L["Track only dungeon quests in dungeons"] = "En donjon, suivre seulement les quêtes du donjon"
@@ -1018,6 +1017,7 @@ L["Travel button under the arrow"] = "Bouton de voyage sous la flèche"
 -- L["Game options"] = ""
 -- L["Increase game image quality"] = ""
 -- L["Sharpens the game's image. Most noticeable when Render Scale is below 100%. This is a game setting: it stays until you turn it off here or in the console."] = ""
+-- L["The target button and the step key ping the mob or NPC they target, so your group sees it behind rocks and buildings. Never in a raid unless you lead or assist. The rare buttons always ping."] = ""
 
 -- Lookup/Sources.lua
 L["Alliance only"] = "Alliance uniquement"
@@ -1864,6 +1864,10 @@ L["Guides by other players, installed like any addon. They show under Community 
 L["A few choices to start with. Everything else is in %s."] = "Quelques choix pour commencer. Tout le reste est dans %s."
 L["Route line"] = "Ligne d'itinéraire"
 L["How the way to your goal shows on the world map and the minimap. The line is the easiest to follow; sparkles show as dots while Reduce motion is on."] = "Comment le chemin vers votre objectif s'affiche sur la carte du monde et la minicarte. La ligne est la plus facile à suivre ; les étincelles s'affichent en points quand Réduire les animations est activé."
+-- L["Mark what the target button finds"] = ""
+-- L["A skull on the enemy, a star on the friendly NPC. In a group it never takes another player's icon."] = ""
+-- L["Ping it for my group"] = ""
+-- L["Your group sees what the target button and the step key found, even behind rocks and buildings."] = ""
 
 -- UI/Copy.lua
 L["Selected for you: copy it with Ctrl+C (Cmd+C on a Mac), then press Escape."] = "Sélectionné pour vous : copiez avec Ctrl+C (Cmd+C sur Mac), puis appuyez sur Échap."
@@ -4105,6 +4109,13 @@ L["Show in quest log"] = "Afficher dans le journal des quêtes"
 L["Needed for %s in %s"] = "Requis pour %s dans %s"
 L["Part of the %s quests"] = "Fait partie des quêtes de %s"
 
+-- UI/SearchDropdown.lua
+-- L["Go to page: %s"] = ""
+-- L["Tab: %s"] = ""
+-- L["Section: %s"] = ""
+-- L["See 1 result"] = ""
+-- L["See all %d results"] = ""
+
 -- No longer in the code (its English changed or it went away): reuse or delete.
 -- L["Alliance"] = "Alliance"
 -- L["Blood Elf"] = "Elfe de sang"
@@ -4317,3 +4328,4 @@ L["Part of the %s quests"] = "Fait partie des quêtes de %s"
 -- L["Auto-learn new spells"] = "Apprendre automatiquement les nouveaux sorts"
 -- L["Automatically learns every spell a class trainer offers that you can afford, and prints the total. Profession trainers are left alone. Hold Shift to skip."] = "Apprend automatiquement chaque sort proposé par un maître de classe que vous pouvez payer, et affiche le total. Les maîtres de métier ne sont pas concernés. Maintenez Maj pour passer."
 -- L["A level-up card lists what to train; %s learns it (thanks RikyZ90); %s updates your bars."] = "Au gain de niveau, une carte liste vos sorts ; %s les apprend (merci RikyZ90) ; %s met à jour vos barres."
+-- L["The target button and the step key ping the mob they target, so your group sees it behind rocks and buildings. Never in a raid unless you lead or assist. The rare buttons always ping."] = "Le bouton de ciblage et la touche d'étape pinguent le monstre qu'ils ciblent, pour que votre groupe le voie derrière les rochers et les bâtiments. Jamais en raid, sauf si vous êtes chef ou assistant. Les boutons de rare pinguent toujours."

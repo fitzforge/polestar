@@ -156,7 +156,7 @@ do
 					title = "The vineyards and {npc:103}",
 					note = "The crates of grapes lie in the vineyards behind the Defias. {npc:103} waits by the cabin at the east end of the valley.",
 					goals = {
-						{ t = "collect", quest = 3904, title = "Milly's Harvest", item = 11119, itemName = "Milly's Harvest", count = 8, oi = 1, map = 1429, x = 53.6, y = 47, z = 73.7, f = "e", spotsPacked = "53.9,49,73.5,48,32", from = "Milly's Harvest", fromKind = "object", fromId = 161557 },
+						{ t = "collect", quest = 3904, title = "Milly's Harvest", item = 11119, itemName = "Milly's Harvest", count = 8, oi = 1, map = 1429, x = 53.6, y = 47, z = 73.7, f = "e", spotsPacked = "52.8,48.4,73.5,0;52.8,49,73.5,0;53,48,73.7,0;53.2,48.6,73.5,0;53.2,49.6,73.4,0;53.3,49,73.5,0;53.4,47.7,73.5,0;53.4,48.1,73.5,0;53.4,50,73.4,0;53.6,47,73.7,0;53.6,49.5,73.5,0;53.6,50.4,73.3,0;53.8,48.1,73.5,0;53.8,48.5,73.5,0;53.8,50.8,73.2,0;53.9,47.6,73.5,0;53.9,48.8,73.5,0;53.9,49.9,73.5,0;54,49.5,73.5,0;54.1,50.3,73.4,0;54.1,50.7,73.3,0;54.2,48.8,73.5,0;54.2,49.8,73.5,0;54.3,48.2,73.5,0;54.4,47.8,73.5,0;54.4,49.4,73.5,0;54.6,48.2,73.5,0;54.6,50,73.5,0;54.7,48.9,73.5,0;54.9,49.4,73.5,0;55,48.5,73.5,0;55.2,49,73.4,0", from = "Milly's Harvest", fromKind = "object", fromId = 161557 },
 						{ t = "collect", quest = 6, title = "Bounty on Garrick Padfoot", item = 182, itemName = "Garrick's Head", oi = 1, map = 1429, x = 57.5, y = 48.3, z = 72.8, f = "e", note = "{item:182}: {npc:103}", from = "Garrick Padfoot", fromKind = "npc", fromId = 103, fromNpcs = { { npc = 103, npcName = "Garrick Padfoot" } } },
 					},
 				},
@@ -429,7 +429,7 @@ do
 						{ t = "accept", quest = 83, title = "Red Linen Goods", npc = 278, npcName = "Sara Timberlain", minLevel = 4, qlvl = 9, map = 1429, x = 79.5, y = 68.8, z = 47.8, f = "e" },
 						{ t = "accept", quest = 5545, title = "A Bundle of Trouble", npc = 10616, npcName = "Supervisor Raelen", minLevel = 5, qlvl = 9, map = 1429, x = 81.4, y = 66.1, z = 41.2, f = "e" },
 						{ t = "accept", quest = 91732, note = "Hagar Lowe" },
-						{ t = "collect", quest = 5545, title = "A Bundle of Trouble", item = 13872, itemName = "Bundle of Wood", count = 8, oi = 1, map = 1429, x = 81.6, y = 62.6, z = 55, f = "e", spotsPacked = "81.1,61.2,59.5,53,7;83.8,60.6,64.6,50,6;78.9,61.6,66.8,47,4;80.2,56,,22,2;76.9,61.9,64,58,6;80.4,52.2,,44,4", from = "Bundle of Wood", fromKind = "object", fromId = 176793 },
+						{ t = "collect", quest = 5545, title = "A Bundle of Trouble", item = 13872, itemName = "Bundle of Wood", count = 8, oi = 1, map = 1429, x = 81.6, y = 62.6, z = 55, f = "e", spotsPacked = "76,62.4,62.5,0;76.7,64.2,58.5,0;76.8,61.8,64,0;77.1,63,60,0;77.2,60.5,67.8,0;77.3,59.5,69.7,0;78.4,62.4,62.9,0;78.9,61.1,66.8,0;79,59.6,69.8,0;79.3,63.3,56.3,0;79.7,52.3,70.4,0;79.8,56.7,73.7,0;80,50.4,72.1,0;80.2,60,66.4,0;80.2,61.5,63.1,0;80.5,55.2,77.4,0;80.6,62.3,57,0;80.9,52.2,77.3,0;80.9,53.9,77.5,0;81.3,61.6,59.5,0;81.6,62.6,55,0;81.8,59.2,68.3,0;82,61,59.7,0;82.8,60.1,64.4,0;83.3,61.1,61.5,0;83.5,59.2,69.9,0;83.9,60.5,64.6,0;84.2,61.6,60.5,0;85.2,61,63.5,0", from = "Bundle of Wood", fromKind = "object", fromId = 176793 },
 						{ t = "turnin", quest = 5545, title = "A Bundle of Trouble", npc = 10616, npcName = "Supervisor Raelen", map = 1429, x = 81.4, y = 66.1, z = 41.2, f = "e" },
 					},
 				},

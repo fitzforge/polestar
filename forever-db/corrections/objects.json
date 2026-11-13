@@ -451,5 +451,31 @@
 			}
 		],
 		"note": "Loose Soil, an object of Forever's quest 94829 missing from the merged data."
+	},
+	"19861": {
+		"set": {
+			"spawns": {
+				"1441": {
+					"f": "e",
+					"pts": [
+						[
+							31.29,
+							28.05
+						]
+					]
+				}
+			}
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' recordings: every loot of the journal on builds 70862 and 70888 from 2026-11-10 on, 8 people, at Thousand Needles 31.25-31.35,28.0-28.12 (map 1441; sessions 20261110T063809Z, 20261110T135539Z, 20261110T142107Z, 20261110T161901Z, 20261111T051550Z, 20261111T131735Z, 20261111T193957Z, 20261111T203810Z, 20261111T220204Z); the two loots before (2026-11-09) were at the old spot 30.77,24.4"
+			},
+			{
+				"kind": "in-game-check",
+				"ref": "#2014: the reporter marked it at 31.30,28.12"
+			}
+		],
+		"note": "Henrig Lonebrow's Journal (object 19861), which starts Lonebrow's Journal (1100), lies at Thousand Needles 31.29,28.05 (map 1441), in Darkcloud Pinnacle. The merged data had the old spot 30.73,24.35, about 110 yd north (and the same spot read in the Barrens' map frame, 43.5,93.1), so the Razorfen Kraul pick-up guide's collect step pointed there. Replaces both."
 	}
 }

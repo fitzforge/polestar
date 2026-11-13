@@ -133,6 +133,23 @@ fn quest_objectives_normalize_to_text_type_finished_numfulfilled_numrequired() {
 	);
 }
 
+// Camping 101: Alchemy's one objective, "Raise your alchemy skill to 20", came back from Forever's client counted
+// full while unfinished (alchemy 2 of 20): the guide window read "1/1" on a quest still to do (#1952).
+#[test]
+fn issue_1952_an_unfinished_objective_never_reads_full() {
+	let out = run(r#"
+		C_QuestLog.GetQuestObjectives = function(q)
+			return {
+				{ text = "Raise your alchemy skill to 20", type = "object", finished = false, numFulfilled = 2, numRequired = 1 },
+				{ text = "Linen Cloth: 6/6", type = "item", finished = true, numFulfilled = 6, numRequired = 6 },
+			}
+		end
+		local o = C.GetQuestObjectives(97938)
+		emit({ skill = { o[1].numFulfilled, o[1].numRequired, o[1].finished }, cloth = { o[2].numFulfilled, o[2].numRequired } })
+	"#);
+	assert_eq!(out, json!({ "skill": [0, 1, false], "cloth": [6, 6] }));
+}
+
 // Each change the client makes to a quest (its objectives done, a failure, a hand-in or an abandon) comes with
 // QUEST_LOG_UPDATE, as in game; the walk over the log is kept until then.
 #[test]

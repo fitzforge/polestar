@@ -662,9 +662,10 @@ local function paintRow(r, goal, pop, sameStep, current, noParty, noMissing, noE
 	-- White while it is to be done; done and skipped goals step back. The
 	-- turn-in of a quest whose objectives are still open, pinned (#644),
 	-- ticked by hand (#1135) or worked along the way (#853): the warning
-	-- colour, and its line says so.
+	-- colour, and its line says so. A goal marked `accent` (a pick-up
+	-- guide's "Comes back at level N") takes the look's accent.
 	local warn = goal.pinOpen and not done and not skipped
-	W.Color(r.Text, (done or skipped) and "textMuted" or (warn and "warning" or (aside and "textDim" or "text")))
+	W.Color(r.Text, (done or skipped) and "textMuted" or (warn and "warning" or (goal.accent and "accent") or (aside and "textDim" or "text")))
 	local sub = UI.GoalSubline(goal, person.Where:IsShown() and person.psPlace and person.psPlace.map or nil, noParty, noMissing, noEscort, noFinder)
 	if warn then
 		local open = goal.pinOpen == "along" and L["Its objectives are still open."]
