@@ -494,6 +494,28 @@ fn outdoors_a_dip_walked_by_at_its_edge_stays_passed_the_player_s_place_on_the_p
 	assert!(num(&out["indoors"]["past"]) <= 8.5, "indoors the place stays at the floor's point ({})", out["indoors"]);
 }
 
+// A drop at the end of the player's own segment, a point they have not reached, stops the aim there (0.4.0's border
+// sweep: below Thunder Bluff, a walk to a lift that dropped into a hollow first). Measured from the drop's own floor,
+// the path beyond it lay on the aim's floor, so the aim ran on past the drop, the player walked to it along the top,
+// and their place on the path stayed behind the drop with the arrow at their feet. A path (0, 0, 0), (0, -12, -20)
+// (a drop steeper than 45 degrees), (0, -60, -20), (0, -200, -20): from the start the aim holds at the drop's point;
+// within REACH of it, on down the path.
+#[test]
+fn the_aim_stops_at_a_drop_that_ends_the_player_s_own_segment_until_they_reach_it() {
+	let out = run(&[
+		LOOK,
+		r#"
+		nav.place(0, 0)
+		target(0, -200)
+		N.Sample()
+		answerZ({ { 0, 0, 0 }, { 0, -12, -20 }, { 0, -60, -20 }, { 0, -200, -20 } })
+		emit({ start = look(0, 0, 0, -200), near = look(0, -8, 0, -200) })"#,
+	]
+	.concat());
+	assert!(num(&out["start"]["dy"]) >= -12.0 - 1e-6, "from the start the aim holds at the drop's point ({} yd on)", out["start"]["dy"]);
+	assert!(num(&out["near"]["dy"]) < -20.0, "within REACH of it, on down the path ({} yd on)", out["near"]["dy"]);
+}
+
 // The path for the hillside cases: a corner 100 yd on and 10 yd lower (a hillside, not a floor), then on round it.
 const HILLSIDE: &str = r#"
 local pts = { { 0, 0, 0 }, { 0, -100, -10 }, { 60, -180, -20 }, { 60, -400, -30 } }

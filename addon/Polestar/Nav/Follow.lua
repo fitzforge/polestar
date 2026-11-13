@@ -64,7 +64,8 @@
 -- TURN degrees away from the line to the aim, as at a street corner or a
 -- switchback) stops it at the corner, cutting inside by CORNER_PAD at most,
 -- and it comes round the corner as the player does. It never passes `stop`, nor a
--- point on another floor. `stop` may fall between two points (a point plus the
+-- point on another floor, nor a floor change that ends the player's own segment
+-- before they come within REACH of it. `stop` may fall between two points (a point plus the
 -- share of the way to the next): the aim then slides on to that spot. When no
 -- path point ahead is within RADIUS (the player has wandered off), it points back
 -- to the path LEAD yards ahead of the projection, never at a point behind.
@@ -431,6 +432,13 @@ function Follow.Step(xs, ys, zs, left, n, S, px, py, stop, join, sight, hill)
 	-- Aim: slide along the path from the projection.
 	local limit = n
 	if stop and stop < limit then limit = stop end
+	-- The player's own segment drops or climbs to another floor at its end, a point they have not come within
+	-- REACH of (the projection's own block): the aim goes no further than that point. Measured from that point's
+	-- floor, the path beyond it lay on the aim's floor, so the corridor (or a road's join) ran on past the drop, the
+	-- player walked to the aim along the top, and their place on the path stayed behind the drop, the arrow at their
+	-- feet (0.4.0's border sweep: below Thunder Bluff, a walk to a lift that drops into a hollow first; it had
+	-- arrived before #1543, and stopped there after).
+	if idx < limit and blocked(xs, ys, zs, idx, nil, px, py, S, hill) then limit = idx end
 	local zRef = zs[idx]
 	-- Beside the path in open ground, or on a fresh path's way onto the road:
 	-- the furthest point ahead in sight (sat: its yards along the path), held

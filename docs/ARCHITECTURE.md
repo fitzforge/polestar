@@ -4264,12 +4264,25 @@ road never holds the arrow on a node. The projection only moves forward;
 a later segment that is not the next one takes over only when 4 yd nearer
 (the far side of a hairpin), and it never moves past a blocking point the
 player has not come within 5 yd of: a point on another floor than the one
-before it (stairs, a ramp, a lift's landing), and,
+before it (stairs, a ramp, a lift's landing; outdoors one come within 5 yd of
+stays passed for the path, 0.4.0: a player who walked by a dip at its edge was
+held behind it for good), and,
 on a piece of a split walk, every point past its chokepoint's spot on the path
 (`Travel.Aim` passes `leg.stop` as `stop`: the point before the spot plus the
-share of the way to the next, and the aim slides on to the spot, never past
-it; held at the point before it, the arrow pointed at the feet of a player
-standing there when the chokepoint lay far along a sparse path's piece, 0.3.8).
+share of the way to the next). The aim slides on to the spot, never past it,
+once the player is past that point before it or within 1 yd of it (held at
+the point, the arrow pointed at the feet of a player standing there when the
+chokepoint lay far along a sparse path's piece, 0.3.8, and of one standing a
+hair short of it, 0.4.0); from further back it stops at the point, as at any
+stop (0.4.0, the border sweep: let on sooner it cut the corner there, off the
+ramp down into Un'Goro Crater). Nor does the aim pass a floor change that ends
+the player's own segment before they come within 5 yd of it (0.4.0: measured
+from that point's floor, the path beyond lay on the aim's floor, and a walk to
+a Thunder Bluff lift that dropped into a hollow first stopped at the drop with
+the arrow at the player's feet). Once the player comes within 5 yd of the
+arrow's last aim along the path, the segments up to the aim's own take over at
+once (0.4.0: in a switchback of points 4 yd apart the arrow kept aiming at the
+spot the player stood on).
 Another floor is more
 than 6 yd (`FLOOR_STEP`) above or below; outdoors (`Walk.Aim` passes `hill`)
 it must also be steeper than 45° (`FLOOR_GRADE`, 1 yd up or down per yard
