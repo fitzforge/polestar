@@ -10408,3 +10408,59 @@ fn level_fit_judges_the_ground_not_only_the_target() {
 	}
 	assert_eq!(pick(&run(&c, None).read("a"), r"^\s+(accept|turnin|kill)"), vec!["  accept 6", "  accept 8", "  kill 31 quest 6.1", "  turnin 6", "  turnin 8"]);
 }
+
+#[test]
+fn every_piece_of_a_loop_step_the_route_splits_keeps_its_circuit() {
+	// 0.4.0 round, Westfall's Longshore murlocs: the route took the Gills (here quest 1) on a later
+	// visit and the gotos before them went along, leaving v1's step its `loop` and the Murloc Eyes
+	// (quest 2) with no point (the pack check: `loop` needs at least two `goto` points in its step).
+	let c = Case {
+		files: vec![(
+			"a",
+			vec![
+				"guide t/a",
+				"title A",
+				"levels 10-12",
+				"zone Westfall",
+				"",
+				"step Hill",
+				"  accept 1",
+				"  accept 2",
+				"",
+				"step The Longshore murlocs",
+				"  tip Murlocs line the north coast.",
+				"  loop",
+				"  goto 42.5,10.5",
+				"  goto 45.5,9.2",
+				"  goto 49.5,9.5",
+				"  collect 100 quest 1",
+				"  collect 200 quest 2",
+				"",
+				"step Farm",
+				"  accept 3",
+				"",
+				"step Hill again",
+				"  turnin 1",
+				"  turnin 2",
+				"",
+			],
+		)],
+		quests: json!({ "1": { "title": "Gills" }, "2": { "title": "Eyes" }, "3": { "title": "Farm" } }),
+		route: json!({ "diff": {}, "order": [
+			{ "t": "accept", "q": 1, "from": f("a", 7) }, { "t": "accept", "q": 2, "from": f("a", 8) },
+			{ "t": "task", "q": 2, "task": 0, "from": f("a", 17) },
+			{ "t": "accept", "q": 3, "from": f("a", 20) },
+			{ "t": "task", "q": 1, "task": 0, "from": f("a", 16) },
+			{ "t": "turnin", "q": 1, "from": f("a", 23) }, { "t": "turnin", "q": 2, "from": f("a", 24) }
+		] }),
+		..Case::default()
+	};
+	let g = run(&c, None).read("a");
+	assert!(idx(&g, "  collect 100 quest 1") > idx(&g, "  accept 3"), "the route's split: {g:#?}");
+	for want in ["  collect 100 quest 1", "  collect 200 quest 2"] {
+		let at = idx(&g, want) as usize;
+		let s = g[..at].iter().rposition(|l| l.starts_with("step ")).unwrap();
+		assert!(g[s..at].iter().any(|l| l == "  loop"), "{want}: {g:#?}");
+		assert_eq!(g[s..at].iter().filter(|l| l.starts_with("  goto ")).count(), 3, "{want}: {g:#?}");
+	}
+}
