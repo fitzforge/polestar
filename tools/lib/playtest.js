@@ -634,6 +634,10 @@ async function playtest({ dir, manifest, official = false, filter = null, classe
 // base file (default data/local/kb/forever-kb.sqlite when present; null: none).
 // -> { results: [], findings, diag, played, honest: true }
 function honestRun({ guides, packs, play, data, classes, groups, chosen, kb, diag }) {
+	if (kb != null && !fs.existsSync(kb)) {
+		diag.error(kb, 0, 'knowledge base not found');
+		return { results: [], findings: [], diag, played: 0, honest: true };
+	}
 	const all = packs.flatMap((p) => p.guides);
 	const wanted = guides.filter((g) => play.has(g._ast && g._ast.source));
 	const arriving = new Map();
