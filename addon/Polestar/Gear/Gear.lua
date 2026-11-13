@@ -37,7 +37,9 @@
 --   Gear.GetWeights() -> weights (read-only): the spec's band for this level
 --       (Gear.WEIGHT_BANDS, generated SpecData.lua), else the authored table
 --       (Weights.lua); Forever's own ratings, which no band weighs (haste,
---       expertise, armorPen), come from the authored table;
+--       expertise, armorPen), come from the authored table; the formula
+--       weights (health, mana, haste, expertise, armorPen) worked out for the
+--       band at the player's level (Gear.WeightsFor, docs/gear-weights.md);
 --       a small melee weapon DPS weight is added where the spec has none
 --       (Feral's is 14x its attack power weight), the share of a stat that a
 --       talent turns into another (Gear.TALENT_STATS: Mental Dexterity), and
@@ -453,7 +455,7 @@ local MELEE_INV = { [13] = true, [17] = true, [21] = true, [22] = true }
 local OFFHAND_INV = { [14] = true, [22] = true, [23] = true }
 -- Armor-class items every class wears whatever their subclass says.
 local ANY_ARMOR_INV = { [2] = true, [11] = true, [12] = true, [16] = true, [23] = true }
-local OFFHAND_DPS = 0.5 -- off-hand weapons hit for half damage
+local OFFHAND_DPS = 0.5 -- off-hand weapons hit for half damage (weights without ohDps)
 local DUAL_WIELD_SPELL = 674
 
 -- C_Item.GetItemStats keys -> canonical stat keys. Unknown keys are ignored.
@@ -782,12 +784,45 @@ local function withForeverRatings(w, authored)
 	return c
 end
 
+-- Polestar's formula weights (Weights.lua's header, docs/gear-weights.md), on
+-- the band in use at the player's level: health and mana from Stamina's and
+-- Intellect's weights, haste and expertise from the band's crit and hit at the
+-- spec's own ratios in the authored table, armor penetration from its crit and
+-- a same-level mob's armor. A formula whose input the spec does not weigh
+-- leaves the value as it is. Cached per band and level.
+local withFormula = setmetatable({}, { __mode = "k" }) -- band weights -> { [level] = weights }
+
+local function withFormulaStats(w, class, authored, level)
+	if not (w and authored) then return w end
+	local byLevel = withFormula[w]
+	if not byLevel then
+		byLevel = {}
+		withFormula[w] = byLevel
+	end
+	local c = byLevel[level]
+	if c then return c end
+	c = {}
+	for k, v in pairs(w) do c[k] = v end
+	if (c.sta or 0) > 0 then c.health = c.sta / Gear.HEALTH_PER_STA end
+	local perCrit = Gear.IntPerSpellCrit(class, level)
+	if perCrit and (c.int or 0) > 0 then c.mana = math.max(0, c.int - (c.spellCrit or 0) / perCrit) / Gear.MANA_PER_INT end
+	-- Haste follows crit for weapon specs, spell crit for casters and healers.
+	local crit, ref = "crit", authored.crit or 0
+	if ref <= 0 then crit, ref = "spellCrit", authored.spellCrit or 0 end
+	if authored.haste and ref > 0 and (c[crit] or 0) > 0 then c.haste = c[crit] * authored.haste / ref end
+	if authored.expertise and (authored.hit or 0) > 0 and (c.hit or 0) > 0 then c.expertise = c.hit * authored.expertise / authored.hit end
+	if (authored.crit or 0) > 0 and (c.crit or 0) > 0 then c.armorPen = c.crit * Gear.ArmorShare(level) end
+	byLevel[level] = c
+	return c
+end
+
 -- The spec's weights at a level: the first band whose upTo covers it (the
 -- last band past the end), with Forever's own ratings from the authored
--- table, else the authored table; with a melee DPS weight where the spec has
--- none (above).
+-- table, else the authored table; with the formula weights (above) and a
+-- melee DPS weight where the spec has none.
 -- -> weights, info { source, note, upTo }
 function Gear.WeightsFor(class, key, level)
+	level = tonumber(level) or 60
 	local authored = WEIGHTS[class] and WEIGHTS[class][key]
 	local bands = BANDS[class] and BANDS[class][key]
 	if bands and #bands > 0 then
@@ -798,21 +833,22 @@ function Gear.WeightsFor(class, key, level)
 				break
 			end
 		end
-		return withMeleeDps(withForeverRatings(pick.weights, authored), class, key), pick
+		return withMeleeDps(withFormulaStats(withForeverRatings(pick.weights, authored), class, authored, level), class, key), pick
 	end
 	local w = authored
-	return withMeleeDps(w, class, key), w and { source = "polestar", upTo = 60 } or nil
+	return withMeleeDps(withFormulaStats(w, class, authored, level), class, key), w and { source = "polestar", upTo = 60 } or nil
 end
 
--- Talents that turn one stat into another, which the weights' sources could
--- not see (Classic formulas and sims know no Forever talent): by class, the
--- talent's spell and ranks, and per rank the share of `from` that counts as
--- `into`. The built-in weights in use get `from` raised by `into`'s weight
--- times that share times the ranks bought (a custom scale is used as it is).
---   Mental Dexterity (Enhancement, 3 ranks): 33/66/100% of Intellect as attack
---   power, as the 12 November 2026 patch notes give it (#2090; was 50/100/150%).
+-- Talents that turn one stat into another, which Polestar's weights' sources
+-- could not see (Classic formulas and sims know no Forever talent): by class,
+-- the talent's spell and ranks, and for the ranks bought the share of `from`
+-- that counts as `into`. Polestar's built-in weights in use get `from` raised
+-- by `into`'s weight times that share (a custom scale is used as it is).
+--   Mental Dexterity (Enhancement, 3 ranks): 33, 66 and 100% of Intellect as
+--   attack power since Forever's 12 November 2026 hotfix (the client's hotfix
+--   data, talent curve 85272; #2090), 50, 100 and 150% before.
 local TALENT_STATS = {
-	SHAMAN = { { spell = 415140, ranks = 3, from = "int", into = "ap", per = 1 / 3 } },
+	SHAMAN = { { spell = 415140, ranks = 3, from = "int", into = "ap", shares = { 0.33, 0.66, 1 } } },
 }
 Gear.TALENT_STATS = TALENT_STATS
 
@@ -831,7 +867,7 @@ local function withTalentStats(w, class)
 	local out, added = nil, nil
 	for _, t in ipairs(list) do
 		local r = math.min(ranks[t.spell] or 0, t.ranks)
-		local add = r * t.per * (w[t.into] or 0)
+		local add = (t.shares[r] or 0) * (w[t.into] or 0)
 		if add > 0 then
 			if not out then
 				out = {}
@@ -1000,7 +1036,7 @@ local function scoreWith(info, w, asOffhand)
 			if RANGED_INV[info.inv] then
 				s = s + (w.rdps or 0) * v
 			elseif MELEE_INV[info.inv] then
-				s = s + (w.dps or 0) * v * (asOffhand and OFFHAND_DPS or 1)
+				s = s + (asOffhand and (w.ohDps or (w.dps or 0) * OFFHAND_DPS) or (w.dps or 0)) * v
 			end
 		elseif SCHOOLS[k] then
 			school = school + (w[k] or 0) * v

@@ -199,6 +199,8 @@ mod gear_forever;
 mod gear_pawn;
 #[path = "gear-upgrades.rs"]
 mod gear_upgrades;
+#[path = "gear-weights.rs"]
+mod gear_weights;
 #[path = "guides-compiled.rs"]
 mod guides_compiled;
 #[path = "guides-end.rs"]

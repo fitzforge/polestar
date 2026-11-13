@@ -533,12 +533,13 @@ fn shaman(level: i32) -> Opts {
 	Opts { cls: "SHAMAN", class_name: "Shaman", class_id: 7, level, ..Default::default() }
 }
 
-// #2090: Mental Dexterity (Enhancement, 3 ranks, talent spell 415140) turns 33/66/100% of Intellect into attack power
-// (the 12 November patch notes). The weights' sources know no Forever talent, so Intellect counted only for mana: each
-// rank now adds a third of the attack power weight to it, on whichever built-in weights are in use (Elemental's carry
-// almost no attack power), never on a custom scale; /polestar gear spec says what it added.
+// #2090: Mental Dexterity (Enhancement, 3 ranks, talent spell 415140) turns 33, 66 and 100% of Intellect into attack
+// power since Forever's 12 November hotfix (the client's hotfix data, talent curve 85272). The weights' sources know no
+// Forever talent, so Intellect counted only for mana: the ranks bought add that share of the attack power weight to it,
+// on whichever built-in weights are in use (Elemental's carry almost no attack power), never on a custom scale;
+// /polestar gear spec says what it added.
 #[test]
-fn mental_dexterity_adds_a_third_of_the_attack_power_weight_to_intellect_per_rank_on_the_built_in_weights() {
+fn mental_dexterity_adds_33_66_100_percent_of_the_attack_power_weight_to_intellect_on_the_built_in_weights() {
 	let out = run(
 		r#"
 		local function w() local x = G.GetWeights(); return { int = x.int, ap = x.ap or 0 } end
@@ -571,7 +572,7 @@ fn mental_dexterity_adds_a_third_of_the_attack_power_weight_to_intellect_per_ran
 	let (int0, ap) = (seen[0]["int"].as_f64().unwrap(), seen[0]["ap"].as_f64().unwrap());
 	assert!((int0 - 0.179).abs() < 1e-9 && (ap - 0.468).abs() < 1e-9, "{o}");
 	for (r, s) in seen.iter().enumerate() {
-		let want = int0 + ap * r as f64 / 3.0;
+		let want = int0 + ap * [0.0, 0.33, 0.66, 1.0][r];
 		assert!((s["int"].as_f64().unwrap() - want).abs() < 1e-9, "{r} ranks: Intellect {} (want {want})", s["int"]);
 		assert!((s["ap"].as_f64().unwrap() - ap).abs() < 1e-9, "{r} ranks: attack power unchanged");
 	}

@@ -35,6 +35,24 @@
 --   * armorPen: 1% of a mob's armor ignored is worth about a third of 1% crit
 --     to physical damage (levelling mobs' armor takes 15-35% off a hit).
 --
+-- Worked out per level band at the player's level (Gear.WeightsFor; every
+-- formula and the weights it gives at levels 10 to 60 are in
+-- docs/gear-weights.md). The tables below keep their own values for these as
+-- the reference the formulas replace:
+--   * health = Stamina's weight / 10 (gametables/hppersta.txt: 10 health per
+--     Stamina at every level).
+--   * mana = (Intellect's weight - spell crit's weight / Intellect per 1%
+--     spell crit at the level) / 15, for the classes with mana: what is left
+--     of a point of Intellect once its spell crit is taken out, over the 15
+--     mana it gives (Gear.IntPerSpellCrit).
+--   * haste and expertise: the band's crit (spell crit for casters and
+--     healers) and hit times the spec's own haste-to-crit and expertise-to-hit
+--     ratios here, so a band that weighs crit lower weighs haste lower too.
+--   * armorPen: the band's crit times the share of a hit a same-level mob's
+--     armor takes (Gear.ArmorShare), for the specs that weigh physical crit.
+--   Where a spec has no weight a formula needs (Protection Paladin's crit),
+--   the value here stays.
+--
 -- How the numbers were set. One point of the spec's main stat is ~1.0 and
 -- everything else is "worth this many points of it" while levelling (solo
 -- questing first, dungeons second):
@@ -50,10 +68,12 @@
 --     Warlocks while levelling, little to melee.
 --   * Percent stats (crit, hit, spellCrit, spellHit, dodge, parry, block) are
 --     per 1%; mp5/hp5 per point per 5 seconds; weapon DPS per 1 DPS.
---   * dps = the melee weapon's DPS (main hand; the off hand counts half, its
---     damage penalty), rdps = the ranged slot's DPS (bows, guns, crossbows,
---     thrown, wands). Feral has no dps here: Gear.WeightsFor gives it 14x its
---     attack power weight, since Forever's forms hit with the weapon's DPS.
+--   * dps = the melee weapon's DPS (main hand, or the off hand's when a scale
+--     has no ohDps: half, its damage penalty), ohDps = the off hand's own
+--     weight (Pawn's OffHandDps), rdps = the ranged slot's DPS (bows, guns,
+--     crossbows, thrown, wands). Feral has no
+--     dps here: Gear.WeightsFor gives it 14x its attack power weight, since
+--     Forever's forms hit with the weapon's DPS.
 --   * sp = spell damage of every school, spFire etc. = one school only, heal =
 --     healing. Classic +spell-power items carry both sp and heal, so damage
 --     specs read the sp half and healers the heal half.
@@ -69,7 +89,7 @@ Gear.STAT_KEYS = {
 	"ap", "rap", "sp", "spArcane", "spFire", "spFrost", "spHoly", "spNature", "spShadow", "heal",
 	"crit", "hit", "spellCrit", "spellHit", "mp5", "hp5", "defense", "dodge", "parry", "block", "blockValue",
 	"haste", "expertise", "armorPen",
-	"dps", "rdps",
+	"dps", "ohDps", "rdps",
 }
 
 -- Specs in talent order: Forever's talent columns left to right, the same as
@@ -123,6 +143,36 @@ Gear.CLASSES = {
 		{ key = "restoration", label = "Restoration (healer)", names = { "restoration" } },
 	} },
 }
+
+-- The game's numbers behind the formula weights (Gear.WeightsFor):
+Gear.HEALTH_PER_STA = 10 -- gametables/hppersta.txt, every level (1.60.1.70888)
+Gear.MANA_PER_INT = 15 -- each point of Intellect past the first 20
+-- Intellect per 1% spell crit at level 60; at level L it takes
+-- (0.2 + 0.8 (L - 1) / 59) of that (Classic's formula, as the community
+-- TrinityCore server for Forever has it). Warriors and Rogues have no mana.
+local INT_PER_SPELL_CRIT = { MAGE = 59.5, PRIEST = 59.2, WARLOCK = 60.6, DRUID = 60, SHAMAN = 59.5, PALADIN = 54, HUNTER = 60 }
+-- A same-level melee mob's armor at levels 1 to 60 (the Forever TrinityCore
+-- world database's Classic creature stats). It takes
+-- armor / (armor + 400 + 85 x the attacker's level) off a physical hit.
+local MOB_ARMOR = { 0, 0, 25, 60, 103, 156, 221, 297, 386, 492, 518, 552, 585, 619, 653, 688, 722, 755, 789, 822,
+	858, 892, 925, 959, 992, 1026, 1061, 1093, 1127, 1160, 1194, 1229, 1261, 1296, 1328, 1434, 1546, 1661, 1785, 1914,
+	2049, 2193, 2343, 2502, 2668, 2723, 2776, 2828, 2883, 2936, 2988, 3043, 3096, 3148, 3201, 3256, 3308, 3361, 3414, 3466 }
+
+-- The share of a physical hit a same-level mob's armor takes at `level`.
+function Gear.ArmorShare(level)
+	level = math.max(1, math.min(#MOB_ARMOR, math.floor(tonumber(level) or 1)))
+	local a = MOB_ARMOR[level]
+	return a / (a + 400 + 85 * level)
+end
+
+-- Intellect per 1% spell crit for `class` at `level`; nil for a class
+-- without mana.
+function Gear.IntPerSpellCrit(class, level)
+	local r = INT_PER_SPELL_CRIT[class]
+	if not r then return nil end
+	level = math.max(1, math.min(60, tonumber(level) or 1))
+	return r * (0.2 + 0.8 * (level - 1) / 59)
+end
 
 Gear.WEIGHTS = {
 	WARRIOR = {
