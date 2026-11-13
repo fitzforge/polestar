@@ -318,7 +318,6 @@ step Feralas
 step Camp Mojache
   zone Feralas
   getfp "Camp Mojache"
-  sethome "Camp Mojache"
   accept 2987                           -- Orwin Gizzmick
   turnin 2981                         -- Rok Orhan walks around Camp Mojache: look inside the circle on the map
   accept 2975                           -- Rok Orhan

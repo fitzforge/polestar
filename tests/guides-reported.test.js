@@ -2809,6 +2809,18 @@ test('Phear\'s report: a kill or collect leads to the camp that holds its mobs, 
 	assert.ok(trail.every((s) => !s.alt), 'every spot of the Highborne trail is searched');
 });
 
+// Horde 40-50 route audit (0.4.0): fixes pinned by the band's audit (players' recordings, the travel sweep and the
+// calibrated level model).
+const H40 = (n) => `forever/horde/40-50/${n}.guide`;
+
+test('Horde 40-50 binds: Stranglethorn sets none, Camp Mojache is bound once (0.4.0 route audit)', { skip }, () => {
+	// The travel sweep found no trip in 30-40/06 or 40-50/01 that hearths back to Grom'gol, Booty Bay or Stonard.
+	const stv = goals(H40('01-stranglethorn-vale')).filter(({ goal }) => goal.t === 'sethome');
+	assert.deepEqual(stv.map(({ goal }) => goal.location), [], '40-50/01 leaves the hearthstone where it is');
+	const binds = goals(H40('02-feralas')).filter(({ goal }) => goal.t === 'sethome');
+	assert.deepEqual(binds.map(({ goal }) => goal.location), ['Camp Mojache'], '40-50/02 binds Camp Mojache once, at Innkeeper Greul');
+});
+
 // The goals the stray rule moved, checked against their steps (#175 review): the
 // Grizzled Scalps are taken where the bears are, and cloth the guide says to buy
 // leads to the Auction House, not to the guards and mobs that happen to drop it.
