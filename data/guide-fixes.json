@@ -8994,8 +8994,8 @@
 				"goal": "objective",
 				"objective": 1
 			},
-			"tip": "Careful: the Rage Scar yetis are level 46-48, two to four above you: take them from the edge of the hills, one at a time. Zorbin's quests on the coast need level 45: grind them here until level 44.5, so the kills also bring Pratt's hides.",
-			"note": "#1999: the High Wilderness step grinds to 44.5 on the Rage Scar yetis (46-48) for a player of about 44 (calibrated level model 44.0-44.5 there). Moving the grind to the Feral Scar yetis (43-45) and making the Pristine Yeti Hide optional cost about 23 minutes to 60 in the calibrated level model (every Alliance race and class: the hide's Rage Scar kills are most of the step's experience), so both stay, with a heads-up on the yetis' level.",
+			"tip": "Careful: the Rage Scar yetis are level 46-48, still one to three above you at 45: take them from the edge of the hills, one at a time.",
+			"note": "Bennistrov's report (#1999): the High Wilderness step ground to 44.5 on the Rage Scar yetis (46-48) at 43-44. The level-45 grind now comes first, on the Feral Scar yetis (43-45; record 1999-feralas-level-45-before-rage-scar), and the Rage Scar hides after it, with this heads-up on their level.",
 			"source": [
 				{
 					"kind": "pfquest",
@@ -9229,6 +9229,49 @@
 				}
 			],
 			"issue": 1575
+		},
+		{
+			"id": "1999-feralas-level-45-before-rage-scar",
+			"faction": "Alliance",
+			"at": {
+				"quest": 7733,
+				"goal": "objective",
+				"objective": 1
+			},
+			"when": "level>=45",
+			"note": "Bennistrov's report (#1999): at 43-44 the guide sent players to grind the Rage Scar yetis (46-48) of the High Wilderness. The level-45 grind on the Feral Scar yetis (43-45, Feral Scar Vale, the same mainland loop) now comes first (the seed's order), and the Rage Scar hides' step shows only from 45, so the player meets the yetis at 45. Calibrated level model, every Alliance race and class: +1.4 min to 60 against the guide before the fix.",
+			"source": [
+				{
+					"kind": "pfquest",
+					"ref": "npc levels: Rage Scar Yeti 5296 level 46, Ferocious Rage Scar 5299 level 47, Elder Rage Scar 5297 level 48; Feral Scar Yeti 5292 level 43"
+				},
+				{
+					"kind": "in-game-check",
+					"ref": "#1999: Bennistrov, NightElf Druid 43, on the High Wilderness step"
+				}
+			],
+			"issue": 1999
+		},
+		{
+			"id": "1999-feralas-pristine-yeti-hide-from-45",
+			"faction": "Alliance",
+			"at": {
+				"quest": 7735,
+				"goal": "accept"
+			},
+			"when": "level>=45",
+			"note": "Bennistrov's report (#1999): the Pristine Yeti Hide drops only from the Rage Scar yetis (46-48); its step shows only from 45, after the level-45 grind on the Feral Scar yetis, like the Rage Scar hides' step (1999-feralas-level-45-before-rage-scar).",
+			"source": [
+				{
+					"kind": "pfquest",
+					"ref": "npc levels: Rage Scar Yeti 5296 level 46, Ferocious Rage Scar 5299 level 47, Elder Rage Scar 5297 level 48"
+				},
+				{
+					"kind": "in-game-check",
+					"ref": "#1999: Bennistrov, NightElf Druid 43, on the High Wilderness step"
+				}
+			],
+			"issue": 1999
 		}
 	]
 }
