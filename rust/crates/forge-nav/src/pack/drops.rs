@@ -161,7 +161,7 @@ pub fn drop_arcs(c: &Cluster, cc: usize, drops: &[GridDrop], links: &rustc_hash:
 		}
 	}
 	let mut out: Vec<(usize, usize, f64)> = best.into_iter().map(|((a, b), y)| (a, b, y)).collect();
-	out.sort_by(|x, y| (x.0, x.1).cmp(&(y.0, y.1)));
+	out.sort_by_key(|x| (x.0, x.1));
 	out
 }
 
