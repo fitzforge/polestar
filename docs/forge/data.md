@@ -337,8 +337,16 @@ single-file form, and a checkout without the folder still has its
 |---|---|---|
 | `quests` | quest ID | `set`: replace fields (races, classes, prerequisites, objectives, …); `escort`: `true` or `false` when the quest's own text gets it wrong; `direct`: `true` or `false` for a quest handed in on the spot from its giver's window, never in the log (the knowledge base sets `true` from the Forever TDB's quest type 0; the writer then writes only `turnin <id> direct`, #1699); `remove: true`, alone: the quest is not in the game, so it leaves the data and every other quest's link to it (`pre`, `preAny`, `preAll`, `excl`, `next`, breadcrumbs, `children`, `parent`) goes |
 | `npcs`, `objects` | NPC or object ID | `set`: replace fields (an elite or rare `rank`; an object's `lock: { item }`, the key that opens it); `addSpawns`: `{ "<uiMapID>": { f, pts } }` adds a map's spawn points, or replaces that map's points |
-| `items` | item ID | `removeDrops`: `{ npc: [ids], object: [ids] }`; `removeVendors`: `[ids]` (drop wrong sources the merge kept); `addDrops`: `{ npc: [ids], object: [ids] }` (droppers every source missed, such as recorded loot; added with no rate, a listed one keeps its rate) |
+| `items` | item ID | `removeDrops`: `{ npc: [ids], object: [ids] }`; `removeVendors`: `[ids]` (drop wrong sources the merge kept); `addDrops`: `{ npc: [ids], object: [ids] }` (droppers every source missed, such as recorded loot; added with no rate, a listed one keeps its rate); `dropRequires`: `{ npc: { "<id>": [quest ids] }, object: { "<id>": [quest ids] } }` (source-specific loot requirements; each quest must be held or completed) |
 | `mechanics` | quest ID | `params`: `[{ kind, … }]` adds or replaces a mechanic (for example `delayed-offer` with `after`, `npc`, `sec`); `steps`: `{ "<n>": { set } }` changes step `n` |
+
+`dropRequires` changes only the named NPC or object's loot, preserving other sources. Its quest
+IDs are all required, but each can be in the log or already turned in; accepting a quest is enough.
+The source must already drop the item (or be added by `addDrops`), and IDs must be positive,
+unique and present in the data. An empty list clears that source's requirement; absent metadata
+changes nothing. The built item's `dropRequires` becomes `requiresQuests` on each affected
+Codex drop/object source. Packing appends the escaped list after provenance, leaving old source
+fields intact; old packs have no condition and older readers ignore the optional tail.
 
 In `addSpawns`, `pts` are `[x, y]` map percentages and `f` names the map frame they are in (`e` for the
 Classic frame, `l` for Forever's). Every entry has a `source`, the evidence for what it sets (`{ kind,

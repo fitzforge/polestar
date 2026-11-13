@@ -98,6 +98,9 @@ checked against, and says in our own words what was wrong:
   `{ "<uiMapID>": { "f": "e" | "l", "pts": [[x, y], ...] } }` in map percent.
 - `items`: `removeDrops` `{ npc: [ids], object: [ids] }` and `removeVendors` `[ids]` drop wrong sources;
   `addDrops` `{ npc: [ids], object: [ids] }` adds droppers every source missed (with no rate).
+  `dropRequires` `{ npc: { "<npc id>": [quest ids] }, object: { "<object id>": [quest ids] } }`
+  limits that source's loot to players who hold or have completed every listed quest. It does not
+  restrict other sources or require turning in a held quest; an empty list clears that source's gate.
 - `mechanics`: by quest id, `params` `[{ kind, ...fields }]` and `steps` `{ "<n>": { set } }`.
 
 `source` is `{ kind, ref }` or a list of them. `kind` is one of `recording` (a Polestar Recorder

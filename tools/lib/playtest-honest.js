@@ -223,6 +223,13 @@ class World {
 		return this.log.has(q);
 	}
 
+	// Drop prerequisites belong to a source, not to every way of getting the item.
+	dropAllowed(item, kind, source) {
+		const it = this.data.items[item];
+		const required = it && it.dropRequires && it.dropRequires[kind] && it.dropRequires[kind][source];
+		return (required || []).every((q) => this.held(q) || this.done.has(q));
+	}
+
 	// The quests held now that ask for item.
 	heldNeeding(item) {
 		return (this.needing.get(item) || []).filter((q) => this.held(q));
@@ -490,7 +497,7 @@ function playGoal(w, g, x, gi, find, explicitNpc, along = false) {
 		case 'interact':
 			if (x.quest && x.oi) w.credit(x.quest, x.oi, x.count || 1);
 			for (const [item, it] of Object.entries(data.items)) {
-				if (it.drops && it.drops.object && x.object != null && it.drops.object[x.object] !== undefined) w.give(Number(item), 1);
+				if (it.drops && it.drops.object && x.object != null && it.drops.object[x.object] !== undefined && w.dropAllowed(item, 'object', x.object)) w.give(Number(item), 1);
 			}
 			w.worked.push(x);
 			return;
@@ -630,14 +637,14 @@ function kill(w, x) {
 		for (const o of (quest && quest.objectives) || []) {
 			if (o.type !== 'item') continue;
 			const it = data.items[o.id];
-			if (it && it.drops && it.drops.npc && x.npc != null && it.drops.npc[x.npc] !== undefined && !w.has(o.id, o.count || 1)) w.give(o.id, (o.count || 1) - (w.bags.get(o.id) || 0));
+			if (it && it.drops && it.drops.npc && x.npc != null && it.drops.npc[x.npc] !== undefined && w.dropAllowed(o.id, 'npc', x.npc) && !w.has(o.id, o.count || 1)) w.give(o.id, (o.count || 1) - (w.bags.get(o.id) || 0));
 		}
 	}
 	// Quest starters it drops (an item that starts a quest, not yet held).
 	for (const q of Object.values(data.quests)) {
 		for (const i of (q.start && q.start.item) || []) {
 			const it = data.items[i];
-			if (it && it.drops && it.drops.npc && x.npc != null && it.drops.npc[x.npc] !== undefined && !w.has(i) && !w.done.has(q.id)) w.give(i, 1);
+			if (it && it.drops && it.drops.npc && x.npc != null && it.drops.npc[x.npc] !== undefined && w.dropAllowed(i, 'npc', x.npc) && !w.has(i) && !w.done.has(q.id)) w.give(i, 1);
 		}
 	}
 	w.worked.push(x);
@@ -663,12 +670,15 @@ function collect(w, x, gi, find, p) {
 		// Where the player collects: the goal's place, else where the guide left them.
 		const at = p && p.w ? p : w.pos && w.pos.w ? w.pos : null;
 		let sourced = true;
-		const npcs = Object.keys((it && it.drops && it.drops.npc) || {}).map(Number);
-		const objs = Object.keys((it && it.drops && it.drops.object) || {}).map(Number);
+		const dropNpcs = Object.keys((it && it.drops && it.drops.npc) || {}).map(Number);
+		const dropObjs = Object.keys((it && it.drops && it.drops.object) || {}).map(Number);
+		const npcs = dropNpcs.filter((id) => w.dropAllowed(item, 'npc', id));
+		const objs = dropObjs.filter((id) => w.dropAllowed(item, 'object', id));
 		const vendors = (it && it.vendors) || [];
 		if (!npcs.length && !objs.length && !vendors.length) {
 			sourced = false;
-			find(gi, 'R3', optional ? 'warn' : 'fail', `collect ${name}: the data has no mob, object or vendor for it and no earlier line gives it`, `write the line that makes it (\`buy\` what it takes, the object to use, the quest that rewards it) before, or drop the goal`);
+			if (dropNpcs.length || dropObjs.length) find(gi, 'R3', optional ? 'warn' : 'fail', `collect ${name}: its drop sources require quests that are neither held nor completed`, `accept or complete the drop source's required quests before collecting it, or use another source`);
+			else find(gi, 'R3', optional ? 'warn' : 'fail', `collect ${name}: the data has no mob, object or vendor for it and no earlier line gives it`, `write the line that makes it (\`buy\` what it takes, the object to use, the quest that rewards it) before, or drop the goal`);
 		} else if (at && !vendors.length) {
 			const nearAt = (pt, r) => npcs.some((m) => w.npcDist(m, pt) <= SOURCE_YD + r) || objs.some((o) => w.objDist(o, pt) <= SOURCE_YD + r);
 			// A goal searched over spots, a `loop` circuit's (Gordo walks the road Patience asks for his

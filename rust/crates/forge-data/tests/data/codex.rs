@@ -31,6 +31,30 @@ fn options(root: &Path, data: &Path) -> Options {
 }
 
 #[test]
+fn loot_source_requirements_survive_the_codex_build_and_pack() {
+	let (root, data) = setup("codex-drop-requires");
+	let file = data.join("items.json");
+	let mut items: serde_json::Value = serde_json::from_str(&std::fs::read_to_string(&file).unwrap()).unwrap();
+	items["16790"] = serde_json::json!({ "id":16790, "name":"Damp Note", "source":["pfquest"], "vendors":[4803],
+		"drops":{"npc":{"4802":33,"4803":10},"object":{"30":50}}, "dropRequires":{"npc":{"4802":[6563]},"object":{"30":[6563,6564]}} });
+	std::fs::write(file, items.to_string()).unwrap();
+	let file = data.join("npcs.json");
+	let mut npcs: serde_json::Value = serde_json::from_str(&std::fs::read_to_string(&file).unwrap()).unwrap();
+	for id in [4802, 4803] {
+		npcs[id.to_string()] = serde_json::json!({"id":id,"name":format!("NPC {id}"),"level":20,"spawns":{"1429":{"f":"e","pts":[[50,50]]}},"source":["pfquest"]});
+	}
+	std::fs::write(file, npcs.to_string()).unwrap();
+	let out = codex::build_logged(&options(&root, &data), &|_| {}).unwrap();
+	let items: serde_json::Value = serde_json::from_str(&out.json.iter().find(|(n, _)| n == "items.json").unwrap().1).unwrap();
+	let sources = items["16790"]["sources"].as_array().unwrap();
+	assert_eq!(sources.iter().find(|s| s["type"] == "drop" && s["npc"] == 4802).unwrap()["requiresQuests"], serde_json::json!([6563]));
+	assert_eq!(sources.iter().find(|s| s["type"] == "object").unwrap()["requiresQuests"], serde_json::json!([6563, 6564]));
+	assert!(sources.iter().filter(|s| s["npc"] == 4803).all(|s| s.get("requiresQuests").is_none()), "alternative drop and vendor stay ungated");
+	assert!(out.pack.iter().any(|(_, text)| text.contains("d4802,33,,p,6563")));
+	assert!(out.pack.iter().any(|(_, text)| text.contains("o30,50,p,6563%2C6564")));
+}
+
+#[test]
 fn codex_matches_golden() {
 	let (root, data) = setup("codex");
 	let out = codex::build_logged(&options(&root, &data), &|_| {}).unwrap();

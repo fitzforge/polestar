@@ -1723,6 +1723,19 @@ pub fn merge_codex(inputs: &Inputs) -> Merged {
 		if sources.is_empty() && junk(&name_s) {
 			continue;
 		}
+		// Loot conditions describe this exact source, regardless of which input
+		// supplied its chance. Source finalization must not discard the condition.
+		let requires = fv.items.get(&ids).get("dropRequires");
+		for source in &sources {
+			let quests = match source.get("type").as_str() {
+				Some("drop") => requires.get("npc").get(&kstr(&source.get("npc"))),
+				Some("object") => requires.get("object").get(&kstr(&source.get("object"))),
+				_ => V::Undef,
+			};
+			if quests.is_arr() && !quests.is_empty() {
+				source.set("requiresQuests", V::from(quests.items()));
+			}
+		}
 		let kind = if mount_items.contains(&id) {
 			"mount"
 		} else if pet_items.contains(&id) {
