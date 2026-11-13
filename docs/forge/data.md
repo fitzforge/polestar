@@ -200,6 +200,27 @@ Each source's name, version and licence is recorded in `data/forever/meta.json` 
 For the full credits and licences, see [rust/NOTICE.md](../../rust/NOTICE.md) and
 [THIRD_PARTY.md](../../THIRD_PARTY.md).
 
+#### Forever's quest data comes from a QuestieDB release
+
+`--questie` must point at a QuestieDB **release** (the `QuestieDB` folder from a release zip, or the
+addon as installed), never at a checkout of its repository. Only a release has the baked store
+(`QuestieDB_Forever.toc`): QuestieDB's Static Corrections are spread over many files in its
+repository and are folded into that store when a release is made. The reader refuses any other
+folder ("use a QuestieDB release").
+
+QuestieDB also has Dynamic Corrections, which the addon applies per character while it runs (by
+faction and class), so the store doesn't hold them. The reader runs each one the release declares
+for Forever (its `src/corrections/Forever` files) once for every faction and playable class, and
+folds them into the store's quests, NPCs, objects and items:
+
+- quest giver and ender lists become the union of what every character sees: a quest both
+  factions share keeps both factions' NPCs, and our data picks the right one by the NPC's faction;
+- any other field (objective text, zone, next quest, spawns, drops) changes only when every
+  character sees the same value; otherwise the store's value stays.
+
+The build log lists what changed, and `meta.json` counts it under the QuestieDB source's
+`dynamicCorrections`.
+
 ### How the merge works
 
 The build goes in layers. A later layer wins over an earlier one:
@@ -379,6 +400,12 @@ Rules:
   quest's breadcrumb (its `breadcrumbs`, or the other quest's `breadcrumbFor`) is dropped, and
   `forge data check-corrections` warns. When it is a real prerequisite, also set `breadcrumbs`
   without it and `breadcrumbFor: null` on the other quest (#1490, The Great Outdoors).
+- A breadcrumb in the log does hold its quest back: the game offers the quest only once the
+  breadcrumb is handed in (or abandoned). The route search, the judge, `forge guide lint`, the
+  engine and the pick-up guides all follow that. So players' recordings that show a quest
+  refused while the earlier quest was in the log, and offered after its hand-in, prove nothing
+  about a prerequisite: only a character who never took the earlier quest, refused at the giver,
+  does.
 
 After editing, run `forge data check-corrections`, then `forge data build`, and look at the changed
 record in `data/forever`.

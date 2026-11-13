@@ -516,7 +516,7 @@ fn alerts_a_notice_wraps_its_line_grows_the_banner_and_goes_on_hide_a_transport_
 		out[0]["notice"],
 		json!({ "shown": true, "title": "Polestar is hidden here", "line": "Click the minimap button or press Ctrl-Shift-P to show it. It comes back when you leave.",
 			"wraps": true, "multi": true, "grown": true, "glyph": true, "tint": [1, 1, 1, 1] }),
-		"the emblem in its own colours, not the boat glyph's tint (RegressVisual V2)"
+		"the emblem in its own colours, not the boat glyph's tint (visual regression check)"
 	);
 	assert_eq!(out[0]["still"], true, "a fixed line, no countdown");
 	assert_eq!(out[0]["gone"], true, "gone after its time, without the transport's linger");

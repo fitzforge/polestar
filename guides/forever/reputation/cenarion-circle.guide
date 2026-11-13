@@ -52,8 +52,8 @@ step Cenarion Hold
   zone Silithus
   tip Cenarion Hold is the walled druid camp in north-central Silithus, with flight points for both sides. Everyone starts Neutral with the Cenarion Circle (druids at 2,000 of 3,000). Bor and Huum Wildmane stand together in the main building. Secret Communication opens the Encrypted Twilight Text turn-ins for good. The Legacy perk Diplomat adds up to 10% to every gain; the numbers in this guide are without it.
   getfp "Cenarion Hold"
-  turnin 8275 optional only Alliance  -- Windcaller Proudhorn
-  turnin 8276 optional only Horde
+  turnin 8275 only Alliance           -- Windcaller Proudhorn
+  turnin 8276 only Horde
   accept 8318                         -- Bor Wildmane
   accept 8320 optional                -- Huum Wildmane, level 60
 
@@ -100,7 +100,7 @@ step Around Cenarion Hold
   collect 20373 x8 quest 8277.1       -- Stonelash Scorpid Stinger
   collect 20376 x8 quest 8277.2       -- Sand Skitterer Fang
   kill 11740 x15 quest 8280.1 optional -- Dredge Striker
-  turnin 8307 optional                -- Sandy Cookbook
+  turnin 8307                         -- Sandy Cookbook
   accept 8313 optional
 
 step Back at the Hold
@@ -109,7 +109,7 @@ step Back at the Hold
   accept 8278
   turnin 8280 optional
   accept 8281 optional
-  turnin 8313 optional                -- Calandrath
+  turnin 8313                         -- Calandrath
   accept 8317 optional
 
 step Stonelash and Dredge Crushers
@@ -188,7 +188,7 @@ step The Calling
   turnin 8309
   turnin 8310
   accept 8314                         -- Rutgar Glyphshaper
-  turnin 8308 optional                -- Rutgar Glyphshaper: 100
+  turnin 8308                         -- Rutgar Glyphshaper: 100
   turnin 8314                         -- Geologist Larksbane
   accept 8315 optional                -- raid of 20
   turnin 8306 optional                -- Commander Mar'alith
@@ -200,7 +200,7 @@ step The New Frontier, Thunder Bluff
   zone Thunder Bluff
   tip Optional: Rabine Saturna's chain pays 525 Cenarion reputation over seven quests of level 55 to 57, full at 60. Bluff Runner Windstrider sends you to Arch Druid Hamuul Runetotem on Elder Rise, who sends you to Rabine Saturna in Nighthaven, Moonglade.
   accept 1000 optional                -- Bluff Runner Windstrider
-  turnin 1000 optional                -- Arch Druid Hamuul Runetotem
+  turnin 1000                         -- Arch Druid Hamuul Runetotem
   accept 1123 optional
 
 # Fandral and Mathrengyl stand upstairs in the druids' building, and the walking maps have no way up
@@ -213,23 +213,23 @@ step The New Frontier, Darnassus
   tip Optional: Rabine Saturna's chain pays 525 Cenarion reputation over seven quests of level 55 to 57, full at 60. Herald Moonstalker sends you to Arch Druid Fandral Staghelm, who sends you to Mathrengyl Bearwalker, who sends you to Rabine Saturna in Nighthaven, Moonglade.
   accept 1047 optional                -- Herald Moonstalker
   goto 35.8,11.6 "Cenarion Enclave" optional
-  turnin 1047 optional                -- Arch Druid Fandral Staghelm
+  turnin 1047                         -- Arch Druid Fandral Staghelm
   accept 6761 optional
   goto 35.8,11.6 "Cenarion Enclave" optional
-  turnin 6761 optional                -- Mathrengyl Bearwalker
+  turnin 6761                         -- Mathrengyl Bearwalker
   accept 6762 optional
 
 step Rabine Saturna
   zone Moonglade
   tip Rabine Saturna lives in Nighthaven. She sends you to Layo Starstrike at Valor's Rest, the camp in the north-east corner of Silithus.
-  turnin 1123 optional only Horde
-  turnin 6762 optional only Alliance
+  turnin 1123 only Horde
+  turnin 6762 only Alliance
   accept 1124 optional
 
 step Southwind Village
   zone Silithus
   tip The Tortured Druids and Sentinels roam the ruins of Southwind Village, south-east of Cenarion Hold; the Hive'Ashi Pod sits on the top floor of its wasp-circled tower.
-  turnin 1124 optional                -- Layo Starstrike
+  turnin 1124                         -- Layo Starstrike
   accept 1125 optional
   kill 12178 x8 quest 1125.1 optional -- Tortured Druid
   kill 12179 x8 quest 1125.2 optional -- Tortured Sentinel
@@ -241,9 +241,9 @@ step Southwind Village
 
 step Umber in Nighthaven
   zone Moonglade
-  turnin 6844 optional                -- Umber
+  turnin 6844                         -- Umber
   accept 6845 optional
-  turnin 6845 optional                -- Rabine Saturna
+  turnin 6845                         -- Rabine Saturna
   accept 1185 optional
   turnin 1185 optional
 
@@ -268,15 +268,15 @@ step Field Duty, level 60
   turnin 8731 optional only Horde
   turnin 9338 direct optional         -- Allegiance: one Combat, Logistics and Tactical badge, 200
   accept 8800 optional                -- Cenarion Battlegear: Vargus's badge gear
-  turnin 8800 optional
+  turnin 8800
 
 step Silithyst
   tip Optional, 100 reputation once: Scouring the Desert. Your side's camp sits by a hive: Marshal Bluewall's by Hive'Zora (Alliance), General Kirika's by Hive'Regal (Horde). Silithyst rises from glowing geysers around the desert: walk through one, carry the Silithyst to your camp's Silithyst Extractor, then talk to the camp's leader. It is a world PvP objective: players of the other side can take it from you.
-  turnin 9415 optional only Alliance @33.3,51.1 -- Marshal Bluewall
+  turnin 9415 only Alliance @33.3,51.1 -- Marshal Bluewall
   accept 9419 optional only Alliance
   complete 9419 optional only Alliance @33.0,50.8 -- deliver Silithyst at the extractor
   turnin 9419 optional only Alliance  -- 100
-  turnin 9416 optional only Horde @50.8,69.5 -- General Kirika
+  turnin 9416 only Horde @50.8,69.5 -- General Kirika
   accept 9422 optional only Horde
   complete 9422 optional only Horde @50.9,69.3 -- deliver Silithyst at the extractor
   turnin 9422 optional only Horde     -- 100
@@ -288,11 +288,11 @@ step Templars and the Abyssal Council
   turnin 8361 optional
   turnin 8362 direct optional         -- 3 Abyssal Crests: 50
   accept 8331 optional                -- Huum Wildmane, Friendly
-  turnin 8331 optional                -- Aurel Goldleaf
+  turnin 8331                         -- Aurel Goldleaf
   accept 8332 optional
   turnin 8332 optional                -- 3 crests and a Large Brilliant Shard: the Medallion of Station
   accept 8349 optional
-  turnin 8349 optional                -- Bor Wildmane
+  turnin 8349                         -- Bor Wildmane
   accept 8348 optional
   collect 20514 quest 8348.1 optional @24.7,32.7 -- Abyssal Signet: Duke, group of 5
   turnin 8348 optional
@@ -306,11 +306,11 @@ step Signets and scepters to Exalted
   collect 20515 quest 9248.1 optional @25.6,34.0 -- Abyssal Scepter: Lord, raid of 20
   turnin 9248 optional
   accept 8343 optional                -- Huum Wildmane, Revered
-  turnin 8343 optional
+  turnin 8343
   accept 8341 optional
   turnin 8341 optional                -- 3 signets and 5 Large Brilliant Shards: the Ring of Lordship
   accept 8351 optional
-  turnin 8351 optional
+  turnin 8351
   accept 8352 optional
   collect 20515 quest 8352.1 optional @25.6,34.0 -- Abyssal Scepter: Lord, raid of 20
   turnin 8352 optional
@@ -320,7 +320,7 @@ step Signets and scepters to Exalted
 step The Ruins of Ahn'Qiraj, when they open
   tip A 20-player raid behind the Scarab Wall in the far south-west of Silithus. A full clear is about 1,600 Cenarion reputation: the trash 3 each until 20,999 of 21,000 Revered, Kurinnaxx, Moam, Buru and Ayamiss 150 each and Ossirian 300, to Exalted. Ossirian's head starts The Fall of Ossirian (200 here and 200 Brood of Nozdormu). Their drops buy the ring (Honored), cloak (Revered) and weapon (Exalted) quests of Windcaller Yessendra, Keyl Swiftclaw and Warden Haro in the Hold, 100 reputation each. Dirk Thunderwood in the Hold pays 100 once for The Perfect Poison: Kurinnaxx's Venom Sac from here and Venoxis's from Zul'Gurub. Lieutenant General Andorov sells Plans: Jagged Obsidian Shield (Revered, 5g) and Obsidian Mail Tunic (Exalted, 8g) inside.
   accept 8791 optional item 21220     -- Head of Ossirian the Unscarred
-  turnin 8791 optional                -- Commander Mar'alith
+  turnin 8791                         -- Commander Mar'alith
   accept 9023 optional                -- Dirk Thunderwood: The Perfect Poison
   collect 22217 quest 9023.2 optional @29.0,92.8 -- Kurinnaxx's Venom Sac
 

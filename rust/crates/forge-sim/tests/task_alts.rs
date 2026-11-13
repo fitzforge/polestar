@@ -1,6 +1,6 @@
 //! A task's other places (the world's task `alts`): a buy is made at a vendor the route stands at on
 //! the way (c13: Soothing Spices 1218 flown for to the Crossroads after the Dustwallow accept, where v1
-//! buys them in Ratchet on the way in), and an object's site is the one by other work (RevTauren3: the
+//! buys them in Ratchet on the way in), and an object's site is the one by other work (review: the
 //! Well Stones at Winterhoof, where Rite of Vision's totem is used, not at Thunderhorn).
 
 mod common;

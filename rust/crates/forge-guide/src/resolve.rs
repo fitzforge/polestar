@@ -1482,6 +1482,17 @@ pub fn resolve_guide(ast: &V, data: &Data, diag: &mut Diagnostics, pack: Option<
 		};
 		let ez = r.resolve_zone(&spec);
 		let end_zone = if ez.truthy() { ez } else { hz.clone() };
+		// The factions the guide is for, narrowed by its races (a `taxi` predicate's flight master), when asked.
+		let guide_sides = || {
+			let factions: V = if h.get("faction").truthy() { vec![h.get("faction")].into() } else { V::Null };
+			let layer: V = obj! {
+				"factions" => factions.clone(),
+				"races" => if h.get("races").truthy() { h.get("races") } else { V::Null },
+				"classes" => if h.get("classes").truthy() { h.get("classes") } else { V::Null },
+			}
+			.into();
+			smart_sides(&sides_for(&[factions]), &crate::conditions::applicable(&[layer]))
+		};
 		let nw: V = V::obj();
 		guide.set("nextWhen", nw.clone());
 		for id in h.get("next").items() {
@@ -1497,7 +1508,7 @@ pub fn resolve_guide(ast: &V, data: &Data, diag: &mut Diagnostics, pack: Option<
 				Some("group") => r.err(&p.get("line"), "`group` asks the player at a step of the guide: it cannot decide a `next` option", Some("put `when group <quest>` on the steps of that quest")),
 				_ => {
 					let zid = if end_zone.truthy() { end_zone.get("id") } else { V::Null };
-					let w = resolve_when(&vec![p.clone()].into(), &zid, None, r);
+					let w = resolve_when(&vec![p.clone()].into(), &zid, None, &guide_sides, r);
 					nw.set(&key, w);
 				}
 			}
@@ -1583,14 +1594,26 @@ pub fn resolve_guide(ast: &V, data: &Data, diag: &mut Diagnostics, pack: Option<
 		}
 	}
 
-	let mut prev = V::Null;
-	let mut used_maps: Vec<V> = Vec::new();
-	let use_map = |used: &mut Vec<V>, m: V| {
-		if let Some(i) = used.iter().position(|x| x.strict_eq(&m)) {
-			used.remove(i);
+	// Where the next goal's spawn is picked from: the last goal with coordinates (`prev`) and the maps used, most
+	// recent first. Two cursors: the dungeon runner's takes in every step, the solo route's leaves out a dungeon's
+	// steps (`when dungeon "<Name>"`), which a character who skips the dungeon never walks. A step for the runners
+	// is placed from the runner's cursor and every other step from the solo route's, so the solo route compiles as
+	// it would without the dungeon steps (Skip keeps the solo route's steps).
+	struct Cursor {
+		prev: V,
+		used_maps: Vec<V>,
+	}
+	impl Cursor {
+		fn use_map(&mut self, m: &V) {
+			if let Some(i) = self.used_maps.iter().position(|x| x.strict_eq(m)) {
+				self.used_maps.remove(i);
+			}
+			self.used_maps.insert(0, m.clone());
 		}
-		used.insert(0, m);
-	};
+	}
+	const RUNNER: usize = 0;
+	const SOLO: usize = 1;
+	let mut cursors = [Cursor { prev: V::Null, used_maps: Vec::new() }, Cursor { prev: V::Null, used_maps: Vec::new() }];
 	let classes_of = |race: &str, side: &str| data.race_classes(race, side);
 	let head_factions: V = if h.get("faction").truthy() { vec![h.get("faction")].into() } else { V::Null };
 	let head_layer: V = obj! {
@@ -1661,14 +1684,20 @@ pub fn resolve_guide(ast: &V, data: &Data, diag: &mut Diagnostics, pack: Option<
 		};
 		let step_zone = r.resolve_zone(&zspec);
 		let szid = if step_zone.truthy() { step_zone.get("id") } else { V::Null };
-		set_if(&step, "when", resolve_when(&s.get("when"), &szid, levels, r));
+		// The factions the step is for, narrowed by its races as a goal's (a `taxi` predicate's flight master), when asked.
+		let step_sides = || {
+			let only = s.get("only");
+			let factions = if only.truthy() { only.get("factions") } else { only.clone() };
+			smart_sides(&sides_for(&[head_factions.clone(), factions]), &crate::conditions::applicable(&[head_layer.clone(), only]))
+		};
+		set_if(&step, "when", resolve_when(&s.get("when"), &szid, levels, &step_sides, r));
 		set_if(&step, "label", s.get("label"));
 		set_if(&step, "along", s.get("along"));
 		set_if(&step, "section", s.get("section"));
 		if s.get("skipto").truthy() {
 			let mut list = Vec::new();
 			for k in s.get("skipto").items() {
-				let w = resolve_when(&vec![k.get("when")].into(), &szid, None, r);
+				let w = resolve_when(&vec![k.get("when")].into(), &szid, None, &step_sides, r);
 				list.push(obj! { "to" => k.get("to"), "when" => w.at(0) }.into());
 			}
 			step.set("skipto", list);
@@ -1677,13 +1706,16 @@ pub fn resolve_guide(ast: &V, data: &Data, diag: &mut Diagnostics, pack: Option<
 		step.set("goals", step_goals.clone());
 		step.set_hidden("_line", s.get("line"));
 		step.set_hidden("_only", s.get("only"));
+		let for_runners = step.get("when").items().iter().any(|p| p.get("k").as_str() == Some("dungeon") && !p.get("neg").truthy());
+		let at = if for_runners { RUNNER } else { SOLO };
+		let moves = if for_runners { RUNNER..RUNNER + 1 } else { RUNNER..SOLO + 1 };
 		for g in &sgoals {
 			let zone = r.resolve_zone(&g.get("zone"));
 			let zone_id = if zone.truthy() { zone.get("id") } else { V::Null };
 			let sonly = s.get("only");
 			let gonly = g.get("only");
 			let sides = sides_for(&[head_factions.clone(), if sonly.truthy() { sonly.get("factions") } else { sonly.clone() }, if gonly.truthy() { gonly.get("factions") } else { gonly.clone() }]);
-			let um = used_maps.clone();
+			let um = cursors[at].used_maps.clone();
 			let ctx = Ctx {
 				sides,
 				used_maps: &um,
@@ -1693,7 +1725,7 @@ pub fn resolve_guide(ast: &V, data: &Data, diag: &mut Diagnostics, pack: Option<
 				zone_id: zone_id.clone(),
 				loop_: s.get("loop").truthy(),
 			};
-			let goal = resolve_goal(g, &zone_id, &prev, r, &ctx);
+			let goal = resolve_goal(g, &zone_id, &cursors[at].prev, r, &ctx);
 			goal.set_hidden("_line", g.get("line"));
 			goal.set_hidden("_only", if gonly.truthy() { gonly.clone() } else { V::Null });
 			step_goals.push(goal.clone());
@@ -1767,17 +1799,25 @@ pub fn resolve_guide(ast: &V, data: &Data, diag: &mut Diagnostics, pack: Option<
 				);
 			}
 			if !matches!(zone_id, V::Null) {
-				use_map(&mut used_maps, zone_id.clone());
+				for c in &mut cursors[moves.clone()] {
+					c.use_map(&zone_id);
+				}
 			}
 			if !goal.get("x").is_undef() {
-				prev = obj! { "map" => goal.get("map"), "x" => goal.get("x"), "y" => goal.get("y") }.into();
-				use_map(&mut used_maps, goal.get("map"));
+				let here: V = obj! { "map" => goal.get("map"), "x" => goal.get("x"), "y" => goal.get("y") }.into();
+				for c in &mut cursors[moves.clone()] {
+					c.prev = here.clone();
+					c.use_map(&goal.get("map"));
+				}
 			}
 		}
 		if s.get("loop").truthy() {
 			apply_loop(&step, s, r);
 			if let Some(last) = step.get("goals").items().iter().rev().find(|goal| !goal.get("x").is_undef()) {
-				prev = obj! { "map" => last.get("map"), "x" => last.get("x"), "y" => last.get("y") }.into();
+				let here: V = obj! { "map" => last.get("map"), "x" => last.get("x"), "y" => last.get("y") }.into();
+				for c in &mut cursors[moves.clone()] {
+					c.prev = here.clone();
+				}
 			}
 		}
 		gsteps.push(step);
@@ -1915,8 +1955,9 @@ fn check_background(steps: &[V], gsteps: &[V], r: &mut R) {
 }
 
 /// What an accept of quest `id` (record `q`, or Null) waits on, for the engine: its blocking prerequisites, the
-/// quests that close it for good, and its `parent` (a child quest, which its giver offers only while the parent is
-/// in the log and never once it is handed in: Valik with Infiltration, #1661). A quest something closes for good
+/// quests that close it for good, its `parent` (a child quest, which its giver offers only while the parent is
+/// in the log and never once it is handed in: Valik with Infiltration, #1661), and its breadcrumbs (`crumbs`: the
+/// game holds the quest back while one is in the log, until it is handed in). A quest something closes for good
 /// also carries the NPCs it is handed in to (`endNpcs`) and its XP (`xp`), from the data: the missable-quest line
 /// (Core/Closes.lua) says nothing of a breadcrumb to the NPC offering the closing quest, or of one worth no XP.
 fn accept_gate(q: &V, id: &V, data: &Data) -> V {
@@ -1943,12 +1984,17 @@ fn accept_gate(q: &V, id: &V, data: &Data) -> V {
 			}
 		}
 	}
-	let parent: Vec<V> = if q.truthy() && q.get("parent").num() > 0.0 { vec![V::from(q.get("parent").num())] } else { Vec::new() };
+	// The parent as blocking_prereqs gives it: not the quest itself, one exclusive with it, or one nobody can start.
+	let parent: Vec<V> = if bp.get("parent").is_num() { vec![bp.get("parent")] } else { Vec::new() };
 	if let Some(p) = parent.first() {
 		out.set("parent", p.clone());
 	}
+	let crumbs: Vec<V> = crate::prereqs::crumbs_of(id, &data.quests).into_iter().map(V::from).collect();
+	if !crumbs.is_empty() {
+		out.set("crumbs", crumbs.clone());
+	}
 	let titles: V = V::obj();
-	for p in all.iter().chain(any.iter()).chain(closed_by.iter()).chain(parent.iter()) {
+	for p in all.iter().chain(any.iter()).chain(closed_by.iter()).chain(parent.iter()).chain(crumbs.iter()) {
 		let pq = data.quest(p);
 		if pq.truthy() && pq.get("title").truthy() {
 			titles.set(&p.to_js_string(), pq.get("title").to_js_string());
@@ -1960,8 +2006,10 @@ fn accept_gate(q: &V, id: &V, data: &Data) -> V {
 	out
 }
 
-/// A step's `when` predicates as the engine reads them. `levels`: the guide's (min, max). -> array | Undef
-fn resolve_when(list: &V, zone_id: &V, levels: Option<(f64, f64)>, r: &mut R) -> V {
+/// A step's `when` predicates as the engine reads them. `levels`: the guide's (min, max). `sides`: the factions
+/// the step (or guide) is for, asked only for a `taxi` predicate's flight master (places.rs goal_node).
+/// -> array | Undef
+fn resolve_when(list: &V, zone_id: &V, levels: Option<(f64, f64)>, sides: &dyn Fn() -> V, r: &mut R) -> V {
 	let data = r.data;
 	if !list.truthy() || list.is_empty() {
 		return V::Undef;
@@ -2104,6 +2152,16 @@ fn resolve_when(list: &V, zone_id: &V, levels: Option<(f64, f64)>, r: &mut R) ->
 					);
 				}
 			}
+			"taxi" => {
+				// A flight point named as for `getfp`: its taxi node for the step's factions, else the name alone.
+				w.set("name", p.get("name"));
+				let bad = crate::places::check_location(data, "getfp", &p.get("name"));
+				if bad.truthy() {
+					r.warn(&ln, format!("taxi \"{}\": no flight point has that name, so Polestar never counts its flight path as known", p.get("name")), hint_of(&bad.get("hint")));
+				}
+				let probe: V = obj! { "t" => "getfp", "location" => p.get("name") }.into();
+				set_if(&w, "node", crate::places::goal_node(data, &probe, &sides()));
+			}
 			_ => {
 				// bound
 				w.set("name", p.get("name"));
@@ -2162,6 +2220,7 @@ fn resolve_when(list: &V, zone_id: &V, levels: Option<(f64, f64)>, r: &mut R) ->
 					}
 				}
 				"knows" => "spell",
+				"taxi" => "flight path",
 				_ => "place",
 			};
 			r.warn(&p.get("line"), format!("the step asks for `{k}` and `!{k}` of the same {what}: no character sees it"), None);

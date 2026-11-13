@@ -44,6 +44,7 @@ const GROUPS: &[Group] = &[
 	Group { name: "discovery", src: include_str!("effects/discovery.lua") },
 	Group { name: "discovery_lookup", src: include_str!("effects/discovery-lookup.lua") },
 	Group { name: "discovery_dungeons", src: include_str!("effects/discovery-dungeons.lua") },
+	Group { name: "discovery_dungeon_route", src: include_str!("effects/discovery-dungeon-route.lua") },
 	Group { name: "gamepad", src: include_str!("effects/gamepad.lua") },
 	Group { name: "qol", src: include_str!("effects/qol.lua") },
 	Group { name: "qol_spells", src: include_str!("effects/qol-spells.lua") },
@@ -76,6 +77,32 @@ const GROUPS: &[Group] = &[
 	Group { name: "trackers_party", src: include_str!("effects/trackers-party.lua") },
 	Group { name: "pins_world", src: include_str!("effects/pins-world.lua") },
 ];
+
+// A guide whose first step is Marshal McBride's Kobold Camp Cleanup and every later step a dungeon's (`when dungeon`,
+// one per dungeon of Dungeons.ROUTE, in its order), then a level goal; open, on a level 1 Human in Elwynn Forest.
+// The dungeons by Map id and name: effects/discovery-dungeon-route.lua's list, checked against Dungeons.ROUTE there.
+const DUNGEON_ROUTE_GUIDE: &str = r#"
+local w = stub.world
+w.addMap(1429, { name = "Elwynn Forest", c = 0, left = 1500, right = -1500, top = 500, bottom = -1500 })
+w.moveTo(1429, 48, 42)
+local ROUTE = { { 389, "Ragefire Chasm" }, { 3065, "The Hall of Thanes" }, { 2999, "Ruins of Lordaeron" }, { 36, "The Deadmines" },
+	{ 43, "Wailing Caverns" }, { 33, "Shadowfang Keep" }, { 48, "Blackfathom Deeps" }, { 34, "The Stockade" },
+	{ 90, "Gnomeregan" }, { 47, "Razorfen Kraul" }, { 2998, "Excavation Site: Wetlands" }, { 2959, "City of Dalaran" },
+	{ 189, "Scarlet Monastery" }, { 2970, "The Drowned City" }, { 129, "Razorfen Downs" }, { 70, "Uldaman" },
+	{ 3039, "Krol'dok Stronghold" }, { 209, "Zul'Farrak" }, { 349, "Maraudon" }, { 109, "Sunken Temple" },
+	{ 2994, "Alcaz Prison" }, { 230, "Blackrock Depths" }, { 229, "Blackrock Spire" }, { 429, "Dire Maul" },
+	{ 2974, "Blackmaw Hold" }, { 329, "Stratholme" }, { 289, "Scholomance" }, { 3001, "The Shaper's Terrace" } }
+Polestar.RegisterPack({ addon = "Polestar_Test", id = "test", format = 1, title = "Test", author = "Test", version = "1", license = "MIT" })
+local steps = { { title = "Marshal McBride", goals = { { t = "accept", quest = 7, title = "Kobold Camp Cleanup", npc = 197, npcName = "Marshal McBride", map = 1429, x = 48.9, y = 41.6 } } } }
+for _, d in ipairs(ROUTE) do
+	steps[#steps + 1] = { title = d[2], when = { { k = "dungeon", name = d[2], map = d[1] } }, goals = { { t = "task", text = "Run " .. d[2] } } }
+end
+steps[#steps + 1] = { title = "Level up", goals = { { t = "level", level = 60 } } }
+Polestar.RegisterGuide({ id = "test/dungeons", pack = "test", title = "Dungeons", minLevel = 1, maxLevel = 60, steps = steps })
+Polestar.Engine.SetGuide("test/dungeons")
+stub.fire("QUEST_LOG_UPDATE")
+stub.advance(0.6)
+"#;
 
 // Two reads compared (numbers within 1e-4, tables by their keys) and shown in a message: the runner's, and a login
 // check's verdict (login_check).
@@ -271,6 +298,10 @@ fn env(name: &str) -> Env {
 		},
 		// The whole addon with EllesmereUI installed before it loads (theme.rs).
 		"eui" => Env { before: "stub.withEllesmere()\n", ..env("world") },
+		// The whole addon with a guide that has a step for every dungeon in the route (Dungeons.ROUTE's, read from
+		// the settings' addon's list without it: the group's own list), registered before the settings window's
+		// addon loads, so Discovery > Dungeons has a row for each (Polestar_Options/Dungeons/Options.lua).
+		"dungeonroute" => Env { prelude: format!("stub.advance(1)\n{DUNGEON_ROUTE_GUIDE}\nassert(Polestar.UI.LoadOptions())\n"), ..env("world") },
 		// The real QoL against tests/lua/stub_qol.lua's client and its fake Engine, Nav and Pins (qol.rs,
 		// qol-items.rs, ui-look-buttons.rs), with its rows (the settings' addon's QoL/Options.lua) and the Buttons
 		// page that sets the action buttons' looks. The whole addon's guide window can't draw the fake Engine's
@@ -434,6 +465,11 @@ fn discovery_lookup() {
 #[test]
 fn discovery_dungeons() {
 	check("discovery_dungeons");
+}
+
+#[test]
+fn discovery_dungeon_route() {
+	check("discovery_dungeon_route");
 }
 
 #[test]
@@ -617,6 +653,8 @@ fn every_control_has_an_effect_check() {
 		script: format!(
 			r#"
 			stub.advance(1)
+			-- Guides with steps for every dungeon: each one's row on Discovery > Dungeons is a control too.
+			Polestar.Engine.GuideDungeons = function() return setmetatable({{}}, {{ __index = function() return true end }}) end
 			assert(Polestar.UI.LoadOptions())
 			{pending}
 			local O = Polestar.UI.Options

@@ -1849,6 +1849,7 @@ ns.PathGrid = {
 	standing = standing,
 	snap = snap,
 	smooth = smooth,
+	unpackField = unpackField,
 	Rest = Rest,
 	Idle = Idle,
 	Reset = Reset,

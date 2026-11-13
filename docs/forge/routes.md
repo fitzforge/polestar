@@ -289,8 +289,10 @@ it stays equal to v1's model.
   collects it (Benedict's Key from Lieutenant Benedict, before The Admiral's Orders).
 - **Escorts.** An escort is walked from its giver. Between its accept and its escort task, only talks
   within 40 yd of the giver may come.
-- **Timed quests.** While a timed quest runs, every leg is walked (no hearth, flight or boat). A kept
-  edit never adds a late hand-in.
+- **Timed quests.** While a timed quest with work to do runs, every leg is walked (no hearth, flight or
+  boat); a delivery (a limit and no tasks, Apothecary Zamah) travels as any quest does. A hand-in is
+  late past 60% of the limit (`TIMED_SHARE`, room for real play over the model's times). A kept edit
+  never adds a late hand-in.
 - **Bag items.** An item dropped by more than 20 kinds of mob (cloth for donations) is taken from the
   bags: no trip, no work.
 - **Quest log.** See [model.md](model.md#quest-log).

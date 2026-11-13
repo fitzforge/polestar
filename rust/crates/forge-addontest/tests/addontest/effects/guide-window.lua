@@ -1,7 +1,8 @@
 -- env: ui
 -- The Guide page's window rows (Polestar_Options/UI/Options.lua, GuideOptions.lua; UI/GuideFrame*.lua) on the live
 -- guide window with the UI stub's Elwynn guide open at a step with three goals and a long tip, as the Guide window
--- page's checks have it: what the window shows, its tip and its Up next list, its grip, and Reset position.
+-- page's checks have it: what the window shows, its tip and its Up next list, its grip, and Reset position; and
+-- About's Install button, which opens Install (UI/Welcome.lua) over it.
 local GF, F, P
 local function pos() local p, _, rp, x, y = F:GetPoint(1); return { p, rp, math.floor((x or 0) + 0.5), math.floor((y or 0) + 0.5) } end
 local function rows() local n = 0 for _, r in ipairs(GF.rows) do if r:IsShown() and r.psGoal then n = n + 1 end end return n end
@@ -48,6 +49,11 @@ return {
 		end, probe = function()
 			local B = P.banner
 			return B:IsShown() and B.psKind == "update" and B.Text:GetText() or false
+		end },
+		-- About's Install (UI/Welcome.lua): the button opens Install on its first page.
+		["About:Set Polestar up again"] = { press = true, prepare = function() if PolestarWelcome then PolestarWelcome:Hide() end end,
+			cleanup = function() if PolestarWelcome then PolestarWelcome:Hide() end end, probe = function()
+			return PolestarWelcome ~= nil and PolestarWelcome:IsShown() and (Polestar.UI.Welcome.Page()) or false
 		end },
 	},
 }

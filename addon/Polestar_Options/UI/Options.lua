@@ -30,7 +30,10 @@ local L = ns.L
 local floor, max, min, ipairs, pairs, type = math.floor, math.max, math.min, ipairs, pairs, type
 
 local SH = W.SHELL
-local GAP = 24 -- between the two columns of the Recorder's and About's tiles
+-- Sizes (one table, so the main chunk stays within the locals budget): GAP between the two columns of the
+-- Recorder's and About's tiles, HERO_H the About hero's height, INSTALL_ROOM the main column's width the
+-- header's Install button needs beside the page's title.
+local SIZE = { GAP = 24, HERO_H = 96, INSTALL_ROOM = 780 }
 
 local O = {}
 UI.Options = O
@@ -411,6 +414,13 @@ local BUILTIN = {
 			help = L["Elite and escort quests the guides mark for a group. Ask at each, or answer them all: with a group (a party levelling together) or skip them (solo). Discovery, Group quests changes one."],
 			choices = { { value = "ask", label = L["Ask me at each"] }, { value = "do", label = L["Do them with a group"] }, { value = "skip", label = L["Skip them"] } },
 			needs = function() local E = ns.Engine; return E and E.GroupQuests and #E.GroupQuests() > 0 end },
+		-- Dungeons in the route (`when dungeon`, Own.dungeonAnswer): the answer for every dungeon a
+		-- character has not answered one by one (Discovery > Dungeons, the guide window's question).
+		{ kind = "dropdown", key = "behavior.dungeons", label = L["Dungeons in my route"], new = "0.4.0",
+			help = L["Leveling guides can take you through the dungeons on your way, for a group of five: they pick up the quests on stops they make anyway, send you to the door at the right level and hand the quests in after. Skip them: the solo route. Ask me: the guide asks at each dungeon. Discovery, Dungeons changes one."],
+			choices = { { value = "skip", label = L["Skip them"] }, { value = "ask", label = L["Ask me"] }, { value = "run", label = L["Run them"] } },
+			search = "dungeon, dungeons, instance, group, run, deadmines, wailing caverns, zul'farrak, blackrock depths",
+			needs = function() local E = ns.Engine; return E and E.GuideDungeons and next(E.GuideDungeons()) ~= nil end },
 	} },
 	{ page = GUIDE, tab = L["Automation"], section = L["Guides"], controls = {
 		{ kind = "toggle", key = "behavior.autoSelectGuide", label = L["Pick a guide for me"], help = L["Opens the suggested guide when no tab is open."], search = "auto guide, choose guide, suggested guide" },
@@ -553,7 +563,7 @@ local function placePair(view, pair, y, cw, layout)
 	local h = 0
 	for col, w in ipairs(pair) do
 		w:ClearAllPoints()
-		w:SetPoint("TOPLEFT", view, "TOPLEFT", SH.pad + (col - 1) * (cw + GAP), -y)
+		w:SetPoint("TOPLEFT", view, "TOPLEFT", SH.pad + (col - 1) * (cw + SIZE.GAP), -y)
 		w:Show()
 		h = max(h, layout(w, cw))
 	end
@@ -584,7 +594,7 @@ local function buildRecorder(view)
 	note:SetJustifyV("TOP")
 	view.Refresh = function()
 		local st = recorderState()
-		local cw = (win.BodyWidth - GAP) / 2
+		local cw = (win.BodyWidth - SIZE.GAP) / 2
 		local y = 8
 		header:ClearAllPoints()
 		header:SetPoint("TOPLEFT", view, "TOPLEFT", SH.pad, -y)
@@ -622,14 +632,21 @@ local function buildRecorder(view)
 	end
 end
 
+-- Install (UI/Welcome.lua) as a control, so the search finds it ("install",
+-- "setup", "wizard", "first run"): at home on About, whose Install tile is its
+-- widget there (view.cache), the one a search result's jump lights.
+local INSTALL = { kind = "button", icon = "palette", button = L["Install"], label = L["Set Polestar up again"],
+	help = L["Install's pages: questing, groups and dungeons, your route and your look, a page at a time. Each choice works at once."],
+	search = "install, setup, set up, wizard, first run, first time, welcome, getting started, start again, onboarding",
+	onClick = function() ns.Fire("SHOW_WELCOME") end }
+
 -- The About hero: the sidebar's lockup at full size. The emblem (64, its ink
 -- on the 32 edge, in its glow), then the wordmark (Media/UI/wordmark.tga,
 -- 1:1, its ink 3px into the box and on rows 4-27), the tagline under it, and
 -- the version with the release stage's chip.
-local HERO_H = 96
 local function buildAbout(view)
 	local hero = CreateFrame("Frame", nil, view)
-	hero:SetHeight(HERO_H)
+	hero:SetHeight(SIZE.HERO_H)
 	local emblem = W.Tex(hero, "ARTWORK", "emblem", "accent")
 	emblem:SetSize(64, 64)
 	emblem:SetPoint("TOPLEFT", hero, "TOPLEFT", -9, -16)
@@ -701,11 +718,18 @@ local function buildAbout(view)
 	local cmdH, cmdText = block(L["Commands"], hex .. "/polestar|r   " .. L["show or hide the guide window"] .. "\n"
 		.. hex .. "/polestar guides|r   " .. L["choose a guide"] .. "\n"
 		.. hex .. "/polestar next, prev, skip|r   " .. L["move through steps"] .. "\n"
+		.. hex .. "/polestar install|r   " .. L["set Polestar up again, a page at a time"] .. "\n"
 		.. hex .. "/polestar report|r   " .. L["report a problem with a step on the Polestar Discord"] .. "\n"
 		.. hex .. "/polestar help|r   " .. L["every command"])
-	local welcome = W.Button(view, L["Show the welcome again"], function() ns.Fire("SHOW_WELCOME") end)
-	view.Welcome = welcome
-	local whatsNew = W.Button(view, L["What's new"], function() ns.Fire("SHOW_WHATSNEW") end)
+	-- Install (UI/Welcome.lua) and what's new, first under the hero: the
+	-- setup a new character gets, again whenever the player wants it.
+	local install = W.ActionTile(view, "palette", L["Install"],
+		L["Set Polestar up again, a page at a time: questing, groups and dungeons, your route, your look. Each choice works at once."],
+		function() ns.Fire("SHOW_WELCOME") end)
+	view.Install = install
+	view.cache = { [INSTALL] = install }
+	local whatsNew = W.ActionTile(view, "star", L["What's new"], L["What this version of Polestar changed for you."],
+		function() ns.Fire("SHOW_WHATSNEW") end)
 	view.WhatsNew = whatsNew
 	local credH, credText = block(L["Credits"], L["Inter typeface by The Inter Project Authors, SIL Open Font License 1.1."] .. "\n"
 		.. L["Wordmark set in Cinzel by The Cinzel Project Authors, SIL Open Font License 1.1."] .. "\n"
@@ -726,12 +750,12 @@ local function buildAbout(view)
 		ver:SetText(versionLine())
 		W.SetStageChip(stage)
 		local width = win.BodyWidth
-		local cw = (width - GAP) / 2
+		local cw = (width - SIZE.GAP) / 2
 		local y = 12
 		hero:ClearAllPoints()
 		hero:SetPoint("TOPLEFT", view, "TOPLEFT", SH.pad, -y)
 		hero:SetWidth(width)
-		y = y + HERO_H
+		y = y + SIZE.HERO_H
 		local ai = ns.AITranslation()
 		aiNote:SetShown(ai)
 		aiLink:SetShown(ai)
@@ -744,6 +768,7 @@ local function buildAbout(view)
 			aiLink:SetPoint("TOPLEFT", view, "TOPLEFT", SH.pad, -y)
 			y = y + aiLink:GetHeight() + 12
 		end
+		y = y + placePair(view, { install, whatsNew }, y, cw, W.LayoutTile) + 12
 		whyH:ClearAllPoints()
 		whyH:SetPoint("TOPLEFT", view, "TOPLEFT", SH.pad, -y)
 		whyH:SetWidth(width)
@@ -764,16 +789,6 @@ local function buildAbout(view)
 			pair[2]:ClearAllPoints()
 			pair[2]:SetPoint("TOPLEFT", view, "TOPLEFT", SH.pad, -y)
 			y = y + pair[2]:GetStringHeight() + 8
-			-- The welcome and what's new again, under the commands that
-			-- they introduce.
-			if pair[1] == cmdH then
-				y = y + 4
-				welcome:ClearAllPoints()
-				welcome:SetPoint("TOPLEFT", view, "TOPLEFT", SH.pad, -y)
-				whatsNew:ClearAllPoints()
-				whatsNew:SetPoint("LEFT", welcome, "RIGHT", 8, 0)
-				y = y + welcome:GetHeight() + 12
-			end
 		end
 		maintH:ClearAllPoints()
 		maintH:SetPoint("TOPLEFT", view, "TOPLEFT", SH.pad, -y)
@@ -789,6 +804,7 @@ add({ page = L["Guiding Stars"], key = "thanks", icon = "star", order = 80, subt
 	custom = UI.Thanks.Build }, true)
 add({ page = REC, key = "recorder", icon = "record", order = 90, subtitle = L["The data recorder for guide authors."], custom = buildRecorder }, true)
 add({ page = ABOUT, key = "about", icon = "info", order = 100, subtitle = L["Why Polestar exists, its commands and its credits."], custom = buildAbout }, true)
+add({ page = ABOUT, section = L["Install"], controls = { INSTALL } }, true)
 
 -- Page keys from before the pages were regrouped (and older section names)
 -- reach the page, and the tab, that holds those settings now. A page's own
@@ -869,9 +885,9 @@ local function available(c)
 	if c.needs and not c.needs() then return false end
 	if c.kind == "button" then return true end
 	if c.kind == "binding" then return ns.Gamepad ~= nil and ns.Gamepad.BindingRow ~= nil end
-	-- A toggle, slider or cards with get/set and no key holds state that is no
-	-- setting (per character, or a preset the cards' get recognises).
-	if (c.kind == "toggle" or c.kind == "slider" or c.kind == "cards") and not c.key and c.get and c.set then return true end
+	-- A toggle, slider, dropdown or cards with get/set and no key holds state
+	-- that is no setting (per character, or a preset the cards' get recognises).
+	if (c.kind == "toggle" or c.kind == "slider" or c.kind == "dropdown" or c.kind == "cards") and not c.key and c.get and c.set then return true end
 	return ns.GetDefault and ns.GetDefault(c.key) ~= nil
 end
 
@@ -908,6 +924,8 @@ local function makeControl(parent, c)
 		local choices = type(c.choices) == "function" and function() return choicesOf(c) end or choicesOf(c)
 		local opts = getset
 		if c.kind == "font" then opts = { get = c.get, set = c.set, faces = true } end
+		-- State that is no setting: a right-click puts back its default through set(nil), as Reset does.
+		if c.kind == "dropdown" and not c.key and c.get and c.set then opts = { get = c.get, set = c.set, reset = true } end
 		w = W.Dropdown(parent, labelOf(c), c.key, choices, c.help, nil, opts)
 	elseif c.kind == "cards" then
 		local choices = type(c.choices) == "function" and function() return choicesOf(c) end or choicesOf(c)
@@ -1066,7 +1084,7 @@ function O.ResetSection(controls)
 	for _, c in ipairs(controls) do
 		if c.key and c.kind ~= "button" and c.kind ~= "binding" then
 			ns.Set(c.key, nil)
-		elseif (c.kind == "toggle" or c.kind == "slider" or c.kind == "cards") and not c.key and c.set then
+		elseif (c.kind == "toggle" or c.kind == "slider" or c.kind == "dropdown" or c.kind == "cards") and not c.key and c.set then
 			c.set(nil)
 		end
 	end
@@ -2622,11 +2640,11 @@ end
 
 function O.ResetPage(p)
 	for _, key in ipairs(pageKeys(p)) do ns.Set(key, nil) end
-	-- Toggles, sliders and cards of state that is no setting go back to their default too.
+	-- Toggles, sliders, dropdowns and cards of state that is no setting go back to their default too.
 	for _, t in ipairs(p.tabs) do
 		for _, s in ipairs(t.sections) do
 			for _, c in ipairs(allSettings(s)) do
-				if (c.kind == "toggle" or c.kind == "slider" or c.kind == "cards") and not c.key and c.set and available(c) then c.set(nil) end
+				if (c.kind == "toggle" or c.kind == "slider" or c.kind == "dropdown" or c.kind == "cards") and not c.key and c.set and available(c) then c.set(nil) end
 			end
 		end
 	end
@@ -3054,9 +3072,10 @@ local function applySize()
 	if win:GetWidth() == w and win:GetHeight() == h then return false end
 	win:SetSize(w, h)
 	W.ShellLayout(win)
-	-- The footer's thanks for the main column's new width (a size change's
-	-- own hook may run before the shell has measured it).
+	-- The footer's thanks and the header's Install for the main column's new
+	-- width (a size change's own hook may run before the shell has measured it).
 	if rawget(win, "PlaceThanks") then win.PlaceThanks() end
+	if rawget(win, "PlaceInstall") then win.PlaceInstall() end
 	return true
 end
 
@@ -3159,7 +3178,27 @@ local function build()
 		b:SetShown((b.Name:GetText() or "") ~= "" and used + 16 + b:GetWidth() <= room)
 	end
 	UI.Thanks.HeaderLink(win)
-	win:HookScript("OnSizeChanged", function() win.PlaceThanks() end)
+	-- Install from the header, left of the search: the first run's setup,
+	-- again whenever the player wants it (UI/Welcome.lua over this window).
+	-- A window too narrow for it beside the page's title (under SIZE.INSTALL_ROOM
+	-- of main column) leaves it out: About and the search still have it.
+	win.Install = W.Button(win.Header, L["Install"], function() ns.Fire("SHOW_WELCOME") end, { ghost = true, icon = "palette" })
+	win.Install.psTip = L["Install"]
+	win.Install.psTipLines = { L["Set Polestar up again, a page at a time. Each choice works at once."] }
+	local function placeInstall()
+		local room = tonumber(rawget(win, "psMainW")) or 0
+		win.Install:SetShown(room >= SIZE.INSTALL_ROOM)
+		if rawget(win, "HeaderTools") then win.HeaderTools.Place() end
+	end
+	if rawget(win, "psHeadTools") then
+		win.psHeadTools[#win.psHeadTools + 1] = win.Install
+		win.PlaceInstall = placeInstall
+		placeInstall()
+	end
+	win:HookScript("OnSizeChanged", function()
+		if rawget(win, "psHeadTools") then placeInstall() end
+		win.PlaceThanks()
+	end)
 	-- After the shell's own scale handler: the size follows the scale's room.
 	ns.On("SETTING_CHANGED", function(path)
 		if path == "ui.optionsSize" or path == "ui.menuScale" or path == "" or path == "ui" then

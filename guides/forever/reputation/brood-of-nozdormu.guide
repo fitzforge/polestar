@@ -105,7 +105,7 @@ step The blue shard: Azuregos's ledger
 step Narain Soothfancy
   zone Tanaris
   tip Narain Soothfancy, a goblin seer, lives in a hut north-east of Gadgetzan. He sends you three ways at once: to Stewvul's crate in Silverpine Forest, to an island off the south coast of Tanaris, and to Dirge Quikcleave in Gadgetzan.
-  turnin 8575 optional                -- 10
+  turnin 8575                         -- 10
   accept 8576 optional
   turnin 8576 optional                -- 10
   accept 8577 optional
@@ -115,7 +115,7 @@ step Narain Soothfancy
 step Stewvul's crate
   zone Silverpine Forest
   tip The Inconspicuous Crate leans on the Greymane Wall at the south end of Silverpine Forest, left of the closed gate.
-  turnin 8577 optional                -- Inconspicuous Crate: 10
+  turnin 8577                         -- Inconspicuous Crate: 10
   accept 8578 optional
   collect 20951 quest 8578.1 optional @46.2,86.7 -- Narain's Scrying Goggles
 
@@ -126,15 +126,15 @@ step Meridith the Mermaiden
 
 step The island off Land's End Beach
   zone map 947
-  turnin 8597 optional                -- Freshly Dug Dirt: 10
+  turnin 8597                         -- Freshly Dug Dirt: 10
   accept 8598 optional
 
 step Back to Narain
   zone Tanaris
   tip Decoy! sends you, disguised with Narain's turban, to a drop-off point south of Everlook in Winterspring. Leave the bag of gold there: Number Two, a level 61 elite, comes for it (group of 3 to 5).
   turnin 8578 optional                -- 10
-  turnin 8598 optional                -- 10
-  turnin 8599 optional                -- 10
+  turnin 8598                         -- 10
+  turnin 8599                         -- 10
   accept 8606 optional
 
 step Decoy!
@@ -146,7 +146,7 @@ step Dirge Quikcleave
   tip Dirge Quikcleave cooks in Gadgetzan. He sends you to the Isle of Dread off southern Feralas for a Chimaerok feast.
   turnin 8606 optional                -- Narain Soothfancy: 25
   accept 8620 optional
-  turnin 8584 optional                -- Dirge Quikcleave
+  turnin 8584                         -- Dirge Quikcleave
   accept 8585 optional
 
 step The Isle of Dread
@@ -169,7 +169,7 @@ step Dirge's Chops
   collect 8150 x20 quest 8586.2 optional -- Deeprock Salt
   turnin 8586 optional
   accept 8587 optional
-  turnin 8587 optional                -- Narain Soothfancy: 200
+  turnin 8587                         -- Narain Soothfancy: 200
   turnin 8620 optional                -- 75
   accept 8728 optional
   collect 12360 x20 quest 8728.1 optional @52.0,29.7 -- Arcanite Bar: Alchemists, or the auction house
@@ -190,13 +190,13 @@ step The green shard: Eranikus
 
 step The Forest Wisp
   zone Teldrassil
-  turnin 8733 optional                -- Forest Wisp: 25 (and 25 Cenarion Circle)
+  turnin 8733                         -- Forest Wisp: 25 (and 25 Cenarion Circle)
   accept 8734 optional
 
 step Keeper Remulos
   zone Moonglade
   tip The Nightmare's Corruption wants a fragment from each of the four Dragons of Nightmare portals: elite dragonkin at the Ashenvale, Feralas and Hinterlands portals (5% each) and the Twilight Corrupter in Duskwood. Raid content.
-  turnin 8734 optional                -- 10 (and 100 Cenarion Circle)
+  turnin 8734                         -- 10 (and 100 Cenarion Circle)
   accept 8735 optional
 
 step The Ashenvale portal
@@ -231,7 +231,7 @@ step The Scepter of the Shifting Sands
   tip With the three shards, Anachronos makes the Scepter of the Shifting Sands. In Classic its first holder rings the Scarab Gong once for the whole realm, opening the gates of Ahn'Qiraj, and those who finish within ten hours earn the black qiraji crystal mount; whether Forever's realms get that event is not known.
   turnin 8730 optional                -- Red Scepter Shard: 200
   turnin 8729 optional                -- Blue Scepter Shard: 200
-  turnin 8741 optional                -- Green Scepter Shard: 100
+  turnin 8741                         -- Green Scepter Shard: 100
   accept 8742 optional
   turnin 8742 optional                -- 200 (and 200 Cenarion Circle)
 
@@ -293,7 +293,7 @@ step Revered to Exalted
   collect 21229 optional @29.0,92.8   -- Qiraji Lord's Insignia
   turnin 8595 direct optional @29.0,92.8 -- Mortal Champions: 1 insignia, 500
   accept 8801 optional item 21221 @29.0,92.8 -- Eye of C'Thun
-  turnin 8801 optional @29.0,92.8     -- Caelestrasz: 200
+  turnin 8801 @29.0,92.8              -- Caelestrasz: 200
   rep 910 Exalted
 
 step The Exalted ring

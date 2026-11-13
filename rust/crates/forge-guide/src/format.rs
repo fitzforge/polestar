@@ -10,7 +10,8 @@ use crate::js::V;
 // adds `group` (docs/PACK_FORMAT.md, "Format 2"); format 4 adds a step's
 // `when`, `label` and `along`, a level goal's `frac` and a `next` option's
 // `when` (`nextWhen`); format 5 adds the `money`, `task`, `enter`, `cast`, `abandon`, `destroy` and `die` goals, the
-// `money`, `dungeon`, `upgrade`, `done`, `skill`, `cooldown`, `group` and `knows` when predicates and a step's `skipto`; a pack is written in the first format its guides
+// `money`, `dungeon`, `upgrade`, `done`, `skill`, `cooldown`, `group` and `knows` when predicates and a step's `skipto`;
+// format 10 adds the `taxi` when predicate; a pack is written in the first format its guides
 // need (format_for): a pack without any stays readable by Polestar 0.2.5.
 pub const FORMAT: u32 = 3;
 pub const WHEN_FORMAT: u32 = 4;
@@ -24,6 +25,9 @@ pub const PACKED_FORMAT: u32 = 8;
 /// Format 9: the `wait` goal (a countdown in the step). An older Polestar refuses the pack as too new
 /// instead of refusing each guide with "unknown verb".
 pub const WAIT_FORMAT: u32 = 9;
+/// Format 10: the `taxi` when predicate (a flight path the character knows). An older Polestar refuses the
+/// pack as too new instead of refusing each guide with "bad when".
+pub const TAXI_FORMAT: u32 = 10;
 
 /// NEEDS[format]: the first Polestar version that reads it (`undefined` -> None).
 pub fn needs(format: u32) -> Option<&'static str> {
@@ -33,6 +37,7 @@ pub fn needs(format: u32) -> Option<&'static str> {
 		3 => "0.2.5",
 		4 => "0.2.6",
 		5..=9 => "0.3.0",
+		10 => "0.4.0",
 		_ => return None,
 	})
 }
@@ -77,11 +82,19 @@ fn uses_wait(g: &V) -> bool {
 	g.get("steps").items().iter().any(|s| s.get("goals").items().iter().any(|goal| goal.get("t").as_str() == Some("wait")))
 }
 
+/// A `taxi` predicate, on a step, a `skipto` or a `next` option, needs format 10 (TAXI_FORMAT).
+fn uses_taxi(g: &V) -> bool {
+	let taxi = |p: &V| p.get("k").as_str() == Some("taxi");
+	g.get("steps").items().iter().any(|s| s.get("when").items().iter().any(taxi) || s.get("skipto").items().iter().any(|k| taxi(&k.get("when"))))
+		|| g.get("nextWhen").values().iter().any(|list| list.items().iter().any(taxi))
+}
+
 fn has_keys(v: &V) -> bool {
 	v.truthy() && !v.keys().is_empty()
 }
 
-/// The format a pack's compiled guides need: WAIT_FORMAT when a guide has a `wait` goal,
+/// The format a pack's compiled guides need: TAXI_FORMAT when a guide has a `taxi` predicate,
+/// WAIT_FORMAT when a guide has a `wait` goal,
 /// MONEY_TASK_FORMAT when a guide
 /// uses money/task/enter/cast/abandon/destroy goals, a money, dungeon, upgrade, done, skill, cooldown, group or knows when predicate or a
 /// `skipto`, WHEN_FORMAT when a step
@@ -89,6 +102,9 @@ fn has_keys(v: &V) -> bool {
 /// option has `when` (`nextWhen`), else FORMAT. A pack with baked legs is
 /// LEGS_FORMAT (project.rs build_pack_files).
 pub fn format_for(guides: &[V]) -> u32 {
+	if guides.iter().any(uses_taxi) {
+		return TAXI_FORMAT;
+	}
 	if guides.iter().any(uses_wait) {
 		return WAIT_FORMAT;
 	}

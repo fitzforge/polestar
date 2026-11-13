@@ -114,7 +114,7 @@
 		"recordedCrossings": 0,
 		"shippedCrossings": 54,
 		"timetables": 15,
-		"portals": 4,
+		"portals": 6,
 		"teleports": 8
 	},
 	"taxi": {
@@ -7176,6 +7176,68 @@
 				},
 				"seconds": 5,
 				"source": "AreaTrigger 542 -> classic-db areatrigger_teleport 542"
+			},
+			{
+				"id": "portal-sanctum-chamber",
+				"name": "Wizard's Sanctum",
+				"area": 1519,
+				"a": {
+					"name": "Wizard's Sanctum tower",
+					"area": 1519,
+					"c": 0,
+					"wx": -9020.1,
+					"wy": 880.5,
+					"map": 1453,
+					"x": 48.48,
+					"y": 88.42,
+					"f": "l",
+					"z": 148.6
+				},
+				"b": {
+					"name": "Wizard's Sanctum",
+					"area": 1519,
+					"c": 0,
+					"wx": -9017.5,
+					"wy": 885.9,
+					"map": 1453,
+					"x": 48.17,
+					"y": 88.2,
+					"f": "l",
+					"z": 29.6
+				},
+				"seconds": 5,
+				"source": "AreaTrigger 704 -> classic-db areatrigger_teleport 704"
+			},
+			{
+				"id": "portal-sanctum-tower",
+				"name": "Wizard's Sanctum tower",
+				"area": 1519,
+				"a": {
+					"name": "Wizard's Sanctum",
+					"area": 1519,
+					"c": 0,
+					"wx": -9023.3,
+					"wy": 892.4,
+					"map": 1453,
+					"x": 47.8,
+					"y": 88.7,
+					"f": "l",
+					"z": 29.6
+				},
+				"b": {
+					"name": "Wizard's Sanctum tower",
+					"area": 1519,
+					"c": 0,
+					"wx": -9014.9,
+					"wy": 873.3,
+					"map": 1453,
+					"x": 48.9,
+					"y": 87.98,
+					"f": "l",
+					"z": 148.6
+				},
+				"seconds": 5,
+				"source": "AreaTrigger 702 -> classic-db areatrigger_teleport 702"
 			},
 			{
 				"id": "portal-rohashi-spires",

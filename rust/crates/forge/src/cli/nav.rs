@@ -20,7 +20,7 @@ Polestar checkout (default: the nearest folder above the working directory with 
 slots, files not downloaded: forge gamedata check) is refused, since the grid would be wrong
 there: run Scan and Repair in the launcher, or pass --allow-incomplete.
 
-usage: forge nav pack [--dir <grid>] [--layers <dir>] [--out <addon dir>] [--cells N] [--date YYYY-MM-DD] [--root <dir>] [--leffe <dir> [--leffe-maps 0,1,2991] [--literals zlib|base64]]
+usage: forge nav pack [--dir <grid>] [--layers <dir>] [--out <addon dir>] [--cells N] [--date YYYY-MM-DD] [--root <dir>] [--leffe <dir> [--leffe-maps 0,1,2991] [--literals zlib|base64] [--ground reached|all] [--ledges on|off] [--spawns on|off]]
 
 Writes Polestar's walking maps of maps 0, 1 and 2991 from the grid (--dir, default $POLESTAR_GRID,
 else <root>/data/local/nav4; grid format 4) and the ground layers (--layers, default
@@ -40,7 +40,15 @@ surface's area from the grid's surface nearest it (maps format 5); the chokepoin
 --leffe-maps names the maps taken from his (default all three); the rest stay the grid's. His
 continents' map parts ship in their own load-on-demand addons beside the folder (Polestar_Nav_EK,
 Polestar_Nav_Kalimdor; their metadata stays in Polestar_Nav), and their blocks as zlib bytes in the
-string literals (--literals base64 keeps base64).
+string literals (--literals base64 keeps base64). Three rules, each off until measured on the
+walking-map judges: --ground reached keeps only the ground a walk from a fixed place reaches
+(flight masters and inns by their NPC's spawn, boat, zeppelin, tram and lift landings and portal
+ends from <root>/data/forever travel.json and spawnz.json, and the travel chains' nodes in
+<root>/data/crossings.json; default all); --ledges on takes our grid's falls of 2 to 14.57 yd (the
+height a fall starts to hurt) into the cell beside a ledge as one-way arcs where his maps lack the
+walk down; --spawns on carries the heights of the NPC and quest object spawns (<root>/data/forever
+spawnz.json, quests.json) that stand within a cell of another floor (the spawn field: a goal with
+no height beside one ends on its floor).
 
 usage: forge nav check [--out <addon dir>] [--root <dir>]
 
@@ -65,8 +73,9 @@ usage: forge nav layers hubs [--dir <grid>] [--root <dir>] [--layers <dir>]
 
 The hubs layer: each faction's towns and outposts from its guards and service NPCs (quest givers,
 vendors, trainers, flight masters, innkeepers, bankers, repairers) in the CMaNGOS classic-db spawns
-and creature templates (the cached dump under <root>/data/sources/cmangos), judged by the client's
-FactionTemplate table, clustered, named by the AreaTable area under them (the grid's area ids:
+and creature templates (the cached dump under <root>/data/sources/cmangos) and Forever's own NPCs
+classic-db lacks (<root>/forever-db/data npc.jsonl and spawn.jsonl; their roles and quests from
+<root>/data/forever), judged by the client's FactionTemplate table, clustered, named by the AreaTable area under them (the grid's area ids:
 --dir, default $POLESTAR_GRID, else <root>/data/local/nav4; the tables cached for the grid's build
 under <root>/data/sources/wago), into <layers>/hubs.json.";
 
@@ -207,7 +216,7 @@ fn today() -> String {
 }
 
 fn pack(args: &[String]) -> Result<(), Fail> {
-	let o = options(args, &["--dir", "--layers", "--out", "--cells", "--date", "--root", "--leffe", "--leffe-maps", "--literals"])?;
+	let o = options(args, &["--dir", "--layers", "--out", "--cells", "--date", "--root", "--leffe", "--leffe-maps", "--literals", "--ground", "--ledges", "--spawns"])?;
 	let cells: usize = match o.get("--cells") {
 		None => 128,
 		Some(v) => v.parse().ok().filter(|n| (8..=256).contains(n)).ok_or_else(|| usage("--cells needs a whole number from 8 to 256"))?,
@@ -229,6 +238,21 @@ fn pack(args: &[String]) -> Result<(), Fail> {
 		None | Some("zlib") => leffe.is_some(),
 		Some("base64") => false,
 		Some(_) => return Err(usage("--literals needs zlib or base64")),
+	};
+	let reached = match o.get("--ground").map(String::as_str) {
+		Some("reached") => true,
+		None | Some("all") => false,
+		Some(_) => return Err(usage("--ground needs reached or all")),
+	};
+	let ledges = match o.get("--ledges").map(String::as_str) {
+		Some("on") => leffe.is_some(),
+		None | Some("off") => false,
+		Some(_) => return Err(usage("--ledges needs on or off")),
+	};
+	let with_spawns = match o.get("--spawns").map(String::as_str) {
+		Some("on") => leffe.is_some(),
+		None | Some("off") => false,
+		Some(_) => return Err(usage("--spawns needs on or off")),
 	};
 	let date = o.get("--date").cloned().unwrap_or_else(today);
 	let ok_date = date.len() == 10 && date.bytes().enumerate().all(|(n, b)| if n == 4 || n == 7 { b == b'-' } else { b.is_ascii_digit() });
@@ -253,6 +277,10 @@ fn pack(args: &[String]) -> Result<(), Fail> {
 	let log = |m: &str| eprintln!("{m}");
 	let aids = grid.join("aids.json");
 	let t0 = Instant::now();
+	// The fixed places Leffe's maps keep the ground of (pack/reach.rs).
+	let places = if leffe.is_some() && reached { Some(forge_nav::pack::reach::fixed_places(&root)?) } else { None };
+	// The spawns whose heights go in where floors overlap (pack/spawns.rs).
+	let spawns = if with_spawns { Some(forge_nav::pack::spawns::spawn_points(&root)?) } else { None };
 	let p = forge_nav::pack::pack_nav(&forge_nav::pack::PackIn {
 		grid: &grid,
 		layers: &layers,
@@ -266,6 +294,9 @@ fn pack(args: &[String]) -> Result<(), Fail> {
 		generator: "forge nav pack",
 		leffe: leffe.as_ref().map(|(d, m)| (d.as_path(), m.as_slice())),
 		zlib_literals,
+		places: places.as_deref(),
+		ledges,
+		spawns: spawns.as_deref(),
 		log: &log,
 	})?;
 	let (written, removed) = forge_nav::pack::ship_pack(&p, &out)?;
@@ -443,11 +474,20 @@ fn hubs_layer(args: &[String]) -> Result<(), Fail> {
 	let areas = table("AreaTable")?;
 	let sources = root.join("data/sources");
 	let to_json = |v: &forge_guide::js::V| -> Result<serde_json::Value, String> { serde_json::from_str(&forge_guide::js::stringify(v, None)).map_err(|e| e.to_string()) };
-	let spawns = to_json(&forge_data::cmangos::load_spawn_heights(&sources, false)?.npc)?;
-	let templates = to_json(&forge_data::cmangos::load_creature_templates(&sources)?)?;
+	let mut spawns = to_json(&forge_data::cmangos::load_spawn_heights(&sources, false)?.npc)?;
+	let mut templates = to_json(&forge_data::cmangos::load_creature_templates(&sources)?)?;
 	let data = root.join("data/forever");
 	let read =
 		|f: &str| -> Result<serde_json::Value, String> { serde_json::from_slice(&std::fs::read(data.join(f)).map_err(|e| format!("{}: {e}", data.join(f).display()))?).map_err(|e| e.to_string()) };
+	// Forever's own NPCs, the ones classic-db lacks (forever-db's npc and spawn tables; #1961: Forever's Dalaran).
+	let jsonl = |name: &str| -> Result<Vec<serde_json::Value>, String> {
+		let f = root.join("forever-db/data").join(name);
+		let text = std::fs::read_to_string(&f).map_err(|e| format!("{}: {e}", f.display()))?;
+		text.lines().filter(|l| !l.is_empty()).map(|l| serde_json::from_str(l).map_err(|e| format!("{}: {e}", f.display()))).collect()
+	};
+	let flags = forge_nav::hubs::forever_flags(&read("npcs.json")?, &read("quests.json")?);
+	let forever = forge_nav::hubs::add_forever(&mut templates, &mut spawns, &jsonl("npc.jsonl")?, &jsonl("spawn.jsonl")?, &flags);
+	println!("hubs: {forever} Forever NPCs classic-db lacks (forever-db)");
 	let frames = forge_nav::pack::layers::Frames::new(&read("map-frames.json")?, read("zones.json")?);
 	let area_at = |c: u32, x: f64, y: f64| -> u32 {
 		let (col, row, i, j) = forge_nav::grid::cell_of(x, y);

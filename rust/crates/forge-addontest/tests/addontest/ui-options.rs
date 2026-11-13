@@ -976,14 +976,15 @@ fn guide_window_in_dungeons_and_battlegrounds_hides_by_default_keep_visible_is_a
 	);
 }
 
-// Discovery, Dungeons: which dungeons the leveling guides' `when dungeon` steps take this character through
-// (Dungeons/Dungeons.lua, Engine.ChooseDungeon). Only the dungeons this character's guides have steps for
-// are offered (0.3.6 plan: "Options page lists only dungeons with steps"): Ragefire Chasm in a guide whose
-// steps are read and The Deadmines here (Engine.GuideDungeons; engine-when-dungeon.rs reads them from the
-// guides). A choice saved for a dungeon not offered (Gnomeregan) is kept.
+// Discovery, Dungeons: the answer for each dungeon the leveling guides' `when dungeon` steps take this character
+// through (Polestar_Options/Dungeons/Options.lua, Engine.ChooseDungeon): As for all dungeons (none: "Dungeons in my
+// route" answers), Run it, or Skip it. Only the dungeons this character's guides have steps for show (0.3.6 plan:
+// "Options page lists only dungeons with steps"): Ragefire Chasm in a guide whose steps are read and The Deadmines
+// here (Engine.GuideDungeons; engine-when-dungeon.rs reads them from the guides). An answer saved for a dungeon not
+// shown (Gnomeregan) is kept, through Reset page too.
 
 #[test]
-fn discovery_dungeons_a_toggle_per_dungeon_the_guides_have_steps_for_all_off_chosen_per_character_in_the_client_s_language() {
+fn discovery_dungeons_an_answer_per_dungeon_the_guides_have_steps_for_per_character_in_the_client_s_language() {
 	let out = emitted(&RunAddon {
 		stubs: vec!["stub_ui.lua"],
 		addons: vec![Addon::files("Polestar", &["Core/Core.xml", "Theme/Theme.xml", "Dungeons/Dungeons.xml", "UI/UI.xml"])],
@@ -993,43 +994,61 @@ fn discovery_dungeons_a_toggle_per_dungeon_the_guides_have_steps_for_all_off_cho
 		Polestar.CharState().dungeons[90] = true
 		UI.ShowOptions("dungeons")
 		local c = O.Controls("discovery", "Dungeons")
-		local labels, on = {}, 0
+		local labels, values = {}, {}
 		for _, d in ipairs(Polestar.Dungeons.ROUTE) do
 			local row = c[d[1] == 389 and "Огненная пропасть" or d[2]]
-			if row then
+			if row and row:IsShown() then
 				labels[#labels + 1] = row.Label:GetText()
-				if row.checked then on = on + 1 end
+				values[#values + 1] = row.Button.Label:GetText()
 			end
 		end
 		local help = c["The Deadmines"].psDesc
 		local rfc, dm = c["Огненная пропасть"], c["The Deadmines"]
-		rfc:Click()
-		dm:Click()
+		local function menu()
+			local out = {}
+			for _, r in ipairs(PolestarMenu.rows) do if r:IsShown() then out[#out + 1] = r.Text:GetText() end end
+			return out
+		end
+		local function pick(row, text)
+			row.Button:Click()
+			for _, r in ipairs(PolestarMenu.rows) do if r:IsShown() and r.Text:GetText() == text then r:Click() break end end
+		end
+		dm.Button:Click()
+		local choices = menu()
+		dm.Button:Click()
+		pick(rfc, "Run it")
+		pick(dm, "Skip it")
 		local saved = {}
 		for k, v in pairs(PolestarCharDB.dungeons) do saved[k] = v end
-		local clicked = { rfc = rfc.checked, chosen = E.DungeonChosen(389), dm = E.DungeonChosen(36), saved = saved }
+		local picked = { rfc = rfc.Button.Label:GetText(), dm = dm.Button.Label:GetText(), run = E.DungeonAnswer(389), skip = E.DungeonAnswer(36), saved = saved,
+			calls = { lastCall("ChooseDungeon") } }
 		local account = PolestarDB.settings.dungeons or false
 		dm:Click("RightButton")
-		local right = { dm = dm.checked, chosen = E.DungeonChosen(36) }
+		local right = { dm.Button.Label:GetText(), PolestarCharDB.dungeons[36] == nil }
+		pick(dm, "Skip it")
+		pick(dm, "As for all dungeons")
+		local back = { dm.Button.Label:GetText(), PolestarCharDB.dungeons[36] == nil }
 		local _, found = O.Search("Огненная")
 		footerButton("Reset page"):Click()
 		PolestarModal.Box.Action:Click()
-		emit({ title = PolestarOptions.Title:GetText(), labels = labels, on = on, clicked = clicked, right = right, found = found,
-			reset = { rfc = rfc.checked, chosen = E.DungeonChosen(389), saved = PolestarCharDB.dungeons },
+		emit({ title = PolestarOptions.Title:GetText(), labels = labels, values = values, choices = choices, picked = picked, right = right, back = back,
+			found = found, reset = { rfc = rfc.Button.Label:GetText(), saved = PolestarCharDB.dungeons },
 			account = account, help = help, hidden = E.DungeonChosen(90) })"#,
 		..Default::default()
 	})
 	.remove(0);
 	assert_eq!(out["title"], "Discovery");
 	assert_eq!(out["labels"], json!(["Огненная пропасть", "The Deadmines"]), "only the dungeons this character's guides have steps for");
-	assert!(out["help"].as_str().unwrap().ends_with("More dungeons join this list as they are added to the guides' route."), "{}", out["help"]);
-	assert_eq!(out["on"], 0, "every dungeon is off by default: the solo route");
-	assert_eq!(out["clicked"], json!({ "rfc": true, "chosen": true, "dm": true, "saved": { "389": true, "36": true, "90": true } }));
-	assert_eq!(out["right"], json!({ "dm": false, "chosen": false }), "right-click puts it back to off");
+	assert!(out["help"].as_str().unwrap().ends_with("As for all dungeons: Guide, Automation, Dungeons in my route answers."), "{}", out["help"]);
+	assert_eq!(out["values"], json!(["As for all dungeons", "As for all dungeons"]), "none answered by default: Dungeons in my route (Skip) answers");
+	assert_eq!(out["choices"], json!(["As for all dungeons", "Run it", "Skip it"]));
+	assert_eq!(out["picked"], json!({ "rfc": "Run it", "dm": "Skip it", "run": true, "skip": false, "saved": { "389": true, "36": false, "90": true }, "calls": [["ChooseDungeon", 36, false]] }));
+	assert_eq!(out["right"], json!(["As for all dungeons", true]), "right-click forgets the answer: As for all dungeons");
+	assert_eq!(out["back"], json!(["As for all dungeons", true]), "As for all dungeons forgets the answer");
 	assert_eq!(out["found"], 1, "search finds the dungeon by the name it shows");
-	assert_eq!(out["reset"], json!({ "rfc": false, "chosen": false, "saved": { "90": true } }), "Reset page turns the shown choices off; a hidden one's is kept");
-	assert_eq!(out["hidden"], true, "Gnomeregan's saved choice stands though it is not offered");
-	assert_eq!(out["account"], false, "the choice is per character, never an account setting");
+	assert_eq!(out["reset"], json!({ "rfc": "As for all dungeons", "saved": { "90": true } }), "Reset page forgets the shown answers; a hidden one's is kept");
+	assert_eq!(out["hidden"], true, "Gnomeregan's saved answer stands though it is not shown");
+	assert_eq!(out["account"], false, "the answer is per character, never an account setting");
 }
 
 #[test]
@@ -1041,7 +1060,8 @@ fn discovery_dungeons_with_no_guide_steps_for_any_dungeon_has_no_leveling_guides
 			+ r#"
 		UI.ShowOptions("dungeons")
 		local c = O.Controls("discovery", "Dungeons")
-		emit({ dm = c["The Deadmines"] ~= nil, rfc = c["Ragefire Chasm"] ~= nil })"#,
+		local function shown(row) return row ~= nil and row:IsShown() end
+		emit({ dm = shown(c["The Deadmines"]), rfc = shown(c["Ragefire Chasm"]) })"#,
 		..Default::default()
 	})
 	.remove(0);
@@ -1066,6 +1086,36 @@ fn guide_automation_an_answer_for_all_group_quests_while_a_guide_has_one_the_cla
 		local dd = c["behavior.groupQuests"]
 		emit({ shown = dd ~= nil, label = dd and dd.Button.Label:GetText() or false, value = Polestar.Get("behavior.groupQuests") })"#);
 	assert_eq!(out, json!({ "shown": true, "label": "Ask me at each", "value": "ask" }));
+}
+
+// Guide, Automation: "Dungeons in my route" (behavior.dungeons): Skip them (the default: the solo route), Ask me or
+// Run them, shown once a guide for the character has a dungeon in its route. Right-click puts Skip back.
+#[test]
+fn guide_automation_dungeons_in_my_route_while_a_guide_has_a_dungeon_skip_by_default() {
+	let none = run(r#"
+		UI.ShowOptions("guide")
+		O.Select("guide", "Automation")
+		local dd = O.Controls("guide", "Automation")["behavior.dungeons"]
+		emit(dd ~= nil and dd:IsShown())"#);
+	assert_eq!(none, json!(false), "not while no guide has a dungeon");
+	let out = run(r#"
+		uistub.guideDungeons = { [36] = true }
+		UI.ShowOptions("guide")
+		O.Select("guide", "Automation")
+		local dd = O.Controls("guide", "Automation")["behavior.dungeons"]
+		local before = { dd.Label:GetText(), dd.Button.Label:GetText(), Polestar.Get("behavior.dungeons") }
+		dd.Button:Click()
+		local choices = {}
+		for _, r in ipairs(PolestarMenu.rows) do if r:IsShown() then choices[#choices + 1] = r.Text:GetText() end end
+		for _, r in ipairs(PolestarMenu.rows) do if r:IsShown() and r.Text:GetText() == "Run them" then r:Click() break end end
+		local after = { dd.Button.Label:GetText(), Polestar.Get("behavior.dungeons"), Polestar.Engine.DungeonAnswer(36) }
+		dd:Click("RightButton")
+		emit({ before = before, choices = choices, after = after, right = { dd.Button.Label:GetText(), Polestar.Get("behavior.dungeons") } })"#);
+	assert_eq!(
+		out,
+		json!({ "before": ["Dungeons in my route", "Skip them", "skip"], "choices": ["Skip them", "Ask me", "Run them"], "after": ["Run them", "run", true],
+			"right": ["Skip them", "skip"] })
+	);
 }
 
 // The quest automation toggles show on Questing > Quests and on Quality of Life > Quests:

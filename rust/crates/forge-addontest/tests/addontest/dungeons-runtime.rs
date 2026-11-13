@@ -383,7 +383,7 @@ fn buildjournal_a_quest_an_unplaced_object_of_the_instance_starts_is_picked_up_i
 	assert_eq!(json!([wanted["inside"], wanted["start"]["inside"]]), json!([false, false]), "placed outside: {wanted}");
 }
 
-// SweepDungeons' 'handin-missed' / 'quest-dropped' findings: turn-ins at NPCs and objects that stand only inside
+// The dungeon sweep's 'handin-missed' / 'quest-dropped' findings: turn-ins at NPCs and objects that stand only inside
 // an instance (Commander Gor'shak in Blackrock Depths, the Altar of Hakkar in the Sunken Temple) and a giver
 // inside (the Hall of Thanes' Ghostly Attendant) carried no `inside`, so the hand-in guide filed them as turned
 // in nowhere known. An unplaced NPC the Codex puts in this instance, or an unplaced object listing its map,
