@@ -72,9 +72,10 @@ fn late_class_adds_an_eligible_race_without_relaxing_root_restrictions() {
 		for header in ["race Human", "class Warrior"] {
 			assert!(chain(header, "", &body).play(&PackRun::default(), &opts).is_empty(), "{header}");
 		}
-		for run in [PackRun { race: Some("Human".into()), ..Default::default() }, PackRun { faction: Some("Horde".into()), ..Default::default() }] {
-			assert!(pack.play(&run, &opts).is_empty());
-		}
+		assert!(pack.play(&PackRun { race: Some("Human".into()), ..Default::default() }, &opts).is_empty());
+		let data = forge_guide::data::load_data(&Path::new(env!("CARGO_MANIFEST_DIR")).join("../../../tests/fixtures/dsl/data")).unwrap();
+		let result = play_pack(&pack.0, &data, None, &PackRun { faction: Some("Horde".into()), ..Default::default() }, &opts);
+		assert!(matches!(result, Err(e) if e.contains("nothing played")));
 	}
 }
 

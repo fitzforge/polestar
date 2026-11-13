@@ -601,7 +601,7 @@ async function playtest({ dir, manifest, official = false, filter = null, classe
 // that first guide's race, faction and class eligibility;
 // findings for the guides of `play` (sources). No Lua. `kb`: the knowledge
 // base file (default data/local/kb/forever-kb.sqlite when present; null: none).
-// -> { results: [], findings, diag, played, honest: true }
+// -> { results: [], findings, diag, played, plays, honest: true }
 function honestRun({ guides, packs, play, data, classes, groups, kb, diag }) {
 	const all = packs.flatMap((p) => p.guides);
 	const wanted = guides.filter((g) => play.has(g._ast && g._ast.source));
@@ -609,14 +609,18 @@ function honestRun({ guides, packs, play, data, classes, groups, kb, diag }) {
 	for (const g of all) {
 		for (const to of g.nextChoices || (g.next ? [g.next] : [])) arriving.set(to, [...(arriving.get(to) || []), ...(g.races || [])]);
 	}
+	let plays = 0;
 	const personas = (root, chain) => {
 		const named = new Set(chain.flatMap((g) => [...namedClasses(g)]));
 		let list = personasFor(root, arriving.get(root.id));
 		list = [...list, ...classPersonas(data, root, list, named)];
-		return list.flatMap(({ race, faction }) => classesFor(data, root, race, faction, classes, named).map((cls) => ({ race, faction, cls })));
+		const characters = list.flatMap(({ race, faction }) => classesFor(data, root, race, faction, classes, named).map((cls) => ({ race, faction, cls })));
+		// honestPlay asks only for chains containing a selected guide.
+		plays += characters.length;
+		return characters;
 	};
 	const findings = honestPlay(all, data, personas, { kb: kb === undefined ? loadKb() : kb ? loadKb(kb) : null, play: wanted.map((g) => g.id), groups });
-	return { results: [], findings, diag, played: wanted.length, honest: true };
+	return { results: [], findings, diag, played: wanted.length, plays, honest: true };
 }
 
 const titleCase = (s) => s.charAt(0) + s.slice(1).toLowerCase();

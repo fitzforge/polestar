@@ -80,6 +80,11 @@ and class restrictions still apply. With `--class` you pick from its eligible
 classes instead. This includes class-specific work introduced by a later
 guide, even when `--filter` reports only that later guide.
 
+A run that selects guides but dispatches no eligible character fails with
+`nothing played`. An empty pack or an unmatched guide filter reports that
+no guides were selected. These errors apply in default and legacy mode;
+valid runs keep reporting the number of selected guides and their findings.
+
 ### The rules
 
 | Rule | Checks | Severity |
