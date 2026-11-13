@@ -11614,3 +11614,20 @@ test("Riverglades (experimental): Ashe Amberhall's Sunnyglade hand-ins come befo
 		}
 	}
 });
+
+// A guide's steps as lists of code lines (comments cut).
+const rivergladesSteps = (file) => fs.readFileSync(path.join(RIVERGLADES, file), 'utf8').split(/\n(?=step\b)/).map((s) => s.split('\n').map(codeOf));
+const anyLine = (lines, re) => lines.some((l) => re.test(l));
+
+// Benjy Wheeler offers Freshwater Fiends before My Kingdom for a Horse (players' offer windows), and its Mudfin murlocs
+// drop Halligan Turner's murloc heads: one sweep along the river does both, instead of a second murloc hunt later.
+test("Riverglades (experimental): Benjy Wheeler's murlocs and Halligan Turner's murloc heads are one sweep", () => {
+	const steps = rivergladesSteps('riverglades-alliance-1.guide');
+	const sweep = steps.findIndex((lines) => anyLine(lines, /^\s+collect 267266\b/));
+	assert.ok(sweep >= 0, 'the murloc heads are collected in part 1');
+	for (const npc of [258574, 258573]) {
+		assert.ok(anyLine(steps[sweep], new RegExp(`^\\s+kill ${npc}\\b.*\\bquest 94614\\.`)), `the heads' step kills ${npc} for Freshwater Fiends`);
+	}
+	const taken = steps.findIndex((lines) => anyLine(lines, /^\s+accept 94614\b/));
+	assert.ok(taken >= 0 && taken < sweep, 'Freshwater Fiends is taken before the sweep');
+});

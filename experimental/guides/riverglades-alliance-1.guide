@@ -13,9 +13,11 @@ next polestar-experimental/riverglades-alliance-2
 # recordings of the zone (123 sessions to 2026-11-12) and Forever's quest data (the client's quest records,
 # QuestieDB 1.0.16 and EG Link) for titles, levels, objectives and places.
 # Order: the way in from Redridge through Blackrock Pass; the western hubs in one pass (Scout Bolain, Southern
-# Watch, Turner's Logging Camp, the Bristle Hills, the Holmsby farm and the river, with Curly's rescue on the way
-# back to the camp); Farholde Keep (flight path, inn); Wheeler's Grange; the plains up to Terral's Watch; Farholde
-# Keep again.
+# Watch, Turner's Logging Camp, the Bristle Hills, the Holmsby farm and the river, where Benjy Wheeler's murlocs,
+# Halligan's murloc heads and Curly are one sweep, then Curly's rescue from the camp); Farholde Keep (flight path,
+# inn); Wheeler's Grange; the plains up to Terral's Watch; Farholde Keep again.
+# Freshwater Fiends: Benjy offers it before My Kingdom for a Horse (players' recordings: two characters were offered
+# it before they took My Kingdom for a Horse).
 # Offered only after another quest is handed in (players' recordings): From Seed to Sprout after Unsavory Plant
 # Food; Foal Play after My Kingdom for a Horse; Coyote Huntin' and Wheeler's Fleeing Steeds after Foal Play;
 # Rescue Roundup after Wheeler's Fleeing Steeds; Fit for a Princess after Apple of My Eye; Stepped Out after Fit for
@@ -84,10 +86,19 @@ step Holmsby farm
   accept 94999                          -- Eleanor Holmsby: Eyes for the Watchman
   accept 94923                          -- Robbie Holmsby: Hats Off
 
+step Benjy Wheeler
+  tip North-east across the fields to Wheeler's Grange: Benjy Wheeler wants the Mudfin murlocs on the river thinned out, the same murlocs whose heads Halligan needs, so one pass along the river does both.
+  accept 94614                          -- Freshwater Fiends
+
 step Meadowsbrook and the river
-  tip The fresh manure lies in the fields of Meadowsbrook just east of the farm; Robbie's hat is on the riverbank beyond, among the Mudfin murlocs.
-  collect 266156 x4 quest 94842.2       -- Fresh Manure
+  tip Back south-west along the river: kill the Mudfin Warriors and Oracles on the banks for Benjy (they drop Halligan's heads) and the Jumbo Crawfish in the shallows for the shells. Curly, one of Halligan's lumberjacks, is stuck on the bank just north-west of the murlocs; Robbie's hat lies on the riverbank among them; the fresh manure is in the fields of Meadowsbrook, between the river and the farm. Ghostmaw, an elite (level 42), prowls the river: if he comes your way, back off and let him pass.
+  accept 94857                          -- Curly: If a Tree Falls, and No One Hears...
+  kill 258574 x8 quest 94614.1          -- Mudfin Warrior
+  kill 258573 x8 quest 94614.2          -- Mudfin Oracle
+  collect 267266 x8 quest 94842.3       -- Mudfin Murloc Head
+  collect 266157 x4 quest 94842.1       -- Jumbo Crawfish Shell
   collect 266884 quest 94923.1          -- Robbie's Hat
+  collect 266156 x4 quest 94842.2       -- Fresh Manure
 
 step Robbie Holmsby
   turnin 94923
@@ -96,13 +107,8 @@ step Watcher Fredericks
   tip Watcher Fredericks keeps the west end of Southern Watch.
   turnin 94999
 
-step The river, north
-  tip North-east to the river below the lumber camp. Curly, one of Halligan's lumberjacks, is stuck by the river on the way and needs help from the camp. The Jumbo Crawfish keep to the shallows, and the Mudfin murlocs along the bank drop the heads.
-  accept 94857                          -- Curly: If a Tree Falls, and No One Hears...
-  collect 266157 x4 quest 94842.1       -- Jumbo Crawfish Shell
-  collect 267266 x8 quest 94842.3 @44.6,60.5  -- Mudfin Murloc Head
-
 step Turner's Logging Camp
+  tip North up the road to the lumber camp.
   turnin 94931                          -- Halligan Turner
   turnin 94842
   accept 94843                          -- From Seed to Sprout
@@ -112,7 +118,7 @@ step Saplings
   use 266161 quest 94843.1 @38.7,62.6   -- Tree Sprouting Kit
 
 step Hurley
-  tip Hurley stands at the camp's south end. He sets off for Curly, south-east of the camp, as soon as you take Helping Hands: go with him and keep the attackers off. If it fails, Hurley offers the quest again.
+  tip Hurley stands at the camp's south end. He sets off for Curly, south-east of the camp, as soon as you take Helping Hands: go with him and keep the attackers off, and wait if Ghostmaw is in sight. If it fails, Hurley offers the quest again.
   turnin 94857                          -- Hurley
   accept 94861                          -- Helping Hands
   complete 94861 @46.0,70.8             -- go with Hurley to save Curly
@@ -121,8 +127,12 @@ step Halligan Turner
   turnin 94843
   turnin 94861
 
+step Wheeler's Grange
+  tip East along the road towards Farholde Keep: hand Benjy his murlocs as you pass Wheeler's Grange.
+  turnin 94614                          -- Benjy Wheeler
+
 step Farholde Keep
-  tip East along the road, past Wheeler's Grange, to Farholde Keep. Gretchen Mayberry, the gryphon master, stands at its western gate; Bertrand Ironbrow and Ember Bladewhisper are on the way in, Brother Lowley tends the wounded by the barracks, Demar Brant and Ashe Amberhall wait in the keep at the east end, and the inn is in the south of the walls.
+  tip On east along the road to Farholde Keep. Gretchen Mayberry, the gryphon master, stands at its western gate; Bertrand Ironbrow and Ember Bladewhisper are on the way in, Brother Lowley tends the wounded by the barracks, Demar Brant and Ashe Amberhall wait in the keep at the east end, and the inn is in the south of the walls.
   getfp "Farholde Keep" npc 257087      -- Gretchen Mayberry, at the western gate
   accept 95943                          -- Bertrand Ironbrow: Foreman's Plight
   accept 95156                          -- Ember Bladewhisper: Stuff 'Em and Stick 'Em
@@ -157,7 +167,6 @@ step Wheeler's Grange
   tip West to Wheeler's Grange: Benjy Wheeler stands by the farmhouse.
   turnin 94613                          -- Benjy Wheeler
   accept 94615                          -- Foal Play
-  accept 94614                          -- Freshwater Fiends
 
 step The stables
   tip Search around the stables south of the farmhouse for the horses' tracks; the bundles of hay lie around the farm.
@@ -174,11 +183,6 @@ step The coyote den
   collect 271432 x3 quest 95913.1       -- Coyote Pelt
   collect 265738 quest 94617.1          -- Sootfur's Pelt
 
-step The river murlocs
-  tip West of the den, down to the river: the Mudfin Warriors and Oracles line the banks.
-  kill 258574 x8 quest 94614.1 @50.1,79.4  -- Mudfin Warrior
-  kill 258573 x8 quest 94614.2 @50.1,79.4  -- Mudfin Oracle
-
 step The lost horse
   tip One of Benjy's horses ran north up the river, past the farm. Give it the feed, then lead it home.
   turnin 94618                          -- Lost Horse
@@ -188,7 +192,6 @@ step The lost horse
 step Benjy Wheeler
   turnin 94992
   turnin 94617
-  turnin 94614
 
 step Foreman's Crate
   tip North up the track towards Terral's Watch: the foreman's crate lies by the road.
