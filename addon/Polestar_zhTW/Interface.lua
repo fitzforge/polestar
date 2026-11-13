@@ -2158,6 +2158,7 @@ L["Wordmark set in Cinzel by The Cinzel Project Authors, SIL Open Font License 1
 L["Quest and map data includes pfQuest by shagu (MIT License)."] = "任務與地圖資料包含 shagu 的 pfQuest（MIT License）。"
 L["Discord and its logo are trademarks of Discord Inc.; the logo marks the link to the Polestar Discord."] = "Discord 及其標誌為 Discord Inc. 的商標；此標誌代表前往 Polestar Discord 的連結。"
 L["With EllesmereUI installed, Polestar can follow its accent, font and panel colour through its public skinning API."] = "安裝 EllesmereUI 時，Polestar 可透過其公開的外觀 API 跟隨其強調色、字型與面板顏色。"
+-- L["Gear scores from Forever Leveling BiS by Timearc when it is installed, through its public API."] = ""
 L["Maintenance"] = "維護"
 L["Reset all settings"] = "重置所有設定"
 L["Every Polestar setting back to default. Progress is kept."] = "所有 Polestar 設定回到預設。進度會保留。"

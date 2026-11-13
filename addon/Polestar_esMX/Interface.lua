@@ -1776,6 +1776,7 @@ L["Wordmark set in Cinzel by The Cinzel Project Authors, SIL Open Font License 1
 L["Quest and map data includes pfQuest by shagu (MIT License)."] = "Los datos de misiones y mapas incluyen pfQuest de shagu (licencia MIT)."
 L["Discord and its logo are trademarks of Discord Inc.; the logo marks the link to the Polestar Discord."] = "Discord y su logotipo son marcas comerciales de Discord Inc.; el logotipo marca el enlace al Discord de Polestar."
 L["With EllesmereUI installed, Polestar can follow its accent, font and panel colour through its public skinning API."] = "Con EllesmereUI instalado, Polestar puede seguir su acento, su fuente y su color de panel a través de su API pública de aspecto."
+-- L["Gear scores from Forever Leveling BiS by Timearc when it is installed, through its public API."] = ""
 L["Maintenance"] = "Mantenimiento"
 L["Reset all settings"] = "Restablecer toda la configuración"
 L["Every Polestar setting back to default. Progress is kept."] = "Todos los ajustes de Polestar vuelven a su valor predeterminado. El progreso se conserva."
