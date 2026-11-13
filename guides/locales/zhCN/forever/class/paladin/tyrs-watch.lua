@@ -46,7 +46,7 @@ return {
 
 	-- Step 7: Touring the Grounds
 	-- {npc:246349} Breton Samuels · {npc:246389} Hilda the Breaker · {npc:246394} Ander Solliden · {npc:246393} Jorin Croge · {npc:246378} Danitha Morr
-	["{npc:246349} gives you a weapon, then sends you round the keep to speak with four of its people: {npc:246389} just south of the gate, {npc:246394}, the lookout, who walks the road south-east of the keep, then {npc:246393} and {npc:246378} inside the keep. Pick the conversation option with each."] = "",
+	["{npc:246349} gives you a weapon, then sends you round the keep to speak with four of its people: {npc:246389} just south of the gate, {npc:246394}, the lookout, who walks the road south-east of the keep, then {npc:246393} and {npc:246378} inside the keep. Pick the conversation option with each."] = "{npc:246349}会给一件武器，然后让你在城堡周围与四个人交谈：城门正南的{npc:246389}，在城堡东南道路上巡逻的哨兵{npc:246394}，然后是城堡内的{npc:246393}和{npc:246378}。与每个人交谈时都要选择对话选项。",
 	-- {npc:246349} Breton Samuels · {item:246164} Skullthumper · {item:246165} Driftwood Smasher
 	["{npc:246349}: {item:246164} or {item:246165}"] = "{npc:246349}：{item:246164}或{item:246165}",
 
@@ -96,7 +96,7 @@ return {
 
 	-- Step 15: Ephram Barbaro
 	-- {npc:259190} Ephram Barbaro · {npc:246389} Hilda the Breaker
-	["{npc:259190} waits at the forest's edge south of the gate, a few steps west of {npc:246389}."] = "",
+	["{npc:259190} waits at the forest's edge south of the gate, a few steps west of {npc:246389}."] = "{npc:259190}在大门南面的森林边缘等候，位于{npc:246389}西边几步远处。",
 
 	-- Step 16: A Lesson in Divinity
 	-- {npc:246378} Danitha Morr · {item:2589} Linen Cloth · {zone:1458} Undercity

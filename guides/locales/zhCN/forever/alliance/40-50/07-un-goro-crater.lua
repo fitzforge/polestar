@@ -152,7 +152,7 @@ return {
 	-- {npc:11406} High Priest Rohan · {zone:1447} Azshara
 	["{npc:11406}: for Ogtinc in {zone:1447}, keep it"] = "{npc:11406}：交给{zone:1447}的奥汀克，留着",
 	-- {npc:7312} Dink · {npc:8395} Sanath Lim-yo · {zone:1447} Azshara
-	["{npc:7312}, the mage trainer: for {npc:8395} in {zone:1447}, keep it"] = "",
+	["{npc:7312}, the mage trainer: for {npc:8395} in {zone:1447}, keep it"] = "法师训练师{npc:7312}：带给{zone:1447}的{npc:8395}，先留着",
 
 	-- Step 32: Fly to Astranaar
 	-- {area:442} Auberdine

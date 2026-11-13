@@ -15,7 +15,7 @@ return {
 
 	-- Step 1: Thorium Point
 	-- {area:1446} Thorium Point · {npc:14624} Master Smith Burninate · {quest:7722} What the Flux? · {item:18942} Fiery Flux
-	["{area:1446} is the scaffolded camp on the north-west rim of the Cauldron, with a flight point. Everyone starts Neutral with the Brotherhood. These seven quests (level 48 to 50) pay 100 reputation each: 700 in all, 800 with the pillow below. Forever pays them in full at any level. {npc:14624}'s {quest:7722} also opens his {item:18942} turn-ins, so it is needed at any level. The numbers in this guide leave out the Legacy perk Diplomat, which adds up to 10%."] = "",
+	["{area:1446} is the scaffolded camp on the north-west rim of the Cauldron, with a flight point. Everyone starts Neutral with the Brotherhood. These seven quests (level 48 to 50) pay 100 reputation each: 700 in all, 800 with the pillow below. Forever pays them in full at any level. {npc:14624}'s {quest:7722} also opens his {item:18942} turn-ins, so it is needed at any level. The numbers in this guide leave out the Legacy perk Diplomat, which adds up to 10%."] = "{area:1446}是大熔炉西北边缘搭着脚手架的营地，设有飞行点。所有人与瑟银兄弟会的起始声望都是中立。这七个任务（48至50级）各奖励100点声望，总计700点，加上下方的枕头任务则为800点。无限版本中，这些任务在任何等级都奖励全额声望。{npc:14624}的{quest:7722}还会开启他接受{item:18942}的交付任务，因此无论多少级都需要做。本指南的数值未计入传承特长外交家，它最多可增加10%。",
 	-- {object:179827} Wanted/Missing/Lost & Found
 	["The {object:179827} board"] = "{object:179827}布告板",
 	-- {npc:14621} Overseer Maltorius

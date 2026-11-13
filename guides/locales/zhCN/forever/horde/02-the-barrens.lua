@@ -85,7 +85,7 @@ return {
 	["Follow the road east to the outpost above the {area:814}."] = "沿道路向东前往{area:814}上方的哨站。",
 
 	-- Step 24: Durotar
-	["The thunder lizards across the river"] = "",
+	["The thunder lizards across the river"] = "河对岸的雷霆蜥蜴",
 
 	-- Step 25: Thunder lizards across the river
 	["Thunder lizards across the river"] = "河对岸的雷霆蜥蜴",
@@ -128,7 +128,7 @@ return {
 	-- {zone:1413} The Barrens
 	["{zone:1413}: kill these as you meet them"] = "{zone:1413}：沿途遇到就击杀",
 	-- {area:392} Ratchet · {npc:3467} Baron Longshore
-	["The pirates camp on the beach south of {area:392}: the piles of complicated parts lie in the sand among them, and {npc:3467} stands at the camp's southern end."] = "",
+	["The pirates camp on the beach south of {area:392}: the piles of complicated parts lie in the sand among them, and {npc:3467} stands at the camp's southern end."] = "海盗在{area:392}南方海滩扎营：复杂零件堆散落在营地间的沙地上，{npc:3467}站在营地最南端。",
 
 	-- Step 35: Ratchet
 	-- {npc:3391} Gazlowe · {area:385} Northwatch Hold
@@ -203,7 +203,7 @@ return {
 	["Finish the Raptor Heads"] = "收集完迅猛龙头",
 	-- {quest:881} Echeyakee
 	-- plural, as words: Sunscale Lashtails = {npc:3254} Sunscale Lashtail
-	["Still short of twelve? Sunscale Lashtails and Screechers roam the plains north-east of the Crossroads, on the way back south from {quest:881}'s lair."] = "",
+	["Still short of twelve? Sunscale Lashtails and Screechers roam the plains north-east of the Crossroads, on the way back south from {quest:881}'s lair."] = "还没凑够十二个？从{quest:881}巢穴向南返回途中，十字路口东北边的平原上有赤鳞鞭尾龙和赤鳞尖啸龙。",
 
 	-- Step 54: The Crossroads
 	-- {npc:3464} Gazrog · {npc:3338} Sergra Darkthorn · {npc:3449} Darsok Swiftdagger · {npc:3429} Thork
@@ -242,7 +242,7 @@ return {
 	-- {npc:11799} Tajarri · {area:2362} Shrine of Remulos
 	["{npc:11799}, at the {area:2362}"] = "{npc:11799}，在{area:2362}",
 	-- {quest:30} Trial of the Sea Lion · {area:382} Sludge Fen · {area:287} Hillsbrad
-	["{quest:30}, carried: one half pendant in the {area:382} in this guide, the other underwater off Silverpine on the way to {area:287} at 21; the pendant is handed in after {area:287}"] = "",
+	["{quest:30}, carried: one half pendant in the {area:382} in this guide, the other underwater off Silverpine on the way to {area:287} at 21; the pendant is handed in after {area:287}"] = "保留{quest:30}：一半坠饰在本指南的{area:382}，另一半在21级前往{area:287}途中、银松森林近海的水下；完成{area:287}的路线后再交还坠饰",
 	-- {npc:11798} Bunthen Plainswind · {area:2361} Nighthaven
 	["{npc:11798} in {area:2361} flies druids there"] = "{area:2361}的{npc:11798}载德鲁伊飞往那里",
 
@@ -384,7 +384,7 @@ return {
 	-- {npc:12296} Sickly Gazelle · {item:15826} Curative Animal Salve
 	["{npc:12296}: use the {item:15826} on them; they roam the plains all around the Crossroads"] = "{npc:12296}：对它们使用{item:15826}；它们在十字路口四周的平原上游荡",
 	-- {npc:12296} Sickly Gazelle
-	["Cure {npc:12296}"] = "",
+	["Cure {npc:12296}"] = "治愈{npc:12296}",
 
 	-- Step 95: Bristleback camps
 	["Bristleback camps"] = "刺背野猪人营地",
@@ -487,7 +487,7 @@ return {
 
 	-- Step 118: To Regthar Deathgate
 	-- {npc:3389} Regthar Deathgate
-	["To {npc:3389}"] = "",
+	["To {npc:3389}"] = "前往{npc:3389}处",
 
 	-- Step 120: Hezrul Bloodmark
 	-- {npc:3396} Hezrul Bloodmark · {area:387} Lushwater Oasis · {npc:3389} Regthar Deathgate · {npc:3448} Tonga Runetotem
@@ -600,7 +600,7 @@ return {
 
 	-- Step 149: Seereth Stonebreak's camp
 	-- {npc:4049} Seereth Stonebreak
-	["{npc:4049}'s camp"] = "",
+	["{npc:4049}'s camp"] = "{npc:4049}的营地",
 
 	-- Step 150: Seereth Stonebreak
 	-- {npc:4049} Seereth Stonebreak · {npc:11857} Makaba Flathoof
@@ -621,7 +621,7 @@ return {
 
 	-- Step 153: To Malaka'jin
 	-- {area:2539} Malaka'jin
-	["To {area:2539}"] = "",
+	["To {area:2539}"] = "前往{area:2539}",
 
 	-- Step 154: Malaka'jin
 	-- {npc:4049} Seereth Stonebreak · {area:2539} Malaka'jin
@@ -644,13 +644,13 @@ return {
 
 	-- Step 157: Windshear Crag
 	-- {area:461} Windshear Crag
-	["East of Ziz, the Venture Company is clear-cutting {area:461}; one of the Operators carries the blueprints."] = "",
+	["East of Ziz, the Venture Company is clear-cutting {area:461}; one of the Operators carries the blueprints."] = "风险投资公司正在 菲兹克斯东面的 {area:461} 大肆伐木；其中一名操作员携带蓝图。",
 	-- plural, as words: Venture Co. Loggers = {npc:3989} Venture Co. Logger
 	["Venture Co. Loggers, all over the clear-cut"] = "风险投资公司樵夫，遍布砍伐过的林地",
 
 	-- Step 158: Piznik
 	-- {npc:4276} Piznik · {area:2160} Windshear Mine
-	["{npc:4276}'s defence is hard alone at this level: grouping up is encouraged, look for people to do it with. Skip it if you are alone.\n{npc:4276} mines at the bottom of the {area:2160} on the east side of the crag, past its kobolds (levels 19-23). Talk to him, then keep him alive for five minutes while he mines: a dozen or more kobolds come at him in waves, melee fighters first, then casters, and the mine's own kobolds respawn into the fight. If he dies, the quest fails."] = "",
+	["{npc:4276}'s defence is hard alone at this level: grouping up is encouraged, look for people to do it with. Skip it if you are alone.\n{npc:4276} mines at the bottom of the {area:2160} on the east side of the crag, past its kobolds (levels 19-23). Talk to him, then keep him alive for five minutes while he mines: a dozen or more kobolds come at him in waves, melee fighters first, then casters, and the mine's own kobolds respawn into the fight. If he dies, the quest fails."] = "在这个等级，{npc:4276} 的防守任务很难独自完成：建议找人组队。独自一人就跳过。\n{npc:4276} 在山崖东侧的 {area:2160} 底部采矿，需要穿过其中的狗头人（19-23级）。与他交谈，然后在他采矿期间保护他存活五分钟：至少十二只狗头人会分批来袭，先是近战敌人，随后是施法者，矿洞原有的狗头人也会刷新并加入战斗。如果他死亡，任务就会失败。",
 	-- {npc:4276} Piznik
 	["{npc:4276}, below ground"] = "{npc:4276}：在地下",
 
