@@ -2689,9 +2689,14 @@ function Travel.SplitWalk(c, x, y, stops, total, hubs)
 	local to = whole.to
 	if to.c ~= c or (to.wx - x) * (to.wx - x) + (to.wy - y) * (to.wy - y) > 1 then return false end
 	if type(hubs) ~= "table" or (#hubs == 0 and not (type(hubs.avoided) == "table" and #hubs.avoided > 0)) then hubs = nil end
+	-- The walk on to a crossing's far end from a start on it (whole.passes, not the crossing's own walk) is the rest of
+	-- the crossing's walk, which makes no step of a pass along it: a lift it rides still is one. Split there, a pass just
+	-- past the near end became a step of its own, and the route went to it and on to the same walk (0.4.0's border sweep:
+	-- from Un'Goro Crater into Tanaris, 24 s later).
+	local onward = whole.passes ~= nil and whole.crossing == nil
 	local kept = {}
 	for _, s in ipairs(stops) do
-		if s.kind == "lift" or not handmadeNear(c, s.wx, s.wy, whole) then kept[#kept + 1] = s end
+		if s.kind == "lift" or not (onward or handmadeNear(c, s.wx, s.wy, whole)) then kept[#kept + 1] = s end
 	end
 	if #kept == 0 and not parent then
 		if type(total) ~= "number" or total ~= total or total < 0 or total == huge then return false end

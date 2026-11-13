@@ -195,7 +195,9 @@ fn a_crossing_end_with_a_height_12_yd_away_is_already_walked_only_on_its_floor()
 // the plan sent players back to it, and from beside the far end back through the crossing, round and round: 68 times
 // in 4 minutes between the Swamp of Sorrows and the Blasted Lands). Gate Yard, a patch of ground open to West Vale,
 // lies between the gate's ends: at (600, 25) the player is out of the near end's reach, and at (600, -8) within the
-// far end's, both in Gate Yard. Farther from the far end than the ends are apart, the near end comes first again.
+// far end's, both in Gate Yard. The walk on to the far end makes no step of a pass along it, as the crossing's own walk
+// makes none (a pass 40 yd from both ends, 5 yd on). Farther from the far end than the ends are apart, the near end
+// comes first again.
 #[test]
 fn walking_a_crossing_passes_its_near_end_the_plan_from_its_far_end_walks_on_never_back_through_it() {
 	let out = run(r#"
@@ -218,6 +220,11 @@ fn walking_a_crossing_passes_its_near_end_the_plan_from_its_far_end_walks_on_nev
 		nav.place(600, 25)                               -- a few steps on, out of its reach, in Gate Yard
 		stub.fire("ZONE_CHANGED")
 		r.between = first()
+		do                                               -- a pass on the walk on: no step of its own
+			local before = #N.GetRoute()
+			N.travel.SplitWalk(0, 600, -20, { { kind = "pass", wx = 600, wy = 20, r = 10, along = 5, seg = 1, stop = 1.5, to = "Gate Pass" } }, 45)
+			r.split = #N.GetRoute() - before
+		end
 		nav.place(600, -8)                               -- through it, within the far end's reach, in Gate Yard
 		stub.advance(1.2)
 		r.far = first()
@@ -230,6 +237,7 @@ fn walking_a_crossing_passes_its_near_end_the_plan_from_its_far_end_walks_on_nev
 	assert_eq!(out["start"], json!([600, 60, 2]), "to the gate's near end first: {out}");
 	assert_eq!(out["near"], json!([600, -20, 1]), "at it, through the gate: {out}");
 	assert_eq!(out["between"], json!([600, -20, 1]), "a few steps on, on to the far end, not back to the near one: {out}");
+	assert_eq!(out["split"], 0, "a pass on the walk on to the far end is no step of its own, as on the crossing's own walk: {out}");
 	assert_eq!(out["far"], json!([-500, -500, 0]), "through it, on to Kobolds, not back to the near end: {out}");
 	assert_eq!(out["zone"], json!([-500, -500, 0]), "planned again there, still on: {out}");
 	assert_eq!(out["away"], json!([600, 60, 2]), "far from the gate, the near end first again: {out}");

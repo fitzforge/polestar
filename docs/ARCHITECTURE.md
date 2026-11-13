@@ -4326,6 +4326,8 @@ Lands). Its far end reached, the crossing is walked through: within that
 distance the plan starts on the far end's side, so where the zone line winds
 past the far end (a patch of Durotar beside Orgrimmar's end of its gate to the
 Barrens) it goes on from where the player stands, never back to the far end.
+The walk on to the far end from a start on the crossing makes no step of a pass
+along it, as the crossing's own walk makes none (a lift it rides still is one).
 `Progress` counts a
 ride, flight, hearth or teleport down from when it became current (a flight
 from take-off, when the player is first on the taxi); `Remaining`, the
