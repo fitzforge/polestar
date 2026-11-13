@@ -186,7 +186,9 @@ item's `vendors`; `collect … nearest` from the item's droppers (see `collect`)
 `learn … nearest` from the recipe item's `vendors`; a trainer-taught `learn`
 from the profession rank's trainers in `professions.json`. Only
 factions the goal can apply to are kept, and each set keeps one candidate per town
-(within 250 yards), nearest to the previous goal first.
+(within 250 yards), nearest to the previous goal first; in a capital city (Stormwind,
+Orgrimmar, Ironforge, Thunder Bluff, Darnassus, the Undercity) one per district
+(within 60 yards), since its districts are a long walk apart.
 Smart targets take no coordinates.
 
 Modifiers, in any order after the positional arguments:

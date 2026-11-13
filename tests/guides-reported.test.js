@@ -637,6 +637,20 @@ for (const [guide, quest, item, count, vendor, what] of BUY_AT_TURNIN) {
 	});
 }
 
+// Mouchoir (#2018, Tailoring 75-150 in Stormwind): the vendor goods step sent a player standing beside Alexandra
+// Bolero (Tailoring Supplies, Mage Quarter, by the trainers) to Edna Mullby in the Trade District, 235 yards away.
+// `buy … nearest` kept one seller per 250 yards, one for the whole city; on a capital city's map each district keeps
+// its own, so the arrow can pick the one beside the player.
+test('forever/professions/tailoring.guide: #2018, the 75-150 vendor goods can be bought from Alexandra Bolero in the Mage Quarter', { skip }, () => {
+	const buys = goals('forever/professions/tailoring.guide').filter(({ goal }) => goal.t === 'buy' && [2321, 2324, 2604].includes(goal.item));
+	assert.ok(buys.length >= 3, 'the Fine Thread, Bleach and Red Dye buys');
+	for (const { goal } of buys) {
+		const stormwind = (goal.candidates || []).filter((c) => c.map === 1453).map((c) => c.npc);
+		assert.ok(stormwind.includes(1347), `item ${goal.item}: Alexandra Bolero (Mage Quarter) is one to pick: ${stormwind}`);
+		assert.ok(stormwind.includes(1286), `item ${goal.item}: Edna Mullby (Trade District) stays one: ${stormwind}`);
+	}
+});
+
 // --- Bandarion Keep (Mike_, 0.2.3): Hilda the Breaker and Ephram Barbaro offer their quests to Paladins only.
 
 test(`${TIRISFAL}: Mike_'s report: only Paladins are sent to Hilda the Breaker and Ephram Barbaro at Bandarion Keep`, { skip }, () => {

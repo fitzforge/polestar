@@ -6,7 +6,11 @@
 //
 // Sets keep one candidate per town (hub): per continent, faction tag and class
 // list, a candidate within HUB_YARDS of one already kept is dropped, nearest to
-// the reference point first when it is on that continent. Every town stays
+// the reference point first when it is on that continent. A capital city's
+// districts lie closer than that but a long walk apart, so on a city map
+// (CITY_MAPS) two candidates are one hub only within CITY_HUB_YARDS: each
+// district keeps its own (Stormwind's Alexandra Bolero in the Mage Quarter and
+// Edna Mullby in the Trade District, 235 yards apart, #2018). Every town stays
 // reachable, so the Engine can pick the nearest from wherever the player is;
 // MAX_PER_GROUP only guards against runaway data. Each candidate carries the
 // height of its NPC's spawn there (`z`, heights.js) when spawnz.json has one.
@@ -15,9 +19,18 @@ const { candidateHeight } = require('./heights');
 
 const CAP = 6; // kept for callers that ask for a hard per-group limit
 const HUB_YARDS = 250;
+const CITY_HUB_YARDS = 60;
+// Stormwind, Orgrimmar, Ironforge, Thunder Bluff, Darnassus and the Undercity (uiMap ids).
+const CITY_MAPS = new Set([1453, 1454, 1455, 1456, 1457, 1458]);
 const MAX_PER_GROUP = 120;
 const SERVICE_ROLES = ['vendor', 'innkeeper', 'repair'];
 const SAME_SPOT_YARDS = 100;
+
+// How near two candidates stand to be one hub: CITY_HUB_YARDS on the same city
+// map, else HUB_YARDS.
+function hubYards(a, b) {
+	return a.cand.map === b.cand.map && CITY_MAPS.has(a.cand.map) ? CITY_HUB_YARDS : HUB_YARDS;
+}
 
 function round2(n) {
 	const r = Math.round(n * 100) / 100;
@@ -158,7 +171,7 @@ function buildCandidates(data, entries, opts) {
 		const hubs = [];
 		for (const a of list) {
 			if (hubs.length >= cap) break;
-			const sameHub = a.w && hubs.some((h) => h.w && h.w.c === a.w.c && Math.hypot(h.w.wx - a.w.wx, h.w.wy - a.w.wy) < HUB_YARDS);
+			const sameHub = a.w && hubs.some((h) => h.w && h.w.c === a.w.c && Math.hypot(h.w.wx - a.w.wx, h.w.wy - a.w.wy) < hubYards(h, a));
 			if (sameHub) continue;
 			if (!a.w && hubs.some((h) => !h.w && h.cand.map === a.cand.map)) continue;
 			hubs.push(a);
