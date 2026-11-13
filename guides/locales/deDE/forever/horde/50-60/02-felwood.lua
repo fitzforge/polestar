@@ -158,8 +158,8 @@ return {
 	-- Step 35: The Jaedenar moonwell
 	-- {area:1763} Jaedenar
 	["The {area:1763} moonwell"] = "Der Mondbrunnen von {area:1763}",
-	-- {area:1763} Jaedenar · {npc:10922} Greta Mosshoof
-	["Back north to {area:1763}. Fill {npc:10922}'s canteen at the corrupted moonwell in the middle of the southern camp."] = "Zurück nach Norden nach {area:1763}. Füll {npc:10922}s Feldflasche am verderbten Mondbrunnen mitten im südlichen Lager.",
+	-- {area:1763} Jaedenar
+	["Back north to {area:1763}. Fill Greta's canteen at the corrupted moonwell in the middle of the southern camp."] = "",
 
 	-- Step 36: Rakaiah
 	-- {npc:9518} Rakaiah · {area:1763} Jaedenar · {npc:11020} Remains of Trey Lightforge
@@ -262,6 +262,7 @@ return {
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Back at {area:1762}, the Deadwood furbolgs (53-54) are close to the tunnel and every kill raises your Timbermaw reputation."] = "Zurück in {area:1762}: Die Furbolgs der Totenwaldfelle (53-54) sind nah am Tunnel, und jeder Kill erhöht deinen Ruf bei der Holzschlundfeste.",
+	-- ["Back north to {area:1763}. Fill {npc:10922}'s canteen at the corrupted moonwell in the middle of the southern camp."] = "Zurück nach Norden nach {area:1763}. Füll {npc:10922}s Feldflasche am verderbten Mondbrunnen mitten im südlichen Lager.",
 	-- ["Diseased Grizzlies"] = "Kranke Grizzlys",
 	-- ["Fly to the {area:1497}"] = "Flieg nach {area:1497}",
 	-- ["Fly to {area:272}"] = "Flieg nach {area:272}",

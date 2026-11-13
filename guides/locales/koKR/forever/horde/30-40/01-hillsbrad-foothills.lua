@@ -200,9 +200,7 @@ return {
 
 	-- Step 41: Helcular's Grave
 	-- {area:271} Southshore
-	-- plural, as words: Southshore Guards = {npc:2386} Southshore Guard
-	["Head east to {area:271}'s graveyard, on the north-east edge of the town: Helcular's grave lies among the others. Come at it from the north, down the slope above the town. Southshore Guards (55) stand at the graveyard's north-west corner and south-east of the grave: walk in between them, hand the quest in and leave the way you came."] = "동쪽으로 {area:271}의 묘지로 가세요. 마을 북동쪽 끝에 있으며, 헬큘라의 무덤은 다른 무덤들 사이에 있습니다. 북쪽에서 마을 위 비탈을 따라 내려가며 접근하세요. 사우스쇼어 수비대(55)가 묘지 북서쪽 모퉁이와 무덤 남동쪽에 서 있습니다. 그 사이로 걸어 들어가 퀘스트를 제출하고 왔던 길로 나가세요.",
-	["North of Southshore's graveyard"] = "사우스쇼어 묘지 북쪽",
+	["Head east to {area:271}'s graveyard, on the north-east edge of the town: Helcular's grave lies among the others. Come at it from the north and keep away from the town's guards."] = "",
 
 	-- Step 42: Daggerspine naga
 	["Daggerspine naga"] = "비수가시일족 나가",

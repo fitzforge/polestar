@@ -200,9 +200,7 @@ return {
 
 	-- Step 41: Helcular's Grave
 	-- {area:271} Southshore
-	-- plural, as words: Southshore Guards = {npc:2386} Southshore Guard
-	["Head east to {area:271}'s graveyard, on the north-east edge of the town: Helcular's grave lies among the others. Come at it from the north, down the slope above the town. Southshore Guards (55) stand at the graveyard's north-west corner and south-east of the grave: walk in between them, hand the quest in and leave the way you came."] = "Ve al este hasta el cementerio de {area:271}, en el borde noreste del pueblo: la tumba de Helcular está entre las demás. Llega desde el norte, bajando por la ladera que está sobre el pueblo. Los Guardias de Costasur (55) están en la esquina noroeste del cementerio y al sureste de la tumba: pasa entre ellos, entrega la misión y vete por donde llegaste.",
-	["North of Southshore's graveyard"] = "Al norte del cementerio de Costasur",
+	["Head east to {area:271}'s graveyard, on the north-east edge of the town: Helcular's grave lies among the others. Come at it from the north and keep away from the town's guards."] = "",
 
 	-- Step 42: Daggerspine naga
 	["Daggerspine naga"] = "Nagas Espinadaga",

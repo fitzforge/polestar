@@ -1,0 +1,192 @@
+guide polestar-experimental/riverglades-alliance-4
+title Riverglades 4: Turner's Logging Camp, the Cinderscale hollow and the Western Front (experimental)
+faction Alliance
+levels 41-43
+zone Riverglades
+coords live
+folder Riverglades · Experimental
+why Forever's new zone, an alpha route written from players' recordings.
+keywords riverglades, western front, sergeant riftan, marshal ryan, gelinda, cinderscale, farholde, experimental, alpha
+next forever/alliance/40-50/03-feralas when level>=43
+next forever/alliance/40-50/01-stranglethorn-vale when level<43
+
+# Polestar Experimental, Riverglades for the Alliance, part 4 of 4 (2026-11-12). Hand-written from players'
+# recordings of the zone and Forever's quest data for titles, levels, objectives and places.
+# Order: Farholde Keep's errands for the west; Terral's Watch (with Sister Rowland's phial on the way for players who
+# took Brother Lowley's jobs); Turner's Logging Camp; Gelinda Coppergleam's Cinderscale hollow south-west of Southern
+# Watch (levels 39-42); Sergeant Riftan's camp below Twilight's Shroud and the Twilight cult's camps and ogre mine
+# (levels 41-44); the hearth to Farholde Keep; Stormwind for Marshal Ryan's crest; Menethil Harbor and the boat to
+# Theramore, where the Feralas guide (43-45) starts; below level 43, the Stranglethorn Vale guide (40-43) from
+# Theramore instead.
+# Class trainers: none in the Riverglades. Whoever passes through Stormwind trains there; a player going on to
+# Feralas (level 43 or more) flies there to train in any case, as the Feralas guide passes no trainer (shamans train
+# in Ironforge); the Stranglethorn Vale guide has its own Stormwind and Ironforge stops.
+# Offered only after another quest is handed in (players' recordings): High Stakes after Foreman's Plight;
+# Bring Me His Head after Sergeant Riftan's first three; News to Farholde after Bring Me His Head; Dying Wish after
+# Saving Marshal Ryan; Delivering Closure after Dying Wish; The Twilight Threat after News to Farholde.
+# Elites, each behind a group choice: Overlord Kilgar (46).
+# The Twilight camps hold elites the route never asks for: Twilight Enforcers (45) on patrol, Executioner Morg and
+# Overlord Kilgar (46) in the fortress, the Twilight Forgemaster (46, rare).
+# Left out on purpose:
+# - Upstream Contamination (96085): Krek the Noxious is an elite (42) far north, by the training grounds.
+# - Hail the Dragonslayer (95935): it starts from the head of Scaldaron, a rare elite drake in the Cinderscale
+#   hollow.
+# - Twilight Mementos (94983), Lingering Essence (94997), Curios of Curiosity (94998), Tome of Twilight (94984), Eye
+#   of Mugg (94982) and Krol'dok Moulding (94980): their items come from the Krol'dok Stronghold dungeon.
+
+step Farholde Keep
+  tip Experimental route (alpha): if a step is wrong, tell us on Polestar's Discord or GitHub and name the step.
+  tip Before you head west: Bertrand Ironbrow and Cassandra Wheeler, by the inn, both have work at Turner's Logging Camp.
+  accept 96009                          -- Bertrand Ironbrow: High Stakes
+  accept 95330                          -- Cassandra Wheeler: Love Thy Neighbor
+
+step Something's in the Water
+  when onquest 96084
+  tip North past Terral's Watch: fill Sister Rowland's phial in the marsh water north-east of the tower.
+  use 281229 quest 96084.1 @62.0,56.2   -- Empty Phial
+
+step Terral's Watch
+  tip Watcher Cornelius's tower.
+  turnin 94927                          -- Watcher Cornelius: Dunston Checks Out
+  turnin 95329                          -- Out in the Field
+
+step Turner's Logging Camp
+  tip West across the river to Turner's Logging Camp: the Peasant Woodpiles around the camp give the wood bundles.
+  turnin 95330                          -- Halligan Turner
+  collect 271877 x10 quest 96009.1      -- Wood Bundle
+
+step Gelinda Coppergleam
+  tip South-west past Southern Watch: Gelinda Coppergleam, a prospector, has camped by the Cinderscale dragonkin's hollow.
+  accept 95792                          -- Clear 'em Out
+  accept 95934                          -- Proof of Profit
+
+step The Cinderscale hollow
+  tip The whelps nest all over the hollow; the warriors (level 41-42) guard its back, by the Cubic Draconia. Scaldaron, a rare elite drake, can be up here too: leave him be unless you have a group.
+  kill 262473 x8 quest 95792.1 @30.0,72.2  -- Cinderscale Whelp
+  kill 262477 x4 quest 95792.2 @29.6,73.1  -- Cinderscale Warrior
+  collect 271611 quest 95934.1          -- Cubic Draconia
+
+step Gelinda Coppergleam
+  turnin 95792
+  turnin 95934
+
+
+step Sergeant Riftan
+  tip North up the long valley towards Twilight's Shroud: Sergeant Riftan holds a small camp below the Twilight cult's fortress.
+  turnin 94886                          -- Sergeant Riftan
+  accept 94888                          -- No Soldier Left Behind
+  accept 94889                          -- Carving a Path
+  accept 96015                          -- A Miner Problem
+
+step The Twilight camps
+  tip The cult's camps fill the valley north and west of Riftan. Free the captive Farholde Scouts as you find them, and kill a Twilight Thrall for Ashe: her soulstone takes it. Twilight Enforcers (elites, level 45) patrol through the camps: watch where they walk before each pull. Overlord Kilgar and Executioner Morg (elites, 46) hold the fortress at the valley's head: pull the cultists away from them.
+  kill 256795 x8 quest 94889.1          -- Twilight Fanatic
+  kill 256797 x8 quest 94889.2          -- Twilight Corrupter
+  kill 256799 x8 quest 94889.3          -- Twilight Champion
+  complete 94888 @27.7,41.5             -- free five captive Farholde Scouts
+  complete 94907 @26.6,47.8             -- kill a Twilight Thrall
+
+step Marshal Ryan
+  when onquest 94887
+  tip Marshal Ryan lies wounded among the camps at the valley's western edge.
+  complete 94887 @26.2,40.8             -- find Marshal Ryan and talk to him
+  turnin 94887
+  accept 94892                          -- Dying Wish: for Demar Brant in Farholde Keep
+
+step The ogre mine
+  tip North of the camps the cult works ogre miners in a mine, driven by the Twilight Subjugators.
+  kill 260995 x5 quest 96015.1          -- Ogre Miner
+  kill 260996 x5 quest 96015.2          -- Twilight Subjugator
+
+step Sergeant Riftan
+  turnin 94888
+  turnin 94889
+  turnin 96015
+
+step Bring Me His Head
+  when group 94890
+  tip Overlord Kilgar is an elite (level 46) in the fortress at the head of the valley, with the Enforcers around him: grouping up is advised.
+  accept 94890                          -- Sergeant Riftan
+  collect 265837 quest 94890.1 @26.7,44.9  -- Kilgar's Head
+  turnin 94890
+  accept 94891                          -- News to Farholde: for Ashe Amberhall
+
+step Hearth to Farholde Keep
+  hearth "Farholde Keep"
+
+step Farholde Keep
+  tip From the inn: Bertrand Ironbrow on the way in, then Demar Brant and Ashe Amberhall in the keep.
+  turnin 96009                          -- Bertrand Ironbrow
+  turnin 94907                          -- Ashe Amberhall
+
+step Ashe Amberhall
+  when onquest 94891
+  turnin 94891
+
+step Demar Brant
+  when onquest 94892
+  turnin 94892
+  accept 94893                          -- Delivering Closure: for Abigail Lawson in Stormwind
+
+step The Twilight Threat
+  when turnedin 94891
+  accept 94894                          -- Demar Brant: Kilgar's head for Highlord Bolvar Fordragon in Stormwind Keep
+
+step Sister Rowland
+  when onquest 96084
+  tip Sister Rowland, in the cathedral at the keep's south-west corner.
+  turnin 96084
+
+step Stormwind
+  when onquest 94893
+  tip Gretchen Mayberry flies to Stormwind. Abigail Lawson waits in the Cathedral Square.
+  fly "Stormwind"
+  zone Stormwind City
+  turnin 94893                          -- Abigail Lawson
+
+step Stormwind Keep
+  when onquest 94894
+  zone Stormwind City
+  turnin 94894                          -- Highlord Bolvar Fordragon
+
+step Train before Feralas
+  only !Shaman
+  when level>=43
+  when !zone "Stormwind City"
+  tip No class trainer stands in the Riverglades, and the Feralas guide passes none: Gretchen Mayberry flies to Stormwind, where you train before you go on.
+  fly "Stormwind"
+  zone Stormwind City
+
+step Your class trainer
+  only !Shaman
+  when zone "Stormwind City"
+  tip No class trainer stands in the Riverglades: train here in Stormwind before you fly on.
+  train class only Warrior,Paladin,Hunter,Rogue,Priest,Mage,Warlock,Druid
+  note Level 40 with 100 gold? Your race's riding trainer teaches riding: Collectibles, Mounts · Level 40 has a guide for each race's mounts.
+
+step Shaman trainer
+  only Shaman
+  when level>=43
+  tip No shaman trainer stands in the Riverglades or in Stormwind, and the Feralas guide passes none: fly to Ironforge and train there on your way to Menethil Harbor.
+  fly "Ironforge"
+  zone Ironforge
+  train class only Shaman
+  note Level 40 with 100 gold? Your race's riding trainer teaches riding: Collectibles, Mounts · Level 40 has a guide for each race's mounts.
+
+step Leave Stormwind
+  when zone "Stormwind City"
+  zone Stormwind City
+  tip The next guide starts in Theramore: fly to Menethil Harbor in the Wetlands and take the boat across from there. Stormwind's gryphon master stands in the Trade District.
+  goto 66.3,62.7 "Stormwind flight master"
+  fly "Menethil Harbor"
+  zone Wetlands
+
+step Fly to Menethil Harbor
+  when !zone "Wetlands"
+  tip The next guide starts in Theramore: fly to Menethil Harbor in the Wetlands and take the boat across from there.
+  fly "Menethil Harbor"
+  zone Wetlands
+
+step Boat to Theramore
+  zone Wetlands
+  goto 5.13,63.61 "Boat to Theramore"

@@ -2164,3 +2164,212 @@ Polestar.RegisterGuide({ id = "test/hushed", pack = "test", title = "Hushed Bank
 	assert!(out["errors"].as_array().map_or(out["errors"] == json!({}), |a| a.is_empty()), "no Lua error: {out}");
 	assert_eq!(out["spot"], 2, "the spot the player went to is kept on arrival: {out}");
 }
+
+// A step view asks each goal's done state once while it is built (Own.doneMemo): the views are the ones the Engine
+// built before, goal for goal, at every point of the route, and the live check runs once per goal and view.
+#[test]
+fn a_step_view_asks_each_goal_once_and_reads_as_before_at_every_point_of_the_route() {
+	let out = run1(Run {
+		script: r#"
+			local Own
+			for _, fn in pairs(E) do
+				if type(fn) == "function" then
+					for i = 1, 255 do
+						local n, v = debug.getupvalue(fn, i)
+						if not n then break end
+						if n == "Own" and type(v) == "table" then Own = v end
+					end
+				end
+			end
+			local function ser(v, depth)
+				local t = type(v)
+				if t ~= "table" then return t == "string" and string.format("%q", v) or tostring(v) end
+				if depth > 6 then return "{...}" end
+				local keys = {}
+				for k in pairs(v) do keys[#keys + 1] = k end
+				table.sort(keys, function(a, b) return tostring(a) < tostring(b) end)
+				local parts = {}
+				for _, k in ipairs(keys) do
+					if type(v[k]) ~= "function" then parts[#parts + 1] = tostring(k) .. "=" .. ser(v[k], depth + 1) end
+				end
+				return "{" .. table.concat(parts, ",") .. "}"
+			end
+			local live, calls, most = Own.goalDoneLive, {}, 0
+			Own.goalDoneLive = function(s, g, goal)
+				local k = s .. ":" .. g
+				calls[k] = (calls[k] or 0) + 1
+				if calls[k] > most then most = calls[k] end
+				return live(s, g, goal)
+			end
+			local r = { points = 0, differ = {}, mostWith = 0, mostWithout = 0 }
+			local function check()
+				r.points = r.points + 1
+				for i = 1, E.GetStepCount() do
+					calls, most = {}, 0
+					local without = ser(Own.stepView(i), 0)
+					r.mostWithout = math.max(r.mostWithout, most)
+					calls, most = {}, 0
+					local with = ser(E.GetStepView(i), 0)
+					r.mostWith = math.max(r.mostWith, most)
+					if with ~= without and #r.differ < 5 then r.differ[#r.differ + 1] = r.points .. ":" .. i end
+				end
+			end
+			check()
+			w.accept(783, {}, "A Threat Within"); flush(); check()
+			w.finish(783); flush(); check()
+			w.turnIn(783); flush(); check()
+			w.accept(7, { { required = 10 } }, "Kobold Camp Cleanup"); flush(); check()
+			w.progress(7, 1, 4); flush(); check()
+			w.moveTo(1429, 47.6, 35.1); stub.advance(0.6); check()
+			w.progress(7, 1, 10); flush(); check()
+			w.finish(7); flush(); check()
+			r.memoAfter = Own.doneMemo == nil
+			-- An empty Lua table emits as {}: the differing views as a count and a list.
+			r.differN, r.differ = #r.differ, table.concat(r.differ, " ")
+			emit(r)
+		"#,
+		..Default::default()
+	});
+	assert_eq!(out["differN"], 0, "every view as before: {out}");
+	assert_eq!(out["points"], 9);
+	assert_eq!(out["mostWith"], 1, "each goal asked once per view: {out}");
+	assert!(out["mostWithout"].as_i64().unwrap() > 1, "without the memo a goal is asked more than once: {out}");
+	assert_eq!(out["memoAfter"], true, "the memo goes with the view");
+}
+
+// Readers that only read a step's view share one per moment (Engine.GetStepView(i, true)): within one moment the
+// same table, read as a fresh view reads; a message, a game event, a timer, a change asked of the Engine (a tick:
+// the view shows it at once) or the next frame each give a new one. A plain read is always built afresh.
+#[test]
+fn readers_of_one_moment_share_a_step_view_and_any_change_gives_a_fresh_one() {
+	let out = run1(Run {
+		script: r#"
+			local w = stub.world
+			local function ser(v, depth)
+				local t = type(v)
+				if t ~= "table" then return t == "string" and string.format("%q", v) or tostring(v) end
+				if depth > 6 then return "{...}" end
+				local keys = {}
+				for k in pairs(v) do keys[#keys + 1] = k end
+				table.sort(keys, function(a, b) return tostring(a) < tostring(b) end)
+				local parts = {}
+				for _, k in ipairs(keys) do
+					if type(v[k]) ~= "function" then parts[#parts + 1] = tostring(k) .. "=" .. ser(v[k], depth + 1) end
+				end
+				return "{" .. table.concat(parts, ",") .. "}"
+			end
+			local r = { differ = 0, points = 0 }
+			local function check()
+				r.points = r.points + 1
+				for i = 1, E.GetStepCount() do
+					if ser(E.GetStepView(i, true), 0) ~= ser(E.GetStepView(i), 0) then r.differ = r.differ + 1 end
+				end
+			end
+			w.accept(783, {}, "A Threat Within"); flush()
+			local a = E.GetStepView(2, true)
+			r.same = E.GetStepView(2, true) == a
+			r.plain = E.GetStepView(2) ~= a and E.GetStepView(2) ~= E.GetStepView(2)
+			Polestar.Fire("SOME_MESSAGE")
+			r.message = E.GetStepView(2, true) ~= a
+			a = E.GetStepView(2, true)
+			stub.fire("PLAYER_TARGET_CHANGED")
+			r.event = E.GetStepView(2, true) ~= a
+			a = E.GetStepView(2, true)
+			E.RequestUpdate()
+			r.request = E.GetStepView(2, true) ~= a
+			a = E.GetStepView(2, true)
+			stub.advance(0.02)
+			r.frame = E.GetStepView(2, true) ~= a
+			-- Two listeners of one message: one view between them.
+			local got = {}
+			Polestar.On("STEP_UPDATED", function(i) got[#got + 1] = E.GetStepView(i, true) end)
+			Polestar.On("STEP_UPDATED", function(i) got[#got + 1] = E.GetStepView(i, true) end)
+			check()
+			w.turnIn(783); flush(); check()
+			w.accept(7, { { required = 10 } }, "Kobold Camp Cleanup"); flush(); check()
+			got = {}
+			w.progress(7, 1, 4); flush(); check()
+			r.listeners = #got >= 2 and got[1] == got[2]
+			local before = E.GetStepView(3, true)
+			E.ToggleGoal(3, 1)
+			local after = E.GetStepView(3, true)
+			r.tick = { before.goals[1].status, after ~= before and after.goals[1].status }
+			emit(r)
+		"#,
+		..Default::default()
+	});
+	assert_eq!(out["same"], true, "one moment, one view: {out}");
+	assert_eq!(out["plain"], true, "a plain read is built afresh: {out}");
+	assert_eq!(out["message"], true, "a message starts a new moment");
+	assert_eq!(out["event"], true, "a game event starts a new moment");
+	assert_eq!(out["request"], true, "a change asked of the Engine starts a new moment");
+	assert_eq!(out["frame"], true, "the next frame starts a new moment");
+	assert_eq!(out["listeners"], true, "two listeners of one message share the view: {out}");
+	assert_eq!(out["differ"], 0, "a shared view reads as a fresh one at every point: {out}");
+	assert_eq!(out["points"], 4);
+	assert_eq!(out["tick"], json!(["active", "done"]), "a tick shows at once in the next shared read: {out}");
+}
+
+// The guide window's progress count without the frame's spike (Engine.ProgressSoon): after a change the count runs
+// over the next frames, 40 steps a frame, and lands with GetProgress's numbers; then it is kept for the evaluation. A
+// change half way starts it again on the new state.
+#[test]
+fn the_progress_count_runs_over_frames_and_lands_with_the_same_numbers() {
+	let out = run1(Run {
+		guides: LONG,
+		script: r#"
+			local w = stub.world
+			local Own
+			for _, fn in pairs(E) do
+				if type(fn) == "function" then
+					for i = 1, 255 do
+						local n, v = debug.getupvalue(fn, i)
+						if not n then break end
+						if n == "Own" and type(v) == "table" then Own = v end
+					end
+				end
+			end
+			E.SetGuide("test/long"); flush()
+			local slices, slice = 0, Own.progressSlice
+			Own.progressSlice = function(...) slices = slices + 1; return slice(...) end
+			local got = {}
+			local function cb(d, t) got[#got + 1] = { d, t } end
+			stub.advance(1)
+			local d0, t0 = E.GetProgress()
+			w.accept(9100, {}, "Q100"); flush()
+			local first = E.ProgressSoon(cb)
+			for _ = 1, 20 do if #got > 0 then break end; stub.advance(0.02) end
+			local d1, t1 = E.GetProgress()
+			local kept = { E.ProgressSoon(cb) }
+			local landed = got[1] or false
+			-- A change half way: the count starts again and lands with the new numbers.
+			w.accept(9110, {}, "Q110"); flush()
+			got, slices = {}, 0
+			E.ProgressSoon(cb)
+			stub.advance(0.02)
+			w.accept(9120, {}, "Q120")
+			for _ = 1, 40 do if #got > 0 then break end; stub.advance(0.02) end
+			local d2, t2 = E.GetProgress()
+			emit({ before = { d0, t0 }, first = first == nil, landed = landed, sync = { d1, t1 }, kept = kept,
+				again = got[1] or false, sync2 = { d2, t2 }, slices = slices, calls = #got })
+		"#,
+		..Default::default()
+	});
+	assert_eq!(out["first"], true, "no count kept for the new evaluation: {out}");
+	assert_eq!(out["sync"], json!([out["before"][0].as_i64().unwrap() + 1, 120]), "the accept ahead counts done: {out}");
+	assert_eq!(out["landed"], out["sync"], "the count lands with GetProgress's numbers: {out}");
+	assert_eq!(out["kept"], out["sync"], "then it is kept for the evaluation");
+	assert_eq!(out["again"], out["sync2"], "a change half way: the newest numbers: {out}");
+	assert_eq!(out["sync2"][0].as_i64().unwrap(), out["before"][0].as_i64().unwrap() + 3);
+	assert!(out["slices"].as_i64().unwrap() >= 3, "120 steps take three frames at least: {out}");
+	assert_eq!(out["calls"], 1, "each asker called once: {out}");
+}
+
+// 120 steps of one accept each, for the progress count.
+const LONG: &str = r#"
+local steps = {}
+for k = 1, 120 do
+	steps[k] = { title = "Q" .. k, goals = { { t = "accept", quest = 9000 + k, title = "Q" .. k, npc = 823, npcName = "Deputy Willem", map = 1429, x = 48.2, y = 42.0 } } }
+end
+Polestar.RegisterGuide({ id = "test/long", pack = "test", title = "Long", faction = "Alliance", minLevel = 1, maxLevel = 60, zone = 1429, steps = steps })
+"#;

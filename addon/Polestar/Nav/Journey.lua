@@ -39,6 +39,8 @@
 --     when no addon has it: `/way [#mapID | zone] x y [title]`, `/way reset`.
 --   * While the target is handed to Shortest Path Forever (Nav/Handoff.lua),
 --     map clicks, the TomTom stand-in and /way are its own: Polestar's stay out.
+--     With it installed, a Shift- or Alt-click it plans a journey for is its
+--     own too: Polestar's plan waits a frame and goes only when it planned none.
 --   * With TomTom installed, nav.followTomTom (off by default) points the
 --     arrow wherever TomTom's arrow points (see "Following TomTom's arrow").
 --
@@ -196,6 +198,20 @@ local function planning()
 	return ns.Get("nav.mapPlan") and not Nav.HandedOff() and true or false
 end
 
+-- With Shortest Path Forever installed, its own Shift- and Alt-click plan a journey of its own (its
+-- Journey/JourneyInput.lua) whichever addon hears the click first: one click planned in both, and once its journey
+-- ended Polestar's arrow stayed on the clicked spot instead of going back to the guide. So with it installed, `fn`
+-- (Polestar's plan) waits a frame and is dropped when the click started a journey there (Nav/Handoff.lua
+-- ClickTaken); with its journeys off it plans nothing, and Polestar's plan goes ahead. -> true when it waits.
+local function leftToShortestPath(fn)
+	local H = Nav.handoff
+	if not (H and H.Available and H.Available()) then return false end
+	ns.After(0, function()
+		if not H.ClickTaken() then fn() end
+	end)
+	return true
+end
+
 -- Shift-click inserts links into an open chat box; that click stays Blizzard's.
 local function chatOpen()
 	local active = (ChatFrameUtil and ChatFrameUtil.GetActiveWindow) or ChatEdit_GetActiveWindow
@@ -238,6 +254,8 @@ local function onCanvasClick(canvas, button)
 	local mapID = canvas:GetMapID()
 	local x, y = canvas:GetNormalizedCursorPosition()
 	if not (mapID and x and y) then return false end
+	-- Left to Shortest Path Forever, the click goes on to its handler (and the map's own).
+	if leftToShortestPath(function() Journey.OnMapClick(mapID, x * 100, y * 100) end) then return false end
 	Journey.OnMapClick(mapID, x * 100, y * 100)
 	return true
 end
@@ -264,6 +282,7 @@ local function onGlobalMouseDown(_, button)
 	if name == "own" then return end
 	if not x then x, y = map:GetNormalizedCursorPosition() end
 	if not (mapID and x and y) then return end
+	if leftToShortestPath(function() Journey.OnMapClick(mapID, x * 100, y * 100, name) end) then return end
 	Journey.OnMapClick(mapID, x * 100, y * 100, name)
 end
 
@@ -273,7 +292,9 @@ local function onMinimapUp(_, button)
 	local P = ns.Pins
 	if not (P and P.MinimapCursor) then return end
 	local dNorth, dWest = P.MinimapCursor()
-	Journey.OnMinimapClick(dNorth, dWest, (P.MinimapView()))
+	local radius = P.MinimapView()
+	if leftToShortestPath(function() Journey.OnMinimapClick(dNorth, dWest, radius) end) then return end
+	Journey.OnMinimapClick(dNorth, dWest, radius)
 end
 
 local worldHooked, minimapHooked = false, false
@@ -748,28 +769,3 @@ ns.OnLogin(function()
 	Journey.RefreshTomTom()
 	claimWay()
 end)
-
-if ns.RegisterOptions then
-	local ok, err = ns.RegisterOptions({
-		page = L["Guide"], tab = L["Arrow & routes"], section = L["Routes"],
-		controls = {
-			Nav.HandoffOption({ kind = "toggle", key = "nav.mapPlan", label = L["Shift-click a map to go there"],
-				help = L["Shift-click the world map or minimap and the arrow takes you there; Alt-click works over map icons. Click the spot again to clear it."] }),
-			Nav.HandoffOption({ kind = "dropdown", key = "nav.routeStyle", label = L["Route style"],
-				help = L["Fastest: the shortest walk, over hills and across fields. Balanced: roads that aren't much longer, and round hills. Roads: stays on roads even when they're longer; the safest way, not the quickest."],
-				choices = { { value = "fastest", label = L["Fastest"] }, { value = "balanced", label = L["Balanced"] }, { value = "roads", label = L["Roads"] } } }),
-		},
-	})
-	if not ok and geterrorhandler then geterrorhandler()(err) end
-	ok, err = ns.RegisterOptions({
-		page = L["Integrations"], section = "TomTom",
-		controls = {
-			Nav.HandoffOption({ kind = "toggle", key = "nav.answerTomTom", label = L["Let other addons set waypoints"],
-				help = L["Without TomTom installed, waypoints other addons set through TomTom, and /way, point Polestar's arrow. Addons that expect TomTom's own settings may not work with it on."] }),
-			{ kind = "toggle", key = "nav.followTomTom", label = L["Follow TomTom's arrow"],
-				help = L["With TomTom installed, the arrow goes wherever TomTom's arrow points, routed like any goal."],
-				disabled = function() return TomTom == nil or TomTom == shim end },
-		},
-	})
-	if not ok and geterrorhandler then geterrorhandler()(err) end
-end

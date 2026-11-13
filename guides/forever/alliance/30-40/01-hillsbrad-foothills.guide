@@ -11,11 +11,14 @@ next forever/alliance/30-40/03-ashenvale
 # into this file.
 # Added here: Defeat Nek'rosh (474), Sully Balloo's Letter (637), Ironband Wants You! (707), Sara Balloo's Plea (683),
 # The Thandol Span (632, 633), Plea to the Alliance (634, handed in at Refuge Pointe in 05-arathi-highlands) and, on the
-# Defeat Nek'rosh group branch, This Land Was Their Land (98230), which Captain Stoutfist offers only after 474 is handed in (#1299),
-# with Howin's Word to Ironforge (98300, optional: never seen offered without 98230) on the same stop. Solo players never see
-# them (when group 474).
+# Defeat Nek'rosh group branch, This Land Was Their Land (98230), which Captain Stoutfist offers only after 474 is handed in (#1299).
+# Solo players never see it (when group 474). Howin's Word to Ironforge (98300) is left out: he offers it only after Death to the
+# Dragonmaw (98291) and Stopping the Cycle (98297), which the route does not take.
 # Spark of Freedom (87491) is a group quest (#1313): its escort starts at the far west of Dun Modr's elite Dark Iron ruins.
 # MacKreel's Moonshine (647) is taken in 05-arathi-highlands: its 15-minute limit does not last the walk to Menethil and the boat (#1319).
+# Excavation Site: Wetlands (run in 06-wetlands): Rethiel takes Horrors in the Highland (95646) on this guide's Wetlands
+# loop, and Prospector Whelgar the Titan Relic's Lost Relic Carry (95810) and High Explorer Magellas Prehistoric Prism
+# (98824) for whoever still carries them (`when complete`/`when onquest`).
 
 step To Deepwater Tavern
   zone Wetlands
@@ -124,6 +127,12 @@ step Rhag Garmason again
 step The Green Belt
   turnin 98245                        -- Howin Kindfeather
 
+step Rethiel the Greenwarden
+  when dungeon "Excavation Site: Wetlands"
+  when complete 95646
+  tip The root core from your Excavation Site: Wetlands run: Rethiel stands by the river, just east of Howin.
+  turnin 95646                        -- Rethiel the Greenwarden
+
 step Howin Kindfeather
   when complete 98246
   turnin 98246                        -- Trying Times: the eggs
@@ -132,6 +141,13 @@ step Prospector Whelgar
   when group 98310
   turnin 98310                        -- Below ground
   accept 98313                        -- For Historian Karnik in Ironforge, at the end of this guide
+
+step Prospector Whelgar
+  when dungeon "Excavation Site: Wetlands"
+  when onquest 95810
+  tip The Titan Relic from your Excavation Site: Wetlands run: Prospector Whelgar is below ground in his dig, south of the road west.
+  turnin 95810                        -- Prospector Whelgar, below ground
+  accept 98824                        -- Prospector Whelgar: for High Explorer Magellas in Ironforge, at the end of this guide
 
 step Menethil Harbor
   tip West along the road to Menethil.
@@ -148,7 +164,6 @@ step Howin Kindfeather
   when group 474
   tip Back east along the road to the Green Belt: Howin Kindfeather camps among the Fenrunners, just west of Rethiel. Then west again to Menethil for the boat.
   turnin 98230                        -- Howin Kindfeather
-  accept 98300 optional               -- For King Magni in Ironforge, at the end of this guide
 
 step Level 30.8
   when !group 474
@@ -295,6 +310,12 @@ step Hall of Explorers
   accept 1453                         -- Roetten Stonehammer
   train class only Warrior,Paladin,Hunter,Rogue,Priest,Shaman,Mage,Warlock -- Level 30 and 32 spells
 
+step High Explorer Magellas
+  when dungeon "Excavation Site: Wetlands"
+  when onquest 98824
+  zone Ironforge
+  turnin 98824                        -- High Explorer Magellas, Hall of Explorers
+
 step Historian Karnik
   when onquest 98313
   turnin 98313                        -- Historian Karnik, Hall of Explorers
@@ -307,11 +328,6 @@ step Sara Balloo
 step King Magni Bronzebeard
   when onquest 683
   turnin 683
-
-step King Magni Bronzebeard
-  when onquest 98300
-  zone Ironforge
-  turnin 98300                        -- King Magni Bronzebeard, the High Seat
 
 step Fly to Stormwind
   zone Ironforge

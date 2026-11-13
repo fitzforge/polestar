@@ -586,6 +586,91 @@ fn nothing_is_searched_in_combat_the_search_follows_once_combat_ends() {
 	assert_eq!(out["after"], 1);
 }
 
+// The skycutter from Zephras Isle to Dalaran carries the player 25 yd a second for about 70 s with no taxi and no
+// speed of their own (Transit.Carried): straying from the walk the whole way, each search (every 2 s before) would
+// start from a point the ship leaves at once, and each floor read had the router decode the cluster under it. Nothing
+// is searched or read while carried; once the player moves on their own, one search from where they are.
+#[test]
+fn carried_by_a_ship_the_game_gives_no_taxi_for_nothing_is_searched_or_read_one_search_once_off() {
+	let out = run(r#"
+		local r = {}
+		-- The arrow's own searches only (the planner, whose later walks are searched too, is off).
+		Polestar.Set("nav.travel", false)
+		-- UnitPosition as Compat reads it (Transit samples it each second), and the player's own speed.
+		Polestar.Compat.GetPlayerUnitPosition = function() local p = nav.player return p.wx, p.wy, nil, p.c end
+		OWN = 0
+		function GetUnitSpeed(unit) if unit == "player" then return OWN, 7, 0, 0 end end
+		fake.surfaces = function() return { 0 } end
+		nav.place(0, 0)
+		target(0, -600)
+		N.Sample()
+		fake.resolve(0, 0, 0, -300, 0, -600)
+		stub.advance(3)
+		aim()
+		local before, reads = calls(), fake.reads or 0
+		-- Aboard: 25 yd a second, for 20 s; along the walk until the ride is seen (two samples), then off it.
+		for t = 1, 20 do
+			if t <= 2 then nav.place(0, -25 * t) else nav.place(25 * (t - 2), -50 - 10 * (t - 2)) end
+			stub.advance(1)
+			aim()
+			if t == 2 then reads = fake.reads or 0 end
+		end
+		r.riding = calls() - before
+		r.reads = (fake.reads or 0) - reads
+		r.carried = Polestar.Transit.Carried()
+		-- Off the ship, walking on.
+		OWN = 7
+		nav.place(507, -200)
+		stub.advance(1)
+		aim()
+		r.off = calls() - before
+		local job = fake.last()
+		r.from = { floor(job.from.x), floor(job.from.y) }
+		emit(r)"#);
+	assert_eq!(out["carried"], true, "the ride is seen");
+	assert_eq!(out["riding"], 0, "no search while carried");
+	assert_eq!(out["reads"], 0, "no floor read while carried");
+	assert_eq!(out["off"], 1, "one search once off");
+	assert_eq!(out["from"], json!([507, -200]));
+}
+
+// A search asked as the ship sets off (two samples before the ride is seen) starts from a point the ride leaves:
+// once the ride is seen it is dropped, so the router stops on it, and asked again from where the player is once off.
+#[test]
+fn carried_a_search_under_way_when_the_ride_is_seen_is_dropped_and_asked_again_once_off() {
+	let out = run(r#"
+		local r = {}
+		Polestar.Set("nav.travel", false)
+		Polestar.Compat.GetPlayerUnitPosition = function() local p = nav.player return p.wx, p.wy, nil, p.c end
+		OWN = 0
+		function GetUnitSpeed(unit) if unit == "player" then return OWN, 7, 0, 0 end end
+		fake.surfaces = function() return { 0 } end
+		nav.place(0, 0)
+		stub.advance(1)
+		target(0, -600)
+		aim()
+		local job, before = fake.last(), calls()
+		for t = 1, 5 do
+			nav.place(25 * t, 0)
+			stub.advance(1)
+			aim()
+		end
+		r.cancelled = job.cancelled == true
+		r.riding = calls() - before
+		OWN = 7
+		nav.place(130, 0)
+		stub.advance(1)
+		aim()
+		r.off = calls() - before
+		local again = fake.last()
+		r.from = { floor(again.from.x), floor(again.from.y) }
+		emit(r)"#);
+	assert_eq!(out["cancelled"], true, "the search from the ride's start is dropped");
+	assert_eq!(out["riding"], 0, "none while carried");
+	assert_eq!(out["off"], 1, "one once off");
+	assert_eq!(out["from"], json!([130, 0]));
+}
+
 #[test]
 fn hand_made_crossings_win_the_engine_walks_to_the_gate_the_crossing_itself_is_the_data_s_its_line_is_searched_once_for_the_map() {
 	let out = run(r#"
@@ -1738,6 +1823,51 @@ fn the_player_alone_walked_away_only_the_player_s_walk_is_measured_again_the_pla
 	assert_eq!(out["after"], 2, "planned again from there: no further batch");
 }
 
+// Carried (Transit.Carried, the skycutter to Dalaran), the planner measures nothing from the player: the batch under
+// way when the ride is seen (from the target to where the ship set off) is dropped, the plans on the way start none,
+// and the first plan once off measures.
+#[test]
+fn carried_nothing_is_measured_from_the_player_the_batch_under_way_is_dropped_the_first_plan_once_off_measures() {
+	let out = run_many(
+		&[
+			TERRAIN,
+			r#"
+		local r = {}
+		Polestar.Compat.GetPlayerUnitPosition = function() local p = nav.player return p.wx, p.wy, nil, p.c end
+		OWN = 0
+		function GetUnitSpeed(unit) if unit == "player" then return OWN, 7, 0, 0 end end
+		nav.place(0, 600)
+		stub.advance(1)
+		target(0, 0)
+		N.Sample()
+		local first = fake.of(true)[1]
+		-- Aboard, 50 yd a second; the plan made again on the way.
+		for t = 1, 6 do
+			nav.place(50 * t, 600 - 33 * t)
+			stub.advance(1)
+			T.Replan()
+		end
+		r.dropped = first.cancelled == true
+		r.carried = Polestar.Transit.Carried()
+		r.riding = #fake.of(true)
+		OWN = 7
+		nav.place(305, 400)
+		stub.advance(1)
+		T.Replan()
+		local many = fake.of(true)
+		r.off = #many
+		r.reverse = many[#many].reverse == true
+		emit(r)"#,
+		]
+		.concat(),
+	);
+	assert_eq!(out["dropped"], true, "the batch under way when the ride is seen is dropped: {out}");
+	assert_eq!(out["carried"], true);
+	assert_eq!(out["riding"], 1, "no batch while carried: {out}");
+	assert_eq!(out["off"], 2, "the first plan once off measures: {out}");
+	assert_eq!(out["reverse"], true);
+}
+
 // Two gates between West Vale and East Vale: North Gate (600, +-20) and South
 // Gate (-600, +-20). The player (0, 500) in West Vale, the target (100, -500)
 // in East Vale: straight, the north gate is nearer; the engine finds the walk
@@ -2741,6 +2871,27 @@ fn zone_danger_x3_from_the_player_s_level_4_x20_above_10_a_zone_without_levels_o
 	assert_eq!(out["table"], json!(["9002=3,9003=3,9004=20", "9002=3,9003=3,9004=20"]), "every zone above 1, and its signature");
 	assert_eq!(out["none"], json!([false, ""]), "none: nil, an empty signature");
 	assert_eq!(out["cached"], true, "kept per level and zone pair");
+}
+
+/// #1490: a zone with a danger floor (Maps.GetZoneLevels' third value: Alterac Mountains, P10 24, floor 30) is
+/// priced from the floor: dangerous from 26 down, far above under 20; the zones without one from their P10.
+#[test]
+fn zone_danger_a_zone_s_danger_floor_prices_it_alterac_at_24_with_floor_30_is_dangerous_from_26_down() {
+	let out = run_many(
+		&[
+			DANGER,
+			r#"
+		local levels = { [9001] = { 24, 39, 30 }, [9002] = { 24, 39 } }
+		Polestar.Maps.GetZoneLevels = function(id) local v = id and levels[id] if v then return v[1], v[2], v[3] or v[1] end end
+		emit({
+			floor = { D.Mult(27, 9001), D.Mult(26, 9001), D.Mult(21, 9001), D.Mult(20, 9001), D.Mult(19, 9001) },
+			plain = { D.Mult(21, 9002), D.Mult(20, 9002), D.Mult(13, 9002) },
+		})"#,
+		]
+		.concat(),
+	);
+	assert_eq!(out["floor"], json!([1, 3, 3, 3, 20]), "30 >= L + 4 from 26 down, > L + 10 under 20");
+	assert_eq!(out["plain"], json!([1, 3, 20]), "without a floor its lowest level, 24, as before");
 }
 
 #[test]

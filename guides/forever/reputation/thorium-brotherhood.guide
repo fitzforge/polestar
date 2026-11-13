@@ -79,7 +79,7 @@ step Back to Thorium Point
   turnin 7728                         -- Taskmaster Scrange
   turnin 7729
   turnin 7701 optional                -- Lookout Captain Lolo Longstriker
-  turnin 7704 optional                -- Evonice Sootsmoker
+  turnin 7704                         -- Evonice Sootsmoker
 
 step Imperial Plate, for Blacksmiths
   when skill Blacksmithing 265
@@ -138,7 +138,7 @@ step The Shadowforge Key
   zone Burning Steppes
   tip Optional, and it saves every later trip to Lokhtos the Ring of Law fight. Franclorn Forgewright is a ghost in the middle of Blackrock Mountain: only the dead see him, so die in the mountain and walk to his tomb as a spirit. He sends you after Fineous Darkvire in Blackrock Depths, who always drops Ironfel; place it on Franclorn's monument in the Shrine of Thaurissan and the Shadowforge Key falls out. Blackrock Depths is a five-player dungeon: group up.
   accept 3801 optional                -- Franclorn Forgewright, as a ghost
-  turnin 3801 optional
+  turnin 3801
   accept 3802 optional
   collect 10999 quest 3802.1 optional @32.1,94.7 map 1427 -- Ironfel, Fineous Darkvire inside Blackrock Depths
   turnin 3802 optional @32.1,94.7 map 1427 -- Monument of Franclorn Forgewright, Shrine of Thaurissan in Blackrock Depths

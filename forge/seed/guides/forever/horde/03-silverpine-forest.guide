@@ -13,6 +13,10 @@ next forever/horde/02-the-barrens
 # Zinge's Delivery and Sample for Helbrim (1359, 1358), The Spirits of Stonetalon (1061), and for
 # the starts that come by zeppelin, The Argent Emissary, The Cult of the Damned, Remnants of War and
 # Delivery to Silverpine Forest (96895, 96897, 96898, 445).
+# Undead only: Supplying the Sepulcher (6321) and Ride to the Undercity (6323), Deathguard Podrig to
+# Karos Razok on the first Sepulcher stop, then Gordon Wendham and Michael Garrett (6322) side by side
+# on the Undercity stop at the end; Return to Podrig (6324) goes back with the ride through the
+# Sepulcher in forever/horde/05-stonetalon-mountains. Forever gives the chain to the Undead alone.
 
 # Horde 12-30 in the order the quest levels fit (2026-11-07): Silverpine Forest comes first, at
 # 12-15, straight from every start. Tirisfal Glades walks south into it; Durotar, Mulgore and
@@ -21,7 +25,7 @@ next forever/horde/02-the-barrens
 #
 # Flow: Orgrimmar (flight path, the starts' hand-ins, training) -> zeppelin to Tirisfal Glades ->
 # Brill (Terrence, Johaan) and Hadric's cultists by the zeppelin towers ->
-# the Sepulcher (flight path, bind) -> the Dalaran crate and back -> north loop: the Dead Field,
+# the Sepulcher (flight path) -> the Dalaran crate and back -> north loop: the Dead Field,
 # Malden's Orchard, Erland's escort, worg hearts -> the Sepulcher -> north again: Valgan's Field,
 # Quinn, the murloc eyes on the shore -> south along the lake shore past the Decrepit Ferry to
 # Ambermill -> the Sepulcher -> Quinn and Ivar the Foul on the road north -> Brill ->
@@ -110,10 +114,10 @@ step Borstan
 step Neeru Fireblade
   only Orc,Troll
   zone Orgrimmar
-  when onquest 829
+  when onquest 829,832
   tip The Cleft of Shadow is the canyon under the Valley of Strength; Neeru Fireblade stands at its far end.
   turnin 829
-  turnin 832 optional                 -- Neeru Fireblade
+  turnin 832                          -- Neeru Fireblade: Burning Shadows, from the Eye of Burning Shadow in Durotar
 
 step The Drag
   only Orc,Troll,Tauren,Skyborne
@@ -121,12 +125,52 @@ step The Drag
   tip Kor'geld and Yelmak run the alchemy shop in the Drag; Whuut is next door.
   accept 97242                        -- Kor'geld
 
+step Jandi
+  only Orc,Troll
+  zone Orgrimmar
+  when onquest 97905
+  tip Jandi, the herbalism trainer, keeps her shop in the Drag.
+  complete 97905 @55.62,39.46
+  turnin 97905                        -- Jandi: Camping 101, from Brakk's campfire in Durotar
+
+step Jhag
+  only Orc,Troll
+  zone Orgrimmar
+  when onquest 97901
+  tip Jhag, the enchanting trainer, works in the Drag.
+  complete 97901 @53.47,38.55
+  turnin 97901                        -- Jhag: Camping 101, from Brakk's campfire in Durotar
+
 step Valley of Honor
   only Orc,Troll,Tauren,Skyborne
   zone Orgrimmar
   tip The cattails and speargrass grow along the water in the Valley of Honor, east of the Drag.
   collect 277278 quest 97242.1
   collect 277279 quest 97242.2
+
+step Thuwd
+  only Orc,Troll
+  zone Orgrimmar
+  when onquest 97908
+  tip Thuwd, the skinning trainer, stands in the Valley of Honor.
+  complete 97908 @63.36,45.42
+  turnin 97908                        -- Thuwd: Camping 101, from Brakk's campfire in Durotar
+
+step Karolek
+  only Orc,Troll
+  zone Orgrimmar
+  when onquest 97906
+  tip Karolek, the leatherworking trainer, works in the Valley of Honor.
+  complete 97906 @62.81,44.15
+  turnin 97906                        -- Karolek: Camping 101, from Brakk's campfire in Durotar
+
+step Snang
+  only Orc,Troll
+  zone Orgrimmar
+  when onquest 96102
+  tip Snang, the tailoring trainer, is in the Valley of Honor.
+  complete 96102 @62.93,49.24
+  turnin 96102                        -- Snang: Camping 101, from Brakk's campfire in Durotar
 
 step Class trainer
   only Orc,Troll,Tauren,Skyborne,Warrior,Hunter,Rogue,Priest,Shaman,Warlock
@@ -173,12 +217,20 @@ step Kor'geld
   accept 97275                        -- Yelmak
   turnin 97275                        -- Whuut
 
+step Whuut
+  only Orc,Troll
+  zone Orgrimmar
+  when onquest 97899
+  tip Whuut, the alchemy trainer, stands next door to Kor'geld.
+  complete 97899 @55.79,32.9
+  turnin 97899                        -- Whuut: Camping 101, from Brakk's campfire in Durotar
+
 step Valley of Wisdom
   only Orc,Troll,Tauren,Skyborne
   zone Orgrimmar
   tip Thra and Migi sit behind Grommash Hold in the Valley of Wisdom; the Smooth Boulders lie around them.
-  accept 97326                        -- Thra
   turnin 97249                        -- Migi
+  accept 97326                        -- Thra
   collect 277952 quest 97326.1
   turnin 97326
 
@@ -250,17 +302,20 @@ step The Sepulcher
 step The Sepulcher
   zone Silverpine Forest
   tip The Sepulcher is the Forsaken crypt-town in the middle of the forest. Everyone you need stands around the crypt entrance; Karos Razok, the bat handler, is just east of it.
+  accept 6321 only Undead             -- Deathguard Podrig
   getfp "The Sepulcher"
+  turnin 6321 only Undead             -- Karos Razok
+  accept 6323 only Undead             -- Karos Razok: Gordon Wendham in the Undercity, at the end of this guide; no need to buy the flight
   accept 477                          -- Shadow Priest Allister
   accept 421
   accept 428                          -- High Executor Hadrec, below ground
   accept 437
-  sethome "The Sepulcher" npc 6739    -- Innkeeper Bates
   turnin 445                          -- Apothecary Renferrel: Delivery to Silverpine Forest
 
 step The Sepulcher
   zone Silverpine Forest
   when onquest 264
+  tip Until Death Do Us Part is handed in at Yuriv's Tombstone, a grave a few steps south of the crypt entrance, not to a person.
   turnin 264 only Skyborne,Tauren
 
 step Border Crossings
@@ -378,13 +433,41 @@ step Tirisfal Glades
 step The Undercity
   zone Undercity
   tip The Undercity lies under the Ruins of Lordaeron, beside the zeppelin towers. Raleigh Andrean stands at the inn by the way down; Alessandro Luca on the way down to the Apothecarium, where Doctor Martin Felben and Apothecary Zinge stand beside Master Apothecary Faranell.
+  turnin 6323 only Undead             -- Gordon Wendham, the weapon merchant beside the bat handler
+  accept 6322 only Undead
   getfp "Undercity"
+  turnin 6322 only Undead             -- Michael Garrett, the bat handler
+  accept 6324 only Undead             -- Michael Garrett: keep Gordon's Crate, Podrig takes it on the next stop at the Sepulcher, at 22
   turnin 441                          -- Raleigh Andrean
   accept 97891                        -- Alessandro Luca
   turnin 97891                        -- Doctor Martin Felben, in the Apothecarium
   turnin 1359                         -- Apothecary Zinge, in the Apothecarium
   accept 1358                         -- Apothecary Zinge: Helbrim at the Crossroads, in the next guide
   train class only Paladin            -- Garen Largo, the Undercity's paladin trainer
+
+step Brom Killian
+  only Undead
+  zone Undercity
+  when onquest 97959
+  tip Brom Killian, the mining trainer, works in the Undercity.
+  complete 97959 @56.03,37.45
+  turnin 97959                        -- Brom Killian: Camping 101, from Eleanor Shackleton's campfire in Tirisfal
+
+step Basil Frye
+  only Undead
+  zone Undercity
+  when onquest 97952
+  tip Basil Frye, the blacksmithing trainer, works in the Undercity.
+  complete 97952 @60.17,29.09
+  turnin 97952                        -- Basil Frye: Camping 101, from Eleanor Shackleton's campfire in Tirisfal
+
+step Graham Van Talen
+  only Undead
+  zone Undercity
+  when onquest 97954
+  tip Graham Van Talen, the engineering trainer, works in the Undercity.
+  complete 97954 @75.34,73.13
+  turnin 97954                        -- Graham Van Talen: Camping 101, from Eleanor Shackleton's campfire in Tirisfal
 
 step Lady Sylvanas Windrunner
   only Skyborne
@@ -443,8 +526,8 @@ step Kor'geld
 
 step Valley of Wisdom
   tip Thra and Migi sit behind Grommash Hold in the Valley of Wisdom; the Smooth Boulders lie around them. Train while you are in the city (Druids and Paladins have no trainer here). The next guide walks from here to Far Watch Post and the Crossroads.
-  accept 97326                        -- Thra
   turnin 97249                        -- Migi
+  accept 97326                        -- Thra
   collect 277952 quest 97326.1
   turnin 97326
   train class only Warrior,Hunter,Rogue,Priest,Shaman,Mage,Warlock

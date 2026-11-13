@@ -9,8 +9,13 @@ next forever/alliance/07-thousand-needles
 # Forge's route search orders the quests of this guide and its guide writer writes the steps.
 # Fixes go into data/route-fixes.json, data/guide-fixes.json or forever-db/corrections, never
 # into this file.
-# Added here: Velinde Starsong (1037), Daily Delivery (469: Einar Stonegrip by Howin to James Halloran). Left out: Crimson Crate Delivery (98240), which James Halloran offers only after Crocs of the Sky (98072, handed in at the end of 30-40/01's Wetlands loop).
+# Added here: Daily Delivery (469: Einar Stonegrip by Howin to James Halloran). Left out: Crimson Crate Delivery (98240), which James Halloran offers only after Crocs of the Sky (98072, handed in at the end of 30-40/01's Wetlands loop), and Velinde Starsong (1037: taken at 29, handed in to Thyn'tel Bladeweaver in Darnassus only at 41-48, for a tenth of its XP by then; the 40-50 Darnassus steps hand in a copy players still carry).
 # Also left out: This Land Was Their Land (98230), which Captain Stoutfist offers only after Defeat Nek'rosh (474) is handed in (#1299): it is on the group branch of 30-40/01-hillsbrad-foothills.
+# Bloom of the Heavens (98208, 98209: 1750 + 1200 XP) from Sylessa Duskwhisper by Menethil's docks: Nord'el lies on the
+# shore just south of the town, and the follow-up goes to Thundris Windweaver in Auberdine on this guide's boat trip.
+# Vengeful Trail (98417, 1700 XP) from Maseara Autumnmoon at Forest Song: Kurothel's Knapsack lies by Satyrnaar's Circle of
+# Imprisonment, visited between Fallen Sky Lake and Kayneth's hand-in. Left out: its follow-up Shared Fury (98418), twenty
+# Xavian satyrs back west (five Betrayers, who have two spawns) and a second walk back to Forest Song.
 # Insane Druids (1012, level 32) is optional: three druids deep in the Dor'Danil Barrow Den, a
 # respawning cave of stealthed mobs, with Kayneth Stillwind before and after (a back-and-forth across
 # south-east Ashenvale for one quest). Players' recordings: nobody took it on a recorded version.
@@ -125,7 +130,13 @@ step Menethil Harbor
   accept 98221                            -- Captain Stoutfist: From the Ashes, the Attack Plans in the Angerfang Encampment
   accept 281                              -- Karl Boran, on the pier north of the inn
   accept 471                              -- James Halloran, by the docks
+  accept 98208                            -- Sylessa Duskwhisper, beside James Halloran by the docks
   accept 472                              -- Harlo Barnaby, by the north gate: Longbraid the Grim takes it on 30-40/01-hillsbrad-foothills' Dun Modr stop
+
+step Nord'el
+  zone Wetlands
+  tip Nord'el lies on the shore just south of Menethil Harbor, a short walk past the town's south end. Then follow the coast north out of town to the hovels.
+  collect 279915 quest 98208 @12.2,63.8   -- Nord'el
 
 step The Bluegill hovels
   tip Follow the coast north out of Menethil into Bluegill Marsh. Three containers in the murloc hovels, south to north: the Damaged Crate, then the Sealed Barrel, then the Half-buried Barrel at the north end.
@@ -149,6 +160,8 @@ step Menethil Harbor
   tip In from the north: James Halloran by the docks, Karl Boran on the pier, Captain Stoutfist in the keep, then First Mate Fitzsimmons in the inn.
   turnin 471                              -- James Halloran
   accept 98072
+  turnin 98208                            -- Sylessa Duskwhisper, beside him
+  accept 98209                            -- For Thundris Windweaver in Auberdine, on this guide's boat trip: keep it
   turnin 286                              -- Karl Boran
   accept 98189 npc 1242                   -- Karl Boran: for Captain Stoutfist in the keep
   turnin 98189 npc 2104                   -- Captain Stoutfist, on the top floor
@@ -246,7 +259,7 @@ step Rethiel the Greenwarden
   accept 98283 optional               -- Carnage, an elite raptor, on the Wetlands loop of 30-40/01-hillsbrad-foothills
 
 step Captain Stoutfist
-  tip Back west along the road to Menethil Harbor: Captain Stoutfist stands on the top floor of Menethil Keep, Glorin Steelbrow in the Deepwater Tavern south of it, James Halloran by the docks on the way to the boat.
+  tip Hearth back to Menethil Harbor if you bound at the Deepwater Tavern, or walk west along the road: Captain Stoutfist stands on the top floor of Menethil Keep, Glorin Steelbrow in the Deepwater Tavern south of it, James Halloran by the docks on the way to the boat.
   turnin 464                              -- On the top floor
   turnin 98221
   accept 465                              -- For the Dragonmaw catapult, on the Wetlands loop of 30-40/01-hillsbrad-foothills
@@ -260,6 +273,12 @@ step Boat to Auberdine
   zone Wetlands
   tip The boat to Auberdine leaves from the far end of Menethil's western pier.
   goto 4.5,56.7 "Boat to Auberdine"
+
+step Thundris Windweaver
+  zone Darkshore
+  when onquest 98209
+  tip Thundris Windweaver stands at the north end of Auberdine, up the road from the dock.
+  turnin 98209                            -- Nord'el, from Sylessa in Menethil Harbor
 
 step Thundris Windweaver
   zone Darkshore
@@ -318,9 +337,10 @@ step Geltharis
   collect 5461 quest 1031             -- Branch of Cenarius
 
 step Forest Song
-  tip Forest Song, the Night Elf outpost at the eastern end of the road: Kayneth Stillwind stands there.
+  tip Forest Song, the Night Elf outpost at the eastern end of the road: Kayneth Stillwind stands there, Maseara Autumnmoon a few steps east of her.
   turnin 4581                         -- Kayneth Stillwind
   accept 1011
+  accept 98417                        -- Maseara Autumnmoon: her husband's trail in Satyrnaar, on the way back from the lake
 
 # ---------------------------------------------------------------- The south-east
 
@@ -338,10 +358,17 @@ step Fallen Sky Lake
   collect 5508 quest 1035             -- Fallen Moonstone
   accept 98027 object 669176          -- Gleaming Crescent Pendant: for Maliynn in Astranaar
 
+step Satyrnaar
+  tip North from the lake to the satyr camp of Satyrnaar, just west of Forest Song: the Circle of Imprisonment stands in it, and Kurothel's Knapsack lies beside it with the Vine-Wrapped Scroll.
+  tip Careful: The Felmusk Rogues in Night Run often go stealthed, and Satyrnaar has satyr casters.
+  interact 20352 quest 1140.2         -- Circle of Imprisonment
+  collect 281014 quest 98417 @81.7,49.2 -- Vine-Wrapped Scroll, from Kurothel's Knapsack
+
 step Kayneth Stillwind
   turnin 1011
   tip Optional: Kayneth also offers Insane Druids, three level 32 druids deep in The Dor'Danil Barrow Den, a cave of quickly respawning, stealthed mobs, and back to her afterwards. It is above your level here: take it only if you are grouped or want the extra XP; the guide doesn't need it.
   accept 1012 optional
+  turnin 98417                        -- Maseara Autumnmoon, a few steps east
 
 # Players' recordings: the barrow's mouth near 75.95,75.45, south of the Forsaken camp; the
 # walking maps lead over the hill above the druids instead (#1336).
@@ -356,11 +383,6 @@ step Insane druids
   kill 3940 quest 1012.1              -- Taneel Darkwood, inside The Dor'Danil Barrow Den
   kill 3941 quest 1012.2              -- Uthil Mooncall, inside The Dor'Danil Barrow Den
   kill 3942 quest 1012.3              -- Mavoris Cloudsbreak, inside The Dor'Danil Barrow Den
-
-step Satyrnaar
-  tip The Circle of Imprisonment stands in the satyr camp of Satyrnaar, further east along the road.
-  tip Careful: The Felmusk Rogues in Night Run often go stealthed, and Satyrnaar has satyr casters.
-  interact 20352 quest 1140.2         -- Circle of Imprisonment
 
 step Forest Song
   when onquest 1012
@@ -399,7 +421,7 @@ step Astranaar
 # ---------------------------------------------------------------- Krolg
 
 step Krolg
-  tip Krolg, a furbolg untouched by the corruption, sits south of the road below Mystral Lake.
+  tip Krolg, a furbolg untouched by the corruption, sits south of the road below Mystral Lake. Use Dartol's Rod of Transformation near him first: he only speaks to you in furbolg form.
   turnin 1030
   accept 1045
 
@@ -419,7 +441,6 @@ step Krolg
 step Melyria and Illiyana
   tip West from Krolg along the southern hills to the Shrine of Aessina: Melyria and Illiyana stand together by it.
   turnin 1022                         -- Sentinel Melyria Frostshadow
-  accept 1037
   turnin 1031                         -- Illiyana
 
 step Delgren the Purifier

@@ -37,13 +37,13 @@ module.exports = {
 	capture: ['PolestarGuideFrame', 'PolestarPartyPanel'],
 	shots: {
 		resting: {
-			title: 'The XP line with Boosted Rest (42m) and the sleeping bag (12m); here the "Behind by" note comes first and pushes them out of sight',
+			title: 'Boosted Rest (42m) and the sleeping bag (12m) on their own line under the XP line, a "Behind by" note on the line above',
 			capture: ['PolestarGuideFrame'],
 			lua: `studio.aura(${REST}, 42 * 60)
 studio.cooldown(${BAG}, 12 * 60, 3600)`,
 		},
 		'resting-on-pace': {
-			title: 'The same at level 20, on the guide\'s pace: the "On pace for level 21.5" note still fills the line first',
+			title: 'The same at level 20, on the guide\'s pace ("On pace for level 21.5")',
 			capture: ['PolestarGuideFrame'],
 			lua: `studio.ding(20)
 studio.clearHeadsUps()
@@ -51,7 +51,7 @@ studio.aura(${REST}, 42 * 60)
 studio.cooldown(${BAG}, 12 * 60, 3600)`,
 		},
 		'resting-wide': {
-			title: 'The same line on a window widened to 820: the whole text, Boosted Rest and the bag at its end',
+			title: 'The same on a window widened to 820',
 			capture: ['PolestarGuideFrame'],
 			lua: `studio.ding(20)
 studio.clearHeadsUps()

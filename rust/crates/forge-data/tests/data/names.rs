@@ -1,13 +1,14 @@
 //! `forge data names` (formerly tests/i18n-names.test.js and tests/i18n-names-sources.test.js): on
 //! tests/fixtures/names the packs match tests/fixtures/names/expected (the TOC's version and interface
 //! lines aside); the ids kept, which source wins an id, DingDB's pin, --no-questie, the web names cache,
-//! the extra kinds' ids, English names and placeholders, and the client tables' build.
+//! the names the client showed players, the extra kinds' ids, English names and placeholders, and the
+//! client tables' build.
 
 use std::collections::{BTreeMap, BTreeSet};
 use std::path::{Path, PathBuf};
 
 use forge_data::names::{self, add_english, build_names, English, IdSets, Inputs, Options};
-use forge_data::names_sources::{self as src, KindNames, Names, PfNames, Pin, WebNames};
+use forge_data::names_sources::{self as src, KindNames, Names, ObservedNames, PfNames, Pin, WebNames};
 
 use crate::common::{copy_tree, scratch};
 
@@ -30,13 +31,15 @@ fn fixture_pin(dir: &Path) -> Pin {
 	Pin { repo: "https://example.invalid/ding".into(), version: "v0.0.0".into(), commit: "a".repeat(40), files: DING_FILES.iter().map(|f| (f.to_string(), sha(&dir.join(f)))).collect() }
 }
 
-/// The options of a fixture build into `out`: no client tables, an empty source cache, no travel data.
+/// The options of a fixture build into `out`: no client tables, an empty source cache, no travel data,
+/// no names the client showed.
 fn fixture_options(out: &Path, cache: &Path) -> Options {
 	let f = fix();
 	let mut o = Options::new(&root());
 	o.offline = true;
 	o.no_tables = true;
 	o.sources = cache.to_path_buf();
+	o.observed = cache.join("names-observed");
 	o.ding = Some(f.join("ding"));
 	o.pin = fixture_pin(&f.join("ding"));
 	o.pfquest = Some(f.join("pfquest"));
@@ -123,7 +126,7 @@ fn fixture_built(ding: bool) -> BTreeMap<String, names::Built> {
 	let d = ding.then(|| src::ensure_ding(&f.join("ding"), true, true, fixture_pin(&f.join("ding")), &|_| {}).unwrap());
 	let dn = d.as_ref().map(|d| src::read_ding(d, &locales).unwrap());
 	let english = English::default();
-	build_names(&locales, &Inputs { ids: &ids, ding: dn.as_ref(), pf: &pf, wago: None, web: None, english: &english })
+	build_names(&locales, &Inputs { ids: &ids, ding: dn.as_ref(), pf: &pf, wago: None, observed: None, web: None, english: &english })
 }
 
 fn pairs(m: &Names) -> Vec<(i64, &str)> {
@@ -138,7 +141,7 @@ fn dingdb_comes_first_and_pfquest_fills_the_gaps_an_english_pfquest_name_is_none
 	assert_eq!(pairs(&fr.names[1]), [(6, "Vermine kobold"), (240, "Maréchal Dughan"), (448, "Lardeur")], "Ding over pfQuest for 448; 197 is English in pfQuest");
 	assert_eq!(pairs(&fr.names[2]), [(68, "Avis de recherche"), (2843, "Coffre cabossé")]);
 	assert_eq!(pairs(&fr.names[3]), [(750, "Viande de loup coriace"), (1528, "Poignée d'avoine"), (2862, "Pierre à aiguiser brute")]);
-	assert_eq!(&fr.from[..4], [[0, 0, 2, 1], [0, 0, 2, 1], [0, 0, 1, 1], [0, 0, 2, 1]]);
+	assert_eq!(&fr.from[..4], [[0, 0, 0, 2, 1], [0, 0, 0, 2, 1], [0, 0, 0, 1, 1], [0, 0, 0, 2, 1]]);
 	assert_eq!(pairs(&out["esMX"].names[1]), [(240, "Alguacil Dughan")], "no esMX in pfQuest; Ding's English Hogger is not stored");
 	assert_eq!(pairs(&out["deDE"].names[1]), [(6, "Koboldungeziefer")]);
 	assert!(out["koKR"].names[1].is_empty());
@@ -321,7 +324,7 @@ fn per_id_the_client_tables_win_then_the_web_names_dingdb_and_pfquest() {
 	]
 	.into();
 	let english = English::default();
-	let out = build_names(&["ruRU"], &Inputs { ids: &ids, ding: Some(&ding), pf: &pf, wago: Some(&wago), web: Some(&web), english: &english });
+	let out = build_names(&["ruRU"], &Inputs { ids: &ids, ding: Some(&ding), pf: &pf, wago: Some(&wago), observed: None, web: Some(&web), english: &english });
 	let b = &out["ruRU"];
 	assert_eq!(pairs(&b.names[3]), [(10, "Клиент 10"), (11, "Веб 11")]);
 	assert_eq!(pairs(&b.names[1]), [(1, "Веб 1"), (2, "Динг 2"), (3, "Пф 3")]);
@@ -331,8 +334,101 @@ fn per_id_the_client_tables_win_then_the_web_names_dingdb_and_pfquest() {
 		[pairs(&b.names[4]), pairs(&b.names[5]), pairs(&b.names[6]), pairs(&b.names[7])],
 		[vec![(36, "Мертвые копи")], vec![(230, "Событие")], vec![(72, "Штормград")], vec![(2, "Штормград, Элвиннский лес")]]
 	);
-	assert_eq!(b.from[1], [0, 1, 1, 1]);
-	assert_eq!(b.from[3], [1, 1, 0, 0]);
+	assert_eq!(b.from[1], [0, 0, 1, 1, 1]);
+	assert_eq!(b.from[3], [1, 0, 1, 0, 0]);
+}
+
+fn observed(locale: &str, records: serde_json::Value) -> serde_json::Value {
+	serde_json::json!({ "schema": 1, "locale": locale, "names": records })
+}
+
+#[test]
+fn the_names_the_client_showed_come_after_the_client_tables_and_before_the_web_names_dingdb_and_pfquest() {
+	let ids: IdSets = [set(&[5641]), set(&[1, 2, 3]), set(&[]), set(&[10]), None, None, None, None, None];
+	let mut english = English::default();
+	add_english(&mut english, "npc", 2, "Hogger");
+	let wago: BTreeMap<String, KindNames> = [("zhCN".to_string(), [("item", m(&[(10, "客户端 10")]))].into_iter().collect())].into();
+	let mut seen = ObservedNames::default();
+	seen.names[0] = m(&[(5641, "惩击")]);
+	seen.names[1] = m(&[(1, "寻天者罗里安"), (2, "Hogger")]);
+	seen.names[3] = m(&[(10, "所见 10")]);
+	let observed: BTreeMap<String, ObservedNames> = [("zhCN".to_string(), seen)].into();
+	let web: BTreeMap<String, WebNames> = [("zhCN".to_string(), WebNames { names: [m(&[(5641, "毫无畏惧")]), m(&[(1, "逐日者罗里安")]), m(&[]), m(&[])], ..Default::default() })].into();
+	let ding: BTreeMap<String, [Names; 4]> = [("zhCN".to_string(), [m(&[]), m(&[(1, "丁 1"), (2, "霍格"), (3, "丁 3")]), m(&[]), m(&[])])].into();
+	let pf: BTreeMap<String, PfNames> = [("zhCN".to_string(), PfNames::default()), ("enUS".to_string(), PfNames::default())].into();
+	let out = build_names(&["zhCN"], &Inputs { ids: &ids, ding: Some(&ding), pf: &pf, wago: Some(&wago), observed: Some(&observed), web: Some(&web), english: &english });
+	let b = &out["zhCN"];
+	assert_eq!(pairs(&b.names[0]), [(5641, "惩击")], "the client's name over the web's");
+	assert_eq!(pairs(&b.names[1]), [(1, "寻天者罗里安"), (2, "霍格"), (3, "丁 3")], "a name the client showed in English is none");
+	assert_eq!(pairs(&b.names[3]), [(10, "客户端 10")], "the client's own tables first");
+	assert_eq!([b.from[0], b.from[1], b.from[3]], [[0, 1, 0, 0, 0], [0, 1, 0, 2, 0], [1, 0, 0, 0, 0]]);
+}
+
+#[test]
+fn the_names_the_client_showed_load_from_their_language_file_and_a_broken_record_stops_the_build() {
+	use serde_json::json;
+	let dir = scratch("names-observed");
+	let rec = |token: &str, name: &str| json!({ "token": token, "name": name, "source": "client-wdb", "build": "1.60.1.70862", "sha256": "a".repeat(64), "ref": 1448 });
+	write_json(
+		&dir.join("zhCN.json"),
+		observed("zhCN", json!([rec("quest:5641", " 惩击 "), rec("npc:251361", "寻天者罗里安"), { "token": "object:4170", "name": "升降梯", "source": "client-learning", "build": null, "ref": 7 }])),
+	);
+	let o = src::load_observed_names(&dir, "zhCN").unwrap();
+	assert_eq!([pairs(&o.names[0]), pairs(&o.names[1]), pairs(&o.names[2])], [vec![(5641, "惩击")], vec![(251361, "寻天者罗里安")], vec![(4170, "升降梯")]]);
+	assert_eq!((o.len(), o.refs.iter().copied().collect::<Vec<_>>()), (3, vec![7, 1448]));
+	assert!(src::load_observed_names(&dir, "zhTW").unwrap().is_empty(), "no file: no names");
+	let mut wrong_build = rec("npc:3", "名");
+	wrong_build["build"] = json!(70862);
+	let mut no_ref = rec("npc:3", "名");
+	no_ref.as_object_mut().unwrap().remove("ref");
+	let mut other_source = rec("npc:3", "名");
+	other_source["source"] = json!("website");
+	for (why, doc) in [
+		("the token", observed("zhCN", json!([rec("spell:3", "名")]))),
+		("no name", observed("zhCN", json!([rec("npc:3", " ")]))),
+		("named twice", observed("zhCN", json!([rec("npc:3", "名"), rec("npc:3", "又名")]))),
+		("the build", observed("zhCN", json!([wrong_build]))),
+		("the ref", observed("zhCN", json!([no_ref]))),
+		("the source", observed("zhCN", json!([other_source]))),
+		("another language", observed("zhTW", json!([rec("npc:3", "名")]))),
+		("the schema", json!({ "schema": 2, "locale": "zhCN", "names": [] })),
+	] {
+		write_json(&dir.join("zhCN.json"), doc);
+		assert!(src::load_observed_names(&dir, "zhCN").is_err(), "{why}");
+	}
+}
+
+#[test]
+fn a_build_takes_the_names_the_client_showed_and_credits_them_in_the_notices() {
+	use serde_json::json;
+	let tmp = scratch("names-observed-run");
+	let (out, cache) = (tmp.join("out"), tmp.join("cache"));
+	std::fs::create_dir_all(&cache).unwrap();
+	write_json(&cache.join("names-observed/frFR.json"), observed("frFR", json!([{ "token": "npc:197", "name": "Maréchal McBride", "source": "client-learning", "build": null, "ref": 7 }])));
+	let r = names::run(&fixture_options(&out, &cache), &|_| {}).unwrap();
+	let files = files_of(&out);
+	assert!(files["Polestar_frFR/Names.lua"].contains("197\tMaréchal McBride"), "the NPC pfQuest names only in English");
+	assert!(files["Polestar_frFR/Names.lua"].starts_with("-- Generated by `forge data names` from the names the client showed players, "));
+	let lic = &files["Polestar_frFR/LICENSE-DATA.txt"];
+	assert!(lic.contains("Names the World of Warcraft: Forever client showed players") && lic.contains("data/i18n/names-observed/frFR.json") && lic.contains("(#7).\nNames taken: 1 NPC."), "{lic}");
+	assert!(!files["Polestar_deDE/LICENSE-DATA.txt"].contains("client showed players"), "a language without such names says nothing of them");
+	let json: serde_json::Value = serde_json::from_str(&r.json()).unwrap();
+	assert_eq!(json["locales"]["frFR"]["from"]["npc"]["observed"], 1);
+}
+
+#[test]
+fn the_shipped_names_the_client_showed_load_and_each_language_file_is_its_own() {
+	let dir = root().join("data/i18n/names-observed");
+	for l in forge_guide::locales::LOCALE_CODES {
+		src::load_observed_names(&dir, l).unwrap_or_else(|e| panic!("{e}"));
+	}
+	let zh = src::load_observed_names(&dir, "zhCN").unwrap();
+	assert_eq!(zh.refs.iter().copied().collect::<Vec<_>>(), [1448]);
+	// The client's own names where the web's differ (#1448): Forever renamed both quests "Chastise".
+	assert_eq!(zh.names[0].get(&5641).map(String::as_str), Some("惩击"));
+	assert_eq!(zh.names[0].get(&5645).map(String::as_str), Some("惩击"));
+	assert_eq!(zh.names[1].get(&251361).map(String::as_str), Some("寻天者罗里安"));
+	assert_eq!(zh.names[3].len(), 0, "items come from the client's tables");
 }
 
 #[test]
@@ -374,7 +470,7 @@ fn an_english_name_never_beats_a_translation_and_an_id_named_only_in_english_get
 	let ding: BTreeMap<String, [Names; 4]> = [("zhCN".to_string(), [m(&[]), m(&[(1, "泰达希尔卫兵"), (2, "Hogger"), (3, "Grund Drokda")]), m(&[]), m(&[])])].into();
 	let pf: BTreeMap<String, PfNames> =
 		[("zhCN".to_string(), PfNames { kinds: [m(&[]), m(&[(2, "霍格")]), m(&[]), m(&[(10, "松鼠坚果")])], ..Default::default() }), ("enUS".to_string(), PfNames::default())].into();
-	let out = build_names(&["zhCN"], &Inputs { ids: &ids, ding: Some(&ding), pf: &pf, wago: Some(&wago), web: Some(&web), english: &english });
+	let out = build_names(&["zhCN"], &Inputs { ids: &ids, ding: Some(&ding), pf: &pf, wago: Some(&wago), observed: None, web: Some(&web), english: &english });
 	let b = &out["zhCN"];
 	assert_eq!(pairs(&b.names[1]), [(1, "泰达希尔卫兵"), (2, "霍格"), (4, "阿尔巴·晴月")]);
 	assert_eq!(pairs(&b.names[3]), [(10, "松鼠坚果")]);
@@ -389,7 +485,7 @@ fn names_get_one_space_per_white_space_run_and_placeholder_names_are_none() {
 	let pf: BTreeMap<String, PfNames> =
 		[("frFR".to_string(), PfNames { kinds: [m(&[]), m(&[]), m(&[]), items], objective: m(&[(9, "Tuez$Bles kobolds.")]) }), ("enUS".to_string(), PfNames::default())].into();
 	let english = English::default();
-	let out = build_names(&["frFR"], &Inputs { ids: &ids, ding: None, pf: &pf, wago: None, web: None, english: &english });
+	let out = build_names(&["frFR"], &Inputs { ids: &ids, ding: None, pf: &pf, wago: None, observed: None, web: None, english: &english });
 	assert_eq!(pairs(&out["frFR"].names[3]), [(5, "Hache de guerre")]);
 	assert_eq!(out["frFR"].names[8].get(&9).map(String::as_str), Some("Tuez les kobolds."));
 }

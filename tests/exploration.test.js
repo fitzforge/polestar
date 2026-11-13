@@ -156,6 +156,15 @@ test('Forever overlay centres sit on known places', { skip: skipReal }, async ()
 	// Every area named like a flight master's town or an inn's location lies
 	// within 350 yards of that NPC. Points project through each map's Forever
 	// frame (the overlay centres' own); places are world positions.
+	// Mount Hyjal (Forever-new) is drawn as nine wide areas, and its two flight
+	// masters stand at the edge of theirs: Fayran Elthas inside Summit of
+	// Eternity's hit rect at its west side, 397 yd from its centre, and Bluebell
+	// about 140 yd west of Tainted Foothills' hit rect, 582 yd from its centre.
+	// Players' recordings meet both where travel.json puts them, and log
+	// Summit of Eternity at 70.9,51.5, on its hit rect's south edge, and
+	// Tainted Foothills 120 yd from its centre: the frame is right, the areas
+	// are wide. Hyjal's places may lie 650 yards out.
+	const reach = { 2482: 650 };
 	const places = [
 		...travel.taxi.nodes.map((n) => ({ name: n.short, map: n.map, c: n.c, wx: n.wx, wy: n.wy })),
 		...travel.inns.flatMap((i) => i.names.map((name) => ({ name, map: i.map, c: i.c, wx: i.wx, wy: i.wy }))),
@@ -169,7 +178,7 @@ test('Forever overlay centres sit on known places', { skip: skipReal }, async ()
 		if (!o) continue;
 		checked++;
 		const d = dist(p, project.point(p.map, o.x, o.y));
-		if (d > 350) far.push(`${p.name} (${p.map}): ${Math.round(d)} yd`);
+		if (d > (reach[p.map] || 350)) far.push(`${p.name} (${p.map}): ${Math.round(d)} yd`);
 	}
 	assert.ok(checked >= 60, `only ${checked} places matched`);
 	assert.deepEqual(far, []);

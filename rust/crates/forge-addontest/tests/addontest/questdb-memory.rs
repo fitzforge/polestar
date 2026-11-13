@@ -23,7 +23,10 @@ use forge_addontest::{emitted, Addon, RunAddon};
 /// 2,722 items): resident 1,202, peak 1,250; read 1,333 on 2026-11-06 with the reads batched (the id list and
 /// the record cache's emptied hash; 1,555 to 1,811 before, by the collector's pace).
 /// The table files of schema 1 cost 6,789 resident and 12,692 at the peak (lua5.1, the same files).
-const BUDGET: [(&str, f64); 3] = [("resident", 1250.0), ("peak", 1300.0), ("read", 1390.0)];
+// Raised for 0.3.8 (Fitz, 2026-11-12: "raise memory budgets, it's fine; we can always compress and review
+// later"): QuestieDB 1.0.16, EG Link and the recordings bring +658 quests (Riverglades, Mount Hyjal,
+// Shen'dralas); measured resident 1334, peak 1385, read 1474 KiB; about 5 % headroom on each.
+const BUDGET: [(&str, f64); 3] = [("resident", 1400.0), ("peak", 1450.0), ("read", 1550.0)];
 
 /// Records read between full collects while `read` is measured.
 const READ_BATCH: usize = 256;

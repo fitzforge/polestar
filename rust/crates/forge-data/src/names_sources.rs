@@ -15,8 +15,10 @@
 //!   translation from a name left in English (codex/lists for npcs, objects and items, names/enUS/lists
 //!   for quests) and tooltips (names/<locale>/<type>/<id>.json). A name in brackets ("[Alba Fairmoon]")
 //!   is one it has no translation for: no name.
+//! - The names the Forever client showed players in its language, collected from the client and reviewed
+//!   in the repository: data/i18n/names-observed/<locale>.json ([`load_observed_names`]).
 
-use std::collections::BTreeMap;
+use std::collections::{BTreeMap, BTreeSet};
 use std::path::{Path, PathBuf};
 use std::sync::LazyLock;
 
@@ -654,6 +656,76 @@ pub fn load_web_names(sources: &Path, locale: &str) -> Result<WebNames, String> 
 	dates.sort();
 	if let (Some(first), Some(last)) = (dates.first(), dates.last()) {
 		out.fetched = Some((first.clone(), last.clone()));
+	}
+	Ok(out)
+}
+
+// ---------------------------------------------------------------- names the client showed
+
+/// Where a seen name was read: the client's cache of what the server sent it (`client-wdb`), or a name
+/// the client gave a unit in play (`client-learning`, Polestar's Names.Learn).
+pub const OBSERVED_SOURCES: [&str; 2] = ["client-wdb", "client-learning"];
+
+/// One language's names the Forever client showed players, per kind (quest, npc, object, item), and the
+/// issues or pull requests they came from.
+#[derive(Default)]
+pub struct ObservedNames {
+	pub names: [Names; 4],
+	pub refs: BTreeSet<u64>,
+}
+
+impl ObservedNames {
+	pub fn len(&self) -> usize {
+		self.names.iter().map(Names::len).sum()
+	}
+
+	pub fn is_empty(&self) -> bool {
+		self.len() == 0
+	}
+}
+
+/// `dir`/<locale>.json: `{ "schema": 1, "locale": "<locale>", "names": [{ "token": "<kind>:<id>",
+/// "name", "source": one of OBSERVED_SOURCES, "build": "x.y.z.n" or null (not recorded), "sha256":
+/// the source file's (provenance, optional), "ref": the issue or pull request }] }`, kind one of
+/// NAME_KINDS, each token once. A missing file is no names; anything else that is off stops the build.
+pub fn load_observed_names(dir: &Path, locale: &str) -> Result<ObservedNames, String> {
+	static TOKEN: LazyLock<Regex> = LazyLock::new(|| Regex::new(r"^(quest|npc|object|item):([1-9][0-9]{0,9})$").unwrap());
+	static BUILD: LazyLock<Regex> = LazyLock::new(|| Regex::new(r"^[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+$").unwrap());
+	static SHA: LazyLock<Regex> = LazyLock::new(|| Regex::new(r"^[0-9a-f]{64}$").unwrap());
+	let file = dir.join(format!("{locale}.json"));
+	let mut out = ObservedNames::default();
+	let Some(doc) = read_json(&file)? else { return Ok(out) };
+	let shown = file.display();
+	if doc["schema"].as_u64() != Some(1) {
+		return Err(format!("{shown}: schema must be 1"));
+	}
+	if doc["locale"].as_str() != Some(locale) {
+		return Err(format!("{shown}: locale must be {locale}"));
+	}
+	let Some(records) = doc["names"].as_array() else { return Err(format!("{shown}: no names list")) };
+	for (i, r) in records.iter().enumerate() {
+		let token = r["token"].as_str().unwrap_or_default();
+		let bad = |what: &str| format!("{shown}: names[{i}] ({token}): {what}");
+		let Some(c) = TOKEN.captures(token) else { return Err(bad("token must be quest:, npc:, object: or item: and an id")) };
+		let name = r["name"].as_str().map(js_trim).unwrap_or_default();
+		if name.is_empty() {
+			return Err(bad("no name"));
+		}
+		if !r["source"].as_str().is_some_and(|s| OBSERVED_SOURCES.contains(&s)) {
+			return Err(bad(&format!("source must be one of {}", OBSERVED_SOURCES.join(", "))));
+		}
+		if !(r["build"].is_null() || r["build"].as_str().is_some_and(|b| BUILD.is_match(b))) {
+			return Err(bad("build must be a client build (1.60.1.70862) or null"));
+		}
+		if !(r.get("sha256").is_none() || r["sha256"].as_str().is_some_and(|s| SHA.is_match(s))) {
+			return Err(bad("sha256 must be 64 lowercase hex digits"));
+		}
+		let Some(reference) = r["ref"].as_u64().filter(|&n| n > 0) else { return Err(bad("ref must be the issue or pull request number")) };
+		let k = NAME_KINDS.iter().position(|x| *x == &c[1]).unwrap();
+		if out.names[k].insert(c[2].parse().unwrap(), name.to_string()).is_some() {
+			return Err(bad("named twice"));
+		}
+		out.refs.insert(reference);
 	}
 	Ok(out)
 }

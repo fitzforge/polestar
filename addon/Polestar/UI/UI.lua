@@ -231,14 +231,24 @@ local function pastQuote(text, b)
 	return b
 end
 
+-- The marks after quest q's name: the "New in Forever" one (NewQuests.Mark:
+-- a quest Forever added, while ui.newInForever is on) and, with `dungeon`,
+-- the dungeon one (Dungeons.MarkAfter: a dungeon's quest or one of the
+-- nearest prerequisites before one). "" for none.
+local function questMarks(q, dungeon)
+	local NQ, Dg = ns.NewQuests, ns.Dungeons
+	local mark = NQ and NQ.Mark(q) or ""
+	if dungeon and Dg and Dg.MarkAfter then mark = mark .. Dg.MarkAfter(q) end
+	return mark
+end
+
 -- The goal's quest name in `text` coloured `hex` (nil: left as it is) and
--- the "New in Forever" mark after it, past its closing quote mark
--- (NewQuests.Mark: a quest Forever added, while ui.newInForever is on).
-local function paintSubject(goal, text, hex)
+-- its marks after it, past its closing quote mark (questMarks; `dungeon`:
+-- the dungeon mark too).
+local function paintSubject(goal, text, hex, dungeon)
 	local subject = goal.subject
 	if type(subject) ~= "string" or subject == "" then return text end
-	local NQ = ns.NewQuests
-	local mark = goal.subjectKind == "quest" and goal.quest and NQ and NQ.Mark(goal.quest) or ""
+	local mark = goal.subjectKind == "quest" and goal.quest and questMarks(goal.quest, dungeon) or ""
 	if not hex and mark == "" then return text end
 	local a, b = text:find(subject, 1, true)
 	if not a then return text end
@@ -248,19 +258,20 @@ local function paintSubject(goal, text, hex)
 	return text:sub(1, a - 1) .. name .. text:sub(b + 1, e) .. mark .. text:sub(e + 1)
 end
 
--- `text` (a goal's line without colours) with the "New in Forever" mark
--- after its quest's name, when it has one.
-function UI.MarkQuestName(goal, text)
-	return paintSubject(goal, text, nil)
+-- `text` (a goal's line without colours) with its quest's marks after its
+-- name, when it has any (`dungeon`: the dungeon mark too).
+function UI.MarkQuestName(goal, text, dungeon)
+	return paintSubject(goal, text, nil, dungeon)
 end
 
 -- A "While you're here" line's text (Engine's `hereText`), a turn-in's or a
--- quest to take's name marked after it when Forever added the quest.
+-- quest to take's name with its marks after it (questMarks, the dungeon
+-- mark too).
 function UI.HereText(v)
 	local text = v.hereText or ""
-	local NQ, title = ns.NewQuests, v.hereTitle
-	if (v.here == "turnin" or v.here == "take") and NQ and type(title) == "string" and title ~= "" then
-		local mark = NQ.Mark(v.quest)
+	local title = v.hereTitle
+	if (v.here == "turnin" or v.here == "take") and type(title) == "string" and title ~= "" then
+		local mark = questMarks(v.quest, true)
 		local _, b
 		if mark ~= "" then _, b = text:find(title, 1, true) end
 		if b then text = text:sub(1, b) .. mark .. text:sub(b + 1) end
@@ -285,11 +296,11 @@ end
 -- The goal's main line. The Engine's `text` is the truth (it carries author
 -- overrides and counts such as "Kill 5 Young Wolf"); the subject is coloured
 -- by its kind wherever it appears in that text (a quest's in `questHex`, an
--- "ffrrggbb", when given: the class-quest card's class colour), a quest
--- Forever added marked after its name (paintSubject). Done goals render
--- plain (the row colours them muted). A `complete` goal: its objectives
--- (objectiveText).
-function UI.GoalText(goal, questHex)
+-- "ffrrggbb", when given: the class-quest card's class colour), its marks
+-- after its name (paintSubject; `dungeon`: the dungeon mark too, the guide
+-- window's goal rows). Done goals render plain (the row colours them
+-- muted). A `complete` goal: its objectives (objectiveText).
+function UI.GoalText(goal, questHex, dungeon)
 	local objectives = objectiveText(goal, false)
 	if objectives then return objectives end
 	local text = goal.text
@@ -302,8 +313,8 @@ function UI.GoalText(goal, questHex)
 		end
 	end
 	local kind = goal.status ~= "done" and KIND_COLOR[goal.subjectKind]
-	if not kind then return paintSubject(goal, text, nil) end
-	return paintSubject(goal, text, (kind == "quest" and questHex) or Theme.Hex(kind))
+	if not kind then return paintSubject(goal, text, nil, dungeon) end
+	return paintSubject(goal, text, (kind == "quest" and questHex) or Theme.Hex(kind), dungeon)
 end
 
 -- The goal's main line without colour codes (skipped goals).
@@ -459,10 +470,15 @@ end
 
 -- An area objective (mobs spread over a wide area, `spread` with its spot
 -- count): "Bristleback Geomancers all over this area: 12 spots". Kill goals
--- name their mobs; collect goals say what is found there.
+-- name their mobs; collect goals say what is found there. A goal of exact
+-- points (`exact`: an object's spawns, a mob at a few fixed places, #1944)
+-- says how many and that the arrow leads to each.
 function UI.AreaLine(goal)
-	if not (goal.spread and type(goal.spots) == "number" and goal.spots > 0) then return nil end
+	if not (type(goal.spots) == "number" and goal.spots > 0 and (goal.spread or goal.exact)) then return nil end
 	if goal.status == "done" or goal.status == "skipped" then return nil end
+	if goal.exact then
+		return goal.spots > 1 and format(L["%d known places: the arrow leads to each in turn"], goal.spots) or nil
+	end
 	if goal.t == "kill" and type(goal.subject) == "string" and goal.subject ~= "" then
 		return format(L["%s all over this area: %d spots"], goal.subject, goal.spots)
 	end
@@ -642,6 +658,13 @@ function UI.GoalSubline(goal, shownMap, noParty, noMissing, noEscort, noFinder)
 	if goal.purposeText then parts[#parts + 1] = goal.purposeText end
 	-- A level goal: the XP still to earn.
 	if goal.xpLeft then parts[#parts + 1] = format(L["%s XP to go"], thousands(goal.xpLeft)) end
+	-- Finished quests the guide hands in before the level is needed (#1431):
+	-- what they give, or that they cover it ("hand in first").
+	if goal.xpLeft and (goal.readyXp or 0) > 0 then
+		parts[#parts + 1] = format(L["your finished quests give %s: hand them in first"], thousands(goal.readyXp))
+	elseif goal.handInFirst then
+		parts[#parts + 1] = L["Hand in first: your finished quests cover it"]
+	end
 	-- A grey accept "Skip grey quests" keeps, and the quest it opens.
 	if goal.keptGreyText and goal.status ~= "skipped" then parts[#parts + 1] = goal.keptGreyText end
 	local source = UI.SourceLine(goal)
@@ -685,13 +708,16 @@ end
 -- font string; it keeps the line's role.) An open optional goal ends in
 -- "optional" in warning, so an extra is unmistakable and never reads as the
 -- route; one the player skipped ends in "skipped" in textMuted. questHex:
--- the quest name's colour instead of the theme's (UI.GoalText). A `complete`
--- goal: a line per objective, each with its own counter (objectiveText).
-function UI.GoalLine(goal, questHex)
+-- the quest name's colour instead of the theme's (UI.GoalText); `dungeon`:
+-- the dungeon mark after the quest's name too (Dungeons/Mark.lua: the goal
+-- rows and While you're here rows, not the "Then:" lines, along-the-way rows
+-- or step list). A `complete` goal: a line per objective, each with its own
+-- counter (objectiveText).
+function UI.GoalLine(goal, questHex, dungeon)
 	local plain = goal.status == "done" or goal.status == "skipped"
 	local text = objectiveText(goal, goal.status ~= "skipped")
 	if not text then
-		text = plain and UI.MarkQuestName(goal, UI.PlainGoalText(goal)) or UI.GoalText(goal, questHex)
+		text = plain and UI.MarkQuestName(goal, UI.PlainGoalText(goal), dungeon) or UI.GoalText(goal, questHex, dungeon)
 		local count = UI.GoalProgress(goal)
 		if count and goal.status ~= "skipped" then
 			local p = goal.progress
@@ -897,20 +923,33 @@ end
 
 -- The window's toggle (its key, /polestar, the menu's Guide window) asks to
 -- see the guide: from hidden it brings Polestar back, turning the window on
--- when it was off.
+-- when it was off. A window that is on but that another addon keeps out of
+-- sight (ns.OutOfSight) stays on: turning it off would take away only the
+-- action buttons, the one part still seen. The toggle says why the window is
+-- not seen instead, as it and /polestar show do after showing one that stays
+-- out of sight.
+local function windowOutOfSight()
+	local GF = UI.GuideFrame
+	return GF ~= nil and ns.OutOfSight(GF.frame)
+end
 ns.On("TOGGLE_FRAME", function()
 	if ns.Hidden() then
 		ns.SetHidden(false)
 		if not ns.Get("ui.shown") then ns.Set("ui.shown", true) end
-		return
+	else
+		local GF = UI.GuideFrame
+		if GF and GF.ToggleInside and GF.ToggleInside() then return end
+		if not (ns.Get("ui.shown") and windowOutOfSight()) then
+			ns.Set("ui.shown", not ns.Get("ui.shown"))
+			if not ns.Get("ui.shown") then return end
+		end
 	end
-	local GF = UI.GuideFrame
-	if GF and GF.ToggleInside and GF.ToggleInside() then return end
-	ns.Set("ui.shown", not ns.Get("ui.shown"))
+	if windowOutOfSight() then ns.SayOutOfSight() end
 end)
 ns.On("SHOW_FRAME", function()
 	ns.SetHidden(false)
 	ns.Set("ui.shown", true)
+	if windowOutOfSight() then ns.SayOutOfSight() end
 end)
 ns.On("SHOW_PICKER", function() if UI.ShowPicker then UI.ShowPicker() end end)
 ns.On("SHOW_OPTIONS", function(section) if UI.ShowOptions then UI.ShowOptions(section) end end)

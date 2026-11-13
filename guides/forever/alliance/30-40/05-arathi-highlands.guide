@@ -17,6 +17,15 @@ next forever/alliance/30-40/06-badlands
 # Since the 0.3.7 audit: Refuge Pointe's hand-ins come on the walk from Go'Shek Farm to the Stone of West Binding, and the
 # Swamp of Sorrows ends Harborage, then Watcher Biggs, on the road out.
 # Left out: A Meal Served Cold (212): its 30-minute limit can't last from Stormwind to the Cold Eye Basilisks in Stranglethorn and back.
+#
+# City of Dalaran (`when dungeon "City of Dalaran"`, dungeons in the route): for a character who runs it, the Image
+# of Archmage Modera's Starving Arcane and Heart of Disruption (92457, 92458, after An Alarming Request, 92432) are
+# taken where 92432 is handed in, at about 37, and the run follows at once through the sewer grate in Dalaran's
+# western wall, 30 yards from her camp (8.8,59.5, where players' recordings go in; Heart of Disruption brings the
+# Sewer Key); Modera takes both back in the same camp (`when complete`). Left out: A Green Sample and Power
+# Overwhelming (92456, 92489: Shylamiir and High Sorcerer Andromath in Stormwind, whose next visit comes after
+# Dalaran), Friend of the Kirin Tor (92459: 270 XP for a walk to Archmage Celindra) and Unstable Magic (96603,
+# level 60).
 
 # ---------------------------------------------------------------- Swamp of Sorrows
 
@@ -334,7 +343,7 @@ step Ruins of Alterac: kill these as you meet them
   tip Careful: Crushridge Warmongers call nearby allies within 15 yd once they fall below half health.
   tip The Crushridge Maulers, Mages, Enforcers and Warmongers (36-39) are elite; the Crushridge Ogres and Brutes (34-35) are not and carry the tomes too: pull one at a time, or group up.
   collect 3658 quest 540.1            -- Recovered Tome: Crushridge ogres
-  collect 3659 quest 540.2            -- Worn Leather Book: the Weathered Bookcase; inside
+  collect 3659 quest 540.2            -- Worn Leather Book: the Weathered Bookcase, beside Muckrake (40, elite): get it with a group, or abandon Preserving Knowledge; inside
 
 step Ruins of Alterac: kill these as you meet them
   when group 543
@@ -369,6 +378,36 @@ step Dalaran
   turnin 92432 "An Alarming Request"  -- Image of Archmage Modera
   turnin 602                          -- Archmage Ansirem Runeweaver
   accept 603                          -- For Catelyn the Blade in Booty Bay: keep it
+
+step Image of Archmage Modera
+  when dungeon "City of Dalaran"
+  zone Silverpine Forest
+  tip For your City of Dalaran run, next: the Image of Archmage Modera wants the arcane remnants in the city thinned out and a mote from the heart of the disruption. Heart of Disruption brings the Dalaran Sewer Key, which opens the grate.
+  accept 92457                        -- Image of Archmage Modera
+  accept 92458
+
+step City of Dalaran
+  when dungeon "City of Dalaran"
+  when onquest 92457,92458
+  zone Alterac Mountains
+  tip The City of Dalaran is a dungeon for a group of five at about level 28 to 33: at your level it goes quickly. Its way in is the sewer grate in the city's western wall, by the lake, 30 yards from Modera's camp.
+  tip Inside: the Seeking Remnants, Saturated Remnants and Mana Echoes are Modera's Starving Arcane; the Arcane Mote for Heart of Disruption drops inside too.
+  enter "City of Dalaran" @8.8,59.5 live
+  complete 92457 @8.8,59.5 live       -- Starving Arcane: the remnants and echoes, inside
+  complete 92458 @8.8,59.5 live       -- Heart of Disruption: the Arcane Mote, inside
+
+step Image of Archmage Modera
+  when dungeon "City of Dalaran"
+  when complete 92457
+  zone Silverpine Forest
+  tip Back out of the grate to Modera's camp on the lake shore.
+  turnin 92457                        -- Image of Archmage Modera
+
+step Image of Archmage Modera
+  when dungeon "City of Dalaran"
+  when complete 92458
+  zone Silverpine Forest
+  turnin 92458                        -- Image of Archmage Modera
 
 step Hillsbrad Foothills
   zone Hillsbrad Foothills

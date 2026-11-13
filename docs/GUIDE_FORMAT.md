@@ -258,11 +258,12 @@ step Back to Gornek
 | `zone "<Name>"` | the zone text reads so (the zone as the game names it) |
 | `subzone "<Name>"` | the subzone text reads so |
 | `bound "<Location>"` | the hearthstone is bound there (a bind location, as for `sethome`) |
-| `dungeon "<Name>"` | the character chose to run that dungeon (see "Dungeon steps" below) |
+| `dungeon "<Name>"` | the character runs that dungeon: its answer for it, else its answer for every dungeon (see "Dungeon steps" below) |
 | `done <label>` | the step carrying `label <label>` in this guide was completed: it applies, its goals are done, and it was not skipped by the player, a failed `when` or a `skipto` jump (see "Jumps"); not on a `next` line |
 | `skill <Profession> <N>` | the character's rank in that profession is N (1 or more) or higher, the profession named as for the `skill` goal (`when skill Cooking 50`, `when skill "First Aid" 1`); one not learned counts as rank 0, so `!skill Herbalism 1` holds while the character has no Herbalism. A weapon skill works the same, by its skill name or its trainer spell's (`when !skill "Two-Handed Axes" 1` while the character has not learned it; `Swords` or `"One-Handed Swords"`) |
 | `cooldown item <item>`, `cooldown spell <spell>` | the item or spell is on cooldown, the global cooldown aside: `when !cooldown item 6948` while the Hearthstone is ready. Polestar looks again when the cooldown runs out |
 | `knows <spell>` | the character knows the spell: in the spellbook, or a profession recipe learned. `when !knows 100` is for the step that trains Charge, so a character who has it passes on |
+| `taxi "<Flight point>"` | the character knows that flight path, named as for `getfp` (the town, or the flight point's full name). `when taxi "Ironforge"` is for the flight a character with the Ironforge flight path takes, `when !taxi "Ironforge"` for the walk the others take. Polestar counts a flight path known once it has seen it on the flight map, on the world map's flight points or learnt ("New flight path discovered"); before that the character reads as not knowing it, so make the `!taxi` way one that works for everyone |
 | `group <quest>` | the player chose to do that group quest; `!group` holds when they chose to skip it. Until they answer, the route waits at the step and asks (see "Group quests" below); not on a `next` line or a `skipto` |
 
 `!` in front of any predicate but `level` turns it around: `!onquest 788`
@@ -290,24 +291,75 @@ who passed those steps never see it, so give it the same `when` or a
 Zone, subzone and bind location names work on every client language: the
 compiler gives each its area ID where the data names one (see "Places by
 ID"), and Polestar compares the game's own name for it, then the name you
-wrote.
+wrote. A `taxi` flight point gets its flight master's taxi node, as a `getfp`
+does, for the factions the step is for.
 
 **Dungeon steps.** `when dungeon "<Name>"` is for the steps of a dungeon
-run: they apply only to characters who chose to run that dungeon, and `when
-!dungeon "<Name>"` is the route for those who did not. Each character picks
-the dungeons in Options, Discovery, Dungeons ("Dungeons in leveling guides",
-one switch per Classic dungeon); every one is off at first, so the solo route
-is the default. A choice changes only the steps still ahead: like any `when`,
-a step the route has passed keeps its outcome.
+run: they apply only to characters who run that dungeon, and `when
+!dungeon "<Name>"` is the route for those who do not. Dungeons in my route
+(Options, Guide, Automation; the setting `behavior.dungeons`) answers every
+dungeon: Skip them, Ask me or Run them (Skip by default, so the solo route is
+the default), and a character may answer one dungeon (Options, Discovery,
+Dungeons). With Ask me, the first `when dungeon` step with something to do now
+(an accept the character can take, or for a step with no accept, its other
+predicates holding) holds the route until the player answers; one with nothing
+to do now is passed. A step with `enter` is the run. Only a pick-up (an
+accept) or the run asks; the dungeon's other steps follow the answer, and with
+none yet the solo route. An answer changes only the steps still ahead: like
+any `when`, a step the route has passed keeps its outcome. A step of a dungeon
+the character skips (and a `when !dungeon` step of one they run) has no step
+number, so the solo route's numbers stay as they are.
+
+A run is three parts. Its quests are picked up in `when dungeon` steps on
+stops the route makes anyway; the run itself is one `when dungeon` step, also
+`when onquest` its quests (a character who chose the dungeon after passing its
+pick-ups is not sent to the door with nothing to do), with an `enter` goal
+first (the arrow leads to the door) and the quests' objectives (`optional`
+for the slow or rare ones); the hand-ins come on the next stops, each in a
+step with `when dungeon "<Name>"` and `when complete <quest>` (or `when
+onquest <quest>` for one with no objectives), so a run left unfinished passes
+them and a later guide can hand in what is still carried. Every step of the
+run is behind `when dungeon`: a character who skips it keeps the solo route's
+steps. The compiler places a `when dungeon` step from the dungeon route's last
+goal and every other step from the solo route's (the spawn nearest the goal
+before it, the trainer, the order of the spots), so the solo route compiles as
+it does without the dungeon's steps. Where the run shares a stop with the solo
+route (a hand-in that opens the dungeon's quest), the dungeon's step does that
+stop's work too and the stop's own step is behind `when !dungeon "<Name>"`. A
+quest an item inside the dungeon starts, or an NPC inside gives, has no place
+the data knows: name it in the run's tip and write only its hand-in, behind
+`when dungeon` and `when onquest`. A step of `note`s only never holds (see
+"Errands"): the run needs goals of its own.
 
 ```
-step Ragefire Chasm
-  when dungeon "Ragefire Chasm"
-  note Run Ragefire Chasm with a group, then come back to Orgrimmar.
+step Gryan Stoutmantle
+  when dungeon "The Deadmines"
+  accept 166
+
+step The Deadmines
+  when dungeon "The Deadmines"
+  when onquest 166
+  tip A dungeon for a group of five, about levels 17 to 24.
+  enter "The Deadmines" @42.5,71.7
+  complete 166
+
+step Gryan Stoutmantle
+  when dungeon "The Deadmines"
+  when complete 166
+  turnin 166
+
 step Grind instead
-  when !dungeon "Ragefire Chasm"
-  level 15
+  when !dungeon "The Deadmines"
+  level 21
 ```
+
+Lint counts a `when dungeon` step's goals, and those of quests accepted only
+in such steps, as a party's work, like `when group` ("Group content",
+Validation): its elite kills are no errors. A hand-in in a step that applies
+only while the quest is carried (`when complete`, `when onquest`) asks no
+solo work either. `polestar playtest --dungeon "The Deadmines"` (names or map
+IDs, comma-separated, or `all`) plays the guides as a character who chose
+those dungeons; without it, as one who chose none.
 
 Write the dungeon as the game names it: its name in the client's instance
 tables ("Ragefire Chasm", "Deadmines") or an area of that name on its map
@@ -434,7 +486,8 @@ Polestar 0.2.6 and later read. A `when money`, `when dungeon`, `when
 upgrade`, `when done`, `when skill`, `when cooldown`, `when group` or `when knows`
 predicate (above) writes format 5 (Polestar 0.3.0 and later), because 0.2.6 knows `when` but
 not those predicates; `money`, `task`, `enter`, `cast`, `abandon`, `destroy` and `die` goals also need format 5
-(docs/PACK_FORMAT.md).
+(docs/PACK_FORMAT.md). A `when taxi` predicate writes format 10 (Polestar
+0.4.0 and later).
 
 ## Along the way
 
@@ -646,7 +699,7 @@ take a jump.
 |---|---|
 | quest title | `quests.json` |
 | quest giver / turn-in target | `start` / `end` of the quest; `npc`/`object` modifiers pick one explicitly |
-| coordinates | the target's spawns, trying maps in order: the current zone, then maps the guide already used (most recent first), then anywhere. On the chosen map: the spawn nearest the previous goal when that goal is on the same map, else the centroid of the highest-priority candidate |
+| coordinates | the target's spawns, trying maps in order: the current zone, then maps the guide already used (most recent first), then anywhere. On the chosen map: the spawn nearest the previous goal when that goal is on the same map, else the centroid of the highest-priority candidate. A `when dungeon` step takes the previous goal and the used maps from every step before it, any other step from the steps before it that are not `when dungeon`, which a character who skips the dungeon never walks ("Dungeon steps") |
 | `kill` target name | `npcs.json` |
 | `collect` coordinates | every drop source with spawns, ranked as above (zone, used maps, nearness), then by drop chance. On the chosen map only the likely sources count (at least half the best chance there). Where elites (rank 1-3, hostile) drop the item beside normal mobs or objects, each at 1% or more, only the normal ones count, whatever the elites' chance, and a place of theirs with more elite spawns than its own within its radius (at least 70 yd) is an alternative spot: the point and the arrow lead to the normal mobs, not into the elite camp. An item only elites drop there keeps them. For a quest objective, mobs 3 or more levels above the quest (their lowest level) are left out where their higher chance would push the likely sources nearer the quest's level under that bar: those set it instead (a level 7 quest's seeds come from the level 5 Timberlings beside the giver, not the level 10 Elder Timberlings across the zone) |
 | `collect` source `from`, `fromAlso`, `fromId`, `fromAlsoId`, `fromKind`, `fromRank`, `fromFaction` | a `collect` (quest objectives too) whose item has one source with spawns, or one that drops it at 50% or more, and at most 8 sources at 2% or more (not cloth that drops everywhere); where normal mobs or objects and elites both drop it at 1% or more, only the normal ones are named, as the arrow leads to them (so are they where a rare tops the droppers and normal mobs drop it at 50% or more, and the sources near a quest's level where mobs 3 or more levels above it would crowd them out, as for the coordinates): the source's name, a second source of the same kind at 50% or more, their ids, `npc` or `object`, the NPC's rank (1 elite, 2 rare elite, 3 boss, 4 rare) and faction (`A`, `H`, `AH`; none for a hostile mob). The goal line names it, in the client's language by its id: "Kill Grell or Grellkin for Fel Moss" for an enemy, "Collect Oats from Sack of Oats" otherwise (nothing added for an object named as the item); with author `text` the line under it says "Kill Aean Swiftriver (rare elite)" or "From <name>"; a quest started by that item reads as one line ("Runed Scroll: kill Aean Swiftriver (rare elite)") |
@@ -658,7 +711,7 @@ take a jump.
 | objective index | the quest's objective whose `id` matches the npc/item, when `quest Q` has no `.O` |
 | count | the linked objective's count |
 | Era frame flag `f = "e"` | when coordinates come from Era-frame data, or were typed in an `era` guide/goal |
-| spawn areas `spots` | every goal placed at an NPC or object that spawns at more than one place, and hand-placed `@x,y` goals whose target the data also knows: see "Spawn areas" below |
+| spawn areas `spots` | every goal placed at an NPC or object that spawns at more than one place, hand-placed `@x,y` goals whose target the data also knows, and kill, collect and interact goals players' recordings place: see "Spawn areas" below |
 | group content `group` | elite work, dungeon and raid quests and goals on an instance map: see "Group content" below |
 | escort `escort` | the accept, `complete` and objective goals of an escort quest: see "Escort quests" below |
 | later hand-in `carriedTo` | `complete` and objective goals of a quest only a later guide of the chain hands in: see "Quests carried to a later guide" below |
@@ -743,6 +796,28 @@ gets no `spots`, except an NPC who walks around:
   ground he walks and the arrow counts it as reached. Deathguard Bartholomew
   walks round Brill's graveyard (#741). Without `moves.json`, none.
 
+- **Points** (a `kill`, `collect` or `interact` whose target stands at a few
+  known points rather than anywhere about a camp, #1944): each point is a spot
+  of its own, the target's spawn exactly, with `r = 0` and no count: every
+  spawn of an object (of the objects a collect comes from) while there are 40
+  or fewer on the map, and every spawn of a creature that spawns at 8 places
+  or fewer, no two within 70 yd of each other (a camp's mobs wander it) and
+  none walking about (`moves.json`, as for walkers). Spawns within 5 yd of
+  each other are one point (the data lists some twice). A stray (below), or a
+  point in the camp of elites the goal's droppers were chosen over, is an
+  alternative; open points come first, then alternatives, each by `x` then
+  `y`, so goals on the same target write the same list. A goal point at an
+  alternative (the spawn nearest the previous goal) moves to the nearest open
+  point; a hand-placed goal keeps its point and gets the points of the target
+  at it, where the data agrees (see Hand-placed). The maps mark every point,
+  on the minimap too, rather than shade regions, and the arrow leads to the
+  nearest point the player has not checked: within the arrival radius of one
+  it counts as checked and the arrow moves on at once to the next (checked
+  points come back after 300 s: objects respawn). More than 40 objects
+  (herbs, ore, crates all over a zone), creatures in a camp, at more places
+  or walking about keep the spawn areas below, and a `loop` step's goals its
+  gotos.
+
 - **Places** (6 spawns or fewer: a named NPC or a quest object that appears at
   one of a few places, or the handful of mobs an objective needs): every place
   is a spot the arrow may pick, spawns within 70 yd of each other being one
@@ -805,6 +880,43 @@ gets no `spots`, except an NPC who walks around:
     goto 52.3,26.8
     kill 6 x10 quest 7.1
   ```
+- **Recorded** (a `kill`, `collect` or `interact` bound to a quest objective,
+  `quest Q.O`, outside a `loop` step, that players' recordings place:
+  `data/recorded/quests.json` beside the reference data, from `forge record
+  learn`, docs/forge/learn.md): the objective line's trusted spots, each backed
+  by at least the snapshot's `thresholds.spotVoters` counted players (3),
+  reshape the goal's places, so its areas sit where players do it and are as
+  big as the ground they do it on. The goal takes the region of recorded spots
+  at its places: those within 60 yd of its point or overlapping one of its open
+  spawn areas, and every spot within 250 yd of the region's, edge to edge. A
+  recorded spot holding spawn areas (their centres inside it), none bigger than
+  it, keeps those as places the arrow picks: the camps within it are finer. Any
+  other is an area of its own: its centre, its radius (the 80th percentile of
+  the players' ticks, at least 15 yd), the spawn count `n` of the target's
+  spawns inside it (none: no `n`), best-backed first up to the caps above (6, or
+  12 with `spread = true` when the places lie more than 250 yd apart), the rest
+  alternatives; a spawn area it overlaps is gone (the recorded spot is where
+  that place is). The goal's other spawn areas stay as they were, and so does
+  its point unless its first open spawn area went and the point lies more than
+  60 yd outside the region. Recorded spots outside the region that no place of
+  the goal overlaps are alternatives. With no recorded spot at the goal's
+  places, the goal stays as it is while the data has the target there and also
+  knows a place players do it at (a spawn of one of the target's sources in a
+  recorded spot): players did it elsewhere on their way, and the step's place
+  is just as good. Otherwise (the data has the target where nobody does it, or
+  nothing at the point) the goal takes the region of the recorded spot nearest
+  its point, the other spawn areas become alternatives, and a point more than
+  60 yd outside the region moves to its nearest place. A hand-placed point that
+  moves gets a warning: move it. A goal of points (one place and no spawn
+  areas, or points of radius 0) has no area to reshape: it keeps its point
+  while the best-backed recorded spot holds it at a spawn of its target (within
+  15 yd of its edge), and otherwise the region is its places (a creature
+  players meet at several places along its way), its points outside the
+  region become alternatives, and a spawn it moves away from stays one.
+  Trouble in the Valley (95621): players loot Benedict's Orders within 47 yd
+  of 41.8,15.5, so that is the area, not 112 yd around Corporal Adamore's
+  spawns. The recordings' coordinates are the game client's: its map frame
+  (Forever, else Era) places them in the goal's frame.
 
 See docs/ARCHITECTURE.md, Smart logic, "Spawn areas".
 
@@ -827,16 +939,35 @@ object's (its spawn, or your `@x,y` at it):
   of many spawns is seldom within 15 yards of one), `interact`;
 - `buy`, `train`, `vendor`, `sethome`, `getfp` and `learn` naming an `npc`
   (a `sethome` or `getfp` also with the innkeeper or flight master the
-  compiler names).
+  compiler names);
+- `use` and `interact` bound to a quest objective (`quest Q.O`, with no `npc`
+  or `object` of their own) whose target is an object, or a creature (a kill
+  or talk objective): that object's or creature's height. The Rod of Helcular
+  used at the Flame of Azel ends its walk in the Foothill Caverns, not on
+  Darrow Hill above them (#1782);
+- `goto` leading to a goal with a height: a later goal of its own step, or
+  one of the next step, whose point lies within 15 yards of the goto's; the
+  nearest such goal's height. "Azurelode Mine" at the miners ends in the
+  mine, not on the hill it runs under (#1786);
+- `collect` from creatures or an object (its sources: `fromNpcs`, `fromId`) and a
+  `level … grind` goal's creature: the height of the nearest spawn of any of
+  them within 15 yards, at the goal's point and at each of its spots. The
+  Rod of Helcular's yetis are in the Foothill Caverns, not on the hill
+  (#1782);
+- any other goal whose point lies within 5 yards of a record of
+  `data/goal-heights.json` (beside the data folder): that record's height.
+  The records come from players' recordings, where at least two sessions
+  doing such a goal near its point stood indoors three times as often as
+  outdoors and the walking grid has one indoor floor there: a mine's or
+  cave's floor no NPC or object gives.
 
 The same rule gives a height, each from its own point, to the other spawn
 places of such a goal (`spots`: a place within 15 yards of one of its spawns;
 the centre of a camp farther from each gets none) and to every candidate of a
 smart target (`nearest`, class and profession trainers, by the candidate's
 own NPC), so the walk to the place or NPC the arrow picks ends on its floor
-too. `goto` and `explore` (places), `collect` (a farming spot among the
-item's sources, also `collect … nearest`'s farm spots) and `use` never get
-one. `compile` prints how many got one ("heights: N of M NPC or object goals,
+too. Any other `goto`, `explore` (places), `collect … nearest`'s farm spots
+(a cluster of several droppers) and any other `use` never get one. `compile` prints how many got one ("heights: N of M NPC or object goals,
 N of M smart-target candidates and N of M spawn spots got z"). In the game the
 walk is searched with the height and asked again without it when that finds
 no route or one ending more than 30 yards above or below it.
@@ -895,13 +1026,22 @@ goal, first match wins:
    `kill` of an npc of rank 1–3 hostile to a side the goal applies to, or a
    `collect` whose every located dropper is one: `{ kind = "elite", rank, lvl }`
    (`lvl`: the elites' highest level, when known; "Elite: group advised", "Rare elite: group advised", "Boss: group
-   advised").
+   advised");
+4. an object's work among elites: an `interact` with `quest`, or a `collect`
+   with `quest` of an item only objects give, where at least half of the
+   object's spawn points (every one) have an elite of rank 1–3 hostile to a
+   side the goal applies to within 40 yards (not one of no side that gives or
+   takes a quest or has a role: a friendly NPC whose side the data lacks; not
+   one above level 63): `{ kind = "elite", rank, lvl, near = true }`, said the
+   same way. Lookup's quest objectives get the same mark from the Codex build.
 
 The instances come from the Forever client's `Map.csv`, `AreaTable.csv` and
 `UiMapAssignment.csv` in the `sources` folder beside the data folder
 (`data/sources/wago/<build>/` for `data/forever`; `data build` and `codex
-build` cache them). Without them only `group [N]` and elite work apply. The
-guide's `group = true` is set when any goal that is not `optional` has `group`.
+build` cache them). Without them only `group [N]`, elite work and an object's
+work among elites apply. The guide's `group = true` is set when any goal that
+is not `optional` has `group`, other than an object's work among elites
+(`near`: the step says so; the guide is no group guide for it).
 
 ## Escort quests
 
@@ -1020,6 +1160,9 @@ Warnings:
 - an `accept` of a quest whose `excl` (exclusive) quest is accepted or turned in
   earlier in the chain: the game does not offer it while that quest is in the
   log or done
+- an `accept` of a quest while one of its breadcrumbs is in the log (accepted
+  earlier in the chain, not yet turned in or abandoned): the game does not
+  offer it until the breadcrumb is handed in
 - a non-`optional` `accept` never turned in later in the guide or the guides
   after it, checked for every route choice; when a next guide's race or class
   leaves out the characters still holding the quest, the warning says so (its
@@ -1260,11 +1403,14 @@ player's faction instead.
 ```
 
 `nearest` and `train class` pick the trainer or vendor at runtime, by the
-player's faction and where they stand. `train class` keeps to its step's
-`zone` when that zone has a trainer of the player's class (Polestar 0.3.6):
-write the training step in the town the route trains in (`zone Orgrimmar`, not
-`zone Durotar`), and a trainer within 100 yards of the player still counts
-as here. A `vendor` ticks when the merchant's window opens during its step
+player's faction and where they stand. In Polestar's own guides `train class`
+keeps to its step's `zone` when that zone has a trainer of the player's class
+(Polestar 0.3.6): write the training step in the town the route trains in
+(`zone Orgrimmar`, not `zone Durotar`), and a trainer within 100 yards of the
+player still counts as here. In a community pack's guide (and an imported
+one) it goes to the nearest trainer of the player's class the arrow can
+reach, since a pack's step can't know the player's race (Polestar 0.3.8). A
+`vendor` ticks when the merchant's window opens during its step
 (`vendor nearest`: any merchant who repairs in the same town, within 250 yards
 of one of its vendors, Polestar 0.3.6; a `vendor <npcId>` only that NPC's);
 beside other goals that hold the step (hand-ins,

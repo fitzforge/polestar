@@ -578,8 +578,11 @@ pub fn is_shared(text: &str) -> bool {
 
 /// A start's written tree with the faction's shared guides: `own` the start's run, `canon` the
 /// canonical start's, `v1` the guides read. `join` is the shared join guide's id
-/// (`forever/horde/02-the-barrens`). `finish` runs on the shared guides last (every race's and class's
-/// own ways: [`audience_travel`]); it must not depend on the start.
+/// (`forever/horde/02-the-barrens`). `fix_races` (the checkout's `races` guide fixes,
+/// fixes::apply_races) runs on each shared guide right after its re-gating ([`tag_audiences`]), which
+/// writes a quest's lines with its accept's or its starts' races, an old per-race filter among them.
+/// `finish` runs on the shared guides last (every race's and class's own ways: [`audience_travel`]);
+/// it must not depend on the start.
 #[allow(clippy::too_many_arguments)]
 pub fn adopt(
 	own: &mut BTreeMap<String, String>,
@@ -589,6 +592,7 @@ pub fn adopt(
 	all_starts: usize,
 	join: &str,
 	races_for: &dyn Fn(u32) -> Option<Vec<String>>,
+	fix_races: &dyn Fn(&str) -> String,
 	route_files: &FxHashSet<String>,
 	own_shared: &[String],
 	finish: &mut dyn FnMut(&mut BTreeMap<String, String>),
@@ -608,7 +612,7 @@ pub fn adopt(
 		let Some(text) = canon.get(rel).or(v1.get(rel)) else { continue };
 		// (The race masks are read on the guides written, not on v1's guides the route leaves alone.)
 		let none = |_: u32| None;
-		let mut t = gate_ways(&tag_audiences(text, by_quest, all_starts, if canon.get(rel) != v1.get(rel) { races_for } else { &none }), &faction_races);
+		let mut t = gate_ways(&fix_races(&tag_audiences(text, by_quest, all_starts, if canon.get(rel) != v1.get(rel) { races_for } else { &none })), &faction_races);
 		if *rel == join_rel {
 			t = split_arrival(&t).0;
 		}
@@ -1510,7 +1514,7 @@ mod tests {
 		own.insert("g/orc/02.guide".into(), orc2.replace("accept 2", "accept 2\n  along"));
 		let canon = own.clone();
 		let route_files: FxHashSet<String> = ["g/orc/01.guide".to_string()].into_iter().collect();
-		adopt(&mut own, &canon, &v1, &FxHashMap::default(), 1, "g/02", &|_| None, &route_files, &[], &mut |_| {});
+		adopt(&mut own, &canon, &v1, &FxHashMap::default(), 1, "g/02", &|_| None, &|t| t.to_string(), &route_files, &[], &mut |_| {});
 		assert!(!own.contains_key("g/orc/02.guide"), "{own:#?}");
 		assert!(own["g/orc/01.guide"].contains("\nnext g/02\n"), "{own:#?}");
 	}
@@ -1526,7 +1530,7 @@ mod tests {
 		let mut own = v1.clone();
 		let canon = own.clone();
 		let route_files: FxHashSet<String> = ["g/orc/01.guide".to_string()].into_iter().collect();
-		adopt(&mut own, &canon, &v1, &FxHashMap::default(), 1, "g/02", &|_| None, &route_files, &[], &mut |_| {});
+		adopt(&mut own, &canon, &v1, &FxHashMap::default(), 1, "g/02", &|_| None, &|t| t.to_string(), &route_files, &[], &mut |_| {});
 		let t = &own["g/orc/02.guide"];
 		assert!(!t.contains("accept 2") && t.contains("  turnin 1502") && t.contains("step Crossroads\n  collect 6534 quest 1503.1 only Warrior"), "{t}");
 		assert!(own["g/orc/01.guide"].contains("\nnext g/orc/02\n"));
@@ -1553,12 +1557,38 @@ mod tests {
 		let mut canon = v1.clone();
 		canon.insert("g/03-darkshore.guide".into(), darkshore_v1.replace("accept 2", "accept 2\n  accept 6"));
 		let route_files: FxHashSet<String> = ["g/ne/01-teldrassil.guide".to_string(), "g/03-darkshore.guide".to_string()].into_iter().collect();
-		adopt(&mut own, &canon, &v1, &FxHashMap::default(), 1, "g/02-westfall", &|_| None, &route_files, &["g/03-darkshore.guide".to_string()], &mut |_| {});
+		adopt(&mut own, &canon, &v1, &FxHashMap::default(), 1, "g/02-westfall", &|_| None, &|t| t.to_string(), &route_files, &["g/03-darkshore.guide".to_string()], &mut |_| {});
 		let mine = own.get("g/ne/02-darkshore.guide").expect("own Darkshore guide");
 		assert!(mine.contains("guide g/ne/02-darkshore\n") && mine.contains("\nrace NightElf\n") && mine.contains("\nnext g/02-westfall\n") && mine.contains("accept 5"), "{mine}");
 		assert!(own["g/ne/01-teldrassil.guide"].contains("\nnext g/ne/02-darkshore\n"), "{own:#?}");
 		assert!(own["g/03-darkshore.guide"].contains("accept 6") && !own["g/03-darkshore.guide"].contains("accept 5"));
 		assert!(!own.contains_key("g/dg/02-darkshore.guide") && own["g/dg/01-dun-morogh.guide"].contains("\nnext g/02-westfall\n"), "{own:#?}");
+	}
+
+	#[test]
+	fn a_races_fix_holds_on_the_shared_guides_after_their_re_gating() {
+		// Sully Balloo's Letter (637) carried `only Dwarf,Gnome,NightElf,Skyborne` from an old per-race
+		// export, though every Alliance race takes it (race mask, players' recordings). The run's fix
+		// pass takes the list off, but the shared adopt re-gates each quest by the starts that do it in
+		// the shared order (the four the old filter let in): the record holds after that re-gating.
+		let v1_text = "guide g/02\n\nstep The Cache of Explosives\n  accept 637 optional only Dwarf,Gnome,NightElf,Skyborne\n\nstep Historian Karnik\n  turnin 637 only Dwarf,Gnome,NightElf,Skyborne\n  accept 2\n";
+		let canon_text = "guide g/02\n\nstep The Cache of Explosives\n  accept 637 optional\n\nstep Historian Karnik\n  turnin 637\n  accept 2\n";
+		let v1: BTreeMap<String, String> = [("g/02.guide".to_string(), v1_text.to_string())].into_iter().collect();
+		let canon: BTreeMap<String, String> = [("g/02.guide".to_string(), canon_text.to_string())].into_iter().collect();
+		let starts = |rs: &[&str]| rs.iter().map(|r| r.to_string()).collect::<BTreeSet<String>>();
+		let by_quest: FxHashMap<u32, BTreeSet<String>> =
+			[(637, starts(&["Dwarf", "Gnome", "NightElf", "Skyborne"])), (2, starts(&["Human", "Dwarf", "Gnome", "NightElf", "Skyborne"]))].into_iter().collect();
+		let fixes = serde_json::json!({ "fixes": [{ "id": "t-637", "faction": "Alliance", "at": { "quest": 637, "goal": "quest" }, "races": "all" }] });
+		let records = crate::fixes::Records { guide_fixes: Some(&fixes), ..Default::default() };
+		let adopted = |fix: &dyn Fn(&str) -> String| {
+			let mut own = canon.clone();
+			adopt(&mut own, &canon, &v1, &by_quest, 5, "g/02", &|_| None, fix, &FxHashSet::default(), &[], &mut |_| {});
+			own["g/02.guide"].clone()
+		};
+		// (Without the record the old filter is back.)
+		assert!(adopted(&|t| t.to_string()).contains("  accept 637 optional only Dwarf,Gnome,NightElf,Skyborne\n"));
+		let t = adopted(&|t| crate::fixes::apply_races(t, &records, Some("Alliance")));
+		assert!(t.contains("  accept 637 optional\n") && t.contains("  turnin 637\n"), "{t}");
 	}
 
 	#[test]

@@ -15,7 +15,7 @@ function run(script) {
 		${script}` }).emitted;
 }
 
-test('guide name: one localized chosen NPC uses the shared macro, with marking off by default', () => {
+test('guide name: one localized chosen NPC uses the shared macro, with the default marks (skull on mobs, star on NPCs)', () => {
 	const out = run(`
 		emit({ Polestar.GetDefault("qol.guideNameTarget"), Polestar.GetDefault("qol.markTarget") })
 		Polestar.Names = { Npc = function(id) return ({ [10] = "Loup gris", [20] = "Maître des griffons" })[id] end }
@@ -28,12 +28,13 @@ test('guide name: one localized chosen NPC uses the shared macro, with marking o
 		result({ t = "talk", npc = 20, npcName = "Gryphon Master" })
 		result({ t = "kill", subject = "O'Brien's Wolf" })
 	`);
-	assert.deepEqual(out[0], [false, false]);
+	assert.deepEqual(out[0], [false, true]);
 	assert.deepEqual(out.slice(1).map((row) => row.slice(1)), [
 		['Loup gris', 'mob', true], ['Maître des griffons', 'npc', true], ["O'Brien's Wolf", 'mob', true],
 	]);
-	for (const [macro, name] of out.slice(1)) {
-		assert.equal(macro, `/cleartarget [nocombat]\n/targetexact ${name}\n/cleartarget [dead]`);
+	const marks = { mob: '/tm [@target,harm,nodead] !8', npc: '/tm [@target,exists,nodead,nocombat][@target,noharm,nodead] !1' };
+	for (const [macro, name, kind] of out.slice(1)) {
+		assert.equal(macro, `/cleartarget [nocombat]\n/targetexact ${name}\n/cleartarget [dead]\n${marks[kind]}`);
 	}
 });
 
@@ -132,6 +133,7 @@ test('guide name: kills and collect sources use mob marks; all NPC verbs use NPC
 
 test('mark cycle: guide names, target button and step key advance together without losing name cycles', () => {
 	const out = run(`
+		set("targetSimple", true) -- the target button's own name cycle
 		set("markTarget", true)
 		set("markMob", "cycle")
 		q.step({ { t = "kill", target = "Wolf" }, { t = "kill", target = "Boar" } })
@@ -187,6 +189,7 @@ test('mark cycle: NPCs skip the fixed mob icon; off and fixed settings do not ad
 
 test('mark cycle: existing target and step macros stay frozen in combat, then apply the latest cycle once safe', () => {
 	const out = run(`
+		set("targetSimple", true) -- the target button's own name cycle
 		set("markTarget", true)
 		set("markMob", "cycle")
 		q.step({ { t = "kill", target = "Wolf" }, { t = "kill", target = "Boar" } })

@@ -15,13 +15,15 @@ The handbook is [PACKS.md](PACKS.md).
 **On this page:** [`pack.json`](#packjson) ·
 [The addon](#the-addon) · [TOC fields](#toc-fields) ·
 [Rules Polestar enforces](#rules-polestar-enforces) ·
-[Format 3](#format-3) · [Format 4](#format-4) · [Format 5](#format-5) · [Format 6](#format-6) · [Format 7](#format-7) · [Format 8](#format-8) · [Import strings](#import-strings) · [Versioning](#versioning)
+[Polestar's own extra packs](#polestars-own-extra-packs) ·
+[Format 3](#format-3) · [Format 4](#format-4) · [Format 5](#format-5) · [Format 6](#format-6) · [Format 7](#format-7) · [Format 8](#format-8) · [Format 10](#format-10) · [Import strings](#import-strings) · [Versioning](#versioning)
 
 A community addon is an addon for World of Warcraft: Forever that depends
 on Polestar and registers guides with it. It is built from a pack: a folder
 with a `pack.json` and `.guide` files. In the format, every such addon is a
 pack; Polestar's own guides are a pack too (`Polestar_Guides`, pack id
-`guides`).
+`guides`), and so are its experimental guides (`Polestar_Experimental`,
+[below](#polestars-own-extra-packs)).
 
 ## `pack.json`
 
@@ -53,7 +55,7 @@ a parent.
 | `website` | no | `https://` or `http://` address; at most 200 characters |
 | `source` | no | where the guides come from, in the author's words; at most 200 characters |
 | `notes` | no | one line for the AddOns list, shown when the player points at the pack there; at most 200 characters (default "Community addon for Polestar by <author>") |
-| `folder` | no | the addon's folder name: 1 to 64 letters, digits, `_` and `-`, not `Polestar` and not starting with `Polestar_` (in any case); default `PolestarPack_` and the title in CamelCase (`Joe's Routes` → `PolestarPack_JoesRoutes`), or the id when the title has no letters or digits |
+| `folder` | no | the addon's folder name: 1 to 64 letters, digits, `_` and `-`, not `Polestar` and not starting with `Polestar_` (in any case: those are Polestar's own, [below](#polestars-own-extra-packs)); default `PolestarPack_` and the title in CamelCase (`Joe's Routes` → `PolestarPack_JoesRoutes`), or the id when the title has no letters or digits |
 
 Every value is a string on one line. A missing required field, or a value
 that breaks these rules, is a lint error; an unknown key is a warning; a `|`
@@ -209,10 +211,14 @@ into a new temporary folder, so neither touches an existing pack folder.
 before a pack is built (`rust/crates/forge-addontest/tests/addontest/packs-parity.rs` holds the two together).
 
 1. **Ids.** Pack ids match `^[a-z0-9][a-z0-9-]{1,31}$`; `guides`, `forever`,
-   `lookup`, `draft`, `polestar` and `imported` are reserved. Every guide id
-   starts with `<pack id>/`, except in Polestar's own packs: `guides` (the
-   addon `Polestar_Guides`) owns `forever/` and `draft/`, Polestar's internal
-   `lookup` pack owns `lookup/`, and `imported` (the guides pasted as
+   `lookup`, `draft`, `polestar`, `imported` and `polestar-experimental` are
+   reserved: lint refuses them in a `pack.json`, and Polestar a pack or an
+   imported guide that uses one. Only `guides` (from the addon
+   `Polestar_Guides`) and `polestar-experimental` (from `Polestar_Experimental`,
+   [below](#polestars-own-extra-packs)) belong to an addon, and only that one
+   may register it. Every guide id starts with `<pack id>/`, except in
+   Polestar's own packs: `guides` owns `forever/` and `draft/`, Polestar's
+   internal `lookup` pack owns `lookup/`, and `imported` (the guides pasted as
    import strings, below) owns every `<author>/` that is a valid pack id
    nobody reserves.
 2. **No overrides.** A guide id outside its pack's prefix is refused. A pack
@@ -254,14 +260,60 @@ before a pack is built (`rust/crates/forge-addontest/tests/addontest/packs-parit
    `on`, `off` (switched off on the Community guides page), `refused`, `too-new`
    (a newer format) or `broken` (registered no guides). One that never
    registered is, in this order of precedence, `too-new`, `disabled` (turned
-   off in the AddOns list), `not-loaded` (the client did not load it: out of
-   date, a dependency missing) or `broken`.
+   off in the AddOns list), `off` or `on` (it loads on demand, below),
+   `not-loaded` (the client did not load it: out of date, a dependency
+   missing) or `broken`.
+10. **Packs that load on demand.** A pack whose addon the client loads only
+    on demand (`## LoadOnDemand: 1`: Polestar's own `Polestar_Experimental`,
+    below; `forge guide compile` writes it for no community addon) is `off`
+    until the player switches it on on the Community guides page. Switching
+    it on loads the addon (never in combat: then once the fight ends) and
+    its guides come in without a reload; while it stays on it loads at every
+    login, before the saved tabs reopen. Switched off, its guides hide; from
+    the next login it no longer loads. Left off, it costs a login its row
+    and nothing more. Its row shows no guide count until it has loaded, and
+    one whose addon the client could not load is `not-loaded`, with the
+    reason. The switch is kept per account (`PolestarDB.packs[id].on`).
 
 Only guides of packs that are on are shown, searched and suggested.
 Suggestions come from Polestar's guides unless the player picks a pack under
 **Suggest guides from** on the Community guides page; only packs with Leveling
-guides are offered there, and Polestar's guides fill in where the chosen pack
-has nothing for the character.
+guides are offered there, never Polestar's experimental pack, and Polestar's
+guides fill in where the chosen pack has nothing for the character.
+
+## Polestar's own extra packs
+
+Besides `Polestar_Guides`, the release zip carries one more pack of
+Polestar's own: **Polestar Experimental** (`Polestar_Experimental`, pack id
+`polestar-experimental`), guides for Forever's new zones while they are in
+testing (alpha). It is built from `experimental/` in the checkout
+(`pack.json` and `.guide` files) by `forge release pack`, and by
+`forge guide compile experimental` (`polestar regen` runs it) into
+`addon/Polestar_Experimental/`, which is committed like `Polestar_Guides`.
+
+- Its `pack.json` is checked as a community pack's: the folder rule still
+  refuses `Polestar_` for it as for every pack, so it leaves `folder` out;
+  it gives the id `polestar-experimental` and `"author": "Polestar"`, and
+  the build names the folder. That id is reserved (rule 1): only this
+  `pack.json` may give it, read from `experimental/` beside `guides/` in the
+  checkout (`forge guide lint`, `polestar playtest` and the other pack
+  commands know it), and in game only `Polestar_Experimental` may register
+  it. Its `version` follows the release: `forge release version` sets it as
+  it sets `guides/pack.json`'s.
+- Its guides are linted and compiled as another pack's
+  (`forge guide lint experimental`), with our guides as context, so `next`
+  may hand over to one of ours. `forge release pack` stops on an error in
+  them, and leaves the folder out when `experimental/pack.json` is missing.
+  `forge release pack experimental` is refused: it ships inside our zip.
+- Its TOC is Polestar's: the title as written ("Polestar Experimental",
+  without "Polestar Community: "), the AddOns list in every client language,
+  `## Author: Polestar` (the Polestar Client updates it with Polestar's
+  other folders), and `## LoadOnDemand: 1`, so rule 10 applies: off until
+  the player switches it on.
+- Its guides are never suggested and never part of the route: **Suggest
+  guides from** never offers the pack, a saved choice of it counts as
+  Polestar's own guides, and its guides' route choices are never offered.
+  The player opens one from the guide menu, under Community guides.
 
 ## Format 3
 
@@ -317,11 +369,12 @@ hold:
 | `"upgrade"` | `item` | Polestar's gear advice rates the item an upgrade for the character now (`Gear.IsUpgrade`); an item it cannot judge, or gear advice turned off, counts as one |
 | `"zone"`, `"subzone"` | `name`; optional `area` | the zone (subzone) text reads as the area's name in the client's language, or as `name` |
 | `"bound"` | `name`; optional `area` | the bind location reads so |
-| `"dungeon"` | `name`; optional `map` (the instance's Map.csv id) | the character chose to run the dungeon with that `map` in leveling guides (Options, Discovery, Dungeons: "Dungeons in leveling guides"); without `map` it never holds |
+| `"dungeon"` | `name`; optional `map` (the instance's Map.csv id) | the character runs the dungeon with that `map` in leveling guides (its answer for that dungeon, else its answer for every dungeon, Skip at first; unanswered with Ask me, a step with work now holds and asks); without `map` it never holds |
 | `"done"` | `label`: a step label of the same guide (format 5) | the step so labelled applies, its goals are done and it was not skipped (by the player, a failed `when` or a `skipto` jump); refused in `nextWhen` |
 | `"skill"` | `name`, `n`; optional `skillLine` (format 5) | the character's rank in that profession is `n` or more; one not learned is rank 0 |
 | `"cooldown"` | `item` or `spell` (format 5) | the item or spell is on cooldown for more than the global cooldown (1.5 s) |
 | `"knows"` | `spell` (format 5) | the character knows the spell (`Compat.IsSpellKnown`, else `Compat.IsPlayerSpell`) |
+| `"taxi"` | `name`; optional `node` (format 10) | the character knows that flight path ([Format 10](#format-10)) |
 | `"group"` | `q` (format 5) | the player answered "do it" for that group quest (`CharState().groupQuests[q] == "do"`); unanswered, the step applies and is not done, so the route waits there; refused in `nextWhen` and `skipto` |
 
 ```lua
@@ -332,7 +385,8 @@ A `when` that is not a non-empty list, or a predicate of another kind or
 without its keys, refuses the guide. Polestar 0.2.6 reads every kind above
 but `"money"`, `"dungeon"`, `"upgrade"`, `"done"`, `"skill"`, `"cooldown"`, `"group"` and `"knows"`, which came after it: a guide with one, on a
 step or a `next` option, is written in format 5, so 0.2.6 says the pack needs
-Polestar 0.3.0 instead of refusing the guide ("bad when"). Once the route has moved past a step,
+Polestar 0.3.0 instead of refusing the guide ("bad when"). `"taxi"` came with
+Polestar 0.4.0 the same way (format 10). Once the route has moved past a step,
 Polestar stores whether its `when` held (per character, guide and step) and
 reads that from then on.
 
@@ -551,7 +605,7 @@ frame; absent: the live frame), `r` (arrival radius in yards), `spots`
 
 | Verb `t` | Required | Optional |
 |---|---|---|
-| `accept` | `quest`, `title` | `npc`/`npcName`, `object`/`objName`, `item`/`itemName`, `minLevel`, `qlvl`, `limit`, `pre`, `preAll`, `closedBy`, `parent`, `preTitles` |
+| `accept` | `quest`, `title` | `npc`/`npcName`, `object`/`objName`, `item`/`itemName`, `minLevel`, `qlvl`, `limit`, `pre`, `preAll`, `closedBy`, `parent`, `crumbs`, `preTitles` |
 | `turnin` | `quest`, `title` | `npc`/`npcName`, `object`/`objName`, `rewards = { choices = { { item, itemName, quality } }, items = { ... }, xp, money }`, `direct` |
 | `complete` | `quest`, `title` | `objs`, `startItem`, `startItemName`, `carriedTo` |
 | `abandon` | `quest`, `title` (format 5) | — |
@@ -596,12 +650,14 @@ The fields:
 | `limit` | on an `accept` of a timed quest: the seconds it allows once taken (Dynamic Questing takes it early only when the walk to it still fits). Polestar 0.3.6 and later also say under the accept how long it allows, and count down from the accept with it when the client reports no timer (a delivery quest) |
 | `pre` | prerequisite quest ids, any one suffices; `preAll` every one needed |
 | `closedBy` | quest ids that close this one once taken or done |
+| `endNpcs`, `xp` | on an `accept` with `closedBy`: the NPC ids the quest is handed in to and its XP. Polestar 0.3.8 and later say nothing of such a quest when a quest that closes it is offered at one of those NPCs (a breadcrumb to where the player stands), or when its `xp` is 0, and otherwise name its giver, distance and XP |
 | `parent` | on an `accept` of a child quest: the quest id its giver offers it under, only while that quest is in the log. Polestar 0.3.7 and later pass the accept once the parent is handed in, and while the parent is not in the log and the guide no longer brings it; older Polestar ignores it |
+| `crumbs` | on an `accept`: the quest's breadcrumbs (quest ids). None is a prerequisite, but the game does not offer the quest while one of them is in the log. Polestar 0.4.0 and later say "Hand in … first" on the accept while one is in the log and the guide does not hand it in, and Dynamic Questing does not offer the quest meanwhile; older Polestar ignores it |
 | `preTitles` | `{ [questId] = title }` for the quests those name |
 | `profLine`, `profName`, `profRank` | on any goal of a quest only characters with a profession can take: its skill line id, name and the rank it needs; the goal is hidden from characters without it |
 | `location` | an inn, flight point or zone name as the game shows it |
 | `class` | `true` on `train`: the nearest trainer of the player's class |
-| `zone` | on a `train` with `class`: its step's zone (a uiMapID), written by the compiler from the step's `zone`. Polestar 0.3.6 and later rank the candidates on that map first, wherever the player stands, unless another stands within 100 yards of them; older Polestar ignores it |
+| `zone` | on a `train` with `class`: its step's zone (a uiMapID), written by the compiler from the step's `zone`. Polestar 0.3.6 and 0.3.7 rank the candidates on that map first, wherever the player stands, unless another stands within 100 yards of them; from 0.3.8 only Polestar's own packs do, and a community pack's goal goes to the nearest trainer of the player's class (a pack's step can't know the player's race); older Polestar ignores it |
 | `skill` | a profession name; `skillLine` its skill line id |
 | `rank`, `rankMax` | on `train`: the profession rank (1 Apprentice to 4 Artisan; Polestar also reads a rank name or a skill cap) and its skill cap (written by the compiler, not read by Polestar) |
 | `level` | on `level`: the level to reach; on `skill`: the skill to reach |
@@ -615,7 +671,7 @@ The fields:
 | `z` | the height (world z, yards) of the NPC or object the goal's `x`,`y` stands for, so the walking route ends on its floor (an Undercity quarter rather than the street above it). Polestar 0.2.4 and later pass it to the walking engine while the arrow leads to that point, and ask again without it when the route found with it fails or ends more than 30 yards above or below it. A spot (`spots`) and a smart target's candidate (`candidates`) may carry their own `z`, which Polestar 0.2.5 and later pass the same way when the arrow leads there (#180). The compiler fills it in (GUIDE_FORMAT.md, "Heights"); a hand-written pack may leave it out. Older Polestar ignores it, so it does not change the format |
 | `area` | the AreaTable area ID (`C_Map.GetAreaInfo`) of the place a `sethome`, `hearth`, `fly` or `getfp` location or a `goto` label names. Polestar 0.2.5 and later complete a `hearth` or `fly` when the zone or subzone text is that area's name in the client's language, accept a `sethome` bind location that reads so, count a `goto` arrived when the player goes indoors in that subzone (a cave or mine past its mouth; never for a zone), and show that name in place of the English one. The compiler fills it in (GUIDE_FORMAT.md, "Places by ID"); without it the goal matches by its English name. Older Polestar ignores it, so it does not change the format |
 | `node` | on `getfp`: the taxi node ID (`C_TaxiMap` `nodeID`) of its flight point. Polestar 0.2.5 and later count the goal done once the flight map lists that node as known, instead of comparing names. Filled in like `area`; older Polestar ignores it |
-| `spots` | spawn places `{ { x, y, z, r, n, alt, lvl } }`: centre in the goal's map and frame, its height (optional, see `z`), radius in yards, spawn count; `alt = true` for another place the target spawns, which the arrow takes only when the player moves on to it (the world map marks it); `lvl` on a `kill` or `collect`'s place: the highest level of the mobs spawning there, so the arrow takes the places at the player's level first (Polestar 0.3.2 and later; older Polestar ignores it), written only where it differs from the goal's `lvl` |
+| `spots` | spawn places `{ { x, y, z, r, n, alt, lvl } }`: centre in the goal's map and frame, its height (optional, see `z`), radius in yards, spawn count; `alt = true` for another place the target spawns, which the arrow takes only when the player moves on to it (the world map marks it); `lvl` on a `kill` or `collect`'s place: the highest level of the mobs spawning there, so the arrow takes the places at the player's level first (Polestar 0.3.2 and later; older Polestar ignores it), written only where it differs from the goal's `lvl`. `r = 0`, without `n`: an exact point, where the target stands (GUIDE_FORMAT.md, "Spawn areas", Points). Polestar 0.3.8 and later search a goal whose spots are all exact points point by point (the arrow moves on from each the player has reached to the nearest not reached lately) and mark every point on the world map and the minimap instead of shading regions; older Polestar takes them as places with no width. They need no new format |
 | `lvl` | on a `kill` or `collect` with `spots`, every place having a level: the level most of its places share (see `spots`) |
 | `spotsPacked` | format 8, Polestar's own pack: the same spots as one string instead of `spots` ([Format 8](#format-8)) |
 | `spread` | `true` with `spots`: an area objective, searched spot by spot |
@@ -727,7 +783,9 @@ changes, read by Polestar 0.3.0 and later:
   the goal's `spots` is first read; they stay on the goal for the session.
   Goals with the same string on the same map and frame share one list (from
   Polestar 0.3.6). A table per spot costs about 250 bytes in the game, its
-  text about 16.
+  text about 16. An exact point (`r` 0, `"43.41,14.62,,0"`) is built as a
+  smaller table from Polestar 0.3.8, about 110 bytes: its `x`, `y` and `z`
+  in an array that reads them by name.
 - **Faction parts.** The pack's guides of one faction that no race part
   holds ship in `Polestar_Guides_Alliance` and `Polestar_Guides_Horde` beside
   it. Their TOC carries `## LoadOnDemand: 1`, `## Dependencies: Polestar,
@@ -739,6 +797,25 @@ changes, read by Polestar 0.3.0 and later:
   guide menu's faction filter asks for it, or when a saved tab holds a guide
   no loaded part has (`Polestar.Guides.LoadFaction`). A character holds its
   own faction's guides and the factionless ones, not the other side's.
+
+## Format 10
+
+The **`taxi`** `when` predicate (on a step, a `skipto` or a `next` option)
+beside everything the earlier formats have, read by Polestar 0.4.0 and later.
+The compiler writes a pack in format 10 only when its guides use it; an older
+Polestar refuses the pack as too new rather than each guide as "bad when".
+
+`taxi` when predicate: `{ k = "taxi", name = "<Flight point>", node = <id> }`.
+Holds while the character knows the flight path, checked as a `getfp` goal
+is: with `node` (the taxi node of the flight master `name` stands for, for the
+factions the step is for; the compiler leaves it out when the name has no
+single one), among the nodes Polestar records as known
+(`CharState().flags.taxi`: those the flight map and the world map's flight
+points list as discovered, and the one a "New flight path discovered" message
+names); without it, `name` against the flight maps the character has opened
+(their node's name, or its part before the first comma). A flight path
+Polestar has not seen yet counts as unknown. Learning one evaluates the guide
+again.
 
 ## Import strings
 
@@ -767,7 +844,7 @@ wrap it). The payload is JSON:
 
 | Key | Required | Value |
 |---|---|---|
-| `format` | yes | the guide data's format (above): 5 when the guide uses `money`/`task`/`enter`/`cast`/`abandon`/`destroy` goals or a `money` when predicate, 4 when a step has `when`, `along` or `label` or a `level` goal has `frac`, else 3; Polestar refuses a format it does not read |
+| `format` | yes | the guide data's format (above): 10 when the guide has a `taxi` when predicate, 5 when it uses `money`/`task`/`enter`/`cast`/`abandon`/`destroy` goals or a `money` when predicate, 4 when a step has `when`, `along` or `label` or a `level` goal has `frac`, else 3; Polestar refuses a format it does not read |
 | `license` | yes | the licence of the guide, from the pack's `pack.json` |
 | `guide` | yes | one guide exactly as `RegisterGuide(def)` takes it, without `pack`: the keys above, numbers rounded as `Guides.lua` writes them, `preTitles` with the quest ids as the object's keys |
 | `frames` | no | `RegisterMapFrames`'s `era` table for the maps its goals use, by uiMapID. Polestar takes a frame only for a map the guide's goals or their smart targets stand on, and only where no one (Polestar, a community addon, an earlier import) has registered one |
@@ -818,8 +895,9 @@ or nothing (equal or lower). Imported guides are listed in the guide menu as
   `upgrade`, `done`, `skill`, `cooldown`, `group` and `knows` when predicates, a step's
   `skipto`) by 0.3.0 and later, format 6 (a guide's `legs`), format 7
   (baked legs in the race parts) and format 8 (packed spawn spots and
-  faction parts, Polestar's own pack only) by 0.3.0 and later, and format 9
-  (the `wait` goal) by 0.3.0 and later.
+  faction parts, Polestar's own pack only) by 0.3.0 and later, format 9
+  (the `wait` goal) by 0.3.0 and later, and format 10 (the `taxi` when
+  predicate) by 0.4.0 and later.
 - A pack in a format this Polestar does not read registers nothing; the
   Community guides page shows it as `too-new` with "Needs Polestar <version> or
   newer." (rule 5).

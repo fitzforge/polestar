@@ -15,7 +15,7 @@ next forever/horde/50-60/06-silithus
 # Added here (0.3.6 flow pass, from 50-60/01, where the guide was about 52.4 among level 54-57 mobs): Light's Hope
 # Chapel's flight path and bind, Pamela's doll (5149), Zaeldarr (6021), Uncle Carlin (5241) and Defenders of
 # Darrowshire (5211), and the Marlene/Chromie chain (5152, 5153, 5154) to Brother Carlin (5210). Brother Carlin opens
-# Heroes and Villains of Darrowshire (5168, 5181), so the chain comes first, as in our comparison at 56-58.
+# Heroes and Villains of Darrowshire (5168, 5181), so the chain comes first.
 
 step Eastern Plaguelands
   zone Eastern Plaguelands

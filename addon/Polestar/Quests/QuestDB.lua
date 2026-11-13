@@ -8,6 +8,7 @@
 -- loads through Data.Pack, only while a quest feature wants it (Q.IsWanted).
 
 local ADDON, ns = ...
+local L = ns.L
 
 local Q = {}
 ns.QuestDB = Q
@@ -379,6 +380,8 @@ end
 -- Names of the mobs a quest objective is about: the kill target, or the
 -- droppers of the item (best chance first). oi is the objective's position
 -- in the database, which matches the quest log for nearly every quest.
+-- Second value: { id, chance } for each name, in the same order (chance only
+-- for droppers).
 function Q.GetObjectiveMobs(questID, oi)
 	local r = questID and data.quests[questID]
 	local obj = r and r[QUEST_OBJ]
@@ -387,15 +390,20 @@ function Q.GetObjectiveMobs(questID, oi)
 	local kind, id = obj[i], obj[i + 1]
 	if kind == 1 then
 		local nrec = data.npcs[id]
-		return nrec and { named("Npc", id, nrec[1]) } or nil
+		if not nrec then return nil end
+		return { named("Npc", id, nrec[1]) }, { { id = id } }
 	elseif kind == 2 then
 		local d = Q.GetItemDroppers(id)
 		if not d then return nil end
-		local out = {}
+		local out, meta = {}, {}
 		for k = 1, #d do
-			if d[k].name then out[#out + 1] = d[k].name end
+			if d[k].name then
+				out[#out + 1] = d[k].name
+				meta[#out] = { id = d[k].id, chance = d[k].chance }
+			end
 		end
-		return #out > 0 and out or nil
+		if #out == 0 then return nil end
+		return out, meta
 	end
 	return nil
 end
@@ -689,3 +697,21 @@ function Q.Load()
 	ns.Fire("QUESTDB_LOADED")
 	return true
 end
+
+-- /polestar questdb: whether the database is loaded, its size and what it
+-- tracks now.
+ns.RegisterCommand("questdb", function()
+	if not Q.IsLoaded() then
+		local msg = L["Quest database is off."]
+		if Q.IsWanted() then msg = L["Quest database not installed (Polestar_QuestDB)."] end
+		ns.Print(msg)
+		return
+	end
+	local m = Q._data.meta
+	local tracked = 0
+	for _ in pairs(Q._index.npc) do tracked = tracked + 1 end
+	local info = ns.Data.Info(Q.ADDON)
+	local mem = info.memoryKB and (" (%.1f MB)"):format(info.memoryKB / 1024) or ""
+	ns.Print(("%s%s: %d %s, %d %s; %d %s, %d %s"):format(L["Quest database"], mem, m.quests or 0, L["quests"], m.npcs or 0, L["NPCs"],
+		#Q.GetAvailableQuests(), L["available now"], tracked, L["mobs tracked"]))
+end, L["Quest database status"], true)

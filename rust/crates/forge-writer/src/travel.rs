@@ -256,7 +256,8 @@ impl Ways<'_> {
 		if f0.d > WALK_YD {
 			if let Some(z) = &z0 {
 				out.extend(self.crossing_steps(from, &Pt { map: f0.n.get("map").num(), x: fx, y: fy, f: "e".into() }));
-				out.push(WayStep { title: z.clone(), zone: Some(z.clone()), lines: vec![format!("  goto {} \"{z}\"", Self::xy(fx, fy))] });
+				let l = format!("To {}", f0.n.get("short").to_js_string());
+				out.push(WayStep { title: l.clone(), zone: Some(z.clone()), lines: vec![format!("  goto {} \"{l}\"", Self::xy(fx, fy))] });
 			}
 		}
 		let mut lines = Vec::new();
@@ -292,8 +293,24 @@ impl Ways<'_> {
 	}
 	fn goto_step(&self, b: &Pt, label: Option<&str>) -> Option<WayStep> {
 		let z = self.zone_of(b.map)?;
-		let l = label.map_or(z.clone(), str::to_string);
+		let l = label.map_or_else(|| self.dest_label(b, &z), str::to_string);
 		Some(WayStep { title: l.clone(), zone: Some(z), lines: vec![format!("  goto {} \"{l}\"{}", Self::xy(b.x, b.y), Self::live(b))] })
+	}
+	/// A travel-only goto's label, where it leads, never just the zone's name (#1450): the town whose
+	/// flight master stands within TOWN_YD of it in its zone ("To Camp Taurajo"), else the zone it
+	/// crosses into.
+	fn dest_label(&self, b: &Pt, z: &str) -> String {
+		const TOWN_YD: f64 = 400.0;
+		let at = self.at_pt(b).map(|a| a.w);
+		self.nodes
+			.iter()
+			.filter(|n| n.get("map").num() == b.map)
+			.map(|n| (dist(at, wpt(n)), n))
+			.filter(|&(d, _)| d <= TOWN_YD)
+			.min_by(|a, b| a.0.total_cmp(&b.0))
+			.map(|(_, n)| n.get("short").to_js_string())
+			.filter(|t| !t.is_empty())
+			.map_or_else(|| format!("Into {z}"), |t| format!("To {t}"))
 	}
 	/// The walk from a to b: over the zone crossings it passes, then to b.
 	fn walk_steps(&self, a: &Pt, b: &Pt, label: Option<&str>) -> Vec<WayStep> {
@@ -1526,6 +1543,133 @@ pub fn r1_check(tree: &BTreeMap<String, String>, v1: &BTreeMap<String, String>, 
 	(new.len(), all.len(), new)
 }
 
+/// How near a travel step's `goto` may end to a flight master of the other faction before the writer
+/// warns: the walk from Tarren Mill to Sorrow Hill once ended 42 yd from Chillwind Camp's.
+pub const HOSTILE_TOWN_YD: f64 = 120.0;
+/// A flight master with one of the route's own faction this near stands in a town both factions use
+/// (Booty Bay, Gadgetzan, Everlook): not hostile.
+const NEUTRAL_TOWN_YD: f64 = 400.0;
+/// A walk that ends this near a goal of the step it leads to ends at that goal's place: Loh'atu, the
+/// Horde's quest giver at the Shadowsong Shrine, 36 yd from the Alliance's Talrendis Point.
+const AT_GOAL_YD: f64 = 40.0;
+
+/// Travel steps that end in a town of the other faction (the class of #1521 and of the Chillwind Camp
+/// waypoint): each `goto` of a step whose goals only travel, within HOSTILE_TOWN_YD of a flight master
+/// of the other faction whose town is not neutral, unless it ends at a goal of the step it leads to
+/// (`npc_pts`: an accept's giver or a hand-in's ender points; a typed point counts too). Quest goals are
+/// left out: a goal stands where its quest is done. A warning for the maintainer, who moves the point
+/// with a `way` guide fix (fixes.rs). -> "<file>:<line>: ..." lines.
+pub fn hostile_town_ways(tree: &BTreeMap<String, String>, files: &[String], data: &Data, faction: Option<&str>, npc_pts: &dyn Fn(&str) -> Vec<Wpt>) -> Vec<String> {
+	let side = match faction.map(str::to_ascii_lowercase).as_deref() {
+		Some("alliance") => 1.0,
+		Some("horde") => 2.0,
+		_ => return Vec::new(),
+	};
+	let nodes: Vec<(String, f64, Wpt)> = data
+		.travel
+		.get("taxi")
+		.get("nodes")
+		.items()
+		.iter()
+		.map(|n| (n.get("name").to_js_string(), n.get("faction").num(), Wpt { c: n.get("c").num(), wx: n.get("wx").num(), wy: n.get("wy").num() }))
+		.collect();
+	let hostile = hostile_masters(&nodes, side);
+	let geo = Geo::new(&data.map_frames);
+	let to_world = |zone: Option<&str>, map: Option<f64>, x: f64, y: f64, live: bool| -> Option<Wpt> {
+		let m = map.or_else(|| zone.map(|z| data.zone_named(z).get("zone").get("id")).filter(|id| id.is_num()).map(|id| id.num()))?;
+		geo.to_world(m as _, x, y, !live)
+	};
+	let mut out = Vec::new();
+	for f in files {
+		let Some(text) = tree.get(f) else { continue };
+		for (line, title, yd, name) in ways_near(text, &to_world, npc_pts, &hostile) {
+			out.push(format!("{f}:{}: the travel step \"{title}\" ends {yd:.0} yd from the other faction's flight master at {name}", line + 1));
+		}
+	}
+	out
+}
+
+/// The flight masters of the other faction than `side` (1 Alliance, 2 Horde) whose towns are not
+/// neutral (no flight master of `side` within NEUTRAL_TOWN_YD): (name, point).
+fn hostile_masters(nodes: &[(String, f64, Wpt)], side: f64) -> Vec<(String, Wpt)> {
+	nodes
+		.iter()
+		.filter(|(_, f, p)| (*f == 1.0 || *f == 2.0) && *f != side && !nodes.iter().any(|(_, g, q)| *g == side && q.c == p.c && js_hypot(q.wx - p.wx, q.wy - p.wy) <= NEUTRAL_TOWN_YD))
+		.map(|(n, _, p)| (n.clone(), *p))
+		.collect()
+}
+
+/// A guide's travel-only steps' gotos within HOSTILE_TOWN_YD of a `hostile` flight master, each read in
+/// the zone its line is in (`to_world`: zone, typed map, x, y, live frame), that do not end at a goal of
+/// the next step (its lines' typed points, `npc_pts` for its accepts and hand-ins). -> (line index, step
+/// title, yards, the flight master's name).
+fn ways_near(
+	text: &str,
+	to_world: &dyn Fn(Option<&str>, Option<f64>, f64, f64, bool) -> Option<Wpt>,
+	npc_pts: &dyn Fn(&str) -> Vec<Wpt>,
+	hostile: &[(String, Wpt)],
+) -> Vec<(usize, String, f64, String)> {
+	let lines: Vec<&str> = text.split('\n').collect();
+	let zone_of = |l: &str| re!(r"^\s*zone\s+(.+?)\s*$").captures(split_comment(l).0).map(|m| m[1].to_string());
+	let mut out = Vec::new();
+	let mut zone: Option<String> = None;
+	let mut i = 0;
+	while i < lines.len() {
+		if !crate::jsre::is_step(lines[i]) {
+			zone = zone_of(lines[i]).or(zone);
+			i += 1;
+			continue;
+		}
+		let title = trim(lines[i].trim_start_matches("step")).to_string();
+		let mut e = i + 1;
+		while e < lines.len() && !crate::jsre::is_step(lines[e]) && !starts_nonspace(lines[e]) {
+			e += 1;
+		}
+		let goals: Vec<usize> = (i + 1..e).filter(|&k| is_goal(split_comment(lines[k]).0)).collect();
+		let travel = !goals.is_empty() && goals.iter().all(|&k| re!(r"^\s+(goto|fly|hearth)\s").is_match(lines[k]));
+		for k in i + 1..e {
+			let code = split_comment(lines[k]).0;
+			if let Some(z) = zone_of(code) {
+				zone = Some(z);
+				continue;
+			}
+			let Some(m) = re!(r"^\s+goto\s+([\d.]+)\s*,\s*([\d.]+)").captures(code).filter(|_| travel) else { continue };
+			let Some(p) = typed_at(code, &m, zone.as_deref(), to_world) else { continue };
+			let near = hostile.iter().filter(|(_, q)| q.c == p.c).map(|(n, q)| (n, js_hypot(q.wx - p.wx, q.wy - p.wy))).filter(|&(_, d)| d <= HOSTILE_TOWN_YD).min_by(|a, b| a.1.total_cmp(&b.1));
+			let Some((name, d)) = near else { continue };
+			// (Not when the walk ends at a goal of the step it leads to: the goal is the reason to go.)
+			let next_start = (e..lines.len()).find(|&j| crate::jsre::is_step(lines[j]));
+			let next_end = next_start.map(|s| (s + 1..lines.len()).find(|&j| crate::jsre::is_step(lines[j]) || starts_nonspace(lines[j])).unwrap_or(lines.len()));
+			let mut nz = zone.clone();
+			let at_goal = next_start.zip(next_end).is_some_and(|(s, t)| {
+				(s + 1..t).any(|j| {
+					let c = split_comment(lines[j]).0;
+					if let Some(z) = zone_of(c) {
+						nz = Some(z);
+						return false;
+					}
+					let typed = re!(r"(?:@\s*|^\s+goto\s+)([\d.]+)\s*,\s*([\d.]+)").captures(c).and_then(|t| typed_at(c, &t, nz.as_deref(), to_world));
+					is_goal(c) && typed.into_iter().chain(npc_pts(c)).any(|g| g.c == p.c && js_hypot(g.wx - p.wx, g.wy - p.wy) <= AT_GOAL_YD)
+				})
+			});
+			if !at_goal {
+				out.push((k, title.clone(), d, name.clone()));
+			}
+		}
+		i = e;
+	}
+	out
+}
+
+/// The world point a line types (`m`: its x, y captures), read on its typed `map` (outside quoted text)
+/// or in `zone`, in the live frame when it says `live`.
+fn typed_at(code: &str, m: &regex::Captures, zone: Option<&str>, to_world: &dyn Fn(Option<&str>, Option<f64>, f64, f64, bool) -> Option<Wpt>) -> Option<Wpt> {
+	let outside: String = code.split('"').step_by(2).collect::<Vec<_>>().join(" ");
+	let map = re!(r"\smap\s+(\d+)").captures(&outside).and_then(|c| c[1].parse::<f64>().ok());
+	let live = re!(r"\slive\b").is_match(&outside);
+	to_world(zone, map, m[1].parse().ok()?, m[2].parse().ok()?, live)
+}
+
 #[cfg(test)]
 mod tests {
 	use super::*;
@@ -1715,5 +1859,41 @@ mod tests {
 		]);
 		assert_eq!(binds_at_v1(&mut t, &s(&["NightElf"])), 0);
 		assert!(t.contains(&"  sethome \"Auberdine\" only NightElf".to_string()), "{t:#?}");
+	}
+
+	#[test]
+	fn a_travel_step_into_a_town_of_the_other_faction_is_warned_about() {
+		// The walk from Tarren Mill toward Sorrow Hill ended on Argent Officer Pureheart in the middle
+		// of the Alliance's Chillwind Camp, 42 yd from its flight master; a quest goal there is the
+		// quest's own place and is not warned about, nor is a walk that ends at the next step's quest
+		// giver (Loh'atu, 36 yd from the Alliance's Talrendis Point). A map percent is 100 yd here.
+		let at = |x: f64, y: f64| Wpt { c: 0.0, wx: x * 100.0, wy: y * 100.0 };
+		let to_world =
+			|zone: Option<&str>, map: Option<f64>, x: f64, y: f64, _live: bool| -> Option<Wpt> { (matches!(zone, Some("Western Plaguelands" | "Azshara")) || map == Some(1422.0)).then(|| at(x, y)) };
+		let npc_pts = |c: &str| -> Vec<Wpt> {
+			if c.contains("turnin 5152") {
+				vec![at(49.17, 78.57)]
+			} else if c.contains("accept 5535") {
+				vec![at(11.37, 78.17)]
+			} else {
+				Vec::new()
+			}
+		};
+		let nodes = vec![
+			("Chillwind Camp, Western Plaguelands".to_string(), 1.0, at(43.4, 83.3)),
+			("Talrendis Point, Azshara".to_string(), 1.0, at(11.6, 78.0)),
+			("Gadgetzan, Tanaris (A)".to_string(), 1.0, at(10.0, 10.0)),
+			("Gadgetzan, Tanaris (H)".to_string(), 2.0, at(12.0, 10.0)),
+			("Ratchet, The Barrens".to_string(), 3.0, at(50.0, 50.0)),
+		];
+		// (Gadgetzan has a Horde flight master beside the Alliance one: a town both use.)
+		let hostile = hostile_masters(&nodes, 2.0);
+		assert_eq!(hostile.iter().map(|h| h.0.as_str()).collect::<Vec<_>>(), ["Chillwind Camp, Western Plaguelands", "Talrendis Point, Azshara"]);
+		let text = "guide g\nzone Hillsbrad Foothills\n\nstep Fly to Tarren Mill\n  goto 60.2,18.8 \"Tarren Mill flight master\"\n  fly \"Tarren Mill\"\n\nstep Western Plaguelands\n  zone Western Plaguelands\n  goto 43.0,83.5 \"Western Plaguelands\"\n\nstep Sorrow Hill\n  turnin 5152\n\nstep Argent Officer Pureheart\n  goto 43.0,83.5\n  turnin 5142\n\nstep Azshara\n  zone Azshara\n  goto 11.4,78.2 \"Loh'atu\"\n\nstep Ride into Azshara\n  accept 5535\n";
+		let found = ways_near(text, &to_world, &npc_pts, &hostile);
+		assert_eq!(found.len(), 1, "{found:?}");
+		let (line, title, yd, name) = &found[0];
+		assert_eq!((*line, title.as_str(), name.as_str()), (9, "Western Plaguelands", "Chillwind Camp, Western Plaguelands"));
+		assert!((*yd - 44.7).abs() < 0.1, "{yd}");
 	}
 }

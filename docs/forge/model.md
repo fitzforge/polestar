@@ -349,8 +349,10 @@ and `logAbandoned`.
 
 In the route profiles:
 
-- while a timed quest runs, every leg is walked: no hearth, flight or boat. The model checks each
-  hand-in against the quest's limit and counts late ones (`late`). A kept edit never adds one;
+- while a timed quest with work to do runs, every leg is walked: no hearth, flight or boat. A delivery
+  (a limit and no tasks, `Run::q_delivery`) does not hold the legs: its clock runs on a flight too.
+  The model checks each hand-in against 60% of the quest's limit (`TIMED_SHARE`: the model's times are
+  a fast player's) and counts late ones (`late`). A kept edit never adds one;
 - an escort's own task is always walked from the giver;
 - an item dropped by more than 20 kinds of mob (cloth for donations) is taken from the bags: no trip,
   no work.

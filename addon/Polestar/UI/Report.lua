@@ -791,6 +791,7 @@ end
 local function showBox(on)
 	F.BoxWell:SetShown(on)
 	F.Box:SetShown(on)
+	F.CopyHint:SetShown(on)
 end
 
 -- The well as tall as the text, between its least and most lines, and the
@@ -844,6 +845,8 @@ local function layout()
 	local row = max(nh, bh)
 	if F.BoxWell:IsShown() then
 		y = y + 12
+		put(F.CopyHint, PAD, y)
+		y = y + F.CopyHint:GetStringHeight() + 6
 		put(F.BoxWell, PAD, y)
 		local content = F.Box:GetHeight()
 		local room = WINDOW_MAX - y - (16 + 1 + 12 + row + PAD)
@@ -1128,6 +1131,13 @@ local function build()
 	F.Box:SetScript("OnTabPressed", function() F.Desc:SetFocus() end)
 	F.BoxWell:EnableMouse(true)
 	F.BoxWell:SetScript("OnMouseUp", function() W.SelectCopy(F.Box) end)
+	-- Over the box while it shows (Copy report shows it selected): how to
+	-- copy it, as the game gives addons no clipboard (#1826).
+	F.CopyHint = W.Text(F, "note", "success")
+	F.CopyHint:SetWidth(BOX_W)
+	F.CopyHint:SetJustifyH("LEFT")
+	F.CopyHint:SetWordWrap(true)
+	F.CopyHint:SetText(W.CopyHintText())
 	showBox(false)
 	-- The report's text in the box's font at its inner width: what the box's
 	-- height is measured on. Hidden, never alpha 0: a theme repaint gives a

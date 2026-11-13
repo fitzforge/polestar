@@ -112,6 +112,7 @@ step Temple of the Moon
   turnin 162                          -- Gracina Spiritmight, beside her
 
 step Thyn'tel Bladeweaver
+  when onquest 1037
   turnin 1037
 
 step Craftsmen's Terrace

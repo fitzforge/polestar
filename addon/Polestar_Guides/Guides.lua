@@ -6854,8 +6854,7 @@ do
 			zoneName = "Westfall",
 			author = "Polestar",
 			version = 1,
-			names = { ["area:1057"] = "Thoradin's Wall", ["area:1276"] = "Talondeep Path", ["area:146"] = "Stonewrought Dam", ["area:1702"] = "Honor's Stand", ["area:2539"] = "Malaka'jin", ["area:287"] = "Hillsbrad", ["area:415"] = "Astranaar", ["area:460"] = "Sun Rock Retreat", ["area:467"] = "Stonetalon Peak", ["area:880"] = "Thandol Span", ["item:211527"] = "Cozy Sleeping Bag", ["item:221498"] = "Old Toolbox", ["object:424005"] = "Pocket Litter", ["object:424012"] = "Mound of Dirt", ["zone:1413"] = "Barrens", ["zone:1432"] = "Loch Modan", ["zone:1436"] = "Westfall", ["zone:1437"] = "Wetlands", ["zone:1440"] = "Ashenvale", ["zone:1442"] = "Stonetalon Mountains" },
-			written = { ["{area:1276}"] = "The Talondeep Path", ["{zone:1413}' way into Stonetalon runs through {area:1702}, and the road on to the hills passes {area:2539} and {area:460}: all Horde posts. Come in from the north instead. With the {area:467} flight path, fly there and follow the road south. Otherwise fly to {area:415} and walk south-west to the {area:1276}, the tunnel from {zone:1440} into Stonetalon."] = "The Barrens' way into Stonetalon runs through Honor's Stand, and the road on to the hills passes Malaka'jin and Sun Rock Retreat: all Horde posts. Come in from the north instead. With the Stonetalon Peak flight path, fly there and follow the road south. Otherwise fly to Astranaar and walk south-west to the Talondeep Path, the tunnel from Ashenvale into Stonetalon." },
+			names = { ["area:1057"] = "Thoradin's Wall", ["area:146"] = "Stonewrought Dam", ["area:1702"] = "Honor's Stand", ["area:287"] = "Hillsbrad", ["area:460"] = "Sun Rock Retreat", ["area:880"] = "Thandol Span", ["item:211527"] = "Cozy Sleeping Bag", ["item:221498"] = "Old Toolbox", ["object:424005"] = "Pocket Litter", ["object:424012"] = "Mound of Dirt", ["zone:1413"] = "Barrens", ["zone:1432"] = "Loch Modan", ["zone:1436"] = "Westfall", ["zone:1437"] = "Wetlands", ["zone:1442"] = "Stonetalon Mountains" },
 			steps = {
 				{
 					title = "The note in {zone:1436}",
@@ -6894,12 +6893,11 @@ do
 					},
 				},
 				{
-					title = "Stonetalon from the north",
-					note = "{zone:1413}' way into Stonetalon runs through {area:1702}, and the road on to the hills passes {area:2539} and {area:460}: all Horde posts. Come in from the north instead. With the {area:467} flight path, fly there and follow the road south. Otherwise fly to {area:415} and walk south-west to the {area:1276}, the tunnel from {zone:1440} into Stonetalon.",
+					title = "Round {area:1702}",
 					only = { factions = { "Alliance" } },
 					when = { { k = "zone", neg = true, name = "Stonetalon Mountains", area = 406 } },
 					goals = {
-						{ t = "goto", text = "{area:1276}", area = 1276, map = 1440, x = 42.4, y = 71, f = "e", r = 25 },
+						{ t = "goto", text = "North of Honor's Stand", map = 1413, x = 40.2, y = 24.88, f = "e", r = 30, note = "The road west runs through {area:1702}, a Horde post; this way goes round it." },
 					},
 				},
 				{
@@ -6928,16 +6926,8 @@ do
 					},
 				},
 				{
-					title = "Out of the river",
-					note = "Careful: off the dam's ledge you land in the river below it, in the {zone:1437}. Climb out on its west bank well before the waterfall at about 65,77: the fall kills. Then head north-west to the road and follow it north over {area:880} into Arathi.",
-					goals = {
-						{ t = "goto", text = "West bank, before the waterfall", map = 1437, x = 64.4, y = 79.4, f = "e", r = 12 },
-						{ t = "goto", text = "West bank", map = 1437, x = 62.2, y = 76.8, f = "e", r = 15 },
-					},
-				},
-				{
 					title = "{area:1057}",
-					note = "At the gate in {area:1057} between Arathi and {area:287}, turn north and follow the wall on the {area:287} side to a fallen cart leaning against it. Jump up the cart and its ladder onto the wall, then over the rocks to the hidden camp. Some characters cannot fit under the cargo netting at the camp; another race or a smaller form gets through.",
+					note = "Careful: off the dam's ledge you land in the river below it, in the {zone:1437}. Climb out on its west bank well before the waterfall at about 65,77: the fall kills. Then head north-west to the road and follow it north over {area:880} into Arathi.\nAt the gate in {area:1057} between Arathi and {area:287}, turn north and follow the wall on the {area:287} side to a fallen cart leaning against it. Jump up the cart and its ladder onto the wall, then over the rocks to the hidden camp. Some characters cannot fit under the cargo netting at the camp; another race or a smaller form gets through.",
 					goals = {
 						{ t = "goto", text = "Fallen cart", map = 1424, x = 87.5, y = 47.7, f = "e" },
 					},

@@ -1,6 +1,6 @@
 -- Quality of Life: the questing helpers players expect from a leveling addon,
 -- each behind a "qol.*" setting on the Questing or Quality of Life options
--- page (QoL/Options.lua).
+-- page (their rows: Polestar_Options/QoL/Options.lua).
 -- This file holds what the features share: settings, the out-of-combat queue
 -- for secure frames, the current step's goals, and the client calls Compat
 -- does not cover (bags, items, XP, money). Every client function used here
@@ -42,10 +42,12 @@ local defaults = {
 	targetButton = true,     -- target macro button
 	targetPlate = true,      -- ... its icon shows the action, its name in the target's colour, the next names as small icons
 	targetAnnounce = false,  -- ... a chat line when its names change
+	targetRows = 5,          -- how many names the target list shows (1-8)
+	targetSimple = false,    -- the target button alone, cycling, without its list of names
 	guideNameTarget = false, -- opt in: extend navigation clicks to targeting, with shared marking settings
 	rareButton = true,       -- target button for a rare the addon spotted
 	hearthButton = true,     -- Hearthstone button while a hearth goal is active
-	markTarget = false,      -- raid icon on what the target button, step key and objective clicks target
+	markTarget = true,       -- raid icon on what the target button, step key and objective clicks target
 	pingTarget = false,      -- /ping the mob the target button and step key target (QoL/Buttons.lua)
 	markMob = "8",           -- its icon on mobs (1-8, "cycle"): skull
 	markNpc = "1",           -- and on NPCs: star
@@ -218,7 +220,7 @@ function QoL.CurrentStep()
 	if not (E and E.GetStepIndex and E.GetStepView) then return nil end
 	local i = E.GetStepIndex()
 	if not i then return nil end
-	local view = E.GetStepView(i)
+	local view = E.GetStepView(i, true)
 	if not view then return nil end
 	local guide = E.GetGuide and E.GetGuide()
 	local step = guide and guide.steps and guide.steps[i]

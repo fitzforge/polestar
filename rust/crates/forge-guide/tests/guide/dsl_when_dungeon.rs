@@ -108,3 +108,28 @@ fn next_id_when_dungeon_resolves_the_same_way() {
 	// On a `next` line too, `dungeon` needs format 5 (0.2.6 refuses an unknown `when` kind).
 	assert_eq!(format_for(&r.guides), MONEY_TASK_FORMAT);
 }
+
+/// Where the guide's kill of Kobold Vermin (6) is placed: its spawn nearest the goal before it (dsl_resolve.rs).
+fn kill_at(lines: &[&str]) -> serde_json::Value {
+	let r = compile(&guide_text(lines));
+	assert!(r.errors.is_empty(), "{}", r.text);
+	let goals: Vec<serde_json::Value> = r.steps().iter().flat_map(|s| s["goals"].as_array().cloned().unwrap_or_default()).collect();
+	let kill = goals.iter().find(|g| g["t"] == "kill").expect("a kill goal");
+	json!([kill["x"], kill["y"]])
+}
+
+#[test]
+fn a_dungeons_steps_leave_the_solo_routes_placing_alone_and_the_runners_steps_follow_each_other() {
+	// A character who skips the dungeon never walks its steps: the solo route's kill after one is placed from the
+	// solo route's own last goal, as it is without the dungeon's step.
+	let solo = kill_at(&["step One", "  goto 45,34", "step Two", "  kill 6"]);
+	assert_eq!(solo, json!([45.1, 33.9]));
+	assert_eq!(kill_at(&["step One", "  goto 45,34", "step Run", "  when dungeon \"Ragefire Chasm\"", "  goto 52,27", "step Two", "  kill 6"]), solo);
+	// A dungeon's step after another is placed from the runner's last goal.
+	assert_eq!(
+		kill_at(&["step One", "  goto 45,34", "step Run", "  when dungeon \"Ragefire Chasm\"", "  goto 52,27", "step Back", "  when dungeon \"Ragefire Chasm\"", "  kill 6"]),
+		json!([52.3, 26.8])
+	);
+	// A `when !dungeon` step is the solo route's own: the steps after it are placed from it.
+	assert_eq!(kill_at(&["step One", "  goto 45,34", "step Alone", "  when !dungeon \"Ragefire Chasm\"", "  goto 52,27", "step Two", "  kill 6"]), json!([52.3, 26.8]));
+}

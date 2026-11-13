@@ -105,12 +105,126 @@ pub fn placed(data: &Data, kind: &str, id: &V) -> bool {
 	["npc", "object"].iter().any(|k| drops.get(k).keys().iter().any(|src| !data.spawns(k, &V::Num(crate::js::str_to_num(src))).is_empty()))
 }
 
+/// Elites at an object's work (#1778: Berard's Bookshelf in Pyrewood Village, beside Apothecary Berard, 16
+/// elite, among the village's elite Watchers, Sentries and Elders), as the Codex build marks Lookup's quest
+/// objectives (forge-data codex/elites.rs): a quest's `interact`, or `collect` of an item only objects give (one
+/// an npc drops is elite_work's), whose object's spawn points (every one, those the cap left out too) have, at
+/// least half of them, an elite (rank 1-3) hostile to a side the goal applies to within NEAR yards. Not one of
+/// no real level, nor one of no side that gives or takes a quest or has a role (a friendly NPC whose side the
+/// data lacks: Keeper Remulos). -> { rank, lvl } (the highest among them; lvl 0 when unknown) | Null
+const NEAR: f64 = 40.0;
+const MAX_LEVEL: f64 = 63.0;
+
+fn cell_key(c: &V, wx: f64, wy: f64, dx: f64, dy: f64) -> String {
+	format!("{},{},{}", c.to_js_string(), (wx / NEAR).floor() + dx, (wy / NEAR).floor() + dy)
+}
+
+/// Every spawn point of an npc or object as world points.
+fn world_points(data: &Data, kind: &str, id: &V) -> Vec<crate::candidates::WorldPos> {
+	let mut out = Vec::new();
+	for s in data.spawns(kind, id) {
+		for p in s.get("pts").items().into_iter().chain(s.get("more").items()) {
+			if let Some(w) = crate::candidates::world_pos(data, &s.get("map"), p.at(0).num(), p.at(1).num(), &s.get("f")) {
+				out.push(w);
+			}
+		}
+	}
+	out
+}
+
+/// The elites by world cell (memo "group.elites"): cell -> [[wx, wy, rank, lvl, faction], ...].
+fn elite_grid(data: &Data) -> V {
+	if let Some(v) = data.memo.borrow().get("group.elites") {
+		return v.clone();
+	}
+	let mut givers: rustc_hash::FxHashSet<String> = rustc_hash::FxHashSet::default();
+	for q in data.quests.values() {
+		for end in ["start", "end"] {
+			for n in q.get(end).get("npc").items() {
+				givers.insert(n.to_js_string());
+			}
+		}
+	}
+	let grid = V::obj();
+	for n in data.npcs.values() {
+		let rank = n.get("rank").num();
+		if !n.truthy() || !(rank == 1.0 || rank == 2.0 || rank == 3.0) {
+			continue;
+		}
+		let lvl = top_level(&n);
+		let faction = n.get("faction");
+		if lvl > MAX_LEVEL || faction.as_str() == Some("AH") {
+			continue;
+		}
+		if !faction.truthy() && (givers.contains(&n.get("id").to_js_string()) || !n.get("roles").items().is_empty()) {
+			continue;
+		}
+		for w in world_points(data, "npc", &n.get("id")) {
+			let key = cell_key(&w.c, w.wx, w.wy, 0.0, 0.0);
+			if !grid.has(&key) {
+				grid.set(&key, V::arr());
+			}
+			grid.get(&key).push(V::from(vec![V::Num(w.wx), V::Num(w.wy), V::Num(rank), V::Num(lvl), faction.clone()]));
+		}
+	}
+	data.memo.borrow_mut().insert("group.elites", grid.clone());
+	grid
+}
+
+pub fn elite_near(goal: &V, sides: &V, data: &Data) -> V {
+	if goal.get("quest").is_undef() {
+		return V::Null;
+	}
+	let t = goal.get("t");
+	let sources: Vec<V> = if t.as_str() == Some("interact") && !goal.get("object").is_undef() {
+		vec![goal.get("object")]
+	} else if t.as_str() == Some("collect") && !goal.get("item").is_undef() && !goal.get("candidates").truthy() {
+		let drops = data.item(&goal.get("item")).get("drops");
+		if !drops.get("npc").keys().is_empty() {
+			return V::Null;
+		}
+		drops.get("object").keys().iter().map(|k| V::Num(crate::js::str_to_num(k))).collect()
+	} else {
+		return V::Null;
+	};
+	let pts: Vec<crate::candidates::WorldPos> = sources.iter().flat_map(|id| world_points(data, "object", id)).collect();
+	if pts.is_empty() {
+		return V::Null;
+	}
+	let grid = elite_grid(data);
+	let (mut hits, mut rank, mut lvl) = (0usize, 0.0f64, 0.0f64);
+	for w in &pts {
+		let mut hit = false;
+		for dx in [-1.0, 0.0, 1.0] {
+			for dy in [-1.0, 0.0, 1.0] {
+				for e in grid.get(&cell_key(&w.c, w.wx, w.wy, dx, dy)).items() {
+					if (e.num_at(0) - w.wx).hypot(e.num_at(1) - w.wy) > NEAR || !hostile_to(&e.at(4), sides) {
+						continue;
+					}
+					hit = true;
+					rank = rank.max(e.num_at(2));
+					lvl = lvl.max(e.num_at(3));
+				}
+			}
+		}
+		if hit {
+			hits += 1;
+		}
+	}
+	if hits >= pts.len().div_ceil(2) {
+		obj! { "rank" => rank, "lvl" => lvl }.into()
+	} else {
+		V::Null
+	}
+}
+
 fn is_run(kind: &V) -> bool {
 	matches!(kind.as_str(), Some("dungeon") | Some("raid"))
 }
 
 /// The goal's compiled `group`: explicit ({ size? } or Undef/Null) wins; else the dungeon or raid of the
-/// goal's quest or of its instance map; else elite work. -> V object | Null
+/// goal's quest or of its instance map; else elite work; else an object's work among elites (`near`: the
+/// guide menu's "Group" chip leaves it out). -> V object | Null
 pub fn group_of(goal: &V, explicit: &V, sides: &V, data: &Data) -> V {
 	if explicit.truthy() {
 		return if !explicit.get("size").is_undef() { obj! { "kind" => "group", "size" => explicit.get("size") }.into() } else { obj! { "kind" => "group" }.into() };
@@ -137,10 +251,18 @@ pub fn group_of(goal: &V, explicit: &V, sides: &V, data: &Data) -> V {
 		if elite.get("lvl").num() > 0.0 {
 			out.set("lvl", elite.get("lvl"));
 		}
-		out
-	} else {
-		V::Null
+		return out;
 	}
+	let near = elite_near(goal, sides, data);
+	if !near.truthy() {
+		return V::Null;
+	}
+	let out: V = obj! { "kind" => "elite", "rank" => near.get("rank") }.into();
+	if near.get("lvl").num() > 0.0 {
+		out.set("lvl", near.get("lvl"));
+	}
+	out.set("near", true);
+	out
 }
 
 /// The dungeon a name stands for: -> { name, map } | Null.

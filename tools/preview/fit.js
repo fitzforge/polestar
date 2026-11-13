@@ -10,6 +10,8 @@
 //            its fixed height holds (cut after the last line that fits)
 //   word     a single word wider than its wrapping box
 //   window   a string crossing its window's edge or a frame that clips it
+//   overlap  a string's text drawn over another's in the same window (only
+//            when asked for: `kinds` names it)
 //
 // The preview's fonts have no CJK or Hangul glyphs; those are measured 1em
 // wide, about what the client's CJK fonts set. `slack` measures every glyph
@@ -117,6 +119,7 @@ function audit(dump, roots, fonts, kinds = ['cut', 'lines', 'word', 'window']) {
 		return true;
 	};
 	const out = [];
+	const drawn = [];
 	for (const o of objects) {
 		if (o.kind !== 'FontString' || !o.plain || !o.plain.trim() || !shown(o)) continue;
 		const root = rootOf(o);
@@ -132,6 +135,7 @@ function audit(dump, roots, fonts, kinds = ['cut', 'lines', 'word', 'window']) {
 		const bound = o.anchoredW || (o.w != null && o.w > 0);
 		const hasTop = pts.some((p) => V[p.point] === 0), hasBottom = pts.some((p) => V[p.point] === 1);
 		const lineH = (n) => (n * o.font[1] + (n - 1) * (o.spacing || 0)) * s;
+		if (want.has('overlap')) drawn.push({ o, root, text, ink: inkOf(o, r, s, bound, fonts, lineH) });
 		// What the client cuts inside the string's own box.
 		if (bound && r.w > 0) {
 			if (!o.wrap) {
@@ -180,10 +184,40 @@ function audit(dump, roots, fonts, kinds = ['cut', 'lines', 'word', 'window']) {
 		if (fixed.y0 - y0 > 0.5) report('window', 'the top edge', fixed.y0 - y0);
 		if (y1 - fixed.y1 > 0.5) report('window', 'the bottom edge', y1 - fixed.y1);
 	}
+	for (let i = 0; i < drawn.length; i++) {
+		for (let j = i + 1; j < drawn.length; j++) {
+			const a = drawn[i], b = drawn[j];
+			if (a.root !== b.root) continue;
+			const ow = Math.min(a.ink.x1, b.ink.x1) - Math.max(a.ink.x0, b.ink.x0);
+			const oh = Math.min(a.ink.y1, b.ink.y1) - Math.max(a.ink.y0, b.ink.y0);
+			if (ow > 0.5 && oh > 0.5) out.push({ text: a.text, kind: 'overlap', what: `"${b.text.length > 40 ? b.text.slice(0, 37) + '...' : b.text}"`, over: px(ow), box: null });
+		}
+	}
 	return out;
 }
 
-const describe = (f) => `"${f.text.length > 70 ? f.text.slice(0, 67) + '...' : f.text}" ${f.kind === 'window' ? 'crosses' : 'is cut at'} ${f.what} by ${f.over}${f.kind === 'lines' && f.what.includes('lines') ? ' line(s)' : 'px'}${f.box != null ? ` (box ${f.box})` : ''}`;
+// Where a string's text is drawn: its lines' width (cut to its box when bound
+// in width, else grown from its anchor) and height, placed as justified.
+function inkOf(o, r, s, bound, fonts, lineH) {
+	const lines = o.lines || o.plain.split('\n');
+	const textW = Math.max(0, ...lines.map((l) => measure(fonts, o.font, l))) * s;
+	const h = lineH(lines.length);
+	let x0;
+	let w = textW;
+	if (bound) {
+		w = Math.min(textW, r.w);
+		const j = o.justifyH || 'CENTER';
+		x0 = j === 'LEFT' ? r.x : j === 'RIGHT' ? r.x + r.w - w : r.x + (r.w - w) / 2;
+	} else {
+		const hx = o.points.length ? H[o.points[0].point] ?? 0 : 0;
+		x0 = r.x + r.w * hx - w * hx;
+	}
+	const jv = o.justifyV || 'MIDDLE';
+	const y0 = jv === 'TOP' ? r.y : jv === 'BOTTOM' ? r.y + r.h - h : r.y + (r.h - h) / 2;
+	return { x0, y0, x1: x0 + w, y1: y0 + h };
+}
+
+const describe = (f) => `"${f.text.length > 70 ? f.text.slice(0, 67) + '...' : f.text}" ${f.kind === 'window' ? 'crosses' : f.kind === 'overlap' ? 'overlaps' : 'is cut at'} ${f.what} by ${f.over}${f.kind === 'lines' && f.what.includes('lines') ? ' line(s)' : f.kind === 'overlap' ? 'px in width' : 'px'}${f.box != null ? ` (box ${f.box})` : ''}`;
 
 // The panels to lay out: every preview scene's, then Options on every page
 // and tab (with every module's pages and the Recorder) in this locale.
@@ -195,7 +229,7 @@ function panelsOf(before) {
 		stubs: ['stub_ui.lua'],
 		before: `${before}\n${recorder}`,
 		addons: [{ name: 'Polestar', files: P.MODULE_FILES }],
-		script: 'uistub.install()\nstub.login()\nemit(Polestar.UI.Options.Pages())',
+		script: 'uistub.install()\nstub.login()\nPolestar.UI.LoadOptions()\nemit(Polestar.UI.Options.Pages())',
 	}).emitted[0];
 	for (const p of pages) {
 		const tabs = Array.isArray(p.tabs) && p.tabs.length ? p.tabs : [null];

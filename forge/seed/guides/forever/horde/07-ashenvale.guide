@@ -81,17 +81,6 @@ step Ursangous
   collect 16303
   accept 23 item 16303
 
-step Alonso
-  only Warrior
-  tip Alonso, a Forever addition, stands on the west shore of Mystral Lake with three quick Dragonslayer quests.
-  goto 42.4,70 "Alonso"
-  accept 78132 optional               -- Alonso walks around the Talondeep Path: the map marks where to look
-  turnin 78132
-  accept 78133 optional
-  turnin 78133
-  accept 78134 optional
-  turnin 78134
-
 step King of the Foulweald
   tip The Foulweald furbolgs hold the woods east of Mystral Lake, south of the road. Place Karang's Banner on the Foulweald Totem Mound and guard it: the furbolgs come to tear it down. Chief Murgut comes last; his totem drops in the basket.
   use 16972 quest 6621.1 @56.4,63.5 map 1440
@@ -194,9 +183,9 @@ step Sharptalon
 
 step Splintertree Post
   when onquest 2,23,24
-  turnin 23 optional                  -- Senani Thunderheart
-  turnin 2 optional                   -- Senani Thunderheart
-  turnin 24 optional
+  turnin 23                           -- Senani Thunderheart
+  turnin 2                            -- Senani Thunderheart
+  turnin 24
 
 step Splintertree Post
   accept 247                          -- Senani Thunderheart, once all three hunts are in
@@ -354,7 +343,6 @@ step Freewind Post
   accept 5147                         -- The Wanted poster beside Cliffwatcher
   accept 98070                        -- Jandia, the trade supplies vendor: the Screeching harpies of Roguefeather Den; inside the inn
   accept 98069                        -- Jandia: her stolen supplies lie in the same harpy den
-  sethome "Freewind Post"             -- Innkeeper Abeqwa, beside Jandia
 
 step Rau Cliffrunner
   zone Thousand Needles
@@ -394,6 +382,7 @@ step Freewind Post
   accept 5064
   turnin 4821                         -- Hagar Lightninghoof
   accept 4865
+  sethome "Freewind Post"             -- Innkeeper Abeqwa, beside Jandia
 
 step Rau Cliffrunner
   zone Thousand Needles
