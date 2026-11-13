@@ -734,6 +734,24 @@
 		},
 		"note": "Fallen Necromancer is Elite on Forever; QuestieDB's Forever store gives every Forever npc rank 0."
 	},
+	"256734": {
+		"addSpawns": {
+			"1433": {
+				"f": "l",
+				"pts": [
+					[
+						9.96,
+						72.71
+					]
+				]
+			}
+		},
+		"source": {
+			"kind": "in-game-check",
+			"ref": "#1966"
+		},
+		"note": "Daniel Stitchsong (npc 256734) stands at Three Corners in Redridge Mountains, 9.96,72.71 in the live map frame (map 1433), as marked in the player's report. The lookup led to 11.90,69.10 live instead. Replaces the map's existing points."
+	},
 	"257196": {
 		"addSpawns": {
 			"2521": {
