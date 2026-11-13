@@ -294,7 +294,7 @@ GUIDE_FORMAT.md "Pictures"), byte for byte reproducible, with the pack's
 
 The TOC places the community addon in the game's AddOns list for you:
 titled "Polestar Community: <title>" (your title as it is when it already
-starts with that), grouped with Polestar, in the Quests category, with your
+starts with that), under Polestar's own heading beside Polestar's addons, with your
 `notes` as its description, or "Community addon for Polestar by <author>"
 when `pack.json` has none. Polestar's own menus and the Community guides
 page show your title as you wrote it. Community addons built before this

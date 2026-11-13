@@ -183,7 +183,7 @@ Guides.lua
 | `Title` | "Polestar Community: " and `pack.json` `title` (the title alone when it already starts so), so the AddOns list reads the addon as a community addon. Community addons built before this prefix carry "Polestar Pack: " until rebuilt; Polestar recognises both. Polestar's own menus show the title without it. Polestar's own pack (`guides`) gets no prefix |
 | `Author`, `Version` | from `pack.json` |
 | `Notes` | `pack.json` `notes`, else "Community addon for Polestar by <author>" |
-| `Category` | `Quests`, Polestar's category in the AddOns list |
+| `Category` | `Polestar`: Polestar's own heading in the AddOns list |
 | `Group` | `Polestar`: the AddOns list shows the pack under Polestar's own entry, beside Polestar's own addons. Not written for Polestar's own pack |
 | `Dependencies` | `Polestar`: the client loads Polestar first |
 | `X-Polestar-Pack` | the pack id. Polestar lists every addon carrying it on the Community guides page, loaded or not |
