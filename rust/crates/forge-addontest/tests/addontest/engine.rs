@@ -289,6 +289,56 @@ fn goto_completes_on_arrival_via_the_ticker_which_runs_only_while_a_goto_is_acti
 	);
 }
 
+#[test]
+fn the_filled_cleansing_bowl_advances_to_xabraxxis_before_the_talisman_is_collected() {
+	let out = emitted(&RunAddon {
+		stubs: vec!["stub_world.lua"],
+		addons: vec![Addon::files("Polestar", &["Core/Core.xml"]), Addon::name("Polestar_Guides"), Addon::name("Polestar_Guides_Alliance")],
+		before: r#"
+local w = stub.world
+w.level = 18
+w.onQuest(4763, { 1 })
+for _, item in ipairs({12341, 12342, 12343, 12347}) do w.addItem(item, 1) end
+"#
+		.into(),
+		login: true,
+		script: [
+			TEST_PACK,
+			r#"
+local E, w = Polestar.Engine, stub.world
+local guide = assert(Polestar.Guides.Get("forever/alliance/03-darkshore"))
+local camp, useIndex
+for _, step in ipairs(guide.steps) do
+	for i, goal in ipairs(step.goals) do
+		if goal.t == "use" and goal.item == 12347 then camp, useIndex = step, i end
+	end
+end
+local frame = Polestar.MapFrames.era[1439]
+w.addMap(1439, { name = "Darkshore", c = frame.c, left = frame.left, right = frame.right, top = frame.top, bottom = frame.bottom })
+w.moveTo(1439, 52.5, 33.4)
+Polestar.RegisterGuide({ id = "test/xabraxxis", pack = "test", title = "Blackwood camp", zone = 1439, steps = { assert(camp) } })
+E.SetGuide("test/xabraxxis")
+local function campGoals()
+	stub.advance(1.1)
+	local goals = E.GetStepView(1).goals
+	emit({ goals[useIndex].status, goals[useIndex + 1].status, goals[useIndex + 1].text })
+end
+w.cast(818)
+campGoals()
+w.cast(16072)
+campGoals()
+w.progress(4763, 1, 1)
+campGoals()
+"#,
+		]
+		.join("\n"),
+		..Default::default()
+	});
+	assert_eq!(out[0][0], "active", "an unrelated cast leaves the use open");
+	assert_eq!(out[1], json!(["done", "active", "Kill Xabraxxis, then click Xabraxxis' Demon Bag on the ground."]));
+	assert_eq!(out[2][1], "done", "collecting the talisman completes the objective");
+}
+
 // #1120 (Fitz, Undead Warlock, The Binding): "use 6284" (Runes of Summoning) has no quest, so it waited for a tick
 // while the voidwalker was killed and The Binding handed in, and the step never moved on. A quest-less use, click
 // or kill is done once a later quest goal of its step is; before that it holds, and an optional later goal never

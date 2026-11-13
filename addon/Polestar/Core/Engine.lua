@@ -4370,6 +4370,21 @@ function Own.travelPurpose(s, g)
 	return nil
 end
 
+-- The quest log only credits the talisman. The bowl's cast separates
+-- summoning Xabraxxis from killing him and looting his bag.
+Own.summonForLoot = {
+	[12347] = { quest = 4763, spell = 16072, npc = 10373, name = "Xabraxxis", object = 177624 },
+}
+
+function Own.summonBeforeCollect(goals, g)
+	local use, collect = goals[g - 1], goals[g]
+	local summon = use and use.t == "use" and Own.summonForLoot[use.item]
+	if summon and use.quest == summon.quest and collect.t == "collect" and collect.quest == use.quest
+		and collect.oi == use.oi and collect.fromKind == "object" and collect.fromId == summon.object and collect.from then
+		return summon
+	end
+end
+
 local function goalView(s, g, goal, stepStatus, group)
 	local status, cur, max, label, pkind
 	if stepStatus == "na" then
@@ -4401,6 +4416,11 @@ local function goalView(s, g, goal, stepStatus, group)
 	-- A goal of a quest that left the log, held for the player's answer.
 	local lost = status == "skipped" and not unavail and Own.lostGoal(goal)
 	local text, src = goalText(goal, verb, subject, detail, kind, status == "done" and progress == nil)
+	local summon = goal.t == "collect" and status == "active" and Own.summonBeforeCollect(guide.steps[s].goals, g)
+	if summon and checked(s, g - 1) then
+		local npcName = ns.Names.Npc(summon.npc) or summon.name
+		text = L["Kill %s, then click %s on the ground."]:format(npcName, src.name)
+	end
 	local need = player and greyNeed(goal)
 	-- A grey accept "Skip grey quests" keeps: the open accept it leads to.
 	local opens = need or nil
@@ -7020,15 +7040,17 @@ function Own.latchTurnin(questID)
 	return hit
 end
 
--- A `cast` goal that is open (in the step the guide is at, the step in view,
--- or an along step listed under them) for spellID: ticked, as the player
--- would tick it. A cast before the goal is open does not count.
+-- Tick successful casts and summons while their goal is open.
 function Own.latchCast(spellID)
 	if not (guide and spellID) then return false end
 	local hit = false
 	local function tick(s)
-		for g, goal in ipairs(guide.steps[s].goals) do
-			if goal.t == "cast" and goal.spell == spellID and goalApplies(goal) then
+		local goals = guide.steps[s].goals
+		for g, goal in ipairs(goals) do
+			local summon = goal.t == "use" and goals[g + 1] and Own.summonBeforeCollect(goals, g + 1)
+			local summoned = summon and summon.spell == spellID and Compat().IsOnQuest(summon.quest)
+				and not Own.goalSkipped(s, g) and not goalDone(s, g, goal)
+			if goalApplies(goal) and ((goal.t == "cast" and goal.spell == spellID) or summoned) then
 				local m = manualFor(guide.id, true)
 				local key = s .. ":" .. g
 				if not m[key] then
@@ -12391,7 +12413,7 @@ ns.RegisterEvent("QUEST_TURNED_IN", function(_, questID)
 	requestUpdate()
 end)
 
--- The player's own successful casts: `cast` goals (Own.latchCast).
+-- The player's own successful casts (Own.latchCast).
 ns.RegisterEvent("UNIT_SPELLCAST_SUCCEEDED", function(_, unit, _, spellID)
 	local C = Compat()
 	spellID = C.Readable(spellID)
