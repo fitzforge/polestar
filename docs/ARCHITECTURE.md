@@ -4272,15 +4272,28 @@ the segment's end could lie behind the player, and the yards counted up while
 they closed on the target). `Travel.Aim` returns those
 yards as a fifth value, and `Walk.Progress(c, x, y)` gives the yards along
 the path to the player's place on it and the yards between them. The arrow
-eases into each new direction (`Nav/Arrow.lua`'s `DAMPING`: 12/s, or 24 or 6
-with `nav.arrowTurn` "snappy" or "gentle", swinging at most
-`MAX_TURN`, about 200 degrees a second), on the target's bearing on the map:
-turning the camera moves it at once. The 3D arrow, a sheet of 100 frames 3.6
-degrees apart, is drawn between frames (`Nav.ArrowBlend`): the nearest whole
-and the one on the heading's other side over it at its share, half at most,
-so where both are solid the arrow is their blend and never shows through; the
-highlights, added light, cross-fade exactly. It turns without 3.6° steps, and
-its textures change only while it turns.
+eases into each new direction on the target's bearing on the map (turning
+the camera moves it at once): a critically damped spring (`Nav/Arrow.lua`'s
+`TURN`: 24/s, or 48 or 12 with `nav.arrowTurn` "snappy" or "gentle"), solved
+exactly over each frame so it moves the same at any frame rate, swinging at
+most `MAX_TURN`, about 200 degrees a second. Its speed carries over (0.4.0):
+when the aim moves, 20 times a second while walking, the arrow gathers speed
+into the new direction and slows into it, never past it from rest, where the
+first-order ease before it (12/s, 24, 6) jumped to full speed at every move.
+Each rate is twice the old one, so the arrow trails a turning aim as closely
+(1/12 s with "smooth") and takes a new direction sooner (90% of the way in
+0.16 s, against 0.19). On six test walks along real routes (Goldshire to the
+Fargodeep Mine, Thelsamar to the Stonewrought Dam, Elwynn to Sentinel Hill;
+each on foot swaying 2 yd and mounted on the line, the aim replayed through
+each turn), at 60 frames a second, the swing's angular acceleration fell 40%
+(RMS) and its jerk 65% with "smooth" (24% and 37% with "snappy", 59% and 83%
+with "gentle"), the arrow ran as close behind the aim (0.42° on average,
+against 0.41°), and a frame's step costs 0.05 µs more. The 3D arrow, a sheet
+of 100 frames 3.6 degrees apart, is drawn between frames (`Nav.ArrowBlend`):
+the nearest whole and the one on the heading's other side over it at its
+share, half at most, so where both are solid the arrow is their blend and
+never shows through; the highlights, added light, cross-fade exactly. It
+turns without 3.6° steps, and its textures change only while it turns.
 A path is straightened once as it is taken (0.3.8; Fitz: "that first
 waypoint shouldn't make 90° bends"), a searched one when it lands and a
 baked leg when it is picked (`Follow.Smooth`, called by `Walk.lua`): from
