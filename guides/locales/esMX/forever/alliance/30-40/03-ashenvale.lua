@@ -21,7 +21,7 @@ return {
 	-- Step 3: Glorin Steelbrow
 	-- {npc:1217} Glorin Steelbrow · {area:2104} Deepwater Tavern · {npc:4963} Mikhail · {npc:5082} Vincent Hyal
 	["{npc:1217} stands in the {area:2104}, south of the keep, where {npc:4963} and {npc:5082} wait too."] = "{npc:1217} está en {area:2104}, al sur del castillo, donde también esperan {npc:4963} y {npc:5082}.",
-	["Inside"] = "",
+	["Inside"] = "Adentro",
 
 	-- Step 4: Deepwater Tavern
 	-- {quest:1248} The Missing Diplomat · {npc:4963} Mikhail
