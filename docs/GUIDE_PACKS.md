@@ -81,15 +81,21 @@ addon you have installed, with its author, version, licence and website.
 
 Polestar comes with one more set of guides, off until you want it:
 **Polestar Experimental**, guides for Forever's new zones while they are
-still being written and tested (alpha), starting with Riverglades. Nothing
-of them loads until you switch them on.
+still being written and tested (alpha): Riverglades, Shen'dralas and Mount
+Hyjal. Nothing of them loads until you want them, and there is nothing to
+install.
 
-- **Turn them on** under **Options > Community guides** (`/polestar packs`):
+- **Choose one on your route.** Where a leveling guide ends at one of these
+  zones, "Choose your path" offers it beside the usual zone, marked
+  experimental and never recommended. Choosing it switches the experimental
+  guides on and opens the zone's guide; its last part hands you back to the
+  usual route.
+- **Turn them on by hand** under **Options > Community guides** (`/polestar packs`):
   switch on **Polestar Experimental**. Its guides come in at once, with no
   reload, and stay on for all your characters until you switch them off.
 - **Open one** from the guide menu (`/polestar guides`), under **Community
   guides** > Polestar Experimental. Polestar never suggests them and never
-  puts them in your route: you choose when to follow one.
+  puts them in your route by itself: you choose when to follow one.
 - **Turn them off** with the same switch: its guides leave the guide menu,
   and from your next login nothing of them loads.
 - They are Polestar's own, so report what you find in them on the
@@ -124,7 +130,7 @@ side.
 
 - **Polestar's own addons** are Polestar Guides and the addons that carry
   Polestar's data (Polestar Quest Database, Polestar Item Data, Polestar
-  Codex), plus Polestar Experimental (off until you switch it on, above)
+  Codex), plus Polestar Experimental (off until you choose one of its zones or switch it on, above)
   and Polestar Recorder for guide authors. Each lists Polestar as its author.
 - **A community addon** built with Polestar's tools is titled
   "Polestar Community:" and its own name, such as

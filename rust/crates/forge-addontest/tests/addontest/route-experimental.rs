@@ -5,11 +5,12 @@
 //! it, and the route goes on there and back to ours where its last guide hands over. It is never recommended and
 //! never taken by itself: with behavior.routeChoice "recommended", with only it left, in the hand-in plan and in
 //! the chain's needs the route is the same as without it. Each option says where it goes on ("Then"), a detour
-//! names the zone it travels through, and a shared guide goes on by the character's faction.
+//! names the zone it travels through, and a shared guide goes on by the character's faction. The experimental
+//! pack's notes say no install or setting is needed.
 //! Real Core manifest, stub world; the experimental pack is a fixture addon the
 //! client loads on demand (stub_packs.lua).
 
-use forge_addontest::run::lua_string;
+use forge_addontest::run::{addons_dir, lua_string, root};
 use forge_addontest::tmp::TempDir;
 use forge_addontest::{emitted, Addon, RunAddon, TEST_PACK, TEST_SOURCE};
 use serde_json::{json, Value};
@@ -380,4 +381,16 @@ fn a_detour_names_the_zone_it_goes_through_each_card_says_where_it_goes_on_and_a
 	// Standing in Desolace already, the way in is no detour through it.
 	let desolace = run(true, "nil", "HERE = 1443", script);
 	assert_eq!(desolace["polestar-experimental/shen"]["detour"], false);
+}
+
+// What players read about the experimental pack outside the game's route choice: its AddOns-list notes (the TOC,
+// in English, from experimental/pack.json) say it loads when they pick one of its zones where a guide offers it,
+// so there is nothing to install or switch on first.
+#[test]
+fn the_experimental_pack_says_no_install_or_setting_is_needed() {
+	let pack: Value = serde_json::from_str(&std::fs::read_to_string(root().join("experimental/pack.json")).unwrap()).unwrap();
+	let notes = pack["notes"].as_str().unwrap();
+	assert!(notes.contains("Loads when you pick one of its zones where a guide offers it"), "{notes}");
+	let toc = std::fs::read_to_string(addons_dir().join(EXP).join(format!("{EXP}.toc"))).unwrap();
+	assert!(toc.lines().any(|l| l == format!("## Notes: {notes}")), "addon/{EXP} carries experimental/pack.json's notes: rebuild it with `forge guide compile experimental`");
 }
