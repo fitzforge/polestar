@@ -324,7 +324,8 @@ fn the_settings_scroll_glides_on_whole_pixels_and_the_sidebar_nudges_to_its_bott
 		stub.advance(0.5)
 		local code = sf:GetVerticalScroll()
 		local nav = F.NavScroll
-		local nudge = { shown = F.NavMore:IsShown(), parent = F.NavMore:GetParent() == nav }
+		local _, at, from = F.NavMore:GetPoint(1)
+		local nudge = { shown = F.NavMore:IsShown(), parent = F.NavMore:GetParent() == nav:GetParent(), foot = at == nav:GetParent() and from == "BOTTOMRIGHT" }
 		F.NavMore:Click()
 		stub.advance(0.5)
 		local range = nav.psContent - nav.psView
@@ -338,7 +339,7 @@ fn the_settings_scroll_glides_on_whole_pixels_and_the_sidebar_nudges_to_its_bott
 	assert_eq!(out["landed"], json!([120, false, 0]), "landed, nothing left running");
 	assert_eq!(out["jumped"], true, "Reduce motion: at once (a notch on, or the end)");
 	assert_eq!(out["code"], 0, "a scroll from code ends the glide");
-	assert_eq!(out["nudge"], json!({ "shown": true, "parent": true }), "more of the sidebar below: the chevron");
+	assert_eq!(out["nudge"], json!({ "shown": true, "parent": true, "foot": true }), "more of the sidebar below: the chevron, in the sidebar's foot");
 	assert_eq!(out["bottom"], true, "its click glides to the bottom");
 	assert_eq!(out["gone"], false, "at the bottom it goes");
 }

@@ -3641,9 +3641,12 @@ local function build()
 	-- The body and the sidebar glide to where the wheel sends them (W.Scroll).
 	win.Scroll.psGlide, win.NavScroll.psGlide = true, true
 	-- The sidebar's nudge: a chevron at its foot while more of it lies below;
-	-- a click glides to the bottom.
-	local nudge = W.IconButton(win.NavScroll, "chevron-down", 20, L["More below"], function() W.GlideTo(win.NavScroll, math.huge) end, 11)
-	nudge:SetPoint("BOTTOMRIGHT", win.NavScroll, "BOTTOMRIGHT", -12, 4)
+	-- a click glides to the bottom. In the sidebar's foot, on the version line
+	-- left of the Discord mark (UI/Report.lua's R.SidebarLink), so it covers
+	-- neither the list's last row nor a game look's scroll bar arrow.
+	local side = win.NavScroll:GetParent()
+	local nudge = W.IconButton(side, "chevron-down", 20, L["More below"], function() W.GlideTo(win.NavScroll, math.huge) end, 11)
+	nudge:SetPoint("RIGHT", side, "BOTTOMRIGHT", -(SH.side + 28), SH.foot + 7)
 	nudge:SetFrameLevel(win.NavScroll:GetFrameLevel() + 10)
 	nudge:Hide()
 	win.NavMore = nudge
