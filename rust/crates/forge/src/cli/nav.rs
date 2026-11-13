@@ -64,8 +64,9 @@ usage: forge nav layers hubs [--dir <grid>] [--root <dir>] [--layers <dir>]
 
 The hubs layer: each faction's towns and outposts from its guards and service NPCs (quest givers,
 vendors, trainers, flight masters, innkeepers, bankers, repairers) in the CMaNGOS classic-db spawns
-and creature templates (the cached dump under <root>/data/sources/cmangos), judged by the client's
-FactionTemplate table, clustered, named by the AreaTable area under them (the grid's area ids:
+and creature templates (the cached dump under <root>/data/sources/cmangos) and Forever's own NPCs
+classic-db lacks (<root>/forever-db/data npc.jsonl and spawn.jsonl; their roles and quests from
+<root>/data/forever), judged by the client's FactionTemplate table, clustered, named by the AreaTable area under them (the grid's area ids:
 --dir, default $POLESTAR_GRID, else <root>/data/local/nav4; the tables cached for the grid's build
 under <root>/data/sources/wago), into <layers>/hubs.json.";
 
@@ -436,11 +437,20 @@ fn hubs_layer(args: &[String]) -> Result<(), Fail> {
 	let areas = table("AreaTable")?;
 	let sources = root.join("data/sources");
 	let to_json = |v: &forge_guide::js::V| -> Result<serde_json::Value, String> { serde_json::from_str(&forge_guide::js::stringify(v, None)).map_err(|e| e.to_string()) };
-	let spawns = to_json(&forge_data::cmangos::load_spawn_heights(&sources, false)?.npc)?;
-	let templates = to_json(&forge_data::cmangos::load_creature_templates(&sources)?)?;
+	let mut spawns = to_json(&forge_data::cmangos::load_spawn_heights(&sources, false)?.npc)?;
+	let mut templates = to_json(&forge_data::cmangos::load_creature_templates(&sources)?)?;
 	let data = root.join("data/forever");
 	let read =
 		|f: &str| -> Result<serde_json::Value, String> { serde_json::from_slice(&std::fs::read(data.join(f)).map_err(|e| format!("{}: {e}", data.join(f).display()))?).map_err(|e| e.to_string()) };
+	// Forever's own NPCs, the ones classic-db lacks (forever-db's npc and spawn tables; #1961: Forever's Dalaran).
+	let jsonl = |name: &str| -> Result<Vec<serde_json::Value>, String> {
+		let f = root.join("forever-db/data").join(name);
+		let text = std::fs::read_to_string(&f).map_err(|e| format!("{}: {e}", f.display()))?;
+		text.lines().filter(|l| !l.is_empty()).map(|l| serde_json::from_str(l).map_err(|e| format!("{}: {e}", f.display()))).collect()
+	};
+	let flags = forge_nav::hubs::forever_flags(&read("npcs.json")?, &read("quests.json")?);
+	let forever = forge_nav::hubs::add_forever(&mut templates, &mut spawns, &jsonl("npc.jsonl")?, &jsonl("spawn.jsonl")?, &flags);
+	println!("hubs: {forever} Forever NPCs classic-db lacks (forever-db)");
 	let frames = forge_nav::pack::layers::Frames::new(&read("map-frames.json")?, read("zones.json")?);
 	let area_at = |c: u32, x: f64, y: f64| -> u32 {
 		let (col, row, i, j) = forge_nav::grid::cell_of(x, y);

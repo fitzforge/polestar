@@ -4,7 +4,7 @@
 
 use super::golden_dir;
 use forge_nav::grid::{cell_of, Grid};
-use forge_nav::hubs::{build_hubs, csv_rows, guard_name, hubs_doc, role_of, Hostility, HubsIn};
+use forge_nav::hubs::{add_forever, build_hubs, csv_rows, forever_flags, guard_name, hubs_doc, role_of, Hostility, HubsIn};
 use forge_nav::pack::layers::Frames;
 use serde_json::{json, Value};
 
@@ -68,6 +68,60 @@ fn guards_by_flag_from_level_10_by_name_from_level_20_and_service_npcs_by_flags(
 	assert!(guard_name("Stormwind City Guard") && guard_name("Deathguard Bartholomew") && !guard_name("Guardian of Blizzard") && !guard_name("Bodyguards"));
 }
 
+// #1961: Forever's Dalaran, its Kirin Tor guards hostile to the Horde, was no hub: the layer read classic-db alone.
+// Forever's own NPCs (forever-db's npc and spawn tables) join it: a guard by its name, a service NPC by its codex roles
+// or quests; an NPC classic-db has keeps its own template and spawns.
+#[test]
+fn issue_1961_forever_npcs_classic_db_lacks_join_the_hubs_kirin_tor_guards_make_dalaran_an_alliance_hub() {
+	let head = "ID,Faction,FactionGroup,EnemyGroup,Enemies_0,Friend_0\n";
+	let rows = "1,1,3,12,0,0\n3,3,3,12,0,0\n4,4,3,12,0,0\n115,115,3,12,0,0\n2,2,5,10,0,0\n5,5,5,10,0,0\n6,6,5,10,0,0\n116,116,5,10,0,0\n3681,2740,3,12,0,0\n85,76,4,2,0,0\n";
+	let factions = csv_rows(&format!("{head}{rows}"));
+	let areas = csv_rows("ID,AreaName_lang,ParentAreaID,Flags_0\n36,Alterac Mountains,0,0\n279,Dalaran,36,0\n");
+	let npcs: Vec<Value> = [
+		json!({ "id": 246848, "name": "Kirin Tor Guard", "level_min": 55, "faction_template": 3681, "rank": 0 }),
+		json!({ "id": 275164, "name": "Arcane Sentry", "level_min": 30, "faction_template": 3681, "rank": 1 }),
+		json!({ "id": 900001, "name": "Camp Cook", "level_min": 30, "faction_template": 85 }),
+		json!({ "id": 900002, "name": "Camp Smith", "level_min": 30, "faction_template": 85 }),
+		json!({ "id": 900003, "name": "Camp Trainer", "level_min": 30, "faction_template": 85 }),
+		json!({ "id": 900004, "name": "Camp Scout", "level_min": 30, "faction_template": 85 }),
+		json!({ "id": 2, "name": "Classic Guard", "level_min": 60, "faction_template": 85 }),
+		json!({ "id": 900009, "name": "Nameless" }),
+	]
+	.into();
+	let spawn = |id: u64, x: f64, y: f64| json!({ "id": id, "kind": "npc", "map": 0, "x": x, "y": y });
+	let spawn_rows = vec![
+		spawn(246848, -27.5, 33.0),
+		spawn(246848, -12.0, 80.0),
+		spawn(275164, -13.5, -12.0),
+		spawn(900001, 2000.0, 2000.0),
+		spawn(900002, 2010.0, 2000.0),
+		spawn(900003, 2000.0, 2010.0),
+		spawn(900004, 2010.0, 2010.0),
+		spawn(2, 5000.0, 5000.0),
+		json!({ "id": 246848, "kind": "object", "map": 0, "x": 4000.0, "y": 4000.0 }),
+	];
+	let codex = json!({ "900001": { "roles": ["vendor"] }, "900002": { "roles": ["repair", "vendor"] }, "900003": { "roles": ["trainer"] } });
+	let quests = json!({ "1": { "start": { "npc": [900004] }, "end": { "npc": [900001] } } });
+	let flags = forever_flags(&codex, &quests);
+	assert_eq!((flags[&900001], flags[&900002], flags[&900003], flags[&900004]), (0x4 | 0x2, 0x4 | 0x4000, 0x10, 0x2), "roles and quests as NpcFlags");
+	let mut templates = json!({ "2": { "name": "Classic Guard", "faction": 85, "npcFlags": 0, "extraFlags": 0x400, "rank": 0, "minLevel": 60 } });
+	let mut spawns = json!({ "2": [[1, 100.0, 100.0, 5.0]] });
+	assert_eq!(add_forever(&mut templates, &mut spawns, &npcs, &spawn_rows, &flags), 6, "the two Kirin Tor NPCs and the camp's four; not the one classic-db has, nor one without a faction");
+	assert_eq!(templates["246848"], json!({ "name": "Kirin Tor Guard", "faction": 3681, "npcFlags": 0, "extraFlags": 0, "rank": 0, "minLevel": 55 }));
+	assert_eq!(spawns["246848"], json!([[0, -27.5, 33.0], [0, -12.0, 80.0]]), "its NPC spawns, not an object's");
+	assert_eq!(spawns["2"], json!([[1, 100.0, 100.0, 5.0]]), "classic-db's own spawns stay");
+	let area_at = |_: u32, _: f64, _: f64| 279;
+	let out = build_hubs(&HubsIn { spawns: &spawns, templates: &templates, faction_templates: &factions, area_table: &areas, area_at: &area_at, zone_at: None, maps: &[0] }).unwrap();
+	let hubs = &out[0].1;
+	let dalaran: Vec<&Value> = hubs.iter().filter(|h| h["side"] == "Alliance").collect();
+	assert_eq!(dalaran.len(), 1, "{hubs:?}");
+	assert_eq!((dalaran[0]["name"].as_str(), dalaran[0]["guards"].as_u64(), dalaran[0]["services"].as_u64()), (Some("Dalaran"), Some(2), Some(0)), "the Kirin Tor Guards; the Arcane Sentry is no guard by name");
+	assert_eq!(dalaran[0]["disks"], json!([[-27.5, 33, 50], [-12, 80, 50]]));
+	let camp: Vec<&Value> = hubs.iter().filter(|h| h["side"] == "Horde" && h["disks"][0][0] == 2000).collect();
+	assert_eq!(camp.len(), 1, "four Forever service NPCs of the Horde are a hub: {hubs:?}");
+	assert_eq!(camp[0]["services"], 4);
+}
+
 /// The hubs layer built for this checkout (<repo>/data/local/nav-layers/hubs.json), when there is one.
 #[test]
 fn the_built_layer_alliance_and_horde_towns_are_hubs_of_their_side_goblin_towns_are_none() {
@@ -98,6 +152,11 @@ fn the_built_layer_alliance_and_horde_towns_are_hubs_of_their_side_goblin_towns_
 	}
 	for (c, name) in [("0", "Gates of Ironforge"), ("0", "Ruins of Lordaeron")] {
 		assert!(named(c, name).is_empty(), "no hub named {name}");
+	}
+	// #1961: Forever's Dalaran, at its Kirin Tor guards (forever-db spawns) and where the report stood.
+	for (x, y) in [(-27.5, 33.0), (-12.0, 199.0), (-11.8, 9.4)] {
+		let over: Vec<&Value> = hubs["0"].as_array().unwrap().iter().filter(|h| disks(h).iter().any(|&(hx, hy, r)| (x - hx).hypot(y - hy) <= r)).collect();
+		assert!(!over.is_empty() && over.iter().all(|h| h["side"] == "Alliance"), "Forever's Dalaran at ({x}, {y}) is an Alliance hub");
 	}
 	for (c, name, x, y) in [("0", "Booty Bay", -14297.0, 530.0), ("1", "Ratchet", -956.0, -3754.0), ("1", "Gadgetzan", -7150.0, -3785.0), ("1", "Everlook", 6724.0, -4610.0)] {
 		assert!(named(c, name).is_empty(), "{name} is no hub");
