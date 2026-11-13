@@ -105,7 +105,7 @@ step Smeed Scrabblescrew
 
 step Kolkar Village
   tip The Kolkar roam the plains around Kolkar Village; their ears are for Corporal Melkins.
-  collect 6067 quest 1387 @71.5,45.5 map 1443 -- Centaur Ear
+  collect 6067 quest 1387             -- Centaur Ear
   collect 254432 quest 93224.1        -- Carved Centaur Totem
 
 # ---------------------------------------------------------------- Nijel's Point
