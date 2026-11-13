@@ -43,7 +43,7 @@ step Deadwood Village
 
 step Level 52.58
   when level<52.58
-  tip If you skipped The Horn of the Beast or The Super Snapper FX, grind here to level 52.58 to stay on the route's plan. Or, with a group, run the Sunken Temple dungeon or the Maraudon dungeon instead.
+  tip If you skipped The Horn of the Beast or The Super Snapper FX, grind here to level 52.58 to stay on the route's plan.
   goto 48.7,92.1 map 1448 "Deadwood Warrior"
   level 52.58 grind 7153               -- grind on Deadwood Warrior
 
@@ -54,7 +54,7 @@ step Grazle
 
 step Level 52.69
   when level<52.69
-  tip Top up here to level 52.69 before the hand-ins at Jaedenar: they take you to level 53. Or, with a group, run the Sunken Temple dungeon or the Maraudon dungeon instead.
+  tip Top up here to level 52.69 before the hand-ins at Jaedenar: they take you to level 53.
   goto 46.3,89.4 map 1448 "Deadwood Pathfinder"
   level 52.69 grind 7155               -- grind on Deadwood Pathfinder
 
@@ -80,19 +80,18 @@ step Jaedenar
   kill 7115 quest 5155.3              -- Jaedenar Adept
   kill 7112 quest 5155.4              -- Jaedenar Cultist
   collect 11949 quest 4512.2          -- Filled Tainted Ooze Jar: Tainted Oozes slide about Jaedenar's fel pools
-  level 52.87 grind 7125                          -- grind on Jaedenar Hound
-
-step Level 52.9
-  when level<52.9
-  tip Top up here to level 52.9 before the hand-ins at Emerald Sanctuary: they take you to level 53. Or, with a group, run the Sunken Temple dungeon or the Maraudon dungeon instead.
-  goto 38.3,61.7 map 1448 "Jaedenar Hound"
-  level 52.9 grind 7125               -- grind on Jaedenar Hound
 
 step The Emerald Sanctuary
   turnin 5155                         -- Greta Mosshoof
   accept 5157
   turnin 4421                         -- Eridan Bluewind, inside
   accept 4906
+
+step Level 52.9
+  when level<52.9
+  tip Still short of level 52.9 after the Emerald Sanctuary's hand-ins? Top up on the Entropic Beasts in Shatter Scar Vale, the next stop north.
+  goto 41.6,43.0 map 1448 "Entropic Beast"
+  level 52.9 grind 9878               -- grind on Entropic Beast
 
 step Shatter Scar Vale
   tip Follow the road north to the cratered vale and walk to each crater, killing the Entropic Beasts and Horrors between them.
@@ -103,14 +102,46 @@ step Shatter Scar Vale
   kill 9878 quest 5156.1              -- Entropic Beast
   kill 9879 quest 5156.2              -- Entropic Horror
 
+# ---------------------------------------------------------------- The north
+
 step Irontree Woods
   tip The Warpwood treants of Irontree Woods, east of Jadefire Run, carry the Blood Amber.
   collect 11503 quest 4101.1          -- Below ground
 
+step Jadefire Run: kill these as you meet them
+  zone Felwood
+  tip Jadefire Run is the satyr valley in the north-west, with Xavaric at its far end. He drops the Flute of Xavaric; every Jadefire satyr can drop Jadefire Felbind.
+  collect 11668                       -- Flute of Xavaric
+  accept 939
+  collect 11674 quest 939.1           -- Jadefire Felbind
+  kill 7107 quest 4906.3              -- Jadefire Trickster
+  kill 7108 quest 4906.2              -- Jadefire Betrayer
+  kill 7111 quest 4906.1              -- Jadefire Hellcaller
+  kill 10648 quest 4906.4             -- Xavaric
+
+step Jaedenar again
+  tip Use the Empty Canteen at the corrupted moonwell in the middle of Jaedenar.
+  use 12922 quest 5157.1 @35.2,59.8 map 1448
+  collect 12907 quest 5157.1
+
+# ---------------------------------------------------------------- Back south
+
+step The Emerald Sanctuary
+  tip Ride south-east from Jaedenar to the Emerald Sanctuary, the druids' camp by the road in southern Felwood.
+  turnin 5156                         -- Taronn Redfeather
+
+step The Emerald Sanctuary
+  turnin 939
+  accept 4441                         -- The vial is filled in Darnassus: keep it; inside
+  turnin 4906                         -- Eridan Bluewind
+  turnin 5157                         -- Greta Mosshoof
+  accept 5158                         -- Ends in the Barrens: keep it
+  turnin 4101                         -- Arathandris Silversky
+
 # ---------------------------------------------------------------- Timbermaw Hold
 
 step Nafien
-  tip Follow the road north to the cave mouth of Timbermaw Hold; Nafien guards it.
+  tip Ride north up the road from the Sanctuary, all the way to the cave mouth of Timbermaw Hold; Nafien guards it.
   turnin 8462
   accept 8461
 
@@ -134,35 +165,3 @@ step Nafien
 step Timbermaw Hold
   tip Step into the cave: Kernda stands just inside.
   turnin 8470 optional                -- Kernda: the Timbermaw speak to you only from Neutral; walks around here: look inside the circle on the map
-
-step Jadefire Run: kill these as you meet them
-  zone Felwood
-  tip Jadefire Run is the satyr valley in the north-west, with Xavaric at its far end. He drops the Flute of Xavaric; every Jadefire satyr can drop Jadefire Felbind.
-  collect 11668                       -- Flute of Xavaric
-  accept 939
-  collect 11674 quest 939.1           -- Jadefire Felbind
-  kill 7107 quest 4906.3              -- Jadefire Trickster
-  kill 7108 quest 4906.2              -- Jadefire Betrayer
-  kill 7111 quest 4906.1              -- Jadefire Hellcaller
-  kill 10648 quest 4906.4             -- Xavaric
-
-# ---------------------------------------------------------------- The north
-
-step Jaedenar again
-  tip Use the Empty Canteen at the corrupted moonwell in the middle of Jaedenar.
-  use 12922 quest 5157.1 @35.2,59.8 map 1448
-  collect 12907 quest 5157.1
-
-# ---------------------------------------------------------------- Back south
-
-step The Emerald Sanctuary
-  tip Ride south-east from Jaedenar to the Emerald Sanctuary, the druids' camp by the road in southern Felwood.
-  turnin 5156                         -- Taronn Redfeather
-
-step The Emerald Sanctuary
-  turnin 939
-  accept 4441                         -- The vial is filled in Darnassus: keep it; inside
-  turnin 4906                         -- Eridan Bluewind
-  turnin 5157                         -- Greta Mosshoof
-  accept 5158                         -- Ends in the Barrens: keep it
-  turnin 4101                         -- Arathandris Silversky

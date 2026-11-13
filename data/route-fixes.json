@@ -4904,6 +4904,30 @@
 				],
 				"faction": "Horde",
 				"why": "Undead Warlocks: Carendin Halgar offers Creature of the Void (1473) only once Halgar's Summons (1478, Ageron Kargal's pointer from Brill to him) is handed in. Players' recordings: 4 people carrying 1478 had 1473 refused at Carendin, and each was offered it right after handing 1478 in. The route takes 1478 on the Brill stop that trains (Ageron offered it to 3 recorded Warlocks there at 10) and hands it in to Carendin before 1473."
+			},
+			{
+				"a": [
+					"turnin",
+					5157
+				],
+				"b": [
+					"turnin",
+					8462
+				],
+				"faction": "Alliance",
+				"why": "Felwood end at the tunnel (Alliance 50-60/02, 0.4.0 audit): the Emerald Sanctuary's last hand-ins (Verifying the Corruption, Flute of Xavaric, Further Corruption, Collection of the Corrupt Water, Cleansing Felwood) come before the Timbermaw block (Nafien, Felpaw Village, Kernda), so the guide ends at Timbermaw Hold, where 50-60/03 starts through the tunnel. The old order rode north to Nafien, back down to the Sanctuary and up again to the tunnel at the start of 03: about 1.7k yd of riding saved. Nothing in the Timbermaw block feeds the south: Nafien's first quest comes from Grazle's first visit, and Speak to Salfa goes to the tunnel's Winterspring end."
+			},
+			{
+				"a": [
+					"turnin",
+					4906
+				],
+				"b": [
+					"task",
+					8461
+				],
+				"faction": "Alliance",
+				"why": "Felwood end at the tunnel (Alliance 50-60/02, 0.4.0 audit): Jadefire Run (Further Corruption) is worked from Irontree Woods on the way to the Sanctuary's last visit, before Felpaw Village; see the pair above."
 			}
 		],
 		"notes": [

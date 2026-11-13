@@ -11789,3 +11789,20 @@ test('dungeons in the route: every `when dungeon` step of the leveling guides is
 	}
 	assert.deepEqual([...new Set(bad)], []);
 });
+
+// Felwood end at the tunnel (0.4.0 audit, Alliance 50-60/02): the Emerald Sanctuary's last hand-ins come before the
+// Timbermaw block, so the guide ends at Timbermaw Hold, where 50-60/03 starts through the tunnel; the "Level 52.9" top-up
+// comes after the Sanctuary's first hand-ins (5155, 4421) that cover most of it, only for a player still short.
+test('Alliance Felwood: ends at Timbermaw Hold, the Sanctuary hand-ins first; the 52.9 top-up after the hand-ins', { skip }, () => {
+	const file = 'forever/alliance/50-60/02-felwood.guide';
+	const list = goals(file);
+	const last = (pred) => list.reduce((k, e, i) => (pred(e.goal) ? i : k), -1);
+	for (const q of [5156, 4906, 5157, 939]) assert.ok(last(is('turnin', q)) < at(list, 'turnin 8462', is('turnin', 8462)), `${q} handed in before Nafien`);
+	const steps = compiled(file).steps;
+	assert.match(steps[steps.length - 1].title, /Timbermaw Hold|Nafien/, 'the guide ends at Timbermaw Hold');
+	const town = Math.max(at(list, 'turnin 5155', is('turnin', 5155)), at(list, 'turnin 4421', is('turnin', 4421)));
+	const grinds = list.map((e, i) => [e, i]).filter(([{ goal, step }]) => goal.t === 'level' && !step.only && !goal.only && Math.abs(goal.level + (goal.frac || 0) - 52.9) < 1e-6);
+	assert.equal(grinds.length, 1, 'one 52.9 top-up');
+	assert.ok(grinds[0][1] > town, 'after the Sanctuary hand-ins');
+	assert.ok(grinds[0][0].step.when.some((p) => p.k === 'level'), 'only for a player still short');
+});
