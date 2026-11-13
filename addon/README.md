@@ -86,6 +86,9 @@ never in saved variables.
 | `Search.lua` | `Search` | One search over guides and every Codex entity, for the hub's search box and Lookup |
 | `Engine.lua` | `Engine` | The guide engine: the current step, each goal's status, where the waypoint points; progress recomputed from live client state |
 | `API.lua` | `API` | What other addons may build on, versioned by `API.version` ([docs/API.md](../docs/API.md)); `ReplaceSteps` gives a registered guide new steps in its own tab |
+| `Materials.lua` | `Materials` | A profession guide's materials gathered or bought, one way at a time (Gather, Buy or Mix per character and guide), what the character holds (bags, bank, mail, purchases on their way, other characters), prices, and the Auction House search |
+| `Gather.lua` | `Gather` | While you're here's gathering spots: where each herb, ore vein and fishing pool the character gathers can spawn, the minimap's tracking and the Interact Key's pick |
+| `GatherData.lua` | (registers data) | Generated: each gathering node kind's spots and the skill it asks |
 | `ClassTrainers.lua` | (registers data) | Generated: one class trainer per town and class, for the class-training reminder |
 | `Automation.lua` | `Automation` | Accepts and turns in the quests the guide wants right now |
 | `Commands.lua` | `Bindings` | Guide slash commands and key binding labels |
@@ -205,7 +208,8 @@ never in saved variables.
 | `Welcome.lua` | `UI.Welcome` | The welcome a character sees the first time Polestar meets it |
 | `WhatsNew.lua` | `UI.WhatsNew` | What's new: the release's notes, once per account on the first login after an update |
 | `Copy.lua` | `UI.ShowCopy` | A small window holding text to copy |
-| `AuctionBuys.lua` | `UI.AuctionBuys` | Auction house buys on screen: the card when a guide opens, the reminder in a town with an auction house, the list (`/polestar ah`, the guide window's menu) |
+| `AuctionBuys.lua` | `UI.AuctionBuys` | Auction house buys on screen: the card when a guide opens, the reminder in a town with an auction house, the list (`/polestar ah`, the guide window's menu) with the profession guide's materials, beside the Auction House while it is open |
+| `Materials.lua` | `UI.Materials` | Gather, buy or mix on screen: the card a profession guide shows once, the Materials window (`/polestar materials`), the guide window's menu rows |
 | `Report.lua` | `UI.Report` | "Report a problem" (the guide window's bug button, `/polestar report`): a report on the step on screen to copy for the Polestar Discord; `UI.ShowDiscord`, the invite on its own |
 | `Packs.lua` | `UI.Packs` | The Community guides page of the options window |
 | `Options.lua` | `UI.Options` | The options window: pages, tabs, sections, settings search |
