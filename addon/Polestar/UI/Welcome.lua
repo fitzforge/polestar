@@ -1435,13 +1435,14 @@ do
 	-- The preview: the button's own face (Buttons.NewFace: a plain Button,
 	-- no secure template, no clicks) on a patch of the world, its plate as
 	-- qol.targetPlate has it, faint while the button is off.
+	-- (psFace: the face, made only with QoL loaded.)
 	local function paintStage(stage)
 		paintOutline(stage, Theme.Wash("border"))
 		local r, g, b = Theme.Color("scrim")
 		stage.Ground:SetVertexColor(r, g, b, 1)
-		local face = stage.Face
-		if face then
-			ns.QoL.Buttons.Paint(face)
+		local face, B = stage.psFace, ns.QoL and ns.QoL.Buttons
+		if face and B then
+			B.Paint(face)
 			face:SetAlpha(ns.Get("qol.targetButton") and 1 or 0.35)
 		end
 	end
@@ -1464,7 +1465,7 @@ do
 				face.aList, face.aVerbs, face.aIds, face.aMarks, face.aCycle = DEMO, { "kill", "kill" }, {}, { false, false }, 1
 				face:SetPoint("LEFT", stage, "LEFT", 20, 0)
 				face:EnableMouse(false)
-				stage.Face = face
+				stage.psFace = face
 			end
 			stage.Refresh = paintStage
 			W.Painter(stage, paintStage)
