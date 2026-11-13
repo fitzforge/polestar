@@ -3014,11 +3014,13 @@ function W.ShellTabs(f, tabs, active, onSelect)
 	end
 	-- The game's looks: MinimalTabTemplate, its small label on the art, the
 	-- tab 40 wider than it; the house tab 24 wider, its label centred. Where
-	-- the row's room can't take the looks' 40, their tabs give it up, down
-	-- to the house's 24, rather than run under what stands at its end.
+	-- the row's room can't take that, the tabs give it up rather than run
+	-- under what stands at its end: the game's looks down to the house's 24
+	-- (their art's ends inside it), the others down to 16 (a skin with a
+	-- wider face fills the row sooner).
 	local pad = kit and 40 or 24
-	local room = kit and n > 0 and f.psTabRoom and f.psTabRoom()
-	if room then pad = max(24, min(pad, floor((room - labels - 4 * (n - 1)) / n))) end
+	local room = n > 0 and f.psTabRoom and f.psTabRoom()
+	if room then pad = max(kit and 24 or 16, min(pad, floor((room - labels - 4 * (n - 1)) / n))) end
 	local x = SHELL.pad - 12
 	for i = 1, n do
 		local t = f.tabButtons[i]
