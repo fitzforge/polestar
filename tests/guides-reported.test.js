@@ -11903,3 +11903,13 @@ test(`${WETLANDS}: a fresh starter tops up to 28 by Menethil before the boat to 
 	assert.ok(at(list, 'Daily Delivery hand-in (469)', is('turnin', 469)) < top, 'after the last Menethil hand-in');
 	assert.ok(top < at(list, 'the boat to Auberdine', (g) => g.t === 'goto' && /Boat to Auberdine/.test(g.text || '')), 'before the boat');
 });
+
+// Alliance 20-30 audit (0.4.0, #2025): 03-loch-modan ends with the Hearthstone to Auberdine instead of its last
+// Stormwind stop, so Explosive Consultation (92748) goes to Sprite Jumpsprocket when 06-ashenvale's tram comes in at
+// the Dwarven District, only while carried.
+test(`${ASHENVALE}: Sprite Jumpsprocket takes Explosive Consultation when the tram comes in (Alliance 20-30 audit)`, { skip }, () => {
+	const list = goals(ASHENVALE);
+	const sprite = at(list, 'Explosive Consultation (92748)', is('turnin', 92748));
+	assert.ok((list[sprite].step.when || []).some((p) => p.k === 'onquest' && !p.neg), 'only while carried');
+	assert.ok(at(list, 'the tram to Stormwind', (g) => g.t === 'goto' && /Tram to Stormwind/.test(g.text || '')) < sprite, 'after the tram');
+});

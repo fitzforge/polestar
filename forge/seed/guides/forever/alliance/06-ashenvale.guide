@@ -366,6 +366,12 @@ step Tram to Stormwind
 
 # ---------------------------------------------------------------- Stormwind
 
+step Sprite Jumpsprocket
+  when onquest 92748
+  zone Stormwind City
+  tip The tram comes in at the Dwarven District, where Sprite Jumpsprocket stands.
+  turnin 92748                                -- Sprite Jumpsprocket, Dwarven District
+
 step Baros Alexston
   zone Stormwind City
   when onquest 97914
