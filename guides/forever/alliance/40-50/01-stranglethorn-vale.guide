@@ -172,116 +172,32 @@ step Riding at 40
   note "Skyboat to Zephras Isle: the north side of Dalaran, about every five minutes."
 
 step Boat to Booty Bay
-  only Dwarf
+  only Dwarf,Gnome,NightElf,Skyborne
   zone The Barrens
-  getfp "Ratchet" only Warlock         -- for the flight back to Strahad Farsan at 43
-  goto 63.4,38.5 "Boat to Booty Bay" only Warrior,Mage,Warlock,Druid
-
-step The Barrens
-  only Dwarf,Paladin
-  zone The Barrens
-  goto 63.4,38.5 "Ratchet"
-
-step Boat to Booty Bay
-  only Dwarf,Paladin
-  zone The Barrens
-  goto 63.4,38.5 "Boat to Booty Bay"
-
-step The Barrens
-  only Dwarf,NightElf,Skyborne,Hunter
-  zone The Barrens
-  goto 63.4,38.5 "Ratchet"
-
-step Boat to Booty Bay
-  only Dwarf,NightElf,Skyborne,Hunter
-  zone The Barrens
-  goto 63.4,38.5 "Boat to Booty Bay"
-
-step The Barrens
-  only Dwarf,Gnome,NightElf,Skyborne,Rogue
-  zone The Barrens
-  goto 63.4,38.5 "Ratchet"
-
-step Boat to Booty Bay
-  only Dwarf,Gnome,NightElf,Skyborne,Rogue
-  zone The Barrens
-  goto 63.4,38.5 "Boat to Booty Bay"
-
-step The Barrens
-  only Dwarf,Gnome,NightElf,Priest
-  zone The Barrens
-  goto 63.4,38.5 "Ratchet"
-
-step Boat to Booty Bay
-  only Dwarf,Gnome,NightElf,Priest
-  zone The Barrens
-  goto 63.4,38.5 "Boat to Booty Bay"
-
-step The Barrens
-  only Dwarf,Shaman
-  zone The Barrens
-  goto 63.4,38.5 "Ratchet"
-
-step Boat to Booty Bay
-  only Dwarf,Shaman
-  zone The Barrens
-  goto 63.4,38.5 "Boat to Booty Bay"
-
-step Boat to Booty Bay
-  only Gnome
-  zone The Barrens
-  goto 63.4,38.5 "Boat to Booty Bay" only Warrior,Paladin,Hunter,Shaman,Druid
-
-step The Barrens
-  only Gnome,Skyborne,Mage
-  zone The Barrens
-  goto 63.4,38.5 "Ratchet"
-
-step Boat to Booty Bay
-  only Gnome,Skyborne,Mage
-  zone The Barrens
-  goto 63.4,38.5 "Boat to Booty Bay"
-
-step The Barrens
-  only Gnome,Warlock
-  zone The Barrens
+  tip Ride north-west into the Barrens and up the coast to Ratchet: the boat to Booty Bay leaves from its dock, and Ratchet's gryphon master stands just above it.
   getfp "Ratchet"
-  goto 63.4,38.5 "Ratchet"
-
-step Boat to Booty Bay
-  only Gnome,Warlock
-  zone The Barrens
   goto 63.4,38.5 "Boat to Booty Bay"
 
 step Boat to Booty Bay
-  only NightElf
+  only Human
+  when level<40
   zone The Barrens
-  getfp "Ratchet" only Warlock         -- for the flight back to Strahad Farsan at 43
-  goto 63.4,38.5 "Boat to Booty Bay" only Warrior,Paladin,Shaman,Mage,Warlock
-
-step The Barrens
-  only NightElf,Skyborne,Druid
-  zone The Barrens
-  goto 63.4,38.5 "Ratchet"
-
-step Boat to Booty Bay
-  only NightElf,Skyborne,Druid
-  zone The Barrens
+  tip Ride north-west into the Barrens and up the coast to Ratchet: the boat to Booty Bay leaves from its dock, and Ratchet's gryphon master stands just above it.
+  note Level 40 with 100 gold later on? Randal Hunter teaches riding at Eastvale Logging Camp in Elwynn Forest: Collectibles, Mounts · Level 40 has the trip.
+  getfp "Ratchet"
   goto 63.4,38.5 "Boat to Booty Bay"
-
-step Boat to Booty Bay
-  only Skyborne
-  zone The Barrens
-  getfp "Ratchet" only Warlock         -- for the flight back to Strahad Farsan at 43
-  goto 63.4,38.5 "Boat to Booty Bay" only Warrior,Paladin,Priest,Shaman,Warlock
 
 step Duskwood
   only Human
+  when level>=40
+  when !zone "Stranglethorn Vale"
   zone Duskwood
   goto 77.6,44.4 "Darkshire"
 
 step Fly to Booty Bay
   only Human
+  when level>=40
+  when !zone "Stranglethorn Vale"
   zone Duskwood
   goto 77.6,44.4 "Darkshire flight master"
   fly "Booty Bay"

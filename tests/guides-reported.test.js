@@ -11824,3 +11824,26 @@ test('Stranglethorn and the Badlands (Alliance 42-43): no Stormwind or Aerie Pea
 	assert.ok(bind('forever/alliance/40-50/01-stranglethorn-vale.guide', /Booty Bay/), 'the Booty Bay bind stays');
 });
 
+// 0.4.0 route audit (F3), Alliance 40: the Humans' riding branch (Jaina, the boat to Menethil, Stormwind, Eastvale) only
+// shows from level 40, but its Darkshire -> Booty Bay flight did not, and Humans had no Ratchet step: the level model has
+// them at 39.8 at Balos Jacken, so a Human under 40 was pointed at Darkshire from Dustwallow Marsh. Every race below 40
+// now takes the Booty Bay boat from Ratchet (one step, no longer one pair per race and class mix), and everyone who
+// passes Ratchet's gryphon master by the dock learns the flight path.
+test('Stranglethorn Vale (Alliance 40): every race takes the Booty Bay boat from Ratchet below 40, and learns the flight path there (0.4.0 audit)', { skip }, () => {
+	const all = goals('forever/alliance/40-50/01-stranglethorn-vale.guide');
+	const firstBB = at(all, 'turnin 627', is('turnin', 627));
+	for (const race of ['Human', 'Dwarf', 'Gnome', 'NightElf', 'Skyborne']) {
+		const list = all.filter(forRaceOf(race)).filter(forClass('WARRIOR'));
+		const boat = list.filter(({ goal }) => goal.t === 'goto' && goal.text === 'Boat to Booty Bay');
+		assert.equal(new Set(boat.map(({ s }) => s)).size, 1, `${race}: one Booty Bay boat step`);
+		assert.ok(list.some(({ goal }) => goal.t === 'getfp' && goal.location === 'Ratchet'), `${race}: Ratchet's flight path at the dock`);
+	}
+	const human = all.filter(forRaceOf('Human'));
+	const lvl = (e, op) => (e.step.when || []).some((w) => w.k === 'level' && JSON.stringify(w).includes(op));
+	const humanBoat = human.find(({ goal }) => goal.t === 'goto' && goal.text === 'Boat to Booty Bay');
+	assert.ok(lvl(humanBoat, '<'), 'the Humans\' boat is for those under 40');
+	for (const e of human.filter(({ goal, s }) => s < firstBB && goal.t === 'fly' && /Booty Bay/.test(goal.location || ''))) {
+		assert.ok(lvl(e, '>='), 'the Darkshire flight to Booty Bay only for Humans who took the riding trip at 40');
+	}
+});
+
