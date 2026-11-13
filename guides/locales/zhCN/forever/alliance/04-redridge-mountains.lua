@@ -8,10 +8,10 @@
 return {
 	-- Step 1: Stormwind
 	-- {zone:1429} Elwynn Forest · {quest:174} Look to the Stars · {area:42} Darkshire · {item:4371} Bronze Tube · {npc:3133} Herble Baubbletump · {object:2096} Trade District
-	["Train, then leave by the main gate and follow the road east through {zone:1429}.\n{quest:174} in {area:42} needs a {item:4371}. Its vendors keep only one or two, and {npc:3133} in {area:42} is nearly always sold out: buy one at the Auction House in the {object:2096} on your way out. An engineer can make one too."] = "",
+	["Train, then leave by the main gate and follow the road east through {zone:1429}.\n{quest:174} in {area:42} needs a {item:4371}. Its vendors keep only one or two, and {npc:3133} in {area:42} is nearly always sold out: buy one at the Auction House in the {object:2096} on your way out. An engineer can make one too."] = "先训练，然后从城门出去，沿大路向东穿过{zone:1429}。\n{area:42}的{quest:174}需要一根{item:4371}。商人只备一两根，{area:42}的{npc:3133}几乎总是售罄：出门路上在{object:2096}的拍卖行买一根。工程师也能自己做一根。",
 	["Level 18 and 20 spells"] = "18级和20级法术",
 	-- {item:4371} Bronze Tube · {quest:174} Look to the Stars · {area:42} Darkshire
-	["{item:4371}: the Auction House, for {quest:174} in {area:42}"] = "",
+	["{item:4371}: the Auction House, for {quest:174} in {area:42}"] = "{item:4371}：拍卖行，为{area:42}的{quest:174}备的",
 
 	-- Step 2: Woo Ping
 	-- {npc:11867} Woo Ping · {object:2096} Trade District
@@ -46,7 +46,7 @@ return {
 	-- {zone:1429} Elwynn Forest
 	["Back to {zone:1429}"] = "返回{zone:1429}",
 	-- {zone:1429} Elwynn Forest
-	["The road into {zone:1429}"] = "",
+	["The road into {zone:1429}"] = "通往{zone:1429}的路",
 
 	-- Step 9: Elwynn Forest
 	-- {area:91} Tower of Azora
@@ -71,7 +71,7 @@ return {
 
 	-- Step 14: Darkshire
 	-- {area:1002} Three Corners · {zone:1431} Duskwood · {area:42} Darkshire · {item:4371} Bronze Tube · {quest:174} Look to the Stars · {npc:3133} Herble Baubbletump · {npc:276} Viktori Prism'Antras
-	["Follow the road south from {area:1002} into {zone:1431}; {area:42} lies on the east side of the forest.\nNo {item:4371} for {quest:174}? {npc:3133}, in the house beside {npc:276}, is nearly always sold out. Without one, right-click the quest in the guide window and skip it."] = "",
+	["Follow the road south from {area:1002} into {zone:1431}; {area:42} lies on the east side of the forest.\nNo {item:4371} for {quest:174}? {npc:3133}, in the house beside {npc:276}, is nearly always sold out. Without one, right-click the quest in the guide window and skip it."] = "沿大路从{area:1002}向南进入{zone:1431}；{area:42}在森林东侧。\n没有给{quest:174}用的{item:4371}？{npc:3133}就住在{npc:276}旁边的房子里，几乎总是售罄。实在没有，就在指南窗口里右键点这个任务跳过。",
 	-- {npc:2409} Felicia Maline
 	["{npc:2409}, at the north end of town"] = "{npc:2409}，在镇子北端",
 	-- {npc:265} Madame Eva
@@ -128,7 +128,7 @@ return {
 	-- plural, as words: Pygmy Venom Web Spiders = {npc:539} Pygmy Venom Web Spider · Venom Web Spiders = {npc:217} Venom Web Spider · Green Recluses = {npc:569} Green Recluse
 	["{item:1130}: Pygmy Venom Web Spiders, Venom Web Spiders and Green Recluses"] = "{item:1130}：小型结网毒蜘蛛、结网毒蜘蛛和绿色独行蛛",
 	-- {item:2251} Gooey Spider Leg · {npc:272} Chef Grual · {area:42} Darkshire
-	["{item:2251}: keep the ones these spiders drop, for {npc:272} in {area:42}"] = "",
+	["{item:2251}: keep the ones these spiders drop, for {npc:272} in {area:42}"] = "{item:2251}：这些蜘蛛掉的先留着，给{area:42}的{npc:272}。",
 
 	-- Step 20: Abercrombie
 	-- {area:492} Raven Hill Cemetery
@@ -152,13 +152,13 @@ return {
 	-- {npc:268} Sirra Von'Indi
 	["{npc:268}, inside"] = "{npc:268}：在屋内",
 	-- {npc:272} Chef Grual
-	["{npc:272}, in the Scarlet Raven Tavern"] = "{npc:272}，在Scarlet Raven Tavern里",
+	["{npc:272}, in the Scarlet Raven Tavern"] = "{npc:272}，在血鸦旅店里",
 	-- {npc:272} Chef Grual · {zone:1431} Duskwood
 	-- plural, as words: Gooey Spider Legs = {item:2251} Gooey Spider Leg
-	["{npc:272}: six Gooey Spider Legs, which {zone:1431}'s spiders drop even without the quest"] = "",
-	["Already carrying six? Hand them in now"] = "",
+	["{npc:272}: six Gooey Spider Legs, which {zone:1431}'s spiders drop even without the quest"] = "{npc:272}：六条粘糊的蜘蛛腿，{zone:1431}的蜘蛛没接任务也会掉",
+	["Already carrying six? Hand them in now"] = "已经带着六条了？现在就去交掉。",
 	-- {npc:288} Jitters · {quest:163} Raven Hill · {zone:1431} Duskwood
-	["For {npc:288}, at {quest:163} on the next {zone:1431} loop"] = "",
+	["For {npc:288}, at {quest:163} on the next {zone:1431} loop"] = "留给{npc:288}：等下一圈回到{zone:1431}的{quest:163}时再交。",
 	-- {npc:663} Calor
 	["{npc:663}, by the town hall"] = "{npc:663}，在市政厅旁",
 
@@ -179,11 +179,11 @@ return {
 
 	-- Step 29: Lakeshire
 	-- {npc:381} Dockmaster Baren · {npc:900} Bailiff Conacher · {npc:342} Martie Jainrose · {npc:382} Marshal Marris · {quest:98386} Alther's Mill
-	["Cross the long bridge north into town: {npc:381} on the docks, {npc:900} in the town hall, {npc:342} in her garden at the west end. {npc:382}'s Blackrock quests and {quest:98386} came with you from your first Redridge visit."] = "向北过长桥进镇：{npc:381}在码头，{npc:900}在镇公所，{npc:342}在镇子西端的花园里。{npc:382}的黑石任务和{quest:98386}，是你第一次来赤脊山时接下并保留的。",
+	["Cross the long bridge north into town: {npc:381} on the docks, {npc:900} in the town hall, {npc:342} in her garden at the west end. {npc:382}'s Blackrock quests and {quest:98386} came with you from your first Redridge visit."] = "向北过长桥进镇：{npc:381}在码头，{npc:900}在市政厅，{npc:342}在镇子西端的花园里。{npc:382}的黑石任务和{quest:98386}，是你第一次来赤脊山时接下并保留的。",
 	-- {npc:415} Verner Osgood
-	["{npc:415}, by the road at the north end of the bridge"] = "",
+	["{npc:415}, by the road at the north end of the bridge"] = "{npc:415}，在桥北头的大路边",
 	-- {npc:900} Bailiff Conacher
-	["{npc:900}, in the town hall"] = "{npc:900}，在镇公所",
+	["{npc:900}, in the town hall"] = "{npc:900}，在市政厅",
 	["The Wanted poster by the inn"] = "旅店旁的通缉布告",
 
 	-- Step 30: Bellygrub
@@ -196,14 +196,14 @@ return {
 
 	-- Step 32: Lakeshire
 	-- {npc:342} Martie Jainrose
-	["Back east through town from {npc:342}'s garden: two Wanted posters hang on the town hall doorway."] = "从{npc:342}的花园向东穿过镇子：镇公所门口挂着两张通缉告示。",
-	["The Wanted poster on the town hall doorway"] = "镇公所门口的通缉告示",
+	["Back east through town from {npc:342}'s garden: two Wanted posters hang on the town hall doorway."] = "从{npc:342}的花园向东穿过镇子：市政厅门口挂着两张通缉告示。",
+	["The Wanted poster on the town hall doorway"] = "市政厅门口的通缉告示",
 	["The Wanted poster beside it"] = "旁边的另一张通缉告示",
 
 	-- Step 33: Alther's Mill
 	-- {quest:98386} Alther's Mill
 	-- plural, as words: Greater Tarantulas = {npc:505} Greater Tarantula · Tarantula Eggs = {object:673101} Tarantula Egg
-	["Greater Tarantulas crawl on the slopes around {quest:98386}, north-east of the lake; their Tarantula Eggs lie on the ground among them: click six."] = "",
+	["Greater Tarantulas crawl on the slopes around {quest:98386}, north-east of the lake; their Tarantula Eggs lie on the ground among them: click six."] = "大狼蛛在湖东北方、{quest:98386}周围的山坡上爬行；它们的狼蛛卵就散落在它们中间的地上：点六个。",
 
 	-- Step 34: Blackrock camps
 	["Blackrock camps"] = "黑石营地",
@@ -215,7 +215,7 @@ return {
 	["{item:280839}: meat haunches, grain sacks, water barrels"] = "{item:280839}：肉块、粮袋、水桶",
 
 	-- Step 35: Incinerator Gar'im
-	["Gar'im keeps to the cave at the camps' south end with his imp and two orcs. Elite: group up if you can; solo, pull the orcs at the mouth first and interrupt his fire cast."] = "Gar'im和他的小鬼、两名兽人待在营地南端的洞穴里。这是精英，尽量组队；独自挑战时，先引出洞口的兽人，并打断他的火焰法术。",
+	["Gar'im keeps to the cave at the camps' south end with his imp and two orcs. Elite: group up if you can; solo, pull the orcs at the mouth first and interrupt his fire cast."] = "焚化者加因姆和他的小鬼、两名兽人待在营地南端的洞穴里。这是精英，尽量组队；独自挑战时，先引出洞口的兽人，并打断他的火焰法术。",
 
 	-- Step 36: Galardell Valley
 	-- {npc:703} Lieutenant Fangore · {area:2099} Stonewatch Keep
@@ -239,7 +239,7 @@ return {
 	-- Step 40: Yowler
 	-- {area:95} Redridge Canyons · {area:997} Render's Valley · {npc:518} Yowler
 	-- plural, as words: Redridge Alphas = {npc:445} Redridge Alpha
-	["From the keep head back west along the lake's north shore and north up the {area:95}. Just south of {area:997}, {npc:518}, a level 25 gnoll, walks among the Redridge Alphas and Mystics."] = "",
+	["From the keep head back west along the lake's north shore and north up the {area:95}. Just south of {area:997}, {npc:518}, a level 25 gnoll, walks among the Redridge Alphas and Mystics."] = "从要塞沿湖北岸往西返回，再沿{area:95}向北。就在{area:997}南边，{npc:518}（25级豺狼人）在赤脊山兽王和赤脊山秘法师中间游荡。",
 
 	-- Step 41: Render's Valley
 	-- {area:95} Redridge Canyons · {area:997} Render's Valley · {area:69} Lakeshire
@@ -262,9 +262,9 @@ return {
 	-- {area:69} Lakeshire
 	["Back to {area:69}"] = "回到{area:69}",
 	-- {area:69} Lakeshire · {npc:900} Bailiff Conacher · {npc:344} Magistrate Solomon · {npc:382} Marshal Marris · {npc:341} Foreman Oslow · {npc:903} Guard Howe
-	["Into {area:69} from the north with Keeshan: {npc:900} and {npc:344} in the town hall, {npc:382} and {npc:341} at the north end of the bridge, then over the bridge to {npc:903} and the gryphons."] = "随基沙恩从北边进入{area:69}：{npc:900}和{npc:344}在镇公所，{npc:382}和{npc:341}在桥北端，然后过桥去找{npc:903}和狮鹫。",
+	["Into {area:69} from the north with Keeshan: {npc:900} and {npc:344} in the town hall, {npc:382} and {npc:341} at the north end of the bridge, then over the bridge to {npc:903} and the gryphons."] = "随基沙恩从北边进入{area:69}：{npc:900}和{npc:344}在市政厅，{npc:382}和{npc:341}在桥北端，然后过桥去找{npc:903}和狮鹫。",
 	-- {npc:415} Verner Osgood
-	["{npc:415}, by the road on the way to the bridge"] = "",
+	["{npc:415}, by the road on the way to the bridge"] = "{npc:415}，在去桥的大路边",
 	-- {npc:903} Guard Howe
 	["{npc:903}, by the gryphons south of the bridge"] = "{npc:903}，在桥南的狮鹫旁",
 	-- {area:42} Darkshire · {zone:1431} Duskwood
@@ -273,7 +273,7 @@ return {
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Bellygrub"] = "贝利格拉布",
 	-- ["Cross the long bridge north into town. {npc:341} and {npc:382} stand at the north end of the bridge, {npc:900} in the town hall, {npc:381} and {npc:266} on the docks, {npc:343} at the inn, {npc:342} in her garden at the west end."] = "向北过长桥进入镇子。{npc:341}和{npc:382}站在桥的北端，{npc:900}在市政厅，{npc:381}和{npc:266}在码头，{npc:343}在旅店，{npc:342}在镇子西端她的菜园里。",
-	-- ["Cross the long bridge north into town: {npc:381} on the docks, {npc:900} in the town hall, the innkeeper in the inn, {npc:342} in her garden at the west end. {npc:382}'s Blackrock quests and {quest:98386} came with you from your first Redridge visit."] = "向北过长桥进镇：{npc:381}在码头，{npc:900}在镇公所，旅店老板在旅店，{npc:342}在镇子西端的花园里。{npc:382}的黑石任务和{quest:98386}，是你第一次来赤脊山时接下并保留的。",
+	-- ["Cross the long bridge north into town: {npc:381} on the docks, {npc:900} in the town hall, the innkeeper in the inn, {npc:342} in her garden at the west end. {npc:382}'s Blackrock quests and {quest:98386} came with you from your first Redridge visit."] = "向北过长桥进镇：{npc:381}在码头，{npc:900}在市政厅，旅店老板在旅店，{npc:342}在镇子西端的花园里。{npc:382}的黑石任务和{quest:98386}，是你第一次来赤脊山时接下并保留的。",
 	-- ["East past the mill and across the river. Shadowhide gnolls fill the valley; {npc:703} (26, well above you) leads them at its north end: clear his escort first and fight him at full health. Stay out of {area:2099} to the south: its orcs are elite."] = "向东经过伐木场并过河。山谷里到处是暗皮豺狼人；{npc:703}（26级，比你高很多）在山谷北端率领它们：先清掉他的护卫，满血再打他。不要进入南边的{area:2099}：那里的兽人是精英。",
 	-- ["Fly to {area:108} and ride north-west to the coast: the {object:177790} lies on the sea floor off the shore. Then ride east along the road through Elwynn to Redridge."] = "飞往{area:108}，向西北骑到海岸：{object:177790}在近岸的海底。然后沿道路向东穿过艾尔文森林前往赤脊山。",
 	-- ["Follow the road along the south shore of {area:68} to the gryphon master. {npc:1070} and {npc:903} stand by the road next to her."] = "沿{area:68}南岸的道路走到狮鹫管理员处。{npc:1070}和{npc:903}站在她旁边的路边。",

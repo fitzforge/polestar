@@ -4,6 +4,7 @@ title Silithus, Felwood, Winterspring & the Plaguelands
 faction Alliance
 levels 58-60
 zone Silithus
+pitch The main route to 60: Silithus, Felwood, Winterspring and the Plaguelands, with the hand-ins in Stormwind, Ironforge and Light's Hope on the way.
 
 # Forge's route search orders the quests of this guide and its guide writer writes the steps.
 # Fixes go into data/route-fixes.json, data/guide-fixes.json or forever-db/corrections, never

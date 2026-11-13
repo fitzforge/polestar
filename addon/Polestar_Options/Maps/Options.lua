@@ -78,7 +78,7 @@ local QOL = L["Quality of Life"]
 register({
 	page = QOL, tab = L["Travel"], section = L["Flights"],
 	controls = {
-		{ kind = "toggle", key = "maps.flightTimer", label = L["Flight timer"], search = "flight, taxi, timer, time left",
+		{ kind = "toggle", key = "maps.flightTimer", label = L["Flight timer"], search = "flight, taxi, timer, time left", move = "flightTimer",
 			help = L["While flying, shows the destination and the time left. Learns each route's real duration for this character; drag to move."] },
 		{ kind = "button", button = L["Forget"], label = L["Forget learned flight times"],
 			help = L["Clears this character's recorded flight durations; estimates are used until they are flown again."],
@@ -90,7 +90,7 @@ register({
 })
 -- The instance tracker: its switch in the section's header, then its display and its limits.
 register({
-	page = QOL, tab = L["Trackers & map"], section = L["Instances"],
+	page = QOL, tab = L["Trackers & map"], section = L["Instances"], move = "instances",
 	toggle = { kind = "toggle", key = "maps.instances", label = L["Track instances"], search = "dungeon, instance lockout, instance cap, reset, runs",
 		help = L["Records dungeon and raid entries, time and experience per run. /pole instances lists them."] },
 	controls = {

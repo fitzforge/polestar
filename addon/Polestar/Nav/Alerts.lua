@@ -168,23 +168,7 @@ local function newBanner(parent, name, sandbox)
 	head:SetPoint("TOPLEFT", f, "TOPLEFT", 1, -1)
 	head:SetPoint("BOTTOMRIGHT", f, "BOTTOMRIGHT", -1, 1)
 	f.Head = head
-	f.Night = head:CreateTexture(nil, "BACKGROUND", nil, -8)
-	f.Night:SetTexture(Theme.Media("white"))
-	f.Night:SetAllPoints(head)
-	W.Painter(f.Night, function(t)
-		t:SetShown(Theme.SkinKey() == "polestar")
-		local tr, tg, tb = Theme.Color("scrim")
-		local br, bg, bb = Theme.Color("bg")
-		if t.SetGradient and CreateColor then
-			t:SetVertexColor(1, 1, 1, 1)
-			t:SetGradient("VERTICAL", CreateColor(br, bg, bb, 1), CreateColor(tr, tg, tb, 1))
-		else
-			t:SetVertexColor(br, bg, bb, 1)
-		end
-	end)
-	if W.Haze then f.Haze = W.Haze(head, { height = HEIGHT, sub = -6 }) end
-	f.Band = Theme.Band(head, "BACKGROUND", -5)
-	f.Band:SetAllPoints(head)
+	f.Night, f.Haze, f.Band = W.Night(head, { height = HEIGHT, sub = -6 })
 	f.Band:SetTexCoord(Theme.BandCoords(WIDTH - 2, HEIGHT - 2))
 
 	f.Ring = W.Tex(head, "ARTWORK", "qol-ring", "place")

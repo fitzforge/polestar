@@ -15,7 +15,7 @@ return {
 	-- {faction:72} Stormwind · {area:3197} Chillwind Camp · {zone:1428} Burning Steppes
 	["About 1,150 {faction:72} reputation from level 52-58 quests at {area:3197} and in the {zone:1428}"] = "{area:3197}和{zone:1428}的52-58级任务提供约1150点{faction:72}声望",
 	-- {faction:72} Stormwind · {area:717} Stockade
-	["About 4,500 {faction:72} reputation from low-level quests in Elwynn and the {area:717}"] = "",
+	["About 4,500 {faction:72} reputation from low-level quests in Elwynn and the {area:717}"] = "艾尔文森林和{area:717}的低等级任务提供约4,500点{faction:72}声望",
 
 	-- Step 1: Clavicus Knavingham, the cloth quartermaster
 	-- {npc:14722} Clavicus Knavingham
@@ -29,11 +29,11 @@ return {
 	-- {faction:72} Stormwind
 	["{faction:72} errands"] = "{faction:72} 跑腿任务",
 	-- {faction:72} Stormwind
-	["Optional: four quick deliveries inside {faction:72} for 200 reputation in about five minutes. Forever pays these old quests in full at any level. Skip this step to skip the hub."] = "",
+	["Optional: four quick deliveries inside {faction:72} for 200 reputation in about five minutes. Forever pays these old quests in full at any level. Skip this step to skip the hub."] = "可选：{faction:72}城内四个简短的送货任务，约五分钟可获得200点声望。在无限版本中，这些旧任务在任何等级都提供全额声望。跳过此步骤即可跳过这个任务点。",
 
 	-- Step 3: Northshire Valley
 	-- {area:87} Goldshire · {npc:823} Deputy Willem · {npc:197} Marshal McBride · {area:24} Northshire Abbey
-	["Optional: the Human start valley north of {area:87}: about 1,600 reputation in 40 minutes at 60, the best rate of the hubs. {npc:823} and {npc:197} stand at {area:24}. Forever pays these old quests in full at any level. Skip this step to skip the hub."] = "",
+	["Optional: the Human start valley north of {area:87}: about 1,600 reputation in 40 minutes at 60, the best rate of the hubs. {npc:823} and {npc:197} stand at {area:24}. Forever pays these old quests in full at any level. Skip this step to skip the hub."] = "可选：{area:87}北面的人类起始山谷，60级时用40分钟可获得约1,600点声望，是这些任务区中效率最高的。{npc:823}和{npc:197}在{area:24}。无限版本中，无论角色等级多少，这些旧任务都提供全额声望。跳过本步骤即可跳过整个任务区。",
 
 	-- Step 4: Northshire: kobolds, wolves and bandanas
 	["Northshire: kobolds, wolves and bandanas"] = "北郡：狗头人、狼与头巾",
@@ -77,7 +77,7 @@ return {
 
 	-- Step 11: Goldshire
 	-- {area:87} Goldshire · {npc:240} Marshal Dughan · {npc:241} Remy "Two Times" · {npc:253} William Pestle
-	["Optional: {area:87}, Westbrook and the farms south of {area:87}: about 1,450 reputation in an hour at 60. {npc:240}, {npc:241} and {npc:253} stand around the Lion's Pride Inn. Forever pays these old quests in full at any level. Skip this step to skip the hub."] = "",
+	["Optional: {area:87}, Westbrook and the farms south of {area:87}: about 1,450 reputation in an hour at 60. {npc:240}, {npc:241} and {npc:253} stand around the Lion's Pride Inn. Forever pays these old quests in full at any level. Skip this step to skip the hub."] = "可选：{area:87}、西泉要塞及{area:87}南面的农场，60级时约一小时可得1,450点声望。{npc:240}、{npc:241}和{npc:253}在狮王之傲旅店周围。无限在任何等级都为这些旧任务提供全额奖励。跳过本步骤即可跳过此任务区。",
 
 	-- Step 12: Goldshire: the mines
 	-- {area:87} Goldshire
@@ -129,7 +129,7 @@ return {
 	-- Step 20: Eastvale
 	["Eastvale"] = "东谷",
 	-- {npc:261} Guard Thomas · {area:91} Tower of Azora
-	["Optional: eastern Elwynn, around {npc:261} on the bridge and the {area:91}, about 1,000 reputation in 40 minutes at 60. Forever pays these old quests in full at any level. Skip this step to skip the hub."] = "",
+	["Optional: eastern Elwynn, around {npc:261} on the bridge and the {area:91}, about 1,000 reputation in 40 minutes at 60. Forever pays these old quests in full at any level. Skip this step to skip the hub."] = "可选：艾尔文森林东部，桥上的{npc:261}及{area:91}周围，60级时约40分钟可得1,000点声望。无限在任何等级都为这些旧任务提供全额奖励。跳过本步骤即可跳过此任务区。",
 
 	-- Step 21: Eastvale: the work
 	["Eastvale: the work"] = "东谷：处理事务",
@@ -151,7 +151,7 @@ return {
 	-- {area:717} Stockade
 	["{area:717}: two quests"] = "{area:717}：两个任务",
 	-- {area:717} Stockade · {faction:72} Stormwind · {object:2101} Mage Quarter · {npc:1719} Warden Thelwater · {npc:1721} Nikova Raskol · {object:2100} Old Town · {npc:1696} Targorr the Dread · {npc:859} Guard Berton · {area:69} Lakeshire · {npc:1663} Dextren Ward · {npc:270} Councilman Millstipe · {area:42} Darkshire · {npc:639} Edwin VanCleef · {area:1581} Deadmines
-	["Optional: the {area:717} is {faction:72}'s prison, a dungeon in the canals of the {object:2101}. At 60 you clear it alone in ten minutes: 300 reputation. {npc:1719} stands at the gate, {npc:1721} in {object:2100}. Two more {area:717} quests start outside the city, 100 each, if you pass by: What Comes Around... ({npc:1696}) from {npc:859} in {area:69} and Crime and Punishment ({npc:1663}) from {npc:270} in {area:42}. (The Stockade Riots, 100 more, needs the Unsent Letter from {npc:639} in the {area:1581} first.) Forever pays these old quests in full at any level. Skip this step to skip the hub."] = "",
+	["Optional: the {area:717} is {faction:72}'s prison, a dungeon in the canals of the {object:2101}. At 60 you clear it alone in ten minutes: 300 reputation. {npc:1719} stands at the gate, {npc:1721} in {object:2100}. Two more {area:717} quests start outside the city, 100 each, if you pass by: What Comes Around... ({npc:1696}) from {npc:859} in {area:69} and Crime and Punishment ({npc:1663}) from {npc:270} in {area:42}. (The Stockade Riots, 100 more, needs the Unsent Letter from {npc:639} in the {area:1581} first.) Forever pays these old quests in full at any level. Skip this step to skip the hub."] = "可选：{area:717}是{faction:72}的监狱，副本入口位于{object:2101}的运河旁。60级可在十分钟内单刷，获得300点声望。{npc:1719}站在大门旁，{npc:1721}在{object:2100}。城外还有两个{area:717}任务，顺路可接，每个100点声望：{area:69}的{npc:859}提供“伸张正义”（{npc:1696}），{area:42}的{npc:270}提供“罪与罚”（{npc:1663}）。（另有“监狱暴动”，再奖励100点，但需先取得{area:1581}中{npc:639}掉落的未寄出的信。）在无限版本中，这些旧任务在任何等级都提供全额声望。跳过此步骤即可跳过这个任务点。",
 
 	-- Step 25: Inside the Stockade
 	-- {area:717} Stockade
@@ -179,7 +179,7 @@ return {
 	-- Step 30: Chillwind Camp: Clear the Way
 	-- {npc:10838} Commander Ashlam Valorfist · {npc:11053} High Priestess MacDonnell · {area:3197} Chillwind Camp · {zone:1422} Western Plaguelands · {faction:72} Stormwind · {object:92525} Argent Dawn
 	-- plural, as words: Skeletal Flayers = {npc:1783} Skeletal Flayer · Slavering Ghouls = {npc:1791} Slavering Ghoul
-	["These quests are level 52 to 58, so they pay in full at 60. {npc:10838} and {npc:11053} at {area:3197}, in the south of the {zone:1422}, send you against the four Scourge cauldrons: 820 {faction:72} reputation in all and 600 {object:92525} on the side. The Skeletal Flayers and Slavering Ghouls roam the fields north of the camp."] = "",
+	["These quests are level 52 to 58, so they pay in full at 60. {npc:10838} and {npc:11053} at {area:3197}, in the south of the {zone:1422}, send you against the four Scourge cauldrons: 820 {faction:72} reputation in all and 600 {object:92525} on the side. The Skeletal Flayers and Slavering Ghouls roam the fields north of the camp."] = "这些任务为52至58级，因此60级时仍提供全额声望。{zone:1422}南部{area:3197}的{npc:10838}和{npc:11053}会让你处理四座瘟疫之锅：合计提供820点{faction:72}声望，另有600点{object:92525}声望。骷髅剥皮者和被奴役的食尸鬼在营地北侧的田野游荡。",
 
 	-- Step 31: Andorhal and Felstone Field
 	-- {area:199} Felstone Field
@@ -238,7 +238,7 @@ return {
 	-- Step 40: Morgan's Vigil: Dragonkin Menace
 	-- {npc:9562} Helendis Riverhorn · {area:2418} Morgan's Vigil · {zone:1428} Burning Steppes · {quest:4183} The True Masters · {area:69} Lakeshire · {object:2117} Stormwind Keep · {faction:72} Stormwind · {zone:1457} Darnassus · {npc:7044} Black Drake · {npc:7040} Black Dragonspawn · {npc:7041} Black Wyrmkin
 	-- plural, as words: Black Broodlings = {npc:7047} Black Broodling
-	["{npc:9562} at {area:2418}, in the south-east of the {zone:1428}, starts {quest:4183}: a chain to {area:69} and {object:2117}, 175 {faction:72} and 175 {zone:1457} reputation (level 54). The Black Broodlings and the {npc:7044} live on the slopes north of the Vigil; the {npc:7040} and {npc:7041} west of it, in the middle of the zone."] = "",
+	["{npc:9562} at {area:2418}, in the south-east of the {zone:1428}, starts {quest:4183}: a chain to {area:69} and {object:2117}, 175 {faction:72} and 175 {zone:1457} reputation (level 54). The Black Broodlings and the {npc:7044} live on the slopes north of the Vigil; the {npc:7040} and {npc:7041} west of it, in the middle of the zone."] = "{npc:9562}位于{zone:1428}东南边的{area:2418}，他提供{quest:4183}：这条任务线会前往{area:69}和{object:2117}，奖励175点{faction:72}声望和175点{zone:1457}声望（54级）。黑色小龙和{npc:7044}在哨岗北边的斜坡上；{npc:7040}和{npc:7041}在哨岗西边、区域中部。",
 
 	-- Step 41: Lakeshire: Magistrate Solomon
 	-- {npc:344} Magistrate Solomon · {area:69} Lakeshire
@@ -260,7 +260,7 @@ return {
 	-- {quest:7796} Additional Runecloth
 	["{quest:7796} to Honored"] = "{quest:7796}刷到尊敬",
 	-- {quest:7796} Additional Runecloth · {item:14047} Runecloth · {faction:72} Stormwind · {zone:1436} Westfall · {area:69} Lakeshire · {zone:1431} Duskwood · {area:42} Darkshire
-	["{quest:7796}: 50 reputation for 20 {item:14047}, as often as you like. After the four first donations a non-Human stands at Friendly 700 of 6,000, so Honored is 5,300 away: 106 turn-ins, 2,120 {item:14047} (Humans start 900 higher: 88 turn-ins; a Skyborne's Exploring the Alliance paid 100, two fewer). The level 52-58 quests above take 23 turn-ins off; every Elwynn hub you did takes 20 to 30 more off. More quest hubs pay {faction:72}, in full while they are no more than 5 levels below you: {zone:1436} (about 2,500 in all), Redridge's {area:69} (about 3,000) and {zone:1431}'s {area:42} (about 2,900). Every city gain also gives a quarter as much to the other three Alliance cities (not counted here). Hand in all your {item:14047} at once."] = "",
+	["{quest:7796}: 50 reputation for 20 {item:14047}, as often as you like. After the four first donations a non-Human stands at Friendly 700 of 6,000, so Honored is 5,300 away: 106 turn-ins, 2,120 {item:14047} (Humans start 900 higher: 88 turn-ins; a Skyborne's Exploring the Alliance paid 100, two fewer). The level 52-58 quests above take 23 turn-ins off; every Elwynn hub you did takes 20 to 30 more off. More quest hubs pay {faction:72}, in full while they are no more than 5 levels below you: {zone:1436} (about 2,500 in all), Redridge's {area:69} (about 3,000) and {zone:1431}'s {area:42} (about 2,900). Every city gain also gives a quarter as much to the other three Alliance cities (not counted here). Hand in all your {item:14047} at once."] = "{quest:7796}：用20块{item:14047}换取50点声望，可无限重复。完成最初四次捐赠后，非人类角色的友善声望进度为700/6,000，距离尊敬还差5,300点：需交付106次，共2,120块{item:14047}（人类起点高900点：需88次；天裔的“联盟之旅”奖励100点，可再少两次）。上面的52-58级任务可减少23次交付；每个已完成的艾尔文森林任务点还能再减少20到30次。还有更多任务点提供{faction:72}声望，只要任务等级比你低不超过5级，就能获得全额：{zone:1436}（总计约2,500点）、赤脊山的{area:69}（约3,000点）以及{zone:1431}的{area:42}（约2,900点）。每次主城声望提升，还会为其余三座联盟主城提供四分之一的声望（此处未计入）。将所有{item:14047}一次交完。",
 
 	-- Step 45: Additional Runecloth to Revered
 	-- {quest:7796} Additional Runecloth

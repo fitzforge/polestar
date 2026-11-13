@@ -115,7 +115,7 @@ if ns.Party then
 				help = L["When a party member on your quest still needs an objective you finished, the step and its turn-in wait and the arrow leads to what they need. Members in another zone or offline for 2 minutes don't hold you; the party line offers Go on without them."] },
 			{ kind = "toggle", key = "party.lootNeeds", label = L["Say who still needs quest loot"], search = SEARCH, disabled = notShown,
 				help = L["On a loot window or roll, a line under a quest item a party member still needs and you don't. Nothing is passed or said for you."] },
-			{ kind = "toggle", key = "party.panel", label = L["Party panel"], search = SEARCH,
+			{ kind = "toggle", key = "party.panel", label = L["Party panel"], search = SEARCH, move = "party",
 				help = L["Opens by itself when someone in your party runs Polestar too: each member's level, step and what they still need of yours; click a name to point the arrow at them. Closed, it stays closed; /polestar party opens it again."] },
 		},
 	})

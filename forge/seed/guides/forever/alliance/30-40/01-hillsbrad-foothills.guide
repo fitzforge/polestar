@@ -18,15 +18,16 @@ next forever/alliance/30-40/03-ashenvale
 # MacKreel's Moonshine (647) is taken in 05-arathi-highlands: its 15-minute limit does not last the walk to Menethil and the boat (#1319).
 
 step Angerfang Encampment
+  when onquest 465,474
+  accept 98223 object 671518          -- Tattered Spellbook: for Captain Stoutfist
+
+step Angerfang Encampment
   tip South-east from Menethil to the Dragonmaw's Angerfang Encampment: the first catapult stands on the way, and the Tattered Spellbook lies in the camp.
   turnin 465                          -- Dragonmaw Catapult
 
 step Angerfang Encampment
   when group 474
   accept 474
-
-step Angerfang Encampment
-  accept 98223 object 671518          -- Tattered Spellbook: for Captain Stoutfist
 
 step Defeat Nek'rosh
   when group 474
@@ -130,8 +131,12 @@ step Prospector Whelgar
   accept 98313                        -- For Historian Karnik in Ironforge, at the end of this guide
 
 step Menethil Harbor
+  when onquest 98223
   tip West along the road to Menethil.
   turnin 98223                        -- On the top floor
+
+step Menethil Harbor
+  tip West along the road to Menethil.
   accept 1132                         -- Red Jack Flint, by the keep's door: for Fiora Longears in Theramore, in the next guide
 
 step Menethil Harbor

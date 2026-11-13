@@ -54,7 +54,7 @@ const INNS: [(&[&str], i64, i64); 50] = [
 	(&["Cenarion Hold"], 1451, 15174),
 	(&["Light's Hope Chapel"], 1423, 16256),
 	(&["Stonetalon Peak"], 1442, 16458),
-	// Zephras Isle (RevSkyA3, c13: the isle never bound or hearthed; binding
+	// Zephras Isle (c13 review: the isle never bound or hearthed; binding
 	// Shen'dar, then Valanaar, saves the walk back from both).
 	(&["Shen'dar Village"], 2521, 254089),
 	(&["Valanaar"], 2521, 255940),

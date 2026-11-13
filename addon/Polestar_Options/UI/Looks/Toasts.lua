@@ -3,9 +3,9 @@
 -- previews. The toasts' look itself is core (Polestar/UI/Toasts.lua,
 -- UI.Toasts); this file is part of the settings window's addon.
 --
---   UI.Toasts.Preview(view, tab)           the options' pinned preview (sandbox toasts at
---                                          their true size; "all": every one, Essentials)
---   UI.Toasts.NewStage(view[, height])     a preview's stage (the trackers' too)
+--   UI.Toasts.Preview(view, tab)           the options' pinned preview, a band (UI.Preview.Band):
+--                                          the tab's toast alone at its real size; "all"
+--                                          (Essentials): the one its dropdown picks
 --
 -- Previews draw the toasts' own builders in a sandbox (Rares.Toast.NewCard,
 -- Nav.alerts.NewBanner, ClassToast.NewCard,
@@ -24,22 +24,9 @@ local NEW = "0.3.8"
 
 local function stackOn() return ns.Get("toasts.stack") and true or false end
 
-local stages = setmetatable({}, { __mode = "k" }) -- preview stages -> true
-local markStages
-
--- A toasts setting changed: the stages repaint (now when shown, else when
--- they show); the toasts themselves follow in UI.Toasts.
-ns.On("SETTING_CHANGED", function(path)
-	if path ~= "" and path ~= "toasts" and path:sub(1, 7) ~= "toasts." then return end
-	if path:match("^toasts%.[^.]+%.point$") then return end
-	markStages()
-end)
-
 ---------------------------------------------------------------------------
 -- Previews
 ---------------------------------------------------------------------------
-
-local STAGE_H = 210
 
 local function classChime()
 	local CC = UI.ClassCard
@@ -74,6 +61,7 @@ local function demoHeadsUp()
 	local LT = UI.LevelTip
 	local m = { icon = Theme.Media("icon-dungeon"), iconColor = "dungeon", titleColor = "text" }
 	m.head = format(L["LEVEL %d · DUNGEON"], 18)
+	m.facts = format(L["Level %d · Dungeon"], 18)
 	m.title = format(L["%s is open to you"], L["The Deadmines"])
 	m.giver = format(L["%d quests to pick up"], 4) .. "  \194\183  " .. L["Westfall"]
 	if LT and LT.Text then m.badge = LT.Text(1.4):upper() end
@@ -128,26 +116,6 @@ local REFILL = {
 	headsup = function(c) local T = UI.ClassToast; if T and c.psModel then T.FillCard(c, c.psModel, 340) end end,
 }
 
--- A stage `height` tall (STAGE_H by default) until the window lays it out
--- for its hero. The settings window's preview stage (UI.Preview.Stage): the
--- toasts over the world they show in, the zone you stand in. Its caption:
--- how much it had to shrink them to fit, or why it is empty.
-local function newStage(view, height)
-	local s = UI.Preview.Stage(view, { height = height or STAGE_H, backdrop = "world" })
-	s.Paint = function(self) if self.Refresh then self:Refresh() end end
-	stages[s] = true
-	return s
-end
-
-function markStages()
-	for s in pairs(stages) do
-		if s:IsVisible() then s:Refresh() else s.psDirty = true end
-	end
-end
-
-TS.NewStage = newStage
-TS.STAGE_H = STAGE_H
-
 -- A sandbox toast of `kind` built into parent and painted, as the previews
 -- draw it (the Theme page's scene has two); nil when its module is not
 -- loaded. TS.Refill: its paint again after a change of type size.
@@ -157,18 +125,6 @@ function TS.Refill(kind, card)
 	if fill then fill(card) end
 end
 
--- A toast as one of stage s's surfaces (s:SideBySide): at its true size (its
--- Scale on the game's UI scale), its place its entrance's (Anim.Anchor).
-local function cardItem(s, kind, card, caption)
-	local k0 = TS.Scale(kind) * s:TrueScale()
-	return { w = card:GetWidth() * k0, h = card:GetHeight() * k0, foot = card, caption = caption,
-		place = function(k, left, top)
-			local g = k0 * k
-			card:SetScale(g)
-			Anim.Anchor(card, "TOPLEFT", s, "TOPLEFT", left / g, -top / g)
-		end }
-end
-
 -- What lights each toast with a setting's row: its whole card (scale,
 -- opacity, ground, border, when and how long it shows), its lines (type),
 -- Play (its sound, and the entrance Play runs again).
@@ -176,7 +132,8 @@ local CARD_KEYS = { "scale", "alpha", "bgAlpha", "bg", "borderSize", "border", "
 local OWN_KEYS = {
 	rare = { card = { "rares.alerts", "rares.toastSeconds", "rares.treasureAlerts", "rares.combatAlerts",
 		"toasts.stack", "toasts.growth", "toasts.spacing", "toasts.max" }, play = { "rares.soundKit", "rares.sound" } },
-	transport = { card = { "nav.alerts", "nav.alertBanner", "toasts.transport.linger" }, play = { "nav.alertSound", "nav.alertFlash" } },
+	transport = { card = { "nav.alerts", "nav.alertBanner", "toasts.transport.linger", "toasts.stack", "toasts.growth", "toasts.spacing" },
+		play = { "nav.alertSound", "nav.alertFlash" } },
 	headsup = { card = { "dungeons.headsUp", "toasts.headsup.seconds", "toasts.headsup.place", "toasts.headsup.compact", "ui.classCardSound" } },
 }
 
@@ -194,296 +151,177 @@ local function lightCard(s, kind, card, play)
 	end
 end
 
-local function emptyStage(s)
-	s.psNote = L["Not loaded"]
-	function s:Refresh() end
-	function s:Layout(width, height)
-		self:SetWidth(width)
-		self.psWidth, self.psHeight = width, height or self.psHeight
-		return self.psHeight
-	end
-	return s
-end
-
--- One toast kind's stage: its sandbox toast at its true size on a soft
--- shadow, Play (the entrance again, and the sound when it is on). The
--- single alerts stand in the world they come up in (SCENE): the card at the
--- top of the screen, where the game shows it; under it the arrow toward
--- what it is about; the guide window at the screen's right, cropped at the
--- hero's foot; the rare it names, in the world (UI.Preview.Mob). A page too
--- narrow or too low for a part leaves it out.
-local HEIGHT = { rare = 190, transport = 150, headsup = 210 }
-local PLAY_ROOM = 40 -- Play's line at the stage's foot
-local SCENE = {
-	rare = { guide = true, arrow = { 1.35, 85, L["Thuros Lightfingers"] }, left = L["Thuros Lightfingers"] },
-	transport = { guide = true, arrow = { 0.3, 240, L["Menethil Harbor"] } },
-}
--- The room either side of the guide window's box for its shadow, the gaps
--- between the parts.
-local SHADOW_ROOM, GAP, ARROW_GAP = 40, 36, 12
-
--- The scene's parts on stage s: the guide window, the arrow, the mobs.
-local function buildWorld(s, kind)
-	local sc, P = SCENE[kind], UI.Preview
-	local w = { sc = sc }
-	local lv = ns.Levels and ns.Levels.Player and ns.Levels.Player() or {}
-	lv = max(1, lv.level or 18)
-	if sc.guide and UI.GuideWindowScene then w.G = UI.GuideWindowScene(s) end
-	local A = ns.Nav and ns.Nav.arrow
-	if sc.arrow and A and A.BuildDial then
-		local holder = CreateFrame("Frame", nil, s)
-		holder:SetSize(A.WIDTH, A.HEIGHT)
-		w.A, w.arrow = A, { holder = holder, dial = A.BuildDial(holder), look = {} }
-		s.psWatch = { "nav.arrow" }
-	end
-	if sc.left then
-		w.left = P.Mob(s, { name = sc.left, level = lv, health = 1, ring = { Theme.Color("rare") } })
-		s:Light("rares.alerts", w.left)
-	end
-	return w
-end
-
--- The scene laid out across stage s (its psWidth x psHeight): the card at
--- the top of the room left of the guide window's edge, at its true size
--- (smaller only where it would not fit, and the caption says so).
-local function layWorld(s, kind, card, w)
-	local width, height, t, snap = s.psWidth, s.psHeight, s:TrueScale(), UI.Preview.Snap
-	local top, bottom, pad = UI.Preview.CHROME + 6, PLAY_ROOM, 28
-	local k0 = TS.Scale(kind) * t
-	local cw, ch = card:GetWidth() * k0, card:GetHeight() * k0
-	-- The guide window at the right, at its true size, while the room left
-	-- of it holds the card.
-	local G, winW = w.G, 0
-	if G then
-		G:Layout(340 * t + 2 * SHADOW_ROOM, height)
-		winW = G.Window:GetWidth() * (tonumber(ns.Get("ui.scale")) or 1) * t
-		if width - 2 * pad - winW - GAP < cw then winW = 0 end
-		G:SetShown(winW > 0)
-	end
-	local roomR = width - pad - (winW > 0 and winW + GAP or 0)
-	-- A mob at the left, while the room beside the card holds it.
-	local mobW = w.left and 2 * w.left.HALF * t or 0
-	if w.left and roomR - pad - mobW - GAP < cw then mobW = 0 end
-	if w.left then w.left:SetShown(mobW > 0) end
-	local roomL = pad + (mobW > 0 and mobW + GAP or 0)
-	local k = min(1, (roomR - roomL) / max(1, cw), (height - top - bottom) / max(1, ch))
-	local g = k0 * k
-	local cx = (roomL + roomR) / 2
-	card:SetScale(g)
-	Anim.Anchor(card, "TOPLEFT", s, "TOPLEFT", snap(card, (cx - cw * k / 2) / g), snap(card, -top / g))
-	s:Floor(card)
-	s.psNote = k < 0.995 and format(L["Shown at %d%% to fit"], floor(k * 100 + 0.5)) or ""
-	local below = top + ch * k + ARROW_GAP
-	-- The arrow under the card, at its true size while the room holds it.
-	local ar, A = w.arrow, w.A
-	if ar then
-		local ak = t * min(1, (height - bottom - below) / A.HEIGHT)
-		ar.holder:SetShown(ak >= t * 0.6)
-		if ak >= t * 0.6 then
-			local a = w.sc.arrow
-			A.ReadLook(ar.look)
-			A.PaintDial(ar.dial, ar.look, A.StyleFor(ns.Get("nav.arrowStyle")), "travel", a[1], a[2], a[3], 40)
-			ar.holder:SetScale(ak)
-			ar.holder:ClearAllPoints()
-			ar.holder:SetPoint("TOP", s, "TOPLEFT", snap(ar.holder, cx / ak), snap(ar.holder, -below / ak))
-			s:Floor(ar.holder, -floor(max(0, A.WIDTH * ak - 150) / 2))
-		end
-	end
-	-- The rare in the world at the left, level with the arrow's middle (it
-	-- points there).
-	if w.left and mobW > 0 then
-		w.left:Tint(Theme.Color("rare"))
-		w.left:Stand(pad + mobW / 2, min(height - bottom - 4, below + (w.left.UP + 10) * t), t)
-	end
-	if G and winW > 0 then
-		local gtop = top + 18
-		G:ClearAllPoints()
-		G:SetPoint("TOPLEFT", s, "TOPLEFT", snap(s, width - pad - winW - SHADOW_ROOM), -snap(s, gtop))
-		G:SetSize(winW + 2 * SHADOW_ROOM, max(1, height - gtop))
-		G:Layout(winW + 2 * SHADOW_ROOM, max(1, height - gtop))
-	end
-end
-
-local function toastStage(view, kind)
-	local s = newStage(view, HEIGHT[kind])
-	local card = BUILD[kind](s)
-	s.Card = card
-	if not card then return emptyStage(s) end
+-- A toast as a part of band f: its sandbox card (nil: its module is not
+-- loaded), lit and clickable; part.size() -> its size in band units at its
+-- real size (its Scale on the game's UI scale; the heads-up card's on the
+-- guide window's scale too, as it sits on the window); part.place(left,
+-- top, k), its place its entrance's (Anim.Anchor). part.hots: its hotspots.
+local function toastPart(f, kind, play)
+	local card = BUILD[kind] and BUILD[kind](f)
+	if not card then return nil end
 	card:Show()
-	card:SetAlpha(TS.Alpha(kind))
-	local world = SCENE[kind] and buildWorld(s, kind)
-	s.World = world
-	-- The card finds its look's rows; its title and other lines their sizes.
 	local t, k = card.psToast, "toasts." .. kind .. "."
-	s:Hot(card, k .. "scale")
-	s:Hot(t.titles[1], k .. "titleSize")
-	s:Hot(t.bodies[1], k .. "bodySize")
-	function s:Refresh()
-		local fill = REFILL[kind]
+	local part = { card = card, kind = kind }
+	part.hots = { f:Hot(card, k .. "scale"), f:Hot(t.titles[1], k .. "titleSize"), f:Hot(t.bodies[1], k .. "bodySize") }
+	lightCard(f, kind, card, play)
+	local k0 = 1
+	function part.size()
 		TS.ApplyLook(card, true)
-		if fill then fill(card) end
-		if world then
-			layWorld(self, kind, card, world)
-		else
-			self:SideBySide({ cardItem(self, kind, card) }, { bottom = PLAY_ROOM })
-		end
+		TS.Refill(kind, card)
 		if not Anim.IsRunning(card, "alpha") then card:SetAlpha(TS.Alpha(kind)) end
+		k0 = TS.Scale(kind) * f:TrueScale()
+		if kind == "headsup" then k0 = k0 * (tonumber(ns.Get("ui.scale")) or 1) end
+		return card:GetWidth() * k0, card:GetHeight() * k0
 	end
-	s.Play = W.Button(s, L["Play"], function()
-		TS.Enter(kind, card, kind == "headsup" and card:GetHeight() or 18, kind == "transport" and Anim.FAST or Anim.SLOW * 1.5)
-		local play = SOUNDS[kind]
-		if play then play() end
-	end, { height = 22 })
-	-- Bottom left in a scene (the guide window takes the right).
-	if world then
-		s.Play:SetPoint("BOTTOMLEFT", s, "BOTTOMLEFT", 12, 10)
-	else
-		s.Play:SetPoint("BOTTOMRIGHT", s, "BOTTOMRIGHT", -12, 10)
+	function part.place(left, top, k)
+		local g = k0 * k
+		card.psBandScale = g
+		card:SetScale(g)
+		Anim.Anchor(card, "TOPLEFT", f, "TOPLEFT", UI.Preview.Snap(card, left / g), UI.Preview.Snap(card, -top / g))
 	end
-	s.Play:SetFrameLevel(s:GetFrameLevel() + 30)
-	lightCard(s, kind, card, s.Play)
-	function s:Layout(width, height)
-		self:SetWidth(width)
-		self.psWidth, self.psHeight = width, height or HEIGHT[kind]
-		self:Refresh()
-		return self.psHeight
+	function part.show(on)
+		card:SetShown(on)
+		for _, h in pairs(part.hots) do h:SetShown(on) end
 	end
-	return s
+	return part
 end
 
--- The class quest card on a guide window's ground, as the guide window
--- draws it, at the window's scale.
+-- The class quest card as a part of band f: on its guide-window ground, as
+-- the guide window draws it, at the window's scale (its ground and opacity
+-- are the window's).
 local CARD_W = 360
-local function classCardStage(view)
-	local s = newStage(view)
+local function classPart(f, play)
 	local CC = UI.ClassCard
-	if not (CC and CC.NewCard) then return emptyStage(s) end
-	local ground = CreateFrame("Frame", nil, s)
+	if not (CC and CC.NewCard) then return nil end
+	local ground = CreateFrame("Frame", nil, f)
 	ground.psGuide = true
 	Theme.Skin(ground, "window")
 	local card = CC.NewCard(ground)
-	s.Card, s.Ground = card, ground
+	local part = { card = card, ground = ground, kind = "classcard" }
 	local demo = demoClassCard()
 	-- Its type sizes, as the guide window's card has them.
 	TS.Attach("classcard", card, { titles = { card.Title }, bodies = { card.Head, card.Learn, card.Trip, card.Only }, inline = true, sandbox = true })
-	s:Hot(card.Glow, "toasts.classcard.glow")
-	s:Hot(card.Stripe, "toasts.classcard.stripe")
-	s:Hot(card.Title, "toasts.classcard.titleSize")
-	s:Hot(card.Trip, "toasts.classcard.bodySize")
-	function s:Refresh()
+	part.hots = { f:Hot(card.Glow, "toasts.classcard.glow"), f:Hot(card.Stripe, "toasts.classcard.stripe"),
+		f:Hot(card.Title, "toasts.classcard.titleSize"), f:Hot(card.Trip, "toasts.classcard.bodySize") }
+	f:Light("toasts.classcard.glow", card)
+	f:Light("toasts.classcard.stripe", card.Stripe)
+	f:Light("toasts.classcard.titleSize", card.Title)
+	f:Light("toasts.classcard.bodySize", card.Head, card.Learn, card.Trip, card.Only)
+	f:Light("toasts.classcard.shine", card, play)
+	f:Light("toasts.classcard.note", card.Only)
+	f:Light("ui.classCardSound", play or card)
+	local k0, h = 1, 0
+	function part.size()
 		TS.ApplyLook(card)
-		local h = CC.FillDemo(card, demo, CARD_W)
+		h = CC.FillDemo(card, demo, CARD_W)
 		ground:SetSize(CARD_W, h)
-		local k0 = (tonumber(ns.Get("ui.scale")) or 1) * self:TrueScale()
-		self:SideBySide({ { w = CARD_W * k0, h = h * k0, foot = ground,
-			place = function(k, left, top)
-				local g = k0 * k
-				ground:SetScale(g)
-				ground:ClearAllPoints()
-				ground:SetPoint("TOPLEFT", self, "TOPLEFT", left / g, -top / g)
-			end } }, { bottom = PLAY_ROOM })
+		k0 = (tonumber(ns.Get("ui.scale")) or 1) * f:TrueScale()
+		return CARD_W * k0, h * k0
 	end
-	s.Play = W.Button(s, L["Play"], function()
-		if CC.Shine then CC.Shine(card) end
-		classChime()
-	end, { height = 22 })
-	s.Play:SetPoint("BOTTOMRIGHT", s, "BOTTOMRIGHT", -12, 10)
-	s:Light("toasts.classcard.glow", card)
-	s:Light("toasts.classcard.stripe", card.Stripe)
-	s:Light("toasts.classcard.titleSize", card.Title)
-	s:Light("toasts.classcard.bodySize", card.Head, card.Learn, card.Trip, card.Only)
-	s:Light("toasts.classcard.shine", card, s.Play)
-	s:Light("toasts.classcard.note", card.Only)
-	s:Light("ui.classCardSound", s.Play)
-	function s:Layout(width, height)
-		self:SetWidth(width)
-		self.psWidth, self.psHeight = width, height or STAGE_H
-		self:Refresh()
-		return self.psHeight
+	function part.place(left, top, k)
+		local g = k0 * k
+		ground:SetScale(g)
+		ground:ClearAllPoints()
+		ground:SetPoint("TOPLEFT", f, "TOPLEFT", UI.Preview.Snap(ground, left / g), UI.Preview.Snap(ground, -top / g))
 	end
-	return s
+	function part.show(on)
+		ground:SetShown(on)
+		for _, b in pairs(part.hots) do b:SetShown(on) end
+	end
+	return part
 end
 
--- Essentials: every alert and card with a look of its own side by side, each
--- with its name, the rare alert and the transport banner in one column while
--- alerts line up (toasts.stack: its growth and spacing).
-local KINDS = { "rare", "transport", "headsup" }
-local NAMES = { rare = L["Rare alert"], transport = L["Transport alert"], headsup = L["Heads-up card"] }
+-- The settings a toast's band repaints on.
+local WATCH = { "toasts", "rares.", "nav.alert", "dungeons.headsUp", "ui." }
+
+-- A single alert's tab: its toast alone, and Play (the entrance again, and
+-- its sound while that is on; the class card's shine and chime).
+local function singleBand(view, kind)
+	local part
+	local f = UI.Preview.Band(view, { watch = WATCH, play = function()
+		if not part then return end
+		if kind == "classcard" then
+			local CC = UI.ClassCard
+			if CC and CC.Shine then CC.Shine(part.card) end
+			classChime()
+			return
+		end
+		local card = part.card
+		TS.Enter(kind, card, kind == "headsup" and card:GetHeight() or 18, kind == "transport" and Anim.FAST or Anim.SLOW * 1.5)
+		local sound = SOUNDS[kind]
+		if sound then sound() end
+	end })
+	if kind == "classcard" then part = classPart(f, f.Play) else part = toastPart(f, kind, f.Play) end
+	f.Card, f.Ground2 = part and part.card, part and part.ground
+	if not part then return f end
+	function f:Content()
+		local w, h = part.size()
+		return w, h, part.place
+	end
+	return f
+end
+
+-- Essentials: the alert its dropdown picks, alone; with Line up alerts on,
+-- the rare alert and the transport banner in their line (one under the
+-- other, the line's spacing apart, growing as set).
+local PICKS = {
+	{ value = "rare", label = L["Rare alert"] }, { value = "transport", label = L["Transport alert"] },
+	{ value = "headsup", label = L["Heads-up card"] }, { value = "classcard", label = L["Class quest card"] },
+}
 local LINED = { rare = true, transport = true }
 
-local function allStage(view)
-	local s = newStage(view)
-	local cards, caps = {}, {}
-	for _, kind in ipairs(KINDS) do
-		local card = BUILD[kind](s)
-		if card then
-			card:Show()
-			cards[kind] = card
-			caps[kind] = W.Text(s, "small", "textMuted")
-			caps[kind]:SetJustifyH("CENTER")
-			caps[kind]:SetText(NAMES[kind])
-			lightCard(s, kind, card)
+local function essentialsBand(view)
+	local parts, choices, pick = {}, {}, nil
+	local f = UI.Preview.Band(view, { watch = WATCH, picker = {
+		choices = choices, get = function() return pick end, set = function(v) pick = v end } })
+	for _, c in ipairs(PICKS) do
+		local part = c.value == "classcard" and classPart(f) or toastPart(f, c.value)
+		if part then
+			parts[c.value] = part
+			choices[#choices + 1] = c
 		end
 	end
-	s.Cards = {}
-	for _, kind in ipairs(KINDS) do s.Cards[#s.Cards + 1] = cards[kind] end
-	s.Lined = W.Text(s, "small", "textMuted")
-	s.Lined:SetJustifyH("CENTER")
-	s.Lined:SetText(L["Line up alerts"])
-	function s:Refresh()
-		local items, column = {}, {}
-		local lined = stackOn()
-		for _, kind in ipairs(KINDS) do
-			local card = cards[kind]
-			if card then
-				local fill = REFILL[kind]
-				TS.ApplyLook(card, true)
-				if fill then fill(card) end
-				card:SetAlpha(TS.Alpha(kind))
-				caps[kind]:SetShown(not (lined and LINED[kind]))
-				local it = cardItem(self, kind, card, caps[kind])
-				if lined and LINED[kind] then column[#column + 1] = it else items[#items + 1] = it end
+	pick = choices[1] and choices[1].value
+	f.Parts = parts
+	f.Pick = function(v)
+		if v ~= nil then pick = v end
+		return pick
+	end
+	if not pick then return f end
+	function f:Content()
+		local list = { parts[pick] }
+		if LINED[pick] and stackOn() then
+			-- The line, as it stands on screen: newest at the top growing
+			-- down, at the bottom growing up.
+			list = {}
+			for _, kind in ipairs({ "rare", "transport" }) do list[#list + 1] = parts[kind] end
+			if ns.Get("toasts.growth") == "up" and #list == 2 then list[1], list[2] = list[2], list[1] end
+		end
+		local shown = {}
+		for _, p in ipairs(list) do shown[p] = true end
+		for _, p in pairs(parts) do p.show(shown[p] and true or false) end
+		local gap = tonumber(ns.Get("toasts.spacing")) or 8
+		local sizes, w, h = {}, 0, 0
+		for i, p in ipairs(list) do
+			local pw, ph = p.size()
+			sizes[i] = { pw, ph }
+			w, h = max(w, pw), h + ph + (i > 1 and gap or 0)
+		end
+		return w, h, function(left, top, k)
+			local y = top
+			for i, p in ipairs(list) do
+				p.place(left + (w - sizes[i][1]) * k / 2, y, k)
+				y = y + (sizes[i][2] + gap) * k
 			end
 		end
-		if #column > 0 then
-			-- One column, newest at the top or the bottom as they grow, the
-			-- line's own spacing between them; its shadow under the lowest.
-			local gap = tonumber(ns.Get("toasts.spacing")) or 8
-			if ns.Get("toasts.growth") == "up" then
-				local rev = {}
-				for i = #column, 1, -1 do rev[#rev + 1] = column[i] end
-				column = rev
-			end
-			local w, h = 0, 0
-			for i, it in ipairs(column) do
-				w, h = max(w, it.w), h + it.h + (i > 1 and gap or 0)
-			end
-			table.insert(items, 1, { w = w, h = h, foot = column[#column].foot, caption = self.Lined,
-				place = function(k, left, top)
-					local y = top
-					for _, it in ipairs(column) do
-						it.place(k, left + (w - it.w) * k / 2, y)
-						y = y + (it.h + gap) * k
-					end
-				end })
-		end
-		self.Lined:SetShown(#column > 0)
-		self:SideBySide(items, { gap = 32 })
 	end
-	function s:Layout(width, height)
-		self:SetWidth(width)
-		self.psWidth, self.psHeight = width, height or STAGE_H
-		self:Refresh()
-		return self.psHeight
-	end
-	return s
+	return f
 end
 
 -- tab: "rare" | "transport" | "headsup" | "classcard" | "all"
 function TS.Preview(view, tab)
-	if tab == "classcard" then return classCardStage(view) end
-	if tab == "all" then return allStage(view) end
-	return toastStage(view, tab)
+	if tab == "all" then return essentialsBand(view) end
+	return singleBand(view, tab)
 end
 
 ---------------------------------------------------------------------------
@@ -560,13 +398,14 @@ local function cardSection(tab, kind, what, opts)
 		search = "animation speed, slow, fast, quick, motion, " .. what,
 		disabled = function() return TS.Get(kind, "enter") == "none" end }
 	for _, c in ipairs(opts.tail or {}) do card[#card + 1] = c end
-	register({ tab = tab, section = L["Card"], preview = opts.preview, controls = card })
+	register({ tab = tab, section = L["Card"], preview = opts.preview, controls = card, move = opts.move })
 end
 
 local function raresOff() return not (ns.Get("rares.enabled") and ns.Get("rares.alerts")) end
+-- Each sound with its speaker in the list: heard there without picking it.
 local function rareSounds()
 	local out = {}
-	for i, s in ipairs(ns.Rares and ns.Rares.SOUNDS or {}) do out[i] = { value = s.value, label = s.label } end
+	for i, s in ipairs(ns.Rares and ns.Rares.SOUNDS or {}) do out[i] = { value = s.value, label = s.label, preview = ns.Rares.PlaySoundOf } end
 	return out
 end
 local function rares() return ns.Rares end
@@ -622,7 +461,7 @@ cardSection(RARE, "rare", L["rare alert"], { tail = {
 		help = L["Move the alerts (or their line) on the screen in unlock mode, as /polestar unlock does."],
 		search = "move, position, place, drag, unlock, anchor, alerts",
 		needs = function() return ns.Movers and ns.Movers.Unlock end,
-		onClick = function() ns.Movers.Unlock() end },
+		onClick = function() UI.Options.MoveFrame("rareAlert") end },
 } })
 
 -- Transport alert
@@ -646,7 +485,7 @@ register({ tab = TRANSPORT, section = L["Transport alert"], preview = function(v
 			search = "flash, taskbar, background, alt tab",
 			help = L["The game's icon flashes while the game is in the background."] },
 	} })
-cardSection(TRANSPORT, "transport", L["transport banner"])
+cardSection(TRANSPORT, "transport", L["transport banner"], { move = "transportAlert" })
 
 -- Heads-up card
 local HEADS = L["Heads-up card"]
@@ -672,7 +511,7 @@ cardSection(HEADS, "headsup", L["heads-up card"], { scaleNote = " " .. L["It sit
 		search = "move, position, drag, unlock, own spot, heads up, card",
 		disabled = function() return TS.Get("headsup", "place") ~= "free" end,
 		needs = function() return ns.Movers and ns.Movers.Unlock end,
-		onClick = function() ns.Movers.Unlock("headsUp") end },
+		onClick = function() UI.Options.MoveFrame("headsUp") end },
 } })
 
 -- Class quest card (in the guide window: its scale, ground and opacity are the window's)

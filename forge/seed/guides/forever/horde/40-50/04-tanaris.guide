@@ -4,6 +4,7 @@ faction Horde
 levels 45-48
 zone Tanaris
 next forever/horde/40-50/05-the-hinterlands
+pitch Gadgetzan and the Searing Gorge at 46-48: the Wastewander camps, Tooga's escort and Thorium Point.
 # Route from the Polestar route simulator's Horde consensus (Tauren export),
 # visits 44-48, levels 45.9-47.6. Checked by lint, not play-tested on
 # Forever yet. Era + known Forever quests only.

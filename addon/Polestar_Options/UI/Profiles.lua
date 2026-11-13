@@ -44,6 +44,9 @@ PV.views = views
 local selected
 -- The name editor in the selected profile's section: { mode = "new" | "copy" | "rename", subject = name }, or nil.
 local editor, editorError
+-- The selected profile's key being set: what the capture says (a key taken
+-- by something else), shown under its actions.
+local keyNote
 -- Share: the profile a string is made of (nil: the one in use), which parts
 -- go in, the string made (and of which profile), or why none was.
 local shareFrom
@@ -208,6 +211,58 @@ function PV.CommitEdit(name)
 end
 
 -- Delete: its button's second click (W.Confirm).
+-- A key's name as the game's key bindings write it ("Ctrl-F5"), nil for none.
+local function keyName(key)
+	local G = ns.Gamepad
+	if not key then return nil end
+	return G and G.KeyName and G.KeyName(key) or key
+end
+PV.KeyName = keyName
+
+-- Why `key` cannot be the profile's, or nil: a chord, or a key the game or
+-- another addon binds (another profile's moves here).
+local function keyRefusal(key)
+	local G = ns.Gamepad
+	if G and G.IsChord and G.IsChord(key) then return L["One key or button, not two."] end
+	-- The game's gamepad setup keeps the gamepad's buttons to itself.
+	if G and G.IsPadKey and G.IsPadKey(key) and ns.GamepadUI and ns.GamepadUI() then
+		return L["The game's gamepad setup holds the gamepad's buttons: press a keyboard key."]
+	end
+	local action = GetBindingAction and GetBindingAction(key, true) or ""
+	if type(action) == "string" and action ~= "" and not action:find("^CLICK PolestarProfileKey") then
+		local who = G and G.WhoUses and G.WhoUses(nil, key)
+		local by = who and who.name or action
+		return (L["%s is taken (%s): press another key, or Escape."]):format(keyName(key), by)
+	end
+	return nil
+end
+
+-- Set the profile's key: the next key (or gamepad button) pressed, Escape
+-- cancelling (the shared capture, UI/Gamepad.lua). -> started
+function PV.CaptureKey(name)
+	local G = ns.Gamepad
+	local P = Profiles()
+	if not (G and G.Capture and P.SetKey and P.Exists(name)) then return false end
+	keyNote = nil
+	local ok = G.Capture({
+		refuse = keyRefusal,
+		say = function(text)
+			keyNote = text
+			relayout()
+		end,
+		done = function(key)
+			PV.capturing, keyNote = nil, nil
+			if key then P.SetKey(name, key) end
+			relayout()
+		end,
+	})
+	if ok then
+		PV.capturing = name
+		relayout()
+	end
+	return ok
+end
+
 function PV.Delete(name)
 	local ok, why = Profiles().Delete(name or current())
 	if ok then selected = nil end
@@ -742,6 +797,21 @@ local function buildProfiles(v)
 	v.Copy.psTip = L["Make a new profile from this one and use it."]
 	v.Rename = W.Button(v, L["Rename"], function() PV.Edit("rename", current()) end, { height = 24 })
 	v.Rename.psTip = L["Give this profile another name."]
+	-- Its key: a click, then the key (or gamepad button) that switches to it;
+	-- right-click takes the key away.
+	v.Key = W.Button(v, "", function(self, button)
+		local name = current()
+		if button == "RightButton" then
+			Profiles().SetKey(name, nil)
+		elseif PV.capturing then
+			ns.Gamepad.StopCapture(nil)
+		else
+			PV.CaptureKey(name)
+		end
+	end, { height = 24 })
+	v.Key:RegisterForClicks("LeftButtonUp", "RightButtonUp")
+	v.Key.psTip = L["Its key"]
+	v.Key.psTipLines = { L["Click, then press the key (or gamepad button) that switches to this profile; right-click takes it away. It works out of combat."] }
 	v.Delete = W.Button(v, L["Delete"], nil, { danger = true, height = 24 })
 	v.Delete.psTip = L["Delete this profile (asks first)."]
 	v.Delete.psSetText = function(self, label)
@@ -943,6 +1013,9 @@ local function placeActions(v, P, name, x, y, width)
 	v.Use:SetShown(not active)
 	v.Copy:Show()
 	v.Rename:SetShown(not fixed)
+	local key = P.Key and P.Key(name)
+	W.SetButtonText(v.Key, PV.capturing == name and L["Press a key..."] or key and (L["Key: %s"]):format(keyName(key)) or L["Set a key"])
+	v.Key:SetShown(P.SetKey ~= nil)
 	v.Delete:SetShown(not fixed and not active)
 	-- A Delete armed for another profile is not this one's.
 	if v.psActionsFor ~= name then
@@ -951,7 +1024,7 @@ local function placeActions(v, P, name, x, y, width)
 		W.SetButtonText(v.Delete, L["Delete"])
 	end
 	local left = x + PAD
-	for _, b in ipairs({ v.Use, v.Copy, v.Rename }) do
+	for _, b in ipairs({ v.Use, v.Copy, v.Rename, v.Key }) do
 		if b:IsShown() then
 			b:ClearAllPoints()
 			b:SetPoint("LEFT", v, "TOPLEFT", left, -(y + ROW / 2))
@@ -1029,11 +1102,11 @@ local function layoutSelected(v, P, x, y, width)
 		v.Changed.Value:SetText(n > 0 and tostring(n) or L["None"])
 		y = halves(v, card.Split, { v.UsedBy, v.Changed }, x, y, width)
 	end
-	for _, b in ipairs({ v.Use, v.Copy, v.Rename, v.Delete }) do b:SetShown(not editing) end
+	for _, b in ipairs({ v.Use, v.Copy, v.Rename, v.Key, v.Delete }) do b:SetShown(not editing) end
 	for _, r in ipairs({ v.NameLabel, v.NameBox, v.NameOK, v.NameCancel }) do r:SetShown(editing) end
 	if editing then placeEditor(v, P, x, y, width) else placeActions(v, P, name, x, y, width) end
 	y = y + ROW
-	y = line(v, v.NameError, editorError, width, x, y)
+	y = line(v, v.NameError, editorError or keyNote, width, x, y)
 	return closeCard(card, x, y, width)
 end
 

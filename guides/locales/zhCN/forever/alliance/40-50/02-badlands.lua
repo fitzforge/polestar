@@ -34,7 +34,7 @@ return {
 
 	-- Step 8: Ironband's Excavation Site
 	-- {zone:1432} Loch Modan
-	["Ride north through the pass into {zone:1432} and east along the south shore to Ironband's camp."] = "",
+	["Ride north through the pass into {zone:1432} and east along the south shore to Ironband's camp."] = "向北骑过山口进入{zone:1432}，再沿南岸向东前往铁环的营地。",
 
 	-- Step 9: Into Badlands
 	-- {zone:1418} Badlands
@@ -46,7 +46,7 @@ return {
 
 	-- Step 11: The Uldaman dig
 	-- {area:1517} Uldaman · {zone:1418} Badlands
-	["Back through the pass: the Stonevault troggs dig outside {area:1517} at the {zone:1418}' northern edge. The carved urns and the magenta mushroom clusters sit in their caves and tunnels, outside the dungeon itself."] = "",
+	["Back through the pass: the Stonevault troggs dig outside {area:1517} at the {zone:1418}' northern edge. The carved urns and the magenta mushroom clusters sit in their caves and tunnels, outside the dungeon itself."] = "穿过山口返回：石窟穴居人在{zone:1418}北部边缘、{area:1517}外挖掘。雕花陶罐和洋红色蘑菇簇都在他们的洞穴与隧道中，无需进入副本。",
 	-- {item:8047} Magenta Fungus Cap
 	["{item:8047}; below ground"] = "{item:8047}：在地下",
 	-- {object:2743} Carved Stone Urn
@@ -61,7 +61,7 @@ return {
 
 	-- Step 14: Thelsamar
 	-- {area:144} Thelsamar
-	["Ride west along the loch to {area:144}."] = "",
+	["Ride west along the loch to {area:144}."] = "沿湖向西骑乘，前往{area:144}。",
 	-- {npc:1470} Ghak Healtouch
 	["{npc:1470}, below ground"] = "{npc:1470}：在地下",
 

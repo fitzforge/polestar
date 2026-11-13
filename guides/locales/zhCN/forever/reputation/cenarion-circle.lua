@@ -184,7 +184,7 @@ return {
 	-- Step 28: Quests elsewhere
 	["Quests elsewhere"] = "其他地方的任务",
 	-- {faction:609} Cenarion Circle · {zone:1414} Kalimdor · {npc:10739} Mulgris Deepriver · {zone:1422} Western Plaguelands · {area:2100} Maraudon · {quest:1123} Rabine Saturna · {item:18501} Felvine Shard · {area:2577} Dire Maul
-	["The {faction:609}'s other quests are spread over {zone:1414} and the Plaguelands. Forever pays them in full at any level: The Wildlife Suffers Too ({npc:10739}, {zone:1422}, levels 54 and 56) 75 and 75, Corruption of Earth and Seed ({area:2100}, level 51) 150. Shards of the Felvine ({quest:1123}, level 60, the {item:18501} from Alzzin in {area:2577}) pays 150 and its Reliquary 100 at any level."] = "",
+	["The {faction:609}'s other quests are spread over {zone:1414} and the Plaguelands. Forever pays them in full at any level: The Wildlife Suffers Too ({npc:10739}, {zone:1422}, levels 54 and 56) 75 and 75, Corruption of Earth and Seed ({area:2100}, level 51) 150. Shards of the Felvine ({quest:1123}, level 60, the {item:18501} from Alzzin in {area:2577}) pays 150 and its Reliquary 100 at any level."] = "{faction:609}的其他任务分布在{zone:1414}和瘟疫之地。无限在任何等级都提供全额奖励：“大自然的苦楚”（{npc:10739}，{zone:1422}，54和56级）分别奖励75和75点声望，“大地的污染”（{area:2100}，51级）奖励150点。“魔藤碎片”（{quest:1123}，60级，在{area:2577}从奥兹恩处取得{item:18501}）在任何等级都奖励150点声望，相关的“净化之匣”任务奖励100点。",
 	-- {zone:1422} Western Plaguelands · {area:2100} Maraudon
 	["Do the {zone:1422} and {area:2100} quests while you level; at 60 they may pay a fraction."] = "升级时就完成 {zone:1422} 和 {area:2100} 的任务；到了 60 级，声望奖励可能只剩一小部分。",
 

@@ -93,7 +93,7 @@ fn a_camp_with_no_progress_for_the_dwell_hands_the_arrow_to_the_nearest_camp_not
 	assert_eq!(out, json!({ "start": 40, "at5": 40, "dwelt": 60, "atB": 15, "atC": 40 }));
 }
 
-// A camp being cleared keeps the arrow (ArrowGuard's replay: with the dwell alone, the drink or the walk to the
+// A camp being cleared keeps the arrow (the arrow's replay of recorded sessions: with the dwell alone, the drink or the walk to the
 // next pull moved it off camps still worked): a kill there, or a fight up to 40 yd past its edge, holds it for
 // FORGET (300 s); after that the dwell moves on as before.
 #[test]
@@ -177,7 +177,7 @@ fn a_field_goal_left_after_the_dwell_gives_way_to_the_steps_nearest_other_field_
 	assert_eq!(out, json!({ "start": 1, "at5": 1, "dwelt": 2 }));
 }
 
-// ArrowGuard's replay: work is kept by where it happened, not by goal. Fighting on ground the next goal shares
+// The arrow's replay of recorded sessions: work is kept by where it happened, not by goal. Fighting on ground the next goal shares
 // (wolves done at 40, boars at 41) holds that goal too; moving on from an empty camp never picks a camp worked
 // lately behind the player.
 #[test]
@@ -209,7 +209,7 @@ fn ground_fought_on_holds_every_goal_there_and_moving_on_never_picks_a_camp_work
 	assert_eq!(behind, json!({ "atB": 60, "fromB": 15 }));
 }
 
-// ArrowGuard's grind sweep: running across a wide camp to its middle took the dwell's 7 s and the camp was left on
+// The arrow's grind sweep: running across a wide camp to its middle took the dwell's 7 s and the camp was left on
 // arrival; then the player fought there for ten minutes with the arrow on the next camp. Walking on restarts the
 // count (more than Spots.STILL yards), and a fight inside a camp left already brings the arrow back to it once
 // the fight has settled (never under a fight: Spots.busy).
@@ -236,7 +236,7 @@ fn walking_into_a_camp_never_counts_and_a_fight_at_a_left_camp_brings_the_arrow_
 	assert_eq!(out, json!({ "walked": 40, "stopped": 40, "dwelt": 60, "fight": 60, "back": 40 }));
 }
 
-// ArrowGuard's replay: the arrow changed under fights and right after kills (13.38 per 10 h against 11.69 before
+// The arrow's replay of recorded sessions: the arrow changed under fights and right after kills (13.38 per 10 h against 11.69 before
 // the dwell). The automatic picks hold while the player fights and Spots.SETTLE (5 s) after.
 #[test]
 fn the_arrow_never_changes_under_a_fight_or_in_the_five_seconds_after_it() {

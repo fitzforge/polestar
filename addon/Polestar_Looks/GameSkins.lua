@@ -868,21 +868,27 @@ local BIG = {
 
 -- Menus, popups and the other panels: the dropdown menu's ground (Menu
 -- Style1: common-dropdown-bg stretched 10 out, 92.5 %), the game's tooltip
--- in Classic (the panel colour on the tile under the rope border).
+-- in Classic (the panel colour on the tile under the rope border). A menu
+-- or popup over other frames (f.psMenu) lays that art, at the game's own
+-- strength, over a ground of Theme's menuBg, so it reads as the game's menu
+-- does over a dark scene and what it opens over never shows through.
 local function panel(f, kit)
 	if f.psBare then return P.bare(f) end
+	local menu = f.psMenu
 	if kit.source == "file" then
-		P.fill(f):Hide()
-		if embedded(f) then
+		if embedded(f) and not menu then
 			-- A card inside a window: the options panel's box.
+			P.fill(f):Hide()
 			tooltip(f, "tip", f, 0.1, 0.1, 0.1, 0.6, 0.4, 0.4, 0.4)
 		else
-			local r, g, b, a = Theme.Color("panel")
+			local r, g, b, a = Theme.Color(menu and "menuBg" or "panel")
+			-- The tile is 91 % opaque at best: the ground under it, inside the rope.
+			if menu then body(f, r, g, b, a, 4):Show() else P.fill(f):Hide() end
 			tooltip(f, "tip", f, r, g, b, a or 0.92)
 		end
 		return
 	end
-	P.fill(f):Hide()
+	if menu then body(f, Theme.Color("menuBg")):Show() else P.fill(f):Hide() end
 	-- Wide enough round the items for the art's own margins (MenuStyle1
 	-- insets its items 8 from the top and 15 from the bottom).
 	local p = sliced(f, "menuBg", kit, kit.menu, f, { 10, 8, 10, 15 }, "BACKGROUND", -7)
@@ -1054,10 +1060,14 @@ local function scrollbar(bar, kit)
 	local thumb = bar.thumb or bar.psThumb
 	bar:SetWidth(s.width)
 	bar.psInset = s.inset
+	-- The arrow buttons, centred on the bar, reach past its left edge when
+	-- wider than it (W.ScrollBarRoom: the strip the rows leave it).
+	local aw, ah = s.width == 8 and 17 or 16, s.width == 8 and 11 or 16
+	bar.psReach = max(0, (aw - s.width) / 2)
 	local sf = bar.psScroll
 	local function arrow(key, name, point, dir)
 		local b = child(bar, key, 1, "Button")
-		b:SetSize(s.width == 8 and 17 or 16, s.width == 8 and 11 or 16)
+		b:SetSize(aw, ah)
 		b:ClearAllPoints()
 		b:SetPoint(point, bar, point, 0, 0)
 		local t = tex(b, key .. "Art", "ARTWORK", 0)
@@ -1106,6 +1116,13 @@ local function scrollbar(bar, kit)
 	end
 end
 
+-- What the big windows' paint (BIG) puts round a frame: the metal and its
+-- title bar, drag strip and close button, Classic's dialog box and the crown
+-- with its header plate. The guide window's (GUIDE) hides it, so a frame
+-- painted as a big window before its psGuide or psLight was set keeps no
+-- title bar or drag strip over its neighbours (#1802).
+local BIG_KEYS = { "dialog", "dialogArt", "dialogTile", "frame", "metal", "crown", "streaks" }
+
 local function paints(name)
 	local kit = KITS[name]
 	return {
@@ -1117,7 +1134,12 @@ local function paints(name)
 			end
 			P.hideBorder(f)
 			if f.psShadow then f.psShadow:Hide() end
-			if f.psGuide or f.psLight then GUIDE[name](f, kit) else BIG[name](f, kit) end
+			if f.psGuide or f.psLight then
+				for _, key in ipairs(BIG_KEYS) do hideKey(f, key) end
+				GUIDE[name](f, kit)
+			else
+				BIG[name](f, kit)
+			end
 		end,
 		panel = function(f) panel(f, kit) end,
 		sidebar = function(f) inset(f, kit, kit.source == "file" and 6 or nil) end,
@@ -1243,9 +1265,13 @@ function Theme.KitCheck(owner, host, anchor, on)
 	return box
 end
 
+-- The steppers' widths and their gap to the track.
+local STEP_GAP, BACK_W, FORWARD_W = 4, 11, 9
+
 -- A slider's track, thumb and steppers (MinimalSliderWithSteppersTemplate:
 -- the back button 4 left of the track, the forward one 4 right of it; the
--- options slider in Classic). -> true when the kit drew them.
+-- options slider in Classic). -> true when the kit drew them, and the room
+-- each stepper takes beside the track (back, forward: none in Classic).
 function Theme.KitSlider(owner, s, thumb)
 	local kit = Theme.Kit()
 	for _, key in ipairs({ "trackHost", "trackTile", "trackEdge", "trackArt", "back", "forward" }) do hideKey(owner, key) end
@@ -1297,9 +1323,9 @@ function Theme.KitSlider(owner, s, thumb)
 			b.psWired = true
 		end
 	end
-	stepper("back", kit.slBack, 11, 19, "RIGHT", "LEFT", -4, -1)
-	stepper("forward", kit.slForward, 9, 18, "LEFT", "RIGHT", 4, 1)
-	return true
+	stepper("back", kit.slBack, BACK_W, 19, "RIGHT", "LEFT", -STEP_GAP, -1)
+	stepper("forward", kit.slForward, FORWARD_W, 18, "LEFT", "RIGHT", STEP_GAP, 1)
+	return true, STEP_GAP + BACK_W, STEP_GAP + FORWARD_W
 end
 
 -- A dropdown's arrow: Classic's arrow button; the atlas looks draw theirs
