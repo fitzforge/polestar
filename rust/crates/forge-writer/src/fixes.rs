@@ -1008,14 +1008,23 @@ mod tests {
 		let records: Value = serde_json::from_str(include_str!("../../../../data/guide-fixes.json")).unwrap();
 		let record = records["fixes"].as_array().unwrap().iter().find(|r| r["id"] == "2107-xabraxxis-demon-bag").unwrap();
 		let fixes = json!({ "fixes": [record] });
-		let (out, rows) = run(seed, json!({}), fixes.clone(), &[4763]);
+		let write = |text: &str, faction: &str| {
+			let mut tree = BTreeMap::from([("a.guide".to_string(), text.to_string())]);
+			let records = Records { guide_fixes: Some(&fixes), ..Records::default() };
+			let rows = apply(&mut tree, &["a.guide".into()], &HashSet::from([4763]), Some(faction), records, None);
+			(tree["a.guide"].clone(), rows)
+		};
+		let (out, rows) = write(seed, "Alliance");
 		assert_eq!(rows[0].state, "applied");
 		assert!(out.contains("  use 12347 quest 4763.1 @52.5,33.4\n"));
 		assert!(out.contains(&format!("  collect 12355 quest 4763 -- {}\n", record["goalNote"].as_str().unwrap())));
 		assert!(out.contains("  collect 12355 quest 999\n"));
-		let (again, rows) = run(&out, json!({}), fixes, &[4763]);
+		let (again, rows) = write(&out, "Alliance");
 		assert_eq!(again, out);
 		assert_eq!(rows[0].state, "redundant");
+		let (horde, rows) = write(seed, "Horde");
+		assert_eq!(horde, seed);
+		assert_eq!(rows[0].state, "not for this start");
 	}
 
 	#[test]
