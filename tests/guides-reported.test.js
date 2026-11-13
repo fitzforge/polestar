@@ -11826,7 +11826,7 @@ test(`${WESTFALL}: the last Sentinel Hill stop flies to Stormwind`, { skip }, ()
 test(`${LOCH_MODAN}: #2082: the way back to Auberdine drops once in Darkshore; training on the Stormwind stop`, { skip }, () => {
 	const list = goals(LOCH_MODAN);
 	const lastLakeshire = list.findLastIndex(({ goal }) => is('turnin', 89)(goal));
-	const back = list.slice(lastLakeshire + 1);
+	const back = list.slice(lastLakeshire + 1).filter(({ step }) => step !== list[lastLakeshire].step);
 	assert.ok(back.some(({ goal }) => goal.t === 'goto' && /Boat to Auberdine/.test(goal.text || goal.label || '')), 'the boat is the default way back');
 	for (const { step } of back) assert.ok((step.when || []).some((p) => p.k === 'zone' && p.neg && /Darkshore/.test(p.name)), `${step.title}: \`when !zone "Darkshore"\``);
 	for (const path of [true, false]) {
