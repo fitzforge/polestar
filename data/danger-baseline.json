@@ -12223,6 +12223,45 @@
 			"evidence": "route level 12.2; Halikor 12-12 x11; recordings (2026-11-11): done by 7 people at 10-12 (median 11), 3 people died within 60 yd (median level 11), 0 abandoned"
 		},
 		{
+			"key": "forever/horde/orc/01-durotar.guide|kill 96821.2|elite",
+			"guide": "forever/horde/orc/01-durotar.guide",
+			"goal": "kill 96821.2",
+			"kind": "elite",
+			"title": "Sen'jin Village",
+			"level": 5.8,
+			"mobs": [
+				"Ukorsbane 8-8"
+			],
+			"reason": "warned at the step: its tip names Ukorsbane",
+			"evidence": "route level 5.8; Ukorsbane 8-8; recordings (2026-11-13): done by 41 people (median 6), 1 death within 60 yd, 1 abandoned"
+		},
+		{
+			"key": "forever/horde/orc/01-durotar.guide|use item 7464|over",
+			"guide": "forever/horde/orc/01-durotar.guide",
+			"goal": "use item 7464",
+			"kind": "over",
+			"title": "The Binding",
+			"level": 12.3,
+			"mobs": [
+				"Summoned Incubus 20-20 x5"
+			],
+			"reason": "warned at the step: its tip names the voidwalker fight; the Summoned Incubus (20) are the Cleft of Shadow's bound demons, not a foe at the circle",
+			"evidence": "route level 12.3; Summoned Incubus 20-20 x5; recordings (2026-11-13): done by 0 people, 16 deaths within 60 yd, 0 abandoned"
+		},
+		{
+			"key": "forever/horde/orc/01-durotar.guide|kill 1504.1|over",
+			"guide": "forever/horde/orc/01-durotar.guide",
+			"goal": "kill 1504.1",
+			"kind": "over",
+			"title": "The Binding",
+			"level": 12.3,
+			"mobs": [
+				"Summoned Incubus 20-20 x5"
+			],
+			"reason": "warned at the step: its tip names the voidwalker fight; the Summoned Incubus (20) are the Cleft of Shadow's bound demons, not a foe at the circle",
+			"evidence": "route level 12.3; Summoned Incubus 20-20 x5; recordings (2026-11-13): done by 9 people (median 11), 16 deaths within 60 yd, 0 abandoned"
+		},
+		{
 			"key": "forever/horde/skyborne/01-zephras-isle.guide|kill 92461.1|over",
 			"guide": "forever/horde/skyborne/01-zephras-isle.guide",
 			"goal": "kill 92461.1",
@@ -12365,6 +12404,32 @@
 			],
 			"reason": "an elite within 40 yd with no recorded deaths at the spot",
 			"evidence": "route level 14.4; Duke Anvillaxx 13-13 x2; recordings (2026-11-11): no objective ticks, 0 people died within 60 yd, 0 abandoned"
+		},
+		{
+			"key": "forever/horde/skyborne/01-zephras-isle.guide|kill 92462.1|over",
+			"guide": "forever/horde/skyborne/01-zephras-isle.guide",
+			"goal": "kill 92462.1",
+			"kind": "over",
+			"title": "Thendal Grove: kill these as you meet them",
+			"level": 1.1,
+			"mobs": [
+				"Falorne Fallwind 5-5 x2"
+			],
+			"reason": "Falorne Fallwind and the Thendal Grove Rangers guard the start village; players do it at the route's level",
+			"evidence": "route level 1.1; Falorne Fallwind 5-5 x2; recordings (2026-11-13): done by 36 people (median 2), 1 death within 60 yd, 0 abandoned"
+		},
+		{
+			"key": "forever/horde/skyborne/01-zephras-isle.guide|complete 92646|over",
+			"guide": "forever/horde/skyborne/01-zephras-isle.guide",
+			"goal": "complete 92646",
+			"kind": "over",
+			"title": "Confront Lorthuna",
+			"level": 14.3,
+			"mobs": [
+				"Rohash 60-60 x2"
+			],
+			"reason": "Rohash (60) is the isle's scripted wind lord at the end of the quest: players see him, he does not fight them, and the world data has him immune to players",
+			"evidence": "route level 14.3; Rohash 60-60 x2; recordings (2026-11-13): done by 0 people, 0 deaths within 60 yd, 0 abandoned"
 		},
 		{
 			"key": "forever/horde/tauren/01-mulgore.guide|collect 761.1|mixed",
@@ -12603,6 +12668,58 @@
 			"evidence": "route level 12.2; Halikor 12-12 x11; recordings (2026-11-11): done by 7 people at 10-12 (median 11), 3 people died within 60 yd (median level 11), 0 abandoned"
 		},
 		{
+			"key": "forever/horde/troll/01-durotar.guide|kill 96821.2|elite",
+			"guide": "forever/horde/troll/01-durotar.guide",
+			"goal": "kill 96821.2",
+			"kind": "elite",
+			"title": "Sen'jin Village",
+			"level": 5.8,
+			"mobs": [
+				"Ukorsbane 8-8"
+			],
+			"reason": "warned at the step: its tip names Ukorsbane",
+			"evidence": "route level 5.8; Ukorsbane 8-8; recordings (2026-11-13): done by 41 people (median 6), 1 death within 60 yd, 1 abandoned"
+		},
+		{
+			"key": "forever/horde/troll/01-durotar.guide|kill 5648.1|elite",
+			"guide": "forever/horde/troll/01-durotar.guide",
+			"goal": "kill 5648.1",
+			"kind": "elite",
+			"title": "Grunt Kor'ja",
+			"level": 6.6,
+			"mobs": [
+				"Ukorsbane 8-8"
+			],
+			"reason": "warned on the way: the Sen'jin Village step's tip names Ukorsbane; Grunt Kor'ja kneels off the road north-east of the spiders' camp he walks",
+			"evidence": "route level 6.6; Ukorsbane 8-8; recordings (2026-11-13): done by 2 people (median 7), 0 deaths within 60 yd, 0 abandoned"
+		},
+		{
+			"key": "forever/horde/troll/01-durotar.guide|use item 7464|over",
+			"guide": "forever/horde/troll/01-durotar.guide",
+			"goal": "use item 7464",
+			"kind": "over",
+			"title": "The Binding",
+			"level": 12.3,
+			"mobs": [
+				"Summoned Incubus 20-20 x5"
+			],
+			"reason": "warned at the step: its tip names the voidwalker fight; the Summoned Incubus (20) are the Cleft of Shadow's bound demons, not a foe at the circle",
+			"evidence": "route level 12.3; Summoned Incubus 20-20 x5; recordings (2026-11-13): done by 0 people, 16 deaths within 60 yd, 0 abandoned"
+		},
+		{
+			"key": "forever/horde/troll/01-durotar.guide|kill 1504.1|over",
+			"guide": "forever/horde/troll/01-durotar.guide",
+			"goal": "kill 1504.1",
+			"kind": "over",
+			"title": "The Binding",
+			"level": 12.3,
+			"mobs": [
+				"Summoned Incubus 20-20 x5"
+			],
+			"reason": "warned at the step: its tip names the voidwalker fight; the Summoned Incubus (20) are the Cleft of Shadow's bound demons, not a foe at the circle",
+			"evidence": "route level 12.3; Summoned Incubus 20-20 x5; recordings (2026-11-13): done by 9 people (median 11), 16 deaths within 60 yd, 0 abandoned"
+		},
+		{
 			"key": "forever/horde/undead/01-tirisfal-glades.guide|collect 97558.3|rare",
 			"guide": "forever/horde/undead/01-tirisfal-glades.guide",
 			"goal": "collect 97558.3",
@@ -12679,6 +12796,45 @@
 			],
 			"reason": "players do it at the route's level: 5 people at median 12, 0 died there",
 			"evidence": "route level 12.9; Summoned Incubus 20-20 x4; recordings (2026-11-11): done by 5 people at 10-13 (median 12), 0 people died within 60 yd, 0 abandoned"
+		},
+		{
+			"key": "forever/horde/undead/01-tirisfal-glades.guide|kill 371.2|elite",
+			"guide": "forever/horde/undead/01-tirisfal-glades.guide",
+			"goal": "kill 371.2",
+			"kind": "elite",
+			"title": "Balnir Farmstead: kill these as you meet them",
+			"level": 11.3,
+			"mobs": [
+				"Riptear 13-13"
+			],
+			"reason": "warned at the step: its tip names Riptear",
+			"evidence": "route level 11.3; Riptear 13-13; recordings (2026-11-13): done by 36 people (median 12), 0 deaths within 60 yd, 1 abandoned"
+		},
+		{
+			"key": "forever/horde/undead/01-tirisfal-glades.guide|use item 6284|pack",
+			"guide": "forever/horde/undead/01-tirisfal-glades.guide",
+			"goal": "use item 6284",
+			"kind": "pack",
+			"title": "The Undercity",
+			"level": 13,
+			"mobs": [
+				"13 spawns 14+"
+			],
+			"reason": "the spawns counted are the Undercity's own people: the goal is the summoning circle in the Magic Quarter",
+			"evidence": "route level 13; 13 spawns 14+; recordings (2026-11-13): done by 0 people, 0 deaths within 60 yd, 0 abandoned"
+		},
+		{
+			"key": "forever/horde/undead/01-tirisfal-glades.guide|kill 1471.1|pack",
+			"guide": "forever/horde/undead/01-tirisfal-glades.guide",
+			"goal": "kill 1471.1",
+			"kind": "pack",
+			"title": "The Undercity",
+			"level": 13,
+			"mobs": [
+				"13 spawns 14+"
+			],
+			"reason": "the spawns counted are the Undercity's own people: the goal is the summoning circle in the Magic Quarter",
+			"evidence": "route level 13; 13 spawns 14+; recordings (2026-11-13): done by 5 people (median 12), 0 deaths within 60 yd, 0 abandoned"
 		}
 	]
 }
