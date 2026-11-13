@@ -31,6 +31,9 @@ local function openMenu(button)
 	if unneeded and #unneeded > 0 then
 		table.insert(items, 5, { text = L["Clean up quest log (%d)"]:format(#unneeded), icon = "cross", onClick = function() UI.ShowQuestRoom() end })
 	end
+	-- The quest items to buy at the auction house (UI/AuctionBuys.lua), while there are any.
+	local ah = UI.AuctionBuys and UI.AuctionBuys.MenuItem()
+	if ah then table.insert(items, 5, ah) end
 	-- Gather, buy or mix, for a guide with a material to choose a way for (UI/Materials.lua).
 	local mats = UI.Materials and UI.Materials.MenuItems()
 	for _, it in ipairs(mats or {}) do items[#items + 1] = it end

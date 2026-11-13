@@ -73,9 +73,9 @@ const TRAINER_YD: f64 = 150.0;
 const CITY_TRAINER_YD: f64 = 500.0;
 /// The route's travel estimates (as travel.rs): a walk at 7 yd/s, a flight at 25 yd/s plus a minute
 /// at the masters.
-const WALK_YPS: f64 = 7.0;
-const FLY_YPS: f64 = 25.0;
-const FLY_S: f64 = 60.0;
+pub(crate) const WALK_YPS: f64 = 7.0;
+pub(crate) const FLY_YPS: f64 = 25.0;
+pub(crate) const FLY_S: f64 = 60.0;
 
 /// A way quicker than a walk (Ctx::quicker_way): a flight between two flight paths (nodes), or a ride
 /// (its index in the world's rides).
@@ -127,6 +127,12 @@ pub struct Inputs<'a> {
 	/// guide hands in are listed (`Flag`), moved to a later visit to their giver (`Move`), or not
 	/// checked (`Off`).
 	pub fresh_openers: post::FreshOpeners,
+	/// Pass-by pickups (pass_by.rs): a quest whose giver an earlier walk passes, taken on that walk
+	/// with its work. Off: the route's visits stand.
+	pub pass_by: bool,
+	/// Nearby flight paths (nearby_fp.rs, with route travel): a stop by a flight master the route
+	/// later gains by flying from or to learns its path. Off: the route's flight paths stand.
+	pub nearby_fp: bool,
 }
 
 /// What apply_route wrote: the chain's guides (relative path, text), in chain order.
@@ -1334,6 +1340,8 @@ pub fn apply_route(inp: &Inputs) -> Result<Output, String> {
 	let data = inp.data;
 	let world = inp.world;
 	let mut log = Vec::new();
+	// The level reads of the route's world (the level fit and the pass-by rule).
+	let ground = crate::level_fit::Ctx::new(world, data, inp.frames);
 	// Work too far above the player's level where the route has it goes to a later visit there where it
 	// fits, else its quest is left out (level_fit.rs, #977).
 	let level_fit = {
@@ -1341,22 +1349,44 @@ pub fn apply_route(inp: &Inputs) -> Result<Output, String> {
 		ex.quests.extend(inp.route.groups.iter().filter_map(|g| g.q).chain(inp.route.groups.iter().flat_map(|g| g.quests.iter().copied())));
 		ex.quests.extend(crate::hub::fix_optional(inp.route.faction.as_deref()));
 		ex.quests.extend(crate::hub::fix_kept(inp.route.faction.as_deref()));
-		crate::level_fit::fit(inp.route.order.clone(), world, data, inp.frames, &ex)
+		crate::level_fit::fit_in(inp.route.order.clone(), &ground, &ex)
 	};
 	log.extend(level_fit.log);
 	let level_left: Vec<u32> = level_fit.left_out;
-	let fitted = Route { order: level_fit.order, ..inp.route.clone() };
+	// The lines a class's own v1 step waits for stay where the route has them (the pass-by rule, the
+	// hub tour).
+	let pinned = if inp.pass_by || inp.route_travel { anchor_lines(inp) } else { FxHashSet::default() };
+	let is_pinned = |o: &Order| rel_of(o.from.as_deref()).is_some_and(|k| pinned.contains(&k));
+	// A quest whose giver an earlier walk passes is taken on that walk, with its work (pass_by.rs, #1959).
+	let order = if inp.pass_by {
+		let join = inp.route.shared.as_ref().and_then(|s| s.get("joinStep")).and_then(|v| v.as_u64()).map(|j| j as usize);
+		let pulled = crate::pass_by::pull(level_fit.order, &ground, &crate::pass_by::Pins::of(inp.route), &is_pinned, join);
+		log.extend(pulled.log);
+		pulled.order
+	} else {
+		level_fit.order
+	};
+	let fitted = Route { order, ..inp.route.clone() };
 	// With the route's own legs, the order walks each hub in one sweep (hub.rs).
 	let toured;
 	let route = if inp.route_travel {
-		let pinned = anchor_lines(inp);
-		let (order, moved) =
-			crate::hub::tour(fitted.order.clone(), world, data, &|o: &Order| rel_of(o.from.as_deref()).is_some_and(|k| pinned.contains(&k)), &crate::hub::fix_pairs(inp.route.faction.as_deref()));
+		let (order, moved) = crate::hub::tour(fitted.order.clone(), world, data, &is_pinned, &crate::hub::fix_pairs(inp.route.faction.as_deref()));
 		log.extend(moved);
 		toured = Route { order, ..fitted.clone() };
 		&toured
 	} else {
 		&fitted
+	};
+	// A stop by a flight master the route's later walks gain by flying from or to learns its path
+	// (nearby_fp.rs).
+	let nearby;
+	let route = if inp.route_travel && inp.nearby_fp {
+		let (order, more) = crate::nearby_fp::add(route.order.clone(), world, data, inp.walks);
+		log.extend(more);
+		nearby = Route { order, ..route.clone() };
+		&nearby
+	} else {
+		route
 	};
 	let quest = |q: u32| data.quests.get(&q);
 	let dedup = |xs: &[u32]| -> Vec<u32> {

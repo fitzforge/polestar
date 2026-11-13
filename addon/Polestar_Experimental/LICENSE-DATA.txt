@@ -28,15 +28,9 @@ CMaNGOS (https://github.com/cmangos/classic-db)
 EG Link output: World of Warcraft: Forever
 ------------------------------------------
 URL: https://github.com/JIVESCORP/eg-link-output-wowf
-Revision: d98f94821b69cccf81b03a542df3755b60055217
+Revision: 164bd1e2d89579ada4ee5e2de7e5fd4db684a9f1
 License: CC BY 4.0; facts used: quest levels, XP, objectives and counts, next quests, givers and enders, races, quest-tied drop rates
 EG Link output: World of Warcraft: Forever (https://github.com/JIVESCORP/eg-link-output-wowf), data from Efficient Games (https://efficient.games), licensed under CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/); reduced to quest facts for Polestar.
-
-Factoruide databases (with the VMaNGOS values they carry)
----------------------------------------------------------
-URL: https://github.com/Factoruide
-License: GPL-2.0-or-later, taken under GPL-3.0; facts used where the sources above lack them
-Factoruide contributors
 
 Forever TrinityCore world database (sniffed spawns, quest objectives, timers, loot, class and profession trainers)
 ------------------------------------------------------------------------------------------------------------------
@@ -87,19 +81,19 @@ TrinityCore and the advocaite/TrinityCore `forever` branch; CMaNGOS (https://git
 
 Quest XP for quests QuestieDB lacks: two Forever web quest databases (one from the beta client's quest cache)
 -------------------------------------------------------------------------------------------------------------
-Revision: 181 quests; cache ../trial-sources/webxp/quest-xp.json
+Revision: 135 quests; cache ../sources/webxp/quest-xp.json
 License: Public web pages; facts (XP numbers) only, used locally with permission
 
 QuestieDB (Questie-Forever), baked Forever store and support data
 -----------------------------------------------------------------
 URL: https://github.com/Questie/QuestieDB
-Revision: 1.0.14 e19dfdf8528334ea63da0ecc4e291c134c0fc266
+Revision: 1.0.16 a444a6418113ae0fce5d30c897674132e756ba1d
 License: No license file in Questie/Questie or Questie/QuestieDB; CurseForge lists GPL-3.0, and the maintainers ask that it be treated as all rights reserved (https://github.com/Questie/Questie/issues/4447). Read from the local install; facts only (quest, NPC, object and item facts, no code or text) ship in Polestar's packs, credited here, and come out if the maintainers ask (data build --no-questie).
 Code: Logonz Data: Muehe/TheCrux(BreakBB)/Drejjmit/Dyaxler/Cheeq/TechnoHunter/Yttrium/Everyone else
 
 the web quest database: zone quest lists (XP, levels, Forever change notes)
 ---------------------------------------------------------------------------
-Revision: 4234 listed quests read 2026-10-16T16:29:21.749Z; cache ../trial-sources/web/zones.json
+Revision: 4234 listed quests read 2026-10-16T16:29:21.749Z; cache ../sources/web/zones.json
 License: Public web pages; facts (ids, XP, levels, instance categories, rewards) only, used locally
 
 World of Warcraft Classic Era client tables (UiMap, UiMapAssignment, AreaTable, Faction) via wago.tools
@@ -111,7 +105,7 @@ World of Warcraft (c) Blizzard Entertainment, Inc.
 
 World of Warcraft: Forever client tables (UiMap, UiMapAssignment, AreaTable, ChrRaces, ChrClasses, CharBaseInfo, Faction, Map, ItemSparse, SpellName, SpellEffect) read from the installed client
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-Revision: wow_classic_beta 1.60.1.70532
+Revision: wowf 1.60.1.70888
 License: Blizzard Entertainment game client data; factual map geometry, names, item durations and race/class combinations only
 World of Warcraft (c) Blizzard Entertainment, Inc.
 

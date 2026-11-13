@@ -477,7 +477,8 @@ struct Shared {
 /// as `1`, an absent value empty and trailing empty values dropped; spots
 /// separated by `;`. Core/Guides.lua (Own.unpackSpots) builds the same tables
 /// from it when the goal's `spots` is first read: a table per spot costs
-/// about 250 bytes in the client, its text about 16.
+/// about 250 bytes in the client, its text about 16; an exact point (`r` 0,
+/// "43.41,14.62,,0") is built as a smaller table, about 110 bytes.
 pub fn pack_spots(spots: &V) -> String {
 	let dec = list_decimals("spots");
 	let records: Vec<String> = spots

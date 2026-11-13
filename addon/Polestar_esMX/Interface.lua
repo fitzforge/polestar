@@ -579,6 +579,7 @@ L["It also spawns here"] = "También aparece aquí"
 L["Click to search here next"] = "Haz clic para buscar aquí después"
 L["Travel route, step %s"] = "Ruta de viaje, paso %s"
 L["Click to point the arrow here"] = "Haz clic para apuntar la flecha aquí"
+L["Checked recently"] = "Revisado hace poco"
 
 -- Nav/Nav.lua
 L["Waypoint"] = "Punto de ruta"
@@ -836,6 +837,7 @@ L["Travel button under the arrow"] = "Botón de viaje bajo la flecha"
 -- L["Game options"] = ""
 -- L["Increase game image quality"] = ""
 -- L["Sharpens the game's image. Most noticeable when Render Scale is below 100%. This is a game setting: it stays until you turn it off here or in the console."] = ""
+L["Lists the quest items you can buy at an auction house instead of farming them: tradeable, sold by no vendor, and slow to farm or dropped by nothing. A card when a guide opens, and a reminder once per visit to a town with an auction house. The guide window's menu lists them too."] = "Muestra los objetos de misión que puedes comprar en una casa de subastas en vez de conseguirlos a mano: comerciables, que ningún mercader vende y lentos de conseguir o que nada suelta. Una tarjeta al abrir una guía y un aviso una vez por visita a una ciudad con casa de subastas. El menú de la ventana de la guía también los muestra."
 
 -- QoL/QoL.lua
 L["%dh %02dm"] = "%dh %02dm"
@@ -2157,6 +2159,7 @@ L["%s and %d more"] = "%s y %d más"
 L["Skipping also skips: %s"] = "Omitir también omite: %s"
 L["Keep this: you hand it in later in %s"] = "No la abandones: la entregas más adelante en %s"
 L["Keep this: a later guide hands it in"] = "No la abandones: una guía posterior la entrega"
+L["%d known places: the arrow leads to each in turn"] = "%d lugares conocidos: la flecha te lleva a cada uno, uno tras otro"
 
 -- UI/Welcome.lua
 L["level %d %s"] = "personaje de nivel %d (%s)"
@@ -4100,6 +4103,29 @@ L["Show in quest log"] = "Mostrar en el registro de misiones"
 -- Dungeons/Mark.lua
 L["Needed for %s in %s"] = "Necesario para %s en %s"
 L["Part of the %s quests"] = "Parte de las misiones de %s"
+
+-- UI/AuctionBuys.lua
+L["About %d kills to farm"] = "Unas %d muertes para conseguirlo"
+L["Needs %s to gather"] = "Necesitas %s para recogerlo"
+L["Crafted: nothing drops it"] = "Creado: nada lo suelta"
+L["The guide sends you to the auction house for it"] = "La guía te manda a la casa de subastas por él"
+L["%d %s for %s"] = "%d %s para %s"
+L["Auction house buys are off. Turn them back on under Options > Questing > Quests."] = "Las compras en la casa de subastas están desactivadas. Vuelve a activarlas en Opciones > Misiones > Misiones."
+L["AUCTION HOUSE"] = "CASA DE SUBASTAS"
+L["1 quest item to buy in %s"] = "1 objeto de misión que comprar en %s"
+L["%d quest items to buy in %s"] = "%d objetos de misión que comprar en %s"
+L["Auction house buys for this guide"] = "Compras en la casa de subastas para esta guía"
+L["No vendor sells these, and farming them is slow or not possible."] = "Ningún mercader los vende, y conseguirlos a mano es lento o imposible."
+L["Show me the auctioneer"] = "Muéstrame al subastador"
+L["See the list"] = "Ver la lista"
+L["Auction house buys"] = "Compras en la casa de subastas"
+L["Show me the auction house"] = "Muéstrame la casa de subastas"
+L["Nothing to buy at the auction house: the quests ahead get what they need on the way."] = "Nada que comprar en la casa de subastas: las próximas misiones consiguen lo que necesitan por el camino."
+L["The quests ahead in your guide and in your quest log need these. No vendor sells them, and farming them is slow or not possible: the auction house usually has them."] = "Las próximas misiones de tu guía y de tu registro de misiones necesitan esto. Ningún mercader lo vende, y conseguirlo a mano es lento o imposible: la casa de subastas suele tenerlo."
+L["%d %s"] = "%d %s"
+L["%d in your bags and bank"] = "%d en tus bolsas y el banco"
+L["Auction house buys (%d)"] = "Compras en la casa de subastas (%d)"
+L["Show the quest items to buy at the auction house"] = "Mostrar los objetos de misión que comprar en la casa de subastas"
 
 -- No longer in the code (its English changed or it went away): reuse or delete.
 -- L["The arrow's target, the stops of its travel route, the step's other goals and the areas their mobs and objects spawn in."] = "El objetivo de la flecha, las paradas de su ruta de viaje, los demás objetivos del paso y las zonas donde aparecen sus monstruos y objetos."

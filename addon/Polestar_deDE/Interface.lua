@@ -265,6 +265,7 @@ L["It also spawns here"] = "Spawnt auch hier"
 L["Click to search here next"] = "Klicken, um als Nächstes hier zu suchen"
 L["Travel route, step %s"] = "Reiseroute, Schritt %s"
 L["Click to point the arrow here"] = "Klicken, um den Pfeil hierher zeigen zu lassen"
+L["Checked recently"] = "Kürzlich nachgesehen"
 
 -- Nav/Nav.lua
 L["Waypoint"] = "Wegpunkt"
@@ -762,6 +763,7 @@ L["%s and %d more"] = "%s und %d weitere"
 L["Skipping also skips: %s"] = "Überspringen überspringt auch: %s"
 L["Keep this: you hand it in later in %s"] = "Behalte die Quest: Du gibst sie später in %s ab"
 L["Keep this: a later guide hands it in"] = "Behalte die Quest: Ein späterer Guide gibt sie ab"
+L["%d known places: the arrow leads to each in turn"] = "%d bekannte Orte: Der Pfeil führt der Reihe nach zu jedem"
 
 -- UI/Welcome.lua
 L["level %d %s"] = "Stufe %d, %s"
@@ -1643,6 +1645,7 @@ L["Travel button under the arrow"] = "Reise-Button unter dem Pfeil"
 -- L["Game options"] = ""
 -- L["Increase game image quality"] = ""
 -- L["Sharpens the game's image. Most noticeable when Render Scale is below 100%. This is a game setting: it stays until you turn it off here or in the console."] = ""
+L["Lists the quest items you can buy at an auction house instead of farming them: tradeable, sold by no vendor, and slow to farm or dropped by nothing. A card when a guide opens, and a reminder once per visit to a town with an auction house. The guide window's menu lists them too."] = "Listet die Questgegenstände, die du im Auktionshaus kaufen kannst, statt sie zu farmen: handelbar, bei keinem Händler erhältlich und langsam zu farmen oder von nichts fallen gelassen. Eine Karte, wenn ein Guide öffnet, und eine Erinnerung einmal pro Besuch in einer Stadt mit Auktionshaus. Das Menü des Guide-Fensters listet sie auch."
 
 -- Rares/View.lua, Rares/Options.lua
 L["Seen"] = "Gesehen"
@@ -4090,6 +4093,29 @@ L["Show in quest log"] = "Im Questlog zeigen"
 -- Dungeons/Mark.lua
 L["Needed for %s in %s"] = "Benötigt für %s in %s"
 L["Part of the %s quests"] = "Teil der Quests von %s"
+
+-- UI/AuctionBuys.lua
+L["About %d kills to farm"] = "Etwa %d Kills zum Farmen"
+L["Needs %s to gather"] = "Zum Sammeln braucht es %s"
+L["Crafted: nothing drops it"] = "Hergestellt: Nichts lässt es fallen"
+L["The guide sends you to the auction house for it"] = "Der Guide schickt dich dafür ins Auktionshaus"
+L["%d %s for %s"] = "%d %s für %s"
+L["Auction house buys are off. Turn them back on under Options > Questing > Quests."] = "Auktionshaus-Einkäufe sind aus. Schalte sie unter Optionen > Questen > Quests wieder ein."
+L["AUCTION HOUSE"] = "AUKTIONSHAUS"
+L["1 quest item to buy in %s"] = "1 Questgegenstand zum Kaufen in %s"
+L["%d quest items to buy in %s"] = "%d Questgegenstände zum Kaufen in %s"
+L["Auction house buys for this guide"] = "Auktionshaus-Einkäufe für diesen Guide"
+L["No vendor sells these, and farming them is slow or not possible."] = "Kein Händler verkauft sie, und Farmen dauert lange oder ist unmöglich."
+L["Show me the auctioneer"] = "Zeig mir den Auktionator"
+L["See the list"] = "Liste ansehen"
+L["Auction house buys"] = "Auktionshaus-Einkäufe"
+L["Show me the auction house"] = "Zeig mir das Auktionshaus"
+L["Nothing to buy at the auction house: the quests ahead get what they need on the way."] = "Nichts im Auktionshaus zu kaufen: Die kommenden Quests bekommen unterwegs, was sie brauchen."
+L["The quests ahead in your guide and in your quest log need these. No vendor sells them, and farming them is slow or not possible: the auction house usually has them."] = "Die kommenden Quests in deinem Guide und deinem Questlog brauchen das. Kein Händler verkauft es, und Farmen dauert lange oder ist unmöglich: Das Auktionshaus hat es meistens."
+L["%d %s"] = "%d %s"
+L["%d in your bags and bank"] = "%d in Taschen und Bank"
+L["Auction house buys (%d)"] = "Auktionshaus-Einkäufe (%d)"
+L["Show the quest items to buy at the auction house"] = "Questgegenstände zeigen, die du im Auktionshaus kaufen kannst"
 
 -- No longer in the code (its English changed or it went away): reuse or delete.
 -- L["The arrow's target and the areas it spawns in."] = "Das Ziel des Pfeils und die Gebiete, in denen es spawnt."

@@ -480,6 +480,12 @@ local function build()
 		w:HookScript("OnShow", function() if CT.current then CT.Place(true) end end)
 		w:HookScript("OnSizeChanged", function() if f:IsShown() then CT.Place(false) end end)
 	end
+	-- The gamepad (UI/Gamepad.lua): a card shows on its own, so it waits for
+	-- the focus binding before it takes the gamepad; then the D-pad walks its
+	-- buttons and icons, A presses one, B is Later.
+	if ns.Gamepad and ns.Gamepad.Register then
+		ns.Gamepad.Register(f, { unasked = function() return true end, back = function() CT.Later() end })
+	end
 end
 
 -- class: the class colour's stripe, ring and header; nil (another heads-up)
@@ -547,7 +553,9 @@ local function compactLayout(f, width)
 	local m = f.psModel or {}
 	f:SetWidth(width)
 	sizeRing(f, CRING / RING)
-	for _, p in ipairs({ f.Head, f.Giver, f.Route, f.Badge, f.Rule, f.Later, f.More, f.Off }) do p:Hide() end
+	for _, p in ipairs({ f.Head, f.Giver, f.Route, f.Badge, f.Rule, f.Later, f.More, f.Off, f.SpellMore }) do p:Hide() end
+	-- The row of icons is the full card's: its spells and items are in the tooltip's lines.
+	for _, b in ipairs(f.SpellRow) do b:Hide() end
 	local act = (m.act and f.Act) or (m.guideId and f.Open) or f.ShowMe
 	for _, b in ipairs({ f.Act, f.Open, f.ShowMe }) do b:SetShown(b == act) end
 	f.Extra:SetShown(m.more ~= nil or m.off ~= nil)
@@ -576,6 +584,10 @@ end
 function layout(f, width)
 	if compactOn() then return compactLayout(f, width) end
 	if f.psModel then showParts(f, f.psModel) end
+	-- The icons back from the compact card: those holding a spell or an item.
+	for _, b in ipairs(f.SpellRow) do b:SetShown(b.spell ~= nil) end
+	local spells = f.psModel and f.psModel.spells
+	f.SpellMore:SetShown(spells ~= nil and #spells > SPELLS_MAX)
 	sizeRing(f, 1)
 	f:SetWidth(width)
 	local x = PAD + STRIPE + RING + 12
@@ -882,9 +894,11 @@ end
 -- cropped to those texture coordinates, filling the ring, lifted by lift
 -- (0-1) when dark; without it an icon tinted iconColor is a glyph, drawn
 -- small on the disc, and an untinted one a full-colour icon. spells = { { id,
--- icon? } }: a row of icons under the lines (SPELLS_MAX, then "+N
--- more"), each with the game's spell tooltip, spellTip(tooltip, spell) adding
--- lines to it, spellRight(spell) run on a right-click.
+-- icon? } | { item, count? } }: a row of icons under the lines (SPELLS_MAX,
+-- then "+N more"), each with the game's spell or item tooltip, spellTip(tooltip,
+-- spell) adding lines to a spell's, spellRight(spell) run on a right-click; an
+-- item's shows its count over its corner when above 1, and a modified click is
+-- the bags' (W.ItemClick: Shift links it).
 -- hideAfter: seconds on screen before it hides itself (not while the
 -- pointer is on it); quiet: no chime; noAct: no action button (Later
 -- leads the row). Without hideAfter, toasts.headsup.seconds (Alerts &
@@ -935,18 +949,31 @@ function CT.SpellButton(i, c)
 	b:SetScript("OnEnter", function(self)
 		local m, s = c.psModel, self.spell
 		if not (m and s) then return end
-		W.SpellTip(self, s.id, m.spellTip and function(tip) m.spellTip(tip, s) end or nil, function(tip) CT.PlaceTip(tip, c) end)
+		local place = function(tip) CT.PlaceTip(tip, c) end
+		if s.item then return W.ItemTip(self, s.item, nil, place) end
+		W.SpellTip(self, s.id, m.spellTip and function(tip) m.spellTip(tip, s) end or nil, place)
 	end)
 	b:SetScript("OnLeave", function(self) W.HideTooltip(self) end)
 	b:SetScript("OnClick", function(self, button)
 		local m, s = c.psModel, self.spell
 		if c ~= f or not (m and s) then return end
-		if button == "RightButton" then
+		if s.item then
+			W.ItemClick(s.item)
+		elseif button == "RightButton" then
 			if m.spellRight then m.spellRight(s) end
 		else
 			W.SpellClick(s.id)
 		end
 	end)
+	-- An item's count, over its corner in white as on a bag slot: it sits on
+	-- the game's icon art, whatever the look's own colours.
+	b.Count = b:CreateFontString(nil, "OVERLAY")
+	Theme.Font(b.Count, "number")
+	b.Count:SetPoint("BOTTOMRIGHT", b, "BOTTOMRIGHT", 1, 0)
+	b.Count:SetJustifyH("RIGHT")
+	b.Count:SetTextColor(1, 1, 1, 1)
+	b.Count:SetShadowColor(0, 0, 0, 1)
+	b.Count:SetShadowOffset(1, -1)
 	c.SpellRow[i] = b
 	return b
 end
@@ -977,7 +1004,13 @@ function CT.SetSpells(list, c)
 	for i = 1, shown do
 		local b, s = CT.SpellButton(i, c), list[i]
 		b.spell = s
-		b.Icon:SetTexture(s.icon or ns.Compat.SpellIcon(s.id) or 134400)
+		local C = ns.Compat
+		if s.item then
+			b.Icon:SetTexture(C.ItemIcon(s.item) or 134400)
+		else
+			b.Icon:SetTexture(s.icon or C.SpellIcon(s.id) or 134400)
+		end
+		b.Count:SetText(s.item and (s.count or 1) > 1 and tostring(s.count) or "")
 		b:Show()
 	end
 	for i = shown + 1, #c.SpellRow do

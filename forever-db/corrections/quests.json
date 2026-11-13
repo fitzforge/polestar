@@ -3762,6 +3762,26 @@
 		],
 		"note": "The Missing Scholar: finding Fillion Flamebreeze is a talk (it counts as you reach him), which the data counted as a kill (#802). Races: it is open to every Alliance race: Forever's server sets the Alliance races (players' caches), and 1 Night Elf player (1 established) took it in recordings. QuestieDB 1.0.14 narrowed it to Alliance Skyborne (up to 1.0.13: the Alliance), which closed it to Human, Dwarf, Night Elf and Gnome."
 	},
+	"92914": {
+		"set": {
+			"objectives": [
+				{ "type": "event", "id": null, "count": 1, "text": "Western pylon found", "map": 2652, "f": "l", "x": 43.61, "y": 34.29 },
+				{ "type": "event", "id": null, "count": 1, "text": "Eastern pylon found", "map": 2652, "f": "l", "x": 73.01, "y": 23.64 },
+				{ "type": "event", "id": null, "count": 1, "text": "Temple pylon found", "map": 2652, "f": "l", "x": 47.6, "y": 76.66 }
+			]
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-12; excluded and suspect contributors left out): 3 people (1 established) took Strange Pylons (92914) at the western Shen'dralar Pylon (object 577959), and the quest log listed three lines for each at the accept: Western pylon found, Eastern pylon found, Temple pylon found; Eastern pylon found ticked as a player rode up to the eastern pylon (Shen'dralas 73.01,23.64), Temple pylon found for 2 people inside the temple (47.56,76.64 and 47.62,76.85)"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB 1.0.16 Forever: one objective, the event Temple pylon found at Shen'dralas 47.6,76.66; the western and eastern pylons are the quest's two starting objects (577959 at 43.61,34.29, 577960 at 73.27,23.13)"
+			}
+		],
+		"note": "Strange Pylons (Shen'dralas): the quest log has three lines, one per pylon found, the western one (where the quest starts) first and the temple's last. The merged data had only the temple's, as line 1, so a guide tied to it would count the western pylon's line instead."
+	},
 	"92947": {
 		"set": {
 			"objectives": [
@@ -4735,6 +4755,48 @@
 		],
 		"note": "The Saltseer Captain (both factions, The Drowned City): Krazek in Booty Bay gives it and takes it back."
 	},
+	"95798": {
+		"set": {
+			"pre": [
+				95788
+			],
+			"preAny": [
+				95788
+			]
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-12; excluded and suspect contributors left out): Loremaster Dibbs (2277) offered The Web of Magic (95798) to 6 people (3 established) the moment each handed Magics of the Drowned City (95788) in to him, and all 6 took it; his windows did not offer it to 6 people who still had 95788 in their log"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB 1.0.16 Forever: its objective text sends the I'lalai Fetish, the find Magics of the Drowned City asks for, to Abra Cadabra in Dalaran"
+			}
+		],
+		"note": "The Web of Magic (Alliance, after The Drowned City): Loremaster Dibbs in Southshore offers it once Magics of the Drowned City (95788) is handed in to him, and Abra Cadabra in Dalaran takes it. The merged data had no prerequisite, so the dungeon's hand-in guide never offered it at Dibbs."
+	},
+	"95799": {
+		"set": {
+			"pre": [
+				95787
+			],
+			"preAny": [
+				95787
+			]
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-12; excluded and suspect contributors left out): Loremaster Dibbs (2277) offered Findings for the Explorer's League (95799) to 5 people (3 established) the moment each handed Take Two With Water (95787) in to him, and all 5 took it; his windows did not offer it to 6 people who still had 95787 in their log"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB 1.0.16 Forever: its objective text sends Loremaster Dibbs' I'lalai Translations, made from the tablets Take Two With Water asks for, to Historian Karnik in Ironforge"
+			}
+		],
+		"note": "Findings for the Explorer's League (Alliance, after The Drowned City): Loremaster Dibbs in Southshore offers it once Take Two With Water (95787) is handed in to him, and Historian Karnik in Ironforge takes it. The merged data had no prerequisite, so the dungeon's hand-in guide never offered it at Dibbs."
+	},
 	"95883": {
 		"set": {
 			"pre": [
@@ -4849,6 +4911,27 @@
 			}
 		],
 		"note": "The Great Outdoors: starts with Sam Sarsaparilla (npc 263399); as its giver the merged data also listed William Pestle (npc 253). The Great Outdoors (Elwynn Forest, Sam Sarsaparilla): both objectives are done by sitting by the campfire until the Boosted Rest buff comes, not by clicking an object (the data listed the Basic Campfire object twice). The guides keep `complete` for it (#956). The Great Outdoors is offered only after The Adventurer (96627) is handed in at the same camp, so it now needs it; our data had no prerequisite. The quest data also names The Adventurer (96627) as its breadcrumb, and breadcrumbs never block, so the prerequisite was dropped (Lookup's data pack and the pick-up guides had none, #1490): it is a real prerequisite, so the breadcrumb link is cleared here and on 96627."
+	},
+	"96078": {
+		"set": {
+			"pre": [
+				95775
+			],
+			"preAny": [
+				95775
+			]
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-12; excluded and suspect contributors left out): Kin'weelay (2519) offered A Tale Spun Around the Fire (96078) to 9 people (6 established) the moment each handed The Drowned City (95775) in to him, and all 9 took it; his windows did not offer it to 10 people who still had 95775 in their log"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB 1.0.16 Forever: its objective text sends the tablet etchings, the rubbings The Drowned City asks for, to Master Gadrin in Sen'jin Village"
+			}
+		],
+		"note": "A Tale Spun Around the Fire (Horde, after The Drowned City): Kin'weelay at Grom'gol Base Camp offers it once The Drowned City (95775) is handed in to him, and Master Gadrin in Sen'jin Village takes it. The merged data had no prerequisite, so the dungeon's hand-in guide never offered it at Kin'weelay."
 	},
 	"96101": {
 		"set": {
@@ -8564,6 +8647,54 @@
 		],
 		"note": "Catching Wind is open to every Alliance race: Forever's server sets the Alliance races (players' caches), and 1 Night Elf player (1 established) took it in recordings. QuestieDB 1.0.14 narrowed it to Alliance Skyborne (up to 1.0.13: the Alliance), which closed it to Human, Dwarf, Night Elf and Gnome."
 	},
+	"92841": {
+		"set": {
+			"races": null
+		},
+		"source": [
+			{
+				"kind": "eg",
+				"ref": "EG Link live client data, Efficient Games (efficient.games), CC BY 4.0: the server's quest record in players' caches, builds 1.60.1.70205 to 1.60.1.70532: raceMask ffffffffffffffff (every race)"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB generated Forever base, requiredRaces: the Alliance races in 1.0.10, 1.0.14 and 1.0.16"
+			}
+		],
+		"note": "The Magram's Valley of Bones has no race limit: Forever's server sets none (players' caches), as for the rest of the Magram chain. QuestieDB has it for the Alliance races only, which closed it to the Horde."
+	},
+	"92844": {
+		"set": {
+			"races": null
+		},
+		"source": [
+			{
+				"kind": "eg",
+				"ref": "EG Link live client data, Efficient Games (efficient.games), CC BY 4.0: the server's quest record in players' caches, builds 1.60.1.70205 to 1.60.1.70532: raceMask ffffffffffffffff (every race)"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB generated Forever base, requiredRaces: the Alliance races in 1.0.10, 1.0.14 and 1.0.16"
+			}
+		],
+		"note": "Mountain of Bones has no race limit: Forever's server sets none (players' caches), as for the rest of the Magram chain. QuestieDB has it for the Alliance races only, which closed it to the Horde."
+	},
+	"92846": {
+		"set": {
+			"races": null
+		},
+		"source": [
+			{
+				"kind": "eg",
+				"ref": "EG Link live client data, Efficient Games (efficient.games), CC BY 4.0: the server's quest record in players' caches, builds 1.60.1.70205 to 1.60.1.70450: raceMask ffffffffffffffff (every race)"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB generated Forever base, requiredRaces: the Alliance races in 1.0.10, 1.0.14 and 1.0.16"
+			}
+		],
+		"note": "Outcast Necromancers has no race limit: Forever's server sets none (players' caches), as for the rest of the Magram chain. QuestieDB has it for the Alliance races only, which closed it to the Horde."
+	},
 	"93044": {
 		"set": {
 			"races": null
@@ -8579,6 +8710,22 @@
 			}
 		],
 		"note": "A Cleansing Cry has no race limit: Forever's server sets no race limit (players' caches). QuestieDB 1.0.14 narrowed it to the Horde races (up to 1.0.13: no race limit), which closed it to the Alliance races."
+	},
+	"93045": {
+		"set": {
+			"races": null
+		},
+		"source": [
+			{
+				"kind": "eg",
+				"ref": "EG Link live client data, Efficient Games (efficient.games), CC BY 4.0: the server's quest record in players' caches, builds 1.60.1.70245 to 1.60.1.70450: raceMask ffffffffffffffff (every race)"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB generated Forever base, requiredRaces: every race in 1.0.10 and 1.0.14, the Horde races in 1.0.16"
+			}
+		],
+		"note": "Test Your Theory has no race limit: Forever's server sets none (players' caches), as for the rest of the Gelkis chain. QuestieDB 1.0.16 narrowed it to the Horde races (1.0.14: no race limit), which closed it to the Alliance races."
 	},
 	"93122": {
 		"set": {

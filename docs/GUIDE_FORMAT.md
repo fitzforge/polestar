@@ -704,7 +704,7 @@ take a jump.
 | objective index | the quest's objective whose `id` matches the npc/item, when `quest Q` has no `.O` |
 | count | the linked objective's count |
 | Era frame flag `f = "e"` | when coordinates come from Era-frame data, or were typed in an `era` guide/goal |
-| spawn areas `spots` | every goal placed at an NPC or object that spawns at more than one place, and hand-placed `@x,y` goals whose target the data also knows: see "Spawn areas" below |
+| spawn areas `spots` | every goal placed at an NPC or object that spawns at more than one place, hand-placed `@x,y` goals whose target the data also knows, and kill, collect and interact goals players' recordings place: see "Spawn areas" below |
 | group content `group` | elite work, dungeon and raid quests and goals on an instance map: see "Group content" below |
 | escort `escort` | the accept, `complete` and objective goals of an escort quest: see "Escort quests" below |
 | later hand-in `carriedTo` | `complete` and objective goals of a quest only a later guide of the chain hands in: see "Quests carried to a later guide" below |
@@ -789,6 +789,28 @@ gets no `spots`, except an NPC who walks around:
   ground he walks and the arrow counts it as reached. Deathguard Bartholomew
   walks round Brill's graveyard (#741). Without `moves.json`, none.
 
+- **Points** (a `kill`, `collect` or `interact` whose target stands at a few
+  known points rather than anywhere about a camp, #1944): each point is a spot
+  of its own, the target's spawn exactly, with `r = 0` and no count: every
+  spawn of an object (of the objects a collect comes from) while there are 40
+  or fewer on the map, and every spawn of a creature that spawns at 8 places
+  or fewer, no two within 70 yd of each other (a camp's mobs wander it) and
+  none walking about (`moves.json`, as for walkers). Spawns within 5 yd of
+  each other are one point (the data lists some twice). A stray (below), or a
+  point in the camp of elites the goal's droppers were chosen over, is an
+  alternative; open points come first, then alternatives, each by `x` then
+  `y`, so goals on the same target write the same list. A goal point at an
+  alternative (the spawn nearest the previous goal) moves to the nearest open
+  point; a hand-placed goal keeps its point and gets the points of the target
+  at it, where the data agrees (see Hand-placed). The maps mark every point,
+  on the minimap too, rather than shade regions, and the arrow leads to the
+  nearest point the player has not checked: within the arrival radius of one
+  it counts as checked and the arrow moves on at once to the next (checked
+  points come back after 300 s: objects respawn). More than 40 objects
+  (herbs, ore, crates all over a zone), creatures in a camp, at more places
+  or walking about keep the spawn areas below, and a `loop` step's goals its
+  gotos.
+
 - **Places** (6 spawns or fewer: a named NPC or a quest object that appears at
   one of a few places, or the handful of mobs an objective needs): every place
   is a spot the arrow may pick, spawns within 70 yd of each other being one
@@ -851,6 +873,43 @@ gets no `spots`, except an NPC who walks around:
     goto 52.3,26.8
     kill 6 x10 quest 7.1
   ```
+- **Recorded** (a `kill`, `collect` or `interact` bound to a quest objective,
+  `quest Q.O`, outside a `loop` step, that players' recordings place:
+  `data/recorded/quests.json` beside the reference data, from `forge record
+  learn`, docs/forge/learn.md): the objective line's trusted spots, each backed
+  by at least the snapshot's `thresholds.spotVoters` counted players (3),
+  reshape the goal's places, so its areas sit where players do it and are as
+  big as the ground they do it on. The goal takes the region of recorded spots
+  at its places: those within 60 yd of its point or overlapping one of its open
+  spawn areas, and every spot within 250 yd of the region's, edge to edge. A
+  recorded spot holding spawn areas (their centres inside it), none bigger than
+  it, keeps those as places the arrow picks: the camps within it are finer. Any
+  other is an area of its own: its centre, its radius (the 80th percentile of
+  the players' ticks, at least 15 yd), the spawn count `n` of the target's
+  spawns inside it (none: no `n`), best-backed first up to the caps above (6, or
+  12 with `spread = true` when the places lie more than 250 yd apart), the rest
+  alternatives; a spawn area it overlaps is gone (the recorded spot is where
+  that place is). The goal's other spawn areas stay as they were, and so does
+  its point unless its first open spawn area went and the point lies more than
+  60 yd outside the region. Recorded spots outside the region that no place of
+  the goal overlaps are alternatives. With no recorded spot at the goal's
+  places, the goal stays as it is while the data has the target there and also
+  knows a place players do it at (a spawn of one of the target's sources in a
+  recorded spot): players did it elsewhere on their way, and the step's place
+  is just as good. Otherwise (the data has the target where nobody does it, or
+  nothing at the point) the goal takes the region of the recorded spot nearest
+  its point, the other spawn areas become alternatives, and a point more than
+  60 yd outside the region moves to its nearest place. A hand-placed point that
+  moves gets a warning: move it. A goal of points (one place and no spawn
+  areas, or points of radius 0) has no area to reshape: it keeps its point
+  while the best-backed recorded spot holds it at a spawn of its target (within
+  15 yd of its edge), and otherwise the region is its places (a creature
+  players meet at several places along its way), its points outside the
+  region become alternatives, and a spawn it moves away from stays one.
+  Trouble in the Valley (95621): players loot Benedict's Orders within 47 yd
+  of 41.8,15.5, so that is the area, not 112 yd around Corporal Adamore's
+  spawns. The recordings' coordinates are the game client's: its map frame
+  (Forever, else Era) places them in the goal's frame.
 
 See docs/ARCHITECTURE.md, Smart logic, "Spawn areas".
 

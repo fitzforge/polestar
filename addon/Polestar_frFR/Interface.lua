@@ -306,6 +306,7 @@ L["It also spawns here"] = "Il apparaît aussi ici"
 L["Click to search here next"] = "Cliquez pour chercher ici ensuite"
 L["Travel route, step %s"] = "Itinéraire, étape %s"
 L["Click to point the arrow here"] = "Cliquez pour pointer la flèche ici"
+L["Checked recently"] = "Vérifié récemment"
 
 -- Nav/Transit.lua
 L["top"] = "haut"
@@ -1017,6 +1018,7 @@ L["Travel button under the arrow"] = "Bouton de voyage sous la flèche"
 -- L["Game options"] = ""
 -- L["Increase game image quality"] = ""
 -- L["Sharpens the game's image. Most noticeable when Render Scale is below 100%. This is a game setting: it stays until you turn it off here or in the console."] = ""
+L["Lists the quest items you can buy at an auction house instead of farming them: tradeable, sold by no vendor, and slow to farm or dropped by nothing. A card when a guide opens, and a reminder once per visit to a town with an auction house. The guide window's menu lists them too."] = "Liste les objets de quête que vous pouvez acheter à l'hôtel des ventes au lieu de les obtenir vous-même : échangeables, vendus par aucun marchand, et longs à obtenir ou lâchés par rien. Une carte à l'ouverture d'un guide, et un rappel une fois par visite dans une ville dotée d'un hôtel des ventes. Le menu de la fenêtre du guide les liste aussi."
 
 -- Lookup/Sources.lua
 L["Alliance only"] = "Alliance uniquement"
@@ -1221,6 +1223,7 @@ L["%s and %d more"] = "%s et %d de plus"
 L["Skipping also skips: %s"] = "Passer ceci passe aussi : %s"
 L["Keep this: you hand it in later in %s"] = "Gardez cette quête : vous la rendez plus tard dans %s"
 L["Keep this: a later guide hands it in"] = "Gardez cette quête : un guide suivant la rend"
+L["%d known places: the arrow leads to each in turn"] = "%d emplacements connus : la flèche vous mène à chacun tour à tour"
 
 -- UI/GuideFrame.lua
 L["Location"] = "Lieu"
@@ -4102,6 +4105,29 @@ L["Show in quest log"] = "Afficher dans le journal des quêtes"
 -- Dungeons/Mark.lua
 L["Needed for %s in %s"] = "Requis pour %s dans %s"
 L["Part of the %s quests"] = "Fait partie des quêtes de %s"
+
+-- UI/AuctionBuys.lua
+L["About %d kills to farm"] = "Environ %d monstres à tuer"
+L["Needs %s to gather"] = "%s nécessaire pour le récolter"
+L["Crafted: nothing drops it"] = "Fabriqué : rien ne le laisse tomber"
+L["The guide sends you to the auction house for it"] = "Le guide vous envoie à l'hôtel des ventes pour cela"
+L["%d %s for %s"] = "%d %s pour %s"
+L["Auction house buys are off. Turn them back on under Options > Questing > Quests."] = "Les achats à l'hôtel des ventes sont désactivés. Réactivez-les dans Options > Quêtes > Quêtes."
+L["AUCTION HOUSE"] = "HÔTEL DES VENTES"
+L["1 quest item to buy in %s"] = "1 objet de quête à acheter à %s"
+L["%d quest items to buy in %s"] = "%d objets de quête à acheter à %s"
+L["Auction house buys for this guide"] = "Achats à l'hôtel des ventes pour ce guide"
+L["No vendor sells these, and farming them is slow or not possible."] = "Aucun marchand ne les vend, et les obtenir soi-même est long ou impossible."
+L["Show me the auctioneer"] = "Me montrer le commissaire-priseur"
+L["See the list"] = "Voir la liste"
+L["Auction house buys"] = "Achats à l'hôtel des ventes"
+L["Show me the auction house"] = "Me montrer l'hôtel des ventes"
+L["Nothing to buy at the auction house: the quests ahead get what they need on the way."] = "Rien à acheter à l'hôtel des ventes : les prochaines quêtes obtiennent en chemin ce qu'il leur faut."
+L["The quests ahead in your guide and in your quest log need these. No vendor sells them, and farming them is slow or not possible: the auction house usually has them."] = "Les prochaines quêtes de votre guide et de votre journal de quêtes en ont besoin. Aucun marchand ne les vend, et les obtenir soi-même est long ou impossible : l'hôtel des ventes les a généralement."
+L["%d %s"] = "%d %s"
+L["%d in your bags and bank"] = "%d dans vos sacs et votre banque"
+L["Auction house buys (%d)"] = "Achats à l'hôtel des ventes (%d)"
+L["Show the quest items to buy at the auction house"] = "Afficher les objets de quête à acheter à l'hôtel des ventes"
 
 -- No longer in the code (its English changed or it went away): reuse or delete.
 -- L["Alliance"] = "Alliance"

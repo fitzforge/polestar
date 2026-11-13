@@ -1780,13 +1780,15 @@ impl<'a> Sim<'a> {
 		Some(if d > 0.0 { d } else { 0.0 })
 	}
 
-	/// Spots.repick (no spot picked by hand, never moving on).
+	/// Spots.repick (no spot picked by hand, never moving on). Exact points (every spot `r` 0, #1944) are
+	/// searched as an area objective's spots, and a point once reached is done: the next takes over at once.
 	fn spot_repick(&mut self, gr: GRef, pos: Option<(i64, f64, f64)>) -> bool {
 		let gs: &'a [Guide] = self.gs;
 		let goal = gs[gr.0].goal(gr.1, gr.2);
 		let Some(spots) = goal.spots.as_ref() else { return false };
 		let now = self.now;
-		let spread = goal.spread;
+		let exact = goal.exact();
+		let spread = goal.spread || exact;
 		let reach = goal.r.unwrap_or(DEFAULT_RADIUS);
 		let cur = self.spot_chosen.get(&gr).copied();
 		if cur.is_some() && pos.is_none() {
@@ -1805,7 +1807,7 @@ impl<'a> Sim<'a> {
 				}
 			}
 		}
-		if cur.is_some() && spread && cur_d.is_some_and(|d| d <= reach + SPOT_LEAVE) {
+		if cur.is_some() && spread && !exact && cur_d.is_some_and(|d| d <= reach + SPOT_LEAVE) {
 			return false;
 		}
 		let fresh = |k: usize| {
@@ -1813,7 +1815,7 @@ impl<'a> Sim<'a> {
 			match t {
 				None => true,
 				Some(t) if now - t > SPOT_FORGET => true,
-				Some(_) => pos.is_some() && edge(k).is_some_and(|d| d <= reach),
+				Some(_) => !exact && pos.is_some() && edge(k).is_some_and(|d| d <= reach),
 			}
 		};
 		let at = cur.map_or(0, |k| k + 1) as i64;

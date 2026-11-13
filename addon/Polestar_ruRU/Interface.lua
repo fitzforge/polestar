@@ -305,6 +305,7 @@ L["It also spawns here"] = "Также появляется здесь"
 L["Click to search here next"] = "Щелкните, чтобы искать здесь дальше"
 L["Travel route, step %s"] = "Маршрут, шаг %s"
 L["Click to point the arrow here"] = "Щелкните, чтобы навести стрелку сюда"
+L["Checked recently"] = "Недавно проверено"
 
 -- Nav/Transit.lua
 L["top"] = "верх"
@@ -1016,6 +1017,7 @@ L["Travel button under the arrow"] = "Кнопка пути под стрелк�
 -- L["Game options"] = ""
 -- L["Increase game image quality"] = ""
 -- L["Sharpens the game's image. Most noticeable when Render Scale is below 100%. This is a game setting: it stays until you turn it off here or in the console."] = ""
+L["Lists the quest items you can buy at an auction house instead of farming them: tradeable, sold by no vendor, and slow to farm or dropped by nothing. A card when a guide opens, and a reminder once per visit to a town with an auction house. The guide window's menu lists them too."] = "Показывает предметы для заданий, которые можно купить на аукционе вместо того, чтобы добывать самому: их можно передавать, торговцы их не продают, а добывать их долго или они ни с кого не падают. Карточка при открытии гайда и напоминание один раз за посещение города с аукционом. Меню окна гайда тоже показывает их список."
 
 -- Lookup/Sources.lua
 L["Alliance only"] = "Только Альянс"
@@ -1220,6 +1222,7 @@ L["%s and %d more"] = "%s и еще %d"
 L["Skipping also skips: %s"] = "Пропуск также пропустит: %s"
 L["Keep this: you hand it in later in %s"] = "Не отменяйте: сдача позже, в гайде %s"
 L["Keep this: a later guide hands it in"] = "Не отменяйте: сдача в одном из следующих гайдов"
+L["%d known places: the arrow leads to each in turn"] = "Известных мест: %d — стрелка по очереди ведет к каждому"
 
 -- UI/GuideFrame.lua
 L["Location"] = "Место"
@@ -4101,6 +4104,29 @@ L["Show in quest log"] = "Показать в журнале заданий"
 -- Dungeons/Mark.lua
 L["Needed for %s in %s"] = "Нужно для %s (%s)"
 L["Part of the %s quests"] = "Часть заданий: %s"
+
+-- UI/AuctionBuys.lua
+L["About %d kills to farm"] = "Около %d убийств, чтобы добыть"
+L["Needs %s to gather"] = "Для сбора нужно: %s"
+L["Crafted: nothing drops it"] = "Изготавливается: ни с кого не падает"
+L["The guide sends you to the auction house for it"] = "Гайд отправляет вас за этим на аукцион"
+L["%d %s for %s"] = "%2$s: %1$d (для %3$s)"
+L["Auction house buys are off. Turn them back on under Options > Questing > Quests."] = "Покупки на аукционе отключены. Включить их снова можно в разделе Настройки > Задания > Задания."
+L["AUCTION HOUSE"] = "АУКЦИОН"
+L["1 quest item to buy in %s"] = "Купить здесь (%s): 1 предмет для задания"
+L["%d quest items to buy in %s"] = "Купить здесь (%2$s): предметов для заданий: %1$d"
+L["Auction house buys for this guide"] = "Покупки на аукционе для этого гайда"
+L["No vendor sells these, and farming them is slow or not possible."] = "Торговцы их не продают, а добывать их самому долго или невозможно."
+L["Show me the auctioneer"] = "Показать аукциониста"
+L["See the list"] = "Открыть список"
+L["Auction house buys"] = "Покупки на аукционе"
+L["Show me the auction house"] = "Показать аукцион"
+L["Nothing to buy at the auction house: the quests ahead get what they need on the way."] = "На аукционе покупать нечего: следующие задания получат нужное по пути."
+L["The quests ahead in your guide and in your quest log need these. No vendor sells them, and farming them is slow or not possible: the auction house usually has them."] = "Это нужно следующим заданиям вашего гайда и журнала заданий. Торговцы этого не продают, а добывать самому долго или невозможно: на аукционе это обычно есть."
+L["%d %s"] = "%2$s: %1$d"
+L["%d in your bags and bank"] = "%d в сумках и банке"
+L["Auction house buys (%d)"] = "Покупки на аукционе (%d)"
+L["Show the quest items to buy at the auction house"] = "Показать предметы для заданий, которые можно купить на аукционе"
 
 -- No longer in the code (its English changed or it went away): reuse or delete.
 -- L["Shortest Path Forever is guiding. Turn off \"Guide with Shortest Path Forever when it's installed\" (Options, Arrow & routes) to use Polestar's arrow."] = "Ведет Shortest Path Forever. Отключите «Вести через Shortest Path Forever, если он установлен» (Настройки, Стрелка и маршруты), чтобы использовать стрелку Polestar."

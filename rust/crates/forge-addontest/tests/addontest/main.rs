@@ -3,6 +3,8 @@
 #![recursion_limit = "512"]
 mod alts;
 mod api;
+#[path = "auction-buys.rs"]
+mod auction_buys;
 mod automation;
 #[path = "automation-accept-off.rs"]
 mod automation_accept_off;
@@ -81,6 +83,8 @@ mod engine_dwell;
 mod engine_empty_stop;
 #[path = "engine-enter.rs"]
 mod engine_enter;
+#[path = "engine-exact-points.rs"]
+mod engine_exact_points;
 #[path = "engine-failed-quest.rs"]
 mod engine_failed_quest;
 #[path = "engine-feeders.rs"]

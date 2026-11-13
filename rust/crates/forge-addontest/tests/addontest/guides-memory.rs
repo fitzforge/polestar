@@ -66,9 +66,10 @@ fn pack_files(name: &str) -> String {
 /// Alliance resident 16,279, peak 35,132, read 22,497; Horde resident 15,039, peak 32,583, read 21,569, against the
 /// 0.3.6 pack's 16,278 / 35,038 / 22,503 and 15,039 / 32,468 / 21,593. No key trimmed: the new keys (fromNpcsAt,
 /// carriedTo, limit, parent) cost tens of KiB, and the pack is back at 0.3.6's size but for the Horde peak (+115).
-/// Budgets: those plus ~1%.
+/// Budgets: those plus ~1%. Read raised for #1944's exact points (measured 23,186 / 22,311; Fitz, 2026-11-12:
+/// raise memory budgets while 0.3.8's content grows, review once it is final): those plus ~5%.
 const BUDGET: [(&str, &str, [(&str, f64); 3]); 2] =
-	[("Alliance", "Human", [("resident", 16450.0), ("peak", 35490.0), ("read", 22730.0)]), ("Horde", "Orc", [("resident", 15190.0), ("peak", 32910.0), ("read", 21790.0)])];
+	[("Alliance", "Human", [("resident", 16450.0), ("peak", 35490.0), ("read", 24350.0)]), ("Horde", "Orc", [("resident", 15190.0), ("peak", 32910.0), ("read", 23430.0)])];
 
 #[test]
 fn the_guide_pack_stays_within_its_memory_budget_for_each_faction_693() {
@@ -259,6 +260,56 @@ emit({ res = res, before = before, spots = spots, same = goal.spots == spots, ke
 	assert_eq!(m["before"], true, "registering does not build the spots");
 	assert_eq!(m["spots"], serde_json::json!([{ "x": 43.5, "y": 9.2, "r": 110, "n": 19 }, { "x": 47.4, "y": 9.7, "z": -12.5, "r": 4, "alt": true }, { "x": 50, "y": 50.25, "r": 15, "n": 2 }]));
 	assert_eq!((m["same"].clone(), m["kept"].clone(), m["valid"].clone()), (serde_json::json!(true), serde_json::json!(true), serde_json::json!(true)));
+}
+
+// Exact points (#1944): a packed spot of radius 0 is built as the array { x, y, z? } that Own.POINT reads by
+// name (its `r` reads 0; `alt` and `lvl` as written), in about half a spot table's memory, so a goal holding
+// 40 points costs what one holding 20 spots did. A goal of them is exact (Engine.SpotsExact).
+#[test]
+fn packed_exact_points_read_back_by_name_in_about_half_a_spot_s_memory_1944() {
+	let out = emitted(&RunAddon {
+		addons: vec![Addon::files("Polestar", &["Core/Core.xml"])],
+		script: r#"
+local G = Polestar.Guides
+assert(Polestar.RegisterPack({ addon = "JoeAddon", id = "joe", format = 8, title = "Joe", author = "Joe", version = "1", license = "MIT" }))
+local function guide(id, packed)
+	local goal = { t = "collect", item = 5, itemName = "Trapped Game", map = 1429, x = 43.41, y = 14.62, spotsPacked = packed }
+	assert(Polestar.RegisterGuide({ id = id, pack = "joe", title = id, steps = { { goals = { goal } } } }))
+	return G.Get(id).steps[1].goals[1]
+end
+local goal = guide("joe/points", "43.41,14.62,,0;45.1,16.1,12.5,0;42.7,21.2,,0,,1,14")
+local read = {}
+for i, p in ipairs(goal.spots) do read[i] = { p.x, p.y, p.z or false, p.r, p.n or false, p.alt or false, p.lvl or false, rawget(p, "x") == nil } end
+-- Bytes per entry of 400 built, the list's slot included.
+local function cost(id, rec)
+	local t = {}
+	for i = 1, 400 do t[i] = rec:format(i % 90 + 5, i % 70 + 5) end
+	local g = guide(id, table.concat(t, ";"))
+	collectgarbage("collect"); collectgarbage("collect")
+	local before = collectgarbage("count")
+	local n = #g.spots
+	collectgarbage("collect"); collectgarbage("collect")
+	return (collectgarbage("count") - before) * 1024 / n
+end
+local camp = guide("joe/camp", "43.5,9.2,,110,19;47.4,9.7,,40,3")
+emit({ read = read, exact = { Polestar.Engine.SpotsExact(goal), Polestar.Engine.SpotsExact(camp) },
+	point = cost("joe/many-points", "%d.25,%d.5,,0"), spot = cost("joe/many-spots", "%d.25,%d.5,,40,3"),
+	valid = G.Validate(G.Get("joe/points")) or true })
+"#
+		.into(),
+		..Default::default()
+	});
+	let m = &out[0];
+	assert_eq!(
+		m["read"],
+		serde_json::json!([[43.41, 14.62, false, 0, false, false, false, true], [45.1, 16.1, 12.5, 0, false, false, false, true], [42.7, 21.2, false, 0, false, true, 14, true]]),
+		"x, y and z by name from the array, r 0, alt and lvl as written"
+	);
+	assert_eq!(m["exact"], serde_json::json!([true, false]));
+	assert_eq!(m["valid"], true, "the goal still validates once its points are built");
+	let (point, spot) = (m["point"].as_f64().unwrap(), m["spot"].as_f64().unwrap());
+	eprintln!("a packed point: {point:.0} bytes, a packed spot: {spot:.0} bytes (Lua 5.1, list slot included)");
+	assert!(point < spot * 0.6, "a point costs {point:.0} bytes against a spot's {spot:.0}");
 }
 
 // Issue #60, the load-time spike: registering a guide runs Guides.Validate over every step and goal. The key

@@ -305,6 +305,7 @@ L["It also spawns here"] = "여기서도 등장합니다"
 L["Click to search here next"] = "클릭하면 다음에 여기서 찾기"
 L["Travel route, step %s"] = "이동 경로, %s단계"
 L["Click to point the arrow here"] = "클릭하면 화살표가 여기를 가리킴"
+L["Checked recently"] = "최근에 확인함"
 
 -- Nav/Transit.lua
 L["top"] = "위"
@@ -1016,6 +1017,7 @@ L["Travel button under the arrow"] = "화살표 아래 이동 버튼"
 -- L["Game options"] = ""
 -- L["Increase game image quality"] = ""
 -- L["Sharpens the game's image. Most noticeable when Render Scale is below 100%. This is a game setting: it stays until you turn it off here or in the console."] = ""
+L["Lists the quest items you can buy at an auction house instead of farming them: tradeable, sold by no vendor, and slow to farm or dropped by nothing. A card when a guide opens, and a reminder once per visit to a town with an auction house. The guide window's menu lists them too."] = "직접 모으는 대신 경매장에서 살 수 있는 퀘스트 아이템을 보여 줍니다: 거래 가능하고, 파는 상인이 없으며, 모으기 오래 걸리거나 드롭하는 대상이 없는 아이템입니다. 가이드를 열 때 카드로, 경매장이 있는 도시에 들를 때마다 한 번씩 알림으로 보여 줍니다. 가이드 창 메뉴에도 목록이 있습니다."
 
 -- Lookup/Sources.lua
 L["Alliance only"] = "얼라이언스 전용"
@@ -1220,6 +1222,7 @@ L["%s and %d more"] = "%s 외 %d개"
 L["Skipping also skips: %s"] = "함께 건너뛰는 것: %s"
 L["Keep this: you hand it in later in %s"] = "이 퀘스트는 유지하십시오: 나중에 %s에서 제출합니다"
 L["Keep this: a later guide hands it in"] = "이 퀘스트는 유지하십시오: 이후 가이드에서 제출합니다"
+L["%d known places: the arrow leads to each in turn"] = "알려진 장소 %d곳: 화살표가 차례로 각 장소로 안내합니다"
 
 -- UI/GuideFrame.lua
 L["Location"] = "위치"
@@ -4101,6 +4104,29 @@ L["Show in quest log"] = "퀘스트 목록에서 보기"
 -- Dungeons/Mark.lua
 L["Needed for %s in %s"] = "%s 퀘스트에 필요 (%s)"
 L["Part of the %s quests"] = "%s 퀘스트의 일부"
+
+-- UI/AuctionBuys.lua
+L["About %d kills to farm"] = "약 %d마리 처치 필요"
+L["Needs %s to gather"] = "채집하려면 %s 필요"
+L["Crafted: nothing drops it"] = "제작 아이템: 드롭하는 대상 없음"
+L["The guide sends you to the auction house for it"] = "가이드가 이 아이템을 사러 경매장으로 안내합니다"
+L["%d %s for %s"] = "%3$s용 %2$s %1$d개"
+L["Auction house buys are off. Turn them back on under Options > Questing > Quests."] = "경매장 구매 목록이 꺼졌습니다. 설정 > 퀘스트 진행 > 퀘스트에서 다시 켤 수 있습니다."
+L["AUCTION HOUSE"] = "경매장"
+L["1 quest item to buy in %s"] = "%s에서 살 퀘스트 아이템 1개"
+L["%d quest items to buy in %s"] = "%2$s에서 살 퀘스트 아이템 %1$d개"
+L["Auction house buys for this guide"] = "이 가이드의 경매장 구매 목록"
+L["No vendor sells these, and farming them is slow or not possible."] = "파는 상인이 없고, 직접 모으기는 오래 걸리거나 불가능합니다."
+L["Show me the auctioneer"] = "경매인 위치 보기"
+L["See the list"] = "목록 보기"
+L["Auction house buys"] = "경매장 구매 목록"
+L["Show me the auction house"] = "경매장 위치 보기"
+L["Nothing to buy at the auction house: the quests ahead get what they need on the way."] = "경매장에서 살 것이 없습니다: 앞으로의 퀘스트는 가는 길에 필요한 것을 얻습니다."
+L["The quests ahead in your guide and in your quest log need these. No vendor sells them, and farming them is slow or not possible: the auction house usually has them."] = "가이드와 퀘스트 목록에서 앞으로 할 퀘스트에 필요한 아이템입니다. 파는 상인이 없고, 직접 모으기는 오래 걸리거나 불가능합니다: 경매장에 대개 있습니다."
+L["%d %s"] = "%2$s %1$d개"
+L["%d in your bags and bank"] = "가방과 은행에 %d개"
+L["Auction house buys (%d)"] = "경매장 구매 목록 (%d)"
+L["Show the quest items to buy at the auction house"] = "경매장에서 살 퀘스트 아이템 보기"
 
 -- No longer in the code (its English changed or it went away): reuse or delete.
 -- L["Shortest Path Forever is guiding. Turn off \"Guide with Shortest Path Forever when it's installed\" (Options, Arrow & routes) to use Polestar's arrow."] = "Shortest Path Forever가 가이드 중입니다. Polestar 화살표를 쓰려면 \"설치 시 Shortest Path Forever로 가이드\"를 끄십시오(설정, 화살표 및 경로)."

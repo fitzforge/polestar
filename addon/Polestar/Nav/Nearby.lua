@@ -14,6 +14,9 @@
 --       Codex module), "disabled" (off in the AddOns list), "empty" (loaded, but its NPC roles
 --       read as nothing: a broken install), else Data.Pack's reason ("interface_version", "error"...)
 --   Nearby.Go(kind, line) -> true | false   points the arrow there, says so in one line
+--   Nearby.Near(kind, yards) -> place, yards | nil, reason   the nearest one in the player's zone
+--       within `yards` in a straight line, without the planner's estimate (the auction house
+--       reminder, UI/AuctionBuys.lua); reason as Find's, or "none"
 --   Nearby.Rank(places, here, estimate) -> place, seconds   pure, for the tests
 --   place = { id, name, map, x, y, f, z? }   z: the class trainer's height (Core/ClassTrainers.lua);
 --           the Codex's places carry none
@@ -451,6 +454,32 @@ function Nearby.Find(key, line)
 	local place, seconds = Nearby.Rank(places, here, estimate)
 	if not place then return nil, "none" end
 	return place, seconds
+end
+
+-- The nearest place of a kind in the player's zone (its spawn on the
+-- player's map or on the zone that map belongs to) within `yards` in a
+-- straight line: place, yards | nil, reason. No planner estimate: a cheap
+-- "is one here" for a check that runs on every zone change.
+function Nearby.Near(key, yards)
+	key = ALIAS[key] or key
+	local kind = BY_KEY[key]
+	if not kind then return nil, "kind" end
+	local places, why = candidates(kind)
+	if not places then return nil, why end
+	local C = ns.Compat
+	local map = C.GetPlayerMapPosition()
+	local pc, px, py = C.GetPlayerWorldPosition()
+	if not (map and pc) then return nil, "none" end
+	local zone = C.GetUnitZone and C.GetUnitZone("player") or map
+	local best, bestD
+	for _, p in ipairs(places) do
+		if p.c == pc and (p.map == map or p.map == zone) then
+			local d = sqrt((p.wx - px) ^ 2 + (p.wy - py) ^ 2)
+			if d <= yards and (not bestD or d < bestD) then best, bestD = p, d end
+		end
+	end
+	if not best then return nil, "none" end
+	return best, bestD
 end
 
 local function kindLabel(key, line)
