@@ -7757,8 +7757,13 @@ Reading flow: `docs/DESIGN.md` ("Intent" and "The Guide Window").
   opens; never on a fresh install, in combat, during a cinematic, in an
   instance or battleground, over the route choice, or while the welcome is
   up or due (`UI.Welcome.Busy`, then `WELCOME_CLOSED`). A release with notes
-  adds an entry at the top of `NOTES`. About's "What's new" and `/polestar
-  whatsnew` open it again.
+  adds an entry at the top of `NOTES`; a note about a setting names it
+  (`setting = "update.card"`): the whole note takes the hover wash and a
+  chevron on its heading's line, and a click closes the window and opens the
+  settings on that row, scrolled to and lit (`UI.ShowSetting(key)`, core's
+  door in `UI/OptionsLoader.lua`: `O.JumpTo`, after the fight when asked in
+  one before the settings have loaded). A note with no setting stays text.
+  About's "What's new" and `/polestar whatsnew` open it again.
 - **Copy window** (`UI/Copy.lua`, frame `PolestarCopy`, `UI.ShowCopy(title,
   text)` or `SHOW_COPY`): a small window with the band, a title, a read-only
   `W.CopyBox` holding the text, selected and focused, and how to copy it; ✕

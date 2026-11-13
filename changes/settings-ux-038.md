@@ -17,3 +17,5 @@ section: players
 - Resetting a setting can be undone: after a right-click reset, a
   section's Reset or Reset page, the settings window's footer offers Undo
   for ten seconds and puts everything back as it was.
+- A What's new note about a setting takes you to it: click the note and
+  the settings open on that setting, highlighted.
