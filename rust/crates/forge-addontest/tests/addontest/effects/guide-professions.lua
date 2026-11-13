@@ -35,7 +35,7 @@ return {
 	settle = 0.3,
 	probes = {
 		-- A guide never answered: Ask (Mix meanwhile) gathers the cloth at level 10; Buy buys it.
-		["professions.materials"] = { function() return linen()[1] end, value = "buy" },
+		["professions.materials"] = { probe = function() return linen()[1] end, value = "buy" },
 		-- The other character's 30 count toward the 40.
 		["professions.altMaterials"] = function() return linen()[2] end,
 	},

@@ -60,7 +60,7 @@ fn run(script: &str) -> Value {
 		before: WORLD.into(),
 		addons: vec![Addon::files("Polestar", &["Core/Core.xml"])],
 		saved: vec![("Polestar".into(), r#"PolestarCharDB = { schema = 1, guide = "test/gather" }"#.into())],
-		script: [TEST_PACK, TEST_SOURCE, GUIDE, "stub.login()", "stub.advance(0.6)", HELPERS, script, "emit(r)"].join("\n"),
+		script: [TEST_PACK, TEST_SOURCE, GUIDE, "stub.login()", r#"stub.fire("QUEST_LOG_UPDATE"); stub.advance(0.6)"#, HELPERS, script, "emit(r)"].join("\n"),
 		..Default::default()
 	})
 	.remove(0)
