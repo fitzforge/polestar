@@ -11813,3 +11813,14 @@ test('Tanaris and the Hinterlands (Alliance 45-48): Darnassus before the Hinterl
 	const sg = goals('forever/alliance/40-50/06-searing-gorge.guide');
 	assert.ok(sg.findIndex(({ goal }) => goal.t === 'fly' && goal.location === 'Thelsamar') >= 0, 'the Searing Gorge guide flies Ironforge -> Thelsamar');
 });
+
+// 0.4.0 route audit, binds sweep (the addon's own travel planner on every Alliance start): the Stormwind bind on the
+// Stranglethorn guide's Stormwind stop and the Aerie Peak bind on the Badlands guide's first Aerie Peak visit are never
+// hearthed to before the next bind; both are gone.
+test('Stranglethorn and the Badlands (Alliance 42-43): no Stormwind or Aerie Peak bind the route never hearths to (0.4.0 audit)', { skip }, () => {
+	const bind = (guide, re) => goals(guide).some(({ goal }) => goal.t === 'sethome' && re.test(goal.location || goal.label || JSON.stringify(goal)));
+	assert.ok(!bind('forever/alliance/40-50/01-stranglethorn-vale.guide', /Stormwind/), 'no Stormwind bind in 40-50/01');
+	assert.ok(!bind('forever/alliance/40-50/02-badlands.guide', /Aerie Peak/), 'no Aerie Peak bind in 40-50/02');
+	assert.ok(bind('forever/alliance/40-50/01-stranglethorn-vale.guide', /Booty Bay/), 'the Booty Bay bind stays');
+});
+

@@ -118,7 +118,6 @@ step Aerie Peak
   accept 1451
   accept 2988
   accept 2880                         -- Fraggar Thundermantle, inside
-  sethome "Aerie Peak" npc 7744       -- Innkeeper Thulfram; below ground
 
 # ---------------------------------------------------------------- Aerie Peak
 
