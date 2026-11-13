@@ -1209,5 +1209,113 @@
 				"flow": "measured in the 30-60 batch (flow audit dynamic, off vs this dungeon)"
 			}
 		}
-	]
+	],
+	"notInRoute": [
+		{
+			"dungeon": "Gnomeregan",
+			"faction": "Both",
+			"why": "Left out of the route on purpose: for the Alliance its quests' city stops cost a ~1,450 yd walk from Ironforge's gate and back, and the Horde's Rig Wars is a hand-in waiting a whole guide; its Dungeons page has the pick-up and hand-in guides."
+		},
+		{
+			"dungeon": "Uldaman",
+			"faction": "Alliance",
+			"why": "No quest of the dungeon itself can be taken on a stop the route makes in its window: Krom Stoutarm, Prospector Stormpike and Talvash del Kissel are in Ironforge, which the route visits at 30-33 (below their level, Reclaimed Treasures 10 over) and again at 50; the quests the Badlands visits meet (A Sign of Hope and Amulet of Secrets, Solution to Doom, Power Stones, the reagent runs, Agmond's Fate) are done in the outer caves and at the Maker's Terrace, outside the dungeon, where Solution to Doom already is a group quest. A run would have no quest to guard it."
+		},
+		{
+			"dungeon": "Uldaman",
+			"faction": "Horde",
+			"why": "No quest of the dungeon itself can be taken in its window on the route: the necklace chain starts with Dran Droffers in Orgrimmar, whose route visit (43-45) comes after the only Badlands visit (39-40); the quests the Badlands visit meets (Solution to Doom, Power Stones, the reagent runs) are done outside the dungeon, and Jarkal Mossmeld offers Uldaman Reagent Run only at the end of the visit. A run would have no quest to guard it."
+		},
+		{
+			"dungeon": "Blackrock Depths",
+			"faction": "Alliance",
+			"why": "The dungeon's quests the route meets (Maxwort Uberglint's, Oralius', Jalinda Sprig's and Marshal Maxwell's) are offered in the Burning Steppes at 50-53, where the route stays at Morgan's Vigil and Flame Crest, 1,728 and 1,084 yd from the mountain's gate; the route passes the mountain only in the Searing Gorge at 48-49, before any of them is offered."
+		},
+		{
+			"dungeon": "Razorfen Kraul",
+			"faction": "Alliance",
+			"why": "No giver on a stop the route makes in its window (Mebok in Ratchet, Falfindel in Feralas, Veyric Thunderhame in the Arathi Highlands are off the route then); the nearest point the route passes in the window is 1,041 yd from the door (30-40/03-ashenvale's way into the Barrens)."
+		},
+		{
+			"dungeon": "Excavation Site: Wetlands",
+			"faction": "Horde",
+			"why": "The route never enters the Wetlands in the dungeon's window; its one giver on the route, Zaruk in Hammerfall (Dragonmaw Rumors, 30-33), sends you 2,956 yd across the Thandol Span to the dig and its other givers are off the route."
+		},
+		{
+			"dungeon": "Scarlet Monastery",
+			"faction": "Alliance",
+			"why": "The route never enters Tirisfal Glades."
+		},
+		{
+			"dungeon": "Scarlet Monastery",
+			"faction": "Horde",
+			"why": "The route's only Tirisfal point in the window is the zeppelin tower at 32-34, 1,244 yd from the door; Varimathras' quest is level 42 there (8 over) and the other givers are off the route (Thunder Bluff, the Undercity's Parqual Fintallas chain)."
+		},
+		{
+			"dungeon": "Razorfen Downs",
+			"faction": "Alliance",
+			"why": "No route visit in its window (35-41): the nearest point is 1,048 yd away at 32-33, and its givers are off the route or inside."
+		},
+		{
+			"dungeon": "Razorfen Downs",
+			"faction": "Horde",
+			"why": "No route visit in its window (35-41): the nearest point in it is about 4 km away; its givers are off the route or inside, Varimathras' An Unholy Alliance starts from an item inside."
+		},
+		{
+			"dungeon": "Maraudon",
+			"faction": "Alliance",
+			"why": "The route's Desolace visit (38-39) passes 347 yd from the door but below the quests' minimum levels (39 to 45): Willow's Twisted Evils needs 41, Archmage Tervosh's Shadowshard Fragments is offered at 40-43 in Theramore, the others are off the route."
+		},
+		{
+			"dungeon": "Maraudon",
+			"faction": "Horde",
+			"why": "The route is in Desolace only at 32-34, below the dungeon (42-51) and its quests (minimum 39 to 45)."
+		},
+		{
+			"dungeon": "Sunken Temple",
+			"faction": "Alliance",
+			"why": "The route passes the temple at 40-43, below its quests (level 50-53, minimum 41-50), and does not come back to the Swamp of Sorrows later."
+		},
+		{
+			"dungeon": "Sunken Temple",
+			"faction": "Horde",
+			"why": "The route passes the temple at 45-47, below its quests (level 50-53, minimum 46-50), and does not come back to the Swamp of Sorrows later."
+		},
+		{
+			"dungeon": "The Drowned City",
+			"faction": "Alliance",
+			"why": "Its givers on the route are Loremaster Dibbs in Southshore at 30-33 (level 40, 7 over) and Krazek's two quests, which give no experience."
+		},
+		{
+			"dungeon": "The Drowned City",
+			"faction": "Horde",
+			"why": "Kin'weelay offers The Drowned City in Grom'gol only once Locating the Lost City is handed in, after the route has already been at the entrance; a run would be a 681 yd trip back to the Vile Reef and a second Grom'gol visit for the hand-in. Commander Aggro'gosh's The Only Good Brinescale needs Enemies in the Water, which the route does not take."
+		},
+		{
+			"dungeon": "Krol'dok Stronghold",
+			"faction": "Alliance",
+			"why": "No entrance in our data and its one quest (Tome of Twilight, no experience) is off the route."
+		},
+		{
+			"dungeon": "Krol'dok Stronghold",
+			"faction": "Horde",
+			"why": "No entrance in our data and its one quest's giver, Tran'gul, is off the route."
+		},
+		{
+			"dungeon": "Alcaz Prison",
+			"faction": "Both",
+			"why": "No entrance in our data, and its quests give no experience or start inside."
+		},
+		{
+			"dungeon": "Blackmaw Hold",
+			"faction": "Both",
+			"why": "No entrance in our data, and its quests give no experience; their givers are off the route in its window."
+		},
+		{
+			"dungeon": "The Shaper's Terrace",
+			"faction": "Both",
+			"why": "A level 60 dungeon: its quests give no experience."
+		}
+	],
+	"aboutNotInRoute": "Dungeons measured for the route and left out, with why (the 30-60 batch, 0.4.0): their pick-up and run rules as for `runs`. The Dungeons window's pick-up and hand-in guides cover them."
 }

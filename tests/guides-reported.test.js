@@ -11584,6 +11584,24 @@ for (const run of fs.existsSync(path.join(__dirname, '..', 'data', 'dungeon-runs
 	});
 }
 
+// The dungeons measured and left out of the route (data/dungeon-runs.json `notInRoute`): each says why, none of them
+// also has a run recorded for that side, and no leveling guide of that side has a step for it.
+test('dungeons in the route: the dungeons left out say why and have no steps in the leveling guides', { skip }, () => {
+	const file = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', 'dungeon-runs.json'), 'utf8'));
+	const sides = (f) => (f === 'Both' ? ['Alliance', 'Horde'] : [f]);
+	for (const n of file.notInRoute || []) {
+		assert.ok(n.dungeon && n.why && n.why.length > 20, `${n.dungeon}: a reason`);
+		for (const faction of sides(n.faction)) {
+			assert.ok(!file.runs.some((r) => r.faction === faction && dungeonKey(r.dungeon) === dungeonKey(n.dungeon)), `${n.dungeon} (${faction}) is both run and left out`);
+			const dir = faction.toLowerCase();
+			for (const guide of allGuides().filter((g) => g.startsWith(`forever/${dir}/`))) {
+				const text = fs.readFileSync(path.join(OFFICIAL_DIR, guide), 'utf8');
+				for (const m of text.matchAll(/^\s*when dungeon "([^"]+)"/gm)) assert.notEqual(dungeonKey(m[1]), dungeonKey(n.dungeon), `${guide}: a step for ${n.dungeon}, which is left out`);
+			}
+		}
+	}
+});
+
 // The other way round: every `when dungeon` step of the leveling guides belongs to a recorded run (its dungeon
 // recorded for that guide's faction, and that guide named in the record), so no injected step is left without the
 // record a Forge round needs. Gnomeregan stays out of the route: its pick-up and hand-in guides on its Dungeons page
