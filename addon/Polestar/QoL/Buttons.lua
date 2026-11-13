@@ -907,47 +907,18 @@ end
 
 -- The open quests of the current step (reused).
 local openQuests, openCount = {}, 0
-local guideProducts = setmetatable({}, { __mode = "k" })
-local useRanges = {}
-
-local function producedItems()
-	local E = ns.Engine
-	local guide = E and E.GetGuide and E.GetGuide()
-	local resultOf = ns.Guides and ns.Guides.UseResult
-	if not (guide and resultOf) then return nil end
-	local items = guideProducts[guide]
-	if not items then
-		items = {}
-		for _, step in ipairs(guide.steps) do
-			for index in ipairs(step.goals) do
-				local result = resultOf(step.goals, index)
-				if result then items[result.item] = true end
-			end
-		end
-		guideProducts[guide] = items
-	end
-	return items
-end
-
-local function canOfferUse(goal, item, produced)
-	if not (item and Client.ItemCount(item) > 0) then return false end
-	if not (produced and produced[item] and goal.map and goal.x and goal.y) then return true end
-	local near = ns.Engine.AtGoal(goal)
-	useRanges[goal] = near
-	return near
-end
 
 -- First usable quest-class item in the bags that one of the step's open
 -- quests handed over (Bethor's Potion, Thule Ravenclaw's reward, is none of
 -- them); nil without Polestar.QuestDB, which knows what each quest hands over.
-local function bagQuestItem(produced)
+local function bagQuestItem()
 	local QDB = ns.QuestDB
 	if openCount == 0 or not (QDB and QDB.IsLoaded and QDB.IsLoaded() and QDB.HandsOver) then return nil end
 	for bag = 0, Client.NumBags() do
 		for slot = 1, Client.NumSlots(bag) do
 			local info = Client.SlotInfo(bag, slot)
 			local id = info and info.itemID
-			if id and not (produced and produced[id]) and Client.ItemClass(id) == Client.CLASS_QUEST and Client.ItemSpell(id) then
+			if id and Client.ItemClass(id) == Client.CLASS_QUEST and Client.ItemSpell(id) then
 				for i = 1, openCount do
 					if QDB.HandsOver(openQuests[i], id) then return id end
 				end
@@ -964,13 +935,11 @@ function Buttons.ChooseQuestItem(view, raw)
 	if not view then view, raw = QoL.CurrentStep() end
 	if not view then return nil end
 	local goals = view.goals or {}
-	local produced = producedItems()
 	for g = 1, #goals do
 		local gv = goals[g]
 		if gv.t == "use" and QoL.Open(gv) then
-			local goal = raw and raw[g] or gv
-			local item = gv.item or goal.item
-			if canOfferUse(goal, item, produced) then return item end
+			local item = gv.item or (raw and raw[g] and raw[g].item)
+			if item and Client.ItemCount(item) > 0 then return item end
 		end
 	end
 	openCount = 0
@@ -980,19 +949,19 @@ function Buttons.ChooseQuestItem(view, raw)
 			openCount = openCount + 1
 			openQuests[openCount] = gv.quest
 			local item = logItem(gv.quest)
-			if item and not (produced and produced[item]) and Client.ItemCount(item) > 0 then return item end
+			if item and Client.ItemCount(item) > 0 then return item end
 		end
 	end
-	local bag = bagQuestItem(produced)
+	local bag = bagQuestItem()
 	if bag then return bag end
 	local E = ns.Engine
 	local here = E and E.GetWhileHere and E.GetWhileHere()
 	if not (here and here.quest) then return nil end
 	local rg = E.AlongGoal and E.AlongGoal(here.step, here.index)
 	local item = here.t == "use" and (here.item or (rg and rg.item)) or nil
-	if canOfferUse(rg or here, item, produced) then return item end
+	if item and Client.ItemCount(item) > 0 then return item end
 	item = logItem(here.quest)
-	if item and not (produced and produced[item]) and Client.ItemCount(item) > 0 then return item end
+	if item and Client.ItemCount(item) > 0 then return item end
 	return nil
 end
 
@@ -1901,7 +1870,6 @@ end
 -- one NPC's name among them or nil | "npc", name | nil. The route's own goals come first, in guide order, then
 -- the optional ones, so an optional accept never takes the key.
 local function stepGoal(view, raw, goals, optional)
-	local produced = producedItems()
 	for g = 1, #goals do
 		local gv = goals[g]
 		local rg = raw and raw[g] or gv
@@ -1910,7 +1878,7 @@ local function stepGoal(view, raw, goals, optional)
 			local t = gv.t
 			if t == "use" then
 				local item = gv.item or rg.item
-				if not onTaxi() and canOfferUse(rg, item, produced) then return "item", item end
+				if item and Client.ItemCount(item) > 0 and not onTaxi() then return "item", item end
 			elseif t == "hearth" then
 				if canHearth() then return "item", Client.HEARTHSTONE end
 			elseif t == "kill" or t == "collect" then
@@ -2113,9 +2081,8 @@ function Buttons.AdvanceMark(kind)
 end
 
 -- While the target button's or the step key's names hold the step's NPCs
--- and the While you're here rows' mobs (farWatch set by them), or a quest
--- item an earlier use made waits for its spot (useRanges, #2101), a check
--- each second: crossing the radius re-orders them (#1623) or offers the item.
+-- and the While you're here rows' mobs (farWatch set by them), a check each
+-- second: crossing the radius re-orders them (#1623).
 local FAR_POLL = 1
 local farTicker, farWatched
 
@@ -2123,7 +2090,6 @@ local function refresh()
 	if not itemButton then return end
 	-- One view of the current step for all three buttons.
 	local view, raw = QoL.CurrentStep()
-	wipe(useRanges)
 	farWatch = nil
 	local guideShown = ns.GuideShown()
 	-- The step's item first; with none, a quest starter from the bags, glowing.
@@ -2189,21 +2155,11 @@ local function refresh()
 		applyStep(stepButton)
 	end
 	farWatched = farWatch
-	local watchRange = farWatch ~= nil or next(useRanges) ~= nil
-	if watchRange and not farTicker then
+	if farWatch ~= nil and not farTicker then
 		farTicker = ns.NewTicker(FAR_POLL, function()
-			if farWatched ~= nil and npcsFar() ~= farWatched then
-				refresh()
-				return
-			end
-			for goal, near in pairs(useRanges) do
-				if ns.Engine.AtGoal(goal) ~= near then
-					refresh()
-					return
-				end
-			end
+			if farWatched ~= nil and npcsFar() ~= farWatched then refresh() end
 		end)
-	elseif not watchRange and farTicker then
+	elseif farWatch == nil and farTicker then
 		farTicker:Cancel()
 		farTicker = nil
 	end
