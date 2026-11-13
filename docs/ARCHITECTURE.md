@@ -4317,7 +4317,11 @@ the border sweep: reaching an end plans again, and by then the player was a few
 steps on; just past the near end's reach the plan sent them back to it, and at
 the far end, in a zone the winding zone line put them in, back through the
 crossing, 68 times in 4 minutes between the Swamp of Sorrows and the Blasted
-Lands). `Progress` counts a
+Lands). Its far end reached, the crossing is walked through: within that
+distance the plan starts on the far end's side, so where the zone line winds
+past the far end (a patch of Durotar beside Orgrimmar's end of its gate to the
+Barrens) it goes on from where the player stands, never back to the far end.
+`Progress` counts a
 ride, flight, hearth or teleport down from when it became current (a flight
 from take-off, when the player is first on the taxi); `Remaining`, the
 arrow's ETA on those legs, counts down the same way. `EstimateTravel`

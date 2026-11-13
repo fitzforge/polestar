@@ -835,6 +835,20 @@ local function planRoute(p)
 		-- first again, so a skip never sends anyone over the zone border elsewhere.
 		if not startIn then
 			local cross = skip and skip.cross
+			-- A crossing walked through (its far end reached: cross[near end] == "through", passCrossing): within the
+			-- ends' distance of the far end the start stands on the far end's side, whatever zone the walking maps put
+			-- it in. Where the zone line winds round the far end, a plan from the near side's zone walked back to the
+			-- far end and one from the far side's on from it, and the arrow turned at every step across the line
+			-- (0.4.0's border sweep: 80 times at Orgrimmar's gate to the Barrens).
+			if cross then
+				for _, e in ipairs(crossEnds) do
+					local f = e.partner
+					if cross[e] == "through" and crossV[f] and vzone[crossV[f]] ~= nil
+						and yards(p.c, p.wx, p.wy, f.c, f.wx, f.wy) < yards(e.c, e.wx, e.wy, f.c, f.wx, f.wy) then
+						vzone[1] = vzone[crossV[f]]
+					end
+				end
+			end
 			-- A start whose walks to a crossing's two ends sum within this of the
 			-- ends' distance is on it. Local here: PlanRoute is at Lua 5.1's 60
 			-- upvalues.
@@ -2850,19 +2864,21 @@ end
 
 -- A crossing's near end (the crossing's id and the end's side) is passed for this target: skipped (Travel.SkipLeg), or
 -- reached (Travel.Aim: the walk to it, or its far end on the crossing's own walk or on the walk on to it from a start
--- on it). A plan from within the ends' distance of the far end walks on to it, whatever zone the walking maps put the
--- player in, never back to the near end; farther from the far end than that, the near end counts again. Reaching an
--- end plans again, and by then the player was a few steps on: just past the near end's reach, toward the far end, the
--- plan sent them back to the near end, and at the far end, in a zone the zone line between the ends winds through,
--- back through the crossing, round and round (0.4.0's border sweep: 68 times in 4 minutes between the Swamp of Sorrows
--- and the Blasted Lands, 25 at Orgrimmar's crossing to the Barrens).
-local function passCrossing(id, side)
+-- on it; `through`, the far end, marks it "through"). A plan from within the ends' distance of the far end walks on to
+-- it, whatever zone the walking maps put the player in, never back to the near end, and once through, on from where
+-- the player stands as on the far end's side (PlanRoute); farther from the far end than that, the near end counts
+-- again. Reaching an end plans again, and by then the player was a few steps on: just past the near end's reach,
+-- toward the far end, the plan sent them back to the near end, and at the far end, in a zone the zone line between the
+-- ends winds through, back through the crossing, round and round (0.4.0's border sweep: 68 times in 4 minutes between
+-- the Swamp of Sorrows and the Blasted Lands, 25 at Orgrimmar's crossing to the Barrens).
+local function passCrossing(id, side, through)
 	local target = Nav.GetTarget()
 	if skipFor ~= target then
 		skipped = { hearth = false, spells = {}, transports = {}, taxi = {}, cross = {} }
 	end
+	local cross = skipped.cross
 	for _, e in ipairs(crossEnds) do
-		if e.id == id and e.side == side then skipped.cross[e] = true end
+		if e.id == id and e.side == side then cross[e] = through and "through" or cross[e] or true end
 	end
 	skipFor = target
 end
@@ -3015,11 +3031,12 @@ function Travel.Aim(pc, px, py)
 				return "walk", to.c, to.wx, to.wy
 			end
 			-- At a crossing or chain waypoint: plan again from here (the next Refresh). A crossing's end reached, near
-			-- or far, passes its near end (passCrossing), as skipping the walk to it does (Travel.SkipLeg).
+			-- or far, passes its near end (passCrossing), as skipping the walk to it does (Travel.SkipLeg); the far end,
+			-- the crossing walked through.
 			if leg.waypoint then dirty = true end
 			local nx = legs[ci + 1]
 			if leg.passes then
-				passCrossing(leg.passes, leg.passSide)
+				passCrossing(leg.passes, leg.passSide, true)
 			elseif leg.waypoint and nx and nx.crossing then
 				passCrossing(nx.crossing, nx.side)
 			end
