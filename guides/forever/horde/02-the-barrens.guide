@@ -357,8 +357,7 @@ step Samophlange
 # ---------------------------------------------------------------- North-east loop
 
 step The Disruption Ends
-  tip Back to the Razormane camp. Geomancers and Defenders hold its eastern half; Kreenig Snarlsnout walks among them.
-  tip Careful: Razormane Flesheaters and Berserkers (18-19) are elites in the camp's north-east, near Kreenig: pull Kreenig and the quilboar away from them one at a time.
+  tip Back to the Razormane camp. Geomancers and Defenders hold its eastern half; Kreenig Snarlsnout walks among them. Careful: Razormane Flesheaters and Berserkers (18-19) are elites in the camp's north-east, near Kreenig and the supply crates, and Chol'aruk (20, elite) lies in the cave under Thorn Hill beside them: pull Kreenig and the quilboar away from them one at a time, and leave the cave alone unless you are in a group.
   kill 3266 quest 872.2
   kill 3269 quest 872.1
   collect 5063 quest 872.3 @58.5,27.0
@@ -828,7 +827,7 @@ step Moonglade
 step The Stormrage Barrow Dens
   only Druid
   zone Moonglade
-  tip Tauren: the Great Cat Spirit waits on the southern hill above the bridge. Skyborne: the Avatar of Saeyleenan stands south of the twin bridges. Then the dens east of the lake: leave your form, click the statue at the entrance for five minutes of stealth, keep clear of the spirits inside and take one of each relic; the Relic of the Silent Shadow lies at the foot of the white cat statue.
+  tip Tauren: the Great Cat Spirit waits on the southern hill above the bridge. Skyborne: the Avatar of Saeyleenan stands south of the twin bridges. Then the dens east of the lake: leave your form, click the statue at the entrance for five minutes of stealth, keep clear of the spirits inside and take one of each relic; the Relic of the Silent Shadow lies at the foot of the white cat statue. Careful: the spirits are Territorial Terrans (level 60) that kill whoever they see: stay off their paths, and click the statue again before the stealth runs out.
   turnin 98405 only Tauren @54.5,75 map 1450 era -- Great Cat Spirit
   accept 98342 only Tauren @54.5,75 map 1450 era
   turnin 98341 only Skyborne          -- Avatar of Saeyleenan
@@ -1019,9 +1018,8 @@ step Field of Giants
 step Twitching Antennae
   zone The Barrens
   only Warrior
-  tip The antennae vanish fifteen minutes after they drop: kill the Silithid Swarmers and Creepers at the same mounds until you have five, then take them straight to Ruga Ragetotem in Camp Taurajo, before the thunderhawks.
+  tip The antennae vanish fifteen minutes after they drop: kill the Silithid Swarmers and Creepers at the same mounds until you have five, then take them straight to Ruga Ragetotem in Camp Taurajo, before the thunderhawks. Careful: Silithid Swarmers (level 21-22) cast Silithid Swarm both in and out of combat, which brings several small adds; Silithid Creepers (level 20-21) periodically cast Silithid Creeper Egg in combat, which spawns extra adds. A Silithid Harvester (24, rare) also wanders the mounds: leave it.
   collect 7119 quest 1824.1           -- Twitching Antennae from the silithid
-  tip Careful: Silithid Swarmers (level 21-22) cast Silithid Swarm both in and out of combat, which brings several small adds. Silithid Creepers (level 20-21) periodically cast Silithid Creeper Egg in combat, which spawns extra adds.
 
 step Ruga Ragetotem
   zone The Barrens

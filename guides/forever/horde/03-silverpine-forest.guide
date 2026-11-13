@@ -333,14 +333,14 @@ step The Sepulcher
 
 step Border Crossings
   zone Silverpine Forest
-  tip Follow the road south. The Dalaran Crate sits beside it, north of Pyrewood.
+  tip Follow the road south. The Dalaran Crate sits beside it, north of Pyrewood. Careful: Dalaran Apprentices (13) stand around the crate: pull them one at a time before you open it.
   turnin 477
   accept 478
 
 # ---------------------------------------------------------------- North loop
 
 step The Dead Field
-  tip North of the Sepulcher. Nightlash haunts the Dead Field: kill it, then walk across the field.
+  tip North of the Sepulcher. Nightlash haunts the Dead Field: kill it, then walk across the field. Careful: Nightlash (14) rises once you have killed rot hide gnolls in the field: fight her with full health.
   collect 3622 quest 437.1
   complete 437 @45.1,21.7
 
@@ -408,7 +408,7 @@ step The Decrepit Ferry
   accept 439
 
 step Ambermill
-  tip Keep south along the shore from the ferry to Ambermill. Protectors guard the outskirts and Mages the town; both drop pendants. Stay out of the middle, where Archmage Ataeric stands.
+  tip Keep south along the shore from the ferry to Ambermill. Protectors guard the outskirts and Mages the town; both drop pendants. Careful: each Mage (15) fights with a Dalaran Serpent (15) beside it: pull one Mage at a time from the outskirts. Stay out of the middle, where Archmage Ataeric (22) stands.
   collect 3354 quest 479.1            -- Dalaran Pendant
 
 step The Sepulcher

@@ -231,13 +231,76 @@
 			"id": "1575-barrens-razormane-elites-kreenig",
 			"faction": "Horde",
 			"at": { "quest": 872, "goal": "objective", "objective": 1 },
-			"tip": "Careful: Razormane Flesheaters and Berserkers (18-19) are elites in the camp's north-east, near Kreenig: pull Kreenig and the quilboar away from them one at a time.",
-			"note": "Danger-at-the-spot sweep (#1575): The Disruption Ends sends players of about 16 back among the camp's level 18-19 elites; Kreenig's tusk is taken at 58.5,27.0, beside the Flesheaters. Players' recordings: 7 people died within 60 yd of the step's goals at about level 15, a Flesheater (elite) among what they fought.",
+			"tip": "Back to the Razormane camp. Geomancers and Defenders hold its eastern half; Kreenig Snarlsnout walks among them. Careful: Razormane Flesheaters and Berserkers (18-19) are elites in the camp's north-east, near Kreenig and the supply crates, and Chol'aruk (20, elite) lies in the cave under Thorn Hill beside them: pull Kreenig and the quilboar away from them one at a time, and leave the cave alone unless you are in a group.",
+			"note": "Danger-at-the-spot sweep (#1575): The Disruption Ends sends players of about 16 back among the camp's level 18-19 elites; Kreenig's tusk is taken at 58.5,27.0, beside the Flesheaters. Players' recordings: 7 people died within 60 yd of the step's goals at about level 15, a Flesheater (elite) among what they fought. 0.4.0 audit: the tip also names Chol'aruk (267307, level 20, elite), who lies in the Thorn Hill cave beside the supply crates (danger-at-the-spot gate; players' recordings for the crates' objective: 53 people did it, 8 deaths, 9 abandons), and the step keeps one tip.",
 			"source": [
 				{ "kind": "pfquest", "ref": "npcs.json 267308 Razormane Flesheater 18-19 and 267314 Razormane Berserker 18-19, rank elite, The Barrens 56.5-58,22.5-27.3" },
 				{ "kind": "recording", "ref": "rec index 2026-11-11: 7 people died within 60 yd of 872's goals (median level 15); foe 267308 recorded as elite" }
 			],
 			"issue": 1575
+		},
+		{
+			"id": "2025-barrens-barrow-dens-terrans",
+			"faction": "Horde",
+			"at": {
+				"quest": 98342,
+				"goal": "objective",
+				"objective": 1
+			},
+			"tip": "Tauren: the Great Cat Spirit waits on the southern hill above the bridge. Skyborne: the Avatar of Saeyleenan stands south of the twin bridges. Then the dens east of the lake: leave your form, click the statue at the entrance for five minutes of stealth, keep clear of the spirits inside and take one of each relic; the Relic of the Silent Shadow lies at the foot of the white cat statue. Careful: the spirits are Territorial Terrans (level 60) that kill whoever they see: stay off their paths, and click the statue again before the stealth runs out.",
+			"note": "0.4.0 audit (danger-at-the-spot gate): the 'spirits' in the Stormrage Barrow Dens are Territorial Terrans (230558, level 60), standing over the relics (72-76,63-67). The tip names them and says to renew the statue's stealth before it runs out. Players' recordings on the Cat Form chain's relic objectives: 6 people did it, 3-5 died there.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-13: deaths on the 98342/98404 relic objectives in the Barrow Dens; npcs.json 230558 spawns"
+			},
+			"issue": 2025
+		},
+		{
+			"id": "2025-silverpine-dalaran-crate-apprentices",
+			"faction": "Horde",
+			"at": {
+				"quest": 477,
+				"goal": "turnin"
+			},
+			"tip": "Follow the road south. The Dalaran Crate sits beside it, north of Pyrewood. Careful: Dalaran Apprentices (13) stand around the crate: pull them one at a time before you open it.",
+			"note": "0.4.0 audit: ten of the 24 Dalaran Apprentices (1867, level 13) stand within a few yards of the Dalaran Crate (49.9,60.3). Players' recordings, Polestar 0.3.6 and later: 5 of 17 people died on the step that follows the crate, 2 of them to Dalaran Apprentices (median level 13.9).",
+			"source": {
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-13: deaths while on 03-silverpine-forest's Dead Field step, killer npc 1867; npcs.json 1867 spawns"
+			},
+			"issue": 1980
+		},
+		{
+			"id": "1980-silverpine-nightlash-level",
+			"faction": "Horde",
+			"at": {
+				"quest": 437,
+				"goal": "objective",
+				"objective": 1
+			},
+			"tip": "North of the Sepulcher. Nightlash haunts the Dead Field: kill it, then walk across the field. Careful: Nightlash (14) rises once you have killed rot hide gnolls in the field: fight her with full health.",
+			"note": "#1980: a level 13.5 Paladin died to Nightlash (1983, level 14), who appears after the rot hide gnolls in the field are killed (the quest's own text). Players reach the Dead Field at a median 14.3 (17 people, 0.3.6+); 55 people killed Nightlash, 1 died to her. The tip gives her level and says when she comes.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-13: Nightlash kills and deaths, step levels on 03-silverpine-forest (#1980)"
+			},
+			"issue": 1980
+		},
+		{
+			"id": "2025-silverpine-ambermill-mages-serpents",
+			"faction": "Horde",
+			"at": {
+				"quest": 479,
+				"goal": "objective",
+				"objective": 1
+			},
+			"tip": "Keep south along the shore from the ferry to Ambermill. Protectors guard the outskirts and Mages the town; both drop pendants. Careful: each Mage (15) fights with a Dalaran Serpent (15) beside it: pull one Mage at a time from the outskirts. Stay out of the middle, where Archmage Ataeric (22) stands.",
+			"note": "0.4.0 audit: Ambermill's Dalaran Mages (1914, level 15) fight beside Dalaran Serpents (2540, level 15). Players' recordings, Polestar 0.3.6 and later: 5 of 14 people died on the Ambermill step (median 15.1), to Mages, Serpents and Protectors (1912, level 14); Archmage Ataeric (2120) is level 22.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-13: deaths on 03-silverpine-forest's Ambermill step, killers 1914, 2540, 1912; npcs.json levels"
+			},
+			"issue": 2025
 		},
 		{
 			"id": "1575-darkshore-althalaxx-voidcallers",
@@ -1935,8 +1998,8 @@
 				"goal": "objective",
 				"objective": 1
 			},
-			"tip": "The antennae vanish fifteen minutes after they drop: kill the Silithid Swarmers and Creepers at the same mounds until you have five, then take them straight to Ruga Ragetotem in Camp Taurajo, before the thunderhawks.",
-			"note": "Trial at the Field of Giants (Warrior): the seed tip ended 'then hearth to Camp Taurajo straight away'. The guides no longer tell the player to hearth (the arrow gives that advice, Polestar 0.3.3); the tip keeps the fifteen-minute warning and names where the antennae go (turnin 1824 to Ruga Ragetotem, the step after). Since 0.3.8 the antennae come right after the eggs at the same mounds and the thunderhawks after the hand-in (route-fixes pair turnin 1824 -> task 913).",
+			"tip": "The antennae vanish fifteen minutes after they drop: kill the Silithid Swarmers and Creepers at the same mounds until you have five, then take them straight to Ruga Ragetotem in Camp Taurajo, before the thunderhawks. Careful: Silithid Swarmers (level 21-22) cast Silithid Swarm both in and out of combat, which brings several small adds; Silithid Creepers (level 20-21) periodically cast Silithid Creeper Egg in combat, which spawns extra adds. A Silithid Harvester (24, rare) also wanders the mounds: leave it.",
+			"note": "Trial at the Field of Giants (Warrior): the seed tip ended 'then hearth to Camp Taurajo straight away'. The guides no longer tell the player to hearth (the arrow gives that advice, Polestar 0.3.3); the tip keeps the fifteen-minute warning and names where the antennae go (turnin 1824 to Ruga Ragetotem, the step after). Since 0.3.8 the antennae come right after the eggs at the same mounds and the thunderhawks after the hand-in (route-fixes pair turnin 1824 -> task 913). 0.4.0 audit: the tip also carries the Swarmers' and Creepers' warning and names the Silithid Harvester (level 24, rare) that wanders the mounds (danger-at-the-spot gate; recordings: 6 people did it, 1 death, 4 abandons), so the step keeps one tip.",
 			"source": [
 				{
 					"kind": "in-game-check",

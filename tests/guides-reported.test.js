@@ -5394,6 +5394,30 @@ test('Silverpine Forest (Horde 12-15): Paladins train on the first Brill stop, n
 	assert.ok(brill[0].goal.only && brill[0].goal.only.classes.join() === 'PALADIN', 'for Paladins');
 });
 
+// 0.4.0 route audit, Horde 12-21 (danger-at-the-spot gate, #1980, players' recordings): the steps where players of the
+// band die name what kills them: the Apprentices at the Dalaran Crate, Nightlash's level and when she rises, Ambermill's
+// Mages with their Serpents and Ataeric's level, Chol'aruk beside the Razormane supply crates, the rare Silithid
+// Harvester at the Field of Giants' mounds, and the level 60 Territorial Terrans in the Stormrage Barrow Dens. Each step
+// keeps one tip, with its record.
+test('Silverpine Forest and the Barrens (Horde): the band\'s dangerous steps say what is there (#1980, 0.4.0 audit)', { skip }, () => {
+	const fixes = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', 'guide-fixes.json'), 'utf8')).fixes;
+	for (const [guide, title, re] of [
+		[SILVERPINE, 'Border Crossings', /Dalaran Apprentices \(13\)/],
+		[SILVERPINE, 'The Dead Field', /Nightlash \(14\) rises/],
+		[SILVERPINE, 'Ambermill', /Dalaran Serpent \(15\).*Archmage Ataeric \(22\)/],
+		[BARRENS, 'The Disruption Ends', /Chol'aruk \(20, elite\)/],
+		[BARRENS, 'Twitching Antennae', /Silithid Harvester \(24, rare\)/],
+		[BARRENS, 'The Stormrage Barrow Dens', /Territorial Terrans \(level 60\)/],
+	]) {
+		const step = compiled(guide).steps.find((st) => st.title === title);
+		assert.ok(step, `${guide}: step "${title}"`);
+		const tips = [].concat(step.tip || []);
+		assert.equal(tips.length, 1, `${title}: one tip`);
+		assert.match(tips[0], re, `${title}: names the danger`);
+		assert.ok(fixes.some((f) => f.tip === tips[0]), `${title}: a record the build keeps`);
+	}
+});
+
 // 0.4.0 route audit, Horde 12-21: Neeru Fireblade offers Ak'Zeloth (809) on the Orcs' and Trolls' Cleft of Shadow stop
 // once Neeru Fireblade (829) is handed in, and Ak'Zeloth stands beside Kargal at Far Watch Post, the Barrens' first stop
 // for them: taken on the one, handed in on the other, no walk of its own.
