@@ -11899,3 +11899,35 @@ test('Thundering Hearts: taken after Varimathras, the heart on the way to Moktar
 	const back = at(arathi, 'turnin 97985', is('turnin', 97985));
 	assert.ok(arathi[back].goal.map === 1458 && back < at(arathi, 'the flight to Tarren Mill', (g) => g.t === 'fly'), 'handed in on the Undercity stop, before the flight');
 });
+
+// Almighty972 (#2151): "Ca n'indique pas le bon endroit pour ramasser les
+// étoffe de lin" on the Human Paladin's Tome of Divinity. Only pfQuest lists
+// Lisan Pierce (1414), a Stormwind NPC, as a Linen Cloth dropper (100%), so the
+// arrow went to her; QuestieDB does not. General Marcus Jonathan (466) is the
+// same case for Runecloth. Both are friendly to the Alliance players these
+// guides are for (forever-db/corrections/items.json removeDrops). Without them
+// the nearest dropper to a city step is still a mob of the wrong level or in
+// another city, so the cloth goals in a city point at its Auction House, as
+// the steps' tips say (Auctioneer Fitch 8719, Auctioneer Redmuse 8720).
+test('#2151: Linen Cloth and Runecloth goals in Alliance guides lead to the Auction House, not to a Stormwind NPC', { skip }, () => {
+	const auction = [8719, 8720];
+	for (const [guide, quest, item, npc] of [
+		['forever/class/paladin/tome-of-divinity.guide', 1644, 2589, 1414],
+		['forever/class/paladin/tome-of-divinity.guide', 1648, 2589, 1414],
+		['forever/class/mage/manaweave-robe.guide', 1921, 2589, 1414],
+		['forever/collectibles/mounts/alliance/paladin-charger.guide', 7642, 14047, 466],
+		['forever/alliance/50-60/06-silithus.guide', undefined, 14047, 466],
+	]) {
+		const found = goals(guide).filter(({ goal }) => goal.t === 'collect' && goal.quest === quest && goal.item === item);
+		assert.ok(found.length > 0, `${guide}: the ${item} collect for ${quest} is in the guide`);
+		for (const { goal } of found) {
+			const ids = (goal.fromNpcs || []).map((n) => n.npc);
+			assert.ok(!ids.includes(npc), `${guide} ${quest}: npc ${npc} is not named as a dropper (${ids.join(', ')})`);
+			const near = auction.some((a) => {
+				const spawn = data.npcs[a].spawns[goal.map];
+				return spawn && yards(goal, { map: goal.map, x: spawn.pts[0][0], y: spawn.pts[0][1] }) <= 15;
+			});
+			assert.ok(near, `${guide} ${quest}: the arrow at ${goal.map} ${goal.x},${goal.y} is at an Auction House`);
+		}
+	}
+});
