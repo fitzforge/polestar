@@ -160,7 +160,7 @@ return {
 	-- Step 42: Samophlange
 	-- {object:4141} Control Console · {area:382} Sludge Fen · {item:5089} Console Key · {npc:3471} Tinkerer Sniggles
 	["The {object:4141} stands at the Venture Co. research site west of the {area:382}. Close the three valves around the drill, use the console again, then take the {item:5089} from {npc:3471} beside it.\nCareful: Several guards stand within aggro range of the valves, respawn in under about 3 minutes, and run at low health to bring back help; nearby mobs also join if you use a valve while they are close."] = "",
-	["Inside"] = "",
+	["Inside"] = "Adentro",
 	-- {npc:3442} Sputtervalve · {area:392} Ratchet
 	["{npc:3442} in {area:392}: on the next {area:392} stop"] = "",
 
@@ -380,7 +380,7 @@ return {
 	-- Step 94: Verog the Dervish
 	-- {npc:3395} Verog the Dervish · {area:388} Stagnant Oasis · {npc:3448} Tonga Runetotem
 	["{npc:3395} walks among the Kolkar at the {area:388} south-east of the Crossroads. Test {npc:3448}'s seeds at the bubbling fissure on the oasis' east bank while you are there."] = "{npc:3395} camina entre los Kolkar en {area:388}, al sureste del Cruce. Mientras estés ahí, prueba las semillas de {npc:3448} en la fisura burbujeante de la orilla este del oasis.",
-	["Underwater"] = "",
+	["Underwater"] = "Bajo el agua",
 	-- {npc:12296} Sickly Gazelle · {item:15826} Curative Animal Salve
 	["{npc:12296}: use the {item:15826} on them; they roam the plains all around the Crossroads"] = "",
 	-- {npc:12296} Sickly Gazelle
