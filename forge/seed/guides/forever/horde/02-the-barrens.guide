@@ -91,8 +91,11 @@ next forever/horde/05-stonetalon-mountains
 # while the quest is in the log, #1386), the pendant joined and handed in from the Undercity at the
 # end of forever/horde/06-hillsbrad-foothills, as Aquatic Form (31) at Turak.
 #
-# Class training: Orgrimmar at 20 for everyone but Druids and Paladins; Druids in Thunder Bluff at
-# 16 and 20; Paladins in Thunder Bluff at about 21.
+# Class training: Orgrimmar at 20 for everyone but Druids and Paladins, who fly to Thunder Bluff in
+# that trip's place instead (Orgrimmar has no trainer of theirs, and Rilli Greasygob's 3923 is taken
+# only by the classes that go there): Paladins learn its flight path by Camp Taurajo and train,
+# Druids train at 16 and at 20, the second time with Cat Form and Cure Poison in Moonglade on the
+# same trip; both fly on to Ratchet from Thunder Bluff.
 
 # ---------------------------------------------------------------- Far Watch Post
 
@@ -723,7 +726,7 @@ step Wenikee Boltbucket
   zone The Barrens
   tip West from the mine to Wenikee's camp, then south down the road to the Crossroads.
   turnin 3922
-  accept 3923                         -- Keep it: Rilli Greasygob is in Orgrimmar's Valley of Honor, on the Orgrimmar trip at 20
+  accept 3923 only Warrior,Hunter,Rogue,Priest,Shaman,Mage,Warlock -- Keep it: Rilli Greasygob is in Orgrimmar's Valley of Honor, on the Orgrimmar trip at 20
 
 step the Crossroads
   zone The Barrens
@@ -781,7 +784,7 @@ step The Crossroads
 # ---------------------------------------------------------------- Orgrimmar at 20
 
 step Fly to Orgrimmar
-  only !Druid
+  only Warrior,Hunter,Rogue,Priest,Shaman,Mage,Warlock
   zone The Barrens
   tip Train your level 20 ranks in Orgrimmar now: fly from Devrak on the Crossroads' tower.
   fly "Orgrimmar"
@@ -796,6 +799,7 @@ step Orgrimmar
   accept 1528 only Shaman             -- Searn Firewarder
 
 step Valley of Honor
+  only Warrior,Hunter,Rogue,Priest,Shaman,Mage,Warlock
   zone Orgrimmar
   when onquest 3923
   tip Rilli Greasygob stands by the Valley of Honor's water, east of the Drag.
@@ -833,15 +837,96 @@ step Ur'kyo
   turnin 5680 only Troll              -- Ur'kyo: Shadowguard
   accept 5646 only Undead             -- Ur'kyo: Aelthalyste in the Undercity, two guides on
 
+step Crossroads flight master
+  only Paladin
+  zone The Barrens
+  goto 51.5,30.4 "Crossroads flight master"
+
 step Thunder Bluff
-  only Druid
+  only Paladin
   zone Thunder Bluff
-  tip Fly from the Crossroads to Thunder Bluff and train your level 20 ranks: Turak Runetotem is on Elder Rise.
-  fly "Thunder Bluff"
+  tip Train your level 20 ranks: Alodan the Hopeful teaches Paladins in Thunder Bluff; Orgrimmar has no Paladin trainer. You have no flight path there yet: fly to Camp Taurajo, head west through Mulgore and up a lift, and take the flight path from Tal on the central rise.
+  fly "Camp Taurajo"
+  getfp "Thunder Bluff" npc 2995      -- Tal
   train class
 
-step Fly to Ratchet
+step Crossroads flight master
   only Druid
+  zone The Barrens
+  goto 51.5,30.4 "Crossroads flight master"
+
+step The Great Cat Spirit
+  only Druid
+  zone Thunder Bluff
+  tip Fly from the Crossroads to Thunder Bluff and train your level 20 ranks: Turak Runetotem is on Elder Rise. Cat Form and Cure Poison follow in Moonglade on the same trip, then Bunthen Plainswind flies you back here and on to Ratchet.
+  fly "Thunder Bluff"
+  train class
+  level 20
+  accept 98340 only Skyborne,Tauren -- Turak Runetotem
+
+step Moonglade
+  only Druid
+  zone Moonglade
+  tip Cast Teleport: Moonglade. Dendrite Starblaze stands upstairs in his building in Nighthaven: go up inside, the arrow cannot tell the floors apart.
+  turnin 6129 only Tauren,Skyborne             -- Dendrite Starblaze
+  accept 6130 only Tauren,Skyborne
+
+step Moonglade
+  only Skyborne,Druid
+  zone Moonglade
+  goto 56.3,32.5 "Cast Teleport: Moonglade"
+
+step Moonglade
+  only Druid
+  zone Moonglade
+  tip Dendrite Starblaze stands upstairs in his building in Nighthaven: go up inside, the arrow cannot tell the floors apart.
+  turnin 98340 only Skyborne,Tauren -- Dendrite Starblaze
+  accept 98405 only Tauren
+  accept 98341 only Skyborne
+
+step Moonglade
+  only Druid
+  zone Moonglade
+  tip Dendrite Starblaze stands upstairs in his building in Nighthaven: go up inside, the arrow cannot tell the floors apart.
+  when onquest 94913
+  turnin 94913 only Skyborne          -- Dendrite Starblaze: the welcome from Turak
+
+step The Stormrage Barrow Dens
+  only Druid
+  zone Moonglade
+  tip Tauren: the Great Cat Spirit waits on the southern hill above the bridge. Skyborne: the Avatar of Saeyleenan stands south of the twin bridges. Then the dens east of the lake: leave your form, click the statue at the entrance for five minutes of stealth, keep clear of the spirits inside and take one of each relic; the Relic of the Silent Shadow lies at the foot of the white cat statue.
+  turnin 98405 only Tauren @54.5,75 map 1450 era -- Great Cat Spirit
+  accept 98342 only Tauren @54.5,75 map 1450 era
+  turnin 98341 only Skyborne          -- Avatar of Saeyleenan
+  accept 98404 only Skyborne
+  collect 280502 quest 98342.1 @72.4,66.0 only Tauren
+  collect 280679 quest 98342.2 @75.2,67.2 only Tauren
+  collect 280680 quest 98342.3 @74.4,65.4 only Tauren
+  collect 280502 quest 98404.1 @72.4,66.0 only Skyborne
+  collect 280679 quest 98404.2 @75.2,67.2 only Skyborne
+  collect 280680 quest 98404.3 @74.4,65.4 only Skyborne
+  turnin 98342 only Tauren @54.5,75 map 1450 era -- Great Cat Spirit
+  accept 98739 only Tauren @54.5,75 map 1450 era
+  turnin 98404 only Skyborne          -- Avatar of Saeyleenan
+  accept 98738 only Skyborne
+
+step Dendrite Starblaze
+  only Druid
+  zone Moonglade
+  tip Dendrite Starblaze stands upstairs in his building in Nighthaven: go up inside, the arrow cannot tell the floors apart.
+  turnin 98739 only Tauren            -- Dendrite Starblaze, Nighthaven
+  turnin 98738 only Skyborne
+  accept 98362 only Skyborne,Tauren
+
+step Turak Runetotem
+  only Druid
+  zone Thunder Bluff
+  fly "Thunder Bluff"                 -- Bunthen Plainswind in Nighthaven flies druids there
+  turnin 6130 only Tauren,Skyborne             -- Turak Runetotem: Cure Poison
+  turnin 98362 only Skyborne,Tauren -- Turak Runetotem: Cat Form
+
+step Fly to Ratchet
+  only Druid,Paladin
   zone Thunder Bluff
   tip Fly from Thunder Bluff on to Ratchet.
   goto 46.7,49.9 "Thunder Bluff flight master"
@@ -849,7 +934,7 @@ step Fly to Ratchet
   zone The Barrens
 
 step Fly to Ratchet
-  only !Druid
+  only Warrior,Hunter,Rogue,Priest,Shaman,Mage,Warlock
   zone Orgrimmar
   tip Fly on to Ratchet from Doras on the tower in the Valley of Strength.
   goto 45.3,63.7 "Orgrimmar flight master"
@@ -1013,99 +1098,6 @@ step Counterattack!
   tip Speak to Regthar again to start the attack: the Kolkar charge the bunkers just west of him in waves. Fight beside the grunts until Warlord Krom'zar (elite, 20) arrives with two bodyguards, usually from the south, then click the banner over his body.
   collect 11227 quest 4021.1 @44.4,28.1 -- Piece of Krom'zar's Banner
   turnin 4021                         -- Regthar Deathgate
-
-step Crossroads flight master
-  only Paladin
-  zone The Barrens
-  goto 51.5,30.4 "Crossroads flight master"
-
-step Thunder Bluff
-  only Paladin
-  zone Thunder Bluff
-  tip Alodan the Hopeful teaches Paladins in Thunder Bluff. You have no flight path there yet: fly to Camp Taurajo, head west through Mulgore and up a lift, and take the flight path from Tal on the central rise.
-  fly "Camp Taurajo"
-  getfp "Thunder Bluff" npc 2995      -- Tal
-  train class
-
-step Crossroads flight master
-  only Druid
-  zone The Barrens
-  goto 51.5,30.4 "Crossroads flight master"
-
-step The Great Cat Spirit
-  only Druid
-  zone Thunder Bluff
-  tip Fly to Thunder Bluff to train: Turak Runetotem is on Elder Rise.
-  fly "Thunder Bluff"
-  train class
-  accept 98340 only Skyborne,Tauren -- Turak Runetotem
-
-step Moonglade
-  only Druid
-  zone Moonglade
-  tip Cast Teleport: Moonglade. Dendrite Starblaze stands upstairs in his building in Nighthaven: go up inside, the arrow cannot tell the floors apart.
-  turnin 6129 only Tauren,Skyborne             -- Dendrite Starblaze
-  accept 6130 only Tauren,Skyborne
-
-step Moonglade
-  only Skyborne,Druid
-  zone Moonglade
-  goto 56.3,32.5 "Cast Teleport: Moonglade"
-
-step Moonglade
-  only Druid
-  zone Moonglade
-  tip Dendrite Starblaze stands upstairs in his building in Nighthaven: go up inside, the arrow cannot tell the floors apart.
-  turnin 98340 only Skyborne,Tauren -- Dendrite Starblaze
-  accept 98405 only Tauren
-  accept 98341 only Skyborne
-
-step Moonglade
-  only Druid
-  zone Moonglade
-  tip Dendrite Starblaze stands upstairs in his building in Nighthaven: go up inside, the arrow cannot tell the floors apart.
-  when onquest 94913
-  turnin 94913 only Skyborne          -- Dendrite Starblaze: the welcome from Turak
-
-step The Stormrage Barrow Dens
-  only Druid
-  zone Moonglade
-  tip Tauren: the Great Cat Spirit waits on the southern hill above the bridge. Skyborne: the Avatar of Saeyleenan stands south of the twin bridges. Then the dens east of the lake: leave your form, click the statue at the entrance for five minutes of stealth, keep clear of the spirits inside and take one of each relic; the Relic of the Silent Shadow lies at the foot of the white cat statue.
-  turnin 98405 only Tauren @54.5,75 map 1450 era -- Great Cat Spirit
-  accept 98342 only Tauren @54.5,75 map 1450 era
-  turnin 98341 only Skyborne          -- Avatar of Saeyleenan
-  accept 98404 only Skyborne
-  collect 280502 quest 98342.1 @72.4,66.0 only Tauren
-  collect 280679 quest 98342.2 @75.2,67.2 only Tauren
-  collect 280680 quest 98342.3 @74.4,65.4 only Tauren
-  collect 280502 quest 98404.1 @72.4,66.0 only Skyborne
-  collect 280679 quest 98404.2 @75.2,67.2 only Skyborne
-  collect 280680 quest 98404.3 @74.4,65.4 only Skyborne
-  turnin 98342 only Tauren @54.5,75 map 1450 era -- Great Cat Spirit
-  accept 98739 only Tauren @54.5,75 map 1450 era
-  turnin 98404 only Skyborne          -- Avatar of Saeyleenan
-  accept 98738 only Skyborne
-
-step Dendrite Starblaze
-  only Druid
-  zone Moonglade
-  tip Dendrite Starblaze stands upstairs in his building in Nighthaven: go up inside, the arrow cannot tell the floors apart.
-  turnin 98739 only Tauren            -- Dendrite Starblaze, Nighthaven
-  turnin 98738 only Skyborne
-  accept 98362 only Skyborne,Tauren
-
-step Turak Runetotem
-  only Druid
-  zone Thunder Bluff
-  fly "Thunder Bluff"                 -- Bunthen Plainswind in Nighthaven flies druids there
-  turnin 6130 only Tauren,Skyborne             -- Turak Runetotem: Cure Poison
-  turnin 98362 only Skyborne,Tauren -- Turak Runetotem: Cat Form
-
-step Back to the Crossroads
-  only Druid,Paladin
-  zone Thunder Bluff
-  tip Fly back to the Crossroads; the road west to Stonetalon starts at Regthar's bunkers.
-  fly "Crossroads"
 
 # ---------------------------------------------------------------- West: Seereth and the Webwinder Path
 step Seereth's camp

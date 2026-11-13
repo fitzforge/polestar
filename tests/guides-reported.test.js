@@ -5397,6 +5397,30 @@ test("Silverpine Forest and the Barrens (Horde): Ak'Zeloth from Neeru to Far Wat
 	assert.equal(barrens[give].goal.npc, 3521, "Ak'Zeloth");
 });
 
+// 0.4.0 route audit, Horde 12-21 (players' recordings, 0.3.7: both Druids who reached it flew Crossroads -> Orgrimmar
+// for Rilli Greasygob, then on to Thunder Bluff): Druids and Paladins have no trainer in Orgrimmar. They take Thunder
+// Bluff in the Orgrimmar trip's place (Paladins learn its flight path by Camp Taurajo), Druids with Cat Form and Cure
+// Poison on the same trip, and fly on to Ratchet; nobody makes a second Thunder Bluff trip after Counterattack!.
+test('The Barrens (Horde): Druids and Paladins train in Thunder Bluff in the Orgrimmar trip\'s place, once (0.4.0 audit)', { skip }, () => {
+	const list = goals(BARRENS);
+	const fits = (o, cls) => !o || !o.classes || o.classes.includes(cls);
+	const as = (cls) => list.filter(({ step, goal }) => fits(step.only, cls) && fits(goal.only, cls));
+	for (const cls of ['DRUID', 'PALADIN']) {
+		const l = as(cls);
+		const egg = at(l, 'accept 868', is('accept', 868));
+		const ratchet = at(l, 'turnin 896', is('turnin', 896));
+		assert.ok(!l.slice(egg, ratchet).some(({ goal }) => goal.t === 'fly' && goal.location === 'Orgrimmar'), `${cls}: no flight to Orgrimmar`);
+		assert.ok(!l.some(({ goal }) => is('turnin', 3923)(goal) || is('accept', 3923)(goal)), `${cls}: Rilli Greasygob's errand is not taken`);
+		const trains = l.map((e, i) => [e, i]).filter(([{ goal }, i]) => i > egg && goal.t === 'train' && goal.class);
+		assert.equal(trains.length, 1, `${cls}: one class training after the Bristlebacks`);
+		assert.ok(trains[0][1] < ratchet, `${cls}: before the Ratchet stop`);
+		assert.equal(trains[0][0].goal.zone, 1456, `${cls}: in Thunder Bluff`);
+	}
+	const druid = as('DRUID');
+	const ratchet = at(druid, 'turnin 896', is('turnin', 896));
+	for (const q of [98362, 6130]) assert.ok(at(druid, `turnin ${q}`, is('turnin', q)) < ratchet, `${q} on the same trip, before Ratchet`);
+});
+
 // #1024 (Pilk, Tauren Druid): Apothecary Zamah's arrow led up out of the Pools of Vision, the cave under
 // Spirit Rise in Thunder Bluff. The NPCs down there (spawn heights 97 to 112; Spirit Rise above them at about
 // 135-138): every step at one says so, since the arrow cannot tell the floors apart. Birgitte Cranston's tip

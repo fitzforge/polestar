@@ -11223,6 +11223,32 @@
 			},
 			{
 				"a": [
+					"turnin",
+					98362
+				],
+				"b": [
+					"turnin",
+					896
+				],
+				"faction": "Horde",
+				"why": "Horde 12-21 audit (0.4.0): Druids skip the Orgrimmar trip at 20 (no Druid trainer there) and train in Thunder Bluff instead; Cure Poison's gazelles are done on the Verog pass before it and players stand at 22 there (recordings: 22.2-22.3 on that step), so Cat Form (98340-98362, 20) and Power over Poison go on the same Thunder Bluff and Moonglade trip, before the Ratchet stop it flies on to, instead of a second Crossroads -> Thunder Bluff -> Moonglade -> Crossroads trip after Counterattack! (two flights and the Elder Rise walk, ~5 min). Recordings, 0.3.7: both Druids who reached the old split flew Crossroads -> Orgrimmar for Rilli Greasygob and on to Thunder Bluff.",
+				"source": "Horde 12-21 audit 0.4.0"
+			},
+			{
+				"a": [
+					"turnin",
+					6130
+				],
+				"b": [
+					"turnin",
+					896
+				],
+				"faction": "Horde",
+				"why": "Horde 12-21 audit (0.4.0): Power over Poison goes back to Turak on the same Thunder Bluff and Moonglade trip as Cat Form, before the Ratchet stop (see the pair turnin 98362 before turnin 896).",
+				"source": "Horde 12-21 audit 0.4.0"
+			},
+			{
+				"a": [
 					"accept",
 					365
 				],
