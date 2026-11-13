@@ -309,7 +309,9 @@ mod tests {
 			list.push(guide(&format!(r#"{{ "id": "t/g{i}", "next": "t/g{}", "steps": [ {{ "goals": [ {{ "t": "level", "level": 2 }} ] }} ] }}"#, i + 1)));
 		}
 		let end = format!("t/g{}", FRESH_BACK + 1);
-		list.push(guide(&format!(r#"{{ "id": "{end}", "steps": [ {{ "goals": [ {{ "t": "turnin", "quest": 1, "rewards": {{ "xp": 100 }} }}, {{ "t": "turnin", "quest": 2, "rewards": {{ "xp": 100 }} }} ] }} ] }}"#)));
+		list.push(guide(&format!(
+			r#"{{ "id": "{end}", "steps": [ {{ "goals": [ {{ "t": "turnin", "quest": 1, "rewards": {{ "xp": 100 }} }}, {{ "t": "turnin", "quest": 2, "rewards": {{ "xp": 100 }} }} ] }} ] }}"#
+		)));
 		list.push(guide(&format!(r#"{{ "id": "t/class", "category": "Class", "next": "{end}", "steps": [ {{ "goals": [ {{ "t": "accept", "quest": 2 }} ] }} ] }}"#)));
 		fresh_guides(&list, &Data::empty());
 		assert!(list[FRESH_BACK + 1].get("fresh").is_undef());

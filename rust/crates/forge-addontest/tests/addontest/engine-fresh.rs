@@ -48,14 +48,8 @@ function fresh(id) return E.FreshFor(G.Get(id)) or false end
 "#;
 
 fn run(addons: Vec<Addon>, script: &str) -> Value {
-	emitted(&RunAddon {
-		stubs: vec!["stub_world.lua"],
-		before: WORLD.to_string(),
-		addons,
-		script: [TEST_PACK, TEST_SOURCE, GUIDES, HELPERS, "stub.login()", script].join("\n"),
-		..Default::default()
-	})
-	.remove(0)
+	emitted(&RunAddon { stubs: vec!["stub_world.lua"], before: WORLD.to_string(), addons, script: [TEST_PACK, TEST_SOURCE, GUIDES, HELPERS, "stub.login()", script].join("\n"), ..Default::default() })
+		.remove(0)
 }
 
 // A level 6 character with none of Westfall's four quests gets the whole 60%: 6,000 XP, 55 minutes of same-level
@@ -80,19 +74,12 @@ fn the_share_left_scales_by_the_quests_done_or_held_and_suggested_ranks_such_a_g
 		emit(r)
 	"#,
 	);
-	assert_eq!(
-		out["first"][0],
-		json!(["test/darkshore", "test/lochmodan", "test/elwynn", "test/long", "test/westfall", "test/redridge", "test/hillsbrad"]),
-		"{out}"
-	);
+	assert_eq!(out["first"][0], json!(["test/darkshore", "test/lochmodan", "test/elwynn", "test/long", "test/westfall", "test/redridge", "test/hillsbrad"]), "{out}");
 	assert_eq!(out["first"][1], json!({ "guideId": "test/westfall", "from": "test/elwynn", "fromTitle": "Elwynn Forest", "share": 60, "minutes": 55 }));
 	assert_eq!(out["first"][2], json!({ "guideId": "test/redridge", "from": "test/elwynn", "fromTitle": "Elwynn Forest", "share": 40, "minutes": 20 }));
 	assert_eq!(out["first"][3], false, "Dun Morogh is a Dwarf's guide");
 	assert_eq!(out["two"], json!({ "guideId": "test/westfall", "from": "test/elwynn", "fromTitle": "Elwynn Forest", "share": 30, "minutes": 25 }));
-	assert_eq!(
-		out["three"],
-		json!([["test/westfall", "test/darkshore", "test/lochmodan", "test/elwynn", "test/long", "test/redridge", "test/hillsbrad"], false])
-	);
+	assert_eq!(out["three"], json!([["test/westfall", "test/darkshore", "test/lochmodan", "test/elwynn", "test/long", "test/redridge", "test/hillsbrad"], false]));
 	assert_eq!(out["top"], false, "at the guide's top level");
 }
 
@@ -135,18 +122,12 @@ fn the_window_says_it_until_dismissed_for_that_guide_and_its_link_opens_the_earl
 	);
 	assert_eq!(
 		out["note"],
-		json!([
-			"Fresh start: about 60% of this guide's quest XP follows on from Elwynn Forest.\nExpect about 55 minutes of extra grinding, or start there.",
-			"Open Elwynn Forest"
-		])
+		json!(["Fresh start: about 60% of this guide's quest XP follows on from Elwynn Forest.\nExpect about 55 minutes of extra grinding, or start there.", "Open Elwynn Forest"])
 	);
 	assert_eq!(out["dismissed"], json!([false, true]), "dismissed, not gone from the Engine");
 	assert_eq!(
 		out["other"],
-		json!([
-			"Fresh start: about 40% of this guide's quest XP follows on from Elwynn Forest.\nExpect about 20 minutes of extra grinding, or start there.",
-			"Open Elwynn Forest"
-		])
+		json!(["Fresh start: about 40% of this guide's quest XP follows on from Elwynn Forest.\nExpect about 20 minutes of extra grinding, or start there.", "Open Elwynn Forest"])
 	);
 	assert_eq!(out["opened"], json!({ "tabs": ["test/darkshore", "test/westfall", "test/redridge", "test/elwynn"], "active": 4 }), "after the login's tab");
 	assert_eq!(out["taken"], false);
@@ -233,9 +214,7 @@ w.race, w.raceName, w.class, w.className, w.faction, w.level = "Human", "Human",
 	.remove(0);
 	let title = "Ashenvale, Wetlands & Stonetalon Mountains";
 	assert_eq!(out["note"], json!({ "guideId": WETLANDS, "from": ASHENVALE, "fromTitle": title, "share": share, "minutes": minutes }), "{out}");
-	let text = format!(
-		"Fresh start: about {share}% of this guide's quest XP follows on from {title}.\nExpect about {minutes} minutes of extra grinding, or start there."
-	);
+	let text = format!("Fresh start: about {share}% of this guide's quest XP follows on from {title}.\nExpect about {minutes} minutes of extra grinding, or start there.");
 	assert_eq!(out["banner"], json!([text, format!("Open {title}")]));
 	assert_eq!(out["opened"], ASHENVALE);
 }
