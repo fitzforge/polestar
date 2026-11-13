@@ -331,26 +331,21 @@ step Witch Doctor Uzer'i
   accept 3127
 
 step Zorbin Fandazzle
-  turnin 7003
-  turnin 7721
+  tip His Ultra-Shrinker comes with Again With the Zapped Giants: it shrinks the giants on the hills north of the dock, so they are no longer elite.
   accept 7725
-  accept 7726
 
 # ---------------------------------------------------------------- The Forgotten Coast
 
 step The Forgotten Coast: kill these as you meet them
   zone Feralas
-  tip The Sea Elementals and Sea Sprays wash along the shore around the dock.
   tip The Land Walkers and Cliff Giants roam the hills north of the dock. Zap each one with Zorbin's Ultra-Shrinker first: shrunken, they are no longer elite. Every zapped giant drops residue; use the Muisek Vessel on its body too.
   collect 9597 quest 3127
   use 9621 quest 3127.1 @39.9,22.2 map 1444
-  collect 18958 quest 7726
   collect 18956 quest 7725
   use 18904 quest 7725.1 @44.3,46.6 map 1444
 
 step Zorbin Fandazzle
   turnin 7725
-  turnin 7726
 
 step Back to Camp Mojache
   turnin 3127                         -- Witch Doctor Uzer'i

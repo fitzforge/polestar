@@ -236,6 +236,11 @@ step The Forgotten Coast: kill these as you meet them
   collect 18956 quest 7003.1
   use 18904 quest 7003.1 @40.1,38.6 map 1444
 
+step Zorbin Fandazzle
+  tip Back to Zorbin on the dock before heading north: the residue and the cores are done.
+  turnin 7003
+  turnin 7721
+
 step Northspring harpies
   tip The Northspring harpies nest on the ridges in the far north-west. They are 48-50, a few levels above you: the Windcallers heal, so kill them first and pull one at a time.
   kill 5362 quest 3063.1
