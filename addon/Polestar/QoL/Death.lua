@@ -204,15 +204,18 @@ end
 local function noteFor(a)
 	local D = ns.FormatDistance
 	if a.choice == "corpse" then
+		-- The run's time, "about": the sign the chat's font draws (Theme.Approx).
+		local chat = DEFAULT_CHAT_FRAME and DEFAULT_CHAT_FRAME.GetFont and DEFAULT_CHAT_FRAME:GetFont()
+		local run = ns.Theme.Approx(chat or STANDARD_TEXT_FONT) .. QoL.Duration(a.corpseSeconds)
 		-- Died in a dungeon: the run is to its entrance, the corpse inside.
 		if a.via then
-			return format(L["Run back to %s, your corpse is inside: %s (~%s)."], a.via, D(a.corpseYards), QoL.Duration(a.corpseSeconds))
+			return format(L["Run back to %s, your corpse is inside: %s (%s)."], a.via, D(a.corpseYards), run)
 		end
 		if a.healerYards and a.sickness > 0 then
-			return format(L["Run back to your corpse: %s (~%s). The Spirit Healer costs %s of resurrection sickness."],
-				D(a.corpseYards), QoL.Duration(a.corpseSeconds), QoL.Duration(a.sickness))
+			return format(L["Run back to your corpse: %s (%s). The Spirit Healer costs %s of resurrection sickness."],
+				D(a.corpseYards), run, QoL.Duration(a.sickness))
 		end
-		return format(L["Run back to your corpse: %s (~%s)."], D(a.corpseYards), QoL.Duration(a.corpseSeconds))
+		return format(L["Run back to your corpse: %s (%s)."], D(a.corpseYards), run)
 	end
 	if a.sickness == 0 then
 		return format(L["Resurrect at the Spirit Healer (%s): no resurrection sickness at your level."], D(a.healerYards))

@@ -326,17 +326,23 @@ local function context()
 end
 Rares.Context = context
 
--- Silent while Polestar is hidden (ns.PlaySound).
-function Rares.PlaySound()
-	if not get("sound") then return end
-	local choice = get("soundKit")
+-- One of Rares.SOUNDS by its value, through the Master channel (the
+-- settings' sound list plays its choices with it). Silent while Polestar is
+-- hidden (ns.PlaySound).
+function Rares.PlaySoundOf(value)
 	for _, s in ipairs(Rares.SOUNDS) do
-		if s.value == choice then
+		if s.value == value then
 			local id = (SOUNDKIT and SOUNDKIT[s.kit]) or s.id
 			pcall(ns.PlaySound, id, "Master")
 			return
 		end
 	end
+end
+
+-- The alert's sound, while it is on.
+function Rares.PlaySound()
+	if not get("sound") then return end
+	Rares.PlaySoundOf(get("soundKit"))
 end
 
 -- The alert for a sighting: what the toast shows, and where its waypoint goes.

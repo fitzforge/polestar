@@ -76,6 +76,7 @@ const GROUPS: &[Group] = &[
 	Group { name: "trackers_instances", src: include_str!("effects/trackers-instances.lua") },
 	Group { name: "trackers_party", src: include_str!("effects/trackers-party.lua") },
 	Group { name: "pins_world", src: include_str!("effects/pins-world.lua") },
+	Group { name: "pause", src: include_str!("effects/pause.lua") },
 ];
 
 // A guide whose first step is Marshal McBride's Kobold Camp Cleanup and every later step a dungeon's (`when dungeon`,
@@ -625,6 +626,11 @@ fn trackers_party() {
 #[test]
 fn pins_world() {
 	check("pins_world");
+}
+
+#[test]
+fn pause() {
+	check("pause");
 }
 
 // Every control of the settings window has an effect check, and every check is a registered control's. A later

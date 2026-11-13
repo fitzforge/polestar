@@ -2510,10 +2510,16 @@ local function build()
 	W.Painter(F.CloseScrim, function(s) local r, g, b = Theme.Color("scrim"); s:SetColor(r, g, b, 0.6) end)
 	F.CloseScrim:SetFrameLevel(top:GetFrameLevel())
 	F.Close:SetFrameLevel(top:GetFrameLevel() + 2)
+	-- The disc on the finish page's painting, while the close is the window's
+	-- own (W.FrameClose: in the game's looks their frame's corner close).
+	F.PlaceScrim = function()
+		local finish = current == "finish" and F.pages and F.pages.finish
+		F.CloseScrim:SetShown(finish and finish.Hero.psPainted and F.Close:IsShown() or false)
+	end
 	F.CloseScrim:Hide()
-	-- The game's looks put the close button on the window frame's corner
-	-- (it clicks this one).
-	F.Close:SetShown(not Theme.Kit())
+	F.Close:HookScript("OnShow", F.PlaceScrim)
+	F.Close:HookScript("OnHide", F.PlaceScrim)
+	W.FrameClose(F, F.Close)
 
 	-- The footer: Skip install (Back on the last page) on the left, "Step 2
 	-- of 6" over the step dots in the middle, Back and Next (Start guide and
@@ -2739,8 +2745,7 @@ function render(from)
 			P:Hide()
 		end
 	end
-	F.Close:SetShown(not Theme.Kit())
-	F.CloseScrim:SetShown(current == "finish" and F.pages.finish.Hero.psPainted and not Theme.Kit() or false)
+	F.PlaceScrim()
 
 	local last = at == #list
 	paintDots(at, #list, animate)

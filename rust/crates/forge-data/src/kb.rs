@@ -2625,7 +2625,7 @@ fn verify_counts(list: &[V]) -> Obj {
 /// not rate out whenever a rated one stands nearer (Red Leather Bandana 829: QuestieDB's server table
 /// rates the Highwaymen at 80 and none of the Trappers, Smugglers, Pillagers or Looters, which the
 /// TDB has at 40, so the world sent Red Leather Bandanas to the level 17 Highwaymen of Moonbrook,
-/// past the Defias the Militia quests kill: RevA1, c13). A sniffed row fills any table (above).
+/// past the Defias the Militia quests kill: c13 review). A sniffed row fills any table (above).
 fn tdb_rate_fills_unrated(item: &V, row: &V) -> bool {
 	let scale = item.get("dropScale");
 	(scale.is_nullish() || scale.as_str() == Some("server")) && row.num_at(0) > 0.0
@@ -3630,7 +3630,7 @@ mod tests {
 
 	#[test]
 	fn tdb_rates_fill_droppers_the_server_table_leaves_unrated() {
-		// Red Leather Bandana 829 (RevA1, c13): the server table rates the Highwaymen, not the
+		// Red Leather Bandana 829 (c13 review): the server table rates the Highwaymen, not the
 		// Trappers; the TDB has the Trappers at 40 (a placeholder row).
 		let item = parse_json(r#"{ "id": 829, "drops": { "npc": { "122": 80, "504": null } }, "dropScale": "server", "questItem": true }"#).unwrap();
 		let row = parse_json(r#"[40, "placeholder", 5, null, null, 1]"#).unwrap();

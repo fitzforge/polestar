@@ -71,10 +71,12 @@ fn scale_opacity_type_sizes_and_time_on_screen_reach_the_real_rare_alert_and_ban
 		Polestar.Set("toasts.whilehere.alpha", 0.5)
 		W.Show(HERE)
 		local t = PolestarWhileHereToast
-		local s0 = size(t.Head)
+		-- Its header as shown: the house look's band over the card.
+		local head = ((t.psHouse and t.psHouse:IsShown()) and t.psHouse or t).Head
+		local s0 = size(head)
 		Polestar.Set("toasts.whilehere.titleSize", 1.6)
 		stub.advance(0.5)
-		local s1, alpha = size(t.Head), r2(t:GetAlpha())
+		local s1, alpha = size(head), r2(t:GetAlpha())
 		stub.advance(2)
 		local shown = t:IsShown()
 		stub.advance(1)
@@ -176,7 +178,8 @@ fn tracker_settings_reach_the_real_flight_timer_instance_tracker_party_panel_and
 		Polestar.Set("trackers.party.width", 360)
 		PP.FillRows(p, { { name = "Brogan", class = "WARRIOR", level = 22, xp = 12, step = "Step 39", needs = { { what = "Defias Bandana", cur = 6, max = 10 } } } })
 		local Mk = Polestar.QoL.XPMark
-		local bar = TS.NewStage(UIParent)
+		-- A frame of Polestar's for the bar (the stub refuses addon frames under the test's own).
+		local bar = UI.Preview.Band(UIParent)
 		bar:SetSize(300, 10)
 		local m = Mk.NewDemo(bar)
 		Polestar.Set("trackers.xp.tickWidth", 5)
@@ -194,9 +197,10 @@ fn tracker_settings_reach_the_real_flight_timer_instance_tracker_party_panel_and
 	assert!(f["after"]["time"].as_f64().unwrap() > f["before"]["time"].as_f64().unwrap() * 1.4, "{f}");
 	assert!(f["after"]["height"].as_f64().unwrap() > 34.0, "the timer grows for larger type: {f}");
 	assert_eq!(f["pct"], "62%");
-	assert_eq!(f["both"], "~1:14  \u{b7}  62%");
+	assert_eq!(f["both"], "≈1:14  \u{b7}  62%");
 	assert_eq!(out[1], json!({ "scale": 0.75, "width": 280, "calm": true, "faded": ["fade", 0.18], "hidden": false, "after": true, "alpha": 0.5 }));
-	assert_eq!(out[2], json!({ "panel": 360, "needs": 340, "tick": 5, "label": false }));
+	// The needs line the panel's width less its padding each side: 12 in the house look (Theme.House "sidePad").
+	assert_eq!(out[2], json!({ "panel": 360, "needs": 336, "tick": 5, "label": false }));
 }
 
 #[test]
@@ -205,18 +209,31 @@ fn previews_are_sandbox_copies_that_fire_nothing_play_sound_only_on_play_and_run
 		Polestar.Set("rares.sound", true)
 		local fired = 0
 		Polestar.On("RARE_SPOTTED", function() fired = fired + 1 end)
-		-- A frame of Polestar's, as the options window is (the stub refuses addon frames under the test's own).
-		local host = TS.NewStage(UIParent)
-		host:SetSize(700, 400)
+		-- The bands on UIParent (the stub refuses addon frames under the test's own).
+		local host = UIParent
 		local stages, heights = {}, {}
+		-- Each band's height against what its parts make (UI/Preview.lua's band): 20 + the element at its fit + [Play
+		-- under it on a band too narrow] + [its labels] + [the hint line] + 20, a dropdown 28 + 14 over it on a tab
+		-- with one.
+		local P = UI.Preview
+		local function band(s)
+			local h = s:Layout(640)
+			local _, eh, _, labels = s:Content(640)
+			local play = rawget(s, "Play")
+			local under = play and play:IsShown() and (play:GetPoint(1)) == "TOPRIGHT"
+			local want = 2 * P.BAND_PAD + (rawget(s, "Picker") and P.PICKER_H + P.PICKER_GAP or 0) + (eh or 0) * s.psFit
+				+ (under and P.PLAY_UNDER + P.PLAY_H or 0) + (labels and P.LINE_GAP + P.LINE_H or 0) + (s.Hint:IsShown() and P.LINE_GAP + P.LINE_H or 0)
+			s:Layout(640)
+			return { h = h, want = want, element = (eh or 0) > 0 }
+		end
 		for _, tab in ipairs({ "rare", "transport", "headsup", "classcard" }) do
 			local s = TS.Preview(host, tab)
-			heights[#heights + 1] = s:Layout(640)
+			heights[#heights + 1] = band(s)
 			stages[tab] = s
 		end
 		for _, tab in ipairs({ "flight", "instances", "party" }) do
 			local s = TR.Preview(host, tab)
-			heights[#heights + 1] = s:Layout(640)
+			heights[#heights + 1] = band(s)
 			stages[tab] = s
 		end
 		local rare = stages.rare.Card
@@ -240,13 +257,23 @@ fn previews_are_sandbox_copies_that_fire_nothing_play_sound_only_on_play_and_run
 		live.hots = hots
 		emit({ heights = heights, live = live, sounds = #stub.sounds, fired = fired, target = Polestar.Nav.GetTarget() ~= nil })
 
-		-- A bigger rare alert: the preview shows it shrunk to fit and says so.
+		-- A bigger rare alert: the band shows it shrunk to fit and its hint line says so.
 		Polestar.Set("toasts.rare.scale", 2)
-		emit({ fit = r2(rare:GetScale()) < 2, note = stages.rare.caption() })
+		stages.rare:Layout(640, 400)
+		emit({ fit = r2(rare:GetScale()) < 2, note = stages.rare.Hint:IsShown() and stages.rare.Hint:GetText() or "" })
 
-		-- Play: the entrance again and the sound (it is on).
+		-- Play: on the four single tabs, not on Essentials; its foot on the card's, right of it. A click: the
+		-- entrance again, and the sound only while it is on.
+		local plays = {}
+		for _, tab in ipairs({ "rare", "transport", "headsup", "classcard" }) do plays[tab] = rawget(stages[tab], "Play") ~= nil end
+		plays.essentials = rawget(TS.Preview(host, "all"), "Play") ~= nil
+		local pp, _, prp = stages.transport.Play:GetPoint(1)
 		stages.rare.Play:Click()
-		emit({ sounds = #stub.sounds, entering = Polestar.Anim.IsRunning(rare, "alpha") })
+		local on = #stub.sounds
+		Polestar.Set("rares.sound", false)
+		stages.rare.Play:Click()
+		emit({ sounds = on, quiet = #stub.sounds, entering = Polestar.Anim.IsRunning(rare, "alpha"), plays = plays, foot = { pp, prp } })
+		Polestar.Set("rares.sound", true)
 
 		-- Hidden: nothing ticks, and a change waits for the preview to show again.
 		stub.advance(1)
@@ -267,7 +294,10 @@ fn previews_are_sandbox_copies_that_fire_nothing_play_sound_only_on_play_and_run
 		emit({ updates = updates, anim = Polestar.Anim.Active(), waiting = waiting, shown = r2(rare:GetAlpha()) })
 	"#);
 	let first = &out[0];
-	assert!(first["heights"].as_array().unwrap().iter().all(|h| h.as_f64().unwrap() > 100.0), "{first}");
+	for b in first["heights"].as_array().unwrap() {
+		let (h, want) = (b["h"].as_f64().unwrap(), b["want"].as_f64().unwrap());
+		assert!(b["element"] == true && (h - want).abs() <= 1.0, "a band as tall as its element and its parts: {b} in {first}");
+	}
 	assert_eq!(
 		first["live"],
 		json!({
@@ -288,7 +318,11 @@ fn previews_are_sandbox_copies_that_fire_nothing_play_sound_only_on_play_and_run
 	assert_eq!(first["target"], false, "no waypoint");
 	assert_eq!(out[1]["fit"], true);
 	assert!(out[1]["note"].as_str().unwrap().starts_with("Shown at "), "{}", out[1]);
-	assert_eq!(out[2], json!({ "sounds": 1, "entering": true }));
+	assert_eq!(
+		out[2],
+		json!({ "sounds": 1, "quiet": 1, "entering": true,
+		"plays": { "rare": true, "transport": true, "headsup": true, "classcard": true, "essentials": false }, "foot": ["BOTTOMLEFT", "TOPLEFT"] })
+	);
 	assert_eq!(out[3], json!({ "updates": 0, "anim": 0, "waiting": 1, "shown": 0.5 }));
 }
 

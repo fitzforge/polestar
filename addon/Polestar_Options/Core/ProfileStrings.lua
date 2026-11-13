@@ -14,7 +14,7 @@ local P = ns.Profiles
 if not (P and P.Parts) then return end
 
 local type, pairs, ipairs, next, tostring, tonumber, pcall, select = type, pairs, ipairs, next, tostring, tonumber, pcall, select
-local byte, char, format, sub, gsub, find, lower = string.byte, string.char, string.format, string.sub, string.gsub, string.find, string.lower
+local format, sub, gsub, find, lower = string.format, string.sub, string.gsub, string.find, string.lower
 local concat, sort, floor, huge, abs = table.concat, table.sort, math.floor, math.huge, math.abs
 
 -- Core's parts this builds on (P.Parts).
@@ -237,9 +237,8 @@ local function leaves(settings, out)
 end
 
 ---------------------------------------------------------------------------
--- Writing a string: JSON, then zlib and base64 by the client's encoder, or a
--- stored (uncompressed) zlib stream and base64 in plain Lua where it has
--- none. Any zlib reader takes stored blocks.
+-- Writing a string: JSON in the envelope (Core/Import.lua, Import.Envelope:
+-- zlib and base64 by the client's encoder, or plain Lua where it has none).
 ---------------------------------------------------------------------------
 
 local ESC = { ['"'] = '\\"', ["\\"] = "\\\\", ["\n"] = "\\n", ["\t"] = "\\t" }
@@ -273,67 +272,13 @@ local function jvalue(v)
 	return "{" .. concat(out, ",") .. "}"
 end
 
-local function zlibStored(s)
-	local out = { "\120\1" }
-	local n, at = #s, 1
-	repeat
-		local len = n - at + 1
-		if len > 65535 then len = 65535 end
-		local last = at + len > n
-		local nlen = 65535 - len
-		out[#out + 1] = char(last and 1 or 0, len % 256, floor(len / 256), nlen % 256, floor(nlen / 256))
-		out[#out + 1] = sub(s, at, at + len - 1)
-		at = at + len
-	until at > n
-	local sum = ns.Import.Adler32(s)
-	for i = 1, 8, 2 do out[#out + 1] = char(tonumber(sub(sum, i, i + 1), 16)) end
-	return concat(out)
-end
-
-local B64 = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/"
-
-local function base64(s)
-	local out = {}
-	for i = 1, #s, 3 do
-		local a, b, c = byte(s, i, i + 2)
-		local v = a * 65536 + (b or 0) * 256 + (c or 0)
-		local q = {}
-		for j = 4, 1, -1 do
-			q[j] = v % 64 + 1
-			v = floor(v / 64)
-		end
-		out[#out + 1] = sub(B64, q[1], q[1]) .. sub(B64, q[2], q[2])
-			.. (b and sub(B64, q[3], q[3]) or "=") .. (c and sub(B64, q[4], q[4]) or "=")
-	end
-	return concat(out)
-end
-
 local function zlibMethod()
 	return Enum and Enum.CompressionMethod and Enum.CompressionMethod.Zlib
 end
 
--- The client's own encoding, used only when it reads back to the same text.
-local function clientBody(json)
-	local enc = C_EncodingUtil
-	if not (type(enc) == "table" and type(enc.CompressString) == "function" and type(enc.EncodeBase64) == "function"
-		and type(enc.DecodeBase64) == "function" and type(enc.DecompressString) == "function") then
-		return nil
-	end
-	local ok, z = pcall(enc.CompressString, json, zlibMethod())
-	if not ok or type(z) ~= "string" then return nil end
-	local body
-	ok, body = pcall(enc.EncodeBase64, z)
-	if not ok or type(body) ~= "string" or not find(body, "^[A-Za-z0-9+/]+=?=?$") or #body % 4 ~= 0 then return nil end
-	local ok2, back = pcall(enc.DecodeBase64, body)
-	if not ok2 or type(back) ~= "string" then return nil end
-	ok2, back = pcall(enc.DecompressString, back, zlibMethod())
-	if not ok2 or back ~= json then return nil end
-	return body
-end
-
 -- A JSON payload in the envelope.
 function P.Pack(json)
-	return PREFIX .. ns.Import.Adler32(json) .. "!" .. (clientBody(json) or base64(zlibStored(json)))
+	return ns.Import.Envelope(PREFIX, json)
 end
 
 local function migrationIds()

@@ -24,7 +24,7 @@ In the checkout: compiles our guides into addon/Polestar_Guides and Polestar's o
 (experimental/, with our guides as context) into addon/Polestar_Experimental, then writes
 dist/Polestar-<version>.zip (Polestar, Polestar_Guides with its faction parts and race parts, Polestar_Nav,
 Polestar_Options (the settings window), Polestar_SkinAPI (the Skin API's checks), Polestar_Looks (the
-game's looks and Hearth), Polestar_Experimental (loaded on demand, once a player switches it on),
+game's looks and Hearth), Polestar_Experimental (loaded on demand, once a player chooses one of its guides or switches it on),
 Polestar_QuestDB and Polestar_ItemDB when built, Polestar_Codex, and the language folders
 Polestar_<locale>: our guides' texts and the game's names),
 dist/Polestar_Recorder-<version>.zip and dist/SHA256SUMS (the format `sha256sum -c` reads), the version

@@ -15,9 +15,10 @@ local function off() return not Rares.Get("enabled") end
 local function alertsOff() return off() or not Rares.Get("alerts") end
 local function soundOff() return alertsOff() or not Rares.Get("sound") end
 
+-- Each sound with its speaker in the list: heard there without picking it.
 local function sounds()
 	local out = {}
-	for i, s in ipairs(Rares.SOUNDS) do out[i] = { value = s.value, label = s.label } end
+	for i, s in ipairs(Rares.SOUNDS) do out[i] = { value = s.value, label = s.label, preview = Rares.PlaySoundOf } end
 	return out
 end
 
@@ -42,7 +43,7 @@ register({
 	toggle = { kind = "toggle", key = "rares.enabled", label = L["Rares"], search = "rare, elite, silver dragon, rare spawn, treasure, chest",
 		help = L["Watch for rare NPCs and treasures and keep when you last met them (/pole rares). Their map pins are under Map, off by default."] },
 	controls = {
-		{ kind = "toggle", key = "rares.alerts", label = L["Alert for rares"], disabled = off, search = "rare alert, rare spawn, notification, warning, popup",
+		{ kind = "toggle", key = "rares.alerts", label = L["Alert for rares"], disabled = off, move = "rareAlert", search = "rare alert, rare spawn, notification, warning, popup",
 			help = L["A card with its name, level and distance, and a waypoint to it."] },
 		{ kind = "toggle", key = "rares.treasureAlerts", label = L["Alert for treasures"], disabled = alertsOff, child = true,
 			help = L["Treasures the client marks on the minimap."] },

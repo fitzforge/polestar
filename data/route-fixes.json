@@ -955,14 +955,14 @@
 			},
 			{
 				"a": [
-					"turnin",
-					465
-				],
-				"b": [
 					"accept",
 					98223
 				],
-				"why": "Hillsbrad (Alliance), Lou-Saydus #225: before the Tattered Spellbook"
+				"b": [
+					"turnin",
+					465
+				],
+				"why": "Wetlands, julesbruu #1705: the Tattered Spellbook offers Old Habits while Nek'rosh's Gambit is in the log (players' recordings), so it is taken on the Angerfang stop before the catapult is lit, and solo players who skip Defeat Nek'rosh still have 465 in the log for it (was the other way round since #225)"
 			},
 			{
 				"a": [
@@ -7467,7 +7467,7 @@
 			},
 			{
 				"q": 5623,
-				"reason": "Starting-zone review 0.3.6 (Alliance 1-12): the level 5 Priest robe quests ride on stops the start guides already make. In Favor of the Light (Humans, level 4 from 5, 90 XP) from Priestess Anetta on the last Northshire Abbey stop (level 5.2-5.4), handed to Priestess Josetta on the first Goldshire stop. Givers, enders, levels and objectives agree across quests.json, the knowledge base and the page snapshot; players' recordings: 4 people did Garments of the Light (5624), 2 Dwarf/Gnome Priests 5625, 3 Night Elves 5621.",
+				"reason": "Starting-zone review 0.3.6 (Alliance 1-12): the level 5 Priest robe quests ride on stops the start guides already make. In Favor of the Light (Humans, level 4 from 5, 90 XP) from Priestess Anetta on the last Northshire Abbey stop (level 5.2-5.4), handed to Priestess Josetta on the first Goldshire stop. Givers, enders, levels and objectives agree across our quest data (quests.json) and Forever's quest data; players' recordings: 4 people did Garments of the Light (5624), 2 Dwarf/Gnome Priests 5625, 3 Night Elves 5621.",
 				"issue": "-",
 				"after": [
 					"turnin",
@@ -7548,7 +7548,7 @@
 			},
 			{
 				"q": 98209,
-				"reason": "Players' route (0.3.6): Bloom of the Heavens part 2 (1200 XP) is a delivery from Sylessa Duskwhisper in Menethil to Thundris Windweaver in Auberdine, where 06-wetlands' boat lands on the way to Ashenvale (ender npc 3649 in our data, the page snapshot and 3 recorded hand-ins).",
+				"reason": "Players' route (0.3.6): Bloom of the Heavens part 2 (1200 XP) is a delivery from Sylessa Duskwhisper in Menethil to Thundris Windweaver in Auberdine, where 06-wetlands' boat lands on the way to Ashenvale (ender npc 3649 in our data, Forever's quest data and 3 recorded hand-ins).",
 				"issue": "-",
 				"after": [
 					"turnin",
@@ -7575,7 +7575,7 @@
 			},
 			{
 				"q": 353,
-				"reason": "Final route review 0.3.6 (Alliance 1-30): Stormpike's Delivery (level 15, from 9, 1050 XP) is Grimand Elmore's follow-up to Elmore's Task (1097), which Humans hand him on 02-westfall's last Stormwind stop; its ender, Mountaineer Stormpike, stands at the Algaz Station, which 03-loch-modan visits at about 18 for Filthy Paws (307). A provided package, nothing to fight: 1050 XP at full rate for an accept and a hand-in on stops the route already makes (giver, ender, level and XP agree across our data, the page snapshot and players' captures).",
+				"reason": "Final route review 0.3.6 (Alliance 1-30): Stormpike's Delivery (level 15, from 9, 1050 XP) is Grimand Elmore's follow-up to Elmore's Task (1097), which Humans hand him on 02-westfall's last Stormwind stop; its ender, Mountaineer Stormpike, stands at the Algaz Station, which 03-loch-modan visits at about 18 for Filthy Paws (307). A provided package, nothing to fight: 1050 XP at full rate for an accept and a hand-in on stops the route already makes (giver, ender, level and XP agree across our data, Forever's quest data and players' captures).",
 				"issue": "-",
 				"after": [
 					"turnin",
@@ -12681,7 +12681,7 @@
 				],
 				"faction": "Alliance",
 				"why": "Final route review 0.3.6 (Zephras Isle, group branch): WANTED: Vulgara the Insatiable is handed to Danarii Bellowveil in Shen'dar Village (45.2,45.3) on the Shen'dar stop after the hippogryph loop, where the route already hands her Danarii's own quest (92551), before the road south-east to Fendaal Windstone and Valanaar. The guide had the hand-in after Valanaar's inn, so a grouped player walked back north-west to Shen'dar and south-east again for one hand-in.",
-				"source": "quest 93318 ender npc 252172 (Danarii Bellowveil; TDB, ForeverDB, page snapshot agree), spawn 2521:45.2,45.3 (players' spots, page snapshot); Horde's Zephras Isle hands it in on its Shen'dar stop"
+				"source": "quest 93318 ender npc 252172 (Danarii Bellowveil; the server's world data and Forever's quest data agree), spawn 2521:45.2,45.3 (players' spots); Horde's Zephras Isle hands it in on its Shen'dar stop"
 			},
 			{
 				"a": [

@@ -313,7 +313,7 @@ fn badlands(ctx: &Ctx, c: &mut Check) {
 fn giver_already(ctx: &Ctx, c: &mut Check) {
 	// (Each case: the quest, and the goals of a step at its giver the route stands at, any one of which
 	// may hold its accept. Simmer stands beside Calvin at Solliden, so Fields of Grief is taken at
-	// either pass by him: Calvin's duel, or the letter on the walk in from Deathknell, RevUndead c13.)
+	// either pass by him: Calvin's duel, or the letter on the walk in from Deathknell, c13 review.)
 	for (guide, quest, with) in [
 		(TIRISFAL, 365, &[("accept", 590, "Calvin's duel at Solliden"), ("accept", 8, "Calvin's letter on the walk in from Deathknell")][..]),
 		(TANARIS_ALLIANCE, 2781, &[("accept", 2875, "Andre Firebeard's poster at Steamwheedle Port")][..]),

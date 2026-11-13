@@ -7,6 +7,7 @@ do
 			id = "polestar-experimental/hyjal-1",
 			pack = "polestar-experimental",
 			title = "{area:616} 1: the {area:16853} and {area:17050} (experimental)",
+			faction = "Alliance",
 			minLevel = 56,
 			maxLevel = 57,
 			category = "Leveling",
@@ -16,6 +17,9 @@ do
 			zone = 2482,
 			zoneName = "Mount Hyjal",
 			next = "polestar-experimental/hyjal-2",
+			pitch = "Forever's new endgame zone south of {zone:1452}: three parts and about 100 quests for levels 56-59, in from {area:2255} and back to the main route.",
+			pros = { "About 350,000 quest experience: enough to take you from about 58 to 60, or close to it", "No sea crossing: {area:2255} is a flight away on Kalimdor, and the last part flies you back there", "Two flight paths inside the zone" },
+			cons = { "Experimental: written from Forever's quest data and the first recording of the zone, not yet checked end to end in the game", "Elites roam the zone (levels 56-61), and a few quests need a group (each behind a group choice)", "The main route's last guide still follows" },
 			author = "Polestar",
 			version = 1,
 			names = { ["area:16848"] = "Elderwild", ["area:16853"] = "Tainted Foothills", ["area:16866"] = "Dae'gun", ["area:17050"] = "Felblood Scar", ["area:1769"] = "Timbermaw Hold", ["area:2255"] = "Everlook", ["area:2256"] = "Darkwhisper Gorge", ["area:2361"] = "Nighthaven", ["area:493"] = "Moonglade", ["area:616"] = "Mount Hyjal", ["item:267289"] = "Scarlet Dart Tuber", ["npc:11802"] = "Dendrite Starblaze", ["npc:216289"] = "Orokai", ["npc:228216"] = "Nami", ["npc:243509"] = "Noxious Slime", ["npc:244511"] = "Zet'gan", ["npc:244512"] = "Ortak Lomgok", ["npc:244517"] = "Sefira Everbright", ["npc:248041"] = "Hyjal Stag", ["npc:248366"] = "Fraxinus", ["npc:248367"] = "Hyacinth", ["npc:248395"] = "Tainted Shrubbery", ["npc:248709"] = "Sunderbark", ["npc:249051"] = "Celastrus the Bitter", ["npc:249235"] = "Kaylaena Springwhisper", ["npc:254131"] = "Skylord Omnuron", ["npc:256222"] = "Ketharas", ["npc:257753"] = "Curious Crow", ["npc:260422"] = "Ashen Acolyte", ["npc:260440"] = "Brashann Grimdark", ["npc:260626"] = "Bluebell", ["npc:262036"] = "Ruined Ballista", ["npc:263757"] = "Felflick", ["npc:264306"] = "Awakened Fel Ash Slime", ["npc:265586"] = "Thylaen", ["npc:266802"] = "Thark Gorax", ["npc:266803"] = "Quintus Wainworth", ["npc:266886"] = "Ruined Flying Machine", ["npc:266887"] = "Ruined Catapult", ["npc:278305"] = "Velician", ["object:650234"] = "Loose Cog", ["quest:90487"] = "Ancient Allies", ["quest:91754"] = "Rub Some Dirt In It", ["quest:91755"] = "Leaves to Ligatures", ["quest:91770"] = "Bark Bite", ["quest:91881"] = "The Western Post", ["quest:91923"] = "Celastrus the Bitter", ["quest:92008"] = "Premiere Parts", ["quest:92009"] = "Crate Expectations", ["quest:92011"] = "Rubble Rummage", ["quest:92171"] = "Taking to New Heights", ["quest:92594"] = "Kindling, Kinda", ["quest:92612"] = "Aid from Moonglade", ["quest:92959"] = "The Dying Ancients", ["quest:93747"] = "Violence Into Verdure", ["quest:93759"] = "The Bounty of Nature", ["quest:93773"] = "The Pact", ["quest:94479"] = "One Person's Trash", ["quest:95006"] = "Stolen Power", ["quest:95316"] = "The Experimental Method", ["quest:95317"] = "Notation, Notation, Notation", ["quest:95318"] = "Taste of Ash", ["quest:95319"] = "Crystalline Collection", ["quest:95320"] = "A Curious Question", ["quest:95378"] = "The Hydra's Head", ["quest:95379"] = "A Revenge So Sweet", ["quest:95380"] = "A Prolific Source", ["quest:95568"] = "Seeds for a New Season", ["quest:95569"] = "Hope for Hatchlings", ["quest:95611"] = "Rites of Respect", ["quest:95766"] = "Fine Feathered Friend", ["quest:96131"] = "An Oldstone But An Old Friend", ["quest:96209"] = "The Ancient, Orokai", ["quest:96255"] = "Amalgamated Marrow", ["quest:96262"] = "Prickly Pinecones", ["quest:96321"] = "The Dying God", ["quest:96322"] = "A Revenge Now Bitter", ["quest:96435"] = "A Fitting End", ["quest:96796"] = "Woods Workshop", ["quest:96830"] = "Farsight Guided", ["quest:96833"] = "Venom Maws", ["quest:96930"] = "The Capricious Corvid", ["spell:18960"] = "Teleport: Moonglade", ["zone:1448"] = "Felwood", ["zone:1452"] = "Winterspring" },
@@ -26,7 +30,7 @@ do
 					note = "Experimental route (alpha). It is written from Forever's quest data and the first recording of the zone, and some steps are not checked in game yet: if a step is wrong, tell us on Polestar's Discord or GitHub and name the step.\n{area:616} lies south of {zone:1452}. Fly to {area:2255} and ride south through {zone:1452} to {area:2256} at its southern end: the gorge leads up into {area:616}. The ride in is not in our recordings yet: if the arrow loses the way, keep to the gorge.\nBind your Hearthstone at {area:2255}'s inn before you ride: {npc:256222} sends you to {area:493} at the end of this part, and the way there starts in {area:2255}.",
 					when = { { k = "zone", neg = true, name = "Mount Hyjal", area = 616 } },
 					goals = {
-						{ t = "fly", location = "Everlook", area = 2255 },
+						{ t = "fly", location = "Everlook", node = 52, area = 2255 },
 						{ t = "sethome", npc = 11118, npcName = "Innkeeper Vizzie", location = "Everlook", area = 2255, map = 1452, x = 61.36, y = 38.83, z = 721.7, f = "e" },
 						{ t = "goto", text = "{area:2256}", map = 1452, x = 50.5, y = 82.8 },
 						{ t = "enter", location = "Mount Hyjal", area = 616, map = 2482, x = 85.5, y = 73.2 },
@@ -398,7 +402,7 @@ do
 					when = { { k = "zone", name = "Mount Hyjal", area = 616 } },
 					goals = {
 						{ t = "goto", text = "{npc:260626}, the flight mistress", map = 2482, x = 55.1, y = 82.6 },
-						{ t = "fly", location = "Moonglade", area = 493 },
+						{ t = "fly", location = "Moonglade", node = 49, area = 493 },
 					},
 				},
 				{
@@ -406,7 +410,7 @@ do
 					note = "Fly to {area:493} from {area:2255}'s flight master. No flight path to {area:493} yet? The way in is the tunnel through {area:1769}, at the western end of {zone:1452}.",
 					when = { { k = "zone", name = "Winterspring", area = 618 } },
 					goals = {
-						{ t = "fly", location = "Moonglade", area = 493 },
+						{ t = "fly", location = "Moonglade", node = 49, area = 493 },
 					},
 				},
 				{
@@ -439,7 +443,7 @@ do
 					goals = {
 						{ t = "getfp", npc = 10897, npcName = "Sindrayl", location = "Moonglade", node = 49, area = 493, map = 1450, x = 48.1, y = 67.34, z = 462.7, f = "e", only = { factions = { "Alliance" } } },
 						{ t = "getfp", npc = 12740, npcName = "Faustron", location = "Moonglade", node = 69, area = 493, map = 1450, x = 32.09, y = 66.61, z = 492.4, f = "e", only = { factions = { "Horde" } } },
-						{ t = "fly", location = "Everlook", area = 2255 },
+						{ t = "fly", location = "Everlook", node = 52, area = 2255 },
 					},
 				},
 				{
@@ -488,6 +492,7 @@ do
 			id = "polestar-experimental/hyjal-2",
 			pack = "polestar-experimental",
 			title = "{zone:2482} 2: Barkskin Burrow, {area:16848} and the {area:17145} (experimental)",
+			faction = "Alliance",
 			minLevel = 57,
 			maxLevel = 58,
 			category = "Leveling",
@@ -886,6 +891,7 @@ do
 			id = "polestar-experimental/hyjal-3",
 			pack = "polestar-experimental",
 			title = "{zone:2482} 3: the {area:16867}, {area:16866} and the {area:16849} (experimental)",
+			faction = "Alliance",
 			minLevel = 57,
 			maxLevel = 59,
 			category = "Leveling",
@@ -894,9 +900,7 @@ do
 			why = "Forever's new endgame zone, an alpha route from Forever's quest data and the first recording of the zone.",
 			zone = 2482,
 			zoneName = "Mount Hyjal",
-			next = "forever/alliance/50-60/04-western-plaguelands",
-			nextChoices = { "forever/alliance/50-60/04-western-plaguelands", "forever/alliance/50-60/05-silithus", "forever/horde/50-60/06-silithus", "forever/horde/50-60/07-felwood" },
-			nextWhen = { ["forever/alliance/50-60/04-western-plaguelands"] = { { k = "level", op = "<", n = 58 } }, ["forever/alliance/50-60/05-silithus"] = { { k = "level", op = ">=", n = 58 } }, ["forever/horde/50-60/06-silithus"] = { { k = "level", op = "<", n = 59 } }, ["forever/horde/50-60/07-felwood"] = { { k = "level", op = ">=", n = 59 } } },
+			next = "forever/alliance/50-60/06-silithus",
 			author = "Polestar",
 			version = 1,
 			names = { ["area:16849"] = "Summit of Eternity", ["area:16853"] = "Tainted Foothills", ["area:16866"] = "Dae'gun", ["area:16867"] = "Shrine of Aviana", ["area:17145"] = "Cradle of Tranquility", ["area:2255"] = "Everlook", ["area:2256"] = "Darkwhisper Gorge", ["item:276100"] = "Felhound Spike", ["npc:11118"] = "Innkeeper Vizzie", ["npc:243815"] = "Sebelia", ["npc:243855"] = "Toron Rockhoof", ["npc:249052"] = "Witherbeard", ["npc:249229"] = "Felguard Sentinel", ["npc:249230"] = "Defiling Hound", ["npc:249234"] = "Johun \"Punchy\" Dillas", ["npc:249235"] = "Kaylaena Springwhisper", ["npc:251199"] = "Head Scratcher", ["npc:252457"] = "Mazzogore the Weak", ["npc:254131"] = "Skylord Omnuron", ["npc:254915"] = "Thisalee Crow", ["npc:256222"] = "Ketharas", ["npc:256660"] = "Thobon Sapclaw", ["npc:259695"] = "Renalard", ["npc:260661"] = "Suma Mossmane", ["npc:260674"] = "Ve'han Talongrasp", ["npc:260825"] = "Phoebe Highfeather", ["npc:260826"] = "Zarrat Wormwing", ["npc:263394"] = "Bethra'zel", ["npc:263406"] = "Elaena Moonwhisper", ["npc:264795"] = "Marn Euhorn", ["npc:267097"] = "Maerion Thaelemaches", ["npc:267121"] = "Yashiro", ["npc:267439"] = "Doomguard Xarkul", ["npc:40833"] = "Tiala Whitemane", ["npc:41861"] = "Fayran Elthas", ["object:650219"] = "Jewel of the Horizon", ["object:651409"] = "Corrupted Growth", ["quest:90647"] = "The Staff of the Mountain", ["quest:91883"] = "Spear of the Skylord", ["quest:92017"] = "Cleansing Winds", ["quest:92147"] = "Highfeather Helper", ["quest:92169"] = "Paying Back the Pact", ["quest:92317"] = "Stolen Life", ["quest:92328"] = "Siegecraft", ["quest:92335"] = "Ashes of the Legion Ascent", ["quest:92500"] = "A Bit of the Sky", ["quest:92533"] = "Twisted Tools", ["quest:92593"] = "Avalanche of Corruption", ["quest:92960"] = "Siphoned Ephemeral Essence", ["quest:93197"] = "Mending Communications", ["quest:93407"] = "A Thorn in the Paw", ["quest:93584"] = "Cult Closure", ["quest:95793"] = "Stemming the Demon Tide", ["quest:96003"] = "Drawing Down the Malevolent", ["quest:96025"] = "As the Crow Flies", ["quest:96252"] = "Tarnished Treasures", ["quest:96296"] = "Fetid Corruption", ["quest:96959"] = "Blademaster's Bonfires", ["quest:96971"] = "To Outfox a Demon", ["quest:97009"] = "Maerion's Misery", ["zone:1452"] = "Winterspring", ["zone:2482"] = "Mount Hyjal" },
@@ -1208,7 +1212,7 @@ do
 					title = "Fly to {area:2255}",
 					note = "{npc:41861} flies you to {area:2255}.",
 					goals = {
-						{ t = "fly", location = "Everlook", area = 2255 },
+						{ t = "fly", location = "Everlook", node = 52, area = 2255 },
 					},
 				},
 				{
@@ -2319,9 +2323,12 @@ do
 			zone = 2548,
 			zoneName = "Riverglades",
 			next = "polestar-experimental/riverglades-horde-2",
+			pitch = "Forever's new zone south of the {zone:1418}: the Horde fort of {area:16743} and about 70 quests from level 40, then back to {area:340} for {zone:1444}.",
+			pros = { "Reaches level 60 about an hour sooner than the {zone:1434} route", "Replaces {zone:1434} and the {zone:1435} with one zone and one hub", "You ride in from {area:340} through the {zone:1418}' southern edge, and come back out at {area:340} for {zone:1444} & {zone:1446}" },
+			cons = { "Experimental: written from players' recordings and not yet checked end to end in the game", "Skips {zone:1434} and the {zone:1435}: their quests left in your log can be abandoned, and {area:75}'s flight path waits until later", "Its later quests are for levels 43-45, a few levels above you when you reach them: pull carefully", "Elite camps, and a few quests that need a group (each behind a group choice)" },
 			author = "Polestar",
 			version = 1,
-			names = { ["area:16685"] = "Twilight's Shroud", ["area:16725"] = "Wheeler's Grange", ["area:16727"] = "Powderfuse Port", ["area:16729"] = "Terral's Watch", ["area:16735"] = "Meadowsbrook", ["area:16736"] = "Turner's Logging Camp", ["area:16737"] = "Bristle Hills", ["area:16743"] = "Rog'mar", ["area:16744"] = "Southern Watch", ["area:340"] = "Kargath", ["area:439"] = "Shimmering Flats", ["area:484"] = "Freewind Post", ["area:976"] = "Gadgetzan", ["area:977"] = "Steamwheedle Port", ["item:265066"] = "Hearty Stew", ["item:271611"] = "Cubic Draconia", ["item:271629"] = "Wood Bundle", ["item:271630"] = "Makeshift Stickin' Spear", ["npc:255897"] = "Friz Frazzlespark", ["npc:255906"] = "Snargl", ["npc:255993"] = "Grakna", ["npc:256418"] = "Krom'rosh", ["npc:256655"] = "Gorg", ["npc:256657"] = "Kreza Darkthorn", ["npc:256675"] = "Innkeeper Toka", ["npc:256749"] = "Rog'mar Trainee", ["npc:257079"] = "Cavalry Scout Alturin", ["npc:258031"] = "Neza Bloodsnout", ["npc:259046"] = "Freshwater Crocolisk", ["npc:262399"] = "Gelinda Coppergleam", ["npc:263190"] = "Tan'jani", ["npc:263307"] = "Glade Viper", ["npc:263315"] = "Ombassa", ["npc:263316"] = "Picked Carcass", ["npc:263343"] = "Low Plains Buzzard", ["npc:263348"] = "Roving Tallstrider", ["npc:263367"] = "Sleebo Fizzlespout", ["npc:263380"] = "Ghostmaw", ["object:645164"] = "WANTED!", ["object:645516"] = "Peasant Woodpile", ["quest:93786"] = "A Message in Blood", ["quest:93787"] = "Food for the Taking", ["quest:93788"] = "Borrowed Blades", ["quest:93976"] = "The Goblin Trader", ["quest:94480"] = "A Gift From Our Enemies", ["quest:94481"] = "A Serving of Strength", ["quest:94483"] = "Show Them How It's Done", ["quest:94532"] = "Gnoll Infestation", ["quest:94533"] = "Snargl's Snout", ["quest:94535"] = "Bristle Hills Bandits", ["quest:95062"] = "Frazzlespark's Crate", ["quest:95792"] = "Clear 'em Out", ["quest:95934"] = "Proof of Profit", ["quest:95951"] = "Fetch 'n' Fletch", ["quest:95955"] = "Stick 'Em", ["quest:95992"] = "WANTED: Ghostmaw", ["quest:96063"] = "Gaseous Gold", ["quest:96067"] = "Rock 'em and Sock 'em", ["quest:96103"] = "A Feast for Buzzards", ["quest:96104"] = "Song of the Strider", ["quest:96105"] = "King of the Wild Plains", ["quest:96107"] = "Feathers for Fletching", ["quest:96108"] = "Poison Tips", ["quest:96109"] = "A Hunter's Quiver", ["zone:1418"] = "Badlands", ["zone:1441"] = "Thousand Needles", ["zone:1446"] = "Tanaris", ["zone:2548"] = "Riverglades" },
+			names = { ["area:16685"] = "Twilight's Shroud", ["area:16725"] = "Wheeler's Grange", ["area:16727"] = "Powderfuse Port", ["area:16729"] = "Terral's Watch", ["area:16735"] = "Meadowsbrook", ["area:16736"] = "Turner's Logging Camp", ["area:16737"] = "Bristle Hills", ["area:16743"] = "Rog'mar", ["area:16744"] = "Southern Watch", ["area:340"] = "Kargath", ["area:439"] = "Shimmering Flats", ["area:484"] = "Freewind Post", ["area:75"] = "Stonard", ["area:976"] = "Gadgetzan", ["area:977"] = "Steamwheedle Port", ["item:265066"] = "Hearty Stew", ["item:271611"] = "Cubic Draconia", ["item:271629"] = "Wood Bundle", ["item:271630"] = "Makeshift Stickin' Spear", ["npc:255897"] = "Friz Frazzlespark", ["npc:255906"] = "Snargl", ["npc:255993"] = "Grakna", ["npc:256418"] = "Krom'rosh", ["npc:256655"] = "Gorg", ["npc:256657"] = "Kreza Darkthorn", ["npc:256675"] = "Innkeeper Toka", ["npc:256749"] = "Rog'mar Trainee", ["npc:257079"] = "Cavalry Scout Alturin", ["npc:258031"] = "Neza Bloodsnout", ["npc:259046"] = "Freshwater Crocolisk", ["npc:262399"] = "Gelinda Coppergleam", ["npc:263190"] = "Tan'jani", ["npc:263307"] = "Glade Viper", ["npc:263315"] = "Ombassa", ["npc:263316"] = "Picked Carcass", ["npc:263343"] = "Low Plains Buzzard", ["npc:263348"] = "Roving Tallstrider", ["npc:263367"] = "Sleebo Fizzlespout", ["npc:263380"] = "Ghostmaw", ["object:645164"] = "WANTED!", ["object:645516"] = "Peasant Woodpile", ["quest:93786"] = "A Message in Blood", ["quest:93787"] = "Food for the Taking", ["quest:93788"] = "Borrowed Blades", ["quest:93976"] = "The Goblin Trader", ["quest:94480"] = "A Gift From Our Enemies", ["quest:94481"] = "A Serving of Strength", ["quest:94483"] = "Show Them How It's Done", ["quest:94532"] = "Gnoll Infestation", ["quest:94533"] = "Snargl's Snout", ["quest:94535"] = "Bristle Hills Bandits", ["quest:95062"] = "Frazzlespark's Crate", ["quest:95792"] = "Clear 'em Out", ["quest:95934"] = "Proof of Profit", ["quest:95951"] = "Fetch 'n' Fletch", ["quest:95955"] = "Stick 'Em", ["quest:95992"] = "WANTED: Ghostmaw", ["quest:96063"] = "Gaseous Gold", ["quest:96067"] = "Rock 'em and Sock 'em", ["quest:96103"] = "A Feast for Buzzards", ["quest:96104"] = "Song of the Strider", ["quest:96105"] = "King of the Wild Plains", ["quest:96107"] = "Feathers for Fletching", ["quest:96108"] = "Poison Tips", ["quest:96109"] = "A Hunter's Quiver", ["zone:1418"] = "Badlands", ["zone:1434"] = "Stranglethorn Vale", ["zone:1435"] = "Swamp of Sorrows", ["zone:1441"] = "Thousand Needles", ["zone:1444"] = "Feralas", ["zone:1446"] = "Tanaris", ["zone:2548"] = "Riverglades" },
 			written = { ["North-east to the workshop. {npc:263367}'s stress test is a fight with his G45-B4G beside the workshop: hand the quest in once it's beaten."] = "North-east to the workshop. Sleebo's stress test is a fight with his G45-B4G beside the workshop: hand the quest in once it's beaten.", ["West up the road from the port: {npc:263367} has his workshop on the hill. The gas vents are in the marsh south-west of it, on your first hunt for {npc:258031}."] = "West up the road from the port: Sleebo Fizzlespout has his workshop on the hill. The gas vents are in the marsh south-west of it, on your first hunt for Neza.", ["Your hearth lands by {npc:256675} on the fort's west side: {npc:263190} first, then {npc:256418}, {npc:256655} by the cook fire, {npc:256657} and {npc:258031} on your way east through the fort."] = "Your hearth lands by Innkeeper Toka on the fort's west side: Tan'jani first, then Krom'rosh, Gorg by the cook fire, Kreza and Neza on your way east through the fort.", ["{npc:258031}'s elites"] = "Neza's elites", ["{npc:263367}'s workshop"] = "Sleebo's workshop" },
 			steps = {
 				{
@@ -3026,7 +3033,7 @@ do
 			why = "Forever's new zone, an alpha route written from players' recordings.",
 			zone = 2548,
 			zoneName = "Riverglades",
-			next = "forever/horde/40-50/01-stranglethorn-vale",
+			next = "forever/horde/40-50/02-feralas",
 			author = "Polestar",
 			version = 1,
 			names = { ["area:16685"] = "Twilight's Shroud", ["area:16723"] = "Sunnyglade", ["area:16726"] = "Bolder'ok", ["area:16743"] = "Rog'mar", ["area:3"] = "Badlands", ["area:340"] = "Kargath", ["npc:256418"] = "Krom'rosh", ["npc:256710"] = "Tran'gul", ["npc:256800"] = "Twilight Enforcer", ["npc:256881"] = "Overlord Kilgar", ["npc:256891"] = "Executioner Morg", ["npc:256899"] = "Chogg'Zac", ["npc:257450"] = "Rog'mar Scout", ["npc:258023"] = "Sergeant Riftan", ["npc:258031"] = "Neza Bloodsnout", ["npc:258570"] = "Da'grosh", ["npc:258686"] = "Farholde Lookout", ["npc:260931"] = "Clubtoe", ["npc:260993"] = "Crag'rog", ["npc:260995"] = "Ogre Miner", ["npc:261208"] = "Twilight Brute", ["npc:262006"] = "Twilight Ritual Circle", ["quest:94744"] = "The Wayward Warrior", ["quest:94745"] = "Carving a Path", ["quest:94748"] = "Break Their Chains", ["quest:94768"] = "Bring Me His Head", ["quest:95417"] = "The Purple Ones", ["quest:95427"] = "Twilight No More!", ["quest:95428"] = "Clugfist's Decree", ["quest:95431"] = "Rumblings of Discontent", ["quest:95432"] = "Rise Up!", ["quest:95602"] = "Sickening Lights", ["zone:2548"] = "Riverglades" },
@@ -3185,9 +3192,14 @@ do
 			why = "Forever's new zone south of {area:405}, an alpha route written from players' recordings.",
 			zone = 2652,
 			zoneName = "Shen'dralas",
+			next = "forever/horde/40-50/04-tanaris",
+			nextChoices = { "forever/horde/40-50/04-tanaris", "forever/alliance/40-50/03-feralas" },
+			pitch = "A detour south of {area:405} into {zone:2652}: 11 quests around a fallen Highborne temple, for levels 41-45.",
+			pros = { "About 27,500 quest experience plus the kills", "Brings you back to the main route where you left it", "Its experience comes off the grinding the route asks for before level 50: about an hour sooner to 60" },
+			cons = { "Its quests are about on level at 43 and a few levels under you at 46", "Elites walk the {area:2657}: Corpsefeeders and Magram Necrokhans, level 45", "Experimental: written from a handful of players' recordings" },
 			author = "Polestar",
 			version = 1,
-			names = { ["area:150"] = "Menethil Harbor", ["area:16651"] = "Shen'dralas", ["area:16677"] = "Bristleback Retreat", ["area:16678"] = "Evenshade's Overlook", ["area:2100"] = "Maraudon", ["area:2408"] = "Shadowprey Village", ["area:2657"] = "Valley of Bones", ["area:405"] = "Desolace", ["area:604"] = "Magram Village", ["area:606"] = "Gelkis Village", ["area:608"] = "Nijel's Point", ["item:255656"] = "Pylon Fragment", ["item:255657"] = "Pylon Shard", ["item:255662"] = "Mana Sieve", ["item:271882"] = "Pile of Pylon Parts", ["item:286647"] = "Depleted Crystal Heart", ["npc:11559"] = "Outcast Necromancer", ["npc:252711"] = "Decrepit Pylon Protector", ["npc:253272"] = "Magram Necromancer", ["npc:253274"] = "Magram Necrokhan", ["npc:253471"] = "Mordent Evenshade", ["npc:253527"] = "Kog'thug the Brave", ["npc:254566"] = "Rowdy Rose", ["npc:254567"] = "Terrible Tulip", ["npc:254572"] = "Malevolent Marigold", ["npc:254578"] = "Mithera", ["npc:254656"] = "Magister Kirandis", ["npc:254674"] = "Woodwyrd", ["npc:255385"] = "Liranne", ["npc:255486"] = "Historian Biraxas", ["npc:255560"] = "Magram Guardian", ["npc:255561"] = "Gelkis Guardian", ["npc:264149"] = "Unstable Mana Rift", ["object:3202"] = "Grom'gol", ["quest:92914"] = "Strange Pylons", ["quest:93016"] = "A Brief History Lesson", ["quest:93341"] = "Forlorn Gardens", ["quest:93568"] = "Partially Digested Collar", ["quest:93644"] = "Tattered Journal", ["quest:96018"] = "Powering the Pylons", ["quest:99257"] = "A Heart of Crystal", ["spell:1289727"] = "Repair and Recharge Pylon", ["zone:1454"] = "Orgrimmar", ["zone:1458"] = "Undercity", ["zone:2652"] = "Shen'dralas" },
+			names = { ["area:1099"] = "Camp Mojache", ["area:1108"] = "Forgotten Coast", ["area:1116"] = "Feathermoon Stronghold", ["area:150"] = "Menethil Harbor", ["area:16651"] = "Shen'dralas", ["area:16677"] = "Bristleback Retreat", ["area:16678"] = "Evenshade's Overlook", ["area:2100"] = "Maraudon", ["area:2408"] = "Shadowprey Village", ["area:2657"] = "Valley of Bones", ["area:405"] = "Desolace", ["area:604"] = "Magram Village", ["area:606"] = "Gelkis Village", ["area:608"] = "Nijel's Point", ["item:255656"] = "Pylon Fragment", ["item:255657"] = "Pylon Shard", ["item:255662"] = "Mana Sieve", ["item:271882"] = "Pile of Pylon Parts", ["item:286647"] = "Depleted Crystal Heart", ["npc:11559"] = "Outcast Necromancer", ["npc:252711"] = "Decrepit Pylon Protector", ["npc:253272"] = "Magram Necromancer", ["npc:253274"] = "Magram Necrokhan", ["npc:253471"] = "Mordent Evenshade", ["npc:253527"] = "Kog'thug the Brave", ["npc:254566"] = "Rowdy Rose", ["npc:254567"] = "Terrible Tulip", ["npc:254572"] = "Malevolent Marigold", ["npc:254578"] = "Mithera", ["npc:254656"] = "Magister Kirandis", ["npc:254674"] = "Woodwyrd", ["npc:255385"] = "Liranne", ["npc:255486"] = "Historian Biraxas", ["npc:255560"] = "Magram Guardian", ["npc:255561"] = "Gelkis Guardian", ["npc:264149"] = "Unstable Mana Rift", ["object:3202"] = "Grom'gol", ["quest:92914"] = "Strange Pylons", ["quest:93016"] = "A Brief History Lesson", ["quest:93341"] = "Forlorn Gardens", ["quest:93568"] = "Partially Digested Collar", ["quest:93644"] = "Tattered Journal", ["quest:96018"] = "Powering the Pylons", ["quest:99257"] = "A Heart of Crystal", ["spell:1289727"] = "Repair and Recharge Pylon", ["zone:1444"] = "Feralas", ["zone:1446"] = "Tanaris", ["zone:1454"] = "Orgrimmar", ["zone:1458"] = "Undercity", ["zone:2652"] = "Shen'dralas" },
 			written = { ["Back west along the valley road and south to {npc:253471}. {quest:93016} asks you to hear him out: talk to him once more, then hand it in."] = "Back west along the valley road and south to Mordent. A Brief History Lesson asks you to hear him out: talk to him once more, then hand it in.", ["The nearest Decrepit Pylon Protectors stand by the road north, from the middle of the zone up to the western pylon, and around {npc:253471}'s overlook: one of them carries the heart Biraxas wants."] = "The nearest Decrepit Pylon Protectors stand by the road north, from the middle of the zone up to the western pylon, and around Mordent's overlook: one of them carries the heart Biraxas wants.", ["{npc:253471} sends you for the {item:255662}, kept inside the temple beside {npc:255486}. {quest:96018} asks you to gather mana with the Sieve before you repair the pylons: with it in your bags you can handle the Unstable Mana Rifts, the floating sparks of mana all along the road north."] = "Mordent sends you for the Mana Sieve, kept inside the temple beside Historian Biraxas. Powering the Pylons asks you to gather mana with the Sieve before you repair the pylons: with it in your bags you can handle the Unstable Mana Rifts, the floating sparks of mana all along the road north.", ["{npc:253471} wants a fragment and a shard of the pylons back from {area:405}'s two centaur villages: {area:604} lies just beyond the valley's northern way out."] = "Mordent wants a fragment and a shard of the pylons back from Desolace's two centaur villages: Magram Village lies just beyond the valley's northern way out." },
 			steps = {
 				{
@@ -3379,7 +3391,7 @@ do
 				},
 				{
 					title = "{npc:254578}",
-					note = "{npc:255486}, inside the temple, may have a task for you if you didn't take it earlier: the heart of a {npc:252711}, a short ride back up the road north. Otherwise {zone:2652} is done: hearth, or ride back north through the {area:2657} to {area:405}'s flight points ({area:2408} for the Horde, {area:608} for the Alliance), then go back to your leveling guide's tab.",
+					note = "{npc:255486}, inside the temple, may have a task for you if you didn't take it earlier: the heart of a {npc:252711}, a short ride back up the road north. Otherwise {zone:2652} is done: hearth, or ride back north through the {area:2657} to {area:405}'s flight points ({area:2408} for the Horde, {area:608} for the Alliance).",
 					goals = {
 						{ t = "turnin", quest = 93362, title = "What They've Done to My Peonies", npc = 254578, npcName = "Mithera", map = 2652, x = 53.32, y = 76.02 },
 						{ t = "accept", quest = 99257, title = "A Heart of Crystal", npc = 255486, npcName = "Historian Biraxas", qlvl = 43, map = 2652, x = 46, y = 78.22, optional = true },
@@ -3394,9 +3406,23 @@ do
 				},
 				{
 					title = "{npc:255486}",
-					note = "{zone:2652} is done: hearth, or ride back north through the {area:2657} to {area:405}, then go back to your leveling guide's tab.",
+					note = "{zone:2652} is done: hearth, or ride back north through the {area:2657} to {area:405}.",
 					goals = {
 						{ t = "turnin", quest = 99257, title = "A Heart of Crystal", npc = 255486, npcName = "Historian Biraxas", map = 2652, x = 46, y = 78.22 },
+					},
+				},
+				{
+					title = "Back to your route",
+					only = { factions = { "Horde" } },
+					goals = {
+						{ t = "note", text = "{zone:2652} is done. Your {zone:1446} guide picks up at {area:1099}'s flight master: hearth there, or ride back north through the {area:2657} to {area:2408} and fly to {area:1099}." },
+					},
+				},
+				{
+					title = "Back to your route",
+					only = { factions = { "Alliance" } },
+					goals = {
+						{ t = "note", text = "{zone:2652} is done. Your {zone:1444} guide picks up from here: ride back north through the {area:2657}, west along {area:405}'s southern edge and south into {zone:1444}, to the dock on the {area:1108} where the boat crosses to {area:1116}." },
 					},
 				},
 			},
