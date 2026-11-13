@@ -1482,13 +1482,22 @@ fn check_guide_fixes(ck: &mut Ck, d: &V) {
 		}
 		check_record(ck, &at, r, &mut ids);
 		let a = r.get("at");
-		ck.keys(&format!("{at}.at"), &a, &["quest", "goal", "objective", "guide", "fly"]);
+		ck.keys(&format!("{at}.at"), &a, &["quest", "goal", "objective", "guide", "fly", "item"]);
 		let fly = a.get("goal").as_str() == Some("fly");
+		if !a.get("item").is_undef() && a.get("goal").as_str() != Some("collect") {
+			ck.err(format!("{at}.at.item"), "item is only valid on a collect anchor");
+		}
 		if !fly {
 			ck.refers(&format!("{at}.at.quest"), "quests", &a.get("quest"));
 		}
 		match a.get("goal").as_str() {
 			Some("accept" | "turnin" | "complete") => {}
+			Some("collect") => {
+				ck.refers(&format!("{at}.at.item"), "items", &a.get("item"));
+				if r.get("goalNote").as_str().is_none() {
+					ck.err(format!("{at}.goalNote"), "a collect anchor carries a goalNote");
+				}
+			}
 			Some("fly") => {
 				for k in ["guide", "fly"] {
 					if !has_text(&a.get(k)) {
@@ -1510,7 +1519,7 @@ fn check_guide_fixes(ck: &mut Ck, d: &V) {
 					}
 				}
 			}
-			_ => ck.err(format!("{at}.at.goal"), format!("{}: accept, turnin, complete, objective or fly", show(&a.get("goal")))),
+			_ => ck.err(format!("{at}.at.goal"), format!("{}: accept, turnin, complete, objective, collect or fly", show(&a.get("goal")))),
 		}
 		let (tip, level, along, early, when) = (r.get("tip"), r.get("level"), r.get("along"), r.get("early"), r.get("when"));
 		let background = r.get("background");
@@ -1857,6 +1866,14 @@ mod tests {
 			.into_iter()
 			.map(|f| format!("{} {} {}: {}", f.severity, f.file, f.at, f.message))
 			.collect()
+	}
+
+	#[test]
+	fn collect_notes_require_a_known_item_and_a_note() {
+		let good = r#"{ "fixes": [{ "id": "2107-test", "at": { "quest": 10, "goal": "collect", "item": 40 }, "goalNote": "Kill the summoned creature, then open its bag.", "source": { "kind": "in-game-check", "ref": "issue 2107" }, "note": "checked", "issue": 2107 }] }"#;
+		assert_eq!(record_findings(None, Some(good)), Vec::<String>::new());
+		assert!(!record_findings(None, Some(&good.replace("\"item\": 40", "\"item\": 999999"))).is_empty());
+		assert!(!record_findings(None, Some(&good.replace("\"goalNote\":", "\"tip\":"))).is_empty());
 	}
 
 	#[test]

@@ -609,6 +609,15 @@ function Compat.ItemUsable(itemID)
 	return fn(itemID) ~= nil
 end
 
+-- The spell an item casts when used (the Filled Cleansing Bowl's summon),
+-- matched against UNIT_SPELLCAST_SUCCEEDED; nil where the client cannot tell.
+function Compat.GetItemSpellID(itemID)
+	local fn = (C_Item and C_Item.GetItemSpell) or GetItemSpell
+	if not fn then return nil end
+	local _, spell = fn(itemID)
+	return readable(spell)
+end
+
 -- The client's quality for an item (0 poor .. 7 heirloom), or nil while the
 -- item is not cached.
 function Compat.GetItemQuality(itemID)
