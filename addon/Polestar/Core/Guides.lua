@@ -11,6 +11,14 @@ local Guides = {}
 ns.Guides = Guides
 local Own = {} -- file-private functions and state
 
+-- A use without quest credit can be followed by a bag count for what it makes.
+function Guides.UseResult(goals, index)
+	local use, result = goals[index], goals[index + 1]
+	if use.t == "use" and not use.quest and result and result.t == "collect" and not result.quest then
+		return result
+	end
+end
+
 local guides = {} -- id -> guide
 local order = {} -- ids in first-registration order
 local headers = {} -- id -> header (guide without steps, plus stepCount)
