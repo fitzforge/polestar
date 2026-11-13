@@ -7,7 +7,8 @@
 -- rows, which scroll under it; sections of setting rows in one or two
 -- columns (each row with its description, each section in a panel, a
 -- Reset section while one of its settings is off its default); a search in
--- the header whose results jump to their row; a footer with Reset page,
+-- the header whose dropdown (UI/SearchDropdown.lua) and results page jump
+-- to their row; a footer with Reset page,
 -- Reload UI, Move frames, the profile in use and Close. Consequential
 -- actions ask in the shared dialog (W.Modal).
 --
@@ -39,7 +40,10 @@ local pages, pageList = {}, {} -- name -> page; ordered list
 local current, currentTab
 local query = ""
 local seq = 0
-local folded -- while the window is folded to its header: { h, hidden = { frame, ... } } (O.Fold)
+-- The window out of the way without closing (O.Fold, O.Peek, Shift + the
+-- wheel; below): state = while it is folded to its header, { h, hidden =
+-- { frame, ... } }.
+local Fold = {}
 
 local function percent(v) return floor(v * 100 + 0.5) .. "%" end
 -- "+20%" / "0%" / "-35%"
@@ -1080,10 +1084,13 @@ local function modifiedCount(controls)
 end
 O.ModifiedCount = modifiedCount
 
+-- The footer's Undo for what a reset changed (filled in further down).
+local Undo = {}
+
 -- What a list of controls holds off its default, for Undo: { path, value }
 -- per setting (as stored), { get, set, value } per state that is no
 -- setting; each setting once.
-local function holdings(controls)
+function Undo.holdings(controls)
 	local out, seen = {}, {}
 	for _, c in ipairs(controls) do
 		if c.key and c.kind ~= "button" and c.kind ~= "binding" then
@@ -1099,12 +1106,10 @@ local function holdings(controls)
 	return out
 end
 
-local offerUndo -- (list): the footer's Undo for what a reset changed (below)
-
 -- Every setting of a list back to its default (state that is no setting
 -- too, through its set(nil)); the footer offers to undo it.
 function O.ResetSection(controls)
-	local held = holdings(controls)
+	local held = Undo.holdings(controls)
 	for _, c in ipairs(controls) do
 		if c.key and c.kind ~= "button" and c.kind ~= "binding" then
 			ns.Set(c.key, nil)
@@ -1119,7 +1124,7 @@ function O.ResetSection(controls)
 			if w and not c.key and w.Refresh then w:Refresh() end
 		end
 	end
-	offerUndo(held)
+	Undo.offer(held)
 end
 
 -- Is a section's on/off (its header's toggle) off?
@@ -1815,6 +1820,8 @@ end
 -- character, has no floor); filler words ("the", "turn", "off") only add to a
 -- match. The label counts most, then the search terms and key, then the
 -- section, tab and page, then the help; typos and inside-a-word matches least.
+-- A query starting with a page's name looks on that page for the rest
+-- (scopeOf). The dropdown asks O.Matches and O.MatchSpans (further down).
 ---------------------------------------------------------------------------
 
 local searchView
@@ -1941,12 +1948,12 @@ end
 
 -- Optimal string alignment distance (a swap of two neighbours is one edit)
 -- between the bytes qb[1..lq] and the word t; cap + 1 once it is over cap.
-local rowA, rowB, rowC, tb = {}, {}, {}, {}
+local DIST_ROWS = { {}, {}, {}, {} } -- three rows and the word's bytes, reused
 local function distance(qb, lq, t, cap)
 	local lt = #t
 	if lt - lq > cap or lq - lt > cap then return cap + 1 end
+	local r0, r1, r2, tb = DIST_ROWS[1], DIST_ROWS[2], DIST_ROWS[3], DIST_ROWS[4]
 	for j = 1, lt do tb[j] = byte(t, j) end
-	local r0, r1, r2 = rowA, rowB, rowC
 	for j = 0, lt do r1[j] = j end
 	for i = 1, lq do
 		local a, low = qb[i], i
@@ -2140,17 +2147,14 @@ local function suggest(nw)
 	return out
 end
 
--- -> { { title = "Page · Tab", controls = { ... } }, ... }, count, suggestions
--- Each control once (a setting shown on two pages, under the first), the
--- best first in its group, the group with the best match first. With no
--- match, suggestions: up to three labels near the query.
-function O.Search(q)
+-- Every control the parsed query matches, grouped by page, tab and section
+-- (only: one page's), each control once (a setting shown on two pages, under
+-- the first), the best first in its group. -> groups (unsorted), count
+local function collect(nw, only)
 	local groups, count = {}, 0
-	local nw = parseQuery(q)
-	if nw == 0 then return groups, 0 end
 	for k in pairs(seen) do seen[k] = nil end
 	local order = 0
-	for _, p in ipairs(pageList) do
+	for _, p in ipairs(pageList) do if not only or p == only then
 		for _, t in ipairs(p.tabs) do
 			for _, s in ipairs(t.sections) do if sectionShown(s) then
 				-- The section's toggle is a result of its own; a control is
@@ -2195,10 +2199,183 @@ function O.Search(q)
 				end
 			end end
 		end
+	end end
+	return groups, count
+end
+
+-- A name's words as a query says them (folded, filler left out).
+local function nameWords(name)
+	local out = {}
+	for word in fold(name or ""):gmatch("[%w\128-\255]+") do
+		local w = SPELLING[word] or word
+		if not FILLER[w] then out[#out + 1] = w end
 	end
+	return out
+end
+
+-- Where the parsed query ends a page's name it starts with: the name's
+-- words in order (filler between them aside) or run together ("mappins").
+-- -> the index of the query word that ends it, or nil
+local function nameEnds(words, nw)
+	local i = 1
+	while i <= nw and qfiller[i] do i = i + 1 end
+	if i > nw or #words == 0 then return nil end
+	if #words > 1 and qwords[i].q == table.concat(words) then return i end
+	local k = 1
+	while i <= nw do
+		if qwords[i].q == words[k] then
+			if k == #words then return i end
+			k = k + 1
+		elseif not qfiller[i] then
+			return nil
+		end
+		i = i + 1
+	end
+	return nil
+end
+
+-- A query that starts with a page's name and goes on ("arrow size",
+-- "quality of life loot") looks on that page alone: the name stands whole
+-- at the start (on a translated client its English name too) and a word
+-- that is not filler follows it; the longest name wins. -> the page and the
+-- rest of the query, or nil
+local function scopeOf(nw)
+	if nw < 2 then return nil end
+	local page, ends, size
+	for _, p in ipairs(pageList) do
+		for _, name in ipairs({ p.name, englishOf(p.name) or p.name }) do
+			local words = nameWords(name)
+			local at = nameEnds(words, nw)
+			if at and (not size or #words > size) then
+				for j = at + 1, nw do
+					if not qfiller[j] then
+						page, ends, size = p, at, #words
+						break
+					end
+				end
+			end
+		end
+	end
+	if not page then return nil end
+	local rest = {}
+	for j = ends + 1, nw do rest[#rest + 1] = qwords[j].q end
+	return page, table.concat(rest, " ")
+end
+
+-- A page's own results stand when its best one is a fair match: on average
+-- each word whole in the setting's place, or its start in the setting's own
+-- words. A word found only in a help text, or a typo, looks everywhere.
+local SCOPE_FLOOR = 50
+
+-- -> { { title = "Page · Tab", controls = { ... } }, ... }, count, suggestions, page
+-- Each control once (a setting shown on two pages, under the first), the
+-- best first in its group, the group with the best match first. A query
+-- that starts with a page's name looks on that page (`page`, the fourth
+-- result) for the rest of its words, everywhere when nothing there matches
+-- them fairly. With no match, suggestions: up to three labels near the query.
+function O.Search(q)
+	local nw = parseQuery(q)
+	if nw == 0 then return {}, 0 end
+	local page, rest = scopeOf(nw)
+	if page then
+		local rw = parseQuery(rest)
+		local needed = 0
+		for i = 1, rw do if not qfiller[i] then needed = needed + 1 end end
+		local groups, count = collect(rw, page)
+		if count > 0 then
+			table.sort(groups, byBest)
+			if groups[1].best >= SCOPE_FLOOR * max(1, needed) then return groups, count, nil, page end
+		end
+		nw = parseQuery(q)
+	end
+	local groups, count = collect(nw)
 	if count == 0 then return groups, 0, suggest(nw) end
 	table.sort(groups, byBest)
 	return groups, count
+end
+
+-- A word's folded bytes back to the word's own: at[i] and stop[i], the
+-- first and last byte of the character folded byte i came from.
+local function foldMap(word)
+	local at, stop, n, i = {}, {}, 0, 1
+	while i <= #word do
+		local b = byte(word, i)
+		local len = b >= 240 and 4 or b >= 224 and 3 or b >= 192 and 2 or 1
+		for _ = 1, #fold(word:sub(i, i + len - 1)) do
+			n = n + 1
+			at[n], stop[n] = i, i + len - 1
+		end
+		i = i + len
+	end
+	return at, stop
+end
+
+-- Where in `text` the query's words match, by the matcher's own test (a word
+-- whole, its start, a typo off or inside it; two of its words run together;
+-- a hint word's synonym when the word itself matches nothing), filler words
+-- aside: byte ranges of `text`, { { from, to }, ... } in order. The search's
+-- dropdown lights them in a label (UI/SearchDropdown.lua).
+function O.MatchSpans(text, q)
+	local out = {}
+	if type(text) ~= "string" or text == "" then return out end
+	local nw = parseQuery(q)
+	if nw == 0 then return out end
+	local words, marks, hit = {}, {}, {}
+	for s, w, e in text:gmatch("()([%w\128-\255]+)()") do
+		local f = fold(w)
+		words[#words + 1] = { s = s, e = e - 1, raw = w, f = SPELLING[f] or f, spelled = SPELLING[f] ~= nil }
+	end
+	for _, wd in ipairs(words) do
+		for i = 1, nw do
+			local m = qwords[i]
+			local k = not qfiller[i] and kindOf(m, wd.f) or 0
+			if k > 0 then
+				hit[i] = true
+				if (k == 3 or k == 1) and not wd.spelled then
+					-- Its start or the part inside: those characters only.
+					local from = k == 3 and 1 or find(wd.f, m.q, 1, true)
+					local at, stop = foldMap(wd.raw)
+					marks[#marks + 1] = { wd.s + at[from] - 1, wd.s + stop[min(from + m.n - 1, #stop)] - 1 }
+				else
+					marks[#marks + 1] = { wd.s, wd.e }
+				end
+			end
+		end
+	end
+	-- Two words run together ("autoloot" for "Auto loot"): the query word
+	-- reaches into the second.
+	for j = 2, #words do
+		local joined = words[j - 1].f .. words[j].f
+		for i = 1, nw do
+			local m = qwords[i]
+			if not qfiller[i] and m.n > #words[j - 1].f and kindOf(m, joined) >= 3 then
+				hit[i] = true
+				marks[#marks + 1] = { words[j - 1].s, words[j].e }
+			end
+		end
+	end
+	for i = 1, nw do
+		if not hit[i] and not qfiller[i] and qsyn[i] then
+			for _, wd in ipairs(words) do
+				for _, sm in ipairs(qsyn[i]) do
+					if kindOf(sm, wd.f) >= 3 then
+						marks[#marks + 1] = { wd.s, wd.e }
+						break
+					end
+				end
+			end
+		end
+	end
+	table.sort(marks, function(a, b) return a[1] < b[1] end)
+	for _, m in ipairs(marks) do
+		local last = out[#out]
+		if last and m[1] <= last[2] + 1 then
+			if m[2] > last[2] then last[2] = m[2] end
+		else
+			out[#out + 1] = { m[1], m[2] }
+		end
+	end
+	return out
 end
 
 local function renderSearch()
@@ -2524,16 +2701,16 @@ end
 ---------------------------------------------------------------------------
 -- One step of undo for resets (a row's right-click, a section's Reset, the
 -- page's): what the settings held before is kept, and a chip in the footer
--- says what was reset with an Undo for UNDO_S seconds. A new reset takes
+-- says what was reset with an Undo for Undo.S seconds. A new reset takes
 -- its place; Undo puts every one back at once.
 ---------------------------------------------------------------------------
 
-local UNDO_S = 10
-local undoList, undoSeq = nil, 0
+Undo.S = 10
+Undo.list, Undo.seq = nil, 0
 
-local function sameValue(a, b)
+function Undo.same(a, b)
 	if type(a) == "table" and type(b) == "table" then
-		for k, v in pairs(a) do if not sameValue(v, b[k]) then return false end end
+		for k, v in pairs(a) do if not Undo.same(v, b[k]) then return false end end
 		for k in pairs(b) do if a[k] == nil then return false end end
 		return true
 	end
@@ -2543,7 +2720,7 @@ end
 
 -- The chip, left of the footer's right-hand buttons in place of the thanks
 -- line while it shows.
-local function placeUndo()
+function Undo.place()
 	local chip = rawget(win, "UndoChip")
 	if not (chip and chip:IsShown()) then return end
 	local anchor
@@ -2555,14 +2732,14 @@ local function placeUndo()
 	if thanks then thanks:Hide() end
 end
 
-local function hideUndo()
+function Undo.hide()
 	local chip = rawget(win, "UndoChip")
 	if not (chip and chip:IsShown()) then return end
 	chip:Hide()
 	if rawget(win, "PlaceThanks") then win.PlaceThanks() end
 end
 
-local function undoChip()
+function Undo.chip()
 	local chip = rawget(win, "UndoChip")
 	if chip then return chip end
 	chip = CreateFrame("Frame", nil, win.Footer)
@@ -2586,17 +2763,17 @@ end
 
 -- list: what a reset changed (holdings, W.OnReset's records). Offered only
 -- while the window is up, and only what the reset did change.
-function offerUndo(list)
+function Undo.offer(list)
 	if not (win and win:IsShown()) then return end
 	local kept = {}
 	for _, u in ipairs(list or {}) do
-		if u.path or not sameValue(u.get(), u.value) then kept[#kept + 1] = u end
+		if u.path or not Undo.same(u.get(), u.value) then kept[#kept + 1] = u end
 	end
 	if #kept == 0 then return end
-	undoList = kept
-	undoSeq = undoSeq + 1
-	local seq = undoSeq
-	local chip = undoChip()
+	Undo.list = kept
+	Undo.seq = Undo.seq + 1
+	local seq = Undo.seq
+	local chip = Undo.chip()
 	local c = #kept == 1 and kept[1].path and O.ControlByKey(kept[1].path)
 	if c then
 		chip.Text:SetText(string.format(L["%s reset."], labelOf(c) or ""))
@@ -2606,14 +2783,14 @@ function offerUndo(list)
 		chip.Text:SetText(string.format(L["%d settings reset."], #kept))
 	end
 	chip:Show()
-	placeUndo()
+	Undo.place()
 	Anim.To(chip, "alpha", 0, 1, Anim.FAST, "out")
-	ns.After(UNDO_S, function()
-		if undoSeq ~= seq or not chip:IsShown() then return end
+	ns.After(Undo.S, function()
+		if Undo.seq ~= seq or not chip:IsShown() then return end
 		Anim.To(chip, "alpha", 1, 0, Anim.SLOW, "out", function()
-			if undoSeq == seq then
-				undoList = nil
-				hideUndo()
+			if Undo.seq == seq then
+				Undo.list = nil
+				Undo.hide()
 			end
 		end)
 	end)
@@ -2621,11 +2798,11 @@ end
 
 -- Put back what the last reset changed. -> true when there was one
 function O.Undo()
-	local list = undoList
+	local list = Undo.list
 	if not list then return false end
-	undoList = nil
-	undoSeq = undoSeq + 1
-	hideUndo()
+	Undo.list = nil
+	Undo.seq = Undo.seq + 1
+	Undo.hide()
 	local function put()
 		for _, u in ipairs(list) do
 			if u.set then u.set(u.value) else ns.Set(u.path, u.value) end
@@ -2667,8 +2844,8 @@ local function renderFooter(p)
 	end
 	W.ShellFooter(win, left, right)
 	if rawget(win, "PlaceThanks") then win.PlaceThanks() end
-	placeUndo()
-	if folded then win.Footer:Hide() end
+	Undo.place()
+	if Fold.state then win.Footer:Hide() end
 end
 
 function O.ResetPage(p)
@@ -2694,7 +2871,7 @@ function O.ResetPage(p)
 			if w.psControl and not w.psControl.key and w.Refresh then w:Refresh() end
 		end
 	end
-	offerUndo(held)
+	Undo.offer(held)
 end
 
 -- The tab last opened on each page (PolestarDB.optionsTab, account-wide,
@@ -2709,11 +2886,11 @@ end
 -- short upright hairline after it, the other tabs moved along to make room.
 -- Run after every W.ShellTabs, which lays the row out afresh (the game's
 -- tab looks keep their label's anchor: the shift made here comes off first).
-local LEAD_STAR, LEAD_GAP, LEAD_RULE = 11, 4, 17
+local LEAD = { STAR = 11, GAP = 4, RULE = 17 }
 local function markLead(list, active)
 	local first = win.tabButtons and win.tabButtons[1]
 	if not first then return end
-	local grow = LEAD_STAR + LEAD_GAP
+	local grow = LEAD.STAR + LEAD.GAP
 	local lp, lrel, lrp, lx, ly = first.Label:GetPoint(1)
 	lx = lx or 0
 	if first.psLeadX and math.abs(lx - first.psLeadX) < 0.01 then lx = lx - grow / 2 end
@@ -2730,12 +2907,12 @@ local function markLead(list, active)
 	first.psLeadX = lx + grow / 2
 	if not star then
 		star = W.Tex(first, "ARTWORK", "star", "textMuted")
-		star:SetSize(LEAD_STAR, LEAD_STAR)
+		star:SetSize(LEAD.STAR, LEAD.STAR)
 		first.psStar = star
 	end
 	W.Color(star, list[1] == active and "accent" or "textMuted")
 	star:ClearAllPoints()
-	star:SetPoint("RIGHT", first.Label, "LEFT", -LEAD_GAP, 0)
+	star:SetPoint("RIGHT", first.Label, "LEFT", -LEAD.GAP, 0)
 	star:Show()
 	first:SetWidth(first:GetWidth() + grow)
 	if not rule then
@@ -2748,7 +2925,7 @@ local function markLead(list, active)
 	rule:SetSize(1, 16)
 	rule:SetPoint("LEFT", win.TabRow, "BOTTOMLEFT", (fx or 0) + first:GetWidth() + 8, SH.tabs / 2)
 	rule:Show()
-	local shift = grow + LEAD_RULE
+	local shift = grow + LEAD.RULE
 	for i = 2, #win.tabButtons do
 		local t = win.tabButtons[i]
 		if t:IsShown() then
@@ -2766,42 +2943,43 @@ end
 -- settings are behind it; once, and never after a cog has been opened.
 ---------------------------------------------------------------------------
 
-local function pulseDot(cog)
-	local dot = cog.Dot
-	local n = 3
-	cog.psPulsing = true
-	local function beat()
-		if n <= 0 or not cog:IsVisible() then
-			dot:SetSize(6, 6)
-			cog.psPulsing = nil
-			markSections(O.view)
-			return
+do
+	local function pulseDot(cog)
+		local dot = cog.Dot
+		local n = 3
+		cog.psPulsing = true
+		local function beat()
+			if n <= 0 or not cog:IsVisible() then
+				dot:SetSize(6, 6)
+				cog.psPulsing = nil
+				markSections(O.view)
+				return
+			end
+			n = n - 1
+			dot:Show()
+			Anim.To(dot, "size", 6, 10, Anim.BASE, "out", function()
+				Anim.To(dot, "size", 10, 6, Anim.SLOW, "inout", beat)
+			end)
 		end
-		n = n - 1
-		dot:Show()
-		Anim.To(dot, "size", 6, 10, Anim.BASE, "out", function()
-			Anim.To(dot, "size", 10, 6, Anim.SLOW, "inout", beat)
-		end)
+		beat()
 	end
-	beat()
-end
 
-local function cogCue(path)
-	local db = ns.DB()
-	if db.optionsCogHint or query ~= "" or not (win and win:IsShown() and O.view) then return end
-	for c, cog in pairs(O.view.cogs or {}) do
-		if c.key == path and cog:IsVisible() then
-			db.optionsCogHint = true
-			pulseDot(cog)
-			local cue = W.Callout(win, { title = L["More settings here"], width = 260,
-				text = string.format(L["%s has more settings behind its gear."], labelOf(c) or ""),
-				anchor = cog, point = "TOPRIGHT", relPoint = "BOTTOMRIGHT", x = 8, y = -6 })
-			cue.psCog = cog
-			return
+	function O.CogCue(path)
+		local db = ns.DB()
+		if db.optionsCogHint or query ~= "" or not (win and win:IsShown() and O.view) then return end
+		for c, cog in pairs(O.view.cogs or {}) do
+			if c.key == path and cog:IsVisible() then
+				db.optionsCogHint = true
+				pulseDot(cog)
+				local cue = W.Callout(win, { title = L["More settings here"], width = 260,
+					text = string.format(L["%s has more settings behind its gear."], labelOf(c) or ""),
+					anchor = cog, point = "TOPRIGHT", relPoint = "BOTTOMRIGHT", x = 8, y = -6 })
+				cue.psCog = cog
+				return
+			end
 		end
 	end
 end
-O.CogCue = cogCue
 
 ---------------------------------------------------------------------------
 -- Out of the way without closing: Peek (held down, its eye in the header)
@@ -2811,39 +2989,39 @@ O.CogCue = cogCue
 -- step its scale, the scale control lit so the change can be traced.
 ---------------------------------------------------------------------------
 
-local PEEK_ALPHA = 0.15
+Fold.peekAlpha = 0.15
 
 function O.Peek(on)
 	if not win then return end
 	on = on and win:IsShown() or false
 	if (win.psPeek or false) == on then return end
 	win.psPeek = on or nil
-	Anim.To(win, "alpha", win:GetAlpha(), on and PEEK_ALPHA or 1, Anim.FAST, "out")
+	Anim.To(win, "alpha", win:GetAlpha(), on and Fold.peekAlpha or 1, Anim.FAST, "out")
 end
 
-local function paintFold()
+function Fold.paint()
 	local b = rawget(win, "FoldButton")
 	if not b then return end
-	W.SetIcon(b, folded and "chevron-down" or "chevron-up")
-	b.psTip = folded and L["Unfold"] or L["Fold"]
-	b.psTipLines = { folded and L["The whole window back, as you left it."] or L["Folds the window to its header, so it stops covering the screen. Nothing closes."] }
+	W.SetIcon(b, Fold.state and "chevron-down" or "chevron-up")
+	b.psTip = Fold.state and L["Unfold"] or L["Fold"]
+	b.psTipLines = { Fold.state and L["The whole window back, as you left it."] or L["Folds the window to its header, so it stops covering the screen. Nothing closes."] }
 end
 
 -- on: fold the window to its header (its top-left kept where it is), every
--- other part away; off: back as it was. -> folded
+-- other part away; off: back as it was. -> true while folded
 function O.Fold(on)
 	if not win then return false end
-	if on and not folded then
+	if on and not Fold.state then
 		local left, top = win:GetLeft(), win:GetTop()
 		if left and top then
 			win:ClearAllPoints()
 			win:SetPoint("TOPLEFT", UIParent, "BOTTOMLEFT", left, top)
 		end
-		folded = { h = win:GetHeight(), hidden = {} }
+		Fold.state = { h = win:GetHeight(), hidden = {} }
 		local function away(f)
 			if f and f:IsShown() then
 				f:Hide()
-				folded.hidden[#folded.hidden + 1] = f
+				Fold.state.hidden[#Fold.state.hidden + 1] = f
 			end
 		end
 		for _, c in ipairs({ win.Main:GetChildren() }) do if c ~= win.Header then away(c) end end
@@ -2854,20 +3032,20 @@ function O.Fold(on)
 		O.HideMore()
 		W.HideMenu()
 		win:SetHeight(SH.header + 2)
-	elseif not on and folded then
-		local f = folded
-		folded = nil
+	elseif not on and Fold.state then
+		local f = Fold.state
+		Fold.state = nil
 		win:SetHeight(f.h)
 		for _, c in ipairs(f.hidden) do c:Show() end
 		if rawget(win, "PlaceThanks") then win.PlaceThanks() end
 	end
-	paintFold()
-	return folded ~= nil
+	Fold.paint()
+	return Fold.state ~= nil
 end
 
 -- Shift + the wheel: the window's scale steps as its control's wheel does.
 -- -> true when it took the wheel
-local function shiftScale(delta)
+function Fold.shiftScale(delta)
 	if not (IsShiftKeyDown and IsShiftKeyDown()) then return false end
 	local t = rawget(win, "HeaderTools")
 	local s = t and rawget(t, "Slider")
@@ -2879,20 +3057,30 @@ local function shiftScale(delta)
 end
 
 -- A frame of the window whose wheel Shift turns into the window's scale.
-local function wheelScales(frame)
+function Fold.wheelScales(frame)
 	local own = frame:GetScript("OnMouseWheel")
 	frame:EnableMouseWheel(true)
 	frame:SetScript("OnMouseWheel", function(self, delta)
-		if shiftScale(delta) then return end
+		if Fold.shiftScale(delta) then return end
 		if own then own(self, delta) end
 	end)
 end
-O.WheelScales = wheelScales
+O.WheelScales = Fold.wheelScales
+
+-- The header box's text, with its placeholder and clear button (a text set
+-- from code: the box's own change may not run first).
+local function setBoxText(text)
+	local box = win.Search
+	if (box:GetText() or "") ~= text then box:SetText(text) end
+	box.Placeholder:SetShown(text == "")
+	box.Clear:SetShown(text ~= "")
+end
+O.SetBoxText = setBoxText
 
 -- Show page `key` (and tab name), or the search results when searching.
 function O.Select(key, tabName)
 	if not win then return end
-	if folded then O.Fold(false) end
+	if Fold.state then O.Fold(false) end
 	local cue = rawget(win, "psCallout")
 	if cue and cue.psCog then cue:Hide() end
 	local p, aliasTab = pageByKey(key)
@@ -2901,10 +3089,12 @@ function O.Select(key, tabName)
 	current = p
 	W.HideMenu()
 	O.HideMore()
+	O.Dropdown.Hide()
 	hideViews()
-	if query ~= "" then
-		win.Search:SetText("")
+	-- Leaving the search: its words go from the box, searched or only typed.
+	if query ~= "" or (win.Search:GetText() or "") ~= "" then
 		query = ""
+		setBoxText("")
 	end
 	local list = shownTabs(p)
 	local t
@@ -2946,19 +3136,16 @@ end
 function O.SetQuery(text)
 	query = text or ""
 	if not win then return end
-	if folded then O.Fold(false) end
-	-- A query from code (a link, What's New) shows in the header's box; the
-	-- box's own change then finds it the same and does nothing more.
-	local box = win.Search
-	if (box:GetText() or "") ~= query then
-		box:SetText(query)
-		box.Placeholder:SetShown(query == "")
-		box.Clear:SetShown(query ~= "")
-	end
+	if Fold.state then O.Fold(false) end
+	-- A query from code (a link, What's New, the dropdown's See all) shows in
+	-- the header's box; the box's own change then finds it the same and does
+	-- nothing more.
+	setBoxText(query)
 	if query == "" then
 		O.Select(current and current.key, currentTab and currentTab.name)
 		return
 	end
+	O.Dropdown.Hide()
 	hideViews()
 	W.ShellNav(win, navItems(), nil, navSelect)
 	renderSearch()
@@ -3061,14 +3248,173 @@ function O.StepTab(delta)
 end
 
 ---------------------------------------------------------------------------
+-- What the search's dropdown (UI/SearchDropdown.lua) shows for a query and
+-- what a row of it opens: the places the query names (a page, a tab, a
+-- section) and the settings it finds, the best first.
+---------------------------------------------------------------------------
+
+-- MAX: the places a row may name at most. NAMED: a place whose whole name the
+-- query says (every word, whole or its start) comes before one it only partly
+-- names. One table to keep the main chunk's locals in budget.
+local PLACE = { MAX = 3, NAMED = 50 }
+
+-- A page's, tab's or section's name as the matcher reads it (its English
+-- one too on a translated client), kept with it.
+local placeTokens = setmetatable({}, { __mode = "k" })
+
+-- How well the parsed query names a place: every word that is not filler
+-- is one of the name's words, whole, its start or a typo off (inside a word
+-- is too loose to name a place), three letters in all at least. -> score, 0
+-- for none
+local function placeScore(obj, name, nw)
+	local d = placeTokens[obj]
+	if not d or d.label ~= name then
+		d = { label = name }
+		placeTokens[obj] = d
+	end
+	local s = searchTokens(d)
+	local tw, tf = s.words, s.fields
+	local total, letters = 0, 0
+	for i = 1, nw do
+		local m, filler, best = qwords[i], qfiller[i], 0
+		for j = 1, #tw do
+			local k = kindOf(m, tw[j])
+			if k == 4 or (k >= 2 and not filler) then
+				local v = SCORE[tf[j]][k]
+				if v > best then best = v end
+			end
+		end
+		if best == 0 and not filler then return 0 end
+		if not filler then letters = letters + m.n end
+		total = total + best
+	end
+	if letters < 3 then return 0 end
+	for _, w in ipairs(nameWords(name)) do
+		local said = false
+		for i = 1, nw do
+			if kindOf(qwords[i], w) >= 3 then
+				said = true
+				break
+			end
+		end
+		if not said then return total end
+	end
+	return total + PLACE.NAMED
+end
+
+-- Does a shown section hold a setting of its own (not only references to
+-- settings at home elsewhere, an Essentials tab's)?
+local function ownsSettings(s)
+	if not sectionShown(s) then return false end
+	if s.toggle and available(s.toggle) and not rawget(s.toggle, "ref") then return true end
+	for _, c in ipairs(visible(s)) do
+		if not rawget(c, "ref") then return true end
+	end
+	return false
+end
+
+-- The places the parsed query names, the best first, PLACE.MAX at most: a
+-- tab named as its page is the page, a section named as its tab the tab, a
+-- section of references (Essentials) is its settings' homes.
+-- -> { { kind = "page"|"tab"|"section", text, where, page, tab, section }, ... }
+local function places(nw)
+	local list = {}
+	local function add(kind, rank, obj, name, where, p, t, s)
+		if not name or name == "" then return end
+		local v = placeScore(obj, name, nw)
+		if v > 0 then
+			list[#list + 1] = { kind = kind, rank = rank, score = v, order = #list, text = name, where = where, page = p, tab = t, section = s }
+		end
+	end
+	for _, p in ipairs(pageList) do
+		if pageShown(p) then
+			local group = groupOf(p)
+			for _, g in ipairs(GROUPS) do if g.key == group then group = g.label end end
+			add("page", 1, p, p.name, group, p)
+			for _, t in ipairs(shownTabs(p)) do
+				local tabName = t.name ~= "" and t.name or p.name
+				if fold(tabName) ~= fold(p.name) then add("tab", 2, t, t.name, p.name, p, t) end
+				for _, s in ipairs(t.sections or {}) do
+					if s.name ~= "" and fold(s.name) ~= fold(tabName) and ownsSettings(s) then
+						add("section", 3, s, s.name, t.name ~= "" and (p.name .. "  \194\183  " .. t.name) or p.name, p, t, s)
+					end
+				end
+			end
+		end
+	end
+	table.sort(list, function(a, b)
+		if a.score ~= b.score then return a.score > b.score end
+		if a.rank ~= b.rank then return a.rank < b.rank end
+		return a.order < b.order
+	end)
+	for i = #list, PLACE.MAX + 1, -1 do list[i] = nil end
+	return list
+end
+
+-- What query q finds, for the dropdown: -> {
+--   places = { { kind, text, where, page, tab, section }, ... },
+--   settings = { { control, text, where = "Page · Tab" }, ... }, places and
+--     settings n at most together, the settings in score order (O.Search's);
+--   count = how many settings it finds in all, suggestions = { label, ... }
+--   (none found), page = the page it looks on (a query starting with its name) }
+function O.Matches(q, n)
+	n = n or 8
+	local groups, count, suggestions, page = O.Search(q)
+	local out = { places = {}, settings = {}, count = count, suggestions = suggestions, page = page }
+	local nw = parseQuery(q)
+	if nw == 0 then return out end
+	out.places = places(nw)
+	local flat = {}
+	for gi, g in ipairs(groups) do
+		for ci, c in ipairs(g.controls) do flat[#flat + 1] = { c = c, g = gi, i = ci } end
+	end
+	table.sort(flat, function(a, b)
+		local x, y = a.c, b.c
+		if x.psScore ~= y.psScore then return x.psScore > y.psScore end
+		if x.psStopped ~= y.psStopped then return not x.psStopped end
+		if a.g ~= b.g then return a.g < b.g end
+		return a.i < b.i
+	end)
+	for i = 1, min(#flat, n - #out.places) do
+		local c = flat[i].c
+		local where = c.page and c.page.name or ""
+		if c.tab and c.tab ~= "" then where = where .. "  \194\183  " .. c.tab end
+		out.settings[i] = { control = c, text = labelOf(c) or "", where = where }
+	end
+	return out
+end
+
+-- Open what a dropdown row stands for: a setting on its page, its row
+-- scrolled into view and lit (O.Jump); a page at the tab last shown; a tab;
+-- a section's card, scrolled into view, its header lit. -> the frame lit, or nil
+function O.Go(d)
+	if d.control then return O.Jump(d.control) end
+	if not (win and d.page) then return nil end
+	if d.kind == "page" then
+		O.Select(d.page.key)
+		return nil
+	end
+	O.Select(d.page.key, d.tab and d.tab.name or "")
+	if d.kind ~= "section" then return nil end
+	for _, card in ipairs(O.view and O.view.cards or {}) do
+		if card:IsShown() and card.psSection == d.section then
+			W.ScrollTo(win.Scroll, max(0, (card.psTop or 0) - 40))
+			O.Flash(card.Header)
+			return card
+		end
+	end
+	return nil
+end
+
+---------------------------------------------------------------------------
 -- The window's size: 1300 x 946 screen pixels (and more on a screen taller
 -- than 1440 pixels, in 5 % steps) at the default Menu scale, whatever the UI
 -- scale, until the player drags the grip (ui.optionsSize: { w, h } in the
 -- window's own units; false: the default).
--- Never past the screen, never under MIN_W x MIN_H (the screen allowing).
+-- Never past the screen, never under SIZE.MIN_W x SIZE.MIN_H (the screen allowing).
 ---------------------------------------------------------------------------
 
-local BASE_W, BASE_H, MIN_W, MIN_H, EDGE = 1300, 946, 860, 560, 16
+local SIZE = { BASE_W = 1300, BASE_H = 946, MIN_W = 860, MIN_H = 560, EDGE = 16 }
 
 -- -> the default size, in UIParent units
 function O.DefaultSize()
@@ -3077,16 +3423,16 @@ function O.DefaultSize()
 	local uh = UIParent:GetHeight()
 	local perUnit = (ph and ph > 0 and uh and uh > 0) and ph / uh or 1
 	local k = max(1, floor((ph or 0) / 1440 * 20 + 0.5) / 20)
-	return floor(BASE_W * k / perUnit + 0.5), floor(BASE_H * k / perUnit + 0.5)
+	return floor(SIZE.BASE_W * k / perUnit + 0.5), floor(SIZE.BASE_H * k / perUnit + 0.5)
 end
 
 -- -> minW, minH, maxW, maxH in the window's units (its Menu scale applied)
 local function sizeBounds()
 	local s = win:GetScale() or 1
 	if s <= 0 then s = 1 end
-	local maxW = floor(UIParent:GetWidth() / s - 2 * EDGE)
-	local maxH = floor(UIParent:GetHeight() / s - 2 * EDGE)
-	return min(MIN_W, maxW), min(MIN_H, maxH), maxW, maxH
+	local maxW = floor(UIParent:GetWidth() / s - 2 * SIZE.EDGE)
+	local maxH = floor(UIParent:GetHeight() / s - 2 * SIZE.EDGE)
+	return min(SIZE.MIN_W, maxW), min(SIZE.MIN_H, maxH), maxW, maxH
 end
 
 -- Size the window from the setting, within the screen. -> true when it changed
@@ -3168,9 +3514,17 @@ local function build()
 	win = W.Shell("PolestarOptions", {
 		title = GUIDE, tagline = L["Settings"], scalePath = "ui.menuScale", searchPlaceholder = L["Search settings"],
 		headerSearch = true,
-		onSearch = function(text)
-			if (text or "") == query then return end
-			O.SetQuery(text)
+		-- Typing opens the dropdown under the box; the page stays until a row
+		-- is picked, or Enter or See all opens the results page. An emptied
+		-- box closes the dropdown and leaves the results page.
+		onSearch = function(text, typing)
+			text = text or ""
+			if text == "" then
+				O.Dropdown.Hide()
+				if query ~= "" then O.SetQuery("") end
+			elseif typing then
+				O.Dropdown.Show(text)
+			end
 		end,
 		resizable = {
 			onResized = function(w, h) ns.Set("ui.optionsSize", { floor(w + 0.5), floor(h + 0.5) }) end,
@@ -3178,6 +3532,7 @@ local function build()
 		},
 	})
 	O.frame = win
+	O.Dropdown.Attach(win)
 	applySize()
 	UI.Report.SidebarLink(win)
 	-- "Special thanks to" sits in the footer, left of its right-hand buttons
@@ -3209,7 +3564,7 @@ local function build()
 	end
 	UI.Thanks.HeaderLink(win)
 	-- A row's right-click reset (W.ResetSetting) offers its Undo too.
-	W.OnReset(offerUndo)
+	W.OnReset(Undo.offer)
 	-- Peek (held down) and Fold in the header, between the search and the
 	-- scale (W.HeaderScale lays the header's tools out right to left).
 	local peekB = W.IconButton(win.Header, "eye", 24, L["Peek"], nil, 15)
@@ -3221,9 +3576,9 @@ local function build()
 	-- Peek and Fold a pair, close together.
 	peekB.psHeadGap = 4
 	win.PeekButton = peekB
-	local foldB = W.IconButton(win.Header, "chevron-up", 24, L["Fold"], function() O.Fold(not folded) end, 12)
+	local foldB = W.IconButton(win.Header, "chevron-up", 24, L["Fold"], function() O.Fold(not Fold.state) end, 12)
 	win.FoldButton = foldB
-	paintFold()
+	Fold.paint()
 	win.psHeadTools = win.psHeadTools or {}
 	table.insert(win.psHeadTools, 1, foldB)
 	table.insert(win.psHeadTools, 2, peekB)
@@ -3233,9 +3588,9 @@ local function build()
 		O.Fold(false)
 	end)
 	-- Shift + the wheel over the window, its body, its sidebar: its scale.
-	wheelScales(win)
-	wheelScales(win.Scroll)
-	wheelScales(win.NavScroll)
+	Fold.wheelScales(win)
+	Fold.wheelScales(win.Scroll)
+	Fold.wheelScales(win.NavScroll)
 	-- The body and the sidebar glide to where the wheel sends them (W.Scroll).
 	win.Scroll.psGlide, win.NavScroll.psGlide = true, true
 	-- The sidebar's nudge: a chevron at its foot while more of it lies below;
@@ -3253,7 +3608,7 @@ local function build()
 			if applySize() then relayout() end
 		end
 		if win:IsShown() then
-			if type(path) == "string" and path ~= "" then cogCue(path) end
+			if type(path) == "string" and path ~= "" then O.CogCue(path) end
 			-- A section's shown() turned: the page lays out again.
 			local v = O.view
 			if query == "" and v and v:IsShown() and rawget(v, "psShownSig") and v.psShownSig ~= shownSig(v.psTab) then

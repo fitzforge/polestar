@@ -1,7 +1,8 @@
 # Polestar: architecture and contracts
 
 Polestar is a leveling-guide system for **World of Warcraft: Forever** (client
-1.60.1, `## Interface: 16001`, install folder `_classic_beta_` during beta).
+1.60.1, `## Interface: 16001`, product `wowf` in install folder `_forever_`;
+`wow_classic_beta` in `_classic_beta_` during the beta).
 This file is the contract between modules: the code follows it, and a change
 to a contract changes this file with it.
 
@@ -13,6 +14,7 @@ Reference material, checked out locally (gitignored):
   client API you call against it**; a retail or Era assumption is not evidence.
 - The live client's AddOns folder, as found by `tools/lib/addons.js`
   (`$WOW_FOREVER_ADDONS`, then the detected clients:
+  `<client>/_forever_/Interface/AddOns/`, then a leftover
   `<client>/_classic_beta_/Interface/AddOns/`; read-only for reference;
   EllesmereUI's `SKINNING_API.md` lives there).
 
@@ -1146,9 +1148,17 @@ they cover every spawn of the target on that map. Camps nearest to the goal's
 place it spawns); with `spread = true` (an area objective, or a few places far
 apart) up to 12 spread over the whole area, as a walk from `x`/`y`. The other
 places follow with `alt = true`; a hand-placed point is the first spot, the
-data's places its alternatives (GUIDE_FORMAT, "Spawn areas"). A `loop` step's
+data's places its alternatives (GUIDE_FORMAT, "Spawn areas"). A kill, collect
+or interact whose target stands at a few known points (every spawn of an
+object, up to 40; a creature at up to 8 places, none in a camp or walking
+about; #1944) carries each point as a spot of radius 0 and no `n` instead:
+exact points (GUIDE_FORMAT, "Spawn areas", Points). A `loop` step's
 goals carry its `goto` points instead, in order, with `spread = true` and no
-`n` or alternatives (compile-time: `resolve.js` applyLoop). `x`/`y` stay the
+`n` or alternatives (compile-time: `resolve.js` applyLoop). A kill, collect or
+interact bound to a quest objective that players' recordings place
+(`data/recorded/quests.json`) takes its places from the trusted recorded spots
+(an area of a spot's own size, no `n` where no spawn of the target lies in it;
+GUIDE_FORMAT, "Spawn areas", Recorded). `x`/`y` stay the
 default point. `z` (optional, 0.2.4) is the height of the NPC or object the
 goal's `x`/`y` stands for (the compiler's, from `spawnz.json`: GUIDE_FORMAT,
 "Heights"); a spot and a smart target's candidate may carry their own `z`
@@ -1479,19 +1489,30 @@ Polestar.Engine.StepHiddenFor(step, who?) -> bool  -- no step of its own for who
   likewise tours only the goals that have such a spot, by those spots (a spot
   without `lvl`, or a goal without spots, counts as at the player's level),
   and only with none all of them by every spot; a level up plans the tour
-  again. `Engine.CycleSpot(stepIndex,
+  again. Exact points (#1944: every spot of the goal radius 0, `Spots.exact`,
+  kept per spot list) are searched as an area objective's spots, with two
+  differences: a point is done once the player has been within the arrival
+  radius of it, so the arrow moves on at once to the nearest point not
+  checked in the last 300 s (no `r` + 4 yd hold, and the point the player
+  stands at is not fresh); and only checking counts, never work near a point
+  (`Own.workedNear`: a trap ten yards from the one just looted is still to
+  check). `Engine.SpotsExact(goal)` says whether a goal's spots are exact
+  points, `Engine.SpotChecked(spot)` whether the player checked that spot in
+  the last 300 s. `Engine.CycleSpot(stepIndex,
   goalIndex[, index])` moves on by hand to the nearest spot not visited lately,
   alternatives included (the current spot counts as visited), or to spot
   `index`; a spot picked that way holds until the player reaches it. It returns
   the new spot's index, or nil. Without a player position the first spot is
   used. The goto-arrival poll (0.5 s) re-picks the spot while the waypoint's
   goal has spots; a change re-evaluates (`STEP_UPDATED`, `WAYPOINT_CHANGED`). The goal
-  view's `map`/`x`/`y` follow the chosen spot and it carries `spots` (count)
-  and `spread`; the waypoint carries `area` (the spot's radius in yards) next
+  view's `map`/`x`/`y` follow the chosen spot and it carries `spots` (count),
+  `spread` and `exact`; the waypoint carries `area` (the spot's radius in yards) next
   to `r`, and with several spots `spots` (the goal's list) and `spot` (the
-  current index), plus `search = true` for an area objective. The guide
+  current index), plus `search = true` for an area objective or exact points
+  and `exact = true` for exact points. The guide
   window's "Other" button cycles spots (CycleSpot) when the goal has no
-  candidates; an area objective's subline reads "<mobs> all over this area: N spots".
+  candidates; an area objective's subline reads "<mobs> all over this area: N spots",
+  a goal of exact points' "N known places: the arrow leads to each in turn".
   A click on the step's header (its group's first open located goal) or on a
   step goal's map pin (Nav/Layers) aims the arrow at that goal (`AimGoal`)
   rather than setting a point by hand (#1653): `Nav.NextSpot`, a click on the
@@ -2337,11 +2358,20 @@ Thousand Needles' walk up to Thunder Bluff passes and The Tear of the Moons
 leads; the 'Fly to Camp Taurajo' step reads done there, so no flight follows
 for `Own.flightOn`.
 
-With the planner off the steps hold as written. `forge guide lint` reports a
-flight to a stop with nothing to do followed by another flight
+A walk to a boat or zeppelin passes when the player is already across
+(#1971, #1978; `stepDone`, `Own.alreadyAcross`; quest log read, planner on or
+off): the walk's last goto lies on another continent than the step the route
+goes on to after it (`Own.travelOnto`), and the player stands on that step's
+continent. Thousand Needles & Desolace opens at the Undercity's zeppelin to
+Orgrimmar, where the previous guide ends; a player who loads it at Freewind
+Post goes straight to Orgrimmar instead of to the Undercity's tower and back.
+
+With the planner off the other steps hold as written. `forge guide lint`
+reports a flight to a stop with nothing to do followed by another flight
 (`check_flight_hops`, a house rule).
 
-A travel step the planner passed (`Own.flightOn`, a verdict) stays passed once
+A travel step the planner passed (`Own.flightOn`, a verdict), or a walk the
+player was already across (`Own.alreadyAcross`), stays passed once
 the route moves beyond it: its gotos and flight are latched like any travel
 goal the route passes (`latchPassed`), so the landing never reopens it. Before
 that (#1768), landing at the flight's end left nothing to fly on to, the walk
@@ -3322,7 +3352,11 @@ carries the `area`, so the world map and the minimap draw the area's soft disc
 under the target pin. The `nav.spots` layer (world map, under `nav.worldPins`)
 marks every other spot of the target as a small pin (an `alt` spot smaller and
 fainter, its tooltip "It also spawns here"); clicking one searches there next
-(`Nav.NextSpot(i)`). TomTom's arrival distance is `area + r`.
+(`Nav.NextSpot(i)`). A target of exact points (the waypoint's `exact`, #1944)
+marks every other point on the minimap too (under `nav.minimapPins`), one
+mark each in place of shaded regions, a point the player checked in the last
+300 s (`Engine.SpotChecked`) faintest (alpha 0.35, tooltip "Checked
+recently"). TomTom's arrival distance is `area + r`.
 
 Every place the current step's open goals spawn is a region on the map
 (`Layers.lua`, read from `Engine.GetGuide().steps[step].goals[i].spots` for
@@ -3340,10 +3374,14 @@ of its spots (`members`: their indexes); `alt` when all its spots are. A groupin
 goal's regions as `hull` pins in the arrow's colour (alpha 1, `alt` 0.6), on
 the world map and the minimap (`nav.worldPins`, `nav.minimapPins`);
 `nav.goalAreas` the step's other goals' regions in `place` at 0.6 (`alt`
-0.35), on the world map only. A point picked by hand (`SetTarget`) leaves
-every goal's regions in `nav.goalAreas`. The layers are set again only when
-what they show changed (step, open goals, the arrow's goal, colours,
-surfaces), so route and progress updates redraw nothing.
+0.35), on the world map only. A goal of exact points (`Engine.SpotsExact`) has
+no regions: the target's goal's points are `nav.spots`' marks, another goal's
+are small marks in `place` (0.6, `alt` 0.35) in `nav.goalAreas`, and a While
+you're here line's in the accent in `nav.hereAreas`. A point picked by hand
+(`SetTarget`) leaves every goal's regions (and points) in `nav.goalAreas`. The
+layers are set again only when what they show changed (step, open goals, the
+arrow's goal, colours, surfaces), so route and progress updates redraw
+nothing.
 
 While a `SetTarget` override is active the Engine keeps announcing its own
 waypoint; `Nav.GetTarget()` is the point actually being guided to. Nav fires
@@ -6969,6 +7007,39 @@ size. Each result has a chevron in its gutter: `O.Jump(control)` opens its
 page and tab, scrolls its row to 40px under the top and lights it a moment
 (`O.Flash`: the accent wash fades in, holds and fades out; shorter with
 Reduce motion; nothing runs after).
+
+Typing in the box opens the **search's dropdown** under it
+(UI/SearchDropdown.lua, its rows from `O.Matches`); the page on screen stays
+until a pick. First the places the words name: a page, a tab or a section
+whose name holds every word that is not filler (whole, its start or a typo
+off), a name said whole first, three at most; a tab named as its page, a
+section named as its tab and a section of references (Essentials) are left
+out. Then the best settings across the groups in the search's own order,
+eight rows in all, each its label over "Page · Tab", the words it matches
+lit (`O.MatchSpans`: the matcher's own test, word by word, two words run
+together and a hint word's synonyms; the label in textDim, those words in
+text); then "See all N results". Up and Down light a row (round from either
+end) and Enter picks it, as a click does (`O.Go`: a setting through
+`O.Jump`, a page at the tab last shown, a tab, a section's card scrolled
+into view with its header lit); Enter with no row lit, or See all, opens the
+results page (`O.SetQuery`). Escape (a second leaves the box), Tab, a click
+outside the list and the box (GLOBAL_MOUSE_DOWN, registered only while it is
+open), an emptied box, another page and the window closing close it; the
+box keeps the keyboard throughout. With no match it says so and offers the
+suggestions as rows that search for them, the box keeping the keyboard. The
+list is the window's child (strata DIALOG) on the panel skin, marked as a
+menu (`psMenu`: the menus' ground) so the page never shows through it, in
+the look's tokens; with a gamepad it holds the D-pad while open (A picks, B
+closes).
+
+A query that **starts with a page's name** and goes on ("arrow size",
+"quality of life loot"; the name's words in order, filler between them
+aside, or run together; on a translated client its English name too) looks
+on that page alone for the rest, in the dropdown and on the results page
+(`O.Search`'s fourth result names the page), when its best result there is a
+fair match: 50 a word on average, a word whole in its place or its start in
+its own words. Otherwise the whole window is searched ("guide window lock"
+finds the lock on Guide, not on the Guide window page).
 
 The built-in pages are grouped by what the player is doing: **Guide** (10:
 Window, Arrow & routes, Automation), **Map** (30: Guide & quests, Rares, travel & zones), **Questing**

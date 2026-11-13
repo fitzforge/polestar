@@ -2296,6 +2296,8 @@ function W.SetSearchPlaceholder(e, placeholder)
 	fitPlaceholder(e)
 end
 
+-- onChange(text, typing): typing is true for the player's own keys (the
+-- box's OnTextChanged userInput), not for a text set from code.
 function W.SearchBox(parent, placeholder, onChange)
 	local e = CreateFrame("EditBox", nil, parent)
 	e:SetHeight(30)
@@ -2328,11 +2330,11 @@ function W.SearchBox(parent, placeholder, onChange)
 	e:SetScript("OnEditFocusLost", function(self) Theme.SetFocused(self, false) end)
 	e:SetScript("OnEscapePressed", function(self) self:ClearFocus() end)
 	e:SetScript("OnEnterPressed", function(self) self:ClearFocus() end)
-	e:SetScript("OnTextChanged", function(self)
+	e:SetScript("OnTextChanged", function(self, typing)
 		local text = self:GetText() or ""
 		self.Placeholder:SetShown(text == "")
 		self.Clear:SetShown(text ~= "")
-		if onChange then onChange(text) end
+		if onChange then onChange(text, typing) end
 	end)
 	return e
 end

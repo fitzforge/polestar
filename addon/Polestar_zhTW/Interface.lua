@@ -311,6 +311,7 @@ L["It also spawns here"] = "這裡也會重生"
 L["Click to search here next"] = "點擊以接著搜尋此處"
 L["Travel route, step %s"] = "旅行路線，第 %s 步"
 L["Click to point the arrow here"] = "點擊將箭頭指向此處"
+L["Checked recently"] = "最近查看過"
 
 -- Nav/Transit.lua
 L["top"] = "上層"
@@ -993,7 +994,6 @@ L["Click objectives to target"] = "點擊任務目標以選取"
 L["Clicking an objective row or NPC heading also targets its NPC outside combat, using the same marking settings as the Target button. This replaces your current target; a failed search clears it."] = "在戰鬥外點擊任務目標列或 NPC 標題時，也會選取該 NPC，並使用與目標按鈕相同的標記設定。這會取代你目前的目標；搜尋失敗時會清除目標。"
 L["The target button and the step key put a raid icon on the mob and the NPC they target; out of combat, a press that finds neither clears your target. Pressing again never takes an icon off. In a party you don't lead, only a unit with no icon gets one; in a raid, only when you lead or assist."] = "目標按鈕與步驟鍵會在其選取的怪物與 NPC 上標記團隊圖示；非戰鬥中，若按下時兩者都找不到會清除你的目標。再按一次不會移除圖示。在你不是隊長的小隊中，只有沒有圖示的單位會被標記；在團隊中，僅限你是隊長或助理時。"
 L["Ping what they target"] = "對選取的目標發送信號"
-L["The target button and the step key ping the mob they target, so your group sees it behind rocks and buildings. Never in a raid unless you lead or assist. The rare buttons always ping."] = "目標按鈕和步驟鍵會對選取的怪物發送信號，讓隊友隔著岩石和建築也能看到它。團隊中只有團隊領袖或助理才會發送。稀有按鈕一律會發送信號。"
 L["Show quest-starting loot"] = "顯示開始任務的戰利品"
 L["When you loot an item that starts a quest you can take, it goes on the quest item button with a glow until you click it or take the quest. The step's own item comes first; several wait their turn, oldest first."] = "拾取可開始一個你能接取的任務的物品時，它會帶著閃光出現在任務物品按鈕上，直到你點擊它或接取該任務。目前步驟自己的物品優先；有多個時依序排隊，最早的在前。"
 L["Track only dungeon quests in dungeons"] = "在地城中只追蹤地城任務"
@@ -1022,6 +1022,7 @@ L["Travel button under the arrow"] = "箭頭下方的旅行按鈕"
 -- L["Game options"] = ""
 -- L["Increase game image quality"] = ""
 -- L["Sharpens the game's image. Most noticeable when Render Scale is below 100%. This is a game setting: it stays until you turn it off here or in the console."] = ""
+-- L["The target button and the step key ping the mob or NPC they target, so your group sees it behind rocks and buildings. Never in a raid unless you lead or assist. The rare buttons always ping."] = ""
 
 -- Lookup/Sources.lua
 L["Alliance only"] = "僅限聯盟"
@@ -1226,6 +1227,7 @@ L["%s and %d more"] = "%s 及其他 %d 個"
 L["Skipping also skips: %s"] = "跳過也會跳過：%s"
 L["Keep this: you hand it in later in %s"] = "保留此任務：稍後在%s中繳交"
 L["Keep this: a later guide hands it in"] = "保留此任務：之後的指南會繳交"
+L["%d known places: the arrow leads to each in turn"] = "已知 %d 處地點：箭頭會依序帶你前往"
 
 -- UI/GuideFrame.lua
 L["Location"] = "位置"
@@ -1867,6 +1869,10 @@ L["Guides by other players, installed like any addon. They show under Community 
 L["A few choices to start with. Everything else is in %s."] = "先做幾個選擇。其他一切都在%s中。"
 L["Route line"] = "路線線條"
 L["How the way to your goal shows on the world map and the minimap. The line is the easiest to follow; sparkles show as dots while Reduce motion is on."] = "通往目標的路線在地圖與小地圖上如何顯示。線條最容易跟隨；開啟「減少動態效果」時，閃光會以圓點顯示。"
+-- L["Mark what the target button finds"] = ""
+-- L["A skull on the enemy, a star on the friendly NPC. In a group it never takes another player's icon."] = ""
+-- L["Ping it for my group"] = ""
+-- L["Your group sees what the target button and the step key found, even behind rocks and buildings."] = ""
 
 -- UI/Copy.lua
 L["Selected for you: copy it with Ctrl+C (Cmd+C on a Mac), then press Escape."] = "已為你選取：用 Ctrl+C（Mac 為 Cmd+C）複製，然後按 Escape。"
@@ -4172,6 +4178,13 @@ L["Part of the %s quests"] = "%s任務之一"
 -- L["Previous colour"] = ""
 -- L["Click to go back to it."] = ""
 
+-- UI/SearchDropdown.lua
+-- L["Go to page: %s"] = ""
+-- L["Tab: %s"] = ""
+-- L["Section: %s"] = ""
+-- L["See 1 result"] = ""
+-- L["See all %d results"] = ""
+
 -- No longer in the code (its English changed or it went away): reuse or delete.
 -- L["Shortest Path Forever is guiding. Turn off \"Guide with Shortest Path Forever when it's installed\" (Options, Arrow & routes) to use Polestar's arrow."] = "Shortest Path Forever 正在導引。關閉「已安裝時以 Shortest Path Forever 導引」（「選項」>「箭頭與路線」）即可使用 Polestar 的箭頭。"
 -- L["Shortest Path Forever is guiding. Turn off \"Guide with Shortest Path Forever when it's installed\" (Options, Integrations) to use Polestar's arrow."] = "Shortest Path Forever 正在導引。若要使用 Polestar 的箭頭，請關閉\"已安裝時以 Shortest Path Forever 導引\"（選項，整合）。"
@@ -4338,3 +4351,4 @@ L["Part of the %s quests"] = "%s任務之一"
 -- L["Automatically learns every spell a class trainer offers that you can afford, and prints the total. Profession trainers are left alone. Hold Shift to skip."] = "自動學習職業訓練師提供且你負擔得起的所有法術，並顯示總花費。專業技能訓練師不受影響。按住 Shift 可跳過。"
 -- L["A level-up card lists what to train; %s learns it (thanks RikyZ90); %s updates your bars."] = "升級卡片列出可學的法術；%s一次學完（感謝 RikyZ90）；%s把新等級放上快捷列。"
 -- L["Every Polestar setting goes back to its default. Your guides and progress are kept."] = "所有 Polestar 設定都會恢復預設值。你的指南與進度會保留。"
+-- L["The target button and the step key ping the mob they target, so your group sees it behind rocks and buildings. Never in a raid unless you lead or assist. The rare buttons always ping."] = "目標按鈕和步驟鍵會對選取的怪物發送信號，讓隊友隔著岩石和建築也能看到它。團隊中只有團隊領袖或助理才會發送。稀有按鈕一律會發送信號。"

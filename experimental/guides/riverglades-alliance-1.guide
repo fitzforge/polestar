@@ -1,33 +1,35 @@
 guide polestar-experimental/riverglades-alliance-1
-title Riverglades 1: Southern Watch, the farms and Farholde Keep (experimental)
+title Riverglades 1: Southern Watch, Turner's Logging Camp and Farholde Keep (experimental)
 faction Alliance
 levels 37-40
 zone Riverglades
 coords live
 folder Riverglades · Experimental
 why Forever's new zone, an alpha route written from players' recordings.
-keywords riverglades, farholde, wheeler's grange, turner's logging camp, experimental, alpha
+keywords riverglades, farholde, southern watch, turner's logging camp, wheeler's grange, terral's watch, experimental, alpha
 next polestar-experimental/riverglades-alliance-2
 
-# Polestar Experimental, Riverglades for the Alliance, part 1 of 2 (2026-11-11). Hand-written.
-# Every quest, NPC and spot comes from players' recordings of the zone (6-9 people per quest on this leg), with
-# Forever's quest data (the client's quest records and QuestieDB 1.0.14) for titles, levels and objectives.
-# Order: the way in from Redridge; the western loop in one pass (Southern Watch, Turner's Logging Camp, the Bristle
-# Hills, the Holmsby farm and the river, back by Southern Watch to the camp); Farholde Keep (flight path, inn);
-# Wheeler's Grange's chain with the river murlocs and the coyotes; the plains up to Terral's Watch; Farholde Keep.
-# Offered only after another quest is handed in (players' recordings, 3-11 people each): From Seed to Sprout after
-# Unsavory Plant Food; Foal Play after My Kingdom for a Horse; Coyote Huntin' and Wheeler's Fleeing Steeds after
-# Foal Play; Out in the Field after Saving Sunnyglade.
+# Polestar Experimental, Riverglades for the Alliance, part 1 of 4 (2026-11-12). Hand-written from players'
+# recordings of the zone (123 sessions to 2026-11-12) and Forever's quest data (the client's quest records,
+# QuestieDB 1.0.16 and EG Link) for titles, levels, objectives and places.
+# Order: the way in from Redridge through Blackrock Pass; the western hubs in one pass (Scout Bolain, Southern
+# Watch, Turner's Logging Camp, the Bristle Hills, the Holmsby farm and the river, where Benjy Wheeler's murlocs,
+# Halligan's murloc heads and Curly are one sweep, then Curly's rescue from the camp); Farholde Keep (flight path,
+# inn); Wheeler's Grange; the plains up to Terral's Watch; Farholde Keep again.
+# Freshwater Fiends: Benjy offers it before My Kingdom for a Horse (players' recordings: two characters were offered
+# it before they took My Kingdom for a Horse).
+# Offered only after another quest is handed in (players' recordings): From Seed to Sprout after Unsavory Plant
+# Food; Foal Play after My Kingdom for a Horse; Coyote Huntin' and Wheeler's Fleeing Steeds after Foal Play;
+# Rescue Roundup after Wheeler's Fleeing Steeds; Fit for a Princess after Apple of My Eye; Stepped Out after Fit for
+# a Princess; Song of the Strider after A Feast for Buzzards; A Few Furs for Friz after A Fur Trade; Watcher
+# Cornelius's Rog'mar errands once his first two hunts are handed in.
+# Elites, each behind a group choice: Snargl (40), Ombassa (41); the WANTED posters for Ghostmaw and Blademaster
+# Kaijo (42) are taken at the end, for part 2's ground.
 # Left out on purpose:
-# - Snargl's Snout (94679): Snargl is an elite (level 40) in the Bristle Hills: behind a group choice only.
-# - Out in the Field (95329): Demar Brant offers it only once Saving Sunnyglade is handed in, at the end of part 2,
-#   where the route leaves the zone.
-# - The Rog'mar errands from Watcher Cornelius (Preventative Measures 95064, Rog'mar Supplies 95426): they send you
-#   into the Horde training grounds beside Rog'mar; most players who took them dropped them.
-# - King of the Wild Plains (95986): Ombassa is an elite (level 41).
-# - Love Thy Neighbor (95330) and High Stakes (96009): both send you back to Turner's Logging Camp after Farholde
-#   Keep, and High Stakes' Wood Bundles have no source in our data yet.
-# - The Sharpest of Blades (95184): one recorded hand-in only.
+# - The Sharpest of Blades (95184): eight Solid Sharpening Stones, a blacksmith's make; 3 of 16 recorded players
+#   handed it in.
+# - Love Thy Neighbor (95330) and High Stakes (96009): both send you back to Turner's Logging Camp; part 4 takes
+#   them when it heads west from Farholde Keep.
 
 step Into the Riverglades
   when !zone "Riverglades"
@@ -52,7 +54,7 @@ step Southern Watch
 
 step Snargl's Snout
   when group 94679
-  tip Snargl is an elite gnoll (level 40) in the south-western camp of the Bristle Hills: grouping up is advised.
+  tip Snargl is an elite gnoll (level 40) who roams the south-western camps of the Bristle Hills: grouping up is advised.
   accept 94679                          -- Cedric Dalton
 
 step Turner's Logging Camp
@@ -61,18 +63,18 @@ step Turner's Logging Camp
   accept 94931                          -- Stolen Saws
 
 step The Bristle Hills
-  tip West into the Bristle Hills: the Redridge gnolls camp along the slopes on both sides of the road you came in on. The saw blades lie in their camps.
+  tip West into the Bristle Hills: the Redridge gnolls camp on the slopes all the way from the hills west of the lumber camp to the pass you came in by. The stolen saw blades lie only in the western camps, near the pass.
   kill 255770 x8 quest 94678.1          -- Redridge Mystic
   kill 255772 x8 quest 94678.2          -- Redridge Trapper
   kill 255769 x6 quest 94678.3          -- Redridge Brute
-  collect 266897 x8 quest 94931.1 @18.6,70.5  -- Saw Blade
+  collect 266897 x8 quest 94931.1       -- Saw Blade
 
 step Snargl
-  when onquest 94679
+  when group 94679
   collect 265357 quest 94679.1 @16.1,73.2  -- Snargl's Snout
 
 step Southern Watch
-  tip Back east along the road to Southern Watch: hand the gnolls in on your way down to the farm.
+  tip Back east along the road to Southern Watch.
   turnin 94678                          -- Cedric Dalton
 
 step Cedric Dalton
@@ -84,40 +86,57 @@ step Holmsby farm
   accept 94999                          -- Eleanor Holmsby: Eyes for the Watchman
   accept 94923                          -- Robbie Holmsby: Hats Off
 
+step Benjy Wheeler
+  tip North-east across the fields to Wheeler's Grange: Benjy Wheeler wants the Mudfin murlocs on the river thinned out, the same murlocs whose heads Halligan needs, so one pass along the river does both.
+  accept 94614                          -- Freshwater Fiends
+
 step Meadowsbrook and the river
-  tip The fresh manure lies in the fields of Meadowsbrook just east of the farm; Robbie's hat is on the riverbank beyond, among the Mudfin murlocs. Their heads are for Halligan: start on them here.
-  collect 266156 x4 quest 94842.2 @45.4,80.0  -- Fresh Manure
-  collect 266884 quest 94923.1 @49.3,78.7  -- Robbie's Hat
+  tip Back south-west along the river: kill the Mudfin Warriors and Oracles on the banks for Benjy (they drop Halligan's heads) and the Jumbo Crawfish in the shallows for the shells. Curly, one of Halligan's lumberjacks, is stuck on the bank just north-west of the murlocs; Robbie's hat lies on the riverbank among them; the fresh manure is in the fields of Meadowsbrook, between the river and the farm. Ghostmaw, an elite (level 42), prowls the river: if he comes your way, back off and let him pass.
+  accept 94857                          -- Curly: If a Tree Falls, and No One Hears...
+  kill 258574 x8 quest 94614.1          -- Mudfin Warrior
+  kill 258573 x8 quest 94614.2          -- Mudfin Oracle
+  collect 267266 x8 quest 94842.3       -- Mudfin Murloc Head
+  collect 266157 x4 quest 94842.1       -- Jumbo Crawfish Shell
+  collect 266884 quest 94923.1          -- Robbie's Hat
+  collect 266156 x4 quest 94842.2       -- Fresh Manure
 
 step Robbie Holmsby
   turnin 94923
 
 step Watcher Fredericks
-  tip Watcher Fredericks keeps the west end of Southern Watch, on your way north to the river.
-  turnin 94999 @36.4,75.8
-
-step The river, north
-  tip North-east to the river below the lumber camp: the Jumbo Crawfish keep to the shallows, and the Mudfin murlocs along the bank drop the rest of the heads.
-  collect 266157 x4 quest 94842.1 @46.0,67.7  -- Jumbo Crawfish Shell
-  collect 267266 x8 quest 94842.3 @44.6,60.5  -- Mudfin Murloc Head
+  tip Watcher Fredericks keeps the west end of Southern Watch.
+  turnin 94999
 
 step Turner's Logging Camp
+  tip North up the road to the lumber camp.
   turnin 94931                          -- Halligan Turner
   turnin 94842
   accept 94843                          -- From Seed to Sprout
 
 step Saplings
   tip Use Halligan's Tree Sprouting Kit on bare ground around the camp: five saplings.
-  use 266161 quest 94843.1 @38.3,62.8   -- Tree Sprouting Kit
+  use 266161 quest 94843.1 @38.7,62.6   -- Tree Sprouting Kit
+
+step Hurley
+  tip Hurley stands at the camp's south end. He sets off for Curly, south-east of the camp, as soon as you take Helping Hands: go with him and keep the attackers off, and wait if Ghostmaw is in sight. If it fails, Hurley offers the quest again.
+  turnin 94857                          -- Hurley
+  accept 94861                          -- Helping Hands
+  complete 94861 @46.0,70.8             -- go with Hurley to save Curly
 
 step Halligan Turner
   turnin 94843
+  turnin 94861
+
+step Wheeler's Grange
+  tip East along the road towards Farholde Keep: hand Benjy his murlocs as you pass Wheeler's Grange.
+  turnin 94614                          -- Benjy Wheeler
 
 step Farholde Keep
-  tip East along the road, past Wheeler's Grange, to Farholde Keep. Gretchen Mayberry, the gryphon master, stands at its western gate; Bertrand Ironbrow and Ember Bladewhisper are on the way in, Demar Brant and Ashe Amberhall wait in the keep at the east end, and the inn is in the south of the walls.
+  tip On east along the road to Farholde Keep. Gretchen Mayberry, the gryphon master, stands at its western gate; Bertrand Ironbrow and Ember Bladewhisper are on the way in, Brother Lowley tends the wounded by the barracks, Demar Brant and Ashe Amberhall wait in the keep at the east end, and the inn is in the south of the walls.
   getfp "Farholde Keep" npc 257087      -- Gretchen Mayberry, at the western gate
   accept 95943                          -- Bertrand Ironbrow: Foreman's Plight
   accept 95156                          -- Ember Bladewhisper: Stuff 'Em and Stick 'Em
+  accept 96081 optional                 -- Brother Lowley: twenty Mageweave Cloth, which Sunnyglade's cultists and the pirates drop; hand it in on your way back in part 3
   turnin 95148                          -- Demar Brant, in the keep
   accept 94613                          -- My Kingdom for a Horse
   accept 94877                          -- Saving Sunnyglade: for part 2
@@ -128,12 +147,12 @@ step Farholde Keep
 step Tessa Dawnbright
   tip Tessa Dawnbright stands west of the inn, by the orchard: the apples hang on the trees around it.
   accept 95561                          -- Apple of My Eye
-  collect 271431 x6 quest 95561.1 @61.9,83.7  -- Fresh Apple
+  collect 271431 x6 quest 95561.1       -- Fresh Apple
   turnin 95561
   accept 95913                          -- Fit for a Princess
 
 step The cathedral
-  tip Sister Rowland keeps the old cathedral beside the orchard, at the south-west corner of Farholde Keep. The bats roost in its upper floor; Marla Bell hands out the holy candles beside it; the graves are in the chapel graveyard.
+  tip Sister Rowland keeps the old cathedral at the south-west corner of Farholde Keep. The bats roost in its upper floor; Marla Bell hands out the holy candles beside it; the graves are in the chapel graveyard.
   accept 95603                          -- Bats in the Belfry
   kill 262037 x5 quest 95603.1          -- Roosting Duskbat
   turnin 95603
@@ -148,12 +167,11 @@ step Wheeler's Grange
   tip West to Wheeler's Grange: Benjy Wheeler stands by the farmhouse.
   turnin 94613                          -- Benjy Wheeler
   accept 94615                          -- Foal Play
-  accept 94614                          -- Freshwater Fiends
 
 step The stables
   tip Search around the stables south of the farmhouse for the horses' tracks; the bundles of hay lie around the farm.
-  collect 267223 quest 94615.1 @54.6,78.0  -- Pawprint Tracing
-  collect 268536 x3 quest 95156.1 @54.7,75.3  -- Bundle of Hay
+  collect 267223 quest 94615.1          -- Pawprint Tracing
+  collect 268536 x3 quest 95156.1       -- Bundle of Hay
 
 step Benjy Wheeler
   turnin 94615
@@ -162,50 +180,69 @@ step Benjy Wheeler
 
 step The coyote den
   tip The coyotes den in the hills south of the farm: Sootfur, the big dark one, sits at the back of it; the Plains Coyotes around it drop the pelts.
-  collect 271432 x3 quest 95913.1 @54.6,83.2  -- Coyote Pelt
-  collect 265738 quest 94617.1 @54.3,85.7  -- Sootfur's Pelt
-
-step The river murlocs
-  tip West of the den, down to the river: the Mudfin Warriors and Oracles line the banks.
-  kill 258574 x8 quest 94614.1 @50.1,79.4  -- Mudfin Warrior
-  kill 258573 x8 quest 94614.2          -- Mudfin Oracle
+  collect 271432 x3 quest 95913.1       -- Coyote Pelt
+  collect 265738 quest 94617.1          -- Sootfur's Pelt
 
 step The lost horse
   tip One of Benjy's horses ran north up the river, past the farm. Give it the feed, then lead it home.
-  turnin 94618 @53.7,66.3               -- Lost Horse
-  accept 94992 @53.7,66.3               -- Rescue Roundup
+  turnin 94618                          -- Lost Horse
+  accept 94992                          -- Rescue Roundup
   complete 94992 @54.9,73.0             -- walk it back to Wheeler's Grange
 
 step Benjy Wheeler
   turnin 94992
   turnin 94617
-  turnin 94614
 
 step Foreman's Crate
   tip North up the track towards Terral's Watch: the foreman's crate lies by the road.
-  collect 271620 quest 95943.1 @51.2,57.2  -- Foreman's Crate
+  collect 271620 quest 95943.1          -- Foreman's Crate
 
 step Terral's Watch
   tip Watcher Cornelius holds Terral's Watch, the tower on the plains north-east of the crate.
   accept 94924                          -- Hunting the Hunters
   accept 94925                          -- A Fur Trade
 
+step King of the Wild Plains
+  when group 95986
+  tip Ombassa, an elite lion (level 41), prowls the plains north of the tower: grouping up is advised.
+  accept 95986                          -- Watcher Cornelius
+
 step The plains
   tip The Rog'mar Poachers hunt the plains north of the tower; the Wildplains lions roam among them. A picked carcass lies in the grass east of the tower: its skull starts A Feast for Buzzards.
-  accept 95983 @61.7,58.8               -- Picked Carcass: A Feast for Buzzards
-  kill 259052 x12 quest 94924.1 @58.0,59.0         -- Rog'mar Poacher
-  collect 266888 x8 quest 94925.1 @59.8,53.7  -- Prized Lion Hide
+  accept 95983                          -- Picked Carcass: A Feast for Buzzards
+  kill 259052 x12 quest 94924.1 @58.0,59.0  -- Rog'mar Poacher
+  collect 266888 x8 quest 94925.1       -- Prized Lion Hide
+
+step Ombassa
+  when group 95986
+  collect 281052 quest 95986.1 @59.6,53.6  -- Ombassa's Hide
 
 step Terral's Watch
   turnin 94924                          -- Watcher Cornelius
   turnin 94925
-  accept 94928                          -- A Few Furs for Friz: for Powderfuse Port, keep it
   turnin 95983
+  accept 94928                          -- A Few Furs for Friz: for Powderfuse Port (part 2), keep it
   accept 95984                          -- Song of the Strider: for part 2, where the tallstriders graze by Sleebo's workshop; keep it
+  accept 95064                          -- Preventative Measures: for part 2, at the Horde's training grounds north of Rog'mar
+  accept 95426                          -- Rog'mar Supplies: for part 2, the same training grounds
+
+step Watcher Cornelius
+  when onquest 95986
+  turnin 95986
 
 step Farholde Keep
   tip South back to Farholde Keep.
   turnin 95156                          -- Ember Bladewhisper
   turnin 95943                          -- Bertrand Ironbrow
   turnin 95913                          -- Tessa Dawnbright
-  accept 95961                          -- Stepped Out: for Gray Dawnbright in Powderfuse Port, keep it
+  accept 95961                          -- Stepped Out: for Gray Dawnbright in Powderfuse Port (part 2), keep it
+
+step WANTED: Ghostmaw
+  when group 95991
+  tip Ghostmaw is an elite (level 42) who hunts along the river between Wheeler's Grange and Terral's Watch, on your way north in part 2: grouping up is advised. The poster hangs by the keep; Wheatley, who takes the fang, stands south of the inn.
+  accept 95991                          -- the WANTED! poster
+
+step WANTED: Blademaster Kaijo
+  when group 95912
+  tip Blademaster Kaijo is an elite (level 42) at the Horde's training grounds north of Rog'mar, where part 2 goes: grouping up is advised.
+  accept 95912                          -- the Wanted poster

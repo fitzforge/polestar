@@ -2,16 +2,19 @@ name: PR base
 
 # Every pull request goes to `next`. `main` is never a base: it moves only
 # when a release is made (fast-forward to `next`, then tagged). See
-# CONTRIBUTING.md, "Branches".
+# CONTRIBUTING.md, "Branches". A release's development branch (`dev-040`,
+# `dev-<version>`) takes the pull requests folded into that release, and goes
+# to `next` as a whole.
 #
 # This runs on pull_request_target so it is a required check for forks too.
-# It never checks out or runs the pull request's code.
+# It never checks out or runs the pull request's code: the public-text job
+# runs the base branch's own check.
 
 on:
   pull_request_target:
     types: [opened, synchronize, reopened, edited]
 
-# Neither job checks out anything; only the generated-guides job reads the API.
+# Each job asks for what it reads.
 permissions: {}
 
 concurrency:
@@ -39,7 +42,7 @@ jobs:
           exit 1
 
       - name: Not something else
-        if: github.event.pull_request.base.ref != 'main' && github.event.pull_request.base.ref != 'next'
+        if: github.event.pull_request.base.ref != 'main' && github.event.pull_request.base.ref != 'next' && !startsWith(github.event.pull_request.base.ref, 'dev-')
         run: |
           msg="Pull requests go to next. Change the base to next (CONTRIBUTING.md, \"Branches\")."
           echo "::error::$msg"
@@ -50,8 +53,8 @@ jobs:
           } >> "$GITHUB_STEP_SUMMARY"
           exit 1
 
-      - name: Next
-        if: github.event.pull_request.base.ref == 'next'
+      - name: Next or a release's development branch
+        if: github.event.pull_request.base.ref == 'next' || startsWith(github.event.pull_request.base.ref, 'dev-')
         run: |
           {
             echo "## Base branch: $BASE"
@@ -90,3 +93,43 @@ jobs:
           fi
           echo '## Generated guides' >> "$GITHUB_STEP_SUMMARY"
           echo 'No generated manifest or seed file changed.' >> "$GITHUB_STEP_SUMMARY"
+
+  public-text:
+    # Titles, descriptions, branch names and commit messages are public for good: a pushed commit stays
+    # readable by its SHA after a force-push. tools/public-text.js holds them to the rules in
+    # tools/lib/public-text.json (CONTRIBUTING.md, "Commits and pull requests") and prints only which
+    # rule a line breaks, never the words. The text reaches the script through the environment, never
+    # the shell.
+    name: Public text
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions:
+      contents: read
+      pull-requests: read
+    env:
+      GH_TOKEN: ${{ github.token }}
+      PR: ${{ github.event.pull_request.number }}
+      REPO: ${{ github.repository }}
+      PR_TITLE: ${{ github.event.pull_request.title }}
+      PR_BODY: ${{ github.event.pull_request.body }}
+      PR_BRANCH: ${{ github.event.pull_request.head.ref }}
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5.1.0
+        with:
+          sparse-checkout: |
+            tools/public-text.js
+            tools/lib/public-text.js
+            tools/lib/public-text.json
+          sparse-checkout-cone-mode: false
+          persist-credentials: false
+
+      - uses: actions/setup-node@a0853c24544627f65ddf259abe73b1d18a591444 # v5.0.0
+        with:
+          node-version: 24
+
+      - name: Title, description, branch name and commit messages
+        run: |
+          gh api --paginate "repos/$REPO/pulls/$PR/commits" --jq '.[] | {sha: .sha, message: .commit.message} | @json' > "$RUNNER_TEMP/commits.jsonl"
+          node tools/public-text.js --pr --commits "$RUNNER_TEMP/commits.jsonl"
+          echo '## Public text' >> "$GITHUB_STEP_SUMMARY"
+          echo 'The title, description, branch name and commit messages follow the public-text rule.' >> "$GITHUB_STEP_SUMMARY"

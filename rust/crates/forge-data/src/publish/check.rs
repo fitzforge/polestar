@@ -109,6 +109,14 @@ fn without_names(text: &str) -> String {
 		.join("\n")
 }
 
+/// A corrections file's (lower-cased) text with the game's own words blanked, as `without_names`
+/// blanks the data rows': a quest's title and objective texts, an NPC's or object's name. The files
+/// are written one key per line, so a line holding such a key is emptied and the line numbers stay.
+fn without_game_text(text: &str) -> String {
+	let keys: Vec<String> = TEXT_FIELDS.iter().copied().chain(["objectivetext"]).map(|k| format!("\"{k}\":")).collect();
+	text.lines().map(|l| if keys.iter().any(|k| l.trim_start().starts_with(k.as_str())) { "" } else { l }).collect::<Vec<_>>().join("\n")
+}
+
 pub fn words(s: &str) -> Vec<String> {
 	s.split(|c: char| !c.is_alphanumeric() && c != '\'').filter(|w| !w.is_empty()).map(|w| w.to_lowercase()).collect()
 }
@@ -264,7 +272,13 @@ pub fn check(dir: &Path, o: &CheckOptions) -> Result<(Vec<String>, Vec<String>),
 		}
 		let text = String::from_utf8_lossy(&std::fs::read(&f).map_err(|e| format!("{}: {e}", f.display()))?).to_string();
 		let low = text.to_lowercase();
-		let low_bare = if rel.ends_with(".jsonl") { without_names(&low) } else { low.clone() };
+		let low_bare = if rel.ends_with(".jsonl") {
+			without_names(&low)
+		} else if rel.starts_with("corrections/") {
+			without_game_text(&low)
+		} else {
+			low.clone()
+		};
 		for (w, in_names) in &guard {
 			// NOTICE.md credits its sources; a correction's source.kind names the one it was checked
 			// against, and README.md lists those kinds for contributors.

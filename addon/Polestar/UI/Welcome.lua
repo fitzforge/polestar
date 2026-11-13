@@ -1075,6 +1075,11 @@ PAGES[#PAGES + 1] = {
 			{ get = autoQuestGet, set = autoQuestSet })
 		F.AutoGuide = toggleRow(p, L["Load a guide for me when I log in"], "behavior.autoSelectGuide",
 			L["Opens the suggested guide when no tab is open."])
+		-- The target button's mark and ping (QoL/Buttons.lua), offered here so they are found.
+		F.MarkTarget = toggleRow(p, L["Mark what the target button finds"], "qol.markTarget",
+			L["A skull on the enemy, a star on the friendly NPC. In a group it never takes another player's icon."])
+		F.PingTarget = toggleRow(p, L["Ping it for my group"], "qol.pingTarget",
+			L["Your group sees what the target button and the step key found, even behind rocks and buildings."])
 		p.SchemeTitle = para(p, "body", "text", CW, 2)
 		p.SchemeTitle:SetText(L["Colour scheme"])
 		p.SchemeNote = para(p, "note", "textMuted", CW, 3)
@@ -1101,7 +1106,7 @@ PAGES[#PAGES + 1] = {
 		local heroH = layoutCompactHero(P.Hero)
 		local p = P.Body
 		local y = 0
-		for _, row in ipairs({ F.AutoQuest, F.AutoGuide }) do
+		for _, row in ipairs({ F.AutoQuest, F.AutoGuide, F.MarkTarget, F.PingTarget }) do
 			place(row, -12, y)
 			row:Refresh()
 			local rh = toggleRowHeight(row)

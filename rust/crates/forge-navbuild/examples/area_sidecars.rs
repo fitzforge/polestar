@@ -18,7 +18,8 @@ fn main() -> Result<(), String> {
 	let cs: Vec<u32> = a[4].split(',').map(|v| v.parse().map_err(|e| format!("continent {v}: {e}"))).collect::<Result<_, _>>()?;
 	let threads: usize = a.get(5).and_then(|v| v.parse().ok()).unwrap_or(6);
 	let force = a.iter().any(|v| v == "--force");
-	let product = "wow_classic_beta";
+	let product = forge_gamedata::casc::forever_product(&wow)?;
+	let product = product.as_str();
 	let client = forge_gamedata::Client::open(&wow, product, &defs)?;
 	let tables = geom::Tables::from_csv(|name| {
 		let t = client.table(name, "enUS")?;

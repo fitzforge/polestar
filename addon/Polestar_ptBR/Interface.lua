@@ -311,6 +311,7 @@ L["It also spawns here"] = "Também aparece aqui"
 L["Click to search here next"] = "Clique para procurar aqui a seguir"
 L["Travel route, step %s"] = "Rota de viagem, etapa %s"
 L["Click to point the arrow here"] = "Clique para apontar a seta para cá"
+L["Checked recently"] = "Verificado há pouco"
 
 -- Nav/Transit.lua
 L["top"] = "topo"
@@ -993,7 +994,6 @@ L["Click objectives to target"] = "Clicar nos objetivos seleciona o alvo"
 L["Clicking an objective row or NPC heading also targets its NPC outside combat, using the same marking settings as the Target button. This replaces your current target; a failed search clears it."] = "Clicar numa linha de objetivo ou no cabeçalho de um PNJ também seleciona esse PNJ fora de combate, com as mesmas opções de marcação do Botão de alvo. Isso substitui o seu alvo atual; uma busca sem sucesso o limpa."
 L["The target button and the step key put a raid icon on the mob and the NPC they target; out of combat, a press that finds neither clears your target. Pressing again never takes an icon off. In a party you don't lead, only a unit with no icon gets one; in a raid, only when you lead or assist."] = "O botão de alvo e a tecla de etapa põem um ícone de raide no inimigo e no PNJ que selecionam; fora de combate, um clique que não encontra nenhum dos dois limpa seu alvo. Clicar de novo nunca tira um ícone. Em um grupo que você não lidera, só uma unidade sem ícone ganha um; em uma raide, só quando você é líder ou assistente."
 L["Ping what they target"] = "Pingar o que selecionam"
-L["The target button and the step key ping the mob they target, so your group sees it behind rocks and buildings. Never in a raid unless you lead or assist. The rare buttons always ping."] = "O botão de alvo e a tecla de etapa pingam o inimigo que selecionam, para o seu grupo vê-lo atrás de rochas e construções. Nunca em uma raide, a menos que você seja líder ou assistente. Os botões de raro sempre pingam."
 L["Show quest-starting loot"] = "Mostrar saques que iniciam missões"
 L["When you loot an item that starts a quest you can take, it goes on the quest item button with a glow until you click it or take the quest. The step's own item comes first; several wait their turn, oldest first."] = "Quando você saqueia um item que inicia uma missão que você pode pegar, ele vai para o botão de item de missão com um brilho até você clicar nele ou pegar a missão. O item da própria etapa vem primeiro; vários esperam a vez, o mais antigo primeiro."
 L["Track only dungeon quests in dungeons"] = "Rastrear só missões da masmorra em masmorras"
@@ -1022,6 +1022,7 @@ L["Travel button under the arrow"] = "Botão de viagem sob a seta"
 -- L["Game options"] = ""
 -- L["Increase game image quality"] = ""
 -- L["Sharpens the game's image. Most noticeable when Render Scale is below 100%. This is a game setting: it stays until you turn it off here or in the console."] = ""
+-- L["The target button and the step key ping the mob or NPC they target, so your group sees it behind rocks and buildings. Never in a raid unless you lead or assist. The rare buttons always ping."] = ""
 
 -- Lookup/Sources.lua
 L["Alliance only"] = "Só Aliança"
@@ -1226,6 +1227,7 @@ L["%s and %d more"] = "%s e mais %d"
 L["Skipping also skips: %s"] = "Pular também pula: %s"
 L["Keep this: you hand it in later in %s"] = "Guarde esta missão: você a entrega mais tarde em %s"
 L["Keep this: a later guide hands it in"] = "Guarde esta missão: um guia posterior a entrega"
+L["%d known places: the arrow leads to each in turn"] = "%d locais conhecidos: a seta leva a cada um, um de cada vez"
 
 -- UI/GuideFrame.lua
 L["Location"] = "Local"
@@ -1867,6 +1869,10 @@ L["Guides by other players, installed like any addon. They show under Community 
 L["A few choices to start with. Everything else is in %s."] = "Algumas escolhas para começar. Todo o resto está em %s."
 L["Route line"] = "Linha de rota"
 L["How the way to your goal shows on the world map and the minimap. The line is the easiest to follow; sparkles show as dots while Reduce motion is on."] = "Como o caminho até o seu objetivo aparece no mapa-múndi e no minimapa. A linha é a mais fácil de seguir; os brilhos aparecem como pontos enquanto Reduzir movimento estiver ativado."
+-- L["Mark what the target button finds"] = ""
+-- L["A skull on the enemy, a star on the friendly NPC. In a group it never takes another player's icon."] = ""
+-- L["Ping it for my group"] = ""
+-- L["Your group sees what the target button and the step key found, even behind rocks and buildings."] = ""
 
 -- UI/Copy.lua
 L["Selected for you: copy it with Ctrl+C (Cmd+C on a Mac), then press Escape."] = "Já selecionado: copie com Ctrl+C (Cmd+C no Mac) e aperte Esc."
@@ -4172,6 +4178,13 @@ L["Part of the %s quests"] = "Parte das missões de %s"
 -- L["Previous colour"] = ""
 -- L["Click to go back to it."] = ""
 
+-- UI/SearchDropdown.lua
+-- L["Go to page: %s"] = ""
+-- L["Tab: %s"] = ""
+-- L["Section: %s"] = ""
+-- L["See 1 result"] = ""
+-- L["See all %d results"] = ""
+
 -- No longer in the code (its English changed or it went away): reuse or delete.
 -- L["Shortest Path Forever is guiding. Turn off \"Guide with Shortest Path Forever when it's installed\" (Options, Arrow & routes) to use Polestar's arrow."] = "Shortest Path Forever está guiando. Desative \"Guiar com Shortest Path Forever quando instalado\" (Opções, Seta e rotas) para usar a seta do Polestar."
 -- L["Shortest Path Forever is guiding. Turn off \"Guide with Shortest Path Forever when it's installed\" (Options, Integrations) to use Polestar's arrow."] = "Shortest Path Forever está guiando. Desative \"Guiar com Shortest Path Forever quando instalado\" (Opções, Integrações) para usar a seta do Polestar."
@@ -4352,3 +4365,4 @@ L["Part of the %s quests"] = "Parte das missões de %s"
 -- L["Automatically learns every spell a class trainer offers that you can afford, and prints the total. Profession trainers are left alone. Hold Shift to skip."] = "Aprende automaticamente todos os feitiços que o instrutor de classe oferece e que você pode pagar, e mostra o total. Instrutores de profissão são ignorados. Segure Shift para pular."
 -- L["A level-up card lists what to train; %s learns it (thanks RikyZ90); %s updates your bars."] = "Um cartão ao subir de nível lista o que aprender; %s aprende tudo (valeu, RikyZ90); %s põe os graus novos nas suas barras."
 -- L["Every Polestar setting goes back to its default. Your guides and progress are kept."] = "Todas as configurações do Polestar voltam ao padrão. Seus guias e seu progresso são mantidos."
+-- L["The target button and the step key ping the mob they target, so your group sees it behind rocks and buildings. Never in a raid unless you lead or assist. The rare buttons always ping."] = "O botão de alvo e a tecla de etapa pingam o inimigo que selecionam, para o seu grupo vê-lo atrás de rochas e construções. Nunca em uma raide, a menos que você seja líder ou assistente. Os botões de raro sempre pingam."

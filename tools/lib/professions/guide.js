@@ -89,6 +89,12 @@ const PROTECTED_MOBS = new Set([6184, 6185, 6186, 6187, 6188, 6189, 6651, 11516,
 // this many levels outside it is a different player's farm (Mageweave went
 // to the Shadowsworn Adepts of the Blasted Lands, level 52-53).
 const CLOTH_SLACK = 2;
+// The data spawns a creature at one spot on every map whose frame covers it:
+// the Sand Skitterers of Silithus' north-east also stand on Un'Goro Crater's
+// west edge. A map's copy whose every point lies this close (yards) to a
+// point of another copy is that spot seen from the neighbouring zone (see
+// overlapCopies).
+const DUP_YARDS = 30;
 
 function slug(name) {
 	return String(name).toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
@@ -155,6 +161,37 @@ function zoneFriendly(map, side) {
 	return !!(z && z.side && z.side.includes(side === 'Alliance' ? 'A' : 'H'));
 }
 
+// The maps (ids) where an entity's spawns are only another map's copy, seen
+// over the zone border: each point lies within DUP_YARDS of a point of the
+// other copy, and its spot is nearer its map's edges (homeMap's measure: the
+// most inland point's distance to the edge), as the overlap of two maps is at
+// their edges. A step there would name the neighbouring zone, and the arrow
+// would lead through the zone crossing to the creatures beside it. Live-frame
+// copies (no Era frame to compare in) are kept.
+function overlapCopies(entity, frames) {
+	const copies = [];
+	for (const [map, s] of Object.entries((entity && entity.spawns) || {})) {
+		const fr = frames[map];
+		const pts = [...((s && s.pts) || []), ...((s && s.more) || [])];
+		if (!fr || s.f === 'l' || !pts.length) continue;
+		const world = pts.map((p) => [fr.top + ((fr.bottom - fr.top) * p[1]) / 100, fr.left + ((fr.right - fr.left) * p[0]) / 100]);
+		const edge = Math.max(...pts.map((p) => Math.min(p[0], 100 - p[0], p[1], 100 - p[1])));
+		copies.push({ map: Number(map), c: fr.c, world, edge });
+	}
+	const out = new Set();
+	for (const a of copies) {
+		for (const b of copies) {
+			if (a === b || a.c !== b.c || out.has(b.map)) continue;
+			const nearer = a.edge < b.edge || (a.edge === b.edge && a.map > b.map);
+			if (nearer && a.world.every((p) => b.world.some((q) => Math.hypot(p[0] - q[0], p[1] - q[1]) <= DUP_YARDS))) {
+				out.add(a.map);
+				break;
+			}
+		}
+	}
+	return out;
+}
+
 // Where a faction farms a material: the herb/ore/fishing node, or the hostile
 // non-elite mob outside towns or the clickable object (Giant Clams for pearls),
 // whose (drop chance x how many there are) is highest on an outdoor zone,
@@ -178,9 +215,10 @@ function farmSpot(itemId, kind, side, home, data, minChance = 0, opts = {}) {
 	const frames = (data.mapFrames && data.mapFrames.era) || {};
 	const cands = [];
 	const consider = (entity, chance, label, level, mob, node = false) => {
+		const copy = overlapCopies(entity, frames);
 		for (const [map, s] of Object.entries(entity.spawns || {})) {
 			const z = zones[map];
-			if (!z || z.type !== 3 || !s.pts || !s.pts.length) continue;
+			if (!z || z.type !== 3 || !s.pts || !s.pts.length || copy.has(Number(map))) continue;
 			if (opts.maps && !opts.maps.has(Number(map))) continue;
 			const pts = mob ? outsideTowns(s.pts, Number(map), data) : s.pts;
 			if (!pts.length || (opts.minPts && pts.length < opts.minPts)) continue;
@@ -877,10 +915,15 @@ function draftGuide(name, data, opts = {}) {
 				if (offer) parts.push(`You can train ${offer.rank.name} there now if you are level ${offer.rank.minLevel} (it needs ${P} ${offer.rank.minSkill}), which saves the trip at ${CAPS[offer.idx - 1]}.`);
 				line(`  tip ${parts.join(' ')}${camp ? ` ${campTip(seg.from)}` : ''}`);
 				for (const r of anywhere) line(`  learn ${r.spell}${pin(r, fx)}`);
+				// A trainer the data spawns on two maps (Drakk Stonehand at Aerie Peak,
+				// also on Hillsbrad Foothills' corner: one spot over a zone border) is
+				// pinned to the map the tip names (homeMap), else the compiler takes the
+				// first map and the arrow leads through the zone crossing.
+				const mapPin = (id) => (Object.keys((npcs[id] || {}).spawns || {}).length > 1 && homeMap(npcs[id]) != null ? ` map ${homeMap(npcs[id])}` : '');
 				for (const r of pinned) {
 					const { rank } = onlyAt(r);
 					const ids = SIDES.map((s) => (rank.trainers && rank.trainers[s]) || []);
-					if (ids.every((l) => l.length === 1)) SIDES.forEach((s, i) => line(`  learn ${r.spell} npc ${ids[i][0]} only ${s}`));
+					if (ids.every((l) => l.length === 1)) SIDES.forEach((s, i) => line(`  learn ${r.spell} npc ${ids[i][0]} only ${s}${mapPin(ids[i][0])}`));
 					else line(`  learn ${r.spell}`);
 				}
 				if (offer) line(`  train ${pq} ${offer.rank.name} optional`);

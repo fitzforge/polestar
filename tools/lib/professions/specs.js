@@ -85,6 +85,11 @@ const SPECS = {
 		// Derotain Mudsipper (Gadgetzan) trades the Imperial Plate plans for Thorium Bars after A Blue
 		// Light Bargain (7652): the Forever quest pages name these rewards; the data has no rewards.
 		questRecipes: { 16647: 7653, 16657: 7654, 16649: 7655 },
+		// Classic's trainer lists (world DB, VB 0) teach these, which asked 230-235 there (above Expert's 225), at
+		// Brikk Keencraft (1002836) only, never at Bengus Deepforge or Saru Steelfury (1004258/1003355). Forever
+		// moved the plans 25 points down but not off the Artisan list: at 205 Saru teaches no Heavy Mithril
+		// Breastplate (#1956, the reporter's trainer window).
+		taughtBy: { 9959: 'Artisan', 9961: 'Artisan', 9968: 'Artisan', 10001: 'Artisan' },
 		// Expert 50s (a Forever beta guide tested to 225; Classic's list asks 45s), Artisan 5g (Classic's list).
 		rankCost: { Expert: 5000, Artisan: 50000 },
 		assumed: [
@@ -211,7 +216,10 @@ const SPECS = {
 		},
 		// Classic's trainer lists (world DB 1011097/1011098, VB 0) put these on the
 		// Artisan trainers only; Telonis and Una (1004212/1003007) never teach them.
-		taughtBy: { 22331: 'Artisan', 19058: 'Artisan' },
+		// The Nightscape and Turtle Scale pieces asked 230-235 in Classic, above
+		// Expert's 225: Forever moved them 25 points down, not off the Artisan list
+		// (Blacksmithing's Heavy Mithril Breastplate, #1956).
+		taughtBy: { 22331: 'Artisan', 19058: 'Artisan', 10548: 'Artisan', 10552: 'Artisan', 10556: 'Artisan', 10558: 'Artisan' },
 		assumed: [
 			"ASSUMED: Rugged Leather and Rugged Armor Kit are taught only by the Artisan trainers, Drakk Stonehand and Hahrana Ironhide (Classic's trainer lists; Forever's sniffed lists stop at 150). In-game check: whether Telonis or Una teach them.",
 		],
@@ -239,6 +247,10 @@ const SPECS = {
 			tip: `Also learn Faction Banner (1s): Forever's Tailoring camp item, a Bolt of Linen Cloth and a Coarse Thread; each faction has its own. ${CAMPING_101('Tailoring')}`,
 		},
 		noLevel: { 3865: 'Mageweave drops from humanoids of level 35-50, later than skill 140 comes' },
+		// Classic's trainer lists (world DB, VB 0) teach these, which asked 230-250 there (above Expert's 225), at
+		// the Artisan trainers only, never at Georgio Bolero or Josef Gregorian: Forever moved them down, not off
+		// the Artisan list (Blacksmithing's Heavy Mithril Breastplate, #1956).
+		taughtBy: { 12072: 'Artisan', 12073: 'Artisan', 12074: 'Artisan', 12077: 'Artisan', 12079: 'Artisan', 12088: 'Artisan', 12092: 'Artisan', 18401: 'Artisan', 18402: 'Artisan' },
 		exclude: {
 			1257487: 'sold only by Pexmit, "Someone\'s Minion", in Mount Hyjal (an endgame zone, no faction in the data): unverified',
 			3852: 'an Elixir of Wisdom from an alchemist in every craft',

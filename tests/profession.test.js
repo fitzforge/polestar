@@ -390,6 +390,24 @@ test('draft: a learn pinned to a later rank\'s trainers keeps its own trip after
 	assert.match(text, /\n {2}learn 3 npc 7 only Alliance\n {2}learn 3 npc 8 only Horde\n/);
 });
 
+test('draft: a pinned trainer the data spawns at one spot on two maps is pinned to the map the tip names (Drakk Stonehand, also on Hillsbrad\'s corner)', () => {
+	const { prof, data } = smallProfession([rec(1, 1, 140, 170, 10), rec(2, 160, 190, 200, 10), rec(3, 195, 220, 240, 10)]);
+	const at = (map, x) => ({ [map]: { f: 'e', pts: [[x, 50]] } });
+	data.npcs = { 3: { id: 3, name: 'Jay', faction: 'A', spawns: at(1453, 40) }, 4: { id: 4, name: 'Kay', faction: 'H', spawns: at(1454, 40) }, 5: { id: 5, name: 'Telonis', faction: 'A', spawns: at(1457, 40) }, 6: { id: 6, name: 'Una', faction: 'H', spawns: at(1456, 40) }, 8: { id: 8, name: 'Hahrana', faction: 'H', spawns: at(1444, 40) } };
+	// Aerie Peak, and the same spot on Hillsbrad Foothills' map, whose lower map id the compiler would take.
+	data.npcs[7] = { id: 7, name: 'Drakk', faction: 'A', spawns: { 1424: { f: 'e', pts: [[98.7, 2.3]] }, 1425: { f: 'e', pts: [[13.4, 43.5]] } } };
+	data.zones = { 1453: { name: 'Stormwind City' }, 1454: { name: 'Orgrimmar' }, 1457: { name: 'Darnassus' }, 1456: { name: 'Thunder Bluff' }, 1424: { name: 'Hillsbrad Foothills' }, 1425: { name: 'The Hinterlands' }, 1444: { name: 'Feralas' } };
+	prof.ranks = [
+		{ name: 'Apprentice', max: 75, minSkill: 0, minLevel: 1, trainers: { Alliance: [3, 5, 7], Horde: [4, 6, 8] } },
+		{ name: 'Journeyman', max: 150, minSkill: 50, minLevel: 10, trainers: { Alliance: [3, 5, 7], Horde: [4, 6, 8] } },
+		{ name: 'Expert', max: 225, minSkill: 125, minLevel: 20, trainers: { Alliance: [5, 7], Horde: [6, 8] } },
+		{ name: 'Artisan', max: 300, minSkill: 200, minLevel: 35, trainers: { Alliance: [7], Horde: [8] } },
+	];
+	const { text } = draftGuide('Tailoring', data, { to: 225, spec: { taughtBy: { 3: 'Artisan' } } });
+	assert.match(text, /R3 \(from 195\) is taught only by the Artisan trainers: Alliance Drakk \(The Hinterlands\); Horde Hahrana \(Feralas\)\./);
+	assert.match(text, /\n {2}learn 3 npc 7 only Alliance map 1425\n {2}learn 3 npc 8 only Horde\n/);
+});
+
 test('planner: a recipe held back to a skill neither levels nor makes an intermediate before it (Tailoring\'s Runecloth to Artisan)', () => {
 	// R2 makes item 902, R3 takes it; both wait for 50.
 	const R3 = rec(3, 1, 70, 90, 902);
@@ -524,6 +542,27 @@ test('farm spots weigh the zone side, not where service NPCs happen to be listed
 	};
 	assert.equal(farmSpot(2452, 'herb', 'Horde', 1, data).map, 1413);
 	assert.equal(farmSpot(2452, 'herb', 'Alliance', 1, data).map, 1439);
+});
+
+test('farm spots skip a mob\'s spawns seen over a zone border: Sand Skitterers on Un\'Goro Crater\'s edge are Silithus\' (#246)', () => {
+	const pts = (n, x, y) => Array.from({ length: n }, (_, i) => [x + (i % 5), y + Math.floor(i / 5)]);
+	// Un'Goro Crater's map starts 100 yards before Silithus' ends: a spot in that strip is on both maps.
+	const frames = { 1451: { c: 1, left: 0, right: 1000, top: 0, bottom: 1000 }, 1449: { c: 1, left: 900, right: 1900, top: 0, bottom: 1000 } };
+	const border = pts(25, 93, 40);
+	const npc = (spawns) => ({ 1: { id: 1, name: 'Sand Skitterer', level: 55, levelMax: 56, faction: null, spawns } });
+	const data = {
+		items: { 14227: { id: 14227, name: 'Ironweb Spider Silk', drops: { npc: { 1: 12 }, object: {} } } },
+		npcs: npc({ 1451: { f: 'e', pts: [...pts(10, 40, 40), ...border] }, 1449: { f: 'e', pts: border.map(([x, y]) => [x - 90, y]) } }),
+		objects: {},
+		zones: { 1449: { name: "Un'Goro Crater", type: 3 }, 1451: { name: 'Silithus', type: 3 } },
+		mapFrames: { era: frames },
+	};
+	const spot = farmSpot(14227, 'drop', 'Horde', 1, data);
+	assert.equal(spot.map, 1451, 'the border strip seen from Un\'Goro Crater, the lower-level zone, is no spot of its own');
+	assert.equal(spot.label, 'Sand Skitterer');
+	// Spawns of Un'Goro's own (not a copy of Silithus' spots) still count there.
+	data.npcs = npc({ 1451: { f: 'e', pts: [...pts(10, 40, 40), ...border] }, 1449: { f: 'e', pts: pts(25, 50, 40) } });
+	assert.equal(farmSpot(14227, 'drop', 'Horde', 1, data).map, 1449);
 });
 
 test('vein and herb spots count the nodes a zone keeps up at once, from the lowest-skill node, and the tip names the marked zone', () => {
