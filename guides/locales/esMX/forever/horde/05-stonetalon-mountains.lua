@@ -107,7 +107,7 @@ return {
 
 	-- Step 20: Zeppelin to Undercity
 	-- {zone:1458} Undercity
-	["Zeppelin to {zone:1458}"] = "",
+	["Zeppelin to {zone:1458}"] = "Zepelín a {zone:1458}",
 
 	-- Step 21: Brill
 	-- {npc:246152} Shari Stilwell · {area:159} Brill

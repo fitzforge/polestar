@@ -137,7 +137,7 @@ return {
 	-- Step 36: Fly to Crossroads
 	["Fly to Crossroads"] = "",
 	-- {area:392} Ratchet
-	["{area:392} flight master"] = "",
+	["{area:392} flight master"] = "Maestro de vuelo de {area:392}",
 
 	-- Step 38: Regthar Deathgate
 	-- {npc:3389} Regthar Deathgate
@@ -160,7 +160,7 @@ return {
 	-- Step 42: Samophlange
 	-- {object:4141} Control Console · {area:382} Sludge Fen · {item:5089} Console Key · {npc:3471} Tinkerer Sniggles
 	["The {object:4141} stands at the Venture Co. research site west of the {area:382}. Close the three valves around the drill, use the console again, then take the {item:5089} from {npc:3471} beside it.\nCareful: Several guards stand within aggro range of the valves, respawn in under about 3 minutes, and run at low health to bring back help; nearby mobs also join if you use a valve while they are close."] = "",
-	["Inside"] = "",
+	["Inside"] = "Adentro",
 	-- {npc:3442} Sputtervalve · {area:392} Ratchet
 	["{npc:3442} in {area:392}: on the next {area:392} stop"] = "",
 
@@ -300,7 +300,7 @@ return {
 	-- {area:385} Northwatch Hold · {npc:3393} Captain Fairmount
 	-- plural, as words: Theramore Marines = {npc:3385} Theramore Marine
 	["{area:385}, on the coast just south of the pirate camp. The Theramore Marines and Preservers (15-16) drop the medals; {npc:3393} (20) and the two cannoneers (19) stand in the keep and on its walls, and they are why the hold waits until now.\nCareful: Each named target is linked to a healer and guards, and Fairmount has three extra marines with her. Killing the healer first makes the fight easier."] = "",
-	["On the top floor"] = "",
+	["On the top floor"] = "En el piso superior",
 	["Upstairs"] = "Arriba",
 
 	-- Step 71: Free From the Hold
@@ -380,7 +380,7 @@ return {
 	-- Step 94: Verog the Dervish
 	-- {npc:3395} Verog the Dervish · {area:388} Stagnant Oasis · {npc:3448} Tonga Runetotem
 	["{npc:3395} walks among the Kolkar at the {area:388} south-east of the Crossroads. Test {npc:3448}'s seeds at the bubbling fissure on the oasis' east bank while you are there."] = "{npc:3395} camina entre los Kolkar en {area:388}, al sureste del Cruce. Mientras estés ahí, prueba las semillas de {npc:3448} en la fisura burbujeante de la orilla este del oasis.",
-	["Underwater"] = "",
+	["Underwater"] = "Bajo el agua",
 	-- {npc:12296} Sickly Gazelle · {item:15826} Curative Animal Salve
 	["{npc:12296}: use the {item:15826} on them; they roam the plains all around the Crossroads"] = "",
 	-- {npc:12296} Sickly Gazelle
@@ -456,7 +456,7 @@ return {
 	-- {zone:1456} Thunder Bluff · {area:392} Ratchet
 	["Fly from {zone:1456} on to {area:392}."] = "",
 	-- {zone:1456} Thunder Bluff
-	["{zone:1456} flight master"] = "",
+	["{zone:1456} flight master"] = "Maestro de vuelo de {zone:1456}",
 
 	-- Step 110: Fly to Ratchet
 	-- {area:392} Ratchet · {object:172982} Valley of Strength
@@ -678,6 +678,8 @@ return {
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Back down the beach, past the pirate camp: the crate of boots and the fragile crate with the lens sit at its south end."] = "De vuelta playa abajo, pasando el campamento pirata: la caja de botas y la caja frágil con la lente están en su extremo sur.",
+	-- ["Back north into {area:378} before the antennae fade: {npc:6394} is inside."] = "Regresa al norte a {area:378} antes de que se desvanezcan las antenas: {npc:6394} está adentro.",
+	-- ["Back north into {area:378} on the way to the Crossroads: {npc:3387} takes the thunderhawk wings."] = "Regresa al norte a {area:378} de camino al Cruce: {npc:3387} recibe las alas de halcón trueno.",
 	-- ["Back to the Razormane camp. Geomancers and Defenders hold its eastern half; {npc:3438} walks among them."] = "De vuelta al campamento Crines de Acero. Las geománticas y los defensores ocupan su mitad este; {npc:3438} camina entre ellos.",
 	-- ["Back west along the road."] = "De vuelta al oeste por el camino.",
 	-- ["Burning Blade Cultists hold {area:1898} in northern {area:14}; they drop the {item:6652}. The {item:5026} comes from the Razormane on your next visit to their camp."] = "Los cultores Filo Ardiente ocupan {area:1898}, en el norte de {area:14}; sueltan {item:6652}. {item:5026} lo sueltan los Crines de Acero en tu próxima visita a su campamento.",
@@ -696,6 +698,7 @@ return {
 	-- ["Southsea beach"] = "Playa de los Mares del Sur",
 	-- ["The Savannah Prowlers hunt the plains between town and the Razormane camp to the east. In the camp, Water Seekers and Thornweavers hold the western half, Hunters the middle; the supply crates sit at its eastern end."] = "Los merodeadores de la sabana cazan en las llanuras entre el pueblo y el campamento Crines de Acero, al este. En el campamento, los buscaquas y tejespinas ocupan la mitad oeste, y los cazadores, el centro; las cajas de suministros están en su extremo este.",
 	-- ["The Witchwing Slayers hold the western {area:383}; they wear the rings."] = "Las destripadoras Alabruja ocupan el oeste de {area:383}; llevan los anillos.",
+	-- ["The antennae vanish fifteen minutes after they drop: kill the Silithid Swarmers and Creepers at the same mounds until you have five, then take them straight to {npc:6394} in {area:378}, before the thunderhawks.\nCareful: Silithid Swarmers (level 21-22) cast {npc:4196} both in and out of combat, which brings several small adds. Silithid Creepers (level 20-21) periodically cast {npc:5781} in combat, which spawns extra adds."] = "Las antenas desaparecen quince minutos después de caer: mata enjambristas y trepadores silítidos en los mismos montículos hasta tener cinco, y luego llévalas directo con {npc:6394} en {area:378}, antes de los halcones trueno.\nCuidado: los enjambristas silítidos (nivel 21-22) lanzan {npc:4196} dentro y fuera de combate, lo que atrae varios bichos pequeños. Los trepadores silítidos (nivel 20-21) lanzan {npc:5781} periódicamente en combate, lo que genera bichos adicionales.",
 	-- ["The pirates camp on the beach south of {area:392}. The piles of complicated parts lie in the sand among them."] = "Los piratas acampan en la playa al sur de {area:392}. Los montones de piezas complicadas están en la arena entre ellos.",
 	-- ["The pools lie just north of {npc:3389}. Walk into the water to explore them; the Laden Mushrooms for Helbrim grow around them. Kill every Kolkar you pass for bracers."] = "Las Charcas del Olvido están justo al norte de {npc:3389}. Métete en el agua para explorarlas; los champiñones cargados para Helbrim crecen a su alrededor. Mata a todos los Kolkar que encuentres para conseguir brazales.",
 	-- ["The three nests sit together in the {area:1697} south-west of the oasis; Sunscale Scytheclaws guard them."] = "Los tres nidos están juntos en {area:1697}, al suroeste del oasis; los segadores Solescama los vigilan.",
@@ -704,8 +707,10 @@ return {
 	-- ["The {object:4141} stands at the Venture Co. research site west of the {area:382}. Close the three valves around the drill, use the console again, then take the {item:5089} from {npc:3471} beside it."] = "{object:4141} está en el sitio de investigación de Ventura y Cía., al oeste de {area:382}. Cierra las tres válvulas alrededor del taladro, vuelve a usar la consola y luego toma {item:5089} de {npc:3471}, a su lado.",
 	-- ["Thun'grim camps beside the road from the {area:380} to {area:392}. The {object:58369} sits in the south of the Razormane camp just north of him."] = "Thun'grim acampa junto al camino de {area:380} a {area:392}. {object:58369} está en el sur del campamento Crines de Acero, justo al norte de él.",
 	-- ["Thunder Lizards and Lightning Hides graze just across the bridge below {area:379}."] = "Los truenagartos y lomorrayos pastan justo al otro lado del puente, bajo {area:379}.",
+	-- ["Thunderhawk Cloudscrapers circle over the plains south of the camp."] = "Los Desechanubes Halcón Trueno sobrevuelan las llanuras al sur del campamento.",
 	-- ["Walk back south to the {area:380}. The next guide starts here and takes you to {zone:1454} and the zeppelin to {zone:1420}."] = "Regresa al sur hasta {area:380}. La siguiente guía empieza aquí y te lleva a {zone:1454} y al zepelín a {zone:1420}.",
 	-- ["Walk back west along the road to the {area:380}."] = "Regresa al oeste por el camino hasta {area:380}.",
+	-- ["Warriors: take {quest:1824} from {npc:6394} now: it runs for 30 minutes from the accept. The eggs and the antennae come first, at the same mounds, then straight back to {npc:6394}; the thunderhawks after."] = "Guerreros: toma {quest:1824} con {npc:6394} ahora: dura 30 minutos desde que la aceptas. Primero los huevos y las antenas, en los mismos montículos, y luego regresa directo con {npc:6394}; los halcones trueno, después.",
 	-- ["West to the {area:383}. The Witchwing harpies nest all over them; any of them can drop a talon. {quest:819} lies in their hills."] = "Al oeste, a {area:383}. Las arpías Alabruja anidan por todas partes; cualquiera puede soltar una garra. {quest:819} está en sus colinas.",
 	-- ["Zhevra"] = "Zhebras",
 	-- ["Zhevra Runners graze north and east of town."] = "Los galopadores zhebra pastan al norte y al este del pueblo.",
