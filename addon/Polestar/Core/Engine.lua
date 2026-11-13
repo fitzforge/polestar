@@ -4878,7 +4878,7 @@ end
 local function sameWaypoint(a, b)
 	if a == b then return true end
 	if not a or not b then return false end
-	return a.stepIndex == b.stepIndex and a.goalIndex == b.goalIndex and a.map == b.map
+	return a.guideId == b.guideId and a.stepIndex == b.stepIndex and a.goalIndex == b.goalIndex and a.map == b.map
 		and a.x == b.x and a.y == b.y and a.f == b.f
 		and a.label == b.label and a.kind == b.kind and a.r == b.r
 end
@@ -7898,7 +7898,7 @@ local function evaluateLoaded(active)
 		local wp = findWaypoint()
 		if not sameWaypoint(wp, waypoint) then
 			waypoint = wp
-			ns.Fire("WAYPOINT_CHANGED", wp)
+			if not (ns.CombinedRoute and ns.CombinedRoute.OwnsNavigation()) then ns.Fire("WAYPOINT_CHANGED", wp) end
 		end
 	end
 
@@ -8026,6 +8026,7 @@ local function evaluate()
 	end
 	useActive()
 	evaluateLoaded(true)
+	if ns.CombinedRoute then ns.CombinedRoute.Invalidate() end
 	Own.watchHearth()
 	Own.watchWait()
 	-- Out-levelled: once per guide per session; for a guide the catch-up may
@@ -8101,7 +8102,7 @@ local function announceActive()
 	ns.Fire("GUIDE_CHANGED", guide and guide.id or nil)
 	if guide then ns.Fire("STEP_CHANGED", current) end
 	waypoint = findWaypoint()
-	ns.Fire("WAYPOINT_CHANGED", waypoint)
+	if not (ns.CombinedRoute and ns.CombinedRoute.OwnsNavigation()) then ns.Fire("WAYPOINT_CHANGED", waypoint) end
 end
 
 ---------------------------------------------------------------------------
@@ -10963,6 +10964,7 @@ end
 -- one, or while the window looks at another step than the live one).
 function Engine.GetWhileHereList()
 	local out = {}
+	if ns.CombinedRoute and ns.CombinedRoute.Enabled() then return out end
 	if not Own.hereVisible() then return out end
 	for i = 1, Own.hereOnN do out[i] = Own.hereViewOf(Own.hereOn[i]) end
 	return out
@@ -10970,6 +10972,7 @@ end
 
 -- The first line (Engine.GetWhileHereList's first), or nil.
 function Engine.GetWhileHere()
+	if ns.CombinedRoute and ns.CombinedRoute.Enabled() then return nil end
 	if not Own.hereVisible() then return nil end
 	return Own.hereViewOf(Own.hereOn[1])
 end
@@ -10978,6 +10981,7 @@ end
 -- gives the arrow back to the guide when it goes); its time starts again.
 -- True if the arrow can lead there.
 function Engine.AimWhileHere(i)
+	if ns.CombinedRoute then Own.combinedManual = nil; ns.CombinedRoute.Pause() end
 	local cur = Own.hereOn[i or 1]
 	if not (cur and guide and current) then return false end
 	-- The arrow leads to the spot the row measures to, until it is reached.
@@ -11509,7 +11513,11 @@ function Own.tickedOpen(q)
 	return false
 end
 
-function Engine.GetWaypoint() return waypoint or nil end
+function Engine.GetWaypoint()
+	local R = ns.CombinedRoute
+	if R and R.OwnsNavigation() then local row = R.Target(); return row and row.waypoint or nil end
+	return Own.combinedManual or waypoint or nil
+end
 
 function Engine.GetProgress()
 	if not guide then return 0, 0 end
@@ -12069,6 +12077,8 @@ end
 -- false, "accept" and the quest's title come back (the window says "Take
 -- <quest> first", #1385).
 function Engine.AimGoal(stepIndex, goalIndex)
+	Own.combinedManual = nil
+	if ns.CombinedRoute then ns.CombinedRoute.Pause() end
 	if not (guide and current) or stepIndex ~= current then return false end
 	local goal = guide.steps[current].goals[goalIndex]
 	if not goal then return false end
@@ -12106,6 +12116,7 @@ end
 -- click under the step). The choice lasts while the goal is listed and open,
 -- also when the route moves on. True if the arrow can lead there.
 function Engine.AimAlong(stepIndex, goalIndex)
+	if ns.CombinedRoute then Own.combinedManual = nil; ns.CombinedRoute.Pause() end
 	if not (guide and current) then return false end
 	local goal = Own.alongGoal(stepIndex, goalIndex)
 	if not (Own.pinListed(stepIndex, goalIndex) or goal and Own.alongShows(stepIndex, goal)) then return false end
@@ -12200,6 +12211,19 @@ end
 -- next or previous open goal of the step that has a place, in goal order,
 -- round the step. True if the arrow moved.
 function Engine.CycleWaypoint(dir)
+	if ns.CombinedRoute and ns.CombinedRoute.OwnsNavigation() then
+		local p, selected = ns.CombinedRoute.View(), ns.CombinedRoute.Target()
+		if not p then return false end
+		for i, row in ipairs(p.rows) do
+			if selected and row.key == selected.key then
+				for offset = 1, #p.rows do
+					local nextRow = p.rows[((i - 1 + (dir == -1 and -offset or offset)) % #p.rows) + 1]
+					if nextRow.ready and not nextRow.reason then return Engine.CombinedAction(nextRow.ref, "aim") end
+				end
+			end
+		end
+		return false
+	end
 	if not (guide and current) then return false end
 	dir = dir == -1 and -1 or 1
 	local step = guide.steps[current]
@@ -12272,6 +12296,169 @@ end
 ---------------------------------------------------------------------------
 
 local function onUpdateEvent() requestUpdate() end
+
+-- Combined routes use loaded-tab context only inside this adapter. A reference
+-- includes its raw identity so a pack replacement cannot redirect an old row.
+function Engine.ResolveObjective(ref)
+	if type(ref) ~= "table" then return nil end
+	local i = tabIndexOf(ref.guideId)
+	local g = i and tabs[i].guide
+	local step = g and g.steps[ref.step]
+	local goal = step and step.goals[ref.goal]
+	if not goal or (ref.raw and ref.raw ~= goal) then return nil end
+	return goal, i
+end
+
+function Engine.CombinedSnapshot()
+	local R, out = ns.CombinedRoute, {}
+	local state = R and R.State()
+	if not state then return out end
+	sync()
+	if Own.combinedManual and not Engine.ResolveObjective(Own.combinedManual.objective) then Own.combinedManual = nil end
+	if not tabIndexOf(state.main) then R.Disable(); return out end
+	for pass = 1, 2 do
+		for _, tab in ipairs(tabs) do
+			local main = tab.guide.id == state.main
+			if (pass == 1 and main) or (pass == 2 and not main and state.members[tab.guide.id]) then
+				use(tab)
+				local live = computed
+				if live then
+					local guideGoals = 0
+					local stop = math.min(#guide.steps, live + R.MAX_STEPS - 1)
+					for s = live, stop do
+						local step = guide.steps[s]
+						if s > live and (step.zone ~= guide.steps[live].zone or Own.transitKind(s)) then break end
+						if (stepApplies(step) or Own.groupPending(step)) and not isSkipped(s) then
+							local groups, focus, groupOf = stepGroups(s)
+							for g, goal in ipairs(step.goals) do
+								if guideGoals >= math.floor(R.MAX_GOALS / #tabs) then break end
+								local v = goalView(s, g, goal, s == live and "current" or "upcoming", groupOf[g])
+								if v.status ~= "done" and v.status ~= "na" and not Own.goalSkipped(s, g) and goal.t ~= "note"
+									and (v.status ~= "skipped" or v.unavailable == "level" or v.unavailable == "pre") then
+									local ref = { guideId = guide.id, step = s, goal = g, raw = goal }
+									local key = guide.id .. ":" .. s .. ":" .. g
+									local ready = s == live and groupOf[g] == focus and v.status == "active" and not Own.acceptFirst(s, goal)
+									-- A later goal is eligible only under the existing early-work rules.
+									if not main and s > live and goal.quest and goal.t ~= "accept" and Own.HERE_VERBS[goal.t] and not goal.escort and not goal.limit then
+										ready = Own.hereFits(s, g, goal, live, {}) ~= nil
+									end
+									local reason = v.unavailableText or v.noticeText
+									if reason or v.lost or Own.groupPending(step) then ready = false end
+									if v.lost or Own.groupPending(step) then reason = reason or L["Waiting for your quest or group choice"] end
+									if not main and (goal.t == "skill" or goal.t == "grind" or goal.untilSkill or step.along) then
+										ready, reason = false, L["Optional activity: follow this guide separately"]
+									end
+									local commitment
+									if Own.groupPending(step) then commitment = "group:" .. Own.groupPending(step) end
+									if (not commitment or R.Approved(commitment)) and goal.escort and goal.t == "accept" and not Compat().IsOnQuest(goal.quest) then commitment = "escort:" .. tostring(goal.quest) end
+									if (not commitment or R.Approved(commitment)) and goal.limit and goal.t == "accept" and not Compat().IsOnQuest(goal.quest) then commitment = "timed:" .. tostring(goal.quest) end
+									if (not commitment or R.Approved(commitment)) and (v.entrance or (goal.t ~= "accept" and goal.t ~= "turnin" and v.party and (v.party.kind == "dungeon" or v.party.kind == "raid"))) then commitment = "dungeon:" .. guide.id end
+									if (not commitment or R.Approved(commitment)) and not main and goal.t == "accept" and ns.Closes and ns.Closes.For(goal.quest, goal.title) then commitment = "closing:" .. tostring(goal.quest) end
+									if commitment and not R.Approved(commitment) then
+										ready, reason = false, R.Declined(commitment) and L["Activity deferred"] or L["Confirm before starting this activity"]
+									end
+									local wp = waypointOf(g, goal, nil, s)
+									if wp then wp.guideId, wp.objective = guide.id, ref end
+									if not wp then ready, reason = false, reason or L["No navigation target"] end
+									local semantic = goal.quest and (goal.quest .. ":" .. goal.t .. ":" .. tostring(goal.oi or goal.item or goal.npc or goal.object or "")) or nil
+									local urgent = goal.quest and Compat().IsOnQuest(goal.quest) and ((goal.escort and not Compat().IsQuestReadyForTurnIn(goal.quest))
+										or R.Approved("timed:" .. goal.quest) or (ns.Timed and ns.Timed.Left(goal.quest) ~= nil))
+									out[#out + 1] = { ref = ref, key = key, semantic = semantic, title = guide.title, view = v,
+										anchor = guide.id .. ":" .. s .. ":" .. tostring(groupOf[g]),
+										main = main, ready = ready and true or false, reason = reason, commitment = commitment, waypoint = wp, urgent = urgent, groupQuest = Own.groupPending(step) }
+									guideGoals = guideGoals + 1
+								end
+							end
+						end
+					end
+				end
+			end
+		end
+	end
+	useActive()
+	return out
+end
+
+function Engine.CombinedAction(ref, action, value)
+	if not (ns.CombinedRoute and ns.CombinedRoute.Enabled()) then return false end
+	local goal, i = Engine.ResolveObjective(ref)
+	if not goal then return false end
+	use(tabs[i])
+	local result
+	if action == "toggle" then result = Engine.ToggleGoal(ref.step, ref.goal)
+	elseif action == "skip" then result = Engine.SkipGoal(ref.step, ref.goal)
+	elseif action == "spot" then result = Engine.CycleSpot(ref.step, ref.goal, value)
+	elseif action == "candidate" then result = Engine.CycleCandidate(ref.step, ref.goal)
+	elseif action == "aim" then
+		local v = goalView(ref.step, ref.goal, goal, "current")
+		local commitment = goal.t == "accept" and (goal.escort and "escort:" or goal.limit and "timed:")
+		local allowed = not commitment or ns.CombinedRoute.Approved(commitment .. tostring(goal.quest))
+		for _, row in ipairs((ns.CombinedRoute.View() or {}).rows or {}) do
+			if row.ref.raw == goal and row.commitment and not ns.CombinedRoute.Approved(row.commitment) then allowed = false end
+		end
+		if v.entrance then allowed = ns.CombinedRoute.Approved("dungeon:" .. guide.id) end
+		if allowed and not Own.groupPending(guide.steps[ref.step]) and v.status == "active" and not Own.acceptFirst(ref.step, goal) then
+			local wp = waypointOf(ref.goal, goal, nil, ref.step)
+			if wp then
+				ns.CombinedRoute.Pause()
+				wp.guideId, wp.objective = ref.guideId, ref
+				Own.combinedManual = wp
+				ns.Fire("WAYPOINT_CHANGED", wp)
+				result = true
+			end
+		end
+	end
+	useActive()
+	if ns.CombinedRoute then ns.CombinedRoute.Invalidate() end
+	return result
+end
+
+function Engine.ObjectiveGate(ref)
+	local goal, i = Engine.ResolveObjective(ref)
+	if not goal then return nil end
+	use(tabs[i])
+	local gate = Engine.AcceptGate(ref.step, ref.goal)
+	useActive()
+	return gate
+end
+
+function Engine.CombinedWants(verb, q)
+	local R = ns.CombinedRoute
+	if not R or not R.Enabled() then return false end
+	local p = R.View()
+	if not R.OwnsNavigation() or not p then return false end
+	for _, row in ipairs(p.rows) do
+		local selected = row.ref.guideId == R.State().main or R.State().members[row.ref.guideId]
+		if selected and row.ready and not row.reason and (not row.commitment or R.Approved(row.commitment)) and row.view.quest == q and (row.view.t == verb or verb == "direct" and row.view.t == "turnin") then
+			local raw, i = Engine.ResolveObjective(row.ref)
+			if raw then
+				use(tabs[i])
+				local answer = Own.wantsLoaded(verb, q, 0)
+				useActive()
+				return answer
+			end
+		end
+	end
+	return false
+end
+
+function Engine.NavigationStep()
+	local R = ns.CombinedRoute
+	local row = R and R.Target()
+	local ref = row and row.ref or (Own.combinedManual and Own.combinedManual.objective)
+	local raw, i
+	if ref then raw, i = Engine.ResolveObjective(ref) end
+	if raw then
+		use(tabs[i])
+		local v = Engine.GetStepView(ref.step)
+		v.goals, v.current = { v.goals[ref.goal] }, ref.goal
+		useActive()
+		return v, { raw }
+	end
+	if R and R.Enabled() then return { goals = {} }, {} end
+end
+
+function Engine.ClearCombinedManual() Own.combinedManual = nil end
 
 -- Every name below is declared in Forever's API documentation; RegisterEvent
 -- skips any a client build does not know.
@@ -12770,6 +12957,7 @@ function Engine.WantsQuest(verb, questID, span)
 	-- The live step after what just happened: a hand-in that finished the step
 	-- whose next one takes the follow-up the game offers at once.
 	if scheduled then flush() end
+	if ns.CombinedRoute and ns.CombinedRoute.Enabled() then return Engine.CombinedWants(verb, questID) end
 	local found = false
 	for i = 1, #tabs do
 		use(tabs[i])

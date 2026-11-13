@@ -215,6 +215,10 @@ end)
 
 function QoL.CurrentStep()
 	local E = ns.Engine
+	if E and E.NavigationStep then
+		local v, goals = E.NavigationStep()
+		if v then return v, goals end
+	end
 	if not (E and E.GetStepIndex and E.GetStepView) then return nil end
 	local i = E.GetStepIndex()
 	if not i then return nil end

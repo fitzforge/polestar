@@ -46,6 +46,7 @@ end
 -- The compiled guide goal the target was picked from, if any.
 local function goalOf(target)
 	local Engine = ns.Engine
+	if target and target.objective and Engine.ResolveObjective then return Engine.ResolveObjective(target.objective) end
 	local guide = target and target.stepIndex and Engine and Engine.GetGuide and Engine.GetGuide()
 	local step = guide and guide.steps and guide.steps[target.stepIndex]
 	return step and step.goals and step.goals[target.goalIndex] or nil
@@ -265,6 +266,9 @@ local function updateAreas(world, minimap, index, view)
 	local Engine = ns.Engine
 	if not (world or minimap) then view = nil end
 	local guide = view and view.goals and Engine.GetGuide and Engine.GetGuide()
+	local combined = ns.CombinedRoute and ns.CombinedRoute.OwnsNavigation()
+	local selected = combined and Nav.GetTarget()
+	if selected and selected.guideId then guide = ns.Guides.Get(selected.guideId) end
 	local step = guide and guide.steps and guide.steps[index]
 	local ar, ag, ab = Nav.RGB("arrow")
 	local pr, pg, pb = Nav.RGB("place")
@@ -284,7 +288,7 @@ local function updateAreas(world, minimap, index, view)
 		-- The Along the way list's goals (along steps, pinned quests: #644), and
 		-- the While you're here line's once the arrow leads there (before, its
 		-- own layer draws it: updateHere).
-		if Engine.GetAlong and Engine.AlongGoal then
+		if not combined and Engine.GetAlong and Engine.AlongGoal then
 			for _, s in ipairs(Engine.GetAlong()) do
 				for _, v in ipairs(s.goals) do
 					local goal = Engine.AlongGoal(v.step, v.index)
@@ -436,6 +440,25 @@ local function surfaces()
 	return ns.Get("nav.worldPins") and true or false, ns.Get("nav.minimapPins") and true or false
 end
 
+function Layers.UpdateCombined(world)
+	local p = ns.CombinedRoute and ns.CombinedRoute.View()
+	if not p or not world then Pins.ClearLayer("nav.combined"); return end
+	local pins = {}
+	if world and p then
+		for _, row in ipairs(p.rows) do
+			local v = row.view
+			if row.ready and not row.reason and v.map and v.x and v.y then
+				local ref = row.ref
+				pins[#pins + 1] = { map = v.map, x = v.x, y = v.y, f = v.f, label = table.concat(row.titles, ", ") .. ": " .. (v.text or ""),
+					color = color("place"), priority = 10, icon = "map:pin", onClick = function(button)
+						if button == "LeftButton" then ns.Engine.CombinedAction(ref, "aim") end
+					end }
+			end
+		end
+	end
+	Pins.SetLayer("nav.combined", pins, { world = true, minimap = false })
+end
+
 function Layers.Update()
 	local world, minimap = surfaces()
 	-- The step's view, built once for the goals and the areas (a view is
@@ -443,12 +466,18 @@ function Layers.Update()
 	local Engine = ns.Engine
 	local index = (world or minimap) and Engine and Engine.GetStepIndex and Engine.GetStepIndex()
 	local view = index and Engine.GetStepView and Engine.GetStepView(index)
+	local combined = ns.CombinedRoute and ns.CombinedRoute.Enabled()
+	Layers.UpdateCombined(world)
 	updateTarget(world, minimap)
 	updateRoute(world)
-	updateGoals(world, index, view)
+	updateGoals(world, index, not combined and view or nil)
 	updateSpots(world)
+	if combined then
+		view = Engine.NavigationStep()
+		index = view and view.index
+	end
 	updateAreas(world, minimap, index, view)
-	updateHere(world, minimap)
+	updateHere(not combined and world, not combined and minimap)
 	updateTrail(world, minimap)
 end
 
