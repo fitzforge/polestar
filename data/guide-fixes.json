@@ -6605,8 +6605,8 @@
 				"title": "Master Apothecary Faranell",
 				"tip": "With a Lesser Troll's Blood Elixir in your bags, Master Apothecary Faranell offers Elixir of Agony in the Apothecarium; Apothecary Lydon takes the elixir in Tarren Mill."
 			},
-			"when": "has 3388",
-			"note": "Elixir of Agony (515) needs a Lesser Troll's Blood Elixir (item 3388), an Alchemy item no vendor sells. Hillsbrad 30-40's opening Undercity stop offers it in a step of its own, shown only to a character carrying one; the Hillsbrad 22-25 guide no longer takes it (route-fixes pair 1145 -> 515).",
+			"optional": true,
+			"note": "Elixir of Agony (515) needs a Lesser Troll's Blood Elixir (item 3388), an Alchemy item no vendor sells. Hillsbrad 30-40's opening Undercity stop offers it in a step of its own, shown only to a character carrying one (the step's `when has 3388`, a guide line no record form carries: the record makes the accept optional so it never holds the route); the Hillsbrad 22-25 guide no longer takes it (route-fixes pair 1145 -> 515).",
 			"source": [
 				{
 					"kind": "client",
