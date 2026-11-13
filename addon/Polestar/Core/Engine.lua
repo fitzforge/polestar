@@ -3296,11 +3296,12 @@ local function stepDone(s)
 	-- The route passes over an along step (Own.alongListed), a hearth-only
 	-- one (Own.hearthOnly: the arrow's route hearths when it pays), a
 	-- travel step the route flies past (Own.flightPassed), a walk to a stop
-	-- that holds nothing for the character (Own.stopEmpty) and a step under a
-	-- section the player's skill has passed (Own.sectionPassed).
+	-- that holds nothing for the character (Own.stopEmpty), a walk to a boat
+	-- or zeppelin the player is already across (Own.alreadyAcross) and a step
+	-- under a section the player's skill has passed (Own.sectionPassed).
 	if guide.steps[s].along or Own.hearthOnly(guide.steps[s]) or Own.sectionPassed(s) then return true end
 	if Own.groupPending(guide.steps[s]) then return false end -- waits for the player's answer
-	return Own.goalsDone(s) or Own.flightPassed(s) or Own.stopEmpty(s)
+	return Own.goalsDone(s) or Own.flightPassed(s) or Own.stopEmpty(s) or Own.alreadyAcross(s)
 end
 
 -- `when done <label>` (format 5): the step so labelled applies and its goals
@@ -3828,8 +3829,9 @@ end
 
 -- Store the live-done latchable goals of steps from..to (steps the route has
 -- just moved past), and whether their `when` held (Own.latchWhen). A travel
--- step the route passed for the planner's flight (Own.flightPassed) has its
--- walk and flight latched too: they are behind the player once the route
+-- step the route passed for the planner's flight (Own.flightPassed), or a
+-- walk to a crossing the player was already across (Own.alreadyAcross), has
+-- its walk and flight latched too: they are behind the player once the route
 -- moves on, even after that flight lands and nothing flies on any more
 -- (#1768: the walk up to Thunder Bluff opened again on landing in Camp
 -- Taurajo, and the flight to Camp Taurajo again back in Thunder Bluff).
@@ -3839,7 +3841,7 @@ local function latchPassed(from, to)
 		local step = steps[s]
 		Own.latchWhen(s)
 		if stepApplies(step) then
-			local flown = not Own.goalsDone(s) and Own.flightPassed(s)
+			local flown = not Own.goalsDone(s) and (Own.flightPassed(s) or Own.alreadyAcross(s))
 			for g, goal in ipairs(step.goals) do
 				if latchable(goal) and goalApplies(goal) and not checked(s, g)
 					and (goalDone(s, g, goal) or (flown and (goal.t == "goto" or goal.t == "fly"))) then
@@ -9099,6 +9101,47 @@ function Own.stopEmpty(s)
 		end
 	end
 	return false
+end
+
+-- The continent of step n's first open goal with a place (a flight's: its
+-- flight master's goto, else its landing), or nil.
+function Own.stepContinent(n)
+	local C = Compat()
+	for g, goal in ipairs(guide.steps[n].goals) do
+		if blocks(goal) and goalApplies(goal) and not unavailableFor(goal) and not goalDone(n, g, goal) then
+			if goal.t == "fly" then
+				local node = ns.Nav and ns.Nav.GetTaxiNode and ns.Nav.GetTaxiNode(goal.node)
+				if node and node.c then return node.c end
+			else
+				local map, x, y, f = posOf(goal)
+				local c = map and x and y and C.MapToWorld(map, x, y, f)
+				if c then return c end
+			end
+		end
+	end
+	return nil
+end
+
+-- A walk to a boat or a zeppelin the player is already past (#1971, #1978):
+-- walk step s (gotos alone for the character, as written and still open)
+-- ends on another continent than the step the route goes on to after it
+-- (Own.travelOnto), and the player stands on that step's continent. Such a
+-- walk is written for a player coming from where the previous guide ends
+-- (Thousand Needles & Desolace opens at the Undercity's zeppelin to
+-- Orgrimmar); one who loaded the guide on the far side was sent across and
+-- back: from Freewind Post to the Undercity's tower, and on the zeppelin back
+-- to Orgrimmar. It passes whether the planner leads or not, once the quest
+-- log can be read (work would read done before). The route latches its
+-- gotos as it moves past (latchPassed), so crossing back later in the guide
+-- never reopens it.
+function Own.alreadyAcross(s)
+	if not (logReady and guide) then return false end
+	if Own.writtenTravel(guide.steps[s]) ~= "walk" or Own.transitKind(s) ~= "walk" then return false end
+	local ends = Own.transitContinent(s, true)
+	local n = Own.travelOnto(s)
+	local there = n and Own.stepContinent(n)
+	if not (ends and there) or there == ends then return false end
+	return Compat().GetPlayerWorldPosition() == there
 end
 
 -- The route reached flight step s (computeCurrent): judge it once against

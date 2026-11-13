@@ -63,6 +63,8 @@ mod engine;
 mod engine_abandon_destroy;
 #[path = "engine-aim-accept-first.rs"]
 mod engine_aim_accept_first;
+#[path = "engine-already-across.rs"]
+mod engine_already_across;
 #[path = "engine-along.rs"]
 mod engine_along;
 #[path = "engine-alt-start.rs"]
