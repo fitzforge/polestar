@@ -2906,6 +2906,17 @@ test('Horde 40-50/06: the level 50 top-up comes after the Azshara hand-ins, not 
 	assert.ok(fly > grind && march > fly, 'the grind is the last thing before the flight to Orgrimmar and March of the Silithid');
 });
 
+test('Horde 40-50: grind tips name a dungeon only when its run is in the same or the next guide on that continent', { skip }, () => {
+	// The dungeons-in-the-route rule (0.4.0): Uldaman and Maraudon have no run in the route; the Sunken Temple's is in
+	// 50-60/01, two guides after 40-50/05; Zul'Farrak's is in 40-50/04, right after 40-50/03.
+	for (const n of ['01-stranglethorn-vale', '03-feralas', '05-the-hinterlands', '06-azshara']) {
+		const text = compiled(H40(n)).steps.flatMap((st) => [st.tip, st.note]).flat().filter(Boolean).join(' ');
+		for (const d of ['Uldaman', 'Maraudon', 'Sunken Temple']) assert.ok(!new RegExp(`run the ${d} dungeon`).test(text), `${n}: no "run the ${d} dungeon" tip`);
+	}
+	const feralas = compiled(H40('03-feralas')).steps.flatMap((st) => [st.tip]).flat().filter(Boolean).join(' ');
+	assert.ok(/run the Zul'Farrak dungeon/.test(feralas), "03 still offers Zul'Farrak, run in 40-50/04");
+});
+
 // The goals the stray rule moved, checked against their steps (#175 review): the
 // Grizzled Scalps are taken where the bears are, and cloth the guide says to buy
 // leads to the Auction House, not to the guards and mobs that happen to drop it.

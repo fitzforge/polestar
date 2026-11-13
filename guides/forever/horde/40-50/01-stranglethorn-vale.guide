@@ -221,7 +221,7 @@ step Nesingwary's camp
   accept 193
 
 step Zul'Kunda
-  tip West of the expedition, the Bloodscalp chiefs Gan'zulah and Nezzliok stand together in the ruins of Zul'Kunda. Clear their guards first, then pull them. Stay on the Bloodscalps here until level 41: Speaking with Gan'zulah, at the cauldron next, sends you to Skullsplitters of 41-43. Or, with a group, run the Uldaman dungeon instead.
+  tip West of the expedition, the Bloodscalp chiefs Gan'zulah and Nezzliok stand together in the ruins of Zul'Kunda. Clear their guards first, then pull them. Stay on the Bloodscalps here until level 41: Speaking with Gan'zulah, at the cauldron next, sends you to Skullsplitters of 41-43.
   collect 3904 quest 584.1
   collect 2007 quest 95748.1 @23.0,12.0 map 1434 -- from the Fall of Gurubashi, in the ruins
   collect 3905 quest 584.2
@@ -395,7 +395,7 @@ step Hemet Nesingwary
 
 step Level 42.68
   when level<42.68
-  tip If you skipped Panther Mastery or Raptor Mastery, grind here to level 42.68 to stay on the route's plan. Or, with a group, run the Uldaman dungeon instead.
+  tip If you skipped Panther Mastery or Raptor Mastery, grind here to level 42.68 to stay on the route's plan.
   goto 42.5,35.7 map 1434 "Skullsplitter Warrior"
   level 42.68 grind 667                -- grind on Skullsplitter Warrior
 
@@ -412,7 +412,7 @@ step Hemet Nesingwary
 step Level 42.74
   when !group 208
   when level<42.74
-  tip If you skipped Big Game Hunter, grind here to level 42.74 to stay on the route's plan. Or, with a group, run the Uldaman dungeon instead.
+  tip If you skipped Big Game Hunter, grind here to level 42.74 to stay on the route's plan.
   goto 42.5,35.7 map 1434 "Skullsplitter Warrior"
   level 42.74 grind 667                -- grind on Skullsplitter Warrior
 
