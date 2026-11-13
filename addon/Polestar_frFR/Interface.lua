@@ -4105,6 +4105,13 @@ L["Show in quest log"] = "Afficher dans le journal des quêtes"
 L["Needed for %s in %s"] = "Requis pour %s dans %s"
 L["Part of the %s quests"] = "Fait partie des quêtes de %s"
 
+-- UI/SearchDropdown.lua
+-- L["Go to page: %s"] = ""
+-- L["Tab: %s"] = ""
+-- L["Section: %s"] = ""
+-- L["See 1 result"] = ""
+-- L["See all %d results"] = ""
+
 -- No longer in the code (its English changed or it went away): reuse or delete.
 -- L["Alliance"] = "Alliance"
 -- L["Blood Elf"] = "Elfe de sang"
