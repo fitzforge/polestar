@@ -56,9 +56,11 @@ const pkg = (run, key) => {
 
 // ---------------------------------------------------------------- formulas
 
-test('quest XP reduction steps: 100% to +5, then 80/60/40/20/10%', () => {
+// Forever's payout above a quest's level in players' recordings (55,838 turn-ins; the table by levels
+// over is in forge-sim's xp::SHARE test): 1.00 at +5, 0.80 at +6, 0.60 at +7, 0.50 from +8 to +16 and over.
+test('quest XP reduction steps: 100% to +5, 80% at +6, 60% at +7, then 50% from +8 on', () => {
 	const share = (d) => xp.questXpShare(10 + d, 10);
-	assert.deepEqual([-3, 0, 5, 6, 7, 8, 9, 10, 15].map(share), [1, 1, 1, 0.8, 0.6, 0.4, 0.2, 0.1, 0.1]);
+	assert.deepEqual([-3, 0, 5, 6, 7, 8, 9, 10, 15].map(share), [1, 1, 1, 0.8, 0.6, 0.5, 0.5, 0.5, 0.5]);
 	assert.equal(xp.questXpAt(1000, 17, 10), 600);
 });
 

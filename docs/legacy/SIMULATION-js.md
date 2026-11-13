@@ -521,7 +521,8 @@ guides may fail it), never impossible by construction.
   breadcrumbs (no objectives, talk to someone) low, normal kill/collect quests
   middle, chain ends, escorts and group quests high; recorded quest XP
   (quests.json `xp`) overrides the estimate. Reduced by level difference:
-  100% up to quest level + 5, then 80/60/40/20/10%.
+  100% up to quest level + 5, 80% at 6 over, 60% at 7, then 50% from 8 over
+  on (what Forever pays, from players' recordings).
 - Kill XP: the Classic mob formula (45 + 5 × level, ±5% per level of
   difference above, zero-difference table below, nothing for grey), elites ×2,
   rested XP optional.

@@ -42,7 +42,7 @@ const { MOBL, K_ACCEPT, K_TASK, K_TURNIN, K_GRIND, K_DUNGEON, W_KILL, W_USE, W_E
 const { LEVEL_XP, mobXp } = require('../game/xp');
 
 const SHARE = new Float64Array(64);
-for (let d = 0; d < 64; d++) SHARE[d] = d <= 5 ? 1 : d >= 10 ? 0.1 : [0.8, 0.6, 0.4, 0.2][d - 6];
+for (let d = 0; d < 64; d++) SHARE[d] = d <= 5 ? 1 : d >= 8 ? 0.5 : [0.8, 0.6][d - 6];
 
 // Journal array ids
 const J_DONE = 0;
