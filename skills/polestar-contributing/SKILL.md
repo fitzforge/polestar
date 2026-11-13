@@ -120,6 +120,7 @@ pull request and tells you if anything else broke.
   `_about`) and a note saying how the fact was checked, in your own words; never copy or cite a website.
 - **No reference data?** `data/forever/` is built on the contributor's machine from the game client and is not in the repository. If you cannot build it, say in the pull request which checks you could not run. Never claim a check passed that you did not run, and never invent quest ids, coordinates or NPC names.
 - **Commits**: one change per commit. The message describes the change for the players or authors it affects ("Westfall: turn in at Sentinel Hill before the farms"), not how it was made.
+- **Public text**: commit messages, branch names and pull request text are public for good. They name no other guide product and never say a route was compared with, follows or matches another guide; drop the clause, never swap in another word. Turn on the commit-msg and pre-push hooks once per clone (`git config core.hooksPath tools/hooks`); the *Public text* check reads every pull request (CONTRIBUTING.md, "Commits and pull requests").
 - **Changelog**: never edit CHANGELOG.md. Add a fragment and check it:
 
   ```sh

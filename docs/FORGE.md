@@ -188,7 +188,7 @@ A new Forge may change what a stage writes; the stages it affects run again on t
    | `--allow-incomplete` | build the walking grid even when the install lacks files ([Troubleshooting](#troubleshooting)) |
    | `--no-questie` | build the data without QuestieDB. Without this flag the build stops when no client's AddOns folder holds QuestieDB's Forever store (the live `_forever_` client first, then a `_classic_beta_` one, a test install under `~/Games/*/World of Warcraft`, any other client; `$WOW_FOREVER_ADDONS` names one): without it about a sixth of the quests are missing |
    | `--accept-fewer-quests` | take a data build with over 5% fewer quests than the previous build's (else the build stops, naming the missing quests by source) |
-   | `--forever-tables saved\|client\|wago` | where the data stage reads the Forever client tables (zones, map frames, races, factions, items). Always at the build the walking grid was built from (its `index.json`), never whatever client is installed: `saved` (default) reads the copy under `data/sources/client-tables/<build>/`; `client` refreshes that copy from the installed client (`wow_classic_beta` or `wowf` at the grid's build) and reads it; `wago` reads the wago.tools cache `data/sources/wago/<build>/`. The build log names the source and build. Tables missing for the grid's build stop the build |
+   | `--forever-tables saved\|client\|wago` | where the data stage reads the Forever client tables (zones, map frames, races, factions, items). Always at the build the walking grid was built from (its `index.json`), never whatever client is installed: `saved` (default) reads the copy under `data/sources/client-tables/<build>/`; `client` refreshes that copy from the installed client (`wowf`, else the old beta `wow_classic_beta`, at the grid's build) and reads it; `wago` reads the wago.tools cache `data/sources/wago/<build>/`. The build log names the source and build. Tables missing for the grid's build stop the build |
    | `--allow-build-mismatch` | take Forever tables of another build than the grid's (the newest saved or cached, or the installed client's) instead of stopping; the log warns |
    | `--until data\|walks` | stop after the data stage, or after the walks stage |
    | `--nav grid\|leffe\|hybrid` | which walking maps price the walks ([Leffe's navigation maps](#leffes-navigation-maps)) |
@@ -244,9 +244,11 @@ first of:
 `forge doctor` prints which one it used and every other install it found;
 `forge doctor --forget` clears the remembered folder.
 
-One install can hold several builds (the live game, the beta). Forge reads the Forever client
-(`wow_classic_beta`) at the build installed now; the reference data records that build, and
-`forge doctor` lists each build with its version. The data builders that take a build
+One install can hold several builds (the live game, Classic, Forever). Forge reads the Forever
+client: the live product `wowf` (folder `_forever_`), or the old beta product `wow_classic_beta`
+(folder `_classic_beta_`) when no `wowf` is installed, at the build installed now; the reference
+data records that build, and `forge doctor` lists each build with its version and marks the one it
+reads. The data builders that take a build
 (`forge data build --forever-build <version>`) refuse a version other than the installed one,
 because the files on disk are that version's.
 

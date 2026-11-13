@@ -582,7 +582,7 @@ impl Walker {
 		let gen = sc.gen;
 		let mut best: Vec<f64> = vec![f64::INFINITY; goals.len()];
 		let mut at: Vec<Option<(u32, usize)>> = vec![None; goals.len()]; // (node, goal seed)
-																   // goal node -> [(goal, goal seed)]
+																		 // goal node -> [(goal, goal seed)]
 		let mut by_node: FxHashMap<u32, Vec<(usize, usize)>> = FxHashMap::default();
 		for (gi, l) in goals.iter().enumerate() {
 			for (k, &x) in l.nodes.iter().enumerate() {

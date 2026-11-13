@@ -305,6 +305,7 @@ L["It also spawns here"] = "它也会在此刷新"
 L["Click to search here next"] = "点击下次在此搜索"
 L["Travel route, step %s"] = "旅行路线，步骤 %s"
 L["Click to point the arrow here"] = "点击让箭头指向此处"
+L["Checked recently"] = "最近查看过"
 
 -- Nav/Transit.lua
 L["top"] = "顶部"
@@ -987,7 +988,6 @@ L["Click objectives to target"] = "点击任务目标以选中"
 L["Clicking an objective row or NPC heading also targets its NPC outside combat, using the same marking settings as the Target button. This replaces your current target; a failed search clears it."] = "在战斗外点击任务目标行或 NPC 标题时，也会选中该 NPC，并使用与目标按钮相同的标记设置。这会替换你当前的目标；搜索失败时会清除目标。"
 L["The target button and the step key put a raid icon on the mob and the NPC they target; out of combat, a press that finds neither clears your target. Pressing again never takes an icon off. In a party you don't lead, only a unit with no icon gets one; in a raid, only when you lead or assist."] = "目标按钮和步骤快捷键会给选中的怪物或 NPC 加上团队标记；非战斗状态下，若按下后未找到目标，则清除当前目标。再次按下不会移除标记。在你不是队长的小队中，只给尚无标记的单位加标记；在团队中，仅当你是团长或助理时才会标记。"
 L["Ping what they target"] = "对所选目标发送信号"
-L["The target button and the step key ping the mob they target, so your group sees it behind rocks and buildings. Never in a raid unless you lead or assist. The rare buttons always ping."] = "目标按钮和步骤快捷键会对所选中的怪物发送信号，让队友隔着岩石和建筑也能看到它。团队中只有团长或助理才会发送。稀有怪按钮总是会发送信号。"
 L["Show quest-starting loot"] = "显示开始任务的战利品"
 L["When you loot an item that starts a quest you can take, it goes on the quest item button with a glow until you click it or take the quest. The step's own item comes first; several wait their turn, oldest first."] = "拾取可开始一个你能接取的任务的物品时，它会带着闪光出现在任务物品按钮上，直到你点击它或接取该任务。当前步骤自己的物品优先；有多个时按先后顺序排队，最早的在前。"
 L["Track only dungeon quests in dungeons"] = "在地下城中只追踪地下城任务"
@@ -1016,6 +1016,7 @@ L["Travel button under the arrow"] = "箭头下方的旅行按钮"
 -- L["Game options"] = ""
 -- L["Increase game image quality"] = ""
 -- L["Sharpens the game's image. Most noticeable when Render Scale is below 100%. This is a game setting: it stays until you turn it off here or in the console."] = ""
+-- L["The target button and the step key ping the mob or NPC they target, so your group sees it behind rocks and buildings. Never in a raid unless you lead or assist. The rare buttons always ping."] = ""
 
 -- Lookup/Sources.lua
 L["Alliance only"] = "仅限联盟"
@@ -1220,6 +1221,7 @@ L["%s and %d more"] = "%s等另外 %d 个"
 L["Skipping also skips: %s"] = "跳过后也会跳过：%s"
 L["Keep this: you hand it in later in %s"] = "保留此任务：稍后在%s中交还"
 L["Keep this: a later guide hands it in"] = "保留此任务：之后的指南会交还"
+L["%d known places: the arrow leads to each in turn"] = "已知 %d 处地点：箭头会依次带你前往"
 
 -- UI/GuideFrame.lua
 L["Location"] = "位置"
@@ -1861,6 +1863,10 @@ L["Guides by other players, installed like any addon. They show under Community 
 L["A few choices to start with. Everything else is in %s."] = "先做几个选择。其他设置都在%s中。"
 L["Route line"] = "路线线条"
 L["How the way to your goal shows on the world map and the minimap. The line is the easiest to follow; sparkles show as dots while Reduce motion is on."] = "通往目标的路线在地图和微缩地图上的显示方式。线条最容易跟随；开启“减少动效”时，闪光显示为圆点。"
+-- L["Mark what the target button finds"] = ""
+-- L["A skull on the enemy, a star on the friendly NPC. In a group it never takes another player's icon."] = ""
+-- L["Ping it for my group"] = ""
+-- L["Your group sees what the target button and the step key found, even behind rocks and buildings."] = ""
 
 -- UI/Copy.lua
 L["Selected for you: copy it with Ctrl+C (Cmd+C on a Mac), then press Escape."] = "已为你选中：按 Ctrl+C（Mac 上为 Cmd+C）复制，然后按 Esc。"
@@ -4102,6 +4108,13 @@ L["Show in quest log"] = "在任务日志中显示"
 L["Needed for %s in %s"] = "%s所需（位于%s）"
 L["Part of the %s quests"] = "%s任务之一"
 
+-- UI/SearchDropdown.lua
+-- L["Go to page: %s"] = ""
+-- L["Tab: %s"] = ""
+-- L["Section: %s"] = ""
+-- L["See 1 result"] = ""
+-- L["See all %d results"] = ""
+
 -- No longer in the code (its English changed or it went away): reuse or delete.
 -- L["Shortest Path Forever is guiding. Turn off \"Guide with Shortest Path Forever when it's installed\" (Options, Arrow & routes) to use Polestar's arrow."] = "Shortest Path Forever 正在导航。要使用 Polestar 的箭头，请关闭“安装 Shortest Path Forever 时由其导航”（选项 > 箭头与路线）。"
 -- L["Shortest Path Forever is guiding. Turn off \"Guide with Shortest Path Forever when it's installed\" (Options, Integrations) to use Polestar's arrow."] = "Shortest Path Forever 正在导航。要使用 Polestar 的箭头，请关闭\"安装 Shortest Path Forever 时由其导航\"（选项，整合）。"
@@ -4276,3 +4289,4 @@ L["Part of the %s quests"] = "%s任务之一"
 -- L["Auto-learn new spells"] = "自动学习新法术"
 -- L["Automatically learns every spell a class trainer offers that you can afford, and prints the total. Profession trainers are left alone. Hold Shift to skip."] = "自动学习职业训练师提供且你买得起的所有法术，并显示总花费。不处理专业训练师。按住 Shift 跳过。"
 -- L["A level-up card lists what to train; %s learns it (thanks RikyZ90); %s updates your bars."] = "升级卡片列出可学的法术；%s一次学完（感谢 RikyZ90）；%s把新等级放上动作条。"
+-- L["The target button and the step key ping the mob they target, so your group sees it behind rocks and buildings. Never in a raid unless you lead or assist. The rare buttons always ping."] = "目标按钮和步骤快捷键会对所选中的怪物发送信号，让队友隔着岩石和建筑也能看到它。团队中只有团长或助理才会发送。稀有怪按钮总是会发送信号。"

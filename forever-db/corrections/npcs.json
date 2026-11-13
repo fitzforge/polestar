@@ -750,7 +750,7 @@
 			"kind": "tdb",
 			"ref": "creature guid 21101604, map 2991 (3088.4, 1084.6)"
 		},
-		"note": "Zaal Stormshield (npc 257196), who drops the Skybreaker Bulwark for the Skyborne Warrior quest (94003), stands on the west side of the Shrine of Akir at Zephras Isle 56.66,50.4 (map 2521): the world database spawn converted with Seena Skybreaker and Sessaria Skystride as reference points. Our merged data had 36.05,33.53, far to the north-west. Replaces the map's points."
+		"note": "Zaal Stormshield (npc 257196), who drops the Skybreaker Bulwark for the Skyborne Warrior quest (94003), stands on the west side of the Shrine of Akir at Zephras Isle 56.66,50.4 (map 2521): the world database spawn placed on the map with Seena Skybreaker and Sessaria Skystride as reference points. Our merged data had 36.05,33.53, far to the north-west. Replaces the map's points."
 	},
 	"259385": {
 		"set": {
@@ -1205,64 +1205,64 @@
 		"note": "Warcaller Gorlach, giver of Camp Mojache (7492), walks the Valley of Strength and the streets off it. The merged data had him at 37.68,75.16, 170 yd from his spawn and outside his walk, so the arrow led where no player met him and his goal got no walk circle (IngestCheck036, position sweep). His spawn is the game's own."
 	},
 	"4967": {
-		"addSpawns": {
-			"1445": {
-				"f": "e",
-				"pts": [
-					[
-						66.42,
-						49.26
-					],
-					[
-						59.7,
-						41.2
-					],
-					[
-						45.2,
-						24.4
+		"set": {
+			"spawns": {
+				"1445": {
+					"f": "e",
+					"pts": [
+						[
+							66.42,
+							49.26
+						]
 					]
-				]
+				}
 			}
 		},
 		"source": [
 			{
 				"kind": "recording",
-				"ref": "players' recordings, all addon versions: The Missing Diplomat 1265 handed in to him at Sentry Point (59.69-59.71,41.17-41.22) by 4 of 4 people (20261107T230704Z-0508863063f76280, 20261108T160150Z-de3dc8531bec2328, 20261109T021334Z-c8c643866e0796f3, 20261109T192734Z-4f169629ddd9bab0) and 1324 beside North Point Tower (45.19-45.22,24.37-24.38) by 3 of 3; moused over at North Point before Private Hendel's fight in 3 sessions"
+				"ref": "players' in-game recordings to 2026-11-12: Shadowshard Fragments (7070) taken from him in Theramore's tower (66.35-66.4,49.26-49.32) by 3 people with no part of The Missing Diplomat in their log; the 2 who took it at Sentry Point (59.7,41.2) and North Point Tower (45.19,24.37) were on that chain. The Missing Diplomat 1265 handed in to him at Sentry Point by 4 of 4 people, 1324 beside North Point Tower by 3 of 3, all on the chain"
+			},
+			{
+				"kind": "in-game-check",
+				"ref": "#1992 and #2007: two players at North Point Tower, neither on The Missing Diplomat, found nobody there and marked him in Theramore's tower (66.39-66.40,49.24-49.25)"
 			},
 			{
 				"kind": "questie",
-				"ref": "npcs.json 4967: one spawn, 66.42,49.26 (Theramore's tower), kept"
+				"ref": "npcs.json 4967: one spawn, 66.42,49.26 (Theramore's tower)"
 			}
 		],
-		"note": "Archmage Tervosh stands at three places in Dustwallow Marsh: in Theramore's tower (the merged data's only spawn), at the foot of Sentry Point's tower and beside North Point Tower, where players hand him The Missing Diplomat (1265, 1324); Forever's NPC page lists the same three. Without the two outer spots the guide's hand-ins there drew lint warnings and the arrow could only lead to Theramore (position sweep, IngestCheck036)."
+		"note": "Archmage Tervosh stands in Theramore's tower. He shows at the foot of Sentry Point's tower and beside North Point Tower only to players on The Missing Diplomat, who hand him 1265 and 1324 there; those two spots were his spawns too, so the Maraudon pick-up guide sent everyone to North Point Tower for Shadowshard Fragments (#1992, #2007). The chain's own steps keep their spots (data/places.json, the Stranglethorn Vale guide's explicit coordinates); his spawn is the tower in Theramore only."
 	},
 	"4968": {
-		"addSpawns": {
-			"1445": {
-				"f": "e",
-				"pts": [
-					[
-						66.27,
-						49.04
-					],
-					[
-						45.2,
-						24.3
+		"set": {
+			"spawns": {
+				"1445": {
+					"f": "e",
+					"pts": [
+						[
+							66.27,
+							49.04
+						]
 					]
-				]
+				}
 			}
 		},
 		"source": [
 			{
 				"kind": "recording",
-				"ref": "players' recordings, all addon versions: The Missing Diplomat 1267 handed in to her beside North Point Tower (45.21-45.24,24.30-24.31) by 3 of 3 people (20261108T160150Z-de3dc8531bec2328, 20261109T021334Z-c8c643866e0796f3, 20261109T192734Z-4f169629ddd9bab0); moused over there before Private Hendel's fight in 4 sessions"
+				"ref": "players' in-game recordings to 2026-11-12: The Missing Diplomat 1267 handed in to her beside North Point Tower (45.21-45.24,24.30-24.31) by 3 of 3 people, all on that chain"
+			},
+			{
+				"kind": "in-game-check",
+				"ref": "#1992 and #2007: Archmage Tervosh, who stands beside her there, shows at North Point Tower only to players on The Missing Diplomat"
 			},
 			{
 				"kind": "questie",
-				"ref": "npcs.json 4968: one spawn, 66.27,49.04 (Theramore's tower), kept"
+				"ref": "npcs.json 4968: one spawn, 66.27,49.04 (Theramore's tower)"
 			}
 		],
-		"note": "Lady Jaina Proudmoore stands in Theramore's tower (the merged data's only spawn) and beside North Point Tower, where players hand her The Missing Diplomat (1267); Forever's NPC page lists both. Without the second spot the guide's hand-in there drew a lint warning."
+		"note": "Lady Jaina Proudmoore stands in Theramore's tower. Beside North Point Tower she shows, with Archmage Tervosh, only to players on The Missing Diplomat, who hand her 1267 there; that spot stays on the chain's own step (data/places.json, the Stranglethorn Vale guide's explicit coordinates), not among her spawns, so nothing else sends players to North Point Tower for her."
 	},
 	"5814": {
 		"set": {
@@ -1990,7 +1990,7 @@
 		"source": [
 			{
 				"kind": "tdb",
-				"ref": "Forever's world DB (forever-tdb, 2026-11-10 build): creature_template 13418, no creature spawn"
+				"ref": "Forever's world DB (2026-11-10 build): creature_template 13418, no creature spawn"
 			},
 			{
 				"kind": "cmangos",
@@ -2010,7 +2010,7 @@
 		"source": [
 			{
 				"kind": "tdb",
-				"ref": "Forever's world DB (forever-tdb, 2026-11-10 build): creature_template 13420, no creature spawn"
+				"ref": "Forever's world DB (2026-11-10 build): creature_template 13420, no creature spawn"
 			},
 			{
 				"kind": "cmangos",
@@ -2030,7 +2030,7 @@
 		"source": [
 			{
 				"kind": "tdb",
-				"ref": "Forever's world DB (forever-tdb, 2026-11-10 build): creature_template 13429, no creature spawn"
+				"ref": "Forever's world DB (2026-11-10 build): creature_template 13429, no creature spawn"
 			},
 			{
 				"kind": "cmangos",
@@ -2050,7 +2050,7 @@
 		"source": [
 			{
 				"kind": "tdb",
-				"ref": "Forever's world DB (forever-tdb, 2026-11-10 build): creature_template 13430, no creature spawn"
+				"ref": "Forever's world DB (2026-11-10 build): creature_template 13430, no creature spawn"
 			},
 			{
 				"kind": "cmangos",
@@ -2070,7 +2070,7 @@
 		"source": [
 			{
 				"kind": "tdb",
-				"ref": "Forever's world DB (forever-tdb, 2026-11-10 build): creature_template 13432, no creature spawn"
+				"ref": "Forever's world DB (2026-11-10 build): creature_template 13432, no creature spawn"
 			},
 			{
 				"kind": "cmangos",
@@ -2090,7 +2090,7 @@
 		"source": [
 			{
 				"kind": "tdb",
-				"ref": "Forever's world DB (forever-tdb, 2026-11-10 build): creature_template 13433, no creature spawn"
+				"ref": "Forever's world DB (2026-11-10 build): creature_template 13433, no creature spawn"
 			},
 			{
 				"kind": "cmangos",
@@ -2110,7 +2110,7 @@
 		"source": [
 			{
 				"kind": "tdb",
-				"ref": "Forever's world DB (forever-tdb, 2026-11-10 build): creature_template 13434, no creature spawn"
+				"ref": "Forever's world DB (2026-11-10 build): creature_template 13434, no creature spawn"
 			},
 			{
 				"kind": "cmangos",
@@ -2130,7 +2130,7 @@
 		"source": [
 			{
 				"kind": "tdb",
-				"ref": "Forever's world DB (forever-tdb, 2026-11-10 build): creature_template 13435, no creature spawn"
+				"ref": "Forever's world DB (2026-11-10 build): creature_template 13435, no creature spawn"
 			},
 			{
 				"kind": "cmangos",
@@ -2150,7 +2150,7 @@
 		"source": [
 			{
 				"kind": "tdb",
-				"ref": "Forever's world DB (forever-tdb, 2026-11-10 build): creature_template 13436, no creature spawn"
+				"ref": "Forever's world DB (2026-11-10 build): creature_template 13436, no creature spawn"
 			},
 			{
 				"kind": "cmangos",
@@ -2170,7 +2170,7 @@
 		"source": [
 			{
 				"kind": "tdb",
-				"ref": "Forever's world DB (forever-tdb, 2026-11-10 build): creature_template 14480, no creature spawn"
+				"ref": "Forever's world DB (2026-11-10 build): creature_template 14480, no creature spawn"
 			},
 			{
 				"kind": "cmangos",
@@ -2190,7 +2190,7 @@
 		"source": [
 			{
 				"kind": "tdb",
-				"ref": "Forever's world DB (forever-tdb, 2026-11-10 build): creature_template 14481, no creature spawn"
+				"ref": "Forever's world DB (2026-11-10 build): creature_template 14481, no creature spawn"
 			},
 			{
 				"kind": "cmangos",
@@ -2210,7 +2210,7 @@
 		"source": [
 			{
 				"kind": "tdb",
-				"ref": "Forever's world DB (forever-tdb, 2026-11-10 build): creature_template 15011, no creature spawn"
+				"ref": "Forever's world DB (2026-11-10 build): creature_template 15011, no creature spawn"
 			},
 			{
 				"kind": "cmangos",
@@ -2230,7 +2230,7 @@
 		"source": [
 			{
 				"kind": "tdb",
-				"ref": "Forever's world DB (forever-tdb, 2026-11-10 build): creature_template 15012, no creature spawn"
+				"ref": "Forever's world DB (2026-11-10 build): creature_template 15012, no creature spawn"
 			},
 			{
 				"kind": "cmangos",
@@ -2254,7 +2254,7 @@
 		"source": [
 			{
 				"kind": "tdb",
-				"ref": "Forever's world DB (forever-tdb, 2026-11-10 build): creature_template 15197, no creature spawn"
+				"ref": "Forever's world DB (2026-11-10 build): creature_template 15197, no creature spawn"
 			},
 			{
 				"kind": "cmangos",
@@ -2274,7 +2274,7 @@
 		"source": [
 			{
 				"kind": "tdb",
-				"ref": "Forever's world DB (forever-tdb, 2026-11-10 build): creature_template 15199, no creature spawn"
+				"ref": "Forever's world DB (2026-11-10 build): creature_template 15199, no creature spawn"
 			},
 			{
 				"kind": "cmangos",
@@ -2294,7 +2294,7 @@
 		"source": [
 			{
 				"kind": "tdb",
-				"ref": "Forever's world DB (forever-tdb, 2026-11-10 build): creature_template 15353, no creature spawn"
+				"ref": "Forever's world DB (2026-11-10 build): creature_template 15353, no creature spawn"
 			},
 			{
 				"kind": "cmangos",
@@ -2314,7 +2314,7 @@
 		"source": [
 			{
 				"kind": "tdb",
-				"ref": "Forever's world DB (forever-tdb, 2026-11-10 build): creature_template 15354, no creature spawn"
+				"ref": "Forever's world DB (2026-11-10 build): creature_template 15354, no creature spawn"
 			},
 			{
 				"kind": "cmangos",
@@ -2334,7 +2334,7 @@
 		"source": [
 			{
 				"kind": "tdb",
-				"ref": "Forever's world DB (forever-tdb, 2026-11-10 build): creature_template 15734, no creature spawn"
+				"ref": "Forever's world DB (2026-11-10 build): creature_template 15734, no creature spawn"
 			},
 			{
 				"kind": "cmangos",
@@ -2354,7 +2354,7 @@
 		"source": [
 			{
 				"kind": "tdb",
-				"ref": "Forever's world DB (forever-tdb, 2026-11-10 build): creature_template 15736, no creature spawn"
+				"ref": "Forever's world DB (2026-11-10 build): creature_template 15736, no creature spawn"
 			},
 			{
 				"kind": "cmangos",
@@ -2374,7 +2374,7 @@
 		"source": [
 			{
 				"kind": "tdb",
-				"ref": "Forever's world DB (forever-tdb, 2026-11-10 build): creature_template 15864, no creature spawn"
+				"ref": "Forever's world DB (2026-11-10 build): creature_template 15864, no creature spawn"
 			},
 			{
 				"kind": "cmangos",
@@ -2394,7 +2394,7 @@
 		"source": [
 			{
 				"kind": "tdb",
-				"ref": "Forever's world DB (forever-tdb, 2026-11-10 build): creature_template 15898, no creature spawn"
+				"ref": "Forever's world DB (2026-11-10 build): creature_template 15898, no creature spawn"
 			},
 			{
 				"kind": "cmangos",
@@ -2414,7 +2414,7 @@
 		"source": [
 			{
 				"kind": "tdb",
-				"ref": "Forever's world DB (forever-tdb, 2026-11-10 build): creature_template 15909, no creature spawn"
+				"ref": "Forever's world DB (2026-11-10 build): creature_template 15909, no creature spawn"
 			},
 			{
 				"kind": "cmangos",
@@ -2450,5 +2450,138 @@
 			}
 		],
 		"note": "The Alliance Brigadier General also stands at Northwatch Hold, beside the Darkspear Islands portal, where players hand him their marks. The merged data had no spot for him in the Barrens, so the Darkspear Islands guide sent players to Refuge Pointe. Adds the Barrens map; his other spots stay."
+	},
+	"43408": {
+		"set": {
+			"roles": [
+				"stablemaster"
+			]
+		},
+		"source": [
+			{
+				"kind": "questie",
+				"ref": "QuestieDB 1.0.16 npc 43408: subName \"Stable Master\""
+			},
+			{
+				"kind": "factoruide",
+				"ref": "Factoruide npc 43408: subName \"Stable Master\""
+			},
+			{
+				"kind": "tdb",
+				"ref": "creature_template npcflag 4194433 for entry 43408: the stable master flag (0x400000)"
+			}
+		],
+		"note": "Aili Greenwillow is a stable master (the title under the name reads \"Stable Master\"), but the merged data had no stable master role for this Forever NPC, so Nearby's stable master search passed over it and named one on another continent (#2010)."
+	},
+	"256410": {
+		"set": {
+			"roles": [
+				"stablemaster"
+			]
+		},
+		"source": [
+			{
+				"kind": "questie",
+				"ref": "QuestieDB 1.0.16 npc 256410: subName \"Stablemaster\""
+			},
+			{
+				"kind": "factoruide",
+				"ref": "Factoruide npc 256410: subName \"Stablemaster\""
+			}
+		],
+		"note": "Reginald Holmsby is a stable master (the title under the name reads \"Stablemaster\"), but the merged data had no stable master role for this Forever NPC, so Nearby's stable master search passed over it and named one on another continent (#2010)."
+	},
+	"256673": {
+		"set": {
+			"roles": [
+				"stablemaster"
+			]
+		},
+		"source": [
+			{
+				"kind": "questie",
+				"ref": "QuestieDB 1.0.16 npc 256673: subName \"Stable Master\""
+			},
+			{
+				"kind": "factoruide",
+				"ref": "Factoruide npc 256673: subName \"Stable Master\""
+			}
+		],
+		"note": "Grik is a stable master (the title under the name reads \"Stable Master\"), but the merged data had no stable master role for this Forever NPC, so Nearby's stable master search passed over it and named one on another continent (#2010)."
+	},
+	"259190": {
+		"set": {
+			"roles": [
+				"stablemaster"
+			]
+		},
+		"source": [
+			{
+				"kind": "questie",
+				"ref": "QuestieDB 1.0.16 npc 259190: subName \"Stable Master\""
+			},
+			{
+				"kind": "factoruide",
+				"ref": "Factoruide npc 259190: subName \"Stable Master\""
+			}
+		],
+		"note": "Ephram Barbaro is a stable master (the title under the name reads \"Stable Master\"), but the merged data had no stable master role for this Forever NPC, so Nearby's stable master search passed over it and named one on another continent (#2010)."
+	},
+	"259859": {
+		"set": {
+			"roles": [
+				"stablemaster"
+			]
+		},
+		"source": [
+			{
+				"kind": "questie",
+				"ref": "QuestieDB 1.0.16 npc 259859: subName \"Stable Master\""
+			},
+			{
+				"kind": "factoruide",
+				"ref": "Factoruide npc 259859: subName \"Stable Master\""
+			}
+		],
+		"note": "Wheatley is a stable master (the title under the name reads \"Stable Master\"), but the merged data had no stable master role for this Forever NPC, so Nearby's stable master search passed over it and named one on another continent (#2010)."
+	},
+	"260525": {
+		"set": {
+			"roles": [
+				"stablemaster"
+			]
+		},
+		"source": [
+			{
+				"kind": "questie",
+				"ref": "QuestieDB 1.0.16 npc 260525: subName \"Stable Master\""
+			},
+			{
+				"kind": "factoruide",
+				"ref": "Factoruide npc 260525: subName \"Stable Master\""
+			}
+		],
+		"note": "Tallow Sparksocket is a stable master (the title under the name reads \"Stable Master\"), but the merged data had no stable master role for this Forever NPC, so Nearby's stable master search passed over it and named one on another continent (#2010)."
+	},
+	"265756": {
+		"set": {
+			"roles": [
+				"repair",
+				"stablemaster",
+				"trainer",
+				"vendor"
+			]
+		},
+		"source": [
+			{
+				"kind": "questie",
+				"ref": "QuestieDB 1.0.16 npc 265756: subName \"Stablemaster and Riding Trainer\""
+			},
+			{
+				"kind": "factoruide",
+				"ref": "Factoruide npc 265756: subName \"Stablemaster and Riding Trainer\""
+			}
+		],
+		"note": "Genn Fairweather is a stable master (the title under the name reads \"Stablemaster and Riding Trainer\"), but the merged data had no stable master role for this Forever NPC, so Nearby's stable master search passed over it and named one on another continent (#2010). It keeps its repair, trainer and vendor roles."
 	}
 }
