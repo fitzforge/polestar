@@ -8,9 +8,9 @@
 return {
 	-- Step 1: Ratchet
 	-- {area:541} Marshal's Refuge · {area:392} Ratchet
-	["Fly from {area:541} to {area:392}."] = "",
+	["Fly from {area:541} to {area:392}."] = "Vuela desde {area:541} hasta {area:392}.",
 	-- {npc:8496} Liv Rizzlefix
-	["{npc:8496}, inside"] = "",
+	["{npc:8496}, inside"] = "{npc:8496}, adentro",
 
 	-- Step 2: Boat to Booty Bay
 	-- {area:35} Booty Bay
@@ -51,7 +51,7 @@ return {
 
 	-- Step 9: Light's Hope Chapel
 	-- {npc:11038} Caretaker Alen · {area:2627} Terrordale
-	["{npc:11038}, by the graves south of the chapel: Egan is in {area:2627}, keep it"] = "",
+	["{npc:11038}, by the graves south of the chapel: Egan is in {area:2627}, keep it"] = "{npc:11038}, junto a las tumbas al sur de la capilla: Egan está en {area:2627}, guárdala",
 
 	-- Step 10: Scourge Champions
 	-- plural, as words: Scourge Champions = {npc:8529} Scourge Champion
@@ -68,11 +68,11 @@ return {
 
 	-- Step 12: Infiltrator Hameya
 	-- {area:2277} Plaguewood · {area:2273} Zul'Mashar
-	["Ride north to the {area:2277}'s north-eastern edge.\nCareful: The trolls along the path to {area:2273} are level 57-59. They run away at low health and call for help, so they often bring adds with them."] = "",
+	["Ride north to the {area:2277}'s north-eastern edge.\nCareful: The trolls along the path to {area:2273} are level 57-59. They run away at low health and call for help, so they often bring adds with them."] = "Cabalga al norte hasta el borde noreste de {area:2277}.\nCuidado: Los trols del camino a {area:2273} son de nivel 57-59. Huyen con poca salud y piden ayuda, así que suelen traer enemigos de más.",
 
 	-- Step 13: The Undercroft
 	-- {area:2261} The Undercroft · {npc:11886} Mercutio Filthgorger
-	["Ride south-west to the {area:2261}. The mound of dirt lies inside. {npc:11886} is elite: grouping up is advised.\nCareful: About four non-elite adds come with Mercutio. They walk to the grave instead of appearing on the spot."] = "",
+	["Ride south-west to the {area:2261}. The mound of dirt lies inside. {npc:11886} is elite: grouping up is advised.\nCareful: About four non-elite adds come with Mercutio. They walk to the grave instead of appearing on the spot."] = "Cabalga al suroeste hasta {area:2261}. El montículo de tierra está adentro. {npc:11886} es élite: se recomienda agruparse.\nCuidado: Unos cuatro enemigos no élite vienen con Mercutio. Caminan hasta la tumba en lugar de aparecer en el acto.",
 	-- {item:14613} Taelan's Hammer · {npc:11886} Mercutio Filthgorger
 	["{item:14613}, from {npc:11886}"] = "{item:14613}, de {npc:11886}",
 
