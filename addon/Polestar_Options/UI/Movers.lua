@@ -13,8 +13,15 @@
 -- accent crosshair); movers.snap off leaves only the grid. A click selects a
 -- box: the arrow keys nudge it 1 px (Shift: 10) and its line shows where it
 -- stands. A right-click puts that frame back in its default place. The bar at
--- the top holds Grid, the grid size, Snap, Reset all positions (asks first) and
--- Lock; Escape locks, and so does a fight (no unlocking in one).
+-- the top holds Grid, the grid size, Snap, Revert, Reset all positions (asks
+-- first), Exit and Save and exit.
+--
+-- An unlock is a session: where every frame stood when it began is kept, so
+-- Revert puts them all back without leaving, and Exit (or Escape) asks
+-- whether to keep or discard what moved (nothing moved: it just locks). A
+-- move still lands at once through the frame's own key, so a reload keeps
+-- it. A fight pauses the session (the boxes go before the lockdown) and the
+-- fight's end brings it back as it was; no unlocking in one.
 --
 -- Each frame keeps its own saved key and format: a mover only reads where the
 -- frame is (get) and hands the new spot back (set), both as a point on
@@ -28,8 +35,14 @@
 --     reset = fn
 --     anchor = fn -> point, relPoint  optional: the point set is given (else get's)
 --     enabled = fn -> bool            optional: no box while its feature is off
---     fixedSize = true                optional: always size(), never the frame's })
---   ns.Movers.Unlock([key]) -> ok (key: that box selected), Lock(), IsUnlocked(), Toggle()
+--     fixedSize = true                optional: always size(), never the frame's
+--     keys = { path, ... }            optional: the settings set writes, which the
+--                                     session keeps as stored (else get/set's spot)
+--     save = fn -> value, restore = fn(value)   optional, for a place kept
+--                                     elsewhere (a character's) })
+--   ns.Movers.Unlock([key]) -> ok (key: that box selected), Lock() (keeps what
+--     moved), Save(), Exit() (asks when something moved), Revert() -> count,
+--     Changed() -> count, IsUnlocked(), IsSuspended() (paused for a fight), Toggle()
 --   ns.Movers.Rect(key) -> left, bottom, w, h; MoveTo(key, left, bottom); Reset(key); ResetAll()
 --   ns.Movers.Snap(left, bottom, w, h, others, opts) -> left, bottom, guideX, guideY (pure)
 --
@@ -52,6 +65,10 @@ M.NUDGE, M.NUDGE_SHIFT = 1, 10
 
 local specs, order = {}, {}
 local unlocked = false
+local suspended = false -- paused for a fight, the session kept
+-- The session, from an unlock to its end: snap[key] is where that frame
+-- stood when it began (saveOf), back() what runs when it ends.
+local session
 local root, bar, gridFrame, guides
 local boxes = {} -- key -> box
 local selected, dragging
@@ -153,17 +170,94 @@ function M.Snap(left, bottom, w, h, others, opts)
 	return left, bottom, gx, gy
 end
 
+local placeBox, refresh, sessionChanged
+
+---------------------------------------------------------------------------
+-- The session's snapshot: where each frame stood when it began
+---------------------------------------------------------------------------
+
+local function copyValue(v)
+	if type(v) ~= "table" then return v end
+	local c = {}
+	for k, x in pairs(v) do c[k] = copyValue(x) end
+	return c
+end
+
+-- A frame's place as kept: its save(), else the settings it writes as they
+-- are stored (nil at the default, so putting it back clears them), else the
+-- spot get() gives.
+local function saveOf(spec)
+	if spec.save then return { copyValue(spec.save()) } end
+	if spec.keys then
+		local t = {}
+		for i, path in ipairs(spec.keys) do t[i] = copyValue(ns.GetStored(path)) end
+		return t
+	end
+	return { spec.get() }
+end
+
+local function restoreTo(spec, saved)
+	if spec.restore then
+		spec.restore(copyValue(saved[1]))
+	elseif spec.keys then
+		for i, path in ipairs(spec.keys) do ns.Set(path, copyValue(saved[i])) end
+	else
+		spec.set(saved[1], saved[2], saved[3], saved[4])
+	end
+end
+
+-- Deep equality, numbers within rounding.
+local function same(a, b)
+	if type(a) ~= type(b) then return false end
+	if type(a) == "number" then return abs(a - b) < 0.01 end
+	if type(a) ~= "table" then return a == b end
+	for k, v in pairs(a) do if not same(v, b[k]) then return false end end
+	for k in pairs(b) do if a[k] == nil then return false end end
+	return true
+end
+
+local function snapshot(key)
+	local spec = specs[key]
+	if session and spec and session.snap[key] == nil then session.snap[key] = saveOf(spec) end
+end
+
+local function moved(key)
+	local spec, saved = specs[key], session and session.snap[key]
+	return spec ~= nil and saved ~= nil and not same(saveOf(spec), saved)
+end
+
+-- How many frames moved (or went back to their default) since the session
+-- began; 0 with none.
+function M.Changed()
+	local n = 0
+	for _, key in ipairs(order) do if moved(key) then n = n + 1 end end
+	return n
+end
+
+-- Every frame back where it stood when the session began; the session goes
+-- on. -> how many moved back
+function M.Revert()
+	local n = 0
+	for _, key in ipairs(order) do
+		if moved(key) then
+			restoreTo(specs[key], session.snap[key])
+			n = n + 1
+		end
+	end
+	if unlocked then refresh(true) end
+	return n
+end
+
 ---------------------------------------------------------------------------
 -- Registry
 ---------------------------------------------------------------------------
-
-local placeBox, refresh
 
 function M.Register(spec)
 	if type(spec) ~= "table" or type(spec.key) ~= "string" or spec.key == "" then return false, "Movers.Register: key must be a string" end
 	if type(spec.get) ~= "function" or type(spec.set) ~= "function" then return false, "Movers.Register: get and set must be functions" end
 	if not specs[spec.key] then order[#order + 1] = spec.key end
 	specs[spec.key] = spec
+	snapshot(spec.key)
 	if unlocked then refresh() end
 	return true
 end
@@ -230,6 +324,7 @@ function M.MoveTo(key, left, bottom)
 	local x, y = M.OffsetOf(point, relPoint, left, bottom, w, h)
 	spec.set(point, relPoint, x, y)
 	if unlocked and boxes[key] then placeBox(key) end
+	sessionChanged()
 	return true
 end
 
@@ -238,6 +333,7 @@ function M.Reset(key)
 	if not (spec and spec.reset) then return false end
 	spec.reset()
 	if unlocked and boxes[key] then placeBox(key) end
+	sessionChanged()
 	return true
 end
 
@@ -247,9 +343,11 @@ function M.ResetAll()
 		if spec.reset then spec.reset() end
 	end
 	if unlocked then refresh() end
+	sessionChanged()
 end
 
 function M.IsUnlocked() return unlocked end
+function M.IsSuspended() return suspended end
 function M.Box(key) return boxes[key] end
 function M.Selected() return selected and selected.psKey or nil end
 
@@ -553,7 +651,7 @@ end
 M.GridLines = function() return gridFrame and gridFrame.lines or {} end
 
 ---------------------------------------------------------------------------
--- The bar: Grid, its size, Snap, Reset all positions, Lock
+-- The bar: Grid, its size, Snap, Revert, Reset all positions, Exit, Save and exit
 ---------------------------------------------------------------------------
 
 local BAR_H, PAD = 56, 16
@@ -577,6 +675,13 @@ local function paintSegments()
 	end
 end
 
+-- Revert only while something moved.
+local function paintRevert()
+	local on = M.Changed() > 0
+	bar.Revert:SetEnabled(on)
+	bar.Revert:SetAlpha(on and 1 or 0.45)
+end
+
 local function layoutBar()
 	local x = PAD
 	local tw = max(bar.Title:GetStringWidth(), bar.Hint:GetStringWidth())
@@ -596,11 +701,20 @@ local function layoutBar()
 	x = x + bar.Snap:GetWidth() + 2 + ceil(bar.Snap.Text:GetStringWidth()) + 20
 	bar.Rule2:SetPoint("TOPLEFT", bar, "TOPLEFT", x - 10, -12)
 	bar.Rule2:SetPoint("BOTTOMLEFT", bar, "BOTTOMLEFT", x - 10, 12)
+	bar.Revert:SetPoint("LEFT", bar, "LEFT", x, 0)
+	x = x + bar.Revert:GetWidth() + 8
 	bar.ResetAll:SetPoint("LEFT", bar, "LEFT", x, 0)
-	x = x + bar.ResetAll:GetWidth() + 8
-	bar.Lock:SetPoint("LEFT", bar, "LEFT", x, 0)
-	x = x + bar.Lock:GetWidth() + PAD
+	x = x + bar.ResetAll:GetWidth() + 20
+	bar.Rule3:SetPoint("TOPLEFT", bar, "TOPLEFT", x - 10, -12)
+	bar.Rule3:SetPoint("BOTTOMLEFT", bar, "BOTTOMLEFT", x - 10, 12)
+	bar.Exit:SetPoint("LEFT", bar, "LEFT", x, 0)
+	x = x + bar.Exit:GetWidth() + 8
+	bar.Save:SetPoint("LEFT", bar, "LEFT", x, 0)
+	x = x + bar.Save:GetWidth() + PAD
 	bar:SetWidth(x)
+	-- Wider than the screen (a big UI scale, a long translation): smaller.
+	local sw = UIParent:GetWidth()
+	bar:SetScale((sw and sw > 0 and x > sw - 24) and (sw - 24) / x or 1)
 end
 
 local function confirmResetAll()
@@ -623,7 +737,7 @@ local function buildBar()
 	bar.Hint = W.Text(bar, "small", "textMuted")
 	bar.Hint:SetPoint("TOPLEFT", bar, "TOPLEFT", PAD, -31)
 	bar.Hint:SetText(L["Drag a box. Click one, then nudge it with the arrow keys."])
-	bar.Rule1, bar.Rule2 = W.Divider(bar, true), W.Divider(bar, true)
+	bar.Rule1, bar.Rule2, bar.Rule3 = W.Divider(bar, true), W.Divider(bar, true), W.Divider(bar, true)
 	bar.Grid = labelled(bar, L["Grid"], function() return ns.Get("movers.grid") end,
 		function(v) ns.Set("movers.grid", v and true or false) end, L["Lines to line frames up on; a dragged frame lands on them."])
 	bar.Segs = {}
@@ -642,9 +756,13 @@ local function buildBar()
 	end
 	bar.Snap = labelled(bar, L["Snap"], function() return ns.Get("movers.snap") ~= false end,
 		function(v) ns.Set("movers.snap", v and true or false) end, L["Frames line up with the screen's centre and with each other's edges as you drag."])
+	bar.Revert = W.Button(bar, L["Revert"], function() M.Revert() end, { ghost = true, icon = "reload" })
+	bar.Revert.psTip, bar.Revert.psTipLines = L["Revert"], { L["Every frame back where it stood when you unlocked them."] }
 	bar.ResetAll = W.Button(bar, L["Reset all positions"], confirmResetAll, { danger = true, icon = "reset" })
-	bar.Lock = W.Button(bar, L["Lock"], function() M.Lock() end, { primary = true, icon = "lock" })
-	bar.Lock.psTip, bar.Lock.psTipLines = L["Lock"], { L["Also Escape."] }
+	bar.Exit = W.Button(bar, L["Exit"], function() M.Exit() end)
+	bar.Exit.psTip, bar.Exit.psTipLines = L["Exit"], { L["Also Escape. When something moved, it asks whether to keep it."] }
+	bar.Save = W.Button(bar, L["Save and exit"], function() M.Save() end, { primary = true, icon = "check" })
+	bar.Save.psTip, bar.Save.psTipLines = L["Save and exit"], { L["Every frame stays where it is now."] }
 	layoutBar()
 end
 
@@ -652,6 +770,11 @@ local function refreshBar()
 	bar.Grid:Refresh()
 	bar.Snap:Refresh()
 	paintSegments()
+	paintRevert()
+end
+
+function sessionChanged()
+	if bar and unlocked then paintRevert() end
 end
 
 ---------------------------------------------------------------------------
@@ -669,7 +792,7 @@ end
 local function onKey(self, key)
 	local handled = true
 	if key == "ESCAPE" then
-		M.Lock()
+		M.Exit()
 	elseif selected and NUDGE[key] and not dragging then
 		local d = (IsShiftKeyDown and IsShiftKeyDown()) and M.NUDGE_SHIFT or M.NUDGE
 		M.Nudge(selected.psKey, NUDGE[key][1] * d, NUDGE[key][2] * d)
@@ -732,49 +855,105 @@ function refresh(withGrid)
 end
 M.Refresh = function() if unlocked then refresh(true) end end
 
-local function onCombat()
+local onCombat, onCombatEnd, onResize
+
+local function watch(on)
+	local reg = on and ns.RegisterEvent or ns.UnregisterEvent
+	reg("PLAYER_REGEN_DISABLED", onCombat)
+	reg("DISPLAY_SIZE_CHANGED", onResize)
+	reg("UI_SCALE_CHANGED", onResize)
+end
+
+-- The boxes and the bar away, nothing left running.
+local function standDown()
+	if dragging then endDrag() end
+	root:SetScript("OnUpdate", nil)
+	root:Hide()
+	if W.ModalShown and W.ModalShown() then W.HideModal() end
+end
+
+-- A fight: the session pauses before the lockdown (frames that move only
+-- out of combat) and comes back as it was when the fight ends.
+function onCombat()
 	if not unlocked then return end
-	M.Lock()
-	ns.Print(L["Frames locked for the fight."])
+	standDown()
+	unlocked, suspended = false, true
+	ns.RegisterEvent("PLAYER_REGEN_ENABLED", onCombatEnd)
+	ns.Print(L["Unlock mode waits for the fight to end; what you moved is kept."])
 end
 
-local function onResize()
-	if unlocked then refresh(true) end
+function onCombatEnd()
+	ns.UnregisterEvent("PLAYER_REGEN_ENABLED", onCombatEnd)
+	if not suspended or combat() then return end
+	suspended, unlocked = false, true
+	root:Show()
+	refresh(true)
+	if selected then selectBox(selected) end
 end
 
-function M.Unlock(key)
+function onResize()
+	if not unlocked then return end
+	layoutBar()
+	refresh(true)
+end
+
+-- opts: { back = fn } runs when the session ends.
+function M.Unlock(key, opts)
 	if combat() then
 		ns.Print(L["You can't move frames in combat."])
 		return false
 	end
 	if not root then build() end
+	if suspended then onCombatEnd() end
 	if not unlocked then
 		unlocked = true
-		ns.RegisterEvent("PLAYER_REGEN_DISABLED", onCombat)
-		ns.RegisterEvent("DISPLAY_SIZE_CHANGED", onResize)
-		ns.RegisterEvent("UI_SCALE_CHANGED", onResize)
+		if not session then
+			session = { snap = {} }
+			for _, k in ipairs(order) do snapshot(k) end
+		end
+		watch(true)
 		root:Show()
 		refresh(true)
 	end
-	if key and boxes[key] and boxes[key]:IsShown() then selectBox(boxes[key]) end
+	if opts and opts.back then session.back = opts.back end
+	local b = key and boxes[key]
+	if b and b:IsShown() then selectBox(b) end
 	return true
 end
 
+-- The session ends; what moved stays (Save and exit, /polestar lock).
 function M.Lock()
-	if not unlocked then return end
-	if dragging then endDrag() end
-	unlocked = false
+	if not (unlocked or suspended) then return end
+	if unlocked then standDown() end
+	unlocked, suspended = false, false
 	selectBox(nil)
-	root:SetScript("OnUpdate", nil)
-	root:Hide()
-	if W.ModalShown and W.ModalShown() then W.HideModal() end
-	ns.UnregisterEvent("PLAYER_REGEN_DISABLED", onCombat)
-	ns.UnregisterEvent("DISPLAY_SIZE_CHANGED", onResize)
-	ns.UnregisterEvent("UI_SCALE_CHANGED", onResize)
+	watch(false)
+	ns.UnregisterEvent("PLAYER_REGEN_ENABLED", onCombatEnd)
+	local back = session and session.back
+	session = nil
+	if back then back() end
+end
+M.Save = M.Lock
+
+-- Exit (and Escape): nothing moved locks; else the dialog asks whether to
+-- keep it (Save and exit), put it back (Discard) or go on (Keep editing).
+function M.Exit()
+	if not unlocked then return M.Lock() end
+	if dragging then endDrag() end
+	local n = M.Changed()
+	if n == 0 then return M.Lock() end
+	W.Modal({ title = L["Discard your changes?"], icon = "reset", danger = true, action = L["Discard"], cancel = L["Keep editing"],
+		text = n == 1 and L["One frame moved since you unlocked. Discard puts it back where it stood."]
+			or format(L["%d frames moved since you unlocked. Discard puts them back where they stood."], n),
+		alt = L["Save and exit"], onAlt = function() M.Lock() end,
+		onAccept = function()
+			M.Revert()
+			M.Lock()
+		end })
 end
 
 function M.Toggle()
-	if unlocked then
+	if unlocked or suspended then
 		M.Lock()
 		return true
 	end
@@ -786,6 +965,7 @@ end
 ns.On("SETTING_CHANGED", function(path)
 	if not unlocked or dragging then return end
 	refresh(path == "" or path == "movers" or (type(path) == "string" and path:sub(1, 7) == "movers."))
+	sessionChanged()
 end)
 
 ---------------------------------------------------------------------------
@@ -826,6 +1006,7 @@ local function pointFormat(spec, posKey, default)
 		ns.Set(posKey, { point, round(x / k), round(y / k) })
 	end
 	spec.reset = function() ns.Set(posKey, nil) end
+	spec.keys = { posKey }
 	return M.Register(spec)
 end
 
@@ -854,6 +1035,7 @@ M.Register({
 		ns.Set("ui.pos", { round(x / k), round(y / k) })
 	end,
 	reset = function() ns.Set("ui.pos", nil) end,
+	keys = { "ui.pos" },
 })
 
 -- The arrow (Nav/Arrow.lua): nav.arrowPos, unset its top 140 under the
@@ -879,6 +1061,7 @@ if ns.Nav then
 		reset = function()
 			if ns.Nav.ResetArrowPosition then ns.Nav.ResetArrowPosition() else ns.Set("nav.arrowPos", nil) end
 		end,
+		keys = { "nav.arrowPos" },
 	})
 end
 
@@ -902,6 +1085,7 @@ do
 			ns.Set("ui.launcherPos", { round(x / s), round(y / s) })
 		end,
 		reset = function() ns.Set("ui.launcherPos", nil) end,
+		keys = { "ui.launcherPos" },
 	})
 end
 
@@ -952,6 +1136,9 @@ if B and B.SavedPos and B.SetPosition and B.Offsets and B.Size then
 			B.SetPosition({ p[1], p[2], round(ox / s), round(oy / s) })
 		end,
 		reset = function() B.SetPosition(nil) end,
+		-- The character's own spot (QoL/Buttons.lua), nil at the default.
+		save = function() return ns.QoL.State().buttonPos end,
+		restore = function(p) B.SetPosition(p) end,
 	})
 end
 

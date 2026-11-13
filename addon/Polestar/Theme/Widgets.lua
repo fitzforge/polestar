@@ -2394,10 +2394,12 @@ end
 ---------------------------------------------------------------------------
 -- The shared confirm dialog: a scrim over the screen, a 400 wide box on the
 -- window ground with its hairline and the rim, a title (an optional glyph
--- before it), the body text, and a footer band with Cancel and the action.
--- Escape, Cancel or a click on the scrim close it.
+-- before it), the body text, and a footer band with Cancel and the action
+-- (and an optional third choice at its left). Escape, Cancel or a click on
+-- the scrim close it.
 --   W.Modal({ title, text, icon = glyph, action = label, danger = true,
---             onAccept = fn, cancel = label, onCancel = fn }) -> the dialog
+--             onAccept = fn, cancel = label, onCancel = fn,
+--             alt = label, onAlt = fn }) -> the dialog
 --   W.HideModal(), W.ModalShown()
 ---------------------------------------------------------------------------
 
@@ -2412,10 +2414,11 @@ function W.ModalShown()
 	return modal ~= nil and modal:IsShown()
 end
 
+-- accept: true (the action), false (Cancel) or "alt" (the third choice).
 local function closeModal(accept)
 	local spec = modal.psSpec
 	modal:Hide()
-	local fn = spec and (accept and spec.onAccept or (not accept and spec.onCancel))
+	local fn = spec and (accept == "alt" and spec.onAlt or accept == true and spec.onAccept or (not accept and spec.onCancel))
 	if fn then fn() end
 end
 
@@ -2460,6 +2463,9 @@ local function buildModal()
 	box.Action:SetPoint("RIGHT", foot, "RIGHT", -16, 0)
 	box.Cancel = W.Button(foot, L["Cancel"], function() closeModal(false) end)
 	box.Cancel:SetPoint("RIGHT", box.Action, "LEFT", -8, 0)
+	box.Alt = W.Button(foot, "", function() closeModal("alt") end)
+	box.Alt:SetPoint("LEFT", foot, "LEFT", 16, 0)
+	box.Alt:Hide()
 	W.Rim(box, { width = MODAL_W * 0.7 })
 	-- Escape closes the dialog alone; every other key goes on to the game.
 	box:EnableKeyboard(true)
@@ -2509,6 +2515,8 @@ function W.Modal(spec)
 	W.SetButtonText(a, spec.action or L["OK"])
 	W.RepaintButton(a)
 	W.SetButtonText(box.Cancel, spec.cancel or L["Cancel"])
+	box.Alt:SetShown(spec.alt ~= nil)
+	if spec.alt then W.SetButtonText(box.Alt, spec.alt) end
 	modal:Show()
 	modal:Raise()
 	return modal

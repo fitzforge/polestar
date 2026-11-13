@@ -7960,8 +7960,9 @@ Each call fires `GUIDE_VISIBILITY`.
   whose functions load the mode on their first call and which keeps the specs
   registered before it, `Movers.pending`; in a fight `Unlock` says no and
   nothing loads). `Movers.Register({ key, label, frame, size, get, set, reset,
-  anchor?, enabled?, fixedSize? })`: `get` and `set` speak a point on
-  `UIParent` in its units, and each frame keeps its own saved key and format
+  anchor?, enabled?, fixedSize?, keys?, save?, restore? })`: `get` and `set`
+  speak a point on `UIParent` in its units, and each frame keeps its own saved
+  key and format
   (`ui.pos`, `nav.arrowPos`, `ui.launcherPos`, the character's `qol.buttonPos`,
   `maps.timerPos`, `maps.trackerPos`, `party.panelPos`, `rares.toastPoint`,
   `toasts.transport.point`, `toasts.whilehere.point`; UI/Toasts.lua adds the
@@ -7972,10 +7973,18 @@ Each call fires `GUIDE_VISIBILITY`.
   the screen's centre (`movers.grid`, `movers.gridSize` 8, 16 or 32); Shift
   keeps a drag to one axis. A click selects (its centre's offset shown), the
   arrow keys nudge it 1 px (Shift 10), a right-click resets it, the top bar
-  has Grid, the size, Snap, Reset all positions (the shared dialog) and Lock;
-  Escape locks. The options window hides while it is up. A fight locks it
-  (`PLAYER_REGEN_DISABLED`) and it will not open in one. Nothing exists before
-  the first unlock, and only a drag runs `OnUpdate`.
+  has Grid, the size, Snap, Revert, Reset all positions (the shared dialog),
+  Exit and Save and exit. An unlock is a session: where each frame stood as
+  it began is kept (`keys`: the settings `set` writes, as stored, nil at the
+  default; else `save`/`restore`, the quest buttons' character spot; else
+  `get`'s point). `Movers.Revert()` puts back what moved without leaving,
+  `Movers.Changed()` counts it, `Movers.Save()`/`Lock()` end the session
+  keeping it, and `Movers.Exit()` (Exit, Escape) asks in the shared dialog
+  (Discard, Keep editing, Save and exit) when something moved, else locks. A
+  move still lands at once, so a reload keeps it. A fight pauses the session
+  (`PLAYER_REGEN_DISABLED`: the boxes go, `Movers.IsSuspended()`) and the
+  fight's end brings it back as it was; it will not open in one. Nothing
+  exists before the first unlock, and only a drag runs `OnUpdate`.
 - The instance hint: the first time on the account (`PolestarDB.instanceHint`)
   the window hides itself on the way into an instance (not while Polestar is
   hidden, see "Hiding Polestar": the hint waits), `Nav.alerts.ShowNotice`

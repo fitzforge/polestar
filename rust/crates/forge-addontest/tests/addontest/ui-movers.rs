@@ -250,26 +250,105 @@ fn arrow_keys_nudge_right_click_resets_one_and_reset_all_resets_every_frame() {
 	assert_eq!(out["buttons"], false);
 }
 
-// A fight locks (it starts before the lockdown) and no unlocking in one; Escape and /polestar unlock lock too.
+// A fight pauses the session before the lockdown (no unlocking in one) and its end brings it back as it was: the
+// boxes, the selection and what moved since the unlock (Revert still puts it back). Escape and /polestar unlock
+// lock (nothing moved: no question).
 #[test]
-fn a_fight_escape_and_the_command_lock_and_no_unlocking_in_combat() {
+fn a_fight_pauses_the_session_and_its_end_brings_it_back_with_what_moved() {
 	let out = run(r#"
-		M.Unlock()
+		Polestar.Set("ui.launcher", true)
+		Polestar.Set("ui.launcherPos", { 500, 500 })
+		M.Unlock("launcher")
+		key("UP")
 		stub.inCombat = true
 		stub.fire("PLAYER_REGEN_DISABLED")
-		local fight = { M.IsUnlocked(), root():IsShown(), stub.messages[#stub.messages] }
+		local fight = { M.IsUnlocked(), M.IsSuspended(), root():IsShown(), stub.messages[#stub.messages] }
 		local refused = { M.Unlock(), M.IsUnlocked(), stub.messages[#stub.messages] }
 		stub.inCombat = false
+		stub.fire("PLAYER_REGEN_ENABLED")
+		local after = { M.IsUnlocked(), M.IsSuspended(), root():IsShown(), M.Selected() or false, M.Changed() }
+		local reverted = { M.Revert(), Polestar.Get("ui.launcherPos"), M.Changed() }
+		key("ESCAPE")
+		local esc = { M.IsUnlocked(), root():IsShown(), root():GetScript("OnUpdate") == nil, Polestar.Widgets.ModalShown() }
 		SlashCmdList.POLESTAR("unlock")
 		local cmd = M.IsUnlocked()
-		key("ESCAPE")
-		local esc = { M.IsUnlocked(), root():IsShown(), root():GetScript("OnUpdate") == nil }
 		SlashCmdList.POLESTAR("unlock")
-		SlashCmdList.POLESTAR("unlock")
-		emit({ fight = fight, refused = refused, cmd = cmd, esc = esc, toggled = M.IsUnlocked() })"#);
-	assert_eq!(out["fight"], json!([false, false, "|cff4fd1c5Polestar|r: Frames locked for the fight."]));
+		emit({ fight = fight, refused = refused, after = after, reverted = reverted, esc = esc, cmd = cmd, toggled = M.IsUnlocked() })"#);
+	assert_eq!(out["fight"], json!([false, true, false, "|cff4fd1c5Polestar|r: Unlock mode waits for the fight to end; what you moved is kept."]));
 	assert_eq!(out["refused"], json!([false, false, "|cff4fd1c5Polestar|r: You can't move frames in combat."]));
+	assert_eq!(out["after"], json!([true, false, true, "launcher", 1]), "back after the fight: the box selected, the move kept");
+	assert_eq!(out["reverted"], json!([1, [500, 500], 0]), "Revert puts the launcher back where it stood at the unlock");
+	assert_eq!(out["esc"], json!([false, false, true, false]), "Escape with nothing moved locks, no question; nothing left running");
 	assert_eq!(out["cmd"], true, "/polestar unlock");
-	assert_eq!(out["esc"], json!([false, false, true]), "Escape locks; nothing left running");
 	assert_eq!(out["toggled"], false, "/polestar unlock again locks");
+}
+
+// The session keeps where every frame stood when it began, as stored (nil at the default): Revert puts back what
+// moved (a drag, a nudge, a reset, Reset all) without leaving, and is on only while something moved.
+#[test]
+fn revert_puts_every_frame_back_where_it_stood_at_the_unlock_and_the_session_goes_on() {
+	let out = run(r#"
+		Polestar.Set("ui.launcher", true)
+		Polestar.Set("ui.launcherPos", { 500, 500 })
+		Polestar.Set("ui.pos", { 100, 900 })
+		Polestar.QoL.Buttons.SetPosition({ "CENTER", "CENTER", 40, 40 })
+		M.Unlock()
+		local bar = PolestarMoversBar
+		local idle = { M.Changed(), bar.Revert:IsEnabled() }
+		M.MoveTo("launcher", 40, 60)
+		M.MoveTo("arrow", 900, 300)
+		M.Reset("guide")
+		M.MoveTo("buttons", 1500, 300)
+		local moved = { M.Changed(), bar.Revert:IsEnabled() }
+		local n = M.Revert()
+		emit({ idle = idle, moved = moved, n = n, after = { M.Changed(), bar.Revert:IsEnabled(), M.IsUnlocked() },
+			launcher = Polestar.Get("ui.launcherPos"), arrow = Polestar.GetStored("nav.arrowPos") or false,
+			guide = Polestar.Get("ui.pos"), buttons = Polestar.CharState().qol.buttonPos })"#);
+	assert_eq!(out["idle"], json!([0, false]), "nothing moved: Revert is off");
+	assert_eq!(out["moved"], json!([4, true]));
+	assert_eq!(out["n"], 4);
+	assert_eq!(out["after"], json!([0, false, true]), "all back, still unlocked");
+	assert_eq!(out["launcher"], json!([500, 500]));
+	assert_eq!(out["arrow"], false, "the arrow had no spot of its own: none again");
+	assert_eq!(out["guide"], json!([100, 900]), "a reset taken back too");
+	assert_eq!(out["buttons"], json!(["CENTER", "CENTER", 40, 40]), "the character's own spot");
+}
+
+// Exit (and Escape) with something moved asks: Keep editing stays, Discard puts it back and locks, Save and exit
+// keeps it and locks; the bar's Save and exit keeps it without a question.
+#[test]
+fn exit_asks_when_something_moved_discard_puts_it_back_and_save_keeps_it() {
+	let out = run(r#"
+		Polestar.Set("ui.launcher", true)
+		Polestar.Set("ui.launcherPos", { 500, 500 })
+		local box = function() return PolestarModal.Box end
+		local function shown() return Polestar.Widgets.ModalShown() end
+		M.Unlock("launcher")
+		key("RIGHT")
+		key("ESCAPE")
+		local asked = { shown(), M.IsUnlocked(), box().Title:GetText(), box().Text:GetText(), box().Action.Label:GetText(),
+			box().Cancel.Label:GetText(), box().Alt:IsShown() and box().Alt.Label:GetText() or false }
+		box().Cancel:Click()
+		local kept = { shown(), M.IsUnlocked(), Polestar.Get("ui.launcherPos") }
+		PolestarMoversBar.Exit:Click()
+		box().Action:Click()
+		local discarded = { shown(), M.IsUnlocked(), Polestar.Get("ui.launcherPos") }
+		M.Unlock("launcher")
+		key("RIGHT"); key("RIGHT")
+		PolestarMoversBar.Exit:Click()
+		box().Alt:Click()
+		local saved = { shown(), M.IsUnlocked(), Polestar.Get("ui.launcherPos") }
+		M.Unlock("launcher")
+		key("UP")
+		PolestarMoversBar.Save:Click()
+		emit({ asked = asked, kept = kept, discarded = discarded, saved = saved,
+			bar = { shown(), M.IsUnlocked(), Polestar.Get("ui.launcherPos") } })"#);
+	assert_eq!(
+		out["asked"],
+		json!([true, true, "Discard your changes?", "One frame moved since you unlocked. Discard puts it back where it stood.", "Discard", "Keep editing", "Save and exit"])
+	);
+	assert_eq!(out["kept"], json!([false, true, [501, 500]]), "Keep editing: still unlocked, the move kept");
+	assert_eq!(out["discarded"], json!([false, false, [500, 500]]), "Discard: back where it stood, locked");
+	assert_eq!(out["saved"], json!([false, false, [502, 500]]), "Save and exit from the question");
+	assert_eq!(out["bar"], json!([false, false, [502, 501]]), "the bar's Save and exit, no question");
 }
