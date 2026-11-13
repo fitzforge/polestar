@@ -8014,6 +8014,28 @@
 				}
 			],
 			"issue": 2025
+		},
+		{
+			"id": "a2130-wetlands-fresh-start-28",
+			"faction": "Alliance",
+			"at": {
+				"quest": 469,
+				"goal": "turnin"
+			},
+			"level": 28,
+			"after": true,
+			"note": "Alliance 20-30 audit (0.4.0, #2025; first made for the 0.3.7 fresh-start pace plan): a character who loads 06-wetlands without 06-ashenvale's Wetlands and Ashenvale chains (the catch-up hides 23 of its quests: Claws from the Deep's and Young Crocolisk Skins' follow-ups, Raene's Cleansing, Ormer's Revenge, Fire Taboo) left the guide a level lower than the route player in the calibrated level model (28.2 against 29.2, Human Warrior). The gate holds only that character at 28 after Daily Delivery's hand-in, the last goal before the boat to Auberdine and Ashenvale's level 28-32 quests: every route player is past it (players' recordings: 06-wetlands entered at 28.4, p25-p75 27.0-29.1, 39 people, addon 0.3.5 and later; model 28.2-28.7 at that point). The written step tops up on the Bluegill Raiders (npc 1418, level 28) on the coast just south of Menethil.",
+			"source": [
+				{
+					"kind": "client",
+					"ref": "quest levels in Forever's quest data (1021, 1031: level 32; 1035: level 30); npcs.json 1418 (level 28)"
+				},
+				{
+					"kind": "recording",
+					"ref": "players' recordings (addon 0.3.5 to 0.3.7.2): 06-wetlands entry levels"
+				}
+			],
+			"issue": 2025
 		}
 	]
 }

@@ -327,6 +327,15 @@ step Captain Stoutfist
   accept 293                              -- For Archbishop Benedictus in Stormwind, at the end of this guide
   turnin 469                              -- James Halloran, by the docks, on the way to the boat
 
+# Fresh-start pace (0.4.0, first made for 0.3.7): a character loading this guide without 06-ashenvale's Wetlands and
+# Ashenvale quests (the catch-up hides 23 of this guide's quests) left it a level lower than the route player. Every
+# route player is past 28 here, so only that character tops up, by Menethil, before Ashenvale's 28-32 quests.
+step Level 28
+  when level<28
+  tip Still below level 28? That happens when you start this guide here without the Wetlands and Ashenvale quests of the guides before it: top up on the Bluegill Raiders along the coast just south of Menethil before the boat, so Ashenvale's level 28-32 quests aren't too hard.
+  goto 8.6,69.0 map 1437 "Bluegill Raider"
+  level 28 grind 1418                  -- grind on Bluegill Raider
+
 step James Halloran
   when dungeon "Excavation Site: Wetlands"
   when complete 98815

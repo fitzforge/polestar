@@ -11891,3 +11891,15 @@ test(`${ASHENVALE}: Retrieval for Mauren is no longer taken at 25 (Alliance 20-3
 	assert.ok(!goals(ASHENVALE).some(({ goal }) => is('accept', 1078)(goal)), 'no accept 1078 in 06-ashenvale');
 	assert.ok(goals(ASHENVALE).some(({ goal }) => is('turnin', 1075)(goal)), 'A Scroll from Mauren still goes to Collin Mauren');
 });
+
+// Alliance 20-30 audit (0.4.0, #2025; first made for the 0.3.7 fresh-start plan): a character starting 06-wetlands
+// without 06-ashenvale's quests tops up to 28 by Menethil before the boat to Ashenvale's 28-32 quests; the route
+// player, past 28 there, never stops.
+test(`${WETLANDS}: a fresh starter tops up to 28 by Menethil before the boat to Auberdine (Alliance 20-30 audit)`, { skip }, () => {
+	const list = goals(WETLANDS);
+	const top = at(list, 'level 28', (g) => g.t === 'level' && g.level === 28);
+	const step = list[top].step;
+	assert.ok((step.when || []).some((p) => p.k === 'level'), 'only below 28 (when level<28)');
+	assert.ok(at(list, 'Daily Delivery hand-in (469)', is('turnin', 469)) < top, 'after the last Menethil hand-in');
+	assert.ok(top < at(list, 'the boat to Auberdine', (g) => g.t === 'goto' && /Boat to Auberdine/.test(g.text || '')), 'before the boat');
+});
