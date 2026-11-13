@@ -150,9 +150,9 @@ Messages:
 | `POLESTAR_HIDDEN` | hidden (true \| false) | Core, `Polestar.SetHidden` (and true again as "Keep the arrow when hidden" changes while hidden): see "Hiding Polestar" |
 | `SHOW_PICKER` | — | commands → UI |
 | `SHOW_OPTIONS` | section or nil | commands → UI |
-| `SHOW_WELCOME` | page or nil | About's "Show the welcome again", `/polestar welcome` → UI/Welcome.lua |
+| `SHOW_WELCOME` | page or nil | About's Install tile, the settings window's Install button and its search result, `/polestar install` (and `/polestar welcome`) → UI/Welcome.lua (Install) |
 | `SHOW_WHATSNEW` | — | About's "What's new", `/polestar whatsnew` → UI/WhatsNew.lua |
-| `WELCOME_CLOSED` | — | UI/Welcome.lua, the welcome closed (not stepped aside) → UI/WhatsNew.lua |
+| `WELCOME_CLOSED` | — | UI/Welcome.lua, Install closed (not stepped aside) → UI/WhatsNew.lua |
 | `SHOW_COPY` | title, text | `/polestar where` → UI/Copy.lua |
 | `SHOW_REPORT` | — | `/polestar report` → UI/Report.lua |
 | `SHOW_DISCORD` | — | `/polestar discord` → UI/Report.lua |
@@ -198,9 +198,10 @@ keeps yards for whoever reads it.
 
 `packs[<id>].off` hides a pack's guides account-wide (the Community guides page's
 switch). `imports` holds the guides pasted on the Import page, as decoded
-("The guide registry", imported guides). `welcomeSeen` (UI/Welcome.lua) is the version of the welcome last
-seen: in `PolestarDB`, the account has had its welcome (later characters skip
-its Set up and Route style pages); in `PolestarCharDB`, this character has (0 while due).
+("The guide registry", imported guides). `welcomeSeen` (UI/Welcome.lua) is the version of Install (the
+welcome it grew out of, whose flag it keeps) last seen: in `PolestarDB`, the account has had its Install
+(later characters get only their own choices: the stat weights); in `PolestarCharDB`, this character has
+(0 while due).
 `whatsNewSeen` (`PolestarDB`, UI/WhatsNew.lua) is the version of the release notes last shown; a fresh
 install (`ns.IsNewAccount()`: no saved `PolestarDB` as Polestar loaded) is set to the newest without them.
 `update` (`PolestarDB`, Core/Update.lua) is what the update notices keep: `firstRun` (when this account
@@ -374,7 +375,7 @@ registered commands with their `help` lines (already translated:
 `next`, `prev` (look at the next/previous step; nothing changes), `skip`
 (skip the step shown, for good), `reset` (clear ticks, latches, skips and
 the saved view for the current guide), `guide <id>`, `status`, `tabs`,
-`tab <n>`, `close`, `path` (the route choice), `welcome` (`SHOW_WELCOME`),
+`tab <n>`, `close`, `path` (the route choice), `install` and `welcome` (`SHOW_WELCOME`),
 `packs` (Options at Community guides), `gamepad` (Options at Gamepad), `where`, `questlog` (`SHOW_QUEST_ROOM`), `report` (`SHOW_REPORT`),
 `discord` (`SHOW_DISCORD`), `debug`; Nav adds `arrow`, `way` and `route`;
 modules add theirs (`xp`, `gear`, `instances`, `dungeons`, `lookup`, `mount`,
@@ -2914,7 +2915,7 @@ only (`Own.passedNow`), never stored as done. A guide the player opens by
 hand, or a login or /reload brings back, stays where placement puts it: at
 such a step, or finished. With every quest of a guide done
 (`Own.allQuestsDone`) all its soft goals pass and are latched. Start guide
-(`Engine.StartGuide`: the guide window with no guide, the welcome) opens
+(`Engine.StartGuide`: the guide window with no guide, Install's last page) opens
 `StartingGuide()` for the player (`OpenTab(id, true, true)`, `autoChain`), so
 it goes on through such guides as the login's pick does. The next guide is
 placed the same way, even when it finished earlier in the session (another
@@ -4051,7 +4052,7 @@ permission; `addon/Polestar_Nav/CREDITS.md`).
   to the point the arrow holds in sight (`joinPoint`). Sparkles always start
   abreast of the player.
 - Line style (`nav.lineStyle`, `RouteLines.STYLE_CHOICES`): `"line"`,
-  `"dots"` (the above) or `"sparkle"`, chosen on the welcome's setup page
+  `"dots"` (the above) or `"sparkle"`, chosen on Install's Your route page
   (`UI/Welcome.lua`, three cards each previewing its style), in Options
   (Guide, Arrow & routes, under "Route lines") and on the settings window's
   Route lines page, which the gear beside "Route lines" opens
@@ -7850,40 +7851,84 @@ Reading flow: `docs/DESIGN.md` ("Intent" and "The Guide Window").
   `PACKS.md`: the TOC's `X-Website` + `/blob/HEAD/docs/GUIDE_PACKS.md`, else
   "docs/GUIDE_PACKS.md in Polestar's source"). While `Guides.ProblemCount() > 0` the page's sidebar row carries
   the warning dot (a page spec's `dot`). Nothing goes to chat.
-- **Welcome** (`UI/Welcome.lua`, `SHOW_WELCOME`): centred, 600 wide, four
-  pages each under its own night hero, the gold rim (`W.Rim`) on top, with
-  Skip (Back on the last page), the step dots (not buttons), Back and Next
-  in the footer: Hello, <name> (the suggested guide's zone painting engraved
-  faintly into the night; what Polestar does, then three cards with
-  miniatures built from frames: a goal row of the suggested guide, the gold
-  dart going to its first walk's place, the library's Leveling, Professions
-  and Reputation counts); Set up (quest automation, the guide at login, the
-  colour scheme as preview cards in each scheme's colours that apply live;
-  Skip keeps them); Route style (polestar.guide's route demo, the same for everyone: the
+- **Install** (`UI/Welcome.lua`, frame `PolestarWelcome`, `SHOW_WELCOME`; the
+  welcome it grew out of keeps its names in code and saved flags): centred,
+  600 wide, up to six pages each under its own night hero, the gold rim
+  (`W.Rim`) on top, with Skip install (Back on the last page), "Install ·
+  Step 2 of 7" over the step dots (not buttons), Back and Next in the
+  footer. Each choice writes its real setting the moment it is made, shown
+  where it can be (the window re-skins, the previews redraw), so nothing
+  waits for the last page and nothing needs a reload; each choice page ends
+  on "Skip install keeps these as they are", and Skip install (the ✕,
+  Escape) leaves every setting as it is. The pages: Hello, <name> (the
+  suggested guide's zone painting engraved faintly into the night; what
+  Polestar does, then three cards with miniatures built from frames: a goal
+  row of the suggested guide, the gold dart going to its first walk's place,
+  the library's Leveling, Professions and Reputation counts; a line on what
+  the next pages do); Questing (quest automation as one switch for
+  `behavior.autoAccept` and `autoTurnin`, `behavior.skipGrey`,
+  `behavior.autoSelectGuide`, each with its description inline; then the
+  stat weights gear advice uses, `gear.spec.<CLASS>`, as option cards:
+  Automatic, the class's specs, a custom scale while one is in use);
+  Targeting, with QoL (`qol.targetButton` under a preview of the button's
+  face and plate, `Buttons.NewFace`, faint while it is off; `qol.targetPlate`
+  as its child, greyed while the button is off; `qol.markTarget` and
+  `qol.pingTarget`; a line that the step key targets the same names without
+  the button and that Move frames moves it); Groups and dungeons
+  (`behavior.dungeons` as Skip them, Ask me and Run them once that setting
+  exists and `Engine.GuideDungeons()` has any; `behavior.groupQuests` as Ask
+  me at each, Do them with a group and Skip them while `Engine.GroupQuests()`
+  has any; shown while it holds one of them); Your route (polestar.guide's route demo, the same for everyone: the
   Elwynn Forest painting, Northshire Abbey to the Westfall bridge, the
   chosen style's illustrated walk as the site draws it; a switch leaves the
   last one as a faint dashed ghost and replays the trail, at once under
   reduced motion; `nav.routeStyle`, the setting Options' Route style dropdown
-  writes, as three rows, Fastest,
-  Balanced with its Recommended tag and Roads, each saying what it does: a
-  click sets it live and Nav/Walk.lua searches again, right-click or the
-  gamepad's Y puts Balanced back, and the pick follows the setting however
-  it changes; a line on what every style keeps you away from); Start (the guide
-  `Guides.Suggest()` picks on its zone painting, with its level range and
-  pitch; what Start guide does; the beta note while `ns.routesBeta`; the
-  Discord invite as a link to the copy window; community guides with a
-  Browse guides link to the guide menu; then Start guide, or Choose a guide
-  without one). The window takes its tallest page's height; a shorter page's body is centred in the room under its hero. Once
-  per new character (`PolestarCharDB.welcomeSeen`: 0 for a character with no
-  saved `PolestarCharDB` as Polestar loaded, `ns.IsNewCharacter()`; set seen
+  writes, as three rows, Fastest, Balanced with its Recommended tag and
+  Roads, each saying what it does: a click sets it live and Nav/Walk.lua
+  searches again, right-click or the gamepad's Y puts Balanced back, and the
+  pick follows the setting however it changes; a line on what every style
+  keeps you away from; then `nav.lineStyle` as Line, Dots and Sparkles cards
+  each previewing it); Your look (`ui.skin` from `Theme.SkinChoices()` as a
+  list beside a large preview of the look under the pointer or the gamepad's
+  focus, else the one in use, drawn by `Theme.DrawSkinCard`; that and the
+  skin addons load when the page first shows, so a new character's login
+  pays for neither; `ui.scheme` as preview cards in each scheme's colours
+  while the house look is on; `gamepad.glyphs` while `Gamepad.IsActive()`);
+  the last page (the guide `Guides.Suggest()` picks on its zone painting,
+  with its level range and pitch; You're all set, with no reload, and what
+  Start guide does or that the guide is open; Change it later, Settings and
+  its search, `/polestar install`, with a Settings link; the beta note while
+  `ns.routesBeta`; the Recorder pointed to with a link to its settings page,
+  never switched on; the Discord invite as a link to the copy window;
+  community guides with a Browse guides link to the guide menu; then Finish,
+  and Start guide, or Choose a guide without one, while that guide is not
+  the one open). Option cards: a radio ring, the name and what it does, the
+  one in use on the selected wash in a 1px accent outline; a click sets it,
+  right-click or the gamepad's Y puts the default back. The window takes its
+  tallest page's height; a shorter page's body is centred in the room under
+  its hero; taller than the screen less 24px all round, it scales itself
+  down to fit. In the game's looks the title bar reads "Polestar Install"
+  and the frame's own close button stands in for the ✕. Enter takes Next (Finish on the last page), Backspace goes
+  back, every other key goes on to the game (Escape closes it through the
+  game's close of special windows); LB / RB turn the pages. Once per new
+  character (`PolestarCharDB.welcomeSeen`: 0 for a character with no saved
+  `PolestarCharDB` as Polestar loaded, `ns.IsNewCharacter()`; set seen
   silently for one with saved data and no flag), 2 s after login, never in
-  combat, during a cinematic or over the route choice; a due welcome that never opened stays due
-  for the next login, and one that opened is marked on the character as it
-  opens (a /reload or logout with it up does not repeat it); one the intro
-  cinematic closes comes back on its page when the cinematic ends. Set up and Route style are in it only while the account has not had its
-  welcome (`PolestarDB.welcomeSeen`); the page set is fixed when a showing
-  starts. Any close marks the account (and the character). About's "Show the
-  welcome again" and `/polestar welcome` open it with every page.
+  combat (a fight that starts with it up sends it aside, unmarked, until the
+  fight is over), during a cinematic or over the route choice; a due
+  Install that never opened stays due for the next login, and one that
+  opened is marked on the character as it opens (a /reload or logout with
+  it up does not repeat it); one the intro cinematic closes comes back on
+  its page when the cinematic ends. Every page is in it only while the
+  account has not had its Install (`PolestarDB.welcomeSeen`); a later
+  character gets the welcome, the choices that are its own (the stat
+  weights, kept per class) and the last page. The page set is fixed when a
+  showing starts. Any close marks the account (and the character). About's
+  Install tile, the settings window's Install button (left of its search;
+  left out while the main column is under 780 wide),
+  the search's Install result (About, "install", "setup", "wizard", "first
+  run") and `/polestar install` (`/polestar welcome` too) open it with every
+  page.
 - **What's new** (`UI/WhatsNew.lua`, frame `PolestarWhatsNew`, `SHOW_WHATSNEW`):
   the welcome's look from its building blocks (`UI.Welcome.Kit`): 600 wide,
   centred, a compact night hero with "What's new in Polestar <version>", the

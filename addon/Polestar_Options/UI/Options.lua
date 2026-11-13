@@ -31,6 +31,7 @@ local floor, max, min, ipairs, pairs, type = math.floor, math.max, math.min, ipa
 
 local SH = W.SHELL
 local GAP = 24 -- between the two columns of the Recorder's and About's tiles
+local INSTALL_ROOM = 780 -- the main column's width the header's Install button needs beside the page's title
 
 local O = {}
 UI.Options = O
@@ -629,6 +630,14 @@ local function buildRecorder(view)
 	end
 end
 
+-- Install (UI/Welcome.lua) as a control, so the search finds it ("install",
+-- "setup", "wizard", "first run"): at home on About, whose Install tile is its
+-- widget there (view.cache), the one a search result's jump lights.
+local INSTALL = { kind = "button", icon = "palette", button = L["Install"], label = L["Set Polestar up again"],
+	help = L["Install's pages: questing, groups and dungeons, your route and your look, a page at a time. Each choice works at once."],
+	search = "install, setup, set up, wizard, first run, first time, welcome, getting started, start again, onboarding",
+	onClick = function() ns.Fire("SHOW_WELCOME") end }
+
 -- The About hero: the sidebar's lockup at full size. The emblem (64, its ink
 -- on the 32 edge, in its glow), then the wordmark (Media/UI/wordmark.tga,
 -- 1:1, its ink 3px into the box and on rows 4-27), the tagline under it, and
@@ -708,11 +717,18 @@ local function buildAbout(view)
 	local cmdH, cmdText = block(L["Commands"], hex .. "/polestar|r   " .. L["show or hide the guide window"] .. "\n"
 		.. hex .. "/polestar guides|r   " .. L["choose a guide"] .. "\n"
 		.. hex .. "/polestar next, prev, skip|r   " .. L["move through steps"] .. "\n"
+		.. hex .. "/polestar install|r   " .. L["set Polestar up again, a page at a time"] .. "\n"
 		.. hex .. "/polestar report|r   " .. L["report a problem with a step on the Polestar Discord"] .. "\n"
 		.. hex .. "/polestar help|r   " .. L["every command"])
-	local welcome = W.Button(view, L["Show the welcome again"], function() ns.Fire("SHOW_WELCOME") end)
-	view.Welcome = welcome
-	local whatsNew = W.Button(view, L["What's new"], function() ns.Fire("SHOW_WHATSNEW") end)
+	-- Install (UI/Welcome.lua) and what's new, first under the hero: the
+	-- setup a new character gets, again whenever the player wants it.
+	local install = W.ActionTile(view, "palette", L["Install"],
+		L["Set Polestar up again, a page at a time: questing, groups and dungeons, your route, your look. Each choice works at once."],
+		function() ns.Fire("SHOW_WELCOME") end)
+	view.Install = install
+	view.cache = { [INSTALL] = install }
+	local whatsNew = W.ActionTile(view, "star", L["What's new"], L["What this version of Polestar changed for you."],
+		function() ns.Fire("SHOW_WHATSNEW") end)
 	view.WhatsNew = whatsNew
 	local credH, credText = block(L["Credits"], L["Inter typeface by The Inter Project Authors, SIL Open Font License 1.1."] .. "\n"
 		.. L["Wordmark set in Cinzel by The Cinzel Project Authors, SIL Open Font License 1.1."] .. "\n"
@@ -751,6 +767,7 @@ local function buildAbout(view)
 			aiLink:SetPoint("TOPLEFT", view, "TOPLEFT", SH.pad, -y)
 			y = y + aiLink:GetHeight() + 12
 		end
+		y = y + placePair(view, { install, whatsNew }, y, cw, W.LayoutTile) + 12
 		whyH:ClearAllPoints()
 		whyH:SetPoint("TOPLEFT", view, "TOPLEFT", SH.pad, -y)
 		whyH:SetWidth(width)
@@ -771,16 +788,6 @@ local function buildAbout(view)
 			pair[2]:ClearAllPoints()
 			pair[2]:SetPoint("TOPLEFT", view, "TOPLEFT", SH.pad, -y)
 			y = y + pair[2]:GetStringHeight() + 8
-			-- The welcome and what's new again, under the commands that
-			-- they introduce.
-			if pair[1] == cmdH then
-				y = y + 4
-				welcome:ClearAllPoints()
-				welcome:SetPoint("TOPLEFT", view, "TOPLEFT", SH.pad, -y)
-				whatsNew:ClearAllPoints()
-				whatsNew:SetPoint("LEFT", welcome, "RIGHT", 8, 0)
-				y = y + welcome:GetHeight() + 12
-			end
 		end
 		maintH:ClearAllPoints()
 		maintH:SetPoint("TOPLEFT", view, "TOPLEFT", SH.pad, -y)
@@ -796,6 +803,7 @@ add({ page = L["Guiding Stars"], key = "thanks", icon = "star", order = 80, subt
 	custom = UI.Thanks.Build }, true)
 add({ page = REC, key = "recorder", icon = "record", order = 90, subtitle = L["The data recorder for guide authors."], custom = buildRecorder }, true)
 add({ page = ABOUT, key = "about", icon = "info", order = 100, subtitle = L["Why Polestar exists, its commands and its credits."], custom = buildAbout }, true)
+add({ page = ABOUT, section = L["Install"], controls = { INSTALL } }, true)
 
 -- Page keys from before the pages were regrouped (and older section names)
 -- reach the page, and the tab, that holds those settings now. A page's own
@@ -3063,9 +3071,10 @@ local function applySize()
 	if win:GetWidth() == w and win:GetHeight() == h then return false end
 	win:SetSize(w, h)
 	W.ShellLayout(win)
-	-- The footer's thanks for the main column's new width (a size change's
-	-- own hook may run before the shell has measured it).
+	-- The footer's thanks and the header's Install for the main column's new
+	-- width (a size change's own hook may run before the shell has measured it).
 	if rawget(win, "PlaceThanks") then win.PlaceThanks() end
+	if rawget(win, "PlaceInstall") then win.PlaceInstall() end
 	return true
 end
 
@@ -3168,7 +3177,27 @@ local function build()
 		b:SetShown((b.Name:GetText() or "") ~= "" and used + 16 + b:GetWidth() <= room)
 	end
 	UI.Thanks.HeaderLink(win)
-	win:HookScript("OnSizeChanged", function() win.PlaceThanks() end)
+	-- Install from the header, left of the search: the first run's setup,
+	-- again whenever the player wants it (UI/Welcome.lua over this window).
+	-- A window too narrow for it beside the page's title (under INSTALL_ROOM
+	-- of main column) leaves it out: About and the search still have it.
+	win.Install = W.Button(win.Header, L["Install"], function() ns.Fire("SHOW_WELCOME") end, { ghost = true, icon = "palette" })
+	win.Install.psTip = L["Install"]
+	win.Install.psTipLines = { L["Set Polestar up again, a page at a time. Each choice works at once."] }
+	local function placeInstall()
+		local room = tonumber(rawget(win, "psMainW")) or 0
+		win.Install:SetShown(room >= INSTALL_ROOM)
+		if rawget(win, "HeaderTools") then win.HeaderTools.Place() end
+	end
+	if rawget(win, "psHeadTools") then
+		win.psHeadTools[#win.psHeadTools + 1] = win.Install
+		win.PlaceInstall = placeInstall
+		placeInstall()
+	end
+	win:HookScript("OnSizeChanged", function()
+		if rawget(win, "psHeadTools") then placeInstall() end
+		win.PlaceThanks()
+	end)
 	-- After the shell's own scale handler: the size follows the scale's room.
 	ns.On("SETTING_CHANGED", function(path)
 		if path == "ui.optionsSize" or path == "ui.menuScale" or path == "" or path == "ui" then
