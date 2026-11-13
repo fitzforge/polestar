@@ -50,7 +50,12 @@
 --       out, from `take` and from `pre`, when it is a detour: its giver on a
 --       continent no other stop is on, or over 300 seconds out of the way
 --       (Castpipe's Task in Stonetalon for Gnomeregan's Data Rescue in
---       Ironforge); `breadcrumbs` says how each was judged.
+--       Ironforge); `breadcrumbs` says how each was judged. A breadcrumb
+--       the plan takes, or one in the log, turned in where another quest the
+--       plan takes is given is done on that quest's way, handed in right
+--       before its accept (the last of its `pre`): the game holds a quest back
+--       while its breadcrumb is in the log (Gnogaine while The Day After is,
+--       #2046).
 --       carried: the page's quests already in the log. giver: a point
 --       { kind, id, name, map, x, y, f }, or a drop point (kind "drop",
 --       Dungeons.DropPoint): the step collects the item there, then takes
@@ -634,6 +639,57 @@ local function dropDetours(plan, from, p)
 	return plan
 end
 
+-- A breadcrumb holds the quest it leads to back while it is in the log: in
+-- players' recordings, The Forgotten Pools was refused to 12 people while The
+-- Barrens Oases was in their log and offered to 30 who never had it, and the
+-- Gnomeregan guide took The Day After and then asked Ozzie Togglevolt for
+-- Gnogaine (#2046). A take, or a quest in the log, with no objectives of its
+-- own and nothing before it, turned in where another take is given (its
+-- target, as dropDetours reads breadcrumbs), goes on its target's way: the
+-- last of the target's `pre`, so the guide takes it if need be and hands it
+-- in right before the target's accept; its accept keeps the quests that close
+-- it (`closedBy`). Neither a take of its own nor carried then.
+-- plan, key -> plan
+local function crumbsFirst(plan, key)
+	local C = ns.Codex
+	local function recOf(t) return t.rec or C.Quest(t.quest.id) end
+	local function crumb(r)
+		return r and #(r.objectives or {}) == 0 and not startsAt(r, r["end"])
+	end
+	local function onWay(id, r)
+		for _, t in ipairs(plan.take) do
+			local tr = recOf(t)
+			if t.quest.id ~= id and not t.crumbOf and tr and startsAt(tr, r["end"]) then
+				for _, q in ipairs(t.pre) do
+					if q.id == id then return true end
+				end
+				t.pre[#t.pre + 1] = r
+				local pq = Dungeons.Quest(key, id)
+				plan.closedBy[id] = (pq and type(pq.closedBy) == "table" and pq.closedBy) or { t.quest.id }
+				return true
+			end
+		end
+		return false
+	end
+	local take = {}
+	for _, t in ipairs(plan.take) do
+		local r = recOf(t)
+		if #t.pre == 0 and crumb(r) and onWay(t.quest.id, r) then
+			t.crumbOf = true
+		else
+			take[#take + 1] = t
+		end
+	end
+	plan.take = take
+	local carried = {}
+	for _, pq in ipairs(plan.carried) do
+		local r = C.Quest(pq.id)
+		if not (crumb(r) and onWay(pq.id, r)) then carried[#carried + 1] = pq end
+	end
+	plan.carried = carried
+	return plan
+end
+
 -- The level from which the heads-up offers page quest pq (rec: its Codex
 -- quest): one below its quest level (Fitz, 2026-11-10: the game offers many
 -- 3-5 levels early, and the dungeon cards stacked up there), never below the
@@ -764,7 +820,7 @@ function Dungeons.PickupPlan(key, offer)
 		end
 		plan.carried = carried
 	end
-	return dropDetours(plan, from, p)
+	return crumbsFirst(dropDetours(plan, from, p), key)
 end
 
 -- The lowest level a waiting quest opens at; same: all open at that level.
