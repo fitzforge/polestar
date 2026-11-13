@@ -150,7 +150,7 @@ do
 		title = hex("FFD100"), ink = hex("FFFFFF"), star = hex("FFFFFF", 0), shade = hex("000000"),
 		scrim = hex("000000"), onAccent = hex("17130E"), shadow = hex("000000", 0.7),
 		accent = hex("FFD100"),
-		veil = hex("000000", 0), veilWindow = hex("000000", 0), menuBg = hex("000000", 0.92),
+		veil = hex("000000", 0), veilWindow = hex("000000", 0), menuBg = hex("000000"),
 		inputBg = hex("000000"), control = hex("000000"),
 		accentLine = hex("9A7A34", 0.6), padSelect = hex("FFD100", 0.14), chipAccent = hex("FFD100", 0.16),
 		separator = hex("9A7A34", 0.45), rowLine = hex("FFFFFF", 0.06),
@@ -202,7 +202,7 @@ SKIN_PALETTES.blizzard = gamePalette({
 -- (GameFontNormal), the quest log's gold title highlight for selection and
 -- its silver one under the cursor; the resting chat tab's muted gold.
 SKIN_PALETTES.classic = gamePalette({
-	bg = hex("0D0D1C", 0.92), bgBottom = hex("0D0D1C", 0.92), panel = hex("171730", 0.95), menuBg = hex("171730", 0.95), sidebar = hex("000000", 0),
+	bg = hex("0D0D1C", 0.92), bgBottom = hex("0D0D1C", 0.92), panel = hex("171730", 0.95), menuBg = hex("171730"), sidebar = hex("000000", 0),
 	icon = hex("FFD100"), iconHover = hex("FFFFFF"), tabRest = hex("B8A14F"), rowLabel = hex("FFD100"), navRest = hex("FFD100"),
 	separator = hex("969696", 0.35), divider = hex("969696", 0.25), accentLine = hex("969696", 0.6),
 	border = hex("696969"), windowEdge = hex("696969"), hover = hex("FFD100", 0.1), selected = hex("FFD100", 0.14),
@@ -641,6 +641,18 @@ local HOUSE_EXTRA = {
 -- Those a non-house skin falls back on too.
 local SKIN_EXTRA = { "closeFill", "closeEdge", "closeGlyph" }
 
+-- Menus and popups open over other frames (a panel marked psMenu: the
+-- dropdown menus, a setting's cog, Quick settings; the tooltip too): their
+-- ground, menuBg, is never see-through, so the text under them stays out of
+-- sight. On the Polestar base it is the panel colour at full opacity
+-- whatever the panels' own; a look's or a skin's own is held at MENU_ALPHA
+-- at least.
+local MENU_ALPHA = 0.97
+local function solidMenu(out, own)
+	local c = out.menuBg
+	if c then c[4] = own and math.max(c[4] or 1, MENU_ALPHA) or 1 end
+end
+
 -- The variant of registered skin `s` in use (spec.variants, Skin API 2):
 -- the player's pick (ui.skinVariants.<id>) while the skin has it, else the
 -- skin's default; nil for a skin without variants.
@@ -841,6 +853,7 @@ local function resolveSkin(skin)
 	for _, name in ipairs(SKIN_EXTRA) do
 		if not out[name] then out[name] = copy(out[HOUSE_EXTRA[name]] or out.text) end
 	end
+	solidMenu(out, true)
 	-- The second accent (a duotone skin's; else the accent) and the arrival
 	-- glow (its glow token; else the arrival colour).
 	if not (stoks and stoks.accent2) then out.accent2 = copy(out.accent) end
@@ -957,6 +970,7 @@ local function resolve(id, schemeKey)
 	for name, from in pairs(HOUSE_EXTRA) do
 		if not out[name] then out[name] = copy(out[from]) end
 	end
+	solidMenu(out, stoks ~= nil and stoks.menuBg ~= nil)
 	-- Derived from the accent and the shade unless a skin gives its own.
 	local function derived(name, c) if not (stoks and stoks[name]) then out[name] = c end end
 	derived("accentLine", { r, g, b, 0.35 })

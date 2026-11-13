@@ -1519,6 +1519,8 @@ local function buildMore()
 	more:SetFrameLevel(10)
 	more:SetClampedToScreen(true)
 	more:EnableMouse(true)
+	-- A popup over the page: its ground never see-through (Theme's menuBg).
+	more.psMenu = true
 	Theme.Skin(more, "panel")
 	viewTables(more)
 	more.psRowH = MORE_ROW

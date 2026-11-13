@@ -281,9 +281,11 @@ local HOUSE_PAINT = {
 		for i = 1, #s.parts do s.parts[i]:SetVertexColor(sr, sg, sb, sa * math.min(1, alpha + 0.1)) end
 		s:Show()
 	end,
+	-- A raised panel; a menu or popup over other frames (f.psMenu) on
+	-- menuBg, never see-through.
 	panel = function(f)
 		if f.psBare then return bare(f) end
-		fill(f):SetVertexColor(Theme.Color("panel"))
+		fill(f):SetVertexColor(Theme.Color(f.psMenu and "menuBg" or "panel"))
 		Theme.Border(f, Theme.Color("border"))
 	end,
 	sidebar = function(f)

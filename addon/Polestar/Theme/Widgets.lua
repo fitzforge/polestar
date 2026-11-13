@@ -175,9 +175,10 @@ end
 
 ---------------------------------------------------------------------------
 -- W.Tip: the settings window's own tooltip (DESIGN.md "Tooltip"): one
--- shared frame on the panel ground at 92% with a hairline at 15%, padded 8,
--- at most 250 wide; the title in Label, the lines in Small at 80% (a line
--- given as { text, r, g, b } keeps its colour), 3 apart. Centred 4 over the
+-- shared frame on the menus' ground (menuBg: never see-through) with a
+-- hairline at 15%, padded 8, at most 250 wide; the title in Label, the
+-- lines in Small at 80% (a line given as { text, r, g, b } keeps its
+-- colour), 3 apart. Centred 4 over the
 -- anchor (the row's label), under it where the screen ends; no delay, a
 -- 0.2s fade in and out. Its owner's scale is its own (the Menu scale).
 ---------------------------------------------------------------------------
@@ -195,10 +196,8 @@ local function tipFrame()
 	tip.Ground = tip:CreateTexture(nil, "BACKGROUND")
 	tip.Ground:SetTexture(WHITE)
 	tip.Ground:SetAllPoints(tip)
-	W.Painter(tip.Ground, function(t)
-		local r, g, b = Theme.Color("panel")
-		t:SetVertexColor(r, g, b, 0.92)
-	end)
+	-- Over other frames, as a menu: never see-through (Theme's menuBg).
+	W.Painter(tip.Ground, function(t) t:SetVertexColor(Theme.Color("menuBg")) end)
 	W.Painter(tip, function(f)
 		local r, g, b = Theme.Color("text")
 		Theme.Border(f, r, g, b, 0.15)
@@ -1518,6 +1517,8 @@ local function buildMenu()
 	menu:SetFrameLevel(20)
 	menu:SetClampedToScreen(true)
 	menu:EnableMouse(true)
+	-- Over other frames: its ground never see-through (Theme's menuBg).
+	menu.psMenu = true
 	Theme.Skin(menu, "panel")
 	menu.rows = {}
 	menu.seps = {}

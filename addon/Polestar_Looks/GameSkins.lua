@@ -868,25 +868,30 @@ local BIG = {
 
 -- Menus, popups and the other panels: the dropdown menu's ground (Menu
 -- Style1: common-dropdown-bg stretched 10 out, 92.5 %), the game's tooltip
--- in Classic (the panel colour on the tile under the rope border).
+-- in Classic (the panel colour on the tile under the rope border). A menu
+-- or popup over other frames (f.psMenu) lays that art whole over a ground
+-- of Theme's menuBg, so what it opens over never shows through.
 local function panel(f, kit)
 	if f.psBare then return P.bare(f) end
+	local menu = f.psMenu
 	if kit.source == "file" then
-		P.fill(f):Hide()
-		if embedded(f) then
+		if embedded(f) and not menu then
 			-- A card inside a window: the options panel's box.
+			P.fill(f):Hide()
 			tooltip(f, "tip", f, 0.1, 0.1, 0.1, 0.6, 0.4, 0.4, 0.4)
 		else
-			local r, g, b, a = Theme.Color("panel")
+			local r, g, b, a = Theme.Color(menu and "menuBg" or "panel")
+			-- The tile is 91 % opaque at best: the ground under it, inside the rope.
+			if menu then body(f, r, g, b, a, 4):Show() else P.fill(f):Hide() end
 			tooltip(f, "tip", f, r, g, b, a or 0.92)
 		end
 		return
 	end
-	P.fill(f):Hide()
+	if menu then body(f, Theme.Color("menuBg")):Show() else P.fill(f):Hide() end
 	-- Wide enough round the items for the art's own margins (MenuStyle1
 	-- insets its items 8 from the top and 15 from the bottom).
 	local p = sliced(f, "menuBg", kit, kit.menu, f, { 10, 8, 10, 15 }, "BACKGROUND", -7)
-	for i = 1, 9 do p[i]:SetAlpha(0.925) end
+	for i = 1, 9 do p[i]:SetAlpha(menu and 1 or 0.925) end
 end
 
 -- A text button: UIPanelButtonTemplate (UI-Panel-Button-Up, the same file in

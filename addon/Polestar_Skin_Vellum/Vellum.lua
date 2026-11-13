@@ -139,11 +139,12 @@ local PAINT = {
 			hideRule(frame, kit)
 		end
 	end,
-	-- Menus and popups: lighter paper under a brown rule.
+	-- Menus and popups: lighter paper under a brown rule (a menu or popup
+	-- over other frames, psMenu, on menuBg: never see-through).
 	panel = function(frame, base, kit)
 		base(frame)
 		if frame.psBare then return kit.bare(frame) end
-		local r, g, b, a = Theme.Color("panel")
+		local r, g, b, a = Theme.Color(frame.psMenu and "menuBg" or "panel")
 		paper(frame, kit, "BACKGROUND", -6, r, g, b, a)
 	end,
 	sidebar = function(frame, base, kit)

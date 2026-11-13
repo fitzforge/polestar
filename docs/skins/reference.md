@@ -639,7 +639,7 @@ colours (accent, grounds, border, arrow) sit on top of all of them.
 | Token | Stands for | Polestar (Dusk) | Halo | Hearth | Forever / Blizzard / Classic |
 |---|---|---|---|---|---|
 | `bg` | the window ground | `#181d2d@0.97` | `#080604@0.84` | `#1e170d@0.95` | `#000000@0.96` / same / `#101010@0.85` |
-| `panel` | raised panels, popups, menus, toasts | `#1c2234@0.98` | `#120e0a@0.97` | `#000000@0.92` | `#000000@0.92` |
+| `panel` | raised panels and toasts (menus and popups over other frames draw on `menuBg`) | `#1c2234@0.98` | `#120e0a@0.97` | `#000000@0.92` | `#000000@0.92` |
 | `panelAlt` | controls: buttons, fields, dropdowns | `#232a3f` | `#ffffff@0.06` | `#000000` | `#000000` |
 | `sidebar` | the settings window's and guide menu's sidebar | `#121624` | `#080604@0` | `#000000@0.30` | `#000000@0.25` / same / `#000000@0` |
 | `footer` | window footers | `#141927` | `#080604@0` | `#000000@0` | `#000000@0` |
@@ -736,7 +736,7 @@ skin gives them; the other bases give them outright, except `closeFill`,
 | `rowLine` | lines between rows | `divider` | `#ffffff@0.08` | `#ffffff@0.06` | same |
 | `veil` | Halo's veil under the guide window's text | `bg` | `#080604@0.60` | `#000000@0` | same |
 | `veilWindow` | Halo's veil under other windows | `bg` | `#080604@0.84` | `#000000@0` | same |
-| `menuBg` | menu grounds | `panel` | `#120e0a@0.97` | `#000000@0.92` | same |
+| `menuBg` | the ground of menus and popups over other frames (a `panel` marked `psMenu`, the tooltip): never see-through, a skin's own held at 0.97 opacity at least | `panel` at full opacity | `#120e0a@0.97` | `#2c1a0f@0.97` | `#000000` / same / `#171730` |
 | `control` | control grounds | `panelAlt` | `#ffffff@0.06` | `#000000` | same |
 | `icon` | glyphs at rest | `textDim` | `#c2b9a9` | `#ffd100` | `#ceb282` / `#e8e8e8` / `#ffd100` |
 | `iconHover` | glyphs under the cursor | `text` | `#f4efe6` | `#ffd100` | `#f2d199` / `#ffffff` / `#ffffff` |
@@ -862,7 +862,7 @@ A skin may paint any kind itself through `paint.<kind>`:
 | `window` | every window: settings, guide menu, hub, dialogs, popups, movers; and the guide window and toasts unless you give `guide` / `toast` | `psBare` (the player made it transparent: paint no ground), `psBgAlpha` (its own ground opacity, else `Theme.GroundAlpha()`), `psBgColor` (`{ r, g, b }`: its own ground colour), `psNoBorder` (never a window border), `psGuide`, `psLight` |
 | `guide` | the guide window and the class card toast (a `window` with `psGuide`) | as `window` |
 | `toast` | toasts, alerts, the party panel, the move bar (a `window` with `psLight`) | as `window` |
-| `panel` | menus, popups, raised panels, the fallback for an unknown kind | `psBare` |
+| `panel` | menus, popups, raised panels, the fallback for an unknown kind | `psBare`, `psMenu` (a menu or popup over other frames: the dropdown menus, a setting's cog, Quick settings, the settings search's list; paint its ground in `menuBg` so nothing under it shows through) |
 | `sidebar` | the settings' and guide menu's sidebar | |
 | `inset` | wells inside a window | |
 | `button` | buttons, cards, rows that act as buttons | `psTextButton` (a text button, as opposed to a card or row) |
