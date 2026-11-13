@@ -77,6 +77,25 @@ const KB_FILE = path.join(__dirname, '..', '..', 'data', 'local', 'kb', 'forever
 // core's start nodes): its capital's, and for Night Elves Auberdine too.
 const START_NODES = { Human: [2], Orc: [23], Dwarf: [6], NightElf: [26, 27], Scourge: [11], Undead: [11], Tauren: [22], Gnome: [6], Troll: [23] };
 
+// The taxi nodes (travel.json) by id, and the node of a getfp, fly or `when taxi` line: its `node`, else by name
+// among the ones the faction can use (1 Alliance, 2 Horde, else both). World and the prerequisite-order check
+// (route/prereq-order.js) share them.
+function taxiNodes(data) {
+	return new Map(((data.travel && data.travel.taxi && data.travel.taxi.nodes) || []).map((n) => [n.id, n]));
+}
+function taxiUsable(n, faction) {
+	const side = faction === 'Alliance' ? 1 : faction === 'Horde' ? 2 : 0;
+	return !side || (n.faction !== 1 && n.faction !== 2) || n.faction === side;
+}
+function taxiNode(nodes, faction, x) {
+	if (x.node != null && nodes.has(x.node)) return nodes.get(x.node);
+	const name = String(x.location || '').toLowerCase();
+	for (const n of nodes.values()) {
+		if (taxiUsable(n, faction) && (String(n.short).toLowerCase() === name || String(n.name).toLowerCase() === name)) return n;
+	}
+	return null;
+}
+
 // The knowledge base's required steps per quest, { quest: [{ n, action, target, item, fact }] },
 // from `file` (default data/local/kb/forever-kb.sqlite); null when it is not there.
 function loadKb(file = KB_FILE) {
@@ -131,7 +150,7 @@ class World {
 		this.travelled = null; // the kind of the last travel line since pos: 'zone' | 'world'
 		this.worked = []; // every executed goal, for the knowledge base's steps
 		this.findings = [];
-		this.nodes = new Map(((data.travel && data.travel.taxi && data.travel.taxi.nodes) || []).map((n) => [n.id, n]));
+		this.nodes = taxiNodes(data);
 		this.needing = new Map(); // item -> quests whose objectives ask for it
 		for (const q of Object.values(data.quests)) {
 			for (const o of q.objectives || []) {
@@ -143,20 +162,14 @@ class World {
 		this._names = null;
 	}
 
-	// Whether the character's faction can use taxi node n (1 Alliance, 2 Horde, else both).
+	// Whether the character's faction can use taxi node n.
 	usable(n) {
-		const side = this.persona.faction === 'Alliance' ? 1 : this.persona.faction === 'Horde' ? 2 : 0;
-		return !side || (n.faction !== 1 && n.faction !== 2) || n.faction === side;
+		return taxiUsable(n, this.persona.faction);
 	}
 
-	// The taxi node of a getfp or fly line: its `node`, else by name among the usable ones.
+	// The taxi node of a getfp or fly line.
 	node(x) {
-		if (x.node != null && this.nodes.has(x.node)) return this.nodes.get(x.node);
-		const name = String(x.location || '').toLowerCase();
-		for (const n of this.nodes.values()) {
-			if (this.usable(n) && (String(n.short).toLowerCase() === name || String(n.name).toLowerCase() === name)) return n;
-		}
-		return null;
+		return taxiNode(this.nodes, this.persona.faction, x);
 	}
 
 	// NPC ids by lower-case name (for step titles).
@@ -799,4 +812,4 @@ function findingLines(f) {
 	return [`${f.rule} ${f.severity} ${f.file}:${f.line} (${f.race} ${f.cls ? f.cls[0] + f.cls.slice(1).toLowerCase() : ''}) step ${f.step}${f.title ? ` "${f.title}"` : ''}: ${f.reason}`, `  repair: ${f.repair}`];
 }
 
-module.exports = { honestPlay, playChain, chains, goalLines, whenHolds, fits, loadKb, findingLines, KB_FILE };
+module.exports = { honestPlay, playChain, chains, goalLines, whenHolds, fits, loadKb, findingLines, KB_FILE, START_NODES, taxiNodes, taxiNode };
