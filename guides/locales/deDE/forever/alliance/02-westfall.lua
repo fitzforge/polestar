@@ -8,28 +8,28 @@
 return {
 	-- Step 1: Goldshire
 	-- {zone:1453} Stormwind · {zone:1436} Westfall · {area:87} Goldshire · {npc:241} Remy "Two Times" · {npc:240} Marshal Dughan · {quest:40} A Fishy Peril · {quest:35} Further Concerns · {quest:109} Report to Gryan Stoutmantle
-	["On the road from {zone:1453} to {zone:1436}, {area:87} is the first stop: {npc:241} stands outside the inn, {npc:240} beside him. {npc:241}'s {quest:40} goes straight to Dughan, who then gives {quest:35}; his {quest:109} goes with you to {zone:1436}."] = "",
+	["On the road from {zone:1453} to {zone:1436}, {area:87} is the first stop: {npc:241} stands outside the inn, {npc:240} beside him. {npc:241}'s {quest:40} goes straight to Dughan, who then gives {quest:35}; his {quest:109} goes with you to {zone:1436}."] = "Auf dem Weg von {zone:1453} nach {zone:1436} ist {area:87} die erste Station: {npc:241} steht vor dem Gasthaus, {npc:240} neben ihm. Die Quest {quest:40} von {npc:241} geht direkt zu Dughan, der dir danach {quest:35} gibt; seine Quest {quest:109} nimmst du mit nach {zone:1436}.",
 	-- {npc:240} Marshal Dughan · {npc:234} Gryan Stoutmantle · {area:108} Sentinel Hill
-	["{npc:240}: for {npc:234} at {area:108}"] = "",
+	["{npc:240}: for {npc:234} at {area:108}"] = "{npc:240}: für {npc:234} in {area:108}",
 
 	-- Step 2: The Tower of Azora
 	-- {area:91} Tower of Azora
 	["The {area:91}"] = "{area:91}",
 	-- {area:18} Crystal Lake · {npc:248242} Hamish Bergwort · {npc:248248} Blixie Fitzwink
-	["East along the road past {area:18}: {npc:248242} and {npc:248248} stand at the foot of the tower."] = "",
+	["East along the road past {area:18}: {npc:248242} and {npc:248248} stand at the foot of the tower."] = "Folge der Straße nach Osten an {area:18} vorbei: {npc:248242} und {npc:248248} stehen am Fuß des Turms.",
 
 	-- Step 3: The bridge
 	["The bridge"] = "Die Brücke",
 	-- {npc:261} Guard Thomas · {npc:248265} Ormin Pelford
 	-- plural, as words: Prowlers = {npc:118} Prowler
-	["{npc:261} guards the bridge on the road east; {npc:248265} stands just across it. His tools and Thomas's Prowlers and bears are south of the bridge, on the way back."] = "",
+	["{npc:261} guards the bridge on the road east; {npc:248265} stands just across it. His tools and Thomas's Prowlers and bears are south of the bridge, on the way back."] = "{npc:261} bewacht die Brücke an der Straße nach Osten; {npc:248265} steht direkt dahinter. Sein Werkzeug und Thomas' Prowlers und Bären findest du südlich der Brücke, auf dem Rückweg.",
 
 	-- Step 4: The Eastvale Logging Camp
 	-- {area:88} Eastvale Logging Camp
 	["The {area:88}"] = "{area:88}",
 	["The camp is north-east of the bridge. Bundles of Wood lie around the camp and in the woods north of it."] = "Das Lager liegt nordöstlich der Brücke. Kleinholzbündel liegen rund um das Lager und in den Wäldern nördlich davon.",
 	-- {npc:278} Sara Timberlain
-	["{npc:278}, inside"] = "",
+	["{npc:278}, inside"] = "{npc:278}, drinnen",
 
 	-- Step 5: A half-eaten body
 	["It lies by the river north-west of the logging camp."] = "Er liegt am Fluss nordwestlich des Holzfällerlagers.",
@@ -48,16 +48,16 @@ return {
 
 	-- Step 8: The Jasperlode Mine's entrance
 	-- {area:54} Jasperlode Mine
-	["The {area:54}'s entrance"] = "",
+	["The {area:54}'s entrance"] = "Der Eingang der {area:54}",
 
 	-- Step 9: Jasperlode Mine: kill these as you meet them
 	-- {area:54} Jasperlode Mine
-	["{area:54}: kill these as you meet them"] = "",
+	["{area:54}: kill these as you meet them"] = "{area:54}: Töte diese, wenn sie dir begegnen",
 	-- {item:247816} Mining Tools · {npc:471} Mother Fang · {npc:248474} Geosculptor Yip
 	-- plural, as words: Kobold Geomancers = {npc:476} Kobold Geomancer · Mine Spiders = {npc:43} Mine Spider
 	["The mine is south-west of the gnoll camps. {item:247816} lie near the entrance; Kobold Geomancers hold the tunnels.\nCareful: {npc:471} (7-10), the Mine Spiders (7-9) and {npc:248474} (7) are elites deep in the mine: pull the kobolds one at a time near the entrance and back out if an elite comes; they're easier with a friend."] = "Die Mine liegt südwestlich der Gnolllager. {item:247816} liegen nahe dem Eingang; Koboldgeomanten halten die Tunnel.\nVorsicht: {npc:471} (7-10), die Minenspinnen (7-9) und {npc:248474} (7) sind Elitegegner tief in der Mine: Zieh die Kobolde nahe dem Eingang einzeln und zieh dich zurück, wenn eine Elite kommt; zu zweit sind sie leichter.",
 	-- {npc:476} Kobold Geomancer · {area:54} Jasperlode Mine
-	["{npc:476} walks around {area:54}: look inside the circle on the map"] = "",
+	["{npc:476} walks around {area:54}: look inside the circle on the map"] = "{npc:476} läuft um {area:54} herum: Schau auf der Karte in den Kreis",
 
 	-- Step 10: The Tower of Azora
 	["Follow the hills south to the tower."] = "Folge den Hügeln nach Süden zum Turm.",
@@ -65,11 +65,11 @@ return {
 	-- Step 11: Downstream
 	-- {item:247813} Waterlogged Saw
 	-- plural, as words: Prowlers = {npc:118} Prowler · Young Forest Bears = {npc:822} Young Forest Bear
-	["East along the road, then into the river south of the bridge: the {item:247813}, Axe and Toolbox lie in it. Prowlers and Young Forest Bears roam its banks."] = "",
+	["East along the road, then into the river south of the bridge: the {item:247813}, Axe and Toolbox lie in it. Prowlers and Young Forest Bears roam its banks."] = "Folge der Straße nach Osten und geh dann südlich der Brücke in den Fluss: Dort liegen {item:247813}, Axt und Werkzeugkasten. An den Ufern streifen Prowlers und Young Forest Bears umher.",
 
 	-- Step 14: Goldshire
 	-- {area:87} Goldshire · {zone:1436} Westfall · {npc:240} Marshal Dughan
-	["Follow the road west to {area:87}, on the way to {zone:1436}: {npc:240} stands outside the inn."] = "",
+	["Follow the road west to {area:87}, on the way to {zone:1436}: {npc:240} stands outside the inn."] = "Folge der Straße nach Westen bis {area:87}, auf dem Weg nach {zone:1436}: {npc:240} steht vor dem Gasthaus.",
 
 	-- Step 15: The Jansen Stead
 	-- {zone:1436} Westfall · {object:2724} Sack of Oats
@@ -86,122 +86,125 @@ return {
 	-- plural, as words: Young Goretusks = {npc:454} Young Goretusk
 	["South along the road, past the fork. {npc:233} stands outside, {npc:235} in the house, {npc:253395} in the barn to the west. Young Goretusks and Fleshrippers roam the fields around the farm: start on livers and the stew's meat on the way."] = "Südlich der Straße, vorbei an der Gabelung. {npc:233} steht draußen, {npc:235} im Haus, {npc:253395} in der Scheune im Westen. Junge Hauerzähne und Fleischreißer streifen um die Felder der Farm: Beginne unterwegs mit Lebern und dem Eintopffleisch.",
 	-- {npc:235} Salma Saldean
-	["{npc:235}, inside"] = "",
+	["{npc:235}, inside"] = "{npc:235}, drinnen",
 
 	-- Step 19: Goretusk Snouts
 	-- plural, as words: Goretusk Snouts = {item:731} Goretusk Snout
-	["Goretusk Snouts"] = "",
+	["Goretusk Snouts"] = "Goretusk Snouts",
 	-- {area:108} Sentinel Hill
 	-- plural, as words: Young Goretusks = {npc:454} Young Goretusk
-	["Young Goretusks root in the fields along the road south from Saldean's to {area:108}: take their snouts on the way."] = "",
+	["Young Goretusks root in the fields along the road south from Saldean's to {area:108}: take their snouts on the way."] = "Young Goretusks wühlen auf den Feldern entlang der Straße südlich von Saldean's nach {area:108}: Nimm ihre Schnauzen auf dem Weg mit.",
 
 	-- Step 20: Sentinel Hill's tower and Thor
 	-- {area:108} Sentinel Hill · {npc:523} Thor
-	["{area:108}'s tower and {npc:523}"] = "",
+	["{area:108}'s tower and {npc:523}"] = "Der Turm von {area:108} und {npc:523}",
 	-- {npc:234} Gryan Stoutmantle · {npc:821} Captain Danuvin · {npc:491} Quartermaster Lewis · {npc:523} Thor · {npc:878} Scout Galiaan · {npc:1323} Osric Strang · {zone:1453} Stormwind · {npc:279} Morgan Pestle · {object:2096} Trade District · {object:2156} Limited Immunity (no name in this language: may be words) · {object:2100} Old Town · {npc:1646} Baros Alexston · {object:2098} Cathedral Square · {npc:352} Dungar Longdrink
-	["{npc:234} and {npc:821} stand at the top of the stone tower, {npc:491} inside it, {npc:523} the gryphon master on the south side of the hill with {npc:878} beside him. {npc:523} gives you Lewis' note for {npc:1323} with a free flight to {zone:1453}: take it now. In {zone:1453}, {npc:279}'s shop is in the {object:2096} by the gryphons, {npc:1323}'s shop, {object:2156}, in {object:2100}; {npc:1646} stands in {object:2098} on the way back to {npc:352}, the gryphon master."] = "",
+	["{npc:234} and {npc:821} stand at the top of the stone tower, {npc:491} inside it, {npc:523} the gryphon master on the south side of the hill with {npc:878} beside him. {npc:523} gives you Lewis' note for {npc:1323} with a free flight to {zone:1453}: take it now. In {zone:1453}, {npc:279}'s shop is in the {object:2096} by the gryphons, {npc:1323}'s shop, {object:2156}, in {object:2100}; {npc:1646} stands in {object:2098} on the way back to {npc:352}, the gryphon master."] = "{npc:234} und {npc:821} stehen oben im Steinturm, {npc:491} darin, {npc:523}, der Greifenmeister, auf der Südseite des Hügels, mit {npc:878} neben sich. {npc:523} gibt dir Lewis' Notiz für {npc:1323} mit einem kostenlosen Flug nach {zone:1453}: Nimm sie jetzt mit. In {zone:1453} liegt der Laden von {npc:279} im {object:2096} bei den Greifen, der Laden von {npc:1323}, {object:2156}, in {object:2100}; {npc:1646} steht in {object:2098} auf dem Rückweg zu {npc:352}, dem Greifenmeister.",
 	-- {npc:491} Quartermaster Lewis
-	["{npc:491}, inside"] = "",
+	["{npc:491}, inside"] = "{npc:491}, drinnen",
 	-- {npc:878} Scout Galiaan · {npc:523} Thor
-	["{npc:878}, beside {npc:523}"] = "",
+	["{npc:878}, beside {npc:523}"] = "{npc:878}, neben {npc:523}",
 	-- {npc:523} Thor · {zone:1453} Stormwind
-	["{npc:523}: the free flight he offers goes to {zone:1453}"] = "",
+	["{npc:523}: the free flight he offers goes to {zone:1453}"] = "{npc:523}: Der kostenlose Flug, den er anbietet, geht nach {zone:1453}",
 
 	-- Step 21: Osric Strang
 	-- {npc:279} Morgan Pestle · {object:2096} Trade District
-	["{npc:279}, {object:2096}, by the gryphons"] = "",
+	["{npc:279}, {object:2096}, by the gryphons"] = "{npc:279}, {object:2096}, bei den Greifen",
 	-- {npc:1323} Osric Strang · {object:2156} Limited Immunity (no name in this language: may be words) · {object:2100} Old Town
-	["{npc:1323}, {object:2156} in {object:2100}"] = "",
+	["{npc:1323}, {object:2156} in {object:2100}"] = "{npc:1323}, {object:2156} in {object:2100}",
 
 	-- Step 22: Defensive Stance
+	["Defensive Stance"] = "Verteidigungshaltung",
 	-- {npc:5480} Ilsa Corbin · {object:2100} Old Town · {npc:1323} Osric Strang · {zone:1455} Ironforge · {object:28027} Dwarven District · {npc:6089} Harry Burlguard · {npc:6090} Bartleby · {object:2152} Pig and Whistle Tavern · {quest:1638} A Warrior's Training · {quest:1639} Bartleby the Drunk
-	["{npc:5480} trains warriors in {object:2100}, near {npc:1323}'s shop; the tram from {zone:1455} arrives in the {object:28027}, north of it. {npc:6089} and {npc:6090} stand together by the {object:2152} there. {npc:6090} fights you for his mug. If {npc:5480} doesn't offer {quest:1638}, go straight to {npc:6089}: he gives {quest:1639} without it."] = "",
+	["{npc:5480} trains warriors in {object:2100}, near {npc:1323}'s shop; the tram from {zone:1455} arrives in the {object:28027}, north of it. {npc:6089} and {npc:6090} stand together by the {object:2152} there. {npc:6090} fights you for his mug. If {npc:5480} doesn't offer {quest:1638}, go straight to {npc:6089}: he gives {quest:1639} without it."] = "{npc:5480} bildet Krieger in {object:2100} aus, nahe dem Laden von {npc:1323}; die Tiefenbahn aus {zone:1455} kommt im {object:28027} nördlich davon an. {npc:6089} und {npc:6090} stehen dort zusammen beim {object:2152}. {npc:6090} kämpft mit dir um seinen Krug. Wenn {npc:5480} dir {quest:1638} nicht anbietet, geh direkt zu {npc:6089}: Er gibt dir {quest:1639} auch ohne sie.",
+	-- {npc:6089} Harry Burlguard
+	["{npc:6089}: Defensive Stance"] = "{npc:6089}: Verteidigungshaltung",
 
 	-- Step 23: Baros Alexston
 	-- {npc:1646} Baros Alexston · {object:2098} Cathedral Square · {zone:1436} Westfall
-	["{npc:1646}, {object:2098}: his compass is in his old house in {zone:1436}"] = "",
+	["{npc:1646}, {object:2098}: his compass is in his old house in {zone:1436}"] = "{npc:1646}, {object:2098}: Sein Kompass liegt in seinem alten Haus in {zone:1436}",
 
 	-- Step 25: High Priestess Laurena
 	-- {npc:376} High Priestess Laurena · {object:2098} Cathedral Square · {npc:1646} Baros Alexston
-	["{npc:376} is in the Cathedral of Light, across {object:2098} from {npc:1646}."] = "",
+	["{npc:376} is in the Cathedral of Light, across {object:2098} from {npc:1646}."] = "{npc:376} ist in der Kathedrale des Lichts, gegenüber von {npc:1646} auf {object:2098}.",
 
 	-- Step 26: Dungar Longdrink
 	-- {npc:352} Dungar Longdrink
-	["{npc:352}, the gryphon master"] = "",
+	["{npc:352}, the gryphon master"] = "{npc:352}, der Greifenmeister",
 
 	-- Step 27: Sentinel Hill
 	-- {npc:234} Gryan Stoutmantle · {npc:821} Captain Danuvin · {npc:491} Quartermaster Lewis · {npc:878} Scout Galiaan · {npc:523} Thor
 	["{npc:234} and {npc:821} stand at the top of the stone tower. {npc:491} is in the tower, {npc:878} on the south side of the hill, next to the inn and {npc:523} the gryphon master."] = "{npc:234} und {npc:821} stehen oben auf dem Steinturm. {npc:491} ist im Turm, {npc:878} auf der Südseite des Hügels, neben dem Gasthaus und {npc:523}, dem Greifenmeister.",
 	-- {npc:491} Quartermaster Lewis · {zone:1453} Stormwind
-	["{npc:491}, inside: back from {zone:1453}"] = "",
+	["{npc:491}, inside: back from {zone:1453}"] = "{npc:491}, drinnen: zurück aus {zone:1453}",
 	-- {npc:253092} Alba Fairmoon · {npc:878} Scout Galiaan
 	["{npc:253092}, beside {npc:878}"] = "{npc:253092}, neben {npc:878}",
 
 	-- Step 29: Goretusk Livers as you go
 	-- plural, as words: Goretusk Livers = {item:723} Goretusk Liver
-	["Goretusk Livers as you go"] = "",
+	["Goretusk Livers as you go"] = "Goretusk Livers unterwegs",
 	-- plural, as words: Goretusks = {npc:157} Goretusk · Young Goretusks = {npc:454} Young Goretusk
-	["Goretusks and Young Goretusks root along every leg of this loop: kill the ones you pass for the pie's livers."] = "",
+	["Goretusks and Young Goretusks root along every leg of this loop: kill the ones you pass for the pie's livers."] = "Goretusks und Young Goretusks wühlen an jedem Abschnitt dieser Runde: Töte die, an denen du vorbeikommst, für die Lebern der Pastete.",
 
 	-- Step 30: Stringy Vulture Meat as you go
 	-- {item:729} Stringy Vulture Meat
-	["{item:729} as you go"] = "",
-	["Fleshrippers circle the fields along this loop: kill the ones you pass for the stew's meat."] = "",
+	["{item:729} as you go"] = "{item:729} unterwegs",
+	["Fleshrippers circle the fields along this loop: kill the ones you pass for the stew's meat."] = "Fleshrippers streifen auf dieser Runde über die Felder: Töte die, an denen du vorbeikommst, für das Fleisch des Eintopfs.",
 	-- {item:729} Stringy Vulture Meat
 	["{item:729}: Fleshrippers"] = "{item:729}: Fleischreißer",
 
 	-- Step 31: Red Leather Bandanas as you go
 	-- {quest:153} Red Leather Bandanas
-	["{quest:153} as you go"] = "",
+	["{quest:153} as you go"] = "{quest:153} unterwegs",
 	-- {item:829} Red Leather Bandana · {object:290} Furlbrow's Wardrobe
-	["Every Defias on this loop can drop a {item:829}: the Trappers and Smugglers, and the guards at {object:290}."] = "",
+	["Every Defias on this loop can drop a {item:829}: the Trappers and Smugglers, and the guards at {object:290}."] = "Jeder Defias auf dieser Runde kann ein {item:829} fallen lassen: die Trappers und Smugglers sowie die Wachen bei {object:290}.",
 
 	-- Step 32: Defias Trappers and Smugglers
 	-- plural, as words: Defias Trappers = {npc:504} Defias Trapper
-	["Defias Trappers and Smugglers"] = "",
+	["Defias Trappers and Smugglers"] = "Defias Trappers und Smugglers",
 	-- {area:108} Sentinel Hill · {area:918} Molsen Farm
 	-- plural, as words: Defias Trappers = {npc:504} Defias Trapper
-	["North-west from {area:108} toward {area:918}: Defias Trappers and Smugglers camp in the fields between them."] = "",
+	["North-west from {area:108} toward {area:918}: Defias Trappers and Smugglers camp in the fields between them."] = "Nordwestlich von {area:108} in Richtung {area:918}: Defias Trappers und Smugglers lagern auf den Feldern dazwischen.",
 
 	-- Step 33: Molsen Farm's well
 	-- {area:918} Molsen Farm
-	["{area:918}'s well"] = "",
+	["{area:918}'s well"] = "Der Brunnen von {area:918}",
 	["Fill the vial at the farm's well"] = "Füll die Phiole am Brunnen des Hofs",
 
 	-- Step 34: Molsen Farm's Harvest Watchers
 	-- {area:918} Molsen Farm
 	-- plural, as words: Harvest Watchers = {npc:114} Harvest Watcher
-	["{area:918}'s Harvest Watchers"] = "",
+	["{area:918}'s Harvest Watchers"] = "Die Harvest Watchers von {area:918}",
 	-- {area:918} Molsen Farm · {item:732} Okra · {item:255155} Precessive Autocognition Assembly · {npc:573} Foe Reaper 4000
 	-- plural, as words: Harvest Watchers = {npc:114} Harvest Watcher
-	["Harvest Watchers and Golems work the fields around {area:918}; they drop the isosprings, gyrostabilizers, {item:732} and sometimes a {item:255155}. {npc:573}, a level 20 rare, walks here: leave it alone."] = "",
+	["Harvest Watchers and Golems work the fields around {area:918}; they drop the isosprings, gyrostabilizers, {item:732} and sometimes a {item:255155}. {npc:573}, a level 20 rare, walks here: leave it alone."] = "Harvest Watchers und Golems bearbeiten die Felder rund um {area:918}; sie lassen die Isosprings, Gyrostabilisatoren, {item:732} und manchmal ein {item:255155} fallen. {npc:573}, ein Rare der Stufe 20, läuft hier herum: Lass ihn in Ruhe.",
 	-- plural, as words: Harvest Watchers = {npc:114} Harvest Watcher
 	["Harvest Watchers"] = "Erntebehüter",
 	-- {item:814} Flask of Oil · {npc:392} Captain Grayson · {area:115} Westfall Lighthouse
-	["{item:814}: keep five for {npc:392} at the {area:115}, later on the route"] = "",
+	["{item:814}: keep five for {npc:392} at the {area:115}, later on the route"] = "{item:814}: Behalte fünf für {npc:392} am {area:115}, später auf der Route",
 
 	-- Step 35: The gnoll hills
 	["The gnoll hills"] = "Die Gnollhügel",
 	-- {area:111} Jangolode Mine · {area:916} The Jansen Stead
 	-- plural, as words: Riverpaw Gnolls = {npc:117} Riverpaw Gnoll
-	["North to the hills above {area:111}: Riverpaw Gnolls and Scouts (level 11-13) roam there, east toward the {area:916}. The gnolls further south and west are 13-19: stay in the north hills.\nCareful: Gnolls that stand close together tend to join a fight as a group. Pulling one at a time is safer."] = "",
+	["North to the hills above {area:111}: Riverpaw Gnolls and Scouts (level 11-13) roam there, east toward the {area:916}. The gnolls further south and west are 13-19: stay in the north hills.\nCareful: Gnolls that stand close together tend to join a fight as a group. Pulling one at a time is safer."] = "Nach Norden in die Hügel oberhalb von {area:111}: Dort streifen Riverpaw Gnolls und Scouts (Stufe 11-13) umher, nach Osten hin zum {area:916}. Die Gnolle weiter südlich und westlich sind Stufe 13-19: Bleib in den nördlichen Hügeln.\nVorsicht: Gnolle, die nah beieinander stehen, greifen oft als Gruppe in den Kampf ein. Einzeln zu ziehen ist sicherer.",
 	-- plural, as words: Gnoll Paws = {item:725} Gnoll Paw
 	["Gnoll Paws"] = "Gnolltatzen",
 
 	-- Step 36: The Longshore murlocs
 	-- {area:2} Longshore
-	["The {area:2} murlocs"] = "",
+	["The {area:2} murlocs"] = "Die Murlocs von {area:2}",
 	-- {area:916} The Jansen Stead
 	-- plural, as words: Murloc Coastrunners = {npc:126} Murloc Coastrunner
-	["Murloc Coastrunners and Raiders line the north coast from above the mine east toward the {area:916}: work along the beach eastward. They flee at low health: pull one at a time."] = "",
+	["Murloc Coastrunners and Raiders line the north coast from above the mine east toward the {area:916}: work along the beach eastward. They flee at low health: pull one at a time."] = "Murloc Coastrunners und Raiders säumen die Nordküste von oberhalb der Mine bis zum {area:916}: Arbeite dich am Strand nach Osten vor. Sie fliehen bei niedriger Gesundheit: Zieh sie einzeln.",
 	-- plural, as words: Longshore Murloc Gills = {item:254548} Longshore Murloc Gill
 	["Longshore Murloc Gills"] = "Murlockiemen von Longshore",
 
 	-- Step 37: Furlbrow's Wardrobe
 	-- {object:290} Furlbrow's Wardrobe · {area:916} The Jansen Stead · {npc:502} Benny Blaanco
-	["{object:290} stands in the ruined house east of the mine, on the way to the {area:916}.\nCareful: Two Defias stand guard inside, one of them the level 15 named {npc:502}. They are linked, so attacking either one brings both."] = "",
+	["{object:290} stands in the ruined house east of the mine, on the way to the {area:916}.\nCareful: Two Defias stand guard inside, one of them the level 15 named {npc:502}. They are linked, so attacking either one brings both."] = "{object:290} steht im zerstörten Haus östlich der Mine, auf dem Weg zum {area:916}.\nVorsicht: Zwei Defias bewachen das Innere, einer davon der benannte {npc:502} der Stufe 15. Sie sind verbunden, ein Angriff auf einen zieht also beide an.",
 	-- {object:290} Furlbrow's Wardrobe
-	["{object:290}; inside"] = "",
+	["{object:290}; inside"] = "{object:290}; drinnen",
 
 	-- Step 38: The Jansen Stead
 	["Sacks of Oats in the fields around the farm"] = "Haferbündel auf den Feldern rund um die Farm",
@@ -209,24 +212,24 @@ return {
 
 	-- Step 39: Finish the Goretusk Livers
 	-- plural, as words: Goretusk Livers = {item:723} Goretusk Liver
-	["Finish the Goretusk Livers"] = "",
+	["Finish the Goretusk Livers"] = "Schließe die Goretusk Livers ab",
 	-- {area:107} Saldean's Farm
 	-- plural, as words: Young Goretusks = {npc:454} Young Goretusk
-	["Still short of eight? Young Goretusks root in the fields just west of {area:107}."] = "",
+	["Still short of eight? Young Goretusks root in the fields just west of {area:107}."] = "Noch keine acht? Young Goretusks wühlen auf den Feldern direkt westlich von {area:107}.",
 
 	-- Step 40: Finish the Stringy Vulture Meat
 	-- {item:729} Stringy Vulture Meat
-	["Finish the {item:729}"] = "",
+	["Finish the {item:729}"] = "Schließe {item:729} ab",
 	-- {area:107} Saldean's Farm
 	-- plural, as words: Young Fleshrippers = {npc:199} Young Fleshripper
-	["Still short of three? Young Fleshrippers circle the fields north-west of {area:107}."] = "",
+	["Still short of three? Young Fleshrippers circle the fields north-west of {area:107}."] = "Noch keine drei? Young Fleshrippers streifen über die Felder nordwestlich von {area:107}.",
 
 	-- Step 42: Finish the Red Leather Bandanas
 	-- {quest:153} Red Leather Bandanas
-	["Finish the {quest:153}"] = "",
+	["Finish the {quest:153}"] = "Schließe {quest:153} ab",
 	-- {area:108} Sentinel Hill
 	-- plural, as words: Defias Trappers = {npc:504} Defias Trapper
-	["Still short of fifteen? Defias Trappers camp in the fields just west of {area:108}."] = "",
+	["Still short of fifteen? Defias Trappers camp in the fields just west of {area:108}."] = "Noch keine fünfzehn? Defias Trappers lagern auf den Feldern direkt westlich von {area:108}.",
 
 	-- Step 43: Sentinel Hill
 	-- {npc:266} Wiley the Black · {area:69} Lakeshire
@@ -250,32 +253,32 @@ return {
 
 	-- Step 46: Moonbrook: kill these as you meet them
 	-- {area:20} Moonbrook
-	["{area:20}: kill these as you meet them"] = "",
+	["{area:20}: kill these as you meet them"] = "{area:20}: Töte diese, wenn sie dir begegnen",
 	-- {area:108} Sentinel Hill · {area:20} Moonbrook · {object:1166} Alexston's Chest · {area:219} Alexston Farmstead · {npc:1646} Baros Alexston · {area:113} Gold Coast Quarry
 	-- plural, as words: Defias Pillagers = {npc:589} Defias Pillager
-	["Defias Pillagers and Looters hold the farms west of {area:108}, between the coast road and {area:20}. {object:1166} stands in the farmhouse at the {area:219}, among them: {npc:1646}' compass is inside.\nCareful: The {area:113} cave holds many Defias packed together, so it is easy to pull several at once there."] = "",
+	["Defias Pillagers and Looters hold the farms west of {area:108}, between the coast road and {area:20}. {object:1166} stands in the farmhouse at the {area:219}, among them: {npc:1646}' compass is inside.\nCareful: The {area:113} cave holds many Defias packed together, so it is easy to pull several at once there."] = "Defias Pillagers und Looters halten die Höfe westlich von {area:108}, zwischen der Küstenstraße und {area:20}. {object:1166} steht im Bauernhaus bei {area:219}, mitten unter ihnen: Der Kompass von {npc:1646} liegt darin.\nVorsicht: In der Höhle des {area:113} stehen viele Defias dicht gedrängt, dort ist es leicht, mehrere auf einmal zu ziehen.",
 	-- {item:2998} A Simple Compass · {object:1166} Alexston's Chest
-	["{item:2998}, from {object:1166}"] = "",
+	["{item:2998}, from {object:1166}"] = "{item:2998}, aus {object:1166}",
 
 	-- Step 49: High Priestess Laurena
 	-- {zone:1453} Stormwind · {npc:376} High Priestess Laurena
-	["Walk to {zone:1453}. {npc:376} is in the Cathedral of Light."] = "",
+	["Walk to {zone:1453}. {npc:376} is in the Cathedral of Light."] = "Geh nach {zone:1453}. {npc:376} ist in der Kathedrale des Lichts.",
 
 	-- Step 51: The Tome of Divinity
 	-- {npc:6171} Duthorian Rall · {npc:6173} Gazin Tenorm · {npc:6174} Stephanie Turner · {object:2096} Trade District · {item:2589} Linen Cloth
-	["{npc:6171} and {npc:6173} are in the Cathedral of Light; {npc:6174} stands in the {object:2096} and asks for ten {item:2589} (humanoids drop it; the Auction House sells it)."] = "",
+	["{npc:6171} and {npc:6173} are in the Cathedral of Light; {npc:6174} stands in the {object:2096} and asks for ten {item:2589} (humanoids drop it; the Auction House sells it)."] = "{npc:6171} und {npc:6173} sind in der Kathedrale des Lichts; {npc:6174} steht im {object:2096} und verlangt zehn {item:2589} (Humanoide lassen es fallen; das Auktionshaus verkauft es).",
 	-- {item:6775} Tome of Divinity
-	["Right-click the {item:6775} he gives you"] = "",
+	["Right-click the {item:6775} he gives you"] = "Rechtsklick auf das {item:6775}, das er dir gibt",
 	-- {npc:6172} Henze Faulk · {area:86} Stone Cairn Lake
-	["{npc:6172}, by {area:86} in Elwynn, on the road to Redridge"] = "",
+	["{npc:6172}, by {area:86} in Elwynn, on the road to Redridge"] = "{npc:6172}, bei {area:86} im Wald von Elwynn, an der Straße nach Rotkammgebirge",
 
 	-- Step 52: Stormwind
 	-- {zone:1453} Stormwind · {object:28027} Dwarven District
-	["{zone:1453}'s {object:28027}"] = "",
+	["{zone:1453}'s {object:28027}"] = "Das {object:28027} von {zone:1453}",
 
 	-- Step 53: Tram to Ironforge
 	-- {zone:1455} Ironforge
-	["Tram to {zone:1455}"] = "",
+	["Tram to {zone:1455}"] = "Tiefenbahn nach {zone:1455}",
 
 	-- Step 54: Shaman training
 	["Shaman training"] = "Schamanenausbildung",
@@ -284,15 +287,15 @@ return {
 
 	-- Step 55: Stormwind
 	-- {area:1519} Stormwind · {object:2100} Old Town · {object:2101} Mage Quarter · {object:28027} Dwarven District
-	["Walk to {area:1519}, or fly if you know its flight path. Trainers: {object:2100} (Warriors, Rogues), the Cathedral (Paladins, Priests), the {object:2101} (Mages, Warlocks), the {object:28027} (Hunters), the Park (Druids)."] = "",
-	["In through the main gate (already done if you are in the city)"] = "",
+	["Walk to {area:1519}, or fly if you know its flight path. Trainers: {object:2100} (Warriors, Rogues), the Cathedral (Paladins, Priests), the {object:2101} (Mages, Warlocks), the {object:28027} (Hunters), the Park (Druids)."] = "Geh nach {area:1519} oder flieg, wenn du die Flugroute kennst. Lehrer: {object:2100} (Krieger, Schurken), die Kathedrale (Paladine, Priester), das {object:2101} (Magier, Hexenmeister), das {object:28027} (Jäger), der Park (Druiden).",
+	["In through the main gate (already done if you are in the city)"] = "Durch das Haupttor hinein (schon erledigt, wenn du in der Stadt bist)",
 	["Level 12, 14 and 16 spells"] = "Zauber der Stufen 12, 14 und 16",
 
 	-- Step 56: Back to Stormwind
 	-- {zone:1453} Stormwind
-	["Back to {zone:1453}"] = "",
+	["Back to {zone:1453}"] = "Zurück nach {zone:1453}",
 	-- {zone:1453} Stormwind · {object:28027} Dwarven District
-	["Ride the tram back: it comes out in {zone:1453}'s {object:28027}, where the errands below start."] = "",
+	["Ride the tram back: it comes out in {zone:1453}'s {object:28027}, where the errands below start."] = "Fahr mit der Tiefenbahn zurück: Sie kommt im {object:28027} von {zone:1453} an, wo die Besorgungen unten beginnen.",
 
 	-- Step 57: Stormwind
 	-- {item:2449} Earthroot · {zone:1439} Darkshore · {npc:1313} Maria Lumere
@@ -300,29 +303,29 @@ return {
 	-- {npc:1416} Grimand Elmore · {npc:1343} Mountaineer Stormpike · {zone:1432} Loch Modan
 	["{npc:1416}: his package for {npc:1343} in {zone:1432}, later on the route"] = "{npc:1416}: sein Paket für {npc:1343} in {zone:1432}, später auf der Route",
 	-- {npc:7232} Borgus Steelhand · {object:28027} Dwarven District · {area:442} Auberdine
-	["{npc:7232}, {object:28027}: for his brother in {area:442}"] = "",
+	["{npc:7232}, {object:28027}: for his brother in {area:442}"] = "{npc:7232}, {object:28027}: für seinen Bruder in {area:442}",
 	-- {npc:5497} Jennea Cannon · {quest:1861} Mirror Lake
 	["{npc:5497}, Wizard's Sanctum: {quest:1861}"] = "{npc:5497}, Magiersanktum: {quest:1861}",
 
 	-- Step 59: Woo Ping
-	-- {spell:202} Two-Handed Swords · {npc:11867} Woo Ping · {object:2096} Trade District
-	["While you're here: learn {spell:202} from {npc:11867} ({object:2096}, 10 silver); two-handers level a Warrior fastest."] = "",
+	-- {npc:11867} Woo Ping · {object:2096} Trade District
+	["While you're here: learn Two-Handed Swords from {npc:11867} ({object:2096}, 10 silver); two-handers level a Warrior fastest."] = "Wenn du schon hier bist: Lerne Zweihandschwerter bei {npc:11867} ({object:2096}, 10 Silber); Zweihandwaffen leveln einen Krieger am schnellsten.",
 
 	-- Step 60: Woo Ping
-	-- {spell:202} Two-Handed Swords · {npc:11867} Woo Ping · {object:2096} Trade District
-	["While you're here: learn {spell:202} from {npc:11867} ({object:2096}, 10 silver); two-handers level a Paladin fastest."] = "",
+	-- {npc:11867} Woo Ping · {object:2096} Trade District
+	["While you're here: learn Two-Handed Swords from {npc:11867} ({object:2096}, 10 silver); two-handers level a Paladin fastest."] = "Wenn du schon hier bist: Lerne Zweihandschwerter bei {npc:11867} ({object:2096}, 10 Silber); Zweihandwaffen leveln einen Paladin am schnellsten.",
 
 	-- Step 61: Woo Ping
 	-- {npc:11867} Woo Ping · {object:2096} Trade District
-	["While you're here: learn Staves from {npc:11867} ({object:2096}, 10 silver); a Hunter's melee weapon is mostly its stats, and two-handers carry the most."] = "",
+	["While you're here: learn Staves from {npc:11867} ({object:2096}, 10 silver); a Hunter's melee weapon is mostly its stats, and two-handers carry the most."] = "Wenn du schon hier bist: Lerne Stäbe bei {npc:11867} ({object:2096}, 10 Silber); die Nahkampfwaffe eines Jägers besteht vor allem aus ihren Werten, und Zweihandwaffen haben davon am meisten.",
 
 	-- Step 62: Woo Ping
 	-- {npc:11867} Woo Ping · {object:2096} Trade District
-	["While you're here: learn Swords from {npc:11867} ({object:2096}, 10 silver); a sword in the main hand levels a Rogue steadily."] = "",
+	["While you're here: learn Swords from {npc:11867} ({object:2096}, 10 silver); a sword in the main hand levels a Rogue steadily."] = "Wenn du schon hier bist: Lerne Schwerter bei {npc:11867} ({object:2096}, 10 Silber); ein Schwert in der Haupthand levelt einen Schurken zuverlässig.",
 
 	-- Step 63: Woo Ping
 	-- {npc:11867} Woo Ping · {object:2096} Trade District
-	["While you're here: learn Staves from {npc:11867} ({object:2096}, 10 silver); a staff carries more spell stats than a one-hander while you level."] = "",
+	["While you're here: learn Staves from {npc:11867} ({object:2096}, 10 silver); a staff carries more spell stats than a one-hander while you level."] = "Wenn du schon hier bist: Lerne Stäbe bei {npc:11867} ({object:2096}, 10 Silber); ein Stab hat beim Leveln mehr Zauberwerte als eine Einhandwaffe.",
 
 	-- Step 65: Fishin' Time
 	-- {npc:5494} Catherine Leland · {object:2096} Trade District · {npc:267118} Gilbert Gray

@@ -22,11 +22,11 @@ return {
 	-- Step 3: Sargeron
 	-- {area:603} Sargeron · {area:608} Nijel's Point
 	-- plural, as words: Hatefury Rogues = {npc:4670} Hatefury Rogue · Hatefury Tricksters = {npc:4671} Hatefury Trickster
-	["The Hatefury satyrs hold the ruins of {area:603}, east of {area:608}.\nCareful: Hatefury Rogues spawn stealthed, and Hatefury Tricksters have a poison proc on their attacks."] = "",
+	["The Hatefury satyrs hold the ruins of {area:603}, east of {area:608}.\nCareful: Hatefury Rogues spawn stealthed, and Hatefury Tricksters have a poison proc on their attacks."] = "Die Hatefury-Satyrn halten die Ruinen von {area:603}, östlich von {area:608}.\nVorsicht: Hatefury Rogues spawnen getarnt, und Hatefury Tricksters haben bei ihren Angriffen einen Gift-Proc.",
 
 	-- Step 5: Nijel's Point
 	-- {npc:5642} Vahlarriel Demonslayer · {area:599} Thunder Axe Fortress
-	["{npc:5642}: the Burning Blade in {area:599}, where her search leads"] = "",
+	["{npc:5642}: the Burning Blade in {area:599}, where her search leads"] = "{npc:5642}: die Brennende Klinge in {area:599}, wohin ihre Suche führt",
 
 	-- Step 6: Azore Aldamort
 	-- {npc:11863} Azore Aldamort · {area:599} Thunder Axe Fortress
@@ -41,23 +41,23 @@ return {
 	-- Step 8: Dalinda Malem
 	-- {npc:5644} Dalinda Malem · {area:608} Nijel's Point
 	["{npc:5644} hides inside the Burning Blade's fortress south-west of {area:608}."] = "{npc:5644} versteckt sich in der Festung der Burning Blade südwestlich von {area:608}.",
-	["Inside"] = "",
+	["Inside"] = "Drinnen",
 
 	-- Step 9: Tyranis Malem and the Seer
 	-- {npc:5643} Tyranis Malem
 	["{npc:5643} and the Seer"] = "{npc:5643} und der Seher",
 	-- {npc:5643} Tyranis Malem · {npc:13019} Burning Blade Seer · {npc:5642} Vahlarriel Demonslayer
-	["Her brother {npc:5643} (36) walks the fortress with the Burning Blade cultists (30-33): pull him alone. The {npc:13019} keeps the sceptre in the fortress's main building. {npc:5642} wants four of each kind of cultist on the way."] = "",
+	["Her brother {npc:5643} (36) walks the fortress with the Burning Blade cultists (30-33): pull him alone. The {npc:13019} keeps the sceptre in the fortress's main building. {npc:5642} wants four of each kind of cultist on the way."] = "Ihr Bruder {npc:5643} (36) läuft mit den Kultisten der Brennenden Klinge (30-33) durch die Festung: Zieh ihn allein. Der {npc:13019} hält das Zepter im Hauptgebäude der Festung. {npc:5642} will vier von jeder Art Kultist auf dem Weg.",
 	-- {item:6767} Tyranis' Pendant
-	["{item:6767}; inside"] = "",
+	["{item:6767}; inside"] = "{item:6767}; drinnen",
 	-- {quest:5741} Sceptre of Light
-	["{quest:5741}; on the top floor"] = "",
+	["{quest:5741}; on the top floor"] = "{quest:5741}; im obersten Stockwerk",
 
 	-- Step 10: Escort Dalinda Malem
 	-- {npc:5644} Dalinda Malem
 	["Escort {npc:5644}"] = "{npc:5644} eskortieren",
 	-- {npc:5644} Dalinda Malem
-	["{npc:5644}, inside"] = "",
+	["{npc:5644}, inside"] = "{npc:5644}, drinnen",
 	["Out of Thunder Axe Fortress"] = "Raus aus der Festung Thunder Axe",
 	-- {npc:5644} Dalinda Malem · {npc:5642} Vahlarriel Demonslayer · {area:608} Nijel's Point
 	["Lead {npc:5644} out of the fortress; she walks off once you are clear of it. {npc:5642} takes the turn-in at {area:608} at the end of the guide."] = "Führ {npc:5644} aus der Festung; sie geht ihrer Wege, sobald ihr draußen seid. {npc:5642} nimmt die Abgabe am Ende des Guides in {area:608} entgegen.",
@@ -69,11 +69,11 @@ return {
 	-- Step 12: Kodo Graveyard
 	-- {npc:11596} Smeed Scrabblescrew · {item:13892} Kodo Kombobulator · {npc:4702} Ancient Kodo
 	-- plural, as words: Aged Kodos = {npc:4700} Aged Kodo · Scorpashi Lashers = {npc:4697} Scorpashi Lasher
-	["Use {npc:11596}'s {item:13892} on an Aged, Dying or {npc:4702}: it becomes a tamed kodo that follows you. Walk it back to {npc:11596}'s camp; there, talk to the kodo: that counts it and lets you tame the next. Five kodos, one at a time; Aged Kodos also drop the hides, and the Scorpashi Lashers that hunt around the graveyard carry the venom."] = "",
+	["Use {npc:11596}'s {item:13892} on an Aged, Dying or {npc:4702}: it becomes a tamed kodo that follows you. Walk it back to {npc:11596}'s camp; there, talk to the kodo: that counts it and lets you tame the next. Five kodos, one at a time; Aged Kodos also drop the hides, and the Scorpashi Lashers that hunt around the graveyard carry the venom."] = "Benutze den {item:13892} von {npc:11596} an einem Aged Kodo, Dying Kodo oder {npc:4702}: Es wird zu einem gezähmten Kodo, das dir folgt. Führ es zurück zum Lager von {npc:11596}; sprich dort mit dem Kodo: Das zählt es und lässt dich das nächste zähmen. Fünf Kodos, eines nach dem anderen; Aged Kodos lassen auch die Felle fallen, und die Scorpashi Lashers, die rund um den Friedhof jagen, tragen das Gift.",
 	-- {npc:4702} Ancient Kodo
-	["on an Aged, Dying or {npc:4702} in the graveyard; don't kill it"] = "",
+	["on an Aged, Dying or {npc:4702} in the graveyard; don't kill it"] = "an einem Aged Kodo, Dying Kodo oder {npc:4702} auf dem Friedhof; töte es nicht",
 	-- {npc:11596} Smeed Scrabblescrew
-	["the tamed kodo, at {npc:11596}'s camp: talk to it, five times"] = "",
+	["the tamed kodo, at {npc:11596}'s camp: talk to it, five times"] = "das gezähmte Kodo, im Lager von {npc:11596}: sprich fünfmal mit ihm",
 
 	-- Step 14: Kolkar Village
 	-- {area:609} Kolkar Village · {npc:5752} Corporal Melkins
@@ -85,13 +85,13 @@ return {
 
 	-- Step 16: Fly to Auberdine
 	-- {area:442} Auberdine
-	["Fly to {area:442}"] = "",
+	["Fly to {area:442}"] = "Flieg nach {area:442}",
 	-- {area:608} Nijel's Point
-	["{area:608} flight master"] = "",
+	["{area:608} flight master"] = "Flugmeister von {area:608}",
 
 	-- Step 17: Boat to Stormwind Harbor
 	-- {area:17203} Stormwind Harbor
-	["Boat to {area:17203}"] = "",
+	["Boat to {area:17203}"] = "Boot nach {area:17203}",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Escort the caravan"] = "Die Karawane eskortieren",
