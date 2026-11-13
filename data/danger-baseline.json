@@ -6850,6 +6850,72 @@
 			"evidence": "route level 21.7; Foreman Rigger 24-24; recordings (2026-11-11): done by 40 people at 18-28 (median 23), 3 people died within 60 yd (median level 22), 9 abandoned"
 		},
 		{
+			"key": "forever/horde/02-the-barrens.guide|kill 871.3|over",
+			"guide": "forever/horde/02-the-barrens.guide",
+			"goal": "kill 871.3",
+			"kind": "over",
+			"title": "Razormane camp: Thork's quilboar",
+			"level": 14.9,
+			"mobs": [
+				"Razormane Berserker 18-19 x2"
+			],
+			"reason": "warned at the step: its tip names the Razormane Flesheaters and Berserkers (18-19, elite) and says to pull the quilboar away from them; the Hunters Thork asks for stand in the camp's middle, not in the elites' corner",
+			"evidence": "route level 14.9; Razormane Berserker 18-19 x2; recordings (2026-11-13): done by 67 people (median 13.88), 2 people died within 60 yd, 6 abandoned"
+		},
+		{
+			"key": "forever/horde/02-the-barrens.guide|collect 844.1|elite",
+			"guide": "forever/horde/02-the-barrens.guide",
+			"goal": "collect 844.1",
+			"kind": "elite",
+			"title": "Plainstrider Beaks as you go",
+			"level": 16.4,
+			"mobs": [
+				"Razormane Flesheater 18-19"
+			],
+			"reason": "a background collection from plainstriders anywhere in the zone: the camp's Flesheater is only near the goal's map point, the step never sends the player into the camp, and no one died doing it",
+			"evidence": "route level 16.4; Razormane Flesheater 18-19; recordings (2026-11-13): done by 71 people (median 13.83), 0 people died within 60 yd, 6 abandoned"
+		},
+		{
+			"key": "forever/horde/02-the-barrens.guide|collect 872.3|elite",
+			"guide": "forever/horde/02-the-barrens.guide",
+			"goal": "collect 872.3",
+			"kind": "elite",
+			"title": "The Disruption Ends",
+			"level": 16.9,
+			"mobs": [
+				"Razormane Berserker 18-19",
+				"Chol'aruk 20-20 x2"
+			],
+			"reason": "warned at the step: its tip names the Flesheaters and Berserkers (18-19, elite) by the supply crates and Chol'aruk (20, elite) in the cave beside them, says to pull Kreenig and the quilboar away from them and to leave the cave alone without a group (#1980, 0.4.0 audit)",
+			"evidence": "route level 16.9; Razormane Berserker 18-19, Chol'aruk 20-20 x2; recordings (2026-11-13): done by 53 people (median 16.83), 8 people died within 60 yd, 9 abandoned"
+		},
+		{
+			"key": "forever/horde/02-the-barrens.guide|collect 97003.1|pack",
+			"guide": "forever/horde/02-the-barrens.guide",
+			"goal": "collect 97003.1",
+			"kind": "pack",
+			"title": "Chol'aruk",
+			"level": 16.9,
+			"mobs": [
+				"9 spawns 18+"
+			],
+			"reason": "a group quest: the step is `when group 97003` (route-fixes deliberate group, size 3), so a solo player never sees it, and its tip says the elites stand on the way to Chol'aruk",
+			"evidence": "route level 16.9; 9 spawns 18+; recordings (2026-11-13): done by 13 people (median 20.78), 4 people died within 60 yd, 6 abandoned"
+		},
+		{
+			"key": "forever/horde/02-the-barrens.guide|collect 1824.1|rare",
+			"guide": "forever/horde/02-the-barrens.guide",
+			"goal": "collect 1824.1",
+			"kind": "rare",
+			"title": "Twitching Antennae",
+			"level": 21.2,
+			"mobs": [
+				"Silithid Harvester 24-24"
+			],
+			"reason": "warned at the step: its tip names the Silithid Harvester (24, rare) that wanders the mounds and says to leave it (0.4.0 audit); Warriors only",
+			"evidence": "route level 21.2; Silithid Harvester 24-24; recordings (2026-11-13): done by 6 people (median 22), 1 people died within 60 yd, 4 abandoned"
+		},
+		{
 			"key": "forever/horde/03-silverpine-forest.guide|collect 97326.1|over",
 			"guide": "forever/horde/03-silverpine-forest.guide",
 			"goal": "collect 97326.1",
@@ -6913,6 +6979,45 @@
 			],
 			"reason": "the Conjurors are a minority of the toured spots; 22 people did it (median 18), no deaths at the spot",
 			"evidence": "route level 14.9; Dalaran Conjuror 17-18; recordings (2026-11-11): done by 22 people at 15-23 (median 18), 0 people died within 60 yd, 5 abandoned"
+		},
+		{
+			"key": "forever/horde/03-silverpine-forest.guide|complete 97905|over",
+			"guide": "forever/horde/03-silverpine-forest.guide",
+			"goal": "complete 97905",
+			"kind": "over",
+			"title": "Jandi",
+			"level": 13.1,
+			"mobs": [
+				"Nalrekk Fizzlewrench 55-55 x2"
+			],
+			"reason": "Nalrekk Fizzlewrench (55) is an Orgrimmar goblin of the city's neutral goblin faction, not a threat in the Drag; the step is the Camping 101 hand-in to Jandi, shown only once the profession is at 20 (#1952)",
+			"evidence": "route level 13.1; Nalrekk Fizzlewrench 55-55 x2; recordings (2026-11-13): done by 0 people, 0 people died within 60 yd, 3 abandoned"
+		},
+		{
+			"key": "forever/horde/03-silverpine-forest.guide|complete 97899|over",
+			"guide": "forever/horde/03-silverpine-forest.guide",
+			"goal": "complete 97899",
+			"kind": "over",
+			"title": "Whuut",
+			"level": 13.2,
+			"mobs": [
+				"Nalrekk Fizzlewrench 55-55 x2"
+			],
+			"reason": "Nalrekk Fizzlewrench (55) is an Orgrimmar goblin of the city's neutral goblin faction, not a threat in the Drag; the step is the Camping 101 hand-in to Whuut, shown only once the profession is at 20 (#1952)",
+			"evidence": "route level 13.2; Nalrekk Fizzlewrench 55-55 x2; recordings (2026-11-13): done by 0 people, 0 people died within 60 yd, 1 abandoned"
+		},
+		{
+			"key": "forever/horde/03-silverpine-forest.guide|collect 479.1|over",
+			"guide": "forever/horde/03-silverpine-forest.guide",
+			"goal": "collect 479.1",
+			"kind": "over",
+			"title": "Ambermill",
+			"level": 14.8,
+			"mobs": [
+				"High Order Mage 30-30 x2"
+			],
+			"reason": "the two High Order Mages (30) stand in Alterac's Dalaran ruins, 520 yd or more from Ambermill, only inside the gate's radius; Ambermill's own mobs are the Dalaran Mages (15), Serpents (15) and Protectors (14), which the step's tip names (0.4.0 audit), and no one died to a High Order Mage there",
+			"evidence": "route level 14.8; High Order Mage 30-30 x2; recordings (2026-11-13): done by 40 people (median 18.1), 0 people died within 60 yd, 9 abandoned"
 		},
 		{
 			"key": "forever/horde/04-the-barrens.guide|collect 6301.1|rare",
