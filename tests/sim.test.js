@@ -342,6 +342,31 @@ test('a quest taken late does the objectives and follow-ups the tour already pas
 	assert.deepEqual(late, [], 'nothing left for a second pass');
 });
 
+test('a red quest is handed over at its minimum level: the danger gap holds its work, not an accept-only pick-up (regression: 385 min ground before The Apes of Un\'Goro, kept for the second Un\'Goro visit)', () => {
+	const data = syn.makeData();
+	// Deep Boar Bounty: level 9, minimum 1, from the Testvale elder; its boars (level 9) in Farfield.
+	data.quests[520] = { ...data.quests[505], id: 520, title: 'Deep Boar Bounty', level: 9, minLevel: 1, pre: [], start: { npc: [1], object: [], item: [] } };
+	const w = buildWorld(data, { faction: 'Horde', bandWidth: 5, extraStarts: syn.START });
+	w.questXp = syn.questXpRows();
+	const { run, ev, p } = setup({ world: w, rules: false });
+	const q = run.qIndex.get(520);
+	const play = (events) => {
+		const s = compileSequence(run, events);
+		for (let i = 0; i < s.kind.length; i++) ev.step(s.kind[i], s.q[i], s.task[i], s.pt[i]);
+	};
+	ev.reset();
+	ev.grindTo(3);
+	assert.ok(ev.level + p.dangerGap < run.qLevel[q], 'red at level 3');
+	const g0 = ev.grindSec;
+	play([{ t: 'accept', q: 520 }]);
+	assert.equal(ev.active[q], 1, 'taken at level 3');
+	assert.equal(ev.grindSec, g0, 'no grinding for the pick-up');
+	assert.equal(ev.level, 3);
+	play([{ t: 'complete', q: 520 }]);
+	assert.ok(ev.grindSec > g0, 'its work grinds first');
+	assert.ok(ev.level + p.dangerGap >= run.qLevel[q], `its work on level: ${ev.level}`);
+});
+
 test('trial moves undo exactly (journal)', () => {
 	const { run, ev } = setup();
 	ev.reset();
