@@ -1716,6 +1716,45 @@
 			"evidence": "route level 31.2; 55 spawns 33+; recordings (2026-11-11): done by 15 people at 32-37 (median 33), 4 people died within 60 yd (median level 32), 1 abandoned"
 		},
 		{
+			"key": "forever/alliance/30-40/01-hillsbrad-foothills.guide|collect 98072.1|over",
+			"guide": "forever/alliance/30-40/01-hillsbrad-foothills.guide",
+			"goal": "collect 98072.1",
+			"kind": "over",
+			"title": "Dragonmaw Gates: kill these as you meet them",
+			"level": 30.5,
+			"mobs": [
+				"Subdued Dragonspawn 34-34 x3"
+			],
+			"reason": "a kill-as-you-meet-them step at the Dragonmaw Gates: the player picks which mobs to fight. The Subdued Dragonspawn (34, elite) chained among the Dragonmaw are this goal's reviewed elite row, 3.5 levels over the route's 30.5; players do it at the route's level (23 people, median 31.1) and the 1 who died there was killed by a Dragonmaw Reclaimer (30), not the Dragonspawn; none of the Alliance recordings at 30-49 died to a Subdued Dragonspawn",
+			"evidence": "route level 30.5; Subdued Dragonspawn 34-34 x3; recordings (archive to 2026-11-12): done by 23 people (median 31.13), 1 people died within 60 yd, 6 abandoned"
+		},
+		{
+			"key": "forever/alliance/30-40/01-hillsbrad-foothills.guide|collect 98246.1|elite",
+			"guide": "forever/alliance/30-40/01-hillsbrad-foothills.guide",
+			"goal": "collect 98246.1",
+			"kind": "elite",
+			"title": "Razormaw nests",
+			"level": 30.5,
+			"mobs": [
+				"Carnage 30-30 x2"
+			],
+			"reason": "Carnage (level 30 elite, at the route's level) prowls the hills around the Razormaw nests; the step before warns of him (Carnage is elite: grouping up is advised), and 27 people took the eggs (median 30.5) with no death there; Carnage killed 1 player in all the Alliance recordings at 30-49",
+			"evidence": "route level 30.5; Carnage 30-30 x2; recordings (archive to 2026-11-12): done by 27 people (median 30.51), 0 people died within 60 yd, 7 abandoned"
+		},
+		{
+			"key": "forever/alliance/30-40/01-hillsbrad-foothills.guide|collect 98283.1|over",
+			"guide": "forever/alliance/30-40/01-hillsbrad-foothills.guide",
+			"goal": "collect 98283.1",
+			"kind": "over",
+			"title": "The Green Belt",
+			"level": 30.5,
+			"mobs": [
+				"Subdued Dragonspawn 34-34 x2"
+			],
+			"reason": "the Subdued Dragonspawn (34, elite) of the Green Belt's Dragonmaw are this goal's reviewed elite row, 3.5 levels over the route's 30.5; 24 people did it (median 30.8) with no death there",
+			"evidence": "route level 30.5; Subdued Dragonspawn 34-34 x2; recordings (archive to 2026-11-12): done by 24 people (median 30.79), 0 people died within 60 yd, 8 abandoned"
+		},
+		{
 			"key": "forever/alliance/30-40/02-desolace.guide|collect 1459.1|mixed",
 			"guide": "forever/alliance/30-40/02-desolace.guide",
 			"goal": "collect 1459.1",
@@ -1759,6 +1798,19 @@
 			],
 			"reason": "the Maraudine are 6 of the 46 toured spots; 3 people did it at 32-37 with no deaths",
 			"evidence": "route level 35.5; Maraudine Windchaser 38-39, Maraudine Mauler 38-39, Maraudine Marauder 39-40; recordings (2026-11-11): done by 3 people at 32-37 (median 37), 0 people died within 60 yd, 0 abandoned"
+		},
+		{
+			"key": "forever/alliance/30-40/02-desolace.guide|collect 93224.1|over",
+			"guide": "forever/alliance/30-40/02-desolace.guide",
+			"goal": "collect 93224.1",
+			"kind": "over",
+			"title": "Kolkar Village",
+			"level": 35.5,
+			"mobs": [
+				"Nascent Undead Ravager 40-41 x2"
+			],
+			"reason": "the Carved Centaur Totems drop from every Desolace clan: the arrow points into Kolkar Village with Centaur Bounty's ears (places 1575-desolace-alliance-centaur-ears-kolkar-village), and one of the other spots it tours lies by the Nascent Undead Ravagers (40-41) east of the Magram village; players do it (15 people, median 37.3) with no death there",
+			"evidence": "route level 35.5; Nascent Undead Ravager 40-41 x2; recordings (archive to 2026-11-12): done by 15 people (median 37.28), 0 people died within 60 yd, 2 abandoned"
 		},
 		{
 			"key": "forever/alliance/30-40/03-ashenvale.guide|collect 1110.1|rare",
@@ -1958,6 +2010,19 @@
 			],
 			"reason": "players do it at the route's level: 5 people at median 36, 0 died there",
 			"evidence": "route level 36.3; 27 spawns 38+; recordings (2026-11-11): done by 5 people at 35-38 (median 36), 0 people died within 60 yd, 0 abandoned"
+		},
+		{
+			"key": "forever/alliance/30-40/04b-stranglethorn-vale.guide|collect 213.1|pack",
+			"guide": "forever/alliance/30-40/04b-stranglethorn-vale.guide",
+			"goal": "collect 213.1",
+			"kind": "pack",
+			"title": "Lake Nazferiti",
+			"level": 35.9,
+			"mobs": [
+				"8 spawns 37+"
+			],
+			"reason": "a pack of higher spawns around Lake Nazferiti (the Venture Co.'s workers and agents, 37-39, about the lake); 31 people did it (median 36.2) with no death there, as for Panther Mastery's row at the same lake",
+			"evidence": "route level 35.9; 8 spawns 37+; recordings (archive to 2026-11-12): done by 31 people (median 36.21), 0 people died within 60 yd, 4 abandoned"
 		},
 		{
 			"key": "forever/alliance/30-40/05-arathi-highlands.guide|kill 1396.1|rare",
@@ -2562,6 +2627,45 @@
 			],
 			"reason": "a pack of higher spawns near the goal with no recorded deaths at the spot",
 			"evidence": "route level 38.9; 21 spawns 40+; recordings (2026-11-11): no objective ticks, 0 people died within 60 yd, 1 abandoned"
+		},
+		{
+			"key": "forever/alliance/30-40/06-badlands.guide|collect 733.1|elite",
+			"guide": "forever/alliance/30-40/06-badlands.guide",
+			"goal": "collect 733.1",
+			"kind": "elite",
+			"title": "Agmond's End: kill these as you meet them",
+			"level": 38.2,
+			"mobs": [
+				"Malevolent Mirage 42-42"
+			],
+			"reason": "Malevolent Mirage (level 42 elite) has 24 spawn points across the whole Badlands (4.8-71.5,34.7-79.4) rather than holding this spot, and the step is a kill-as-you-meet-them sweep of the ogre camp; 7 people did it (median 39.8) with no death there; none of the Alliance recordings at 30-49 died to it",
+			"evidence": "route level 38.2; Malevolent Mirage 42-42; recordings (archive to 2026-11-12): done by 7 people (median 39.76), 0 people died within 60 yd, 2 abandoned"
+		},
+		{
+			"key": "forever/alliance/30-40/06b-desolace.guide|collect 93224.1|elite",
+			"guide": "forever/alliance/30-40/06b-desolace.guide",
+			"goal": "collect 93224.1",
+			"kind": "elite",
+			"title": "Maraudine centaurs",
+			"level": 38.8,
+			"mobs": [
+				"Khan Hratha 42-42"
+			],
+			"reason": "Khan Hratha (level 42 elite) stands at the heart of the Maraudine's Valley of Spears (29.6,52.0); every Maraudine around drops the totems, and 15 people did it (median 37.3) with no death there; none of the Alliance recordings at 30-49 died to him",
+			"evidence": "route level 38.8; Khan Hratha 42-42; recordings (archive to 2026-11-12): done by 15 people (median 37.28), 0 people died within 60 yd, 2 abandoned"
+		},
+		{
+			"key": "forever/alliance/30-40/06b-desolace.guide|kill 261.1|elite",
+			"guide": "forever/alliance/30-40/06b-desolace.guide",
+			"goal": "kill 261.1",
+			"kind": "elite",
+			"title": "The Valley of Bones",
+			"level": 38.8,
+			"mobs": [
+				"Corpsefeeder 45-45"
+			],
+			"reason": "the arrow points at the bone fields' clear western edge (places 1575-desolace-alliance-undead-ravagers-west, no elite within 40 yd); one of the other Ravager spots it tours (59.6,88.2) stands by a Corpsefeeder's spawn (45, elite) of Shen'dralas, and the step warns of the Corpsefeeders and Necrokhans on the fields. 18 people killed the Ravagers (median 38.0); the 3 who died within 60 yd of the arrow were killed by an Outcast Necromancer (39) and Undead Ravagers (38-39), and no Alliance recording at 30-49 died to a Corpsefeeder",
+			"evidence": "route level 38.8; Corpsefeeder 45-45; recordings (archive to 2026-11-12): done by 18 people (median 37.97), 3 people died within 60 yd, 4 abandoned"
 		},
 		{
 			"key": "forever/alliance/40-50/01-stranglethorn-vale.guide|collect 1204.1|mixed",
