@@ -84,7 +84,8 @@
 		"Era",
 		"SavedVariables",
 		"Inc",
-		"Hardcore"
+		"Hardcore",
+		"KiB"
 	],
 	"patterns": {
 		"a link": "https?://\\S+|\\b[\\w.-]+\\.(?:gg|com|org|io|net)/\\S*",
@@ -136,7 +137,10 @@
 		"fishing",
 		"maps",
 		"talents",
-		"down"
+		"down",
+		"ui",
+		"trail",
+		"explore"
 	],
 	"locales": {
 		"deDE": [

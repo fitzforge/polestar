@@ -69,6 +69,22 @@ fn the_baseline_lists_only_names_that_still_show_in_english() {
 	assert!(stale.is_empty(), "these names no longer show in English: remove them from data/i18n/leaks-baseline.json:\n{}", stale.join("\n"));
 }
 
+/// The Recorder's scene loads the Recorder alone, with no Polestar: it runs to its end in Russian,
+/// and every text its slash commands put up is Russian. It needs neither the Codex nor the quest
+/// database, so it runs everywhere.
+#[test]
+fn the_recorders_scene_runs_without_polestar_and_every_word_on_screen_is_in_the_clients_language() {
+	let scene = leaks::scene(root(), "recorder", &[]).unwrap();
+	let allow = load_allow(root()).unwrap();
+	let dump = parse_json(&run_scene(root(), "ruRU", &scene, &allow, false).unwrap_or_else(|e| panic!("{e}"))).unwrap();
+	let baseline = load_baseline(root()).unwrap();
+	let r = check_run("ruRU", "recorder", &dump, &allow, &Check { classify: false, baseline: &baseline, full_data: false }, &mut DataNames::new(root()));
+	assert!(r.get("errors").is_empty(), "{}", forge_guide::js::stringify(&r.get("errors"), None));
+	assert!(r.get("texts").num() > 10.0, "only {} texts", r.get("texts").to_js_string());
+	let found: Vec<String> = r.get("leaks").items().iter().map(|l| describe(&r, l)).collect();
+	assert!(found.is_empty(), "English on screen:\n{}", found.join("\n"));
+}
+
 /// One locale through a scene of the test's own, checked without the reference data's names.
 fn planted(locale: &str, script: &str, before: &str, every_step: bool, baseline: Option<V>) -> V {
 	let scene = Scene { name: "test".into(), script: script.into(), before: before.into(), every_step, ..Scene::default() };

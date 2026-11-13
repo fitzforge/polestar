@@ -445,6 +445,9 @@ end)"#
 			stubs: vec!["stub_recorder.lua"],
 			addons: vec!["Polestar_Recorder"],
 			recorder: true,
+			// An install id is 12 random letters and digits (Recorder.lua, randomId), as in the other
+			// scenes; the stub's readable one would show as an English word in /psrec status.
+			before: "PolestarRecorderDB.install = \"k3j9x0q2m7ab\"".into(),
 			script: r#"
 leaks.try("recorder", function()
 	for _, c in ipairs({ "", "help", "status", "on", "off", "new", "list", "note test", "mark", "finds", "progress", "route", "clear", "bogus" }) do
@@ -771,7 +774,7 @@ pub fn run_scene(root: &Path, locale: &str, scene: &Scene, allow: &Allow, all: b
 		saved: scene.saved.clone(),
 		login: false,
 		// Both factions' guides, as before the faction parts (Polestar loads the other side's when asked).
-		script: format!("leaks.hookPolestar()\nleaks.scene(\"login\")\nstub.login()\nif Polestar.Guides and Polestar.Guides.LoadFaction then Polestar.Guides.LoadFaction(\"All\") end\nstub.advance(1)\n{}\nleaks.dump()", scene.script),
+		script: format!("leaks.hookPolestar()\nleaks.scene(\"login\")\nstub.login()\nif Polestar and Polestar.Guides and Polestar.Guides.LoadFaction then Polestar.Guides.LoadFaction(\"All\") end\nstub.advance(1)\n{}\nleaks.dump()", scene.script),
 	};
 	let out = run_addon_output(&opts)?;
 	for line in out.stdout.split('\n') {
