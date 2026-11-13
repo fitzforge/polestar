@@ -402,6 +402,10 @@ function AU.Layout()
 		r:SetPoint("TOPRIGHT", F, "TOPRIGHT", -PAD, -y)
 		local parts = { format(L["For %s"], questNames(e)), AU.Why(e) }
 		if e.have > 0 then parts[#parts + 1] = format(L["%d in your bags and bank"], e.have) end
+		-- Its price for that many, once a search showed it (the materials' prices: Materials.Price).
+		local M = ns.Materials
+		local price = M and M.Price and M.Price(e.item, e.need)
+		if price then parts[#parts + 1] = format(L["≈ %s"], ns.MoneyText(price)) end
 		fill(r, e.item, e.need, format(L["%d %s"], e.need, e.name), concat(parts, DOT), open)
 		r:Show()
 		y = y + ROW_H + 6
