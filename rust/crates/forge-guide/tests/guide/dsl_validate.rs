@@ -448,6 +448,33 @@ fn an_accept_closed_by_an_exclusive_quest_taken_earlier_in_the_chain_warns() {
 	assert!(only(&compile_with(&split, &data).warnings, "not offered").is_empty());
 }
 
+/// Players' recordings: the game holds a breadcrumb's target back while the breadcrumb is in the log (The
+/// Forgotten Pools 870 refused to 12 people while The Barrens Oases 886 was in their log, offered to 30 who never
+/// had it). An accept with one of its breadcrumbs taken earlier and not handed in warns; handed in, abandoned or
+/// never taken, it stays quiet.
+#[test]
+fn an_accept_while_its_breadcrumb_is_in_the_log_warns() {
+	let data = prereq_data();
+	let msg = |b: u32| format!("quest 9300 (Quest 9300) is not offered while its breadcrumb {b} (Quest {b}) is in the log, and the chain takes that breadcrumb earlier without handing it in: hand it in first");
+	let held = guide_text(&["step S", "  accept 9301", "  accept 9300", "  turnin 9301"]);
+	assert_eq!(only(&compile_with(&held, &data).warnings, "while its breadcrumb"), vec![format!("test.guide:{}: {}", line_of(&held, "  accept 9300"), msg(9301))]);
+	// By the breadcrumb's own link too (only 9302's `breadcrumbFor` names 9300), across guides chained with `next`.
+	let first = text("t/one", &["step S", "  accept 9302"], &["next t/two"]);
+	let second = text("t/two", &["step S", "  accept 9300", "  turnin 9302"], &[]);
+	assert_eq!(
+		only(&compile_files(&[("1.guide", &first), ("2.guide", &second)], &data, None).warnings, "while its breadcrumb"),
+		vec![format!("2.guide:{}: {}", line_of(&second, "  accept 9300"), msg(9302))]
+	);
+	// Handed in, abandoned or never taken: quiet.
+	for body in [&["step S", "  accept 9301", "  turnin 9301", "  accept 9300"][..], &["step S", "  accept 9301", "  abandon 9301", "  accept 9300"], &["step S", "  accept 9300"]] {
+		assert!(only(&compile_with(&guide_text(body), &data).warnings, "while its breadcrumb").is_empty(), "{body:?}");
+	}
+	// The engine reads the breadcrumbs off the accept (`crumbs`, by either link), titled for the reason text.
+	let g = compile_with(&guide_text(&["step S", "  accept 9300", "  accept 9310"]), &data).steps()[0]["goals"].as_array().unwrap().clone();
+	assert_eq!(json!([g[0]["crumbs"], g[0]["preTitles"]]), json!([[9301, 9302], { "9301": "Quest 9301", "9302": "Quest 9302" }]));
+	assert!(g[1].get("crumbs").is_none(), "a quest no breadcrumb leads to has none");
+}
+
 #[test]
 fn an_accept_that_is_never_turned_in_later_on_the_route_warns_per_route_choice() {
 	let start = text("t/one", &["step S", "  accept 33", "  accept 7", "  accept 783 optional"], &["next t/two, t/three"]);

@@ -258,6 +258,8 @@ pub struct Goal {
 	pub pre: Option<Vec<u32>>,
 	pub pre_all: Option<Vec<u32>>,
 	pub closed_by: Option<Vec<u32>>,
+	/// An accept's breadcrumbs: the game holds the quest back while one is in the log.
+	pub crumbs: Option<Vec<u32>>,
 	pub text: Option<String>,
 	pub node: Option<u32>,
 	pub area: Option<u32>,
@@ -345,6 +347,7 @@ impl Goal {
 			pre: ids(v, "pre"),
 			pre_all: ids(v, "preAll"),
 			closed_by: ids(v, "closedBy"),
+			crumbs: ids(v, "crumbs"),
 			text: text(v, "text"),
 			node: id(v, "node"),
 			area: id(v, "area"),

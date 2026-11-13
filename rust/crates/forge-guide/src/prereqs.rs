@@ -86,6 +86,49 @@ fn leads_to(quests: &V, id: f64) -> Vec<f64> {
 	})
 }
 
+thread_local! {
+	// The quests object (kept alive so its address stays unique) and its index target id -> [ids of the
+	// quests whose `breadcrumbFor` is it].
+	static CRUMBS_FOR: RefCell<Vec<(V, Vec<(f64, Vec<f64>)>)>> = const { RefCell::new(Vec::new()) };
+}
+
+/// The breadcrumbs leading to quest `id`, by either link: its own `breadcrumbs` and every quest whose
+/// `breadcrumbFor` is it. A breadcrumb never blocks as a prerequisite, but while it is in the log the game
+/// holds its target back until it is handed in or abandoned (forge-world's CrumbIndex has the evidence).
+pub fn crumbs_of(id: &V, quests: &V) -> Vec<f64> {
+	let id = id.num();
+	let rev = CRUMBS_FOR.with(|cell| {
+		let mut cache = cell.borrow_mut();
+		if let Some((_, index)) = cache.iter().find(|(q, _)| q.strict_eq(quests)) {
+			return index.iter().find(|(t, _)| *t == id).map(|(_, l)| l.clone()).unwrap_or_default();
+		}
+		let mut index: Vec<(f64, Vec<f64>)> = Vec::new();
+		for (cid, c) in quests.entries() {
+			let t = if c.truthy() { c.get("breadcrumbFor").num() } else { f64::NAN };
+			if is_integer(t) && t > 0.0 {
+				match index.iter_mut().find(|(k, _)| *k == t) {
+					Some(e) => e.1.push(str_to_num(&cid)),
+					None => index.push((t, vec![str_to_num(&cid)])),
+				}
+			}
+		}
+		let out = index.iter().find(|(t, _)| *t == id).map(|(_, l)| l.clone()).unwrap_or_default();
+		if quests.is_object() {
+			cache.push((quests.clone(), index));
+		}
+		out
+	});
+	let quest = quests.get(&crate::js::num_str(id));
+	let mut out: Vec<f64> = Vec::new();
+	for c in ids(&quest.get("breadcrumbs")).into_iter().chain(rev) {
+		if is_integer(c) && c > 0.0 && c != id && !out.contains(&c) {
+			out.push(c);
+		}
+	}
+	out.sort_by(f64::total_cmp);
+	out
+}
+
 /// `closedByOf(id, quests)`: quests = id -> record (quests.json). -> [ids], without the quest itself.
 pub fn closed_by_of(id: &V, quests: &V) -> Vec<f64> {
 	let id = id.num();
