@@ -13,10 +13,10 @@ return {
 	["{spell:7328} to raise fallen allies, plus a weapon and a shield for a new Forsaken paladin."] = "{spell:7328}, um gefallene Verbündete wiederzubeleben, dazu eine Waffe und ein Schild für einen neuen verlassenen Paladin.",
 
 	-- Step 1: Aramis Hammerhand
-	-- {npc:1569} Shadow Priest Sarvis · {item:282423} Consecrated Scroll · {quest:364} The Mindless Ones · {npc:244808} Aramis Hammerhand · {npc:259377} Injured Deathguard · {area:154} Deathknell · {spell:635} Holy Light
-	["{npc:1569} gives you a {item:282423} after {quest:364}: read it, then bring it to {npc:244808} by the church. He asks you to heal five {npc:259377} lying around {area:154}. {spell:635} hurts a Forsaken paladin a little each time: watch your health."] = "{npc:1569} gibt dir nach {quest:364} {item:282423}: Lies es und bringe es dann zu {npc:244808} bei der Kirche. Er bittet dich, fünf {npc:259377} zu heilen, die um {area:154} herum liegen. {spell:635} schadet einem Verlassenen-Paladin jedes Mal ein wenig: Achte auf dein Leben.",
-	-- {npc:259377} Injured Deathguard · {spell:635} Holy Light
-	["Heal 5 {npc:259377} with {spell:635}"] = "Heile 5 {npc:259377} mit {spell:635}",
+	-- {npc:1569} Shadow Priest Sarvis · {item:282423} Consecrated Scroll · {quest:364} The Mindless Ones · {npc:244808} Aramis Hammerhand · {npc:259377} Injured Deathguard · {area:154} Deathknell
+	["{npc:1569} gives you a {item:282423} after {quest:364}: read it, then bring it to {npc:244808} by the church. He asks you to heal five {npc:259377} lying around {area:154}. Holy Light hurts a Forsaken paladin a little each time: watch your health."] = "{npc:1569} gibt dir nach {quest:364} {item:282423}: Lies sie und bring sie dann zu {npc:244808} bei der Kirche. Er bittet dich, fünf {npc:259377} zu heilen, die um {area:154} herumliegen. Heiliges Licht schadet einem Verlassenen-Paladin jedes Mal ein wenig: Behalte deine Gesundheit im Auge.",
+	-- {npc:259377} Injured Deathguard
+	["Heal 5 {npc:259377} with Holy Light"] = "5 {npc:259377} mit Heiliges Licht heilen",
 
 	-- Step 2: Coming to Terms
 	-- {npc:244808} Aramis Hammerhand · {npc:246143} Frightened Paladin
@@ -141,6 +141,7 @@ return {
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Back to {area:16602}. {npc:246378} gives you the {item:6866}; {npc:257655} waits downstairs in the keep."] = "Zurück nach {area:16602}. {npc:246378} gibt dir {item:6866}; {npc:257655} wartet unten in der Feste.",
 	-- ["Back to {area:16602}: Billmuth takes the plans, {npc:246378} teaches you {spell:7328}."] = "Zurück nach {area:16602}: Billmuth nimmt die Pläne, {npc:246378} lehrt dich {spell:7328}.",
+	-- ["Heal 5 {npc:259377} with {spell:635}"] = "Heile 5 {npc:259377} mit {spell:635}",
 	-- ["Tarnished Drudges"] = "Befleckte Akkordarbeiter",
 	-- ["Tarnished Zealots"] = "Befleckte Fanatiker",
 	-- ["The Scarlet Crusaders camped around {area:812} carry the attack plans."] = "Die Scharlachroten Kreuzfahrer, die rund um {area:812} lagern, tragen die Angriffspläne.",
@@ -150,6 +151,7 @@ return {
 	-- ["Vile Fin Seers"] = "Seher der Finsterflossen",
 	-- ["{area:16602} stands on the bluffs north-west of the {area:156}. {npc:246349} waits at the gate."] = "{area:16602} steht auf den Klippen nordwestlich von {area:156}. {npc:246349} wartet am Tor.",
 	-- ["{area:812} is at the far east end of the glades. Use the {item:6866} on {npc:257663}, then speak to him. If you lose the symbol, {npc:246378} gives you another."] = "{area:812} liegt am äußersten Ostende der Lichtungen. Benutze {item:6866} an {npc:257663} und sprich dann mit ihm. Verlierst du das Symbol, gibt dir {npc:246378} ein neues.",
+	-- ["{npc:1569} gives you a {item:282423} after {quest:364}: read it, then bring it to {npc:244808} by the church. He asks you to heal five {npc:259377} lying around {area:154}. {spell:635} hurts a Forsaken paladin a little each time: watch your health."] = "{npc:1569} gibt dir nach {quest:364} {item:282423}: Lies es und bringe es dann zu {npc:244808} bei der Kirche. Er bittet dich, fünf {npc:259377} zu heilen, die um {area:154} herum liegen. {spell:635} schadet einem Verlassenen-Paladin jedes Mal ein wenig: Achte auf dein Leben.",
 	-- ["{npc:246152}, who trains Paladins in {area:159}, sends you to the order's keep on the west coast."] = "{npc:246152}, die in {area:159} Paladine ausbildet, schickt dich zur Feste des Ordens an der Westküste.",
 	-- ["{npc:246378} leads the order from inside the keep; {npc:246393} stands beside it."] = "{npc:246378} führt den Orden aus dem Inneren der Feste; {npc:246393} steht daneben.",
 	-- ["{npc:246378} offers the first Lesson in Divinity at level 12."] = "{npc:246378} bietet die erste Lektion in Sachen Göttlichkeit mit Stufe 12 an.",

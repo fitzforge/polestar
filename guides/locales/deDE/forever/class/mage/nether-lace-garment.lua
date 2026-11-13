@@ -10,12 +10,12 @@ return {
 	["A robe or a tunic for Horde mages in their late 20s."] = "Eine Robe oder eine Tunika für Horde-Magier in ihren späten Zwanzigern.",
 
 	-- Step 1: Anastasia Hartwell
-	-- {npc:4568} Anastasia Hartwell · {zone:1458} Undercity · {object:36082} Magic Quarter · {spell:3563} Teleport: Undercity · {zone:1454} Orgrimmar · {zone:1420} Tirisfal Glades
-	["{npc:4568} stands in the {zone:1458}'s {object:36082}. Orcs and Trolls use {spell:3563} or take the zeppelin from {zone:1454} to {zone:1420} for her."] = "{npc:4568} steht im {object:36082} von {zone:1458}. Orcs und Trolle nutzen {spell:3563} oder nehmen den Zeppelin von {zone:1454} nach {zone:1420} zu ihr.",
+	-- {npc:4568} Anastasia Hartwell · {zone:1458} Undercity · {object:36082} Magic Quarter · {zone:1454} Orgrimmar · {zone:1420} Tirisfal Glades
+	["{npc:4568} stands in the {zone:1458}'s {object:36082}. Orcs and Trolls use Teleport: {zone:1458} or take the zeppelin from {zone:1454} to {zone:1420} for her."] = "{npc:4568} steht im {object:36082} von {zone:1458}. Orcs und Trolle nutzen Teleportieren: {zone:1458} oder nehmen für sie das Luftschiff von {zone:1454} nach {zone:1420}.",
 
 	-- Step 2: Deino
-	-- {zone:1454} Orgrimmar · {spell:3567} Teleport: Orgrimmar · {object:173161} Darkbriar Lodge (no name in this language: may be words) · {npc:5885} Deino · {object:172961} Valley of Spirits · {item:7269} Deino's Flask
-	["Take the zeppelin to {zone:1454} (or use {spell:3567}, which lands you on the upper floor of {object:173161}). {npc:5885} stands with the mage trainers on the lower floor of {object:173161} in the {object:172961}. She hands you {item:7269}."] = "Nimm den Zeppelin nach {zone:1454} (oder nutze {spell:3567}, das dich im oberen Stockwerk von {object:173161} absetzt). {npc:5885} steht bei den Magierlehrern im unteren Stockwerk von {object:173161} im {object:172961}. Sie gibt dir {item:7269}.",
+	-- {zone:1454} Orgrimmar · {object:173161} Darkbriar Lodge (no name in this language: may be words) · {npc:5885} Deino · {object:172961} Valley of Spirits · {item:7269} Deino's Flask
+	["Take the zeppelin to {zone:1454} (or use Teleport: {zone:1454}, which lands you on the upper floor of {object:173161}). {npc:5885} stands with the mage trainers on the lower floor of {object:173161} in the {object:172961}. She hands you {item:7269}."] = "Nimm das Luftschiff nach {zone:1454} (oder nutze Teleportieren: {zone:1454}, das dich auf dem oberen Stockwerk von {object:173161} absetzt). {npc:5885} steht bei den Magierlehrern im unteren Stockwerk von {object:173161} im {object:172961}. Sie gibt dir {item:7269}.",
 
 	-- Step 3: The Xavian Waterfall
 	-- {object:174797} Xavian Waterfall (no name in this language: may be words)
@@ -42,8 +42,10 @@ return {
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["A robe or a tunic for Undead and Troll mages in their late 20s."] = "Eine Robe oder ein Wams für untote und trollische Magier Ende 20.",
 	-- ["Satyrs hold the ruins of {area:429} in eastern {zone:1440}. {spell:9052} at the bottom of the highest waterfall."] = "Satyrn halten die Ruinen von {area:429} im Osten von {zone:1440}. {spell:9052} am Fuß des höchsten Wasserfalls.",
+	-- ["Take the zeppelin to {zone:1454} (or use {spell:3567}, which lands you on the upper floor of {object:173161}). {npc:5885} stands with the mage trainers on the lower floor of {object:173161} in the {object:172961}. She hands you {item:7269}."] = "Nimm den Zeppelin nach {zone:1454} (oder nutze {spell:3567}, das dich im oberen Stockwerk von {object:173161} absetzt). {npc:5885} steht bei den Magierlehrern im unteren Stockwerk von {object:173161} im {object:172961}. Sie gibt dir {item:7269}.",
 	-- ["Take the zeppelin to {zone:1454}. {npc:5885} is one of {zone:1454}'s mage trainers."] = "Nimm den Zeppelin nach {zone:1454}. {npc:5885} ist einer der Magierlehrer in {zone:1454}.",
 	-- ["The {quest:1945}, dryads, gather near the {area:426} in central {zone:1440}."] = "Die {quest:1945}, Dryaden, sammeln sich nahe {area:426} in der Mitte von {zone:1440}.",
 	-- ["{npc:3484}, a troll tailor, works at the {area:380}."] = "{npc:3484}, eine Trollschneiderin, arbeitet in {area:380}.",
+	-- ["{npc:4568} stands in the {zone:1458}'s {object:36082}. Orcs and Trolls use {spell:3563} or take the zeppelin from {zone:1454} to {zone:1420} for her."] = "{npc:4568} steht im {object:36082} von {zone:1458}. Orcs und Trolle nutzen {spell:3563} oder nehmen den Zeppelin von {zone:1454} nach {zone:1420} zu ihr.",
 	-- ["{npc:4568} stands in the {zone:1458}'s {object:36082}. Trolls take the zeppelin from {zone:1454} to {zone:1420} for her."] = "{npc:4568} steht im {object:36082} von {zone:1458}. Trolle nehmen für sie den Zeppelin von {zone:1454} nach {zone:1420}.",
 }

@@ -54,9 +54,9 @@ return {
 	["{npc:5888} stands in {area:221}. She may show no quest mark over her head: speak to her anyway. The quest opens at level 4."] = "{npc:5888} steht in {area:221}. Über ihrem Kopf ist vielleicht kein Questzeichen: Sprich sie trotzdem an. Die Quest wird mit Stufe 4 frei.",
 
 	-- Step 8: Ritual Salve
-	-- {area:358} Brambleblade Ravine · {spell:403} Lightning Bolt
+	-- {area:358} Brambleblade Ravine
 	-- plural, as words: Bristleback Shamans = {npc:2953} Bristleback Shaman
-	["The Bristleback Shamans (level 3-4) stand among the quilboar huts of {area:358}, east of the camp, and throw the odd {spell:403}. Four kills in five drop a salve; they respawn in about four minutes."] = "Die Bristleback Shamans (Stufe 3-4) stehen zwischen den Quilboar-Hütten von {area:358}, östlich des Lagers, und werfen gelegentlich {spell:403}. Vier von fünf Kills lassen eine Salbe fallen; sie respawnen nach etwa vier Minuten.",
+	["The Bristleback Shamans (level 3-4) stand among the quilboar huts of {area:358}, east of the camp, and throw the odd Lightning Bolt. Four kills in five drop a salve; they respawn in about four minutes."] = "Die Bristleback Shamans (Stufe 3-4) stehen zwischen den Hütten der Stacheleber in {area:358}, östlich des Lagers, und werfen gelegentlich einen Blitzschlag. Vier von fünf Kills lassen eine Salbe fallen; sie respawnen nach etwa vier Minuten.",
 
 	-- Step 9: Seer Ravenfeather
 	-- {area:221} Camp Narache · {quest:1462} Earth Sapta
@@ -107,4 +107,7 @@ return {
 	["Bring the {item:6656} back to Boro. Keep the {item:5175} in your bags for good: every earth totem needs it."] = "Bring {item:6656} zurück zu Boro. Behalte {item:5175} dauerhaft in deinen Taschen: Jedes Erdtotem braucht es.",
 	-- {npc:251374} Windshaper Boro · {spell:8071} Stoneskin Totem · {item:5175} Earth Totem
 	["{npc:251374}: {spell:8071} and your {item:5175}"] = "{npc:251374}: {spell:8071} und dein {item:5175}",
+
+	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["The Bristleback Shamans (level 3-4) stand among the quilboar huts of {area:358}, east of the camp, and throw the odd {spell:403}. Four kills in five drop a salve; they respawn in about four minutes."] = "Die Bristleback Shamans (Stufe 3-4) stehen zwischen den Quilboar-Hütten von {area:358}, östlich des Lagers, und werfen gelegentlich {spell:403}. Vier von fünf Kills lassen eine Salbe fallen; sie respawnen nach etwa vier Minuten.",
 }

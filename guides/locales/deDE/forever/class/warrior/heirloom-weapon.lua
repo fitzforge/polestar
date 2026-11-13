@@ -46,9 +46,9 @@ return {
 	-- {area:369} Thunder Ridge
 	-- plural, as words: Singed Scales = {item:6486} Singed Scale
 	["Singed Scales in {area:369}"] = "Singed Scales in {area:369}",
-	-- {area:369} Thunder Ridge · {zone:1411} Durotar · {zone:1454} Orgrimmar · {zone:1413} Barrens · {spell:5401} Lizard Bolt
+	-- {area:369} Thunder Ridge · {zone:1411} Durotar · {zone:1454} Orgrimmar · {zone:1413} Barrens
 	-- plural, as words: Singed Scales = {item:6486} Singed Scale · Thunder Lizards = {npc:3130} Thunder Lizard · Lightning Hides = {npc:3131} Lightning Hide
-	["You need five Singed Scales. Thunder Lizards (level 9-10) and Lightning Hides (10-11) live down in the {area:369} crevasse in north-west {zone:1411}, south of {zone:1454}: from the {zone:1413} bridge turn left and follow the river north into it. Both drop a scale about four kills in five; both cast {spell:5401}."] = "Du brauchst fünf Singed Scales. Thunder Lizards (Stufe 9-10) und Lightning Hides (10-11) leben unten in der Schlucht von {area:369} im Nordwesten von {zone:1411}, südlich von {zone:1454}: Biege an der Brücke zum {zone:1413} links ab und folge dem Fluss nach Norden hinein. Beide lassen bei etwa vier von fünf Kills eine Schuppe fallen; beide wirken {spell:5401}.",
+	["You need five Singed Scales. Thunder Lizards (level 9-10) and Lightning Hides (10-11) live down in the {area:369} crevasse in north-west {zone:1411}, south of {zone:1454}: from the {zone:1413} bridge turn left and follow the river north into it. Both drop a scale about four kills in five; both cast Lizard Bolt."] = "Du brauchst fünf Singed Scales. Thunder Lizards (Stufe 9-10) und Lightning Hides (10-11) leben unten in der Spalte {area:369} im Nordwesten von {zone:1411}, südlich von {zone:1454}: Biege an der Brücke von {zone:1413} links ab und folge dem Fluss nach Norden hinein. Beide lassen in etwa vier von fünf Kills eine Schuppe fallen; beide wirken Lizard Bolt.",
 	-- {item:6486} Singed Scale
 	["{item:6486}, from the lizards"] = "{item:6486}, von den Echsen",
 
@@ -95,6 +95,7 @@ return {
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["The four Agamand Weapon Racks stand among the buildings of {area:157}, north of {area:159}. The mills' undead attack on sight."] = "Die vier Agamand-Waffenregale stehen zwischen den Gebäuden von {area:157}, nördlich von {area:159}. Die Untoten der Mühlen greifen sofort an.",
+	-- ["You need five Singed Scales. Thunder Lizards (level 9-10) and Lightning Hides (10-11) live down in the {area:369} crevasse in north-west {zone:1411}, south of {zone:1454}: from the {zone:1413} bridge turn left and follow the river north into it. Both drop a scale about four kills in five; both cast {spell:5401}."] = "Du brauchst fünf Singed Scales. Thunder Lizards (Stufe 9-10) und Lightning Hides (10-11) leben unten in der Schlucht von {area:369} im Nordwesten von {zone:1411}, südlich von {zone:1454}: Biege an der Brücke zum {zone:1413} links ab und folge dem Fluss nach Norden hinein. Beide lassen bei etwa vier von fünf Kills eine Schuppe fallen; beide wirken {spell:5401}.",
 	-- ["{npc:1496} stands in {area:159}. {npc:6390} waits in the mausoleum on the hill just north of town: open the gate and fight him."] = "{npc:1496} steht in {area:159}. {npc:6390} wartet im Mausoleum auf dem Hügel direkt nördlich des Ortes: Öffne das Tor und kämpf gegen ihn.",
 	-- ["{npc:1500} is in the inn, the {area:2119}, in {area:159}."] = "{npc:1500} ist im Gasthaus, der {area:2119}, in {area:159}.",
 	-- ["{spell:71} and a one-hand weapon of your choice at 10."] = "{spell:71} und mit Stufe 10 eine Einhandwaffe deiner Wahl.",

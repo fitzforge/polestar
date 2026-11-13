@@ -24,7 +24,7 @@ return {
 	-- plural, as words: Iceclaw Bear Pendants = {item:264356} Iceclaw Bear Pendant
 	["Iceclaw Bear Pendants"] = "Iceclaw Bear Pendants",
 	-- {area:77} Anvilmar
-	-- plural, as words: Frostmane Troll Whelps = {npc:706} Frostmane Troll Whelp · Frostmane Novices = {npc:946} Frostmane Novice · Frostbolts = {spell:116} Frostbolt
+	-- plural, as words: Frostmane Troll Whelps = {npc:706} Frostmane Troll Whelp · Frostmane Novices = {npc:946} Frostmane Novice
 	["The Frostmane Troll Whelps (level 3-4) hold the snowy slopes west and south-west of {area:77}, and the Frostmane Novices (level 3-4, they throw Frostbolts from range) camp south of it. Both carry the pendants; they respawn in about three minutes."] = "Die Frostmane Troll Whelps (Stufe 3-4) halten die verschneiten Hänge westlich und südwestlich von {area:77}, und die Frostmane Novices (Stufe 3-4, sie werfen aus der Ferne Frostblitze) lagern südlich davon. Beide tragen die Anhänger; sie respawnen nach etwa drei Minuten.",
 
 	-- Step 4: Teo Hammerstorm
