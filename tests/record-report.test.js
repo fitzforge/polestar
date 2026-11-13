@@ -215,6 +215,8 @@ test('completion ends a step at its final time, XP and position before unrelated
 	assert.deepEqual({ time: run.time, xp: run.xp, completed: run.completed }, { time: 60, xp: 100, completed: true });
 	assert.equal(stepRow(r, G2, 1).totalTime, 60);
 	assert.equal(stepRow(r, G2, 1).xp, 100);
+	assert.equal(r.unattributedTime, 60, 'play between completion and the next guide is retained');
+	assert.equal(r.guides.reduce((sum, g) => sum + g.runs.reduce((n, run) => n + run.time, 0), 0) + r.unattributedTime, 180);
 });
 
 for (const order of ['before', 'after']) {
@@ -242,8 +244,25 @@ for (const order of ['before', 'after']) {
 		assert.deepEqual({ passes: stepRow(r, G, 1).passes, open: stepRow(r, G, 1).open }, { passes: 1, open: 0 });
 		assert.equal(stepRow(r, G2, 1).totalTime, 60);
 		assert.equal(stepRow(r, G2, 1).xp, 50);
+		assert.equal(r.unattributedTime, 180, 'both snapshot orders retain play without counting the offline gap');
 	});
 }
+
+test('unattributed play after completion preserves AFK state and the idle cap', () => {
+	for (const { before = [], after, expected } of [
+		{ after: [{ t: 80, e: 'afk', on: true }, { t: 160, e: 'afk', on: false }, { t: 200, e: 'pos', ...at }], expected: 60 },
+		{ before: [{ t: 40, e: 'afk', on: true }], after: [{ t: 160, e: 'afk', on: false }, { t: 200, e: 'pos', ...at }], expected: 40 },
+		{ after: [{ t: 660, e: 'pos', ...at }], expected: 300 },
+		{ after: [], expected: 0 },
+	]) {
+		const r = buildReport([session('Done', 1, [
+			step(0, 'login', G, 1, 1, 0), ...before,
+			step(60, 'complete', G, null, 1, 100), ...after,
+		])]);
+		assert.equal(r.unattributedTime, expected);
+		assert.equal(stepRow(r, G, 1).xp, 100, 'later unassigned play cannot change the completed step');
+	}
+});
 
 test('a background guide completion leaves the active guide segment running', () => {
 	const r = buildReport([session('Tabs', 1, [

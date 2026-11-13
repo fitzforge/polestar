@@ -11,7 +11,8 @@
 //
 // - A `step` snapshot (reason step/guide/login) starts a segment: from then
 //   on, until the next snapshot or the session's last event, play time counts
-//   for that guide and step. `complete` snapshots only close a guide.
+//   for that guide and step. `complete` snapshots close a guide and start
+//   unattributed time until the next snapshot.
 // - Play time is the sum of the gaps between consecutive events, each capped
 //   at IDLE_CAP (5 min), and gaps while flagged AFK count zero. So a /reload
 //   costs its few seconds, an AFK break at most 5 minutes, and time between
@@ -124,6 +125,15 @@ function sessionItems(s, xpModel, completed) {
 		cur.endCum = endCum;
 		cur = null;
 	};
+	const open = (e, guide, step, c) => {
+		cur = {
+			type: 'segment', guide, step,
+			title: e.title || null, guideTitle: e.guideTitle || null, reason: e.reason || null,
+			start: e.t, end: e.t, startCum: c, obsCum: c, endCum: null,
+			time: 0, combat: 0, afk: 0, idle: 0, yards: 0, deaths: 0, turnins: 0, quests: [],
+		};
+		items.push(cur);
+	};
 	for (let k = 0; k < events.length; k++) {
 		const e = events[k];
 		let completing = false;
@@ -152,15 +162,9 @@ function sessionItems(s, xpModel, completed) {
 				const guide = typeof e.guide === 'string' ? e.guide : null;
 				const step = Number.isInteger(e.step) ? e.step : null;
 				if (step !== null) completed.delete(guide);
-				cur = {
-					// The recorder can flush STEP_CHANGED(nil) after GUIDE_COMPLETED,
-					// or snapshot that finished tab again after a reload.
-					type: 'segment', guide: step === null && completed.has(guide) ? null : guide, step,
-					title: e.title || null, guideTitle: e.guideTitle || null, reason: e.reason || null,
-					start: e.t, end: e.t, startCum: c, obsCum: c, endCum: null,
-					time: 0, combat: 0, afk: 0, idle: 0, yards: 0, deaths: 0, turnins: 0, quests: [],
-				};
-				items.push(cur);
+				// The recorder can flush STEP_CHANGED(nil) after GUIDE_COMPLETED,
+				// or snapshot that finished tab again after a reload.
+				open(e, step === null && completed.has(guide) ? null : guide, step, c);
 				break;
 			}
 			case 'combat':
@@ -198,7 +202,13 @@ function sessionItems(s, xpModel, completed) {
 		}
 		// Include the last movement to completion, then stop attributing play
 		// to this guide. A background tab's completion leaves the active one open.
-		if (completing) close(e.t, cur.obsCum);
+		if (completing) {
+			const c = cur.obsCum;
+			close(e.t, c);
+			// STEP_CHANGED(nil) can be missing. Keep subsequent recorded play
+			// as unattributed, with the same AFK state and idle-gap cap.
+			open({ t: e.t }, null, null, c);
+		}
 	}
 	if (cur) close(events.length ? events[events.length - 1].t : cur.start, null);
 	return items;
