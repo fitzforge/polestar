@@ -80,8 +80,12 @@ end
 
 -- One redraw for a burst of arrivals: the guide window refills its rows
 -- (GuideFrame's STEP_UPDATED) with the names now cached.
+-- (Names.revision counts them: the step browser draws its skipped cards,
+-- whose reasons name quests, again when it moves.)
+Names.revision = 0
 local function redraw()
 	redrawing = false
+	Names.revision = Names.revision + 1
 	local E = ns.Engine
 	local step = E and E.GetStepIndex and E.GetStepIndex()
 	if step then ns.Fire("STEP_UPDATED", step) end
