@@ -713,6 +713,7 @@ fn a_fresh_install_leaves_the_codex_unloaded_until_the_layer_is_on_and_the_world
 		curated_vendors: V::Null,
 		entrances: Vec::new(),
 		entrance_table: V::Null,
+		levels_table: V::obj(),
 		rep_table: V::Null,
 		attunement_table: V::Null,
 		store_xp: Default::default(),
