@@ -437,6 +437,84 @@ fn outdoors_a_hillside_corner_cut_wide_never_holds_the_arrow_back_on_it_indoors_
 	assert!(num(&indoors["atCorner"]) > 0.0, "indoors the corner 10 yd lower still holds it ({})", indoors["atCorner"]);
 }
 
+// The path for the look ahead on the path: 160 yd straight on, a right-angle corner, then 340 yd on, in open ground.
+// The player walks the first piece toward the corner, past the path's first 50 yd (where the way onto the road is
+// looked along already, `join`); `sight` stands for the walking grid's line check.
+const CORNER: &str = r#"
+local function walkToCorner(sight)
+	nav.place(0, 100)
+	target(400, -60)
+	N.Sample()
+	answerZ({ { 0, 100, 0 }, { 0, -60, 0 }, { 80, -60, 0 }, { 400, -60, 0 } })
+	fake.sight = sight
+	local s
+	for y = 100, 2, -2 do look(0, y, 400, -60) end
+	fake.sights = 0
+	for y = 0, -20, -2 do s = look(0, y, 400, -60) end
+	return { dx = s.dx, dy = s.dy, sights = fake.sights }
+end
+"#;
+
+#[test]
+fn on_the_path_in_open_ground_the_arrow_aims_40_yd_along_to_a_point_it_can_walk_to_straight() {
+	// At 0, -20, 40 yd before the corner, with every line clear: the look runs 40 yd along, to the corner.
+	let open = run(&[LOOK, CORNER, "\n\t\temit(walkToCorner(function() return true end))"].concat());
+	// 0.3.7: on the path the corridor's aim stopped 35 yd from the player (aim 0, -35), short of the corner (Fitz,
+	// 0.3.8: "set the arrow's point further away from the player").
+	assert!(num(&open["dy"]) < -38.0 && num(&open["dx"]).abs() < 1.0, "the arrow aims 40 yd along, at the corner (aim {}, {})", open["dx"], open["dy"]);
+	// With no clear line (a wall, a cliff, indoors) the corridor's aim stands, as before.
+	let walled = run(&[LOOK, CORNER, "\n\t\temit(walkToCorner(function() return false end))"].concat());
+	assert!(num(&walled["dy"]) > -36.0 && num(&walled["dx"]).abs() < 1.0, "with nothing further in sight the corridor's aim stands (aim {}, {})", walled["dx"], walled["dy"]);
+	// Cheap: looked for again only after the player moves 2 yd, one line read each in open ground.
+	assert!(num(&open["sights"]) <= 22.0, "{} line reads over 20 yd walked", open["sights"]);
+}
+
+// A path that steps across the walking grid's cells at a slant (10 yd on, 4 yd across, 20 times: what straightening
+// leaves where the straight line crosses costlier ground), to a building's corner, then 220 yd along its side.
+const STAIRS: &str = r#"
+local function stairs(sight)
+	nav.place(0, 0)
+	target(300, -200)
+	N.Sample()
+	local pts = { { 0, 0, 0 } }
+	for i = 1, 20 do
+		pts[#pts + 1] = { 4 * (i - 1), -10 * i, 0 }
+		pts[#pts + 1] = { 4 * i, -10 * i, 0 }
+	end
+	pts[#pts + 1] = { 300, -200, 0 }
+	fake.sight, fake.sights = sight, 0
+	answerZ(pts)
+	local reads = fake.sights
+	local s = look(0, 0, 300, -200)
+	return { left = s.left, reads = reads }
+end
+-- The building: a line into x > 81 while y > -199 is blocked; every other line is clear.
+local function building(x1, y1, z1, x2, y2)
+	for k = 0, 50 do
+		local x, y = x1 + (x2 - x1) * k / 50, y1 + (y2 - y1) * k / 50
+		if x > 81 and y > -199 then return false end
+	end
+	return true
+end
+"#;
+
+#[test]
+fn a_path_stepping_across_the_grid_is_smoothed_once_as_it_lands_to_its_real_bends_a_building_s_corner_stays() {
+	let open = run(&[LOOK, STAIRS, "\n\t\temit(stairs(building))"].concat());
+	// 0.3.7: the path kept all 40 steps (500 yd to walk, the drawn line turning 90° at each). Smoothed: straight to the
+	// building's corner (149 + 66 yd: one line runs 150 yd at most), then along it: 436 yd.
+	assert!(num(&open["left"]) < 440.0, "the stairs are smoothed to straight lines ({} yd left)", open["left"]);
+	// The corner is a real bend: the line across it is blocked, so it stays (cut, 360 yd).
+	assert!(num(&open["left"]) > 430.0, "the building's corner stays ({} yd left)", open["left"]);
+	// Cheap: once per path, a line read per stretch when each first candidate is clear.
+	assert!(num(&open["reads"]) <= 4.0, "{} line reads to smooth it", open["reads"]);
+	// Nothing in sight (walls everywhere, or clusters not decoded): the path as it came.
+	let walled = run(&[LOOK, STAIRS, "\n\t\temit(stairs(function() return false end))"].concat());
+	assert!((num(&walled["left"]) - 500.0).abs() < 1.0, "with no clear line nothing is dropped ({} yd left)", walled["left"]);
+	// Bounded: 64 line reads at most for one path, here 41 points with none clear (about 5 each unbounded).
+	assert!(num(&walled["reads"]) <= 64.0, "{} line reads for 41 points with none clear", walled["reads"]);
+}
+
 #[test]
 fn a_search_landing_100_yd_behind_a_player_running_down_a_steep_slope_is_followed_from_where_they_are_now() {
 	let out = run(&[
