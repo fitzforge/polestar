@@ -5365,6 +5365,24 @@ test('Silverpine Forest (Horde 12-15): the starts that come by Orgrimmar bind th
 	assert.equal(list.filter(({ goal }) => goal.t === 'sethome').length, 1, 'the guide binds once');
 });
 
+// 0.4.0 route audit, Horde 12-21: Silverpine's arrival trainer in Orgrimmar listed every Orgrimmar class but Mage, so a
+// Troll Mage (last trained at Sen'jin, around 8-9) waited until the end of the guide; Troll Priests carried Hex of Weakness
+// to the Barrens' Orgrimmar trip at 20 although Ur'kyo, their trainer, is the one who takes it. The last Orgrimmar stop
+// trained twice, at the trainer step and again on the Valley of Wisdom step.
+test('Silverpine Forest (Horde 12-15): Troll Mages train and Troll Priests hand in Hex of Weakness on the Orgrimmar arrival; the last stop trains once (0.4.0 audit)', { skip }, () => {
+	const list = goals(SILVERPINE);
+	const fits = (o, race, cls) => !o || ((!o.races || o.races.includes(race)) && (!o.classes || o.classes.includes(cls)));
+	const as = (race, cls) => list.filter(({ step, goal }) => fits(step.only, race, cls) && fits(goal.only, race, cls));
+	const before = (l, title) => l.slice(0, l.findIndex(({ step }) => step.title === title));
+	const after = (l, title) => l.slice(l.findIndex(({ step }) => step.title === title));
+	const classTrain = ({ goal }) => goal.t === 'train' && goal.class;
+	assert.ok(before(as('Troll', 'MAGE'), 'Zeppelin to Undercity').some(classTrain), 'a Troll Mage trains before the zeppelin');
+	assert.ok(before(as('Troll', 'PRIEST'), 'Zeppelin to Undercity').some(({ goal }) => is('turnin', 5654)(goal)), 'Hex of Weakness on arrival');
+	for (const cls of ['WARRIOR', 'MAGE', 'PRIEST']) {
+		assert.equal(after(as('Undead', cls), 'Zeppelin to Orgrimmar').filter(classTrain).length, 1, `${cls}: one class training on the last Orgrimmar stop`);
+	}
+});
+
 // #1024 (Pilk, Tauren Druid): Apothecary Zamah's arrow led up out of the Pools of Vision, the cave under
 // Spirit Rise in Thunder Bluff. The NPCs down there (spawn heights 97 to 112; Spirit Rise above them at about
 // 135-138): every step at one says so, since the arrow cannot tell the floors apart. Birgitte Cranston's tip

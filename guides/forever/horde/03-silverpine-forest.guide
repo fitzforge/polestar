@@ -83,8 +83,8 @@ next forever/horde/02-the-barrens
 # quests (5722-5724: Thunder Bluff, first on the route at 27).
 #
 # Class quests: Orcs and Trolls hand the cultists' Neeru Fireblade (829) and The Admiral's Orders
-# (831) in on arrival in Orgrimmar. Troll Priests hand Hex of Weakness (5654) to Ur'kyo on the
-# Orgrimmar training trip of forever/horde/02-the-barrens. Tauren Druids leave the Strange Lockbox
+# (831) in on arrival in Orgrimmar. Troll Priests hand Hex of Weakness (5654) to Ur'kyo, their
+# trainer, on that arrival stop (02's Orgrimmar trip at 20 keeps it for anyone still carrying it). Tauren Druids leave the Strange Lockbox
 # on the coast west of the Dead Field alone here: its Half Pendant of Aquatic Endurance drops only
 # while Trial of the Sea Lion (30, from level 16) is in the log (#1386). They take the quest in
 # Moonglade in the next guide and open the lockbox on the ride through Silverpine at 21
@@ -182,10 +182,11 @@ step Snang
   turnin 96102                        -- Snang: Camping 101, from Brakk's campfire in Durotar
 
 step Class trainer
-  only Orc,Troll,Tauren,Skyborne,Warrior,Hunter,Rogue,Priest,Shaman,Warlock
+  only Orc,Troll,Tauren,Skyborne,Warrior,Hunter,Rogue,Priest,Shaman,Mage,Warlock
   zone Orgrimmar
-  tip Train while you are in the city: Druids and Paladins have no trainer here.
-  train class only Warrior,Hunter,Rogue,Priest,Shaman,Warlock
+  tip Train while you are in the city: Druids and Paladins have no trainer here. Troll Priests: train with Ur'kyo in the Valley of Spirits, who takes Hex of Weakness.
+  train class only Warrior,Hunter,Rogue,Priest,Shaman,Mage,Warlock
+  turnin 5654 only Troll,Priest       -- Ur'kyo: Hex of Weakness
 
 step Sayoc
   only Orc,Troll,Tauren,Skyborne,Warrior
@@ -556,12 +557,11 @@ step Kor'geld
   turnin 97275                        -- Whuut
 
 step Valley of Wisdom
-  tip Thra and Migi sit behind Grommash Hold in the Valley of Wisdom; the Smooth Boulders lie around them. Train while you are in the city (Druids and Paladins have no trainer here). The next guide walks from here to Far Watch Post and the Crossroads.
+  tip Thra and Migi sit behind Grommash Hold in the Valley of Wisdom; the Smooth Boulders lie around them. The next guide walks from here to Far Watch Post and the Crossroads.
   turnin 97249                        -- Migi
   accept 97326                        -- Thra
   collect 277952 quest 97326.1
   turnin 97326
-  train class only Warrior,Hunter,Rogue,Priest,Shaman,Mage,Warlock
 
 step Zor Lonetree
   accept 1061                         -- Zor Lonetree: Seereth Stonebreak, on the road into Stonetalon in the next guide
