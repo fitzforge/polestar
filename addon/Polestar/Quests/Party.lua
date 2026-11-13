@@ -1479,7 +1479,7 @@ end
 function Party.GoOn()
 	local E = ns.Engine
 	local s = E and E.GetLiveStep and E.GetLiveStep()
-	local view = s and E.GetStepView(s)
+	local view = s and E.GetStepView(s, true)
 	for _, goal in ipairs(view and view.goals or {}) do
 		if goal.quest then released[goal.quest] = true end
 	end
@@ -1493,7 +1493,7 @@ function Party.StepWait()
 	if not waits() then return nil end
 	local E = ns.Engine
 	local s = E.GetLiveStep and E.GetLiveStep()
-	local view = s and E.GetStepView(s)
+	local view = s and E.GetStepView(s, true)
 	if not view then return nil end
 	local names, seen, ready = {}, {}, false
 	local function add(n)
@@ -1959,7 +1959,7 @@ function Party.StepLine()
 	elseif ready then
 		parts[#parts + 1] = L["Everyone's ready"]
 	elseif mine and mine.step then
-		local view = ns.Engine.GetStepView(mine.step)
+		local view = ns.Engine.GetStepView(mine.step, true)
 		local still, seen = {}, {}
 		for _, goal in ipairs(view and view.goals or {}) do
 			local q = goal.quest
@@ -2008,7 +2008,7 @@ function Party.Roster()
 	local E = ns.Engine
 	local g = E and E.GetGuide and E.GetGuide()
 	local live = E and E.GetLiveStep and E.GetLiveStep()
-	local view = live and E.GetStepView(live)
+	local view = live and E.GetStepView(live, true)
 	local mine = Party.MyPos() or {}
 	local n = GetNumSubgroupMembers and GetNumSubgroupMembers() or 0
 	for i = 1, n do
@@ -2178,54 +2178,3 @@ function Party.NeedText(e)
 	return L["For %s: still needs %d"]:format(e.name, e.need)
 end
 
----------------------------------------------------------------------------
--- Options
----------------------------------------------------------------------------
-
--- The Group section of the Questing page (its Quests tab), after the quest
--- settings (Quests/Options.lua registers first: this file loads after it).
--- `search`: more words the settings search finds them by (English, as the
--- other controls' `search`).
-local SEARCH = "group, party, sync, friends, together"
-Party.OPTIONS = {
-	page = L["Questing"], tab = L["Quests"], section = L["Group"],
-	controls = {
-		{ kind = "toggle", key = "party.share", label = L["Share my quest progress with my party"], search = SEARCH,
-			help = L["Party members who run Polestar see your counts under their quest goals, your step and your level. Hidden addon messages to your party only; nothing goes to chat."] },
-		-- Core/Update.lua's version probe: off with sharing off too.
-		{ kind = "toggle", key = "update.probe", label = L["Ask other players' Polestar which version it is"], search = SEARCH .. ", update, version, new version",
-			child = true, disabled = function() return not ns.Get("party.share") end,
-			help = L["Up to 10 hidden addon whispers a session, to players of your faction you target or mouse over outside cities, combat and dungeons, and an answer to theirs: only the version number, so Polestar can tell you when a newer one is out. Off: none sent or answered."] },
-		{ kind = "toggle", key = "party.show", label = L["Show my party's progress in the guide"], search = SEARCH,
-			help = L["Their counts under your quest goals, and who lacks a quest you took, with a Share button."] },
-		{ kind = "toggle", key = "party.waitForGroup", label = L["Wait for the group"], search = SEARCH,
-			disabled = function() return not ns.Get("party.show") end,
-			help = L["When a party member on your quest still needs an objective you finished, the step and its turn-in wait and the arrow leads to what they need. Members in another zone or offline for 2 minutes don't hold you; the party line offers Go on without them."] },
-		{ kind = "toggle", key = "party.lootNeeds", label = L["Say who still needs quest loot"], search = SEARCH,
-			disabled = function() return not ns.Get("party.show") end,
-			help = L["On a loot window or roll, a line under a quest item a party member still needs and you don't. Nothing is passed or said for you."] },
-		{ kind = "toggle", key = "party.panel", label = L["Party panel"], search = SEARCH,
-			help = L["Opens by itself when someone in your party runs Polestar too: each member's level, step and what they still need of yours; click a name to point the arrow at them. Closed, it stays closed; /polestar party opens it again."] },
-		{ kind = "toggle", key = "party.chat", label = L["Tell my party about objectives and ready quests"], search = SEARCH .. ", chat, announce, objective, tell",
-			help = L["A party chat line with the quest's link when you finish its objectives, and one when the quest is ready to turn in. Everyone in the party sees it, Polestar or not. Never solo or in a raid."] },
-		{ kind = "toggle", key = "party.chatLoot", label = L["Tell my party when I loot an item that starts a quest"], search = SEARCH .. ", chat, announce, loot, item, tell",
-			help = L["A party chat line with the item's link and the quest it starts."] },
-		{ kind = "toggle", key = "party.chatEcho", label = L["Show my own lines in my chat too"], search = SEARCH .. ", chat, announce",
-			disabled = function() return not (ns.Get("party.chat") or ns.Get("party.chatLoot")) end,
-			help = L["Off: your party sees the lines Polestar says for you, and your chat stays clear of them."] },
-		{ kind = "toggle", key = "party.chatHideOthers", label = L["Hide other players' Polestar lines"], search = SEARCH .. ", chat, announce, hide",
-			help = L["Party members' Polestar lines leave your chat. Shown, they carry Polestar's star."] },
-		{ kind = "toggle", key = "party.chatOnlyNeeded", label = L["Only when someone in the party doesn't have Polestar"], search = SEARCH .. ", chat, announce",
-			disabled = function() return not (ns.Get("party.chat") or ns.Get("party.chatLoot")) end,
-			help = L["Nothing goes to chat while everyone in your party runs Polestar: they see your progress in their guide."] },
-	},
-}
-
-local registered = false
-local function register()
-	if registered or not ns.RegisterOptions then return end
-	registered = true
-	ns.RegisterOptions(Party.OPTIONS)
-end
-ns.OnInit(register)
-ns.OnLogin(register)

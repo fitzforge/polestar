@@ -1,0 +1,185 @@
+guide polestar-experimental/riverglades-alliance-2
+title Riverglades 2: Sunnyglade, Sleebo's workshop and Powderfuse Port (experimental)
+faction Alliance
+levels 39-41
+zone Riverglades
+coords live
+folder Riverglades · Experimental
+why Forever's new zone, an alpha route written from players' recordings.
+keywords riverglades, sunnyglade, rog'mar, sleebo, powderfuse port, eastsea pirates, experimental, alpha
+next polestar-experimental/riverglades-alliance-3
+
+# Polestar Experimental, Riverglades for the Alliance, part 2 of 4 (2026-11-12). Hand-written from players'
+# recordings of the zone and Forever's quest data for titles, levels, objectives and places.
+# Order: Sunnyglade (the Twilight cult's farm town, levels 37-41) in one visit, Fuzzle's escort to the west edge and
+# Farmer Elbrim's farm last; the Horde's training grounds north of Rog'mar for Watcher Cornelius; Sleebo's workshop
+# with the tallstriders and the marsh, and a stop at Terral's Watch; Powderfuse Port (the neutral goblin port) and
+# its first loop: the murlocs south-west, back through the port, the crawlers and Trapclaw north of it, the Eastsea
+# pirates north-east (levels 38-43), the port again.
+# Offered only after another quest is handed in (players' recordings): Biting the Hand's escort after the finger
+# bones; All That's Left after What We Lost; Cut Off the Heads after both of Claire's first quests; An Unsettling
+# Discovery after Cut Off the Heads; Rock 'em and Sock 'em after Gaseous Gold; The Rog'mar Situation after
+# Cornelius's two errands; It Takes Guts after Terrors From the Deep; Goes Down Smooth after Stepped Out; Drink Up!
+# after Goes Down Smooth; Her World after Drink Up!; Smuggler's Special after Smuggler's Paradise; the pirates'
+# second wave after Unfriendly Competition.
+# Elites, each behind a group choice: Chogg'Zac (41), Old Rot-Chum (42), and the WANTED posters part 1 took for
+# Ghostmaw and Blademaster Kaijo (42).
+# Left out on purpose:
+# - Not My Circus (95982): ten Briny Seafood Stews, a cook's make; 2 of 25 recorded players handed it in.
+
+step Ghostmaw
+  when group 95991
+  tip Ghostmaw, the elite, hunts along the river between Wheeler's Grange and Terral's Watch, on your way north.
+  collect 271828 quest 95991.1 @52.9,57.8  -- Ghostmaw's Fang
+
+step Sunnyglade
+  tip Experimental route (alpha): if a step is wrong, tell us on Polestar's Discord or GitHub and name the step.
+  tip North from Farholde Keep, past Terral's Watch and across the river, to Sunnyglade, the farm town the Twilight cult holds; keep clear of Rog'mar, the Horde's fort east of the town. Fuzzle the kobold hides in the middle of the town, Apprentice Claire at its eastern edge, and Farmer Elbrim waits at his farm on the north-eastern edge.
+  accept 94961                          -- Fuzzle: Biting the Hand
+  accept 95642                          -- Apprentice Claire: Abominable Magics
+  accept 95643                          -- Indiscriminate Purge
+  accept 94829                          -- Farmer Elbrim: What We Lost
+
+step The Twilight cult
+  tip The cultists fill the streets and fields of Sunnyglade. Start at the ritual circles in the middle (fill Claire's catalyst there), work west through the burnt houses to the edge of town, then back north-east to the loose soil west of Elbrim's farm: bury the Farmers' Mementos the Twilight Raiders drop there. The charms, pages and finger bones drop from the cultists.
+  tip Keep the Mageweave Cloth they drop if you took Brother Lowley's Wound Dressings. Now and then a cultist drops the Field Marshal's Log: right-click it to start the quest.
+  kill 261711 x5 quest 95643.1 @47.7,50.6  -- Empowered Brute
+  kill 262169 x5 quest 95643.2 @47.3,50.0  -- Twilight Ritualist
+  complete 95642 @47.8,50.0             -- fill the Crystal Catalyst at the ritual circles
+  collect 266424 x5 quest 94879.1       -- Twilight Page
+  kill 256952 x8 quest 94877.1          -- Twilight Raider
+  kill 254560 x8 quest 94877.2          -- Twilight Shadowmancer
+  kill 256798 x8 quest 94877.3          -- Twilight Neophyte
+  collect 267073 x20 quest 94961.1      -- Twilight Finger Bone
+  collect 266425 x25 quest 94881.1      -- Twilight Charm
+  interact 621813 quest 94829.1 @48.2,44.6  -- Loose Soil: bury the mementos
+  accept 94885 optional                 -- Field Marshal's Log: only if a cultist dropped the log
+
+step Apprentice Claire
+  turnin 95642
+  turnin 95643
+
+step Cut Off the Heads
+  when group 95562
+  tip Chogg'Zac, the two-headed ogre, is an elite (level 41) at the western edge of Sunnyglade: grouping up is advised. Claire then has the filled catalyst for Ashe Amberhall in Farholde Keep.
+  accept 95562                          -- Apprentice Claire
+  collect 265750 quest 95562.1 @44.9,51.1  -- Chogg's Head
+  collect 265751 quest 95562.2 @44.9,51.1  -- Zac's Head
+  turnin 95562
+  accept 94884                          -- An Unsettling Discovery: for Ashe Amberhall in Farholde Keep
+
+step Fuzzle
+  tip Fuzzle wants out of Sunnyglade: lead him west to his treasure at the edge of town and keep the cultists off him.
+  turnin 94961
+  accept 94963                          -- Biting the Hand
+  complete 94963 @41.6,47.7             -- lead Fuzzle out of Sunnyglade to his treasure, west of the town
+  turnin 94963                          -- Fuzzle's Treasure
+
+step Farmer Elbrim
+  tip Back east through the town to Elbrim's farm: the doll and the locket are in the burnt farmhouse beside it.
+  turnin 94829
+  accept 94858                          -- All That's Left
+  collect 266251 quest 94858.1          -- Discarded Doll
+  collect 266252 quest 94858.2          -- Damaged Locket
+  turnin 94858
+
+step The Rog'mar training grounds
+  tip North-east of Elbrim's farm, the Horde drills its trainees in the fields north of Rog'mar. Stay north of the fort: its guards are far above your level. The supply crates lie around the drill grounds. Three elites work this ground: Blademaster Kaijo (42) walks among the trainees, Krek the Noxious (42) lurks at the north end, and Komuk (45), a Horde elite, patrols the hills to the east; give each of them room.
+  kill 256749 x12 quest 95064.1 @60.8,37.0  -- Rog'mar Trainee
+  collect 274975 x8 quest 95426.1       -- Rog'mar Supply Crate
+
+step Blademaster Kaijo
+  when group 95912
+  tip Blademaster Kaijo, the elite, walks the training grounds.
+  collect 271425 quest 95912.1 @58.3,38.8  -- Blademaster's Banner
+
+step Sleebo's workshop
+  tip South-east, round Rog'mar's east side, to Sleebo Fizzlespout's workshop on the hill. Komuk and the Bolder'ok ogres walk the road east of the fort: let them pass before you cross it.
+  accept 96063                          -- Gaseous Gold
+
+step The tallstriders and the marsh
+  tip The Roving Tallstriders graze the meadows south-west of the workshop; further south-west the marsh bubbles with gas: fill the vials at the vents.
+  collect 271778 quest 95984.1          -- Intact Tallstrider Beak
+  collect 272004 x8 quest 96063.1       -- Marsh Gas Vial
+
+step Terral's Watch
+  tip Watcher Cornelius's tower stands just south-west of the marsh.
+  turnin 95984                          -- Watcher Cornelius
+  turnin 95064
+  turnin 95426
+  accept 95066                          -- The Rog'mar Situation: for Demar Brant in Farholde Keep, keep it
+  accept 96125                          -- In Need of Relief: for Dunston Willis in Bolder'ok (part 3), keep it
+
+step Sleebo Fizzlespout
+  tip Back north-east to the workshop. Sleebo's stress test is a fight with his G45-B4G beside the workshop: hand the quest in once it's beaten.
+  turnin 96063
+  accept 96067                          -- Rock 'em and Sock 'em
+  complete 96067 @68.2,48.6             -- the stress test: beat G45-B4G beside the workshop
+  turnin 96067
+
+step Powderfuse Port
+  tip East down the road to Powderfuse Port, the goblins' harbour. Friz Frazzlespark keeps a stall at the west end of the docks; Gray Dawnbright, Innkeeper Zizplink and Fimbo Greasemitz are at the inn, and Wharfmaster Whizzbuzz works the north pier. Zizplink's drink needs three things the port's traders sell: the chum from Gritta Chumwater, the degreaser and the old poison from Kor'gar and Krikshank, by Friz's stall.
+  turnin 94928                          -- Friz Frazzlespark
+  accept 95288                          -- Smuggler's Paradise
+  accept 95059                          -- Frazzlespark's Crate: for Demar Brant in Farholde Keep, keep it
+  turnin 95961                          -- Gray Dawnbright
+  accept 95988                          -- Innkeeper Zizplink: Goes Down Smooth
+  buy 271657 npc 260487                 -- Fresh Chum, from Gritta Chumwater
+  buy 271653 npc 260565                 -- Goblin Degreaser, from Kor'gar
+  buy 271654 npc 260560                 -- Expired Poison, from Krikshank
+  accept 95121                          -- Fimbo Greasemitz: A Taste of the Sea
+  accept 95254                          -- The WANTED! poster by the inn: Trapclaw
+  accept 95118                          -- Wharfmaster Whizzbuzz: Saltwater Savages
+  accept 95119                          -- Unfriendly Competition
+
+step WANTED: Old Rot-Chum
+  when group 95120
+  tip Old Rot-Chum is an elite (level 42) on the south shore: grouping up is advised.
+  accept 95120                          -- The WANTED! poster by the inn
+
+step The murlocs, south-west
+  tip South-west along the shore from the port: the saltwater murlocs camp on the beaches. On the way, a painted hide is stretched beside the path: it starts Terrors From the Deep for Argo Brinewhistle at the docks.
+  accept 95260                          -- Painted Hide: Terrors From the Deep
+  collect 268344 x12 quest 95121.1      -- Saltwater Murloc Eye
+  kill 256801 x8 quest 95118.1          -- Murloc Warrior
+  kill 255898 x8 quest 95118.2          -- Murloc Oracle
+
+step Old Rot-Chum
+  when group 95120
+  collect 268341 quest 95120.1 @77.4,72.3  -- Rot-Covered Harpoon
+
+step Back through the port
+  tip Back north along the shore: hand in the murlocs and the hide on the docks on your way to the crawlers.
+  turnin 95118                          -- Wharfmaster Whizzbuzz
+  turnin 95260                          -- Argo Brinewhistle
+  accept 95261                          -- It Takes Guts: the beasts' entrails come as you go; the mushrooms are for part 3
+
+step The crawlers and Trapclaw
+  tip North along the beach from the docks: the crawlers drop the meat for Fimbo and the spittle for Zizplink, and their entrails count for Argo. Trapclaw, a big crab, scuttles along the rocks east of the docks. Gul'gash, a rare elite of level 49, roams this coast from the docks up to the pirates' camp: if you see him, keep well away.
+  collect 268345 x6 quest 95121.2       -- Sand Crawler Meat
+  collect 271650 x3 quest 95988.1       -- Crawler Spittle
+  collect 268586 quest 95254.1          -- Trapclaw's Pincer
+
+step The Eastsea pirates
+  tip North-east along the coast to the pirates' camp on the cliffs. The buccaneers and musketeers carry the smuggled goods. Gul'gash walks the camp too: keep an eye out for him.
+  kill 257901 x10 quest 95119.1         -- Eastsea Buccaneer
+  kill 257910 x10 quest 95119.2         -- Eastsea Musketeer
+  collect 268796 x8 quest 95288.1       -- Smuggled Goods
+
+step Powderfuse Port
+  tip Back to the port, from the north pier west through the docks.
+  turnin 95119                          -- Wharfmaster Whizzbuzz
+  accept 95122                          -- Unchecked Expansion: for part 3
+  accept 95123                          -- A Blast Ye Scurvy Dogs!: for part 3
+  turnin 95254                          -- Fimbo Greasemitz
+  turnin 95121
+  turnin 95988                          -- Innkeeper Zizplink
+  accept 95957                          -- Drink Up!
+  turnin 95957                          -- Gray Dawnbright
+  accept 95975                          -- Her World: for part 3, the wildflowers west of the port
+  turnin 95288                          -- Friz Frazzlespark
+  accept 95293                          -- Smuggler's Special: for Captain Bentcoin at the pirates' camp (part 3)
+
+step Wharfmaster Whizzbuzz
+  when onquest 95120
+  turnin 95120

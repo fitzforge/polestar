@@ -389,12 +389,36 @@ fn encode_quest(rec: &V) -> Result<String, String> {
 		if o.get("tame").truthy() {
 			parts.push("t".into());
 		}
+		// The hostile elites at an object's work, per side (elites.rs): w<side><rank>,<lvl>.
+		let el = o.get("elites");
+		for side in ["A", "H"] {
+			let e = el.get(side);
+			if e.truthy() {
+				let lvl = e.get("lvl");
+				parts.push(format!("w{side}{},{}", num(&e.get("rank"))?, if lvl.is_nullish() { String::new() } else { num(&lvl)? }));
+			}
+		}
 	}
 	if rec.get("repFaction").truthy() && rec.get("repStanding").truthy() {
 		parts.push(format!("r{},{}", num(&rec.get("repFaction"))?, num(&rec.get("repStanding"))?));
 	}
 	if rec.get("xp").num() > 0.0 {
 		parts.push(format!("x{}", num(&rec.get("xp"))?));
+	}
+	// The quests whose taking closes it for good (#1996: a breadcrumb's target, an exclusive quest): c<id>,<id>...
+	// An older reader skips `c` (no objective kind is c).
+	if !rec.get("closedBy").items().is_empty() {
+		parts.push(format!("c{}", list(&rec.get("closedBy"))?));
+	}
+	// The profession it needs (#1913): l<skill line>,<rank>, the rank empty when the data names none. Not `s`, the
+	// talk objective: an older reader skips `l` (no objective kind is l).
+	if rec.get("skill").num() > 0.0 {
+		parts.push(format!("l{},{}", num(&rec.get("skill"))?, num(&rec.get("skillLevel"))?));
+	}
+	// A child quest's parent, which must be in the log for its giver to offer it (Valik 535 under Infiltration 533):
+	// u<quest>. An older reader skips it (no objective kind is u).
+	if rec.get("parent").num() > 0.0 {
+		parts.push(format!("u{}", num(&rec.get("parent"))?));
 	}
 	Ok(parts.join(";"))
 }
@@ -829,5 +853,33 @@ mod tests {
 		assert_eq!(line(r#"{ "map": 1436, "x": 30, "y": 50, "f": null }"#), "1436,300,500,");
 		// The City of Dalaran (#706): the Horde's tunnel, then the Alliance's pipe in Cantrips & Crows.
 		assert_eq!(line(r#"{ "map": 1416, "x": 8.5, "y": 59.2, "f": null, "A": { "map": 1416, "x": 14.7, "y": 63 } }"#), "1416,85,592,,,1416,147,630");
+	}
+
+	#[test]
+	fn a_quest_record_ends_with_the_profession_it_needs_1913() {
+		let line = |extra: &str| {
+			let rec = forge_guide::js::parse_json(&format!(
+				r#"{{ "id": 2501, "level": 41, "minLevel": 36, "faction": null, "races": null, "classes": null, "zone": 3, "start": {{ "npc": [2786], "object": [], "item": [] }}, "end": {{ "npc": [2786], "object": [] }}, "pre": [17], "rewards": [], "choices": [], "preAny": [], "objectives": [], "xp": 4950{extra} }}"#
+			))
+			.unwrap();
+			encode_quest(&rec).unwrap()
+		};
+		assert!(line(r#", "skill": 171, "skillLevel": 210"#).ends_with(";x4950;l171,210"), "Badlands Reagent Run II: Alchemy 210");
+		assert!(line(r#", "skill": 171, "skillLevel": null"#).ends_with(";x4950;l171,"), "no rank in the data");
+		assert!(line("").ends_with(";x4950"), "no profession: no field");
+	}
+
+	#[test]
+	fn a_quest_record_carries_the_quests_that_close_it_1996() {
+		let line = |extra: &str| {
+			let rec = forge_guide::js::parse_json(&format!(
+				r#"{{ "id": 463, "level": 21, "minLevel": 20, "faction": "A", "races": null, "classes": null, "zone": 11, "start": {{ "npc": [1239], "object": [], "item": [] }}, "end": {{ "npc": [1244], "object": [] }}, "pre": [], "rewards": [], "choices": [], "preAny": [], "objectives": [], "xp": 830{extra} }}"#
+			))
+			.unwrap();
+			encode_quest(&rec).unwrap()
+		};
+		assert!(line(r#", "closedBy": [276]"#).ends_with(";x830;c276"), "The Greenwarden: closed by Tramping Paws");
+		assert!(line(r#", "closedBy": [282, 287]"#).ends_with(";x830;c282,287"));
+		assert!(line("").ends_with(";x830"), "nothing closes it: no field");
 	}
 }

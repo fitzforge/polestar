@@ -268,8 +268,9 @@ has the details.
 
 - `forge data names [<locale>...]` rebuilds the addons. Per
   id the first source with a name wins: the client's own tables in that
-  language (wago.tools), Forever's quest data in that language (what
-  is cached under `data/sources/web/names`), DingDB (cloned into
+  language (wago.tools), the names the client showed players
+  (`data/i18n/names-observed/<locale>.json`, below), Forever's quest data in that
+  language (what is cached under `data/sources/web/names`), DingDB (cloned into
   `data/sources/ding` at the commit pinned in
   `rust/crates/forge-data/src/names_sources.rs`,
   every file checked against its sha256) and pfQuest's `db/<locale>` (the
@@ -288,6 +289,17 @@ has the details.
 - A wrong name is fixed at its source: in the client (it changes there), in
   DingDB (tell Yendi, then move the pin to his new commit and rebuild) or,
   for one only pfQuest has, in pfQuest.
+- Names the client shows players that no table holds (its cache of what the
+  server sent it, or the names Polestar learned in play) go in
+  `data/i18n/names-observed/<locale>.json`: one record per name, `token`
+  (`quest:`, `npc:`, `object:` or `item:` and the id), `name` as the client
+  showed it, `source` (`client-wdb` or `client-learning`), `build` (the client
+  build, or `null` when it was not recorded), `sha256` of the file it was read
+  from (optional, as provenance) and `ref`, the issue or pull request it came
+  with. Only names read from the client itself, never a website's or another
+  addon's translation. They come right after the client's tables, before
+  every other source: the server's name is the true one. The forge-data
+  names tests check the file.
 - To move the pin, read what changed in Ding's `Ding/DB/`, then set the
   commit, version and sha256s of `ding_pin` in
   `rust/crates/forge-data/src/names_sources.rs`; a file

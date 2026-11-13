@@ -24,7 +24,7 @@ Nobody follows a route exactly, so Polestar watches what is around you. Kills, i
 
 ## New spells when you level up
 
-A card lists the spells your trainer has for you, what they cost and where to train. Train All learns them in one click at the trainer, and Upgrade puts the new ranks on your action bars.
+A card lists the spells your trainer has for you, what they cost and where to train. Choose and buy spells yourself at the trainer; Upgrade puts the new ranks on your action bars.
 
 ![The level-up card above the guide window: new Hunter spells to train with their cost, a spell's tooltip, then after training the old ranks still on the action bars with an Upgrade button](https://raw.githubusercontent.com/fitzforge/polestar/next/docs/curseforge/media/level-up.gif)
 

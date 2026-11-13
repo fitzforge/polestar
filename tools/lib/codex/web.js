@@ -28,6 +28,7 @@
 //   chanceOf(drop)          -> percent, 2 decimals
 //   LOCALE_PATHS            the path segment of each client language
 //   isWebCitation(c)        c is a web quest database citation (below)
+//   isSourceCitation(c)     c cites a source the corrections' way (below)
 //   citationText(c)         -> a curated table's source (a citation or a
 //                           URL) as report text ("Forever quest 7848")
 //
@@ -36,9 +37,15 @@
 // "forever" | "classic", kind: "quest" | "npc" | "item" | "object" | "zone" |
 // "spell", id: <number> } or, for a guide page, { edition, kind: "guide",
 // ref: "<slug>" }; `note` (optional) quotes or summarises the page.
+//
+// A fact from players' recordings or an open game database
+// (entrances.json, journal-quests.json) is cited the way the corrections in
+// forever-db/corrections cite it: { kind: "recording" | "tdb" | ... (the
+// corrections' SOURCE_KINDS), ref: "<what that source shows>" }.
 
 const fs = require('node:fs');
 const path = require('node:path');
+const { SOURCE_KINDS } = require('../data/corrections');
 
 const TYPES = ['npc', 'object', 'item', 'spell'];
 const CODEX_LISTS = ['npc', 'object', 'item'];
@@ -82,6 +89,11 @@ function isWebCitation(c) {
 	return KINDS.has(c.kind) && Number.isInteger(c.id) && c.id > 0 && c.ref === undefined;
 }
 
+function isSourceCitation(c) {
+	if (!c || typeof c !== 'object' || Array.isArray(c) || !SOURCE_KINDS.includes(c.kind)) return false;
+	return typeof c.ref === 'string' && c.ref !== '' && Object.keys(c).every((k) => k === 'kind' || k === 'ref');
+}
+
 function citationText(c) {
 	if (typeof c === 'string') return c;
 	const edition = c.edition === 'classic' ? 'Classic' : 'Forever';
@@ -89,4 +101,4 @@ function citationText(c) {
 	return `${edition} ${what}${c.note ? ` (${c.note})` : ''}`;
 }
 
-module.exports = { loadWeb, chanceOf, LOCALE_PATHS, isWebCitation, citationText };
+module.exports = { loadWeb, chanceOf, LOCALE_PATHS, isWebCitation, isSourceCitation, citationText };

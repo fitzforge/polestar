@@ -349,6 +349,10 @@ function Compat.GetQuestObjectives(questID)
 		if req <= 0 then
 			-- Event objectives report 0/0; finished is the truth.
 			req, cur = 1, finished and 1 or 0
+		elseif cur >= req and not finished then
+			-- A skill objective ("Raise your alchemy skill to 20", Camping 101,
+			-- #1952) counts past its 1 while unfinished; finished is the truth.
+			cur = req - 1
 		end
 		out[i] = { text = o.text or "", type = o.type or "", finished = finished, numFulfilled = cur, numRequired = req }
 	end
@@ -396,11 +400,18 @@ end
 -- (C_QuestLog.GetTimeAllowed, the quest log's clock; the old GetQuestTimers
 -- where the client has it) that is neither ready to hand in nor failed.
 -- Nil-safe on any client; no tables of its own (the client's GetInfo makes
--- one per entry).
+-- one per entry). The walk over the log is kept until the quest log changes
+-- (logTimer): a timer starts with an accept and stops with a hand-in, a
+-- failure, its objectives done or an abandon, and the client says each of
+-- those with QUEST_LOG_UPDATE; While-here's poll asks every 0.5 s and the
+-- travel planner on every plan. The old timer list is read live.
+local logTimer -- the walk's answer since the last quest-log change (nil: walk again)
 function Compat.QuestTimerRunning()
 	if GetQuestTimers and GetQuestTimers() then return true end
+	if logTimer ~= nil then return logTimer end
 	local QL = C_QuestLog
 	if not (QL and QL.GetTimeAllowed and QL.GetNumQuestLogEntries and QL.GetInfo) then return false end
+	logTimer = false
 	for i = 1, QL.GetNumQuestLogEntries() or 0 do
 		local info = QL.GetInfo(i)
 		local q = info and not info.isHeader and info.questID
@@ -408,11 +419,18 @@ function Compat.QuestTimerRunning()
 			local ok, total = pcall(QL.GetTimeAllowed, q)
 			if ok and type(total) == "number" and total > 0 and not Compat.IsQuestReadyForTurnIn(q)
 				and not (QL.IsFailed and QL.IsFailed(q)) then
-				return true
+				logTimer = true
+				break
 			end
 		end
 	end
-	return false
+	return logTimer
+end
+if ns.RegisterEvent then
+	local function logChanged() logTimer = nil end
+	for _, event in ipairs({ "QUEST_LOG_UPDATE", "QUEST_ACCEPTED", "QUEST_REMOVED", "QUEST_TURNED_IN", "UNIT_QUEST_LOG_CHANGED", "PLAYER_ENTERING_WORLD" }) do
+		ns.RegisterEvent(event, logChanged)
+	end
 end
 
 -- The timers running in the quest log: out[questID] = seconds left, for each
@@ -792,6 +810,28 @@ function Compat.OpenWorldMap(uiMapID)
 	local open = worldMapOpener()
 	if not open or Compat.InCombat() then return false end
 	return pcall(open, uiMapID) and true or false
+end
+
+-- Opening the quest log at a quest: the client's QuestMapFrame_OpenToQuestDetails
+-- (Blizzard_UIPanels_Game/Mainline/QuestMapFrame.lua, which Forever's client
+-- loads; its own objective tracker opens a quest with it): the map with its
+-- quest log, that quest's details shown. It opens the world map, so under the
+-- same rules as Compat.OpenWorldMap: never in combat, never with the gamepad
+-- interface. Callers check the quest is in the log (Compat.IsOnQuest).
+--   Compat.CanOpenQuestLog() -> bool ; Compat.OpenQuestLog(questID) -> opened
+local function questLogOpener()
+	if ns.GamepadUI() then return nil end
+	return QuestMapFrame_OpenToQuestDetails
+end
+
+function Compat.CanOpenQuestLog()
+	return questLogOpener() ~= nil
+end
+
+function Compat.OpenQuestLog(questID)
+	local open = questLogOpener()
+	if not open or type(questID) ~= "number" or Compat.InCombat() then return false end
+	return pcall(open, questID) and true or false
 end
 
 -- The continent-type uiMap (Enum.UIMapType.Continent = 2) a map belongs to,

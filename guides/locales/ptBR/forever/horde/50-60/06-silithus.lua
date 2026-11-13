@@ -166,7 +166,7 @@ return {
 	-- {npc:10980} Umi's Mechanical Yeti · {npc:10977} Quixxil
 	["Use {npc:10980} on {npc:10977}"] = "Use o {npc:10980} em {npc:10977}",
 	-- {npc:10977} Quixxil · {npc:10980} Umi's Mechanical Yeti
-	["Scare {npc:10977} with {npc:10980}"] = "",
+	["Scare {npc:10977} with {npc:10980}"] = "Assuste {npc:10977} com o {npc:10980}",
 
 	-- Step 36: Ringo
 	-- {npc:9999} Ringo
@@ -301,7 +301,7 @@ return {
 
 	-- Step 81: Eastern Plaguelands
 	-- {quest:5845} Of Lost Honor
-	["The lake for {quest:5845}"] = "",
+	["The lake for {quest:5845}"] = "O lago para {quest:5845}",
 
 	-- Step 82: Of Lost Honor
 	["Underwater"] = "Debaixo d'água",

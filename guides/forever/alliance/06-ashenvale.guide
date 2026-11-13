@@ -22,6 +22,16 @@ next forever/alliance/04-redridge-mountains
 # Stonetalon (19-22) first, then the east loop and Ilkrud and the Zoram Strand (24-25).
 # Group quest: Gerenzo's Orders (1090, `when group 1090`, #1370): Piznik's five-minute defence in the Windshear
 # Mine (quest level 22) was lost solo at 23 and 25 in players' recordings; grouped players finished it from 23.
+# Blackfathom Deeps (`when dungeon "Blackfathom Deeps"`, dungeons in the route): for a character who chose it
+# and took Gershala Nightwhisper's Researching the Corruption (1275) in Auberdine (forever/alliance/
+# 03-darkshore-return), the run follows Ruuzel at the north end of the Zoram Strand, at about 24: the way
+# in is the sunken ruins' pit east of him. Gershala takes the brain stems on the Auberdine stop of
+# forever/alliance/06-wetlands (`when complete`), beside Terenthis: here, on the way to the boat, a stop
+# by her walks past Terenthis with Escape Through Force ready, which the route hands in there. Left
+# out: Knowledge in the Deeps (971: Gerrig Bonegrip in Ironforge, on the stop after the run; level 23,
+# 3+ levels over on the Ironforge stop of 03-loch-modan), In Search of Thaelrid, Twilight Falls and
+# Blackfathom Villainy (1198, 1199, 1200: Darnassus, off the route; Thaelrid stands inside), the Warlock's
+# Orb of Soran'ruk (1740, class guide).
 
 # ---------------------------------------------------------------- Darkshore
 
@@ -153,19 +163,9 @@ step The Ruins of Stardust
   goto 33.3,67.7 "The Ruins of Stardust"
   collect 5494 quest 1034 @33.3,67.7      -- Handful of Stardust
 
-step Alonso
-  only Warrior
-  goto 42.4,70 "Alonso"
-  accept 78132 optional                   -- Alonso may not offer these to every class; if he doesn't, carry on.; walks around The Talondeep Path: the map marks where to look
-  turnin 78132
-  accept 78133 optional
-  turnin 78133
-  accept 78134 optional
-  turnin 78134
-
 step Mystral Lake
   zone Ashenvale
-  tip Sentinel Velene Starstrike stands at the Silverwind Refuge on the east shore of Mystral Lake; Alonso camps on its west shore. Befouled Water Elementals wade in the lake between them.
+  tip Sentinel Velene Starstrike stands at the Silverwind Refuge on the east shore of Mystral Lake. Befouled Water Elementals wade in the lake.
   accept 1016                             -- Sentinel Velene Starstrike
   collect 12220 x5 optional           -- Underwater
   collect 5455 quest 1016 @49.6,71.3      -- Kill the elementals for 5 Intact Elemental Bracers, then use the Divining Scroll
@@ -214,6 +214,15 @@ step Talen
 step Ruuzel
   tip Ruuzel walks the northern tip of the Zoram Strand with Wrathtail guards.
   collect 5445 quest 1009                 -- Ring of Zoram
+
+step Blackfathom Deeps
+  when dungeon "Blackfathom Deeps"
+  when onquest 1275
+  zone Ashenvale
+  tip Blackfathom Deeps is a dungeon for a group of five, about levels 22 to 30, and a full run takes about an hour. The way in is the sunken ruins at the north end of the strand: go down the stairs into the pit, swim through the tunnels under the wall, past the blue crystals, to the portal.
+  tip Inside: the naga and the satyrs drop the Corrupted Brain Stems for Gershala. Argent Guard Thaelrid, by a campfire in an underwater side room off Ghamoo-ra's room, has a quest for Darnassus, which this route leaves to the Dungeons page.
+  enter "Blackfathom Deeps" @14.5,14.2
+  collect 5952 x8 quest 1275.1        -- Researching the Corruption: Corrupted Brain Stems
 
 step Talen
   turnin 1009
@@ -337,6 +346,7 @@ step Ironforge
   zone Ironforge
   tip The gryphons land in the Great Forge. Lomac Gearstrip stands in Tinker Town, east of it, by the Deeprun Tram.
   turnin 1072                             -- Lomac Gearstrip, Tinker Town
+  buy 4371 x1 npc 5175 optional           -- Bronze Tube, for Look to the Stars in Darkshire: Gearcutter Cogspinner, beside Lomac, sometimes has one
   turnin 968 optional                     -- Only with Book: The Powers Below from Darkshore: Gerrig Bonegrip, the Forlorn Cavern
   train class only Warrior,Paladin,Hunter,Rogue,Priest,Shaman,Mage,Warlock
   vendor nearest

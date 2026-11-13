@@ -18,7 +18,9 @@
 -- docs/ARCHITECTURE.md, "Frames under the game's UI"), so it fades, hides and
 -- resizes with it, and takes no mouse (the bar's own tooltip stays). No XP
 -- bar shown (another addon replaced or hid it, the maximum level), no guide
--- or no target: no mark.
+-- or no target: no mark. The tick's width and colour and the label's size,
+-- outline and whether it shows are the player's (trackers.xp.*, Options >
+-- Trackers).
 
 local ADDON, ns = ...
 local L = ns.L
@@ -67,42 +69,80 @@ end
 
 local frame
 
-local function paint()
+-- Its look (Options > Trackers > XP bar, UI/Looks/Trackers.lua): the tick's
+-- width and colour, the label shown or not, its size and outline.
+local function look(prop, fallback)
+	local TR = ns.UI and ns.UI.Trackers
+	local v = TR and TR.Get("xp", prop)
+	if v == nil then return fallback end
+	return v
+end
+
+local function paint(m)
+	m = m or frame
 	local T = ns.Theme
-	if not (frame and T and T.Accent) then return end
+	if not (m and T and T.Accent) then return end
 	local r, g, b = T.Accent()
-	frame.Tick:SetVertexColor(r, g, b, 1)
-	frame.Label:SetTextColor(r, g, b, 1)
+	local own = look("tickColor", false)
+	if type(own) == "table" and tonumber(own[1]) then r, g, b = own[1], own[2], own[3] end
+	m.Tick:SetVertexColor(r, g, b, 1)
+	m.Tick:SetWidth(math.max(1, tonumber(look("tickWidth", TICK)) or TICK))
+	m.Label:SetTextColor(r, g, b, 1)
+	m.Label:SetShown(look("label", true) ~= false)
+	if T.SetOutline then T.SetOutline(m.Label, look("outline", true) ~= false) end
+	if T.SetFontScale then T.SetFontScale(m.Label, tonumber(look("labelSize", 1)) or 1) end
 end
 
 -- The tick at `share` of the bar from its left (nil: the right end).
-local function place(share)
-	local tick = frame.Tick
-	local x = share and -(1 - share) * (frame:GetWidth() or 0) or 0
+local function place(share, m)
+	m = m or frame
+	local tick = m.Tick
+	local x = share and -(1 - share) * (m:GetWidth() or 0) or 0
 	tick:ClearAllPoints()
-	tick:SetPoint("TOPRIGHT", frame, "TOPRIGHT", x, OVERHANG)
-	tick:SetPoint("BOTTOMRIGHT", frame, "BOTTOMRIGHT", x, -OVERHANG)
+	tick:SetPoint("TOPRIGHT", m, "TOPRIGHT", x, OVERHANG)
+	tick:SetPoint("BOTTOMRIGHT", m, "BOTTOMRIGHT", x, -OVERHANG)
 end
 
-local function build(bar)
+-- The mark's parts on m: the live one (under the game's bar) or a sandbox
+-- one over the options' preview bar (Mark.NewDemo).
+local function dress(m)
 	local T = ns.Theme
-	frame = ns.CreateFrameUnder("Frame", nil, bar)
-	local tick = frame:CreateTexture(nil, "OVERLAY")
+	local tick = m:CreateTexture(nil, "OVERLAY")
 	tick:SetTexture(T and T.Media and T.Media("white") or nil)
 	tick:SetWidth(TICK)
-	local label = frame:CreateFontString(nil, "OVERLAY")
+	local label = m:CreateFontString(nil, "OVERLAY")
 	if T and T.Font then T.Font(label, "small") end
 	if T and T.SetOutline then T.SetOutline(label, true) end
 	label:SetJustifyH("RIGHT")
 	label:SetPoint("RIGHT", tick, "LEFT", -GAP, 0)
-	frame.Tick, frame.Label = tick, label
-	place(nil)
+	m.Tick, m.Label = tick, label
+	place(nil, m)
 	-- The bar resized (a new layout, a scale change): the share's tick follows.
-	frame:SetScript("OnSizeChanged", function() place(frame.share) end)
+	m:SetScript("OnSizeChanged", function(self) place(self.share, self) end)
+	paint(m)
+	return m
+end
+
+local function build(bar)
+	frame = dress(ns.CreateFrameUnder("Frame", nil, bar))
 	Mark.frame = frame
-	paint()
 	return frame
 end
+
+-- A sandbox mark over `bar` (the options' preview of an XP bar), showing
+-- `text` at `share` of it (nil: the end).
+function Mark.NewDemo(bar)
+	local m = CreateFrame("Frame", nil, bar)
+	m:SetAllPoints(bar)
+	return dress(m)
+end
+function Mark.FillDemo(m, text, share)
+	paint(m)
+	m.Label:SetText(text)
+	m.share = share
+	place(share, m)
+end
+Mark.Paint = paint
 
 -- Over the bar's fill and frame art, as its own text is (OverlayFrame).
 local function attach(bar)
@@ -167,7 +207,8 @@ QoL.OnStep(schedule)
 ns.OnLogin(schedule)
 ns.On("SETTING_CHANGED", function(path)
 	if path == "qol.xpTargetMark" or path == "qol" or path == "" then schedule() end
+	if (path == "" or path == "trackers" or path:sub(1, 12) == "trackers.xp.") and frame then paint() end
 end)
 -- Hidden: no mark (Polestar.Hidden); back with Polestar.
 ns.On("POLESTAR_HIDDEN", schedule)
-if ns.Theme and ns.Theme.OnChanged then ns.Theme.OnChanged(paint) end
+if ns.Theme and ns.Theme.OnChanged then ns.Theme.OnChanged(function() paint() end) end

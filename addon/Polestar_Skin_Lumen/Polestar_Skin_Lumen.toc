@@ -1,0 +1,32 @@
+## Interface: 16001
+## Title: Polestar Skin: Lumen
+## Notes: A head-up skin for Polestar: no frame, corner ticks and one cyan line, compact type over the world.
+## Title-deDE: Polestar-Design: Lumen
+## Notes-deDE: Ein Head-up-Design für Polestar: kein Rahmen, Eckmarken und eine cyanfarbene Linie, kompakte Schrift über der Spielwelt.
+## Title-esES: Polestar, tema: Lumen
+## Notes-esES: Un tema de visor para Polestar: sin marco, marcas en las esquinas y una línea cian, texto compacto sobre el mundo.
+## Title-esMX: Polestar, tema: Lumen
+## Notes-esMX: Un tema de visor para Polestar: sin marco, marcas en las esquinas y una línea cian, texto compacto sobre el mundo.
+## Title-frFR: Polestar, habillage : Lumen
+## Notes-frFR: Un habillage tête haute pour Polestar : sans cadre, des repères aux coins et une ligne cyan, un texte compact sur le monde.
+## Title-koKR: Polestar 스킨: Lumen
+## Notes-koKR: Polestar의 HUD 스킨: 테두리 없이 모서리 표시와 청록색 선 하나, 월드 위의 촘촘한 글자.
+## Title-ptBR: Polestar, tema: Lumen
+## Notes-ptBR: Um tema de HUD para o Polestar: sem moldura, marcas nos cantos e uma linha ciano, texto compacto sobre o mundo.
+## Title-ruRU: Polestar, оформление: Lumen
+## Notes-ruRU: HUD-оформление для Polestar: без рамки, метки по углам и одна бирюзовая линия, компактный текст поверх мира.
+## Title-zhCN: Polestar 皮肤：Lumen
+## Notes-zhCN: Polestar 的抬头显示皮肤：无边框，角标和一条青色线，游戏世界上的紧凑文字。
+## Title-zhTW: Polestar 皮膚：Lumen
+## Notes-zhTW: Polestar 的抬頭顯示皮膚：無邊框，角標與一條青色線，遊戲世界上的緊湊文字。
+## Author: Polestar
+## X-License: GPL-3.0-only
+## X-Website: https://github.com/fitzforge/polestar
+## Version: 0.3.7.2
+## Category: Polestar
+## Group: Polestar
+## Dependencies: Polestar
+## LoadOnDemand: 1
+## X-Polestar-Skin: lumen
+
+Lumen.lua

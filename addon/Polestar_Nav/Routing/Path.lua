@@ -37,6 +37,7 @@ local edges, edgeTarget, edgeValue = Grid.edges, Grid.edgeTarget, Grid.edgeValue
 local entrance, locate, standing, snap, smooth = Grid.entrance, Grid.locate, Grid.standing, Grid.snap, Grid.smooth
 local zOf, floorCell, floorsOf = Grid.zOf, Grid.floorCell, Grid.floorsOf
 local KINDS, VAL, CLS, MASK = Grid.KINDS, Grid.VAL, Grid.CLS, Grid.MASK
+local INDOOR, CITY = Costs.CLASS.INDOOR, Costs.CLASS.CITY -- indoor ground: a node's base class (CLS % 8)
 local byte = string.byte
 local zoneAt, chunkDanger, nodeArea = Grid.zoneAt, Grid.chunkDanger, Grid.nodeArea
 
@@ -644,8 +645,12 @@ end
 -- search keeps the cheapest: a street beside or over a canal is not walked from the canal bed, but a rock top or roof
 -- over the player may be walked from (#234). `floors` (the point's: a list of heights, Nav/Walk.lua's candidate floors
 -- while the player's own is unknown indoors) keeps to the surfaces within ZTOL of one of them, all of them when none
--- is: the Undercity's canals and streets, never its roofs or the Ruins above. Returns each surface's connection, the
--- entrance costs merged by minimum, per entrance the surface it came from, and the merged costs' yards.
+-- is: the Undercity's canals and streets, never its roofs or the Ruins above. In the point's own cell, indoor ground
+-- (indoor or indoor city) up to ZTOL over a surface that is not takes that surface's place: it is the ground the
+-- models were built over, buried under a city's streets (Stormwind's Dwarven District: 2 yd under the street, and
+-- joined to the world only far away). A start there hid the street, and the walk to Westfall went 19,225 yd for a
+-- 3,465-yd walk (#1890). Returns each surface's connection, the entrance costs merged by minimum, per entrance the
+-- surface it came from, and the merged costs' yards.
 -- The surfaces a point starts from (connectPoint, and run's walk inside one cluster).
 local function surfaces(st, k, node, h, floors)
 	local nodes = { node }
@@ -678,12 +683,18 @@ local function surfaces(st, k, node, h, floors)
 			if floors and not onFloor(n) then
 				return
 			end
-			for _, m in ipairs(nodes) do
-				if abs(zOf(cl, n) - zOf(cl, m)) <= ZTOL then
-					return
+			local z, b, under = zOf(cl, n), CLS[byte(kind, n + 1)] % 8, nil
+			for i, m in ipairs(nodes) do
+				local dz = z - zOf(cl, m)
+				if abs(dz) <= ZTOL then
+					local bm = CLS[byte(kind, m + 1)] % 8
+					if r > 0 or dz < 0 or (b ~= INDOOR and b ~= CITY) or bm == INDOOR or bm == CITY then
+						return
+					end
+					under = under or i
 				end
 			end
-			nodes[#nodes + 1] = n
+			nodes[under or #nodes + 1] = n
 		end
 		for r = 0, 1 do
 			for dx = -r, r do
@@ -1943,7 +1954,6 @@ end
 
 -- Path.SurfacesAt's marks, and a node's (its kind byte read from decoded cluster c).
 Path.SURFACE_WATER, Path.SURFACE_INDOOR = 1, 2
-local INDOOR, CITY = Costs.CLASS.INDOOR, Costs.CLASS.CITY
 local function marks(c, node)
 	local kb = byte(c.kind, node + 1)
 	local cls = CLS[kb] % 8
@@ -2047,15 +2057,72 @@ local function heightsAt(st, x, y)
 	return out
 end
 
+-- The height of a spawn listed where floors overlap (maps format 5's spawn field, `forge nav pack`'s
+-- pack/spawns.rs: per cluster "x y z ..." in whole yards; ported from Shortest Path Forever v1.33.0's spawn heights,
+-- his v1.30 Data/Heights.lua) within SPAWN_REACH yards of world (x, y): the nearest's. nil when none, or the map
+-- has no field. A cluster's list is read once (st.spawns[k]: a flat array x, y, z, ...; false for none).
+local SPAWN_REACH = 8
+local function spawnHeight(st, x, y)
+	local D = st and st.D
+	if not (D and (D.spawn or (D.packed and D.packed.spawn))) then
+		return nil
+	end
+	st.spawns = st.spawns or {}
+	local best, bestD
+	local C, cs = st.C, st.cs
+	-- The clusters of the four corners of the reach square: the point's own, and those within SPAWN_REACH of it.
+	local done = {}
+	for sx = -1, 1, 2 do
+		for sy = -1, 1, 2 do
+			local gx, gy = floor((x + sx * SPAWN_REACH - st.x0) / cs), floor((y + sy * SPAWN_REACH - st.y0) / cs)
+			local k = floor(gx / C) * st.ny + floor(gy / C)
+			if gx >= 0 and gy >= 0 and gx < st.GX and gy < st.GY and not done[k] then
+				done[k] = true
+				local list = st.spawns[k]
+				if list == nil then
+					local raw = Grid.unpackField(D, "spawn", k + 1)
+					list = false
+					if raw then
+						list = {}
+						for v in raw:gmatch("%S+") do
+							list[#list + 1] = tonumber(v)
+						end
+					end
+					st.spawns[k] = list
+				end
+				if list then
+					for i = 1, #list - 2, 3 do
+						local d = (list[i] - x) ^ 2 + (list[i + 1] - y) ^ 2
+						if d <= SPAWN_REACH * SPAWN_REACH and (not bestD or d < bestD) then
+							best, bestD = list[i + 2], d
+						end
+					end
+				end
+			end
+		end
+	end
+	return best
+end
+
 -- run, and for an end without a height (a map click: no floor said) that finds no walk, the same walk from each
 -- other surface of that end's cell, lowest first, before giving up: a point without a height starts on the
 -- surface its cell's search picks (the base, or the cheapest of those apart in height), which can be a pocket no
 -- walk leaves (William MacGregor's house in Westfall: the ground's surface over the house floor, 4 yd above it).
 -- The start's surfaces first, then the goal's; at most RETRY_SURFACES tries. The answer's end keeps that surface's
--- height.
+-- height. A goal without a height beside a spawn listed where floors overlap (spawnHeight) is walked to on that
+-- spawn's floor first: the NPC in the cellar, not the street over it.
 local RETRY_SURFACES = 6
 local function runAny(job)
 	local map, from, to = job.map, job.from, job.to
+	if to.z == nil then
+		local sz = spawnHeight(State(map), to.x, to.y)
+		if sz then
+			local p, c = run(map, from, { x = to.x, y = to.y, z = sz, map = to.map }, job.waterWalking, job.costOnly, job.profile, job, job.style, job.danger)
+			if p then
+				return p, c
+			end
+		end
+	end
 	local points, cost = run(map, from, to, job.waterWalking, job.costOnly, job.profile, job, job.style, job.danger)
 	if points or cost ~= "unreachable" or (from.z and to.z) then
 		return points, cost

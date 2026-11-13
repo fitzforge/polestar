@@ -3,8 +3,9 @@
 // recordings (not run in CI):   node slice.js <data/sources> <out input dir>
 // - Classic Era 1.15.9 client tables: TaxiNodes and AreaTrigger whole (a few hundred rows),
 //   TaxiPath/TaxiPathNode cut to the flights between NODES.
-// - Forever 1.60.1 client tables: TaxiNodes whole, TaxiPathNode cut to those paths plus the
-//   Forever-only paths (its ships), TransportAnimation and SpellCastTimes whole, SpellEffect cut to
+// - Forever 1.60.1 client tables: TaxiNodes whole, TaxiPath cut to the Forever-only paths (its flight
+//   points' flights, its ships), TaxiPathNode cut to the Era paths above plus the Forever-only paths,
+//   TransportAnimation and SpellCastTimes whole, SpellEffect cut to
 //   the teleport effects (5, 252) and SpellName/SpellMisc/SpellReagents/SkillLineAbility to their
 //   spells, AreaTable as the data golden cuts it (inns' areas).
 // - CMaNGOS classic-db: the cached transit.json extract (lift/tram spawns, portals, spell targets).
@@ -76,6 +77,7 @@ const paths = new Set(csv(ERA, 'TaxiPath', (f, col) => NODES.has(num(f, col, 'Fr
 const eraPaths = new Set(records(read(path.join(src, 'wago', ERA, 'TaxiPath.csv'))).slice(1).map((r) => Number(fields(r)[0])));
 csv(ERA, 'TaxiPathNode', (f, col) => paths.has(num(f, col, 'PathID')));
 csv(FOREVER, 'TaxiNodes');
+csv(FOREVER, 'TaxiPath', (f, col) => !eraPaths.has(num(f, col, 'ID')));
 csv(FOREVER, 'TaxiPathNode', (f, col) => paths.has(num(f, col, 'PathID')) || !eraPaths.has(num(f, col, 'PathID')));
 csv(FOREVER, 'TransportAnimation');
 csv(FOREVER, 'SpellCastTimes');

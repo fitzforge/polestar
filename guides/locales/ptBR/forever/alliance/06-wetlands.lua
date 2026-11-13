@@ -174,7 +174,7 @@ return {
 
 	-- Step 32: Captain Stoutfist
 	-- {area:150} Menethil Harbor · {area:2104} Deepwater Tavern · {npc:2104} Captain Stoutfist · {area:2103} Menethil Keep · {npc:1217} Glorin Steelbrow · {npc:2094} James Halloran
-	["Hearth back to {area:150} if you bound at the {area:2104}, or walk west along the road: {npc:2104} stands on the top floor of {area:2103}, {npc:1217} in the {area:2104} south of it, {npc:2094} by the docks on the way to the boat."] = "",
+	["Hearth back to {area:150} if you bound at the {area:2104}, or walk west along the road: {npc:2104} stands on the top floor of {area:2103}, {npc:1217} in the {area:2104} south of it, {npc:2094} by the docks on the way to the boat."] = "Pedra de Regresso para {area:150}, se você a vinculou na {area:2104}, ou caminhe para oeste pela estrada: {npc:2104} fica no último andar de {area:2103}, {npc:1217} na {area:2104}, ao sul dela, {npc:2094} junto às docas, no caminho para o barco.",
 	["On the top floor"] = "No último andar",
 	-- {zone:1437} Wetlands
 	["For the Dragonmaw catapult, on the {zone:1437} loop of 30-40/01-hillsbrad-foothills"] = "Para a catapulta Presa do Dragão, no circuito de {zone:1437} de 30-40/01-hillsbrad-foothills",
@@ -268,15 +268,15 @@ return {
 	["{object:669176}: for {npc:3961} in {area:415}"] = "{object:669176}: para {npc:3961} em {area:415}",
 
 	-- Step 50: Satyrnaar
-	-- {area:430} Satyrnaar · {area:2358} Forest Song · {object:19901} Circle of Imprisonment · {item:281014} Vine-Wrapped Scroll · {area:428} Night Run
+	-- {area:430} Satyrnaar · {area:2358} Forest Song · {object:19901} Circle of Imprisonment · {object:673431} Kurothel's Knapsack (no name in this language: may be words) · {item:281014} Vine-Wrapped Scroll · {area:428} Night Run
 	-- plural, as words: Felmusk Rogues = {npc:3759} Felmusk Rogue
-	["North from the lake to the satyr camp of {area:430}, just west of {area:2358}: the {object:19901} stands in it, and Kurothel's Knapsack lies beside it with the {item:281014}.\nCareful: The Felmusk Rogues in {area:428} often go stealthed, and {area:430} has satyr casters."] = "Ao norte do lago, até o acampamento dos sátiros em {area:430}, logo a oeste de {area:2358}: o {object:19901} fica nele, e a Mochila de Kurothel está ao lado, com o {item:281014}.\nCuidado: os Ladinos Malmíscar de {area:428} costumam ficar furtivos, e {area:430} tem sátiros lançadores de feitiço.",
-	-- {item:281014} Vine-Wrapped Scroll
-	["{item:281014}, from Kurothel's Knapsack"] = "{item:281014}, da Mochila de Kurothel",
+	["North from the lake to the satyr camp of {area:430}, just west of {area:2358}: the {object:19901} stands in it, and {object:673431} lies beside it with the {item:281014}.\nCareful: The Felmusk Rogues in {area:428} often go stealthed, and {area:430} has satyr casters."] = "",
+	-- {item:281014} Vine-Wrapped Scroll · {object:673431} Kurothel's Knapsack (no name in this language: may be words)
+	["{item:281014}, from {object:673431}"] = "",
 
 	-- Step 51: Kayneth Stillwind
 	-- {npc:3848} Kayneth Stillwind · {quest:1012} Insane Druids · {area:432} The Dor'Danil Barrow Den
-	["Optional: {npc:3848} also offers {quest:1012}, three level 32 druids deep in {area:432}, a cave of quickly respawning, stealthed mobs, and back to her afterwards. It is above your level here: take it only if you are grouped or want the extra XP; the guide doesn't need it."] = "",
+	["Optional: {npc:3848} also offers {quest:1012}, three level 32 druids deep in {area:432}, a cave of quickly respawning, stealthed mobs, and back to her afterwards. It is above your level here: take it only if you are grouped or want the extra XP; the guide doesn't need it."] = "Opcional: {npc:3848} também oferece {quest:1012}, três druidas de nível 32 no fundo de {area:432}, uma caverna de monstros furtivos que renascem rápido, e a volta até ela depois. Está acima do seu nível aqui: pegue só se estiver em grupo ou quiser a XP extra; o guia não precisa dela.",
 	-- {npc:221269} Maseara Autumnmoon
 	["{npc:221269}, a few steps east"] = "{npc:221269}, a alguns passos a leste",
 
@@ -388,6 +388,7 @@ return {
 	-- ["Back west along the road to {area:150}: {npc:2104} stands on the top floor of {area:2103}."] = "De volta a oeste pela estrada até {area:150}: {npc:2104} fica no último andar de {area:2103}.",
 	-- ["In {zone:1453}, join the two half pendants into the {item:15885} and cast {spell:18960}: {npc:11802} is in {area:2361}. Then {npc:11800} in {area:2361} flies Druids straight to {area:702}. {npc:11802} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."] = "Em {zone:1453}, junte as duas metades do pendente em {item:15885} e lance {spell:18960}: {npc:11802} está em {area:2361}. Depois {npc:11800}, em {area:2361}, leva Druidas direto para {area:702}. {npc:11802} fica no andar de cima do prédio dele: suba por dentro, a seta não diferencia os andares.",
 	-- ["Inside"] = "Lá dentro",
+	-- ["North from the lake to the satyr camp of {area:430}, just west of {area:2358}: the {object:19901} stands in it, and Kurothel's Knapsack lies beside it with the {item:281014}.\nCareful: The Felmusk Rogues in {area:428} often go stealthed, and {area:430} has satyr casters."] = "Ao norte do lago, até o acampamento dos sátiros em {area:430}, logo a oeste de {area:2358}: o {object:19901} fica nele, e a Mochila de Kurothel está ao lado, com o {item:281014}.\nCuidado: os Ladinos Malmíscar de {area:428} costumam ficar furtivos, e {area:430} tem sátiros lançadores de feitiço.",
 	-- ["Red whelps fill the hills west of the gates, Maddened Rotclaws the {area:1025}, Razormaws the northern slopes; Neru stands in the north-east (use the {item:279996}).\nFen Creepers hide in the marsh pools north-west of the {area:1025}.\nCareful: When out of combat, Fen Creepers cast Sneak from time to time, so they are stealthed and hard to see."] = "Dragonetes vermelhos enchem as colinas a oeste dos portões, Maddened Rotclaws, {area:1025}, e Rasgaqueixos, as encostas do norte; Neru fica no nordeste (use {item:279996}).\nRastejantes do Pântano se escondem nas poças do brejo a noroeste de {area:1025}.\nCuidado: fora de combate, os Rastejantes do Pântano lançam Furtividade de tempos em tempos, então ficam furtivos e difíceis de ver.",
 	-- ["The relics lie in the dig itself. {npc:1353}, a big Razormaw, prowls the raptor valley just west of it."] = "As relíquias ficam na própria escavação. {npc:1353}, um Rasgaqueixo grande, ronda o vale dos raptores logo a oeste.",
 	-- ["The three druids stand together at the Forsaken camp south of {area:2358}.\nCareful: The den has many mobs that respawn quickly, including stealthed undead and patrols, so extra mobs often join a fight."] = "Os três druidas ficam juntos no acampamento dos Renegados ao sul de {area:2358}.\nCuidado: o covil tem muitos monstros que renascem rápido, incluindo mortos-vivos furtivos e patrulhas, então é comum vir monstro a mais.",
@@ -395,6 +396,7 @@ return {
 	-- ["{area:1025}: kill these as you meet them"] = "{area:1025}: vá matando estes pelo caminho",
 	-- ["{area:2358}, the Night Elf outpost at the eastern end of the road: {npc:3848} stands there."] = "{area:2358}, o posto avançado dos elfos noturnos no extremo leste da estrada: {npc:3848} fica lá.",
 	-- ["{item:15885}: join the two halves"] = "{item:15885}: junte as duas metades",
+	-- ["{item:281014}, from Kurothel's Knapsack"] = "{item:281014}, da Mochila de Kurothel",
 	-- ["{npc:3649} stands at the north end of {area:442}, {npc:3693} and {npc:3694} by the flight master."] = "{npc:3649} fica no extremo norte de {area:442}, {npc:3693} e {npc:3694}, junto ao mestre de voo.",
 	-- ["{npc:3649}: Alexston's reply, if you took it in {zone:1453}"] = "{npc:3649}: a resposta do Aleixo, se você a pegou em {zone:1453}",
 	-- ["{npc:3691}, in the inn"] = "{npc:3691}, na estalagem",

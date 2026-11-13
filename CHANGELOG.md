@@ -1,5 +1,144 @@
 # Changelog
 
+## 0.3.7.2 (2026-11-12)
+
+### For players
+
+- No more pointless flights. The arrow kept sending players on a flight and
+  back when walking was faster: from the Crossroads to Ratchet and back, a
+  hearth to the Crossroads then a flight to Orgrimmar, Stormwind to Sentinel
+  Hill and back, Camp Taurajo to the Crossroads and back. Its walking maps
+  counted a walk from where you stand as up to four times its length, so a
+  flight on the far side looked quicker. They now measure every walk at its
+  real length (#1890, #1924, #1946, #1947, #1948).
+- The arrow also finds walks it used to give up on. From Stormwind's Old Town
+  to the flight master it pointed through the back of Champion's Hall; longer
+  walks failed the same way, about 1 in 100 in a sample of 2,000 (#1238,
+  thanks asymptotic1).
+- Stormwind: on the way to the Deeprun Tram, the arrow no longer leads up
+  into Stormwind Keep. It takes you to the tram building's door in the
+  Dwarven District, then inside and down to the tram. (#1242)
+- Un'Goro Crater (Alliance 40-50): Mages reach level 50 in Un'Goro before Dink
+  offers Magecraft in Ironforge, as Priests already do for Cenarion Aid. Before,
+  they got there just under 50, and reaching 50 in Azshara sent the guide back
+  to Ironforge (#1485).
+- On top of Teldrassil, the way to Rut'theran Village (its flight master, the
+  boats) no longer draws a walk straight down the tree: no path leads down,
+  and jumping off the edge kills you. The route now goes through Darnassus and
+  takes the portal down. The same goes for the boat from Rut'theran to
+  Auberdine. (#1761)
+- Cozy Sleeping Bag (Alliance): the way into Stonetalon comes from the north,
+  by the Stonetalon Peak flight or the Talondeep Path from Ashenvale, instead
+  of through Honor's Stand and past Sun Rock Retreat (thanks rcktman77). Off
+  the Stonewrought Dam's ledge, the arrow now leads out of the river on its
+  west bank, before the waterfall.
+- The arrow casts a class teleport only when it clearly pays: it must save at
+  least a minute over the best way without it, and a fifth of a longer trip.
+  A Mage was sent to cast Teleport: Stormwind, spending a Rune of
+  Teleportation, to save a few seconds over a flight (reported by Bandicoot,
+  #1823).
+- Loch Modan (Alliance): A Hunter's Challenge goes straight back to Daryl the
+  Youngling after the boars, before the crocolisks and Daggerfang, so its
+  12-minute timer no longer runs out on the shore (thanks Ami2).
+- With "Use TomTom's arrow" on, TomTom's arrow now follows Polestar's route
+  leg by leg: it points at the flight master, dock or portal the route takes
+  next, then at the target once you're on the last stretch. Before, TomTom
+  only got the final target, so its arrow pointed straight there: from Booty
+  Bay to Grom'gol it led up the coast on foot instead of to the flight
+  master. (#1834)
+- Ashenvale (Alliance): the Tome of Mel'Thandris in the Howling Vale is read
+  on the later visit to Shael'dryn's moonwell, a level or so higher, and the
+  step warns of the Terrowulf packs and their rare Packlord (thanks
+  ǝxǝ.ozuǝɹnɐๅ).
+- Start zones: a Camping 101 step no longer waits for a quest the camp's host
+  won't offer because you already know that profession's camp item (the
+  trainer teaches it from skill 20); the step is skipped then (thanks Undead
+  Lion).
+- The Barrens (Horde Warriors): Trial at the Field of Giants takes the eggs
+  and the antennae at the same mounds, then goes straight back to Ruga
+  Ragetotem; the thunderhawks come after, so the 30-minute timer no longer
+  runs out on the way.
+- On a bridge, the arrow keeps you on the deck. Walking onto Silverpine
+  Forest's bridge north-east of the Sepulcher from its south bank made the
+  arrow think you stood on the beams above the deck, and it pointed back south
+  before turning north. The same holds on every bridge the walking maps know
+  (#1784).
+- Duskwood (Alliance): the guide no longer sends you to Herble Baubbletump
+  for a Bronze Tube; he is nearly always sold out. Get one at the Stormwind
+  Auction House, or from Gearcutter Cogspinner in Ironforge's Tinker Town on
+  the way, if he has one (#1792).
+- Switching from Dungeons back to Guides clears the dungeon faction buttons, so Alliance and Horde no longer overlap the guide filters or intercept their clicks. The guide heading is restored too.
+- A group quest you already picked up yourself no longer stops the guide at its accept step. When every later step for it (the kill, the hand-in) asks about it anyway, the guide moves on and asks at the first of those, where the answer matters. Barrens: WANTED: Bruuz taken at the poster held the guide in Ratchet.
+- A dungeon's hand-in guide also takes a follow-up it has you pick up to its
+  turn-in when the quest asks only for items you carry: after Excavation Site:
+  Wetlands, Prehistoric Prism goes from Prospector Whelgar to High Explorer
+  Magellas in Ironforge. Thanks to Onrevax for the report (#1817).
+- A dungeon's hand-in guide keeps up with your quest log: a quest of that
+  dungeon you take or finish after opening it (Earthen Echo for Excavation
+  Site: Wetlands) joins the open guide, instead of the guide saying it is
+  complete. A delivery the guide has you pick up on the way is handed in
+  too, when its turn-in is on the same continent. Thanks to fekz for the
+  report (#1748).
+- Hillsbrad Foothills (Horde): Helcular's Revenge leads to Southshore's
+  graveyard from the north, the way players reach it, and says where the
+  town's guards stand beside the grave.
+- Hillsbrad Foothills (Horde 30-40): if you bring Dangerous! from the 22-25
+  guide without Farmer Kalaba or Citizen Wilkes, the catch-up steps now list
+  them with the peasants and at the smithy (#1776, thanks Kolbi).
+- Make room in your quest log (`/polestar questlog`) and the full-log notice
+  now count every open tab: with a dungeon's pick-up guide open, the dungeon's
+  quests and the quests your leveling guide in another tab still hands in are
+  no longer listed as not handed in (thanks Mongo).
+- Skyborne Druids following the leveling route now get the Druid class
+  quests Tauren and Night Elf Druids get on it: Trial of the Lake and Trial
+  of the Sea Lion to Aquatic Form, and Lessons Anew to Cure Poison, in The
+  Barrens, Stonetalon and Hillsbrad (Horde) and in Darkshore, Westfall and the
+  Wetlands (Alliance). Before, the route left them out, and only the class
+  guides had them.
+- At the Southfury River's road crossing between Durotar and the Barrens,
+  the arrow says "Cross the bridge", not "Through the gate".
+- The arrow's target goes to TomTom as a waypoint only when TomTom itself is
+  installed. Another addon that answers TomTom's calls in its place (some
+  waypoint addons do) no longer gets it, so that addon's own arrow no longer
+  points at Polestar's target beside Polestar's arrow.
+- With TomTom's arrow, a "Fly to" step no longer sends you across the map to
+  the flight master the route expected you at: when you know the flight's
+  landing and another flight master you know is much nearer, the arrow leads
+  there (reported by Konky88: Ratchet instead of Thunder Bluff for Freewind
+  Post).
+- Tirisfal Glades (Undead Warlocks): Halgar's Summons is taken in Brill and
+  handed to Carendin Halgar first, so he offers Creature of the Void.
+- With Waypoint UI and "Blizzard waypoint" on, its beacon now leads the way
+  the arrow does: to the portal, boat, flight master or crossing first, then
+  on to the goal, instead of straight at the goal across them (#1741).
+  (thanks Besaid)
+
+### Forge
+
+- `forge nav pack` names a passage a bridge, not a gate, when its gate is
+  the ground under a bridge's deck over water (the Southfury River's road
+  crossing between Durotar and the Barrens).
+- `forge nav pack --leffe` writes each graph edge's own yards (the
+  profile-free way's, as the grid's maps do). Every edge carried another
+  edge's yards, so the in-game walk search's detour limit dropped walks the
+  maps have and answered "unreachable".
+
+## 0.3.7.1 (2026-11-12)
+
+### For players
+
+- Removed the Train All button and automatic spell learning at trainers.
+  Existing settings cannot enable either feature. Choose and buy spells
+  yourself using the game's normal Train button.
+- The travel button (Hearthstone, teleport) stays under the arrow after a
+  /reload instead of sitting near the top middle of the screen. It follows
+  the arrow to its saved spot and size, after a drag, and while the arrow is
+  hidden; a move during a fight takes the button along once the fight ends.
+  (thanks rain, #1821)
+- Brazilian Portuguese: the 78 guide texts 0.3.7's route changes left in
+  English are translated, so every ptBR guide text is in Portuguese again.
+  (thanks soulrocha)
+
 ## 0.3.7 (2026-11-11)
 
 ### For players

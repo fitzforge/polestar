@@ -70,8 +70,6 @@ ns.RegisterDefaults("nav", { travel = true, detourCaption = false })
 
 local RUN_SPEED = 7          -- yd/s, unmounted run speed
 local MIN_SPEED, MAX_SPEED = 4, 14
-local FLIGHT_SPEED = 30      -- yd/s along the flight path (Classic gryphon/wyvern)
-local FLIGHT_STOP = 2        -- seconds per hop (take-off, landing)
 local WALK_DETOUR = 1.25     -- straight lines are not walkable; learned paths are
 Travel.WALK_DETOUR = WALK_DETOUR -- Nav/Walk.lua's floor for the player's measured walk
 local HEARTH_ITEM = 6948
@@ -85,6 +83,13 @@ local HEARTH_SECONDS = 15    -- 10 s cast plus the loading screen
 local HEARTH_MARGIN = 120    -- seconds it must save: 2 minutes
 local HEARTH_MIN_TRIP = 180  -- seconds the way without it must take: 3 minutes
 Nav.HEARTH_SECONDS, Nav.HEARTH_MARGIN, Nav.HEARTH_MIN_TRIP = HEARTH_SECONDS, HEARTH_MARGIN, HEARTH_MIN_TRIP -- the Engine's hearth goal weighs it the same way
+-- A class teleport (each of a Mage's city teleports spends a Rune of
+-- Teleportation) is cast only when it clearly pays: it must save at least
+-- TELEPORT_MARGIN over the best way without teleports, and TELEPORT_SHARE of
+-- that way when that is more, in the planner's cost (seconds, with its
+-- weights; planRoute's fifth) (#1823: Teleport: Stormwind won by a few seconds
+-- over a flight to Darkshire).
+local TELEPORT_MARGIN, TELEPORT_SHARE = 60, 0.2
 local GCD = 1.5
 local REACH = 12             -- yards: a walk leg's end is reached
 local SKIP_WALK = 15         -- yards: a leading walk this short is dropped
@@ -92,17 +97,9 @@ local BOARD = 60             -- yards: at the dock / flight master
 local LEAVE = 90             -- yards: walked away from it, plan again
 local DOCK_ARRIVE = 120      -- yards: a ride or hearth has arrived
 local LIFT_LEAVE = 30       -- yards from a lift's landing: at it (the ride is shown), or walked off it (the ride is over)
-local LINK_YARDS, MAX_LINKS = 150, 3
-local MAX_PATH_VERTICES = 1500
-local MAX_POPS = 20000
-local MAX_MS = 40
 local BIND_MATCH = 60
-local CAPTURE, CAPTURE_MIN = 2, 30 -- a point within max(2 x radius, 30) yd of a chain node past the mouth is inside it
 local REPLAN_AFTER, REPLAN_MOVED = 30, 50 -- seconds, yards: moved this far since a plan this old, plan again
 local LEARN_FP = 60          -- yards: a flight path learned this close to a flight master is that one
-
-local START, TARGET, TAXI, DOCK, INN, PATH, CROSS, CHAIN, DARK = 1, 2, 3, 4, 5, 6, 7, 8, 9
-local WALK, FLY, RIDE, HEARTH = 1, 2, 3, 4 -- HEARTH: the Hearthstone or a teleport, from the start
 
 ---------------------------------------------------------------------------
 -- Data
@@ -118,6 +115,7 @@ local zoneInfo, wildZone, covered = {}, {}, {}  -- [map] = { name, c, frame }; [
 local crossEnds, crossIds = {}, {}              -- { map, c, wx, wy, r, partner, caption, noCross }; [id] = true
 local openPair = {}                             -- [map] = { [map] = true }: walk from the first into the second
 local chains = {}                               -- { id, name, open, nodes = { { map, c, wx, wy, r, caption, back, chain, idx }, ... } }
+local areasIn = {}                              -- [map] = { { id, c, top, bottom, left, right }, ... }: parts of the zone no walk joins to the rest
 local pathZone, zoneVersion = {}, 0             -- learned path node -> zone (false: none), cached per zone data
 
 -- "Stormwind" of "Stormwind, Elwynn" (a Chinese client's names part at "，").
@@ -173,7 +171,7 @@ local function clearData()
 	pathC, pathX, pathY, pathAdj, pathMap = {}, {}, {}, {}, {}
 	pathCount = 0
 	zoneInfo, wildZone, covered = {}, {}, {}
-	crossEnds, crossIds, openPair, chains = {}, {}, {}, {}
+	crossEnds, crossIds, openPair, chains, areasIn = {}, {}, {}, {}, {}
 	pathZone, zoneVersion = {}, zoneVersion + 1
 end
 
@@ -183,7 +181,9 @@ function Nav.RegisterTravelData(d, replace)
 	if replace then clearData() end
 	Travel.build = d.build
 	for _, t in ipairs(d.taxi or {}) do
-		local node = point(t[9], t[2], t[3], t[4], t[5], t[6], t[7], "e")
+		-- x, y on the map's Era frame; t[11] "l": on its live frame (f nil), a map Forever added with
+		-- no Era frame (Rog'mar, Farholde Keep on the Riverglades).
+		local node = point(t[9], t[2], t[3], t[4], t[5], t[6], t[7], t[11] ~= "l" and "e" or nil)
 		node.id, node.faction, node.short = t[1], t[8], shortName(t[9])
 		-- The one class that flies from it (the Druids' Nighthaven flight masters), else nil.
 		node.class = t[10]
@@ -266,6 +266,9 @@ end
 --     (z: the height of the floor a walk to that end ends on, when given: the Undercity's entrance hall, not the city below)
 --   open = { zoneA, zoneB, oneWay (0/1), ... }   shared borders walkable anywhere
 --   chains = { { id, name, open = "mouth"|"both", nodes = { { map, c, wx, wy, r, caption, back }, ... } }, ... } }
+--   areas = { { id, name, map, c, top, bottom, left, right }, ... }   parts of a zone no walk joins to the rest of it
+--     (Rut'theran Village at the foot of Teldrassil, on the tree's map): a zone of their own, reached by no crossing,
+--     only by portals, ships and flights (#1761)
 -- Calls merge; an id seen before is skipped.
 function Nav.RegisterCrossings(d)
 	if type(d) ~= "table" then return end
@@ -313,6 +316,15 @@ function Nav.RegisterCrossings(d)
 			chains[#chains + 1] = chain
 		end
 	end
+	for _, a in ipairs(d.areas or {}) do
+		if type(a) == "table" and type(a.id) == "string" and a.map and a.c and a.top and a.bottom and a.left and a.right
+			and not crossIds[a.id] then
+			crossIds[a.id] = true
+			local list = areasIn[a.map] or {}
+			areasIn[a.map] = list
+			list[#list + 1] = { id = a.id, c = a.c, top = a.top, bottom = a.bottom, left = a.left, right = a.right }
+		end
+	end
 	if d.complete then
 		for c in pairs(touched) do covered[c] = true end
 	end
@@ -340,6 +352,7 @@ end
 
 -- The loaded network, read-only (the live tables, not copies):
 --   taxi = { node, ... }, taxiById = { [id] = node }    node = { id, name, short, c, wx, wy, map, x, y, f, faction }
+--     (f "e": x, y on the map's Era frame; nil: on its live frame, a map Forever added)
 --   flights = { [fromId] = { toId, yards, toId, yards, ... } }
 --   transports = { { id, kind, faction, a, b, ab, ba, waitA, waitB }, ... }, inns = { inn, ... },
 --     (a, b: the ends, at the ship's stop; end.board = { name, c, wx, wy, map, z }: where a ship
@@ -374,7 +387,7 @@ end
 --       teleports = { { spell, name, to = point, cast, ready }, ... } or nil,
 --       departure = function(transport, side, after) -> wait, ride (seconds, from
 --         `after` seconds into the trip) or nil: the transports' average waits,
---       walkOnly = true: walking only (a ghost),
+--       walkOnly = true: walking only (a ghost), noFlights = true: no flights (Travel.AtField),
 --       walkCost = function(c, wx, wy, start) -> cost, yards | false | nil: the
 --         walking engine's measure of the walk from that place (the player when
 --         start) to the target (Nav/Walk.lua Walk.Measured): its cost (in
@@ -398,7 +411,7 @@ end
 --       places = {}: filled with the places a walk to the target can start
 --         from on its continent { wx, wy, z (a dock's board point), start }, for Walk.Measure }
 -- -> legs or nil, reason
--- leg = { kind = "walk"|"fly"|"boat"|"zeppelin"|"tram"|"portal"|"hearth"|"teleport",
+-- leg = { kind = "walk"|"fly"|"boat"|"zeppelin"|"airship"|"tram"|"portal"|"hearth"|"teleport",
 --         from = point, to = point, label, seconds, rest,   rest = seconds after this leg
 --         radius = arrival yards at `to` (walk legs to a waypoint), waypoint = true
 --         when `to` is a crossing or chain node, handmade = true on a walk the
@@ -438,7 +451,8 @@ local function yards(c1, x1, y1, c2, x2, y2)
 end
 
 -- The zone a point walks in on a continent with crossing data: its own map
--- when that is a zone the data knows, nil for a zone without crossing data
+-- when that is a zone the data knows (or the part of it no walk joins to the
+-- rest, an area's id: Rut'theran Village under Teldrassil, #1761), nil for a zone without crossing data
 -- (walked as before), else the walking maps' zone at the point (Nav.danger.ZoneAt:
 -- the client's area there, 33 yd chunk by chunk) when the data knows it, else
 -- the smallest known zone frame holding the point. The frames are rectangles that
@@ -465,7 +479,7 @@ local function inner(z, o)
 	if ot > ob then ot, ob = ob, ot end
 	return zl >= ol and zr <= orr and zt >= ot and zb <= ob
 end
-local function zoneOf(map, c, wx, wy, target)
+local function mapZoneOf(map, c, wx, wy, target)
 	if map then
 		local z = zoneInfo[map]
 		if z and z.c == c then
@@ -501,12 +515,35 @@ local function zoneOf(map, c, wx, wy, target)
 	end
 	return best
 end
-Travel.ZoneOf = zoneOf
+-- With the areas: a point inside one's box (top and bottom in wx, left and right in wy, either way round, as a zone
+-- frame) walks in the area. (A field, not a local: the file's main chunk is at Lua 5.1's 200 locals.)
+function Travel.ZoneOf(map, c, wx, wy, target)
+	local z = mapZoneOf(map, c, wx, wy, target)
+	local list = z and areasIn[z]
+	if list then
+		for _, a in ipairs(list) do
+			local t, b, l, r = a.top, a.bottom, a.left, a.right
+			if t > b then t, b = b, t end
+			if l > r then l, r = r, l end
+			if a.c == c and wx >= t and wx <= b and wy >= l and wy <= r then return a.id end
+		end
+	end
+	return z
+end
+
+-- The middle of a zone the crossing data knows (a city or an open zone,
+-- never a continent or a battleground): c, wx, wy | nil. Lookup's guide to
+-- a zone with no flight master or inn goes there (#1743).
+function Nav.ZoneMiddle(map)
+	local z = map and zoneInfo[map]
+	if not (z and z.c and z.top and z.bottom and z.left and z.right) then return nil end
+	return z.c, (z.top + z.bottom) / 2, (z.left + z.right) / 2
+end
 
 local function pathZoneOf(i)
 	local z = pathZone[i]
 	if z == nil then
-		z = zoneOf(pathMap[i], pathC[i], pathX[i], pathY[i]) or false
+		z = Travel.ZoneOf(pathMap[i], pathC[i], pathX[i], pathY[i]) or false
 		pathZone[i] = z
 	end
 	return z or nil
@@ -542,6 +579,7 @@ local function onEvery(floors, h)
 	return near
 end
 local function insideChain(c, wx, wy, z, loose, floors)
+	local CAPTURE, CAPTURE_MIN = 2, 30 -- a point within max(2 x radius, 30) yd of a chain node past the mouth is inside it
 	local best, bestD
 	for _, ch in ipairs(chains) do
 		local nodes = ch.nodes
@@ -567,22 +605,33 @@ local function crossCaption(e)
 	return e.caption or format(L["Walk to %s"], zoneName(e.partner.map))
 end
 
--- The captions of the legs to and on a boat, zeppelin, tram or portal,
--- translated (this file loads after the locale file).
+-- The captions of the legs to and on a boat, zeppelin, airship, tram or
+-- portal, translated (this file loads after the locale file).
 local WALK_TO = {
 	boat = L["Walk to the boat"],
 	zeppelin = L["Walk to the zeppelin tower"],
+	airship = L["Walk to the airship dock"],
 	tram = L["Walk to the Deeprun Tram"],
 	portal = L["Walk to the portal"],
 }
 local TAKE = {
 	boat = L["Take the boat to %s"],
 	zeppelin = L["Take the zeppelin to %s"],
+	airship = L["Take the airship to %s"],
 	tram = L["Take the tram to %s"],
 	portal = L["Take the portal to %s"],
 }
 
 local function planRoute(p)
+	-- (planRoute's own constants: the file's main chunk keeps clear of Lua 5.1's 200 locals)
+	local FLIGHT_SPEED = 30      -- yd/s along the flight path (Classic gryphon/wyvern)
+	local FLIGHT_STOP = 2        -- seconds per hop (take-off, landing)
+	local LINK_YARDS, MAX_LINKS = 150, 3
+	local MAX_PATH_VERTICES = 1500
+	local MAX_POPS = 20000
+	local MAX_MS = 40
+	local START, TARGET, TAXI, DOCK, INN, PATH, CROSS, CHAIN, DARK = 1, 2, 3, 4, 5, 6, 7, 8, 9
+	local WALK, FLY, RIDE, HEARTH = 1, 2, 3, 4 -- HEARTH: the Hearthstone or a teleport, from the start
 	local clock = debugprofilestop
 	local t0 = clock and clock()
 	local tg = p.target
@@ -599,19 +648,19 @@ local function planRoute(p)
 	local function add(kind, c, wx, wy, ref, map)
 		n = n + 1
 		vc[n], vx[n], vy[n], vkind[n], vref[n] = c, wx, wy, kind, ref
-		if covered[c] then vzone[n] = zoneOf(map, c, wx, wy) end
+		if covered[c] then vzone[n] = Travel.ZoneOf(map, c, wx, wy) end
 		return n
 	end
 	add(START, p.c, p.wx, p.wy, nil, p.map)
 	add(TARGET, tg.c, tg.wx, tg.wy, tg, tg.map)
 	-- The target's zone is where the walking maps put its point (zoneOf's `target`, #1694).
-	if covered[tg.c] then vzone[2] = zoneOf(tg.map, tg.c, tg.wx, tg.wy, true) end
+	if covered[tg.c] then vzone[2] = Travel.ZoneOf(tg.map, tg.c, tg.wx, tg.wy, true) end
 	-- learnV[v]: a flight master of the player's not learnt yet, on the start's or the target's continent. Talking
 	-- to it learns it and opens its flight map, so it is walked to and flown from like a known one, never flown to
 	-- (its flights go only to known ones): Ironforge's beside a player who has Menethil Harbor (#1174).
 	local taxiV, learnV = {}, {}
 	local skip = p.skip
-	for _, node in ipairs(walkOnly and {} or taxiList) do
+	for _, node in ipairs((walkOnly or p.noFlights) and {} or taxiList) do
 		if skip and skip.taxi[node.id] then
 			-- skipped: never flown from or through
 		elseif not allowed(node.faction, faction, node.class) then
@@ -695,6 +744,7 @@ local function planRoute(p)
 	-- Explicit walk links: crossing pairs, chain neighbours, attachments.
 	local extra = {}
 	local onCross = {} -- [far end vertex] = true: the start is on that crossing
+	local dockIn = {} -- [dock vertex] = true: inside a chain, reached through it only
 	local function link(u, v)
 		if not (u and v) then return end
 		local l = extra[u]
@@ -751,10 +801,20 @@ local function planRoute(p)
 		if startIn then near(startIn, function(v) link(1, v) end) end
 		if targetIn then near(targetIn, function(v) link(v, 2) end) end
 		if startIn and targetIn and startIn.chain == targetIn.chain then link(1, 2) end
+		-- A dock inside a chain (the Deeprun Tram's Stormwind end, down its building past the door, #1242) is
+		-- reached like an inside target: through its nearest node and that node's neighbours only.
+		for v in pairs(dockOf) do
+			local e = dockEnd[v]
+			local nd = covered[vc[v]] and insideChain(vc[v], vx[v], vy[v], e.z, true)
+			if nd then
+				dockIn[v] = true
+				near(nd, function(u) link(u, v); link(v, u) end)
+			end
+		end
 	end
-	-- Vertices only explicit links reach: chain nodes past a mouth, an inside start or target.
+	-- Vertices only explicit links reach: chain nodes past a mouth, an inside start, target or dock.
 	local function sealed(v)
-		return vkind[v] == DARK or (v == 1 and startIn ~= nil) or (v == 2 and targetIn ~= nil)
+		return vkind[v] == DARK or (v == 1 and startIn ~= nil) or (v == 2 and targetIn ~= nil) or dockIn[v] == true
 	end
 
 	-- The walks to the target the walking engine measured (p.walkCost, Nav/Walk.lua):
@@ -964,15 +1024,44 @@ local function planRoute(p)
 		end
 	end
 
+	-- #1823's rule, in the search's cost: a class teleport must save TELEPORT_MARGIN, and TELEPORT_SHARE of the way
+	-- without teleports when that is more. Each teleport edge carries TELEPORT_MARGIN, so a way the search takes
+	-- through one saves the margin already; only a teleport's way costing over TELEPORT_MARGIN x (1 - TELEPORT_SHARE)
+	-- / TELEPORT_SHARE (4 minutes) can fall short of the share. Then the way without teleports is searched once more,
+	-- over the same graph and only up to the cost at which the teleport pays (`bound`): reaching the target below it,
+	-- that way is taken, else the first search's (`kept`).
+	local bound, kept = huge, nil
+	local function fifth()
+		local v = 2
+		while v and prev[v] ~= 1 do v = prev[v] end
+		if not (v and teleV[v]) then return false end
+		local b = (dist[2] - TELEPORT_MARGIN) / (1 - TELEPORT_SHARE)
+		if b <= dist[2] then return false end
+		kept, bound = { dist, tm, prev, via }, b
+		dist, tm, prev, via, done, stranded, onFoot = {}, {}, {}, {}, {}, {}, {}
+		for i = 1, n do dist[i] = huge end
+		dist[1], tm[1] = 0, 0
+		hk, hv, size = {}, {}, 0
+		push(0, 1)
+		return true
+	end
+
 	push(0, 1)
 	local pops = 0
 	while size > 0 do
 		local u = pop()
 		if not done[u] then
 			done[u] = true
-			if u == 2 then break end
+			if u == 2 or dist[u] >= bound then
+				if kept or not fifth() then break end
+				u = pop() -- the start, for the search without teleports
+				done[u] = true
+			end
 			pops = pops + 1
-			if pops > MAX_POPS or (clock and clock() - t0 > MAX_MS) then return nil, "budget" end
+			if pops > MAX_POPS or (clock and clock() - t0 > MAX_MS) then
+				if not kept then return nil, "budget" end
+				break -- the second search reached the planner's caps: the teleport stays
+			end
 			local du, tu, cu, xu, yu, kind = dist[u], tm[u], vc[u], vx[u], vy[u], vkind[u]
 			if kind == PATH then
 				local adj = pathAdj[vref[u]]
@@ -1062,14 +1151,17 @@ local function planRoute(p)
 				if cost then relax(rideTo[u], du + cost, tu + cost, RIDE, u) end
 			elseif kind == START then
 				if innV then relax(innV, du + HEARTH_SECONDS + HEARTH_MARGIN, tu + HEARTH_SECONDS, HEARTH, u) end
-				for v, e in pairs(teleV) do
-					-- 10 s: reagents are cheap, but a walk this much shorter still wins.
-					local s = (e.ready or 0) + (e.cast or HEARTH_SECONDS)
-					relax(v, du + s + 10, tu + s, HEARTH, u)
+				-- Weighed by TELEPORT_MARGIN, as the Hearthstone by HEARTH_MARGIN; none on the search without them (fifth).
+				if not kept then
+					for v, e in pairs(teleV) do
+						local s = (e.ready or 0) + (e.cast or HEARTH_SECONDS)
+						relax(v, du + s + TELEPORT_MARGIN, tu + s, HEARTH, u)
+					end
 				end
 			end
 		end
 	end
+	if kept and not (done[2] and dist[2] < bound) then dist, tm, prev, via = kept[1], kept[2], kept[3], kept[4] end
 	if dist[2] == huge then return nil, "unreachable" end
 
 	-- Vertex chain, start first.
@@ -1201,7 +1293,9 @@ local function planRoute(p)
 				leg.label = tg.label
 				if tg.kind == "goto" then leg.step = "goto" end
 			else
+				-- A point on the way (a path node): nothing to do there.
 				leg.label = L["Walk"]
+				leg.via = true
 			end
 		elseif how == FLY then
 			leg.kind = "fly"
@@ -1239,7 +1333,7 @@ local function planRoute(p)
 		-- or a dock's whole reach, as Travel.Aim's offFloor): under the Undercity's entrance hall, in the Trade
 		-- Quarter, the walk to it stays (it rides a lift).
 		local nk = legs[2].kind
-		local flat = (nk == "boat" or nk == "zeppelin" or nk == "tram") and reach or 5
+		local flat = (nk == "boat" or nk == "zeppelin" or nk == "airship" or nk == "tram") and reach or 5
 		if to.z and (p.z and (p.z - to.z > 20 or to.z - p.z > 20) or (not p.z and d > flat)) then break end
 		table.remove(legs, 1)
 	end
@@ -1515,9 +1609,15 @@ local walkHooks = {} -- Travel.WalkCostHook's rules, in the order registered
 -- change plans again.
 local questTimed = false
 local timedCheck = true
+-- -> "timer" (a quest timer runs), "escort" (the live step's escort runs:
+-- walking only, as a flight or a ride leaves the escorted NPC behind too) or
+-- false.
 local function readTimed()
 	local C = ns.Compat
-	return C and C.QuestTimerRunning and C.QuestTimerRunning() or false
+	if C and C.QuestTimerRunning and C.QuestTimerRunning() then return "timer" end
+	local E = ns.Engine
+	if E and E.EscortRunning and E.EscortRunning() then return "escort" end
+	return false
 end
 
 -- A planner rule that scales walk costs:
@@ -1731,6 +1831,24 @@ local function walkDanger(pc, px, py, tc, tx, ty)
 	return function(c, x1, y1, x2, y2) return D.Along(danger, c, x1, y1, x2, y2) end
 end
 
+-- A field goal's spawn areas (the Engine's waypoint `spots`, in the goal's map and frame, r in yards): while the
+-- player stands in one of them or within 100 yards of its edge, the way to the target (another of them) is walked,
+-- never by a teleport, the Hearthstone or a flight: the goal's mobs are where the player is. A Gnome Mage among Pygmy
+-- Venom Web Spiders by the Darkened Bank, the arrow on another of their spots west of Raven Hill, was sent to cast
+-- Teleport: Stormwind (#1823). (A field, not a local: the file's main chunk keeps clear of Lua 5.1's 200 locals.)
+function Travel.AtField(target, pc, px, py)
+	local spots = target and target.spots
+	local C = ns.Compat
+	if type(spots) ~= "table" or not (target.map and C and C.MapToWorld) then return false end
+	for _, s in ipairs(spots) do
+		if type(s) == "table" and s.x and s.y then
+			local sc, sx, sy = C.MapToWorld(target.map, s.x, s.y, target.f)
+			if sc and yards(pc, px, py, sc, sx, sy) <= (tonumber(s.r) or 0) + 100 then return true end
+		end
+	end
+	return false
+end
+
 -- A plan from where the player stands to the target, or nil; and where from.
 local function plan(target)
 	-- Handed to Shortest Path Forever (Nav/Handoff.lua): it plans the way; no route here.
@@ -1745,8 +1863,9 @@ local function plan(target)
 	lastHearth = hearthReady()
 	questTimed, timedCheck = readTimed(), false
 	local ghost = isGhost()
+	local field = Travel.AtField(target, pc, px, py)
 	local inn, bindName
-	if lastHearth and not ghost and not questTimed then inn, bindName = bindInn() end
+	if lastHearth and not ghost and not questTimed and not field then inn, bindName = bindInn() end
 	-- The walks to the target the walking engine measured, and the places it measures next (Nav/Walk.lua).
 	local W = Nav.walk
 	local places = W and W.Measure and {} or nil
@@ -1783,9 +1902,10 @@ local function plan(target)
 		noHearth = skipped.hearth,
 		skip = skip,
 		noDirect = direct or nil,
-		teleports = not ghost and not questTimed and teleportList() or nil,
+		teleports = not ghost and not questTimed and not field and teleportList() or nil,
+		noFlights = field or nil,
 		departure = departureFn(),
-		walkOnly = ghost,
+		walkOnly = ghost or questTimed == "escort",
 		walkCost = walkCost,
 		walkHooks = walkHooks,
 		walkDanger = walkDanger(pc, px, py, tc, twx, twy),
@@ -1887,7 +2007,7 @@ function Nav.EstimateTravel(from, to, budgeted, noHearth)
 	-- The level too: the plan's walk danger is the level's (Nav/Danger.lua).
 	local D = Nav.danger
 	local key = format("%d:%d:%d>%d:%.1f:%.1f:%d:%d", fc, floor(fwx / CACHE_CELL), floor(fwy / CACHE_CELL),
-		tc, twx, twy, from ~= nil and 0 or timed and 3 or noHearth and 2 or 1, D and D.Level() or 0)
+		tc, twx, twy, from ~= nil and 0 or timed == "escort" and 4 or timed and 3 or noHearth and 2 or 1, D and D.Level() or 0)
 	local now = GetTime()
 	local hit = estimates[key]
 	if hit and now - hit.at < CACHE_SECONDS then return hit.seconds end
@@ -1909,7 +2029,7 @@ function Nav.EstimateTravel(from, to, budgeted, noHearth)
 		hearthName = bindName,
 		teleports = from == nil and not ghost and not timed and teleportList() or nil,
 		departure = departureFn(),
-		walkOnly = ghost,
+		walkOnly = ghost or timed == "escort",
 		-- The same way the plan takes (its walks through zones far above dearer).
 		walkDanger = walkDanger(fc, fwx, fwy, tc, twx, twy),
 	})
@@ -1931,6 +2051,27 @@ end
 
 function Travel.CurrentLeg()
 	return legs and legs[ci]
+end
+
+-- The point the current leg leads to, as Travel.Aim aims: a walk's end (a
+-- flight master, a dock, a portal, a crossing), a ride's or flight's
+-- boarding point, a hearth's or teleport's landing; and the leg's label. A
+-- walk to a point on the way (`via`: a path node) is no stop: the leg after
+-- it is, so the stop does not hop between path nodes as the route is planned
+-- again. nil with no route or on its last walk (the target itself).
+-- Nav/Bridges.lua mirrors it to Waypoint UI.
+function Travel.Stop()
+	if not Travel.Active() then return nil end
+	local k = ci
+	while k < #legs and legs[k].via do k = k + 1 end
+	local leg = legs[k]
+	local kind = leg.kind
+	if kind == "walk" then
+		if k == #legs then return nil end
+		return leg.to, leg.label
+	end
+	if kind == "hearth" or kind == "teleport" then return leg.to, leg.label end
+	return leg.from, leg.label
 end
 
 -- The walk the arrow is on ends at a lift's landing and the player stands
@@ -2165,7 +2306,7 @@ end
 local function stopZone(s, c)
 	local z = present(s.zone)
 	if z then return z end
-	local map = zoneOf(nil, c, s.wx, s.wy)
+	local map = mapZoneOf(nil, c, s.wx, s.wy)
 	if map then return present(zoneName(map)) end
 	local here = playerMap()
 	local C = ns.Compat
@@ -2333,7 +2474,7 @@ function Travel.SplitWalk(c, x, y, stops, total, hubs)
 	local totalSecs = floor(total / RUN_SPEED + 0.5)
 	pieces[#pieces + 1] = {
 		kind = "walk", from = from, to = whole.to, label = whole.label, step = whole.step,
-		radius = whole.radius, waypoint = whole.waypoint, tail = 0, parent = P,
+		radius = whole.radius, waypoint = whole.waypoint, via = whole.via, tail = 0, parent = P,
 		yards = floor(total - doneYards + 0.5), seconds = totalSecs - doneSecs,
 		hubs = hubs,
 	}
@@ -2452,6 +2593,50 @@ function Travel.SkipLeg()
 	return true
 end
 
+-- Where a trip has been is left out of the plans for this target once it is behind the player, as a skipped leg's
+-- is (SkipLeg), so a plan made later on the way never goes back: a flight's departure flight master once the flight
+-- has landed away from it (Travel.TakeOff names it: the route's flight leg's; a flight the player took without the
+-- route leaves from the flight master within LEARN_FP yards of where it took off. Travel.Landed leaves it out, but
+-- not after a flight that came down within LEARN_FP yards of it: one that never got away), a ride's boat, zeppelin,
+-- tram or portal once it has arrived (Travel.Aim). From Stormwind the route flew to Sentinel Hill, and on landing it
+-- planned the flight back, and there the flight to Sentinel Hill again (#1890). Another target may use them again.
+-- (Fields, not locals: the file's main chunk keeps clear of Lua 5.1's 200.)
+function Travel.Behind(node, transport)
+	local target = Nav.GetTarget()
+	if not (target and (node or transport)) then return end
+	if skipFor ~= target then
+		skipped = { hearth = false, spells = {}, transports = {}, taxi = {}, cross = {} }
+	end
+	if node then skipped.taxi[node.id] = true end
+	if transport then skipped.transports[transport] = true end
+	skipFor = target
+end
+function Travel.TakeOff()
+	local leg = legs and legs[ci]
+	local node = leg and leg.kind == "fly" and leg.from and taxi[leg.from.id]
+	if not node then
+		local C = ns.Compat
+		local pc, px, py
+		if C and C.GetPlayerWorldPosition then pc, px, py = C.GetPlayerWorldPosition() end
+		local best = LEARN_FP
+		for _, t in ipairs(pc and taxiList or {}) do
+			local d = yards(pc, px, py, t.c, t.wx, t.wy)
+			if d <= best then best, node = d, t end
+		end
+	end
+	Travel.leaving, Travel.leavingFor = node, Nav.GetTarget()
+end
+function Travel.Landed()
+	local node, target = Travel.leaving, Travel.leavingFor
+	Travel.leaving, Travel.leavingFor = nil, nil
+	if not (node and target == Nav.GetTarget()) then return end
+	local C = ns.Compat
+	local pc, px, py
+	if C and C.GetPlayerWorldPosition then pc, px, py = C.GetPlayerWorldPosition() end
+	if pc and yards(pc, px, py, node.c, node.wx, node.wy) <= LEARN_FP then return end
+	Travel.Behind(node)
+end
+
 -- Where the arrow should point, for a player at (pc, px, py). Allocation-free.
 --   nil                          no route, or the last leg: point at the target
 --   "walk", c, wx, wy[, left]    walk to that point (left: yards along the walking
@@ -2460,12 +2645,12 @@ end
 -- A walk's end with a floor height (a crossing end: the Undercity's entrance hall over the Trade Quarter) that the
 -- player stands within its radius of on the map but not on its floor: the player's floor (Walk.Floor) more than
 -- FLOOR_DZ yards from it; while that is unknown (the walking engine, asked without a height, may start on the end's
--- own floor above the player), farther than FLAT_ARRIVE yards, or, at a dock (`dock`: a boat, zeppelin or tram
+-- own floor above the player), farther than FLAT_ARRIVE yards, or, at a dock (`dock`: a boat, zeppelin, airship or tram
 -- leaves from the end), farther than the walk's reach: the deck or tower top is broad and the board point one spot
 -- on it (at the Undercity's zeppelin tower, where Fitz stood was 6.6 yards from it, #1125). PlanRoute drops a
 -- leading walk by the same rule.
 local FLOOR_DZ, FLAT_ARRIVE = 20, 5
-local RIDES = { boat = true, zeppelin = true, tram = true }
+local RIDES = { boat = true, zeppelin = true, airship = true, tram = true }
 local function offFloor(to, pc, px, py, d, dock, reach)
 	if not to.z then return false end
 	local W = Nav.walk
@@ -2534,6 +2719,7 @@ function Travel.Aim(pc, px, py)
 		else
 			local to = leg.to
 			if yards(pc, px, py, to.c, to.wx, to.wy) <= DOCK_ARRIVE then
+				Travel.Behind(nil, leg.transport)
 				advance()
 			elseif kind == "hearth" or kind == "teleport" then
 				return "instruction", to.c, to.wx, to.wy
@@ -2555,11 +2741,11 @@ function Travel.Aim(pc, px, py)
 	return nil
 end
 
--- On a boat or zeppelin, zone changes and distance from the dock are the
--- ride itself, not a reason to plan again.
+-- On a boat, zeppelin or airship, zone changes and distance from the dock are
+-- the ride itself, not a reason to plan again.
 local function riding()
 	local leg = legs and legs[ci]
-	return boarded and leg ~= nil and (leg.kind == "boat" or leg.kind == "zeppelin" or leg.kind == "tram")
+	return boarded and leg ~= nil and (leg.kind == "boat" or leg.kind == "zeppelin" or leg.kind == "airship" or leg.kind == "tram")
 end
 
 local function samePoint(a, b)
@@ -2675,13 +2861,20 @@ end
 local lastGhost = false
 function Travel:Refresh()
 	local taxiNow = onTaxi()
-	if wasTaxi and not taxiNow then dirty = true end
+	if wasTaxi and not taxiNow then
+		dirty = true
+		Travel.Landed()
+	end
 	-- Taking off: the flight counts down from here, not from reaching the
 	-- flight master (second review P3).
-	if taxiNow and not wasTaxi and legs and legs[ci] and legs[ci].kind == "fly" then legSince = GetTime() end
+	if taxiNow and not wasTaxi then
+		if legs and legs[ci] and legs[ci].kind == "fly" then legSince = GetTime() end
+		Travel.TakeOff()
+	end
 	wasTaxi = taxiNow
 	if taxiNow or not Nav.GetTarget() or not ns.Get("nav.travel") then return end
-	-- A quest timer started or ended: the Hearthstone and teleports come in or go out.
+	-- A quest timer or an escort started or ended: the Hearthstone and teleports
+	-- come in or go out (and with an escort, every ride).
 	if timedCheck then
 		timedCheck = false
 		local timed = readTimed()

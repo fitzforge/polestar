@@ -2,7 +2,7 @@
 guide forever/horde/30-40/01-hillsbrad-foothills
 title Hillsbrad Foothills & Arathi Highlands
 faction Horde
-levels 29-32
+levels 29-33
 zone Hillsbrad Foothills
 next forever/horde/30-40/02-thousand-needles
 pitch For characters of 29 to 33, but most quests here are level 32-34, a few up to 36: on purpose, for their experience. The Syndicate, Dalaran's guards and the Boulderfist ogres are 31-35, so pull them one at a time.
@@ -37,7 +37,9 @@ pitch For characters of 29 to 33, but most quests here are level 32-34, a few up
 # For that character the guide does them first, from Tarren Mill, in the 22-25 guide's order: the
 # fields, Tarren Mill, the peasants, Tarren Mill, Durnholde Keep, Hillsbrad's smithy, Tarren Mill.
 # Each of those steps is shown only until its chain's last quest (529, 498) is handed in, so a
-# character who did the 22-25 guide sees none of them.
+# character who did the 22-25 guide sees none of them. A Dangerous! (567) carried from the 22-25
+# guide gets Farmer Kalaba with the peasants and Citizen Wilkes at the smithy, as there (#1776);
+# the clerk and the miner are in the town hall and the mine on this guide's own visits.
 #
 # Saved for the 38-39 visit (forever/horde/30-40/05-arathi-highlands): Gol'dir and the
 # Perenolde chain (503-508), Dalaran Patrols and Bracers of Binding (545, 557: accepted here), Foul Magics
@@ -223,6 +225,7 @@ step Hillsbrad Peasants
   zone Hillsbrad Foothills
   tip Back to the fields: the Peasants work south of the farmhouses. Careful: A fleeing peasant that reaches the town hall can bring back adds; snares or roots keep them from escaping.
   kill 2267 quest 528.1
+  kill 2451 quest 567.4
 
 step Tarren Mill
   when !turnedin 529
@@ -244,6 +247,7 @@ step The smithy
   kill 2404 quest 529.1
   kill 2265 quest 529.2
   collect 3564 quest 529.3            -- Inside
+  kill 2449 quest 567.2
 
 step Krusk
   when !turnedin 498
@@ -270,8 +274,8 @@ step Tarren Mill
 
 step Helcular's Rod
   zone Hillsbrad Foothills
-  tip South-west, the Cave and Ferocious Yetis (30-32) fill the Foothill Caverns in the hills west of Tarren Mill; about one in sixteen carries the rod.
-  collect 3708 quest 552
+  tip South-west, the Cave and Ferocious Yetis (30-32) fill the Foothill Caverns in the hills west of Tarren Mill; about one in sixteen carries the rod. Stay in these caverns: the Mountain and Giant Yetis (32-34) of the cave further north carry it too, but at 29-30 they hit hard and come in pairs.
+  collect 3708 quest 552 @44.5,29.4
 
 step Level 30
   when level<30
@@ -312,6 +316,7 @@ step Foothill Caverns
 step Flame of Uzel
   zone Hillsbrad Foothills
   tip The third flame burns in the smaller cave up in the hills north of the caverns.
+  tip Careful: Giant and Mountain Yetis (32-34) stand around the flame, often in pairs, and Frostmaw, a rare yeti (37), roams nearby. At 30-31 they are over your level: pull the yetis one at a time from the cave mouth before you use the Rod, and watch for Frostmaw before you go in.
   use 3710 quest 553.3 @41.7,6.4 map 1424 -- Flame of Uzel
 
 step Alterac Mountains
@@ -348,7 +353,8 @@ step Torn Fin murlocs
 
 step Helcular's Grave
   zone Hillsbrad Foothills
-  tip Head east to Southshore's graveyard, on the north-east edge of the town: Helcular's grave lies among the others. Come at it from the north and keep away from the town's guards.
+  tip Head east to Southshore's graveyard, on the north-east edge of the town: Helcular's grave lies among the others. Come at it from the north, down the slope above the town. Southshore Guards (55) stand at the graveyard's north-west corner and south-east of the grave: walk in between them, hand the quest in and leave the way you came.
+  goto 53.4,48.8 map 1424 "North of Southshore's graveyard" r 15
   turnin 553 @52.8,53.4 map 1424     -- Helcular's Grave
 
 step Daggerspine naga
@@ -370,7 +376,7 @@ step Henchman Valik
 
 step Syndicate missives
   zone Alterac Mountains
-  tip Only if Valik's missive didn't come your way: the Syndicate Footpads and Thieves (32-34) around the camps west of the road carry missives too; about one in three drops one.
+  tip Only if Valik's missive didn't come your way: the Syndicate Footpads and Thieves (32-34) around the camps west of the road carry missives too; about one in three drops one. Careful: at 31-32 they are still above you and stand close together, with Wizards (34-35) among them: pull one at a time from the camp's edge.
   collect 3601 quest 533
 
 step Tarren Mill

@@ -85,7 +85,7 @@ return {
 	["Follow the road east to the outpost above the {area:814}."] = "Siga a estrada para leste até o posto acima de {area:814}.",
 
 	-- Step 24: Durotar
-	["The thunder lizards across the river"] = "",
+	["The thunder lizards across the river"] = "Os lagartos trovejantes do outro lado do rio",
 
 	-- Step 25: Thunder lizards across the river
 	["Thunder lizards across the river"] = "Lagartos trovejantes do outro lado do rio",
@@ -384,7 +384,7 @@ return {
 	-- {npc:12296} Sickly Gazelle · {item:15826} Curative Animal Salve
 	["{npc:12296}: use the {item:15826} on them; they roam the plains all around the Crossroads"] = "{npc:12296}: use o {item:15826} neles; eles andam pelas planícies em volta da Encruzilhada",
 	-- {npc:12296} Sickly Gazelle
-	["Cure {npc:12296}"] = "",
+	["Cure {npc:12296}"] = "Cure {npc:12296}",
 
 	-- Step 95: Bristleback camps
 	["Bristleback camps"] = "Acampamentos Costagulha",
@@ -487,7 +487,7 @@ return {
 
 	-- Step 118: To Regthar Deathgate
 	-- {npc:3389} Regthar Deathgate
-	["To {npc:3389}"] = "",
+	["To {npc:3389}"] = "Até {npc:3389}",
 
 	-- Step 120: Hezrul Bloodmark
 	-- {npc:3396} Hezrul Bloodmark · {area:387} Lushwater Oasis · {npc:3389} Regthar Deathgate · {npc:3448} Tonga Runetotem
@@ -540,14 +540,14 @@ return {
 
 	-- Step 130: Twitching Antennae
 	["Twitching Antennae"] = "Antenas Agitadas",
-	-- {area:390} Field of Giants · {npc:3387} Jorn Skyseer · {npc:6394} Ruga Ragetotem · {area:378} Camp Taurajo · {npc:4196} Silithid Swarm · {npc:5781} Silithid Creeper Egg
+	-- {area:390} Field of Giants · {npc:6394} Ruga Ragetotem · {area:378} Camp Taurajo · {npc:4196} Silithid Swarm · {npc:5781} Silithid Creeper Egg
 	-- plural, as words: Silithid Swarmers = {npc:3252} Silithid Swarmer · Silithid Creepers = {npc:3250} Silithid Creeper
-	["The antennae vanish fifteen minutes after they drop: kill the Silithid Swarmers and Creepers at the {area:390}' mounds, just south of {npc:3387}'s thunderhawks, until you have five, then take them straight to {npc:6394} in {area:378}.\nCareful: Silithid Swarmers (level 21-22) cast {npc:4196} both in and out of combat, which brings several small adds. Silithid Creepers (level 20-21) periodically cast {npc:5781} in combat, which spawns extra adds."] = "As antenas somem quinze minutos depois de caírem: mate os Enxameadores e Rastejantes Silitídeos nos montes de {area:390}, logo ao sul dos falcotrons de {npc:3387}, até ter cinco, depois leve-as direto a {npc:6394} em {area:378}.\nCuidado: Enxameadores Silitídeos (nível 21-22) soltam {npc:4196} dentro e fora de combate, o que traz vários bichinhos. Rastejantes Silitídeos (nível 20-21) soltam {npc:5781} de tempos em tempos em combate, o que gera bichinhos extras.",
+	["The antennae vanish fifteen minutes after they drop: kill the Silithid Swarmers and Creepers at the {area:390}' mounds, just south of Jorn's thunderhawks, until you have five, then take them straight to {npc:6394} in {area:378}.\nCareful: Silithid Swarmers (level 21-22) cast {npc:4196} both in and out of combat, which brings several small adds. Silithid Creepers (level 20-21) periodically cast {npc:5781} in combat, which spawns extra adds."] = "",
 	["Twitching Antennae from the silithid"] = "Antenas Agitadas dos silitídeos",
 
 	-- Step 131: Camp Taurajo
-	-- {area:378} Camp Taurajo · {npc:3387} Jorn Skyseer · {npc:6394} Ruga Ragetotem
-	["Back north into {area:378} on the way to the Crossroads: {npc:3387} takes the thunderhawk wings. Warriors: {npc:6394} first, before the antennae fade."] = "De volta ao norte, em {area:378}, a caminho da Encruzilhada: {npc:3387} recebe as asas de falcotrom. Guerreiros: {npc:6394} primeiro, antes que as antenas sumam.",
+	-- {area:378} Camp Taurajo · {npc:6394} Ruga Ragetotem
+	["Back north into {area:378} on the way to the Crossroads: Jorn takes the thunderhawk wings. Warriors: {npc:6394} first, before the antennae fade."] = "",
 
 	-- Step 132: The Crossroads
 	-- {area:458} Gold Road · {npc:3448} Tonga Runetotem · {npc:3432} Mankrik · {npc:3428} Korran
@@ -596,7 +596,7 @@ return {
 
 	-- Step 148: Seereth Stonebreak's camp
 	-- {npc:4049} Seereth Stonebreak
-	["{npc:4049}'s camp"] = "",
+	["{npc:4049}'s camp"] = "O acampamento de {npc:4049}",
 
 	-- Step 149: Seereth Stonebreak
 	-- {npc:4049} Seereth Stonebreak · {npc:11857} Makaba Flathoof
@@ -617,7 +617,7 @@ return {
 
 	-- Step 152: To Malaka'jin
 	-- {area:2539} Malaka'jin
-	["To {area:2539}"] = "",
+	["To {area:2539}"] = "Para {area:2539}",
 
 	-- Step 153: Malaka'jin
 	-- {npc:4049} Seereth Stonebreak · {area:2539} Malaka'jin
@@ -679,6 +679,7 @@ return {
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Back down the beach, past the pirate camp: the crate of boots and the fragile crate with the lens sit at its south end."] = "Volte pela praia, depois do acampamento pirata: o caixote de botas e o caixote frágil com a lente ficam na ponta sul.",
 	-- ["Back down the {area:1076}: {npc:12816} stands just outside {area:2539}, before the village."] = "De volta por {area:1076}: {npc:12816} fica logo fora de {area:2539}, antes da vila.",
+	-- ["Back north into {area:378} on the way to the Crossroads: {npc:3387} takes the thunderhawk wings. Warriors: {npc:6394} first, before the antennae fade."] = "De volta ao norte, em {area:378}, a caminho da Encruzilhada: {npc:3387} recebe as asas de falcotrom. Guerreiros: {npc:6394} primeiro, antes que as antenas sumam.",
 	-- ["Back to the Razormane camp. Geomancers and Defenders hold its eastern half; {npc:3438} walks among them."] = "De volta ao acampamento Crinavalha. Geomantes e Defensores ocupam a metade leste; {npc:3438} anda entre eles.",
 	-- ["Back west along the road."] = "Volte para oeste pela estrada.",
 	-- ["Burning Blade Cultists hold {area:1898} in northern {area:14}; they drop the {item:6652}. The {item:5026} comes from the Razormane on your next visit to their camp."] = "Sectários da Lâmina Ardente ocupam {area:1898}, no norte de {area:14}; eles deixam cair o {item:6652}. O {item:5026} vem dos Crinavalha na sua próxima visita ao acampamento deles.",
@@ -707,6 +708,7 @@ return {
 	-- ["Still short of twelve? The Sunscale Screechers are thickest on the plains around {quest:881}'s lair, north of the Razormane camp."] = "Ainda não chegou a doze? Os Uivadores Helióscamo são mais numerosos nas planícies em volta do covil de {quest:881}, ao norte do acampamento Crinavalha.",
 	-- ["The Savannah Prowlers hunt the plains between town and the Razormane camp to the east. In the camp, Water Seekers and Thornweavers hold the western half, Hunters the middle; the supply crates sit at its eastern end."] = "Os Predadores da Savana caçam nas planícies entre a cidade e o acampamento Crinavalha a leste. No acampamento, Rabdomantes e Tecespinhos ocupam a metade oeste, Caçadores o meio; os caixotes de suprimentos ficam na ponta leste.",
 	-- ["The Witchwing Slayers hold the western {area:383}; they wear the rings."] = "As Asabruxas Matadoras ocupam o oeste de {area:383}; elas usam os anéis.",
+	-- ["The antennae vanish fifteen minutes after they drop: kill the Silithid Swarmers and Creepers at the {area:390}' mounds, just south of {npc:3387}'s thunderhawks, until you have five, then take them straight to {npc:6394} in {area:378}.\nCareful: Silithid Swarmers (level 21-22) cast {npc:4196} both in and out of combat, which brings several small adds. Silithid Creepers (level 20-21) periodically cast {npc:5781} in combat, which spawns extra adds."] = "As antenas somem quinze minutos depois de caírem: mate os Enxameadores e Rastejantes Silitídeos nos montes de {area:390}, logo ao sul dos falcotrons de {npc:3387}, até ter cinco, depois leve-as direto a {npc:6394} em {area:378}.\nCuidado: Enxameadores Silitídeos (nível 21-22) soltam {npc:4196} dentro e fora de combate, o que traz vários bichinhos. Rastejantes Silitídeos (nível 20-21) soltam {npc:5781} de tempos em tempos em combate, o que gera bichinhos extras.",
 	-- ["The pirates camp on the beach south of {area:392}. The piles of complicated parts lie in the sand among them."] = "Os piratas acampam na praia ao sul de {area:392}. As pilhas de peças complicadas ficam na areia entre eles.",
 	-- ["The pirates camp on the beach south of {area:392}. The piles of complicated parts lie in the sand among them.\nThe pirates camp on the beach south of {area:392}; {npc:3467} stands at its southern end."] = "Os piratas acampam na praia ao sul de {area:392}. Os montes de peças complicadas estão na areia, no meio deles.\nOs piratas acampam na praia ao sul de {area:392}; {npc:3467} fica na ponta sul.",
 	-- ["The pools lie just north of {npc:3389}. Walk into the water to explore them; the Laden Mushrooms for Helbrim grow around them. Kill every Kolkar you pass for bracers."] = "Os poços ficam logo ao norte de {npc:3389}. Entre na água para explorá-los; os Cogumelos Carregados para Hermógenes crescem em volta deles. Mate todo kolkar que encontrar pelas braçadeiras.",

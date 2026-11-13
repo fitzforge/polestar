@@ -8,22 +8,30 @@
 -- (Dungeons.PickUp), so the leveling guide keeps its own; "Open in
 -- Dungeons" opens the dungeon's page in the hub's Dungeons section
 -- (Dungeons.Open); "Later" and the close button dismiss it; "Turn these off"
--- sets dungeons.headsUp off (also under Options > Discovery > Dungeons).
+-- sets dungeons.headsUp off (also under Options > Discovery > Lookup).
 -- The dungeon counts as told once the card is on screen or dismissed: a
--- card waiting for a hidden guide window shows when the window does.
+-- card waiting for a hidden guide window shows when the window does. One
+-- dismissed with Later below the dungeon's best-at level (a card the command
+-- showed, or one told at the range's start before cards waited for best-at)
+-- comes back once at best-at, then is told for good.
 --
 -- When it shows (DT.Candidates): a dungeon, not a raid, the character's level
--- in its range, with quests for the character's faction, not told before
--- (CharState().dungeonToastSeen, once per dungeon per character), whose
+-- at or past the level it suits best (Dungeons.BestAt; the Dungeons window
+-- still picks its quests up from the range's start) and inside its range,
+-- with quests for the character's faction, not told before
+-- (CharState().dungeonToastSeen: key -> true, told for good, or "later",
+-- back once at best-at), whose
 -- pickup plan by the offer rule (Dungeons.PickupPlan(key, true): a quest is
 -- offered from one level below its quest level, Fitz 2026-11-10, not 3-5
 -- levels early as the game allows) has a quest to take now and either none
--- left for later levels or at least MIN_OPEN to take. Its "Pick up the
+-- left for later levels or at least MIN_OPEN to take, and whose quests to
+-- take now are worth MIN_WORTH of a level or more to the character
+-- (Levels.Run; not judged when one's XP is unknown). Its "Pick up the
 -- quests" opens the guide by the same rule; the dungeon's page still picks
 -- up everything the game gives. At a level-up, after
 -- DELAY seconds so the class quest heads-up goes first; at login, only for a
--- dungeon that came due (its range began and its first quest's offer level
--- was reached) within LOGIN_LEVELS levels, after the class
+-- dungeon that came due (its best-at level and its first quest's offer level
+-- were reached) within LOGIN_LEVELS levels, after the class
 -- quest heads-up and the class guide banner; after a quest of a dungeon's
 -- page is handed in (a prerequisite: its follow-ups there may open), only for
 -- that dungeon, after DELAY seconds so the completed flag has caught up.
@@ -43,13 +51,14 @@
 local ADDON, ns = ...
 local UI, Theme = ns.UI, ns.Theme
 local L = ns.L
-local format, ipairs, sort, type = string.format, ipairs, table.sort, type
+local format, ipairs, pairs, sort, type = string.format, ipairs, pairs, table.sort, type
 
 local DT = {}
 UI.DungeonToast = DT
 
-local LOGIN_LEVELS = 2 -- on login, dungeons whose range began within this many levels
+local LOGIN_LEVELS = 2 -- on login, dungeons that came due within this many levels
 local MIN_OPEN = 3 -- with quests still to open at later levels, this many open now
+local MIN_WORTH = 0.1 -- the quests to take now are worth at least this share of a level
 local DELAY = 1.5 -- after a level-up, so the class quest heads-up has the card first
 local SIDE = { Alliance = "A", Horde = "H" }
 
@@ -60,6 +69,20 @@ local function seen()
 	local st = ns.CharState()
 	st.dungeonToastSeen = st.dungeonToastSeen or {}
 	return st.dungeonToastSeen
+end
+
+-- Dungeons told before cards waited for best-at (at the range's start) and
+-- whose best-at the character hasn't reached: back once at best-at, as after
+-- Later. Once per character, with the dungeons' levels known.
+local function upgradeSeen(level)
+	local st = ns.CharState()
+	if st.dungeonToastBestAt then return end
+	st.dungeonToastBestAt = true
+	local Dg = D()
+	for key, v in pairs(st.dungeonToastSeen or {}) do
+		local best = v == true and Dg.BestAt(key)
+		if best and level < best then st.dungeonToastSeen[key] = "later" end
+	end
 end
 
 -- The character (Levels.Player: Compat.GetPlayerInfo), or an empty table.
@@ -82,10 +105,10 @@ local function on()
 end
 
 -- At login, before any plan is made: whether dungeon d can have come due
--- within LOGIN_LEVELS levels (its range began, or one of its page quests'
--- offer level was reached, that recently).
-local function recent(d, level)
-	if level - d.minLevel <= LOGIN_LEVELS then return true end
+-- within LOGIN_LEVELS levels (its best-at level `best` reached, or one of its
+-- page quests' offer level past that, that recently).
+local function recent(d, level, best)
+	if level - best <= LOGIN_LEVELS then return true end
 	local Dg = D()
 	for _, q in ipairs(Dg.Quests(d.key)) do
 		local at = Dg.OfferLevel(q)
@@ -94,34 +117,51 @@ local function recent(d, level)
 	return false
 end
 
+-- Whether plan's quests to take now are worth less than MIN_WORTH of a level
+-- to the character at `level` (Levels.Run, as the card's badge sums the
+-- page's quests); never when one's XP is unknown.
+local function tooLittle(plan, p, level)
+	if p.level ~= level then p = { level = level, xp = 0, class = p.class, race = p.race, faction = p.faction } end
+	local quests = {}
+	for i, t in ipairs(plan.take) do
+		local q = t.quest or {}
+		quests[i] = { id = q.id, level = q.level, xp = q.rewards and q.rewards.xp, classes = q.classes }
+	end
+	local s = ns.Levels.Run(quests, p)
+	return s.unknown == 0 and (s.levels or 0) < MIN_WORTH
+end
+
 -- The dungeons to tell this character about at `level` (the character's when
 -- nil), the one that came due last first ("any": told ones too, for the
 -- command; "turnin": only dungeons whose page has questId): { key, name,
--- zoneName, minLevel, maxLevel, take, level, due }. due: the level it came
--- due at (its range's start, or its first offered quest's offer level).
+-- zoneName, minLevel, maxLevel, best, take, level, due }. due: the level it
+-- came due at (its best-at level, or its first offered quest's offer level).
 function DT.Candidates(level, mode, questId)
 	local Dg = D()
-	if not (on() and Dg.List and Dg.PickupPlan and Dg.Quests) then return {} end
+	if not (on() and Dg.List and Dg.PickupPlan and Dg.Quests and Dg.BestAt) then return {} end
 	local p = player()
 	level = level or p.level
 	local side = SIDE[p.faction or ""]
 	if type(level) ~= "number" or not side then return {} end
+	local list = Dg.List()
+	if #list > 0 then upgradeSeen(level) end
 	local told, out = seen(), {}
-	for _, d in ipairs(Dg.List()) do
+	for _, d in ipairs(list) do
 		local min, max = d.minLevel, d.maxLevel
-		if d.kind == "dungeon" and (mode == "any" or not told[d.key]) and min and level >= min and (not max or level <= max)
-			and (d.quests[side] or 0) > 0 and (mode ~= "turnin" or onPage(d.key, questId)) and (mode ~= "login" or recent(d, level)) then
+		local best = d.kind == "dungeon" and (mode == "any" or told[d.key] ~= true) and min and level >= min and (not max or level <= max)
+			and (d.quests[side] or 0) > 0 and (mode ~= "turnin" or onPage(d.key, questId)) and (Dg.BestAt(d.key) or min)
+		if best and level >= best and (mode ~= "login" or recent(d, level, best)) then
 			local plan = Dg.PickupPlan(d.key, true)
 			local take = plan and #plan.take or 0
-			if take > 0 and (plan.later == 0 or take >= MIN_OPEN) then
+			if take > 0 and (plan.later == 0 or take >= MIN_OPEN) and not tooLittle(plan, p, level) then
 				local due
 				for _, t in ipairs(plan.take) do
 					local at = Dg.OfferLevel(t.quest, t.rec)
 					if not due or at < due then due = at end
 				end
-				due = math.max(min, due or min)
+				due = math.max(best, due or best)
 				if mode ~= "login" or level - due <= LOGIN_LEVELS then
-					out[#out + 1] = { key = d.key, name = d.name, zoneName = d.zoneName, minLevel = min, maxLevel = max, take = take, level = level,
+					out[#out + 1] = { key = d.key, name = d.name, zoneName = d.zoneName, minLevel = min, maxLevel = max, best = best, take = take, level = level,
 						due = due, pickLabel = Dg.PickupLabel and Dg.PickupLabel(plan) or nil }
 				end
 			end
@@ -160,6 +200,9 @@ function DT.Model(c)
 	local page = { label = L["Open in Dungeons"], run = function() return DT.SeePage(c.key) end }
 	if enemy then m.act, m.more = page, pick else m.act, m.more = pick, page end
 	m.off = { label = L["Turn these off"], run = DT.TurnOff }
+	-- Later below the dungeon's best-at level: back once at best-at.
+	local best = c.best or (Dg.BestAt and Dg.BestAt(c.key))
+	m.later = { label = L["Later"], run = function(shown) if best and c.level < best then shown.backAtBest = true end end }
 	return m
 end
 
@@ -192,9 +235,9 @@ function DT.Show(c)
 end
 
 -- A dungeon card dismissed (Later, the close button, one of its buttons)
--- counts as told.
+-- counts as told; with Later below best-at, only until best-at ("later").
 ns.On("HEADS_UP_HIDDEN", function(m)
-	if type(m) == "table" and m.dungeon then seen()[m.dungeon] = true end
+	if type(m) == "table" and m.dungeon then seen()[m.dungeon] = m.backAtBest and "later" or true end
 end)
 
 -- "Open in Dungeons": the dungeon's page in the hub, where its quests,
@@ -228,7 +271,7 @@ end
 
 function DT.TurnOff()
 	ns.Set("dungeons.headsUp", false)
-	ns.Print(L["Dungeon heads-ups are off. Turn them back on under Options > Discovery > Dungeons."])
+	ns.Print(L["Dungeon heads-ups are off. Turn them back on under Options > Discovery > Lookup."])
 end
 
 -- The checks that have to wait (combat, another heads-up on the card), in

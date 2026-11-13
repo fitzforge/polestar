@@ -17,6 +17,10 @@
 //! in (by the grid's chunk area or the zone map around them), else the subzone under its centroid, else the
 //! most common subzone under its spawns, else the zone.
 //!
+//! Forever's own NPCs, the ones classic-db lacks (add_forever: forever-db's npc and spawn tables), join them: a guard
+//! by its name alone (no ExtraFlags), a service NPC by its codex roles and quests (#1961: Forever's Dalaran, its Kirin
+//! Tor guards hostile to the Horde, was no hub).
+//!
 //! hubs.json: { 0: [hub], 1: [hub], 2991: [hub], build, rev, maps, rules }; hub = { id, side, name, areaId,
 //! guards, services, disks: [[x, y, r]] } (x north, y west).
 
@@ -25,7 +29,7 @@ use rustc_hash::FxHashMap;
 use serde_json::{json, Map, Value};
 use std::cmp::Ordering;
 
-/// Maps with hubs: Eastern Kingdoms, Kalimdor, Zephras Isle (no CMaNGOS spawns: always empty).
+/// Maps with hubs: Eastern Kingdoms, Kalimdor, Zephras Isle (Forever's own: its NPCs only, add_forever).
 pub const HUB_MAPS: [u32; 3] = [0, 1, 2991];
 /// The player faction templates of each side: Human, Dwarf, Night Elf, Gnome / Orc, Undead, Tauren, Troll.
 const PLAYER_ALLIANCE: [u32; 4] = [1, 3, 4, 115];
@@ -470,6 +474,64 @@ fn name_of(c: u32, members: &[Pt], i: &HubsIn, areas: &FxHashMap<u32, Area>) -> 
 	(id, name)
 }
 
+/// The NpcFlags of a codex role (data/forever npcs.json `roles`) that SERVICE_FLAGS counts.
+const ROLE_FLAGS: [(&str, i64); 6] = [("vendor", 0x4), ("flightmaster", 0x8), ("trainer", 0x10), ("innkeeper", 0x80), ("banker", 0x100), ("repair", 0x4000)];
+const QUEST_GIVER: i64 = 0x2;
+
+/// NpcFlags for Forever's NPCs from the codex (data/forever npcs.json `roles`, quests.json's start and end NPCs: a
+/// quest giver): { npc id: flags }, only the NPCs with any.
+pub fn forever_flags(npcs: &Value, quests: &Value) -> FxHashMap<u64, i64> {
+	let mut out: FxHashMap<u64, i64> = FxHashMap::default();
+	for (id, n) in npcs.as_object().into_iter().flatten() {
+		let Ok(id) = id.parse::<u64>() else { continue };
+		let f = n["roles"].as_array().into_iter().flatten().filter_map(Value::as_str).filter_map(|r| ROLE_FLAGS.iter().find(|(k, _)| *k == r)).fold(0, |a, (_, f)| a | f);
+		if f != 0 {
+			*out.entry(id).or_default() |= f;
+		}
+	}
+	for q in quests.as_object().into_iter().flatten().map(|(_, q)| q) {
+		for side in ["start", "end"] {
+			for id in q[side]["npc"].as_array().into_iter().flatten().filter_map(Value::as_u64) {
+				*out.entry(id).or_default() |= QUEST_GIVER;
+			}
+		}
+	}
+	out
+}
+
+/// Forever's own NPCs for build_hubs: each row of forever-db's npc table (`npcs`: id, name, level_min, faction_template,
+/// rank) whose id classic-db's templates lack, with a faction template and a level, gets a template in
+/// creature_template.json's shape (`flags` its NpcFlags, forever_flags; no ExtraFlags, so a guard by its name and
+/// MIN_NAMED_GUARD_LEVEL), and its spawns from forever-db's spawn table (`spawn_rows`: kind "npc", id, map, x, y) in
+/// spawnz.json's. -> how many NPCs it added.
+pub fn add_forever(templates: &mut Value, spawns: &mut Value, npcs: &[Value], spawn_rows: &[Value], flags: &FxHashMap<u64, i64>) -> usize {
+	let mut added: FxHashMap<u64, Vec<Value>> = FxHashMap::default();
+	for r in npcs {
+		let (Some(id), Some(faction), true) = (r["id"].as_u64(), r["faction_template"].as_u64(), r["level_min"].is_number()) else { continue };
+		let key = id.to_string();
+		if templates.get(&key).is_some_and(Value::is_object) {
+			continue;
+		}
+		let t = json!({ "name": r["name"].as_str().unwrap_or(""), "faction": faction, "npcFlags": flags.get(&id).copied().unwrap_or(0), "extraFlags": 0, "rank": r["rank"].as_u64().unwrap_or(0), "minLevel": r["level_min"] });
+		if let Some(m) = templates.as_object_mut() {
+			m.insert(key, t);
+			added.insert(id, Vec::new());
+		}
+	}
+	for s in spawn_rows.iter().filter(|s| s["kind"] == "npc") {
+		if let (Some(list), Some(map), Some(x), Some(y)) = (s["id"].as_u64().and_then(|id| added.get_mut(&id)), s["map"].as_u64(), s["x"].as_f64(), s["y"].as_f64()) {
+			list.push(json!([map, x, y]));
+		}
+	}
+	let n = added.len();
+	if let Some(m) = spawns.as_object_mut() {
+		for (id, list) in added.into_iter().filter(|(_, l)| !l.is_empty()) {
+			m.entry(id.to_string()).or_insert(Value::Array(list));
+		}
+	}
+	n
+}
+
 /// The rules build_hubs applies, for hubs.json.
 pub fn rules() -> Value {
 	let names = GUARD_NAMES.join("|");
@@ -479,6 +541,7 @@ pub fn rules() -> Value {
 		"hub": format!("single linkage at {LINK} yd; a cluster with >= {MIN_GUARDS} guard or >= {MIN_SERVICES} service NPCs is a hub; hubs of one side within {JOIN} yd are listed as one (a naming merge: their disks unchanged, none added)"),
 		"name": "AreaTable: the capital (Flags_0 & 0x100) at least half the spawns stand in (chunk area or zone map), else the subzone under the centroid, else the most common subzone, else the zone",
 		"disks": format!("{GUARD_RADIUS} yd around a guard, {SERVICE_RADIUS} yd around a service NPC"),
+		"forever": "Forever's own NPCs (forever-db's npc and spawn tables, the ids classic-db lacks): a guard by its name, a service NPC by its codex roles (vendor, flight master, trainer, innkeeper, banker, repair) or as a quest's giver",
 	})
 }
 

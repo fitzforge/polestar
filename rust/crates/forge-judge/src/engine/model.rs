@@ -71,6 +71,8 @@ pub struct Pred {
 	pub name: Option<String>,
 	pub label: Option<String>,
 	pub area: Option<u32>,
+	/// A `taxi` predicate's taxi node.
+	pub node: Option<u32>,
 	pub map: Option<u32>,
 	pub skill_line: Option<u32>,
 	pub min_level: Option<f64>,
@@ -98,6 +100,7 @@ impl Pred {
 			name: text(v, "name"),
 			label: text(v, "label"),
 			area: id(v, "area"),
+			node: id(v, "node"),
 			map: id(v, "map"),
 			skill_line: id(v, "skillLine"),
 			min_level: num(v, "minLevel"),
@@ -258,6 +261,8 @@ pub struct Goal {
 	pub pre: Option<Vec<u32>>,
 	pub pre_all: Option<Vec<u32>>,
 	pub closed_by: Option<Vec<u32>>,
+	/// An accept's breadcrumbs: the game holds the quest back while one is in the log.
+	pub crumbs: Option<Vec<u32>>,
 	pub text: Option<String>,
 	pub node: Option<u32>,
 	pub area: Option<u32>,
@@ -345,6 +350,7 @@ impl Goal {
 			pre: ids(v, "pre"),
 			pre_all: ids(v, "preAll"),
 			closed_by: ids(v, "closedBy"),
+			crumbs: ids(v, "crumbs"),
 			text: text(v, "text"),
 			node: id(v, "node"),
 			area: id(v, "area"),
@@ -368,6 +374,11 @@ impl Goal {
 	/// The id a replay reports for the goal: its quest, else item, npc or spell (as the JS recorder).
 	pub fn report_id(&self) -> Option<u32> {
 		self.quest.or(self.item).or(self.npc).or(self.spell)
+	}
+
+	/// Whether its spots are exact points (every one `r` 0, #1944): Engine.lua's Spots.exact.
+	pub fn exact(&self) -> bool {
+		self.spots.as_ref().is_some_and(|s| !s.is_empty() && s.iter().all(|p| p.r.unwrap_or(0.0) == 0.0))
 	}
 }
 

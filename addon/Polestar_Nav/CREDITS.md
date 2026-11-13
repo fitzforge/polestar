@@ -35,6 +35,31 @@ priced by the ground class of the node it enters and the player's faction
 (`Routing/Costs.lua`, Polestar's). Each keeps his copyright and the GPL notice
 under a header line saying where it started.
 
+**Ported from version 1.33.0** (commit
+[863815c](https://github.com/cjber/shortest-path-forever/commit/863815c6314f3143f6e52fa43fe4453c3d2b1dde),
+GPL-3.0-or-later, with the same permission), each written again for
+Polestar's maps and router and credited in its file:
+
+- *Only ground a player can reach* (his v1.24.8): the walking maps keep only
+  the surfaces a walk from a fixed place reaches (flight masters, inns, boat,
+  zeppelin, tram and lift landings, portal ends and the travel chains'
+  nodes), so a start or goal without a height never stands on a statue's
+  top, a sealed room or a roof no stair reaches
+  (`rust/crates/forge-nav/src/pack/reach.rs`, from his `tools/baker/gen_nav.py`
+  and `tools/baker/places.lua`).
+- *Ledge drops* (his v1.31): a fall of 2 to 14.57 yards (the height a fall
+  starts to hurt) off a ledge is a one-way step, never climbed, priced at the
+  time the fall takes, so a walk takes the short way down instead of going
+  round to a ramp (`rust/crates/forge-nav/src/pack/drops.rs`, on Polestar's
+  navigation grid's falls).
+- *Spawn heights where floors overlap* (his v1.30): the walking maps list the
+  height of every NPC and quest object spawn that stands within a cell of
+  another floor, so a goal without a height beside one ends on its floor (the
+  cellar under a house, the cave under a hill), never the floor over it
+  (`rust/crates/forge-nav/src/pack/spawns.rs` and `Routing/Path.lua`'s
+  spawnHeight, from his `tools/gen_heights.py` and `tools/bake_heights.lua`;
+  a packed field of the maps instead of a file of its own).
+
 ## Polestar's walking maps, grown from his format
 
 The walking maps of Eastern Kingdoms (`Nav/Nav0*.lua`), Kalimdor

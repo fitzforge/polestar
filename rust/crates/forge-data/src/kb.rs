@@ -90,6 +90,65 @@ fn captured(s: &str) -> bool {
 	CAPTURED_XP.contains(&s)
 }
 
+/// Quest-XP sources that read the server's own numbers (its quest records, the game caches, what
+/// players were paid). Two of them giving exactly the same value outvote any single other value,
+/// whatever its tier: against players' recorded hand-ins (2,062 quests, 2026-11-12) EG Link's live
+/// records were never wrong and Factoruide's collector 3 times, while the TDB's XP was wrong 24 times
+/// and ForeverDB's captures 27 times, and both rank before the collector today.
+const XP_VOTERS: [&str; 6] = ["tdb", "eg.observed", "eg", "client.cache", "factoruide.collector", "foreverdb.xp"];
+
+/// The quest-XP candidate (index into `valid`) that two or more [`XP_VOTERS`] give exactly: Factoruide's
+/// collector and a game cache (EG Link's records, the client's) agreeing win outright; otherwise the
+/// value most such sources give, when at least two do and no other value has as many. Ours never votes.
+fn xp_agreed(valid: &[Cand]) -> Option<usize> {
+	let mut groups: Vec<(f64, Vec<usize>)> = Vec::new();
+	for (i, c) in valid.iter().enumerate() {
+		if c.project || !XP_VOTERS.contains(&c.source.as_str()) {
+			continue;
+		}
+		let v = c.value.num();
+		match groups.iter_mut().find(|(x, _)| *x == v) {
+			Some((_, ix)) => ix.push(i),
+			None => groups.push((v, vec![i])),
+		}
+	}
+	let sources = |ix: &[usize]| -> FxHashSet<&str> { ix.iter().map(|&i| valid[i].source.as_str()).collect() };
+	let pair = |ix: &[usize]| {
+		let s = sources(ix);
+		s.contains("factoruide.collector") && (s.contains("eg") || s.contains("client.cache"))
+	};
+	if let Some((_, ix)) = groups.iter().find(|(_, ix)| pair(ix)) {
+		return Some(ix[0]);
+	}
+	let mut sizes: Vec<(usize, usize)> = groups.iter().enumerate().map(|(g, (_, ix))| (sources(ix).len(), g)).collect();
+	sizes.sort_by_key(|&(n, _)| std::cmp::Reverse(n));
+	match sizes.as_slice() {
+		[(n, g), rest @ ..] if *n >= 2 && rest.first().is_none_or(|(m, _)| m < n) => Some(groups[*g].1[0]),
+		_ => None,
+	}
+}
+
+/// Whether a decision leaves our value as it is: the winner equals ours ([`Kb::eq`]), or, for an
+/// agreed quest XP ([`xp_agreed`]), is exactly ours: the game pays rounded amounts, so a value a few XP
+/// off is a wrong value, not a bonus.
+fn keeps_ours(field: &str, d: &Decision, ours: &Cand) -> bool {
+	if d.agreed {
+		d.win.value.num() == ours.value.num()
+	} else {
+		Kb::eq(field, &d.win, ours)
+	}
+}
+
+/// The reward the game pays for a quest's XP value, when it differs: the server rounds every quest
+/// reward to its steps ([`round_quest_xp`]), so a value between them is a vanilla-era number or a
+/// player's trace a few XP off (every recorded hand-in's base is rounded). A corrected or recorded
+/// value stands as written.
+fn paid_xp(q: &V, corr: &Corr) -> Option<f64> {
+	let x = q.get("xp").num();
+	let paid = round_quest_xp(x);
+	(x > 0.0 && paid != x && !matches!(project_quest_source(q, "xp", corr), "correction" | "recorder")).then_some(paid)
+}
+
 /// The fields the client's tables decide (`client`): places, items, placed objects, existence.
 /// Quest and NPC scalars come from the server, so the tables never decide those.
 fn client_field(field: &str) -> bool {
@@ -1088,6 +1147,8 @@ struct Decision {
 	win: Cand,
 	win_ix: usize,
 	valid: Vec<Cand>,
+	/// The winner is a quest XP two server-side sources agree on ([`xp_agreed`]).
+	agreed: bool,
 }
 
 pub struct KbInputs<'a> {
@@ -1316,7 +1377,11 @@ impl Kb<'_> {
 		}
 		ranked.sort_by(|&a, &b| tier_of(&valid[a].source, field).partial_cmp(&tier_of(&valid[b].source, field)).unwrap());
 		let mut win = ranked[0];
-		if field == "xp" && cands[0].project && cands[0].value.num() > 0.0 {
+		// Quest XP two server-side sources agree on wins, unless ours is a correction or a recording.
+		let agreed = if kind == "quest" && field == "xp" && !(cands[0].project && matches!(cands[0].source.as_str(), "correction" | "recorder")) { xp_agreed(&valid) } else { None };
+		if let Some(a) = agreed {
+			win = a;
+		} else if field == "xp" && cands[0].project && cands[0].value.num() > 0.0 {
 			let server = if kind == "quest" { self.tdb_xp(&num_str(id)) } else { None };
 			let backs = |v: &V| server.is_some_and(|s| same_xp(&V::Num(s), v, true, false));
 			let ours = cands[0].value.num();
@@ -1326,12 +1391,14 @@ impl Kb<'_> {
 					&& c.value.num() < 0.97 * ours
 					&& !valid.iter().enumerate().any(|(j, o)| {
 						j != i
-							&& !o.project && o.source != "page"
+							&& !o.project
+							&& o.source != "page"
 							&& o.source != "factoruide"
 							&& o.source != "factoruide.web"
 							&& !check_only(&o.source)
 							&& same_xp(&o.value, &c.value, captured(&o.source), false)
-					}) && !backs(&c.value)
+					})
+					&& !backs(&c.value)
 					&& (server.is_none() || backs(&cands[0].value))
 			};
 			let kept = ranked.iter().copied().find(|&i| !lone(i)).unwrap_or(win);
@@ -1372,7 +1439,7 @@ impl Kb<'_> {
 				self.alt_rows.push(vec![V::str(kind), V::Num(id), V::str(field), V::str(&c.source), V::str(&c.value.to_js_string()), V::Num(if Self::eq(field, c, &w) { 1.0 } else { 0.0 })]);
 			}
 		}
-		Some(Decision { win: w, win_ix: win, valid })
+		Some(Decision { win: w, win_ix: win, valid, agreed: agreed.is_some() })
 	}
 }
 
@@ -1476,6 +1543,10 @@ pub fn build_kb(inp: &KbInputs, log: &dyn Fn(&str)) -> Result<KbOut, String> {
 		let a = alt_of("quest", id);
 		let races = norm_races(&q.get("races"), &q.get("classes"));
 		let none = |x: String| if x.is_empty() { "none".to_string() } else { x };
+		if let Some(paid) = paid_xp(&q, &corr) {
+			kb.change("quests", id, "xp", q.get("xp"), V::Num(paid), "rounding");
+			q.set("xp", paid);
+		}
 		let ours: Vec<(&str, V)> = vec![
 			("title", q.get("title")),
 			("level", q.get("level")),
@@ -1519,7 +1590,7 @@ pub fn build_kb(inp: &KbInputs, log: &dyn Fn(&str)) -> Result<KbOut, String> {
 			}
 			let w = d.win.clone();
 			let _ = n_main;
-			if Kb::eq(field, &w, &cands[0]) {
+			if keeps_ours(field, &d, &cands[0]) {
 				continue;
 			}
 			match field {
@@ -1531,8 +1602,8 @@ pub fn build_kb(inp: &KbInputs, log: &dyn Fn(&str)) -> Result<KbOut, String> {
 					q.set("title", w.value.clone());
 				}
 				"level" | "min_level" | "xp" => {
-					let v = w.value.num();
-					if !v.is_finite() {
+					let v = if field == "xp" { round_quest_xp(w.value.num()) } else { w.value.num() };
+					if !v.is_finite() || (field == "xp" && v == cands[0].value.num()) {
 						continue;
 					}
 					let key = match field {
@@ -2058,7 +2129,11 @@ pub fn build_kb(inp: &KbInputs, log: &dyn Fn(&str)) -> Result<KbOut, String> {
 					bump(&tdb_report, "countsFilled", 1.0);
 				} else if mn > 0.0 && sniffed && count.num() != mn {
 					let has = |n: &str| count_in_text(&text, n);
-					if has(&num_str(mn)) && !has(&count.to_js_string()) {
+					// A count from a source that ranks above the TDB (a correction, a recording) stays, as in
+					// the fact check above: the TDB's count is only listed against it (Mercy Falls on Deaf
+					// Ears 93165: the correction's 5 ears, the TDB's and the objective text's 10).
+					let outranked = tier_of(project_quest_source(&q, "objectives", &corr), "objectives") < tier_of("tdb", "objectives");
+					if !outranked && has(&num_str(mn)) && !has(&count.to_js_string()) {
 						kb.change("quests", qidn, &label, count, V::Num(mn), "tdb");
 						o.set("count", mn);
 						tag(&q, "kb:tdb:count");
@@ -3597,6 +3672,52 @@ mod tests {
 		assert!(!tdb_direct(&parse_json(r#"{ "id": 1712 }"#).unwrap(), &parse_json(r#"{ "sniffed": false, "obj": [] }"#).unwrap()));
 	}
 
+	#[test]
+	fn the_tdbs_objective_count_never_replaces_a_corrected_one() {
+		// Mercy Falls on Deaf Ears 93165: the correction asks for 5 ears (players' quest logs); the TDB's
+		// sniffed row and the old objective text say 10. Quest 900001, the same with no correction: the
+		// TDB's count, which the text backs, wins over QuestieDB's.
+		let text = "Collect 10 Al'Aketh Cultist's Ears.";
+		let world = parse_json(&format!(
+			r#"{{ "93165": {{ "id": 93165, "objectiveText": "{text}", "objectives": [{{ "type": "item", "id": 258771, "count": 5 }}], "source": ["questie-forever", "polestar-correction"] }},
+			"900001": {{ "id": 900001, "objectiveText": "{text}", "objectives": [{{ "type": "item", "id": 258771, "count": 5 }}], "source": ["questie-forever"] }} }}"#
+		))
+		.unwrap();
+		let corrections = parse_json(r#"{ "quests": { "93165": { "set": { "objectives": [{ "type": "item", "id": 258771, "count": 5 }] } } } }"#).unwrap();
+		let tdb = parse_json(r#"{ "schema": 2, "quests": { "93165": { "sniffed": true, "obj": [[1, 258771, 10]] }, "900001": { "sniffed": true, "obj": [[1, 258771, 10]] } } }"#).unwrap();
+		let empty = Obj::new();
+		let none = PathBuf::from("/nonexistent");
+		let inp = KbInputs {
+			quests: world.as_obj().unwrap(),
+			npcs: &empty,
+			objects: &empty,
+			items: &empty,
+			frames: V::obj(),
+			zones: &empty,
+			live: FxHashSet::default(),
+			corrections,
+			facts_file: None,
+			tdb: Some(tdb),
+			classic: None,
+			factoruide_file: None,
+			quest_xp: None,
+			spawnz: None,
+			training: None,
+			trainers: None,
+			mechanics: MechFiles { quest_mechanics: none.clone(), quest_steps: none.clone(), tdb_layer: none.clone(), web: none.clone(), public: none.clone(), evidence: none },
+			v2_quests: FxHashSet::default(),
+			eg: None,
+			vo: None,
+			client: None,
+			kb_file: None,
+			verify_file: None,
+		};
+		build_kb(&inp, &|_| {}).unwrap();
+		let count = |id: &str| world.get(id).get("objectives").at(0).get("count").num();
+		assert_eq!(count("93165"), 5.0, "the correction's count stays");
+		assert_eq!(count("900001"), 10.0, "with no higher source, the TDB's count wins");
+	}
+
 	fn fact_of(alt: &Alt, key: &str, field: &str, source: &str) -> Option<String> {
 		alt.facts.get(key)?.iter().find(|f| f.field == field && f.source == source).map(|f| f.value.to_js_string())
 	}
@@ -3693,5 +3814,88 @@ mod tests {
 		// A point outside every frame of its continent is dropped.
 		assert_eq!(c("object:179000", "placement").as_deref(), Some("1436:50,50 1415:10,10"));
 		assert_eq!(alt.versions.get("client").cloned().flatten().as_deref(), Some("1.60.1.70532"));
+	}
+
+	fn xp_cands(ours: (&str, f64), others: &[(&str, f64)]) -> Vec<Cand> {
+		let mut c = vec![Cand { source: ours.0.into(), value: V::Num(ours.1), note: None, project: true }];
+		c.extend(others.iter().map(|&(s, v)| Cand { source: s.into(), value: V::Num(v), note: None, project: false }));
+		c
+	}
+
+	/// A KB over no data: enough for `decide`, which reads the inputs only for the TDB's XP.
+	fn with_kb(f: impl FnOnce(&mut Kb)) {
+		let empty = Obj::new();
+		let none = || PathBuf::new();
+		let inp = KbInputs {
+			quests: &empty,
+			npcs: &empty,
+			objects: &empty,
+			items: &empty,
+			frames: V::Null,
+			zones: &empty,
+			live: FxHashSet::default(),
+			corrections: V::Null,
+			facts_file: None,
+			tdb: None,
+			classic: None,
+			factoruide_file: None,
+			quest_xp: None,
+			spawnz: None,
+			training: None,
+			trainers: None,
+			mechanics: MechFiles { quest_mechanics: none(), quest_steps: none(), tdb_layer: none(), web: none(), public: none(), evidence: none() },
+			v2_quests: FxHashSet::default(),
+			eg: None,
+			vo: None,
+			client: None,
+			kb_file: None,
+			verify_file: None,
+		};
+		let mut kb = Kb { inp: &inp, changes: Vec::new(), verify_xp: FxHashMap::default(), fact_rows: Vec::new(), alt_rows: Vec::new(), verify: IndexMap::new(), pos: [0; 3] };
+		f(&mut kb);
+	}
+
+	#[test]
+	fn quest_xp_two_server_sources_agreeing_exactly_win() {
+		with_kb(|kb| {
+			// Prove Your Worth 421 (13 recorded hand-ins, all 875): the collector and EG Link's record give
+			// 875; ForeverDB's capture and EG's older turn-ins 850, ranked first today.
+			let c = xp_cands(("questie", 840.0), &[("page", 840.0), ("eg.observed", 850.0), ("foreverdb.xp", 850.0), ("factoruide.collector", 875.0), ("eg", 875.0)]);
+			let d = kb.decide("quest", 421.0, "xp", &c).unwrap();
+			assert_eq!((d.win.value.num(), d.agreed), (875.0, true));
+			assert!(!keeps_ours("xp", &d, &c[0]), "an agreed 875 replaces our 840 although it is within 3%");
+			// The Broodmother 96261 (33 people, 3,050): three old captures of 2,500 lose to the collector and EG.
+			let c = xp_cands(("page", 2500.0), &[("tdb", 2500.0), ("foreverdb.xp", 2500.0), ("eg.observed", 2500.0), ("factoruide.collector", 3050.0), ("eg", 3050.0)]);
+			assert_eq!(kb.decide("quest", 96261.0, "xp", &c).unwrap().win.value.num(), 3050.0);
+			// Return to Jitters 240 (recorded 775): two sources outvote ForeverDB's lone 975.
+			let c = xp_cands(("questie", 780.0), &[("foreverdb.xp", 975.0), ("page", 780.0), ("factoruide.collector", 775.0), ("foreverdb.xp", 975.0), ("tdb", 775.0)]);
+			assert_eq!(kb.decide("quest", 240.0, "xp", &c).unwrap().win.value.num(), 775.0);
+			// One source against one: no agreement; the ranking decides, and a winner within 3% keeps ours.
+			let c = xp_cands(("questie", 840.0), &[("foreverdb.xp", 850.0), ("factoruide.collector", 875.0)]);
+			let d = kb.decide("quest", 1.0, "xp", &c).unwrap();
+			assert_eq!((d.win.source.as_str(), d.agreed), ("foreverdb.xp", false));
+			assert!(keeps_ours("xp", &d, &c[0]));
+			// Agreement on our own value changes nothing.
+			let c = xp_cands(("questie", 850.0), &[("factoruide.collector", 850.0), ("eg", 850.0)]);
+			let d = kb.decide("quest", 2.0, "xp", &c).unwrap();
+			assert!(d.agreed && keeps_ours("xp", &d, &c[0]));
+			// A correction stands.
+			let c = xp_cands(("correction", 4950.0), &[("factoruide.collector", 6200.0), ("eg", 6200.0)]);
+			let d = kb.decide("quest", 2929.0, "xp", &c).unwrap();
+			assert!(d.win.project && !d.agreed);
+		});
+	}
+
+	#[test]
+	fn quest_xp_is_what_the_game_pays() {
+		let corr = corrected_fields(&parse_json(r#"{ "quests": { "96103": { "set": { "xp": 705 } } } }"#).unwrap());
+		let q = |j: &str| parse_json(j).unwrap();
+		// QuestieDB 1.0.14's trace 630 for Soft Saber Pelts 87288 (27 people recorded 625), the vanilla 840.
+		assert_eq!(paid_xp(&q(r#"{ "id": 87288, "xp": 630, "source": ["questie-forever"] }"#), &corr), Some(625.0));
+		assert_eq!(paid_xp(&q(r#"{ "id": 91724, "xp": 840, "source": ["questie-forever"] }"#), &corr), Some(850.0));
+		assert_eq!(paid_xp(&q(r#"{ "id": 95330, "xp": 285, "source": ["questie-forever"] }"#), &corr), Some(290.0));
+		assert_eq!(paid_xp(&q(r#"{ "id": 1, "xp": 625, "source": ["questie-forever"] }"#), &corr), None, "already a paid value");
+		assert_eq!(paid_xp(&q(r#"{ "id": 1, "xp": null }"#), &corr), None);
+		assert_eq!(paid_xp(&q(r#"{ "id": 96103, "xp": 705 }"#), &corr), None, "a correction's value stands as written");
 	}
 }

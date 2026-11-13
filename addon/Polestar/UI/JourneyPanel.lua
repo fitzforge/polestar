@@ -20,7 +20,9 @@
 -- (Nav.IsOverride: "Guide me to the entrance", a map click), the header has
 -- an x, "Back to the guide" (Nav.BackToGuide): the point lets go and the
 -- journey ends (#1686). Off with nav.journeySteps, collapsed with
--- nav.journeyOpen = false, never in compact mode.
+-- nav.journeyOpen = false, never in compact mode. How many legs it lists and
+-- whether their numbers show: trackers.journey.rows, .numbers (Options >
+-- Trackers > Journey).
 --
 -- Reads Nav.GetRoute() (legs, current index; leg.kind, label, seconds,
 -- yards, step, lift, side, transport, to, hubs: a walk entering the other
@@ -61,7 +63,7 @@ local MAX_ROWS = 8
 local MORE_H = 20
 
 local GLYPH = {
-	walk = "icon-goto", fly = "icon-fly", boat = "icon-boat", zeppelin = "icon-boat", tram = "icon-boat",
+	walk = "icon-goto", fly = "icon-fly", boat = "icon-boat", zeppelin = "icon-boat", airship = "icon-boat", tram = "icon-boat",
 	lift = "icon-lift", portal = "icon-explore", hearth = "icon-hearth", teleport = "icon-use",
 }
 local STEP_GLYPH = {
@@ -70,7 +72,7 @@ local STEP_GLYPH = {
 }
 -- How a leg reads when the planner gave it no caption (never "Unknown").
 local STEP_TEXT = {
-	walk = L["Walk to %s"], fly = L["Fly to %s"], boat = L["Boat to %s"], zeppelin = L["Zeppelin to %s"],
+	walk = L["Walk to %s"], fly = L["Fly to %s"], boat = L["Boat to %s"], zeppelin = L["Zeppelin to %s"], airship = L["Airship to %s"],
 	tram = L["Tram to %s"], lift = L["Lift to %s"], portal = L["Portal to %s"], hearth = L["Hearth to %s"],
 	teleport = L["Teleport to %s"],
 }
@@ -487,11 +489,22 @@ end
 -- Painting
 ---------------------------------------------------------------------------
 
+-- How many legs it lists and whether their numbers show (Options > Trackers
+-- > Journey: trackers.journey.rows, .numbers).
+local function journeyLook(prop, fallback)
+	local TR = UI.Trackers
+	local v = TR and TR.Get("journey", prop)
+	if v == nil then return fallback end
+	return v
+end
+
 -- Labels, glyphs and colours: only when the steps themselves change.
 local function fillStructure(legs, ci)
 	local p = JP.Rows(legs, ci)
 	local n = p.n
-	local shown = n > MAX_ROWS and MAX_ROWS or n
+	local most = math.max(1, math.floor(tonumber(journeyLook("rows", MAX_ROWS)) or MAX_ROWS))
+	local shown = n > most and most or n
+	local numbers = journeyLook("numbers", true) ~= false
 	for i = 1, shown do
 		local leg = legs[p.first[i]]
 		local r = row(i)
@@ -499,6 +512,7 @@ local function fillStructure(legs, ci)
 		r.psCurrent = current
 		r.psLeg = p.first[i]
 		r.Num:SetFormattedText("%d", p.num[i])
+		r.Num:SetShown(numbers)
 		r.Icon:SetTexture(Theme.Media(glyphOf(leg)))
 		r.Text:SetText(JP.StepText(leg))
 		r.Bar:SetShown(current)
@@ -694,19 +708,8 @@ ns.On("SETTING_CHANGED", function(path)
 	if path == "nav.journeyOpen" then
 		JP.Refresh()
 		relayout()
-	elseif path == "" or type(path) == "string" and (path == "nav" or path:find("^nav%.")) then
+	elseif path == "" or type(path) == "string" and (path == "nav" or path:find("^nav%.") or path == "trackers" or path:find("^trackers%.journey%.")) then
 		JP.Refresh(true)
 	end
 end)
 Theme.OnChanged(function() if guideShown() then JP.Refresh(true) end end)
-
-if ns.Nav and ns.RegisterOptions then
-	local ok, err = ns.RegisterOptions({
-		page = L["Guide"], tab = L["Arrow & routes"], section = L["Routes"],
-		controls = {
-			ns.Nav.HandoffOption({ kind = "toggle", key = "nav.journeySteps", label = L["Show the journey"],
-				help = L["The route's steps in the guide window with a time for each, counting down: walks, lifts, boats and flights. Click the current step to skip it."] }),
-		},
-	})
-	if not ok and geterrorhandler then geterrorhandler()(err) end
-end

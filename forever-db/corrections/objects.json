@@ -262,5 +262,409 @@
 			}
 		],
 		"note": "Drakkisath's Brand (Blackhand's Command) stands inside Upper Blackrock Spire."
+	},
+	"628948": {
+		"set": {
+			"name": "WANTED!"
+		},
+		"addSpawns": {
+			"2548": {
+				"f": "l",
+				"pts": [
+					[
+						78.5,
+						53.9
+					]
+				]
+			}
+		},
+		"source": [
+			{
+				"kind": "questie",
+				"ref": "QuestieDB 1.0.14 (e19dfdf) object record"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' recordings to 2026-11-11: where they used it for quest 95120"
+			}
+		],
+		"note": "WANTED!, an object of Forever's quest 95120 missing from the merged data."
+	},
+	"645164": {
+		"set": {
+			"name": "WANTED!"
+		},
+		"addSpawns": {
+			"2548": {
+				"f": "l",
+				"pts": [
+					[
+						59.5,
+						47.0
+					]
+				]
+			}
+		},
+		"source": [
+			{
+				"kind": "questie",
+				"ref": "QuestieDB 1.0.14 (e19dfdf) object record"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' recordings to 2026-11-11: where they used it for quest 95992"
+			}
+		],
+		"note": "WANTED!, an object of Forever's quest 95992 missing from the merged data."
+	},
+	"707249": {
+		"set": {
+			"name": "Wanted"
+		},
+		"addSpawns": {
+			"2548": {
+				"f": "l",
+				"pts": [
+					[
+						59.6,
+						46.9
+					]
+				]
+			}
+		},
+		"source": [
+			{
+				"kind": "questie",
+				"ref": "QuestieDB 1.0.14 (e19dfdf) object record"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' recordings to 2026-11-11: where they used it for quest 95882"
+			}
+		],
+		"note": "Wanted, an object of Forever's quest 95882 missing from the merged data."
+	},
+	"625582": {
+		"set": {
+			"name": "Fuzzle's Treasure"
+		},
+		"addSpawns": {
+			"2548": {
+				"f": "l",
+				"pts": [
+					[
+						41.6,
+						47.7
+					]
+				]
+			}
+		},
+		"source": [
+			{
+				"kind": "questie",
+				"ref": "QuestieDB 1.0.14 (e19dfdf) object record"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' recordings to 2026-11-11: where they used it for quest 94963"
+			}
+		],
+		"note": "Fuzzle's Treasure, an object of Forever's quest 94963 missing from the merged data."
+	},
+	"707245": {
+		"set": {
+			"name": "Wanted"
+		},
+		"addSpawns": {
+			"2548": {
+				"f": "l",
+				"pts": [
+					[
+						65.9,
+						81.1
+					]
+				]
+			}
+		},
+		"source": [
+			{
+				"kind": "questie",
+				"ref": "QuestieDB 1.0.14 (e19dfdf) object record"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' recordings to 2026-11-11: where they used it for quest 95912"
+			}
+		],
+		"note": "Wanted, an object of Forever's quest 95912 missing from the merged data."
+	},
+	"645166": {
+		"set": {
+			"name": "WANTED!"
+		},
+		"addSpawns": {
+			"2548": {
+				"f": "l",
+				"pts": [
+					[
+						65.6,
+						80.8
+					]
+				]
+			}
+		},
+		"source": [
+			{
+				"kind": "questie",
+				"ref": "QuestieDB 1.0.14 (e19dfdf) object record"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' recordings to 2026-11-11: where they used it for quest 95991"
+			}
+		],
+		"note": "WANTED!, an object of Forever's quest 95991 missing from the merged data."
+	},
+	"621813": {
+		"set": {
+			"name": "Loose Soil"
+		},
+		"addSpawns": {
+			"2548": {
+				"f": "l",
+				"pts": [
+					[
+						48.6,
+						43.8
+					]
+				]
+			}
+		},
+		"source": [
+			{
+				"kind": "questie",
+				"ref": "QuestieDB 1.0.14 (e19dfdf) object record"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' recordings to 2026-11-11: where they used it for quest 94829"
+			}
+		],
+		"note": "Loose Soil, an object of Forever's quest 94829 missing from the merged data."
+	},
+	"19861": {
+		"set": {
+			"spawns": {
+				"1441": {
+					"f": "e",
+					"pts": [
+						[
+							31.29,
+							28.05
+						]
+					]
+				}
+			}
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' recordings: every loot of the journal on builds 70862 and 70888 from 2026-11-10 on, 8 people, at Thousand Needles 31.25-31.35,28.0-28.12 (map 1441; sessions 20261110T063809Z, 20261110T135539Z, 20261110T142107Z, 20261110T161901Z, 20261111T051550Z, 20261111T131735Z, 20261111T193957Z, 20261111T203810Z, 20261111T220204Z); the two loots before (2026-11-09) were at the old spot 30.77,24.4"
+			},
+			{
+				"kind": "in-game-check",
+				"ref": "#2014: the reporter marked it at 31.30,28.12"
+			}
+		],
+		"note": "Henrig Lonebrow's Journal (object 19861), which starts Lonebrow's Journal (1100), lies at Thousand Needles 31.29,28.05 (map 1441), in Darkcloud Pinnacle. The merged data had the old spot 30.73,24.35, about 110 yd north (and the same spot read in the Barrens' map frame, 43.5,93.1), so the Razorfen Kraul pick-up guide's collect step pointed there. Replaces both."
+	},
+	"19019": {
+		"addSpawns": {
+			"1413": {
+				"f": "e",
+				"pts": [
+					[
+						59.93,
+						4.15
+					],
+					[
+						61.34,
+						4.7
+					],
+					[
+						61.8,
+						4.23
+					],
+					[
+						61.92,
+						3.62
+					]
+				]
+			},
+			"1436": {
+				"f": "e",
+				"pts": [
+					[
+						30.6,
+						27.26
+					],
+					[
+						25.64,
+						49.02
+					],
+					[
+						41.27,
+						66.41
+					],
+					[
+						42.51,
+						69.17
+					],
+					[
+						44.9,
+						71.1
+					],
+					[
+						43.98,
+						67.79
+					],
+					[
+						26.46,
+						72.78
+					]
+				]
+			}
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: 6 people looted the box in Westfall, 3 at 43.86-43.97,67.69-67.8 (builds 70888, 2026-11-11 and 12), 2 at 44.79-44.96,71.17-71.19 (builds 70790 and 70862) and 1 at 26.65,72.79; 2 more in the Barrens at 61.93-61.94,3.67-3.68. Five of those loots lie within 1 yd of a spawn below, none within 90 yd of the two Westfall points the data had besides 41.27,66.41"
+			},
+			{
+				"kind": "tdb",
+				"ref": "gameobject spawns of 19019: seven in Westfall and four in the Barrens (the points below)"
+			}
+		],
+		"note": "The Box of Assorted Parts (object 19019), which holds the Copper Modulator for Harvesting the Harvesters (92911), spawns at one of several places: seven in Westfall (four at 41-45,66-72, three in the west of the zone at 25-31,27-73) and four in the north of the Barrens (60-62,3-5). The merged data had two of the Westfall places and one of the Barrens', so the collect step and the While-here list pointed only there; players found it at the others. Replaces both maps' points with every place."
+	},
+	"128293": {
+		"addSpawns": {
+			"1418": {
+				"f": "e",
+				"pts": [
+					[
+						34.04,
+						24.42
+					],
+					[
+						38.22,
+						17.03
+					],
+					[
+						37.57,
+						15.25
+					],
+					[
+						41.01,
+						15.01
+					],
+					[
+						33.46,
+						13.82
+					],
+					[
+						36.2,
+						12.5
+					],
+					[
+						40.68,
+						10.53
+					],
+					[
+						37.8,
+						10.39
+					]
+				]
+			}
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: 3 people looted the clusters in the Badlands at 37.63-37.79,15.01-15.39 (builds 70862 and 70888, 2026-11-10 to 12), and one of them also at 38.08,17.09 and 40.82,15.2; each within 0.3 map percent of a spawn below, 158 to 228 yd from the one point the data had (34.04,24.42)"
+			},
+			{
+				"kind": "tdb",
+				"ref": "gameobject spawns of 128293 outside Uldaman: eight in the Badlands (the points below)"
+			}
+		],
+		"note": "Magenta Cap Clusters (object 128293), the Magenta Fungus Caps of Uldaman Reagent Run (17, 2202), also grow outside Uldaman, in the north of the Badlands, at eight places at 33-41,10-24. The merged data had only the southernmost (34.04,24.42), about 170 yd from where players pick them, so the quest's collect step pointed there. Replaces the Badlands points with all eight; the Loch Modan points stay."
+	},
+	"164690": {
+		"addSpawns": {
+			"1413": {
+				"f": "e",
+				"pts": [
+					[
+						44.44,
+						28.15
+					]
+				]
+			}
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: 12 people (builds 70862 and 70888) looted Krom'zar's Banner in the Barrens, 11 of them at 44.29-44.77,27.9-28.19 and one at 45.18,28.77, each taking a Piece of Krom'zar's Banner (11227)"
+			}
+		],
+		"note": "Krom'zar's Banner (object 164690), the banner Counterattack! (4021) asks for, stands in the Barrens at 44.44,28.15, where every player loots it. The merged data had the object with no place at all, so no step or While-here line could point at it."
+	},
+	"103574": {
+		"addSpawns": {
+			"1458": {
+				"f": "e",
+				"pts": [
+					[
+						53.41,
+						70.86
+					],
+					[
+						53.93,
+						72.41
+					],
+					[
+						53.51,
+						71.61
+					],
+					[
+						53.35,
+						74.43
+					],
+					[
+						53.62,
+						73.13
+					],
+					[
+						53.69,
+						75.22
+					],
+					[
+						54.05,
+						74.09
+					]
+				]
+			}
+		},
+		"source": [
+			{
+				"kind": "tdb",
+				"ref": "gameobject spawns of 103574 in the Undercity, sniffed on Forever (build 70170): seven (the points below)"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: 4 people looted the coffers in the Undercity, 7 of their 13 loots within 13 yd of a spawn below, the others up to 70 yd east of them"
+			}
+		],
+		"note": "The Filled Containment Coffers (object 103574) that Investigate the Alchemist Shop (1960) asks for stand in the Undercity at 53.4-54.1,70.9-75.2. The merged data had the object with no place, so the Undercity mage quest's collect step had nowhere to point. Stormwind's coffers for Investigate the Blue Recluse (1920) are not added: two people looted them, too few for a correction."
 	}
 }

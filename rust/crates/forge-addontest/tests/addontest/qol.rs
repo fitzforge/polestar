@@ -8,12 +8,16 @@ use forge_addontest::{emitted, is_match, text, truthy, Addon, RunAddon};
 use serde_json::{json, Value};
 use std::collections::HashSet;
 
-const FILES: [&str; 4] = ["Core/Init.lua", "Core/Compat.lua", "Theme/Theme.xml", "QoL/QoL.xml"];
+// The Quality of Life rows are the settings' addon's (Polestar_Options/QoL/Options.lua).
+const FILES: [&str; 5] = ["Core/Init.lua", "Core/Compat.lua", "Theme/Theme.xml", "QoL/QoL.xml", "../Polestar_Options/QoL/Options.lua"];
 
 const PRELUDE: &str = r#"
 local q = stub.qol
 local QoL = Polestar.QoL
 local function set(k, v) Polestar.Set("qol." .. k, v); stub.runTimers() end
+-- Marking is on by default (0.4.0, Fitz 2026-11-13); the button tests start from it off and turn it on
+-- where they test it. Its default has its own test (mark_target_alone_...).
+set("markTarget", false)
 local function calls(name)
 	local out = {}
 	for _, c in ipairs(q.calls) do if c[1] == name then out[#out + 1] = c[2] or true end end
@@ -60,17 +64,21 @@ fn options_every_qol_setting_is_registered_on_questing_or_quality_of_life_with_l
 		local out = {}
 		for _, spec in ipairs(Polestar.Widgets.OptionsRegistry) do
 			if spec.page == "Quality of Life" or spec.page == "Questing" then
-				for _, c in ipairs(spec.controls) do
+				-- A feature's switch in its section's header counts with the rows.
+				local list = { spec.toggle }
+				for _, c in ipairs(spec.controls) do list[#list + 1] = c end
+				for _, c in ipairs(list) do
 					out[#out + 1] = { key = c.key, kind = c.kind, label = c.label, help = c.help, page = spec.page, tab = spec.tab, section = spec.section }
 				end
 			end
 		end
 		emit(out)
 		local keys = {}
-		for _, k in ipairs({ "itemButton", "targetButton", "hearthButton", "buttonScale", "xpTracker", "sellJunk", "autoRepair",
+		-- qol.buttonScale and qol.buttonTextSide sit on the Buttons look page (ui-look-buttons.rs).
+		for _, k in ipairs({ "itemButton", "targetButton", "hearthButton", "xpTracker", "sellJunk", "autoRepair",
 			"rewardHighlight", "rewardAutoPick", "flightAutoOpen", "flightHighlight", "flightAutoTake", "deathHelper", "instantQuestText",
 			"skipGossip", "fastLoot", "declineDuels", "repairGuild", "hideErrors", "autoReleasePvP", "declineGuildInvites",
-			"declinePartyStrangers", "acceptPartyFriends", "acceptSummon", "acceptResurrect", "buyGoals", "trainAll", "trainAllButton",
+			"declinePartyStrangers", "acceptPartyFriends", "acceptSummon", "acceptResurrect", "buyGoals",
 			"rewardEquip", "autoBind", "hideQuestTracker", "restock", "itemMarks", "bagSpace", "bagsLow", "wearOffer",
 			"questLoot", "instanceTrack" }) do keys[k] = Polestar.GetDefault("qol." .. k) end
 		emit(keys)
@@ -98,8 +106,6 @@ fn options_every_qol_setting_is_registered_on_questing_or_quality_of_life_with_l
 	assert_eq!(defaults["rewardAutoPick"], false, "auto-pick is off by default");
 	assert_eq!(defaults["flightAutoTake"], false, "taking the flight by itself is off by default");
 	assert_eq!(defaults["buyGoals"], false, "buying for the guide is off by default");
-	assert_eq!(defaults["trainAll"], false, "learning at trainers is off by default");
-	assert_eq!(defaults["trainAllButton"], true, "train all button is on by default");
 	assert_eq!(defaults["rewardEquip"], false, "wearing rewards is off by default");
 	assert_eq!(defaults["autoBind"], false, "binding the Hearthstone is off by default");
 	assert_eq!(defaults["hideQuestTracker"], false, "the game's quest tracker shows by default");
@@ -272,6 +278,25 @@ fn secure_buttons_key_labels_are_short_and_stay_inside_the_button() {
 			K("F"), K("SHIFT-NUMPAD5"), K(nil) == nil })
 	"#);
 	assert_eq!(out[0], json!(["M4", "TOPRIGHT", false, "sM5", "caMwU", "MwD", "F", "sNum 5", true]));
+}
+
+// #688: with the gamepad interface on, a button bound in its own binding context runs the target button, not a key
+// under it: the label names the key Polestar.Gamepad.BindingKeys says runs it in play (its chords never run a
+// secure click).
+#[test]
+fn secure_buttons_key_label_names_the_key_that_runs_it_in_play_from_the_gamepad_module() {
+	let out = run(r#"
+		local TARGET = "CLICK PolestarTargetButton:LeftButton"
+		GetBindingText = function(key) return key end
+		q.bindings[TARGET] = { "BUTTON4" }
+		Polestar.Gamepad = {
+			IsChord = function(key) return key:find("+", 1, true) ~= nil end,
+			BindingKeys = function(action) return action == TARGET and { "PADLTRIGGER+PAD1", "PAD3", "BUTTON4" } or {} end,
+		}
+		stub.fire("UPDATE_BINDINGS")
+		emit({ PolestarTargetButton.Hotkey:GetText() })
+	"#);
+	assert_eq!(out[0], json!(["PAD3"]));
 }
 
 #[test]
@@ -895,8 +920,7 @@ fn step_key_interact_stage_never_compares_a_secret_target_name_the_npc_id_still_
 }
 
 #[test]
-fn mark_target_off_by_default_on_the_target_button_and_step_key_put_a_skull_on_a_live_hostile_mob_and_a_star_on_an_npc_friendly_or_neutral_never_take_one_off_and_clear_the_target_only_out_of_combat()
-{
+fn mark_target_switched_off_on_the_target_button_and_step_key_put_a_skull_on_a_live_hostile_mob_and_a_star_on_an_npc_friendly_or_neutral_never_take_one_off_and_clear_the_target_only_out_of_combat() {
 	let out = run(r#"
 		local t, s = PolestarTargetButton, PolestarStepButton
 		q.step({ { t = "kill", target = "Kobold Vermin", quest = 7, oi = 1 } })
@@ -912,7 +936,7 @@ fn mark_target_off_by_default_on_the_target_button_and_step_key_put_a_skull_on_a
 		emit(Polestar.QoL.Buttons.TargetMacro(long, 1, "/tm [@target,harm,nodead] !8"))
 	"#);
 	let plain = |name: &str| format!("/cleartarget [nocombat]\n/targetexact {name}\n/cleartarget [dead]");
-	assert_eq!(out[0], json!([plain("Kobold Vermin"), plain("Kobold Vermin")]), "off by default");
+	assert_eq!(out[0], json!([plain("Kobold Vermin"), plain("Kobold Vermin")]), "switched off");
 	// Cleared first: when no name is in range, nothing is left targeted to mark.
 	// Not in a fight, where clearing the target would stop melee and Auto Shot.
 	let skull = plain("Kobold Vermin") + "\n/tm [@target,harm,nodead] !8";
@@ -926,7 +950,7 @@ fn mark_target_off_by_default_on_the_target_button_and_step_key_put_a_skull_on_a
 }
 
 #[test]
-fn ping_off_by_default_on_the_target_button_and_step_key_the_rare_button_always_pings_a_mob_after_targeting_never_an_npc_the_mark_last() {
+fn mark_on_ping_off_by_default_the_target_button_and_step_key_ping_mobs_and_npcs_when_on_the_rare_button_always_pings_the_mark_last() {
 	let script = r#"
 		local t, s, r = PolestarTargetButton, PolestarStepButton, PolestarRareButton
 		local nearby = { "Thuros Lightfingers" }
@@ -934,7 +958,10 @@ fn ping_off_by_default_on_the_target_button_and_step_key_the_rare_button_always_
 		q.step({ { t = "kill", target = "Kobold Vermin", quest = 7, oi = 1 } })
 		Polestar.Fire("RARE_NEARBY")
 		stub.runTimers()
-		emit({ Polestar.GetDefault("qol.pingTarget"), t:GetAttribute("macrotext"), s:GetAttribute("macrotext"), r:GetAttribute("macrotext") })
+		local defaults = { Polestar.GetDefault("qol.pingTarget"), Polestar.GetDefault("qol.markTarget") }
+		set("pingTarget", false)
+		set("markTarget", false)
+		emit({ defaults, t:GetAttribute("macrotext"), s:GetAttribute("macrotext"), r:GetAttribute("macrotext") })
 		set("pingTarget", true)
 		emit({ t:GetAttribute("macrotext"), s:GetAttribute("macrotext") })
 		set("markTarget", true)
@@ -948,12 +975,16 @@ fn ping_off_by_default_on_the_target_button_and_step_key_the_rare_button_always_
 	let plain = |name: &str| format!("/cleartarget [nocombat]\n/targetexact {name}\n/cleartarget [dead]");
 	let out = run_with(script, "SLASH_PING1 = \"/ping\"", None);
 	let ping = |name: &str| plain(name) + "\n/ping [@target]";
-	assert_eq!(out[0], json!([false, plain("Kobold Vermin"), plain("Kobold Vermin"), ping("Thuros Lightfingers")]), "off by default; the rare button always pings");
+	assert_eq!(
+		out[0],
+		json!([[false, true], plain("Kobold Vermin"), plain("Kobold Vermin"), ping("Thuros Lightfingers")]),
+		"ping off and mark on by default (Fitz, 2026-11-13); with both off, no ping; the rare button always pings"
+	);
 	assert_eq!(out[1], json!([ping("Kobold Vermin"), ping("Kobold Vermin")]));
 	let marked = ping("Kobold Vermin") + "\n/tm [@target,harm,nodead] !8";
 	assert_eq!(out[2], json!([marked, marked]), "the ping right after the target, the mark last");
-	let star = plain("Marshal Dughan") + "\n/tm [@target,exists,nodead,nocombat][@target,noharm,nodead] !1";
-	assert_eq!(out[3], json!([star, star]), "an NPC goal's NPC is not pinged");
+	let star = ping("Marshal Dughan") + "\n/tm [@target,exists,nodead,nocombat][@target,noharm,nodead] !1";
+	assert_eq!(out[3], json!([star, star]), "an NPC goal's NPC is pinged too, the star last");
 	let long = text(&out[4]);
 	assert!(long.len() <= 255, "fits a macro");
 	assert!(long.ends_with("\n/cleartarget [dead]\n/ping [@target]\n/tm [@target,harm,nodead] !8"), "names are dropped, never the ping or the mark");
@@ -1084,7 +1115,9 @@ fn mark_target_alone_the_skull_goes_on_a_hostile_mob_a_second_press_never_takes_
 	let out = run_group(
 		r#"
 		local t, s = PolestarTargetButton, PolestarStepButton
-		emit({ Polestar.GetDefault("qol.markTarget"), tm(t), tm(s) })
+		local default = Polestar.GetDefault("qol.markTarget")
+		set("markTarget", false)
+		emit({ default, tm(t), tm(s) })
 		set("markTarget", true)
 		emit({ B.MarkRight(), tm(t), tm(s) })
 		local mob, starred = { hostile = true }, { hostile = true, icon = 1 }
@@ -1093,7 +1126,7 @@ fn mark_target_alone_the_skull_goes_on_a_hostile_mob_a_second_press_never_takes_
 		emit({ press(m, { hostile = false }) or false, press(m, { hostile = true, dead = true }) or false })
 	"#,
 	);
-	assert_eq!(out[0], json!([false, false, false]), "off by default");
+	assert_eq!(out[0], json!([true, false, false]), "on by default (Fitz, 2026-11-13); switched off, no mark");
 	assert_eq!(out[1], json!(["set", SKULL, SKULL]));
 	assert_eq!(out[2], json!([8, 8, 8, 8]), "a second press keeps the skull");
 	assert_eq!(out[3], json!([false, false]), "a friendly unit fails [harm], a corpse [nodead]");
@@ -2127,7 +2160,7 @@ fn target_button_names_the_while_you_re_here_rows_mobs_after_the_step_s_own_near
 			{ t = "kill", subject = "Gnoll", status = "done" },
 		})
 		emit({ tnames(), look() })
-		-- the arrow on a row: its mob first among the rows', after the step's own
+		-- the arrow on a row (the player clicked it): its mob first, before the step's own (#2011)
 		q.engine.waypoint = { stepIndex = 43, goalIndex = 1 }
 		Polestar.Fire("WAYPOINT_CHANGED", q.engine.waypoint)
 		stub.runTimers()
@@ -2143,7 +2176,7 @@ fn target_button_names_the_while_you_re_here_rows_mobs_after_the_step_s_own_near
 	assert_eq!(out[1][0], "Mottled Screecher, Black Ooze, Bluegill Murloc, Cursed Ooze", "the step's own first; no name twice; each row's first before any row's second; no interact or done row");
 	assert_eq!(out[1][1]["name"], "Mottled Screecher");
 	assert_eq!(out[1][1]["minis"], json!(["icon-collect", "icon-kill", "icon-collect"]));
-	assert_eq!(out[2], "Mottled Screecher, Bluegill Murloc, Black Ooze, Cursed Ooze");
+	assert_eq!(out[2], "Bluegill Murloc, Mottled Screecher, Black Ooze, Cursed Ooze", "the aimed row's mob first, then the step's own (#2011)");
 	assert_eq!(out[3], json!(["Bluegill Murloc", "Black Ooze", "Mottled Screecher", "Cursed Ooze"]), "HereNames: the rows' mobs alone, the same way, the arrow's row first");
 }
 
@@ -2216,13 +2249,13 @@ fn target_button_while_you_re_here_mobs_before_the_step_s_npc_beyond_the_radius_
 	let out = run_with(&script, "SLASH_PING1 = \"/ping\"", None);
 	let mob_first =
 		"/cleartarget [nocombat]\n/targetexact Skeletal Fiend\n/cleartarget [dead]\n/targetexact [noexists] Sven Yorgen\n/cleartarget [dead]\n/ping [@target]\n/tm [@target,harm,nodead] !8";
-	let npc_first = "/cleartarget [nocombat]\n/targetexact Sven Yorgen\n/cleartarget [dead]\n/targetexact [noexists] Skeletal Fiend\n/cleartarget [dead]\n/tm [@target,exists,nodead,nocombat][@target,noharm,nodead] !1";
+	let npc_first = "/cleartarget [nocombat]\n/targetexact Sven Yorgen\n/cleartarget [dead]\n/targetexact [noexists] Skeletal Fiend\n/cleartarget [dead]\n/ping [@target]\n/tm [@target,exists,nodead,nocombat][@target,noharm,nodead] !1";
 	assert_eq!(out[0], "Sven Yorgen", "no rows: the NPC alone");
 	assert_eq!(out[1], json!(["Skeletal Fiend, Sven Yorgen", "Skeletal Fiend", mob_first]), "200 yd from Sven: the row's mob first, pinged and marked as a mob");
-	assert_eq!(out[2], json!(["Sven Yorgen, Skeletal Fiend", "Sven Yorgen", npc_first]), "100 yd: Sven first, an NPC's mark, no ping");
+	assert_eq!(out[2], json!(["Sven Yorgen, Skeletal Fiend", "Sven Yorgen", npc_first]), "100 yd: Sven first, pinged, with an NPC's mark");
 	assert_eq!(out[3], "Sven Yorgen, Skeletal Fiend", "179 yd: still within");
 	assert_eq!(out[4], "Skeletal Fiend, Sven Yorgen", "181 yd: beyond again");
-	assert_eq!(out[5], json!(["Sven Yorgen", "/cleartarget [nocombat]\n/targetexact Sven Yorgen\n/cleartarget [dead]\n/targetexact [noexists] Skeletal Fiend\n/cleartarget [dead]\n/tm [@target,exists,nodead,nocombat][@target,noharm,nodead] !1"]), "a press: Sven next, with his own kind's mark");
+	assert_eq!(out[5], json!(["Sven Yorgen", npc_first]), "a press: Sven next, pinged, with his own kind's mark");
 	assert_eq!(out[6], "Sven Yorgen, Skeletal Fiend", "a wider radius: 181 yd is within it");
 	assert_eq!(out[7], "Sven Yorgen", "the rows hid: the NPC alone, wherever the player stands");
 }
@@ -2249,7 +2282,7 @@ fn step_key_while_you_re_here_mobs_before_the_step_s_npc_beyond_the_radius_after
 	]
 	.concat();
 	let out = run_with(&script, "SLASH_PING1 = \"/ping\"", None);
-	assert_eq!(out[0], json!(["Sven Yorgen", "/cleartarget [nocombat]\n/targetexact Sven Yorgen\n/cleartarget [dead]"]), "no rows: the NPC keeps the key");
+	assert_eq!(out[0], json!(["Sven Yorgen", "/cleartarget [nocombat]\n/targetexact Sven Yorgen\n/cleartarget [dead]\n/ping [@target]"]), "no rows: the NPC keeps the key, pinged");
 	assert_eq!(
 		out[1],
 		json!(["Skeletal Fiend, Sven Yorgen", "/cleartarget [nocombat]\n/targetexact Skeletal Fiend\n/cleartarget [dead]\n/targetexact [noexists] Sven Yorgen\n/cleartarget [dead]\n/ping [@target]"]),
@@ -2257,8 +2290,8 @@ fn step_key_while_you_re_here_mobs_before_the_step_s_npc_beyond_the_radius_after
 	);
 	assert_eq!(
 		out[2],
-		json!(["Sven Yorgen, Skeletal Fiend", "/cleartarget [nocombat]\n/targetexact Sven Yorgen\n/cleartarget [dead]\n/targetexact [noexists] Skeletal Fiend\n/cleartarget [dead]"]),
-		"100 yd: Sven first, not pinged"
+		json!(["Sven Yorgen, Skeletal Fiend", "/cleartarget [nocombat]\n/targetexact Sven Yorgen\n/cleartarget [dead]\n/targetexact [noexists] Skeletal Fiend\n/cleartarget [dead]\n/ping [@target]"]),
+		"100 yd: Sven first, pinged too"
 	);
 	assert_eq!(out[3], "Skeletal Fiend, Sven Yorgen", "210 yd: the mob first again");
 }
@@ -2591,7 +2624,7 @@ fn xp_mark_comes_back_with_the_ui_after_an_xp_gain_while_the_ui_was_hidden() {
 }
 
 #[test]
-fn xp_mark_on_by_default_on_quality_of_life_trackers_experience() {
+fn xp_mark_on_by_default_on_quality_of_life_trackers_and_map_experience() {
 	let out = run(r#"
 		local found
 		for _, spec in ipairs(Polestar.Widgets.OptionsRegistry) do
@@ -2601,11 +2634,11 @@ fn xp_mark_on_by_default_on_quality_of_life_trackers_experience() {
 		end
 		emit({ default = Polestar.GetDefault("qol.xpTargetMark"), where = found or "none" })
 	"#);
-	assert_eq!(out[0], json!({ "default": true, "where": { "page": "Quality of Life", "tab": "Trackers", "section": "Experience" } }));
+	assert_eq!(out[0], json!({ "default": true, "where": { "page": "Quality of Life", "tab": "Trackers & map", "section": "Experience" } }));
 }
 
 #[test]
-fn options_open_the_quest_log_cleanup_from_tooltips_and_quest_log() {
+fn options_open_the_quest_log_cleanup_from_quest_log_and_tooltips() {
 	let out = run(r#"
 		local found, asked
 		for _, spec in ipairs(Polestar.Widgets.OptionsRegistry) do
@@ -2617,7 +2650,7 @@ fn options_open_the_quest_log_cleanup_from_tooltips_and_quest_log() {
 		if found then found.c.onClick(); found.c = nil end
 		emit({ where = found or "none", asked = asked or false })
 	"#);
-	assert_eq!(out[0], json!({ "where": { "page": "Questing", "tab": "Quests", "section": "Tooltips and quest log" }, "asked": true }));
+	assert_eq!(out[0], json!({ "where": { "page": "Questing", "tab": "Quests", "section": "Quest log and tooltips" }, "asked": true }));
 }
 
 // ---------------------------------------------------------------------------
@@ -3289,261 +3322,29 @@ const SPELLS: &str = r#"
 "#;
 
 #[test]
-fn trainer_learns_every_spell_it_offers_now_one_per_list_update_and_prints_the_total() {
-	let out = run(&[
-		SPELLS,
-		r#"
-		set("trainAll", true)
-		q.money = 1000
-		q.openTrainer()
-		emit(#calls("BuyTrainerService"))   -- one at a time: the list moves after each
-		stub.advance(1)
-		local out = {}
-		for _, c in ipairs(q.calls) do if c[1] == "BuyTrainerService" then out[#out + 1] = c[2] .. " " .. c[3] end end
-		emit(out)
-		emit({ money = q.money, msg = printed("Learned 2 spells for 3s 0c") })
-	"#,
-	]
-	.concat());
-	assert_eq!(out[0], 1);
-	assert_eq!(out[1], json!(["Fireball Rank 2", "Frost Armor Rank 1"]));
-	assert_eq!(out[2], json!({ "money": 700, "msg": true }));
-}
-
-#[test]
-fn trainer_waits_for_each_purchase_to_land_before_the_next_whatever_else_updates_the_list() {
-	let out = run(&[
-		SPELLS,
-		r#"
-		set("trainAll", true)
-		q.money = 1000
-		q.openTrainer()
-		stub.fire("TRAINER_UPDATE")      -- not from the purchase, which has not landed yet
-		stub.fire("TRAINER_UPDATE")
-		local early = #calls("BuyTrainerService")
-		stub.advance(1)
-		emit({ early = early, bought = #calls("BuyTrainerService"), money = q.money, msg = printed("Learned 2 spells for 3s 0c") })
-	"#,
-	]
-	.concat());
-	assert_eq!(out[0], json!({ "early": 1, "bought": 2, "money": 700, "msg": true }));
-}
-
-#[test]
-fn trainer_a_refused_purchase_ends_the_run_one_still_on_its_way_at_closing_is_counted() {
-	let out = run(&[
-		SPELLS,
-		r#"
-		set("trainAll", true)
-		q.money = 1000
-		q.trainer.services[3].refuse = true   -- Frost Armor
-		q.openTrainer()
-		stub.advance(3)
-		emit({ bought = #calls("BuyTrainerService"), msg = printed("Learned 1 spell for 1s 0c") })
-		q.closeTrainer()
-
-		stub.messages = {}
-		q.trainer.services = {
-			{ name = "Fireball", rank = "Rank 2", kind = "available", cost = 100 },
-			{ name = "Frost Armor", rank = "Rank 1", kind = "available", cost = 200 },
-		}
-		q.openTrainer()
-		q.closeTrainer()                  -- before the first purchase lands
-		emit(printed("Learned 1 spell for 1s 0c"))
-	"#,
-	]
-	.concat());
-	assert_eq!(out[0], json!({ "bought": 2, "msg": true }));
-	assert_eq!(out[1], true);
-}
-
-#[test]
-fn trainer_learns_what_you_can_afford_and_says_how_much_more_the_rest_costs() {
-	let out = run(&[
-		SPELLS,
-		r#"
-		set("trainAll", true)
-		q.money = 150
-		q.openTrainer()
-		stub.advance(1)
-		emit({ bought = #calls("BuyTrainerService"), money = q.money,
-			learned = printed("Learned 1 spell for 1s 0c"), short = printed("Not enough money for 1 more %(2s 0c%)") })
-	"#,
-	]
-	.concat());
-	assert_eq!(out[0], json!({ "bought": 1, "money": 50, "learned": true, "short": true }));
-}
-
-#[test]
-fn trainer_off_by_default_profession_trainers_shift_and_closing_the_window_stop_it() {
-	let out = run(&[
-		SPELLS,
-		r#"
-		q.money = 1000
-		q.openTrainer(); stub.advance(1)
-		emit(#calls("BuyTrainerService"))
-		q.closeTrainer()
-
-		set("trainAll", true)
-		q.trainer.tradeskill = true
-		q.openTrainer(); stub.advance(1)
-		emit(#calls("BuyTrainerService"))
-		q.closeTrainer()
-		q.trainer.tradeskill = false
-
-		stub.keys.shift = true
-		q.openTrainer(); stub.advance(1)
-		emit(#calls("BuyTrainerService"))
-		q.closeTrainer()
-		stub.keys.shift = false
-
-		q.openTrainer()
-		q.closeTrainer()
-		stub.advance(1)
-		emit(#calls("BuyTrainerService"))
-	"#,
-	]
-	.concat());
-	assert_eq!(out[0], 0, "off by default");
-	assert_eq!(out[1], 0, "profession trainer");
-	assert_eq!(out[2], 0, "Shift");
-	assert_eq!(out[3], 1, "closed after the first purchase: no more");
-}
-
-#[test]
-fn trainer_riding_weapon_and_pet_trainers_are_left_alone_so_opening_one_to_check_a_price_spends_nothing() {
-	let out = run(r#"
-		set("trainAll", true)
-		for _, t in ipairs({                                            -- none of them a class trainer
-			{ npc = 4732, name = "Apprentice Riding", cost = 1000000 },   -- Randal Hunter, riding
-			{ npc = 90001, name = "Swords", cost = 1000 },                -- a weapon master
-			{ npc = 90002, name = "Bite", cost = 500 },                   -- a pet trainer
-		}) do
-			q.money, q.calls = 1000000, {}
-			q.trainer = { tradeskill = false, services = { { name = t.name, rank = "", kind = "available", cost = t.cost } } }
-			q.openTrainer(t.npc); stub.advance(1)
-			emit(#calls("BuyTrainerService"))
-			q.closeTrainer()
-		end
-	"#);
-	assert_eq!(json!(out), json!([0, 0, 0]));
-}
-
-#[test]
-fn trainer_turning_training_off_even_back_on_holding_shift_or_logging_out_while_a_purchase_is_on_its_way_buys_nothing_more() {
-	let purchases = |between: &str| {
-		run(&[
+fn trainer_never_spends_gold_even_with_saved_bulk_training_settings() {
+	let out = run_with(
+		&[
 			SPELLS,
 			r#"
 		set("trainAll", true)
+		set("trainAllButton", true)
 		q.money = 1000
-		q.openTrainer()                  -- the first purchase is on its way
-		"#,
-			between,
-			r#"
+		q.openTrainer()
+		stub.fire("TRAINER_UPDATE")
 		stub.advance(3)
-		emit(#calls("BuyTrainerService"))
+		q.closeTrainer()
+		q.openTrainer()
+		stub.advance(3)
+		emit({ bought = #calls("BuyTrainerService"), money = q.money,
+			button = PolestarTrainAllButton ~= nil })
 	"#,
 		]
-		.concat())[0]
-			.clone()
-	};
-	let got = json!({
-		"off": purchases(r#"set("trainAll", false)"#),
-		"offOn": purchases(r#"set("trainAll", false); set("trainAll", true)"#),
-		"shift": purchases("stub.keys.shift = true"),
-		"logout": purchases(r#"stub.fire("PLAYER_LOGOUT")"#),
-		"closed": purchases("q.closeTrainer()"),
-		"left": purchases(""),
-	});
-	assert_eq!(got, json!({ "off": 1, "offOn": 1, "shift": 1, "logout": 1, "closed": 1, "left": 2 }));
-}
-
-#[test]
-fn trainer_a_purchase_that_has_landed_when_shift_stops_the_run_is_still_counted_in_the_summary() {
-	let out = run(&[
-		SPELLS,
-		r#"
-		set("trainAll", true)
-		q.money = 1000
-		q.openTrainer()
-		stub.keys.shift = true           -- held as the first purchase lands
-		stub.advance(3)
-		emit({ bought = #calls("BuyTrainerService"), money = q.money, msg = printed("Learned 1 spell for 1s 0c") })
-	"#,
-	]
-	.concat());
-	assert_eq!(out[0], json!({ "bought": 1, "money": 900, "msg": true }));
-}
-
-#[test]
-fn trainer_a_purchase_still_on_its_way_when_the_setting_is_turned_off_is_counted_in_the_summary_as_on_close() {
-	let out = run(&[
-		SPELLS,
-		r#"
-		set("trainAll", true)
-		q.money = 1000
-		q.openTrainer()                  -- the first purchase is on its way
-		set("trainAll", false)
-		stub.advance(3)
-		emit({ bought = #calls("BuyTrainerService"), money = q.money, msg = printed("Learned 1 spell for 1s 0c") })
-	"#,
-	]
-	.concat());
-	assert_eq!(out[0], json!({ "bought": 1, "money": 900, "msg": true }));
-}
-
-#[test]
-fn trainer_button_learns_affordable_spells_one_per_list_update_and_prints_the_total() {
-	let out = run(&[
-		SPELLS,
-		r#"
-		q.money = 1000
-		q.openTrainer()
-		local b = PolestarTrainAllButton
-		emit({ shown = b:IsShown(), enabled = b:IsEnabled() })
-		q.click(b, false)
-		emit(#calls("BuyTrainerService"))
-		stub.advance(1)
-		local out = {}
-		for _, c in ipairs(q.calls) do if c[1] == "BuyTrainerService" then out[#out + 1] = c[2] .. " " .. c[3] end end
-		emit(out)
-		emit({ money = q.money, msg = printed("Learned 2 spells for 3s 0c") })
-	"#,
-	]
-	.concat());
-	assert_eq!(out[0], json!({ "shown": true, "enabled": true }));
-	assert_eq!(out[1], 1);
-	assert_eq!(out[2], json!(["Fireball Rank 2", "Frost Armor Rank 1"]));
-	assert_eq!(out[3], json!({ "money": 700, "msg": true }));
-}
-
-#[test]
-fn trainer_button_does_not_show_at_profession_or_non_class_trainers_or_when_disabled() {
-	let out = run(&[
-		SPELLS,
-		r#"
-		q.money = 1000
-		q.trainer.tradeskill = true
-		q.openTrainer()
-		local b = PolestarTrainAllButton
-		emit(b:IsShown())
-		q.closeTrainer()
-		q.trainer.tradeskill = false
-
-		q.openTrainer(90002)
-		emit(b:IsShown())
-		q.closeTrainer()
-
-		set("trainAllButton", false)
-		q.openTrainer()
-		emit(b:IsShown())
-	"#,
-	]
-	.concat());
-	assert_eq!(out[0], false, "profession trainer");
-	assert_eq!(out[1], false, "other trainer");
-	assert_eq!(out[2], false, "disabled in options");
+		.concat(),
+		"",
+		Some("PolestarDB = { schema = 1, settings = { qol = { trainAll = true, trainAllButton = true } } }"),
+	);
+	assert_eq!(out[0], json!({ "bought": 0, "money": 1000, "button": false }));
 }
 
 // ---------------------------------------------------------------------------
@@ -4541,6 +4342,25 @@ fn bind_at_the_step_s_innkeeper_picks_the_bind_option_and_confirms_the_bind_off_
 	assert_eq!(out[2], 92);
 	assert_eq!(out[3], json!({ "binder": 20, "cleared": 20, "closed": 1 }));
 	assert_eq!(out[4], 90);
+}
+
+// #1965: Menethil Harbor's step binds at Innkeeper Helbrek, then buys a Flagon of Dwarven Honeymead from him. The
+// step's gossip opened his goods for the buy, and the bind the arrow asked for was gone. The bind comes first: with
+// automatic binding off, his gossip stays open for the player; once bound, the buy opens the goods.
+#[test]
+fn issue_1965_an_open_bind_at_the_innkeeper_keeps_his_goods_shut_until_it_is_done() {
+	let out = run(&[
+		INN,
+		r#"
+		q.step({ { t = "sethome", location = "Deepwater Tavern", npc = 1464 }, { t = "buy", item = 2594, count = 1, itemName = "Flagon of Dwarven Honeymead", npc = 1464 } })
+		emit(visit(1464))
+		q.step({ { t = "sethome", location = "Deepwater Tavern", npc = 1464, status = "done" }, { t = "buy", item = 2594, count = 1, itemName = "Flagon of Dwarven Honeymead", npc = 1464 } })
+		emit(visit(1464))
+	"#,
+	]
+	.concat());
+	assert_eq!(out[0], 0, "bind still open: nothing picked");
+	assert_eq!(out[1], 91, "bound: the buy opens his goods");
 }
 
 // Answered inside CONFIRM_BINDER, Forever's client dropped the first bind at an innkeeper: the popup closed, the

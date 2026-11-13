@@ -81,7 +81,7 @@ fn size(v: &Value) -> usize {
 }
 
 #[test]
-fn import_sits_at_the_rail_s_foot_just_above_options_in_the_hub_and_in_the_settings_polestar_import_opens_it() {
+fn import_sits_at_the_rail_s_foot_just_above_options_in_the_hub_the_settings_window_has_no_rail_polestar_import_opens_it() {
 	let out = run(r#"
 		SlashCmdList.POLESTAR("import")
 		local hub = rail(PolestarPicker)
@@ -94,7 +94,8 @@ fn import_sits_at_the_rail_s_foot_just_above_options_in_the_hub_and_in_the_setti
 	// The foot is placed first, from the bottom up: Options, then Import.
 	let hub = out["hub"].as_array().unwrap();
 	assert_eq!(hub[..2], [json!("Options"), json!("Import")]);
-	assert_eq!(out["options"].as_array().unwrap()[..2], [json!("Options"), json!("Import")]);
+	// The settings window is a window of its own: no hub rail in it.
+	assert!(out["options"].as_array().is_none_or(|a| a.is_empty()), "the settings window has no rail: {}", out["options"]);
 	assert_eq!(hub.iter().filter(|k| **k == "Import").count(), 1, "not among the sections at the top too");
 	let foot: Vec<Value> = out["foot"].as_array().unwrap().iter().map(|i| i["key"].clone()).collect();
 	assert_eq!(foot, vec![json!("Options"), json!("Import")]);

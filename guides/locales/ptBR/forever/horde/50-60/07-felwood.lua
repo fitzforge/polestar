@@ -7,7 +7,7 @@
 -- The comments are rewritten by sync.
 return {
 	-- Step 1: Tirisfal Glades
-	["The zeppelin towers"] = "",
+	["The zeppelin towers"] = "As torres dos zepelins",
 
 	-- Step 2: Zeppelin to Orgrimmar
 	-- {zone:1454} Orgrimmar
@@ -61,8 +61,8 @@ return {
 	["Corrupted Soul Shards from the cultists, {quest:5887}"] = "Fragmentos de Alma Corrompidos dos cultistas, {quest:5887}",
 
 	-- Step 13: Maybess Riverbreeze
-	-- {npc:10922} Greta Mosshoof · {npc:9529} Maybess Riverbreeze
-	["On the way back south to {npc:10922}, {npc:9529} takes the shards on the west side of the Sanctuary."] = "Na volta para o sul até {npc:10922}, entregue os fragmentos a {npc:9529}, no lado oeste do Santuário.",
+	-- {npc:9529} Maybess Riverbreeze
+	["On the way back south to Greta, {npc:9529} takes the shards on the west side of the Sanctuary."] = "",
 
 	-- Step 14: Greta Mosshoof
 	["South to the Sanctuary once more."] = "Volte mais uma vez para o sul até o Santuário.",
@@ -104,7 +104,7 @@ return {
 
 	-- Step 29: Kernda
 	-- {area:1762} Felpaw Village · {npc:11558} Kernda · {area:1769} Timbermaw Hold · {zone:1448} Felwood
-	["The Deadwood totem from {area:1762}, if {npc:11558} didn't take it then: she waits at the tunnel mouth of {area:1769} and speaks to you from Neutral with the Timbermaw, which the Deadwood furbolgs of {zone:1448} brought you to."] = "",
+	["The Deadwood totem from {area:1762}, if {npc:11558} didn't take it then: she waits at the tunnel mouth of {area:1769} and speaks to you from Neutral with the Timbermaw, which the Deadwood furbolgs of {zone:1448} brought you to."] = "O totem de Lenha Morta de {area:1762}, se {npc:11558} não o aceitou na época: ela espera na boca do túnel de {area:1769} e fala com você a partir de Neutro com os Presamatos, reputação que os furbolgs de Lenha Morta de {zone:1448} lhe deram.",
 	-- {npc:11558} Kernda
 	["{npc:11558} walks around here: look inside the circle on the map"] = "{npc:11558} anda por aqui: procure dentro do círculo no mapa",
 
@@ -128,7 +128,7 @@ return {
 
 	-- Step 34: Are We There, Yeti?
 	-- {npc:10978} Legacki · {npc:10980} Umi's Mechanical Yeti
-	["Scare {npc:10978} with {npc:10980}"] = "",
+	["Scare {npc:10978} with {npc:10980}"] = "Assuste {npc:10978} com o {npc:10980}",
 
 	-- Step 35: Everlook
 	-- {area:2255} Everlook
@@ -156,6 +156,7 @@ return {
 	-- ["Back into the Timbermaw tunnel and take the {area:618} exit; {npc:9298} camps by the hot springs just outside."] = "Volte ao túnel dos Presamatos e pegue a saída para {area:618}; {npc:9298} acampa junto às fontes termais logo do lado de fora.",
 	-- ["Fly to {area:431} and ride north-west along the road out of {zone:1440} into {area:361}. The {area:2479} is the druids' camp just past the border."] = "Voe para {area:431} e siga para o noroeste pela estrada que sai de {zone:1440} para {area:361}. {area:2479} é o acampamento dos druidas logo depois da fronteira.",
 	-- ["From the {zone:1458}, take the zeppelin from the tower outside the city to {zone:1454}."] = "De {zone:1458}, pegue o zepelim na torre do lado de fora da cidade para {zone:1454}.",
+	-- ["On the way back south to {npc:10922}, {npc:9529} takes the shards on the west side of the Sanctuary."] = "Na volta para o sul até {npc:10922}, entregue os fragmentos a {npc:9529}, no lado oeste do Santuário.",
 	-- ["Only at Neutral with the Timbermaw: {npc:11558} waits at the tunnel mouth of {area:1769}."] = "Só se você estiver Neutro com os Presamatos: {npc:11558} espera na boca do túnel de {area:1769}.",
 	-- ["Only if you carry {quest:5087}: the runners walk the road from {area:1769} toward {area:2244} in small groups; wait by the road near {npc:9298} and kill them as they pass. Each one carries a crate."] = "Só se tiver {quest:5087}: os mensageiros andam pela estrada de {area:1769} rumo a {area:2244} em pequenos grupos; espere na estrada perto de {npc:9298} e mate-os quando passarem. Cada um carrega um caixote.",
 	-- ["Only if {npc:9298} gave you {quest:5086}: ride north up the {area:361} road to {area:1767}; the {quest:5086} ooze between the trees."] = "Só se {npc:9298} deu {quest:5086} a você: siga para o norte pela estrada de {area:361} até {area:1767}; os alvos de {quest:5086} escorrem entre as árvores.",

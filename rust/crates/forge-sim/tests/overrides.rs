@@ -289,7 +289,7 @@ fn a_pair_s_objective_index_names_that_objective_s_task() {
 
 #[test]
 fn a_quest_the_overrides_skip_is_named_dropped() {
-	// RevH2 (c10): overrides.skip 5821/5943 came out before the seed, so the route's diff never
+	// c10 review: overrides.skip 5821/5943 came out before the seed, so the route's diff never
 	// named them and the writer kept v1's lines.
 	let o = common::orc();
 	let m = o.model(&[]);

@@ -30,16 +30,18 @@
 --       elite, rare elite or boss out in the world, or an item it drops,
 --       carries the compiled guides' `group` ({ kind = "elite", rank, lvl }),
 --       so the step says "Elite: group advised" (Rear Guard Patrol's Riptear,
---       before the Ruins of Lordaeron's The Wrath of Rath'mael)
+--       before the Ruins of Lordaeron's The Wrath of Rath'mael); so does an
+--       object's work among hostile elites, as the Codex build marks it
+--       (Berard's Bookshelf in Pyrewood Village, #1778)
 --   Lookup.AcceptPre(goal, quest) -> goal
 --       an accept goal with the Codex quest's prerequisites as a compiled
 --       guide's accept carries them (all of `pre` as preAll, one of `preAny`
 --       as pre, without those of another faction, race or class while one
---       is left; their titles as preTitles), so the Engine tells "Requires X
---       first" when the route no longer brings X, and a giver's window that
---       does not list the quest for that reason passes it (#1406: Gryan
---       Stoutmantle's The Defias Brotherhood after The Defias Traitor's step
---       was skipped)
+--       is left; a child quest's `parent`; their titles as
+--       preTitles), so the Engine tells "Requires X first" when the route no
+--       longer brings X, and a giver's window that does not list the quest
+--       for that reason passes it (#1406: Gryan Stoutmantle's The Defias
+--       Brotherhood after The Defias Traitor's step was skipped)
 --   Lookup.SpawnZ(kind, id, point) -> z | nil
 --       the height of NPC or object `id`'s Codex spawn at point { map, x, y, f }
 --       (kind "npc" | "object"): its spawn on that map and frame nearest the
@@ -301,6 +303,18 @@ local function eliteGroup(npc)
 	return { kind = "elite", rank = npc.boss and 3 or (npc.rare and 2) or 1, lvl = npc.level }
 end
 
+-- An objective's hostile elites for the character's side, as the Codex build
+-- marked them (objective.elites[side] = { rank, lvl }: an object to use, or
+-- an item only objects give, among elites; forge-data codex/elites.rs) ->
+-- the same `group` as an elite target's, else nil. Read, never searched
+-- for in game (#1778: Berard's Bookshelf in Pyrewood Village).
+local function eliteMark(o)
+	local code = o.elites and Lookup.PlayerInfo().code
+	local e = code and o.elites[code]
+	if not (e and e.rank) then return nil end
+	return { kind = "elite", rank = e.rank, lvl = e.lvl }
+end
+
 -- Spawn areas (docs/GUIDE_FORMAT.md, "Spawn areas"), as compiled goals get
 -- them (tools/lib/dsl/resolve.js, spawnSpots), for a kill, collect or interact
 -- goal placed at one of its target's spawns: every Codex spawn of the target
@@ -450,6 +464,21 @@ function Lookup.AcceptPre(goal, q)
 		goal.pre = #own > 0 and own or any
 		for _, id in ipairs(goal.pre) do title(id) end
 	end
+	-- The quests whose taking closes it for good (a breadcrumb's target, an
+	-- exclusive quest): the Engine passes the accept once one is in the log
+	-- or done, "No longer offered: you took X" (#1996: The Greenwarden after
+	-- Tramping Paws).
+	local closed = q and q.closedBy
+	if type(closed) == "table" and #closed > 0 then
+		goal.closedBy = closed
+		for _, id in ipairs(closed) do title(id) end
+	end
+	-- A child quest: its giver offers it only while the parent is in the log.
+	local parent = q and tonumber(q.parent)
+	if parent then
+		goal.parent = parent
+		title(parent)
+	end
 	goal.preTitles = titles
 	return goal
 end
@@ -564,7 +593,7 @@ local function questStep(q, from, isTarget, opts)
 			local s, source, spawns, dropper = itemSpot(o.id, here, inside)
 			if source then mark(s, name) end
 			goals[#goals + 1] = spawnSpots(at(itemFrom({ t = "collect", item = o.id, itemName = name,
-				quest = q.id, oi = oi, count = count, title = q.title, group = eliteGroup(dropper) }, o.id), s), spawns)
+				quest = q.id, oi = oi, count = count, title = q.title, group = eliteGroup(dropper) or eliteMark(o) }, o.id), s), spawns)
 		elseif o.type == "talk" and o.id then
 			-- Speak to an NPC (Hidden Enemies: Neeru Fireblade): the engine counts it by the
 			-- quest's objective line, so it holds the step until done.
@@ -586,7 +615,7 @@ local function questStep(q, from, isTarget, opts)
 				mark(s, objName)
 			end
 			goals[#goals + 1] = spawnSpots(at({ t = "interact", object = o.id, objName = objName,
-				quest = q.id, oi = oi, count = count, title = q.title }, s), obj and obj.spawns)
+				quest = q.id, oi = oi, count = count, title = q.title, group = eliteMark(o) }, s), obj and obj.spawns)
 		else
 			event = event or o
 		end
@@ -816,6 +845,14 @@ builders.entrance = function(ctx, row)
 	if not located(row) then return nil, "nolocation" end
 	return { { title = ctx.name, goals = { at({ t = "goto", text = ctx.name, entrance = true }, row) } } }
 end
+
+-- A zone's flight master, inn or middle (Sources' zone rows, #1743): one
+-- goto, and the arrow's route (flights, boats, portals) leads the way there.
+builders.flight = function(ctx, row)
+	if not located(row) then return nil, "nolocation" end
+	return { { title = ctx.name, goals = { at({ t = "goto", text = row.label }, row) } } }
+end
+builders.inn, builders.middle = builders.flight, builders.flight
 
 local function entityName(kind, entity)
 	if not entity then return nil end

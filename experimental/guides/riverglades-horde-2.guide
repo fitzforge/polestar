@@ -1,0 +1,141 @@
+guide polestar-experimental/riverglades-horde-2
+title Riverglades 2: Sunnyglade, Na'zok's camp and Bolder'ok (experimental)
+faction Horde
+levels 39-41
+zone Riverglades
+coords live
+folder Riverglades · Experimental
+why Forever's new zone, an alpha route written from players' recordings.
+keywords riverglades, sunnyglade, rog'mar, na'zok, bolder'ok, clugfist, bloodmaster's ring, experimental, alpha
+next polestar-experimental/riverglades-horde-3
+
+# Polestar Experimental, Riverglades for the Horde, part 2 of 4 (2026-11-12). Hand-written from players'
+# recordings of the zone and Forever's quest data for titles, levels, objectives and places.
+# Order: Tran'gul's first errand in Sunnyglade (the Twilight cult's farm town) with Fuzzle's escort, and back;
+# Na'zok's camp and the ogres of Bolder'ok in the hills to the north-east (levels 36-42), with Jom-jom's escort on
+# the way back to the ogres' chieftain. Clubtoe's quests in Sunnyglade wait for part 4, on the way west.
+# Offered only after another quest is handed in (players' recordings): Tran'gul's quests after Show Them How It's
+# Done (part 1); Digging for Answers after Twilight Missives; Biting the Hand's escort after the finger bones;
+# Clugfist's Decree and Bloodmaster's Ring after Might Makes Right; each bout of the Bloodmaster's Ring after the one
+# before.
+# The Bloodmaster's Ring bouts are one-on-one fights against elite ogres and beasts (41-45): an optional side chain
+# for players who want it. Recorded players of levels 41-43 won them (one lost a bout and took it again).
+# Elites, each behind a group choice: Scoutmaster Vargas (42), and Chogg'Zac (41) in part 4.
+# Left out on purpose:
+# - Step One: Rock (95183): Hamur offers it only once Might Makes Right is handed in, when the rock piles are back
+#   in the hills behind you; Step Two: More Rock (96026) asks for ten Heavy Weightstones, a blacksmith's make.
+# - Our Ogre Friend (94733), A Boar's Delight (94734) and A Treat for a Friend (94737): offered only after the fourth
+#   bout of the Ring, and the sweetberries grow by the Eastsea pirates far to the south-east.
+
+step Tran'gul
+  tip Experimental route (alpha): if a step is wrong, tell us on Polestar's Discord or GitHub and name the step.
+  tip Tran'gul stands beside Krom'rosh in the middle of Rog'mar: now that the Farholde camp has had its lesson, he has work in Sunnyglade.
+  accept 94672                          -- Encroaching Twilight
+  accept 94680                          -- Twilight Missives
+
+step Fuzzle
+  tip West of Rog'mar the Twilight cult holds the farm town of Sunnyglade. Fuzzle, a kobold who wants out, hides in the middle of the town.
+  accept 94961                          -- Biting the Hand
+
+step Sunnyglade
+  tip The cultists fill the streets and fields; the Shadowmancers on the town's northern side carry the missives. The finger bones drop from all of them.
+  kill 256952 x8 quest 94672.1          -- Twilight Raider
+  kill 254560 x8 quest 94672.2          -- Twilight Shadowmancer
+  kill 256798 x8 quest 94672.3          -- Twilight Neophyte
+  collect 265745 x3 quest 94680.1       -- Twilight Missive
+  collect 267073 x20 quest 94961.1      -- Twilight Finger Bone
+
+step Fuzzle
+  tip Fuzzle wants out of Sunnyglade: lead him west to his treasure at the edge of town and keep the cultists off him.
+  turnin 94961
+  accept 94963                          -- Biting the Hand
+  complete 94963 @41.6,47.7             -- lead Fuzzle out of Sunnyglade to his treasure, west of the town
+  turnin 94963                          -- Fuzzle's Treasure
+
+step Tran'gul
+  tip East back to Rog'mar.
+  turnin 94672
+  turnin 94680
+  accept 94727                          -- Digging for Answers: for Clubtoe in Sunnyglade, in part 4
+
+step WANTED: Scoutmaster Vargas
+  when group 95882
+  tip Scoutmaster Vargas is an elite (level 42) at the Alliance scouts' camp in the hills south-east of Na'zok, where you go next: grouping up is advised. The poster hangs in the middle of the fort; Neza Bloodsnout takes the eye, in part 4.
+  accept 95882                          -- the Wanted poster
+
+step Na'zok's camp
+  tip North-east from Rog'mar up into the hills: Na'zok watches the Paletusk boars from his camp.
+  accept 95163                          -- Drive Them Back
+  accept 95162                          -- Paletusk Harvesting
+
+step Bolder'ok
+  tip North-west to Bolder'ok, the ogres' town. Clugfist, its chieftain, sits on the hill. The ogres are friendly while you leave them alone.
+  accept 95424                          -- Clugfist: Might Makes Right
+  accept 95425                          -- Unworthy Champion
+
+step The Twilight ogres' camp
+  tip The Twilight Maulers and Firecallers camp on the ridge east of Na'zok. Klunk, who carries the Skullbasher, stands among them. Just south of the ogres, Scoutmaster Vargas (an Alliance elite, level 42) and his Farholde Ambushers hold the scouts' camp: keep north of it unless you came with a group for him.
+  kill 260968 x7 quest 95424.1          -- Twilight Mauler
+  kill 261497 x7 quest 95424.2 @75.7,26.9  -- Twilight Firecaller
+  collect 269257 quest 95425.1          -- Skullbasher, from Klunk
+
+step Scoutmaster Vargas
+  when group 95882
+  collect 268581 quest 95882.1 @75.4,34.3  -- Scoutmaster's Eye
+
+step The paletusks
+  tip South down the hills, round the west side of the Alliance scouts' camp: tap the Young Paletusks with Na'zok's staff to send them home; the Mature Paletusks around the hills drop the boar meat.
+  use 268521 quest 95163.1 @72.4,39.5   -- Swineherd's Staff, on the Young Paletusks
+  collect 769 x10 quest 95162.1 @68.7,30.3  -- Chunk of Boar Meat, from the Mature Paletusks
+
+step Na'zok
+  turnin 95163
+  turnin 95162
+
+step Jom-jom's Escape
+  tip Jom-jom waits by the Twilight ogres' camp north-east of Na'zok: take him home to Bolder'ok and keep the cultists off him. If he falls, take the quest from him again.
+  accept 94556                          -- Jom-jom
+  complete 94556 @64.4,15.6             -- help Jom-jom reach Bolder'ok
+
+step Bolder'ok
+  tip Back to Clugfist on his hill. Jezap Jinglesprocket runs the Bloodmaster's Ring just below it.
+  turnin 94556                          -- Clugfist
+  turnin 95424
+  turnin 95425
+  accept 95428                          -- Clugfist's Decree: for Krom'rosh in Rog'mar, in part 4
+  accept 94668                          -- Bloodmaster's Ring
+  turnin 94668                          -- Jezap Jinglesprocket
+  accept 94669 optional                 -- Pay to Play: the Ring's bouts, one-on-one fights with elites (41-45); a deposit first
+
+step The Bloodmaster's Ring: Buzzbeak
+  when onquest 94669
+  tip Each bout is a fight in the ring below Clugfist's hill against an elite: Buzzbeak (41), Kronk and Bonegnaw (42), Mog'thar (43), Snufflesnout (44) and Chub'chob (45). Come in rested, with full health and mana; if a bout goes wrong, Jezap offers it again.
+  turnin 94669                          -- Jezap Jinglesprocket
+  accept 94670 optional                 -- Bloodmaster's Ring: Buzzbeak
+  complete 94670 @65.7,20.2             -- beat Buzzbeak
+  turnin 94670
+
+step The Bloodmaster's Ring: Kronk and Bonegnaw
+  when turnedin 94670
+  accept 94739 optional                 -- Kronk
+  complete 94739 @65.7,20.2
+  turnin 94739
+  accept 94962 optional                 -- Bonegnaw
+  complete 94962 @65.7,20.2
+  turnin 94962
+
+step The Bloodmaster's Ring: Mog'thar
+  when turnedin 94962
+  accept 94964 optional                 -- Mog'thar (43)
+  complete 94964 @65.7,20.2
+  turnin 94964
+
+step The Bloodmaster's Ring: Snufflesnout and Chub'chob
+  when turnedin 94964
+  tip The last two are level 44 and 45: leave them for later if Mog'thar was a close fight.
+  accept 94965 optional                 -- Snufflesnout (44)
+  complete 94965 @65.7,20.2
+  turnin 94965
+  accept 95063 optional                 -- Chub'chob (45)
+  complete 95063 @65.7,20.2
+  turnin 95063                          -- Clugfist, on the hill

@@ -15,7 +15,6 @@
 	<Script file="Vendor.lua"/>
 	<Script file="Buy.lua"/>
 	<Script file="Restock.lua"/>
-	<Script file="Trainer.lua"/>
 	<Script file="Spells.lua"/>
 	<Script file="ClassSpells.lua"/>
 	<Script file="Rewards.lua"/>
@@ -31,5 +30,4 @@
 	<Script file="Riding.lua"/>
 	<Script file="ClassQuests.lua"/>
 	<Script file="InstanceTrack.lua"/>
-	<Script file="Options.lua"/>
 </Ui>

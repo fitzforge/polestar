@@ -527,9 +527,9 @@ fn the_menu_toggles_the_window_the_arrow_hiding_and_whether_hiding_keeps_the_arr
 		emit(seen)"#,
 	)
 	.remove(0);
-	assert_eq!(out[0], json!(["[x] Guide window", "Hide arrow", "Hide Polestar", "Keep the arrow when hidden", "Guides", "Lookup", "Options", "Report a problem"]));
+	assert_eq!(out[0], json!(["[x] Guide window", "Hide arrow", "Hide Polestar", "Keep the arrow when hidden", "Guides", "Lookup", "Settings", "Report a problem"]));
 	assert_eq!(out[1], json!([true, true]), "checked, and saved for the character");
-	assert_eq!(out[2], json!(["Guide window", "Hide arrow", "Show Polestar", "[x] Keep the arrow when hidden", "Guides", "Lookup", "Options", "Report a problem"]));
+	assert_eq!(out[2], json!(["Guide window", "Hide arrow", "Show Polestar", "[x] Keep the arrow when hidden", "Guides", "Lookup", "Settings", "Report a problem"]));
 	assert_eq!(out[3], json!([false, false]), "the arrow off (nav.arrow) while hidden and kept");
 	assert_eq!(out[4], json!([true, true, true]), "and on again: the kept arrow shows, Polestar still hidden");
 	assert_eq!(out[5], json!([false, true]), "a window from the menu brings Polestar back");
@@ -577,7 +577,6 @@ const SURFACES: &[(&str, &str, usize, &str, &str)] = &[
 	("Polestar/QoL/Rewards.lua", "button", 1, "Hidden", "the quest reward marks: off while hidden"),
 	("Polestar/Talents/Overlay.lua", "button", 1, "Hidden", "the talent marks: off while hidden"),
 	("Polestar/Talents/Overlay.lua", "m", 2, "Hidden", "their ring and badge, under the mark"),
-	("Polestar/QoL/Trainer.lua", "ClassTrainerFrame", 1, "Hidden", "the Train All button on the trainer window: off while hidden"),
 ];
 
 // Marks Polestar puts on the game's frames without a frame of their own (textures on the game's buttons,
@@ -591,7 +590,7 @@ const MARKS: &[(&str, &str)] = &[
 	("Polestar/Quests/Tooltips.lua", "quest icons on nameplates"),
 	("Polestar/UI/QuestieTurnIns.lua", "turn-in captions in another addon's quest tracker"),
 	("Polestar/UI/QuestLinks.lua", "Show in Guides in the quest log's menus"),
-	("Polestar/UI/GuideFrame.lua", "Pin as along the way in the quest log's menu"),
+	("Polestar/UI/GuideFrameMenu.lua", "Pin as along the way in the quest log's menu"),
 	("Polestar/Maps/Services.lua", "NPC services in the map's tracking menus"),
 	("Polestar/Nav/Nearby.lua", "Nearby services in the map's tracking menus"),
 	("Polestar/QoL/Flight.lua", "the flight map's mark and route"),

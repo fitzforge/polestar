@@ -975,6 +975,61 @@ fn without_the_codex_pack_an_empty_state_that_says_where_to_get_the_release_leav
 }
 
 #[test]
+fn leaving_dungeons_removes_its_faction_buttons_and_restores_the_guide_filters() {
+	let out = run(r#"
+		stub.cascadeVisibility = true
+		Polestar.Dungeons.Open("wailing-caverns")
+		local _, _, _, buttons = DS.Frames()
+		local function visible()
+			local n = 0
+			for _, b in ipairs(buttons) do if b:IsVisible() then n = n + 1 end end
+			return n
+		end
+		local r = { opened = visible() }
+		PolestarPicker:Hide()
+		r.closed = visible()
+		Polestar.UI.ShowPicker()
+		r.reopened = visible()
+		P.ShowSection("Guides")
+		P.SetCategory("All")
+		r.left = visible()
+		r.title = PolestarPicker.Title:GetAlpha()
+		r.filters = {}
+		for _, b in ipairs(PolestarPicker.factionButtons) do
+			b:Click()
+			local selected = Polestar.Get("ui.pickerFaction")
+			local count, valid = 0, true
+			for _, entry in ipairs((P.Entries(selected, "", "All"))) do
+				if entry.kind == "guide" then
+					count = count + 1
+					local f = entry.guide.faction
+					if selected ~= "All" and f and f ~= selected then valid = false end
+				end
+			end
+			r.filters[#r.filters + 1] = { b.psKey, selected, b:IsVisible(), count > 0, valid }
+		end
+		P.ShowSection("Dungeons")
+		r.returned = visible()
+		P.ShowSection("Guides")
+		r.leftAgain = visible()
+		emit(r)"#);
+	let out = &out[0];
+	assert_eq!(out["opened"], 3);
+	assert_eq!(out["closed"], 0);
+	assert_eq!(out["reopened"], 3);
+	assert_eq!(out["left"], 0, "dungeon controls must not cover the guide controls");
+	assert_eq!(out["title"], 1, "the dungeon page must not leave the guide heading veiled");
+	assert_eq!(out["returned"], 3);
+	assert_eq!(out["leftAgain"], 0);
+	for filter in out["filters"].as_array().unwrap() {
+		assert_eq!(filter[0], filter[1]);
+		assert_eq!(filter[2], true);
+		assert_eq!(filter[3], true);
+		assert_eq!(filter[4], true);
+	}
+}
+
+#[test]
 fn review_p3_13_show_on_map_in_combat_says_in_chat_why_the_map_stays_shut_and_opens_it_once_combat_is_over() {
 	let out = run(r#"
 		local printed = {}
@@ -1195,19 +1250,123 @@ fn turn_these_off_stops_the_heads_ups_and_it_waits_for_combat_and_for_a_class_qu
 	assert_eq!(out[3], json!({ "setting": false, "shown": false, "candidates": 0 }));
 }
 
+// Wailing Caverns (17-24) is best at 19 in the fixture: it comes due there, and a login heads-up tells it up to two
+// levels after that.
 #[test]
-fn at_login_only_a_dungeon_whose_range_began_in_the_last_two_levels_is_told() {
+fn at_login_only_a_dungeon_that_came_due_at_its_best_at_level_in_the_last_two_levels_is_told() {
 	let out = run(&format!(
 		r#"{HEADS_UP}
 		local function keys(list) local t = {{}} for _, c in ipairs(list) do t[#t + 1] = c.key end return t end
-		emit({{ login20 = keys(DT.Candidates(20, "login")), login19 = keys(DT.Candidates(19, "login")), levelup20 = keys(DT.Candidates(20, "levelup")),
-			below = keys(DT.Candidates(16, "levelup")), above = keys(DT.Candidates(25, "levelup")) }})"#
+		emit({{ login18 = keys(DT.Candidates(18, "login")), login19 = keys(DT.Candidates(19, "login")), login21 = keys(DT.Candidates(21, "login")),
+			login22 = keys(DT.Candidates(22, "login")), levelup20 = keys(DT.Candidates(20, "levelup")), below = keys(DT.Candidates(16, "levelup")),
+			above = keys(DT.Candidates(25, "levelup")) }})"#
 	));
 	assert_eq!(
 		out[0],
-		json!({ "login20": {}, "login19": ["wailing-caverns"], "levelup20": ["wailing-caverns"], "below": {}, "above": {} }),
-		"17-24: three levels in at 20 is too old for a login heads-up, two at 19 is not"
+		json!({ "login18": {}, "login19": ["wailing-caverns"], "login21": ["wailing-caverns"], "login22": {}, "levelup20": ["wailing-caverns"], "below": {}, "above": {} }),
+		"best at 19: three levels past it at 22 is too old for a login heads-up, two at 21 is not; 18 is below it"
 	);
+}
+
+// A level 44 character was told the City of Dalaran (28-60) was open to them, for one quest worth 1% of a level.
+// The card now waits for the level the dungeon suits best (Dungeons.BestAt: 19 for the fixture's Wailing Caverns,
+// 17-24), not the start of its range, though both its quests are offered from 17.
+#[test]
+fn the_dungeon_card_waits_for_the_dungeons_best_at_level_not_the_start_of_its_range() {
+	let out = run(&format!(
+		r#"{HEADS_UP}
+		local seen = {{}}
+		for _, n in ipairs({{ 17, 18, 19 }}) do
+			uistub.player.level = n
+			levelUp(n)
+			local c = card()
+			seen[#seen + 1] = c.shown and c.head or false
+		end
+		emit({{ best = Polestar.Dungeons.BestAt("wailing-caverns"), seen = seen }})"#
+	));
+	assert_eq!(out[0], json!({ "best": 19, "seen": [false, false, "LEVEL 19 · DUNGEON"] }));
+}
+
+// No card when the quests to take now are worth under a tenth of a level (MIN_WORTH): with Trouble at the Docks
+// carried, Deviate Hides (1486) is the one to take; the level 20 character's XP to level is set so it is worth
+// 9.9%, then 10%.
+#[test]
+fn no_dungeon_card_for_quests_worth_under_a_tenth_of_a_level_and_one_from_a_tenth() {
+	let out = run(&format!(
+		r#"{HEADS_UP}
+		log[959] = true
+		Polestar.Dungeons.Load()
+		local q = Polestar.Dungeons.Quest("wailing-caverns", 1486)
+		local entry = {{ {{ id = 1486, level = q.level, xp = q.rewards.xp }} }}
+		local xp = Polestar.Levels.Run(entry).questXP
+		uistub.player.xp = 0
+		local out = {{}}
+		for i, need in ipairs({{ math.ceil(xp / 0.099), xp * 10 }}) do
+			uistub.player.xpMax = need
+			local c = DT.Candidates(20, "levelup")[1]
+			out[i] = {{ worth = math.floor(Polestar.Levels.Run(entry).levels * 1000 + 0.5) / 10, card = c and c.key or false, take = c and c.take or false }}
+		end
+		emit(out)"#
+	));
+	assert_eq!(out[0], json!([{ "worth": 9.9, "card": false, "take": false }, { "worth": 10, "card": "wailing-caverns", "take": 1 }]));
+}
+
+// A card put off with Later below the dungeon's best-at level (here shown by the command at 18) comes back once at
+// best-at (19); put off again there, it never comes back.
+#[test]
+fn a_dungeon_card_put_off_with_later_below_best_at_comes_back_once_at_best_at_then_never() {
+	let out = run(&format!(
+		r#"{HEADS_UP}
+		local function told() return (Polestar.CharState().dungeonToastSeen or {{}})["wailing-caverns"] or false end
+		uistub.player.level = 18
+		Polestar.RunCommand("dungeontoast wailing caverns")
+		local early = card().head or false
+		CT.frame.Later:Click()
+		emit({{ early = early, told = told() }})
+		levelUp(18)
+		emit({{ again18 = card().shown }})
+		uistub.player.level = 19
+		levelUp(19)
+		local back = card().head or false
+		CT.frame.Later:Click()
+		emit({{ back = back, told = told() }})
+		for _, n in ipairs({{ 20, 21 }}) do
+			uistub.player.level = n
+			levelUp(n)
+		end
+		emit({{ after = card().shown }})"#
+	));
+	assert_eq!(out[0], json!({ "early": "LEVEL 18 · DUNGEON", "told": "later" }));
+	assert_eq!(out[1], json!({ "again18": false }), "not before best-at");
+	assert_eq!(out[2], json!({ "back": "LEVEL 19 · DUNGEON", "told": true }));
+	assert_eq!(out[3], json!({ "after": false }), "once only");
+}
+
+// A character told about a dungeon at the start of its range by an older version (dungeonToastSeen[key] = true,
+// no dungeonToastBestAt) and still below its best-at level hears about it once more at best-at, as after Later;
+// one already at or past best-at keeps it told.
+#[test]
+fn a_dungeon_told_by_an_older_version_below_best_at_comes_back_once_at_best_at_and_one_past_it_stays_told() {
+	let out = run(&format!(
+		r#"{HEADS_UP}
+		local function told() return (Polestar.CharState().dungeonToastSeen or {{}})["wailing-caverns"] or false end
+		local st = Polestar.CharState()
+		st.dungeonToastSeen, st.dungeonToastBestAt = {{ ["wailing-caverns"] = true }}, nil
+		uistub.player.level = 18
+		levelUp(18)
+		emit({{ shown = card().shown, told = told(), marked = st.dungeonToastBestAt or false }})
+		uistub.player.level = 19
+		levelUp(19)
+		emit({{ shown = card().dungeon or false, told = told() }})
+		CT.Hide()
+		st.dungeonToastSeen, st.dungeonToastBestAt = {{ ["wailing-caverns"] = true }}, nil
+		uistub.player.level = 20
+		levelUp(20)
+		emit({{ shown = card().shown, told = told(), marked = st.dungeonToastBestAt or false }})"#
+	));
+	assert_eq!(out[0], json!({ "shown": false, "told": "later", "marked": true }));
+	assert_eq!(out[1], json!({ "shown": "wailing-caverns", "told": true }));
+	assert_eq!(out[2], json!({ "shown": false, "told": true, "marked": true }), "past best-at: no second card");
 }
 
 // "Or a finished prerequisite" (#836): the fixture's Wailing Caverns has no page quest that opens another, so
@@ -1225,6 +1384,9 @@ fn handing_in_a_quest_of_the_dungeons_page_tells_it_once_its_follow_ups_open() {
 			end
 			return p
 		end
+		-- The login check goes first (4 s, no Codex yet: it waits, and the level-up covers it), so that a
+		-- dungeon due by now at login isn't taken for one told by the hand-in.
+		stub.advance(5)
 		levelUp(20)
 		emit({{ levelUp = card().shown }})
 		log[914], done[914] = nil, true

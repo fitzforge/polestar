@@ -1319,15 +1319,26 @@ fn never_in_an_instance_on_a_taxi_while_hearthing_or_during_a_timed_or_escort_qu
 		stub.advance(0.6); emit(here())
 		GetQuestTimers = nil
 		stub.advance(0.6); emit(here())
+		-- Dead or a ghost (Fitz, 0.3.7.1: hand-ins at the Crossroads offered to a ghost by its graveyard): nothing,
+		-- and the line is back on being revived.
+		function UnitIsDeadOrGhost(unit) return unit == "player" end
+		stub.advance(0.6); emit(here())
+		UnitIsDeadOrGhost = nil
+		stub.advance(0.6); emit(here())
 	"#);
 	let v = "2:1 Kill Kobold Vermin, 2 more 50";
-	assert_eq!(out, vec![json!(v), json!("none"), json!(v), json!("none"), json!("none"), json!("none"), json!(v)]);
+	assert_eq!(out, vec![json!(v), json!("none"), json!(v), json!("none"), json!("none"), json!("none"), json!(v), json!("none"), json!(v)]);
 	// The live step escorts someone: nothing for the whole step.
 	let escort = run_edit(r#"at(47.6, 37.6); emit(here())"#, "ESCORT", ", escort = true");
 	assert_eq!(escort, vec![json!("none")]);
+	// Barrens, Ignition then The Escape (Fitz, 0.3.7.1): the live step's escort is only taken at its end, after
+	// other work; until it is taken, lines show as usual (the Nugget Slugs' tool buckets beside Lugwizzle).
+	let not_taken =
+		run_edit(r#"at(47.6, 37.6); emit(here())"#, "ESCORT", r#" }, { t = "accept", quest = 99, title = "The Escape", npc = 5, npcName = "Shredder", map = 1429, x = 60, y = 60, escort = true"#);
+	assert_eq!(not_taken, vec![json!(v)]);
 }
 
-// T1327: Forever's client may have no GetQuestTimers, only the quest log's time allowed. A quest of the log with a
+// Forever's client may have no GetQuestTimers, only the quest log's time allowed. A quest of the log with a
 // running timer (Compat.QuestTimerRunning) offers no detour to another quest's work; one whose time ran out
 // (failed), or none timed, changes nothing.
 #[test]
@@ -1336,11 +1347,14 @@ fn a_timer_the_quest_log_reports_without_the_old_timer_list_offers_no_detour_eit
 		GetQuestTimers = nil
 		at(47.6, 37.6); emit(here())
 		C_QuestLog.GetTimeAllowed = function(q) if q == 33 then return 900, 600 end return 0 end
+		stub.fire("QUEST_LOG_UPDATE")
 		stub.advance(0.6); emit(here())
-		C_QuestLog.IsFailed = function() return true end
+		C_QuestLog.IsFailed = function(q) return q == 33 end -- only the timed quest's time ran out
+		stub.fire("QUEST_LOG_UPDATE")
 		stub.advance(0.6); emit(here())
 		C_QuestLog.IsFailed = nil
 		C_QuestLog.GetTimeAllowed = function() return 0 end
+		stub.fire("QUEST_LOG_UPDATE")
 		stub.advance(0.6); emit(here())
 	"#);
 	let v = "2:1 Kill Kobold Vermin, 2 more 50";
@@ -1357,9 +1371,11 @@ fn a_running_timer_keeps_its_own_quests_lines_and_parks_the_rest_until_it_stops(
 		GetQuestTimers = nil
 		at(47.6, 37.6); emit(lines())                   -- rows 10, 20, 30 yd; row 5 (quest 305) at 50 waits
 		TIMER
+		stub.fire("QUEST_LOG_UPDATE")
 		stub.advance(0.6); emit(lines())                -- 305's clock: its line alone
 		GetQuestTimers, GetQuestIndexForTimer = nil, nil
 		C_QuestLog.GetTimeAllowed = function() return 0 end
+		stub.fire("QUEST_LOG_UPDATE")
 		stub.advance(0.6); emit(lines())
 	"#;
 	let log = r#"C_QuestLog.GetTimeAllowed = function(q) if q == 305 then return 600, 10 end return 0 end"#;
@@ -1597,7 +1613,8 @@ fn the_step_key_targets_a_line_s_mobs_after_the_live_step_s_own_1316() {
 			HELPERS,
 			"stub.login()",
 			r#"stub.fire("QUEST_LOG_UPDATE"); stub.advance(0.6)"#,
-			r#"Polestar.Set("behavior.whileHereRadius", 60); stub.advance(0.6)"#,
+			// The macro lines without Mark target's (on by default) icon line.
+			r#"Polestar.Set("behavior.whileHereRadius", 60); Polestar.Set("qol.markTarget", false); stub.advance(0.6)"#,
 			r#"
 			local function key() return PolestarStepButton:GetAttribute("macrotext") or "nil" end
 			emit({ Polestar.GetDefault("behavior.whileHereStepKey"), lines(), key() })
@@ -1778,6 +1795,27 @@ fn a_known_flight_path_never_shows_nor_one_in_a_fight() {
 	"#,
 	);
 	assert_eq!(out, vec![json!("none"), json!([[1, -2, 2, "getfp", "Learn the flight path at Goldshire", "Step 2"]]), json!("none")]);
+}
+
+// #2003: on the step that learns a flight path itself, its flight master is the route's goal, no "Learn the flight
+// path" line beside it; another one in reach still is.
+#[test]
+fn t_2003_the_live_step_s_own_flight_path_is_no_while_you_re_here_line() {
+	let out = run_fly(
+		r#"
+		Polestar.RegisterGuide({ id = "test/flynow", pack = "test", title = "Fly now", minLevel = 1, maxLevel = 10, steps = {
+			{ title = "Goldshire flight path", goals = { { t = "getfp", location = "Goldshire", node = 2, npc = 352, npcName = "Dungar Longdrink", map = 1429, x = 50, y = 40 } } },
+			{ title = "Wolves", goals = { { t = "kill", target = "Young Wolf", npc = 299, count = 8, quest = 33, oi = 1, map = 1429, x = 60, y = 60 } } },
+		} })
+		E.SetGuide("test/flynow"); flush()
+		at(49.6, 40.6)                                  -- 17 yd from Goldshire's flight master
+		emit({ E.GetLiveStep(), fly() })
+		at(20.4, 80.4)                                  -- the Neutral Post: still a line
+		emit(fly())
+	"#,
+	);
+	assert_eq!(out[0], json!([1, "none"]), "the step's own flight path");
+	assert_eq!(out[1], json!([[1, -2, 4, "getfp", "Learn the flight path at Neutral Post", "Flight path"]]));
 }
 
 // Fitz-style, on the addon's own travel data (Nav/TravelData.lua): a Dwarf walking through Thelsamar on Loch Modan's

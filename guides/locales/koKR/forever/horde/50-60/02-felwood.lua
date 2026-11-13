@@ -158,8 +158,8 @@ return {
 	-- Step 35: The Jaedenar moonwell
 	-- {area:1763} Jaedenar
 	["The {area:1763} moonwell"] = "{area:1763} 달샘",
-	-- {area:1763} Jaedenar · {npc:10922} Greta Mosshoof
-	["Back north to {area:1763}. Fill {npc:10922}'s canteen at the corrupted moonwell in the middle of the southern camp."] = "북쪽의 {area:1763}(으)로 돌아가세요. 남쪽 야영지 한가운데의 오염된 달샘에서 {npc:10922}의 수통을 채우세요.",
+	-- {area:1763} Jaedenar
+	["Back north to {area:1763}. Fill Greta's canteen at the corrupted moonwell in the middle of the southern camp."] = "",
 
 	-- Step 36: Rakaiah
 	-- {npc:9518} Rakaiah · {area:1763} Jaedenar · {npc:11020} Remains of Trey Lightforge
@@ -262,6 +262,7 @@ return {
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Back at {area:1762}, the Deadwood furbolgs (53-54) are close to the tunnel and every kill raises your Timbermaw reputation."] = "{area:1762}에 돌아오면 마른가지일족 털보숭이(53-54)가 터널 가까이 있고, 처치할 때마다 나무구렁 평판이 오릅니다.",
+	-- ["Back north to {area:1763}. Fill {npc:10922}'s canteen at the corrupted moonwell in the middle of the southern camp."] = "북쪽의 {area:1763}(으)로 돌아가세요. 남쪽 야영지 한가운데의 오염된 달샘에서 {npc:10922}의 수통을 채우세요.",
 	-- ["Diseased Grizzlies"] = "오염된 불곰",
 	-- ["Fly to the {area:1497}"] = "{area:1497}(으)로 날아가기",
 	-- ["Fly to {area:272}"] = "{area:272}(으)로 날아가기",

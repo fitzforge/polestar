@@ -126,7 +126,7 @@ step Windshaper Boro
 # ---------------------------------------------------------------- Shen'dar Village
 
 step Shen'dar Village
-  tip Follow the road south to Shen'dar Village, in the middle of the isle. Constable Aonda stands on its east side, Illaya Amberwind in the middle, Coriella just north-west of her, Raan Wildwind by the campfire on the west side.
+  tip Follow the road south to Shen'dar Village, in the middle of the isle. Constable Aonda stands on its east side, Illaya Amberwind in the middle, Coriella just north-west of her, Raan Wildwind by the campfire on the west side. With a profession learned, Raan also offers its Camping 101: its trainer stands in the village.
   turnin 92472                        -- Constable Aonda
   accept 92514                        -- Constable Aonda
   accept 92595                        -- Illaya Amberwind
@@ -140,6 +140,36 @@ step Shen'dar Village
   complete 96101 @41.73,44.78         -- /sit by Raan's campfire until you get Boosted Rest
   turnin 96101                        -- Raan Wildwind
   accept 96646
+
+step Camping 101: Skinning
+  when skill Skinning 1
+  accept 97971                        -- Raan Wildwind
+
+step Camping 101: First Aid
+  when skill "First Aid" 1
+  accept 97965                        -- Raan Wildwind
+
+step Camping 101: Leatherworking
+  when skill Leatherworking 1
+  accept 97969                        -- Raan Wildwind
+
+step Camping 101: Mining
+  when skill Mining 1
+  accept 97970                        -- Raan Wildwind
+
+step Camping 101: Alchemy
+  when skill Alchemy 1
+  accept 97963                        -- Raan Wildwind
+
+step Camping 101: Blacksmithing
+  when skill Blacksmithing 1
+  accept 97964                        -- Raan Wildwind
+
+step Camping 101: Fishing
+  when skill Fishing 1
+  accept 97967                        -- Raan Wildwind
+
+step Shen'dar Village
   turnin 92514                        -- Constable Aonda
   accept 92517
   accept 92516                        -- Teeri Wellwind
@@ -150,6 +180,41 @@ step Shen'dar Village
   complete 96646 @43.85,43.9
   turnin 96646                        -- Zerril Softbreeze
   accept 92553                        -- Zerril Softbreeze
+
+step Mendalass Tattermend
+  when onquest 97971
+  complete 97971 @43.29,43.37 map 2521 live
+  turnin 97971                        -- Mendalass Tattermend
+
+step Naleeia Tattermend
+  when onquest 97965
+  complete 97965 @43.08,46.31 map 2521 live
+  turnin 97965                        -- Naleeia Tattermend
+
+step Indari Sunseam
+  when onquest 97969
+  complete 97969 @44.68,44.52 map 2521 live
+  turnin 97969                        -- Indari Sunseam
+
+step Messana Crestwind
+  when onquest 97970
+  complete 97970 @44.77,44.56 map 2521 live
+  turnin 97970                        -- Messana Crestwind
+
+step Nyassa Swiftdraught
+  when onquest 97963
+  complete 97963 @43.69,43.42 map 2521 live
+  turnin 97963                        -- Nyassa Swiftdraught
+
+step Aedi Thriceforged
+  when onquest 97964
+  complete 97964 @44.88,44.37 map 2521 live
+  turnin 97964                        -- Aedi Thriceforged
+
+step Fenn Fairweather
+  when onquest 97967
+  complete 97967 @45.02,48.44 map 2521 live
+  turnin 97967                        -- Fenn Fairweather
 
 step Shen'dar Village: kill these as you meet them
   zone Zephras Isle
@@ -600,9 +665,6 @@ step Valanaar
   accept 93090
   turnin 94896                        -- Ealaane Nimbuswalker
   turnin 94897
-
-step Valanaar
-  when onquest 94491
   turnin 94491                        -- Lotheluum Starbreeze
 
 step Valanaar

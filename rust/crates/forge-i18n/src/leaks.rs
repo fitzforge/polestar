@@ -675,7 +675,10 @@ fn packs_lua(root: &Path, locale: &str, scene: &Scene) -> Result<String, String>
 	if scene.recorder {
 		return Ok(String::new());
 	}
-	let mut names: Vec<String> = ["Polestar_QuestDB", "Polestar_Codex", "Polestar_ItemDB"].iter().map(|x| x.to_string()).collect();
+	// The settings window (Polestar_Options) loads on its first opening, the Skin API's checks
+	// (Polestar_SkinAPI) with the first skin another addon registers and the game's looks with Hearth
+	// (Polestar_Looks) the first time one is painted, as in the client.
+	let mut names: Vec<String> = ["Polestar_QuestDB", "Polestar_Codex", "Polestar_ItemDB", "Polestar_Options", "Polestar_SkinAPI", "Polestar_Looks"].iter().map(|x| x.to_string()).collect();
 	// The walking map (Polestar_Nav) plans paths in the background, seconds of Lua each step: only the
 	// scenes about travel load it.
 	if scene.nav {
@@ -791,7 +794,8 @@ pub struct DataNames {
 	index: Option<(HashMap<String, String>, bool)>,
 }
 
-const DATA_FILES: [(&str, &str); 5] = [("npc", "npcs.json"), ("object", "objects.json"), ("item", "items.json"), ("quest", "quests.json"), ("encounter", "codex/instances.json")];
+const DATA_FILES: [(&str, &str); 6] =
+	[("npc", "npcs.json"), ("object", "objects.json"), ("item", "items.json"), ("quest", "quests.json"), ("encounter", "codex/instances.json"), ("instance", "codex/instances.json")];
 
 fn has_three_latin(s: &str) -> bool {
 	static RE: LazyLock<Regex> = LazyLock::new(|| Regex::new("[A-Za-z]{3}").unwrap());
@@ -818,6 +822,13 @@ impl DataNames {
 					if b.get("encounter").truthy() && b.get("name").truthy() {
 						names.set(&b.get("encounter").to_js_string(), b.get("name"));
 					}
+				}
+			}
+		} else if kind == "instance" {
+			// Instances by their map ID (what Names.Instance is asked): codex/instances.json's map and name.
+			for inst in doc.values() {
+				if inst.get("map").truthy() && inst.get("name").truthy() {
+					names.set(&inst.get("map").to_js_string(), inst.get("name"));
 				}
 			}
 		} else {

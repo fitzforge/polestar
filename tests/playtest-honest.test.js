@@ -27,6 +27,8 @@ function play(text, { persona = ORC, kb = null } = {}) {
 const ORC = { race: 'Orc', faction: 'Horde', cls: 'WARRIOR' };
 const HUMAN = { race: 'Human', faction: 'Alliance', cls: 'WARRIOR' };
 const UNDEAD = { race: 'Scourge', faction: 'Horde', cls: 'WARRIOR' };
+const DWARF = { race: 'Dwarf', faction: 'Alliance', cls: 'WARRIOR' };
+const NIGHTELF = { race: 'NightElf', faction: 'Alliance', cls: 'WARRIOR' };
 const of = (findings, rule, severity = 'fail') => findings.filter((f) => f.rule === rule && f.severity === severity);
 
 test('R2: a quest started by an item needs the item from an earlier line (The Admiral\'s Orders before the chest)', { skip }, () => {
@@ -64,13 +66,58 @@ test('R1: another zone far away needs a travel line (Razor Hill to the Barrens)'
 });
 
 test('R1: fly needs both flight paths learnt, from the flight master the guide leaves the player at', { skip }, () => {
-	const bad = play('step Orgrimmar\n  zone Orgrimmar\n  goto 45.3,63.8\n\nstep Fly\n  fly "Crossroads"\n');
+	// An Undead: an Orc knows Orgrimmar's flight path from the first login.
+	const bad = play('step Orgrimmar\n  zone Orgrimmar\n  goto 45.3,63.8\n\nstep Fly\n  fly "Crossroads"\n', { persona: UNDEAD });
 	assert.ok(of(bad, 'R1').some((f) => /fly to Crossroads: its flight path was never learnt/.test(f.reason)));
 	assert.ok(of(bad, 'R1').some((f) => /fly from Orgrimmar: its flight path was never learnt/.test(f.reason)));
 	const learnt = 'step Crossroads\n  zone The Barrens\n  goto 51.5,30.4\n  getfp "Crossroads"\n\nstep Orgrimmar\n  zone Orgrimmar\n  goto 45.3,63.8 "Walk north to Orgrimmar"\n  getfp "Orgrimmar"\n\n';
 	assert.deepEqual(of(play(`${learnt}step Fly\n  fly "Crossroads"\n`), 'R1'), []);
 	const away = play(`${learnt}step Valley\n  zone Durotar\n  goto 44.5,70.6 "Ride south to the Valley of Trials"\n\nstep Fly\n  fly "Crossroads"\n`);
 	assert.match(of(away, 'R1')[0].reason, /no flight master where the guide leaves the player .*nearest learnt one is Orgrimmar/);
+});
+
+// Each race knows its capital's flight path from the first login (Night Elves Auberdine too), so the Dwarf start
+// route's flight from Thelsamar to Ironforge and the Night Elf one's from Rut'theran Village to Auberdine need no
+// `getfp` before them. Another race still does.
+test('R1: a character knows its race\'s starting flight paths (Thelsamar to Ironforge, Rut\'theran Village to Auberdine)', { skip }, () => {
+	const thelsamar = 'step Thelsamar\n  zone Loch Modan\n  goto 33.9,50.8\n  getfp "Thelsamar"\n\nstep Fly\n  fly "Ironforge"\n';
+	assert.deepEqual(of(play(thelsamar, { persona: DWARF }), 'R1'), []);
+	assert.match(of(play(thelsamar, { persona: HUMAN }), 'R1')[0].reason, /fly to Ironforge: its flight path was never learnt/);
+	const ruttheran = 'step Rut\'theran Village\n  zone Teldrassil\n  goto 58.4,93.9\n\nstep Fly\n  fly "Auberdine"\n';
+	assert.deepEqual(of(play(ruttheran, { persona: NIGHTELF }), 'R1'), []);
+	assert.equal(of(play(ruttheran, { persona: HUMAN }), 'R1').length, 2, 'neither end is a Human\'s');
+});
+
+// A guide pack's zone at 38 is a chain of its own: the character has what every start route of its race learnt in
+// the guides below 38 (Menethil Harbor on the way north), not an empty flight map.
+test('R1: a chain opening above level 1 starts with the flight paths every start route of its race learns below it', { skip }, () => {
+	const { compileSources } = require('../tools/lib/dsl/project');
+	const { honestPlay } = require('../tools/lib/playtest-honest');
+	data = data || require('../tools/lib/dsl/data').loadData(require('../tools/lib/paths').DATA);
+	const head = (id, levels, next) => `guide test/${id}\ntitle ${id}\nfaction Alliance\n${id.startsWith('start') ? 'race Human\n' : ''}levels ${levels}\nzone Elwynn Forest\n${next ? `next test/${next}\n` : ''}\n`;
+	const menethil = 'step Menethil Harbor\n  zone Wetlands\n  goto 9.5,59.7 "Take the road north"\n  getfp "Menethil Harbor"\n';
+	const wait = 'step Northshire\n  goto 48,42\n';
+	const pack = head('pack', '38-45') + 'step Menethil Harbor\n  zone Wetlands\n  goto 9.5,59.7\n\nstep Fly\n  fly "Stormwind"\n';
+	const run = (...texts) => {
+		const { guides } = compileSources(texts.map((text, i) => ({ file: `g${i}.guide`, source: `g${i}.guide`, text })), data);
+		return of(honestPlay(guides, data, () => [HUMAN], { play: ['test/pack'] }), 'R1').map((f) => f.reason);
+	};
+	const unknown = [/fly from Menethil Harbor: its flight path was never learnt/];
+	const matches = (reasons, res) => assert.deepEqual(reasons.map((r) => res.some((re) => re.test(r))), res.map(() => true), reasons.join('; '));
+	matches(run(pack), unknown);
+	assert.deepEqual(run(head('start-a', '1-10', 'mid') + wait, head('mid', '10-30') + menethil, pack), [], 'learnt below 38 on the only start route');
+	matches(run(head('start-a', '1-10', 'mid') + wait, head('mid', '10-30') + menethil, head('start-b', '1-12') + wait, pack), unknown);
+	matches(run(head('start-a', '1-10', 'late') + wait, head('late', '38-45') + menethil, pack), unknown);
+});
+
+test('a `when taxi` step plays only while its flight path was learnt on the way, `!taxi` the other way round', { skip }, () => {
+	const fly = '  zone Orgrimmar\n  goto 45.3,63.8\n  fly "Crossroads"\n';
+	const flights = (text) => of(play(text), 'R1').filter((f) => /^fly /.test(f.reason));
+	assert.ok(flights(`step Fly\n${fly}`).length > 0);
+	assert.deepEqual(flights(`step Fly\n  when taxi "Crossroads"\n${fly}`), []);
+	assert.ok(flights(`step Walk\n  when !taxi "Crossroads"\n${fly}`).length > 0);
+	const learnt = 'step Crossroads\n  zone The Barrens\n  goto 51.5,30.4\n  getfp "Crossroads"\n\n';
+	assert.deepEqual(flights(`${learnt}step Walk\n  when !taxi "Crossroads"\n${fly}`), []);
 });
 
 test('R3: a collect needs a source in the data (An Apple Treat\'s applejack)', { skip }, () => {
@@ -130,6 +177,22 @@ test('R5: a turn-in needs every objective credited by an earlier line', { skip }
 	assert.deepEqual(of(good, 'R5'), []);
 });
 
+// A `talk ... quest Q.O` line credits the objective it names (Kodo Roundup's tamed kodos are talked to; the data
+// counts them as a kill objective).
+test('R5: a talk tied to an objective credits it (Kodo Roundup)', { skip }, () => {
+	const head = 'step Smeed Scrabblescrew\n  zone Desolace\n  accept 5561\n\n';
+	const turnin = 'step Smeed Scrabblescrew\n  zone Desolace\n  turnin 5561\n';
+	assert.match(of(play(head + turnin, { persona: HUMAN }), 'R5')[0].reason, /objective 1 \(kill Aged Kodo x5\) has 0\/5/);
+	assert.deepEqual(of(play(`${head}step Kodos\n  zone Desolace\n  talk 4700 quest 5561.1 @60.6,61.6\n\n${turnin}`, { persona: HUMAN }), 'R5'), []);
+});
+
+test('R5: a `talk <npc> quest Q.O` line credits that objective (Lost in Battle: the Beaten Corpse)', { skip }, () => {
+	const bad = play('step Mankrik\n  zone The Barrens\n  accept 4921\n  turnin 4921\n');
+	assert.match(of(bad, 'R5')[0].reason, /objective 1 \(talk Beaten Corpse x1\) has 0\/1/);
+	const good = play('step Mankrik\n  zone The Barrens\n  accept 4921\n\nstep The Beaten Corpse\n  zone The Barrens\n  talk 10668 quest 4921.1 @49.3,50.3\n\nstep Mankrik\n  zone The Barrens\n  turnin 4921\n');
+	assert.deepEqual(of(good, 'R5'), []);
+});
+
 test('R5: a turn-in needs a line for each of the knowledge base\'s required steps', { skip }, () => {
 	const kb = new Map([[5441, [{ n: 1, action: 'use-item', kind: 'npc', target: 10556, item: 16114, fact: 'Use the blackjack on a sleeping peon.' }]]]);
 	const bad = play('step Foreman Thazz\'ril\n  accept 5441\n\nstep Lazy Peons\n  kill 10556 x5 quest 5441.1\n\nstep Foreman Thazz\'ril\n  turnin 5441\n', { kb });
@@ -143,6 +206,19 @@ test('chains follow the main route; a catch-up guide behind `when` is its own ch
 	const g = (id, next, nextChoices, nextWhen) => ({ id, next, nextChoices, nextWhen, steps: [] });
 	const out = chains([g('a-catchup', 'b'), g('a', 'a-catchup', ['a-catchup', 'b'], { 'a-catchup': [{ k: 'level', op: '<', n: 9 }] }), g('b', null)]);
 	assert.deepEqual(out.map((c) => c.map((x) => x.id)), [['a', 'b'], ['a-catchup']]);
+});
+
+test('`when dungeon` holds only for a dungeon the honest player chose; `when !dungeon` for the solo route', () => {
+	const { whenHolds } = require('../tools/lib/playtest-honest');
+	const { dungeonPicker } = require('../tools/lib/playtest');
+	const run = [{ k: 'dungeon', name: 'The Deadmines', map: 36 }];
+	const solo = [{ k: 'dungeon', name: 'The Deadmines', map: 36, neg: true }];
+	for (const chosen of [null, dungeonPicker(null), dungeonPicker(['Wailing Caverns'])]) {
+		assert.equal(whenHolds({ chosen }, run), false);
+		assert.equal(whenHolds({ chosen }, solo), true);
+	}
+	assert.equal(whenHolds({ chosen: dungeonPicker(['Deadmines']) }, run), true);
+	assert.equal(whenHolds({ chosen: dungeonPicker('all') }, solo), false);
 });
 
 // A `when` line with a single-quest predicate (`complete`, `turnedin`, `available`, `group`: dsl/when.js QUEST_ONE)
