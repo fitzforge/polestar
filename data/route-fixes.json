@@ -11249,6 +11249,32 @@
 			},
 			{
 				"a": [
+					"turnin",
+					1498
+				],
+				"b": [
+					"accept",
+					844
+				],
+				"faction": "Horde",
+				"why": "Horde 1-21 audit (0.4.0), with Mulgore's half: Tauren Warriors and Shamans take Veteran Uzzek, Path of Defense, and Call of Fire up to 1525 on Mulgore's walk past Far Watch Post to Orgrimmar, as Orcs and Trolls do in Durotar. In the Barrens they finish them on the Orcs' and Trolls' first loop (Uzzek on the walk from Orgrimmar, Thun'grim and the Razormane chest, the Fire Tar, Telf and Kranal) before the Crossroads quests, instead of Tauren-only trips into Durotar from the Crossroads at about 16 (~3,160 yd for Warriors against ~690; two Durotar trips for Shamans).",
+				"source": "Horde 1-21 audit 0.4.0"
+			},
+			{
+				"a": [
+					"turnin",
+					1527
+				],
+				"b": [
+					"turnin",
+					844
+				],
+				"faction": "Horde",
+				"why": "Horde 1-21 audit (0.4.0), with Mulgore's half: Tauren Warriors and Shamans take Veteran Uzzek, Path of Defense, and Call of Fire up to 1525 on Mulgore's walk past Far Watch Post to Orgrimmar, as Orcs and Trolls do in Durotar. In the Barrens they finish them on the Orcs' and Trolls' first loop (Uzzek on the walk from Orgrimmar, Thun'grim and the Razormane chest, the Fire Tar, Telf and Kranal) before the Crossroads quests, instead of Tauren-only trips into Durotar from the Crossroads at about 16 (~3,160 yd for Warriors against ~690; two Durotar trips for Shamans).",
+				"source": "Horde 1-21 audit 0.4.0"
+			},
+			{
+				"a": [
 					"accept",
 					365
 				],

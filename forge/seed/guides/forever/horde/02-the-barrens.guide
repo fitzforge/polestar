@@ -55,8 +55,11 @@ next forever/horde/05-stonetalon-mountains
 # path from the Silverpine guide). Warriors finish
 # Thun'grim Firegaze / Forged Steel (1502, 1503) by the Razormane camp; Shamans finish Call of Fire
 # (1525-1527): the Fire Tar from the Razormane, Telf Joolam's brazier across the river and Kranal
-# Fiss. Tauren Shamans and Warriors do their Call of Fire and Path of Defense steps from the
-# Crossroads.
+# Fiss. Tauren Warriors and Shamans come the same way: Mulgore's walk to Orgrimmar past Far Watch
+# Post gives them Path of Defense (1498, the Singed Scales from Thunder Ridge) and Call of Fire up to
+# 1525 (Kranal, Telf, the Dustwind Gulch pouch), so Warriors hand 1498 to Uzzek on the walk from
+# Orgrimmar and Shamans take the same Fire Tar, Telf and Kranal steps; no Durotar trip from the
+# Crossroads of their own.
 #
 # Background goals: the Raptor Heads and Plainstrider Beaks are collected on the way (#1135), each
 # with a finish step before its hand-in.
@@ -116,6 +119,14 @@ step Far Watch Post
   turnin 1498 only Warrior            -- Uzzek
   accept 1502 only Warrior
 
+step Far Watch Post
+  only Tauren,Warrior
+  when onquest 1498
+  zone The Barrens
+  tip Leave Orgrimmar by the main gate and follow the road south through Durotar, then west over the Southfury River bridge: Uzzek stands at Far Watch Post just above it, on the road to the Crossroads.
+  turnin 1498                         -- Uzzek
+  accept 1502
+
 # ---------------------------------------------------------------- The Crossroads
 step The Crossroads
   only Orc,Troll
@@ -137,13 +148,13 @@ step The Crossroads
 # ---------------------------------------------------------------- Razormane camp
 
 step Thun'grim Firegaze
-  only Orc,Troll,Warrior
+  only Orc,Troll,Tauren,Warrior
   tip Thun'grim camps beside the road east toward Ratchet.
   turnin 1502
   accept 1503
 
 step Razormane camp
-  only Orc,Troll,Warrior,Shaman
+  only Orc,Troll,Tauren,Warrior,Shaman
   zone The Barrens
   tip The Razormane camp lies east of the Crossroads. Warriors: the Stolen Iron Chest stands in the camp. Shamans: the quilboar drop the Fire Tar.
   tip Careful: The chest stands next to a broken wagon, guarded by a pair of Razormanes, including hunters that can pull more quilboar into the fight.
@@ -161,15 +172,15 @@ step Razormane camp: Thork's quilboar
   collect 12708 quest 5041.1 @58.8,25.8
 
 step Durotar
-  only Orc,Troll,Shaman
+  only Orc,Troll,Tauren,Shaman
   when onquest 1525
   zone Durotar
   goto 38.5,59.0 "Durotar"
 
 step Telf Joolam
-  only Orc,Troll,Shaman
+  only Orc,Troll,Tauren,Shaman
   zone Durotar
-  tip Back east over the bridge and up the trail to Telf's shrine, as at 10. Telf makes Fire Sapta from the tar and pouch. Use it by the brazier next to him to reveal the Minor Manifestation of Fire, kill it for the Glowing Ember, then place the ember in the brazier.
+  tip Back east over the bridge and up the trail to Telf's shrine again. Telf makes Fire Sapta from the tar and pouch. Use it by the brazier next to him to reveal the Minor Manifestation of Fire, kill it for the Glowing Ember, then place the ember in the brazier.
   turnin 1525
   accept 1526
   collect 6655 quest 1526.1
@@ -177,17 +188,17 @@ step Telf Joolam
   accept 1527
 
 step The Barrens
-  only Orc,Troll,Shaman
+  only Orc,Troll,Tauren,Shaman
   zone The Barrens
   goto 61.4,21.1 "The Barrens"
 
 step Kranal Fiss
-  only Orc,Troll,Shaman
+  only Orc,Troll,Tauren,Shaman
   zone The Barrens
   turnin 1527 reward 5176 263412      -- Kranal Fiss: Searing Totem, your Fire Totem and the Totem of Charged Flames
 
 step Thun'grim Firegaze
-  only Orc,Troll,Warrior
+  only Orc,Troll,Tauren,Warrior
   zone The Barrens
   turnin 1503
 
@@ -248,95 +259,7 @@ step The Zhevra
   tip Zhevra Runners graze along the road east toward Ratchet: take their hooves on the way out.
   collect 5086 quest 845.1 @56.3,32.6
 
-# Turn in a carried alternative here before starting the shared ritual;
-# do not add a trip to a different trainer for an uncarried breadcrumb.
-
-step
-  only Tauren,Shaman
-  when onquest 1522
-  zone The Barrens
-  turnin 1522
-
-step
-  only Tauren,Shaman
-  when onquest 2983
-  zone The Barrens
-  turnin 2983
-
-step
-  only Tauren,Shaman
-  when onquest 2984
-  zone The Barrens
-  turnin 2984
-
-step Kranal Fiss
-  only Tauren,Shaman
-  tip Kranal Fiss stands on the ridge north of the Razormane camp.
-  turnin 1523
-  accept 1524 only Tauren
-
-step Far Watch Post
-  only Tauren,Warrior
-  tip Follow the road east to the outpost above the Southfury River.
-  turnin 1505                         -- Uzzek
-  accept 1498 only Tauren
-
-step Durotar
-  only Tauren,Warrior
-  zone Durotar
-  goto 39.7,29.2 "Durotar"
-
-step Thunder lizards across the river
-  only Tauren,Warrior
-  zone Durotar
-  tip Thunder Lizards and Lightning Hides graze just across the bridge below Far Watch Post.
-  tip Careful: Halikor, a level 12 elite, roams Thunder Ridge among the lizards: watch for him before you pull.
-  collect 6486 quest 1498.1 only Tauren
-
-step Durotar
-  only Tauren,Shaman
-  zone Durotar
-  goto 38.5,59.0 "Durotar"
-
-step Telf Joolam
-  only Tauren,Shaman
-  zone Durotar
-  tip Over the Southfury River bridge below Far Watch Post and south along the Durotar bank to where a narrow trail climbs the mountain: Telf keeps the shrine at the top. Mind the edges on the way up, and come back down the same trail.
-  turnin 1524 only Tauren
-  accept 1525 only Tauren
-
-step Dustwind Gulch cultists
-  only Tauren,Shaman
-  zone Durotar
-  tip Burning Blade Cultists hold Dustwind Gulch in northern Durotar; they drop the Reagent Pouch. The Fire Tar comes from the Razormane on your next visit to their camp.
-  collect 6652 quest 1525.2 only Tauren
-
-step The Barrens
-  only Tauren,Warrior
-  zone The Barrens
-  goto 61.4,21.1 "The Barrens"
-
-step Uzzek
-  only Tauren,Warrior
-  zone The Barrens
-  turnin 1498 only Tauren
-  accept 1502 only Tauren
-
-step Thun'grim Firegaze
-  only Tauren,Warrior
-  zone The Barrens
-  tip Thun'grim camps beside the road from the Crossroads to Ratchet. The Stolen Iron Chest sits in the south of the Razormane camp just north of him.
-  turnin 1502 only Tauren
-  accept 1503 only Tauren
-  collect 6534 quest 1503.1 only Tauren
-  turnin 1503 only Tauren
-
 # ---------------------------------------------------------------- Ratchet and the Southsea beach
-
-step The Barrens
-  only Tauren,Shaman
-  zone The Barrens
-  goto 62.7,36.2 "The Barrens"
 
 step Ratchet
   zone The Barrens
@@ -423,33 +346,6 @@ step The Disruption Ends
   kill 3266 quest 872.2
   kill 3269 quest 872.1
   collect 5063 quest 872.3 @58.5,27.0
-  collect 5026 quest 1525.1 only Tauren,Shaman
-
-step Durotar
-  only Tauren,Shaman
-  zone Durotar
-  goto 38.5,59.0 "Durotar"
-
-step Telf Joolam
-  only Tauren,Shaman
-  zone Durotar
-  tip Telf makes Fire Sapta from the tar and pouch. Use it by the brazier next to him to reveal the Minor Manifestation of Fire, kill it for the Glowing Ember, then place the ember in the brazier.
-  turnin 1525 only Tauren
-  accept 1526 only Tauren
-  collect 6655 quest 1526.1 only Tauren
-  turnin 1526 only Tauren
-  accept 1527 only Tauren
-
-step The Barrens
-  only Tauren,Shaman
-  zone The Barrens
-  tip Sunscale raptors here count toward the heads.
-  goto 56.0,19.9 "The Barrens"
-
-step Kranal Fiss
-  only Tauren,Shaman
-  zone The Barrens
-  turnin 1527 reward 5176 263412 only Tauren -- Kranal Fiss: Searing Totem, your Fire Totem and the Totem of Charged Flames
 
 step The Crossroads
   zone The Barrens

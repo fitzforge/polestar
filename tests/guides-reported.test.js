@@ -5240,7 +5240,7 @@ test('Danger at the spot (#1575): the steps players died at among elites say so,
 		[96821, 2, /Ukorsbane \(8\) is elite/, ['forever/horde/orc/01-durotar.guide', 'forever/horde/troll/01-durotar.guide']],
 		[371, 2, /Riptear \(13\) is elite/, ['forever/horde/undead/01-tirisfal-glades.guide']],
 		[1504, 1, /the voidwalker you summon hits hard/, ['forever/horde/orc/01-durotar.guide', 'forever/horde/troll/01-durotar.guide']],
-		[1498, 1, /Halikor, a level 12 elite/, ['forever/horde/orc/01-durotar.guide', 'forever/horde/troll/01-durotar.guide', 'forever/horde/02-the-barrens.guide', 'forever/horde/tauren/01-mulgore.guide']],
+		[1498, 1, /Halikor, a level 12 elite/, ['forever/horde/orc/01-durotar.guide', 'forever/horde/troll/01-durotar.guide', 'forever/horde/tauren/01-mulgore.guide']],
 		[5041, 1, /Flesheaters and Berserkers \(18-19\) are elites/, ['forever/horde/02-the-barrens.guide']],
 		[872, 1, /Flesheaters and Berserkers \(18-19\) are elites/, ['forever/horde/02-the-barrens.guide']],
 		[966, 1, /Voidcallers \(28-29\)[^.]*Athrikus Narassin \(31\)/, ['forever/alliance/03-darkshore.guide']],
@@ -5395,6 +5395,27 @@ test("Silverpine Forest and the Barrens (Horde): Ak'Zeloth from Neeru to Far Wat
 	const give = at(barrens, 'turnin 809', is('turnin', 809));
 	assert.equal(barrens[give].s, barrens[at(barrens, 'accept 842', is('accept', 842))].s, 'on the Far Watch stop with Kargal');
 	assert.equal(barrens[give].goal.npc, 3521, "Ak'Zeloth");
+});
+
+// 0.4.0 route audit, Horde 1-21 (with Mulgore's half): Tauren Warriors and Shamans now take their level-10 class quests on
+// Mulgore's walk past Far Watch Post to Orgrimmar. In the Barrens, Warriors hand Path of Defense to Uzzek on the walk from
+// Orgrimmar and Shamans share the Orcs' and Trolls' Fire Tar, Telf and Kranal steps; no Tauren-only trip into Durotar
+// from the Crossroads is left (it was ~3,160 yd for Warriors and two trips for Shamans).
+test('The Barrens (Horde): Tauren Warriors and Shamans finish Path of Defense and Call of Fire on the Orcs\' steps, no Durotar trip of their own (0.4.0 audit)', { skip }, () => {
+	const list = goals(BARRENS);
+	const fits = (o, cls) => !o || ((!o.races || o.races.includes('Tauren')) && (!o.classes || o.classes.includes(cls)));
+	const as = (cls) => list.filter(({ step, goal }) => fits(step.only, cls) && fits(goal.only, cls));
+	const war = as('WARRIOR');
+	const uzzek = war[at(war, 'turnin 1498', is('turnin', 1498))];
+	assert.ok((uzzek.step.when || []).some((p) => p.k === 'onquest' && !p.neg && [].concat(p.q).includes(1498)), 'Uzzek only for a Warrior carrying Path of Defense');
+	assert.ok(at(war, 'turnin 1503', is('turnin', 1503)) < at(war, 'accept 844', is('accept', 844)), 'Forged Steel before the Crossroads quests');
+	const sham = as('SHAMAN');
+	assert.equal(sham.filter(({ goal }) => is('turnin', 1525)(goal)).length, 1, 'one Telf hand-in');
+	assert.ok(!sham.some(({ goal }) => is('accept', 1524)(goal) || is('accept', 1525)(goal) || (goal.t === 'collect' && goal.item === 6652)), 'Kranal\'s and Telf\'s first parts are Mulgore\'s');
+	for (const cls of ['WARRIOR', 'SHAMAN']) {
+		const own = as(cls).filter(({ step }) => step.only && step.only.races && step.only.races.join() === 'Tauren' && step.goals.some((g) => g.zone === 1411 || g.map === 1411));
+		assert.deepEqual(own.map(({ step }) => step.title), [], `${cls}: no Tauren-only Durotar step`);
+	}
 });
 
 // 0.4.0 route audit, Horde 12-21 (players' recordings, 0.3.7: both Druids who reached it flew Crossroads -> Orgrimmar
