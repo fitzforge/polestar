@@ -382,7 +382,7 @@ enterTown(1454, 54, 66, "Orgrimmar", "The Drag")
 emit({ card = card(), list = names("all") })
 "#,
 	);
-	assert_eq!(out[0], json!({ "card": false, "list": {} }), "an empty list emits as {}");
+	assert_eq!(out[0], json!({ "card": false, "list": {} }), "an empty Lua list emits as an empty object");
 }
 
 // An Alliance character in Stormwind gets the reminder at Stormwind's auction house; in Orgrimmar, whose auctioneers
