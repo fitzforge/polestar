@@ -20,29 +20,16 @@ step Swamp of Sorrows
   zone Swamp of Sorrows
   goto 46.1,54.7 "Swamp of Sorrows"
 
-step Fly to Grom'gol
+step Fly to Booty Bay
   zone Swamp of Sorrows
   goto 46.1,54.7 "Stonard flight master"
-  fly "Grom'gol"
+  fly "Booty Bay"
   zone Stranglethorn Vale
 
 # ---------------------------------------------------------------- Stranglethorn Vale
 
-step To Grom'gol
-  zone Stranglethorn Vale
-  tip The flight from Stonard lands at Grom'gol Base Camp.
-  goto 32.2,27.7 "Grom'gol Base Camp"
-
-step Grom'gol Base Camp
-  turnin 2932                         -- Nimboya
-
-step Fly to Booty Bay
-  zone Stranglethorn Vale
-  goto 32.5,29.3 "Grom'gol flight master"
-  fly "Booty Bay"
-
 step Booty Bay
-  tip Continue south to Booty Bay. Oglethorpe Obnoticus has his workshop on the upper ring of the bay.
+  tip The flight from Stonard lands on Booty Bay's upper deck. Oglethorpe Obnoticus has his workshop on the upper ring of the bay.
   turnin 2767 optional                -- Oglethorpe Obnoticus, inside
   turnin 836 optional
   turnin 648 optional
@@ -88,6 +75,10 @@ step Fly to Grom'gol
   zone Stranglethorn Vale
   goto 26.8,77.0 "Booty Bay flight master"
   fly "Grom'gol"
+
+step Grom'gol Base Camp
+  tip The flight lands at Grom'gol Base Camp; Nimboya stands by the Bubbling Cauldron.
+  turnin 2932                         -- Nimboya
 
 step Back to Grom'gol
   when group 591

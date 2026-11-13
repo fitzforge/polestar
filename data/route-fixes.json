@@ -5000,6 +5000,18 @@
 				],
 				"faction": "Horde",
 				"why": "Horde 40-50 route audit (0.4.0): see task 7722 -> turnin 7727: What the Flux? is handed to Master Smith Burninate on the Thorium Point return before the furnaces (Forging the Shaft, 3443), not on a later return."
+			},
+			{
+				"a": [
+					"turnin",
+					608
+				],
+				"b": [
+					"turnin",
+					2932
+				],
+				"faction": "Horde",
+				"why": "Horde 40-50 route audit (0.4.0): 40-50/06 flew Stonard -> Grom'gol for Grim Message's hand-in (Nimboya) alone, then Grom'gol -> Booty Bay and back to Grom'gol for the zeppelin. Stonard flies straight to Booty Bay (a direct leg in the travel data), so Booty Bay comes first and Nimboya is passed on the way to the Grom'gol zeppelin: one flight and one Grom'gol stop fewer (the flow audit: 06 has the band's most retraced walking, 21.7 minutes)."
 			}
 		],
 		"notes": [

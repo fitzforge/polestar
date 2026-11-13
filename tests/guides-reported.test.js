@@ -2927,6 +2927,16 @@ test('Horde 40-50/04: the Slag Pit plans come with the gorge sweep and go back o
 	assert.equal(list[flux].s, list[fat].s, 'What the Flux? is handed in on the first Thorium Point return');
 });
 
+test('Horde 40-50/06: Stonard flies straight to Booty Bay, and Nimboya is passed on the way to the Grom\'gol zeppelin (0.4.0 route audit)', { skip }, () => {
+	const list = goals(H40('06-azshara'));
+	const flights = list.filter(({ goal }) => goal.t === 'fly').map(({ goal }) => goal.location);
+	assert.deepEqual(flights.slice(0, 2), ['Booty Bay', "Grom'gol"], 'Stonard -> Booty Bay, then Booty Bay -> Grom\'gol');
+	const seahorn = at(list, 'turnin 608', is('turnin', 608));
+	const nimboya = at(list, 'turnin 2932', is('turnin', 2932));
+	const zeppelin = at(list, 'the zeppelin to Orgrimmar', (g) => g.t === 'goto' && /Zeppelin to Orgrimmar/.test(g.label || g.text || ''));
+	assert.ok(seahorn < nimboya && nimboya < zeppelin, 'Booty Bay, then Nimboya, then the zeppelin');
+});
+
 // The goals the stray rule moved, checked against their steps (#175 review): the
 // Grizzled Scalps are taken where the bears are, and cloth the guide says to buy
 // leads to the Auction House, not to the guards and mobs that happen to drop it.
@@ -5240,7 +5250,7 @@ test('flight path sweep (#972): travel tips name only flights the player can tak
 		['horde/05-stonetalon-mountains', 'accept 95883', /Tarren Mill flight path|fly from the Undercity/],
 		['horde/04-the-barrens', 'accept 4542', /Fly from Thunder Bluff/],
 		['horde/07-ashenvale', 'turnin 1534', /Fly from Thunder Bluff/],
-		['horde/40-50/06-azshara', 'goto 32.2,27.7 "Grom\'gol Base Camp"', /Valormok/],
+		['horde/40-50/06-azshara', 'turnin 2932', /Valormok/],
 		['horde/40-50/02-feralas', 'Alodan the Hopeful (Paladins).', /from Gadgetzan/],
 		// (Since the Horde 30-40 re-order the Druids fly from Freewind Post, Orgrimmar and Shadowprey Village straight to Thunder Bluff.)
 		['horde/30-40/01-hillsbrad-foothills', 'only Druid\n  zone Thunder Bluff\n  tip Fly from', /from Orgrimmar|from Shadowprey/],
