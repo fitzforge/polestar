@@ -11946,3 +11946,25 @@ test('Alliance 50-60/04: Thalanaar to Ratchet by flight path when known, else Th
 	const thera = g.find(({ goal }) => goal.t === 'fly' && goal.location === 'Theramore');
 	assert.ok(thera && has(thera, true), 'Theramore otherwise');
 });
+
+// 0.4.0 audit (fold2 follow-up): Of Forgotten Memories (5781) is handed to Tirion on 06's first Eastern Plaguelands
+// stop, and Of Lost Honor (5845, Of Love and Family after it) is only offered once it is. Its Taelan's Hammer drops
+// from Mercutio Filthgorger at the Undercroft, which the folded 06 reaches only at its end: the hammer is taken on 04's
+// Undercroft visit (the Torn Scroll), where Mercutio stands beside the scroll. 05's warnings for Mercutio's adds and
+// the trolls on the way to Infiltrator Hameya stay on their steps.
+test('Alliance 50-60: Taelan\'s Hammer before Tirion\'s hand-in after the fold; Mercutio\'s and Hameya\'s warnings kept', { skip }, () => {
+	const wpl = goals('forever/alliance/50-60/04-western-plaguelands.guide');
+	const scroll = at(wpl, 'accept 6024', is('accept', 6024));
+	const hammer = at(wpl, 'collect 5781.1', (g) => g.t === 'collect' && g.quest === 5781);
+	assert.equal(wpl[hammer].s, wpl[scroll].s, 'the hammer on the Torn Scroll stop');
+	assert.ok(at(wpl, 'accept 5781', is('accept', 5781)) < hammer, 'after Tirion gives the quest');
+	const said = (st) => [st.note, ...(st.notes || []), JSON.stringify(st)].filter(Boolean).join(' ');
+	assert.ok(said(wpl[hammer].step).includes('adds come with Mercutio'), 'with the adds warning');
+	const six = goals('forever/alliance/50-60/06-silithus.guide');
+	assert.ok(!six.some(({ goal }) => goal.t === 'collect' && goal.quest === 5781), 'no hammer after the hand-in');
+	assert.ok(at(six, 'turnin 5781', is('turnin', 5781)) < at(six, 'accept 5845', is('accept', 5845)), 'Tirion: 5781 in, then Of Lost Honor');
+	const hameya = six[at(six, 'collect 6024.1', (g) => g.t === 'collect' && g.quest === 6024)].step;
+	assert.match(said(hameya), /Zul'Mashar are level 57-59/, 'the trolls warning on Hameya');
+	const mound = six[at(six, 'turnin 6024', is('turnin', 6024))].step;
+	assert.match(said(mound), /adds come with Mercutio/, 'and the adds warning at the mound');
+});

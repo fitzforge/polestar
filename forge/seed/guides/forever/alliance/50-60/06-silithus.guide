@@ -614,6 +614,7 @@ step Light's Hope Chapel
 
 step Infiltrator Hameya
   tip Ride north to the Plaguewood's north-eastern edge.
+  tip Careful: The trolls along the path to Zul'Mashar are level 57-59. They run away at low health and call for help, so they often bring adds with them.
   collect 15767 quest 6024.1          -- Hameya's Key
 
 step Tirion Fordring
@@ -643,6 +644,7 @@ step The Marris Stead
 step The Undercroft
   zone Eastern Plaguelands
   tip Ride south-west to the Undercroft. The mound of dirt lies inside. Mercutio Filthgorger is elite: grouping up is advised.
+  tip Careful: About four non-elite adds come with Mercutio. They walk to the grave instead of appearing on the spot.
   turnin 6024                         -- Mound of Dirt
 
 step Artist Renfray

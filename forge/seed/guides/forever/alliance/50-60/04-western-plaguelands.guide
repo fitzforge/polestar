@@ -290,7 +290,9 @@ step Eastern Plaguelands
 step The Undercroft
   zone Eastern Plaguelands
   tip Cross the river east to the Undercroft, the crypt in the south-west of the zone. The Torn Scroll lies inside: its key is on Infiltrator Hameya in the far north-east, done in the next guide.
+  tip Careful: About four non-elite adds come with Mercutio. They walk to the grave instead of appearing on the spot.
   accept 6024                         -- Torn Scroll, below ground
+  collect 14613 quest 5781.1 optional -- Taelan's Hammer, from Mercutio Filthgorger (57, elite): grouping up is advised
 
 step The Hinterlands
   zone The Hinterlands
