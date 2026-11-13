@@ -515,6 +515,7 @@ Gear.GetItemInfo = itemInfo
 
 local player = { class = nil, classID = nil, level = 1, race = nil, raceID = nil, faction = nil }
 local specKey, specSource, specReport, weights, weightsInfo, customLabel, customName
+local scoredText = {} -- Gear.ScoredFor's text by `short`, for the spec resolved now
 local racial
 
 local function refreshPlayer()
@@ -687,6 +688,7 @@ local function resolveSpec()
 	if not player.class then refreshPlayer() end
 	local class = player.class
 	specReport, customLabel, customName = nil, nil, nil
+	scoredText[true], scoredText[false] = nil, nil
 	if not (class and WEIGHTS[class]) then
 		specKey, specSource, weights, weightsInfo = nil, "default", nil, nil
 		return
@@ -727,10 +729,9 @@ end
 -- The weights the advice scored with and where they came from, said under
 -- it (Tooltip.lua; the guide window's reward pick; the reward panel's line):
 -- "Scored for Arcane, from your talents". short: the spec alone ("Scored for
--- Arcane"). -> text | nil (no weights for this class)
-function Gear.ScoredFor(short)
-	local key, label, source = Gear.GetSpec()
-	if not key then return nil end
+-- Arcane"). Made once per resolved spec (every tooltip asks).
+-- -> text | nil (no weights for this class)
+local function scoredFor(short, key, label, source)
 	if source == "custom" then return (L["Scored with your custom weights: %s"]):format(customName or "") end
 	local name = label and L[label] or key
 	if short then return (L["Scored for %s"]):format(name) end
@@ -738,6 +739,18 @@ function Gear.ScoredFor(short)
 	if source == "talents" then return (L["Scored for %s, from your talents"]):format(name) end
 	if specReport and specReport.pending then return (L["Scored for %s until your talents load"]):format(name) end
 	return (L["Scored for %s until you spend talent points"]):format(name)
+end
+
+function Gear.ScoredFor(short)
+	local key, label, source = Gear.GetSpec()
+	if not key then return nil end
+	short = short and true or false
+	local text = scoredText[short]
+	if not text then
+		text = scoredFor(short, key, label, source)
+		scoredText[short] = text
+	end
+	return text
 end
 
 -- Settings > Questing > Rewards & gear, its Gear advice section (Stat weights
