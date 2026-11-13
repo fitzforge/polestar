@@ -263,10 +263,9 @@ fn teldrassil_the_walk_from_42_10_56_59_to_the_sleeping_druid_does_not_climb_the
 // #314 (Tac), Stormwind, Alliance: from the shore north-west of the city (1415 41.08,62.23) to Grimand Elmore
 // in the Dwarven District (1453 59.73,33.78, his spawn; the report cut the target's coordinates short) the walk
 // crossed the cliffs and rocky ground just north-west of the walls, which the player could not climb. The maps
-// cross them above the city's map (1453 30 to 52 across, -16 to 6 down): up from 70 to 162 yd at 50 to 59
-// degrees, then 24 yd down at 58 degrees into the city. Open, one of #98's slopes.
+// crossed them above the city's map (1453 30 to 52 across, -16 to 6 down): up from 70 to 162 yd at 50 to 59
+// degrees, then 24 yd down at 58 degrees into the city. The walking maps from Leffe's navigation maps go round them.
 #[test]
-#[ignore = "open: the maps still cross the cliffs (#98)"]
 fn stormwind_the_walk_from_the_shore_north_west_of_the_city_to_grimand_elmore_does_not_cross_the_cliffs_north_west_of_the_walls_314() {
 	forge_addontest::needs!("map-frames.json");
 	let from = world(1415, 41.08, 62.23);
