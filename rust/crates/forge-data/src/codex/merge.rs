@@ -2053,6 +2053,10 @@ pub fn merge_codex(inputs: &Inputs) -> Merged {
 			o.set("zone", opt(int(&q.get("zone"))));
 			o.set("rewards", rewards);
 			o.set("choices", choices);
+			// A child quest's parent, which must be in the log for its giver to offer it (Valik 535, Infiltration 533).
+			if !pre.get("parent").is_undef() {
+				o.set("parent", pre.get("parent"));
+			}
 			if int(&q.get("xp")).is_some_and(|x| x > 0.0) {
 				o.set("xp", int(&q.get("xp")).unwrap());
 			}

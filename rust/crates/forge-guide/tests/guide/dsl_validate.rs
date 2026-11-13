@@ -269,6 +269,9 @@ fn prereq_data() -> Data {
 			"9361": q(9361, json!({ "excl": [9360] })),
 			"9370": q(9370, json!({ "excl": [9371] })),
 			"9371": q(9371, json!({})),
+			"9380": q(9380, json!({ "parent": 9351 })),
+			"9390": q(9390, json!({ "parent": 9391, "excl": [9391] })),
+			"9391": q(9391, json!({})),
 		}),
 		Value::Null,
 		Value::Null,
@@ -333,6 +336,38 @@ fn an_accept_of_a_child_quest_compiles_its_parent_titled_for_the_reason_text() {
 	let g = r.steps()[0]["goals"].as_array().unwrap().clone();
 	assert_eq!(json!([g[1]["parent"], g[1]["preTitles"], g[1].get("pre")]), json!([9341, { "9341": "Quest 9341" }, null]));
 	assert!(g[0].get("parent").is_none() && g[2].get("parent").is_none());
+}
+
+// The Valik rule: a child quest (9340, `parent` 9341, like Valik 535 and Infiltration 533) is offered only while its
+// parent is in the log. Lint warns when the chain does not hold the parent there: never taken before it, or handed in
+// before it; a step that applies only with the parent in the log (`when onquest`) holds it. A parent nobody can start
+// (9380's 9351) or one exclusive with the quest (9390's 9391) is none: no `parent` compiled, no warning.
+#[test]
+fn lint_says_when_the_chain_does_not_hold_a_child_quest_s_parent_in_the_log() {
+	let data = prereq_data();
+	let parent_warnings = |src: &str| only(&compile_with(src, &data).warnings, "is offered only while");
+	let held = guide_text(&["step A", "  accept 9341", "step B", "  accept 9340"]);
+	let r = compile_with(&held, &data);
+	let g = &r.steps()[1]["goals"][0];
+	assert_eq!(json!([g["parent"], g["preTitles"]]), json!([9341, { "9341": "Quest 9341" }]), "{g}");
+	assert!(g.get("pre").is_none(), "the parent is no quest to turn in first: {g}");
+	assert!(parent_warnings(&held).is_empty());
+	let gated = guide_text(&["step B", "  when onquest 9341", "  accept 9340"]);
+	assert!(parent_warnings(&gated).is_empty());
+	let never = guide_text(&["step B", "  accept 9340"]);
+	assert_eq!(
+		parent_warnings(&never),
+		vec![format!("test.guide:{}: quest 9340 is offered only while 9341 (Quest 9341) is in the log, but the chain never takes that quest before it", line_of(&never, "  accept 9340"))]
+	);
+	let handed = guide_text(&["step A", "  accept 9341", "  turnin 9341", "step B", "  accept 9340"]);
+	assert_eq!(
+		parent_warnings(&handed),
+		vec![format!("test.guide:{}: quest 9340 is offered only while 9341 (Quest 9341) is in the log, but the chain hands that quest in earlier", line_of(&handed, "  accept 9340"))]
+	);
+	let none = guide_text(&["step S", "  accept 9380", "  accept 9390"]);
+	let rn = compile_with(&none, &data);
+	assert!(rn.steps()[0]["goals"].as_array().unwrap().iter().all(|g| g.get("parent").is_none()), "{:?}", rn.steps());
+	assert!(parent_warnings(&none).is_empty());
 }
 
 #[test]

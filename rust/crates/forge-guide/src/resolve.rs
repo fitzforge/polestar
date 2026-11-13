@@ -1943,7 +1943,8 @@ fn accept_gate(q: &V, id: &V, data: &Data) -> V {
 			}
 		}
 	}
-	let parent: Vec<V> = if q.truthy() && q.get("parent").num() > 0.0 { vec![V::from(q.get("parent").num())] } else { Vec::new() };
+	// The parent as blocking_prereqs gives it: not the quest itself, one exclusive with it, or one nobody can start.
+	let parent: Vec<V> = if bp.get("parent").is_num() { vec![bp.get("parent")] } else { Vec::new() };
 	if let Some(p) = parent.first() {
 		out.set("parent", p.clone());
 	}

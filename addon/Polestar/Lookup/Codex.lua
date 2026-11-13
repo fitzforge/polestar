@@ -369,6 +369,9 @@ local function decodeQuest(group, id, s)
 		elseif lead == "x" then
 			-- Its full XP reward: x<xp>.
 			rec.xp = tonumber(sub(f, 2))
+		elseif lead == "u" then
+			-- A child quest's parent, which must be in the log: u<quest>.
+			rec.parent = tonumber(sub(f, 2))
 		elseif f == "t" then
 			-- The kill objective before it is a beast to tame (Taming the Beast).
 			local o = rec.objectives[#rec.objectives]

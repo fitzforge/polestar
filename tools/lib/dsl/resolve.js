@@ -1097,12 +1097,14 @@ function checkBackground(steps, compiled, err) {
 // titles for the engine's "needs <quest> first" / "you took <quest>" text.
 function acceptGate(q, id, data) {
 	const out = {};
-	const { all, any } = blockingPrereqs(q, (p) => data.quest(p));
+	const { all, any, parent: parentId } = blockingPrereqs(q, (p) => data.quest(p));
 	if (any.length) out.pre = any;
 	if (all.length) out.preAll = all;
 	const closedBy = closedByOf(id, data.quests || {});
 	if (closedBy.length) out.closedBy = closedBy;
-	const parent = q && Number(q.parent) > 0 ? [Number(q.parent)] : [];
+	// The parent as blockingPrereqs gives it: not the quest itself, one
+	// exclusive with it, or one nobody can start.
+	const parent = parentId !== undefined ? [parentId] : [];
 	if (parent.length) out.parent = parent[0];
 	const titles = {};
 	for (const p of [...all, ...any, ...closedBy, ...parent]) {

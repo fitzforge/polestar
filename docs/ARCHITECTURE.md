@@ -1243,7 +1243,8 @@ prerequisites `pre` (one of) and `preAll` (every one), `closedBy` (the quest
 its breadcrumb leads to and the quests exclusive with it: once any of them is
 taken or done the giver never offers it again), `parent` (a child quest's
 parent, the data's `parent`: its giver offers it only while the parent is in
-the log, #1661) and `preTitles` (titles of the
+the log, #1661; not one that is the quest itself, exclusive with it, or one
+nobody can start) and `preTitles` (titles of the
 quests those name, for the reason texts). Every goal of a quest only
 characters with a profession can take (quests.json `skill`, `skillLevel`:
 QuestieDB's Forever `requiredSkill`; pfQuest's Classic skill is not used for
@@ -1389,7 +1390,7 @@ Polestar.Engine.SkipQuest(questID, on) -> bool               -- skip a quest and
 Polestar.Engine.IsQuestSkipped(questID) -> bool
 Polestar.Engine.SkipLoses(questID?) -> { { id, title }, ... } | nil   -- the open accepts of this guide (other quests, other steps) that skipping questID, or with none the live step, would leave out; tried on the saved state and put back (see "Quests the player skipped")
 Polestar.Engine.SkippedOut() -> { step, title } | nil   -- with no live step, the player's step skip that left the rest of the guide out (see "Quests the player skipped")
-Polestar.Engine.AcceptGate(stepIndex, goalIndex) -> { level, short, needs = { text, ... } } | nil   -- what the game asks before it offers an accept (its tooltip's Level and Needs lines, #1247): the quest's minimum level above 1 (`short`: the character is below it) and, until the quest is taken or done, the prerequisites not handed in yet (each missing `preAll` by name; a `pre` list none of which is done as one "A or B" entry); from the compiled goal, else from the quest database when it is loaded (never loads it); nil for a goal that is no accept or one with nothing known
+Polestar.Engine.AcceptGate(stepIndex, goalIndex) -> { level, short, needs = { text, ... } } | nil   -- what the game asks before it offers an accept (its tooltip's Level and Needs lines, #1247): the quest's minimum level above 1 (`short`: the character is below it) and, until the quest is taken or done, the prerequisites not handed in yet (each missing `preAll` by name; a `pre` list none of which is done as one "A or B" entry; a child quest's `parent` while it is neither in the log nor handed in, "X in your quest log"); from the compiled goal, else from the quest database when it is loaded (never loads it); nil for a goal that is no accept or one with nothing known
 Polestar.Engine.LostQuestion() -> questID, title | nil      -- a quest the route had passed that left the log, held for the player's answer (see "Quests that leave the log")
 Polestar.Engine.AnswerLost(questID, "back" | "skip")        -- go back to its giver, or skip it and what follows (SkipQuest)
 Polestar.Engine.AimGoal(stepIndex, goalIndex) -> bool[, "accept", title]  -- lead the arrow to a goal of the current step (a click on its line, on the step's header for the header group's first open goal, or on its map pin: #1653, so the arrow keeps its spots); a goal whose quest waits for its accept in the step leaves the arrow on that accept: false, "accept", the quest's title (the window says "Take <quest> first")
@@ -2028,7 +2029,9 @@ Polestar.Engine.StepHiddenFor(step, who?) -> bool  -- no step of its own for who
   in the log, nor
   completed, the Engine marks that accept unavailable for the session when
   the data gives a reason: `"level"` (below minLevel) or `"pre"` (a `pre`
-  quest not done, title given). A refusal the data does not explain is never
+  quest not done, title given, or a child quest's `parent` not in the log,
+  "Only with <parent> in your quest log", a mark that goes once the parent
+  is taken). A refusal the data does not explain is never
   a skip (Fitz, #741: a giver the server lacks would otherwise take the quest
   and its later steps out of the guide): the accept stays open, the focus and
   the arrow stay on that giver, and its view's `noticeText` reads "Not
@@ -8727,7 +8730,9 @@ was already built without it.
   the curated tables and the web quest lists, `xp` = the full XP reward from `data/forever/quests.json`
   where known (what a guide or dungeon is worth in levels: Core/Levels.lua),
   `skill`/`skillLevel` = the profession the quest needs and its rank (#1913;
-  the pack's quest record carries them as `l<line>,<rank>`),
+  the pack's quest record carries them as `l<line>,<rank>`), `parent` = a
+  child quest's parent, which must be in the log for its giver to offer it
+  (`u<quest>` in the pack; Lookup's pick-up accepts carry it as `parent`),
   and `web` on each quest Forever's zone,
   dungeon and raid lists carry: `{ zone, type, side, choices, items, money,
   rep }`, the zone or instance category and the list's rewards, read by the
