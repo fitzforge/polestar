@@ -2,7 +2,9 @@ name: PR base
 
 # Every pull request goes to `next`. `main` is never a base: it moves only
 # when a release is made (fast-forward to `next`, then tagged). See
-# CONTRIBUTING.md, "Branches".
+# CONTRIBUTING.md, "Branches". A release's development branch (`dev-040`,
+# `dev-<version>`) takes the pull requests folded into that release, and goes
+# to `next` as a whole.
 #
 # This runs on pull_request_target so it is a required check for forks too.
 # It never checks out or runs the pull request's code: the public-text job
@@ -40,7 +42,7 @@ jobs:
           exit 1
 
       - name: Not something else
-        if: github.event.pull_request.base.ref != 'main' && github.event.pull_request.base.ref != 'next'
+        if: github.event.pull_request.base.ref != 'main' && github.event.pull_request.base.ref != 'next' && !startsWith(github.event.pull_request.base.ref, 'dev-')
         run: |
           msg="Pull requests go to next. Change the base to next (CONTRIBUTING.md, \"Branches\")."
           echo "::error::$msg"
@@ -51,8 +53,8 @@ jobs:
           } >> "$GITHUB_STEP_SUMMARY"
           exit 1
 
-      - name: Next
-        if: github.event.pull_request.base.ref == 'next'
+      - name: Next or a release's development branch
+        if: github.event.pull_request.base.ref == 'next' || startsWith(github.event.pull_request.base.ref, 'dev-')
         run: |
           {
             echo "## Base branch: $BASE"
