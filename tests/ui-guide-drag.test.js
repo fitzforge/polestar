@@ -38,3 +38,26 @@ for (const growUp of [false, true]) {
 		assert.deepEqual(out.pos, [out.left, out.corner], 'saved as it stands');
 	});
 }
+
+for (const growUp of [false, true]) {
+	test(`a new scale keeps the window's corner where it stands, unrounded (${growUp ? 'grow upward' : 'grow downward'})`, () => {
+		const [out] = run(`
+			Polestar.Set("ui.growUp", ${growUp})
+			local F = PolestarGuideFrame
+			local nav = GF.parts.nav
+			-- Dropped between whole units, as the drag test above leaves it.
+			stub.RunScript(nav, "OnDragStart")
+			F.x, F.y = 412.37, 288.62
+			stub.RunScript(nav, "OnDragStop")
+			local left, corner = F:GetLeft(), ${growUp} and F:GetBottom() or F:GetTop()
+			Polestar.Set("ui.scale", 1.3)
+			local point, _, _, x, y = F:GetPoint(1)
+			local pos = Polestar.Get("ui.pos")
+			emit({ left = left, corner = corner, point = point, x = x, y = y, pos = { pos[1], pos[2] } })`);
+		assert.equal(out.point, growUp ? 'BOTTOMLEFT' : 'TOPLEFT');
+		assert.ok(out.left > 0 && out.corner > 0, 'the window stands somewhere');
+		assert.ok(Math.abs(out.x - out.left / 1.3) < 1e-9, `pinned at left / 1.3, unrounded (${out.x})`);
+		assert.ok(Math.abs(out.y - out.corner / 1.3) < 1e-9, `pinned at its corner / 1.3, unrounded (${out.y})`);
+		assert.deepEqual(out.pos, [out.x, out.y], 'saved as it is pinned');
+	});
+}
