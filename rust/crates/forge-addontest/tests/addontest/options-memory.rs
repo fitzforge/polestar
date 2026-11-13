@@ -60,8 +60,9 @@ const LOADED: f64 = 1907.0;
 /// scenes and the Accent lights' +26, to 4,151; then the search's dropdown's code, +41, 4,280 to 4,322 on
 /// 2026-11-13: the list itself is built only when the player first types). Then 0.4.0's contributor batch
 /// (#2083), chiefly Pause's section on the first page (its switch, two extras and key binding, #1937): +155 with
-/// the base's rows, 4,435 KiB on dev-040's 4,280 (a1643d59c, this test's script, 2026-11-13), so 4,477 with the
-/// search's dropdown. Raised with the base's rows to that figure and about 5 % (Fitz, 2026-11-12, as for the login).
+/// the base's rows, 4,435 KiB on dev-040's 4,280 (a1643d59c, this test's script, 2026-11-13), so about 4,477 with
+/// the search's dropdown (its 4,322 and the batch's 155). Raised with the base's rows to that figure and about 5 %
+/// (Fitz, 2026-11-12, as for the login).
 const OPENED: f64 = 4606.0;
 /// Peak, 3,964 KiB (1,190 on 2026-11-10; 2,359 with the Look pages): the files that moved in compile with the
 /// collector stopped (+1,000, to 3,365), then the pages' (+430, their files' compile with the collector stopped),
