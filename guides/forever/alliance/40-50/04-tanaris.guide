@@ -9,7 +9,11 @@ next forever/alliance/40-50/05-the-hinterlands
 # Forge's route search orders the quests of this guide and its guide writer writes the steps.
 # Fixes go into data/route-fixes.json, data/guide-fixes.json or forever-db/corrections, never
 # into this file.
-# Added here: Sprinkle's Secret Ingredient (2641).
+# Added here: Sprinkle's Secret Ingredient (2641), The Borrower (2941).
+# Darnassus comes at the end of this guide, by the flight to Auberdine, before the boat to Menethil Harbor and the
+# Hinterlands: Troyas' answer (2939), Curgle's crate (3022), Tyrande (2972, 4267), Gracina (162) and Fandral's soil
+# errand (3763, 3764) are all Feralas and Tanaris errands, and Erelas' Favored of Elune? (3661) is then in the log for
+# the Hinterlands visit, where its feathers lie.
 #
 # Zul'Farrak (`when dungeon "Zul'Farrak"`, dungeons in the route): for a character who runs it, Gadgetzan's first stop
 # takes Tran'rek's Scarab Shells (2865, after Tran'rek, 2864, handed in there), Chief Engineer Bilgewhizzle's
@@ -227,26 +231,110 @@ step Gadgetzan
   turnin 110                          -- Alchemist Pestlezugg, inside
   accept 113
   turnin 113                          -- Senior Surveyor Fizzledowser
-  accept 162                          -- for Darnassus: the route takes you there at 47
+  accept 162                          -- for Darnassus, next
 
-step Fly to Theramore
+# ---------------------------------------------------------------- To Darnassus
+
+step Fly to Auberdine
   zone Tanaris
+  tip Darnassus first, while you are on this side of the sea: Troyas' answer, Curgle's crate, Tyrande and the soil errand, then the boat from Auberdine to Menethil Harbor and the gryphon to Aerie Peak.
   goto 51.0,29.3 "Gadgetzan flight master"
-  fly "Theramore"
-  zone Dustwallow Marsh
+  fly "Auberdine"
+  zone Darkshore
+
+step Teldrassil
+  zone Teldrassil
+  tip Take the boat from Auberdine's dock to Rut'theran Village.
+  goto 55.4,92.2 "Rut'theran Village"
+
+# ---------------------------------------------------------------- Rut'theran Village and Darnassus
+
+step Rut'theran Village
+  zone Teldrassil
+  tip Daryn Lightwind stands upstairs, above Erelas Ambersky: go up inside, the arrow cannot tell the floors apart.
+  getfp "Rut'theran Village"
+  turnin 2939                         -- Daryn Lightwind
+  note Daryn's next errand goes to Tanaris: skip it.
+  turnin 3022                         -- Erelas Ambersky
+  accept 3661                         -- Erelas Ambersky: the feathers lie in the Hinterlands, next
+  accept 2940 object 142958           -- the book on her table
+  turnin 2940
+  accept 2941
+
+step Portal to Darnassus
+  zone Teldrassil
+  goto 55.9,89.3 "Portal to Darnassus"
+
+step Temple of the Moon
+  zone Darnassus
+  tip Step through the portal into Darnassus. The Temple of the Moon is in the south of the city.
+  turnin 2972                         -- Tyrande Whisperwind
+  turnin 4267
+  turnin 162                          -- Gracina Spiritmight, beside her
+
+step Thyn'tel Bladeweaver
+  when onquest 1037
+  turnin 1037
+
+step Craftsmen's Terrace
+  accept 3763 lvl 47                  -- Innkeeper Saelienne
+
+# Fandral stands at the top of the druids' building, and the walking maps have no way up inside it:
+# the arrow led onto a ledge outside, behind the wall (#1338). A goto at the building's door on its
+# south side, 35.8,11.6 (players' recordings walk in there), makes the arrow point straight at him.
+step Cenarion Enclave
+  zone Darnassus
+  goto 35.8,11.6 "Cenarion Enclave"
+
+step Cenarion Enclave
+  turnin 3763                         -- Arch Druid Fandral Staghelm, at the top of the tree
+
+step Class trainer
+  only Druid
+  train class only Druid
+
+step Cenarion Enclave
+  accept 3764 lvl 47                  -- the soil comes from Un'Goro Crater, later
+
+step Portal to Teldrassil
+  zone Darnassus
+  goto 29.1,41.2 "Portal to Teldrassil"
+
+step Fly to Auberdine
+  zone Teldrassil
+  goto 58.4,93.9 "Rut'theran Village flight master"
+  fly "Auberdine"
+  zone Darkshore
 
 step Boat to Menethil Harbor
-  zone Dustwallow Marsh
-  goto 71.6,56.4 "Boat to Menethil Harbor"
+  zone Darkshore
+  goto 32.34,44.13 "Boat to Menethil Harbor"
+
+# ---------------------------------------------------------------- The Hinterlands
 
 step Fly to Aerie Peak
+  when taxi "Aerie Peak"
   zone Wetlands
   goto 9.5,59.7 "Menethil Harbor flight master"
   fly "Aerie Peak"
   zone The Hinterlands
 
+step Fly to Southshore
+  when !taxi "Aerie Peak"
+  zone Wetlands
+  goto 9.5,59.7 "Menethil Harbor flight master"
+  fly "Southshore"
+  zone Hillsbrad Foothills
+
+step The Hinterlands
+  when !taxi "Aerie Peak"
+  zone The Hinterlands
+  tip No flight path to Aerie Peak yet: ride north-east out of Southshore on the road into the Hinterlands; Aerie Peak sits just past the border.
+  goto 11.8,46.8 "Aerie Peak"
+
 step Aerie Peak
   zone The Hinterlands
+  getfp "Aerie Peak"
   accept 2989                         -- Gryphon Master Talonaxe, beside the flight master
   accept 2877                         -- Fraggar Thundermantle, inside
 

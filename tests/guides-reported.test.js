@@ -6501,7 +6501,8 @@ test('forever/alliance/40-50: flow re-order: Vital Supplies handed in at Darkshi
 	const hin = goals('forever/alliance/40-50/05-the-hinterlands.guide');
 	assert.ok(!hin.some(({ goal }) => is('turnin', 1477)(goal)), 'not carried into the next guide');
 	const accept = s(hin, 'accept', 1395);
-	assert.ok(accept > s(hin, 'turnin', 3763), 'the crate after Darnassus');
+	// Since the 0.4.0 audit (B26) Darnassus closes the Tanaris guide, before the Hinterlands guide.
+	assert.ok(goals('forever/alliance/40-50/04-tanaris.guide').some(({ goal }) => is('turnin', 3763)(goal)), 'Darnassus before this guide');
 	assert.ok(s(hin, 'turnin', 1395) - accept <= 4, 'the crate straight to Nethergarde Keep');
 });
 
@@ -6682,7 +6683,7 @@ test('forever/alliance/40-50/05-the-hinterlands.guide: final review: Loch Modan 
 	assert.ok(sb('turnin 17', is('turnin', 17)) < sb('fly Southshore', (g) => g.t === 'fly' && /Southshore/.test(g.location || '')), 'before the flight out');
 	const list = goals('forever/alliance/40-50/05-the-hinterlands.guide');
 	assert.ok(!list.some(({ goal }) => [17, 739, 704].includes(goal.quest)), 'no second Loch Modan loop');
-	assert.ok(list.some(({ goal }) => goal.t === 'sethome' && /Stoutlager/.test(goal.location || goal.label || JSON.stringify(goal))), 'the hearth for the Searing Gorge guide');
+	assert.ok(list.some(({ goal }) => goal.t === 'sethome' && /Ironforge/.test(goal.location || goal.label || JSON.stringify(goal))), 'the hearth for the Searing Gorge guide (Ironforge since the 0.4.0 audit)');
 	for (const q of [8552, 8554]) {
 		const e = list[at(list, `accept ${q}`, is('accept', q))];
 		assert.ok((e.step.when || []).some((w) => w.k === 'group'), `${q} only for the group`);
@@ -8627,15 +8628,18 @@ test('forever/alliance/40-50/01-stranglethorn-vale.guide: final review: the nort
 
 // Final route review before 0.3.5 (Main's grind policy): every written grind step of Alliance 40-60 ("Level N" top-ups,
 // solo fallbacks, "Grind to N") ends its tip with the dungeon a group can run instead, the writer's sentence.
-test('alliance 40-60: final review: every written grind step offers a dungeon for its level', { skip }, () => {
-	const bands = [['the Uldaman dungeon', 40, 45], ["the Zul'Farrak dungeon", 44, 48], ['the Maraudon dungeon', 46, 52], ['the Sunken Temple dungeon', 50, 54], ['the Blackrock Depths dungeon', 52, 58], ['the Blackrock Spire dungeon (Lower)', 55, 60], ['the Scholomance dungeon', 58, 60], ['the Stratholme dungeon', 58, 60]];
-	const want = (lv) => bands.map(([n, lo, hi], i) => ({ n, i, d: Math.abs((lo + hi) / 2 - lv), ok: lo <= lv && lv <= hi })).filter((b) => b.ok).sort((a, b) => a.d - b.d || a.i - b.i).slice(0, 2).map((b) => b.n).join(' or ');
-	for (const guide of allGuides().filter((g) => /^forever\/alliance\/(40-50|50-60)\//.test(g))) {
+test('alliance 40-50: final review: every written grind step names only a dungeon the route runs nearby', { skip }, () => {
+	// Since the 0.4.0 audit, Alliance 40-50's grind tips follow the dungeons-in-the-route rule: a tip names a dungeon
+	// only when its run is in the same or the next guide, on the same continent (Uldaman for Stranglethorn, whose next
+	// guide runs it from the Badlands; Zul'Farrak for Feralas, whose next guide runs it from Tanaris; none elsewhere).
+	// 50-60 has its own case for the same rule.
+	const near = { '01-stranglethorn-vale': 'the Uldaman dungeon', '03-feralas': "the Zul'Farrak dungeon" };
+	for (const guide of allGuides().filter((g) => /^forever\/alliance\/40-50\//.test(g))) {
 		for (const step of compiled(guide).steps) {
-			const m = /^(?:Level ([\d.]+)|Grind to (\d+))$/.exec(step.title);
-			if (!m) continue;
-			const lv = Math.floor(Number(m[1] || m[2]));
-			assert.ok((step.note || '').endsWith(`Or, with a group, run ${want(lv)} instead.`), `${guide} "${step.title}": ${step.note}`);
+			if (!/^(?:Level [\d.]+|Grind to \d+)$/.test(step.title)) continue;
+			const d = near[/\/40-50\/([^/]+)\.guide$/.exec(guide)[1]];
+			if (d) assert.ok((step.note || '').endsWith(`Or, with a group, run ${d} instead.`), `${guide} "${step.title}": ${step.note}`);
+			else assert.ok(!/run the [^.]* dungeon/.test(step.note || ''), `${guide} "${step.title}": no dungeon off the route: ${step.note}`);
 		}
 	}
 });
@@ -12241,3 +12245,116 @@ test('forever/alliance/30-40/02-desolace.guide: the Kolkar Village step points a
 	assert.ok(goal.map === 1443 && Math.hypot(goal.x - 71.5, goal.y - 45.5) < 1, `the ears: Kolkar Village (got ${goal.map} ${goal.x},${goal.y})`);
 	assert.ok(JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', 'places.json'), 'utf8')).places.some((p) => p.id === '1575-desolace-alliance-centaur-ears-kolkar-village'), 'a record the build keeps');
 });
+
+// 0.4.0 route audit (B26), Alliance 45-48: the Tanaris guide ended Gadgetzan -> Theramore -> boat -> Aerie Peak, and the
+// Hinterlands guide went on Ironforge -> Stormwind -> Lakeshire -> Morgan's Vigil (a flight path only) -> Thelsamar (a
+// bind only) -> Menethil -> boat -> Auberdine -> Darnassus -> boat -> Stormwind. Now Darnassus comes first, from
+// Gadgetzan by the flight to Auberdine, then the boat to Menethil and Aerie Peak; Favored of Elune? (3661), taken in
+// Rut'theran, has its Wildkin Feathers picked up in the Hinterlands visit; the hearth is set in Ironforge.
+test('Tanaris and the Hinterlands (Alliance 45-48): Darnassus before the Hinterlands, the feathers in the Hinterlands, the hearth in Ironforge (0.4.0 audit)', { skip }, () => {
+	const tan = goals('forever/alliance/40-50/04-tanaris.guide');
+	const flyAub = at(tan, 'fly Auberdine', (g) => g.t === 'fly' && g.location === 'Auberdine');
+	for (const [t, q] of [['turnin', 2939], ['turnin', 3022], ['accept', 3661], ['turnin', 2972], ['turnin', 4267], ['turnin', 162], ['accept', 3764]]) {
+		const i = at(tan, `${t} ${q}`, is(t, q));
+		assert.ok(i > flyAub, `${t} ${q} after the flight to Auberdine`);
+		assert.ok(i < at(tan, 'accept 2989', is('accept', 2989)), `${t} ${q} before Aerie Peak`);
+	}
+	assert.ok(!tan.some(({ goal }) => goal.t === 'fly' && goal.location === 'Theramore'), 'no flight back to Theramore');
+	const hin = goals('forever/alliance/40-50/05-the-hinterlands.guide');
+	const feathers = at(hin, 'collect 10819', (g) => g.t === 'collect' && g.quest === 3661);
+	assert.ok(feathers < at(hin, 'turnin 2877', is('turnin', 2877)), 'the feathers before Aerie Peak');
+	assert.ok(!hin.some(({ goal }) => goal.t === 'getfp' && /Morgan/.test(goal.location || '')), "no Morgan's Vigil detour");
+	assert.ok(!hin.some(({ goal }) => [2939, 3022, 2972, 162, 3763].includes(goal.quest)), 'no Darnassus stop left in the Hinterlands guide');
+	assert.ok(!hin.some(({ goal }) => goal.t === 'sethome' && /Stoutlager/.test(JSON.stringify(goal))), 'no Thelsamar bind');
+	const sg = goals('forever/alliance/40-50/06-searing-gorge.guide');
+	assert.ok(sg.findIndex(({ goal }) => goal.t === 'fly' && goal.location === 'Thelsamar') >= 0, 'the Searing Gorge guide flies Ironforge -> Thelsamar');
+});
+
+// 0.4.0 route audit, binds sweep (the addon's own travel planner on every Alliance start): the Stormwind bind on the
+// Stranglethorn guide's Stormwind stop and the Aerie Peak bind on the Badlands guide's first Aerie Peak visit are never
+// hearthed to before the next bind; both are gone.
+test('Stranglethorn and the Badlands (Alliance 42-43): no Stormwind or Aerie Peak bind the route never hearths to (0.4.0 audit)', { skip }, () => {
+	const bind = (guide, re) => goals(guide).some(({ goal }) => goal.t === 'sethome' && re.test(goal.location || goal.label || JSON.stringify(goal)));
+	assert.ok(!bind('forever/alliance/40-50/01-stranglethorn-vale.guide', /Stormwind/), 'no Stormwind bind in 40-50/01');
+	assert.ok(!bind('forever/alliance/40-50/02-badlands.guide', /Aerie Peak/), 'no Aerie Peak bind in 40-50/02');
+	assert.ok(bind('forever/alliance/40-50/01-stranglethorn-vale.guide', /Booty Bay/), 'the Booty Bay bind stays');
+});
+
+// 0.4.0 route audit (F3), Alliance 40: the Humans' riding branch (Jaina, the boat to Menethil, Stormwind, Eastvale) only
+// shows from level 40, but its Darkshire -> Booty Bay flight did not, and Humans had no Ratchet step: the level model has
+// them at 39.8 at Balos Jacken, so a Human under 40 was pointed at Darkshire from Dustwallow Marsh. Every race below 40
+// now takes the Booty Bay boat from Ratchet (one step, no longer one pair per race and class mix), and everyone who
+// passes Ratchet's gryphon master by the dock learns the flight path.
+test('Stranglethorn Vale (Alliance 40): every race takes the Booty Bay boat from Ratchet below 40, and learns the flight path there (0.4.0 audit)', { skip }, () => {
+	const all = goals('forever/alliance/40-50/01-stranglethorn-vale.guide');
+	const firstBB = at(all, 'turnin 627', is('turnin', 627));
+	for (const race of ['Human', 'Dwarf', 'Gnome', 'NightElf', 'Skyborne']) {
+		const list = all.filter(forRaceOf(race)).filter(forClass('WARRIOR'));
+		const boat = list.filter(({ goal }) => goal.t === 'goto' && goal.text === 'Boat to Booty Bay');
+		assert.equal(new Set(boat.map(({ s }) => s)).size, 1, `${race}: one Booty Bay boat step`);
+		assert.ok(list.some(({ goal }) => goal.t === 'getfp' && goal.location === 'Ratchet'), `${race}: Ratchet's flight path at the dock`);
+	}
+	const human = all.filter(forRaceOf('Human'));
+	const lvl = (e, op) => (e.step.when || []).some((w) => w.k === 'level' && JSON.stringify(w).includes(op));
+	const humanBoat = human.find(({ goal }) => goal.t === 'goto' && goal.text === 'Boat to Booty Bay');
+	assert.ok(lvl(humanBoat, '<'), 'the Humans\' boat is for those under 40');
+	for (const e of human.filter(({ goal, s }) => s < firstBB && goal.t === 'fly' && /Booty Bay/.test(goal.location || ''))) {
+		assert.ok(lvl(e, '>='), 'the Darkshire flight to Booty Bay only for Humans who took the riding trip at 40');
+	}
+});
+
+// 0.4.0 route audit (redo of a 0.3.7 grind fix), Alliance 49-50: Un'Goro's written grind ("Level 49.51" and the in-step
+// top-ups to 49.6 and 49.79) sat before Marshal's Refuge, whose hand-ins cover it (up to 26.8k XP to go, 32.4k ready).
+// One "Level 49.79" now follows the refuge's hand-ins, for whoever is still short.
+test("Un'Goro Crater (Alliance 49-50): the written grind comes after Marshal's Refuge's hand-ins (0.4.0 audit)", { skip }, () => {
+	const list = goals('forever/alliance/40-50/07-un-goro-crater.guide');
+	const grind = list.map((e, i) => [e, i]).filter(([{ goal }]) => goal.t === 'level' && goal.level === 49);
+	const refuge = at(list, 'turnin 4321', is('turnin', 4321));
+	assert.ok(grind.length >= 1, 'a level 49 top-up');
+	for (const [, i] of grind) assert.ok(i > refuge, 'every Un\'Goro top-up to 49.x comes after the refuge\'s hand-ins');
+});
+
+// #1999: the Feralas High Wilderness step grinds to level 44.5 on the Rage Scar yetis (46-48) for a player of about 44.
+// Moving the grind to the Feral Scar yetis (43-45) and making the Pristine Yeti Hide optional cost about 23 minutes to 60
+// in the calibrated level model, so both stay, with a heads-up that names the yetis' level.
+test('Feralas (Alliance 44, #1999): a heads-up on the level 46-48 Rage Scar yetis', { skip }, () => {
+	const list = goals('forever/alliance/40-50/03-feralas.guide');
+	const hides = list[at(list, 'collect 18947', (g) => g.t === 'collect' && g.quest === 7733)];
+	assert.ok(JSON.stringify(hides.step).includes('46-48'), 'a heads-up on the yetis\' level');
+});
+
+// 0.4.0 route audit (F5): the first Booty Bay loop runs at about 40 against level 40-43 Bloodsail casters; players died
+// in the camp and on the Wild Shore (4 people, 9 deaths in players' recordings). Both steps warn.
+test('Stranglethorn Vale (Alliance 40): the Bloodsail camp and the Wild Shore warn of the 40-43 casters (0.4.0 audit)', { skip }, () => {
+	const list = goals('forever/alliance/40-50/01-stranglethorn-vale.guide');
+	for (const [what, pred] of [['collect 4027', (g) => g.t === 'collect' && g.quest === 610], ['kill 1563', (g) => g.t === 'kill' && g.quest === 604]]) {
+		assert.match(JSON.stringify(list[at(list, what, pred)].step), /Careful: the [^"]*4[0-3]/, `${what}: a heads-up`);
+	}
+});
+
+// 0.4.0 route audit (F14, the #1508/#1518 pattern): the way from Ironforge to Thelsamar at the end of the Stranglethorn
+// guide went by race (Humans, Night Elves, Skyborne fly; Dwarves and Gnomes ride). It goes by the flight path the
+// character knows, and whoever just rode out to Dun Morogh's riding trainers rides on through the tunnel.
+test('Stranglethorn Vale (Alliance 42): Ironforge to Thelsamar by the known flight path, not by race (0.4.0 audit)', { skip }, () => {
+	const list = goals('forever/alliance/40-50/01-stranglethorn-vale.guide');
+	const fly = list[at(list, 'fly Thelsamar', (g) => g.t === 'fly' && g.location === 'Thelsamar')];
+	assert.ok(!fly.step.only, 'the flight is for every race');
+	assert.ok((fly.step.when || []).some((w) => w.k === 'taxi' && !w.neg), 'the flight needs the flight path');
+	const rides = list.filter(({ step, goal }) => step.title === 'Loch Modan' && goal.t === 'goto');
+	assert.ok(rides.some(({ step }) => (step.when || []).some((w) => w.k === 'taxi' && w.neg)), 'a ride for whoever lacks the flight path');
+	assert.ok(rides.every(({ step }) => !step.only), 'no race split');
+});
+
+// 0.4.0 route audit (R1, Riverglades): a player who takes the Riverglades from Thelsamar and comes back to the Feralas
+// guide at 43+ skips the Badlands guide, where Aerie Peak's flight path is learned. The Tanaris guide's way to Aerie Peak
+// flies there only with the flight path; without it, it flies to Southshore and rides north-east, and the flight path
+// is learned on arrival.
+test('Tanaris (Alliance 47): the way to Aerie Peak without its flight path, for Riverglades players (0.4.0 audit)', { skip }, () => {
+	const list = goals('forever/alliance/40-50/04-tanaris.guide');
+	const fly = list[at(list, 'fly Aerie Peak', (g) => g.t === 'fly' && g.location === 'Aerie Peak')];
+	assert.ok((fly.step.when || []).some((w) => w.k === 'taxi' && !w.neg), 'the flight needs the flight path');
+	const ss = list[at(list, 'fly Southshore', (g) => g.t === 'fly' && g.location === 'Southshore')];
+	assert.ok((ss.step.when || []).some((w) => w.k === 'taxi' && w.neg), 'Southshore for whoever lacks it');
+	assert.ok(list.some(({ goal }) => goal.t === 'getfp' && goal.location === 'Aerie Peak'), 'learned on arrival');
+});
+

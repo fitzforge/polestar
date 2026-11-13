@@ -3279,6 +3279,33 @@
 			"evidence": "route level 43; Vilebranch Witch Doctor 46-47, Vilebranch Soothsayer 46-47, Vilebranch Scalper 46-47; recordings (2026-11-11): no objective ticks, 0 people died within 60 yd, 0 abandoned"
 		},
 		{
+			"key": "forever/alliance/40-50/02-badlands.guide|collect 2880.1|over",
+			"guide": "forever/alliance/40-50/02-badlands.guide",
+			"goal": "collect 2880.1",
+			"kind": "over",
+			"title": "Witherbark villages",
+			"level": 43,
+			"mobs": [
+				"Hexed Larva 45-46 x7",
+				"Witch Doctor Ti'ik 49-49 x5"
+			],
+			"reason": "the necklaces drop from every Witherbark troll (43-45) around the villages; Witch Doctor Ti'ik (49) and his Hexed Larvae (45-46) keep to the western village's huts, and the step's heads-up says so (guide-fixes danger-hinterlands-43-witch-doctor-tiik)",
+			"evidence": "route level 43; Hexed Larva 45-46 x7, Witch Doctor Ti'ik 49-49 x5; recordings (2026-11-13): done by 1 (median 42.8), deaths 0, abandons 0"
+		},
+		{
+			"key": "forever/alliance/40-50/02-badlands.guide|collect 2880.1|pack",
+			"guide": "forever/alliance/40-50/02-badlands.guide",
+			"goal": "collect 2880.1",
+			"kind": "pack",
+			"title": "Witherbark villages",
+			"level": 43,
+			"mobs": [
+				"23 spawns 44+"
+			],
+			"reason": "the Witherbark villages are dense camps of 43-46 trolls by design; the necklaces drop from any of them at the villages' edges, and the step's heads-up keeps the player out of the witch doctor's huts",
+			"evidence": "route level 43; 23 spawns 44+; recordings (2026-11-13): done by 1 (median 42.8), deaths 0, abandons 0"
+		},
+		{
 			"key": "forever/alliance/40-50/03-feralas.guide|kill 2982.2|over",
 			"guide": "forever/alliance/40-50/03-feralas.guide",
 			"goal": "kill 2982.2",
@@ -3397,6 +3424,32 @@
 			],
 			"reason": "warned at the step: its tip names Wave Strider",
 			"evidence": "route level 45; Wave Strider 47-48; recordings (2026-11-11): no objective ticks, 0 people died within 60 yd, 0 abandoned"
+		},
+		{
+			"key": "forever/alliance/40-50/03-feralas.guide|kill 2970.2|elite",
+			"guide": "forever/alliance/40-50/03-feralas.guide",
+			"goal": "kill 2970.2",
+			"kind": "elite",
+			"title": "Grimtotem tauren",
+			"level": 43.8,
+			"mobs": [
+				"Namida Grimtotem 43-43"
+			],
+			"reason": "Namida Grimtotem (elite 43, at the player's level) stands at the camp's north-east edge; the Raiders and Shamans the quest asks for are all round the camp, and the step's heads-up says where she is (guide-fixes danger-feralas-44-namida-grimtotem)",
+			"evidence": "route level 43.8; Namida Grimtotem 43-43; recordings (2026-11-13): done by 2 (median 45.11), deaths 0, abandons 0"
+		},
+		{
+			"key": "forever/alliance/40-50/03-feralas.guide|kill 2970.3|elite",
+			"guide": "forever/alliance/40-50/03-feralas.guide",
+			"goal": "kill 2970.3",
+			"kind": "elite",
+			"title": "Grimtotem tauren",
+			"level": 43.8,
+			"mobs": [
+				"Namida Grimtotem 43-43"
+			],
+			"reason": "Namida Grimtotem (elite 43, at the player's level) stands at the camp's north-east edge; the Raiders and Shamans the quest asks for are all round the camp, and the step's heads-up says where she is (guide-fixes danger-feralas-44-namida-grimtotem)",
+			"evidence": "route level 43.8; Namida Grimtotem 43-43; recordings (2026-11-13): done by 2 (median 45.11), deaths 0, abandons 0"
 		},
 		{
 			"key": "forever/alliance/40-50/04-tanaris.guide|collect 3161.1|elite",
@@ -4337,6 +4390,61 @@
 			"evidence": "route level 48.2; Negolash 52-52; recordings (2026-11-11): no objective ticks, 0 people died within 60 yd, 0 abandoned"
 		},
 		{
+			"key": "forever/alliance/40-50/05-the-hinterlands.guide|kill 2877.2|pack",
+			"guide": "forever/alliance/40-50/05-the-hinterlands.guide",
+			"goal": "kill 2877.2",
+			"kind": "pack",
+			"title": "Skulk Rock",
+			"level": 47.4,
+			"mobs": [
+				"7 spawns 49+"
+			],
+			"reason": "Skulk Rock's oozes are 46-49 around the rock; the 49s are a few spawns at its centre and the quest's Jade Oozes are at the player's level round its edge",
+			"evidence": "route level 47.4; 7 spawns 49+; recordings (2026-11-13): done by 0 (median null), deaths 0, abandons 0"
+		},
+		{
+			"key": "forever/alliance/40-50/05-the-hinterlands.guide|collect 3661.1|over",
+			"guide": "forever/alliance/40-50/05-the-hinterlands.guide",
+			"goal": "collect 3661.1",
+			"kind": "over",
+			"title": "Wildkin feathers",
+			"level": 47.4,
+			"mobs": [
+				"Wyrmkin Starhunter 51-51 x2",
+				"Fallen Moonkin 51-51 x2"
+			],
+			"reason": "the Wildkin Feathers lie on the ground across the Hinterlands; the 51 wildkin flagged stand at one spot of many, and the feathers are picked up between the Altar of Zul and Skulk Rock (players picked them up at 51-52)",
+			"evidence": "route level 47.4; Wyrmkin Starhunter 51-51 x2, Fallen Moonkin 51-51 x2; recordings (2026-11-13): done by 2 (median 51.56), deaths 0, abandons 1"
+		},
+		{
+			"key": "forever/alliance/40-50/05-the-hinterlands.guide|collect 2581.1|elite",
+			"guide": "forever/alliance/40-50/05-the-hinterlands.guide",
+			"goal": "collect 2581.1",
+			"kind": "elite",
+			"title": "Blasted Lands: kill these as you meet them",
+			"level": 47.7,
+			"mobs": [
+				"Calefactus the Unleashed 50-50 x3",
+				"Vek'zol 55-55"
+			],
+			"reason": "the bloodmages' parts drop zone-wide in the Blasted Lands; Calefactus the Unleashed (elite 50) and Vek'zol (elite 55) roam the middle and the western ridge, and the step's heads-up names both (guide-fixes danger-blasted-lands-48-elites)",
+			"evidence": "route level 47.7; Calefactus the Unleashed 50-50 x3, Vek'zol 55-55; recordings (2026-11-13): done by 3 (median 47.83), deaths 0, abandons 0"
+		},
+		{
+			"key": "forever/alliance/40-50/05-the-hinterlands.guide|collect 2603.2|elite",
+			"guide": "forever/alliance/40-50/05-the-hinterlands.guide",
+			"goal": "collect 2603.2",
+			"kind": "elite",
+			"title": "Blasted Lands: kill these as you meet them",
+			"level": 47.7,
+			"mobs": [
+				"Calefactus the Unleashed 50-50 x3",
+				"Vek'zol 55-55"
+			],
+			"reason": "the bloodmages' parts drop zone-wide in the Blasted Lands; Calefactus the Unleashed (elite 50) and Vek'zol (elite 55) roam the middle and the western ridge, and the step's heads-up names both (guide-fixes danger-blasted-lands-48-elites)",
+			"evidence": "route level 47.7; Calefactus the Unleashed 50-50 x3, Vek'zol 55-55; recordings (2026-11-13): done by 3 (median 47.98), deaths 0, abandons 1"
+		},
+		{
 			"key": "forever/alliance/40-50/06-searing-gorge.guide|kill 7724.1|over",
 			"guide": "forever/alliance/40-50/06-searing-gorge.guide",
 			"goal": "kill 7724.1",
@@ -4577,6 +4685,85 @@
 			],
 			"reason": "no recordings at this level yet: listed on #1702 for the next round with recordings",
 			"evidence": "route level 49; Dark Iron Sentry 48-48; recordings (2026-11-11): no objective ticks, 0 people died within 60 yd, 0 abandoned"
+		},
+		{
+			"key": "forever/alliance/40-50/06-searing-gorge.guide|kill 7724.1|pack",
+			"guide": "forever/alliance/40-50/06-searing-gorge.guide",
+			"goal": "kill 7724.1",
+			"kind": "pack",
+			"title": "Greater Lava Spiders",
+			"level": 48.3,
+			"mobs": [
+				"8 spawns 50+"
+			],
+			"reason": "the Greater Lava Spiders (48-50) are the quest's own targets in the Cauldron; the 50s are the top of their range, and players did it at 49",
+			"evidence": "route level 48.3; 8 spawns 50+; recordings (2026-11-13): done by 3 (median 49.11), deaths 0, abandons 0"
+		},
+		{
+			"key": "forever/alliance/40-50/06-searing-gorge.guide|collect 7728.1|over",
+			"guide": "forever/alliance/40-50/06-searing-gorge.guide",
+			"goal": "collect 7728.1",
+			"kind": "over",
+			"title": "Dark Iron dwarves: kill these as you meet them",
+			"level": 48.5,
+			"mobs": [
+				"Infernus Siege Giant 60-60 x2"
+			],
+			"reason": "the Infernus Siege Giants (60) are Forever spawns the quest data places in the Cauldron; nobody met them in players' recordings (no unit sighting, no death to them), and the deaths in the gorge were to Dark Iron and Twilight mobs",
+			"evidence": "route level 48.5; Infernus Siege Giant 60-60 x2; recordings (2026-11-13): done by 2 (median 49.82), deaths 0, abandons 1"
+		},
+		{
+			"key": "forever/alliance/40-50/06-searing-gorge.guide|collect 7728.2|over",
+			"guide": "forever/alliance/40-50/06-searing-gorge.guide",
+			"goal": "collect 7728.2",
+			"kind": "over",
+			"title": "Dark Iron dwarves: kill these as you meet them",
+			"level": 48.5,
+			"mobs": [
+				"Infernus Siege Giant 60-60 x2",
+				"Lord Gazzran 62-62 x2"
+			],
+			"reason": "the Infernus Siege Giants (60) and Lord Gazzran (62) are Forever spawns the quest data places in the Cauldron; nobody met them in players' recordings (no unit sighting, no death to them), and the deaths in the gorge were to Dark Iron and Twilight mobs",
+			"evidence": "route level 48.5; Infernus Siege Giant 60-60 x2, Lord Gazzran 62-62 x2; recordings (2026-11-13): done by 3 (median 49.07), deaths 0, abandons 1"
+		},
+		{
+			"key": "forever/alliance/40-50/06-searing-gorge.guide|kill 7729.1|pack",
+			"guide": "forever/alliance/40-50/06-searing-gorge.guide",
+			"goal": "kill 7729.1",
+			"kind": "pack",
+			"title": "Dark Iron dwarves: kill these as you meet them",
+			"level": 48.5,
+			"mobs": [
+				"9 spawns 50+"
+			],
+			"reason": "the Dark Iron Taskmasters and Slavers (48-50) are the quest's own targets in the Cauldron; the 50s are the top of their range, and players did it at 49",
+			"evidence": "route level 48.5; 9 spawns 50+; recordings (2026-11-13): done by 3 (median 49.26), deaths 0, abandons 0"
+		},
+		{
+			"key": "forever/alliance/40-50/06-searing-gorge.guide|collect 7722.1|over",
+			"guide": "forever/alliance/40-50/06-searing-gorge.guide",
+			"goal": "collect 7722.1",
+			"kind": "over",
+			"title": "Searing Gorge: kill these as you meet them",
+			"level": 48.8,
+			"mobs": [
+				"Lieutenant Skarresh 58-60 x2"
+			],
+			"reason": "Lieutenant Skarresh (58-60) is a Forever spawn the quest data places by the Cauldron; nobody met him in players' recordings (no unit sighting, no death to him), and the deaths in the gorge were to Dark Iron and Twilight mobs",
+			"evidence": "route level 48.8; Lieutenant Skarresh 58-60 x2; recordings (2026-11-13): done by 2 (median 50.25), deaths 1, abandons 0"
+		},
+		{
+			"key": "forever/alliance/40-50/06-searing-gorge.guide|collect 7701.1|over",
+			"guide": "forever/alliance/40-50/06-searing-gorge.guide",
+			"goal": "collect 7701.1",
+			"kind": "over",
+			"title": "Searing Gorge: kill these as you meet them",
+			"level": 48.8,
+			"mobs": [
+				"Lieutenant Skarresh 58-60 x2"
+			],
+			"reason": "Lieutenant Skarresh (58-60) is a Forever spawn the quest data places by the Cauldron; nobody met him in players' recordings (no unit sighting, no death to him); the 2 deaths near the step were to Twilight and Dark Iron mobs of 48-49, a group quest step (when group 7701)",
+			"evidence": "route level 48.8; Lieutenant Skarresh 58-60 x2; recordings (2026-11-13): done by 1 (median 49.29), deaths 2, abandons 0"
 		},
 		{
 			"key": "forever/alliance/40-50/07-un-goro-crater.guide|collect 4141.1|elite",

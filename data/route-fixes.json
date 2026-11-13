@@ -5036,6 +5036,42 @@
 				],
 				"faction": "Alliance",
 				"why": "Retrieval for Mauren (1078, eight Crystalized Scales from the Saltstone Basilisks at the Mirage Raceway, for Collin Mauren in Stormwind's Slaughtered Lamb) was taken in 06-ashenvale's Stormwind visit at about 25 and carried nine levels and four guides to the Raceway in 30-40/03. Collin stands in the Slaughtered Lamb beside Archmage Malin, whom 30-40/01's Mage Quarter stop visits at about 32, right before 30-40/03 crosses to the Raceway: the quest is taken there. The hand-in stays on 30-40/04's Stormwind stop."
+			},
+			{
+				"a": [
+					"turnin",
+					2972
+				],
+				"b": [
+					"accept",
+					2989
+				],
+				"faction": "Alliance",
+				"why": "Alliance 45-48 flow (0.4.0 audit, B26): Tanaris ends in Gadgetzan; the Darnassus and Rut'theran errands carried from Feralas and Tanaris (Troyas' answer 2939, Curgle's crate 3022, Tyrande 2972/4267, Gracina 162, Fandral 3763/3764) are done first, by the flight to Auberdine, and only then the boat to Menethil Harbor and the gryphon to Aerie Peak. The order went Gadgetzan -> Theramore -> boat -> Aerie Peak -> Ironforge -> Stormwind -> Lakeshire -> Morgan's Vigil -> Thelsamar -> Menethil -> boat -> Auberdine -> Darnassus -> boat -> Stormwind: two boat crossings and three single-purpose stops more. Calibrated level model, every Alliance race and class: -2.0 min to 60 on average."
+			},
+			{
+				"a": [
+					"accept",
+					3661
+				],
+				"b": [
+					"task",
+					2877
+				],
+				"faction": "Alliance",
+				"why": "Alliance 47 (0.4.0 audit, B26): Erelas Ambersky gives Favored of Elune? (3661) in Rut'theran Village, and its Wildkin Feathers lie on the ground in the Hinterlands. Taken before the Hinterlands visit, the feathers are picked up while riding between the Altar of Zul and Skulk Rock, instead of a separate Ironforge -> Aerie Peak trip in the Burning Steppes guide at about 51."
+			},
+			{
+				"a": [
+					"task",
+					3661
+				],
+				"b": [
+					"turnin",
+					2877
+				],
+				"faction": "Alliance",
+				"why": "Alliance 47 (0.4.0 audit, B26): Erelas Ambersky gives Favored of Elune? (3661) in Rut'theran Village, and its Wildkin Feathers lie on the ground in the Hinterlands. Taken before the Hinterlands visit, the feathers are picked up while riding between the Altar of Zul and Skulk Rock, instead of a separate Ironforge -> Aerie Peak trip in the Burning Steppes guide at about 51."
 			}
 		],
 		"notes": [
