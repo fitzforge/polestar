@@ -8078,7 +8078,7 @@
 					"ref": "npc levels: Bloodsail Mage 1562 from 39 (40-41 in the recordings), Bloodsail Warlock 1564 and Bloodsail Swashbuckler 1563 from 41 (41-43 on the danger gate)"
 				}
 			],
-			"pr": "-"
+			"issue": 2025
 		},
 		{
 			"id": "stv-40-wild-shore-heads-up",
@@ -8100,7 +8100,7 @@
 					"ref": "npc levels: Bloodsail Mage 1562 from 39 (40-41 in the recordings), Bloodsail Warlock 1564 and Bloodsail Swashbuckler 1563 from 41 (41-43 on the danger gate)"
 				}
 			],
-			"pr": "-"
+			"issue": 2025
 		},
 		{
 			"id": "danger-hinterlands-43-witch-doctor-tiik",
@@ -8122,7 +8122,7 @@
 					"ref": "players' recordings (to 2026-11-13): the unit census around the step"
 				}
 			],
-			"pr": "-"
+			"issue": 1575
 		},
 		{
 			"id": "danger-feralas-44-namida-grimtotem",
@@ -8144,7 +8144,7 @@
 					"ref": "players' recordings (to 2026-11-13): the unit census around the step"
 				}
 			],
-			"pr": "-"
+			"issue": 1575
 		},
 		{
 			"id": "danger-blasted-lands-48-elites",
@@ -8166,7 +8166,7 @@
 					"ref": "players' recordings (to 2026-11-13): the unit census around the step"
 				}
 			],
-			"pr": "-"
+			"issue": 1575
 		}
 	]
 }
