@@ -88,8 +88,7 @@ fn run(script: &str) -> Value {
 
 #[test]
 fn a_profession_guide_asks_once_on_a_card_and_its_answers_mix_gather_and_buy_come_before_later() {
-	let out = run(
-		r#"
+	let out = run(r#"
 		r.before = card()
 		stub.advance(4)
 		r.card = card()
@@ -100,8 +99,7 @@ fn a_profession_guide_asks_once_on_a_card_and_its_answers_mix_gather_and_buy_com
 		-- Mix: answered, the card goes and the window opens.
 		CT.Act(); stub.advance(0.5)
 		r.mix = { card(), M.Mode(ID), M.Asks(ID), PolestarMaterials:IsShown() }
-		"#,
-	);
+		"#);
 	assert_eq!(out["before"], json!(false), "not before the guide's catch-up");
 	assert_eq!(
 		out["card"],
@@ -116,8 +114,7 @@ fn a_profession_guide_asks_once_on_a_card_and_its_answers_mix_gather_and_buy_com
 
 #[test]
 fn the_window_lists_each_material_of_the_ranges_ahead_with_its_way_a_pick_moves_it_and_a_right_click_takes_it_back() {
-	let out = run(
-		r#"
+	let out = run(r#"
 		MA.Show(); stub.advance(0.5)
 		r.title = PolestarMaterials.Title:GetText()
 		r.modes = modes()
@@ -137,8 +134,7 @@ fn the_window_lists_each_material_of_the_ranges_ahead_with_its_way_a_pick_moves_
 		r.buyAll = { modes(), rows()[1][3] }
 		PolestarMaterials.Scope:Click(); stub.advance(0.5)
 		r.range = { PolestarMaterials.Scope.Label:GetText(), heads(), #rows() }
-		"#,
-	);
+		"#);
 	assert_eq!(out["title"], "Materials: Tailoring 1-150");
 	assert_eq!(out["modes"], json!(["mix"]), "no answer yet: Mix");
 	assert_eq!(out["heads"], json!(["TAILORING 1-75  \u{b7}  your skill 1", "TAILORING 75-150  \u{b7}  your skill 1"]));
@@ -161,8 +157,7 @@ fn the_window_lists_each_material_of_the_ranges_ahead_with_its_way_a_pick_moves_
 
 #[test]
 fn later_keeps_mix_and_asks_no_more_a_guide_switch_asks_again_and_the_menu_changes_the_way() {
-	let out = run(
-		r#"
+	let out = run(r#"
 		stub.advance(4)
 		-- Another guide running takes the card away unanswered: the guide asks again when it runs.
 		Polestar.RegisterGuide({ id = "test/other", pack = "test", title = "Other", minLevel = 1, maxLevel = 60,
@@ -179,22 +174,17 @@ fn later_keeps_mix_and_asks_no_more_a_guide_switch_asks_again_and_the_menu_chang
 		for _, it in ipairs(items) do r.menu[#r.menu + 1] = it.separator and "-" or { it.text, it.checked and true or false } end
 		items[1].onClick(); stub.advance(0.5)
 		r.gather = { M.Mode(ID) }
-		"#,
-	);
+		"#);
 	assert_eq!(out["switched"], json!([false, true]));
 	assert_eq!(out["again"], json!(true));
 	assert_eq!(out["later"], json!([false, "mix", false, false]));
-	assert_eq!(
-		out["menu"],
-		json!([["Gather materials", false], ["Buy materials", false], ["Mix: choose per material", true], "-"])
-	);
+	assert_eq!(out["menu"], json!([["Gather materials", false], ["Buy materials", false], ["Mix: choose per material", true], "-"]));
 	assert_eq!(out["gather"], json!(["gather", true]));
 }
 
 #[test]
 fn at_the_auction_house_the_list_opens_beside_it_with_the_guides_materials_to_buy_and_a_search_for_each() {
-	let out = run(
-		r#"
+	let out = run(r#"
 		-- The game's Auction House window (Blizzard_AuctionHouseUI) and its buy view.
 		local selected = {}
 		AuctionHouseFrame = CreateFrame("Frame", "AuctionHouseFrame", UIParent)
@@ -217,8 +207,7 @@ fn at_the_auction_house_the_list_opens_beside_it_with_the_guides_materials_to_bu
 		AuctionHouseFrame:Hide()
 		stub.fire("AUCTION_HOUSE_CLOSED"); stub.advance(0.5)
 		r.closed = F:IsShown()
-		"#,
-	);
+		"#);
 	assert_eq!(out["docked"], json!([true, true]), "beside the game's window");
 	assert_eq!(out["head"], "MATERIALS FOR TAILORING 1-150");
 	assert_eq!(out["rows"], json!([["10 Light Leather", "Tailoring 1-75", true], ["50 Wool Cloth", "Tailoring 75-150", true]]));

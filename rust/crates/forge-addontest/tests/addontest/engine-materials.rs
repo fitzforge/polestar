@@ -324,10 +324,7 @@ fn the_rows_split_what_the_character_holds_over_the_ranges_ahead_and_the_buy_row
 	);
 	assert_eq!(
 		out["mix"],
-		json!([["Tailoring 1-75", 1, [
-			[2589, 40, 25, 15, "gather", "mix", true, true, false],
-			[2318, 10, 0, 10, "buy", "skill", true, false, "skill"],
-		]]]),
+		json!([["Tailoring 1-75", 1, [[2589, 40, 25, 15, "gather", "mix", true, true, false], [2318, 10, 0, 10, "buy", "skill", true, false, "skill"],]]]),
 		"Mix gathers the cloth at level 10 and buys the leather a character without Skinning can't skin"
 	);
 	assert_eq!(
@@ -338,10 +335,7 @@ fn the_rows_split_what_the_character_holds_over_the_ranges_ahead_and_the_buy_row
 	assert_eq!(out["choosable"], json!([true, false]), "a guide that only buys has nothing to choose");
 	assert_eq!(
 		out["split"],
-		json!([
-			["Tailoring 1-50", 1, [[2589, 30, 30, 0, "gather", "mix", true, true, false]]],
-			["Tailoring 50-75", 1, [[2589, 20, 10, 10, "gather", "mix", true, true, false]]],
-		])
+		json!([["Tailoring 1-50", 1, [[2589, 30, 30, 0, "gather", "mix", true, true, false]]], ["Tailoring 50-75", 1, [[2589, 20, 10, 10, "gather", "mix", true, true, false]]],])
 	);
 	assert_eq!(out["first"], json!([["Tailoring 1-50", 1, [[2589, 30, 30, 0, "gather", "mix", true, true, false]]]]), "this range only");
 }

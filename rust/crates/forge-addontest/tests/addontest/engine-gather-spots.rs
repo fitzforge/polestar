@@ -68,8 +68,7 @@ fn run(script: &str) -> Value {
 
 #[test]
 fn a_spot_of_a_kind_the_character_gathers_is_a_line_once_the_option_is_on_and_a_dismiss_mutes_its_kind_around_here() {
-	let out = run(
-		r#"
+	let out = run(r#"
 		w.learnSkill(182, "Herbalism", 1, 75); flush()
 		at(40.2, 50)
 		r.off = gathers()
@@ -87,14 +86,9 @@ fn a_spot_of_a_kind_the_character_gathers_is_a_line_once_the_option_is_on_and_a_
 		r.gone = gathers()
 		Polestar.Set("behavior.whileHereGather", false); flush(); at(40.3, 50)
 		r.offAgain = gathers()
-		"#,
-	);
+		"#);
 	assert_eq!(out["off"], json!({}), "off by default");
-	assert_eq!(
-		out["on"],
-		json!([[-3, 1, "gather", "Peacebloom can grow here", "Herbalism 1", 5, false]]),
-		"no Copper Vein without Mining, no Mageroyal at Herbalism 1"
-	);
+	assert_eq!(out["on"], json!([[-3, 1, "gather", "Peacebloom can grow here", "Herbalism 1", 5, false]]), "no Copper Vein without Mining, no Mageroyal at Herbalism 1");
 	assert_eq!(out["aim"], json!(true));
 	let wp = out["wp"].as_array().unwrap();
 	assert_eq!(wp[0], json!(1429));
@@ -106,8 +100,7 @@ fn a_spot_of_a_kind_the_character_gathers_is_a_line_once_the_option_is_on_and_a_
 
 #[test]
 fn up_here_while_the_interact_key_picks_one_and_tracking_while_the_minimap_tracks_herbs() {
-	let out = run(
-		r#"
+	let out = run(r#"
 		local tracking = false
 		C_Minimap = C_Minimap or {}
 		C_Minimap.GetNumTrackingTypes = function() return 2 end
@@ -125,8 +118,7 @@ fn up_here_while_the_interact_key_picks_one_and_tracking_while_the_minimap_track
 		r.up = gathers()
 		stub.fire("PLAYER_SOFT_INTERACT_CHANGED", "GameObject-0-1-0-12-3724-0000ABCDEF", "Creature-0-1-0-12-299-0000ABCDEF"); flush()
 		r.gone = gathers()
-		"#,
-	);
+		"#);
 	assert_eq!(out["plain"], json!([[-3, 1, "gather", "Peacebloom can grow here", "Herbalism 1", 5, false]]));
 	assert_eq!(out["tracking"], json!([[-3, 1, "gather", "Peacebloom can grow here", "Herbalism 1", 5, true]]));
 	assert_eq!(out["up"], json!([[-3, 1, "gather", "Peacebloom is up here", "Herbalism 1", 5, true]]), "a second Peacebloom object id counts too");
@@ -135,8 +127,7 @@ fn up_here_while_the_interact_key_picks_one_and_tracking_while_the_minimap_track
 
 #[test]
 fn the_gathering_spot_poll_allocates_nothing_per_tick() {
-	let out = run(
-		r#"
+	let out = run(r#"
 		local function ticks(n)
 			local c, px, py = Polestar.Compat.GetPlayerWorldPosition()
 			for _ = 1, 20 do E.WhileHereTick(c, px, py) end
@@ -158,8 +149,7 @@ fn the_gathering_spot_poll_allocates_nothing_per_tick() {
 		at(40.25, 50)
 		r.idle = ticks(2000)
 		r.after = gathers()
-		"#,
-	);
+		"#);
 	assert_eq!(out["line"], json!([[-3, 1, "gather", "Peacebloom can grow here", "Herbalism 1", 5, false]]));
 	assert_eq!(out["after"], json!({}));
 	let (shown, idle) = (out["shown"].as_f64().unwrap(), out["idle"].as_f64().unwrap());
