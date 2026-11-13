@@ -2416,6 +2416,8 @@ local function build()
 	F:SetWidth(WIDTH)
 	F:SetPoint("CENTER", UIParent, "CENTER", 0, 0)
 	F:Hide()
+	-- The title the game's looks write in the window's title bar.
+	F.psTitle = L["Polestar Install"]
 	Theme.Skin(F, "window")
 	drag(F)
 
@@ -2433,6 +2435,9 @@ local function build()
 	F.CloseScrim:SetFrameLevel(top:GetFrameLevel())
 	F.Close:SetFrameLevel(top:GetFrameLevel() + 2)
 	F.CloseScrim:Hide()
+	-- The game's looks put the close button on the window frame's corner
+	-- (it clicks this one).
+	F.Close:SetShown(not Theme.Kit())
 
 	-- The footer: Skip install (Back on the last page) on the left, "Step 2
 	-- of 6" over the step dots in the middle, Back and Next (Start guide and
@@ -2658,7 +2663,8 @@ function render(from)
 			P:Hide()
 		end
 	end
-	F.CloseScrim:SetShown(current == "finish" and F.pages.finish.Hero.psPainted or false)
+	F.Close:SetShown(not Theme.Kit())
+	F.CloseScrim:SetShown(current == "finish" and F.pages.finish.Hero.psPainted and not Theme.Kit() or false)
 
 	local last = at == #list
 	paintDots(at, #list, animate)

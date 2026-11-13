@@ -1061,6 +1061,11 @@ fn the_settings_windows_header_has_an_install_button_and_its_search_finds_instal
 		b:Click()
 		header.opens = shown() and title() == "Hello, Testchar"
 		PolestarWelcome:Hide()
+		-- Too narrow a window for it beside the page's title: left out, back with the room.
+		Polestar.Set("ui.optionsSize", { 860, 600 })
+		header.narrow = b:IsShown()
+		Polestar.Set("ui.optionsSize", nil)
+		header.wide = b:IsShown()
 		local O = Polestar.UI.Options
 		local found = {}
 		for _, q in ipairs({ "install", "setup", "wizard", "first run" }) do
@@ -1075,7 +1080,7 @@ fn the_settings_windows_header_has_an_install_button_and_its_search_finds_instal
 			for _, c in ipairs(g.controls) do if c.button == "Install" then c.onClick() end end
 		end
 		emit({ header = header, found = found, opened = shown() and step() })"#);
-	assert_eq!(out["header"], json!({ "shown": true, "label": "Install", "inHeader": true, "opens": true }));
+	assert_eq!(out["header"], json!({ "shown": true, "label": "Install", "inHeader": true, "opens": true, "narrow": false, "wide": true }));
 	let hit = json!({ "title": "About  \u{b7}  Install", "label": "Set Polestar up again" });
 	assert_eq!(out["found"], json!({ "install": hit.clone(), "setup": hit.clone(), "wizard": hit.clone(), "first run": hit }));
 	assert_eq!(out["opened"], "1 of 5", "the result opens it, every page");

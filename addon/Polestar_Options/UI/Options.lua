@@ -30,6 +30,7 @@ local floor, max, min, ipairs, pairs, type = math.floor, math.max, math.min, ipa
 
 local SH = W.SHELL
 local GAP = 24 -- between the two columns of the Recorder's and About's tiles
+local INSTALL_ROOM = 780 -- the main column's width the header's Install button needs beside the page's title
 
 local O = {}
 UI.Options = O
@@ -2720,9 +2721,10 @@ local function applySize()
 	if win:GetWidth() == w and win:GetHeight() == h then return false end
 	win:SetSize(w, h)
 	W.ShellLayout(win)
-	-- The footer's thanks for the main column's new width (a size change's
-	-- own hook may run before the shell has measured it).
+	-- The footer's thanks and the header's Install for the main column's new
+	-- width (a size change's own hook may run before the shell has measured it).
 	if rawget(win, "PlaceThanks") then win.PlaceThanks() end
+	if rawget(win, "PlaceInstall") then win.PlaceInstall() end
 	return true
 end
 
@@ -2818,14 +2820,25 @@ local function build()
 	UI.Thanks.HeaderLink(win)
 	-- Install from the header, left of the search: the first run's setup,
 	-- again whenever the player wants it (UI/Welcome.lua over this window).
+	-- A window too narrow for it beside the page's title (under INSTALL_ROOM
+	-- of main column) leaves it out: About and the search still have it.
 	win.Install = W.Button(win.Header, L["Install"], function() ns.Fire("SHOW_WELCOME") end, { ghost = true, icon = "palette" })
 	win.Install.psTip = L["Install"]
 	win.Install.psTipLines = { L["Set Polestar up again, a page at a time. Each choice works at once."] }
-	if rawget(win, "psHeadTools") then
-		win.psHeadTools[#win.psHeadTools + 1] = win.Install
+	local function placeInstall()
+		local room = tonumber(rawget(win, "psMainW")) or 0
+		win.Install:SetShown(room >= INSTALL_ROOM)
 		if rawget(win, "HeaderTools") then win.HeaderTools.Place() end
 	end
-	win:HookScript("OnSizeChanged", function() win.PlaceThanks() end)
+	if rawget(win, "psHeadTools") then
+		win.psHeadTools[#win.psHeadTools + 1] = win.Install
+		win.PlaceInstall = placeInstall
+		placeInstall()
+	end
+	win:HookScript("OnSizeChanged", function()
+		if rawget(win, "psHeadTools") then placeInstall() end
+		win.PlaceThanks()
+	end)
 	-- After the shell's own scale handler: the size follows the scale's room.
 	ns.On("SETTING_CHANGED", function(path)
 		if path == "ui.optionsSize" or path == "ui.menuScale" or path == "" or path == "ui" then
