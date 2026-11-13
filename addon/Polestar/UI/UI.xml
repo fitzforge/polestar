@@ -32,6 +32,7 @@
 	<Script file="Copy.lua"/>
 	<Script file="QuestRoom.lua"/>
 	<Script file="GearScales.lua"/>
+	<Script file="GearAdjust.lua"/>
 	<Script file="Report.lua"/>
 	<Script file="Packs.lua"/>
 	<Script file="Import.lua"/>

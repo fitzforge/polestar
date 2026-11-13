@@ -1,7 +1,38 @@
 -- Leveling stat weights per class and talent spec, and what each class can
--- wear. Authored for Polestar from Classic Era's stat formulas; World of
--- Warcraft: Forever may have retuned some of them (verify in game and adjust
--- here, nowhere else).
+-- wear: Polestar's own, the same at every level, and the only weights gear
+-- advice uses (#1529: no simulation's numbers; a player changes them for
+-- themselves with Adjust weights, Adjust.lua).
+--
+-- Checked against Forever's own client tables (build 1.60.1.70862, read with
+-- `forge gamedata`), which agree with the Classic formulas below:
+--   * ChrClasses: attack power per Strength 2 (Warrior, Paladin, Shaman,
+--     Druid) or 1 (Hunter, Rogue, casters), per Agility 1 (Hunter, Rogue),
+--     ranged attack power per Agility 2 (Warrior, Hunter, Rogue: Warriors and
+--     Rogues get 2 in Forever, 1 in Classic; no spec here weighs it).
+--   * PlayerExpectedStat: Agility per 1% crit at 60 is 20 (Warrior, Paladin,
+--     Priest, Shaman, Mage, Warlock, Druid), 29 (Rogue), 53 (Hunter);
+--     Intellect per 1% spell crit about 60; 10 health per Stamina. Both
+--     conversions are much richer at low level (4 Agility per 1% for a level
+--     1 Warrior), and so is every percent's worth to a character that deals
+--     and takes little damage, which is why the weights do not change by level.
+--   * gametables/combatratings.txt: rating points per 1%, the same at every
+--     level: crit 14, hit 10, haste 10, expertise 10, armor penetration 10,
+--     dodge 12, parry 15, block 5; 1 defense rating is 1 defense skill. Gear.lua
+--     (live item stats) and the item data divide a rating by these, so the
+--     weights below stay per 1%. Forever unifies hit and crit: a plain hit or
+--     crit rating counts for melee, ranged and spells.
+--
+-- Forever's ratings Classic does not have, per 1%, set from the spec's own
+-- crit and hit weights:
+--   * haste: faster swings or casts. A melee spec's specials are not hasted,
+--     so 1% haste is about 0.6 of 1% crit (0.7 for a Hunter, whose damage is
+--     mostly Auto Shot); a caster's about 0.8 of 1% spell crit (mana runs out
+--     sooner while levelling), more for specs whose crit counts for little
+--     (Shadow, Affliction, Demonology); a healer's about 0.6.
+--   * expertise: 1% less dodge (and parry from the front) is about 0.9 of 1%
+--     hit for melee; next to nothing for a Hunter, nothing for casters.
+--   * armorPen: 1% of a mob's armor ignored is worth about a third of 1% crit
+--     to physical damage (levelling mobs' armor takes 15-35% off a hit).
 --
 -- How the numbers were set. One point of the spec's main stat is ~1.0 and
 -- everything else is "worth this many points of it" while levelling (solo
@@ -36,6 +67,7 @@ Gear.STAT_KEYS = {
 	"str", "agi", "sta", "int", "spi", "armor", "health", "mana",
 	"ap", "rap", "sp", "spArcane", "spFire", "spFrost", "spHoly", "spNature", "spShadow", "heal",
 	"crit", "hit", "spellCrit", "spellHit", "mp5", "hp5", "defense", "dodge", "parry", "block", "blockValue",
+	"haste", "expertise", "armorPen",
 	"dps", "rdps",
 }
 
@@ -94,75 +126,75 @@ Gear.CLASSES = {
 Gear.WEIGHTS = {
 	WARRIOR = {
 		arms = { str = 1, agi = 0.6, sta = 0.5, spi = 0.1, armor = 0.02, ap = 0.5, crit = 10, hit = 9, dps = 7, rdps = 0.5,
-			hp5 = 1, health = 0.05, defense = 0.2, dodge = 3, parry = 3, block = 0.3, blockValue = 0.05 },
+			hp5 = 1, health = 0.05, defense = 0.2, dodge = 3, parry = 3, block = 0.3, blockValue = 0.05, haste = 6, expertise = 8.1, armorPen = 3 },
 		fury = { str = 1, agi = 0.65, sta = 0.5, spi = 0.1, armor = 0.02, ap = 0.5, crit = 11, hit = 11, dps = 6.5, rdps = 0.5,
-			hp5 = 1, health = 0.05, defense = 0.2, dodge = 3, parry = 3 },
+			hp5 = 1, health = 0.05, defense = 0.2, dodge = 3, parry = 3, haste = 6.6, expertise = 9.9, armorPen = 3.3 },
 		protection = { sta = 1, str = 0.6, agi = 0.7, armor = 0.06, defense = 1.2, dodge = 12, parry = 12, block = 8, blockValue = 0.5,
-			hit = 6, crit = 4, ap = 0.25, dps = 2.5, rdps = 0.3, hp5 = 1.5, health = 0.1, spi = 0.05 },
+			hit = 6, crit = 4, ap = 0.25, dps = 2.5, rdps = 0.3, hp5 = 1.5, health = 0.1, spi = 0.05, haste = 2, expertise = 5.4, armorPen = 1 },
 	},
 	PALADIN = {
 		holy = { int = 1, heal = 0.65, sp = 0.15, spHoly = 0.1, mp5 = 2.2, spi = 0.5, sta = 0.45, spellCrit = 7, str = 0.15,
-			armor = 0.005, dps = 0.5, health = 0.05, mana = 0.06 },
+			armor = 0.005, dps = 0.5, health = 0.05, mana = 0.06, haste = 4.2 },
 		protection = { sta = 1, armor = 0.05, defense = 1, dodge = 10, parry = 10, block = 6, blockValue = 0.4, str = 0.5, agi = 0.5,
-			int = 0.4, sp = 0.5, spHoly = 0.5, spellHit = 4, hit = 4, mp5 = 1, dps = 2, health = 0.1 },
+			int = 0.4, sp = 0.5, spHoly = 0.5, spellHit = 4, hit = 4, mp5 = 1, dps = 2, health = 0.1, haste = 2, expertise = 3.6, armorPen = 1 },
 		retribution = { str = 1, agi = 0.55, sta = 0.5, int = 0.35, spi = 0.15, armor = 0.02, ap = 0.5, crit = 9, hit = 9,
-			sp = 0.3, spHoly = 0.3, mp5 = 1, dps = 7, hp5 = 0.5, health = 0.05, mana = 0.02 },
+			sp = 0.3, spHoly = 0.3, mp5 = 1, dps = 7, hp5 = 0.5, health = 0.05, mana = 0.02, haste = 5.4, expertise = 8.1, armorPen = 2.7 },
 	},
 	HUNTER = {
 		beastmastery = { agi = 1, rap = 0.45, ap = 0.5, crit = 10, hit = 10, rdps = 6.5, sta = 0.55, int = 0.35, spi = 0.2,
-			str = 0.1, armor = 0.02, mp5 = 1.2, dps = 0.5, mana = 0.02, health = 0.05 },
+			str = 0.1, armor = 0.02, mp5 = 1.2, dps = 0.5, mana = 0.02, health = 0.05, haste = 7, expertise = 0.5, armorPen = 3 },
 		marksmanship = { agi = 1, rap = 0.45, ap = 0.5, crit = 11, hit = 11, rdps = 7, sta = 0.5, int = 0.4, spi = 0.2,
-			str = 0.1, armor = 0.02, mp5 = 1.2, dps = 0.5, mana = 0.02, health = 0.05 },
+			str = 0.1, armor = 0.02, mp5 = 1.2, dps = 0.5, mana = 0.02, health = 0.05, haste = 7.7, expertise = 0.5, armorPen = 3.3 },
 		survival = { agi = 1.1, rap = 0.45, ap = 0.55, crit = 11, hit = 10, rdps = 6.5, sta = 0.55, int = 0.35, spi = 0.2,
-			str = 0.15, armor = 0.02, mp5 = 1, dps = 1, mana = 0.02, health = 0.05 },
+			str = 0.15, armor = 0.02, mp5 = 1, dps = 1, mana = 0.02, health = 0.05, haste = 7.7, expertise = 1, armorPen = 3.3 },
 	},
 	ROGUE = {
 		assassination = { agi = 1, str = 0.55, ap = 0.55, crit = 11, hit = 11, dps = 5.5, sta = 0.45, armor = 0.02, dodge = 2,
-			rdps = 0.4, hp5 = 0.5, health = 0.05, spi = 0.05 },
+			rdps = 0.4, hp5 = 0.5, health = 0.05, spi = 0.05, haste = 6.6, expertise = 9.9, armorPen = 3.3 },
 		combat = { agi = 1, str = 0.55, ap = 0.55, crit = 10, hit = 12, dps = 6, sta = 0.45, armor = 0.02, dodge = 2,
-			rdps = 0.4, hp5 = 0.5, health = 0.05, spi = 0.05 },
+			rdps = 0.4, hp5 = 0.5, health = 0.05, spi = 0.05, haste = 6, expertise = 10.8, armorPen = 3 },
 		subtlety = { agi = 1, str = 0.5, ap = 0.5, crit = 10, hit = 10, dps = 5.5, sta = 0.5, armor = 0.02, dodge = 2,
-			rdps = 0.4, hp5 = 0.5, health = 0.05, spi = 0.05 },
+			rdps = 0.4, hp5 = 0.5, health = 0.05, spi = 0.05, haste = 6, expertise = 9, armorPen = 3 },
 	},
 	PRIEST = {
 		discipline = { int = 1, spi = 0.8, heal = 0.55, sp = 0.45, mp5 = 2, sta = 0.5, spellCrit = 6, spellHit = 3, rdps = 2.5,
-			armor = 0.005, mana = 0.06, health = 0.05 },
+			armor = 0.005, mana = 0.06, health = 0.05, haste = 3.6 },
 		holy = { int = 1, spi = 0.85, heal = 0.7, sp = 0.3, mp5 = 2.2, sta = 0.45, spellCrit = 6, rdps = 2, armor = 0.005,
-			mana = 0.06, health = 0.05 },
+			mana = 0.06, health = 0.05, haste = 3.6 },
 		shadow = { int = 0.85, spi = 0.9, sta = 0.65, sp = 1, spShadow = 1, spellHit = 9, spellCrit = 3, mp5 = 1.8, rdps = 3,
-			heal = 0.05, armor = 0.005, mana = 0.05, health = 0.06 },
+			heal = 0.05, armor = 0.005, mana = 0.05, health = 0.06, haste = 4 },
 	},
 	SHAMAN = {
 		elemental = { int = 1, sp = 0.9, spNature = 0.9, spFire = 0.3, spFrost = 0.2, spellCrit = 8, spellHit = 8, mp5 = 2,
-			spi = 0.35, sta = 0.5, str = 0.2, agi = 0.15, armor = 0.01, dps = 1.5, mana = 0.06, health = 0.05 },
+			spi = 0.35, sta = 0.5, str = 0.2, agi = 0.15, armor = 0.01, dps = 1.5, mana = 0.06, health = 0.05, haste = 6.4 },
 		enhancement = { str = 1, agi = 0.7, ap = 0.5, crit = 9, hit = 9, dps = 7, sta = 0.5, int = 0.35, spi = 0.15, armor = 0.02,
-			mp5 = 1, sp = 0.15, spNature = 0.15, block = 0.3, health = 0.05, mana = 0.02 },
+			mp5 = 1, sp = 0.15, spNature = 0.15, block = 0.3, health = 0.05, mana = 0.02, haste = 5.4, expertise = 8.1, armorPen = 2.7 },
 		restoration = { int = 1, heal = 0.7, mp5 = 2.4, spi = 0.35, sta = 0.45, spellCrit = 6, sp = 0.1, armor = 0.005, dps = 0.5,
-			mana = 0.06, health = 0.05 },
+			mana = 0.06, health = 0.05, haste = 3.6 },
 	},
 	MAGE = {
 		arcane = { int = 1, sp = 1.1, spArcane = 1.1, spFire = 0.4, spFrost = 0.4, spellCrit = 7, spellHit = 9, spi = 0.55,
-			sta = 0.55, mp5 = 1.8, rdps = 1.5, armor = 0.005, mana = 0.07, health = 0.05 },
+			sta = 0.55, mp5 = 1.8, rdps = 1.5, armor = 0.005, mana = 0.07, health = 0.05, haste = 5.6 },
 		fire = { int = 0.9, sp = 1.1, spFire = 1.1, spFrost = 0.2, spArcane = 0.2, spellCrit = 9, spellHit = 9, spi = 0.5,
-			sta = 0.55, mp5 = 1.6, rdps = 1.5, armor = 0.005, mana = 0.06, health = 0.05 },
+			sta = 0.55, mp5 = 1.6, rdps = 1.5, armor = 0.005, mana = 0.06, health = 0.05, haste = 7.2 },
 		frost = { int = 0.9, sp = 1.1, spFrost = 1.1, spFire = 0.2, spArcane = 0.2, spellCrit = 6, spellHit = 9, spi = 0.6,
-			sta = 0.6, mp5 = 1.8, rdps = 1.5, armor = 0.005, mana = 0.06, health = 0.06 },
+			sta = 0.6, mp5 = 1.8, rdps = 1.5, armor = 0.005, mana = 0.06, health = 0.06, haste = 4.8 },
 	},
 	WARLOCK = {
 		affliction = { sta = 0.8, int = 0.75, spi = 0.6, sp = 1, spShadow = 1, spFire = 0.2, spellHit = 9, spellCrit = 3,
-			mp5 = 1, rdps = 2, armor = 0.005, health = 0.08, mana = 0.05 },
+			mp5 = 1, rdps = 2, armor = 0.005, health = 0.08, mana = 0.05, haste = 4 },
 		demonology = { sta = 1, int = 0.75, spi = 0.55, sp = 0.85, spShadow = 0.85, spFire = 0.2, spellHit = 8, spellCrit = 3,
-			mp5 = 1, rdps = 2, armor = 0.005, health = 0.1, mana = 0.05 },
+			mp5 = 1, rdps = 2, armor = 0.005, health = 0.1, mana = 0.05, haste = 4 },
 		destruction = { sta = 0.7, int = 0.85, spi = 0.4, sp = 1, spShadow = 0.8, spFire = 0.6, spellHit = 9, spellCrit = 7,
-			mp5 = 1, rdps = 2, armor = 0.005, health = 0.07, mana = 0.05 },
+			mp5 = 1, rdps = 2, armor = 0.005, health = 0.07, mana = 0.05, haste = 5.6 },
 	},
 	DRUID = {
 		balance = { int = 1, sp = 0.9, spNature = 0.9, spArcane = 0.7, spellCrit = 6, spellHit = 8, spi = 0.5, sta = 0.5, mp5 = 2,
-			heal = 0.1, armor = 0.005, mana = 0.06, health = 0.05 },
+			heal = 0.1, armor = 0.005, mana = 0.06, health = 0.05, haste = 4.8 },
 		feral = { str = 1, agi = 1, ap = 0.5, crit = 9, hit = 9, sta = 0.65, armor = 0.04, defense = 0.4, dodge = 6, int = 0.2,
-			spi = 0.15, hp5 = 0.5, health = 0.07 },
+			spi = 0.15, hp5 = 0.5, health = 0.07, haste = 5.4, expertise = 8.1, armorPen = 2.7 },
 		restoration = { int = 1, heal = 0.7, spi = 0.65, mp5 = 2.2, sta = 0.45, spellCrit = 4, sp = 0.1, armor = 0.005,
-			mana = 0.06, health = 0.05 },
+			mana = 0.06, health = 0.05, haste = 2.4 },
 	},
 }
 

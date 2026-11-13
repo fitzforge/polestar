@@ -781,8 +781,10 @@ runs solo or in a raid.
 
 
 - **Upgrade indicator** on item tooltips: by how much an item is an upgrade
-  for your spec at your level, from stat weights per spec (detected from your
-  talent points) and level band.
+  for your spec, from Polestar's stat weights per spec (detected from your
+  talent points), checked against Forever's own stat conversions. Forever's
+  ratings (crit, hit, haste, expertise, armor penetration, dodge, parry,
+  block) count at the game's rating per 1%.
 - **On the game's reward panel** every choice that is an upgrade gets a green
   arrow, the one to take is framed, and a coin marks the one that sells for
   most. Turn-in goals name the best reward, and a quest you are about to accept
@@ -795,6 +797,13 @@ runs solo or in a raid.
   as "Custom: <name>". It replaces the built-in weights at every level. One
   window lists your scales for every class: use, rename, export or delete
   them, change their weights, and start one from a built-in spec.
+- **Adjust the built-in weights**: Options, Questing, Rewards & gear, **Adjust
+  weights** (or `/polestar gear adjust`) lists your spec's weights. Change any
+  stat, or add one; a changed stat is marked with a dot and can go back on its
+  own (its reset button names the default), and **Revert to default** puts
+  every weight of the spec back. A change
+  is kept as the number you type, while every other stat follows Polestar's
+  defaults, and the spec reads "(adjusted)" in the menu and on tooltips.
 
 </details>
 
@@ -1042,6 +1051,7 @@ settings instead, and Polestar keeps out of the game's own windows.
 | `gear [item link]` | Gear advice: the weights in use, or compare an item |
 | `gear import [string]` | Import a Pawn scale: opens the paste box, or imports the string given |
 | `gear scales` | Open the window that manages your custom stat-weight scales |
+| `gear adjust` | Open the window that changes your spec's built-in stat weights |
 | `instances [clear]` | Instance limits, runs and lockouts |
 | `dungeons [name]` | Open Dungeons, or a dungeon's page |
 | `lookup [search]` | Open Lookup, optionally searching |

@@ -4,7 +4,9 @@
 -- weights dropdown lists the player's own class specs; the setting is kept
 -- per class (gear.spec.<CLASS>), so alts of other classes keep "Automatic".
 -- Imported Pawn scales (Pawn.lua) follow the specs as "Custom: <name>"; one
--- button opens the window that manages them (UI/GearScales.lua).
+-- button opens the window that manages them (UI/GearScales.lua). A spec whose
+-- weights the player changed (Adjust.lua) reads "<spec> (adjusted)", and
+-- Adjust weights opens the window that changes them (UI/GearAdjust.lua).
 
 local ADDON, ns = ...
 
@@ -29,10 +31,16 @@ end
 
 local playerClass
 
--- The built-in specs, then this class's custom scales.
+-- The built-in specs (marked when adjusted), then this class's custom scales.
 local function choices()
 	local out = {}
-	for i = 1, #specChoices do out[i] = specChoices[i] end
+	for i = 1, #specChoices do
+		local c = specChoices[i]
+		if c.value ~= "auto" and Gear.Adjust.Count(playerClass, c.value) > 0 then
+			c = { value = c.value, label = (L["%s (adjusted)"]):format(c.label) }
+		end
+		out[i] = c
+	end
 	for _, scale in ipairs(Gear.Scales.List(playerClass)) do
 		out[#out + 1] = { value = "custom:" .. scale.id, label = (L["Custom: %s"]):format(scale.name) }
 	end
@@ -57,6 +65,10 @@ local function register()
 				help = L["Score items for your class and talents and point out upgrades."] },
 			{ kind = "dropdown", key = "gear.spec." .. class, label = L["Stat weights"], choices = choices, disabled = disabled,
 				help = L["Which levelling weights score your items. Automatic follows the talent tree with the most points."] },
+			{ kind = "button", icon = "sliders", button = L["Adjust"], label = L["Adjust weights"], disabled = disabled,
+				search = "stat weights, change weights, tweak, revert, default",
+				help = L["Weigh a stat more or less than Polestar does for your spec. Revert to default puts Polestar's weights back."],
+				onClick = function() if UI() and UI().ShowAdjust then UI().ShowAdjust() end end },
 			{ kind = "button", icon = "bolt", button = L["Manage"], label = L["Manage custom weights"], disabled = disabled,
 				help = L["Import a Pawn scale string, and use, rename, export or delete the scales you have."],
 				onClick = function() if UI() and UI().ShowScales then UI().ShowScales() end end },
