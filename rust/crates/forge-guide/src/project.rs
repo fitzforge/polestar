@@ -443,7 +443,7 @@ fn via_of(g: &V, data: &Data) -> Option<(V, V)> {
 				return None;
 			}
 			let name = data.zone(&map).get("name");
-			return name.is_str().then(|| (map, name));
+			return name.is_str().then_some((map, name));
 		}
 	}
 	None
