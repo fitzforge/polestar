@@ -14,7 +14,7 @@ return {
 	-- {npc:9997} Spraggle Frock
 	["the wooden sign beside {npc:9997}, by the flight master: the pterrordax are on this guide's ground"] = "",
 	-- {npc:9117} J.D. Collie
-	["{npc:9117}, at the back of the cave; below ground"] = "",
+	["{npc:9117}, at the back of the cave; below ground"] = "{npc:9117}, al fondo de la cueva; bajo tierra",
 
 	-- Step 3: Out of the refuge
 	["Out of the refuge"] = "Fuera del refugio",
@@ -34,7 +34,7 @@ return {
 	["Pterrordax"] = "Pterrordáctilo",
 	-- {npc:9998} Shizzle
 	["Pterrordax fly over the east of the crater, from the slopes below the refuge southward; their webbed scales are for {npc:9998}."] = "",
-	["grind on Pterrordax"] = "",
+	["grind on Pterrordax"] = "sube de nivel con pterrordáctilos",
 
 	-- Step 6: Power Crystals and soil
 	["Power Crystals and soil"] = "Cristales de poder y tierra",
@@ -79,7 +79,7 @@ return {
 
 	-- Step 16: A Wrecked Raft
 	["The raft lies on the shore of the south-eastern lake; the small pack sits in the water beside it."] = "La balsa está en la orilla del lago del sureste; la mochila pequeña está en el agua a su lado.",
-	["Underwater"] = "",
+	["Underwater"] = "Bajo el agua",
 
 	-- Step 18: Lashers and Threshers
 	["Lashers and Threshers"] = "Azotadores y Trilladores",
@@ -99,7 +99,7 @@ return {
 	-- {npc:9997} Spraggle Frock
 	["{npc:9997}, beside the flight master"] = "",
 	-- {npc:9117} J.D. Collie
-	["{npc:9117}, below ground"] = "",
+	["{npc:9117}, below ground"] = "{npc:9117}, bajo tierra",
 	-- {npc:9118} Larion · {quest:4147} Marvon's Workshop · {npc:8737} Linken
 	["Keep {npc:9118}'s {quest:4147} and {npc:8737}'s letter for later guides."] = "Guarda {quest:4147} de {npc:9118} y la carta de {npc:8737} para guías posteriores.",
 
@@ -145,7 +145,7 @@ return {
 
 	-- Step 29: Gadgetzan
 	-- {npc:5594} Alchemist Pestlezugg
-	["{npc:5594}, inside"] = "",
+	["{npc:5594}, inside"] = "{npc:5594}, adentro",
 
 	-- Step 30: Orgrimmar
 	-- {area:1637} Orgrimmar · {area:16727} Powderfuse Port · {zone:1458} Undercity
@@ -215,7 +215,7 @@ return {
 	["{area:340} flight master"] = "",
 
 	-- Step 43: Apothecary Lydon
-	["Inside"] = "",
+	["Inside"] = "Adentro",
 
 	-- Step 44: Fly to Undercity
 	-- {area:1497} Undercity
