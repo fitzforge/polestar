@@ -23,7 +23,12 @@
 --       weights give no value (a staff for a Druid) still beats a bare hand.
 --   Gear.GetSpec() -> key, label, source ("setting" | "talents" | "default" | "custom")
 --       "custom": an imported Pawn scale (Pawn.lua); key is "custom:<id>", label
---       "Custom: <name>", and its weights are used as they are, at every level
+--       "Custom: <name>", and its weights are used as they are, at every level.
+--       Automatic ("talents" | "default") is Gear.DetectSpec's pick, read again
+--       when the talents load or change (Gear.RecheckSpec)
+--   Gear.DetectSpec(class, classID, all) -> key, source, report: the spec with
+--       the most talent points, by every way the client can say (report: what
+--       each said; `/polestar gear spec` prints it)
 --   Gear.GetWeights() -> weights (read-only): the spec's band for this level
 --       (Gear.WEIGHT_BANDS, generated SpecData.lua), else the authored table;
 --       a small melee weapon DPS weight is added where the spec has none
@@ -159,7 +164,7 @@ function Client.NumSpecs(classID)
 end
 
 -- -> tab name, points spent in it (the talent-tab API: Forever's client
--- answers it but keeps its talents in C_Traits, see Client.TreeColumns)
+-- answers it with no points and keeps its talents in C_Traits, below)
 function Client.SpecInfo(index)
 	local S = C_SpecializationInfo
 	if not (S and S.GetSpecializationInfo) then return nil end
@@ -169,36 +174,164 @@ function Client.SpecInfo(index)
 end
 
 -- Forever's talents are one C_Traits tree per class whose spec columns are
--- the tree's node groups: its talent frame heads each column with the
--- group's name and the points spent in it (Blizzard_PlayerSpells Camelot,
--- ClassTalentsFrameMixin:RefreshTreeHeaders: GetGroupDisplayInfoByTreeID,
--- then GetGroupCurrencyInfo's currencyInfos[1].spent).
--- -> { { name, points }, ... } left to right | nil when the client has no such tree
-function Client.TreeColumns()
-	local CT, T = C_ClassTalents, C_Traits
-	if not (CT and CT.GetActiveConfigID and T and T.GetConfigInfo and T.GetGroupDisplayInfoByTreeID and T.GetGroupCurrencyInfo) then return nil end
-	local ok, config = pcall(CT.GetActiveConfigID)
-	config = ok and readable(config)
-	if type(config) ~= "number" then return nil end
-	local ok2, info = pcall(T.GetConfigInfo, config)
-	local tree = ok2 and type(info) == "table" and type(info.treeIDs) == "table" and readable(info.treeIDs[1])
+-- node groups (forge's talents.rs reads the same tree from the client's
+-- tables). Its talent frame (Blizzard_PlayerSpells Camelot) shows the active
+-- spec group's config and heads each column with its group's name and the
+-- points spent in it (ClassTalentsFrameMixin:RefreshTreeHeaders:
+-- GetGroupDisplayInfoByTreeID, then GetGroupCurrencyInfo's
+-- currencyInfos[1].spent).
+
+-- The configs to read, most trusted first (Compat.TalentConfigs: the active
+-- spec group's, then C_ClassTalents.GetActiveConfigID's).
+-- -> { configID, ... }, active spec group, its config, the active config
+function Client.TalentConfigs()
+	local C = ns.Compat
+	if C and C.TalentConfigs then return C.TalentConfigs() end
+	return {}
+end
+
+-- Whether the client says its talent data has loaded
+-- (C_SpecializationInfo.IsInitialized); nil when it cannot say.
+function Client.TalentsLoaded()
+	local S = C_SpecializationInfo
+	if not (S and S.IsInitialized) then return nil end
+	local ok, v = pcall(S.IsInitialized)
+	v = ok and readable(v)
+	if type(v) ~= "boolean" then return nil end
+	return v
+end
+
+-- A config's tree (its first: the class tree, as the talent frame takes it)
+-- and that tree's spec columns left to right (orderIndex).
+-- -> tree, { { id, name }, ... } (empty when the client heads none) | nil
+local function treeColumns(config)
+	local T = C_Traits
+	if not (T and T.GetConfigInfo) then return nil end
+	local ok, info = pcall(T.GetConfigInfo, config)
+	local tree = ok and type(info) == "table" and type(info.treeIDs) == "table" and readable(info.treeIDs[1]) or nil
 	if type(tree) ~= "number" then return nil end
-	local ok3, shown = pcall(T.GetGroupDisplayInfoByTreeID, tree)
-	if not (ok3 and type(shown) == "table" and shown[1]) then return nil end
-	local ids = {}
-	for i, d in ipairs(shown) do ids[i] = d.groupID end
-	local ok4, groups = pcall(T.GetGroupCurrencyInfo, config, ids)
-	local spent = {}
-	if ok4 and type(groups) == "table" then
-		for _, g in ipairs(groups) do
-			local c = type(g) == "table" and type(g.currencyInfos) == "table" and g.currencyInfos[1]
-			if type(c) == "table" and g.traitNodeGroupID ~= nil then spent[g.traitNodeGroupID] = readable(c.spent) end
+	local cols = {}
+	if T.GetGroupDisplayInfoByTreeID then
+		local ok2, shown = pcall(T.GetGroupDisplayInfoByTreeID, tree)
+		if ok2 and type(shown) == "table" then
+			for i, d in ipairs(shown) do
+				local id = type(d) == "table" and readable(d.groupID) or nil
+				if id ~= nil then
+					local order = readable(d.orderIndex)
+					cols[#cols + 1] = { id = id, name = readable(d.displayName), order = type(order) == "number" and order or i, seq = i }
+				end
+			end
+			table.sort(cols, function(a, b)
+				if a.order ~= b.order then return a.order < b.order end
+				return a.seq < b.seq
+			end)
+		end
+	end
+	return tree, cols
+end
+
+-- The column a position falls in: the n columns stand far apart on the
+-- tree, so the n - 1 widest gaps between the nodes' posX part them.
+-- xs: every node's posX. -> fn(x) -> column (1..n)
+local function columnOfX(xs, n)
+	table.sort(xs)
+	local gaps = {}
+	for i = 2, #xs do
+		if xs[i] > xs[i - 1] then gaps[#gaps + 1] = { at = (xs[i] + xs[i - 1]) / 2, size = xs[i] - xs[i - 1] } end
+	end
+	table.sort(gaps, function(a, b) return a.size > b.size end)
+	local cuts = {}
+	for i = 1, math.min(n - 1, #gaps) do cuts[i] = gaps[i].at end
+	return function(x)
+		local col = 1
+		for _, cut in ipairs(cuts) do
+			if x > cut then col = col + 1 end
+		end
+		return col
+	end
+end
+
+-- Points per column from the ranks bought on the config's nodes
+-- (GetTreeNodes, GetNodeInfo's ranksPurchased), with no need of the
+-- columns' currency: a node counts for the column whose group it is in
+-- (groupIDs), else for the column its position falls in. want: the class's
+-- columns, for a tree the client heads none of.
+-- -> { { name, points }, ... } left to right | nil (no tree or no nodes)
+function Client.TalentRanks(config, want)
+	local T = C_Traits
+	if not (T and T.GetTreeNodes and T.GetNodeInfo) then return nil end
+	local tree, cols = treeColumns(config)
+	if not tree then return nil end
+	local ok, ids = pcall(T.GetTreeNodes, tree)
+	if not (ok and type(ids) == "table" and ids[1]) then return nil end
+	local colOf = {}
+	for i, c in ipairs(cols) do colOf[c.id] = i end
+	local n = #cols > 0 and #cols or want or 3
+	local points, xs, loose = {}, {}, {}
+	for i = 1, n do points[i] = 0 end
+	for _, id in ipairs(ids) do
+		local ok2, info = pcall(T.GetNodeInfo, config, id)
+		local nodeID = ok2 and type(info) == "table" and readable(info.ID) or nil
+		if nodeID and nodeID ~= 0 then
+			local x = readable(info.posX)
+			if type(x) == "number" then xs[#xs + 1] = x end
+			local rank = readable(info.ranksPurchased)
+			if type(rank) ~= "number" then rank = readable(info.activeRank) end
+			if type(rank) == "number" and rank > 0 then
+				local col
+				if type(info.groupIDs) == "table" then
+					for _, g in ipairs(info.groupIDs) do
+						g = readable(g)
+						col = g ~= nil and colOf[g] or nil
+						if col then break end
+					end
+				end
+				if col then
+					points[col] = points[col] + rank
+				elseif type(x) == "number" then
+					loose[#loose + 1] = { x = x, rank = rank }
+				end
+			end
+		end
+	end
+	if loose[1] then
+		local at = columnOfX(xs, n)
+		for _, l in ipairs(loose) do
+			local col = at(l.x)
+			points[col] = points[col] + l.rank
 		end
 	end
 	local out = {}
-	for i, d in ipairs(shown) do
-		local points = spent[d.groupID]
-		out[i] = { name = readable(d.displayName), points = type(points) == "number" and points or 0 }
+	for i = 1, n do out[i] = { name = cols[i] and cols[i].name, points = points[i] } end
+	return out
+end
+
+-- Points per column the way the talent frame heads them: each group's
+-- currencyInfos[1].spent (GetGroupCurrencyInfo; a row without its group's ID
+-- or currency counts as unknown).
+-- -> { { name, points }, ... } left to right | nil (no tree or no columns)
+function Client.TreeColumns(config)
+	local T = C_Traits
+	if not (T and T.GetGroupCurrencyInfo) then return nil end
+	local tree, cols = treeColumns(config)
+	if not (tree and cols[1]) then return nil end
+	local ids = {}
+	for i, c in ipairs(cols) do ids[i] = c.id end
+	local ok, groups = pcall(T.GetGroupCurrencyInfo, config, ids)
+	local spent = {}
+	if ok and type(groups) == "table" then
+		for _, g in ipairs(groups) do
+			local c = type(g) == "table" and type(g.currencyInfos) == "table" and g.currencyInfos[1]
+			if type(c) == "table" then
+				local id = readable(g.traitNodeGroupID)
+				if id ~= nil then spent[id] = readable(c.spent) end
+			end
+		end
+	end
+	local out = {}
+	for i, c in ipairs(cols) do
+		local points = spent[c.id]
+		out[i] = { name = c.name, points = type(points) == "number" and points or 0 }
 	end
 	return out
 end
@@ -374,7 +507,7 @@ Gear.GetItemInfo = itemInfo
 ---------------------------------------------------------------------------
 
 local player = { class = nil, classID = nil, level = 1, race = nil, raceID = nil, faction = nil }
-local specKey, specSource, weights, weightsInfo, customLabel
+local specKey, specSource, specReport, weights, weightsInfo, customLabel
 local racial
 
 local function refreshPlayer()
@@ -440,29 +573,63 @@ local function mostPoints(meta, list)
 	return best
 end
 
--- The talent column with the most points (Forever's C_Traits tree), else the
--- talent tab with the most, else the primary tree chosen on clients with
--- spec selection, else the class's levelling default (before the first
--- point, or when the client cannot tell).
-function Gear.DetectSpec(class, classID)
+-- The first talent point comes at this level (Talents.lua's fallback: one a
+-- level from 10): from here a character without any config read has
+-- talents the client has not given yet.
+local TALENT_LEVEL = 10
+
+-- Where the talent points are, by every way the client can say, in the
+-- order Automatic trusts them: the ranks bought on the active spec group's
+-- config, then on the client's active config (Client.TalentConfigs); the
+-- column points the talent frame heads those configs with; the talent tabs;
+-- the primary tree on clients with spec selection. The spec with the most
+-- points picks; with none read, the class's levelling default (before the
+-- first point, or while the client has not given the talents yet).
+-- all: ask every reader (/polestar gear spec), not only up to the first with points.
+-- -> key, source ("talents" | "default"), report:
+--   { configs, group, groupConfig, activeConfig, loaded, ranks = { [config] = columns },
+--     headers = { [config] = columns }, tabs = columns, primary = index,
+--     reader = "ranks" | "headers" | "tabs" | "primary" | nil, config, pending }
+--   (columns = { { name, points }, ... }; pending: the talents are not there to read yet)
+function Gear.DetectSpec(class, classID, all)
 	local meta = CLASSES[class]
-	if not meta then return nil, "default" end
-	local columns = Client.TreeColumns()
-	local best = columns and mostPoints(meta, columns)
-	if best then return best, "talents" end
-	local tabs = {}
-	for i = 1, Client.NumSpecs(classID) or #meta.specs do
-		local name, points = Client.SpecInfo(i)
-		tabs[i] = { name = name, points = points }
+	if not meta then return nil, "default", nil end
+	local r = { ranks = {}, headers = {} }
+	r.configs, r.group, r.groupConfig, r.activeConfig = Client.TalentConfigs()
+	r.configs = type(r.configs) == "table" and r.configs or {}
+	r.loaded = Client.TalentsLoaded()
+	local key
+	local function take(reader, list, config)
+		local k = list and mostPoints(meta, list)
+		if k and not key then key, r.reader, r.config = k, reader, config end
 	end
-	best = mostPoints(meta, tabs)
-	if best then return best, "talents" end
-	local primary = Client.PrimarySpec(classID)
-	if primary then
-		local key = specKeyOf(meta, (Client.SpecInfo(primary)), primary)
-		if key then return key, "talents" end
+	for _, config in ipairs(r.configs) do
+		if key and not all then break end
+		r.ranks[config] = Client.TalentRanks(config, #meta.specs)
+		take("ranks", r.ranks[config], config)
 	end
-	return meta.default, "default"
+	for _, config in ipairs(r.configs) do
+		if key and not all then break end
+		r.headers[config] = Client.TreeColumns(config)
+		take("headers", r.headers[config], config)
+	end
+	if all or not key then
+		local tabs = {}
+		for i = 1, Client.NumSpecs(classID) or #meta.specs do
+			local name, points = Client.SpecInfo(i)
+			tabs[i] = { name = name, points = points }
+		end
+		r.tabs = tabs
+		take("tabs", tabs)
+	end
+	if all or not key then
+		r.primary = Client.PrimarySpec(classID)
+		local k = r.primary and specKeyOf(meta, (Client.SpecInfo(r.primary)), r.primary)
+		if k and not key then key, r.reader = k, "primary" end
+	end
+	if key then return key, "talents", r end
+	r.pending = r.loaded == false or (#r.configs == 0 and (player.level or 1) >= TALENT_LEVEL)
+	return meta.default, "default", r
 end
 
 -- Melee weapon DPS for the specs whose weights leave it out: every caster, and
@@ -511,12 +678,12 @@ end
 local function resolveSpec()
 	if not player.class then refreshPlayer() end
 	local class = player.class
+	specReport, customLabel = nil, nil
 	if not (class and WEIGHTS[class]) then
 		specKey, specSource, weights, weightsInfo = nil, "default", nil, nil
 		return
 	end
 	local chosen = ns.Get("gear.spec." .. class)
-	customLabel = nil
 	local scale = Gear.Scales.FromSetting(class, chosen)
 	if scale then
 		specKey, specSource, weights = "custom:" .. scale.id, "custom", scale.weights
@@ -527,7 +694,7 @@ local function resolveSpec()
 	if chosen and chosen ~= "auto" and WEIGHTS[class][chosen] then
 		specKey, specSource = chosen, "setting"
 	else
-		specKey, specSource = Gear.DetectSpec(class, player.classID)
+		specKey, specSource, specReport = Gear.DetectSpec(class, player.classID)
 	end
 	weights, weightsInfo = Gear.WeightsFor(class, specKey, player.level)
 end
@@ -908,6 +1075,30 @@ for _, ev in ipairs({ "PLAYER_TALENT_UPDATE", "ACTIVE_TALENT_GROUP_CHANGED", "CH
 	ns.RegisterEvent(ev, function() invalidate("spec") end)
 end
 
+-- The talents can arrive, or change, after Automatic picked without one of
+-- those events: just after login the client may have no config yet, and
+-- its config list, the active config and the trees' currency report
+-- themselves with their own events. On these Automatic reads the talents
+-- again, once a frame however many arrive together, and redoes the advice
+-- only when the pick (or whether the talents were there to read) changed.
+local recheckQueued = false
+local function recheck()
+	recheckQueued = false
+	if specSource ~= "talents" and specSource ~= "default" then return end -- not picked yet, or chosen
+	local key, source, report = Gear.DetectSpec(player.class, player.classID)
+	local pending = report and report.pending or false
+	if key ~= specKey or source ~= specSource or pending ~= (specReport and specReport.pending or false) then invalidate("spec") end
+end
+local function queueRecheck()
+	if recheckQueued then return end
+	recheckQueued = true
+	ns.After(0, recheck)
+end
+Gear.RecheckSpec = queueRecheck
+for _, ev in ipairs({ "TRAIT_CONFIG_LIST_UPDATED", "ACTIVE_COMBAT_CONFIG_CHANGED", "TRAIT_TREE_CURRENCY_INFO_UPDATED", "TRAIT_NODE_CHANGED", "SPELLS_CHANGED", "PLAYER_ENTERING_WORLD" }) do
+	ns.RegisterEvent(ev, queueRecheck)
+end
+
 ns.On("SETTING_CHANGED", function(path)
 	if path == "" or (type(path) == "string" and path:sub(1, 5) == "gear.") then invalidate("spec") end
 end)
@@ -918,6 +1109,9 @@ ns.On("ITEMDB_LOADED", function() invalidate("items") end)
 ns.OnLogin(function()
 	refreshPlayer()
 	invalidate("spec")
+	-- And again a little later, should the talents come with no event at all.
+	ns.After(3, queueRecheck)
+	ns.After(15, queueRecheck)
 end)
 
 ---------------------------------------------------------------------------
@@ -937,6 +1131,55 @@ end
 
 -- Where the spec in use came from (Gear.GetSpec's source).
 local SPEC_SOURCE = { setting = L["setting"], talents = L["talents"], default = L["default"], custom = L["custom"] }
+
+-- /polestar gear spec: what each way of reading the talents found, and what
+-- Automatic picks from it and why, for a player to paste into a report.
+local READER = { ranks = L["ranks bought"], headers = L["column points"], tabs = L["talent tabs"], primary = L["primary tree"] }
+
+local function columnsText(meta, list)
+	if not list then return L["nothing"] end
+	local parts = {}
+	for i, c in ipairs(list) do
+		local spec = meta.specs[i]
+		local name = c.name or (spec and L[spec.label]) or ("#" .. i)
+		parts[#parts + 1] = tostring(name) .. " " .. (type(c.points) == "number" and c.points or "?")
+	end
+	return parts[1] and table.concat(parts, ", ") or L["nothing"]
+end
+
+function Gear.PrintSpecReport()
+	local p = Gear.GetPlayer()
+	local meta = p.class and CLASSES[p.class]
+	if not (meta and WEIGHTS[p.class]) then
+		ns.Print(L["Gear advice: no weights for this class"])
+		return
+	end
+	local _, label, source = Gear.GetSpec()
+	if label and source ~= "custom" then label = L[label] end
+	ns.Print(L["Gear weights"] .. ": " .. tostring(label) .. " (" .. (SPEC_SOURCE[source] or tostring(source)) .. ")")
+	local key, how, r = Gear.DetectSpec(p.class, p.classID, true)
+	local function line(s) DEFAULT_CHAT_FRAME:AddMessage("  " .. s) end
+	local none = L["none"]
+	line(("%s: %s %s: %s, %s: %s%s"):format(L["Talent configs"], L["spec group"], tostring(r.group or none),
+		tostring(r.groupConfig or none), L["active config"], tostring(r.activeConfig or none),
+		r.loaded == false and (" (" .. L["not loaded yet"] .. ")") or ""))
+	for _, config in ipairs(r.configs) do
+		line(("%s, %s %s: %s"):format(READER.ranks, L["config"], config, columnsText(meta, r.ranks[config])))
+		line(("%s, %s %s: %s"):format(READER.headers, L["config"], config, columnsText(meta, r.headers[config])))
+	end
+	line(("%s: %s"):format(L["Talent tabs"], columnsText(meta, r.tabs)))
+	line(("%s: %s"):format(L["Primary tree"], r.primary and tostring(r.primary) or none))
+	local spec = specByKey(p.class, key)
+	local name = spec and L[spec.label] or tostring(key)
+	if how == "talents" then
+		local from = READER[r.reader] .. (r.config and (", " .. L["config"] .. " " .. r.config) or "")
+		line((L["Automatic: %s, the most points (%s)"]):format(name, from))
+	elseif r.pending then
+		line((L["Automatic: %s, the class default until the talents load"]):format(name))
+	else
+		line((L["Automatic: %s, the class default (no talent points found)"]):format(name))
+	end
+end
 
 -- /polestar gear scales: the custom scales for this class, the chosen one marked.
 function Gear.PrintScales()
@@ -968,6 +1211,9 @@ ns.RegisterCommand("gear", function(rest)
 			ns.UI.ShowScaleImport()
 		end
 		return
+	elseif sub == "spec" then
+		Gear.PrintSpecReport()
+		return
 	end
 	local key, label, source = Gear.GetSpec()
 	if not key then
@@ -977,6 +1223,7 @@ ns.RegisterCommand("gear", function(rest)
 	if label and source ~= "custom" then label = L[label] end
 	if rest == nil or rest == "" then
 		ns.Print(L["Gear weights"] .. ": " .. tostring(label) .. " (" .. (SPEC_SOURCE[source] or tostring(source)) .. ")")
+		DEFAULT_CHAT_FRAME:AddMessage("  " .. L["Choose them in Settings > Questing > Rewards & gear > Stat weights. /polestar gear spec: how Automatic picks them."])
 		return
 	end
 	local r = Gear.CompareToEquipped(rest)

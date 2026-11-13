@@ -5637,6 +5637,44 @@ asks Party.lua only whether every member runs Polestar.
 
 Gear's part in quest reward choices: QoL, "Quest reward marks".
 
+### Automatic stat weights: the spec from the talents — Gear/Gear.lua
+
+```lua
+Polestar.Gear.GetSpec() -> key, label, source        -- "setting" | "talents" | "default" | "custom"
+Polestar.Gear.DetectSpec(class, classID, all) -> key, source, report   -- Automatic's pick and what each reader said
+```
+
+- **Which config.** Forever's talent frame (Blizzard_PlayerSpells Camelot)
+  shows the active spec group's combat config
+  (`C_SpecializationInfo.GetCombatConfigIDForSpecGroup(GetActiveSpecGroup())`)
+  and treats `C_ClassTalents.GetActiveConfigID` as optional (its
+  `RefreshConfigID` falls back past nil). `Compat.TalentConfigs()` lists the
+  spec group's config first, then the active config's when it differs; Gear
+  and the talent plans read the first.
+- **The readers, most trusted first; the most points pick.** The ranks bought
+  on each config's nodes (`C_Traits.GetTreeNodes`, `GetNodeInfo`'s
+  `ranksPurchased`), counted for the column whose node group it is in (the
+  groups `GetGroupDisplayInfoByTreeID` heads, sorted by `orderIndex`), else
+  for the column its `posX` falls in (the widest gaps part the columns); the
+  column points the frame heads each column with (`GetGroupCurrencyInfo`'s
+  `currencyInfos[1].spent`; a row without its group ID or currency reads 0);
+  the talent tabs (`GetSpecializationInfo`'s points, 0 on Forever); the primary
+  tree with spec selection. A column matches a spec by its enUS name, else by
+  position. No point read anywhere: the class's levelling default,
+  `report.pending` when the client says its talent data has not loaded
+  (`C_SpecializationInfo.IsInitialized` false) or gives no config from level
+  10.
+- **Fresh.** `PLAYER_TALENT_UPDATE`, `ACTIVE_TALENT_GROUP_CHANGED`,
+  `CHARACTER_POINTS_CHANGED`, `TRAIT_CONFIG_UPDATED` and level-ups redo the
+  pick. `TRAIT_CONFIG_LIST_UPDATED`, `ACTIVE_COMBAT_CONFIG_CHANGED`,
+  `TRAIT_TREE_CURRENCY_INFO_UPDATED`, `TRAIT_NODE_CHANGED`, `SPELLS_CHANGED`,
+  `PLAYER_ENTERING_WORLD`, and 3 s and 15 s after login, read the talents again
+  (once a frame) and redo the advice only when the pick, or `pending`, changed.
+- **Said.** `/polestar gear` prints the weights and their source, and where
+  to choose them; `/polestar gear spec` prints every reader's answer (the spec
+  group and configs, each config's ranks and column points, the tabs, the
+  primary tree) and why Automatic picks what it picks.
+
 ### Bag upgrade arrows — Gear/Bags.lua
 
 ```lua
@@ -8341,7 +8379,7 @@ Polestar.Talents.Show()                                     -- SHOW_TALENTS; /po
 - **Client.** Forever's talents are one C_Traits tree per class (Paladin:
   TraitTree 1100), three spec columns, tier gates on points spent in a
   column, seven arrows. Every call goes through `Talents.Client`
-  (`C_ClassTalents.GetActiveConfigID`, `C_Traits.GetTreeNodes`,
+  (`Compat.TalentConfigs`' first config: the active spec group's, as the talent frame shows it; `C_Traits.GetTreeNodes`,
   `GetNodeInfo`, `GetEntryInfo`, `GetDefinitionInfo`, `GetTreeCurrencyInfo`). Refreshes are queued
   to one per frame on `TRAIT_CONFIG_UPDATED`, `TRAIT_NODE_CHANGED`,
   `TRAIT_TREE_CURRENCY_INFO_UPDATED`, `ACTIVE_TALENT_GROUP_CHANGED`,

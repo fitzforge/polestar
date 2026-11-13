@@ -349,20 +349,163 @@ fn spec_automatic_on_forever_reads_the_talent_columns_points_a_restoration_druid
 	assert_eq!(out[4], json!(["restoration", "Restoration (healer)", "talents"]), "no trait tree: the talent tabs");
 }
 
-// A group row the client gives without its traitNodeGroupID (a tree it shapes otherwise) is no Lua error: its
-// points are unknown, and the talent tabs answer.
+fn mage(level: i32) -> Opts {
+	Opts { cls: "MAGE", class_name: "Mage", class_id: 8, level, ..Default::default() }
+}
+
+// Reported on Discord, 2026-11-13: a level 36 Mage with Arcane 25, Fire 0, Frost 2 in Forever's talent frame (its
+// Primary tab the active one) was scored for Frost, the Mage default. That frame shows the active spec group's config
+// (C_SpecializationInfo.GetCombatConfigIDForSpecGroup) and treats C_ClassTalents.GetActiveConfigID as optional;
+// Polestar asked only the latter, so no config, or one without the points, read as no points at all. Automatic reads
+// the spec group's config first, from the ranks bought on its nodes.
 #[test]
-fn spec_automatic_a_talent_group_row_without_its_id_is_no_lua_error_the_talent_tabs_answer() {
+fn spec_automatic_reads_the_active_spec_group_s_talents_a_mage_with_25_arcane_and_2_frost_is_arcane() {
 	let out = run(
 		r#"
-		g.setSpecs({ { "Balance", 0 }, { "Feral Combat", 0 }, { "Restoration", 12 } })
-		g.setColumns({ { "Balance", 0 }, { "Feral Combat", 0 }, { "Restoration", 11 } })
-		C_Traits.GetGroupCurrencyInfo = function() return { { currencyInfos = { { traitCurrencyID = 1, quantity = 0, spent = 11 } } } } end
+		g.setSpecs({ { "Arcane", 0 }, { "Fire", 0 }, { "Frost", 0 } })
+		g.activeConfig = false
+		g.setColumns({ { "Arcane", 25 }, { "Fire", 0 }, { "Frost", 2 } })
+		emit({ G.GetSpec() })
+		g.activeConfig = 99
+		g.setColumns({ { "Arcane", 25 }, { "Fire", 0 }, { "Frost", 2 } })
+		emit({ G.GetSpec() })
+		g.activeConfig = 8
+		g.setColumns({ { "Arcane", 0 }, { "Fire", 0 }, { "Frost", 20 } }, { group = 2 })
+		emit({ G.GetSpec() })
+		g.specGroup = 2
+		stub.fire("ACTIVE_TALENT_GROUP_CHANGED")
 		emit({ G.GetSpec() })
 	"#,
-		druid(20),
+		mage(36),
 	);
-	assert_eq!(out[0], json!(["restoration", "Restoration (healer)", "talents"]));
+	assert_eq!(out[0], json!(["arcane", "Arcane", "talents"]), "no active config: the spec group's");
+	assert_eq!(out[1], json!(["arcane", "Arcane", "talents"]), "an active config without the points");
+	assert_eq!(out[2], json!(["arcane", "Arcane", "talents"]), "the active config is the other spec group's: the Primary's points");
+	assert_eq!(out[3], json!(["frost", "Frost", "talents"]), "the second spec group made active");
+}
+
+// The column points the talent frame heads its columns with may come shaped otherwise (rows without their
+// traitNodeGroupID, keyed by group, without currency, or none at all): each read as no points, and Automatic fell to
+// the default. The ranks bought on the nodes count whatever the shape, and every reader takes each shape without an
+// error (/polestar gear spec asks them all).
+#[test]
+fn spec_automatic_counts_the_ranks_bought_whatever_shape_the_column_points_come_in() {
+	let out = run(
+		r#"
+		for _, shape in ipairs({ "noid", "keyed", "empty", "none" }) do
+			g.currency = shape
+			g.setColumns({ { "Arcane", 25 }, { "Fire", 0 }, { "Frost", 2 } })
+			local key, _, source = G.GetSpec()
+			local _, _, report = G.DetectSpec("MAGE", 8, true)
+			emit({ shape = shape, key = key, source = source, reader = report.reader, headers = report.headers[7] })
+		end
+	"#,
+		mage(36),
+	);
+	assert_eq!(out.len(), 4);
+	for o in &out {
+		assert_eq!(o["key"], "arcane", "{o}");
+		assert_eq!(o["source"], "talents", "{o}");
+		assert_eq!(o["reader"], "ranks", "{o}");
+		assert_eq!(o["headers"], json!([{ "name": "Arcane", "points": 0 }, { "name": "Fire", "points": 0 }, { "name": "Frost", "points": 0 }]), "{o}");
+	}
+}
+
+// Just after login the client may not have the talents yet (IsInitialized false, no config): Automatic says the
+// default, then reads them again when they come, on TRAIT_CONFIG_LIST_UPDATED (no event Polestar redid the pick on)
+// or, with no event at all, a few seconds after login; the advice is redone with them.
+#[test]
+fn spec_automatic_reads_the_talents_again_when_they_load_after_login() {
+	let before = "g.talentsReady = false\ng.columns = { { \"Arcane\", 25 }, { \"Fire\", 0 }, { \"Frost\", 2 } }".to_string();
+	let out = run(
+		r#"
+		local updates = 0
+		Polestar.On("GEAR_UPDATED", function() updates = updates + 1 end)
+		emit({ G.GetSpec() })
+		emit(select(3, G.DetectSpec("MAGE", 8)).pending)
+		g.talentsReady = true
+		stub.fire("TRAIT_CONFIG_LIST_UPDATED")
+		stub.runTimers()
+		emit({ G.GetSpec() })
+		emit(updates)
+	"#,
+		Opts { before: before.clone(), ..mage(36) },
+	);
+	assert_eq!(out[0], json!(["frost", "Frost", "default"]));
+	assert_eq!(out[1], true, "the talents are not there to read yet");
+	assert_eq!(out[2], json!(["arcane", "Arcane", "talents"]));
+	assert!(out[3].as_i64().unwrap() >= 1, "the advice is redone: {}", out[3]);
+	let quiet = run(
+		r#"
+		emit({ G.GetSpec() })
+		g.talentsReady = true
+		stub.advance(4)
+		emit({ G.GetSpec() })
+	"#,
+		Opts { before, ..mage(36) },
+	);
+	assert_eq!(quiet[0], json!(["frost", "Frost", "default"]));
+	assert_eq!(quiet[1], json!(["arcane", "Arcane", "talents"]), "no event: read again a few seconds after login");
+}
+
+// With no point spent anywhere, Automatic is the class's levelling default: the talents were read, so nothing waits.
+#[test]
+fn spec_automatic_with_no_talent_point_spent_is_the_class_default() {
+	let out = run(
+		r#"
+		g.setColumns({ { "Arcane", 0 }, { "Fire", 0 }, { "Frost", 0 } })
+		emit({ G.GetSpec() })
+		emit(select(3, G.DetectSpec("MAGE", 8)).pending)
+	"#,
+		mage(12),
+	);
+	assert_eq!(out[0], json!(["frost", "Frost", "default"]));
+	assert_eq!(out[1], false);
+}
+
+// /polestar gear spec prints what each way of reading the talents found, and what Automatic picks and why, for a
+// player to paste: the spec group and the configs, each config's ranks and column points, the tabs, the primary tree.
+#[test]
+fn polestar_gear_spec_prints_what_each_reader_found_and_why_automatic_picks_what_it_picks() {
+	let out = run(
+		r#"
+		g.setSpecs({ { "Arcane", 0 }, { "Fire", 0 }, { "Frost", 0 } })
+		g.activeConfig = false
+		g.setColumns({ { "Arcane", 25 }, { "Fire", 0 }, { "Frost", 2 } })
+		stub.messages = {}
+		SlashCmdList.POLESTAR("gear spec")
+		emit(stub.messages)
+		stub.messages = {}
+		g.setColumns({ { "Arcane", 0 }, { "Fire", 0 }, { "Frost", 0 } })
+		SlashCmdList.POLESTAR("gear spec")
+		emit(stub.messages)
+		stub.messages = {}
+		SlashCmdList.POLESTAR("gear")
+		emit(stub.messages)
+	"#,
+		mage(36),
+	);
+	let lines: Vec<&str> = out[0].as_array().unwrap().iter().map(text).collect();
+	assert_eq!(
+		lines,
+		vec![
+			"|cff4fd1c5Polestar|r: Gear weights: Arcane (talents)",
+			"  Talent configs: spec group 1: 7, active config: none",
+			"  ranks bought, config 7: Arcane 25, Fire 0, Frost 2",
+			"  column points, config 7: Arcane 25, Fire 0, Frost 2",
+			"  Talent tabs: Arcane 0, Fire 0, Frost 0",
+			"  Primary tree: none",
+			"  Automatic: Arcane, the most points (ranks bought, config 7)",
+		],
+		"{}",
+		out[0]
+	);
+	let none: Vec<&str> = out[1].as_array().unwrap().iter().map(text).collect();
+	assert_eq!(none[0], "|cff4fd1c5Polestar|r: Gear weights: Frost (default)");
+	assert_eq!(none.last().copied(), Some("  Automatic: Frost, the class default (no talent points found)"));
+	let plain: Vec<&str> = out[2].as_array().unwrap().iter().map(text).collect();
+	assert_eq!(plain[0], "|cff4fd1c5Polestar|r: Gear weights: Frost (default)", "today's line: the source in brackets");
+	assert!(is_match(plain[1], r"Settings > Questing > Rewards & gear > Stat weights"), "{}", plain[1]);
 }
 
 // A player set Stat weights to Restoration and saw Feral come back. The chosen spec holds over a reload, a level,
