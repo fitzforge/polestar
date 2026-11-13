@@ -1,60 +1,32 @@
 'use strict';
-// The wording rule: player-facing text, every doc, the guides, the code, the
-// tests, the workflows and the agent skills name no other guide product and
-// never invite players to bring or convert other guides. Every path
-// listed must exist, so a moved folder fails here instead of being scanned as
-// nothing. Names are matched as whole tokens, so the game's own "rested XP"
-// (two tokens) is not a product name.
+// The wording rule (the public-text rule, CONTRIBUTING.md "Commits and pull
+// requests"): player-facing text, every doc, the guides, the code, the tests,
+// the data, the workflows and the agent skills name no other guide product,
+// never invite players to import guides from elsewhere and never say a route
+// was compared with, follows or matches another guide. The words are in
+// tools/lib/public-text.json, the one file this test does not read; every
+// tracked file is held to its `tree` rules (tools/public-text.js holds commit
+// messages and pull request text to all of them). A failure names the file,
+// line and rule, never the words, since CI logs are public. Every path listed
+// must exist, so a moved folder fails here instead of being scanned as nothing.
 
 const { test } = require('node:test');
 const assert = require('node:assert/strict');
-const crypto = require('node:crypto');
 const fs = require('node:fs');
 const path = require('node:path');
 const { spawnSync } = require('node:child_process');
+const { RULES_FILE, SCOPES, loadRules, hashedHits, hits, sha256 } = require('../tools/lib/public-text');
 
 const ROOT = path.join(__dirname, '..');
 const PATHS = ['addon', 'guides', 'docs', 'skills', 'tools', 'rust', 'tests', 'services', 'apps', 'forever-db', '.github', 'README.md', 'CONTRIBUTING.md', 'CHANGELOG.md', 'changes', 'THIRD_PARTY.md', 'LICENSE-EXCEPTION.md', 'AGENTS.md'];
-// Names of other guide products, kept as hashes so the repository never
-// spells them: SHA-256 of each name's lower-case form.
-const NAME_HASHES = new Set([
-	'380d1810dc2d0473959dea98e3428eb772588b3cb0c4d2d32768987a85b74e8c',
-	'ec9eefd3b3811601e900635d5b02d34c6f13aed885de2fe3a748f6d497354b1a',
-	'3c6efb268bde2923e4f7cbc086995f6158a606e66df45e307829e6b28f7aaf0e',
-	'766f4a2eab6065a164747b05230961a0330679e107cfec7d32398233a16e06c0',
-	'adb440d3141ea93a3050652202bf4b6a9a6f9e7872b082e939046a03fe3f4f86',
-]);
-// "import your existing guides", "converting paid guides", "bring your paid guides"...
-// (\b: "report other guides" or "support other guides" is not an invitation).
-const INVITE = /\b(import|convert|port|bring)(ing)? (your )?(existing|paid|other)[^\n]{0,40}guides?/i;
-// Wording that says a route was built by comparing it with other guides
-// ("the speedrun benchmark", "as the benchmark order does", "benchmark
-// addon"): banned in every tracked file, code and data included, since the
-// routes come from the game's facts and our own simulation. A performance
-// benchmark ("criterion benchmarks") is not matched.
-const COMPARED = /\bspeed-?runs?\b|\b(route )?benchmark('s)? (orders?|addons?|guides?|routes?|speedruns?)\b|\b(as|than|like|and|in) (the|a|both|neither|either) (\w+ )?benchmarks?\b|\bthe benchmark('s)? (order|does|did|has|had|takes|plays|marks|gives|leaves|skips|hands|keeps)\b|\broute benchmark\b/i;
-
-const sha256 = (s) => crypto.createHash('sha256').update(s).digest('hex');
-
-// Tokens repeat endlessly across the tree: hash each distinct one once.
-const tokenHash = new Map();
-const hashOf = (t) => {
-	let h = tokenHash.get(t);
-	if (h === undefined) tokenHash.set(t, (h = sha256(t)));
-	return h;
-};
-
-// Each lower-case alphanumeric token of text whose hash is in hashes, with its index.
-// Tokens longer than any product name (40+ characters: packed data) are not hashed.
-function namedTokens(text, hashes) {
-	const out = [];
-	const lower = text.toLowerCase();
-	for (const m of lower.matchAll(/[a-z0-9]{1,40}(?![a-z0-9])/g)) {
-		if (m.index > 0 && /[a-z0-9]/.test(lower[m.index - 1])) continue;
-		if (hashes.has(hashOf(m[0]))) out.push({ token: m[0], index: m.index });
-	}
-	return out;
-}
+const RULES = loadRules();
+const NAMES = RULES.hashed.filter((g) => g.id === 'product-name');
+// Lines that said so before the rule covered their wording, kept as they are
+// (tests/wording-known.txt: SHA-256 of "<path>\t<trimmed line>"). Any other
+// line, an edited one included, is held to the rule.
+const KNOWN_FILE = path.join(__dirname, 'wording-known.txt');
+const KNOWN = new Set(fs.readFileSync(KNOWN_FILE, 'utf8').split('\n').map((l) => l.trim()).filter((l) => l && !l.startsWith('#')));
+const knownKey = (rel, line) => sha256(`${rel}\t${line.trim()}`);
 
 // A text file's entry, or null for a binary one (a NUL byte).
 function textFile(file) {
@@ -77,16 +49,20 @@ function repoFiles() {
 	return PATHS.flatMap((rel) => walk(path.join(ROOT, rel)));
 }
 
-// This file spells the invitations it looks for; the golden test data under rust/tests is
-// generated game data, not anyone's words.
-const SKIP = [path.join(ROOT, 'tests', 'wording.test.js'), path.join(ROOT, 'rust', 'tests', 'golden') + path.sep];
+// The rules' own file spells what they ban; the golden test data under
+// rust/tests is generated game data, not anyone's words; the Nav packs are
+// random-looking packed data.
+const SKIP = [RULES_FILE, path.join(ROOT, 'rust', 'tests', 'golden') + path.sep];
+const NAV = /[/\\]addon[/\\]Polestar_Nav/;
+const skipped = (f) => SKIP.some((s) => f === s || f.startsWith(s)) || NAV.test(f);
 
 function scan() {
 	for (const rel of PATHS) assert.ok(fs.existsSync(path.join(ROOT, rel)), `${rel} is listed for the wording rule but does not exist`);
-	return repoFiles().filter((f) => !SKIP.some((s) => f === s || f.startsWith(s))).map(textFile).filter(Boolean);
+	return repoFiles().filter((f) => !skipped(f)).map(textFile).filter(Boolean);
 }
 
-const where = (file, text, index) => `${path.relative(ROOT, file)}:${text.slice(0, index).split('\n').length}`;
+const rel = (file) => path.relative(ROOT, file).split(path.sep).join('/');
+const lineAt = (text, index) => text.slice(0, index).split('\n').length;
 
 // The language folders' Names.lua hold the game's own names in each language, not Polestar's
 // words: a Portuguese NPC may share a first name with a product.
@@ -95,55 +71,76 @@ const GAME_NAMES = /[/\\]addon[/\\]Polestar_[a-z]{2}[A-Z]{2}[/\\]Names\.lua$/;
 test('no other guide product is named', () => {
 	const files = scan();
 	assert.ok(files.length > 20, `expected the addon, docs and template files, got ${files.length}`);
-	const hits = [];
+	const found = [];
 	for (const { file, text } of files.filter((f) => !GAME_NAMES.test(f.file))) {
-		for (const { token, index } of namedTokens(text, NAME_HASHES)) hits.push(`${where(file, text, index)}: ${token}`);
+		for (const { index } of hashedHits(text, NAMES)) found.push(`${rel(file)}:${lineAt(text, index)}: product-name`);
 	}
-	assert.deepEqual(hits, []);
+	assert.deepEqual(found, []);
 });
 
-test('nothing invites bringing or converting other guides', () => {
-	const hits = [];
-	for (const { file, text } of scan()) {
-		const re = new RegExp(INVITE.source, 'gi');
-		for (const m of text.matchAll(re)) hits.push(`${where(file, text, m.index)}: ${m[0]}`);
-	}
-	assert.deepEqual(hits, []);
-});
-
-// Every tracked text file (and new ones git would add): this file spells the
-// phrases it bans, and the Nav packs are random-looking packed data.
+// Every tracked text file (and new ones git would add).
 function trackedFiles() {
 	const git = spawnSync('git', ['ls-files', '-z', '--cached', '--others', '--exclude-standard'], { cwd: ROOT, encoding: 'utf8', maxBuffer: 1 << 28 });
-	assert.equal(git.status, 0, 'the guide-comparison check runs in a git checkout');
-	const self = path.relative(ROOT, __filename).split(path.sep).join('/');
-	return git.stdout.split('\0').filter((rel) => rel && rel !== self && !/^addon\/Polestar_Nav/.test(rel))
-		.map((rel) => path.join(ROOT, rel)).filter((f) => fs.existsSync(f) && fs.statSync(f).isFile()).map(textFile).filter(Boolean);
+	assert.equal(git.status, 0, 'the wording check runs in a git checkout');
+	return git.stdout.split('\0').filter(Boolean)
+		.map((r) => path.join(ROOT, r)).filter((f) => !skipped(f) && fs.existsSync(f) && fs.statSync(f).isFile()).map(textFile).filter(Boolean);
 }
 
-test('no tracked file says a route was compared with other guides', () => {
+// Each hit of the `tree` rules in the tracked files (product names: the test
+// above) -> { at: "path:line: rule", key, known }.
+function treeHits(files) {
+	const out = [];
+	const set = { hashed: RULES.hashed.filter((g) => g.id !== 'product-name'), rules: RULES.rules };
+	for (const { file, text } of files) {
+		const lines = text.split('\n');
+		for (const h of hits(text, set, ['tree'])) {
+			const n = lineAt(text, h.index);
+			const key = knownKey(rel(file), lines[n - 1]);
+			out.push({ at: `${rel(file)}:${n}: ${h.rule}`, key, known: KNOWN.has(key) });
+		}
+	}
+	return out;
+}
+
+test('no tracked file invites importing guides or says a route was compared with others', (t) => {
 	const files = trackedFiles();
 	assert.ok(files.length > 500, `expected the whole tree, got ${files.length}`);
-	const hits = [];
-	for (const { file, text } of files) {
-		const re = new RegExp(COMPARED.source, 'gi');
-		for (const m of text.matchAll(re)) hits.push(`${where(file, text, m.index)}: ${m[0]}`);
-	}
-	assert.deepEqual(hits, []);
+	const found = treeHits(files);
+	assert.deepEqual(found.filter((h) => !h.known).map((h) => h.at), [], 'reword each line named: drop the clause, never swap in another word');
+	const present = new Set(found.map((h) => h.key));
+	const gone = [...KNOWN].filter((k) => !present.has(k));
+	if (gone.length) t.diagnostic(`${gone.length} entries of tests/wording-known.txt match no line any more and can go: ${gone.join(' ')}`);
 });
 
-test('the checks catch what they are for, and the game\'s rested XP passes', () => {
-	assert.equal(NAME_HASHES.size, 5);
-	for (const h of NAME_HASHES) assert.match(h, /^[0-9a-f]{64}$/);
-	const sample = new Set([sha256('acmeguides')]);
-	assert.deepEqual(namedTokens('Works like AcmeGuides does', sample), [{ token: 'acmeguides', index: 11 }]);
-	assert.deepEqual(namedTokens('Works like Acme Guides does', sample), []);
-	assert.deepEqual(namedTokens('You have rested XP; Rested XP doubles kill XP', NAME_HASHES), []);
-	assert.match('Import your existing guides here', INVITE);
-	assert.match('converting paid guides is easy', INVITE);
-	assert.match('Bring your paid guides into Polestar', INVITE);
-	assert.doesNotMatch('Guide packs are addons made by other players.', INVITE);
-	assert.doesNotMatch('Report other guides\' problems to their authors', INVITE);
-	for (const s of ['as both speedrun benchmarks play it', 'the benchmark order marks it a group of 3', 'a benchmark addon does this', 'as the benchmark does', 'the route benchmark\'s rule 2', 'in a benchmark guide', 'start-zone speed-run order']) assert.match(s, COMPARED, s);
-	for (const s of ['| benchmarks, property tests | `criterion` |', 'cargo bench runs the benchmarks', 'a benchmark of the evaluator']) assert.doesNotMatch(s, COMPARED, s);
+test('every rule matches its examples and passes the plain uses it lists', () => {
+	assert.equal(NAMES.length, 1, 'one product-name group');
+	assert.ok(NAMES[0].phrases.length >= 12, `expected the product names, got ${NAMES[0].phrases.length}`);
+	const ids = [...RULES.hashed, ...RULES.rules].map((r) => r.id);
+	assert.deepEqual(ids, [...new Set(ids)], 'rule ids are unique');
+	for (const g of RULES.hashed) {
+		assert.ok(SCOPES.includes(g.scope), `${g.id}: scope ${g.scope}`);
+		for (const p of g.phrases) for (const h of p) assert.match(h, /^[0-9a-f]{64}$/, `${g.id}: a phrase is token hashes`);
+	}
+	for (const r of RULES.rules) {
+		assert.ok(SCOPES.includes(r.scope), `${r.id}: scope ${r.scope}`);
+		assert.ok(r.match.length, `${r.id} has an example`);
+		const set = { hashed: [], rules: [r] };
+		for (const s of r.match) assert.equal(hits(s, set).length, 1, `${r.id} misses its example ${r.match.indexOf(s) + 1}`);
+		for (const s of r.pass) assert.deepEqual(hits(s, set), [], `${r.id} matches its plain use ${r.pass.indexOf(s) + 1}`);
+	}
+});
+
+test('names are matched as whole consecutive tokens, and the game\'s rested XP passes', () => {
+	const group = (...phrases) => [{ id: 'sample', scope: 'tree', phrases: phrases.map((p) => p.split(' ').map(sha256)) }];
+	const one = group('acmeguides');
+	assert.deepEqual(hashedHits('Works like AcmeGuides does', one), [{ rule: 'sample', index: 11 }]);
+	assert.deepEqual(hashedHits('Works like Acme Guides does', one), []);
+	assert.deepEqual(hashedHits('Works like acmeguides2 does', one), [], 'part of a longer token');
+	const two = group('acme convert');
+	assert.deepEqual(hashedHits('the acme-convert output', two), [{ rule: 'sample', index: 4 }]);
+	assert.deepEqual(hashedHits('acme then convert', two), []);
+	assert.deepEqual(hashedHits('it is acme. Convert it', two), [], 'two sentences');
+	assert.deepEqual(hashedHits('acme_convert and acme\n  convert', two).length, 2);
+	assert.deepEqual(hashedHits(`data:image/png;base64,${'Q'.repeat(30)}/acmeguides+${'Q'.repeat(30)}`, one), [], 'inside packed data');
+	assert.deepEqual(hashedHits('You have rested XP; Rested XP doubles kill XP', NAMES), []);
 });

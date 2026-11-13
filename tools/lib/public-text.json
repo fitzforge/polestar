@@ -1,0 +1,231 @@
+{
+	"_about": [
+		"The public-text rule (CONTRIBUTING.md, \"Commits and pull requests\"): what is never written in the repository, commit messages, branch names or pull request titles and descriptions.",
+		"hashed: names kept as the SHA-256 of each lower-case alphanumeric token, so nothing here spells them (other guide products, private material). A phrase matches whole consecutive tokens: the game's \"rested XP\" is two tokens, not a product's name. `node tools/public-text.js --hash <phrase>` prints a phrase's entry.",
+		"rules: case-insensitive regular expressions. A \"tree\" rule holds for every tracked file (tests/wording.test.js) and every message; a \"message\" rule only for commit messages, branch names and pull request text, since the words have plain uses in code and data.",
+		"match and pass: examples each rule must and must not match (tests/wording.test.js, tests/public-text.test.js). This file is the only one the wording test does not read."
+	],
+	"hashed": [
+		{
+			"id": "product-name",
+			"scope": "tree",
+			"phrases": [
+				[
+					"380d1810dc2d0473959dea98e3428eb772588b3cb0c4d2d32768987a85b74e8c"
+				],
+				[
+					"ec9eefd3b3811601e900635d5b02d34c6f13aed885de2fe3a748f6d497354b1a"
+				],
+				[
+					"3c6efb268bde2923e4f7cbc086995f6158a606e66df45e307829e6b28f7aaf0e"
+				],
+				[
+					"766f4a2eab6065a164747b05230961a0330679e107cfec7d32398233a16e06c0"
+				],
+				[
+					"adb440d3141ea93a3050652202bf4b6a9a6f9e7872b082e939046a03fe3f4f86"
+				],
+				[
+					"ddc9d4d7852067824e8ff4be5917d2cb4c17833649791a678d1662cb8d814fc0"
+				],
+				[
+					"73968648df427d005ad86c5386919d747da14a2ddeb93da2e06b8147883e792f"
+				],
+				[
+					"8968e63e24762671d0bab59b0943499aaa2ffe72d8b17cbdbb49a6129d99aef7"
+				],
+				[
+					"43828c251eecf79b5ad0b87bbca07d17015531fa00a296a849b4f61f80928fd2"
+				],
+				[
+					"cbad1e4b429180ffc3a830852b883307cf68b5036b4ed9db895d5a0df13c0182"
+				],
+				[
+					"f2ca4a2a47b7c52f5c5886b9300cbc496a907cd709749b3917d40f17cbaaabc5"
+				],
+				[
+					"f1062baf69da7797f70d71b223c45837b52b6625e12cdfbb9c49f3cf7b3073d7"
+				]
+			]
+		},
+		{
+			"id": "private-material",
+			"scope": "tree",
+			"phrases": [
+				[
+					"1b32c28cb38c05480eccc1bd60ff97029b57a05c96718b96dad7e9d84894f549",
+					"c47579671ec3e9f349f9d36f1f7259b3cf42e5d38e67b888b23c0e248e52178f"
+				],
+				[
+					"c9b556cc1c13ed37065ad2d7d2215d459ab7950707736f505eb2981ea66530fc",
+					"c47579671ec3e9f349f9d36f1f7259b3cf42e5d38e67b888b23c0e248e52178f"
+				],
+				[
+					"b0cf0365b991bbee6dab04b0fad027cb64a1ad0e91d1537943db7cd3680a000a"
+				],
+				[
+					"c9b556cc1c13ed37065ad2d7d2215d459ab7950707736f505eb2981ea66530fc",
+					"cb1d2fdcc86ce72aae3a8d6c513a08b3a12069dba7e0d5b9987b0cdf456aa621"
+				],
+				[
+					"cb1d2fdcc86ce72aae3a8d6c513a08b3a12069dba7e0d5b9987b0cdf456aa621",
+					"21262a3cb5337627b0fad9d891c16adb40706bd3e57534416dd02bbe5917d184"
+				],
+				[
+					"174985e4dd3b2df2a316acc62b781b8712734467cc92f94ddccc6530acb14f1e",
+					"83ca68be6227af2feb15f227485ed18aff8ecae99416a4bd6df3be1b5e8059b4"
+				],
+				[
+					"174985e4dd3b2df2a316acc62b781b8712734467cc92f94ddccc6530acb14f1e",
+					"9893ff995bf32a4fd2eba93151c93b612a5e4d573ed42a771d64767366f93c15"
+				]
+			]
+		},
+		{
+			"id": "private-tool",
+			"scope": "message",
+			"phrases": [
+				[
+					"b9776d7ddf459c9ad5b0e1d6ac61e27befb5e99fd62446677600d7cacef544d0",
+					"428457d1ce5a0721f7bb21c85b2e36380566f51bba7b3996b2a63356dfa732f0"
+				]
+			]
+		}
+	],
+	"rules": [
+		{
+			"id": "invites-converting",
+			"scope": "tree",
+			"re": "\\b(import|convert|port|bring)(ing)? (your )?(existing|paid|other)[^\\n]{0,40}guides?",
+			"match": [
+				"Import your existing guides here",
+				"converting paid guides is easy",
+				"Bring your paid guides into Polestar"
+			],
+			"pass": [
+				"Guide packs are addons made by other players.",
+				"Report other guides' problems to their authors"
+			]
+		},
+		{
+			"id": "route-measured",
+			"scope": "tree",
+			"re": "\\bspeed-?runs?\\b|\\b(route )?benchmark('s)? (orders?|addons?|guides?|routes?|speedruns?)\\b|\\b(as|than|like|and|in) (the|a|both|neither|either) (\\w+ )?benchmarks?\\b|\\bthe benchmark('s)? (order|does|did|has|had|takes|plays|marks|gives|leaves|skips|hands|keeps)\\b|\\broute benchmark\\b",
+			"match": [
+				"as both speedrun benchmarks play it",
+				"the benchmark order marks it a group of 3",
+				"a benchmark addon does this",
+				"as the benchmark does",
+				"the route benchmark's rule 2",
+				"in a benchmark guide",
+				"start-zone speed-run order"
+			],
+			"pass": [
+				"| benchmarks, property tests | `criterion` |",
+				"cargo bench runs the benchmarks",
+				"a benchmark of the evaluator"
+			]
+		},
+		{
+			"id": "route-compared",
+			"scope": "tree",
+			"re": "\\bour comparisons?\\b|\\bcomparison (guides?|routes?|orders?)\\b|\\b(both|the) other orders\\b|\\breference guides?\\b|\\bas the other guides? (do|does|did)\\b|\\bmatch(es|ed|ing)? the order of\\b",
+			"match": [
+				"our comparison takes it later",
+				"the comparison guides take it later",
+				"as both other orders run them",
+				"a reference guide step",
+				"as the other guides do",
+				"this matches the order of the hub"
+			],
+			"pass": [
+				"a case-insensitive comparison of names",
+				"the other order of the two steps",
+				"their order in the log"
+			]
+		},
+		{
+			"id": "route-copied",
+			"scope": "tree",
+			"re": "\\btheir hub loops?\\b|\\b(as|like|match(es|ed|ing)?|cop(y|ies|ied|ying)) their (orders?|routes?)\\b|\\bconverted (guides?|routes?|orders?)\\b",
+			"match": [
+				"the town in their hub loop",
+				"it matches their order through the zone",
+				"like their route",
+				"a converted guide"
+			],
+			"pass": [
+				"quest objectives keep their order",
+				"pins on their route",
+				"hops between spawns follow their routes",
+				"coordinates converted to yards"
+			]
+		},
+		{
+			"id": "emulate",
+			"scope": "tree",
+			"re": "\\bemulat(e|es|ed|ing|ion|ions)\\b",
+			"match": [
+				"we emulate the hub order"
+			],
+			"pass": [
+				"GamePadEmulateShift",
+				"GamePadEmulateAlt"
+			]
+		},
+		{
+			"id": "benchmark",
+			"scope": "message",
+			"re": "\\bbenchmark",
+			"match": [
+				"Benchmark A/B"
+			],
+			"pass": []
+		},
+		{
+			"id": "comparison",
+			"scope": "message",
+			"re": "\\bcomparisons?\\b",
+			"match": [
+				"comparison wording"
+			],
+			"pass": []
+		},
+		{
+			"id": "other-orders",
+			"scope": "message",
+			"re": "\\bother orders\\b",
+			"match": [
+				"as other orders do"
+			],
+			"pass": []
+		},
+		{
+			"id": "converted",
+			"scope": "message",
+			"re": "\\bconverted\\b",
+			"match": [
+				"the converted order"
+			],
+			"pass": []
+		},
+		{
+			"id": "their-order",
+			"scope": "message",
+			"re": "\\btheir (orders?|routes?|hub loops?)\\b",
+			"match": [
+				"the same as their route"
+			],
+			"pass": []
+		},
+		{
+			"id": "rested-xp",
+			"scope": "message",
+			"re": "\\brested ?xp\\b",
+			"match": [
+				"Rested XP style steps"
+			],
+			"pass": []
+		}
+	]
+}
