@@ -11811,7 +11811,7 @@ test('#1952: the Horde start guides\' Camping 101 trainer steps wait until the q
 			assert.ok(when.some((p) => p.k === 'complete' && !p.neg && p.q === goal.quest), `${file}: turnin ${goal.quest} waits until the quest is complete`);
 			assert.ok(fixes.some((f) => f.at && f.at.quest === goal.quest && f.at.goal === 'turnin' && f.when === `complete ${goal.quest}`), `${goal.quest}: a record the build keeps`);
 			const take = list.find((e) => e.goal.t === 'accept' && e.goal.quest === goal.quest);
-			assert.match(take.step.tip ? [].concat(take.step.tip).join(' ') : '', / skill is 20/, `${file}: accept ${goal.quest} says the trainer takes it at 20`);
+			assert.match([take.step.note, take.step.tip].flat().filter(Boolean).join(' '), / skill is 20/, `${file}: accept ${goal.quest} says the trainer takes it at 20`);
 		}
 	}
 	assert.ok(n >= 30, `${n} in-zone Camping 101 hand-ins found`);
