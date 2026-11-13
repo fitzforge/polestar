@@ -1319,6 +1319,37 @@ function W.ParseSliderText(row, text)
 	return min(row.psMax, max(row.psMin, n))
 end
 
+-- A drag's magnet: the value a dragged slider lands on near its sensible
+-- points, its default, zero inside its range and the value it shows as
+-- 100%, when one lies within SNAP_PX of the thumb along the track. A track
+-- whose steps are that far apart lands on any value already: no magnet.
+-- (The wheel, the keys and a typed value never snap.) -> value
+local SNAP_PX = 6
+function W.SliderSnap(row, value)
+	local lo, hi, step = row.psMin, row.psMax, row.psStep
+	local w = row.psTrackW or row.Slider:GetWidth()
+	if not (w and w > 0 and hi > lo) then return value end
+	local th = SNAP_PX / w * (hi - lo)
+	if th < step then return value end
+	local pts = rawget(row, "psSnaps")
+	if not pts then
+		pts = {}
+		local d = row.psPath and ns.GetDefault and ns.GetDefault(row.psPath)
+		if type(d) == "number" and d >= lo and d <= hi then pts[#pts + 1] = d end
+		if lo < 0 and hi > 0 then pts[#pts + 1] = 0 end
+		for _, c in ipairs({ 1, 100 }) do
+			if lo < c and c < hi and sliderText(row, c) == "100%" then pts[#pts + 1] = c end
+		end
+		row.psSnaps = pts
+	end
+	local best, bd
+	for i = 1, #pts do
+		local dist = math.abs(value - pts[i])
+		if dist <= th and (not bd or dist < bd) then best, bd = pts[i], dist end
+	end
+	return best or value
+end
+
 -- The box a value is typed into, over the value; Enter applies it, Escape
 -- or a click elsewhere leaves the value as it was.
 local function sliderEntry(row)
@@ -1395,12 +1426,25 @@ function W.Slider(parent, label, path, lo, hi, stepSize, fmt, desc, depends, opt
 	fitLabel(row, s, sliderSpan)
 	s:SetScript("OnValueChanged", function(_, value, userInput)
 		value = roundTo(value, stepSize)
+		-- A drag passing near the default, zero or 100% lands on it.
+		if userInput and row.psDragging and not row.psSnapping then
+			local v = W.SliderSnap(row, value)
+			if v ~= value then
+				value = v
+				row.psSnapping = true
+				s:SetValue(v)
+				row.psSnapping = false
+			end
+		end
 		sliderPaint(row, value)
 		if userInput and not row.psRefreshing and W.Enabled(row) and sliderValue(row) ~= value then
 			if opts and opts.release then row.psPending = value else sliderWrite(row, value) end
 		end
 	end)
+	s:HookScript("OnMouseDown", function() row.psDragging = true end)
+	s:HookScript("OnHide", function() row.psDragging = nil end)
 	s:SetScript("OnMouseUp", function()
+		row.psDragging = nil
 		if row.psPending ~= nil then
 			local v = row.psPending
 			row.psPending = nil

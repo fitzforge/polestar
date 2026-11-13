@@ -6678,6 +6678,9 @@ Polestar.RegisterOptions({
       -- linked: paths a cancelled pick restores too; alpha: with an opacity, stored { r, g, b, a }.
       -- The row takes a typed hex and opacity, and offers the colours picked last (PolestarDB.recentColors).
       -- Right-click resets (sliders too; a slider's value takes a typed number).
+      -- A dragged slider lands on its default, zero inside its range and the value it shows as 100% when the
+      -- thumb passes within 6 px of one (`W.SliderSnap`; no magnet where the steps are farther apart, never
+      -- for the wheel, the gamepad or a typed value).
     { kind = "button",   label = "Reset lockouts", help = "One line.", onClick = function() end, wide = true },
     { kind = "binding",  action = "POLESTAR_NEXT", label = "Next step", help = "One line." }, -- a key binding row (UI/GamepadGuide.lua)
   },

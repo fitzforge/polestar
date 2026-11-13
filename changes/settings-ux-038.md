@@ -27,3 +27,5 @@ section: players
   change its scale.
 - In Move frames you can type where the selected frame goes: its X and Y
   from the screen's centre show under the bar, ready to change.
+- Dragging a slider near its default, zero or 100% lands on it, so the
+  usual value is easy to get back to.

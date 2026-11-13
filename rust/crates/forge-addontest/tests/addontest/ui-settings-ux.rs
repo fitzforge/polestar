@@ -255,3 +255,40 @@ fn peek_fades_the_window_fold_leaves_its_header_and_shift_wheel_scales_it() {
 	assert_eq!(out["overSlider"], json!([1.1, true]), "over a slider, Shift + the wheel scales the window, not the slider");
 	assert_eq!(out["stepped"], true, "the plain wheel steps the slider");
 }
+
+// A dragged slider is pulled onto its default, zero inside its range and the value it shows as 100% when the thumb
+// passes within a few pixels of one; elsewhere it follows the drag. The wheel and a typed value never snap, and a
+// slider whose steps are that far apart already lands on any value (no magnet).
+#[test]
+fn a_dragged_slider_lands_on_its_default_zero_or_100_percent_when_near_it() {
+	let out = run(r#"
+		UI.ShowOptions("buttons")
+		local row = ctl("ui.launcherSize")
+		local s = row.Slider
+		stub.RunScript(s, "OnMouseDown", "LeftButton")
+		stub.RunScript(s, "OnValueChanged", 30, true)
+		local near = { Polestar.Get("ui.launcherSize"), s:GetValue() }
+		stub.RunScript(s, "OnValueChanged", 41, true)
+		local far = Polestar.Get("ui.launcherSize")
+		stub.RunScript(s, "OnMouseUp", "LeftButton")
+		Polestar.Set("ui.launcherSize", 32)
+		stub.RunScript(s, "OnMouseWheel", -1)
+		local wheel = Polestar.Get("ui.launcherSize")
+		W.EditSliderValue(row)
+		row.Entry:SetText("30")
+		stub.RunScript(row.Entry, "OnEnterPressed")
+		local typed = Polestar.Get("ui.launcherSize")
+		-- The points themselves, on rows of their own: zero, 100%, and a coarse track.
+		local pct = function(v) return math.floor(v * 100 + 0.5) .. "%" end
+		local zero = W.SliderSnap({ psMin = -10, psMax = 10, psStep = 1, psTrackW = 120, psFormat = "%d" }, 1)
+		local hundred = W.SliderSnap({ psMin = 0.5, psMax = 2, psStep = 0.01, psTrackW = 120, psFormat = pct }, 1.04)
+		local coarse = W.SliderSnap({ psMin = -2, psMax = 2, psStep = 1, psTrackW = 120, psFormat = "%d" }, 1)
+		emit({ near = near, far = far, wheel = wheel, typed = typed, zero = zero, hundred = hundred, coarse = coarse })"#);
+	assert_eq!(out["near"], json!([32, 32]), "30 is 3 px from the default 32: it lands there, the thumb too");
+	assert_eq!(out["far"], 41, "farther, the drag's own value");
+	assert_eq!(out["wheel"], 31, "the wheel steps past it");
+	assert_eq!(out["typed"], 30, "a typed value stays");
+	assert_eq!(out["zero"], 0);
+	assert_eq!(out["hundred"], 1.0);
+	assert_eq!(out["coarse"], 1, "steps 30 px apart: no magnet");
+}
