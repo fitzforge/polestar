@@ -12,6 +12,14 @@ next forever/alliance/40-50/06-searing-gorge
 # Added here: The Monogrammed Sash (8552).
 # The hearth is set in Ironforge on the training stop: the Searing Gorge guide starts with it (and the gryphon to
 # Thelsamar), and the Burning Steppes guide hearths back there twice.
+# Uldaman (run in forever/alliance/40-50/02-badlands): the hand-ins are on the Ironforge stop, after the inn, at
+# about 47.6: The Hidden Chamber and Reclaimed Treasures (2240, 1360, `when complete`), The Platinum Discs to High
+# Explorer Magellas and on to Dinita Stonemantle (2279, 2439) and The Shattered Necklace to Talvash del Kissel
+# (2198, `when onquest`).
+# Sunken Temple (run in forever/alliance/50-60/01-burning-steppes): for a character who chose it, Brohann
+# Caskbelly gives Into The Temple of Atal'Hakkar (1475) on the Stormwind stop, where Rhapsody's Tale (1469) is
+# handed in, at about 47.5; it is carried to the run at about 52 and goes back to him on the Stormwind stop of
+# forever/alliance/50-60/06-silithus.
 
 step The Altar of Zul
   when onquest 2989
@@ -52,6 +60,41 @@ step Ironforge inn
   tip Set your hearth at the Stonefire Tavern: the Searing Gorge guide starts with the hearth back here and the gryphon to Thelsamar.
   sethome "Ironforge" npc 5111         -- Innkeeper Firebrew
 
+step Prospector Stormpike
+  when dungeon "Uldaman"
+  when complete 2240
+  zone Ironforge
+  tip The Hidden Chamber from your Uldaman run: Prospector Stormpike, in the Hall of Explorers.
+  turnin 2240                         -- Prospector Stormpike
+
+step Krom Stoutarm
+  when dungeon "Uldaman"
+  when complete 1360
+  zone Ironforge
+  tip Reclaimed Treasures: Krom Stoutarm, in the Hall of Explorers.
+  turnin 1360                         -- Krom Stoutarm
+
+step High Explorer Magellas
+  when dungeon "Uldaman"
+  when onquest 2279
+  zone Ironforge
+  tip The Platinum Discs: High Explorer Magellas, in the Hall of Explorers, sends you on to Dinita Stonemantle with them.
+  turnin 2279                         -- High Explorer Magellas
+  accept 2439
+
+step Dinita Stonemantle
+  when dungeon "Uldaman"
+  when onquest 2439
+  zone Ironforge
+  turnin 2439 npc 7292                -- Dinita Stonemantle
+
+step Talvash del Kissel
+  when dungeon "Uldaman"
+  when onquest 2198
+  zone Ironforge
+  tip The Shattered Necklace from your Uldaman run: Talvash del Kissel, in the Mystic Ward.
+  turnin 2198                         -- Talvash del Kissel
+
 step Tram to Stormwind
   zone Ironforge
   goto 78.0,51.4 "Tram to Stormwind"
@@ -59,6 +102,12 @@ step Tram to Stormwind
 step Brohann Caskbelly
   zone Stormwind City
   turnin 1469
+
+step Brohann Caskbelly
+  when dungeon "Sunken Temple"
+  zone Stormwind City
+  tip For your Sunken Temple run, in the Swamp of Sorrows in the Burning Steppes guide: Brohann sends you on into the temple.
+  accept 1475                         -- Brohann Caskbelly
 
 step Fly to Darkshire
   zone Stormwind City

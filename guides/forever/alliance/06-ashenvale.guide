@@ -24,11 +24,10 @@ next forever/alliance/04-redridge-mountains
 # Blackfathom Deeps (`when dungeon "Blackfathom Deeps"`, dungeons in the route): for a character who chose it
 # and took Gershala Nightwhisper's Researching the Corruption (1275) in Auberdine (forever/alliance/
 # 03-darkshore-return), the run follows Ruuzel at the north end of the Zoram Strand, at about 24: the way
-# in is the sunken ruins' pit east of him. Gershala takes the brain stems on the Auberdine stop of
-# forever/alliance/06-wetlands (`when complete`), beside Terenthis: here, on the way to the boat, a stop
-# by her walks past Terenthis with Escape Through Force ready, which the route hands in there. Left
-# out: Knowledge in the Deeps (971: Gerrig Bonegrip in Ironforge, on the stop after the run; level 23,
-# 3+ levels over on the Ironforge stop of 03-loch-modan), In Search of Thaelrid, Twilight Falls and
+# in is the sunken ruins' pit east of him. Gershala takes the brain stems on the Auberdine landing after the
+# run, beside Terenthis (`when complete`), and Gerrig Bonegrip the Lorgalis Manuscript for Knowledge in the
+# Deeps (971, taken on the Ironforge stop of forever/alliance/03-loch-modan) on this guide's Ironforge stop.
+# Left out: In Search of Thaelrid, Twilight Falls and
 # Blackfathom Villainy (1198, 1199, 1200: Darnassus, off the route; Thaelrid stands inside), the Warlock's
 # Orb of Soran'ruk (1740, class guide).
 
@@ -216,12 +215,13 @@ step Ruuzel
 
 step Blackfathom Deeps
   when dungeon "Blackfathom Deeps"
-  when onquest 1275
+  when onquest 1275,971
   zone Ashenvale
   tip Blackfathom Deeps is a dungeon for a group of five, about levels 22 to 30, and a full run takes about an hour. The way in is the sunken ruins at the north end of the strand: go down the stairs into the pit, swim through the tunnels under the wall, past the blue crystals, to the portal.
-  tip Inside: the naga and the satyrs drop the Corrupted Brain Stems for Gershala. Argent Guard Thaelrid, by a campfire in an underwater side room off Ghamoo-ra's room, has a quest for Darnassus, which this route leaves to the Dungeons page.
+  tip Inside: the naga and the satyrs drop the Corrupted Brain Stems for Gershala, and the Lorgalis Manuscript for Gerrig Bonegrip is in there too. Argent Guard Thaelrid, by a campfire in an underwater side room off Ghamoo-ra's room, has a quest for Darnassus, which this route leaves to the Dungeons page.
   enter "Blackfathom Deeps" @14.5,14.2
   collect 5952 x8 quest 1275.1        -- Researching the Corruption: Corrupted Brain Stems
+  collect 5359 quest 971.1            -- Knowledge in the Deeps: the Lorgalis Manuscript, inside
 
 step Talen
   turnin 1009
@@ -246,6 +246,13 @@ step Terenthis
   zone Darkshore
   tip Terenthis stands by the flight master, at the east end of the main street; then back west to the dock.
   turnin 994                              -- Terenthis: Volcor's escort from the end of Darkshore
+
+step Gershala Nightwhisper
+  when dungeon "Blackfathom Deeps"
+  when complete 1275
+  zone Darkshore
+  tip Your Blackfathom Deeps brain stems: Gershala Nightwhisper stands a short walk west of Terenthis, on the way to the dock.
+  turnin 1275                         -- Gershala Nightwhisper
 
 step Boat to Menethil Harbor
   zone Darkshore
@@ -354,6 +361,13 @@ step Ironforge
   turnin 968 optional                     -- Only with Book: The Powers Below from Darkshore: Gerrig Bonegrip, the Forlorn Cavern
   train class only Warrior,Paladin,Hunter,Rogue,Priest,Shaman,Mage,Warlock
   vendor nearest
+
+step Gerrig Bonegrip
+  when dungeon "Blackfathom Deeps"
+  when complete 971
+  zone Ironforge
+  tip The Lorgalis Manuscript from your Blackfathom Deeps run: Gerrig Bonegrip, in the Forlorn Cavern.
+  turnin 971                          -- Gerrig Bonegrip
 
 step Buliwyf Stonehand
   only Warrior

@@ -244,6 +244,12 @@ step Ironforge
   vendor nearest optional
   turnin 301                                  -- Prospector Stormpike, Hall of Explorers
 
+step Gerrig Bonegrip
+  when dungeon "Blackfathom Deeps"
+  zone Ironforge
+  tip For your Blackfathom Deeps run in Ashenvale: Gerrig Bonegrip sits in the Forlorn Cavern, a short walk from the Hall of Explorers.
+  accept 971                                  -- Gerrig Bonegrip
+
 step Tram to Stormwind
   zone Ironforge
   goto 78.0,51.4 "Tram to Stormwind"
@@ -564,7 +570,7 @@ step Baros Alexston
   when onquest 373
   when !zone "Darkshore"
   zone Stormwind City
-  tip Baros Alexston, the city architect, is on your way west to the harbour. His next errand, Bazil Thredd, leads into the Stockade: it is for a Stockade run at about 29, so leave it unless you chose that dungeon.
+  tip Baros Alexston, the city architect, is on your way west to the harbour. His next errand, Bazil Thredd, leads into the Stockade: it is for a Stockade run at about 28, so leave it unless you chose that dungeon.
   turnin 373                                  -- Baros Alexston
 
 step Baros Alexston

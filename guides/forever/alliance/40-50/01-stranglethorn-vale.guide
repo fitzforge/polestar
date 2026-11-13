@@ -15,6 +15,10 @@ next forever/alliance/40-50/02-badlands
 # The Bloodsail Buccaneers (608) is taken on the level-48 Booty Bay stop (40-50/05).
 # Left out: A Meal Served Cold (212): its 30-minute limit can't last from Stormwind to the
 # Cold Eye Basilisks and back.
+#
+# Uldaman (run in forever/alliance/40-50/02-badlands): for a character who chose it, Prospector Stormpike's The Lost
+# Dwarves (2398) and Krom Stoutarm's Reclaimed Treasures (1360) are taken on the Ironforge stop, at about 42.6, in the
+# Hall of Explorers beside Roetten Stonehammer.
 
 # ---------------------------------------------------------------- Theramore
 
@@ -577,6 +581,13 @@ step Ironforge
   turnin 1467                         -- Roetten Stonehammer
   turnin 727                          -- Gerrig Bonegrip
   train class only Shaman             -- Stormwind has no shaman trainer
+
+step Prospector Stormpike and Krom Stoutarm
+  when dungeon "Uldaman"
+  zone Ironforge
+  tip For your Uldaman run in the Badlands, in the next guide: Prospector Stormpike and Krom Stoutarm stand in the Hall of Explorers, beside the Reclaimers' hall.
+  accept 2398                         -- Prospector Stormpike
+  accept 1360                         -- Krom Stoutarm
 
 step Dun Morogh
   only Dwarf

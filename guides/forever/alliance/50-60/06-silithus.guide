@@ -10,6 +10,16 @@ zone Silithus
 # into this file.
 # Added here: Toxic Horrors (5086), Of Lost Honor (5845).
 # Left out: Taking Back Silithus (8275).
+#
+# Stratholme (`when dungeon "Stratholme"`, dungeons in the route): for a character who chose it, Egan's second The
+# Restless Souls (5282, offered once the first, 5281, is handed in) is taken on his Terrordale stop, at about 59; the
+# run follows through the city's main gate, north-east of Terrordale, and Egan takes it back, before the top-up there.
+# Scholomance (`when dungeon "Scholomance"`): Eva Sarkhoff's Doctor Theolen Krastinov, the Butcher (5382) is taken a
+# short walk east of Artist Renfray's stop, at about 59.5; the run follows at once in the keep on Caer Darrow, and
+# Eva takes it back. Its door needs the Skeleton Key, which this route's Chillwind Camp chain gives only at the end
+# of the guide: the run's tip says so. Sunken Temple (run in forever/alliance/50-60/01-burning-steppes): Brohann
+# Caskbelly takes Into The Temple of Atal'Hakkar (1475) on the Stormwind stop, on the way to the tram (`when
+# complete`).
 
 # ---------------------------------------------------------------- Ratchet
 
@@ -495,6 +505,13 @@ step Stormwind
   collect 14047 x60 optional @61.2,71.3 map 1453 live -- Runecloth, from your bags
   turnin 7795 direct optional
 
+step Brohann Caskbelly
+  when dungeon "Sunken Temple"
+  when complete 1475
+  zone Stormwind City
+  tip The Atal'ai Tablets from your Sunken Temple run: Brohann Caskbelly, in the Dwarven District, on the way to the tram.
+  turnin 1475                         -- Brohann Caskbelly
+
 step Tram to Ironforge
   zone Stormwind City
   goto 64.5,7.5 "Tram to Ironforge"
@@ -615,6 +632,27 @@ step Egan
   tip Cross the river east of Tirion's hut into Terrordale: Egan stands by Augustus' ruined hut.
   turnin 5281
 
+step Egan
+  when dungeon "Stratholme"
+  zone Eastern Plaguelands
+  tip For your Stratholme run: Egan has more for you once The Restless Souls is in.
+  accept 5282                         -- Egan
+
+step Stratholme
+  when dungeon "Stratholme"
+  when onquest 5282
+  zone Eastern Plaguelands
+  tip Stratholme is a dungeon for a group of five, levels 58 to 60. Its main gate is north-east of Terrordale.
+  tip Inside: use Egan's Blaster on the ghostly and spectral citizens in the city's streets, then again on the restless souls that break free: fifteen freed, for Egan.
+  enter "Stratholme" @26.5,10.4
+  complete 5282 @26.5,10.4            -- The Restless Souls: fifteen souls freed, inside
+
+step Egan
+  when dungeon "Stratholme"
+  when complete 5282
+  zone Eastern Plaguelands
+  turnin 5282                         -- Egan
+
 step Level 59.85
   zone Eastern Plaguelands
   tip The Terrordale Spirits haunt the woods around Egan. Top up here to level 59.85 while you stand in Terrordale: the hand-ins still to come (the Undercroft, Caer Darrow, Chromie and Chillwind Camp) take you to level 60. Or, with a group, run the Scholomance dungeon or the Stratholme dungeon instead.
@@ -640,6 +678,27 @@ step Artist Renfray
   zone Western Plaguelands
   goto 65.8,75.4 "Artist Renfray"
   turnin 5846                         -- Inside
+
+step Eva Sarkhoff
+  when dungeon "Scholomance"
+  zone Western Plaguelands
+  tip For your Scholomance run: Eva Sarkhoff stands a short walk east of Renfray.
+  accept 5382                         -- Eva Sarkhoff
+
+step Scholomance
+  when dungeon "Scholomance"
+  when onquest 5382
+  zone Western Plaguelands
+  tip Scholomance is a dungeon for a group of five, levels 58 to 60, in the keep on Caer Darrow. Its door is locked: one of your group needs the Skeleton Key, from The Key to Scholomance at the end of Alchemist Arbington's chain at Chillwind Camp, which this route finishes only at the end of this guide.
+  tip Inside: Doctor Theolen Krastinov, the Butcher, for Eva, and the remains of Eva and Lucien Sarkhoff to burn.
+  enter "Scholomance" @69.7,73.2
+  complete 5382 @69.7,73.2            -- Doctor Theolen Krastinov, inside
+
+step Eva Sarkhoff
+  when dungeon "Scholomance"
+  when complete 5382
+  zone Western Plaguelands
+  turnin 5382                         -- Eva Sarkhoff
 
 step Chromie
   zone Western Plaguelands

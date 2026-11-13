@@ -14,6 +14,13 @@ next forever/alliance/50-60/02-felwood
 # gives holds the Black Dragonflight Molt, so Cyrus takes it at once with no drake to fight.
 # Petty Squabbles (2783) and A Tale of Sorrow (2801), 5,100 XP: Ardalan in Nethergarde Keep, where the flight lands,
 # and the Fallen Hero just over the Swamp of Sorrows border, on the Blasted Lands stop before the hearth.
+# Sunken Temple (`when dungeon "Sunken Temple"`, dungeons in the route): for a character who took Brohann
+# Caskbelly's Into The Temple of Atal'Hakkar (1475) in forever/alliance/40-50/05-the-hinterlands, the run follows
+# the Fallen Hero, at about 52 (its Group Finder minimum is 50): the temple's door is in the Pool of Tears, east of
+# him. Brohann takes the tablets on the Stormwind stop of forever/alliance/50-60/06-silithus (`when complete`).
+# The Essence of Eranikus (3373) starts with a drop inside and ends at the Essence Font inside (the run's tip names
+# it). Left out: its second part (3374: Itharius in the Swamp of Sorrows, off the route) and Jammal'an the Prophet
+# (1446: the Atal'ai Exile in the Hinterlands, given and taken there).
 # Left out: Dark Iron Legacy (3801).
 
 # ---------------------------------------------------------------- Azshara
@@ -397,6 +404,15 @@ step Fallen Hero of the Horde
   accept 2801
   talk 7572 quest 2801.1 @34.3,66.1
   turnin 2801
+
+step The Sunken Temple
+  when dungeon "Sunken Temple"
+  when onquest 1475
+  zone Swamp of Sorrows
+  tip The Sunken Temple is a dungeon for a group of five, levels 50 to 60. Its door is in the sunken temple in the eastern lake, the Pool of Tears, east of the Fallen Hero: keep clear of Stonard on the way.
+  tip Inside: the Atal'ai Tablets for Brohann Caskbelly. The Essence of Eranikus, a drop inside, starts a quest of its own.
+  enter "Sunken Temple" @69.9,53.5
+  complete 1475 @69.9,53.5            -- Into The Temple of Atal'Hakkar: ten Atal'ai Tablets, inside
 
 step Blasted Lands
   zone Blasted Lands

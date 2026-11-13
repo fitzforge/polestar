@@ -35,19 +35,6 @@ next forever/alliance/07-thousand-needles
 # Auberdine; they were in 30-40/03, at 33-34. Then back by boat to Menethil, Pilot Longbeard in
 # Ironforge (28) and The Missing Diplomat in Stormwind (28), on to the Duskwood return.
 #
-# The Stockade (`when dungeon "The Stockade"`, dungeons in the route): for a character who chose it,
-# the run is on this guide's Stormwind stop, at about 29: Warden Thelwater (Quell the Uprising; The
-# Stockade Riots when Bazil Thredd is carried from Baros Alexston after the Deadmines) is picked up and
-# handed in at the gate on the same stop; Councilman Millstipe's Crime and Punishment comes from
-# 04-redridge-mountains' Darkshire stop and goes back on 07-thousand-needles' (`when complete`). Left out:
-# The Color of Blood (388: Nikova Raskol in Old Town, a second Old Town visit after the run: an avoidable
-# hub revisit in the flow audit, over the travel budget), What Comes Around... (386:
-# Guard Berton in Lakeshire, not passed after the run) and The Fury Runs Deep (378: Motley Garmason's chain
-# at Dun Modr).
-#
-# Blackfathom Deeps (run in 06-ashenvale): Gershala Nightwhisper takes Researching the Corruption (1275) on
-# the Auberdine stop, beside Terenthis (`when complete`).
-#
 # Excavation Site: Wetlands (`when dungeon "Excavation Site: Wetlands"`, dungeons in the route): for a
 # character who chose it, James Halloran's Highland Hides (98815, after Young Crocolisk Skins, 484) is taken
 # on the first Menethil stop and Rethiel the Greenwarden's Horrors in the Highland (95646, after Blisters on
@@ -59,6 +46,11 @@ next forever/alliance/07-thousand-needles
 # complete`). Left out: Lost in the Thicket Things and Heartwoven (95647, 95809: Caitlin Grassman, level 31,
 # 3+ levels over on the first Menethil stop), Seeking Caitlin (95737, Llana in Astranaar), Songblade Search
 # and Fallen in the Fen (95772, 95795: Dorin Songblade in Redridge, off the route).
+#
+# City of Dalaran (run in forever/alliance/30-40/01-hillsbrad-foothills): for a character who chose it,
+# Shylamiir's A Green Sample and High Sorcerer Andromath's Power Overwhelming (92456, 92489) are taken on the
+# Stormwind stop, after Lord Grayson Shadowbreaker, at about 30; both are done inside and go back on that
+# guide's closing Stormwind stop.
 
 # ---------------------------------------------------------------- Night Elf and Skyborne Druids: Moonglade and Darnassus
 
@@ -367,13 +359,6 @@ step Auberdine
   tip Terenthis stands by the flight master.
   turnin 994                              -- Terenthis: Volcor's escort from the end of Darkshore
 
-step Gershala Nightwhisper
-  when dungeon "Blackfathom Deeps"
-  when complete 1275
-  zone Darkshore
-  tip Your Blackfathom Deeps brain stems: Gershala Nightwhisper stands a short walk west of Terenthis.
-  turnin 1275                         -- Gershala Nightwhisper
-
 step Fly to Astranaar
   zone Darkshore
   goto 36.4,45.6 "Auberdine flight master"
@@ -620,46 +605,17 @@ step Lord Grayson Shadowbreaker
   turnin 98191 npc 928                    -- Lord Grayson Shadowbreaker
   accept 98219 npc 928                    -- For Lieutenant Farren Orinelle in Southshore: keep it
 
-step Warden Thelwater
-  when dungeon "The Stockade"
+step Shylamiir
+  when dungeon "City of Dalaran"
   zone Stormwind City
-  tip For your Stockade run: Warden Thelwater keeps the Stockade's gate, south of the Cathedral Square.
-  accept 387                              -- Warden Thelwater
+  tip For your City of Dalaran run in Alterac, in the next guide: Shylamiir wants a Fel Infused Blossom from inside.
+  accept 92456 npc 5502                   -- Shylamiir
 
-step Warden Thelwater
-  when dungeon "The Stockade"
-  when onquest 389
+step High Sorcerer Andromath
+  when dungeon "City of Dalaran"
   zone Stormwind City
-  turnin 389                              -- Warden Thelwater: Bazil Thredd, from Baros Alexston
-
-step Warden Thelwater
-  when dungeon "The Stockade"
-  when turnedin 389
-  zone Stormwind City
-  accept 391                              -- Warden Thelwater: The Stockade Riots
-
-step The Stockade
-  when dungeon "The Stockade"
-  when onquest 387,377,391
-  zone Stormwind City
-  tip The Stockade is a dungeon for a group of five, about levels 23 to 29, and a run takes under an hour. Its gate is Warden Thelwater's, south of the Cathedral Square.
-  tip Inside: the Defias prisoners, convicts and insurgents for Thelwater, Dextren Ward's hand for Millstipe, and Bazil Thredd at the far end.
-  enter "The Stockade" @52.4,70.0
-  complete 387                            -- Quell the Uprising
-  complete 377                            -- Crime and Punishment: Dextren Ward
-  complete 391                            -- The Stockade Riots: Bazil Thredd
-
-step Warden Thelwater
-  when dungeon "The Stockade"
-  when complete 387
-  zone Stormwind City
-  turnin 387                              -- Warden Thelwater, at the gate
-
-step Warden Thelwater
-  when dungeon "The Stockade"
-  when complete 391
-  zone Stormwind City
-  turnin 391                              -- Warden Thelwater, at the gate
+  tip For the same run: High Sorcerer Andromath waits on the spiral walkway of the Wizard's Sanctum, the violet tower of the Mage Quarter, just past the door of the portal room.
+  accept 92489 npc 5694                   -- High Sorcerer Andromath
 
 step Jorgen and Elling Trias
   turnin 1241                             -- Jorgen
