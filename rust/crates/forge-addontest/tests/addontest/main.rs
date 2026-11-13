@@ -53,6 +53,8 @@ mod dsl_verbs;
 mod dungeons_attune;
 #[path = "dungeons-pickup.rs"]
 mod dungeons_pickup;
+#[path = "dungeons-questkeys.rs"]
+mod dungeons_questkeys;
 #[path = "dungeons-runtime.rs"]
 mod dungeons_runtime;
 #[path = "dungeons-sides.rs"]

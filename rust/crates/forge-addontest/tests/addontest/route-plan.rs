@@ -658,3 +658,33 @@ fn with_a_dungeon_pick_up_guide_active_a_quest_no_open_route_hands_in_is_listed_
 	let out = run(&format!("{PICKUP}{}", "emit(listed())"), false);
 	assert_eq!(out, json!([["One", "missed"], ["Stray", "unplanned"]]));
 }
+
+// No dungeon guide open, the leveling guide active: Trouble at the Docks (959), a page quest of Wailing Caverns
+// in the shipped Dungeons/QuestKeys.lua, is kept for that dungeon's hand-in plan, read from the always-loaded
+// index without loading the Codex; listed only once grey. Stray (77) is on no route and no page.
+#[test]
+fn a_dungeon_s_page_quest_is_kept_with_no_dungeon_guide_open_and_the_codex_not_loaded_1830() {
+	let script = format!(
+		"{SETUP}{}",
+		r#"
+    local w = stub.world
+    w.onQuest(959, {}, "Trouble at the Docks"); w.onQuest(77, {}, "Stray")
+    local function listed() local out = {} for i, u in ipairs(R.Unneeded() or {}) do out[i] = { u.title, u.status } end return out end
+    local r = R.GetTurnIn(959)
+    local kept = { listed = listed(), status = r.status, dungeon = r.dungeon or false, closed = r.closed or false, codex = P.Dungeons.Meta() ~= nil }
+    C_QuestLog.GetQuestDifficultyLevel = function(q) return q == 959 and 18 or 40 end
+    P.Compat.GetPlayerInfo = function() return {cls="DRUID", class="DRUID", race="NightElf", faction="Alliance", level=40} end
+    emit({ kept = kept, grey = listed() })
+  "#
+	);
+	let out = emitted(&RunAddon {
+		stubs: vec!["stub_world.lua"],
+		addons: vec![Addon::files("Polestar", &["Core/Core.xml", "Dungeons/Dungeons.lua", "Dungeons/QuestKeys.lua"])],
+		login: true,
+		script,
+		..Default::default()
+	})
+	.remove(0);
+	assert_eq!(out["kept"], json!({ "listed": [["Stray", "unplanned"]], "status": "other", "dungeon": "wailing-caverns", "closed": true, "codex": false }), "{out}");
+	assert_eq!(out["grey"], json!([["Stray", "unplanned"], ["Trouble at the Docks", "grey"]]), "{out}");
+}

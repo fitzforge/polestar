@@ -2138,7 +2138,12 @@ Polestar.Engine.StepHiddenFor(step, who?) -> bool  -- no step of its own for who
   guide is open in a tab (`dungeon`: what `Dungeons.HandinPlan` turns in
   after the run; read only while the dungeon data is loaded). So a
   dungeon's pick-up guide in the active tab never lists the dungeon's
-  quests or the leveling guide's (#1830). With no route handing it in, a
+  quests or the leveling guide's (#1830). Any dungeon's page quest is
+  `other` too with no guide of it open (`closed`): `Dungeons.QuestDungeon`
+  reads the always-loaded `Dungeons/QuestKeys.lua` (`forge data
+  dungeonquests`: one string, a line per dungeon, searched in place; the
+  Codex is never loaded for it), and such a quest is listed only when grey.
+  With no route handing it in, a
   route still to settle makes the list nil; else the status is a passed or
   skipped hand-in's, the leveling routes' first. The routes are built when
   asked and kept until a tab, guide, route choice or pack changes.

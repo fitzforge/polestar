@@ -297,6 +297,7 @@ first.
 | `forge data maps build` | `addon/Polestar/Maps/ZoneLevels.lua` | `data/forever` (npcs, zones, map frames) |
 | `forge data maps overlays` | `addon/Polestar/UI/ZoneArtOverlays.lua` | the Forever client's map-art tables at a pinned build |
 | `forge data newquests` | `addon/Polestar/Quests/NewQuestIds.lua` (the "New in Forever" mark's ids; `--check` fails when it is out of date) | `data/forever/quests.json` and the QuestV2 tables of a pinned Classic Era and Forever build: a quest neither pfQuest nor the Era client holds is new |
+| `forge data dungeonquests` | `addon/Polestar/Dungeons/QuestKeys.lua` (committed; each dungeon journal page's own quests, one line per dungeon, read in place by `Dungeons.QuestDungeon` without the Codex; `--check` fails when it is out of date). Run it after every `forge data codex` | `data/forever/codex/journal.json` |
 
 `itemdb`, `talents`, `maps overlays` and `newquests` fetch a missing table into `data/sources` unless `--offline`;
 `codex`, `professions` and `travel` read the cache only: `forge data sources --only builders` fills it.

@@ -19,6 +19,10 @@
 --       (name and zoneName in the client's language when it has them; map: the instance's Map id)
 --   Dungeons.Get(key) -> { key, name, kind, forever, minLevel, maxLevel, players, map, zone, zoneName, entrance } | nil
 --   Dungeons.ForMap(mapID) -> key | nil   -- the dungeon or raid whose instance map that is (Compat.GetInstanceMapID)
+--   Dungeons.QuestDungeon(id) -> key, name | nil   -- the dungeon whose journal page has quest `id` (its own
+--       quests, the ones its hand-in plan takes from the log), from the always-loaded Dungeons/QuestKeys.lua
+--       (`forge data dungeonquests`): never loads the Codex. name: Names.Instance's, else the English one.
+--       A quest on several pages: the first in key order.
 --   Dungeons.Entrance(key) -> map, x, y, f | nil
 --   Dungeons.BestAt(key) -> level | nil   -- the level it suits best, inside its range: one under the
 --       median level of its encounter bosses, else of all its bosses, else of its quests, else the
@@ -84,7 +88,7 @@ local Dungeons = {}
 ns.Dungeons = Dungeons
 
 local type, pairs, ipairs, pcall, tostring = type, pairs, ipairs, pcall, tostring
-local find, lower, format, gsub = string.find, string.lower, string.format, string.gsub
+local find, lower, format, gsub, byte, sub = string.find, string.lower, string.format, string.gsub, string.byte, string.sub
 local sort, floor = table.sort, math.floor
 
 ns.RegisterDefaults("dungeons", { enabled = true, headsUp = true }) -- headsUp: UI/DungeonToast.lua
@@ -314,6 +318,42 @@ function Dungeons.ForMap(mapID)
 	if type(mapID) ~= "number" or not ready() then return nil end
 	for key, s in pairs(summaries) do
 		if s.map == mapID then return key end
+	end
+	return nil
+end
+
+-- QuestKeys.lua's text (`forge data dungeonquests`): a line per dungeon, key|map|name|ids, the ids w digits
+-- each, ascending. Kept as that one string and searched in place: no table at login, none per lookup.
+function Dungeons.RegisterQuestKeys(w, text)
+	if type(w) ~= "number" or w < 1 or type(text) ~= "string" then return end
+	Dungeons.questKeys, Dungeons.questWidth = text, w
+end
+
+function Dungeons.QuestDungeon(id)
+	id = tonumber(id)
+	local s, w = Dungeons.questKeys, Dungeons.questWidth
+	if not (id and s) then return nil end
+	local n, pos = #s, 1
+	while pos <= n do
+		local e = find(s, "\n", pos, true) or n + 1
+		local a = find(s, "|", pos, true)
+		local b = a and find(s, "|", a + 1, true)
+		local c = b and find(s, "|", b + 1, true)
+		if c and c < e then
+			-- Binary search over this line's ids, read from the string's bytes.
+			local lo, hi = 1, floor((e - c - 1) / w)
+			while lo <= hi do
+				local mid = floor((lo + hi) / 2)
+				local p, v = c + (mid - 1) * w, 0
+				for k = p + 1, p + w do v = v * 10 + byte(s, k) - 48 end
+				if v == id then
+					local map, N = tonumber(sub(s, a + 1, b - 1)), ns.Names
+					return sub(s, pos, a - 1), (map and N and N.Instance and N.Instance(map)) or sub(s, b + 1, c - 1)
+				end
+				if v < id then lo = mid + 1 else hi = mid - 1 end
+			end
+		end
+		pos = e + 1
 	end
 	return nil
 end
