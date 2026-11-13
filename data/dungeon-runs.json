@@ -1094,6 +1094,61 @@
 			"budget": {
 				"flow": "measured in the 30-60 batch (flow audit dynamic, off vs this dungeon)"
 			}
+		},
+		{
+			"dungeon": "City of Dalaran",
+			"faction": "Horde",
+			"pickups": [
+				{
+					"quest": 96986,
+					"after": {
+						"guide": "forever/horde/30-40/01-hillsbrad-foothills",
+						"quest": 676,
+						"goal": "accept"
+					},
+					"note": "Melisara, the Tarren Mill stop (~30.5), a short walk east of Magus Wordeen Voidglare"
+				}
+			],
+			"run": {
+				"guide": "forever/horde/30-40/01-hillsbrad-foothills",
+				"after": {
+					"quest": 556,
+					"goal": "collect",
+					"note": "the Dalaran crater stop (~31)"
+				},
+				"entrance": {
+					"map": 1416,
+					"x": 12.8,
+					"y": 62.2,
+					"frame": "live",
+					"source": "players' recordings: the sewer pipe north-west of the crater, where Horde players without Heart of Disruption (its Sewer Key) went in"
+				},
+				"objectives": [
+					96986
+				],
+				"insideQuests": [
+					96987
+				],
+				"guard": "onquest 96986"
+			},
+			"handins": [
+				{
+					"quest": 96986,
+					"guide": "forever/horde/30-40/01-hillsbrad-foothills",
+					"after": {
+						"quest": 515,
+						"goal": "turnin"
+					},
+					"note": "the next Tarren Mill stop"
+				}
+			],
+			"leftOut": {
+				"96988": "Source of Power: Doctor Martin Felben in the Undercity, level 33, 3.5 levels over on the Undercity stop at 29.5",
+				"96984": "Heart of Disruption: after Blood in the Streets (92434), on the 38-39 visit"
+			},
+			"budget": {
+				"flow": "measured in the 30-60 batch (flow audit dynamic, off vs this dungeon)"
+			}
 		}
 	]
 }
