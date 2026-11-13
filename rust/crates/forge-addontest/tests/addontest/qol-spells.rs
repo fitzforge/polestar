@@ -70,12 +70,12 @@ local function ids(list)
 	for i, s in ipairs(list or {}) do out[i] = s.id end
 	return out
 end
--- Renew 1-3 in the spellbook, rank 2 on bar 1 slot 5, rank 3 on slot 17, a macro and the Hearthstone beside them.
-local function renew()
+-- Renew 1-3 in the spellbook, rank 2 on bar 1 slot 5, optionally rank 3 on bestSlot, a macro and the Hearthstone beside them.
+local function renew(bestSlot)
 	spell(139, "Renew", 2); spell(6074, "Renew", 3); spell(136, "Renew", 1); spell(6075, "Renew", 4)
 	BOOK = { 136, 139, 6074 }
 	ACTIONS[5] = { "spell", 139 }
-	ACTIONS[17] = { "spell", 6074 }
+	if bestSlot then ACTIONS[bestSlot] = { "spell", 6074 } end
 	ACTIONS[6] = { "macro", 12 }
 	ACTIONS[7] = { "item", 6948 }
 	ACTIONS[8] = { "spell", 9999 }
@@ -168,10 +168,70 @@ fn upgrade_replaces_only_that_slot_and_leaves_macros_and_items_alone() {
 		r#"
 		renew()
 		local done = S.Upgrade()
-		emit({ done = done, s5 = ACTIONS[5][2], s17 = ACTIONS[17][2], macro = ACTIONS[6], item = ACTIONS[7], shoot = ACTIONS[8][2],
+		emit({ done = done, s5 = ACTIONS[5][2], macro = ACTIONS[6], item = ACTIONS[7], shoot = ACTIONS[8][2],
 			placed = PLACED, cursor = CURSOR or false, last = ranks[#ranks] })"#,
 	);
-	assert_eq!(out[0], json!({ "done": 1, "s5": 6074, "s17": 6074, "macro": ["macro", 12], "item": ["item", 6948], "shoot": 9999, "placed": [5], "cursor": false, "last": false }));
+	assert_eq!(out[0], json!({ "done": 1, "s5": 6074, "macro": ["macro", 12], "item": ["item", 6948], "shoot": 9999, "placed": [5], "cursor": false, "last": false }));
+}
+
+#[test]
+fn a_lower_rank_is_left_alone_when_the_highest_known_rank_is_on_any_bar() {
+	for slot in [1, 180] {
+		let out = run_qol(&format!(
+			r#"
+			renew({slot})
+			local list, n = S.OldRanks()
+			emit({{ listed = #list, slots = n, notice = ranks[#ranks], done = S.Upgrade(),
+				low = ACTIONS[5][2], best = ACTIONS[{slot}][2], placed = #PLACED, cursor = CURSOR or false }})"#,
+		));
+		assert_eq!(out[0], json!({ "listed": 0, "slots": 0, "notice": false, "done": 0, "low": 139, "best": 6074, "placed": 0, "cursor": false }), "highest rank in slot {slot}");
+	}
+}
+
+#[test]
+fn removing_the_highest_rank_from_the_bars_makes_the_lower_rank_eligible_again() {
+	let out = run_qol(
+		r#"
+		renew(17)
+		put(17, nil)
+		S.CheckRanks(true)
+		local n = ranks[#ranks]
+		emit({ slots = n.slots, ids = ids(n.spells), done = S.Upgrade(), low = ACTIONS[5][2] })"#,
+	);
+	assert_eq!(out[0], json!({ "slots": 1, "ids": [139], "done": 1, "low": 6074 }));
+}
+
+#[test]
+fn a_new_highest_rank_must_be_on_the_bars_to_leave_lower_ranks_alone() {
+	let out = run_qol(
+		r#"
+		renew(17)
+		-- Rank 3 was the highest on the bars; rank 4 is now known but not on them.
+		BOOK[#BOOK + 1] = 6075
+		stub.fire("SPELLS_CHANGED")
+		stub.advance(2)
+		local n = ranks[#ranks]
+		emit({ slots = n.slots, ids = ids(n.spells), best = n.spells[1].bestId,
+			done = S.Upgrade(), low = ACTIONS[5][2], higher = ACTIONS[17][2] })"#,
+	);
+	assert_eq!(out[0], json!({ "slots": 2, "ids": [139, 6074], "best": 6075, "done": 2, "low": 6075, "higher": 6075 }));
+}
+
+#[test]
+fn an_intentional_lower_rank_does_not_hide_another_spells_outdated_rank_or_treat_a_macro_as_a_spell() {
+	let out = run_qol(
+		r#"
+		spell(585, "Smite", 1); spell(591, "Smite", 2)
+		ACTIONS[30] = { "spell", 585 }
+		ACTIONS[31] = { "macro", 591 }
+		renew(17)
+		BOOK[#BOOK + 1] = 585; BOOK[#BOOK + 1] = 591
+		S.CheckRanks(true)
+		local n = ranks[#ranks]
+		emit({ slots = n.slots, ids = ids(n.spells), done = S.Upgrade(), renew = ACTIONS[5][2],
+			best = ACTIONS[17][2], smite = ACTIONS[30][2], macro = ACTIONS[31], placed = PLACED })"#,
+	);
+	assert_eq!(out[0], json!({ "slots": 1, "ids": [585], "done": 1, "renew": 139, "best": 6074, "smite": 591, "macro": ["macro", 591], "placed": [30] }));
 }
 
 #[test]
@@ -221,6 +281,7 @@ fn a_lower_rank_the_player_puts_on_a_bar_is_kept_even_after_a_higher_rank_is_lea
 		end
 		emit(listed())
 		-- Rank 4 learned at the trainer: slot 9 still kept, slots 5 and 17 listed.
+		put(17, "spell", 6074)
 		BOOK[#BOOK + 1] = 6075
 		emit(listed())
 		-- Renew 2 dragged from slot 5 to slot 10: a move, still listed.
