@@ -602,7 +602,7 @@ pub fn joins_at(p: &Problem, m: &Member, visit_yd: f64) -> Vec<Mv> {
 		out.extend(bag_join(p, m, ia));
 		let tin = |pq: u32| o.steps.iter().position(|x| x.kind == K_TURNIN && x.q == pq);
 		let any = run.q_pre[qi].iter().filter_map(|&pq| tin(pq)).min();
-		let open_from = run.q_all[qi].iter().filter_map(|&pq| tin(pq)).max().into_iter().chain(any).max().map_or(0, |k| k + 1);
+		let open_from = run.q_all[qi].iter().filter_map(|&pq| tin(pq)).max().into_iter().chain(any).chain(crumbs_handed_in(run, o, qi)).max().map_or(0, |k| k + 1);
 		// Earlier visits: a stop at the giver with the route gone from it before the accept.
 		let mut visits = Vec::new();
 		let mut left = false;
@@ -753,7 +753,7 @@ pub fn insertion_in(p: &Problem, o: &Order, lv: &[f64], q: u32, loc: &[u32], liv
 		return None;
 	}
 	let any = run.q_pre[qi].iter().filter_map(|&pq| tin(pq)).min();
-	let open_from = run.q_all[qi].iter().filter_map(|&pq| tin(pq)).max().into_iter().chain(any).max().map_or(1, |k| k + 1);
+	let open_from = run.q_all[qi].iter().filter_map(|&pq| tin(pq)).max().into_iter().chain(any).chain(crumbs_handed_in(run, o, qi)).max().map_or(1, |k| k + 1);
 	let mut all: Vec<(f64, usize)> = Vec::new();
 	for j in open_from.max(1)..live {
 		// The leg into step j passes the giver (the guards' passed-by: any point of the leg).
@@ -841,6 +841,16 @@ fn levels_after(lv: &[f64], mv: &Mv) -> Vec<f64> {
 		_ => {}
 	}
 	lv
+}
+
+/// The last hand-in, in order `o`, of a breadcrumb of quest qi the order takes: the quest is held
+/// back while the breadcrumb is in the log, so its accept goes after that hand-in.
+fn crumbs_handed_in(run: &crate::run::Run, o: &Order, qi: usize) -> Option<usize> {
+	run.crumbs(qi)
+		.iter()
+		.filter(|&&c| o.steps.iter().any(|s| s.kind == K_ACCEPT && s.q == c))
+		.filter_map(|&c| o.steps.iter().position(|s| s.kind == K_TURNIN && s.q == c))
+		.max()
 }
 
 /// Whether quest q opens once the quests of `done` are handed in (any of `pre`, all of `all`, its

@@ -52,6 +52,9 @@ pub fn model_for(world: &World, race: &str, profile: &Profile, base: &Params, wa
 	if let Some(g) = profile.groups.as_ref().filter(|_| profile.train_stops) {
 		run.set_groups(g);
 	}
+	if let Some(c) = profile.crumbs.as_ref() {
+		run.set_crumbs(c);
+	}
 	if deathskips {
 		run.set_deaths(world);
 	}
@@ -577,7 +580,9 @@ pub fn prepare(world: &World, walks: &dyn Walks, base: &Params, race: &str, even
 		None => Vec::new(),
 	};
 	let spots = spots_of(goals);
-	let profile = &Profile { rides: (!rides.is_empty()).then(|| std::sync::Arc::new(rides)), spots: (!spots.is_empty()).then(|| std::sync::Arc::new(spots)), ..profile.clone() };
+	// A breadcrumb in the log holds its target back (every model of the start, the seed's too).
+	let crumbs = ex.data.map(|d| std::sync::Arc::new(crumb_pairs(d))).or_else(|| profile.crumbs.clone());
+	let profile = &Profile { rides: (!rides.is_empty()).then(|| std::sync::Arc::new(rides)), spots: (!spots.is_empty()).then(|| std::sync::Arc::new(spots)), crumbs, ..profile.clone() };
 	let events = &train_floors(world, goals, events);
 	let (mut model0, rules0) = model_for(world, race, profile, base, walks)?;
 	let mut ev0 = model0.evaluator(walks);
@@ -1532,6 +1537,12 @@ pub const UNKNOWN_START_CHANCE: f64 = 0.01;
 
 /// The quests started by a rare drop (RARE_START_PCT), with each source mob's chance per kill:
 /// valued at expected value from the route's own kills of those mobs (eval), never farmed for.
+/// Every (breadcrumb, the quest it leads to) pair of the game data, by either link
+/// (forge_world::CrumbIndex): the target is held back while the breadcrumb is in the log.
+pub fn crumb_pairs(data: &forge_world::GameData) -> crate::run::Crumbs {
+	forge_world::CrumbIndex::new(&data.quests).pairs().into_iter().filter_map(|(c, t)| Some((u32::try_from(c).ok()?, u32::try_from(t).ok()?))).collect()
+}
+
 pub fn rare_starts(data: &forge_world::GameData) -> crate::run::RareStarts {
 	let mut out = Vec::new();
 	for (&id, q) in &data.quests {
