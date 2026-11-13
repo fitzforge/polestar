@@ -8,13 +8,15 @@
 --   BagGlow.Items(view, raw) -> { [itemID] = true }   -- what glows for a step
 --   BagGlow.Redraw()                                  -- repaint the shown bags now
 --
--- Two bag views, as Gear/Bags.lua's upgrade arrows:
+-- Three bag views, as Gear/Bags.lua's upgrade arrows:
 --   * The client's bags: each container frame's UpdateItems is post-hooked on
 --     the frame itself; the glow is the action button border texture on the
 --     item button (OVERLAY sublevel 2, under the upgrade arrow and the search
 --     overlay), in the theme's accent colour, pulsing. Glows and locks are
 --     kept here by button; nothing is written into the button's table.
---   * Baganator: corner widgets, the glow bottom-right and the lock top-left.
+--   * Baganator and BagSmith: corner widgets, the lock top-left. The glow
+--     is bottom-right in Baganator, bottom-left in BagSmith to leave its
+--     protected stack count visible.
 --
 -- The step (STEP_CHANGED and friends), the bags (BAG_UPDATE_DELAYED) and the
 -- quest log repaint the shown bags on the next frame.
@@ -33,10 +35,10 @@ QoL.BagGlow = BagGlow
 local TEXTURE = "Interface\\Buttons\\UI-ActionButton-Border"
 local SCALE = 1.9 -- the border texture's size against the item button's
 local LAYER = 2 -- OVERLAY sublevel: under the upgrade arrow (3) and the search overlay (4)
-local WIDGET = "polestar_step_item" -- Baganator corner widget id
+local WIDGET = "polestar_step_item" -- bag addon corner widget id
 local LOCK = "Interface\\PetBattles\\PetBattle-LockIcon"
 local LOCK_SIZE = 14
-local KEEP_WIDGET = "polestar_kept_item" -- Baganator corner widget id of the lock
+local KEEP_WIDGET = "polestar_kept_item" -- bag addon corner widget id of the lock
 
 local function paint(t)
 	local T = ns.Theme
@@ -80,7 +82,7 @@ end
 ---------------------------------------------------------------------------
 
 local glows = setmetatable({}, { __mode = "k" }) -- item button -> glow texture
-local widgets = setmetatable({}, { __mode = "k" }) -- glow textures made for Baganator
+local widgets = setmetatable({}, { __mode = "k" }) -- glow textures made for bag addons
 local locks = setmetatable({}, { __mode = "k" }) -- item button -> lock texture
 
 local function lockFor(button)
@@ -192,23 +194,25 @@ hookBags()
 ns.OnLogin(hookBags)
 
 ---------------------------------------------------------------------------
--- Baganator
+-- Baganator and BagSmith (the same public corner-widget contract)
 ---------------------------------------------------------------------------
 
-local baganator = false
+local registeredBags = {}
 
-local function baganatorAPI()
-	local B = _G.Baganator
+local function cornerAPI(name)
+	local B = _G[name]
 	local API = type(B) == "table" and B.API
 	if type(API) == "table" and API.RegisterCornerWidget then return API end
 	return nil
 end
 
-local function registerBaganator()
-	if baganator then return true end
-	local API = baganatorAPI()
+local function registerBag(name)
+	if registeredBags[name] then return true end
+	local API = cornerAPI(name)
 	if not API then return false end
-	baganator = true
+	registeredBags[name] = true
+	-- BagSmith supplies an icon-sized slot for list rows as well as grid items.
+	local options = name == "BagSmith" and { listRows = true } or nil
 	API.RegisterCornerWidget(L["Polestar: step item"], WIDGET, function(_, details)
 		return glowing() and type(details) == "table" and wanted(details.itemID) or false
 	end, function(button)
@@ -220,7 +224,7 @@ local function registerBaganator()
 		paint(t)
 		widgets[t] = true
 		return t
-	end, { corner = "bottom_right", priority = 1 })
+	end, { corner = name == "BagSmith" and "bottom_left" or "bottom_right", priority = 1 }, nil, options)
 	API.RegisterCornerWidget(L["Polestar: kept for the guide"], KEEP_WIDGET, function(_, details)
 		return glowing() and type(details) == "table" and locked(details.itemID) or false
 	end, function(button)
@@ -228,17 +232,21 @@ local function registerBaganator()
 		t:SetSize(LOCK_SIZE, LOCK_SIZE)
 		t:SetTexture(LOCK)
 		return t
-	end, { corner = "top_left", priority = 1 })
+	end, { corner = "top_left", priority = 1 }, nil, options)
 	return true
 end
 
 local function onAddonLoaded(_, name)
-	if name == "Baganator" and registerBaganator() then
+	if name ~= "Baganator" and name ~= "BagSmith" then return end
+	registerBag(name)
+	if registeredBags.Baganator and registeredBags.BagSmith then
 		ns.UnregisterEvent("ADDON_LOADED", onAddonLoaded)
 	end
 end
 
-if not registerBaganator() then ns.RegisterEvent("ADDON_LOADED", onAddonLoaded) end
+registerBag("Baganator")
+registerBag("BagSmith")
+if not (registeredBags.Baganator and registeredBags.BagSmith) then ns.RegisterEvent("ADDON_LOADED", onAddonLoaded) end
 
 ---------------------------------------------------------------------------
 -- Keeping the glow on the step's items
@@ -248,11 +256,18 @@ function BagGlow.Redraw()
 	for _, f in ipairs(containerFrames()) do
 		if hooked[f] and f:IsShown() then onUpdateItems(f) end
 	end
-	local API = baganator and baganatorAPI()
-	local active = API and (not API.IsCornerWidgetActive or API.IsCornerWidgetActive(WIDGET) or API.IsCornerWidgetActive(KEEP_WIDGET))
-	if API and API.RequestItemButtonsRefresh and active then
-		local reasons = _G.Baganator.Constants and _G.Baganator.Constants.RefreshReason
-		API.RequestItemButtonsRefresh(reasons and reasons.ItemWidgets and { reasons.ItemWidgets } or nil)
+	for name in pairs(registeredBags) do
+		local API = cornerAPI(name)
+		local active = API and (not API.IsCornerWidgetActive or API.IsCornerWidgetActive(WIDGET) or API.IsCornerWidgetActive(KEEP_WIDGET))
+		if API and API.RequestItemButtonsRefresh and active then
+			local B = _G[name]
+			local reasons = name == "Baganator" and B.Constants and B.Constants.RefreshReason
+			if name == "BagSmith" then
+				API.RequestItemButtonsRefresh()
+			else
+				API.RequestItemButtonsRefresh(reasons and reasons.ItemWidgets and { reasons.ItemWidgets } or nil)
+			end
+		end
 	end
 end
 
