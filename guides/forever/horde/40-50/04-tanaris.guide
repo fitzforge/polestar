@@ -30,6 +30,14 @@ step Gadgetzan
   sethome "Gadgetzan" npc 7733          -- Innkeeper Fizzgrimble
   accept 2605                           -- Marin Noggenfogger
 
+step Gadgetzan
+  when dungeon "Zul'Farrak"
+  zone Tanaris
+  tip For your Zul'Farrak run, after Sandsorrow Watch: Chief Engineer Bilgewhizzle, by the water tower, wants his Divino-matic Rod back; Tran'rek his scarab shells and Trenton Lighthammer Troll Temper, if you have not taken those yet.
+  accept 2768                           -- Chief Engineer Bilgewhizzle
+  accept 2865                           -- Tran'rek
+  accept 3042                           -- Trenton Lighthammer
+
 step Tanaris
   zone Tanaris
   goto 39.0,29.0 "Sandsorrow Watch"
@@ -39,10 +47,42 @@ step Sandsorrow Watch
   use 8584 quest 992.1 @39.0,29.2 map 1446
   collect 8585 quest 992.1 @39.0,29.2
 
+step Zul'Farrak
+  when dungeon "Zul'Farrak"
+  when onquest 2865,2768,3042
+  zone Tanaris
+  tip Zul'Farrak is a dungeon for a group of five; its quests here are level 45 to 47. Its gate lies about 400 yards north of the troll camp's water hole.
+  tip Inside: the Scarabs drop the shells, every Sandfury troll can drop Troll Temper, and Sergeant Bly carries the Divino-matic Rod.
+  enter "Zul'Farrak" @38.7,20.1
+  complete 2865 @38.7,20.1              -- Scarab Shells: the Scarabs, inside
+  complete 3042 @38.7,20.1              -- Troll Temper: the Sandfury trolls, inside
+  complete 2768 @38.7,20.1              -- Divino-matic Rod: Sergeant Bly, inside
+
 step Senior Surveyor Fizzledowser
   tip Back east to Fizzledowser on the west side of Gadgetzan; Marvon is south from there.
   turnin 992                            -- Senior Surveyor Fizzledowser
   accept 82
+
+step Tran'rek
+  when dungeon "Zul'Farrak"
+  when complete 2865
+  zone Tanaris
+  tip Your Zul'Farrak scarab shells: Tran'rek, beside the wind rider master.
+  turnin 2865                           -- Tran'rek
+
+step Chief Engineer Bilgewhizzle
+  when dungeon "Zul'Farrak"
+  when complete 2768
+  zone Tanaris
+  tip The Divino-matic Rod: Chief Engineer Bilgewhizzle, by the water tower.
+  turnin 2768                           -- Chief Engineer Bilgewhizzle
+
+step Trenton Lighthammer
+  when dungeon "Zul'Farrak"
+  when complete 3042
+  zone Tanaris
+  tip The Troll Temper: Trenton Lighthammer, a short walk from the flight master.
+  turnin 3042                           -- Trenton Lighthammer
 # Route from the Polestar route simulator's Horde consensus (Tauren export),
 # visits 44-48, levels 45.9-47.6. Checked by lint, not play-tested on
 # Forever yet. Era + known Forever quests only.
@@ -76,6 +116,16 @@ step Senior Surveyor Fizzledowser
 # - Gadgetzan on arrival: Tran'rek and the poster beside the wind rider
 #   master first, then Andi Lynn, the inn and Marin; Fizzledowser on the west
 #   side last, on the way out.
+#
+# Zul'Farrak (`when dungeon "Zul'Farrak"`, dungeons in the route): for a character who runs it, Gadgetzan's first stop
+# takes Chief Engineer Bilgewhizzle's Divino-matic Rod (2768, level 47, 1 over here), and Tran'rek's Scarab Shells and
+# Trenton Lighthammer's Troll Temper (2865, 3042) for whoever did not take them in 40-50/02-feralas; the run follows
+# Sandsorrow Watch, the route's nearest point to the city's gate (about 400 yards north), at about 46, and the three
+# are handed in in Gadgetzan after Fizzledowser (`when complete`). Left out: Gahz'rilla (2770: Wizzle Brassbolts at
+# the Mirage Raceway, level 50, 6 over on 40-50/02-feralas's stop), The Prophecy of Mosh'aru (3527: offered once
+# Screecher Spirits, 3520, is handed in at Steamwheedle Port, after the run), The Spider God (2936: after Master
+# Gadrin's chain, which this route leaves out) and Tiara of the Deep (2846: Tabetha in Dustwallow Marsh, off the
+# route).
 #
 # Optional: Find and Rescue OOX-17/TN! (351, 648): the beacon is a rare
 # drop; the reward waits with Oglethorpe in Booty Bay. The Key to Freedom

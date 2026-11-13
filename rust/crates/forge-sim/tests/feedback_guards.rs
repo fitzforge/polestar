@@ -60,7 +60,7 @@ fn grind_waits_for_the_trips_hand_ins() {
 	assert!(found, "a grind before a ready hand-in on the trip is caught; after it, not");
 }
 
-/// GrindVsHandin (Fix 2): the town is farther than GRIND_TRIP_YD from the camp before it (Brackenwall
+/// Grind or hand in first (fix 2): the town is farther than GRIND_TRIP_YD from the camp before it (Brackenwall
 /// from the Mirefin coast): a grind at the camp while the town's next hand-in waits is still on its trip.
 #[test]
 fn grind_waits_for_the_next_towns_hand_ins_beyond_the_camps_yards() {

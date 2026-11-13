@@ -200,7 +200,7 @@ fn overrides_pairs_block_when_the_written_walk_breaks_them() {
 	// #739's run: Gordo's Task (5481) taken on the walk in, before Vital Intelligence (383) is handed in,
 	// against the maintainer's override pair; the deliberate pair alone saw nothing.
 	let f = chest_facts();
-	let overrides = json!({ "pairs": [{ "a": ["turnin", 383], "b": ["accept", 5481], "why": "FitzTest c12w" }] });
+	let overrides = json!({ "pairs": [{ "a": ["turnin", 383], "b": ["accept", 5481], "why": "the c12w in-game test" }] });
 	let w = walk(vec![goal("accept", Some(5481), None), goal("turnin", Some(383), None)]);
 	assert!(deliberate(&w, &json!({}), &Value::Null, &f, "Horde").is_empty(), "without the overrides nothing is checked");
 	let v = deliberate(&w, &json!({}), &overrides, &f, "Horde");
@@ -216,7 +216,7 @@ fn deliberate_pair_with_a_faction_holds_for_that_side_only() {
 	// c18 Alliance Western Plaguelands: Marlene's turn-in (5152) before Mulgris's accept (4984) at
 	// Chillwind Camp; the Horde's Mulgris-first pair (deliberate.pairs[152]) is not the Alliance's.
 	let f = chest_facts();
-	let doc = json!({ "pairs": [{ "a": ["accept", 4984], "b": ["turnin", 5152], "faction": "Horde", "why": "Rev17H" }] });
+	let doc = json!({ "pairs": [{ "a": ["accept", 4984], "b": ["turnin", 5152], "faction": "Horde", "why": "c17 review" }] });
 	let w = walk(vec![goal("turnin", Some(5152), None), goal("accept", Some(4984), None)]);
 	assert!(deliberate(&w, &doc, &Value::Null, &f, "Alliance").is_empty());
 	assert_eq!(deliberate(&w, &doc, &Value::Null, &f, "Horde").len(), 1);
@@ -837,7 +837,7 @@ fn a_chapter_is_taken_with_its_parent_in_the_log_not_after_its_hand_in() {
 
 #[test]
 fn not_ready_reads_breadcrumbs_and_parents_right() {
-	// The data's shapes (RevH2-3, c13): Securing the Supply Lines 8280 lists its breadcrumbs 8275/8276 as
+	// The data's shapes (c13 review): Securing the Supply Lines 8280 lists its breadcrumbs 8275/8276 as
 	// `pre`, and 8276's `next` is 8280; Stranglethorn Fever's log quest 349 has its parent 348 as `pre`
 	// and 348's `next`.
 	assert_eq!(quest_pre(&[8275, 8276], &[8276], &[8275, 8276], None), Vec::<i64>::new());
@@ -871,7 +871,7 @@ fn not_ready_reads_breadcrumbs_and_parents_right() {
 #[test]
 fn class_lost_is_a_seed_class_quest_no_written_guide_takes() {
 	// The Dwarf Paladins' Tome of Divinity (2999, Paladin, Dwarf only) left the written Dun Morogh
-	// (RevDwarfGnome3, c13); a Gnome start has no Paladin; an optional or a kept class quest is fine.
+	// (c13 review); a Gnome start has no Paladin; an optional or a kept class quest is fine.
 	let mut f = Facts::default();
 	f.quests.insert(2999, QuestFacts { title: "Tome of Divinity".into(), classes: 2, races: 4, ..Default::default() });
 	f.quests.insert(1599, QuestFacts { title: "Beginnings".into(), classes: 256, races: 0, ..Default::default() });
@@ -1060,7 +1060,7 @@ fn left_ready_is_a_hub_line_ready_at_a_visit_and_done_on_a_return() {
 
 #[test]
 fn training_gap_is_more_than_four_levels_with_no_class_training() {
-	// c14 Horde 40-50 (Rev14H2 B1): Druids untrained from Orgrimmar at 39.5 to 51.
+	// c14 Horde 40-50 (c14 review B1): Druids untrained from Orgrimmar at 39.5 to 51.
 	let p = pt(50.0, 50.0, 1454, 1);
 	let train = |lvl: f64| {
 		let mut g = at("train", None, p, lvl);
@@ -1079,7 +1079,7 @@ fn training_gap_is_more_than_four_levels_with_no_class_training() {
 	// The walk's end, six levels after its last training.
 	let w = walk(vec![train(20.0), at("turnin", Some(2), p, 26.5)]);
 	assert_eq!(lines(&training_gaps(&w)), vec![("horde/01-durotar.guide".into(), 101, "training-gap".into())]);
-	// The Alliance's shared tail (Rev14A2 B2): Warriors trained at 51.0, next at 58.5; and 42.25 to 47.3.
+	// The Alliance's shared tail (c14 review B2): Warriors trained at 51.0, next at 58.5; and 42.25 to 47.3.
 	let mut tail = walk(vec![train(42.25), train(47.3), at("turnin", Some(3), p, 50.0), train(51.0), at("turnin", Some(4), p, 55.0), train(58.5)]);
 	for g in tail.iter_mut() {
 		g.guide = "forever/alliance/50-60/04-western-plaguelands".into();

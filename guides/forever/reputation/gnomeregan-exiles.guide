@@ -174,7 +174,7 @@ step The quarry and Amberstill Ranch
   label ge-east
   zone Dun Morogh
   tip Optional: eastern Dun Morogh, from Earthseer Farsen's camp to the Gol'Bolar Quarry and Amberstill Ranch, about 500 reputation in 30 minutes at 60. Forever pays these old quests in full at any level. Skip this step to skip the hub.
-  turnin 96408 optional
+  turnin 96408
   accept 96392
   turnin 96392
   accept 96390

@@ -1012,6 +1012,9 @@ end))
 frame:SetScript("OnShow", function()
 	accum, hasAngle = 0, false
 end)
+-- Another addon taking the arrow out of sight is told once (ns.WatchSight).
+-- After the OnShow above: SetScript drops a hooked script.
+ns.WatchSight(frame, "arrow")
 
 ---------------------------------------------------------------------------
 -- Moving, settings

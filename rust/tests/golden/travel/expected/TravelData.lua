@@ -140,6 +140,8 @@ N.RegisterTravelData({
 	portals = {
 		{a={"Darnassus",1,9947.5,2630,1457,29.13,41.21,"e",1657},area=702,b={"Rut'theran Village",1,8785.8,967,1438,55.93,89.74,"e",702},id="portal-ruttheran",name="Rut'theran Village",seconds=5},
 		{a={"Rut'theran Village",1,8799.4,969.8,1438,55.87,89.34,"e",702},area=1657,b={"Darnassus",1,9946.3,2613,1457,30.75,41.39,"e",1657},id="portal-darnassus",name="Darnassus",seconds=5},
+		{a={"Wizard's Sanctum tower",0,-9020.1,880.5,1453,48.48,88.42,"l",1519,148.6},area=1519,b={"Wizard's Sanctum",0,-9017.5,885.9,1453,48.17,88.2,"l",1519,29.6},id="portal-sanctum-chamber",name="Wizard's Sanctum",seconds=5},
+		{a={"Wizard's Sanctum",0,-9023.3,892.4,1453,47.8,88.7,"l",1519,29.6},area=1519,b={"Wizard's Sanctum tower",0,-9014.9,873.3,1453,48.9,87.98,"l",1519,148.6},id="portal-sanctum-tower",name="Wizard's Sanctum tower",seconds=5},
 		{a={"Shrine of Akir",2991,3089.5,584.5,2521,65.56,50.34,"l",16629},area=16630,b={"Rohashi Spires",2991,3079.8,426.5,2521,68.4,50.6,"l",16630},id="portal-rohashi-spires",name="Rohashi Spires",seconds=5},
 		{a={"Rohashi Spires",2991,2981.6,54.9,2521,75.08,53.25,"l",16630},area=16638,b={"Valanaar",2991,2000.7,543.3,2521,66.3,79.7,"l",16638},id="portal-valanaar",name="Valanaar",seconds=5},
 	},

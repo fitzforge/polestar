@@ -288,6 +288,35 @@ C_Map.GetMapArtID = function(id) local m = ART[id]; return m and m.artID end`);
 		for (const part of ['Polestar_Options', 'Polestar_SkinAPI', 'Polestar_Looks']) {
 			if (fs.existsSync(path.join(ADDONS, part, `${part}.toc`))) lines.push(`stub.packs.${part} = stub.packs.${part} or { ${tocFiles(part).map(luaString).join(', ')} }`);
 		}
+		// The skins in the download (addon/Polestar_Skin_*), installed as in the client: listed with their TOC's
+		// `X-Polestar-Skin` (Theme/SkinApi.lua finds them by it), loaded on demand when picked under Theme.
+		for (const part of fs.readdirSync(ADDONS).filter((n) => /^Polestar_Skin_/.test(n) && n !== 'Polestar_Skin_Example').sort()) {
+			const toc = path.join(ADDONS, part, `${part}.toc`);
+			if (!fs.existsSync(toc)) continue;
+			const meta = {};
+			for (const line of fs.readFileSync(toc, 'utf8').split(/\r?\n/)) {
+				const m = /^## ([A-Za-z-]+):\s*(.*)$/.exec(line);
+				if (m) meta[m[1]] = m[2].trim();
+			}
+			lines.push(`stub.addons[#stub.addons + 1] = { name = ${luaString(part)}, title = ${luaString(meta.Title || part)}, reason = "DEMAND_LOADED" }`);
+			lines.push(`stub.addonMeta[${luaString(part)}] = { ["X-Polestar-Skin"] = ${luaString(meta['X-Polestar-Skin'] || '')}, Title = ${luaString(meta.Title || part)}, Version = ${luaString(meta.Version || '')} }`);
+			lines.push(`stub.packs.${part} = stub.packs.${part} or { ${tocFiles(part).map(luaString).join(', ')} }`);
+		}
+		// Our other folders in the AddOns list too, each with its TOC's version, as the client lists them: once the
+		// list is not empty, Polestar's install check (Core/Data.lua) reads it, and a folder missing from it or of
+		// another version would read as a mixed install.
+		for (const part of fs.readdirSync(ADDONS).filter((n) => /^Polestar/.test(n) && !/^Polestar_Skin_/.test(n)).sort()) {
+			const toc = path.join(ADDONS, part, `${part}.toc`);
+			if (!fs.existsSync(toc)) continue;
+			const meta = {};
+			for (const line of fs.readFileSync(toc, 'utf8').split(/\r?\n/)) {
+				const m = /^## ([A-Za-z-]+):\s*(.*)$/.exec(line);
+				if (m) meta[m[1]] = m[2].trim();
+			}
+			const demand = meta.LoadOnDemand === '1' ? ', reason = "DEMAND_LOADED"' : '';
+			lines.push(`stub.addons[#stub.addons + 1] = { name = ${luaString(part)}, title = ${luaString(meta.Title || part)}${demand} }`);
+			lines.push(`stub.addonMeta[${luaString(part)}] = { Version = ${luaString(meta.Version || '')}, Title = ${luaString(meta.Title || part)} }`);
+		}
 		lines.push(d.metrics);
 		dof(path.join(ROOT, 'tools', 'preview', 'stub.lua'));
 		lines.push('preview.enableTooltips()');

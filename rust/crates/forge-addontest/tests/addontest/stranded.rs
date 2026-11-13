@@ -1,10 +1,11 @@
 //! Stranded quests (jaff: "I always have grey quests that are completed in random spots that I haven't handed
-//! in"): finished quests no open route hands in any more. RoutePlan.Carried, the Quest room's "carried" list
-//! (reached from Make room: who takes each, Abandon on a grey one, Guide me), the Lookup "carried" hand-in guide,
-//! and While-here hand-ins at their enders (Engine Own.hereStranded); RoutePlan.LeftBehind: what a jump to another
-//! guide leaves, the engine suggesting the next guide over the level-best one while the guides between still hand
-//! in finished quests, and the guide menu's Load asking once. Full addon, stub world, a stubbed Codex (the quests'
-//! XP and enders) and Lookup.QuestEnd.
+//! in"): finished quests no open route hands in any more. RoutePlan.Carried, the guide window's "Still to do" row
+//! and the Quest room's "carried" list (reached from that row or Make room: who takes each, Abandon on a grey one,
+//! Guide me), the Lookup "carried" hand-in guide, and While-here hand-ins at their enders (Engine Own.hereStranded);
+//! RoutePlan.LeftBehind: what a jump to another guide leaves (the outlevelled banner says it and asks once), the
+//! engine suggesting the next guide over the level-best one while the guides between still hand in finished quests,
+//! and the guide menu's Load asking once. Full addon, stub world, a stubbed Codex (the quests' XP and enders) and
+//! Lookup.QuestEnd.
 //!
 //! Elwynn here is 3000 yd across (30 yd per map percent on x) and 2000 yd high (20 yd per percent on y).
 
@@ -181,4 +182,52 @@ fn with_the_gamepad_interface_the_guide_menu_s_load_says_in_chat_what_it_leaves_
 	assert_eq!(out["popups"], 0, "{out}");
 	assert_eq!(out["loaded"], "test/c", "{out}");
 	assert!(is_match(text(&out["chat"]), r"2 finished quests in your log are handed in on the route before C \(\d+ XP\)\. They stay in your log, and the guide lists who takes each in\.$"), "{out}");
+}
+
+// The guide window's "Still to do" list: one row for the finished quests no open route hands in (40 here; 41 and 44
+// are handed in ahead, 45 by a later guide), with what they give, and a click opens the Quest room's carried list.
+#[test]
+fn the_guide_window_lists_the_finished_quests_no_route_hands_in_in_one_row_that_opens_the_carried_list() {
+	let out = run(r#"
+		local GF = Polestar.UI.GuideFrame
+		GF.Render(); flush()
+		local r, row = { rows = {} }, nil
+		for _, x in ipairs(GF.alongRows) do
+			if x:IsShown() then r.rows[#r.rows + 1] = plain(x.Text:GetText()); row = row or x end
+		end
+		r.header = plain(GF.parts.along.Label:GetText())
+		row:GetScript("OnClick")(row, "LeftButton"); flush()
+		local F = PolestarQuestRoom
+		r.room = { F:IsShown(), plain(F.Title:GetText()), plain(F.rows[1].Title:GetText()) }
+		emit(r)
+	"#);
+	assert_eq!(out["rows"], json!(["1 finished quest to hand in elsewhere (800 XP)"]), "{out}");
+	assert_eq!(out["header"], "Still to do", "{out}");
+	assert_eq!(out["room"], json!([true, "Finished quests you're still carrying", "A Fishy Peril"]), "{out}");
+}
+
+// Outlevelled at 12, the banner says what the jump to the suggested guide (test/b) leaves behind: 41, handed in
+// later in test/a. Its first click asks; the second jumps.
+#[test]
+fn outlevelled_the_banner_says_the_finished_quests_left_here_and_its_jump_asks_once() {
+	let out = run(r#"
+		local GF = Polestar.UI.GuideFrame
+		w.setLevel(12); flush(); flush()
+		GF.Render(); flush()
+		local B = GF.parts.banner
+		local function banner() return { plain(B.Text:GetText()), plain(B.Jump.Label:GetText()) } end
+		local r = { first = banner() }
+		B.Jump:Click(); flush()
+		r.asked = { banner(), E.GetGuide().id }
+		B.Jump:Click(); flush()
+		r.jumped = E.GetGuide().id
+		emit(r)
+	"#);
+	assert_eq!(out["first"], json!(["You have outlevelled this guide.\n1 finished quest here first (1000 XP)", "Jump to B"]), "{out}");
+	assert_eq!(
+		out["asked"],
+		json!([["You have outlevelled this guide.\n1 finished quest here first (1000 XP)\nJump anyway? They stay in your log, and the guide lists who takes each in.", "Jump anyway"], "test/a"]),
+		"{out}"
+	);
+	assert_eq!(out["jumped"], "test/b", "{out}");
 }

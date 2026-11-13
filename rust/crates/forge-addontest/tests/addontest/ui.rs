@@ -596,6 +596,41 @@ fn right_click_on_a_quest_line_tick_it_done_or_skip_this_quest_the_banner_undo_o
 	assert_eq!(out["neals"], json!([["ToggleGoal", 4, 4], false]), "a line with no quest ticks on right-click, as before");
 }
 
+// Show in quest log (Quests/QuestLogLink.lua): a quest's line, right-clicked, offers the game's quest log at that
+// quest between its tick and its skip; picking it goes through Polestar.ShowInQuestLog.
+#[test]
+fn right_click_on_a_quest_line_offers_show_in_quest_log_which_opens_the_log_at_that_quest() {
+	let out = emitted(&RunAddon {
+		stubs: vec!["stub_ui.lua"],
+		addons: vec![Addon::files("Polestar", &["Core/Core.xml", "Theme/Theme.xml", "UI/UI.xml", "Quests/QuestLogLink.lua"])],
+		script: format!(
+			"uistub.install()\nstub.login()\nlocal GF, UI, W = Polestar.UI.GuideFrame, Polestar.UI, Polestar.Widgets\nlocal F = PolestarGuideFrame\n{HELPERS}\n{}",
+			r#"
+		local C, opened, asked = Polestar.Compat, {}, {}
+		C.CanOpenQuestLog = function() return true end
+		C.IsOnQuest = function(q) return q == 15 end
+		C.OpenQuestLog = function(q) opened[#opened + 1] = q; return true end
+		local show = Polestar.ShowInQuestLog
+		Polestar.ShowInQuestLog = function(q) asked[#asked + 1] = q; return show(q) end
+		uistub.setGuide(uistub.elwynn, 3)
+		for g = 1, 3 do uistub.goal(4, g).status = "done" end
+		uistub.goal(4, 2).status = "active"
+		uistub.setStep(4)
+		stub.RunScript(rowFor("Investigate Echo Ridge"), "OnClick", "RightButton")
+		local items = {}
+		for _, r in ipairs(PolestarMenu.rows) do if r:IsShown() then items[#items + 1] = r.Text:GetText() end end
+		for _, r in ipairs(PolestarMenu.rows) do if r:IsShown() and r.Text:GetText() == "Show in quest log" then r:Click() end end
+		emit({ items = items, asked = asked, opened = opened, skip = lastCall("SkipQuest") or false })"#
+		),
+		..Default::default()
+	})
+	.remove(0);
+	assert_eq!(out["items"], json!(["Tick it done", "Show in quest log", "Skip this quest"]));
+	assert_eq!(out["asked"], json!([15]), "the menu row calls Polestar.ShowInQuestLog");
+	assert_eq!(out["opened"], json!([15]), "the quest log opens at that quest");
+	assert_eq!(out["skip"], false, "nothing skipped");
+}
+
 #[test]
 fn hovering_a_goal_explains_it_detail_quest_npc_location_and_what_clicks_do() {
 	let lines = run(r#"
@@ -811,7 +846,8 @@ fn grow_upward_pins_the_window_by_its_bottom_left_turning_it_on_or_off_keeps_the
 fn bar_at_the_bottom_needs_grow_upward_then_the_tabs_navigator_and_progress_stack_at_the_bottom() {
 	let out = run(r#"
 		uistub.setGuide(uistub.elwynn, 3)
-		local function at() return { strip = { GF.parts.strip:GetPoint(1) }, foot = { GF.parts.foot:GetPoint(1) }, nav = { GF.parts.nav:GetPoint(1) } } end
+		-- GetPoint also returns a frame: emit only the anchor strings, not its whole object graph.
+		local function at() return { strip = GF.parts.strip:GetPoint(1), foot = select(3, GF.parts.foot:GetPoint(1)), nav = GF.parts.nav:GetPoint(1) } end
 		local normal = at()
 		Polestar.Set("ui.barsBottom", true)
 		local withoutGrow = at()
@@ -820,7 +856,7 @@ fn bar_at_the_bottom_needs_grow_upward_then_the_tabs_navigator_and_progress_stac
 		Polestar.Set("ui.barsBottom", false)
 		emit({ normal = normal, withoutGrow = withoutGrow, flipped = flipped, back = at() })"#)
 	.remove(0);
-	let pt = |o: &Value| json!([o["strip"][0].clone(), o["foot"][2].clone(), o["nav"][0].clone()]);
+	let pt = |o: &Value| json!([o["strip"].clone(), o["foot"].clone(), o["nav"].clone()]);
 	assert_eq!(pt(&out["normal"]), json!(["TOPLEFT", "BOTTOMLEFT", "TOPLEFT"]), "default: tabs on top, foot at the bottom");
 	assert_eq!(pt(&out["withoutGrow"]), json!(["TOPLEFT", "BOTTOMLEFT", "TOPLEFT"]), "without grow upward the option changes nothing");
 	assert_eq!(pt(&out["flipped"]), json!(["BOTTOMLEFT", "TOPLEFT", "BOTTOMLEFT"]), "flipped: tabs at the bottom, the navigator and the foot stacked above them");
@@ -2378,6 +2414,104 @@ fn a_group_quest_banner_asks_skip_it_or_do_it_with_a_group_and_cannot_be_dismiss
 	assert_eq!(group, json!({ "call": ["AnswerGroup", 6284, "do"], "after": false }));
 }
 
+// Dungeons in the route, Ask me (Engine.DungeonQuestion): the banner asks at the dungeon the live step waits on, Run
+// it (the main link, the gamepad's first focus) or Skip it; it cannot be dismissed. Each answer goes to
+// Engine.ChooseDungeon for that dungeon.
+const DUNGEON_ASK: &str = r#"
+		uistub.dungeonQuestion = { map = 36, name = "The Deadmines", quests = 2, runIn = 4 }
+		uistub.openTabs(TABS, 1)
+		local B = GF.parts.banner
+		local shown = { B:IsShown(), B.Text:GetText(), B.Jump.Label:GetText(), B.Later:IsShown() and B.Later.Label:GetText(), B.Close:IsShown(), B.Jump.psDefault == true }
+		GF.DismissBanner()
+		local kept = B:IsShown()"#;
+
+#[test]
+fn dungeon_route_ask_banner_offers_run_it_or_skip_it_and_cannot_be_dismissed() {
+	let run_it = run(&[
+		DUNGEON_ASK,
+		r#"
+		B.Jump:Click()
+		emit({ shown = shown, kept = kept, call = lastCall("ChooseDungeon"), after = B:IsShown() })"#,
+	]
+	.concat())
+	.remove(0);
+	assert_eq!(
+		run_it["shown"],
+		json!([
+			true,
+			"Dungeon on your way: The Deadmines, for a group of five.\nThe guide picks up 2 quests for it and runs it in about 4 steps.\nSkip it and the guide keeps to the solo route.",
+			"Run it",
+			"Skip it",
+			false,
+			true
+		])
+	);
+	assert_eq!(run_it["kept"], true, "dismissing does not answer");
+	assert_eq!(run_it["call"], json!(["ChooseDungeon", 36, true]));
+	assert_eq!(run_it["after"], false);
+	let skip = run(&[
+		DUNGEON_ASK,
+		r#"
+		B.Later:Click()
+		emit({ call = lastCall("ChooseDungeon"), after = B:IsShown() })"#,
+	]
+	.concat())
+	.remove(0);
+	assert_eq!(skip, json!({ "call": ["ChooseDungeon", 36, false], "after": false }));
+}
+
+// At a chosen dungeon's run, outside it (Engine.DungeonRun), the banner's link is "No group? Skip it"
+// (Engine.SkipDungeon); the quests kept in the log are named once after, until closed. Inside the instance the
+// link is gone. A few steps before a run (Engine.DungeonSoon) the window says to start looking for a group, until
+// closed for that dungeon.
+#[test]
+fn dungeon_route_no_group_skip_it_at_the_run_names_the_quests_kept_soon_says_to_look_for_a_group() {
+	let out = run(r#"
+		uistub.dungeonRun = { map = 36, name = "The Deadmines" }
+		uistub.dungeonKept = { "Oh Brother. . .", "Red Silk Bandanas" }
+		uistub.openTabs(TABS, 1)
+		local B = GF.parts.banner
+		local atRun = { B.Text:GetText(), B.Jump.Label:GetText(), B.Close:IsShown(), B.Jump.psDefault == true }
+		local realInside = Polestar.Compat.IsInInstance
+		Polestar.Compat.IsInInstance = function() return true end
+		GF.Layout()
+		local inside = B:IsShown() and B.psKind or false
+		Polestar.Compat.IsInInstance = realInside
+		GF.Layout()
+		B.Jump:Click()
+		local call = lastCall("SkipDungeon")
+		local keptText, keptClose = B:IsShown() and B.Text:GetText(), B.Close:IsShown()
+		B.Close:Click()
+		local gone = B:IsShown()
+		uistub.dungeonRun = nil
+		uistub.dungeonSoon = { map = 43, name = "Wailing Caverns", steps = 3 }
+		GF.Layout()
+		local soon = { B:IsShown(), B.Text:GetText(), B.Jump:IsShown(), B.Close:IsShown() }
+		uistub.dungeonSoon = { map = 43, name = "Wailing Caverns", steps = 1 }
+		GF.Layout()
+		local oneAhead = B.Text:GetText()
+		B.Close:Click()
+		emit({ atRun = atRun, inside = inside, call = call, kept = keptText, keptClose = keptClose, gone = gone, soon = soon, oneAhead = oneAhead, soonAfter = B:IsShown() })"#)
+	.remove(0);
+	assert_eq!(
+		out["atRun"],
+		json!([
+			"The Deadmines: a group of five runs it in about an hour.\nNo group? Skip it: the guide goes on with the solo route, and its quests stay in your log.",
+			"No group? Skip it",
+			false,
+			true
+		])
+	);
+	assert_eq!(out["inside"], false, "inside the instance the run's banner is gone");
+	assert_eq!(out["call"], json!(["SkipDungeon", 36]));
+	assert_eq!(out["kept"], "Kept in your log: “Oh Brother. . .”, “Red Silk Bandanas”\nIf you run it later, the dungeon's page has a hand-in guide for them.");
+	assert_eq!(out["keptClose"], true);
+	assert_eq!(out["gone"], false);
+	assert_eq!(out["soon"], json!([true, "Wailing Caverns in 3 steps: start looking for a group.", false, true]));
+	assert_eq!(out["oneAhead"], "Wailing Caverns next: start looking for a group.");
+	assert_eq!(out["soonAfter"], false, "closed for this dungeon");
+}
+
 #[test]
 fn train_due_shows_a_training_banner_after_the_out_levelled_offer_show_takes_the_player_there_on_a_trip_later_dismisses() {
 	let out = run(r#"
@@ -2860,7 +2994,7 @@ fn floating_button_hides_in_combat_and_instances_as_the_window_does_and_stays_wh
 	);
 }
 
-// RegressVisual (0.3.6): the floating button's hover is the minimap button's, its 25 % in its colour, so nothing
+// 0.3.6: the floating button's hover is the minimap button's, its 25 % in its colour, so nothing
 // that sets its regions back to full alpha turns it into an opaque disc over the logo.
 #[test]
 fn floating_button_hover_is_a_quarter_strong_accent_disc_even_with_its_regions_at_full_alpha() {
@@ -2916,4 +3050,62 @@ fn an_icon_button_s_glyph_keeps_its_disabled_strength_and_stays_under_a_kit_s_ar
 	assert_eq!(r["left"], 0, "and the glyph stays hidden when the button recolours it: {r}");
 	assert_eq!(r["closeLeft"], 0, "a kit's close art: the glyph stays hidden: {r}");
 	assert_eq!(r["back"], 0.35, "back in the house style, the disabled arrow's glyph shows at 35 %: {r}");
+}
+
+// A layout reads the banner's notice once: GF.Layout's own read decides whether the banner shows and lays it out
+// (GF.LayoutBanner), where it was read a second time right after. Each read asks the Engine and the route plan
+// (the log's room: Engine.GetStepView, every quest's hand-in) again. The banner reads as before.
+#[test]
+fn a_layout_reads_the_banner_notice_once_and_the_banner_reads_as_before() {
+	let out = run(r#"
+		uistub.groupQuestion = { quest = 6284, title = "Arachnophobia" }
+		uistub.openTabs(TABS, 1)
+		local E = Polestar.Engine
+		local asked, ask = 0, E.GroupQuestion
+		E.GroupQuestion = function(...) asked = asked + 1; return ask(...) end
+		GF.Layout()
+		local B = GF.parts.banner
+		local r = { asks = asked, shown = { B:IsShown(), B.Text:GetText(), B.Jump.Label:GetText(), B.psKind } }
+		uistub.groupQuestion = nil
+		asked = 0
+		GF.Layout()
+		r.none = { asked, B:IsShown() }
+		emit(r)
+	"#)
+	.remove(0);
+	assert_eq!(out["asks"], 1, "one read of the notice per layout: {out}");
+	assert_eq!(out["shown"], json!([true, "Group quest: “Arachnophobia”\nIt needs a group. Skip it and the guide keeps to the solo route.", "Skip it", "group"]));
+	assert_eq!(out["none"], json!([1, false]), "no notice: one read, no banner");
+}
+
+// The progress bar's count from Engine.ProgressSoon: while the Engine counts it over the next frames, the bar keeps its
+// last count (and a layout lays it out at that count); the count lands through one call, for every ask since.
+#[test]
+fn the_progress_bar_keeps_its_count_while_the_engine_counts_and_paints_the_new_one_when_it_lands() {
+	let out = run(r#"
+		uistub.setGuide(uistub.elwynn, 3)
+		local E = Polestar.Engine
+		local answer, asked = { 3, 10 }, {}
+		E.ProgressSoon = function(fn)
+			if answer then return answer[1], answer[2] end
+			asked[#asked + 1] = fn
+			return nil
+		end
+		local P = GF.parts
+		GF.PaintProgress(false)
+		local first = P.foot.Pct:GetText()
+		answer = nil
+		GF.PaintProgress(true)
+		GF.Layout()
+		local counting = P.foot.Pct:GetText()
+		answer = { 7, 10 }
+		asked[1]()
+		emit({ first = first, counting = counting, same = asked[1] == asked[2], landed = P.foot.Pct:GetText(), done = P.foot.psDone })
+	"#)
+	.remove(0);
+	assert_eq!(out["first"], "30%");
+	assert_eq!(out["counting"], "30%", "the last count while the Engine counts: {out}");
+	assert_eq!(out["same"], true, "one painter for every ask: {out}");
+	assert_eq!(out["landed"], "70%");
+	assert_eq!(out["done"], 7);
 }

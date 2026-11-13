@@ -137,7 +137,7 @@ emit({{ live = g.steps[E.GetLiveStep()].title, steps = st, korran = E.GetStepVie
 
 #[test]
 fn tincho_at_28_7_loading_hillsbrad_keeps_orgrimmar_training_and_the_undercity_only_korran_waits() {
-	// The first load, and a reload of the saved tab (SkipAheadSweep: the same placement runs again).
+	// The first load, and a reload of the saved tab (the skip-ahead sweep: the same placement runs again).
 	for reload in [false, true] {
 		let out = tincho(reload);
 		assert_eq!(out["live"], "Fly to the Crossroads", "reload {reload}: {out}");

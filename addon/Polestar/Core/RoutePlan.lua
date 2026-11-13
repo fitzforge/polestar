@@ -304,7 +304,7 @@ end
 function Plan.LogOverflow()
 	local E, C = ns.Engine, ns.Compat
 	local live = E and E.GetLiveStep and E.GetLiveStep()
-	local view = live and E.GetStepView(live)
+	local view = live and E.GetStepView(live, true)
 	if not view then return nil end
 	local take, here = 0, {}
 	for _, g in ipairs(view.goals or {}) do

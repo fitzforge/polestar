@@ -1479,7 +1479,7 @@ end
 function Party.GoOn()
 	local E = ns.Engine
 	local s = E and E.GetLiveStep and E.GetLiveStep()
-	local view = s and E.GetStepView(s)
+	local view = s and E.GetStepView(s, true)
 	for _, goal in ipairs(view and view.goals or {}) do
 		if goal.quest then released[goal.quest] = true end
 	end
@@ -1493,7 +1493,7 @@ function Party.StepWait()
 	if not waits() then return nil end
 	local E = ns.Engine
 	local s = E.GetLiveStep and E.GetLiveStep()
-	local view = s and E.GetStepView(s)
+	local view = s and E.GetStepView(s, true)
 	if not view then return nil end
 	local names, seen, ready = {}, {}, false
 	local function add(n)
@@ -1959,7 +1959,7 @@ function Party.StepLine()
 	elseif ready then
 		parts[#parts + 1] = L["Everyone's ready"]
 	elseif mine and mine.step then
-		local view = ns.Engine.GetStepView(mine.step)
+		local view = ns.Engine.GetStepView(mine.step, true)
 		local still, seen = {}, {}
 		for _, goal in ipairs(view and view.goals or {}) do
 			local q = goal.quest
@@ -2008,7 +2008,7 @@ function Party.Roster()
 	local E = ns.Engine
 	local g = E and E.GetGuide and E.GetGuide()
 	local live = E and E.GetLiveStep and E.GetLiveStep()
-	local view = live and E.GetStepView(live)
+	local view = live and E.GetStepView(live, true)
 	local mine = Party.MyPos() or {}
 	local n = GetNumSubgroupMembers and GetNumSubgroupMembers() or 0
 	for i = 1, n do

@@ -749,18 +749,30 @@ function Nav.HiddenWithGuide()
 end
 
 -- A command that asked for the arrow while something hides it still takes
--- effect: says why nothing shows yet.
+-- effect: says why nothing shows yet, another addon keeping it out of sight
+-- included (ns.OutOfSight).
+local function arrowOutOfSight()
+	return Nav.arrow ~= nil and ns.OutOfSight(Nav.arrow.frame)
+end
 function Nav.SayGuideHidden()
 	if ns.ArrowHidden() then
 		ns.Print(L["Polestar is hidden, the arrow with it: \"Keep the arrow when hidden\" in the minimap button's menu keeps it."])
 	elseif Nav.HiddenWithGuide() then
 		ns.Print(L["The guide is hidden and \"Hide the arrow with the guide\" is on, so the arrow is hidden too: /polestar show brings them back."])
+	elseif arrowOutOfSight() then
+		ns.SayOutOfSight()
 	end
 end
 
 -- The arrow on or off (nav.arrow): /polestar arrow, the minimap button's menu.
+-- One that is on but kept out of sight stays on: the toggle says why it is
+-- not seen, as the window's does.
 function Nav.ToggleArrow()
 	if not ns.Get("nav.arrow") and Nav.SayHandedOff() then return end
+	if ns.Get("nav.arrow") and arrowOutOfSight() then
+		ns.SayOutOfSight()
+		return
+	end
 	ns.Set("nav.arrow", not ns.Get("nav.arrow"))
 	if ns.Get("nav.arrow") then Nav.SayGuideHidden() end
 end
