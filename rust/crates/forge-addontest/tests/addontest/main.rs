@@ -195,6 +195,8 @@ mod gear_bags;
 mod gear_pawn;
 #[path = "gear-upgrades.rs"]
 mod gear_upgrades;
+#[path = "guide-renames.rs"]
+mod guide_renames;
 #[path = "guides-compiled.rs"]
 mod guides_compiled;
 #[path = "guides-end.rs"]

@@ -127,6 +127,21 @@ pack's leveling guide for it now (the one the guide menu would suggest at
 its level), whose progress is read from the quest log. A retired id that is
 still one of the pack's guides warns.
 
+**Renamed guides.** A pack folder's `renamed.json` maps each guide id the
+pack renamed to its new id (`{"joe-routes/03-westfall":
+"joe-routes/01-westfall", ...}`): the same guide, its steps unchanged, under
+an id that says where it falls in the route. `Guides.lua` ends with
+`Polestar.RenameGuides("<pack id>", { ["<old id>"] = "<new id>", ... })`,
+and at login, before anything reads the save, every mention of an old id in
+the character's and the account's saved variables names the new one: the
+tabs in the same order, the open guide, check-offs, skips and pins, so the
+player is at the same step. Another pack's `next` to an old id leads to the
+new one. Only ids the pack owns are renamed, and never while a guide is
+registered under the old id. An old id that is still one of the pack's
+guides, or a new id that is none, warns. Polestar's own guides are renamed
+with `forge guide renumber` (docs/FORGE.md, "Renumbering the guides"),
+which writes the file.
+
 **Texts addons.** A pack whose `locales/<locale>/` folder holds translations
 (docs/TRANSLATING.md, "Guide texts") gets, beside its folder, one
 load-on-demand addon per language, `<folder>_<locale>`. Polestar loads the

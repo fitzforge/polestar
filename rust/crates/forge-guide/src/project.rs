@@ -195,6 +195,38 @@ pub fn read_retired_text(text: Option<&str>, file: &str, guides: &[V], diag: &mu
 	out
 }
 
+/// readRenamed on renamed.json's text (None: no file): `{ "<old id>": "<new id>", ... }`, guides the pack
+/// renamed (`forge guide renumber`), for Polestar.RenameGuides: a save under an old id moves to the new one.
+/// An old id one of the pack's guides still has, or a new id none has, warns; a file that is no object of
+/// guide ids is an error. -> (old, new) by old id.
+pub fn read_renamed_text(text: Option<&str>, file: &str, guides: &[V], diag: &mut Diagnostics) -> Vec<(String, String)> {
+	let Some(text) = text else { return Vec::new() };
+	let map = match crate::js::parse_json(text) {
+		Ok(v) => v,
+		Err(e) => {
+			diag.error(file, 1.0, format!("renamed.json is not JSON: {e}"), None);
+			return Vec::new();
+		}
+	};
+	let pairs: Vec<(String, String)> = map.entries().into_iter().map(|(k, v)| (k.to_string(), v.as_str().unwrap_or("").to_string())).collect();
+	if !map.is_obj() || !pairs.iter().all(|(old, new)| is_guide_id(old) && is_guide_id(new) && old != new) {
+		diag.error(file, 1.0, "renamed.json must map old guide ids to new ones", Some("write {\"<old id>\": \"<new id>\", ...}".into()));
+		return Vec::new();
+	}
+	let live: rustc_hash::FxHashSet<String> = guides.iter().map(|g| g.get("id").to_js_string()).collect();
+	for (old, new) in &pairs {
+		if live.contains(old) {
+			diag.warn(file, 1.0, format!("renamed guide id \"{old}\" is still a guide of the pack: Polestar keeps opening it"), None);
+		}
+		if !live.contains(new) {
+			diag.warn(file, 1.0, format!("guide id \"{old}\" is renamed to \"{new}\", which is no guide of the pack"), None);
+		}
+	}
+	let mut out = pairs;
+	out.sort_by(|a, b| crate::js::cmp_utf16(&a.0, &b.0));
+	out
+}
+
 /// readLegs on legs.json's text (None: no file): a leveling guide (legs_races) whose leg ends still
 /// hash as when it was baked gets its legs hidden as `_legs` (step -> string) and `_legsGrid`, for
 /// build_pack_files to write into the race parts' Legs.lua. Returns the ids of the guides whose legs
@@ -411,6 +443,7 @@ pub fn build_pack_files(
 	license: Option<&str>,
 	translations: &V,
 	retired: &[String],
+	renamed: &[(String, String)],
 	iface: &str,
 	images: Vec<(String, Vec<u8>)>,
 ) -> Vec<(String, FileContent)> {
@@ -487,6 +520,9 @@ pub fn build_pack_files(
 	let mut gl = crate::emit::emit_guides_with(&main_entries, false, ours);
 	if !retired.is_empty() {
 		gl.push_str(&crate::emit::emit_retired(&id, retired));
+	}
+	if !renamed.is_empty() {
+		gl.push_str(&crate::emit::emit_renamed(&id, renamed));
 	}
 	files.push(("Guides.lua".into(), t(gl)));
 	let license_data = crate::emit::emit_license(&meta, !leg_parts.is_empty());
@@ -672,6 +708,8 @@ mod native {
 		pub diag: Diagnostics,
 		pub sources: Vec<String>,
 		pub retired: Vec<String>,
+		/// renamed.json's (old id, new id) pairs.
+		pub renamed: Vec<(String, String)>,
 		pub tokens: V,
 		/// Leveling guides whose baked legs are stale (read_legs_text): they ship without legs.
 		pub stale_legs: Vec<String>,
@@ -686,11 +724,13 @@ mod native {
 		let c = compile_sources(&read_sources(pack_dir, &sources), data, &mut diag, &opts);
 		let retired_file = pack_dir.join("retired.json");
 		let retired = read_retired_text(pack_text(pack_dir, "retired.json", &mut diag).as_deref(), &retired_file.to_string_lossy(), &c.guides, &mut diag);
+		let renamed_file = pack_dir.join("renamed.json");
+		let renamed = read_renamed_text(pack_text(pack_dir, "renamed.json", &mut diag).as_deref(), &renamed_file.to_string_lossy(), &c.guides, &mut diag);
 		let legs_file = pack_dir.join("legs.json");
 		let legs_text = pack_text(pack_dir, "legs.json", &mut diag);
 		let stale_legs = read_legs_text(legs_text.as_deref(), &legs_file.to_string_lossy(), &c.guides, data, &mut diag);
 		let unbaked_legs = unbaked_legs(legs_text.as_deref(), &c.guides);
-		Project { guides: c.guides, diag, sources, retired, tokens: c.tokens, stale_legs, unbaked_legs }
+		Project { guides: c.guides, diag, sources, retired, renamed, tokens: c.tokens, stale_legs, unbaked_legs }
 	}
 
 	/// read_pack_file's text of `name` in the pack folder, None without it; a refused one (a link,
@@ -962,7 +1002,7 @@ mod native {
 		let files = if ok || force {
 			let iface = core_interface(root)?;
 			let images: Vec<(String, Vec<u8>)> = crate::images::image_files(&project.guides).into_iter().map(|(rel, abs): (String, String)| (rel, std::fs::read(&abs).unwrap_or_default())).collect();
-			Some(build_pack_files(&project.guides, manifest, data, license.as_deref(), &translations, &project.retired, &iface, images))
+			Some(build_pack_files(&project.guides, manifest, data, license.as_deref(), &translations, &project.retired, &project.renamed, &iface, images))
 		} else {
 			None
 		};

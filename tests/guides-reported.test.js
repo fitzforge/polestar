@@ -413,7 +413,7 @@ test('forever/alliance/30-40/03-ashenvale.guide: the walk east from Highperch ke
 // 1-30 guide: no `when group` step of optional goals only (sweep: ~/work/maintainer/group-optional-sweep).
 test('Horde 1-30: a `when group` step has a goal that holds it, so a player who chose the group way is led through it (#1414)', () => {
 	const GOAL = /^\s+(accept|turnin|kill|collect|interact|use|complete|escort|goto|talk|task|buy|fly|level|train|vendor|enter|die)\b/;
-	const files = allGuides().filter((f) => /^forever\/horde\/(0[2-7]-|orc\/|troll\/|tauren\/|undead\/|skyborne\/)/.test(f));
+	const files = allGuides().filter((f) => /^forever\/horde\/(0\d-|orc\/|troll\/|tauren\/|undead\/|skyborne\/)/.test(f));
 	assert.ok(files.length >= 11, 'the Horde 1-30 guides are found');
 	const bad = [];
 	for (const f of files) {

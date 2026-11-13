@@ -3954,7 +3954,7 @@ mod tests {
 		let median = |f: &str| -> Option<usize> {
 			if f.contains("02-the-barrens") {
 				Some(40)
-			} else if f.contains("03-silverpine") {
+			} else if f.contains("03-silverpine-forest") {
 				Some(10)
 			} else {
 				Some(70)

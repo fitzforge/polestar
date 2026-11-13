@@ -617,6 +617,42 @@ A normal build lists them; a release build (`--strict`) fails until each is fixe
 fails on the route check's blockers too (`check.md`): the build still writes every file first, so
 the list is there to read.
 
+## Renumbering the guides
+
+A leveling guide's id is its path under `guides/` (`forever/horde/02-the-barrens`): saves,
+translations, baked legs, fix records, the seed and the tests name guides by it. When route work has
+moved guides along the route, `forge guide renumber` gives them ids in the order players get them
+again, in one change:
+
+```sh
+forge guide renumber --plan --out tools/renumber/renames.json   # the table from the guides as they are
+forge guide renumber --map tools/renumber/renames.json --dry-run  # every change it would make
+forge guide renumber --map tools/renumber/renames.json            # apply it
+forge guide compile && forge guide compile experimental && forge i18n sync
+forge guide check-generated
+```
+
+**The table** (`--plan`): each faction's chain is followed by `next` from its starts (a route choice's
+first option first); every folder is numbered `01-`, `02-`, ... in the order players reach its guides,
+and each guide is named after its title: one zone, its name (`silverpine-forest`); several, their
+short names in the title's order (`ashenvale-silverpine`). A guide keeps its folder: the race starts
+stay in theirs, the 30-40, 40-50 and 50-60 guides in their band's. `--check <file>` compares a table
+written earlier with the guides now and fails when the guides' order or titles changed since.
+
+**The change** (`--map`): the guides move with their translations and seed copies (`git mv`), and
+every reference in the checkout's text files is rewritten: `guide` and `next` lines, fix records,
+translations, legs, tests and docs, also a fragment such as `horde/02-the-barrens` or
+`02-the-barrens` where it names one guide. Where two guides share a fragment (both factions have a
+`30-40/01-...`), the faction of the file, the line or the lines above it tells which; one nothing
+tells apart is listed and left. `guides/GENERATED.json` and `forge/seed/SEED.json` follow, and
+`guides/renamed.json` records every rename: Polestar moves a player's save from the old ids to the new
+ones at login, at the same step (docs/PACK_FORMAT.md, "Renamed guides"). The compiled addon files are
+rebuilt by the compile afterwards; `CHANGELOG.md` keeps the names it shipped with. It refuses to run
+while `check-generated` fails, and a second run changes nothing.
+
+Players' recordings keep the id a guide had when they were made: read an older recording's guide
+through `guides/renamed.json`. `tools/legacy-steps.js` does so for the earlier releases' guides.
+
 ## Troubleshooting
 
 Start with `forge doctor`: it names the problem and the fix for most setups.
@@ -642,6 +678,7 @@ print the forge command to run):
 |---|---|
 | `forge guide compile`, `lint`, `check` | compile and lint a guide pack; read written guides as a player would |
 | `forge guide seed`, `publish`, `check-generated` | the seed, the generated leveling guides and their CI check |
+| `forge guide renumber` | leveling guide ids in route order: the table and its one-go rename ([Renumbering the guides](#renumbering-the-guides)) |
 | `forge data build`, `sources`, `check`, `check-corrections` | the reference data, its sources and its gates |
 | `forge data questdb`, `names`, `itemdb`, `codex`, `gear`, `talents`, `maps`, `trainers`, `travel`, `professions`, `dungeons` | the data addons and the generated Lua |
 | `forge data pack`, `fetch`, `publish` | the data pack for contributors, and the open Forever database |

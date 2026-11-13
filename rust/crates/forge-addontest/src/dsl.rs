@@ -146,7 +146,7 @@ pub fn write_test_pack(guides: &[V], data: &Data, manifest: &V) -> TestPack {
 	let tmp = TempDir::new("polestar-pack-");
 	let dir = tmp.path().join(manifest.get("folder").to_js_string());
 	let iface = forge_guide::project::core_interface(root()).expect("core interface");
-	let files = forge_guide::project::build_pack_files(guides, manifest, data, None, &V::obj(), &[], &iface, Vec::new());
+	let files = forge_guide::project::build_pack_files(guides, manifest, data, None, &V::obj(), &[], &[], &iface, Vec::new());
 	write_pack_dir(&dir, &files);
 	let mut parts: Vec<&str> = files.iter().map(|(n, _)| n.as_str()).filter(|n| n.starts_with("../") && n.ends_with("/Guides.lua")).collect();
 	parts.sort();

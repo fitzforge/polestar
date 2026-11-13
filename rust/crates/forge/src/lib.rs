@@ -33,6 +33,7 @@ pub mod generated;
 pub mod lead_in;
 pub mod ledger;
 pub mod pack;
+pub mod renumber;
 /// The route planner's sources as a hash (build.rs embeds it as PLANNER_HASH).
 pub mod planner_src;
 

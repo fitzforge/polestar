@@ -987,6 +987,13 @@ pub fn emit_retired(pack_id: &str, ids: &[String]) -> String {
 	format!("\nPolestar.RetireGuides({}, {{\n{}\n}})\n", lua_string(pack_id), lines.join("\n"))
 }
 
+/// The guides a pack renamed (renamed.json, old id -> new id), after the retired ids in Guides.lua:
+/// Polestar moves a save from each old id to its new one.
+pub fn emit_renamed(pack_id: &str, pairs: &[(String, String)]) -> String {
+	let lines: Vec<String> = pairs.iter().map(|(old, new)| format!("\t[{}] = {},", lua_string(old), lua_string(new))).collect();
+	format!("\nPolestar.RenameGuides({}, {{\n{}\n}})\n", lua_string(pack_id), lines.join("\n"))
+}
+
 /// A pack's texts addon for one language (docs/TRANSLATING.md, "Guide
 /// texts"): <folder>_<locale>, which Polestar loads on demand on that client
 /// only, once the pack's own files are in (Core/GuideTexts.lua). Its TOC

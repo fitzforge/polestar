@@ -11,7 +11,7 @@ const { resolveGuide } = require('./resolve');
 const { validateGuides, validatePackFrames, forEachGoalMap } = require('./validate');
 const { loadData } = require('./data');
 const { tokeniseGuides } = require('./tokens');
-const { emitGuides, emitPack, emitToc, emitTextsToc, emitPartToc, emitLegs, emitRetired, emitTexts, emitMapFrames, emitLicense } = require('./emit');
+const { emitGuides, emitPack, emitToc, emitTextsToc, emitPartToc, emitLegs, emitRetired, emitRenamed, emitTexts, emitMapFrames, emitLicense } = require('./emit');
 const { ownsGuideId, GENERATED_MARKER, isGenerated, formatFor, LEGS_FORMAT } = require('../pack/format');
 const { readPackFile, jsonErrorAt } = require('../pack/manifest');
 const { heightCounts } = require('./heights');
@@ -105,6 +105,7 @@ function compileProject({ packDir, manifest, dataDir, includeDrafts = false, dat
 	}
 	const out = { ...compileSources(readSources(packDir, sources), data, diag, { pack: manifest && manifest.id, author: manifest && manifest.author, context, packDir }), data, sources };
 	out.retired = readRetired(packDir, out.guides, diag);
+	out.renamed = readRenamed(packDir, out.guides, diag);
 	readLegs(packDir, out.guides, data, diag);
 	return out;
 }
@@ -197,6 +198,40 @@ function readRetired(packDir, guides, diag) {
 	return [...new Set(list)].sort();
 }
 
+// <packDir>/renamed.json: guides the pack renamed (`forge guide renumber`),
+// { "<old id>": "<new id>", ... } (Polestar moves a save from each old id to
+// its new one: Core/Guides.lua Polestar.RenameGuides). An old id one of the
+// pack's guides still has, or a new id none has, warns; a file that is no
+// object of guide ids is an error. -> [[old, new]] by old id ([] without the file)
+const RENAMED_FILE = 'renamed.json';
+function readRenamed(packDir, guides, diag) {
+	const file = path.join(packDir, RENAMED_FILE);
+	const { text, error } = readPackFile(packDir, RENAMED_FILE);
+	if (error) {
+		diag.error(file, 1, error);
+		return [];
+	}
+	if (text === undefined) return [];
+	let map;
+	try {
+		map = JSON.parse(text);
+	} catch (e) {
+		diag.error(file, 1, `${RENAMED_FILE} is not JSON${jsonErrorAt(e, text)}`);
+		return [];
+	}
+	const isId = (id) => typeof id === 'string' && /^[a-z0-9_-]+(?:\/[a-z0-9_-]+)*$/.test(id);
+	if (!map || typeof map !== 'object' || Array.isArray(map) || !Object.entries(map).every(([old, now]) => isId(old) && isId(now) && old !== now)) {
+		diag.error(file, 1, `${RENAMED_FILE} must map old guide ids to new ones`, 'write {"<old id>": "<new id>", ...}');
+		return [];
+	}
+	const live = new Set(guides.map((g) => g.id));
+	for (const [old, now] of Object.entries(map)) {
+		if (live.has(old)) diag.warn(file, 1, `renamed guide id "${old}" is still a guide of the pack: Polestar keeps opening it`);
+		if (!live.has(now)) diag.warn(file, 1, `guide id "${old}" is renamed to "${now}", which is no guide of the pack`);
+	}
+	return Object.entries(map).sort(([a], [b]) => (a < b ? -1 : a > b ? 1 : 0));
+}
+
 // Parse and resolve sources into guides of `pack` (ours when absent); a
 // guide without an `author` header is credited to `author` (the pack's).
 function resolveSources(sources, data, diag, pack, author) {
@@ -279,7 +314,7 @@ function referencedFrames(guides, data) {
 // `translations` (tools/lib/i18n/guides.js packTranslations: { [locale]: {
 // pack, guides } }) add a texts addon per language beside the folder,
 // named `../<textsAddon>/<file>` (writePackDir writes them there).
-function buildPackFiles({ guides, manifest, data, license = null, translations = {}, retired = [] }) {
+function buildPackFiles({ guides, manifest, data, license = null, translations = {}, retired = [], renamed = [] }) {
 	const sources = (data.meta && Array.isArray(data.meta.sources) && data.meta.sources) || [];
 	const h = heightCounts(guides);
 	const meta = h.withZ + h.candidatesWithZ + h.spotsWithZ && !sources.some((s) => s && s.name === HEIGHTS_SOURCE.name) ? { ...data.meta, sources: [...sources, HEIGHTS_SOURCE] } : data.meta;
@@ -314,7 +349,7 @@ function buildPackFiles({ guides, manifest, data, license = null, translations =
 		'Pack.lua': emitPack(manifest, format),
 		// Every guide's maps, the parts' too: their guides register into this pack.
 		'MapFrames.lua': emitMapFrames(referencedFrames(guides, data), manifest.id),
-		'Guides.lua': emitGuides(main.map(entry)) + (retired.length ? emitRetired(manifest.id, retired) : ''),
+		'Guides.lua': emitGuides(main.map(entry)) + (retired.length ? emitRetired(manifest.id, retired) : '') + (renamed.length ? emitRenamed(manifest.id, renamed) : ''),
 		'LICENSE-DATA.txt': emitLicense(meta, legParts.size > 0),
 	};
 	if (license != null) files['LICENSE.txt'] = license;

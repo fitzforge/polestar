@@ -106,7 +106,7 @@ async function boot(set) {
 	const pack = `${ROOT}/guides`;
 	const packFiles = setDoc.pack;
 	entries.push([`${pack}/pack.json`, packFiles.manifest]);
-	for (const f of ['legs', 'retired']) if (packFiles[f] != null) entries.push([`${pack}/${f}.json`, packFiles[f]]);
+	for (const f of ['legs', 'retired', 'renamed']) if (packFiles[f] != null) entries.push([`${pack}/${f}.json`, packFiles[f]]);
 	if (packFiles.license != null) entries.push([`${pack}/LICENSE`, packFiles.license]);
 	for (const [rel, text] of setDoc.files) {
 		entries.push([`${pack}/${rel}`, text]);
