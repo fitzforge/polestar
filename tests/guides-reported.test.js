@@ -6328,7 +6328,8 @@ test(`${STONETALON}: Discord reports: Ashenvale Outrunners waits for the 26 Ashe
 	const hand = at(list, 'turnin 6503', is('turnin', 6503));
 	const ertog = at(list, 'turnin 6544', is('turnin', 6544));
 	assert.ok(torek < take && take < kill && kill < hand && hand < ertog, 'Torek, Kuray\'bin, the Outrunners, Kuray\'bin, then Splintertree');
-	assert.ok(kill < claw && list[claw].s - list[kill].s === 1, 'the Outrunners in the woods right before Sharptalon\'s');
+	// (Sharptalon's claw comes on the later pass since the Horde 21-30 audit: she is level 31, #2025.)
+	assert.ok(hand < claw, 'Sharptalon after the Outrunners, on the walk back from Mystral Lake');
 	const pairs = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', 'route-fixes.json'), 'utf8')).deliberate.pairs;
 	const pair = (a, b) => pairs.some((p) => p.a[0] === a[0] && p.a[1] === a[1] && p.b[0] === b[0] && p.b[1] === b[1]);
 	assert.ok(pair(['accept', 6544], ['accept', 6503]) && pair(['turnin', 6503], ['turnin', 6544]), 'route-fixes pairs keep the order');
