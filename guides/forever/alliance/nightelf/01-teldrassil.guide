@@ -514,6 +514,13 @@ step Darnassus
   accept 6344 only !Warrior                   -- Mydrannul
   use 279378 quest 98067.3 @66.46,15.35       -- Lunar Pendant: the inn on the Craftsmen's Terrace
 
+step Warrior trainer
+  only Warrior
+  zone Darnassus
+  when level>=12
+  tip Level 12 spells while you're on the Warrior's Terrace: the warrior trainers stand beside Elanaria.
+  train class only Warrior
+
 # Fandral and Mathrengyl stand upstairs in the druids' building of the Cenarion Enclave, and the
 # walking maps have no way up inside it: the arrow led onto a ledge outside, behind the wall (#1338).
 # Before each of them, a goto at the building's door on its south side, 35.8,11.6 (players'
@@ -532,6 +539,13 @@ step Cenarion Enclave
   zone Darnassus
   accept 98046
   turnin 6103 only Hunter                     -- Jocaste, in the Cenarion Enclave: Beast Training
+
+step Cenarion Enclave trainers
+  only Hunter,Rogue,Druid
+  zone Darnassus
+  when level>=12
+  tip Level 12 spells while you're in the Cenarion Enclave: the hunter, rogue and druid trainers all stand in it.
+  train class only Hunter,Rogue,Druid
 
 step Cenarion Enclave
   only Druid
@@ -553,6 +567,13 @@ step Cenarion Enclave
   turnin 2520                                 -- Priestess A'moora
   turnin 98067                                -- Sentinel Dalia Sunblade
   turnin 5629 only Priest                     -- Priestess Alathea, in the Temple of the Moon: Starshards
+
+step Priest trainer
+  only Priest
+  zone Darnassus
+  when level>=12
+  tip Level 12 spells while you're in the Temple of the Moon: the priest trainers stand beside Priestess Alathea.
+  train class only Priest
 
 step Ilyenia Moonfire
   only Hunter

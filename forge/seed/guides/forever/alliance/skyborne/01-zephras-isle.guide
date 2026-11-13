@@ -691,6 +691,13 @@ step Baros Alexston
   tip Baros Alexston stands in Cathedral Square, on the way from the Keep to the main gate: his compass is in his old house in Westfall, on the way.
   accept 399
 
+step Stormwind trainers
+  only Warrior,Hunter,Rogue,Mage
+  zone Stormwind City
+  when level>=14
+  tip Level 14 spells while you're in Stormwind: warriors and rogues train in Old Town, hunters in the Dwarven District, mages in the Wizard's Sanctum of the Mage Quarter. Druids train with Sheldras Moontree below.
+  train class only Warrior,Hunter,Rogue,Mage
+
 step Woo Ping
   only Warrior
   zone Stormwind City
@@ -726,6 +733,13 @@ step Sheldras Moontree
   tip Sheldras Moontree, Stormwind's druid trainer, teaches you Teleport: Moonglade. Dendrite Starblaze's welcome waits for your Cat Form trip at the end of Darkshore.
   turnin 94912                                -- Sheldras Moontree
   accept 94914
+
+step Druid trainer
+  only Druid
+  zone Stormwind City
+  when level>=14
+  tip Level 14 spells while you're with Sheldras Moontree.
+  train class only Druid
 
 step Stormwind City
   only Mage
