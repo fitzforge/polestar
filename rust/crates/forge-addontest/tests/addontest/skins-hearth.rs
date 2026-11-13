@@ -175,7 +175,7 @@ fn hearth_controls_are_planks_switches_grooves_and_recesses_in_polestar_s_own_ar
 		assert_eq!(round(&out["scroll"]["thumb"]), [0.784, 0.565, 0.353, 0.6], "its thumb in copper");
 	}
 	let m = &out["menu"];
-	assert_eq!(round(&m["fill"]), [0.173, 0.102, 0.059, 0.97], "the menu on the panel board");
+	assert_eq!(round(&m["fill"]), [0.173, 0.102, 0.059, 1.0], "the menu on the panel board, solid");
 	assert_eq!(rgb(&m["edge"]), [0.353, 0.212, 0.094], "with a dark copper edge");
 	assert_eq!(m["row"], 24);
 }

@@ -248,10 +248,10 @@ emit(out)
 
 // Menus and popups open over other frames (a panel marked psMenu: the dropdown menu, a setting's cog, Quick
 // settings) and the settings window's tooltip are never see-through, in every look the picker lists (the six built
-// in and each bundled skin, in each variant): their ground (menuBg) is at least 0.97 opaque, and the menu draws it
-// (the house fill under every painter that builds on it, the game looks' ground under their art, Lanterns' rounded
-// ground). Text under a menu used to show through in WoW Forever, Blizzard, Classic, Lumen, Hairline, Lanterns
-// and Sheen.
+// in and each bundled skin, in each variant): their ground (menuBg) is at least 0.97 opaque, fully solid in the six
+// built in (Halo's and Hearth's were 0.97), and the menu draws it (the house fill under every painter that builds on
+// it, the game looks' ground under their art, Lanterns' rounded ground). Text under a menu used to show through in
+// WoW Forever, Blizzard, Classic, Lumen, Hairline, Lanterns and Sheen.
 #[test]
 fn menus_popups_and_the_tooltip_are_never_see_through_in_any_look_or_variant() {
 	let script = r#"
@@ -304,6 +304,9 @@ emit(out)
 		assert_eq!(l["inUse"], true, "{key}: in use once picked");
 		for part in ["token", "menu", "tip"] {
 			assert!(l[part].as_f64().unwrap() >= 0.97, "{key}: the {part} ground is see-through: {l}");
+		}
+		if ["polestar", "halo", "hearth", "forever", "blizzard", "classic"].contains(&key) {
+			assert_eq!(l["token"].as_f64().unwrap(), 1.0, "{key}: a built-in look's menus are fully solid: {l}");
 		}
 	}
 }

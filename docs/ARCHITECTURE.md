@@ -3030,7 +3030,9 @@ skin brings:
   and popups that open over other frames (a panel marked `psMenu`: the
   dropdown menus, a setting's cog, Quick settings, the settings search's
   list; the tooltip), is never see-through: the panel colour at full
-  opacity in the house style, a look's or skin's own held at 0.97 at least;
+  opacity in the house style, solid in the other built-in looks (the game
+  looks lay their menu art over it at the game's own 92.5 %), a skin's own
+  held at 0.97 at least;
   `ember` (the firelight) is read by Hearth's own painters alone;
 - its paints (`Theme.SKIN_PAINT`, falling back to the house paint): Halo's
   veil (Media/UI/veil-soft, nine slices laid 24 units out); Hearth's board (a

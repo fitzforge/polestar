@@ -712,7 +712,7 @@ fn skins_polestar_by_default_halo_and_hearth_bring_their_tokens_fonts_sizes_and_
 	assert_eq!(round(&h["quest"]), vec![1.0, 0.878, 0.478, 1.0], "#FFE07A");
 	assert_eq!(round(&h["veil"]), vec![0.031, 0.024, 0.016, 0.6], "#080604 at 60 %");
 	assert_eq!(round(&h["veilWindow"])[3], 0.84);
-	assert_eq!(round(&h["menuBg"])[3], 0.97);
+	assert_eq!(round(&h["menuBg"])[3], 1.0, "menus solid");
 	assert_eq!(round(&h["accentLine"]), vec![1.0, 0.82, 0.0, 0.35]);
 	assert_eq!(round(&h["manual"]), vec![0.706, 0.612, 1.0, 1.0], "#B49CFF");
 	assert_eq!(round(&h["skipped"]), vec![0.361, 0.784, 0.839, 1.0], "#5CC8D6");

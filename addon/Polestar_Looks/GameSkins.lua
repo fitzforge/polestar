@@ -869,8 +869,9 @@ local BIG = {
 -- Menus, popups and the other panels: the dropdown menu's ground (Menu
 -- Style1: common-dropdown-bg stretched 10 out, 92.5 %), the game's tooltip
 -- in Classic (the panel colour on the tile under the rope border). A menu
--- or popup over other frames (f.psMenu) lays that art whole over a ground
--- of Theme's menuBg, so what it opens over never shows through.
+-- or popup over other frames (f.psMenu) lays that art, at the game's own
+-- strength, over a ground of Theme's menuBg, so it reads as the game's menu
+-- does over a dark scene and what it opens over never shows through.
 local function panel(f, kit)
 	if f.psBare then return P.bare(f) end
 	local menu = f.psMenu
@@ -891,7 +892,7 @@ local function panel(f, kit)
 	-- Wide enough round the items for the art's own margins (MenuStyle1
 	-- insets its items 8 from the top and 15 from the bottom).
 	local p = sliced(f, "menuBg", kit, kit.menu, f, { 10, 8, 10, 15 }, "BACKGROUND", -7)
-	for i = 1, 9 do p[i]:SetAlpha(menu and 1 or 0.925) end
+	for i = 1, 9 do p[i]:SetAlpha(0.925) end
 end
 
 -- A text button: UIPanelButtonTemplate (UI-Panel-Button-Up, the same file in

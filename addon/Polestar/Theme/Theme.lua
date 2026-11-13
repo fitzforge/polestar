@@ -89,7 +89,7 @@ local SKIN_PALETTES = {
 		title = hex("F4EFE6"), ink = hex("FFFFFF"), star = hex("FFFFFF", 0), shade = hex("000000"),
 		scrim = hex("080604"), onAccent = hex("17130E"), shadow = hex("080604", 0.72),
 		accent = hex("FFD100"),
-		veil = hex("080604", 0.6), veilWindow = hex("080604", 0.84), menuBg = hex("120E0A", 0.97),
+		veil = hex("080604", 0.6), veilWindow = hex("080604", 0.84), menuBg = hex("120E0A"),
 		inputBg = hex("000000", 0.35), control = hex("FFFFFF", 0.06),
 		accentLine = hex("FFD100", 0.35), padSelect = hex("FFD100", 0.12), chipAccent = hex("FFD100", 0.16),
 		separator = hex("FFFFFF", 0.12), rowLine = hex("FFFFFF", 0.08),
@@ -119,7 +119,7 @@ local SKIN_PALETTES = {
 		-- Ember: the accent (controls, the lit goal, the progress bar) and the
 		-- light that falls on every window's top edge (SKIN_PAINT.hearth).
 		accent = hex("FF9440"), ember = hex("FF7A2E"),
-		veil = hex("000000", 0), veilWindow = hex("000000", 0), menuBg = hex("2C1A0F", 0.97),
+		veil = hex("000000", 0), veilWindow = hex("000000", 0), menuBg = hex("2C1A0F"),
 		inputBg = hex("140A04", 0.55), control = hex("3B2616"),
 		accentLine = hex("FF9440", 0.5), padSelect = hex("FF9440", 0.14), chipAccent = hex("FF9440", 0.18),
 		-- Copper: every hairline, edge and rule.
