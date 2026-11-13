@@ -199,7 +199,8 @@ fn tracker_settings_reach_the_real_flight_timer_instance_tracker_party_panel_and
 	assert_eq!(f["pct"], "62%");
 	assert_eq!(f["both"], "≈1:14  \u{b7}  62%");
 	assert_eq!(out[1], json!({ "scale": 0.75, "width": 280, "calm": true, "faded": ["fade", 0.18], "hidden": false, "after": true, "alpha": 0.5 }));
-	assert_eq!(out[2], json!({ "panel": 360, "needs": 340, "tick": 5, "label": false }));
+	// The needs line the panel's width less its padding each side: 12 in the house look (Theme.House "sidePad").
+	assert_eq!(out[2], json!({ "panel": 360, "needs": 336, "tick": 5, "label": false }));
 }
 
 #[test]
