@@ -458,7 +458,7 @@ function P.ApplyKeys()
 	local keys = ns.DB().profileKeys
 	if not keyButton then
 		if type(keys) ~= "table" or next(keys) == nil then return true end
-		keyButton = CreateFrame("Button", "PolestarProfileKey", UIParent)
+		keyButton = CreateFrame("Button", "PolestarProfileKey", ns.UIParent)
 		keyButton:SetSize(1, 1)
 		keyButton:RegisterForClicks("AnyDown", "AnyUp")
 		keyButton:SetScript("OnClick", onKey)
@@ -467,9 +467,13 @@ function P.ApplyKeys()
 	if not (clear and bind) then return false end
 	clear(keyButton)
 	for k in pairs(keyFor) do keyFor[k] = nil end
+	-- The game's gamepad interface holds the gamepad's buttons: a profile's
+	-- key that is one waits until it is off.
+	local G, padUI = ns.Gamepad, ns.GamepadUI and ns.GamepadUI()
 	local i = 0
 	for name, key in pairs(type(keys) == "table" and keys or {}) do
-		if type(key) == "string" and P.Exists(name) then
+		local held = padUI and G and G.IsPadKey and G.IsPadKey(key)
+		if type(key) == "string" and P.Exists(name) and not held then
 			i = i + 1
 			keyFor["p" .. i] = name
 			bind(keyButton, false, key, "PolestarProfileKey", "p" .. i)

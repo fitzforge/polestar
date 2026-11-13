@@ -3024,10 +3024,13 @@ end
 -- A setting's Move (a row's or a section's): the window steps aside, Move
 -- frames opens with that frame's box picked and pulsing (ns.Movers.Unlock),
 -- and when it ends the window comes back where it was (the page and tab,
--- the search, the scroll), `lit` (the row or section) lit. -> ok
+-- the search, the scroll), `lit` (the row or section) lit. Without the
+-- window up (a control pressed elsewhere), Move frames just opens on that
+-- frame's box. -> ok
 function O.MoveFrame(key, lit)
 	local M = ns.Movers
-	if not (win and M and M.Unlock) then return false end
+	if not (M and M.Unlock) then return false end
+	if not (win and win:IsShown()) then return M.Unlock(key, { pulse = true }) end
 	local p, q, scroll = current, query, win.Scroll:GetVerticalScroll()
 	win:Hide()
 	local ok = M.Unlock(key, { pulse = true, back = function()
