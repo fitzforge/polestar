@@ -3835,8 +3835,8 @@
 				"objective": 3,
 				"guide": "forever/horde/07-ashenvale"
 			},
-			"when": "!zone \"The Barrens\"",
-			"note": "thadude3's report (#2013, Orc Warlock 28): at Camp Taurajo with nothing to do in Thunder Bluff, the guide sent him up to the central rise for its flight path and flew him straight back to Camp Taurajo. The rise's flight-path step (and the walk to the rise before it, which has no quest goal to anchor on and carries the same line by hand) is for a player who comes from the Earthen Ring on Skywatcher Plateau or flew in; from the Barrens it skips. Zangen's and Tah's hand-ins and the trainer step keep their own steps, so a player with an errand there still goes up.",
+			"when": "onquest 1195,97538",
+			"note": "thadude3's report (#2013, Orc Warlock 28): at Camp Taurajo with nothing to do in Thunder Bluff, the guide sent him up to the central rise for its flight path and flew him straight back to Camp Taurajo. The walk to the central rise and its flight-path step (the walk has no quest goal to anchor on and carries the same line by hand) now show only to a player carrying The Sacred Flame (1195) or Pigments for Paints (97538), whose hand-ins are beside the rise; everyone else learned Thunder Bluff's flight path on the Barrens & Stonetalon guide's opener, and the next step's flight to Camp Taurajo is done for a player already there (Engine: a fly goal is done in its place) or leads to Tal from the Earthen Ring.",
 			"source": [
 				{
 					"kind": "in-game-check",

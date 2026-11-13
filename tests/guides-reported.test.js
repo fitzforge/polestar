@@ -11846,11 +11846,12 @@ test(`${ASHENVALE_HORDE}: Horde 21-30 audit: Warriors and Hunters train on the T
 
 // thadude3's report (#2013, Orc Warlock 28): from Camp Taurajo, with nothing to do in Thunder Bluff, the guide sent
 // him up to the central rise for its flight path and flew him straight back to Camp Taurajo. The rise steps are
-// for a player who comes from the Earthen Ring or flew in (Mulgore or Thunder Bluff): from the Barrens they skip.
+// for a player with an errand beside the rise (The Sacred Flame, Pigments for Paints); the flight to Camp Taurajo after
+// them is done for a player already there.
 test(`${ASHENVALE_HORDE}: thadude3's report (#2013): no Thunder Bluff bounce from Camp Taurajo`, { skip }, () => {
 	const steps = compiled(ASHENVALE_HORDE).steps.filter((s) => s.title === 'Thunder Bluff' && s.goals.some((g) => g.t === 'goto' || g.t === 'getfp'));
 	assert.equal(steps.length, 2, 'the walk to the central rise and the flight path');
-	for (const s of steps) assert.ok((s.when || []).some((p) => p.k === 'zone' && p.neg && p.name === 'The Barrens'), `${s.goals.map((g) => g.t).join(',')}: not from the Barrens`);
+	for (const s of steps) assert.ok((s.when || []).some((p) => p.k === 'onquest' && !p.neg && [].concat(p.q).includes(1195) && [].concat(p.q).includes(97538)), `${s.goals.map((g) => g.t).join(',')}: only with an errand beside the rise`);
 });
 
 // Discord report (Fitz's relay, #2025): Sharptalon's Claw (2) is a level 30 quest and Sharptalon a level 31 nightsaber;
