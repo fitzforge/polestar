@@ -157,6 +157,7 @@ step Ukor
 
 step Sen'jin Village
   tip Follow the road east out of the valley to Sen'jin Village on the coast.
+  tip Careful: Ukorsbane (8) is elite and walks among the Ridgeshade spiders in the camp south of Razor Hill: pull the spiders away from him.
   accept 96821                        -- Vel'rin Fang
   accept 96873 optional               -- Pa'zula: enchanters only, the residue is disenchanted from Hexed Pendants
   accept 817                          -- Vel'rin Fang
@@ -551,9 +552,10 @@ step Skull Rock's mouth
 
 step Skull Rock
   tip Burning Blade cultists hold the caves of Skull Rock; any of them drops a Searing Collar. Gazz'uz, a level 14 warlock, stands deep inside and drops the Eye of Burning Shadow.
+  tip Careful: voidwalkers fight beside the Burning Blade cultists in Skull Rock and Gazz'uz (14) waits at the back with his own: pull one cultist at a time near the entrance for the collars. The Eye of Burning Shadow is optional: leave Gazz'uz unless you are 13 or have a friend.
   collect 4871 quest 827.1            -- Below ground
-  collect 4903 "Eye of Burning Shadow" -- Below ground
-  accept 832
+  collect 4903 "Eye of Burning Shadow" optional -- Below ground
+  accept 832 optional
 
 step Tablet of Verga
   only Warlock

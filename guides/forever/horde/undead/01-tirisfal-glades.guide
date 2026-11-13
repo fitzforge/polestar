@@ -549,6 +549,7 @@ step Balnir Farmstead: kill these as you meet them
   tip Follow the road east. Bleeding Horrors and Wandering Spirits haunt the graves on the east side of the farmstead, where the Tomb Weed grows: Linnea wants eight of each.
   tip The Scarlet Friars camp just north-east of the graves; Captain Vachon stands among them.
   tip The spiders lurk in the woods at the far east end of the glades.
+  tip Careful: Riptear (13) is elite and prowls west and north of the Scarlet Friars' camp: watch for him before you pull.
   kill 1529 quest 356.1
   kill 1532 quest 356.2
   collect 286204 quest 99142.1

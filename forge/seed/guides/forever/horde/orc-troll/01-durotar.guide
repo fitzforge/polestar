@@ -588,8 +588,8 @@ step Skull Rock's mouth
 step Skull Rock
   tip Burning Blade cultists hold the caves of Skull Rock; any of them drops a Searing Collar. Gazz'uz, a level 14 warlock, stands deep inside and drops the Eye of Burning Shadow.
   collect 4871 quest 827.1
-  collect 4903 "Eye of Burning Shadow"
-  accept 832
+  collect 4903 "Eye of Burning Shadow" optional
+  accept 832 optional
 
 step Tablet of Verga
   only Warlock

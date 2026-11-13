@@ -119,6 +119,87 @@
 			"issue": 1575
 		},
 		{
+			"id": "h01-1575-skull-rock",
+			"faction": "Horde",
+			"at": {
+				"quest": 827,
+				"goal": "objective",
+				"objective": 1
+			},
+			"tip": "Careful: voidwalkers fight beside the Burning Blade cultists in Skull Rock and Gazz'uz (14) waits at the back with his own: pull one cultist at a time near the entrance for the collars. The Eye of Burning Shadow is optional: leave Gazz'uz unless you are 13 or have a friend.",
+			"note": "Danger at the spot (#1575), Horde start audit (0.4.0): Skull Rock is where most Orc and Troll players die in Durotar. Players' recordings (0.3.5+): 9 people turned in the Searing Collars and 9 people died inside Skull Rock, 37 deaths, 29 of them at level 12: Voidwalker Minion 16, Burning Blade Fanatic 8, Burning Blade Apprentice 4, Gazz'uz (14) 3. The collars come from any cultist; Gazz'uz's Eye of Burning Shadow is now optional.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "AuditH01 index of players' recordings (0.3.5+): deaths inside Skull Rock (Durotar 50-57, 6-15) by killer and level"
+				},
+				{
+					"kind": "pfquest",
+					"ref": "npcs.json Gazz'uz level 14 at Skull Rock; Voidwalker Minion levels 10-14"
+				}
+			],
+			"issue": 1575
+		},
+		{
+			"id": "h01-1575-skull-rock-eye-optional",
+			"faction": "Horde",
+			"at": {
+				"quest": 832,
+				"goal": "accept"
+			},
+			"optional": true,
+			"note": "Danger at the spot (#1575): Burning Shadows (832) starts from the Eye of Burning Shadow, which only Gazz'uz (14, with a voidwalker) drops at the back of Skull Rock; players arrive at 12.0-12.6 and 3 people died to him. Optional, so a player who leaves him still finishes the step; the hand-in to Neeru Fireblade holds for whoever took it.",
+			"source": {
+				"kind": "recording",
+				"ref": "AuditH01 index of players' recordings (0.3.5+): 832 accepted at 12.1-12.6; 3 deaths to Gazz'uz at 12"
+			},
+			"issue": 1575
+		},
+		{
+			"id": "h01-1575-durotar-ukorsbane",
+			"faction": "Horde",
+			"at": {
+				"quest": 96821,
+				"goal": "objective",
+				"objective": 2
+			},
+			"tip": "Careful: Ukorsbane (8) is elite and walks among the Ridgeshade spiders in the camp south of Razor Hill: pull the spiders away from him.",
+			"note": "Danger at the spot (#1575, the danger gate's new flag on 0.4.0): Ukorsbane (8, elite) walks the camp south of Razor Hill among the Ridgeshade Creepers and Lurkers that Legging It (96821) asks for at about 6. Players' recordings: 41 people did the objective (median 5.9), 1 died to Ukorsbane.",
+			"source": [
+				{
+					"kind": "pfquest",
+					"ref": "npcs.json 266851 Ukorsbane 8 rank elite, spawn points at Durotar 49-51,54-57"
+				},
+				{
+					"kind": "recording",
+					"ref": "rec index 2026-11-13: 96821.2 done by 41 people; 1 death with killer 266851"
+				}
+			],
+			"issue": 1575
+		},
+		{
+			"id": "h01-1575-tirisfal-riptear",
+			"faction": "Horde",
+			"at": {
+				"quest": 371,
+				"goal": "objective",
+				"objective": 2
+			},
+			"tip": "Careful: Riptear (13) is elite and prowls west and north of the Scarlet Friars' camp: watch for him before you pull.",
+			"note": "Danger at the spot (#1575, the danger gate's new flag on 0.4.0): Riptear (13, elite) prowls Tirisfal 72-76,48-55, between the Balnir Farmstead and the Scarlet Friars' camp (76-78,55-57) that At War With The Scarlet Crusade (371) sends players of about 11 into. Players' recordings: 36 people did the objective (median 11.65), 2 died to Riptear.",
+			"source": [
+				{
+					"kind": "pfquest",
+					"ref": "npcs.json 276020 Riptear 13 rank elite, spawn points at Tirisfal 72-76,48-55"
+				},
+				{
+					"kind": "recording",
+					"ref": "rec index 2026-11-13: 371.2 done by 36 people; 2 deaths with killer 276020"
+				}
+			],
+			"issue": 1575
+		},
+		{
 			"id": "1575-barrens-razormane-elites-crates",
 			"faction": "Horde",
 			"at": { "quest": 5041, "goal": "objective", "objective": 1 },

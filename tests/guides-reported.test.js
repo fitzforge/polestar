@@ -5236,6 +5236,9 @@ test('Danger at the spot (#1575): the steps players died at among elites say so,
 		[87, 1, /Nimsy \(6\)[^.]*elite/, ['forever/alliance/human/01-elwynn-forest.guide']],
 		[21, 1, /Shinyfinder Narf \(3\) is elite/, ['forever/alliance/human/01-elwynn-forest.guide']],
 		[806, 1, /Halikor, a level 12 elite/, ['forever/horde/orc/01-durotar.guide', 'forever/horde/troll/01-durotar.guide']],
+		[827, 1, /Gazz'uz \(14\)[^.]*own/, ['forever/horde/orc/01-durotar.guide', 'forever/horde/troll/01-durotar.guide']],
+		[96821, 2, /Ukorsbane \(8\) is elite/, ['forever/horde/orc/01-durotar.guide', 'forever/horde/troll/01-durotar.guide']],
+		[371, 2, /Riptear \(13\) is elite/, ['forever/horde/undead/01-tirisfal-glades.guide']],
 		[1498, 1, /Halikor, a level 12 elite/, ['forever/horde/orc/01-durotar.guide', 'forever/horde/troll/01-durotar.guide', 'forever/horde/02-the-barrens.guide', 'forever/horde/tauren/01-mulgore.guide']],
 		[5041, 1, /Flesheaters and Berserkers \(18-19\) are elites/, ['forever/horde/02-the-barrens.guide']],
 		[872, 1, /Flesheaters and Berserkers \(18-19\) are elites/, ['forever/horde/02-the-barrens.guide']],
@@ -11854,4 +11857,18 @@ test('Durotar (Orc, Troll): only Warriors walk to Far Watch Post at the end of t
 		assert.ok(list.some(({ step, goal }) => step === last.step && is('turnin', 1505)(goal)), `${guide}: Uzzek takes 1505 on that stop`);
 		assert.ok(fixes.some((f) => f.at && f.at.quest === 840 && f.at.guide === guide.slice(0, -6) && f.when === 'onquest 1505'), `${guide}: a record the build keeps`);
 	}
+});
+
+// Danger at the spot (#1575), Horde start audit (0.4.0): 9 people died inside Skull Rock at about 12, 3 of them to
+// Gazz'uz (14); his Eye of Burning Shadow and Burning Shadows (832) are optional, the collars are not.
+test('Durotar (Orc, Troll): the Eye of Burning Shadow from Gazz\'uz is optional, the Searing Collars are not', { skip }, () => {
+	for (const guide of DUROTARS) {
+		const list = goals(guide);
+		const eye = list[at(list, 'collect 4903', (g) => g.t === 'collect' && g.item === 4903)];
+		const burning = list[at(list, 'accept 832', is('accept', 832))];
+		assert.ok(eye.goal.optional && burning.goal.optional, `${guide}: the Eye and its quest are optional`);
+		assert.ok(!list[at(list, 'collect 4871', (g) => g.t === 'collect' && g.quest === 827)].goal.optional, `${guide}: the collars hold`);
+	}
+	const fixes = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', 'guide-fixes.json'), 'utf8')).fixes;
+	assert.ok(fixes.some((f) => f.at && f.at.quest === 832 && f.at.goal === 'accept' && f.optional === true), 'a record the build keeps');
 });
