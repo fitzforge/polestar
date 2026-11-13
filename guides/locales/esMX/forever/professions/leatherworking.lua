@@ -8,61 +8,61 @@
 return {
 	-- Step 1: Learn Leatherworking
 	-- {skill:165} Leatherworking
-	["Learn {skill:165}"] = "",
+	["Learn {skill:165}"] = "Aprende {skill:165}",
 	-- {skill:165} Leatherworking · {npc:1632} Adele Fielder · {zone:1429} Elwynn Forest · {npc:11083} Darianna · {zone:1457} Darnassus · {npc:252376} Emerii Tallgust · {zone:2521} Zephras Isle · {npc:1466} Gretta Finespindle · {zone:1455} Ironforge · {npc:251993} Indari Sunseam · {npc:3605} Nadyia Maneweaver · {zone:1438} Teldrassil · {npc:11096} Randal Worth · {zone:1453} Stormwind City · {npc:3069} Chaw Stronghide · {zone:1412} Mulgore · {npc:223} Dan Golthas · {zone:1458} Undercity · {npc:5811} Kamari · {zone:1454} Orgrimmar · {npc:3008} Mak · {zone:1456} Thunder Bluff · {npc:3549} Shelene Rhobart · {zone:1420} Tirisfal Glades · {skill:393} Skinning · {item:2318} Light Leather · {item:2320} Coarse Thread
 	["Apprentice {skill:165} lets you craft up to 75 for 10c, at any character level. Not every {skill:165} trainer teaches it: Alliance {npc:1632} ({zone:1429}), {npc:11083} ({zone:1457}), {npc:252376} ({zone:2521}), {npc:1466} ({zone:1455}), {npc:251993} ({zone:2521}), {npc:3605} ({zone:1438}) and {npc:11096} ({zone:1453}); Horde {npc:3069} ({zone:1412}), {npc:223} ({zone:1458}), {npc:252376} ({zone:2521}), {npc:251993} ({zone:2521}), {npc:5811} ({zone:1454}), {npc:3008} ({zone:1456}) and {npc:3549} ({zone:1420}). The arrow picks the nearest of your faction. Pair it with {skill:393}: {item:2318} comes from the beasts of every starting zone. {item:2320} and Salt are sold by leatherworking and trade supplies vendors. 1-75 takes about 1s 50c of recipes and 5s of vendor goods, plus 349 {item:2318} to gather or buy."] = "Aprendiz de {skill:165} te permite fabricar hasta 75 por 10c, a cualquier nivel de personaje. No todos los instructores de {skill:165} lo enseñan: Alianza: {npc:1632} ({zone:1429}), {npc:11083} ({zone:1457}), {npc:252376} ({zone:2521}), {npc:1466} ({zone:1455}), {npc:251993} ({zone:2521}), {npc:3605} ({zone:1438}) y {npc:11096} ({zone:1453}); Horda: {npc:3069} ({zone:1412}), {npc:223} ({zone:1458}), {npc:252376} ({zone:2521}), {npc:251993} ({zone:2521}), {npc:5811} ({zone:1454}), {npc:3008} ({zone:1456}) y {npc:3549} ({zone:1420}). La flecha elige el más cercano de tu facción. Combínala con {skill:393}: el {item:2318} sale de las bestias de todas las zonas iniciales. El {item:2320} y la Sal los venden los mercaderes de suministros de peletería y de mercancías. De 1 a 75 hacen falta unos 1s 50c en recetas y 5s en artículos de mercader, además de 349 {item:2318} que recolectar o comprar.",
 
 	-- Step 2: Leatherworking 1-75: vendor goods
 	-- {skill:165} Leatherworking
-	["{skill:165} 1-75: vendor goods"] = "",
+	["{skill:165} 1-75: vendor goods"] = "{skill:165} 1-75: artículos de mercader",
 	-- {item:2320} Coarse Thread · {zone:1453} Stormwind City · {npc:1347} Alexandra Bolero · {npc:1286} Edna Mullby · {npc:5565} Jillian Tanner · {zone:1454} Orgrimmar · {npc:3364} Borya · {npc:3367} Felika · {npc:5817} Shimra
-	["Buy the whole bracket's share in one go: 50 {item:2320} (5s); about 5s in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:1347}, {npc:1286} and {npc:5565}; {zone:1454}: {npc:3364}, {npc:3367} and {npc:5817})."] = "",
+	["Buy the whole bracket's share in one go: 50 {item:2320} (5s); about 5s in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:1347}, {npc:1286} and {npc:5565}; {zone:1454}: {npc:3364}, {npc:3367} and {npc:5817})."] = "Compra de una vez todo lo de este tramo: 50 {item:2320} (5s); unos 5s en total. La flecha elige el vendedor más cercano de tu facción ({zone:1453}: {npc:1347}, {npc:1286} y {npc:5565}; {zone:1454}: {npc:3364}, {npc:3367} y {npc:5817}).",
 
 	-- Step 3: Light Leather (Elwynn Forest)
 	-- {item:2318} Light Leather · {spell:2152} Light Armor Kit · {spell:3756} Embossed Leather Gloves · {spell:3763} Fine Leather Belt · {skill:393} Skinning · {npc:1922} Gray Forest Wolf · {npc:525} Mangy Wolf · {npc:524} Rockhide Boar · {npc:113} Stonetusk Boar · {npc:822} Young Forest Bear
-	["349 {item:2318} for {spell:2152}, {spell:3756} and {spell:3763} (210 of them for 75-150: pick them all now): {skill:393}: beasts of level 5-20; or the Auction House. Skin {npc:1922}, {npc:525}, Prowler, {npc:524}, {npc:113} and {npc:822} here (level 5-20); the {skill:393} guide routes this."] = "",
+	["349 {item:2318} for {spell:2152}, {spell:3756} and {spell:3763} (210 of them for 75-150: pick them all now): {skill:393}: beasts of level 5-20; or the Auction House. Skin {npc:1922}, {npc:525}, Prowler, {npc:524}, {npc:113} and {npc:822} here (level 5-20); the {skill:393} guide routes this."] = "349 {item:2318} para {spell:2152}, {spell:3756} y {spell:3763} (210 de ellos para 75-150: recógelos todos ahora): {skill:393}: bestias de nivel 5-20; o la casa de subastas. Despelleja aquí a {npc:1922}, {npc:525}, Merodeador, {npc:524}, {npc:113} y {npc:822} (nivel 5-20); la guía de {skill:393} traza esta ruta.",
 
 	-- Step 4: Light Leather (Dun Morogh)
 	-- {item:2318} Light Leather · {spell:2152} Light Armor Kit · {spell:3756} Embossed Leather Gloves · {spell:3763} Fine Leather Belt · {skill:393} Skinning · {npc:1125} Crag Boar · {npc:1127} Elder Crag Boar · {npc:1196} Ice Claw Bear · {npc:1199} Juvenile Snow Leopard · {npc:1126} Large Crag Boar · {npc:1689} Scarred Crag Boar · {npc:1201} Snow Leopard · {npc:1138} Snow Tracker Wolf · {npc:1131} Winter Wolf · {npc:1128} Young Black Bear
-	["349 {item:2318} for {spell:2152}, {spell:3756} and {spell:3763} (210 of them for 75-150: pick them all now): {skill:393}: beasts of level 5-20; or the Auction House. Skin {npc:1125}, {npc:1127}, {npc:1196}, {npc:1199}, {npc:1126}, {npc:1689}, {npc:1201}, {npc:1138}, {npc:1131} and {npc:1128} here (level 5-20); the {skill:393} guide routes this."] = "",
+	["349 {item:2318} for {spell:2152}, {spell:3756} and {spell:3763} (210 of them for 75-150: pick them all now): {skill:393}: beasts of level 5-20; or the Auction House. Skin {npc:1125}, {npc:1127}, {npc:1196}, {npc:1199}, {npc:1126}, {npc:1689}, {npc:1201}, {npc:1138}, {npc:1131} and {npc:1128} here (level 5-20); the {skill:393} guide routes this."] = "349 {item:2318} para {spell:2152}, {spell:3756} y {spell:3763} (210 de ellos para 75-150: recógelos todos ahora): {skill:393}: bestias de nivel 5-20; o la casa de subastas. Despelleja aquí a {npc:1125}, {npc:1127}, {npc:1196}, {npc:1199}, {npc:1126}, {npc:1689}, {npc:1201}, {npc:1138}, {npc:1131} y {npc:1128} (nivel 5-20); la guía de {skill:393} traza esta ruta.",
 
 	-- Step 5: Light Leather (Teldrassil)
 	-- {item:2318} Light Leather · {spell:2152} Light Armor Kit · {spell:3756} Embossed Leather Gloves · {spell:3763} Fine Leather Belt · {skill:393} Skinning · {npc:2033} Elder Nightsaber · {npc:2043} Nightsaber Stalker
-	["349 {item:2318} for {spell:2152}, {spell:3756} and {spell:3763} (210 of them for 75-150: pick them all now): {skill:393}: beasts of level 5-20; or the Auction House. Skin {npc:2033}, Nightsaber and {npc:2043} here (level 5-20); the {skill:393} guide routes this."] = "",
+	["349 {item:2318} for {spell:2152}, {spell:3756} and {spell:3763} (210 of them for 75-150: pick them all now): {skill:393}: beasts of level 5-20; or the Auction House. Skin {npc:2033}, Nightsaber and {npc:2043} here (level 5-20); the {skill:393} guide routes this."] = "349 {item:2318} para {spell:2152}, {spell:3756} y {spell:3763} (210 de ellos para 75-150: recógelos todos ahora): {skill:393}: bestias de nivel 5-20; o la casa de subastas. Despelleja aquí a {npc:2033}, Sable de la noche y {npc:2043} (nivel 5-20); la guía de {skill:393} traza esta ruta.",
 
 	-- Step 6: Light Leather (Zephras Isle)
 	-- {item:2318} Light Leather · {spell:2152} Light Armor Kit · {spell:3756} Embossed Leather Gloves · {spell:3763} Fine Leather Belt · {skill:393} Skinning · {npc:250928} Highlands Ursera · {npc:251284} Hippogryph Protector · {npc:251291} Hippogryph Youth · {npc:251707} Ornery Galestrider · {npc:256092} Shadowgale Shriekling · {npc:253282} Shriekling Fledgling · {npc:250874} Vuldren Alpha · {npc:254588} Windsong Crawler
-	["349 {item:2318} for {spell:2152}, {spell:3756} and {spell:3763} (210 of them for 75-150: pick them all now): {skill:393}: beasts of level 5-20; or the Auction House. Skin Cloudrunner, Galestrider, {npc:250928}, {npc:251284}, {npc:251291}, {npc:251707}, Prideclaw, {npc:256092}, {npc:253282}, Vuldren, {npc:250874} and {npc:254588} here (level 5-20); the {skill:393} guide routes this."] = "",
+	["349 {item:2318} for {spell:2152}, {spell:3756} and {spell:3763} (210 of them for 75-150: pick them all now): {skill:393}: beasts of level 5-20; or the Auction House. Skin Cloudrunner, Galestrider, {npc:250928}, {npc:251284}, {npc:251291}, {npc:251707}, Prideclaw, {npc:256092}, {npc:253282}, Vuldren, {npc:250874} and {npc:254588} here (level 5-20); the {skill:393} guide routes this."] = "349 {item:2318} para {spell:2152}, {spell:3756} y {spell:3763} (210 de ellos para 75-150: recógelos todos ahora): {skill:393}: bestias de nivel 5-20; o la casa de subastas. Despelleja aquí a Correnubes, Zancavientos, {npc:250928}, {npc:251284}, {npc:251291}, {npc:251707}, Leozarpa, {npc:256092}, {npc:253282}, Vuldren, {npc:250874} y {npc:254588} (nivel 5-20); la guía de {skill:393} traza esta ruta.",
 
 	-- Step 7: Light Leather (Durotar)
 	-- {item:2318} Light Leather · {spell:2152} Light Armor Kit · {spell:3756} Embossed Leather Gloves · {spell:3763} Fine Leather Belt · {skill:393} Skinning · {npc:3126} Armored Scorpid · {npc:3123} Bloodtalon Scythemaw · {npc:3122} Bloodtalon Taillasher · {npc:3125} Clattering Scorpid · {npc:3099} Dire Mottled Boar · {npc:3110} Dreadmaw Crocolisk · {npc:3121} Durotar Tiger · {npc:3100} Elder Mottled Boar · {npc:3130} Thunder Lizard · {npc:3127} Venomtail Scorpid
-	["349 {item:2318} for {spell:2152}, {spell:3756} and {spell:3763} (210 of them for 75-150: pick them all now): {skill:393}: beasts of level 5-20; or the Auction House. Skin {npc:3126}, {npc:3123}, {npc:3122}, {npc:3125}, {npc:3099}, {npc:3110}, {npc:3121}, {npc:3100}, {npc:3130} and {npc:3127} here (level 5-20); the {skill:393} guide routes this."] = "",
+	["349 {item:2318} for {spell:2152}, {spell:3756} and {spell:3763} (210 of them for 75-150: pick them all now): {skill:393}: beasts of level 5-20; or the Auction House. Skin {npc:3126}, {npc:3123}, {npc:3122}, {npc:3125}, {npc:3099}, {npc:3110}, {npc:3121}, {npc:3100}, {npc:3130} and {npc:3127} here (level 5-20); the {skill:393} guide routes this."] = "349 {item:2318} para {spell:2152}, {spell:3756} y {spell:3763} (210 de ellos para 75-150: recógelos todos ahora): {skill:393}: bestias de nivel 5-20; o la casa de subastas. Despelleja aquí a {npc:3126}, {npc:3123}, {npc:3122}, {npc:3125}, {npc:3099}, {npc:3110}, {npc:3121}, {npc:3100}, {npc:3130} y {npc:3127} (nivel 5-20); la guía de {skill:393} traza esta ruta.",
 
 	-- Step 8: Light Leather (Mulgore)
 	-- {item:2318} Light Leather · {spell:2152} Light Armor Kit · {spell:3756} Embossed Leather Gloves · {spell:3763} Fine Leather Belt · {skill:393} Skinning · {npc:2956} Adult Plainstrider · {npc:2957} Elder Plainstrider · {npc:3035} Flatland Cougar · {npc:3566} Flatland Prowler · {npc:2972} Kodo Calf · {npc:2959} Prairie Stalker · {npc:2958} Prairie Wolf · {npc:2960} Prairie Wolf Alpha
-	["349 {item:2318} for {spell:2152}, {spell:3756} and {spell:3763} (210 of them for 75-150: pick them all now): {skill:393}: beasts of level 5-20; or the Auction House. Skin {npc:2956}, {npc:2957}, {npc:3035}, {npc:3566}, {npc:2972}, {npc:2959}, {npc:2958} and {npc:2960} here (level 5-20); the {skill:393} guide routes this."] = "",
+	["349 {item:2318} for {spell:2152}, {spell:3756} and {spell:3763} (210 of them for 75-150: pick them all now): {skill:393}: beasts of level 5-20; or the Auction House. Skin {npc:2956}, {npc:2957}, {npc:3035}, {npc:3566}, {npc:2972}, {npc:2959}, {npc:2958} and {npc:2960} here (level 5-20); the {skill:393} guide routes this."] = "349 {item:2318} para {spell:2152}, {spell:3756} y {spell:3763} (210 de ellos para 75-150: recógelos todos ahora): {skill:393}: bestias de nivel 5-20; o la casa de subastas. Despelleja aquí a {npc:2956}, {npc:2957}, {npc:3035}, {npc:3566}, {npc:2972}, {npc:2959}, {npc:2958} y {npc:2960} (nivel 5-20); la guía de {skill:393} traza esta ruta.",
 
 	-- Step 9: Light Leather (Tirisfal Glades)
 	-- {item:2318} Light Leather · {spell:2152} Light Armor Kit · {spell:3756} Embossed Leather Gloves · {spell:3763} Fine Leather Belt · {skill:393} Skinning · {npc:1548} Cursed Darkhound · {npc:1547} Decrepit Darkhound · {npc:1553} Greater Duskbat · {npc:1549} Ravenous Darkhound · {npc:1554} Vampiric Duskbat
-	["349 {item:2318} for {spell:2152}, {spell:3756} and {spell:3763} (210 of them for 75-150: pick them all now): {skill:393}: beasts of level 5-20; or the Auction House. Skin {npc:1548}, {npc:1547}, {npc:1553}, {npc:1549} and {npc:1554} here (level 5-20); the {skill:393} guide routes this."] = "",
+	["349 {item:2318} for {spell:2152}, {spell:3756} and {spell:3763} (210 of them for 75-150: pick them all now): {skill:393}: beasts of level 5-20; or the Auction House. Skin {npc:1548}, {npc:1547}, {npc:1553}, {npc:1549} and {npc:1554} here (level 5-20); the {skill:393} guide routes this."] = "349 {item:2318} para {spell:2152}, {spell:3756} y {spell:3763} (210 de ellos para 75-150: recógelos todos ahora): {skill:393}: bestias de nivel 5-20; o la casa de subastas. Despelleja aquí a {npc:1548}, {npc:1547}, {npc:1553}, {npc:1549} y {npc:1554} (nivel 5-20); la guía de {skill:393} traza esta ruta.",
 
 	-- Step 10: Light Armor Kit to 51
 	-- {spell:2152} Light Armor Kit
-	["{spell:2152} to 51"] = "",
+	["{spell:2152} to 51"] = "{spell:2152} hasta 51",
 	-- {spell:2152} Light Armor Kit · {item:2318} Light Leather
-	["{spell:2152} is orange at 1 (yellow 30, green 45, grey 60): about 64 crafts to 51. Each takes 1 {item:2318}. One {item:2318} a craft; the kits sell to vendors."] = "",
+	["{spell:2152} is orange at 1 (yellow 30, green 45, grey 60): about 64 crafts to 51. Each takes 1 {item:2318}. One {item:2318} a craft; the kits sell to vendors."] = "{spell:2152} es naranja a 1 (amarillo 30, verde 45, gris 60): unas 64 fabricaciones hasta 51. Cada una lleva 1 {item:2318}. Un {item:2318} por fabricación; los kits se venden a los mercaderes.",
 
 	-- Step 11: Leatherworking recipes at 51
 	-- {skill:165} Leatherworking
-	["{skill:165} recipes at 51"] = "",
+	["{skill:165} recipes at 51"] = "Recetas de {skill:165} a 51",
 	-- {skill:165} Leatherworking · {spell:3756} Embossed Leather Gloves · {spell:1229432} Camp Tent · {item:2318} Light Leather
-	["Back to a {skill:165} trainer: {spell:3756} (from 40, 1s 50c). Also learn {spell:1229432} (1s): Forever's {skill:165} camp item, 5 {item:2318}, placed at a campsite beside a campfire. The Camping 101: {skill:165} quest from your starting area's camping guide (after The Great Outdoors) sends you to a leatherworking trainer who teaches it free."] = "",
+	["Back to a {skill:165} trainer: {spell:3756} (from 40, 1s 50c). Also learn {spell:1229432} (1s): Forever's {skill:165} camp item, 5 {item:2318}, placed at a campsite beside a campfire. The Camping 101: {skill:165} quest from your starting area's camping guide (after The Great Outdoors) sends you to a leatherworking trainer who teaches it free."] = "Vuelve con un instructor de {skill:165}: {spell:3756} (desde 40, 1s 50c). Aprende también {spell:1229432} (1s): el objeto de campamento de {skill:165} de Forever, con 5 {item:2318}, que se coloca en un campamento junto a una hoguera. La misión “Campamento básico: {skill:165}” del guía de campamento de tu zona inicial (después de “Bendita naturaleza”) te envía a un instructor de peletería que lo enseña gratis.",
 
 	-- Step 12: Embossed Leather Gloves to 75
 	-- {spell:3756} Embossed Leather Gloves
-	["{spell:3756} to 75"] = "",
+	["{spell:3756} to 75"] = "{spell:3756} hasta 75",
 	-- {spell:3756} Embossed Leather Gloves · {item:2318} Light Leather · {item:2320} Coarse Thread
-	["{spell:3756} is orange at 51 (yellow 70, green 85, grey 100): about 25 crafts to 75. Each takes 3 {item:2318} and 2 {item:2320}. Forever teaches {spell:3756} from 40."] = "",
+	["{spell:3756} is orange at 51 (yellow 70, green 85, grey 100): about 25 crafts to 75. Each takes 3 {item:2318} and 2 {item:2320}. Forever teaches {spell:3756} from 40."] = "{spell:3756} es naranja a 51 (amarillo 70, verde 85, gris 100): unas 25 fabricaciones hasta 75. Cada una lleva 3 {item:2318} y 2 {item:2320}. En Forever, {spell:3756} se enseña desde 40.",
 
 	-- Step 13: Journeyman Leatherworking
 	-- {skill:165} Leatherworking
@@ -72,21 +72,21 @@ return {
 
 	-- Step 14: Leatherworking 75-150: vendor goods
 	-- {skill:165} Leatherworking
-	["{skill:165} 75-150: vendor goods"] = "",
+	["{skill:165} 75-150: vendor goods"] = "{skill:165} 75-150: artículos de mercader",
 	-- {item:2320} Coarse Thread · {item:2321} Fine Thread · {zone:1453} Stormwind City · {npc:1347} Alexandra Bolero · {npc:1286} Edna Mullby · {npc:5565} Jillian Tanner · {zone:1454} Orgrimmar · {npc:3364} Borya · {npc:3367} Felika · {npc:5817} Shimra
-	["Buy the whole bracket's share in one go: 70 {item:2320} (7s) and 50 {item:2321} (50s); about 57s in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:1347}, {npc:1286} and {npc:5565}; {zone:1454}: {npc:3364}, {npc:3367} and {npc:5817})."] = "",
+	["Buy the whole bracket's share in one go: 70 {item:2320} (7s) and 50 {item:2321} (50s); about 57s in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:1347}, {npc:1286} and {npc:5565}; {zone:1454}: {npc:3364}, {npc:3367} and {npc:5817})."] = "Compra de una vez todo lo de este tramo: 70 {item:2320} (7s) y 50 {item:2321} (50s); unos 57s en total. La flecha elige el vendedor más cercano de tu facción ({zone:1453}: {npc:1347}, {npc:1286} y {npc:5565}; {zone:1454}: {npc:3364}, {npc:3367} y {npc:5817}).",
 
 	-- Step 15: Medium Leather (Hillsbrad Foothills)
 	-- {item:2319} Medium Leather · {item:7285} Nimble Leather Gloves · {skill:393} Skinning · {npc:2248} Cave Yeti · {npc:2356} Elder Gray Bear · {npc:2385} Feral Mountain Lion · {npc:2351} Gray Bear · {npc:2384} Starving Mountain Lion · {npc:2354} Vicious Gray Bear
-	["144 {item:2319} for {item:7285}: {skill:393}: beasts of level 18-30; or the Auction House. Skin {npc:2248}, {npc:2356}, {npc:2385}, {npc:2351}, Snapjaw, {npc:2384} and {npc:2354} here (level 18-30); the {skill:393} guide routes this."] = "",
+	["144 {item:2319} for {item:7285}: {skill:393}: beasts of level 18-30; or the Auction House. Skin {npc:2248}, {npc:2356}, {npc:2385}, {npc:2351}, Snapjaw, {npc:2384} and {npc:2354} here (level 18-30); the {skill:393} guide routes this."] = "144 {item:2319} para {item:7285}: {skill:393}: bestias de nivel 18-30; o la casa de subastas. Despelleja aquí a {npc:2248}, {npc:2356}, {npc:2385}, {npc:2351}, Quijaforte, {npc:2384} y {npc:2354} (nivel 18-30); la guía de {skill:393} traza esta ruta.",
 
 	-- Step 16: Medium Leather (Darkshore)
 	-- {item:2319} Medium Leather · {item:7285} Nimble Leather Gloves · {skill:393} Skinning · {npc:3823} Ghostpaw Runner · {npc:2071} Moonstalker Matriarch
-	["144 {item:2319} for {item:7285}: {skill:393}: beasts of level 18-30; or the Auction House. Skin {npc:3823} and {npc:2071} here (level 18-30); the {skill:393} guide routes this."] = "",
+	["144 {item:2319} for {item:7285}: {skill:393}: beasts of level 18-30; or the Auction House. Skin {npc:3823} and {npc:2071} here (level 18-30); the {skill:393} guide routes this."] = "144 {item:2319} para {item:7285}: {skill:393}: bestias de nivel 18-30; o la casa de subastas. Despelleja aquí a {npc:3823} y {npc:2071} (nivel 18-30); la guía de {skill:393} traza esta ruta.",
 
 	-- Step 17: Medium Leather (The Barrens)
 	-- {item:2319} Medium Leather · {item:7285} Nimble Leather Gloves · {skill:393} Skinning · {npc:3236} Barrens Kodo
-	["144 {item:2319} for {item:7285}: {skill:393}: beasts of level 18-30; or the Auction House. Skin {npc:3236} and Thunderhead here (level 18-30); the {skill:393} guide routes this."] = "",
+	["144 {item:2319} for {item:7285}: {skill:393}: beasts of level 18-30; or the Auction House. Skin {npc:3236} and Thunderhead here (level 18-30); the {skill:393} guide routes this."] = "144 {item:2319} para {item:7285}: {skill:393}: bestias de nivel 18-30; o la casa de subastas. Despelleja aquí a {npc:3236} y Cabeza de Trueno (nivel 18-30); la guía de {skill:393} traza esta ruta.",
 
 	-- Step 19: Heavy Leather (Alterac Mountains)
 	-- {item:4234} Heavy Leather · {spell:3780} Heavy Armor Kit · {item:5964} Barbaric Shoulders · {item:5966} Guardian Gloves · {skill:393} Skinning · {npc:2248} Cave Yeti · {npc:2249} Ferocious Yeti · {npc:2251} Giant Yeti · {npc:2407} Hulking Mountain Lion · {npc:2406} Mountain Lion · {npc:2250} Mountain Yeti
@@ -98,37 +98,37 @@ return {
 
 	-- Step 23: Fine Leather Belt to 102
 	-- {spell:3763} Fine Leather Belt
-	["{spell:3763} to 102"] = "",
+	["{spell:3763} to 102"] = "{spell:3763} hasta 102",
 	-- {spell:3763} Fine Leather Belt · {item:2318} Light Leather · {item:2320} Coarse Thread
-	["{spell:3763} is orange at 75 (yellow 85, green 100, grey 115): about 35 crafts to 102. Each takes 6 {item:2318} and 2 {item:2320}. Forever teaches {spell:3763} from 55."] = "",
+	["{spell:3763} is orange at 75 (yellow 85, green 100, grey 115): about 35 crafts to 102. Each takes 6 {item:2318} and 2 {item:2320}. Forever teaches {spell:3763} from 55."] = "{spell:3763} es naranja a 75 (amarillo 85, verde 100, gris 115): unas 35 fabricaciones hasta 102. Cada una lleva 6 {item:2318} y 2 {item:2320}. En Forever, {spell:3763} se enseña desde 55.",
 
 	-- Step 24: Leatherworking recipes at 102
 	-- {skill:165} Leatherworking
-	["{skill:165} recipes at 102"] = "",
+	["{skill:165} recipes at 102"] = "Recetas de {skill:165} a 102",
 	-- {skill:165} Leatherworking · {spell:9074} Nimble Leather Gloves
-	["Back to a {skill:165} trainer: {spell:9074} (from 95, 5s)."] = "",
+	["Back to a {skill:165} trainer: {spell:9074} (from 95, 5s)."] = "Vuelve con un instructor de {skill:165}: {spell:9074} (desde 95, 5s).",
 
 	-- Step 25: Nimble Leather Gloves to 125
 	-- {item:7285} Nimble Leather Gloves
-	["{item:7285} to 125"] = "",
+	["{item:7285} to 125"] = "{item:7285} hasta 125",
 	-- {item:7285} Nimble Leather Gloves · {item:2457} Elixir of Minor Agility · {item:2319} Medium Leather · {item:2321} Fine Thread · {item:2452} Swiftthistle · {item:765} Silverleaf · {spell:3763} Fine Leather Belt · {item:2316} Dark Leather Cloak · {item:4340} Gray Dye · {skill:171} Alchemy
-	["{item:7285} is orange at 102 (yellow 120, green 132, grey 145): about 24 crafts to 125. Each takes 1 {item:2457}, 6 {item:2319} and 1 {item:2321}. Each takes an {item:2457}: an alchemist makes it from a {item:2452} and a {item:765}, and the Auction House has it cheap. With no elixirs, take {spell:3763} on to 105 and {item:2316} (from 85: 8 {item:2319}, a {item:4340} and a {item:2321}) to 125: about 28 cloaks, 224 {item:2319} in all. {item:2457} (24 for 75-150): {skill:171}: {item:2457}; or the Auction House."] = "",
+	["{item:7285} is orange at 102 (yellow 120, green 132, grey 145): about 24 crafts to 125. Each takes 1 {item:2457}, 6 {item:2319} and 1 {item:2321}. Each takes an {item:2457}: an alchemist makes it from a {item:2452} and a {item:765}, and the Auction House has it cheap. With no elixirs, take {spell:3763} on to 105 and {item:2316} (from 85: 8 {item:2319}, a {item:4340} and a {item:2321}) to 125: about 28 cloaks, 224 {item:2319} in all. {item:2457} (24 for 75-150): {skill:171}: {item:2457}; or the Auction House."] = "{item:7285} es naranja a 102 (amarillo 120, verde 132, gris 145): unas 24 fabricaciones hasta 125. Cada una lleva 1 {item:2457}, 6 {item:2319} y 1 {item:2321}. Cada una lleva un {item:2457}: un alquimista lo hace con una {item:2452} y una {item:765}, y en la casa de subastas está barato. Sin elixires, sigue con {spell:3763} hasta 105 y {item:2316} (desde 85: 8 {item:2319}, un {item:4340} y un {item:2321}) hasta 125: unas 28 capas, 224 {item:2319} en total. {item:2457} (24 para 75-150): {skill:171}: {item:2457}; o la casa de subastas.",
 
 	-- Step 26: Leatherworking recipes at 125
 	-- {skill:165} Leatherworking
-	["{skill:165} recipes at 125"] = "",
+	["{skill:165} recipes at 125"] = "Recetas de {skill:165} a 125",
 	-- {skill:165} Leatherworking · {spell:3780} Heavy Armor Kit
-	["Back to a {skill:165} trainer: {spell:3780} (from 125, 7s 50c)."] = "",
+	["Back to a {skill:165} trainer: {spell:3780} (from 125, 7s 50c)."] = "Vuelve con un instructor de {skill:165}: {spell:3780} (desde 125, 7s 50c).",
 
 	-- Step 27: Heavy Armor Kit to 150
 	-- {spell:3780} Heavy Armor Kit
-	["{spell:3780} to 150"] = "",
+	["{spell:3780} to 150"] = "{spell:3780} hasta 150",
 	-- {spell:3780} Heavy Armor Kit · {item:4234} Heavy Leather · {item:2321} Fine Thread · {skill:165} Leatherworking
-	["{spell:3780} is orange at 125 (yellow 145, green 155, grey 165): about 26 crafts to 150. Each takes 5 {item:4234} and 1 {item:2321}. Five {item:4234} a craft (beasts of level 28-40); the kits sell to vendors. {skill:165} 150 is a Legacy System milestone."] = "",
+	["{spell:3780} is orange at 125 (yellow 145, green 155, grey 165): about 26 crafts to 150. Each takes 5 {item:4234} and 1 {item:2321}. Five {item:4234} a craft (beasts of level 28-40); the kits sell to vendors. {skill:165} 150 is a Legacy System milestone."] = "{spell:3780} es naranja a 125 (amarillo 145, verde 155, gris 165): unas 26 fabricaciones hasta 150. Cada una lleva 5 {item:4234} y 1 {item:2321}. Cinco {item:4234} por fabricación (bestias de nivel 28-40); los kits se venden a los mercaderes. {skill:165} 150 es un hito del Sistema de Legado.",
 
 	-- Step 28: Leatherworking 150-225: vendor goods
 	-- {skill:165} Leatherworking
-	["{skill:165} 150-225: vendor goods"] = "",
+	["{skill:165} 150-225: vendor goods"] = "{skill:165} 150-225: artículos de mercader",
 	-- {item:2321} Fine Thread · {item:4291} Silken Thread · {zone:1453} Stormwind City · {npc:1347} Alexandra Bolero · {npc:1286} Edna Mullby · {npc:5565} Jillian Tanner · {zone:1454} Orgrimmar · {npc:3364} Borya · {npc:3367} Felika · {npc:5817} Shimra
 	["Buy the whole bracket's share in one go: 29 {item:2321} (29s), 66 Salt (33s) and 145 {item:4291} (7g 25s); about 7g 87s in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:1347}, {npc:1286} and {npc:5565}; {zone:1454}: {npc:3364}, {npc:3367} and {npc:5817})."] = "Compra de una vez todo lo de este tramo: 29 {item:2321} (29s), 66 de Sal (33s) y 145 {item:4291} (7g 25s); unos 7g 87s en total. La flecha elige el vendedor más cercano de tu facción ({zone:1453}: {npc:1347}, {npc:1286} y {npc:5565}; {zone:1454}: {npc:3364}, {npc:3367} y {npc:5817}).",
 
@@ -218,17 +218,17 @@ return {
 
 	-- Step 43: Leatherworking 225-300: vendor goods
 	-- {skill:165} Leatherworking
-	["{skill:165} 225-300: vendor goods"] = "",
+	["{skill:165} 225-300: vendor goods"] = "{skill:165} 225-300: artículos de mercader",
 	-- {item:2325} Black Dye · {item:14341} Rune Thread · {zone:1453} Stormwind City · {npc:1347} Alexandra Bolero · {npc:1286} Edna Mullby · {npc:5565} Jillian Tanner · {zone:1454} Orgrimmar · {npc:3364} Borya · {npc:3367} Felika · {npc:5817} Shimra
-	["Buy the whole bracket's share in one go: 39 {item:2325} (3g 90s) and 82 {item:14341} (41g); about 44g 90s in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:1347}, {npc:1286} and {npc:5565}; {zone:1454}: {npc:3364}, {npc:3367} and {npc:5817})."] = "",
+	["Buy the whole bracket's share in one go: 39 {item:2325} (3g 90s) and 82 {item:14341} (41g); about 44g 90s in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:1347}, {npc:1286} and {npc:5565}; {zone:1454}: {npc:3364}, {npc:3367} and {npc:5817})."] = "Compra de una vez todo lo de este tramo: 39 {item:2325} (3g 90s) y 82 {item:14341} (41g); unos 44g 90s en total. La flecha elige el vendedor más cercano de tu facción ({zone:1453}: {npc:1347}, {npc:1286} y {npc:5565}; {zone:1454}: {npc:3364}, {npc:3367} y {npc:5817}).",
 
 	-- Step 44: Pattern: Wicked Leather Gauntlets
 	-- {item:15725} Pattern: Wicked Leather Gauntlets · {item:15083} Wicked Leather Gauntlets · {skill:165} Leatherworking · {npc:12942} Leonard Porter · {zone:1422} Western Plaguelands · {npc:12943} Werg Thickblade
-	["{item:15725} teaches {item:15083} ({skill:165} 235) for 1g 20s. Sold by Alliance: {npc:12942} ({zone:1422}), limited stock; Horde: {npc:12943} ({zone:1422}), limited stock. Its sellers keep one or two in stock that come back some time after a sale; it binds when picked up, so the Auction House never has it."] = "",
+	["{item:15725} teaches {item:15083} ({skill:165} 235) for 1g 20s. Sold by Alliance: {npc:12942} ({zone:1422}), limited stock; Horde: {npc:12943} ({zone:1422}), limited stock. Its sellers keep one or two in stock that come back some time after a sale; it binds when picked up, so the Auction House never has it."] = "{item:15725} enseña {item:15083} ({skill:165} 235) por 1g 20s. Lo venden: Alianza: {npc:12942} ({zone:1422}), existencias limitadas; Horda: {npc:12943} ({zone:1422}), existencias limitadas. Sus vendedores tienen una o dos en existencia, que se reponen un tiempo después de cada venta; se liga al recogerla, así que la casa de subastas nunca la tiene.",
 
 	-- Step 45: Pattern: Runic Leather Headband
 	-- {item:15756} Pattern: Runic Leather Headband · {item:15094} Runic Leather Headband · {skill:165} Leatherworking · {npc:12941} Jase Farlane · {zone:1423} Eastern Plaguelands
-	["{item:15756} teaches {item:15094} ({skill:165} 265) for 2g 20s. Sold by {npc:12941} ({zone:1423}), limited stock. Its sellers keep one or two in stock that come back some time after a sale; it binds when picked up, so the Auction House never has it."] = "",
+	["{item:15756} teaches {item:15094} ({skill:165} 265) for 2g 20s. Sold by {npc:12941} ({zone:1423}), limited stock. Its sellers keep one or two in stock that come back some time after a sale; it binds when picked up, so the Auction House never has it."] = "{item:15756} enseña {item:15094} ({skill:165} 265) por 2g 20s. Lo venden {npc:12941} ({zone:1423}), con existencias limitadas. Sus vendedores tienen una o dos en existencia, que se reponen un tiempo después de cada venta; se liga al recogerla, así que la casa de subastas nunca la tiene.",
 
 	-- Step 46: Rugged Leather (Alliance)
 	-- {item:8170} Rugged Leather
@@ -248,23 +248,23 @@ return {
 
 	-- Step 49: Rugged Armor Kit to 239
 	-- {item:15564} Rugged Armor Kit
-	["{item:15564} to 239"] = "",
+	["{item:15564} to 239"] = "{item:15564} hasta 239",
 	-- {item:15564} Rugged Armor Kit · {item:8170} Rugged Leather · {npc:7866} Peter Galen · {zone:1447} Azshara · {npc:7867} Thorkaf Dragoneye · {zone:1418} Badlands · {item:8204} Tough Scorpid Gloves · {zone:1446} Tanaris · {item:8165} Worn Dragonscale · {npc:7868} Sarah Tanner · {zone:1427} Searing Gorge · {npc:7869} Brumn Winterhoof · {zone:1417} Arathi Highlands · {item:7077} Heart of Fire · {item:7079} Globe of Water · {item:7075} Core of Earth · {item:7081} Breath of Wind · {npc:7870} Caryssia Moonhunter · {zone:1444} Feralas · {npc:7871} Se'Jib · {zone:1434} Stranglethorn Vale · {item:8211} Wild Leather Vest · {npc:7852} Pratt McGrubben · {npc:7854} Jangdor Swiftstrider · {item:279941} Tanning Rack
 	-- plural, as words: Tough Scorpid Breastplates = {item:8203} Tough Scorpid Breastplate
 	["{item:15564} is yellow at 225 (yellow 225, green 235, grey 245): about 23 crafts to 239. Each takes 5 {item:8170}. Five {item:8170} a craft. Specialisation (optional): at 225 and character level 40. Dragonscale: {npc:7866} ({zone:1447}) or {npc:7867} ({zone:1418}) wants 2 Tough Scorpid Breastplates, 2 {item:8204} (patterns drop from the Wastewander bandits in {zone:1446}) and 10 {item:8165}. Elemental: {npc:7868} ({zone:1427}) or {npc:7869} ({zone:1417}) wants 2 each of {item:7077}, {item:7079}, {item:7075} and {item:7081}. Tribal (from 235): {npc:7870} ({zone:1444}) or {npc:7871} ({zone:1434}) wants a {item:8211} and Helmet, after the Wild Leather quests from {npc:7852} or {npc:7854} in {zone:1444}. On Forever the specialisation patterns need a {item:279941}. You can take only one; none is needed for 300, and the beta never tested them (it stopped at level 30)."] = "{item:15564} es amarillo a 225 (amarillo 225, verde 235, gris 245): unas 23 fabricaciones hasta 239. Cada una lleva 5 {item:8170}. Cinco {item:8170} por fabricación. Especialización (opcional): a 225 y nivel de personaje 40. Peletería dragontina: {npc:7866} ({zone:1447}) o {npc:7867} ({zone:1418}) pide 2 Corazas de escórpido resistentes, 2 {item:8204} (los patrones los sueltan los bandidos Vagayermo de {zone:1446}) y 10 {item:8165}. Peletería elemental: {npc:7868} ({zone:1427}) o {npc:7869} ({zone:1417}) pide 2 de cada uno: {item:7077}, {item:7079}, {item:7075} y {item:7081}. Peletería tribal (desde 235): {npc:7870} ({zone:1444}) o {npc:7871} ({zone:1434}) pide un {item:8211} y el Casco, después de las misiones de cuero salvaje de {npc:7852} o {npc:7854} en {zone:1444}. En Forever, los patrones de especialización necesitan un {item:279941}. Solo puedes elegir una; ninguna hace falta para llegar a 300, y la beta nunca las probó (se detuvo en el nivel 30).",
 
 	-- Step 50: Wicked Leather Gauntlets to 269
 	-- {item:15083} Wicked Leather Gauntlets
-	["{item:15083} to 269"] = "",
+	["{item:15083} to 269"] = "{item:15083} hasta 269",
 	-- {item:15083} Wicked Leather Gauntlets · {item:8170} Rugged Leather · {item:2325} Black Dye · {item:14341} Rune Thread
-	["{item:15083} is orange at 239 (yellow 255, green 265, grey 275): about 39 crafts to 269. Each takes 8 {item:8170}, 1 {item:2325} and 1 {item:14341}. Eight {item:8170} a craft; {item:2325} and {item:14341} from leatherworking or tailoring vendors."] = "",
+	["{item:15083} is orange at 239 (yellow 255, green 265, grey 275): about 39 crafts to 269. Each takes 8 {item:8170}, 1 {item:2325} and 1 {item:14341}. Eight {item:8170} a craft; {item:2325} and {item:14341} from leatherworking or tailoring vendors."] = "{item:15083} es naranja a 239 (amarillo 255, verde 265, gris 275): unas 39 fabricaciones hasta 269. Cada una lleva 8 {item:8170}, 1 {item:2325} y 1 {item:14341}. Ocho {item:8170} por fabricación; {item:2325} y {item:14341}, de los mercaderes de peletería o sastrería.",
 	["from the recipe in your bags"] = "con la receta de tus bolsas",
 
 	-- Step 51: Runic Leather Headband to 300
 	-- {item:15094} Runic Leather Headband
 	["{item:15094} to 300"] = "{item:15094} hasta 300",
 	-- {item:15094} Runic Leather Headband · {item:8170} Rugged Leather · {item:14047} Runecloth · {item:14341} Rune Thread · {skill:165} Leatherworking
-	["{item:15094} is orange at 269 (yellow 285, green 295, grey 305): about 43 crafts to 300. Each takes 14 {item:8170}, 10 {item:14047} and 1 {item:14341}. 14 {item:8170} and 10 {item:14047} a craft: the dearest stretch. {skill:165} 300 is a Legacy System milestone."] = "",
+	["{item:15094} is orange at 269 (yellow 285, green 295, grey 305): about 43 crafts to 300. Each takes 14 {item:8170}, 10 {item:14047} and 1 {item:14341}. 14 {item:8170} and 10 {item:14047} a craft: the dearest stretch. {skill:165} 300 is a Legacy System milestone."] = "{item:15094} es naranja a 269 (amarillo 285, verde 295, gris 305): unas 43 fabricaciones hasta 300. Cada una lleva 14 {item:8170}, 10 {item:14047} y 1 {item:14341}. 14 {item:8170} y 10 {item:14047} por fabricación: el tramo más caro. {skill:165} 300 es un hito del Sistema de Legado.",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Apprentice {skill:165}"] = "Aprendiz de {skill:165}",
