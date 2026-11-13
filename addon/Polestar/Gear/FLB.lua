@@ -4,36 +4,50 @@
 -- is asked of the copy the player runs, while gear advice and gear.useFlbis
 -- are on (Settings > Questing > Rewards & gear > Gear advice); Gear.lua uses
 -- the answers only while Stat weights is Automatic (Gear.UsesFLB). Every call
--- is guarded (pcall, a type check of each answer), so an API that changes,
--- errors or answers in a shape not known here leaves Polestar's own advice.
+-- is guarded (pcall, a type check of each answer), so an API that changes or
+-- errors leaves Polestar's own advice, and a value it does not know (a spec,
+-- a weapon setup, a stat, a weights source) is left aside, as its terms ask.
 --
--- The API, by its `version` field:
+-- The API (its reference: https://github.com/thunder426/ForeverLevelingBiS-API,
+-- also its API.md), by its `version` field (none: 1):
 --   1 (Forever Leveling BiS 1.2.1 and later)
 --     IsUpgrade(link) -> true when its bag arrow marks the item (false while
 --         its Bag upgrades switch is off, or while the item loads)
 --     OnChanged(func): func() runs whenever its answers may have changed (gear,
---         level, spec, stat weights, item data)
---   2 (announced for its next update), also
---     GetGain(link) -> the item's gain over what it would replace, in percent
---     ScoreItem(link) -> the item's score
---     GetWeights(class, spec, level) -> { [stat] = weight }
---     GetSpec() -> the spec the player picked in it; nil on its automatic pick
--- Version 2's answers are read as announced, and tolerantly: a gain or score
--- may come in a table (pct, percent or gain; score); a spec as a key, a table
--- with a spec field, or a class and spec pair; weights under its own stat
--- names or Polestar's.
+--         level, spec, weapon setup, stat weights, item data loading)
+--   2 (1.2.9 and later), also
+--     GetSpec() -> spec, setup, classFile: the main spec the player picked in
+--         it, its weapon setup ("fury", "dualwield", "WARRIOR"); with none
+--         picked, the class's first spec
+--     GetWeights(classFile, spec, level, setup) -> weights, info: its stat
+--         weights by its short stat names (a missing one is 0); info.source,
+--         .profile, .fromLevel, .toLevel
+--     ScoreItem(link, offHand) -> the item's score (nil: not gear), and true
+--         while it loads
+--     GetGain(link) -> the item's gain over the gear it is compared with, in
+--         its score points, as its tooltip's green or red number: 0 for an
+--         item worn, nil when it cannot be worn now, is not gear, or is
+--         lighter armor while its Armor type is Class type; and true while
+--         that cannot be told yet (the item, or the worn gear, loading)
+-- An item link is passed wherever there is one (an item ID loses a random
+-- suffix).
 --
 --   Gear.FLB.Installed() -> bool: the API is there (whatever the settings say)
 --   Gear.FLB.HasGain() -> bool: it has version 2's GetGain
 --   Gear.FLB.Version() -> n | nil: its version while Polestar may use it
 --   Gear.FLB.BagUpgrade(link) -> bool | nil (nil: no answer, Polestar's own)
---   Gear.FLB.Gain(link) -> percent | nil
---   Gear.FLB.Score(link) -> score | nil
---   Gear.FLB.Weights(class, spec, level) -> weights in Polestar's keys | nil
---   Gear.FLB.Spec(class) -> a spec key of Gear.CLASSES[class] | nil
+--   Gear.FLB.Gain(link) -> points | nil, pending, answered (link: an item
+--       link, else an item ID)
+--   Gear.FLB.Score(link, offHand) -> score | nil, pending, answered
+--   Gear.FLB.Spec(class) -> key, its key, setup, label | nil: key one of
+--       Gear.CLASSES[class]'s specs (its Bear is Feral, its melee Survival
+--       Survival, each with a label of its own)
+--   Gear.FLB.Weights(class, spec, level, setup) -> weights in Polestar's keys,
+--       info { source = "flbis", note, profile, from, upTo } | nil
 -- Its OnChanged gets one listener per API table, the first time the API is
 -- asked while it may be used; the listener redoes gear advice (once a frame
--- however many changes arrive together) while Polestar still uses it.
+-- however many changes arrive together) while Polestar still uses it, which
+-- is also when an answer pending on loading item data is asked again.
 
 local ADDON, ns = ...
 
@@ -70,14 +84,14 @@ function FLB.HasGain()
 	return t ~= nil and type(t.GetGain) == "function"
 end
 
--- t[name](...) when it is a function, guarded: ok, then its first two answers.
+-- t[name](...) when it is a function, guarded: ok, then its first three answers.
 local function ask(name, ...)
 	local t = api()
 	local f = t and t[name]
 	if type(f) ~= "function" then return false end
-	local ok, a, b = pcall(f, ...)
+	local ok, a, b, c = pcall(f, ...)
 	if not ok then return false end
-	return true, a, b
+	return true, a, b, c
 end
 
 -- Its answers changed: gear advice again, once a frame.
@@ -97,7 +111,7 @@ function FLB.Version()
 	if not (ns.Get("gear.useFlbis") and Gear.IsEnabled and Gear.IsEnabled()) then return nil end
 	local t = api()
 	if not t then return nil end
-	local v = num(t.version) or (type(t.IsUpgrade) == "function" and 1) or nil
+	local v = t.version == nil and 1 or num(t.version)
 	if not v or v < 1 then return nil end
 	if not listening[t] then
 		listening[t] = true
@@ -113,64 +127,73 @@ function FLB.BagUpgrade(link)
 	return up == true -- its "no" stands, whatever form it takes
 end
 
+-- Its answer: a number; nil, and whether that is pending (its second answer
+-- true: the item, or the worn gear, loading); and whether it answered at
+-- all (false: no such function, an error, or a value of another kind).
+local function answer(ok, v, loading)
+	if not ok then return nil, false, false end
+	if v == nil then return nil, loading == true, true end
+	v = num(v)
+	return v, false, v ~= nil
+end
+
+-- What to ask it about: an item link as it is (its random suffix counts); an
+-- item ID, or a bare "item:<id>", as the ID; other item strings as they are.
+local function item(link)
+	if type(link) == "number" then return link > 0 and link or nil end
+	if type(link) ~= "string" or link == "" then return nil end
+	return tonumber(link:match("^item:(%d+)$")) or link
+end
+
 function FLB.Gain(link)
-	if type(link) ~= "string" or (FLB.Version() or 0) < 2 then return nil end
-	local ok, g = ask("GetGain", link)
-	if not ok then return nil end
-	if type(g) == "table" then g = g.pct or g.percent or g.gain end
-	return num(g)
+	link = item(link)
+	if not link or (FLB.Version() or 0) < 2 then return nil, false, false end
+	return answer(ask("GetGain", link))
 end
 
-function FLB.Score(link)
-	if type(link) ~= "string" or (FLB.Version() or 0) < 2 then return nil end
-	local ok, s = ask("ScoreItem", link)
-	if not ok then return nil end
-	if type(s) == "table" then s = s.score end
-	return num(s)
+function FLB.Score(link, offHand)
+	link = item(link)
+	if not link or (FLB.Version() or 0) < 2 then return nil, false, false end
+	return answer(ask("ScoreItem", link, offHand and true or false))
 end
 
--- Its spec keys where they differ from Polestar's: its melee Survival and
--- Bear weights belong to Polestar's Survival and Feral.
-local SPEC_ALIAS = { survivalmelee = "survival", bear = "feral", feralcombat = "feral" }
+-- Its specs that are not Polestar's: Bear is part of Feral, melee Survival of
+-- Survival; each keeps its own label.
+local SPEC_OF = { bear = { "feral", "Bear" }, survivalmelee = { "survival", "Survival (melee)" } }
+-- Its weapon setups (GetSpec's second answer, GetWeights' fourth argument).
+local SETUPS = { twohand = true, dualwield = true, shield = true, held = true, onehand = true }
 
 function FLB.Spec(class)
 	if type(class) ~= "string" or (FLB.Version() or 0) < 2 then return nil end
-	local ok, a, b = ask("GetSpec")
-	if not ok then return nil end
-	local spec = a
-	if type(a) == "table" then
-		spec = a.spec or a.key
-	elseif type(b) == "string" then
-		-- A class and spec pair: another class's spec is no answer.
-		if type(a) == "string" and a:upper() == class:upper() then spec = b elseif type(a) ~= "string" then spec = b end
-	end
-	if type(spec) ~= "string" then return nil end
-	spec = (spec:lower():gsub("[^%a]", ""))
-	spec = SPEC_ALIAS[spec] or spec
+	local ok, spec, setup, classFile = ask("GetSpec")
+	if not ok or type(spec) ~= "string" then return nil end
+	if classFile ~= nil and classFile ~= class then return nil end -- another class's: no answer
+	local own = SPEC_OF[spec]
+	local key = own and own[1] or spec
 	local meta = Gear.CLASSES and Gear.CLASSES[class]
 	for _, s in ipairs(meta and meta.specs or {}) do
-		if s.key == spec then return spec end
+		if s.key == key then
+			return key, spec, (type(setup) == "string" and SETUPS[setup]) and setup or nil, own and own[2] or nil
+		end
 	end
-	return nil
+	return nil -- a spec Polestar does not know: its own pick
 end
 
--- Its stat names, as its item data and weights use them, -> Polestar's. A
--- crit or hit per 1% (critPct, hitPct: Forever pools them) goes to spell crit
--- and spell hit for casters and healers, to crit and hit for the rest; spell
--- power splits into damage (sp) and healing (heal); its haste and expertise
--- ratings, per rating point, become per 1% (below). Speed weights and the
--- rating points Forever items do not carry are not Polestar's to weigh.
+-- Its stat names -> Polestar's. Its crit and hit per 1% (critPct, hitPct;
+-- Forever pools them) go to spell crit and spell hit for casters and healers,
+-- to crit and hit for the rest; spell power splits into damage (sp) and
+-- healing (heal); expertise is per point of rating, which Polestar counts per
+-- 1% (Gear.RATING_RATE: 10 points, gametables/combatratings.txt). Feral
+-- attack power, spell penetration, bonus armor and the weapon speed weights
+-- are not read from items by Polestar (it scores weapons by their DPS), and a
+-- stat it adds later is not known here: those stay its own.
 local NAMES = {
-	str = "str", agi = "agi", sta = "sta", int = "int", spi = "spi", armor = "armor", health = "health", mana = "mana",
+	str = "str", agi = "agi", sta = "sta", int = "int", spi = "spi", armor = "armor",
 	atkpwr = "ap", rgdatkpwr = "rap",
 	arcsplpwr = "spArcane", firsplpwr = "spFire", frosplpwr = "spFrost", holsplpwr = "spHoly", natsplpwr = "spNature", shasplpwr = "spShadow",
 	manargn = "mp5", healthrgn = "hp5", dps = "dps", ohDps = "ohDps", rangedDps = "rdps",
 	defrtng = "defense", dodgePct = "dodge", parryPct = "parry", blockPct = "block", block = "blockValue",
 }
--- Polestar's own keys an answer may use instead ("block" is its block value).
-local OWN = {}
-for _, k in ipairs(Gear.STAT_KEYS or {}) do OWN[k] = true end
-OWN.block = nil
 
 -- The specs whose crit and hit are spells': casters and healers.
 local SPELLS = {
@@ -182,9 +205,9 @@ local SPELLS = {
 	DRUID = { balance = true, restoration = true },
 }
 
-function FLB.Weights(class, spec, level)
+function FLB.Weights(class, spec, level, setup)
 	if (FLB.Version() or 0) < 2 then return nil end
-	local ok, t = ask("GetWeights", class, spec, level)
+	local ok, t, info = ask("GetWeights", class, spec, level, setup)
 	if not (ok and type(t) == "table") then return nil end
 	local spells = SPELLS[class] and SPELLS[class][spec] or false
 	local w, n = {}, 0
@@ -205,8 +228,8 @@ function FLB.Weights(class, spec, level)
 				put(spells and "spellCrit" or "crit", v)
 			elseif k == "hitPct" then
 				put(spells and "spellHit" or "hit", v)
-			elseif OWN[k] then
-				put(k, v)
+			elseif k == "exprtng" then
+				put("expertise", v * (Gear.RATING_RATE and Gear.RATING_RATE.expertise or 10))
 			end
 		end
 	end
@@ -217,13 +240,12 @@ function FLB.Weights(class, spec, level)
 	local heal = splheal or (splpwr - (spldmg or 0))
 	if sp > 0 then put("sp", sp) end
 	if heal > 0 then put("heal", heal) end
-	-- Haste and expertise per rating point -> per 1%: 10 rating points per 1%
-	-- (gametables/combatratings.txt), at the rating per 1% its own numbers
-	-- were made with where they say (1% crit against a point of crit rating:
-	-- 14 points per 1% in the client's table).
-	local per = (r.critPct and (r.critstrkrtng or 0) > 0) and r.critPct / (14 * r.critstrkrtng) or 1
-	if (r.hastertng or 0) > 0 then put("haste", r.hastertng * 10 * per) end
-	if (r.exprtng or 0) > 0 then put("expertise", r.exprtng * 10 * per) end
 	if n == 0 then return nil end
-	return w
+	local out = { source = "flbis" }
+	if type(info) == "table" then
+		out.profile = info.profile == true or nil
+		if out.profile and type(info.source) == "string" then out.note = info.source end
+		out.from, out.upTo = num(info.fromLevel), num(info.toLevel)
+	end
+	return w, out
 end

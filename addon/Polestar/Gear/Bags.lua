@@ -7,7 +7,10 @@
 -- loss, gets the arrow too (Gear.FillsEmptySlot), as the tooltip's "upgrade
 -- (empty slot)" says. The verdict is this character's. While Forever
 -- Leveling BiS's answers apply (installed, Stat weights on Automatic,
--- gear.useFlbis on), the arrow is its own bag arrow's answer (Gear.FLB).
+-- gear.useFlbis on): from its API version 2, Gear.IsUpgrade's answer from its
+-- gains (GetGain: an upgrade for this character now, whatever its own Bag
+-- upgrades switch says); with version 1 alone, its own bag arrow's answer
+-- (IsUpgrade, Gear.FLB.BagUpgrade).
 --
 --   Gear.Bags.IsUpgrade(link) -> bool   -- the verdict an arrow shows
 --   Gear.Bags.Redraw()                  -- repaint the shown bags now
@@ -68,9 +71,10 @@ end
 
 function Bags.IsUpgrade(link)
 	if type(link) ~= "string" or not Bags.IsOn() then return false end
-	-- Forever Leveling BiS's own arrow while its answers apply (Gear.UsesFLB):
-	-- its "no" stands too, as while its Bag upgrades switch is off.
-	if Gear.UsesFLB and Gear.UsesFLB(1) then
+	-- Forever Leveling BiS's own arrow while its answers apply (Gear.UsesFLB)
+	-- and it has no gains to give (its API version 1): its "no" stands too, as
+	-- while its Bag upgrades switch is off.
+	if Gear.UsesFLB and Gear.UsesFLB(1) and not Gear.UsesFLB(2) then
 		local up = Gear.FLB.BagUpgrade(link)
 		if up ~= nil then return up end
 	end

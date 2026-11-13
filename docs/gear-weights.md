@@ -9,7 +9,7 @@ every spec's weights at levels 10 to 60.
 ```mermaid
 flowchart LR
   q{"Forever Leveling BiS installed,<br/>its setting on,<br/>Stat weights on Automatic?"}
-  q -- "its API version 2" --> v2["its gains, scores, weights<br/>and the spec picked in it<br/>(Scored by Forever Leveling BiS)"]
+  q -- "its API version 2" --> v2["its gains, scores, weights<br/>and the spec it scores for<br/>(Scored by Forever Leveling BiS)"]
   q -- "its API version 1" --> v1["its bag arrows;<br/>the rest Polestar's own"]
   q -- no --> own["Polestar's own weights"]
   v1 --> own
@@ -20,24 +20,58 @@ flowchart LR
 
 Gear scores from Forever Leveling BiS by Timearc when it is installed, through
 its public API. Polestar copies nothing of it: it asks the copy the player
-runs (`ForeverLevelingBiS_API`, `addon/Polestar/Gear/FLB.lua`), while Settings
-> Questing > Rewards & gear > Use Forever Leveling BiS when installed is on
-(the default) and Stat weights is Automatic. What it takes, by the API's
-version:
+runs (`ForeverLevelingBiS_API`, `addon/Polestar/Gear/FLB.lua`; the API's
+reference: <https://github.com/thunder426/ForeverLevelingBiS-API>), while
+Settings > Questing > Rewards & gear > Use Forever Leveling BiS when installed
+is on (the default) and Stat weights is Automatic. What it takes, by the API's
+`version` (none means 1):
 
 | Its API | What gear advice takes from it |
 |---|---|
-| version 1 (Forever Leveling BiS 1.2.1 and later) | The upgrade arrows in your bags: its own bag arrow's answer, its "no" included (it says no while its Bag upgrades switch is off). Its OnChanged tells Polestar when to look again. Tooltips, reward picks and the rest stay Polestar's own. |
-| version 2 | Also: its gain (GetGain) as the upgrade amount on tooltips, the reward panel and reward picks; its score (ScoreItem) where Polestar needs an item's whole score; its weights (GetWeights) wherever Gear weighs stats itself (pairing a one-hander with a bag shield against a worn two-hander, say); the spec picked in it (GetSpec) as Automatic's spec. The line under the advice says "Scored by Forever Leveling BiS (Arms)". |
+| version 1 (Forever Leveling BiS 1.2.1 to 1.2.8) | The upgrade arrows in your bags: its own bag arrow's answer (IsUpgrade), its "no" included (it says no while its Bag upgrades switch is off). Its OnChanged tells Polestar when to look again. Tooltips, reward picks and the rest stay Polestar's own. |
+| version 2 (1.2.9 and later) | Its gain (GetGain: is this an upgrade for me now, over what is worn) as the upgrade amount on tooltips, the bag arrows, the reward panel and reward picks; its score (ScoreItem) for ranking reward choices and wherever Polestar needs an item's whole score; its weights (GetWeights) wherever Gear weighs stats itself (pairing a one-hander with a bag shield against a worn two-hander, say); the spec it scores for (GetSpec: the one picked in it, else its class's first) as Automatic's spec. The line under the advice says "Scored by Forever Leveling BiS (Arms)". |
 
+- **Its gain is in its score points**, the green or red number its own
+  tooltip shows, so Polestar's tooltip shows it the same way, with its share
+  of the score of the worn piece it measures against: "+6.1 (+8%) upgrade".
+  That piece is the one where its own scores (ScoreItem of the item, less
+  that of what it takes the place of) give the gain, so for rings, trinkets
+  and one-handers it is the ring or trinket it would replace and the hand it
+  measured, whatever Polestar's own weights would pick. With an empty slot,
+  a worn piece it gives no score (or 0), or no piece its scores agree with,
+  there is no share: "+6.1 upgrade", "+3.0 upgrade (empty slot)". Under 0.05
+  a gain reads 0.0 at one decimal, so "same as equipped". The reward panel
+  and the equip messages give the share in percent.
+- **No gain** (it gives none for an item that cannot be worn now, is not gear,
+  or is lighter armor while its Armor type is Class type): no line and no
+  arrow, except an item for a later level, which gets its score against the
+  worn gear's, for "upgrade at level 40".
+- **Still loading** (its second answer true, for the item or the worn gear):
+  no line, no arrow and no reward pick yet, rather than Polestar's own for a
+  moment; asked again when it says its answers changed, or when the item's
+  data arrives.
+- **Item links** are passed wherever there is one, so a random suffix
+  counts; an item known only by its ID (a quest's reward list) is asked by ID.
+- **Its weights** use its short stat names (`str`, `atkpwr`, `critPct`, ...):
+  a missing one is 0; crit and hit per 1% count as spell crit and spell hit
+  for casters and healers, as crit and hit for the rest; spell power splits
+  into damage and healing; expertise per rating point becomes per 1%. Feral
+  attack power, spell penetration, bonus armor and its weapon speed weights
+  have no place in Polestar's scoring and are left aside. They are asked for
+  its spec and weapon setup (only Enhancement's differ by setup).
+- **Its Bear and melee Survival** are Polestar's Feral and Survival, and keep
+  their own names in "Scored by Forever Leveling BiS (Bear)".
+- **Values it adds later** (a spec, a weapon setup, a stat, a weights source)
+  are left aside: a spec Polestar does not know leaves Automatic's own pick,
+  an unknown weapon setup its default weights.
 - A spec or custom weights chosen in Polestar's Stat weights, or the setting
   off, keep Polestar's own advice.
 - Your Adjust weights and Mental Dexterity's ranks change Polestar's own
   weights only; Forever Leveling BiS's answers are used as it gives them.
 - Every call is guarded: an API that errors, is missing a function or answers
-  in a shape Polestar does not know (not a number, not finite, not a known
-  spec) leaves Polestar's own answer for that item. `/polestar gear spec`
-  says what of it gear advice uses.
+  with a value of another kind (not a number, not finite) leaves Polestar's
+  own answer for that item. `/polestar gear spec` says what of it gear advice
+  uses.
 
 ## Polestar's own weights
 

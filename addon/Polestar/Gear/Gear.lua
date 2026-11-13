@@ -7,7 +7,12 @@
 --       result = { score, old, new, delta, pct (nil for an empty slot), slot,
 --                  usable, reason ("class"|"armor"|"weapon"|"skill"|"dualwield"|nil),
 --                  minLevel (level it can be worn), equipped (this very item
---                  is worn), empty (the slot is empty) }
+--                  is worn), empty (the slot is empty), flbis (Forever
+--                  Leveling BiS's numbers: delta its gain in its score
+--                  points; slot, old and pct of the worn piece it measures
+--                  against, old and pct nil without one), pending (its
+--                  answer waits on loading item data: no delta yet, and not
+--                  cached) }
 --       Rings and trinkets replace the weaker of the two (a unique item only
 --       its own copy); a two-hander is weighed against main hand + off hand;
 --       a one-hander or off-hand piece against an equipped two-hander is
@@ -16,7 +21,10 @@
 --       must be treated as read-only.
 --   Gear.IsUpgrade(link) -> bool, delta, pct
 --       Wearable now (level and proficiency) and at least gear.minUpgrade
---       percent better (any gain fills an empty slot).
+--       percent better (any gain fills an empty slot); with Forever Leveling
+--       BiS's gains, at least 0.05 of its points (Gear.FLB_GAIN).
+--   Gear.PointsText(delta, pct) -> "+6.1 (+8%)", outsized: Forever Leveling
+--       BiS's gain as its tooltip shows it, with its share of what it replaces
 --   Gear.FillsEmptySlot(link) -> bool
 --       Wearable now into an empty slot and no worse than nothing (score 0
 --       or more): what the bag arrow adds to IsUpgrade, so a weapon the
@@ -27,8 +35,10 @@
 --       "custom": an imported Pawn scale (Pawn.lua); key is "custom:<id>", label
 --       "Custom: <name>", and its weights are used as they are, at every level.
 --       Automatic ("talents" | "default") is Gear.DetectSpec's pick, read again
---       when the talents load or change; "flbis": the spec the player picked in
---       Forever Leveling BiS (its API version 2, FLB.lua), which Automatic takes
+--       when the talents load or change; "flbis": the spec Forever Leveling
+--       BiS scores for (its API version 2, FLB.lua: the one picked in it, else
+--       its class's first), which Automatic takes; its Bear is "feral" with the
+--       label "Bear", its melee Survival "survival" with "Survival (melee)"
 --   Gear.DetectSpec(class, classID, all) -> key, source, report: the spec with
 --       the most talent points, by every way the client can say (report: what
 --       each said; `/polestar gear spec` prints it)
@@ -623,6 +633,7 @@ Gear.GetItemInfo = itemInfo
 local player = { class = nil, classID = nil, level = 1, race = nil, raceID = nil, faction = nil }
 local specKey, specSource, specReport, weights, weightsInfo, customLabel, customName, adjusted
 local scoredBy -- "flbis" while Forever Leveling BiS's scores decide (resolveSpec)
+local flbLabel -- the label of a spec of Forever Leveling BiS's that Polestar folds into its own (its Bear)
 local scoredText = {} -- Gear.ScoredFor's text by `short`, for the spec resolved now
 local weightTalents -- what the stat-turning talents added to the weights in use (withTalentStats)
 local racial
@@ -897,7 +908,7 @@ end
 local function resolveSpec()
 	if not player.class then refreshPlayer() end
 	local class = player.class
-	specReport, customLabel, customName, weightTalents, adjusted, scoredBy = nil, nil, nil, nil, 0, nil
+	specReport, customLabel, customName, weightTalents, adjusted, scoredBy, flbLabel = nil, nil, nil, nil, 0, nil, nil
 	scoredText[true], scoredText[false] = nil, nil
 	if not (class and WEIGHTS[class]) then
 		specKey, specSource, weights, weightsInfo = nil, "default", nil, nil
@@ -914,24 +925,26 @@ local function resolveSpec()
 	if chosen and chosen ~= "auto" and WEIGHTS[class][chosen] then
 		specKey, specSource = chosen, "setting"
 	else
-		-- Automatic: the spec picked in Forever Leveling BiS (its API version
-		-- 2), else the talents.
+		-- Automatic: the spec Forever Leveling BiS scores for (its API version
+		-- 2: the one picked in it, else its class's first), else the talents.
 		local api = FLB.Version() or 0
-		local picked = api >= 2 and FLB.Spec(class) or nil
+		local picked, itsSpec, setup, itsLabel
+		if api >= 2 then picked, itsSpec, setup, itsLabel = FLB.Spec(class) end
 		if picked then
-			specKey, specSource = picked, "flbis"
+			specKey, specSource, flbLabel = picked, "flbis", itsLabel
 		else
 			specKey, specSource, specReport = Gear.DetectSpec(class, player.classID)
 		end
 		-- Automatic, with Forever Leveling BiS's scores (version 2): its gains
-		-- (compare), its scores (Gear.ScoreItem) and, where it answers, its
-		-- weights wherever Gear weighs stats itself.
+		-- and scores (compare, Gear.ScoreItem) and, where it answers, its
+		-- weights wherever Gear weighs stats itself (pairing a one-hander with
+		-- a bag shield, say).
 		if api >= 2 then
 			if FLB.HasGain() then scoredBy = "flbis" end
-			local w = FLB.Weights(class, specKey, player.level)
+			local w, info = FLB.Weights(class, itsSpec, player.level, setup)
 			if w then
 				scoredBy = "flbis"
-				weights, weightsInfo = withMeleeDps(w, class, specKey), { source = "flbis" }
+				weights, weightsInfo = withMeleeDps(w, class, specKey), info
 				return
 			end
 		end
@@ -962,7 +975,7 @@ function Gear.GetSpec()
 	if not specSource then resolveSpec() end
 	if specSource == "custom" then return specKey, customLabel, specSource end
 	local spec = specKey and specByKey(player.class, specKey)
-	local label = spec and spec.label or nil
+	local label = (specSource == "flbis" and flbLabel) or (spec and spec.label) or nil
 	if label and adjusted > 0 then label = (L["%s (adjusted)"]):format(L[label]) end
 	return specKey, label, specSource
 end
@@ -1171,10 +1184,15 @@ function Gear.ScoreItem(link)
 	local w = Gear.GetWeights()
 	if not w then return nil end
 	if not usability(info) then return nil end
-	-- Forever Leveling BiS's own score while its scores decide.
-	local s = scoredBy and FLB.Score(link)
-	if s then return s end
-	return scoreWith(info, w, info.inv == 22 or info.inv == 14 or info.inv == 23)
+	local asOff = info.inv == 22 or info.inv == 14 or info.inv == 23
+	-- Forever Leveling BiS's own score while its scores decide; none while it
+	-- is pending (the item loading), rather than Polestar's for a moment.
+	if scoredBy then
+		-- nil while it is pending, or for what it does not count as gear
+		local s, _, answered = FLB.Score(type(link) == "string" and link or info.id, asOff)
+		if answered then return s end
+	end
+	return scoreWith(info, w, asOff)
 end
 
 ---------------------------------------------------------------------------
@@ -1252,6 +1270,127 @@ local function option(r, slot, old, new, empty)
 	end
 end
 
+-- The least gain of Forever Leveling BiS's that reads as one: its gains are
+-- in score points, shown at one decimal, so below 0.05 one reads as 0.0.
+local FLB_GAIN = 0.05
+Gear.FLB_GAIN = FLB_GAIN
+
+-- Where an item can go, as compare weighs it, and so where Forever Leveling
+-- BiS's gain may have put it: { slot, off (the item scored as an off hand),
+-- worn = { { slot, off }, ... } (the worn pieces it takes the place of: both
+-- hands for a two-hander; a worn two-hander for a piece for either hand) }.
+local function flbPlaces(info)
+	local inv = info.inv
+	local main = eqInfo[MAIN]
+	local twoHander = main and main.inv == 17
+	if inv == 17 then return { { slot = MAIN, off = false, worn = { { MAIN, false }, { OFF, true } } } } end
+	local slots = SLOTS_OF[inv]
+	if inv == 11 or inv == 12 then
+		local a, b = slots[1], slots[2]
+		return { { slot = a, off = false, worn = { { a, false } } }, { slot = b, off = false, worn = { { b, false } } } }
+	end
+	if inv == 13 or inv == 21 or OFFHAND_INV[inv] then
+		local out = {}
+		if inv == 13 or inv == 21 then out[#out + 1] = { slot = MAIN, off = false, worn = { { MAIN, false } } } end
+		if OFFHAND_INV[inv] or (inv == 13 and canDualWield()) then
+			out[#out + 1] = { slot = OFF, off = true, worn = { twoHander and { MAIN, false } or { OFF, true } } }
+		end
+		return out
+	end
+	return { { slot = slots[1], off = false, worn = { { slots[1], false } } } }
+end
+
+-- Forever Leveling BiS's scores at a place: the item's there (`new`) and the
+-- worn pieces' it takes the place of (`old`, 0 for none, nil when it gives
+-- one of them no score). -> new, old, empty, pending, answered
+local function flbAt(link, p)
+	local new, pending, answered = FLB.Score(link, p.off)
+	if not answered then return nil, nil, false, false, false end
+	local old, empty = 0, true
+	for _, w in ipairs(p.worn) do
+		local worn = eqLink[w[1]]
+		if worn then
+			empty = false
+			local s, wp, wa = FLB.Score(worn, w[2])
+			if not wa then return nil, nil, false, false, false end
+			pending = pending or wp
+			old = (old and s) and old + s or nil
+		end
+	end
+	return new, old, empty, pending, true
+end
+
+-- The least gain of Forever Leveling BiS's that reads as one: its gains are
+-- in score points, shown at one decimal, so below 0.05 one reads as 0.0.
+local FLB_GAIN = 0.05
+Gear.FLB_GAIN = FLB_GAIN
+-- How near its scores must come to its gain to say which worn piece the gain
+-- was measured against.
+local FLB_MATCH = 0.01
+
+-- While Forever Leveling BiS's scores decide (its API version 2): its gain
+-- (GetGain: in its score points, the number its tooltip shows) is the
+-- upgrade amount. The worn piece it was measured against is the place where
+-- its scores (ScoreItem: the item there less what it takes the place of) give
+-- that gain: its slot is the result's (the ring or trinket it would replace,
+-- the hand a one-hander goes in), its score `old`, and pct the gain's share
+-- of it. With an empty slot, a worn piece it gives no score (or 0), or no
+-- place its scores agree with, there is no share: pct nil ("+6.1 upgrade").
+--   * Pending (the item, or the worn gear, loading): no amount and no score
+--     yet, rather than Polestar's own for a moment; not cached, so asked
+--     again once its answers change (its OnChanged) or the item's data
+--     arrives (GET_ITEM_INFO_RECEIVED), both of which redo gear advice.
+--   * No gain (it cannot be worn now, is not gear to it, or is lighter armor
+--     while its Armor type is Class type): not for this character now, so no
+--     line and no mark; an item for a later level gets its score against the
+--     gear it would replace (the place it gains most at), for "upgrade at
+--     level N".
+--   * No answer from GetGain (an error, a value of another kind): Polestar's
+--     own numbers for this item.
+local function flbCompare(r, info, link)
+	if type(link) ~= "string" then link = info.id end
+	local gain, pending, answered = FLB.Gain(link)
+	if not answered then return end
+	local places = flbPlaces(info)
+	for _, p in ipairs(places) do
+		p.new, p.old, p.empty, p.pending = flbAt(link, p)
+		pending = pending or p.pending
+	end
+	r.flbis = true
+	if pending then
+		r.pending = true
+		r.score, r.old, r.new, r.delta, r.pct = nil, nil, nil, nil, nil
+		return
+	end
+	local at
+	if gain ~= nil then
+		for _, p in ipairs(places) do
+			if p.new and p.old and math.abs(p.new - p.old - gain) < FLB_MATCH and (not at or p.slot == r.slot) then at = p end
+		end
+	elseif (r.minLevel or 0) > player.level then
+		for _, p in ipairs(places) do
+			if p.new and p.old and (not at or p.new - p.old > at.new - at.old) then at = p end
+		end
+		if at then gain = at.new - at.old end
+	end
+	if gain == nil then
+		r.usable, r.reason = false, nil
+		r.score, r.old, r.new, r.delta, r.pct = nil, nil, nil, nil, nil
+		return
+	end
+	if at then
+		r.slot, r.empty, r.score, r.old, r.new = at.slot, at.empty, at.new, at.old, at.old + gain
+	else
+		-- No place its scores agree with: its gain alone, at compare's slot.
+		r.score, r.old, r.new = nil, nil, nil
+		for _, p in ipairs(places) do
+			if p.slot == r.slot then r.score = p.new end
+		end
+	end
+	r.delta = gain
+	r.pct = (r.old and r.old > 0 and not r.empty) and gain / r.old * 100 or nil
+end
+
 local function compare(link)
 	local info = itemInfo(link)
 	if not info then return nil end
@@ -1310,19 +1449,7 @@ local function compare(link)
 		option(r, slot, eqScore[slot], r.score, not eqLink[slot])
 	end
 	if r.old and r.old > 0 and not r.empty then r.pct = r.delta / r.old * 100 end
-	-- While Forever Leveling BiS's scores decide, its gain is the upgrade
-	-- amount; delta and new follow it, so every answer agrees. An empty slot
-	-- keeps Polestar's (no percent to give).
-	if scoredBy and not r.equipped then
-		local gain = FLB.Gain(link)
-		if gain then
-			r.pct, r.flbis = gain, true
-			if r.old and r.old > 0 and not r.empty then
-				r.delta = r.old * gain / 100
-				r.new = r.old + r.delta
-			end
-		end
-	end
+	if scoredBy and not r.equipped then flbCompare(r, info, link) end
 	return r
 end
 
@@ -1335,8 +1462,11 @@ function Gear.CompareToEquipped(link)
 		resultCount = 0
 	end
 	local r = compare(link)
-	resultCache[link] = r or false
-	resultCount = resultCount + 1
+	-- A pending answer is asked again next time.
+	if not (r and r.pending) then
+		resultCache[link] = r or false
+		resultCount = resultCount + 1
+	end
 	return r
 end
 
@@ -1344,7 +1474,9 @@ function Gear.IsUpgrade(link)
 	local r = Gear.CompareToEquipped(link)
 	if not (r and r.usable and r.delta) then return false, nil end
 	if r.equipped then return false, 0, 0 end
-	local up = r.delta > 0 and (r.minLevel or 0) <= player.level
+	-- Forever Leveling BiS's gain counts from where its tooltip shows one:
+	-- +0.1 at one decimal (FLB_GAIN).
+	local up = r.delta >= (r.flbis and FLB_GAIN or 0) and r.delta > 0 and (r.minLevel or 0) <= player.level
 	if up and r.pct then up = r.pct >= (tonumber(ns.Get("gear.minUpgrade")) or 0) end
 	return up and true or false, r.delta, r.pct
 end
@@ -1444,6 +1576,17 @@ function Gear.GainText(pct)
 	local n = floor(math.abs(pct) + 0.5)
 	if n == 0 then return pct >= 0 and "+<1%" or "-<1%", false end
 	return (pct >= 0 and "+" or "-") .. n .. "%", false
+end
+
+-- Forever Leveling BiS's gain in its score points, as its own tooltip shows
+-- it ("+6.1"), with its share of what it replaces where that says something
+-- ("+6.1 (+8%)"), and words past doubling ("+6.1 big upgrade").
+-- -> text, outsized
+function Gear.PointsText(delta, pct)
+	local text = ("%+.1f"):format(delta)
+	if pct and pct >= BIG then return text .. " " .. L["big upgrade"], true end
+	if pct and math.abs(pct) >= 1 then text = text .. " (" .. (Gear.GainText(pct)) .. ")" end
+	return text, false
 end
 
 -- Where the spec in use came from (Gear.GetSpec's source).
@@ -1561,13 +1704,21 @@ ns.RegisterCommand("gear", function(rest)
 		return
 	end
 	local r = Gear.CompareToEquipped(rest)
-	if not r then
+	if not r or r.pending then
 		ns.Print(L["Not equippable gear, or its stats are not known yet"])
 	elseif not r.usable then
-		ns.Print(L["Not usable by your class"])
+		ns.Print(r.flbis and L["Forever Leveling BiS gives it no gain now"] or L["Not usable by your class"])
 	elseif r.equipped then
 		ns.Print(L["Equipped"])
 	else
-		ns.Print(("%s: %.1f -> %.1f (%s)"):format(tostring(label), r.old or 0, r.new or 0, r.pct and (Gear.GainText(r.pct)) or L["empty slot"]))
+		-- Forever Leveling BiS's gain in its score points, as its tooltip shows
+		-- it; with no worn score its gain measures against, the gain alone.
+		local gain = (r.flbis and (Gear.PointsText(r.delta, r.pct))) or (r.empty and L["empty slot"])
+			or (r.pct and (Gear.GainText(r.pct))) or L["empty slot"]
+		if r.flbis and not r.old then
+			ns.Print(("%s: %s"):format(tostring(label), gain))
+		else
+			ns.Print(("%s: %.1f -> %.1f (%s)"):format(tostring(label), r.old or 0, r.new or 0, gain))
+		end
 	end
 end, L["Gear advice: weights in use, or compare an item link"])

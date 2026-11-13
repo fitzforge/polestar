@@ -802,10 +802,11 @@ runs solo or in a raid.
   heading, to choose other weights (Settings > Questing > Rewards & gear >
   Stat weights); `/polestar gear spec` shows how Automatic read your talents.
 - **With Forever Leveling BiS installed**, gear advice takes its answers
-  through its public API while Stat weights is on Automatic: its upgrade
-  arrows in your bags, and from its next version its gains, scores and the
-  spec you picked in it ("Scored by Forever Leveling BiS (Arms)"). Turn it
-  off under Gear advice ("Use Forever Leveling BiS when installed").
+  through its public API while Stat weights is on Automatic: from its version
+  1.2.9 its gains (in its own score points, "+6.1 (+8%) upgrade"), scores and
+  the spec it scores for ("Scored by Forever Leveling BiS (Arms)"); before
+  that, its upgrade arrows in your bags. Turn it off under Gear advice ("Use
+  Forever Leveling BiS when installed").
 - **On the game's reward panel** every choice that is an upgrade gets a green
   arrow, the one to take is framed, and a coin marks the one that sells for
   most. Turn-in goals name the best reward, and a quest you are about to accept

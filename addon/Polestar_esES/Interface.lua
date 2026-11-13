@@ -680,6 +680,9 @@ L["Custom scales"] = "Escalas personalizadas"
 -- L["Forever Leveling BiS (API version %d): %s"] = ""
 -- L["Forever Leveling BiS: %s"] = ""
 -- L["Forever Leveling BiS scores your items now: these apply once it is off in Settings or Stat weights names a spec."] = ""
+-- L["Bear"] = ""
+-- L["Survival (melee)"] = ""
+-- L["Forever Leveling BiS gives it no gain now"] = ""
 
 -- Gear/Tooltip.lua
 L["Polestar"] = "Polestar"
@@ -721,7 +724,7 @@ L["Import a Pawn scale string, and use, rename, export or delete the scales you 
 L["Leave bag arrows to Pawn"] = "Dejar las flechas de las bolsas a Pawn"
 L["Pawn is installed and draws its own upgrade arrows in your bags. Turn this on to hide Polestar's, so an item does not carry two."] = "Pawn está instalado y dibuja sus propias flechas de mejora en tus bolsas. Activa esto para ocultar las de Polestar y que un objeto no lleve dos."
 -- L["Use Forever Leveling BiS when installed"] = ""
--- L["With Stat weights on Automatic, gear advice takes Forever Leveling BiS's answers: its upgrade arrows in your bags, and from its next version its gains, its scores and the spec you picked in it."] = ""
+-- L["With Stat weights on Automatic, gear advice takes Forever Leveling BiS's gains, scores and spec from its version 1.2.9, and its upgrade arrows in your bags from the versions before."] = ""
 L["Manage"] = "Gestionar"
 
 -- Maps/Maps.lua
