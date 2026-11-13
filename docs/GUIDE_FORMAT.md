@@ -331,15 +331,29 @@ the data knows: name it in the run's tip and write only its hand-in, behind
 `when dungeon` and `when onquest`. A step of `note`s only never holds (see
 "Errands"): the run needs goals of its own.
 
+Gate a run and its pick-ups by level, so the guide never sends a player to a
+dungeon too low. The run carries `when level>=<floor>`. The floor is the
+dungeon's in the Codex: the highest of the in-game Group Finder's minimum, the
+client's own minimum and the level players entered at when they went on to kill
+a boss there, to a tenth of a level. Each pick-up carries the floor less the
+levels the route plans between it and the run (a pick-up at the run's own
+stop, the floor). Below its gate a step doesn't apply: Ask doesn't ask, the
+pick-up isn't taken, and the run is passed, so the route keeps the solo path.
+`forge guide lint` errors on a run gated under its floor (with a built Codex),
+and `forge judge doors` checks the walk from the stop before the run to its
+door against the gate.
+
 ```
 step Gryan Stoutmantle
   when dungeon "The Deadmines"
+  when level>=19.4
   accept 166
 
 step The Deadmines
   when dungeon "The Deadmines"
   when onquest 166
-  tip A dungeon for a group of five, about levels 17 to 24.
+  when level>=19.4
+  tip A dungeon for a group of five, levels 17 to 26.
   enter "The Deadmines" @42.5,71.7
   complete 166
 
