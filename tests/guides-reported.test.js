@@ -11820,3 +11820,13 @@ test(`${REDRIDGE}: no tram back to Ironforge for Shamans trained there on 06-ash
 	const back = compiled(REDRIDGE).steps.filter((st) => /Tram to Ironforge|Shaman training/.test(st.title));
 	assert.deepEqual(back.map((st) => st.title), [], 'no Shaman tram steps');
 });
+
+// Alliance 20-30 audit (0.4.0, #2025): Druids end 03-darkshore-return at Mathrengyl Bearwalker in Darnassus, a Druid
+// trainer, at about 22-23; their next training was 04-redridge-mountains' Stormwind stop at about 25.
+test(`${DARKSHORE_RETURN}: Druids train at Mathrengyl Bearwalker on the Cat Form hand-in (Alliance 20-30 audit)`, { skip }, () => {
+	const list = goals(DARKSHORE_RETURN);
+	const catForm = at(list, 'Cat Form (98397) to Mathrengyl', is('turnin', 98397));
+	const step = list[catForm].step;
+	assert.ok(step.goals.some((g) => g.t === 'train' && g.class), 'the Mathrengyl step trains the class');
+	assert.ok(step.only && step.only.classes && step.only.classes.join() === 'DRUID', 'a Druid step');
+});

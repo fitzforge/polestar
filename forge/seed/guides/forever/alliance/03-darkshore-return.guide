@@ -257,7 +257,8 @@ step Darnassus
 step To Darnassus
   only Druid
   zone Darnassus
-  tip Take the portal up to Mathrengyl, then fly back to Auberdine for the road south to Ashenvale.
+  tip Take the portal up to Mathrengyl, then fly back to Auberdine for the road south to Ashenvale. Mathrengyl is a Druid trainer: learn your new spells from him.
   turnin 98397 only NightElf,Skyborne -- Mathrengyl Bearwalker: Cat Form
   turnin 6125 only NightElf,Skyborne                   -- Mathrengyl Bearwalker: Cure Poison
+  train class                                 -- Mathrengyl Bearwalker
   fly "Auberdine"
