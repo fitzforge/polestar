@@ -912,6 +912,95 @@
 			"budget": {
 				"flow": "measured in the 30-60 batch (flow audit dynamic, off vs this dungeon)"
 			}
+		},
+		{
+			"dungeon": "Zul'Farrak",
+			"faction": "Alliance",
+			"pickups": [
+				{
+					"quest": 2865,
+					"after": {
+						"guide": "forever/alliance/40-50/04-tanaris",
+						"quest": 2864,
+						"goal": "turnin"
+					},
+					"note": "Tran'rek, Gadgetzan's first stop (~45), where Tran'rek (2864) is handed in"
+				},
+				{
+					"quest": 2768,
+					"after": {
+						"guide": "forever/alliance/40-50/04-tanaris",
+						"quest": 2864,
+						"goal": "turnin"
+					},
+					"note": "Chief Engineer Bilgewhizzle, the same stop; level 47, 2 over"
+				},
+				{
+					"quest": 3042,
+					"after": {
+						"guide": "forever/alliance/40-50/04-tanaris",
+						"quest": 2864,
+						"goal": "turnin"
+					},
+					"note": "Trenton Lighthammer, the same stop, about 80 yd from Tran'rek"
+				}
+			],
+			"run": {
+				"guide": "forever/alliance/40-50/04-tanaris",
+				"after": {
+					"quest": 992,
+					"goal": "use",
+					"note": "the pool by Sandsorrow Watch (~46), the route's nearest point to the gate, about 400 yd south of it"
+				},
+				"entrance": {
+					"map": 1446,
+					"x": 38.7,
+					"y": 20.1
+				},
+				"objectives": [
+					2865,
+					2768,
+					3042
+				],
+				"guard": "onquest 2865,2768,3042"
+			},
+			"handins": [
+				{
+					"quest": 2865,
+					"guide": "forever/alliance/40-50/04-tanaris",
+					"after": {
+						"quest": 992,
+						"goal": "turnin"
+					},
+					"note": "the next Gadgetzan stop"
+				},
+				{
+					"quest": 2768,
+					"guide": "forever/alliance/40-50/04-tanaris",
+					"after": {
+						"quest": 992,
+						"goal": "turnin"
+					}
+				},
+				{
+					"quest": 3042,
+					"guide": "forever/alliance/40-50/04-tanaris",
+					"after": {
+						"quest": 992,
+						"goal": "turnin"
+					}
+				}
+			],
+			"leftOut": {
+				"2770": "Gahz'rilla: Wizzle Brassbolts at the Mirage Raceway, level 50, 5 over there",
+				"3527": "The Prophecy of Mosh'aru: after Screecher Spirits (3520), which this route does not take",
+				"2991": "Nekrum's Medallion: a Hinterlands chain, after this guide",
+				"2846": "Tiara of the Deep: Tabetha in Dustwallow Marsh, off the route",
+				"351": "Find OOX-17/TN!: a rare beacon from the desert, not the dungeon"
+			},
+			"budget": {
+				"flow": "measured in the 30-60 batch (flow audit dynamic, off vs this dungeon)"
+			}
 		}
 	]
 }
