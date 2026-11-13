@@ -1,4 +1,4 @@
 ---
 section: players
 ---
-- German: the Horde leveling guides are translated (thanks Cortexyn).
+- German: the Horde leveling guides are translated (thanks Cortexyn, #2196).

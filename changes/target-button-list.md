@@ -18,4 +18,4 @@ section: players
   close (in Quick Keybind Mode, hover the mark to bind it). Settings >
   Questing > Buttons > Targeting sets how many names it shows (1-8). To keep
   the single button that moves to the next name with each click, as before,
-  turn on Simple target button there. (thanks petllama, #1181)
+  turn on Simple target button there. (#1181, thanks petllama, #1704)
