@@ -336,6 +336,25 @@ your request matches it; to be sure, name it: "use polestar-triage on #123".
 - Plain messages that describe the change for the players or authors it
   affects (for example "Westfall: turn in at Sentinel Hill before the farms"), not
   how it was made.
+- Commit messages, branch names, pull request titles and descriptions are
+  public for good: a pushed commit stays readable by its SHA even after a
+  force-push. Like every file in the repository (`tests/wording.test.js`),
+  they name no other guide product and never say a route was compared with,
+  follows or matches another guide; a route's reasons are our own (walking,
+  levels, quest data, players' recordings). Drop such a clause rather than
+  swap in another word for it. The words are in `tools/lib/public-text.json`.
+  The *Public text* check reads every pull request's title, description,
+  branch name and commits. To check each message before the commit is made,
+  turn on the repository's hooks once per clone:
+
+  ```sh
+  git config core.hooksPath tools/hooks
+  ```
+
+  `tools/hooks/commit-msg` then refuses a message that breaks the rule and
+  names the line and rule; `tools/hooks/pre-push` checks the branch name and
+  every commit a push would publish. `node tools/public-text.js <file>`
+  checks any text the same way.
 - Behaviour changes come with tests that show the behaviour.
 - Each change brings its changelog entry as a file of its own in
   `changes/` (a fragment), not an edit to CHANGELOG.md: with many pull
