@@ -2851,10 +2851,10 @@ end
 -- section) and the settings it finds, the best first.
 ---------------------------------------------------------------------------
 
-local MAX_PLACES = 3
--- A place whose whole name the query says (every word, whole or its start)
--- comes before one it only partly names.
-local NAMED = 50
+-- MAX: the places a row may name at most. NAMED: a place whose whole name the
+-- query says (every word, whole or its start) comes before one it only partly
+-- names. One table to keep the main chunk's locals in budget.
+local PLACE = { MAX = 3, NAMED = 50 }
 
 -- A page's, tab's or section's name as the matcher reads it (its English
 -- one too on a translated client), kept with it.
@@ -2897,7 +2897,7 @@ local function placeScore(obj, name, nw)
 		end
 		if not said then return total end
 	end
-	return total + NAMED
+	return total + PLACE.NAMED
 end
 
 -- Does a shown section hold a setting of its own (not only references to
@@ -2911,7 +2911,7 @@ local function ownsSettings(s)
 	return false
 end
 
--- The places the parsed query names, the best first, MAX_PLACES at most: a
+-- The places the parsed query names, the best first, PLACE.MAX at most: a
 -- tab named as its page is the page, a section named as its tab the tab, a
 -- section of references (Essentials) is its settings' homes.
 -- -> { { kind = "page"|"tab"|"section", text, where, page, tab, section }, ... }
@@ -2945,7 +2945,7 @@ local function places(nw)
 		if a.rank ~= b.rank then return a.rank < b.rank end
 		return a.order < b.order
 	end)
-	for i = #list, MAX_PLACES + 1, -1 do list[i] = nil end
+	for i = #list, PLACE.MAX + 1, -1 do list[i] = nil end
 	return list
 end
 
