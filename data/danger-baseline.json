@@ -510,6 +510,19 @@
 			"evidence": "route level 19.9; Lake Thresher 25-25; recordings (2026-11-11): done by 42 people at 17-25 (median 21), 0 people died within 60 yd, 6 abandoned"
 		},
 		{
+			"key": "forever/alliance/03-loch-modan.guide|kill 86585.1|elite",
+			"guide": "forever/alliance/03-loch-modan.guide",
+			"goal": "kill 86585.1",
+			"kind": "elite",
+			"title": "Mountaineer Ylva",
+			"level": 19.4,
+			"mobs": [
+				"Stonevault Cave Hunter 36-37"
+			],
+			"reason": "the elites hold the pass south of the banner, not the banner's spot: the step warns to stay by the banner and not chase troggs south (guide-fixes 2025-ylva-stonevault-cave-hunters); players do the banner at the route's level",
+			"evidence": "route level 19.4; Stonevault Cave Hunter 36-37 (16 spawns at 32.2-33.8, 88.9-96.0, south of Ylva at 31.78,86.33); recordings (2026-11-13): done by 21 people (median 21.0), 3 deaths near the spot, south of the banner"
+		},
+		{
 			"key": "forever/alliance/04-redridge-mountains.guide|collect 96139.1|over",
 			"guide": "forever/alliance/04-redridge-mountains.guide",
 			"goal": "collect 96139.1",
