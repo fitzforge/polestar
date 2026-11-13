@@ -716,7 +716,7 @@ function validateGuides(guides, data, diag) {
 					}
 					// Only blocking prerequisites count (tools/lib/data/prereqs.js): every
 					// one of `all`, one of `any`; breadcrumbs never block.
-					const { all, any } = blockingPrereqs(q, (id) => data.quest(id));
+					const { all, any, parent } = blockingPrereqs(q, (id) => data.quest(id));
 					// A prerequisite these characters cannot take is someone else's variant.
 					const takeable = (p) => {
 						const pq = data.quest(p);
@@ -735,6 +735,17 @@ function validateGuides(guides, data, diag) {
 							diag.warn(file, ln, `quest ${goal.quest} needs ${open[0]} turned in first, but the chain never turns it in`);
 						} else if (open.length > 1) {
 							diag.warn(file, ln, `quest ${goal.quest} needs one of ${open.join(', ')} turned in first, but the chain turns in none of them`);
+						}
+					}
+					// A child quest is offered only while its parent is in the log (Valik
+					// 535 with Infiltration 533): the chain holds it here (taken, not handed
+					// in), or the step applies only with it in the log.
+					if (parent !== undefined && takeable(parent)) {
+						const onParent = (step.when || []).some((p) => !p.neg && p.k === 'onquest' && [].concat(p.q).map(Number).includes(parent));
+						if (!onParent && turnedIn.has(parent)) {
+							diag.warn(file, ln, `quest ${goal.quest} is offered only while ${name(parent)} is in the log, but the chain hands that quest in earlier`);
+						} else if (!onParent && !accepted.has(parent)) {
+							diag.warn(file, ln, `quest ${goal.quest} is offered only while ${name(parent)} is in the log, but the chain never takes that quest before it`);
 						}
 					}
 					// Exclusive quests (`excl`, Questie exclusiveTo): the game does not

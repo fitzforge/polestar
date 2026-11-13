@@ -44,7 +44,7 @@
 //            t/m tails contain no commas, so older spawn readers skip them.
 //            m marks a mailbox; faction is A/H/AH, or empty when unknown/hostile.
 //   quest    level;minLevel;faction;races;classes;zone;startNpc;startObject;startItem;
-//            endNpc;endObject;pre;rewards;choices;preAny;<objective>...[;<rep>][;<xp>][;<skill>]
+//            endNpc;endObject;pre;rewards;choices;preAny;<objective>...[;<rep>][;<xp>][;<skill>][;<parent>]
 //            objective = <k|i|o|e><id>,<count>,<text>[;p<map>,<x>,<y>,<f>]
 //              p: where the objective before it is done, for an event (its
 //                 area trigger); an older reader skips it (no objective kind is p)
@@ -60,6 +60,8 @@
 //            skill = l<line>,<rank>: the profession it needs, the rank empty when
 //                  the data names none (#1913; not s, the talk objective: an older
 //                  reader skips l)
+//            parent = u<quest>: a child quest's parent, which must be in the log
+//                  for its giver to offer it (an older reader skips u too)
 //   instance kind;forever(1|empty);areaId;map;entrance(map,x,y,f[,a][,Amap,Ax,Ay]);levels;<boss>...
 //            a: approximate (the client's corpse point, not the way in)
 //            boss = name,ref,item,item...   ref = <npc> | o<object> (a chest boss), then
@@ -275,7 +277,8 @@ function encodeQuest(rec) {
 	const rep = rec.repFaction && rec.repStanding ? [`r${num(rec.repFaction)},${num(rec.repStanding)}`] : [];
 	const xp = rec.xp > 0 ? [`x${num(rec.xp)}`] : [];
 	const skill = rec.skill > 0 ? [`l${num(rec.skill)},${num(rec.skillLevel)}`] : [];
-	return [...head, ...objectives, ...rep, ...xp, ...skill].join(';');
+	const parent = rec.parent > 0 ? [`u${num(rec.parent)}`] : [];
+	return [...head, ...objectives, ...rep, ...xp, ...skill, ...parent].join(';');
 }
 
 function encodeInstance(rec) {

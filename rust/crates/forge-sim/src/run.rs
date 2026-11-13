@@ -249,6 +249,10 @@ pub struct Run {
 	pub train_ranks: Vec<u32>,
 	/// Per quest: its time limit in seconds (0: none).
 	pub q_limit: Vec<f64>,
+	/// Per quest: a timed delivery (a time limit and no tasks: ready at its accept, nothing to do but
+	/// carry it to its ender, Apothecary Zamah's Rendered Spores). While only deliveries run, the
+	/// route profiles still fly, sail and hearth (eval: only other timed quests are walked).
+	pub q_delivery: Vec<bool>,
 	/// Per quest: the task that holds its escort (-1: none).
 	pub q_escort_task: Vec<i32>,
 	/// Camps of kill work (see RunCamp).
@@ -491,6 +495,7 @@ pub fn compile_run(world: &World, rules: &Rules, race: &str, cls: Option<&str>, 
 		town_away_share: 0.0,
 		train_ranks: Vec::new(),
 		q_limit: Vec::new(),
+		q_delivery: Vec::new(),
 		q_escort_task: Vec::new(),
 		camps: Vec::new(),
 		w_alts: Vec::new(),
@@ -559,6 +564,7 @@ pub fn compile_run(world: &World, rules: &Rules, race: &str, cls: Option<&str>, 
 		}
 		r.q_after[i] = q.after.iter().flatten().filter_map(|c| q_index.get(c).copied()).collect();
 		r.q_limit.push(q.limit.filter(|l| *l > 0.0).unwrap_or(0.0));
+		r.q_delivery.push(r.q_limit[i] > 0.0 && r.q_task0[i] == r.q_task1[i]);
 		r.q_escort_task.push((r.q_task0[i]..r.q_task1[i]).find(|&t| (r.task_w0[t as usize]..r.task_w1[t as usize]).any(|w| r.w_kind[w as usize] == W_ESCORT)).map_or(-1, |t| t as i32));
 	}
 	let ntask = r.task_pt.len();
