@@ -2119,6 +2119,69 @@
 					"ref": "npc 2944: 574 sighting rows spread over the Badlands"
 				}
 			]
+		},
+		{
+			"id": "azshara-3505-surveyors-east",
+			"quest": 3505,
+			"objective": 2,
+			"faction": "Horde",
+			"at": {
+				"map": 1447,
+				"x": 56.2,
+				"y": 29.9,
+				"frame": "era"
+			},
+			"note": "Betrayed (3505): the arrow for the Blood Elf Surveyors points at the camp's east side (four surveyors within 40 yd, no elite), away from the one Blackmaw Thrall (level 55-57 elite) that stands at the camp's west edge. Danger-at-the-spot gate (#1575): the surveyor spawn beside him flagged an elite 3.6 levels over the route there.",
+			"source": [
+				{
+					"kind": "pfquest",
+					"ref": "npcs.json 6198 Blood Elf Surveyor spawns in Azshara 55.4-58.8,26.5-31.2; 250023 Blackmaw Thrall (55-57, elite) at 54.81,26.03"
+				}
+			],
+			"issue": 1575
+		},
+		{
+			"id": "winterspring-4741-moontouched-north",
+			"quest": 4741,
+			"objective": 1,
+			"at": {
+				"map": 1452,
+				"x": 64.9,
+				"y": 17.8,
+				"frame": "era"
+			},
+			"faction": "Horde",
+			"note": "Wild Guardians (4741): the arrow for the Moontouched Owlbeasts points at the slopes north of Everlook, where the step's tip sends players, not at their southern spawns beside the Hailspite (level 60 elites) south-east of town. Danger-at-the-spot gate (#1575).",
+			"source": [
+				{
+					"kind": "pfquest",
+					"ref": "npcs.json 7453 Moontouched Owlbeast: 12 spawns at 62-68,15-25 and more at 59-68,57-63; 269213 Hailspite (60, elite) at 65.6-67.9,54.6-59.4"
+				}
+			],
+			"issue": 1575
+		},
+		{
+			"id": "felwood-5086-toxic-horrors-north-tip",
+			"quest": 5086,
+			"objective": 1,
+			"at": {
+				"map": 1448,
+				"x": 50.6,
+				"y": 22.4,
+				"frame": "era"
+			},
+			"note": "Toxic Horrors (5086), both factions: the arrow points at the Toxic Horror farthest from the Ancient Irontree Walkers (level 59 elites), at the north tip of Irontree Woods (about 63 yd from the nearest walker). Their spawns overlap the Horrors' almost exactly, and one recorded player died there on each faction's route. Danger-at-the-spot gate (#1575).",
+			"source": [
+				{
+					"kind": "pfquest",
+					"ref": "npcs.json 7132 Toxic Horror spawns at 48.1-51.1,22.5-27.4; 235912 Ancient Irontree Walker (59, elite) at 47.0-50.3,23.9-28.8; 14524 Vartrus the Ancient (63, elite) at 47.78,24.08"
+				},
+				{
+					"kind": "recording",
+					"ref": "rec index (danger recordings): 1 death within 60 yd of the Toxic Horrors goal on each faction's route"
+				}
+			],
+			"issue": 1575
 		}
 	]
 }

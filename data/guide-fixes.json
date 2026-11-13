@@ -9433,6 +9433,54 @@
 				"kind": "recording",
 				"ref": "players' recordings to 2026-11-13: unit, kill and death events of the named creature"
 			}
+		},
+		{
+			"id": "1575-azshara-blackmaw-thrall",
+			"faction": "Horde",
+			"at": {
+				"quest": 3505,
+				"goal": "objective",
+				"objective": 2
+			},
+			"tip": "Careful: a Blackmaw Thrall, a level 55-57 elite, stands at the west edge of the camp: work the blood elves from its east side.",
+			"note": "Danger-at-the-spot gate (#1575, 0.4.0 base): one Blackmaw Thrall (level 55-57, elite) stands at 54.8,26.0, on the west edge of the Thalassian Base Camp, beside one of the Blood Elf Surveyors the route sends players to at about 55.4. The arrow now points at the camp's east side (places.json azshara-3505-surveyors-east); the tip names him.",
+			"source": {
+				"kind": "pfquest",
+				"ref": "npcs.json 250023 Blackmaw Thrall 55-57, rank elite, spawn at Azshara 54.81,26.03; 6198 Blood Elf Surveyor spawns 55.4-58.8,26.5-31.2"
+			},
+			"issue": 1575
+		},
+		{
+			"id": "1575-winterspring-hailspite",
+			"faction": "Horde",
+			"at": {
+				"quest": 4741,
+				"goal": "objective",
+				"objective": 1
+			},
+			"tip": "Careful: Hailspite, level 60 elites, gather in the snowfields south-east of Everlook, where a few Moontouched Owlbeasts roam too: stay on the slopes north of town.",
+			"note": "Danger-at-the-spot gate (#1575, 0.4.0 base): two Hailspite (level 60, elite) stand within 40 yd of one of the Moontouched Owlbeasts' southern spawns, south-east of Everlook, at the route's 56.5. The arrow now points north of town (places.json winterspring-4741-moontouched-north); the tip names them.",
+			"source": {
+				"kind": "pfquest",
+				"ref": "npcs.json 269213 Hailspite 60, rank elite, spawns at Winterspring 65.6-67.9,54.6-59.4; 7453 Moontouched Owlbeast spawns 59-68,15-63"
+			},
+			"issue": 1575
+		},
+		{
+			"id": "1575-felwood-irontree-walkers",
+			"faction": "Horde",
+			"at": {
+				"quest": 5086,
+				"goal": "objective",
+				"objective": 1
+			},
+			"tip": "Careful: Ancient Irontree Walkers, level 59 elites, walk among the Toxic Horrors, and Vartrus the Ancient (63, elite) roams the woods: work the Horrors at the north tip of Irontree Woods, one at a time.",
+			"note": "Danger-at-the-spot gate (#1575, 0.4.0 base): eight Ancient Irontree Walkers (59, elite) share the Toxic Horrors' ground in Irontree Woods, and Vartrus the Ancient (63, elite) stands among them; the route is there at about 59.5, and one recorded player died within 60 yd. The arrow now points at the Horror farthest from the walkers (places.json felwood-5086-toxic-horrors-north-tip); the tip names them. The Alliance's own tip is a separate record.",
+			"source": {
+				"kind": "pfquest",
+				"ref": "npcs.json 235912 Ancient Irontree Walker 59, rank elite, spawns at Felwood 47.0-50.3,23.9-28.8; 14524 Vartrus the Ancient 63 at 47.78,24.08; 7132 Toxic Horror 48.1-51.1,22.5-27.4"
+			},
+			"issue": 1575
 		}
 	]
 }

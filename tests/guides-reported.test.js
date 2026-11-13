@@ -7598,6 +7598,95 @@ test('forever/horde/50-60/04-azshara.guide: final review: no level 16 Prompt Pot
 	assert.ok(at(list, 'turnin 3568', is('turnin', 3568)) >= 0, 'the Apothecarium stop stays');
 });
 
+// Horde 50-60 audit (0.4.0): Venom Bottles (2933, level 43) was handed in to Apothecary Lydon at about 52.4, which gives
+// 20% of its experience (about 720 XP), and the flight from Kargath landed at Tarren Mill only for it. It is out of
+// the route (taken in neither guide); the flight from Kargath goes straight to the Undercity.
+test('forever/horde/50-60/01-un-goro-crater.guide: no Tarren Mill landing for Venom Bottles, Kargath flies to the Undercity', { skip }, () => {
+	const list = goals('forever/horde/50-60/01-un-goro-crater.guide');
+	assert.ok(!list.some(({ goal }) => goal.quest === 2933), 'no Venom Bottles');
+	assert.ok(!list.some(({ goal }) => goal.t === 'fly' && goal.location === 'Tarren Mill'), 'no flight to Tarren Mill');
+	const kargath = at(list, 'turnin 4061 at Kargath', is('turnin', 4061));
+	const next = list.slice(kargath).find(({ goal }) => goal.t === 'fly');
+	assert.equal(next && next.goal.location, 'Undercity', 'the next flight after Kargath goes to the Undercity');
+});
+
+// Horde 50-60 audit (0.4.0), travel sweep of the Hearthstone binds: Winterspring bound at Everlook and no step hearthed
+// back there; the guide leaves Everlook by flight for Camp Mojache, which the Gadgetzan bind (set in the Azshara guide
+// at 50 and still in force) makes about 5 minutes shorter (Hearthstone to Gadgetzan, then the flight), and dropping it
+// changes nothing outside the guide. The Orgrimmar bind of the next guide stays (its hearth from Valormok).
+test('forever/horde/50-60/03-winterspring.guide: no Everlook bind, the Gadgetzan bind carries the trip to Camp Mojache', { skip }, () => {
+	assert.ok(!goals('forever/horde/50-60/03-winterspring.guide').some(({ goal }) => goal.t === 'sethome'), 'no bind in the Winterspring guide');
+	assert.ok(goals('forever/horde/50-60/04-azshara.guide').some(({ goal }) => goal.t === 'sethome' && goal.location === 'Orgrimmar'), 'Orgrimmar is still bound in the Azshara guide');
+	assert.ok(goals('forever/horde/40-50/06-azshara.guide').some(({ goal }) => goal.t === 'sethome' && goal.location === 'Gadgetzan'), 'the Gadgetzan bind it relies on');
+});
+
+// Horde 50-60 audit (0.4.0), travel sweep: after the Plaguelands loop the guide flew Light's Hope Chapel -> the Undercity
+// and took the zeppelin to Orgrimmar. With the Orgrimmar bind from the Azshara guide kept (no chapel bind), the
+// Hearthstone lands at the Orgrimmar flight master instead: about 4 minutes less for every class but Mage. A Mage
+// teleports to Orgrimmar anyway and would lose the chapel's two hearths, so only Mages bind at the chapel.
+test('forever/horde/50-60/05-eastern-plaguelands.guide: only Mages bind at Light\'s Hope, the rest hearth to Orgrimmar after Carlin', { skip }, () => {
+	const list = goals('forever/horde/50-60/05-eastern-plaguelands.guide');
+	const binds = list.filter(({ goal }) => goal.t === 'sethome');
+	assert.equal(binds.length, 1, 'one bind line');
+	assert.equal(binds[0].goal.location, "Light's Hope Chapel");
+	for (const cls of ['WARRIOR', 'DRUID', 'PALADIN', 'ROGUE']) assert.ok(!forClass(cls)(binds[0]), `no chapel bind for ${cls}`);
+	assert.ok(forClass('MAGE')(binds[0]), 'Mages bind at the chapel');
+	const carlin = at(list, 'turnin 5211', is('turnin', 5211));
+	const flight = list.findIndex((e, i) => i > carlin && e.goal.t === 'fly');
+	assert.ok(['Bloodvenom Post', 'Thunder Bluff'].includes(list[flight].goal.location), 'the next flight leaves from Orgrimmar');
+	assert.ok(!list.slice(carlin, flight).some(({ goal }) => goal.t === 'goto' && goal.text === 'Zeppelin to Orgrimmar'), 'no zeppelin');
+	assert.ok(!list.some(({ goal }) => goal.t === 'fly' && goal.location === 'Undercity'), 'no flight to the Undercity');
+});
+
+// Horde 50-60 audit (0.4.0): Winterfall Activity (8464) is complete at the end of the Winterspring guide and waited for
+// the Felwood guide (about 59.7); Salfa stands where Timbermaw Hold's tunnel comes out into Winterspring, which the
+// Eastern Plaguelands guide rides out of from Moonglade to Donova Snowden. Handed in there, three levels earlier.
+test('forever/horde/50-60/05-eastern-plaguelands.guide: Winterfall Activity handed to Salfa on the way from Moonglade to Donova', { skip }, () => {
+	const list = goals('forever/horde/50-60/05-eastern-plaguelands.guide');
+	const salfa = at(list, 'turnin 8464', is('turnin', 8464));
+	assert.equal(list[salfa].goal.npc, 11556, 'Salfa');
+	assert.ok(at(list, 'turnin 1123', is('turnin', 1123)) < salfa, 'after Moonglade');
+	assert.ok(salfa < at(list, 'turnin 5085', is('turnin', 5085)), 'before Donova');
+	const fw = goals('forever/horde/50-60/07-felwood.guide');
+	const late = fw[at(fw, 'turnin 8464', is('turnin', 8464))];
+	assert.ok((late.step.when || []).some((p) => p.k === 'complete' && !p.neg), 'the Felwood guide hands it in only while it is still carried');
+});
+
+
+// Danger at the spot (#1575), Horde 50-60 (0.4.0 base): three goals sent the arrow among elites well above the route.
+// Each arrow now points where the objective's mobs stand clear of them, and the step names them.
+test('Horde 50-60: arrows away from the Blackmaw Thrall, the Hailspite and the Ancient Irontree Walkers, with a warning (#1575)', { skip }, () => {
+	for (const [file, quest, oi, x, y, mob] of [
+		['forever/horde/50-60/04-azshara.guide', 3505, 2, 56.2, 29.9, /Blackmaw Thrall/],
+		['forever/horde/50-60/05-eastern-plaguelands.guide', 4741, 1, 64.9, 17.8, /Hailspite/],
+		['forever/horde/50-60/07-felwood.guide', 5086, 1, 50.6, 22.4, /Ancient Irontree Walkers/],
+	]) {
+		const list = goals(file);
+		const e = list[at(list, `${quest}.${oi}`, (g) => (g.t === 'kill' || g.t === 'collect') && g.quest === quest && g.oi === oi)];
+		assert.deepEqual([e.goal.x, e.goal.y], [x, y], `${file}: ${quest}.${oi} points clear of the elites`);
+		assert.match([e.step.note, e.step.tip].flat().filter(Boolean).join(' '), mob, `${file}: the step names them`);
+	}
+});
+
+// Horde 50-60 audit (0.4.0): class ranks come only at even levels (training.json: 50, 52, ..., 60 for every class).
+// Several training stops came where the route has no new rank: Orgrimmar at about 53.3 (with the Druids sent to Mulgore
+// and the Paladins to Brill, a level after the Undercity's 52), a second Orgrimmar training 20 minutes after the
+// first in the Azshara guide, and the Druids' Moonglade training right after their Thunder Bluff one (gone: the
+// guide ends below 58; the Felwood guide's Moonglade stop trains them). The other stops now hold only from the next rank's level, so a player above the model still trains there; and the Plaguelands guide
+// trains Warriors to Warlocks on its way through Orgrimmar at about 56.6 instead of two levels later.
+test('Horde 50-60: training stops hold only from the level of the next class rank', { skip }, () => {
+	const gate = (e) => ((e.step.when || []).find((p) => p.k === 'level') || {});
+	const trains = (file) => goals(file).filter(({ goal }) => goal.t === 'train' && goal.class);
+	for (const e of trains('forever/horde/50-60/02-felwood.guide')) assert.ok(gate(e).n >= 54, `02 ${e.step.title}: from 54`);
+	const az = trains('forever/horde/50-60/04-azshara.guide');
+	assert.ok(!(az[0].step.when || []).some((p) => p.k === 'level'), '04: the first Orgrimmar training stays for everyone (54)');
+	for (const e of az.slice(1)) assert.ok(gate(e).n >= 56, `04 ${e.step.title}: from 56`);
+	const epl = trains('forever/horde/50-60/05-eastern-plaguelands.guide');
+	const org = epl.find((e) => forClass('WARRIOR')(e));
+	assert.ok(org && gate(org).n === 56, '05: Warriors to Warlocks train in Orgrimmar from 56');
+	assert.ok(!epl.some((e) => forClass('DRUID')(e) && !forClass('PALADIN')(e)), '05: no second Druid training in Moonglade (Thunder Bluff trained 56; 58 comes in the Felwood guide\'s Moonglade stop)');
+});
+
 // Final route review, Horde 40-60: each race learns to ride where the route already passes its trainer's city:
 // Trolls from the Orgrimmar stop (not a flight and boat from Stonard to Durotar and back), Undead on the next
 // guide's Undercity stop (not Gadgetzan -> Orgrimmar -> Brill -> Gadgetzan), Taurens, Druids, Paladins and Warlocks
@@ -8331,7 +8420,9 @@ test('Eastern Plaguelands (Horde 55): Druids and Paladins fly from Orgrimmar to 
 	const list = goals('forever/horde/50-60/05-eastern-plaguelands.guide');
 	for (const cls of ['DRUID', 'PALADIN', 'MAGE']) {
 		const flights = list.filter(forClass(cls)).filter(({ goal }) => goal.t === 'fly').map(({ goal }) => goal.location);
-		const from = flights.indexOf('Undercity');
+		// Since the 0.4.0 audit the Plaguelands are left by Hearthstone to Orgrimmar (no flight to the Undercity): the flights
+		// after the last one to Light's Hope Chapel are the ones out of Orgrimmar.
+		const from = flights.lastIndexOf("Light's Hope Chapel");
 		const after = cls === 'MAGE' ? flights.slice(from + 1, from + 2) : flights.slice(from + 1, from + 3);
 		assert.deepEqual(after, cls === 'MAGE' ? ['Bloodvenom Post'] : ['Thunder Bluff', 'Bloodvenom Post'], `${cls}: ${flights.join(', ')}`);
 	}
