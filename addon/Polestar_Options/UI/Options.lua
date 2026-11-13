@@ -149,6 +149,9 @@ local function add(spec, builtin)
 	-- columns = { left, right }: a caption over each half of the section's
 	-- rows (two places taking the same settings: world map | minimap).
 	if spec.columns then s.columns = spec.columns end
+	-- move = a frame's mover key (UI/Movers.lua): a Move in the section's
+	-- header opens Move frames with that frame picked (O.MoveFrame).
+	if spec.move then s.move = spec.move end
 	local function place(c, owner)
 		c.page, c.tab, c.section, c.psSection, c.psOwner = p, spec.tab, spec.section, s, owner
 		for _, e in ipairs(c.extras or {}) do place(e, c) end
@@ -298,7 +301,7 @@ local BUILTIN = {
 			disabled = function() return not ns.Get("behavior.whileHere") end },
 		-- The toast that says a new suggestion while the guide window is hidden (UI/WhileHere.lua): how long it
 		-- stays. It has no look of its own (the theme's, the shared toast style).
-		{ kind = "slider", key = "toasts.whilehere.seconds", label = L["Stays for"], min = 3, max = 30, step = 1, new = "0.3.8",
+		{ kind = "slider", key = "toasts.whilehere.seconds", label = L["Stays for"], min = 3, max = 30, step = 1, new = "0.3.8", move = "whileHere",
 			format = function(v) return L["%d s"]:format(v) end,
 			help = L["How long the toast stays while the guide window is hidden. Hovering it holds it."],
 			search = "duration, how long, seconds, time on screen, stays, timeout, toast, while you're here, dynamic questing",
@@ -319,7 +322,7 @@ local BUILTIN = {
 			help = L["What the window, its buttons and alerts do in dungeons, raids, battlegrounds and arenas. Guide window in the minimap button's menu, the key binding or /polestar opens it there until you leave."],
 			search = "dungeon, raid, battleground, arena, instance, hide, pvp, healer",
 			choices = { { value = "show", label = L["Keep visible"] }, { value = "hide", label = L["Hide"] } } },
-		{ kind = "toggle", key = "ui.launcher", label = L["Floating button"],
+		{ kind = "toggle", key = "ui.launcher", label = L["Floating button"], move = "launcher",
 			help = L["A small Polestar button you can put anywhere on the screen. Click to hide or show Polestar, right-click for a menu, drag to move it. It hides with the window in combat and in dungeons when those are set to Hide."],
 			search = "launcher, floating icon, floating button, show, hide, toggle, open polestar, quick" },
 		{ kind = "toggle", key = "maps.minimapButton", label = L["Minimap button"],
@@ -338,10 +341,10 @@ local BUILTIN = {
 		{ kind = "toggle", key = "ui.growUp", label = L["Grow upward"], help = L["Keep the bottom edge in place, so longer steps extend the window up."] },
 		{ kind = "toggle", key = "ui.barsBottom", label = L["Bar at the bottom"], help = L["With Grow upward, put the tabs and the step bar at the bottom edge, next to where the window is pinned."],
 			child = true, disabled = function() return not ns.Get("ui.growUp") end },
-		{ kind = "button", icon = "reset", button = L["Reset"], label = L["Reset position"], help = L["Put the guide window back in its corner."], onClick = function() ns.Set("ui.pos", nil) end },
+		{ kind = "button", icon = "reset", button = L["Reset"], label = L["Reset position"], move = "guide", help = L["Put the guide window back in its corner."], onClick = function() ns.Set("ui.pos", nil) end },
 	} },
 	{ page = GUIDE, tab = L["Arrow & routes"], section = L["Arrow"], controls = {
-		H({ kind = "toggle", key = "nav.arrow", label = L["Show arrow"], help = L["Points to the current goal. Its look and colours are on the Arrow page."],
+		H({ kind = "toggle", key = "nav.arrow", label = L["Show arrow"], move = "arrow", help = L["Points to the current goal. Its look and colours are on the Arrow page."],
 			search = "arrow, waypoint, pointer, direction, compass, navigation, hud" }),
 		H({ kind = "toggle", key = "nav.hideArrowWithGuide", label = L["Hide the arrow with the guide"], help = L["When the guide window is hidden, hide the arrow too."],
 			child = true, disabled = function() return not ns.Get("nav.arrow") end }),
@@ -818,8 +821,8 @@ local ALIASES = {
 ---------------------------------------------------------------------------
 
 -- What a reference never takes from its home: where it stands, its own
--- state (ps* fields), the home's cog and New mark.
-local REF_OWN = { page = true, tab = true, section = true, more = true, new = true, child = true }
+-- state (ps* fields), the home's cog, Move and New mark.
+local REF_OWN = { page = true, tab = true, section = true, more = true, move = true, new = true, child = true }
 
 -- -> the home of reference c, or nil (c is no reference, or has no home yet)
 local function homeOf(c)
@@ -1171,8 +1174,25 @@ end
 -- optional f:Focus(key) (a preview that scrolls to the part it draws).
 function O.PreviewFocus(key) UI.Preview.Focus(O.view, key) end
 
+-- A ghost Move for a row or a section's header whose setting places a frame
+-- (`move`, the frame's mover key in UI/Movers.lua): O.MoveFrame. Off while
+-- the frame has no box (its feature off) or its setting is.
+local function moveButton(parent, key, label, offFn, onClick)
+	local b = W.Button(parent, L["Move"], onClick, { ghost = true, height = 22 })
+	b.psTight = true
+	W.SetButtonText(b, L["Move"])
+	b.psTip, b.psTipLines = L["Move"], { string.format(L["Opens Move frames with %s picked; the settings come back when you are done."], label or "") }
+	b.Refresh = inlineRefresh
+	W.SetDisabledWhen(b, function()
+		local M = ns.Movers
+		if not (M and M.Movable and M.Movable(key)) then return true end
+		return offFn and offFn() or false
+	end)
+	return b
+end
+
 -- A setting's half, built once per view (view: a page tab's, the search
--- results', the cog popup's), with its extras and cog.
+-- results', the cog popup's), with its extras, its cog and its Move.
 local function rowOf(view, c)
 	local w = view.cache[c]
 	if w then return w end
@@ -1204,10 +1224,20 @@ local function rowOf(view, c)
 		W.SetDisabledWhen(cog, disabledOf(c))
 		view.cogs[c] = cog
 	end
+	-- Move stands in the cog's column, or left of a cog.
+	local move
+	if c.move and ns.Movers and ns.Movers.Unlock then
+		move = moveButton(w, c.move, labelOf(c), disabledOf(c), function() O.MoveFrame(c.move, w) end)
+		w.MoveButton = move
+		if cog then
+			extras = extras or {}
+			extras[#extras + 1] = move
+		end
+	end
 	-- Picture cards named as their section need no label of their own: the
 	-- card's header says it.
 	local bare = c.kind == "cards" and not view.psSearch and labelOf(c) == c.section
-	W.CompactRow(w, { tip = tipOf(c, view.psSearch), info = c.info, extras = extras, cog = cog,
+	W.CompactRow(w, { tip = tipOf(c, view.psSearch), info = c.info, extras = extras, cog = cog or move,
 		height = view.psRowH, bare = bare })
 	-- The pointer on the row, an extra or the cog: the tab's preview lights
 	-- the parts that setting changes and may show the part it draws
@@ -1292,7 +1322,8 @@ local function layoutRows(view, controls, top, x, width, whole)
 	return y - top
 end
 
--- Header widgets, right to left from the 16 edge: the toggle, More, Reset, New.
+-- Header widgets, right to left from the 16 edge: the toggle, Move, More,
+-- Reset, New.
 local function placeHeader(card)
 	local x = 16
 	local function put(f)
@@ -1302,6 +1333,7 @@ local function placeHeader(card)
 	end
 	local sw = card.psToggle
 	if sw and sw:IsShown() then put(sw) end
+	if card.Move:IsShown() then put(card.Move) end
 	if card.More:IsShown() then put(card.More) end
 	if card.Reset:IsShown() then put(card.Reset) end
 	if card.New:IsShown() then put(card.New) end
@@ -1382,6 +1414,23 @@ local function cardOf(view, n)
 	W.SetChip(card.New, L["New"], "accent")
 	card.New:Hide()
 	card.More = moreLink(card)
+	-- The section's Move (its `move`): the frame the section sets.
+	card.Move = W.Button(card.Header, L["Move"], function()
+		local s = card.psSection
+		if s and s.move then O.MoveFrame(s.move, card) end
+	end, { ghost = true, height = 22 })
+	card.Move.psTight = true
+	W.SetButtonText(card.Move, L["Move"])
+	card.Move.Refresh = inlineRefresh
+	card.Move:SetScript("OnEnter", function(self)
+		W.Tooltip(self, "ANCHOR_TOP", L["Move"], { string.format(L["Opens Move frames with %s picked; the settings come back when you are done."], card.psName or "") })
+	end)
+	W.SetDisabledWhen(card.Move, function()
+		local s, M = card.psSection, ns.Movers
+		if not (s and s.move and M and M.Movable and M.Movable(s.move)) then return true end
+		return sectionOff(s)
+	end)
+	card.Move:Hide()
 	view.cards[n] = card
 	return card
 end
@@ -1468,6 +1517,8 @@ local function layoutSections(view, groups, y, opts)
 		end
 		card.New:SetShown(header and new)
 		card.More:SetShown(header and not view.psSearch and s ~= nil and s.jump ~= nil)
+		card.Move:SetShown(header and not view.psSearch and s ~= nil and s.move ~= nil and ns.Movers ~= nil and ns.Movers.Unlock ~= nil)
+		if card.Move:IsShown() then card.Move:Refresh() end
 		local gutter = opts and opts.gutter or 0
 		local whole = opts and opts.whole
 		-- A caption over each half (s.columns), while the rows stand in halves.
@@ -2644,6 +2695,25 @@ function O.Jump(c)
 	W.ScrollTo(win.Scroll, max(0, (top or 0) - 40))
 	O.Flash(w)
 	return w
+end
+
+-- A setting's Move (a row's or a section's): the window steps aside, Move
+-- frames opens with that frame's box picked and pulsing (ns.Movers.Unlock),
+-- and when it ends the window comes back where it was (the page and tab,
+-- the search, the scroll), `lit` (the row or section) lit. -> ok
+function O.MoveFrame(key, lit)
+	local M = ns.Movers
+	if not (win and M and M.Unlock) then return false end
+	local p, q, scroll = current, query, win.Scroll:GetVerticalScroll()
+	win:Hide()
+	local ok = M.Unlock(key, { pulse = true, back = function()
+		UI.ShowOptions(p and p.key)
+		if q ~= "" then O.SetQuery(q) end
+		W.ScrollTo(win.Scroll, scroll)
+		if lit and lit:IsVisible() then O.Flash(lit) end
+	end })
+	if not ok then win:Show() end
+	return ok
 end
 
 -- The next (delta 1) or previous tab, running on into the next page's

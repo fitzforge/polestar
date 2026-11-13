@@ -425,6 +425,8 @@ mod ui_quick_settings;
 mod ui_route;
 #[path = "ui-scrub.rs"]
 mod ui_scrub;
+#[path = "ui-settings-ux.rs"]
+mod ui_settings_ux;
 #[path = "ui-steplist.rs"]
 mod ui_steplist;
 #[path = "ui-thanks.rs"]

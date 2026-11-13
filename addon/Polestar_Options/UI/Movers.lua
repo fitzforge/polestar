@@ -39,7 +39,10 @@
 --     keys = { path, ... }            optional: the settings set writes, which the
 --                                     session keeps as stored (else get/set's spot)
 --     save = fn -> value, restore = fn(value)   optional, for a place kept
---                                     elsewhere (a character's) })
+--                                     elsewhere (a character's)
+--     via = fn -> key | nil           optional: the box that stands for this
+--                                     frame while its own is off (an alert
+--                                     in the alerts' line) })
 --   ns.Movers.Unlock([key]) -> ok (key: that box selected), Lock() (keeps what
 --     moved), Save(), Exit() (asks when something moved), Revert() -> count,
 --     Changed() -> count, IsUnlocked(), IsSuspended() (paused for a fight), Toggle()
@@ -51,7 +54,7 @@
 
 local ns = Polestar
 local L = ns.L
-local Theme, W = ns.Theme, ns.Widgets
+local Theme, W, Anim = ns.Theme, ns.Widgets, ns.Anim
 
 local type, pairs, ipairs, floor, ceil, abs, max, min = type, pairs, ipairs, math.floor, math.ceil, math.abs, math.max, math.min
 local format, sort = string.format, table.sort
@@ -273,6 +276,22 @@ local function enabled(spec)
 	return spec.enabled() and true or false
 end
 
+-- The box that stands for key's frame: its own, or the one its spec's via()
+-- names while its own is off (an alert in the alerts' line). -> key | nil
+local function standIn(key)
+	local spec = specs[key]
+	if not spec then return nil end
+	if enabled(spec) then return key end
+	local other = spec.via and spec.via()
+	if other and specs[other] and enabled(specs[other]) then return other end
+	return nil
+end
+
+-- Whether key's frame has a box now (its feature on, or its stand-in's).
+function M.Movable(key)
+	return standIn(key) ~= nil
+end
+
 local function frameOf(spec)
 	return spec.frame and spec.frame() or nil
 end
@@ -416,6 +435,49 @@ local function selectBox(b)
 	end
 end
 
+-- A box asked for by name (a settings row's Move) pulses a few times in the
+-- accent so it stands out among the others: a layer of its own fades in and
+-- out (its frame's alpha, never the texture's: a repaint keeps it). A drag
+-- ends it.
+M.PULSES = 3
+local function stopPulse(b)
+	local p = rawget(b, "PulseLayer")
+	if p and p:IsShown() then
+		p.psLeft = 0
+		p:Hide()
+		Anim.Stop(p, "alpha")
+	end
+end
+
+local function pulse(b)
+	local p = rawget(b, "PulseLayer")
+	if not p then
+		p = CreateFrame("Frame", nil, b)
+		p:SetAllPoints(b)
+		p:SetFrameLevel(b:GetFrameLevel() + 1)
+		local fill = W.Tex(p, "ARTWORK", nil, "accent")
+		fill:SetAllPoints(p)
+		W.Painter(fill, function(t) local r, g, bl = Theme.Accent(); t:SetVertexColor(r, g, bl, 0.42) end)
+		b.PulseLayer = p
+	end
+	p.psLeft = M.PULSES
+	local beat
+	function beat()
+		if p.psLeft <= 0 then
+			p:Hide()
+			return
+		end
+		p.psLeft = p.psLeft - 1
+		Anim.To(p, "alpha", 0, 1, Anim.BASE, "out", function()
+			if p:IsShown() then Anim.To(p, "alpha", 1, 0, Anim.SLOW * 1.6, "inout", beat) end
+		end)
+	end
+	p:SetAlpha(0)
+	p:Show()
+	beat()
+end
+M.Pulse = function(key) local b = boxes[key]; if b then pulse(b) end end
+
 local function showGuides(gx, gy)
 	guides.X:SetShown(gx ~= nil)
 	guides.Y:SetShown(gy ~= nil)
@@ -500,6 +562,7 @@ end
 
 local function beginDrag(b)
 	dragging = b
+	stopPulse(b)
 	local cx, cy = cursor()
 	b.psGrab = { cx - b.psLeft, cy - b.psBottom }
 	b.psStartLeft, b.psStartBottom, b.psMoved = b.psLeft, b.psBottom, false
@@ -867,6 +930,7 @@ end
 -- The boxes and the bar away, nothing left running.
 local function standDown()
 	if dragging then endDrag() end
+	for _, b in pairs(boxes) do stopPulse(b) end
 	root:SetScript("OnUpdate", nil)
 	root:Hide()
 	if W.ModalShown and W.ModalShown() then W.HideModal() end
@@ -897,7 +961,9 @@ function onResize()
 	refresh(true)
 end
 
--- opts: { back = fn } runs when the session ends.
+-- key: that frame's box selected (or the box standing in for it, M.Movable).
+-- opts: { pulse = true (the box pulses: a settings row's Move), back = fn
+-- (runs when the session ends) }.
 function M.Unlock(key, opts)
 	if combat() then
 		ns.Print(L["You can't move frames in combat."])
@@ -916,8 +982,12 @@ function M.Unlock(key, opts)
 		refresh(true)
 	end
 	if opts and opts.back then session.back = opts.back end
+	key = key and standIn(key)
 	local b = key and boxes[key]
-	if b and b:IsShown() then selectBox(b) end
+	if b and b:IsShown() then
+		selectBox(b)
+		if opts and opts.pulse then pulse(b) end
+	end
 	return true
 end
 
@@ -1165,21 +1235,23 @@ end
 -- own (UI/ClassToast.lua, toasts.headsup.pos); each module re-places its card
 -- on the change.
 -- While the alerts line up (toasts.stack) they hang from one line, which
--- UI/Looks/Toasts.lua registers as its own mover, so these step aside.
+-- UI/Looks/Toasts.lua registers as its own mover, so these step aside (and
+-- the line's box stands in for them: via).
 -- Registered once every file has loaded: Rares loads after UI.
 local function own(fn) return function() return ns.Get("toasts.stack") ~= true and fn() end end
+local function line() return ns.Get("toasts.stack") == true and "toastLine" or nil end
 ns.OnInit(function()
 	if ns.Rares and ns.Rares.Toast then
-		pointFormat({ key = "rareAlert", label = L["Rare alert"], frame = G("PolestarRareToast"),
+		pointFormat({ key = "rareAlert", label = L["Rare alert"], frame = G("PolestarRareToast"), via = line,
 			enabled = own(function() return ns.Get("rares.alerts") ~= false end),
 			size = function() return 368, 104 end }, "rares.toastPoint", { "TOP", 0, -132 })
 	end
 	if ns.Nav and ns.Nav.alerts then
-		pointFormat({ key = "transportAlert", label = L["Transport alert"], frame = G("PolestarAlert"),
+		pointFormat({ key = "transportAlert", label = L["Transport alert"], frame = G("PolestarAlert"), via = line,
 			enabled = own(function() return ns.Get("nav.alerts") ~= false and ns.Get("nav.alertBanner") ~= false end),
 			size = function() return 320, 56 end }, "toasts.transport.point", { "TOP", 0, -72 })
 	end
-	pointFormat({ key = "whileHere", label = L["While you're here"], frame = G("PolestarWhileHereToast"),
+	pointFormat({ key = "whileHere", label = L["While you're here"], frame = G("PolestarWhileHereToast"), via = line,
 		enabled = own(function() return ns.Get("behavior.whileHere") ~= false end),
 		size = function() return 320, 46 end }, "toasts.whilehere.point", { "TOP", 0, -150 })
 	-- The heads-up card (UI/ClassToast.lua: a class quest, a dungeon) on a spot

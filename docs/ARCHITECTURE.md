@@ -6651,11 +6651,13 @@ Polestar.RegisterOptions({
   lead = true,                                              -- optional: this tab is the page's lead tab (Essentials, below)
   jump = { tab = "Markers", section = "Quest markers" },   -- optional: a More link in the section's header, to that tab and section
   columns = { "World map", "Minimap" },                    -- optional: a caption over each half of the section's rows
+  move = "flightTimer",                                     -- optional: a Move in the header for that frame (a mover key, below)
   controls = {
     { kind = "toggle",   key = "qol.mapObjectives", label = "Objectives", help = "One line: the tooltip.",
       search = "map pins, icons, markers",                              -- optional: English words players may search with
       new = "0.3.7",                                                    -- optional: the release it came in (the section's New pill)
-      info = true },                                                    -- optional: an (i) after the label (1-2 a page at most)
+      info = true,                                                      -- optional: an (i) after the label (1-2 a page at most)
+      move = "launcher" },                                              -- optional: a Move on the row for that frame (below)
     { kind = "slider",   key = "qol.markerScale", label = "Size", min = 0.5, max = 2, step = 0.05, format = "%.2f\195\151", -- example key
       release = true,                                                   -- optional: write when the drag ends
       extras = { { kind = "color", key = "qol.markerColor", label = "Colour", alpha = true },  -- inline before the control, right to left
@@ -6713,7 +6715,15 @@ for what it does. Right-click resets it.") until its close button
 (`PolestarDB.optionsIntro`). Search results stand in a card per page, tab and
 section, the best first, the chevron to the row in a gutter inside the card;
 a result its section's toggle stops comes after an equally good one that
-works, its card carrying that toggle in the header.
+works, its card carrying that toggle in the header. A setting that places a
+frame on screen carries a ghost Move (`move` = the frame's mover key in
+`UI/Movers.lua`): on the row in the cog's column (left of a cog), or in its
+section's header after the toggle. `O.MoveFrame(key, lit)` hides the window,
+opens Move frames with that frame's box picked and pulsing
+(`Movers.Unlock(key, { pulse, back })`; an alert in the alerts' line picks the
+line, the spec's `via`), and when the session ends brings the window back on
+its page, search and scroll with the row or section lit. Move is off while the
+frame has no box (`Movers.Movable(key)`) or its setting is.
 
 **Essentials, references and presets.** Each Look page opens on its lead
 tab, Essentials: a spec with `lead = true` puts its tab first, whatever

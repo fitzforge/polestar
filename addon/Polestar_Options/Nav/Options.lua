@@ -85,7 +85,7 @@ if Alerts then
 		page = L["Guide"], tab = L["Arrow & routes"], section = L["Along the route"],
 		controls = {
 			alerts(),
-			H({ kind = "toggle", key = "nav.alertBanner", label = L["Show a banner"], disabled = off,
+			H({ kind = "toggle", key = "nav.alertBanner", label = L["Show a banner"], disabled = off, move = "transportAlert",
 				help = L["A small card near the top of the screen with a countdown. Click it to dismiss."] }),
 			H({ kind = "toggle", key = "nav.alertSound", label = L["Play the transport's sound"], disabled = off,
 				help = L["The ship's bell, the zeppelin's horn or the tram, on the Master channel so you hear it with the game in the background."] }),
