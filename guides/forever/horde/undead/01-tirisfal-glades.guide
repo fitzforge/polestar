@@ -494,6 +494,7 @@ step Carendin Halgar
   only Warlock
   zone Undercity
   tip Walk south from Brill to the Ruins of Lordaeron and down into the Undercity. Carendin Halgar stands in the Magic Quarter. The Scarlet camp is just west of the ruins.
+  getfp "Undercity"                  -- Michael Garrett, the bat handler, on the way down from the Ruins
   turnin 1478                         -- Carendin Halgar: he offers Creature of the Void only once this is handed in
   accept 1473                         -- Carendin Halgar
 
@@ -501,6 +502,7 @@ step Anastasia Hartwell
   only Mage
   zone Undercity
   tip Walk south from Brill to the Ruins of Lordaeron and down into the Undercity. Anastasia Hartwell stands in the Magic Quarter. The Scarlet camp is just west of the ruins.
+  getfp "Undercity"                  -- Michael Garrett, the bat handler, on the way down from the Ruins
   turnin 1881                         -- Anastasia Hartwell
   accept 1882
 
@@ -642,7 +644,7 @@ step The Undercity
   only Warlock,Priest,Mage
   zone Undercity
   tip The Undercity is under the Ruins of Lordaeron, beside the zeppelin towers. Carendin Halgar is in the Magic Quarter: use the Runes of Summoning on the summoning circle beside him and defeat the voidwalker. Aelthalyste is in the War Quarter. Anastasia Hartwell is in the Magic Quarter too.
-  getfp "Undercity"                  -- Michael Garrett, the bat handler, on the way down from the Ruins
+  getfp "Undercity" only Priest      -- Michael Garrett, the bat handler, on the way down from the Ruins
   turnin 1473 only Warlock            -- Carendin Halgar
   accept 1471 only Warlock
   use 6284 @86.6,27.1 only Warlock    -- Runes of Summoning
