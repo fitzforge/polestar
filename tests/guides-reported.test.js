@@ -11977,3 +11977,13 @@ test('Alliance 50-60/01: Morgan\'s Vigil flight path step without a second point
 	assert.ok(fp, 'the getfp step');
 	assert.ok(!bs.some(({ goal, s }) => s === fp.s && goal.t === 'goto'), 'no goto beside it');
 });
+
+// Danger at the spot (#1575, 0.4.0 audit): the Broodling Essence point (81.0,28.0) has a Malfunctioning Reaver (56,
+// rare) about 65 yd away and elite dragonspawn around the broodlings: the step warns, from its record.
+test('Alliance 50-60/01: the Broodling Essence step warns of the Malfunctioning Reaver and the elite dragonspawn', { skip }, () => {
+	const bs = goals('forever/alliance/50-60/01-burning-steppes.guide');
+	const use = bs[at(bs, 'use 4726.1', (g) => g.t === 'use' && g.quest === 4726)];
+	assert.match([use.step.note, ...(use.step.notes || []), JSON.stringify(use.step)].filter(Boolean).join(' '), /Malfunctioning Reaver \(level 56, rare\)/, 'the warning on the step');
+	const fixes = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', 'guide-fixes.json'), 'utf8')).fixes;
+	assert.ok(fixes.some((f) => f.at && f.at.quest === 4726 && f.at.objective === 1 && /Malfunctioning Reaver/.test(f.tip || '')), 'and its record');
+});

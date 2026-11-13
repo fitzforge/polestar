@@ -8031,6 +8031,24 @@
 			"issue": 1575
 		},
 		{
+			"id": "1575-burning-steppes-broodling-reaver",
+			"faction": "Alliance",
+			"at": {
+				"quest": 4726,
+				"goal": "objective",
+				"objective": 1
+			},
+			"tip": "Careful: a Malfunctioning Reaver (level 56, rare) walks the slopes by the broodlings, and the Black Dragonspawn and Wyrmkin around them are elite: use the Incarcinatrix on a broodling at the edge and look around before each pull.",
+			"note": "Danger-at-the-spot sweep (#1575, 0.4.0 audit): the Broodling Essence point moved to the Black Broodling spawn at 81.0,28.2 (places record 1575-burning-steppes-broodling-essence). A Malfunctioning Reaver (56, rare) spawns about 65 yd from it (79.2,29.7), and elite Black Dragonspawn (52) and Wyrmkin (53) stand around both broodling spawns nearest Flame Crest (81.0,28.2 and 81.4,26.5); the spawns clear of both lie about 370 yd further east, so the point stays and the step warns.",
+			"source": [
+				{
+					"kind": "pfquest",
+					"ref": "npcs.json 8981 Malfunctioning Reaver 56 rare at Burning Steppes 79.2,29.7 / 88.1,31.8 / 90.0,46.0 / 85.8,57.1 / 88.6,57.4; 7047 Black Broodling spawns 81.0-91.9,26.5-62.1; Black Dragonspawn (52) and Black Wyrmkin (53), rank elite, among them"
+				}
+			],
+			"issue": 1575
+		},
+		{
 			"id": "1575-blasted-lands-vekzol",
 			"faction": "Alliance",
 			"at": {

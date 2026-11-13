@@ -306,6 +306,7 @@ step Ruins of Thaurissan: kill these as you meet them
   tip The relics are the carved stones scattered through the Ruins of Thaurissan around Flame Crest: click them until the information is recovered.
   tip Read the tablet in the Dark Iron camp among the ruins, south-west of Flame Crest, to copy the transcript.
   tip Use the Draco-Incarcinatrix 900 on a Black Broodling on the slopes east of Flame Crest just before it dies, then loot the essence it leaves.
+  tip Careful: a Malfunctioning Reaver (level 56, rare) walks the slopes by the broodlings, and the Black Dragonspawn and Wyrmkin around them are elite: use the Incarcinatrix on a broodling at the edge and look around before each pull.
   interact 153556 quest 3701.1        -- Thaurissan Relic
   collect 12283 quest 4726.1
   collect 11467 quest 4283.1
