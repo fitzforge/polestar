@@ -125,6 +125,12 @@ time from the simulator's evaluator (`levels::SimLevels`), using the sim
 folder's world and `params.json`. `--levels FILE` replays the levels from a
 saved judge dump instead. With neither, the walk is skipped.
 
+Both level sources honor `--to N`: stop before the first goal whose starting
+level is at least N. The goal that reaches or crosses N remains in the walk.
+A saved recording can cover more levels than requested; its end also limits
+the walk if it runs out first. This cutoff applies to walk statistics and
+findings, while the honest playtest still checks the whole selected chain.
+
 `forge judge report`, `forge judge check` and `forge build`'s report price the
 walk as the routes stage prices an order (`SimLevels::route`): the average route
 profile on the sim folder's walk store, so a quest with no kill or escort work is
