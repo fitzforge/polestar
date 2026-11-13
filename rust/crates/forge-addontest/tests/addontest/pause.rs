@@ -469,8 +469,9 @@ fn the_options_pause_switch_pauses_and_repaints_when_polestar_resumes_another_wa
 	let out = run_ui(
 		"",
 		r#"
-		local O = Polestar.UI.Options
 		UI.ShowOptions("guide")
+		-- The settings window is its own addon, loaded on demand by the first ShowOptions.
+		local O = Polestar.UI.Options
 		local row = O.Controls("guide", "Window")["Pause"]
 		local before = row.checked
 		row:Click()
