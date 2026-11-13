@@ -30,7 +30,7 @@ return {
 	["{npc:6} dig in the vineyards north-east of the Abbey. Now and then one drops a {quest:91741}: right-click it."] = "Los {npc:6} excavan en los viñedos al noreste de la abadía. De vez en cuando uno suelta {quest:91741}: haz clic derecho en él.",
 
 	-- Step 5: Northshire Abbey
-	["Inside"] = "",
+	["Inside"] = "Adentro",
 	-- {npc:247229} Daniel
 	["{npc:247229}, in the library; inside"] = "",
 
