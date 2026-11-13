@@ -275,10 +275,7 @@ impl ModelLevels {
 			}
 		}
 		let mean = |v: &Vec<f64>| v.iter().sum::<f64>() / v.len() as f64;
-		ModelLevels {
-			start: start.iter().map(|(k, v)| (k.clone(), mean(v))).collect(),
-			after: after.iter().map(|(k, m)| (k.clone(), m.iter().map(|(q, v)| (*q, mean(v))).collect())).collect(),
-		}
+		ModelLevels { start: start.iter().map(|(k, v)| (k.clone(), mean(v))).collect(), after: after.iter().map(|(k, m)| (k.clone(), m.iter().map(|(q, v)| (*q, mean(v))).collect())).collect() }
 	}
 
 	/// The model's level at step `s` (0-based) of guide `g` (danger.js's reading): its start, raised by the
@@ -348,13 +345,7 @@ pub fn model_warnings(guides: &[V], floors: &V, lm: &ModelLevels) -> Vec<Violati
 						line,
 						Rule::PickupGate.as_str(),
 						Level::Warn,
-						format!(
-							"this {name} pick-up is gated at {}; the floor {} less the {} levels the model plans before the run gives {}",
-							n(r1(gate)),
-							n(floor),
-							n(r1(run - level)),
-							n(r1(want))
-						),
+						format!("this {name} pick-up is gated at {}; the floor {} less the {} levels the model plans before the run gives {}", n(r1(gate)), n(floor), n(r1(run - level)), n(r1(want))),
 					));
 				}
 			}

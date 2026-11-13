@@ -33,7 +33,12 @@ fn instance_map(m: &Value) -> InstanceMap {
 		inner: list("inner"),
 		zones: list("zones"),
 		corpse: m["corpse"].as_object().map(|c| Corpse { c: c["c"].as_f64().unwrap(), x: c["x"].as_f64().unwrap(), y: c["y"].as_f64().unwrap() }),
-		finder: m["finder"].as_object().map(|f| forge_data::codex::client::Finder { min: f["min"].as_f64().unwrap_or(0.0), max: f["max"].as_f64().unwrap_or(0.0), players: f["players"].as_f64().unwrap_or(5.0), players_max: f.get("playersMax").and_then(Value::as_f64).or(f["players"].as_f64()).unwrap_or(5.0) }),
+		finder: m["finder"].as_object().map(|f| forge_data::codex::client::Finder {
+			min: f["min"].as_f64().unwrap_or(0.0),
+			max: f["max"].as_f64().unwrap_or(0.0),
+			players: f["players"].as_f64().unwrap_or(5.0),
+			players_max: f.get("playersMax").and_then(Value::as_f64).or(f["players"].as_f64()).unwrap_or(5.0),
+		}),
 	}
 }
 

@@ -555,7 +555,10 @@ fn doors(argv: Vec<String>) -> Result<(), Fail> {
 	}
 	let blockers = found.iter().filter(|v| v.level == forge_judge::check::Level::Blocker).count();
 	if as_json {
-		println!("{}", serde_json::to_string_pretty(&json!({ "runs": counted.iter().map(|(f, n)| json!({ "faction": f, "runs": n })).collect::<Vec<_>>(), "findings": found })).map_err(|e| e.to_string())?);
+		println!(
+			"{}",
+			serde_json::to_string_pretty(&json!({ "runs": counted.iter().map(|(f, n)| json!({ "faction": f, "runs": n })).collect::<Vec<_>>(), "findings": found })).map_err(|e| e.to_string())?
+		);
 	} else {
 		for v in &found {
 			println!("{}:{} {} {}: {}", v.file, v.line, v.rule, v.level.as_str(), v.message);

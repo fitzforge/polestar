@@ -8345,12 +8345,8 @@ fn anchors(o: &Order, goal: &str, q: u32) -> bool {
 fn grind_dungeon_tip(fac: char, lvl: f64, near: &[(String, RunAt)]) -> Option<String> {
 	let n = lvl.floor() as u32;
 	let place = |name: &str| near.iter().find(|(k, _)| *k == dungeon_key(name)).map(|(_, p)| p);
-	let mut fit: Vec<(u32, usize)> = GRIND_DUNGEONS
-		.iter()
-		.enumerate()
-		.filter(|(_, d)| (d.4 == ' ' || d.4 == fac) && d.2 <= n && n <= d.3 && place(d.0).is_some())
-		.map(|(i, d)| ((d.2 + d.3).abs_diff(2 * n), i))
-		.collect();
+	let mut fit: Vec<(u32, usize)> =
+		GRIND_DUNGEONS.iter().enumerate().filter(|(_, d)| (d.4 == ' ' || d.4 == fac) && d.2 <= n && n <= d.3 && place(d.0).is_some()).map(|(i, d)| ((d.2 + d.3).abs_diff(2 * n), i)).collect();
 	fit.sort();
 	let picks: Vec<(&str, &str)> = fit.iter().take(2).map(|&(_, i)| (GRIND_DUNGEONS[i].0, GRIND_DUNGEONS[i].1)).collect();
 	if picks.is_empty() {

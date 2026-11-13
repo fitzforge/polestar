@@ -82,7 +82,12 @@ fn maps_of(v: &Value) -> Vec<InstanceMap> {
 			inner: nums(&m["inner"]),
 			zones: nums(&m["zones"]),
 			corpse: m["corpse"].as_object().map(|_| Corpse { c: m["corpse"]["c"].as_f64().unwrap_or(0.0), x: m["corpse"]["x"].as_f64().unwrap_or(0.0), y: m["corpse"]["y"].as_f64().unwrap_or(0.0) }),
-			finder: m["finder"].as_object().map(|f| forge_data::codex::client::Finder { min: f["min"].as_f64().unwrap_or(0.0), max: f["max"].as_f64().unwrap_or(0.0), players: f["players"].as_f64().unwrap_or(5.0), players_max: f.get("playersMax").and_then(Value::as_f64).or(f["players"].as_f64()).unwrap_or(5.0) }),
+			finder: m["finder"].as_object().map(|f| forge_data::codex::client::Finder {
+				min: f["min"].as_f64().unwrap_or(0.0),
+				max: f["max"].as_f64().unwrap_or(0.0),
+				players: f["players"].as_f64().unwrap_or(5.0),
+				players_max: f.get("playersMax").and_then(Value::as_f64).or(f["players"].as_f64()).unwrap_or(5.0),
+			}),
 		})
 		.collect()
 }

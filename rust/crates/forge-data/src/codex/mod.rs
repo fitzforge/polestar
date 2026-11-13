@@ -593,11 +593,7 @@ fn sources_meta(inputs: &Inputs) -> V {
 	}
 	let nd = inputs.levels_table.len();
 	if nd > 0 {
-		out.push(source(
-			"Curated dungeon levels (data/codex/levels.json): in-game checks",
-			V::str(&format!("{nd} dungeons")),
-			V::str("Facts only (levels), each row with its source"),
-		));
+		out.push(source("Curated dungeon levels (data/codex/levels.json): in-game checks", V::str(&format!("{nd} dungeons")), V::str("Facts only (levels), each row with its source")));
 	}
 	if let Some(s) = recorded::source_meta(&inputs.recorded) {
 		out.push(s);
