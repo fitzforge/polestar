@@ -4243,30 +4243,6 @@
 			},
 			{
 				"a": [
-					"accept",
-					20
-				],
-				"b": [
-					"turnin",
-					118
-				],
-				"faction": "Alliance",
-				"why": "Flow (2026-11-07, Alliance 12-20): Marshal Marris's Blackrock Menace and Blockade (20, 98387, level 21) are taken from him at the bridge on Redridge's first Lakeshire stop at 20 and done on the 24 visit, where they still give full XP; the 24 visit no longer stops for them."
-			},
-			{
-				"a": [
-					"accept",
-					98387
-				],
-				"b": [
-					"turnin",
-					118
-				],
-				"faction": "Alliance",
-				"why": "Flow (2026-11-07, Alliance 12-20): see accept 20 before turnin 118."
-			},
-			{
-				"a": [
 					"turnin",
 					92
 				],
@@ -4952,6 +4928,42 @@
 				],
 				"faction": "Alliance",
 				"why": "Alliance 20-30 audit (0.4.0, #2025): Aquatic Form (5061) follows Trial of the Sea Lion's hand-in to Dendrite on 03-darkshore-return's Moonglade trip and goes to Mathrengyl Bearwalker on the Darnassus stop that trip already makes for Cat Form (98397), not on a second trip in 06-wetlands."
+			},
+			{
+				"a": [
+					"accept",
+					128
+				],
+				"b": [
+					"accept",
+					20
+				],
+				"faction": "Alliance",
+				"why": "Alliance 20-30 audit (0.4.0, #2025, with the Alliance 12-21 slice): Marshal Marris's Blackrock Menace and Blockade (20, 98387, level 21) and Foreman Oslow's Alther's Mill (98386, offered once The Everstill Bridge is handed in on the first visit) are taken on 04-redridge-mountains' Lakeshire stop, where both stand at the north end of the bridge on the way to the camps east of the lake, instead of on the first Redridge visit at 20 and carried about four hours through Darkshore, Ashenvale and the Wetlands. Level 21 quests handed in at about 26 still give full XP."
+			},
+			{
+				"a": [
+					"accept",
+					128
+				],
+				"b": [
+					"accept",
+					98387
+				],
+				"faction": "Alliance",
+				"why": "Alliance 20-30 audit (0.4.0, #2025): see accept 128 before accept 20."
+			},
+			{
+				"a": [
+					"accept",
+					128
+				],
+				"b": [
+					"accept",
+					98386
+				],
+				"faction": "Alliance",
+				"why": "Alliance 20-30 audit (0.4.0, #2025): see accept 128 before accept 20."
 			}
 		],
 		"notes": [

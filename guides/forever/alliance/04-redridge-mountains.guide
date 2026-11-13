@@ -51,10 +51,11 @@ next forever/alliance/05-duskwood
 # - Alther's Mill (98386, Forever) is offered by Foreman Oslow only once The
 #   Everstill Bridge (89) is handed in (two players' reports; the quest data
 #   has no prerequisite for it, #51). Since 2026-11-07 that is at 20, on
-#   Redridge's first visit (03-loch-modan), where Oslow gives it with the
-#   hand-in; Marshal Marris's Blackrock Menace and Blockade (20, 98387) and
-#   Murloc Poachers (150) are taken on that visit too, at their givers, and
-#   done here, where level 20-21 quests still give full XP. The tarantulas are
+#   Redridge's first visit (03-loch-modan); Murloc Poachers (150) is taken on
+#   that visit too. Since 0.4.0, Alther's Mill and Marshal Marris's Blackrock
+#   Menace and Blockade (20, 98387) are taken on this guide's Lakeshire stop,
+#   on the way to their camps, instead of being carried from the first visit;
+#   level 20-21 quests still give full XP here. The tarantulas are
 #   still killed on the trip east.
 # - Redridge's 15-20 quests (Guard Parker's and Deputy Feldon's gnolls, The
 #   Lost Tools and The Everstill Bridge, Darcy's and Martie's errands,
@@ -301,8 +302,11 @@ step Lake Everstill's murlocs: kill these as you meet them
 # ---------------------------------------------------------------- Lakeshire
 
 step Lakeshire
-  tip Cross the long bridge north into town: Dockmaster Baren on the docks, Bailiff Conacher in the town hall, Martie Jainrose in her garden at the west end. Marshal Marris's Blackrock quests and Alther's Mill came with you from your first Redridge visit.
+  tip Cross the long bridge north into town: Dockmaster Baren on the docks, Bailiff Conacher in the town hall, Martie Jainrose in her garden at the west end. Marshal Marris and Foreman Oslow stand at the north end of the bridge: the Blackrock camps' quests and Alther's Mill are worked on this visit's loop east of the lake.
   accept 126                                  -- Verner Osgood, by the road at the north end of the bridge
+  accept 20                                   -- Marshal Marris, at the north end of the bridge
+  accept 98387
+  accept 98386                                -- Foreman Oslow, beside him
   turnin 150                                  -- Dockmaster Baren
   accept 91                                   -- Bailiff Conacher, in the town hall
   accept 180                                  -- The Wanted poster by the inn

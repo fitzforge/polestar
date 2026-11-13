@@ -7389,14 +7389,21 @@ test('forever/alliance/03-loch-modan.guide: Alliance 12-20 zone order: Loch Moda
 	for (const race of ['Dwarf', 'Gnome']) assert.ok(!list.filter(forRaceOf(race)).some(({ goal }) => is('accept', 307)(goal)), `${race}: Filthy Paws was done in Dun Morogh`);
 });
 
-test('forever/alliance/04-redridge-mountains.guide: Alliance 12-20 zone order: Redridge\'s 15-20 quests are no longer taken at 24, its level 20-21 quests come with you from the first visit', { skip }, () => {
+test('forever/alliance/04-redridge-mountains.guide: Alliance 12-20 zone order: Redridge\'s 15-20 quests are no longer taken at 24; Murloc Poachers comes with you from the first visit, the Blackrock quests are taken on this visit (Alliance 20-30 audit)', { skip }, () => {
 	const list = goals('forever/alliance/04-redridge-mountains.guide');
 	for (const q of [244, 246, 98407, 125, 89, 129, 130, 131, 92, 65, 127]) assert.ok(!list.some(({ goal }) => goal.quest === q && (goal.t === 'accept' || goal.t === 'turnin')), `${q} is not in 04-redridge-mountains`);
-	// Marshal Marris's Blackrock quests, Alther's Mill and Murloc Poachers are taken at their givers at 20 and done here.
 	const first = goals(LOCH_MODAN);
-	for (const q of [20, 98387, 98386, 150]) {
-		assert.ok(first.some(({ goal }) => is('accept', q)(goal)), `accept ${q} at 20`);
-		assert.ok(!list.some(({ goal }) => is('accept', q)(goal)) && list.some(({ goal }) => is('turnin', q)(goal)), `${q} handed in at 24`);
+	// Murloc Poachers is taken from Baren at 20: its murlocs come before this visit's Lakeshire stop.
+	assert.ok(first.some(({ goal }) => is('accept', 150)(goal)), 'accept 150 at 20');
+	assert.ok(!list.some(({ goal }) => is('accept', 150)(goal)) && list.some(({ goal }) => is('turnin', 150)(goal)), '150 handed in at 24');
+	// Alliance 20-30 audit (0.4.0, #2025): Marshal Marris's Blackrock quests and Alther's Mill are taken on this visit's
+	// Lakeshire stop, on the way to their camps, instead of being carried for four hours from the first visit.
+	const lakeshire = list.find(({ goal }) => is('turnin', 150)(goal)).s;
+	for (const q of [20, 98387, 98386]) {
+		assert.ok(!first.some(({ goal }) => is('accept', q)(goal)), `${q} is not taken at 20`);
+		const acc = list.find(({ goal }) => is('accept', q)(goal));
+		assert.ok(acc && acc.s === lakeshire, `accept ${q} on the Lakeshire stop`);
+		assert.ok(list.findIndex(({ goal }) => is('accept', q)(goal)) < list.findIndex(({ goal }) => is('turnin', q)(goal)), `${q} handed in after`);
 	}
 	const fins = list.find(({ goal }) => goal.t === 'collect' && goal.item === 1468);
 	const baren = list.find(({ goal }) => is('turnin', 150)(goal));

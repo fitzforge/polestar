@@ -51,9 +51,9 @@ next forever/alliance/03-darkshore-return
 # in at once on the lighthouse stop, only by a player carrying five Flasks of Oil (a free drop of
 # the Harvest Watchers 02-westfall kills; it says to keep five), never a trip for the flasks.
 # Messenger to Westfall and Darkshire (143, 145): another round trip each.
-# Marshal Marris's Blackrock quests (20, 98387), Alther's Mill (98386) and Murloc Poachers (150,
-# from 20) are taken here, at their givers, and done on the 24 visit (04-redridge-mountains), where
-# level 20-21 quests still give full XP. Givers passed and left for later, by level: A Watchful Eye
+# Murloc Poachers (150, from 20) is taken here, from Dockmaster Baren, and done on the 24 visit
+# (04-redridge-mountains), whose murlocs come before its Lakeshire stop; Marshal Marris's Blackrock
+# quests (20, 98387) and Alther's Mill (98386) are taken on that stop, on the way to their camps. Givers passed and left for later, by level: A Watchful Eye
 # (94, from 20: players pass the Tower of Azora at 19-20, and its statue is worked on the 24 visit,
 # where Theocritus gives it), Mathias and the Defias for Rogues (2360, from 20: a Human Rogue is
 # 19.x on the SI:7 stop; 06-ashenvale's Stormwind stop gives it),
@@ -326,11 +326,9 @@ step Lakeridge Highway
   accept 246
 
 step Lakeshire
-  tip Cross the long bridge north into town: Shawn and Hilary play by the shore at its north end, Foreman Oslow and Marshal Marris stand there too, Verner Osgood by the smithy, Magistrate Solomon in the town hall, Dockmaster Baren on the docks, Wiley the Black upstairs in the inn and Darcy and Chef Breanna inside it.
+  tip Cross the long bridge north into town: Shawn and Hilary play by the shore at its north end, Foreman Oslow stands there too, Verner Osgood by the smithy, Magistrate Solomon in the town hall, Dockmaster Baren on the docks, Wiley the Black upstairs in the inn and Darcy and Chef Breanna inside it.
   accept 3741                                 -- Shawn
   accept 125                                  -- Foreman Oslow
-  accept 20                                   -- Marshal Marris: the Blackrock camps are for your next Redridge visit, at about 24
-  accept 98387
   accept 118                                  -- Verner Osgood: for Smith Argus in Goldshire
   accept 120                                  -- Magistrate Solomon, in the town hall: for General Marcus Jonathan in Stormwind
   accept 127                                  -- Dockmaster Baren
@@ -558,7 +556,6 @@ step Lakeshire
   turnin 124                                  -- Verner Osgood
   turnin 122
   turnin 89                                   -- Foreman Oslow
-  accept 98386                                -- Foreman Oslow: Alther's Mill, for your next Redridge visit
   accept 150                                  -- Dockmaster Baren, on the docks: the murlocs are for your next Redridge visit
 
 # ---------------------------------------------------------------- Back to Darkshore
