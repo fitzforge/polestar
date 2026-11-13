@@ -8023,7 +8023,9 @@ Each call fires `GUIDE_VISIBILITY`.
   boxes staying up; Reset position on a second click; Hide this box), and
   Shift-right-click hides the box for the session (`Movers.HideBox`; the
   bar's Show hidden (n), `Movers.ShowHidden()`, or a Move asking for it
-  brings it back), the top bar
+  brings it back); the wheel over boxes on top of each other turns which is
+  on top (`Movers.CycleStack(delta)`: down sends the top one to the bottom,
+  up brings the bottom one up, until the boxes are laid out again), the top bar
   has its title with an (i) whose tooltip lists every mouse and key control,
   Grid, the size, Snap, Revert, Reset all positions (the shared dialog),
   Exit and Save and exit; holding Shift fades it (and the panel under it)

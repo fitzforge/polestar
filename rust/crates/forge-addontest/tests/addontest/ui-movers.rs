@@ -488,10 +488,34 @@ fn the_bar_lists_every_control_shift_fades_it_and_the_first_unlock_says_how_it_g
 		emit({ before = before, first = first, info = info, closed = closed, away = away, back = back, typing = typing, again = c:IsShown() })"#);
 	assert_eq!(out["before"], false);
 	assert_eq!(out["first"], json!([true, "Moving Polestar's frames", true]), "the first unlock's callout, marked as shown");
-	assert_eq!(out["info"], json!([true, 5, true]), "the (i) after the title, five lines");
+	assert_eq!(out["info"], json!([true, 6, true]), "the (i) after the title, six lines");
 	assert_eq!(out["closed"], false, "Got it closes it");
 	assert_eq!(out["away"], json!([false, 0]), "Shift held: the bar fades away");
 	assert_eq!(out["back"], json!([true, 1]), "let go: back");
 	assert_eq!(out["typing"], true, "typing in its field: the bar stays");
 	assert_eq!(out["again"], false, "never again");
+}
+
+// Boxes on top of each other: the wheel over them turns which is on top (down: the top one to the bottom; up: back),
+// so a box under another of about its size is within reach; one box alone under the pointer stays as it is.
+#[test]
+fn the_wheel_over_stacked_boxes_turns_which_one_is_on_top() {
+	let out = run(r#"
+		M.Unlock()
+		M.MoveTo("flightTimer", 800, 500)
+		M.MoveTo("instances", 800, 500)
+		local ft, it = M.Box("flightTimer"), M.Box("instances")
+		local before = it:GetFrameLevel() > ft:GetFrameLevel()
+		stub.cursor = { 850, 510 }
+		stub.RunScript(it, "OnMouseWheel", -1)
+		local down = { ft:GetFrameLevel() > it:GetFrameLevel(), ft.psHover == true, it.psHover == nil }
+		stub.RunScript(ft, "OnMouseWheel", 1)
+		local up = it:GetFrameLevel() > ft:GetFrameLevel()
+		stub.cursor = { 3, 3 }
+		local alone = M.CycleStack(-1)
+		emit({ before = before, down = down, up = up, alone = alone })"#);
+	assert_eq!(out["before"], true, "the smaller box on top at first");
+	assert_eq!(out["down"], json!([true, true, true]), "the wheel down: the other one on top, lit as under the pointer");
+	assert_eq!(out["up"], true, "and up: back");
+	assert_eq!(out["alone"], false, "nothing stacked under the pointer: nothing turns");
 }

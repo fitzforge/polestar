@@ -45,3 +45,5 @@ section: players
 - Dialogs that change nothing for good take Enter. Reset all settings says
   whose profile it resets, and when the whole account (or a class) uses that
   profile it asks you to type RESET first.
+- In Move frames the mouse wheel over boxes on top of each other brings the
+  one underneath forward.

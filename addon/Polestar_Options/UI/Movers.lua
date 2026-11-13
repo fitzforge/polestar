@@ -683,6 +683,40 @@ local function boxMenu(b)
 	W.ShowMenu(menuAt, items, { point = "TOPLEFT", relPoint = "CENTER", x = 2, y = -2 })
 end
 
+-- The boxes under the pointer, the top one first.
+local function stackAt(x, y)
+	local out = {}
+	for _, b in pairs(boxes) do
+		if b:IsShown() and x >= b.psLeft and x <= b.psLeft + b.psW and y >= b.psBottom and y <= b.psBottom + b.psH then out[#out + 1] = b end
+	end
+	sort(out, function(a, c) return a:GetFrameLevel() > c:GetFrameLevel() end)
+	return out
+end
+
+-- The wheel over boxes on top of each other turns which is on top (down:
+-- the top one goes to the bottom; up: the bottom one comes to the top), so
+-- one under another of its size is within reach. Until the boxes are laid
+-- out again.
+function M.CycleStack(delta)
+	if dragging or not unlocked then return false end
+	local stack = stackAt(cursor())
+	local n = #stack
+	if n < 2 then return false end
+	local levels = {}
+	for i, b in ipairs(stack) do levels[i] = b:GetFrameLevel() end
+	for i, b in ipairs(stack) do
+		local to = delta < 0 and (i == 1 and n or i - 1) or (i == n and 1 or i + 1)
+		b:SetFrameLevel(levels[to])
+		b.psHover = nil
+	end
+	local top = stackAt(cursor())[1]
+	for _, b in ipairs(stack) do paintBox(b) end
+	top.psHover = true
+	paintBox(top)
+	boxTip(top)
+	return true
+end
+
 local function newBox(key)
 	local b = CreateFrame("Button", nil, root)
 	b.psKey = key
@@ -723,6 +757,8 @@ local function newBox(key)
 			endDrag()
 		end
 	end)
+	b:EnableMouseWheel(true)
+	b:SetScript("OnMouseWheel", function(_, delta) M.CycleStack(delta) end)
 	b:SetScript("OnEnter", function(self)
 		self.psHover = true
 		paintBox(self)
@@ -951,6 +987,7 @@ local function buildBar()
 		L["Drag a box to move its frame; hold Shift to keep to one line."],
 		L["Click a box to select it: the arrow keys nudge it 1 px (Shift: 10), and its X and Y can be typed under this bar."],
 		L["Right-click a box: its settings, its default place, or hide it. Shift-right-click hides it until you exit."],
+		L["The mouse wheel over boxes on top of each other brings the next one forward."],
 		L["Hold Shift to see through this bar and reach a frame under it."],
 		L["Escape or Exit to finish (it asks before discarding what moved); Save and exit keeps it."],
 	}
