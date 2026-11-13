@@ -11586,10 +11586,11 @@ for (const run of fs.existsSync(path.join(__dirname, '..', 'data', 'dungeon-runs
 
 // The other way round: every `when dungeon` step of the leveling guides belongs to a recorded run (its dungeon
 // recorded for that guide's faction, and that guide named in the record), so no injected step is left without the
-// record a Forge round needs. The Horde 30-40 Gnomeregan steps (Nogg's Rig Wars) predate the records.
+// record a Forge round needs. Gnomeregan stays out of the route: its pick-up and hand-in guides on its Dungeons page
+// cover it, so no leveling guide has a step for it.
 test('dungeons in the route: every `when dungeon` step of the leveling guides is explained by data/dungeon-runs.json', { skip }, () => {
 	const runs = DUNGEON_RUNS();
-	const known = new Set(['forever/horde/30-40/02-thousand-needles|gnomeregan']);
+	assert.ok(!runs.some((r) => dungeonKey(r.dungeon) === 'gnomeregan'), 'no Gnomeregan run is recorded');
 	const bad = [];
 	for (const guide of allGuides().filter((g) => /^forever\/(alliance|horde)\//.test(g))) {
 		const id = guide.replace(/\.guide$/, '');
@@ -11597,7 +11598,7 @@ test('dungeons in the route: every `when dungeon` step of the leveling guides is
 		const text = fs.readFileSync(path.join(OFFICIAL_DIR, guide), 'utf8');
 		for (const m of text.matchAll(/^\s*when dungeon "([^"]+)"/gm)) {
 			const name = dungeonKey(m[1]);
-			const ok = known.has(`${id}|${name}`) || runs.some((r) => r.faction === faction && dungeonKey(r.dungeon) === name &&
+			const ok = runs.some((r) => r.faction === faction && dungeonKey(r.dungeon) === name &&
 				[r.run.guide, ...(r.pickups || []).map((p) => (p.after && p.after.guide) || p.guide), ...(r.handins || []).map((h) => h.guide)].includes(id));
 			if (!ok) bad.push(`${id}: ${m[1]}`);
 		}

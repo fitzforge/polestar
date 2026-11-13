@@ -87,16 +87,6 @@ step Searn Firewarder
   tip Searn Firewarder stands in the Valley of Wisdom.
   accept 1531                         -- Searn Firewarder: for Prate Cloudseer by Freewind Post, later in this guide
 
-step Nogg
-  when dungeon "Gnomeregan"
-  zone Orgrimmar
-  tip Nogg's workshop is in the Valley of Honor. Rig Wars is Gnomeregan's last boss: great XP if you run it with a group. Run it whenever your group is ready; hand it in on a later Orgrimmar stop.
-  accept 2841                         -- Nogg
-
-step Gnomeregan
-  when dungeon "Gnomeregan"
-  note Run Gnomeregan with a group when it suits you: Mekgineer Thermaplugg at the end drops his Safe Combination; open his safe behind the northern bomb pillar for the Rig Blueprints.
-
 step Orgrimmar flight master
   zone Orgrimmar
   goto 45.3,63.7 "Orgrimmar flight master"
