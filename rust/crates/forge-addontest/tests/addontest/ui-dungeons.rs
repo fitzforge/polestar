@@ -423,9 +423,16 @@ fn the_levels_panel_breaks_the_number_down_ready_level_chain_and_names_what_was_
 		local s = D.QuestXP("wailing-caverns", { level = 20, xp = 0, xpMax = 23200, class = "DRUID", faction = "Horde" })
 		local rows = {}
 		for _, r in ipairs(Polestar.UI.LevelTip.Shares(s)) do rows[#rows + 1] = { r.group, r.n, r.need, r.text } end
+		-- The panel: beside other rows, the ready row says where those quests alone leave you.
+		Polestar.Dungeons.Open("wailing-caverns")
+		local _, _, pg = DS.Frames()
+		Polestar.UI.LevelTip.Set(pg.XP, s, {})
+		pg.XP:GetScript("OnEnter")(pg.XP)
+		local t = Polestar.UI.LevelTip.Frame()
+		local sub = t.ReadyNow:IsShown() and { t.ReadyNow:GetText(), t.ReadyThen:GetText() } or false
 		emit({ xp = s.xp, groups = { s.groups.ready.xp, s.groups.level.xp, s.groups.chain.xp }, left = s.left,
 			head = Polestar.UI.LevelTip.Text(s.levels), rows = rows,
-			ready = { s.ready.from.level, s.ready.from.xp, s.ready.to.level, s.ready.to.xp } })"#);
+			ready = { s.ready.from.level, s.ready.from.xp, s.ready.to.level, s.ready.to.xp }, sub = sub })"#);
 	let out = &out[0];
 	assert_eq!(out["xp"], 5500);
 	assert_eq!(out["groups"], json!([3500, 1000, 1000]));
@@ -433,6 +440,7 @@ fn the_levels_panel_breaks_the_number_down_ready_level_chain_and_names_what_was_
 	assert_eq!(out["head"], "+24% of a level");
 	assert_eq!(out["rows"], json!([["ready", 2, 18, "+15%"], ["level", 1, 23, "+5%"], ["chain", 1, 18, "+4%"]]), "the rows add up to the headline");
 	assert_eq!(out["ready"], json!([20, 0, 20, 3500]), "the ready quests alone, from now: 2,000 + 1,500");
+	assert_eq!(out["sub"], json!(["Now: 0% into level 20", "After: 15% into level 20"]));
 }
 
 #[test]
@@ -474,7 +482,7 @@ fn the_levels_chip_what_the_quests_still_to_do_are_worth_hovering_it_shows_the_x
 			true,
 			true,
 			[["Ready to take and hand in · 3 quests", "+24%"]],
-			["Now: 85% into level 20", "After: 9% into level 21"],
+			false,
 		])
 	);
 	assert_eq!(out["left"], false, "leaving the chip hides the panel");

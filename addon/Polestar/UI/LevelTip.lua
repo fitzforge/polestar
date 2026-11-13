@@ -327,7 +327,8 @@ local function layout(t, chip)
 		end
 	end
 	local subNow, subThen
-	if rows and rows[1] and rows[1].group == "ready" then subNow, subThen = readyLine(s) end
+	-- Only beside other rows: alone, the ready quests' Now and After are the legend's own.
+	if rows and #rows > 1 and rows[1].group == "ready" then subNow, subThen = readyLine(s) end
 	local sub = subNow ~= nil
 	t.ReadyNow:SetText(subNow or "")
 	t.ReadyThen:SetText(subThen or "")
