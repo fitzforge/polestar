@@ -8621,26 +8621,18 @@ test('forever/alliance/40-50/01-stranglethorn-vale.guide: final review: the nort
 
 // Final route review before 0.3.5 (Main's grind policy): every written grind step of Alliance 40-60 ("Level N" top-ups,
 // solo fallbacks, "Grind to N") ends its tip with the dungeon a group can run instead, the writer's sentence.
-test('alliance 40-60: final review: every written grind step offers a dungeon for its level', { skip }, () => {
-	const bands = [['the Uldaman dungeon', 40, 45], ["the Zul'Farrak dungeon", 44, 48], ['the Maraudon dungeon', 46, 52], ['the Sunken Temple dungeon', 50, 54], ['the Blackrock Depths dungeon', 52, 58], ['the Blackrock Spire dungeon (Lower)', 55, 60], ['the Scholomance dungeon', 58, 60], ['the Stratholme dungeon', 58, 60]];
-	const want = (lv) => bands.map(([n, lo, hi], i) => ({ n, i, d: Math.abs((lo + hi) / 2 - lv), ok: lo <= lv && lv <= hi })).filter((b) => b.ok).sort((a, b) => a.d - b.d || a.i - b.i).slice(0, 2).map((b) => b.n).join(' or ');
+test('alliance 40-50: final review: every written grind step names only a dungeon the route runs nearby', { skip }, () => {
 	// Since the 0.4.0 audit, Alliance 40-50's grind tips follow the dungeons-in-the-route rule: a tip names a dungeon
 	// only when its run is in the same or the next guide, on the same continent (Uldaman for Stranglethorn, whose next
 	// guide runs it from the Badlands; Zul'Farrak for Feralas, whose next guide runs it from Tanaris; none elsewhere).
+	// 50-60 has its own case for the same rule.
 	const near = { '01-stranglethorn-vale': 'the Uldaman dungeon', '03-feralas': "the Zul'Farrak dungeon" };
-	for (const guide of allGuides().filter((g) => /^forever\/alliance\/(40-50|50-60)\//.test(g))) {
+	for (const guide of allGuides().filter((g) => /^forever\/alliance\/40-50\//.test(g))) {
 		for (const step of compiled(guide).steps) {
-			const m = /^(?:Level ([\d.]+)|Grind to (\d+))$/.exec(step.title);
-			if (!m) continue;
-			const lv = Math.floor(Number(m[1] || m[2]));
-			const band = /\/40-50\/([^/]+)\.guide$/.exec(guide);
-			if (band) {
-				const d = near[band[1]];
-				if (d) assert.ok((step.note || '').endsWith(`Or, with a group, run ${d} instead.`), `${guide} "${step.title}": ${step.note}`);
-				else assert.ok(!/run the [^.]* dungeon/.test(step.note || ''), `${guide} "${step.title}": no dungeon off the route: ${step.note}`);
-				continue;
-			}
-			assert.ok((step.note || '').endsWith(`Or, with a group, run ${want(lv)} instead.`), `${guide} "${step.title}": ${step.note}`);
+			if (!/^(?:Level [\d.]+|Grind to \d+)$/.test(step.title)) continue;
+			const d = near[/\/40-50\/([^/]+)\.guide$/.exec(guide)[1]];
+			if (d) assert.ok((step.note || '').endsWith(`Or, with a group, run ${d} instead.`), `${guide} "${step.title}": ${step.note}`);
+			else assert.ok(!/run the [^.]* dungeon/.test(step.note || ''), `${guide} "${step.title}": no dungeon off the route: ${step.note}`);
 		}
 	}
 });
