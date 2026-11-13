@@ -1022,7 +1022,8 @@ do
 				gl.Text:SetTextColor(ar + (dr - ar) * e, ag + (dg - ag) * e, ab + (db - ab) * e)
 			end
 		end
-		if moved then fitGoals() end
+		-- A fold on the hidden card must not resize the step browser.
+		if moved and card:IsShown() then fitGoals() end
 		if landed then GF.Refill() end
 		if fold.n == 0 and not fold.glow then fold.driver:SetScript("OnUpdate", nil) end
 	end
@@ -2428,7 +2429,9 @@ function GF.Layout()
 	local list = UI.StepList and UI.StepList.Place(body, state == "steps")
 	if list then
 		for _, f in ipairs({ card, after, along, GF.here, upnext, UI.JourneyPanel and UI.JourneyPanel.frame }) do f:Hide() end
-		y = stack(list, y, UI.StepList.Layout(width, min(capHeight(), roomAbove() or math.huge) - ((showStrip and TAB_H or 0) + NAV_H + PROG_H + y)))
+		local outer = (showStrip and TAB_H or 0) + NAV_H + PROG_H
+		local height = min(UI.StepList.height or F:GetHeight(), max(outer + MIN_BODY_H, roomAbove() or math.huge))
+		y = stack(list, y, UI.StepList.Layout(width, height - outer - y))
 	elseif state == "steps" then
 		fit.fixed = layoutCard(width)
 		fit.top = y
