@@ -77,10 +77,10 @@ step Mannoroc Coven
   collect 6252 quest 1466             -- Doomwarder Blood
 
 step The Valley of Bones
-  tip Undead Ravagers roam the bone fields south of the Magram village, east of the Coven; at the far south-east, use the Crate of Ghost Magnets to draw the Magrami Spectres. Careful: Magram Necromancers (42) and two Magram Necrokhans (45, elite) hold the village just north of the bone fields, and the Corpsefeeder (45, elite) walks between them: keep to the fields' southern edge.
-  kill 11561 quest 261                -- Undead Ravager
-  use 15848 quest 6134.1 @63.5,91.6 map 1443
-  collect 15849 quest 6134            -- Ghost-o-plasm
+  tip Undead Ravagers roam the bone fields south of the Magram village, east of the Coven: the arrow leads to their western edge. Then use the Crate of Ghost Magnets at its arrow, on the fields' eastern side, to draw the Magrami Spectres. Careful: Magram Necrokhans and Corpsefeeders (45, elite) walk the bone fields between the two arrows, with Magram Necromancers (42): pull the Ravagers and the spectres to you, away from them.
+  kill 11561 quest 261 @61.1,90.9 map 1443 -- Undead Ravager
+  use 15848 quest 6134.1 @64.4,91.7 map 1443
+  collect 15849 quest 6134 @64.4,91.7 map 1443 -- Ghost-o-plasm
 
 step Mannoroc Coven
   collect 6250 quest 1466             -- Felhound Brain

@@ -11909,13 +11909,21 @@ test(`${HILLSBRAD_ALLIANCE}: Retrieval for Mauren is taken on the Mage Quarter s
 });
 
 // 0.4.0 route audit (Refs #2025, danger at the spot #1575): Desolace's Valley of Bones step (Undead Ravagers, the Ghost
-// Magnets) lies just south of the Magram village's Necromancers (42) and elite Necrokhans (45), with the elite
-// Corpsefeeder (45) between; players died around the Ghost Magnets. The step warns.
-test(`${DESOLACE_SOUTH}: the Valley of Bones step warns of the Magram village`, { skip }, () => {
+// Magnets): Magram Necrokhans and Corpsefeeders (45, elite) of Shen'dralas walk the bone fields with Magram Necromancers
+// (42); players' recordings show 5 deaths around the old Ghost Magnets point. The Ravagers' arrow leads to the fields'
+// clear western edge, the crate's to the spot players used it in the east, and the step warns of the elites between.
+test(`${DESOLACE_SOUTH}: the Valley of Bones points away from the Shen'dralas elites and warns of them`, { skip }, () => {
 	const list = goals(DESOLACE_SOUTH);
 	const fight = list[at(list, 'kill 11561', (g) => g.t === 'kill' && g.quest === 261)];
-	assert.match([].concat(fight.step.note || []).join(' '), /Careful: Magram Necromancers \(42\) and two Magram Necrokhans \(45, elite\)/);
-	assert.ok(JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', 'guide-fixes.json'), 'utf8')).fixes.some((f) => f.id === '2025-valley-of-bones-careful'), 'a record the build keeps');
+	assert.ok(fight.goal.map === 1443 && Math.hypot(fight.goal.x - 61.1, fight.goal.y - 90.9) < 1, `the Ravagers: the fields' western edge (got ${fight.goal.map} ${fight.goal.x},${fight.goal.y})`);
+	for (const [what, pred] of [['crate', (g) => g.t === 'use' && g.quest === 6134], ['ghost-o-plasm', (g) => g.t === 'collect' && g.quest === 6134]]) {
+		const { goal } = list[at(list, what, pred)];
+		assert.ok(goal.map === 1443 && Math.hypot(goal.x - 64.4, goal.y - 91.7) < 1, `${what}: the fields' eastern side (got ${goal.map} ${goal.x},${goal.y})`);
+	}
+	assert.match([].concat(fight.step.note || []).join(' '), /Careful: Magram Necrokhans and Corpsefeeders \(45, elite\) walk the bone fields between the two arrows/);
+	assert.ok(JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', 'guide-fixes.json'), 'utf8')).fixes.some((f) => f.id === '2025-valley-of-bones-careful'), 'the tip, a record the build keeps');
+	const places = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', 'places.json'), 'utf8')).places;
+	for (const id of ['1575-desolace-alliance-undead-ravagers-west', '1575-desolace-alliance-ghost-magnets-east']) assert.ok(places.some((p) => p.id === id), `${id}: a record the build keeps`);
 });
 
 // 0.4.0 route audit (Refs #2025, danger at the spot #1575): the first Desolace visit's Kolkar Village step pointed its

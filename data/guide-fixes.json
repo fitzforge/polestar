@@ -8044,12 +8044,12 @@
 				"objective": 1,
 				"guide": "forever/alliance/30-40/06b-desolace"
 			},
-			"tip": "Undead Ravagers roam the bone fields south of the Magram village, east of the Coven; at the far south-east, use the Crate of Ghost Magnets to draw the Magrami Spectres. Careful: Magram Necromancers (42) and two Magram Necrokhans (45, elite) hold the village just north of the bone fields, and the Corpsefeeder (45, elite) walks between them: keep to the fields' southern edge.",
-			"note": "0.4.0 route audit (Refs #2025, danger at the spot #1575): the Undead Ravagers (37) and the Ghost Magnets' spot lie on the bone fields at 58-64,88-92, just south of the Magram village's Necromancers (42) and Necrokhans (45, elite), with the Corpsefeeder (45, elite) between; the step gave no warning. The step's earlier tip is kept in this one.",
+			"tip": "Undead Ravagers roam the bone fields south of the Magram village, east of the Coven: the arrow leads to their western edge. Then use the Crate of Ghost Magnets at its arrow, on the fields' eastern side, to draw the Magrami Spectres. Careful: Magram Necrokhans and Corpsefeeders (45, elite) walk the bone fields between the two arrows, with Magram Necromancers (42): pull the Ravagers and the spectres to you, away from them.",
+			"note": "0.4.0 route audit (Refs #2025, danger at the spot #1575): the Undead Ravagers (37) and the Ghost Magnets' spot lie on the bone fields at 58-65,81-92, where Magram Necrokhans and Corpsefeeders (45, elite) and Magram Necromancers (42) of Shen'dralas walk the same ground; the step gave no warning. The arrows (places 1575-desolace-alliance-undead-ravagers-west and -ghost-magnets-east) lead to the fields' clear western edge and to the magnet spot players used in the east; the tip says so and warns of the elites between. The step's earlier tip is kept in this one.",
 			"source": [
 				{
 					"kind": "questie",
-					"ref": "data/forever npcs.json spawns (Desolace): Undead Ravager (11561, 37) 58.3-63.0,88.2-92.1; Magram Necromancer (253272, 42) 57.6-63.6,75.8-86.2; Magram Necrokhan (253274, 45, elite) 61.8,79.1 and 63.7,77.1; Corpsefeeder (253394, 45, elite) 58.1,83.6"
+					"ref": "data/forever npcs.json spawns: Undead Ravager (11561, 37) Desolace 58.3-65.2,81.5-92.1; on Shen'dralas (map 2652), over the bone fields at Desolace 59.6-65.9,85.1-94.2: Magram Necrokhan (253274, 45, elite) 10 spawns, Corpsefeeder (253394, 45, elite) 3, Magram Necromancer (253272, 42) 6"
 				},
 				{
 					"kind": "recording",
