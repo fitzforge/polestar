@@ -7065,10 +7065,11 @@ words that are one joined pair of the control's (neighbours within one
 comma's part of its text) add up to 40. A filler word's match, and a pair
 with one in it, count a tenth: they tell settings apart, never outrank the
 words asked about ("the" in "Hide the arrow with the guide"). A control
-named whole, every word of its label or of one of its search terms asked
-for (filler aside; whole, its start, a typo off, or through a word's other
-forms or synonyms), adds 50: "where is the xp tracker" puts XP tracker
-before the tracker's other rows. A question asking to switch something
+named whole, every word of its label or of one of its search terms of two
+words or more asked for (filler aside; whole, its start, a typo off, or
+through a word's other forms or synonyms), adds 50: "where is the xp
+tracker" puts XP tracker before the tracker's other rows, "arrow" Show
+arrow before the rows that only hold the word. A question asking to switch something
 (off, enable, disable, toggle, stop, show, hide) adds 30 to a toggle, before
 a slider or a choice that matches as well. "Hide" reads Show and Shown at
 its own weight (an on/off word is the toggle's own: "hide the arrow" asks
@@ -7122,8 +7123,9 @@ A query that **starts with a page's name** and goes on ("arrow size",
 aside, or run together; on a translated client its English name too) looks
 on that page alone for the rest, in the dropdown and on the results page
 (`O.Search`'s fourth result names the page), when its best result there is a
-fair match: 50 a word on average, a word whole in its place or its start in
-its own words. Otherwise the whole window is searched ("guide window lock"
+fair match by its words alone (without the 50 for a control named whole or
+the 30 for a toggle): 50 a word on average, a word whole in its place or its
+start in its own words. Otherwise the whole window is searched ("guide window lock"
 finds the lock on Guide, not on the Guide window page).
 
 The built-in pages are grouped by what the player is doing: **Guide** (10:

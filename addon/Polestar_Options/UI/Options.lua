@@ -1913,20 +1913,21 @@ local function searchTokens(c)
 	s = { label = label, words = {}, fields = {}, covers = {} }
 	local w, f = s.words, s.fields
 	addWords(w, f, label, LABEL, true)
-	-- What names it whole (scoreOf's COVER): its label's words, each of its
-	-- search terms' and its English label's, filler aside.
-	local function cover(text)
+	-- What names it whole (scoreOf's COVER): its label's words, its English
+	-- label's and each of its search terms' of two words or more (one word is
+	-- a hint, not a name), filler aside.
+	local function cover(text, least)
 		local list = {}
 		for word in fold(text):gmatch("[%w\128-\255]+") do
 			word = SPELLING[word] or word
 			if not FILLER[word] then list[#list + 1] = word end
 		end
-		if list[1] then s.covers[#s.covers + 1] = list end
+		if #list >= least then s.covers[#s.covers + 1] = list end
 	end
-	cover(label)
-	if englishOf(label) then cover(englishOf(label)) end
+	cover(label, 1)
+	if englishOf(label) then cover(englishOf(label), 1) end
 	if type(c.search) == "string" then
-		for term in c.search:gmatch("[^,]+") do cover(term) end
+		for term in c.search:gmatch("[^,]+") do cover(term, 2) end
 	end
 	addWords(w, f, c.search, TERMS, true)
 	if type(c.key) == "string" then addWords(w, f, (c.key:match("[^.]+$"):gsub("(%l)(%u)", "%1 %2")), KEY, true) end
@@ -2081,11 +2082,13 @@ local function formSays(i, t)
 	return false
 end
 
--- A control's score for the query, 0 when a word it needs matches nothing.
+-- A control's score for the query, 0 when a word it needs matches nothing;
+-- and what its words alone make of it (no COVER or SWITCH: the page scope's
+-- fair match).
 local function scoreOf(c, nw)
 	local s = searchTokens(c)
 	local tw, tf = s.words, s.fields
-	local total = qwords.onoff and c.kind == "toggle" and SWITCH or 0
+	local total, bonus = 0, qwords.onoff and c.kind == "toggle" and SWITCH or 0
 	for i = 1, nw do
 		local m, filler, best, phrase = qwords[i], qfiller[i], 0, 0
 		local pair = qpairs[i]
@@ -2132,9 +2135,9 @@ local function scoreOf(c, nw)
 				break
 			end
 		end
-		if all then return total + COVER end
+		if all then return total + bonus + COVER, total end
 	end
-	return total
+	return total + bonus, total
 end
 
 -- The best match first; one its section's on/off stops after an equal one
@@ -2216,7 +2219,7 @@ local function collect(nw, only)
 				-- The section's toggle is a result of its own; a control is
 				-- found by its words and by those of its extras and cog. A
 				-- reference (Essentials) is found at its home.
-				local list, best
+				local list, best, fair
 				local cands = {}
 				if s.toggle and not rawget(s.toggle, "ref") then cands[1] = s.toggle end
 				for _, c in ipairs(s.controls) do
@@ -2225,11 +2228,11 @@ local function collect(nw, only)
 				for _, c in ipairs(cands) do
 					order = order + 1
 					if available(c) and not (c.key and seen[c.key]) then
-						local score, via = 0, nil
+						local score, words, via = 0, 0, nil
 						eachSetting(c, function(x)
 							if x == c or available(x) then
-								local v = scoreOf(x, nw)
-								if v > score then score, via = v, x end
+								local v, w = scoreOf(x, nw)
+								if v > score then score, words, via = v, w or 0, x end
 							end
 						end)
 						if score > 0 then
@@ -2241,6 +2244,7 @@ local function collect(nw, only)
 							list = list or {}
 							list[#list + 1] = c
 							if not best or score > best then best = score end
+							if not fair or words > fair then fair = words end
 						end
 					end
 				end
@@ -2250,7 +2254,7 @@ local function collect(nw, only)
 					local title = p.name
 					if t.name ~= "" then title = title .. "  \194\183  " .. t.name end
 					if s.name ~= "" and s.name ~= t.name then title = title .. "  \194\183  " .. s.name end
-					groups[#groups + 1] = { title = title, controls = list, best = best, order = #groups + 1, section = s,
+					groups[#groups + 1] = { title = title, controls = list, best = best, fair = fair, order = #groups + 1, section = s,
 						off = list[1].psStopped and true or false }
 					count = count + #list
 				end
@@ -2319,9 +2323,10 @@ local function scopeOf(nw)
 	return page, table.concat(rest, " ")
 end
 
--- A page's own results stand when its best one is a fair match: on average
--- each word whole in the setting's place, or its start in the setting's own
--- words. A word found only in a help text, or a typo, looks everywhere.
+-- A page's own results stand when its best one is a fair match by its words
+-- alone (no COVER or SWITCH): on average each word whole in the setting's
+-- place, or its start in the setting's own words. A word found only in a
+-- help text, or a typo, looks everywhere.
 local SCOPE_FLOOR = 50
 
 -- -> { { title = "Page · Tab", controls = { ... } }, ... }, count, suggestions, page
@@ -2341,7 +2346,9 @@ function O.Search(q)
 		local groups, count = collect(rw, page)
 		if count > 0 then
 			table.sort(groups, byBest)
-			if groups[1].best >= SCOPE_FLOOR * max(1, needed) then return groups, count, nil, page end
+			local fair = 0
+			for _, g in ipairs(groups) do fair = max(fair, g.fair) end
+			if fair >= SCOPE_FLOOR * max(1, needed) then return groups, count, nil, page end
 		end
 		nw = parseQuery(q)
 	end

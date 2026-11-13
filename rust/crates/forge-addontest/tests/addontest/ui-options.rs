@@ -526,7 +526,8 @@ fn search_finds_settings_by_label_and_help_across_pages_registered_ones_included
 	// Page and tab (a result card's title adds its section).
 	let mut titles: Vec<String> = out["arrow"]["titles"].as_array().unwrap().iter().map(|v| tab_of(v.as_str().unwrap())).collect();
 	titles.dedup();
-	assert!(in_order(&titles[..2], &["Guide  \u{b7}  Window", "Guide  \u{b7}  Arrow & routes"]), "the best groups first: {titles:?}");
+	// Show arrow, every word of its label asked for, first; then the arrow's other rows by page.
+	assert!(in_order(&titles[..2], &["Guide  \u{b7}  Arrow & routes", "Guide  \u{b7}  Window"]), "the best groups first: {titles:?}");
 	assert!(titles.contains(&"Map  \u{b7}  Guide & quests".to_string()) && titles.contains(&"Gamepad  \u{b7}  Key bindings".to_string()), "{titles:?}");
 	assert!(!titles.iter().any(|t| t.starts_with("Appearance")), "{titles:?}");
 	assert_eq!(out["arrow"]["title"], "Search");
@@ -1819,9 +1820,9 @@ fn typing_a_page_tab_or_section_name_offers_it_over_the_settings_and_picking_it_
 			["page", format!("Go to page: {}", lit("Arrow")), "Look"],
 			["section", format!("Section: {}", lit("Arrow")), "Guide  \u{b7}  Arrow & routes"],
 			["section", format!("Section: {}", lit("Arrow")), "Arrow  \u{b7}  Look"],
-			["setting", format!("Keep the {} when hidden", lit("arrow")), "Guide  \u{b7}  Window"]
+			["setting", format!("Show {}", lit("arrow")), "Guide  \u{b7}  Arrow & routes"]
 		]),
-		"the page first (its sidebar group under it), then its sections, then the settings"
+		"the page first (its sidebar group under it), then its sections, then the settings, Show arrow (named whole) the first"
 	);
 	assert_eq!(out["page"], json!(["arrow", false, ""]), "a click on the page's row opens it");
 	assert_eq!(out["flight"], json!(["section", format!("Section: {} {}", lit("Flight"), lit("timer")), "Trackers  \u{b7}  Travel"]));
