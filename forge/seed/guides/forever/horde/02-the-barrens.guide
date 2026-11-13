@@ -42,7 +42,7 @@ next forever/horde/05-stonetalon-mountains
 # and Nugget Slugs -> the Boulder Lode Mine -> Wenikee -> the Crossroads -> Verog and Tonga's seed test at the Stagnant Oasis -> Camp Taurajo (flight path) -> the Bristleback camps ->
 # Agama'gor -> fly to Orgrimmar for level 20 training -> fly to Ratchet -> Ishamuhale -> the
 # Crossroads, Regthar,
-# Hezrul and the snapjaws at Lushwater -> Camp Taurajo (bind): Jorn's thunder lizards and thunderhawks -> the Crossroads:
+# Hezrul and the snapjaws at Lushwater -> Camp Taurajo: Jorn's thunder lizards and thunderhawks -> the Crossroads:
 # Counterattack! -> west to Seereth, Makaba and Malaka'jin -> the Webwinder Path, Ziz Fizziks and
 # Windshear Crag -> back down: Kaya's escort from Grundig's hut to Camp Aparaje -> Malaka'jin ->
 # Seereth. The next guide goes north to the Mor'shan Rampart and
@@ -341,7 +341,6 @@ step Ratchet
   accept 894                          -- Sputtervalve: the console is in the Sludge Fen, later
   accept 895                          -- WANTED poster
   accept 865                          -- Mebok Mizzyrix
-  sethome "Ratchet"
   turnin 1492                         -- Wharfmaster Dizzywig, on the dock
   accept 896                          -- Wharfmaster Dizzywig: the emerald comes from the Boulder Lode Mine, later
 
@@ -449,10 +448,9 @@ step Kranal Fiss
 
 step The Crossroads
   zone The Barrens
-  tip Sergra by the inn first, then the innkeeper, Helbrim by the north gate, Thork and Darsok on the tower platform, Mankrik by the inn, and Tonga at the south gate last. His seed test waits for the Verog pass at the Stagnant Oasis: go straight on north-west to the Dry Hills. After the spores Helbrim offers Apothecary Zamah, a delivery to Thunder Bluff within 45 minutes: this route doesn't go there, so leave it (Druids take it on the next Crossroads stop, right before their flight to Thunder Bluff).
+  tip Sergra by the inn first, then Helbrim by the north gate, Thork and Darsok on the tower platform, Mankrik by the inn, and Tonga at the south gate last. His seed test waits for the Verog pass at the Stagnant Oasis: go straight on north-west to the Dry Hills. After the spores Helbrim offers Apothecary Zamah, a delivery to Thunder Bluff within 45 minutes: this route doesn't go there, so leave it (Druids take it on the next Crossroads stop, right before their flight to Thunder Bluff).
   turnin 903                          -- Sergra Darkthorn
   accept 881
-  sethome "The Crossroads" npc 3934   -- Innkeeper Boorand Plainswind
   turnin 848                          -- Apothecary Helbrim
   turnin 872                          -- Thork
   turnin 867                          -- Darsok Swiftdagger
@@ -918,7 +916,6 @@ step Olgra's Adornments
 
 step Camp Taurajo
   tip Down the Gold Road to Camp Taurajo again.
-  sethome "Camp Taurajo" npc 7714     -- Innkeeper Byula
   turnin 882                          -- Jorn Skyseer
   accept 907
   accept 6382                         -- Keep it: Senani Thunderheart in Ashenvale, next guide

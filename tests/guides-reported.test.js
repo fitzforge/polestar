@@ -5315,8 +5315,6 @@ test("Snowiee's report (#1003): the Great Cat Spirit's accepts and turn-ins poin
 // Rock (Maggran Earthbinder) and Tarren Mill (Apothecary Lydon).
 test("Bill's report (#1004): a town's bind never sends you back to the giver you just left", { skip }, () => {
 	for (const [guide, place, before] of [
-		['forever/horde/02-the-barrens.guide', 'Ratchet', [865]],
-		['forever/horde/02-the-barrens.guide', 'The Crossroads', [903, 881]],
 		['forever/horde/04-the-barrens.guide', 'Sun Rock Retreat', [86576, 5881]],
 		['forever/horde/06-hillsbrad-foothills.guide', 'Tarren Mill', [496, 493]],
 	]) {
@@ -5336,6 +5334,21 @@ test("Bill's report (#1004): a town's bind never sends you back to the giver you
 		const back = inStep.filter(([, i]) => i > bind).map(([{ goal }]) => goal).filter((g) => g.npc && npcsBefore.has(g.npc));
 		assert.deepEqual(back.map((g) => `${g.t} ${g.quest} (${g.npcName})`), [], `${guide}: back to an NPC of the step after binding at ${place}`);
 	}
+});
+
+// 0.4.0 route audit, Horde 12-21 (travel sweep with the addon's planner, recorded hearths): Ratchet's bind was never
+// hearthed back to inside its window, the second Crossroads line rebound the inn the player was already bound to, and
+// Camp Taurajo's one planned hearth lands at the Crossroads just as well. The Barrens keep their first Crossroads bind,
+// taken after Sergra's first quest and before the givers further on.
+test('The Barrens (Horde 14-21): one bind, at the Crossroads; Ratchet and Camp Taurajo are not bound (0.4.0 audit)', { skip }, () => {
+	const list = goals(BARRENS);
+	const binds = list.filter(({ goal }) => goal.t === 'sethome');
+	assert.deepEqual(binds.map(({ goal }) => goal.location), ['The Crossroads'], 'the guide binds once, at the Crossroads');
+	const inStep = list.filter(({ step }) => step === binds[0].step);
+	const k = inStep.indexOf(binds[0]);
+	const SERGRA = 3338;
+	assert.ok(inStep.slice(0, k).some(({ goal }) => goal.npc === SERGRA), 'Sergra before the bind');
+	assert.ok(!inStep.slice(k + 1).some(({ goal }) => goal.npc === SERGRA), 'no walk back to Sergra after the bind');
 });
 
 // #1024 (Pilk, Tauren Druid): Apothecary Zamah's arrow led up out of the Pools of Vision, the cave under
