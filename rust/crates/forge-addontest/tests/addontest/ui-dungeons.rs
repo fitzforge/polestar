@@ -1284,7 +1284,7 @@ fn the_dungeon_card_waits_for_the_dungeons_best_at_level_not_the_start_of_its_ra
 		end
 		emit({{ best = Polestar.Dungeons.BestAt("wailing-caverns"), seen = seen }})"#
 	));
-	assert_eq!(out[0], json!({ "best": 19, "seen": [false, false, "LEVEL 19 · DUNGEON"] }));
+	assert_eq!(out[0], json!({ "best": 19, "seen": [false, false, "Level 19 · Dungeon"] }));
 }
 
 // No card when the quests to take now are worth under a tenth of a level (MIN_WORTH): with Trouble at the Docks
@@ -1336,9 +1336,9 @@ fn a_dungeon_card_put_off_with_later_below_best_at_comes_back_once_at_best_at_th
 		end
 		emit({{ after = card().shown }})"#
 	));
-	assert_eq!(out[0], json!({ "early": "LEVEL 18 · DUNGEON", "told": "later" }));
+	assert_eq!(out[0], json!({ "early": "Level 18 · Dungeon", "told": "later" }));
 	assert_eq!(out[1], json!({ "again18": false }), "not before best-at");
-	assert_eq!(out[2], json!({ "back": "LEVEL 19 · DUNGEON", "told": true }));
+	assert_eq!(out[2], json!({ "back": "Level 19 · Dungeon", "told": true }));
 	assert_eq!(out[3], json!({ "after": false }), "once only");
 }
 
@@ -1428,7 +1428,7 @@ fn the_command_says_so_for_a_dungeon_with_nothing_to_pick_up_or_a_character_with
 	assert_eq!(out[1], json!({ "shown": false, "printed": ["No dungeon has opened up for this character."] }));
 }
 
-// #869's screenshot: on the guide window at its narrowest the header ("LEVEL 19 · DUNGEON") wrapped and was cut
+// #869's screenshot: on the guide window at its narrowest the header ("Level 19 · Dungeon") wrapped and was cut
 // beside the chip, and "Turn these off" ran to the card's edge. Where they don't fit on one line, the chip goes
 // under the header (in the house look, where the facts line sits under the title, under the facts); where the
 // buttons don't fit in one row, Later and Turn these off take a row of their own under the actions, and no row runs
