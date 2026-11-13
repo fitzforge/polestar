@@ -161,7 +161,7 @@ step The Binding
   tip North along the road from Goldshire to Stormwind: Gakin the Darkbinder waits in the cellar of the Slaughtered Lamb, in the Mage Quarter. Use the Bloodstone Choker at the summoning circle there and defeat the voidwalker it calls, then back south through Goldshire to Westfall.
   turnin 1688                                 -- Gakin the Darkbinder
   accept 1689
-  complete 1689                               -- Subdue the voidwalker
+  kill 5676 quest 1689.1                      -- Summoned Voidwalker: use the Bloodstone Choker at the circle
   turnin 1689                                 -- Summon Voidwalker
 
 # ---------------------------------------------------------------- The road in: the Jansen Stead and Saldean's
