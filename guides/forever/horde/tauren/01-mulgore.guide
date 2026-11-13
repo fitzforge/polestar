@@ -127,51 +127,61 @@ step Kaga Wildhoof
 step Camping 101: Skinning
   when skill Skinning 1
   when !knows 1229517
+  tip Yonn Deepcut takes it once your Skinning skill is 20: gather or craft until then, the guide carries on meanwhile.
   accept 97936                        -- Kaga Wildhoof: for Yonn Deepcut
 
 step Camping 101: Leatherworking
   when skill Leatherworking 1
   when !knows 1229432
+  tip Chaw Stronghide takes it once your Leatherworking skill is 20: gather or craft until then, the guide carries on meanwhile.
   accept 97934                        -- Kaga Wildhoof: for Chaw Stronghide
 
 step Camping 101: First Aid
   when skill "First Aid" 1
   when !knows 1230117
+  tip Vira Younghoof takes it once your First Aid skill is 20: gather or craft until then, the guide carries on meanwhile.
   accept 97931                        -- Kaga Wildhoof: for Vira Younghoof
 
 step Camping 101: Fishing
   when skill Fishing 1
   when !knows 1229745
+  tip Uthan Stillwater takes it once your Fishing skill is 20: gather or craft until then, the guide carries on meanwhile.
   accept 97932                        -- Kaga Wildhoof: for Uthan Stillwater
 
 step Camping 101: Herbalism
   when skill Herbalism 1
   when !knows 1229705
+  tip Komin Winterhoof takes it once your Herbalism skill is 20: gather or craft until then, the guide carries on meanwhile.
   accept 97933                        -- Kaga Wildhoof: for Komin Winterhoof
 
 step Camping 101: Mining
   when skill Mining 1
   when !knows 1230161
+  tip Brek Stonehoof takes it once your Mining skill is 20: gather or craft until then, the guide carries on meanwhile.
   accept 97935                        -- Kaga Wildhoof: for Brek Stonehoof
 
 step Camping 101: Alchemy
   when skill Alchemy 1
   when !knows 1230564
+  tip Kray takes it once your Alchemy skill is 20: gather or craft until then, the guide carries on meanwhile.
   accept 97927                        -- Kaga Wildhoof: for Kray
 
 step Camping 101: Blacksmithing
   when skill Blacksmithing 1
   when !knows 1230171
+  tip Thrag Stonehoof takes it once your Blacksmithing skill is 20: gather or craft until then, the guide carries on meanwhile.
   accept 97928                        -- Kaga Wildhoof: for Thrag Stonehoof
 
 step Camping 101: Enchanting
   when skill Enchanting 1
   when !knows 1230643
+  tip Mot Dawnstrider takes it once your Enchanting skill is 20: gather or craft until then, the guide carries on meanwhile.
   accept 97929                        -- Kaga Wildhoof: for Mot Dawnstrider
 
 step Camping 101: Tailoring
   when skill Tailoring 1
   when !knows 1229504
+  tip Vhan takes it once your Tailoring skill is 20: gather or craft until then, the guide carries on meanwhile.
   accept 97937                        -- Kaga Wildhoof: for Vhan
 
 step Bloodhoof Village
@@ -200,21 +210,25 @@ step Bloodhoof Village
 
 step Yonn Deepcut
   when onquest 97936
+  when complete 97936
   complete 97936 @44.97,61.4 map 1412 live
   turnin 97936                        -- Yonn Deepcut, beside Pyall: Camping 101: Skinning
 
 step Chaw Stronghide
   when onquest 97934
+  when complete 97934
   complete 97934 @44.94,61.46 map 1412 live
   turnin 97934                        -- Chaw Stronghide, beside Pyall: Camping 101: Leatherworking
 
 step Vira Younghoof
   when onquest 97931
+  when complete 97931
   complete 97931 @46.08,63.96 map 1412 live
   turnin 97931                        -- Vira Younghoof: Camping 101: First Aid
 
 step Uthan Stillwater
   when onquest 97932
+  when complete 97932
   complete 97932 @44.16,63.8 map 1412 live
   turnin 97932                        -- Uthan Stillwater: Camping 101: Fishing
 
@@ -415,31 +429,37 @@ step Traditions of the Bluff
 
 step Komin Winterhoof
   when onquest 97933
+  when complete 97933
   complete 97933 @40,25.1 map 1412
   turnin 97933                        -- Komin Winterhoof: Camping 101: Herbalism
 
 step Brek Stonehoof
   when onquest 97935
+  when complete 97935
   complete 97935 @36.8,28.6 map 1412
   turnin 97935                        -- Brek Stonehoof: Camping 101: Mining
 
 step Kray
   when onquest 97927
+  when complete 97927
   complete 97927 @39.3,23.8 map 1412
   turnin 97927                        -- Kray: Camping 101: Alchemy
 
 step Thrag Stonehoof
   when onquest 97928
+  when complete 97928
   complete 97928 @37.8,28.4 map 1412
   turnin 97928                        -- Thrag Stonehoof: Camping 101: Blacksmithing
 
 step Mot Dawnstrider
   when onquest 97929
+  when complete 97929
   complete 97929 @38.9,24.7 map 1412
   turnin 97929                        -- Mot Dawnstrider: Camping 101: Enchanting
 
 step Vhan
   when onquest 97937
+  when complete 97937
   complete 97937 @38.8,25.9 map 1412
   turnin 97937                        -- Vhan: Camping 101: Tailoring
 

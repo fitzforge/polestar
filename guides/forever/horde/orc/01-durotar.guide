@@ -177,16 +177,19 @@ step Brakk's campfire
 step Camping 101: Mining
   when skill Mining 1
   when !knows 1230161
+  tip Krunn takes it once your Mining skill is 20: gather or craft until then, the guide carries on meanwhile.
   accept 97907                        -- Brakk: for Krunn
 
 step Camping 101: Engineering
   when skill Engineering 1
   when !knows 1230656
+  tip Mukdrak takes it once your Engineering skill is 20: gather or craft until then, the guide carries on meanwhile.
   accept 97902                        -- Brakk: for Mukdrak
 
 step Camping 101: First Aid
   when skill "First Aid" 1
   when !knows 1230117
+  tip Rawrk takes it once your First Aid skill is 20: gather or craft until then, the guide carries on meanwhile.
   accept 97903                        -- Brakk: for Rawrk
 
 step Camping 101: Skinning
@@ -239,16 +242,19 @@ step Razor Hill
 
 step Krunn
   when onquest 97907
+  when complete 97907
   complete 97907 @51.81,40.88 map 1411
   turnin 97907                        -- Krunn: Camping 101: Mining
 
 step Mukdrak
   when onquest 97902
+  when complete 97902
   complete 97902 @52.18,40.8 map 1411
   turnin 97902                        -- Mukdrak: Camping 101: Engineering
 
 step Rawrk
   when onquest 97903
+  when complete 97903
   complete 97903 @54.17,41.93 map 1411
   turnin 97903                        -- Rawrk: Camping 101: First Aid
 

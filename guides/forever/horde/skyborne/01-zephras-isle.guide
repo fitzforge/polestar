@@ -144,36 +144,43 @@ step Shen'dar Village
 step Camping 101: Skinning
   when skill Skinning 1
   when !knows 1229517
+  tip Mendalass Tattermend takes it once your Skinning skill is 20: gather or craft until then, the guide carries on meanwhile.
   accept 97971                        -- Raan Wildwind
 
 step Camping 101: First Aid
   when skill "First Aid" 1
   when !knows 1230117
+  tip Naleeia Tattermend takes it once your First Aid skill is 20: gather or craft until then, the guide carries on meanwhile.
   accept 97965                        -- Raan Wildwind
 
 step Camping 101: Leatherworking
   when skill Leatherworking 1
   when !knows 1229432
+  tip Indari Sunseam takes it once your Leatherworking skill is 20: gather or craft until then, the guide carries on meanwhile.
   accept 97969                        -- Raan Wildwind
 
 step Camping 101: Mining
   when skill Mining 1
   when !knows 1230161
+  tip Messana Crestwind takes it once your Mining skill is 20: gather or craft until then, the guide carries on meanwhile.
   accept 97970                        -- Raan Wildwind
 
 step Camping 101: Alchemy
   when skill Alchemy 1
   when !knows 1230564
+  tip Nyassa Swiftdraught takes it once your Alchemy skill is 20: gather or craft until then, the guide carries on meanwhile.
   accept 97963                        -- Raan Wildwind
 
 step Camping 101: Blacksmithing
   when skill Blacksmithing 1
   when !knows 1230171
+  tip Aedi Thriceforged takes it once your Blacksmithing skill is 20: gather or craft until then, the guide carries on meanwhile.
   accept 97964                        -- Raan Wildwind
 
 step Camping 101: Fishing
   when skill Fishing 1
   when !knows 1229745
+  tip Fenn Fairweather takes it once your Fishing skill is 20: gather or craft until then, the guide carries on meanwhile.
   accept 97967                        -- Raan Wildwind
 
 step Shen'dar Village
@@ -190,36 +197,43 @@ step Shen'dar Village
 
 step Mendalass Tattermend
   when onquest 97971
+  when complete 97971
   complete 97971 @43.29,43.37 map 2521 live
   turnin 97971                        -- Mendalass Tattermend
 
 step Naleeia Tattermend
   when onquest 97965
+  when complete 97965
   complete 97965 @43.08,46.31 map 2521 live
   turnin 97965                        -- Naleeia Tattermend
 
 step Indari Sunseam
   when onquest 97969
+  when complete 97969
   complete 97969 @44.68,44.52 map 2521 live
   turnin 97969                        -- Indari Sunseam
 
 step Messana Crestwind
   when onquest 97970
+  when complete 97970
   complete 97970 @44.77,44.56 map 2521 live
   turnin 97970                        -- Messana Crestwind
 
 step Nyassa Swiftdraught
   when onquest 97963
+  when complete 97963
   complete 97963 @43.69,43.42 map 2521 live
   turnin 97963                        -- Nyassa Swiftdraught
 
 step Aedi Thriceforged
   when onquest 97964
+  when complete 97964
   complete 97964 @44.88,44.37 map 2521 live
   turnin 97964                        -- Aedi Thriceforged
 
 step Fenn Fairweather
   when onquest 97967
+  when complete 97967
   complete 97967 @45.02,48.44 map 2521 live
   turnin 97967                        -- Fenn Fairweather
 

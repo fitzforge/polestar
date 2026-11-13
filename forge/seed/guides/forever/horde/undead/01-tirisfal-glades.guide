@@ -190,30 +190,37 @@ step Eleanor Shackleton
 
 step Camping 101: First Aid
   when skill "First Aid" 1
+  tip Nurse Neela takes it once your First Aid skill is 20: gather or craft until then, the guide carries on meanwhile.
   accept 97955                        -- Eleanor: for Nurse Neela
 
 step Camping 101: Enchanting
   when skill Enchanting 1
+  tip Vance Undergloom takes it once your Enchanting skill is 20: gather or craft until then, the guide carries on meanwhile.
   accept 97953                        -- Eleanor: for Vance Undergloom
 
 step Camping 101: Herbalism
   when skill Herbalism 1
+  tip Faruza takes it once your Herbalism skill is 20: gather or craft until then, the guide carries on meanwhile.
   accept 97957                        -- Eleanor: for Faruza
 
 step Camping 101: Alchemy
   when skill Alchemy 1
+  tip Carolai Anise takes it once your Alchemy skill is 20: gather or craft until then, the guide carries on meanwhile.
   accept 97951                        -- Eleanor: for Carolai Anise
 
 step Camping 101: Skinning
   when skill Skinning 1
+  tip Rand Rhobart takes it once your Skinning skill is 20: gather or craft until then, the guide carries on meanwhile.
   accept 97960                        -- Eleanor: for Rand Rhobart
 
 step Camping 101: Leatherworking
   when skill Leatherworking 1
+  tip Shelene Rhobart takes it once your Leatherworking skill is 20: gather or craft until then, the guide carries on meanwhile.
   accept 97958                        -- Eleanor: for Shelene Rhobart
 
 step Camping 101: Tailoring
   when skill Tailoring 1
+  tip Bowen Brisboise takes it once your Tailoring skill is 20: gather or craft until then, the guide carries on meanwhile.
   accept 97961                        -- Eleanor: for Bowen Brisboise
 
 step Camping 101: Mining
@@ -243,11 +250,13 @@ step Brill
 
 step Faruza
   when onquest 97957
+  when complete 97957
   complete 97957 @59.79,52.12 map 1420
   turnin 97957                        -- Faruza, beside Johaan: Camping 101: Herbalism
 
 step Carolai Anise
   when onquest 97951
+  when complete 97951
   complete 97951 @59.43,52.19 map 1420
   turnin 97951                        -- Carolai Anise, beside Johaan: Camping 101: Alchemy
 
@@ -277,11 +286,13 @@ step Gallows' End Tavern
 
 step Nurse Neela
   when onquest 97955
+  when complete 97955
   complete 97955 @61.82,52.83 map 1420
   turnin 97955                        -- Nurse Neela, by the bar: Camping 101: First Aid
 
 step Vance Undergloom
   when onquest 97953
+  when complete 97953
   complete 97953 @61.77,51.56 map 1420
   turnin 97953                        -- Vance Undergloom: Camping 101: Enchanting
 
@@ -300,11 +311,13 @@ step Deathguard Linnea's camp
 
 step Rand Rhobart
   when onquest 97960
+  when complete 97960
   complete 97960 @65.58,60.03 map 1420
   turnin 97960                        -- Rand Rhobart, beside Shelene: Camping 101: Skinning
 
 step Shelene Rhobart
   when onquest 97958
+  when complete 97958
   complete 97958 @65.43,60.12 map 1420
   turnin 97958                        -- Shelene Rhobart: Camping 101: Leatherworking
 
@@ -323,6 +336,7 @@ step Cold Hearth Manor: kill these as you meet them
 
 step Bowen Brisboise
   when onquest 97961
+  when complete 97961
   complete 97961 @52.59,55.52 map 1420
   turnin 97961                        -- Bowen Brisboise, by the road west of Brill: Camping 101: Tailoring
 
