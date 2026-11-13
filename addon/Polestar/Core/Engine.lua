@@ -4509,7 +4509,9 @@ local function describe(goal, s)
 	elseif t == "turnin" then
 		local title = questTitle(goal)
 		local who = N.Npc(goal.npc) or goal.npcName or N.Object(goal.object) or goal.objName
-		return L["Turn in"], title, "quest", not Own.namesake(title, who) and fmt(L["at %s"], who) or nil
+		-- `direct`: the giver offers it and takes it back in one talk, so it is
+		-- never in the log first: "Hand in", with Own.directText's sub-line.
+		return goal.direct and L["Hand in"] or L["Turn in"], title, "quest", not Own.namesake(title, who) and fmt(L["at %s"], who) or nil
 	elseif t == "complete" then
 		return L["Complete"], questTitle(goal), "quest", nil
 	elseif t == "abandon" then
@@ -4670,6 +4672,18 @@ local function goalText(goal, verb, subject, detail, kind, noBar)
 	return verb .. " " .. tostring(subject), src
 end
 
+-- A `turnin ... direct` still to do (`status` neither done nor skipped):
+-- the sub-line saying the quest is not one to have in the log first, its
+-- giver offers it and takes it back in one talk. Nil otherwise. (On Own:
+-- the main chunk is at Lua's 200 locals.)
+function Own.directText(goal, status)
+	if not (goal.t == "turnin" and goal.direct) or status == "done" or status == "skipped" or status == "na" then return nil end
+	local N = ns.Names
+	local who = N.Npc(goal.npc) or goal.npcName or N.Object(goal.object) or goal.objName
+	return who and L["%s offers it and takes it back in one talk: it never goes in your quest log"]:format(who)
+		or L["Offered and taken back in one talk: it never goes in your quest log"]
+end
+
 -- Quest work a later guide of the chain hands in (the compiled `carriedTo`,
 -- that guide's id): the guide window says to keep it (UI.CarriedLine), once
 -- per step, on the last such goal of the quest there. Nil for a goal that is
@@ -4798,6 +4812,8 @@ local function goalView(s, g, goal, stepStatus, group)
 		t = goal.t,
 		status = status,
 		text = text,
+		-- A `direct` hand-in still to do: the giver offers it and takes it in one talk.
+		directText = Own.directText(goal, status),
 		verb = verb,
 		subject = subject,
 		subjectKind = kind,
