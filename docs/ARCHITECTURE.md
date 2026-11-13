@@ -144,7 +144,7 @@ Messages:
 | `GUIDE_PLACED` | guideId, stepIndex or nil, `{ guideId, ... }` | Engine, active tab, once placement of a guide just opened ends (see "Placement"; not for a guide a login or /reload brings back): where the guide resumes, and the guides passed whole on the way; the guide window goes over the steps before it, titles and count rolling (`GF.PlayCatchUp`, after `PLAYER_ENTERING_WORLD`) |
 | `CATCH_UP` | true \| false | Guide window, while its catch-up goes over the steps (`GF.PlayCatchUp`): the arrow shows an hourglass turning over in its dial's place (`Arrow.SetBusy`; Media/UI `hourglass`, `hourglass-sand`, tools/media/ui.js) |
 | `SETTING_CHANGED` | path, value | Core settings |
-| `TOGGLE_FRAME` / `SHOW_FRAME` | — | commands, keybinds → UI (from a hidden Polestar both show it again, the window with it) |
+| `TOGGLE_FRAME` / `SHOW_FRAME` | — | commands, keybinds → UI (from a hidden Polestar both show it again, the window with it; a window on but out of sight stays on and they say why: see "Out of sight") |
 | `POLESTAR_HIDDEN` | hidden (true \| false) | Core, `Polestar.SetHidden` (and true again as "Keep the arrow when hidden" changes while hidden): see "Hiding Polestar" |
 | `SHOW_PICKER` | — | commands → UI |
 | `SHOW_OPTIONS` | section or nil | commands → UI |
@@ -550,6 +550,44 @@ call: a new one fails the test until it is listed, so a new surface is
 decided on. New frames on the screen take `Polestar.UIParent` as their
 parent, new sounds go through `Polestar.PlaySound`, new toasts check
 `Polestar.Hidden()`, and new map drawings hang off `view.frame`.
+
+### Out of sight
+
+```lua
+Polestar.OutOfSight(frame) -> bool  -- shown, but another addon keeps it out of sight (its scale under 0.2)
+Polestar.SayOutOfSight() -> bool    -- one chat line: which of the window and the arrow is out of sight, how to get it back
+Polestar.WatchSight(frame, role)    -- role "window" | "arrow": post-hooks its SetScale and OnShow
+```
+
+Some UI addons follow the guide's steps in their own quest tracker and route
+and keep one arrow on screen by turning the guide window and the arrow down
+to nothing (a scale far below a pixel, alpha 0) instead of hiding them, laid
+again after each of Polestar's own `SetScale` and `SetAlpha`. Both still read
+as shown, so `GuideShown()` holds and the action buttons stay (the target
+button may be all the player sees). It is told by the scale alone: Polestar
+never sets its own frames' scale that low (the window's is 0.6 at least, the
+arrow's 0.5), while the player's own fades take both to alpha 0 in a fight
+(`guideWindow.combatAlpha`, `nav.arrowCombatAlpha`) and the window to 0.03 at
+rest (`ui.opacity` 0.3 times `guideWindow.idleAlpha` 0.1).
+
+- The guide window (`UI/GuideFrame.lua`) and the arrow (`Nav/Arrow.lua`) are
+  watched: the first time on the account one of them goes out of sight
+  (`PolestarDB.sightTold`), a notice at the top of the screen for 12 seconds
+  and the chat line say so; not while Polestar is hidden.
+- The window's toggle (`TOGGLE_FRAME`: `/polestar`, its key, the minimap
+  menu's Guide window) leaves a window that is on but out of sight on and
+  says why instead: turning it off would take away only the action buttons.
+  Showing a window that stays out of sight (the toggle, `SHOW_FRAME`) says
+  so too. `Nav.ToggleArrow` does the same for the arrow, and
+  `Nav.SayGuideHidden` (`/polestar arrow show`, `way`, `near`) names it.
+  Polestar never takes its frames back from the other addon.
+- Scales are worked out from the scale Polestar set, never the frame's own:
+  `GF.ApplyScale` from `GF.scale`, and unlock mode's `Movers.Ratio` from the
+  setting's scale while the frame is out of sight, so a box stands where the
+  frame would and a drag saves a place on the screen.
+
+`rust/crates/forge-addontest/tests/addontest/out-of-sight.rs` plays it with a
+stand-in for such an addon.
 
 ### Gamepad interface
 

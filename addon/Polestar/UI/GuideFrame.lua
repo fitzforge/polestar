@@ -2988,6 +2988,9 @@ local function build()
 		GF.UpdateXP()
 		GF.Render()
 	end)
+	-- Another addon taking the window out of sight is told once
+	-- (ns.WatchSight). After the OnShow above: SetScript drops a hooked script.
+	ns.WatchSight(F, "window")
 	if UI.NameTargets then
 		UI.NameTargets.Bind(F, function()
 			local entries = {}
