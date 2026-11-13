@@ -518,7 +518,7 @@ add({ page = QOL, tab = L["Vendors"], section = L["Trainers"], controls = { trai
 add({ page = L["Integrations"], key = "integrations", icon = "plug", order = 65,
 	subtitle = L["Settings for other addons Polestar works with, shown when they are installed."],
 	empty = L["None of the addons Polestar works with is installed."] }, true)
-add({ page = L["Integrations"], section = "EllesmereUI", controls = {
+add({ page = L["Integrations"], section = Theme.SkinProvider() or "EllesmereUI", controls = {
 	{ kind = "toggle", key = "ui.matchAccent", label = L["Match EllesmereUI accent"],
 		help = L["Follow EllesmereUI's accent, live. Picking your own accent turns this off."],
 		needs = function() return Theme.IsEllesmere() end },

@@ -875,6 +875,9 @@ each section says what is missing.
 - **EllesmereUI** (Options, Integrations): Polestar follows its accent and font by default through
   its public skinning API, and where its Quality of Life or Friends module
   does the same job as a Polestar toggle, the toggle starts off.
+- **ErgoBars** offers the same skinning API: without EllesmereUI, Polestar
+  follows its accent, and its panel color and font when you pick them, the
+  same way.
 
 </details>
 
