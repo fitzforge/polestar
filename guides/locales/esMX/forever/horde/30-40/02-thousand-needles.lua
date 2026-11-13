@@ -135,7 +135,7 @@ return {
 	-- {area:460} Sun Rock Retreat
 	["Fly to {area:460}"] = "Vuela a {area:460}",
 	-- {area:484} Freewind Post
-	["{area:484} flight master"] = "",
+	["{area:484} flight master"] = "Maestro de vuelo de {area:484}",
 
 	-- Step 26: Scrabblescrew's Camp
 	-- {zone:1443} Desolace · {npc:11596} Smeed Scrabblescrew
