@@ -283,32 +283,14 @@ step Lakeshire
 
 # ---------------------------------------------------------------- West and south of the lake
 
-step Sunken Chest
-  tip Swim east from the bridge into Lake Everstill; the chest lies on the lake bed beside a sunken boat. Murloc Flesheaters and Tidecallers line the south shore around it: any of them can carry a Spotted Sunfish.
-  collect 1309 quest 125                      -- Oslow's Toolbox; underwater
-  collect 1467 quest 127                      -- Spotted Sunfish
-
-
-step Hilary's Necklace
-  tip Then west under the bridge: a Glinting Mud mound on the lake bed beside town holds the necklace. Only one mound shows at a time, anywhere from under the dock to past the bridge.
-  collect 10958 quest 3741                    -- Hilary's Necklace; underwater
-
-
-step Lakeshire
-  tip Back up to the north end of the bridge: Hilary and Foreman Oslow, then Dockmaster Baren on the docks.
-  turnin 3741                                 -- Hilary
-  turnin 125                                  -- Foreman Oslow
-  accept 89                                   -- Its pikes and rivets come from the gnolls north of the lake, on the loop after Westfall
-  turnin 127                                  -- Dockmaster Baren
-
-step Dockmaster Baren
-  when level>=20
-  tip From level 20 Dockmaster Baren gives Murloc Poachers: take it now if he offers it (otherwise on the last Lakeshire stop). Its murlocs are for your next Redridge visit, at about 24.
-  accept 150 optional                         -- Dockmaster Baren, on the docks
+step Guard Parker
+  tip West along the road to Three Corners first; the gnolls are on the way back east.
+  turnin 129                                  -- Guard Parker walks around Three Corners: look inside the circle on the map
+  accept 130
 
 step Lakeridge Highway: kill these as you meet them
   zone Redridge Mountains
-  tip On the way west to Three Corners and Goldshire: Redridge Mongrels and Thrashers hold the hills east of Three Corners, north of the road; Poachers camp south of the road. Great Goretusks root around the same hills and Dire Condors circle south of the lake; Tarantulas crawl round Three Corners.
+  tip Redridge Mongrels and Thrashers hold the hills east of Three Corners, north of the road; Poachers camp south of the road. Great Goretusks root around the same hills and Dire Condors circle south of the lake; Tarantulas crawl round Three Corners.
   collect 280911 quest 98407                  -- Spiked Collar: Redridge Thrashers
   kill 423 quest 246                          -- Redridge Mongrel
   kill 424 quest 246                          -- Redridge Poacher
@@ -316,11 +298,35 @@ step Lakeridge Highway: kill these as you meet them
   collect 1080 quest 92                       -- Tough Condor Meat
   collect 1081 quest 92                       -- Crisp Spider Meat: Tarantulas
 
+step Deputy Feldon
+  tip East along the road to the gryphon master; Deputy Feldon stands beside her.
+  turnin 246
+  turnin 98407
 
-step Guard Parker
-  tip Guard Parker walks around Three Corners, on the road west out of Redridge. Martie Jainrose's errand is for the next Lakeshire stop, after Westfall.
-  turnin 129                                  -- Guard Parker walks around Three Corners: look inside the circle on the map
-  accept 130
+step Sunken Chest
+  tip Back toward town, swim east from the bridge into Lake Everstill; the chest lies on the lake bed beside a sunken boat. Murloc Flesheaters and Tidecallers line the south shore around it: any of them can carry a Spotted Sunfish.
+  collect 1309 quest 125                      -- Oslow's Toolbox; underwater
+  collect 1467 quest 127                      -- Spotted Sunfish
+
+step Hilary's Necklace
+  tip Then west under the bridge: a Glinting Mud mound on the lake bed beside town holds the necklace. Only one mound shows at a time, anywhere from under the dock to past the bridge.
+  collect 10958 quest 3741                    -- Hilary's Necklace; underwater
+
+step Lakeshire
+  tip Through town east to west: Hilary and Foreman Oslow at the north end of the bridge, Dockmaster Baren on the docks, then Martie's garden at the west end; Darcy and Chef Breanna are in the inn.
+  turnin 3741                                 -- Hilary
+  turnin 125                                  -- Foreman Oslow
+  accept 89                                   -- Its pikes and rivets come from the gnolls north of the lake, on the loop after Westfall
+  turnin 127                                  -- Dockmaster Baren
+  turnin 130                                  -- Martie Jainrose
+  accept 131
+  turnin 131                                  -- Darcy, inside
+  turnin 92                                   -- Chef Breanna, inside
+
+step Dockmaster Baren
+  when level>=20
+  tip From level 20 Dockmaster Baren gives Murloc Poachers: take it now if he offers it (otherwise on the last Lakeshire stop). Its murlocs are for your next Redridge visit, at about 24.
+  accept 150 optional                         -- Dockmaster Baren, on the docks
 
 # ---------------------------------------------------------------- Westfall
 
@@ -500,23 +506,13 @@ step Sentinel Hill
 
 # ---------------------------------------------------------------- North of the lake
 
-step Deputy Feldon
-  zone Redridge Mountains
-  tip Deputy Feldon stands by the gryphon master where you land.
-  turnin 246
-  turnin 98407
-
 step Lakeshire
   zone Redridge Mountains
-  tip Over the bridge into town: Verner Osgood by the smithy, Magistrate Solomon in the town hall, Martie Jainrose's garden at the west end, Darcy and Chef Breanna in the inn.
+  tip From the gryphons, over the bridge into town: Verner Osgood by the smithy, Magistrate Solomon in the town hall.
   turnin 119                                  -- Verner Osgood
   accept 122
   accept 124
   turnin 121                                  -- Magistrate Solomon, in the town hall
-  turnin 130                                  -- Martie Jainrose
-  accept 131
-  turnin 131                                  -- Darcy, inside
-  turnin 92                                   -- Chef Breanna, inside
 
 step Redridge Canyons
   tip Redridge Brutes and Mystics hold the hills north and north-west of town; both carry the Iron Pikes and Rivets. Black Dragon Whelps nest in the same hills.
