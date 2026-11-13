@@ -1350,6 +1350,8 @@ Polestar.Import.Delete(id) -> bool
 Polestar.Import.List() -> { { id, title, author, version, license, steps, problem }, ... }  -- by title
 Polestar.Import.Load()                                -- at login
 Polestar.Import.LIMITS                                -- { length = 50000, steps = 60, payload = 262144, text = 4096 }
+Polestar.Import.Adler32(s) -> 8 hex digits
+Polestar.Import.Envelope(prefix, payload) -> string   -- prefix .. Adler-32 .. "!" .. base64 of zlib: profile strings (!PSS1!) and the report's packed settings (!PSR1!); the client's encoder when it reads back the same, else stored zlib blocks in plain Lua
 ```
 
 Only guides of shown packs (`on`, plus the internal `lookup`) are visible to
