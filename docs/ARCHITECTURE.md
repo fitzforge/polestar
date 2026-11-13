@@ -10268,6 +10268,10 @@ character:
 - Play time between consecutive events counts up to 5 minutes; time flagged
   AFK counts zero; time between sessions counts nothing. A `/reload` costs its
   few seconds and continues the step.
+- Movement ending at a positioned step snapshot belongs to the segment that
+  was active before that snapshot, just like elapsed time. A step or tab
+  change closes the previous segment's walk; the first positioned guide
+  snapshot does not inherit movement made before it opened.
 - Per character and guide, a frontier step: a later step closes its pass and
 **Instances.** npcs and objects inside a dungeon or raid get `instances`
 (instance map ids). QuestieDB gives them no coordinates, only their areas

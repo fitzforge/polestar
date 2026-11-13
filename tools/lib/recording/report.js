@@ -137,6 +137,8 @@ function sessionItems(s, xpModel, completed) {
 	for (let k = 0; k < events.length; k++) {
 		const e = events[k];
 		let completing = false;
+		// Incoming movement belongs to the segment active before this event.
+		const active = cur;
 		if (k > 0 && cur) {
 			const dt = Math.max(0, e.t - events[k - 1].t);
 			const d = afk ? 0 : Math.min(dt, IDLE_CAP);
@@ -194,11 +196,11 @@ function sessionItems(s, xpModel, completed) {
 		// Quest points and vignettes locate remote places, not the player.
 		const remotePoint = e.e === 'poi' || e.e === 'treasure' || (e.e === 'rare' && (e.src === 'v' || e.src === 'vignette'));
 		if (!remotePoint && typeof e.map === 'number' && num(e.x) !== null && num(e.y) !== null) {
-			if (lastPos && lastPos.map === e.map && cur) {
+			if (lastPos && lastPos.map === e.map && active) {
 				const [w, h] = mapSize(s.maps, e.map);
 				const d = Math.hypot(((e.x - lastPos.x) * w) / 100, ((e.y - lastPos.y) * h) / 100);
 				const dt = e.t - lastPos.t;
-				if (dt > 0 ? d / dt <= TELEPORT_SPEED : d < TELEPORT_SPEED) cur.yards += d;
+				if (dt > 0 ? d / dt <= TELEPORT_SPEED : d < TELEPORT_SPEED) active.yards += d;
 			}
 			lastPos = { map: e.map, x: e.x, y: e.y, t: e.t };
 		}
