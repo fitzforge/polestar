@@ -11832,3 +11832,13 @@ test('forever/horde/06-hillsbrad-foothills.guide: Horde 21-30 audit: Elixir of A
 	const pairs = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', 'route-fixes.json'), 'utf8')).deliberate.pairs;
 	assert.ok(pairs.some((p) => p.b[0] === 'accept' && p.b[1] === 515 && p.a[0] === 'accept' && p.a[1] === 1145), 'the order is a route-fixes record');
 });
+
+// Horde 21-30 audit (0.4.0, #2025): Thunder Bluff has Warrior and Hunter trainers, but the Ashenvale & Thousand Needles
+// stop trained only Paladins, Priests, Shamans, Mages and Druids, so Warriors and Hunters went from their training at the
+// end of the Hillsbrad guide (about 26) to the 30-40 guide's Orgrimmar stop (about 31) without their rank 28 spells.
+test(`${ASHENVALE_HORDE}: Horde 21-30 audit: Warriors and Hunters train on the Thunder Bluff stop (#2025)`, { skip }, () => {
+	const step = compiled(ASHENVALE_HORDE).steps.find((s) => s.title === 'Class trainer' && s.goals.some((g) => g.t === 'train'));
+	assert.ok(step, 'the Thunder Bluff training step');
+	const classes = (step.only && step.only.classes) || [];
+	for (const cl of ['WARRIOR', 'HUNTER', 'PALADIN', 'PRIEST', 'SHAMAN', 'MAGE', 'DRUID']) assert.ok(classes.map((c) => c.toUpperCase()).includes(cl), `${cl} trains there`);
+});

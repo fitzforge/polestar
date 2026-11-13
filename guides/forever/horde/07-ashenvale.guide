@@ -310,9 +310,9 @@ step The Earthen Ring
   turnin 96294 optional
 
 step Class trainer
-  only Paladin,Priest,Shaman,Mage,Druid
+  only Warrior,Hunter,Paladin,Priest,Shaman,Mage,Druid
   zone Thunder Bluff
-  train class only Paladin,Priest,Shaman,Mage,Druid
+  train class only Warrior,Hunter,Paladin,Priest,Shaman,Mage,Druid
 
 
 # ---------------------------------------------------------------- Gloomrise, Mulgore
