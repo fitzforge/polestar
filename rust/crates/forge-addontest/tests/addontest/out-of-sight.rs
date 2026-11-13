@@ -154,7 +154,8 @@ emit({ told = told, toggled = toggled, shown = shown, off = off, back = { on = P
 
 // The window scale changed while the window is out of sight (a player who cannot see it may well try): it scales
 // about its pinned corner from the scale Polestar set, as it always does, not from the other addon's, which put
-// it in the corner of the screen once it was seen again.
+// it in the corner of the screen once it was seen again. The place is kept exact, not rounded to a whole unit
+// (#1785: a rounded re-pin moved the window by part of a pixel and its text shifted on the grid).
 #[test]
 fn a_window_scale_changed_while_another_addon_keeps_the_window_out_of_sight_keeps_its_place() {
 	let out = window(
@@ -172,8 +173,9 @@ local pos = Polestar.Get("ui.pos")
 emit({ pos = { pos[1], pos[2] }, top = top, scale = F:GetScale() })
 "#,
 	);
-	let y = (out["top"].as_f64().unwrap() / 1.2 + 0.5).floor() as i64;
-	assert_eq!(out["pos"], json!([1250, y]), "the place scaled from 1 to 1.2 about the top-left corner");
+	let (x, y) = (out["pos"][0].as_f64().unwrap(), out["pos"][1].as_f64().unwrap());
+	let top = out["top"].as_f64().unwrap() / 1.2;
+	assert!((x - 1250.0).abs() < 1e-6 && (y - top).abs() < 1e-6, "the place scaled from 1 to 1.2 about the top-left corner: {} for [1250, {top}]", out["pos"]);
 	assert_eq!(out["scale"], 1.2);
 }
 

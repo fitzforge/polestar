@@ -186,7 +186,7 @@ fn other(cmd: &str, args: Vec<String>) -> Result<(), Fail> {
 			// codex build: --data, --sources, --addons, --build, --out (json), --pack; --local-extras also
 			// merges the installed AtlasLoot, RareScanner and dungeons.json (this machine only);
 			// --recordings <dir> first rewrites data/codex/recorded.json from that recordings folder, with
-			// IngestAudit's --verdicts (default: the maintainer's, where `forge record learn` finds them).
+			// The recordings audit's --verdicts (default: the maintainer's, where `forge record learn` finds them).
 			let local_extras = args.iter().any(|a| a == "--local-extras");
 			let kv = pairs(args.into_iter().filter(|a| a != "--local-extras").collect(), &["--root", "--data", "--sources", "--addons", "--build", "--out", "--pack", "--recordings", "--verdicts"])?;
 			let get = |k: &str| kv.iter().rev().find(|(a, _)| a == k).map(|(_, v)| v.clone());
@@ -194,7 +194,7 @@ fn other(cmd: &str, args: Vec<String>) -> Result<(), Fail> {
 			if let Some(dir) = get("--recordings").map(abs) {
 				let verdicts = get("--verdicts").map(abs).or_else(|| super::record::maintainer("ingest-audit/verdict.json").filter(|v| v.is_file()));
 				if verdicts.is_none() {
-					eprintln!("warning: no IngestAudit verdicts (--verdicts): only the recordings' config.json exclude applies, and no one is merged into one person");
+					eprintln!("warning: no recordings audit verdicts (--verdicts): only the recordings' config.json exclude applies, and no one is merged into one person");
 				}
 				let file = root.join("data").join("codex").join(forge_data::codex::recorded::FILE);
 				let (text, summary) = forge_data::codex::recorded::export(&dir, verdicts.as_deref())?;

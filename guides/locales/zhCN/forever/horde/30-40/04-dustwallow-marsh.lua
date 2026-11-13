@@ -12,7 +12,7 @@ return {
 
 	-- Step 2: Orgrimmar
 	-- {zone:1454} Orgrimmar
-	["The middle of {zone:1454}"] = "",
+	["The middle of {zone:1454}"] = "{zone:1454}中央",
 
 	-- Step 3: Orgrimmar
 	-- {item:3713} Soothing Spices
@@ -96,10 +96,10 @@ return {
 	-- Step 20: Level 37.5
 	["Level 37.5"] = "等级37.5",
 	-- {zone:1443} Desolace · {area:1316} Razorfen Downs · {area:796} Scarlet Monastery
-	["{zone:1443}'s last quests and Alterac are 38-41. Still below 37.5 after Brackenwall's hand-ins? The Darkmist spiders and Lurkers (35-38) by the cavern north-west of the village are the closest: kill them until level 37.5. Or, with a group, run the {area:1316} dungeon or the {area:796} dungeon (Armory) instead."] = "",
-	["Darkmist cavern"] = "",
+	["{zone:1443}'s last quests and Alterac are 38-41. Still below 37.5 after Brackenwall's hand-ins? The Darkmist spiders and Lurkers (35-38) by the cavern north-west of the village are the closest: kill them until level 37.5. Or, with a group, run the {area:1316} dungeon or the {area:796} dungeon (Armory) instead."] = "{zone:1443}最后的任务和奥特兰克任务适合38-41级。交还蕨墙村的任务后仍未到37.5级，就在村庄西北侧洞穴附近击杀最近的暗雾蜘蛛和暗雾潜伏者（35-38级），直到37.5级；也可以组队刷{area:1316}副本或{area:796}副本的武器库。",
+	["Darkmist cavern"] = "暗雾洞穴",
 	-- {npc:4377} Darkmist Lurker
-	["grind on {npc:4377}"] = "",
+	["grind on {npc:4377}"] = "刷{npc:4377}升级",
 
 	-- Step 21: Fly to Ratchet
 	-- {area:392} Ratchet
@@ -128,7 +128,7 @@ return {
 	-- Step 26: Portals of the Legion
 	-- {area:602} Mannoroc Coven · {quest:5381} Hand of Iruxos · {npc:11624} Taiga Wisemane · {npc:11937} Demon Portal Guardian
 	-- plural, as words: Burning Blade Summoners = {npc:4668} Burning Blade Summoner
-	["Head east to {area:602}. With the {quest:5381} from {npc:11624} in your bags, open a demon portal's ring: a {npc:11937} (38-39) comes out; kill it to close that portal. Six portals. Careful: Infernals, Doomguards and Burning Blade Summoners walk close by many portals and may join in; kill nearby mobs first or drag the guardian away, for example toward the coven's central lake."] = "",
+	["Head east to {area:602}. With the {quest:5381} from {npc:11624} in your bags, open a demon portal's ring: a {npc:11937} (38-39) comes out; kill it to close that portal. Six portals. Careful: Infernals, Doomguards and Burning Blade Summoners walk close by many portals and may join in; kill nearby mobs first or drag the guardian away, for example toward the coven's central lake."] = "向东前往{area:602}。将从{npc:11624}那里取得的{quest:5381}放在背包里，打开恶魔传送门的圆环，就会出现一只{npc:11937}（38-39级）；杀死它即可关闭这座传送门，共需关闭六座。注意：许多传送门附近都有地狱火、末日守卫和火刃召唤师游荡，可能加入战斗；先清掉附近怪物，或把守护者拉远，比如拉到集会所中央的湖边。",
 
 	-- Step 27: Ghost Walker Post
 	-- {npc:5412} Gurda Wildmane · {npc:5395} Felgur Twocuts
@@ -183,7 +183,7 @@ return {
 
 	-- Step 39: Nogg
 	-- {npc:3412} Nogg · {object:172958} Valley of Honor · {npc:4485} Belgrom Rockmaul · {quest:2841} Rig Wars · {area:133} Gnomeregan
-	["{npc:3412}'s workshop is in the {object:172958} beside {npc:4485}: hand in {quest:2841} if you ran {area:133}."] = "",
+	["{npc:3412}'s workshop is in the {object:172958} beside {npc:4485}: hand in {quest:2841} if you ran {area:133}."] = "{npc:3412}的工坊在{object:172958}，就在{npc:4485}旁边：如果打过{area:133}，就在这里交还{quest:2841}。",
 
 	-- Step 40: Orgrimmar trainers
 	-- {zone:1454} Orgrimmar

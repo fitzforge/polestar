@@ -715,7 +715,7 @@ pub fn grind_before_handin(run: &Run, steps: &[Step], lv_after: &[f64]) -> u32 {
 /// #617 guard, grind_before_handin): a turn-in among the next GRIND_TRIP_STEPS steps, within
 /// GRIND_TRIP_YD of p or of the route's next town (the next stop, a turn-in in p's zone with no work
 /// before it: towns lie farther than that from their camps, Brackenwall from the Mirefin coast,
-/// Gadgetzan from Dunemaul, GrindVsHandin), of a quest with no tasks or whose work is all done before
+/// Gadgetzan from Dunemaul, the grind-or-hand-in review), of a quest with no tasks or whose work is all done before
 /// (`last_task`: per quest the index of its last task step before `from`, -1 none), none of its tasks
 /// in between.
 pub fn handin_waits(run: &Run, steps: &[Step], from: usize, p: u32, last_task: &[i64]) -> bool {

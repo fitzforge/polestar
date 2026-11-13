@@ -89,7 +89,7 @@ ns.Credits = {
 		{ name = "rohkin", prs = 1 },
 		{ name = "mmillis1", prs = 1 },
 		{ name = "uNBEx", prs = 1 },
-		{ name = "aalejandrofer", prs = 1 },
+		{ name = "ttik3r", prs = 1 },
 		{ name = "Emlembow", prs = 1 },
 	},
 	-- Bug reporters by confirmed or fixed reports, most first (the top 40).

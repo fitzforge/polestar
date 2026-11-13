@@ -4,7 +4,7 @@
 //!
 //! - **One shared order.** The canonical start's tail (`shared.canonical`), its lines in its own race
 //!   guide moved to the same line of the shared guide (Orc and Troll's own Barrens guide stops at the
-//!   Crossroads at 12, RevH1), with every other start's extra events (its own quests, its riding
+//!   Crossroads at 12), with every other start's extra events (its own quests, its riding
 //!   trainer) after the shared event they follow there, without their travel.
 //! - **One writing.** The shared guides are written once, from the canonical start's run on that
 //!   order; every start's run takes them. A quest only some starts do in the shared order is theirs:
@@ -1503,7 +1503,7 @@ mod tests {
 
 	#[test]
 	fn a_start_guide_the_route_leaves_untouched_goes_and_the_one_before_hands_over() {
-		// RevOrcTroll3 T1: Orc and Troll's own Barrens guide, whose quests the shared order takes in the
+		// Review T1: Orc and Troll's own Barrens guide, whose quests the shared order takes in the
 		// shared guides, was written as v1 had it, and Durotar's `next` pointed at it.
 		let durotar = "guide g/orc/01\nrace Orc,Troll\nnext g/orc/02\n\nstep Razor Hill\n  accept 1\n";
 		let orc2 = "guide g/orc/02\nrace Orc,Troll\nnext g/02\n\nstep Crossroads\n  accept 2\n";
@@ -1593,7 +1593,7 @@ mod tests {
 
 	#[test]
 	fn a_class_step_before_everyones_way_in_goes_with_the_arrival() {
-		// RevNightElf3 N6: the Warriors' Defensive Stance in Stormwind came before the boat's arrival
+		// Review N6: the Warriors' Defensive Stance in Stormwind came before the boat's arrival
 		// lines in the join guide, so the arrival stopped at it and everyone's boat was lost.
 		let t = "guide g\n\nstep Fly\n  only Warrior\n  fly \"Auberdine\"\n\nstep Defensive Stance\n  only Warrior\n  accept 1638\n\nstep Boat\n  goto 30.8,40.9 \"Boat to Stormwind Harbor\"\n\nstep Sentinel Hill\n  accept 36\n\nstep Paladin\n  only Paladin\n  accept 9\n";
 		let (rest, moved) = split_arrival(t);
@@ -1606,7 +1606,7 @@ mod tests {
 
 	#[test]
 	fn a_split_shared_guides_later_quests_are_still_the_starts_own_tail() {
-		// Rev14NightElf A1: Darkshore on both sides of the Night Elves' join. Their own part's quest (21,
+		// c14 review A1: Darkshore on both sides of the Night Elves' join. Their own part's quest (21,
 		// at most 14) is the other starts' in the shared guide; their tail's quest (22) is theirs too.
 		let r = |canon: &str, js: usize, order: serde_json::Value| -> Route {
 			serde_json::from_value(json!({ "shared": { "canonical": canon, "joinAt": "02-westfall", "joinStep": js }, "order": order })).unwrap()
@@ -1678,7 +1678,7 @@ mod tests {
 
 	#[test]
 	fn a_quest_the_shared_order_never_accepts_is_for_the_starts_that_carry_it() {
-		// RevSkyH3 S5: Telf's 1525 hand-in in the shared Barrens guide, accepted in Mulgore by Tauren
+		// Review S5: Telf's 1525 hand-in in the shared Barrens guide, accepted in Mulgore by Tauren
 		// only, was written for every start's Shamans.
 		let r = |order: serde_json::Value| -> Route { serde_json::from_value(json!({ "shared": { "canonical": "Tauren", "joinStep": 1 }, "order": order })).unwrap() };
 		let tauren = r(json!([{ "t": "accept", "q": 1525, "from": "guides/g/tauren/01.guide:9" }, { "t": "turnin", "q": 1525, "from": "guides/g/02.guide:20" }]));
@@ -1717,7 +1717,7 @@ mod tests {
 
 	#[test]
 	fn a_start_guides_level_event_keeps_its_own_target() {
-		// RevH1-3 F1: Orc's grind to 16 in its own Barrens guide became Silverpine's grind to 19, the
+		// Review F1: Orc's grind to 16 in its own Barrens guide became Silverpine's grind to 19, the
 		// shared order's line of the same (level, no quest) event.
 		let r = |order: serde_json::Value| -> Route { serde_json::from_value(json!({ "shared": { "canonical": "Orc", "joinStep": 0 }, "order": order })).unwrap() };
 		let orc = r(json!([{ "t": "level", "from": "guides/g/orc/02.guide:9", "lvl": 16 }, { "t": "level", "from": "guides/g/03.guide:290", "lvl": 19 }]));
@@ -1730,7 +1730,7 @@ mod tests {
 
 	#[test]
 	fn a_start_keeps_its_own_way_to_the_shared_route() {
-		// RevUndead3 U4: Undead hearth to Brill and take the zeppelin to the Crossroads; the shared
+		// Review U4: Undead hearth to Brill and take the zeppelin to the Crossroads; the shared
 		// order's first event carried Orc's way there, and the Undead hand-off lost its hearth.
 		let undead: Route = serde_json::from_value(json!({ "shared": { "canonical": "Orc", "joinStep": 1 }, "order": [
 			{ "t": "turnin", "q": 1, "from": "guides/g/undead/01.guide:9" },

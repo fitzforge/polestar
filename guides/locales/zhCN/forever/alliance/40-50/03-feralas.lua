@@ -68,7 +68,7 @@ return {
 
 	-- Step 15: Feathermoon Stronghold
 	-- {npc:7877} Latronicus Moonspear · {npc:7878} Vestia Moonspear · {npc:7900} Angelas Moonbreeze · {npc:7880} Ginro Hearthkindle · {npc:7852} Pratt McGrubben
-	["Coming from the south: {npc:7877} and {npc:7878} first, then {npc:7900} beside {npc:7880}'s building, then the stairs. {npc:7880} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart. {npc:7852} is by the flight master, on the way out."] = "",
+	["Coming from the south: {npc:7877} and {npc:7878} first, then {npc:7900} beside {npc:7880}'s building, then the stairs. {npc:7880} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart. {npc:7852} is by the flight master, on the way out."] = "从南面过来，先找{npc:7877}和{npc:7878}，再找{npc:7880}的建筑旁的{npc:7900}，然后上楼梯。{npc:7880}在他的建筑楼上：从屋内上楼，箭头无法区分楼层。{npc:7852}在飞行管理员旁，离开时顺路找他。",
 	-- {npc:7879} Quintis Jonespyre
 	["{npc:7879}, upstairs"] = "{npc:7879}：在楼上",
 
@@ -104,13 +104,13 @@ return {
 	-- {area:1136} High Wilderness
 	["{area:1136}: kill these as you meet them"] = "{area:1136}：沿途击杀以下目标",
 	-- {quest:7735} Pristine Yeti Hide · {npc:7852} Pratt McGrubben · {npc:14637} Zorbin Fandazzle · {area:978} Zul'Farrak
-	["Ride back west along the road, then north into the Rage Scar hills. Every yeti here can drop a hide, and about one in thirty a {quest:7735}, which {npc:7852} pays for too.\n{npc:14637}'s quests on the coast need level 45: grind the yetis here until level 44.5, so the kills also bring {npc:7852}'s hides. Or, with a group, run the {area:978} dungeon instead."] = "",
+	["Ride back west along the road, then north into the Rage Scar hills. Every yeti here can drop a hide, and about one in thirty a {quest:7735}, which {npc:7852} pays for too.\n{npc:14637}'s quests on the coast need level 45: grind the yetis here until level 44.5, so the kills also bring {npc:7852}'s hides. Or, with a group, run the {area:978} dungeon instead."] = "沿道路向西骑回，再向北进入怒痕山丘。这里每只雪人都可能掉落毛皮，约每三十只还会掉落一张{quest:7735}，{npc:7852}也会收购。\n{npc:14637}在海岸提供的任务需要45级：在这里刷雪人到44.5级，同时收集{npc:7852}要的毛皮。也可组队挑战{area:978}副本。",
 	-- {npc:5296} Rage Scar Yeti
-	["grind on {npc:5296}"] = "",
+	["grind on {npc:5296}"] = "刷{npc:5296}升级",
 
 	-- Step 23: Rage Scar Hold
 	-- {quest:7735} Pristine Yeti Hide
-	["No {quest:7735} yet? Keep killing the Rage Scar yetis until one drops, then right-click it."] = "",
+	["No {quest:7735} yet? Keep killing the Rage Scar yetis until one drops, then right-click it."] = "还没拿到{quest:7735}？继续击杀狂暴的怒痕雪人，直到掉落，再右键点击它。",
 
 	-- Step 24: Feathermoon Stronghold
 	-- {npc:7880} Ginro Hearthkindle

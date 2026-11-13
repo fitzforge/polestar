@@ -1142,10 +1142,11 @@ test(`yiliev0's report (#672): the healing step leads to the Injured Deathguard 
 // run before login and `after` once the guide is open: what `script` (Lua,
 // `E` the Engine) emits. `data`: the reference data to compile with (a copy
 // with a correction applied, as `data build` applies it), else data/forever.
-function engineRun(guide, who, { before = '', after = '', script, data: own }) {
+// `text` plays that text in the guide's place.
+function engineRun(guide, who, { before = '', after = '', script, data: own, text }) {
 	const ref = own || (data = data || loadData(DATA));
 	const file = path.join(OFFICIAL_DIR, guide);
-	const { guides } = compileSources([{ file, text: fs.readFileSync(file, 'utf8') }], ref);
+	const { guides } = compileSources([{ file, text: text ?? fs.readFileSync(file, 'utf8') }], ref);
 	const { dir, scripts } = writeTestPack(guides, ref);
 	try {
 		const loads = scripts.map((f) => `assert(loadfile(${JSON.stringify(f)}))("Polestar_Guides", ns)`).join('\n');
@@ -2136,8 +2137,32 @@ test(`${HILLSBRAD_ALLIANCE}: Lou-Saydus's report: Nek'rosh's Gambit, taken after
 	assert.ok(plans.every(located), 'each attack plan has a place');
 	const list = goals(HILLSBRAD_ALLIANCE);
 	assert.equal(list.findIndex(({ goal }) => is('accept', 98221)(goal)), -1, 'From the Ashes is not taken again');
-	const lit = at(list, 'turnin 465', is('turnin', 465));
-	assert.ok(lit < at(list, 'accept 98223', is('accept', 98223)), 'before the Tattered Spellbook');
+	at(list, 'turnin 465', is('turnin', 465));
+});
+
+// --- Wetlands (julesbruu, #1705): 0.3.6 lit the catapult (465's hand-in) and then sent everyone to the Tattered
+// Spellbook for Old Habits (98223), which offered nothing to a solo player who skipped the elite chieftain, with
+// neither Nek'rosh's Gambit (465) nor Defeat Nek'rosh (474) in the log. Players' recordings: offered with 465 in the
+// log, with 474 in the log, and once after 474's hand-in. Now it is taken before the catapult, and the step shows
+// only while 465 or 474 is in the log (the route's gate).
+test(`${HILLSBRAD_ALLIANCE}: julesbruu's report: Old Habits is taken while Nek'rosh's Gambit is still in the log, shown only with it or Defeat Nek'rosh in the log (#1705)`, { skip }, () => {
+	const list = goals(HILLSBRAD_ALLIANCE);
+	const take = at(list, 'accept 98223', is('accept', 98223));
+	assert.ok(take < at(list, 'turnin 465', is('turnin', 465)), 'the spellbook comes before the catapult is lit');
+	const when = list[take].step.when || [];
+	assert.ok(!when.some((p) => p.k === 'group'), 'not on the group branch: solo players take it too');
+	const gate = when.find((p) => p.k === 'onquest' && !p.neg);
+	assert.ok(gate, 'the step shows only while a quest of the chain is in the log');
+	assert.deepEqual([gate.q].flat().sort((a, b) => a - b), [465, 474], 'Nek\'rosh\'s Gambit or Defeat Nek\'rosh');
+	// The hand-in at Menethil holds only players who took the quest, in a step of its own: Red Jack Flint's accept
+	// beside it stays for everyone.
+	const back = list[at(list, 'turnin 98223', is('turnin', 98223))];
+	assert.ok((back.step.when || []).some((p) => p.k === 'onquest' && !p.neg && [p.q].flat().includes(98223)), 'the hand-in step is when onquest 98223');
+	assert.ok(!back.step.goals.some((g) => is('accept', 1132)(g)), 'Red Jack Flint is not in the hand-in step');
+	assert.ok(list.some(({ step, goal }) => is('accept', 1132)(goal) && !(step.when || []).length), 'Red Jack Flint is taken by everyone');
+	let seen = 0;
+	for (const guide of allGuides()) seen += goals(guide).filter(({ goal }) => is('accept', 98223)(goal)).length;
+	assert.equal(seen, 1, 'taken in one guide');
 });
 
 // --- Wetlands (Bennistrov, #1299): 0.3.5 took This Land Was Their Land (98230) on the first Menethil visit,
@@ -12232,6 +12257,53 @@ test('Darkspear Islands Reputation: the mark quests point at the Warbringer and 
 	assert.doesNotMatch(src, /The nearest stand at Mor'shan/);
 	assert.equal((src.match(/One stands here at the Merchant Coast, beside the portal/g) || []).length, 4);
 	assert.equal((src.match(/One stands here at Northwatch Hold, beside the portal/g) || []).length, 4);
+});
+
+// mylons's report (#1893): Stranglethorn Vale's Cozzle's Footlocker step showed to a player without Goblin
+// Sponsorship's footlocker part (1182), whose accept on the Booty Bay stop was hidden because the chain before it
+// was not done, and its Cozzle's Key line (5851, not tied to the quest) sent them to farm Foreman Cozzle. The key
+// drops only while 1182 is in the log (players' recordings; CMaNGOS has it as a quest-only drop). A guide-fixes
+// record gives the step `when onquest 1182`, which holds every line of the step, the key's too. The guide is
+// generated: until the maintainer's build writes the record in, the check plays the guide with it written in
+// the way the writer does (after the step's title and its `only`/`zone` lines).
+test("mylons's report (#1893): the Cozzle's Footlocker step waits until Goblin Sponsorship (1182) is in the log", { skip }, () => {
+	const guide = 'forever/horde/30-40/03-stranglethorn-vale.guide';
+	const fixes = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', 'guide-fixes.json'), 'utf8')).fixes;
+	const rec = fixes.find((f) => f.issue === 1893);
+	assert.ok(rec, 'the gate is a guide-fixes record');
+	assert.deepEqual([rec.faction, rec.at, rec.when], ['Horde', { quest: 1182, goal: 'objective', objective: 1 }, 'onquest 1182']);
+	// The key's line shares the anchored objective's step, so the step's gate holds it too.
+	const list = goals(guide);
+	const blueprints = list[at(list, 'collect 5852 quest 1182', (g) => g.t === 'collect' && g.item === 5852 && g.quest === 1182)];
+	const key = list[at(list, "collect 5851 (Cozzle's Key)", (g) => g.t === 'collect' && g.item === 5851)];
+	assert.equal(key.s, blueprints.s, "Cozzle's Key is on the blueprints' step");
+	// The guide as a build writes it.
+	const lines = fs.readFileSync(path.join(OFFICIAL_DIR, guide), 'utf8').split('\n');
+	const anchor = lines.findIndex((l) => /^\s+collect 5852 quest 1182(\.1)?(\s|$)/.test(l));
+	let title = anchor;
+	while (!/^step\s/.test(lines[title])) title--;
+	let end = anchor;
+	while (end + 1 < lines.length && /^\s/.test(lines[end + 1])) end++;
+	if (!lines.slice(title + 1, end + 1).some((l) => l.trim() === `when ${rec.when}`)) {
+		let k = title + 1;
+		while (/^\s+(only|zone|when)\s/.test(lines[k])) k++;
+		lines.splice(k, 0, `  when ${rec.when}`);
+	}
+	const who = { race: 'Scourge', raceName: 'Undead', faction: 'Horde', cls: 'PALADIN', className: 'Paladin', level: 35 };
+	const view = (before) => Object.values(engineRun(guide, who, {
+		text: lines.join('\n'),
+		before,
+		script: `local out = {}
+			for _, g in ipairs(E.GetStepView(${key.s}).goals) do out[#out + 1] = g.t .. " " .. tostring(g.item or g.quest) .. " " .. g.status end
+			emit(out)`,
+	}));
+	// Without 1182 nothing of the step is for this character: no farming Cozzle for a key that never drops.
+	const without = view('');
+	assert.ok(without.length >= 2 && without.every((v) => / (na|skipped)$/.test(v)), `without 1182: ${without.join(', ')}`);
+	// With it in the log, the key and the blueprints are the step's work.
+	const onQuest = view('w.onQuest(1182, { 1 })');
+	assert.ok(onQuest.some((v) => /^collect 5851 /.test(v) && !/ (na|skipped)$/.test(v)), `with 1182, the key: ${onQuest.join(', ')}`);
+	assert.ok(onQuest.some((v) => /^collect 5852 /.test(v) && !/ (na|skipped)$/.test(v)), `with 1182, the blueprints: ${onQuest.join(', ')}`);
 });
 
 // Polestar Experimental's Riverglades guides (experimental/guides): two facts from players' recordings the route

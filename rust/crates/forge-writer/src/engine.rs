@@ -1950,7 +1950,7 @@ fn walk_ok(walks: Option<&dyn WalkYards>, s: Wpt, pts: &[Wpt], rep: &mut Report)
 }
 
 /// A goto to a boat, zeppelin, ship or tram (`goto 78.0,51.4 "Deeprun Tram"`, `"Boat to Auberdine"`).
-fn ride_goto(text: &str) -> bool {
+pub(crate) fn ride_goto(text: &str) -> bool {
 	re!(r#"(?i)^\s+goto\s.*"(?:[^"]*\b(?:Boat|Zeppelin|Ship|Tram)\b[^"]*)""#).is_match(split_comment(text).0)
 }
 

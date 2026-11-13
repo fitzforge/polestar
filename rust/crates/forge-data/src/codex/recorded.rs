@@ -7,7 +7,7 @@
 //! counts when its player is established ([`crate::recordings::establish_heads`]: a server
 //! contributor once the server has seen 3 days of it and uploads on 3 days, the maintainer's own
 //! and vouched-for files always; config.json's `minBuild`, `minVoters` and thresholds apply);
-//! contributors config.json's `exclude` lists, or IngestAudit's verdicts mark `exclude` or
+//! contributors config.json's `exclude` lists, or the recordings audit's verdicts mark `exclude` or
 //! `suspect`, never count; and a player is a person, the server's cohort merged with every
 //! contributor the verdicts say is the same person, with one vote per fact. The folder is read one
 //! session at a time, twice: who counts, then what they saw. Every value is a fact without who
@@ -266,7 +266,7 @@ fn people(heads: &[Head], counts: &[bool], v: &Verdicts) -> Vec<(String, bool)> 
 }
 
 /// `forge data codex --recordings <dir> [--verdicts <verdict.json>]`: the snapshot of the recordings
-/// in `dir` (`verdicts`: IngestAudit's), as the file's text, and a line saying what it read.
+/// in `dir` (`verdicts`: the recordings audit's), as the file's text, and a line saying what it read.
 pub fn export(dir: &Path, verdicts: Option<&Path>) -> Result<(String, String), String> {
 	let cfg = read_config(dir)?;
 	let v = match verdicts {
@@ -567,7 +567,7 @@ mod tests {
 		}
 	}
 
-	// The archive as `forge data codex --recordings` reads it: IngestAudit's verdicts set a suspect contributor
+	// The archive as `forge data codex --recordings` reads it: the recordings audit's verdicts set a suspect contributor
 	// aside and make two contributors one person, so four players' merchant windows are two people's, too few to
 	// change the Codex.
 	#[test]

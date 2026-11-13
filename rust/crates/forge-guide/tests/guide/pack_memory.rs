@@ -97,7 +97,7 @@ fn a_faction_part_the_build_no_longer_has_is_removed_another_folder_of_that_name
 	let addons = scratch("faction-parts-addons");
 	let out = addons.join("Polestar_Guides");
 	let write = |guides: &[forge_guide::js::V]| {
-		let files = forge_guide::project::build_pack_files(guides, &manifest("guides", "Polestar_Guides"), &fixture_data(), None, &forge_guide::js::V::obj(), &[], "16001", Vec::new());
+		let files = forge_guide::project::build_pack_files(guides, &manifest("guides", "Polestar_Guides"), &fixture_data(), None, &forge_guide::js::V::obj(), &[], &[], "16001", Vec::new());
 		forge_guide::project::write_pack_dir(&out, &files)
 	};
 	write(&guides()).unwrap();

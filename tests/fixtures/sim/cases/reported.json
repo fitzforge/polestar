@@ -3401,24 +3401,26 @@
 		},
 		{
 			"id": "C29b",
-			"title": "Wetlands: Nek'rosh's Gambit (465) handed in before Old Habits (98223) is taken",
+			"title": "Wetlands: Old Habits (98223) taken while Nek'rosh's Gambit (465) is still in the log",
 			"faction": "Alliance",
 			"property": "before",
 			"a": {
-				"quest": 465,
-				"step": "turnin"
-			},
-			"b": {
 				"quest": 98223,
 				"step": "accept"
+			},
+			"b": {
+				"quest": 465,
+				"step": "turnin"
 			},
 			"source": {
 				"refs": [
 					"#225",
-					"tests/guides-reported.test.js \"Nek'rosh's Gambit\""
+					"#1705",
+					"tests/guides-reported.test.js \"Old Habits\""
 				],
 				"credit": [
-					"Lou-Saydus"
+					"Lou-Saydus",
+					"julesbruu"
 				]
 			}
 		},

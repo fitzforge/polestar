@@ -661,7 +661,7 @@ impl<'a> Evaluator<'a> {
 		let Some(plan) = r.plan.as_ref() else { return };
 		let Some(key) = r.step_key(st.kind, st.q, st.task) else { return };
 		if let Some(fps) = plan.fp.get(&key) {
-			// Only a flight master the character is at (RevH1: the Orgrimmar flight path learnt at
+			// Only a flight master the character is at (review: the Orgrimmar flight path learnt at
 			// the Sepulcher, Thunder Bluff's at the Earthen Ring, no trip paid).
 			for &fp in fps {
 				if self.at_fp(fp as usize) {
@@ -676,7 +676,7 @@ impl<'a> Evaluator<'a> {
 		}
 	}
 
-	/// v1's bind, only where the character is at that inn (RevH2: v1's `sethome Ratchet` keyed to
+	/// v1's bind, only where the character is at that inn (review: v1's `sethome Ratchet` keyed to
 	/// accept 1251 was played at Shady Rest, 2885 yd away, and the hearth then went to Ratchet).
 	fn bind_plan(&mut self, inn: u32) {
 		let r = self.run;
@@ -960,8 +960,8 @@ impl<'a> Evaluator<'a> {
 		}
 		self.s.travel_sec += c;
 		// The flight masters a network leg walks through (its departure and arrival nodes and the
-		// walks between): learned on the way (Rev15DwarfGnome B2: the tram's arrival walks past
-		// Stormwind's; Rev15H2 B11: Freewind's flight lands short of Steamwheedle Port and walks
+		// walks between): learned on the way (c15 review B2: the tram's arrival walks past
+		// Stormwind's; c15 review B11: Freewind's flight lands short of Steamwheedle Port and walks
 		// through Gadgetzan's, learned only at the next stop there).
 		if mode == 1 && nodes.0 >= 0 && nodes.1 >= 0 {
 			let via = self.s.moved.via;
@@ -1769,9 +1769,9 @@ impl<'a> Evaluator<'a> {
 			K_TRAIN => {
 				// A class training stop: to the town's trainers, then train (no quest work,
 				// so no spot mark). In the route profiles only when it teaches a new rank
-				// (teaches_at): a training with nothing to learn does nothing (RevHumanStart:
+				// (teaches_at): a training with nothing to learn does nothing (start-zone review:
 				// Northshire at 3.06, a second Goldshire training at 9.73).
-				// (Not below the level of the class quests v1's step takes with it: RevA1, the
+				// (Not below the level of the class quests v1's step takes with it: start-zone review, the
 				// Tome of Divinity at 12 with a training moved to 9.7.)
 				if self.t.p.feasible && st.task > 0 && (self.s.level as i32) < st.task {
 					return false;

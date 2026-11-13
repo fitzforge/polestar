@@ -365,7 +365,7 @@ fn the_hub_fits_every_section_on_the_rail_above_the_foot_import_options_every_ca
 }
 
 #[test]
-fn categories_left_out_without_a_guide_for_any_faction_faded_with_a_tip_when_empty_only_for_this_faction() {
+fn categories_left_out_without_a_guide_for_any_faction_muted_with_a_tip_when_empty_only_for_this_faction() {
 	let out = run(r#"
 		-- No Legacy guide at all; the only collectible (Horse) is Alliance only.
 		for i = #uistub.order, 1, -1 do
@@ -377,11 +377,15 @@ fn categories_left_out_without_a_guide_for_any_faction_faded_with_a_tip_when_emp
 		UI.ShowPicker()
 		P.SetCategory("All")
 		local collectibles = nav("Collectibles")
-		emit({ cats = P.categories, legacy = nav("Legacy") ~= nil, collectibles = { collectibles.psTip, collectibles:GetAlpha(), collectibles.Count:IsShown() },
+		-- Empty: the muted text colour alone marks it (no fade on top).
+		local r, g, b = collectibles.Label:GetTextColor()
+		local mr, mg, mb = Polestar.Theme.Color("textMuted")
+		local muted = math.abs(r - mr) < 1e-6 and math.abs(g - mg) < 1e-6 and math.abs(b - mb) < 1e-6
+		emit({ cats = P.categories, legacy = nav("Legacy") ~= nil, collectibles = { collectibles.psTip, collectibles:GetAlpha(), collectibles.Count:IsShown(), muted },
 			leveling = nav("Leveling").psTip or false })"#);
 	assert_eq!(out["cats"], json!(["All", "Leveling", "Professions", "Reputation", "Exploration", "Collectibles", "Favorites"]));
 	assert_eq!(out["legacy"], false);
-	assert_eq!(out["collectibles"], json!(["None for Horde; switch the filter to All.", 0.55, false]));
+	assert_eq!(out["collectibles"], json!(["None for Horde; switch the filter to All.", 1, false, true]));
 	assert_eq!(out["leveling"], false);
 }
 

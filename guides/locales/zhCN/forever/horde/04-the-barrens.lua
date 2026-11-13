@@ -48,7 +48,7 @@ return {
 	["{npc:4049}: {npc:4074} and {npc:4073} roam east of {npc:4201}, on the way up"] = "{npc:4049}：{npc:4074}和{npc:4073}在{npc:4201}东边游荡，就在上山的路上",
 
 	-- Step 8: The road west
-	["The road west"] = "",
+	["The road west"] = "向西的道路",
 	-- {npc:4049} Seereth Stonebreak
 	["The road west past {npc:4049}'s camp"] = "向西经过{npc:4049}营地的道路",
 
@@ -129,7 +129,7 @@ return {
 
 	-- Step 21: To Camp Taurajo
 	-- {area:378} Camp Taurajo
-	["To {area:378}"] = "",
+	["To {area:378}"] = "前往{area:378}",
 
 	-- Step 22: Camp Taurajo
 	-- {area:2539} Malaka'jin · {npc:4049} Seereth Stonebreak · {area:378} Camp Taurajo
@@ -142,9 +142,9 @@ return {
 	-- Step 23: Grunt Logmar
 	-- {npc:5911} Grunt Logmar · {npc:268623} Outraged Pillager
 	-- plural, as words: Encroaching Soldiers = {npc:268622} Encroaching Soldier
-	["{npc:5911} stands by the flight master. His {npc:268623} (23) is elite: grouping up is advised; the two Encroaching Soldiers are not."] = "",
+	["{npc:5911} stands by the flight master. His {npc:268623} (23) is elite: grouping up is advised; the two Encroaching Soldiers are not."] = "{npc:5911}站在飞行管理员旁。他的任务目标{npc:268623}（23级）是精英，建议组队；另外两名入侵的士兵不是精英。",
 	-- {npc:5911} Grunt Logmar · {npc:3341} Gann Stonespire
-	["{npc:5911}: the soldiers and the pillager camp just east of {npc:3341}, on the way south"] = "",
+	["{npc:5911}: the soldiers and the pillager camp just east of {npc:3341}, on the way south"] = "{npc:5911}：向南途中，{npc:3341}东边的士兵和掠夺者营地",
 
 	-- Step 25: Brine
 	-- {npc:5899} Brine · {area:378} Camp Taurajo · {area:359} Bael Modan
@@ -156,7 +156,7 @@ return {
 
 	-- Step 26: Gann Stonespire
 	-- {npc:3341} Gann Stonespire · {area:359} Bael Modan · {npc:14242} Sulhasa
-	["{npc:3341} walks the road south toward {area:359}, between about 46,75 and 46,81: if he isn't at the arrow, follow the road until you meet him. {npc:14242} sits up in the tree just east of the road at 47.9,77.5."] = "",
+	["{npc:3341} walks the road south toward {area:359}, between about 46,75 and 46,81: if he isn't at the arrow, follow the road until you meet him. {npc:14242} sits up in the tree just east of the road at 47.9,77.5."] = "{npc:3341}沿道路向南朝{area:359}走动，活动范围约为46,75至46,81；若箭头处找不到他，就沿道路寻找。{npc:14242}在道路东侧47.9,77.5处的树上。",
 	-- {npc:3341} Gann Stonespire · {area:1701} Blackthorn Ridge
 	["{npc:3341} walks around {area:1701}: look inside the circle on the map"] = "{npc:3341}在{area:1701}附近巡逻，请在地图标出的圆圈内寻找",
 	-- {npc:14242} Sulhasa · {npc:3341} Gann Stonespire
@@ -165,7 +165,7 @@ return {
 	-- Step 27: Wrongly Blamed, Justly Corrected
 	-- {npc:14242} Sulhasa · {npc:268623} Outraged Pillager
 	-- plural, as words: Encroaching Soldiers = {npc:268622} Encroaching Soldier
-	["A few steps east of {npc:14242}'s tree, a small camp: two Encroaching Soldiers and the {npc:268623} for Logmar. The {npc:268623} is elite: grouping up is advised."] = "",
+	["A few steps east of {npc:14242}'s tree, a small camp: two Encroaching Soldiers and the {npc:268623} for Logmar. The {npc:268623} is elite: grouping up is advised."] = "{npc:14242}所在的树往东几步有个小营地：两名入侵的士兵，以及步兵劳格玛要的{npc:268623}。{npc:268623}是精英，建议组队。",
 
 	-- Step 28: Bael Modan
 	-- {area:359} Bael Modan · {npc:3392} Prospector Khazgorm
@@ -197,7 +197,7 @@ return {
 
 	-- Step 36: Great Lift
 	-- {area:1718} Great Lift
-	["The top of the {area:1718}"] = "",
+	["The top of the {area:1718}"] = "{area:1718}顶部",
 
 	-- Step 37: Great Lift
 	-- {npc:12576} Grish Longrunner · {area:1718} Great Lift
@@ -213,7 +213,7 @@ return {
 
 	-- Step 41: Grunt Logmar
 	-- {npc:5911} Grunt Logmar
-	["{npc:5911}, beside the flight master"] = "",
+	["{npc:5911}, beside the flight master"] = "{npc:5911}，在飞行管理员旁",
 
 	-- Step 42: Fly to Crossroads
 	-- {area:378} Camp Taurajo

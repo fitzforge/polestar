@@ -63,10 +63,6 @@ local DEFAULT = { "TOP", 0, -132 }
 
 local f, current
 
-local function house()
-	return Theme.SkinKey() == "polestar"
-end
-
 local place -- below: the card's own place, or its place among the stacked alerts
 
 local function waypoint()
@@ -216,16 +212,6 @@ function T.Distance(a)
 	return nil
 end
 
--- A texture's vertical gradient, top colour then bottom colour.
-local function vgrad(t, r1, g1, b1, a1, r2, g2, b2, a2)
-	if t.SetGradient and CreateColor then
-		t:SetVertexColor(1, 1, 1, 1)
-		t:SetGradient("VERTICAL", CreateColor(r2, g2, b2, a2), CreateColor(r1, g1, b1, a1))
-	else
-		t:SetVertexColor(r2, g2, b2, (a1 + a2) / 2)
-	end
-end
-
 local fill
 
 -- The look's settings (UI/Looks/Toasts.lua: scale, opacity, type, ground,
@@ -251,18 +237,7 @@ local function newCard(parent, name, sandbox)
 	head:SetPoint("TOPRIGHT", c, "TOPRIGHT", -1, -1)
 	head:SetHeight(BAND_H)
 	c.Head = head
-	c.Night = head:CreateTexture(nil, "BACKGROUND", nil, -8)
-	c.Night:SetTexture(Theme.Media("white"))
-	c.Night:SetAllPoints(head)
-	W.Painter(c.Night, function(t)
-		t:SetShown(house())
-		local tr, tg, tb = Theme.Color("scrim")
-		local br, bg, bb = Theme.Color("bg")
-		vgrad(t, tr, tg, tb, 1, br, bg, bb, 1)
-	end)
-	if W.Haze then c.Haze = W.Haze(head, { height = BAND_H, sub = -6 }) end
-	c.Band = Theme.Band(head, "BACKGROUND", -5)
-	c.Band:SetAllPoints(head)
+	c.Night, c.Haze, c.Band = W.Night(head, { height = BAND_H, sub = -6 })
 	c.Band:SetTexCoord(Theme.BandCoords(WIDTH - 2, BAND_H))
 	c.BandRule = W.Divider(c)
 	c.BandRule:SetPoint("TOPLEFT", c, "TOPLEFT", 1, -(BAND_H + 1))
@@ -297,6 +272,17 @@ local function newCard(parent, name, sandbox)
 	local noop = function() end
 	c.Close = W.IconButton(head, "close", 22, L["Dismiss"], sandbox and noop or function() T.Hide() end, 12)
 	c.Close:SetPoint("TOPRIGHT", head, "TOPRIGHT", -8, -8)
+	-- In the game's looks the card's close (the guide window's icon button
+	-- size, its glyph the card's): their red button is drawn at its target's
+	-- width and 2 (Theme.KitIconButton), so at this 22 unit target it stood
+	-- larger than the card's. The other looks keep the 22 target, 12 glyph.
+	W.Painter(head, function()
+		local kit = Theme.Kit()
+		c.Close:SetSize(kit and Theme.Metric("guideIconBtnW", 24) or 22, kit and Theme.Metric("guideIconBtnH", 24) or 22)
+		local g = kit and Theme.Metric("guideIcon", 14) or 12
+		c.Close.Icon:SetSize(g, g)
+		Theme.KitIconButton(c.Close)
+	end)
 
 	-- The row: how far, then what to do (the primary action rightmost).
 	local rowY = BAND_H + 1 + ROW_H / 2

@@ -1,0 +1,54 @@
+---
+section: players
+---
+- Move frames keeps a way back: Revert puts every frame back where it stood
+  when you unlocked, Exit (or Escape) asks whether to keep or discard what
+  moved, and Save and exit keeps it. A fight pauses the mode and brings it
+  back afterwards, your moves kept.
+- Settings that place something on screen (the guide window, the arrow,
+  the floating button, the quest buttons, the flight timer, the instance
+  tracker, the party panel and the alerts) have a Move button: the settings
+  step aside, Move frames opens with that frame picked and pulsing, and the
+  settings come back where you were when you are done.
+- In Move frames a right-click on a box opens a small menu (its settings,
+  back to its default place on a second click, hide the box) instead of
+  resetting it at once; Shift-right-click hides a box until you exit, so it
+  can't be moved by mistake.
+- Resetting a setting can be undone: after a right-click reset, a
+  section's Reset or Reset page, the settings window's footer offers Undo
+  for ten seconds and puts everything back as it was.
+- A What's new note about a setting takes you to it: click the note and
+  the settings open on that setting, highlighted.
+- The rare alert's sound list lets you hear each sound before you pick it:
+  click its speaker, or rest the pointer on it a moment.
+- The settings window can get out of the way without closing: hold the eye
+  in its header to see through it, or fold it to its header and unfold it
+  where you left off. Shift and the mouse wheel anywhere on the window
+  change its scale.
+- In Move frames you can type where the selected frame goes: its X and Y
+  from the screen's centre show under the bar, ready to change.
+- Dragging a slider near its default, zero or 100% lands on it, so the
+  usual value is easy to get back to.
+- The settings window scrolls smoothly (no jumps; Reduce motion keeps it
+  instant), and a small arrow at the foot of its sidebar takes you to the
+  pages further down.
+- Move frames' bar lists every mouse and key control under its (i), fades
+  away while you hold Shift so you can reach a frame under it, and the first
+  time explains how it works.
+- Long lists (a profile menu with many profiles, a long dropdown) scroll
+  and have a filter box: type to narrow them, Enter picks the first match.
+- Colour rows keep favourites: right-click one of the recent colours to
+  keep it, and after a change the colour you had before waits by the
+  swatch, one click away.
+- The first time you change a setting that has more options behind a gear,
+  the gear points itself out once.
+- Dialogs that change nothing for good take Enter. Reset all settings says
+  whose profile it resets, and when the whole account (or a class) uses that
+  profile it asks you to type RESET first.
+- In Move frames the mouse wheel over boxes on top of each other brings the
+  one underneath forward.
+- A profile can have its own key: on the Profiles page, Set a key and press
+  the key (or gamepad button) that switches to that profile, out of combat.
+- A changed setting shows a small reset arrow by its name: click it to put
+  that one setting back to its default (the tooltip says what that is), with
+  Undo in the footer.
