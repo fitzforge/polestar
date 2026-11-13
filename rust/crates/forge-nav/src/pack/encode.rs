@@ -131,7 +131,7 @@ pub fn encode_areas(vals: &[u32]) -> Result<String, String> {
 }
 
 /// gen_nav.py encode_heights.
-fn encode_heights(val: &[u8], zq: &[i32], c: usize) -> Result<String, String> {
+pub(super) fn encode_heights(val: &[u8], zq: &[i32], c: usize) -> Result<String, String> {
 	let mut q = vec![0i32; c * c];
 	let mut has = vec![false; c * c];
 	let mut items: Vec<(bool, i32)> = Vec::new(); // (absolute, value)

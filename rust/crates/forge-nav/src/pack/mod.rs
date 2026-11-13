@@ -18,6 +18,8 @@ pub mod chokepoints;
 pub mod encode;
 pub mod fixture;
 pub mod hpa;
+pub mod ingame;
+pub mod joins;
 pub mod layers;
 pub mod leffe;
 
@@ -366,17 +368,24 @@ pub fn pack_nav(i: &PackIn) -> Result<Pack, String> {
 		let leffe = i.leffe.filter(|l| l.1.contains(&c)).map(|l| l.0);
 		let (maps, entrances, edges) = match leffe {
 			Some(dir) => {
-				let (maps, used, s) = leffe::leffe_maps(dir, c, &cg)?;
+				let hubs = i.layers.join("hubs.json");
+				let ways = joins::ways(i.grid, c, hubs.is_file().then_some(hubs.as_path()), log)?;
+				let (maps, used, s, j) = leffe::leffe_maps(dir, c, &cg, &ways, log)?;
 				log(&format!(
 					"Leffe's maps {c}: {} clusters, floors {} ({} no walk can use dropped), entrances {}, edges {} ({} past 63 dropped), jumps {}, drops {}, climbs {} -> {} arcs, {} steep steps closed, {} surfaces with an area of ours",
 					s.clusters, s.floors, s.dropped_floors, s.entrances, s.edges, s.dropped, s.jumps, s.drops, s.climbs, s.arcs, s.closed, s.areas
 				));
+				log(&format!(
+					"grid joins {c}: {} ways ({} his maps make already, {} refused), {} floors, {} arcs, {} entrances, {} edges, {} components joined, in {} clusters",
+					j.ways, j.walkable, j.refused, j.floors, j.arcs, j.entrances, j.edges, j.merged, j.clusters
+				));
 				cg.areas = used;
-				m.insert(
-					"leffe".into(),
-					json!({ "floors": s.floors, "droppedFloors": s.dropped_floors, "jumps": s.jumps, "drops": s.drops, "climbs": s.climbs, "arcs": s.arcs, "droppedEdges": s.dropped, "closedSteps": s.closed, "areaSurfaces": s.areas }),
-				);
-				(maps, s.entrances, s.edges - s.dropped)
+				let mut leffe = json!({ "floors": s.floors, "droppedFloors": s.dropped_floors, "jumps": s.jumps, "drops": s.drops, "climbs": s.climbs, "arcs": s.arcs, "droppedEdges": s.dropped, "closedSteps": s.closed, "areaSurfaces": s.areas });
+				if !ways.is_empty() {
+					leffe["joins"] = json!({ "ways": j.ways, "refused": j.refused, "floors": j.floors, "arcs": j.arcs, "entrances": j.entrances, "edges": j.edges, "components": j.merged });
+				}
+				m.insert("leffe".into(), leffe);
+				(maps, s.entrances, s.edges - s.dropped + j.edges)
 			}
 			None => {
 				let h = hpa::build_hpa(&cg);

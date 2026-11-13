@@ -18,6 +18,7 @@
 
 use super::cells::{CellGrid, ZQ};
 use super::encode::{encode_areas, run_length, Maps, COST_MAX, YARDS_MAX};
+use super::joins::{Geo, JoinStats, JoinWay};
 use super::{b32, enc, js_round, zigzag, B64, NONE};
 use crate::f4::pack::{self, Assembly, Cluster, Graph, Meta, Span, TILE, WALK_TAN};
 use crate::f4::{NavDir, PackSource};
@@ -101,20 +102,20 @@ fn our_area(cg: &CellGrid, gx: i64, gy: i64, z: f64) -> u32 {
 	}
 }
 
-/// One cluster's fields.
+/// One cluster's fields (pack/joins.rs edits the clusters a join crosses).
 #[derive(Default)]
-struct Out {
-	grid: Option<String>,
-	height: Option<String>,
-	floor: Option<String>,
-	class: Option<String>,
-	area: Option<String>,
-	arc: Option<String>,
-	graph: Option<String>,
-	areas: BTreeSet<u32>,
-	stats: LeffeStats,
-	max_degree: usize,
-	clamped: usize,
+pub(super) struct Out {
+	pub(super) grid: Option<String>,
+	pub(super) height: Option<String>,
+	pub(super) floor: Option<String>,
+	pub(super) class: Option<String>,
+	pub(super) area: Option<String>,
+	pub(super) arc: Option<String>,
+	pub(super) graph: Option<String>,
+	pub(super) areas: BTreeSet<u32>,
+	pub(super) stats: LeffeStats,
+	pub(super) max_degree: usize,
+	pub(super) clamped: usize,
 }
 
 /// His grid field with the steps past the walkable slope closed (flag 1: +x, 2: +y), and how many.
@@ -524,8 +525,9 @@ fn geometry(meta: &Meta, k: u32, c: &Cluster, node: usize) -> [f64; 3] {
 }
 
 /// Map `map` of Leffe's Nav folder `dir` as the in-game fields (maps format 5), with `cg` (our grid's cells, the same
-/// frame and cells) for the areas. -> the fields, the area rows they use, and the counts.
-pub fn leffe_maps(dir: &Path, map: u32, cg: &CellGrid) -> Result<(Maps, BTreeSet<u32>, LeffeStats), String> {
+/// frame and cells) for the areas, and our grid's ways of the map's joins put in (pack/joins.rs). -> the fields, the
+/// area rows they use, and the counts.
+pub fn leffe_maps(dir: &Path, map: u32, cg: &CellGrid, ways: &[JoinWay], log: &(dyn Fn(&str) + Sync)) -> Result<(Maps, BTreeSet<u32>, LeffeStats, JoinStats), String> {
 	let src = NavDir::open(dir)?;
 	let text_meta = src.meta(map)?.ok_or_else(|| format!("leffe: {} has no map {map}", dir.display()))?;
 	let mut meta = pack::parse_meta(&text_meta, map)?;
@@ -560,7 +562,7 @@ pub fn leffe_maps(dir: &Path, map: u32, cg: &CellGrid) -> Result<(Maps, BTreeSet
 			Ok((k, vec![0; n]))
 		})
 		.collect::<Result<_, String>>()?;
-	let outs: Vec<(u32, Out)> = keys
+	let mut outs: Vec<(u32, Out)> = keys
 		.par_iter()
 		.map(|&k| -> Result<(u32, Out), String> {
 			let mut read = |f: &str, k: u32| read_field(src, meta, f, k);
@@ -578,8 +580,10 @@ pub fn leffe_maps(dir: &Path, map: u32, cg: &CellGrid) -> Result<(Maps, BTreeSet
 			Ok((k, cluster(meta, k, &c, &g, &fields, cg, &has, &rows)?))
 		})
 		.collect::<Result<_, String>>()?;
+	let geo = Geo { c: meta.c as usize, cs: meta.cs, zstep: meta.zstep, x0: meta.x0, y0: meta.y0, ny: meta.ny, swim: meta.swim };
+	let (joined, join_areas) = super::joins::apply(&geo, &mut outs, ways, cg, log)?;
 	let mut maps = Maps { class: Some(BTreeMap::new()), zone: Some(BTreeMap::new()), area: Some(BTreeMap::new()), arc: Some(BTreeMap::new()), ..Default::default() };
-	let mut used = BTreeSet::new();
+	let mut used = join_areas;
 	let mut st = LeffeStats::default();
 	let mut comps = BTreeSet::new();
 	for (k, o) in outs {
@@ -635,7 +639,7 @@ pub fn leffe_maps(dir: &Path, map: u32, cg: &CellGrid) -> Result<(Maps, BTreeSet
 	if maps.area.as_ref().unwrap().is_empty() {
 		return Err(format!("leffe: map {map}: no surface matched an area of ours (is the grid the same client build?)"));
 	}
-	Ok((maps, used, st))
+	Ok((maps, used, st, joined))
 }
 
 #[cfg(test)]

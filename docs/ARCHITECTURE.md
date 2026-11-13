@@ -9719,6 +9719,12 @@ fileDataID from wago.tools into `data/sources/casc` (local, never shipped):
   (`Nav/Walk.lua` canSearch, `Path.Resident`), so a journey to the other continent keeps the planner's straight
   estimate for the walks there (their danger unweighed, `Nav/Danger.lua`) until the player arrives and that part loads
   with the first search there.
+  Where our grid joins two places players walk between and his maps do not (`pack/joins.rs`, the pairs of
+  `pack/joins.json`: caves and mines his maps cut off from their mouths, Felwood's road, the top of Brill's zeppelin
+  tower, Darkcloud Pinnacle's rope bridges), our grid's way goes in: his surface where he has one near the way's
+  height, else a floor of ours after the cell's floors, an arc for each step he lacks inside a cluster, an entrance
+  each side and an edge across a cluster border, edges from each entrance of a changed cluster to those it then
+  reaches for less, and one component for the components joined (docs/forge/nav.md, "Grid joins").
   The router gives up on a walk past 8 times the straight line plus 2000 yd (`Path.lua` DETOUR): a start on
   ground his maps join to the world only far away no longer searches most of a continent.
 

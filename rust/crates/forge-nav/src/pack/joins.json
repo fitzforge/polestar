@@ -1,0 +1,8 @@
+{
+	"note": [
+		"Grid joins (forge nav pack --leffe, rust/crates/forge-nav/src/pack/joins.rs): pairs of places players walk between that Polestar's navigation grid joins and Leffe's navigation maps do not. The pack routes each pair on the grid both ways and puts the way into his maps where they lack it: floors, arcs, entrances and edges.",
+		"Points are world yards in the client's UnitPosition frame (x north, y west) and the height of the floor the place stands on (null: none given).",
+		"Add a pair only when players walk it in the game (recordings, an in-game check or a report) and the walking maps have no way or a long detour between its ends."
+	],
+	"joins": []
+}
