@@ -800,3 +800,24 @@ fn the_welcome_s_route_style_cards_the_d_pad_reaches_them_a_picks_one_y_puts_bal
 	"#);
 	assert_eq!(out[0], json!({ "reached": true, "picked": ["roads", true], "reset": "balanced", "balanced": true, "roads": false }), "Y puts Balanced back and moves the pick to its card");
 }
+
+#[test]
+fn installs_option_cards_the_d_pad_reaches_them_a_picks_one_y_puts_the_default_back() {
+	let out = run(r#"
+		uistub.groupQuests = { { quest = 101, title = "Elite" } }
+		UI.Welcome.Show("groups")
+		stub.advance(0.3)
+		local card
+		for _ = 1, 20 do
+			local w = G.Focused(PolestarWelcome)
+			if w and w.psValue == "do" then card = w break end
+			stub.press("PADDDOWN")
+		end
+		stub.press("PAD1")
+		local picked = { Polestar.Get("behavior.groupQuests"), card and card.psSelected or false }
+		stub.press("PAD4")
+		emit({ reached = card ~= nil, picked = picked, reset = Polestar.Get("behavior.groupQuests"),
+			ask = PolestarWelcome.GroupQuests.cards[1].psSelected or false, card = card and card.psSelected or false })
+	"#);
+	assert_eq!(out[0], json!({ "reached": true, "picked": ["do", true], "reset": "ask", "ask": true, "card": false }), "Y puts Ask me at each back and moves the pick to its card");
+}
