@@ -760,6 +760,11 @@ step Into The Barrens
   zone The Barrens
   goto 41.9,58.6 "Into The Barrens"
 
+step Camp Taurajo
+  zone The Barrens
+  tip The road from Mulgore meets the Gold Road at Camp Taurajo: Omusa Thunderhorn, the wind rider master, stands beside Kirge Sternhorn on your way north to the Crossroads.
+  getfp "Camp Taurajo" npc 10378      -- Omusa Thunderhorn
+
 step The Crossroads
   zone The Barrens
   goto 52.2,31.0 "The Crossroads"

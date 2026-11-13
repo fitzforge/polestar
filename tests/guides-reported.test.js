@@ -329,8 +329,8 @@ for (const DUROTAR of DUROTARS) test(`${DUROTAR}: Gruko's report (#240): Thazz'r
 for (const DUROTAR of DUROTARS) test(`${DUROTAR}: Threat from Below is handed in at Razor Hill on the way to Far Watch Post, and the Crossroads waits for the Barrens guide`, { skip }, () => {
 	const list = goals(DUROTAR);
 	const threat = at(list, 'the Threat from Below turn-in', is('turnin', 99051));
-	// Horde 12-30 re-chain: Durotar ends in Orgrimmar. Since the final route review (0.3.5) Conscript of the Horde is
-	// handed to Kargal at Far Watch Post before Orgrimmar (no carry through Silverpine), after Orgnil.
+	// Horde 12-30 re-chain: Durotar ends in Orgrimmar. Warriors hand Conscript of the Horde to Kargal at Far Watch Post
+	// before Orgrimmar, after Orgnil; everyone else on the Barrens guide's first stop (0.4.0 start audit).
 	const mage = list.filter(forClass('MAGE'));
 	assert.ok(at(mage, 'turnin 840', is('turnin', 840)) > at(mage, 'turnin 99051', is('turnin', 99051)), 'Kargal after Orgnil (Shamans hand it in on the way to Kranal)');
 	const orgnil = list[threat].goal.npc;
@@ -11873,3 +11873,24 @@ test('Durotar (Orc, Troll): the Eye of Burning Shadow from Gazz\'uz is optional,
 	const fixes = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', 'guide-fixes.json'), 'utf8')).fixes;
 	assert.ok(fixes.some((f) => f.at && f.at.quest === 832 && f.at.goal === 'accept' && f.optional === true), 'a record the build keeps');
 });
+
+// #2000 and the 0.4.0 start audit: a flight path is learnt on the walk that passes its master. The Undead casters walk
+// down into the Undercity past Michael Garrett, the bat handler, for their class turn-ins at the end of Tirisfal Glades;
+// the Skyborne pass Omusa Thunderhorn at Camp Taurajo on the road from Mulgore to the Crossroads. Each step learns it.
+test('#2000: the Undercity flight path on the Undead casters\' Undercity stop, Camp Taurajo\'s on the Skyborne walk', { skip }, () => {
+	for (const cls of ['WARLOCK', 'PRIEST', 'MAGE']) {
+		const list = goals(TIRISFAL).filter(forClass(cls));
+		const fp = at(list, `${cls}: getfp Undercity`, (g) => g.t === 'getfp' && g.location === 'Undercity');
+		const first = list.findIndex(({ goal }) => goal.map === 1458);
+		assert.ok(first >= 0 && list[fp].s === list[first].s, `${cls}: learnt on the first Undercity stop`);
+	}
+	const sky = goals('forever/horde/skyborne/01-zephras-isle.guide');
+	const taurajo = at(sky, 'getfp Camp Taurajo', (g) => g.t === 'getfp' && g.location === 'Camp Taurajo');
+	const crossroads = at(sky, 'getfp Crossroads', (g) => g.t === 'getfp' && g.location === 'Crossroads');
+	assert.ok(taurajo < crossroads, 'on the walk north, before the Crossroads');
+	for (const [file, name] of [['undead/01-tirisfal-glades', 'Undercity'], ['skyborne/01-zephras-isle', 'Camp Taurajo']]) {
+		const seed = fs.readFileSync(path.join(__dirname, '..', 'forge', 'seed', 'guides', 'forever', 'horde', `${file}.guide`), 'utf8');
+		assert.match(seed, new RegExp(`getfp "${name}"`), `${file}: the seed carries the getfp, so the build writes it where the seed has it`);
+	}
+});
+
