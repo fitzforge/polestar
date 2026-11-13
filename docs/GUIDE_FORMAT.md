@@ -891,7 +891,10 @@ object's (its spawn, or your `@x,y` at it):
   or `object` of their own) whose target is an object, or a creature (a kill
   or talk objective): that object's or creature's height. The Rod of Helcular
   used at the Flame of Azel ends its walk in the Foothill Caverns, not on
-  Darrow Hill above them (#1782);
+  Darrow Hill above them (#1782). Bound to an item objective, the objects the
+  item comes out of (`drops.object` in `items.json`): the Filled Etched Phial
+  used on the Ancient Brazier, whose Cloven Hoof is the objective, ends its
+  walk deep in Splithoof Hold, not on the hill over the cave (#2126);
 - `goto` leading to a goal with a height: a later goal of its own step, or
   one of the next step, whose point lies within 15 yards of the goto's; the
   nearest such goal's height. "Azurelode Mine" at the miners ends in the

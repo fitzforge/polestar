@@ -2,10 +2,12 @@
 //! Goal heights (docs/GUIDE_FORMAT.md, "Heights"): a goal whose point stands for an NPC or object gets `z`,
 //! the height of that entity's spawn within HEIGHT_YARDS of its world point (spawnz.json), never a guess.
 //! A `use` or `interact` bound to a quest objective (`quest Q.O`) whose target is an object or a creature stands
-//! for that one (#1782: the Rod of Helcular used at the Flame of Azel, in the Foothill Caverns under Darrow Hill).
+//! for that one (#1782: the Rod of Helcular used at the Flame of Azel, in the Foothill Caverns under Darrow Hill);
+//! one bound to an item objective, for the objects the item comes out of (#2126: the Filled Etched Phial used on the
+//! Ancient Brazier whose Cloven Hoof is the objective, deep in Splithoof Hold).
 
 use crate::data::Data;
-use crate::js::{hypot, V};
+use crate::js::{hypot, str_to_num, V};
 use crate::obj;
 
 pub const HEIGHT_YARDS: f64 = 15.0;
@@ -74,28 +76,39 @@ pub fn spawn_height(data: &Data, kind: &str, id: &V, point: &V) -> Option<V> {
 	best.map(|b| b.1)
 }
 
-/// The object or creature a `use` or `interact` goal bound to a quest objective (`quest Q.O`, no npc or object
-/// of its own) is done at: the objective's (type object; kill or talk: a creature), or None.
-pub fn objective_entity(data: &Data, goal: &V) -> Option<(&'static str, V)> {
+/// The objects or creature a `use` or `interact` goal bound to a quest objective (`quest Q.O`, no npc or object
+/// of its own) is done at: the objective's (type object; kill or talk: a creature; item: the objects the item comes
+/// out of, items.json `drops.object`, in id order), or none. The goal gets a height only from one of their spawns
+/// within HEIGHT_YARDS of its point.
+pub fn objective_entities(data: &Data, goal: &V) -> Vec<(&'static str, V)> {
 	let t = goal.get("t");
 	if !(t.as_str() == Some("use") || t.as_str() == Some("interact")) || goal.get("candidates").truthy() || goal.get("x").is_undef() || goal.get("y").is_undef() || goal.get("map").is_undef() {
-		return None;
+		return Vec::new();
 	}
 	if !goal.get("npc").is_undef() || !goal.get("object").is_undef() || goal.get("quest").is_undef() {
-		return None;
+		return Vec::new();
 	}
-	let oi = goal.get("oi").as_num().filter(|i| *i >= 1.0 && i.fract() == 0.0)?;
-	let o = data.quest(&goal.get("quest")).get("objectives").items().get(oi as usize - 1).cloned()?;
+	let Some(oi) = goal.get("oi").as_num().filter(|i| *i >= 1.0 && i.fract() == 0.0) else {
+		return Vec::new();
+	};
+	let Some(o) = data.quest(&goal.get("quest")).get("objectives").items().get(oi as usize - 1).cloned() else {
+		return Vec::new();
+	};
+	let id = o.get("id");
+	if id.is_nullish() {
+		return Vec::new();
+	}
 	let kind = match o.get("type").as_str() {
 		Some("object") => "object",
 		Some("kill") | Some("talk") => "npc",
-		_ => return None,
+		Some("item") => {
+			let mut ids: Vec<f64> = data.item(&id).get("drops").get("object").keys().iter().map(|k| str_to_num(k)).filter(|n| n.fract() == 0.0 && *n > 0.0).collect();
+			ids.sort_by(|a, b| a.total_cmp(b));
+			return ids.into_iter().map(|n| ("object", V::Num(n))).collect();
+		}
+		_ => return Vec::new(),
 	};
-	let id = o.get("id");
-	if id.is_undef() {
-		return None;
-	}
-	Some((kind, id))
+	vec![(kind, id)]
 }
 
 /// What a goal without an NPC or object of its own is done at: a `collect`'s sources (the creatures it drops from,
@@ -125,11 +138,15 @@ pub fn source_entities(goal: &V) -> Vec<(&'static str, V)> {
 	}
 }
 
-/// The entities a goal's point stands for: its NPC or object (height_entity), else the objective's (objective_entity),
-/// else its sources (source_entities).
+/// The entities a goal's point stands for: its NPC or object (height_entity), else the objective's
+/// (objective_entities), else its sources (source_entities).
 fn entities(data: &Data, goal: &V) -> Vec<(&'static str, V)> {
-	if let Some(e) = height_entity(goal).or_else(|| objective_entity(data, goal)) {
+	if let Some(e) = height_entity(goal) {
 		return vec![e];
+	}
+	let done = objective_entities(data, goal);
+	if !done.is_empty() {
+		return done;
 	}
 	source_entities(goal)
 }

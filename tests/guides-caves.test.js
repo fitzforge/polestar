@@ -107,8 +107,16 @@ for (const c of CASES) {
 
 // Goals underground where the walking maps do join the cave or mine: the goal carries its floor's height, so the
 // arrow's walk goes in through the mouth instead of ending on the hill over the target (heights.js: an objective's
-// object or creature, a collect's sources, a goto leading to a goal with one). Each case is a player report.
+// object or creature, or the objects its item comes out of; a collect's sources; a goto leading to a goal with one).
+// Each case is a player report.
 const FLOORS = [
+	{
+		// Pilsnerinn (#2126): the Filled Etched Phial is used on the Ancient Brazier deep in Splithoof Hold, and the
+		// arrow went up the Great Lift to the hill over the cave instead of in at its mouth.
+		guide: 'forever/horde/07-ashenvale.guide',
+		target: (g) => g.t === 'use' && g.quest === 1197 && g.oi === 1,
+		z: -70.5, // the Ancient Brazier's spawn (spawnz.json), the object the Cloven Hoof comes out of
+	},
 	{
 		// Redrett (#1782): the Rod of Helcular at the Flames of Azel and Veraz, in the Foothill Caverns under Darrow Hill.
 		guide: 'forever/horde/30-40/01-hillsbrad-foothills.guide',
