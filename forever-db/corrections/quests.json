@@ -978,6 +978,37 @@
 		],
 		"note": "Essential Artificials (Gnomeregan) rewards 5,500 XP on Forever; the merged data had 3,050, the Classic value. Forever about doubled dungeon quest XP, and the value here is the one players' game caches give after the 1 October 2026 change that halved the extra (build 70170). Issue #394."
 	},
+	"2926": {
+		"set": {
+			"pre": [
+				2927
+			],
+			"breadcrumbs": []
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: all 28 people who took Gnogaine from Ozzie Togglevolt had handed The Day After (2927) in to him first; none took it without"
+			},
+			{
+				"kind": "questie",
+				"ref": "quests 2926: prerequisite 2927 (the merged data has it as both prerequisite and breadcrumb)"
+			}
+		],
+		"note": "Gnogaine (2926, Ozzie Togglevolt, for Gnomeregan) is offered only once The Day After (2927) is handed in to Ozzie. The quest data names The Day After as its prerequisite and also as its breadcrumb, and a breadcrumb never blocks, so the prerequisite was dropped: the Gnomeregan pick-up guide had players take The Day After from Gnoarn and then ask Ozzie for Gnogaine, which he does not offer before The Day After is handed in. It is a real prerequisite: The Day After is done on the way, handed in to Ozzie, then Gnogaine taken."
+	},
+	"2927": {
+		"set": {
+			"breadcrumbFor": null
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: for Gnogaine (2926), all 28 people who took it had handed The Day After in first; none took it without"
+			}
+		],
+		"note": "The Day After (2927) is a prerequisite of Gnogaine (2926), not only a breadcrumb: Ozzie Togglevolt offers Gnogaine only once it is handed in, so it no longer names 2926 as the quest it is a breadcrumb for, and prerequisite readers keep the prerequisite."
+	},
 	"2929": {
 		"set": {
 			"xp": 6200

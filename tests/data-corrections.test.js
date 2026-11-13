@@ -198,6 +198,20 @@ test('Benedict\'s Chest opens with Benedict\'s Key (#467)', () => {
 	assert.deepEqual(corrections.objects[3239].set.lock, { item: 4882 });
 });
 
+// #2014: Forever moved Henrig Lonebrow's Journal about 110 yd south of its old spot (every recorded loot since
+// 2026-11-10 lies there); the Razorfen Kraul pick-up guide's collect step pointed at the old one.
+test("Henrig Lonebrow's Journal lies where players loot it now, its old spot gone (#2014)", () => {
+	assert.deepEqual(corrections.objects[19861].set.spawns, { 1441: { f: 'e', pts: [[31.29, 28.05]] } });
+});
+
+// #1992, #2007: Archmage Tervosh and Lady Jaina Proudmoore show at Sentry Point and North Point Tower only to players on
+// The Missing Diplomat; the corrections had made those spots their spawns, so the Maraudon pick-up guide sent everyone to
+// North Point Tower for Shadowshard Fragments. Their spawns are Theramore's tower; the chain's steps keep their own spots.
+test('Archmage Tervosh and Lady Jaina stand in Theramore\'s tower; the Missing Diplomat spots are no spawns of theirs (#1992)', () => {
+	assert.deepEqual(corrections.npcs[4967].set.spawns, { 1445: { f: 'e', pts: [[66.42, 49.26]] } }, 'Archmage Tervosh');
+	assert.deepEqual(corrections.npcs[4968].set.spawns, { 1445: { f: 'e', pts: [[66.27, 49.04]] } }, 'Lady Jaina Proudmoore');
+});
+
 test('The Glowing Shard\'s one line is to speak with Sputtervalve in Ratchet, so its hand-in guide goes there first (#1326)', () => {
 	assert.deepEqual(corrections.quests[6981].set.objectives, [{ type: 'talk', id: 3442, count: 1, text: 'Speak with someone in Ratchet about the Glowing Shard' }]);
 });
@@ -263,6 +277,17 @@ test('The Great Outdoors waits for The Adventurer, whatever breadcrumb links the
 		const { all, any } = blockingPrereqs(quest, (id) => (id === a ? adventurer : null));
 		assert.deepEqual({ all, any }, { all: [], any: [a] }, `${g} after ${a}`);
 	}
+});
+
+// Gnomeregan's pick-up guide (a Discord report, 2026-11-13): The Day After came into the log but was never handed in,
+// so Ozzie Togglevolt had no Gnogaine to give. The quest data names The Day After as Gnogaine's prerequisite and as its
+// breadcrumb, and a breadcrumb never blocks; players' recordings: all 28 people who took Gnogaine handed The Day After
+// in first. The corrections clear the breadcrumb links, so the prerequisite stands and the guide hands it in on the way.
+test('Gnogaine waits for The Day After, whatever breadcrumb links the data has (Gnomeregan pick-up)', () => {
+	const quest = { id: 2926, start: { npc: [1268] }, pre: [2927], breadcrumbs: [2927], ...corrections.quests[2926].set };
+	const dayAfter = { id: 2927, start: { npc: [6569] }, breadcrumbFor: 2926, ...corrections.quests[2927].set };
+	const { all, any } = blockingPrereqs(quest, (id) => (id === 2927 ? dayAfter : null));
+	assert.deepEqual({ all, any }, { all: [], any: [2927] });
 });
 
 // The 1.0.13 quest database's trace XP against our data (2026-11-08): 45 quests differed, every one confirmed by

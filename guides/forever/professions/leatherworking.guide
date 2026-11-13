@@ -105,7 +105,7 @@ step Light Leather (Zephras Isle)
   only Skyborne
   zone Zephras Isle
   tip 349 Light Leather for Light Armor Kit, Embossed Leather Gloves and Fine Leather Belt (210 of them for 75-150: pick them all now): Skinning: beasts of level 5-20; or the Auction House. Skin Cloudrunner, Galestrider, Highlands Ursera, Hippogryph Protector, Hippogryph Youth, Ornery Galestrider, Prideclaw, Shadowgale Shriekling, Shriekling Fledgling, Vuldren, Vuldren Alpha and Windsong Crawler here (level 5-20); the Skinning guide routes this.
-  collect 2318 x349 @49.2,63.8 live
+  collect 2318 x349 @51.3,63.7 live
 
 step Light Leather (Durotar)
   only Orc,Troll
@@ -259,7 +259,7 @@ step Thick Leather (Horde)
 
 step Expert Leatherworking
   zone Azeroth
-  tip Expert raises the cap from 150 to 225; it needs Leatherworking 125 and character level 20, so you can take it on any visit from 125. Only a few trainers teach it: Alliance Telonis (Darnassus); Horde Una (Thunder Bluff). The arrow picks the nearest of your faction. Learn now: Cured Heavy Hide (from 125, 5s) and Barbaric Shoulders (from 150). 150-225 takes about 5s of recipes and 7g 87s of vendor goods, plus 22 Heavy Hide and 373 Thick Leather to gather or buy. Come with all of it in your bags (the steps above, the rest from the Auction House): these trainers also teach Guardian Gloves (from 165), Nightscape Headband (from 180) and Nightscape Pants (from 210), and the crafts need no station, so craft right here and learn each recipe as you reach its skill. One trip instead of 4.
+  tip Expert raises the cap from 150 to 225; it needs Leatherworking 125 and character level 20, so you can take it on any visit from 125. Only a few trainers teach it: Alliance Telonis (Darnassus); Horde Una (Thunder Bluff). The arrow picks the nearest of your faction. Learn now: Cured Heavy Hide (from 125, 5s) and Barbaric Shoulders (from 150). 150-225 takes about 5s of recipes and 7g 87s of vendor goods, plus 22 Heavy Hide and 373 Thick Leather to gather or buy. Come with all of it in your bags (the steps above, the rest from the Auction House): these trainers also teach Guardian Gloves (from 165) and Nightscape Headband (from 180), and the crafts need no station, so craft right here and learn each recipe as you reach its skill. One trip instead of 3. Nightscape Pants (from 210) takes a second trip, to other trainers (below).
   level 20
   train Leatherworking Expert
   learn 3818
@@ -292,8 +292,10 @@ step Nightscape Headband to 213
   craft 10507 until 213
 
 step Leatherworking recipes at 213
-  tip Still at the Expert trainer: Nightscape Pants (from 210).
-  learn 10548
+  tip Nightscape Pants (from 210) is taught only by the Artisan trainers: Alliance Drakk Stonehand (The Hinterlands); Horde Hahrana Ironhide (Feralas). You can train Artisan there now if you are level 35 (it needs Leatherworking 200), which saves the trip at 225.
+  learn 10548 npc 11097 only Alliance
+  learn 10548 npc 11098 only Horde
+  train Leatherworking Artisan optional
 
 step Nightscape Pants to 225
   tip Nightscape Pants is orange at 213 (yellow 225, green 235, grey 245): about 12 crafts to 225, a point every craft. Each takes 14 Thick Leather and 4 Silken Thread. The trainer teaches it, and it is the cheapest way through these points in the data. Leatherworking 225 is a Legacy System milestone.
