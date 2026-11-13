@@ -102,22 +102,18 @@ const SURFACES = [
 	{ key: 'card-class', title: 'the class quest card above the guide window', family: 'guide', ...scene('guide-class-toast.svg', 0) },
 	{ key: 'card-dungeon', title: 'the dungeon heads-up above the guide window', family: 'guide', ...scene('guide-dungeon-toast.svg', 0) },
 	{
+		// The cards as the game raises them: QoL/Spells.lua's LEVELUP_SPELLS and
+		// OLD_RANKS, with their notices' fields (UI/SpellCards.lua shows them).
 		key: 'card-levelup', title: "the level-up spells card above the guide window (0.3.7)", family: 'guide', roots: CARD, needs: 'Polestar.UI.SpellCards',
 		script: `${TABS}
-local SC = Polestar.UI.SpellCards
-assert(SC and SC.LevelModel, "no level-up spells card")
-local m = SC.LevelModel({ level = 18, spells = { { id = 13550, cost = 1800 }, { id = 14318, cost = 1800 }, { id = 2643, cost = 1800 }, { id = 19884, cost = 1000 } } })
-assert(m, "no level-up model")
-Polestar.UI.ClassToast.ShowCard(m)`,
+Polestar.Fire("LEVELUP_SPELLS", { level = 18, cost = 6400, money = 5230, spells = { { id = 13550, rank = 3, cost = 1800 }, { id = 14318, rank = 2, cost = 1800 }, { id = 2643, rank = 1, cost = 1800 }, { id = 19884, cost = 1000 } } })
+assert(Polestar.UI.ClassToast.current, "no level-up spells card")`,
 	},
 	{
 		key: 'card-ranks', title: 'the old ranks card above the guide window (0.3.7)', family: 'guide', roots: CARD, needs: 'Polestar.UI.SpellCards',
 		script: `${TABS}
-local SC = Polestar.UI.SpellCards
-assert(SC and SC.RanksModel, "no old ranks card")
-local m = SC.RanksModel({ spells = { { id = 13549, rank = 2, next = 13550, nextRank = 3, name = "Serpent Sting" } } })
-assert(m, "no old ranks model")
-Polestar.UI.ClassToast.ShowCard(m)`,
+Polestar.Fire("OLD_RANKS", { slots = 3, spells = { { id = 13549, bestId = 13550, name = "Serpent Sting", have = 2, best = 3, slots = { 3 } }, { id = 14260, bestId = 14261, name = "Raptor Strike", have = 2, best = 3, slots = { 2 } } } })
+assert(Polestar.UI.ClassToast.current, "no old ranks card")`,
 	},
 	{
 		key: 'card-update', title: 'the update card above the guide window and its banner line (0.3.7)', family: 'guide', roots: CARD, needs: 'Polestar.UI.UpdateCard',
