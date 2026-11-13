@@ -11802,3 +11802,15 @@ test(`${WESTFALL}: Humans train on the Thor flight's Stormwind visit`, { skip },
 	assert.ok(train > 0, 'a class training goal between Osric Strang and the flight back');
 	for (const cls of ['WARRIOR', 'PALADIN', 'HUNTER', 'ROGUE', 'PRIEST', 'MAGE', 'WARLOCK']) assert.ok(forClass(cls)(list[train]), `${cls} trains there`);
 });
+
+// 0.4.0 route audit, Alliance 12-21 (B7): after the last Westfall hand-ins the guide said to walk to Stormwind
+// (about 2,300 yd). Every start knows both flight paths by then; players' recordings (0.3.5+): of 19 people
+// measured there, 15 flew Sentinel Hill -> Stormwind and 4 used the Hearthstone, none walked.
+test(`${WESTFALL}: the last Sentinel Hill stop flies to Stormwind`, { skip }, () => {
+	const list = goals(WESTFALL);
+	const last = at(list, 'turnin 92745', is('turnin', 92745));
+	const fly = list.findIndex(({ goal }, i) => i > last && goal.t === 'fly');
+	assert.ok(fly > last && list[fly].step === list[last].step, 'the flight is on the Sentinel Hill stop');
+	assert.equal(list[fly].goal.location, 'Stormwind');
+	assert.ok(!compiled(WESTFALL).steps.some((st) => /Walk to Stormwind/.test(st.note || '')), 'no tip says to walk there');
+});
