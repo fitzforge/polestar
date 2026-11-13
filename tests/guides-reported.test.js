@@ -11789,3 +11789,107 @@ test('dungeons in the route: every `when dungeon` step of the leveling guides is
 	}
 	assert.deepEqual([...new Set(bad)], []);
 });
+
+// Alliance 1-12 audit (0.4.0, #2025, bind points the route never hearths back to): the Night Elves' first Auberdine
+// bind (nightelf/02-darkshore) is gone. 02-westfall binds Sentinel Hill before any return to Darkshore, and
+// 03-darkshore binds Auberdine itself; in players' recordings (Polestar 0.3.5 and later) 1 of 6 people who bound there
+// ever hearthed back to it. Teldrassil's Dolanaar bind stays the Night Elves' bind until Sentinel Hill.
+test(`${NE_DARKSHORE}: no bind before Westfall's Sentinel Hill; Teldrassil's Dolanaar bind stays`, { skip }, () => {
+	assert.deepEqual(goals(NE_DARKSHORE).filter(({ goal }) => goal.t === 'sethome').map(({ goal }) => goal.location), [], 'no sethome in the Night Elf Darkshore');
+	assert.ok(goals(TELDRASSIL).some(({ goal }) => goal.t === 'sethome' && goal.location === 'Dolanaar'), 'Teldrassil binds Dolanaar');
+	assert.ok(goals(WESTFALL).some(({ goal }) => goal.t === 'sethome' && goal.location === 'Sentinel Hill'), 'Westfall binds Sentinel Hill');
+});
+
+// Alliance 1-12 audit (0.4.0, #2025): Night Elves took Marshal Dughan's Further Concerns (35) at the end of their
+// Darkshore guide, but nothing on their route works Guard Thomas' chain (Westfall's east-Elwynn loop is the Dwarves'
+// and Gnomes'); in players' recordings 12 Night Elves took it and 1 handed it in. A Fishy Peril (40) stays: Remy and
+// Dughan stand side by side.
+test(`${NE_DARKSHORE}: Night Elves no longer take Further Concerns; A Fishy Peril stays`, { skip }, () => {
+	const list = goals(NE_DARKSHORE).filter(nightElf);
+	assert.ok(!list.some(({ goal }) => is('accept', 35)(goal)), 'no accept 35 in the Night Elf Darkshore');
+	assert.ok(at(list, 'accept 40', is('accept', 40)) < at(list, 'turnin 40', is('turnin', 40)), 'A Fishy Peril taken and handed in');
+});
+
+// Alliance 1-12 audit (0.4.0, #2025): a Night Elf who loads nightelf/02-darkshore without Teldrassil's Long Wash
+// took Buzzbox 827 (983) from Wizbang and carried it, a level 10 quest, to 03-darkshore at about 17. The crawlers
+// and Buzzbox 827 are on the beach the guide's turtle step already walks: the legs and the hand-in are there, only
+// while the quest is carried (Teldrassil's players hand it in on the Long Wash).
+test(`${NE_DARKSHORE}: Buzzbox 827 is handed in on the beach before the first loop, only while carried`, { skip }, () => {
+	const list = goals(NE_DARKSHORE).filter(nightElf);
+	const take = at(list, 'accept 983', is('accept', 983));
+	const give = at(list, 'turnin 983', is('turnin', 983));
+	assert.ok(take < give && give < at(list, 'turnin 954', is('turnin', 954)), 'taken in Auberdine, handed in before Bashal\'Aran');
+	assert.ok(list[give].step.when.some((p) => p.k === 'onquest' && !p.neg && [].concat(p.q).includes(983)), 'only while 983 is carried');
+	assert.ok(list.slice(take, give).some(({ goal }) => goal.t === 'collect' && goal.item === 5385), 'the Crawler Legs first');
+});
+
+// Alliance 1-12 audit (0.4.0, #2025): class training skipped at a capital visit right after a ding. Night Elves
+// trained last in Dolanaar (~11) and next in Goldshire (~14.5), though their last Darnassus visit (~12) walks past
+// every Night Elf class's trainers (13 people trained there at 12 on their own, players' recordings); Alliance
+// Skyborne trained last in Valanaar (~13.5) and next at Westfall's end (~16), though they walk Stormwind at ~14
+// (5 trained there on their own).
+test('Alliance starts: training on the last Darnassus visit (Night Elves) and the Stormwind walk (Skyborne)', { skip }, () => {
+	for (const [guide, zone, map, from, classes] of [
+		[TELDRASSIL, 'Darnassus', 1457, 12, ['WARRIOR', 'HUNTER', 'ROGUE', 'PRIEST', 'DRUID']],
+		[ZEPHRAS_ALLIANCE, 'Stormwind City', 1453, 14, ['WARRIOR', 'HUNTER', 'ROGUE', 'MAGE', 'DRUID']],
+	]) {
+		for (const cls of classes) {
+			const list = goals(guide).filter(forClass(cls));
+			const gated = (step) => (step.when || []).some((p) => p.k === 'level' && p.op === '>=' && !p.neg && p.n === from);
+			const train = list.filter(({ step, goal }) => goal.t === 'train' && gated(step));
+			assert.equal(train.length, 1, `${guide}: a ${cls} trains once from level ${from} (in ${zone})`);
+			assert.ok((train[0].goal.candidates || []).some((c) => c.map === map && c.classes.includes(cls)), `${guide}: ${cls}: a trainer in ${zone}`);
+		}
+	}
+});
+
+// Alliance 1-12 audit (0.4.0, #2025): a Gnome Warlock walked from Gakin in Stormwind to Surena Caledon at the
+// Brackwell Pumpkin Patch and back for The Binding, then Westfall's east-Elwynn loop walked the same road to the
+// bridge and Brackwell again. The Dun Morogh guides now end with 1688 taken from Gakin; Surena's Choker and The
+// Binding are on 02-westfall's east-Elwynn loop (about 1,000 yd less walking).
+test('Dun Morogh (Gnome): Surena Caledon is taken from Gakin, her choker and The Binding are left to Westfall', { skip }, () => {
+	for (const guide of ['forever/alliance/gnome/01-dun-morogh.guide', 'forever/alliance/dwarf/01-dun-morogh.guide']) {
+		const list = goals(guide).filter(forClass('WARLOCK'));
+		assert.ok(at(list, 'turnin 1715', is('turnin', 1715)) < at(list, 'accept 1688', is('accept', 1688)), `${guide}: 1715, then 1688 at Gakin`);
+		assert.ok(!list.some(({ goal }) => goal.quest === 1689 || (goal.t === 'collect' && goal.item === 6810) || is('turnin', 1688)(goal)), `${guide}: no Surena walk or Binding`);
+	}
+});
+
+// Danger at the spot (#1575), Alliance 1-12 audit (0.4.0): warnings where players died on the current route.
+test('Alliance starts: Careful tips at Frostmane Hold, Stonesplinter Valley, Ban\'ethil Barrow and Elder Finseer\'s river', { skip }, () => {
+	for (const [guide, pred, says] of [
+		['forever/alliance/dwarf/01-dun-morogh.guide', (g) => g.t === 'kill' && g.quest === 287, /Frostmane Hideskinners/],
+		['forever/alliance/gnome/01-dun-morogh.guide', (g) => g.t === 'kill' && g.quest === 287, /Frostmane Hideskinners/],
+		['forever/alliance/dwarf/01-dun-morogh.guide', (g) => g.t === 'kill' && g.quest === 224, /Headsplitter/],
+		['forever/alliance/gnome/01-dun-morogh.guide', (g) => g.t === 'kill' && g.quest === 224, /Headsplitter/],
+		[TELDRASSIL, (g) => g.t === 'collect' && g.quest === 483, /Gnarlpine Defenders/],
+		[ELWYNN, (g) => g.t === 'collect' && g.quest === 91751, /Elder Finseer/],
+	]) {
+		const list = goals(guide);
+		const { step } = list[at(list, `${guide}: ${says}`, pred)];
+		assert.match([step.note, step.tip].flat().filter(Boolean).join(' '), says, `${guide}: "${step.title}" warns`);
+	}
+});
+
+// #1952: a Camping 101 profession quest asks for the profession at 20 before its trainer takes it; at skill 1-5 the
+// Alliance start guides' trainer step right after the campfire waited for an objective the player could not finish
+// there. Each in-zone trainer hand-in step now shows only once the quest is complete (`when complete <q>`), and the
+// accept step says the trainer takes it at 20; While-here offers the hand-in on a later pass.
+test('#1952: the Alliance start guides\' Camping 101 trainer steps wait until the quest is complete', { skip }, () => {
+	const starts = [ELWYNN, 'forever/alliance/dwarf/01-dun-morogh.guide', 'forever/alliance/gnome/01-dun-morogh.guide', TELDRASSIL, ZEPHRAS_ALLIANCE];
+	const fixes = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', 'guide-fixes.json'), 'utf8')).fixes;
+	let n = 0;
+	for (const file of starts) {
+		const list = goals(file);
+		for (const { step, goal } of list) {
+			if (goal.t !== 'turnin' || !/^Camping 101: (?!Cooking)/.test(goal.title || '')) continue;
+			n += 1;
+			const when = step.when || [];
+			assert.ok(when.some((p) => p.k === 'complete' && !p.neg && p.q === goal.quest), `${file}: turnin ${goal.quest} waits until the quest is complete`);
+			assert.ok(fixes.some((f) => f.faction === 'Alliance' && f.at && f.at.quest === goal.quest && f.at.goal === 'turnin' && f.when === `complete ${goal.quest}`), `${goal.quest}: a record the build keeps`);
+			const take = list.find((e) => e.goal.t === 'accept' && e.goal.quest === goal.quest);
+			assert.match([take.step.note, take.step.tip].flat().filter(Boolean).join(' '), / skill is 20/, `${file}: accept ${goal.quest} says the trainer takes it at 20`);
+		}
+	}
+	assert.ok(n >= 27, `${n} in-zone Camping 101 hand-ins found`);
+});
