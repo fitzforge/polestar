@@ -3460,15 +3460,15 @@
 			},
 			{
 				"a": [
+					"task",
+					25
+				],
+				"b": [
 					"accept",
 					2
 				],
-				"b": [
-					"turnin",
-					6544
-				],
 				"faction": "Horde",
-				"why": "Final route review (2026-11-07, Ashenvale 28, #1175): Sharptalon (75.0,70.1) prowls between Torek's fight and Splintertree Post (73.8,61.5), so her claw comes on the way north; the order hunted her on a walk back south from the town before the satyrs to its north-west"
+				"why": "Horde 21-30 audit (0.4.0, Discord report relayed on #2025): Sharptalon (12676) is a level 31 nightsaber and Sharptalon's Claw (2) a level 30 quest; taken on the way in from Torek's assault (#1175's order) players met her at 27 (recordings: most kills at 27, 3 deaths near her). Her claw is taken on the later pass, after Stonetalon Standstill at Mystral Lake (25), on the walk back north-east to Splintertree past her woods (75.0,70.1), about half a level to a level later."
 			},
 			{
 				"a": [

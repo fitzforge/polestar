@@ -3691,6 +3691,23 @@
 			"pr": 1175
 		},
 		{
+			"id": "2025-h21-sharptalon-level-31",
+			"faction": "Horde",
+			"at": {
+				"quest": 2,
+				"goal": "accept"
+			},
+			"tip": "On the way back north-east to Splintertree: Sharptalon prowls the woods south-east of the Warsong lumber camp. Her claw starts the next hunt quest. Careful: Sharptalon is a level 31 nightsaber and hits hard: pull her alone, away from the Outrunners.",
+			"note": "Horde 21-30 audit (0.4.0, Discord report relayed on #2025): Sharptalon's Claw (2) is a level 30 quest and Sharptalon (12676) a level 31 nightsaber. Players' recordings: 51 people killed her, most at 27, 3 died near her; 0.3.7+ players took the claw at a median 28.4. The tip gives her level.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "players' recordings (shared index, 2026-11-13): deaths and killers at the spot"
+				}
+			],
+			"issue": 2025
+		},
+		{
 			"id": "2013-h21-thunder-bluff-not-from-the-barrens",
 			"faction": "Horde",
 			"at": {

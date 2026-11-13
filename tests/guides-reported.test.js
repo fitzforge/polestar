@@ -6429,7 +6429,8 @@ test('forever/horde/06-hillsbrad-foothills.guide: final route review: one Tarren
 // across Mulgore; and the guide asked for Test of Strength, which Dorn offers only once Test of Endurance is in.
 test('forever/horde/07-ashenvale.guide: final route review: Sharptalon on the way in, Thunder Bluff by air, Test of Strength after Test of Endurance', { skip }, () => {
 	const list = goals(ASHENVALE_HORDE);
-	assert.ok(at(list, 'accept 2', is('accept', 2)) < at(list, 'turnin 6544', is('turnin', 6544)), 'Sharptalon before Splintertree');
+	// (Sharptalon's Claw moved to the later pass with the Horde 21-30 audit: she is level 31, #2025.)
+	assert.ok(at(list, 'turnin 6544', is('turnin', 6544)) < at(list, 'accept 2', is('accept', 2)), 'Sharptalon on the walk back from Mystral Lake');
 	const tb = list.find(({ goal }) => goal.t === 'fly' && goal.location === 'Thunder Bluff' && !goal.only);
 	// Since the 0.3.6 bracket review the Barrens & Stonetalon guide teaches every race the path, so the flight is everyone's.
 	assert.ok(tb && (!tb.step.only || (tb.step.only.races.includes('Tauren') && tb.step.only.races.includes('Skyborne'))), 'Tauren and Skyborne fly to Thunder Bluff from Zoram\'gar');
@@ -11850,4 +11851,15 @@ test(`${ASHENVALE_HORDE}: thadude3's report (#2013): no Thunder Bluff bounce fro
 	const steps = compiled(ASHENVALE_HORDE).steps.filter((s) => s.title === 'Thunder Bluff' && s.goals.some((g) => g.t === 'goto' || g.t === 'getfp'));
 	assert.equal(steps.length, 2, 'the walk to the central rise and the flight path');
 	for (const s of steps) assert.ok((s.when || []).some((p) => p.k === 'zone' && p.neg && p.name === 'The Barrens'), `${s.goals.map((g) => g.t).join(',')}: not from the Barrens`);
+});
+
+// Discord report (Fitz's relay, #2025): Sharptalon's Claw (2) is a level 30 quest and Sharptalon a level 31 nightsaber;
+// the first pass sent players after her at 27 (recordings: most kills at 27, 3 deaths near her). The claw is taken on
+// the later pass only, on the way back to Splintertree from Mystral Lake, with her level in the tip.
+test(`${ASHENVALE_HORDE}: Discord report: Sharptalon's Claw on the later pass, with her level named (#2025)`, { skip }, () => {
+	const list = goals(ASHENVALE_HORDE);
+	const claws = list.filter(({ goal }) => goal.t === 'collect' && goal.item === 16305);
+	assert.equal(claws.length, 1, 'one Sharptalon step');
+	assert.ok(at(list, 'kill 3917', (g) => g.t === 'kill' && g.npc === 3917) < list.indexOf(claws[0]), 'after Mystral Lake');
+	assert.match([claws[0].step.note, claws[0].step.tip].flat().filter(Boolean).join(' '), /level 31/, 'the tip names her level');
 });
