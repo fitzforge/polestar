@@ -5831,8 +5831,15 @@ Polestar.QoL.Space.Dismiss()                              -- the banner, until t
 
 - **Marks** (`qol.itemMarks`, on): Ctrl+Alt (no Shift) on a modified item
   click (`Hooks.ItemClick`: bag slots, loot slots, chat links) cycles none →
-  junk → keep → none and says it in chat; the tooltip line comes from
-  `Hooks.ItemLines`. Per character, by item ID.
+  junk → keep → none and says it in chat. Two key bindings, Mark as junk and
+  Mark to keep (`POLESTAR_MARK_JUNK`/`_KEEP`, unbound by default), act on the
+  item under the cursor (`Hooks.HoveredItem`: the item GameTooltip shows,
+  only from an Item tooltip where tooltips carry their type): that mark, or
+  none when the item has it already (`Marks.Press`); pressed over no item
+  they say to point at one. Key or click, `Hooks.RefreshItem` rebuilds the
+  tooltip when it shows the marked item (`RefreshData`). The tooltip line
+  comes from `Hooks.ItemLines` and names the bound key that clears the mark.
+  Per character, by item ID.
 - **Selling** (`QoL/Vendor.lua`): a slot sells when it is grey or marked
   junk, has a vendor price, and is not protected, needed by a quest, or a
   quest's item or quest starter (`Client.SlotQuest`, from

@@ -274,8 +274,9 @@ register(QOL, L["Vendors"], L["Bags"], {
 		format = function(v) return string.format(v == 1 and L["%d slot"] or L["%d slots"], math.floor(v + 0.5)) end,
 		help = L["How many free slots or fewer count as nearly full."] },
 	{ kind = "toggle", key = "qol.itemMarks", label = L["Junk and keep marks"],
-		help = L["Ctrl+Alt-click an item in your bags to mark it as junk, again to keep it, and again to clear it. Junk is sold with the grey items; a kept item is never sold or deleted."],
-		search = "bags, junk, mark junk, keep item, protect item, sell list" },
+		help = L["Ctrl+Alt-click an item in your bags to mark it as junk, again to keep it, and again to clear it. Junk is sold with the grey items; a kept item is never sold or deleted."]
+			.. " " .. L["Or bind keys for it in Key Bindings, Polestar: Mark as junk and Mark to keep mark the item under the cursor, and take that mark off again."],
+		search = "bags, junk, mark junk, keep item, protect item, sell list, keybind, key binding, hotkey" },
 })
 
 register(QOL, L["Vendors"], L["Trainers"], {

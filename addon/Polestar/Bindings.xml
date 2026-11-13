@@ -32,6 +32,12 @@
 	<Binding name="POLESTAR_REOPEN_TAB" category="Polestar" searchTags="BINDING_TAG_POLESTAR">
 		Polestar.Bindings.ReopenTab()
 	</Binding>
+	<Binding name="POLESTAR_MARK_JUNK" category="Polestar" searchTags="BINDING_TAG_POLESTAR">
+		Polestar.Bindings.MarkJunk()
+	</Binding>
+	<Binding name="POLESTAR_MARK_KEEP" category="Polestar" searchTags="BINDING_TAG_POLESTAR">
+		Polestar.Bindings.MarkKeep()
+	</Binding>
 	<Binding name="CLICK PolestarQuestItemButton:LeftButton" category="Polestar" searchTags="BINDING_TAG_POLESTAR"/>
 	<Binding name="CLICK PolestarTargetButton:LeftButton" category="Polestar" searchTags="BINDING_TAG_POLESTAR"/>
 	<Binding name="CLICK PolestarRareButton:LeftButton" category="Polestar" searchTags="BINDING_TAG_POLESTAR"/>
