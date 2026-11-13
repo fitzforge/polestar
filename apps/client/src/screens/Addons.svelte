@@ -196,7 +196,7 @@
 		{:else if addons.gameRunning}
 			<div class="banner" in:rise>
 				<Glyph name="info" color="var(--warning)" />
-				<p class="note">World of Warcraft is running. Close it before updating: the game only loads addons when it starts, and it may hold their files open.</p>
+				<p class="note">World of Warcraft is running. Addons you install or update load after /reload or the next start.</p>
 			</div>
 		{/if}
 
