@@ -68,7 +68,7 @@ test('the flight timer\'s estimate takes the sign of the face it is drawn in', (
 
 test('no player-visible "~" is written into the text at the sites: each takes Theme.Approx', () => {
 	const sites = [
-		'Polestar/Maps/FlightTimer.lua', 'Polestar/Maps/TravelPins.lua', 'Polestar/QoL/Death.lua',
+		'Polestar/Maps/FlightTimer.lua', 'Polestar/Maps/TravelPins.lua', 'Polestar/QoL/Death.lua', 'Polestar/Quests/Timed.lua',
 		'Polestar/UI/GuideFrameStatus.lua', 'Polestar/UI/RouteChoice.lua', 'Polestar_Options/UI/Looks/Trackers.lua',
 	];
 	for (const rel of sites) {
