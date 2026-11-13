@@ -11789,3 +11789,15 @@ test('dungeons in the route: every `when dungeon` step of the leveling guides is
 	}
 	assert.deepEqual([...new Set(bad)], []);
 });
+
+// Alliance 20-30 audit (0.4.0, #2025): 06-wetlands bound at the Deepwater Tavern on its first Menethil stop and again at
+// Astranaar on the Ashenvale visit. With the Astranaar bind gone the Hearthstone stays on Menethil, where the guide
+// goes after Ashenvale (the flight to Auberdine and the boat): the addon's route planner over nine race and class runs
+// finds it 1.5 minutes shorter per run, the Deepwater hearths taking the place of the Astranaar ones one for one.
+test(`${WETLANDS}: the last bind before the Duskwood return is the Deepwater Tavern (Alliance 20-30 audit)`, { skip }, () => {
+	const binds = goals(WETLANDS).filter(({ goal }) => goal.t === 'sethome');
+	assert.ok(binds.length >= 1, 'the guide binds the Hearthstone');
+	assert.equal(binds[binds.length - 1].goal.location, 'Deepwater Tavern', 'the last bind is the Deepwater Tavern');
+	assert.ok(!binds.some(({ goal }) => goal.location === 'Astranaar'), 'no bind at Astranaar');
+	assert.ok(goals(ASHENVALE).some(({ goal }) => goal.t === 'sethome' && goal.location === 'Astranaar'), "06-ashenvale's Astranaar bind stays");
+});
