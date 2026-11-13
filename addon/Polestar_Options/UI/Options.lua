@@ -30,8 +30,10 @@ local L = ns.L
 local floor, max, min, ipairs, pairs, type = math.floor, math.max, math.min, ipairs, pairs, type
 
 local SH = W.SHELL
-local GAP = 24 -- between the two columns of the Recorder's and About's tiles
-local INSTALL_ROOM = 780 -- the main column's width the header's Install button needs beside the page's title
+-- Sizes (one table, so the main chunk stays within the locals budget): GAP between the two columns of the
+-- Recorder's and About's tiles, HERO_H the About hero's height, INSTALL_ROOM the main column's width the
+-- header's Install button needs beside the page's title.
+local SIZE = { GAP = 24, HERO_H = 96, INSTALL_ROOM = 780 }
 
 local O = {}
 UI.Options = O
@@ -561,7 +563,7 @@ local function placePair(view, pair, y, cw, layout)
 	local h = 0
 	for col, w in ipairs(pair) do
 		w:ClearAllPoints()
-		w:SetPoint("TOPLEFT", view, "TOPLEFT", SH.pad + (col - 1) * (cw + GAP), -y)
+		w:SetPoint("TOPLEFT", view, "TOPLEFT", SH.pad + (col - 1) * (cw + SIZE.GAP), -y)
 		w:Show()
 		h = max(h, layout(w, cw))
 	end
@@ -592,7 +594,7 @@ local function buildRecorder(view)
 	note:SetJustifyV("TOP")
 	view.Refresh = function()
 		local st = recorderState()
-		local cw = (win.BodyWidth - GAP) / 2
+		local cw = (win.BodyWidth - SIZE.GAP) / 2
 		local y = 8
 		header:ClearAllPoints()
 		header:SetPoint("TOPLEFT", view, "TOPLEFT", SH.pad, -y)
@@ -642,10 +644,9 @@ local INSTALL = { kind = "button", icon = "palette", button = L["Install"], labe
 -- on the 32 edge, in its glow), then the wordmark (Media/UI/wordmark.tga,
 -- 1:1, its ink 3px into the box and on rows 4-27), the tagline under it, and
 -- the version with the release stage's chip.
-local HERO_H = 96
 local function buildAbout(view)
 	local hero = CreateFrame("Frame", nil, view)
-	hero:SetHeight(HERO_H)
+	hero:SetHeight(SIZE.HERO_H)
 	local emblem = W.Tex(hero, "ARTWORK", "emblem", "accent")
 	emblem:SetSize(64, 64)
 	emblem:SetPoint("TOPLEFT", hero, "TOPLEFT", -9, -16)
@@ -749,12 +750,12 @@ local function buildAbout(view)
 		ver:SetText(versionLine())
 		W.SetStageChip(stage)
 		local width = win.BodyWidth
-		local cw = (width - GAP) / 2
+		local cw = (width - SIZE.GAP) / 2
 		local y = 12
 		hero:ClearAllPoints()
 		hero:SetPoint("TOPLEFT", view, "TOPLEFT", SH.pad, -y)
 		hero:SetWidth(width)
-		y = y + HERO_H
+		y = y + SIZE.HERO_H
 		local ai = ns.AITranslation()
 		aiNote:SetShown(ai)
 		aiLink:SetShown(ai)
@@ -3179,14 +3180,14 @@ local function build()
 	UI.Thanks.HeaderLink(win)
 	-- Install from the header, left of the search: the first run's setup,
 	-- again whenever the player wants it (UI/Welcome.lua over this window).
-	-- A window too narrow for it beside the page's title (under INSTALL_ROOM
+	-- A window too narrow for it beside the page's title (under SIZE.INSTALL_ROOM
 	-- of main column) leaves it out: About and the search still have it.
 	win.Install = W.Button(win.Header, L["Install"], function() ns.Fire("SHOW_WELCOME") end, { ghost = true, icon = "palette" })
 	win.Install.psTip = L["Install"]
 	win.Install.psTipLines = { L["Set Polestar up again, a page at a time. Each choice works at once."] }
 	local function placeInstall()
 		local room = tonumber(rawget(win, "psMainW")) or 0
-		win.Install:SetShown(room >= INSTALL_ROOM)
+		win.Install:SetShown(room >= SIZE.INSTALL_ROOM)
 		if rawget(win, "HeaderTools") then win.HeaderTools.Place() end
 	end
 	if rawget(win, "psHeadTools") then
