@@ -366,7 +366,7 @@ local function row(i)
 	r:SetScript("OnClick", function(self, button) if button == "RightButton" then setWay(self.psItem, nil) end end)
 	r.Icon = r:CreateTexture(nil, "ARTWORK")
 	r.Icon:SetSize(ICON, ICON)
-	r.Icon:SetPoint("LEFT", r, "LEFT", 0, 0)
+	r.Icon:SetPoint("TOPLEFT", r, "TOPLEFT", 0, -6)
 	-- The item's own tooltip; Shift-click links it in chat.
 	r.Hit = CreateFrame("Button", nil, r)
 	r.Hit:SetAllPoints(r.Icon)
@@ -374,7 +374,7 @@ local function row(i)
 	r.Hit:SetScript("OnLeave", function() W.HideTooltip() end)
 	r.Hit:SetScript("OnClick", function(self) W.ItemClick(self:GetParent().psItem) end)
 	r.Buy = W.Button(r, L["Buy"], function(self) setWay(self:GetParent().psItem, "buy") end, { height = 22 })
-	r.Buy:SetPoint("RIGHT", r, "RIGHT", 0, 0)
+	r.Buy:SetPoint("TOPRIGHT", r, "TOPRIGHT", 0, -7)
 	r.Gather = W.Button(r, L["Gather"], function(self) setWay(self:GetParent().psItem, "gather") end, { height = 22 })
 	r.Gather:SetPoint("RIGHT", r.Buy, "LEFT", -4, 0)
 	r.Name = W.Text(r, "label", "text")
@@ -382,11 +382,11 @@ local function row(i)
 	r.Name:SetPoint("RIGHT", r.Gather, "LEFT", -8, 0)
 	r.Name:SetJustifyH("LEFT")
 	r.Name:SetWordWrap(false)
+	-- The second line wraps: the row grows with it (MA.Layout).
 	r.Sub = W.Text(r, "note", "textDim")
 	r.Sub:SetPoint("TOPLEFT", r.Name, "BOTTOMLEFT", 0, -2)
-	r.Sub:SetPoint("RIGHT", r.Gather, "LEFT", -8, 0)
 	r.Sub:SetJustifyH("LEFT")
-	r.Sub:SetWordWrap(false)
+	r.Sub:SetWordWrap(true)
 	F.rows[i] = r
 	return r
 end
@@ -479,7 +479,7 @@ function MA.Layout()
 			f:ClearAllPoints()
 			f:SetPoint("TOPLEFT", F.Body, "TOPLEFT", 0, -y)
 			f:SetPoint("TOPRIGHT", F.Body, "TOPRIGHT", 0, -y)
-			f.Icon:SetTexture(ns.Compat.ItemIcon(r.item))
+			f.Icon:SetTexture(ns.Compat.ItemIcon(r.item) or 134400)
 			f.Name:SetText(ns.Compat.GetItemName(r.item) or r.name)
 			W.Color(f.Name, r.toGet > 0 and "text" or "textDim")
 			f.Sub:SetText(MA.RowText(r))
@@ -488,8 +488,12 @@ function MA.Layout()
 			-- A way the character cannot take is off: no gather step, a profession it lacks; nothing buys it, or Self-Found.
 			if r.gatherGoal and r.gatherWhy ~= "skill" then f.Gather:Enable() else f.Gather:Disable() end
 			if r.buy and not solo then f.Buy:Enable() else f.Buy:Disable() end
+			-- The text runs up to the buttons; a longer line wraps and the row grows.
+			f.Sub:SetWidth(max(80, WIDTH - PAD * 2 - ICON - 8 - f.Gather:GetWidth() - 4 - f.Buy:GetWidth() - 8))
+			local h = max(ROW_H, floor(4 + f.Name:GetStringHeight() + 2 + f.Sub:GetStringHeight() + 4 + 0.5))
+			f:SetHeight(h)
 			f:Show()
-			y = y + ROW_H + 4
+			y = y + h + 4
 		end
 	end
 	for i = nr + 1, #F.rows do F.rows[i]:Hide() end
