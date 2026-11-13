@@ -2278,6 +2278,26 @@ fn an_area_objective_says_its_mobs_are_all_over_the_area_and_its_row_button_move
 	assert_eq!(out["camp"], false, "a camp (not spread) says nothing extra");
 }
 
+// A goal of exact points (#1944: an object's known spawns, `exact` on the goal view) says under it how many
+// places the target stands at and that the arrow leads to each; its row button moves to the next.
+#[test]
+fn a_goal_of_exact_points_says_how_many_known_places_and_that_the_arrow_leads_to_each_1944() {
+	let out = run(r#"
+		uistub.setGuide(uistub.elwynn, 3)
+		local g = uistub.goal(3, 3)
+		g.spots, g.exact = 16, true
+		uistub.update()
+		local r = rowFor("Kobold Vermin")
+		emit({ sub = r.Sub:GetText(), alt = r.Alt:IsShown(),
+			one = Polestar.UI.GoalSubline({ t = "collect", spots = 1, exact = true, status = "active" }) or false,
+			done = Polestar.UI.GoalSubline({ t = "collect", spots = 9, exact = true, status = "done" }) or false })"#)
+	.remove(0);
+	assert_eq!(out["sub"], "16 known places: the arrow leads to each in turn");
+	assert_eq!(out["alt"], true, "the row's button moves to the next point");
+	assert_eq!(out["one"], false, "a single point says nothing more");
+	assert_eq!(out["done"], false, "a done goal neither");
+}
+
 // The Engine flags a quest started by an item (the collect stands for it, `starterOf`; the accept is `folded`)
 // and a "Go to" that names the step (`header`). The window shows one line, the quest, saying how the item is
 // got; the header stands for the Go to and carries the arrow's mark.

@@ -1,26 +1,31 @@
 {
 	"scope": "forever-new",
-	"through": 1794429367,
+	"through": 1794510066,
 	"archive": {
-		"revision": "727e434accbc3107",
-		"files": 4148,
-		"sessions": 4136,
+		"revision": "967057b6825e32c8",
+		"files": 4940,
+		"sessions": 4926,
 		"leftOut": {
-			"excluded": 12,
+			"excluded": 14,
 			"olderBuild": 0,
 			"unreadable": 0
 		},
-		"voters": 438,
-		"counted": 151,
+		"voters": 474,
+		"counted": 186,
 		"mergedPeople": 0,
 		"newestBuild": 70888
+	},
+	"egLink": {
+		"revision": "164bd1e2d89579ada4ee5e2de7e5fd4db684a9f1",
+		"positions": 1431,
+		"credit": "EG Link output: World of Warcraft: Forever (https://github.com/JIVESCORP/eg-link-output-wowf), data from Efficient Games (https://efficient.games), licensed under CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/); reduced to quest facts for Polestar."
 	},
 	"verdicts": {
 		"revision": "2026-11-11-2300",
 		"exclude": 1,
 		"suspect": 2
 	},
-	"data": "2026-11-12T00:48:35.625Z",
+	"data": "2026-11-12T20:53:43.920Z",
 	"thresholds": {
 		"overrideVoters": 3,
 		"agreement": "2/3",
@@ -40,28 +45,28 @@
 		"immediateS": 5
 	},
 	"counts": {
-		"quests": 626,
+		"quests": 686,
 		"objective spot": {
-			"trusted": 445,
-			"gap": 92,
-			"conflict": 5,
-			"stale": 15
+			"trusted": 502,
+			"gap": 77,
+			"conflict": 2,
+			"stale": 24
 		},
 		"prerequisite": {
-			"trusted": 298,
-			"gap": 14,
-			"conflict": 31,
-			"stale": 43
+			"trusted": 353,
+			"gap": 22,
+			"conflict": 34,
+			"stale": 61
 		},
 		"not a prerequisite": {
 			"trusted": 12,
 			"gap": 2,
-			"conflict": 3,
-			"stale": 5
+			"conflict": 2,
+			"stale": 8
 		},
 		"any-of prerequisites": {
-			"trusted": 33,
-			"gap": 7,
+			"trusted": 38,
+			"gap": 4,
 			"conflict": 0,
 			"stale": 21
 		},
@@ -79,16 +84,16 @@
 		},
 		"not exclusive with": {
 			"trusted": 0,
-			"gap": 8,
-			"conflict": 0,
-			"stale": 9
+			"gap": 1,
+			"conflict": 2,
+			"stale": 14
 		},
 		"minimum level": {
-			"trusted": 30,
-			"gap": 16,
+			"trusted": 33,
+			"gap": 11,
 			"conflict": 0,
-			"stale": 6
+			"stale": 7
 		},
-		"questsEveryLineTrusted": 295
+		"questsEveryLineTrusted": 338
 	}
 }

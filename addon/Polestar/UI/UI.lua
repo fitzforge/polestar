@@ -470,10 +470,15 @@ end
 
 -- An area objective (mobs spread over a wide area, `spread` with its spot
 -- count): "Bristleback Geomancers all over this area: 12 spots". Kill goals
--- name their mobs; collect goals say what is found there.
+-- name their mobs; collect goals say what is found there. A goal of exact
+-- points (`exact`: an object's spawns, a mob at a few fixed places, #1944)
+-- says how many and that the arrow leads to each.
 function UI.AreaLine(goal)
-	if not (goal.spread and type(goal.spots) == "number" and goal.spots > 0) then return nil end
+	if not (type(goal.spots) == "number" and goal.spots > 0 and (goal.spread or goal.exact)) then return nil end
 	if goal.status == "done" or goal.status == "skipped" then return nil end
+	if goal.exact then
+		return goal.spots > 1 and format(L["%d known places: the arrow leads to each in turn"], goal.spots) or nil
+	end
 	if goal.t == "kill" and type(goal.subject) == "string" and goal.subject ~= "" then
 		return format(L["%s all over this area: %d spots"], goal.subject, goal.spots)
 	end

@@ -883,6 +883,36 @@ Polestar.Engine.SetGuide("preview/areas")
 stub.advance(0.3)
 Polestar.Engine.AimGoal(1, 3)
 stub.advance(0.3)`;
+// Exact points (#1944): the Barrens' Vrang's Game, its Sprung Traps as the
+// pack compiles them (every trap's spawn a spot of radius 0, by x then y; the
+// lone trap far south an alternative). Two traps checked on the way in, the
+// arrow on the next: on the world map and the minimap every trap is a mark of
+// its own, the checked ones faintest, and no region is shaded.
+const DRY_HILLS = {
+	map: 1413, name: 'The Barrens', frame: 'c = 1, left = 2622.917, right = -7510.417, top = 1612.5, bottom = -5143.75', player: { x: 43.3, y: 15.6 },
+};
+const POINTS = `local w = stub.world
+Polestar.RegisterMapFrames({ era = { [1413] = { ${DRY_HILLS.frame} } } })
+w.setLevel(18)
+w.titles[95507] = "Vrang's Game"
+w.accept(95507, { { text = "Trapped Game: 0/8", type = "item", required = 8 } }); w.progress(95507, 1, 2)
+stub.advance(0.3)
+Polestar.RegisterPack({ addon = "Polestar_Preview", id = "preview", format = 1, title = "Preview", author = "Polestar", version = "1", license = "GPL-3.0-only" })
+local traps = {}
+for i, p in ipairs({ { 42.7, 13.9 }, { 42.9, 15 }, { 43.1, 16.4 }, { 43.9, 14.4 }, { 44.2, 13.1 }, { 44.8, 16.8 }, { 45.3, 14 }, { 45.4, 13.2 },
+	{ 45.4, 15.3 }, { 46.4, 13 }, { 47, 12.4 }, { 47, 13 }, { 47.6, 12.6 }, { 47.9, 11.1 }, { 50.2, 12.7 }, { 42.7, 21.2, true } }) do
+	traps[i] = { x = p[1], y = p[2], r = 0, alt = p[3] }
+end
+Polestar.RegisterGuide({ id = "preview/points", pack = "preview", title = "The Barrens", minLevel = 14, maxLevel = 21, zone = 1413, steps = {
+	{ title = "The Dry Hills", goals = {
+		{ t = "collect", quest = 95507, title = "Vrang's Game", item = 269719, itemName = "Trapped Game", count = 8, oi = 1, map = 1413, x = 42.7, y = 13.9, f = "e", spots = traps, from = "Sprung Trap", fromKind = "object", fromId = 640104 },
+	} },
+} })
+Polestar.Engine.SetGuide("preview/points")
+stub.advance(0.3)
+for _, p in ipairs({ { 42.7, 13.9 }, { 42.9, 15 }, { ${DRY_HILLS.player.x}, ${DRY_HILLS.player.y} } }) do
+	w.moveTo(1413, p[1], p[2]); stub.advance(1)
+end`;
 function questScene(roots, script, place, files = QUEST_FILES) {
 	// `before` is read when the panel runs, so the database is only built for these scenes.
 	return { roots, stubs: QUEST_STUBS, files, get before() { return questWorld(place); }, script };
@@ -1856,6 +1886,16 @@ Polestar.UI.Picker.SetCategory("Leveling"); Polestar.UI.Picker.Select("forever/h
 		panels: [
 			questScene(['WorldMapFrame'], AREAS, TELDRASSIL),
 			questScene(['Minimap'], AREAS, TELDRASSIL),
+		],
+	},
+	{
+		file: 'nav-points.svg',
+		title: "Exact points (#1944): the Barrens' Vrang's Game, the arrow on a Sprung Trap after two were checked. Every trap the data knows is a mark of its own on the world map and on the minimap, the checked ones faintest, the lone trap far south fainter as another place they spawn; no region is shaded. The minimap again in the Halo and Hearth skins",
+		panels: [
+			questScene(['WorldMapFrame'], POINTS, DRY_HILLS),
+			questScene(['Minimap'], POINTS, DRY_HILLS),
+			questScene(['Minimap'], `Polestar.Set("ui.skin", "halo")\n${POINTS}`, DRY_HILLS),
+			questScene(['Minimap'], `Polestar.Set("ui.skin", "hearth")\n${POINTS}`, DRY_HILLS),
 		],
 	},
 	{

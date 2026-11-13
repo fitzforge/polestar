@@ -20,6 +20,12 @@ fn quests(extra: &str) -> String {
 }
 
 fn learn_with(sessions: &[String], quests: &str, corrections: &str, verdicts: &Verdicts) -> (Output, V) {
+	learn_in(sessions, quests, corrections, verdicts, &|_q| true, false, None)
+}
+
+/// `learn_with` where `scope` is the Forever-new quests, `all_spots` learns every quest's objective spots and `eg`
+/// are EG Link's objective positions.
+fn learn_in(sessions: &[String], quests: &str, corrections: &str, verdicts: &Verdicts, scope: &dyn Fn(i64) -> bool, all_spots: bool, eg: Option<&[crate::players::EgTick]>) -> (Output, V) {
 	let cfg = Config { exclude: FxHashSet::default(), min_build: None, establish: OPEN, min_voters: 3 };
 	let mut frames = FxHashMap::default();
 	frames.insert(1426, (1000.0, 1000.0));
@@ -33,8 +39,10 @@ fn learn_with(sessions: &[String], quests: &str, corrections: &str, verdicts: &V
 		frames,
 		built_at: V::Null,
 	};
-	let scope = |_q: i64| true;
-	let mut l = Learner::new(&cfg, verdicts, &scope);
+	let mut l = Learner::new(&cfg, verdicts, scope, all_spots);
+	if let Some(eg) = eg {
+		l.add_eg(eg);
+	}
 	for (i, s) in sessions.iter().enumerate() {
 		l.add(&format!("s{i}.json"), s);
 	}
@@ -148,6 +156,69 @@ fn objective_spots_cluster_per_voter_and_drop_noise() {
 	assert_eq!(q.get("900").get("objectives").at(0).get("at").get("status").as_str(), Some("gap"));
 	let anon = session("anon-0123456789abcdef", "ax", &near(0.0));
 	assert!(learn(&[anon], &quests("")).get("900").is_undef());
+}
+
+#[test]
+fn scope_all_learns_every_quest_s_objective_spots_and_prerequisites_only_for_the_forever_new_ones() {
+	let objectives = r#"{"t":1,"e":"objectives","q":900,"objectives":[{"type":"monster","max":5}]}"#.to_string();
+	let s: Vec<String> = ["c1", "c2", "c3"]
+		.iter()
+		.map(|c| {
+			let mut ev = unlock(10.0, &[]);
+			ev.extend([objectives.clone(), tick(120.0, 60.0, 60.0), tick(121.0, 60.2, 60.1)]);
+			session(c, &format!("{c}x"), &ev)
+		})
+		.collect();
+	// 900 is no Forever-new quest here: nothing is learned of it...
+	let classic = |q: i64| q != 900;
+	let (out, q) = learn_in(&s, &quests(""), "{}", &Verdicts::default(), &classic, false, None);
+	assert!(q.get("900").is_undef());
+	assert!(out.meta.contains("\"scope\": \"forever-new\""));
+	// ...but its objective spots with --scope all, while its prerequisites stay unlearned.
+	let (out, q) = learn_in(&s, &quests(""), "{}", &Verdicts::default(), &classic, true, None);
+	assert_eq!(q.get("900").get("objectives").at(0).get("at").get("status").as_str(), Some("trusted"));
+	assert!(q.get("900").get("pre").is_undef());
+	assert!(out.meta.contains("\"scope\": \"all\""));
+}
+
+#[test]
+fn eg_link_positions_are_one_more_voter_for_a_spot_players_back_never_a_spot_of_their_own() {
+	let objectives = r#"{"t":1,"e":"objectives","q":900,"objectives":[{"type":"monster","max":5}]}"#.to_string();
+	let two: Vec<String> = ["c1", "c2"].iter().map(|c| session(c, &format!("{c}x"), &[objectives.clone(), tick(2.0, 60.0, 60.0), tick(3.0, 60.3, 60.1)])).collect();
+	let eg = |x: f64, y: f64| vec![crate::players::EgTick { quest: 900, line: 1, build: 70888, map: 1426, x, y }];
+	let learn_eg = |s: &[String], eg: &[crate::players::EgTick]| learn_in(s, &quests(""), "{}", &Verdicts::default(), &|_q| true, false, Some(eg));
+	let at = |q: &V| q.get("900").get("objectives").at(0).get("at");
+	// Two counted players: a gap.
+	assert_eq!(at(&learn_eg(&two, &[]).1).get("status").as_str(), Some("gap"));
+	// EG Link's positions in their spot: a second source agrees, trusted, the spot marked as backed by it.
+	let (out, q) = learn_eg(&two, &eg(60.2, 60.0));
+	assert_eq!(at(&q).get("status").as_str(), Some("trusted"));
+	assert_eq!(at(&q).get("value").at(0).get("counted").num(), 3.0);
+	assert!(at(&q).get("value").at(0).get("eg").truthy());
+	assert!(out.meta.contains("\"egLink\": {") && out.meta.contains("\"positions\": 1"), "{}", out.meta);
+	// 300 yd off, EG Link changes nothing...
+	let q = learn_eg(&two, &eg(90.0, 90.0)).1;
+	assert_eq!(at(&q).get("status").as_str(), Some("gap"));
+	assert!(at(&q).get("value").at(0).get("eg").is_undef());
+	// ...and on a line no player ticked it learns nothing.
+	assert!(learn_eg(&[], &eg(60.2, 60.0)).1.get("900").is_undef());
+}
+
+#[test]
+fn eg_link_objective_positions_are_read_from_the_cache_of_every_listed_build() {
+	let dir = std::env::temp_dir().join(format!("forge-learn-eg-{}", std::process::id()));
+	let eg = dir.join("eg-link").join(&crate::players::EG_COMMIT[..12]);
+	assert_eq!(crate::players::load_eg_positions(&dir), Ok(None), "nothing cached");
+	std::fs::create_dir_all(eg.join("wowf/1.60.1.70888")).unwrap();
+	std::fs::write(eg.join("index.json"), r#"{"products":{"wowf":{"1.60.1.70888":{"objectives":{"records":1}},"1.60.1.70862":{"loot":{"records":1}}}}}"#).unwrap();
+	std::fs::write(
+		eg.join("wowf/1.60.1.70888/objectives.json"),
+		r#"{"quests":{"900":{"1":{"gains":2,"positions":[{"uiMap":1426,"mapX":0.5,"mapY":0.625},{"uiMap":1426,"mapX":0.61}]}}},"completed":{}}"#,
+	)
+	.unwrap();
+	let got = crate::players::load_eg_positions(&dir).unwrap().unwrap();
+	let _ = std::fs::remove_dir_all(&dir);
+	assert_eq!(got, vec![crate::players::EgTick { quest: 900, line: 1, build: 70888, map: 1426, x: 50.0, y: 62.5 }]);
 }
 
 #[test]

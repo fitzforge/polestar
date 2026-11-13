@@ -265,6 +265,7 @@ L["It also spawns here"] = "Spawnt auch hier"
 L["Click to search here next"] = "Klicken, um als Nächstes hier zu suchen"
 L["Travel route, step %s"] = "Reiseroute, Schritt %s"
 L["Click to point the arrow here"] = "Klicken, um den Pfeil hierher zeigen zu lassen"
+L["Checked recently"] = "Kürzlich nachgesehen"
 
 -- Nav/Nav.lua
 L["Waypoint"] = "Wegpunkt"
@@ -762,6 +763,7 @@ L["%s and %d more"] = "%s und %d weitere"
 L["Skipping also skips: %s"] = "Überspringen überspringt auch: %s"
 L["Keep this: you hand it in later in %s"] = "Behalte die Quest: Du gibst sie später in %s ab"
 L["Keep this: a later guide hands it in"] = "Behalte die Quest: Ein späterer Guide gibt sie ab"
+L["%d known places: the arrow leads to each in turn"] = "%d bekannte Orte: Der Pfeil führt der Reihe nach zu jedem"
 
 -- UI/Welcome.lua
 L["level %d %s"] = "Stufe %d, %s"
