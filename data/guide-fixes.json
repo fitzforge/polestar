@@ -7977,6 +7977,22 @@
 				"ref": "objects.json 177241; npcs.json 1852, 1788 (map 1422)"
 			},
 			"issue": 1791
+		},
+		{
+			"id": "1985-dustwallow-venom-sacs-every-darkfang",
+			"faction": "Horde",
+			"at": {
+				"quest": 1322,
+				"goal": "objective",
+				"objective": 1
+			},
+			"goalNote": "Every Darkfang spider drops them: Lurkers, Spiders, Venomspitters and the Giant Darkfang Spiders",
+			"note": "#1985: the step's tip names only the Darkfang Venomspitters, and a player found the Giant Darkfang Spiders drop the Acidic Venom Sacs too. The drop data has all five Darkfang kinds (4411-4415), and players' recordings ticked the sacs on Darkfang Lurkers (18), Venomspitters (17), Spiders (15) and Giant Darkfang Spiders (3).",
+			"source": {
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-13: Black Shield (1322) objective ticks after kills of npc 4411, 4414, 4413 and 4415 (#1985)"
+			},
+			"issue": 1985
 		}
 	]
 }
