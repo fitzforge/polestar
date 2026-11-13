@@ -410,7 +410,7 @@ fn personas_for(guide: &V, arriving: &[String]) -> Vec<(String, String)> {
 }
 
 /// playtest.js classPersonas: a persona for each named class none of `personas` can be.
-fn class_personas(data: &Data, guide: &V, personas: &[(String, String)], named: &[String]) -> Vec<(String, String)> {
+fn class_personas(data: &Data, guide: &V, personas: &[(String, String)], named: &[String], admits: &dyn Fn(&Persona) -> bool) -> Vec<(String, String)> {
 	if !data.races.is_obj() || data.races.is_empty() {
 		return Vec::new();
 	}
@@ -422,7 +422,7 @@ fn class_personas(data: &Data, guide: &V, personas: &[(String, String)], named: 
 	};
 	let mut added: Vec<(String, String)> = Vec::new();
 	for cls in named {
-		if personas.iter().chain(added.iter()).any(|(r, f)| playable_classes(data, r, f).contains(cls)) {
+		if personas.iter().chain(added.iter()).any(|(r, f)| playable_classes(data, r, f).contains(cls) && admits(&Persona { race: r.clone(), faction: f.clone(), cls: cls.clone() })) {
 			continue;
 		}
 		for (race, by_side) in data.races.entries() {
@@ -431,7 +431,7 @@ fn class_personas(data: &Data, guide: &V, personas: &[(String, String)], named: 
 			}
 			let f = sides.iter().find(|s| {
 				let side = by_side.get(s);
-				side.truthy() && strs(&side.get("classes")).contains(cls)
+				side.truthy() && strs(&side.get("classes")).contains(cls) && admits(&Persona { race: race.to_string(), faction: (*s).clone(), cls: cls.clone() })
 			});
 			if let Some(f) = f {
 				added.push((race.to_string(), f.clone()));
@@ -489,8 +489,28 @@ fn chain_personas(data: &Data, chain: &[&V], arriving: &FxHashMap<String, Vec<St
 	}
 	let arr = arriving.get(&guide_id(root)).map(Vec::as_slice).unwrap_or(&[]);
 	let mut list = personas_for(root, arr);
-	let extra = class_personas(data, root, &list, &named);
-	list.extend(extra);
+	// Later race headers need their own candidates, including both sides of a
+	// dual-faction race. Keep the root's race/faction eligibility authoritative.
+	let root_faction = root.get("faction");
+	let root_faction = root_faction.as_str().filter(|f| !f.is_empty());
+	let sides = root_faction.map_or_else(|| vec!["Alliance", "Horde"], |f| vec![f]);
+	for race in chain.iter().flat_map(|g| strs(&g.get("races"))).map(|r| undead_file(&r)) {
+		for &faction in &sides {
+			if side_of(&race).is_some_and(|side| side != faction) {
+				continue;
+			}
+			let pair = (race.clone(), faction.to_string());
+			if !list.contains(&pair) {
+				list.push(pair);
+			}
+		}
+	}
+	let root_audience = forge_guide::conditions::Audience::of_compiled(root);
+	list.retain(|(race, faction)| root_audience.race_in(race) && root_faction.is_none_or(|f| f.eq_ignore_ascii_case(faction)));
+	for guide in chain {
+		let extra = class_personas(data, root, &list, classes.unwrap_or(&named), &|p| play::guide_fits(root, p) && play::guide_fits(guide, p));
+		list.extend(extra);
+	}
 	let mut out = Vec::new();
 	for (race, faction) in list {
 		for cls in classes_for(data, root, &race, &faction, classes, &named) {
@@ -535,6 +555,7 @@ fn play_chain_in(ctx: &world::Ctx, chain: &[&V], persona: &Persona, kb: Option<&
 }
 
 fn play_chain_with(ctx: &world::Ctx, chain: &[&V], persona: &Persona, kb: Option<&Kb>, report: Option<&FxHashSet<String>>, opts: &HonestOpts, trace: &mut Option<Vec<TraceRow>>) -> Vec<Finding> {
+	let chain: Vec<_> = chain.iter().copied().filter(|g| play::guide_fits(g, persona)).collect();
 	let mut w = world::World::new(ctx, persona.clone(), kb, opts);
 	w.trace = trace.take();
 	for g in chain {

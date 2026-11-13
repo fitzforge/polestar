@@ -144,11 +144,15 @@ pub fn play_pack(pack_dir: &Path, data: &Data, kb: Option<&Kb>, run: &PackRun, o
 	}
 	let arr = arriving(&guides);
 	let race = run.race.as_deref().map(race_file);
+	let selected: rustc_hash::FxHashSet<_> = play.iter().cloned().collect();
 	let plays = Cell::new(0);
 	let personas_of = |chain: &[&forge_guide::js::V]| -> Vec<Persona> {
-		let characters: Vec<_> =
-			chain_personas(data, chain, &arr, run.classes.as_deref()).into_iter().filter(|p| run.faction.as_ref().is_none_or(|f| *f == p.faction) && race.as_ref().is_none_or(|r| *r == p.race)).collect();
-		// honest_play asks only for chains containing a selected guide.
+		let characters: Vec<_> = chain_personas(data, chain, &arr, run.classes.as_deref())
+			.into_iter()
+			.filter(|p| run.faction.as_ref().is_none_or(|f| *f == p.faction) && race.as_ref().is_none_or(|r| *r == p.race))
+			.filter(|p| chain.iter().any(|g| selected.contains(&g.get("id").to_js_string()) && super::play::guide_fits(g, p)))
+			.collect();
+		// A compatible context guide does not count as playing the selection.
 		plays.set(plays.get() + characters.len());
 		characters
 	};

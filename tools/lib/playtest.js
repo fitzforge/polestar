@@ -42,7 +42,7 @@ const { buildPack } = require('./pack/build');
 const { readManifest } = require('./pack/manifest');
 const { loadData } = require('./dsl/data');
 const { Diagnostics } = require('./dsl/diag');
-const { honestPlay, loadKb } = require('./playtest-honest');
+const { honestPlay, guideFits, loadKb } = require('./playtest-honest');
 
 const CLASSES = ['WARRIOR', 'PALADIN', 'HUNTER', 'ROGUE', 'PRIEST', 'SHAMAN', 'MAGE', 'WARLOCK', 'DRUID'];
 
@@ -276,17 +276,17 @@ function personasFor(guide, arriving = []) {
 // that none of `personas` can be: the first race in races.json on the guide's
 // side (its race list, if it has one) that can be it, so an `only Druid` step
 // in a Horde guide is played as a Tauren rather than skipped.
-function classPersonas(data, guide, personas, named = namedClasses(guide)) {
+function classPersonas(data, guide, personas, named = namedClasses(guide), admits = () => true) {
 	if (!data.races || !Object.keys(data.races).length) return [];
 	const allowed = guide.races && guide.races.length ? guide.races.map((x) => (x === 'Undead' ? 'Scourge' : x)) : null;
 	const sides = guide.faction ? [guide.faction] : ['Alliance', 'Horde'];
 	const added = [];
 	for (const cls of named) {
 		const all = [...personas, ...added];
-		if (all.some(({ race, faction }) => playableClasses(data, race, faction).includes(cls))) continue;
+		if (all.some(({ race, faction }) => playableClasses(data, race, faction).includes(cls) && admits({ race, faction, cls }))) continue;
 		for (const [race, bySide] of Object.entries(data.races)) {
 			if (allowed && !allowed.includes(race)) continue;
-			const faction = sides.find((s) => bySide[s] && bySide[s].classes.includes(cls));
+			const faction = sides.find((s) => bySide[s] && bySide[s].classes.includes(cls) && admits({ race, faction: s, cls }));
 			if (faction) {
 				added.push({ race, faction });
 				break;
@@ -605,6 +605,7 @@ async function playtest({ dir, manifest, official = false, filter = null, classe
 function honestRun({ guides, packs, play, data, classes, groups, kb, diag }) {
 	const all = packs.flatMap((p) => p.guides);
 	const wanted = guides.filter((g) => play.has(g._ast && g._ast.source));
+	const selected = new Set(wanted.map((g) => g.id));
 	const arriving = new Map();
 	for (const g of all) {
 		for (const to of g.nextChoices || (g.next ? [g.next] : [])) arriving.set(to, [...(arriving.get(to) || []), ...(g.races || [])]);
@@ -613,9 +614,22 @@ function honestRun({ guides, packs, play, data, classes, groups, kb, diag }) {
 	const personas = (root, chain) => {
 		const named = new Set(chain.flatMap((g) => [...namedClasses(g)]));
 		let list = personasFor(root, arriving.get(root.id));
-		list = [...list, ...classPersonas(data, root, list, named)];
-		const characters = list.flatMap(({ race, faction }) => classesFor(data, root, race, faction, classes, named).map((cls) => ({ race, faction, cls })));
-		// honestPlay asks only for chains containing a selected guide.
+		// Later race headers need their own candidates. A dual-faction race can
+		// play either side, but every candidate must still fit the chain root.
+		for (const name of new Set(chain.flatMap((g) => g.races || []))) {
+			const race = name === 'Undead' ? 'Scourge' : name;
+			for (const faction of root.faction ? [root.faction] : ['Alliance', 'Horde']) {
+				if (sideOf(race) && sideOf(race) !== faction) continue;
+				if (!list.some((p) => p.race === race && p.faction === faction)) list.push({ race, faction });
+			}
+		}
+		list = list.filter((p) => guideFits({ races: root.races, faction: root.faction }, p));
+		for (const guide of chain) {
+			list = [...list, ...classPersonas(data, root, list, classes || named, (p) => guideFits(root, p) && guideFits(guide, p))];
+		}
+		const characters = list.flatMap(({ race, faction }) => classesFor(data, root, race, faction, classes, named).map((cls) => ({ race, faction, cls })))
+			.filter((p) => chain.some((g) => selected.has(g.id) && guideFits(g, p)));
+		// A compatible context guide does not count as playing the selection.
 		plays += characters.length;
 		return characters;
 	};

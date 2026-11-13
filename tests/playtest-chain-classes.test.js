@@ -32,6 +32,7 @@ for (const [name, header, body] of [
 		assert.ok(mage, 'the later Mage branch must be played as Mage');
 		assert.equal(mage.guide, 'forever/test/end');
 		assert.match(mage.reason, /has 0\/10 from earlier lines/);
+		assert.deepEqual(findings.map((f) => f.cls), ['MAGE']);
 	});
 }
 

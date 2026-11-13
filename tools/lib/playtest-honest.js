@@ -108,6 +108,11 @@ function fits(only, { race, faction, cls }) {
 	return group(only.classes, cls) && group(only.races, race) && group(only.factions, faction);
 }
 
+// Guide headers use a singular faction; their race/class lists match `only`.
+function guideFits(guide, persona) {
+	return fits(guide, persona) && (!guide.faction || guide.faction.toUpperCase() === persona.faction.toUpperCase());
+}
+
 class World {
 	constructor(data, persona, kb) {
 		this.data = data;
@@ -301,6 +306,7 @@ function playChain(chain, data, persona, { kb = null, report = null, groups = 's
 }
 
 function playGuide(w, g, reporting) {
+	if (!guideFits(g, w.persona)) return;
 	const { data } = w;
 	const file = (g._ast && g._ast.file) || g.id;
 	const astSteps = (g._ast && g._ast.steps) || [];
@@ -745,4 +751,4 @@ function findingLines(f) {
 	return [`${f.rule} ${f.severity} ${f.file}:${f.line} (${f.race} ${f.cls ? f.cls[0] + f.cls.slice(1).toLowerCase() : ''}) step ${f.step}${f.title ? ` "${f.title}"` : ''}: ${f.reason}`, `  repair: ${f.repair}`];
 }
 
-module.exports = { honestPlay, playChain, chains, goalLines, whenHolds, fits, loadKb, findingLines, KB_FILE };
+module.exports = { honestPlay, playChain, chains, goalLines, whenHolds, fits, guideFits, loadKb, findingLines, KB_FILE };
