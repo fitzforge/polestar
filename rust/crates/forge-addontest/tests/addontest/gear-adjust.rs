@@ -1,0 +1,300 @@
+//! The player's own changes to the built-in stat weights (addon/Polestar/Gear/Adjust.lua, UI/GearAdjust.lua, #1529):
+//! a change kept as the number typed, the spec marked "(adjusted)", one stat or every stat back to its default.
+
+use forge_addontest::{emitted, Addon, RunAddon};
+use serde_json::{json, Value};
+
+const FIXTURE: &str = r#"{
+	[9001] = "1 20 15 2 4 3 str5 sta3 armor150",
+}"#;
+
+fn run(script: &str) -> Vec<Value> {
+	emitted(&RunAddon {
+		stubs: vec!["stub_ui.lua", "stub_world.lua", "stub_gear.lua"],
+		before: r#"w = stub.world; w.class, w.className, w.classID, w.level = "WARRIOR", "Warrior", 1, 30
+w.race, w.raceName, w.raceID, w.faction = "Troll", "Troll", 8, "Horde""#
+			.into(),
+		addons: vec![Addon::files("Polestar", &["Core/Core.xml", "Theme/Theme.xml", "Gear/Gear.xml", "UI/UI.xml"])],
+		login: true,
+		script: ["G = Polestar.Gear\nA = G.Adjust\nPolestar.ItemDB.Register({ schema = 1, build = \"test\" }, ", FIXTURE, ")\nPolestar.Set(\"gear.spec.WARRIOR\", \"arms\")\n", script].concat(),
+		..Default::default()
+	})
+}
+
+#[test]
+fn a_change_applies_at_once_marks_the_spec_adjusted_and_stays_as_typed_when_the_default_changes() {
+	let out = run(r#"
+		local base = G.WeightsFor("WARRIOR", "arms", 30)
+		local before = G.ScoreItem("item:9001")
+		emit({ A.Set("WARRIOR", "arms", "sta", base.sta * 1.5) })
+		local key, label, source = G.GetSpec()
+		emit({ label = label, source = source, adjusted = G.GetWeightsInfo().adjusted, sta = G.GetWeights().sta, want = base.sta * 1.5,
+			str = G.GetWeights().str == base.str, scored = G.ScoreItem("item:9001") > before, stored = Polestar.DB().gearAdjust.WARRIOR.arms.sta })
+		-- An update changes the defaults: the typed Stamina stays, Strength follows the new default.
+		local arms = {}
+		for k, v in pairs(G.WEIGHTS.WARRIOR.arms) do arms[k] = v end
+		arms.sta, arms.str = 0.8, 1.2
+		G.WEIGHTS.WARRIOR.arms = arms
+		G.Invalidate("spec")
+		emit({ sta = G.GetWeights().sta, str = G.GetWeights().str, rows = A.Rows("WARRIOR", "arms")[3] })
+	"#);
+	assert_eq!(out[0], json!([true]));
+	assert_eq!(out[1]["label"], "Arms (adjusted)");
+	assert_eq!(out[1]["source"], "setting");
+	assert_eq!(out[1]["adjusted"], 1);
+	assert_eq!(out[1]["sta"], out[1]["want"]);
+	assert_eq!(out[1]["str"], true, "the other stats keep their defaults");
+	assert_eq!(out[1]["scored"], true, "Stamina counts for more at once");
+	assert_eq!(out[1]["stored"], out[1]["want"], "kept as the number typed");
+	assert_eq!(out[2]["sta"], out[1]["want"], "the typed Stamina, not the new default of 0.8");
+	assert_eq!(out[2]["str"], 1.2, "a stat not changed follows the new default");
+	assert_eq!(out[2]["rows"]["default"], 0.8);
+	assert_eq!(out[2]["rows"]["key"], "sta");
+	assert_eq!(out[2]["rows"]["edited"], true);
+}
+
+#[test]
+fn a_value_equal_to_the_default_clears_the_change_clear_puts_one_stat_back_revert_puts_them_all_back() {
+	let out = run(r#"
+		local d = G.WeightsFor("WARRIOR", "arms", 30)
+		A.Set("WARRIOR", "arms", "sta", 2)
+		A.Set("WARRIOR", "arms", "agi", 0.1)
+		A.Set("WARRIOR", "arms", "hp5", d.hp5)
+		emit({ count = A.Count("WARRIOR", "arms"), hp5 = (A.Edits("WARRIOR", "arms") or {}).hp5 or false })
+		A.Set("WARRIOR", "arms", "sta", d.sta)
+		emit({ count = A.Count("WARRIOR", "arms"), sta = G.GetWeights().sta == d.sta })
+		emit({ cleared = A.Clear("WARRIOR", "arms", "agi"), again = A.Clear("WARRIOR", "arms", "agi"), count = A.Count("WARRIOR", "arms") })
+		A.Set("WARRIOR", "arms", "sta", 3)
+		A.Set("WARRIOR", "arms", "str", 3)
+		local _, label = G.GetSpec()
+		emit({ reverted = A.Revert("WARRIOR", "arms"), none = A.Revert("WARRIOR", "arms"), label = select(2, G.GetSpec()), before = label,
+			same = G.GetWeights() == G.WeightsFor("WARRIOR", "arms", 30) or G.GetWeights().sta == d.sta, info = G.GetWeightsInfo().adjusted or false })
+	"#);
+	assert_eq!(out[0], json!({ "count": 2, "hp5": false }), "typing the default is no change");
+	assert_eq!(out[1], json!({ "count": 1, "sta": true }), "typing the default back clears it");
+	assert_eq!(out[2], json!({ "cleared": true, "again": false, "count": 0 }));
+	assert_eq!(out[3], json!({ "reverted": 2, "none": 0, "label": "Arms", "before": "Arms (adjusted)", "same": true, "info": false }));
+}
+
+#[test]
+fn a_stat_the_spec_does_not_weigh_is_kept_as_the_value_typed_and_bad_input_is_refused() {
+	let out = run(r#"
+		emit({ A.Set("WARRIOR", "arms", "spFire", 0.4) })
+		emit({ stored = Polestar.DB().gearAdjust.WARRIOR.arms.spFire, w = G.GetWeights().spFire })
+		emit({ A.Set("WARRIOR", "arms", "nonsense", 1) })
+		emit({ A.Set("WARRIOR", "arms", "str", "lots") })
+		emit({ A.Set("WARRIOR", "arms", "str", 1 / 0) })
+		emit({ A.Set("WARRIOR", "shadow", "str", 1) })
+		emit({ A.Set("NOPE", "arms", "str", 1) })
+		emit({ A.Set("WARRIOR", "arms", "str", " 2.5 ") })
+		emit({ str = G.GetWeights().str, fury = A.Count("WARRIOR", "fury"), protection = G.WeightsFor("WARRIOR", "protection", 30).str ~= 2.5 })
+	"#);
+	assert_eq!(out[0], json!([true]));
+	assert_eq!(out[1], json!({ "stored": 0.4, "w": 0.4 }));
+	assert_eq!(out[2], json!([false, "stat"]));
+	assert_eq!(out[3], json!([false, "number"]));
+	assert_eq!(out[4], json!([false, "number"]));
+	assert_eq!(out[5], json!([false, "class"]), "a spec of another class");
+	assert_eq!(out[6], json!([false, "class"]));
+	assert_eq!(out[7], json!([true]), "a number in text is read as one");
+	assert_eq!(out[8], json!({ "str": 2.5, "fury": 0, "protection": true }), "only that spec changes");
+}
+
+#[test]
+fn a_custom_scale_in_use_is_not_touched_and_the_dropdown_marks_the_adjusted_spec() {
+	let out = run(r#"
+		A.Set("WARRIOR", "fury", "sta", 4)
+		local _, r = G.Scales.Import('( Pawn: v1: "Mine": Strength=10, Stamina=1 )', "WARRIOR")
+		local labels = {}
+		for _, spec in ipairs(Polestar.Widgets.OptionsRegistry) do
+			for _, c in ipairs(spec.controls or {}) do
+				if c.key == "gear.spec.WARRIOR" then for _, ch in ipairs(c.choices()) do labels[#labels + 1] = ch.label end end
+			end
+		end
+		Polestar.Set("gear.spec.WARRIOR", "custom:" .. r.scale.id)
+		A.Set("WARRIOR", "arms", "sta", 9)
+		emit({ labels = labels, sta = G.GetWeights().sta, label = select(2, G.GetSpec()) })
+	"#);
+	assert_eq!(out[0]["labels"], json!(["Automatic (talents)", "Arms", "Fury (adjusted)", "Protection (tank)", "Custom: Mine"]));
+	assert_eq!(out[0]["sta"], 1, "the scale's own weights");
+	assert_eq!(out[0]["label"], "Custom: Mine");
+}
+
+// What the adjust window shows, as plain data.
+const VIEW: &str = r#"
+local UI = Polestar.UI
+local V = UI.AdjustView
+local function shown()
+	local out = {}
+	for _, l in ipairs(V.lines) do
+		if l:IsShown() then
+			out[#out + 1] = (l.Dot:IsShown() and "* " or "") .. l.Label:GetText() .. "=" .. l.Box:GetText()
+				.. (l.Reset:IsShown() and (" reset (" .. ((l.Reset.psTipLines or {})[1] or "") .. ")") or "")
+		end
+	end
+	return out
+end
+local function line(name)
+	for _, l in ipairs(V.lines) do if l:IsShown() and l.Label:GetText() == name then return l end end
+end
+local function type_(l, text) l.Box:SetFocus(); l.Box:SetText(text); l.Box:GetScript("OnEnterPressed")(l.Box); l.Box:GetScript("OnEditFocusLost")(l.Box) end
+-- Typing without leaving the box: the client keeps its focus while a button is clicked.
+local function typing(l, text) l.Box:SetFocus(); l.Box:GetScript("OnEditFocusGained")(l.Box); l.Box:SetText(text) end
+local function rgb(t) local r, g, b = t:GetTextColor() return string.format("%.3f %.3f %.3f", r or 0, g or 0, b or 0) end"#;
+
+fn run_view(script: &str) -> Value {
+	run(&[VIEW, script].concat()).remove(0)
+}
+
+#[test]
+fn the_window_lists_the_spec_s_weights_and_a_typed_change_shows_its_default_and_a_reset() {
+	let out = run_view(
+		r#"
+		UI.ShowAdjust()
+		local d = G.WeightsFor("WARRIOR", "arms", 30)
+		local first = { spec = V.spec, button = V.frame.Spec.Label:GetText(), revert = V.frame.Revert:IsShown(), n = #shown(), sta = line("Stamina").Box:GetText() }
+		local plain = rgb(line("Stamina").Label)
+		type_(line("Stamina"), "2")
+		local sta = line("Stamina")
+		local edited = { line = sta and (sta.Box:GetText() .. " / " .. sta.Reset.psTipLines[1]), reset = sta.Reset:IsShown(), dot = sta.Dot:IsShown(),
+			color = rgb(sta.Label) == plain, width = sta.Label:GetWidth() == line("Strength").Label:GetWidth(), strDot = line("Strength").Dot:IsShown(),
+			button = V.frame.Spec.Label:GetText(), revert = V.frame.Revert:IsShown(), sta = G.GetWeights().sta }
+		type_(line("Strength"), "lots")
+		local kept = line("Strength").Box:GetText()
+		line("Stamina").Reset:Click()
+		emit({ first = first, edited = edited, kept = kept, keptWant = tostring(d.str), back = G.GetWeights().sta == d.sta, after = line("Stamina").Reset:IsShown(),
+			default = tostring(d.sta) })
+	"#,
+	);
+	assert_eq!(out["first"]["spec"], "arms");
+	assert_eq!(out["first"]["button"], "Arms");
+	assert_eq!(out["first"]["revert"], false, "nothing to revert yet");
+	assert!(out["first"]["n"].as_u64().unwrap() > 5);
+	assert_eq!(out["first"]["sta"], out["default"]);
+	assert_eq!(out["edited"]["line"], json!(format!("2 / Default: {}", out["default"].as_str().unwrap())), "the default in the reset button's tooltip");
+	assert_eq!(out["edited"]["reset"], true);
+	assert_eq!(out["edited"]["dot"], true, "the Row Rule's accent dot before the name");
+	assert_eq!(out["edited"]["strDot"], false);
+	assert_eq!(out["edited"]["color"], true, "the name keeps the text colour: the accent is for action, not names");
+	assert_eq!(out["edited"]["width"], true, "and its room");
+	assert_eq!(out["edited"]["button"], "Arms (adjusted)");
+	assert_eq!(out["edited"]["revert"], true);
+	assert_eq!(out["edited"]["sta"], 2);
+	assert_eq!(out["kept"], out["keptWant"], "text that is no number puts the old value back");
+	assert_eq!(out["back"], true);
+	assert_eq!(out["after"], false);
+}
+
+#[test]
+fn revert_to_default_asks_for_a_second_click_then_puts_every_weight_back_add_a_stat_weighs_a_new_one() {
+	let out = run_view(
+		r#"
+		UI.ShowAdjust("fury")
+		type_(line("Stamina"), "3")
+		type_(line("Strength"), "4")
+		local items
+		Polestar.Widgets.ShowMenu = function(anchor, list) items = list end
+		V.frame.Add:Click()
+		local fire
+		for _, it in ipairs(items) do if it.text == "Fire spell damage" then fire = it end end
+		fire.onClick()
+		local added = line("Fire spell damage") and line("Fire spell damage").Box:GetText()
+		local count = A.Count("WARRIOR", "fury")
+		V.frame.Revert:Click()
+		local armed = { label = V.frame.Revert.Label:GetText(), count = A.Count("WARRIOR", "fury") }
+		V.frame.Revert:Click()
+		emit({ spec = V.spec, added = added, count = count, armed = armed, after = A.Count("WARRIOR", "fury"), revert = V.frame.Revert:IsShown(),
+			status = V.frame.Status:GetText(), fire = line("Fire spell damage") == nil, arms = A.Count("WARRIOR", "arms") })
+	"#,
+	);
+	assert_eq!(out["spec"], "fury");
+	assert_eq!(out["added"], "1");
+	assert_eq!(out["count"], 3);
+	assert_eq!(out["armed"], json!({ "label": "Click again to confirm", "count": 3 }), "the first click only asks");
+	assert_eq!(out["after"], 0);
+	assert_eq!(out["revert"], false);
+	assert_eq!(out["status"], "Put back 3 weights.");
+	assert_eq!(out["fire"], true, "an added stat goes with the rest");
+	assert_eq!(out["arms"], 0);
+}
+
+#[test]
+fn the_spec_menu_switches_spec_and_names_the_adjusted_ones_and_the_command_opens_the_window() {
+	let out = run_view(
+		r#"
+		A.Set("WARRIOR", "protection", "sta", 5)
+		SlashCmdList.POLESTAR("gear adjust")
+		local opened = V.frame:IsShown() and V.spec
+		local items
+		Polestar.Widgets.ShowMenu = function(anchor, list) items = list end
+		V.frame.Spec:Click()
+		local names = {}
+		for _, it in ipairs(items) do names[#names + 1] = it.text end
+		items[3].onClick()
+		emit({ opened = opened, names = names, spec = V.spec, line = line("Stamina").Box:GetText(), reset = line("Stamina").Reset:IsShown() })
+	"#,
+	);
+	assert_eq!(out["opened"], "arms");
+	assert_eq!(out["names"], json!(["Arms", "Fury", "Protection (tank) (adjusted)"]));
+	assert_eq!(out["spec"], "protection");
+	assert_eq!(out["line"], "5");
+	assert_eq!(out["reset"], true);
+}
+
+#[test]
+fn a_number_being_typed_goes_to_its_own_stat_when_the_spec_menu_or_add_a_stat_changes_the_lines() {
+	let out = run_view(
+		r#"
+		UI.ShowAdjust("arms")
+		local items
+		Polestar.Widgets.ShowMenu = function(anchor, list) items = list end
+		-- Arms' Stamina, still being typed in, when Fury is picked in the spec menu.
+		typing(line("Stamina"), "9")
+		V.frame.Spec:Click()
+		items[2].onClick()
+		local spec = { spec = V.spec, arms = (A.Edits("WARRIOR", "arms") or {}).sta ~= nil, fury = A.Count("WARRIOR", "fury"),
+			armsSta = (A.Edits("WARRIOR", "arms") or {}).sta }
+		-- Fury's last line, being typed in, when Add a stat puts Intellect above it.
+		local visible = {}
+		for _, l in ipairs(V.lines) do if l:IsShown() then visible[#visible + 1] = l end end
+		local last = visible[#visible]
+		local lastName, lastKey = last.Label:GetText(), last.psKey
+		typing(last, "0.7")
+		V.frame.Add:Click()
+		for _, it in ipairs(items) do if it.text == "Intellect" then it.onClick() end end
+		local edits = A.Edits("WARRIOR", "fury") or {}
+		local keys = {}
+		for k in pairs(edits) do keys[#keys + 1] = k end
+		table.sort(keys)
+		emit({ spec = spec, lastKey = lastKey, keys = keys, typed = line(lastName).Box:GetText(), int = line("Intellect").Box:GetText(),
+			moved = last.psKey ~= lastKey })
+	"#,
+	);
+	assert_eq!(out["spec"]["spec"], "fury");
+	assert_eq!(out["spec"]["arms"], true, "the 9 went to Arms' Stamina, where it was typed");
+	assert_eq!(out["spec"]["armsSta"], 9);
+	assert_eq!(out["spec"]["fury"], 0, "not to Fury's");
+	assert_eq!(out["moved"], true, "Intellect pushed the lines down");
+	let last = out["lastKey"].as_str().unwrap();
+	let mut want = vec!["int", last];
+	want.sort();
+	assert_eq!(out["keys"], json!(want), "only the stat typed in and the one added");
+	assert_eq!(out["typed"], "0.7");
+	assert_eq!(out["int"], "1");
+}
+
+#[test]
+fn revert_s_second_click_still_reverts_after_the_gear_changes_in_between() {
+	let out = run_view(
+		r#"
+		UI.ShowAdjust("arms")
+		type_(line("Stamina"), "3")
+		V.frame.Revert:Click()
+		Polestar.Fire("GEAR_UPDATED")
+		local armed = V.frame.Revert.Label:GetText()
+		V.frame.Revert:Click()
+		emit({ armed = armed, count = A.Count("WARRIOR", "arms"), status = V.frame.Status:GetText() })
+	"#,
+	);
+	assert_eq!(out, json!({ "armed": "Click again to confirm", "count": 0, "status": "Put back 1 weight." }));
+}

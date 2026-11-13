@@ -191,7 +191,7 @@ the nearest 5, `opts.compact` writes yards from 1000 as "1.2k yd"
 (`Rares.YardsText`); metres turn to kilometres from 1000 m. The bug report
 keeps yards for whoever reads it.
 
-`PolestarDB = { schema = 1, settings = { [section] = { ... } }, packs = { [packId] = { off = true } }, imports = { [guideId] = { format, license, guide, frames } }, welcomeSeen = 1, gamepad = { chords = { [action] = "PADRSHOULDER+PADDUP" } } }`
+`PolestarDB = { schema = 1, settings = { [section] = { ... } }, packs = { [packId] = { off = true } }, imports = { [guideId] = { format, license, guide, frames } }, gearAdjust = { [CLASS] = { [spec] = { [stat] = number } } }, welcomeSeen = 1, gamepad = { chords = { [action] = "PADRSHOULDER+PADDUP" } } }`
 `PolestarCharDB = { schema = 1, guide = id|nil, tabs = { guideId, ... }, activeTab = n, absentAt = { [guideId] = place }, closedTabs = { { id, at }, ... }, manual = { [guideId] = { ["s:g"] = true|"tick" } }, skipped = { [guideId] = { [stepIndex] = true, ["s:g"] = true } }, pins = { [guideId] = { step, done } }, offers = { [questID] = true }, skippedQuests = { [questID] = true }, shapes = { [guideId] = shape }, stepKeys = { [guideId] = { hash, ... } }, flags = { fp = { [name] = true }, ... }, dungeons = { [mapId] = true }, welcomeSeen = 0|1 }`
 
 `packs[<id>].off` hides a pack's guides account-wide (the Community guides page's
@@ -5678,6 +5678,77 @@ Polestar.Gear.Bags.Redraw()                  -- repaint the shown bags; GEAR_UPD
   character's verdict, as the tooltip line is.
 - Other bag addons draw their own buttons and get no arrow; the tooltip line
   still shows on them.
+
+### Weights and Forever's ratings — Gear/Weights.lua, Gear.lua
+
+- **Polestar's own weights, at every level.** `Gear.WeightsFor` gives the
+  spec's table in Weights.lua and nothing else (#1529). The Classic and
+  Season of Discovery simulation bands `forge data gear` still writes into
+  SpecData.lua (`Gear.WEIGHT_BANDS`) are no longer read; dropping them from
+  the build waits for #1014, which rewrites that generator. Weights.lua's
+  header records what was checked against Forever's client tables
+  (`ChrClasses`, `PlayerExpectedStat`, `gametables/combatratings.txt`, read
+  with `forge gamedata export` and `forge gamedata file`) and how the weights
+  of Forever's own ratings were set.
+- **Ratings at the client's rate.** `C_Item.GetItemStats` reports an item's
+  rating points. `Gear.RATINGS` divides each by the points per 1% of the
+  client's `combatratings` table (crit 14, hit 10, haste 10, expertise 10,
+  armor penetration 10, dodge 12, parry 15, block 5; the same at every level),
+  so the weights stay per 1%. A plain crit or hit rating counts for spells too
+  (`crit` and `spellCrit`, `hit` and `spellHit`): Forever unifies them. Defense
+  rating is defense skill, one for one. New stat keys: `haste`, `expertise`,
+  `armorPen` (Gear.STAT_KEYS, PawnStats.lua's HasteRating, ExpertiseRating and
+  ArmorPenetration).
+- **Pawn scales in Pawn's unit.** A Pawn string weighs a rating per rating
+  point; Polestar per 1%. `Gear.Pawn.Weights` multiplies a rating stat's
+  weight by its rate (`Gear.RATING_RATE`, from `Gear.RATINGS`; to the
+  thousandth) and `Gear.Pawn.Build` divides it back (to five decimals, so
+  every thousandth comes back as it was at every rate), so a scale's weights
+  are per 1% and its string per point: CritRating=1 is crit 14. Scales kept before (no `PolestarDB.gearScaleUnits`) held rating
+  weights per point, when items counted rating points; they are converted
+  once, so each scores items as it did, and `gearScaleUnits` is 2 after.
+
+### Adjusted weights — Gear/Adjust.lua, UI/GearAdjust.lua
+
+```lua
+Polestar.Gear.Adjust.Set(class, spec, key, value) -> true | false, err   -- "class" | "stat" | "number"
+Polestar.Gear.Adjust.Clear(class, spec, key) -> bool       -- one stat back to its default
+Polestar.Gear.Adjust.Revert(class, spec) -> n               -- every change of the spec
+Polestar.Gear.Adjust.Count(class, spec) -> n
+Polestar.Gear.Adjust.Apply(weights, class, spec) -> weights -- the built-in weights with the changes on top
+Polestar.Gear.Adjust.Rows(class, spec) -> { { key, value, default, edited }, ... }
+Polestar.UI.ShowAdjust([spec])                              -- the window; /polestar gear adjust
+```
+
+- **What it is.** The player's own changes to a built-in spec's weights
+  (#1529), for someone who weighs one stat differently and wants to keep the
+  rest. A custom Pawn scale (`Gear.Scales`, Pawn.lua) replaces the whole
+  table at every level; an adjustment changes only the stats it names.
+- **Kept as the number typed.** `PolestarDB.gearAdjust[CLASS][spec][stat]`
+  is the weight the player typed, which stays what it is when Polestar's
+  defaults change; every stat not changed follows the defaults
+  (`Gear.WeightsFor`). Typing the default clears the change. Like the
+  Pawn scales it lives outside the settings, so a settings reset leaves it;
+  Revert to default clears it.
+- **Where it applies.** `resolveSpec` (Gear.lua) applies it on top of the
+  spec's weights, for a chosen or detected spec, never to a custom scale.
+  `GetWeightsInfo().adjusted` is how many stats are changed, and
+  `GetSpec()`'s label reads "Arms (adjusted)", which the tooltip line shows.
+  The Stat weights dropdown marks the adjusted specs the same way.
+- **The window.** Options > Questing > Rewards & gear > **Adjust weights**
+  (`UI.ShowAdjust`) opens on the spec in use (with a custom scale in use, the
+  one the talents point to; a note says the changes wait for a built-in spec).
+  A menu switches spec. Each stat the spec weighs, or the player added, is a
+  line with a box. A changed line carries the Row Rule's 6px accent dot
+  before its name (docs/DESIGN.md; the name keeps the text colour and its
+  room) and a reset button whose tooltip gives the default. A box remembers
+  the stat it was focused on: when the lines change while it is being typed
+  in (another spec, a stat added above it), its number goes to that stat
+  first. Revert's first click stays armed through a relist of the same spec
+  (a `GEAR_UPDATED`).
+  **Add a stat** weighs one the spec leaves out (at 1). **Revert to default**
+  shows only when something is changed and asks for a second click
+  (`W.Confirm`).
 
 ## Maps — the world map
 

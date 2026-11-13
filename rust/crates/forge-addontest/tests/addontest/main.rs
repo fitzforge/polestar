@@ -185,8 +185,12 @@ mod gamepad;
 #[path = "gamepad-ui.rs"]
 mod gamepad_ui;
 mod gear;
+#[path = "gear-adjust.rs"]
+mod gear_adjust;
 #[path = "gear-bags.rs"]
 mod gear_bags;
+#[path = "gear-forever.rs"]
+mod gear_forever;
 #[path = "gear-pawn.rs"]
 mod gear_pawn;
 #[path = "gear-upgrades.rs"]
