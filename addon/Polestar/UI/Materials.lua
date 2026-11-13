@@ -37,7 +37,7 @@ UI.Materials = MA
 MA.START_DELAY = 4 -- seconds after a guide opens: past its catch-up (2.5 s at most)
 MA.NAMES = 3 -- materials a line names, then "and N more"
 
-local WIDTH = 460
+local WIDTH = 500
 local PAD = 24
 local HEAD_H = 56
 local ROW_H = 40
@@ -441,22 +441,28 @@ local HINT = {
 function MA.Layout()
 	if not (F and F:IsShown()) then return end
 	local Mt, E, g = M(), ns.Engine, running()
-	if not (Mt and g and E and E.MaterialRows) then
+	if not (Mt and E and E.MaterialRows) then
 		F:Hide()
 		return
 	end
-	F.Title:SetText(format(L["Materials: %s"], g.title or ""))
-	local mode = Mt.Mode(g.id)
+	-- A guide with no material to choose a way for (none running, a leveling guide): the window says so.
+	local choosable = g and g.id and Mt.Choosable(g)
+	F.Title:SetText(g and format(L["Materials: %s"], g.title or "") or L["Materials"])
+	local mode = choosable and Mt.Mode(g.id) or nil
 	local solo = Mt.SelfFound()
 	for _, m in ipairs(MODES) do
 		local b = F.Modes[m]
 		choose(b, m == mode)
-		if solo and m ~= "gather" then b:Disable() else b:Enable() end
+		if not choosable or (solo and m ~= "gather") then b:Disable() else b:Enable() end
 	end
 	W.SetButtonText(F.Scope, F.psScope == "section" and L["This range"] or L["Rest of the guide"])
-	F.Hint:SetText(solo and L["No Auction House for self-found characters: you gather every material."] or HINT[mode])
+	if not choosable then
+		F.Hint:SetText(L["Open a profession guide to choose how it gets its materials: gather them, buy them or mix."])
+	else
+		F.Hint:SetText(solo and L["No Auction House for self-found characters: you gather every material."] or HINT[mode])
+	end
 	local top = HEAD_H + 12 + 26 + 10 + F.Hint:GetStringHeight() + 12
-	local sections = E.MaterialRows(F.psScope)
+	local sections = choosable and E.MaterialRows(F.psScope) or {}
 	local y, nr, nh = 0, 0, 0
 	for _, sec in ipairs(sections) do
 		nh = nh + 1
@@ -493,7 +499,7 @@ function MA.Layout()
 		local h = heading(nh)
 		h:ClearAllPoints()
 		h:SetPoint("TOPLEFT", F.Body, "TOPLEFT", 0, -6)
-		h:SetText(L["Nothing left to get from your skill on."])
+		h:SetText(choosable and L["Nothing left to get from your skill on."] or "")
 		h:Show()
 		y = SEC_H
 	end

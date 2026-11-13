@@ -1,6 +1,6 @@
 //! #1390: every Polestar frame follows Appearance > Windows > Skin, live. The whole addon is loaded, its frames
 //! are built (the flight timer, the instance tracker, the party panel, the confirm dialog, the toasts, the
-//! welcome and copy windows), and the skin is switched through every choice: each skinned frame is painted in
+//! welcome, copy and Materials windows), and the skin is switched through every choice: each skinned frame is painted in
 //! the skin in use, the floating ones on the window skin (Halo's veil, not a menu's fill), and the quest item and
 //! travel buttons' hover wash follows the skin's.
 
@@ -18,10 +18,12 @@ W.Modal({ title = "Reset?", text = "Sure?", action = "Reset" })
 Polestar.Nav.alerts.ShowSample()
 Polestar.Rares.Toast.Show({ kind = "rare", name = "Mother Fang", map = 1429, x = 50, y = 50 })
 Polestar.UI.ShowCopy("Copy", "text")
+Polestar.UI.Materials.Show()
 -- The swept frames by global name: a name that is gone (a renamed frame) is reported missing, not skipped.
 local NAMES = {
 	timer = "PolestarFlightTimer", tracker = "PolestarInstanceTracker", party = "PolestarPartyPanel",
 	modal = "PolestarModal", transit = "PolestarAlert", rare = "PolestarRareToast", copy = "PolestarCopy",
+	materials = "PolestarMaterials",
 }
 local named, missing = {}, {}
 for k, name in pairs(NAMES) do
@@ -70,7 +72,7 @@ fn switching_the_skin_restyles_the_flight_timer_and_every_polestar_frame_live_13
 	for (key, s) in skins {
 		assert_eq!(s["stale"], 0, "{key}: every skinned frame repainted in the skin in use");
 		let frames = s["frames"].as_object().unwrap();
-		assert_eq!(frames.len(), 7, "{key}: every swept frame reported");
+		assert_eq!(frames.len(), 8, "{key}: every swept frame reported");
 		for (name, f) in frames {
 			assert_eq!(f["skin"], json!(key), "{key}: {name} painted in it");
 			// The window skin: Halo's soft veil (a panel would take the menu fill), the house drop shadow.

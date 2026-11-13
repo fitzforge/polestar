@@ -23,6 +23,7 @@ local function paintAll()
 	Polestar.UI.GuideFrame.Layout()
 	if Polestar.Nav and Polestar.Nav.alerts and Polestar.Nav.alerts.ShowSample then Polestar.Nav.alerts.ShowSample() end
 	Polestar.UI.ShowOptions("theme")
+	Polestar.UI.Materials.Show()
 	local P = Polestar.Pins
 	if P and P.BuildLook then
 		stepPin = stepPin or CreateFrame("Frame", nil, UIParent)
