@@ -26,7 +26,7 @@ next forever/horde/30-40/03-stranglethorn-vale
 # Shaman training) -> fly to Freewind Post -> Moktar Krin -> the Mirage
 # Raceway -> the southern flats and the silithid dig -> Moktar Krin -> basilisks, tortoises and
 # vultures -> the
-# raceway -> Freewind Post (Family Tree) -> fly to Sun Rock Retreat -> ride into
+# raceway -> Gadgetzan (flight path, fly back) -> Freewind Post (Family Tree) -> fly to Sun Rock Retreat -> ride into
 # Desolace: Scrabblescrew's Camp, Ghost Walker Post -> the Kodo Graveyard -> Shadowprey Village
 # (flight path, bind) -> Ethel Rethor -> Thunder Axe Fortress -> Ethel Rethor -> Rackmore's Log,
 # the clam beds, Sar'theris Strand and the Book of the Ancients (one walk north) -> Azore -> Sargeron
@@ -208,9 +208,19 @@ step Level 32.5
   goto 77.5,70.5 map 1441 "Sparkleshell Snappers"
   level 32.5 grind 4143               -- grind on Sparkleshell Snapper
 
+step Gadgetzan
+  zone Tanaris
+  tip South from the raceway over the Tanaris border to Gadgetzan, the walled goblin town: learn its flight path and fly back to Freewind Post from there, which is quicker than the walk west across the flats, and the next guides fly straight to Gadgetzan.
+  getfp "Gadgetzan"
+
+step Fly to Freewind Post
+  zone Tanaris
+  fly "Freewind Post"
+  zone Thousand Needles
+
 step Freewind Post
   zone Thousand Needles
-  tip West back to Freewind Post. Cliffwatcher Longhorn stands in the middle of the post, on the way to the flight master.
+  tip Cliffwatcher Longhorn stands in the middle of the post, on the way to the flight master.
   accept 5361                         -- Cliffwatcher Longhorn: for Nataka Longhorn in Desolace, next
   vendor nearest
 

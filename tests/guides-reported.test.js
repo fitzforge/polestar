@@ -1567,6 +1567,17 @@ test('forever/horde/30-40/03-stranglethorn-vale.guide: no Green Hills chapters o
 	at(list, 'turnin 1182 (Revilgaz)', is('turnin', 1182));
 });
 
+// #1976 (TriageNav) and the Horde 30-40/40-50 audit (0.4.0): Gadgetzan's flight path is learned at 33 on the way back
+// from the Mirage Raceway (the walk to Gadgetzan and the flight to Freewind Post beat the walk west across the flats:
+// the addon's travel planner takes that way itself), so the 40-50 guide can fly to Gadgetzan.
+test('forever/horde/30-40/02-thousand-needles.guide: Gadgetzan\'s flight path on the way back from the raceway (#1976)', { skip }, () => {
+	const list = goals('forever/horde/30-40/02-thousand-needles.guide');
+	const raceway = at(list, 'turnin 1175 (the raceway)', is('turnin', 1175));
+	const fp = at(list, 'getfp Gadgetzan', (g) => g.t === 'getfp' && /Gadgetzan/.test(JSON.stringify(g)));
+	const family = at(list, 'accept 5361 (Freewind Post)', is('accept', 5361));
+	assert.ok(raceway < fp && fp < family, 'after the raceway, before Freewind Post');
+});
+
 // --- Forever chains the quest data has no prerequisite for, so the guide took
 // a follow-up at the same visit as the quest before it and the giver did not
 // offer it: Baine's chain in Mulgore (Kori, #112) and Mull's report (#51),
