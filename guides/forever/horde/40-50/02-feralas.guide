@@ -384,6 +384,7 @@ step Camp Mojache
 
 step Gordunni Outpost
   tip North of the gnolls the ogres hold a hilltop outpost; pull the ogre-magi to you. The cobalt is in the dirt mounds around the outpost, and the scroll lies on the ground inside it.
+  tip Careful: Ohk'zi (level 43, elite) stands in the outpost: pull the ogres out to you, away from him.
   use 9466 quest 2987.1 @74.5,30.2 map 1444
   collect 9463 quest 2987.1
   kill 5229 quest 2975.1
@@ -425,6 +426,7 @@ step Camp Mojache
 
 step Grimtotem camp
   tip The Grimtotem tauren camp beside the sprite darters' grove; raiders, naturalists and shamans all carry horns.
+  tip Careful: Namida Grimtotem (level 43, elite) stands in the camp: pull the raiders and shamans away from her.
   collect 9460 quest 2974.1
 
 step Woodpaw battle map

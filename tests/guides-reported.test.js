@@ -2909,12 +2909,11 @@ test('Horde 40-50/06: the level 50 top-up comes after the Azshara hand-ins, not 
 test('Horde 40-50: grind tips name a dungeon only when its run is in the same or the next guide on that continent', { skip }, () => {
 	// The dungeons-in-the-route rule (0.4.0): Uldaman and Maraudon have no run in the route; the Sunken Temple's is in
 	// 50-60/01, two guides after 40-50/05; Zul'Farrak's is in 40-50/04, right after 40-50/03.
+	const tipsOf = (n) => fs.readFileSync(path.join(OFFICIAL_DIR, H40(n)), 'utf8').split('\n').filter((l) => /^\s+tip /.test(l)).join('\n');
 	for (const n of ['01-stranglethorn-vale', '03-feralas', '05-the-hinterlands', '06-azshara']) {
-		const text = compiled(H40(n)).steps.flatMap((st) => [st.tip, st.note]).flat().filter(Boolean).join(' ');
-		for (const d of ['Uldaman', 'Maraudon', 'Sunken Temple']) assert.ok(!new RegExp(`run the ${d} dungeon`).test(text), `${n}: no "run the ${d} dungeon" tip`);
+		for (const d of ['Uldaman', 'Maraudon', 'Sunken Temple']) assert.ok(!new RegExp(`run the ${d} dungeon`).test(tipsOf(n)), `${n}: no "run the ${d} dungeon" tip`);
 	}
-	const feralas = compiled(H40('03-feralas')).steps.flatMap((st) => [st.tip]).flat().filter(Boolean).join(' ');
-	assert.ok(/run the Zul'Farrak dungeon/.test(feralas), "03 still offers Zul'Farrak, run in 40-50/04");
+	assert.ok(/run the Zul'Farrak dungeon/.test(tipsOf('03-feralas')), "03 still offers Zul'Farrak, run in 40-50/04");
 });
 
 test('Horde 40-50/04: the Slag Pit plans come with the gorge sweep and go back on the first Thorium Point return (0.4.0 route audit)', { skip }, () => {
@@ -2951,6 +2950,16 @@ test('Horde 40-50/02: a character who knows Gadgetzan flies there instead of Fre
 	assert.ok(freewind.length >= 5, 'the class and race ways to Freewind Post');
 	for (const st of freewind) assert.ok(taxi(st, true), `${st.title}: only without Gadgetzan's flight path`);
 	assert.equal(steps.filter((st) => flies(st, 'Gadgetzan') && taxi(st, false)).length, freewind.length, 'each has a Gadgetzan twin');
+});
+
+test('Horde 40-50: the steps beside the elites and level 60 roamers the danger gate reviewed warn about them (#1575)', { skip }, () => {
+	for (const [n, quest, name] of [['02-feralas', 2975, "Ohk'zi"], ['02-feralas', 2974, 'Namida Grimtotem'], ['03-feralas', 699, 'Methuselah Crab'], ['03-feralas', 3128, 'Vale Screamer']]) {
+		const steps = fs.readFileSync(path.join(OFFICIAL_DIR, H40(n)), 'utf8').split(/\n(?=step )/);
+		const step = steps.find((t) => new RegExp(`^\\s+(kill|collect) \\d+ quest ${quest}\\b`, 'm').test(t));
+		assert.ok(step, `${n}: the objective of ${quest} is in the guide`);
+		const tips = step.split('\n').filter((l) => /^\s+tip /.test(l)).join(' ');
+		assert.ok(tips.includes(name), `${n}: the ${quest} step names ${name}`);
+	}
 });
 
 // The goals the stray rule moved, checked against their steps (#175 review): the

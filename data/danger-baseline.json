@@ -12679,6 +12679,189 @@
 			],
 			"reason": "players do it at the route's level: 5 people at median 12, 0 died there",
 			"evidence": "route level 12.9; Summoned Incubus 20-20 x4; recordings (2026-11-11): done by 5 people at 10-13 (median 12), 0 people died within 60 yd, 0 abandoned"
+		},
+		{
+			"key": "forever/horde/40-50/02-feralas.guide|collect 2974.1|elite",
+			"guide": "forever/horde/40-50/02-feralas.guide",
+			"goal": "collect 2974.1",
+			"kind": "elite",
+			"title": "A Grim Discovery",
+			"level": 44.2,
+			"mobs": [
+				"Namida Grimtotem 43-43"
+			],
+			"reason": "players do it above the route's level with 0 deaths: Namida Grimtotem (43, elite) stands in the Grimtotem camp; the step's tip warns about her",
+			"evidence": "route level 44.2; Namida Grimtotem 43-43; recordings (2026-11-13): A Grim Discovery done by 4 people (median 46.4), 0 died within 60 yd; Namida met hostile at 67,38-39, killed by 4 people, killed nobody"
+		},
+		{
+			"key": "forever/horde/40-50/02-feralas.guide|kill 2975.1|elite",
+			"guide": "forever/horde/40-50/02-feralas.guide",
+			"goal": "kill 2975.1",
+			"kind": "elite",
+			"title": "The Ogres of Feralas",
+			"level": 43.9,
+			"mobs": [
+				"Ohk'zi 43-43 x4"
+			],
+			"reason": "players do it above the route's level with 0 deaths: Ohk'zi (43, elite) stands in the Gordunni Outpost; the step's tip warns about him",
+			"evidence": "route level 43.9; Ohk'zi 43-43 x4; recordings (2026-11-13): The Ogres of Feralas done by 4 people (median 46.0), 0 died within 60 yd, 1 abandoned; Ohk'zi met hostile at 75,25-26, killed by 2 people, killed nobody"
+		},
+		{
+			"key": "forever/horde/40-50/02-feralas.guide|kill 2975.2|elite",
+			"guide": "forever/horde/40-50/02-feralas.guide",
+			"goal": "kill 2975.2",
+			"kind": "elite",
+			"title": "The Ogres of Feralas",
+			"level": 43.9,
+			"mobs": [
+				"Ohk'zi 43-43"
+			],
+			"reason": "players do it above the route's level with 0 deaths: Ohk'zi (43, elite) stands in the Gordunni Outpost; the step's tip warns about him",
+			"evidence": "route level 43.9; Ohk'zi 43-43; recordings (2026-11-13): The Ogres of Feralas done by 4 people (median 46.0), 0 died within 60 yd, 1 abandoned; Ohk'zi met hostile at 75,25-26, killed by 2 people, killed nobody"
+		},
+		{
+			"key": "forever/horde/40-50/02-feralas.guide|kill 2975.3|elite",
+			"guide": "forever/horde/40-50/02-feralas.guide",
+			"goal": "kill 2975.3",
+			"kind": "elite",
+			"title": "The Ogres of Feralas",
+			"level": 43.9,
+			"mobs": [
+				"Ohk'zi 43-43 x4"
+			],
+			"reason": "players do it above the route's level with 0 deaths: Ohk'zi (43, elite) stands in the Gordunni Outpost; the step's tip warns about him",
+			"evidence": "route level 43.9; Ohk'zi 43-43 x4; recordings (2026-11-13): The Ogres of Feralas done by 4 people (median 46.0), 0 died within 60 yd, 1 abandoned; Ohk'zi met hostile at 75,25-26, killed by 2 people, killed nobody"
+		},
+		{
+			"key": "forever/horde/40-50/03-feralas.guide|collect 1424.1|elite",
+			"guide": "forever/horde/40-50/03-feralas.guide",
+			"goal": "collect 1424.1",
+			"kind": "elite",
+			"title": "Pool of Tears",
+			"level": 44.8,
+			"mobs": [
+				"Mukomonji 62-62"
+			],
+			"reason": "not a threat: Mukomonji is a neutral quest NPC at the Pool of Tears, whom the data lacks a reaction for",
+			"evidence": "route level 44.8; Mukomonji 62-62; recordings (2026-11-13): met as neutral at 61-63,52-55 and handed a quest in to; Pool of Tears done by 3 people (median 45.2), 0 died there"
+		},
+		{
+			"key": "forever/horde/40-50/03-feralas.guide|collect 1430.1|over",
+			"guide": "forever/horde/40-50/03-feralas.guide",
+			"goal": "collect 1430.1",
+			"kind": "over",
+			"title": "Fresh Meat",
+			"level": 44.8,
+			"mobs": [
+				"Methuselah Crab 60-60 x3"
+			],
+			"reason": "a level 60 roamer players give room to: the Methuselah Crab walks the south-east strand, and the step's tip warns about it",
+			"evidence": "route level 44.8; Methuselah Crab 60-60 x3; recordings (2026-11-13): 13 sightings of the Methuselah Crab (hostile, level 60) at 79-80,90-94, never fought, it killed nobody; the strand's quests done by 2 people (median 45.3), 0 died there"
+		},
+		{
+			"key": "forever/horde/40-50/03-feralas.guide|collect 3128.1|over",
+			"guide": "forever/horde/40-50/03-feralas.guide",
+			"goal": "collect 3128.1",
+			"kind": "over",
+			"title": "Natural Materials",
+			"level": 45.8,
+			"mobs": [
+				"Vale Screamer 60-60 x2"
+			],
+			"reason": "a level 60 flyer players keep clear of: the Vale Screamer over the forest west of Camp Mojache; the step's tip warns about it",
+			"evidence": "route level 45.8; Vale Screamer 60-60 x2; recordings (2026-11-13): 23 sightings of the Vale Screamer (hostile, level 60) at 46-54,38-51, one kill by a player, it killed nobody"
+		},
+		{
+			"key": "forever/horde/40-50/03-feralas.guide|collect 699.1|over",
+			"guide": "forever/horde/40-50/03-feralas.guide",
+			"goal": "collect 699.1",
+			"kind": "over",
+			"title": "Lack of Surplus",
+			"level": 44.8,
+			"mobs": [
+				"Methuselah Crab 60-60 x8"
+			],
+			"reason": "a level 60 roamer players give room to: the Methuselah Crab walks the south-east strand, and the step's tip warns about it",
+			"evidence": "route level 44.8; Methuselah Crab 60-60 x8; recordings (2026-11-13): 13 sightings of the Methuselah Crab (hostile, level 60) at 79-80,90-94, never fought, it killed nobody; the strand's quests done by 2 people (median 45.3), 0 died there"
+		},
+		{
+			"key": "forever/horde/40-50/03-feralas.guide|collect 699.1|pack",
+			"guide": "forever/horde/40-50/03-feralas.guide",
+			"goal": "collect 699.1",
+			"kind": "pack",
+			"title": "Lack of Surplus",
+			"level": 44.8,
+			"mobs": [
+				"8 spawns 46+"
+			],
+			"reason": "players do it at the route's level: the strand's snappers and crawlers stand one level over",
+			"evidence": "route level 44.8; 8 spawns 46+; recordings (2026-11-13): Lack of Surplus done by 2 people (median 45.3), 0 died within 60 yd"
+		},
+		{
+			"key": "forever/horde/40-50/03-feralas.guide|kill 1426.1|over",
+			"guide": "forever/horde/40-50/03-feralas.guide",
+			"goal": "kill 1426.1",
+			"kind": "over",
+			"title": "Threat From the Sea",
+			"level": 45.1,
+			"mobs": [
+				"Methuselah Crab 60-60 x2"
+			],
+			"reason": "a level 60 roamer players give room to: the Methuselah Crab walks the south-east strand, and the step's tip warns about it",
+			"evidence": "route level 45.1; Methuselah Crab 60-60 x2; recordings (2026-11-13): 13 sightings of the Methuselah Crab (hostile, level 60) at 79-80,90-94, never fought, it killed nobody; the strand's quests done by 2 people (median 45.3), 0 died there"
+		},
+		{
+			"key": "forever/horde/40-50/04-tanaris.guide|collect 3161.1|over",
+			"guide": "forever/horde/40-50/04-tanaris.guide",
+			"goal": "collect 3161.1",
+			"kind": "over",
+			"title": "Gahz'ridian",
+			"level": 46.3,
+			"mobs": [
+				"Sun Admirer 62-62 x2"
+			],
+			"reason": "no player has met it: no recorded sighting at all, though players did the quest there; a data leftover the census rule doesn't reach",
+			"evidence": "route level 46.3; Sun Admirer 62-62 x2; recordings (2026-11-13): zero unit, kill or death events for this creature in the whole archive; the quest done there by 5 people (median 46.9), 0 died within 60 yd, none to it"
+		},
+		{
+			"key": "forever/horde/40-50/04-tanaris.guide|collect 7722.1|over",
+			"guide": "forever/horde/40-50/04-tanaris.guide",
+			"goal": "collect 7722.1",
+			"kind": "over",
+			"title": "What the Flux?",
+			"level": 47.5,
+			"mobs": [
+				"Lieutenant Skarresh 58-60 x2"
+			],
+			"reason": "no player has met it: no recorded sighting at all, though players did the quest there; a data leftover the census rule doesn't reach",
+			"evidence": "route level 47.5; Lieutenant Skarresh 58-60 x2; recordings (2026-11-13): zero unit, kill or death events for this creature in the whole archive; the quest done there by 2 people (median 50.3), 1 died within 60 yd, none to it"
+		},
+		{
+			"key": "forever/horde/40-50/04-tanaris.guide|collect 7728.2|over",
+			"guide": "forever/horde/40-50/04-tanaris.guide",
+			"goal": "collect 7728.2",
+			"kind": "over",
+			"title": "STOLEN: Smithing Tuyere and Lookout's Spyglass",
+			"level": 47.5,
+			"mobs": [
+				"Infernus Siege Giant 60-60 x2",
+				"Lord Gazzran 62-62 x2"
+			],
+			"reason": "no player has met it: no recorded sighting at all, though players did the quest there; a data leftover the census rule doesn't reach",
+			"evidence": "route level 47.5; Infernus Siege Giant 60-60 x2, Lord Gazzran 62-62 x2; recordings (2026-11-13): zero unit, kill or death events for this creature in the whole archive; the quest done there by 3 people (median 49.1), 0 died within 60 yd, none to it"
+		},
+		{
+			"key": "forever/horde/40-50/04-tanaris.guide|kill 7724.1|pack",
+			"guide": "forever/horde/40-50/04-tanaris.guide",
+			"goal": "kill 7724.1",
+			"kind": "pack",
+			"title": "Fiery Menace!",
+			"level": 47,
+			"mobs": [
+				"8 spawns 49+"
+			],
+			"reason": "players do it above the route's level: the Greater Lava Spiders stand two levels over the model, players come about two levels higher",
+			"evidence": "route level 47; 8 spawns 49+; recordings (2026-11-13): Fiery Menace! done by 3 people (median 49.1), 0 died within 60 yd"
 		}
 	]
 }
