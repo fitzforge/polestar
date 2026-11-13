@@ -11544,3 +11544,11 @@ test('Darkspear Islands Reputation: the mark quests point at the Warbringer and 
 	assert.equal((src.match(/One stands here at the Merchant Coast, beside the portal/g) || []).length, 4);
 	assert.equal((src.match(/One stands here at Northwatch Hold, beside the portal/g) || []).length, 4);
 });
+
+// #1984: Captain Garran Vimes never offers Vimes's Report (1288) after The Deserters (1287): at least 10 recorded
+// hand-ins of 1287 and no run of 1288 at all. The 40-50 Alliance Theramore steps waited on its accept; the route
+// leaves it out (the 0.4.0 rebuild applies the record).
+test('route-fixes leaves Vimes\'s Report out on the Alliance side (#1984)', () => {
+	const { overrides } = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', 'route-fixes.json'), 'utf8'));
+	assert.ok(overrides.skip.some((r) => r.q === 1288 && r.faction === 'Alliance'), 'route-fixes leaves 1288 out on the Alliance side');
+});
