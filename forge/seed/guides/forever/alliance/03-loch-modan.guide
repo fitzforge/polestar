@@ -23,12 +23,16 @@ next forever/alliance/03-darkshore-return
 # from their start, fly from Thelsamar instead: #1508) -> Ironforge (flight path) ->
 # the tram -> Stormwind -> Elwynn -> Redridge: Three Corners, Lakeshire (flight path) and the
 # loop west and south of the lake -> the walk west through Goldshire (Smith Argus) to Sentinel
-# Hill -> Stormwind by gryphon (Shaw, General Marcus) and back -> Moonbrook (People's Militia
+# Hill -> Stormwind by gryphon (Shaw, training, Baros Alexston for Expanding Horizons, Human Paladins'
+# Redemption, General Marcus) and back -> Moonbrook (People's Militia
 # part 2 and Alba's crates, moved here from 02-westfall's second half), the lighthouse, the
 # traitor's escort -> the gryphon to Lakeshire -> the gnoll hills north of the lake ->
-# Lakeshire, then back to Auberdine: the gryphon to Stormwind (Sprite Jumpsprocket, Baros Alexston
-# for Expanding Horizons, whose reply goes to Thundris where the boat lands) and the boat, or the
-# Hearthstone (still bound there since the first Darkshore visit).
+# Lakeshire. Darkshore's southern loops come next (03-darkshore-return): the guide ends at Lakeshire and the
+# travel planner takes you back to Auberdine, by the Hearthstone (bound there since the first Darkshore visit)
+# when it is ready, else by the gryphon to Stormwind and the boat (#2082: the forced gryphon and boat were
+# slower than the Hearthstone; players' recordings, 4 people: 12-18 minutes from the Lakeshire gryphon to
+# landing in Darkshore). Explosive Consultation (92748, from Alba Fairmoon on the traitor's stop) goes to
+# Sprite Jumpsprocket on 06-ashenvale's Stormwind stop.
 # The Westfall stretch needs The Defias Brotherhood (65) from 02-westfall: a player who loads
 # this guide without it goes from Goldshire to Stormwind's gate (General Marcus) and flies
 # back to Lakeshire instead.
@@ -39,7 +43,7 @@ next forever/alliance/03-darkshore-return
 # stop (Humans), is handed to Mountaineer Stormpike on the first Algaz Station stop.
 # Human Paladins: The Tome of Divinity (1786, 1787, from Gazin Tenorm on 02-westfall's last Stormwind stop) on
 # this guide's walk east through Elwynn (Henze Faulk at Stone Cairn Lake, north of the bridge) and Redemption
-# (1788) at the Cathedral of Light on its last Stormwind stop, at about 20-21 instead of 04's Elwynn road and
+# (1788) at the Cathedral of Light on its Stormwind stop, at about 20-21 instead of 04's Elwynn road and
 # 05's Stormwind stop at about 26 (those steps stay for a Paladin still carrying the quests).
 # Left out:
 # A Dark Threat Looms (161) goes on to Ashlan Stonesmirk at Whelgar's dig, three levels later.
@@ -343,6 +347,37 @@ step Stormwind's gate
   tip No Defias Brotherhood from Wiley (it starts with Gryan Stoutmantle's letter in Westfall): skip Westfall. North along the road from Goldshire to Stormwind: General Marcus Jonathan sits on his horse at the far end of the bridge outside the main gate. Then the gryphons in the Trade District, back to Lakeshire.
   turnin 120                                  -- General Marcus Jonathan, outside the main gate
   accept 121
+
+step Class trainer
+  when !turnedin 65
+  only Warrior,Paladin,Hunter,Rogue,Priest,Mage,Warlock
+  zone Stormwind City
+  tip Train on the way through the city: Old Town (Warriors, Rogues), the Cathedral of Light (Paladins, Priests), the Mage Quarter (Mages, Warlocks), the Dwarven District (Hunters).
+  train class only Warrior,Paladin,Hunter,Rogue,Priest,Mage,Warlock
+
+step Baros Alexston
+  when !turnedin 65
+  when onquest 97914
+  zone Stormwind City
+  tip Baros Alexston stands at the east side of Cathedral Square.
+  turnin 97914                                -- Baros Alexston: Thundris' letter from Auberdine
+  accept 97926 optional                       -- For Thundris Windweaver in Auberdine, where Darkshore goes on
+
+step Gazin Tenorm
+  when !turnedin 65
+  only Human,Paladin
+  zone Stormwind City
+  when onquest 1787,1788
+  tip Gazin Tenorm and Duthorian Rall are in the Cathedral of Light, on Cathedral Square.
+  goto 50.5,47.5 "Cathedral of Light" live
+  turnin 1787 only Human -- Gazin Tenorm
+  accept 1788 only Human
+  turnin 1788 only Human -- Duthorian Rall: Redemption
+
+step Fly to Lakeshire
+  when !turnedin 65
+  zone Stormwind City
+  tip The gryphons are in the Trade District.
   fly "Lakeshire"
 
 step Westfall
@@ -369,9 +404,40 @@ step Fly to Stormwind
 step Stormwind
   when turnedin 65
   zone Stormwind City
-  tip Master Mathias Shaw is upstairs in the SI:7 building in Old Town: the stairs are hard to see at first. General Marcus Jonathan sits on his horse at the far end of the bridge outside the main gate, then back to the gryphons in the Trade District.
+  tip Master Mathias Shaw is upstairs in the SI:7 building in Old Town: the stairs are hard to see at first.
   turnin 135                                  -- Master Mathias Shaw, SI:7; upstairs
   accept 141
+
+step Class trainer
+  when turnedin 65
+  only Warrior,Paladin,Hunter,Rogue,Priest,Mage,Warlock
+  zone Stormwind City
+  tip Train while you're here: Old Town (Warriors, Rogues), the Cathedral of Light (Paladins, Priests), the Mage Quarter (Mages, Warlocks), the Dwarven District (Hunters).
+  train class only Warrior,Paladin,Hunter,Rogue,Priest,Mage,Warlock
+
+step Baros Alexston
+  when turnedin 65
+  when onquest 97914
+  zone Stormwind City
+  tip Baros Alexston stands at the east side of Cathedral Square, between Old Town and the main gate.
+  turnin 97914                                -- Baros Alexston: Thundris' letter from Auberdine
+  accept 97926 optional                       -- For Thundris Windweaver in Auberdine, where Darkshore goes on
+
+step Gazin Tenorm
+  when turnedin 65
+  only Human,Paladin
+  zone Stormwind City
+  when onquest 1787,1788
+  tip Gazin Tenorm and Duthorian Rall are in the Cathedral of Light, on Cathedral Square.
+  goto 50.5,47.5 "Cathedral of Light" live
+  turnin 1787 only Human -- Gazin Tenorm
+  accept 1788 only Human
+  turnin 1788 only Human -- Duthorian Rall: Redemption
+
+step General Marcus Jonathan
+  when turnedin 65
+  zone Stormwind City
+  tip General Marcus Jonathan sits on his horse at the far end of the bridge outside the main gate; then back to the gryphons in the Trade District.
   turnin 120                                  -- General Marcus Jonathan, outside the main gate
   accept 121
   fly "Sentinel Hill"
@@ -456,37 +522,3 @@ step Lakeshire
   turnin 89                                   -- Foreman Oslow
   accept 98386                                -- Foreman Oslow: Alther's Mill, for your next Redridge visit
   accept 150                                  -- Dockmaster Baren, on the docks: the murlocs are for your next Redridge visit
-
-# ---------------------------------------------------------------- Back to Darkshore
-
-step Fly to Stormwind
-  zone Redridge Mountains
-  tip Back to Auberdine for Darkshore's southern loops: the gryphon to Stormwind, then the boat from the harbour.
-  goto 25.5,59.4 "Lakeshire flight master" live
-  fly "Stormwind"
-
-step Sprite Jumpsprocket
-  when onquest 92748
-  zone Stormwind City
-  turnin 92748                                -- Sprite Jumpsprocket, Dwarven District
-
-step Baros Alexston
-  when onquest 97914
-  zone Stormwind City
-  tip Baros Alexston stands at the east side of Cathedral Square, on the way from the Dwarven District to the harbour.
-  turnin 97914                                -- Baros Alexston: Thundris' letter from Auberdine
-  accept 97926 optional                       -- For Thundris Windweaver, where the boat lands
-
-step Gazin Tenorm
-  only Human,Paladin
-  zone Stormwind City
-  when onquest 1787,1788
-  tip Gazin Tenorm and Duthorian Rall are in the Cathedral of Light, on Cathedral Square, on the way to the harbour.
-  goto 50.5,47.5 "Cathedral of Light" live
-  turnin 1787 only Human -- Gazin Tenorm
-  accept 1788 only Human
-  turnin 1788 only Human -- Duthorian Rall: Redemption
-
-step Boat to Auberdine
-  zone Stormwind City
-  goto 22.71,56.69 "Boat to Auberdine" live
