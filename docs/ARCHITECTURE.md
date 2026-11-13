@@ -4489,7 +4489,10 @@ crossings inside Western Plaguelands is a walk through it, #566) (`Travel.Replan
 too). A walk half through a far-above zone costs x10.5, half through a
 dangerous one x2. The zones read are kept per chunk (16 to a tile) for the
 session's `Path.ZoneAt`, so later plans between the same places ask the
-router nothing. With `nav.navRouting` off or the guiding handed to Shortest
+router nothing; a chunk not seen yet is read with its whole tile in one pass
+(`Path.ZoneTile`: 512 bytes a tile, kept beside the chunks; 0.4.0, D18: a
+plan's first lines across a continent read up to 4,569 chunks one pass each,
+up to 22 ms; by tile under 13 ms, the same answers). With `nav.navRouting` off or the guiding handed to Shortest
 Path Forever (`Nav.HandedOff()`), the next plan's estimates are today's at
 once, even though the loaded engine stays; likewise without `Path.ZoneAt` (no
 maps), its zone field or a dangerous zone. A measured walk (`p.walkCost`)

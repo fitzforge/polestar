@@ -63,7 +63,7 @@ local type, pairs, ipairs, pcall = type, pairs, ipairs, pcall
 local sqrt, floor, huge = math.sqrt, math.floor, math.huge
 local format, lower = string.format, string.lower
 
-local Travel = { version = 0 }
+local Travel = { version = 0, zoneOfPoint = {} }
 Nav.travel = Travel
 
 ns.RegisterDefaults("nav", { travel = true, detourCaption = false })
@@ -184,6 +184,7 @@ local function clearData()
 	zoneInfo, wildZone, covered = {}, {}, {}
 	crossEnds, crossIds, openPair, chains, areasIn = {}, {}, {}, {}, {}
 	pathZone, zoneVersion = {}, zoneVersion + 1
+	Travel.zoneOfPoint = {}
 end
 
 -- replace: drop what was registered before (tests and tools use it).
@@ -340,6 +341,7 @@ function Nav.RegisterCrossings(d)
 		for c in pairs(touched) do covered[c] = true end
 	end
 	pathZone, zoneVersion = {}, zoneVersion + 1
+	Travel.zoneOfPoint = {}
 	Travel.version = Travel.version + 1
 end
 
@@ -672,16 +674,29 @@ local function planRoute(p)
 	-- Vertices (vzone: the zone on a continent with crossing data)
 	local vc, vx, vy, vkind, vref, vzone = {}, {}, {}, {}, {}, {}
 	local n = 0
-	local function add(kind, c, wx, wy, ref, map)
+	-- A fixed point's zone (`key`: a flight master, a dock or portal end, an inn, a crossing end, a chain node) is
+	-- worked out once per zone data where its map is one of the crossing data's zones, the same every plan
+	-- (Travel.zoneOfPoint, emptied with the zone data). `zone`: the zone already known (false: none).
+	local zoneMemo = Travel.zoneOfPoint
+	local function add(kind, c, wx, wy, ref, map, key, zone)
 		n = n + 1
 		vc[n], vx[n], vy[n], vkind[n], vref[n] = c, wx, wy, kind, ref
-		if covered[c] then vzone[n] = Travel.ZoneOf(map, c, wx, wy) end
+		if covered[c] then
+			if zone == nil then
+				zone = key and zoneMemo[key]
+				if zone == nil then
+					zone = Travel.ZoneOf(map, c, wx, wy) or false
+					local info = key and map and zoneInfo[map]
+					if info and info.c == c then zoneMemo[key] = zone end
+				end
+			end
+			vzone[n] = zone or nil
+		end
 		return n
 	end
 	add(START, p.c, p.wx, p.wy, nil, p.map)
-	add(TARGET, tg.c, tg.wx, tg.wy, tg, tg.map)
 	-- The target's zone is where the walking maps put its point (zoneOf's `target`, #1694).
-	if covered[tg.c] then vzone[2] = Travel.ZoneOf(tg.map, tg.c, tg.wx, tg.wy, true) end
+	add(TARGET, tg.c, tg.wx, tg.wy, tg, tg.map, nil, covered[tg.c] and (Travel.ZoneOf(tg.map, tg.c, tg.wx, tg.wy, true) or false) or nil)
 	-- learnV[v]: a flight master of the player's not learnt yet, on the start's or the target's continent. Talking
 	-- to it learns it and opens its flight map, so it is walked to and flown from like a known one, never flown to
 	-- (its flights go only to known ones): Ironforge's beside a player who has Menethil Harbor (#1174). Its flight
@@ -697,14 +712,14 @@ local function planRoute(p)
 		elseif not allowed(node.faction, faction, node.class) then
 			-- the other faction's, or another class's
 		elseif known[node.id] or node.class then
-			taxiV[node.id] = add(TAXI, node.c, node.wx, node.wy, node, node.map)
+			taxiV[node.id] = add(TAXI, node.c, node.wx, node.wy, node, node.map, node)
 		elseif node.c ~= p.c and node.c ~= tg.c then
 			-- on another continent: not on the way
 		elseif maybe and seen and maybe(node, seen, level) then
-			local v = add(TAXI, node.c, node.wx, node.wy, node, node.map)
+			local v = add(TAXI, node.c, node.wx, node.wy, node, node.map, node)
 			taxiV[node.id], maybeV[v] = v, true
 		else
-			learnV[add(TAXI, node.c, node.wx, node.wy, node, node.map)] = true
+			learnV[add(TAXI, node.c, node.wx, node.wy, node, node.map, node)] = true
 		end
 	end
 	local rideTo, rideCost, dockEnd, dockOf, dockSide, portalV = {}, {}, {}, {}, {}, {}
@@ -712,8 +727,8 @@ local function planRoute(p)
 		if allowed(t.faction, faction) and not (skip and skip.transports[t]) then
 			-- The dock: the end's board point on the deck when its ship lies off the pier.
 			local da, db = t.a.board or t.a, t.b.board or t.b
-			local va = add(DOCK, da.c, da.wx, da.wy, t, da.map)
-			local vb = add(DOCK, db.c, db.wx, db.wy, t, db.map)
+			local va = add(DOCK, da.c, da.wx, da.wy, t, da.map, da)
+			local vb = add(DOCK, db.c, db.wx, db.wy, t, db.map, db)
 			rideTo[va], rideTo[vb] = vb, va
 			rideCost[va], rideCost[vb] = t.waitA + t.ab, t.waitB + t.ba
 			dockEnd[va], dockEnd[vb] = da, db
@@ -724,8 +739,8 @@ local function planRoute(p)
 	-- Walk-in portals: a ride one way, from a to b.
 	for _, t in ipairs(walkOnly and {} or portals) do
 		if allowed(t.faction, faction) and not (skip and skip.transports[t]) then
-			local va = add(DOCK, t.a.c, t.a.wx, t.a.wy, t, t.a.map)
-			local vb = add(DOCK, t.b.c, t.b.wx, t.b.wy, t, t.b.map)
+			local va = add(DOCK, t.a.c, t.a.wx, t.a.wy, t, t.a.map, t.a)
+			local vb = add(DOCK, t.b.c, t.b.wx, t.b.wy, t, t.b.map, t.b)
 			rideTo[va], rideCost[va] = vb, t.seconds
 			dockEnd[va], dockEnd[vb] = t.a, t.b
 			dockOf[va], dockOf[vb] = t, t
@@ -734,7 +749,7 @@ local function planRoute(p)
 		end
 	end
 	local departure = p.departure
-	local innV = not walkOnly and not p.noHearth and not p.noStone and p.hearth and add(INN, p.hearth.c, p.hearth.wx, p.hearth.wy, p.hearth, p.hearth.map)
+	local innV = not walkOnly and not p.noHearth and not p.noStone and p.hearth and add(INN, p.hearth.c, p.hearth.wx, p.hearth.wy, p.hearth, p.hearth.map, p.hearth)
 	-- Class teleports: { spell, name, to = point, cast = seconds, ready = seconds until castable }.
 	-- Never one that lands in the zone or city the player stands in: a Mage in
 	-- Stormwind is not sent to Teleport: Stormwind to cross the city (#1515).
@@ -751,7 +766,7 @@ local function planRoute(p)
 		if e.bind then
 			to = not p.noHearth and p.hearth
 			if to and to.c and to.wx and to.wy and not (skip and skip.spells[e.spell]) then
-				local v = add(INN, to.c, to.wx, to.wy, to, to.map)
+				local v = add(INN, to.c, to.wx, to.wy, to, to.map, to)
 				bindV[v] = e
 				if p.hearthLength and e.length then
 					tie[innV or 0], tie[v] = p.hearthLength / 3600, e.length / 3600
@@ -762,21 +777,21 @@ local function planRoute(p)
 		elseif to and to.c and to.wx and to.wy and not (skip and skip.spells[e.spell])
 			and not (p.map and to.map == p.map) then
 			-- Arrived at like an inn: walked from, never walked to.
-			teleV[add(INN, to.c, to.wx, to.wy, to, to.map)] = e
+			teleV[add(INN, to.c, to.wx, to.wy, to, to.map, to)] = e
 		end
 	end
 	-- Crossing ends and chain nodes, on continents walked through crossing data.
 	local crossV, chainV = {}, {}
 	if zoned then
 		for _, e in ipairs(crossEnds) do
-			if covered[e.c] then crossV[e] = add(CROSS, e.c, e.wx, e.wy, e, e.map) end
+			if covered[e.c] then crossV[e] = add(CROSS, e.c, e.wx, e.wy, e, e.map, e) end
 		end
 		for _, ch in ipairs(chains) do
 			local nodes = ch.nodes
 			for k, nd in ipairs(nodes) do
 				if covered[nd.c] then
 					local mouth = k == 1 or (k == #nodes and ch.open == "both")
-					chainV[nd] = add(mouth and CHAIN or DARK, nd.c, nd.wx, nd.wy, nd, nd.map)
+					chainV[nd] = add(mouth and CHAIN or DARK, nd.c, nd.wx, nd.wy, nd, nd.map, nd)
 				end
 			end
 		end

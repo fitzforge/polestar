@@ -69,7 +69,7 @@ local ADDON, ns = ...
 local Nav = ns.Nav
 
 local type, ipairs, sort, concat, pcall = type, ipairs, table.sort, table.concat, pcall
-local sqrt, ceil, floor = math.sqrt, math.ceil, math.floor
+local sqrt, ceil, floor, byte = math.sqrt, math.ceil, math.floor, string.byte
 
 local DANGEROUS = 4   -- a zone's lowest level at least this far above: x DANGEROUS_MULT
 local FAR_ABOVE = 10  -- more than this far above: x FAR_MULT
@@ -166,10 +166,15 @@ end
 -- field holds one zone per chunk, 16 to a 533.33 yd tile and tile-aligned
 -- (tools/lib/nav/pack.js HEADER), so a plan's lines between the same places
 -- (flight masters, docks) ask the router once per chunk, not once per plan.
--- Kept for one Path.ZoneAt (another one, a new memo); dropped past MEMO_MAX.
+-- A chunk not seen yet is read from its whole tile's zones, read in one pass
+-- and kept too (Path.ZoneTile, 512 bytes a tile): read one chunk at a time,
+-- a plan's first lines across a continent cost up to 22 ms (0.4.0, D18: 4,569
+-- chunks for one estimate), now a pass per tile. Kept for one Path.ZoneAt
+-- (another one, a new memo); dropped past MEMO_MAX chunks or TILES_MAX tiles.
 local CHUNKS = 16 / (1600 / 3) -- chunks per yard
-local MEMO_MAX = 32768
+local MEMO_MAX, TILES_MAX = 32768, 1024
 local memo, memoFn, memoSize = {}, nil, 0
+local tiles, tilesN = {}, 0 -- [map] = { [tile key] = { zones string, cx0, cy0 } | false }
 
 local function zoneOf(zoneAt, map, x, y)
 	local m = memo[map]
@@ -177,10 +182,32 @@ local function zoneOf(zoneAt, map, x, y)
 		m = {}
 		memo[map] = m
 	end
-	local key = (floor(x * CHUNKS) + 4096) * 8192 + floor(y * CHUNKS) + 4096
+	local cx, cy = floor(x * CHUNKS), floor(y * CHUNKS)
+	local key = (cx + 4096) * 8192 + cy + 4096
 	local z = m[key]
 	if z == nil then
-		z = zoneAt(map, x, y) or false
+		local t = tiles[map]
+		if not t then
+			t = {}
+			tiles[map] = t
+		end
+		local tk = (floor(cx / 16) + 256) * 512 + floor(cy / 16) + 256
+		local e = t[tk]
+		if e == nil then
+			local P = Nav.Path
+			local s, cx0, cy0
+			if P and P.ZoneTile then s, cx0, cy0 = P.ZoneTile(map, x, y) end
+			e = s and { s, cx0, cy0 } or false
+			t[tk], tilesN = e, tilesN + 1
+		end
+		local qx, qy = e and cx - e[2], e and cy - e[3]
+		if e and qx >= 0 and qx < 16 and qy >= 0 and qy < 16 then
+			local hi, lo = byte(e[1], 2 * (qx * 16 + qy) + 1, 2 * (qx * 16 + qy) + 2)
+			z = hi * 256 + lo
+			if z == 0 then z = false end
+		else
+			z = zoneAt(map, x, y) or false
+		end
 		m[key] = z
 		memoSize = memoSize + 1
 	end
@@ -209,7 +236,7 @@ function Danger.Along(danger, map, x1, y1, x2, y2, road)
 	-- Another continent whose walking maps have not loaded (its part loads when the player gets there) has no zones
 	-- yet: none is remembered as none.
 	if not known(P, map) then return 1 end
-	if zoneAt ~= memoFn or memoSize > MEMO_MAX then memo, memoFn, memoSize = {}, zoneAt, 0 end
+	if zoneAt ~= memoFn or memoSize > MEMO_MAX or tilesN > TILES_MAX then memo, memoFn, memoSize, tiles, tilesN = {}, zoneAt, 0, {}, 0 end
 	local ok, f = pcall(along, zoneAt, danger, map, x1, y1, x2, y2, road and roadOf[danger] or nil)
 	return ok and type(f) == "number" and f >= 1 and f or 1
 end

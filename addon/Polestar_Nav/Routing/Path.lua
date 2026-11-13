@@ -1925,6 +1925,29 @@ function Path.ZoneAt(map, x, y)
 	return k and zoneAt(st, k, lc) or nil
 end
 
+-- Every chunk's zone in the tile (cluster) holding the world point (x, y) on map, read in one pass (Path.ZoneAt reads
+-- one chunk a pass): a string of 512 bytes, the chunk qx chunks along x and qy along y from the tile's corner the
+-- uiMapID in bytes 2 * (qx * 16 + qy) + 1 (high) and + 2 (low), 0 for none; and the world chunk indices of that corner
+-- (a chunk is 1/16 of a tile: floor(x * 16 / tile) along x). Nav/Danger.lua keeps it for its straight lines. -> s,
+-- cx0, cy0; nil outside the map's data or on a map without the field.
+---@param map number
+---@param x number
+---@param y number
+---@return string?, integer?, integer?
+function Path.ZoneTile(map, x, y)
+	local st = State(map)
+	if not st or not st.zoned then
+		return nil
+	end
+	local k = locate(st, x, y)
+	local s = k and Grid.zoneString(st, k)
+	if not s then
+		return nil
+	end
+	local side = st.C * st.cs
+	return s, 16 * (floor(st.x0 / side + 0.5) + floor(k / st.ny)), 16 * (floor(st.y0 / side + 0.5) + k % st.ny)
+end
+
 -- The town hostile to profile (Costs.Profile) whose ground holds the world point (x, y) on map: one of its disks in
 -- the map's hubs metadata (D.hubs, Nav/Nav<map>.lua) -> its id and English name; nil without one, without a profile or
 -- hubs. Reads the metadata only.
