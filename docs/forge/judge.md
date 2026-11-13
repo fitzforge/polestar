@@ -443,6 +443,22 @@ Then, per start:
   `turnin Q`, `work Q`); out of order is what falls outside the longest common
   order. `losses` is the written walk's extra minutes before each common event,
   biggest first: where the written guides lose time against the plan.
+- **Per guide** (`minutesByGuide`: `["v1", [...]]` and `["written", [...]]`, as
+  `rows`, each list in the order the walk to 60 enters the guides): each guide's model minutes (its goals'
+  time, the travel to each included, so the rows add up to the chain's hours),
+  the quests it hands in and the level at its first goal and after its last.
+  report.md puts every guide of the written chain beside the same guide of the
+  base chain (`change` is written less base), then the base chain's guides the
+  written chain does not have. A guide the two chains name differently (the
+  shipped `orc/` and `troll/` start guides against the seed's `orc-troll/`)
+  shows as two rows. It is where a route change's minutes land, guide by guide.
+- **Timed quests** (`timed`: `["v1", [...]]` and `["written", [...]]`): every
+  quest with a time limit the walk to 60 accepts, from its first accept to the
+  first hand-in after it, in model minutes (`gapMin`, empty when the walk does
+  not hand it in) against the limit (`limitMin`), with the guide of the accept.
+  report.md shows each gap's share of the limit for both chains: the model's
+  times are a fast player's, so a hand-in that uses most of the limit leaves
+  a slower player little room.
 
 A healthy written start: hours lower than v1 at 30 and 60, passed by and
 returns no worse, no new honest failures, no new seed-test failures, lint 0
