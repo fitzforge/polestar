@@ -151,9 +151,9 @@ return {
 	-- {npc:11596} Smeed Scrabblescrew · {item:13892} Kodo Kombobulator · {npc:4702} Ancient Kodo
 	["Use {npc:11596}'s {item:13892} on an Aged, Dying or {npc:4702} in the graveyard and walk the tamed kodo back to {npc:11596}. At his camp, talk to the kodo: that counts it and lets you tame the next. Five kodos, one at a time."] = "",
 	-- {npc:4702} Ancient Kodo
-	["on an Aged, Dying or {npc:4702} in the graveyard; don't kill it"] = "",
+	["on an Aged, Dying or {npc:4702} in the graveyard; don't kill it"] = "en un kodo viejo, moribundo o {npc:4702} en el cementerio; no lo mates",
 	-- {npc:11596} Smeed Scrabblescrew
-	["the tamed kodo, at {npc:11596}'s camp: talk to it, five times"] = "",
+	["the tamed kodo, at {npc:11596}'s camp: talk to it, five times"] = "el kodo domado, en el campamento de {npc:11596}: habla con él, cinco veces",
 
 	-- Step 30: Level 33
 	["Level 33"] = "",
@@ -182,7 +182,7 @@ return {
 	-- Step 33: Thunder Axe Fortress
 	-- {area:599} Thunder Axe Fortress · {item:6436} Burning Gem · {item:6435} Infused Burning Gem · {npc:13019} Burning Blade Seer · {item:20310} Flayed Demon Skin · {quest:5381} Hand of Iruxos · {item:14523} Demon Pick · {object:176581} Hand of Iruxos Crystal (no name in this language: may be words) · {npc:11876} Demon Spirit · {item:13542} Demon Box
 	["Head east to {area:599}. Beat a Burning Blade cultist down, then use the {item:6436} on it before it dies to fill one {item:6435}. The {npc:13019} stands on the fortress's top floor with the Sceptre. The cultists also drop a {item:20310} now and then (1-5%); if one drops, read it. {quest:5381}: clear the middle of the largest building, then use the {item:14523} on the red {object:176581} there. A {npc:11876} (37) comes out: kill it for the {item:13542}."] = "",
-	["On the top floor"] = "",
+	["On the top floor"] = "En el piso superior",
 	-- {item:14523} Demon Pick · {object:176581} Hand of Iruxos Crystal (no name in this language: may be words)
 	["{item:14523}, on the {object:176581}"] = "",
 
@@ -203,7 +203,7 @@ return {
 	["Giant Softshell Clams, on the sea floor"] = "",
 	-- {item:15874} Soft-shelled Clam
 	["{item:15874}: open it in your bags"] = "",
-	["Underwater"] = "",
+	["Underwater"] = "Bajo el agua",
 	-- {item:15878} Rackmore's Silver Key
 	["{item:15878}, from the Drysnap crabs"] = "{item:15878}, de los cangrejos Secachasquido",
 

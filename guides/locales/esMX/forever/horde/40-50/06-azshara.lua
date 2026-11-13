@@ -31,7 +31,7 @@ return {
 	["{npc:7406}, inside"] = "",
 	-- {npc:2491} Whiskey Slim
 	["{npc:2491}, in the inn"] = "",
-	["\"Sea Wolf\" MacKinley, on the top floor"] = "",
+	["\"Sea Wolf\" MacKinley, on the top floor"] = "MacKinley «Lobo de Mar», en el piso superior",
 	-- {npc:2487} Fleet Master Seahorn
 	["{npc:2487}, on the balcony of the same building"] = "",
 
@@ -46,7 +46,7 @@ return {
 
 	-- Step 14: Fly to Grom'gol
 	-- {area:35} Booty Bay
-	["{area:35} flight master"] = "",
+	["{area:35} flight master"] = "Maestro de vuelo de {area:35}",
 
 	-- Step 15: Back to Grom'gol
 	-- {object:3202} Grom'gol (no name in this language: may be words)

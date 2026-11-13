@@ -8,7 +8,7 @@
 return {
 	-- Step 1: Fly to Astranaar
 	-- {area:415} Astranaar
-	["Fly to {area:415}"] = "",
+	["Fly to {area:415}"] = "Vuela a {area:415}",
 	-- {area:702} Rut'theran Village
 	["{area:702} flight master"] = "",
 

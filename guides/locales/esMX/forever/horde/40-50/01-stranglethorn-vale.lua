@@ -38,10 +38,10 @@ return {
 	["{npc:2495}: the {npc:2635} suns on the coast between Zul'Kunda and {object:3202}, later on this loop"] = "{npc:2495}: el {npc:2635} toma el sol en la costa entre Zul'Kunda y {object:3202}, más adelante en este recorrido",
 	-- {npc:4631} Wharfmaster Lozgil
 	["{npc:4631}, on the docks: Gazlowe's letter, if you carry it"] = "{npc:4631}, en los muelles: la carta de Gazlowe, si la llevas",
-	["\"Sea Wolf\" MacKinley, on the top floor"] = "",
+	["\"Sea Wolf\" MacKinley, on the top floor"] = "MacKinley «Lobo de Mar», en el piso superior",
 	-- {npc:2496} Baron Revilgaz
 	["{npc:2496}, on the balcony beside MacKinley"] = "{npc:2496}, en el balcón junto a MacKinley",
-	["Inside"] = "",
+	["Inside"] = "Adentro",
 
 	-- Step 7: Bloodsail Correspondence
 	-- {area:35} Booty Bay
@@ -168,9 +168,9 @@ return {
 
 	-- Step 31: Booty Bay
 	-- {npc:2498} Crank Fizzlebub
-	["{npc:2498}, inside"] = "",
+	["{npc:2498}, inside"] = "{npc:2498}, adentro",
 	-- {npc:737} Kebok
-	["{npc:737}, upstairs"] = "",
+	["{npc:737}, upstairs"] = "{npc:737}, en el piso de arriba",
 	-- {npc:773} Krazek · {quest:2864} Tran'rek · {area:976} Gadgetzan
 	["{npc:773}, upstairs: for {quest:2864} in {area:976}"] = "",
 

@@ -20,7 +20,7 @@ return {
 	-- {zone:1453} Stormwind
 	["Fly to {zone:1453}"] = "Vuela a {zone:1453}",
 	-- {area:35} Booty Bay
-	["{area:35} flight master"] = "",
+	["{area:35} flight master"] = "Maestro de vuelo de {area:35}",
 
 	-- Step 4: Stormwind
 	-- {area:392} Ratchet · {area:35} Booty Bay · {zone:1453} Stormwind
@@ -38,7 +38,7 @@ return {
 
 	-- Step 6: Tram to Ironforge
 	-- {zone:1455} Ironforge
-	["Tram to {zone:1455}"] = "",
+	["Tram to {zone:1455}"] = "Tranvía a {zone:1455}",
 
 	-- Step 7: Ironforge
 	["Its jars are filled on the next Un'Goro visit"] = "Sus tarros se llenan en la próxima visita a Un'Goro",
@@ -47,7 +47,7 @@ return {
 	-- {area:2268} Light's Hope Chapel
 	["Fly to {area:2268}"] = "Vuela a {area:2268}",
 	-- {zone:1455} Ironforge
-	["{zone:1455} flight master"] = "",
+	["{zone:1455} flight master"] = "Maestro de vuelo de {zone:1455}",
 
 	-- Step 9: Light's Hope Chapel
 	-- {npc:11038} Caretaker Alen · {area:2627} Terrordale

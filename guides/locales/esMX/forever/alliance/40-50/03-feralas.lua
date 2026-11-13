@@ -8,7 +8,7 @@
 return {
 	-- Step 1: Into The Barrens
 	-- {zone:1413} The Barrens
-	["Into {zone:1413}"] = "",
+	["Into {zone:1413}"] = "Hacia {zone:1413}",
 
 	-- Step 2: Thalanaar flight master
 	-- {area:489} Thalanaar

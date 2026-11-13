@@ -111,7 +111,7 @@ return {
 
 	-- Step 22: Fly to Chillwind Camp
 	-- {area:150} Menethil Harbor
-	["{area:150} flight master"] = "",
+	["{area:150} flight master"] = "Maestro de vuelo de {area:150}",
 
 	-- Step 23: Chillwind Camp
 	["Pureheart, Dumah, Valorfist and MacDonnell stand around the middle of the camp, by the flight master."] = "Puricorazón, Dumah, Puño de Valor y MacDonnell están en el centro del campamento, junto al maestro de vuelo.",
@@ -125,7 +125,7 @@ return {
 	-- Step 24: Mulgris Deepriver
 	-- {npc:10739} Mulgris Deepriver · {area:202} Writhing Haunt · {zone:1423} Eastern Plaguelands
 	["{npc:10739} stands by the farm at the {area:202}, on the road east to the {zone:1423}."] = "",
-	["Inside"] = "",
+	["Inside"] = "Adentro",
 
 	-- Step 25: Into Eastern Plaguelands
 	-- {zone:1423} Eastern Plaguelands

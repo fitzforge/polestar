@@ -61,7 +61,7 @@ return {
 	-- {npc:4631} Wharfmaster Lozgil
 	["{npc:4631}, on the pier"] = "{npc:4631}, en el muelle",
 	-- {npc:2495} Drizzlik
-	["{npc:2495}, inside"] = "",
+	["{npc:2495}, inside"] = "{npc:2495}, adentro",
 	-- {npc:2498} Crank Fizzlebub
 	["{npc:2498}, inside, on the bottom floor"] = "",
 	-- {npc:2496} Baron Revilgaz
@@ -69,9 +69,9 @@ return {
 	-- {npc:2496} Baron Revilgaz · {area:37} Lake Nazferiti
 	["{npc:2496}: Cozzle's footlocker is at {area:37}, later in this guide"] = "{npc:2496}: el baúl de Cozzle está en {area:37}, más adelante en esta guía",
 	-- {npc:737} Kebok
-	["{npc:737}, upstairs"] = "",
+	["{npc:737}, upstairs"] = "{npc:737}, en el piso de arriba",
 	-- {npc:773} Krazek
-	["{npc:773}, upstairs"] = "",
+	["{npc:773}, upstairs"] = "{npc:773}, en el piso de arriba",
 
 	-- Step 10: Grom'gol
 	-- {area:35} Booty Bay · {object:3202} Grom'gol (no name in this language: may be words)
@@ -93,7 +93,7 @@ return {
 
 	-- Step 14: Stranglethorn Vale: kill these as you meet them
 	-- {zone:1434} Stranglethorn Vale
-	["{zone:1434}: kill these as you meet them"] = "",
+	["{zone:1434}: kill these as you meet them"] = "{zone:1434}: mata a estos según te los encuentres",
 	-- {area:37} Lake Nazferiti
 	-- plural, as words: Stranglethorn Tigers = {npc:682} Stranglethorn Tiger · Venture Co. Geologists = {npc:1096} Venture Co. Geologist · Tumbled Crystals = {item:4106} Tumbled Crystal
 	["Stranglethorn Tigers (32) roam the hills around the camp and south of it, Panthers (32) the clearings west and south-west of it. The Venture Co. Geologists, who carry the Tumbled Crystals, work the camps by {area:37}, south-east of the camp."] = "",
@@ -122,7 +122,7 @@ return {
 
 	-- Step 19: The Savage Coast: kill these as you meet them
 	-- {area:301} The Savage Coast
-	["{area:301}: kill these as you meet them"] = "",
+	["{area:301}: kill these as you meet them"] = "{area:301}: mata a estos según te los encuentres",
 	-- {npc:729} Sin'Dall
 	-- plural, as words: Crystal Spine Basilisks = {npc:689} Crystal Spine Basilisk
 	["West past the camp, Crystal Spine Basilisks (34-35) sit on the rocks; every Bloodscalp in the village beyond can drop an ear.\n{npc:729}, a level 37 tiger, prowls the hilltop south-west of the camp.\nCareful: The raptor nest has young raptors that join the fight when you attack the adults."] = "",
@@ -158,7 +158,7 @@ return {
 	-- {npc:2495} Drizzlik · {npc:2498} Crank Fizzlebub · {npc:2496} Baron Revilgaz · {npc:737} Kebok · {npc:773} Krazek
 	["{npc:2495}'s shop is in the building east of the inn; {npc:2498} is on the inn's bottom floor, {npc:2496}, {npc:737} and {npc:773} upstairs beside the flight master."] = "La tienda de {npc:2495} está en el edificio al este de la posada; {npc:2498} está en la planta baja de la posada, y {npc:2496}, {npc:737} y {npc:773} arriba, junto al maestro de vuelo.",
 	-- {npc:2498} Crank Fizzlebub
-	["{npc:2498}, inside"] = "",
+	["{npc:2498}, inside"] = "{npc:2498}, adentro",
 	-- {npc:2496} Baron Revilgaz · {area:2240} Mirage Raceway · {zone:1446} Tanaris
 	["{npc:2496}: for Pozzik at the {area:2240}, on the way to {zone:1446} around level 43"] = "{npc:2496}: para Pozzik en {area:2240}, de camino a {zone:1446} alrededor del nivel 43",
 
@@ -166,12 +166,12 @@ return {
 	-- {object:3202} Grom'gol (no name in this language: may be words)
 	["Fly to {object:3202}"] = "Vuela a {object:3202}",
 	-- {area:35} Booty Bay
-	["{area:35} flight master"] = "",
+	["{area:35} flight master"] = "Maestro de vuelo de {area:35}",
 
 	-- Step 27: The Vile Reef
 	-- {area:104} Vile Reef · {item:4094} Tablet Shard
 	["North-west of Grom'gol the {area:104} lies under the water off the coast. The {item:4094} rests on the sea floor by the sunken ruins; watch your breath and the murlocs."] = "Al noroeste de Campamento Grom'gol, {area:104} está bajo el agua frente a la costa. El {item:4094} descansa en el fondo del mar junto a las ruinas hundidas; cuida tu respiración y a los múrlocs.",
-	["Underwater"] = "",
+	["Underwater"] = "Bajo el agua",
 
 	-- Step 28: Ruins of Zul'Kunda: kill these as you meet them
 	-- {area:102} Ruins of Zul'Kunda
@@ -206,7 +206,7 @@ return {
 	["The next guide takes the zeppelin to {zone:1454} from the tower on the west side of the camp."] = "",
 
 	-- Step 34: Level 36
-	["Level 36"] = "",
+	["Level 36"] = "Nivel 36",
 	-- {object:3202} Grom'gol (no name in this language: may be words) · {area:796} Scarlet Monastery · {area:1316} Razorfen Downs
 	-- plural, as words: Mosh'Ogg Brutes = {npc:1142} Mosh'Ogg Brute
 	["Dustwallow's quests are 35-38. Still below 36 after {object:3202}'s hand-ins? The Mosh'Ogg Brutes and Witch Doctors camp in the hills just east of the camp: kill them until level 36, pulling one at a time, then walk back to the zeppelin tower. Or, with a group, run the {area:796} dungeon (Armory) or the {area:1316} dungeon instead."] = "",

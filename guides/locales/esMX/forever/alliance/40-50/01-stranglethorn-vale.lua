@@ -52,7 +52,7 @@ return {
 	-- Step 9: Theramore
 	-- {area:514} Foothold Citadel
 	["Follow the road east back to Theramore. The officers are in {area:514}."] = "Sigue el camino al este de vuelta a Theramore. Los oficiales están en {area:514}.",
-	["On the top floor"] = "",
+	["On the top floor"] = "En el piso superior",
 	-- {npc:4948} Adjutant Tesoran
 	["{npc:4948}, on the top floor"] = "",
 	-- {npc:4794} Morgan Stern
@@ -97,7 +97,7 @@ return {
 	-- {zone:1453} Stormwind
 	["Fly to {zone:1453}"] = "Vuela a {zone:1453}",
 	-- {area:150} Menethil Harbor
-	["{area:150} flight master"] = "",
+	["{area:150} flight master"] = "Maestro de vuelo de {area:150}",
 
 	-- Step 20: Riding at 40
 	["Riding at 40"] = "Equitación a nivel 40",
@@ -128,14 +128,14 @@ return {
 
 	-- Step 44: Booty Bay
 	-- {npc:773} Krazek
-	["{npc:773}, upstairs"] = "",
+	["{npc:773}, upstairs"] = "{npc:773}, en el piso de arriba",
 	-- {npc:770} Corporal Kaleb · {area:99} Rebel Camp
 	["for {npc:770} at the {area:99}, on the northern loop"] = "para {npc:770} en {area:99}, en el circuito norte",
 	-- {npc:2487} Fleet Master Seahorn
 	["{npc:2487}, top floor"] = "{npc:2487}, piso superior",
 	-- {npc:737} Kebok
 	["{npc:737}, upstairs: the Skullsplitter trolls, on the northern loop"] = "",
-	["Inside"] = "",
+	["Inside"] = "Adentro",
 	["Seahorn's next errand goes back to Arathi: skip it."] = "El siguiente encargo de Seahorn vuelve a Arathi: omítelo.",
 	-- {npc:2542} Catelyn the Blade
 	["{npc:2542}, upstairs"] = "",
@@ -185,7 +185,7 @@ return {
 	["for {npc:2616} in Theramore: keep it"] = "para {npc:2616} en Theramore: guárdalo",
 	-- {zone:1446} Tanaris
 	["for Stoley in {zone:1446}: keep it; on the top floor"] = "",
-	["\"Sea Wolf\" MacKinley, on the top floor"] = "",
+	["\"Sea Wolf\" MacKinley, on the top floor"] = "MacKinley «Lobo de Mar», en el piso superior",
 
 	-- Step 53: Cortello's scroll
 	["Cortello's scroll"] = "El pergamino de Cortello",
@@ -266,14 +266,14 @@ return {
 	-- {npc:2498} Crank Fizzlebub · {zone:1441} Thousand Needles
 	["{npc:2498}'s next Zanzil errand starts in {zone:1441}: skip it."] = "El siguiente encargo de {npc:2498} sobre Zanzil empieza en {zone:1441}: omítelo.",
 	-- {npc:737} Kebok
-	["{npc:737}, upstairs"] = "",
+	["{npc:737}, upstairs"] = "{npc:737}, en el piso de arriba",
 	["MacKinley's next task sends you after elite ogres: skip it."] = "La siguiente tarea de MacKinley te envía tras ogros élite: omítela.",
 	-- {npc:773} Krazek · {quest:2864} Tran'rek · {zone:1446} Tanaris
 	["{npc:773}: for {quest:2864} in {zone:1446}, keep it"] = "{npc:773}: para {quest:2864} en {zone:1446}, guárdalo",
 
 	-- Step 74: Fly to Stormwind
 	-- {area:35} Booty Bay
-	["{area:35} flight master"] = "",
+	["{area:35} flight master"] = "Maestro de vuelo de {area:35}",
 
 	-- Step 75: Stormwind
 	-- {npc:1141} Angus Stern · {object:2169} Blue Recluse · {npc:5384} Brohann Caskbelly · {object:28027} Dwarven District
@@ -304,7 +304,7 @@ return {
 	-- {area:702} Rut'theran Village
 	["Fly to {area:702}"] = "",
 	-- {area:442} Auberdine
-	["{area:442} flight master"] = "",
+	["{area:442} flight master"] = "Maestro de vuelo de {area:442}",
 
 	-- Step 85: Riding at 40
 	-- {npc:4753} Jartsam · {zone:1457} Darnassus · {npc:4730} Lelanai · {area:17203} Stormwind Harbor · {area:442} Auberdine · {area:702} Rut'theran Village · {npc:4732} Randal Hunter · {area:88} Eastvale Logging Camp · {zone:1429} Elwynn Forest
@@ -314,19 +314,19 @@ return {
 
 	-- Step 87: Fly to Auberdine
 	-- {area:442} Auberdine
-	["Fly to {area:442}"] = "",
+	["Fly to {area:442}"] = "Vuela a {area:442}",
 	-- {area:702} Rut'theran Village
 	["{area:702} flight master"] = "",
 
 	-- Step 88: Boat to Stormwind Harbor
 	-- {area:17203} Stormwind Harbor
-	["Boat to {area:17203}"] = "",
+	["Boat to {area:17203}"] = "Barco al {area:17203}",
 
 	-- Step 89: Fly to Darkshire
 	-- {area:42} Darkshire
 	["Fly to {area:42}"] = "Vuela a {area:42}",
 	-- {zone:1453} Stormwind
-	["{zone:1453} flight master"] = "",
+	["{zone:1453} flight master"] = "Maestro de vuelo de {zone:1453}",
 
 	-- Step 90: Darkshire
 	-- {npc:5464} Watchmaster Sorigal
@@ -372,7 +372,7 @@ return {
 
 	-- Step 103: Tram to Ironforge
 	-- {zone:1455} Ironforge
-	["Tram to {zone:1455}"] = "",
+	["Tram to {zone:1455}"] = "Tranvía a {zone:1455}",
 
 	-- Step 106: Ironforge
 	-- {npc:5637} Roetten Stonehammer · {object:32356} Hall of Explorers (no name in this language: may be words) · {npc:2786} Gerrig Bonegrip · {object:32383} Forlorn Cavern
@@ -396,7 +396,7 @@ return {
 	-- {area:144} Thelsamar
 	["Fly to {area:144}"] = "",
 	-- {zone:1455} Ironforge
-	["{zone:1455} flight master"] = "",
+	["{zone:1455} flight master"] = "Maestro de vuelo de {zone:1455}",
 
 	-- Step 112: Loch Modan
 	-- {zone:1426} Dun Morogh · {zone:1432} Loch Modan · {area:144} Thelsamar
@@ -406,7 +406,7 @@ return {
 	-- {npc:1470} Ghak Healtouch · {area:144} Thelsamar · {area:1517} Uldaman · {zone:1418} Badlands
 	["{npc:1470} is below ground in {area:144}, by the inn. His mushrooms grow in the {area:1517} dig in the {zone:1418}; the next guide takes you there and back through {area:144}."] = "",
 	-- {npc:1470} Ghak Healtouch
-	["{npc:1470}, below ground"] = "",
+	["{npc:1470}, below ground"] = "{npc:1470}, bajo tierra",
 
 	-- Step 115: Hammertoe's Digsite
 	-- {zone:1432} Loch Modan · {zone:1418} Badlands · {npc:2860} Sigrun Ironhew
