@@ -27,12 +27,11 @@ next forever/alliance/03-darkshore-return
 # Redemption, General Marcus) and back -> Moonbrook (People's Militia
 # part 2 and Alba's crates, moved here from 02-westfall's second half), the lighthouse, the
 # traitor's escort -> the gryphon to Lakeshire -> the gnoll hills north of the lake ->
-# Lakeshire. Darkshore's southern loops come next (03-darkshore-return): the guide ends at Lakeshire and the
-# travel planner takes you back to Auberdine, by the Hearthstone (bound there since the first Darkshore visit)
-# when it is ready, else by the gryphon to Stormwind and the boat (#2082: the forced gryphon and boat were
-# slower than the Hearthstone; players' recordings, 4 people: 12-18 minutes from the Lakeshire gryphon to
-# landing in Darkshore). Explosive Consultation (92748, from Alba Fairmoon on the traitor's stop) goes to
-# Sprite Jumpsprocket on 06-ashenvale's Stormwind stop.
+# Lakeshire, then back to Auberdine for Darkshore's southern loops (03-darkshore-return): the gryphon to
+# Stormwind (Sprite Jumpsprocket) and the boat, or the Hearthstone (bound there since the first Darkshore
+# visit) when it is ready: the travel steps drop once you are in Darkshore (#2082: after a hearth the guide
+# still sent the player to the Stormwind dock). Training, Baros Alexston and the Paladins' Redemption are on
+# the Westfall stretch's Stormwind stop.
 # The Westfall stretch needs The Defias Brotherhood (65) from 02-westfall: a player who loads
 # this guide without it goes from Goldshire to Stormwind's gate (General Marcus) and flies
 # back to Lakeshire instead.
@@ -535,3 +534,23 @@ step Lakeshire
   turnin 89                                   -- Foreman Oslow
   accept 98386                                -- Foreman Oslow: Alther's Mill, for your next Redridge visit
   accept 150                                  -- Dockmaster Baren, on the docks: the murlocs are for your next Redridge visit
+
+# ---------------------------------------------------------------- Back to Darkshore
+
+step Fly to Stormwind
+  when !zone "Darkshore"
+  zone Redridge Mountains
+  tip Back to Auberdine for Darkshore's southern loops: the gryphon to Stormwind, then the boat from the harbour. Hearthstone ready (bound in Auberdine since the first Darkshore visit)? Use it instead: these steps drop once you are in Darkshore.
+  goto 25.5,59.4 "Lakeshire flight master" live
+  fly "Stormwind"
+
+step Sprite Jumpsprocket
+  when onquest 92748
+  when !zone "Darkshore"
+  zone Stormwind City
+  turnin 92748                                -- Sprite Jumpsprocket, Dwarven District
+
+step Boat to Auberdine
+  when !zone "Darkshore"
+  zone Stormwind City
+  goto 22.71,56.69 "Boat to Auberdine" live

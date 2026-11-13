@@ -9074,8 +9074,7 @@ test(`${WESTFALL} / ${LOCH_MODAN}: #1415 (vW1): People's Militia part 2 and Alba
 	const work = at(loch, "14's Defias", (g) => g.t === 'kill' && g.quest === 14);
 	assert.ok(work < at(loch, 'the messenger', (g) => g.t === 'collect' && g.quest === 142), 'Moonbrook before the messenger');
 	assert.equal(loch[i('turnin 14', 'turnin', 14)].step, loch[i('accept 155', 'accept', 155)].step, 'handed in when the traitor is taken');
-	assert.ok(i('accept 92748', 'accept', 92748) <= i('turnin 155', 'turnin', 155), 'Explosive Consultation taken from Alba on the traitor\'s stop');
-	assert.ok(!loch.some(({ goal }) => is('turnin', 92748)(goal)), 'Sprite Jumpsprocket is on 06-ashenvale\'s Stormwind stop (0.4.0, #2082)');
+	assert.ok(i('turnin 92748', 'turnin', 92748) > i('turnin 155', 'turnin', 155), 'Sprite Jumpsprocket on the Stormwind stop before the boat');
 });
 
 // vLM1: Crocolisk Hunting (385) with Twisting the Knife at the Farstrider Lodge (Loch Crocolisks drop its meat and
@@ -10028,7 +10027,7 @@ test('forever/alliance/03-loch-modan.guide: the flight to Ironforge goes by the 
 // (50-60/06-silithus). They are marked `live`; Egan's, which then sat on Egan's own spot, is dropped: the turn-in leads there.
 test('Alliance: gotos typed with an NPC\'s live coordinates are live-frame', { skip }, () => {
 	const cases = [
-		['forever/alliance/03-loch-modan.guide', 25.5, 59.4], // the Deadmines runners' gryphon to Stormwind at the end
+		['forever/alliance/03-loch-modan.guide', 25.5, 59.4],
 		['forever/alliance/05-duskwood.guide', 25.5, 59.4],
 		['forever/alliance/05-duskwood.guide', 50.5, 47.5],
 	];
@@ -11819,17 +11818,17 @@ test(`${WESTFALL}: the last Sentinel Hill stop flies to Stormwind`, { skip }, ()
 	assert.ok(!compiled(WESTFALL).steps.some((st) => /Walk to Stormwind/.test(st.note || '')), 'no tip says to walk there');
 });
 
-// 0.4.0 route audit, Alliance 12-21 (B9, #2082): 03-loch-modan ended with the gryphon from Lakeshire to Stormwind and
-// a "Boat to Auberdine" goto; a player with the Hearthstone in Auberdine found that slower, and after hearthing the
-// guide still sent him to the Stormwind dock. Now the guide ends at Lakeshire and the travel planner takes the player
-// to 03-darkshore-return's Auberdine (the Hearthstone when ready, else gryphon and boat); the Stormwind errands and
-// training ride on the Westfall stretch's Stormwind stop (players' recordings: 22.0 there against 22.4-22.8 at the end).
-test(`${LOCH_MODAN}: #2082: no gryphon to Stormwind or boat to Auberdine at the end; training on the Stormwind stop`, { skip }, () => {
+// 0.4.0 route audit, Alliance 12-21 (B9, #2082): a player with the Hearthstone in Auberdine hearthed at the end of
+// 03-loch-modan and the guide still sent him to the Stormwind dock. The gryphon, Sprite Jumpsprocket and the boat stay
+// the default way back (the level model reads the end without them as slower), and every step of it drops once the
+// player is in Darkshore. Training and the city errands ride on the Westfall stretch's Stormwind stop (players'
+// recordings: 22.0 there against 22.4-22.8 at the end).
+test(`${LOCH_MODAN}: #2082: the way back to Auberdine drops once in Darkshore; training on the Stormwind stop`, { skip }, () => {
 	const list = goals(LOCH_MODAN);
-	const solo = list.filter(({ step }) => !dungeonOnly(step));
-	assert.ok(!solo.some(({ goal }) => goal.t === 'goto' && /Boat to Auberdine/.test(goal.text || goal.label || '')), 'no "Boat to Auberdine" goto');
-	const lastLakeshire = solo.findLastIndex(({ goal }) => is('turnin', 89)(goal));
-	assert.ok(!solo.slice(lastLakeshire).some(({ goal }) => goal.t === 'fly'), 'no flight after the last Lakeshire hand-ins');
+	const lastLakeshire = list.findLastIndex(({ goal }) => is('turnin', 89)(goal));
+	const back = list.slice(lastLakeshire + 1);
+	assert.ok(back.some(({ goal }) => goal.t === 'goto' && /Boat to Auberdine/.test(goal.text || goal.label || '')), 'the boat is the default way back');
+	for (const { step } of back) assert.ok((step.when || []).some((p) => p.k === 'zone' && p.neg && /Darkshore/.test(p.name)), `${step.title}: \`when !zone "Darkshore"\``);
 	for (const path of [true, false]) {
 		const on = (e) => (e.step.when || []).some((p) => p.k === 'turnedin' && !!p.neg === !path && [].concat(p.q).includes(65));
 		const train = list.find((e) => e.goal.t === 'train' && e.goal.class && on(e));
