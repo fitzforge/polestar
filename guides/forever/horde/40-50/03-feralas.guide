@@ -45,10 +45,17 @@ step Zeppelin to Grom'gol
   goto 61.8,59.2 "Zeppelin to Grom'gol"
 
 step Fly to Stonard
+  when taxi "Stonard"
   zone Stranglethorn Vale
   goto 32.5,29.3 "Grom'gol flight master"
   fly "Stonard"
   zone Swamp of Sorrows
+
+step To Stonard
+  when !taxi "Stonard"
+  zone Swamp of Sorrows
+  tip No flight path to Stonard yet (the Riverglades skip the Swamp of Sorrows): ride north-east from Grom'gol through Duskwood and Deadwind Pass into the swamp, then east along the road to Stonard, and learn its flight path.
+  getfp "Stonard"
 
 step Stonard
   tip Coming from Stranglethorn, you carry these already. Starting here: Dar stands inside Stonard's great hall and Fel'zerul on its top floor.
@@ -81,6 +88,7 @@ step The Forbidding Sea: kill these as you meet them
   zone Swamp of Sorrows
   tip The snappers line the strand south of the post.
   tip The Monstrous Crawlers walk the beaches of the east coast, few and far between: kill every one you see, the ones on the ride down from the pool too.
+  tip Careful: a Methuselah Crab (level 60) walks the south-east strand: give it a wide berth.
   collect 6168 quest 699.1
   collect 6184 quest 1430.1           -- Underwater
 
@@ -183,7 +191,7 @@ step Onyxia's eggs
 step Level 45.37
   when !group 1173
   when level<45.37
-  tip Overlord Mok'Morokk's challenge, back in Brackenwall, needs a group of three. Alone, grind the Firemane scouts here on the Wyrmbog's northern edge to level 45.37 before you ride back north, so you don't come back down for it. Or, with a group, run the Zul'Farrak dungeon or the Uldaman dungeon instead.
+  tip Overlord Mok'Morokk's challenge, back in Brackenwall, needs a group of three. Alone, grind the Firemane scouts here on the Wyrmbog's northern edge to level 45.37 before you ride back north, so you don't come back down for it. Or, with a group, run the Zul'Farrak dungeon instead.
   goto 37.5,68.3 map 1445 "Firemane Scout"
   level 45.37 grind 4329               -- grind on Firemane Scout
 
@@ -207,6 +215,7 @@ step Fly to Camp Mojache
 
 step Sprite darters and forest walkers
   tip The sprite darters flit over the grove just west of the camp and carry the Encrusted Minerals; the Wandering Forest Walkers, a little further west, carry the Splintered Logs.
+  tip Careful: a Vale Screamer (level 60) flies over the forest west of the camp: keep clear of it.
   collect 9589 quest 3128.2 @68.0,47.5 map 1444
   collect 9590 quest 3128.1 @54.0,47.2 map 1444
 

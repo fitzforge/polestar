@@ -9373,6 +9373,66 @@
 				"ref": "players' in-game recordings to 2026-11-13: Black Shield (1322) objective ticks after kills of npc 4411, 4414, 4413 and 4415 (#1985)"
 			},
 			"issue": 1985
+		},
+		{
+			"id": "h4050-danger-tip-2975",
+			"faction": "Horde",
+			"at": {
+				"quest": 2975,
+				"goal": "objective",
+				"objective": 1
+			},
+			"tip": "Careful: Ohk'zi (level 43, elite) stands in the outpost: pull the ogres out to you, away from him.",
+			"note": "Horde 40-50 route audit (0.4.0), danger at the spot (#1575): Ohk'zi (level 43, elite, npc 222233) stands in the Gordunni Outpost: players' recordings saw him hostile at 75,25-26 (2 killed him, 0 died there); the danger gate flags The Ogres of Feralas (2975) there at the route's 43.9. The flag is reviewed into data/danger-baseline.json; the tip warns the player.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' recordings to 2026-11-13: unit, kill and death events of the named creature"
+			}
+		},
+		{
+			"id": "h4050-danger-tip-2974",
+			"faction": "Horde",
+			"at": {
+				"quest": 2974,
+				"goal": "objective",
+				"objective": 1
+			},
+			"tip": "Careful: Namida Grimtotem (level 43, elite) stands in the camp: pull the raiders and shamans away from her.",
+			"note": "Horde 40-50 route audit (0.4.0), danger at the spot (#1575): Namida Grimtotem (level 43, elite, npc 222286) stands in the Grimtotem camp: recordings saw her hostile at 67,38-39 (4 killed her, 0 died there); the danger gate flags A Grim Discovery (2974) there at the route's 44.2. The flag is reviewed into data/danger-baseline.json; the tip warns the player.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' recordings to 2026-11-13: unit, kill and death events of the named creature"
+			}
+		},
+		{
+			"id": "h4050-danger-tip-699",
+			"faction": "Horde",
+			"at": {
+				"quest": 699,
+				"goal": "objective",
+				"objective": 1
+			},
+			"tip": "Careful: a Methuselah Crab (level 60) walks the south-east strand: give it a wide berth.",
+			"note": "Horde 40-50 route audit (0.4.0), danger at the spot (#1575): A level 60 Methuselah Crab (npc 272377, hostile) walks the Swamp of Sorrows' south-east strand: 13 recorded sightings at 79-80,90-94, none fought, 0 deaths; the danger gate flags Lack of Surplus (699), Fresh Meat (1430) and Threat From the Sea (1426) there. The flag is reviewed into data/danger-baseline.json; the tip warns the player.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' recordings to 2026-11-13: unit, kill and death events of the named creature"
+			}
+		},
+		{
+			"id": "h4050-danger-tip-3128",
+			"faction": "Horde",
+			"at": {
+				"quest": 3128,
+				"goal": "objective",
+				"objective": 1
+			},
+			"tip": "Careful: a Vale Screamer (level 60) flies over the forest west of the camp: keep clear of it.",
+			"note": "Horde 40-50 route audit (0.4.0), danger at the spot (#1575): A level 60 Vale Screamer (npc 272401, hostile) flies over Feralas west of Camp Mojache: 23 recorded sightings at 46-54,38-51, one kill, 0 deaths; the danger gate flags Natural Materials (3128) there. The flag is reviewed into data/danger-baseline.json; the tip warns the player.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' recordings to 2026-11-13: unit, kill and death events of the named creature"
+			}
 		}
 	]
 }

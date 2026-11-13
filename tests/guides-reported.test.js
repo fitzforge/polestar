@@ -2968,6 +2968,152 @@ test('Phear\'s report: a kill or collect leads to the camp that holds its mobs, 
 	assert.ok(trail.every((s) => !s.alt), 'every spot of the Highborne trail is searched');
 });
 
+// Horde 40-50 route audit (0.4.0): fixes pinned by the band's audit (players' recordings, the travel sweep and the
+// calibrated level model).
+const H40 = (n) => `forever/horde/40-50/${n}.guide`;
+
+test('Horde 40-50 binds: Stranglethorn sets none, Camp Mojache is bound once (0.4.0 route audit)', { skip }, () => {
+	// The travel sweep found no trip in 30-40/06 or 40-50/01 that hearths back to Grom'gol, Booty Bay or Stonard.
+	const stv = goals(H40('01-stranglethorn-vale')).filter(({ goal }) => goal.t === 'sethome');
+	assert.deepEqual(stv.map(({ goal }) => goal.location), [], '40-50/01 leaves the hearthstone where it is');
+	const binds = goals(H40('02-feralas')).filter(({ goal }) => goal.t === 'sethome');
+	assert.deepEqual(binds.map(({ goal }) => goal.location), ['Camp Mojache'], '40-50/02 binds Camp Mojache once, at Innkeeper Greul');
+});
+
+test("Horde 40-50/06: Un'Goro Soil comes after Assisting Arch Druid Runetotem is handed to Hamuul (#2025, #2085)", { skip }, () => {
+	const list = goals(H40('06-azshara'));
+	const take = at(list, 'accept 3762 (Innkeeper Pala)', is('accept', 3762));
+	const handIn = at(list, 'turnin 3762 (Hamuul)', is('turnin', 3762));
+	const soil = at(list, "accept 3761 (Un'Goro Soil)", is('accept', 3761));
+	assert.ok(take < handIn && handIn < soil, 'the breadcrumb is out of the log before its target is asked for');
+	assert.equal(list[take].s, list[soil].s, 'all on the one Thunder Bluff stop');
+});
+
+test('Horde 40-50/05: Venom Bottles is not taken, its hand-in is behind the route in Tarren Mill (0.4.0 route audit)', { skip }, () => {
+	for (const n of ['05-the-hinterlands', '06-azshara']) {
+		assert.deepEqual(goals(H40(n)).filter(({ goal }) => goal.quest === 2933).map(({ goal }) => goal.t), [], `${n}: no Venom Bottles goal`);
+	}
+});
+
+test('Horde 40-50/01: the Wild Shore pass comes after the Cape of Stranglethorn coast, not at 40 (#2102)', { skip }, () => {
+	const list = goals(H40('01-stranglethorn-vale'));
+	// The Booty Bay stop after the coast is the one that hands in Scaring Shaky (606).
+	const coastStop = at(list, 'turnin 606 (Shaky Phillipe)', is('turnin', 606));
+	for (const q of [604, 587, 576]) {
+		const take = at(list, `accept ${q}`, is('accept', q));
+		assert.ok(take > coastStop, `${q} is taken on the Booty Bay stop after the coast, not on the first visit`);
+	}
+	const swash = at(list, 'the Bloodsail Swashbucklers (604.1)', (g) => g.t === 'kill' && g.quest === 604);
+	assert.ok(swash > coastStop, 'the swashbuckler kills come after that stop too');
+	const fever = at(list, 'accept 348 (Fin Fizracket)', is('accept', 348));
+	const fang = at(list, 'the gorilla fang for 348', (g) => g.quest === 348 && g.t === 'collect');
+	assert.ok(fever < fang, 'Stranglethorn Fever is still taken before Mistvale');
+});
+
+test('Horde 40-50/01: the Green Hills chapters and Goblin Sponsorship are taken here, with 30-40/03 no longer carrying them (0.4.0 audit)', { skip }, () => {
+	const list = goals(H40('01-stranglethorn-vale'));
+	const when = (e, k) => (e.step.when || []).filter((p) => p.k === k);
+	const book = list[at(list, 'accept 338', is('accept', 338))];
+	assert.ok(when(book, 'turnedin').some((p) => [p.q].flat().includes(583)), '338 only after Welcome to the Jungle');
+	for (const q of [339, 340, 341, 342]) {
+		const take = list[at(list, `accept ${q}`, is('accept', q))];
+		assert.ok(when(take, 'has').length >= 3, `${q}: only with its pages in the bags`);
+		assert.ok(list.some((e) => is('turnin', q)(e.goal) && e.s === take.s), `${q}: handed in on the spot`);
+	}
+	const gob = list[at(list, 'accept 1183 (Baron Revilgaz)', is('accept', 1183))];
+	assert.ok(when(gob, 'turnedin').some((p) => [p.q].flat().includes(1182)), '1183 only after Cozzle\'s footlocker was handed in');
+	assert.ok(at(list, 'accept 1183', is('accept', 1183)) < at(list, 'turnin 595 (the cove, after the first Booty Bay stop)', is('turnin', 595)), 'on the first Booty Bay stop');
+});
+
+test('Horde 40-50: Feralas & Tanaris opens from Stonard or from Kargath, and every Stonard flight has a way in without its flight path (R17r)', { skip }, () => {
+	// The Riverglades route choice rejoins at Kargath (about 44) with no Stonard flight path.
+	const whenOf = (step, k) => (step.when || []).filter((p) => p.k === k);
+	const opener = goals(H40('02-feralas')).filter(({ goal }) => goal.t === 'fly' && goal.location === "Grom'gol").slice(0, 2);
+	assert.equal(opener.length, 2, 'two ways to the Grom\'gol flight at the start');
+	const zones = opener.map(({ step }) => whenOf(step, 'zone').map((p) => `${p.neg ? '!' : ''}${p.zone || p.name || p.v}`).join());
+	assert.ok(zones.some((z) => /Swamp of Sorrows/.test(z)) && zones.some((z) => /Badlands/.test(z)), `one from Stonard, one from Kargath: ${zones}`);
+	for (const n of ['03-feralas', '05-the-hinterlands']) {
+		const list = goals(H40(n));
+		const fly = list.find(({ goal }) => goal.t === 'fly' && goal.location === 'Stonard');
+		assert.ok(fly && whenOf(fly.step, 'taxi').some((p) => !p.neg), `${n}: the Stonard flight is for characters who know it`);
+		const learn = list.find(({ goal }) => goal.t === 'getfp' && /Stonard/.test(goal.location || ''));
+		assert.ok(learn && whenOf(learn.step, 'taxi').some((p) => p.neg), `${n}: the others get there another way and learn it`);
+	}
+});
+
+test('Horde 40-50/01: the classes the Undercity trains do their level 40 training there on the way to Grom\'gol (R17)', { skip }, () => {
+	// No class trainer between 30-40/05's Undercity (~38) and 40-50/02's Orgrimmar (~43) before this.
+	const list = goals(H40('01-stranglethorn-vale'));
+	const firstGromgol = at(list, 'turnin 1240 (Kin\'weelay)', is('turnin', 1240));
+	for (const cls of ['WARRIOR', 'MAGE', 'PRIEST']) {
+		const mine = list.filter(forClass(cls));
+		const train = mine.findIndex(({ goal }) => goal.t === 'train' && goal.class);
+		const kin = mine.findIndex(({ goal }) => is('turnin', 1240)(goal));
+		assert.ok(train >= 0 && train < kin, `${cls}: trains before the first Grom'gol stop`);
+	}
+	for (const cls of ['HUNTER', 'SHAMAN']) {
+		const mine = list.slice(0, firstGromgol).filter(forClass(cls));
+		assert.ok(mine.some(({ goal }) => goal.t === 'fly' && goal.location === "Grom'gol"), `${cls}: flies straight to Grom'gol (no trainer in the Undercity)`);
+		assert.ok(!mine.some(({ goal }) => goal.t === 'fly' && goal.location === 'Undercity'), `${cls}: no Undercity detour`);
+	}
+});
+
+test('Horde 40-50: grind tips name a dungeon only when its run is in the same or the next guide on that continent', { skip }, () => {
+	// The dungeons-in-the-route rule (0.4.0): Uldaman and Maraudon have no run in the route; the Sunken Temple's is in
+	// 50-60/01, two guides after 40-50/05; Zul'Farrak's is in 40-50/04, right after 40-50/03.
+	const tipsOf = (n) => fs.readFileSync(path.join(OFFICIAL_DIR, H40(n)), 'utf8').split('\n').filter((l) => /^\s+tip /.test(l)).join('\n');
+	for (const n of ['01-stranglethorn-vale', '03-feralas', '05-the-hinterlands', '06-azshara']) {
+		for (const d of ['Uldaman', 'Maraudon', 'Sunken Temple']) assert.ok(!new RegExp(`run the ${d} dungeon`).test(tipsOf(n)), `${n}: no "run the ${d} dungeon" tip`);
+	}
+	assert.ok(/run the Zul'Farrak dungeon/.test(tipsOf('03-feralas')), "03 still offers Zul'Farrak, run in 40-50/04");
+});
+
+test('Horde 40-50/04: the Slag Pit plans come with the gorge sweep and go back on the first Thorium Point return (0.4.0 route audit)', { skip }, () => {
+	const list = goals(H40('04-tanaris'));
+	const plans = at(list, 'the Secret Plans (7722)', (g) => g.t === 'collect' && g.quest === 7722);
+	const incendosaurs = at(list, 'the Incendosaurs (7727)', (g) => g.t === 'kill' && g.quest === 7727);
+	assert.equal(list[plans].s, list[incendosaurs].s, 'the plans are on the sweep step with the Incendosaurs');
+	const flux = at(list, 'turnin 7722', is('turnin', 7722));
+	const fat = at(list, 'turnin 7723', is('turnin', 7723));
+	assert.equal(list[flux].s, list[fat].s, 'What the Flux? is handed in on the first Thorium Point return');
+});
+
+test('Horde 40-50/06: Stonard flies straight to Booty Bay, and Nimboya is passed on the way to the Grom\'gol zeppelin (0.4.0 route audit)', { skip }, () => {
+	const list = goals(H40('06-azshara'));
+	const flights = list.filter(({ goal }) => goal.t === 'fly').map(({ goal }) => goal.location);
+	assert.deepEqual(flights.slice(0, 2), ['Booty Bay', "Grom'gol"], 'Stonard -> Booty Bay, then Booty Bay -> Grom\'gol');
+	const seahorn = at(list, 'turnin 608', is('turnin', 608));
+	const nimboya = at(list, 'turnin 2932', is('turnin', 2932));
+	const zeppelin = at(list, 'the zeppelin to Orgrimmar', (g) => g.t === 'goto' && /Zeppelin to Orgrimmar/.test(g.label || g.text || ''));
+	assert.ok(seahorn < nimboya && nimboya < zeppelin, 'Booty Bay, then Nimboya, then the zeppelin');
+});
+
+test('Horde 40-50/06: A Grim Discovery is handed in once, in 40-50/02, not asked for again in Orgrimmar', { skip }, () => {
+	assert.ok(goals(H40('02-feralas')).some(({ goal }) => is('turnin', 2976)(goal)), '02 hands it to Belgrom');
+	assert.ok(!goals(H40('06-azshara')).some(({ goal }) => is('turnin', 2976)(goal)), '06 has no second hand-in');
+});
+
+test('Horde 40-50/02: a character who knows Gadgetzan flies there instead of Freewind Post (#1976)', { skip }, () => {
+	// 30-40/02 learns Gadgetzan's flight path beside the Shimmering Flats; each way to Freewind Post has its twin.
+	const steps = compiled(H40('02-feralas')).steps;
+	const taxi = (st, neg) => (st.when || []).some((p) => p.k === 'taxi' && !!p.neg === neg && p.name === 'Gadgetzan');
+	const flies = (st, where) => st.goals.some((g) => g.t === 'fly' && g.location === where);
+	const freewind = steps.filter((st) => flies(st, 'Freewind Post')).slice(0, -1); // the last one flies out of Gadgetzan
+	assert.ok(freewind.length >= 5, 'the class and race ways to Freewind Post');
+	for (const st of freewind) assert.ok(taxi(st, true), `${st.title}: only without Gadgetzan's flight path`);
+	assert.equal(steps.filter((st) => flies(st, 'Gadgetzan') && taxi(st, false)).length, freewind.length, 'each has a Gadgetzan twin');
+});
+
+test('Horde 40-50: the steps beside the elites and level 60 roamers the danger gate reviewed warn about them (#1575)', { skip }, () => {
+	for (const [n, quest, name] of [['02-feralas', 2975, "Ohk'zi"], ['02-feralas', 2974, 'Namida Grimtotem'], ['03-feralas', 699, 'Methuselah Crab'], ['03-feralas', 3128, 'Vale Screamer']]) {
+		const steps = fs.readFileSync(path.join(OFFICIAL_DIR, H40(n)), 'utf8').split(/\n(?=step )/);
+		const step = steps.find((t) => new RegExp(`^\\s+(kill|collect) \\d+ quest ${quest}\\b`, 'm').test(t));
+		assert.ok(step, `${n}: the objective of ${quest} is in the guide`);
+		const tips = step.split('\n').filter((l) => /^\s+tip /.test(l)).join(' ');
+		assert.ok(tips.includes(name), `${n}: the ${quest} step names ${name}`);
+	}
+});
+
 // The goals the stray rule moved, checked against their steps (#175 review): the
 // Grizzled Scalps are taken where the bears are, and cloth the guide says to buy
 // leads to the Auction House, not to the guards and mobs that happen to drop it.
@@ -5281,7 +5427,7 @@ test('flight path sweep (#972): travel tips name only flights the player can tak
 		['horde/05-stonetalon-mountains', 'accept 95883', /Tarren Mill flight path|fly from the Undercity/],
 		['horde/07-ashenvale', 'accept 4542', /Fly from Thunder Bluff/],
 		['horde/07-ashenvale', 'turnin 1534', /Fly from Thunder Bluff/],
-		['horde/40-50/06-azshara', 'goto 32.2,27.7 "Grom\'gol Base Camp"', /Valormok/],
+		['horde/40-50/06-azshara', 'turnin 2932', /Valormok/],
 		['horde/40-50/02-feralas', 'Alodan the Hopeful (Paladins).', /from Gadgetzan/],
 		// (Since the Horde 30-40 re-order the Druids fly from Freewind Post, Orgrimmar and Shadowprey Village straight to Thunder Bluff.)
 		['horde/30-40/01-hillsbrad-foothills', 'only Druid\n  zone Thunder Bluff\n  tip Fly from', /from Orgrimmar|from Shadowprey/],
@@ -8380,7 +8526,9 @@ test('Horde 40-60 accept levels: quests are taken where the route reaches their 
 	const g = (n) => goals(`forever/horde/${n}.guide`);
 	const step = (list, t, q) => list[at(list, `${t} ${q}`, is(t, q))].s;
 	const stv = g('40-50/01-stranglethorn-vale');
-	assert.equal(step(stv, 'accept', 348), step(stv, 'turnin', 587), 'Stranglethorn Fever on the Booty Bay stop after the Wild Shore');
+	// #2102 (0.4.0 audit): the Wild Shore pass moved after the Cape coast; Stranglethorn Fever is taken on the Booty Bay
+	// stop back from the Bloodsail cove, still before Mistvale's gorillas.
+	assert.equal(step(stv, 'accept', 348), step(stv, 'turnin', 599), 'Stranglethorn Fever on the Booty Bay stop back from the cove');
 	assert.equal(step(stv, 'accept', 2864), step(stv, 'turnin', 209), "Tran'rek on the last Booty Bay stop");
 	for (const q of [348, 2872, 2864]) assert.ok(step(stv, 'accept', q) > step(stv, 'turnin', 595), `${q} not on arrival`);
 	const zk = stv[at(stv, 'collect 3905 quest 584', (x) => x.t === 'collect' && x.quest === 584)];
@@ -8992,7 +9140,13 @@ test('alliance 40-60: final review: every written grind step offers a dungeon fo
 test('forever/horde/40-50/01-stranglethorn-vale.guide: final review: Grom\'gol before Booty Bay on the flight from Kargath', { skip }, () => {
 	const list = goals('forever/horde/40-50/01-stranglethorn-vale.guide');
 	const cove = at(list, 'turnin 595', is('turnin', 595));
-	assert.equal(list.slice(0, cove).filter(({ goal }) => goal.t === 'fly').length, 2, "Kargath to Grom'gol, Grom'gol to Booty Bay");
+	// 0.4.0 audit (R17): the classes the Undercity trains fly Kargath to the Undercity and take the zeppelin to Grom'gol;
+	// Hunters, Shamans and Druids fly Kargath to Grom'gol. Either way two flights before the cove, the second to Booty Bay.
+	for (const cls of ['WARRIOR', 'MAGE', 'HUNTER', 'SHAMAN', 'DRUID']) {
+		const flights = list.slice(0, cove).filter(forClass(cls)).filter(({ goal }) => goal.t === 'fly').map(({ goal }) => goal.location);
+		assert.equal(flights.length, 2, `${cls}: two flights before the cove: ${flights}`);
+		assert.equal(flights[1], 'Booty Bay', `${cls}: the second flight goes to Booty Bay`);
+	}
 	const bay = at(list, 'turnin 577', is('turnin', 577));
 	assert.ok(at(list, 'turnin 1240', is('turnin', 1240)) < bay && at(list, 'accept 571', is('accept', 571)) < bay, "Grom'gol before the first Booty Bay stop");
 	assert.ok(!list.some(({ goal, s }) => s > list[bay].s && s < list[cove].s && goal.t === 'goto'), 'straight from Booty Bay to the Bloodsail cove');
@@ -9133,9 +9287,11 @@ test('Horde Swamp of Sorrows follow-up: the first stay is one pass, Tok\'Kar on 
 
 // Main's grind policy (2026-11-08): every written grind step ("Level N" top-ups and solo fallbacks) ends its tip with
 // the dungeons whose band holds N ("Or, with a group, run the <Name> dungeon instead."), the sentence the forge writer writes from the next build. Horde 40-60 by hand.
-test('Horde 40-60: every grind step offers the dungeons at its level', { skip }, () => {
-	const files = fs.readdirSync(path.join(OFFICIAL_DIR, 'forever/horde/40-50')).map((f) => `forever/horde/40-50/${f}`)
-		.concat(fs.readdirSync(path.join(OFFICIAL_DIR, 'forever/horde/50-60')).map((f) => `forever/horde/50-60/${f}`));
+// 0.4.0 audit: Horde 40-50's grind steps follow the dungeons-in-the-route rule instead (a dungeon only when its run is in
+// the same or the next guide on that continent: "Horde 40-50: grind tips name a dungeon only when its run is..."), so
+// this checks 50-60.
+test('Horde 50-60: every grind step offers the dungeons at its level', { skip }, () => {
+	const files = fs.readdirSync(path.join(OFFICIAL_DIR, 'forever/horde/50-60')).map((f) => `forever/horde/50-60/${f}`);
 	let n = 0;
 	for (const file of files) {
 		const lines = fs.readFileSync(path.join(OFFICIAL_DIR, file), 'utf8').split('\n');
@@ -9149,7 +9305,7 @@ test('Horde 40-60: every grind step offers the dungeons at its level', { skip },
 		});
 	}
 	// 0.3.7 folded six stand-alone top-ups into the quest steps beside them (the test below checks those tips)
-	assert.ok(n >= 13, `the grind steps are found (${n})`);
+	assert.ok(n >= 8, `the grind steps are found (${n})`);
 });
 
 test('Image of Archmage Modera is met at the Kirin Tor camp in Silverpine Forest, never by the Dalaran sewer entrance in Alterac (#1305)', { skip }, () => {
@@ -12052,6 +12208,25 @@ test('Riverglades (experimental): an Alliance player going on to Feralas trains 
 	assert.ok(steps.some((l) => anyLine(l, /^\s+when level>=43\b/) && anyLine(l, /^\s+fly "Stormwind"/) && !questGated(l)), 'players of 43 or more fly to Stormwind');
 	assert.ok(steps.some((l) => anyLine(l, /^\s+train class only .*\bWarrior\b/) && !questGated(l)), 'the class trainer step');
 	assert.ok(steps.some((l) => anyLine(l, /^\s+train class only Shaman\b/) && anyLine(l, /^\s+fly "Ironforge"/) && !questGated(l)), 'shamans train in Ironforge');
+});
+
+// The Horde route choice at the end of the Badlands guide (Kargath, about 40) offers part 1: a character there knows
+// Kargath's flight path and rides in through Twilight's Shroud; the boat from Tanaris is for everyone else
+// (0.4.0 route audit, R17r).
+test('Riverglades (experimental): Horde part 1 rides in from Kargath, the boat only for characters without its flight path', () => {
+	const steps = rivergladesSteps('riverglades-horde-1.guide');
+	const header = steps[0];
+	assert.ok(anyLine(header, /^levels 40-/), 'part 1 is written for players arriving at about 40');
+	const foot = steps.findIndex((l) => anyLine(l, /^\s+when taxi "Kargath"/) && anyLine(l, /^\s+goto /));
+	assert.ok(foot > 0, 'a step rides in from Kargath');
+	for (const re of [/^\s+fly "Freewind Post"/, /^\s+getfp "Gadgetzan"/, /Boat to Powderfuse Port/]) {
+		const i = steps.findIndex((l) => anyLine(l, re));
+		assert.ok(i > 0 && anyLine(steps[i], /^\s+when !taxi "Kargath"/), `${re}: only for characters without Kargath's flight path`);
+	}
+	const sleebo = steps.map((l, i) => (anyLine(l, /^\s+accept 96063\b/) ? i : -1)).filter((i) => i >= 0);
+	assert.equal(sleebo.length, 2, "Gaseous Gold is taken on either way in");
+	const rogmar = steps.findIndex((l) => anyLine(l, /^\s+getfp "Rog'mar"/));
+	assert.ok(sleebo[1] > rogmar && anyLine(steps[sleebo[1]], /^\s+when available 96063\b/), "the foot way takes it after Rog'mar, once");
 });
 
 // #1984: Captain Garran Vimes never offers Vimes's Report (1288) after The Deserters (1287): at least 10 recorded
