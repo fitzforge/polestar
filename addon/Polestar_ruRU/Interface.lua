@@ -177,6 +177,9 @@ L["Hand in %s first"] = "Сначала сдайте %s"
 L["Handed in later on the route"] = "Сдаётся позже по маршруту"
 L["Not handed in on the route ahead"] = "Не сдаётся по маршруту впереди"
 L["Finished, and no step from here on hands it in: handing it in now saves a trip back."] = "Выполнено, и ни один шаг дальше его не сдаёт: сдав его сейчас, вы избавитесь от обратного пути."
+-- L["%s in your quest log"] = ""
+-- L["Only if you skip %s"] = ""
+-- L["Only if you run %s in your route"] = ""
 
 -- Core/Automation.lua
 L["Choose a reward to finish the turn-in."] = "Выберите награду, чтобы сдать задание."
@@ -1115,7 +1118,6 @@ L["Entrance in Horde territory (outside the Undercity)"] = "Вход на тер
 L["Entrance in Alliance territory (in Ironforge)"] = "Вход на территории Альянса (в Стальгорне)"
 L["Entrance in Horde territory (in Orgrimmar)"] = "Вход на территории Орды (в Оргриммаре)"
 L["Entrance in Alliance territory (in Stormwind)"] = "Вход на территории Альянса (в Штормграде)"
-L["Leveling guides take you through this dungeon where they have steps for it. Off: they keep to the solo route. More dungeons join this list as they are added to the guides' route."] = "Гайды по прокачке проводят вас через это подземелье, если в них есть шаги для него. Если выключено, они придерживаются одиночного маршрута. Новые подземелья появятся в этом списке, когда их добавят в маршрут гайдов."
 L["Speak with %s"] = "Поговорить: %s"
 -- L["Dungeons are turned off (Options > Discovery > Lookup)."] = ""
 
@@ -1228,6 +1230,8 @@ L["Skipping also skips: %s"] = "Пропуск также пропустит: %s
 L["Keep this: you hand it in later in %s"] = "Не отменяйте: сдача позже, в гайде %s"
 L["Keep this: a later guide hands it in"] = "Не отменяйте: сдача в одном из следующих гайдов"
 L["%d known places: the arrow leads to each in turn"] = "Известных мест: %d — стрелка по очереди ведет к каждому"
+-- L["your finished quests give %s: hand them in first"] = ""
+-- L["Hand in first: your finished quests cover it"] = ""
 
 -- UI/GuideFrame.lua
 L["Location"] = "Место"
@@ -1474,6 +1478,9 @@ L["Keep these, a later guide hands them in: %s"] = "Не отменяйте эт
 L["Press %s, or right-click the minimap button and pick Guide window, to show it."] = "Нажмите %s или щёлкните правой кнопкой по кнопке у миникарты и выберите «Окно гайда», чтобы показать его."
 L["Right-click the minimap button and pick Guide window to show it."] = "Щёлкните правой кнопкой по кнопке у миникарты и выберите «Окно гайда», чтобы показать его."
 L["Clears your manual check-offs and skipped steps in this guide from your last quest progress on. The guide stays where your quests put you."] = "Сбрасывает ручные отметки и пропущенные шаги этого гайда начиная с последнего продвижения по заданиям. Гайд остается там, куда вас привели задания."
+-- L["The route ahead never hands these in. Click to see who takes each, with a guide there."] = ""
+-- L["1 finished quest to hand in elsewhere"] = ""
+-- L["%d finished quests to hand in elsewhere"] = ""
 
 -- UI/JourneyPanel.lua
 L["Lift to %s"] = "Подъемник до %s"
@@ -2321,6 +2328,7 @@ L["Your manual check-offs and skipped steps in the current guide are cleared fro
 -- L["Set Polestar up again, a page at a time: questing, groups and dungeons, your route, your look. Each choice works at once."] = ""
 -- L["What this version of Polestar changed for you."] = ""
 -- L["Set Polestar up again, a page at a time. Each choice works at once."] = ""
+-- L["Leveling guides can take you through the dungeons on your way, for a group of five: they pick up the quests on stops they make anyway, send you to the door at the right level and hand the quests in after. Skip them: the solo route. Ask me: the guide asks at each dungeon. Discovery, Dungeons changes one."] = ""
 
 -- Rares/Rares.lua
 L["Raid warning"] = "Предупреждение рейда"
@@ -4137,6 +4145,8 @@ L["Class quest chime"] = "Звук классового задания"
 
 -- Dungeons/Options.lua
 -- L["Dungeons and characters"] = ""
+-- L["As for all dungeons"] = ""
+-- L["Run it: the leveling guide picks up its quests on the way and takes you to the door. Skip it: the guide keeps to the solo route. As for all dungeons: Guide, Automation, Dungeons in my route answers."] = ""
 
 -- UI/Presets.lua
 -- L["On"] = ""
@@ -4170,6 +4180,24 @@ L["Part of the %s quests"] = "Часть заданий: %s"
 
 -- UI/GuideFrameHere.lua
 -- L["Right-click: show in quest log, or not now around here (twice: for the rest of this zone)."] = ""
+
+-- UI/GuideFrameBanner.lua
+-- L["Kept in your log: %s"] = ""
+-- L["If you run it later, the dungeon's page has a hand-in guide for them."] = ""
+-- L["%s next: start looking for a group."] = ""
+-- L["%s in %d steps: start looking for a group."] = ""
+-- L["Dungeon on your way: %s, for a group of five."] = ""
+-- L["The guide picks up 1 quest for it and runs it in about %d steps."] = ""
+-- L["The guide picks up %d quests for it and runs it in about %d steps."] = ""
+-- L["Skip it and the guide keeps to the solo route."] = ""
+-- L["Run it"] = ""
+-- L["%s: a group of five runs it in about an hour."] = ""
+-- L["No group? Skip it: the guide goes on with the solo route, and its quests stay in your log."] = ""
+-- L["No group? Skip it"] = ""
+-- L["1 finished quest here first"] = ""
+-- L["%d finished quests here first"] = ""
+-- L["Jump anyway? They stay in your log, and the guide lists who takes each in."] = ""
+-- L["Jump anyway"] = ""
 
 -- No longer in the code (its English changed or it went away): reuse or delete.
 -- L["Shortest Path Forever is guiding. Turn off \"Guide with Shortest Path Forever when it's installed\" (Options, Arrow & routes) to use Polestar's arrow."] = "Ведет Shortest Path Forever. Отключите «Вести через Shortest Path Forever, если он установлен» (Настройки, Стрелка и маршруты), чтобы использовать стрелку Polestar."
@@ -4352,3 +4380,4 @@ L["Part of the %s quests"] = "Часть заданий: %s"
 -- L["A few choices to start with. Everything else is in %s."] = "Для начала несколько настроек. Все остальное — в %s."
 -- L["How the way to your goal shows on the world map and the minimap. The line is the easiest to follow; sparkles show as dots while Reduce motion is on."] = "Как путь к цели показывается на карте мира и миникарте. Линии проще всего следовать; при включенном «Меньше анимации» искры показываются точками."
 -- L["%s, %s or %s on map and minimap: set on the Welcome page or in Options."] = "%s, %s или %s на карте и мини-карте: в приветствии или в настройках."
+-- L["Leveling guides take you through this dungeon where they have steps for it. Off: they keep to the solo route. More dungeons join this list as they are added to the guides' route."] = "Гайды по прокачке проводят вас через это подземелье, если в них есть шаги для него. Если выключено, они придерживаются одиночного маршрута. Новые подземелья появятся в этом списке, когда их добавят в маршрут гайдов."

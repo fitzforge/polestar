@@ -177,6 +177,9 @@ L["Hand in %s first"] = "먼저 %s 퀘스트를 제출하십시오"
 L["Handed in later on the route"] = "경로상 나중에 제출"
 L["Not handed in on the route ahead"] = "앞으로의 경로에서 제출하지 않음"
 L["Finished, and no step from here on hands it in: handing it in now saves a trip back."] = "완료했지만 이후 어느 단계에서도 제출하지 않습니다. 지금 제출하면 되돌아올 필요가 없습니다."
+-- L["%s in your quest log"] = ""
+-- L["Only if you skip %s"] = ""
+-- L["Only if you run %s in your route"] = ""
 
 -- Core/Automation.lua
 L["Choose a reward to finish the turn-in."] = "보상을 선택해 제출을 마치십시오."
@@ -1115,7 +1118,6 @@ L["Entrance in Horde territory (outside the Undercity)"] = "호드 영토의 입
 L["Entrance in Alliance territory (in Ironforge)"] = "얼라이언스 영토의 입구 (아이언포지 안)"
 L["Entrance in Horde territory (in Orgrimmar)"] = "호드 영토의 입구 (오그리마 안)"
 L["Entrance in Alliance territory (in Stormwind)"] = "얼라이언스 영토의 입구 (스톰윈드 안)"
-L["Leveling guides take you through this dungeon where they have steps for it. Off: they keep to the solo route. More dungeons join this list as they are added to the guides' route."] = "레벨업 가이드에 이 던전 단계가 있으면 이 던전을 거쳐 안내합니다. 끄면: 솔로 경로만 따릅니다. 가이드 경로에 던전이 추가되면 이 목록에도 추가됩니다."
 L["Speak with %s"] = "%s에게 말 걸기"
 -- L["Dungeons are turned off (Options > Discovery > Lookup)."] = ""
 
@@ -1228,6 +1230,8 @@ L["Skipping also skips: %s"] = "함께 건너뛰는 것: %s"
 L["Keep this: you hand it in later in %s"] = "이 퀘스트는 유지하십시오: 나중에 %s에서 제출합니다"
 L["Keep this: a later guide hands it in"] = "이 퀘스트는 유지하십시오: 이후 가이드에서 제출합니다"
 L["%d known places: the arrow leads to each in turn"] = "알려진 장소 %d곳: 화살표가 차례로 각 장소로 안내합니다"
+-- L["your finished quests give %s: hand them in first"] = ""
+-- L["Hand in first: your finished quests cover it"] = ""
 
 -- UI/GuideFrame.lua
 L["Location"] = "위치"
@@ -1474,6 +1478,9 @@ L["Keep these, a later guide hands them in: %s"] = "이 퀘스트들은 유지�
 L["Press %s, or right-click the minimap button and pick Guide window, to show it."] = "%s 키를 누르거나, 미니맵 버튼을 우클릭해 '가이드 창'을 고르면 표시됩니다."
 L["Right-click the minimap button and pick Guide window to show it."] = "미니맵 버튼을 우클릭해 '가이드 창'을 고르면 표시됩니다."
 L["Clears your manual check-offs and skipped steps in this guide from your last quest progress on. The guide stays where your quests put you."] = "마지막으로 퀘스트가 진행된 지점부터 이 가이드의 수동 체크와 건너뛴 단계를 지웁니다. 가이드는 퀘스트 진행 상황이 가리키는 위치에 그대로 남습니다."
+-- L["The route ahead never hands these in. Click to see who takes each, with a guide there."] = ""
+-- L["1 finished quest to hand in elsewhere"] = ""
+-- L["%d finished quests to hand in elsewhere"] = ""
 
 -- UI/JourneyPanel.lua
 L["Lift to %s"] = "%s행 승강기"
@@ -2321,6 +2328,7 @@ L["Your manual check-offs and skipped steps in the current guide are cleared fro
 -- L["Set Polestar up again, a page at a time: questing, groups and dungeons, your route, your look. Each choice works at once."] = ""
 -- L["What this version of Polestar changed for you."] = ""
 -- L["Set Polestar up again, a page at a time. Each choice works at once."] = ""
+-- L["Leveling guides can take you through the dungeons on your way, for a group of five: they pick up the quests on stops they make anyway, send you to the door at the right level and hand the quests in after. Skip them: the solo route. Ask me: the guide asks at each dungeon. Discovery, Dungeons changes one."] = ""
 
 -- Rares/Rares.lua
 L["Raid warning"] = "공격대 경보"
@@ -4137,6 +4145,8 @@ L["Class quest chime"] = "직업 퀘스트 알림음"
 
 -- Dungeons/Options.lua
 -- L["Dungeons and characters"] = ""
+-- L["As for all dungeons"] = ""
+-- L["Run it: the leveling guide picks up its quests on the way and takes you to the door. Skip it: the guide keeps to the solo route. As for all dungeons: Guide, Automation, Dungeons in my route answers."] = ""
 
 -- UI/Presets.lua
 -- L["On"] = ""
@@ -4170,6 +4180,24 @@ L["Part of the %s quests"] = "%s 퀘스트의 일부"
 
 -- UI/GuideFrameHere.lua
 -- L["Right-click: show in quest log, or not now around here (twice: for the rest of this zone)."] = ""
+
+-- UI/GuideFrameBanner.lua
+-- L["Kept in your log: %s"] = ""
+-- L["If you run it later, the dungeon's page has a hand-in guide for them."] = ""
+-- L["%s next: start looking for a group."] = ""
+-- L["%s in %d steps: start looking for a group."] = ""
+-- L["Dungeon on your way: %s, for a group of five."] = ""
+-- L["The guide picks up 1 quest for it and runs it in about %d steps."] = ""
+-- L["The guide picks up %d quests for it and runs it in about %d steps."] = ""
+-- L["Skip it and the guide keeps to the solo route."] = ""
+-- L["Run it"] = ""
+-- L["%s: a group of five runs it in about an hour."] = ""
+-- L["No group? Skip it: the guide goes on with the solo route, and its quests stay in your log."] = ""
+-- L["No group? Skip it"] = ""
+-- L["1 finished quest here first"] = ""
+-- L["%d finished quests here first"] = ""
+-- L["Jump anyway? They stay in your log, and the guide lists who takes each in."] = ""
+-- L["Jump anyway"] = ""
 
 -- No longer in the code (its English changed or it went away): reuse or delete.
 -- L["Shortest Path Forever is guiding. Turn off \"Guide with Shortest Path Forever when it's installed\" (Options, Arrow & routes) to use Polestar's arrow."] = "Shortest Path Forever가 가이드 중입니다. Polestar 화살표를 쓰려면 \"설치 시 Shortest Path Forever로 가이드\"를 끄십시오(설정, 화살표 및 경로)."
@@ -4345,3 +4373,4 @@ L["Part of the %s quests"] = "%s 퀘스트의 일부"
 -- L["A few choices to start with. Everything else is in %s."] = "먼저 몇 가지를 고르십시오. 나머지는 모두 %s에 있습니다."
 -- L["How the way to your goal shows on the world map and the minimap. The line is the easiest to follow; sparkles show as dots while Reduce motion is on."] = "지도와 미니맵에 목표까지의 길을 표시하는 방식입니다. 선이 가장 따라가기 쉽습니다. 움직임 줄이기가 켜져 있으면 반짝임은 점으로 표시됩니다."
 -- L["%s, %s or %s on map and minimap: set on the Welcome page or in Options."] = "지도와 미니맵에 %s, %s 또는 %s: 환영 화면이나 설정에서 지정."
+-- L["Leveling guides take you through this dungeon where they have steps for it. Off: they keep to the solo route. More dungeons join this list as they are added to the guides' route."] = "레벨업 가이드에 이 던전 단계가 있으면 이 던전을 거쳐 안내합니다. 끄면: 솔로 경로만 따릅니다. 가이드 경로에 던전이 추가되면 이 목록에도 추가됩니다."

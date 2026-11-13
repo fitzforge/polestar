@@ -177,6 +177,9 @@ L["Hand in %s first"] = "先交还%s"
 L["Handed in later on the route"] = "路线后面会交还"
 L["Not handed in on the route ahead"] = "后续路线不会交还"
 L["Finished, and no step from here on hands it in: handing it in now saves a trip back."] = "已完成，且此后没有步骤会交还它：现在交还可省去一趟回程。"
+-- L["%s in your quest log"] = ""
+-- L["Only if you skip %s"] = ""
+-- L["Only if you run %s in your route"] = ""
 
 -- Core/Automation.lua
 L["Choose a reward to finish the turn-in."] = "选择一个奖励以完成交还。"
@@ -1115,7 +1118,6 @@ L["Entrance in Horde territory (outside the Undercity)"] = "入口位于部落�
 L["Entrance in Alliance territory (in Ironforge)"] = "入口位于联盟领地（铁炉堡内）"
 L["Entrance in Horde territory (in Orgrimmar)"] = "入口位于部落领地（奥格瑞玛内）"
 L["Entrance in Alliance territory (in Stormwind)"] = "入口位于联盟领地（暴风城内）"
-L["Leveling guides take you through this dungeon where they have steps for it. Off: they keep to the solo route. More dungeons join this list as they are added to the guides' route."] = "升级指南在包含此地下城步骤时会带你完成该地下城。关闭：指南将保持单人路线。更多地下城加入指南路线后会出现在此列表中。"
 L["Speak with %s"] = "与%s交谈"
 -- L["Dungeons are turned off (Options > Discovery > Lookup)."] = ""
 
@@ -1228,6 +1230,8 @@ L["Skipping also skips: %s"] = "跳过后也会跳过：%s"
 L["Keep this: you hand it in later in %s"] = "保留此任务：稍后在%s中交还"
 L["Keep this: a later guide hands it in"] = "保留此任务：之后的指南会交还"
 L["%d known places: the arrow leads to each in turn"] = "已知 %d 处地点：箭头会依次带你前往"
+-- L["your finished quests give %s: hand them in first"] = ""
+-- L["Hand in first: your finished quests cover it"] = ""
 
 -- UI/GuideFrame.lua
 L["Location"] = "位置"
@@ -1474,6 +1478,9 @@ L["Keep these, a later guide hands them in: %s"] = "保留这些任务，之后�
 L["Press %s, or right-click the minimap button and pick Guide window, to show it."] = "按 %s，或右键点击小地图按钮并选择“指南窗口”以显示。"
 L["Right-click the minimap button and pick Guide window to show it."] = "右键点击小地图按钮并选择“指南窗口”以显示。"
 L["Clears your manual check-offs and skipped steps in this guide from your last quest progress on. The guide stays where your quests put you."] = "从你最近一次任务进度起，清除此指南中手动勾选和跳过的步骤。指南会停留在你的任务进度所在的位置。"
+-- L["The route ahead never hands these in. Click to see who takes each, with a guide there."] = ""
+-- L["1 finished quest to hand in elsewhere"] = ""
+-- L["%d finished quests to hand in elsewhere"] = ""
 
 -- UI/JourneyPanel.lua
 L["Lift to %s"] = "乘升降梯前往%s"
@@ -2321,6 +2328,7 @@ L["Your manual check-offs and skipped steps in the current guide are cleared fro
 -- L["Set Polestar up again, a page at a time: questing, groups and dungeons, your route, your look. Each choice works at once."] = ""
 -- L["What this version of Polestar changed for you."] = ""
 -- L["Set Polestar up again, a page at a time. Each choice works at once."] = ""
+-- L["Leveling guides can take you through the dungeons on your way, for a group of five: they pick up the quests on stops they make anyway, send you to the door at the right level and hand the quests in after. Skip them: the solo route. Ask me: the guide asks at each dungeon. Discovery, Dungeons changes one."] = ""
 
 -- Rares/Rares.lua
 L["Raid warning"] = "团队通知"
@@ -4137,6 +4145,8 @@ L["Class quest chime"] = "职业任务提示音"
 
 -- Dungeons/Options.lua
 -- L["Dungeons and characters"] = ""
+-- L["As for all dungeons"] = ""
+-- L["Run it: the leveling guide picks up its quests on the way and takes you to the door. Skip it: the guide keeps to the solo route. As for all dungeons: Guide, Automation, Dungeons in my route answers."] = ""
 
 -- UI/Presets.lua
 -- L["On"] = ""
@@ -4170,6 +4180,24 @@ L["Part of the %s quests"] = "%s任务之一"
 
 -- UI/GuideFrameHere.lua
 -- L["Right-click: show in quest log, or not now around here (twice: for the rest of this zone)."] = ""
+
+-- UI/GuideFrameBanner.lua
+-- L["Kept in your log: %s"] = ""
+-- L["If you run it later, the dungeon's page has a hand-in guide for them."] = ""
+-- L["%s next: start looking for a group."] = ""
+-- L["%s in %d steps: start looking for a group."] = ""
+-- L["Dungeon on your way: %s, for a group of five."] = ""
+-- L["The guide picks up 1 quest for it and runs it in about %d steps."] = ""
+-- L["The guide picks up %d quests for it and runs it in about %d steps."] = ""
+-- L["Skip it and the guide keeps to the solo route."] = ""
+-- L["Run it"] = ""
+-- L["%s: a group of five runs it in about an hour."] = ""
+-- L["No group? Skip it: the guide goes on with the solo route, and its quests stay in your log."] = ""
+-- L["No group? Skip it"] = ""
+-- L["1 finished quest here first"] = ""
+-- L["%d finished quests here first"] = ""
+-- L["Jump anyway? They stay in your log, and the guide lists who takes each in."] = ""
+-- L["Jump anyway"] = ""
 
 -- No longer in the code (its English changed or it went away): reuse or delete.
 -- L["Shortest Path Forever is guiding. Turn off \"Guide with Shortest Path Forever when it's installed\" (Options, Arrow & routes) to use Polestar's arrow."] = "Shortest Path Forever 正在导航。要使用 Polestar 的箭头，请关闭“安装 Shortest Path Forever 时由其导航”（选项 > 箭头与路线）。"
@@ -4354,3 +4382,4 @@ L["Part of the %s quests"] = "%s任务之一"
 -- L["A few choices to start with. Everything else is in %s."] = "先做几个选择。其他设置都在%s中。"
 -- L["How the way to your goal shows on the world map and the minimap. The line is the easiest to follow; sparkles show as dots while Reduce motion is on."] = "通往目标的路线在地图和微缩地图上的显示方式。线条最容易跟随；开启“减少动效”时，闪光显示为圆点。"
 -- L["%s, %s or %s on map and minimap: set on the Welcome page or in Options."] = "地图和微缩地图上可用%s、%s或%s：在欢迎页面或选项中设置。"
+-- L["Leveling guides take you through this dungeon where they have steps for it. Off: they keep to the solo route. More dungeons join this list as they are added to the guides' route."] = "升级指南在包含此地下城步骤时会带你完成该地下城。关闭：指南将保持单人路线。更多地下城加入指南路线后会出现在此列表中。"

@@ -177,6 +177,9 @@ L["Hand in %s first"] = "Entrega primero %s"
 L["Handed in later on the route"] = "Se entrega más adelante en la ruta"
 L["Not handed in on the route ahead"] = "No se entrega en la ruta por delante"
 L["Finished, and no step from here on hands it in: handing it in now saves a trip back."] = "Terminada, y ningún paso a partir de aquí la entrega: entregarla ahora te ahorra un viaje de vuelta."
+-- L["%s in your quest log"] = ""
+-- L["Only if you skip %s"] = ""
+-- L["Only if you run %s in your route"] = ""
 
 -- Core/Automation.lua
 L["Choose a reward to finish the turn-in."] = "Elige una recompensa para entregar la misión."
@@ -1115,7 +1118,6 @@ L["Entrance in Horde territory (outside the Undercity)"] = "Entrada en territori
 L["Entrance in Alliance territory (in Ironforge)"] = "Entrada en territorio de la Alianza (en Forjaz)"
 L["Entrance in Horde territory (in Orgrimmar)"] = "Entrada en territorio de la Horda (en Orgrimmar)"
 L["Entrance in Alliance territory (in Stormwind)"] = "Entrada en territorio de la Alianza (en Ventormenta)"
-L["Leveling guides take you through this dungeon where they have steps for it. Off: they keep to the solo route. More dungeons join this list as they are added to the guides' route."] = "Las guías de leveo te llevan por esta mazmorra donde tienen pasos para ella. Desactivado: siguen la ruta en solitario. Más mazmorras se añaden a esta lista a medida que entran en la ruta de las guías."
 L["Speak with %s"] = "Habla con %s"
 -- L["Dungeons are turned off (Options > Discovery > Lookup)."] = ""
 
@@ -1228,6 +1230,8 @@ L["Skipping also skips: %s"] = "Saltar también salta: %s"
 L["Keep this: you hand it in later in %s"] = "No la abandones: la entregas más adelante en %s"
 L["Keep this: a later guide hands it in"] = "No la abandones: una guía posterior la entrega"
 L["%d known places: the arrow leads to each in turn"] = "%d lugares conocidos: la flecha te lleva a cada uno, uno tras otro"
+-- L["your finished quests give %s: hand them in first"] = ""
+-- L["Hand in first: your finished quests cover it"] = ""
 
 -- UI/GuideFrame.lua
 L["Location"] = "Ubicación"
@@ -1474,6 +1478,9 @@ L["Keep these, a later guide hands them in: %s"] = "No abandones estas misiones,
 L["Press %s, or right-click the minimap button and pick Guide window, to show it."] = "Pulsa %s, o haz clic derecho en el botón del minimapa y elige «Ventana de la guía», para mostrarla."
 L["Right-click the minimap button and pick Guide window to show it."] = "Haz clic derecho en el botón del minimapa y elige «Ventana de la guía» para mostrarla."
 L["Clears your manual check-offs and skipped steps in this guide from your last quest progress on. The guide stays where your quests put you."] = "Borra tus marcas manuales y los pasos saltados de esta guía a partir de tu último progreso en misiones. La guía se queda donde te sitúan tus misiones."
+-- L["The route ahead never hands these in. Click to see who takes each, with a guide there."] = ""
+-- L["1 finished quest to hand in elsewhere"] = ""
+-- L["%d finished quests to hand in elsewhere"] = ""
 
 -- UI/JourneyPanel.lua
 L["Lift to %s"] = "Ascensor a %s"
@@ -2321,6 +2328,7 @@ L["Your manual check-offs and skipped steps in the current guide are cleared fro
 -- L["Set Polestar up again, a page at a time: questing, groups and dungeons, your route, your look. Each choice works at once."] = ""
 -- L["What this version of Polestar changed for you."] = ""
 -- L["Set Polestar up again, a page at a time. Each choice works at once."] = ""
+-- L["Leveling guides can take you through the dungeons on your way, for a group of five: they pick up the quests on stops they make anyway, send you to the door at the right level and hand the quests in after. Skip them: the solo route. Ask me: the guide asks at each dungeon. Discovery, Dungeons changes one."] = ""
 
 -- Rares/Rares.lua
 L["Raid warning"] = "Aviso de la banda"
@@ -4137,6 +4145,8 @@ L["Class quest chime"] = "Aviso sonoro de misión de clase"
 
 -- Dungeons/Options.lua
 -- L["Dungeons and characters"] = ""
+-- L["As for all dungeons"] = ""
+-- L["Run it: the leveling guide picks up its quests on the way and takes you to the door. Skip it: the guide keeps to the solo route. As for all dungeons: Guide, Automation, Dungeons in my route answers."] = ""
 
 -- UI/Presets.lua
 -- L["On"] = ""
@@ -4170,6 +4180,24 @@ L["Part of the %s quests"] = "Parte de las misiones de %s"
 
 -- UI/GuideFrameHere.lua
 -- L["Right-click: show in quest log, or not now around here (twice: for the rest of this zone)."] = ""
+
+-- UI/GuideFrameBanner.lua
+-- L["Kept in your log: %s"] = ""
+-- L["If you run it later, the dungeon's page has a hand-in guide for them."] = ""
+-- L["%s next: start looking for a group."] = ""
+-- L["%s in %d steps: start looking for a group."] = ""
+-- L["Dungeon on your way: %s, for a group of five."] = ""
+-- L["The guide picks up 1 quest for it and runs it in about %d steps."] = ""
+-- L["The guide picks up %d quests for it and runs it in about %d steps."] = ""
+-- L["Skip it and the guide keeps to the solo route."] = ""
+-- L["Run it"] = ""
+-- L["%s: a group of five runs it in about an hour."] = ""
+-- L["No group? Skip it: the guide goes on with the solo route, and its quests stay in your log."] = ""
+-- L["No group? Skip it"] = ""
+-- L["1 finished quest here first"] = ""
+-- L["%d finished quests here first"] = ""
+-- L["Jump anyway? They stay in your log, and the guide lists who takes each in."] = ""
+-- L["Jump anyway"] = ""
 
 -- No longer in the code (its English changed or it went away): reuse or delete.
 -- L["Shortest Path Forever is guiding. Turn off \"Guide with Shortest Path Forever when it's installed\" (Options, Arrow & routes) to use Polestar's arrow."] = "Shortest Path Forever está guiando. Desactiva \"Guiar con Shortest Path Forever si está instalado\" (Opciones, Flecha y rutas) para usar la flecha de Polestar."
@@ -4340,3 +4368,4 @@ L["Part of the %s quests"] = "Parte de las misiones de %s"
 -- L["A few choices to start with. Everything else is in %s."] = "Unas cuantas opciones para empezar. Todo lo demás está en %s."
 -- L["How the way to your goal shows on the world map and the minimap. The line is the easiest to follow; sparkles show as dots while Reduce motion is on."] = "Cómo se muestra el camino hacia tu objetivo en el mapa del mundo y el minimapa. La línea es la más fácil de seguir; los destellos se ven como puntos mientras Reducir movimiento está activado."
 -- L["%s, %s or %s on map and minimap: set on the Welcome page or in Options."] = "%s, %s o %s en el mapa y el minimapa: elígelo en la bienvenida o en Opciones."
+-- L["Leveling guides take you through this dungeon where they have steps for it. Off: they keep to the solo route. More dungeons join this list as they are added to the guides' route."] = "Las guías de leveo te llevan por esta mazmorra donde tienen pasos para ella. Desactivado: siguen la ruta en solitario. Más mazmorras se añaden a esta lista a medida que entran en la ruta de las guías."
