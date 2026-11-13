@@ -292,6 +292,7 @@ step Brewnall Village
 
 step Frostmane Hold
   tip Frostmane Hold is the troll cave in the hills south-west of Brewnall Village. Ice Claw Bears, Elder Crag Boars and Snow Leopards you kill on the way count for Rejold. Kill Headhunters at its mouth and walk through to its far end.
+  tip Careful: the Frostmane Hideskinners inside the Hold are level 9-10 and stand in pairs: pull them one at a time back to the mouth.
   kill 1123 quest 287                         -- Frostmane Headhunter, below ground
   goto 21.3,54.2 "Frostmane Hold"
   complete 287
@@ -574,6 +575,7 @@ step The tunnel post
 step Stonesplinter troggs
   zone Loch Modan
   tip North of the post, west of the road: the Stonesplinter troggs and scouts camp in the hills. Both drop the Trogg Stone Teeth.
+  tip Careful: Headsplitter, a level 15 trogg, walks Stonesplinter Valley among the 11-12 troggs: work the camps at its north edge, near the post, and keep clear of him.
   kill 1161 x10 quest 224.1                   -- Stonesplinter Trogg
   kill 1162 x10 quest 224.2                   -- Stonesplinter Scout
   collect 2536 quest 267.1                    -- Trogg Stone Tooth

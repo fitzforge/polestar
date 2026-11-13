@@ -385,6 +385,7 @@ step Jason Mathers
 step Crystal Lake: kill these as you meet them
   zone Elwynn Forest
   tip The murlocs on the east shore drop the kelp. Skinners: Gray Forest Wolves roam the woods between the lake and the Tower of Azora; Prowlers further east give pelts too.
+  tip Careful: Elder Finseer, a level 11 rare murloc, walks the river by Guard Thomas' bridge, east of the Prowlers' woods: leave him be.
   collect 1256 quest 112                      -- Crystal Kelp Fronds
   collect 247877 quest 91751 optional         -- Rough Wolf Pelts
 

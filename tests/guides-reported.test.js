@@ -11854,3 +11854,19 @@ test('Dun Morogh (Gnome): Surena Caledon is taken from Gakin, her choker and The
 		assert.ok(!list.some(({ goal }) => goal.quest === 1689 || (goal.t === 'collect' && goal.item === 6810) || is('turnin', 1688)(goal)), `${guide}: no Surena walk or Binding`);
 	}
 });
+
+// Danger at the spot (#1575), Alliance 1-12 audit (0.4.0): warnings where players died on the current route.
+test('Alliance starts: Careful tips at Frostmane Hold, Stonesplinter Valley, Ban\'ethil Barrow and Elder Finseer\'s river', { skip }, () => {
+	for (const [guide, pred, says] of [
+		['forever/alliance/dwarf/01-dun-morogh.guide', (g) => g.t === 'kill' && g.quest === 287, /Frostmane Hideskinners/],
+		['forever/alliance/gnome/01-dun-morogh.guide', (g) => g.t === 'kill' && g.quest === 287, /Frostmane Hideskinners/],
+		['forever/alliance/dwarf/01-dun-morogh.guide', (g) => g.t === 'kill' && g.quest === 224, /Headsplitter/],
+		['forever/alliance/gnome/01-dun-morogh.guide', (g) => g.t === 'kill' && g.quest === 224, /Headsplitter/],
+		[TELDRASSIL, (g) => g.t === 'collect' && g.quest === 483, /Gnarlpine Defenders/],
+		[ELWYNN, (g) => g.t === 'collect' && g.quest === 91751, /Elder Finseer/],
+	]) {
+		const list = goals(guide);
+		const { step } = list[at(list, `${guide}: ${says}`, pred)];
+		assert.match([step.note, step.tip].flat().filter(Boolean).join(' '), says, `${guide}: "${step.title}" warns`);
+	}
+});

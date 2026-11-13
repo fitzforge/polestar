@@ -7993,6 +7993,82 @@
 				"ref": "players' in-game recordings to 2026-11-13: Black Shield (1322) objective ticks after kills of npc 4411, 4414, 4413 and 4415 (#1985)"
 			},
 			"issue": 1985
+		},
+		{
+			"id": "2025-a01-frostmane-hold-hideskinners",
+			"faction": "Alliance",
+			"at": {
+				"quest": 287,
+				"goal": "objective",
+				"objective": 1
+			},
+			"tip": "Careful: the Frostmane Hideskinners inside the Hold are level 9-10 and stand in pairs: pull them one at a time back to the mouth.",
+			"note": "Danger at the spot (#1575), Alliance 1-12 audit (0.4.0): Frostmane Hold's walk to the far end (287) comes at about 8-9 in the Dun Morogh guides, and the Hold's Frostmane Hideskinners (1122) are level 9-10. In players' recordings (Polestar 0.3.5 and later), 7 of the 14 people who went in died there (11 deaths) at levels 8-9, 5 of them to Hideskinners.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' in-game recordings (Polestar 0.3.5 and later, to 2026-11-12): deaths in Frostmane Hold (Dun Morogh 20-26, 50-56) on the Dun Morogh guides: 7 of 14 people, 11 deaths at levels 8.0-9.2; killers Frostmane Hideskinner (1122, 9-10) 5, Frostmane Snowstrider (1121) 2, Frostmane Shadowcaster (1124) 1"
+			},
+			"issue": 2025
+		},
+		{
+			"id": "2025-a01-loch-modan-headsplitter",
+			"faction": "Alliance",
+			"at": {
+				"quest": 224,
+				"goal": "objective",
+				"objective": 1
+			},
+			"tip": "Careful: Headsplitter, a level 15 trogg, walks Stonesplinter Valley among the 11-12 troggs: work the camps at its north edge, near the post, and keep clear of him.",
+			"note": "Danger at the spot (#1575), Alliance 1-12 audit (0.4.0): the Dun Morogh guides' Loch Modan loop works the Stonesplinter troggs and scouts (224, 267) at about 12-13, where Headsplitter (269185, level 15) walks the valley. Players' recordings: 23 people did it at a median of 13.3, 1 died there, 2 abandoned.",
+			"source": [
+				{
+					"kind": "questie",
+					"ref": "npcs.json 269185 Headsplitter, level 15, Loch Modan 27.8-28.6, 63-87"
+				},
+				{
+					"kind": "recording",
+					"ref": "players' in-game recordings to 2026-11-12: In Defense of the King's Lands (224) and The Trogg Threat (267) done by 23 people at 11-15 (median 13.3), 1 died within 60 yd, 2 abandoned"
+				}
+			],
+			"issue": 2025
+		},
+		{
+			"id": "2025-a01-teldrassil-banethil-furbolgs",
+			"faction": "Alliance",
+			"at": {
+				"quest": 483,
+				"goal": "objective",
+				"objective": 1
+			},
+			"tip": "Careful: the barrow's Gnarlpine Defenders, Augurs and Shamans (7-9) stand in threes in the narrow tunnels: pull each group back toward the entrance before you go deeper.",
+			"note": "Danger at the spot (#1575), Alliance 1-12 audit (0.4.0): Ban'ethil Barrow Den (483's relics, Oben Rageclaw, Lynessa's escort) comes at about 9 in Teldrassil. In players' recordings (Polestar 0.3.5 and later), 5 of the 8 people who went in died there (7 deaths) at levels 8-10, to Gnarlpine Defenders, Augurs and Shamans.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' in-game recordings (Polestar 0.3.5 and later, to 2026-11-12): deaths in Ban'ethil Barrow Den (Teldrassil 43-47, 57-63): 5 of 8 people, 7 deaths at levels 8.1-10.5; killers Gnarlpine Defender (2010) 3, Gnarlpine Augur (2011) 2, Gnarlpine Shaman (2009) 2"
+			},
+			"issue": 2025
+		},
+		{
+			"id": "2025-a01-elwynn-elder-finseer",
+			"faction": "Alliance",
+			"at": {
+				"quest": 91751,
+				"goal": "objective",
+				"objective": 1
+			},
+			"tip": "Careful: Elder Finseer, a level 11 rare murloc, walks the river by Guard Thomas' bridge, east of the Prowlers' woods: leave him be.",
+			"note": "Danger at the spot (#1575), Alliance 1-12 audit (0.4.0): Rough Wolf Pelts (91751) takes Prowlers' pelts east of Crystal Lake at about 8-9, where Elder Finseer (276180, a level 11 rare murloc) walks the river by the bridge. Players' recordings: 15 people did it at a median of 8.8, 2 died within 60 yd.",
+			"source": [
+				{
+					"kind": "questie",
+					"ref": "npcs.json 276180 Elder Finseer, level 11, rare, Elwynn Forest 75-77, 42-61"
+				},
+				{
+					"kind": "recording",
+					"ref": "players' in-game recordings to 2026-11-12: Rough Wolf Pelts (91751) done by 15 people (median 8.8), 2 died within 60 yd, 1 abandoned"
+				}
+			],
+			"issue": 2025
 		}
 	]
 }

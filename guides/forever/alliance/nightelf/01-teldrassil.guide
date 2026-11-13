@@ -309,6 +309,7 @@ step Ban'ethil Barrow Den's entrance
 step Ban'ethil Barrow Den
   zone Teldrassil
   tip The barrow is south of the road. Sentinel Lynessa Duskblossom is held inside, Oben Rageclaw sleeps in its depths, and the four relic chests sit in the lower rooms. Its furbolgs drop Shayla's fangs.
+  tip Careful: the barrow's Gnarlpine Defenders, Augurs and Shamans (7-9) stand in threes in the narrow tunnels: pull each group back toward the entrance before you go deeper.
   collect 5220 quest 490.1                    -- Gnarlpine Fang: any Gnarlpine furbolg
   collect 3405 quest 483.1            -- Below ground
   accept 2541                                 -- Oben Rageclaw, below ground
