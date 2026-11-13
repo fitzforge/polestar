@@ -9801,7 +9801,8 @@ fileDataID from wago.tools into `data/sources/casc` (local, never shipped):
   tower, Darkcloud Pinnacle's rope bridges), our grid's way goes in: his surface where he has one near the way's
   height, else a floor of ours after the cell's floors, an arc for each step he lacks inside a cluster, an entrance
   each side and an edge across a cluster border, edges from each entrance of a changed cluster to those it then
-  reaches for less, and one component for the components joined (docs/forge/nav.md, "Grid joins").
+  reaches for less where the cluster's edges do not already lead there for no more (an entrance's edges across a
+  border always stay), and one component for the components joined (docs/forge/nav.md, "Grid joins").
   The router gives up on a walk past 8 times the straight line plus 2000 yd (`Path.lua` DETOUR): a start on
   ground his maps join to the world only far away no longer searches most of a continent.
 

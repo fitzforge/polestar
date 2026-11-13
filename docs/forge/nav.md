@@ -658,8 +658,11 @@ forge nav check
   class and area, so every entrance keeps its layer); a step his maps cannot make within 40 yd of walking becomes an
   arc inside a cluster, or an entrance on each side of a cluster border with an edge between them; each entrance of
   a cluster the way changed gets an edge to every entrance it then reaches for less, priced as the router prices
-  the grid; and the components the way joins become one. A way that climbs a face his maps lack, or that leaves
-  his maps, is refused, and a lift ride is left to the lift chokepoints; each is logged. A way his maps already make
+  the grid, unless the cluster's edges already lead there for no more (an inn opened to its village would otherwise
+  give each entrance of one an edge to each of the other, past the 63 an entrance holds); an entrance still past 63
+  keeps its edges across the cluster's borders, then its cheapest, his and the join's alike; and the components the
+  way joins become one. A way that climbs a face his maps lack, or that leaves his maps, is refused, and a lift ride
+  is left to the lift chokepoints; each is logged. A way his maps already make
   adds nothing, so a later pack of his that has the way changes nothing. PACK.json's `leffe.joins` counts what was
   added. Add a pair only when players walk it in the game (recordings, an in-game check, a report) and the walking
   maps have no way, or a long detour, between its ends.

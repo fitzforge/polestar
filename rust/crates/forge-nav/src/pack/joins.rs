@@ -9,7 +9,8 @@
 //! - a step of the way his maps cannot make is added: an arc inside a cluster, an entrance on each side and an edge
 //!   between them across a cluster border;
 //! - each entrance of a cluster the way changed gets an edge to every entrance of the cluster it now reaches for
-//!   less, priced as the router prices the grid (pack/ingame.rs);
+//!   less, priced as the router prices the grid (pack/ingame.rs), unless the cluster's edges already lead there for
+//!   no more; an entrance's edges across a border always stay;
 //! - the components the way joins become one (Path.lua answers "unreachable" without a search when the start's and
 //!   the goal's entrances share none).
 //!
@@ -305,8 +306,13 @@ fn union(parent: &mut FxHashMap<u32, u32>, a: u32, b: u32) -> Option<(u32, u32)>
 
 /// Cluster edges after a join: each entrance (row) gets an edge to every entrance of its cluster it reaches for less
 /// with the join's floors and arcs than before (`bf`, the cluster before them), priced per profile as the router prices
-/// the grid; only rows whose search meets the way (`marks`, the way's nodes) can gain one. -> the (row, row) pairs
-/// given or lowered an edge, and how many edges are new.
+/// the grid; only rows whose search meets the way (`marks`, the way's nodes) can gain one. An edge the cluster's edges
+/// already walk for no more (through another entrance, in the router's rounded costs) is not added: a join that opens a
+/// village to an inn would otherwise give every entrance of each an edge to every entrance of the other, past the 63 a
+/// row holds. A row still over 63 keeps its edges across the cluster's borders (its only way into the next cluster:
+/// the Shadowprey inn's floor leaves its cluster through one entrance), then its cheapest, his and the join's alike, as
+/// for his edges past 63 (keeping the join's first had dropped edges of his as short as 4 yd for longer new ones). ->
+/// the (row, row) pairs reached for less, and how many new edges stay.
 fn cluster_edges(after: &Cluster, rows: &mut [Row], bf: &Cluster, marks: &[usize], swim: f64) -> (Vec<(usize, usize)>, usize) {
 	let nodes_after: Vec<Option<usize>> = rows.iter().map(|r| after.surface(r.cell as usize, r.layer as i32, 0.0)).collect();
 	let nodes_before: Vec<Option<usize>> = rows.iter().map(|r| if r.comp == UNSET { None } else { bf.surface(r.cell as usize, r.layer as i32, 0.0) }).collect();
@@ -319,7 +325,8 @@ fn cluster_edges(after: &Cluster, rows: &mut [Row], bf: &Cluster, marks: &[usize
 		}
 		let ga = [after.dijkstra(&[(ra, 0.0, 0.0)], 0, swim, false).0, after.dijkstra(&[(ra, 0.0, 0.0)], 1, swim, false).0, none_after.0];
 		let gb = nodes_before[r].map(|rb| [0, 1, 2].map(|p| bf.dijkstra(&[(rb, 0.0, 0.0)], p, swim, false).0));
-		let mut new = FxHashSet::default();
+		// the entrances reached for less, the nearest first: a far one the edges to a near one already lead to needs none
+		let mut reached: Vec<(usize, [f64; 3])> = Vec::new();
 		for t in 0..rows.len() {
 			let Some(ta) = nodes_after[t].filter(|_| t != r) else { continue };
 			let ca = [ga[0][ta], ga[1][ta], ga[2][ta]];
@@ -330,10 +337,20 @@ fn cluster_edges(after: &Cluster, rows: &mut [Row], bf: &Cluster, marks: &[usize
 				(Some(gb), Some(tb)) => [gb[0][tb], gb[1][tb], gb[2][tb]],
 				_ => [f64::INFINITY; 3],
 			};
-			if !(0..3).any(|p| ca[p] < cb[p] - 1.0) {
+			if (0..3).any(|p| ca[p] < cb[p] - 1.0) {
+				reached.push((t, ca));
+				pairs.push((r, t));
+			}
+		}
+		reached.sort_by(|a, b| a.1[NONE].total_cmp(&b.1[NONE]).then(a.0.cmp(&b.0)));
+		let mut walked = [row_costs(rows, r, 0), row_costs(rows, r, 1), row_costs(rows, r, 2)];
+		let mut pushed = FxHashSet::default();
+		for (t, ca) in reached {
+			let rec = Edge { off: HERE, ent: t as u32, cost: ca.map(cost_value), yards: yards_value(none_after.1[nodes_after[t].unwrap()]) };
+			let cost = rec.cost;
+			if (0..3).all(|p| walked[p][t] <= cost[p] as u64 + 1) {
 				continue;
 			}
-			let rec = Edge { off: HERE, ent: t as u32, cost: ca.map(cost_value), yards: yards_value(none_after.1[ta]) };
 			match rows[r].edges.iter_mut().find(|e| e.off == HERE && e.ent == t as u32) {
 				Some(e) => {
 					if rec.cost[NONE] < e.cost[NONE] {
@@ -345,21 +362,51 @@ fn cluster_edges(after: &Cluster, rows: &mut [Row], bf: &Cluster, marks: &[usize
 				}
 				None => {
 					rows[r].edges.push(rec);
-					made += 1;
+					pushed.insert(t as u32);
 				}
 			}
-			new.insert(t as u32);
-			pairs.push((r, t));
+			for (p, w) in walked.iter_mut().enumerate() {
+				lower_row_cost(rows, w, t, cost[p] as u64, p);
+			}
 		}
 		if rows[r].edges.len() > DEGREE {
-			// the join's edges stay; the dearest of the others go, as for his edges past 63
 			let mut e = std::mem::take(&mut rows[r].edges);
-			e.sort_by_key(|x| (!(x.off == HERE && new.contains(&x.ent)), x.cost[NONE]));
+			e.sort_by_key(|x| (x.off == HERE, x.cost[NONE]));
 			e.truncate(DEGREE);
 			rows[r].edges = e;
 		}
+		made += rows[r].edges.iter().filter(|e| e.off == HERE && pushed.contains(&e.ent)).count();
 	}
 	(pairs, made)
+}
+
+/// The router's cost from row `r` to every row of its cluster over the rows' edges inside it (rounded, as the graph
+/// field stores them), for profile p; u64::MAX where they lead nowhere.
+fn row_costs(rows: &[Row], r: usize, p: usize) -> Vec<u64> {
+	let mut d = vec![u64::MAX; rows.len()];
+	lower_row_cost(rows, &mut d, r, 0, p);
+	d
+}
+
+/// `d` (row_costs') with row t reached for cost c, and every row its edges lead to lowered after it.
+fn lower_row_cost(rows: &[Row], d: &mut [u64], t: usize, c: u64, p: usize) {
+	if c >= d[t] {
+		return;
+	}
+	d[t] = c;
+	let mut heap = std::collections::BinaryHeap::from([std::cmp::Reverse((c, t))]);
+	while let Some(std::cmp::Reverse((c, u))) = heap.pop() {
+		if c > d[u] {
+			continue;
+		}
+		for e in rows[u].edges.iter().filter(|e| e.off == HERE) {
+			let (v, cv) = (e.ent as usize, c + e.cost[p] as u64);
+			if v < d.len() && cv < d[v] {
+				d[v] = cv;
+				heap.push(std::cmp::Reverse((cv, v)));
+			}
+		}
+	}
 }
 
 /// Puts the ways into the clusters of `outs` (his clusters as written, by cluster key). -> what was added, and the
@@ -690,6 +737,49 @@ mod tests {
 		let (st, _) = apply(&geo(1), &mut outs, &[w], &cg, &|_| {}).unwrap();
 		assert_eq!((st.refused, st.ways, st.floors, st.arcs), (1, 0, 0, 0));
 		assert!(outs[0].1.floor.is_none() && outs[0].1.arc.is_none());
+	}
+
+	/// A join gives an entrance no edge its cluster's edges already lead along for no more: through a gap in a wall,
+	/// the entrance by the gap gets an edge, the one beyond it that his edges join to it does not.
+	#[test]
+	fn a_join_adds_no_edge_the_clusters_edges_already_lead_along() {
+		let wall: Vec<(usize, usize)> = (0..C).map(|y| (4, y)).collect();
+		let here = |ent: u32, cost: u32| Edge { off: HERE, ent, cost: [cost; 3], yards: cost };
+		// west of the wall A (1, 2); east of it B (5, 2) by the gap and C (7, 2) past it, his edges between B and C
+		let rows = vec![
+			Row { cell: (C + 2) as u32, layer: 0, comp: 1, edges: Vec::new() },
+			Row { cell: (5 * C + 2) as u32, layer: 0, comp: 2, edges: vec![here(2, 8)] },
+			Row { cell: (7 * C + 2) as u32, layer: 0, comp: 2, edges: vec![here(1, 8)] },
+		];
+		let mut outs = vec![(0u32, out(&wall, rows))];
+		let cg = CellGrid::new(C, 1, 1, 0, 0);
+		let (st, _) = apply(&geo(1), &mut outs, &[way("gap a-b", &[(3, 2), (4, 2), (5, 2)]), way("gap b-a", &[(5, 2), (4, 2), (3, 2)])], &cg, &|_| {}).unwrap();
+		let got = ingame::decode_graph(outs[0].1.graph.as_deref().unwrap()).unwrap();
+		let to = |r: usize| got[r].edges.iter().map(|e| e.ent).collect::<Vec<_>>();
+		assert_eq!((to(0), to(2)), (vec![1], vec![1]), "A to B only (B leads on to C), C to B only: {got:?}");
+		assert!(to(1).contains(&0) && to(1).contains(&2), "B to A and to C: {got:?}");
+		assert_eq!(st.edges, 2, "A and B joined both ways: {st:?}");
+	}
+
+	/// A join that gives an entrance more edges than a row holds (63) keeps its edge across the cluster's border (the
+	/// Shadowprey inn's floor leaves its cluster by one entrance, and its 63 new edges to the village had pushed that
+	/// edge out, so the inn could be walked out of but never into), then its cheapest: a 4-yd edge of his stays, the
+	/// dearest new ones go.
+	#[test]
+	fn an_entrances_edge_across_its_border_stays_when_a_join_gives_it_more_edges_than_a_row_holds() {
+		let wall: Vec<(usize, usize)> = (0..C).map(|y| (4, y)).collect();
+		let across = Edge { off: 5, ent: 0, cost: [3; 3], yards: 3 };
+		let near = Edge { off: HERE, ent: 1, cost: [4; 3], yards: 4 };
+		let mut rows =
+			vec![Row { cell: (C + 2) as u32, layer: 0, comp: 7, edges: vec![across.clone(), near.clone()] }, Row { cell: (C + 3) as u32, layer: 0, comp: 7, edges: vec![Edge { ent: 0, ..near }] }];
+		rows.extend((0..70).map(|_| Row { cell: (6 * C + 2) as u32, layer: 0, comp: 8, edges: Vec::new() }));
+		let mut outs = vec![(0u32, out(&wall, rows))];
+		let cg = CellGrid::new(C, 1, 1, 0, 0);
+		apply(&geo(1), &mut outs, &[way("door a-b", &[(3, 2), (4, 2), (5, 2)]), way("door b-a", &[(5, 2), (4, 2), (3, 2)])], &cg, &|_| {}).unwrap();
+		let got = ingame::decode_graph(outs[0].1.graph.as_deref().unwrap()).unwrap();
+		assert_eq!(got[0].edges.len(), DEGREE, "{:?}", got[0].edges);
+		assert!(got[0].edges.contains(&across), "the edge across the border stays: {:?}", got[0].edges);
+		assert!(got[0].edges.contains(&near), "the 4-yd edge of his stays: {:?}", got[0].edges);
 	}
 
 	fn cell(x: f64, z: f64, cls: u8) -> WayCell {

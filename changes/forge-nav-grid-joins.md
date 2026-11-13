@@ -8,7 +8,9 @@ section: forge
   only goes back along the same cells, unless a step back rises over the
   walk slope) and only what his maps lack goes in: a floor in a cell, an
   arc, entrances and an edge across a cluster border, the entrances'
-  edges, and one component for the places it joins. A way with a climb
-  his maps lack, or off his maps, is refused; one his maps already make
-  adds nothing. The log and PACK.json count what went in
+  edges (only where the cluster's edges do not already lead for no more;
+  an entrance's edges across a cluster border always stay), and one
+  component for the places it joins. A way with a climb his maps lack,
+  or off his maps, is refused; one his maps already make adds nothing.
+  The log and PACK.json count what went in
   (docs/forge/nav.md, "Grid joins").
