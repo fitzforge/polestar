@@ -56,12 +56,12 @@ end
 return { quest = list(__ids.quest), npc = list(__ids.npc), object = list(__ids.object), item = list(__ids.item) }"#;
 
 /// Every compiled guide's goals, candidates, reagents and rewards: the keys quest, npc, object and item,
-/// the quests of pre, preAll and closedBy (one id or a list) and of preTitles (its keys), the prose's
+/// the quests of pre, preAll, closedBy and crumbs (one id or a list) and of preTitles (its keys), the prose's
 /// {kind:id} tokens (names), and a collect's sources (fromId, fromAlsoId, of kind fromKind).
 const GUIDE_WALK: &str = r#"
 __ids = { quest = {}, npc = {}, object = {}, item = {} }
 local KIND = { quest = "quest", npc = "npc", object = "object", item = "item" }
-local QUESTS = { pre = true, preAll = true, closedBy = true }
+local QUESTS = { pre = true, preAll = true, closedBy = true, crumbs = true }
 local function add(kind, v) if type(v) == "number" then __ids[kind][v] = true end end
 local function walk(t)
   for k, v in pairs(t) do

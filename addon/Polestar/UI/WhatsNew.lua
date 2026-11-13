@@ -12,7 +12,7 @@
 --
 -- Per account: PolestarDB.whatsNewSeen, the version of the notes last shown.
 -- The notes are about the addon, not one character, so a player with alts
--- reads them once. A fresh install (ns.IsNewAccount) gets the welcome, and
+-- reads them once. A fresh install (ns.IsNewAccount) gets Install, and
 -- the newest notes are marked seen without showing; an account from before
 -- this window (no flag) has updated, so its notes are due. At login they
 -- open while the flag differs from the newest notes' version; opening sets
@@ -89,7 +89,7 @@ local NOTES = {
 				return L["Grinds go to the nearest spawns, past emptied camps; Target shows who, pings, marks."]
 			end },
 			{ glyph = "dart", color = "accent", head = L["Route lines your way"], text = function()
-				return L["%s, %s or %s on map and minimap: set on the Welcome page or in Options."]:format(L["Line"], L["Dots"], L["Sparkles"])
+				return L["%s, %s or %s on map and minimap: set in Install or in Settings."]:format(L["Line"], L["Dots"], L["Sparkles"])
 			end },
 			{ glyph = "icon-forever", color = "accent", head = L["New in Forever"], text = function()
 				return L["Quests only Forever has carry a small ∞ mark."]

@@ -1,4 +1,4 @@
-//! Class trainings by rank (RevHumanStart and every start-zone review, c10): a training teaches the
+//! Class trainings by rank (every start-zone review, c10): a training teaches the
 //! ranks between the last one trained and the level (ranks at 1, 4, 6, 8, 10...; every class
 //! trainer teaches every rank, a starting valley's too). One with nothing to teach does nothing: Northshire at 3.06, a
 //! second Goldshire training at 9.73. The seed keeps none such and adds a stop where a trainer town
@@ -59,7 +59,7 @@ fn the_ranks_come_from_the_world_s_training_table() {
 
 #[test]
 fn a_v1_training_is_held_at_its_class_quests_level() {
-	// RevA1 (c10): Human's v1 training moved to 9.73 took the Tome of Divinity (2998, 12) with it.
+	// c10 review: Human's v1 training moved to 9.73 took the Tome of Divinity (2998, 12) with it.
 	use forge_sim::chain::goals_from;
 	use forge_sim::seq::Ev;
 	let o = common::orc();
@@ -87,7 +87,7 @@ fn a_v1_training_is_held_at_its_class_quests_level() {
 
 #[test]
 fn a_town_without_a_class_s_trainer_costs_its_share_of_the_trip() {
-	// RevTroll (c10): Razor Hill has no Mage trainer, so an Orc Mage walks to Sen'jin each time.
+	// c10 review: Razor Hill has no Mage trainer, so an Orc Mage walks to Sen'jin each time.
 	use forge_sim::profile::town_gaps;
 	let o = common::orc();
 	let mut w = o.world.clone();

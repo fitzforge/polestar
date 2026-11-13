@@ -2057,15 +2057,72 @@ local function heightsAt(st, x, y)
 	return out
 end
 
+-- The height of a spawn listed where floors overlap (maps format 5's spawn field, `forge nav pack`'s
+-- pack/spawns.rs: per cluster "x y z ..." in whole yards; ported from Shortest Path Forever v1.33.0's spawn heights,
+-- his v1.30 Data/Heights.lua) within SPAWN_REACH yards of world (x, y): the nearest's. nil when none, or the map
+-- has no field. A cluster's list is read once (st.spawns[k]: a flat array x, y, z, ...; false for none).
+local SPAWN_REACH = 8
+local function spawnHeight(st, x, y)
+	local D = st and st.D
+	if not (D and (D.spawn or (D.packed and D.packed.spawn))) then
+		return nil
+	end
+	st.spawns = st.spawns or {}
+	local best, bestD
+	local C, cs = st.C, st.cs
+	-- The clusters of the four corners of the reach square: the point's own, and those within SPAWN_REACH of it.
+	local done = {}
+	for sx = -1, 1, 2 do
+		for sy = -1, 1, 2 do
+			local gx, gy = floor((x + sx * SPAWN_REACH - st.x0) / cs), floor((y + sy * SPAWN_REACH - st.y0) / cs)
+			local k = floor(gx / C) * st.ny + floor(gy / C)
+			if gx >= 0 and gy >= 0 and gx < st.GX and gy < st.GY and not done[k] then
+				done[k] = true
+				local list = st.spawns[k]
+				if list == nil then
+					local raw = Grid.unpackField(D, "spawn", k + 1)
+					list = false
+					if raw then
+						list = {}
+						for v in raw:gmatch("%S+") do
+							list[#list + 1] = tonumber(v)
+						end
+					end
+					st.spawns[k] = list
+				end
+				if list then
+					for i = 1, #list - 2, 3 do
+						local d = (list[i] - x) ^ 2 + (list[i + 1] - y) ^ 2
+						if d <= SPAWN_REACH * SPAWN_REACH and (not bestD or d < bestD) then
+							best, bestD = list[i + 2], d
+						end
+					end
+				end
+			end
+		end
+	end
+	return best
+end
+
 -- run, and for an end without a height (a map click: no floor said) that finds no walk, the same walk from each
 -- other surface of that end's cell, lowest first, before giving up: a point without a height starts on the
 -- surface its cell's search picks (the base, or the cheapest of those apart in height), which can be a pocket no
 -- walk leaves (William MacGregor's house in Westfall: the ground's surface over the house floor, 4 yd above it).
 -- The start's surfaces first, then the goal's; at most RETRY_SURFACES tries. The answer's end keeps that surface's
--- height.
+-- height. A goal without a height beside a spawn listed where floors overlap (spawnHeight) is walked to on that
+-- spawn's floor first: the NPC in the cellar, not the street over it.
 local RETRY_SURFACES = 6
 local function runAny(job)
 	local map, from, to = job.map, job.from, job.to
+	if to.z == nil then
+		local sz = spawnHeight(State(map), to.x, to.y)
+		if sz then
+			local p, c = run(map, from, { x = to.x, y = to.y, z = sz, map = to.map }, job.waterWalking, job.costOnly, job.profile, job, job.style, job.danger)
+			if p then
+				return p, c
+			end
+		end
+	end
 	local points, cost = run(map, from, to, job.waterWalking, job.costOnly, job.profile, job, job.style, job.danger)
 	if points or cost ~= "unreachable" or (from.z and to.z) then
 		return points, cost

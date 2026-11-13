@@ -151,7 +151,7 @@ fn gate_keeps_other_races() {
 #[test]
 #[ignore = "needs data/forever (forge data build, or POLESTAR_V1)"]
 fn a_druids_way_to_moonglade_is_its_teleport() {
-	// RevSkyH3 S6: the Skyborne Druids' way from Thunder Bluff to Moonglade was a flight to Orgrimmar
+	// Review: the Skyborne Druids' way from Thunder Bluff to Moonglade was a flight to Orgrimmar
 	// and a 6,551 yd walk; they teleport, as v1's Moonglade steps say.
 	let st = start(&["zone Thunder Bluff", "", "step Elder Rise", "  goto 76.5,27.3 \"Elder Rise\"", ""]);
 	let v1 = shared(&["zone Thunder Bluff", "", "step Elder Rise", "  talk 3033 @76.5,27.3", ""]);
@@ -165,7 +165,7 @@ fn a_druids_way_to_moonglade_is_its_teleport() {
 #[test]
 #[ignore = "needs data/forever (forge data build, or POLESTAR_V1)"]
 fn v1s_flight_back_with_only_other_classes_work_sends_no_one_walking_there() {
-	// Rev14H1 12c: v1's "Back to the Crossroads" flight (everyone back from Orgrimmar training), placed
+	// c14 review 12c: v1's "Back to the Crossroads" flight (everyone back from Orgrimmar training), placed
 	// by the route at Regthar with only the Warlocks' hand-in left: the repair walked everyone to the
 	// Crossroads and back to Barak.
 	let st = start(&["", "step Crossroads", "  zone The Barrens", "  accept 852", ""]);

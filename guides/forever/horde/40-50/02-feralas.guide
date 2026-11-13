@@ -78,6 +78,10 @@ step Orgrimmar
 # Sen'jin Village, Kar Stormsinger in Bloodhoof Village, Velma Warnam in
 # Brill), all optional.
 #
+# Zul'Farrak (`when dungeon "Zul'Farrak"`, dungeons in the route): for a character who runs it, Tran'rek's Scarab
+# Shells (2865, after Tran'rek, 2864, handed in on the Gadgetzan stop) and Trenton Lighthammer's Troll Temper (3042)
+# are taken on the Gadgetzan stop at about 44; the run is in 40-50/04-tanaris.
+#
 # Accepted here, finished later on the route: Screecher Spirits (3520,
 # Steamwheedle Port: the screechers on the next Feralas visit, Yeh'kinya at the
 # end of Tooga's escort), Deliver to MacKinley (2874) in Booty Bay
@@ -227,6 +231,13 @@ step Gadgetzan
   turnin 2864                           -- Tran'rek
   accept 1690                           -- Chief Engineer Bilgewhizzle
   accept 1707                           -- Spigot Operator Luglunket
+
+step Gadgetzan
+  when dungeon "Zul'Farrak"
+  zone Tanaris
+  tip For your Zul'Farrak run, in the next guide: Tran'rek wants scarab shells, and Trenton Lighthammer, a short walk from the flight master, Troll Temper from the Sandfury trolls.
+  accept 2865                           -- Tran'rek
+  accept 3042                           -- Trenton Lighthammer
 
 # ---------------------------------------------------------------- Gadgetzan and the Wastewander
 

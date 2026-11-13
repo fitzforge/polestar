@@ -226,7 +226,7 @@ local GOAL = rec({
 	quest = N, title = S, target = S, npc = N, npcName = S, object = N, objName = S, item = N, itemName = S, count = N, oi = N, skill = S, skillLine = N,
 	rank = NS, rankMax = N, level = N, frac = N, grind = N, money = N, untilSkill = N, yellow = N, grey = N,
 	reagents = list(rec({ item = N, itemName = S, count = N })),
-	location = S, minLevel = N, qlvl = NS, limit = N, pre = LN, preAll = LN, closedBy = LN, endNpcs = LN, xp = N, parent = N, preTitles = { idmap = S }, text = S, node = N, area = N,
+	location = S, minLevel = N, qlvl = NS, limit = N, pre = LN, preAll = LN, closedBy = LN, crumbs = LN, endNpcs = LN, xp = N, parent = N, preTitles = { idmap = S }, text = S, node = N, area = N,
 	map = N, x = N, y = N, z = N, f = S, r = N,
 	spots = list(rec({ x = N, y = N, z = N, r = N, n = N, alt = B, lvl = N })),
 	spread = B, lvl = N, optional = B, only = ONLY, profLine = N, profName = S, profRank = N, note = S,
@@ -240,7 +240,7 @@ local GOAL = rec({
 	objs = list(rec({ text = S, count = N })), startItem = N, startItemName = S, carriedTo = S,
 })
 -- A step's `when` predicates and a `next` option's (format 4; Guides.Validate checks each kind's keys).
-local WHEN = rec({ k = S, neg = B, op = S, n = N, frac = N, q = NL, item = N, spell = N, name = S, label = S, area = N, map = N, skillLine = N, minLevel = N, pre = LN, preAll = LN, closedBy = LN, parent = N })
+local WHEN = rec({ k = S, neg = B, op = S, n = N, frac = N, q = NL, item = N, spell = N, name = S, label = S, area = N, node = N, map = N, skillLine = N, minLevel = N, pre = LN, preAll = LN, closedBy = LN, parent = N })
 -- A step's picture: read so a string carries the guide as its addon does, but
 -- an imported guide has no addon folder holding the file, so it shows none.
 local IMAGE = rec({ file = S, w = N, h = N })
@@ -380,7 +380,7 @@ Import.Adler32 = adler32
 -- The first list or map of guide g holding more entries than its LIMITS cap
 -- -> its place (as `guide.steps[2].goals[1].spots`), its count, its cap; or
 -- nil. tools/lib/pack/importstring.js crowded() walks the same places.
-local QUEST_LISTS = { "pre", "preAll", "closedBy", "endNpcs", "preTitles" }
+local QUEST_LISTS = { "pre", "preAll", "closedBy", "crumbs", "endNpcs", "preTitles" }
 local function crowded(g)
 	local function over(t, cap, where)
 		if type(t) ~= "table" then return nil end

@@ -20,10 +20,14 @@ end)
 -- moving on from a finished leveling guide (for SKIPPED_SECONDS); the group
 -- quest the live step waits on
 -- (`when group`: Skip it, the default, or Do it with a group; it cannot be
--- dismissed); the step the player just skipped, with its undo; why the guide
--- just moved past a quest (while that step's guide and next step are on
--- screen); the step on screen when it is not the live one (skipped: unskip
--- it; looked at with ‹ ›: back to the live step); then the end of a leveling
+-- dismissed); the dungeon it waits on ("Dungeons in my route": Ask me; Run
+-- it or Skip it, never dismissed), and after "No group? Skip it" the
+-- dungeon's quests kept in the log; the step the player just skipped, with
+-- its undo; why the guide just moved past a quest (while that step's guide
+-- and next step are on screen); the step on screen when it is not the live
+-- one (skipped: unskip it; looked at with ‹ ›: back to the live step); at a
+-- chosen dungeon's run, until inside, "No group? Skip it", and a few steps
+-- before it the start-looking line; then the end of a leveling
 -- guide reached with steps still open (Start the next guide, GF.EndOffer),
 -- then a fresh start on a guide much of whose quest XP follows on from an
 -- earlier one (Engine.FreshStart: Open that guide in a tab), then the
@@ -38,7 +42,7 @@ end)
 ---------------------------------------------------------------------------
 
 local SKIPPED_SECONDS = 20 -- how long the "Skipped …" notices stay
-local notices = { closedTab = nil, questSkip = nil, stepSkip = nil, skipped = nil, away = nil, outlevel = nil, train = nil, riding = nil, classQuest = nil, freshSeen = {} }
+local notices = { closedTab = nil, questSkip = nil, stepSkip = nil, skipped = nil, away = nil, outlevel = nil, train = nil, riding = nil, classQuest = nil, dungeonKept = nil, soonSeen = nil, freshSeen = {} }
 GF.notices = notices
 
 -- The step on screen when it is not the live step: { guideId, index, live,
@@ -101,12 +105,23 @@ local function bannerNotice()
 	local gq, gtitle
 	if E and E.GroupQuestion then gq, gtitle = E.GroupQuestion() end
 	if gq then return "group", { quest = gq, title = gtitle } end
+	-- A dungeon in the route not answered yet (Engine.DungeonQuestion): the guide waits and asks.
+	local dq = E and E.DungeonQuestion and E.DungeonQuestion()
+	if dq then return "dungeon", dq end
+	-- After "No group? Skip it": the quests kept in the log, until closed.
+	if notices.dungeonKept then return "dungeonKept", notices.dungeonKept end
 	local k = notices.stepSkip
 	if k and g ~= nil and g.id == k.guideId and (not view or view.index ~= k.step) then return "stepSkip", k end
 	local s = notices.skipped
 	if s and g ~= nil and g.id == s.guideId and E.GetStepIndex() == s.to then return "skipped", s end
 	local a = E and awayNotice(E, g)
 	if a then return "away", a end
+	-- At a chosen dungeon's run, until inside: "No group? Skip it"; a few steps before it: start looking for a group.
+	local dr = E and E.DungeonRun and E.DungeonRun()
+	local C = ns.Compat
+	if dr and not (C and C.IsInInstance and C.IsInInstance()) then return "dungeonRun", dr end
+	local ds = E and E.DungeonSoon and E.DungeonSoon()
+	if ds and notices.soonSeen ~= ds.map then return "dungeonSoon", ds end
 	-- The live step's accepts would not fit in the quest log (Core/RoutePlan.lua).
 	local lo = g ~= nil and view and E.GetLiveStep and view.index == E.GetLiveStep() and ns.RoutePlan and ns.RoutePlan.LogOverflow()
 	if lo and notices.logSeen ~= g.id .. ":" .. view.index then
@@ -277,10 +292,12 @@ local function placeLink(link, text, x, y)
 	return link:GetWidth()
 end
 
-function GF.LayoutBanner(width)
-	local kind, n = bannerNotice()
+-- known, kind, n: the notice GF.Layout just read (bannerNotice), with
+-- nothing run in between; else it is read here.
+function GF.LayoutBanner(width, known, kind, n)
+	if not known then kind, n = bannerNotice() end
 	banner.psKind = kind
-	banner.Jump.psDefault = (kind == "group" or kind == "lost") or nil -- the gamepad's first focus (UI/GamepadGuide.lua)
+	banner.Jump.psDefault = (kind == "group" or kind == "lost" or kind == "dungeon" or kind == "dungeonRun") or nil -- the gamepad's first focus (UI/GamepadGuide.lua)
 	banner.Text:SetWidth(width - PAD * 2 - 21 - 24)
 	banner.Later:Hide()
 	if kind == "skipped" then
@@ -299,6 +316,28 @@ function GF.LayoutBanner(width)
 		-- "Durotar complete — continuing with The Barrens", for SKIPPED_SECONDS.
 		banner.Icon:SetTexture(Theme.Media("check"))
 		banner.Text:SetText(string.format(L["%s complete \226\128\148 continuing with %s"], n.fromTitle, n.toTitle))
+		banner.Jump:Hide()
+		banner.Close:Show()
+		local h = floor(9 + banner.Text:GetStringHeight() + 9 + 0.5)
+		banner:SetHeight(h)
+		return h
+	elseif kind == "dungeonKept" then
+		-- After "No group? Skip it": the dungeon's quests stay in the log; their hand-ins pass unless done.
+		banner.Icon:SetTexture(Theme.Media("icon-dungeon"))
+		local names = {}
+		for i, t in ipairs(n.titles) do names[i] = ns.Quoted(t) or t end
+		banner.Text:SetText(string.format(L["Kept in your log: %s"], table.concat(names, ", ")) .. "\n"
+			.. L["If you run it later, the dungeon's page has a hand-in guide for them."])
+		banner.Jump:Hide()
+		banner.Close:Show()
+		local h = floor(9 + banner.Text:GetStringHeight() + 9 + 0.5)
+		banner:SetHeight(h)
+		return h
+	elseif kind == "dungeonSoon" then
+		-- A chosen dungeon's run a few steps ahead (Engine.DungeonSoon): time to find a group.
+		banner.Icon:SetTexture(Theme.Media("icon-dungeon"))
+		banner.Text:SetText(n.steps == 1 and string.format(L["%s next: start looking for a group."], n.name or "")
+			or string.format(L["%s in %d steps: start looking for a group."], n.name or "", n.steps or 0))
 		banner.Jump:Hide()
 		banner.Close:Show()
 		local h = floor(9 + banner.Text:GetStringHeight() + 9 + 0.5)
@@ -335,6 +374,25 @@ function GF.LayoutBanner(width)
 		-- Skip is the default answer: the accent link, the banner's main action.
 		local w = placeLink(banner.Jump, L["Skip it"], 0, -4)
 		placeLink(banner.Later, L["Do it with a group"], w + 10, -4)
+		banner.Close:Hide()
+	elseif kind == "dungeon" then
+		-- "Ask me": the first step of a dungeon not answered yet holds the route until Run it or Skip it.
+		banner.Icon:SetTexture(Theme.Media("icon-dungeon"))
+		local text = string.format(L["Dungeon on your way: %s, for a group of five."], n.name or "")
+		if n.quests and n.quests > 0 and n.runIn then
+			text = text .. "\n" .. (n.quests == 1 and string.format(L["The guide picks up 1 quest for it and runs it in about %d steps."], n.runIn)
+				or string.format(L["The guide picks up %d quests for it and runs it in about %d steps."], n.quests, n.runIn))
+		end
+		banner.Text:SetText(text .. "\n" .. L["Skip it and the guide keeps to the solo route."])
+		local w = placeLink(banner.Jump, L["Run it"], 0, -4)
+		placeLink(banner.Later, L["Skip it"], w + 10, -4)
+		banner.Close:Hide()
+	elseif kind == "dungeonRun" then
+		-- At a chosen dungeon's run, outside: no group found, the solo route goes on.
+		banner.Icon:SetTexture(Theme.Media("icon-dungeon"))
+		banner.Text:SetText(string.format(L["%s: a group of five runs it in about an hour."], n.name or "") .. "\n"
+			.. L["No group? Skip it: the guide goes on with the solo route, and its quests stay in your log."])
+		placeLink(banner.Jump, L["No group? Skip it"], 0, -4)
 		banner.Close:Hide()
 	elseif kind == "stepSkip" then
 		banner.Icon:SetTexture(Theme.Media("skip"))
@@ -376,11 +434,21 @@ function GF.LayoutBanner(width)
 		banner.Close:Show()
 	elseif kind == "outlevel" then
 		banner.Icon:SetTexture(Theme.Media("icon-level"))
-		banner.Text:SetText(L["You have outlevelled this guide."])
+		-- Finished quests the route hands in before the guide the jump goes to
+		-- (RoutePlan.LeftBehind): said here, and the jump asks once.
+		local left = ns.RoutePlan and ns.RoutePlan.LeftBehind(n.to)
+		n.left = left and left.n > 0 and left or nil
+		local text = L["You have outlevelled this guide."]
+		if n.left then
+			local what = n.left.n == 1 and L["1 finished quest here first"] or string.format(L["%d finished quests here first"], n.left.n)
+			text = text .. "\n" .. (n.left.xp > 0 and string.format(L["%s (%d XP)"], what, n.left.xp) or what)
+			if n.asked then text = text .. "\n" .. L["Jump anyway? They stay in your log, and the guide lists who takes each in."] end
+		end
+		banner.Text:SetText(text)
 		-- The suggested guide is one of a route choice: offer the choice.
 		local E = Engine()
 		n.choiceFrom = n.to and E and E.RouteChoiceFor and E.RouteChoiceFor(n.to) or nil
-		placeLink(banner.Jump, n.choiceFrom and L["Choose where to level next"] or string.format(L["Jump to %s"], n.title or ""), 0, -4)
+		placeLink(banner.Jump, (n.left and n.asked) and L["Jump anyway"] or n.choiceFrom and L["Choose where to level next"] or string.format(L["Jump to %s"], n.title or ""), 0, -4)
 		banner.Close:Show()
 	elseif kind == "train" then
 		banner.Icon:SetTexture(Theme.Media("icon-train"))
@@ -524,6 +592,12 @@ function GF.TakeBanner()
 		if UI.ShowQuestRoom then UI.ShowQuestRoom() end
 	elseif kind == "group" then
 		if E and E.AnswerGroup then E.AnswerGroup(n.quest, "skip") end
+	elseif kind == "dungeon" then
+		if E and E.ChooseDungeon then E.ChooseDungeon(n.map, true) end
+	elseif kind == "dungeonRun" then
+		-- The quests it keeps in the log are named once, until closed.
+		local kept = E and E.SkipDungeon and E.SkipDungeon(n.map)
+		if kept and #kept > 0 then notices.dungeonKept = { map = n.map, titles = kept } end
 	elseif kind == "stepSkip" then
 		notices.stepSkip = nil
 		if E and E.Unskip then E.Unskip(n.step) end
@@ -543,10 +617,15 @@ function GF.TakeBanner()
 		notices.freshSeen[n.guideId] = true
 		if E and E.OpenTab then E.OpenTab(n.from, true) end
 	elseif kind == "outlevel" then
-		notices.outlevel = nil
-		-- A route choice opens the choice window, which loads the zone picked.
-		if not (n.choiceFrom and UI.ShowRouteChoice(n.choiceFrom)) and E and E.SetGuide and n.to then
-			E.SetGuide(n.to)
+		-- Finished quests the jump would leave behind: the first click asks.
+		if n.left and not n.asked then
+			n.asked = true
+		else
+			notices.outlevel = nil
+			-- A route choice opens the choice window, which loads the zone picked.
+			if not (n.choiceFrom and UI.ShowRouteChoice(n.choiceFrom)) and E and E.SetGuide and n.to then
+				E.SetGuide(n.to)
+			end
 		end
 	elseif kind == "train" then
 		notices.train = nil
@@ -588,6 +667,9 @@ function GF.LaterBanner()
 	if kind == "group" then
 		if E and E.AnswerGroup then E.AnswerGroup(n.quest, "do") end
 		GF.Layout()
+	elseif kind == "dungeon" then
+		if E and E.ChooseDungeon then E.ChooseDungeon(n.map, false) end
+		GF.Layout()
 	elseif kind == "lost" then
 		if E and E.AnswerLost then E.AnswerLost(n.quest, "skip") end
 		GF.Layout()
@@ -611,8 +693,11 @@ function GF.DismissBanner(later)
 	elseif kind == "away" then
 		-- Looking ahead or back: closed for this step (awayNotice), another step has its own
 		notices.away = n.guideId .. ":" .. n.index
-	elseif kind == "group" or kind == "lost" then
-		-- a group quest or a lost one is answered, never dismissed
+	elseif kind == "group" or kind == "lost" or kind == "dungeon" or kind == "dungeonRun" then
+		-- a group quest, a lost one or a dungeon is answered, never dismissed
+	elseif kind == "dungeonSoon" then
+		-- closed for this dungeon's run
+		notices.soonSeen = n.map
 	elseif kind == "log" then
 		notices.logSeen = n.key
 	elseif kind == "riding" then

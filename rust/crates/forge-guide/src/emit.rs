@@ -75,13 +75,14 @@ pub const GUIDE_KEYS: [&str; 30] = [
 pub const STEP_KEYS: [&str; 10] = ["title", "note", "image", "label", "only", "when", "along", "skipto", "section", "goals"];
 /// A step's picture: its path in the pack's addon folder (no extension) and its size in pixels.
 pub const IMAGE_KEYS: [&str; 3] = ["file", "w", "h"];
-/// A step's `when` predicates and a `next` option's (`nextWhen`, format 4), in this key order.
-pub const WHEN_KEYS: [&str; 18] = ["k", "neg", "op", "n", "frac", "q", "item", "spell", "name", "label", "area", "map", "skillLine", "minLevel", "pre", "preAll", "closedBy", "parent"];
+/// A step's `when` predicates and a `next` option's (`nextWhen`, format 4), in this key order (`node`, a
+/// `taxi` predicate's flight master, sits where no other predicate has a value).
+pub const WHEN_KEYS: [&str; 19] = ["k", "neg", "op", "n", "frac", "q", "item", "spell", "name", "label", "area", "node", "map", "skillLine", "minLevel", "pre", "preAll", "closedBy", "parent"];
 // Keys only the profession/reputation/exploration/achievement verbs use sit
 // where no other goal has a value, so adding them left older output unchanged.
 // `z` (heights.js) follows y, `node` and `area` (places.js) precede map: a
 // goal without them is emitted as before.
-pub const GOAL_KEYS: [&str; 83] = [
+pub const GOAL_KEYS: [&str; 84] = [
 	"t",
 	"class",
 	// `train class`: its step's zone (uiMapID), whose trainers the Engine ranks first (#1357).
@@ -134,6 +135,8 @@ pub const GOAL_KEYS: [&str; 83] = [
 	"xp",
 	// A child quest's parent (the data's `parent`): its giver offers it only while the parent is in the log (#1661).
 	"parent",
+	// An accept's breadcrumbs: the game holds the quest back while one is in the log, until it is handed in.
+	"crumbs",
 	"preTitles",
 	"text",
 	"node",

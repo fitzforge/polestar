@@ -72,6 +72,16 @@ step Un'Goro Crater
 # - Back at Marshal's Refuge, Shizzle at the entrance first; in the
 #   Undercity, Harbinger Balthazad beside the bat master first.
 #
+# Blackrock Depths (`when dungeon "Blackrock Depths"`, dungeons in the route): for a character who runs it,
+# Kargath's WANTED poster gives KILL ON SIGHT: Dark Iron Dwarves (4081) on the first Kargath stop, at about 51; the
+# run follows on the way through Blackrock Mountain to the Burning Steppes (the portal is down the walkways from
+# the bridge the route crosses), and Warlord Goretooth takes it on the last Kargath stop (`when complete`). Left
+# out: its follow-up poster (4082, offered once 4081 is handed in), Thunderheart's quests (3906 first: Overmaster
+# Pyron, outside the dungeon; 3907, 3981, 7201 after it), Lost Thunderbrew Recipe (4134: after Vivian Lagrave,
+# 4133, not taken), The Heart of the Mountain and Ribbly Screwspigot (4123, 4136: Maxwort Uberglint and Yuka
+# Screwspigot at Flame Crest, after the mountain), The Rise of the Machines (4063: after 4062, dropped above) and
+# the quests that start inside.
+#
 # Left open for later guides: The New Springs (980) and It's a Secret to
 # Everybody (3908, Donova Snowden), Marvon's Workshop (4147), Felnok
 # Steelspring (4808, Everlook), Scarlet Diversions
@@ -301,10 +311,25 @@ step Kargath
   accept 3821                         -- Thal'trak Proudtusk
   accept 4061                         -- Hierophant Theodora Mulvadania
 
+step The WANTED poster
+  when dungeon "Blackrock Depths"
+  zone Badlands
+  tip For your Blackrock Depths run, next, on the way through Blackrock Mountain: the WANTED poster in Kargath wants the Anvilrage dwarves inside thinned out.
+  accept 4081 object 164867           -- WANTED
+
 step Into the Searing Gorge
   zone Searing Gorge
   tip Take the pass out of Kargath's west side into the Searing Gorge, then ride south across the gorge to the long bridge into Blackrock Mountain. Inside, follow the chain walkways down and leave through the southern exit; stay off the paths to the dungeon portals.
   goto 34.8,83.0 "Bridge into Blackrock Mountain"
+
+step Blackrock Depths
+  when dungeon "Blackrock Depths"
+  when onquest 4081
+  zone Searing Gorge
+  tip Blackrock Depths is a dungeon for a group of five from about level 48, the biggest in the mountain: its Anvilrage dwarves are this quest's, and you need not go further in than they are. Its portal is deep inside the mountain, down the chain walkways from the bridge.
+  tip Inside: the Anvilrage Guardsmen, Wardens and Footmen. Then back out of the portal and on through the mountain's southern exit to the Burning Steppes.
+  enter "Blackrock Depths" @34.8,85.3
+  complete 4081 @34.8,85.3            -- KILL ON SIGHT: Dark Iron Dwarves: the Anvilrage dwarves, inside
 
 # ---------------------------------------------------------------- Burning Steppes
 
@@ -347,6 +372,13 @@ step Kargath
   turnin 3822                         -- Thal'trak Proudtusk
   turnin 4061                         -- Hierophant Theodora Mulvadania
   note Theodora's next errand goes to Lotwil east of town and then into Blackrock Depths: skip it.
+
+step Warlord Goretooth
+  when dungeon "Blackrock Depths"
+  when complete 4081
+  zone Badlands
+  tip The Anvilrage dwarves of your Blackrock Depths run: Warlord Goretooth, in Kargath.
+  turnin 4081                         -- Warlord Goretooth
 
 step Fly to Tarren Mill
   zone Badlands

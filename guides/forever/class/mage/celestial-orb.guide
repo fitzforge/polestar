@@ -99,7 +99,7 @@ step Tabetha's Task (optional)
   tip At 40 the mage trainers who send you to Tabetha (Jennea Cannon, Bink, Anastasia Hartwell, Deino) also have Tabetha's Task, a quest any class can do. Tabetha then wants the Tiara of the Deep from Hydromancer Velratha, a level 46 elite naga in Zul'Farrak, the troll dungeon in north-western Tanaris: a group of five, level 44-54. The reward window shows the Spellshifter Rod and the Gemshale Pauldrons.
   level 40
   accept 2861 optional
-  turnin 2861 optional                        -- Tabetha
+  turnin 2861                                 -- Tabetha
   accept 2846 optional
 
 step Tiara of the Deep in Zul'Farrak
