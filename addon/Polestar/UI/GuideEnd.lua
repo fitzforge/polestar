@@ -175,6 +175,7 @@ local function build()
 	F.Undone:SetPoint("TOP", F.Title, "BOTTOM", 0, -8)
 	F.Close = W.IconButton(head, "close", 28, L["Close"], function() GE.Later() end, 14)
 	F.Close:SetPoint("TOPRIGHT", head, "TOPRIGHT", -12, -12)
+	W.FrameClose(F, F.Close)
 
 	-- Body: the next guide's zone painting (a dark hairline round it) with
 	-- its name and levels over the fade, or a line saying what to do.

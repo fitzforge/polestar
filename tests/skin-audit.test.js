@@ -23,10 +23,6 @@ const { audit, line, LOOKS } = require('../tools/preview/audit');
 // the test fails on it until its fix lands.
 const EXPECTED = [
 	{
-		look: 'classic', surface: '*', check: 'clickable', match: 'kit closeButton',
-		owner: 'game looks', reason: "Classic: after a repaint a dialog shows two close buttons, the look's own over the window's; fixed before 0.3.8 ships.",
-	},
-	{
 		look: '*', surface: 'toast-rare', check: 'close', match: 'PolestarRareToast Button "(close)"',
 		owner: 'game looks', reason: "WoW Forever and Blizzard: the rare toast's close is drawn larger than the card's; fixed before 0.3.8 ships.",
 	},

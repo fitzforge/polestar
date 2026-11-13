@@ -347,6 +347,7 @@ local function build()
 	F.Subtitle:SetJustifyV("TOP")
 	F.Close = W.IconButton(head, "close", 28, L["Close"], function() RC.Hide() end, 14)
 	F.Close:SetPoint("TOPRIGHT", head, "TOPRIGHT", -12, -12)
+	W.FrameClose(F, F.Close)
 
 	-- Footer: always take the recommendation; decide later.
 	local foot = CreateFrame("Frame", nil, F)

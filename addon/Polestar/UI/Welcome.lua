@@ -1845,7 +1845,16 @@ local function build()
 	W.Painter(F.CloseScrim, function(s) local r, g, b = Theme.Color("scrim"); s:SetColor(r, g, b, 0.6) end)
 	F.CloseScrim:SetFrameLevel(top:GetFrameLevel())
 	F.Close:SetFrameLevel(top:GetFrameLevel() + 2)
+	-- The disc on the start page's painting, while the close is the window's
+	-- own (W.FrameClose: in the game's looks their frame's corner close).
+	F.PlaceScrim = function()
+		local start = current == "start" and F.pages and F.pages.start
+		F.CloseScrim:SetShown(start and start.Hero.psPainted and F.Close:IsShown() or false)
+	end
 	F.CloseScrim:Hide()
+	F.Close:HookScript("OnShow", F.PlaceScrim)
+	F.Close:HookScript("OnHide", F.PlaceScrim)
+	W.FrameClose(F, F.Close)
 
 	-- The footer: Skip (Back on the last page) on the left, the step dots
 	-- in the middle, Back and Next (Start guide on the last page) on the
@@ -2042,7 +2051,7 @@ function render(from)
 			P:Hide()
 		end
 	end
-	F.CloseScrim:SetShown(current == "start" and F.pages.start.Hero.psPainted or false)
+	F.PlaceScrim()
 
 	local last = at == #list
 	paintDots(at, #list, animate)

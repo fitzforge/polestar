@@ -501,6 +501,18 @@ function W.SetIconState(b, active, enabled)
 	W.Color(b.Icon, b.psActive and "accent" or "icon", b:IsEnabled() and 1 or 0.35)
 end
 
+-- A big window's own close button. The game's looks draw a close of their
+-- own on the window frame's corner (Polestar_Looks/GameSkins.lua), which
+-- stands for it, so it shows in the other looks only. The window is painted
+-- again now that its close exists: the corner close is then there from the
+-- first paint, where only a repaint drew it, beside or over this one.
+function W.FrameClose(f, close)
+	close:SetShown(not Theme.Kit())
+	Theme.OnChanged(function() close:SetShown(not Theme.Kit()) end)
+	Theme.Repaint(f)
+	return close
+end
+
 -- A text button. opts: { primary = true, ghost = true, danger = true,
 -- width = n, icon = name, height = n }.
 function W.Button(parent, text, onClick, opts)
@@ -3373,16 +3385,11 @@ function W.Shell(name, opts)
 	f.Subtitle:SetSpacing(2)
 	f.Close = W.IconButton(head, "close", 28, L["Close"], function() f:Hide() end, 14)
 	f.Close:SetPoint("TOPRIGHT", head, "TOPRIGHT", -12, -12)
-	-- The game's looks put the close button on the window frame's corner.
-	f.Close:SetShown(not Theme.Kit())
+	W.FrameClose(f, f.Close)
 	Theme.OnChanged(function()
-		f.Close:SetShown(not Theme.Kit())
 		navWidth(f)
 		if rawget(f, "HeaderTools") then f.HeaderTools:Place() end
 	end)
-	-- The window frame's own close button (the game's looks) stands for this
-	-- one: paint again now that it exists.
-	Theme.Repaint(f)
 	if opts.scalePath then
 		f.HeaderTools = W.HeaderScale(f, opts.scalePath)
 		f.Title:SetPoint("TOPRIGHT", f.HeaderTools, "TOPLEFT", -16, -16)
