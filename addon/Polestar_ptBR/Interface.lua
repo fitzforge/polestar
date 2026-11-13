@@ -15,6 +15,11 @@ L["%d yd"] = "%d jd"
 L["quote marks: \226\128\156%s\226\128\157"] = "“%s”"
 L["Commands"] = "Comandos"
 L["Unknown command '%s'."] = "Comando desconhecido '%s'."
+-- L["Another addon is keeping the guide window and the arrow out of sight. Some UI addons show the guide's steps in their own quest tracker and route instead: turn that off in that addon to get Polestar's back."] = ""
+-- L["Another addon is keeping the guide window out of sight. Some UI addons show the guide's steps in their own quest tracker instead: turn that off in that addon to get it back."] = ""
+-- L["Another addon is keeping the arrow out of sight. Some UI addons lead the way with their own arrow or route instead: turn that off in that addon to get it back."] = ""
+-- L["Polestar is out of sight"] = ""
+-- L["Another addon is hiding the guide window or the arrow. The chat says how to get it back."] = ""
 
 -- Core/Data.lua
 L["%s not installed"] = "%s não instalado"
@@ -4101,6 +4106,9 @@ L["Show in quest log"] = "Mostrar no registro de missões"
 -- Dungeons/Mark.lua
 L["Needed for %s in %s"] = "Necessário para %s em %s"
 L["Part of the %s quests"] = "Parte das missões de %s"
+
+-- UI/GuideFrameHere.lua
+-- L["Right-click: show in quest log, or not now around here (twice: for the rest of this zone)."] = ""
 
 -- No longer in the code (its English changed or it went away): reuse or delete.
 -- L["Shortest Path Forever is guiding. Turn off \"Guide with Shortest Path Forever when it's installed\" (Options, Arrow & routes) to use Polestar's arrow."] = "Shortest Path Forever está guiando. Desative \"Guiar com Shortest Path Forever quando instalado\" (Opções, Seta e rotas) para usar a seta do Polestar."
