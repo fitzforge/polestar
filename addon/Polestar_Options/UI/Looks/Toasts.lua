@@ -398,13 +398,14 @@ local function cardSection(tab, kind, what, opts)
 		search = "animation speed, slow, fast, quick, motion, " .. what,
 		disabled = function() return TS.Get(kind, "enter") == "none" end }
 	for _, c in ipairs(opts.tail or {}) do card[#card + 1] = c end
-	register({ tab = tab, section = L["Card"], preview = opts.preview, controls = card })
+	register({ tab = tab, section = L["Card"], preview = opts.preview, controls = card, move = opts.move })
 end
 
 local function raresOff() return not (ns.Get("rares.enabled") and ns.Get("rares.alerts")) end
+-- Each sound with its speaker in the list: heard there without picking it.
 local function rareSounds()
 	local out = {}
-	for i, s in ipairs(ns.Rares and ns.Rares.SOUNDS or {}) do out[i] = { value = s.value, label = s.label } end
+	for i, s in ipairs(ns.Rares and ns.Rares.SOUNDS or {}) do out[i] = { value = s.value, label = s.label, preview = ns.Rares.PlaySoundOf } end
 	return out
 end
 local function rares() return ns.Rares end
@@ -460,7 +461,7 @@ cardSection(RARE, "rare", L["rare alert"], { tail = {
 		help = L["Move the alerts (or their line) on the screen in unlock mode, as /polestar unlock does."],
 		search = "move, position, place, drag, unlock, anchor, alerts",
 		needs = function() return ns.Movers and ns.Movers.Unlock end,
-		onClick = function() ns.Movers.Unlock() end },
+		onClick = function() UI.Options.MoveFrame("rareAlert") end },
 } })
 
 -- Transport alert
@@ -484,7 +485,7 @@ register({ tab = TRANSPORT, section = L["Transport alert"], preview = function(v
 			search = "flash, taskbar, background, alt tab",
 			help = L["The game's icon flashes while the game is in the background."] },
 	} })
-cardSection(TRANSPORT, "transport", L["transport banner"])
+cardSection(TRANSPORT, "transport", L["transport banner"], { move = "transportAlert" })
 
 -- Heads-up card
 local HEADS = L["Heads-up card"]
@@ -510,7 +511,7 @@ cardSection(HEADS, "headsup", L["heads-up card"], { scaleNote = " " .. L["It sit
 		search = "move, position, drag, unlock, own spot, heads up, card",
 		disabled = function() return TS.Get("headsup", "place") ~= "free" end,
 		needs = function() return ns.Movers and ns.Movers.Unlock end,
-		onClick = function() ns.Movers.Unlock("headsUp") end },
+		onClick = function() UI.Options.MoveFrame("headsUp") end },
 } })
 
 -- Class quest card (in the guide window: its scale, ground and opacity are the window's)

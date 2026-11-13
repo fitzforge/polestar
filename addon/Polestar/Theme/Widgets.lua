@@ -947,15 +947,71 @@ function W.Modified(path)
 	return not sameValue(ns.Get(path), d)
 end
 
+-- A row's right-click: its setting back to its default, or state that is no
+-- setting through set(nil) (get() reads it). The listener W.OnReset installs
+-- (the settings window's Undo) hears what it held, as { { path, value } }
+-- (value as stored: nil is the default) or { { get, set, value } }; nothing
+-- when it was at its default already.
+local onReset
+function W.OnReset(fn) onReset = fn end
+
+function W.ResetSetting(path, get, set)
+	if set then
+		local was = get and get()
+		set(nil)
+		if onReset and get and not sameValue(get(), was) then onReset({ { get = get, set = set, value = was } }) end
+		return
+	end
+	local was = ns.GetStored and ns.GetStored(path)
+	ns.Set(path, nil)
+	if onReset and was ~= nil then onReset({ { path = path, value = was } }) end
+end
+
+-- The text of a row's default for its reset's tooltip ("On", "100%", a
+-- choice's or card's label, a colour's hex), nil when it has none to show.
+local function defaultText(row)
+	local d = ns.GetDefault and ns.GetDefault(row.psPath)
+	if d == nil then return nil end
+	if type(d) == "boolean" then return d and L["On"] or L["Off"] end
+	local choices = rawget(row, "psChoices")
+	if type(choices) == "function" then choices = choices() end
+	if type(choices) == "table" then
+		for _, c in ipairs(choices) do
+			if type(c) == "table" and sameValue(c.value, d) then return c.label or c.text end
+		end
+	end
+	if type(d) == "table" and type(d[1]) == "number" and W.ColorHex then return W.ColorHex(d[1], d[2], d[3]) end
+	if type(d) == "number" and rawget(row, "psFormat") and W.SliderText then return W.SliderText(row, d) end
+	if type(d) == "number" or type(d) == "string" then return tostring(d) end
+	return nil
+end
+
 local function markRow(row)
 	if not row.psCompact then return end
-	-- A compact half: the label in text and the gold dot while off its
-	-- default (the label's gutter is the changed dot's alone; newness is the
-	-- section's New pill and the sidebar's count).
+	-- A compact half: the label in text while off its default, and in the
+	-- label's gutter a reset (a small reset arrow, in the changed dot's
+	-- place; a bare row of cards has it in the gutter left of its first
+	-- card) that puts this one setting back (W.ResetSetting: the window's
+	-- Undo hears it). The gamepad's reset on the row (Y) does the same, so
+	-- the button is no stop of its own. Newness is the section's New pill.
 	local mod = W.Modified(row.psPath)
 	row.psModified = mod
 	W.Color(row.Label, row.psOff and "textMuted" or mod and "text" or "textDim")
-	row.ModDot:SetShown(mod)
+	local b = rawget(row, "ResetB")
+	if mod and not b then
+		b = W.IconButton(row, "reset", 16, L["Reset to default"], function(self) W.ResetSetting(self:GetParent().psPath) end, 11)
+		b.psActive, b.psPadSkip = true, true
+		W.Color(b.Icon, "accent")
+		b:SetPoint("CENTER", row.ModDot, "CENTER", 0, 0)
+		b:SetFrameLevel(row:GetFrameLevel() + 4)
+		row.ResetB = b
+	end
+	if b then
+		local text = mod and defaultText(row)
+		b.psTip = text and (L["Reset to default (%s)"]):format(text) or L["Reset to default"]
+		b:SetShown(mod)
+	end
+	row.ModDot:SetShown(mod and not b)
 end
 
 -- A text in textMuted while its row is off, its own colour back after.
@@ -1114,10 +1170,10 @@ function W.Toggle(parent, label, path, desc, depends, opts)
 	row:SetScript("OnClick", function(self, button)
 		if not W.Enabled(self) then return end
 		if self.psSet then
-			if button == "RightButton" then self.psSet(nil) else self.psSet(not toggleValue(self)) end
+			if button == "RightButton" then W.ResetSetting(nil, function() return toggleValue(self) end, self.psSet) else self.psSet(not toggleValue(self)) end
 			self:Refresh()
 		elseif button == "RightButton" then
-			ns.Set(self.psPath, nil)
+			W.ResetSetting(self.psPath)
 		else
 			ns.Set(self.psPath, not ns.Get(self.psPath))
 		end
@@ -1328,6 +1384,37 @@ function W.ParseSliderText(row, text)
 	return min(row.psMax, max(row.psMin, n))
 end
 
+-- A drag's magnet: the value a dragged slider lands on near its sensible
+-- points, its default, zero inside its range and the value it shows as
+-- 100%, when one lies within SNAP_PX of the thumb along the track. A track
+-- whose steps are that far apart lands on any value already: no magnet.
+-- (The wheel, the keys and a typed value never snap.) -> value
+local SNAP_PX = 6
+function W.SliderSnap(row, value)
+	local lo, hi, step = row.psMin, row.psMax, row.psStep
+	local w = row.psTrackW or row.Slider:GetWidth()
+	if not (w and w > 0 and hi > lo) then return value end
+	local th = SNAP_PX / w * (hi - lo)
+	if th < step then return value end
+	local pts = rawget(row, "psSnaps")
+	if not pts then
+		pts = {}
+		local d = row.psPath and ns.GetDefault and ns.GetDefault(row.psPath)
+		if type(d) == "number" and d >= lo and d <= hi then pts[#pts + 1] = d end
+		if lo < 0 and hi > 0 then pts[#pts + 1] = 0 end
+		for _, c in ipairs({ 1, 100 }) do
+			if lo < c and c < hi and sliderText(row, c) == "100%" then pts[#pts + 1] = c end
+		end
+		row.psSnaps = pts
+	end
+	local best, bd
+	for i = 1, #pts do
+		local dist = math.abs(value - pts[i])
+		if dist <= th and (not bd or dist < bd) then best, bd = pts[i], dist end
+	end
+	return best or value
+end
+
 -- The box a value is typed into, over the value; Enter applies it, Escape
 -- or a click elsewhere leaves the value as it was.
 local function sliderEntry(row)
@@ -1404,12 +1491,25 @@ function W.Slider(parent, label, path, lo, hi, stepSize, fmt, desc, depends, opt
 	fitLabel(row, s, sliderSpan)
 	s:SetScript("OnValueChanged", function(_, value, userInput)
 		value = roundTo(value, stepSize)
+		-- A drag passing near the default, zero or 100% lands on it.
+		if userInput and row.psDragging and not row.psSnapping then
+			local v = W.SliderSnap(row, value)
+			if v ~= value then
+				value = v
+				row.psSnapping = true
+				s:SetValue(v)
+				row.psSnapping = false
+			end
+		end
 		sliderPaint(row, value)
 		if userInput and not row.psRefreshing and W.Enabled(row) and sliderValue(row) ~= value then
 			if opts and opts.release then row.psPending = value else sliderWrite(row, value) end
 		end
 	end)
+	s:HookScript("OnMouseDown", function() row.psDragging = true end)
+	s:HookScript("OnHide", function() row.psDragging = nil end)
 	s:SetScript("OnMouseUp", function()
+		row.psDragging = nil
 		if row.psPending ~= nil then
 			local v = row.psPending
 			row.psPending = nil
@@ -1428,7 +1528,13 @@ function W.Slider(parent, label, path, lo, hi, stepSize, fmt, desc, depends, opt
 	-- Right-click puts the setting back to its default.
 	row:RegisterForClicks("RightButtonUp")
 	row:SetScript("OnClick", function(self, button)
-		if button == "RightButton" and W.Enabled(self) then sliderWrite(self, nil) end
+		if button == "RightButton" and W.Enabled(self) then
+			if self.psSet then
+				W.ResetSetting(nil, function() return sliderValue(self) end, function(v) sliderWrite(self, v) end)
+			else
+				W.ResetSetting(self.psPath)
+			end
+		end
 	end)
 	row:SetScript("OnEnter", rowEnter)
 	row:SetScript("OnLeave", hideTip)
@@ -1493,14 +1599,44 @@ local function menuRowClick(self)
 	if item.onClick then item.onClick(item) end
 end
 
+-- item.preview(item): a choice heard (or seen) without picking it, a sound
+-- list's: the row's speaker plays it, and so does resting the pointer on
+-- the row a moment (PREVIEW_DWELL); leaving it or the menu closing first
+-- plays nothing.
+local PREVIEW_DWELL = 0.5
+local previewToken = 0
+local function previewSoon(row)
+	previewToken = previewToken + 1
+	local token, item = previewToken, row.psItem
+	if not (item and item.preview) then return end
+	ns.After(PREVIEW_DWELL, function()
+		if token == previewToken and row:IsVisible() and row.psItem == item then item.preview(item) end
+	end)
+end
+
+local function rowSpeaker(row)
+	local b = rawget(row, "Speaker")
+	if b then return b end
+	b = W.IconButton(row, "speaker", 22, L["Play"], function()
+		previewToken = previewToken + 1
+		local item = row.psItem
+		if item and item.preview then item.preview(item) end
+	end, 13)
+	b.psTipLines = { L["Hear it without picking it."] }
+	row.Speaker = b
+	return b
+end
+
 local function menuRowEnter(self)
 	if not self.psArmed then paintMenuRow(self, true) end
 	if self.psItem and self.psItem.tip then W.Tooltip(self, "ANCHOR_RIGHT", self.psItem.text, { self.psItem.tip }) end
+	previewSoon(self)
 end
 
 local function menuRowLeave(self)
 	if not self.psArmed then paintMenuRow(self, false) end
 	hideTip(self)
+	previewToken = previewToken + 1
 end
 
 local function buildMenu()
@@ -1522,7 +1658,12 @@ local function buildMenu()
 	Theme.Skin(menu, "panel")
 	menu.rows = {}
 	menu.seps = {}
-	menu:SetScript("OnHide", function() catcher:Hide() end)
+	menu:SetScript("OnHide", function()
+		catcher:Hide()
+		previewToken = previewToken + 1
+		local f = rawget(menu, "Filter")
+		if f then f:ClearFocus() end
+	end)
 	menu:Hide()
 	ns.CloseOnEscape("PolestarMenu")
 	-- A gamepad (UI/Gamepad.lua) picks a row, starting on the current choice; B closes.
@@ -1565,34 +1706,100 @@ local function menuRow(i)
 	return row
 end
 
--- items: { { text, icon, checked, disabled, onClick, tip, color, confirm }, { separator = true }, ... }
--- opts: { point = "TOPRIGHT", relPoint = "BOTTOMRIGHT", x = 0, y = -4, minWidth = 168 }
-function W.ShowMenu(anchor, items, opts)
-	if not menu then buildMenu() end
-	opts = opts or {}
+-- A list longer than MENU_MAX rows scrolls in an area under a filter box
+-- that narrows the rows to those holding what is typed (the box takes the
+-- keys as the list opens): Enter picks the first one left, Escape empties
+-- the box, then closes the list.
+local MENU_MAX, MENU_FILTER = 12, 26
+local layoutMenu -- (): the open list's rows laid out anew (below)
+
+local function menuLong()
+	local sc = rawget(menu, "Scroll")
+	if sc then return sc end
+	sc = W.Scroll(menu)
+	menu.Scroll = sc
+	local f = CreateFrame("EditBox", nil, menu)
+	f:SetAutoFocus(false)
+	f:SetHeight(MENU_FILTER)
+	f:SetTextInsets(26, 8, 0, 0)
+	Theme.Font(f, "label")
+	W.Color(f, "text")
+	Theme.Skin(f, "editbox")
+	f.Icon = W.Tex(f, "OVERLAY", "search", "textMuted")
+	f.Icon:SetSize(12, 12)
+	f.Icon:SetPoint("LEFT", f, "LEFT", 8, 0)
+	f.Hint = W.Text(f, "label", "textMuted")
+	f.Hint:SetPoint("LEFT", f, "LEFT", 26, 0)
+	f.Hint:SetText(L["Filter"])
+	f:SetScript("OnTextChanged", function(self)
+		self.Hint:SetShown((self:GetText() or "") == "")
+		if menu:IsShown() then layoutMenu() end
+	end)
+	f:SetScript("OnEscapePressed", function(self)
+		if (self:GetText() or "") ~= "" then self:SetText("") else W.HideMenu() end
+	end)
+	f:SetScript("OnEnterPressed", function()
+		for _, r in ipairs(menu.rows) do
+			if r:IsShown() and r.psItem and not r.psItem.disabled then return menuRowClick(r) end
+		end
+	end)
+	f:SetScript("OnEditFocusGained", function(self) Theme.SetFocused(self, true) end)
+	f:SetScript("OnEditFocusLost", function(self) Theme.SetFocused(self, false) end)
+	menu.Filter = f
+	menu.Empty = W.Text(sc.Child, "label", "textMuted")
+	menu.Empty:SetText(L["Nothing matches."])
+	return sc
+end
+
+-- Does an item hold the filter's text (any case)?
+local function holds(item, needle)
+	if needle == "" then return true end
+	local text = item.text and tostring(item.text):lower()
+	return text ~= nil and text:find(needle, 1, true) ~= nil
+end
+
+function layoutMenu()
+	local items, opts = menu.psItems, menu.psOpts
 	local pad, rowH = Theme.Metric("menuPad", MENU_PAD), Theme.Metric("menuRow", MENU_ROW)
-	local y, width, nrow, nsep = -pad, opts.minWidth or Theme.Metric(opts.wide and "servicesWidth" or "menuWidth", 176), 0, 0
-	local anyIcon = false
-	for i = 1, #items do if items[i].icon then anyIcon = true end end
+	local width = opts.minWidth or Theme.Metric(opts.wide and "servicesWidth" or "menuWidth", 176)
+	local anyIcon, anyPreview, total = false, false, 0
+	for i = 1, #items do
+		local it = items[i]
+		if it.icon then anyIcon = true end
+		if it.preview then anyPreview = true end
+		if not it.separator then total = total + 1 end
+	end
+	local long = total > MENU_MAX
+	local sc = long and menuLong() or rawget(menu, "Scroll")
+	-- Rows hang from the menu, or from the scroll area's child in a long list.
+	local holder = long and sc.Child or menu
+	local needle = long and (menu.Filter:GetText() or ""):lower() or ""
+	local y = long and 0 or -pad
+	local nrow, nsep, shownRows = 0, 0, 0
+	menu.psCheckedY = nil
 	for i = 1, #menu.rows do menu.rows[i]:Hide() end
 	for i = 1, #menu.seps do menu.seps[i]:Hide() end
 	for i = 1, #items do
 		local item = items[i]
 		if item.separator then
-			nsep = nsep + 1
-			local sep = menu.seps[nsep]
-			if not sep then
-				sep = W.Divider(menu)
-				menu.seps[nsep] = sep
+			if needle == "" then
+				nsep = nsep + 1
+				local sep = menu.seps[nsep]
+				if not sep then
+					sep = W.Divider(menu)
+					menu.seps[nsep] = sep
+				end
+				if sep:GetParent() ~= holder then sep:SetParent(holder) end
+				sep:ClearAllPoints()
+				sep:SetPoint("TOPLEFT", holder, "TOPLEFT", 8, y - 4)
+				sep:SetPoint("TOPRIGHT", holder, "TOPRIGHT", -8, y - 4)
+				sep:Show()
+				y = y - MENU_SEP
 			end
-			sep:ClearAllPoints()
-			sep:SetPoint("TOPLEFT", menu, "TOPLEFT", 8, y - 4)
-			sep:SetPoint("TOPRIGHT", menu, "TOPRIGHT", -8, y - 4)
-			sep:Show()
-			y = y - MENU_SEP
 		else
 			nrow = nrow + 1
 			local row = menuRow(nrow)
+			if row:GetParent() ~= holder then row:SetParent(holder) end
 			row.psItem = item
 			row.psArmed = nil
 			row.Text:SetText(item.text)
@@ -1622,23 +1829,85 @@ function W.ShowMenu(anchor, items, opts)
 			paintMenuRow(row, false)
 			row.Check:SetShown(item.checked and true or false)
 			W.Color(row.Check, "accent")
-			row:ClearAllPoints()
-			row:SetHeight(rowH)
-			row:SetPoint("TOPLEFT", menu, "TOPLEFT", 1, y)
-			row:SetPoint("TOPRIGHT", menu, "TOPRIGHT", -1, y)
-			row:Show()
+			-- A choice to hear first: its speaker at the right, the check left of it.
+			local speaker = rawget(row, "Speaker")
+			if item.preview then
+				speaker = rowSpeaker(row)
+				speaker:ClearAllPoints()
+				speaker:SetPoint("RIGHT", row, "RIGHT", -6, 0)
+				speaker:Show()
+			elseif speaker then
+				speaker:Hide()
+			end
+			row.Check:ClearAllPoints()
+			row.Check:SetPoint("RIGHT", row, "RIGHT", item.preview and -32 or -10, 0)
 			local shownText = (item.font and face) or row.Text
-			width = max(width, shownText:GetStringWidth() + (anyIcon and 32 or 12) + 36)
-			y = y - rowH
+			width = max(width, shownText:GetStringWidth() + (anyIcon and 32 or 12) + 36 + (anyPreview and 26 or 0) + (long and 10 or 0))
+			if holds(item, needle) then
+				row:ClearAllPoints()
+				row:SetHeight(rowH)
+				-- In a long list, clear of its scroll bar.
+				row:SetPoint("TOPLEFT", holder, "TOPLEFT", 1, y)
+				row:SetPoint("TOPRIGHT", holder, "TOPRIGHT", long and -10 or -1, y)
+				row:Show()
+				shownRows = shownRows + 1
+				if item.checked then menu.psCheckedY = -y end
+				y = y - rowH
+			end
 		end
 	end
-	menu:SetSize(floor(width + 0.5), -y + pad)
+	width = floor(width + 0.5)
+	if long then
+		local f = menu.Filter
+		f:ClearAllPoints()
+		f:SetPoint("TOPLEFT", menu, "TOPLEFT", pad + 4, -(pad + 4))
+		f:SetPoint("TOPRIGHT", menu, "TOPRIGHT", -(pad + 4), -(pad + 4))
+		f:Show()
+		menu.Empty:ClearAllPoints()
+		menu.Empty:SetPoint("TOPLEFT", sc.Child, "TOPLEFT", 12, -6)
+		menu.Empty:SetShown(shownRows == 0)
+		if shownRows == 0 then y = -rowH end
+		-- The view holds MENU_MAX rows whatever the filter leaves, so the list
+		-- keeps its size as it narrows.
+		local top = pad + 4 + MENU_FILTER + 6
+		local viewH = MENU_MAX * rowH
+		sc:ClearAllPoints()
+		sc:SetPoint("TOPLEFT", menu, "TOPLEFT", 0, -top)
+		sc:SetSize(width, viewH)
+		sc.Child:SetWidth(width)
+		W.SetScrollContent(sc, -y, viewH)
+		sc:Show()
+		menu:SetSize(width, top + viewH + pad)
+	else
+		if sc then
+			sc:Hide()
+			menu.Filter:Hide()
+		end
+		menu:SetSize(width, -y + pad)
+	end
+end
+
+-- items: { { text, icon, checked, disabled, onClick, tip, color, confirm, preview }, { separator = true }, ... }
+-- opts: { point = "TOPRIGHT", relPoint = "BOTTOMRIGHT", x = 0, y = -4, minWidth = 168 }
+function W.ShowMenu(anchor, items, opts)
+	if not menu then buildMenu() end
+	menu.psItems, menu.psOpts = items, opts or {}
+	opts = menu.psOpts
+	local f = rawget(menu, "Filter")
+	if f then f:SetText("") end
+	layoutMenu()
+	-- A long list opens with its current choice in view.
+	local long = rawget(menu, "Scroll") and menu.Scroll:IsShown()
+	if long then W.ScrollTo(menu.Scroll, max(0, (menu.psCheckedY or 0) - (menu.Scroll.psView or 0) / 2)) end
 	menu:ClearAllPoints()
 	menu.psOwner = anchor
 	local point, relPoint = opts.point or "TOPRIGHT", opts.relPoint or "BOTTOMRIGHT"
 	Anim.Anchor(menu, point, anchor, relPoint, opts.x or 0, opts.y or -4)
 	catcher:Show()
 	menu:Show()
+	-- A long list's filter takes the keys at once (not while a gamepad
+	-- drives: its buttons would go to the box).
+	if long and not (ns.Gamepad and ns.Gamepad.IsActive and ns.Gamepad.IsActive()) then menu.Filter:SetFocus() end
 	-- Popovers grow out of their trigger: a short fade with a 4px drop.
 	Anim.To(menu, "alpha", 0, 1, Anim.FAST, "out")
 	Anim.To(menu, "offset", 4, 0, Anim.FAST, "out")
@@ -1746,7 +2015,7 @@ local function openChoices(self)
 			else
 				ns.Set(row.psPath, c.value)
 			end
-		end }
+		end, preview = c.preview and function() c.preview(c.value) end }
 	end
 	W.ShowMenu(self, items, { minWidth = self:GetWidth() })
 end
@@ -1817,11 +2086,11 @@ function W.Dropdown(parent, label, path, choices, desc, depends, opts)
 			W.HideMenu()
 			if row.psSet then
 				if row.psReset then
-					row.psSet(nil)
+					W.ResetSetting(nil, function() return valueOf(row) end, row.psSet)
 					row:Refresh()
 				end
 			elseif path then
-				ns.Set(path, nil)
+				W.ResetSetting(path)
 			end
 			return
 		end
@@ -2201,8 +2470,14 @@ end
 
 ---------------------------------------------------------------------------
 -- Scroll area: a ScrollFrame with a thin thumb strip. Wheel scrolls; the
--- thumb can be dragged.
+-- thumb can be dragged. sf.psGlide (the settings window's body and
+-- sidebar): the wheel glides to where it is going, eased out, on whole
+-- pixels so text never shimmers (Reduce motion: it jumps); a scroll from
+-- code (W.ScrollTo, the gamepad) or a grab of the thumb ends the glide.
+-- sf.psOnScroll(sf, offset, range) hears every change.
 ---------------------------------------------------------------------------
+
+local WHEEL_STEP, GLIDE = 60, 0.16
 
 local function scrollUpdate(sf)
 	local view = sf.psView or sf:GetHeight()
@@ -2210,6 +2485,8 @@ local function scrollUpdate(sf)
 	local range = max(0, content - view)
 	local cur = min(range, max(0, sf:GetVerticalScroll()))
 	if cur ~= sf:GetVerticalScroll() then sf:SetVerticalScroll(cur) end
+	local heard = rawget(sf, "psOnScroll")
+	if heard then heard(sf, cur, range) end
 	local bar = sf.Bar
 	if range <= 0 or view <= 0 then
 		bar:Hide()
@@ -2243,6 +2520,30 @@ end
 -- The bar stands this far in from the area's right edge.
 local BAR_IN = 2
 
+-- A glide's step: the offset on a whole pixel.
+local function glideStep(sf, v)
+	local px = Theme.Pixel(sf)
+	sf:SetVerticalScroll(floor(v / px + 0.5) * px)
+	scrollUpdate(sf)
+end
+
+local function endGlide(sf)
+	if rawget(sf, "psGlideTo") then
+		sf.psGlideTo = nil
+		Anim.Stop(sf, "value")
+	end
+end
+
+-- Glide to offset `to` (clamped), from where the area is now.
+function W.GlideTo(sf, to)
+	local view = sf.psView or sf:GetHeight()
+	local range = max(0, (sf.psContent or 0) - view)
+	to = min(range, max(0, to))
+	sf.psGlideTo = to
+	sf.psOnValue = glideStep
+	Anim.To(sf, "value", sf:GetVerticalScroll(), to, GLIDE, "out", function(self) self.psGlideTo = nil end)
+end
+
 function W.Scroll(parent)
 	local sf = CreateFrame("ScrollFrame", nil, parent)
 	local child = CreateFrame("Frame", nil, sf)
@@ -2251,7 +2552,11 @@ function W.Scroll(parent)
 	sf.Child = child
 	sf:EnableMouseWheel(true)
 	sf:SetScript("OnMouseWheel", function(self, delta)
-		self:SetVerticalScroll(self:GetVerticalScroll() - delta * 60)
+		if rawget(self, "psGlide") then
+			-- Notches in a row add up: each from where the last was going.
+			return W.GlideTo(self, (rawget(self, "psGlideTo") or self:GetVerticalScroll()) - delta * WHEEL_STEP)
+		end
+		self:SetVerticalScroll(self:GetVerticalScroll() - delta * WHEEL_STEP)
 		scrollUpdate(self)
 	end)
 	sf:SetScript("OnSizeChanged", scrollUpdate)
@@ -2265,6 +2570,7 @@ function W.Scroll(parent)
 	bar.psScroll = sf
 	bar.psThumb = bar.Thumb
 	bar:SetScript("OnMouseDown", function(self)
+		endGlide(sf)
 		local _, y = GetCursorPosition()
 		self.psStartY = y / self:GetEffectiveScale()
 		self.psStartScroll = sf:GetVerticalScroll()
@@ -2319,6 +2625,7 @@ function W.SetScrollContent(sf, contentHeight, viewHeight)
 end
 
 function W.ScrollTo(sf, offset)
+	endGlide(sf)
 	sf:SetVerticalScroll(max(0, offset or 0))
 	scrollUpdate(sf)
 end
@@ -2482,10 +2789,15 @@ end
 ---------------------------------------------------------------------------
 -- The shared confirm dialog: a scrim over the screen, a 400 wide box on the
 -- window ground with its hairline and the rim, a title (an optional glyph
--- before it), the body text, and a footer band with Cancel and the action.
--- Escape, Cancel or a click on the scrim close it.
+-- before it), the body text, and a footer band with Cancel and the action
+-- (and an optional third choice at its left). Escape, Cancel or a click on
+-- the scrim close it; Enter takes the action of a dialog that destroys
+-- nothing. typeToConfirm = word (a wipe of what more than this character
+-- uses): a field under the text, and the action (and Enter) wait until it
+-- holds that word, in any case.
 --   W.Modal({ title, text, icon = glyph, action = label, danger = true,
---             onAccept = fn, cancel = label, onCancel = fn }) -> the dialog
+--             onAccept = fn, cancel = label, onCancel = fn,
+--             alt = label, onAlt = fn, typeToConfirm = word }) -> the dialog
 --   W.HideModal(), W.ModalShown()
 ---------------------------------------------------------------------------
 
@@ -2500,10 +2812,26 @@ function W.ModalShown()
 	return modal ~= nil and modal:IsShown()
 end
 
+-- Does the typed word unlock the action (or is there none to type)?
+local function wordTyped()
+	local spec = modal.psSpec
+	local word = spec and spec.typeToConfirm
+	if not word then return true end
+	local typed = modal.Box.Word:GetText() or ""
+	return typed:gsub("^%s+", ""):gsub("%s+$", ""):upper() == tostring(word):upper()
+end
+
+local function paintAction()
+	local on = wordTyped()
+	modal.Box.Action:SetEnabled(on)
+	modal.Box.Action:SetAlpha(on and 1 or 0.45)
+end
+
+-- accept: true (the action), false (Cancel) or "alt" (the third choice).
 local function closeModal(accept)
 	local spec = modal.psSpec
 	modal:Hide()
-	local fn = spec and (accept and spec.onAccept or (not accept and spec.onCancel))
+	local fn = spec and (accept == "alt" and spec.onAlt or accept == true and spec.onAccept or (not accept and spec.onCancel))
 	if fn then fn() end
 end
 
@@ -2544,19 +2872,46 @@ local function buildModal()
 	rule:SetPoint("TOPLEFT", foot, "TOPLEFT", 0, 0)
 	rule:SetPoint("TOPRIGHT", foot, "TOPRIGHT", 0, 0)
 	box.Foot = foot
-	box.Action = W.Button(foot, "", function() closeModal(true) end)
+	box.Action = W.Button(foot, "", function() if wordTyped() then closeModal(true) end end)
 	box.Action:SetPoint("RIGHT", foot, "RIGHT", -16, 0)
 	box.Cancel = W.Button(foot, L["Cancel"], function() closeModal(false) end)
 	box.Cancel:SetPoint("RIGHT", box.Action, "LEFT", -8, 0)
+	box.Alt = W.Button(foot, "", function() closeModal("alt") end)
+	box.Alt:SetPoint("LEFT", foot, "LEFT", 16, 0)
+	box.Alt:Hide()
+	-- The word to type before a wide wipe (typeToConfirm).
+	local word = CreateFrame("EditBox", nil, box)
+	word:SetAutoFocus(false)
+	word:SetSize(MODAL_W - 2 * MODAL_PAD, 28)
+	word:SetTextInsets(10, 10, 0, 0)
+	Theme.Font(word, "label")
+	W.Color(word, "text")
+	Theme.Skin(word, "editbox")
+	word.Hint = W.Text(word, "label", "textMuted")
+	word.Hint:SetPoint("LEFT", word, "LEFT", 10, 0)
+	word:SetScript("OnTextChanged", function(self)
+		self.Hint:SetShown((self:GetText() or "") == "")
+		paintAction()
+	end)
+	word:SetScript("OnEnterPressed", function() if wordTyped() then closeModal(true) end end)
+	word:SetScript("OnEscapePressed", function() closeModal(false) end)
+	word:SetScript("OnEditFocusGained", function(self) Theme.SetFocused(self, true) end)
+	word:SetScript("OnEditFocusLost", function(self) Theme.SetFocused(self, false) end)
+	word:Hide()
+	box.Word = word
 	W.Rim(box, { width = MODAL_W * 0.7 })
-	-- Escape closes the dialog alone; every other key goes on to the game.
+	-- Escape closes the dialog alone; Enter takes the action of one that
+	-- destroys nothing (or whose word is typed); every other key goes on to
+	-- the game.
 	box:EnableKeyboard(true)
 	box:SetScript("OnKeyDown", function(self, key)
 		local esc = key == "ESCAPE"
+		local spec = modal.psSpec
+		local enter = (key == "ENTER" or key == "NUMPADENTER") and spec and (not spec.danger or spec.typeToConfirm ~= nil) and wordTyped()
 		if self.SetPropagateKeyboardInput and not (InCombatLockdown and InCombatLockdown()) then
-			self:SetPropagateKeyboardInput(not esc)
+			self:SetPropagateKeyboardInput(not (esc or enter))
 		end
-		if esc then closeModal(false) end
+		if esc then closeModal(false) elseif enter then closeModal(true) end
 	end)
 	s:HookScript("OnShow", function(self) Anim.To(self, "alpha", 0, 1, Anim.FAST, "out") end)
 	modal = s
@@ -2591,6 +2946,17 @@ function W.Modal(spec)
 	box.Text:SetText(spec.text or "")
 	box.Text:SetShown((spec.text or "") ~= "")
 	local body = box.Text:IsShown() and math.ceil(box.Text:GetStringHeight()) + 8 or 0
+	-- The word field under the text, its own text saying what to type.
+	local word = box.Word
+	word:SetShown(spec.typeToConfirm ~= nil)
+	word:SetText("")
+	word.Hint:Show()
+	if spec.typeToConfirm then
+		word.Hint:SetText(string.format(L["Type %s to go ahead."], spec.typeToConfirm))
+		word:ClearAllPoints()
+		word:SetPoint("TOPLEFT", box, "TOPLEFT", MODAL_PAD, -(MODAL_PAD + th + 8 + body + 4))
+		body = body + 4 + 28 + 4
+	end
 	-- The footer: the house look's (Theme.House "dialogFoot"), else MODAL_FOOT.
 	local foot = Theme.House("dialogFoot") or MODAL_FOOT
 	box.Foot:SetHeight(foot)
@@ -2600,8 +2966,12 @@ function W.Modal(spec)
 	W.SetButtonText(a, spec.action or L["OK"])
 	W.RepaintButton(a)
 	W.SetButtonText(box.Cancel, spec.cancel or L["Cancel"])
+	box.Alt:SetShown(spec.alt ~= nil)
+	if spec.alt then W.SetButtonText(box.Alt, spec.alt) end
+	paintAction()
 	modal:Show()
 	modal:Raise()
+	if spec.typeToConfirm then word:SetFocus() end
 	return modal
 end
 
@@ -3153,6 +3523,8 @@ end
 -- steps it. -> the control (control:Place() after the close button comes
 -- or goes).
 local SCALE_TRACK, SCALE_LO, SCALE_HI, SCALE_STEP = 64, 0.7, 1.4, 0.05
+-- The header search's least width, when a long title takes room from it.
+local SEARCH_LEAST = 130
 local function scaleText(v) return floor(v * 100 + 0.5) .. "%" end
 
 function W.HeaderScale(f, path)
@@ -3205,11 +3577,12 @@ function W.HeaderScale(f, path)
 		-- More tools (W.ShellHeaderTools: the settings search) right to left
 		-- before it; the title ends short of the last.
 		local left = t:IsShown() and t or nil
+		-- A tool's psHeadGap: its gap to the one right of it (16; a pair closer).
 		for _, w in ipairs(rawget(f, "psHeadTools") or {}) do
 			if w:IsShown() then
 				w:ClearAllPoints()
 				if left then
-					w:SetPoint("RIGHT", left, "LEFT", -16, 0)
+					w:SetPoint("RIGHT", left, "LEFT", -(rawget(w, "psHeadGap") or 16), 0)
 				elseif f.Close:IsShown() and inHeader then
 					w:SetPoint("RIGHT", f.Close, "LEFT", -14, 0)
 				else
@@ -3219,9 +3592,22 @@ function W.HeaderScale(f, path)
 			end
 		end
 		if left and left ~= t then
+			-- A title too long for the room left takes it from the search,
+			-- down to the search's least width (its own again for a shorter one).
+			local search, own = rawget(f, "Search"), rawget(f, "psSearchW")
+			local gives = search and own and search:IsShown()
+			if gives then search:SetWidth(own) end
 			local edge = 16
-			for _, w in ipairs(f.psHeadTools) do if w:IsShown() then edge = edge + 16 + w:GetWidth() end end
+			for _, w in ipairs(f.psHeadTools) do if w:IsShown() then edge = edge + (rawget(w, "psHeadGap") or 16) + w:GetWidth() end end
 			edge = edge + (t:IsShown() and t:GetWidth() or 0) + ((f.Close:IsShown() and inHeader) and (12 + 28 + 14) or (SHELL.pad + 16))
+			if gives then
+				local room = (tonumber(rawget(f, "psMainW")) or head:GetWidth()) - SHELL.pad - edge
+				local give = min(math.ceil(textWidth(f.Title)) - room, own - SEARCH_LEAST)
+				if give > 0 then
+					search:SetWidth(own - give)
+					edge = edge - give
+				end
+			end
 			f.Title:SetPoint("TOPRIGHT", head, "TOPRIGHT", -edge, -32)
 		elseif t:IsShown() then
 			f.Title:SetPoint("TOPRIGHT", t, "TOPLEFT", -16, -16)
@@ -3264,7 +3650,8 @@ end
 
 -- The header search's width: 30 % of the main column, 180 to 320.
 local function headerSearchW(f)
-	return floor(min(320, max(180, (f.psMainW or 600) * 0.3)))
+	f.psSearchW = floor(min(320, max(180, (f.psMainW or 600) * 0.3)))
+	return f.psSearchW
 end
 
 -- opts: { width, height, title, subtitle, searchPlaceholder, onSearch,
@@ -3706,6 +4093,8 @@ end
 -- subtitle, so it never jumps between pages.
 function W.ShellTitle(f, title, subtitle)
 	f.Title:SetText(title or "")
+	-- A longer title may take room from the header's search.
+	if rawget(f, "psSearchW") and rawget(f, "HeaderTools") then f.HeaderTools.Place() end
 	f.psSubtitle = subtitle or ""
 	-- The main column's width between its pads (a hub's narrower column too).
 	f.Subtitle:SetWidth(f.BodyWidth)

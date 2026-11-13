@@ -763,6 +763,12 @@ function ns.GetDefault(path)
 	return lookup(defaults, keysOf(path))
 end
 
+-- The value a setting holds itself, nil while it is at its default (what
+-- Set(path, value) puts back exactly: undo, a frame's place before a move).
+function ns.GetStored(path)
+	return lookup(DB().settings, keysOf(path))
+end
+
 function ns.Set(path, value)
 	local keys = keysOf(path)
 	local node = DB().settings

@@ -250,7 +250,7 @@ end
 local SPECS = {
 	-- Look: the arrow itself, its glow, its arrival, when it shows.
 	{ page = PAGE, key = "arrow", icon = "icon-goto", order = 22, group = "look", tab = L["Look"], section = L["Arrow"],
-		preview = buildLookBand,
+		preview = buildLookBand, move = "arrow",
 		subtitle = L["The waypoint arrow: its style, size, colours, glow, arrival, text and when it shows."],
 		toggle = H({ kind = "toggle", key = "nav.arrow", label = L["Show arrow"],
 			search = "arrow, waypoint, pointer, direction, compass, navigation, hud, hide arrow",

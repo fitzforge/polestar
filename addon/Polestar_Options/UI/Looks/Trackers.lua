@@ -487,7 +487,7 @@ end
 -- Travel: the flight timer, and the journey in the guide window.
 local TRAVEL = L["Travel"]
 panelPage(TRAVEL, "flight", L["flight timer"], {
-	section = L["Flight timer"], preview = function(view) return TR.Preview(view, "flight") end,
+	section = L["Flight timer"], preview = function(view) return TR.Preview(view, "flight") end, move = "flightTimer",
 	subtitle = L["The flight timer, the journey, the instance tracker, the guide's mark on the XP bar and the party panel: their size, look and when they show."],
 	toggle = { kind = "toggle", key = "maps.flightTimer", label = L["Flight timer"], search = "flight, taxi, timer, time left", needs = function() return ns.Maps end,
 		help = L["While flying, shows the destination and the time left. Learns each route's real duration for this character; drag to move."] },
@@ -514,7 +514,7 @@ register({ tab = TRAVEL, section = L["Journey"],
 -- Instances & XP: the instance tracker, then the guide's level on the XP bar.
 local INST = L["Instances & XP"]
 panelPage(INST, "instances", L["instance tracker"], {
-	section = L["Instance tracker"], preview = function(view) return TR.Preview(view, "instances") end,
+	section = L["Instance tracker"], preview = function(view) return TR.Preview(view, "instances") end, move = "instances",
 	toggle = { kind = "toggle", key = "maps.instances", label = L["Track instances"], search = "dungeon, instance lockout, instance cap, reset, runs",
 		needs = function() return ns.Maps end,
 		help = L["Records dungeon and raid entries, time and experience per run. /pole instances lists them."] },
@@ -557,7 +557,7 @@ register({ tab = INST, section = L["Level mark"],
 -- Party panel
 local PARTY = L["Party panel"]
 panelPage(PARTY, "party", L["party panel"], {
-	section = L["Party panel"], preview = function(view) return TR.Preview(view, "party") end,
+	section = L["Party panel"], preview = function(view) return TR.Preview(view, "party") end, move = "party",
 	toggle = { kind = "toggle", key = "party.panel", label = L["Party panel"], search = "party, group, members, steps, sync",
 		needs = function() return ns.Party end,
 		help = L["A small panel with your party members who run Polestar: their level, step and what they still need. Opens by itself in a party."] },

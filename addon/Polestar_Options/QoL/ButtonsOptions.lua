@@ -456,7 +456,7 @@ local SPECS = {
 		{ kind = "slider", key = "buttons.spacing", label = L["Spacing"], min = 0, max = 40, step = 1, format = px, new = NEW,
 			help = L["The gap between two buttons of the set."],
 			search = "gap, space between, padding, distance, tight, apart, spread" },
-		{ kind = "button", icon = "reset", button = L["Reset"], label = L["Position"],
+		{ kind = "button", icon = "reset", button = L["Reset"], label = L["Position"], move = "buttons",
 			help = L["Put the buttons back in their default spot. Drag any of them to move the set."],
 			search = "move buttons, button position, reset position, drag, place", onClick = function() Buttons.ResetPositions() end },
 		{ kind = "slider", key = "buttons.idleAlpha", label = L["Opacity"], min = 0, max = 1, step = 0.05, format = percent, new = NEW,
@@ -552,7 +552,7 @@ local SPECS = {
 
 	-- The floating button and the minimap button: each on/off beside its size.
 	{ page = PAGE, tab = OTHER, section = L["Floating & minimap"], preview = buildLauncherBand, controls = {
-		{ kind = "slider", key = "ui.launcherSize", label = L["Floating button"], min = 16, max = 96, step = 1, format = px, new = NEW,
+		{ kind = "slider", key = "ui.launcherSize", label = L["Floating button"], min = 16, max = 96, step = 1, format = px, new = NEW, move = "launcher",
 			help = L["The floating button's size. The switch beside it shows it: a small Polestar button you can put anywhere on the screen. Click to hide or show Polestar, right-click for a menu, drag to move it."],
 			search = "launcher size, floating button size, bigger, smaller, huge, tiny",
 			extras = { { kind = "toggle", key = "ui.launcher", label = L["Floating button"],

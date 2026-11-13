@@ -349,10 +349,19 @@ from the live settings, drawn again as they change), "In use" on the one
 this character uses, else who else does ("Every Mage", "Whole account"),
 the last card a new one; This character (the profile in use, this
 character's own choice, its class's); the selected profile (who uses it,
-how many settings are off their defaults, Share), with Use, Copy, Rename
-and Delete (a second click within three seconds). Picking a card selects
+how many settings are off their defaults, Share), with Use, Copy, Rename,
+its key and Delete (a second click within three seconds). Picking a card selects
 it and Use switches, as in the guide menu; New and Copy switch to the
-profile made. **Share**: the parts to put in a string and the profile it is
+profile made. A profile's key (Set a key, then the key or gamepad button,
+through `Gamepad.Capture`; a key the game or another addon binds is
+refused, and with the game's gamepad interface on, a gamepad button;
+right-click takes it away) switches to it out of combat, with a word in
+chat: `P.Key(name)`, `P.SetKey(name, key)` in `PolestarDB.profileKeys` (the
+account's, one profile a key, following renames and gone with the profile),
+set by `P.ApplyKeys()` at login and on each change as override bindings of
+the hidden button `PolestarProfileKey` (never in a fight: it waits). The
+footer's profile menu shows each profile's key in its tooltip. **Share**:
+the parts to put in a string and the profile it is
 made of, the string selected for copying; a pasted string's preview (whose,
 how many settings, how many differ, the parts it holds, each switched on or
 off, what is left out), then Import as new (named, and switched to) or
@@ -736,7 +745,9 @@ reloads the UI when it changes). With it on, Polestar:
   `BLACK_LISTED_MESSAGE_TYPES`);
 - sets no override binding on the gamepad's buttons: a Polestar window
   holding the gamepad reads them through its own frame only; binds no chord
-  unasked and names every chord on LB or RB as the game's own; and only
+  unasked and names every chord on LB or RB as the game's own; a profile's
+  key that is a gamepad button is left unbound (Core/Profiles, and the
+  Profiles page refuses one); and only
   reads the gamepad's focused window, never calls into its managers
   (UI/Gamepad, see [Gamepad](#gamepad-uigamepadlua-uigamepadguidelua)).
 
@@ -7007,18 +7018,22 @@ Polestar.RegisterOptions({
   lead = true,                                              -- optional: this tab is the page's lead tab (Essentials, below)
   jump = { tab = "Markers", section = "Quest markers" },   -- optional: a More link in the section's header, to that tab and section
   columns = { "World map", "Minimap" },                    -- optional: a caption over each half of the section's rows
+  move = "flightTimer",                                     -- optional: a Move in the header for that frame (a mover key, below)
   controls = {
     { kind = "toggle",   key = "qol.mapObjectives", label = "Objectives", help = "One line: the tooltip.",
       search = "map pins, icons, markers",                              -- optional: English words players may search with
       new = "0.3.7",                                                    -- optional: the release it came in (the section's New pill)
-      info = true },                                                    -- optional: an (i) after the label (1-2 a page at most)
+      info = true,                                                      -- optional: an (i) after the label (1-2 a page at most)
+      move = "launcher" },                                              -- optional: a Move on the row for that frame (below)
     { kind = "slider",   key = "qol.markerScale", label = "Size", min = 0.5, max = 2, step = 0.05, format = "%.2f\195\151", -- example key
       release = true,                                                   -- optional: write when the drag ends
       extras = { { kind = "color", key = "qol.markerColor", label = "Colour", alpha = true },  -- inline before the control, right to left
                  { kind = "toggle", key = "qol.markerGlow", label = "Glow" } },               -- (a 20px chip; a small switch)
       more = { { kind = "toggle", key = "qol.markerOutline", label = "Outline" } } },        -- behind the row's cog, in its popup
     { kind = "dropdown", key = "gear.spec", label = "Weights", choices = { { value = "auto", label = "Automatic" }, ... } }, -- example key (the real one is gear.spec.<CLASS>)
-      -- choices may be a function (choices that come and go); get()/set(v) may stand in for the path
+      -- choices may be a function (choices that come and go); get()/set(v) may stand in for the path;
+      -- a choice's preview(value) puts a speaker on its row in the list that plays it without picking it
+      -- (a sound list), and resting the pointer on the row half a second plays it too
     { kind = "font",     key = "ui.font", label = "Font", choices = { { value = "inter", label = "Inter", font = path }, ... } },
       -- a dropdown whose names are drawn each in its face (`font`: the file; nil: the face in use)
     { kind = "cards",    key = "ui.skin", label = "Skin", choices = { { value = "halo", label = "Halo",
@@ -7028,8 +7043,14 @@ Polestar.RegisterOptions({
       shown = function() return r, g, b end, source = function() return "Scheme" end, linked = { "other.key" } }, -- example key
       -- shown: the colour in effect while the key holds none; source: where it comes from (in the tooltip);
       -- linked: paths a cancelled pick restores too; alpha: with an opacity, stored { r, g, b, a }.
-      -- The row takes a typed hex and opacity, and offers the colours picked last (PolestarDB.recentColors).
+      -- The row takes a typed hex and opacity, and offers the colours picked last (PolestarDB.recentColors);
+      -- a right-click on one keeps it as a favourite, shown first in an accent edge and out of the recents'
+      -- turnover (PolestarDB.pinnedColors, W.PinColor), and after a change the colour the row held before
+      -- stands nearest the chip, a click going back to it.
       -- Right-click resets (sliders too; a slider's value takes a typed number).
+      -- A dragged slider lands on its default, zero inside its range and the value it shows as 100% when the
+      -- thumb passes within 6 px of one (`W.SliderSnap`; no magnet where the steps are farther apart, never
+      -- for the wheel, the gamepad or a typed value).
     { kind = "button",   label = "Reset lockouts", help = "One line.", onClick = function() end, wide = true },
     { kind = "binding",  action = "POLESTAR_NEXT", label = "Next step", help = "One line." }, -- a key binding row (UI/GamepadGuide.lua)
   },
@@ -7040,7 +7061,12 @@ Polestar.RegisterOptions({
 a 36px header with its title (heading) and, at the right, its `toggle` (a switch), a
 Reset link while one of its settings is off its default (more than three ask
 first, `O.ResetSection`) and a New pill while it holds settings new to the
-player. Its controls run as halves of 36px rows, two to a row with a hairline
+player. A reset can be taken back once: a row's right-click (every kit row
+resets through `W.ResetSetting(path, get?, set?)`, which hands what it held to
+the listener `W.OnReset` installs), a section's Reset and Reset page keep what
+the settings held as stored, and a chip in the footer (in the thanks line's
+place) says what was reset with an Undo (`O.Undo`) for 10 s; a new reset takes
+its place. Its controls run as halves of 36px rows, two to a row with a hairline
 between (one a row below a 760px body); `wide = true`, picture cards and the
 search results take a whole row. A half is the label and the control, no
 description: `help` is the tooltip (`O.TipOf`: the help, where its colour
@@ -7051,7 +7077,10 @@ fixed columns (right to left: swatch, switch, cog, left of a control zone as
 wide as the widest control, an empty column keeping its place), each its
 own setting with its own tooltip and right-click; `more` sits behind a cog
 (`O.ShowMore`) that opens a popup of single-column 30px rows by it, with a
-dot while one of them is off its default. While a section's toggle is off
+dot while one of them is off its default. The first change ever of a
+setting whose row has a cog pulses that cog's dot and says in a callout by it
+(`W.Callout`) that more of its settings are behind it, once on the account
+(`PolestarDB.optionsCogHint`, also set by the first cog opened). While a section's toggle is off
 every setting in it is stopped (its marks at 40%, its label and value in
 textMuted, legible) and its tooltip says so; a section's `shown()` hides
 its card, worked out again on every setting change; a `child`
@@ -7069,7 +7098,15 @@ for what it does. Right-click resets it.") until its close button
 (`PolestarDB.optionsIntro`). Search results stand in a card per page, tab and
 section, the best first, the chevron to the row in a gutter inside the card;
 a result its section's toggle stops comes after an equally good one that
-works, its card carrying that toggle in the header.
+works, its card carrying that toggle in the header. A setting that places a
+frame on screen carries a ghost Move (`move` = the frame's mover key in
+`UI/Movers.lua`): on the row in the cog's column (left of a cog), or in its
+section's header after the toggle. `O.MoveFrame(key, lit)` hides the window,
+opens Move frames with that frame's box picked and pulsing
+(`Movers.Unlock(key, { pulse, back })`; an alert in the alerts' line picks the
+line, the spec's `via`), and when the session ends brings the window back on
+its page, search and scroll with the row or section lit. Move is off while the
+frame has no box (`Movers.Movable(key)`) or its setting is.
 
 **Essentials, references and presets.** Each Look page opens on its lead
 tab, Essentials: a spec with `lead = true` puts its tab first, whatever
@@ -7165,10 +7202,16 @@ second homes of the client options on Quests (Instant quest text, Hide combat
 errors, Hide the game's quest tracker). Its effect check puts it back with
 `restore` (`settings-effects.rs`). Pages sort by `order`; Recorder and
 About always close the list. A page or tab with no available control is left
-out of the sidebar and tab row. Every row resets to its default on right-click (but the game's own, above).
+out of the sidebar and tab row. Every row resets to its default on right-click (but the game's own, above),
+and a row off its default shows a reset arrow in its label's gutter, in the changed dot's place
+(`row.ResetB`, made the first time it is needed by `markRow`, Theme/Widgets.lua): its tooltip names the
+default (On or Off, the slider's text, the choice's or card's label, the colour's hex), a click resets that
+one setting through `W.ResetSetting` (so the footer's Undo offers it back), and it goes once the setting is
+at its default. It is no gamepad stop of its own (`psPadSkip`): the gamepad's reset (Y) on the row does
+the same.
 
 **New settings.** A setting's `new` puts a New pill in its section's header
-(nothing on the row: its gutter is the changed dot's), and its page's sidebar row counts the
+(nothing on the row: its gutter is the changed dot's or the reset's), and its page's sidebar row counts the
 page's new settings until the page is opened:
 `PolestarDB.optionsSeen[page key]` keeps the newest `new` release seen there
 (account-wide, not a setting, so profiles and resets leave it). The pills keep
@@ -7419,8 +7462,23 @@ it ends) and stores `ui.optionsSize` (`{ w, h }`, false: the default);
 right-click on the grip goes back to the default. It is never smaller than
 860 by 560 or larger than the screen at its Menu scale, less 16px each side,
 and is clamped anew when the scale changes. The header holds the search
-(`W.Shell` `headerSearch`), the Menu scale and the close; the navigation
-starts under the band. Sections are cards across the body, one under
+(`W.Shell` `headerSearch`), Peek and Fold (a pair, `psHeadGap` 4), the Menu
+scale and the close; a page title too long for the room left takes it from
+the search first, down to 130px (`psSearchW`, its own width again for a
+shorter title). The
+navigation starts under the band. Peek (an eye, held down: `O.Peek`) fades
+the whole window to 15% so what it covers shows, whole again on letting go;
+Fold (`O.Fold`) leaves only the header, its top-left kept, every other part
+hidden and the page kept, until Unfold, another page or a search (or the
+window closing) brings it back. Shift and the wheel anywhere on the window
+(its body, sidebar, header and footer, a slider) step the Menu scale as its
+own control's wheel does and light that control (`O.WheelScales(frame)`);
+the plain wheel still scrolls and steps. The body and the sidebar glide where
+the wheel sends them (`W.Scroll`'s `psGlide`: an eased `Anim` "value" tween
+on whole pixels, notches in a row adding up, a jump with Reduce motion, ended
+by `W.ScrollTo` or a grab of the thumb; `W.GlideTo(sf, offset)`), and while
+more of the sidebar lies below a chevron at its foot glides it to the bottom
+(`sf.psOnScroll` hears each change). Sections are cards across the body, one under
 another (above, "Layout"). The footer has
 Reset page, Reload UI and Move frames (with `ns.Movers`: unlock mode) on the
 left; Close, the profile in use (with `ns.Profiles`: a menu of the profiles
@@ -8232,8 +8290,13 @@ Reading flow: `docs/DESIGN.md` ("Intent" and "The Guide Window").
   opens; never on a fresh install, in combat, during a cinematic, in an
   instance or battleground, over the route choice, or while the welcome is
   up or due (`UI.Welcome.Busy`, then `WELCOME_CLOSED`). A release with notes
-  adds an entry at the top of `NOTES`. About's "What's new" and `/polestar
-  whatsnew` open it again.
+  adds an entry at the top of `NOTES`; a note about a setting names it
+  (`setting = "update.card"`): the whole note takes the hover wash and a
+  chevron on its heading's line, and a click closes the window and opens the
+  settings on that row, scrolled to and lit (`UI.ShowSetting(key)`, core's
+  door in `UI/OptionsLoader.lua`: `O.JumpTo`, after the fight when asked in
+  one before the settings have loaded). A note with no setting stays text.
+  About's "What's new" and `/polestar whatsnew` open it again.
 - **Copy window** (`UI/Copy.lua`, frame `PolestarCopy`, `UI.ShowCopy(title,
   text)` or `SHOW_COPY`): a small window with the band, a title, a read-only
   `W.CopyBox` holding the text, selected and focused, and how to copy it; ✕
@@ -8457,8 +8520,9 @@ Each call fires `GUIDE_VISIBILITY`.
   whose functions load the mode on their first call and which keeps the specs
   registered before it, `Movers.pending`; in a fight `Unlock` says no and
   nothing loads). `Movers.Register({ key, label, frame, size, get, set, reset,
-  anchor?, enabled?, fixedSize? })`: `get` and `set` speak a point on
-  `UIParent` in its units, and each frame keeps its own saved key and format
+  anchor?, enabled?, fixedSize?, keys?, save?, restore?, via?, settings? })`: `get` and `set`
+  speak a point on `UIParent` in its units, and each frame keeps its own saved
+  key and format
   (`ui.pos`, `nav.arrowPos`, `ui.launcherPos`, the character's `qol.buttonPos`,
   `maps.timerPos`, `maps.trackerPos`, `party.panelPos`, `rares.toastPoint`,
   `toasts.transport.point`, `toasts.whilehere.point`; UI/Toasts.lua adds the
@@ -8467,12 +8531,34 @@ Each call fires `GUIDE_VISIBILITY`.
   pure) to the screen's centre lines and the other boxes' edges and centres
   within 6 px with an accent guide (`movers.snap`), else to the grid out from
   the screen's centre (`movers.grid`, `movers.gridSize` 8, 16 or 32); Shift
-  keeps a drag to one axis. A click selects (its centre's offset shown), the
-  arrow keys nudge it 1 px (Shift 10), a right-click resets it, the top bar
-  has Grid, the size, Snap, Reset all positions (the shared dialog) and Lock;
-  Escape locks. The options window hides while it is up. A fight locks it
-  (`PLAYER_REGEN_DISABLED`) and it will not open in one. Nothing exists before
-  the first unlock, and only a drag runs `OnUpdate`.
+  keeps a drag to one axis. A click selects (its centre's offset shown, and
+  under the bar a panel with its name and that centre's X and Y to type:
+  Enter moves it there on that axis, Tab goes on to the other field,
+  `Movers.MoveCentre(key, x, y)`), the
+  arrow keys nudge it 1 px (Shift 10), a right-click opens its menu by the
+  cursor (Its settings: the spec's `settings` key through `O.JumpTo`, the
+  boxes staying up; Reset position on a second click; Hide this box), and
+  Shift-right-click hides the box for the session (`Movers.HideBox`; the
+  bar's Show hidden (n), `Movers.ShowHidden()`, or a Move asking for it
+  brings it back); the wheel over boxes on top of each other turns which is
+  on top (`Movers.CycleStack(delta)`: down sends the top one to the bottom,
+  up brings the bottom one up, until the boxes are laid out again), the top bar
+  has its title with an (i) whose tooltip lists every mouse and key control,
+  Grid, the size, Snap, Revert, Reset all positions (the shared dialog),
+  Exit and Save and exit; holding Shift fades it (and the panel under it)
+  away so a frame under it can be grabbed (`MODIFIER_STATE_CHANGED`, not
+  while a field is typed in), and the first unlock on the account explains
+  the mode in a callout under it (`W.Callout`, `PolestarDB.moversHint`). An unlock is a session: where each frame stood as
+  it began is kept (`keys`: the settings `set` writes, as stored, nil at the
+  default; else `save`/`restore`, the quest buttons' character spot; else
+  `get`'s point). `Movers.Revert()` puts back what moved without leaving,
+  `Movers.Changed()` counts it, `Movers.Save()`/`Lock()` end the session
+  keeping it, and `Movers.Exit()` (Exit, Escape) asks in the shared dialog
+  (Discard, Keep editing, Save and exit) when something moved, else locks. A
+  move still lands at once, so a reload keeps it. A fight pauses the session
+  (`PLAYER_REGEN_DISABLED`: the boxes go, `Movers.IsSuspended()`) and the
+  fight's end brings it back as it was; it will not open in one. Nothing
+  exists before the first unlock, and only a drag runs `OnUpdate`.
 - The instance hint: the first time on the account (`PolestarDB.instanceHint`)
   the window hides itself on the way into an instance (not while Polestar is
   hidden, see "Hiding Polestar": the hint waits), `Nav.alerts.ShowNotice`
