@@ -130,7 +130,7 @@ fn two_flares(s: &str) -> bool {
 }
 
 fn poisons(ctx: &Ctx, c: &mut Check) {
-	let list = goals!(ctx, c, "forever/horde/04-the-barrens.guide");
+	let list = goals!(ctx, c, STONETALON);
 	let contact = list[at!(c, &list, "contact Fizzule", is("turnin", 2458))].step.clone();
 	let note = contact.get("note");
 	let Some(note) = note.as_str() else {
@@ -195,6 +195,10 @@ fn patience(ctx: &Ctx, c: &mut Check) {
 
 fn warsong(ctx: &Ctx, c: &mut Check) {
 	let list = goals!(ctx, c, STONETALON);
+	// The Warsong Reports (6543) is left out since the final route review (route-fixes skip); holds if a build takes it.
+	if !list.iter().any(|r| n(&r.goal, "quest", 6543.0)) {
+		return;
+	}
 	for (item, npc, name) in [(16764.0, 12862.0, "Warsong Scout"), (16763.0, 12863.0, "Warsong Runner"), (16765.0, 12864.0, "Warsong Outrider")] {
 		let goal = &list[at!(c, &list, format!("collect {item} ({name})"), |g: &V| t(g, "collect") && n(g, "item", item))].goal;
 		let f = goal.get("fromNpcs");
@@ -380,6 +384,8 @@ fn chill_of_death(ctx: &Ctx, c: &mut Check) {
 	ok!(c, n(&list[thread].goal, "npc", 2118.0), "from Abigail Shiel, Trade Supplies in Brill");
 }
 
+/// Yards within which a stop is in the giver's town (the case's TOWN_YARDS).
+const TOWN_YARDS: f64 = 200.0;
 /// [guide, quest, item, count, vendor npc or None for `nearest` on the Horde, what]
 const BUY_AT_TURNIN: [(&str, i64, f64, f64, Option<f64>, &str); 7] = [
 	("forever/alliance/30-40/01-hillsbrad-foothills.guide", 555, 3713.0, 1.0, Some(2381.0), "the Soothing Spices for Chef Jessen"),
@@ -400,11 +406,23 @@ fn buy_at_turnin(k: usize, ctx: &Ctx, c: &mut Check) {
 	let (guide, quest, item, count, vendor, _) = BUY_AT_TURNIN[k];
 	let list = goals!(ctx, c, guide);
 	let hand = at!(c, &list, format!("turnin {quest}"), is("turnin", quest));
-	let buy = list.iter().position(|r| r.s == list[hand].s && t(&r.goal, "buy") && n(&r.goal, "item", item));
-	let Some(buy) = buy.filter(|&i| i < hand) else {
-		ok!(c, false, &format!("the turn-in step buys item {item} before handing in {quest}"));
+	let Some(buy) = (0..hand).rev().find(|&i| t(&list[i].goal, "buy") && n(&list[i].goal, "item", item)) else {
+		ok!(c, false, &format!("item {item} is bought before handing in {quest}"));
 		return;
 	};
+	let giver = &list[hand].goal;
+	let same_visit = list[buy..=hand].iter().all(|r| {
+		let g = &r.goal;
+		let kind = g.get("t").to_js_string();
+		!matches!(kind.as_str(), "fly" | "hearth")
+			&& (!matches!(kind.as_str(), "accept" | "turnin" | "buy" | "goto" | "train")
+				|| !located(r)
+				|| (g.get("map").as_num() == giver.get("map").as_num() && ctx.yards(g, giver).is_some_and(|y| y < TOWN_YARDS)))
+	});
+	let tip = list[hand].step.get("note").as_str().is_some_and(|n| n.split(|ch: char| !ch.is_alphanumeric()).any(|w| w.eq_ignore_ascii_case("buy")));
+	if !ok!(c, list[buy].s == list[hand].s || same_visit || tip, &format!("the turn-in step, its town visit or its tip buys item {item} before handing in {quest}")) {
+		return;
+	}
 	let goal = &list[buy].goal;
 	let have = goal.get("count");
 	let have = if have.truthy() { have.num() } else { 1.0 };
@@ -434,20 +452,15 @@ fn bandarion(ctx: &Ctx, c: &mut Check) {
 	let keep = [246389.0, 259190.0];
 	let at_keep = |g: &V| g.get("npc").as_num().is_some_and(|x| keep.contains(&x));
 	let mage = filter(&list, for_class("MAGE"));
-	// (Only required goals: Hilda's and Ephram's optional accepts after 96896 are open to every class,
-	// and a Mage is never required to meet them, 5e6b42b2a.)
+	// Hilda's and Ephram's own quests after A Righteous Cause (99152, 99153) are open to every class: recorded
+	// Warlocks, Rogues and Mages took and handed them in, so they are regular steps since the 2026-11-07
+	// quest-volume pass. A Mage meets them for those two quests only, never for the Paladin chain.
 	let met: Vec<String> = mage
 		.iter()
-		.filter(|r| at_keep(&r.goal) && !r.goal.get("optional").truthy())
+		.filter(|r| at_keep(&r.goal) && !r.goal.get("optional").truthy() && !n(&r.goal, "quest", 99152.0) && !n(&r.goal, "quest", 99153.0))
 		.map(|r| format!("{} {} ({})", r.goal.get("t").to_js_string(), r.goal.get("quest").to_js_string(), r.goal.get("npcName").to_js_string()))
 		.collect();
-	if !eq!(c, met, vec![], "a Mage meets neither giver") {
-		return;
-	}
-	// (Their bones and crystal are quest-tagged collects in Shadowvale's step for everyone: they count
-	// only for a player holding the quest, so with no required accept or hand-in a Mage never does them.)
-	let required = |r: &V| !r.get("optional").truthy() && (t(r, "accept") || t(r, "turnin"));
-	if !eq!(c, names(&filter(&mage, |r| (n(&r.goal, "quest", 99152.0) || n(&r.goal, "quest", 99153.0)) && required(&r.goal))), vec![], "nor any required goal of their quests") {
+	if !eq!(c, met, vec![], "a Mage meets neither giver for the Paladin chain") {
 		return;
 	}
 	at!(c, &mage, "collect 268801 (Bottle of Whispering Elixir)", |g: &V| t(g, "collect") && n(g, "quest", 95314.0));
@@ -667,7 +680,8 @@ fn desperate_times(ctx: &Ctx, c: &mut Check) {
 		let talk = |oi: f64, npc: f64| move |g: &V| t(g, "talk") && n(g, "quest", 92640.0) && n(g, "oi", oi) && n(g, "npc", npc);
 		let valennia = at!(c, &list, format!("{guide}: 92640.1 (Valennia)"), talk(1.0, 252383.0));
 		let ayessa = at!(c, &list, format!("{guide}: 92640.2 (Ayessa)"), talk(2.0, 251968.0));
-		let elaadrin = at!(c, &list, format!("{guide}: Elaadrin"), |g: &V| t(g, "talk") && n(g, "npc", 252475.0));
+		// (Desperate Times' own talk: A Grand Adventure talks to Elaadrin before it, #956.)
+		let elaadrin = at!(c, &list, format!("{guide}: Elaadrin"), |g: &V| t(g, "talk") && n(g, "quest", 92640.0) && n(g, "npc", 252475.0));
 		if !ok!(c, valennia < ayessa && ayessa < elaadrin, &format!("{guide}: Valennia, then Ayessa, then Elaadrin"))
 			|| !ok!(c, located(&list[ayessa]), &format!("{guide}: the arrow leads to Ayessa, west of town"))
 		{

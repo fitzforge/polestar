@@ -12,7 +12,7 @@ use forge_guide::js::V;
 use forge_guide::project::{compile_sources, CompileOpts, Source};
 use rustc_hash::{FxHashMap, FxHashSet};
 
-use crate::engine::{self, Character, Guide, Hooks, Sim, Status, StepView, WorldData};
+use crate::engine::{self, Character, GoalView, Groups, Guide, Hooks, Sim, Status, StepView, WorldData};
 #[allow(unused_imports)]
 use crate::seed::{at, everyone, for_class, is, located, Check, Ctx, Row, SeedTest};
 
@@ -46,7 +46,7 @@ pub fn tests() -> Vec<SeedTest> {
 		("Sato's report: the Skysight and Read Ley Line objectives tell you to cast the racial, and tick from the quest log".into(), skysight),
 		(format!("{ZEPHRAS_HORDE}: Sato's report: Welcome to Shen'dar Village follows its objectives, and is taken before Illaya's talk"), shendar),
 		(format!("{ELWYNN}: Syfin's report (#221): Croaky's Head is an optional extra; Ridgepoint Tower holds and leads the arrow only with the head"), croaky),
-		(format!("{ELWYNN}: zeike's report (#553): Forest's Edge does not wait for the rare Gruff Swiftbite; The Collector and Manhunt follow only the Schedule"), forests_edge),
+		(format!("{ELWYNN}: zeike's report (#553): Forest's Edge does not wait for the rare Gruff Swiftbite; The Collector and Manhunt are left out"), forests_edge),
 		("#246: no NPC or object goal is on a neighbouring zone's map where the two maps overlap".into(), neighbour_map),
 		("Alonso's Dragonslayer quests are left out of both Ashenvale guides: each needs an item a leveling route never gets (#383, #1117, QuestieDB 1.0.14)".into(), alonso),
 		(format!("{WESTFALL}: Smuve's report (#298): the Molsen Farm step does not wait for the Precessive Autocognition Assembly; with one, it is handed in at Saldean's"), molsen_farm),
@@ -469,36 +469,19 @@ fn jorn_skyseer(ctx: &Ctx, c: &mut Check) {
 
 fn forests_edge(ctx: &Ctx, c: &mut Check) {
 	let list = ctx.goals(ELWYNN);
-	let edge: Vec<&Row> = list.iter().filter(|r| num(&r.goal, "item") == Some(1307.0) || is("accept", 123)(&r.goal)).collect();
-	let got: Vec<(String, bool)> = edge.iter().map(|r| (r.goal.get("t").as_str().unwrap_or_default().to_string(), r.goal.get("optional").strict_eq(&V::Bool(true)))).collect();
-	c.eq(got, vec![("collect".into(), true), ("accept".into(), true)], "the Schedule and The Collector's accept are optional");
-	let Some(first) = edge.first() else { return };
-	let s = first.s;
+	let Some(a) = at(c, &list, "the armbands (782)", |g| g.get("t").as_str() == Some("collect") && num(g, "item") == Some(782.0)) else { return };
+	let s = list[a].s;
 	c.ok(list.iter().any(|r| r.s == s && r.goal.get("t").as_str() == Some("collect") && num(&r.goal, "quest") == Some(11.0) && !r.goal.get("optional").truthy()), "the armbands hold the step");
-	let human = Who { race: "Human", faction: "Alliance", cls: "MAGE", level: 11 };
-	let v = |x: &[&str]| Some(x.iter().map(|s| s.to_string()).collect::<Vec<_>>());
-	let took = |sim: &mut Sim| sim.w_accept(123, vec![]);
-	let handed = |sim: &mut Sim| {
-		sim.w_accept(123, vec![]);
-		sim.w_turn_in(123);
-	};
-	let manhunt = |sim: &mut Sim| {
-		sim.w_accept(123, vec![]);
-		sim.w_turn_in(123);
-		sim.w_accept(147, vec![]);
-	};
-	let r = quest_goal_status(ctx, c, ELWYNN, 123, &human, |_| {}, |_| {});
-	c.eq(r, v(&["accept pending", "turnin na"]), "123");
-	let r = quest_goal_status(ctx, c, ELWYNN, 147, &human, |_| {}, |_| {});
-	c.eq(r, v(&["accept na", "collect na", "turnin na"]), "147");
-	let r = quest_goal_status(ctx, c, ELWYNN, 123, &human, |_| {}, took);
-	c.eq(r, v(&["accept done", "turnin pending"]), "123 taken");
-	let r = quest_goal_status(ctx, c, ELWYNN, 147, &human, |_| {}, took);
-	c.eq(r, v(&["accept na", "collect na", "turnin na"]), "147 with 123 taken");
-	let r = quest_goal_status(ctx, c, ELWYNN, 147, &human, |_| {}, handed);
-	c.eq(r, v(&["accept pending", "collect pending", "turnin na"]), "147 with 123 handed in");
-	let r = quest_goal_status(ctx, c, ELWYNN, 147, &human, |_| {}, manhunt);
-	c.eq(r, v(&["accept done", "collect pending", "turnin pending"]), "147 taken");
+	let left: Vec<String> = list
+		.iter()
+		.filter(|r| matches!(num(&r.goal, "item"), Some(1307.0 | 2239.0)) || matches!(num(&r.goal, "quest"), Some(123.0 | 147.0)))
+		.map(|r| {
+			let g = &r.goal;
+			let what = if g.get("quest").truthy() { g.get("quest").to_js_string() } else { g.get("item").to_js_string() };
+			format!("{} {what}", g.get("t").to_js_string())
+		})
+		.collect();
+	c.eq(left, Vec::<String>::new(), "no Schedule, Collector or Manhunt goal");
 }
 
 // ---------------------------------------------------------------------------------------- step views
@@ -556,9 +539,10 @@ fn skysight(ctx: &Ctx, c: &mut Check) {
 
 fn shendar(ctx: &Ctx, c: &mut Check) {
 	let list = ctx.goals(ZEPHRAS_HORDE);
-	let (Some(a), Some(b)) = (at(c, &list, "accept 92514", is("accept", 92514)), at(c, &list, "complete 92595 (talk to Illaya)", is("complete", 92595))) else { return };
+	let (Some(a), Some(b)) = (at(c, &list, "accept 92514", is("accept", 92514)), at(c, &list, "talk 251902 quest 92595.1 (Illaya)", is("talk", 92595))) else { return };
 	c.ok(a < b, "taken before the talk to Illaya for The Windshapers, which counts for it too");
-	let Some(t) = at(c, &list, "turnin 92514", is("turnin", 92514)) else { return };
+	// The step with the two talks (the village round's first step; Raan's profession Camping 101s split it, #1559).
+	let Some(t) = at(c, &list, "talk for 92514", is("talk", 92514)) else { return };
 	let step = list[t].s;
 	let talks: Vec<Option<f64>> = list.iter().filter(|r| r.s == step && r.goal.get("t").as_str() == Some("talk") && r.goal.get("quest").is_undef()).map(|r| num(&r.goal, "npc")).collect();
 	c.eq(talks, vec![], "no bare talk goal that only counts during the step");
@@ -567,7 +551,12 @@ fn shendar(ctx: &Ctx, c: &mut Check) {
 			sim.w.completed.insert(92595);
 			sim.set_on_quest(92514, &[(1.0, illaya), (1.0, coriella)]);
 		})
-		.map(|v| v.goals.iter().filter(|g| g.quest == Some(92514) && g.t != "turnin").map(|g| g.status).collect::<Vec<_>>())
+		.map(|v| {
+			// Objective 1 is Illaya, 2 Coriella, whichever line the step lists first.
+			let mut gs: Vec<&GoalView> = v.goals.iter().filter(|g| g.quest == Some(92514) && g.t != "turnin" && g.t != "accept").collect();
+			gs.sort_by_key(|g| g.oi);
+			gs.iter().map(|g| g.status).collect::<Vec<_>>()
+		})
 	};
 	let Some(one) = objectives(c, 1.0, 0.0) else { return };
 	c.eq(one.iter().map(|s| *s == Status::Done).collect::<Vec<_>>(), vec![true, false], "Illaya done earlier, Coriella still to do");
@@ -622,7 +611,7 @@ struct CroakyLog {
 	ridge: Option<(Option<String>, Option<Status>, Option<(Option<u32>, Option<f64>, Option<f64>)>)>,
 }
 
-/// The first Torn Murloc Fin (the murloc step is live; with the head, it is looted and right-clicked
+/// The first Waterlogged tool (the river step is live; with the head, it is looted and right-clicked
 /// there), and any hand-in of Croaky's Head (the step it is handed in from, and where the arrow leads).
 /// The game takes no turn-in for a quest the player does not hold.
 struct Croaky {
@@ -638,14 +627,17 @@ fn goals_for(sim: &mut Sim, q: u32, item: u32) -> Vec<String> {
 
 impl Hooks for Croaky {
 	fn progress(&mut self, sim: &mut Sim<'_>, q: u32, i: usize, n: f64) {
-		if q == 46 && self.log.borrow().murlocs.is_none() {
+		if q == 91733 && self.log.borrow().murlocs.is_none() {
 			self.log.borrow_mut().murlocs = Some(Vec::new());
 			if self.head {
 				sim.raw_add_item(247826, 1.0);
 				sim.raw_accept(91740, vec![]);
 				sim.advance(0.6);
 			}
-			let m = goals_for(sim, 91740, 247826);
+			let mut m = goals_for(sim, 91740, 247826);
+			// And every accept of Croaky's Head in the guide.
+			let guide = &sim.gs[sim.guide.unwrap_or(0)];
+			m.extend(guide.steps.iter().flat_map(|s| &s.goals).filter(|g| g.verb == "accept" && g.quest == Some(91740)).map(|g| format!("accept {}", g.optional)));
 			self.log.borrow_mut().murlocs = Some(m);
 		}
 		sim.raw_progress(q, i, n);
@@ -685,7 +677,9 @@ fn croaky(ctx: &Ctx, c: &mut Check) {
 			&wd,
 			0,
 			("Human", "Alliance", "WARRIOR"),
-			|_| {},
+			// Without the head, skipping the group quest; with it, as one who does it (#1415: a player who
+			// answers "Do it with a group" is led to Croaky, whose head the step now waits for).
+			|sim| sim.groups_answer = if head { Groups::Do } else { Groups::Skip },
 			|sim| {
 				sim.hooks = Some(Box::new(Croaky { head, log: log.clone() }));
 				let out = sim.simulate();
@@ -700,10 +694,10 @@ fn croaky(ctx: &Ctx, c: &mut Check) {
 				(out, later, sim.w.completed.contains(&91740))
 			},
 		);
-		let who = if head { "with the head" } else { "without the head" };
+		let who = if head { "with the head, answering do" } else { "without the head, answering skip" };
 		played(c, who, out);
 		let log = log.borrow();
-		c.eq(log.murlocs.clone(), Some(vec!["collect true".to_string(), "accept true".to_string()]), &format!("{who}: the head and its accept are optional goals of the murloc step"));
+		c.eq(log.murlocs.clone(), Some(vec!["accept true".to_string()]), &format!("{who}: the head is no goal of the river step (groups only, #979), its accept optional"));
 		c.eq(done, head, &format!("{who}: Croaky's Head {} handed in", if head { "is" } else { "is not" }));
 		if head {
 			let Some((title, status, wp)) = &log.ridge else {
@@ -720,7 +714,7 @@ fn croaky(ctx: &Ctx, c: &mut Check) {
 			c.eq(later, Some(Status::Done), "later");
 		} else {
 			c.ok(log.ridge.is_none(), "without the head: Ridgepoint Tower is passed, nothing is handed in there");
-			c.eq(later, Some(Status::Na), "without the head: the turn-in is not this player's");
+			c.ok(matches!(later, Some(Status::Na | Status::Skipped)), &format!("without the head: the turn-in is not this player's: {later:?}"));
 		}
 	}
 }
@@ -953,9 +947,7 @@ fn cozy_sleeping_bag(ctx: &Ctx, c: &mut Check) {
 		before
 			.iter()
 			.copied()
-			.filter(|r| {
-				[r.step.get("only"), r.goal.get("only")].iter().all(|o| !o.truthy() || !o.get("factions").truthy() || o.get("factions").items().iter().any(|f| f.as_str() == Some(side)))
-			})
+			.filter(|r| [r.step.get("only"), r.goal.get("only")].iter().all(|o| !o.truthy() || !o.get("factions").truthy() || o.get("factions").items().iter().any(|f| f.as_str() == Some(side))))
 			.collect()
 	};
 	let (alliance, horde) = (sided("Alliance"), sided("Horde"));

@@ -15,4 +15,6 @@ section: contributors
   they passed a written route that brought the old problem back; they now
   check what the guides do today: Alba Fairmoon's chain for Humans (#144),
   Alonso's Dragonslayer quests left out (#1117), no Bronze Tube from Herble
-  (#1792) and the Talondeep way into Stonetalon (#563, #1813) (#2042).
+  (#1792) and the Talondeep way into Stonetalon (#563, #1813). The 22 other
+  seeds that still asserted an earlier form of their guides-reported case now
+  assert today's (#2042).

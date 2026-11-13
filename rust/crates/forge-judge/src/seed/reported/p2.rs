@@ -25,6 +25,10 @@ const LOCH_MODAN: &str = "forever/alliance/03-loch-modan.guide";
 const WETLANDS: &str = "forever/alliance/06-wetlands.guide";
 const BADLANDS: &str = "forever/alliance/30-40/06-badlands.guide";
 const STONETALON: &str = "forever/horde/05-stonetalon-mountains.guide";
+const DUROTAR_ORC: &str = "forever/horde/orc/01-durotar.guide";
+const DUROTAR_TROLL: &str = "forever/horde/troll/01-durotar.guide";
+const ASHENVALE: &str = "forever/alliance/06-ashenvale.guide";
+const ASHENVALE_HORDE: &str = "forever/horde/07-ashenvale.guide";
 const STRANGLETHORN_HORDE: &str = "forever/horde/30-40/03-stranglethorn-vale.guide";
 const TANARIS_ALLIANCE: &str = "forever/alliance/40-50/04-tanaris.guide";
 const UN_GORO_ALLIANCE: &str = "forever/alliance/40-50/07-un-goro-crater.guide";
@@ -200,7 +204,7 @@ fn follow_ups(ctx: &Ctx, c: &mut Check) {
 		(&[TIRISFAL], 99156, &[356], true),
 		(&[LOCH_MODAN, REDRIDGE], 98386, &[89], false),
 		(&[WESTFALL], 92745, &[92742, 92744], false),
-		(&[WESTFALL], 92747, &[92745, 92744], false),
+		(&[WESTFALL, LOCH_MODAN], 92747, &[92745, 92744], false),
 		(&[HILLSBRAD_HORDE], 98094, &[528], false),
 		(&[SILVERPINE], 91920, &[430], false),
 		(&[SILVERPINE], 91921, &[91920], true),
@@ -213,13 +217,45 @@ fn follow_ups(ctx: &Ctx, c: &mut Check) {
 		(&[SILVERPINE], 425, &[91921], false),
 		(&[SILVERPINE], 98298, &[99], true),
 		(&[WESTFALL], 92911, &[92910], true),
+		// Lou-Saydus (#225): Forever puts From the Ashes before Nek'rosh's Gambit.
 		(&[WETLANDS], 465, &[98221], false),
-		// DexeeXI (#872): Allister offers Watching the Roads once Dalaran's Intentions is handed in.
-		(&[STONETALON], 95981, &[482], false),
+		// mtbhuskies, Soulevoker and mcclaskiem (#792): Executor Arren offers The Adventurer once Night Web's
+		// Hollow is handed in.
+		(&[TIRISFAL], 96656, &[382], false),
+		// Livnthedream (#800): Holland offers Tomb Weed once Doom Weed is handed in; Sarvis gives the Paladin's
+		// A Difficult Path only after The Mindless Ones.
+		(&[TIRISFAL], 99142, &[5482], false),
+		(&[TIRISFAL], 98601, &[364], false),
+		// kieran1188 (#796): Master Vornal offers Forgotten Loa Idols once Report to Sen'jin Village is handed
+		// in. Rohkin (#807): Rezlak offers Stormy Potential once A Simmering Storm is handed in (optional).
+		(&[DUROTAR_ORC], 97225, &[805], false),
+		(&[DUROTAR_TROLL], 97225, &[805], false),
+		(&[DUROTAR_ORC], 97282, &[97281], true),
+		(&[DUROTAR_TROLL], 97282, &[97281], true),
+		(&["forever/reputation/orgrimmar.guide"], 97282, &[97281], true),
+		(&["forever/reputation/darkspear-trolls.guide"], 97282, &[97281], true),
 		// DexeeXI (#891): Yelmak offers Whuut's the Rush once Yelmak's Medley is handed in.
 		(&[SILVERPINE], 97275, &[97242], false),
+		// The #872 sweep: James Halloran's Crocs of the Sky after Apprentice's Duties; Lord Grayson
+		// Shadowbreaker's The Shamed Lieutenant after A Friend of the Family.
+		(&[WETLANDS], 98072, &[471], true),
+		(&[WETLANDS], 98072, &[471], false),
+		(&[WETLANDS], 98219, &[98191], false),
+		// Bennistrov (#1354): Bolvar offers his A Friend of the Family once Captain Stoutfist's is handed in.
+		(&[WETLANDS], 98191, &[98190], false),
 		// soockee (#1002), jiskim (#984): Va'xug Firefure offers A Void Path once Never Coming Back is handed in.
 		(&[STONETALON], 98252, &[98251], false),
+		// The offer audit of players' recordings (2026-11-07): Karl Boran's Return the Statuette after the old
+		// one (#1113, #1118); Muln Earthfury's The Broodmother after Defending the Dead (#1083); Thrall's
+		// Skyborne Journey to the Crossroads after Welcome to Azeroth.
+		(&[WETLANDS], 98189, &[286], false),
+		(&[ASHENVALE_HORDE], 96261, &[96259], false),
+		(&["forever/reputation/thunder-bluff.guide"], 96261, &[96259], false),
+		(&[SILVERPINE], 98024, &[95350], false),
+		(&[SILVERPINE], 93739, &[95350], true),
+		// #1134: James Halloran offers Crimson Crate Delivery only after Crocs of the Sky (left out by the route).
+		(&[ASHENVALE], 98240, &[98072], true),
+		(&[HILLSBRAD_ALLIANCE], 98240, &[98072], true),
 	];
 	for &(guides, quest, after, optional) in cases {
 		let guide = guides.join(" + ");
@@ -270,10 +306,7 @@ fn alba(ctx: &Ctx, c: &mut Check) {
 	}
 	for r in &list {
 		let races: Vec<V> = [r.step.get("only"), r.goal.get("only")].iter().filter(|o| o.truthy()).flat_map(|o| o.get("races").items()).collect();
-		if !c.ok(
-			races.is_empty() || races.iter().any(|x| x.as_str() == Some("Human")),
-			&format!("{} {} is open to Humans", r.goal.get("t").to_js_string(), r.goal.get("quest").to_js_string()),
-		) {
+		if !c.ok(races.is_empty() || races.iter().any(|x| x.as_str() == Some("Human")), &format!("{} {} is open to Humans", r.goal.get("t").to_js_string(), r.goal.get("quest").to_js_string())) {
 			return;
 		}
 	}
@@ -421,7 +454,7 @@ fn bronze_tube(ctx: &Ctx, c: &mut Check) {
 fn bind_after_givers(ctx: &Ctx, c: &mut Check) {
 	let cases: &[(&str, &str, &[i64])] = &[
 		(BARRENS_12, "Ratchet", &[865]),
-		(BARRENS_12, "The Crossroads", &[4921, 899]),
+		(BARRENS_12, "The Crossroads", &[903, 881]),
 		("forever/horde/04-the-barrens.guide", "Sun Rock Retreat", &[86576, 5881]),
 		(HILLSBRAD_HORDE, "Tarren Mill", &[496, 493]),
 	];

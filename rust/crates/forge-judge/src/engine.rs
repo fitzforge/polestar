@@ -36,7 +36,7 @@ pub(crate) use self::core::{trivial, Sim};
 pub use self::core::{Groups, Status};
 pub use model::{Along, Goal, Guide, Only, Pred, Step, T};
 #[cfg(feature = "native")]
-pub(crate) use script::{Hooks, StepView};
+pub(crate) use script::{GoalView, Hooks, StepView};
 
 use forge_core::MapFrames;
 use forge_guide::js::V;
