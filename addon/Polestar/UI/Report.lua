@@ -801,10 +801,10 @@ local function sizeDesc()
 	F.DescMeasure:SetText(((e:GetText() or ""):gsub("\n$", "\n ")))
 	local textH = F.DescMeasure:GetStringHeight()
 	local view = min(max(textH, DESC_LINES * LINE_H), DESC_LINES_MAX * LINE_H) + 16
-	local content = max(view, floor(textH + 16 + 0.5))
+	local content = max(view - 16, floor(textH + 0.5))
 	F.DescWell:SetHeight(view)
 	e:SetHeight(content)
-	W.SetScrollContent(F.DescScroll, content, view)
+	W.SetScrollContent(F.DescScroll, content, view - 16)
 end
 
 local function layout()
@@ -1004,7 +1004,10 @@ local function textArea()
 	Theme.Skin(well, "editbox")
 	F.DescWell = well
 	local sf = W.Scroll(well)
-	sf:SetAllPoints(well)
+	-- Vertical text insets can make a multiline edit box relayout every
+	-- frame and lose its caret (#1905). Keep that padding outside the box.
+	sf:SetPoint("TOPLEFT", well, "TOPLEFT", 0, -8)
+	sf:SetPoint("BOTTOMRIGHT", well, "BOTTOMRIGHT", 0, 8)
 	F.DescScroll = sf
 	-- The box is the view's scroll child, as the report box (W.ScrollChild);
 	-- a click anywhere on the well puts the cursor in it.
@@ -1017,8 +1020,10 @@ local function textArea()
 	Theme.Font(e, "label")
 	W.Color(e, "text")
 	e:SetWidth(BOX_W)
-	e:SetHeight(DESC_LINES * LINE_H + 16)
-	e:SetTextInsets(10, 10, 8, 8)
+	e:SetHeight(DESC_LINES * LINE_H)
+	e:SetTextInsets(10, 10, 0, 0)
+	e:EnableMouseWheel(true)
+	e:SetScript("OnMouseWheel", function(_, delta) sf:GetScript("OnMouseWheel")(sf, delta) end)
 	-- The text in the box's font at its inner width: what the well's height
 	-- is measured on. Hidden, never alpha 0 (F.Measure, #1753).
 	F.DescMeasure = W.Text(F, "label", "text")
@@ -1028,7 +1033,7 @@ local function textArea()
 	F.DescMeasure:SetNonSpaceWrap(true)
 	F.DescMeasure:Hide()
 	e.Placeholder = W.Text(e, "label", "textMuted")
-	e.Placeholder:SetPoint("TOPLEFT", e, "TOPLEFT", 10, -8)
+	e.Placeholder:SetPoint("TOPLEFT", e, "TOPLEFT", 10, 0)
 	e.Placeholder:SetWidth(BOX_W - 20)
 	e.Placeholder:SetJustifyH("LEFT")
 	e.Placeholder:SetWordWrap(true)
@@ -1038,9 +1043,14 @@ local function textArea()
 	e:SetScript("OnEscapePressed", function(self) self:ClearFocus() end)
 	-- The line being typed stays in view: y is the cursor's offset down
 	-- from the box's top, h its height.
-	e:SetScript("OnCursorChanged", function(_, _, y, _, h)
-		local view, at = well:GetHeight(), sf:GetVerticalScroll()
-		local top, bottom = -(y or 0), -(y or 0) + (h or LINE_H) + 8
+	local cursorX, cursorY, cursorH
+	e:SetScript("OnCursorChanged", function(_, x, y, _, h)
+		-- Layout can repeat this event without moving the cursor. Following
+		-- those notifications would undo the player's wheel or thumb scroll.
+		if x == cursorX and y == cursorY and h == cursorH then return end
+		cursorX, cursorY, cursorH = x, y, h
+		local view, at = sf.psView or sf:GetHeight(), sf:GetVerticalScroll()
+		local top, bottom = -(y or 0), -(y or 0) + (h or LINE_H)
 		if top < at then
 			W.ScrollTo(sf, top)
 		elseif bottom > at + view then
@@ -1048,6 +1058,7 @@ local function textArea()
 		end
 	end)
 	e:SetScript("OnTextChanged", function(self)
+		cursorX, cursorY, cursorH = nil, nil, nil
 		self.Placeholder:SetShown((self:GetText() or "") == "")
 		sizeDesc()
 		if F.details then compose() end
