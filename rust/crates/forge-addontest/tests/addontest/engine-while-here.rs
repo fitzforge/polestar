@@ -1613,7 +1613,8 @@ fn the_step_key_targets_a_line_s_mobs_after_the_live_step_s_own_1316() {
 			HELPERS,
 			"stub.login()",
 			r#"stub.fire("QUEST_LOG_UPDATE"); stub.advance(0.6)"#,
-			r#"Polestar.Set("behavior.whileHereRadius", 60); stub.advance(0.6)"#,
+			// The macro lines without Mark target's (on by default) icon line.
+			r#"Polestar.Set("behavior.whileHereRadius", 60); Polestar.Set("qol.markTarget", false); stub.advance(0.6)"#,
 			r#"
 			local function key() return PolestarStepButton:GetAttribute("macrotext") or "nil" end
 			emit({ Polestar.GetDefault("behavior.whileHereStepKey"), lines(), key() })
