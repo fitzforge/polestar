@@ -13,6 +13,8 @@
 --   Codex.IsLoaded() ; Codex.Meta()
 --   Codex.Item(id) / Npc(id) / Object(id) / Quest(id) / Instance(key) / Zone(id) / Faction(id)
 --       (a quest's `xp`: its full XP reward, nil when not known or the pack predates it;
+--       a child quest's `parent`: the quest its giver wants in the log, nil when none or
+--       the pack predates it;
 --       an event objective's `map`, `x`, `y`, `f`: where it is done, when known;
 --       a talk objective's `id`: the NPC to speak to, absent from packs before it;
 --       an NPC's or object's spawns { map, x, y, f, z }: z the height of its
