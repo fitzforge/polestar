@@ -530,6 +530,8 @@ function playData(dir, diag) {
 // plays the steps behind `when skill` they open (on its own it takes no
 // optional goal, so it never learns a profession).
 async function playtest({ dir, manifest, official = false, filter = null, classes = null, groups = 'skip', dungeons = null, dataDir = DATA, data = null, contextDir = OFFICIAL_DIR, contextDataDir = DATA, onResult = null, workers = null, honest = false, kb = undefined, learn = null }) {
+	// Validate before loading data. The pool starts processes only when a play is queued.
+	const pool = honest ? null : new LuaPool({ size: workers ?? (process.env.POLESTAR_PLAY_WORKERS === undefined ? undefined : Number(process.env.POLESTAR_PLAY_WORKERS)) });
 	const dataDiag = new Diagnostics();
 	data = data || playData(dataDir, dataDiag);
 	const contextData = official ? null : contextDataDir && path.resolve(contextDataDir) !== path.resolve(dataDir) ? playData(contextDataDir, dataDiag) : data;
@@ -575,7 +577,6 @@ async function playtest({ dir, manifest, official = false, filter = null, classe
 	const chained = packs.flatMap((p) => p.guides);
 	const dungeonMaps = dungeonMapsOf(chained, chosen);
 	const sim = simPacks(packs, data);
-	const pool = new LuaPool({ size: workers || Number(process.env.POLESTAR_PLAY_WORKERS) || undefined });
 	const pending = [];
 	let shown = 0;
 	const flush = () => {

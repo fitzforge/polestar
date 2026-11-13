@@ -75,6 +75,7 @@ class Worker {
 
 class LuaPool {
 	constructor({ size = Math.max(1, Math.min(8, os.cpus().length - 1)) } = {}) {
+		if (!Number.isSafeInteger(size) || size < 1) throw new RangeError('Lua worker count must be a positive integer');
 		this.size = size;
 		this.workers = [];
 		this.queue = [];
