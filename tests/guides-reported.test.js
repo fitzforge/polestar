@@ -5240,7 +5240,7 @@ test('Danger at the spot (#1575): the steps players died at among elites say so,
 		[96821, 2, /Ukorsbane \(8\) is elite/, ['forever/horde/orc/01-durotar.guide', 'forever/horde/troll/01-durotar.guide']],
 		[371, 2, /Riptear \(13\) is elite/, ['forever/horde/undead/01-tirisfal-glades.guide']],
 		[1504, 1, /the voidwalker you summon hits hard/, ['forever/horde/orc/01-durotar.guide', 'forever/horde/troll/01-durotar.guide']],
-		[1498, 1, /Halikor, a level 12 elite/, ['forever/horde/orc/01-durotar.guide', 'forever/horde/troll/01-durotar.guide', 'forever/horde/02-the-barrens.guide', 'forever/horde/tauren/01-mulgore.guide']],
+		[1498, 1, /Halikor, a level 12 elite/, ['forever/horde/orc/01-durotar.guide', 'forever/horde/troll/01-durotar.guide', 'forever/horde/tauren/01-mulgore.guide']],
 		[5041, 1, /Flesheaters and Berserkers \(18-19\) are elites/, ['forever/horde/02-the-barrens.guide']],
 		[872, 1, /Flesheaters and Berserkers \(18-19\) are elites/, ['forever/horde/02-the-barrens.guide']],
 		[966, 1, /Voidcallers \(28-29\)[^.]*Athrikus Narassin \(31\)/, ['forever/alliance/03-darkshore.guide']],
@@ -5315,8 +5315,6 @@ test("Snowiee's report (#1003): the Great Cat Spirit's accepts and turn-ins poin
 // Rock (Maggran Earthbinder) and Tarren Mill (Apothecary Lydon).
 test("Bill's report (#1004): a town's bind never sends you back to the giver you just left", { skip }, () => {
 	for (const [guide, place, before] of [
-		['forever/horde/02-the-barrens.guide', 'Ratchet', [865]],
-		['forever/horde/02-the-barrens.guide', 'The Crossroads', [903, 881]],
 		['forever/horde/04-the-barrens.guide', 'Sun Rock Retreat', [86576, 5881]],
 		['forever/horde/06-hillsbrad-foothills.guide', 'Tarren Mill', [496, 493]],
 	]) {
@@ -5336,6 +5334,178 @@ test("Bill's report (#1004): a town's bind never sends you back to the giver you
 		const back = inStep.filter(([, i]) => i > bind).map(([{ goal }]) => goal).filter((g) => g.npc && npcsBefore.has(g.npc));
 		assert.deepEqual(back.map((g) => `${g.t} ${g.quest} (${g.npcName})`), [], `${guide}: back to an NPC of the step after binding at ${place}`);
 	}
+});
+
+// 0.4.0 route audit, Horde 12-21 (travel sweep with the addon's planner, recorded hearths): Ratchet's bind was never
+// hearthed back to inside its window, the second Crossroads line rebound the inn the player was already bound to, and
+// Camp Taurajo's one planned hearth lands at the Crossroads just as well. The Barrens keep their first Crossroads bind,
+// taken after Sergra's first quest and before the givers further on.
+test('The Barrens (Horde 14-21): one bind, at the Crossroads; Ratchet and Camp Taurajo are not bound (0.4.0 audit)', { skip }, () => {
+	const list = goals(BARRENS);
+	const binds = list.filter(({ goal }) => goal.t === 'sethome');
+	assert.deepEqual(binds.map(({ goal }) => goal.location), ['The Crossroads'], 'the guide binds once, at the Crossroads');
+	const inStep = list.filter(({ step }) => step === binds[0].step);
+	const k = inStep.indexOf(binds[0]);
+	const SERGRA = 3338;
+	assert.ok(inStep.slice(0, k).some(({ goal }) => goal.npc === SERGRA), 'Sergra before the bind');
+	assert.ok(!inStep.slice(k + 1).some(({ goal }) => goal.npc === SERGRA), 'no walk back to Sergra after the bind');
+});
+
+// 0.4.0 route audit, Horde 12-21: Orcs, Trolls, Tauren and Skyborne arrive in Orgrimmar from their starts still bound
+// at Razor Hill, Bloodhoof Village or Valanaar, inns no later step comes back to. Silverpine's first Orgrimmar stop binds
+// them at Gryshka's inn, after the flight path: the travel planner's hearth home from Silverpine Forest then lands beside
+// the zeppelin towers and the road to the Barrens (-4.3 min a branch for Orcs and Trolls, -6.6 for Tauren and Skyborne).
+test('Silverpine Forest (Horde 12-15): the starts that come by Orgrimmar bind there on arrival, after its flight path (0.4.0 audit)', { skip }, () => {
+	const list = goals(SILVERPINE);
+	const fp = at(list, 'getfp Orgrimmar', (g) => g.t === 'getfp' && g.location === 'Orgrimmar');
+	const bind = at(list, 'sethome Orgrimmar', (g) => g.t === 'sethome' && g.location === 'Orgrimmar');
+	assert.equal(list[bind].step, list[fp].step, 'the bind is on the arrival step');
+	assert.ok(bind > fp, 'after the flight path');
+	assert.deepEqual([...list[bind].step.only.races].sort(), ['Orc', 'Skyborne', 'Tauren', 'Troll'], 'not for the Undead, who keep Brill');
+	assert.equal(list.filter(({ goal }) => goal.t === 'sethome').length, 1, 'the guide binds once');
+});
+
+// 0.4.0 route audit, Horde 12-21: Silverpine's arrival trainer in Orgrimmar listed every Orgrimmar class but Mage, so a
+// Troll Mage (last trained at Sen'jin, around 8-9) waited until the end of the guide; Troll Priests carried Hex of Weakness
+// to the Barrens' Orgrimmar trip at 20 although Ur'kyo, their trainer, is the one who takes it. The last Orgrimmar stop
+// trained twice, at the trainer step and again on the Valley of Wisdom step.
+test('Silverpine Forest (Horde 12-15): Troll Mages train and Troll Priests hand in Hex of Weakness on the Orgrimmar arrival; the last stop trains once (0.4.0 audit)', { skip }, () => {
+	const list = goals(SILVERPINE);
+	const fits = (o, race, cls) => !o || ((!o.races || o.races.includes(race)) && (!o.classes || o.classes.includes(cls)));
+	const as = (race, cls) => list.filter(({ step, goal }) => fits(step.only, race, cls) && fits(goal.only, race, cls));
+	const before = (l, title) => l.slice(0, l.findIndex(({ step }) => step.title === title));
+	const after = (l, title) => l.slice(l.findIndex(({ step }) => step.title === title));
+	const classTrain = ({ goal }) => goal.t === 'train' && goal.class;
+	assert.ok(before(as('Troll', 'MAGE'), 'Zeppelin to Undercity').some(classTrain), 'a Troll Mage trains before the zeppelin');
+	assert.ok(before(as('Troll', 'PRIEST'), 'Zeppelin to Undercity').some(({ goal }) => is('turnin', 5654)(goal)), 'Hex of Weakness on arrival');
+	for (const cls of ['WARRIOR', 'MAGE', 'PRIEST']) {
+		assert.equal(after(as('Undead', cls), 'Zeppelin to Orgrimmar').filter(classTrain).length, 1, `${cls}: one class training on the last Orgrimmar stop`);
+	}
+});
+
+// 0.4.0 route audit, Horde 12-21: Paladins coming by the zeppelin walked Brill -> Hadric's camp by the towers -> the
+// cultists -> Hadric -> back north to Brill for Shari Stilwell -> south to Silverpine (~570 yd against ~200). They train
+// on the first Brill stop, with Terrence and Johaan.
+test('Silverpine Forest (Horde 12-15): Paladins train on the first Brill stop, no walk back to Brill after the cultists (0.4.0 audit)', { skip }, () => {
+	const list = goals(SILVERPINE);
+	const brill = list.filter(({ step, goal }) => goal.t === 'train' && goal.class && step.title === 'Brill');
+	assert.equal(brill.length, 1, 'one Brill training');
+	assert.equal(brill[0].s, list[at(list, 'accept 445', is('accept', 445))].s, 'with Apothecary Johaan');
+	assert.ok(brill[0].goal.only && brill[0].goal.only.classes.join() === 'PALADIN', 'for Paladins');
+});
+
+// 0.4.0 route audit, Horde 12-21 (danger-at-the-spot gate, #1980, players' recordings): the steps where players of the
+// band die name what kills them: the Apprentices at the Dalaran Crate, Nightlash's level and when she rises, Ambermill's
+// Mages with their Serpents and Ataeric's level, Chol'aruk beside the Razormane supply crates, the rare Silithid
+// Harvester at the Field of Giants' mounds, and the level 60 Territorial Terrans in the Stormrage Barrow Dens. Each step
+// keeps one tip, with its record.
+test('Silverpine Forest and the Barrens (Horde): the band\'s dangerous steps say what is there (#1980, 0.4.0 audit)', { skip }, () => {
+	const fixes = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', 'guide-fixes.json'), 'utf8')).fixes;
+	for (const [guide, title, re] of [
+		[SILVERPINE, 'Border Crossings', /Dalaran Apprentices \(13\)/],
+		[SILVERPINE, 'The Dead Field', /Nightlash \(14\) rises/],
+		[SILVERPINE, 'Ambermill', /Dalaran Serpent \(15\).*Archmage Ataeric \(22\)/],
+		[BARRENS, 'The Disruption Ends', /Chol'aruk \(20, elite\)/],
+		[BARRENS, 'Twitching Antennae', /Silithid Harvester \(24, rare\)/],
+		[BARRENS, 'The Stormrage Barrow Dens', /Territorial Terrans \(level 60\)/],
+	]) {
+		// The guide's own tip lines (a compiled step folds its tips into `note`, with names turned into tokens).
+		const src = fs.readFileSync(path.join(OFFICIAL_DIR, guide), 'utf8');
+		const block = src.split('\nstep ').find((s) => s.split('\n')[0] === title);
+		assert.ok(block, `${guide}: step "${title}"`);
+		const tips = block.split('\n').filter((l) => l.startsWith('  tip ')).map((l) => l.slice(6));
+		assert.equal(tips.length, 1, `${title}: one tip`);
+		assert.match(tips[0], re, `${title}: names the danger`);
+		assert.ok(fixes.some((f) => f.tip === tips[0]), `${title}: a record the build keeps`);
+	}
+});
+
+// 0.4.0 route audit, Horde 12-21: Neeru Fireblade offers Ak'Zeloth (809) on the Orcs' and Trolls' Cleft of Shadow stop
+// once Neeru Fireblade (829) is handed in, and Ak'Zeloth stands beside Kargal at Far Watch Post, the Barrens' first stop
+// for them: taken on the one, handed in on the other, no walk of its own.
+test("Silverpine Forest and the Barrens (Horde): Ak'Zeloth from Neeru to Far Watch Post (0.4.0 audit)", { skip }, () => {
+	const silverpine = goals(SILVERPINE);
+	const take = at(silverpine, 'accept 809', is('accept', 809));
+	assert.equal(silverpine[take].s, silverpine[at(silverpine, 'turnin 829', is('turnin', 829))].s, 'on the Neeru stop');
+	assert.ok(take > at(silverpine, 'turnin 829', is('turnin', 829)), 'after Neeru Fireblade');
+	const barrens = goals(BARRENS);
+	const give = at(barrens, 'turnin 809', is('turnin', 809));
+	assert.equal(barrens[give].s, barrens[at(barrens, 'accept 842', is('accept', 842))].s, 'on the Far Watch stop with Kargal');
+	assert.equal(barrens[give].goal.npc, 3521, "Ak'Zeloth");
+});
+
+// 0.4.0 route audit, Horde 1-21 (with Mulgore's half): Tauren Warriors and Shamans now take their level-10 class quests on
+// Mulgore's walk past Far Watch Post to Orgrimmar. In the Barrens, Warriors hand Path of Defense to Uzzek on the walk from
+// Orgrimmar and Shamans share the Orcs' and Trolls' Fire Tar, Telf and Kranal steps; no Tauren-only trip into Durotar
+// from the Crossroads is left (it was ~3,160 yd for Warriors and two trips for Shamans).
+test('The Barrens (Horde): Tauren Warriors and Shamans finish Path of Defense and Call of Fire on the Orcs\' steps, no Durotar trip of their own (0.4.0 audit)', { skip }, () => {
+	const list = goals(BARRENS);
+	const fits = (o, cls) => !o || ((!o.races || o.races.includes('Tauren')) && (!o.classes || o.classes.includes(cls)));
+	const as = (cls) => list.filter(({ step, goal }) => fits(step.only, cls) && fits(goal.only, cls));
+	const war = as('WARRIOR');
+	const uzzek = war[at(war, 'turnin 1498', is('turnin', 1498))];
+	assert.ok((uzzek.step.when || []).some((p) => p.k === 'onquest' && !p.neg && [].concat(p.q).includes(1498)), 'Uzzek only for a Warrior carrying Path of Defense');
+	assert.ok(at(war, 'turnin 1503', is('turnin', 1503)) < at(war, 'accept 844', is('accept', 844)), 'Forged Steel before the Crossroads quests');
+	const sham = as('SHAMAN');
+	assert.equal(sham.filter(({ goal }) => is('turnin', 1525)(goal)).length, 1, 'one Telf hand-in');
+	assert.ok(!sham.some(({ goal }) => is('accept', 1524)(goal) || is('accept', 1525)(goal) || (goal.t === 'collect' && goal.item === 6652)), 'Kranal\'s and Telf\'s first parts are Mulgore\'s');
+	for (const cls of ['WARRIOR', 'SHAMAN']) {
+		const own = as(cls).filter(({ step }) => step.only && step.only.races && step.only.races.join() === 'Tauren' && step.goals.some((g) => g.zone === 1411 || g.map === 1411));
+		assert.deepEqual(own.map(({ step }) => step.title), [], `${cls}: no Tauren-only Durotar step`);
+	}
+});
+
+// 0.4.0 route audit, Horde 1-21: the walk back from Telf Joolam to Kranal Fiss for Call of Fire's last part was a goto
+// named "Kranal Fiss" at 61.4,21.1, Uzzek's spot at Far Watch Post; Kranal stands alone on the ridge at 56.0,19.9.
+test('The Barrens (Horde): the goto back to Kranal Fiss points at Kranal, not at Uzzek (0.4.0 audit)', { skip }, () => {
+	const list = goals(BARRENS);
+	const hand = at(list, 'turnin 1527', is('turnin', 1527));
+	const walk = list.slice(0, hand).reverse().find(({ goal }) => goal.t === 'goto');
+	assert.equal(list[hand].goal.npc, 5907, 'Kranal Fiss takes it');
+	assert.ok(Math.hypot(walk.goal.x - list[hand].goal.x, walk.goal.y - list[hand].goal.y) < 1, `the goto at ${walk.goal.x},${walk.goal.y} is at Kranal (${list[hand].goal.x},${list[hand].goal.y})`);
+});
+
+// 0.4.0 route audit, Horde 12-21: Chol'aruk the Ravener (Forever, 4,100 XP) comes from Gur'ak at the Crossroads, and its
+// boar (level 20, elite) sits in the cave of the Razormane camp the route clears for The Disruption Ends. A group choice
+// like WANTED: Bruuz: taken at the Crossroads before the camp, done there, handed in on the next Crossroads stop.
+test("The Barrens (Horde): Chol'aruk the Ravener is a group choice on the Razormane camp's second visit (0.4.0 audit)", { skip }, () => {
+	const list = goals(BARRENS);
+	const mine = list.filter(({ goal }) => goal.quest === 97003);
+	assert.ok(mine.length >= 3, 'accept, objective and hand-in');
+	for (const { step, goal } of mine) assert.ok((step.when || []).some((p) => p.k === 'group' && !p.neg), `${goal.t} 97003: only for a group`);
+	const take = at(list, 'accept 97003', is('accept', 97003));
+	const kreenig = at(list, 'collect 872', (g) => g.t === 'collect' && g.quest === 872);
+	const boar = at(list, 'collect 97003', (g) => g.t === 'collect' && g.quest === 97003);
+	const give = at(list, 'turnin 97003', is('turnin', 97003));
+	assert.ok(take < kreenig && kreenig < boar && boar < give, 'Crossroads, the camp, Crossroads');
+	const group = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', 'route-fixes.json'), 'utf8')).deliberate.group;
+	assert.ok(group.some((g) => g.q === 97003 && g.size >= 2), 'a group record the build keeps');
+});
+
+// 0.4.0 route audit, Horde 12-21 (players' recordings, 0.3.7: both Druids who reached it flew Crossroads -> Orgrimmar
+// for Rilli Greasygob, then on to Thunder Bluff): Druids and Paladins have no trainer in Orgrimmar. They take Thunder
+// Bluff in the Orgrimmar trip's place (Paladins learn its flight path by Camp Taurajo), Druids with Cat Form and Cure
+// Poison on the same trip, and fly on to Ratchet; nobody makes a second Thunder Bluff trip after Counterattack!.
+// The chain's `level 20` hold: every Druid recorded at that stop was over 20 (0.3.7: 22.05 and 22.2; 0.3.6: 21.0). The
+// calibrated level model, which runs about two levels under players in this band, reaches it at 19.7 and grinds there.
+test('The Barrens (Horde): Druids and Paladins train in Thunder Bluff in the Orgrimmar trip\'s place, once (0.4.0 audit)', { skip }, () => {
+	const list = goals(BARRENS);
+	const fits = (o, cls) => !o || !o.classes || o.classes.includes(cls);
+	const as = (cls) => list.filter(({ step, goal }) => fits(step.only, cls) && fits(goal.only, cls));
+	for (const cls of ['DRUID', 'PALADIN']) {
+		const l = as(cls);
+		const egg = at(l, 'accept 868', is('accept', 868));
+		const ratchet = at(l, 'turnin 896', is('turnin', 896));
+		assert.ok(!l.slice(egg, ratchet).some(({ goal }) => goal.t === 'fly' && goal.location === 'Orgrimmar'), `${cls}: no flight to Orgrimmar`);
+		assert.ok(!l.some(({ goal }) => is('turnin', 3923)(goal) || is('accept', 3923)(goal)), `${cls}: Rilli Greasygob's errand is not taken`);
+		const trains = l.map((e, i) => [e, i]).filter(([{ goal }, i]) => i > egg && goal.t === 'train' && goal.class);
+		assert.equal(trains.length, 1, `${cls}: one class training after the Bristlebacks`);
+		assert.ok(trains[0][1] < ratchet, `${cls}: before the Ratchet stop`);
+		assert.equal(trains[0][0].goal.zone, 1456, `${cls}: in Thunder Bluff`);
+	}
+	const druid = as('DRUID');
+	const ratchet = at(druid, 'turnin 896', is('turnin', 896));
+	for (const q of [98362, 6130]) assert.ok(at(druid, `turnin ${q}`, is('turnin', q)) < ratchet, `${q} on the same trip, before Ratchet`);
 });
 
 // #1024 (Pilk, Tauren Druid): Apothecary Zamah's arrow led up out of the Pools of Vision, the cave under
@@ -6278,7 +6448,12 @@ test('forever/horde/orc/01-durotar.guide, troll/01-durotar.guide: final route re
 			assert.equal(goals(file).filter(forClass(cls)).filter(({ step, goal }) => is('turnin', 840)(goal) && !(cls === 'SHAMAN' && step.when && step.when.length)).length, 1, `${file} ${cls}: 840 handed in once`);
 		}
 	}
-	assert.ok(!barrens.some(({ goal }) => is('turnin', 840)(goal)), 'no Conscript of the Horde carried into the Barrens');
+	// 0.4.0 audit: whoever still carries 840 (everyone but Warriors once Durotar's Far Watch stop is theirs alone) hands
+	// it to Kargal on the Barrens' Far Watch stop, right before Crossroads Conscription from him.
+	const conscript = barrens.filter(({ goal }) => is('turnin', 840)(goal));
+	assert.equal(conscript.length, 1, 'the Barrens hand 840 in once');
+	assert.ok(conscript[0].step.only && conscript[0].step.only.races.join() === 'Orc,Troll', 'on the Orc and Troll Far Watch stop');
+	assert.equal(barrens.indexOf(conscript[0]) + 1, at(barrens, 'accept 842', is('accept', 842)), 'right before Crossroads Conscription');
 });
 
 // Final route review, Horde 1-30: the flight lands in Ratchet beside Sputtervalve, who came after the grind south and
@@ -11815,6 +11990,19 @@ test('#1952: the Horde start guides\' Camping 101 trainer steps wait until the q
 		}
 	}
 	assert.ok(n >= 30, `${n} in-zone Camping 101 hand-ins found`);
+});
+
+// #1952, the Silverpine half (0.4.0 route audit): the Orcs' and Trolls' Camping 101 hand-ins to the Orgrimmar trainers on
+// Silverpine's arrival stop, and the Undead's to the Undercity trainers on its Undercity stop, sent the player there
+// whatever the profession's skill; they wait for the quest to be complete too, each with its record.
+test('#1952: Silverpine Forest\'s Orgrimmar and Undercity Camping 101 trainer steps wait until the quest is complete', { skip }, () => {
+	const fixes = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', 'guide-fixes.json'), 'utf8')).fixes;
+	const hand = goals(SILVERPINE).filter(({ goal }) => goal.t === 'turnin' && /^Camping 101: (?!Cooking)/.test(goal.title || ''));
+	assert.deepEqual(hand.map(({ goal }) => goal.quest).sort(), [96102, 97899, 97901, 97905, 97906, 97908, 97952, 97954, 97959], 'the nine trainer hand-ins');
+	for (const { step, goal } of hand) {
+		assert.ok((step.when || []).some((p) => p.k === 'complete' && !p.neg && p.q === goal.quest), `turnin ${goal.quest} waits until the quest is complete`);
+		assert.ok(fixes.some((f) => f.at && f.at.quest === goal.quest && f.at.goal === 'turnin' && f.when === `complete ${goal.quest}`), `${goal.quest}: a record the build keeps`);
+	}
 });
 
 // Horde start audit (0.4.0): 01-mulgore ends with the walk from the Crossroads past Far Watch Post to Orgrimmar. Tauren
