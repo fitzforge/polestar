@@ -189,6 +189,7 @@ step Thelsamar
 
 step Mountaineer Ylva
   tip South of Thelsamar, Ylva lies dead in the mouth of a trogg cave. Take her banner, raise it beside her and hold the spot: troggs come in waves from both sides, then Headsplitter.
+  tip Careful: Stonevault Cave Hunters (36, elite) hold the pass just south of Ylva, toward the Badlands: stay by the banner and don't chase troggs south.
   accept 86585                                -- Mountaineer Ylva
   kill 269185 quest 86585                     -- Headsplitter
 

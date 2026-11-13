@@ -8014,6 +8014,24 @@
 				}
 			],
 			"issue": 1506
+		},
+		{
+			"id": "2025-ylva-stonevault-cave-hunters",
+			"faction": "Alliance",
+			"at": {
+				"quest": 86585,
+				"goal": "objective",
+				"objective": 1
+			},
+			"tip": "Careful: Stonevault Cave Hunters (36, elite) hold the pass just south of Ylva, toward the Badlands: stay by the banner and don't chase troggs south.",
+			"note": "Danger at the spot (#1575, 0.4.0 route audit): Mountaineer Ylva's banner (86585) is raised at the mouth of the trogg cave south of Thelsamar (Ylva 31.78,86.33); Stonevault Cave Hunters (4856, level 36, elite) spawn in the pass just south of it (32.2-33.8, 88.9-96.0, 16 spawns), against players doing the banner at a median of 21.0. Players' recordings: 21 people did the objective, 3 deaths around the spot.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "players' recordings to 2026-11-13: 21 people ticked 86585.1 (median level 21.0); deaths at 31.75,86.97 and 32.89,87.94, south of the banner"
+				}
+			],
+			"issue": 1575
 		}
 	]
 }
