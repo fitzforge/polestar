@@ -11490,6 +11490,59 @@ test("jaff's report: a quest the route takes is handed in by a goal that holds",
 	assert.ok(fixes.overrides.skip.some((k) => k.q === 1037 && k.faction === 'Alliance'), 'skip 1037 is a record');
 });
 
+// The same report in the hand-written guides (reputation, class, legacy): quests a player holds finished at their
+// hand-in (a delivery of an item the quest hands over or starts from, a "speak with" errand, or one whose objectives
+// the guide asks with goals that hold) were handed in only by an `optional` goal, so a player who had one walked past
+// its ender carrying it. The route writer keeps such a hand-in a goal that holds in the leveling guides (an
+// item-started quest's beside other work at its NPC); these hold now too, hidden for anyone without the quest. A hand-in
+// whose quest may still be unfinished there (raid drops, a reputation to reach, objectives the guide asks optionally)
+// or a repeatable done in a loop stays optional. The pattern, over every hand-written guide: no hand-in of a delivery
+// started from an item (its only objective that item, not repeatable) is optional.
+test("jaff's report, hand-written guides: a quest held finished is handed in by a goal that holds", { skip }, () => {
+	const R = (g) => `forever/reputation/${g}.guide`;
+	const holds = [
+		['forever/class/druid/bear-form.guide', [5925, 5928]],
+		['forever/class/hunter/taming-the-beast-alliance.guide', [94007]],
+		['forever/class/hunter/taming-the-beast-horde.guide', [94007]],
+		['forever/class/mage/celestial-orb.guide', [2861]],
+		['forever/class/mage/staff-or-orb-alliance.guide', [93791]],
+		['forever/legacy/legacy-challenges.guide', [8997, 8998]],
+		[R('brood-of-nozdormu'), [8575, 8577, 8597, 8598, 8599, 8584, 8587, 8733, 8734, 8741, 8801]],
+		[R('cenarion-circle'), [8275, 8276, 8307, 8313, 8308, 1000, 1047, 6761, 1123, 6762, 1124, 6844, 6845, 8800, 9415, 9416, 8331, 8349, 8343, 8351, 8791]],
+		[R('darkspear-trolls'), [97281]],
+		[R('orgrimmar'), [97281, 4882]],
+		[R('darnassus'), [2159]],
+		[R('stormwind'), [35]],
+		[R('gnomeregan-exiles'), [96408]],
+		[R('ironforge'), [96408]],
+		[R('hydraxian-waterlords'), [7486]],
+		[R('thorium-brotherhood'), [7704, 3801]],
+		[R('thunder-bluff'), [781, 98424]],
+		[R('zandalar-tribe'), [8183]],
+	];
+	for (const [guide, quests] of holds) {
+		for (const q of quests) {
+			const turnins = goals(guide).filter(({ goal }) => is('turnin', q)(goal));
+			assert.ok(turnins.length > 0, `${guide}: turnin ${q} is in the guide`);
+			for (const { goal } of turnins) assert.ok(!goal.optional, `${guide}: turnin ${q} is a goal that holds`);
+		}
+	}
+	data = data || loadData(DATA);
+	const generated = new Set(Object.keys(JSON.parse(fs.readFileSync(path.join(OFFICIAL_DIR, 'GENERATED.json'), 'utf8')).files));
+	for (const file of allGuides().filter((f) => !generated.has(f))) {
+		for (const { goal } of goals(file)) {
+			if (goal.t !== 'turnin' || !goal.optional || goal.direct) continue;
+			const q = data.quest(goal.quest);
+			if (!q || q.repeatable) continue;
+			const start = q.start || {};
+			const fromItem = (start.item || []).length > 0 && !(start.npc || []).length && !(start.object || []).length;
+			const own = new Set([...(start.item || []), q.sourceItem].filter(Boolean));
+			const delivery = (q.objectives || []).every((o) => o.type === 'item' && own.has(o.id)) && (q.requiredItems || []).every((i) => own.has(i));
+			assert.ok(!(fromItem && delivery), `${file}: turnin ${goal.quest} (${q.title}) is optional, but a player holding it has it finished`);
+		}
+	}
+});
+
 // Fyurie's report (#1791): Solution to Doom's Ancient Chest (126260, one spawn) lies just inside Uldaman's cave
 // mouth, 17-18 yd from Magregan Deepshadow and the Obsidian Golems (38, elite), where a level 39 warrior met them on
 // the solo route. Recordings: 2 people looted it (a rogue and a druid, both able to stealth), and the rogue died at
