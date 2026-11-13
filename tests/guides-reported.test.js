@@ -4524,19 +4524,16 @@ test(`${REDRIDGE}: the Henze Faulk step tracks 1786.1 with an objective goal, no
 });
 
 // Alliance 12-30 bracket review 0.3.6: Human Paladins do Henze Faulk on 03-loch-modan's walk east through Elwynn (the same
-// road 04 walks at about 23) and learn Redemption at the Cathedral on 03's Stormwind stop, about five levels earlier;
-// 04's and 05's steps stay only for a Paladin still carrying the quests. 0.4.0 (#2082): that stop is the Westfall
-// stretch's (the guide no longer ends with a Stormwind stop), and the gate path's for a player without Westfall.
-test(`${LOCH_MODAN}: Human Paladins' Tome of Divinity on the Elwynn walk, Redemption on the Stormwind stop`, { skip }, () => {
+// road 04 walks at about 23) and learn Redemption at the Cathedral on 03's last Stormwind stop, about five levels earlier;
+// 04's and 05's steps stay only for a Paladin still carrying the quests.
+test(`${LOCH_MODAN}: Human Paladins' Tome of Divinity on the Elwynn walk, Redemption on the last Stormwind stop`, { skip }, () => {
 	const list = goals(LOCH_MODAN);
 	const carried = (e, qs) => (e.step.when || []).some((p) => p.k === 'onquest' && !p.neg && qs.every((q) => [].concat(p.q).includes(q)));
 	const henze = at(list, 'use 6866 quest 1786.1', (g) => g.t === 'use' && g.quest === 1786);
 	assert.ok(henze > at(list, 'goto the road east to Redridge', (g) => g.t === 'goto' && Math.abs(g.x - 65.8) < 0.1 && Math.abs(g.y - 74.0) < 0.1) && henze < at(list, 'accept 244 (Three Corners)', is('accept', 244)), 'on the walk east through Elwynn, before Three Corners');
 	assert.ok(carried(list[henze], [1786, 1787]) && list[at(list, 'collect 6846', (g) => g.t === 'collect' && g.item === 6846)].s === list[henze].s, 'the script on the same step, shown while 1786 or 1787 is carried');
-	const westfall = (e) => (e.step.when || []).some((p) => p.k === 'turnedin' && !p.neg && [].concat(p.q).includes(65));
-	const gazin = list.findIndex((e) => is('turnin', 1788)(e.goal) && westfall(e));
-	assert.ok(gazin > 0 && carried(list[gazin], [1787, 1788]), 'Redemption on the Westfall stretch\'s Stormwind stop');
-	assert.ok(gazin > list.findIndex((e) => is('turnin', 97914)(e.goal) && westfall(e)) && gazin < at(list, 'fly back to Sentinel Hill', (g) => g.t === 'fly' && g.location === 'Sentinel Hill'), 'after Baros on Cathedral Square, before the flight back');
+	const gazin = at(list, 'turnin 1788', is('turnin', 1788));
+	assert.ok(carried(list[gazin], [1787, 1788]) && gazin > at(list, 'turnin 97914 (Baros)', is('turnin', 97914)), 'Redemption on the last Stormwind stop, after Baros on Cathedral Square');
 	const red = goals(REDRIDGE);
 	assert.ok(carried(red[at(red, 'use 6866', (g) => g.t === 'use' && g.quest === 1786)], [1786, 1787]), '04\'s Henze step only for a Paladin still carrying it');
 	const dusk = goals('forever/alliance/05-duskwood.guide');
@@ -9202,13 +9199,13 @@ test(`${REDRIDGE}: #1415: Alther's Mill's Tarantula Eggs have their goal beside 
 
 // Expanding Horizons (97914) is taken from Thundris at 15-16 and was handed to Baros on 06-ashenvale's Stormwind stop
 // at ~25, its reply (97926) back to Thundris on 06-wetlands' Auberdine stop at ~28: two guides of carry each. The route
-// passes Baros on 03-loch-modan's Stormwind stop, and Thundris is on 03-darkshore-return's first Auberdine stop:
-// both go in there now (#1415, flow audit: a passed ender at 86 yd). 06-ashenvale and 06-wetlands keep optional
-// fallbacks. 0.4.0 (#2082): the Stormwind stop is the Westfall stretch's (and the gate path's), not one before a boat.
-test(`${LOCH_MODAN} / ${DARKSHORE_RETURN}: #1415: Expanding Horizons goes to Baros on the Stormwind stop, Making Do to Thundris in Auberdine`, { skip }, () => {
+// passes Baros on 03-loch-modan's last Stormwind stop, right before the boat that lands at Thundris (03-darkshore-return):
+// both go in there now (#1415, flow audit: a passed ender at 86 yd). 06-ashenvale and 06-wetlands keep optional fallbacks.
+test(`${LOCH_MODAN} / ${DARKSHORE_RETURN}: #1415: Expanding Horizons goes to Baros before the boat, Making Do to Thundris where it lands`, { skip }, () => {
 	const loch = goals(LOCH_MODAN);
 	const baros = at(loch, 'turnin 97914', is('turnin', 97914));
-	assert.ok(baros < at(loch, 'fly back to Sentinel Hill', (g) => g.t === 'fly' && g.location === 'Sentinel Hill') || baros < at(loch, 'fly to Lakeshire', (g) => g.t === 'fly' && g.location === 'Lakeshire'), 'Baros on a Stormwind stop of the guide');
+	const boat = loch.findLastIndex(({ goal }) => goal.t === 'goto' && /Boat to/.test(goal.text || ''));
+	assert.ok(boat > 0 && baros < boat, 'Baros before the last boat, back to Auberdine');
 	assert.ok(loch[at(loch, 'accept 97926', is('accept', 97926))].goal.optional, 'Making Do taken there, optional (#453)');
 	const dark = goals(DARKSHORE_RETURN);
 	assert.equal(dark[at(dark, 'turnin 97926', is('turnin', 97926))].s, 1, 'Making Do handed to Thundris on the first Auberdine stop');
@@ -11814,23 +11811,19 @@ test(`${WESTFALL}: the last Sentinel Hill stop flies to Stormwind`, { skip }, ()
 });
 
 // 0.4.0 route audit, Alliance 12-21 (B9, #2082): a player with the Hearthstone in Auberdine hearthed at the end of
-// 03-loch-modan and the guide still sent him to the Stormwind dock. The gryphon, Sprite Jumpsprocket and the boat stay
-// the default way back (the level model reads the end without them as slower), and every step of it drops once the
-// player is in Darkshore. Training and the city errands ride on the Westfall stretch's Stormwind stop (players'
-// recordings: 22.0 there against 22.4-22.8 at the end).
-test(`${LOCH_MODAN}: #2082: the way back to Auberdine drops once in Darkshore; training on the Stormwind stop`, { skip }, () => {
+// 03-loch-modan and the guide still sent him to the Stormwind dock. The gryphon, the Stormwind errands and the boat
+// stay the default way back (the level model reads the end without them as slower), and every step of it drops once
+// the player is in Darkshore; training is added to that stop (the next train step was 06-ashenvale's, at 25-27).
+test(`${LOCH_MODAN}: #2082: the way back to Auberdine drops once in Darkshore, with training on the way`, { skip }, () => {
 	const list = goals(LOCH_MODAN);
 	const lastLakeshire = list.findLastIndex(({ goal }) => is('turnin', 89)(goal));
 	const back = list.slice(lastLakeshire + 1).filter(({ step }) => step !== list[lastLakeshire].step);
 	assert.ok(back.some(({ goal }) => goal.t === 'goto' && /Boat to Auberdine/.test(goal.text || goal.label || '')), 'the boat is the default way back');
 	for (const { step } of back) assert.ok((step.when || []).some((p) => p.k === 'zone' && p.neg && /Darkshore/.test(p.name)), `${step.title}: \`when !zone "Darkshore"\``);
-	for (const path of [true, false]) {
-		const on = (e) => (e.step.when || []).some((p) => p.k === 'turnedin' && !!p.neg === !path && [].concat(p.q).includes(65));
-		const train = list.find((e) => e.goal.t === 'train' && e.goal.class && on(e));
-		assert.ok(train, `${path ? 'Westfall' : 'gate'} path: a training stop in Stormwind`);
-		for (const cls of ['WARRIOR', 'PALADIN', 'HUNTER', 'ROGUE', 'PRIEST', 'MAGE', 'WARLOCK']) assert.ok(forClass(cls)(train), `${cls} trains there`);
-		assert.ok(list.some((e) => is('turnin', 97914)(e.goal) && on(e)), `${path ? 'Westfall' : 'gate'} path: Baros takes Expanding Horizons`);
-	}
+	const train = back.find(({ goal }) => goal.t === 'train' && goal.class);
+	assert.ok(train, 'a training stop in Stormwind before the boat');
+	for (const cls of ['WARRIOR', 'PALADIN', 'HUNTER', 'ROGUE', 'PRIEST', 'MAGE', 'WARLOCK']) assert.ok(forClass(cls)(train), `${cls} trains there`);
+	for (const q of [92748, 97914, 1788]) assert.ok(back.some(({ goal }) => is('turnin', q)(goal)), `turnin ${q} on that stop`);
 });
 
 // 0.4.0 route audit, Alliance 12-21 (F2, with 03-darkshore-return's Cat Form trip): Night Elf and Skyborne Druids
