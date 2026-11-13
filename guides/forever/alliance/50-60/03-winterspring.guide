@@ -42,7 +42,8 @@ step Everlook
   collect 12383 quest 978.1                   -- Moontouched Feather, 110 yd north
 
 step Wynd Nightchaser
-  accept 5244                         -- Wynd Nightchaser
+  turnin 5249                         -- Wynd Nightchaser
+  accept 5244
   turnin 5244                         -- Jaron Stoneshaper
   accept 5245
 

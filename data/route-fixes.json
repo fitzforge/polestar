@@ -9344,6 +9344,15 @@
 				"q": 567,
 				"reason": "Catch-up in forever/horde/30-40/01-hillsbrad-foothills (#1776): Dangerous! is taken from the poster in the 22-25 guide, which kills Farmer Kalaba (567.4) with the peasants (528) and Citizen Wilkes (567.2) at the smithy (529), and leaves the clerk (567.1, the town hall with 532) and the miner (567.3, Azurelode Mine with 539) to this guide. A character who carries it but left the 22-25 guide before the smithy had no step for Kalaba or Wilkes here: the catch-up's peasants and smithy steps (`when !turnedin 529`) now list them, as the 22-25 guide does. Kolbi (Skyborne Druid 31, 0.3.6) had 567 at 2/4, with 529 neither in the log nor handed in.",
 				"issue": "#1776"
+			},
+			{
+				"q": 5249,
+				"after": [
+					"turnin",
+					5157
+				],
+				"reason": "Breadcrumb safety (0.4.0 audit, Alliance 50-60): To Winterspring! (5249) is offered by Ivy Leafrunner, who stands in the Emerald Sanctuary where 50-60/02's last stop is, and ends with Wynd Nightchaser, who gives The Ruins of Kel'Theril (5244) in 50-60/03. The quest data lists 5249 (or Starfall, 5250) as 5244's prerequisite; whether the game holds 5244 back without it is not recorded. Taken on the Sanctuary stop (no extra walking, 575 XP) and handed in to Wynd right before 5244, it works either way, and the breadcrumb rule holds: 5249 leaves the log before 5244 is asked for.",
+				"issue": "#2025"
 			}
 		],
 		"skip": [
@@ -13222,6 +13231,19 @@
 				"faction": "Horde",
 				"why": "Flow, Horde 50-60/02 (0.3.6 flow pass): with the Eastern Plaguelands moved out of 50-60/01, Augustus' Receipt Book (6164) and A Plague Upon Thee's termites (5901) are done in Terrordale, a river east of Tirion's house, on 02's Tirion stop; Augustus takes the book back on 05's Terrordale stop.",
 				"source": "review"
+			},
+			{
+				"a": [
+					"turnin",
+					5249
+				],
+				"b": [
+					"accept",
+					5244
+				],
+				"faction": "Alliance",
+				"why": "To Winterspring! (5249) is handed in to Wynd Nightchaser before The Ruins of Kel'Theril (5244) is taken from him: see the include for 5249.",
+				"source": "0.4.0 audit (#2025)"
 			}
 		]
 	}

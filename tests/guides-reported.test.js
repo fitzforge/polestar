@@ -11806,3 +11806,16 @@ test('Alliance Felwood: ends at Timbermaw Hold, the Sanctuary hand-ins first; th
 	assert.ok(grinds[0][1] > town, 'after the Sanctuary hand-ins');
 	assert.ok(grinds[0][0].step.when.some((p) => p.k === 'level'), 'only for a player still short');
 });
+
+// Breadcrumb safety (0.4.0 audit, #2025): The Ruins of Kel'Theril (5244) lists To Winterspring! (5249) as its
+// prerequisite in the quest data. 5249 is taken from Ivy Leafrunner on Felwood's last Sanctuary stop and handed to Wynd
+// Nightchaser right before 5244, so 5244 is offered whichever way the game treats 5249.
+test('Alliance Winterspring: To Winterspring! (5249) from Felwood is handed in right before The Ruins of Kel\'Theril (5244)', { skip }, () => {
+	const fel = goals('forever/alliance/50-60/02-felwood.guide');
+	assert.ok(at(fel, 'accept 5249', is('accept', 5249)) >= 0, 'Felwood takes To Winterspring!');
+	const ws = goals('forever/alliance/50-60/03-winterspring.guide');
+	const t = at(ws, 'turnin 5249', is('turnin', 5249));
+	const a = at(ws, 'accept 5244', is('accept', 5244));
+	assert.ok(t < a, '5249 handed in before 5244 is taken');
+	assert.equal(ws[t].s, ws[a].s, 'on the same Wynd Nightchaser step');
+});

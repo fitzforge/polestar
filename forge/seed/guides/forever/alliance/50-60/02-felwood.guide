@@ -9,7 +9,6 @@ next forever/alliance/50-60/03-winterspring
 # Forge's route search orders the quests of this guide and its guide writer writes the steps.
 # Fixes go into data/route-fixes.json, data/guide-fixes.json or forever-db/corrections, never
 # into this file.
-# Left out: To Winterspring! (5249).
 
 step Fly to Astranaar
   zone Teldrassil
@@ -137,6 +136,7 @@ step The Emerald Sanctuary
   turnin 4906                         -- Eridan Bluewind
   turnin 5157                         -- Greta Mosshoof
   accept 5158                         -- Ends in the Barrens: keep it
+  accept 5249                         -- Ivy Leafrunner: for Wynd Nightchaser in Winterspring, keep it
   turnin 4101                         -- Arathandris Silversky
 
 # ---------------------------------------------------------------- Timbermaw Hold
