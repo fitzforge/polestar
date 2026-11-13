@@ -16,9 +16,10 @@
 --   shown and hidden only out of combat: a change asked for in combat waits
 --   for PLAYER_REGEN_ENABLED (the last request wins) while the button keeps
 --   doing what it did. Icon and cooldown are plain textures and repaint at
---   any time. Off with nav.castPrompt, and while the guide is hidden. A
---   step's own Hearthstone button (QoL/Buttons.lua) already showing the same
---   item wins.
+--   any time. Off with nav.castPrompt, while the guide is hidden, and with
+--   the arrow it sits under turned off (nav.arrow, #2009). A step's own
+--   Hearthstone button (QoL/Buttons.lua, its own switch) already showing the
+--   same item wins.
 --
 --   Skip a leg: right-click the arrow (or the travel button), or
 --   /polestar skipleg. A Hearthstone, teleport, flight, ride or portal leg
@@ -138,9 +139,11 @@ local function stepButtonHas(kind, id)
 end
 
 -- kind, id the button should hold now (nil: hidden). It goes with the guide
--- window; hiding Polestar takes it with the arrow (kept with it: ns.ArrowHidden).
+-- window and with the arrow it sits under: hiding Polestar takes it with the
+-- arrow (kept with it: ns.ArrowHidden), and turning the arrow off does too
+-- (nav.arrow, #2009: "can't hide the Hearthstone button").
 function Prompts.Wanted()
-	if not ns.Get("nav.castPrompt") or not ns.GuideWindowOn() or ns.ArrowHidden() then return nil end
+	if not ns.Get("nav.castPrompt") or not ns.Get("nav.arrow") or not ns.GuideWindowOn() or ns.ArrowHidden() then return nil end
 	local kind, id = Prompts.ActionOf((currentLeg()))
 	if not kind or stepButtonHas(kind, id) then return nil end
 	return kind, id

@@ -7042,7 +7042,7 @@ Dungeons and Characters sections stand on Lookup, beside Lookup's own); QoL, Map
 (flight timer, instances, coordinates, minimap button), Nav (transport alerts, nearby
 services) and the options window (trainer reminders) fill Quality of Life. The Hearthstone's two buttons, each
 its own switch (`qol.hearthButton`, the one in the action set; `nav.castPrompt`, the travel button under the
-arrow), sit side by side wherever both show: the Buttons page, Questing > Buttons and Quality of Life > Travel
+arrow, which also goes with the arrow: off with `nav.arrow`, #2009), sit side by side wherever both show: the Buttons page, Questing > Buttons and Quality of Life > Travel
 (QoL/Options.lua's pair, `QoL.HearthOptions` for the Buttons page); a settings search for "hearth", "HS" or
 "hearthstone" finds the Buttons page's pair first. On the **Map** page (Guide &
 quests: Guide, Quest markers; Rares, travel & zones: Rares and treasures, Dungeons and travel, NPC services,

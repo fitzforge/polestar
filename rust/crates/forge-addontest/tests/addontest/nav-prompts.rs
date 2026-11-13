@@ -104,6 +104,27 @@ fn travel_button_a_hearth_leg_gets_a_secure_item_button_under_the_arrow_out_of_c
 	assert_eq!(out[5]["shown"], false);
 }
 
+// #2009 ("can't hide the Hearthstone button"): the travel button sits under the arrow and goes with it. With the arrow
+// turned off (nav.arrow) it hides; turned on again it shows as before. (The step's own Hearthstone button has a switch of
+// its own, QoL's hearthButton.)
+#[test]
+fn travel_button_turning_the_arrow_off_hides_it_and_turning_it_on_brings_it_back_2009() {
+	let out = run_nav(
+		r#"
+		nav.items[6948] = 1
+		setRoute({ HEARTH, WALK })
+		emit(state())
+		Polestar.Set("nav.arrow", false)
+		emit(state())
+		Polestar.Set("nav.arrow", true)
+		emit(state())
+	"#,
+	);
+	assert_eq!(out[0]["shown"], true, "the arrow on: the button under it");
+	assert_eq!(out[1]["shown"], false, "the arrow off: the button goes with it");
+	assert_eq!(out[2], json!({ "exists": true, "shown": true, "type1": "item", "item": "item:6948", "spell": false }), "back on: as before");
+}
+
 #[test]
 fn travel_button_a_mouse_click_casts_once_on_its_release_its_binding_once_and_a_right_click_casts_nothing_at_either_key_down_setting() {
 	let out = run_nav(
