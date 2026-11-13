@@ -851,19 +851,28 @@ pub fn v1_goals(guides: &Path, data_dir: &Path, faction: Faction, race: &str) ->
 	let proj = forge_core::Projector::new(&frames);
 	let ctx = Ctx::new(faction.name(), race, None)?;
 	let chain = resolve_chain(&compiled, Chain::Routes, &ctx)?;
-	// Goal files relative to the guides folder's parent ("guides/forever/..."), as v1chain.js.
-	let base = guides.parent().unwrap_or(guides).to_path_buf();
-	let file_of = |g: &forge_guide::js::V| {
-		let f = PathBuf::from(g.hidden("_ast").get("file").to_js_string());
-		let f = if f.is_absolute() { f } else { std::env::current_dir().unwrap_or_default().join(f) };
-		f.strip_prefix(&base).map(|p| p.to_string_lossy().into_owned()).unwrap_or_else(|_| f.to_string_lossy().into_owned())
-	};
+	let file_of = |g: &forge_guide::js::V| chain_file(guides, Path::new(&g.hidden("_ast").get("file").to_js_string()));
 	let (goals, _) = chain_goals(&compiled, &file_of, &chain, &ctx, &proj, true)?;
 	let goals: Vec<Value> = goals
         .iter()
         .map(|g| json!({ "i": g.i, "guide": g.guide, "file": g.file, "line": g.line, "t": g.t, "q": g.q, "oi": g.oi, "level": g.level, "npc": g.npc, "class": (g.t == "train").then_some(g.class), "step": g.step, "map": g.map, "w": g.w.map(|w| json!({ "c": w.c, "wx": w.wx, "wy": w.wy })), "spots": g.spots.iter().map(|w| json!({ "c": w.c, "wx": w.wx, "wy": w.wy })).collect::<Vec<_>>(), "title": g.title }))
         .collect();
 	Ok(json!({ "faction": faction.name(), "race": race, "goals": goals }))
+}
+
+/// A v1 goal's file as the route names it (`from`, the stream's `file`): `guides/` and its path under
+/// the guides folder, v1chain.js's form, whatever that folder is called. A build with a seed reads a
+/// copy, `.forge/input-guides`, and the writer looks each line up by that path less `guides/`: named
+/// from the copy's parent, the files read `input-guides/forever/...` and the routes stage stopped at
+/// its first written check ("apply-route: no guide input-guides/..."). A file outside the folder keeps
+/// its whole path.
+pub fn chain_file(guides: &Path, file: &Path) -> String {
+	let abs = |p: &Path| if p.is_absolute() { p.to_path_buf() } else { std::env::current_dir().unwrap_or_default().join(p) };
+	let (guides, file) = (abs(guides), abs(file));
+	match file.strip_prefix(&guides) {
+		Ok(rel) => format!("guides/{}", rel.to_string_lossy().replace('\\', "/")),
+		Err(_) => file.to_string_lossy().into_owned(),
+	}
 }
 
 /// Leffe's navigation maps: `explicit` (--leffe), else `$POLESTAR_LEFFE_NAV`; the first of them that
@@ -1877,5 +1886,18 @@ mod tests {
 		symlink(&b, &stage.join("data/forever")).unwrap();
 		assert_eq!(std::fs::read_link(stage.join("data/forever")).unwrap(), b, "a link to another target is replaced");
 		std::fs::remove_dir_all(&dir).ok();
+	}
+
+	#[test]
+	fn chain_files_read_guides_slash_whatever_the_guides_folder_is_called() {
+		let co = Path::new("/co");
+		assert_eq!(chain_file(&co.join("guides"), &co.join("guides/forever/horde/orc/01-durotar.guide")), "guides/forever/horde/orc/01-durotar.guide");
+		let input = co.join("out/.forge/input-guides");
+		assert_eq!(
+			chain_file(&input, &input.join("forever/alliance/nightelf/01-teldrassil.guide")),
+			"guides/forever/alliance/nightelf/01-teldrassil.guide",
+			"the build's seeded copy names its files as guides/ too, so the writer finds them"
+		);
+		assert_eq!(chain_file(&input, Path::new("/elsewhere/x.guide")), "/elsewhere/x.guide", "a file outside the folder keeps its path");
 	}
 }
