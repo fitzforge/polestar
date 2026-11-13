@@ -191,6 +191,7 @@ step Osric Strang
   turnin 6281                                 -- Osric Strang, Limited Immunity in Old Town
   accept 6261
   accept 399                                  -- Baros Alexston, Cathedral Square: his compass is in his old house in Westfall
+  train class only Warrior,Paladin,Hunter,Rogue,Priest,Mage,Warlock -- Old Town, the Cathedral of Light, the Mage Quarter, the Dwarven District
   turnin 6261                                 -- Dungar Longdrink, the gryphon master
   accept 6285
   getfp "Stormwind"

@@ -210,6 +210,12 @@ step Baros Alexston
   zone Stormwind City
   accept 399                                  -- Baros Alexston, Cathedral Square: his compass is in his old house in Westfall
 
+step Class trainer
+  only Human
+  zone Stormwind City
+  tip While you're in the city: Warriors and Rogues train in Old Town, Paladins and Priests in the Cathedral of Light across Cathedral Square, Mages and Warlocks in the Mage Quarter, Hunters in the Dwarven District.
+  train class only Warrior,Paladin,Hunter,Rogue,Priest,Mage,Warlock
+
 step Stormwind City
   only Human,Priest
   when onquest 94774

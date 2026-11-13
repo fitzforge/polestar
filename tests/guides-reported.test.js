@@ -11790,3 +11790,15 @@ test('dungeons in the route: every `when dungeon` step of the leveling guides is
 	}
 	assert.deepEqual([...new Set(bad)], []);
 });
+
+// 0.4.0 route audit, Alliance 12-21 (B1): Humans trained at Goldshire (about 11) and next at the Stormwind
+// stop before the boat (about 16); the Thor flight's Stormwind visit at about 13 passes Old Town, Cathedral
+// Square and the Mage Quarter, so the level 12 spells are learned there.
+test(`${WESTFALL}: Humans train on the Thor flight's Stormwind visit`, { skip }, () => {
+	const list = goals(WESTFALL).filter(forRaceOf('Human'));
+	const osric = at(list, 'turnin 6281', is('turnin', 6281));
+	const back = at(list, 'fly back to Sentinel Hill', (g) => g.t === 'fly' && g.location === 'Sentinel Hill');
+	const train = list.findIndex(({ goal }, i) => i > osric && i < back && goal.t === 'train' && goal.class);
+	assert.ok(train > 0, 'a class training goal between Osric Strang and the flight back');
+	for (const cls of ['WARRIOR', 'PALADIN', 'HUNTER', 'ROGUE', 'PRIEST', 'MAGE', 'WARLOCK']) assert.ok(forClass(cls)(list[train]), `${cls} trains there`);
+});
