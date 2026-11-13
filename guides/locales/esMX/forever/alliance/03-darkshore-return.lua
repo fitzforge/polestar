@@ -8,16 +8,16 @@
 return {
 	-- Step 1: Auberdine
 	-- {npc:3649} Thundris Windweaver · {npc:3702} Alanndarian Nightsong · {npc:2913} Archaeologist Hollee · {npc:3693} Terenthis · {npc:3694} Sentinel Selarin
-	["From the dock, up to the north end of the village first ({npc:3649}, {npc:3702} by the moonwell, {npc:2913}), then down the main street: the WANTED poster outside the inn, {npc:3693} at its east end, where the road leaves south. {npc:3694} stands beside {npc:3693} by the flight master; if she isn't there, she has been killed and respawns shortly: wait a moment."] = "",
+	["From the dock, up to the north end of the village first ({npc:3649}, {npc:3702} by the moonwell, {npc:2913}), then down the main street: the WANTED poster outside the inn, {npc:3693} at its east end, where the road leaves south. {npc:3694} stands beside {npc:3693} by the flight master; if she isn't there, she has been killed and respawns shortly: wait a moment."] = "Desde el muelle, sube primero al extremo norte de la aldea ({npc:3649}, {npc:3702} junto al pozo de la luna, {npc:2913}), luego baja por la calle principal: el cartel de SE BUSCA afuera de la posada, {npc:3693} en su extremo este, donde el camino sale hacia el sur. {npc:3694} está junto a {npc:3693}, al lado del maestro de vuelo; si no está, la mataron y reaparece en poco: espera un momento.",
 	-- {npc:3649} Thundris Windweaver · {npc:1646} Baros Alexston
-	["{npc:3649}, north end of the village: {npc:1646}'s reply"] = "",
+	["{npc:3649}, north end of the village: {npc:1646}'s reply"] = "{npc:3649}, extremo norte de la aldea: la respuesta de {npc:1646}",
 	["The WANTED poster"] = "El cartel de SE BUSCA",
 	-- {npc:3694} Sentinel Selarin · {npc:3693} Terenthis · {npc:3691} Raene Wolfrunner · {area:415} Astranaar
-	["{npc:3694}, beside {npc:3693}: for {npc:3691} in {area:415}, in the next guide"] = "",
+	["{npc:3694}, beside {npc:3693}: for {npc:3691} in {area:415}, in the next guide"] = "{npc:3694}, junto a {npc:3693}: para {npc:3691} en {area:415}, en la guía siguiente",
 
 	-- Step 3: Onu
 	-- {quest:948} Onu · {npc:270269} Arbal · {npc:11218} Kerlonian Evershade
-	["{quest:948} is the ancient at the Grove; {npc:270269} and {npc:11218} sleep beside him."] = "",
+	["{quest:948} is the ancient at the Grove; {npc:270269} and {npc:11218} sleep beside him."] = "{quest:948} es el anciano de la Arboleda; {npc:270269} y {npc:11218} duermen a su lado.",
 
 	-- Step 4: Lunar Fungus and Earthroot
 	-- {item:15851} Lunar Fungus · {item:2449} Earthroot
@@ -28,7 +28,7 @@ return {
 
 	-- Step 5: The Grove of the Ancients
 	-- {quest:952} Grove of the Ancients
-	["The {quest:952}"] = "",
+	["The {quest:952}"] = "{quest:952}",
 	-- {quest:1003} Buzzbox 525
 	-- plural, as words: Grizzled Thistle Bears = {npc:2165} Grizzled Thistle Bear
 	["Grizzled Thistle Bears roam the hills around the Grove; {quest:1003} stands west of it among them."] = "Los osos cardo grisáceos rondan por las colinas alrededor de la Arboleda; {quest:1003} está al oeste de ella, entre ellos.",
@@ -50,25 +50,25 @@ return {
 	-- {object:12666} Twilight Tome
 	["The {object:12666}"] = "{object:12666}",
 	-- {object:12666} Twilight Tome · {quest:949} The Twilight Camp
-	["The {object:12666}, once it has {quest:949}"] = "",
+	["The {object:12666}, once it has {quest:949}"] = "{object:12666}, cuando tengas {quest:949}",
 	-- {item:279279} Peerless Eye
 	-- plural, as words: Twilight Disciples = {npc:2338} Twilight Disciple
 	["{item:279279}: Twilight Disciples and Thugs"] = "{item:279279}: discípulos y matones Crepusculares",
 
 	-- Step 7: Prospector Remtravel
 	-- {area:450} Remtravel's Excavation · {npc:10323} Murkdeep
-	["{area:450} lies on the coast south of {npc:10323}'s beach. Protect the prospector while he searches for the fossil.\nCareful: Ambushers appear as he passes certain spots: a scout comes out from under the board ramp, and more scouts come out when he checks the tent."] = "",
+	["{area:450} lies on the coast south of {npc:10323}'s beach. Protect the prospector while he searches for the fossil.\nCareful: Ambushers appear as he passes certain spots: a scout comes out from under the board ramp, and more scouts come out when he checks the tent."] = "{area:450} está en la costa al sur de la playa de {npc:10323}. Protege al prospector mientras busca el fósil.\nCuidado: Aparecen emboscadores cuando pasa por ciertos lugares: un explorador sale de debajo de la rampa de tablas, y más exploradores salen cuando revisa la tienda.",
 
 	-- Step 8: Murkdeep's beach
 	-- {npc:10323} Murkdeep
 	["{npc:10323}'s beach"] = "La playa de {npc:10323}",
 	-- {npc:10323} Murkdeep · {area:450} Remtravel's Excavation
-	["{npc:10323} camps on the beach west of the glaive: kill the murlocs at the camp fire; he comes in the third wave with his hound. Four beached remains lie on the beaches west and south-west of {area:450}: take them on the way north to his camp."] = "",
+	["{npc:10323} camps on the beach west of the glaive: kill the murlocs at the camp fire; he comes in the third wave with his hound. Four beached remains lie on the beaches west and south-west of {area:450}: take them on the way north to his camp."] = "{npc:10323} acampa en la playa al oeste de la guja: mata a los múrlocs de la hoguera; él llega en la tercera oleada con su can. Cuatro restos varados están en las playas al oeste y suroeste de {area:450}: recógelos de camino al norte hacia su campamento.",
 
 	-- Step 11: The shore west of the Grove
-	["The shore west of the Grove"] = "",
+	["The shore west of the Grove"] = "La orilla al oeste de la Arboleda",
 	-- {area:442} Auberdine · {quest:4728} Beached Sea Creature
-	["On the way north to {area:442}, the last {quest:4728} lies on the shore west of the Grove."] = "",
+	["On the way north to {area:442}, the last {quest:4728} lies on the shore west of the Grove."] = "De camino al norte hacia {area:442}, la última {quest:4728} está en la orilla al oeste de la Arboleda.",
 
 	-- Step 12: Auberdine
 	["Follow the road north."] = "Sigue el camino al norte.",
@@ -78,7 +78,7 @@ return {
 	["She gives you the {item:15826}"] = "Ella te da el {item:15826}",
 
 	-- Step 13: On the way
-	["On the way"] = "",
+	["On the way"] = "Por el camino",
 
 	-- Step 14: The naga
 	["The naga"] = "Los naga",
@@ -92,7 +92,7 @@ return {
 	-- {npc:6667} Gelkak Gyromast
 	-- plural, as words: Giant Foreststriders = {npc:2323} Giant Foreststrider · Raging Reef Crawlers = {npc:2236} Raging Reef Crawler
 	["{npc:6667} hides on the little island off the ruins. The key pieces drop from Giant Foreststriders (top), Greymist murlocs (middle) and Raging Reef Crawlers (bottom)."] = "{npc:6667} se esconde en la islita frente a las ruinas. Las piezas de la llave las sueltan los zancudos del bosque gigantes (parte superior), los múrlocs Brumagris (parte central) y los reptadores de arrecife enfurecidos (parte inferior).",
-	["Underwater"] = "",
+	["Underwater"] = "Bajo el agua",
 
 	-- Step 16: Strange Lockbox
 	-- {item:15883} Half Pendant of Aquatic Agility · {object:177792} Strange Lockbox
@@ -100,7 +100,7 @@ return {
 
 	-- Step 17: Mist's Edge: kill these as you meet them
 	-- {area:452} Mist's Edge
-	["{area:452}: kill these as you meet them"] = "",
+	["{area:452}: kill these as you meet them"] = "{area:452}: mata a estos según te los encuentres",
 
 	-- Step 18: Back south
 	["Back south"] = "De vuelta al sur",
@@ -109,18 +109,18 @@ return {
 
 	-- Step 19: Volcor
 	-- {npc:3692} Volcor · {area:449} Master's Glaive · {npc:3693} Terenthis · {area:442} Auberdine
-	["{npc:3692} hides in the hills east of the {area:449}. Help him back to the road; he fights on his way out. {npc:3693} takes the escort in {area:442} on the next visit there."] = "",
+	["{npc:3692} hides in the hills east of the {area:449}. Help him back to the road; he fights on his way out. {npc:3693} takes the escort in {area:442} on the next visit there."] = "{npc:3692} se esconde en las colinas al este de {area:449}. Ayúdalo a volver al camino; pelea mientras sale. {npc:3693} recibe la escolta en {area:442} la próxima vez que vayas.",
 	-- {npc:3692} Volcor · {area:455} Blackwood Den
-	["{npc:3692}, inside {area:455}"] = "",
-	["His walk ends at the road, where Grimclaw waits"] = "",
+	["{npc:3692}, inside {area:455}"] = "{npc:3692}, dentro de {area:455}",
+	["His walk ends at the road, where Grimclaw waits"] = "Su caminata termina en el camino, donde espera Garrasucia",
 	-- {npc:12298} Sickly Deer · {item:15826} Curative Animal Salve · {zone:1439} Darkshore
 	["{npc:12298}: use the {item:15826} on them; they roam all of {zone:1439}"] = "{npc:12298}: usa el {item:15826} en ellos; rondan por todo {zone:1439}",
 	-- {npc:12298} Sickly Deer
-	["Cure {npc:12298}"] = "",
+	["Cure {npc:12298}"] = "Cura a {npc:12298}",
 
 	-- Step 21: Auberdine flight master
 	-- {area:442} Auberdine
-	["{area:442} flight master"] = "",
+	["{area:442} flight master"] = "Maestro de vuelo de {area:442}",
 
 	-- Step 22: The Great Cat Spirit
 	-- {area:442} Auberdine · {area:702} Rut'theran Village · {npc:4217} Mathrengyl Bearwalker · {area:1658} Cenarion Enclave
@@ -128,15 +128,15 @@ return {
 
 	-- Step 25: Moonglade
 	-- {spell:18960} Teleport: Moonglade
-	["Cast {spell:18960}"] = "",
+	["Cast {spell:18960}"] = "Lanza {spell:18960}",
 
 	-- Step 26: Dendrite Starblaze
 	-- {spell:18960} Teleport: Moonglade · {npc:11802} Dendrite Starblaze · {area:2361} Nighthaven
-	["Cast {spell:18960}. {npc:11802} stands upstairs in his building in {area:2361}: go up inside, the arrow cannot tell the floors apart. Learn the flight path there if you do not have it."] = "",
+	["Cast {spell:18960}. {npc:11802} stands upstairs in his building in {area:2361}: go up inside, the arrow cannot tell the floors apart. Learn the flight path there if you do not have it."] = "Lanza {spell:18960}. {npc:11802} está en el piso de arriba de su edificio en {area:2361}: sube por dentro, la flecha no distingue los pisos. Aprende la ruta de vuelo ahí si no la tienes.",
 
 	-- Step 27: Dendrite Starblaze
 	-- {npc:11802} Dendrite Starblaze · {area:2361} Nighthaven
-	["{npc:11802} stands upstairs in his building in {area:2361}: go up inside, the arrow cannot tell the floors apart."] = "",
+	["{npc:11802} stands upstairs in his building in {area:2361}: go up inside, the arrow cannot tell the floors apart."] = "{npc:11802} está en el piso de arriba de su edificio en {area:2361}: sube por dentro, la flecha no distingue los pisos.",
 	-- {npc:11802} Dendrite Starblaze
 	["{npc:11802}: the welcome from Sheldras"] = "{npc:11802}: la bienvenida de Sheldras Árbol Lunar",
 
@@ -149,11 +149,11 @@ return {
 	-- {npc:11802} Dendrite Starblaze
 	["Back to {npc:11802}"] = "Regresa con {npc:11802}",
 	-- {npc:11802} Dendrite Starblaze · {area:2361} Nighthaven · {npc:11800} Silva Fil'naveth · {area:702} Rut'theran Village
-	["Back to {npc:11802} in {area:2361}, then {npc:11800} there flies Druids straight to {area:702}. {npc:11802} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."] = "",
+	["Back to {npc:11802} in {area:2361}, then {npc:11800} there flies Druids straight to {area:702}. {npc:11802} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."] = "De vuelta con {npc:11802} en {area:2361}; luego {npc:11800}, allí mismo, lleva a los druidas directo a {area:702}. {npc:11802} está en el piso de arriba de su edificio: sube por adentro, la flecha no distingue los pisos.",
 
 	-- Step 32: To Darnassus
 	-- {npc:4217} Mathrengyl Bearwalker · {area:442} Auberdine · {zone:1440} Ashenvale
-	["Take the portal up to {npc:4217}, then fly back to {area:442} for the road south to {zone:1440}."] = "",
+	["Take the portal up to {npc:4217}, then fly back to {area:442} for the road south to {zone:1440}."] = "Toma el portal de subida hasta {npc:4217}, luego vuela de vuelta a {area:442} para el camino al sur hacia {zone:1440}.",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Moonstalker Sires prowl the woods around the glaive. The {object:10076} and the {object:12666} sit at the bottom of the crater; {npc:3584} stands on its north side."] = "Los patriarcas Acechalunas merodean por el bosque alrededor de la guja. {object:10076} y {object:12666} están en el fondo del cráter; {npc:3584} está en su lado norte.",
