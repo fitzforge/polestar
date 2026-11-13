@@ -11885,3 +11885,13 @@ test(`${ARATHI}: the pitch says why its quests run above its label`, { skip }, (
 	assert.match(g.pitch || '', /36 to 38.*level 40: on purpose/, g.pitch);
 	assert.equal(g.maxLevel, 38, 'the label stays');
 });
+
+// 0.4.0 route audit (Refs #2025): 30-40/01 opened with a bare waypoint to Menethil's Deepwater Tavern, 100 yd from the
+// flight master 07 lands at, with nothing to do there; the next step turned back south-east to the Angerfang
+// Encampment. The guide opens on the catapult now.
+test(`${HILLSBRAD_ALLIANCE}: the guide opens on the Dragonmaw catapult, no goal-less waypoint first`, { skip }, () => {
+	const list = goals(HILLSBRAD_ALLIANCE);
+	assert.ok(!list.some(({ goal }) => goal.t === 'goto' && /Deepwater Tavern/.test(goal.text || goal.location || '')), 'no waypoint to the Deepwater Tavern');
+	const first = list.find(({ step }) => !step.when || !step.when.length);
+	assert.ok(is('turnin', 465)(first.goal), `the first goal is the catapult (465), not ${first.goal.t}`);
+});
