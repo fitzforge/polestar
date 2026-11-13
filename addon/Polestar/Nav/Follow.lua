@@ -13,8 +13,8 @@
 -- guards keep it honest:
 --   - it never moves forward past a blocking point the player has not come
 --     within REACH yards of: a point where the floor changes (a ramp, stairs,
---     a lift's landing) and every point after `stop` (the last point before a
---     chokepoint on a split walk: a gate, a door, a bridge end);
+--     a lift's landing) and every point after `stop` (a split walk's
+--     chokepoint: a gate, a door, a bridge end);
 --   - a later segment takes over only when it is HYST yards nearer than the
 --     current one, so the two sides of a hairpin don't swap back and forth.
 --
@@ -49,9 +49,10 @@
 -- TURN degrees away from the line to the aim, as at a street corner or a
 -- switchback) stops it at the corner, cutting inside by CORNER_PAD at most,
 -- and it comes round the corner as the player does. It never passes `stop`, nor a
--- point on another floor. When no path point ahead is within RADIUS (the
--- player has wandered off), it points back to the path LEAD yards ahead of
--- the projection, never at a point behind.
+-- point on another floor. `stop` may fall between two points (a point plus the
+-- share of the way to the next): the aim then slides on to that spot. When no
+-- path point ahead is within RADIUS (the player has wandered off), it points back
+-- to the path LEAD yards ahead of the projection, never at a point behind.
 --
 -- Joining the road: a path searched from where the player stands runs to the
 -- nearest point of a road and turns along it (the router prices roads
@@ -378,15 +379,29 @@ function Follow.Step(xs, ys, zs, left, n, S, px, py, stop, join, sight, hill)
 	local open = false -- the aim stopped mid-path at RADIUS or AHEAD (not at a corner, a floor change or the end)
 	local from = idx    -- the first path point the corridor holds to (past a road's join, the points after it)
 	local joined = false
-	for j = idx, limit do
-		local zj = zs[j]
-		if zRef and zj and (apart(zj - zRef, xs[j] - xs[idx], ys[j] - ys[idx]) or (j > idx and floorChange(xs, ys, zs, j))) then break end
+	-- A stop between two points (a split walk's chokepoint far along a piece of the path) is a spot the aim may
+	-- reach, `frac` of the way past point `limit`'s whole part, unless the projection is there already: held at the
+	-- point before it, the arrow pointed at the feet of a player standing there, the chokepoint 40 yd on along a
+	-- sparse path in open ground and the piece's end out of reach (0.3.8, an Ashenvale pass).
+	local last, frac = limit, limit % 1
+	if frac > 0 then
+		last = math.floor(limit)
+		if a + bestT < limit then last = last + 1 end
+	end
+	for j = idx, last do
+		-- Point j, or (past `limit`) the stop's spot short of it.
+		local ex, ey, zj = xs[j], ys[j], zs[j]
+		if j > limit then
+			local za = zs[j - 1]
+			ex, ey = xs[j - 1] + (ex - xs[j - 1]) * frac, ys[j - 1] + (ey - ys[j - 1]) * frac
+			zj = za and zj and za + (zj - za) * frac
+		end
+		if zRef and zj and (apart(zj - zRef, ex - xs[idx], ey - ys[idx]) or (j > idx and floorChange(xs, ys, zs, j))) then break end
 		-- Where the path's points are close together (a road's zigzag, pieces
 		-- of SHORT yards or less on both sides), the aim slides along the path
 		-- smoothed over each point's neighbours (1-2-1), so the side-to-side
 		-- offsets cancel out. The last point it may reach (the goal's end,
 		-- `stop`) and the corners of a sparse path stay where they are.
-		local ex, ey = xs[j], ys[j]
 		if j > 1 and j < limit and left[j - 1] - left[j] <= SHORT and left[j] - left[j + 1] <= SHORT then
 			ex = (xs[j - 1] + 2 * ex + xs[j + 1]) * 0.25
 			ey = (ys[j - 1] + 2 * ey + ys[j + 1]) * 0.25

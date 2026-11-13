@@ -4194,8 +4194,12 @@ a later segment that is not the next one takes over only when 4 yd nearer
 (the far side of a hairpin), and it never moves past a blocking point the
 player has not come within 5 yd of: a point on another floor than the one
 before it (stairs, a ramp, a lift's landing), and,
-on a piece of a split walk, every point after the last one before its
-chokepoint (`Travel.Aim` passes `leg.seg` as `stop`). Another floor is more
+on a piece of a split walk, every point past its chokepoint's spot on the path
+(`Travel.Aim` passes `leg.stop` as `stop`: the point before the spot plus the
+share of the way to the next, and the aim slides on to the spot, never past
+it; held at the point before it, the arrow pointed at the feet of a player
+standing there when the chokepoint lay far along a sparse path's piece, 0.3.8).
+Another floor is more
 than 6 yd (`FLOOR_STEP`) above or below; outdoors (`Walk.Aim` passes `hill`)
 it must also be steeper than 45° (`FLOOR_GRADE`, 1 yd up or down per yard
 across from the point it is measured against). 0.3.7 (Fitz in Desolace: "it
@@ -4630,6 +4634,27 @@ walk stays inside one zone; between zones it goes only through
   the fall from the rim kills, so a walk from the top down to its flight master
   or dock goes through Darnassus and the portal (#1761), and one up takes the
   portal back (#989).
+
+One exception, the near walk: the live route walks the start straight to a
+target within 400 yd over a closed zone border (#1543) once the walking engine
+has found that walk short. The engine measures no walk that near (`Walk.lua`
+`MEASURE_NEAR`), so the border's crossing is only a guess: on the Barrens' side
+of the Great Lift, Lakota Windsong on Darkcloud Pinnacle is a walk along the
+plateau, and the crossing sent players down the lift and its foot's walk up it
+again. The route is planned without the near walk first; when the planner says
+it would offer one (`nearProbe`), the engine is asked for that walk once per
+target, apart from the arrow's own search (`Walk.Probe`, `Travel.NearWalk`). A
+path of at most 1.5 x the straight yards + 100 plans it, and it then holds within
+700 yd; a longer one or none changes nothing, so the route stays exactly the one
+planned without it (a detour round a ridge led players out past 400 yd, where
+the zone rule sent them back to the crossing, round and round; with no path the
+arrow pointed straight over the cliffs). Asked only while the engine searches
+the continent (`Walk.Searches`), never for the walk after a guide `goto`;
+estimates and plans without the engine keep the crossing. Never into or out of
+an area (no walk joins it to its zone), not when the engine found no walk from
+the player (`noDirect`), not from or to a chain's inside, and not when a chain
+joins the two zones (its hand-made way stays the way: the Undercity's south
+lift).
 
 A point's zone is its uiMap when the crossing data knows that zone (the area
 whose box holds it, if the map has one); a zone

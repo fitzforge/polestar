@@ -2691,3 +2691,164 @@ fn t_1242_from_the_canals_the_walk_to_the_deeprun_tram_goes_through_its_door_not
 	assert_eq!(out["viaDoor"], true, "a walk leg ends at the tram building's door: {out}");
 	assert!(f(&out["firstToDoor"]) < 10.0, "the first walk ends at the door: {out}");
 }
+
+// #1543: Darkcloud Pinnacle, Thousand Needles. Lakota Windsong (10646, 37.95,26.45, z 83.7) stands on the pinnacle's
+// top, which the walking maps join to the Barrens' plateau past the Great Lift's top (the climb from the canyon floor
+// over the rope bridges is a TravelData chain). From the Barrens' side of the lift (44.64,89.30, MrM00se's place,
+// 380 yd from her: too near for the engine to measure the walk) the planner's zone rule (the Barrens to Thousand
+// Needles: through a crossing) sent the player down the lift, and from its foot the arrow's walk led up it again.
+// A Horde player at level 28: from there the walk on to her (the near walk, which the arrow's own search finds short
+// along the plateau), neither the crossing nor the lift; from the pinnacle's top one walk; from the canyon floor and
+// the lift's foot, a route that ends with the walk to her and never takes the crossing back down.
+#[test]
+fn darkcloud_pinnacle_from_the_great_lifts_top_the_route_to_lakota_windsong_walks_on_never_back_down_the_lift_1543() {
+	skip_unless_ready!();
+	let out = run(
+		r#"
+		w.setLevel(28)
+		w.faction = "Horde"
+		local function legs()
+			local out = {}
+			local L, ci = N.GetRoute()
+			for i = ci or 1, #(L or {}) do
+				local l = L[i]
+				out[#out + 1] = l.kind .. "|" .. tostring(l.label) .. (l.crossing and ("|" .. l.crossing) or "")
+			end
+			return out
+		end
+		local function plan(map, x, y, z)
+			w.moveTo(map, x, y)
+			w.z = z
+			for _ = 1, 10 do aim(); stub.advance(0.05) end
+			N.SetTarget(1441, 37.95, 26.45, "Lakota Windsong", "e", nil, 83.7)
+			for _ = 1, 300 do aim(); stub.advance(0.05) end
+			return legs()
+		end
+		emit({
+			top = plan(1441, 38.11, 26.87, 83),
+			barrens = plan(1413, 44.64, 89.30, 90),
+			floor = plan(1441, 31.2, 36.72, -46),
+			lift = plan(1441, 31.92, 24.22, -44),
+		})"#,
+		true,
+	);
+	let legs = |k: &str| strs(&out[k]);
+	assert_eq!(legs("top"), ["walk|Lakota Windsong"], "on the pinnacle: one walk");
+	let barrens = legs("barrens");
+	assert!(barrens.last().is_some_and(|x| x == "walk|Lakota Windsong"), "from the lift's top: on to her ({barrens:?})");
+	assert!(!barrens.iter().any(|x| x.starts_with("lift|") || x.ends_with("|carbonite-the-barrens--thousand-needles")), "from the lift's top: along the plateau, not back down the lift ({barrens:?})");
+	for k in ["floor", "lift"] {
+		let l = legs(k);
+		assert!(!l.is_empty(), "{k}: a route");
+		assert!(l.last().is_some_and(|x| x == "walk|Lakota Windsong"), "{k}: on to her ({l:?})");
+		assert!(!l.iter().any(|x| x.ends_with("|carbonite-the-barrens--thousand-needles")), "{k}: never the crossing back down ({l:?})");
+	}
+}
+
+// #1543's near walk where the walking engine finds it long or none (the 0.3.7 border sweep's worst pairs): the route
+// keeps the crossing's way, as before #1543. A Horde player at level 30 on Alterac's ridge, 395 yd above a goal in the
+// Undercity (no walk joins them: the unchecked near walk flipped the arrow 127 times between itself and the crossing),
+// on Searing Gorge's rim 350 yd above a Badlands goal (the walk 3.6k yd round: the player never got there), and in
+// Tanaris 200 yd from a goal down in Un'Goro Crater (1.4k yd round the rim: never got there).
+#[test]
+fn a_near_target_over_a_closed_zone_border_with_a_long_walk_or_none_keeps_the_crossings_way_1543() {
+	skip_unless_ready!();
+	let out = run(
+		r#"
+		w.setLevel(30)
+		w.faction = "Horde"
+		local function legs()
+			local out = {}
+			local L, ci = N.GetRoute()
+			for i = ci or 1, #(L or {}) do
+				local l = L[i]
+				out[#out + 1] = l.kind .. "|" .. tostring(l.label) .. (l.crossing and ("|" .. l.crossing) or "")
+			end
+			return out
+		end
+		local function case(smap, swx, swy, sz, tmap, tx, ty, tz)
+			N.ClearTarget()
+			place(smap, swx, swy, sz)
+			for _ = 1, 10 do aim(); stub.advance(0.05) end
+			N.SetTarget(tmap, tx, ty, "Target", "e", nil, tz)
+			for _ = 1, 200 do aim(); stub.advance(0.05) end
+			local first = legs()
+			for _ = 1, 200 do aim(); stub.advance(0.05) end
+			return { first = first, later = legs() }
+		end
+		emit({
+			alterac = case(1416, 1409.8, -244.6, 180, 1458, 75.34, 73.13, -62.3),
+			gorge = case(1427, -6353.5, -2294.4, 390, 1418, 18.6, 42.9, nil),
+			ungoro = case(1446, -7916.9, -2302.1, 10, 1449, 71.64, 75.96, -254.3),
+		})"#,
+		true,
+	);
+	for (k, crossing) in [("alterac", "alterac-mountains--silverpine-forest-lake"), ("gorge", "carbonite-searing-gorge--badlands"), ("ungoro", "carbonite-tanaris--un-goro-crater")] {
+		let first = strs(&out[k]["first"]);
+		assert!(first.iter().any(|x| x.ends_with(&format!("|{crossing}"))), "{k}: through the crossing ({first:?})");
+		assert_eq!(strs(&out[k]["later"]), first, "{k}: the same way 10 s on");
+	}
+}
+
+// The 0.3.8 border sweep's Ashenvale start 250 yd from a Darkshore goal (an Alliance player at UnitPosition (4085,
+// 109.5), the goal at Darkshore 44.7,92): the walk there is short (260 yd), so the near walk over the closed border is
+// planned (#1543), and its path, five points over open ground, is split at the Ashenvale pass, 40 yd along a piece of
+// the path past its point before the pass. The first piece aimed no further than that point, so a player following
+// the arrow stopped there, the arrow at their feet and the piece's end out of reach. It aims on to the pass's spot on
+// the path: following the arrow (7 yd a second toward its aim, on the walking maps' ground, as the sweep walks), the
+// player gets to the goal.
+#[test]
+fn following_the_arrow_from_ashenvale_to_a_darkshore_goal_250_yd_over_the_border_the_walk_split_at_the_pass_arrives() {
+	skip_unless_ready!();
+	let out = run(
+		r#"
+		w.faction = "Alliance"
+		w.race, w.raceName = "Human", "Human"
+		local G = stub.navNs.PathGrid
+		-- The walking maps' surface at (x, y) nearest height h: its height, or nil off the maps.
+		local function ground(c, x, y, h)
+			local st = G.State(c)
+			local k, lc
+			if st then k, lc = G.locate(st, x, y) end
+			if not k then return nil end
+			local n = G.snap(st, k, lc, x, y, h)
+			return n and G.zOf(G.grid(st, k), n) or nil
+		end
+		local c, x, y, z = 1, 4085, 109.5, 14
+		local map = N.danger.ZoneAt(c, x, y) or 1440
+		place(map, x, y, z)
+		stub.fire("ZONE_CHANGED_NEW_AREA")
+		stub.advance(1)
+		N.Sample()
+		N.SetTarget(1439, 44.7, 92, "Goal", "e")
+		local _, tx, ty = N.GetTargetWorld()
+		for _ = 1, 100 do N.Sample(); stub.advance(0.05) end
+		local pass, still, arrived, stalled = false, 0, false, false
+		for t = 1, 90 do
+			for _ = 1, 20 do N.Sample(); stub.advance(0.05) end
+			local legs, ci = N.GetRoute()
+			local leg = legs and legs[ci or 1]
+			if leg and leg.choke and leg.choke.kind == "pass" then pass = true end
+			if dist(x, y, tx, ty) <= 10 then arrived = t break end
+			local _, _, _, dn, dw = N.Sample()
+			if not dn then break end
+			local da = sqrt(dn * dn + dw * dw)
+			if da < 0.5 then still = still + 1 else still = 0 end
+			if still >= 5 then stalled = t break end
+			local step = math.min(7, da)
+			x, y = x + dn / da * step, y + dw / da * step
+			z = ground(c, x, y, z) or z
+			local zm = N.danger.ZoneAt(c, x, y) or map
+			place(zm, x, y, z)
+			if zm ~= map then
+				map = zm
+				stub.fire("ZONE_CHANGED_NEW_AREA")
+			end
+		end
+		emit({ pass = pass, arrived = arrived, stalled = stalled, left = floor(dist(x, y, tx, ty)) })"#,
+		true,
+	);
+	assert_eq!(out["pass"], true, "the walk is split at the Ashenvale pass: {out}");
+	assert_eq!(out["stalled"], false, "the arrow never stays on the player's feet: {out}");
+	assert!(out["arrived"].as_f64().is_some(), "following the arrow gets the player to the goal: {out}");
+}
