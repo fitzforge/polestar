@@ -107,7 +107,7 @@ fn rules_of(fs: &[Finding], rule: &str) -> Vec<Finding> {
 
 #[test]
 fn r1_a_druids_own_flight_master_flies_druids_alone_with_no_path_learnt() {
-	// Rev14H1 (12b): Bunthen Plainswind flies Horde Druids from Nighthaven to Thunder Bluff; the seed's
+	// c14 review (12b): Bunthen Plainswind flies Horde Druids from Nighthaven to Thunder Bluff; the seed's
 	// `fly "Thunder Bluff"` there read as a flight from no flight master, and the repair dropped it.
 	let data = data_with_taxi();
 	let body = "step Thunder Bluff\n  getfp \"Thunder Bluff\"\n\nstep Nighthaven\n  goto 50,50\n  fly \"Thunder Bluff\"\n";
@@ -334,7 +334,7 @@ fn r1_dock_is_walked_to() {
 #[test]
 #[ignore = "needs the built reference data in data/forever"]
 fn r1_a_class_teleport_goto_is_no_walk() {
-	// RevSkyH3 S6: a Druid's Teleport: Moonglade, written as the goto to where it lands, is not a walk
+	// Review: a Druid's Teleport: Moonglade, written as the goto to where it lands, is not a walk
 	// from Durotar to Moonglade; the same goto without the teleport is.
 	let cast = play_real("step Boars\n  kill 3098 @52.0,10.0\n\nstep Moonglade\n  zone Moonglade\n  goto 56.3,32.5 \"Cast Teleport: Moonglade\"\n");
 	assert!(rules_of(&cast, "R1").is_empty(), "{cast:?}");
@@ -357,7 +357,7 @@ fn r1_a_portal_the_guide_works_is_no_walk() {
 
 #[test]
 fn r2_an_optional_accept_from_an_item_an_optional_collect_asks_for_is_that_players() {
-	// Rev15 R2 (Dun Morogh): `collect 268548 optional` (the Empty Powder Keg) then `accept 95213
+	// c15 review, R2 (Dun Morogh): `collect 268548 optional` (the Empty Powder Keg) then `accept 95213
 	// optional`: the player who loots the keg takes the quest, one who does not skips both.
 	let who = [persona("Orc", "WARRIOR")];
 	let fs = play("step Quarry\n  collect 101 optional @80,80\n  accept 540 optional\n", &who, false);

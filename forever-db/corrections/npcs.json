@@ -452,7 +452,7 @@
 			"kind": "cmangos",
 			"ref": "creature guid 32039: map 0 1290.4,316.2,-57.2, the Undercity's Royal Quarter (her only spawn)"
 		},
-		"note": "Lady Sylvanas Windrunner stands only in the Undercity's Royal Quarter. The Silverpine Forest point 74.6,13.4 (map 1421) is the same spot read in Silverpine's map frame (the city lies under that corner of the map), so the written guide titled her step Lordamere Lake and called it underwater (Skyborne's Exploring the Horde, c15 writer-only, Rev15SkyH)."
+		"note": "Lady Sylvanas Windrunner stands only in the Undercity's Royal Quarter. The Silverpine Forest point 74.6,13.4 (map 1421) is the same spot read in Silverpine's map frame (the city lies under that corner of the map), so the written guide titled her step Lordamere Lake and called it underwater (Skyborne's Exploring the Horde, c15 writer-only, c15 review)."
 	},
 	"11957": {
 		"addSpawns": {
@@ -1154,7 +1154,7 @@
 				"ref": "players' recordings, all addon versions: 35 people met him in Thelsamar, most at 34-36,46-48 (17 at about 35,47, 11 at 34,48); his quest windows (414, 416, 1339) opened along the road from 32.7,49.6 to 36.8,42.1, median about 34.3,47.8"
 			}
 		],
-		"note": "Mountaineer Kadrell walks the road through Thelsamar. The merged data put him at 32.63,49.74, the south end of his walk, 55 yd from his spawn; the compiler draws a walker's circle only for a point within 15 yd of the spawn, so his goals showed one point at the end of the road where few players met him (IngestCheck036, position sweep). His spawn is the game's own."
+		"note": "Mountaineer Kadrell walks the road through Thelsamar. The merged data put him at 32.63,49.74, the south end of his walk, 55 yd from his spawn; the compiler draws a walker's circle only for a point within 15 yd of the spawn, so his goals showed one point at the end of the road where few players met him (position sweep). His spawn is the game's own."
 	},
 	"2155": {
 		"addSpawns": {
@@ -1202,7 +1202,7 @@
 				"ref": "players' recordings, all addon versions: 71 people met him in Orgrimmar, most in the Valley of Strength (11 at about 46,64, others at 45-47,64-65, 50-52,62-71, 52-55,57-58); none at the data's 37.68,75.16"
 			}
 		],
-		"note": "Warcaller Gorlach, giver of Camp Mojache (7492), walks the Valley of Strength and the streets off it. The merged data had him at 37.68,75.16, 170 yd from his spawn and outside his walk, so the arrow led where no player met him and his goal got no walk circle (IngestCheck036, position sweep). His spawn is the game's own."
+		"note": "Warcaller Gorlach, giver of Camp Mojache (7492), walks the Valley of Strength and the streets off it. The merged data had him at 37.68,75.16, 170 yd from his spawn and outside his walk, so the arrow led where no player met him and his goal got no walk circle (position sweep). His spawn is the game's own."
 	},
 	"4967": {
 		"set": {

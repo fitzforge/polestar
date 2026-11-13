@@ -48,7 +48,7 @@ fn a_quest_is_inserted_with_the_quests_it_opens() {
 	assert_eq!(runs(&p, &after)[0].noops, runs(&p, &seed)[0].noops, "every chain step does something");
 }
 
-/// RevNightElf3 (c13 Teldrassil): a lead-in's hand-in comes before its follow-up's accept, also where
+/// c13 review, Teldrassil: a lead-in's hand-in comes before its follow-up's accept, also where
 /// no prerequisite says so (a breadcrumb): the hub loop keeps them in that order. (The golden slice's
 /// lead-ins are all prerequisites too: one made a breadcrumb here.)
 #[test]
@@ -71,7 +71,7 @@ fn a_lead_in_is_handed_in_before_its_follow_up_is_taken() {
 	assert!(loop_keep(&prob, &tin, &acc), "the lead-in's hand-in stays ahead of the follow-up's accept");
 }
 
-/// RevNightElf3 (c13 Shadowglen, route event 28): a training put between two field tasks away from
+/// c13 review, Shadowglen, route event 28: a training put between two field tasks away from
 /// its town splits the field work; it goes to the hub, before or after the stretch.
 #[test]
 fn a_training_inside_a_field_stretch_goes_to_the_hub() {
@@ -686,7 +686,7 @@ fn a_zone_s_low_quests_go_earlier_as_their_own_visit() {
 	assert_eq!(back.unwrap().len(), bad.len());
 }
 
-/// A breadcrumb is handed in before its follow-up is taken at the same NPC (RevA2: 2872/2873 and
+/// A breadcrumb is handed in before its follow-up is taken at the same NPC (review: 2872/2873 and
 /// 3763/3764 were taken the other way round; taking the follow-up first closes the breadcrumb).
 #[test]
 fn a_breadcrumb_is_handed_in_before_its_follow_up_is_taken() {
@@ -765,7 +765,7 @@ fn a_breadcrumb_in_the_log_holds_its_target_back_until_it_is_handed_in() {
 
 /// An accept taken under its minimum level (the model lets it through gateGap levels early and
 /// grinds there silently; the game refuses it) gets a written level step right before it, however
-/// short the grind (RevH2: 4971 at 52.75, minimum 53).
+/// short the grind (review: 4971 at 52.75, minimum 53).
 #[test]
 fn an_accept_under_its_minimum_level_gets_a_written_gate() {
 	use forge_sim::search::passby::grind_topups;
@@ -868,7 +868,7 @@ fn a_long_grind_is_split_after_the_hand_ins_that_wait() {
 	panic!("no stay with camps and a waiting hand-in split");
 }
 
-/// A gate checkpoint moves to just before the first accept it gates (RevA2: Feralas' level-45 grind
+/// A gate checkpoint moves to just before the first accept it gates (review: Feralas' level-45 grind
 /// before Shay's escort and the Feathermoon hand-ins).
 #[test]
 fn a_gate_waits_until_just_before_the_accept_it_gates() {
@@ -1101,7 +1101,7 @@ fn a_hearth_line_met_by_the_bound_inn_goes_to_the_walk_back_it_replaces() {
 
 #[test]
 fn a_training_town_s_flight_master_is_learned_at_a_stop_there() {
-	// c15 Horde (Rev15H2 B7): the Thunder Bluff training on the Elder Rise, 316 yd from the flight
+	// c15 Horde (c15 review B7): the Thunder Bluff training on the Elder Rise, 316 yd from the flight
 	// master, never learned it (only a point within NEAR_HUB did), so every later Thunder Bluff leg
 	// rode through Mulgore. Here: a town of the Orc slice moved to 300 yd from its nearest flight
 	// master: a training stop there learns it, the walk there and back priced.
@@ -1138,7 +1138,7 @@ fn a_training_town_s_flight_master_is_learned_at_a_stop_there() {
 
 #[test]
 fn a_together_task_s_every_kill_work_goes_to_its_camp_by_the_pair() {
-	// c15 Undead (Rev15Undead): together 99144 then 97558.2 (the Vile Fin skins by the Crusader's
+	// c15 Undead (c15 review): together 99144 then 97558.2 (the Vile Fin skins by the Crusader's
 	// Outpost) moved only the skins' first kill work; its other murlocs stayed on the north shore by
 	// Garren's Haunt, 256 s off, and the camp revisit pulled Maggot Eye there. Every kill work with
 	// camps to choose from goes to its camp nearest the pair.
@@ -1178,8 +1178,8 @@ fn a_together_task_s_every_kill_work_goes_to_its_camp_by_the_pair() {
 
 #[test]
 fn a_flight_master_a_network_leg_walks_through_is_learned_there() {
-	// Rev15DwarfGnome B2: the tram's arrival walks past Stormwind's flight master (its node on the
-	// network path), learned nothing; Rev15H2 B11: the flight to Freewind walks on through
+	// c15 review B2: the tram's arrival walks past Stormwind's flight master (its node on the
+	// network path), learned nothing; c15 review B11: the flight to Freewind walks on through
 	// Gadgetzan's to Steamwheedle Port, learned only at the next stop there. Here: v1's Orc order;
 	// after each network leg, every flight master node it stood at (departure, the walks between
 	// nodes, the rides' ends, arrival) is known. (The Orc slice's legs only pass masters already

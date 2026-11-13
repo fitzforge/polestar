@@ -1533,7 +1533,7 @@
 				"ref": "classic-db: no objectives for 4492"
 			}
 		],
-		"note": "Lost! (Un'Goro Crater; Spraggle Frock gives it, Ringo takes it) is not an escort: you only find Ringo at Fire Plume Ridge (its quest text; no PARTY_ACCEPT flag in QuestieDB or the world DB). Its event objective (\"Escort Ringo to Spraggle Frock at Marshal's Refuge\", placed at the refuge) belongs to the next quest, A Little Help From My Friends (4491), the real escort, so the guide compiler's escort rule would label it; it is dropped (the classic world DB has no objective). With it the route had a task for Lost! at Marshal's Refuge, so the c15 writer split Ringo's hand-in from the escort's accept and walked back to Ringo (Rev15H2: dup-trip blocker at horde 50-60/05-eastern-plaguelands:519)."
+		"note": "Lost! (Un'Goro Crater; Spraggle Frock gives it, Ringo takes it) is not an escort: you only find Ringo at Fire Plume Ridge (its quest text; no PARTY_ACCEPT flag in QuestieDB or the world DB). Its event objective (\"Escort Ringo to Spraggle Frock at Marshal's Refuge\", placed at the refuge) belongs to the next quest, A Little Help From My Friends (4491), the real escort, so the guide compiler's escort rule would label it; it is dropped (the classic world DB has no objective). With it the route had a task for Lost! at Marshal's Refuge, so the c15 writer split Ringo's hand-in from the escort's accept and walked back to Ringo (review: dup-trip blocker at horde 50-60/05-eastern-plaguelands:519)."
 	},
 	"4742": {
 		"set": {
@@ -2496,7 +2496,7 @@
 		"source": [
 			{
 				"kind": "recording",
-				"ref": "players' in-game recordings (follow-up sweep for #1354, people counted per IngestAudit): 3 people (1 established) took Advice From Stormwind (78089) from Delgren the Purifier, each after handing A Strange Artifact (78088) in to him; he did not offer it to 3 people (1 established) who still had 78088 in the log"
+				"ref": "players' in-game recordings (follow-up sweep for #1354, suspect contributors left out): 3 people (1 established) took Advice From Stormwind (78089) from Delgren the Purifier, each after handing A Strange Artifact (78088) in to him; he did not offer it to 3 people (1 established) who still had 78088 in the log"
 			},
 			{
 				"kind": "factoruide",
@@ -2517,7 +2517,7 @@
 		"source": [
 			{
 				"kind": "recording",
-				"ref": "players' in-game recordings (follow-up sweep for #1354, people counted per IngestAudit): 3 people (1 established) took A Second Opinion (78090) from Katherine the Pure, each after handing Advice From Stormwind (78089) in to her; she did not offer it to 4 people (1 established) who could take it but had not handed 78089 in"
+				"ref": "players' in-game recordings (follow-up sweep for #1354, suspect contributors left out): 3 people (1 established) took A Second Opinion (78090) from Katherine the Pure, each after handing Advice From Stormwind (78089) in to her; she did not offer it to 4 people (1 established) who could take it but had not handed 78089 in"
 			},
 			{
 				"kind": "factoruide",
@@ -2538,7 +2538,7 @@
 		"source": [
 			{
 				"kind": "recording",
-				"ref": "players' in-game recordings (IngestCheck036, 2026-11-09 pull, people counted per IngestAudit): Ursula Deline did not offer Earning Your Salt (78091) to 3 people (1 established) who could take it while A Second Opinion (78090) was still in their log, and all 3 took it right after handing 78090 in to her"
+				"ref": "players' in-game recordings (2026-11-09 pull, suspect contributors left out): Ursula Deline did not offer Earning Your Salt (78091) to 3 people (1 established) who could take it while A Second Opinion (78090) was still in their log, and all 3 took it right after handing 78090 in to her"
 			},
 			{
 				"kind": "factoruide",
@@ -2559,7 +2559,7 @@
 		"source": [
 			{
 				"kind": "recording",
-				"ref": "players' in-game recordings (follow-up sweep for #1354, people counted per IngestAudit): 2 people (1 established) took It Must Be Destroyed (78092) from Ursula Deline, each after handing Earning Your Salt (78091) in to her; she did not offer it to 2 people (1 established) who could take it but had not handed 78091 in"
+				"ref": "players' in-game recordings (follow-up sweep for #1354, suspect contributors left out): 2 people (1 established) took It Must Be Destroyed (78092) from Ursula Deline, each after handing Earning Your Salt (78091) in to her; she did not offer it to 2 people (1 established) who could take it but had not handed 78091 in"
 			},
 			{
 				"kind": "factoruide",
@@ -2893,7 +2893,7 @@
 				"ref": "79192 starts at objects 415106, 415107, 417072 and 424010, the objects 79007 and 79008 end at"
 			}
 		],
-		"note": "Stepping Stones (Cozy Sleeping Bag chain) is offered at the second Burned-Out Remains, once ... and that note you found is handed in there: Horde 79007 (the Barrens remains, then Westfall), Alliance 79008 (Westfall, then the Barrens). The merged data had no prerequisite, so the c15 Horde route accepted it at the Barrens remains south of Camp Taurajo (horde/04-the-barrens:659), a step no player could do (Rev15-H1)."
+		"note": "Stepping Stones (Cozy Sleeping Bag chain) is offered at the second Burned-Out Remains, once ... and that note you found is handed in there: Horde 79007 (the Barrens remains, then Westfall), Alliance 79008 (Westfall, then the Barrens). The merged data had no prerequisite, so the c15 Horde route accepted it at the Barrens remains south of Camp Taurajo (horde/04-the-barrens:659), a step no player could do (c15 review)."
 	},
 	"79980": {
 		"set": {
@@ -2907,7 +2907,7 @@
 				"ref": "79980 starts at object 424005, the object 79192 ends at"
 			}
 		],
-		"note": "Scramble (Cozy Sleeping Bag chain, Stonetalon) is offered by the Pocket Litter where Stepping Stones (79192) is handed in, only after it. The merged data had no prerequisite (c15 horde/05-stonetalon-mountains:245-248 took and handed it in before Stepping Stones; Rev15-H1)."
+		"note": "Scramble (Cozy Sleeping Bag chain, Stonetalon) is offered by the Pocket Litter where Stepping Stones (79192) is handed in, only after it. The merged data had no prerequisite (c15 horde/05-stonetalon-mountains:245-248 took and handed it in before Stepping Stones; c15 review)."
 	},
 	"79974": {
 		"set": {
@@ -2925,7 +2925,7 @@
 				"ref": "79974 starts at object 424012, the object 79980 ends at"
 			}
 		],
-		"note": "Wet Job (Cozy Sleeping Bag chain, Loch Modan) is offered by the Mound of Dirt where Scramble (79980) is handed in, only after it; the merged data had no prerequisite (Rev15-H1)."
+		"note": "Wet Job (Cozy Sleeping Bag chain, Loch Modan) is offered by the Mound of Dirt where Scramble (79980) is handed in, only after it; the merged data had no prerequisite (c15 review)."
 	},
 	"79975": {
 		"set": {
@@ -2943,7 +2943,7 @@
 				"ref": "79975 starts at object 424007, the object 79974 ends at"
 			}
 		],
-		"note": "Eagle's Fist (Cozy Sleeping Bag chain, Thoradin's Wall) is offered by the Carved Figurine where Wet Job (79974) is handed in, only after it; the merged data had no prerequisite (Rev15-H1)."
+		"note": "Eagle's Fist (Cozy Sleeping Bag chain, Thoradin's Wall) is offered by the Carved Figurine where Wet Job (79974) is handed in, only after it; the merged data had no prerequisite (c15 review)."
 	},
 	"79950": {
 		"set": {
@@ -3096,7 +3096,7 @@
 		"source": [
 			{
 				"kind": "recording",
-				"ref": "players' in-game recordings (follow-up sweep for #1354, people counted per IngestAudit): 6 people (3 established) took A Curious Pair (91859) from Trevan Rol, each after handing Diplomatic Incident (91858) in to Trevan; Trevan's windows did not offer it to 4 people (1 established) who could take it but had not handed 91858 in"
+				"ref": "players' in-game recordings (follow-up sweep for #1354, suspect contributors left out): 6 people (3 established) took A Curious Pair (91859) from Trevan Rol, each after handing Diplomatic Incident (91858) in to Trevan; Trevan's windows did not offer it to 4 people (1 established) who could take it but had not handed 91858 in"
 			},
 			{
 				"kind": "factoruide",
@@ -3117,7 +3117,7 @@
 		"source": [
 			{
 				"kind": "recording",
-				"ref": "players' in-game recordings (follow-up sweep for #1354, people counted per IngestAudit): 6 people (3 established) took A Grim Fate (91860) from Deathguard Baldren, each after handing A Curious Pair (91859) in to him; nobody took it without"
+				"ref": "players' in-game recordings (follow-up sweep for #1354, suspect contributors left out): 6 people (3 established) took A Grim Fate (91860) from Deathguard Baldren, each after handing A Curious Pair (91859) in to him; nobody took it without"
 			},
 			{
 				"kind": "factoruide",
@@ -3138,7 +3138,7 @@
 		"source": [
 			{
 				"kind": "recording",
-				"ref": "players' in-game recordings (follow-up sweep for #1354, people counted per IngestAudit): 7 people (4 established) took Into Fenris Keep (91861) from the Charred Remains, each after handing A Grim Fate (91860) in to them; nobody took it without"
+				"ref": "players' in-game recordings (follow-up sweep for #1354, suspect contributors left out): 7 people (4 established) took Into Fenris Keep (91861) from the Charred Remains, each after handing A Grim Fate (91860) in to them; nobody took it without"
 			},
 			{
 				"kind": "factoruide",
@@ -3228,7 +3228,7 @@
 		"source": [
 			{
 				"kind": "recording",
-				"ref": "players' in-game recordings (follow-up sweep for #1354, people counted per IngestAudit): 5 people (2 established) took Starving Arcane (92457) from the Image of Archmage Modera; the 4 whose accepts were recorded took it within two minutes of handing An Alarming Request (92432) in to her. Her windows did not offer it to 4 people (2 established) who could take it but had not handed 92432 in; a level 30 Night Elf Warrior was refused it before taking 92432 and offered it right after handing it in"
+				"ref": "players' in-game recordings (follow-up sweep for #1354, suspect contributors left out): 5 people (2 established) took Starving Arcane (92457) from the Image of Archmage Modera; the 4 whose accepts were recorded took it within two minutes of handing An Alarming Request (92432) in to her. Her windows did not offer it to 4 people (2 established) who could take it but had not handed 92432 in; a level 30 Night Elf Warrior was refused it before taking 92432 and offered it right after handing it in"
 			}
 		],
 		"note": "The Kirin Tor chain: the Image of Archmage Modera offers Starving Arcane (92457) once An Alarming Request (92432), which sends you to her, is handed in. The merged data had no prerequisite."
@@ -4190,7 +4190,7 @@
 		"source": [
 			{
 				"kind": "recording",
-				"ref": "players' in-game recordings (follow-up sweep for #1354, people counted per IngestAudit): 7 people (4 established) took The Debt (95034) from Lumina Windsinger (npc 259620), each after handing The Windshaper's Wrath (96204) in to her; she did not offer it to 5 people (2 established) who still had 96204 in the log"
+				"ref": "players' in-game recordings (follow-up sweep for #1354, suspect contributors left out): 7 people (4 established) took The Debt (95034) from Lumina Windsinger (npc 259620), each after handing The Windshaper's Wrath (96204) in to her; she did not offer it to 5 people (2 established) who still had 96204 in the log"
 			},
 			{
 				"kind": "eg",
@@ -5067,7 +5067,7 @@
 		"source": [
 			{
 				"kind": "recording",
-				"ref": "players' in-game recordings (follow-up sweep for #1354, people counted per IngestAudit): 7 people (4 established) took The Windshaper's Wrath (96204) from Lumina Windsinger, each after handing her Lumina Windsinger (91862); nobody took it without"
+				"ref": "players' in-game recordings (follow-up sweep for #1354, suspect contributors left out): 7 people (4 established) took The Windshaper's Wrath (96204) from Lumina Windsinger, each after handing her Lumina Windsinger (91862); nobody took it without"
 			},
 			{
 				"kind": "factoruide",
@@ -5139,7 +5139,7 @@
 		"source": [
 			{
 				"kind": "recording",
-				"ref": "players' in-game recordings (follow-up sweep for #1354, people counted per IngestAudit): 2 people (1 established) took Elemental Aid (96264) from Veyric Thunderhame, each after handing Call of Air (94789) in to Veyric; Veyric's windows did not offer it to 2 people (1 established) who still had 94789 in the log"
+				"ref": "players' in-game recordings (follow-up sweep for #1354, suspect contributors left out): 2 people (1 established) took Elemental Aid (96264) from Veyric Thunderhame, each after handing Call of Air (94789) in to Veyric; Veyric's windows did not offer it to 2 people (1 established) who still had 94789 in the log"
 			},
 			{
 				"kind": "factoruide",
@@ -5763,7 +5763,7 @@
 			},
 			{
 				"kind": "recording",
-				"ref": "players' in-game recordings (#1579, people counted per IngestAudit): 3 people (2 established) were offered Vahlarriel's Vengeance (97284) by Vahlarriel Demonslayer, each in her window right after handing her Vahlarriel's Search (1465) or later, two of them together with 1438; no window offered it before 1465 was handed in; a level 36 Human with nothing done got only 1437 from her (a direct quest window)"
+				"ref": "players' in-game recordings (#1579, suspect contributors left out): 3 people (2 established) were offered Vahlarriel's Vengeance (97284) by Vahlarriel Demonslayer, each in her window right after handing her Vahlarriel's Search (1465) or later, two of them together with 1438; no window offered it before 1465 was handed in; a level 36 Human with nothing done got only 1437 from her (a direct quest window)"
 			}
 		],
 		"note": "Vahlarriel's Vengeance (Desolace, Vahlarriel Demonslayer at Nijel's Point) comes with the third part of Vahlarriel's Search (1438), when the second part (1465, from the Malem chest) is handed back to her (#1579: in game and in every recorded window). Whether the first part (1437) alone would unlock it can't be told: nobody opened her window between the two hand-ins, and 1437 ends at the chest, so she is next visited with 1465. The merged data had no prerequisite, so the Alliance Desolace guide asked for it together with 1437."
@@ -5982,7 +5982,7 @@
 		"source": [
 			{
 				"kind": "recording",
-				"ref": "players' in-game recordings (follow-up sweep for #1354, people counted per IngestAudit): 5 people (3 established) took A Friend of the Family (98191) from Highlord Bolvar Fordragon, each after handing Captain Stoutfist's A Friend of the Family (98190) in to him; his windows did not offer it to 6 people (4 established) who could take it but had not handed 98190 in (5 with it still in the log, 2 who never had it)"
+				"ref": "players' in-game recordings (follow-up sweep for #1354, suspect contributors left out): 5 people (3 established) took A Friend of the Family (98191) from Highlord Bolvar Fordragon, each after handing Captain Stoutfist's A Friend of the Family (98190) in to him; his windows did not offer it to 6 people (4 established) who could take it but had not handed 98190 in (5 with it still in the log, 2 who never had it)"
 			},
 			{
 				"kind": "factoruide",
@@ -6244,7 +6244,7 @@
 		"source": [
 			{
 				"kind": "recording",
-				"ref": "players' in-game recordings (follow-up sweep for #1354, people counted per IngestAudit): 5 people (2 established) took The Great Cat Spirit (98394) from Dendrite Starblaze, each after handing Mathrengyl Bearwalker's The Great Cat Spirit (98393) in to her; she did not offer it to 5 people (2 established) who still had 98393 in the log"
+				"ref": "players' in-game recordings (follow-up sweep for #1354, suspect contributors left out): 5 people (2 established) took The Great Cat Spirit (98394) from Dendrite Starblaze, each after handing Mathrengyl Bearwalker's The Great Cat Spirit (98393) in to her; she did not offer it to 5 people (2 established) who still had 98393 in the log"
 			},
 			{
 				"kind": "factoruide",
@@ -6265,7 +6265,7 @@
 		"source": [
 			{
 				"kind": "recording",
-				"ref": "players' in-game recordings (follow-up sweep for #1354, people counted per IngestAudit): 5 people (2 established) took The Great Cat Spirit (98396) from the Great Cat Spirit, each after handing the previous The Great Cat Spirit (98394) in to it; nobody took it without"
+				"ref": "players' in-game recordings (follow-up sweep for #1354, suspect contributors left out): 5 people (2 established) took The Great Cat Spirit (98396) from the Great Cat Spirit, each after handing the previous The Great Cat Spirit (98394) in to it; nobody took it without"
 			},
 			{
 				"kind": "factoruide",
@@ -6288,7 +6288,7 @@
 		"source": [
 			{
 				"kind": "recording",
-				"ref": "players' in-game recordings (follow-up sweep for #1354, people counted per IngestAudit): 6 people (2 established) took To Darnassus (98397) from Dendrite Starblaze, each after handing her one of the two blessings: 5 Blessings of the Great Cat Spirit (98731), 1 Skyborne Druid Blessings of the Great Windborne Cat Spirit (98738); she did not offer it to 8 people (3 established) who could take it but had handed in neither"
+				"ref": "players' in-game recordings (follow-up sweep for #1354, suspect contributors left out): 6 people (2 established) took To Darnassus (98397) from Dendrite Starblaze, each after handing her one of the two blessings: 5 Blessings of the Great Cat Spirit (98731), 1 Skyborne Druid Blessings of the Great Windborne Cat Spirit (98738); she did not offer it to 8 people (3 established) who could take it but had handed in neither"
 			},
 			{
 				"kind": "factoruide",
@@ -6353,7 +6353,7 @@
 		"source": [
 			{
 				"kind": "recording",
-				"ref": "players' in-game recordings (follow-up sweep for #1354, people counted per IngestAudit): 5 people (2 established) took Blessings of the Great Cat Spirit (98731), each after handing The Great Cat Spirit (98396) in to the Great Cat Spirit; nobody took it without"
+				"ref": "players' in-game recordings (follow-up sweep for #1354, suspect contributors left out): 5 people (2 established) took Blessings of the Great Cat Spirit (98731), each after handing The Great Cat Spirit (98396) in to the Great Cat Spirit; nobody took it without"
 			},
 			{
 				"kind": "factoruide",
@@ -6906,14 +6906,14 @@
 			},
 			{
 				"kind": "recording",
-				"ref": "players' in-game recordings (follow-up sweep for #1354, people counted per IngestAudit): 2 people (1 established) took Ward Restocking (92519) from Doctor Gregory Victor, each after handing Silky Sutures (97539) in to him; he did not offer it to 2 people (none established) who could take it but had not handed 97539 in"
+				"ref": "players' in-game recordings (follow-up sweep for #1354, suspect contributors left out): 2 people (1 established) took Ward Restocking (92519) from Doctor Gregory Victor, each after handing Silky Sutures (97539) in to him; he did not offer it to 2 people (none established) who could take it but had not handed 97539 in"
 			},
 			{
 				"kind": "factoruide",
 				"ref": "pre_all 97539"
 			}
 		],
-		"note": "Ward Restocking: given and taken by Doctor Gregory Victor at Hammerfall (Arathi 73.41,36.89); the merged data had no giver or ender, so the world left it out (RouteAudit B2). He offers it once his Silky Sutures (97539) is handed in to him (#1354 sweep); the merged data had no prerequisite."
+		"note": "Ward Restocking: given and taken by Doctor Gregory Victor at Hammerfall (Arathi 73.41,36.89); the merged data had no giver or ender, so the world left it out (route audit B2). He offers it once his Silky Sutures (97539) is handed in to him (#1354 sweep); the merged data had no prerequisite."
 	},
 	"97539": {
 		"set": {
@@ -6934,7 +6934,7 @@
 				"ref": "starter npc 12920"
 			}
 		],
-		"note": "Silky Sutures: handed in to Doctor Gregory Victor at Hammerfall, who gives it; the merged data had no ender (RouteAudit B2)."
+		"note": "Silky Sutures: handed in to Doctor Gregory Victor at Hammerfall, who gives it; the merged data had no ender (route audit B2)."
 	},
 	"79976": {
 		"set": {
@@ -6952,7 +6952,7 @@
 				"ref": "79976 starts at object 406918, the object 79975 ends at"
 			}
 		],
-		"note": "This Must Be The Place (Cozy Sleeping Bag chain, Arathi) is offered by the bag where Eagle's Fist (79975) is handed in, only after it: the chain is Scramble 79980, Wet Job 79974, Eagle's Fist 79975, This Must Be The Place 79976. The merged data had no prerequisite, so the Horde route took it alone in Arathi (c14 horde/30-40/03-arathi-highlands:269-271), a step no player could do (Rev14-H2)."
+		"note": "This Must Be The Place (Cozy Sleeping Bag chain, Arathi) is offered by the bag where Eagle's Fist (79975) is handed in, only after it: the chain is Scramble 79980, Wet Job 79974, Eagle's Fist 79975, This Must Be The Place 79976. The merged data had no prerequisite, so the Horde route took it alone in Arathi (c14 horde/30-40/03-arathi-highlands:269-271), a step no player could do (c14 review)."
 	},
 	"99191": {
 		"set": {

@@ -2987,7 +2987,7 @@ fn floating_button_hides_in_combat_and_instances_as_the_window_does_and_stays_wh
 	);
 }
 
-// RegressVisual (0.3.6): the floating button's hover is the minimap button's, its 25 % in its colour, so nothing
+// 0.3.6: the floating button's hover is the minimap button's, its 25 % in its colour, so nothing
 // that sets its regions back to full alpha turns it into an opaque disc over the logo.
 #[test]
 fn floating_button_hover_is_a_quarter_strong_accent_disc_even_with_its_regions_at_full_alpha() {

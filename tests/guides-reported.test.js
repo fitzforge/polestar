@@ -2004,7 +2004,7 @@ test(`Bennistrov's report: This Land Was Their Land is taken only after Defeat N
 
 // --- Alliance 12-21 level ranges (Discord, 2026-11-08: a Human "usually gets cut off in Westfall around 15 and a
 // half"): #1274 set Westfall 13-17, Darkshore 17-19 and Loch Modan 19-21 from the Dwarf, Gnome, Night Elf and
-// Skyborne levels, but Humans come from Elwynn and enter about 2 lower. The level model (ReleaseAudit, 0.3.5, mean
+// Skyborne levels, but Humans come from Elwynn and enter about 2 lower. The level model (0.3.5, mean
 // over each start's classes) has Humans entering Westfall at 11.35, Darkshore at 15.27 and Loch Modan at 17.77,
 // and the other starts leaving them at up to 17.54, 19.38 and 21.61. The per-start levels come from the level sim
 // with locally calibrated parameters, so a test can't recompute them; these tests check the guides' own labels instead.
@@ -2097,7 +2097,7 @@ test(`${WETLANDS}: Bennistrov's report: From the Ashes points at each of the fou
 	assert.ok(!list.some(({ goal }) => goal.x != null && near(goal, 53.5, 54.5)), 'nothing points at Nek\'rosh');
 });
 
-// --- Never seen taken (#1314's pattern; RefusalSweep's never-taken sweep, 2026-11-08): Hearts of the Lost turned
+// --- Never seen taken (#1314's pattern; the never-taken sweep, 2026-11-08): Hearts of the Lost turned
 // out not to be in the game. Two more Forever quests nobody has been recorded taking or being offered, whose giver
 // nobody has ever seen, from another addon's data and the web only, are optional, with a tip to skip them when the
 // giver isn't there: every goal of theirs is optional, so nothing in the guide waits on them.
@@ -2153,7 +2153,7 @@ test("DexeeXI's report (#1322): the guides name the elixirs the quests take by t
 	}
 });
 
-// --- Level sweep over the guides the level model doesn't play (SweepGates, 2026-11-08): the centaur reputation guide
+// --- Level sweep over the guides the level model doesn't play (2026-11-08): the centaur reputation guide
 // opens at level 30, and its clans reach Honored on quests from level 30 and tradeable totems, but Valley of Bones and
 // every quest after it (Gelkis 93034..., Magram 92841...) need level 35 (Forever's quest data and the page agree). The
 // steps took them at Honored alone, so a level 30-34 player stood at a giver who offered nothing.
@@ -2324,7 +2324,7 @@ test(`${TELDRASSIL}: Pynte's report: Zenn's Bidding is taken on the walk down to
 
 const BADLANDS = 'forever/alliance/30-40/06-badlands.guide';
 test(`${BADLANDS}: the same pattern as #89: Book of the Ancients is taken from Azore on the way to Karnitol's Chest, not on a walk back from it`, { skip }, () => {
-	// BrAlliance3040 (0.3.6): the first Desolace visit (02) opens the chest beside Azore's tower; the south loop (06) keeps
+	// Review (0.3.6): the first Desolace visit (02) opens the chest beside Azore's tower; the south loop (06) keeps
 	// the chain for a player who loads it without 02, and there Azore still comes before the chest.
 	const list = goals(BADLANDS);
 	const take = at(list, 'accept 6027 (Book of the Ancients)', is('accept', 6027));
@@ -3218,7 +3218,7 @@ test(`${ELWYNN}: Syfin's report (#221): Croaky's Head is an optional extra; Ridg
 // The step waits for the armbands, not for him. The Collector's turn-in
 // (Marshal Dughan, Goldshire) and Manhunt (147, Morgan the Collector in the
 // east) would each be a trip back across Elwynn, so both are left out
-// (Rev17 AS: c17 wrote 123's turn-in into Westfall with no way back).
+// (c17 wrote 123's turn-in into Westfall with no way back).
 test(`${ELWYNN}: zeike's report (#553): Forest's Edge does not wait for the rare Gruff Swiftbite; The Collector and Manhunt are left out`, { skip }, () => {
 	const list = goals(ELWYNN);
 	const s = list[at(list, 'the armbands (782)', (g) => g.t === 'collect' && g.item === 782)].s;
@@ -5784,7 +5784,7 @@ test(`${ARATHI}: Fyurie's report (#1319): MacKreel's Moonshine is taken after Ko
 	assert.equal(list[turnin].s, list[fly].s + 1, 'handed in in the step right after the flight');
 	assert.ok(list.slice(accept + 1, turnin).every(({ goal }) => goal.t !== 'kill' && goal.t !== 'collect'), 'nothing to kill or collect in between');
 	assert.ok([list[accept].step.note, list[accept].step.tip].flat().filter(Boolean).join(' ').includes('within 15 minutes'), 'the step names the time limit');
-	// Br3040 (0.3.6): the race filter it kept came from an old per-race export; every Alliance race may take it.
+	// Review (0.3.6): the race filter it kept came from an old per-race export; every Alliance race may take it.
 	for (const i of [accept, turnin]) assert.ok(!list[i].goal.only?.races, `${list[i].goal.t} 647 is open to every Alliance race`);
 });
 
@@ -6930,7 +6930,7 @@ test('Alliance 30-40 re-order: the Mirage Raceway on the Theramore crossing, Des
 	for (const q of [1284, 1253, 1319, 1320]) assert.ok(!late.some(({ goal }) => goal.quest === q), `40-50/01 no longer carries ${q}`);
 	assert.ok(late.some(({ goal }) => is('accept', 1265)(goal)), '40-50/01 takes The Missing Diplomat on at Theramore');
 	// Accepts more than four levels over the quest's band wait for the visit that works them (the level model ground for them).
-	// BrAlliance3040 (0.3.6): The Karnitol Shipwreck (39) is the exception: its first two parts are a chest beside Azore's
+	// Review (0.3.6): The Karnitol Shipwreck (39) is the exception: its first two parts are a chest beside Azore's
 	// tower and a talk to Kreldig, nothing to fight, so the first Desolace visit takes them; the satchel dive (1456) waits for the south loop.
 	assert.ok(goals('forever/alliance/30-40/02-desolace.guide').some(({ goal }) => is('turnin', 1455)(goal)), 'The Karnitol Shipwreck\'s chest and report on the first Desolace visit');
 	assert.ok(goals(BADLANDS).some(({ goal }) => goal.t === 'collect' && goal.quest === 1456), 'the satchel on the south loop');
@@ -7327,7 +7327,7 @@ test('Horde quest volume: every added quest has its include record in the route 
 	// A quest the Alliance route skips can't be included for both sides (include has no faction): its Horde
 	// record is a Horde pair that places it.
 	const horde = (q) => ov.pairs.some((p) => p.faction === 'Horde' && p.b[1] === q && /Quest volume|take and do it there/.test(p.why));
-	for (const q of new Set(Object.values(HORDE_VOLUME).flat())) assert.ok(ov.include.some((e) => e.q === q && /Flow coverage|Quest volume|RouteGrind030/.test(e.reason)) || horde(q), `include ${q} is recorded`);
+	for (const q of new Set(Object.values(HORDE_VOLUME).flat())) assert.ok(ov.include.some((e) => e.q === q && /Flow coverage|Quest volume|Route grind review/.test(e.reason)) || horde(q), `include ${q} is recorded`);
 });
 
 // Barrens carry-over (2026-11-07, re-chained the same day): the Barrens are two stays, 15-21
@@ -7915,7 +7915,7 @@ test('Horde 1-30: no unfinished zone quests carried into the next zone', { skip 
 	}
 });
 
-// --- Horde 30-40 re-order (2026-11-07, Final3040's report: 379 minutes of grind in Desolace &
+// --- Horde 30-40 re-order (2026-11-07, the 30-40 review: 379 minutes of grind in Desolace &
 // Hillsbrad and 310 in Stranglethorn, a top-up to 32.2 at Sargeron right after arriving at 30). The
 // zones in the order their quest levels fit: Hillsbrad and a first
 // Arathi visit 30-32, the Shimmering Flats and Desolace's 33-36 quests 32-34, Stranglethorn, Dustwallow
@@ -9122,7 +9122,7 @@ test(`${WETLANDS}: #1415 (vWL4): Insane Druids optional, Glorin on the last Mene
 	assert.ok(nearestYards(kill.goal, 1437, 40.6, 32.9) < 150, `the creepers lead along the river (${kill.goal.x},${kill.goal.y})`);
 });
 
-// T1386 sweep (Plan line, 0.3.7): a Night Elf Druid loading 06-wetlands fresh without Trial of the Sea Lion (272) was
+// #1386 sweep (Plan line, 0.3.7): a Night Elf Druid loading 06-wetlands fresh without Trial of the Sea Lion (272) was
 // sent to Moonglade for a pendant they can't make. Split by quest state, as horde/06-hillsbrad-foothills does. The
 // steps are for Skyborne Druids too (#1775: Forever opens the chain to them): the same gates hold for both.
 test(`${WETLANDS}: #1415: the Night Elf and Skyborne Druid Moonglade opening only with Trial of the Sea Lion or Aquatic Form in hand`, { skip }, () => {
@@ -9163,7 +9163,7 @@ test(`${ZEPHRAS_ALLIANCE}: the Vulgara bounty is handed in on the Shen'dar stop,
 	assert.ok(hand < at(list, 'accept 98512 (Fendaal Windstone)', is('accept', 98512)), 'before the road south-east to Valanaar');
 });
 
-// A step gated on a quest whose goals are all optional is done at once (AuditAlliance3040's sweep): the Goaz Warders and
+// A step gated on a quest whose goals are all optional is done at once (the Alliance 30-40 audit's sweep): the Goaz Warders and
 // Whelgar's hand-in (the elite keystone behind `when group`, the hand-in once complete), and the Gol'Bolar smith's
 // hand-in (12 Copper Bars: gated on the quest being complete); Elwynn's and Zephras Isle's `when group` steps.
 test('#1415: no quest- or group-gated step in the Alliance 1-30 guides is made only of optional goals', { skip }, () => {
@@ -9367,7 +9367,7 @@ test("Fyurie's report (#1425): Private Thorsen is looked for at the top of the R
 	assert.ok(pl.some((p) => p.quest === 215 && p.objective === 'giver' && p.issue === 1752 && p.at.x === 40.3), '215 giver place at the road end (#1752)');
 });
 
-// --- Horde 30-40 audit (2026-11-09, AuditHorde3040): Lydon's Shindigger keg is in Dun Garok's elite cellar, so Elixir
+// --- Horde 30-40 audit (2026-11-09): Lydon's Shindigger keg is in Dun Garok's elite cellar, so Elixir
 // of Agony's second part is a group choice and its steps lead players who took it (a gated step whose goals were all
 // optional was done at once); the Shaman's Water Sapta is used at the brazier; Desolace's Demon Pick, Gem of the
 // Serpent and clams are lines of their own; Portals of the Legion uses the Hand of Iruxos, not a "Rod of Banishing".
@@ -9580,7 +9580,7 @@ test('forever/alliance 40-60: givers and hand-ins taken when the route passes th
 	assert.equal(ss('accept 8304', is('accept', 8304)), ss('accept 8282', is('accept', 8282)), 'Mar\'alith on the first Cenarion Hold stop');
 });
 
-// --- Class guide audit (AuditClass, 0.3.7) ----------------------------------------------------------------------
+// --- Class guide audit (0.3.7) ----------------------------------------------------------------------
 
 // Aquatic Form (Tauren, Horde Skyborne): the Barrens half (Sludge Fen, outside Orgrimmar) on the way to the zeppelin,
 // then Silverpine, then Moonglade: one sea crossing instead of Silverpine first and back to the Barrens.
@@ -9967,7 +9967,7 @@ test('Horde 45-50 Orgrimmar: Zilzibin in the Drag, and the ready reports handed 
 	}
 });
 
-// GuideHealth036 (0.3.6): the `when group` steps at Nesingwary's camp were titled after the wrong hunter (Panther
+// Review (0.3.6): the `when group` steps at Nesingwary's camp were titled after the wrong hunter (Panther
 // Mastery is Sir S. J. Erlgadin's, Raptor Mastery and Big Game Hunter are Hemet Nesingwary's). Class guard over every
 // leveling guide: a step of only accepts and hand-ins, titled with an NPC's name, talks to that NPC.
 test('Leveling guides: a step titled with an NPC\'s name takes or hands in at least one quest at that NPC', { skip }, () => {
@@ -10103,7 +10103,7 @@ test('forever/horde/50-60/02-felwood.guide: the Kitten Carrier is used on the mo
 	assert.ok(use[0].goal.x === 32.3 && use[0].goal.y === 66.6 && use[0].goal.map === 1448, 'the use leads to the Jadefire moonwell');
 });
 
-// GuideHealth036 breadcrumb sweep (0.3.6): Horde 50-60/01 took Defenders of Darrowshire (5211) from Carlin Redpath on
+// Breadcrumb sweep (0.3.6): Horde 50-60/01 took Defenders of Darrowshire (5211) from Carlin Redpath on
 // its first Light's Hope stop and Uncle Carlin (5241) later at Pamela. The server data and the quest data name 5241 as
 // 5211's prerequisite (the Alliance route takes them in that order): 5211 comes after 5241 is handed in on the Light's
 // Hope stop after Darrowshire (50-60/05 since the 0.3.6 flow pass), its spirits freed at Corin's Crossing later in
@@ -10118,7 +10118,7 @@ test('Horde Darrowshire: Defenders of Darrowshire after Uncle Carlin', { skip },
 	assert.equal(ep[at(ep, 'turnin 5211', is('turnin', 5211))].s, ep[at(ep, 'turnin 5181', is('turnin', 5181))].s, 'with Villains of Darrowshire');
 });
 
-// GuideHealth036 quest-gated loot sweep (0.3.6, every guide stands on its own): four `use` lines for an item a quest
+// Quest-gated loot sweep (0.3.6, every guide stands on its own): four `use` lines for an item a quest
 // from an earlier guide gives (the Beacon Torch, Umi's Mechanical Yeti, Yeh'kinya's Bramble) named no quest, so a
 // player who loads the guide fresh without that quest was shown "Use <item>" to tick by hand. Each is bound to its
 // objective now and goes with its quest.
@@ -10135,7 +10135,7 @@ test('use lines for an earlier guide\'s quest item are bound to the objective', 
 	}
 });
 
-// Position sweep (0.3.6, IngestCheck036's Missing Diplomat item): Archmage Tervosh takes The Missing Diplomat (1265)
+// Position sweep (0.3.6, the Missing Diplomat check): Archmage Tervosh takes The Missing Diplomat (1265)
 // at Sentry Point's tower, where its exploration ticks (4 of 4 people in players' recordings), and he and Lady Jaina
 // take 1324 and 1267 beside North Point Tower once Private Hendel yields (3 of 3). Nobody handed them in in Theramore's
 // tower, the only spot the data had: the guide hands them in on the spot instead of sending players back.
@@ -10155,7 +10155,7 @@ test('Dustwallow Marsh (Alliance 40): The Missing Diplomat handed in at Sentry P
 	}
 });
 
-// Position sweep (0.3.6, IngestCheck036's patrol item): Mountaineer Kadrell walks the road through Thelsamar (his
+// Position sweep (0.3.6, the patrol check): Mountaineer Kadrell walks the road through Thelsamar (his
 // spawn 34.17,47.84, a 97 yd walk). The data's point, 32.63,49.74, is the south end of the road, 55 yd from his spawn,
 // so his goals got no walk circle and players met him 60-90 yd from the arrow (35 people, most at 34-36,46-48). His
 // goals point within 15 yd of his spawn, where the compiler draws his walk.
@@ -10169,7 +10169,7 @@ test('Loch Modan (Dwarf, Gnome): Mountaineer Kadrell\'s goals point at his walk 
 	}
 });
 
-// GuideHealth036 fresh-start sweep (0.3.6, every guide stands on its own): a Horde player loading 40-50/06 Azshara or
+// Fresh-start sweep (0.3.6, every guide stands on its own): a Horde player loading 40-50/06 Azshara or
 // 50-60/04 Azshara fresh, without March of the Silithid (4494, from the Feralas guides' Rise of the Silithid) or
 // Better Late Than Never (5023, from 50-60/01), was shown "Requires ..." on Bungle in the Jungle (4496) and on
 // Good Luck Charm and Two Halves Become One (5050, 5051). Each accept now waits for its quest to be available, and
@@ -10184,7 +10184,7 @@ test('Horde Azshara guides: chain accepts from an earlier guide wait until the q
 	assert.ok((work.when || []).some((p) => p.k === 'onquest' && !p.neg && [].concat(p.q).includes(5051)), 'the charm\'s work only with 5051 in the log');
 });
 
-// Position sweep (0.3.6, IngestCheck036's patrol item): Sentinel Shayla Nightbreeze walks the road west of Dolanaar
+// Position sweep (0.3.6, the patrol check): Sentinel Shayla Nightbreeze walks the road west of Dolanaar
 // (10 people took her bounty and 13 handed it in along the road from 41.3,50.8 to 38.2,54.4, half of them 70-130 yd
 // from the arrow); the steps said she stands beside the gate.
 test('Teldrassil: Shayla\'s steps say she walks the road', { skip }, () => {
@@ -10210,7 +10210,7 @@ test('Horde 56: Gadgetzan straight to Marshal\'s Refuge, no Camp Mojache detour 
 	assert.ok(rf.skip.some((r) => r.q === 7492 && r.faction === 'Horde'), 'a route-fix skip keeps it out');
 });
 
-// Position sweep (0.3.6, IngestCheck036's patrol item): Craven Drok walks the Drag (TDB waypoint path; 46 people met
+// Position sweep (0.3.6, the patrol check): Craven Drok walks the Drag (TDB waypoint path; 46 people met
 // him across it, the 3 who took Alliance Relations at three different spots); the tip said he waits there.
 test('Orgrimmar (Horde 30): Craven Drok\'s step says he walks the Drag', { skip }, () => {
 	const g = goals('forever/horde/30-40/02-thousand-needles.guide');
@@ -10295,7 +10295,7 @@ test('leveling guides: no unused bind that displaces the one the route hearths t
 	assert.ok(goals('forever/alliance/04-redridge-mountains.guide').some(({ goal }) => goal.t === 'sethome' && goal.location === 'Darkshire'), 'Darkshire is still bound');
 });
 
-// GuideHealth036 (0.3.6), class "a required action never named" (after GuideReview036's Videre Elixir and Book of
+// Review (0.3.6), class "a required action never named" (after the review's Videre Elixir and Book of
 // the Ancients): steps whose objective needs an item the step never mentioned. Durnholde's locks need the jailors'
 // keys (The Rescue 498), the Scytheclaw nests need Sunscale Feathers (905), the flying machine needs Gann's
 // Explosive Stick (849), and the Scrying Bowl only appears once the Phial of Scrying is used (944).
@@ -10307,7 +10307,7 @@ test('Steps name the item their objective needs (jailor keys, feathers, explosiv
 	assert.match(src('forever/alliance/03-darkshore-return.guide'), /step The Master's Glaive\n  tip [^\n]*Phial of Scrying/);
 });
 
-// GuideHealth036 (0.3.6): Krolg (Raene's Cleansing 1030) only speaks to a furbolg; the step names Dartol's Rod. Pilot
+// Review (0.3.6): Krolg (Raene's Cleansing 1030) only speaks to a furbolg; the step names Dartol's Rod. Pilot
 // Xiggs (Arcane Runes 3449) comes on the flare gun; the step names it.
 test('Ashenvale and Azshara: the Krolg and Ravencrest steps name the rod and the flare gun', { skip }, () => {
 	const src = fs.readFileSync(path.join(OFFICIAL_DIR, 'forever/alliance/06-wetlands.guide'), 'utf8');
@@ -10315,7 +10315,7 @@ test('Ashenvale and Azshara: the Krolg and Ravencrest steps name the rod and the
 	assert.match(fs.readFileSync(path.join(OFFICIAL_DIR, 'forever/alliance/50-60/01-burning-steppes.guide'), 'utf8'), /step Ravencrest Monument\n  tip [^\n]*Standard Issue Flare Gun/);
 });
 
-// PlayersHorde (0.3.6, players' recordings): Further Instructions (1094, 830 XP) was skipped as "a hand-in on a stop
+// Players' recordings (0.3.6): Further Instructions (1094, 830 XP) was skipped as "a hand-in on a stop
 // of its own" at Ratchet, but Ziz Fizziks offers it on the Super Reaper 6000 hand-in at the end of 02-the-barrens and
 // Sputtervalve stands 5 yd from Ratchet's flight master, where 04-the-barrens lands for Mahren. 21 recorded people took
 // it, 16 handed it in.
@@ -10330,7 +10330,7 @@ test('Horde Barrens: Further Instructions from Ziz, handed to Sputtervalve on th
 	assert.ok(b4[tin].step.when.some((p) => p.k === 'onquest' && !p.neg && p.q.includes(1094)), 'only while carried: a fresh loader never sees it');
 });
 
-// Players' route (GuideHealth036, 0.3.6): Bloom of the Heavens (98208, 98209; 2950 XP) is taken from Sylessa
+// Players' route (0.3.6): Bloom of the Heavens (98208, 98209; 2950 XP) is taken from Sylessa
 // Duskwhisper by Menethil's docks on 06-wetlands' first Menethil stop, Nord'el picked up on the shore just south of
 // the town (players' recorded spot), handed in on the next Menethil stop, and the follow-up handed to Thundris
 // Windweaver in Auberdine when the boat lands there.
@@ -10350,7 +10350,7 @@ test(`${WETLANDS}: Bloom of the Heavens rides on the Menethil stops and the boat
 	assert.ok((list[thundris].step.when || []).some((p) => p.k === 'onquest' && !p.neg), 'only for a character carrying it');
 });
 
-// Players' route (GuideHealth036, 0.3.6): Vengeful Trail (98417, 1700 XP) is taken from Maseara Autumnmoon on the first
+// Players' route (0.3.6): Vengeful Trail (98417, 1700 XP) is taken from Maseara Autumnmoon on the first
 // Forest Song stop; Satyrnaar (the Circle of Imprisonment, Kurothel's Knapsack beside it) is walked between Fallen Sky
 // Lake and Kayneth Stillwind's hand-in, where the scroll goes to Maseara. Shared Fury (98418) is not taken.
 test(`${WETLANDS}: Vengeful Trail's scroll is picked up at Satyrnaar on the way back to Forest Song`, { skip }, () => {
@@ -10390,7 +10390,7 @@ test('Horde 40-50: The Super Egg-O-Matic is taken in Tanaris at 47 and finished 
 	assert.ok(!epl.some(({ goal }) => goal.t === 'collect' && goal.item === 8564), 'no nests step in 50-60/05');
 });
 
-// PlayersHorde (0.3.6, Forever-new quest near the path): Kin'weelay offers Locating the Lost City (95770, 3150 XP) once
+// Players' recordings (0.3.6, Forever-new quest near the path): Kin'weelay offers Locating the Lost City (95770, 3150 XP) once
 // The Gurubashi Legends of Old is handed in on 40-50/01's cauldron stop; the cavern entrance is under the Vile Reef just
 // west of Grom'gol (2 recorded people found it within 3 minutes), and Kin'weelay is visited again for the trophy skulls.
 test('Horde Stranglethorn 40: Locating the Lost City after the legend, the reef on the way south, handed in with the skulls', { skip }, () => {
@@ -10406,7 +10406,7 @@ test('Horde Stranglethorn 40: Locating the Lost City after the legend, the reef 
 	assert.equal(stv[tin].s, stv[at(stv, 'turnin 598', is('turnin', 598))].s, 'handed in with the trophy skulls');
 });
 
-// PlayersHorde (0.3.6, players' recordings): Horde 30-40 Hillsbrad's travel step into the Dalaran crater pointed at
+// Players' recordings (0.3.6): Horde 30-40 Hillsbrad's travel step into the Dalaran crater pointed at
 // Ricter's own spot, in the middle of the linked guard pairs. Of 6 people on 0.3.5+, 3 worked the camp for 12-35
 // minutes with only that travel step showing (the goals, NPCs and the linked-pairs warning are on the next step), 2
 // died there, and one person in the whole archive ever stood on Ricter's spot. The step now ends at the
@@ -10424,7 +10424,7 @@ test('Horde Hillsbrad 30: the walk to the Dalaran crater ends at its rim, not on
 	assert.ok(yd(20.16, 84.28) <= 200, 'still at the crater');
 });
 
-// PlayersHorde (0.3.6, players' recordings): Darkcloud Pinnacle's Document Chests were listed north-west first, so the
+// Players' recordings (0.3.6): Darkcloud Pinnacle's Document Chests were listed north-west first, so the
 // arrow led from Freewind past the two southern Grimtotem camps to the north-west one and back south (8 of 9 people
 // on 0.3.5+ walked it so). From Freewind the chests go south-east, south-west, north-west, and the top-up and the climb
 // to Lakota start from the north.
@@ -10436,7 +10436,7 @@ test('Horde Thousand Needles: Darkcloud chests south-east, south-west, north-wes
 	assert.ok(spot.y < 35, `the top-up is in the northern camps (${spot.x},${spot.y}), not back at the south-west chest`);
 });
 
-// Players' route (GuideHealth036, 0.3.6): Twisted Hatred (98403, 900 XP), Tallonkai's Forever follow-up to Twisted Hatred
+// Players' route (0.3.6): Twisted Hatred (98403, 900 XP), Tallonkai's Forever follow-up to Twisted Hatred
 // (932), is a group quest (Xethorr the Wicked is a level 12 elite): offered on the jewel's hand-in to Tallonkai, its
 // Befouled Webwoods and Xethorr sit north-west of Dolanaar on the way to the Oracle Glade once Shayla's hand-in moved to the
 // walk south from the glade to Ursal (shorter for everyone), and it goes back to Tallonkai on the Dolanaar stop after Ursal.
@@ -10575,7 +10575,7 @@ test('Horde Silverpine: Supplying the Sepulcher on the Sepulcher and Undercity s
 	assert.ok((step.when || []).some((p) => p.k === 'onquest' && !p.neg && p.q.includes(6324)), 'only for a player carrying the crate');
 });
 
-// BrHordeStart (0.3.6): Tauren leave Mulgore by the road through Camp Taurajo to the Crossroads; Kirge Sternhorn
+// Review (0.3.6): Tauren leave Mulgore by the road through Camp Taurajo to the Crossroads; Kirge Sternhorn
 // stands on it with Journey to the Crossroads (854, Tauren only, 230 XP) for Thork, who is on the Crossroads stop the
 // guide already makes. 7 of 7 recorded Tauren on that road took it and handed it in; Plainstrider Menace (844) was
 // still offered afterwards.
@@ -10591,7 +10591,7 @@ test('Tauren Mulgore: Journey to the Crossroads from Kirge at Camp Taurajo, hand
 	assert.ok(rf.include.some((e) => e.q === 854), 'the route fixes include Journey to the Crossroads');
 });
 
-// BrHordeStart (0.3.6): the level 5 Priest robe pairs ride on stops the Troll and Undead starts already make, as the
+// Review (0.3.6): the level 5 Priest robe pairs ride on stops the Troll and Undead starts already make, as the
 // Alliance starts' do: the trainer's letter at 5, the town trainer's heal-and-fortify quest on a guard by the road,
 // the robe on the next town stop. Recorded Priests of both races did them (Troll 2 of 2, Undead 9).
 test('Horde starts: the Priest robe quests on stops the Troll and Undead starts already make', { skip }, () => {
@@ -10616,7 +10616,7 @@ test('Horde starts: the Priest robe quests on stops the Troll and Undead starts 
 	for (const q of [5648, 5649, 5650, 5651]) assert.ok(rf.include.some((e) => e.q === q), `the route fixes include ${q}`);
 });
 
-// Br3040 (0.3.6, Horde Stranglethorn 34, flow): the guide came in by zeppelin and walked from Nesingwary's camp all the way
+// Review (0.3.6, Horde Stranglethorn 34, flow): the guide came in by zeppelin and walked from Nesingwary's camp all the way
 // down the vale (2,900 yd) to take Booty Bay's quests and flight path, then flew back. It now flies to Ratchet (Gazlowe's
 // 1178 and Dizzywig's 1111 handed in on the way), takes the boat to Booty Bay and walks north once: Goblin Sponsorship
 // 1180-1182 ride along (Lozgil on the pier, Revilgaz upstairs, Cozzle's footlocker by the geologists' lake), 1183 for the Raceway.
@@ -10641,7 +10641,7 @@ test('Horde Stranglethorn 34: Ratchet and the boat to Booty Bay first, one walk 
 	for (const q of [1180, 1182, 1183]) assert.ok(rf.include.some((e) => e.q === q), `a route-fix include keeps ${q}`);
 });
 
-// Br3040 (0.3.6, Alliance 30-40): Sully Balloo's Letter (637), Sara Balloo's Plea (683) and MacKreel's Moonshine (647) are
+// Review (0.3.6, Alliance 30-40): Sully Balloo's Letter (637), Sara Balloo's Plea (683) and MacKreel's Moonshine (647) are
 // open to every Alliance race (Forever's server data: race mask 77 for 637, all races for 683 and 647; a Dwarf took 683
 // from Sara Balloo in the recordings), but the guides kept per-race filters from an old per-race route export: Humans
 // never saw 637 or 647, and only Skyborne saw 683, although every race passes the givers on the same stops.
@@ -10720,7 +10720,7 @@ test('Horde Silverpine: Camping 101 hand-ins as plain turn-ins on carrier-only s
 	}
 });
 
-// Br3040 (0.3.6, Horde Desolace 34): Claim Rackmore's Treasure (6161, 2,800 XP) was left out although its log, both keys
+// Review (0.3.6, Horde Desolace 34): Claim Rackmore's Treasure (6161, 2,800 XP) was left out although its log, both keys
 // and its chest lie on the coast the guide works: the silver key from the clam beds' Drysnap crabs, the golden key from the
 // Slitherblade naga, the chest beside the Serpent Statue. The coast is now one walk north after Thunder Axe Fortress.
 test('Horde Desolace 34: Rackmore\'s Treasure on one walk north along the coast, after Thunder Axe Fortress', { skip }, () => {
@@ -10738,7 +10738,7 @@ test('Horde Desolace 34: Rackmore\'s Treasure on one walk north along the coast,
 	assert.ok(list.every(({ goal }) => !goal.only), 'no race or class filter');
 });
 
-// BrHordeStart (0.3.6): every Horde start campfire also offers a profession Camping 101 (270 XP, needs the skill at
+// Review (0.3.6): every Horde start campfire also offers a profession Camping 101 (270 XP, needs the skill at
 // accept). Each variant is a required accept on a step of its own gated `when skill <Prof> 1` right after the campfire
 // (#1559: Automation never takes an optional accept, and the step read done once Cooking was taken); its hand-in a
 // required turn-in on a carrier-only step (`when onquest`) where the trainer stands on a stop the route makes
@@ -10966,7 +10966,7 @@ test('Alliance Desolace: the Karnitol chest on the first visit, one Nijel\'s Poi
 	assert.ok(!sth.some(({ goal }) => is('accept', 1456)(goal)), 'the satchel errand comes from 02');
 });
 
-// BrAlliance3040 (0.3.6, Alliance 30-40/03): Glorin Steelbrow spawns in the Deepwater Tavern (10.6,60.6), beside Mikhail,
+// Review (0.3.6, Alliance 30-40/03): Glorin Steelbrow spawns in the Deepwater Tavern (10.6,60.6), beside Mikhail,
 // whom the next step visits; the tip sent players up Menethil Keep, where Captain Stoutfist stands.
 test('Alliance Menethil 32: Glorin Steelbrow is in the Deepwater Tavern, not the keep', () => {
 	const guide = 'forever/alliance/30-40/03-ashenvale.guide';

@@ -414,7 +414,7 @@ fn t_1353_malifax_and_a_player_who_did_the_route_on_the_shipped_ashenvale() {
 	assert_eq!(normal["after"], normal["before"]);
 }
 
-// The fresh-start sweep (EngineReview036, 0.3.6): an Orc 39 loading Stranglethorn Vale (Horde 40-50) with no
+// The fresh-start sweep (0.3.6): an Orc 39 loading Stranglethorn Vale (Horde 40-50) with no
 // earlier guides got Bloody Bone Necklace (596) put in as a local feeder for Split Bone Necklace (598), which
 // also needs The Vile Reef (629): the plan followed only the first missing prerequisite, so 598 still read
 // "Requires The Vile Reef" on its accept, its skulls and its hand-in, and the feeder opened nothing. Same for Big

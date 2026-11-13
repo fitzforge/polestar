@@ -1,4 +1,4 @@
-//! SkipAheadSweep (0.3.6): every leveling guide loaded by every race and class from the route before it, first
+//! The skip-ahead sweep (0.3.6): every leveling guide loaded by every race and class from the route before it, first
 //! load and reload. Placement passed travel and training before the last quest progress (anchorStep) even when
 //! that progress was a quest done before this guide (an earlier visit to the zone, an earlier guide that offers
 //! it too) and the work the travel leads to was still to do. A soft step behind the progress now passes only
@@ -39,7 +39,7 @@ emit({{ live = g.steps[E.GetLiveStep()].title, step = E.GetLiveStep() }})"#
 	.remove(0)
 }
 
-// SkipAheadSweep (alliance/30-40/04b-stranglethorn-vale|Human|WARRIOR|route|35.58): coming from forever/alliance/30-40/02-desolace.
+// The skip-ahead sweep (alliance/30-40/04b-stranglethorn-vale|Human|WARRIOR|route|35.58): coming from forever/alliance/30-40/02-desolace.
 #[test]
 fn skip_ahead_stranglethorn_keeps_its_first_travel_step() {
 	let before = r#"local w = stub.world
@@ -67,7 +67,7 @@ w.onQuest(92432, {  })"#;
 	}
 }
 
-// SkipAheadSweep (alliance/03-darkshore|NightElf|WARRIOR|route|16.92): coming from forever/alliance/02-westfall.
+// The skip-ahead sweep (alliance/03-darkshore|NightElf|WARRIOR|route|16.92): coming from forever/alliance/02-westfall.
 #[test]
 fn skip_ahead_darkshore_keeps_its_first_travel_step() {
 	let before = r#"local w = stub.world
@@ -84,7 +84,7 @@ w.onQuest(97894, {  })"#;
 	}
 }
 
-// SkipAheadSweep (horde/40-50/03-feralas|Orc|WARRIOR|route|44.82): coming from forever/horde/40-50/02-feralas.
+// The skip-ahead sweep (horde/40-50/03-feralas|Orc|WARRIOR|route|44.82): coming from forever/horde/40-50/02-feralas.
 #[test]
 fn skip_ahead_feralas_keeps_its_first_travel_step() {
 	let before = r#"local w = stub.world
@@ -114,7 +114,7 @@ w.onQuest(7734, { { required = 10, fulfilled = 0 } })"#;
 	}
 }
 
-// ReleaseFinal036b's upgrade harness (Barrens 2u1uxgal3p): a group quest still waiting for the player's answer
+// The 0.3.6 upgrade harness (Barrens 2u1uxgal3p): a group quest still waiting for the player's answer
 // (`when group`, Grunt Logmar's Wrongly Blamed) is no work the travel before it leads to: the sethome before it,
 // behind the player's progress, passes (before: live at "Camp").
 const GROUP_GUIDE: &str = r#"
@@ -144,7 +144,7 @@ fn a_group_quest_waiting_for_its_answer_holds_no_travel_before_it() {
 	assert_eq!(out["live"], "Logmar", "{out}");
 }
 
-// SkipAheadSweep on the 0.3.6 candidate (horde/40-50/01-stranglethorn-vale, every race and class from the route,
+// The skip-ahead sweep on the 0.3.6 candidate (horde/40-50/01-stranglethorn-vale, every race and class from the route,
 // 84/84 states): placement passed "Fly to Grom'gol" because the next quest work after it, the hand-in of 1240 at
 // Grom'gol, was "under way": the quest is in the log. A hand-in still to do is no sign the player went there, so the
 // travel to it holds (leadsToDone; the judge's leads_to_done the same). Here: 300 taken and handed in before (the
