@@ -61,8 +61,8 @@ return {
 	["Corrupted Soul Shards from the cultists, {quest:5887}"] = "Fragments d'âme corrompus sur les cultistes, {quest:5887}",
 
 	-- Step 13: Maybess Riverbreeze
-	-- {npc:10922} Greta Mosshoof · {npc:9529} Maybess Riverbreeze
-	["On the way back south to {npc:10922}, {npc:9529} takes the shards on the west side of the Sanctuary."] = "En redescendant au sud vers {npc:10922}, {npc:9529} prend les fragments du côté ouest du Sanctuaire d'émeraude.",
+	-- {npc:9529} Maybess Riverbreeze
+	["On the way back south to Greta, {npc:9529} takes the shards on the west side of the Sanctuary."] = "",
 
 	-- Step 14: Greta Mosshoof
 	["South to the Sanctuary once more."] = "Retournez encore au sud au Sanctuaire d'émeraude.",
@@ -157,6 +157,7 @@ return {
 	-- ["Fly to {area:431} and ride north-west along the road out of {zone:1440} into {area:361}. The {area:2479} is the druids' camp just past the border."] = "Volez jusqu'à {area:431} et suivez la route vers le nord-ouest pour sortir d'{zone:1440} et entrer en {area:361}. {area:2479} est le camp des druides juste après la frontière.",
 	-- ["From the {zone:1458}, take the zeppelin from the tower outside the city to {zone:1454}."] = "Depuis {zone:1458}, prenez le zeppelin à la tour devant la ville jusqu'à {zone:1454}.",
 	-- ["Level 59.54"] = "Niveau 59.54",
+	-- ["On the way back south to {npc:10922}, {npc:9529} takes the shards on the west side of the Sanctuary."] = "En redescendant au sud vers {npc:10922}, {npc:9529} prend les fragments du côté ouest du Sanctuaire d'émeraude.",
 	-- ["Only if you carry {quest:5087}: the runners walk the road from {area:1769} toward {area:2244} in small groups; wait by the road near {npc:9298} and kill them as they pass. Each one carries a crate."] = "Seulement si vous avez {quest:5087} : les messagers suivent la route du {area:1769} vers le {area:2244} en petits groupes ; attendez au bord de la route près de {npc:9298} et tuez-les au passage. Chacun porte une caisse.",
 	-- ["Only if you carry {quest:5087}: the runners walk the road from {area:1769} toward {area:2244} in small groups; wait by the road near {npc:9298} and kill them as they pass. Each one carries a crate.\nCareful: Turning in spawns three or four level 56-57 Winterfall ambushers that attack you; you can escape them while mounted, in stealth or with {spell:5384}, and they then gather by the lake so you can take the next quest."] = "Seulement si vous avez {quest:5087} : les Messagers Tombe-hiver suivent la route du {area:1769} vers {area:2244} en petits groupes ; attendez au bord de la route près de {npc:9298} et tuez-les à leur passage. Chacun porte une caisse.\nAttention : rendre la quête fait apparaître trois ou quatre embusqués Tombe-hiver de niveau 56-57 qui vous attaquent ; vous pouvez leur échapper sur votre monture, camouflé ou avec {spell:5384}, et ils se rassemblent ensuite près du lac pour que vous puissiez prendre la quête suivante.",
 	-- ["Only if {npc:9298} gave you {quest:5086}: ride north up the {area:361} road to {area:1767}; the {quest:5086} ooze between the trees."] = "Seulement si {npc:9298} vous a donné {quest:5086} : remontez la route de {area:361} vers le nord jusqu'à {area:1767} ; les monstres de {quest:5086} suintent entre les arbres.",

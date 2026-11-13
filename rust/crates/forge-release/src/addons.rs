@@ -2,12 +2,26 @@
 
 use std::path::Path;
 
-/// Always in the release: the addon, our guides and the walking router and maps (committed).
-pub const RELEASE_ADDONS: [&str; 3] = ["Polestar", "Polestar_Guides", "Polestar_Nav"];
+/// Always in the release: the addon, our guides, the walking router and maps, the settings window, the Skin
+/// API's checks and the game looks with Hearth (the last three loaded on demand; all committed).
+pub const RELEASE_ADDONS: [&str; 6] = ["Polestar", "Polestar_Guides", "Polestar_Nav", "Polestar_Options", "Polestar_SkinAPI", "Polestar_Looks"];
 /// The Codex folder (Lookup, Dungeons and Rares read it): a release refuses to go without it.
 pub const CODEX: &str = "Polestar_Codex";
 /// The optional recorder, in a zip of its own.
 pub const RECORDER: &str = "Polestar_Recorder";
+/// The skins in the download (docs/skins), each an addon of its own the player enables in the AddOns list;
+/// shipped when present (all committed). The Skin API's example, Polestar_Skin_Example, never ships.
+pub const SKIN_ADDONS: &[&str] = &[
+	"Polestar_Skin_Vellum",
+	"Polestar_Skin_Lumen",
+	"Polestar_Skin_Beacon",
+	"Polestar_Skin_Aurora",
+	"Polestar_Skin_Hairline",
+	"Polestar_Skin_Umbra",
+	"Polestar_Skin_Waymark",
+	"Polestar_Skin_Lanterns",
+	"Polestar_Skin_Sheen",
+];
 
 /// The generated data addons, shipped when built: the quest and item databases, the Codex, then the
 /// language folders `Polestar_<locale>` (our guides' texts and the game's names in each language).
@@ -32,9 +46,10 @@ fn has_toc(addons: &Path, name: &str) -> bool {
 /// Leffe's, loaded on demand by Polestar_Nav's router).
 pub const NAV_PARTS: [&str; 2] = ["Polestar_Nav_EK", "Polestar_Nav_Kalimdor"];
 
-/// The release's folders: the three always shipped, the walking maps' part addons when written, our guides'
-/// faction parts and race parts once built, then the data addons that are built (our guides' texts are in the
-/// language folders).
+/// The release's folders: the six always shipped, the walking maps' part addons when written, our guides'
+/// faction parts and race parts once built, Polestar's own extra packs once built (Polestar_Experimental:
+/// loaded on demand, once a player switches it on), the data addons that are built (our guides' texts are in
+/// the language folders), then the skin addons.
 pub fn release_addons(addons: &Path) -> Release {
 	let guides = forge_guide::project::OWN_FOLDER;
 	let factions = forge_guide::project::FACTION_PARTS.iter().map(|f| forge_guide::project::part_addon(guides, f));
@@ -43,7 +58,9 @@ pub fn release_addons(addons: &Path) -> Release {
 	let mut names: Vec<String> = RELEASE_ADDONS.iter().map(|s| s.to_string()).collect();
 	names.extend(NAV_PARTS.iter().map(|s| s.to_string()).filter(|n| has_toc(addons, n)));
 	names.extend(factions.chain(parts).filter(|n| has_toc(addons, n)));
+	names.extend(forge_guide::project::OWN_EXTRAS.iter().map(|e| e.folder.to_string()).filter(|n| has_toc(addons, n)));
 	names.extend(data);
+	names.extend(SKIN_ADDONS.iter().map(|s| s.to_string()).filter(|n| has_toc(addons, n)));
 	Release { names, skipped }
 }
 
@@ -76,14 +93,21 @@ pub fn notice_refusal(addons: &Path, names: &[String]) -> Option<String> {
 	None
 }
 
-/// The first of our guide parts among `names` (Polestar_Guides and its faction parts) that lacks its
-/// LICENSE-DATA.txt; None when each has one. Their guides carry the reference data's facts, so like a data
-/// addon none ships without the notice `forge guide compile` writes beside it.
+/// The first of our guide parts among `names` (Polestar_Guides and its faction parts, and Polestar's own extra
+/// packs) that lacks its LICENSE-DATA.txt; None when each has one. Their guides carry the reference data's
+/// facts, so like a data addon none ships without the notice `forge guide compile` writes beside it.
 pub fn guide_notice_refusal(addons: &Path, names: &[String]) -> Option<String> {
 	let guides = forge_guide::project::OWN_FOLDER;
-	let parts: Vec<String> = std::iter::once(guides.to_string()).chain(forge_guide::project::FACTION_PARTS.iter().map(|f| forge_guide::project::part_addon(guides, f))).collect();
+	let parts: Vec<String> = std::iter::once(guides.to_string())
+		.chain(forge_guide::project::FACTION_PARTS.iter().map(|f| forge_guide::project::part_addon(guides, f)))
+		.chain(forge_guide::project::OWN_EXTRAS.iter().map(|e| e.folder.to_string()))
+		.collect();
 	let n = names.iter().find(|n| parts.contains(n) && !addons.join(n).join("LICENSE-DATA.txt").exists())?;
-	Some(format!("{n} has no LICENSE-DATA.txt (rebuild it with `forge guide compile`)"))
+	let cmd = match forge_guide::project::own_extra(n) {
+		Some(e) => format!("forge guide compile {}", e.source),
+		None => "forge guide compile".to_string(),
+	};
+	Some(format!("{n} has no LICENSE-DATA.txt (rebuild it with `{cmd}`)"))
 }
 
 /// Why the built Codex folder `dir` may not ship, or None when it may: it must be built, carry its
@@ -176,6 +200,9 @@ mod tests {
 				"Polestar",
 				"Polestar_Guides",
 				"Polestar_Nav",
+				"Polestar_Options",
+				"Polestar_SkinAPI",
+				"Polestar_Looks",
 				"Polestar_Guides_Alliance",
 				"Polestar_Guides_Horde",
 				"Polestar_Guides_Orc",

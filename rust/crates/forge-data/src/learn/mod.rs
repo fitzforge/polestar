@@ -49,8 +49,9 @@ pub const STALE_VOTERS: usize = 3;
 /// An accept with no NPC took it from the window opened this recently.
 const ACCEPT_WINDOW: f64 = 60.0;
 
-/// The scope `forge record learn` knows.
-pub const SCOPES: [&str; 1] = ["forever-new"];
+/// The scopes `forge record learn` knows: `forever-new` learns every fact for the quests Forever added;
+/// `all` learns objective spots for every quest too (prerequisites and levels stay the Forever-new ones').
+pub const SCOPES: [&str; 2] = ["forever-new", "all"];
 
 pub struct Options {
 	/// The recordings archive (`rec.py`'s folder: session files + config.json).
@@ -66,6 +67,8 @@ pub struct Options {
 	/// The snapshot's last quests.json (what changed since).
 	pub previous: Option<PathBuf>,
 	pub offline: bool,
+	/// Objective spots for every quest (`--scope all`), not only the Forever-new ones.
+	pub all_spots: bool,
 }
 
 /// The files `learn` writes: data/recorded/quests.json and meta.json, data/local/recorded/report.md
@@ -210,7 +213,10 @@ struct Tick {
 pub struct Learner<'a> {
 	cfg: &'a Config,
 	verdicts: &'a Verdicts,
+	/// The quests whose prerequisites, exclusive groups and minimum levels are learned (Forever-new).
 	scope: &'a dyn Fn(i64) -> bool,
+	/// Objective spots for every quest, not only `scope`'s (`--scope all`).
+	all_spots: bool,
 	heads: Vec<Head>,
 	builds: Vec<i64>,
 	chars: Vec<Char>,
@@ -218,6 +224,10 @@ pub struct Learner<'a> {
 	char_sess: Vec<u32>,
 	char_ix: FxHashMap<String, usize>,
 	ticks: FxHashMap<(i64, i64), Vec<Tick>>,
+	/// (quest, objective line) -> EG Link's positions of it: (map, x, y, build) ([`Learner::add_eg`]).
+	eg: FxHashMap<(i64, i64), Vec<(i64, f64, f64, i64)>>,
+	/// EG Link's positions read, or None without its cache.
+	eg_read: Option<usize>,
 	/// quest -> (session, the game's objective list: (type, count)).
 	lists: FxHashMap<i64, Vec<(u32, Vec<(Option<String>, Option<i64>)>)>>,
 	/// quest -> sessions that accepted, ticked or handed it in.
@@ -235,17 +245,20 @@ pub struct Learner<'a> {
 }
 
 impl<'a> Learner<'a> {
-	pub fn new(cfg: &'a Config, verdicts: &'a Verdicts, scope: &'a dyn Fn(i64) -> bool) -> Learner<'a> {
+	pub fn new(cfg: &'a Config, verdicts: &'a Verdicts, scope: &'a dyn Fn(i64) -> bool, all_spots: bool) -> Learner<'a> {
 		Learner {
 			cfg,
 			verdicts,
 			scope,
+			all_spots,
 			heads: Vec::new(),
 			builds: Vec::new(),
 			chars: Vec::new(),
 			char_sess: Vec::new(),
 			char_ix: FxHashMap::default(),
 			ticks: FxHashMap::default(),
+			eg: FxHashMap::default(),
+			eg_read: None,
 			lists: FxHashMap::default(),
 			seen: FxHashMap::default(),
 			accept_maps: FxHashMap::default(),
@@ -257,6 +270,20 @@ impl<'a> Learner<'a> {
 			excluded: 0,
 			newest_received: 0.0,
 		}
+	}
+
+	/// EG Link's objective positions (players::load_eg_positions) of the quests whose spots are learned, from
+	/// builds the archive's `minBuild` keeps: one more counted voter for each spot they fall in.
+	pub fn add_eg(&mut self, ticks: &[crate::players::EgTick]) {
+		let mut n = 0;
+		for t in ticks {
+			let kept = (self.all_spots || (self.scope)(t.quest)) && !self.cfg.min_build.is_some_and(|m| (t.build as f64) < m);
+			if kept && (0.0..=100.0).contains(&t.x) && (0.0..=100.0).contains(&t.y) {
+				self.eg.entry((t.quest, t.line)).or_default().push((t.map, t.x, t.y, t.build));
+				n += 1;
+			}
+		}
+		self.eg_read = Some(n);
 	}
 
 	/// One session file's text.
@@ -315,6 +342,9 @@ impl<'a> Learner<'a> {
 		let t0 = rec.get("started").as_num().filter(|n| n.is_finite()).unwrap_or(0.0);
 		let (mut riding, mut flying) = (false, false);
 		let mut last_win: (Option<i64>, f64) = (None, f64::NEG_INFINITY);
+		// The quests whose objective spots are learned.
+		let (scope, all_spots) = (self.scope, self.all_spots);
+		let spot_scope = |q: i64| all_spots || scope(q);
 		let rows = &mut self.chars[ci].rows;
 		for ev in rec.get("events").items() {
 			let t = t0 + ev.get("t").as_num().filter(|n| n.is_finite()).unwrap_or(0.0);
@@ -348,7 +378,7 @@ impl<'a> Learner<'a> {
 					if let Some(q) = q {
 						let npc = npc.or(if t - last_win.1 <= ACCEPT_WINDOW { last_win.0 } else { None });
 						rows.push(row(Row::Accept(q, npc)));
-						if (self.scope)(q) {
+						if spot_scope(q) {
 							self.seen.entry(q).or_default().push(sess);
 							if let Some(m) = pos_int(&ev.get("map")) {
 								self.accept_maps.entry(q).or_default().push((sess, m));
@@ -359,20 +389,20 @@ impl<'a> Learner<'a> {
 				"turnin" => {
 					if let Some(q) = q {
 						rows.push(row(Row::Turnin(q)));
-						if (self.scope)(q) {
+						if spot_scope(q) {
 							self.seen.entry(q).or_default().push(sess);
 						}
 					}
 				}
 				"objectives" => {
-					if let Some(q) = q.filter(|q| (self.scope)(*q)) {
+					if let Some(q) = q.filter(|q| spot_scope(*q)) {
 						let list = ev.get("objectives").items().iter().map(|o| (o.get("type").as_str().map(str::to_string), int(&o.get("max")))).collect();
 						self.lists.entry(q).or_default().push((sess, list));
 					}
 				}
 				"progress" => {
 					let (Some(q), Some(oi)) = (q, pos_int(&ev.get("oi"))) else { continue };
-					if !(self.scope)(q) {
+					if !spot_scope(q) {
 						continue;
 					}
 					self.seen.entry(q).or_default().push(sess);
@@ -701,8 +731,11 @@ impl Learner<'_> {
 			})
 			.collect();
 		let nv = dense.len();
-		let mut counted = vec![false; nv];
-		let mut is_vouched = vec![false; nv];
+		// EG Link's positions vote as one more counted voter, never vouched (add_eg).
+		let eg_v = nv;
+		let mut counted = vec![false; nv + 1];
+		counted[eg_v] = true;
+		let mut is_vouched = vec![false; nv + 1];
 		for (i, h) in self.heads.iter().enumerate() {
 			counted[sess_voter[i]] |= counts[i];
 			is_vouched[sess_voter[i]] |= counts[i] && vouched(&h.voter());
@@ -791,7 +824,14 @@ impl Learner<'_> {
 						pts.push(spots::Pt { voter: sess_voter[t.sess as usize], map: t.map, x, y });
 					}
 				}
-				let found = spots::locate(&pts);
+				let mut found = spots::locate(&pts);
+				// EG Link's positions of the line back each spot a counted player backs that they fall in (within its
+				// radius and LINK_YD): a second source agreeing, never a spot of its own.
+				let eg = self.eg.get(&(q, oi as i64));
+				if let Some(eg) = eg {
+					let falls_in = |s: &spots::Spot| eg.iter().any(|&(m, x, y, _)| m == s.map && ctx.yards(m, x, y).is_some_and(|(px, py)| (px - s.x).hypot(py - s.y) <= s.r + spots::LINK_YD));
+					spots::add_voter(&mut found, eg_v, |s| s.voters.iter().any(|v| counted[*v]) && falls_in(s));
+				}
 				let mut agree: FxHashSet<usize> = FxHashSet::default();
 				let mut all: FxHashSet<usize> = FxHashSet::default();
 				for s in &found.spots {
@@ -804,6 +844,11 @@ impl Learner<'_> {
 				for t in ticks {
 					if agree.contains(&sess_voter[t.sess as usize]) {
 						let b = self.builds[t.sess as usize];
+						builds = (builds.0.min(b), builds.1.max(b));
+					}
+				}
+				if agree.contains(&eg_v) {
+					for &(_, _, _, b) in eg.into_iter().flatten() {
 						builds = (builds.0.min(b), builds.1.max(b));
 					}
 				}
@@ -820,6 +865,9 @@ impl Learner<'_> {
 						o.set("r", s.r.round());
 						o.set("voters", s.voters.len());
 						o.set("counted", s.voters.iter().filter(|v| counted[**v]).count());
+						if s.voters.contains(&eg_v) {
+							o.set("eg", true);
+						}
 						V::Obj(o)
 					})
 					.collect();
@@ -1099,7 +1147,7 @@ impl Learner<'_> {
 			out.push(QuestOut { id: q, zone, lines, known: known_list, facts });
 		}
 
-		let voters_counted = counted.iter().filter(|c| **c).count();
+		let voters_counted = counted[..nv].iter().filter(|c| **c).count();
 		let archive = ArchiveMeta {
 			revision: self.hash.finalize().iter().take(8).map(|b| format!("{b:02x}")).collect(),
 			files: self.files,
@@ -1112,8 +1160,10 @@ impl Learner<'_> {
 			merged,
 			newest_build,
 			newest_received: self.newest_received,
+			eg: self.eg_read,
 		};
-		render(&out, &ctx, &archive, verdicts_meta, previous, &|q| (self.scope)(q))
+		let scope_name = if self.all_spots { "all" } else { "forever-new" };
+		render(&out, &ctx, &archive, verdicts_meta, previous, &|q| (self.scope)(q), scope_name)
 	}
 }
 
@@ -1129,6 +1179,8 @@ struct ArchiveMeta {
 	merged: usize,
 	newest_build: i64,
 	newest_received: f64,
+	/// EG Link's objective positions used (None: not cached).
+	eg: Option<usize>,
 }
 
 // ---------------------------------------------------------------- output
@@ -1252,7 +1304,8 @@ fn describe(f: &Fact) -> String {
 	s
 }
 
-fn render(out: &[QuestOut], ctx: &Ctx, a: &ArchiveMeta, verdicts: (Option<String>, usize, usize), previous: Option<&V>, scope: &dyn Fn(i64) -> bool) -> Output {
+/// `scope`: the Forever-new quests (readiness); `scope_name`: the run's `--scope`.
+fn render(out: &[QuestOut], ctx: &Ctx, a: &ArchiveMeta, verdicts: (Option<String>, usize, usize), previous: Option<&V>, scope: &dyn Fn(i64) -> bool, scope_name: &str) -> Output {
 	let data = ctx.data;
 	let quests = Obj::new();
 	for q in out {
@@ -1275,7 +1328,7 @@ fn render(out: &[QuestOut], ctx: &Ctx, a: &ArchiveMeta, verdicts: (Option<String
 
 	// meta.json
 	let meta = Obj::new();
-	meta.set("scope", "forever-new");
+	meta.set("scope", scope_name);
 	meta.set("through", a.newest_received);
 	let am = Obj::new();
 	am.set("revision", a.revision.as_str());
@@ -1291,6 +1344,16 @@ fn render(out: &[QuestOut], ctx: &Ctx, a: &ArchiveMeta, verdicts: (Option<String
 	am.set("mergedPeople", a.merged);
 	am.set("newestBuild", a.newest_build);
 	meta.set("archive", V::Obj(am));
+	meta.set(
+		"egLink",
+		a.eg.map_or(V::Null, |n| {
+			let o = Obj::new();
+			o.set("revision", crate::players::EG_COMMIT);
+			o.set("positions", n);
+			o.set("credit", crate::players::EG_CREDIT);
+			V::Obj(o)
+		}),
+	);
 	let vm = Obj::new();
 	vm.set("revision", verdicts.0.clone().map_or(V::Null, V::from));
 	vm.set("exclude", verdicts.1);
@@ -1353,7 +1416,7 @@ fn render(out: &[QuestOut], ctx: &Ctx, a: &ArchiveMeta, verdicts: (Option<String
 	// report.md
 	let mut r = String::new();
 	let _ = writeln!(r, "# What players' recordings teach: Forever-new quests\n");
-	let _ = writeln!(r, "`forge record learn --scope forever-new` (docs/forge/learn.md). The snapshot is data/recorded/quests.json; this report and conflicts.json stay local.\n");
+	let _ = writeln!(r, "`forge record learn --scope {scope_name}` (docs/forge/learn.md). The snapshot is data/recorded/quests.json; this report and conflicts.json stay local.\n");
 	let _ = writeln!(
 		r,
 		"Archive {}: {} session files, {} used ({} of excluded contributors, {} of older builds, {} unreadable left out); {} voters ({} counted; {} contributors merged into the same person). Newest build {}.",
@@ -1448,7 +1511,15 @@ fn render(out: &[QuestOut], ctx: &Ctx, a: &ArchiveMeta, verdicts: (Option<String
 	let g = |k: Kind, s: &str| by_status.get(&(k, s)).copied().unwrap_or(0);
 	let c = |k: Kind, c: Class| by_kind.get(&(k, c)).copied().unwrap_or(0);
 	let summary = vec![
-		format!("learn: {} sessions used of {} ({} voters, {} counted); {} Forever-new quests with facts", a.sessions, a.files, a.voters, a.counted, out.len()),
+		format!(
+			"learn: {} sessions used of {} ({} voters, {} counted); {} {}quests with facts",
+			a.sessions,
+			a.files,
+			a.voters,
+			a.counted,
+			out.len(),
+			if scope_name == "all" { "" } else { "Forever-new " }
+		),
 		format!(
 			"objective spots: {} lines trusted ({} quests every line), {} provisional, {} conflict, {} stale",
 			g(Kind::Spot, "trusted"),
@@ -1483,7 +1554,7 @@ fn render(out: &[QuestOut], ctx: &Ctx, a: &ArchiveMeta, verdicts: (Option<String
 // ---------------------------------------------------------------- the command
 
 /// The session files of an archive, in name order (config.json and dot files are not sessions).
-fn session_files(dir: &Path) -> Result<Vec<String>, String> {
+pub(crate) fn session_files(dir: &Path) -> Result<Vec<String>, String> {
 	let rd = std::fs::read_dir(dir).map_err(|e| format!("{}: {e}", dir.display()))?;
 	let mut files: Vec<String> = rd.flatten().map(|e| e.file_name().to_string_lossy().to_string()).filter(|f| f.ends_with(".json") && !f.starts_with('.') && f != "config.json").collect();
 	files.sort_by(|a, b| cmp_utf16(a, b));
@@ -1513,7 +1584,14 @@ pub fn run(o: &Options, log: &dyn Fn(&str)) -> Result<Output, String> {
 	let in_data: FxHashSet<i64> = data.quests.keys().iter().filter_map(|k| k.parse().ok()).collect();
 	let scope = |q: i64| new.contains(&q) || (!in_data.contains(&q) && !era.contains(&q));
 	let files = session_files(&o.archive)?;
-	let mut l = Learner::new(&cfg, &verdicts, &scope);
+	let mut l = Learner::new(&cfg, &verdicts, &scope, o.all_spots);
+	match crate::players::load_eg_positions(&o.sources)? {
+		Some(eg) => {
+			l.add_eg(&eg);
+			log(&format!("EG Link: {} objective positions", eg.len()));
+		}
+		None => log("EG Link's objective positions are not cached (forge data sources --only eglink): spots from recordings alone"),
+	}
 	for (i, f) in files.iter().enumerate() {
 		let p = o.archive.join(f);
 		let text = std::fs::read_to_string(&p).map_err(|e| format!("{}: {e}", p.display()))?;

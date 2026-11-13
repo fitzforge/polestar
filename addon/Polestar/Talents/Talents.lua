@@ -39,7 +39,7 @@ T.FIRST_LEVEL = 10 -- the fallback only: one point a level from here
 -- Coming soon (Fitz, 0.3.1): the plans are not ready to steer players' picks.
 -- While set, there is no plan: the Talents section says "Coming soon", the
 -- talent frame gets no marks, tooltips no lines, chat no reminders, and the
--- Options page no Talents tab (Talents/Options.lua, UI/Options.lua). Unset it
+-- Options page no Talents tab (Polestar_Options: Talents/Options.lua, UI/Options.lua). Unset it
 -- and restore that tab to bring the plans back.
 T.SOON = true
 

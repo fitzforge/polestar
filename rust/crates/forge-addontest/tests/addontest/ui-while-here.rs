@@ -489,6 +489,7 @@ fn the_options_sit_in_the_window_tab_on_by_default_the_radius_from_60_to_400_yar
 		"",
 		"",
 		r#"
+		Polestar.UI.LoadOptions()
 		local UI, O = Polestar.UI, Polestar.UI.Options
 		UI.ShowOptions("guide")
 		local c = O.Controls("guide", "Window")
@@ -517,6 +518,7 @@ fn the_hand_ins_slider_sets_their_seconds_out_of_the_way_apart_from_how_close() 
 		"",
 		"",
 		r#"
+		Polestar.UI.LoadOptions()
 		local UI, O = Polestar.UI, Polestar.UI.Options
 		UI.ShowOptions("guide")
 		local c = O.Controls("guide", "Window")

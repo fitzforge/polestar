@@ -1,6 +1,8 @@
 'use strict';
 // Where the client keeps the retail art of the atlases the Blizzard skin draws
-// (Polestar.Theme, "Skins"): addon/Polestar/Theme/GameArt.lua.
+// (Polestar.Theme, "Skins"): addon/Polestar_Looks/GameArt.lua, in the part
+// that holds the game looks (loaded on demand: it reads Polestar's namespace
+// through the Polestar global).
 //
 // The Forever client swaps many atlas names for its own art (the "-c60"
 // members of an atlas element), so SetAtlas draws Forever's bronze there. The
@@ -19,7 +21,7 @@ const { pickBuild, cachedTable, fetchText } = require('../lib/data/wago');
 // The client tables this reads (and caches under data/sources/wago/<build>/).
 const TABLES = ['UiTextureAtlas', 'UiTextureAtlasElement', 'UiTextureAtlasMember', 'UiTextureAtlasElementSliceData'];
 
-// The atlas elements the Blizzard skin draws (Theme/Kits.lua names them).
+// The atlas elements the Blizzard skin draws (Polestar_Looks/GameSkins.lua names them).
 const ELEMENTS = [
 	'UI-Frame-Metal-CornerTopLeft', 'UI-Frame-Metal-CornerTopRight', 'UI-Frame-Metal-CornerBottomLeft',
 	'UI-Frame-Metal-CornerBottomRight', '_UI-Frame-Metal-EdgeTop', '_UI-Frame-Metal-EdgeBottom',
@@ -31,15 +33,13 @@ const ELEMENTS = [
 	'Options_Tab_Active_Left', 'Options_Tab_Active_Middle', 'Options_Tab_Active_Right', 'Options_HorizontalDivider',
 	'checkbox-minimal', 'checkmark-minimal',
 	'Minimal_SliderBar_Left', '_Minimal_SliderBar_Middle', 'Minimal_SliderBar_Right', 'Minimal_SliderBar_Button',
-	'common-dropdown-a-button', 'common-dropdown-a-button-hover', 'common-dropdown-a-button-pressed',
 	'common-search-border-left', 'common-search-border-middle', 'common-search-border-right',
 	'128-RedButton-Left', '_128-RedButton-Center', '128-RedButton-Right',
 	'128-RedButton-Left-Pressed', '_128-RedButton-Center-Pressed', '128-RedButton-Right-Pressed',
 	'128-RedButton-Left-Disabled', '_128-RedButton-Center-Disabled', '128-RedButton-Right-Disabled',
 	'128-RedButton-Highlight', 'RedButton-Exit', 'RedButton-exit-pressed',
-	'common-button-tertiary-square-normal', 'common-button-tertiary-square-hover', 'common-button-tertiary-square-depressed-normal',
-	'UI-QuestTracker-Primary-Objective-Header',
-	'ui-damagemeters-header-bar', 'ui-damagemeters-bar-shadowbg', 'ui-damagemeters-bar-shadowedge',
+	// The damage meter: its window's ground.
+	'damagemeters-background',
 	// The Settings panel's parts (SettingsPanel, its category list and rows).
 	'Options_List_Active', 'Options_List_Hover', 'RedButton-Highlight', '_UI-Frame-TopTileStreaks',
 	'UI-Frame-InnerTopLeft', 'UI-Frame-InnerTopRight', 'UI-Frame-InnerBotLeftCorner', 'UI-Frame-InnerBotRight',
@@ -49,9 +49,14 @@ const ELEMENTS = [
 	'minimal-scrollbar-track-top', '!minimal-scrollbar-track-middle', 'minimal-scrollbar-track-bottom',
 	'minimal-scrollbar-small-thumb-top', 'minimal-scrollbar-small-thumb-middle', 'minimal-scrollbar-small-thumb-bottom',
 	'minimal-scrollbar-arrow-top', 'minimal-scrollbar-arrow-bottom',
+	// The alert toasts' frame round the toasts and cards.
+	'Toast-NineSlice-CornerTopLeft', 'Toast-NineSlice-CornerTopRight', 'Toast-NineSlice-CornerBottomLeft',
+	'Toast-NineSlice-CornerBottomRight', '_Toast-NineSlice-EdgeTop', '_Toast-NineSlice-EdgeBottom',
+	'!Toast-NineSlice-EdgeLeft', '!Toast-NineSlice-EdgeRight',
 ];
 
-const OUT = path.join('Theme', 'GameArt.lua');
+// Relative to the addon folder the generator is given (addon/Polestar).
+const OUT = path.join('..', 'Polestar_Looks', 'GameArt.lua');
 
 const round = (n) => Math.round(n * 1e7) / 1e7;
 
@@ -106,7 +111,7 @@ function sliceData(tables, elements) {
 const SLICED = [
 	'common-dropdown-bg', 'common-dropdown-c-button', 'common-dropdown-c-button-hover-1',
 	'common-button-list-small', 'common-button-list-small-hover', 'common-button-list-small-selected',
-	'Legacy-Progressbar-Frame', 'UI-HUD-ActionBar-Frame',
+	'Legacy-Progressbar-Frame', 'UI-HUD-ActionBar-Frame', 'damagemeters-background',
 ];
 
 function toLua(art, build, slices = {}) {
@@ -116,7 +121,7 @@ function toLua(art, build, slices = {}) {
 		'-- The retail art of the atlases the Blizzard skin draws: file ID, size at',
 		'-- 1x, texture coordinates (left, right, top, bottom).',
 		'',
-		'local _, ns = ...',
+		'local ns = Polestar',
 		'ns.GameArt = {',
 	];
 	for (const name of Object.keys(art).sort()) {

@@ -124,8 +124,8 @@ step Noggle's Lost Satchel
 
 step Dearest Natalia
   tip Frankal Stonebridge and Rutgar Glyphshaper camp at Bronzebeard's Encampment, just north of the satchel's mountains. Question them: go through each one's whole conversation; there is no need to fight them.
-  kill 15171 quest 8304.1 @40.8,88.9 map 1451
-  kill 15170 quest 8304.2 @41.3,88.5 map 1451
+  talk 15171 quest 8304.1 @40.8,88.9 map 1451
+  talk 15170 quest 8304.2 @41.3,88.5 map 1451
 
 step Twilight Base Camp
   when onquest 8318
@@ -230,7 +230,7 @@ step Tanaris
 
 step Gadgetzan
   zone Tanaris
-  tip Fly to Gadgetzan. The Egg-O-Matic stands in the middle of town.
+  tip Fly to Gadgetzan. Still carrying The Super Egg-O-Matic? The machine stands in the middle of town.
   turnin 2741
   turnin 4507                         -- Inside
   accept 4509
@@ -299,7 +299,7 @@ step Kirsta Deepshadow
 step Andorhal watchtowers and silos
   tip Ride south into Andorhal. Chromie waits in the ruined inn on the west side of town. Stand in the doorway of each of the four towers with the Beacon Torch to mark it; keep to the edges of town. Use the Temporal Displacer by the silos in the middle of town to bring out Temporal Parasites.
   accept 4971                         -- Chromie, upstairs
-  use 12815 @42.3,66.2 map 1422
+  use 12815 quest 5098.2 @42.3,66.2 map 1422
   kill 10903 quest 5098.2 "Mark Andorhal Tower Two with the Beacon Torch"
   use 12627 @45.2,62.8 map 1422
   kill 10717 quest 4971.1
@@ -327,11 +327,15 @@ step The Bulwark
   turnin 5230                         -- Shadow Priestess Vandis
   accept 5231
   turnin 5098                         -- High Executor Derrington
-  accept 105
   accept 838
   turnin 838                          -- Apothecary Dithers
   accept 964
   turnin 6390                         -- Mickey Levine
+
+step High Executor Derrington
+  when group 105
+  tip Alas, Andorhal's shard lies at Araj the Summoner's feet, in the middle of Andorhal: he is a level 61 elite with elite Skeletal Warlords about him, a fight for a group.
+  accept 105
 
 # ---------------------------------------------------------------- Western Plaguelands
 
@@ -407,7 +411,9 @@ step Western Plaguelands
   goto 45.3,69.2 "Western Plaguelands"
 
 step Alas, Andorhal
+  when group 105
   zone Western Plaguelands
+  tip Araj the Summoner (61, elite) stands in the middle of Andorhal among Skeletal Warlords (56-57, elite): kill him with your group, then take the shard from Araj's Phylactery there.
   collect 17114 quest 105.1 @45.3,69.2 map 1422
 
 step Level 59.14
@@ -429,6 +435,10 @@ step The Bulwark
   turnin 5232
   accept 5233
   turnin 964
+
+step High Executor Derrington
+  when group 105
+  zone Tirisfal Glades
   turnin 105
 
 step Into Eastern Plaguelands

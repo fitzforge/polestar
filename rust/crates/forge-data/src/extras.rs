@@ -278,6 +278,53 @@ pub fn drop_summoned_vendors(summoned: &FxHashSet<i64>, npcs: &Obj, items: &Obj)
 	changed
 }
 
+// ---------------------------------------------------------------- place-name NPCs
+
+/// NPC records that are only a place's or a faction's name: no spawn, no service role, no quest starts, ends or
+/// needs them, no item drops from them or is sold by them, and the name is exactly a zone's or a faction's.
+/// QuestieDB 1.0.14 adds "Orgrimmar" (176552) and "Stormwind" (176553), which no world database, client cache or
+/// recording has: they name nothing a player can find, and a guide step titled after the city reads as titled
+/// after them. They leave the data. -> the NPC ids dropped, ascending.
+pub fn drop_place_name_npcs(npcs: &Obj, quests: &Obj, items: &Obj, zones: &Obj, factions: &Obj) -> Vec<i64> {
+	let names: FxHashSet<String> = zones
+		.values()
+		.into_iter()
+		.chain(factions.values())
+		.filter_map(|v| {
+			let n = v.get("name");
+			n.as_str().map(str::to_string)
+		})
+		.collect();
+	let mut used: FxHashSet<i64> = FxHashSet::default();
+	for q in quests.values() {
+		let mut refs = q.get("start").get("npc").items();
+		refs.extend(q.get("end").get("npc").items());
+		refs.extend(q.get("objectives").items().into_iter().filter(|o| matches!(o.get("type").as_str(), Some("kill" | "talk"))).map(|o| o.get("id")));
+		used.extend(refs.iter().filter_map(V::as_num).map(|n| n as i64));
+	}
+	for it in items.values() {
+		used.extend(it.get("vendors").items().iter().filter_map(V::as_num).map(|n| n as i64));
+		used.extend(it.get("drops").get("npc").keys().iter().filter_map(|k| k.parse::<i64>().ok()));
+	}
+	let mut gone: Vec<i64> = npcs
+		.entries()
+		.into_iter()
+		.filter_map(|(id, n)| {
+			let nid = id.parse::<i64>().ok()?;
+			let name = n.get("name");
+			let place = name.as_str().is_some_and(|s| names.contains(s));
+			let spawns = n.get("spawns");
+			let found = spawns.truthy() && !spawns.keys().is_empty();
+			(place && !found && n.get("roles").items().is_empty() && !used.contains(&nid)).then_some(nid)
+		})
+		.collect();
+	gone.sort_unstable();
+	for id in &gone {
+		npcs.delete(&id.to_string());
+	}
+	gone
+}
+
 #[cfg(test)]
 mod tests {
 	use super::*;
@@ -302,5 +349,28 @@ mod tests {
 		assert_eq!(stringify(&npcs.get("66").get("roles"), None), r#"["repair","vendor"]"#);
 		assert_eq!(stringify(&items.get("2880").get("vendors"), None), "[66]");
 		assert_eq!(stringify(&items.get("2901").get("vendors"), None), "[66]");
+	}
+
+	#[test]
+	fn npcs_that_are_only_a_city_or_faction_name_leave_the_data() {
+		// QuestieDB 1.0.14's 176552 "Orgrimmar" and 176553 "Stormwind" (a faction's name, not the zone's, "Stormwind
+		// City"): no spawn, no role, nothing refers to them. Kept: the same names with a spawn, a role, a quest or an
+		// item that refers to them, and an unspawned NPC with an ordinary name.
+		let npcs = parse_json(
+			r#"{"176552":{"id":176552,"name":"Orgrimmar","spawns":{}},"176553":{"id":176553,"name":"Stormwind"},
+			"13936":{"id":13936,"name":"Ravenholdt","spawns":{"1416":{"pts":[[86,79]]}}},"900001":{"id":900001,"name":"Orgrimmar","roles":["vendor"]},
+			"900002":{"id":900002,"name":"Stormwind"},"900003":{"id":900003,"name":"Orgrimmar"},"900004":{"id":900004,"name":"Stormwind"},
+			"900005":{"id":900005,"name":"Orgrimmar"},"900006":{"id":900006,"name":"Grull Hawkwind"}}"#,
+		)
+		.unwrap();
+		let quests = parse_json(r#"{"1":{"id":1,"start":{"npc":[900002]},"end":{"npc":[]},"objectives":[{"type":"kill","id":900003,"count":1}]}}"#).unwrap();
+		let items = parse_json(r#"{"2":{"id":2,"vendors":[900004],"drops":{"npc":{"900005":12.5}}}}"#).unwrap();
+		let zones = parse_json(r#"{"1454":{"id":1454,"name":"Orgrimmar"},"1453":{"id":1453,"name":"Stormwind City"},"1416":{"id":1416,"name":"Alterac Mountains"}}"#).unwrap();
+		let factions = parse_json(r#"{"72":{"id":72,"name":"Stormwind"},"76":{"id":76,"name":"Orgrimmar"},"349":{"id":349,"name":"Ravenholdt"}}"#).unwrap();
+		let gone = drop_place_name_npcs(npcs.as_obj().unwrap(), quests.as_obj().unwrap(), items.as_obj().unwrap(), zones.as_obj().unwrap(), factions.as_obj().unwrap());
+		assert_eq!(gone, vec![176552, 176553]);
+		let mut kept: Vec<String> = npcs.keys().iter().map(|k| k.to_string()).collect();
+		kept.sort();
+		assert_eq!(kept, ["13936", "900001", "900002", "900003", "900004", "900005", "900006"]);
 	}
 }

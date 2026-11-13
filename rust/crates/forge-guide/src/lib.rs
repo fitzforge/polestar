@@ -47,6 +47,7 @@ pub mod places;
 pub mod prereqs;
 pub mod project;
 pub mod races;
+pub mod recorded;
 pub mod resolve;
 pub mod solo;
 pub mod timed;

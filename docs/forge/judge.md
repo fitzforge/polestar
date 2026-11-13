@@ -83,7 +83,7 @@ each class an `only` in the guide names, and one class no `only` names. With
 |---|---|---|
 | R1 travel | A continent change needs a travel line (hearth, `die`, a boat/zeppelin `goto`). A zone change farther than 600 yd needs one too. `fly` needs both flight paths learnt and a flight master within 200 yd. `hearth` needs the inn you are bound at. Goals of an `along` step do not move the player. An `interact` with a portal ("Portal to ...", the Skyborne Portal to Stormwind) is travel: the next place is no walk from it. | fail |
 | R2 accept | An item-started quest needs the item in the bags. The giver stands within 80 yd. | fail |
-| R3 items | `collect` needs a source in the data within 400 yd (of any of its spots, for a goal searched over spots: a `loop` circuit's). Quest items drop only while a quest needs them. `use` needs the item in the bags. | fail / warn |
+| R3 items | `collect` needs a source in the data within 400 yd (of any of its spots, for a goal searched over spots: a `loop` circuit's). Quest items drop only while a quest needs them. `use` needs the item in the bags. A turn-in gives the quest's reward items. | fail / warn |
 | R4 NPCs | Givers and enders come from the data. A step titled with an NPC's name has a goal at that NPC. With several givers and no `npc`, none is 500 yd nearer. | fail |
 | R5 turn-in | The quest is held, every objective is credited, and every extra step the quest needs (use an item, escort, buy, ...) has a line since the accept. | fail / warn |
 | R6 gating | The data closes the quest to this race or class and no `only` gates the line (fail). An `only` on a quest the data opens to everyone (warn). | fail / warn |
@@ -95,7 +95,10 @@ each class an `only` in the guide names, and one class no `only` names. With
 Default mode runs R1-R10. It merges equal findings across personas and chains,
 plays each start's chain through the shared guides, and lets `buy` lines cover
 buy steps. It also adds a far-walk check to R1: a plain `goto` into another zone
-more than 4,000 yd away is a walk across zones, not a way in.
+more than 4,000 yd away is a walk across zones, not a way in. A quest the chain
+hands in on the spot (`turnin <id> direct`) never enters the log: R3 takes its
+objective items as obtainable without it (from the guide's line when the data
+names no source), and the hand-in gives its reward items.
 
 `--legacy` gives R1-R5 exactly as the Node playtest (`polestar playtest --honest`) printed them:
 one row per persona, with the old quirks. The report uses legacy mode so its

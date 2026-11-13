@@ -130,8 +130,8 @@ return {
 	["{npc:6019} stands at the edge of the {area:596}, south-west of {area:2407}; {object:176751} lie among the skeletons."] = "{npc:6019}站在{area:2407}西南方的{area:596}邊緣；{object:176751}散落在骸骨之間。",
 
 	-- Step 29: Flesh Picker
-	-- {npc:217590} Flesh Picker · {area:596} Kodo Graveyard · {npc:217412} Amaryllis Webb
-	["A {npc:217590} crawls about the {area:596}: catch one with the tool from {npc:217412}'s Entomology Starter Kit."] = "{area:596}裡有{npc:217590}在爬行：用{npc:217412}的昆蟲學入門工具包裡的工具抓一隻。",
+	-- {npc:217590} Flesh Picker · {area:596} Kodo Graveyard · {npc:217412} Amaryllis Webb · {item:213565} Entomology Starter Kit
+	["A {npc:217590} crawls about the {area:596}: catch one with the tool from {npc:217412}'s {item:213565}."] = "",
 
 	-- Step 30: Maraudine centaurs
 	["Maraudine centaurs"] = "瑪洛迪半人馬",
@@ -196,6 +196,7 @@ return {
 	["The next guide starts in Theramore."] = "下一份指南從塞拉摩開始。",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["A {npc:217590} crawls about the {area:596}: catch one with the tool from {npc:217412}'s Entomology Starter Kit."] = "{area:596}裡有{npc:217590}在爬行：用{npc:217412}的昆蟲學入門工具包裡的工具抓一隻。",
 	-- ["Follow the road north to {area:608}."] = "沿著道路向北前往{area:608}。",
 	-- ["Follow the road west across the north of {zone:1443} to the ruins of {area:2405}; the wrecked ship's chest lies on the shore just west of them."] = "沿著道路向西穿過{zone:1443}北部，前往{area:2405}的廢墟；失事船隻的箱子就在廢墟西邊的岸上。",
 	-- ["Greater Rock Elementals"] = "巨型石元素",

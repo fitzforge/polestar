@@ -22,3 +22,7 @@ section: players
   ForeverCore's replacement quest list hides on the Polestar tab and returns
   on Quests without changing its saved option. Guide reminder cards render
   above the tracker column while docked, keeping their usual placement.
+  Docked guides retain their selected Polestar look and artwork. The tab row
+  uses that look on Polestar and returns to the tracker's style on Quests.
+  Move frames can set the guide's future floating position without moving
+  the docked guide, with a note explaining how to move the tracker instead.

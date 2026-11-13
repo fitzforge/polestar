@@ -8,7 +8,8 @@ use forge_addontest::{emitted, is_match, text, truthy, Addon, RunAddon};
 use serde_json::{json, Value};
 use std::collections::HashSet;
 
-const FILES: [&str; 4] = ["Core/Init.lua", "Core/Compat.lua", "Theme/Theme.xml", "QoL/QoL.xml"];
+// The Quality of Life rows are the settings' addon's (Polestar_Options/QoL/Options.lua).
+const FILES: [&str; 5] = ["Core/Init.lua", "Core/Compat.lua", "Theme/Theme.xml", "QoL/QoL.xml", "../Polestar_Options/QoL/Options.lua"];
 
 const PRELUDE: &str = r#"
 local q = stub.qol
@@ -60,14 +61,18 @@ fn options_every_qol_setting_is_registered_on_questing_or_quality_of_life_with_l
 		local out = {}
 		for _, spec in ipairs(Polestar.Widgets.OptionsRegistry) do
 			if spec.page == "Quality of Life" or spec.page == "Questing" then
-				for _, c in ipairs(spec.controls) do
+				-- A feature's switch in its section's header counts with the rows.
+				local list = { spec.toggle }
+				for _, c in ipairs(spec.controls) do list[#list + 1] = c end
+				for _, c in ipairs(list) do
 					out[#out + 1] = { key = c.key, kind = c.kind, label = c.label, help = c.help, page = spec.page, tab = spec.tab, section = spec.section }
 				end
 			end
 		end
 		emit(out)
 		local keys = {}
-		for _, k in ipairs({ "itemButton", "targetButton", "hearthButton", "buttonScale", "xpTracker", "sellJunk", "autoRepair",
+		-- qol.buttonScale and qol.buttonTextSide sit on the Buttons look page (ui-look-buttons.rs).
+		for _, k in ipairs({ "itemButton", "targetButton", "hearthButton", "xpTracker", "sellJunk", "autoRepair",
 			"rewardHighlight", "rewardAutoPick", "flightAutoOpen", "flightHighlight", "flightAutoTake", "deathHelper", "instantQuestText",
 			"skipGossip", "fastLoot", "declineDuels", "repairGuild", "hideErrors", "autoReleasePvP", "declineGuildInvites",
 			"declinePartyStrangers", "acceptPartyFriends", "acceptSummon", "acceptResurrect", "buyGoals",
@@ -270,6 +275,25 @@ fn secure_buttons_key_labels_are_short_and_stay_inside_the_button() {
 			K("F"), K("SHIFT-NUMPAD5"), K(nil) == nil })
 	"#);
 	assert_eq!(out[0], json!(["M4", "TOPRIGHT", false, "sM5", "caMwU", "MwD", "F", "sNum 5", true]));
+}
+
+// #688: with the gamepad interface on, a button bound in its own binding context runs the target button, not a key
+// under it: the label names the key Polestar.Gamepad.BindingKeys says runs it in play (its chords never run a
+// secure click).
+#[test]
+fn secure_buttons_key_label_names_the_key_that_runs_it_in_play_from_the_gamepad_module() {
+	let out = run(r#"
+		local TARGET = "CLICK PolestarTargetButton:LeftButton"
+		GetBindingText = function(key) return key end
+		q.bindings[TARGET] = { "BUTTON4" }
+		Polestar.Gamepad = {
+			IsChord = function(key) return key:find("+", 1, true) ~= nil end,
+			BindingKeys = function(action) return action == TARGET and { "PADLTRIGGER+PAD1", "PAD3", "BUTTON4" } or {} end,
+		}
+		stub.fire("UPDATE_BINDINGS")
+		emit({ PolestarTargetButton.Hotkey:GetText() })
+	"#);
+	assert_eq!(out[0], json!(["PAD3"]));
 }
 
 #[test]
@@ -2582,7 +2606,7 @@ fn xp_mark_comes_back_with_the_ui_after_an_xp_gain_while_the_ui_was_hidden() {
 }
 
 #[test]
-fn xp_mark_on_by_default_on_quality_of_life_trackers_experience() {
+fn xp_mark_on_by_default_on_quality_of_life_trackers_and_map_experience() {
 	let out = run(r#"
 		local found
 		for _, spec in ipairs(Polestar.Widgets.OptionsRegistry) do
@@ -2592,11 +2616,11 @@ fn xp_mark_on_by_default_on_quality_of_life_trackers_experience() {
 		end
 		emit({ default = Polestar.GetDefault("qol.xpTargetMark"), where = found or "none" })
 	"#);
-	assert_eq!(out[0], json!({ "default": true, "where": { "page": "Quality of Life", "tab": "Trackers", "section": "Experience" } }));
+	assert_eq!(out[0], json!({ "default": true, "where": { "page": "Quality of Life", "tab": "Trackers & map", "section": "Experience" } }));
 }
 
 #[test]
-fn options_open_the_quest_log_cleanup_from_tooltips_and_quest_log() {
+fn options_open_the_quest_log_cleanup_from_quest_log_and_tooltips() {
 	let out = run(r#"
 		local found, asked
 		for _, spec in ipairs(Polestar.Widgets.OptionsRegistry) do
@@ -2608,7 +2632,7 @@ fn options_open_the_quest_log_cleanup_from_tooltips_and_quest_log() {
 		if found then found.c.onClick(); found.c = nil end
 		emit({ where = found or "none", asked = asked or false })
 	"#);
-	assert_eq!(out[0], json!({ "where": { "page": "Questing", "tab": "Quests", "section": "Tooltips and quest log" }, "asked": true }));
+	assert_eq!(out[0], json!({ "where": { "page": "Questing", "tab": "Quests", "section": "Quest log and tooltips" }, "asked": true }));
 }
 
 // ---------------------------------------------------------------------------

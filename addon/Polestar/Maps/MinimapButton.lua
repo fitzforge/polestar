@@ -21,6 +21,10 @@
 -- have one: AddonCompartmentFrame) does the same through the globals the
 -- .toc names: Polestar_OnAddonCompartmentClick / OnEnter / OnLeave.
 --
+-- Its size and mark (the logo, or the emblem in the accent or white) are
+-- maps.minimapButtonSize and maps.minimapButtonIcon, on the Buttons page;
+-- Maps.MinimapButtonFace draws the live button and the settings preview's.
+--
 -- Cost: nothing for a player who turned it off (no frame exists until the
 -- setting is first on).
 
@@ -28,11 +32,16 @@ local ADDON, ns = ...
 local Maps = ns.Maps
 local L = ns.L
 
-local abs, floor, max = math.abs, math.floor, math.max
+local abs, floor, max, min = math.abs, math.floor, math.max, math.min
 local cos, sin, atan2, rad, deg = math.cos, math.sin, math.atan2, math.rad, math.deg
 
-local SIZE = 32
 local EDGE = 5 -- pixels past the minimap's edge, so the button sits on its border
+
+-- Its look (the Buttons page, QoL/ButtonsOptions.lua).
+ns.RegisterDefaults("maps", {
+	minimapButtonSize = 32,
+	minimapButtonIcon = "logo", -- logo | accent | white
+})
 
 local button
 -- Where place() last put the button: "CENTER" of Minimap at these offsets.
@@ -124,7 +133,7 @@ function Maps.ShowMenu(anchor)
 	items[#items + 1] = { separator = true }
 	items[#items + 1] = { text = L["Guides"], icon = "guides", onClick = open("SHOW_PICKER") }
 	items[#items + 1] = { text = L["Lookup"], icon = "search", onClick = open("SHOW_LOOKUP") }
-	items[#items + 1] = { text = L["Options"], icon = "sliders", onClick = open("SHOW_OPTIONS") }
+	items[#items + 1] = { text = L["Settings"], icon = "sliders", onClick = open("SHOW_OPTIONS") }
 	items[#items + 1] = { separator = true }
 	items[#items + 1] = { text = L["Report a problem"], icon = "bug", onClick = open("SHOW_REPORT") }
 	W.ShowMenu(anchor, items, { point = "TOPRIGHT", relPoint = "BOTTOMLEFT", x = 4, y = 4 })
@@ -148,35 +157,70 @@ function Polestar_OnAddonCompartmentLeave(_, row)
 	if ns.Widgets then ns.Widgets.HideTooltip(row) end
 end
 
-local function build()
-	if button then return button end
+-- The mark in maps.minimapButtonIcon: "accent" or "white" the one-colour
+-- emblem, else the full-colour logo (as the floating button's,
+-- UI/Launcher.lua).
+local function paintIcon(tex, mode)
 	local W = ns.Widgets
-	if not (W and W.Tex and Minimap) then return nil end
-	button = ns.CreateFrameUnder("Button", "PolestarMinimapButton", Minimap)
-	button:SetSize(SIZE, SIZE)
-	button:SetFrameStrata("MEDIUM")
-	button:SetFrameLevel((Minimap:GetFrameLevel() or 1) + 8)
-	button:RegisterForClicks("LeftButtonUp", "RightButtonUp")
-	button:RegisterForDrag("LeftButton")
-	local back = W.Tex(button, "BACKGROUND", "circle", "panel")
-	back:SetAllPoints(button)
-	-- Named PolestarMinimapButtonIcon: minimap tidiers that stand a proxy in
-	-- for the button (Leatrix Plus's Enhance minimap) take its icon from
-	-- _G[name .. "Icon"]; without it they took the last small region, the
-	-- hover's plain circle, and showed that as Polestar's icon.
-	local logo = button:CreateTexture("PolestarMinimapButtonIcon", "ARTWORK")
-	logo:SetTexture(ns.Theme.Media("logo"))
-	logo:SetSize(SIZE - 10, SIZE - 10)
-	logo:SetPoint("CENTER", button, "CENTER", 0, 0)
-	button.Icon = logo
+	if mode == "accent" or mode == "white" then
+		tex:SetTexture(ns.Theme.Media("emblem"))
+		if mode == "accent" then
+			W.Color(tex, "accent")
+			return
+		end
+	else
+		tex:SetTexture(ns.Theme.Media("logo"))
+	end
+	W.Uncolor(tex)
+	tex:SetVertexColor(1, 1, 1, 1)
+end
+
+-- The look settings on a face: its size (maps.minimapButtonSize, the mark
+-- 22/32 of it) and mark. A collector that sizes the button its own way does
+-- so again after it.
+function Maps.PaintMinimapButton(b)
+	local size = max(20, min(64, tonumber(ns.Get("maps.minimapButtonSize")) or 32))
+	b:SetSize(size, size)
+	local mark = floor(size * 22 / 32 + 0.5)
+	b.Icon:SetSize(mark, mark)
+	paintIcon(b.Icon, ns.Get("maps.minimapButtonIcon"))
+end
+
+-- The disc, the mark and the hover on a plain Button: the live one (its
+-- mark named iconName) and the settings preview's.
+function Maps.MinimapButtonFace(b, iconName)
+	local W = ns.Widgets
+	local back = W.Tex(b, "BACKGROUND", "circle", "panel")
+	back:SetAllPoints(b)
+	local logo = b:CreateTexture(iconName, "ARTWORK")
+	logo:SetPoint("CENTER", b, "CENTER", 0, 0)
+	b.Icon = logo
 	-- The hover: the accent at 25 %, the strength in its colour (W.Color's
 	-- alpha, kept through theme repaints) and put back after any SetAlpha
 	-- (W.HoldColorAlpha): in the client a texture's SetAlpha sets that same
 	-- alpha, so a button bar showing our regions again at full alpha turned
 	-- it into an opaque disc over the logo.
-	local hover = W.HoldColorAlpha(W.Color(W.Tex(button, "HIGHLIGHT", "circle"), "accent", 0.25))
-	hover:SetAllPoints(button)
-	button.Hover = hover
+	local hover = W.HoldColorAlpha(W.Color(W.Tex(b, "HIGHLIGHT", "circle"), "accent", 0.25))
+	hover:SetAllPoints(b)
+	b.Hover = hover
+	Maps.PaintMinimapButton(b)
+	return b
+end
+
+local function build()
+	if button then return button end
+	local W = ns.Widgets
+	if not (W and W.Tex and Minimap) then return nil end
+	button = ns.CreateFrameUnder("Button", "PolestarMinimapButton", Minimap)
+	button:SetFrameStrata("MEDIUM")
+	button:SetFrameLevel((Minimap:GetFrameLevel() or 1) + 8)
+	button:RegisterForClicks("LeftButtonUp", "RightButtonUp")
+	button:RegisterForDrag("LeftButton")
+	-- Named PolestarMinimapButtonIcon: minimap tidiers that stand a proxy in
+	-- for the button (Leatrix Plus's Enhance minimap) take its icon from
+	-- _G[name .. "Icon"]; without it they took the last small region, the
+	-- hover's plain circle, and showed that as Polestar's icon.
+	Maps.MinimapButtonFace(button, "PolestarMinimapButtonIcon")
 	button:SetScript("OnClick", function(self, which)
 		if which == "RightButton" then
 			W.HideTooltip(self)
@@ -226,6 +270,9 @@ ns.On("SETTING_CHANGED", function(path)
 	if not ns.IsLoggedIn() then return end
 	if path == "maps.minimapButton" or path == "maps.minimapButtonAngle" or path == "maps" or path == "" then
 		Maps.RefreshMinimapButton()
+	end
+	if button and (path == "maps.minimapButtonSize" or path == "maps.minimapButtonIcon" or path == "maps" or path == "") then
+		Maps.PaintMinimapButton(button)
 	end
 end)
 

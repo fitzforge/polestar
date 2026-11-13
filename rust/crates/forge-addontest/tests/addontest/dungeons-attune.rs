@@ -261,7 +261,7 @@ fn with_the_local_codex_the_onyxia_blackwing_lair_naxxramas_and_dalaran_chains_f
 	let get = |key: &str, id: &str| -> Value { by[key].as_array().unwrap().iter().find(|a| a["id"] == id).unwrap().clone() };
 	assert_eq!(shape(&get("onyxias-lair", "drakefire-h")), "4903 > 4941 > 4974 > 6566 > 6567 > 6568 > 6569 > 6570 > 6582 > 6583 > 6584 > 6585 > 6601 > 6602*");
 	assert_eq!(get("onyxias-lair", "drakefire-h")["steps"][11]["after"], json!([6582, 6583, 6584]), "the three Tests of Skulls before Axtroz");
-	assert_eq!(shape(&get("city-of-dalaran", "sewer-key")), "544 > 545 > 93680 > 92434 > 96984*");
+	assert_eq!(shape(&get("city-of-dalaran", "sewer-key")), "544 > 93680 > 545 > 92434 > 96984*");
 	assert_eq!(shape(&get("blackwing-lair", "blackhand")), "drop:18987 > 7761*", "the Quartermaster drops the letter that starts it");
 	assert_eq!(shape(&get("naxxramas", "dread-citadel")), "9121* > 9122* > 9123*");
 	assert!(by["blackrock-spire"].is_null(), "Forever removed the Seal of Ascension");

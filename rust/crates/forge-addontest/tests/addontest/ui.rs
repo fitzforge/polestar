@@ -1067,6 +1067,96 @@ fn a_narrow_tab_truncates_its_title_and_keeps_its_level_range_whole_also_with_th
 	}
 }
 
+// The skins' design review (0.3.8): in the game looks a narrow tab's title and range ran up to its close, 3 units
+// short of the red button. Its text ends 6 clear of the close's ink in every one (Blizzard's close is now its
+// glyph, as the damage meter's header buttons are), and Classic's red button rests at full strength, not faded to
+// mud; the others keep the house's faint rest.
+#[test]
+fn in_the_game_looks_a_narrow_tab_s_text_ends_6_clear_of_its_close_and_classic_s_close_rests_whole() {
+	let out = run(r#"
+		Polestar.Set("ui.width", 300)
+		uistub.openTabs(TABS, 1)
+		local out = {}
+		for _, look in ipairs({ "forever", "blizzard", "classic" }) do
+			Polestar.Set("ui.skin", look)
+			GF.Render()
+			local b = shownTabs()[1]
+			local c = b.Close
+			-- Along the tab, from its left edge (the stub lays out no frames: the anchors' offsets). The range's
+			-- right end: the glyph 9 in and 12 wide, the range its offset right of the glyph.
+			local _, _, _, rx = b.Range:GetPoint(1)
+			local rangeRight = 9 + 12 + rx + b.Range:GetStringWidth()
+			-- The close's right side: its offset from the tab's right (or from its art's host, inset from it).
+			local _, rel, _, cx = c:GetPoint(1)
+			local hostIn = 0
+			if rel ~= b then local _, _, _, hx = rel:GetPoint(2); hostIn = hx end
+			local closeRight = b:GetWidth() + cx + hostIn
+			-- The close's ink: Blizzard's glyph, else the red button's 14, on the button's middle.
+			local ink = look == "blizzard" and c.Icon:GetWidth() or 14
+			local inkLeft = closeRight - c:GetWidth() / 2 - ink / 2
+			out[look] = { gap = inkLeft - rangeRight, range = b.Range:IsShown(),
+				cut = b.Label:IsShown() and b.Label:GetStringWidth() < b.Label:GetUnboundedStringWidth(), rest = c:GetAlpha(),
+				glyph = c.Icon:GetAlpha(), at = { rx, cx, hostIn, b:GetWidth(), c:GetWidth(), ink } }
+		end
+		emit(out)"#)
+	.remove(0);
+	for look in ["forever", "blizzard", "classic"] {
+		let m = &out[look];
+		assert_eq!(m["range"], true, "{look}: the range shows");
+		assert_eq!(m["cut"], true, "{look}: the title truncates (the tight case)");
+		assert!(f(&m["gap"]) >= 6.0, "{look}: the text ends {} before the close's ink: {m}", m["gap"]);
+	}
+	assert_eq!(out["blizzard"]["glyph"], 1.0, "Blizzard's close is its glyph, as the meter's header buttons are");
+	assert_eq!(out["classic"]["rest"], 1.0, "Classic's red button at rest as the game draws it");
+	assert!(f(&out["forever"]["rest"]) < 0.6 && f(&out["blizzard"]["rest"]) < 0.6, "the others keep the faint rest");
+}
+
+// A look chosen with the window open lays its tabs out at once as a window opened in that look does, not in the
+// last look's fonts and sizes until the next redraw: the tabs' places and widths, their titles' cut and fonts, the
+// level range's and the close's places, the close's rest. Every look in turn, then the text grown, each against a
+// fresh window opened in it (the looks lay their tabs out differently, so the comparison has something to catch).
+#[test]
+fn a_look_chosen_with_the_window_open_lays_its_tabs_out_as_a_window_opened_in_it_does() {
+	const MEASURE: &str = r#"
+		local function measure()
+			local m = {}
+			for i, b in ipairs(shownTabs()) do
+				local _, _, _, x = b:GetPoint(1)
+				local _, _, _, rx = b.Range:GetPoint(1)
+				local _, host, _, cx = b.Close:GetPoint(1)
+				m[i] = { x = x, width = b:GetWidth(), height = b:GetHeight(), title = b.Label:IsShown() and b.Label:GetText(),
+					titleWidth = b.Label:GetStringWidth(), titleFont = { b.Label:GetFont() }, range = b.Range:IsShown() and rx,
+					rangeWidth = b.Range:GetStringWidth(), rangeFont = { b.Range:GetFont() }, close = cx, closeOnTab = host == b,
+					closeWidth = b.Close:GetWidth(), closeRest = b.Close:GetAlpha() }
+			end
+			return m
+		end
+		Polestar.Set("ui.width", 300)"#;
+	let looks = ["forever", "blizzard", "classic", "hearth", "halo", "polestar"];
+	let list = looks.map(|l| format!("{l:?}")).join(", ");
+	let live = run(&format!(
+		r#"{MEASURE}
+		uistub.openTabs(TABS, 1)
+		local out = {{}}
+		for _, look in ipairs({{ {list} }}) do
+			Polestar.Set("ui.skin", look)
+			out[look] = measure()
+		end
+		Polestar.Set("ui.textSize", 1.25)
+		out.grown = measure()
+		emit(out)"#
+	))
+	.remove(0);
+	let fresh = |setting: &str| run(&format!("{MEASURE}\n{setting}\nuistub.openTabs(TABS, 1)\nemit(measure())")).remove(0);
+	for look in looks {
+		let opened = fresh(&format!("Polestar.Set(\"ui.skin\", {look:?})"));
+		assert_eq!(live[look], opened, "{look}: the tabs once it is chosen, against a window opened in it");
+	}
+	assert_eq!(live["grown"], fresh("Polestar.Set(\"ui.textSize\", 1.25)"), "the text grown with the window open");
+	assert_ne!(live["forever"], live["polestar"], "the looks lay their tabs out differently");
+	assert_ne!(live["grown"], live["polestar"], "the grown text lays them out differently");
+}
+
 #[test]
 fn without_the_engine_tabs_api_the_strip_stays_hidden_and_the_navigator_names_the_guide() {
 	let out = run_with(
@@ -1409,7 +1499,19 @@ fn the_header_menu_picker_new_tab_compact_transparent_lock_destructive_items_ask
 	.remove(0);
 	assert_eq!(
 		out["items"],
-		json!(["Choose guide", "Open in new tab", "Skip this step", "Report a problem", "Compact mode", "Transparent", "Lock window", "Reset guide progress", "Options", "Hide window"])
+		json!([
+			"Choose guide",
+			"Open in new tab",
+			"Skip this step",
+			"Report a problem",
+			"Compact mode",
+			"Transparent",
+			"Lock window",
+			"Reset guide progress",
+			"Quick settings",
+			"Options",
+			"Hide window"
+		])
 	);
 	assert_eq!(out["locked"], true);
 	assert_eq!(out["style"], "transparent");
@@ -1417,7 +1519,7 @@ fn the_header_menu_picker_new_tab_compact_transparent_lock_destructive_items_ask
 	assert_eq!(out["reset"], json!(["ResetProgress"]));
 	assert_eq!(out["picker"], true);
 	assert_eq!(out["options"], true);
-	assert_eq!(out["pickerAfter"], false, "one dialog at a time");
+	assert_eq!(out["pickerAfter"], true, "the settings window is a window of its own: the guide menu stays");
 }
 
 #[test]
@@ -2173,6 +2275,26 @@ fn an_area_objective_says_its_mobs_are_all_over_the_area_and_its_row_button_move
 	assert_eq!(out["call"], json!(["CycleSpot", 3, 3]));
 	assert_eq!(out["collect"], "Found all over this area: 5 spots");
 	assert_eq!(out["camp"], false, "a camp (not spread) says nothing extra");
+}
+
+// A goal of exact points (#1944: an object's known spawns, `exact` on the goal view) says under it how many
+// places the target stands at and that the arrow leads to each; its row button moves to the next.
+#[test]
+fn a_goal_of_exact_points_says_how_many_known_places_and_that_the_arrow_leads_to_each_1944() {
+	let out = run(r#"
+		uistub.setGuide(uistub.elwynn, 3)
+		local g = uistub.goal(3, 3)
+		g.spots, g.exact = 16, true
+		uistub.update()
+		local r = rowFor("Kobold Vermin")
+		emit({ sub = r.Sub:GetText(), alt = r.Alt:IsShown(),
+			one = Polestar.UI.GoalSubline({ t = "collect", spots = 1, exact = true, status = "active" }) or false,
+			done = Polestar.UI.GoalSubline({ t = "collect", spots = 9, exact = true, status = "done" }) or false })"#)
+	.remove(0);
+	assert_eq!(out["sub"], "16 known places: the arrow leads to each in turn");
+	assert_eq!(out["alt"], true, "the row's button moves to the next point");
+	assert_eq!(out["one"], false, "a single point says nothing more");
+	assert_eq!(out["done"], false, "a done goal neither");
 }
 
 // The Engine flags a quest started by an item (the collect stands for it, `starterOf`; the accept is `folded`)

@@ -18,7 +18,9 @@
 --
 -- The first time a chain's card shows on a character it shines once (a soft
 -- flash under ui.reduceMotion) and, with ui.classCardSound on, plays a short
--- chime on the game's sound effects channel.
+-- chime on the game's sound effects channel. The glow's strength, the
+-- stripe's width, the shine, the "Only you see this" note and the type sizes
+-- are the player's (toasts.classcard.*, Options > Alerts & toasts).
 --
 -- What each chain gives comes from UI/ClassRewards.lua (classrewards build).
 -- GuideFrame calls Fill on every render and Layout in its card layout; the
@@ -56,6 +58,16 @@ local function text(parent, role, color)
 end
 
 local function compact() return ns.Get("ui.compact") and true or false end
+
+-- The card's look (Options > Alerts & toasts, UI/Looks/Toasts.lua): its
+-- glow, stripe, first-time shine, the "Only you see this" note and type sizes.
+local function look(prop, fallback)
+	local TS = UI.Toasts
+	local v = TS and TS.Get("classcard", prop)
+	if v == nil then return fallback end
+	return v
+end
+local function stripe() return tonumber(look("stripe", STRIPE)) or STRIPE end
 
 ---------------------------------------------------------------------------
 -- Which quests are class quests, and what their chain gives
@@ -356,13 +368,13 @@ end
 -- The frame
 ---------------------------------------------------------------------------
 
-local function build()
-	local G = GF()
-	local card = G and G.parts and G.parts.card
-	if F or not card then return F end
-	F = CreateFrame("Frame", nil, card)
+local paint -- below
+
+-- The card's parts, drawn into `parent`: the guide window's card (build) or
+-- a sandbox one for the options' preview (CC.NewCard).
+local function newCard(parent)
+	local F = CreateFrame("Frame", nil, parent)
 	F:Hide()
-	CC.frame = F
 	F.Glow = F:CreateTexture(nil, "BACKGROUND", nil, 1)
 	F.Glow:SetTexture(Theme.Media("white"))
 	F.Glow:SetAllPoints(F)
@@ -429,18 +441,44 @@ local function build()
 	return F
 end
 
--- Colour every part in the class colour (raw for the fills, legible for text).
-local function paint(class)
+local function build()
+	local G = GF()
+	local card = G and G.parts and G.parts.card
+	if F or not card then return F end
+	F = newCard(card)
+	CC.frame = F
+	local TS = UI.Toasts
+	if TS then
+		-- In the guide window: its scale, ground and opacity are the window's.
+		TS.Attach("classcard", F, { titles = { F.Title }, bodies = { F.Head, F.Learn, F.Trip, F.Only, F.Accept.Text }, inline = true,
+			relayout = function()
+				if shown then paint(shown.class) end
+				if F:IsShown() and F.psCompact ~= nil then F.Only:SetShown(not (F.psCompact or F.psSlim) and look("note", true) ~= false) end
+				local G2 = GF()
+				if G2 and G2.Layout and G2.frame and G2.frame:IsShown() then G2.Layout() end
+			end })
+	end
+	return F
+end
+
+-- Colour every part of card c (the guide window's when nil) in the class
+-- colour (raw for the fills, legible for text).
+function paint(class, c)
+	local F = c or F
 	local r, g, b = Theme.ClassColor(class)
 	if not r then r, g, b = Theme.Accent() end
 	local tr, tg, tb = textColor(class)
 	Theme.Border(F, r, g, b, 0.75)
+	local sw = stripe()
+	F.Stripe:SetWidth(math.max(0.01, sw))
+	F.Stripe:SetShown(sw > 0)
 	F.Stripe:SetVertexColor(r, g, b, 1)
+	local glow = tonumber(look("glow", 1)) or 1
 	if F.Glow.SetGradient and CreateColor then
 		F.Glow:SetVertexColor(1, 1, 1, 1)
-		F.Glow:SetGradient("HORIZONTAL", CreateColor(r, g, b, 0.22), CreateColor(r, g, b, 0.03))
+		F.Glow:SetGradient("HORIZONTAL", CreateColor(r, g, b, math.min(1, 0.22 * glow)), CreateColor(r, g, b, math.min(1, 0.03 * glow)))
 	else
-		F.Glow:SetVertexColor(r, g, b, 0.12)
+		F.Glow:SetVertexColor(r, g, b, math.min(1, 0.12 * glow))
 	end
 	F.Disc:SetVertexColor(r * 0.2, g * 0.2, b * 0.2, 0.95)
 	F.Ring:SetVertexColor(r, g, b, 1)
@@ -507,7 +545,7 @@ function CC.Fill(guide, index, view)
 	for _, part in ipairs({ F.Ring, F.Disc, F.Icon, F.Head, F.Title }) do part:SetShown(not slim) end
 	if slim then F.Learn:Hide(); F.Badge:Hide() end
 	F.Trip:SetShown(not (F.psCompact or slim))
-	F.Only:SetShown(not (F.psCompact or slim))
+	F.Only:SetShown(not (F.psCompact or slim) and look("note", true) ~= false)
 	F.Accept:SetShown(fold ~= nil)
 	if fold then
 		local line
@@ -575,12 +613,13 @@ function CC.Colours(goal)
 end
 
 -- Place the card at the top of the guide window's card, `width` wide. -> its height (0 hidden)
-function CC.Layout(width)
+function CC.Layout(width, c)
+	local F = c or F
 	if not (F and F:IsShown()) then return 0 end
 	local w = width - INSET * 2
 	if F.psSlim then
 		-- One line by the class stripe, no ring, no frame.
-		local x = STRIPE + 8
+		local x = stripe() + 8
 		local checkW = F.Accept.Check:IsShown() and 18 + 6 or 0
 		F.Accept.Text:SetWidth(max(30, w - x - 6 - checkW))
 		local ah = max(18, F.Accept.Text:GetStringHeight())
@@ -647,16 +686,44 @@ function CC.Layout(width)
 		F.Trip:ClearAllPoints()
 		F.Trip:SetPoint("TOPLEFT", F, "TOPLEFT", 14, -y)
 		y = y + F.Trip:GetStringHeight() + 6
-		F.Only:SetWidth(w - 28)
-		F.Only:ClearAllPoints()
-		F.Only:SetPoint("TOPLEFT", F, "TOPLEFT", 14, -y)
-		y = y + F.Only:GetStringHeight() + 10
+		if F.Only:IsShown() then
+			F.Only:SetWidth(w - 28)
+			F.Only:ClearAllPoints()
+			F.Only:SetPoint("TOPLEFT", F, "TOPLEFT", 14, -y)
+			y = y + F.Only:GetStringHeight() + 10
+		else
+			y = y + 4
+		end
 	end
 	local h = floor(y + 0.5)
 	F:SetSize(w, h)
 	F:ClearAllPoints()
 	F:SetPoint("TOPLEFT", F:GetParent(), "TOPLEFT", INSET, -INSET)
 	return h + INSET + 4
+end
+
+-- A sandbox card for the options' preview (Alerts & toasts), and its paint
+-- for a made-up quest: d = { class, head, title, learn, badge, icon, trip }.
+-- -> its height at `width` (CC.Layout's, with the inset)
+function CC.NewCard(parent) return newCard(parent) end
+function CC.FillDemo(c, d, width)
+	paint(d.class, c)
+	c.Head:SetText(d.head or "")
+	c.Title:SetText(d.title or "")
+	c.Learn:SetText(d.learn or "")
+	c.Learn:SetShown(d.learn ~= nil)
+	c.Badge.Text:SetText(d.badge or "")
+	c.Badge:SetShown(d.badge ~= nil)
+	c.Icon:SetTexture(d.icon)
+	c.Trip:SetText(d.trip or "")
+	c.psCompact, c.psSlim = false, false
+	c.Glow:Show()
+	for _, part in ipairs({ c.Ring, c.Disc, c.Icon, c.Head, c.Title }) do part:Show() end
+	c.Trip:SetShown(d.trip ~= nil)
+	c.Only:SetShown(d.trip ~= nil and look("note", true) ~= false)
+	c.Accept:Hide()
+	c:Show()
+	return CC.Layout(width, c)
 end
 
 -- Whether the game plays sound effects (Sound_EnableAllSound and
@@ -677,16 +744,24 @@ function CC.Celebrate()
 	if ns.Get("ui.classCardSound") and CC.GameSoundOn() then
 		pcall(ns.PlaySound, (SOUNDKIT and SOUNDKIT.IG_QUEST_LIST_COMPLETE) or 878, "SFX")
 	end
-	local w = F:GetWidth()
+	CC.Shine(F)
+	return true
+end
+
+-- The shine across card c once (a soft flash of its glow under
+-- ui.reduceMotion), unless the player keeps the card still (Alerts & toasts
+-- > Class quest card).
+function CC.Shine(c)
+	if look("shine", true) == false then return end
+	local w = c:GetWidth()
 	if Anim.Reduced() then
 		-- No movement: the glow brightens and settles.
-		Anim.To(F.Glow, "alpha", 0.4, 1, Anim.SLOW * 2, "out")
-		return true
+		Anim.To(c.Glow, "alpha", 0.4, 1, Anim.SLOW * 2, "out")
+		return
 	end
-	F.Shine:SetAlpha(1)
-	F.Shine:Show()
-	Anim.Anchor(F.Shine, "LEFT", F, "LEFT", -SHINE_W, 0)
-	F.Shine:SetHeight(F:GetHeight())
-	Anim.To(F.Shine, "offsetX", 0, w + SHINE_W, SHINE_SECONDS, "inout", function(t) t:Hide() end)
-	return true
+	c.Shine:SetAlpha(1)
+	c.Shine:Show()
+	Anim.Anchor(c.Shine, "LEFT", c, "LEFT", -SHINE_W, 0)
+	c.Shine:SetHeight(c:GetHeight())
+	Anim.To(c.Shine, "offsetX", 0, w + SHINE_W, SHINE_SECONDS, "inout", function(t) t:Hide() end)
 end

@@ -117,8 +117,10 @@ pub fn is_folder(s: &str) -> bool {
 	(1..=64).contains(&s.len()) && s.bytes().all(|c| c.is_ascii_alphanumeric() || c == b'_' || c == b'-')
 }
 
-/// RESERVED_IDS, in its insertion order.
-pub const RESERVED_IDS: [&str; 6] = ["guides", "forever", "lookup", "draft", "polestar", "imported"];
+/// RESERVED_IDS, in its insertion order: the pack ids only Polestar's own packs may give (our guides'
+/// `guides`, the ids Polestar's own prefixes and packs use, and each of Polestar's own extra packs', project.rs
+/// OWN_EXTRAS), as Core/Guides.lua's Guides.RESERVED has them.
+pub const RESERVED_IDS: [&str; 7] = ["guides", "forever", "lookup", "draft", "polestar", "imported", "polestar-experimental"];
 
 /// The command that builds a pack folder, named in every file it writes.
 pub const COMPILE_COMMAND: &str = "forge guide compile";

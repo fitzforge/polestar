@@ -956,17 +956,6 @@
 			{
 				"a": [
 					"turnin",
-					98230
-				],
-				"b": [
-					"accept",
-					98300
-				],
-				"why": "Wetlands, #1299: Howin Kindfeather refused Word to Ironforge to 5 people (2 established), none with This Land Was Their Land handed in, and nobody was seen offered it; taken (optional) right after 98230's hand-in"
-			},
-			{
-				"a": [
-					"turnin",
 					465
 				],
 				"b": [
@@ -3842,7 +3831,7 @@
 					0
 				],
 				"faction": "Horde",
-				"why": "Horde 12-30 re-chain (2026-11-07): Warriors gather the Twitching Antennae at the Field of Giants right after Jorn's thunderhawks south of Camp Taurajo at 21 and take them straight to Ruga; the antennae vanish 15 minutes after they drop."
+				"why": "Horde 12-30 re-chain (2026-11-07): Warriors gather the Twitching Antennae at the Field of Giants right after the eggs, at the same mounds south of Camp Taurajo at 21, and take them straight to Ruga; the antennae vanish 15 minutes after they drop (the thunderhawks after the hand-in since 0.3.8: pair turnin 1824 -> task 913)."
 			},
 			{
 				"a": [
@@ -3867,6 +3856,18 @@
 				],
 				"faction": "Horde",
 				"why": "Timed-quest check (2026-11-08): Trial at the Field of Giants (30 minutes) is taken on Jorn's stop, before the thunderhawks south of the camp, so Warriors don't walk back to Camp Taurajo for it."
+			},
+			{
+				"a": [
+					"turnin",
+					1824
+				],
+				"b": [
+					"task",
+					913
+				],
+				"faction": "Horde",
+				"why": "Trial at the Field of Giants (1824, Warrior, 30 minutes; quests.json limit 1800): the thunderhawks (Cry of the Thunderhawk) flew between the accept and the antennae, so the timer ran during them. Players' recordings on Polestar 0.3.5 and later: 6 accepts, 2 hand-ins, 2 fails, 2 abandons. The eggs and the antennae share the Field of Giants' mounds and come first, then Ruga, then the thunderhawks."
 			},
 			{
 				"a": [
@@ -4855,13 +4856,62 @@
 				],
 				"faction": "Horde",
 				"why": "#1644 (0.3.7, flow): Altered Beings (880) is taken on the Crossroads stop after the Verog pass, where the seed test (877) is handed in, and its Oasis Snapjaws are collected at Lushwater Oasis on the Hezrul step (15 of their 24 spawns are in Lushwater's water, 45.7-48.1,38.3-40.6, where players' recordings show them killed; deliberate.together 852/880), handed to Tonga on the Crossroads stop before Counterattack!."
+			},
+			{
+				"a": [
+					"turnin",
+					258
+				],
+				"b": [
+					"task",
+					385
+				],
+				"faction": "Alliance",
+				"why": "#1833 (0.3.7, timed): A Hunter's Challenge (258) must be handed back to Daryl the Youngling within 12 minutes (quests.json limit 720). The route killed the Elder Mountain Boars and then gathered Crocolisk Hunting's eleven items and Daggerfang's knife on the shore before going back, so the timer ran during the crocolisks: players' recordings on Polestar 0.3.5 and later show 12 hand-ins and 3 fails at 12:00 out of 17 accepts, the hand-ins up to 11.9 minutes in. The boars come first, 258 goes straight back to Daryl, then the shore."
+			},
+			{
+				"a": [
+					"turnin",
+					258
+				],
+				"b": [
+					"task",
+					86758
+				],
+				"faction": "Alliance",
+				"why": "#1833: Daggerfang (Twisting the Knife) patrols the same shore as the Loch Crocolisks; taken after A Hunter's Challenge is handed in, with Crocolisk Hunting (see the 258 -> 385 pair)."
+			},
+			{
+				"a": [
+					"turnin",
+					1055
+				],
+				"b": [
+					"task",
+					1022
+				],
+				"faction": "Alliance",
+				"why": "#1866: the Howling Vale's Terrowulf packs (28-30) and their rare Packlord (32) stand round the Tome of Mel'Thandris (The Howling Vale, 1022), read on the first visit to Shael'dryn's moonwell: players' recordings show it read at levels 28-32 (median 29), and 2 people died in the vale, at 28 and 29. The route comes back to the moonwell after the south-east (the Hidden Shrine, 1055), where the same recordings show players handing in 1055 at 29-30 (5 of 6; one at 24), and the vale's tunnel is beside it on the way west to Astranaar: the tome is read then, with no extra stop."
+			},
+			{
+				"a": [
+					"turnin",
+					1478
+				],
+				"b": [
+					"accept",
+					1473
+				],
+				"faction": "Horde",
+				"why": "Undead Warlocks: Carendin Halgar offers Creature of the Void (1473) only once Halgar's Summons (1478, Ageron Kargal's pointer from Brill to him) is handed in. Players' recordings: 4 people carrying 1478 had 1473 refused at Carendin, and each was offered it right after handing 1478 in. The route takes 1478 on the Brill stop that trains (Ageron offered it to 3 recorded Warlocks there at 10) and hands it in to Carendin before 1473."
 			}
 		],
 		"notes": [
 			"Yendi's report (Herble's Bronze Tube before Look to the Stars) is the quest's own order: its buy is a task of 174, before the turn-in.",
 			"Pynte #404 (no ride steps below riding level): the sim has no ride steps; it rides (mountMul) from mountLevel 40.",
 			"Forever follow-ups only after the quests before them: the turnin -> accept pairs above (the #51/#112/#128/#143/#148/#225 sweep), and every prerequisite the data has (the evaluator does not take a quest before them).",
-			"First-visit flight paths (2026-11-10, Fitz in game at Ratchet): a getfp goes in the first step that stands within about 60 yd of its flight master, not a later visit. Ratchet: Bragok stands 16 yd from Sputtervalve (accept 894) on the first Ratchet stop (horde/02-the-barrens), learned there instead of on the fly step after the beach. Camp Taurajo: Omusa Thunderhorn stands 54 yd from Kirge Sternhorn (accept 854), where Tauren pass at the end of tauren/01-mulgore, learned there instead of at 02-the-barrens' Camp Taurajo stop. Sweep of every leveling chain (all races, both factions; first route goal within 40 and 100 yd of each flight master vs its first getfp): these two only; no flight master passed with no getfp."
+			"First-visit flight paths (2026-11-10, Fitz in game at Ratchet): a getfp goes in the first step that stands within about 60 yd of its flight master, not a later visit. Ratchet: Bragok stands 16 yd from Sputtervalve (accept 894) on the first Ratchet stop (horde/02-the-barrens), learned there instead of on the fly step after the beach. Camp Taurajo: Omusa Thunderhorn stands 54 yd from Kirge Sternhorn (accept 854), where Tauren pass at the end of tauren/01-mulgore, learned there instead of at 02-the-barrens' Camp Taurajo stop. Sweep of every leveling chain (all races, both factions; first route goal within 40 and 100 yd of each flight master vs its first getfp): these two only; no flight master passed with no getfp. The route writer's first-visit rule (60 yd, docs/forge/writer.md) writes both on every build.",
+			"Item-started quests' hand-ins hold (0.3.8): Sharptalon's Claw (2), Ursangous's Paw (23) and Shadumbra's Head (24) at Senani Thunderheart (horde/07-ashenvale), The Admiral's Orders (830) at Gar'Thok (orc and troll 01-durotar), Burning Shadows (832) at Neeru Fireblade (horde/03-silverpine-forest, the Neeru step now `when onquest 829,832`) and Attack on Camp Narache (781) at Chief Hawkwind (tauren/01-mulgore) were optional hand-ins beside other work at the same NPC, and the addon never holds an optional goal, so players who had the quest walked past its NPC and carried it finished. The hand-ins are plain goals (hidden for anyone who never took the quest). The guide writer marks such a hand-in optional ('optional at its NPC'); a writer rule that keeps an item-started quest's hand-in required is needed before the next route build, or that build marks them optional again."
 		],
 		"never": [
 			{
@@ -4913,6 +4963,14 @@
 			{
 				"q": 93739,
 				"why": "EpicTibbles #532: Exploring the Horde stays for Skyborne (its leaders' visits are on the route's way through Orgrimmar, Thunder Bluff and the Undercity; the report's Talk to lines test it)"
+			},
+			{
+				"q": 5845,
+				"why": "Of Lost Honor (Alliance 50-60/06-silithus): the route takes it from Tirion Fordring and fetches the Symbol of Lost Honor from the lake, but its hand-in back at Tirion was optional (the guide writer's 'optional at its NPC'), and the addon never holds an optional goal, so players walked past Tirion carrying it finished. The hand-in is a plain goal, as the Horde's 50-60/06-silithus already has it (hidden for anyone who did not take it)."
+			},
+			{
+				"q": 2479,
+				"why": "Hinott's Assistance (Horde Rogue): horde/05-stonetalon-mountains takes it from Shenthul ('keep it'), but its hand-in to Serge Hinott in Tarren Mill (horde/06-hillsbrad-foothills) was optional, so Rogues walked past Serge carrying it. The hand-in is a plain goal (hidden for anyone without the quest); the Poisons follow-up (2480) stays optional."
 			}
 		],
 		"southward": [
@@ -6392,15 +6450,15 @@
 			{
 				"a": [
 					"task",
-					913
-				],
-				"b": [
-					"task",
 					868,
 					0
 				],
+				"b": [
+					"task",
+					913
+				],
 				"faction": "Horde",
-				"why": "Horde 12-30 re-chain (2026-11-07): the Silithid eggs lie in the Field of Giants, just south of the plains where Jorn's thunderhawks circle. Final route review (2026-11-08): the eggs right after the thunderhawk wings, not after a walk back into Camp Taurajo to hand the wings to Jorn; Jorn takes them on the way back north (overrides pair task 868 before turnin 913)"
+				"why": "Horde 12-30 re-chain (2026-11-07): the Silithid eggs lie in the Field of Giants (42.6-48.5,69.4-72.4), just south of the plains where Jorn's thunderhawks circle (44.8-50.1,60.1-67.0). Final route review (2026-11-08): no walk back into Camp Taurajo between the two; Jorn takes the wings on the way back north (overrides pair task 868 before turnin 913). Since 0.3.8 the eggs come first and the thunderhawks on the way back north, so a Warrior's antennae, at the same mounds as the eggs, reach Ruga before the 30-minute Trial at the Field of Giants runs out (pair turnin 1824 -> task 913)."
 			},
 			{
 				"a": [
@@ -7155,6 +7213,10 @@
 			{
 				"q": 1012,
 				"why": "Alliance 1-30 audit (#1415, route review vWL4 2026-11-08) took Insane Druids (level 32, three druids deep in the Dor'Danil Barrow Den, Kayneth Stillwind before and after, nobody took it on a recorded version) out of 06-wetlands, but #1336 and #1341 had promised its barrow-entrance step publicly. A public promise wins: it is back where it was, optional, with a tip saying why to skip it and the entrance step from #1336 (611dbaf10)."
+			},
+			{
+				"q": 706,
+				"why": "Fiery Blaze Enchantments (Alliance 40-50/01-stranglethorn-vale, Hammertoe's Digsite) was a required accept whose only work, the Black Drake's Heart (a 2% drop from the Badlands' Scalding Whelps and Scorched Guardians), and its hand-in to Sigrun Ironhew are optional, so players carried it unfinished out of the Badlands. The accept is optional too."
 			}
 		],
 		"group": [
@@ -7272,6 +7334,16 @@
 				"q": 517,
 				"size": 3,
 				"why": "Horde 30-40 audit (2026-11-09): Elixir of Agony part 2 wants a Keg of Shindigger Stout (object 1727), which stands only in Dun Garok's cellar beside Captain Ironhill (2304, elite 32) and the elite dwarves (2344-2346); 2 recorded players looted it at Hillsbrad 71.6,80.7. A group quest the route offers with Battle of Hillsbrad's, not an optional solo accept."
+			},
+			{
+				"q": 709,
+				"size": 3,
+				"why": "#1791: Solution to Doom's Tablet of Ryun'eh (4631) comes only from the Ancient Chest (object 126260), just inside Uldaman's cave mouth at Badlands 39.34,18.82, 17-18 yd from Magregan Deepshadow (2932) and the Obsidian Golems (4872), elite 38, with Shadowforge Diggers (4846, elite 35-36) in the tunnel. Players' recordings: 2 people looted it, both stealth classes; one died at it. A group quest in both Badlands 30-40 guides, accept to hand-in."
+			},
+			{
+				"q": 105,
+				"size": 3,
+				"why": "#1791 sweep: Alas, Andorhal's Araj's Phylactery Shard (17114) comes only from Araj's Phylactery (object 177241) at Western Plaguelands 45.27,69.21, where Araj the Summoner (1852, elite 61) stands among Skeletal Warlords (1788, elite 56-57). A group quest on the Horde 50-60 route, accept to hand-in."
 			}
 		]
 	},
@@ -9234,6 +9306,20 @@
 				"q": 498,
 				"reason": "Catch-up in forever/horde/30-40/01-hillsbrad-foothills (#1660): The Rescue (Durnholde Keep), `when !turnedin 498`; it opens Infiltration 533 (and Valik) on the guide's first Tarren Mill stop. See 527.",
 				"issue": "#1660"
+			},
+			{
+				"q": 1478,
+				"after": [
+					"turnin",
+					354
+				],
+				"reason": "Undead Warlocks: Halgar's Summons (1478, 210 XP) from Ageron Kargal on the Brill stop that trains, handed in to Carendin Halgar before Creature of the Void (see the deliberate pair turnin 1478 -> accept 1473): carried, it blocked 1473's offer for 4 recorded players.",
+				"issue": "-"
+			},
+			{
+				"q": 567,
+				"reason": "Catch-up in forever/horde/30-40/01-hillsbrad-foothills (#1776): Dangerous! is taken from the poster in the 22-25 guide, which kills Farmer Kalaba (567.4) with the peasants (528) and Citizen Wilkes (567.2) at the smithy (529), and leaves the clerk (567.1, the town hall with 532) and the miner (567.3, Azurelode Mine with 539) to this guide. A character who carries it but left the 22-25 guide before the smithy had no step for Kalaba or Wilkes here: the catch-up's peasants and smithy steps (`when !turnedin 529`) now list them, as the 22-25 guide does. Kolbi (Skyborne Druid 31, 0.3.6) had 567 at 2/4, with 529 neither in the log nor handed in.",
+				"issue": "#1776"
 			}
 		],
 		"skip": [
@@ -9290,6 +9376,11 @@
 				"q": 98297,
 				"reason": "F80: Howin offers it only after the elite Death to the Dragonmaw",
 				"issue": ""
+			},
+			{
+				"q": 98300,
+				"reason": "Word to Ironforge: Howin Kindfeather offers it only once Death to the Dragonmaw (98291) and Stopping the Cycle (98297) are handed in, as QuestieDB 1.0.16 lists. Players' recordings to 2026-11-12: offered to 4 people (3 established), each just after handing in 98297 with 98291 done, and refused to 38 (21 established), 4 of them 20 minutes to 10 hours after handing in This Land Was Their Land (98230). The route takes neither quest (98291's Dragonmaw are elite, 98297 is left out above), so this one goes too, with #1299's pair that took it after 98230's hand-in.",
+				"issue": "#1299"
 			},
 			{
 				"q": 620,
@@ -9520,6 +9611,27 @@
 				"q": 7492,
 				"faction": "Horde",
 				"reason": "Flow, Horde 50-60/05 (0.3.6, BrHorde4060): Camp Mojache (level 57, 1500 XP) is Warcaller Gorlach's delivery from Orgrimmar to Talo Thornhoof at Camp Mojache. Since The Super Egg-O-Matic's eggs moved to 40-50/06, 05's only reason to fly Gadgetzan -> Camp Mojache -> Marshal's Refuge was this hand-in, instead of the direct Gadgetzan -> Marshal's Refuge flight on the way to Silithus: about 6 minutes of flying for 1500 XP (about five level-56 kills). Left out; Talo's follow-up is a Dire Maul quest.",
+				"issue": "-"
+			},
+			{
+				"q": 78132,
+				"reason": "QuestieDB 1.0.14 check (0.3.8): Dragonslayer's Helm is handed in at Alonso's window (Mystral Lake, Ashenvale) with the Dragonslayer's Helm, which the server's quest record asks for (players' caches, EG Link: one item; QuestieDB 1.0.14 agrees). The helm is a Discarded Helm inside Shadowfang Keep. The Ashenvale routes sent Warriors to Alonso to take and hand in his three quests on the spot, which nobody can do without the items; no recorded player has handed one in. Left out with the Shield (78133) and the Lance (78134).",
+				"issue": "-"
+			},
+			{
+				"q": 78133,
+				"reason": "QuestieDB 1.0.14 check (0.3.8): Dragonslayer's Shield needs the Dragonslayer's Shield at Alonso's window (the server's quest record, EG Link; QuestieDB 1.0.14), from a Wall-Mounted Shield the data places nowhere. Left out with the Helm (78132).",
+				"issue": "-"
+			},
+			{
+				"q": 78134,
+				"reason": "QuestieDB 1.0.14 check (0.3.8): Dragonslayer's Lance needs the Dragonslayer's Lance at Alonso's window (the server's quest record, EG Link; QuestieDB 1.0.14), which only the Dark Iron Entrepreneur in the Wetlands sells (75 silver): a trip from Ashenvale for 35 silver and quest XP. Left out with the Helm (78132).",
+				"issue": "-"
+			},
+			{
+				"q": 1037,
+				"faction": "Alliance",
+				"reason": "Velinde Starsong (610 XP at quest level 30) was taken at the Shrine of Aessina in 06-wetlands (about 29.5) and handed in to Thyn'tel Bladeweaver in Darnassus only in 40-50/01-stranglethorn-vale (Night Elves, about 41) or 40-50/05-the-hinterlands (about 47, a tenth of its XP by then): an 18-level carry for about 61 XP. Left out; the 40-50 Darnassus steps still hand in a copy players carry.",
 				"issue": "-"
 			}
 		],

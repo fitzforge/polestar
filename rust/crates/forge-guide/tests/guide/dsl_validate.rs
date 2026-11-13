@@ -306,6 +306,25 @@ fn an_accept_compiles_closed_by_the_quest_its_breadcrumb_leads_to_and_its_exclus
 	assert_eq!(json!([g[3]["closedBy"], g[3]["preTitles"]]), json!([[9330], { "9330": "Quest 9330" }]));
 }
 
+// A quest something closes for good carries where it is handed in and its XP, for the missable-quest line: silent
+// for a breadcrumb to the NPC offering the closing quest, or for one worth no XP. Other accepts carry neither.
+#[test]
+fn an_accept_something_closes_for_good_carries_its_hand_in_npcs_and_xp() {
+	let data = data_plus(
+		json!({
+			"9400": q(9400, json!({ "breadcrumbFor": 9401, "xp": 830, "end": { "npc": [2094], "object": [] } })),
+			"9401": q(9401, json!({})),
+			"9402": q(9402, json!({ "xp": 500 })),
+		}),
+		Value::Null,
+		Value::Null,
+	);
+	let r = compile_with(&guide_text(&["step S", "  accept 9400", "  accept 9402"]), &data);
+	let g = r.steps()[0]["goals"].as_array().unwrap().clone();
+	assert_eq!(json!([g[0]["closedBy"], g[0]["endNpcs"], g[0]["xp"]]), json!([[9401], [2094], 830]));
+	assert!(g[1].get("endNpcs").is_none() && g[1].get("xp").is_none(), "{}", g[1]);
+}
+
 // #1661: a child quest (9340, `parent` 9341, like Valik under Infiltration) is offered only while its parent is in
 // the log: the accept carries the parent, titled for the reason text, and no prerequisite.
 #[test]

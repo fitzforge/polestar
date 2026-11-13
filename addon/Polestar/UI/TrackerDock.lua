@@ -7,6 +7,7 @@ local active = false
 local polestarDock
 local tabOrder = {}
 local strip, holder, tracker, background
+local themeRow
 local customTracker, nativeTracker, questieTracker, backgroundTexture, backgroundDivider
 local buttons = {}
 local writing = false
@@ -123,7 +124,11 @@ local function Paint()
 		cr, cg, cb = color.r or 0, color.g or 0, color.b or 0
 		ca = profile.trackerBackdropEnabled and (color.a or 0.75) or 0
 	end
-	for _, panel in ipairs({strip, holder}) do
+	-- Quests follows the host tracker; Polestar uses the skin API on separate
+	-- surfaces so switching back cannot leave skin artwork on the host row.
+	-- The guide itself always retains its selected look.
+	holder:SetBackdrop(nil)
+	for _, panel in ipairs({strip}) do
 		if themed or questieTracker or (panel == strip and useHeaderArt) then
 			panel:SetBackdrop(nil)
 		else
@@ -137,12 +142,16 @@ local function Paint()
 	else
 		strip.fill:SetColorTexture(cr, cg, cb, ca)
 	end
-	holder.fill:SetColorTexture(cr, cg, cb, ca)
+	holder.fill:Hide()
 	strip.line:SetColorTexture(r, g, b, 1)
 	holder.line:SetColorTexture(r, g, b, 1)
 	strip.line:SetShown(themed and cfg.showTopLine ~= false)
-	holder.line:SetShown(themed and cfg.showTopLine ~= false)
+	holder.line:Hide()
+	strip.fill:SetShown(not active)
+	if active then strip.line:Hide(); strip:SetBackdrop(nil) end
+	themeRow:SetShown(active)
 	local previous
+	local previousTheme
 	for _, key in ipairs(tabOrder) do
 		local button = buttons[key]
 		local selected = (key == "quests" and not active) or (active and key == "polestar")
@@ -168,6 +177,16 @@ local function Paint()
 			button:SetPoint("LEFT", strip, "LEFT", inset + leftExtension, 0)
 		end
 		previous = button
+		button:SetShown(not active)
+		local tab = button.themeTab
+		ns.Theme.SetTabSelected(tab, selected)
+		ns.Widgets.Color(tab.Label, selected and "text" or "textDim")
+		tab:SetHeight(rowHeight - 4)
+		tab:SetWidth(math.max(tab.Label:GetStringWidth() + 20, 44))
+		tab:ClearAllPoints()
+		if previousTheme then tab:SetPoint("LEFT", previousTheme, "RIGHT", 6, 0)
+		else tab:SetPoint("LEFT", themeRow, "LEFT", 8 + leftExtension, 0) end
+		previousTheme = tab
 	end
 end
 
@@ -278,6 +297,10 @@ local function Initialize()
 
 	desiredAlpha = tracker:GetAlpha()
 	strip = Surface("PolestarTrackerDockTabs")
+	themeRow = CreateFrame("Frame", nil, strip, "BackdropTemplate")
+	themeRow:SetAllPoints(strip)
+	themeRow:Hide()
+	ns.Theme.Skin(themeRow, "panel")
 	holder = Surface("PolestarTrackerDockContent")
 	holder:SetFrameLevel(tracker:GetFrameLevel() + 5)
 	holder:SetPoint("TOPLEFT", background, "TOPLEFT")
@@ -302,6 +325,13 @@ local function Initialize()
 			button.label:SetFont(EllesmereUI.GetFontPath("questTracker"), 12, "")
 		end
 		button:SetScript("OnClick", function() Select(key) end)
+		local tab = CreateFrame("Button", nil, themeRow)
+		tab.Label = ns.Widgets.Text(tab, "label", "textDim")
+		tab.Label:SetPoint("CENTER")
+		tab.Label:SetText(entry[2])
+		ns.Theme.Skin(tab, "tab")
+		tab:SetScript("OnClick", function() Select(key) end)
+		button.themeTab = tab
 		buttons[key] = button
 		tabOrder[#tabOrder + 1] = key
 	end

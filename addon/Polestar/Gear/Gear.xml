@@ -9,5 +9,4 @@
 	<Script file="Bags.lua"/>
 	<Script file="Rewards.lua"/>
 	<Script file="Picks.lua"/>
-	<Script file="Options.lua"/>
 </Ui>

@@ -34,8 +34,8 @@ return {
 	["{npc:3412}'s workshop is in the {object:172958}. {quest:2841} is {area:133}'s last boss: great XP if you run it with a group. Run it whenever your group is ready; hand it in on a later {zone:1454} stop."] = "{npc:3412}的工坊位于{object:172958}。{quest:2841}的目标是{area:133}的最终首领，组队完成可获得大量经验。队伍准备好后随时可去，之后途经{zone:1454}时再交任务。",
 
 	-- Step 6: Gnomeregan
-	-- {area:133} Gnomeregan · {npc:7800} Mekgineer Thermaplugg · {item:9153} Rig Blueprints
-	["Run {area:133} with a group when it suits you: {npc:7800} at the end drops his Safe Combination; open his safe behind the northern bomb pillar for the {item:9153}."] = "方便时组队前往{area:133}：最终首领{npc:7800}会掉落他的Safe Combination；用它打开北侧炸弹柱后方的保险箱，取得{item:9153}。",
+	-- {area:133} Gnomeregan · {npc:7800} Mekgineer Thermaplugg · {item:210323} Safe Combination · {item:9153} Rig Blueprints
+	["Run {area:133} with a group when it suits you: {npc:7800} at the end drops his {item:210323}; open his safe behind the northern bomb pillar for the {item:9153}."] = "",
 
 	-- Step 7: Orgrimmar flight master
 	-- {zone:1454} Orgrimmar
@@ -259,6 +259,7 @@ return {
 	-- ["Head north up the coast. Giant Softshell Clams lie in the shallows and the Enraged Reef Crawlers walk the beach; open each clam in your bags for its meat."] = "沿海岸向北。巨型软壳蚌分布在浅水中，狂怒的暗礁蟹在沙滩行走；打开背包里的每个蚌壳取出蚌肉。",
 	-- ["Head west to the troll village on the coast, keeping clear of the {area:606} on the way. {npc:268705} stands on the path just north of the village."] = "向西前往海岸上的巨魔村庄，途中避开{area:606}。{npc:268705}站在村子北边不远的小路上。",
 	-- ["Keep north to {area:598}. The Slitherblade Myrmidons, Naga and Sorceresses hold the beach; pull them one at a time."] = "继续向北到{area:598}。海滩上有滑刃侍从、滑刃纳迦和滑刃巫师，逐只引来击杀。",
+	-- ["Run {area:133} with a group when it suits you: {npc:7800} at the end drops his Safe Combination; open his safe behind the northern bomb pillar for the {item:9153}."] = "方便时组队前往{area:133}：最终首领{npc:7800}会掉落他的Safe Combination；用它打开北侧炸弹柱后方的保险箱，取得{item:9153}。",
 	-- ["The Slitherblade naga hold the coast north of {area:2405}; {npc:12369} guards the {quest:6027} at the far northern tip."] = "滑刃纳迦占据了{area:2405}北边的海岸；{npc:12369}在最北端守着{quest:6027}。",
 	-- ["The zeppelin lands at the tower outside {zone:1454}'s main gate. {npc:5639} waits in the Drag; {npc:5640} stands in the {object:172961} on the west side of the city."] = "飞艇停靠在{zone:1454}正门外的高塔。{npc:5639}在暗巷区等候；{npc:5640}位于城西的{object:172961}。",
 	-- ["{npc:11863} waits in the ruined tower of {area:2405}, inland to the east."] = "{npc:11863}在东边内陆{area:2405}的废塔里等候。",

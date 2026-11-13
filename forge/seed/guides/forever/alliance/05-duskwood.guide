@@ -31,10 +31,12 @@ next forever/alliance/06-wetlands
 #
 # Deviations from the export:
 # - Look To The Stars (174): the export finds the Bronze Tube on Venture Co.
-#   machines in Stonetalon (a 1-2% drop). Herble Baubbletump sells it in
-#   Darkshire, next to Viktori: handed in on the first visit, and its second
-#   part (175) handed to Blind Mary on her visit; the Insane Ghoul (177, level
-#   26) waits for the Duskwood return (07-thousand-needles).
+#   machines in Stonetalon (a 1-2% drop). The tube comes from the Stormwind
+#   Auction House on 04-redridge-mountains' Stormwind stop (Herble Baubbletump,
+#   next to Viktori, keeps one and is nearly always sold out, #1348): handed in
+#   on the first Darkshire visit, and its second part (175) handed to Blind
+#   Mary on her visit; the Insane Ghoul (177, level 26) waits for the Duskwood
+#   return (07-thousand-needles).
 # - Wolves at Our Heels (226) is turned in on the second visit to Sven's camp
 #   (Lars stands beside Sven) instead of walking back west for it.
 # - Hearthstone: none here. The second loop ends at Sven's camp in the west,
@@ -47,24 +49,27 @@ next forever/alliance/06-wetlands
 #   95999, Shadow Magic's Blackrock Shadowcasters 115) and Lieutenant Fangore
 #   (180, 26) are on 04-redridge-mountains' loop at about 25, where those
 #   quests fit: players finished them solo at 21-23 in the recordings, so they
-#   are in the route's steps with a tip to group up if you can; the four elite
-#   quests' goals are optional (the leveling rule for elite-only drops),
-#   Fangore's (not elite) is not.
+#   are in the route's steps with a tip to group up if you can; the elite
+#   Wanted posters' work (169, 95999) is on steps the player opts into
+#   (`when group`, #1415: an all-optional step was passed at once, so nobody
+#   was led there), Fangore's (not elite) is a plain goal.
 # - Worgen in the Woods (173) needs level 23: the step before it says so.
 #
 # Class quests: Rogues finish Mathias and the Defias with Klaven's Tower
 # (2360, 2359, Poisons) at the end: Agent Kearnen and the tower stand just
 # over the Westfall border from Raven Hill, and Mathias Shaw is in Stormwind
 # on the way to the boat. Optional for Rogues there: The Touch of Zanzil
-# (2607-2609, Doc Mixilpixil in the Barracks cellar; Wildflowers, a Leaded
-# Vial and a Bronze Tube from Stormwind vendors, the thread in the city),
-# 1,305 XP without leaving Stormwind.
-# Human Paladins hand the Defias Script (1787, from Henze Faulk in
-# 04-redridge-mountains) to Gazin Tenorm at the Stormwind stop and learn
-# Redemption from Duthorian Rall (1788).
+# (2607-2609, Doc Mixilpixil in the Barracks cellar; Wildflowers and a Leaded
+# Vial from Stormwind vendors, a Bronze Tube from the Auction House, the thread
+# in the city), 1,305 XP without leaving Stormwind.
+# Human Paladins still carrying the Defias Script (1787: 03-loch-modan does Henze Faulk and
+# Redemption, 04-redridge-mountains is the fallback) hand it to Gazin Tenorm at the Stormwind
+# stop and learn Redemption from Duthorian Rall (1788).
 #
-# Left out (not in the export): Jitters' Growling Gut and Dusky Crab Cakes
-# (163, 5, 93), Seasoned Wolf Kabobs (90: Cooking), The Weathered Grave chain
+# Dusky Crab Cakes (93, taken in 04-redridge-mountains with Jitters' Growling Gut's hand-in): its
+# Gooey Spider Legs on the first west trip, handed to Chef Grual on the next Darkshire stop, and
+# Return to Jitters (240) handed in on the Raven Hill stop.
+# Left out (not in the export): Seasoned Wolf Kabobs (90: Cooking), The Weathered Grave chain
 # (225: ends at the elite Mor'Ladim), Ira's Dagger (96137: it starts from a
 # drop of the Lost Stalkers, Forever's new Duskwood mobs, at an unknown rate,
 # and is not in the new consensus either).
@@ -81,7 +86,7 @@ next forever/alliance/06-wetlands
 step Fly to Darkshire
   zone Redridge Mountains
   tip Back to the Lakeshire gryphon master: fly to Darkshire for Duskwood's second loop.
-  goto 25.5,59.4 "Lakeshire flight master"
+  goto 25.5,59.4 "Lakeshire flight master" live
   fly "Darkshire"
 
 step Blind Mary
@@ -107,13 +112,18 @@ step Abercrombie
   turnin 157
   accept 158
 
+step Gooey Spider Legs
+  when onquest 93
+  tip Carrion Recluses lurk in the woods on the way west, and Venom Web Spiders, Pygmy Venom Web Spiders and Green Recluses crawl just south of Sven's camp: each can drop a leg.
+  collect 2251 quest 93 @10.5,41.5            -- Gooey Spider Leg
+
 step Sven's Camp
   turnin 226                              -- Lars
   turnin 230                              -- Sven Yorgen
   accept 262
 
 step Back to Darkshire
-  tip Head back east to Darkshire.
+  tip Hearth back to Darkshire if you bound at the Scarlet Raven Tavern on the first loop, or head back east along the road.
   turnin 262                              -- Madame Eva, inside
   accept 265
   turnin 265                              -- Clerk Daltry, in the town hall
@@ -122,6 +132,12 @@ step Back to Darkshire
   accept 453
   turnin 158                              -- Tavernkeep Smitts
   accept 156
+
+step Chef Grual
+  when onquest 93
+  tip Chef Grual is in the Scarlet Raven Tavern too.
+  turnin 93
+  accept 240                              -- For Jitters, at Raven Hill on the way west
 
 step Rot Blossoms
   tip Skeletal Horrors walk the hillside between Darkshire and the Tranquil Gardens Cemetery, south-east of town; they drop the Rot Blossoms.
@@ -162,6 +178,10 @@ step Jitters
   turnin 453
   accept 268
 
+step Jitters
+  when onquest 240
+  turnin 240
+
 step Sven's Camp
   turnin 268                              -- Sven Yorgen
   note Next: training, then the flight from Stormwind to Menethil Harbor for the Wetlands.
@@ -169,6 +189,7 @@ step Sven's Camp
 
 step Westfall
   only Rogue
+  when onquest 2360
   zone Westfall
   goto 68.5,70.1 "Westfall"
 
@@ -196,7 +217,7 @@ step Master Mathias Shaw
   accept 2609 optional
   buy 3421 x1 npc 1302 optional               -- Simple Wildflowers: Bernard Gump
   buy 3372 x1 npc 1313 optional               -- Leaded Vial: Maria Lumere, Alchemy Supplies
-  buy 4371 x1 npc 5519 optional               -- Bronze Tube: Billibub Cogspinner, Dwarven District
+  collect 4371 x1 @61.2,71.3 map 1453 live optional -- Bronze Tube: the Auction House, Trade District; Billibub Cogspinner keeps one and is nearly always sold out
   collect 8431 quest 2609.4 optional @50.6,60.1 live -- Spool of Light Chartreuse Silk Thread
   turnin 2609 optional                        -- Doc Mixilpixil: Eau de Mixilpixil
 
@@ -213,8 +234,9 @@ step Class trainer
 step Gazin Tenorm
   only Human,Paladin
   zone Stormwind City
+  when onquest 1787,1788
   tip On into Stormwind: Gazin Tenorm and Duthorian Rall are in the Cathedral of Light, on the way to the gryphon master.
-  goto 50.5,47.5 "Cathedral of Light"
+  goto 50.5,47.5 "Cathedral of Light" live
   turnin 1787 only Human -- Gazin Tenorm
   accept 1788 only Human
   turnin 1788 only Human -- Duthorian Rall: Redemption

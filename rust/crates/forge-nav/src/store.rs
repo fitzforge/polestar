@@ -474,27 +474,112 @@ impl WalkStore {
 	}
 
 	/// The store as a PSBN file (header: schema, models; sections: ends and answers sorted by
-	/// model, from, to).
+	/// model, from, to): [`WalkStore::write_to`]'s bytes, in memory.
 	pub fn encode(&self) -> Vec<u8> {
+		let mut out = Vec::new();
+		self.write_to(&mut out).expect("walk store: writing to memory");
+		out
+	}
+
+	/// The store's file written to `w` section by section: the file's answers and the new ones merged by
+	/// model, then (from, to), a key in both the new one. Only the merge order is held (8 bytes an answer),
+	/// never the merged answers, their sections' bytes or the file's (the whole store three more times: an
+	/// Alliance grid store of 1.85 GB went past a 10 GB budget at its save).
+	pub fn write_to(&self, w: &mut dyn std::io::Write) -> std::io::Result<()> {
 		let mut over: Vec<Key> = self.answers.keys().copied().collect();
 		over.sort_unstable_by_key(|&(a, b, m)| (m, a, b));
-		let n = self.len();
-		let mut out = Merged {
-			a: Vec::with_capacity(n),
-			b: Vec::with_capacity(n),
-			m: Vec::with_capacity(n),
-			yd: Vec::with_capacity(n),
-			cost: Vec::with_capacity(n),
-			off: Vec::with_capacity(n + 1),
-			ck: Vec::with_capacity(self.base.cell_key.len()),
-			cy: Vec::with_capacity(self.base.cell_key.len()),
-			has: Vec::with_capacity(n),
+		assert!(over.len() < 1 << 31 && self.base.len() < NO_AT as usize, "walk store: too many answers to write");
+		let (slots, runs) = self.merge_order(&over);
+		let o = Order { over, slots, runs };
+		let n = o.slots.len();
+		let mut cells = 0;
+		self.each_slot(&o, |m, v| cells += self.slot_cells(&o.over, m, v).len());
+		let mut header = Map::new();
+		header.insert("schema".into(), json!(STORE_SCHEMA));
+		header.insert("kind".into(), json!("walkstore"));
+		header.insert("models".into(), Value::Array(self.models.iter().map(|m| json!({ "key": m.key(), "grid": m.grid, "params": m.params })).collect()));
+		let e = &self.ends;
+		let mut small = vec![
+			Section::i32s("end.c", &e.iter().map(|x| x.c).collect::<Vec<_>>()),
+			Section::f64s("end.x", &e.iter().map(|x| x.x).collect::<Vec<_>>()),
+			Section::f64s("end.y", &e.iter().map(|x| x.y).collect::<Vec<_>>()),
+			Section::f64s("end.z", &e.iter().map(|x| x.z).collect::<Vec<_>>()),
+			Section::f64s("end.zf", &e.iter().map(|x| x.zf).collect::<Vec<_>>()),
+		];
+		if !self.zones.is_empty() {
+			small.push(Section::i32s("end.zone", &(0..e.len() as u32).map(|i| self.zones.get(&i).map_or(-1, |&z| z as i32)).collect::<Vec<_>>()));
+		}
+		let o = &o;
+		let column = |name: &str, kind: psbn::Kind, len: usize, size: usize, col: Col| psbn::Stream {
+			name: name.into(),
+			kind,
+			len,
+			bytes: len * size,
+			emit: Box::new(move |out: &mut dyn FnMut(&[u8])| self.emit_column(o, col, out)),
 		};
-		out.off.push(0);
-		// Model by model: the file's answers and the new ones, merged by (from, to); a key in both is the new one.
+		// The sections in the order the file has always had them.
+		let mut streams: Vec<psbn::Stream> = small[..5].iter().map(psbn::Stream::of).collect();
+		streams.push(column("a", psbn::Kind::U32, n, 4, Col::A));
+		streams.push(column("b", psbn::Kind::U32, n, 4, Col::B));
+		streams.push(column("m", psbn::Kind::U32, n, 4, Col::M));
+		streams.push(column("yd", psbn::Kind::F64, n, 8, Col::Yd));
+		streams.push(column("cost", psbn::Kind::F64, n, 8, Col::Cost));
+		streams.extend(small[5..].iter().map(psbn::Stream::of));
+		streams.push(column("cell.off", psbn::Kind::U32, n + 1, 4, Col::Off));
+		streams.push(column("cell.key", psbn::Kind::U32, cells, 4, Col::CellKey));
+		streams.push(column("cell.yd", psbn::Kind::F32, cells, 4, Col::CellYd));
+		streams.push(column("cell.has", psbn::Kind::U8, n, 1, Col::Has));
+		psbn::encode_to(w, &header, &streams).map(|_| ())
+	}
+
+	/// f(model, slot) for every answer in file order.
+	fn each_slot(&self, o: &Order, mut f: impl FnMut(u32, u64)) {
+		for &(m, lo, hi) in &o.runs {
+			for &v in &o.slots[lo..hi] {
+				f(m, v);
+			}
+		}
+	}
+
+	/// Column `col` of every answer in file order, as little-endian bytes to `out`.
+	fn emit_column(&self, o: &Order, col: Col, out: &mut dyn FnMut(&[u8])) {
+		let mut c = Chunks::new(out);
+		let mut off = 0u32;
+		if col == Col::Off {
+			c.put(&off.to_le_bytes());
+		}
+		self.each_slot(o, |m, v| match col {
+			Col::A | Col::B | Col::M | Col::Yd | Col::Cost => {
+				let ((a, b, mm), x, _) = self.slot(&o.over, m, v);
+				match col {
+					Col::A => c.put(&a.to_le_bytes()),
+					Col::B => c.put(&b.to_le_bytes()),
+					Col::M => c.put(&mm.to_le_bytes()),
+					Col::Yd => c.put(&x.yd.to_le_bytes()),
+					_ => c.put(&x.cost.to_le_bytes()),
+				}
+			}
+			Col::Off => {
+				off += self.slot_cells(&o.over, m, v).len() as u32;
+				c.put(&off.to_le_bytes());
+			}
+			Col::CellKey => self.slot_cells(&o.over, m, v).each(|k, _| c.put(&k.to_le_bytes())),
+			Col::CellYd => self.slot_cells(&o.over, m, v).each(|_, y| c.put(&y.to_le_bytes())),
+			Col::Has => c.put(&[!matches!(self.slot_cells(&o.over, m, v), Cells::None) as u8]),
+		});
+		c.flush();
+	}
+
+	/// The file order of the answers: each a slot (`NEW` clear: the file's answer i; set: `over[o]`, with
+	/// its key's place in the file or `NO_AT`), and the runs of one model, (model, from, to) of the order.
+	fn merge_order(&self, over: &[Key]) -> (Vec<u64>, Vec<(u32, usize, usize)>) {
+		let mut order = Vec::with_capacity(self.len());
+		let mut runs = Vec::new();
 		let models = self.base.range.len().max(over.last().map_or(0, |k| k.2 as usize + 1));
+		let new = |o: usize, at: Option<usize>| NEW | (o as u64) << 32 | at.map_or(NO_AT, |i| i as u64);
 		let mut o = 0;
 		for m in 0..models as u32 {
+			let start = order.len();
 			let (lo, hi) = self.base.range.get(m as usize).copied().unwrap_or((0, 0));
 			let mut i = lo;
 			let o_end = o + over[o..].iter().take_while(|k| k.2 == m).count();
@@ -503,71 +588,56 @@ impl WalkStore {
 				let new_ab = (o < o_end).then(|| (over[o].0 as u64) << 32 | over[o].1 as u64);
 				match (base_ab, new_ab) {
 					(Some(x), Some(y)) if x == y => {
-						self.push_new(&mut out, over[o], Some(i));
+						order.push(new(o, Some(i)));
 						i += 1;
 						o += 1;
 					}
 					(Some(x), Some(y)) if x > y => {
-						self.push_new(&mut out, over[o], None);
+						order.push(new(o, None));
 						o += 1;
 					}
 					(None, Some(_)) => {
-						self.push_new(&mut out, over[o], None);
+						order.push(new(o, None));
 						o += 1;
 					}
 					_ => {
-						self.push_base(&mut out, m, i);
+						order.push(i as u64);
 						i += 1;
 					}
 				}
 			}
+			runs.push((m, start, order.len()));
 		}
-		let mut header = Map::new();
-		header.insert("schema".into(), json!(STORE_SCHEMA));
-		header.insert("kind".into(), json!("walkstore"));
-		header.insert("models".into(), Value::Array(self.models.iter().map(|m| json!({ "key": m.key(), "grid": m.grid, "params": m.params })).collect()));
-		let e = &self.ends;
-		let mut sections = vec![
-			Section::i32s("end.c", &e.iter().map(|x| x.c).collect::<Vec<_>>()),
-			Section::f64s("end.x", &e.iter().map(|x| x.x).collect::<Vec<_>>()),
-			Section::f64s("end.y", &e.iter().map(|x| x.y).collect::<Vec<_>>()),
-			Section::f64s("end.z", &e.iter().map(|x| x.z).collect::<Vec<_>>()),
-			Section::f64s("end.zf", &e.iter().map(|x| x.zf).collect::<Vec<_>>()),
-			Section::u32s("a", &out.a),
-			Section::u32s("b", &out.b),
-			Section::u32s("m", &out.m),
-			Section::f64s("yd", &out.yd),
-			Section::f64s("cost", &out.cost),
-		];
-		if !self.zones.is_empty() {
-			sections.push(Section::i32s("end.zone", &(0..e.len() as u32).map(|i| self.zones.get(&i).map_or(-1, |&z| z as i32)).collect::<Vec<_>>()));
-		}
-		sections.push(Section::u32s("cell.off", &out.off));
-		sections.push(Section::u32s("cell.key", &out.ck));
-		sections.push(Section::f32s("cell.yd", &out.cy));
-		sections.push(Section::u8s("cell.has", &out.has));
-		psbn::encode(&header, &sections).0
+		(order, runs)
 	}
 
-	/// A file's answer i (of model m) into the merged arrays.
-	fn push_base(&self, out: &mut Merged, m: u32, i: usize) {
-		let ab = self.base.ab[i];
-		let (a, b) = ((ab >> 32) as u32, ab as u32);
-		out.push((a, b, m), self.base.answer(i));
-		match (self.cells.is_empty(), self.base.has_cells(i)) {
-			(false, _) => out.push_cells(self.cells_of((a, b, m), Some(i)).as_deref()),
-			(true, true) => {
-				let r = self.base.cell_range(i);
-				out.push_cells_from(&self.base.cell_key[r.clone()], &self.base.cell_yd[r]);
-			}
-			(true, false) => out.push_cells(None),
+	/// Slot v (of model m's run): its key, answer and place in the file.
+	fn slot(&self, over: &[Key], m: u32, v: u64) -> (Key, Answer, Option<usize>) {
+		if v & NEW == 0 {
+			let i = v as usize;
+			let ab = self.base.ab[i];
+			return (((ab >> 32) as u32, ab as u32, m), self.base.answer(i), Some(i));
 		}
+		let k = over[((v & !NEW) >> 32) as usize];
+		let at = (v & 0xFFFF_FFFF != NO_AT).then_some((v & 0xFFFF_FFFF) as usize);
+		(k, self.answers[&k], at)
 	}
 
-	/// A new or replaced answer into the merged arrays (`at`: the key's place in the file).
-	fn push_new(&self, out: &mut Merged, k: Key, at: Option<usize>) {
-		out.push(k, self.answers[&k]);
-		out.push_cells(self.cells_of(k, at).as_deref());
+	/// Slot v's zone cells as the file keeps them: the store's own for its key (a new walk, or cells
+	/// dropped), else the file's.
+	fn slot_cells(&self, over: &[Key], m: u32, v: u64) -> Cells<'_> {
+		let (k, _, at) = self.slot(over, m, v);
+		match self.cells.get(&k) {
+			Some(Some(c)) => Cells::Kept(c),
+			Some(None) => Cells::None,
+			None => match at {
+				Some(i) if self.base.has_cells(i) => {
+					let r = self.base.cell_range(i);
+					Cells::File(&self.base.cell_key[r.clone()], &self.base.cell_yd[r])
+				}
+				_ => Cells::None,
+			},
+		}
 	}
 
 	pub fn decode(bytes: &[u8]) -> Result<WalkStore, Error> {
@@ -670,40 +740,79 @@ impl WalkStore {
 	}
 }
 
-/// encode's merged answer arrays.
-struct Merged {
-	a: Vec<u32>,
-	b: Vec<u32>,
-	m: Vec<u32>,
-	yd: Vec<f64>,
-	cost: Vec<f64>,
-	off: Vec<u32>,
-	ck: Vec<u32>,
-	cy: Vec<f32>,
-	has: Vec<u8>,
+/// A slot of the merge order (write_to): set for a new or replaced answer (`over[o]` in bits 32-62), its
+/// key's place in the file in bits 0-31 (`NO_AT`: none); clear for the file's answer i.
+const NEW: u64 = 1 << 63;
+const NO_AT: u64 = 0xFFFF_FFFF;
+
+/// write_to's merge: the new answers' keys sorted (model, from, to), every answer's slot in file order,
+/// and the runs of one model (model, from, to) of the slots.
+struct Order {
+	over: Vec<Key>,
+	slots: Vec<u64>,
+	runs: Vec<(u32, usize, usize)>,
 }
 
-impl Merged {
-	fn push(&mut self, (a, b, m): Key, x: Answer) {
-		self.a.push(a);
-		self.b.push(b);
-		self.m.push(m);
-		self.yd.push(x.yd);
-		self.cost.push(x.cost);
-	}
-	fn push_cells(&mut self, c: Option<&[(u32, f32)]>) {
-		self.has.push(c.is_some() as u8);
-		for &(k, y) in c.unwrap_or_default() {
-			self.ck.push(k);
-			self.cy.push(y);
+/// A per-answer column of the store's file.
+#[derive(Clone, Copy, PartialEq, Eq)]
+enum Col {
+	A,
+	B,
+	M,
+	Yd,
+	Cost,
+	Off,
+	CellKey,
+	CellYd,
+	Has,
+}
+
+/// An answer's zone cells as the file keeps them: none, the store's own (a new walk's), or the file's.
+enum Cells<'a> {
+	None,
+	Kept(&'a [(u32, f32)]),
+	File(&'a [u32], &'a [f32]),
+}
+
+impl Cells<'_> {
+	fn len(&self) -> usize {
+		match self {
+			Cells::None => 0,
+			Cells::Kept(c) => c.len(),
+			Cells::File(k, _) => k.len(),
 		}
-		self.off.push(self.ck.len() as u32);
 	}
-	fn push_cells_from(&mut self, keys: &[u32], yd: &[f32]) {
-		self.has.push(1);
-		self.ck.extend_from_slice(keys);
-		self.cy.extend_from_slice(yd);
-		self.off.push(self.ck.len() as u32);
+	fn each(&self, mut f: impl FnMut(u32, f32)) {
+		match self {
+			Cells::None => {}
+			Cells::Kept(c) => c.iter().for_each(|&(k, y)| f(k, y)),
+			Cells::File(k, y) => k.iter().zip(y.iter()).for_each(|(&k, &y)| f(k, y)),
+		}
+	}
+}
+
+/// Bytes gathered into pieces of CHUNK for a psbn stream's sink.
+struct Chunks<'a> {
+	buf: Vec<u8>,
+	out: &'a mut dyn FnMut(&[u8]),
+}
+
+impl<'a> Chunks<'a> {
+	const CHUNK: usize = 1 << 16;
+	fn new(out: &'a mut dyn FnMut(&[u8])) -> Self {
+		Chunks { buf: Vec::with_capacity(Self::CHUNK), out }
+	}
+	fn put(&mut self, b: &[u8]) {
+		if self.buf.len() + b.len() > Self::CHUNK {
+			self.flush();
+		}
+		self.buf.extend_from_slice(b);
+	}
+	fn flush(&mut self) {
+		if !self.buf.is_empty() {
+			(self.out)(&self.buf);
+			self.buf.clear();
+		}
 	}
 }
 
@@ -865,5 +974,134 @@ mod tests {
 		let s = WalkStore::decode(&shuffled).unwrap();
 		assert!(s.changed(), "a file out of order is written again");
 		assert_eq!(s.encode(), file);
+	}
+
+	/// encode as it was up to 0.3.8: the merged answers built whole in memory, then every section's bytes,
+	/// then the file's (write_to streams the same file without them).
+	fn merged_encode(s: &WalkStore) -> Vec<u8> {
+		#[derive(Default)]
+		struct Merged {
+			a: Vec<u32>,
+			b: Vec<u32>,
+			m: Vec<u32>,
+			yd: Vec<f64>,
+			cost: Vec<f64>,
+			off: Vec<u32>,
+			ck: Vec<u32>,
+			cy: Vec<f32>,
+			has: Vec<u8>,
+		}
+		let mut out = Merged { off: vec![0], ..Default::default() };
+		let push = |out: &mut Merged, (a, b, m): Key, x: Answer, c: Option<&[(u32, f32)]>| {
+			out.a.push(a);
+			out.b.push(b);
+			out.m.push(m);
+			out.yd.push(x.yd);
+			out.cost.push(x.cost);
+			out.has.push(c.is_some() as u8);
+			for &(k, y) in c.unwrap_or_default() {
+				out.ck.push(k);
+				out.cy.push(y);
+			}
+			out.off.push(out.ck.len() as u32);
+		};
+		let mut over: Vec<Key> = s.answers.keys().copied().collect();
+		over.sort_unstable_by_key(|&(a, b, m)| (m, a, b));
+		let models = s.base.range.len().max(over.last().map_or(0, |k| k.2 as usize + 1));
+		let mut o = 0;
+		for m in 0..models as u32 {
+			let (lo, hi) = s.base.range.get(m as usize).copied().unwrap_or((0, 0));
+			let mut i = lo;
+			let o_end = o + over[o..].iter().take_while(|k| k.2 == m).count();
+			while i < hi || o < o_end {
+				let base_ab = (i < hi).then(|| s.base.ab[i]);
+				let new_ab = (o < o_end).then(|| (over[o].0 as u64) << 32 | over[o].1 as u64);
+				let (k, x, at) = match (base_ab, new_ab) {
+					(Some(x), Some(y)) if x == y => {
+						i += 1;
+						o += 1;
+						(over[o - 1], s.answers[&over[o - 1]], Some(i - 1))
+					}
+					(Some(x), Some(y)) if x > y => {
+						o += 1;
+						(over[o - 1], s.answers[&over[o - 1]], None)
+					}
+					(None, Some(_)) => {
+						o += 1;
+						(over[o - 1], s.answers[&over[o - 1]], None)
+					}
+					_ => {
+						let ab = s.base.ab[i];
+						i += 1;
+						(((ab >> 32) as u32, ab as u32, m), s.base.answer(i - 1), Some(i - 1))
+					}
+				};
+				push(&mut out, k, x, s.cells_of(k, at).as_deref());
+			}
+		}
+		let mut header = Map::new();
+		header.insert("schema".into(), json!(STORE_SCHEMA));
+		header.insert("kind".into(), json!("walkstore"));
+		header.insert("models".into(), Value::Array(s.models.iter().map(|m| json!({ "key": m.key(), "grid": m.grid, "params": m.params })).collect()));
+		let e = &s.ends;
+		let mut sections = vec![
+			Section::i32s("end.c", &e.iter().map(|x| x.c).collect::<Vec<_>>()),
+			Section::f64s("end.x", &e.iter().map(|x| x.x).collect::<Vec<_>>()),
+			Section::f64s("end.y", &e.iter().map(|x| x.y).collect::<Vec<_>>()),
+			Section::f64s("end.z", &e.iter().map(|x| x.z).collect::<Vec<_>>()),
+			Section::f64s("end.zf", &e.iter().map(|x| x.zf).collect::<Vec<_>>()),
+			Section::u32s("a", &out.a),
+			Section::u32s("b", &out.b),
+			Section::u32s("m", &out.m),
+			Section::f64s("yd", &out.yd),
+			Section::f64s("cost", &out.cost),
+		];
+		if !s.zones.is_empty() {
+			sections.push(Section::i32s("end.zone", &(0..e.len() as u32).map(|i| s.zones.get(&i).map_or(-1, |&z| z as i32)).collect::<Vec<_>>()));
+		}
+		sections.push(Section::u32s("cell.off", &out.off));
+		sections.push(Section::u32s("cell.key", &out.ck));
+		sections.push(Section::f32s("cell.yd", &out.cy));
+		sections.push(Section::u8s("cell.has", &out.has));
+		psbn::encode(&header, &sections).0
+	}
+
+	// The store's save streams its file (write_to: the merge order only; an Alliance grid store's save went past
+	// a 10 GB budget building it in memory): byte for byte the file the in-memory merge wrote, for a store
+	// built in one go, one read back, and one whose file answers were replaced, added to, given and stripped of
+	// zone cells; and through a writer that takes a few bytes at a time.
+	#[test]
+	fn the_streamed_file_is_the_merged_one_byte_for_byte() {
+		let fresh = sample();
+		let file = fresh.encode();
+		assert_eq!(file, merged_encode(&fresh), "built in one go");
+		let mut s = WalkStore::decode(&file).unwrap();
+		assert_eq!(s.encode(), merged_encode(&s), "read back, unchanged");
+		let m0 = s.model(&Model { grid: "g".into(), params: "base".into() });
+		let m1 = s.model(&Model { grid: "g".into(), params: "danger".into() });
+		s.put(&end(1.0), &end(7.5), m0, Answer { yd: 99.0, cost: 9.0 });
+		s.put(&end(100.0), &end(1.0), m1, Answer { yd: 5.0, cost: 1.0 });
+		s.import_table(&[-1.0], &[-1.0], &[0], &[1], &[end(2.0), end(9.5)], m0, 1.0, Some((&[0, 0], &[])));
+		let mut r = Fixed(vec![]);
+		s.walks_cells(&[(end(200.0), end(3.0), Profile { model: m1, base: None })], &mut r, true);
+		s.set_zone(&end(200.0), 1537);
+		assert!(s.changed());
+		let merged = merged_encode(&s);
+		assert_eq!(s.encode(), merged, "replaced, added, cells kept and dropped");
+		/// A writer that takes at most 3 bytes a call.
+		struct Trickle(Vec<u8>);
+		impl std::io::Write for Trickle {
+			fn write(&mut self, b: &[u8]) -> std::io::Result<usize> {
+				let n = b.len().min(3);
+				self.0.extend_from_slice(&b[..n]);
+				Ok(n)
+			}
+			fn flush(&mut self) -> std::io::Result<()> {
+				Ok(())
+			}
+		}
+		let mut t = Trickle(Vec::new());
+		s.write_to(&mut t).unwrap();
+		assert_eq!(t.0, merged, "through a writer of short writes");
 	}
 }

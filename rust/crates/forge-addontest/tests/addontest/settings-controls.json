@@ -1,0 +1,2363 @@
+{
+ "_about": "Every control of the settings window in a release (its setting key, its binding's action, or the English label of a control without either), with where that release showed it. tests/addontest/settings-coverage.rs fails when one is no longer reachable in the settings window. A release's list is checked once this build is that release or later. Written from each release's own window (every page, tab and section it registered).",
+ "_retired": {
+		"qol.trainAll": "0.3.7.1 removed trainer bulk purchases (Train All); a saved value is ignored and Polestar never buys at a trainer",
+		"qol.trainAllButton": "0.3.7.1 removed trainer bulk purchases (Train All button)"
+	},
+	"0.3.6": [
+  {
+   "id": "action:CLICK PolestarHearthButton:LeftButton",
+   "kind": "binding",
+   "label": "Use Hearthstone",
+   "at": [
+    "Gamepad > Key bindings > Quest buttons"
+   ]
+  },
+  {
+   "id": "action:CLICK PolestarQuestItemButton:LeftButton",
+   "kind": "binding",
+   "label": "Use quest item",
+   "at": [
+    "Gamepad > Key bindings > Quest buttons"
+   ]
+  },
+  {
+   "id": "action:CLICK PolestarRareButton:LeftButton",
+   "kind": "binding",
+   "label": "Target rare",
+   "at": [
+    "Gamepad > Key bindings > Quest buttons"
+   ]
+  },
+  {
+   "id": "action:CLICK PolestarStepButton:LeftButton",
+   "kind": "binding",
+   "label": "Use the step button",
+   "at": [
+    "Gamepad > Key bindings > Quest buttons"
+   ]
+  },
+  {
+   "id": "action:CLICK PolestarTargetButton:LeftButton",
+   "kind": "binding",
+   "label": "Target quest mob",
+   "at": [
+    "Gamepad > Key bindings > Quest buttons"
+   ]
+  },
+  {
+   "id": "action:CLICK PolestarTravelButton:LeftButton",
+   "kind": "binding",
+   "label": "Use the travel button",
+   "at": [
+    "Gamepad > Key bindings > Quest buttons"
+   ]
+  },
+  {
+   "id": "action:POLESTAR_FOCUS",
+   "kind": "binding",
+   "label": "Browse the guide with the gamepad",
+   "at": [
+    "Gamepad > Key bindings > The guide"
+   ]
+  },
+  {
+   "id": "action:POLESTAR_MENU",
+   "kind": "binding",
+   "label": "Open the guide menu",
+   "at": [
+    "Gamepad > Key bindings > Windows"
+   ]
+  },
+  {
+   "id": "action:POLESTAR_NEXT",
+   "kind": "binding",
+   "label": "Next step",
+   "at": [
+    "Gamepad > Key bindings > The guide"
+   ]
+  },
+  {
+   "id": "action:POLESTAR_NEXT_WAYPOINT",
+   "kind": "binding",
+   "label": "Next waypoint",
+   "at": [
+    "Gamepad > Key bindings > The guide"
+   ]
+  },
+  {
+   "id": "action:POLESTAR_OPTIONS",
+   "kind": "binding",
+   "label": "Open Polestar options",
+   "at": [
+    "Gamepad > Key bindings > Windows"
+   ]
+  },
+  {
+   "id": "action:POLESTAR_PREV",
+   "kind": "binding",
+   "label": "Previous step",
+   "at": [
+    "Gamepad > Key bindings > The guide"
+   ]
+  },
+  {
+   "id": "action:POLESTAR_PREV_WAYPOINT",
+   "kind": "binding",
+   "label": "Previous waypoint",
+   "at": [
+    "Gamepad > Key bindings > The guide"
+   ]
+  },
+  {
+   "id": "action:POLESTAR_REOPEN_TAB",
+   "kind": "binding",
+   "label": "Reopen closed tab",
+   "at": [
+    "Gamepad > Key bindings > The guide"
+   ]
+  },
+  {
+   "id": "action:POLESTAR_REPORT",
+   "kind": "binding",
+   "label": "Report a problem",
+   "at": [
+    "Gamepad > Key bindings > Windows"
+   ]
+  },
+  {
+   "id": "action:POLESTAR_TOGGLE",
+   "kind": "binding",
+   "label": "Toggle guide window",
+   "at": [
+    "Gamepad > Key bindings > The guide"
+   ]
+  },
+  {
+   "id": "alts.enabled",
+   "kind": "toggle",
+   "label": "Characters",
+   "at": [
+    "Discovery > Characters > Characters"
+   ]
+  },
+  {
+   "id": "behavior.autoAccept",
+   "kind": "toggle",
+   "label": "Accept guide quests",
+   "at": [
+    "Questing > Quests > Faster questing",
+    "Quality of Life > Quests > Faster questing"
+   ]
+  },
+  {
+   "id": "behavior.autoSelectGuide",
+   "kind": "toggle",
+   "label": "Pick a guide for me",
+   "at": [
+    "Guide > Automation > Guides"
+   ]
+  },
+  {
+   "id": "behavior.autoTurnin",
+   "kind": "toggle",
+   "label": "Turn in guide quests",
+   "at": [
+    "Questing > Quests > Faster questing",
+    "Quality of Life > Quests > Faster questing"
+   ]
+  },
+  {
+   "id": "behavior.closeSkipped",
+   "kind": "toggle",
+   "label": "Close offers the guide skips",
+   "at": [
+    "Guide > Automation > Quests"
+   ]
+  },
+  {
+   "id": "behavior.deathskips",
+   "kind": "toggle",
+   "label": "Use deathskips",
+   "at": [
+    "Guide > Automation > Guides"
+   ]
+  },
+  {
+   "id": "behavior.groupQuests",
+   "kind": "dropdown",
+   "label": "Group quests",
+   "at": [
+    "Guide > Automation > Quests"
+   ]
+  },
+  {
+   "id": "behavior.guideEnd",
+   "kind": "dropdown",
+   "label": "When a leveling guide ends",
+   "at": [
+    "Guide > Automation > Guides"
+   ]
+  },
+  {
+   "id": "behavior.lostQuests",
+   "kind": "dropdown",
+   "label": "When you abandon a guide quest",
+   "at": [
+    "Guide > Automation > Quests"
+   ]
+  },
+  {
+   "id": "behavior.offerClassQuests",
+   "kind": "toggle",
+   "label": "Offer class quests",
+   "at": [
+    "Guide > Automation > Guides"
+   ]
+  },
+  {
+   "id": "behavior.routeChoice",
+   "kind": "dropdown",
+   "label": "Where to level next",
+   "at": [
+    "Guide > Automation > Guides"
+   ]
+  },
+  {
+   "id": "behavior.skipGrey",
+   "kind": "toggle",
+   "label": "Skip grey quests",
+   "at": [
+    "Guide > Automation > Quests"
+   ]
+  },
+  {
+   "id": "behavior.spokenDelay",
+   "kind": "toggle",
+   "label": "Wait for Spoken",
+   "at": [
+    "Integrations > Spoken"
+   ]
+  },
+  {
+   "id": "behavior.trainReminder",
+   "kind": "dropdown",
+   "label": "Trainer reminders",
+   "at": [
+    "Guide > Automation > Guides",
+    "Quality of Life > Vendors > Trainers"
+   ]
+  },
+  {
+   "id": "behavior.warnClosing",
+   "kind": "toggle",
+   "label": "Warn about missable quests",
+   "at": [
+    "Guide > Automation > Quests"
+   ]
+  },
+  {
+   "id": "behavior.whileHere",
+   "kind": "toggle",
+   "label": "Dynamic Questing",
+   "at": [
+    "Guide > Window > Dynamic Questing"
+   ]
+  },
+  {
+   "id": "behavior.whileHereRadius",
+   "kind": "slider",
+   "label": "How close",
+   "at": [
+    "Guide > Window > Dynamic Questing"
+   ]
+  },
+  {
+   "id": "behavior.whileHereSound",
+   "kind": "toggle",
+   "label": "Sound for a new suggestion",
+   "at": [
+    "Guide > Window > Dynamic Questing"
+   ]
+  },
+  {
+   "id": "behavior.whileHereStepKey",
+   "kind": "toggle",
+   "label": "Step key targets their mobs",
+   "at": [
+    "Guide > Window > Dynamic Questing"
+   ]
+  },
+  {
+   "id": "behavior.whileHereTurninSeconds",
+   "kind": "slider",
+   "label": "Hand-ins: how far out of your way",
+   "at": [
+    "Guide > Window > Dynamic Questing"
+   ]
+  },
+  {
+   "id": "behavior.whileHereTurnins",
+   "kind": "toggle",
+   "label": "Include nearby hand-ins",
+   "at": [
+    "Guide > Window > Dynamic Questing"
+   ]
+  },
+  {
+   "id": "dungeons.enabled",
+   "kind": "toggle",
+   "label": "Dungeons",
+   "at": [
+    "Discovery > Dungeons > Dungeon Journal"
+   ]
+  },
+  {
+   "id": "dungeons.headsUp",
+   "kind": "toggle",
+   "label": "Tell me when a dungeon opens up",
+   "at": [
+    "Discovery > Dungeons > Dungeon Journal"
+   ]
+  },
+  {
+   "id": "gamepad.glyphs",
+   "kind": "dropdown",
+   "label": "Button names",
+   "at": [
+    "Gamepad > Navigation > Your gamepad"
+   ]
+  },
+  {
+   "id": "gamepad.hints",
+   "kind": "toggle",
+   "label": "Button hints",
+   "at": [
+    "Gamepad > Navigation > Your gamepad"
+   ]
+  },
+  {
+   "id": "gamepad.navigate",
+   "kind": "toggle",
+   "label": "Navigate Polestar's windows",
+   "at": [
+    "Gamepad > Navigation > Your gamepad"
+   ]
+  },
+  {
+   "id": "gamepad.withMouse",
+   "kind": "toggle",
+   "label": "Use with the keyboard and mouse",
+   "at": [
+    "Gamepad > Navigation > Your gamepad"
+   ]
+  },
+  {
+   "id": "gear.bagArrows",
+   "kind": "toggle",
+   "label": "Upgrade arrows in bags",
+   "at": [
+    "Questing > Rewards & gear > Gear advice"
+   ]
+  },
+  {
+   "id": "gear.enabled",
+   "kind": "toggle",
+   "label": "Gear advice",
+   "at": [
+    "Questing > Rewards & gear > Gear advice"
+   ]
+  },
+  {
+   "id": "gear.hideForPawn",
+   "kind": "toggle",
+   "label": "Leave bag arrows to Pawn",
+   "at": [
+    "Questing > Rewards & gear > Gear advice"
+   ]
+  },
+  {
+   "id": "gear.minUpgrade",
+   "kind": "slider",
+   "label": "Upgrade threshold",
+   "at": [
+    "Questing > Rewards & gear > Comparison"
+   ]
+  },
+  {
+   "id": "gear.pickTooltip",
+   "kind": "toggle",
+   "label": "Reward pick on tooltips",
+   "at": [
+    "Questing > Rewards & gear > Gear advice"
+   ]
+  },
+  {
+   "id": "gear.rewards",
+   "kind": "toggle",
+   "label": "Reward pick in the guide",
+   "at": [
+    "Questing > Rewards & gear > Gear advice"
+   ]
+  },
+  {
+   "id": "gear.spec.WARRIOR",
+   "kind": "dropdown",
+   "label": "Stat weights",
+   "at": [
+    "Questing > Rewards & gear > Gear advice"
+   ]
+  },
+  {
+   "id": "gear.tooltip",
+   "kind": "toggle",
+   "label": "Tooltip comparison",
+   "at": [
+    "Questing > Rewards & gear > Gear advice"
+   ]
+  },
+  {
+   "id": "gear.useBags",
+   "kind": "toggle",
+   "label": "Pair with bag items",
+   "at": [
+    "Questing > Rewards & gear > Comparison"
+   ]
+  },
+  {
+   "id": "label:Ammunition",
+   "kind": "slider",
+   "label": "Ammunition",
+   "at": [
+    "Quality of Life > Vendors > Restock"
+   ]
+  },
+  {
+   "id": "label:Clean up quest log",
+   "kind": "button",
+   "label": "Clean up quest log",
+   "at": [
+    "Questing > Quests > Tooltips and quest log"
+   ]
+  },
+  {
+   "id": "label:Clear instance history",
+   "kind": "button",
+   "label": "Clear instance history",
+   "at": [
+    "Quality of Life > Trackers > Instance limits"
+   ]
+  },
+  {
+   "id": "label:Drinks",
+   "kind": "slider",
+   "label": "Drinks",
+   "at": [
+    "Quality of Life > Vendors > Restock"
+   ]
+  },
+  {
+   "id": "label:Food",
+   "kind": "slider",
+   "label": "Food",
+   "at": [
+    "Quality of Life > Vendors > Restock"
+   ]
+  },
+  {
+   "id": "label:Forget learned flight times",
+   "kind": "button",
+   "label": "Forget learned flight times",
+   "at": [
+    "Quality of Life > Travel > Flight timer"
+   ]
+  },
+  {
+   "id": "label:Forget rares met on this realm",
+   "kind": "button",
+   "label": "Forget rares met on this realm",
+   "at": [
+    "Discovery > Rares > History"
+   ]
+  },
+  {
+   "id": "label:Manage custom weights",
+   "kind": "button",
+   "label": "Manage custom weights",
+   "at": [
+    "Questing > Rewards & gear > Gear advice"
+   ]
+  },
+  {
+   "id": "label:Reset arrow position",
+   "kind": "button",
+   "label": "Reset arrow position",
+   "at": [
+    "Guide > Arrow & routes > Arrow"
+   ]
+  },
+  {
+   "id": "label:Reset button positions",
+   "kind": "button",
+   "label": "Reset button positions",
+   "at": [
+    "Questing > Buttons > Action buttons"
+   ]
+  },
+  {
+   "id": "label:Reset guide progress",
+   "kind": "button",
+   "label": "Reset guide progress",
+   "at": [
+    "Guide > Automation > Guides"
+   ]
+  },
+  {
+   "id": "label:Reset position",
+   "kind": "button",
+   "label": "Reset position",
+   "at": [
+    "Guide > Window > Position"
+   ]
+  },
+  {
+   "id": "label:Reset session",
+   "kind": "button",
+   "label": "Reset session",
+   "at": [
+    "Quality of Life > Trackers > Experience"
+   ]
+  },
+  {
+   "id": "label:Show a sample alert",
+   "kind": "button",
+   "label": "Show a sample alert",
+   "at": [
+    "Guide > Arrow & routes > Along the route",
+    "Discovery > Rares > When a rare shows up"
+   ]
+  },
+  {
+   "id": "lookup.altClick",
+   "kind": "toggle",
+   "label": "Alt-click an item for a guide",
+   "at": [
+    "Discovery > Lookup > How to get anything"
+   ]
+  },
+  {
+   "id": "lookup.enabled",
+   "kind": "toggle",
+   "label": "Lookup",
+   "at": [
+    "Discovery > Lookup > How to get anything"
+   ]
+  },
+  {
+   "id": "lookup.mounts",
+   "kind": "toggle",
+   "label": "Spot other players' mounts",
+   "at": [
+    "Discovery > Lookup > How to get anything"
+   ]
+  },
+  {
+   "id": "lookup.tooltip",
+   "kind": "toggle",
+   "label": "Sources on item tooltips",
+   "at": [
+    "Discovery > Lookup > How to get anything"
+   ]
+  },
+  {
+   "id": "maps.coords",
+   "kind": "toggle",
+   "label": "Coordinates",
+   "at": [
+    "Map > Zones > Coordinates",
+    "Quality of Life > Map > Coordinates"
+   ]
+  },
+  {
+   "id": "maps.dockPins",
+   "kind": "toggle",
+   "label": "Boats and zeppelins",
+   "at": [
+    "Map > Rares & travel > Dungeons and travel"
+   ]
+  },
+  {
+   "id": "maps.dungeonPins",
+   "kind": "toggle",
+   "label": "Dungeon entrances",
+   "at": [
+    "Map > Rares & travel > Dungeons and travel"
+   ]
+  },
+  {
+   "id": "maps.flightTimer",
+   "kind": "toggle",
+   "label": "Flight timer",
+   "at": [
+    "Quality of Life > Travel > Flight timer"
+   ]
+  },
+  {
+   "id": "maps.innPins",
+   "kind": "toggle",
+   "label": "Inns",
+   "at": [
+    "Map > Rares & travel > Dungeons and travel"
+   ]
+  },
+  {
+   "id": "maps.instanceDisplay",
+   "kind": "toggle",
+   "label": "Compact display",
+   "at": [
+    "Quality of Life > Trackers > Instances"
+   ]
+  },
+  {
+   "id": "maps.instances",
+   "kind": "toggle",
+   "label": "Track instances",
+   "at": [
+    "Quality of Life > Trackers > Instances"
+   ]
+  },
+  {
+   "id": "maps.minimapButton",
+   "kind": "toggle",
+   "label": "Minimap button",
+   "at": [
+    "Guide > Window > Show and hide",
+    "Map > Guide & quests > Guide",
+    "Quality of Life > Map > Minimap"
+   ]
+  },
+  {
+   "id": "maps.minimapCoords",
+   "kind": "toggle",
+   "label": "Coordinates on the minimap",
+   "at": [
+    "Map > Zones > Coordinates",
+    "Quality of Life > Map > Coordinates"
+   ]
+  },
+  {
+   "id": "maps.perDay",
+   "kind": "slider",
+   "label": "Instances per day",
+   "at": [
+    "Quality of Life > Trackers > Instance limits"
+   ]
+  },
+  {
+   "id": "maps.perHour",
+   "kind": "slider",
+   "label": "Instances per hour",
+   "at": [
+    "Quality of Life > Trackers > Instance limits"
+   ]
+  },
+  {
+   "id": "maps.reveal",
+   "kind": "dropdown",
+   "label": "Unexplored areas",
+   "at": [
+    "Map > Zones > Zones"
+   ]
+  },
+  {
+   "id": "maps.serviceFilters.auctioneer",
+   "kind": "toggle",
+   "label": "Auctioneers",
+   "at": [
+    "Map > Rares & travel > NPC services"
+   ]
+  },
+  {
+   "id": "maps.serviceFilters.banker",
+   "kind": "toggle",
+   "label": "Bankers",
+   "at": [
+    "Map > Rares & travel > NPC services"
+   ]
+  },
+  {
+   "id": "maps.serviceFilters.battlemaster",
+   "kind": "toggle",
+   "label": "Battlemasters",
+   "at": [
+    "Map > Rares & travel > NPC services"
+   ]
+  },
+  {
+   "id": "maps.serviceFilters.class",
+   "kind": "toggle",
+   "label": "Class trainers",
+   "at": [
+    "Map > Rares & travel > NPC services"
+   ]
+  },
+  {
+   "id": "maps.serviceFilters.mailbox",
+   "kind": "toggle",
+   "label": "Mailboxes",
+   "at": [
+    "Map > Rares & travel > NPC services"
+   ]
+  },
+  {
+   "id": "maps.serviceFilters.repair",
+   "kind": "toggle",
+   "label": "Repair",
+   "at": [
+    "Map > Rares & travel > NPC services"
+   ]
+  },
+  {
+   "id": "maps.serviceFilters.spirithealer",
+   "kind": "toggle",
+   "label": "Spirit healers",
+   "at": [
+    "Map > Rares & travel > NPC services"
+   ]
+  },
+  {
+   "id": "maps.serviceFilters.stablemaster",
+   "kind": "toggle",
+   "label": "Stable masters",
+   "at": [
+    "Map > Rares & travel > NPC services"
+   ]
+  },
+  {
+   "id": "maps.serviceFilters.trainer",
+   "kind": "toggle",
+   "label": "Profession trainers",
+   "at": [
+    "Map > Rares & travel > NPC services"
+   ]
+  },
+  {
+   "id": "maps.serviceFilters.vendor",
+   "kind": "toggle",
+   "label": "Vendors",
+   "at": [
+    "Map > Rares & travel > NPC services"
+   ]
+  },
+  {
+   "id": "maps.serviceFilters.weapon",
+   "kind": "toggle",
+   "label": "Weapon masters",
+   "at": [
+    "Map > Rares & travel > NPC services"
+   ]
+  },
+  {
+   "id": "maps.serviceMinimap",
+   "kind": "toggle",
+   "label": "Service icons on the minimap",
+   "at": [
+    "Map > Rares & travel > NPC services"
+   ]
+  },
+  {
+   "id": "maps.servicePins",
+   "kind": "toggle",
+   "label": "Show NPC services",
+   "at": [
+    "Map > Rares & travel > NPC services"
+   ]
+  },
+  {
+   "id": "maps.taxiPins",
+   "kind": "toggle",
+   "label": "Flight masters",
+   "at": [
+    "Map > Rares & travel > Dungeons and travel"
+   ]
+  },
+  {
+   "id": "maps.travelMinimap",
+   "kind": "toggle",
+   "label": "Travel icons on the minimap",
+   "at": [
+    "Map > Rares & travel > Dungeons and travel"
+   ]
+  },
+  {
+   "id": "maps.zoneLevels",
+   "kind": "toggle",
+   "label": "Zone level ranges",
+   "at": [
+    "Map > Zones > Zones"
+   ]
+  },
+  {
+   "id": "nav.alertBanner",
+   "kind": "toggle",
+   "label": "Show a banner",
+   "at": [
+    "Guide > Arrow & routes > Along the route"
+   ]
+  },
+  {
+   "id": "nav.alertFlash",
+   "kind": "toggle",
+   "label": "Flash the taskbar icon",
+   "at": [
+    "Guide > Arrow & routes > Along the route"
+   ]
+  },
+  {
+   "id": "nav.alertSound",
+   "kind": "toggle",
+   "label": "Play the transport's sound",
+   "at": [
+    "Guide > Arrow & routes > Along the route"
+   ]
+  },
+  {
+   "id": "nav.alerts",
+   "kind": "toggle",
+   "label": "Transport alerts",
+   "at": [
+    "Guide > Arrow & routes > Along the route",
+    "Quality of Life > Travel > Along the route"
+   ]
+  },
+  {
+   "id": "nav.answerTomTom",
+   "kind": "toggle",
+   "label": "Let other addons set waypoints",
+   "at": [
+    "Integrations > TomTom"
+   ]
+  },
+  {
+   "id": "nav.arrivalSound",
+   "kind": "toggle",
+   "label": "Arrival sound",
+   "at": [
+    "Guide > Arrow & routes > Arrow"
+   ]
+  },
+  {
+   "id": "nav.arrow",
+   "kind": "toggle",
+   "label": "Show arrow",
+   "at": [
+    "Guide > Arrow & routes > Arrow"
+   ]
+  },
+  {
+   "id": "nav.arrowAlpha",
+   "kind": "slider",
+   "label": "Arrow opacity",
+   "at": [
+    "Appearance > Arrow > Arrow"
+   ]
+  },
+  {
+   "id": "nav.arrowColor",
+   "kind": "color",
+   "label": "Arrow colour",
+   "at": [
+    "Appearance > Arrow > Colours"
+   ]
+  },
+  {
+   "id": "nav.arrowEta",
+   "kind": "toggle",
+   "label": "Arrival time",
+   "at": [
+    "Guide > Arrow & routes > Arrow"
+   ]
+  },
+  {
+   "id": "nav.arrowNearColor",
+   "kind": "color",
+   "label": "Arrival colour",
+   "at": [
+    "Appearance > Arrow > Colours"
+   ]
+  },
+  {
+   "id": "nav.arrowScale",
+   "kind": "slider",
+   "label": "Arrow scale",
+   "at": [
+    "Appearance > Arrow > Arrow"
+   ]
+  },
+  {
+   "id": "nav.arrowStyle",
+   "kind": "dropdown",
+   "label": "Arrow style",
+   "at": [
+    "Appearance > Arrow > Arrow"
+   ]
+  },
+  {
+   "id": "nav.blizzardWaypoint",
+   "kind": "toggle",
+   "label": "Blizzard waypoint",
+   "at": [
+    "Guide > Arrow & routes > Other waypoints"
+   ]
+  },
+  {
+   "id": "nav.castPrompt",
+   "kind": "toggle",
+   "label": "Travel button",
+   "at": [
+    "Guide > Arrow & routes > Along the route",
+    "Quality of Life > Travel > Along the route"
+   ]
+  },
+  {
+   "id": "nav.distanceUnit",
+   "kind": "dropdown",
+   "label": "Distances",
+   "at": [
+    "Guide > Arrow & routes > Arrow"
+   ]
+  },
+  {
+   "id": "nav.followTomTom",
+   "kind": "toggle",
+   "label": "Follow TomTom's arrow",
+   "at": [
+    "Integrations > TomTom"
+   ]
+  },
+  {
+   "id": "nav.hideArrowWithGuide",
+   "kind": "toggle",
+   "label": "Hide the arrow with the guide",
+   "at": [
+    "Guide > Arrow & routes > Arrow"
+   ]
+  },
+  {
+   "id": "nav.journeySteps",
+   "kind": "toggle",
+   "label": "Show the journey",
+   "at": [
+    "Guide > Arrow & routes > Routes"
+   ]
+  },
+  {
+   "id": "nav.lineStyle",
+   "kind": "dropdown",
+   "label": "Line style",
+   "at": [
+    "Guide > Arrow & routes > Routes"
+   ]
+  },
+  {
+   "id": "nav.mapIcons",
+   "kind": "dropdown",
+   "label": "Icon pack",
+   "at": [
+    "Appearance > Arrow > Map icons"
+   ]
+  },
+  {
+   "id": "nav.mapPlan",
+   "kind": "toggle",
+   "label": "Shift-click a map to go there",
+   "at": [
+    "Guide > Arrow & routes > Routes"
+   ]
+  },
+  {
+   "id": "nav.minimapIconSize",
+   "kind": "slider",
+   "label": "Minimap icon size",
+   "at": [
+    "Appearance > Arrow > Map icons"
+   ]
+  },
+  {
+   "id": "nav.minimapPins",
+   "kind": "toggle",
+   "label": "Guide pin on the minimap",
+   "at": [
+    "Map > Guide & quests > Guide"
+   ]
+  },
+  {
+   "id": "nav.minimapRoute",
+   "kind": "toggle",
+   "label": "Route line on the minimap",
+   "at": [
+    "Map > Guide & quests > Guide"
+   ]
+  },
+  {
+   "id": "nav.navRouting",
+   "kind": "toggle",
+   "label": "Walk real paths",
+   "at": [
+    "Guide > Arrow & routes > Routes"
+   ]
+  },
+  {
+   "id": "nav.nearbyButton",
+   "kind": "toggle",
+   "label": "Nearby services button",
+   "at": [
+    "Guide > Arrow & routes > Routes",
+    "Quality of Life > Travel > Nearby services"
+   ]
+  },
+  {
+   "id": "nav.nearbyMenu",
+   "kind": "toggle",
+   "label": "Nearby services in map menus",
+   "at": [
+    "Guide > Arrow & routes > Routes",
+    "Quality of Life > Travel > Nearby services"
+   ]
+  },
+  {
+   "id": "nav.routeLines",
+   "kind": "toggle",
+   "label": "Route lines",
+   "at": [
+    "Guide > Arrow & routes > Routes"
+   ]
+  },
+  {
+   "id": "nav.routeStyle",
+   "kind": "dropdown",
+   "label": "Route style",
+   "at": [
+    "Guide > Arrow & routes > Routes"
+   ]
+  },
+  {
+   "id": "nav.shareTransit",
+   "kind": "toggle",
+   "label": "Share boat times",
+   "at": [
+    "Guide > Arrow & routes > Routes"
+   ]
+  },
+  {
+   "id": "nav.spfHandoff",
+   "kind": "toggle",
+   "label": "Hand guiding to Shortest Path Forever",
+   "at": [
+    "Integrations > Shortest Path Forever"
+   ]
+  },
+  {
+   "id": "nav.teleports",
+   "kind": "toggle",
+   "label": "Class teleports",
+   "at": [
+    "Guide > Arrow & routes > Routes"
+   ]
+  },
+  {
+   "id": "nav.tomtom",
+   "kind": "toggle",
+   "label": "Mirror to TomTom",
+   "at": [
+    "Guide > Arrow & routes > Other waypoints"
+   ]
+  },
+  {
+   "id": "nav.trailDots",
+   "kind": "toggle",
+   "label": "Trail dots along the travel route",
+   "at": [
+    "Map > Guide & quests > Guide"
+   ]
+  },
+  {
+   "id": "nav.travel",
+   "kind": "toggle",
+   "label": "Plan travel routes",
+   "at": [
+    "Guide > Arrow & routes > Routes"
+   ]
+  },
+  {
+   "id": "nav.upcomingPins",
+   "kind": "toggle",
+   "label": "Numbered pins for the steps ahead",
+   "at": [
+    "Map > Guide & quests > Guide"
+   ]
+  },
+  {
+   "id": "nav.useTomTomArrow",
+   "kind": "toggle",
+   "label": "Use TomTom's arrow",
+   "at": [
+    "Guide > Arrow & routes > Other waypoints"
+   ]
+  },
+  {
+   "id": "nav.worldPins",
+   "kind": "toggle",
+   "label": "Guide pins on the world map",
+   "at": [
+    "Map > Guide & quests > Guide"
+   ]
+  },
+  {
+   "id": "party.chat",
+   "kind": "toggle",
+   "label": "Tell my party about objectives and ready quests",
+   "at": [
+    "Questing > Quests > Group"
+   ]
+  },
+  {
+   "id": "party.chatEcho",
+   "kind": "toggle",
+   "label": "Show my own lines in my chat too",
+   "at": [
+    "Questing > Quests > Group"
+   ]
+  },
+  {
+   "id": "party.chatHideOthers",
+   "kind": "toggle",
+   "label": "Hide other players' Polestar lines",
+   "at": [
+    "Questing > Quests > Group"
+   ]
+  },
+  {
+   "id": "party.chatLoot",
+   "kind": "toggle",
+   "label": "Tell my party when I loot an item that starts a quest",
+   "at": [
+    "Questing > Quests > Group"
+   ]
+  },
+  {
+   "id": "party.chatOnlyNeeded",
+   "kind": "toggle",
+   "label": "Only when someone in the party doesn't have Polestar",
+   "at": [
+    "Questing > Quests > Group"
+   ]
+  },
+  {
+   "id": "party.lootNeeds",
+   "kind": "toggle",
+   "label": "Say who still needs quest loot",
+   "at": [
+    "Questing > Quests > Group"
+   ]
+  },
+  {
+   "id": "party.panel",
+   "kind": "toggle",
+   "label": "Party panel",
+   "at": [
+    "Questing > Quests > Group"
+   ]
+  },
+  {
+   "id": "party.share",
+   "kind": "toggle",
+   "label": "Share my quest progress with my party",
+   "at": [
+    "Questing > Quests > Group"
+   ]
+  },
+  {
+   "id": "party.show",
+   "kind": "toggle",
+   "label": "Show my party's progress in the guide",
+   "at": [
+    "Questing > Quests > Group"
+   ]
+  },
+  {
+   "id": "party.waitForGroup",
+   "kind": "toggle",
+   "label": "Wait for the group",
+   "at": [
+    "Questing > Quests > Group"
+   ]
+  },
+  {
+   "id": "qol.acceptPartyFriends",
+   "kind": "toggle",
+   "label": "Join friends' parties",
+   "at": [
+    "Quality of Life > Social > Requests"
+   ]
+  },
+  {
+   "id": "qol.acceptResurrect",
+   "kind": "toggle",
+   "label": "Accept resurrections",
+   "at": [
+    "Quality of Life > Social > Requests"
+   ]
+  },
+  {
+   "id": "qol.acceptSummon",
+   "kind": "toggle",
+   "label": "Accept summons",
+   "at": [
+    "Quality of Life > Social > Requests"
+   ]
+  },
+  {
+   "id": "qol.autoBind",
+   "kind": "toggle",
+   "label": "Set your home at the guide's inn",
+   "at": [
+    "Quality of Life > Travel > Hearthstone"
+   ]
+  },
+  {
+   "id": "qol.autoReleasePvP",
+   "kind": "toggle",
+   "label": "Release in battlegrounds",
+   "at": [
+    "Quality of Life > Travel > Death"
+   ]
+  },
+  {
+   "id": "qol.autoRepair",
+   "kind": "toggle",
+   "label": "Repair",
+   "at": [
+    "Quality of Life > Vendors > Merchants"
+   ]
+  },
+  {
+   "id": "qol.availableQuests",
+   "kind": "toggle",
+   "label": "Available quests",
+   "at": [
+    "Map > Guide & quests > Quest markers"
+   ]
+  },
+  {
+   "id": "qol.bagGlow",
+   "kind": "toggle",
+   "label": "Highlight the step's item in your bags",
+   "at": [
+    "Questing > Buttons > Action buttons"
+   ]
+  },
+  {
+   "id": "qol.bagSpace",
+   "kind": "toggle",
+   "label": "Bag space",
+   "at": [
+    "Quality of Life > Vendors > Bags"
+   ]
+  },
+  {
+   "id": "qol.bagsLow",
+   "kind": "slider",
+   "label": "Nearly full at",
+   "at": [
+    "Quality of Life > Vendors > Bags"
+   ]
+  },
+  {
+   "id": "qol.breathWarning",
+   "kind": "toggle",
+   "label": "Warn when out of breath",
+   "at": [
+    "Quality of Life > Travel > Death"
+   ]
+  },
+  {
+   "id": "qol.buttonScale",
+   "kind": "slider",
+   "label": "Button size",
+   "at": [
+    "Questing > Buttons > Action buttons"
+   ]
+  },
+  {
+   "id": "qol.buttonTextSide",
+   "kind": "dropdown",
+   "label": "Target name position",
+   "at": [
+    "Questing > Buttons > Action buttons"
+   ]
+  },
+  {
+   "id": "qol.buyGoals",
+   "kind": "toggle",
+   "label": "Buy for the guide",
+   "at": [
+    "Quality of Life > Vendors > Merchants"
+   ]
+  },
+  {
+   "id": "qol.deathHelper",
+   "kind": "toggle",
+   "label": "Corpse or Spirit Healer",
+   "at": [
+    "Quality of Life > Travel > Death"
+   ]
+  },
+  {
+   "id": "qol.declineDuels",
+   "kind": "toggle",
+   "label": "Decline duels",
+   "at": [
+    "Quality of Life > Social > Blocking"
+   ]
+  },
+  {
+   "id": "qol.declineGuildInvites",
+   "kind": "toggle",
+   "label": "Decline guild invitations",
+   "at": [
+    "Quality of Life > Social > Blocking"
+   ]
+  },
+  {
+   "id": "qol.declinePartyStrangers",
+   "kind": "toggle",
+   "label": "Decline other party invitations",
+   "at": [
+    "Quality of Life > Social > Blocking"
+   ]
+  },
+  {
+   "id": "qol.fastLoot",
+   "kind": "toggle",
+   "label": "Faster auto-loot",
+   "at": [
+    "Questing > Quests > Faster questing",
+    "Quality of Life > Quests > Faster questing"
+   ]
+  },
+  {
+   "id": "qol.flightAutoOpen",
+   "kind": "toggle",
+   "label": "Open the flight map",
+   "at": [
+    "Quality of Life > Travel > Flight masters"
+   ]
+  },
+  {
+   "id": "qol.flightHighlight",
+   "kind": "toggle",
+   "label": "Mark the route's destination",
+   "at": [
+    "Quality of Life > Travel > Flight masters"
+   ]
+  },
+  {
+   "id": "qol.guideDim",
+   "kind": "toggle",
+   "label": "Dim other quests",
+   "at": [
+    "Map > Guide & quests > Quest markers"
+   ]
+  },
+  {
+   "id": "qol.guideHighlight",
+   "kind": "toggle",
+   "label": "Highlight step quests",
+   "at": [
+    "Map > Guide & quests > Quest markers"
+   ]
+  },
+  {
+   "id": "qol.guideNameTarget",
+   "kind": "toggle",
+   "label": "Click objectives to target",
+   "at": [
+    "Questing > Buttons > Action buttons"
+   ]
+  },
+  {
+   "id": "qol.hearthButton",
+   "kind": "toggle",
+   "label": "Hearthstone button",
+   "at": [
+    "Questing > Buttons > Action buttons",
+    "Quality of Life > Travel > Hearthstone"
+   ]
+  },
+  {
+   "id": "qol.hideErrors",
+   "kind": "toggle",
+   "label": "Hide combat errors",
+   "at": [
+    "Questing > Quests > Faster questing",
+    "Quality of Life > Quests > Faster questing"
+   ]
+  },
+  {
+   "id": "qol.hideQuestTracker",
+   "kind": "toggle",
+   "label": "Hide the game's quest tracker",
+   "at": [
+    "Questing > Quests > Tooltips and quest log",
+    "Quality of Life > Quests > Tooltips and quest log"
+   ]
+  },
+  {
+   "id": "qol.instantQuestText",
+   "kind": "toggle",
+   "label": "Instant quest text",
+   "at": [
+    "Questing > Quests > Faster questing",
+    "Quality of Life > Quests > Faster questing"
+   ]
+  },
+  {
+   "id": "qol.itemButton",
+   "kind": "toggle",
+   "label": "Quest item button",
+   "at": [
+    "Questing > Buttons > Action buttons",
+    "Quality of Life > Quests > Action buttons"
+   ]
+  },
+  {
+   "id": "qol.itemMarks",
+   "kind": "toggle",
+   "label": "Junk and keep marks",
+   "at": [
+    "Quality of Life > Vendors > Bags"
+   ]
+  },
+  {
+   "id": "qol.lowLevelQuests",
+   "kind": "toggle",
+   "label": "Low-level quests",
+   "at": [
+    "Map > Guide & quests > Quest markers"
+   ]
+  },
+  {
+   "id": "qol.mapObjectives",
+   "kind": "toggle",
+   "label": "World map objectives",
+   "at": [
+    "Map > Guide & quests > Quest markers"
+   ]
+  },
+  {
+   "id": "qol.markMob",
+   "kind": "dropdown",
+   "label": "Icon on mobs",
+   "at": [
+    "Questing > Buttons > Action buttons"
+   ]
+  },
+  {
+   "id": "qol.markNpc",
+   "kind": "dropdown",
+   "label": "Icon on NPCs",
+   "at": [
+    "Questing > Buttons > Action buttons"
+   ]
+  },
+  {
+   "id": "qol.markTarget",
+   "kind": "toggle",
+   "label": "Mark what they target",
+   "at": [
+    "Questing > Buttons > Action buttons"
+   ]
+  },
+  {
+   "id": "qol.minimapObjectives",
+   "kind": "toggle",
+   "label": "Minimap markers",
+   "at": [
+    "Map > Guide & quests > Quest markers"
+   ]
+  },
+  {
+   "id": "qol.nameplateIconSide",
+   "kind": "dropdown",
+   "label": "Nameplate icon position",
+   "at": [
+    "Questing > Quests > Tooltips and quest log"
+   ]
+  },
+  {
+   "id": "qol.nameplateIcons",
+   "kind": "toggle",
+   "label": "Nameplate icons",
+   "at": [
+    "Questing > Quests > Tooltips and quest log"
+   ]
+  },
+  {
+   "id": "qol.objectiveAreaAlpha",
+   "kind": "slider",
+   "label": "Area opacity",
+   "at": [
+    "Map > Guide & quests > Quest markers"
+   ]
+  },
+  {
+   "id": "qol.objectiveSpots",
+   "kind": "dropdown",
+   "label": "Objective spots on the map",
+   "at": [
+    "Map > Guide & quests > Quest markers"
+   ]
+  },
+  {
+   "id": "qol.pingTarget",
+   "kind": "toggle",
+   "label": "Ping what they target",
+   "at": [
+    "Questing > Buttons > Action buttons"
+   ]
+  },
+  {
+   "id": "qol.questBagMarks",
+   "kind": "toggle",
+   "label": "Quest marks in bags",
+   "at": [
+    "Questing > Quests > Tooltips and quest log"
+   ]
+  },
+  {
+   "id": "qol.questDB",
+   "kind": "toggle",
+   "label": "Quest database",
+   "at": [
+    "Questing > Quests > Quest database"
+   ]
+  },
+  {
+   "id": "qol.questLevelWindow",
+   "kind": "slider",
+   "label": "Quests above your level",
+   "at": [
+    "Map > Guide & quests > Quest markers"
+   ]
+  },
+  {
+   "id": "qol.questLevels",
+   "kind": "toggle",
+   "label": "Quest levels",
+   "at": [
+    "Questing > Quests > Tooltips and quest log"
+   ]
+  },
+  {
+   "id": "qol.questMarkerSize",
+   "kind": "slider",
+   "label": "Quest marker size",
+   "at": [
+    "Map > Guide & quests > Quest markers"
+   ]
+  },
+  {
+   "id": "qol.questSellWarning",
+   "kind": "toggle",
+   "label": "Offer to buy back quest items",
+   "at": [
+    "Questing > Quests > Tooltips and quest log"
+   ]
+  },
+  {
+   "id": "qol.questTimerAlerts",
+   "kind": "toggle",
+   "label": "Timed quest alerts",
+   "at": [
+    "Questing > Quests > Tooltips and quest log"
+   ]
+  },
+  {
+   "id": "qol.questTooltips",
+   "kind": "toggle",
+   "label": "Quest tooltips",
+   "at": [
+    "Questing > Quests > Tooltips and quest log"
+   ]
+  },
+  {
+   "id": "qol.rareButton",
+   "kind": "toggle",
+   "label": "Rare button",
+   "at": [
+    "Questing > Buttons > Action buttons"
+   ]
+  },
+  {
+   "id": "qol.repairGuild",
+   "kind": "toggle",
+   "label": "Guild bank first",
+   "at": [
+    "Quality of Life > Vendors > Merchants"
+   ]
+  },
+  {
+   "id": "qol.restock",
+   "kind": "toggle",
+   "label": "Restock button",
+   "at": [
+    "Quality of Life > Vendors > Restock"
+   ]
+  },
+  {
+   "id": "qol.rewardAutoPick",
+   "kind": "toggle",
+   "label": "Take the best reward",
+   "at": [
+    "Questing > Rewards & gear > Quest rewards",
+    "Quality of Life > Quests > Quest rewards"
+   ]
+  },
+  {
+   "id": "qol.rewardEquip",
+   "kind": "toggle",
+   "label": "Wear reward upgrades",
+   "at": [
+    "Questing > Rewards & gear > Quest rewards",
+    "Quality of Life > Quests > Quest rewards"
+   ]
+  },
+  {
+   "id": "qol.rewardHighlight",
+   "kind": "toggle",
+   "label": "Mark quest rewards",
+   "at": [
+    "Questing > Rewards & gear > Quest rewards"
+   ]
+  },
+  {
+   "id": "qol.ridingReminder",
+   "kind": "toggle",
+   "label": "Riding reminder",
+   "at": [
+    "Quality of Life > Vendors > Trainers"
+   ]
+  },
+  {
+   "id": "qol.sellJunk",
+   "kind": "toggle",
+   "label": "Sell grey items",
+   "at": [
+    "Quality of Life > Vendors > Merchants"
+   ]
+  },
+  {
+   "id": "qol.skipGossip",
+   "kind": "toggle",
+   "label": "Skip single-option gossip",
+   "at": [
+    "Questing > Quests > Faster questing",
+    "Quality of Life > Quests > Faster questing"
+   ]
+  },
+  {
+   "id": "qol.stepGossip",
+   "kind": "toggle",
+   "label": "Pick what the step asks for",
+   "at": [
+    "Questing > Quests > Faster questing"
+   ]
+  },
+  {
+   "id": "qol.stepInteract",
+   "kind": "toggle",
+   "label": "Step key talks and loots",
+   "at": [
+    "Questing > Buttons > Action buttons",
+    "Quality of Life > Quests > Action buttons"
+   ]
+  },
+  {
+   "id": "qol.targetAnnounce",
+   "kind": "toggle",
+   "label": "Name new targets in chat",
+   "at": [
+    "Questing > Buttons > Action buttons"
+   ]
+  },
+  {
+   "id": "qol.targetButton",
+   "kind": "toggle",
+   "label": "Target button",
+   "at": [
+    "Questing > Buttons > Action buttons"
+   ]
+  },
+  {
+   "id": "qol.targetPlate",
+   "kind": "toggle",
+   "label": "Show who it targets",
+   "at": [
+    "Questing > Buttons > Action buttons"
+   ]
+  },
+  {
+   "id": "qol.trainAll",
+   "kind": "toggle",
+   "label": "Learn new spells",
+   "at": [
+    "Quality of Life > Vendors > Trainers"
+   ]
+  },
+  {
+   "id": "qol.turnInMarkers",
+   "kind": "toggle",
+   "label": "Turn-ins",
+   "at": [
+    "Map > Guide & quests > Quest markers"
+   ]
+  },
+  {
+   "id": "qol.wearOffer",
+   "kind": "toggle",
+   "label": "Offer gear upgrades",
+   "at": [
+    "Questing > Rewards & gear > Loot and merchants"
+   ]
+  },
+  {
+   "id": "qol.xpTargetMark",
+   "kind": "toggle",
+   "label": "Guide level on the XP bar",
+   "at": [
+    "Quality of Life > Trackers > Experience"
+   ]
+  },
+  {
+   "id": "qol.xpTracker",
+   "kind": "toggle",
+   "label": "XP tracker",
+   "at": [
+    "Quality of Life > Trackers > Experience"
+   ]
+  },
+  {
+   "id": "rares.alerts",
+   "kind": "toggle",
+   "label": "Alert for rares",
+   "at": [
+    "Discovery > Rares > When a rare shows up"
+   ]
+  },
+  {
+   "id": "rares.combatAlerts",
+   "kind": "toggle",
+   "label": "Alert during combat",
+   "at": [
+    "Discovery > Rares > When a rare shows up"
+   ]
+  },
+  {
+   "id": "rares.cooldown",
+   "kind": "slider",
+   "label": "Once per rare every",
+   "at": [
+    "Discovery > Rares > When a rare shows up"
+   ]
+  },
+  {
+   "id": "rares.enabled",
+   "kind": "toggle",
+   "label": "Rares",
+   "at": [
+    "Discovery > Rares > When a rare shows up"
+   ]
+  },
+  {
+   "id": "rares.founder",
+   "kind": "toggle",
+   "label": "Say when Polestar's founder is nearby",
+   "at": [
+    "Discovery > Rares > When a rare shows up"
+   ]
+  },
+  {
+   "id": "rares.hideGrey",
+   "kind": "toggle",
+   "label": "Hide rares below your level",
+   "at": [
+    "Map > Rares & travel > Rares and treasures"
+   ]
+  },
+  {
+   "id": "rares.minimapRares",
+   "kind": "toggle",
+   "label": "Rares on the minimap",
+   "at": [
+    "Map > Rares & travel > Rares and treasures"
+   ]
+  },
+  {
+   "id": "rares.minimapTreasures",
+   "kind": "toggle",
+   "label": "Treasures on the minimap",
+   "at": [
+    "Map > Rares & travel > Rares and treasures"
+   ]
+  },
+  {
+   "id": "rares.mouseover",
+   "kind": "toggle",
+   "label": "Under the cursor",
+   "at": [
+    "Discovery > Rares > How rares are noticed"
+   ]
+  },
+  {
+   "id": "rares.nameplates",
+   "kind": "toggle",
+   "label": "Nameplates",
+   "at": [
+    "Discovery > Rares > How rares are noticed"
+   ]
+  },
+  {
+   "id": "rares.sound",
+   "kind": "toggle",
+   "label": "Play a sound",
+   "at": [
+    "Discovery > Rares > When a rare shows up"
+   ]
+  },
+  {
+   "id": "rares.soundKit",
+   "kind": "dropdown",
+   "label": "Sound",
+   "at": [
+    "Discovery > Rares > When a rare shows up"
+   ]
+  },
+  {
+   "id": "rares.target",
+   "kind": "toggle",
+   "label": "Your target",
+   "at": [
+    "Discovery > Rares > How rares are noticed"
+   ]
+  },
+  {
+   "id": "rares.toastSeconds",
+   "kind": "slider",
+   "label": "Alert stays for",
+   "at": [
+    "Discovery > Rares > When a rare shows up"
+   ]
+  },
+  {
+   "id": "rares.treasureAlerts",
+   "kind": "toggle",
+   "label": "Alert for treasures",
+   "at": [
+    "Discovery > Rares > When a rare shows up"
+   ]
+  },
+  {
+   "id": "rares.vignettes",
+   "kind": "toggle",
+   "label": "Minimap markers",
+   "at": [
+    "Discovery > Rares > How rares are noticed"
+   ]
+  },
+  {
+   "id": "rares.worldRares",
+   "kind": "toggle",
+   "label": "Rares on the world map",
+   "at": [
+    "Map > Rares & travel > Rares and treasures"
+   ]
+  },
+  {
+   "id": "rares.worldTreasures",
+   "kind": "toggle",
+   "label": "Treasures on the world map",
+   "at": [
+    "Map > Rares & travel > Rares and treasures"
+   ]
+  },
+  {
+   "id": "routePlan.questie",
+   "kind": "toggle",
+   "label": "Show planned turn-ins in Questie",
+   "at": [
+    "Integrations > Questie"
+   ]
+  },
+  {
+   "id": "ui.accent",
+   "kind": "color",
+   "label": "Accent colour",
+   "at": [
+    "Appearance > Colour & type > Accent"
+   ]
+  },
+  {
+   "id": "ui.backing",
+   "kind": "dropdown",
+   "label": "Backing",
+   "at": [
+    "Appearance > Windows > Guide window"
+   ]
+  },
+  {
+   "id": "ui.band",
+   "kind": "toggle",
+   "label": "Starlit band",
+   "at": [
+    "Appearance > Windows > Frame"
+   ]
+  },
+  {
+   "id": "ui.barShown",
+   "kind": "toggle",
+   "label": "Keep the bar shown",
+   "at": [
+    "Appearance > Windows > Guide window"
+   ]
+  },
+  {
+   "id": "ui.barsBottom",
+   "kind": "toggle",
+   "label": "Bar at the bottom",
+   "at": [
+    "Guide > Window > Position"
+   ]
+  },
+  {
+   "id": "ui.bgColor",
+   "kind": "color",
+   "label": "Background colour",
+   "at": [
+    "Appearance > Colour & type > Background"
+   ]
+  },
+  {
+   "id": "ui.bgOpacity",
+   "kind": "slider",
+   "label": "Background opacity",
+   "at": [
+    "Appearance > Colour & type > Background"
+   ]
+  },
+  {
+   "id": "ui.border",
+   "kind": "toggle",
+   "label": "Window border",
+   "at": [
+    "Appearance > Windows > Frame"
+   ]
+  },
+  {
+   "id": "ui.borderAccent",
+   "kind": "toggle",
+   "label": "Accent border",
+   "at": [
+    "Appearance > Windows > Frame"
+   ]
+  },
+  {
+   "id": "ui.borderColor",
+   "kind": "color",
+   "label": "Border colour",
+   "at": [
+    "Appearance > Windows > Frame"
+   ]
+  },
+  {
+   "id": "ui.borderSize",
+   "kind": "slider",
+   "label": "Border thickness",
+   "at": [
+    "Appearance > Windows > Frame"
+   ]
+  },
+  {
+   "id": "ui.brightness",
+   "kind": "slider",
+   "label": "Brightness",
+   "at": [
+    "Appearance > Colour & type > Background"
+   ]
+  },
+  {
+   "id": "ui.classAccent",
+   "kind": "toggle",
+   "label": "Class colour",
+   "at": [
+    "Appearance > Colour & type > Accent"
+   ]
+  },
+  {
+   "id": "ui.classCardSound",
+   "kind": "toggle",
+   "label": "Class quest chime",
+   "at": [
+    "Appearance > Colour & type > Type & motion"
+   ]
+  },
+  {
+   "id": "ui.combat",
+   "kind": "dropdown",
+   "label": "In combat",
+   "at": [
+    "Guide > Window > Combat"
+   ]
+  },
+  {
+   "id": "ui.compact",
+   "kind": "toggle",
+   "label": "Compact mode",
+   "at": [
+    "Guide > Window > What it shows"
+   ]
+  },
+  {
+   "id": "ui.font",
+   "kind": "dropdown",
+   "label": "Font",
+   "at": [
+    "Appearance > Colour & type > Type & motion"
+   ]
+  },
+  {
+   "id": "ui.gameMenuButton",
+   "kind": "toggle",
+   "label": "Button in the game menu",
+   "at": [
+    "Appearance > Windows > Menus"
+   ]
+  },
+  {
+   "id": "ui.growUp",
+   "kind": "toggle",
+   "label": "Grow upward",
+   "at": [
+    "Guide > Window > Position"
+   ]
+  },
+  {
+   "id": "ui.instance",
+   "kind": "dropdown",
+   "label": "In dungeons and battlegrounds",
+   "at": [
+    "Guide > Window > Dungeons and battlegrounds"
+   ]
+  },
+  {
+   "id": "ui.launcher",
+   "kind": "toggle",
+   "label": "Floating button",
+   "at": [
+    "Guide > Window > Show and hide"
+   ]
+  },
+  {
+   "id": "ui.lockHud",
+   "kind": "toggle",
+   "label": "Lock arrow and buttons",
+   "at": [
+    "Guide > Window > Position"
+   ]
+  },
+  {
+   "id": "ui.locked",
+   "kind": "toggle",
+   "label": "Lock window",
+   "at": [
+    "Guide > Window > Position"
+   ]
+  },
+  {
+   "id": "ui.matchAccent",
+   "kind": "toggle",
+   "label": "Match EllesmereUI accent",
+   "at": [
+    "Integrations > EllesmereUI"
+   ]
+  },
+  {
+   "id": "ui.matchFont",
+   "kind": "toggle",
+   "label": "Match EllesmereUI font",
+   "at": [
+    "Integrations > EllesmereUI"
+   ]
+  },
+  {
+   "id": "ui.maxHeight",
+   "kind": "slider",
+   "label": "Maximum height",
+   "at": [
+    "Guide > Window > What it shows"
+   ]
+  },
+  {
+   "id": "ui.menuScale",
+   "kind": "slider",
+   "label": "Menu scale",
+   "at": [
+    "Appearance > Windows > Menus"
+   ]
+  },
+  {
+   "id": "ui.newInForever",
+   "kind": "toggle",
+   "label": "Mark quests new in Forever",
+   "at": [
+    "Guide > Window > What it shows"
+   ]
+  },
+  {
+   "id": "ui.notesOpen",
+   "kind": "toggle",
+   "label": "Expand step tips",
+   "at": [
+    "Guide > Window > What it shows"
+   ]
+  },
+  {
+   "id": "ui.opacity",
+   "kind": "slider",
+   "label": "Window opacity",
+   "at": [
+    "Appearance > Windows > Guide window"
+   ]
+  },
+  {
+   "id": "ui.reduceMotion",
+   "kind": "toggle",
+   "label": "Reduce motion",
+   "at": [
+    "Appearance > Colour & type > Type & motion"
+   ]
+  },
+  {
+   "id": "ui.scale",
+   "kind": "slider",
+   "label": "Window scale",
+   "at": [
+    "Appearance > Windows > Guide window"
+   ]
+  },
+  {
+   "id": "ui.scheme",
+   "kind": "dropdown",
+   "label": "Colour scheme",
+   "at": [
+    "Appearance > Colour & type > Background"
+   ]
+  },
+  {
+   "id": "ui.shadow",
+   "kind": "toggle",
+   "label": "Window shadow",
+   "at": [
+    "Appearance > Windows > Frame"
+   ]
+  },
+  {
+   "id": "ui.showNotes",
+   "kind": "toggle",
+   "label": "Step tips",
+   "at": [
+    "Guide > Window > What it shows"
+   ]
+  },
+  {
+   "id": "ui.shown",
+   "kind": "toggle",
+   "label": "Show the window",
+   "at": [
+    "Guide > Window > What it shows"
+   ]
+  },
+  {
+   "id": "ui.skin",
+   "kind": "dropdown",
+   "label": "Skin",
+   "at": [
+    "Appearance > Windows > Frame"
+   ]
+  },
+  {
+   "id": "ui.style",
+   "kind": "dropdown",
+   "label": "Style",
+   "at": [
+    "Appearance > Windows > Guide window"
+   ]
+  },
+  {
+   "id": "ui.textSize",
+   "kind": "slider",
+   "label": "Text size",
+   "at": [
+    "Appearance > Colour & type > Type & motion"
+   ]
+  },
+  {
+   "id": "ui.upcoming",
+   "kind": "slider",
+   "label": "Upcoming steps",
+   "at": [
+    "Guide > Window > What it shows"
+   ]
+  },
+  {
+   "id": "ui.upcomingOpen",
+   "kind": "toggle",
+   "label": "Expand Up next",
+   "at": [
+    "Guide > Window > What it shows"
+   ]
+  },
+  {
+   "id": "ui.wholeStep",
+   "kind": "toggle",
+   "label": "Show the whole step",
+   "at": [
+    "Guide > Window > What it shows"
+   ]
+  },
+  {
+   "id": "ui.width",
+   "kind": "slider",
+   "label": "Width",
+   "at": [
+    "Appearance > Windows > Guide window"
+   ]
+  }
+ ],
+ "0.3.7": [
+  {
+   "id": "action:POLESTAR_HIDE",
+   "kind": "binding",
+   "label": "Hide/show Polestar",
+   "at": [
+    "Gamepad > Key bindings > The guide"
+   ]
+  },
+  {
+   "id": "behavior.whileHereFlights",
+   "kind": "toggle",
+   "label": "Flight paths you pass",
+   "at": [
+    "Guide > Window > Dynamic Questing"
+   ]
+  },
+  {
+   "id": "label:Forget kept ranks",
+   "kind": "button",
+   "label": "Forget kept ranks",
+   "at": [
+    "Quality of Life > Vendors > Trainers"
+   ]
+  },
+  {
+   "id": "label:Keep the arrow when hidden",
+   "kind": "toggle",
+   "label": "Keep the arrow when hidden",
+   "at": [
+    "Guide > Window > Show and hide"
+   ]
+  },
+  {
+   "id": "nav.detourCaption",
+   "kind": "toggle",
+   "label": "Detour captions",
+   "at": [
+    "Guide > Arrow & routes > Routes"
+   ]
+  },
+  {
+   "id": "qol.boostedRest",
+   "kind": "toggle",
+   "label": "Boosted Rest status",
+   "at": [
+    "Quality of Life > Trackers > Experience"
+   ]
+  },
+  {
+   "id": "qol.flightAutoTake",
+   "kind": "toggle",
+   "label": "Take the marked flight",
+   "at": [
+    "Quality of Life > Travel > Flight masters"
+   ]
+  },
+  {
+   "id": "qol.instanceTrack",
+   "kind": "toggle",
+   "label": "Track only dungeon quests in dungeons",
+   "at": [
+    "Questing > Quests > Tooltips and quest log",
+    "Quality of Life > Quests > Tooltips and quest log"
+   ]
+  },
+  {
+   "id": "qol.levelUpSpells",
+   "kind": "toggle",
+   "label": "New spells at level-up",
+   "at": [
+    "Quality of Life > Vendors > Trainers"
+   ]
+  },
+  {
+   "id": "qol.oldRanks",
+   "kind": "toggle",
+   "label": "Old ranks on your bars",
+   "at": [
+    "Quality of Life > Vendors > Trainers"
+   ]
+  },
+  {
+   "id": "qol.questLoot",
+   "kind": "toggle",
+   "label": "Show quest-starting loot",
+   "at": [
+    "Questing > Buttons > Action buttons",
+    "Quality of Life > Quests > Action buttons"
+   ]
+  },
+  {
+   "id": "qol.trainAllButton",
+   "kind": "toggle",
+   "label": "Train all button",
+   "at": [
+    "Quality of Life > Vendors > Trainers"
+   ]
+  },
+  {
+   "id": "update.card",
+   "kind": "toggle",
+   "label": "Tell me when a newer Polestar is out",
+   "at": [
+    "Guide > Window > What it shows"
+   ]
+  },
+  {
+   "id": "update.probe",
+   "kind": "toggle",
+   "label": "Ask other players' Polestar which version it is",
+   "at": [
+    "Questing > Quests > Group"
+   ]
+  }
+ ]
+}

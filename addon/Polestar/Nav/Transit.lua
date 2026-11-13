@@ -33,6 +33,13 @@
 --       docked, leaves in 0:40", untimed "Boat: average wait 2:55" (no
 --       countdown, since nothing has timed the loop); nil for an unknown id
 --   Transit.Riding(now) -> { kind, route, dock, arriveIn } | nil   (dock: its name to show)
+--   Transit.Carried() -> true while something the game gives no taxi for
+--       carries the player (the skycutter from Zephras Isle to Dalaran): their
+--       position moves at least CARRY_YARDS a sample with no speed of their
+--       own, CARRY_SAMPLES samples running (a teleport, a charge or a
+--       knockback moves once; a fall is their own); it ends at the first
+--       sample they move on their own or stand still. Nav/Walk.lua searches
+--       no walk, measures none and reads no floor meanwhile.
 --   Transit.LiftNear(c, wx, wy [, yards]) -> liftId, name (to show)
 --   Transit.Teleports(now) -> usable class teleports, see below
 -- Fires ns.Fire("NAV_TRANSIT", changed, own) when a sighting changes a
@@ -64,6 +71,7 @@ local FIT_EVERY = 10         -- samples between fits during a ride
 local MAX_SAMPLES = 300      -- per route and ride
 local QUIET = 600            -- s: a repeat of your own sighting this recent is routine
 local SAMPLE_EVERY = 1       -- s
+local CARRY_YARDS, CARRY_SAMPLES = 2, 2 -- Transit.Carried: yd a sample, samples running
 local LIFT_NEAR = 40         -- yd: LiftNear's default reach
 local GCD = 1.5
 
@@ -353,12 +361,14 @@ Transit.Countdown = countdown
 local HERE = {
 	boat = L["Boat docked, leaves in %s"],
 	zeppelin = L["Zeppelin docked, leaves in %s"],
+	airship = L["Airship docked, leaves in %s"],
 	tram = L["Tram boarding, leaves in %s"],
 	lift = L["Lift here, leaves in %s"],
 }
 local NEXT = {
 	boat = L["Next boat in %s"],
 	zeppelin = L["Next zeppelin in %s"],
+	airship = L["Next airship in %s"],
 	tram = L["Next tram in %s"],
 	lift = L["Next lift in %s"],
 }
@@ -366,6 +376,7 @@ local NEXT = {
 local AVERAGE = {
 	boat = L["Boat: average wait %s"],
 	zeppelin = L["Zeppelin: average wait %s"],
+	airship = L["Airship: average wait %s"],
 	tram = L["Tram: average wait %s"],
 	lift = L["Lift: average wait %s"],
 }
@@ -538,11 +549,32 @@ local function record()
 	end
 end
 
+-- Transit.Carried's state: the last sample's position and how many samples running moved the player with no
+-- speed of their own.
+local carry = { n = 0 }
+
+-- The player's own speed (yd/s, GetUnitSpeed's first value: 0 standing on a moving ship), nil when unreadable.
+local function ownSpeed()
+	if not GetUnitSpeed then return nil end
+	local ok, s = pcall(GetUnitSpeed, "player")
+	if not ok then return nil end
+	local C = ns.Compat
+	if C and C.Readable then s = C.Readable(s) end
+	return type(s) == "number" and s or nil
+end
+
 local function sample()
 	local nowMs = Transit.Now() * 1000
 	local x, y, z, map = position()
 	local C = ns.Compat
 	local onTaxi = C and C.IsOnTaxi and C.IsOnTaxi()
+	local moved = x and not onTaxi and carry.map == map and carry.x and (x - carry.x) ^ 2 + (y - carry.y) ^ 2 >= CARRY_YARDS * CARRY_YARDS
+	if moved and ownSpeed() == 0 and not (IsFalling and IsFalling()) then
+		carry.n = carry.n + 1
+	else
+		carry.n = 0
+	end
+	carry.x, carry.y, carry.map = x, y, map
 	local speed = x and not onTaxi and speedOf(nowMs, x, y, z or 0, map) or 0
 	if speed > 0 then
 		for id, route in pairs(routes) do
@@ -604,6 +636,12 @@ local function carOf(route, phase)
 		end
 	end
 	return best
+end
+
+-- Carried by something the game gives no taxi for (see the header): the last CARRY_SAMPLES samples moved the
+-- player with no speed of their own.
+function Transit.Carried()
+	return carry.n >= CARRY_SAMPLES
 end
 
 function Transit.Riding(now)

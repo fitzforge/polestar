@@ -208,3 +208,15 @@ test('every chain the level-up heads-up can offer opens a Class guide for each r
 	}
 	assert.deepEqual(missing, []);
 });
+
+// QuestieDB 1.0.14 brought Terror of the Desert Skies (78830) as a Hunter quest (its Season of Discovery import) with
+// no prerequisite, so the heads-up offered it to Hunters at 26 with no guide for it. On Forever every class takes it,
+// after the drawing quest of the same name (78823): players' recordings have a Rogue and a Shaman taking it once they
+// handed the drawing to Hemet Nesingwary, and the server files it under the Badlands, not a class (corrections, 78830).
+test('Terror of the Desert Skies is no class quest and waits for the Primitive Drawing, so the heads-up offers no chain without a guide', { skip: needs('quests.json') }, () => {
+	load();
+	const q = quests[78830];
+	assert.ok(q, 'quest 78830 is in the data');
+	assert.ok(!q.classes, `78830 has no class limit (classes ${q.classes})`);
+	assert.deepEqual(q.pre, [78823], '78830 waits for the drawing quest, 78823');
+});

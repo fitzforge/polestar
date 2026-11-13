@@ -1,0 +1,57 @@
+## Interface: 16001
+## Title: Polestar Settings
+## Notes: Part of Polestar: the settings window, its look pages and their previews. Loaded when you open the settings.
+## Title-deDE: Polestar-Einstellungen
+## Notes-deDE: Teil von Polestar: das Einstellungsfenster, seine Darstellungsseiten und ihre Vorschauen. Wird geladen, wenn du die Einstellungen öffnest.
+## Title-esES: Polestar: configuración
+## Notes-esES: Parte de Polestar: la ventana de configuración, sus páginas de aspecto y sus vistas previas. Se carga al abrir la configuración.
+## Title-esMX: Polestar: configuración
+## Notes-esMX: Parte de Polestar: la ventana de configuración, sus páginas de aspecto y sus vistas previas. Se carga al abrir la configuración.
+## Title-frFR: Polestar : réglages
+## Notes-frFR: Fait partie de Polestar : la fenêtre des réglages, ses pages d'apparence et leurs aperçus. Chargé à l'ouverture des réglages.
+## Title-koKR: Polestar 설정
+## Notes-koKR: Polestar의 일부: 설정 창과 모양 페이지, 그 미리 보기. 설정을 열 때 불러옵니다.
+## Title-ptBR: Polestar: opções
+## Notes-ptBR: Parte do Polestar: a janela de opções, suas páginas de aparência e as prévias delas. Carregado ao abrir as opções.
+## Title-ruRU: Polestar: настройки
+## Notes-ruRU: Часть Polestar: окно настроек, его страницы оформления и их предпросмотр. Загружается при открытии настроек.
+## Title-zhCN: Polestar 设置
+## Notes-zhCN: Polestar 的组成部分：设置窗口、外观页面及其预览。打开设置时加载。
+## Title-zhTW: Polestar 設定
+## Notes-zhTW: Polestar 的一部分：設定視窗、外觀頁面及其預覽。開啟設定時載入。
+## Author: Polestar
+## Version: 0.3.7.2
+## Category: Polestar
+## Group: Polestar
+## LoadOnDemand: 1
+## Dependencies: Polestar
+## X-License: GPL-3.0-only
+## X-Website: https://github.com/fitzforge/polestar
+
+UI\Controls.lua
+UI\Preview.lua
+Core\ProfileStrings.lua
+Nav\Options.lua
+Maps\Options.lua
+QoL\Options.lua
+Lookup\Options.lua
+Dungeons\Options.lua
+UI\GuideOptions.lua
+Rares\Options.lua
+Talents\Options.lua
+Alts\Options.lua
+Quests\Options.lua
+Gear\Options.lua
+Theme\SkinPicker.lua
+UI\Options.lua
+UI\Presets.lua
+UI\Profiles.lua
+UI\Looks\Theme.lua
+UI\Looks\GuideWindow.lua
+Nav\ArrowOptions.lua
+Nav\PinsOptions.lua
+Maps\RouteOptions.lua
+QoL\ButtonsOptions.lua
+UI\Looks\Toasts.lua
+UI\Looks\Trackers.lua
+UI\Movers.lua

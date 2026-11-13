@@ -32,11 +32,11 @@ function M.GetWidth(self)
 	return getWidth(self)
 end
 `;
-function run(script, { enabled = true, before = '', hideTracker = false, withQoL = false, savedTab = 'quests', shown = true } = {}) {
+function run(script, { enabled = true, before = '', hideTracker = false, withQoL = false, savedTab = 'quests', shown = true, pos = [100, 200] } = {}) {
 	return runAddon({
 		stubs: ['stub_ui.lua'], before: TRACKER + before,
 		addons: [{ name: 'Polestar', files: ['Core/Core.xml', 'Theme/Theme.xml', ...(withQoL ? ['QoL/QoL.xml'] : []), 'UI/UI.xml'] }],
-		saved: { Polestar: `PolestarDB={schema=1,settings={ui={trackerDock=${enabled},shown=${shown},pos={100,200},scale=1.2,growUp=true,maxHeight=0.3},qol={hideQuestTracker=${hideTracker}}}};PolestarCharDB={trackerDockTab=${JSON.stringify(savedTab)}}` },
+		saved: { Polestar: `PolestarDB={schema=1,settings={ui={trackerDock=${enabled},shown=${shown},pos={${pos.join(',')}},scale=1.2,growUp=true,maxHeight=0.3},qol={hideQuestTracker=${hideTracker}}}};PolestarCharDB={trackerDockTab=${JSON.stringify(savedTab)}}` },
 		script: `uistub.install();stub.login();stub.advance(0.3)
 local GF=Polestar.UI.GuideFrame
 local dock=Polestar.UI.TrackerDock
@@ -48,6 +48,59 @@ test('docking is opt-in; the floating guide keeps its position and settings', ()
 	const [out] = run(`emit({enabled=dock.Enabled(),attached=GF.dock~=nil,pos=Polestar.Get("ui.pos"),scale=Polestar.Get("ui.scale")})`, { enabled: false });
 	assert.deepEqual(out, { enabled: false, attached: false, pos: [100,200], scale: 1.2 });
 });
+
+test('the docked guide mover saves the future floating position without moving the live guide', () => {
+	const [out] = run(`
+	GF.dock:SetSelected(true,true);GF.dock:Layout(ObjectiveTrackerFrame,false)
+	local M=Polestar.Movers
+	Polestar.Set("movers.grid",false);Polestar.Set("movers.snap",false)
+	M.Unlock("guide")
+	local box=M.Box("guide")
+	assert(box:IsVisible() and box.Note:IsShown())
+	assert(box.Note:GetText():find("Currently docked",1,true))
+	local p,rel,rp,x,y=GF.frame:GetPoint(1)
+	local l,b,w,h=M.Rect("guide")
+	stub.cursor={l+5,b+5}
+	stub.RunScript(box,"OnMouseDown","LeftButton")
+	M.DragTo("guide",l+60,b+40)
+	local ap,ar,arp,ax,ay=GF.frame:GetPoint(1)
+	assert(ap==p and ar==rel and arp==rp and ax==x and ay==y,"live guide moved during preview")
+	M.EndDrag()
+	ap,ar,arp,ax,ay=GF.frame:GetPoint(1)
+	assert(ap==p and ar==rel and arp==rp and ax==x and ay==y,
+		"live guide moved on drop: "..tostring(p).."/"..tostring(ap).." "..tostring(rp).."/"..tostring(arp).." "..tostring(x).."/"..tostring(ax).." "..tostring(y).."/"..tostring(ay))
+	emit({pos=Polestar.Get("ui.pos"),scale=Polestar.Get("ui.scale"),visible=box:IsVisible()})`);
+	assert.deepEqual(out, { pos: [150, 233], scale: 1.2, visible: true });
+	const [floating] = run(`
+	GF.ApplyPosition()
+	local p,rel,rp,x,y=GF.frame:GetPoint(1)
+	emit({floating=GF.dock==nil,position={p,rel==UIParent,rp,x,y}})`, {enabled:false,pos:out.pos});
+	assert.deepEqual(floating,{floating:true,position:['BOTTOMLEFT',true,'BOTTOMLEFT',150,233]});
+});
+
+for (const skin of ['polestar','hearth','halo','classic']) {
+	test(`the ${skin} look styles the selected Polestar row and restores host artwork on Quests`, () => {
+		const [out] = run(`
+	Polestar.Set("ui.skin",${JSON.stringify(skin)})
+	local quests,guide,row
+	for _,child in ipairs({PolestarTrackerDockTabs:GetChildren()}) do
+		if child.label then
+			if child.label:GetText()=="Quests" then quests=child else guide=child end
+		elseif rawget(child,"psSkin") then row=child end
+	end
+	assert(row and not row:IsShown())
+	local bare=GF.frame.psBare
+	guide:Click();stub.advance(0.3)
+	assert(row:IsShown() and not PolestarTrackerDockTabs.fill:IsShown())
+	assert(guide.themeTab.psSelected and not quests.themeTab.psSelected)
+	assert(row.psSkin.skin==Polestar.Theme.SkinKey())
+	assert(GF.frame.psBare==bare,"dock changed guide backing")
+	quests.themeTab:Click();stub.advance(0.3)
+	emit({rowHidden=not row:IsShown(),hostFill=PolestarTrackerDockTabs.fill:IsShown(),
+		hostTab=quests:IsShown(),savedSkin=Polestar.Get("ui.skin"),guideBacking=GF.frame.psBare==bare})`);
+		assert.deepEqual(out,{rowHidden:true,hostFill:true,hostTab:true,savedSkin:skin,guideBacking:true});
+	});
+}
 
 test('docked guide follows tracker bounds, keeps floating settings, and hides its resize grip', () => {
 	const [out] = run(`
@@ -65,7 +118,7 @@ test('docked guide follows tracker bounds, keeps floating settings, and hides it
 	assert.equal(out.attached, true);
 	assert.equal(out.positioned, true);
 	assert.equal(out.grip, false);
-	assert.equal(out.bare, true);
+	assert.equal(out.bare, false);
 	assert.deepEqual(out.pos,[100,200]);
 	assert.equal(out.scale,1.2);
 	assert.equal(out.grow,true);
@@ -203,14 +256,14 @@ test('hiding Polestar restores quests, hides the dock and stops its update loop'
 test('the selected guide tab survives a fresh session and switching back saves Quests',()=>{
 	const [saved]=run(`
 	for _,button in ipairs({PolestarTrackerDockTabs:GetChildren()}) do
-		if button.label:GetText()=="Polestar" then button:Click() end
+		if button.label and button.label:GetText()=="Polestar" then button:Click() end
 	end
 	emit(Polestar.CharState().trackerDockTab)`);
 	assert.equal(saved,'polestar');
 	const [restored]=run(`
 	local visible=GF.dock.pane:IsShown() and GF.frame:IsVisible()
 	for _,button in ipairs({PolestarTrackerDockTabs:GetChildren()}) do
-		if button.label:GetText()=="Quests" then button:Click() end
+		if button.label and button.label:GetText()=="Quests" then button:Click() end
 	end
 	emit({visible=visible,saved=Polestar.CharState().trackerDockTab})`,{savedTab:saved});
 	assert.deepEqual(restored,{visible:true,saved:'quests'});
@@ -318,7 +371,9 @@ test('Questie hosts the tabs when it replaces the Blizzard tracker, using its fo
 	local _,anchor,_,x=PolestarTrackerDockNativeAnchor:GetPoint(1)
 	local quests,guide
 	for _,button in ipairs({tabs:GetChildren()}) do
-		if button.label:GetText()=="Quests" then quests=button else guide=button end
+		if button.label then
+			if button.label:GetText()=="Quests" then quests=button else guide=button end
+		end
 	end
 	local font,size,flags=guide.label:GetFont()
 	guide:Click()

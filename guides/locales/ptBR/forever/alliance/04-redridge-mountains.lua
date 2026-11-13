@@ -71,7 +71,7 @@ return {
 
 	-- Step 14: Darkshire
 	-- {area:1002} Three Corners · {zone:1431} Duskwood · {area:42} Darkshire · {item:4371} Bronze Tube · {quest:174} Look to the Stars · {npc:3133} Herble Baubbletump · {npc:276} Viktori Prism'Antras
-	["Follow the road south from {area:1002} into {zone:1431}; {area:42} lies on the east side of the forest.\nNo {item:4371} for {quest:174}? {npc:3133}, in the house beside {npc:276}, keeps only one and is usually sold out. Without one, right-click the quest in the guide window and skip it.\n{npc:276}'s house stands at the east end of town. {npc:3133} sells engineering goods in the house beside it."] = "Siga a estrada para o sul a partir de {area:1002} até {zone:1431}; {area:42} fica no lado leste da floresta.\nSem {item:4371} para {quest:174}? {npc:3133}, na casa ao lado de {npc:276}, guarda só um e costuma estar sem estoque. Sem ele, clique com o botão direito na missão na janela do guia e pule-a.\nA casa de {npc:276} fica no extremo leste da cidade. {npc:3133} vende artigos de engenharia na casa ao lado.",
+	["Follow the road south from {area:1002} into {zone:1431}; {area:42} lies on the east side of the forest.\nNo {item:4371} for {quest:174}? {npc:3133}, in the house beside {npc:276}, is nearly always sold out. Without one, right-click the quest in the guide window and skip it."] = "Siga a estrada para o sul a partir de {area:1002} até {zone:1431}; {area:42} fica no lado leste da floresta.\nSem {item:4371} para {quest:174}? {npc:3133}, na casa ao lado de {npc:276}, quase sempre está sem estoque. Sem ele, clique com o botão direito na missão na janela do guia e pule-a.",
 	-- {npc:2409} Felicia Maline
 	["{npc:2409}, at the north end of town"] = "{npc:2409}, no extremo norte da cidade",
 	-- {npc:265} Madame Eva
@@ -90,8 +90,6 @@ return {
 	["{npc:633}, at the south end of town; inside"] = "{npc:633}, na ponta sul da cidade; lá dentro",
 	-- {npc:633} Elaine Carevin · {npc:288} Jitters · {quest:163} Raven Hill
 	["{npc:633}: {npc:288}, at {quest:163}"] = "{npc:633}: {npc:288}, em {quest:163}",
-	-- {item:4371} Bronze Tube · {npc:3133} Herble Baubbletump
-	["{item:4371}, from {npc:3133}, if you have none"] = "{item:4371}, de {npc:3133}, se não tiver nenhum",
 	-- {npc:276} Viktori Prism'Antras
 	["{npc:276}, inside"] = "{npc:276}, lá dentro",
 	-- {npc:302} Blind Mary
@@ -278,6 +276,7 @@ return {
 	-- ["Cross the long bridge north into town: {npc:381} on the docks, {npc:900} in the town hall, the innkeeper in the inn, {npc:342} in her garden at the west end. {npc:382}'s Blackrock quests and {quest:98386} came with you from your first Redridge visit."] = "Atravesse a ponte longa para o norte, em direção à cidade: {npc:381}, nas docas, {npc:900}, na prefeitura, o estalajadeiro, na estalagem, e {npc:342}, na horta dela, na ponta oeste. As missões Rocha Negra de {npc:382} e {quest:98386} vieram com você desde a sua primeira visita a Cristarrubra.",
 	-- ["East past the mill and across the river. Shadowhide gnolls fill the valley; {npc:703} (26, well above you) leads them at its north end: clear his escort first and fight him at full health. Stay out of {area:2099} to the south: its orcs are elite."] = "A leste, passe o moinho e atravesse o rio. Gnolls Umbrapele enchem o vale; {npc:703} (26, bem acima de você) os lidera no extremo norte: elimine a escolta dele primeiro e lute com ele com a vida cheia. Fique longe de {area:2099} ao sul: os orcs de lá são elite.",
 	-- ["Follow the road south from {area:1002} into {area:10}; {area:42} lies on the east side of the forest.\nNo {item:4371} for {quest:174}? {npc:3133} sells it in the house beside {npc:276}, in limited stock; {npc:1448} in {area:150} sells it too.\n{npc:276}'s house stands at the east end of town. {npc:3133} sells engineering goods in the house beside it."] = "Siga a estrada para o sul a partir de {area:1002} até {area:10}; {area:42} fica no lado leste da floresta.\nSem {item:4371} para {quest:174}? {npc:3133} vende na casa ao lado de {npc:276}, em estoque limitado; {npc:1448}, em {area:150}, também vende.\nA casa de {npc:276} fica no extremo leste da cidade. {npc:3133} vende artigos de engenharia na casa ao lado.",
+	-- ["Follow the road south from {area:1002} into {zone:1431}; {area:42} lies on the east side of the forest.\nNo {item:4371} for {quest:174}? {npc:3133}, in the house beside {npc:276}, keeps only one and is usually sold out. Without one, right-click the quest in the guide window and skip it.\n{npc:276}'s house stands at the east end of town. {npc:3133} sells engineering goods in the house beside it."] = "Siga a estrada para o sul a partir de {area:1002} até {zone:1431}; {area:42} fica no lado leste da floresta.\nSem {item:4371} para {quest:174}? {npc:3133}, na casa ao lado de {npc:276}, guarda só um e costuma estar sem estoque. Sem ele, clique com o botão direito na missão na janela do guia e pule-a.\nA casa de {npc:276} fica no extremo leste da cidade. {npc:3133} vende artigos de engenharia na casa ao lado.",
 	-- ["For {npc:3649}, on the return to {area:442} (06-ashenvale)"] = "Para {npc:3649}, na volta a {area:442} (06-ashenvale)",
 	-- ["Gnolls toward {area:1002}"] = "Gnolls rumo a {area:1002}",
 	-- ["Greater Tarantulas crawl on the slopes around the mill north-east of the lake."] = "Grandes Tarântulas rastejam pelas encostas em volta do moinho a nordeste do lago.",
@@ -296,6 +295,7 @@ return {
 	-- ["{item:280911}: Redridge Thrashers"] = "{item:280911}: Espancadores de Cristarrubra",
 	-- ["{item:3014}: any Blackrock orc"] = "{item:3014}: qualquer orc Rocha Negra",
 	-- ["{item:3014}: the Blackrock Renegades at the mill"] = "{item:3014}: os Renegados Rocha Negra do moinho",
+	-- ["{item:4371}, from {npc:3133}, if you have none"] = "{item:4371}, de {npc:3133}, se não tiver nenhum",
 	-- ["{npc:1646}: Thundris' letter from {area:442}"] = "{npc:1646}: a carta de Trovejius de {area:442}",
 	-- ["{npc:266}, by the docks"] = "{npc:266}, nas docas",
 	-- ["{npc:332} is at SI:7 in {object:2100}, {npc:6122} in the {object:2164}'s cellar in the {object:2101}, {npc:376} in the Cathedral of Light."] = "{npc:332} está na SI:7 em {object:2100}, {npc:6122} no porão do {object:2164} no {object:2101}, {npc:376} na Catedral da Luz.",

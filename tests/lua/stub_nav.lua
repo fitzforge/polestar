@@ -11,7 +11,7 @@
 --   stub.nav.mapPoint(wx, wy)             -> 9000, x, y on the live frame
 --   stub.nav.setWaypoint(wp)              Engine announces a waypoint
 --   stub.nav.changeStep(i, wp)            Engine moves to step i
---   stub.nav.withTomTom()                 install a recording TomTom
+--   stub.nav.withTomTom()                 install a recording TomTom (the addon itself, loaded)
 --   stub.nav.showWorldMap(mapID)          open the world map on mapID (see the map section)
 
 local nav = {
@@ -46,6 +46,10 @@ end
 
 local Compat = {}
 nav.Compat = Compat
+
+-- Another addon installed and enabled: the AddOns list as wow_stub.lua keeps it
+-- (stub.addonsLoaded; nav.withTomTom loads TomTom).
+function Compat.AddOnPresent(name) return C_AddOns.IsAddOnLoaded(name) and true or false end
 
 function Compat.MapToWorld(map, x, y, frame)
 	local b
@@ -204,6 +208,7 @@ function C_SuperTrack.SetSuperTrackedUserWaypoint(on) table.insert(nav.userWaypo
 
 function nav.withTomTom()
 	local calls, n = {}, 0
+	stub.addonsLoaded.TomTom = true
 	TomTom = { calls = calls }
 	function TomTom:AddWaypoint(m, x, y, opts)
 		n = n + 1

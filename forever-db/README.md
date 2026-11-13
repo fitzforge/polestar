@@ -92,7 +92,7 @@ checked against, and says in our own words what was wrong:
 ```
 
 - `quests`: `set` replaces fields (title, level, minLevel, races, classes, start, end, pre, preAny,
-  preAll, objectives, xp, escort, ...); `remove: true` (on its own, without `set`) takes a quest that
+  preAll, objectives, xp, escort, sourceItem, ...); `remove: true` (on its own, without `set`) takes a quest that
   is not in the game out of the data, with every other quest's link to it.
 - `npcs`, `objects`: `set` replaces fields (rank, name, ...); `addSpawns` adds
   `{ "<uiMapID>": { "f": "e" | "l", "pts": [[x, y], ...] } }` in map percent.

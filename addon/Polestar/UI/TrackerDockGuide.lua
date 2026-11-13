@@ -60,12 +60,11 @@ function Skin.AttachPolestar(holder, openTab, closeTab)
 		frame:ClearAllPoints()
 		frame:SetPoint("TOPLEFT", pane, "TOPLEFT")
 	end
-	function adapter:Layout(tracker, custom, themed)
+	function adapter:Layout(tracker, custom)
 		if InCombatLockdown() then return end
 		self.available = Skin.DockAvailableHeight(holder, tracker, custom)
 		self:Place()
 		gf.Layout()
-		if themed and gf.parts and gf.parts.band then gf.parts.band:Hide() end
 		local natural = frame:GetHeight() * frame:GetScale()
 		local height = self.available and math.min(natural, self.available) or natural
 		-- Polestar scrolls its goals. The outer pane handles optional sections

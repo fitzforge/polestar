@@ -14,6 +14,7 @@
 pub mod atlasloot;
 pub mod attune;
 pub mod client;
+pub mod elites;
 pub mod heights;
 pub mod instances;
 pub mod journal;
@@ -220,6 +221,13 @@ pub fn is_web_citation(c: &V) -> bool {
 		Some("quest" | "npc" | "item" | "object" | "zone" | "spell") => id.is_num() && forge_guide::js::is_integer(id.num()) && id.num() > 0.0 && c.get("ref").is_undef(),
 		_ => false,
 	}
+}
+
+/// `isSourceCitation(c)` (tools/lib/codex/web.js): a curated table's citation of players'
+/// recordings or an open game database the way the corrections cite one, `{ kind, ref }` with a
+/// kind of `crate::corrections::SOURCE_KINDS`, a non-empty `ref` and nothing else.
+pub fn is_source_citation(c: &V) -> bool {
+	c.as_obj().is_some_and(|o| o.len() == 2) && c.get("kind").as_str().is_some_and(|k| crate::corrections::SOURCE_KINDS.contains(&k)) && c.get("ref").as_str().is_some_and(|r| !r.is_empty())
 }
 
 /// Every .guide file under dir, by path (build.js guideTexts).
@@ -556,7 +564,7 @@ fn sources_meta(inputs: &Inputs) -> V {
 	let ne = inputs.entrance_table.len();
 	if ne > 0 && inputs.atlasloot.is_none() {
 		out.push(source(
-			"Curated instance entrances (data/codex/entrances.json): QuestieDB Forever dungeon table, warcraft.wiki.gg, the web quest database (Forever pages)",
+			"Curated instance entrances (data/codex/entrances.json): QuestieDB Forever dungeon table, warcraft.wiki.gg, the web quest database (Forever pages), Polestar Recorder sessions",
 			V::str(&format!("{ne} entrances")),
 			V::str("Facts only (coordinates), each entry with its source"),
 		));
@@ -591,7 +599,7 @@ fn sources_meta(inputs: &Inputs) -> V {
 	let nj = inputs.journal_quests.len();
 	if nj > 0 {
 		out.push(source(
-			"Curated Dungeons journal quests (data/codex/journal-quests.json): the web quest database (Forever pages)",
+			"Curated Dungeons journal quests (data/codex/journal-quests.json): the web quest database (Forever pages), Polestar Recorder sessions",
 			V::str(&format!("{nj} quests")),
 			V::str("Facts only (quest ids and instances), each row with its source"),
 		));
@@ -671,6 +679,9 @@ fn build_from(opts: &Options, inputs: &Inputs, t0: Instant, log: &dyn Fn(&str)) 
 	let placed =
 		heights::add_heights(&V::Obj(m.npcs.clone()), &sz.get("npc"), &inputs.forever.map_frames) + heights::add_heights(&V::Obj(m.objects.clone()), &sz.get("object"), &inputs.forever.map_frames);
 	log(&format!("{placed} NPC and object places with a spawn height"));
+	let f = &inputs.forever;
+	let marked = elites::mark(&V::Obj(m.quests.clone()), &f.npcs, &f.objects, &f.items, &f.map_frames);
+	log(&format!("{marked} quest objectives at objects among hostile elites"));
 	let (counts, coverage) = summarize(&m);
 	let cl = inputs.client.as_ref();
 	let meta = Obj::new();

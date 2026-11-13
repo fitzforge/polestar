@@ -92,6 +92,7 @@ local FALLBACK_KINDS = {
 local SOURCE_ICON = {
 	vendor = "icon-vendor", drop = "icon-kill", object = "icon-interact", quest = "icon-accept", gift = "icon-talk", craft = "icon-craft",
 	rep = "icon-rep", pvp = "icon-achieve", container = "icon-use", world = "icon-explore",
+	flight = "icon-fly", inn = "icon-sethome", middle = "icon-explore",
 }
 
 -- The client's colours, for a client (or preview) without the API.
@@ -551,6 +552,9 @@ function LK.Activate()
 		LK.Guide(sourceSel)
 	elseif details and details.psPrimaryAction then
 		details.psPrimaryAction()
+	elseif sel.kind == "zone" and not (LK.detail and LK.detail.primary) then
+		-- A continent or a battleground: nothing to guide to, and the note says so.
+		return
 	else
 		LK.Guide(nil)
 	end
@@ -959,7 +963,8 @@ local function renderDetails(loaded, reason)
 		end
 		d.Secondary.psAction = function() LK.OpenGuide(s.id, true) end
 		note = g and g.pitch or nil
-	elseif s.kind == "zone" then
+	elseif s.kind == "zone" and not (list and #list > 0) then
+		-- A continent or a battleground: no flight master, inn or middle to go to.
 		note = L["Zones have no sources. Search for what is in them."]
 	elseif blocked then
 		note = STATUS_NOTE[status]
@@ -975,7 +980,11 @@ local function renderDetails(loaded, reason)
 		note = MOUNT_NOTE
 	elseif best then
 		primary = L["Guide me"]
-		note = format(L["Builds a guide to %s, the best source for you, and opens it in a new tab."], list[best].label or "?")
+		if s.kind == "zone" then
+			note = format(L["Builds a guide to %s, the quickest of these to reach, and opens it in a new tab."], list[best].label or "?")
+		else
+			note = format(L["Builds a guide to %s, the best source for you, and opens it in a new tab."], list[best].label or "?")
+		end
 	elseif list and #list > 0 then
 		primary, enabled = L["Guide me"], false
 		note = L["No source is open to this character yet. Pick one above to be guided anyway."]
@@ -1021,7 +1030,7 @@ local function renderDetails(loaded, reason)
 
 	-- Sources.
 	local rowsShown = {}
-	if list and s.kind ~= "zone" then
+	if list and (s.kind ~= "zone" or #list > 0) then
 		d.Head.Text:SetText(headText(s.kind))
 		d.Head.Count:SetText(#list > 0 and tostring(#list) or "")
 		d.Head:ClearAllPoints()

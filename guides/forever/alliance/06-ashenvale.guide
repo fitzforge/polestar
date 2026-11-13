@@ -153,19 +153,9 @@ step The Ruins of Stardust
   goto 33.3,67.7 "The Ruins of Stardust"
   collect 5494 quest 1034 @33.3,67.7      -- Handful of Stardust
 
-step Alonso
-  only Warrior
-  goto 42.4,70 "Alonso"
-  accept 78132 optional                   -- Alonso may not offer these to every class; if he doesn't, carry on.; walks around The Talondeep Path: the map marks where to look
-  turnin 78132
-  accept 78133 optional
-  turnin 78133
-  accept 78134 optional
-  turnin 78134
-
 step Mystral Lake
   zone Ashenvale
-  tip Sentinel Velene Starstrike stands at the Silverwind Refuge on the east shore of Mystral Lake; Alonso camps on its west shore. Befouled Water Elementals wade in the lake between them.
+  tip Sentinel Velene Starstrike stands at the Silverwind Refuge on the east shore of Mystral Lake. Befouled Water Elementals wade in the lake.
   accept 1016                             -- Sentinel Velene Starstrike
   collect 12220 x5 optional           -- Underwater
   collect 5455 quest 1016 @49.6,71.3      -- Kill the elementals for 5 Intact Elemental Bracers, then use the Divining Scroll
@@ -337,6 +327,7 @@ step Ironforge
   zone Ironforge
   tip The gryphons land in the Great Forge. Lomac Gearstrip stands in Tinker Town, east of it, by the Deeprun Tram.
   turnin 1072                             -- Lomac Gearstrip, Tinker Town
+  buy 4371 x1 npc 5175 optional           -- Bronze Tube, for Look to the Stars in Darkshire: Gearcutter Cogspinner, beside Lomac, sometimes has one
   turnin 968 optional                     -- Only with Book: The Powers Below from Darkshore: Gerrig Bonegrip, the Forlorn Cavern
   train class only Warrior,Paladin,Hunter,Rogue,Priest,Shaman,Mage,Warlock
   vendor nearest
