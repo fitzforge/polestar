@@ -46,3 +46,4 @@ mod pack_memory;
 mod pack_race_parts;
 mod places;
 mod radius;
+mod recorded_areas;

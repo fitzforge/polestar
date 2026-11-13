@@ -1070,7 +1070,11 @@ apart) up to 12 spread over the whole area, as a walk from `x`/`y`. The other
 places follow with `alt = true`; a hand-placed point is the first spot, the
 data's places its alternatives (GUIDE_FORMAT, "Spawn areas"). A `loop` step's
 goals carry its `goto` points instead, in order, with `spread = true` and no
-`n` or alternatives (compile-time: `resolve.js` applyLoop). `x`/`y` stay the
+`n` or alternatives (compile-time: `resolve.js` applyLoop). A kill, collect or
+interact bound to a quest objective that players' recordings place
+(`data/recorded/quests.json`) takes its places from the trusted recorded spots
+(an area of a spot's own size, no `n` where no spawn of the target lies in it;
+GUIDE_FORMAT, "Spawn areas", Recorded). `x`/`y` stay the
 default point. `z` (optional, 0.2.4) is the height of the NPC or object the
 goal's `x`/`y` stands for (the compiler's, from `spawnz.json`: GUIDE_FORMAT,
 "Heights"); a spot and a smart target's candidate may carry their own `z`

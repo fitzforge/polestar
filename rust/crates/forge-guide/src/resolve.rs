@@ -48,6 +48,9 @@ const SPREAD_MAX_MIN_RADIUS: f64 = 150.0;
 const STRAY_YARDS: f64 = 300.0;
 const STRAY_MAX: usize = 2;
 const STRAY_SHARE: f64 = 0.75;
+/// A goal point this far outside every trusted recorded spot of its objective is elsewhere (recorded_areas):
+/// `forge record learn`'s link distance, the ground one place of a player's ticks spans.
+const RECORDED_MISS_YARDS: f64 = 60.0;
 
 const GATHER_ROLES: [&str; 3] = ["mine", "herb", "fishing"];
 const LOOP_RADIUS: f64 = 30.0;
@@ -868,6 +871,201 @@ fn hand_spots(data: &Data, sources: &[V], map: &V, f: &V, x: f64, y: f64, near: 
 	let mut out = vec![own];
 	out.extend(alts.into_iter().map(|a| a.0));
 	out.into()
+}
+
+/// `spots` nearest (x, y) first (ties: by x, then y).
+fn nearest_first(data: &Data, map: &V, spots: Vec<V>, x: f64, y: f64) -> Vec<V> {
+	let mut ds: Vec<(V, f64)> = spots
+		.into_iter()
+		.map(|s| {
+			let d = distance(data, map, num(&s, "x"), num(&s, "y"), x, y);
+			(s, d)
+		})
+		.collect();
+	ds.sort_by(|a, b| ord(jor(jor(a.1 - b.1, num(&a.0, "x") - num(&b.0, "x")), num(&a.0, "y") - num(&b.0, "y"))));
+	ds.into_iter().map(|d| d.0).collect()
+}
+
+/// Players' recorded spots (#1963, recorded.rs): a kill, collect or interact goal bound to a quest objective
+/// takes its places from the trusted spots `forge record learn` found that objective done at, where the spawns
+/// give them the wrong size (Trouble in the Valley: 112 yd around Corporal Adamore's spawns, while players
+/// loot Benedict's Orders within 47 yd of one point) or put the goal where nobody does it.
+///
+/// The goal takes the region of recorded spots at its places: those within RECORDED_MISS_YARDS of its point
+/// or overlapping one of its open spawn areas, and every spot within SPREAD_YARDS of the region's, edge to
+/// edge (the ground one search covers). A recorded spot holding spawn areas (their centres inside it, with
+/// spawns in them) none of them bigger than it keeps those as open places: the camps within it are finer. Any
+/// other is an area of its own radius (at least SPOT_MIN_RADIUS), best-backed first up to the caps spawn areas
+/// have (SPREAD_CAP, searched spot by spot, when the places lie more than SPREAD_YARDS apart; else SPOT_CAP),
+/// the rest alternatives, and a spawn area it overlaps is gone (the recorded spot is where that place is).
+/// The goal's other spawn areas stay as they were, and so does its point, unless its first open spawn area
+/// (the one the arrow starts with) went and the point lies more than RECORDED_MISS_YARDS outside the spots.
+/// Recorded spots outside the region that no place of the goal overlaps are alternatives: the objective is
+/// done there too.
+///
+/// With none at its places, the goal stays as it is while the data places its target there and knows a place
+/// players do it at too (a spawn of one of `known` in a recorded spot: the sources the compiler placed the
+/// goal among, or any candidate of the target for an author's point): players did it elsewhere on their way.
+/// Else the data has the target where nobody does it, or nothing at the point: the goal takes the region of
+/// the recorded spot nearest its point, the other spawn areas become alternatives, and a point more than
+/// RECORDED_MISS_YARDS outside the region moves to its nearest place.
+///
+/// A goal of points (one place and no spawn areas, or spawn points of radius 0) has no area to reshape: it
+/// keeps its point while the best-backed recorded spot holds it at a spawn of its target, within
+/// SPOT_MIN_RADIUS of its edge (a spawn is finer than any area); else the region is its places (a creature
+/// players meet at several places along its way: the spots are where they found it), its points outside the
+/// region become alternatives, and a spawn point the goal moves away from stays one.
+/// -> the move (yards from the old point, the recorded spot nearest it), if the point moved.
+fn recorded_areas(data: &Data, goal: &V, sources: &[V], known: &[V], map: &V, f: &V) -> Option<(f64, crate::recorded::Spot)> {
+	use crate::recorded::Spot;
+	let rec = crate::recorded::objective_spots(data, &goal.get("quest"), goal.get("oi").num(), map, f);
+	if rec.is_empty() || !data.map_size(map).truthy() {
+		return None;
+	}
+	let (x, y) = (goal.get("x").num(), goal.get("y").num());
+	let radius = |s: &Spot| math_round(s.r).max(SPOT_MIN_RADIUS);
+	let from = |s: &Spot, ax: f64, ay: f64| distance(data, map, s.x, s.y, ax, ay);
+	let had = goal.get("spots").items();
+	let pts = spawn_points_of(data, sources, map, f);
+	let at_spawn = |ax: f64, ay: f64| pts.iter().any(|p| distance(data, map, px(p), py(p), ax, ay) <= SPOT_MIN_RADIUS);
+	let pointed = had.iter().all(|s| num(s, "r") == 0.0);
+	let points: Vec<(f64, f64)> = if had.is_empty() { vec![(x, y)] } else { had.iter().map(|s| (num(s, "x"), num(s, "y"))).collect() };
+	if pointed && points.iter().any(|&(ax, ay)| at_spawn(ax, ay) && from(&rec[0], ax, ay) <= radius(&rec[0]) + SPOT_MIN_RADIUS) {
+		return None;
+	}
+	let spawns_in = |s: &Spot| pts.iter().filter(|p| distance(data, map, px(p), py(p), s.x, s.y) <= radius(s)).count();
+	let overlaps = |r: &Spot, s: &V| from(r, num(s, "x"), num(s, "y")) <= radius(r) + num(s, "r");
+	let at_places = |r: &Spot| from(r, x, y) <= radius(r) + RECORDED_MISS_YARDS || had.iter().any(|s| !s.get("alt").truthy() && overlaps(r, s));
+	let local: Vec<usize> = (0..rec.len()).filter(|&i| at_places(&rec[i])).collect();
+	let elsewhere = local.is_empty();
+	let home = had.iter().position(|s| !s.get("alt").truthy());
+	let known_pts = spawn_points_of(data, known, map, f);
+	if elsewhere && (home.is_some() || at_spawn(x, y)) && rec.iter().any(|r| known_pts.iter().any(|p| distance(data, map, px(p), py(p), r.x, r.y) <= radius(r))) {
+		return None;
+	}
+	// The region: the spots at the goal's places (else the one nearest its point), grown spot by spot.
+	let edge = |s: &Spot| from(s, x, y) - radius(s);
+	let mut region: Vec<usize> = if elsewhere { (0..rec.len()).min_by(|&a, &b| ord(edge(&rec[a]) - edge(&rec[b]))).into_iter().collect() } else { local };
+	let mut k = 0;
+	while k < region.len() {
+		let a = &rec[region[k]];
+		for b in 0..rec.len() {
+			if !region.contains(&b) && from(a, rec[b].x, rec[b].y) - radius(a) - radius(&rec[b]) <= SPREAD_YARDS {
+				region.push(b);
+			}
+		}
+		k += 1;
+	}
+	region.sort_unstable();
+	let taken: Vec<&Spot> = region.iter().map(|&i| &rec[i]).collect();
+	// Each recorded spot taken: covered by the spawn areas it holds when none is bigger than it, else an area. Only
+	// areas holding spawns count (an author's point with none near is no camp).
+	let mut kept: Vec<usize> = Vec::new();
+	let mut own: Vec<&Spot> = Vec::new();
+	for &r in &taken {
+		let inside: Vec<usize> = (0..had.len()).filter(|&i| num(&had[i], "n") > 0.0 && from(r, num(&had[i], "x"), num(&had[i], "y")) <= radius(r)).collect();
+		if !inside.is_empty() && inside.iter().all(|&i| num(&had[i], "r") <= radius(r)) {
+			for i in inside {
+				if !kept.contains(&i) {
+					kept.push(i);
+				}
+			}
+		} else {
+			own.push(r);
+		}
+	}
+	// The goal's other spawn areas: gone under an area of a recorded spot, else as they were (alternatives when the
+	// recordings say the data has the target where nobody does it, or when they replace a goal's points).
+	let gone = |i: usize| !kept.contains(&i) && own.iter().any(|r| overlaps(r, &had[i]));
+	let rest_had: Vec<V> = (0..had.len())
+		.filter(|&i| !kept.contains(&i) && !gone(i))
+		.map(|i| {
+			let o = had[i].as_obj().unwrap().spread();
+			if elsewhere || pointed {
+				o.set("alt", true);
+			}
+			V::from(o)
+		})
+		.collect();
+	let (still, other): (Vec<V>, Vec<V>) = rest_had.into_iter().partition(|s| !s.get("alt").truthy());
+	let centres: Vec<V> = own
+		.iter()
+		.map(|s| (s.x, s.y))
+		.chain(kept.iter().map(|&i| (num(&had[i], "x"), num(&had[i], "y"))))
+		.chain(still.iter().map(|s| (num(s, "x"), num(s, "y"))))
+		.map(|(cx, cy)| V::from(vec![V::from(cx), V::from(cy)]))
+		.collect();
+	let spread = centres.len() > 1 && extent90(&centres, &data.frame(map)) > SPREAD_YARDS;
+	let (areas, rest) = own.split_at(own.len().min(if spread { SPREAD_CAP } else { SPOT_CAP }));
+	let area = |s: &Spot, alt: bool| -> V {
+		let o = obj! { "x" => s.x, "y" => s.y, "r" => radius(s) };
+		let n = spawns_in(s);
+		if n > 0 {
+			o.set("n", n as f64);
+		}
+		if alt {
+			o.set("alt", true);
+		}
+		o.into()
+	};
+	let mut open: Vec<V> = areas.iter().map(|s| area(s, false)).collect();
+	open.extend(kept.iter().map(|&i| {
+		let o = had[i].as_obj().unwrap().spread();
+		o.delete("alt");
+		V::from(o)
+	}));
+	open.extend(still);
+	let mut alts: Vec<V> = rest.iter().map(|s| area(s, true)).collect();
+	alts.extend(other);
+	for (i, r) in rec.iter().enumerate() {
+		if !region.contains(&i) && !had.iter().any(|s| overlaps(r, s)) {
+			alts.push(area(r, true));
+		}
+	}
+	let place_gone = elsewhere || home.is_none_or(gone);
+	let moved = if !place_gone || taken.iter().any(|s| from(s, x, y) <= radius(s) + RECORDED_MISS_YARDS) {
+		None
+	} else {
+		taken.iter().min_by(|a, b| ord(from(a, x, y) - from(b, x, y))).map(|s| (from(s, x, y), (*s).clone()))
+	};
+	// A point goal's spawn left behind is one more place the target spawns: an alternative, as spawn areas are.
+	if moved.is_some() && had.is_empty() && at_spawn(x, y) {
+		alts.push(obj! { "x" => x, "y" => y, "r" => SPOT_MIN_RADIUS, "n" => 1.0, "alt" => true }.into());
+	}
+	let (gx, gy) = match moved {
+		Some((_, ref s)) => nearest_first(data, map, open.clone(), s.x, s.y).first().map_or((s.x, s.y), |p| (num(p, "x"), num(p, "y"))),
+		None => (x, y),
+	};
+	let mut spots = if spread { walk(data, map, &open, gx, gy) } else { nearest_first(data, map, open, gx, gy) };
+	spots.extend(nearest_first(data, map, alts, gx, gy));
+	goal.set("spots", spots);
+	if spread {
+		goal.set("spread", true);
+	} else {
+		goal.as_obj().unwrap().delete("spread");
+	}
+	if moved.is_some() {
+		goal.set("x", gx);
+		goal.set("y", gy);
+	}
+	moved
+}
+
+/// The warning on an author's point recorded_areas moved: it lies outside every area players do the objective in.
+fn warn_moved(r: &mut R<'_>, ln: &V, goal: &V, moved: Option<(f64, crate::recorded::Spot)>) {
+	if let Some((yards, s)) = moved {
+		let msg = format!(
+			"players' recordings place quest {}.{} {} yd from this point: {} players within {} yd of {},{}",
+			goal.get("quest"),
+			goal.get("oi"),
+			math_round(yards),
+			s.counted,
+			math_round(s.r),
+			num_str(s.x),
+			num_str(s.y)
+		);
+		r.warn(ln, msg, Some("the compiled goal leads there; move the point into that area"));
+	}
 }
 
 /// The level of a kill or collect goal's spawn areas: the highest level of the mobs of `sources` that spawn in
@@ -3042,6 +3240,9 @@ fn resolve_goal(g: &V, zone_map: &V, prev: &V, r: &mut R, ctx: &Ctx) -> V {
 		r.err(&ln, "smart targets pick their NPC and position at runtime; drop the coordinates, or name an npc id", None);
 	}
 	let drop_sides = if v == "collect" { Some(&ctx.sides) } else { None };
+	// Players' recorded spots of the goal's objective (recorded_areas); a `loop` step's goals take its gotos as their
+	// spots (apply_loop).
+	let recorded = matches!(v, "kill" | "collect" | "interact") && !goal.get("quest").is_undef() && !goal.get("oi").is_undef() && !ctx.loop_;
 	let picked = pick_spawn(data, &candidates, &map, prev, ctx.used_maps, drop_sides, pass_rares, drop_level);
 	if picked.truthy() {
 		let c = picked.get("cand");
@@ -3074,16 +3275,14 @@ fn resolve_goal(g: &V, zone_map: &V, prev: &V, r: &mut R, ctx: &Ctx) -> V {
 		if !explicit && !picked.get("x").is_undef() {
 			let srcs: Vec<V> = if area && picked.get("sources").truthy() { picked.get("sources").items() } else { vec![c.clone()] };
 			let elites: Vec<V> = if area { picked.get("elites").items() } else { Vec::new() };
-			let sp = spawn_spots(data, &srcs, &picked.get("map"), &picked.get("f"), picked.get("x").num(), picked.get("y").num(), &elites);
+			let (pmap, pf) = (picked.get("map"), picked.get("f"));
+			let sp = spawn_spots(data, &srcs, &pmap, &pf, picked.get("x").num(), picked.get("y").num(), &elites);
 			if let Some(sp) = sp {
 				// A grind keeps its mob's places the arrow picks, not the alternatives (other places it spawns, walked
 				// by hand for a quest target): any of the mob will do, and a grind's spots cost memory (#1392).
 				let grind = !goal.get("grind").is_undef();
 				let kept: Vec<V> = sp.spots.iter().filter(|s| !(grind && s.get("alt").truthy())).cloned().collect();
 				goal.set("spots", if kept.is_empty() { sp.spots } else { kept });
-				if v == "kill" || v == "collect" || !goal.get("grind").is_undef() {
-					spot_levels(data, &goal, &srcs, &picked.get("map"), &picked.get("f"));
-				}
 				if sp.spread && area {
 					goal.set("spread", true);
 				}
@@ -3092,11 +3291,17 @@ fn resolve_goal(g: &V, zone_map: &V, prev: &V, r: &mut R, ctx: &Ctx) -> V {
 					goal.set("y", ay);
 				}
 			}
+			if recorded {
+				recorded_areas(data, &goal, &srcs, &srcs, &pmap, &pf);
+			}
+			if v == "kill" || v == "collect" || !goal.get("grind").is_undef() {
+				spot_levels(data, &goal, &srcs, &pmap, &pf);
+			}
 			if v == "collect" && goal.get("npc").is_undef() {
 				set_if(&goal, "fromNpcs", source_npcs(data, &c, &picked.get("sources").items()));
 				// A `loop` step's goals take its gotos as their spots (apply_loop).
 				if !ctx.loop_ {
-					spot_npcs(data, &goal, &srcs, &picked.get("map"), &picked.get("f"));
+					spot_npcs(data, &goal, &srcs, &pmap, &pf);
 				}
 			}
 		} else if explicit && !goal.get("x").is_undef() {
@@ -3130,8 +3335,12 @@ fn resolve_goal(g: &V, zone_map: &V, prev: &V, r: &mut R, ctx: &Ctx) -> V {
 			} else {
 				SPREAD_YARDS
 			};
-			let (gx, gy, gf) = (goal.get("x").num(), goal.get("y").num(), goal.get("f"));
-			set_if(&goal, "spots", hand_spots(data, &sources, &gmap, &gf, gx, gy, near, alt_sources.as_deref()));
+			let gf = goal.get("f");
+			set_if(&goal, "spots", hand_spots(data, &sources, &gmap, &gf, goal.get("x").num(), goal.get("y").num(), near, alt_sources.as_deref()));
+			if recorded {
+				warn_moved(r, &ln, &goal, recorded_areas(data, &goal, &sources, &candidates, &gmap, &gf));
+			}
+			let (gx, gy) = (goal.get("x").num(), goal.get("y").num());
 			if v == "kill" || v == "collect" {
 				spot_levels(data, &goal, &sources, &gmap, &gf);
 			}
@@ -3142,6 +3351,10 @@ fn resolve_goal(g: &V, zone_map: &V, prev: &V, r: &mut R, ctx: &Ctx) -> V {
 				spot_npcs(data, &goal, &sources, &gmap, &gf);
 			}
 		}
+	} else if recorded && explicit && !goal.get("x").is_undef() {
+		// No source the data places (an item it knows no dropper of): the author's point, and the areas players'
+		// recordings give.
+		warn_moved(r, &ln, &goal, recorded_areas(data, &goal, &[], &[], &goal.get("map"), &goal.get("f")));
 	}
 	if !g.get("r").is_undef() {
 		goal.set("r", g.get("r"));

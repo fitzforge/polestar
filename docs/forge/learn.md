@@ -16,7 +16,8 @@ forge record learn --data <out>/data/forever --verdicts <verdict.json> --archive
 By default it learns for the quests Forever added (`--scope forever-new`): their objective spots,
 prerequisites and minimum levels. `--scope all` learns objective spots for every quest too, Classic
 ones included (prerequisites and levels stay the Forever-new quests'): a snapshot a few times the
-size, and the Codex then takes every quest's recorded spots. Givers, NPCs, drops and paths follow.
+size, and the Codex and the guides then take every quest's recorded spots. Givers, NPCs, drops and
+paths follow.
 
 ## Inputs
 
@@ -88,8 +89,8 @@ Every fact is learned per voter, then combined over voters (never pooled counts)
 
 | Status | When | Used by |
 |---|---|---|
-| `trusted` | enough counted voters agree (an objective spot, or a change to a value our data has: 3; a refusal-backed prerequisite, exclusive group or level our data lacks or agrees with: 2; a vouched voter always), and at least ⅔ of the counted voters with evidence either way agree | the Codex, the data build (prerequisites and levels), and so the public database |
-| `gap` | fewer counted voters: a provisional fact | the Codex (marked `provisional`), guides; never the public database |
+| `trusted` | enough counted voters agree (an objective spot, or a change to a value our data has: 3; a refusal-backed prerequisite, exclusive group or level our data lacks or agrees with: 2; a vouched voter always), and at least ⅔ of the counted voters with evidence either way agree | the Codex, the data build (prerequisites and levels), the guides (objective spots), and so the public database |
+| `gap` | fewer counted voters: a provisional fact | the Codex (marked `provisional`); never the guides or the public database |
 | `conflict` | the ⅔ rule fails, or a prerequisite was both unlocked and offered without | nobody; listed |
 | `stale` | seen only on an older client build while 3 counted voters recorded the quest on the newest build without confirming it | like a gap |
 
@@ -145,7 +146,10 @@ evidence and no prerequisite or level conflict), and every fact that is not a co
   (`map`, `x`, `y`; `provisional: true` for a gap fact, which never replaces a point our data has).
 - `forge data build`: trusted `pre`, `notPre`, `notPreAny` and pinned trusted `minLevel` only, tagged
   `recorder:pre` / `recorder:minLevel`, then the corrections again.
-- Both skip any field a correction sets: corrections are the last word.
+- `forge guide compile` (data/recorded beside the reference data): a `kill`, `collect` or
+  `interact` goal bound to an objective takes its places from the line's trusted spots, each backed
+  by `thresholds.spotVoters` counted voters or more (GUIDE_FORMAT.md, "Spawn areas", Recorded).
+- All three skip any field a correction sets: corrections are the last word.
 
 The data build still reads `data/recordings/` for everything else (titles, givers, objectives
 lists, spawns, drops); `data/codex/recorded.json` still holds the Codex's recorded drops and vendors.
