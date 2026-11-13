@@ -4116,6 +4116,11 @@ L["Part of the %s quests"] = "Fait partie des quêtes de %s"
 -- L["See 1 result"] = ""
 -- L["See all %d results"] = ""
 
+-- UI/GuideFrameBanner.lua
+-- L["Fresh start: about %d%% of this guide's quest XP follows on from %s."] = ""
+-- L["Expect about %d minutes of extra grinding, or start there."] = ""
+-- L["Open %s"] = ""
+
 -- No longer in the code (its English changed or it went away): reuse or delete.
 -- L["Alliance"] = "Alliance"
 -- L["Blood Elf"] = "Elfe de sang"

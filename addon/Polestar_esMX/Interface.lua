@@ -4114,6 +4114,11 @@ L["Part of the %s quests"] = "Parte de las misiones de %s"
 -- L["See 1 result"] = ""
 -- L["See all %d results"] = ""
 
+-- UI/GuideFrameBanner.lua
+-- L["Fresh start: about %d%% of this guide's quest XP follows on from %s."] = ""
+-- L["Expect about %d minutes of extra grinding, or start there."] = ""
+-- L["Open %s"] = ""
+
 -- No longer in the code (its English changed or it went away): reuse or delete.
 -- L["The arrow's target, the stops of its travel route, the step's other goals and the areas their mobs and objects spawn in."] = "El objetivo de la flecha, las paradas de su ruta de viaje, los demás objetivos del paso y las zonas donde aparecen sus monstruos y objetos."
 -- L["The arrow's target and the areas it spawns in."] = "El objetivo de la flecha y las zonas donde aparece."

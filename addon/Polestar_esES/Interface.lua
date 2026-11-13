@@ -4115,6 +4115,11 @@ L["Part of the %s quests"] = "Parte de las misiones de %s"
 -- L["See 1 result"] = ""
 -- L["See all %d results"] = ""
 
+-- UI/GuideFrameBanner.lua
+-- L["Fresh start: about %d%% of this guide's quest XP follows on from %s."] = ""
+-- L["Expect about %d minutes of extra grinding, or start there."] = ""
+-- L["Open %s"] = ""
+
 -- No longer in the code (its English changed or it went away): reuse or delete.
 -- L["Shortest Path Forever is guiding. Turn off \"Guide with Shortest Path Forever when it's installed\" (Options, Arrow & routes) to use Polestar's arrow."] = "Shortest Path Forever está guiando. Desactiva \"Guiar con Shortest Path Forever si está instalado\" (Opciones, Flecha y rutas) para usar la flecha de Polestar."
 -- L["Shortest Path Forever is guiding. Turn off \"Guide with Shortest Path Forever when it's installed\" (Options, Integrations) to use Polestar's arrow."] = "Shortest Path Forever está guiando. Desactiva \"Guiar con Shortest Path Forever si está instalado\" (Opciones, Integraciones) para usar la flecha de Polestar."
