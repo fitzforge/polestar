@@ -217,11 +217,12 @@ test('generated TravelData.lua loads under Lua 5.1 and the addon planner routes 
 		const walking = planRoute({ ...common, known: [] });
 		assert.deepEqual(walking.map((l) => l.kind), ['walk']);
 		// A flight master not learnt yet is walked to, learnt and flown from, to a known one (#1174:
-		// beside Ironforge's, knowing Menethil Harbor, the planner walked through Loch Modan) ...
+		// beside Ironforge's, knowing Menethil Harbor, the planner walked through Loch Modan); its leg
+		// says to learn it first (#1795) ...
 		const learning = planRoute({ ...common, known: ['Stormwind'] });
 		assert.deepEqual(learning.map((l) => [l.kind, l.label]), [
 			['walk', 'Walk to the flight master'],
-			['fly', 'Fly to Stormwind'],
+			['fly', 'Learn the flight path at Sentinel Hill, then fly to Stormwind'],
 			['walk', 'Stormwind City 60, 60'],
 		]);
 		assert.equal(learning[1].from.short, 'Sentinel Hill');
