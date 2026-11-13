@@ -1492,19 +1492,10 @@ test('forever/horde/06-hillsbrad-foothills.guide: Battle of Hillsbrad parts 4 an
 
 // Horde 30-40 audit (0.4.0): the hearthstone stays bound at Freewind Post through Hillsbrad (07-ashenvale's bind), so the
 // next guide's way from the Undercity to Freewind goes by Hearthstone; the travel sweep measured 4.8 minutes saved per
-// branch against the Tarren Mill bind. Alliance Relations is taken on the Orgrimmar stop from 30 (players arrive at
-// 30.4), the next guide's step staying for a character below 30.
-test('forever/horde/30-40/01-hillsbrad-foothills.guide: no bind in Hillsbrad, Alliance Relations on the Orgrimmar stop from 30', { skip }, () => {
+// branch against the Tarren Mill bind.
+test('forever/horde/30-40/01-hillsbrad-foothills.guide: no bind in Hillsbrad', { skip }, () => {
 	const list = goals('forever/horde/30-40/01-hillsbrad-foothills.guide');
 	assert.deepEqual(list.filter(({ goal }) => goal.t === 'sethome').map(({ goal }) => goal.location), [], 'Freewind Post stays bound');
-	const belgrom = at(list, 'turnin 1145 (Belgrom)', is('turnin', 1145));
-	const drok = at(list, 'accept 1431 (Craven Drok)', is('accept', 1431));
-	const keldran = at(list, 'accept 1432 (Keldran)', is('accept', 1432));
-	const thaivand = at(list, 'accept 552 (Tarren Mill)', is('accept', 552));
-	assert.ok(belgrom < drok && drok < keldran && keldran < thaivand, 'in Orgrimmar, before Tarren Mill');
-	assert.ok((list[drok].step.when || []).some((p) => p.k === 'level' && p.op === '>=' && !p.neg && p.n === 30), 'shown from level 30');
-	const next = goals('forever/horde/30-40/02-thousand-needles.guide');
-	at(next, "the next guide's accept 1431 for a character below 30", is('accept', 1431));
 });
 
 // Horde 21-40 audit (0.4.0): Elixir of Agony (515) needs a Lesser Troll's Blood Elixir no vendor sells; Hillsbrad 22-25

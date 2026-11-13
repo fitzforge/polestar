@@ -5228,8 +5228,7 @@
 			"faction": "Horde",
 			"at": {
 				"quest": 1431,
-				"goal": "accept",
-				"guide": "forever/horde/30-40/02-thousand-needles"
+				"goal": "accept"
 			},
 			"tip": "The zeppelin lands at the tower outside Orgrimmar's main gate. Craven Drok walks the Drag: if he isn't at the arrow, look along its streets to the south-west. Keldran stands in the Valley of Spirits on the west side of the city.",
 			"note": "Alliance Relations (1431): Craven Drok walks a waypoint path through the Drag from his spawn at 51.3,45.9 (the data's point); the tip said he waits there. Players' recordings: 46 people met him across the Drag (46-52,43-52, most at 48-51,49-51), and the 3 who took the quest did so at 51.8,45.1, 47.8,49.7 and 44.5,52.4.",
@@ -6574,23 +6573,6 @@
 				{
 					"kind": "recording",
 					"ref": "players' recordings, 0.3.5 and later: 4 people leave the guide at 33.0 (p25 33.0)"
-				}
-			]
-		},
-		{
-			"id": "horde-3040-alliance-relations-from-30",
-			"faction": "Horde",
-			"at": {
-				"quest": 1431,
-				"goal": "accept",
-				"guide": "forever/horde/30-40/01-hillsbrad-foothills"
-			},
-			"when": "level>=30",
-			"note": "Alliance Relations (1431) is offered from level 30. On 30-40/01-hillsbrad-foothills' Orgrimmar stop it shows from 30; a character below it takes Craven Drok's quest on the next guide's Orgrimmar stop, whose step stays.",
-			"source": [
-				{
-					"kind": "recording",
-					"ref": "players' recordings, 0.3.5 and later: 50 people enter 30-40/01-hillsbrad-foothills at a median 30.44 (p25 29.90)"
 				}
 			]
 		},

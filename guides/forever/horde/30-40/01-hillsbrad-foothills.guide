@@ -84,8 +84,7 @@ pitch For characters of 29 to 33, but most quests here are level 32-34, a few up
 # Hearthstone: it stays bound at Freewind Post (forever/horde/07-ashenvale's bind); this guide sets none.
 # The next guide's travel from the Undercity to Freewind Post then goes by Hearthstone: the travel sweep
 # measured 4.8 minutes saved per branch over the chain (two Freewind hearths in the next guide against one
-# Tarren Mill hearth here). Alliance Relations (1431, 1432) is taken on this guide's Orgrimmar stop from
-# level 30, where players arrive at 30.4 (players' recordings); below 30 it waits for the next guide's stop.
+# Tarren Mill hearth here).
 
 # ---------------------------------------------------------------- To Orgrimmar
 
@@ -157,14 +156,6 @@ step Belgrom Rockmaul
   tip Belgrom Rockmaul stands in the Valley of Honor, on the way out to the main gate.
   turnin 1145                         -- Belgrom Rockmaul
   accept 1146                         -- for Moktar Krin in the Shimmering Flats, next guide
-
-step Alliance Relations
-  when level>=30
-  zone Orgrimmar
-  tip Craven Drok walks the Drag: if he isn't at the arrow, look along its streets to the south-west. Keldran stands in the Valley of Spirits on the west side of the city. Both quests are offered from level 30; below it, they wait for the next guide's Orgrimmar stop.
-  accept 1431                         -- Craven Drok
-  turnin 1431                         -- Keldran
-  accept 1432                         -- for Takata Steelblade in Desolace, next guide
 
 step Zeppelin to Undercity
   zone Durotar
