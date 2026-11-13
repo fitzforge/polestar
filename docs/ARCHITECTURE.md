@@ -1286,6 +1286,7 @@ Polestar.Engine.GetAlong() -> { { index, title, untilStep?, goals = { goal view,
 Polestar.Engine.AimAlong(stepIndex, goalIndex) -> bool     -- lead the arrow to one of them (row click); holds while it is listed
 Polestar.Engine.GetWaypoint() -> waypoint | nil
 Polestar.Engine.GetProgress() -> doneSteps, totalSteps
+Polestar.Engine.StepGate(i) -> nil | 0 | k          -- step i applies (nil), is not for this character or gone (0), or its k-th `when` predicate is the first to fail; reads no goal
 Polestar.Engine.StepNumber(i) -> number, hidden     -- step i of the active guide as the player counts it (see "Steps the character has")
 Polestar.Engine.StepTotal() -> number               -- the steps the player sees
 Polestar.Engine.StepNumberOf(guide, i) -> number, hidden; Polestar.Engine.StepTotalOf(guide) -> number  -- the same for any guide
@@ -7124,9 +7125,16 @@ opens on its card. The open state is not saved. `GuideFrame.Layout` asks `StepLi
 and stacks it at `StepList.Layout(width, room)`, as tall as its cards up to
 the window's cap (`ui.maxHeight`, the screen's top with Grow upward).
 `StepList.Fill` reads `Engine.GetStepView` for each step not hidden for this
-character (`UI.StepHidden`) and not `na`: all of them when the guide, the
-step on screen, the live step or the progress moved, else only the live and
-the viewed step's cards; the cards are measured again only when what one
+character (`UI.StepHidden`): all of them when the guide, the step on screen,
+the live step, the progress, a step's gate (`Engine.StepGate`: whether it
+applies, else which `when` predicate fails) or the names (`Names.revision`,
+moved by each burst of names arriving) moved, else only the live and
+the viewed step's cards. A step that is `na` with a `why` (it keeps its
+number but its `when` does not hold now, #1940) joins a run with the `na`
+steps around it; each run is one muted card, "N–M · Skipped for you", with
+a line per distinct reason (the skip icon, six at most then "+N more"),
+hovering it names the steps, and a click on it does nothing. An `na` step
+without a `why` ends the run and has no card; the cards are measured again only when what one
 says, the width, the style or the font changed. A card is a "N · title"
 header, then a line per person and goal in written order as the step card
 words them (`UI.GroupName`, `UI.GoalLine`, `UI.ReadingGoal`), a first goal the
