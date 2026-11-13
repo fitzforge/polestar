@@ -74,7 +74,7 @@ step Bolder'ok
   accept 95425                          -- Unworthy Champion
 
 step The Twilight ogres' camp
-  tip The Twilight Maulers and Firecallers camp on the ridge east of Na'zok. Klunk, who carries the Skullbasher, stands among them.
+  tip The Twilight Maulers and Firecallers camp on the ridge east of Na'zok. Klunk, who carries the Skullbasher, stands among them. Just south of the ogres, Scoutmaster Vargas (an Alliance elite, level 42) and his Farholde Ambushers hold the scouts' camp: keep north of it unless you came with a group for him.
   kill 260968 x7 quest 95424.1          -- Twilight Mauler
   kill 261497 x7 quest 95424.2 @75.7,26.9  -- Twilight Firecaller
   collect 269257 quest 95425.1          -- Skullbasher, from Klunk
@@ -84,7 +84,7 @@ step Scoutmaster Vargas
   collect 268581 quest 95882.1 @75.4,34.3  -- Scoutmaster's Eye
 
 step The paletusks
-  tip South down the hills: tap the Young Paletusks with Na'zok's staff to send them home; the Mature Paletusks around the hills drop the boar meat.
+  tip South down the hills, round the west side of the Alliance scouts' camp: tap the Young Paletusks with Na'zok's staff to send them home; the Mature Paletusks around the hills drop the boar meat.
   use 268521 quest 95163.1 @72.4,39.5   -- Swineherd's Staff, on the Young Paletusks
   collect 769 x10 quest 95162.1 @68.7,30.3  -- Chunk of Boar Meat, from the Mature Paletusks
 

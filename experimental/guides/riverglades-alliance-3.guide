@@ -34,7 +34,7 @@ step Beast Entrails as you go
 
 step The pirates' second wave
   tip Experimental route (alpha): if a step is wrong, tell us on Polestar's Discord or GitHub and name the step.
-  tip North along the coast from the port: the Eastsea raiders and bombardiers have dug in on the slopes west of the buccaneers' camp, among their powder kegs. They are a couple of levels above you: pull them one at a time.
+  tip North along the coast from the port: the Eastsea raiders and bombardiers have dug in on the slopes west of the buccaneers' camp, among their powder kegs. They are a couple of levels above you: pull them one at a time. Gul'gash, a rare elite of level 49, roams these cliffs and the beach below: if you see him, keep well away.
   kill 257915 x8 quest 95122.1          -- Eastsea Raider
   kill 257916 x8 quest 95122.2 @79.1,33.8  -- Eastsea Bombardier
   collect 268346 x5 quest 95123.1       -- Eastsea Powder Keg
@@ -53,7 +53,7 @@ step Powderfuse Port
   turnin 95294                          -- Friz Frazzlespark
 
 step The pirates' ships
-  tip Out to the pirates' cliffs once more. Plant Whizzbuzz's charges on the three ships moored below the camp, south to north; Admiral Lamora (level 45) stands by the middle one, with her loot chest beside her.
+  tip Out to the pirates' cliffs once more. Plant Whizzbuzz's charges on the three ships moored below the camp, south to north; Admiral Lamora (level 45) stands by the middle one, with her loot chest beside her. Keep an eye out for Gul'gash on the way.
   use 268505 quest 95165.3 @90.9,39.5   -- Remote Explosive Charge, the southern ship
   kill 257861 quest 95124.1             -- Admiral Lamora
   collect 268506 quest 95124.2          -- Lamora's Loot
@@ -65,7 +65,7 @@ step Rotflesh Mushrooms
   collect 268664 x8 quest 95261.2       -- Rotflesh Mushroom
 
 step Bolder'ok
-  tip North-west to Bolder'ok, the ogres' town. Its ogres side with the Horde, and Clugfist on his hill in the middle is an elite (level 50): keep to the town's north-eastern edge, where Dunston Willis hides.
+  tip North-west to Bolder'ok, the ogres' town. Its ogres side with the Horde and attack you on sight, and Clugfist on his hill in the middle is an elite (level 50): keep to the town's north-eastern edge, where Dunston Willis hides.
   turnin 96125                          -- Dunston Willis
   accept 96126                          -- An Ogre's Captive
 
@@ -81,7 +81,7 @@ step Dunston Willis
 
 step Finish the Beast Entrails
   when !has 268632 x15
-  tip South-east out of the hills towards the port: the shore crawlers on the beach north of the docks are the quickest entrails.
+  tip South-east out of the hills towards the port: the shore crawlers on the beach north of the docks are the quickest entrails. Gul'gash wanders down to this beach too.
   collect 268632 x15 quest 95261.1 @78.7,49.8  -- Beast Entrails
 
 step Powderfuse Port

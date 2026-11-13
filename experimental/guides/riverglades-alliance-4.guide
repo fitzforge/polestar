@@ -76,7 +76,7 @@ step Sergeant Riftan
   accept 96015                          -- A Miner Problem
 
 step The Twilight camps
-  tip The cult's camps fill the valley north and west of Riftan. Free the captive Farholde Scouts as you find them, and kill a Twilight Thrall for Ashe: her soulstone takes it. Twilight Enforcers (elites, level 45) patrol between the camps, and Overlord Kilgar and Executioner Morg (elites, 46) hold the fortress at the valley's head: pull the cultists away from them.
+  tip The cult's camps fill the valley north and west of Riftan. Free the captive Farholde Scouts as you find them, and kill a Twilight Thrall for Ashe: her soulstone takes it. Twilight Enforcers (elites, level 45) patrol through the camps: watch where they walk before each pull. Overlord Kilgar and Executioner Morg (elites, 46) hold the fortress at the valley's head: pull the cultists away from them.
   kill 256795 x8 quest 94889.1          -- Twilight Fanatic
   kill 256797 x8 quest 94889.2          -- Twilight Corrupter
   kill 256799 x8 quest 94889.3          -- Twilight Champion

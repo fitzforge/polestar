@@ -41,7 +41,7 @@ step Sunnyglade
   accept 94829                          -- Farmer Elbrim: What We Lost
 
 step The Twilight cult
-  tip The cultists fill the streets and fields of Sunnyglade. Start at the ritual circles in the middle (fill Claire's catalyst there), work west through the burnt houses to the edge of town, then back north-east to the loose soil, where Elbrim's mementos go. The charms, pages and finger bones drop from the cultists.
+  tip The cultists fill the streets and fields of Sunnyglade. Start at the ritual circles in the middle (fill Claire's catalyst there), work west through the burnt houses to the edge of town, then back north-east to the loose soil west of Elbrim's farm: bury the Farmers' Mementos the Twilight Raiders drop there. The charms, pages and finger bones drop from the cultists.
   tip Keep the Mageweave Cloth they drop if you took Brother Lowley's Wound Dressings. Now and then a cultist drops the Field Marshal's Log: right-click it to start the quest.
   kill 261711 x5 quest 95643.1 @47.7,50.6  -- Empowered Brute
   kill 262169 x5 quest 95643.2 @47.3,50.0  -- Twilight Ritualist
@@ -84,7 +84,7 @@ step Farmer Elbrim
   turnin 94858
 
 step The Rog'mar training grounds
-  tip North-east of Elbrim's farm, the Horde drills its trainees in the fields north of Rog'mar. Stay north of the fort: its guards are far above your level. The supply crates lie around the drill grounds.
+  tip North-east of Elbrim's farm, the Horde drills its trainees in the fields north of Rog'mar. Stay north of the fort: its guards are far above your level. The supply crates lie around the drill grounds. Three elites work this ground: Blademaster Kaijo (42) walks among the trainees, Krek the Noxious (42) lurks at the north end, and Komuk (45), a Horde elite, patrols the hills to the east; give each of them room.
   kill 256749 x12 quest 95064.1 @60.8,37.0  -- Rog'mar Trainee
   collect 274975 x8 quest 95426.1       -- Rog'mar Supply Crate
 
@@ -94,7 +94,7 @@ step Blademaster Kaijo
   collect 271425 quest 95912.1 @58.3,38.8  -- Blademaster's Banner
 
 step Sleebo's workshop
-  tip South-east, round Rog'mar's east side, to Sleebo Fizzlespout's workshop on the hill.
+  tip South-east, round Rog'mar's east side, to Sleebo Fizzlespout's workshop on the hill. Komuk and the Bolder'ok ogres walk the road east of the fort: let them pass before you cross it.
   accept 96063                          -- Gaseous Gold
 
 step The tallstriders and the marsh
@@ -155,13 +155,13 @@ step Back through the port
   accept 95261                          -- It Takes Guts: the beasts' entrails come as you go; the mushrooms are for part 3
 
 step The crawlers and Trapclaw
-  tip North along the beach from the docks: the crawlers drop the meat for Fimbo and the spittle for Zizplink, and their entrails count for Argo. Trapclaw, a big crab, scuttles along the rocks east of the docks.
+  tip North along the beach from the docks: the crawlers drop the meat for Fimbo and the spittle for Zizplink, and their entrails count for Argo. Trapclaw, a big crab, scuttles along the rocks east of the docks. Gul'gash, a rare elite of level 49, roams this coast from the docks up to the pirates' camp: if you see him, keep well away.
   collect 268345 x6 quest 95121.2       -- Sand Crawler Meat
   collect 271650 x3 quest 95988.1       -- Crawler Spittle
   collect 268586 quest 95254.1          -- Trapclaw's Pincer
 
 step The Eastsea pirates
-  tip North-east along the coast to the pirates' camp on the cliffs. The buccaneers and musketeers carry the smuggled goods.
+  tip North-east along the coast to the pirates' camp on the cliffs. The buccaneers and musketeers carry the smuggled goods. Gul'gash walks the camp too: keep an eye out for him.
   kill 257901 x10 quest 95119.1         -- Eastsea Buccaneer
   kill 257910 x10 quest 95119.2         -- Eastsea Musketeer
   collect 268796 x8 quest 95288.1       -- Smuggled Goods

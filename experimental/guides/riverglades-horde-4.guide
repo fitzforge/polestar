@@ -83,7 +83,7 @@ step Crag'rog
   accept 95432                          -- Rise Up!
 
 step The Twilight camps
-  tip The cult's camps fill the valley south and west of Da'grosh. Free the captive Rog'mar Scouts as you find them. Twilight Enforcers (elites, level 45) patrol between the camps, and Overlord Kilgar and Executioner Morg (elites, 46) hold the fortress at the valley's head: pull the cultists away from them.
+  tip The cult's camps fill the valley south and west of Da'grosh. Free the captive Rog'mar Scouts as you find them. Twilight Enforcers (elites, level 45) patrol through the camps: watch where they walk before each pull. Overlord Kilgar and Executioner Morg (elites, 46) hold the fortress at the valley's head: pull the cultists away from them. Sergeant Riftan's Alliance camp sits at the valley's south end, and its Farholde Lookouts (level 46) attack the Horde: stay north of it.
   kill 256795 x8 quest 94745.1          -- Twilight Fanatic
   kill 256797 x8 quest 94745.2          -- Twilight Corrupter
   kill 256799 x8 quest 94745.3          -- Twilight Champion

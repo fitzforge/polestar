@@ -63,7 +63,7 @@ step Turner's Logging Camp
   accept 94931                          -- Stolen Saws
 
 step The Bristle Hills
-  tip West into the Bristle Hills: the Redridge gnolls camp along the slopes on both sides of the road you came in on. The stolen saw blades lie in their camps.
+  tip West into the Bristle Hills: the Redridge gnolls camp on the slopes all the way from the hills west of the lumber camp to the pass you came in by. The stolen saw blades lie only in the western camps, near the pass.
   kill 255770 x8 quest 94678.1          -- Redridge Mystic
   kill 255772 x8 quest 94678.2          -- Redridge Trapper
   kill 255769 x6 quest 94678.3          -- Redridge Brute

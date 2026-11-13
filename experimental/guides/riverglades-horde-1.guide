@@ -91,7 +91,7 @@ step Neza Bloodsnout
   accept 96104                          -- Song of the Strider
 
 step The vipers and the tallstriders
-  tip The Glade Vipers hide in the long grass south-east of town; the Roving Tallstriders graze beside them.
+  tip The Glade Vipers hide in the long grass south-east of town; the Roving Tallstriders graze beside them. Cavalry Scout Alturin, an Alliance elite (level 45), rides the road from Terral's Watch to Wheeler's Grange along the grass's south-west edge: keep clear of him.
   collect 271776 x4 quest 96108.1       -- Glade Viper Venom
   collect 271778 quest 96104.1          -- Intact Tallstrider Beak
 
@@ -130,7 +130,7 @@ step Kreza Darkthorn
   accept 94535                          -- Bristle Hills Bandits
 
 step Turner's Logging Camp
-  tip South-west across the river to the Alliance lumber camp. The lumberjacks carry the axes. Loot Wood Bundles from the Peasant Woodpiles around the camp and use them to fletch Makeshift Stickin' Spears.
+  tip South-west across the river to the Alliance lumber camp. The lumberjacks carry the axes. Loot Wood Bundles from the Peasant Woodpiles around the camp and use them to fletch Makeshift Stickin' Spears. Ghostmaw, an elite (level 42), prowls the river by the camp: if he comes your way, back off and let him pass.
   collect 263972 x10 quest 93788.1      -- Woodworker's Axe
   collect 271629 @39.2,62.8             -- Wood Bundle, from the Peasant Woodpiles
   use 271629 quest 95951.1 @39.2,62.8   -- Wood Bundle: fletch it into Makeshift Stickin' Spears
@@ -202,7 +202,7 @@ step Gorg
   turnin 94481
 
 step The river and the Farholde camp
-  tip South-west of Rog'mar the river runs between the farms: impale the Freshwater Crocolisks with Tan'jani's spears. The Alliance trains its scouts and priests at a camp on the far bank.
+  tip South-west of Rog'mar the river runs between the farms: impale the Freshwater Crocolisks with Tan'jani's spears. The Alliance trains its scouts and priests at a camp on the far bank. Cavalry Scout Alturin, the Alliance elite, rides the road just east of the camp: pull the scouts and priests away from it.
   use 271639 quest 95955.1 @51.9,57.1   -- Tan'jani's spears, on the Freshwater Crocolisks
   kill 270667 x8 quest 94483.1          -- Farholde Priest
   kill 257926 x12 quest 94483.2         -- Farholde Scout
