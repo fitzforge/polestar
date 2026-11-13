@@ -2118,14 +2118,14 @@ local function scoreOf(c, nw)
 		total = total + best + phrase
 	end
 	-- Named whole: each word of its label, or of one of its search terms,
-	-- one a query word asks for (whole, its start or a typo off, or through
-	-- the word's other forms or synonyms).
+	-- one a query word asks for (whole or its start, or through the word's
+	-- other forms or synonyms; a typo is too loose: "slow" is not "Glow").
 	for _, cover in ipairs(s.covers) do
 		local all = true
 		for _, cw in ipairs(cover) do
 			local said = false
 			for i = 1, nw do
-				if not qfiller[i] and (kindOf(qwords[i], cw) >= 2 or formSays(i, cw)) then
+				if not qfiller[i] and (kindOf(qwords[i], cw) >= 3 or formSays(i, cw)) then
 					said = true
 					break
 				end

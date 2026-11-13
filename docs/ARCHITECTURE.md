@@ -7066,8 +7066,8 @@ comma's part of its text) add up to 40. A filler word's match, and a pair
 with one in it, count a tenth: they tell settings apart, never outrank the
 words asked about ("the" in "Hide the arrow with the guide"). A control
 named whole, every word of its label or of one of its search terms of two
-words or more asked for (filler aside; whole, its start, a typo off, or
-through a word's other forms or synonyms), adds 50: "where is the xp
+words or more asked for (filler aside; whole or its start, or through a
+word's other forms or synonyms, never a typo: "slow" is not "Glow"), adds 50: "where is the xp
 tracker" puts XP tracker before the tracker's other rows, "arrow" Show
 arrow before the rows that only hold the word. A question asking to switch something
 (off, enable, disable, toggle, stop, show, hide) adds 30 to a toggle, before
