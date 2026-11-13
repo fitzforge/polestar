@@ -9,7 +9,7 @@ next forever/alliance/07-thousand-needles
 # Forge's route search orders the quests of this guide and its guide writer writes the steps.
 # Fixes go into data/route-fixes.json, data/guide-fixes.json or forever-db/corrections, never
 # into this file.
-# Added here: Daily Delivery (469: Einar Stonegrip by Howin to James Halloran). Left out: Crimson Crate Delivery (98240), which James Halloran offers only after Crocs of the Sky (98072, handed in at the end of 30-40/01's Wetlands loop), and Velinde Starsong (1037: taken at 29, handed in to Thyn'tel Bladeweaver in Darnassus only at 41-48, for a tenth of its XP by then; the 40-50 Darnassus steps hand in a copy players still carry).
+# Added here: Daily Delivery (469: Einar Stonegrip by Howin to James Halloran). Left out: Crimson Crate Delivery (98240), which James Halloran offers only after Crocs of the Sky (98072, handed in at the end of 30-40/01's Wetlands loop), and Velinde Starsong (1037: taken at 29, handed in to Thyn'tel Bladeweaver in Darnassus only at 41-48, for half its XP by then, about 305; the 40-50 Darnassus steps hand in a copy players still carry).
 # Hand-ins for quests carried from an older route (0.3.4's Darkshore before the 0.3.5 re-order, or a
 # guide left early): Therylune's Escape (945), Trek to Ashenvale (990), The Tower of Althalaxx (967) and
 # Expanding Horizons (97914) on the stops this guide already makes at their enders, each only while
