@@ -4920,30 +4920,6 @@
 			{
 				"a": [
 					"turnin",
-					7003
-				],
-				"b": [
-					"task",
-					3063
-				],
-				"faction": "Horde",
-				"why": "Horde 40-50 route audit (0.4.0): Zapped Giants (7003) and Fuel for the Zapping (7721) are finished on the Forgotten Coast around Zorbin Fandazzle's dock (40-50/03, about 46.5): they are handed in at the dock before the ride north to the Northspring harpies, not carried through 04 and 05 to 06 at about 50 (8,800 XP four levels earlier, two log slots for three guides)."
-			},
-			{
-				"a": [
-					"turnin",
-					7721
-				],
-				"b": [
-					"task",
-					3063
-				],
-				"faction": "Horde",
-				"why": "Horde 40-50 route audit (0.4.0): see turnin 7003 -> task 3063: Fuel for the Zapping is handed in at Zorbin's dock on the same stop."
-			},
-			{
-				"a": [
-					"turnin",
 					606
 				],
 				"b": [
@@ -9761,12 +9737,6 @@
 				"q": 2933,
 				"faction": "Horde",
 				"reason": "Horde 40-50 route audit (0.4.0), agreed with the 50-60 slice: Venom Bottles (level 43, 3,600 XP) is taken from the bottles in the Hinterlands' troll villages at about 49 (40-50/05), after the route's only pass through Tarren Mill, where Apothecary Lydon takes it. The next Tarren Mill visit was a landing on 50-60/01's flight at about 52.4 made for this hand-in alone, at a fifth of its experience (9 levels over). Left out; 50-60/01 flies Kargath to the Undercity direct.",
-				"issue": "-"
-			},
-			{
-				"q": 7726,
-				"faction": "Horde",
-				"reason": "Horde 40-50 route audit (0.4.0): Refuel for the Zapping is a level 55 repeatable worth 550 XP (quests.json); 40-50/06 took it at about 50 for six more Water Elemental Cores. Again With the Zapped Giants (7725, also 550 XP) stays: it hands back Zorbin's Ultra-Shrinker, which makes the Forgotten Coast giants non-elite for Mountain Giant Muisek (3127).",
 				"issue": "-"
 			}
 		],

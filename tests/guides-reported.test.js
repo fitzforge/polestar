@@ -2836,19 +2836,6 @@ test('Horde 40-50/05: Venom Bottles is not taken, its hand-in is behind the rout
 	}
 });
 
-test("Horde 40-50: Zorbin's Zapped Giants and Fuel for the Zapping are handed in on the Feralas visit that finishes them (0.4.0 route audit)", { skip }, () => {
-	const list = goals(H40('03-feralas'));
-	const harpies = at(list, 'the Northspring harpies (3063)', (g) => g.quest === 3063 && g.t === 'kill');
-	for (const q of [7003, 7721]) {
-		const done = at(list, `the objective of ${q}`, (g) => g.quest === q && g.t === 'collect');
-		const handIn = at(list, `turnin ${q}`, is('turnin', q));
-		assert.ok(done < handIn && handIn < harpies, `${q}: handed in at the dock before the ride north`);
-	}
-	const azshara = goals(H40('06-azshara'));
-	assert.deepEqual(azshara.filter(({ goal }) => [7003, 7721, 7726].includes(goal.quest)).map(({ goal }) => `${goal.t} ${goal.quest}`), [], '06 carries none of them and leaves the repeatable refuel out');
-	assert.ok(azshara.some(({ goal }) => is('accept', 7725)(goal)), "06 still takes 7725 for the Ultra-Shrinker the giants need");
-});
-
 test('Horde 40-50/01: the Wild Shore pass comes after the Cape of Stranglethorn coast, not at 40 (#2102)', { skip }, () => {
 	const list = goals(H40('01-stranglethorn-vale'));
 	// The Booty Bay stop after the coast is the one that hands in Scaring Shaky (606).
