@@ -52,7 +52,7 @@ return {
 	-- Step 9: Theramore
 	-- {area:514} Foothold Citadel
 	["Follow the road east back to Theramore. The officers are in {area:514}."] = "Sigue el camino al este de vuelta a Theramore. Los oficiales están en {area:514}.",
-	["On the top floor"] = "",
+	["On the top floor"] = "En el piso superior",
 	-- {npc:4948} Adjutant Tesoran
 	["{npc:4948}, on the top floor"] = "",
 	-- {npc:4794} Morgan Stern
@@ -135,7 +135,7 @@ return {
 	["{npc:2487}, top floor"] = "{npc:2487}, piso superior",
 	-- {npc:737} Kebok
 	["{npc:737}, upstairs: the Skullsplitter trolls, on the northern loop"] = "",
-	["Inside"] = "",
+	["Inside"] = "Adentro",
 	["Seahorn's next errand goes back to Arathi: skip it."] = "El siguiente encargo de Seahorn vuelve a Arathi: omítelo.",
 	-- {npc:2542} Catelyn the Blade
 	["{npc:2542}, upstairs"] = "",

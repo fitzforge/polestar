@@ -8,7 +8,7 @@
 return {
 	-- Step 1: Zeppelin to Undercity
 	-- {zone:1458} Undercity
-	["Zeppelin to {zone:1458}"] = "",
+	["Zeppelin to {zone:1458}"] = "Zepelín a {zone:1458}",
 
 	-- Step 2: Undercity trainers
 	-- {zone:1458} Undercity
@@ -31,7 +31,7 @@ return {
 	-- Step 6: Gol'dir
 	-- {area:280} Strahnbrad · {npc:2431} Jailor Borhuin · {item:3704} Rusted Iron Key · {quest:503} Gol'dir
 	["Head north past Valik's camp to {area:280}, the Syndicate-held village (35-37). {npc:2431} carries the {item:3704}; {quest:503} sits in a cage in the house on the north side.\nCareful: Stealthed Syndicate spies roam {area:280}, and the buildings hold many Syndicate mobs, mages among them."] = "",
-	["Inside"] = "",
+	["Inside"] = "Adentro",
 	-- {quest:503} Gol'dir
 	["Find where {quest:503} is held, on the top floor"] = "",
 	-- {quest:503} Gol'dir
@@ -41,7 +41,7 @@ return {
 	-- {npc:2229} Krusk · {area:272} Tarren Mill
 	["{npc:2229} waits inside the inn at {area:272}, back south down the road."] = "",
 	-- {npc:2229} Krusk
-	["{npc:2229}, inside"] = "",
+	["{npc:2229}, inside"] = "{npc:2229}, adentro",
 
 	-- Step 9: Baron Vardus
 	-- {npc:2306} Baron Vardus · {area:280} Strahnbrad · {quest:503} Gol'dir
@@ -179,7 +179,7 @@ return {
 	["{area:328}: kill these as you meet them"] = "",
 	-- plural, as words: Daggerspine Raiders = {npc:2595} Daggerspine Raider
 	["West of the cove the Daggerspine Raiders and Sorceresses (38-40) hold the shore: pull them one at a time. The two wrecks lie in the shallows off it, the charts and logs inside them; the gems lie on the sea floor around the wrecks."] = "Al oeste de la cala, los asaltantes y hechiceras Espinadaga (38-40) ocupan la orilla: atráelos de uno en uno. Los dos naufragios están en los bajíos frente a ella, con las cartas y los diarios dentro; las gemas están en el fondo del mar alrededor de los naufragios.",
-	["Underwater"] = "",
+	["Underwater"] = "Bajo el agua",
 
 	-- Step 37: Faldir's Cove
 	-- {npc:2487} Fleet Master Seahorn · {area:35} Booty Bay

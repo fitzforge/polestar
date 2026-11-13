@@ -35,8 +35,7 @@ why A rare cloth robe for your 30s from Menara Voidrender; its last parts wait f
 # ASSUMED: The chain runs as in Classic above 30 (Classic flow; Forever's data has no play reports past the level-30 beta cap). In-game check: Xizk's thread hand-out and Menara's wait.
 # Sources: Forever's quest data (quests.json, npcs.json, items.json,
 # professions) for the givers, the drops and the crafts; the quest notes
-# (data/local/mechanics) for the camps, the coal trick and the wait. One of
-# the reference guides routes it inline in its Alliance 30s.
+# (data/local/mechanics) for the camps, the coal trick and the wait.
 
 step In Search of Menara Voidrender (Stormwind)
   only Human

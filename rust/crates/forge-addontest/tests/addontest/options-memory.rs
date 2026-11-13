@@ -32,7 +32,13 @@ const LOGIN_BASE: f64 = 11003.0;
 /// At most 50 KiB over the base, plus what 0.3.7.1, 0.3.7.2 and the 0.3.8 work so far add at login (measured
 /// 11060 KiB after the merge, 57 over the base). Raised rather than re-measured per release: Fitz, 2026-11-12,
 /// "if you hit memory budgets again, just raise them"; the login cost gets its review once 0.3.8's content is final.
-const LOGIN: f64 = LOGIN_BASE + 120.0;
+/// Then 0.4.0's contributor batch (#2083): Pause's state, watcher and key (Core/Init.lua, Core/Pause.lua, #1937),
+/// Adjust weights (Gear/Adjust.lua, UI/GearAdjust.lua, #1538), the Nav API's followers (Nav/Journey.lua, #1329),
+/// another addon's map canvas (#1938), the step browser's run cards (UI/StepList.lua, #2004) and the dungeon
+/// levels panel (UI/LevelTip.lua, #2008): 11,214 KiB at login on dev-040's 11,077 (a1643d59c, this test's
+/// script, 2026-11-13), +137. Raised to that figure and about 5 % (Fitz, 2026-11-12: a memory budget new content
+/// pushes over goes to the measured figure plus about 5 %; the login review comes once 0.4.0's content is final).
+const LOGIN: f64 = LOGIN_BASE + 772.0;
 /// Loaded, 1,790 KiB on 2026-11-11 (760 on 2026-11-10): the Look pages' previews and the toasts and trackers
 /// pages moved in (1,110), then the settings-only widgets, every module's rows, Unlock mode, the profile
 /// strings, the preview stage and the skin picker's cards and presets (+400), all out of the login (1,513).
@@ -44,17 +50,25 @@ const LOGIN: f64 = LOGIN_BASE + 120.0;
 /// Buttons +10, the stage +10, Theme +7, Guide window +7, Route lines +4, Map pins +3). Then the Buttons and
 /// single-alert scenes and the Accent lights (+26, 1,817): the button set over the mobs it names, the rare and
 /// transport alerts over the world with the arrow and the guide window's edge, While you're here's mobs, a mob's
-/// nameplate on the stage, and Theme > Accent lighting every part drawn in the accent.
-const LOADED: f64 = 1866.0;
+/// nameplate on the stage, and Theme > Accent lighting every part drawn in the accent. Then the search's dropdown
+/// (+41: 1,833 to 1,874 on 2026-11-13): UI/SearchDropdown.lua, and the places, page scope and lit words of the
+/// search in UI/Options.lua. Raised by that, as Fitz asked on 2026-11-12 ("if you hit memory budgets again, just
+/// raise them").
+const LOADED: f64 = 1907.0;
 /// Opened on its first page, 4,124 KiB (1,890 on 2026-11-10; 3,485 with the Look pages' previews; 3,888 with
 /// the rest moved in, then the pages' +155, then the hero previews' +67, then the Buttons and single-alert
-/// scenes and the Accent lights' +26, to 4,151).
-const OPENED: f64 = 4246.0;
+/// scenes and the Accent lights' +26, to 4,151; then the search's dropdown's code, +41, 4,280 to 4,322 on
+/// 2026-11-13: the list itself is built only when the player first types). Then 0.4.0's contributor batch
+/// (#2083), chiefly Pause's section on the first page (its switch, two extras and key binding, #1937): +155 with
+/// the base's rows, 4,435 KiB on dev-040's 4,280 (a1643d59c, this test's script, 2026-11-13), so about 4,477 with
+/// the search's dropdown (its 4,322 and the batch's 155). Raised with the base's rows to that figure and about 5 %
+/// (Fitz, 2026-11-12, as for the login).
+const OPENED: f64 = 4606.0;
 /// Peak, 3,964 KiB (1,190 on 2026-11-10; 2,359 with the Look pages): the files that moved in compile with the
 /// collector stopped (+1,000, to 3,365), then the pages' (+430, their files' compile with the collector stopped),
 /// then the hero previews' (+150, the same), then the Buttons and single-alert scenes and the Accent lights'
-/// (+68, the same, to 4,034).
-const PEAK: f64 = 4125.0;
+/// (+68, the same, to 4,034), then the search's dropdown (+108, the same: 4,084 to 4,192 on 2026-11-13).
+const PEAK: f64 = 4233.0;
 
 /// What the base itself puts in the opened window, not the overhaul's cost: 0.3.7's three rows on the first
 /// page (Guide: Tell me when a newer Polestar is out, Flight paths you pass, Keep the arrow when hidden),

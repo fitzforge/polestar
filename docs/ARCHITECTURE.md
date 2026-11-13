@@ -1,7 +1,8 @@
 # Polestar: architecture and contracts
 
 Polestar is a leveling-guide system for **World of Warcraft: Forever** (client
-1.60.1, `## Interface: 16001`, install folder `_classic_beta_` during beta).
+1.60.1, `## Interface: 16001`, product `wowf` in install folder `_forever_`;
+`wow_classic_beta` in `_classic_beta_` during the beta).
 This file is the contract between modules: the code follows it, and a change
 to a contract changes this file with it.
 
@@ -13,6 +14,7 @@ Reference material, checked out locally (gitignored):
   client API you call against it**; a retail or Era assumption is not evidence.
 - The live client's AddOns folder, as found by `tools/lib/addons.js`
   (`$WOW_FOREVER_ADDONS`, then the detected clients:
+  `<client>/_forever_/Interface/AddOns/`, then a leftover
   `<client>/_classic_beta_/Interface/AddOns/`; read-only for reference;
   EllesmereUI's `SKINNING_API.md` lives there).
 
@@ -146,6 +148,7 @@ Messages:
 | `SETTING_CHANGED` | path, value | Core settings |
 | `TOGGLE_FRAME` / `SHOW_FRAME` | — | commands, keybinds → UI (from a hidden Polestar both show it again, the window with it) |
 | `POLESTAR_HIDDEN` | hidden (true \| false) | Core, `Polestar.SetHidden` (and true again as "Keep the arrow when hidden" changes while hidden): see "Hiding Polestar" |
+| `POLESTAR_PAUSED` | state ("armed" \| "inside" \| nil), why ("hand", "entered", "left", "expired", "window") | Core, `Polestar.SetPaused`: Polestar paused or resumed, or armed to inside (or into another instance); see "Pause" |
 | `SHOW_PICKER` | — | commands → UI |
 | `SHOW_OPTIONS` | section or nil | commands → UI |
 | `SHOW_WELCOME` | page or nil | About's "Show the welcome again", `/polestar welcome` → UI/Welcome.lua |
@@ -191,7 +194,7 @@ the nearest 5, `opts.compact` writes yards from 1000 as "1.2k yd"
 (`Rares.YardsText`); metres turn to kilometres from 1000 m. The bug report
 keeps yards for whoever reads it.
 
-`PolestarDB = { schema = 1, settings = { [section] = { ... } }, packs = { [packId] = { off = true } }, imports = { [guideId] = { format, license, guide, frames } }, welcomeSeen = 1, gamepad = { chords = { [action] = "PADRSHOULDER+PADDUP" } } }`
+`PolestarDB = { schema = 1, settings = { [section] = { ... } }, packs = { [packId] = { off = true } }, imports = { [guideId] = { format, license, guide, frames } }, gearAdjust = { [CLASS] = { [spec] = { [stat] = { x } | { v } } } }, welcomeSeen = 1, gamepad = { chords = { [action] = "PADRSHOULDER+PADDUP" } } }`
 `PolestarCharDB = { schema = 1, guide = id|nil, tabs = { guideId, ... }, activeTab = n, absentAt = { [guideId] = place }, closedTabs = { { id, at }, ... }, manual = { [guideId] = { ["s:g"] = true|"tick" } }, skipped = { [guideId] = { [stepIndex] = true, ["s:g"] = true } }, pins = { [guideId] = { step, done } }, offers = { [questID] = true }, skippedQuests = { [questID] = true }, shapes = { [guideId] = shape }, stepKeys = { [guideId] = { hash, ... } }, flags = { fp = { [name] = true }, ... }, dungeons = { [mapId] = true }, welcomeSeen = 0|1 }`
 
 `packs[<id>].off` hides a pack's guides account-wide (the Community guides page's
@@ -362,7 +365,7 @@ registered commands with their `help` lines (already translated:
 (`SetHidden(false)`), as it asks to see something, unless it is registered
 `quiet`: one that only prints or sets (`hide`, `status`, `tabs`, `debug`,
 `arrow`, `way`, `near`, `route`, `skipleg`, `xp`, `bags`, `questdb`,
-`instances`, `restock`). Core registers (Core/Commands.lua): `guides`,
+`instances`, `restock`, `pause`, `resume`). Core registers (Core/Commands.lua): `guides`,
 `options`, `show` (`SHOW_FRAME`), `hide` (hides or shows all of Polestar;
 `hide arrow` toggles "Keep the arrow when hidden", see "Hiding Polestar"),
 `next`, `prev` (look at the next/previous step; nothing changes), `skip`
@@ -370,7 +373,8 @@ registered commands with their `help` lines (already translated:
 the saved view for the current guide), `guide <id>`, `status`, `tabs`,
 `tab <n>`, `close`, `path` (the route choice), `welcome` (`SHOW_WELCOME`),
 `packs` (Options at Community guides), `gamepad` (Options at Gamepad), `where`, `questlog` (`SHOW_QUEST_ROOM`), `report` (`SHOW_REPORT`),
-`discord` (`SHOW_DISCORD`), `debug`; Nav adds `arrow`, `way` and `route`;
+`discord` (`SHOW_DISCORD`), `debug`, and in Core/Pause.lua `pause` (no
+argument toggles, `on`, `off`) and `resume` (see "Pause"); Nav adds `arrow`, `way` and `route`;
 modules add theirs (`xp`, `gear`, `instances`, `dungeons`, `lookup`, `mount`,
 `rares`, `talents`, `alts`, `questdb`, `import` (`SHOW_IMPORT`, Core/Import.lua),
 `update` (the update card, Core/Update.lua)).
@@ -457,7 +461,7 @@ Polestar.SetHidden(on) / Polestar.ToggleHidden()
 Polestar.HideKeepsArrow() -> bool  -- "Keep the arrow when hidden" (this character)
 Polestar.SetHideKeepsArrow(on)
 Polestar.ArrowHidden() -> bool     -- hidden and not keeping the arrow: the arrow, its travel button and arrival chime go
-Polestar.GuideShown() -> bool      -- the guide window's state shown and Polestar not hidden
+Polestar.GuideShown() -> bool      -- the guide window's state shown, Polestar not hidden and not paused
 Polestar.GuideWindowOn() -> bool   -- the window's own state (ui.shown, the instance wait), hidden or not
 Polestar.PlaySound(kit, channel, arrow) / Polestar.PlaySoundFile(file, channel, arrow)
 ```
@@ -550,6 +554,92 @@ call: a new one fails the test until it is listed, so a new surface is
 decided on. New frames on the screen take `Polestar.UIParent` as their
 parent, new sounds go through `Polestar.PlaySound`, new toasts check
 `Polestar.Hidden()`, and new map drawings hang off `view.frame`.
+
+### Pause
+
+```lua
+Polestar.Paused() -> nil | "armed" | "inside"
+Polestar.PauseHides(part) -> bool  -- "arrow", "window", "nagging" while paused; "map", "automation" with their setting too
+Polestar.SetPaused(on, why) / Polestar.TogglePaused(why)
+Polestar.PauseInside() -> bool, mapID  -- in a dungeon, raid, battleground or arena (mapID when the client gives it)
+Polestar.PauseHowToEnd() -> text   -- the key, the minimap button's menu or /polestar resume
+Polestar.Now() -> seconds          -- the pause's clock: Compat.Now(), or time() where the Compat in place has none
+```
+
+The player levelling with a guide who goes off to run a dungeon pauses
+Polestar, one switch per character: the arrow and the guide window step aside
+on the way there and inside, and Polestar resumes by itself once the player
+leaves the dungeon alive. Pause stops what Polestar shows and steers with, not
+the Engine, which keeps following the quest log. Ways to pause or resume: the
+guide window's menu and the minimap and floating buttons' menu ("Pause"), the
+`POLESTAR_PAUSE` binding ("Pause the guide"; a gamepad chord too), Options
+(Guide, Window, Dungeons and battlegrounds), `/polestar pause` (no argument
+toggles, `on`, `off`) and `/polestar resume`; each always says what it did.
+Pause is a state of its own beside "Hiding Polestar", not a layer on it: it
+never writes `ui.shown`, `nav.arrow`, `hidden` or a `behavior.*` setting, so
+resuming brings everything back by itself. Either can be turned on or off
+while the other is on, and each leaves the other as it was; hiding takes
+more, so a hidden Polestar shows nothing either way.
+
+`PolestarCharDB.pause = { state, at, map }` (Core/Init.lua, read as the addon
+loads, so a `/reload` keeps it): "armed" when paused outside (`at`:
+`Polestar.Now()` then: `Compat.Now()`, or `time()` where the Compat in place
+has none), "inside" in a dungeon, raid, battleground or arena (the
+guide window's instance kinds; `map`: the instance's map id). The watcher
+(Core/Pause.lua) looks one frame after `PLAYER_ENTERING_WORLD`,
+`ZONE_CHANGED_NEW_AREA`, `PLAYER_UNGHOST` and `PLAYER_ALIVE`. An armed pause
+that never went in resumes two hours after it was armed, wherever the player
+is: each arming, and an armed pause loaded at login or a `/reload`
+(`Polestar.OnInit`, as the load fires no `POLESTAR_PAUSED`), sets one
+`C_Timer.After` for the time it has left, which does nothing if that arming
+has since resumed or gone inside. Every look checks the age first too, so a
+login after more than two hours away resumes before a dungeon is taken for it.
+"Inside" never expires.
+In an instance it is "inside" there (another instance moves it on); outside
+after being in, it resumes once the player is alive (a Spirit Healer's
+resurrection too), and stays paused while dead or a ghost, so a wipe and the
+run back do not end it (`PLAYER_ALIVE` also fires on releasing, so the ghost
+state is read again each time). Walking out resumes at once. The Spirit
+Healer's resurrection counts as leaving alive (deliberately), so after taking
+it the player pauses again for the run back. Each change but
+the way in says so in one line in chat; pausing by hand puts up a notice
+(`Nav.alerts.ShowNotice`) saying how to resume; a line says the guide is back
+only when it is (`GuideShown()`). Asking for the guide window resumes and
+shows the window (inside, for the visit, as the instance rule's own opening):
+`TOGGLE_FRAME` and `SHOW_FRAME` (the menu's Guide window, the key,
+`/polestar`), and every other `ui.shown` set to true (a guide picked, a
+toast's button, the gamepad's focus: the guide window's `APPLY["ui.shown"]`,
+which only an explicit `Polestar.Set` reaches, so a `/reload` stays paused).
+The Options toggle repaints on `POLESTAR_PAUSED`.
+
+What it takes, and how:
+
+- The arrow's guide target: Nav's `apply` drops the Engine's waypoint while
+  `PauseHides("arrow")`, and every surface keyed off the target goes with it
+  (the arrow, route lines, trail, target pin, arrival chime, the TomTom and
+  game waypoints, the hand-off to Shortest Path Forever). A hold (`Nav.Hold`,
+  the death helper's way back) and points the player picks (`Nav.SetTarget`,
+  `/way`, a dungeon's entrance) still show; resuming puts the guide's
+  waypoint back. The travel button (`Nav/Prompts.lua`) goes while the guide's
+  waypoint is what the pause drops, and shows for a hold or a picked point. A
+  click on a step goal's or a while-here line's map pin, which goes through
+  the Engine otherwise (`Engine.AimGoal`, `Engine.AimWhileHere`), sets a
+  picked point instead (`Nav/Layers.lua`).
+- The guide window and what goes with it: `GuideShown()` is false (the action
+  buttons, the party panel, the rare and transport alerts), and
+  `GF.ApplyVisibility` hides the window, outside `GF.RulesHide()`, so the
+  floating launcher stays as a way back.
+- The window's nudges: the while-here toast and chime (`UI/WhileHere.lua`).
+- With `pause.map` (off by default): the step's goal pins, their areas, the
+  while-here pins (`Nav/Layers.lua`) and the upcoming-step pins
+  (`Nav/Upcoming.lua`).
+- With `pause.automation` (off by default): quest auto-accept, turn-in,
+  closing skipped quest windows (`Core/Automation.lua`) and the reward pick
+  (`QoL/Rewards.lua`).
+
+Party chat progress lines go on as before. The report's Routes line says
+"paused armed" or "paused inside" while paused.
+`rust/crates/forge-addontest/tests/addontest/pause.rs` covers it.
 
 ### Gamepad interface
 
@@ -1397,6 +1487,7 @@ Polestar.Engine.GetAlong() -> { { index, title, untilStep?, goals = { goal view,
 Polestar.Engine.AimAlong(stepIndex, goalIndex) -> bool     -- lead the arrow to one of them (row click); holds while it is listed
 Polestar.Engine.GetWaypoint() -> waypoint | nil
 Polestar.Engine.GetProgress() -> doneSteps, totalSteps
+Polestar.Engine.StepGate(i) -> nil | 0 | k          -- step i applies (nil), is not for this character or gone (0), or its k-th `when` predicate is the first to fail; reads no goal
 Polestar.Engine.StepNumber(i) -> number, hidden     -- step i of the active guide as the player counts it (see "Steps the character has")
 Polestar.Engine.StepTotal() -> number               -- the steps the player sees
 Polestar.Engine.StepNumberOf(guide, i) -> number, hidden; Polestar.Engine.StepTotalOf(guide) -> number  -- the same for any guide
@@ -1791,11 +1882,18 @@ Polestar.Engine.StepHiddenFor(step, who?) -> bool  -- no step of its own for who
   Pick-ups (Fitz on 0.3.6, walking past Thork with The Disruption Ends open
   since Disrupt the Attacks went in earlier): with
   `behavior.whileHereTurnins`, whatever the auto-accept setting, such an
-  accept whose prerequisites are done (`Own.READY_NONE`), never a timed one,
-  is a line of its own, kind "take": "Take X from Y: saves a trip back",
-  weighed as a hand-in (the same seconds, town, `HERE_FAR`, `Own.hereSoon` and
-  walk rules), one per quest and none an NPC's whole visit names, at most
-  `HERE_TAKES` (2) of the `HERE_SHOW` lines. Clicked, the arrow points at
+  accept whose prerequisites are done (`Own.READY_NONE`) and whose
+  quest-log parent, if it has one, is in the log (and not handed in on the
+  same visit) is a line of its own, kind "take": "Take X from Y: saves a trip
+  back", weighed as a hand-in (the same seconds, town, `HERE_FAR`,
+  `Own.hereSoon` and walk rules), one per quest and none an NPC's whole visit
+  names, at most `HERE_TAKES` (2) of the `HERE_SHOW` lines. Where the data
+  has no such link, an earlier required hand-in at the same object in that
+  step goes first (A Way In before Master of Disguise at the Syndicate
+  Footlocker, the Pyrewood Dead Drop's payments after their letters). Timed
+  pickups stay with the guide, and so does an accept whose own step's `when`
+  does not hold (Old Habits' Tattered Spellbook, `when onquest 465,474`,
+  #1705). Clicked, the arrow points at
   the NPC; with auto-accept on, talking to them takes it (`Own.hereWants`
   "take"); taken, the line goes. A turn-in (`QUEST_TURNED_IN`) builds the
   candidates again, so the follow-up comes up where the player stands.
@@ -2345,11 +2443,20 @@ Thousand Needles' walk up to Thunder Bluff passes and The Tear of the Moons
 leads; the 'Fly to Camp Taurajo' step reads done there, so no flight follows
 for `Own.flightOn`.
 
-With the planner off the steps hold as written. `forge guide lint` reports a
-flight to a stop with nothing to do followed by another flight
+A walk to a boat or zeppelin passes when the player is already across
+(#1971, #1978; `stepDone`, `Own.alreadyAcross`; quest log read, planner on or
+off): the walk's last goto lies on another continent than the step the route
+goes on to after it (`Own.travelOnto`), and the player stands on that step's
+continent. Thousand Needles & Desolace opens at the Undercity's zeppelin to
+Orgrimmar, where the previous guide ends; a player who loads it at Freewind
+Post goes straight to Orgrimmar instead of to the Undercity's tower and back.
+
+With the planner off the other steps hold as written. `forge guide lint`
+reports a flight to a stop with nothing to do followed by another flight
 (`check_flight_hops`, a house rule).
 
-A travel step the planner passed (`Own.flightOn`, a verdict) stays passed once
+A travel step the planner passed (`Own.flightOn`, a verdict), or a walk the
+player was already across (`Own.alreadyAcross`), stays passed once
 the route moves beyond it: its gotos and flight are latched like any travel
 goal the route passes (`latchPassed`), so the landing never reopens it. Before
 that (#1768), landing at the flight's end left nothing to fly on to, the walk
@@ -2994,7 +3101,8 @@ Polestar.Theme.SUBJECTS                   -- the subject/status colours a player
 Polestar.Theme.Skin(frame, kind)          -- "window","panel","inset","button","editbox","checkbox","dropdown","scrollbar","tab","close"
 Polestar.Theme.Media(name) -> texturePath -- e.g. "icon-accept", "check", "white", "glow"
 Polestar.Theme.OnChanged(fn)              -- fn() on any scheme/colour/font change
-Polestar.Theme.IsEllesmere() -> bool
+Polestar.Theme.IsEllesmere() -> bool   -- a UI suite's look is followed (EllesmereUI, or ErgoBars: the same contract)
+Polestar.Theme.SkinProvider() -> "EllesmereUI" | "ErgoBars" | nil   -- whose; named in the scheme, accent note and Integrations
 Polestar.Theme.SkinId() -> id             -- ui.skin as drawn: a registered skin that has not failed, else "polestar"
 Polestar.Theme.SkinKey() -> "polestar" | "halo" | "hearth" | "forever" | "blizzard" | "classic"   -- the built-in look SkinId() is drawn from
 Polestar.Theme.SkinChoices() -> { { value, text, addon?, desc?, author? }, ... }   -- built-ins, then registered skins (loads the installed skin addons first)
@@ -3273,7 +3381,12 @@ scheme.
 
 EllesmereUI is read only through its documented skinning API
 (`EllesmereUI.RegisterSkin`, `S.GetAccentColor`, `S.GetPanelColor`, `S.GetFont`,
-`S.OnLooksChanged`); its frame primitives are not applied. Every surface paints
+`S.OnLooksChanged`); its frame primitives are not applied. ErgoBars, a whole UI
+for Forever, offers the same contract as `ErgoBarsLooks.RegisterSkin` (the same
+`S` calls, handed over at `PLAYER_LOGIN`), so Polestar follows it on the same
+path when EllesmereUI is not installed; EllesmereUI wins when both are.
+`Theme.SkinProvider()` names which, and the "ellesmere" scheme and the
+Integrations section carry that name. Every surface paints
 from tokens (`W.Color`, `W.Painter`, `Theme.Skin`, `Theme.Band`), so a scheme or
 colour change repaints live without a reload.
 
@@ -3394,6 +3507,15 @@ Polestar.Nav.API.Estimate(fromMap, fromX, fromY, toMap, toX, toY) -> seconds | n
 Polestar.Nav.API.Navigate(owner, map, x, y, title) -> true | false   -- owner: a non-empty string
 Polestar.Nav.API.Cancel(owner) -> true | false  -- that owner's target, while it is the one shown, lets go
 Polestar.Nav.API.Active() -> active, owner      -- anything guided to; owner while an API caller's target shows
+-- Minor 1 (Polestar.Nav.API.minor): for an addon that shows Polestar's target itself (a world pin, a bar)
+Polestar.Nav.API.Target() -> t | nil            -- a new table each call: { map, x, y, title, kind, quest, area,
+    -- search, handedOff, next }; map, x, y in C_Map's terms (0-1 of the map's live frame, Nav.LiveCoords);
+    -- quest only > 0; next = { map, x, y, kind, title }: the end of the leg the arrow is on while more legs
+    -- follow (the flight master, the landing), path nodes on the way (a `via` leg) skipped, else nil
+Polestar.Nav.API.Follow(owner, fn, { pin, shows }) -> true | false  -- fn() the frame after the target or the
+    -- route changes (many changes in one frame: one call); again for the same owner replaces its options
+Polestar.Nav.API.Unfollow(owner) -> true | false
+Polestar.Nav.API.Dismiss(owner) -> true | false -- a follower's player let the target go: as Nav.ClearTarget
 -- Internal
 Polestar.Nav.journey.PlanTo(map, x, y, label, f) -> ok   -- onto the zone under a continent spot; refuses open sea
 Polestar.Nav.journey.Estimate(from, to, budgeted) -> seconds | nil[, "busy"] -- from, to = { map, x, y, f } (percent); from nil: the player; "busy" only when budgeted (the API)
@@ -3404,6 +3526,17 @@ Polestar.Nav.nearby.MenuItems() -> items                  -- the guide window bu
 Polestar.Pins.MinimapCursor() -> dNorth, dWest | nil      -- yards from the player to the cursor on the minimap
 ```
 
+- **Followers** (minor 1). An addon that shows the target itself follows it:
+  `Follow` with `pin` (it sets the game's waypoint) makes the Blizzard
+  waypoint bridge step aside (`Nav.FollowerPins`); with `shows` (it shows the
+  target on screen) the arrow steps aside too while
+  `nav.arrowToFollower` ("Let a following addon show the way", Other
+  waypoints, off) is on (`Nav.FollowerShows`). While any addon follows and
+  the arrow is hidden, Nav samples every 0.25 s itself (`Nav.Sample`, the
+  arrow's own sample): the player's floor is followed only by sampling
+  (Walk.Aim), so without it a route from the Ruins of Lordaeron went by the
+  Undercity's lift all the way out. `Dismiss` is `Nav.ClearTarget`: the
+  guide's goal stays hidden until the guide moves on.
 - **Plan to anywhere** (`nav.mapPlan`, on): Shift-click empty space on the
   world map (a canvas click handler, so it takes the click before the map
   zooms) or the minimap; Alt-click anywhere on the world map, its icons
@@ -3534,9 +3667,10 @@ Polestar.Pins.MinimapCursor() -> dNorth, dWest | nil      -- yards from the play
 
 `Nav/Handoff.lua` (`Nav.handoff`; loaded after the other Nav modules). With
 [Shortest Path Forever](https://github.com/cjber/shortest-path-forever)
-installed (its global `ShortestPathForever.API`, `version` 1, with `Cancel`
-and `NavigateRoute` or `Navigate`; every other function checked before it is
-called, as its `minor` grows) the two never guide at once:
+installed (its global `ShortestPathForever.API`, `version` 1 or 2, with
+`Cancel` and `NavigateRoute` or `Navigate`; a later `version` counts as not
+installed; every other function checked before it is called, as its `minor`
+grows) the two never guide at once:
 
 - **Hand-off** (`nav.spfHandoff` on; an option, off by default since 0.2.5:
   Options, Integrations, Shortest Path Forever: "Hand guiding to Shortest
@@ -3652,7 +3786,18 @@ local view = Polestar.MapCanvas.Watch(map, fn)  -- map: WorldMapFrame or Battlef
 view:Level(levelType)              -- the frame level the map gives its pins of that level type
 view:PinScale(startScale, endScale) -- a map pin's scale under SetScalingLimits(1, startScale, endScale)
 Polestar.MapCanvas.Get(map) -> view | nil
+Polestar.MapCanvas.Add(map)        -- another addon's map canvas (a MapCanvasMixin frame): every module draws on it too
+Polestar.MapCanvas.OnAdd(fn)       -- fn(map) for every map added, now and later (the modules that draw)
 ```
+
+`MapCanvas.Add` is for an addon that shows the world map in a canvas of its
+own, such as Polestar: UI's `PolestarUIWorldMapCanvas`: it calls it once,
+after making the frame, and Polestar's pins, trail, route lines, zone levels,
+info bar, unexplored areas, dungeon, rare and service pins and alt-click
+planning show there as on `WorldMapFrame`, each module with frames of its own
+under that map's view. The map is only read, as the world map is; OpenMap's
+stitched view stays the world map's. Polestar: UI's call:
+[`Modules/WorldMap.lua`](https://github.com/rohkin/polestar-ui/blob/9c4bf908bdf264881366def2b079a2b716cc1668/Modules/WorldMap.lua#L62).
 
 The world map and the battlefield map are Lua (`Blizzard_MapCanvas`,
 `Blizzard_WorldMap`), and Forever's gamepad interface reads them from secure
@@ -4071,6 +4216,7 @@ Polestar.Nav.travel.Progress() -> seconds, yards   -- the current leg's rest (al
 Polestar.Nav.GetRouteGeometry() -> { legs = { { kind, pts = { { c, wx, wy }, ... }, current, choke }, ... } } | nil
 -- leg = { kind = "walk"|"fly"|"boat"|"zeppelin"|"tram"|"portal"|"hearth"|"teleport"|"lift", from, to, label,
 --         seconds, rest, yards, radius (arrival yards at `to`), waypoint (true: `to` is a crossing or chain node),
+--         via (true: a walk to a path node on the way, nothing to do there; API.Target's next skips it),
 --         handmade (a walk the crossing data lays out), crossing, side (a crossing walked from end a|b),
 --         step ("crossing"|"chain"|"goto", or a chokepoint kind), choke = { kind, name } (ends at a chokepoint),
 --         stops (fly: every taxi node hopped), transport, side (the ride or portal and the end boarded),
@@ -5717,6 +5863,77 @@ Polestar.Gear.Bags.Redraw()                  -- repaint the shown bags; GEAR_UPD
 - Other bag addons draw their own buttons and get no arrow; the tooltip line
   still shows on them.
 
+### Weights and Forever's ratings — Gear/Weights.lua, Gear.lua
+
+- **Weights by level band.** `Gear.WeightsFor` gives the spec's band for
+  the level (`Gear.WEIGHT_BANDS`, generated SpecData.lua: Classic and
+  Season of Discovery simulations blended with Polestar's own), else its
+  table in Weights.lua. No simulation has Forever's own ratings, so a band
+  takes `haste`, `expertise` and `armorPen` from Weights.lua (#1529).
+  Weights.lua's header records what was checked against Forever's client tables
+  (`ChrClasses`, `PlayerExpectedStat`, `gametables/combatratings.txt`, read
+  with `forge gamedata export` and `forge gamedata file`) and how the weights
+  of Forever's own ratings were set.
+- **Ratings at the client's rate.** `C_Item.GetItemStats` reports an item's
+  rating points. `Gear.RATINGS` divides each by the points per 1% of the
+  client's `combatratings` table (crit 14, hit 10, haste 10, expertise 10,
+  armor penetration 10, dodge 12, parry 15, block 5; the same at every level),
+  so the weights stay per 1%. A plain crit or hit rating counts for spells too
+  (`crit` and `spellCrit`, `hit` and `spellHit`): Forever unifies them. Defense
+  rating is defense skill, one for one. New stat keys: `haste`, `expertise`,
+  `armorPen` (Gear.STAT_KEYS, PawnStats.lua's HasteRating, ExpertiseRating and
+  ArmorPenetration).
+- **Pawn scales in Pawn's unit.** A Pawn string weighs a rating per rating
+  point; Polestar per 1%. `Gear.Pawn.Weights` multiplies a rating stat's
+  weight by its rate (`Gear.RATING_RATE`, from `Gear.RATINGS`; to the
+  thousandth) and `Gear.Pawn.Build` divides it back (to five decimals, so
+  every thousandth comes back as it was at every rate), so a scale's weights
+  are per 1% and its string per point: CritRating=1 is crit 14. Scales kept before (no `PolestarDB.gearScaleUnits`) held rating
+  weights per point, when items counted rating points; they are converted
+  once, so each scores items as it did, and `gearScaleUnits` is 2 after.
+
+### Adjusted weights — Gear/Adjust.lua, UI/GearAdjust.lua
+
+```lua
+Polestar.Gear.Adjust.Set(class, spec, key, value[, level]) -> true | false, err   -- "class" | "stat" | "number"
+Polestar.Gear.Adjust.Clear(class, spec, key) -> bool       -- one stat back to its default
+Polestar.Gear.Adjust.Revert(class, spec) -> n               -- every change of the spec
+Polestar.Gear.Adjust.Count(class, spec) -> n
+Polestar.Gear.Adjust.Apply(weights, class, spec) -> weights -- the built-in weights with the changes on top
+Polestar.Gear.Adjust.Rows(class, spec[, level]) -> { { key, value, default, edited }, ... }
+Polestar.UI.ShowAdjust([spec])                              -- the window; /polestar gear adjust
+```
+
+- **What it is.** The player's own changes to a built-in spec's weights
+  (#1529), for someone who weighs one stat differently and wants to keep the
+  rest. A custom Pawn scale (`Gear.Scales`, Pawn.lua) replaces the whole
+  table at every level; an adjustment changes only the stats it names.
+- **Kept as a share of the default.** `PolestarDB.gearAdjust[CLASS][spec][stat]`
+  is `{ x = value / default }`, so it follows any later update to the defaults
+  (`Gear.WeightsFor`). A stat the spec does not weigh (default 0) is kept as the
+  value typed, `{ v = value }`. Typing the default clears the change. Like the
+  Pawn scales it lives outside the settings, so a settings reset leaves it;
+  Revert to default clears it.
+- **Where it applies.** `resolveSpec` (Gear.lua) applies it on top of the
+  band in use, for a chosen or detected spec, never to a custom scale.
+  `GetWeightsInfo().adjusted` is how many stats are changed, and
+  `GetSpec()`'s label reads "Arms (adjusted)", which the tooltip line shows.
+  The Stat weights dropdown marks the adjusted specs the same way.
+- **The window.** Options > Questing > Rewards & gear > **Adjust weights**
+  (`UI.ShowAdjust`) opens on the spec in use (with a custom scale in use, the
+  one the talents point to; a note says the changes wait for a built-in spec).
+  A menu switches spec. Each stat the spec weighs, or the player added, is a
+  line with a box. A changed line carries the Row Rule's 6px accent dot
+  before its name (docs/DESIGN.md; the name keeps the text colour and its
+  room) and a reset button whose tooltip gives the default. A box remembers
+  the stat it was focused on: when the lines change while it is being typed
+  in (another spec, a stat added above it), its number goes to that stat
+  first. Revert's first click stays armed through a relist of the same spec
+  (a `GEAR_UPDATED`).
+  **Add a stat** weighs one the spec leaves out (at 1). **Revert to default**
+  shows only when something is changed and asks for a second click
+  (`W.Confirm`).
+
 ## Maps — the world map
 
 Each feature is a setting on the Map page (Rares, travel & zones), and none of
@@ -5883,7 +6100,7 @@ choices for the guide's own reward pick (`Gear.RankChoices`, used by
 `Gear/Picks.lua`); it draws nothing on the reward panel.
 
 ```lua
-Polestar.QoL.Rewards.ReadChoices(fromLog) -> { { index, link, itemID, count, value, upgrade, delta } }, complete
+Polestar.QoL.Rewards.ReadChoices(fromLog) -> { { index, link, itemID, count, value, upgrade, delta } }, complete, priced
 Polestar.QoL.Rewards.Rank(choices) -> { index, ... } (best first), "upgrade" | "value"
 Polestar.QoL.Rewards.Mark() -> true | false | nil   -- draw the marks; whether the best was marked (nil: no best)
 Polestar.QoL.Rewards.best, .reason                -- auto-pick's settled answer on QUEST_COMPLETE
@@ -5915,6 +6132,16 @@ Polestar.QoL.Rewards.best, .reason                -- auto-pick's settled answer 
   the full `Gear.ScoredFor()` and what a click does; a click runs
   `Gear.ShowWeightsSetting`. A panel without the heading (the map's quest
   details) has none.
+- **Another addon's quest dialog** (Polestar: UI's) draws its own marks from
+  `ReadChoices(false)` and `Rank` while `QuestFrame` stays hidden: `Mark`
+  draws only on the stock panel, and auto-pick runs on `QUEST_COMPLETE`
+  whichever window shows the choices. `Rank`'s best is only to be trusted
+  when `ReadChoices` says `complete`. With `qol.rewardHighlight` on (the
+  default) and the stock panel hidden, `Mark()` returns nil, so every
+  `QUEST_COMPLETE` with two or more choices also prints "Best reward: …"
+  to chat. `ReadChoices` and `Rank` don't check `Polestar.Hidden()`; only
+  the marks (`Mark`) and that chat line do, so that window checks it
+  itself and redraws on `POLESTAR_HIDDEN`.
 
 ### Gossip the step asks for — QoL/Gossip
 
@@ -6399,6 +6626,13 @@ Polestar.QoL.Restock.Run()                           -- the button's press: Buy.
   hold per-character state through `get`/`set` (no settings key), which
   `W.Slider` and the options registry accept as they do for toggles;
   `/polestar restock [drink|food|ammo|<item>] <amount>` sets any of them.
+- **Another addon's merchant window** (Polestar: UI's) shows `Plan()`'s
+  total on a button of its own and calls `Run()` on its press: both work
+  between `MERCHANT_SHOW` and `MERCHANT_CLOSED` whichever window is shown,
+  and `Plan()` is empty while `qol.restock` is off. `Plan()` and `Run()`
+  don't check `Polestar.Hidden()`; only Polestar's button
+  (`Restock.Update`) does, so that window checks it itself and redraws on
+  `POLESTAR_HIDDEN`.
 
 ## Lookup — Codex, sources, generated guides, mount spotting
 
@@ -7013,6 +7247,39 @@ size. Each result has a chevron in its gutter: `O.Jump(control)` opens its
 page and tab, scrolls its row to 40px under the top and lights it a moment
 (`O.Flash`: the accent wash fades in, holds and fades out; shorter with
 Reduce motion; nothing runs after).
+
+Typing in the box opens the **search's dropdown** under it
+(UI/SearchDropdown.lua, its rows from `O.Matches`); the page on screen stays
+until a pick. First the places the words name: a page, a tab or a section
+whose name holds every word that is not filler (whole, its start or a typo
+off), a name said whole first, three at most; a tab named as its page, a
+section named as its tab and a section of references (Essentials) are left
+out. Then the best settings across the groups in the search's own order,
+eight rows in all, each its label over "Page · Tab", the words it matches
+lit (`O.MatchSpans`: the matcher's own test, word by word, two words run
+together and a hint word's synonyms; the label in textDim, those words in
+text); then "See all N results". Up and Down light a row (round from either
+end) and Enter picks it, as a click does (`O.Go`: a setting through
+`O.Jump`, a page at the tab last shown, a tab, a section's card scrolled
+into view with its header lit); Enter with no row lit, or See all, opens the
+results page (`O.SetQuery`). Escape (a second leaves the box), Tab, a click
+outside the list and the box (GLOBAL_MOUSE_DOWN, registered only while it is
+open), an emptied box, another page and the window closing close it; the
+box keeps the keyboard throughout. With no match it says so and offers the
+suggestions as rows that search for them, the box keeping the keyboard. The
+list is the window's child (strata DIALOG) on the panel skin, marked as a
+menu (`psMenu`: the menus' ground) so the page never shows through it, in
+the look's tokens; with a gamepad it holds the D-pad while open (A picks, B
+closes).
+
+A query that **starts with a page's name** and goes on ("arrow size",
+"quality of life loot"; the name's words in order, filler between them
+aside, or run together; on a translated client its English name too) looks
+on that page alone for the rest, in the dropdown and on the results page
+(`O.Search`'s fourth result names the page), when its best result there is a
+fair match: 50 a word on average, a word whole in its place or its start in
+its own words. Otherwise the whole window is searched ("guide window lock"
+finds the lock on Guide, not on the Guide window page).
 
 The built-in pages are grouped by what the player is doing: **Guide** (10:
 Window, Arrow & routes, Automation), **Map** (30: Guide & quests, Rares, travel & zones), **Questing**
@@ -7949,9 +8216,16 @@ opens on its card. The open state is not saved. `GuideFrame.Layout` asks `StepLi
 and stacks it at `StepList.Layout(width, room)`, as tall as its cards up to
 the window's cap (`ui.maxHeight`, the screen's top with Grow upward).
 `StepList.Fill` reads `Engine.GetStepView` for each step not hidden for this
-character (`UI.StepHidden`) and not `na`: all of them when the guide, the
-step on screen, the live step or the progress moved, else only the live and
-the viewed step's cards; the cards are measured again only when what one
+character (`UI.StepHidden`): all of them when the guide, the step on screen,
+the live step, the progress, a step's gate (`Engine.StepGate`: whether it
+applies, else which `when` predicate fails) or the names (`Names.revision`,
+moved by each burst of names arriving) moved, else only the live and
+the viewed step's cards. A step that is `na` with a `why` (it keeps its
+number but its `when` does not hold now, #1940) joins a run with the `na`
+steps around it; each run is one muted card, "N–M · Skipped for you", with
+a line per distinct reason (the skip icon, six at most then "+N more"),
+hovering it names the steps, and a click on it does nothing. An `na` step
+without a `why` ends the run and has no card; the cards are measured again only when what one
 says, the width, the style or the font changed. A card is a "N · title"
 header, then a line per person and goal in written order as the step card
 words them (`UI.GroupName`, `UI.GoalLine`, `UI.ReadingGoal`), a first goal the

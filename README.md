@@ -526,6 +526,16 @@ its source is in [apps/client](apps/client).
   arrow, its travel button and its arrival sound. Opening a Polestar window
   (the guides, the options, their key bindings) brings Polestar back. In a
   fight the action buttons go or come back when it ends.
+- **Pause** (the guide window's menu, the minimap button's menu, Options,
+  Guide, Window, the **Pause the guide** key binding or `/polestar pause`):
+  on your way to a dungeon and inside, the arrow, the guide window and its
+  nudges step aside, and Polestar resumes by itself when you leave the
+  dungeon alive (a wipe and the run back keep it paused). The Spirit Healer's
+  resurrection counts as leaving alive, so pause again for the run back.
+  Your guide keeps up with your quest log meanwhile; a point you pick and the
+  way back to your corpse still show. `/polestar resume` or opening the guide
+  window ends it early. Under it in Options, the step's map pins and the quest
+  automation can pause too. This character only.
 
 </details>
 
@@ -782,12 +792,14 @@ runs solo or in a raid.
 
 - **Upgrade indicator** on item tooltips: by how much an item is an upgrade
   for your spec at your level, from stat weights per spec (detected from your
-  talent points) and level band. The line under it says which weights it
-  scored with and where they came from ("Scored for Arcane, from your
-  talents"). Click a turn-in step's reward pick, or the line beside the game's
-  reward panel heading, to choose other weights (Settings > Questing > Rewards
-  & gear > Stat weights); `/polestar gear spec` shows how Automatic read your
-  talents.
+  talent points) and level band, checked against Forever's own stat
+  conversions. Forever's ratings (crit, hit, haste, expertise, armor
+  penetration, dodge, parry, block) count at the game's rating per 1%. The
+  line under it says which weights it scored with and where they came from
+  ("Scored for Arcane, from your talents"). Click a turn-in step's reward
+  pick, or the line beside the game's reward panel heading, to choose other
+  weights (Settings > Questing > Rewards & gear > Stat weights); `/polestar
+  gear spec` shows how Automatic read your talents.
 - **On the game's reward panel** every choice that is an upgrade gets a green
   arrow, the one to take is framed, and a coin marks the one that sells for
   most. Turn-in goals name the best reward, and a quest you are about to accept
@@ -800,6 +812,14 @@ runs solo or in a raid.
   as "Custom: <name>". It replaces the built-in weights at every level. One
   window lists your scales for every class: use, rename, export or delete
   them, change their weights, and start one from a built-in spec.
+- **Adjust the built-in weights**: Options, Questing, Rewards & gear, **Adjust
+  weights** (or `/polestar gear adjust`) lists your spec's weights. Change any
+  stat, or add one; a changed stat is marked with a dot and can go back on its
+  own (its reset button names the default), and **Revert to default** puts
+  every weight of the spec back. A change
+  is kept as a share of the default, so it carries over when Polestar's
+  defaults change, and the spec reads "(adjusted)" in the menu and on
+  tooltips.
 
 </details>
 
@@ -859,6 +879,9 @@ each section says what is missing.
 - **EllesmereUI** (Options, Integrations): Polestar follows its accent and font by default through
   its public skinning API, and where its Quality of Life or Friends module
   does the same job as a Polestar toggle, the toggle starts off.
+- **ErgoBars** offers the same skinning API: without EllesmereUI, Polestar
+  follows its accent, and its panel color and font when you pick them, the
+  same way.
 
 </details>
 
@@ -1048,6 +1071,7 @@ settings instead, and Polestar keeps out of the game's own windows.
 | `gear [item link]` | Gear advice: the weights in use, or compare an item |
 | `gear import [string]` | Import a Pawn scale: opens the paste box, or imports the string given |
 | `gear scales` | Open the window that manages your custom stat-weight scales |
+| `gear adjust` | Open the window that changes your spec's built-in stat weights |
 | `instances [clear]` | Instance limits, runs and lockouts |
 | `dungeons [name]` | Open Dungeons, or a dungeon's page |
 | `lookup [search]` | Open Lookup, optionally searching |

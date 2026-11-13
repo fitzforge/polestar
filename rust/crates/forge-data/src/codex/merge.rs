@@ -2050,6 +2050,12 @@ pub fn merge_codex(inputs: &Inputs) -> Merged {
 			let pre = forge_guide::prereqs::blocking_prereqs(&q, &quest_of);
 			o.set("pre", pre.get("all"));
 			o.set("preAny", pre.get("any"));
+			// The quests whose taking closes it for good (a breadcrumb's target, an exclusive quest), so Lookup's
+			// accept passes it once one is taken (#1996: The Greenwarden after Tramping Paws).
+			let closed: Vec<V> = forge_guide::prereqs::closed_by_of(&V::str(&ids), quests_in).into_iter().map(V::Num).collect();
+			if !closed.is_empty() {
+				o.set("closedBy", V::from(closed));
+			}
 			o.set("zone", opt(int(&q.get("zone"))));
 			o.set("rewards", rewards);
 			o.set("choices", choices);

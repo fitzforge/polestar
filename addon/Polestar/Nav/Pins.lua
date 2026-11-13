@@ -38,6 +38,8 @@
 --   Pins.ClearTrail()
 --   Pins.MinimapCursor() -> dNorth, dWest | nil   yards from the player to the cursor on the minimap
 --   Pins.MinimapView() -> radius, facing | nil, square   what the minimap shows (facing nil: north-up)
+--   Pins.WatchMinimapView(key, fn | nil)   fn(pc, px, py, radius, facing, square) on each frame the
+--                                      minimap's view changed, from the same sampling as the pins
 --
 -- Positions are converted to world yards once per SetLayer (Era-frame `f = "e"`
 -- included), then to map percent of whatever map the world map shows, and
@@ -47,8 +49,13 @@
 -- Cost model: the minimap is only touched when something it depends on
 -- changed (position, facing on a rotating minimap, zoom, size, layers). A
 -- 10 Hz watcher compares those scalars; while they keep changing a driver
--- frame repositions pins at most 30 times a second and hides itself after
--- 0.3 s of stillness, so standing still costs no per-frame work at all.
+-- frame repositions pins on every rendered frame, as the game redraws the
+-- minimap (a slower rate lags the terrain and jitters), and hides itself
+-- after 0.3 s of stillness, so standing still costs no per-frame work at all.
+-- Other minimap painters (Maps/RouteLines.lua) watch the view through
+-- WatchMinimapView instead of reading it themselves: they redraw in the same
+-- frame as the pins, from the same reads, and the watcher runs for them even
+-- with no pin on the minimap.
 -- Movement events wake the driver at once. Layer changes redraw once on the
 -- next frame however many layers changed in this one. Each layer indexes its
 -- pins by continent and by CELL-yard grid square, so a redraw visits the
@@ -116,7 +123,6 @@ local PIN_ZOOM = {
 -- full while clear of it, ARROW_FADE once one of the two lies inside the other.
 local ARROW_R, ARROW_FADE = 9, 0.3
 local WATCH_INTERVAL = 0.1
-local DRIVE_INTERVAL = 1 / 30
 local IDLE_AFTER = 0.3
 local MINIMAP_REACH = 1.0 -- fraction of the view radius a non-edge pin may sit at
 local CELL = 500 -- yards per grid square of a layer's minimap index
@@ -1170,12 +1176,42 @@ end
 ---------------------------------------------------------------------------
 
 -- What the rest of the file reads: the view, the frames drawn (n of each
--- kind), the trail's textures, install, flush and dotsShown.
-local world = { pins = { n = 0 }, areas = { n = 0 }, hulls = { n = 0 } }
+-- kind), the trail's textures, install, flush and dotsShown. One world per
+-- map: the world map's (world) and one for each MapCanvas.Add's map
+-- (worlds: every one, the world map's first), each with frames of its own.
+local world, worlds
 
 do
 	local PIN_LEVEL, BLOB_LEVEL = "PIN_FRAME_LEVEL_SUPER_TRACKED_QUEST", "PIN_FRAME_LEVEL_QUEST_BLOB"
 	local PIN_ZOOMED = 1.25 -- trail dot scale zoomed in (1 zoomed out)
+	local clickFilters = {}
+	function Pins.OnWorldClick(fn) clickFilters[#clickFilters + 1] = fn end
+
+	-- OpenMap's switch: the trail on its map (once, for every world).
+	local omHooked = false
+	local function hookOpenMap(OM)
+		if omHooked then return end
+		omHooked = true
+		if type(OM.RegisterCallback) == "function" then
+			pcall(OM.RegisterCallback, Pins, "OpenMap_StitchedChanged", function() refreshWorld() end)
+		end
+		if type(OM.RegisterMenuToggle) == "function" then
+			pcall(OM.RegisterMenuToggle, ADDON, {
+				id = "trailDots",
+				label = L["Polestar trail dots"],
+				section = "Polestar",
+				icon = MEDIA .. "pin-fill",
+				get = function() return ns.Get("nav.openmapDots") and true or false end,
+				set = function(on) ns.Set("nav.openmapDots", on and true or false) end,
+			})
+		end
+	end
+	ns.On("SETTING_CHANGED", function(path)
+		if path == "nav.openmapDots" or path == "" or path == "nav" then refreshWorld() end
+	end)
+
+	local function newWorld()
+	local world = { pins = { n = 0 }, areas = { n = 0 }, hulls = { n = 0 } }
 
 	local wView              -- the world map's view, once Blizzard_WorldMap is loaded
 	local wDirty = false     -- something to draw on the map's next frame
@@ -1185,7 +1221,7 @@ do
 	-- The viewed map (viewMap): its continent, world yards -> percent, and the
 	-- trail's dot spacing (nil continent: no trail or hull can show there).
 	local wC, wLeft, wTop, wKx, wKy, wSpacing
-	local viewMap -- forward
+	local viewMap, drawTrail -- forward
 
 	-- What the map's scroll frame shows of the canvas, in percent of the
 	-- viewed map: x0, y0, x1, y1 (reads only: the canvas and its parent's place);
@@ -1265,8 +1301,6 @@ do
 	-- on a world map pin before the pin's onClick (Nav/Journey.lua: Shift
 	-- lets the target go).
 	local mousePin, pressedPin, pressedButton
-	local clickFilters = {}
-	function Pins.OnWorldClick(fn) clickFilters[#clickFilters + 1] = fn end
 	ns.RegisterEvent("GLOBAL_MOUSE_DOWN", function(_, button)
 		if button == "RightButton" then return end
 		pressedPin, pressedButton = mousePin, button
@@ -1584,7 +1618,7 @@ do
 		hideFrom(wAreas, areas + 1)
 		wPins.n, wAreas.n = n, areas
 		world.drawHulls(mapType)
-		drawTrailWorld(trailFrac())
+		drawTrail(trailFrac())
 		updateTrailDriver()
 	end
 
@@ -1709,10 +1743,10 @@ do
 		end
 	end
 
-	function world.install()
+	function world.install(map)
 		if wView then return true end
 		local M = ns.MapCanvas
-		wView = WorldMapFrame and M and M.Watch(WorldMapFrame, onWorldView) or nil
+		wView = map and M and M.Watch(map, onWorldView) or nil
 		world.view = wView
 		world.openMap() -- OpenMap's menu switch, when it is loaded (an optional dependency: before Polestar)
 		return wView ~= nil
@@ -1720,7 +1754,7 @@ do
 
 	-- Layers and the trail changed: drawn on the open map's next frame (a
 	-- closed map draws everything as it opens).
-	function refreshWorld()
+	function world.refresh()
 		if wView and wView.shown then wDirty = true end
 	end
 
@@ -1742,7 +1776,6 @@ do
 	--   nav.openmapDots   the trail on OpenMap's stitched map (on; its menu's switch)
 	---------------------------------------------------------------------------
 	local OM_MARGIN = 0.04   -- of the view's size: dots placed just past its edges
-	local omHooked = false
 	local omOn = false       -- the last trail draw went through OpenMap
 	local omX0, omY0, omX1, omY1 = 0, 0, 0, 0 -- the view it was drawn for (map percent)
 	local omRefs = {}        -- host map -> { [continent] = { map, left, top, kx, ky } }, measured once
@@ -1817,31 +1850,10 @@ do
 		return TRAIL.WORLD_MIN_SPACING * 2 ^ ceil(math.log(raw / TRAIL.WORLD_MIN_SPACING) / LOG2 - 1e-9)
 	end
 
-	-- OpenMap's switch: the trail on its map.
-	local function hookOpenMap(OM)
-		if omHooked then return end
-		omHooked = true
-		if type(OM.RegisterCallback) == "function" then
-			pcall(OM.RegisterCallback, Pins, "OpenMap_StitchedChanged", function() refreshWorld() end)
-		end
-		if type(OM.RegisterMenuToggle) == "function" then
-			pcall(OM.RegisterMenuToggle, ADDON, {
-				id = "trailDots",
-				label = L["Polestar trail dots"],
-				section = "Polestar",
-				icon = MEDIA .. "pin-fill",
-				get = function() return ns.Get("nav.openmapDots") and true or false end,
-				set = function(on) ns.Set("nav.openmapDots", on and true or false) end,
-			})
-		end
-	end
-	ns.On("SETTING_CHANGED", function(path)
-		if path == "nav.openmapDots" or path == "" or path == "nav" then refreshWorld() end
-	end)
-
 	-- OpenMapAPI while its stitched map shows, else nil.
 	local function openMap()
 		local OM = OpenMapAPI
+		if wView and wView.map ~= WorldMapFrame then return nil end -- it stitches the world map only
 		if type(OM) ~= "table" or OM.major ~= 1 or type(OM.IsStitched) ~= "function"
 			or type(OM.WorldFromMap) ~= "function" or type(OM.MapFromWorld) ~= "function" then
 			return nil
@@ -1884,7 +1896,7 @@ do
 		local x0, y0, x1, y1 = viewRect()
 		local eps = (omX1 - omX0) * 0.002
 		if abs(x0 - omX0) > eps or abs(y0 - omY0) > eps or abs(x1 - omX1) > eps or abs(y1 - omY1) > eps then
-			drawTrailWorld(trailFrac())
+			drawTrail(trailFrac())
 			updateTrailDriver()
 		end
 	end
@@ -1915,7 +1927,7 @@ do
 
 	-- Place the world map's trail dots, reusing the textures already made and
 	-- hiding the rest (on the map viewMap last measured).
-	function drawTrailWorld(frac)
+	function drawTrail(frac)
 		local count = 0
 		local v = wView
 		omOn = false
@@ -1969,6 +1981,38 @@ do
 			t.n = count
 		end
 	end
+	world.drawTrail = drawTrail
+	return world
+	end
+
+	world = newWorld()
+	worlds = { world }
+
+	function refreshWorld()
+		for i = 1, #worlds do worlds[i].refresh() end
+	end
+
+	-- every: every open map's trail, else only where its dots show.
+	function drawTrailWorld(frac, every)
+		for i = 1, #worlds do
+			local w = worlds[i]
+			if w.dotsShown() or (every and w.view and w.view.shown) then w.drawTrail(frac) end
+		end
+	end
+
+	function worlds.dotsShown()
+		for i = 1, #worlds do
+			if worlds[i].dotsShown() then return true end
+		end
+		return false
+	end
+
+	ns.OnLogin(function()
+		ns.MapCanvas.OnAdd(function(map)
+			local w = newWorld()
+			if w.install(map) then worlds[#worlds + 1] = w end
+		end)
+	end)
 end
 
 ---------------------------------------------------------------------------
@@ -1980,7 +2024,8 @@ local mmFree = {}     -- released frames
 local assigned = {}   -- pin table -> frame
 local gen = 0
 local driver, watcher
-local sPc, sPx, sPy, sFacing, sRadius, sRotate, sHalf, sSquare, sZoomK, sSizeK -- last drawn state
+local sPc, sPx, sPy, sFacing, sRadius, sRotate, sHalf, sHeight, sSquare, sZoomK, sSizeK -- last sampled state
+local viewWatch, viewWatchers = {}, 0 -- key -> fn(pc, px, py, radius, facing, square); how many
 local dirty = true
 
 local function viewRadius()
@@ -2524,7 +2569,7 @@ local function drawMinimap()
 	hideHullsFrom(hulls)
 	drawTrailMinimap(trailFrac())
 	-- Held still, the world map's dots follow the player with these redraws.
-	if world.dotsShown() and stillTrail() then drawTrailWorld(TRAIL.STILL) end
+	if stillTrail() then drawTrailWorld(TRAIL.STILL) end
 	updateTrailDriver()
 end
 
@@ -2537,7 +2582,7 @@ local function sample(force)
 	if C and C.GetPlayerWorldPosition then pc, px, py = C.GetPlayerWorldPosition() end
 	local rotate = isRotating()
 	local facing = rotate and C and C.GetPlayerFacing and C.GetPlayerFacing() or nil
-	local radius, half, square = viewRadius(), Minimap:GetWidth() / 2, isSquare()
+	local radius, half, height, square = viewRadius(), Minimap:GetWidth() / 2, Minimap:GetHeight(), isSquare()
 	-- The zoom's factor on pin sizes: `wide` at the widest zoom (0) to `close` at the closest.
 	local zoom, levels = Minimap.GetZoom and Minimap:GetZoom() or 0, Minimap.GetZoomLevels and Minimap:GetZoomLevels() or 6
 	local t = levels > 1 and zoom / (levels - 1) or 0
@@ -2545,22 +2590,27 @@ local function sample(force)
 	local z = PIN_ZOOM.minimap
 	local zoomK = z.wide + (z.close - z.wide) * t
 	local sizeK = tonumber(ns.Get and ns.Get("nav.minimapIconSize")) or 1
-	if not force and not dirty and pc == sPc and px == sPx and py == sPy and facing == sFacing
-		and radius == sRadius and rotate == sRotate and half == sHalf and square == sSquare and zoomK == sZoomK
-		and sizeK == sSizeK then
-		return false
+	local moved = not (pc == sPc and px == sPx and py == sPy and facing == sFacing and radius == sRadius
+		and rotate == sRotate and half == sHalf and height == sHeight and square == sSquare and zoomK == sZoomK
+		and sizeK == sSizeK)
+	local pins = hasMinimapPins()
+	if not force and not moved and not (dirty and pins) then return false end
+	sPc, sPx, sPy, sFacing, sRadius, sRotate, sHalf, sHeight, sSquare, sZoomK, sSizeK = pc, px, py, facing, radius, rotate, half, height, square, zoomK, sizeK
+	if pins then
+		dirty = false
+		drawMinimap()
 	end
-	sPc, sPx, sPy, sFacing, sRadius, sRotate, sHalf, sSquare, sZoomK, sSizeK = pc, px, py, facing, radius, rotate, half, square, zoomK, sizeK
-	dirty = false
-	drawMinimap()
+	if moved and viewWatchers > 0 then
+		for _, fn in pairs(viewWatch) do fn(pc, px, py, radius, facing, square) end
+	end
 	return true
 end
 
-local idle, accum = 0, 0
+local idle = 0
 
 local function wake()
 	if driver and not driver:IsShown() then
-		idle, accum = 0, 0
+		idle = 0
 		driver:Show()
 	end
 end
@@ -2571,14 +2621,10 @@ local function ensureMinimap()
 	driver = CreateFrame("Frame", nil, ns.UIParent)
 	driver:Hide()
 	driver:SetScript("OnUpdate", ns.Safe(function(self, elapsed)
-		accum = accum + elapsed
-		if accum < DRIVE_INTERVAL then return end
-		local step = accum
-		accum = 0
 		if sample(false) then
 			idle = 0
 		else
-			idle = idle + step
+			idle = idle + elapsed
 			if idle >= IDLE_AFTER then self:Hide() end
 		end
 	end))
@@ -2586,7 +2632,7 @@ local function ensureMinimap()
 end
 
 local function updateWatcher()
-	local want = hasMinimapPins()
+	local want = viewWatchers > 0 or hasMinimapPins()
 	if want and not watcher and C_Timer and C_Timer.NewTicker then
 		watcher = ns.NewTicker(WATCH_INTERVAL, function()
 			if sample(false) then
@@ -2640,13 +2686,30 @@ function refreshMinimap(layersChanged)
 	redraw(layersChanged)
 end
 
+-- fn(pc, px, py, radius, facing, square) on each frame the minimap's view
+-- changed (the player, the facing, the zoom, its size or shape), after the
+-- pins' own layout and from the same reads; nil stops watching. The watcher
+-- draws the view it is handed when it starts. While anyone watches, the
+-- 10 Hz watcher and the per-frame driver run as for the pins.
+function Pins.WatchMinimapView(key, fn)
+	if not Minimap then return end
+	local added = fn ~= nil and viewWatch[key] == nil
+	if (viewWatch[key] ~= nil) ~= (fn ~= nil) then viewWatchers = viewWatchers + (fn and 1 or -1) end
+	viewWatch[key] = fn
+	ensureMinimap()
+	updateWatcher()
+	if added then wake() end
+end
+
 -- The pin a world map frame of Pins shows: { pin, layer, x, y } (x, y in
 -- percent of the viewed map), or nil for any other frame (Nav/Journey.lua
 -- tells Polestar's pins under the mouse by it).
 function Pins.WorldPinOf(frame)
-	local list = world.pins
-	for i = 1, list.n do
-		if list[i] == frame then return frame.data end
+	for k = 1, #worlds do
+		local list = worlds[k].pins
+		for i = 1, list.n do
+			if list[i] == frame then return frame.data end
+		end
 	end
 	return nil
 end
@@ -2749,12 +2812,12 @@ local function trailTick(self, elapsed)
 	local frac = trailFrac()
 	-- The pins' own redraw may have drawn the minimap's dots this frame.
 	if minimapTrailShown() and GetTime() - mmTrailAt >= TRAIL.INTERVAL / 2 then drawTrailMinimap(frac) end
-	if world.dotsShown() then drawTrailWorld(frac) end
+	drawTrailWorld(frac)
 	updateTrailDriver()
 end
 
 function updateTrailDriver()
-	if not stillTrail() and (minimapTrailShown() or world.dotsShown()) then
+	if not stillTrail() and (minimapTrailShown() or worlds.dotsShown()) then
 		if not trailDriver then
 			trailDriver = CreateFrame("Frame", nil, ns.UIParent)
 			trailDriver:Hide()
@@ -2813,7 +2876,7 @@ ns.On("SETTING_CHANGED", function(path)
 	if not trail then return end
 	local frac = trailFrac()
 	if Minimap then drawTrailMinimap(frac) end
-	if world.view and world.view.shown then drawTrailWorld(frac) end
+	drawTrailWorld(frac, true)
 	updateTrailDriver()
 end)
 
@@ -2846,7 +2909,7 @@ ns.On("SETTING_CHANGED", function(path)
 end)
 
 local function moved()
-	if hasMinimapPins() then wake() end
+	if viewWatchers > 0 or hasMinimapPins() then wake() end
 end
 for _, event in ipairs({
 	"PLAYER_STARTED_MOVING", "PLAYER_STARTED_TURNING", "MINIMAP_UPDATE_ZOOM", "CVAR_UPDATE",
@@ -2871,9 +2934,9 @@ end)
 
 ns.OnLogin(function()
 	reresolve()
-	if world.install() then return end
+	if world.install(WorldMapFrame) then return end
 	local function onLoaded(_, name)
-		if name == "Blizzard_WorldMap" and world.install() then ns.UnregisterEvent("ADDON_LOADED", onLoaded) end
+		if name == "Blizzard_WorldMap" and world.install(WorldMapFrame) then ns.UnregisterEvent("ADDON_LOADED", onLoaded) end
 	end
 	ns.RegisterEvent("ADDON_LOADED", onLoaded)
 end)

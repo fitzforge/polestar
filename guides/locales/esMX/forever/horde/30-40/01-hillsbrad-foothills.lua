@@ -27,11 +27,11 @@ return {
 	-- Step 4: Fly to the Crossroads
 	["Fly to the Crossroads"] = "",
 	-- {zone:1456} Thunder Bluff
-	["{zone:1456} flight master"] = "",
+	["{zone:1456} flight master"] = "Maestro de vuelo de {zone:1456}",
 
 	-- Step 5: Fly to the Crossroads
 	-- {area:392} Ratchet
-	["{area:392} flight master"] = "",
+	["{area:392} flight master"] = "Maestro de vuelo de {area:392}",
 
 	-- Step 7: Korran
 	-- {npc:3428} Korran
@@ -42,7 +42,7 @@ return {
 	-- Step 8: Fly to Orgrimmar
 	-- {area:1637} Orgrimmar
 	["Fly to {area:1637}"] = "Vuela a {area:1637}",
-	["Crossroads flight master"] = "",
+	["Crossroads flight master"] = "Maestro de vuelo del Cruce",
 
 	-- Step 9: Thrall
 	-- {npc:4949} Thrall · {object:172957} Valley of Wisdom
@@ -62,7 +62,7 @@ return {
 
 	-- Step 12: Zeppelin to Undercity
 	-- {zone:1458} Undercity
-	["Zeppelin to {zone:1458}"] = "",
+	["Zeppelin to {zone:1458}"] = "Zepelín a {zone:1458}",
 
 	-- Step 13: The Undercity
 	-- {quest:515} Elixir of Agony · {item:3388} Lesser Troll's Blood Elixir · {skill:171} Alchemy · {area:287} Hillsbrad
@@ -100,7 +100,7 @@ return {
 	-- {npc:2229} Krusk · {area:275} Durnholde Keep
 	["{npc:2229} wants his two scouts freed from {area:275} before he trusts you with Infiltration."] = "{npc:2229} quiere que liberes a sus dos exploradores de {area:275} antes de confiarte “Infiltración”.",
 	-- {npc:2229} Krusk
-	["{npc:2229}, inside"] = "",
+	["{npc:2229}, inside"] = "{npc:2229}, adentro",
 
 	-- Step 21: Hillsbrad Fields
 	-- {area:287} Hillsbrad · {npc:232} Farmer Ray · {npc:2403} Farmer Getz
@@ -126,7 +126,7 @@ return {
 	["The smithy"] = "La herrería",
 	-- {area:287} Hillsbrad · {npc:2404} Blacksmith Verringtan · {object:1736} Shipment of Iron
 	["West across the foothills to {area:287} town: the smithy stands in the middle of it. {npc:2404} and his apprentices work at the forge; the {object:1736} is stacked beside it."] = "Al oeste por las laderas hasta el pueblo de {area:287}: la herrería está en el centro. {npc:2404} y sus aprendices trabajan en la forja; el {object:1736} está apilado a su lado.",
-	["Inside"] = "",
+	["Inside"] = "Adentro",
 
 	-- Step 27: Krusk
 	-- {area:272} Tarren Mill
@@ -233,7 +233,7 @@ return {
 	-- {npc:2229} Krusk · {npc:2316} Gol'dir
 	["{npc:2229} now offers {npc:2316} (level 36): leave it for the 38-39 visit."] = "",
 	-- {npc:2216} Apothecary Lydon
-	["{npc:2216}, inside"] = "",
+	["{npc:2216}, inside"] = "{npc:2216}, adentro",
 
 	-- Step 46: Elixir of Agony with a group
 	-- {quest:515} Elixir of Agony
@@ -340,6 +340,8 @@ return {
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Follow the road north out of {area:272} into the Alterac foothills. {quest:535} waits by the Syndicate camp; hand him the stout."] = "Sigue el camino al norte desde {area:272} hacia las faldas de Alterac. {quest:535} espera junto al campamento de la Hermandad; entrégale la cerveza.",
+	-- ["Head east to {area:271}'s graveyard, on the north-east edge of the town: Helcular's grave lies among the others. Come at it from the north, down the slope above the town. Southshore Guards (55) stand at the graveyard's north-west corner and south-east of the grave: walk in between them, hand the quest in and leave the way you came."] = "Ve al este hasta el cementerio de {area:271}, en el borde noreste del pueblo: la tumba de Helcular está entre las demás. Llega desde el norte, bajando por la ladera que está sobre el pueblo. Los Guardias de Costasur (55) están en la esquina noroeste del cementerio y al sureste de la tumba: pasa entre ellos, entrega la misión y vete por donde llegaste.",
+	-- ["North of Southshore's graveyard"] = "Al norte del cementerio de Costasur",
 	-- ["The Syndicate Footpads and Thieves (32-33) around the camps west of the road carry the missives; about one in three drops one."] = "Los Asaltantes de caminos de la Hermandad ({npc:2240}) y Ladrones (32-33) alrededor de los campamentos al oeste del camino llevan las misivas; uno de cada tres suelta una.",
 	-- ["The keg stands with a few others at the Syndicate camp on the south-east coast of {area:287}."] = "El barril está con algunos otros en el campamento de la Hermandad, en la costa sureste de {area:287}.",
 	-- ["The orc stronghold at the eastern end of the road. {npc:2851}, the wind rider master, stands by the gate."] = "La fortaleza orca del extremo este del camino. {npc:2851}, la maestra de jinetes del viento, está junto a la puerta.",

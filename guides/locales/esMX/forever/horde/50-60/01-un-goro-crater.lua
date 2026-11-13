@@ -80,7 +80,7 @@ return {
 
 	-- Step 16: A Wrecked Raft
 	["The raft lies on the shore of the south-eastern lake; the small pack sits in the water beside it."] = "La balsa está en la orilla del lago del sureste; la mochila pequeña está en el agua a su lado.",
-	["Underwater"] = "",
+	["Underwater"] = "Bajo el agua",
 
 	-- Step 18: Lashers and Threshers
 	["Lashers and Threshers"] = "Azotadores y Trilladores",
@@ -216,13 +216,13 @@ return {
 	["{area:340} flight master"] = "",
 
 	-- Step 43: Apothecary Lydon
-	["Inside"] = "",
+	["Inside"] = "Adentro",
 
 	-- Step 44: Fly to Undercity
 	-- {area:1497} Undercity
 	["Fly to {area:1497}"] = "",
 	-- {area:272} Tarren Mill
-	["{area:272} flight master"] = "",
+	["{area:272} flight master"] = "Maestro de vuelo de {area:272}",
 
 	-- Step 45: Harbinger Balthazad
 	-- {npc:10879} Harbinger Balthazad · {object:36078} Trade Quarter

@@ -380,6 +380,36 @@ fn a_menu_over_a_window_holds_the_gamepad_until_b_then_the_window_has_it_back_wh
 	assert_eq!(out[1], json!({ "menu": false, "owner": true, "line": "Button names", "options": true }));
 }
 
+// The settings search's dropdown (typed with a keyboard) holds the gamepad while it is open: the D-pad moves
+// through its rows, A opens the focused one and the window has the gamepad back; B closes it.
+#[test]
+fn the_settings_search_dropdown_holds_the_gamepad_while_open_a_opens_a_row_b_closes_it() {
+	let out = run(r#"
+		UI.ShowOptions("guide")
+		stub.advance(0.3)
+		local box = PolestarOptions.Search
+		local function typed(q) box:SetFocus(); box:SetText(q); stub.RunScript(box, "OnTextChanged", true); stub.advance(0.1) end
+		typed("minimap icon")
+		local rows = UI.Options.Dropdown.Rows()
+		local r = { owner = G.owner == PolestarOptionsMatches, first = G.Focused(PolestarOptionsMatches) and G.Focused(PolestarOptionsMatches).psIndex }
+		stub.press("PADDDOWN")
+		local at = G.Focused(PolestarOptionsMatches)
+		r.down = at and at.psIndex
+		local page = rows[r.down] and rows[r.down].where
+		stub.press("PAD1")
+		r.opened = { shown = PolestarOptionsMatches:IsShown(), owner = G.owner == PolestarOptions, page = UI.Options.page.name == (page or ""):match("^(.-)  \194\183  ") }
+		typed("minimap icon")
+		stub.press("PAD2")
+		r.back = { shown = PolestarOptionsMatches:IsShown(), owner = G.owner == PolestarOptions, window = PolestarOptions:IsShown() }
+		emit(r)
+	"#);
+	assert_eq!(out[0]["owner"], true, "the open list takes the gamepad");
+	assert_eq!(out[0]["first"], 1, "on its first row");
+	assert_eq!(out[0]["down"], 2);
+	assert_eq!(out[0]["opened"], json!({ "shown": false, "owner": true, "page": true }), "A opens that row's setting; the window has the gamepad back");
+	assert_eq!(out[0]["back"], json!({ "shown": false, "owner": true, "window": true }), "B closes the list, not the window");
+}
+
 #[test]
 fn combat_with_a_window_open_the_window_stays_for_the_mouse_the_gamepad_goes_back_to_the_game_and_comes_back_after_the_fight() {
 	let out = run(r#"

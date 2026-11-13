@@ -127,3 +127,25 @@ test("Hotline's report (#1498) and #1708's learns: Linen Belt is not Josephine L
 	assert.ok(of(2331).length, 'the alchemy guide learns Minor Mana Potion');
 	for (const g of of(2331)) assert.ok(!g.npcs.includes(4611), `Minor Mana Potion: ${g.npcs}`);
 });
+
+// Pyzx's report (#1956): at Blacksmithing 205 the guide sent him to Saru Steelfury for Heavy Mithril Breastplate,
+// and her trainer window had nothing to teach. Classic's trainer lists (the world DB above, VB 0) put the recipes
+// that asked 230-250 there (above Expert's 225) on the Artisan trainers only; Forever moved them 25 points down,
+// not off the Artisan list. The guide sources (the generators' output; Guides.lua is compiled from them at release)
+// pin each such learn to the Artisan trainers.
+test("Pyzx's report (#1956): recipes only the Artisan trainers teach are learned from them, not the Expert trainers", () => {
+	const dir = path.join(__dirname, '..', 'guides', 'forever', 'professions');
+	const learns = (file, spell) => fs.readFileSync(path.join(dir, file), 'utf8').split('\n').filter((l) => new RegExp(`^\\s*learn ${spell}\\b`).test(l));
+	for (const [file, spell, npcs, what] of [
+		['blacksmithing.guide', 9959, [2836], 'Heavy Mithril Breastplate: Brikk Keencraft'],
+		['leatherworking.guide', 10548, [11097, 11098], 'Nightscape Pants: Drakk Stonehand, Hahrana Ironhide'],
+		['tailoring.guide', 12072, [11052, 2399], 'Black Mageweave Headband: Timothy Worthington, Daryl Stack'],
+	]) {
+		const lines = learns(file, spell);
+		assert.ok(lines.length, `${what}: learned in ${file}`);
+		for (const l of lines) {
+			const m = l.match(/\bnpc (\d+)/);
+			assert.ok(m && npcs.includes(Number(m[1])), `${what}: ${l.trim()}`);
+		}
+	}
+});

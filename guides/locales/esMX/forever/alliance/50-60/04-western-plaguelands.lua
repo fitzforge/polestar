@@ -81,7 +81,7 @@ return {
 	["The cauldron sits at the {area:202}, by {npc:10739}' farm."] = "El caldero está en {area:202}, junto a la granja de {npc:10739}.",
 
 	-- Step 17: Mulgris Deepriver
-	["Inside"] = "",
+	["Inside"] = "Adentro",
 
 	-- Step 18: Diseased Grizzlies
 	["Diseased Grizzlies"] = "Osos pardos malsanos",
@@ -300,7 +300,7 @@ return {
 	-- {area:2255} Everlook
 	["Fly to {area:2255}"] = "",
 	-- {area:392} Ratchet
-	["{area:392} flight master"] = "",
+	["{area:392} flight master"] = "Maestro de vuelo de {area:392}",
 
 	-- Step 82: Donova Snowden
 	["Ride west along the road to the hot springs."] = "Cabalga al oeste por el camino hasta las aguas termales.",

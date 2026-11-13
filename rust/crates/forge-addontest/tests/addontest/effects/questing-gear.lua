@@ -104,6 +104,11 @@ return {
 			prepare = function() local f = Polestar.UI.ScalesView.frame; if f then f:Hide() end end,
 			probe = function() local f = Polestar.UI.ScalesView.frame; return f ~= nil and f:IsShown() and true or false end,
 			cleanup = function() local f = Polestar.UI.ScalesView.frame; if f then f:Hide() end end },
+		-- Adjust weights (#1538): its window, on the spec in use.
+		["Questing:Adjust weights"] = { press = true,
+			prepare = function() local f = Polestar.UI.AdjustView.frame; if f then f:Hide() end end,
+			probe = function() local f = Polestar.UI.AdjustView.frame; return f ~= nil and f:IsShown() and true or false end,
+			cleanup = function() local f = Polestar.UI.AdjustView.frame; if f then f:Hide() end end },
 		["gear.rewards"] = function() return pick() end,
 		-- A reward choice's tooltip, the Scholar Cap worn: the pick to take.
 		["gear.pickTooltip"] = { prepare = function() wear(1, "item:9102") end, cleanup = function() wear(1, "item:9001") end, probe = function()

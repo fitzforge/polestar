@@ -31,6 +31,8 @@ const FIXTURE: &str = r#"{
 	[9062] = "16 30 25 2 4 1 spFire10 spFrost10",
 	[9063] = "16 30 25 2 4 1 sp10",
 	[9064] = "16 30 25 2 4 1 spShadow20",
+	[9070] = "13 22 17 2 2 0 agi3 dmin12 dmax22 speed1800",
+	[9071] = "17 22 17 2 2 1 str10 dmin40 dmax60 speed3000",
 }"#;
 
 // Troll by default: a race with no gear trait (racials have their own tests).
@@ -283,6 +285,22 @@ fn a_weapon_the_class_can_train_but_the_character_has_not_learned_is_no_upgrade_
 	assert_eq!(r["after"]["usable"], true);
 	assert_eq!(r["after"]["up"], true);
 	assert!(r["after"]["reason"].is_null());
+}
+
+#[test]
+fn a_rogue_can_upgrade_to_a_one_handed_axe_after_learning_the_skill() {
+	let out = run(
+		r#"
+		w.learnSkill(173, "Daggers", 1, 150)
+		emit(G.IsUpgrade("item:9070"))
+		w.learnSkill(44, "One-Handed Axes", 1, 150)
+		emit(G.IsUpgrade("item:9070"))
+		w.learnSkill(172, "Two-Handed Axes", 1, 150)
+		emit(G.CompareToEquipped("item:9071").reason)
+	"#,
+		Opts { cls: "ROGUE", class_name: "Rogue", class_id: 4, ..Default::default() },
+	);
+	assert_eq!(out, vec![json!(false), json!(true), json!("weapon")]);
 }
 
 #[test]
@@ -853,6 +871,7 @@ fn options_the_gear_advice_on_questing_with_the_class_spec_dropdown_registered_o
 		json!([
 			"gear.enabled=header:help",
 			"gear.spec.WARRIOR=dropdown:help",
+			"Adjust weights=button:help",
 			"Manage custom weights=button:help",
 			"gear.tooltip=toggle:help",
 			"gear.minUpgrade=slider:help",

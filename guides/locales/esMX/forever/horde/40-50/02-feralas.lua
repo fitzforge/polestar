@@ -18,7 +18,7 @@ return {
 
 	-- Step 4: Orgrimmar
 	-- {zone:1454} Orgrimmar
-	["The middle of {zone:1454}"] = "",
+	["The middle of {zone:1454}"] = "El centro de {zone:1454}",
 
 	-- Step 6: Riding at 40
 	["Riding at 40"] = "Equitación a nivel 40",
@@ -61,7 +61,7 @@ return {
 	-- {area:484} Freewind Post
 	["Fly to {area:484}"] = "Vuela a {area:484}",
 	-- {zone:1456} Thunder Bluff
-	["{zone:1456} flight master"] = "",
+	["{zone:1456} flight master"] = "Maestro de vuelo de {zone:1456}",
 
 	-- Step 16: Ratchet for the Felsteed
 	-- {area:392} Ratchet
@@ -71,7 +71,7 @@ return {
 
 	-- Step 17: Fly to Freewind Post
 	-- {area:392} Ratchet
-	["{area:392} flight master"] = "",
+	["{area:392} flight master"] = "Maestro de vuelo de {area:392}",
 
 	-- Step 20: Mirage Raceway
 	-- {area:484} Freewind Post · {zone:1446} Tanaris · {area:2240} Mirage Raceway · {area:439} Shimmering Flats · {npc:4454} Fizzle Brassbolts · {npc:4630} Pozzik · {npc:4709} Zamek

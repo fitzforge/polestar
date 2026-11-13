@@ -12,7 +12,7 @@ return {
 
 	-- Step 2: Orgrimmar
 	-- {zone:1454} Orgrimmar
-	["The middle of {zone:1454}"] = "",
+	["The middle of {zone:1454}"] = "El centro de {zone:1454}",
 
 	-- Step 3: Orgrimmar
 	-- {item:3713} Soothing Spices
@@ -34,7 +34,7 @@ return {
 	-- Step 6: Fly to Camp Taurajo
 	-- {area:378} Camp Taurajo
 	["Fly to {area:378}"] = "Vuela a {area:378}",
-	["Crossroads flight master"] = "",
+	["Crossroads flight master"] = "Maestro de vuelo del Cruce",
 
 	-- Step 8: Shady Rest Inn
 	-- {area:378} Camp Taurajo · {area:403} Shady Rest Inn
@@ -85,7 +85,7 @@ return {
 	-- Step 18: The Theramore Docks
 	-- {area:513} Theramore Isle · {object:20925} Captain's Footlocker
 	["South-east from the manor to {area:513}: the {object:20925} lies on the sea floor off the docks on the isle's east side. Swim in and out and keep off the piers and the town: Theramore's guards are level 53-57."] = "Al sureste desde la mansión hasta {area:513}: {object:20925} está en el fondo del mar frente a los muelles del lado este de la isla. Entra y sal nadando y mantente lejos de los muelles y del pueblo: los guardias de Theramore son de nivel 53-57.",
-	["Underwater"] = "",
+	["Underwater"] = "Bajo el agua",
 
 	-- Step 19: Brackenwall Village
 	-- {npc:4503} Mudcrush Durtfeet · {npc:4791} Nazeer Bloodpike
@@ -119,7 +119,7 @@ return {
 	-- {area:2408} Shadowprey Village
 	["Fly to {area:2408}"] = "",
 	-- {area:392} Ratchet
-	["{area:392} flight master"] = "",
+	["{area:392} flight master"] = "Maestro de vuelo de {area:392}",
 
 	-- Step 25: Shadowprey Village
 	-- {npc:11624} Taiga Wisemane
@@ -175,7 +175,7 @@ return {
 	-- {area:1637} Orgrimmar
 	["Back to {area:1637}"] = "",
 	-- {zone:1456} Thunder Bluff
-	["{zone:1456} flight master"] = "",
+	["{zone:1456} flight master"] = "Maestro de vuelo de {zone:1456}",
 
 	-- Step 38: Belgrom Rockmaul
 	-- {npc:4485} Belgrom Rockmaul · {object:172958} Valley of Honor

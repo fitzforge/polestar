@@ -1136,7 +1136,8 @@ pub fn engine_pass(tree: &mut BTreeMap<String, String>, t: &Travel, inp: &Inputs
 				let own_only = step_only(wg.gi, wg.step_line);
 				let ok = |h: &G| {
 					h.gi == gi
-						&& h.si > from_si && h.si < wg.si
+						&& h.si > from_si
+						&& h.si < wg.si
 						&& matches!(h.verb.as_str(), "kill" | "collect" | "interact")
 						&& (h.quest, h.oi) != (Some(q), Some(oi))
 						&& !re!(r"\boptional\b").is_match(line_text(h))
@@ -1944,7 +1945,7 @@ fn walk_ok(walks: Option<&dyn WalkYards>, s: Wpt, pts: &[Wpt], rep: &mut Report)
 }
 
 /// A goto to a boat, zeppelin, ship or tram (`goto 78.0,51.4 "Deeprun Tram"`, `"Boat to Auberdine"`).
-fn ride_goto(text: &str) -> bool {
+pub(crate) fn ride_goto(text: &str) -> bool {
 	re!(r#"(?i)^\s+goto\s.*"(?:[^"]*\b(?:Boat|Zeppelin|Ship|Tram)\b[^"]*)""#).is_match(split_comment(text).0)
 }
 

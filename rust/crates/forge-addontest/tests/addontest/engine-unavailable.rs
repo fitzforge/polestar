@@ -589,6 +589,59 @@ fn when_a_mark_moves_the_guide_on_the_guide_window_says_which_quest_was_skipped_
 	);
 }
 
+// #1950: the guide takes The Adventurer (96630) from the Lost Journal, then hands it in to Lyreena for The Great
+// Outdoors (96606), whose data names The Adventurer as its prerequisite. Lyreena gives The Great Outdoors to a player
+// who never took The Adventurer (players' recordings), and the Lost Journal offers nothing after that: the guide held
+// the reporter on "Accept The Adventurer" for good.
+#[test]
+fn t_1950_a_prerequisite_never_taken_is_closed_once_the_quest_that_needs_it_is_taken() {
+	let guide = r#"
+	Polestar.RegisterGuide({ id = "test/tel", pack = "test", title = "Teldrassil", faction = "Horde", minLevel = 5, maxLevel = 30, steps = {
+		{ title = "Tenaron Stormgrip", goals = { { t = "accept", quest = 96630, title = "The Adventurer", object = 654846, objectName = "Lost Journal", map = 1413, x = 51, y = 30 } } },
+		{ title = "Lyreena", goals = {
+			{ t = "turnin", quest = 96630, title = "The Adventurer", npc = 265811, npcName = "Lyreena Duskblade", map = 1413, x = 52, y = 31 },
+			{ t = "accept", quest = 96606, title = "The Great Outdoors", npc = 265811, npcName = "Lyreena Duskblade", pre = { 96630 }, preTitles = { [96630] = "The Adventurer" }, map = 1413, x = 52, y = 31 },
+		} },
+		{ goals = { { t = "level", level = 30 } } },
+	} })"#;
+	let run = |before: &str| {
+		emitted(&RunAddon {
+			stubs: vec!["stub_world.lua"],
+			before: format!("{WORLD}stub.world.titles[96606] = \"The Great Outdoors\"\n{before}"),
+			addons: vec![Addon::name("Polestar")],
+			script: [
+				TEST_PACK,
+				TEST_SOURCE,
+				guide,
+				r#"			local E = Polestar.Engine
+			stub.login()
+			E.SetGuide("test/tel")
+			stub.fire("QUEST_LOG_UPDATE")
+			Polestar.Set("behavior.autoAccept", false)
+			stub.advance(0.5)
+			local function brief(i)
+				local out = {}
+				for g, v in ipairs(E.GetStepView(i).goals) do out[g] = v.status .. ":" .. tostring(v.unavailable) .. ":" .. tostring(v.unavailableText) end
+				return out
+			end
+			emit({ at = E.GetStepIndex(), tenaron = brief(1), lyreena = brief(2) })"#,
+			]
+			.join("\n"),
+			..Default::default()
+		})
+		.remove(0)
+	};
+	let took = run("stub.world.onQuest(96606, { 0 })");
+	let closed = "skipped:closed:No longer offered: you took “The Great Outdoors”";
+	assert_eq!(took["at"], 3);
+	assert_eq!(took["tenaron"], json!([closed]));
+	assert_eq!(took["lyreena"][0], closed);
+	// Neither taken: The Adventurer is the live step, as before.
+	let fresh = run("");
+	assert_eq!(fresh["at"], 1);
+	assert_eq!(fresh["tenaron"][0], "active:nil:nil");
+}
+
 // Farm spots for `collect 2589 x20 nearest` (Linen Cloth).
 const FARM: &str = r#"
 	Polestar.RegisterGuide({ id = "test/farm", pack = "test", title = "Linen", category = "Professions", minLevel = 1, maxLevel = 60, steps = {

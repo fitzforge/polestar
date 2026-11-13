@@ -451,8 +451,8 @@ fn keep_the_arrow_when_hidden_keeps_the_arrow_its_travel_button_and_chime_and_ta
 }
 
 // The right-click menu of the minimap and floating buttons: the guide window first, the arrow (nav.arrow, the
-// one arrow setting), hiding Polestar, then right under it whether hiding keeps the arrow; then the windows,
-// which bring a hidden Polestar back.
+// one arrow setting), hiding Polestar, then right under it whether hiding keeps the arrow, and Pause
+// (pause.rs); then the windows, which bring a hidden Polestar back.
 #[test]
 fn the_menu_toggles_the_window_the_arrow_hiding_and_whether_hiding_keeps_the_arrow() {
 	let out = run(
@@ -489,9 +489,9 @@ fn the_menu_toggles_the_window_the_arrow_hiding_and_whether_hiding_keeps_the_arr
 		emit(seen)"#,
 	)
 	.remove(0);
-	assert_eq!(out[0], json!(["[x] Guide window", "Hide arrow", "Hide Polestar", "Keep the arrow when hidden", "Guides", "Lookup", "Settings", "Report a problem"]));
+	assert_eq!(out[0], json!(["[x] Guide window", "Hide arrow", "Hide Polestar", "Keep the arrow when hidden", "Pause", "Guides", "Lookup", "Settings", "Report a problem"]));
 	assert_eq!(out[1], json!([true, true]), "checked, and saved for the character");
-	assert_eq!(out[2], json!(["Guide window", "Hide arrow", "Show Polestar", "[x] Keep the arrow when hidden", "Guides", "Lookup", "Settings", "Report a problem"]));
+	assert_eq!(out[2], json!(["Guide window", "Hide arrow", "Show Polestar", "[x] Keep the arrow when hidden", "Pause", "Guides", "Lookup", "Settings", "Report a problem"]));
 	assert_eq!(out[3], json!([false, false]), "the arrow off (nav.arrow) while hidden and kept");
 	assert_eq!(out[4], json!([true, true, true]), "and on again: the kept arrow shows, Polestar still hidden");
 	assert_eq!(out[5], json!([false, true]), "a window from the menu brings Polestar back");

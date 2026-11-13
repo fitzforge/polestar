@@ -120,7 +120,7 @@ return {
 	["While you're here: learn Swords from {npc:11867} ({object:2096}, 10 silver); a sword in the main hand levels a Rogue steadily."] = "",
 
 	-- Step 24: Druid trainer
-	["Druid trainer"] = "",
+	["Druid trainer"] = "Instructor de druidas",
 	-- {npc:5504} Sheldras Moontree · {zone:1453} Stormwind · {area:87} Goldshire
 	["{npc:5504} in {zone:1453}; {area:87} has no druid trainer"] = "",
 

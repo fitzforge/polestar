@@ -440,7 +440,8 @@ end
 
 -- Whether auto-pick may take a reward from the panel of `quest` now.
 local function mayTake(gen, quest)
-	return gen == generation and quest and questID() == quest and QoL.On("rewardAutoPick") and not QoL.Shift()
+	-- Not while the pause holds the quest automation (pause.automation).
+	return gen == generation and quest and questID() == quest and QoL.On("rewardAutoPick") and not QoL.Shift() and not ns.PauseHides("automation")
 end
 
 local function evaluate(gen, tries, quest)

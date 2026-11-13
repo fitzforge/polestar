@@ -51,8 +51,10 @@ fn load(gamepad: bool, cvar: Option<&str>) -> Value {
 		Some(c) => {
 			let s = serde_json::to_string(c).unwrap();
 			String::from("C_CVar = C_CVar or {}\ndo\n\tlocal get = C_CVar.GetCVar\n\tC_CVar.GetCVar = function(name) if name == \"InputDeviceInterfaceStyle\" then return ")
-				+ &s + " end return get and get(name) end\n\tlocal global = GetCVar\n\tGetCVar = function(name) if name == \"InputDeviceInterfaceStyle\" then return "
-				+ &s + " end return global and global(name) end\nend"
+				+ &s
+				+ " end return get and get(name) end\n\tlocal global = GetCVar\n\tGetCVar = function(name) if name == \"InputDeviceInterfaceStyle\" then return "
+				+ &s
+				+ " end return global and global(name) end\nend"
 		}
 		None => String::new(),
 	};
@@ -137,7 +139,7 @@ const ALLOWED: &[(&str, usize, &str)] = &[
 	("Polestar/Core/Init.lua", 10, "ns.CloseOnEscape (and taking Polestar's windows out of the list while Polestar is hidden) and the /polestar (/polestar, /pole, /ps) and /rl registrations, none with the gamepad interface"),
 	("Polestar/Core/Compat.lua", 5, "Compat.OpenWorldMap and Compat.OpenQuestLog open nothing with the gamepad interface; Compat.AskAbandonQuest shows the game's abandon dialog only without it"),
 	("Polestar/Dungeons/Dungeons.lua", 1, "through Compat.OpenWorldMap"),
-	("Polestar/Nav/Journey.lua", 6, "the map's canvas click handler and /way, neither with the gamepad interface; wayTaken only reads"),
+	("Polestar/Nav/Journey.lua", 8, "the map's canvas click handler and /way, neither with the gamepad interface, and the same handler on the maps MapCanvas.Add hands over; wayTaken only reads"),
 	("Polestar/Nav/Nearby.lua", 3, "the tracking menus, not with the gamepad interface"),
 	("Polestar/Maps/Services.lua", 3, "the service tracking menus, not with the gamepad interface"),
 	("Polestar/UI/QuestLinks.lua", 3, "the quest menus, not with the gamepad interface"),

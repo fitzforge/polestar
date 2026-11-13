@@ -88,8 +88,9 @@ Forge uses the first of these that exists:
    native install folders.
 
 The folder must hold `.build.info`. Several products share one game folder. The default product is
-`wow_classic_beta`, the product Forever's tables are published under; `--product wowf` reads the
-`_forever_` client instead.
+the Forever client's: `wowf` (the live `_forever_` client), else the old beta `wow_classic_beta`
+(`_classic_beta_`) when no `wowf` is installed; `--product` reads another. The wago.tools tables
+stay under `wow_classic_beta`, the product wago.tools lists Forever under.
 
 `forge doctor` prints which folder was used and how, every build in it and every other install
 found.
@@ -115,7 +116,7 @@ the launcher's **Scan and Repair**; let it finish and check again.
 ```sh
 forge gamedata list                                         # every table and its file ID
 forge gamedata export --table AreaTable --out AreaTable.csv
-forge gamedata export --table Map --product wowf            # no --out: to stdout
+forge gamedata export --table Map --product wow_classic_beta  # the old beta; no --out: to stdout
 ```
 
 Common options: `--wow <dir>`, `--product <name>`, `--build auto|X.Y.Z.B` (must be the installed
@@ -129,7 +130,14 @@ forge gamedata cache --out wdb.json                          # quests, creatures
 forge gamedata cache --kind quest --out quests.json
 forge gamedata hotfix                                        # DBCache.bin: entries per table and status
 forge gamedata hotfix --table <name> --out rows.csv --db2     # one table's rows, compared with the installed table
+forge gamedata file --fdid 1391669 --out combatratings.txt     # one file of the client by its fileDataID
 ```
+
+`file` writes one file of the client as stored, by its fileDataID: the game tables that are no DB2,
+such as `gametables/combatratings.txt` (1391669), whose IDs the community listfile
+(https://github.com/wowdev/wow-listfile) names. Forever's client has no `chancetomeleecrit` or
+`regenmpperspt` tables; its crit per Agility and spell crit per Intellect are the DB2 table
+`PlayerExpectedStat`.
 
 `cache` reads the client's WDB files (`Cache/WDB/<locale>` in the product's client folder, or
 `--cache <dir>`); `hotfix` reads its hotfix file (`Cache/ADB/<locale>/DBCache.bin`, or
@@ -268,7 +276,7 @@ tables.
 the build the walking grid was built from (the grid's `index.json`), saved under
 `data/sources/client-tables/<build>/` (`<Table>.csv` as wago.tools writes them, and `source.json`
 naming the product, build and folder they were read from). `forge build --forever-tables client`
-refreshes that copy from the installed client (`wow_classic_beta` or `wowf` at the grid's build; each
+refreshes that copy from the installed client (`wowf`, else `wow_classic_beta`, at the grid's build; each
 table is checked to read back as the client's rows, and an unchanged copy is left as it is);
 `--forever-tables wago` reads the wago.tools cache at the grid's build. The log names the source and
 build; tables of another build than the grid's stop the build unless `--allow-build-mismatch`, and so
@@ -828,7 +836,9 @@ forge data publish --check forever-db                           # the guard
 
 - With the KB (`--kb`, default `data/local/kb/forever-kb.sqlite`) the values come from the KB under
   the independent-source rule; without one, from public data builds alone, with corrections applied
-  only when their `source.kind` names an independent check.
+  only when their `source.kind` names an independent check. There a quest's races or classes that
+  no source states (a quest only a correction adds, without them) are left out, never published as
+  0, every race or class.
 - A re-run replaces only the generated files, and the same inputs give the same bytes: the version
   is `--version`, else the one already in the folder (`--previous DIR` gives the next one), the date
   is `--date` (or `SOURCE_DATE_EPOCH`), and `producerCommit` is `--producer-commit` (or

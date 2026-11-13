@@ -488,7 +488,7 @@ local SPECS = {
 			shown = function() return Theme.Accent() end,
 			source = function()
 				if Theme.FollowsClassAccent() then return (UnitClass and UnitClass("player")) or L["Class colour"] end
-				return Theme.FollowsEllesmereAccent() and "EllesmereUI" or L["Polestar gold"]
+				return Theme.FollowsEllesmereAccent() and (Theme.SkinProvider() or "EllesmereUI") or L["Polestar gold"]
 			end },
 		{ kind = "toggle", key = "ui.classAccent", label = L["Class colour"], search = "class colour, class color, accent follows class",
 			help = L["The accent follows your class: warlock purple, shaman blue, druid orange. Picking your own accent turns this off."] },
@@ -535,7 +535,7 @@ local SPECS = {
 			help = L["The skin's font (the default: the game's own, Fira Sans in Halo), or a font of your choice."],
 			choices = function()
 				local list = fontChoices()
-				if Theme.IsEllesmere() then list[#list + 1] = { value = "ellesmere", label = "EllesmereUI" } end
+				if Theme.IsEllesmere() then list[#list + 1] = { value = "ellesmere", label = Theme.SkinProvider() or "EllesmereUI" } end
 				return list
 			end,
 			get = function() return Theme.FollowsEllesmereFont() and "ellesmere" or ns.Get("ui.font") end,

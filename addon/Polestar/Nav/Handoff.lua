@@ -12,8 +12,10 @@
 --
 -- Shortest Path Forever by Cillian Berragan (GPL-3.0-or-later,
 -- https://github.com/cjber/shortest-path-forever) is driven only through its
--- public API, ShortestPathForever.API (version 1; minor 1 adds Subscribe),
--- each function checked before it is called.
+-- public API, ShortestPathForever.API (version 1 or 2: 2 drops its peer
+-- sharing and Leaderboard, which Polestar never used; a later version is
+-- treated as absent), each function checked before it is called, Subscribe
+-- included (version 1 minor 0 lacks it).
 --
 --   Nav.HandedOff() -> bool   the one predicate every guidance surface checks
 --       (handed off, or yielding): the arrow, the trail and transport alerts;
@@ -72,7 +74,7 @@ local HELD = { kill = true, collect = true, use = true, interact = true }
 local function api()
 	local S = _G.ShortestPathForever
 	local A = type(S) == "table" and S.API
-	if type(A) ~= "table" or A.version ~= 1 or type(A.Cancel) ~= "function" then return nil end
+	if type(A) ~= "table" or (A.version ~= 1 and A.version ~= 2) or type(A.Cancel) ~= "function" then return nil end
 	if type(A.NavigateRoute) ~= "function" and type(A.Navigate) ~= "function" then return nil end
 	return A
 end

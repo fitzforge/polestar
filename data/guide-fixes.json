@@ -191,7 +191,7 @@
 			"faction": "Alliance",
 			"at": { "quest": 99128, "goal": "objective", "objective": 1 },
 			"tip": "Murlocs and Murloc Streamrunners hold the east shore; the Junk Piles lie in their camp. Careful: the murlocs stand close together, so a fight easily pulls two or three at once: pull them one at a time from the edge of the camp, and don't chase one into the next group.",
-			"note": "Slimy Menace (99128) and Bottles and Baubles (99143) at Crystal Lake's murloc camp, at about level 6-7 on the route: the deadliest spot of Elwynn in the recordings. A caution, not a route change (the later lake visit our comparison makes is a 0.3.7 item).",
+			"note": "Slimy Menace (99128) and Bottles and Baubles (99143) at Crystal Lake's murloc camp, at about level 6-7 on the route: the deadliest spot of Elwynn in the recordings. A caution, not a route change.",
 			"source": [
 				{
 					"kind": "recording",
@@ -7977,6 +7977,64 @@
 				"ref": "objects.json 177241; npcs.json 1852, 1788 (map 1422)"
 			},
 			"issue": 1791
+		},
+		{
+			"id": "1893-cozzle-step-waits-for-goblin-sponsorship",
+			"faction": "Horde",
+			"at": {
+				"quest": 1182,
+				"goal": "objective",
+				"objective": 1
+			},
+			"when": "onquest 1182",
+			"note": "#1893 (mylons): Stranglethorn Vale (horde/30-40/03) sent a player without Goblin Sponsorship's footlocker part (1182) to Foreman Cozzle (4723) for Cozzle's Key (5851): the step's key line is not tied to the quest, so it showed even when 1182's accept on the Booty Bay stop was hidden because the chain (1178, 1180, 1181) was not done. The key drops only while 1182 is in the log, so that player farmed Cozzle for half an hour for nothing. The step (the key and the Fuel Regulator Blueprints, 5852, from Cozzle's Footlocker) now shows only while 1182 is in the log; the hand-in at Baron Revilgaz goes with the accept as before.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "#1893, maintainer's reply: in players' recordings every Cozzle's Key drop came with 1182 in the log, and the one player who killed Foreman Cozzle without it got no key, twice"
+				},
+				{
+					"kind": "cmangos",
+					"ref": "creature_loot_template entry 4723 (Foreman Cozzle), item 5851 (Cozzle's Key): ChanceOrQuestChance -100, a quest-only drop"
+				}
+			],
+			"issue": 1893
+		},
+		{
+			"id": "1705-old-habits",
+			"at": {
+				"quest": 98223,
+				"goal": "accept"
+			},
+			"when": "onquest 465,474",
+			"note": "Old Habits (Wetlands) starts at the Tattered Spellbook in the Angerfang Encampment. Players' recordings show it offered with Nek'rosh's Gambit (465) or Defeat Nek'rosh (474) in the log, and once after 474 was handed in; the reporter, with neither in the log, was offered nothing. The route takes it on the Angerfang stop before the catapult is lit (data/route-fixes.json), while 465 is still in the log, so solo players who skip Defeat Nek'rosh get it too; the step shows only while 465 or 474 is in the log, so a player who never took the chain is not sent to the book. `onquest 465,474` is the route's gate, not the game's whole rule: the one take after 474's hand-in is left out, since a `when` cannot say \"taken or done\" and the route never reaches the book that late (#1705).",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#1705 (julesbruu): the Tattered Spellbook offered nothing with neither Nek'rosh's Gambit (465) nor Defeat Nek'rosh (474) in the log, after 465 was handed in and 474 skipped"
+				},
+				{
+					"kind": "recording",
+					"ref": "players' in-game recordings (fitzforge on #1714): 21 accepts of Old Habits from the Tattered Spellbook by 20 players: 14 with 465 handed in and 474 in the log, 2 with both in the log, 3 with 474 in the log (465 not recorded), 1 with only 465 in the log and 474 never taken, 1 after both were handed in"
+				}
+			],
+			"issue": 1705
+		},
+		{
+			"id": "1985-dustwallow-venom-sacs-every-darkfang",
+			"faction": "Horde",
+			"at": {
+				"quest": 1322,
+				"goal": "objective",
+				"objective": 1
+			},
+			"goalNote": "Every Darkfang spider drops them: Lurkers, Spiders, Venomspitters and the Giant Darkfang Spiders",
+			"note": "#1985: the step's tip names only the Darkfang Venomspitters, and a player found the Giant Darkfang Spiders drop the Acidic Venom Sacs too. The drop data has all five Darkfang kinds (4411-4415), and players' recordings ticked the sacs on Darkfang Lurkers (18), Venomspitters (17), Spiders (15) and Giant Darkfang Spiders (3).",
+			"source": {
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-13: Black Shield (1322) objective ticks after kills of npc 4411, 4414, 4413 and 4415 (#1985)"
+			},
+			"issue": 1985
 		}
 	]
 }

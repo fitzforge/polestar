@@ -41,7 +41,7 @@ return {
 	["\"Sea Wolf\" MacKinley, on the top floor"] = "",
 	-- {npc:2496} Baron Revilgaz
 	["{npc:2496}, on the balcony beside MacKinley"] = "{npc:2496}, en el balcón junto a MacKinley",
-	["Inside"] = "",
+	["Inside"] = "Adentro",
 
 	-- Step 7: Bloodsail Correspondence
 	-- {area:35} Booty Bay

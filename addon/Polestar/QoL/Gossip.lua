@@ -50,6 +50,10 @@ function Gossip.Wanted(options, npc)
 				for _, o in ipairs(options) do
 					if o.gossipOptionID == rg.gossip then return o end
 				end
+			elseif gv.t == "sethome" and not service then
+				-- Bind first: opening the goods for a later `buy` at the same
+				-- innkeeper hid the bind the arrow asked for (#1965).
+				return nil
 			elseif not service and SERVICE[gv.t] then
 				service = SERVICE[gv.t]
 			end

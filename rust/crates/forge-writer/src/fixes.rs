@@ -507,6 +507,78 @@ fn apply_fix(lines: &mut Vec<String>, found: &[usize], r: &Value) -> Vec<usize> 
 		}
 	}
 	lines.retain(|l| l != GONE);
+	// (A `when` on an accept: the quest's later hand-ins hold only the players who took it.)
+	if r["when"].is_string() && r["at"]["goal"] == "accept" {
+		if let Some(q) = r["at"]["quest"].as_u64() {
+			changed.extend(guard_hand_ins(lines, q));
+		}
+	}
+	changed
+}
+
+/// A `when` on an accept leaves some players without the quest: its later hand-ins in this guide hold
+/// only players who have it (`when onquest Q`), the way the writer's R3 holds an optional accept's
+/// (#1705: Old Habits' hand-in beside Red Jack Flint's accept at Menethil held a player the
+/// spellbook's `when` had passed). A step whose other lines are only `goto`s (not a ride everyone
+/// takes) and `note`s gets the `when` itself; in one with other work, the quest's hand-ins move together
+/// to a step of their own just before it, with the step's title, `only`/`zone` lines and tips. A
+/// hand-in `optional` or `direct` (never in the log), or in a step with a `when` or `along`, is left
+/// as it is. -> the changed lines.
+fn guard_hand_ins(lines: &mut Vec<String>, q: u64) -> Vec<usize> {
+	let mut changed = Vec::new();
+	let number = |l: &str, verb: &str| -> Option<u64> {
+		let code = split_comment(l).0;
+		let mut w = code.split_whitespace();
+		(w.next() == Some(verb)).then(|| w.next().and_then(|n| n.parse::<u64>().ok())).flatten()
+	};
+	let held = |l: &str| number(l, "turnin") == Some(q) && !split_comment(l).0.split('"').step_by(2).any(|s| re!(r"(?:^|\s)(?:optional|direct)(?:\s|$)").is_match(s));
+	let Some(accept) = lines.iter().position(|l| number(l, "accept") == Some(q)) else { return changed };
+	let mut i = accept + 1;
+	while i < lines.len() {
+		if !held(&lines[i]) {
+			i += 1;
+			continue;
+		}
+		let Some(step) = step_of(lines, i) else {
+			i += 1;
+			continue;
+		};
+		if step.0 <= accept || along_step(lines, step) || (step.0 + 1..step.1).any(|k| re!(r"^\s+when\s").is_match(&lines[k])) {
+			i = step.1.max(i + 1);
+			continue;
+		}
+		let hand: Vec<usize> = (i..step.1).filter(|&k| held(&lines[k])).collect();
+		let ind = lines[i][..lines[i].len() - lines[i].trim_start().len()].to_string();
+		let when = format!("{ind}when onquest {q}");
+		let goal = |k: usize| !trim(&lines[k]).is_empty() && !trim(&lines[k]).starts_with('#') && !header_key(&lines[k]);
+		let travel = |k: usize| re!(r"^\s+(goto|note)\s").is_match(&lines[k]) && !crate::engine::ride_goto(&lines[k]);
+		let others = (step.0 + 1..step.1).any(|k| !hand.contains(&k) && goal(k) && !travel(k));
+		if !others {
+			let mut k = step.0 + 1;
+			while k < step.1 && re!(r"^\s+(only|zone)\s").is_match(&lines[k]) {
+				k += 1;
+			}
+			lines.insert(k, when);
+			changed.push(k);
+			i = step.1 + 1;
+			continue;
+		}
+		let pick = |re: &regex::Regex| -> Vec<String> { (step.0 + 1..step.1).filter(|&k| re.is_match(&lines[k])).map(|k| lines[k].clone()).collect() };
+		let head = pick(re!(r"^\s+(only|zone)\s"));
+		let tips = pick(re!(r"^\s+(tip|image)\s"));
+		changed.push(step.0 + 1 + head.len());
+		let mut block = vec![lines[step.0].clone()];
+		block.extend(head);
+		block.push(when);
+		block.extend(tips);
+		let moved: Vec<String> = hand.iter().rev().map(|&k| lines.remove(k)).collect();
+		block.extend(moved.into_iter().rev());
+		block.push(String::new());
+		let n = block.len();
+		lines.splice(step.0..step.0, block);
+		// (The step they left lost the hand-ins' lines and starts `n` lines later.)
+		i = step.1 - hand.len() + n;
+	}
 	changed
 }
 
@@ -1620,6 +1692,112 @@ mod tests {
 		assert_eq!((rows[0].state.as_str(), rows[0].detail.as_str()), ("not for this start", "guide forever/b is not written here"));
 	}
 
+	#[test]
+	fn a_when_fix_on_an_accept_holds_its_hand_in_beside_other_work_only_for_players_with_the_quest() {
+		// #1705: the Tattered Spellbook shows only while Nek'rosh's Gambit or Defeat Nek'rosh is in the
+		// log; a player without either never takes Old Habits, and its hand-in at Menethil, beside Red Jack
+		// Flint's accept, held that player there. The hand-in gets a step of its own, `when onquest`.
+		let seed = "guide forever/a\nzone Wetlands\n\nstep Angerfang Encampment\n  accept 98223 object 671518          -- Tattered Spellbook\n\nstep Angerfang Encampment\n  turnin 465                          -- Dragonmaw Catapult\n\nstep Menethil Harbor\n  zone Wetlands\n  tip West along the road to Menethil.\n  turnin 98223                        -- On the top floor\n  accept 1132                         -- Red Jack Flint\n";
+		let fixes = json!({ "fixes": [{ "id": "1705", "at": { "quest": 98223, "goal": "accept" }, "when": "onquest 465,474" }] });
+		let (out, rows) = run(seed, json!({}), fixes.clone(), &[98223]);
+		assert_eq!(
+			out,
+			"guide forever/a\nzone Wetlands\n\nstep Angerfang Encampment\n  when onquest 465,474\n  accept 98223 object 671518          -- Tattered Spellbook\n\nstep Angerfang Encampment\n  turnin 465                          -- Dragonmaw Catapult\n\nstep Menethil Harbor\n  zone Wetlands\n  when onquest 98223\n  tip West along the road to Menethil.\n  turnin 98223                        -- On the top floor\n\nstep Menethil Harbor\n  zone Wetlands\n  tip West along the road to Menethil.\n  accept 1132                         -- Red Jack Flint\n"
+		);
+		assert!(rows.iter().all(|r| r.state == "applied"), "{rows:?}");
+		let (again, rows) = run(&out, json!({}), fixes, &[98223]);
+		assert_eq!(again, out);
+		assert!(rows.iter().all(|r| r.state == "redundant"), "{rows:?}");
+	}
+
+	#[test]
+	fn a_when_fix_on_an_accept_gates_a_hand_in_step_of_its_own() {
+		// A hand-in alone in its step (a goto beside it) gets the `when onquest` on that step.
+		let seed = "step Camping 101\n  accept 96044\n\nstep Tognus Flintfire\n  goto 45.3,51.9 \"Cellar\"\n  turnin 96044                -- below ground\n";
+		let fixes = json!({ "fixes": [{ "id": "1867", "at": { "quest": 96044, "goal": "accept" }, "when": "!knows 1230171" }] });
+		let (out, rows) = run(seed, json!({}), fixes.clone(), &[96044]);
+		assert_eq!(
+			out,
+			"step Camping 101\n  when !knows 1230171\n  accept 96044\n\nstep Tognus Flintfire\n  when onquest 96044\n  goto 45.3,51.9 \"Cellar\"\n  turnin 96044                -- below ground\n"
+		);
+		assert!(rows.iter().all(|r| r.state == "applied"), "{rows:?}");
+		let (again, _) = run(&out, json!({}), fixes, &[96044]);
+		assert_eq!(again, out);
+	}
+
+	#[test]
+	fn a_when_fix_leaves_hand_ins_that_are_already_guarded_or_not_its_accepts() {
+		// Unchanged: a hand-in whose step already has a `when`, an `optional` one, and the hand-ins after a
+		// `when` on an objective (the player has the quest there).
+		let seed = "step Camping 101\n  accept 96044\n\nstep Tognus Flintfire\n  when onquest 96044\n  turnin 96044\n\nstep Tower\n  only Rogue\n  collect 8072 quest 2478.5\n\nstep Silithid Harvesters\n  turnin 2478                 -- Mission\n  accept 1062\n\nstep Again\n  turnin 96044 optional\n  accept 1063\n";
+		let fixes = json!({ "fixes": [
+			{ "id": "1867", "at": { "quest": 96044, "goal": "accept" }, "when": "!knows 1230171" },
+			{ "id": "977", "at": { "quest": 2478, "goal": "objective", "objective": 5 }, "when": "level>=23" }
+		] });
+		let (out, _) = run(seed, json!({}), fixes, &[96044, 2478]);
+		assert_eq!(out, seed.replace("step Camping 101\n", "step Camping 101\n  when !knows 1230171\n").replace("  only Rogue\n", "  only Rogue\n  when level>=23\n"));
+	}
+
+	#[test]
+	fn a_when_fix_on_an_accept_leaves_a_direct_hand_in_alone() {
+		// A `direct` hand-in is never in the log, so `when onquest` could never hold for it (R3 skips it too).
+		let seed = "step Camping 101\n  accept 96044\n\nstep Tognus Flintfire\n  turnin 96044 direct\n";
+		let fixes = json!({ "fixes": [{ "id": "1867", "at": { "quest": 96044, "goal": "accept" }, "when": "!knows 1230171" }] });
+		let (out, _) = run(seed, json!({}), fixes, &[96044]);
+		assert_eq!(out, "step Camping 101\n  when !knows 1230171\n  accept 96044\n\nstep Tognus Flintfire\n  turnin 96044 direct\n");
+	}
+
+	#[test]
+	fn a_when_fix_on_an_accept_splits_a_hand_in_from_a_ride_everyone_takes() {
+		// A boat, zeppelin, ship or tram `goto` is travel for everyone: the hand-in gets a step of its own
+		// rather than gating the ride (R3's ride_goto).
+		let seed = "step Camping 101\n  accept 96044\n\nstep Menethil Harbor\n  turnin 96044\n  goto 4.6,57.1 \"The Boat to Theramore\"\n";
+		let fixes = json!({ "fixes": [{ "id": "1867", "at": { "quest": 96044, "goal": "accept" }, "when": "!knows 1230171" }] });
+		let (out, _) = run(seed, json!({}), fixes, &[96044]);
+		assert_eq!(
+			out,
+			"step Camping 101\n  when !knows 1230171\n  accept 96044\n\nstep Menethil Harbor\n  when onquest 96044\n  turnin 96044\n\nstep Menethil Harbor\n  goto 4.6,57.1 \"The Boat to Theramore\"\n"
+		);
+	}
+
+	#[test]
+	fn a_when_fix_on_an_accept_moves_every_hand_in_of_the_step_with_its_only_lines() {
+		// Every hand-in of the quest in a step moves together, and the new step keeps the step's `only`.
+		let seed = "step Camping 101\n  accept 96044\n\nstep Captain Stoutfist\n  only Human\n  turnin 96044              -- first\n  accept 1132\n  turnin 96044              -- second\n";
+		let fixes = json!({ "fixes": [{ "id": "1867", "at": { "quest": 96044, "goal": "accept" }, "when": "!knows 1230171" }] });
+		let (out, rows) = run(seed, json!({}), fixes.clone(), &[96044]);
+		assert_eq!(
+			out,
+			"step Camping 101\n  when !knows 1230171\n  accept 96044\n\nstep Captain Stoutfist\n  only Human\n  when onquest 96044\n  turnin 96044              -- first\n  turnin 96044              -- second\n\nstep Captain Stoutfist\n  only Human\n  accept 1132\n"
+		);
+		let (again, rows2) = run(&out, json!({}), fixes, &[96044]);
+		assert_eq!(again, out);
+		assert!(rows.iter().all(|r| r.state == "applied") && rows2.iter().all(|r| r.state == "redundant"), "{rows:?} {rows2:?}");
+	}
+
+	#[test]
+	fn a_when_fix_on_an_accept_leaves_a_hand_in_listed_along_the_way() {
+		// An `along` step only lists work on the way; its hand-in line is the engine's to place.
+		let seed = "step Camping 101\n  accept 96044\n\nstep On the way\n  along until q96044\n  turnin 96044\n  accept 1132\n";
+		let fixes = json!({ "fixes": [{ "id": "1867", "at": { "quest": 96044, "goal": "accept" }, "when": "!knows 1230171" }] });
+		let (out, _) = run(seed, json!({}), fixes, &[96044]);
+		assert_eq!(out, seed.replace("step Camping 101\n", "step Camping 101\n  when !knows 1230171\n"));
+	}
+	#[test]
+	fn a_when_fix_on_an_accept_listed_early_along_the_way_gates_its_own_step_and_holds_the_later_hand_in() {
+		// The accept is listed first in an `along` step (an early take) and then in its own step: the gate
+		// goes on its own step only, and the hand-in after both is held for players who took the quest.
+		let seed = "step On the way\n  along until q96044\n  accept 96044\n\nstep Camping 101\n  label q96044\n  accept 96044\n\nstep Tognus Flintfire\n  turnin 96044\n  accept 1132\n";
+		let fixes = json!({ "fixes": [{ "id": "1867", "at": { "quest": 96044, "goal": "accept" }, "when": "!knows 1230171" }] });
+		let (out, rows) = run(seed, json!({}), fixes.clone(), &[96044]);
+		assert_eq!(
+			out,
+			"step On the way\n  along until q96044\n  accept 96044\n\nstep Camping 101\n  when !knows 1230171\n  label q96044\n  accept 96044\n\nstep Tognus Flintfire\n  when onquest 96044\n  turnin 96044\n\nstep Tognus Flintfire\n  accept 1132\n"
+		);
+		let (again, rows2) = run(&out, json!({}), fixes, &[96044]);
+		assert_eq!(again, out);
+		assert!(rows.iter().all(|r| r.state == "applied") && rows2.iter().all(|r| r.state == "redundant"), "{rows:?} {rows2:?}");
+	}
 	#[test]
 	fn a_place_with_the_same_numbers_on_another_map_is_still_applied() {
 		// #303: Narm Faulk's 78.32,58.09 is on Dun Morogh's map; typed bare in an Ironforge step it read

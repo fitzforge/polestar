@@ -41,8 +41,6 @@ use serde_json::{json, Value};
 use std::path::{Path, PathBuf};
 use std::time::Instant;
 
-/// The client product the grid is built from (the one wago.tools lists Forever under).
-pub const GRID_PRODUCT: &str = "wow_classic_beta";
 /// Bump a stage's version when its code changes what it writes.
 /// data-3: the Alliance Tailoring and Leatherworking trainer lists (professions.json, #1536).
 pub const DATA_VERSION: &str = "data-3";
@@ -69,7 +67,7 @@ pub const FLOW_THREADS: usize = 5;
 /// The route planner's code: forge-sim and the workspace crates it is built from, hashed at build
 /// time (build.rs, planner_src.rs). Part of the routes search key in place of the forge binary.
 pub const PLANNER_HASH: &str = env!("FORGE_PLANNER_HASH");
-pub const GUIDES_VERSION: &str = "guides-4";
+pub const GUIDES_VERSION: &str = "guides-5";
 pub const REPORT_VERSION: &str = "report-3";
 pub const LEGS_VERSION: &str = "legs-5";
 /// The decode cache of Leffe's maps (MB): bounded memory per our measurements.
@@ -242,10 +240,6 @@ pub fn data_guard(reference: Option<(&Path, &str)>, new: &str, accept: bool, log
 	}
 }
 
-/// The Forever client products, the grid's first: the beta (`_classic_beta_`) and the live client
-/// (`_forever_`). A build of either holds the same tables.
-pub const FOREVER_PRODUCTS: [&str; 2] = [GRID_PRODUCT, "wowf"];
-
 /// Where the data stage reads the Forever client tables (`--forever-tables`). Each reads the grid's
 /// build, never whatever the installed client is at, so a build does not change with what is
 /// installed.
@@ -279,18 +273,20 @@ impl ForeverTables {
 	}
 }
 
-/// The product and build a walking grid was built from (its index.json).
+/// The product and build a walking grid was built from (its index.json; one naming no product was
+/// built from the beta client, `wow_classic_beta`).
 pub fn grid_build(grid: &Path) -> Result<(String, String), String> {
 	let file = grid.join("index.json");
 	let v: Value = std::fs::read(&file).map_err(|e| format!("{}: {e}", file.display())).and_then(|b| serde_json::from_slice(&b).map_err(|e| format!("{}: {e}", file.display())))?;
 	let build = v["build"].as_str().ok_or_else(|| format!("{}: names no build", file.display()))?;
-	Ok((v["product"].as_str().unwrap_or(GRID_PRODUCT).to_string(), build.to_string()))
+	Ok((v["product"].as_str().unwrap_or("wow_classic_beta").to_string(), build.to_string()))
 }
 
 /// The data stage's Forever tables: the source and the build to read, the grid's (`want`) unless
 /// `allow_other` (`--allow-build-mismatch`) and it is not there. `Client` first saves the installed
-/// client's tables (`wow`; the Forever product at `want`, else with `allow_other` the first
-/// installed) under `<sources>/client-tables`, then reads that copy.
+/// client's tables (`wow`; the Forever product at `want`, `wowf` before `wow_classic_beta`, else
+/// with `allow_other` the preferred one installed) under `<sources>/client-tables`, then reads that
+/// copy.
 pub fn forever_tables(mode: ForeverTables, sources: &Path, want: &str, wow: Option<&Path>, allow_other: bool, say: &dyn Fn(&str)) -> Result<(forge_data::tables::Source, String), String> {
 	use forge_data::tables::{self, Source, FOREVER_SIM};
 	let refresh = "refresh them from a client at that build with --forever-tables client";
@@ -334,10 +330,12 @@ pub fn forever_tables(mode: ForeverTables, sources: &Path, want: &str, wow: Opti
 			if !defs.join("definitions").is_dir() {
 				return Err(format!("--forever-tables client: no WoWDBDefs checkout in {}", defs.display()));
 			}
-			let installed: Vec<(String, String)> =
+			use forge_gamedata::casc::FOREVER_PRODUCTS;
+			let mut installed: Vec<(String, String)> =
 				forge_gamedata::casc::read_build_info(wow)?.into_iter().filter(|i| FOREVER_PRODUCTS.contains(&i.product.as_str())).map(|i| (i.product, i.version)).collect();
+			installed.sort_by_key(|(p, _)| FOREVER_PRODUCTS.iter().position(|f| f == p));
 			let list = || if installed.is_empty() { "no Forever product".to_string() } else { installed.iter().map(|(p, v)| format!("{p} {v}")).collect::<Vec<_>>().join(", ") };
-			let pick = FOREVER_PRODUCTS.iter().find_map(|p| installed.iter().find(|(ip, v)| ip == p && v == want)).or(installed.first().filter(|_| allow_other));
+			let pick = installed.iter().find(|(_, v)| v == want).or(installed.first().filter(|_| allow_other));
 			let Some((product, version)) = pick else {
 				return Err(format!(
 					"--forever-tables client: {} has {}, not the grid's build {want}: install a client at {want}, use the saved tables (leave --forever-tables out){}",
@@ -972,10 +970,11 @@ pub fn build(o: &BuildOpts, log: &mut dyn FnMut(&str)) -> Result<Vec<StageRun>, 
 			return Err(format!("no data/sources in {} and no data pack at {}: run `forge data fetch` (or pass --root <checkout>)", o.root.display(), dir.display()));
 		}
 		let grid = o.grid.clone().or_else(|| std::env::var_os("POLESTAR_GRID").map(PathBuf::from));
-		let client = o.wow.clone().or_else(forge_gamedata::find_install).is_some_and(|w| forge_gamedata::casc::read_build_info(&w).is_ok_and(|b| b.iter().any(|i| i.product == GRID_PRODUCT)));
+		let client = o.wow.clone().or_else(forge_gamedata::find_install).is_some_and(|w| forge_gamedata::casc::forever_build(&w).is_ok_and(|b| b.is_some()));
 		if !client && !grid.as_ref().is_some_and(|g| g.join("index.json").is_file()) {
 			return Err(format!(
-				"the data pack has no navigation grid (it is built from your own client) and no client with {GRID_PRODUCT} was found: pass --wow <client> or --grid <dir> (or POLESTAR_GRID)"
+				"the data pack has no navigation grid (it is built from your own client) and no Forever client ({}) was found: pass --wow <client> or --grid <dir> (or POLESTAR_GRID)",
+				forge_gamedata::casc::FOREVER_PRODUCTS.join(" or ")
 			));
 		}
 		log(&format!("no local sources in {}: using the data pack {}", o.root.display(), dir.display()));
@@ -1033,23 +1032,24 @@ pub fn build(o: &BuildOpts, log: &mut dyn FnMut(&str)) -> Result<Vec<StageRun>, 
 	// grid: forge-navbuild from the installed client into <out>/grid, unless a grid was given
 	// (--grid, POLESTAR_GRID). Keyed by the client's build (.build.info), the map frames, zones
 	// and objects it reads (the data root's data/forever) and GRID_VERSION; an unchanged key with
-	// the grid in place skips it. Without a client (or its product) the checkout's
+	// the grid in place skips it. The client's Forever product is `wowf`, else `wow_classic_beta`
+	// (forge_gamedata::casc::forever_build). Without a client (or its product) the checkout's
 	// data/local/nav4 is used.
 	let mut grid_run = None;
 	let given_grid = o.grid.is_some() || std::env::var_os("POLESTAR_GRID").is_some();
 	let data_root0 = o.data_root.clone().unwrap_or_else(|| o.root.clone());
-	let client = o.wow.clone().or_else(forge_gamedata::find_install).filter(|w| forge_gamedata::casc::read_build_info(w).is_ok_and(|b| b.iter().any(|i| i.product == GRID_PRODUCT)));
+	let client = o.wow.clone().or_else(forge_gamedata::find_install).and_then(|w| forge_gamedata::casc::forever_build(&w).ok().flatten().map(|b| (w, b.product)));
 	match (&client, given_grid) {
 		(_, true) => log(&format!("grid: given, {}", l.grid.display())),
-		(None, false) => log(&format!("grid: no installed client with {GRID_PRODUCT}: using {}", l.grid.display())),
-		(Some(wow), false) => {
+		(None, false) => log(&format!("grid: no installed Forever client ({}): using {}", forge_gamedata::casc::FOREVER_PRODUCTS.join(" or "), l.grid.display())),
+		(Some((wow, product)), false) => {
 			let grid_out = l.out.join("grid");
 			let frames = data_root0.join("data/forever");
 			let k_grid = key(
 				"grid",
 				GRID_VERSION,
 				&[
-					Part::Text(GRID_PRODUCT),
+					Part::Text(product),
 					Part::Text(&wow.display().to_string()),
 					Part::File(&wow.join(".build.info")),
 					Part::File(&frames.join("map-frames.json")),
@@ -1062,11 +1062,11 @@ pub fn build(o: &BuildOpts, log: &mut dyn FnMut(&str)) -> Result<Vec<StageRun>, 
 				if let Some(w) = game_running_warning() {
 					log(&format!("grid: warning: {w}"));
 				}
-				check_install_for_grid(wow, GRID_PRODUCT, &data_root0.join("data/sources/wowdbdefs"), &grid_continents(&frames, None), o.allow_incomplete, log)?;
+				check_install_for_grid(wow, product, &data_root0.join("data/sources/wowdbdefs"), &grid_continents(&frames, None), o.allow_incomplete, log)?;
 				let opts = forge_navbuild::build::Opts {
 					out: grid_out.clone(),
 					client: forge_navbuild::build::Client::Install { wow: wow.clone(), defs: data_root0.join("data/sources/wowdbdefs") },
-					product: GRID_PRODUCT.into(),
+					product: product.clone(),
 					data: frames.clone(),
 					continents: None,
 					force: false,
@@ -1077,7 +1077,7 @@ pub fn build(o: &BuildOpts, log: &mut dyn FnMut(&str)) -> Result<Vec<StageRun>, 
 				for w in &r.warnings {
 					log(&format!("  grid: warning: {w}"));
 				}
-				log(&format!("  grid: {GRID_PRODUCT} {} built, content hash {}", r.build, pack::grid_hash(&grid_out)?));
+				log(&format!("  grid: {product} {} built, content hash {}", r.build, pack::grid_hash(&grid_out)?));
 				Ok(files_under(&grid_out))
 			})?);
 			l.grid = grid_out;

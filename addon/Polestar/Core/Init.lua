@@ -448,6 +448,112 @@ function ns.PlaySoundFile(file, channel, arrow)
 	return PlaySoundFile(file, channel)
 end
 
+---------------------------------------------------------------------------
+-- Pause (docs/ARCHITECTURE.md, "Pause"): one switch per character, apart
+-- from hiding, that makes the guide step aside on the way to a dungeon and
+-- inside it, and resumes by itself once the player is back out alive. It
+-- pauses what Polestar shows and steers with, not the Engine, which keeps
+-- following the quest log. While paused, the arrow drops the Engine's own
+-- waypoint (Nav.lua's apply; a hold and points the player picks still
+-- show), the guide window and what goes with it (ns.GuideShown) go, and so
+-- do the window's nudges (the while-here toast and chime). With pause.map
+-- the step's map pins go too, with pause.automation the quest automation
+-- waits. It never writes ui.shown, nav.arrow, hidden or a behavior.*
+-- setting, so resuming restores everything by itself, and it leaves hiding
+-- as it is (and hiding leaves it).
+--
+-- PolestarCharDB.pause = { state = "armed" | "inside", at, map }: "armed"
+-- paused outside (at: ns.Now() then), "inside" in a dungeon, raid,
+-- battleground or arena (map: its instance map id, when the client gives
+-- it); nil not paused. Core/Pause.lua watches the way in and out and
+-- resumes, and ends an armed pause two hours after `at` wherever the player
+-- is (a timer); POLESTAR_PAUSED(state | nil, why) says it changed.
+---------------------------------------------------------------------------
+
+-- Instances that count, as the guide window's instance rule has them.
+local DUNGEON_KINDS = { party = true, raid = true, pvp = true, arena = true }
+local pauseState -- the saved table while paused, else nil
+
+function ns.Paused() return pauseState and pauseState.state or nil end
+
+-- Whether the pause takes `part` now: "arrow" (the Engine's waypoint and
+-- everything keyed off it), "window" (the guide window and ns.GuideShown),
+-- "nagging" (the while-here toast and chime) while paused; "map" (the
+-- step's pins) and "automation" (quest accept and turn-in) only with their
+-- setting on as well.
+function ns.PauseHides(part)
+	if not pauseState then return false end
+	if part == "arrow" or part == "window" or part == "nagging" then return true end
+	if part == "map" or part == "automation" then return ns.Get("pause." .. part) and true or false end
+	return false
+end
+
+-- -> true, instance map id (or nil) inside an instance that counts; false outside.
+function ns.PauseInside()
+	local C = ns.Compat
+	if not (C and C.IsInInstance) then return false end
+	local ok, inside, kind = pcall(C.IsInInstance)
+	if not (ok and inside and DUNGEON_KINDS[kind]) then return false end
+	local map
+	if C.GetInstanceMapID then
+		local okMap, id = pcall(C.GetInstanceMapID)
+		if okMap and type(id) == "number" then map = id end
+	end
+	return true, map
+end
+
+-- The pause's clock, for Core/Pause.lua too: Compat.Now() (server seconds),
+-- time() when the Compat in place has no Now (the test harnesses' stand-ins).
+function ns.Now()
+	local C = ns.Compat
+	local n = C and C.Now and C.Now()
+	if type(n) ~= "number" then n = time and time() or 0 end
+	return n
+end
+
+-- Pause (true) or resume. Paused inside an instance that counts it is
+-- "inside" there, elsewhere "armed" (an armed pause keeps the time it was
+-- armed). Paused again as it is, nothing changes; "armed" to "inside", or into another
+-- instance, fires POLESTAR_PAUSED again. `why`: what paused or resumed it
+-- ("hand", "entered", "left", "expired", "window"), passed on with
+-- POLESTAR_PAUSED for Core/Pause.lua's chat lines.
+function ns.SetPaused(on, why)
+	local new
+	if on then
+		local inside, map = ns.PauseInside()
+		if inside then
+			new = { state = "inside", map = map, at = pauseState and pauseState.at or ns.Now() }
+		elseif pauseState then
+			new = pauseState -- outside while paused: as it is ("inside" ends only through the watcher, by `on` false)
+		else
+			new = { state = "armed", at = ns.Now() }
+		end
+		if pauseState and new.state == pauseState.state and new.map == pauseState.map then return end
+	else
+		if not pauseState then return end
+	end
+	local guide = ns.GuideShown()
+	pauseState = new
+	ns.CharState().pause = new
+	ns.Fire("POLESTAR_PAUSED", new and new.state or nil, why)
+	if ns.GuideShown() ~= guide then ns.Fire("GUIDE_SHOWN", not guide) end
+end
+
+function ns.TogglePaused(why) ns.SetPaused(not pauseState, why or "hand") end
+
+-- The character's saved state, as the addon loads (ADDON_LOADED). It fires
+-- no POLESTAR_PAUSED: Core/Pause.lua times a loaded armed pause from ns.OnInit.
+local function loadPause()
+	local s = ns.CharState().pause
+	if type(s) == "table" and (s.state == "armed" or s.state == "inside") then
+		if type(s.at) ~= "number" then s.at = ns.Now() end
+		pauseState = s
+	else
+		pauseState = nil
+		ns.CharState().pause = nil
+	end
+end
+
 local function compact(list)
 	local j = 0
 	for i = 1, #list do
@@ -665,10 +771,10 @@ end
 -- and the rare and transport alerts go with it, the arrow only with
 -- nav.hideArrowWithGuide on (Nav.HiddenWithGuide). An instance hide
 -- (ui.instance "hide") takes them too; a combat hide leaves them. Hiding
--- Polestar takes them all.
+-- Polestar takes them all, and so does the pause (ns.PauseHides).
 local awayInside = false
 function ns.GuideShown()
-	return not hidden and ns.GuideWindowOn()
+	return not hidden and not ns.PauseHides("window") and ns.GuideWindowOn()
 end
 
 -- The window's own on/off and instance wait, Polestar hidden or not: what
@@ -767,6 +873,7 @@ local function onAddonLoaded(_, name)
 	-- settings migrations, before anything reads a setting (Core/Profiles.lua).
 	if ns.Profiles and ns.Profiles.Load then call(ns.Profiles.Load) end
 	loadHidden()
+	loadPause()
 	initialized = true
 	local queue = initQueue
 	initQueue = nil

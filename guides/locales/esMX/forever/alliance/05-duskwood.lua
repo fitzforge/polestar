@@ -17,7 +17,7 @@ return {
 	-- Step 2: Blind Mary
 	-- {area:42} Darkshire · {area:121} Tranquil Gardens Cemetery
 	["Her house stands on the hill south-east of {area:42}, above the {area:121}."] = "Su casa está en la colina al sureste de {area:42}, sobre {area:121}.",
-	["Inside"] = "",
+	["Inside"] = "Adentro",
 	-- {item:1946} Mary's Looking Glass · {npc:511} Insane Ghoul · {zone:1431} Duskwood
 	["{item:1946}: the {npc:511} in the cemetery's crypt is level 26; it waits for the {zone:1431} return"] = "",
 

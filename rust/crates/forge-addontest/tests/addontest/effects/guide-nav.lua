@@ -183,6 +183,13 @@ return {
 			target("Near camp", 9000, 42, 42)
 			return PolestarNavArrow:IsShown() and true or false
 		end },
+		-- An addon that follows Polestar and shows its target itself (the Nav API's Follow with `shows`, #1329), a goal
+		-- on the player's continent: Polestar's arrow, or none while that addon shows the way.
+		["nav.arrowToFollower"] = { prepare = function() N.API.Follow("Effects", function() end, { shows = true }) end,
+			cleanup = function() N.API.Unfollow("Effects") end, probe = function()
+				target("Near camp", 9000, 42, 42)
+				return PolestarNavArrow:IsShown() and true or false
+			end },
 		["nav.alerts"] = dock,
 		["nav.alertBanner"] = dock,
 		["nav.alertSound"] = dock,
