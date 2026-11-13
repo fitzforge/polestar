@@ -1220,7 +1220,9 @@ routes. `forge build` itself writes each start to `out/guides/<start>/`.
 writes every start of a build's routes the way the guides stage does: the
 default options, each faction's shared guides made once for its starts, and the
 two factions at once. It writes `<dir>/<Start>/`, `<Start>.fixes.json`,
-`<Start>.log` and `<Start>.status` (`ok`, or why the start was not written).
+`<Start>.log` and `<Start>.status` (`ok`, or why the start was not written),
+and for a tree the pack check refuses, `<Start>.pack-errors.txt` with every
+error it found (the status names five).
 `--starts Orc,Human` writes only those. It is the writer-only rewrite of a
 round's routes, and the writer gate uses it.
 

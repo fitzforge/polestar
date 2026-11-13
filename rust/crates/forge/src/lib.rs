@@ -1630,16 +1630,22 @@ pub fn build(o: &BuildOpts, log: &mut dyn FnMut(&str)) -> Result<Vec<StageRun>, 
 		let flow = |routes: &Path, names: &[String]| -> Result<Vec<forge_sim::flow::Finding>, String> {
 			use rayon::prelude::*;
 			let shared = forge_writer::native::SharedCache::default();
-			let per: Vec<Vec<forge_sim::flow::Finding>> = start_pool.install(|| {
+			// (Every start written and judged when one fails: the error names each start the writer
+			// refused, each one's errors in full in <name>.pack-errors.txt beside its tree.)
+			let per: Vec<Result<Vec<forge_sim::flow::Finding>, String>> = start_pool.install(|| {
 				names
 					.par_iter()
 					.map(|name| {
 						flow_write(routes, name, &shared)?;
 						flow_judge(routes, name)
 					})
-					.collect::<Result<_, String>>()
-			})?;
-			Ok(per.into_iter().flatten().collect())
+					.collect()
+			});
+			let failed: Vec<&str> = per.iter().filter_map(|r| r.as_ref().err()).map(String::as_str).collect();
+			if !failed.is_empty() {
+				return Err(failed.join("\n"));
+			}
+			Ok(per.into_iter().filter_map(Result::ok).flatten().collect())
 		};
 		let mut grown = 0;
 		runs.push(stage(&cache, "routes", k_routes.clone(), log, |log| {

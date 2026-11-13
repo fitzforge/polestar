@@ -1,6 +1,7 @@
 //! File-system entry of the guides stage (native): `run_paths` reads the route, world, walk store,
 //! guides and data from their paths, runs `run`, writes the guide tree to `out` and fails when the
-//! pack check (forge_guide::project::check_tree, the report's) refuses it.
+//! pack check (forge_guide::project::check_tree, the report's) refuses it, every error it found in
+//! `<out>.pack-errors.txt` beside the tree (pack_errors_file).
 
 use crate::input::{Data, Route, World};
 use crate::RunOpts;
@@ -34,6 +35,14 @@ pub struct PathInputs {
 pub const PLACES: &str = "data/places.json";
 /// The guide fixes file of a checkout.
 pub const GUIDE_FIXES: &str = "data/guide-fixes.json";
+
+/// Where run_paths puts every error of a tree the pack check refuses: `<out>.pack-errors.txt` beside
+/// the tree `out` (forge build's written check: `<out>/.forge/flow/<Start>.pack-errors.txt`, beside the
+/// start's stamp; apply-routes: `<dir>/<Start>.pack-errors.txt`, beside its status).
+pub fn pack_errors_file(out: &Path) -> PathBuf {
+	let name = out.file_name().map_or_else(|| "out".to_string(), |n| n.to_string_lossy().into_owned());
+	out.with_file_name(format!("{name}.pack-errors.txt"))
+}
 
 /// A record file of the checkout: None when it is absent, an error when it does not parse.
 pub fn read_records(file: &Path) -> Result<Option<serde_json::Value>, String> {
@@ -130,6 +139,9 @@ pub fn run_paths(pin: &PathInputs, opts: &RunOpts, cache: &SharedCache) -> Resul
 	let root = pin.root.clone();
 	let guides_dir = pin.guides.clone();
 	let out = pin.out.clone();
+	// (An errors file beside the tree is this run's or none: the last run's goes with its tree.)
+	let errors_file = pack_errors_file(&out);
+	let _ = std::fs::remove_file(&errors_file);
 	let data_dir = pin.data_dir.clone().unwrap_or_else(|| root.join("data/forever"));
 	let mut log: Vec<String> = Vec::new();
 	let scope = format!("writer {}", pin.route.file_stem().and_then(|s| s.to_str()).unwrap_or(""));
@@ -397,8 +409,12 @@ pub fn run_paths(pin: &PathInputs, opts: &RunOpts, cache: &SharedCache) -> Resul
 	}
 	tm.lap(&scope, "write files");
 	// The pack check on the tree as written, the report's: no tree it refuses is handed on (forge
-	// build's written check fails at its write, not in the report after the guides and legs).
-	forge_guide::project::check_tree(&out, &gdata).map_err(|e| format!("apply-route {}: {e}", out.display()))?;
+	// build's written check fails at its write, not in the report after the guides and legs). Its
+	// message names five errors; every one goes to the errors file beside the tree.
+	if let Err(errors) = forge_guide::project::check_tree_all(&out, &gdata) {
+		std::fs::write(&errors_file, errors.join("\n") + "\n").map_err(|e| format!("{}: {e}", errors_file.display()))?;
+		return Err(format!("apply-route {}: {}\n({} errors in all, every one in {})", out.display(), forge_guide::project::pack_refusal(&errors), errors.len(), errors_file.display()));
+	}
 	println!("apply-route: {}", ro.summary.replacen("rewritten;", &format!("rewritten in {};", out.display()), 1));
 	tm.done(&scope, "pack check");
 	log.extend(std::mem::take(&mut ro.log));
