@@ -10,7 +10,8 @@
 //   <look>-hint  the guide window's Next button, hovered: W.Tooltip's title
 //                and the hint under it
 // The window sits left of the screen's middle so each tooltip shows whole
-// (the game keeps a tooltip on the screen; the studio draws it where it is).
+// (the game keeps a tooltip on the screen; the studio draws it where it is);
+// the arrow, which would stand over the window there, is put away.
 //
 // Stand-in, said on the render: the item tooltip's post-call (the client runs
 // Gear's lines after SetHyperlink; the studio's tooltip runs them here).
@@ -41,7 +42,8 @@ studio.clearHeadsUps()`;
 const PLACE = `Polestar.Set("ui.pos", { math.floor(UIParent:GetWidth() * 0.4), math.floor(UIParent:GetHeight() - 240) })
 Polestar.UI.GuideFrame.ApplyPosition()
 Polestar.Fire("STEP_UPDATED")
-stub.advance(0.5)`;
+stub.advance(0.5)
+if PolestarNavArrow then PolestarNavArrow:Hide() end`;
 
 const ITEM = `${PLACE}
 local pick
