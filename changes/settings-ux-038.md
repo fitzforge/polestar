@@ -32,3 +32,6 @@ section: players
 - The settings window scrolls smoothly (no jumps; Reduce motion keeps it
   instant), and a small arrow at the foot of its sidebar takes you to the
   pages further down.
+- Move frames' bar lists every mouse and key control under its (i), fades
+  away while you hold Shift so you can reach a frame under it, and the first
+  time explains how it works.

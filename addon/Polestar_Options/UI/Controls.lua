@@ -710,6 +710,63 @@ function W.LayoutTile(b, width)
 	return h
 end
 
+---------------------------------------------------------------------------
+-- A callout: a small window by a part of the screen that says something once
+-- (Move frames' first open, a cog's first use): an accent edge at its left,
+-- a title, a line and Got it. Built once per owner and reused.
+--   W.Callout(owner, { title, text, anchor, point, relPoint, x, y, width,
+--     onClose = fn }) -> the callout, shown
+---------------------------------------------------------------------------
+
+local CALLOUT_W, CALLOUT_PAD = 260, 14
+
+function W.Callout(owner, opts)
+	local c = rawget(owner, "psCallout")
+	if not c then
+		c = CreateFrame("Frame", nil, owner)
+		c:EnableMouse(true)
+		c:SetClampedToScreen(true)
+		c.psLight = true
+		Theme.Skin(c, "window")
+		c.Edge = W.Tex(c, "ARTWORK", nil, "accent")
+		c.Edge:SetWidth(2)
+		c.Edge:SetPoint("TOPLEFT", c, "TOPLEFT", 1, -1)
+		c.Edge:SetPoint("BOTTOMLEFT", c, "BOTTOMLEFT", 1, 1)
+		c.Title = W.Text(c, "label", "text")
+		c.Title:SetPoint("TOPLEFT", c, "TOPLEFT", CALLOUT_PAD + 2, -12)
+		c.Title:SetJustifyH("LEFT")
+		c.Text = W.Text(c, "note", "textDim")
+		c.Text:SetWordWrap(true)
+		c.Text:SetJustifyH("LEFT")
+		c.Text:SetSpacing(2)
+		c.Text:SetPoint("TOPLEFT", c.Title, "BOTTOMLEFT", 0, -6)
+		c.Close = W.Button(c, L["Got it"], function()
+			c:Hide()
+			local done = c.psOnClose
+			c.psOnClose = nil
+			if done then done() end
+		end, { ghost = true, height = 22 })
+		c.Close.psTight = true
+		W.SetButtonText(c.Close, L["Got it"])
+		c.Close:SetPoint("BOTTOMRIGHT", c, "BOTTOMRIGHT", -10, 8)
+		owner.psCallout = c
+	end
+	local w = opts.width or CALLOUT_W
+	c:SetFrameLevel(owner:GetFrameLevel() + 60)
+	c:SetWidth(w)
+	c.Title:SetText(opts.title or "")
+	c.Title:SetWidth(w - 2 * CALLOUT_PAD - 2)
+	c.Text:SetWidth(w - 2 * CALLOUT_PAD - 2)
+	c.Text:SetText(opts.text or "")
+	c:SetHeight(math.ceil(12 + c.Title:GetStringHeight() + 6 + c.Text:GetStringHeight() + 10 + 22 + 8))
+	c.psOnClose = opts.onClose
+	c:ClearAllPoints()
+	c:SetPoint(opts.point or "TOP", opts.anchor or owner, opts.relPoint or "BOTTOM", opts.x or 0, opts.y or -8)
+	c:Show()
+	ns.Anim.To(c, "alpha", 0, 1, ns.Anim.BASE, "out")
+	return c
+end
+
 -- Polestar's memory in KB (nil when the client hides it), for About.
 function W.AddonMemory()
 	if not (UpdateAddOnMemoryUsage and GetAddOnMemoryUsage) then return nil end

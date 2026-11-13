@@ -8018,8 +8018,12 @@ Each call fires `GUIDE_VISIBILITY`.
   Shift-right-click hides the box for the session (`Movers.HideBox`; the
   bar's Show hidden (n), `Movers.ShowHidden()`, or a Move asking for it
   brings it back), the top bar
-  has Grid, the size, Snap, Revert, Reset all positions (the shared dialog),
-  Exit and Save and exit. An unlock is a session: where each frame stood as
+  has its title with an (i) whose tooltip lists every mouse and key control,
+  Grid, the size, Snap, Revert, Reset all positions (the shared dialog),
+  Exit and Save and exit; holding Shift fades it (and the panel under it)
+  away so a frame under it can be grabbed (`MODIFIER_STATE_CHANGED`, not
+  while a field is typed in), and the first unlock on the account explains
+  the mode in a callout under it (`W.Callout`, `PolestarDB.moversHint`). An unlock is a session: where each frame stood as
   it began is kept (`keys`: the settings `set` writes, as stored, nil at the
   default; else `save`/`restore`, the quest buttons' character spot; else
   `get`'s point). `Movers.Revert()` puts back what moved without leaving,

@@ -454,3 +454,44 @@ fn the_selected_frames_centre_can_be_typed_under_the_bar() {
 	assert_eq!(out["esc"], json!([false, true]), "Escape leaves the field, not the mode");
 	assert_eq!(out["gone"], false);
 }
+
+// The bar helps: an (i) after its title lists every mouse and key control in one tooltip; holding Shift fades the
+// bar away (and the panel under it) so a frame under it can be grabbed, letting go brings it back (not while a field
+// is typed in); the first unlock on the account says how it goes in a callout under the bar, once.
+#[test]
+fn the_bar_lists_every_control_shift_fades_it_and_the_first_unlock_says_how_it_goes_once() {
+	let out = run(r#"
+		Polestar.Set("ui.launcher", true)
+		local before = PolestarDB.moversHint or false
+		M.Unlock()
+		local bar = PolestarMoversBar
+		local c = rawget(bar, "psCallout")
+		local first = { c ~= nil and c:IsShown(), c and c.Title:GetText() or false, PolestarDB.moversHint or false }
+		local info = { bar.Info:IsShown(), #bar.Info.psTipLines, select(2, bar.Info:GetPoint(1)) == bar.Title }
+		c.Close:Click()
+		local closed = c:IsShown()
+		stub.fire("MODIFIER_STATE_CHANGED", "LSHIFT", 1)
+		stub.advance(0.3)
+		local away = { bar:IsShown(), bar:GetAlpha() }
+		stub.fire("MODIFIER_STATE_CHANGED", "LSHIFT", 0)
+		stub.advance(0.3)
+		local back = { bar:IsShown(), bar:GetAlpha() }
+		M.Unlock("launcher")
+		bar.Pick.X:SetFocus()
+		stub.fire("MODIFIER_STATE_CHANGED", "LSHIFT", 1)
+		stub.advance(0.3)
+		local typing = bar:IsShown()
+		stub.fire("MODIFIER_STATE_CHANGED", "LSHIFT", 0)
+		bar.Pick.X:ClearFocus()
+		M.Save()
+		M.Unlock()
+		emit({ before = before, first = first, info = info, closed = closed, away = away, back = back, typing = typing, again = c:IsShown() })"#);
+	assert_eq!(out["before"], false);
+	assert_eq!(out["first"], json!([true, "Moving Polestar's frames", true]), "the first unlock's callout, marked as shown");
+	assert_eq!(out["info"], json!([true, 5, true]), "the (i) after the title, five lines");
+	assert_eq!(out["closed"], false, "Got it closes it");
+	assert_eq!(out["away"], json!([false, 0]), "Shift held: the bar fades away");
+	assert_eq!(out["back"], json!([true, 1]), "let go: back");
+	assert_eq!(out["typing"], true, "typing in its field: the bar stays");
+	assert_eq!(out["again"], false, "never again");
+}

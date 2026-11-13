@@ -830,7 +830,7 @@ end
 
 local function layoutBar()
 	local x = PAD
-	local tw = max(bar.Title:GetStringWidth(), bar.Hint:GetStringWidth())
+	local tw = max(bar.Title:GetStringWidth() + 6 + bar.Info:GetWidth(), bar.Hint:GetStringWidth())
 	x = x + ceil(tw) + 20
 	bar.Rule1:SetPoint("TOPLEFT", bar, "TOPLEFT", x - 10, -12)
 	bar.Rule1:SetPoint("BOTTOMLEFT", bar, "BOTTOMLEFT", x - 10, 12)
@@ -944,6 +944,16 @@ local function buildBar()
 	bar.Hint = W.Text(bar, "small", "textMuted")
 	bar.Hint:SetPoint("TOPLEFT", bar, "TOPLEFT", PAD, -31)
 	bar.Hint:SetText(L["Drag a box. Click one, then nudge it with the arrow keys."])
+	-- Every mouse and key control of the mode, in one tooltip.
+	bar.Info = W.IconButton(bar, "info", 20, L["Move frames: every control"], nil, 13)
+	bar.Info:SetPoint("LEFT", bar.Title, "RIGHT", 6, 0)
+	bar.Info.psTipLines = {
+		L["Drag a box to move its frame; hold Shift to keep to one line."],
+		L["Click a box to select it: the arrow keys nudge it 1 px (Shift: 10), and its X and Y can be typed under this bar."],
+		L["Right-click a box: its settings, its default place, or hide it. Shift-right-click hides it until you exit."],
+		L["Hold Shift to see through this bar and reach a frame under it."],
+		L["Escape or Exit to finish (it asks before discarding what moved); Save and exit keeps it."],
+	}
 	bar.Rule1, bar.Rule2, bar.Rule3 = W.Divider(bar, true), W.Divider(bar, true), W.Divider(bar, true)
 	bar.Grid = labelled(bar, L["Grid"], function() return ns.Get("movers.grid") end,
 		function(v) ns.Set("movers.grid", v and true or false) end, L["Lines to line frames up on; a dragged frame lands on them."])
@@ -1097,11 +1107,43 @@ M.Refresh = function() if unlocked then refresh(true) end end
 
 local onCombat, onCombatEnd, onResize
 
+-- Shift held: the bar (and the panel under it) fades away, so a frame under
+-- it can be grabbed; let go, it comes back. Not while one of its fields is
+-- being typed in.
+local function barAway(away)
+	if not bar or (bar.psAway or false) == away then return end
+	bar.psAway = away or nil
+	if away then
+		Anim.To(bar, "alpha", bar:GetAlpha(), 0, Anim.FAST, "out", function(b) if b.psAway then b:Hide() end end)
+	else
+		bar:Show()
+		Anim.To(bar, "alpha", bar:GetAlpha(), 1, Anim.FAST, "out")
+	end
+end
+
+local function onModifier(_, key, down)
+	if not unlocked or type(key) ~= "string" or not key:find("SHIFT", 1, true) then return end
+	local pick = rawget(bar, "Pick")
+	if pick and (pick.X:HasFocus() or pick.Y:HasFocus()) then return end
+	barAway(down == 1 or down == true)
+end
+
 local function watch(on)
 	local reg = on and ns.RegisterEvent or ns.UnregisterEvent
 	reg("PLAYER_REGEN_DISABLED", onCombat)
 	reg("DISPLAY_SIZE_CHANGED", onResize)
 	reg("UI_SCALE_CHANGED", onResize)
+	reg("MODIFIER_STATE_CHANGED", onModifier)
+end
+
+-- The first unlock on the account says how it goes, once
+-- (PolestarDB.moversHint), under the bar.
+local function firstCallout()
+	local db = ns.DB()
+	if db.moversHint or not W.Callout then return end
+	db.moversHint = true
+	W.Callout(bar, { title = L["Moving Polestar's frames"], width = 300, point = "TOP", relPoint = "BOTTOM", y = -50,
+		text = L["Drag a box to move its frame, or click it and nudge it with the arrow keys. Right-click a box for more. Save and exit keeps what you moved; Exit asks first. The (i) lists every control."] })
 end
 
 -- The boxes and the bar away, nothing left running.
@@ -1128,6 +1170,7 @@ function onCombatEnd()
 	ns.UnregisterEvent("PLAYER_REGEN_ENABLED", onCombatEnd)
 	if not suspended or combat() then return end
 	suspended, unlocked = false, true
+	barAway(false)
 	root:Show()
 	refresh(true)
 	if selected then selectBox(selected) end
@@ -1156,8 +1199,10 @@ function M.Unlock(key, opts)
 			for _, k in ipairs(order) do snapshot(k) end
 		end
 		watch(true)
+		barAway(false)
 		root:Show()
 		refresh(true)
+		firstCallout()
 	end
 	if opts and opts.back then session.back = opts.back end
 	key = key and standIn(key)
@@ -1180,6 +1225,9 @@ function M.Lock()
 	unlocked, suspended = false, false
 	selectBox(nil)
 	watch(false)
+	-- The first unlock's callout says its piece once.
+	local callout = bar and rawget(bar, "psCallout")
+	if callout then callout:Hide() end
 	ns.UnregisterEvent("PLAYER_REGEN_ENABLED", onCombatEnd)
 	local back = session and session.back
 	session = nil
