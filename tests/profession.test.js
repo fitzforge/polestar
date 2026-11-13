@@ -620,7 +620,8 @@ test('draft: mob drops the compiler can place become one `collect … nearest` s
 test('draft: each bracket buys at the Auction House what it sells, after the vendor goods, and each gather collect says what gathering takes', () => {
 	const { prof, data } = smallProfession([rec(1, 1, 70, 90, 2589, { reagents: [{ item: 2589, count: 1 }, { item: 10, count: 1 }, { item: 72, count: 1 }, { item: 4234, count: 1 }] })]);
 	prof.materials[2589] = { name: 'Linen Cloth', buy: 55, buyCount: 1, sell: 13, quality: 1, dropCount: 40, drops: [{ npc: 3, chance: 30 }] };
-	prof.materials[72] = { name: 'Bound Gizmo', sell: 1, quality: 1, bop: true };
+	// A rare drop that binds when picked up: no farm spot, never an Auction House buy.
+	prof.materials[72] = { name: 'Bound Gizmo', sell: 1, quality: 1, bop: true, dropCount: 1, drops: [{ npc: 999, chance: 1 }] };
 	prof.materials[4234] = { name: 'Medium Leather', sell: 25, quality: 1 };
 	const pts = (n, x) => Array.from({ length: n }, (_, i) => [x + (i % 5), 40 + Math.floor(i / 5)]);
 	// The Barrens is in the curated beast lists; its level 20 beasts yield Medium Leather (band 18-30).
