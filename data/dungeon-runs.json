@@ -550,62 +550,6 @@
 			}
 		},
 		{
-			"dungeon": "Razorfen Kraul",
-			"faction": "Horde",
-			"pickups": [
-				{
-					"quest": 1221,
-					"after": {
-						"guide": "forever/horde/04-the-barrens",
-						"step": "Crane Operator Bigglefuzz"
-					},
-					"note": "Ratchet at the end (~26.6); the Ratchet stops of 02-the-barrens are 3+ levels over"
-				}
-			],
-			"run": {
-				"guide": "forever/horde/07-ashenvale",
-				"after": {
-					"quest": 857,
-					"goal": "turnin",
-					"note": "the road south to the Great Lift (~28); the entrance ~190 yd west of the lift"
-				},
-				"entrance": {
-					"map": 1413,
-					"x": 42.9,
-					"y": 90.2
-				},
-				"objectives": [
-					1221
-				],
-				"insideQuests": [
-					1144
-				],
-				"guard": "onquest 1221"
-			},
-			"handins": [
-				{
-					"quest": 1221,
-					"guide": "forever/horde/30-40/04-dustwallow-marsh",
-					"after": {
-						"step": "Ratchet",
-						"quest": 1270,
-						"goal": "turnin"
-					},
-					"note": "the next Ratchet stop for everyone (~37); a flight back from 07-ashenvale is over the travel budget"
-				}
-			],
-			"leftOut": {
-				"1109": "Going, Going, Guano!: level 33, 3+ levels over at 28",
-				"79360": "Elemental Aid: level 33, 3+ levels over at 28",
-				"1102": "A Vengeful Fate: level 34, Thunder Bluff, 3+ levels over at 28",
-				"1838": "Brutal Armor: Warrior class chain",
-				"6522": "An Unholy Alliance: a Small Scroll from inside, for Varimathras in the Undercity"
-			},
-			"budget": {
-				"flow": "04-the-barrens +0.1 km, hub visits +1 (Mebok on the Ratchet stop); 07-ashenvale +0.2 km (the entrance ~190 yd off the Great Lift road); 30-40/04-dustwallow-marsh +0.2 km (Mebok's hand-in); no avoidable backtracks or hub revisits"
-			}
-		},
-		{
 			"dungeon": "Blackfathom Deeps",
 			"faction": "Alliance",
 			"pickups": [
@@ -1235,6 +1179,11 @@
 			"dungeon": "Razorfen Kraul",
 			"faction": "Alliance",
 			"why": "No giver on a stop the route makes in its window (Mebok in Ratchet, Falfindel in Feralas, Veyric Thunderhame in the Arathi Highlands are off the route then); the nearest point the route passes in the window is 1,041 yd from the door (30-40/03-ashenvale's way into the Barrens)."
+		},
+		{
+			"dungeon": "Razorfen Kraul",
+			"faction": "Horde",
+			"why": "Out of the route for now: the 21-30 audit took the run out of the Ashenvale & Thousand Needles guide, where the route is about 28 and the dungeon's entrance floor about 31; the dungeon guide layer brings it back at the start of the 30-40 Thousand Needles guide, from Freewind Post."
 		},
 		{
 			"dungeon": "Excavation Site: Wetlands",
