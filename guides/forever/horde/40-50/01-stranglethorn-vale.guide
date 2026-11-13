@@ -82,6 +82,11 @@ step Booty Bay
   vendor nearest
   accept 595                            -- First Mate Crazz
 
+step Baron Revilgaz
+  when turnedin 1182
+  tip Baron Revilgaz, on the balcony beside MacKinley, has one more errand: the fuel regulator blueprints from Cozzle's footlocker go to Pozzik at the Mirage Raceway, on the way to Tanaris around level 43.
+  accept 1183                           -- Baron Revilgaz
+
 # ---------------------------------------------------------------- Booty Bay
 
 # Route from the Polestar route simulator's Horde consensus (Tauren export),
@@ -210,15 +215,58 @@ step Nesingwary's camp
   tip Head north up the road; the hunters camp on the hill above the river.
   accept 196                            -- Hemet Nesingwary
   turnin 192                          -- Sir S. J. Erlgadin
-  turnin 339 optional                 -- Barnil Stonepot
-  turnin 340 optional
-  turnin 341 optional
-  turnin 342 optional
-  turnin 338 optional
 
 step Nesingwary's camp
   when group 193
   accept 193
+
+step The Green Hills of Stranglethorn
+  when turnedin 583
+  tip Barnil Stonepot collects the pages of The Green Hills of Stranglethorn: the trolls of the vale drop them now and then. Take his quest; each chapter he takes once you have all its pages.
+  accept 338 optional                 -- Barnil Stonepot
+
+step Chapter I
+  when onquest 338
+  when has 2725
+  when has 2728
+  when has 2730
+  when has 2732
+  accept 339                           -- Barnil Stonepot: every page of chapter I is in your bags
+  turnin 339
+
+step Chapter II
+  when onquest 338
+  when has 2734
+  when has 2735
+  when has 2738
+  when has 2740
+  accept 340                           -- Barnil Stonepot: every page of chapter II is in your bags
+  turnin 340
+
+step Chapter III
+  when onquest 338
+  when has 2742
+  when has 2744
+  when has 2745
+  when has 2748
+  accept 341                           -- Barnil Stonepot: every page of chapter III is in your bags
+  turnin 341
+
+step Chapter IV
+  when onquest 338
+  when has 2749
+  when has 2750
+  when has 2751
+  accept 342                           -- Barnil Stonepot: every page of chapter IV is in your bags
+  turnin 342
+
+step The Green Hills of Stranglethorn
+  when onquest 338
+  when has 2756
+  when has 2757
+  when has 2758
+  when has 2759
+  turnin 338                          -- Barnil Stonepot: the four chapters
 
 step Zul'Kunda
   tip West of the expedition, the Bloodscalp chiefs Gan'zulah and Nezzliok stand together in the ruins of Zul'Kunda. Clear their guards first, then pull them. Stay on the Bloodscalps here until level 41: Speaking with Gan'zulah, at the cauldron next, sends you to Skullsplitters of 41-43.

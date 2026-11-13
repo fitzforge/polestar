@@ -2864,6 +2864,21 @@ test('Horde 40-50/01: the Wild Shore pass comes after the Cape of Stranglethorn 
 	assert.ok(fever < fang, 'Stranglethorn Fever is still taken before Mistvale');
 });
 
+test('Horde 40-50/01: the Green Hills chapters and Goblin Sponsorship are taken here, with 30-40/03 no longer carrying them (0.4.0 audit)', { skip }, () => {
+	const list = goals(H40('01-stranglethorn-vale'));
+	const when = (e, k) => (e.step.when || []).filter((p) => p.k === k);
+	const book = list[at(list, 'accept 338', is('accept', 338))];
+	assert.ok(when(book, 'turnedin').some((p) => [p.q].flat().includes(583)), '338 only after Welcome to the Jungle');
+	for (const q of [339, 340, 341, 342]) {
+		const take = list[at(list, `accept ${q}`, is('accept', q))];
+		assert.ok(when(take, 'has').length >= 3, `${q}: only with its pages in the bags`);
+		assert.ok(list.some((e) => is('turnin', q)(e.goal) && e.s === take.s), `${q}: handed in on the spot`);
+	}
+	const gob = list[at(list, 'accept 1183 (Baron Revilgaz)', is('accept', 1183))];
+	assert.ok(when(gob, 'turnedin').some((p) => [p.q].flat().includes(1182)), '1183 only after Cozzle\'s footlocker was handed in');
+	assert.ok(at(list, 'accept 1183', is('accept', 1183)) < at(list, 'turnin 595 (the cove, after the first Booty Bay stop)', is('turnin', 595)), 'on the first Booty Bay stop');
+});
+
 test('Horde 40-50: Feralas & Tanaris opens from Stonard or from Kargath, and every Stonard flight has a way in without its flight path (R17r)', { skip }, () => {
 	// The Riverglades route choice rejoins at Kargath (about 44) with no Stonard flight path.
 	const whenOf = (step, k) => (step.when || []).filter((p) => p.k === k);
