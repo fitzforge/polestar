@@ -1790,7 +1790,9 @@ Polestar.Engine.StepHiddenFor(step, who?) -> bool  -- no step of its own for who
   default, Options' "Flight paths you pass"): a friendly flight master
   (`Nav.UnknownTaxiOn`: the travel data's nodes on the player's continent
   for the character's faction or neutral, and its class, that Nav does not
-  know, those learnt while Polestar was off included, #1308) within the
+  know, once a flight map has opened on that continent for the character,
+  `flags.taxiSeen`, below; on another, none: one not known there may have
+  been learnt before Polestar ran, #1795) within the
   radius is a line of its own, kind "flight": "Learn the flight path at
   Thelsamar" (the node's name in the client's language before the comma),
   under it the later step whose `getfp` learns it ("Step 25"), else "Flight
@@ -4066,7 +4068,18 @@ masters (`flags.taxi`) come from the flight map when one opens, the game's
 (`C_TaxiMap.GetTaxiNodesForMap`, a node's `isUndiscovered`), read on every
 loading screen and on `TAXI_NODE_STATUS_CHANGED`, so a flight path learnt
 while Polestar was not running counts before the next flight map (#1308);
-a client that reads no node as undiscovered is not trusted. It orders by
+a client that reads no node as undiscovered is not trusted (on Forever every
+node reads discovered, so that read adds nothing there). A continent counts
+as seen (`flags.taxiSeen`, `{ [continent] = true }`, per character;
+`Nav.GetTaxiSeen`) once a flight map opened there listed a discovered node of
+it: that map lists every flight path the character has there. On a seen
+continent a node missing from `flags.taxi` is one the character lacks; on
+another Polestar can't tell, so While-here's "Learn the flight path" lines
+(`Nav.UnknownTaxiOn`) and the map pins' "not discovered" wording
+(`Maps.BuildTravelPins`, `o.seen`) stay away there (#1795). The set is made
+once from the continents of the nodes `flags.taxi` already holds (each came
+from a flight map there), so a character that opened one keeps its lines; it
+waits for the travel data. It orders by
 a cost (the Hearthstone carries a `HEARTH_MARGIN` of 120 s on top of its
 time, a teleport a `TELEPORT_MARGIN` of 60 s) and keeps the real seconds of every leg apart, so
 `seconds`/`rest` (the arrow's ETA) stay honest. Caps: 20000 pops, 40 ms,
