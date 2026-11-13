@@ -1950,6 +1950,62 @@ fn the_dropdown_is_drawn_in_every_look_with_its_panel_its_inks_and_its_lit_row()
 	}
 }
 
+// The page never shows through the dropdown (Classic let the rows under it show, 0.4.0): in every look the list
+// stands on the look's menu ground at full strength, under whatever the look draws (a translucent tile, the client's
+// menu art, a skin's paper), 3 in from its edge; and the game looks paint it as the menu it is, not as a card inside
+// the window (Classic's card box was 60% grey).
+#[test]
+fn the_dropdown_is_opaque_in_every_look_the_page_never_shows_through() {
+	let out = run_opts(
+		&format!(
+			"{DROP_HELPERS}{}",
+			r#"
+		local T = Polestar.Theme
+		UI.ShowOptions("guide")
+		local out = {}
+		for _, key in ipairs(T.SKIN_ORDER) do
+			Polestar.Set("ui.skin", key)
+			stub.advance(0.1)
+			typed("arrow")
+			local list = PolestarOptionsMatches
+			local b = list.Backing
+			local layer, sub = b:GetDrawLayer()
+			local r, g, bb, a = b:GetVertexColor()
+			local mr, mg, mb = T.Color("menuBg")
+			-- Every other ground of the list's own lies over it; the darkest-drawn of them, its alpha.
+			local under, tile = true, nil
+			for _, t in ipairs({ list:GetRegions() }) do
+				local l, s = t:GetDrawLayer()
+				if t ~= b and t:IsShown() and l == "BACKGROUND" then
+					if s <= sub then under = false end
+					if s == -6 then tile = select(4, t:GetVertexColor()) end
+				end
+			end
+			local _, _, _, x1, y1 = b:GetPoint(1)
+			local _, _, _, x2, y2 = b:GetPoint(2)
+			out[key] = { shown = b:IsShown(), layer = layer, sub = sub, alpha = a * (b:GetAlpha() or 1), under = under,
+				colour = math.abs(r - mr) + math.abs(g - mg) + math.abs(bb - mb) < 0.01, inset = { x1, y1, x2, y2 },
+				menuTile = key ~= "classic" or (tile ~= nil and tile > 0.9) }
+			press("ESCAPE")
+		end
+		emit(out)"#
+		),
+		"",
+		"",
+		LOOK_PAGE,
+	);
+	let looks = out.as_object().unwrap();
+	assert_eq!(looks.len(), 6, "{out}");
+	for (key, v) in looks {
+		assert_eq!(
+			v,
+			&json!({ "shown": true, "layer": "BACKGROUND", "sub": -8, "alpha": 1, "under": true, "colour": true,
+				"inset": [3, -3, -3, 3], "menuTile": true }),
+			"{key}: the menu ground at full strength under the look's own panel; Classic's tooltip, not the card box"
+		);
+	}
+}
+
 // Fitz, 0.3.5 preview: "Version 0.3.5-preview.2f100bfb3" ran under the Discord mark, and the BETA chip after it
 // sat on the footer's "Reset page". The version line and its chip stay left of the mark; a version too long for
 // "Version " drops the word, then is cut.

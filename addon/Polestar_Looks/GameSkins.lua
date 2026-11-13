@@ -547,8 +547,10 @@ local function tooltip(f, key, host, r, g, b, a, br, bg, bb, pad)
 end
 
 -- A panel standing inside another Polestar window (a card, a hint bar),
--- not a menu or tooltip of its own on the screen.
+-- not a menu or tooltip of its own on the screen (one marked psMenu is a
+-- menu wherever it hangs: the settings search's dropdown).
 local function embedded(f)
+	if f.psMenu then return false end
 	local p = f:GetParent()
 	return p ~= nil and p ~= UIParent
 end

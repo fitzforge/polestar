@@ -7114,8 +7114,11 @@ open), an emptied box, another page and the window closing close it; the
 box keeps the keyboard throughout. With no match it says so and offers the
 suggestions as rows that search for them, the box keeping the keyboard. The
 list is the window's child (strata DIALOG) on the panel skin, marked as a
-menu (`psMenu`: the menus' ground) so the page never shows through it, in
-the look's tokens; with a gamepad it holds the D-pad while open (A picks, B
+menu (`psMenu`: a game look draws a menu's art, Classic its tooltip, not the
+box of a card inside the window), in the look's tokens, and opaque in every
+look: under whatever the look draws (a translucent tile, the client's menu
+art, a skin's paper), `list.Backing` is the look's `menuBg` at full
+strength, 3 in from the edge, so the page never shows through it; with a gamepad it holds the D-pad while open (A picks, B
 closes).
 
 A query that **starts with a page's name** and goes on ("arrow size",

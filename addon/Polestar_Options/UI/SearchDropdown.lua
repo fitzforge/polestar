@@ -19,7 +19,7 @@
 --
 -- The list hangs under the box as the window's child (the Menu scale and the
 -- window's moves carry it), over the page, on the panel skin as the menus
--- are, in the look's colours: every look draws it.
+-- are, in the look's colours, opaque: every look draws it.
 
 local ns = Polestar
 local UI, Theme, W, Anim = ns.UI, ns.Theme, ns.Widgets, ns.Anim
@@ -114,10 +114,21 @@ local function build()
 	-- The wheel stays with the list: the page under it does not scroll.
 	list:EnableMouseWheel(true)
 	list:SetScript("OnMouseWheel", function() end)
-	-- Painted as the menus are (psMenu: their ground, the look's menuBg), so
-	-- the page under the list never shows through its rows.
+	-- Painted as the menus are (psMenu: a game look draws the menu's art, not
+	-- the box of a card inside the window).
 	list.psMenu = true
 	Theme.Skin(list, "panel")
+	-- Under whatever the look draws (a translucent tile, the client's menu
+	-- art, a skin's paper or gradient), the look's menu ground at full
+	-- strength, 3 in from the edge (inside the art's rounded rim): the page
+	-- under the list never shows through its rows.
+	list.Backing = W.Tex(list, "BACKGROUND", nil, nil, -8)
+	list.Backing:SetPoint("TOPLEFT", list, "TOPLEFT", 3, -3)
+	list.Backing:SetPoint("BOTTOMRIGHT", list, "BOTTOMRIGHT", -3, 3)
+	W.Painter(list.Backing, function(t)
+		local r, g, b = Theme.Color("menuBg")
+		t:SetVertexColor(r, g, b, 1)
+	end)
 	list.None = W.Text(list, "small", "textMuted")
 	list.Hint = W.Text(list, "small", "textMuted")
 	list.Hint:SetText(L["Did you mean:"])
