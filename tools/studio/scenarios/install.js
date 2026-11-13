@@ -2,8 +2,9 @@
 // Install (UI/Welcome.lua): every page in every look at the game's UI scales
 // 0.64, 1.0 and 1.5, on a new Human Warrior at Northshire Abbey with no guide
 // open yet. The pages are the welcome, Questing (quest automation, grey
-// quests, the guide at login, the stat weights), Groups and dungeons (group
-// quests, the target button's mark and ping), Your route (the route demo, the
+// quests, the guide at login, the stat weights), Targeting (the target
+// button's preview, the button, who it targets, its mark and ping), Groups
+// and dungeons (group quests), Your route (the route demo, the
 // route style, the route line), Your look (the looks beside the preview, the
 // colour scheme) and the last page (You're all set, Start guide and Finish).
 // The looks are the built-in six and the skin addons in the download
@@ -21,7 +22,7 @@ const skins = require('./skins');
 const LOOKS = { polestar: ['polestar', null], halo: ['halo', null] };
 for (const [name, look] of Object.entries(skins.SKINS)) if (!look[2]) LOOKS[name] = look;
 
-const PAGES = ['welcome', 'questing', 'groups', 'route', 'look', 'finish'];
+const PAGES = ['welcome', 'questing', 'targeting', 'groups', 'route', 'look', 'finish'];
 const SCALES = ['0.64', '1.0', '1.5'];
 
 const luaStr = (s) => JSON.stringify(String(s));

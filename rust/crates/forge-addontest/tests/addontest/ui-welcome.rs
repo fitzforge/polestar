@@ -538,7 +538,7 @@ fn the_groups_page_shows_once_the_guides_have_dungeons_or_group_quests_and_write
 		local F = PolestarWelcome
 		local get = Polestar.Get
 		local quests = { title = title(), dungeons = cards(F.Dungeons).shown, quests = cards(F.GroupQuests),
-			target = F.MarkTarget:IsShown() }
+			target = F.MarkTarget:IsVisible() }
 		card(F.GroupQuests, "Do them with a group"):Click()
 		local doThem = { get("behavior.groupQuests"), cards(F.GroupQuests).picked }
 		card(F.GroupQuests, "Skip them"):Click()
@@ -572,19 +572,47 @@ fn the_groups_page_shows_once_the_guides_have_dungeons_or_group_quests_and_write
 	assert_eq!(out["pages"][2], "Groups and dungeons", "after Questing");
 }
 
+// Targeting (with QoL): the target button, a preview of its face and plate, who it targets as its child, its mark
+// and ping; a line says the step key targets the same without it and Move frames moves it. Each switch writes
+// its setting; with the button off, who it targets waits on it.
 #[test]
-fn the_groups_page_offers_the_target_buttons_mark_and_ping_with_qol_and_each_switch_writes_its_setting() {
+fn the_targeting_page_offers_the_target_button_who_it_targets_its_mark_and_ping_and_says_what_the_step_key_and_move_frames_do() {
 	let out = run(r#"
-		Polestar.RegisterDefaults("qol", { markTarget = true, pingTarget = false })
-		Wel.Show("groups")
+		Wel.Show()
+		local without = titles()
+		PolestarWelcome:Hide()
+		Polestar.RegisterDefaults("qol", { targetButton = true, targetPlate = true, markTarget = true, pingTarget = false })
+		Wel.Show("targeting")
 		local F = PolestarWelcome
-		local start = { title = title(), mark = F.MarkTarget:IsShown() and F.MarkTarget.checked, ping = F.PingTarget:IsShown() and F.PingTarget.checked,
-			quests = cards(F.GroupQuests).shown }
+		local body = F.pages.targeting.Body
+		local function on(row) return row:IsShown() and row.checked or false end
+		local start = { title = title(), button = on(F.TargetButton), plate = on(F.TargetPlate), mark = on(F.MarkTarget),
+			ping = on(F.PingTarget), note = body.StepKey:GetText(), stage = body.Stage:IsShown() }
+		F.TargetPlate:Click()
+		local plate = Polestar.Get("qol.targetPlate")
+		F.TargetPlate:Click("RightButton")
+		F.TargetButton:Click()
+		local off = Polestar.Get("qol.targetButton")
+		F.TargetPlate:Click()
+		local plateWhileOff = Polestar.Get("qol.targetPlate")
+		F.TargetButton:Click("RightButton")
 		F.MarkTarget:Click()
 		F.PingTarget:Click()
-		emit({ start = start, after = { Polestar.Get("qol.markTarget"), Polestar.Get("qol.pingTarget") } })"#);
-	assert_eq!(out["start"], json!({ "title": "Groups and dungeons", "mark": true, "ping": false, "quests": false }), "their defaults");
-	assert_eq!(out["after"], json!([false, true]), "each switch writes its setting");
+		Wel.Show()
+		emit({ without = without, start = start, plate = plate, off = off, plateWhileOff = plateWhileOff,
+			after = { Polestar.Get("qol.markTarget"), Polestar.Get("qol.pingTarget"), Polestar.Get("qol.targetButton") }, pages = titles() })"#);
+	assert!(!out["without"].as_array().unwrap().contains(&json!("Targeting")), "no QoL, no page: {}", out["without"]);
+	assert_eq!(
+		out["start"],
+		json!({ "title": "Targeting", "button": true, "plate": true, "mark": true, "ping": false, "stage": true,
+			"note": "The step key targets the same names without the button. Move frames, in Settings, moves the button." }),
+		"their defaults, the preview and the line on the step key and Move frames"
+	);
+	assert_eq!(out["plate"], false, "who it targets writes qol.targetPlate");
+	assert_eq!(out["off"], false, "the button's switch writes qol.targetButton");
+	assert_eq!(out["plateWhileOff"], true, "with the button off, who it targets waits on it");
+	assert_eq!(out["after"], json!([false, true, true]), "mark and ping write their settings; right-click put the button back");
+	assert_eq!(out["pages"][2], "Targeting", "after Questing");
 }
 
 #[test]

@@ -7728,7 +7728,7 @@ Reading flow: `docs/DESIGN.md` ("Intent" and "The Guide Window").
   welcome it grew out of keeps its names in code and saved flags): centred,
   600 wide, up to six pages each under its own night hero, the gold rim
   (`W.Rim`) on top, with Skip install (Back on the last page), "Install ·
-  Step 2 of 6" over the step dots (not buttons), Back and Next in the
+  Step 2 of 7" over the step dots (not buttons), Back and Next in the
   footer. Each choice writes its real setting the moment it is made, shown
   where it can be (the window re-skins, the previews redraw), so nothing
   waits for the last page and nothing needs a reload; each choice page ends
@@ -7742,13 +7742,16 @@ Reading flow: `docs/DESIGN.md` ("Intent" and "The Guide Window").
   `behavior.autoAccept` and `autoTurnin`, `behavior.skipGrey`,
   `behavior.autoSelectGuide`, each with its description inline; then the
   stat weights gear advice uses, `gear.spec.<CLASS>`, as option cards:
-  Automatic, the class's specs, a custom scale while one is in use); Groups
-  and dungeons (`behavior.dungeons` as Skip them, Ask me and Run them once
-  that setting exists and `Engine.GuideDungeons()` has any;
-  `behavior.groupQuests` as Ask me at each, Do them with a group and Skip
-  them while `Engine.GroupQuests()` has any; the target button's
-  `qol.markTarget` and `qol.pingTarget` with QoL; shown while it holds one of
-  them); Your route (polestar.guide's route demo, the same for everyone: the
+  Automatic, the class's specs, a custom scale while one is in use);
+  Targeting, with QoL (`qol.targetButton` under a preview of the button's
+  face and plate, `Buttons.NewFace`, faint while it is off; `qol.targetPlate`
+  as its child, greyed while the button is off; `qol.markTarget` and
+  `qol.pingTarget`; a line that the step key targets the same names without
+  the button and that Move frames moves it); Groups and dungeons
+  (`behavior.dungeons` as Skip them, Ask me and Run them once that setting
+  exists and `Engine.GuideDungeons()` has any; `behavior.groupQuests` as Ask
+  me at each, Do them with a group and Skip them while `Engine.GroupQuests()`
+  has any; shown while it holds one of them); Your route (polestar.guide's route demo, the same for everyone: the
   Elwynn Forest painting, Northshire Abbey to the Westfall bridge, the
   chosen style's illustrated walk as the site draws it; a switch leaves the
   last one as a faint dashed ghost and replays the trail, at once under

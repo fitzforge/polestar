@@ -1903,6 +1903,11 @@ L["Route line"] = "Linha de rota"
 -- L["Finish"] = ""
 -- L["Install  ·  Step %d of %d"] = ""
 -- L["Polestar Install"] = ""
+-- L["One button finds the mobs and NPCs of your step: click it, or press its key, and you target the next name."] = ""
+-- L["Show a button that targets the step's mobs and NPCs"] = ""
+-- L["The square button with a name beside it, on its own on your screen. Click it, or press its key, to target the next mob or NPC your step names."] = ""
+-- L["Their name beside the button: green for an NPC, red for a mob, gold for an elite or rare."] = ""
+-- L["The step key targets the same names without the button. Move frames, in Settings, moves the button."] = ""
 
 -- UI/Copy.lua
 L["Selected for you: copy it with Ctrl+C (Cmd+C on a Mac), then press Escape."] = "Já selecionado: copie com Ctrl+C (Cmd+C no Mac) e aperte Esc."

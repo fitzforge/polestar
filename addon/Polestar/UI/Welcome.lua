@@ -27,13 +27,17 @@
 --      the stat weights the gear advice scores rewards with
 --      (gear.spec.<CLASS>: Automatic or one of the class's specs) as option
 --      cards, while Gear knows the class;
---   3. groups: dungeons in the route (behavior.dungeons: Skip them, Ask me,
+--   3. targeting (with QoL loaded): the target button (qol.targetButton),
+--      a preview of its face and name plate (Buttons.NewFace) over the
+--      switches for it, who it targets (qol.targetPlate, its child), its
+--      mark and its ping (qol.markTarget, qol.pingTarget), and a line that
+--      the step key targets the same without it and Move frames moves it;
+--   4. groups: dungeons in the route (behavior.dungeons: Skip them, Ask me,
 --      Run them; once that setting exists and the character's guides have
 --      dungeons) and group quests (behavior.groupQuests: Ask me at each, Do
 --      them with a group, Skip them; while the guides have any) as option
---      cards, then the target button's mark and ping (qol.markTarget,
---      qol.pingTarget) as switches;
---   4. route: the polestar.guide front page's route demo (Elwynn Forest,
+--      cards;
+--   5. route: the polestar.guide front page's route demo (Elwynn Forest,
 --      Northshire Abbey to the Westfall bridge): the chosen style's walk
 --      as the site draws it, redrawn when the style changes, the last one
 --      left as a faint dashed ghost; then the route style (nav.routeStyle,
@@ -41,7 +45,7 @@
 --      Fastest, Balanced (Recommended) and Roads, each saying what it does;
 --      then the route line's look (nav.lineStyle: Line, Dots, Sparkles) as
 --      cards each previewing it;
---   5. look: the looks (ui.skin, Theme.SkinChoices) as a list beside a large
+--   6. look: the looks (ui.skin, Theme.SkinChoices) as a list beside a large
 --      preview of the one under the pointer or the gamepad's focus, else the
 --      one in use, drawn by the settings' skin picker (Theme.DrawSkinCard:
 --      Polestar_Options, and the skin addons, load when the page first
@@ -49,7 +53,7 @@
 --      scheme (ui.scheme) as preview cards in each scheme's own colours
 --      while the house look is on (not a skin that brings its own grounds);
 --      the gamepad's button names (gamepad.glyphs) while a gamepad is in use;
---   6. finish: the guide on its painting (its level range, who it is for),
+--   7. finish: the guide on its painting (its level range, who it is for),
 --      its pitch; You're all set; what Start guide does, or that the guide
 --      is open; where to change it all later (Settings and its search,
 --      /polestar install); the beta note while ns.routesBeta is true; the
@@ -842,16 +846,20 @@ end
 local ROW_PAD = 11
 local TEXT_W = CW - 30 - 24
 
+-- opts: depends (the setting the row waits on, greyed while it is off),
+-- child (indented under that setting's row).
+local CHILD_X = 18
 local function toggleRow(p, label, path, desc, opts)
-	local row = W.Toggle(p, label, path, desc, nil, opts)
+	local row = W.Toggle(p, label, path, desc, opts and opts.depends, opts)
+	local indent = opts and opts.child and CHILD_X or 0
 	row:SetWidth(CW + 24)
-	row.Desc = para(row, "note", "textMuted", TEXT_W, 3)
+	row.Desc = para(row, "note", "textMuted", TEXT_W - indent, 3)
 	row.Desc:SetText(desc)
 	row.Track:ClearAllPoints()
 	row.Track:SetPoint("RIGHT", row, "RIGHT", -12, 0)
 	row.Label:ClearAllPoints()
-	row.Label:SetPoint("TOPLEFT", row, "TOPLEFT", 12, -ROW_PAD)
-	row.Label:SetWidth(TEXT_W)
+	row.Label:SetPoint("TOPLEFT", row, "TOPLEFT", 12 + indent, -ROW_PAD)
+	row.Label:SetWidth(TEXT_W - indent)
 	row.Label:SetWordWrap(true)
 	row.Desc:SetPoint("TOPLEFT", row.Label, "BOTTOMLEFT", 0, -3)
 	row.Rule:ClearAllPoints() -- the row's own hairline, on the page's edges
@@ -1412,7 +1420,85 @@ PAGES[#PAGES + 1] = {
 	title = function(P) return P.Hero.Title:GetText() end,
 }
 
--- 3. Groups and dungeons -------------------------------------------------------
+-- 3. Targeting -------------------------------------------------------------------
+
+-- The target button and its switches (QoL/Buttons.lua), with QoL loaded.
+local function targetShown()
+	return ns.GetDefault("qol.targetButton") ~= nil
+end
+
+do
+	local STAGE_H = 72
+	-- The preview's names: the settings' Buttons page's.
+	local DEMO = { L["Rot Hide Mongrel"], L["Scarlet Warrior"] }
+
+	-- The preview: the button's own face (Buttons.NewFace: a plain Button,
+	-- no secure template, no clicks) on a patch of the world, its plate as
+	-- qol.targetPlate has it, faint while the button is off.
+	local function paintStage(stage)
+		paintOutline(stage, Theme.Wash("border"))
+		local r, g, b = Theme.Color("scrim")
+		stage.Ground:SetVertexColor(r, g, b, 1)
+		local face = stage.Face
+		if face then
+			ns.QoL.Buttons.Paint(face)
+			face:SetAlpha(ns.Get("qol.targetButton") and 1 or 0.35)
+		end
+	end
+
+	PAGES[#PAGES + 1] = {
+		key = "targeting",
+		shown = function() return full and targetShown() end,
+		build = function(P)
+			compactHero(P.Hero, L["Targeting"],
+				L["One button finds the mobs and NPCs of your step: click it, or press its key, and you target the next name."])
+			local p = P.Body
+			local stage = CreateFrame("Frame", nil, p)
+			stage:SetSize(CW, STAGE_H)
+			outline(stage)
+			stage.Ground = solid(stage, "BACKGROUND", -7)
+			stage.Ground:SetAllPoints(stage)
+			local B = ns.QoL and ns.QoL.Buttons
+			if B and B.NewFace then
+				local face = B.NewFace(stage, "target")
+				face.aList, face.aVerbs, face.aIds, face.aMarks, face.aCycle = DEMO, { "kill", "kill" }, {}, { false, false }, 1
+				face:SetPoint("LEFT", stage, "LEFT", 20, 0)
+				face:EnableMouse(false)
+				stage.Face = face
+			end
+			stage.Refresh = paintStage
+			W.Painter(stage, paintStage)
+			W.Bind(stage, "qol.targetPlate", "qol.targetButton")
+			p.Stage = stage
+			F.TargetButton = toggleRow(p, L["Show a button that targets the step's mobs and NPCs"], "qol.targetButton",
+				L["The square button with a name beside it, on its own on your screen. Click it, or press its key, to target the next mob or NPC your step names."])
+			F.TargetPlate = toggleRow(p, L["Show who it targets"], "qol.targetPlate",
+				L["Their name beside the button: green for an NPC, red for a mob, gold for an elite or rare."],
+				{ depends = "qol.targetButton", child = true })
+			F.MarkTarget = toggleRow(p, L["Mark what the target button finds"], "qol.markTarget",
+				L["A skull on the enemy, a star on the friendly NPC. In a group it never takes another player's icon."])
+			F.PingTarget = toggleRow(p, L["Ping it for my group"], "qol.pingTarget",
+				L["Your group sees what the target button and the step key found, even behind rocks and buildings."])
+			p.StepKey = para(p, "note", "textMuted", CW, 3)
+			p.StepKey:SetText(L["The step key targets the same names without the button. Move frames, in Settings, moves the button."])
+			p.Keep = keepLine(p)
+		end,
+		layout = function(P)
+			local heroH = layoutCompactHero(P.Hero)
+			local p = P.Body
+			place(p.Stage, 0, 0)
+			paintStage(p.Stage)
+			local y = layRows({ F.TargetButton, F.TargetPlate, F.MarkTarget, F.PingTarget }, STAGE_H + 8) + 10
+			place(p.StepKey, 0, y)
+			y = y + p.StepKey:GetStringHeight() + 14
+			place(p.Keep, 0, y)
+			return heroH, y + p.Keep:GetStringHeight()
+		end,
+		title = function(P) return P.Hero.Title:GetText() end,
+	}
+end
+
+-- 4. Groups and dungeons -------------------------------------------------------
 
 -- Dungeons in the route (behavior.dungeons; Engine's Own.dungeonAnswer):
 -- once the setting exists and the character's guides have dungeons
@@ -1428,11 +1514,6 @@ local function groupQuestsShown()
 	return ns.GetDefault("behavior.groupQuests") ~= nil and E ~= nil and E.GroupQuests ~= nil and #(E.GroupQuests() or {}) > 0
 end
 
--- The target button's mark and ping (QoL/Buttons.lua), with QoL loaded.
-local function targetShown()
-	return ns.GetDefault("qol.markTarget") ~= nil
-end
-
 local function oneOf(path, list, default)
 	local v = ns.Get(path)
 	for _, x in ipairs(list) do if v == x then return v end end
@@ -1441,7 +1522,7 @@ end
 
 PAGES[#PAGES + 1] = {
 	key = "groups",
-	shown = function() return full and (dungeonsShown() or groupQuestsShown() or targetShown()) end,
+	shown = function() return full and (dungeonsShown() or groupQuestsShown()) end,
 	build = function(P)
 		compactHero(P.Hero, L["Groups and dungeons"],
 			L["Leveling guides can take you through dungeons and group quests on your way. Choose how much of that you want."])
@@ -1468,28 +1549,21 @@ PAGES[#PAGES + 1] = {
 					{ value = "skip", name = L["Skip them"], desc = L["Solo: the route leaves them out."] },
 				}
 			end })
-		-- The target button's mark and ping (QoL/Buttons.lua), offered here so they are found.
-		F.MarkTarget = toggleRow(p, L["Mark what the target button finds"], "qol.markTarget",
-			L["A skull on the enemy, a star on the friendly NPC. In a group it never takes another player's icon."])
-		F.PingTarget = toggleRow(p, L["Ping it for my group"], "qol.pingTarget",
-			L["Your group sees what the target button and the step key found, even behind rocks and buildings."])
 		p.Keep = keepLine(p)
 	end,
 	layout = function(P)
 		local heroH = layoutCompactHero(P.Hero)
 		local p = P.Body
-		local dungeons, quests, target = dungeonsShown(), groupQuestsShown(), targetShown()
+		local dungeons, quests = dungeonsShown(), groupQuestsShown()
 		local y = layGroup(F.Dungeons, 0, dungeons)
-		y = layGroup(F.GroupQuests, (dungeons and quests) and y + 18 or y, quests)
-		if target and (dungeons or quests) then y = y + 10 end
-		y = layRows({ F.MarkTarget, F.PingTarget }, y, function() return target end) + 14
+		y = layGroup(F.GroupQuests, (dungeons and quests) and y + 18 or y, quests) + 14
 		place(p.Keep, 0, y)
 		return heroH, y + p.Keep:GetStringHeight()
 	end,
 	title = function(P) return P.Hero.Title:GetText() end,
 }
 
--- 4. Your route ----------------------------------------------------------------
+-- 5. Your route ----------------------------------------------------------------
 
 -- The styles: the setting's value, the name, what it does, the
 -- Recommended tag. Options' Route style dropdown writes the same setting;
@@ -1921,7 +1995,7 @@ PAGES[#PAGES + 1] = {
 	title = function(P) return P.Hero.Title:GetText() end,
 }
 
--- 5. Your look -------------------------------------------------------------------
+-- 6. Your look -------------------------------------------------------------------
 
 -- What the window and the gamepad need of the look page.
 local loadLooks, previewLook, paintLookRow
@@ -2105,7 +2179,7 @@ do
 	}
 end
 
--- 6. Finish ----------------------------------------------------------------------
+-- 7. Finish ----------------------------------------------------------------------
 
 -- The guide Start guide opens (Engine.StartingGuide, else the suggestion),
 -- and whether the guide window shows it already.
