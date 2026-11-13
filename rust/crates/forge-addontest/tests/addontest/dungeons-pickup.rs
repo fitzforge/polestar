@@ -75,6 +75,7 @@ fn instance_map(m: &Value) -> InstanceMap {
 		inner: nums("inner"),
 		zones: nums("zones"),
 		corpse: m["corpse"].is_object().then(|| Corpse { c: m["corpse"]["c"].as_f64().unwrap_or(0.0), x: m["corpse"]["x"].as_f64().unwrap_or(0.0), y: m["corpse"]["y"].as_f64().unwrap_or(0.0) }),
+		finder: m["finder"].as_object().map(|f| forge_data::codex::client::Finder { min: f["min"].as_f64().unwrap_or(0.0), max: f["max"].as_f64().unwrap_or(0.0), players: f["players"].as_f64().unwrap_or(5.0), players_max: f.get("playersMax").and_then(Value::as_f64).or(f["players"].as_f64()).unwrap_or(5.0) }),
 	}
 }
 
@@ -110,6 +111,8 @@ fn journal_of(codex: &Value, inputs: &Value) -> V {
 			journal_quests: &journal_quests,
 			attunement_table: &attunement_table,
 			store_xp: &Default::default(),
+			recorded_dungeons: &forge_guide::js::V::obj(),
+			levels_table: &forge_guide::js::V::obj(),
 		},
 		&codex_v,
 	)

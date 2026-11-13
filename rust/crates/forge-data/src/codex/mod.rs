@@ -137,6 +137,9 @@ pub struct Inputs {
 	pub curated_vendors: V,
 	pub entrances: Vec<GuideGoto>,
 	pub entrance_table: V,
+	/// The named exceptions to a dungeon's range and floor: data/codex/levels.json
+	/// (`journal::load_levels_table`), by dungeon key.
+	pub levels_table: V,
 	pub rep_table: V,
 	pub attunement_table: V,
 	pub journal_quests: Vec<V>,
@@ -459,6 +462,7 @@ pub fn load_inputs(opts: &Options, log: &dyn Fn(&str)) -> Result<Inputs, String>
 	let tables = client::load_tables(&opts.sources_dir, &build, &TABLES, &opts.cwd)?;
 	let mut cl = client::client_facts(&tables, &build);
 	cl.instance_maps = client::instance_maps_of(tables.get("Map").map(Vec::as_slice).unwrap_or(&[]), tables.get("AreaTable").map(Vec::as_slice).unwrap_or(&[]));
+	client::attach_finder(&mut cl.instance_maps, tables.get("GroupFinderActivity").map(Vec::as_slice).unwrap_or(&[]));
 	let mut era_maps = None;
 	match client::load_tables(&opts.sources_dir, ERA_BUILD, &ERA_TABLES, &opts.cwd) {
 		Ok(era) => {
@@ -484,6 +488,7 @@ pub fn load_inputs(opts: &Options, log: &dyn Fn(&str)) -> Result<Inputs, String>
 	let lib = opts.root.join("data").join("codex");
 	let read = |f: &str| std::fs::read_to_string(lib.join(f)).map_err(|e| format!("{}: {e}", lib.join(f).display()));
 	let entrance_table = if lib.join("entrances.json").exists() { instances::load_entrance_table(&read("entrances.json")?)? } else { V::obj() };
+	let levels_table = if lib.join("levels.json").exists() { journal::load_levels_table(&read("levels.json")?)? } else { V::obj() };
 	let att = parse_json(&read("attunements.json")?)?;
 	let attunement_table = Obj::new();
 	for k in ["attunements", "inside", "removed"] {
@@ -505,6 +510,7 @@ pub fn load_inputs(opts: &Options, log: &dyn Fn(&str)) -> Result<Inputs, String>
 		curated_vendors: curated_vendors(&texts),
 		entrances: instances::curated_entrances(&guides),
 		entrance_table,
+		levels_table,
 		rep_table: load_rep_gate_table(&lib.join("repgates.json"))?,
 		attunement_table: V::Obj(attunement_table),
 		journal_quests,
@@ -583,6 +589,14 @@ fn sources_meta(inputs: &Inputs) -> V {
 			"Curated attunement goals (data/codex/attunements.json): the web quest database (Forever pages), warcraft.wiki.gg",
 			V::str(&format!("{na} attunements")),
 			V::str("Facts only (quest and item ids), each entry with its sources"),
+		));
+	}
+	let nd = inputs.levels_table.len();
+	if nd > 0 {
+		out.push(source(
+			"Curated dungeon levels (data/codex/levels.json): in-game checks",
+			V::str(&format!("{nd} dungeons")),
+			V::str("Facts only (levels), each row with its source"),
 		));
 	}
 	if let Some(s) = recorded::source_meta(&inputs.recorded) {
@@ -722,6 +736,7 @@ fn build_from(opts: &Options, inputs: &Inputs, t0: Instant, log: &dyn Fn(&str)) 
 			V::obj()
 		}
 	};
+	let recorded_dungeons = inputs.recorded.get("dungeons");
 	let (journal, journal_warnings) = journal::build_journal(
 		&journal::JournalInputs {
 			maps: cl.map(|c| c.instance_maps.as_slice()).unwrap_or(&[]),
@@ -733,6 +748,8 @@ fn build_from(opts: &Options, inputs: &Inputs, t0: Instant, log: &dyn Fn(&str)) 
 			journal_quests: &inputs.journal_quests,
 			attunement_table: &inputs.attunement_table,
 			store_xp: &inputs.store_xp,
+			recorded_dungeons: &recorded_dungeons,
+			levels_table: &inputs.levels_table,
 		},
 		&jc,
 	);

@@ -12,8 +12,9 @@ use super::util::{int_s, norm_s, num0_s};
 use crate::jsv::{to_int32, Row, Rows};
 use crate::tables::{compare_versions, parse_csv};
 
-/// build.js TABLES: what the Codex reads from the Forever client.
-pub const TABLES: [&str; 16] = [
+/// build.js TABLES: what the Codex reads from the Forever client (GroupFinderActivity: the in-game
+/// Group Finder's level ranges and group sizes, `attach_finder`; the retired JS builder never read it).
+pub const TABLES: [&str; 17] = [
 	"Item",
 	"ItemSparse",
 	"ItemEffect",
@@ -30,6 +31,7 @@ pub const TABLES: [&str; 16] = [
 	"ContentTuning",
 	"Mount",
 	"BattlePetSpecies",
+	"GroupFinderActivity",
 ];
 pub const ERA_BUILD: &str = "1.15.9.70003";
 pub const ERA_TABLES: [&str; 4] = ["Item", "ItemSparse", "ItemEffect", "Map"];
@@ -314,6 +316,18 @@ pub struct Corpse {
 	pub y: f64,
 }
 
+/// A dungeon as the client's Group Finder lists it (`GroupFinderActivity`, category Dungeons): the
+/// suggested levels and the group size, the span of its wings where it has several (Scarlet
+/// Monastery's four, Dire Maul's three, the two Blackrock Spires and Stratholme gates).
+#[derive(Clone, Debug, PartialEq)]
+pub struct Finder {
+	pub min: f64,
+	pub max: f64,
+	/// The smallest wing's group size, and the largest (Upper Blackrock Spire is for 10).
+	pub players: f64,
+	pub players_max: f64,
+}
+
 #[derive(Clone, Debug)]
 pub struct InstanceMap {
 	pub id: f64,
@@ -325,6 +339,8 @@ pub struct InstanceMap {
 	pub inner: Vec<f64>,
 	pub zones: Vec<f64>,
 	pub corpse: Option<Corpse>,
+	/// The Group Finder's dungeon row(s) for this map (`attach_finder`).
+	pub finder: Option<Finder>,
 }
 
 /// journal.js `norm` of a client string.
@@ -392,10 +408,44 @@ pub fn instance_maps_of(map_rows: &[Row], area_rows: &[Row]) -> Vec<InstanceMap>
 			inner,
 			zones: sorted(&zones),
 			corpse: (c >= 0.0 && (x != 0.0 || y != 0.0)).then_some(Corpse { c, x, y }),
+			finder: None,
 		});
 	}
 	out.sort_by(|a, b| super::util::by_num(a.id, b.id));
 	out
+}
+
+/// The Group Finder category of dungeons (`GroupFinderCategory` 2; 114 is raids, which keep the Map
+/// table's size and their bosses' levels).
+const FINDER_DUNGEONS: f64 = 2.0;
+
+/// Each dungeon map's Group Finder row(s) (`GroupFinderActivity`, category Dungeons): `MinLevel`,
+/// `MaxLevelSuggestion` and `MaxPlayers`, spanned over a map's wings. The game's own suggestion: what
+/// the hub shows as a dungeon's range and size, and the lowest a floor may be (journal.rs).
+pub fn attach_finder(maps: &mut [InstanceMap], finder_rows: &[Row]) {
+	let mut by_map: FxHashMap<i64, Finder> = FxHashMap::default();
+	for r in finder_rows {
+		if num0_s(r.get("GroupFinderCategoryID")) != FINDER_DUNGEONS {
+			continue;
+		}
+		let map = num0_s(r.get("MapID")) as i64;
+		let (min, max, players) = (num0_s(r.get("MinLevel")), num0_s(r.get("MaxLevelSuggestion")), num0_s(r.get("MaxPlayers")));
+		if map == 0 || min <= 0.0 || max < min || players <= 0.0 {
+			continue;
+		}
+		by_map
+			.entry(map)
+			.and_modify(|f| {
+				f.min = f.min.min(min);
+				f.max = f.max.max(max);
+				f.players = f.players.min(players);
+				f.players_max = f.players_max.max(players);
+			})
+			.or_insert(Finder { min, max, players, players_max: players });
+	}
+	for m in maps.iter_mut() {
+		m.finder = by_map.get(&(m.id as i64)).cloned();
+	}
 }
 
 // ---------------------------------------------------------------------------
