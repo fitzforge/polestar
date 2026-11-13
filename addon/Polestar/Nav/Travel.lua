@@ -841,12 +841,13 @@ local function planRoute(p)
 			local ON_CROSSING = 1.1
 			for _, e in ipairs(crossEnds) do
 				local f = e.partner
-				if crossV[e] and crossV[f] and not e.noCross and vzone[1] ~= nil and vzone[1] == vzone[crossV[e]] then
+				local passed = cross and cross[e]
+				if crossV[e] and crossV[f] and not e.noCross and (passed or (vzone[1] ~= nil and vzone[1] == vzone[crossV[e]])) then
 					local span = yards(e.c, e.wx, e.wy, f.c, f.wx, f.wy)
 					local toE = yards(p.c, p.wx, p.wy, e.c, e.wx, e.wy)
 					local toF = yards(p.c, p.wx, p.wy, f.c, f.wx, f.wy)
 					local on = toE > e.r and toF < span and toE + toF <= span * ON_CROSSING
-					if on or (cross and cross[e] and toF < span) then
+					if on or (passed and toF < span) then
 						link(1, crossV[f])
 						onCross[crossV[f]] = true
 					end
@@ -1392,6 +1393,13 @@ local function planRoute(p)
 			if (linked and not lift) or vkind[to] == DARK or (u == 1 and startIn ~= nil) then leg.handmade = true end
 			if cross and vref[u].id ~= nil then
 				leg.crossing, leg.side = vref[u].id, vref[u].side
+			end
+			-- Reaching this walk's end passes a crossing's near end (Travel.Aim), named by the crossing's id and the end's
+			-- side as a crossing leg names its own: the crossing's own walk, or the walk on to its far end from a start on it.
+			if cross then
+				leg.passes, leg.passSide = vref[u].id, vref[u].side
+			elseif u == 1 and onCross[to] then
+				leg.passes, leg.passSide = vref[to].partner.id, vref[to].partner.side
 			end
 		elseif how == FLY then
 			local stops = {}
@@ -2828,6 +2836,25 @@ function Travel.SkipReplans(leg)
 		or (leg.transport ~= nil and kind ~= "lift")
 end
 
+-- A crossing's near end (the crossing's id and the end's side) is passed for this target: skipped (Travel.SkipLeg), or
+-- reached (Travel.Aim: the walk to it, or its far end on the crossing's own walk or on the walk on to it from a start
+-- on it). A plan from within the ends' distance of the far end walks on to it, whatever zone the walking maps put the
+-- player in, never back to the near end; farther from the far end than that, the near end counts again. Reaching an
+-- end plans again, and by then the player was a few steps on: just past the near end's reach, toward the far end, the
+-- plan sent them back to the near end, and at the far end, in a zone the zone line between the ends winds through,
+-- back through the crossing, round and round (0.4.0's border sweep: 68 times in 4 minutes between the Swamp of Sorrows
+-- and the Blasted Lands, 25 at Orgrimmar's crossing to the Barrens).
+local function passCrossing(id, side)
+	local target = Nav.GetTarget()
+	if skipFor ~= target then
+		skipped = { hearth = false, spells = {}, transports = {}, taxi = {}, cross = {} }
+	end
+	for _, e in ipairs(crossEnds) do
+		if e.id == id and e.side == side then skipped.cross[e] = true end
+	end
+	skipFor = target
+end
+
 -- Skip the current leg (review P2-6): a hearth, teleport, flight, ride or
 -- portal is left out of the plans for this target (another target may use
 -- it again) and the rest of the way is planned at once; a walk or a lift
@@ -2842,10 +2869,7 @@ function Travel.SkipLeg()
 		local nextLeg = legs[ci + 1]
 		local id, side = nextLeg and nextLeg.crossing, nextLeg and nextLeg.side
 		if leg.waypoint and id then
-			for _, e in ipairs(crossEnds) do
-				if e.id == id and e.side == side then skipped.cross[e] = true end
-			end
-			skipFor = Nav.GetTarget()
+			passCrossing(id, side)
 		elseif leg.waypoint then
 			dirty = true
 		end
@@ -2978,8 +3002,15 @@ function Travel.Aim(pc, px, py)
 				progressYards = yards(pc, px, py, to.c, to.wx, to.wy) * WALK_DETOUR
 				return "walk", to.c, to.wx, to.wy
 			end
-			-- At a crossing or chain waypoint: plan again from here (the next Refresh).
+			-- At a crossing or chain waypoint: plan again from here (the next Refresh). A crossing's end reached, near
+			-- or far, passes its near end (passCrossing), as skipping the walk to it does (Travel.SkipLeg).
 			if leg.waypoint then dirty = true end
+			local nx = legs[ci + 1]
+			if leg.passes then
+				passCrossing(leg.passes, leg.passSide)
+			elseif leg.waypoint and nx and nx.crossing then
+				passCrossing(nx.crossing, nx.side)
+			end
 			advance()
 		elseif kind == "lift" then
 			-- Ride it; walking away from the landing boarded ends the ride.

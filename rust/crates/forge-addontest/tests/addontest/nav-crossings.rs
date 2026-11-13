@@ -189,6 +189,52 @@ fn a_crossing_end_with_a_height_12_yd_away_is_already_walked_only_on_its_floor()
 	);
 }
 
+// Reaching a crossing's near end passes it: planned again a few steps on, or where its far end is reached, the route
+// walks on to the far end and from there, never back to the near end, whatever zone the walking maps put the player
+// in (0.4.0's border sweep: the zone line between a crossing's ends can wind, and from just past the near end's reach
+// the plan sent players back to it, and from beside the far end back through the crossing, round and round: 68 times
+// in 4 minutes between the Swamp of Sorrows and the Blasted Lands). Gate Yard, a patch of ground open to West Vale,
+// lies between the gate's ends: at (600, 25) the player is out of the near end's reach, and at (600, -8) within the
+// far end's, both in Gate Yard. Farther from the far end than the ends are apart, the near end comes first again.
+#[test]
+fn walking_a_crossing_passes_its_near_end_the_plan_from_its_far_end_walks_on_never_back_through_it() {
+	let out = run(r#"
+		local zones = { [9002] = ZONES[9002], [9003] = ZONES[9003], [9004] = { name = "Gate Yard", c = 0, top = 620, bottom = 580, left = 30, right = -10 } }
+		N.RegisterCrossings({ complete = true, zones = zones, open = { 9004, 9002, 0 }, crossings = {
+			{ id = "gate", a = { map = 9002, c = 0, wx = 600, wy = 60, r = 15 }, b = { map = 9003, c = 0, wx = 600, wy = -20, r = 15 } } } })
+		local function first()
+			local legs, ci = N.GetRoute()
+			local l = legs[ci]
+			return { l.to.wx, l.to.wy, #legs - ci }
+		end
+		local r = {}
+		nav.place(-500, 500)
+		target(-500, -500, "Kobolds")
+		stub.advance(0.2)
+		r.start = first()
+		nav.place(600, 58)                               -- at the gate's near end
+		stub.advance(1.2)
+		r.near = first()
+		nav.place(600, 25)                               -- a few steps on, out of its reach, in Gate Yard
+		stub.fire("ZONE_CHANGED")
+		r.between = first()
+		nav.place(600, -8)                               -- through it, within the far end's reach, in Gate Yard
+		stub.advance(1.2)
+		r.far = first()
+		stub.fire("ZONE_CHANGED")
+		r.zone = first()
+		nav.place(600, 300)                              -- back out in West Vale, far from the gate
+		stub.fire("ZONE_CHANGED")
+		r.away = first()
+		emit(r)"#);
+	assert_eq!(out["start"], json!([600, 60, 2]), "to the gate's near end first: {out}");
+	assert_eq!(out["near"], json!([600, -20, 1]), "at it, through the gate: {out}");
+	assert_eq!(out["between"], json!([600, -20, 1]), "a few steps on, on to the far end, not back to the near one: {out}");
+	assert_eq!(out["far"], json!([-500, -500, 0]), "through it, on to Kobolds, not back to the near end: {out}");
+	assert_eq!(out["zone"], json!([-500, -500, 0]), "planned again there, still on: {out}");
+	assert_eq!(out["away"], json!([600, 60, 2]), "far from the gate, the near end first again: {out}");
+}
+
 // The Undercity's fixed way in and out (Fitz, 2026-10-23): an approach chain both of whose ends are mouths, from the
 // zone outside through the hall to its lift's top and bottom landings in the city. The hop between the two landings
 // (floors 20 yd or more apart within 15 yd on the map) is a lift ride, both ways, timed by the lift's timetable.

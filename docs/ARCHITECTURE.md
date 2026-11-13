@@ -4232,7 +4232,16 @@ else the flight master within 60 yd of where the flight left;
 60 yd of it, one that never got away), a boat's, zeppelin's, tram's or
 portal's transport once it has arrived. So a plan made later on the way
 never goes back: from Stormwind the route flew to Sentinel Hill and on
-landing planned the flight back, over and over (#1890). `Progress` counts a
+landing planned the flight back, over and over (#1890). A crossing's near
+end reached (the walk to it, or the far end on the crossing's own walk or on
+the walk on to it from a start on it) is passed the same way a skipped one is
+(`passCrossing`): a plan from within the ends' distance of the far end walks on
+to it and from there, whatever zone the walking maps put the player in (0.4.0,
+the border sweep: reaching an end plans again, and by then the player was a few
+steps on; just past the near end's reach the plan sent them back to it, and at
+the far end, in a zone the winding zone line put them in, back through the
+crossing, 68 times in 4 minutes between the Swamp of Sorrows and the Blasted
+Lands). `Progress` counts a
 ride, flight, hearth or teleport down from when it became current (a flight
 from take-off, when the player is first on the taxi); `Remaining`, the
 arrow's ETA on those legs, counts down the same way. `EstimateTravel`
