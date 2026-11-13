@@ -184,19 +184,12 @@ step Fly to Astranaar
   goto 45.3,6.0 "Marshal's Refuge flight master"
   fly "Astranaar"
 
-step To Stoutlager Inn
+step To Ironforge
   only Priest,Mage
-  zone Loch Modan
-  goto 35.5,48.4 "Stoutlager Inn"
+  zone Ironforge
+  goto 18.15,51.45 "Stonefire Tavern"
 
 # ---------------------------------------------------------------- Ironforge (Priests and Mages)
-
-step Fly to Ironforge
-  only Priest,Mage
-  zone Loch Modan
-  goto 33.9,50.8 "Thelsamar flight master"
-  fly "Ironforge"
-  zone Ironforge
 
 step Mystic Ward
   only Priest,Mage

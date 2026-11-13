@@ -6678,7 +6678,7 @@ test('forever/alliance/40-50/05-the-hinterlands.guide: final review: Loch Modan 
 	assert.ok(sb('turnin 17', is('turnin', 17)) < sb('fly Southshore', (g) => g.t === 'fly' && /Southshore/.test(g.location || '')), 'before the flight out');
 	const list = goals('forever/alliance/40-50/05-the-hinterlands.guide');
 	assert.ok(!list.some(({ goal }) => [17, 739, 704].includes(goal.quest)), 'no second Loch Modan loop');
-	assert.ok(list.some(({ goal }) => goal.t === 'sethome' && /Stoutlager/.test(goal.location || goal.label || JSON.stringify(goal))), 'the hearth for the Searing Gorge guide');
+	assert.ok(list.some(({ goal }) => goal.t === 'sethome' && /Ironforge/.test(goal.location || goal.label || JSON.stringify(goal))), 'the hearth for the Searing Gorge guide (Ironforge since the 0.4.0 audit)');
 	for (const q of [8552, 8554]) {
 		const e = list[at(list, `accept ${q}`, is('accept', q))];
 		assert.ok((e.step.when || []).some((w) => w.k === 'group'), `${q} only for the group`);
@@ -11788,4 +11788,28 @@ test('dungeons in the route: every `when dungeon` step of the leveling guides is
 		}
 	}
 	assert.deepEqual([...new Set(bad)], []);
+});
+
+// 0.4.0 route audit (B26), Alliance 45-48: the Tanaris guide ended Gadgetzan -> Theramore -> boat -> Aerie Peak, and the
+// Hinterlands guide went on Ironforge -> Stormwind -> Lakeshire -> Morgan's Vigil (a flight path only) -> Thelsamar (a
+// bind only) -> Menethil -> boat -> Auberdine -> Darnassus -> boat -> Stormwind. Now Darnassus comes first, from
+// Gadgetzan by the flight to Auberdine, then the boat to Menethil and Aerie Peak; Favored of Elune? (3661), taken in
+// Rut'theran, has its Wildkin Feathers picked up in the Hinterlands visit; the hearth is set in Ironforge.
+test('Tanaris and the Hinterlands (Alliance 45-48): Darnassus before the Hinterlands, the feathers in the Hinterlands, the hearth in Ironforge (0.4.0 audit)', { skip }, () => {
+	const tan = goals('forever/alliance/40-50/04-tanaris.guide');
+	const flyAub = at(tan, 'fly Auberdine', (g) => g.t === 'fly' && g.location === 'Auberdine');
+	for (const [t, q] of [['turnin', 2939], ['turnin', 3022], ['accept', 3661], ['turnin', 2972], ['turnin', 4267], ['turnin', 162], ['accept', 3764]]) {
+		const i = at(tan, `${t} ${q}`, is(t, q));
+		assert.ok(i > flyAub, `${t} ${q} after the flight to Auberdine`);
+		assert.ok(i < at(tan, 'accept 2989', is('accept', 2989)), `${t} ${q} before Aerie Peak`);
+	}
+	assert.ok(!tan.some(({ goal }) => goal.t === 'fly' && goal.location === 'Theramore'), 'no flight back to Theramore');
+	const hin = goals('forever/alliance/40-50/05-the-hinterlands.guide');
+	const feathers = at(hin, 'collect 10819', (g) => g.t === 'collect' && g.quest === 3661);
+	assert.ok(feathers < at(hin, 'turnin 2877', is('turnin', 2877)), 'the feathers before Aerie Peak');
+	assert.ok(!hin.some(({ goal }) => goal.t === 'getfp' && /Morgan/.test(goal.location || '')), "no Morgan's Vigil detour");
+	assert.ok(!hin.some(({ goal }) => [2939, 3022, 2972, 162, 3763].includes(goal.quest)), 'no Darnassus stop left in the Hinterlands guide');
+	assert.ok(!hin.some(({ goal }) => goal.t === 'sethome' && /Stoutlager/.test(JSON.stringify(goal))), 'no Thelsamar bind');
+	const sg = goals('forever/alliance/40-50/06-searing-gorge.guide');
+	assert.ok(sg.findIndex(({ goal }) => goal.t === 'fly' && goal.location === 'Thelsamar') >= 0, 'the Searing Gorge guide flies Ironforge -> Thelsamar');
 });

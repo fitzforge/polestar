@@ -14,9 +14,15 @@ next forever/alliance/40-50/07-un-goro-crater
 # (3453, 3454), Squire Maltrake (3462), Set Them Ablaze! (3463: the four Sentry Braziers on the southern rim, handed
 # in on the way back to Thorium Point) and Trinkets... (3481), 13,710 XP.
 
-step To Stoutlager Inn
+step To Ironforge
+  zone Ironforge
+  goto 18.15,51.45 "Stonefire Tavern"
+
+step Fly to Thelsamar
+  zone Ironforge
+  goto 55.9,47.9 "Ironforge flight master"
+  fly "Thelsamar"
   zone Loch Modan
-  goto 35.5,48.4 "Stoutlager Inn"
 
 step Into Searing Gorge
   zone Searing Gorge
