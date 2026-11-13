@@ -8876,7 +8876,15 @@
 	},
 	"96031": {
 		"set": {
-			"races": 4294967373
+			"races": 4294967373,
+			"objectives": [
+				{
+					"type": "event",
+					"id": null,
+					"count": 1,
+					"text": "Raise your leatherworking skill to 20"
+				}
+			]
 		},
 		"source": [
 			{
@@ -8886,13 +8894,29 @@
 			{
 				"kind": "questie",
 				"ref": "QuestieDB generated Forever base, requiredRaces: ALL_ALLIANCE in 1.0.10 to 1.0.13, DWARF + GNOME in 1.0.14"
+			},
+			{
+				"kind": "eg",
+				"ref": "EG Link live client data (CC BY 4.0): the server's quest record in players' caches, build 1.60.1.70450: one objective, \"Raise your leatherworking skill to 20\" (a criteria objective, amount 1)"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log listed one objective at the accept, \"Raise your leatherworking skill to 20\" (x1) (#1952)"
 			}
 		],
-		"note": "Camping 101: Leatherworking is open to every Alliance race: Forever's server sets the Alliance races (players' caches). QuestieDB 1.0.14 narrowed it to Dwarf and Gnome (up to 1.0.13: the Alliance), which closed it to Human, Night Elf and Alliance Skyborne."
+		"note": "Camping 101: Leatherworking is open to every Alliance race: Forever's server sets the Alliance races (players' caches). QuestieDB 1.0.14 narrowed it to Dwarf and Gnome (up to 1.0.13: the Alliance), which closed it to Human, Night Elf and Alliance Skyborne. Camping 101: Leatherworking: the objective is to raise Leatherworking to 20 before the trainer takes it, not a talk with the trainer (#1952)."
 	},
 	"96058": {
 		"set": {
-			"races": 4294967373
+			"races": 4294967373,
+			"objectives": [
+				{
+					"type": "event",
+					"id": null,
+					"count": 1,
+					"text": "Raise your engineering skill to 20"
+				}
+			]
 		},
 		"source": [
 			{
@@ -8902,9 +8926,17 @@
 			{
 				"kind": "questie",
 				"ref": "QuestieDB generated Forever base, requiredRaces: ALL_ALLIANCE in 1.0.10 to 1.0.13, DWARF + GNOME in 1.0.14"
+			},
+			{
+				"kind": "eg",
+				"ref": "EG Link live client data (CC BY 4.0): the server's quest record in players' caches, build 1.60.1.70450: one objective, \"Raise your engineering skill to 20\" (a criteria objective, amount 1)"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log listed one objective at the accept, \"Raise your engineering skill to 20\" (x1) (#1952)"
 			}
 		],
-		"note": "Camping 101: Engineering is open to every Alliance race: Forever's server sets the Alliance races (players' caches). QuestieDB 1.0.14 narrowed it to Dwarf and Gnome (up to 1.0.13: the Alliance), which closed it to Human, Night Elf and Alliance Skyborne."
+		"note": "Camping 101: Engineering is open to every Alliance race: Forever's server sets the Alliance races (players' caches). QuestieDB 1.0.14 narrowed it to Dwarf and Gnome (up to 1.0.13: the Alliance), which closed it to Human, Night Elf and Alliance Skyborne. Camping 101: Engineering: the objective is to raise Engineering to 20 before the trainer takes it, not a talk with the trainer (#1952)."
 	},
 	"96658": {
 		"set": {
@@ -9028,7 +9060,15 @@
 	},
 	"97916": {
 		"set": {
-			"races": 4294967373
+			"races": 4294967373,
+			"objectives": [
+				{
+					"type": "event",
+					"id": null,
+					"count": 1,
+					"text": "Raise your blacksmithing skill to 20"
+				}
+			]
 		},
 		"source": [
 			{
@@ -9042,13 +9082,29 @@
 			{
 				"kind": "questie",
 				"ref": "QuestieDB generated Forever base, requiredRaces: ALL_ALLIANCE in 1.0.10 to 1.0.13, NIGHT_ELF in 1.0.14"
+			},
+			{
+				"kind": "eg",
+				"ref": "EG Link live client data (CC BY 4.0): the server's quest record in players' caches, build 1.60.1.70450: one objective, \"Raise your blacksmithing skill to 20\" (a criteria objective, amount 1)"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log listed one objective at the accept, \"Raise your blacksmithing skill to 20\" (x1) (#1952)"
 			}
 		],
-		"note": "Camping 101: Blacksmithing is open to every Alliance race: Forever's server sets the Alliance races (players' caches), and 6 Human players (5 established) took it in recordings. QuestieDB 1.0.14 narrowed it to Night Elf (up to 1.0.13: the Alliance), which closed it to Human, Dwarf, Gnome and Alliance Skyborne."
+		"note": "Camping 101: Blacksmithing is open to every Alliance race: Forever's server sets the Alliance races (players' caches), and 6 Human players (5 established) took it in recordings. QuestieDB 1.0.14 narrowed it to Night Elf (up to 1.0.13: the Alliance), which closed it to Human, Dwarf, Gnome and Alliance Skyborne. Camping 101: Blacksmithing: the objective is to raise Blacksmithing to 20 before the trainer takes it, not a talk with the trainer (#1952)."
 	},
 	"97925": {
 		"set": {
-			"races": 4294967373
+			"races": 4294967373,
+			"objectives": [
+				{
+					"type": "event",
+					"id": null,
+					"count": 1,
+					"text": "Raise your tailoring skill to 20"
+				}
+			]
 		},
 		"source": [
 			{
@@ -9062,13 +9118,29 @@
 			{
 				"kind": "questie",
 				"ref": "QuestieDB generated Forever base, requiredRaces: ALL_ALLIANCE in 1.0.10 to 1.0.13, NIGHT_ELF + GNOME in 1.0.14"
+			},
+			{
+				"kind": "eg",
+				"ref": "EG Link live client data (CC BY 4.0): the server's quest record in players' caches, build 1.60.1.70450: one objective, \"Raise your tailoring skill to 20\" (a criteria objective, amount 1)"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log listed one objective at the accept, \"Raise your tailoring skill to 20\" (x1) (#1952)"
 			}
 		],
-		"note": "Camping 101: Tailoring is open to every Alliance race: Forever's server sets the Alliance races (players' caches), and 7 Human players (5 established) took it in recordings. QuestieDB 1.0.14 narrowed it to Night Elf and Gnome (up to 1.0.13: the Alliance), which closed it to Human, Dwarf and Alliance Skyborne."
+		"note": "Camping 101: Tailoring is open to every Alliance race: Forever's server sets the Alliance races (players' caches), and 7 Human players (5 established) took it in recordings. QuestieDB 1.0.14 narrowed it to Night Elf and Gnome (up to 1.0.13: the Alliance), which closed it to Human, Dwarf and Alliance Skyborne. Camping 101: Tailoring: the objective is to raise Tailoring to 20 before the trainer takes it, not a talk with the trainer (#1952)."
 	},
 	"97961": {
 		"set": {
-			"races": 8589934770
+			"races": 8589934770,
+			"objectives": [
+				{
+					"type": "event",
+					"id": null,
+					"count": 1,
+					"text": "Raise your tailoring skill to 20"
+				}
+			]
 		},
 		"source": [
 			{
@@ -9078,9 +9150,17 @@
 			{
 				"kind": "questie",
 				"ref": "QuestieDB generated Forever base, requiredRaces: ALL_HORDE in 1.0.10 to 1.0.13, UNDEAD + TROLL in 1.0.14"
+			},
+			{
+				"kind": "eg",
+				"ref": "EG Link live client data (CC BY 4.0): the server's quest record in players' caches, build 1.60.1.70450: one objective, \"Raise your tailoring skill to 20\" (a criteria objective, amount 1)"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log listed one objective at the accept, \"Raise your tailoring skill to 20\" (x1) (#1952)"
 			}
 		],
-		"note": "Camping 101: Tailoring is open to every Horde race: Forever's server sets the Horde races (players' caches). QuestieDB 1.0.14 narrowed it to Undead and Troll (up to 1.0.13: the Horde), which closed it to Orc, Tauren and Horde Skyborne."
+		"note": "Camping 101: Tailoring is open to every Horde race: Forever's server sets the Horde races (players' caches). QuestieDB 1.0.14 narrowed it to Undead and Troll (up to 1.0.13: the Horde), which closed it to Orc, Tauren and Horde Skyborne. Camping 101: Tailoring: the objective is to raise Tailoring to 20 before the trainer takes it, not a talk with the trainer (#1952)."
 	},
 	"97977": {
 		"set": {
@@ -9116,7 +9196,15 @@
 	},
 	"98284": {
 		"set": {
-			"races": 8589934770
+			"races": 8589934770,
+			"objectives": [
+				{
+					"type": "event",
+					"id": null,
+					"count": 1,
+					"text": "Raise your enchanting skill to 20"
+				}
+			]
 		},
 		"source": [
 			{
@@ -9126,13 +9214,25 @@
 			{
 				"kind": "questie",
 				"ref": "QuestieDB generated Forever base, requiredRaces: ALL_HORDE in 1.0.10 to 1.0.13, UNDEAD + TAUREN + TROLL in 1.0.14"
+			},
+			{
+				"kind": "eg",
+				"ref": "EG Link live client data (CC BY 4.0): the server's quest record in players' caches, build 1.60.1.70450: one objective, \"Raise your enchanting skill to 20\" (a criteria objective, amount 1)"
 			}
 		],
-		"note": "Camping 101: Enchanting is open to every Horde race: Forever's server sets the Horde races (players' caches). QuestieDB 1.0.14 narrowed it to Undead, Tauren and Troll (up to 1.0.13: the Horde), which closed it to Orc and Horde Skyborne."
+		"note": "Camping 101: Enchanting is open to every Horde race: Forever's server sets the Horde races (players' caches). QuestieDB 1.0.14 narrowed it to Undead, Tauren and Troll (up to 1.0.13: the Horde), which closed it to Orc and Horde Skyborne. Camping 101: Enchanting: the objective is to raise Enchanting to 20 before the trainer takes it, not a talk with the trainer (#1952)."
 	},
 	"98285": {
 		"set": {
-			"races": null
+			"races": null,
+			"objectives": [
+				{
+					"type": "event",
+					"id": null,
+					"count": 1,
+					"text": "Raise your engineering skill to 20"
+				}
+			]
 		},
 		"source": [
 			{
@@ -9142,9 +9242,13 @@
 			{
 				"kind": "questie",
 				"ref": "QuestieDB generated Forever base, requiredRaces: 0 (every race, its reviewed assumption zephras_isle) in 1.0.10 to 1.0.13, TAUREN + SKYBORNE_ALLIANCE in 1.0.14"
+			},
+			{
+				"kind": "eg",
+				"ref": "EG Link live client data (CC BY 4.0): the server's quest record in players' caches, build 1.60.1.70450: one objective, \"Raise your engineering skill to 20\" (a criteria objective, amount 1)"
 			}
 		],
-		"note": "Camping 101: Engineering (Zephras Isle) has no race limit: Forever's server sets no race limit (players' caches). QuestieDB 1.0.14 narrowed it to Tauren and Alliance Skyborne (up to 1.0.13: no race limit), which closed it to the Horde Skyborne who start there."
+		"note": "Camping 101: Engineering (Zephras Isle) has no race limit: Forever's server sets no race limit (players' caches). QuestieDB 1.0.14 narrowed it to Tauren and Alliance Skyborne (up to 1.0.13: no race limit), which closed it to the Horde Skyborne who start there. Camping 101: Engineering: the objective is to raise Engineering to 20 before the trainer takes it, not a talk with the trainer (#1952)."
 	},
 	"98427": {
 		"set": {
@@ -9448,7 +9552,15 @@
 	},
 	"97944": {
 		"set": {
-			"xp": 270
+			"xp": 270,
+			"objectives": [
+				{
+					"type": "event",
+					"id": null,
+					"count": 1,
+					"text": "Raise your herbalism skill to 20"
+				}
+			]
 		},
 		"source": [
 			{
@@ -9458,9 +9570,17 @@
 			{
 				"kind": "questie",
 				"ref": "trace XP table 1.0.13: 270 (player traces, can be 5 off)"
+			},
+			{
+				"kind": "eg",
+				"ref": "EG Link live client data (CC BY 4.0): the server's quest record in players' caches, build 1.60.1.70450: one objective, \"Raise your herbalism skill to 20\" (a criteria objective, amount 1)"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log listed one objective at the accept, \"Raise your herbalism skill to 20\" (x1) (#1952)"
 			}
 		],
-		"note": "Camping 101: Herbalism rewards 270 XP on Forever, as players' hand-ins at a full-XP level show; the data had 220, which skewed the level model."
+		"note": "Camping 101: Herbalism rewards 270 XP on Forever, as players' hand-ins at a full-XP level show; the data had 220, which skewed the level model. Camping 101: Herbalism: the objective is to raise Herbalism to 20 before the trainer takes it, not a talk with the trainer (#1952)."
 	},
 	"98298": {
 		"set": {
@@ -15003,5 +15123,1606 @@
 			}
 		],
 		"note": "Dalaran Patrols (Magus Wordeen Voidglare, Tarren Mill) opens only once both of his first quests are handed in: Prison Break In (544) and Key to the City (93680). QuestieDB, the world DB and Forever's quest data list Prison Break In only, so the City of Dalaran pick-up guide sent players to him for it while Key to the City was still open (#1837)."
+	},
+	"96044": {
+		"set": {
+			"objectives": [
+				{
+					"type": "event",
+					"id": null,
+					"count": 1,
+					"text": "Raise your blacksmithing skill to 20"
+				}
+			]
+		},
+		"source": [
+			{
+				"kind": "eg",
+				"ref": "EG Link live client data (CC BY 4.0): the server's quest record in players' caches, build 1.60.1.70450: one objective, \"Raise your blacksmithing skill to 20\" (a criteria objective, amount 1)"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log listed one objective at the accept, \"Raise your blacksmithing skill to 20\" (x1) (#1952)"
+			}
+		],
+		"note": "Camping 101: Blacksmithing: the objective is to raise Blacksmithing to 20 before the trainer takes it, not a talk with the trainer (#1952)."
+	},
+	"96045": {
+		"set": {
+			"objectives": [
+				{
+					"type": "event",
+					"id": null,
+					"count": 1,
+					"text": "Raise your alchemy skill to 20"
+				}
+			]
+		},
+		"source": [
+			{
+				"kind": "eg",
+				"ref": "EG Link live client data (CC BY 4.0): the server's quest record in players' caches, build 1.60.1.70450: one objective, \"Raise your alchemy skill to 20\" (a criteria objective, amount 1)"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log listed one objective at the accept, \"Raise your alchemy skill to 20\" (x1) (#1952)"
+			}
+		],
+		"note": "Camping 101: Alchemy: the objective is to raise Alchemy to 20 before the trainer takes it, not a talk with the trainer (#1952)."
+	},
+	"96046": {
+		"set": {
+			"objectives": [
+				{
+					"type": "event",
+					"id": null,
+					"count": 1,
+					"text": "Raise your mining skill to 20"
+				}
+			]
+		},
+		"source": [
+			{
+				"kind": "eg",
+				"ref": "EG Link live client data (CC BY 4.0): the server's quest record in players' caches, build 1.60.1.70450: one objective, \"Raise your mining skill to 20\" (a criteria objective, amount 1)"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log listed one objective at the accept, \"Raise your mining skill to 20\" (x1) (#1952)"
+			}
+		],
+		"note": "Camping 101: Mining: the objective is to raise Mining to 20 before the trainer takes it, not a talk with the trainer (#1952)."
+	},
+	"96047": {
+		"set": {
+			"objectives": [
+				{
+					"type": "event",
+					"id": null,
+					"count": 1,
+					"text": "Raise your first aid skill to 20"
+				}
+			]
+		},
+		"source": [
+			{
+				"kind": "eg",
+				"ref": "EG Link live client data (CC BY 4.0): the server's quest record in players' caches, build 1.60.1.70450: one objective, \"Raise your first aid skill to 20\" (a criteria objective, amount 1)"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log listed one objective at the accept, \"Raise your first aid skill to 20\" (x1) (#1952)"
+			}
+		],
+		"note": "Camping 101: First Aid: the objective is to raise First Aid to 20 before the trainer takes it, not a talk with the trainer (#1952)."
+	},
+	"96050": {
+		"set": {
+			"objectives": [
+				{
+					"type": "event",
+					"id": null,
+					"count": 1,
+					"text": "Raise your fishing skill to 20"
+				}
+			]
+		},
+		"source": [
+			{
+				"kind": "eg",
+				"ref": "EG Link live client data (CC BY 4.0): the server's quest record in players' caches, build 1.60.1.70450: one objective, \"Raise your fishing skill to 20\" (a criteria objective, amount 1)"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log listed one objective at the accept, \"Raise your fishing skill to 20\" (x1) (#1952)"
+			}
+		],
+		"note": "Camping 101: Fishing: the objective is to raise Fishing to 20 before the trainer takes it, not a talk with the trainer (#1952)."
+	},
+	"96055": {
+		"set": {
+			"objectives": [
+				{
+					"type": "event",
+					"id": null,
+					"count": 1,
+					"text": "Raise your herbalism skill to 20"
+				}
+			]
+		},
+		"source": [
+			{
+				"kind": "eg",
+				"ref": "EG Link live client data (CC BY 4.0): the server's quest record in players' caches, build 1.60.1.70450: one objective, \"Raise your herbalism skill to 20\" (a criteria objective, amount 1)"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log listed one objective at the accept, \"Raise your herbalism skill to 20\" (x1) (#1952)"
+			}
+		],
+		"note": "Camping 101: Herbalism: the objective is to raise Herbalism to 20 before the trainer takes it, not a talk with the trainer (#1952)."
+	},
+	"96056": {
+		"set": {
+			"objectives": [
+				{
+					"type": "event",
+					"id": null,
+					"count": 1,
+					"text": "Raise your skinning skill to 20"
+				}
+			]
+		},
+		"source": [
+			{
+				"kind": "eg",
+				"ref": "EG Link live client data (CC BY 4.0): the server's quest record in players' caches, build 1.60.1.70450: one objective, \"Raise your skinning skill to 20\" (a criteria objective, amount 1)"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log listed one objective at the accept, \"Raise your skinning skill to 20\" (x1) (#1952)"
+			}
+		],
+		"note": "Camping 101: Skinning: the objective is to raise Skinning to 20 before the trainer takes it, not a talk with the trainer (#1952)."
+	},
+	"96057": {
+		"set": {
+			"objectives": [
+				{
+					"type": "event",
+					"id": null,
+					"count": 1,
+					"text": "Raise your tailoring skill to 20"
+				}
+			]
+		},
+		"source": [
+			{
+				"kind": "eg",
+				"ref": "EG Link live client data (CC BY 4.0): the server's quest record in players' caches, build 1.60.1.70450: one objective, \"Raise your tailoring skill to 20\" (a criteria objective, amount 1)"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log listed one objective at the accept, \"Raise your tailoring skill to 20\" (x1) (#1952)"
+			}
+		],
+		"note": "Camping 101: Tailoring: the objective is to raise Tailoring to 20 before the trainer takes it, not a talk with the trainer (#1952)."
+	},
+	"96059": {
+		"set": {
+			"objectives": [
+				{
+					"type": "event",
+					"id": null,
+					"count": 1,
+					"text": "Raise your enchanting skill to 20"
+				}
+			]
+		},
+		"source": [
+			{
+				"kind": "eg",
+				"ref": "EG Link live client data (CC BY 4.0): the server's quest record in players' caches, build 1.60.1.70450: one objective, \"Raise your enchanting skill to 20\" (a criteria objective, amount 1)"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log listed one objective at the accept, \"Raise your enchanting skill to 20\" (x1) (#1952)"
+			}
+		],
+		"note": "Camping 101: Enchanting: the objective is to raise Enchanting to 20 before the trainer takes it, not a talk with the trainer (#1952)."
+	},
+	"96102": {
+		"set": {
+			"objectives": [
+				{
+					"type": "event",
+					"id": null,
+					"count": 1,
+					"text": "Raise your tailoring skill to 20"
+				}
+			]
+		},
+		"source": [
+			{
+				"kind": "eg",
+				"ref": "EG Link live client data (CC BY 4.0): the server's quest record in players' caches, build 1.60.1.70450: one objective, \"Raise your tailoring skill to 20\" (a criteria objective, amount 1)"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log listed one objective at the accept, \"Raise your tailoring skill to 20\" (x1) (#1952)"
+			}
+		],
+		"note": "Camping 101: Tailoring: the objective is to raise Tailoring to 20 before the trainer takes it, not a talk with the trainer (#1952)."
+	},
+	"97899": {
+		"set": {
+			"objectives": [
+				{
+					"type": "event",
+					"id": null,
+					"count": 1,
+					"text": "Raise your alchemy skill to 20"
+				}
+			]
+		},
+		"source": [
+			{
+				"kind": "eg",
+				"ref": "EG Link live client data (CC BY 4.0): the server's quest record in players' caches, build 1.60.1.70450: one objective, \"Raise your alchemy skill to 20\" (a criteria objective, amount 1)"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log listed one objective at the accept, \"Raise your alchemy skill to 20\" (x1) (#1952)"
+			}
+		],
+		"note": "Camping 101: Alchemy: the objective is to raise Alchemy to 20 before the trainer takes it, not a talk with the trainer (#1952)."
+	},
+	"97900": {
+		"set": {
+			"objectives": [
+				{
+					"type": "event",
+					"id": null,
+					"count": 1,
+					"text": "Raise your blacksmithing skill to 20"
+				}
+			]
+		},
+		"source": [
+			{
+				"kind": "eg",
+				"ref": "EG Link live client data (CC BY 4.0): the server's quest record in players' caches, build 1.60.1.70450: one objective, \"Raise your blacksmithing skill to 20\" (a criteria objective, amount 1)"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log listed one objective at the accept, \"Raise your blacksmithing skill to 20\" (x1) (#1952)"
+			}
+		],
+		"note": "Camping 101: Blacksmithing: the objective is to raise Blacksmithing to 20 before the trainer takes it, not a talk with the trainer (#1952)."
+	},
+	"97901": {
+		"set": {
+			"objectives": [
+				{
+					"type": "event",
+					"id": null,
+					"count": 1,
+					"text": "Raise your enchanting skill to 20"
+				}
+			]
+		},
+		"source": [
+			{
+				"kind": "eg",
+				"ref": "EG Link live client data (CC BY 4.0): the server's quest record in players' caches, build 1.60.1.70450: one objective, \"Raise your enchanting skill to 20\" (a criteria objective, amount 1)"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log listed one objective at the accept, \"Raise your enchanting skill to 20\" (x1) (#1952)"
+			}
+		],
+		"note": "Camping 101: Enchanting: the objective is to raise Enchanting to 20 before the trainer takes it, not a talk with the trainer (#1952)."
+	},
+	"97902": {
+		"set": {
+			"objectives": [
+				{
+					"type": "event",
+					"id": null,
+					"count": 1,
+					"text": "Raise your engineering skill to 20"
+				}
+			]
+		},
+		"source": [
+			{
+				"kind": "eg",
+				"ref": "EG Link live client data (CC BY 4.0): the server's quest record in players' caches, build 1.60.1.70450: one objective, \"Raise your engineering skill to 20\" (a criteria objective, amount 1)"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log listed one objective at the accept, \"Raise your engineering skill to 20\" (x1) (#1952)"
+			}
+		],
+		"note": "Camping 101: Engineering: the objective is to raise Engineering to 20 before the trainer takes it, not a talk with the trainer (#1952)."
+	},
+	"97904": {
+		"set": {
+			"objectives": [
+				{
+					"type": "event",
+					"id": null,
+					"count": 1,
+					"text": "Raise your fishing skill to 20"
+				}
+			]
+		},
+		"source": [
+			{
+				"kind": "eg",
+				"ref": "EG Link live client data (CC BY 4.0): the server's quest record in players' caches, build 1.60.1.70450: one objective, \"Raise your fishing skill to 20\" (a criteria objective, amount 1)"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log listed one objective at the accept, \"Raise your fishing skill to 20\" (x1) (#1952)"
+			}
+		],
+		"note": "Camping 101: Fishing: the objective is to raise Fishing to 20 before the trainer takes it, not a talk with the trainer (#1952)."
+	},
+	"97905": {
+		"set": {
+			"objectives": [
+				{
+					"type": "event",
+					"id": null,
+					"count": 1,
+					"text": "Raise your herbalism skill to 20"
+				}
+			]
+		},
+		"source": [
+			{
+				"kind": "eg",
+				"ref": "EG Link live client data (CC BY 4.0): the server's quest record in players' caches, build 1.60.1.70450: one objective, \"Raise your herbalism skill to 20\" (a criteria objective, amount 1)"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log listed one objective at the accept, \"Raise your herbalism skill to 20\" (x1) (#1952)"
+			}
+		],
+		"note": "Camping 101: Herbalism: the objective is to raise Herbalism to 20 before the trainer takes it, not a talk with the trainer (#1952)."
+	},
+	"97906": {
+		"set": {
+			"objectives": [
+				{
+					"type": "event",
+					"id": null,
+					"count": 1,
+					"text": "Raise your leatherworking skill to 20"
+				}
+			]
+		},
+		"source": [
+			{
+				"kind": "eg",
+				"ref": "EG Link live client data (CC BY 4.0): the server's quest record in players' caches, build 1.60.1.70450: one objective, \"Raise your leatherworking skill to 20\" (a criteria objective, amount 1)"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log listed one objective at the accept, \"Raise your leatherworking skill to 20\" (x1) (#1952)"
+			}
+		],
+		"note": "Camping 101: Leatherworking: the objective is to raise Leatherworking to 20 before the trainer takes it, not a talk with the trainer (#1952)."
+	},
+	"97907": {
+		"set": {
+			"objectives": [
+				{
+					"type": "event",
+					"id": null,
+					"count": 1,
+					"text": "Raise your mining skill to 20"
+				}
+			]
+		},
+		"source": [
+			{
+				"kind": "eg",
+				"ref": "EG Link live client data (CC BY 4.0): the server's quest record in players' caches, build 1.60.1.70450: one objective, \"Raise your mining skill to 20\" (a criteria objective, amount 1)"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log listed one objective at the accept, \"Raise your mining skill to 20\" (x1) (#1952)"
+			}
+		],
+		"note": "Camping 101: Mining: the objective is to raise Mining to 20 before the trainer takes it, not a talk with the trainer (#1952)."
+	},
+	"97908": {
+		"set": {
+			"objectives": [
+				{
+					"type": "event",
+					"id": null,
+					"count": 1,
+					"text": "Raise your skinning skill to 20"
+				}
+			]
+		},
+		"source": [
+			{
+				"kind": "eg",
+				"ref": "EG Link live client data (CC BY 4.0): the server's quest record in players' caches, build 1.60.1.70450: one objective, \"Raise your skinning skill to 20\" (a criteria objective, amount 1)"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log listed one objective at the accept, \"Raise your skinning skill to 20\" (x1) (#1952)"
+			}
+		],
+		"note": "Camping 101: Skinning: the objective is to raise Skinning to 20 before the trainer takes it, not a talk with the trainer (#1952)."
+	},
+	"97915": {
+		"set": {
+			"objectives": [
+				{
+					"type": "event",
+					"id": null,
+					"count": 1,
+					"text": "Raise your alchemy skill to 20"
+				}
+			]
+		},
+		"source": [
+			{
+				"kind": "eg",
+				"ref": "EG Link live client data (CC BY 4.0): the server's quest record in players' caches, build 1.60.1.70450: one objective, \"Raise your alchemy skill to 20\" (a criteria objective, amount 1)"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log listed one objective at the accept, \"Raise your alchemy skill to 20\" (x1) (#1952)"
+			}
+		],
+		"note": "Camping 101: Alchemy: the objective is to raise Alchemy to 20 before the trainer takes it, not a talk with the trainer (#1952)."
+	},
+	"97917": {
+		"set": {
+			"objectives": [
+				{
+					"type": "event",
+					"id": null,
+					"count": 1,
+					"text": "Raise your enchanting skill to 20"
+				}
+			]
+		},
+		"source": [
+			{
+				"kind": "eg",
+				"ref": "EG Link live client data (CC BY 4.0): the server's quest record in players' caches, build 1.60.1.70450: one objective, \"Raise your enchanting skill to 20\" (a criteria objective, amount 1)"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log listed one objective at the accept, \"Raise your enchanting skill to 20\" (x1) (#1952)"
+			}
+		],
+		"note": "Camping 101: Enchanting: the objective is to raise Enchanting to 20 before the trainer takes it, not a talk with the trainer (#1952)."
+	},
+	"97918": {
+		"set": {
+			"objectives": [
+				{
+					"type": "event",
+					"id": null,
+					"count": 1,
+					"text": "Raise your engineering skill to 20"
+				}
+			]
+		},
+		"source": [
+			{
+				"kind": "eg",
+				"ref": "EG Link live client data (CC BY 4.0): the server's quest record in players' caches, build 1.60.1.70450: one objective, \"Raise your engineering skill to 20\" (a criteria objective, amount 1)"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log listed one objective at the accept, \"Raise your engineering skill to 20\" (x1) (#1952)"
+			}
+		],
+		"note": "Camping 101: Engineering: the objective is to raise Engineering to 20 before the trainer takes it, not a talk with the trainer (#1952)."
+	},
+	"97919": {
+		"set": {
+			"objectives": [
+				{
+					"type": "event",
+					"id": null,
+					"count": 1,
+					"text": "Raise your first aid skill to 20"
+				}
+			]
+		},
+		"source": [
+			{
+				"kind": "eg",
+				"ref": "EG Link live client data (CC BY 4.0): the server's quest record in players' caches, build 1.60.1.70450: one objective, \"Raise your first aid skill to 20\" (a criteria objective, amount 1)"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log listed one objective at the accept, \"Raise your first aid skill to 20\" (x1) (#1952)"
+			}
+		],
+		"note": "Camping 101: First Aid: the objective is to raise First Aid to 20 before the trainer takes it, not a talk with the trainer (#1952)."
+	},
+	"97920": {
+		"set": {
+			"objectives": [
+				{
+					"type": "event",
+					"id": null,
+					"count": 1,
+					"text": "Raise your fishing skill to 20"
+				}
+			]
+		},
+		"source": [
+			{
+				"kind": "eg",
+				"ref": "EG Link live client data (CC BY 4.0): the server's quest record in players' caches, build 1.60.1.70450: one objective, \"Raise your fishing skill to 20\" (a criteria objective, amount 1)"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log listed one objective at the accept, \"Raise your fishing skill to 20\" (x1) (#1952)"
+			}
+		],
+		"note": "Camping 101: Fishing: the objective is to raise Fishing to 20 before the trainer takes it, not a talk with the trainer (#1952)."
+	},
+	"97921": {
+		"set": {
+			"objectives": [
+				{
+					"type": "event",
+					"id": null,
+					"count": 1,
+					"text": "Raise your herbalism skill to 20"
+				}
+			]
+		},
+		"source": [
+			{
+				"kind": "eg",
+				"ref": "EG Link live client data (CC BY 4.0): the server's quest record in players' caches, build 1.60.1.70450: one objective, \"Raise your herbalism skill to 20\" (a criteria objective, amount 1)"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log listed one objective at the accept, \"Raise your herbalism skill to 20\" (x1) (#1952)"
+			}
+		],
+		"note": "Camping 101: Herbalism: the objective is to raise Herbalism to 20 before the trainer takes it, not a talk with the trainer (#1952)."
+	},
+	"97922": {
+		"set": {
+			"objectives": [
+				{
+					"type": "event",
+					"id": null,
+					"count": 1,
+					"text": "Raise your leatherworking skill to 20"
+				}
+			]
+		},
+		"source": [
+			{
+				"kind": "eg",
+				"ref": "EG Link live client data (CC BY 4.0): the server's quest record in players' caches, build 1.60.1.70450: one objective, \"Raise your leatherworking skill to 20\" (a criteria objective, amount 1)"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log listed one objective at the accept, \"Raise your leatherworking skill to 20\" (x1) (#1952)"
+			}
+		],
+		"note": "Camping 101: Leatherworking: the objective is to raise Leatherworking to 20 before the trainer takes it, not a talk with the trainer (#1952)."
+	},
+	"97923": {
+		"set": {
+			"objectives": [
+				{
+					"type": "event",
+					"id": null,
+					"count": 1,
+					"text": "Raise your mining skill to 20"
+				}
+			]
+		},
+		"source": [
+			{
+				"kind": "eg",
+				"ref": "EG Link live client data (CC BY 4.0): the server's quest record in players' caches, build 1.60.1.70450: one objective, \"Raise your mining skill to 20\" (a criteria objective, amount 1)"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log listed one objective at the accept, \"Raise your mining skill to 20\" (x1) (#1952)"
+			}
+		],
+		"note": "Camping 101: Mining: the objective is to raise Mining to 20 before the trainer takes it, not a talk with the trainer (#1952)."
+	},
+	"97924": {
+		"set": {
+			"objectives": [
+				{
+					"type": "event",
+					"id": null,
+					"count": 1,
+					"text": "Raise your skinning skill to 20"
+				}
+			]
+		},
+		"source": [
+			{
+				"kind": "eg",
+				"ref": "EG Link live client data (CC BY 4.0): the server's quest record in players' caches, build 1.60.1.70450: one objective, \"Raise your skinning skill to 20\" (a criteria objective, amount 1)"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log listed one objective at the accept, \"Raise your skinning skill to 20\" (x1) (#1952)"
+			}
+		],
+		"note": "Camping 101: Skinning: the objective is to raise Skinning to 20 before the trainer takes it, not a talk with the trainer (#1952)."
+	},
+	"97927": {
+		"set": {
+			"objectives": [
+				{
+					"type": "event",
+					"id": null,
+					"count": 1,
+					"text": "Raise your alchemy skill to 20"
+				}
+			]
+		},
+		"source": [
+			{
+				"kind": "eg",
+				"ref": "EG Link live client data (CC BY 4.0): the server's quest record in players' caches, build 1.60.1.70450: one objective, \"Raise your alchemy skill to 20\" (a criteria objective, amount 1)"
+			}
+		],
+		"note": "Camping 101: Alchemy: the objective is to raise Alchemy to 20 before the trainer takes it, not a talk with the trainer (#1952)."
+	},
+	"97928": {
+		"set": {
+			"objectives": [
+				{
+					"type": "event",
+					"id": null,
+					"count": 1,
+					"text": "Raise your blacksmithing skill to 20"
+				}
+			]
+		},
+		"source": [
+			{
+				"kind": "eg",
+				"ref": "EG Link live client data (CC BY 4.0): the server's quest record in players' caches, build 1.60.1.70450: one objective, \"Raise your blacksmithing skill to 20\" (a criteria objective, amount 1)"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log listed one objective at the accept, \"Raise your blacksmithing skill to 20\" (x1) (#1952)"
+			}
+		],
+		"note": "Camping 101: Blacksmithing: the objective is to raise Blacksmithing to 20 before the trainer takes it, not a talk with the trainer (#1952)."
+	},
+	"97929": {
+		"set": {
+			"objectives": [
+				{
+					"type": "event",
+					"id": null,
+					"count": 1,
+					"text": "Raise your enchanting skill to 20"
+				}
+			]
+		},
+		"source": [
+			{
+				"kind": "eg",
+				"ref": "EG Link live client data (CC BY 4.0): the server's quest record in players' caches, build 1.60.1.70450: one objective, \"Raise your enchanting skill to 20\" (a criteria objective, amount 1)"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log listed one objective at the accept, \"Raise your enchanting skill to 20\" (x1) (#1952)"
+			}
+		],
+		"note": "Camping 101: Enchanting: the objective is to raise Enchanting to 20 before the trainer takes it, not a talk with the trainer (#1952)."
+	},
+	"97930": {
+		"set": {
+			"objectives": [
+				{
+					"type": "event",
+					"id": null,
+					"count": 1,
+					"text": "Raise your engineering skill to 20"
+				}
+			]
+		},
+		"source": [
+			{
+				"kind": "eg",
+				"ref": "EG Link live client data (CC BY 4.0): the server's quest record in players' caches, build 1.60.1.70450: one objective, \"Raise your engineering skill to 20\" (a criteria objective, amount 1)"
+			}
+		],
+		"note": "Camping 101: Engineering: the objective is to raise Engineering to 20 before the trainer takes it, not a talk with the trainer (#1952)."
+	},
+	"97931": {
+		"set": {
+			"objectives": [
+				{
+					"type": "event",
+					"id": null,
+					"count": 1,
+					"text": "Raise your first aid skill to 20"
+				}
+			]
+		},
+		"source": [
+			{
+				"kind": "eg",
+				"ref": "EG Link live client data (CC BY 4.0): the server's quest record in players' caches, build 1.60.1.70450: one objective, \"Raise your first aid skill to 20\" (a criteria objective, amount 1)"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log listed one objective at the accept, \"Raise your first aid skill to 20\" (x1) (#1952)"
+			}
+		],
+		"note": "Camping 101: First Aid: the objective is to raise First Aid to 20 before the trainer takes it, not a talk with the trainer (#1952)."
+	},
+	"97932": {
+		"set": {
+			"objectives": [
+				{
+					"type": "event",
+					"id": null,
+					"count": 1,
+					"text": "Raise your fishing skill to 20"
+				}
+			]
+		},
+		"source": [
+			{
+				"kind": "eg",
+				"ref": "EG Link live client data (CC BY 4.0): the server's quest record in players' caches, build 1.60.1.70450: one objective, \"Raise your fishing skill to 20\" (a criteria objective, amount 1)"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log listed one objective at the accept, \"Raise your fishing skill to 20\" (x1) (#1952)"
+			}
+		],
+		"note": "Camping 101: Fishing: the objective is to raise Fishing to 20 before the trainer takes it, not a talk with the trainer (#1952)."
+	},
+	"97933": {
+		"set": {
+			"objectives": [
+				{
+					"type": "event",
+					"id": null,
+					"count": 1,
+					"text": "Raise your herbalism skill to 20"
+				}
+			]
+		},
+		"source": [
+			{
+				"kind": "eg",
+				"ref": "EG Link live client data (CC BY 4.0): the server's quest record in players' caches, build 1.60.1.70450: one objective, \"Raise your herbalism skill to 20\" (a criteria objective, amount 1)"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log listed one objective at the accept, \"Raise your herbalism skill to 20\" (x1) (#1952)"
+			}
+		],
+		"note": "Camping 101: Herbalism: the objective is to raise Herbalism to 20 before the trainer takes it, not a talk with the trainer (#1952)."
+	},
+	"97934": {
+		"set": {
+			"objectives": [
+				{
+					"type": "event",
+					"id": null,
+					"count": 1,
+					"text": "Raise your leatherworking skill to 20"
+				}
+			]
+		},
+		"source": [
+			{
+				"kind": "eg",
+				"ref": "EG Link live client data (CC BY 4.0): the server's quest record in players' caches, build 1.60.1.70450: one objective, \"Raise your leatherworking skill to 20\" (a criteria objective, amount 1)"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log listed one objective at the accept, \"Raise your leatherworking skill to 20\" (x1) (#1952)"
+			}
+		],
+		"note": "Camping 101: Leatherworking: the objective is to raise Leatherworking to 20 before the trainer takes it, not a talk with the trainer (#1952)."
+	},
+	"97935": {
+		"set": {
+			"objectives": [
+				{
+					"type": "event",
+					"id": null,
+					"count": 1,
+					"text": "Raise your mining skill to 20"
+				}
+			]
+		},
+		"source": [
+			{
+				"kind": "eg",
+				"ref": "EG Link live client data (CC BY 4.0): the server's quest record in players' caches, build 1.60.1.70450: one objective, \"Raise your mining skill to 20\" (a criteria objective, amount 1)"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log listed one objective at the accept, \"Raise your mining skill to 20\" (x1) (#1952)"
+			}
+		],
+		"note": "Camping 101: Mining: the objective is to raise Mining to 20 before the trainer takes it, not a talk with the trainer (#1952)."
+	},
+	"97936": {
+		"set": {
+			"objectives": [
+				{
+					"type": "event",
+					"id": null,
+					"count": 1,
+					"text": "Raise your skinning skill to 20"
+				}
+			]
+		},
+		"source": [
+			{
+				"kind": "eg",
+				"ref": "EG Link live client data (CC BY 4.0): the server's quest record in players' caches, build 1.60.1.70450: one objective, \"Raise your skinning skill to 20\" (a criteria objective, amount 1)"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log listed one objective at the accept, \"Raise your skinning skill to 20\" (x1) (#1952)"
+			}
+		],
+		"note": "Camping 101: Skinning: the objective is to raise Skinning to 20 before the trainer takes it, not a talk with the trainer (#1952)."
+	},
+	"97937": {
+		"set": {
+			"objectives": [
+				{
+					"type": "event",
+					"id": null,
+					"count": 1,
+					"text": "Raise your tailoring skill to 20"
+				}
+			]
+		},
+		"source": [
+			{
+				"kind": "eg",
+				"ref": "EG Link live client data (CC BY 4.0): the server's quest record in players' caches, build 1.60.1.70450: one objective, \"Raise your tailoring skill to 20\" (a criteria objective, amount 1)"
+			}
+		],
+		"note": "Camping 101: Tailoring: the objective is to raise Tailoring to 20 before the trainer takes it, not a talk with the trainer (#1952)."
+	},
+	"97938": {
+		"set": {
+			"objectives": [
+				{
+					"type": "event",
+					"id": null,
+					"count": 1,
+					"text": "Raise your alchemy skill to 20"
+				}
+			]
+		},
+		"source": [
+			{
+				"kind": "eg",
+				"ref": "EG Link live client data (CC BY 4.0): the server's quest record in players' caches, build 1.60.1.70450: one objective, \"Raise your alchemy skill to 20\" (a criteria objective, amount 1)"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log listed one objective at the accept, \"Raise your alchemy skill to 20\" (x1) (#1952)"
+			}
+		],
+		"note": "Camping 101: Alchemy: the objective is to raise Alchemy to 20 before the trainer takes it, not a talk with the trainer (#1952)."
+	},
+	"97939": {
+		"set": {
+			"objectives": [
+				{
+					"type": "event",
+					"id": null,
+					"count": 1,
+					"text": "Raise your blacksmithing skill to 20"
+				}
+			]
+		},
+		"source": [
+			{
+				"kind": "eg",
+				"ref": "EG Link live client data (CC BY 4.0): the server's quest record in players' caches, build 1.60.1.70450: one objective, \"Raise your blacksmithing skill to 20\" (a criteria objective, amount 1)"
+			}
+		],
+		"note": "Camping 101: Blacksmithing: the objective is to raise Blacksmithing to 20 before the trainer takes it, not a talk with the trainer (#1952)."
+	},
+	"97940": {
+		"set": {
+			"objectives": [
+				{
+					"type": "event",
+					"id": null,
+					"count": 1,
+					"text": "Raise your enchanting skill to 20"
+				}
+			]
+		},
+		"source": [
+			{
+				"kind": "eg",
+				"ref": "EG Link live client data (CC BY 4.0): the server's quest record in players' caches, build 1.60.1.70450: one objective, \"Raise your enchanting skill to 20\" (a criteria objective, amount 1)"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log listed one objective at the accept, \"Raise your enchanting skill to 20\" (x1) (#1952)"
+			}
+		],
+		"note": "Camping 101: Enchanting: the objective is to raise Enchanting to 20 before the trainer takes it, not a talk with the trainer (#1952)."
+	},
+	"97941": {
+		"set": {
+			"objectives": [
+				{
+					"type": "event",
+					"id": null,
+					"count": 1,
+					"text": "Raise your engineering skill to 20"
+				}
+			]
+		},
+		"source": [
+			{
+				"kind": "eg",
+				"ref": "EG Link live client data (CC BY 4.0): the server's quest record in players' caches, build 1.60.1.70450: one objective, \"Raise your engineering skill to 20\" (a criteria objective, amount 1)"
+			}
+		],
+		"note": "Camping 101: Engineering: the objective is to raise Engineering to 20 before the trainer takes it, not a talk with the trainer (#1952)."
+	},
+	"97942": {
+		"set": {
+			"objectives": [
+				{
+					"type": "event",
+					"id": null,
+					"count": 1,
+					"text": "Raise your first aid skill to 20"
+				}
+			]
+		},
+		"source": [
+			{
+				"kind": "eg",
+				"ref": "EG Link live client data (CC BY 4.0): the server's quest record in players' caches, build 1.60.1.70450: one objective, \"Raise your first aid skill to 20\" (a criteria objective, amount 1)"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log listed one objective at the accept, \"Raise your first aid skill to 20\" (x1) (#1952)"
+			}
+		],
+		"note": "Camping 101: First Aid: the objective is to raise First Aid to 20 before the trainer takes it, not a talk with the trainer (#1952)."
+	},
+	"97943": {
+		"set": {
+			"objectives": [
+				{
+					"type": "event",
+					"id": null,
+					"count": 1,
+					"text": "Raise your fishing skill to 20"
+				}
+			]
+		},
+		"source": [
+			{
+				"kind": "eg",
+				"ref": "EG Link live client data (CC BY 4.0): the server's quest record in players' caches, build 1.60.1.70450: one objective, \"Raise your fishing skill to 20\" (a criteria objective, amount 1)"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log listed one objective at the accept, \"Raise your fishing skill to 20\" (x1) (#1952)"
+			}
+		],
+		"note": "Camping 101: Fishing: the objective is to raise Fishing to 20 before the trainer takes it, not a talk with the trainer (#1952)."
+	},
+	"97946": {
+		"set": {
+			"objectives": [
+				{
+					"type": "event",
+					"id": null,
+					"count": 1,
+					"text": "Raise your leatherworking skill to 20"
+				}
+			]
+		},
+		"source": [
+			{
+				"kind": "eg",
+				"ref": "EG Link live client data (CC BY 4.0): the server's quest record in players' caches, build 1.60.1.70450: one objective, \"Raise your leatherworking skill to 20\" (a criteria objective, amount 1)"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log listed one objective at the accept, \"Raise your leatherworking skill to 20\" (x1) (#1952)"
+			}
+		],
+		"note": "Camping 101: Leatherworking: the objective is to raise Leatherworking to 20 before the trainer takes it, not a talk with the trainer (#1952)."
+	},
+	"97948": {
+		"set": {
+			"objectives": [
+				{
+					"type": "event",
+					"id": null,
+					"count": 1,
+					"text": "Raise your mining skill to 20"
+				}
+			]
+		},
+		"source": [
+			{
+				"kind": "eg",
+				"ref": "EG Link live client data (CC BY 4.0): the server's quest record in players' caches, build 1.60.1.70450: one objective, \"Raise your mining skill to 20\" (a criteria objective, amount 1)"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log listed one objective at the accept, \"Raise your mining skill to 20\" (x1) (#1952)"
+			}
+		],
+		"note": "Camping 101: Mining: the objective is to raise Mining to 20 before the trainer takes it, not a talk with the trainer (#1952)."
+	},
+	"97949": {
+		"set": {
+			"objectives": [
+				{
+					"type": "event",
+					"id": null,
+					"count": 1,
+					"text": "Raise your skinning skill to 20"
+				}
+			]
+		},
+		"source": [
+			{
+				"kind": "eg",
+				"ref": "EG Link live client data (CC BY 4.0): the server's quest record in players' caches, build 1.60.1.70450: one objective, \"Raise your skinning skill to 20\" (a criteria objective, amount 1)"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log listed one objective at the accept, \"Raise your skinning skill to 20\" (x1) (#1952)"
+			}
+		],
+		"note": "Camping 101: Skinning: the objective is to raise Skinning to 20 before the trainer takes it, not a talk with the trainer (#1952)."
+	},
+	"97950": {
+		"set": {
+			"objectives": [
+				{
+					"type": "event",
+					"id": null,
+					"count": 1,
+					"text": "Raise your tailoring skill to 20"
+				}
+			]
+		},
+		"source": [
+			{
+				"kind": "eg",
+				"ref": "EG Link live client data (CC BY 4.0): the server's quest record in players' caches, build 1.60.1.70450: one objective, \"Raise your tailoring skill to 20\" (a criteria objective, amount 1)"
+			}
+		],
+		"note": "Camping 101: Tailoring: the objective is to raise Tailoring to 20 before the trainer takes it, not a talk with the trainer (#1952)."
+	},
+	"97951": {
+		"set": {
+			"objectives": [
+				{
+					"type": "event",
+					"id": null,
+					"count": 1,
+					"text": "Raise your alchemy skill to 20"
+				}
+			]
+		},
+		"source": [
+			{
+				"kind": "eg",
+				"ref": "EG Link live client data (CC BY 4.0): the server's quest record in players' caches, build 1.60.1.70450: one objective, \"Raise your alchemy skill to 20\" (a criteria objective, amount 1)"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log listed one objective at the accept, \"Raise your alchemy skill to 20\" (x1) (#1952)"
+			}
+		],
+		"note": "Camping 101: Alchemy: the objective is to raise Alchemy to 20 before the trainer takes it, not a talk with the trainer (#1952)."
+	},
+	"97952": {
+		"set": {
+			"objectives": [
+				{
+					"type": "event",
+					"id": null,
+					"count": 1,
+					"text": "Raise your blacksmithing skill to 20"
+				}
+			]
+		},
+		"source": [
+			{
+				"kind": "eg",
+				"ref": "EG Link live client data (CC BY 4.0): the server's quest record in players' caches, build 1.60.1.70450: one objective, \"Raise your blacksmithing skill to 20\" (a criteria objective, amount 1)"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log listed one objective at the accept, \"Raise your blacksmithing skill to 20\" (x1) (#1952)"
+			}
+		],
+		"note": "Camping 101: Blacksmithing: the objective is to raise Blacksmithing to 20 before the trainer takes it, not a talk with the trainer (#1952)."
+	},
+	"97953": {
+		"set": {
+			"objectives": [
+				{
+					"type": "event",
+					"id": null,
+					"count": 1,
+					"text": "Raise your enchanting skill to 20"
+				}
+			]
+		},
+		"source": [
+			{
+				"kind": "eg",
+				"ref": "EG Link live client data (CC BY 4.0): the server's quest record in players' caches, build 1.60.1.70450: one objective, \"Raise your enchanting skill to 20\" (a criteria objective, amount 1)"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log listed one objective at the accept, \"Raise your enchanting skill to 20\" (x1) (#1952)"
+			}
+		],
+		"note": "Camping 101: Enchanting: the objective is to raise Enchanting to 20 before the trainer takes it, not a talk with the trainer (#1952)."
+	},
+	"97954": {
+		"set": {
+			"objectives": [
+				{
+					"type": "event",
+					"id": null,
+					"count": 1,
+					"text": "Raise your engineering skill to 20"
+				}
+			]
+		},
+		"source": [
+			{
+				"kind": "eg",
+				"ref": "EG Link live client data (CC BY 4.0): the server's quest record in players' caches, build 1.60.1.70450: one objective, \"Raise your engineering skill to 20\" (a criteria objective, amount 1)"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log listed one objective at the accept, \"Raise your engineering skill to 20\" (x1) (#1952)"
+			}
+		],
+		"note": "Camping 101: Engineering: the objective is to raise Engineering to 20 before the trainer takes it, not a talk with the trainer (#1952)."
+	},
+	"97955": {
+		"set": {
+			"objectives": [
+				{
+					"type": "event",
+					"id": null,
+					"count": 1,
+					"text": "Raise your first aid skill to 20"
+				}
+			]
+		},
+		"source": [
+			{
+				"kind": "eg",
+				"ref": "EG Link live client data (CC BY 4.0): the server's quest record in players' caches, build 1.60.1.70450: one objective, \"Raise your first aid skill to 20\" (a criteria objective, amount 1)"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log listed one objective at the accept, \"Raise your first aid skill to 20\" (x1) (#1952)"
+			}
+		],
+		"note": "Camping 101: First Aid: the objective is to raise First Aid to 20 before the trainer takes it, not a talk with the trainer (#1952)."
+	},
+	"97956": {
+		"set": {
+			"objectives": [
+				{
+					"type": "event",
+					"id": null,
+					"count": 1,
+					"text": "Raise your fishing skill to 20"
+				}
+			]
+		},
+		"source": [
+			{
+				"kind": "eg",
+				"ref": "EG Link live client data (CC BY 4.0): the server's quest record in players' caches, build 1.60.1.70450: one objective, \"Raise your fishing skill to 20\" (a criteria objective, amount 1)"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log listed one objective at the accept, \"Raise your fishing skill to 20\" (x1) (#1952)"
+			}
+		],
+		"note": "Camping 101: Fishing: the objective is to raise Fishing to 20 before the trainer takes it, not a talk with the trainer (#1952)."
+	},
+	"97957": {
+		"set": {
+			"objectives": [
+				{
+					"type": "event",
+					"id": null,
+					"count": 1,
+					"text": "Raise your herbalism skill to 20"
+				}
+			]
+		},
+		"source": [
+			{
+				"kind": "eg",
+				"ref": "EG Link live client data (CC BY 4.0): the server's quest record in players' caches, build 1.60.1.70450: one objective, \"Raise your herbalism skill to 20\" (a criteria objective, amount 1)"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log listed one objective at the accept, \"Raise your herbalism skill to 20\" (x1) (#1952)"
+			}
+		],
+		"note": "Camping 101: Herbalism: the objective is to raise Herbalism to 20 before the trainer takes it, not a talk with the trainer (#1952)."
+	},
+	"97958": {
+		"set": {
+			"objectives": [
+				{
+					"type": "event",
+					"id": null,
+					"count": 1,
+					"text": "Raise your leatherworking skill to 20"
+				}
+			]
+		},
+		"source": [
+			{
+				"kind": "eg",
+				"ref": "EG Link live client data (CC BY 4.0): the server's quest record in players' caches, build 1.60.1.70450: one objective, \"Raise your leatherworking skill to 20\" (a criteria objective, amount 1)"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log listed one objective at the accept, \"Raise your leatherworking skill to 20\" (x1) (#1952)"
+			}
+		],
+		"note": "Camping 101: Leatherworking: the objective is to raise Leatherworking to 20 before the trainer takes it, not a talk with the trainer (#1952)."
+	},
+	"97959": {
+		"set": {
+			"objectives": [
+				{
+					"type": "event",
+					"id": null,
+					"count": 1,
+					"text": "Raise your mining skill to 20"
+				}
+			]
+		},
+		"source": [
+			{
+				"kind": "eg",
+				"ref": "EG Link live client data (CC BY 4.0): the server's quest record in players' caches, build 1.60.1.70450: one objective, \"Raise your mining skill to 20\" (a criteria objective, amount 1)"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log listed one objective at the accept, \"Raise your mining skill to 20\" (x1) (#1952)"
+			}
+		],
+		"note": "Camping 101: Mining: the objective is to raise Mining to 20 before the trainer takes it, not a talk with the trainer (#1952)."
+	},
+	"97960": {
+		"set": {
+			"objectives": [
+				{
+					"type": "event",
+					"id": null,
+					"count": 1,
+					"text": "Raise your skinning skill to 20"
+				}
+			]
+		},
+		"source": [
+			{
+				"kind": "eg",
+				"ref": "EG Link live client data (CC BY 4.0): the server's quest record in players' caches, build 1.60.1.70450: one objective, \"Raise your skinning skill to 20\" (a criteria objective, amount 1)"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log listed one objective at the accept, \"Raise your skinning skill to 20\" (x1) (#1952)"
+			}
+		],
+		"note": "Camping 101: Skinning: the objective is to raise Skinning to 20 before the trainer takes it, not a talk with the trainer (#1952)."
+	},
+	"97963": {
+		"set": {
+			"objectives": [
+				{
+					"type": "event",
+					"id": null,
+					"count": 1,
+					"text": "Raise your alchemy skill to 20"
+				}
+			]
+		},
+		"source": [
+			{
+				"kind": "eg",
+				"ref": "EG Link live client data (CC BY 4.0): the server's quest record in players' caches, build 1.60.1.70450: one objective, \"Raise your alchemy skill to 20\" (a criteria objective, amount 1)"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log listed one objective at the accept, \"Raise your alchemy skill to 20\" (x1) (#1952)"
+			}
+		],
+		"note": "Camping 101: Alchemy: the objective is to raise Alchemy to 20 before the trainer takes it, not a talk with the trainer (#1952)."
+	},
+	"97964": {
+		"set": {
+			"objectives": [
+				{
+					"type": "event",
+					"id": null,
+					"count": 1,
+					"text": "Raise your blacksmithing skill to 20"
+				}
+			]
+		},
+		"source": [
+			{
+				"kind": "eg",
+				"ref": "EG Link live client data (CC BY 4.0): the server's quest record in players' caches, build 1.60.1.70450: one objective, \"Raise your blacksmithing skill to 20\" (a criteria objective, amount 1)"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log listed one objective at the accept, \"Raise your blacksmithing skill to 20\" (x1) (#1952)"
+			}
+		],
+		"note": "Camping 101: Blacksmithing: the objective is to raise Blacksmithing to 20 before the trainer takes it, not a talk with the trainer (#1952)."
+	},
+	"97965": {
+		"set": {
+			"objectives": [
+				{
+					"type": "event",
+					"id": null,
+					"count": 1,
+					"text": "Raise your first aid skill to 20"
+				}
+			]
+		},
+		"source": [
+			{
+				"kind": "eg",
+				"ref": "EG Link live client data (CC BY 4.0): the server's quest record in players' caches, build 1.60.1.70450: one objective, \"Raise your first aid skill to 20\" (a criteria objective, amount 1)"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log listed one objective at the accept, \"Raise your first aid skill to 20\" (x1) (#1952)"
+			}
+		],
+		"note": "Camping 101: First Aid: the objective is to raise First Aid to 20 before the trainer takes it, not a talk with the trainer (#1952)."
+	},
+	"97967": {
+		"set": {
+			"objectives": [
+				{
+					"type": "event",
+					"id": null,
+					"count": 1,
+					"text": "Raise your fishing skill to 20"
+				}
+			]
+		},
+		"source": [
+			{
+				"kind": "eg",
+				"ref": "EG Link live client data (CC BY 4.0): the server's quest record in players' caches, build 1.60.1.70450: one objective, \"Raise your fishing skill to 20\" (a criteria objective, amount 1)"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log listed one objective at the accept, \"Raise your fishing skill to 20\" (x1) (#1952)"
+			}
+		],
+		"note": "Camping 101: Fishing: the objective is to raise Fishing to 20 before the trainer takes it, not a talk with the trainer (#1952)."
+	},
+	"97968": {
+		"set": {
+			"objectives": [
+				{
+					"type": "event",
+					"id": null,
+					"count": 1,
+					"text": "Raise your herbalism skill to 20"
+				}
+			]
+		},
+		"source": [
+			{
+				"kind": "eg",
+				"ref": "EG Link live client data (CC BY 4.0): the server's quest record in players' caches, build 1.60.1.70450: one objective, \"Raise your herbalism skill to 20\" (a criteria objective, amount 1)"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log listed one objective at the accept, \"Raise your herbalism skill to 20\" (x1) (#1952)"
+			}
+		],
+		"note": "Camping 101: Herbalism: the objective is to raise Herbalism to 20 before the trainer takes it, not a talk with the trainer (#1952)."
+	},
+	"97969": {
+		"set": {
+			"objectives": [
+				{
+					"type": "event",
+					"id": null,
+					"count": 1,
+					"text": "Raise your leatherworking skill to 20"
+				}
+			]
+		},
+		"source": [
+			{
+				"kind": "eg",
+				"ref": "EG Link live client data (CC BY 4.0): the server's quest record in players' caches, build 1.60.1.70450: one objective, \"Raise your leatherworking skill to 20\" (a criteria objective, amount 1)"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log listed one objective at the accept, \"Raise your leatherworking skill to 20\" (x1) (#1952)"
+			}
+		],
+		"note": "Camping 101: Leatherworking: the objective is to raise Leatherworking to 20 before the trainer takes it, not a talk with the trainer (#1952)."
+	},
+	"97970": {
+		"set": {
+			"objectives": [
+				{
+					"type": "event",
+					"id": null,
+					"count": 1,
+					"text": "Raise your mining skill to 20"
+				}
+			]
+		},
+		"source": [
+			{
+				"kind": "eg",
+				"ref": "EG Link live client data (CC BY 4.0): the server's quest record in players' caches, build 1.60.1.70450: one objective, \"Raise your mining skill to 20\" (a criteria objective, amount 1)"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log listed one objective at the accept, \"Raise your mining skill to 20\" (x1) (#1952)"
+			}
+		],
+		"note": "Camping 101: Mining: the objective is to raise Mining to 20 before the trainer takes it, not a talk with the trainer (#1952)."
+	},
+	"97971": {
+		"set": {
+			"objectives": [
+				{
+					"type": "event",
+					"id": null,
+					"count": 1,
+					"text": "Raise your skinning skill to 20"
+				}
+			]
+		},
+		"source": [
+			{
+				"kind": "eg",
+				"ref": "EG Link live client data (CC BY 4.0): the server's quest record in players' caches, build 1.60.1.70450: one objective, \"Raise your skinning skill to 20\" (a criteria objective, amount 1)"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log listed one objective at the accept, \"Raise your skinning skill to 20\" (x1) (#1952)"
+			}
+		],
+		"note": "Camping 101: Skinning: the objective is to raise Skinning to 20 before the trainer takes it, not a talk with the trainer (#1952)."
+	},
+	"97972": {
+		"set": {
+			"objectives": [
+				{
+					"type": "event",
+					"id": null,
+					"count": 1,
+					"text": "Raise your tailoring skill to 20"
+				}
+			]
+		},
+		"source": [
+			{
+				"kind": "eg",
+				"ref": "EG Link live client data (CC BY 4.0): the server's quest record in players' caches, build 1.60.1.70450: one objective, \"Raise your tailoring skill to 20\" (a criteria objective, amount 1)"
+			}
+		],
+		"note": "Camping 101: Tailoring: the objective is to raise Tailoring to 20 before the trainer takes it, not a talk with the trainer (#1952)."
+	},
+	"97973": {
+		"set": {
+			"objectives": [
+				{
+					"type": "event",
+					"id": null,
+					"count": 1,
+					"text": "Raise your tailoring skill to 20"
+				}
+			]
+		},
+		"source": [
+			{
+				"kind": "eg",
+				"ref": "EG Link live client data (CC BY 4.0): the server's quest record in players' caches, build 1.60.1.70450: one objective, \"Raise your tailoring skill to 20\" (a criteria objective, amount 1)"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log listed one objective at the accept, \"Raise your tailoring skill to 20\" (x1) (#1952)"
+			}
+		],
+		"note": "Camping 101: Tailoring: the objective is to raise Tailoring to 20 before the trainer takes it, not a talk with the trainer (#1952)."
+	},
+	"98286": {
+		"set": {
+			"objectives": [
+				{
+					"type": "event",
+					"id": null,
+					"count": 1,
+					"text": "Raise your enchanting skill to 20"
+				}
+			]
+		},
+		"source": [
+			{
+				"kind": "eg",
+				"ref": "EG Link live client data (CC BY 4.0): the server's quest record in players' caches, build 1.60.1.70450: one objective, \"Raise your enchanting skill to 20\" (a criteria objective, amount 1)"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log listed one objective at the accept, \"Raise your enchanting skill to 20\" (x1) (#1952)"
+			}
+		],
+		"note": "Camping 101: Enchanting: the objective is to raise Enchanting to 20 before the trainer takes it, not a talk with the trainer (#1952)."
+	},
+	"98287": {
+		"set": {
+			"objectives": [
+				{
+					"type": "event",
+					"id": null,
+					"count": 1,
+					"text": "Raise your engineering skill to 20"
+				}
+			]
+		},
+		"source": [
+			{
+				"kind": "eg",
+				"ref": "EG Link live client data (CC BY 4.0): the server's quest record in players' caches, build 1.60.1.70450: one objective, \"Raise your engineering skill to 20\" (a criteria objective, amount 1)"
+			}
+		],
+		"note": "Camping 101: Engineering: the objective is to raise Engineering to 20 before the trainer takes it, not a talk with the trainer (#1952)."
 	}
 }
