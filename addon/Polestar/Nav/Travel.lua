@@ -392,13 +392,18 @@ end
 --       speed = yd/s,
 --       hearth = inn point or nil, hearthName = bind location, noHearth = true: leave it out,
 --       hearthWait = seconds until the Hearthstone is off cooldown (nil: ready),
---       hearthHeld = true: the live route hearths for this target already; the
---         hearth then stays while it saves any time at all (no HEARTH_MARGIN),
+--       hearthHeld = true: the live route hearths for this target already (the
+--         Hearthstone or a teleport to the bind point); that stays while it
+--         saves any time at all (no HEARTH_MARGIN),
+--       hearthLength = the Hearthstone's full cooldown in seconds (the client's), or nil,
+--       noStone = true: no Hearthstone in the bags (`hearth` is then only where a
+--         teleport to the bind point lands),
 --       skip = { spells = { [id] = true }, transports = { [t] = true }, taxi = { [nodeID] = true },
 --         cross = { [crossing end] = true } }: left out for this target (skipped legs;
 --         a skipped crossing end lets a start nearer the partner than the ends
 --         are to each other walk straight to the partner),
---       teleports = { { spell, name, to = point, cast, ready }, ... } or nil,
+--       teleports = { { spell, name, to = point, cast, ready, bind, length }, ... } or nil
+--         (`bind`: lands at `hearth`, weighed as the Hearthstone is),
 --       departure = function(transport, side, after) -> wait, ride (seconds, from
 --         `after` seconds into the trip) or nil: the transports' average waits,
 --       walkOnly = true: walking only (a ghost), noFlights = true: no flights (Travel.AtField),
@@ -728,14 +733,32 @@ local function planRoute(p)
 		end
 	end
 	local departure = p.departure
-	local innV = not walkOnly and not p.noHearth and p.hearth and add(INN, p.hearth.c, p.hearth.wx, p.hearth.wy, p.hearth, p.hearth.map)
+	local innV = not walkOnly and not p.noHearth and not p.noStone and p.hearth and add(INN, p.hearth.c, p.hearth.wx, p.hearth.wy, p.hearth, p.hearth.map)
 	-- Class teleports: { spell, name, to = point, cast = seconds, ready = seconds until castable }.
 	-- Never one that lands in the zone or city the player stands in: a Mage in
 	-- Stormwind is not sent to Teleport: Stormwind to cross the city (#1515).
-	local teleV = {}
+	-- A teleport to the bind point (`bind`: a Shaman's Astral Recall) lands at
+	-- the inn the Hearthstone takes the player to (p.hearth) and is weighed by
+	-- the Hearthstone's rules, not a class teleport's (bindV: HEARTH_MARGIN,
+	-- Nav.PlanRoute's hold); p.noHearth leaves it out with the Hearthstone.
+	-- With both at hand, the one whose full cooldown is shorter (as the client
+	-- tells it: p.hearthLength, e.length) is spent, by a cost under a second
+	-- (`tie`); the Hearthstone when the client tells either length not.
+	local teleV, bindV, tie = {}, {}, {}
 	for _, e in ipairs(walkOnly and {} or p.teleports or {}) do
 		local to = e.to
-		if to and to.c and to.wx and to.wy and not (skip and skip.spells[e.spell])
+		if e.bind then
+			to = not p.noHearth and p.hearth
+			if to and to.c and to.wx and to.wy and not (skip and skip.spells[e.spell]) then
+				local v = add(INN, to.c, to.wx, to.wy, to, to.map)
+				bindV[v] = e
+				if p.hearthLength and e.length then
+					tie[innV or 0], tie[v] = p.hearthLength / 3600, e.length / 3600
+				else
+					tie[v] = 0.5
+				end
+			end
+		elseif to and to.c and to.wx and to.wy and not (skip and skip.spells[e.spell])
 			and not (p.map and to.map == p.map) then
 			-- Arrived at like an inn: walked from, never walked to.
 			teleV[add(INN, to.c, to.wx, to.wy, to, to.map)] = e
@@ -1217,10 +1240,16 @@ local function planRoute(p)
 				end
 				if cost then relax(rideTo[u], du + cost, tu + cost, RIDE, u) end
 			elseif kind == START then
-				-- The Hearthstone's cooldown left (p.hearthWait) counts, as a teleport's `ready` does (#1915).
+				-- The Hearthstone's cooldown left (p.hearthWait) counts, as a teleport's `ready` does (#1915); a
+				-- teleport to the bind point (bindV) the same way, with its own cooldown and cast.
+				local margin = p.hearthHeld and 0 or HEARTH_MARGIN
 				if innV then
 					local s = (p.hearthWait or 0) + HEARTH_SECONDS
-					relax(innV, du + s + (p.hearthHeld and 0 or HEARTH_MARGIN), tu + s, HEARTH, u)
+					relax(innV, du + s + margin + (tie[innV] or 0), tu + s, HEARTH, u)
+				end
+				for v, e in pairs(bindV) do
+					local s = (e.ready or 0) + (e.cast or 10) + HEARTH_SECONDS - 10
+					relax(v, du + s + margin + tie[v], tu + s, HEARTH, u)
 				end
 				-- Weighed by TELEPORT_MARGIN, as the Hearthstone by HEARTH_MARGIN; none on the search without them (fifth).
 				if not kept then
@@ -1384,10 +1413,11 @@ local function planRoute(p)
 			leg.kind = t.kind
 			leg.label = format(TAKE[t.kind] or TAKE.boat, Travel.PlaceName(dockEnd[to]))
 			leg.transport, leg.side = t, dockSide[u]
-		elseif teleV[to] then
-			local e = teleV[to]
+		elseif teleV[to] or bindV[to] then
+			local e = teleV[to] or bindV[to]
 			leg.kind = "teleport"
 			leg.spell = e.spell
+			leg.bind = bindV[to] and true or nil
 			leg.label = format(L["Cast %s"], spellName(e.spell, e.name) or "")
 		else
 			leg.kind = "hearth"
@@ -1978,8 +2008,16 @@ local function plan(target, held)
 	questTimed, timedCheck = readTimed(), false
 	local ghost = isGhost()
 	local field = Travel.AtField(target, pc, px, py)
+	local teleports = not ghost and not questTimed and not field and teleportList() or nil
+	-- The bind point: for the Hearthstone, or a teleport there (Astral Recall) without one in the bags.
+	local recall = false
+	if teleports then
+		for _, e in ipairs(teleports) do
+			if e.bind then recall = true end
+		end
+	end
 	local inn, bindName
-	if wait and not ghost and not questTimed and not field then inn, bindName = bindInn() end
+	if (wait or recall) and not ghost and not questTimed and not field then inn, bindName = bindInn() end
 	-- The walks to the target the walking engine measured, and the places it measures next (Nav/Walk.lua).
 	local W = Nav.walk
 	local places = W and W.Measure and {} or nil
@@ -2035,14 +2073,16 @@ local function plan(target, held)
 		speed = RUN_SPEED,
 		hearth = inn,
 		hearthName = bindName,
-		hearthWait = inn and wait > 0 and wait or nil,
+		hearthWait = inn and wait and wait > 0 and wait or nil,
 		hearthHeld = held or nil,
+		hearthLength = inn and ns.Compat and ns.Compat.GetItemBaseCooldown and ns.Compat.GetItemBaseCooldown(HEARTH_ITEM) or nil,
+		noStone = wait == nil or nil,
 		noHearth = skipped.hearth,
 		skip = skip,
 		noDirect = direct or nil,
 		nearWalk = reach,
 		nearProbe = probe,
-		teleports = not ghost and not questTimed and not field and teleportList() or nil,
+		teleports = teleports,
 		noFlights = field or nil,
 		departure = departureFn(),
 		walkOnly = ghost or questTimed == "escort",
@@ -2090,7 +2130,7 @@ function Travel.Replan()
 		skipped = { hearth = false, spells = {}, transports = {}, taxi = {}, cross = {} }
 	end
 	-- The live route hearths for this target: the hearth stays while it saves any time (#1915, no flip back and forth).
-	local held = was and was.kind == "hearth" and legsFor == target
+	local held = was and (was.kind == "hearth" or was.bind) and legsFor == target
 	local pc, px, py
 	legs, pc, px, py = plan(target, held)
 	legsFor = target
@@ -2168,7 +2208,14 @@ function Nav.EstimateTravel(from, to, budgeted, noHearth)
 	local ghost = from == nil and isGhost()
 	local inn, bindName
 	local wait = from == nil and not ghost and not timed and not noHearth and hearthWait() or nil
-	if wait then inn, bindName = bindInn() end
+	local teleports = from == nil and not ghost and not timed and teleportList() or nil
+	local recall = false
+	if teleports and not noHearth then
+		for _, e in ipairs(teleports) do
+			if e.bind then recall = true end
+		end
+	end
+	if wait or recall then inn, bindName = bindInn() end
 	local plan = Nav.PlanRoute({
 		c = fc, wx = fwx, wy = fwy, map = from == nil and playerMap() or from and from.map,
 		target = { c = tc, wx = twx, wy = twy, map = to.map },
@@ -2178,8 +2225,11 @@ function Nav.EstimateTravel(from, to, budgeted, noHearth)
 		speed = RUN_SPEED,
 		hearth = inn,
 		hearthName = bindName,
-		hearthWait = inn and wait > 0 and wait or nil,
-		teleports = from == nil and not ghost and not timed and teleportList() or nil,
+		hearthWait = inn and wait and wait > 0 and wait or nil,
+		hearthLength = inn and ns.Compat and ns.Compat.GetItemBaseCooldown and ns.Compat.GetItemBaseCooldown(HEARTH_ITEM) or nil,
+		noStone = wait == nil or nil,
+		noHearth = noHearth or nil,
+		teleports = teleports,
 		departure = departureFn(),
 		walkOnly = ghost or timed == "escort",
 		-- The same way the plan takes (its walks through zones far above dearer).
@@ -2409,7 +2459,7 @@ function Nav.PlanRoute(p)
 		if timed and timed[1] and not walksOnly(timed) and total(timed) < total(legs) then legs, p = timed, q end
 	end
 	local first = legs and legs[1]
-	if first and first.kind == "hearth" then
+	if first and (first.kind == "hearth" or first.bind) then
 		local q = {}
 		for k, v in pairs(p) do q[k] = v end
 		q.noHearth = true
@@ -3021,7 +3071,8 @@ function Travel.Remeasured()
 		return legs ~= nil
 	end
 	local target = Nav.GetTarget()
-	local fresh, pc, px, py, owed = plan(target, legs[ci] and legs[ci].kind == "hearth" and legsFor == target)
+	local now = legs[ci]
+	local fresh, pc, px, py, owed = plan(target, now and (now.kind == "hearth" or now.bind) and legsFor == target)
 	if not fresh then return false end
 	if sameWay(fresh, 1, legs, ci) then
 		if not takePrices(fresh) then return false end

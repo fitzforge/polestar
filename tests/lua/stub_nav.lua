@@ -85,6 +85,16 @@ function Compat.GetMapName(map) return nav.maps[map] and nav.maps[map].name end
 function Compat.GetPlayerInfo() return { name = "Testchar", level = 10, faction = nav.faction } end
 function Compat.GetPlayerFaction() if nav.faction == "Alliance" or nav.faction == "Horde" then return nav.faction end end
 function Compat.GetItemCount(id) return nav.items[id] or 0 end
+-- A spell's and an item's full cooldown in seconds, from the client's GetSpellBaseCooldown and GetItemSpell (a test
+-- sets them), as Core/Compat.lua reads them.
+function Compat.GetSpellBaseCooldown(spell)
+	local ms = GetSpellBaseCooldown and GetSpellBaseCooldown(spell)
+	return type(ms) == "number" and ms > 0 and ms / 1000 or nil
+end
+function Compat.GetItemBaseCooldown(id)
+	local _, spell = (GetItemSpell or function() end)(id)
+	return spell and Compat.GetSpellBaseCooldown(spell) or nil
+end
 function Compat.GetBindLocation() return nav.bind end
 function Compat.GetNpcID(unit) if unit == "npc" then return nav.npcUnit end end
 function Compat.IsShiftKeyDown() return stub.keys.shift end

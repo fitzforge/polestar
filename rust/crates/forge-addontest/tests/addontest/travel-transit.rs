@@ -75,6 +75,63 @@ fn a_ride_waits_as_the_timetable_says_from_when_the_player_reaches_the_dock_the_
 	assert_eq!(out["label"], "Take the boat to Testshire Docks\nNext boat in 1:20 (b)");
 }
 
+// A Shaman's Astral Recall (Nav/Transit.lua's teleports with `bind`: it lands where the Hearthstone does) is a second
+// Hearthstone (players asked for it on Discord, 2026-11-13). On a 12-minute haul to beside the inn: with the Hearthstone
+// on cooldown, "Cast Astral Recall" by the Hearthstone's rules (its own cooldown and cast, the 2 minutes it must save);
+// with both ready, the one whose full cooldown the client says is shorter is spent (Astral Recall's 15 minutes against
+// the stone's hour; the stone when the client says Astral Recall's is longer, or tells none); both cooling down long,
+// the boat; without the spell, the Hearthstone as before.
+#[test]
+fn astral_recall_is_a_second_hearthstone_cast_while_the_stone_waits_and_the_shorter_cooldown_is_spent_when_both_are_ready() {
+	let out = run(r#"
+		local r = {}
+		local recall = { spell = 556, name = "Astral Recall", cast = 10, ready = 0, bind = true, length = 900 }
+		local shaman = false
+		Polestar.Transit = { Now = function() return 0 end, Teleports = function() return shaman and { recall } or {} end }
+		GetItemSpell = function(id) if id == 6948 then return "Hearthstone", 8690 end end
+		GetSpellBaseCooldown = function(id) if id == 8690 then return 3600000, 0 end end
+		nav.items[6948] = 1
+		nav.bind = "Testshire Inn"
+		nav.useTravelWorld(nil, 400)
+		nav.place(0, 0, 1)
+		stub.advance(10)
+		target(-520, -690, "Innkeeper quest")
+		r.none = route()
+		shaman = true
+		nav.hearthCooldown = { GetTime(), 3600 }
+		target(-520, -690, "Innkeeper quest")
+		r.stoneWaits = route()
+		r.spell = leg("teleport") and leg("teleport").spell or false
+		nav.hearthCooldown = nil
+		target(-520, -690, "Innkeeper quest")
+		r.both = route()
+		recall.length = 7200
+		target(-520, -690, "Innkeeper quest")
+		r.longer = route()
+		recall.length = nil
+		target(-520, -690, "Innkeeper quest")
+		r.untold = route()
+		recall.length, recall.ready = 900, 3000
+		nav.hearthCooldown = { GetTime(), 3600 }
+		target(-520, -690, "Innkeeper quest")
+		r.bothWait = route()
+		nav.items[6948] = nil
+		recall.ready = 0
+		target(-520, -690, "Innkeeper quest")
+		r.noStone = route()
+		emit(r)"#);
+	let hearth = json!(["hearth|Hearth to Testshire Inn: saves 10 min", "walk|Innkeeper quest"]);
+	let recall = json!(["teleport|Cast Astral Recall: saves 10 min", "walk|Innkeeper quest"]);
+	assert_eq!(out["none"], hearth, "no Astral Recall: the Hearthstone as before");
+	assert_eq!(out["stoneWaits"], recall, "the Hearthstone on cooldown: Astral Recall");
+	assert_eq!(out["spell"], 556, "the travel button casts it");
+	assert_eq!(out["both"], recall, "both ready: Astral Recall's shorter cooldown is spent");
+	assert_eq!(out["longer"], hearth, "the client says Astral Recall's is longer: the Hearthstone");
+	assert_eq!(out["untold"], hearth, "the client tells no length: the Hearthstone");
+	assert_eq!(out["bothWait"], json!(["walk|Walk to the boat", "boat|Take the boat to Testshire Docks", "walk|Innkeeper quest"]), "both cooling down long: the boat");
+	assert_eq!(out["noStone"], recall, "no Hearthstone in the bags: Astral Recall takes the player to the bind point all the same");
+}
+
 #[test]
 fn c11_a_class_teleport_is_a_leg_from_the_start_when_it_is_faster_a_ghost_only_walks_with_no_error() {
 	let out = run(r#"

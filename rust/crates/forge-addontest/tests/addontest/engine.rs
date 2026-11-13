@@ -1573,6 +1573,53 @@ fn hotline_s_report_576_a_hearth_step_while_the_hearthstone_waits_says_how_long_
 	assert_eq!(out["unknown"], json!({ "line": "Hearthstone ready in 10 min", "arrow": false }));
 }
 
+// A Shaman's Astral Recall does a hearth step as the Hearthstone does (players asked on Discord, 2026-11-13): while the
+// Hearthstone waits, or is not in the bags, and Astral Recall is ready, the step says "Cast Astral Recall" and the arrow
+// does not walk to the inn; with Astral Recall cooling down too, the Hearthstone's wait as before.
+#[test]
+fn a_hearth_step_while_the_hearthstone_waits_and_astral_recall_is_ready_names_the_spell_and_walks_nowhere() {
+	let out = run1(Run {
+		guides: r#"
+			Polestar.RegisterGuide({ id = "test/hearth-recall", pack = "test", title = "Hearth", minLevel = 1, maxLevel = 10, steps = {
+				{ goals = { { t = "hearth", location = "Goldshire" }, { t = "note", text = "The inn by the road." } } },
+				{ goals = { { t = "level", level = 99 } } },
+			} })
+		"#,
+		before: r#"w.setZone("Stormwind City", "Trade District")"#,
+		script: r#"
+			local hs = { have = true, remaining = 23 * 60 - 20 }
+			Polestar.QoL = Polestar.QoL or {}
+			Polestar.QoL.GetHearth = function() return hs end
+			Polestar.Nav = Polestar.Nav or {}
+			Polestar.Nav.FindInn = function(npc, name)
+				if name == "Goldshire" then return { map = 1429, x = 43.8, y = 65.8, f = "e", npc = 295 } end
+			end
+			local recall = { spell = 556, name = "Astral Recall", cast = 10, ready = 0, bind = true }
+			Polestar.Transit = Polestar.Transit or {}
+			Polestar.Transit.Teleports = function() return { recall } end
+			local function changed() Polestar.Fire("QOL_HEARTH_CHANGED"); flush() end
+			local function state()
+				local g, wp = E.GetStepView(E.GetStepIndex()).goals[1], E.GetWaypoint()
+				return { line = g.hearthText or false, arrow = wp and { wp.map, wp.x, wp.y, wp.label } or false }
+			end
+			E.SetGuide("test/hearth-recall"); flush()
+			local r = { recall = state() }
+			recall.ready = 300; changed()
+			r.bothWait = state()
+			recall.ready = 0; hs.have = false; changed()
+			r.noStone = state()
+			hs.have, hs.remaining = true, 0; changed()
+			r.stoneReady = state()
+			emit(r)
+		"#,
+		..Default::default()
+	});
+	assert_eq!(out["recall"], json!({ "line": "Cast Astral Recall", "arrow": false }));
+	assert_eq!(out["bothWait"], json!({ "line": "Hearthstone ready in 23 min: walk to the inn, or wait for it", "arrow": [1429, 43.8, 65.8, "Walk to Goldshire"] }));
+	assert_eq!(out["noStone"], json!({ "line": "Cast Astral Recall", "arrow": false }));
+	assert_eq!(out["stoneReady"], json!({ "line": false, "arrow": false }), "the Hearthstone ready: the hearth step as before");
+}
+
 #[test]
 fn a_hearth_step_weighs_the_hearthstone_against_the_trip_set_off_while_it_waits_longer_wait_when_it_is_sooner_travel_when_the_inn_is_close() {
 	let out = run1(Run {

@@ -4118,7 +4118,18 @@ leg's `seconds` hold the wait (the travel button shows the cooldown). Once the
 live route hearths for a target (`legsFor`), a new plan for it passes
 `hearthHeld`: the hearth stays while it saves any time at all, so a saving
 near `HEARTH_MARGIN` does not flip the route between the hearth and the way
-without it at each plan.
+without it at each plan. A teleport to the bind point (`bind` in
+`Transit.Teleports`: a Shaman's Astral Recall, spell 556) lands where the
+Hearthstone does (`p.hearth`, resolved with no Hearthstone in the bags too:
+`p.noStone`) and is weighed by the Hearthstone's rules, not a class
+teleport's (`bindV`: its own `ready` and cast, `HEARTH_MARGIN`, the long-haul
+hold, `hearthHeld`), its leg a teleport ("Cast Astral Recall", `leg.bind`).
+With both at hand the one whose full cooldown the client says is shorter is
+spent (`p.hearthLength`, the Hearthstone's use spell's, against the spell's
+`length`, both `Compat.GetSpellBaseCooldown`; a cost under a second), the
+Hearthstone when the client tells either not. A `hearth` goal takes it too:
+`Own.hearthWait` reads nothing to wait for while it is ready (`Own.bindRecall`),
+and `hearthText` then says "Cast Astral Recall".
 A class teleport is cast only when it clearly pays (#1823: Teleport:
 Stormwind won by a few seconds over a flight to Darkshire): it must save at
 least `TELEPORT_MARGIN` (60 s) over the best way without teleports, and
