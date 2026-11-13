@@ -240,3 +240,25 @@ fn the_game_looks_keep_their_own_colours_sizes_and_controls_apart_from_hearth() 
 		assert_eq!(s["game"], true, "{skin}: a game skin");
 	}
 }
+
+// An empty sidebar row (the guide list's Favourites before any favourite) reads as empty in Hearth, where the muted
+// text stands close to the rows' own: its label muted, its glyph the faintest text colour, no count; a row with
+// guides keeps the rows' glyph and label colours and its count.
+#[test]
+fn hearth_s_empty_sidebar_row_reads_as_empty() {
+	let out = run(r#"
+		Polestar.Set("ui.skin", "hearth")
+		Polestar.UI.ShowPicker()
+		stub.advance(0.5)
+		local function hex(r, g, b) return ("%02x%02x%02x"):format(math.floor(r * 255 + 0.5), math.floor(g * 255 + 0.5), math.floor(b * 255 + 0.5)) end
+		local rows = {}
+		for _, b in ipairs(PolestarPicker.navButtons) do
+			if b:IsShown() and b.psKey then rows[b.psKey] = b end
+		end
+		local function look(b) return { glyph = hex(b.Icon:GetVertexColor()), label = hex(b.Label:GetTextColor()), count = b.Count:IsShown() } end
+		emit({ empty = look(rows.Favorites), full = look(rows.Leveling), off = hex(T.Color("textOff")), muted = hex(T.Color("textMuted")),
+			dim = hex(T.Color("textDim")), rest = hex(T.Color("navRest")) })"#);
+	assert_ne!(out["off"], out["dim"], "the faintest text colour is not the rows' own: {out}");
+	assert_eq!(out["empty"], json!({ "glyph": out["off"].clone(), "label": out["muted"].clone(), "count": false }), "{out}");
+	assert_eq!(out["full"], json!({ "glyph": out["dim"].clone(), "label": out["rest"].clone(), "count": true }), "{out}");
+}

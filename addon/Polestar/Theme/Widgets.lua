@@ -2597,9 +2597,11 @@ local HOUSE_SHELL = {
 	foot = 23, -- the version line's bottom, level with the rail's foot label
 }
 -- The shell's sizes follow the skin (Theme.Metric; DIRECTION_B_HALO.md §3:
--- 930 x 690, a 200 sidebar, 32 tabs, the body 28 from the edge, a 56 foot).
--- A window takes them as it is built: one built before a skin change keeps
--- its sizes until the interface reloads.
+-- 930 x 690, 32 tabs, the body 28 from the edge, a 56 foot). The sidebar is
+-- the house's 240 in every look: the direction's 200 put the settings tree's
+-- labels on two lines beside their counts. A window takes them as it is
+-- built: one built before a skin change keeps its sizes until the interface
+-- reloads.
 local SHELL_METRIC = { width = "shellW", height = "shellH", sidebar = "shellSidebar", header = "shellHeader",
 	tabs = "shellTabs", footer = "shellFooter", pad = "shellPad" }
 local SHELL = setmetatable({}, {
@@ -2751,8 +2753,9 @@ local NAV_SEP, NAV_GROUP, NAV_INDENT = 17, 32, 12
 local function navRow(b, item, on)
 	b.psKey, b.psItem, b.psOn = item.key, item, on
 	-- The right edge's parts keep their place on the sidebar when the rows
-	-- end at the scroll bar (W.ShellNav): their margin gives up that strip.
-	local pad = max(8, SHELL.side - (b.psShell.psNavRoom or 0))
+	-- end at the scroll bar (W.ShellNav): their margin gives up that strip,
+	-- down to 12 clear of the bar (a game look's bar is wide).
+	local pad = max(12, SHELL.side - (b.psShell.psNavRoom or 0))
 	local empty = item.count == 0
 	b.Icon:SetTexture(Theme.Media(item.icon or "compact"))
 	b.Icon:ClearAllPoints()
@@ -2792,8 +2795,10 @@ local function navRow(b, item, on)
 	end
 	-- An empty row recedes in the muted text colour alone: a fade on top of
 	-- it drew its label under 3:1 in some looks (the colour is held to read).
+	-- Its glyph goes a step further, to the faintest text colour, so the row
+	-- reads as empty where muted text stands close to the rows' own (Hearth).
 	W.Color(b.Label, on and "text" or (empty and "textMuted" or "navRest"))
-	W.Color(b.Icon, on and "accent" or (empty and "textMuted" or "textDim"))
+	W.Color(b.Icon, on and "accent" or (empty and "textOff" or "textDim"))
 	b.psEmpty = empty
 	b.psHeading = item.heading and true or false
 	b.psGroup = item.group and true or false
