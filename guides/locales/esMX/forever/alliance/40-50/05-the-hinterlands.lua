@@ -17,7 +17,7 @@ return {
 	["Ride north to {area:351} in the middle of the {zone:1425}. Green Sludges and Jade Oozes crawl all around it.\nCareful: Panthers move around the area in stealth."] = "",
 
 	-- Step 3: Aerie Peak
-	["Inside"] = "",
+	["Inside"] = "Adentro",
 	-- {npc:5636} Gryphon Master Talonaxe
 	["{npc:5636}, inside"] = "",
 	-- {quest:2990} Thadius Grimshade · {area:1438} Nethergarde Keep

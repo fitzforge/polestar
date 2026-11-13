@@ -55,7 +55,7 @@ return {
 	-- {area:484} Freewind Post
 	["Fly to {area:484}"] = "Vuela a {area:484}",
 	-- {zone:1456} Thunder Bluff
-	["{zone:1456} flight master"] = "",
+	["{zone:1456} flight master"] = "Maestro de vuelo de {zone:1456}",
 
 	-- Step 11: Fly to Freewind Post
 	-- {area:392} Ratchet
@@ -203,7 +203,7 @@ return {
 	["Giant Softshell Clams, on the sea floor"] = "",
 	-- {item:15874} Soft-shelled Clam
 	["{item:15874}: open it in your bags"] = "",
-	["Underwater"] = "",
+	["Underwater"] = "Bajo el agua",
 	-- {item:15878} Rackmore's Silver Key
 	["{item:15878}, from the Drysnap crabs"] = "{item:15878}, de los cangrejos Secachasquido",
 

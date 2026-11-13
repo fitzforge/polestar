@@ -11,7 +11,7 @@ return {
 	["{npc:3143} waits inside the Den, the building just west of {npc:10176}."] = "{npc:3143} espera dentro de la Guarida, el edificio justo al oeste de {npc:10176}.",
 	-- {npc:10176} Kaltunk
 	["{npc:10176}, where you start"] = "{npc:10176}, donde empiezas",
-	["Inside"] = "",
+	["Inside"] = "Adentro",
 
 	-- Step 2: Training weapons and boars
 	["Training weapons and boars"] = "Armas de entrenamiento y jabalíes",
@@ -55,12 +55,12 @@ return {
 	["Class trainer"] = "Instructor de clase",
 
 	-- Step 7: Paladin trainer
-	["Paladin trainer"] = "",
+	["Paladin trainer"] = "Instructor de paladines",
 	-- {npc:246344} Alodan the Hopeful · {zone:1456} Thunder Bluff · {area:363} Valley of Trials
 	["{npc:246344} in {zone:1456}; {area:363} has no paladin trainer"] = "",
 
 	-- Step 8: Druid trainer
-	["Druid trainer"] = "",
+	["Druid trainer"] = "Instructor de druidas",
 	-- {npc:3034} Sheal Runetotem · {zone:1412} Mulgore · {area:363} Valley of Trials
 	["{npc:3034} in {zone:1412}; {area:363} has no druid trainer"] = "",
 
@@ -184,7 +184,7 @@ return {
 	["{area:373}: kill these as you meet them"] = "",
 	-- {area:362} Razor Hill
 	["The gnomish toolboxes lie in the wreckage along the shore east and south-east of {area:362}. Follow the shore south to Sen'jin.\nMakrura and surf crawlers line the beaches north-east of Sen'jin."] = "",
-	["Underwater"] = "",
+	["Underwater"] = "Bajo el agua",
 
 	-- Step 40: Echo Isles: kill these as you meet them
 	-- {area:368} Echo Isles

@@ -112,7 +112,7 @@ return {
 	-- Step 24: Mystral Lake
 	-- plural, as words: Befouled Water Elementals = {npc:3917} Befouled Water Elemental
 	["Befouled Water Elementals drift around the lake's shores; the gazebo stands on the island, overlooking the Alliance outpost."] = "",
-	["Underwater"] = "",
+	["Underwater"] = "Bajo el agua",
 	["Gazebo"] = "Mirador",
 
 	-- Step 25: Ursangous
@@ -202,7 +202,7 @@ return {
 	-- {area:378} Camp Taurajo
 	["Fly to {area:378}"] = "Vuela a {area:378}",
 	-- {zone:1456} Thunder Bluff
-	["{zone:1456} flight master"] = "",
+	["{zone:1456} flight master"] = "Maestro de vuelo de {zone:1456}",
 
 	-- Step 49: Brine
 	-- {npc:5899} Brine · {area:378} Camp Taurajo · {area:485} Great Lift
