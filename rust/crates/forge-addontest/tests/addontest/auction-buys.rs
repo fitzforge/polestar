@@ -320,6 +320,76 @@ emit(card() and card().lines or false)
 }
 
 // ---------------------------------------------------------------------------
+// Keeping the lists current
+// ---------------------------------------------------------------------------
+
+// What the bags hold only counts again: loot or a purchase takes its share off without the quests' items judged again
+// (a merchant's or a mailbox's run of bag updates costs a count, not the rule); a step judges them again, since what
+// the quests want moves with it.
+#[test]
+fn the_bags_count_again_and_a_step_judges_again() {
+	let db = db();
+	let out = run(
+		&db,
+		r#"
+local judged = 0
+local judge = AB.Judge
+AB.Judge = function(...) judged = judged + 1; return judge(...) end
+E.SetGuide("test/ah")
+stub.advance(5)
+local n0 = judged
+w.addItem(4306, 5)
+stub.fire("BAG_UPDATE_DELAYED")
+stub.advance(1)
+local bags = { judged = judged - n0, list = names("guide") }
+local n1 = judged
+E.Goto(2)
+stub.advance(1)
+emit({ opened = n0 > 0, bags = bags, step = { judged = judged > n1, list = names("guide") } })
+"#,
+	);
+	assert_eq!(
+		out[0],
+		json!({ "opened": true, "bags": { "judged": 0, "list": ["Silk Cloth=10:farm", "Iron Bar=10:made"] },
+			"step": { "judged": true, "list": ["Silk Cloth=10:farm", "Iron Bar=10:made"] } })
+	);
+}
+
+// A guide's card waiting for an item the client has not sent asks again when an item comes, not on every change of
+// the bags in between.
+#[test]
+fn a_card_waiting_for_an_item_asks_again_only_when_one_comes() {
+	let db = db();
+	let out = run(
+		&db,
+		r#"
+w.itemInfo[4306].uncached = true
+w.itemInfo[3575].uncached = true
+local judged = 0
+local judge = AB.Judge
+AB.Judge = function(...) judged = judged + 1; return judge(...) end
+E.SetGuide("test/ah")
+stub.advance(5)
+local waiting = { card = card(), due = AU.startDue or false }
+local n0 = judged
+for _ = 1, 3 do
+	w.addItem(769, 1)
+	stub.fire("BAG_UPDATE_DELAYED")
+	stub.advance(1)
+end
+local bags = judged - n0
+w.itemArrives(4306)
+stub.advance(1)
+emit({ waiting = waiting, bags = bags, card = card() and card().lines or false, due = AU.startDue or false })
+"#,
+	);
+	assert_eq!(
+		out[0],
+		json!({ "waiting": { "card": false, "due": "test/ah" }, "bags": 0, "card": "15 Silk Cloth for Caught!", "due": false })
+	);
+}
+
+// ---------------------------------------------------------------------------
 // The reminder
 // ---------------------------------------------------------------------------
 

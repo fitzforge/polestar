@@ -5434,9 +5434,15 @@ The rule. An item is an auction house buy when it is all of:
    or a gift the guide knows a way to).
 
 The quest database loads for it (`QuestDB.IsWanted` counts
-`qol.auctionBuys`). The lists are built when asked and kept until a step,
-the guide, the bags, the log, a skill, the Codex or the setting changes;
-`AUCTION_BUYS_CHANGED` fires once after a burst of those.
+`qol.auctionBuys`). The lists are built when asked, in two layers: the
+judgement (what the quests want and which of it the rule lists) is kept
+until a step, the guide, the log, a skill, the Codex, an item the client
+sent or the setting changes; the counts are taken again when only the bags
+change (`BAG_UPDATE_DELAYED`, `MATERIALS_COUNTS`), so a merchant's or a
+mailbox's run of bag updates costs a count, never the rule. A pass decodes
+each quest's objectives once. `AUCTION_BUYS_CHANGED(arrived)` fires once
+after a burst of those; `arrived` is true when something a judgement waited
+for came (an item, the quest database, the Codex).
 
 On screen (`UI/AuctionBuys.lua`), both cards on the heads-up card
 (`UI/ClassToast.lua`; its icon row carries items: the game's tooltip, the
@@ -5447,7 +5453,9 @@ to be dismissed:
   to it, "Auction house buys for this guide" with up to 4 lines ("15 Silk
   Cloth for Caught!", then "+N more"), See the list, Got it, Turn these off.
   Once per guide per character, once shown (`CharState().auctionGuides`);
-  it follows its list while shown and goes when another guide runs.
+  it follows its list while shown and goes when another guide runs. With
+  nothing listed while an item is still loading, it asks again when an
+  item arrives (`arrived`), not on every change of the bags or the step.
 - **The reminder**: on a zone or subzone change, an auctioneer of the
   character's side (`Nearby.Near("auction", 450)`: the Codex's auctioneer
   role, on the player's map or its zone) within 450 yards while the
