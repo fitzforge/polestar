@@ -292,6 +292,11 @@ local BUILTIN = {
 			help = L["Also a friendly flight master near you whose flight path you haven't learned yet. Learning it ticks the guide's later step for it too."],
 			search = "flight path, flight master, taxi, learn, discover, getfp",
 			disabled = function() return not ns.Get("behavior.whileHere") end },
+		-- 0.4.0's gathering spots (Engine Own.hereGather, Core/Gather.lua): off by default.
+		{ kind = "toggle", key = "behavior.whileHereGather", label = L["Gathering spots"], new = "0.4.0",
+			help = L["Also a spot near you where a herb, ore vein or fishing pool you can gather can spawn: one may be up there, or gathered already. With Find Herbs or Find Minerals on, the line says so; it says one is up when the Interact Key picks it."],
+			search = "herbs, herbalism, ore, mining, fishing pools, nodes, gathering, farm, spots, tracking, find herbs, find minerals, interact key",
+			disabled = function() return not ns.Get("behavior.whileHere") end },
 		{ kind = "toggle", key = "behavior.whileHereSound", label = L["Sound for a new suggestion"],
 			help = L["A soft chime for each new suggestion (once when several come together), at the game's sound effects volume."],
 			search = "chime, sound, audio, ding, alert",

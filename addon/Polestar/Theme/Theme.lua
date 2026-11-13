@@ -1261,6 +1261,7 @@ end
 VERB_ICON.enter = VERB_ICON.goto
 VERB_ICON.cast = VERB_ICON.use
 VERB_ICON.auction = VERB_ICON.buy
+VERB_ICON.gather = VERB_ICON.collect
 VERB_ICON.wait = MEDIA .. "UI\\hourglass"
 
 function Theme.VerbIcon(t)

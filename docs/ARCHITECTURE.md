@@ -1807,6 +1807,30 @@ Polestar.Engine.StepHiddenFor(step, who?) -> bool  -- no step of its own for who
   discovered", `TAXI_NODE_STATUS_CHANGED`: Nav marks the node known, a build
   follows) ends the line and ticks the guide's later `getfp` goal for that
   flight master (`fpKnown`), as an early pick-up does; the live step stays.
+  Gathering spots (0.4.0; `behavior.whileHereGather`, off by default,
+  Options' "Gathering spots"; `Core/Gather.lua` with the data of
+  `Core/GatherData.lua`, `node tools/polestar.js profession gathering spots`:
+  each herb, ore and fishing pool kind's spawns, points within 40 yd one spot,
+  and the skill it asks): within the radius, a spot where a node the character
+  gathers at its skill (Herbalism, Mining, Fishing) can spawn is a line of kind
+  "gather" after the quest lines and a flight master's, one at a time, with a
+  flight path line's rules: "Peacebloom can grow here" ("can spawn here" for a
+  vein or a pool), under it the profession and the skill ("Herbalism 50"); the
+  waypoint's step is `GATHER_STEP`, -3. A spot is where a node can spawn, never
+  a promise one is up: the line reads "Peacebloom is up here" only while the
+  Interact Key picks an object of its kind (`PLAYER_SOFT_INTERACT_CHANGED`, the
+  GameObject GUID's entry id: `Gather.UpNow`), and its view carries `tracking`
+  (the panel's "Tracking is on" chip) while the minimap tracks that
+  profession's nodes (`C_Minimap.GetTrackingInfo`, Find Herbs 2383, Find
+  Minerals 2580); Polestar never changes the tracking nor the Interact Key's
+  settings. Candidates: one per kind with spots on the continent
+  (`Own.hereGather`, `Own.hereGatherOf` kept across builds: a dismiss mutes the
+  kind around here, twice for the zone); its goal moves to the spot its line
+  shows. A spot the walk check turns away stays away for the zone stay
+  (`Own.hereGatherBad`). The spots of a continent are decoded the first time
+  the option asks for them there (only the kinds the character gathers, in
+  200 yd cells; `GATHER_CHANGED` after a skill opens or closes a kind), and
+  `Gather.Nearest` measures only the cells within the radius, allocation-free.
   The arrival poll measures at most `HERE_MAX` of them (`Own.hereList`): all
   when that many fit, else the nearest (`Own.herePick`, again each
   `HERE_REPICK` yards the player moves). It (`Own.hereTick`, allocation-free:

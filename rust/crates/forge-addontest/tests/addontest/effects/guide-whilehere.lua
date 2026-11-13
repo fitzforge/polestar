@@ -42,6 +42,10 @@ return {
 		-- the game's frame, as engine-while-here.rs's flight paths have it).
 		Polestar.Nav.RegisterTravelData({ build = "test", taxi = { { 2, 0, -700, 600, 1429, 30, 60, 1, "Brackwell Pumpkin Patch, Elwynn Forest" } } }, true)
 		Polestar.MapFrames.era[1429] = { c = 0, left = 1500, right = -1500, top = 500, bottom = -1500 }
+		-- A herbalist, and a spot at 40,50 where Peacebloom can grow, far from the rest (Core/Gather.lua's data: x, then
+		-- y, two base-60 digits each in 3599ths of the map).
+		w.learnSkill(182, "Herbalism", 1, 75)
+		Polestar.Gather.Register({ kinds = { { "Peacebloom", 182, 1, 1618 } }, maps = { [1429] = "e;1:O0U0" } })
 		-- The quests put in the log above, as the client announces a log change.
 		stub.fire("QUEST_LOG_UPDATE")
 		stub.advance(0.6)
@@ -63,6 +67,8 @@ return {
 		end,
 		-- 10 yd from the flight master, far from the guide's own work: its line.
 		["behavior.whileHereFlights"] = function() return panel(30, 60.5) end,
+		-- 6 yd from the Peacebloom spot: its line.
+		["behavior.whileHereGather"] = function() return panel(40.2, 50) end,
 		-- The toast that says a suggestion while the window is hidden (UI/WhileHere.lua), shown afresh: still there
 		-- 10 s on.
 		["toasts.whilehere.seconds"] = function()

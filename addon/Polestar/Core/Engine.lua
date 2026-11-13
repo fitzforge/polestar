@@ -48,6 +48,7 @@ ns.RegisterDefaults("behavior", {
 	whileHereTurnins = true, -- also a quest ready to hand in whose NPC is little out of the way (Own.hereDetour)
 	whileHereTurninSeconds = 20, -- seconds of extra walking a hand-in may cost (0-60); an NPC in the town the player rests in counts whatever it costs
 	whileHereFlights = true, -- also a friendly flight master within the radius whose flight path the character has not learned (Own.hereFlights)
+	whileHereGather = false, -- also a spot within the radius where a herb, ore vein or fishing pool the character gathers can spawn (Own.hereGather, Core/Gather.lua)
 	whileHereSound = true, -- a soft chime for each line that appears, at least 5 s apart (UI/WhileHere.lua)
 	whileHereStepKey = true, -- the step key also targets the lines' mobs, after the step's own (QoL/Buttons.lua, Buttons.HereNames)
 })
@@ -7193,7 +7194,7 @@ local function updateTicker()
 	end
 	useActive()
 	if not need then need = Spots.waypointGoal() ~= nil or (guide ~= nil and current ~= nil and Own.nearPick[guide.steps[current]] ~= nil) end
-	if not need then need = Own.hereAllN > 0 or Own.hereOnN > 0 or Own.hereFlyN > 0 end
+	if not need then need = Own.hereAllN > 0 or Own.hereOnN > 0 or Own.hereFlyN > 0 or Own.hereGatherN > 0 end
 	if need and not ticker then
 		ticker = ns.NewTicker(ARRIVAL_POLL, checkArrival)
 	elseif not need and ticker then
@@ -10618,6 +10619,7 @@ function Own.hereBuild()
 	local live = computed
 	local active = guide and live and logReady and ns.Get("behavior.whileHere")
 	Own.hereFlyBuild(active and pc or nil)
+	Own.hereGatherBuild(active and pc or nil)
 	if active then
 		if not player then refreshPlayer() end
 		Own.hereTop = (player.level or 1) + Own.HERE_ABOVE
@@ -10763,6 +10765,9 @@ function Own.hereBuild()
 			i = i + 1
 		elseif cur.kind == "flight" and Own.hereFlyHolds(cur) then
 			-- A flight path line: while its flight master is a candidate (Own.hereFly).
+			i = i + 1
+		elseif cur.kind == "gather" and Own.hereGatherHolds(cur) then
+			-- A gathering spot line: while its kind of node is a candidate (Own.hereGather).
 			i = i + 1
 		elseif Own.hereRemove(i, false) then
 			aimed = true
@@ -10969,7 +10974,7 @@ end
 -- behavior.whileHereRadius yards; a hand-in or a pick-up in the player's
 -- town or at most its seconds out of the way (0: in town only), never past
 -- HERE_FAR.
-Own.HERE_RADIAL = { work = true, flight = true }
+Own.HERE_RADIAL = { work = true, flight = true, gather = true }
 function Own.hereIn(e, d)
 	if not Own.HERE_RADIAL[e.kind] then
 		if Own.hereAt(e, d) then return true end
@@ -11225,7 +11230,7 @@ end
 -- only those are measured. True when a line the player had clicked went
 -- (the arrow goes back to the guide).
 function Own.hereTick(c, px, py)
-	if Own.hereOnN == 0 and Own.hereAllN == 0 and Own.hereFlyN == 0 then return false end
+	if Own.hereOnN == 0 and Own.hereAllN == 0 and Own.hereFlyN == 0 and Own.hereGatherN == 0 then return false end
 	-- On a taxi, boat or zeppelin, in an instance, hearthing or the live
 	-- step's escort: the lines shown hide and wait (Own.hereHeld), no new one
 	-- comes, nothing goes by distance or time, nothing counts as left. Back,
@@ -11302,6 +11307,7 @@ function Own.hereTick(c, px, py)
 	end
 	if Own.hereOnN >= Own.HERE_SHOW or Own.hereAllN == 0 then
 		Own.hereFlyTick(c, px, py, timedOnly)
+		Own.hereGatherTick(c, px, py, timedOnly)
 		return aimed
 	end
 	-- More candidates than the poll measures: the nearest, again each
@@ -11366,8 +11372,9 @@ function Own.hereTick(c, px, py)
 			best.d = false
 		end
 	end
-	-- A flight master passed (Own.hereFlyTick), after the quest lines.
+	-- A flight master passed (Own.hereFlyTick), after the quest lines; then a gathering spot (Own.hereGatherTick).
 	Own.hereFlyTick(c, px, py, timedOnly)
+	Own.hereGatherTick(c, px, py, timedOnly)
 	return aimed
 end
 
@@ -11385,6 +11392,9 @@ function Own.hereViewOf(e)
 	local v = e.view
 	if not v and e.kind == "flight" then
 		v = Own.hereFlyView(e)
+		e.view = v
+	elseif not v and e.kind == "gather" then
+		v = Own.hereGatherView(e)
 		e.view = v
 	end
 	if not v then
@@ -11611,6 +11621,7 @@ for _, event in ipairs({ "ZONE_CHANGED_NEW_AREA", "PLAYER_ENTERING_WORLD" }) do
 			for goal in pairs(Own.hereExpiredAt) do Own.hereExpiredAt[goal] = nil end
 			for goal in pairs(Own.hereMutes) do Own.hereMutes[goal] = nil end
 			for goal in pairs(Own.hereStrikes) do Own.hereStrikes[goal] = nil end
+			for i in pairs(Own.hereGatherBad) do Own.hereGatherBad[i] = nil end
 		end
 	end)
 end
@@ -11788,6 +11799,152 @@ ns.RegisterEvent("UI_INFO_MESSAGE", function(_, _, message)
 		Own.hereDirty = true
 		requestUpdate()
 	end
+end)
+
+---------------------------------------------------------------------------
+-- Gathering spots (behavior.whileHereGather, off by default; Core/Gather.lua): within the radius, a spot where a
+-- herb, ore vein or fishing pool the character gathers can spawn is a line after the quest lines and a flight
+-- master's, one at a time, with a flight path line's rules (not in combat, an instance or on a taxi, nor while a
+-- timed quest's clock runs; a dismiss mutes that kind of node around here, twice: for the zone; it goes past
+-- HERE_CLEAR times the radius). The line says the node can spawn there, never that one is up; "up here" only
+-- while the Interact Key picks a node of its kind (Gather.UpNow), and a chip when the player's minimap tracks its
+-- profession's nodes (Gather.Tracking: the view's `tracking`). One candidate per kind of node on the continent
+-- (Own.hereGatherOf), its goal moved to the spot its line shows. A spot the walk check turned away
+-- (Own.hereMayShow) stays away for the zone stay (Own.hereGatherBad), the kind's other spots don't.
+---------------------------------------------------------------------------
+
+Own.GATHER_STEP = -3 -- a gathering spot line's step: no guide step has it (Own.alongGoal reads none)
+Own.hereGather, Own.hereGatherN, Own.hereGatherKinds = {}, 0, {} -- the candidates; Gather.KindsOn's list (reused)
+Own.hereGatherEntries = {} -- kind -> its candidate, kept across builds (a dismiss holds)
+Own.hereGatherBad = {} -- spot number -> true: the walk there is a long way round, this zone stay
+
+function Own.hereGatherOf(k)
+	local e = Own.hereGatherEntries[k]
+	if not e then
+		local goal = { t = "collect", gatherKind = k }
+		e = { s = Own.GATHER_STEP, g = k, goal = goal, kind = "gather", left = 0, places = 1, npcs = false, seen = false, spot = false,
+			d = false, pick = 0, budget = 0, xp = false, soon = false, visit = false, detour = 0, town = false, near = false,
+			on = false, since = 0, yards = 0, serial = 0, view = false }
+		Own.hereGatherEntries[k] = e
+	end
+	return e
+end
+
+-- Own.hereGather for continent c (nil: none, Dynamic Questing or its gathering spots off, no guide).
+function Own.hereGatherBuild(c)
+	local list, n, G = Own.hereGather, 0, ns.Gather
+	if c and ns.Get("behavior.whileHereGather") and G and G.KindsOn then
+		for _, k in ipairs(G.KindsOn(c, Own.hereGatherKinds)) do
+			n = n + 1
+			list[n] = Own.hereGatherOf(k)
+		end
+	end
+	for i = n + 1, #list do list[i] = nil end
+	Own.hereGatherN = n
+end
+
+-- Whether gathering spot line e is still a candidate (Own.hereBuild keeps it).
+function Own.hereGatherHolds(e)
+	for i = 1, Own.hereGatherN do
+		if Own.hereGather[i] == e then return true end
+	end
+	return false
+end
+
+-- Gather.Nearest's filter: spot i of kind k may show (its kind not dismissed around here nor expired just now, the
+-- spot not turned away). Allocation-free.
+function Own.hereGatherOk(k, i)
+	local e = Own.hereGatherEntries[k]
+	return e ~= nil and not Own.hereGatherBad[i] and not Own.hereQuiet[e.goal] and Own.hereAgain(e) and not Own.hereMuted(e)
+end
+
+-- The poll's gathering spot line (Own.hereTick, after the quest lines and a flight master's): while fewer than
+-- HERE_SHOW lines show and none is a gathering spot's, the nearest spot in reach of a kind the character gathers
+-- shows, once the walk there is no long way round. Allocation-free once the continent's spots are decoded.
+function Own.hereGatherTick(c, px, py, timedOnly)
+	if Own.hereGatherN == 0 or timedOnly or Own.hereOnN >= Own.HERE_SHOW then return end
+	local on = Own.hereOn
+	for j = 1, Own.hereOnN do
+		if on[j].kind == "gather" then return end
+	end
+	local k, d, map, x, y, f, sx, sy, i = ns.Gather.Nearest(c, px, py, Own.hereRadius or 180, Own.hereGatherOk)
+	if not k then return end
+	local best = Own.hereGatherOf(k)
+	local goal = best.goal
+	goal.map, goal.x, goal.y, goal.f = map, x, y, f
+	local w = worldOf[goal]
+	if not w then
+		w = {}
+		worldOf[goal] = w
+	end
+	w[1], w[2], w[3] = c, sx, sy
+	if not Own.hereMayShow(best, d) then
+		Own.hereGatherBad[i] = true
+		return
+	end
+	-- Nearest first among the lines shown, after the route's next steps'.
+	local n, at = Own.hereOnN, Own.hereOnN + 1
+	for j = 1, n do
+		local o = on[j]
+		if not o.near and d < (o.d or math.huge) then
+			at = j
+			break
+		end
+	end
+	for j = n, at, -1 do on[j + 1] = on[j] end
+	on[at], Own.hereOnN = best, n + 1
+	Own.hereSerial = (Own.hereSerial or 0) + 1
+	best.on, best.since, best.serial, best.view, best.d = true, GetTime(), Own.hereSerial, false, d
+	best.yards = math.floor(d / Own.HERE_STEP + 0.5) * Own.HERE_STEP
+	Own.hereExpiredAt[goal], Own.hereMutes[goal] = nil, nil
+	Own.here = on[1]
+	ns.Fire("WHILE_HERE_CHANGED")
+end
+
+-- Gathering spot line e as Own.hereViewOf's view: "Peacebloom can grow here" (a vein, a pool: "can spawn here"), or
+-- "Peacebloom is up here" while the Interact Key picks one; under it the profession and the skill it asks, and
+-- `tracking` while the minimap tracks that profession's nodes.
+function Own.hereGatherView(e)
+	local goal, G = e.goal, ns.Gather
+	local kind = G.Kind(goal.gatherKind) or {}
+	local name = kind.name or ""
+	local _, upKind = G.UpNow()
+	local up = upKind == goal.gatherKind
+	local v = { t = "gather", step = e.s, index = e.g, here = "gather", left = 0, appeared = e.serial, later = false, gatherKind = goal.gatherKind,
+		map = goal.map, x = goal.x, y = goal.y, f = goal.f, status = "active", up = up, tracking = G.Tracking(kind.line) }
+	if up then
+		v.hereText = L["%s is up here"]:format(name)
+	elseif kind.line == 182 then
+		v.hereText = L["%s can grow here"]:format(name)
+	else
+		v.hereText = L["%s can spawn here"]:format(name)
+	end
+	v.text = v.hereText
+	local profession = kind.line and Compat().GetSkillLineName(kind.line) or nil
+	v.hereSub = profession and L["%s %d"]:format(profession, kind.skill or 1) or nil
+	v.hereTip = up and L["The Interact Key has one in reach."] or L["A place where it can spawn: it may be up, or gathered already."]
+	return v
+end
+
+-- The Interact Key picked another object, or the minimap tracks other nodes: a gathering spot line says again
+-- whether its kind is up and whether its profession's nodes are tracked.
+ns.On("GATHER_UP_CHANGED", function()
+	for j = 1, Own.hereOnN do
+		local e = Own.hereOn[j]
+		if e.kind == "gather" then
+			e.view = false
+			ns.Fire("WHILE_HERE_CHANGED")
+			return
+		end
+	end
+end)
+
+-- A skill opened or closed a kind of node: the candidates again, the spots turned away forgotten (their numbers
+-- change).
+ns.On("GATHER_CHANGED", function()
+	Own.hereGatherBad = {}
+	Own.hereDirty = true
+	requestUpdate()
 end)
 
 ---------------------------------------------------------------------------

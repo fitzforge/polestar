@@ -18,6 +18,8 @@
 	<Script file="Engine.lua"/>
 	<Script file="API.lua"/>
 	<Script file="Materials.lua"/>
+	<Script file="Gather.lua"/>
+	<Script file="GatherData.lua"/>
 	<Script file="RoutePlan.lua"/>
 	<Script file="ClassTrainers.lua"/>
 	<Script file="Closes.lua"/>
