@@ -395,6 +395,38 @@ fn publish_check_catches_planted_findings() {
 }
 
 #[test]
+fn publish_check_reads_the_game_s_words_in_corrections_as_names() {
+	// A guard word that is also a plain word (pack-spec's `never`: a private folder's name) passes in
+	// the game's own text a correction carries, a quest's title and objective text, as it does in the
+	// data rows' names and titles; never in the correction's own words.
+	let (base, out, side) = publish_once("check-game-text");
+	let dir = out.join("corrections");
+	std::fs::create_dir_all(&dir).unwrap();
+	let quests = r#"{
+	"10": {
+		"set": {
+			"title": "Foal Play",
+			"objectiveText": "Search the stables for evidence of the missing horses."
+		},
+		"source": {
+			"kind": "questie",
+			"ref": "QuestieDB quest record"
+		},
+		"note": "The quest's record as the game has it."
+	}
+}
+"#;
+	std::fs::write(dir.join("quests.json"), quests).unwrap();
+	let opts = check::CheckOptions { provenance: Some(side.clone()), evidence: None, corrections: None };
+	let (find, _) = check::check(&out, &opts).unwrap();
+	assert!(find.is_empty(), "{find:#?}");
+	std::fs::write(dir.join("quests.json"), quests.replace("as the game has it", "from the evidence folder")).unwrap();
+	let (find, _) = check::check(&out, &opts).unwrap();
+	assert_eq!(find, vec!["(b) corrections/quests.json:11: guard word 'evidence' (1x)".to_string()], "{find:#?}");
+	let _ = std::fs::remove_dir_all(&base);
+}
+
+#[test]
 fn the_library_answers_as_the_release_says() {
 	// LibForeverData from a release, loaded under Lua 5.1 by tests/lua/libforeverdata_test.lua,
 	// which checks its answers against the release's data/*.jsonl.
