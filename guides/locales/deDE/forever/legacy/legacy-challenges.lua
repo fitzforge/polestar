@@ -126,11 +126,12 @@ return {
 
 	-- Step 19: Dungeons: level 26-45
 	["Dungeons: level 26-45"] = "Dungeons: Stufe 26-45",
-	-- {area:17780} Krol'dok Stronghold · {zone:2548} Riverglades
-	["The final boss of every level 26-45 dungeon earns one point together. The Drowned City and {area:17780} (in the {zone:2548}) are new in Forever and not in our data: tick them off yourself."] = "Der letzte Boss jedes Dungeons der Stufen 26-45 bringt zusammen einen Punkt. Die Drowned City und {area:17780} (in den {zone:2548}) sind neu in Forever und nicht in unseren Daten: Hake sie selbst ab.",
+	-- {area:16550} The Drowned City · {area:17780} Krol'dok Stronghold · {zone:2548} Riverglades
+	["The final boss of every level 26-45 dungeon earns one point together. {area:16550} and {area:17780} (in the {zone:2548}) are new in Forever and not in our data: tick them off yourself."] = "Der letzte Boss jedes Dungeons der Stufen 26-45 bringt zusammen einen Punkt. {area:16550} und {area:17780} (in den {zone:2548}) sind neu in Forever und nicht in unseren Daten: Hake sie selbst ab.",
 	-- {zone:1416} Alterac Mountains · {npc:246020} Shade of the Archmage
 	["City of Dalaran (Forever's, {zone:1416}): {npc:246020}"] = "City of Dalaran (von Forever, {zone:1416}): {npc:246020}",
-	["the final boss of the Drowned City"] = "der letzte Boss der Drowned City",
+	-- {area:16550} The Drowned City
+	["the final boss of the {area:16550}"] = "der letzte Boss von {area:16550}",
 	-- {area:796} Scarlet Monastery
 	["{area:796}: Graveyard"] = "{area:796}: Friedhof",
 	-- {area:796} Scarlet Monastery
@@ -144,9 +145,10 @@ return {
 
 	-- Step 20: Dungeons: level 46-60
 	["Dungeons: level 46-60"] = "Dungeons: Stufe 46-60",
-	-- {area:1216} Blackmaw Hold · {area:16985} Shaper's Terrace
-	["The final boss of every level 46-60 dungeon earns one point together. Alcaz Prison, {area:1216} and the {area:16985} are new in Forever and not in our data: tick them off yourself."] = "Der letzte Boss jedes Dungeons der Stufen 46-60 bringt zusammen einen Punkt. Alcaz Prison, {area:1216} und die {area:16985} sind neu in Forever und nicht in unseren Daten: Hake sie selbst ab.",
-	["the final boss of Alcaz Prison"] = "der letzte Boss von Alcaz Prison",
+	-- {area:16620} Alcaz Prison · {area:1216} Blackmaw Hold · {area:16985} Shaper's Terrace
+	["The final boss of every level 46-60 dungeon earns one point together. {area:16620}, {area:1216} and the {area:16985} are new in Forever and not in our data: tick them off yourself."] = "Der letzte Boss jedes Dungeons der Stufen 46-60 bringt zusammen einen Punkt. {area:16620}, {area:1216} und die {area:16985} sind neu in Forever und nicht in unseren Daten: Hake sie selbst ab.",
+	-- {area:16620} Alcaz Prison
+	["the final boss of {area:16620}"] = "der letzte Boss von {area:16620}",
 	-- {area:1216} Blackmaw Hold
 	["the final boss of {area:1216}"] = "der letzte Boss von {area:1216}",
 	-- {area:1583} Blackrock Spire
@@ -195,11 +197,15 @@ return {
 	-- ["Killing {npc:10184} is a point. In Classic her lair needs an attunement: {item:16309} for the Alliance, {item:16663} for the Horde."] = "{npc:10184} zu töten ist einen Punkt wert. In Classic braucht ihr Hort eine Zugangsquest: {item:16309} für die Allianz, {item:16663} für die Horde.",
 	-- ["The final boss of every level 15-25 dungeon earns one point together. Tick each boss off when you kill it; the grouping follows the usual Classic level ranges, so check the in-game Legacy panel for the exact list."] = "Der Endboss jedes Dungeons der Stufe 15-25 bringt zusammen einen Punkt. Hak jeden Boss ab, wenn du ihn tötest; die Einteilung folgt den üblichen Classic-Stufenbereichen, prüf also die genaue Liste im Vermächtnis-Fenster im Spiel.",
 	-- ["The final boss of every level 26-45 dungeon earns one point together."] = "Der Endboss jedes Dungeons der Stufe 26-45 bringt zusammen einen Punkt.",
+	-- ["The final boss of every level 26-45 dungeon earns one point together. The Drowned City and {area:17780} (in the {zone:2548}) are new in Forever and not in our data: tick them off yourself."] = "Der letzte Boss jedes Dungeons der Stufen 26-45 bringt zusammen einen Punkt. Die Drowned City und {area:17780} (in den {zone:2548}) sind neu in Forever und nicht in unseren Daten: Hake sie selbst ab.",
 	-- ["The final boss of every level 46-60 dungeon earns one point together."] = "Der Endboss jedes Dungeons der Stufe 46-60 bringt zusammen einen Punkt.",
+	-- ["The final boss of every level 46-60 dungeon earns one point together. Alcaz Prison, {area:1216} and the {area:16985} are new in Forever and not in our data: tick them off yourself."] = "Der letzte Boss jedes Dungeons der Stufen 46-60 bringt zusammen einen Punkt. Alcaz Prison, {area:1216} und die {area:16985} sind neu in Forever und nicht in unseren Daten: Hake sie selbst ab.",
 	-- ["The {npc:16042} questline is a point. It is the level 60 dungeon-set chain: {npc:16013} ({zone:1455}) or {npc:16012} ({zone:1454}) send you through In Search of Anthion and Anthion's Parting Words to {npc:16033} at {area:254}, whose Three Kings of Flame, the Left and Right Pieces of Lord Valthalak's Amulet, Final Preparations and Mea Culpa, {npc:16042} end with {quest:8996}. {quest:8997} then leads to the class Saving the Best for Last quests."] = "Die Questreihe um {npc:16042} ist einen Punkt wert. Es ist die Questreihe für das Dungeonset der Stufe 60: {npc:16013} ({zone:1455}) oder {npc:16012} ({zone:1454}) schicken dich über Suche nach Anthion und Anthions Abschiedsworte zu {npc:16033} am {area:254}, dessen Die drei Könige der Flammen, Das linke und Das rechte Stück von Lord Valthalaks Amulett, Letzte Vorbereitungen und Mea Culpa, {npc:16042} mit {quest:8996} enden. {quest:8997} führt dann zu den Klassenquests Das Beste gibt's zum Schluss.",
 	-- ["The {npc:16042} questline is a point. It is the level 60 dungeon-set chain: {npc:16013} ({zone:1455}) or {npc:16012} ({zone:1454}) send you through In Search of Anthion and Anthion's Parting Words to {npc:16033} at {area:254}, whose Three Kings of Flame, the Left and Right Pieces of Lord Valthalak's Amulet, Final Preparations and {quest:8995} end with {quest:8996}. {quest:8997} then leads to the class Saving the Best for Last quests."] = "Die Questreihe um {npc:16042} ist einen Punkt wert. Es ist die Questreihe für das Dungeonset der Stufe 60: {npc:16013} ({zone:1455}) oder {npc:16012} ({zone:1454}) schicken dich über Suche nach Anthion und Anthions Abschiedsworte zu {npc:16033} am {area:254}, dessen Die drei Könige der Flammen, Das linke und Das rechte Stück von Lord Valthalaks Amulett, Letzte Vorbereitungen und {quest:8995} mit {quest:8996} enden. {quest:8997} führt dann zu den Klassenquests Das Beste gibt's zum Schluss.",
 	-- ["The {npc:16042} questline is a point. It is the level 60 dungeon-set chain: {npc:16013} ({zone:1455}) or {npc:16012} ({zone:1454}) send you through In Search of Anthion and Anthion's Parting Words to {npc:16033} at {area:254}, whose Three Kings of Flame, the Left and Right Pieces of {item:22048}, Final Preparations and Mea Culpa, {npc:16042} end with {quest:8996}. {quest:8997} then leads to the class Saving the Best for Last quests."] = "Die Questreihe um {npc:16042} ist einen Punkt wert. Es ist die Questreihe für das Dungeonset der Stufe 60: {npc:16013} ({zone:1455}) oder {npc:16012} ({zone:1454}) schicken dich über Suche nach Anthion und Anthions Abschiedsworte zu {npc:16033} am {area:254}, dessen Die drei Könige der Flammen, das linke und rechte Stück von {item:22048}, Letzte Vorbereitungen und Mea Culpa, {npc:16042} mit {quest:8996} enden. {quest:8997} führt dann zu den Klassenquests Das Beste gibt's zum Schluss.",
 	-- ["Which quest Blizzard counts as the end of the questline ({quest:8996} or your class's Saving the Best for Last) is unconfirmed until the Legacy data is recorded."] = "Welche Quest Blizzard als Ende der Questreihe zählt ({quest:8996} oder Das Beste gibt's zum Schluss deiner Klasse), ist unbestätigt, bis die Vermächtnis-Daten erfasst sind.",
+	-- ["the final boss of Alcaz Prison"] = "der letzte Boss von Alcaz Prison",
+	-- ["the final boss of the Drowned City"] = "der letzte Boss der Drowned City",
 	-- ["the final boss of {area:153}"] = "den Endboss von {area:153}",
 	-- ["the final boss of {area:16919}"] = "den Endboss von {area:16919}",
 	-- ["{area:1517} (level 41-51; may count in the 46-60 bracket)"] = "{area:1517} (Stufe 41-51; zählt evtl. im Bereich 46-60)",

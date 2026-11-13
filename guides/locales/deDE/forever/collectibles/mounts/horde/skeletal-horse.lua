@@ -14,10 +14,11 @@ return {
 	["{npc:4773}, riding trainer"] = "{npc:4773}, Reitlehrer",
 
 	-- Step 2: Undead Horsemanship for other races
-	-- {spell:10906} Undead Horsemanship
-	["{spell:10906} for other races"] = "{spell:10906} für andere Rassen",
-	-- {spell:10906} Undead Horsemanship · {skill:762} Riding · {npc:4773} Velma Warnam · {faction:68} Undercity
-	["Any Horde race can buy these skeletal horses, but riding one also takes {spell:10906}, which only Undead get with {skill:762}. {npc:4773} teaches it to other races once they are Exalted with {faction:68} (the Undercity Reputation guide shows the way). Until then, don't buy a skeletal horse for this character."] = "Jede Hordenrasse kann diese Skeletal Horses kaufen, aber um eines zu reiten, braucht man auch {spell:10906}, das nur Untote mit {skill:762} bekommen. {npc:4773} lehrt es andere Rassen, sobald sie bei {faction:68} Ehrfürchtig sind (der Ruf-Guide für Undercity zeigt den Weg). Bis dahin kaufe für diesen Charakter kein Skeletal Horse.",
+	["Undead Horsemanship for other races"] = "Untotenreitkunst für andere Rassen",
+	-- {skill:762} Riding · {npc:4773} Velma Warnam · {faction:68} Undercity
+	["Any Horde race can buy these skeletal horses, but riding one also takes Undead Horsemanship, which only Undead get with {skill:762}. {npc:4773} teaches it to other races once they are Exalted with {faction:68} (the Undercity Reputation guide shows the way). Until then, don't buy a skeletal horse for this character."] = "Jede Hordenrasse kann diese Skeletal Horses kaufen, aber um eines zu reiten, braucht man auch Untotenreitkunst, das nur Untote mit {skill:762} bekommen. {npc:4773} lehrt es andere Rassen, sobald sie bei {faction:68} Ehrfürchtig sind (der Ruf-Guide für die Unterstadt zeigt den Weg). Bis dahin kaufe für diesen Charakter kein Skeletal Horse.",
+	-- {npc:4773} Velma Warnam
+	["{npc:4773}, Undead Horsemanship"] = "{npc:4773}, Untotenreitkunst",
 
 	-- Step 3: Pick a colour
 	["Pick a colour"] = "Wähle eine Farbe",
@@ -32,6 +33,8 @@ return {
 	["new in Forever, 20g; beta players found it here"] = "neu in Forever, 20g; Beta-Spieler fanden es hier",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["Any Horde race can buy these skeletal horses, but riding one also takes {spell:10906}, which only Undead get with {skill:762}. {npc:4773} teaches it to other races once they are Exalted with {faction:68} (the Undercity Reputation guide shows the way). Until then, don't buy a skeletal horse for this character."] = "Jede Hordenrasse kann diese Skeletal Horses kaufen, aber um eines zu reiten, braucht man auch {spell:10906}, das nur Untote mit {skill:762} bekommen. {npc:4773} lehrt es andere Rassen, sobald sie bei {faction:68} Ehrfürchtig sind (der Ruf-Guide für Undercity zeigt den Weg). Bis dahin kaufe für diesen Charakter kein Skeletal Horse.",
 	-- ["{npc:267354} is a new Forever horse (level 40) whose source is not known yet."] = "{npc:267354} ist ein neues Forever-Pferd (Stufe 40), dessen Quelle noch unbekannt ist.",
 	-- ["{npc:4773} and {npc:4731}'s stable are in {area:159}, {zone:1420}. At 40 {npc:4773} teaches {skill:762} (100g per Blizzard's designers), and learning it gives you a mount. The Forever client lets every Horde race ride these."] = "Der Stall von {npc:4773} und {npc:4731} ist in {area:159}, {zone:1420}. Ab Stufe 40 lehrt {npc:4773} {skill:762} (100g laut Blizzards Designern), und beim Erlernen bekommst du ein Reittier. Im Forever-Client dürfen alle Hordevölker diese reiten.",
+	-- ["{spell:10906} for other races"] = "{spell:10906} für andere Rassen",
 }

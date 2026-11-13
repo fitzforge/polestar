@@ -18,10 +18,11 @@ return {
 	["{npc:7954}, riding trainer"] = "{npc:7954}, Reitlehrer",
 
 	-- Step 2: Mechanostrider Piloting for other races
-	-- {spell:10907} Mechanostrider Piloting
-	["{spell:10907} for other races"] = "{spell:10907} für andere Rassen",
-	-- {spell:10907} Mechanostrider Piloting · {skill:762} Riding · {npc:7954} Binjy Featherwhistle · {faction:54} Gnomeregan Exiles
-	["Any Alliance race can buy these mechanostriders, but riding one also takes {spell:10907}, which only Gnomes get with {skill:762}. {npc:7954} teaches it to other races once they are Exalted with {faction:54} (the Gnomeregan Exiles Reputation guide shows the way). Until then, don't buy a mechanostrider for this character."] = "Jede Allianzrasse kann diese Mechanostrider kaufen, aber um einen zu reiten, braucht man auch {spell:10907}, das nur Gnome mit {skill:762} bekommen. {npc:7954} lehrt es andere Rassen, sobald sie bei {faction:54} Ehrfürchtig sind (der Ruf-Guide für die Gnomeregan-Exilanten zeigt den Weg). Bis dahin kaufe für diesen Charakter keinen Mechanostrider.",
+	["Mechanostrider Piloting for other races"] = "Roboschreiterlenken für andere Rassen",
+	-- {skill:762} Riding · {npc:7954} Binjy Featherwhistle · {faction:54} Gnomeregan Exiles
+	["Any Alliance race can buy these mechanostriders, but riding one also takes Mechanostrider Piloting, which only Gnomes get with {skill:762}. {npc:7954} teaches it to other races once they are Exalted with {faction:54} (the Gnomeregan Exiles Reputation guide shows the way). Until then, don't buy a mechanostrider for this character."] = "Jede Allianzrasse kann diese Mechanostrider kaufen, aber um einen zu reiten, braucht man auch Roboschreiterlenken, die nur Gnome mit {skill:762} bekommen. {npc:7954} lehrt sie andere Rassen, sobald sie bei {faction:54} Ehrfürchtig sind (der Ruf-Guide für die Gnomeregan-Exilanten zeigt den Weg). Bis dahin kaufe für diesen Charakter keinen Mechanostrider.",
+	-- {npc:7954} Binjy Featherwhistle
+	["{npc:7954}, Mechanostrider Piloting"] = "{npc:7954}, Roboschreiterlenken",
 
 	-- Step 3: Pick a colour
 	["Pick a colour"] = "Wähle eine Farbe",
@@ -35,5 +36,7 @@ return {
 	["{item:18774}, 200g"] = "{item:18774}, 200g",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["Any Alliance race can buy these mechanostriders, but riding one also takes {spell:10907}, which only Gnomes get with {skill:762}. {npc:7954} teaches it to other races once they are Exalted with {faction:54} (the Gnomeregan Exiles Reputation guide shows the way). Until then, don't buy a mechanostrider for this character."] = "Jede Allianzrasse kann diese Mechanostrider kaufen, aber um einen zu reiten, braucht man auch {spell:10907}, das nur Gnome mit {skill:762} bekommen. {npc:7954} lehrt es andere Rassen, sobald sie bei {faction:54} Ehrfürchtig sind (der Ruf-Guide für die Gnomeregan-Exilanten zeigt den Weg). Bis dahin kaufe für diesen Charakter keinen Mechanostrider.",
 	-- ["{area:189} is just east of {area:131}; {npc:7954} stands beside {npc:7955}'s mechanostriders. At 60 {npc:7954} teaches Journeyman {skill:762} (1,000g per Blizzard's designers); Blizzard says learning riding grants a mount. The Forever client sells each swift mechanostrider for 200g at level 60."] = "{area:189} liegt direkt östlich von {area:131}; {npc:7954} steht neben den Roboschreitern von {npc:7955}. Ab Stufe 60 lehrt {npc:7954} {skill:762} (Geselle) (laut Blizzards Designern 1.000g); laut Blizzard bekommst du beim Erlernen ein Reittier. Der Forever-Client verkauft jeden schnellen Roboschreiter für 200g ab Stufe 60.",
+	-- ["{spell:10907} for other races"] = "{spell:10907} für andere Rassen",
 }

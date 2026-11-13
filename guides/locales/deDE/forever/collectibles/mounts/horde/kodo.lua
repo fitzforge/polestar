@@ -17,10 +17,12 @@ return {
 	["{npc:3690}, riding trainer"] = "{npc:3690}, Reitlehrer",
 
 	-- Step 2: Kodo Riding for other races
-	-- {spell:18995} Kodo Riding
-	["{spell:18995} for other races"] = "{spell:18995} für andere Rassen",
-	-- {spell:18995} Kodo Riding · {skill:762} Riding · {npc:3690} Kar Stormsinger · {faction:81} Thunder Bluff
-	["Any Horde race can buy these kodos, but riding one also takes {spell:18995}, which only Tauren get with {skill:762}. {npc:3690} teaches it to other races once they are Exalted with {faction:81} (the Thunder Bluff Reputation guide shows the way). Until then, don't buy a kodo for this character."] = "Jede Hordenrasse kann diese Kodos kaufen, aber um einen zu reiten, braucht man auch {spell:18995}, das nur Tauren mit {skill:762} bekommen. {npc:3690} lehrt es andere Rassen, sobald sie bei {faction:81} Ehrfürchtig sind (der Ruf-Guide für Thunder Bluff zeigt den Weg). Bis dahin kaufe für diesen Charakter keinen Kodo.",
+	-- {skill:762} Riding
+	["Kodo {skill:762} for other races"] = "Kodo-{skill:762} für andere Rassen",
+	-- {skill:762} Riding · {npc:3690} Kar Stormsinger · {faction:81} Thunder Bluff
+	["Any Horde race can buy these kodos, but riding one also takes Kodo Riding, which only Tauren get with {skill:762}. {npc:3690} teaches it to other races once they are Exalted with {faction:81} (the Thunder Bluff Reputation guide shows the way). Until then, don't buy a kodo for this character."] = "Jede Hordenrasse kann diese Kodos kaufen, aber um einen zu reiten, braucht man auch Kodoreiten, das nur Tauren mit {skill:762} bekommen. {npc:3690} lehrt es andere Rassen, sobald sie bei {faction:81} Ehrfürchtig sind (der Ruf-Guide für Donnerfels zeigt den Weg). Bis dahin kaufe für diesen Charakter keinen Kodo.",
+	-- {npc:3690} Kar Stormsinger
+	["{npc:3690}, Kodo Riding"] = "{npc:3690}, Kodoreiten",
 
 	-- Step 3: Pick a colour
 	["Pick a colour"] = "Wähle eine Farbe",
@@ -35,6 +37,8 @@ return {
 	["{item:277960} is a new Forever kodo (level 40, 20g in the client) whose source is not known yet."] = "{item:277960} ist ein neuer Forever-Kodo (Stufe 40, 20g im Client), dessen Quelle noch nicht bekannt ist.",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["Any Horde race can buy these kodos, but riding one also takes {spell:18995}, which only Tauren get with {skill:762}. {npc:3690} teaches it to other races once they are Exalted with {faction:81} (the Thunder Bluff Reputation guide shows the way). Until then, don't buy a kodo for this character."] = "Jede Hordenrasse kann diese Kodos kaufen, aber um einen zu reiten, braucht man auch {spell:18995}, das nur Tauren mit {skill:762} bekommen. {npc:3690} lehrt es andere Rassen, sobald sie bei {faction:81} Ehrfürchtig sind (der Ruf-Guide für Thunder Bluff zeigt den Weg). Bis dahin kaufe für diesen Charakter keinen Kodo.",
 	-- ["{item:275993} and {item:277960} are new Forever kodos (level 40, 20g in the client) whose source is not known yet."] = "{item:275993} und {item:277960} sind neue Forever-Kodos (Stufe 40, 20g im Client), deren Quelle noch unbekannt ist.",
 	-- ["{npc:3690} and {npc:3685}'s kodos are in {area:222}, {zone:1412}. At 40 {npc:3690} teaches {skill:762} (100g per Blizzard's designers), and learning it gives you a mount. The Forever client lets every Horde race ride these."] = "{npc:3690} und die Kodos von {npc:3685} sind in {area:222}, {zone:1412}. Auf Stufe 40 lehrt {npc:3690} {skill:762} (100g laut Blizzards Designern), und dabei erhältst du ein Reittier. Im Forever-Client können alle Hordenvölker diese reiten.",
+	-- ["{spell:18995} for other races"] = "{spell:18995} für andere Rassen",
 }

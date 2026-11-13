@@ -61,8 +61,7 @@ return {
 	["{item:7506}, 75 reputation"] = "{item:7506}, 75 Ruf",
 	-- {item:4252} Dark Leather Shoulders
 	["{item:4252}, 75 reputation"] = "{item:4252}, 75 Ruf",
-	-- {item:3388} Lesser Troll's Blood Elixir
-	["{item:3388}, 75 reputation"] = "{item:3388}, 75 Ruf",
+	["Lesser Troll's Blood Elixir, 75 reputation"] = "Lesser Troll's Blood Elixir, 75 Ruf",
 	-- {item:10048} Colorful Kilt
 	["{item:10048}, 75 reputation"] = "{item:10048}, 75 Ruf",
 
@@ -71,8 +70,7 @@ return {
 	["{zone:1437} writ customers"] = "Auftragskunden in {zone:1437}",
 	-- {npc:8305} Kixxle · {area:205} Dun Modr
 	["{npc:8305} stands about 600 yards south of {area:205}. Five Journeyman writs go to him: the most of any customer. Customers show no quest mark: right-click them anyway."] = "{npc:8305} steht etwa 600 Meter südlich von {area:205}. Fünf Journeyman-Aufträge gehen an ihn: die meisten aller Kunden. Kunden zeigen kein Questzeichen: Klick sie trotzdem mit rechts an.",
-	-- {item:5996} Draught of Water Breathing
-	["{item:5996}, 75 reputation"] = "{item:5996}, 75 Ruf",
+	["Draught of Water Breathing, 75 reputation"] = "Draught of Water Breathing, 75 Ruf",
 	-- {item:3484} Green Iron Boots
 	["{item:3484}, 75 reputation"] = "{item:3484}, 75 Ruf",
 	-- {item:8069} Crafted Solid Shot
@@ -120,8 +118,7 @@ return {
 	["{zone:1416} writ customers"] = "Auftragskunden in {zone:1416}",
 	-- {npc:257281} Sos'mol · {npc:257282} Alan Sneeks · {npc:6176} Bath'rah the Windwatcher · {area:272} Tarren Mill
 	["{npc:257281} and {npc:257282} are close together in the south-west of the mountains; Syndicate thugs roam around {npc:257282}. {npc:6176} stands on the eastern edge, above {area:272}. Customers show no quest mark: right-click them anyway."] = "{npc:257281} und {npc:257282} stehen dicht beieinander im Südwesten des Gebirges; Schläger der Syndicate streifen um {npc:257282} herum. {npc:6176} steht am Ostrand, oberhalb von {area:272}. Kunden zeigen kein Questzeichen: Klick sie trotzdem mit rechts an.",
-	-- {item:3391} Elixir of Ogre Strength
-	["{item:3391}, 75 reputation"] = "{item:3391}, 75 Ruf",
+	["Elixir of Ogre Strength, 75 reputation"] = "Elixir of Ogre Strength, 75 Ruf",
 	["bring it: leatherworkers make it, or buy it at the Auction House"] = "bring ihn mit: Lederer stellen ihn her, oder kauf ihn im Auktionshaus",
 	-- {item:18662} Heavy Leather Ball
 	["{item:18662}, 75 reputation"] = "{item:18662}, 75 Ruf",
@@ -175,8 +172,8 @@ return {
 	["{zone:1441} writ customers"] = "Auftragskunden in {zone:1441}",
 	-- {area:2240} Mirage Raceway · {area:439} Shimmering Flats · {area:484} Freewind Post · {npc:4720} Rizzle Brassbolts · {npc:4706} Razzeric · {npc:4496} Goblin Pit Boss · {npc:6548} Magus Tirth
 	["All five stand at the {area:2240} on the {area:439}, south-east of {area:484}: {npc:4720}, the chicken \"Plucky\" Johnson, {npc:4706}, the {npc:4496} and {npc:6548}. Customers show no quest mark: right-click them anyway."] = "Alle fünf stehen an der {area:2240} auf den {area:439}, südöstlich von {area:484}: {npc:4720}, das Huhn „Plucky“ Johnson, {npc:4706}, der {npc:4496} und {npc:6548}. Kunden zeigen kein Questzeichen: Klick sie trotzdem mit rechts an.",
-	-- {item:8951} Elixir of Defense
-	["{item:8951}, 75 reputation"] = "{item:8951}, 75 Ruf",
+	-- {item:3389} Elixir of Defense
+	["{item:3389}, 75 reputation"] = "{item:3389}, 75 Ruf",
 	-- {item:3848} Big Bronze Knife
 	["{item:3848}, 75 reputation"] = "{item:3848}, 75 Ruf",
 	-- {item:4380} Big Bronze Bomb
@@ -295,4 +292,8 @@ return {
 	-- ["{faction:2587} to Friendly"] = "{faction:2587} auf Freundlich",
 	-- ["{faction:2587} to Honored"] = "{faction:2587} auf Wohlwollend",
 	-- ["{faction:2587} to Revered"] = "{faction:2587} auf Respektvoll",
+	-- ["{item:3388}, 75 reputation"] = "{item:3388}, 75 Ruf",
+	-- ["{item:3391}, 75 reputation"] = "{item:3391}, 75 Ruf",
+	-- ["{item:5996}, 75 reputation"] = "{item:5996}, 75 Ruf",
+	-- ["{item:8951}, 75 reputation"] = "{item:8951}, 75 Ruf",
 }

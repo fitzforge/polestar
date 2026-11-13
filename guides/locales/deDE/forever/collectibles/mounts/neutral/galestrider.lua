@@ -37,10 +37,10 @@ return {
 	["{npc:265756}, riding trainer"] = "{npc:265756}, Reitlehrer",
 
 	-- Step 5: Galestrider Riding for other races
-	-- {spell:1285849} Galestrider Riding
-	["{spell:1285849} for other races"] = "{spell:1285849} für andere Rassen",
-	-- {spell:1285849} Galestrider Riding · {skill:762} Riding · {npc:265756} Genn Fairweather
-	["Any race can buy Galestriders, but riding one also takes {spell:1285849}, which only the Skyborne get with {skill:762}. Other races can learn it too, but how is not known yet: in Classic another race's riding needed Exalted with its home faction, here the High Order (Alliance) or the Windshapers (Horde). Ask {npc:265756} before you buy."] = "Jede Rasse kann Galestrider kaufen, aber um einen zu reiten, braucht man auch {spell:1285849}, das nur die Himmelsgeborenen mit {skill:762} bekommen. Andere Rassen können es ebenfalls lernen, aber wie, ist noch nicht bekannt: In Classic brauchte das Reiten einer anderen Rasse Ehrfürchtig bei deren Heimatfraktion, hier die Hohe Ordnung (Allianz) oder die Windformer (Horde). Frag {npc:265756}, bevor du kaufst.",
+	-- {skill:762} Riding
+	["Galestrider {skill:762} for other races"] = "Galestrider-{skill:762} für andere Rassen",
+	-- {skill:762} Riding · {npc:265756} Genn Fairweather
+	["Any race can buy Galestriders, but riding one also takes Galestrider Riding, which only the Skyborne get with {skill:762}. Other races can learn it too, but how is not known yet: in Classic another race's riding needed Exalted with its home faction, here the High Order (Alliance) or the Windshapers (Horde). Ask {npc:265756} before you buy."] = "Jede Rasse kann Galestrider kaufen, aber um einen zu reiten, braucht man auch Windschreiterreiten, das nur die Himmelsgeborenen mit {skill:762} bekommen. Andere Rassen können es ebenfalls lernen, aber wie, ist noch nicht bekannt: In Classic brauchte das Reiten einer anderen Rasse Ehrfürchtig bei deren Heimatfraktion, hier die High Order (Allianz) oder die Windshapers (Horde). Frag {npc:265756}, bevor du kaufst.",
 
 	-- Step 6: Genn Fairweather
 	-- {npc:265756} Genn Fairweather · {area:17684} Fairweather Stables · {area:16638} Valanaar
@@ -48,6 +48,8 @@ return {
 	["20g"] = "20g",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["Any race can buy Galestriders, but riding one also takes {spell:1285849}, which only the Skyborne get with {skill:762}. Other races can learn it too, but how is not known yet: in Classic another race's riding needed Exalted with its home faction, here the High Order (Alliance) or the Windshapers (Horde). Ask {npc:265756} before you buy."] = "Jede Rasse kann Galestrider kaufen, aber um einen zu reiten, braucht man auch {spell:1285849}, das nur die Himmelsgeborenen mit {skill:762} bekommen. Andere Rassen können es ebenfalls lernen, aber wie, ist noch nicht bekannt: In Classic brauchte das Reiten einer anderen Rasse Ehrfürchtig bei deren Heimatfraktion, hier die Hohe Ordnung (Allianz) oder die Windformer (Horde). Frag {npc:265756}, bevor du kaufst.",
 	-- ["Galestriders need level 40 and {skill:762} ({spell:1285849} comes with it in the Forever client). Any riding trainer of your faction teaches it; see the Level 40 mount guides for where."] = "Windschreiter erfordern Stufe 40 und {skill:762} ({spell:1285849} gibt es im Forever-Client dazu). Jeder Reitlehrer deiner Fraktion lehrt es; wo, steht in den Guides für Reittiere mit Stufe 40.",
 	-- ["{npc:265756} is in {area:16638}, the island's harbour town, near the skyboat docks. The Forever client lists each Galestrider at 20g; choose one."] = "{npc:265756} ist in {area:16638}, der Hafenstadt der Insel, nahe den Anlegestellen der Himmelsboote. Der Forever-Client führt jeden Windschreiter für 20g; wähle einen.",
+	-- ["{spell:1285849} for other races"] = "{spell:1285849} für andere Rassen",
 }
