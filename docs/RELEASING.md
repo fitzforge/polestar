@@ -263,6 +263,21 @@ version throughout.
    node --test "tests/**/*.test.js"
    ```
 
+   Then the reported-problems gate: every player-reported problem that was
+   fixed stays fixed. It runs the tests `tests/reported-gate.json` names for
+   each confirmed report, the whole of `tests/guides-reported.test.js`, the
+   judge's player-report seeds on the shipped guides and the danger gate
+   (`tools/danger-gate.js`) on the candidate's calibrated level model, and
+   names the reports whose tests fail:
+
+   ```sh
+   npm run test:reported -- --levels <Alliance.json>,<Horde.json>
+   ```
+
+   A fix for a report adds the report to `tests/reported-gate.json` with the
+   test that pins it (`tests/reported-gate.test.js` checks every test named
+   there exists).
+
 4. Pack and check the archives:
 
    ```sh

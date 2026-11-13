@@ -447,7 +447,7 @@ A fix goes into a record the next build applies, whoever builds:
 | a quest fact: giver, turn-in, prerequisite, objective, XP, races; an NPC's or object's place or rank; a wrong drop | `forever-db/corrections/{quests,npcs,objects,items}.json` |
 | how a quest is done: an item from a chest, a delayed offer, an object to click | `forever-db/corrections/mechanics.json` |
 | whether the route takes a quest; an order players asked for | `data/route-fixes.json` (`overrides`, `deliberate`) |
-| the check that pins it | `tests/guides-reported.test.js` |
+| the check that pins it | `tests/guides-reported.test.js`, and the report's entry in `tests/reported-gate.json` (`npm run test:reported`) |
 | an arrow point: where an objective is done, or where a giver or ender stands; a road the target walks; an objective that needs its own goal line | `data/places.json` |
 | a step's tip, a goal's note (`goalNote`), an optional goal (`optional: true`), a `level` gate before a goal, or a `when` (`level>=N`: the goal's step shows only from that level; `onquest Q,...`: only while one of the quests is in the log; `!knows S`: only while the character does not know spell S; on a flight step with `at: { guide, goal: "fly", fly }`) | `data/guide-fixes.json` |
 | who a goal is for by race (`races`: `"all"` drops a stale race filter, a list sets one), on one goal or on every goal of the quest (`at.goal: "quest"`) | `data/guide-fixes.json` |

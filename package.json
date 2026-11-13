@@ -29,6 +29,7 @@
   "scripts": {
     "test": "node --test --test-timeout=900000 \"tests/**/*.test.js\"",
     "test:changed": "node tools/testsel.js --run",
+    "test:reported": "node tools/reported-gate.js",
     "i18n:check": "cargo run --manifest-path rust/Cargo.toml --locked -q -p forge -- i18n check",
     "i18n:status": "cargo run --manifest-path rust/Cargo.toml --locked -q -p forge -- i18n status"
   }
