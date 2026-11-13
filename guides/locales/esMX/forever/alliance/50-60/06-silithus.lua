@@ -18,7 +18,7 @@ return {
 	-- {area:3137} Talrendis Point
 	["Fly to {area:3137}"] = "",
 	-- {area:392} Ratchet
-	["{area:392} flight master"] = "",
+	["{area:392} flight master"] = "Maestro de vuelo de {area:392}",
 
 	-- Step 3: Felwood
 	-- {area:2479} Emerald Sanctuary
@@ -27,7 +27,7 @@ return {
 	-- Step 4: The Emerald Sanctuary
 	-- {area:3137} Talrendis Point · {zone:1448} Felwood · {area:2479} Emerald Sanctuary · {zone:1440} Ashenvale
 	["From {area:3137} ride into {zone:1448}: the {area:2479} is the druids' camp on the road just past the {zone:1440} border."] = "",
-	["Inside"] = "",
+	["Inside"] = "Adentro",
 	-- {npc:9116} Eridan Bluewind
 	["Wait a moment for {npc:9116}"] = "Espera un momento a {npc:9116}",
 
@@ -102,7 +102,7 @@ return {
 	-- plural, as words: Thorium Bars = {item:12359} Thorium Bar
 	["Fly to {area:976}. Buy two Thorium Bars at the Auction House here for {quest:5801}."] = "",
 	-- {npc:5594} Alchemist Pestlezugg
-	["{npc:5594}, inside"] = "",
+	["{npc:5594}, inside"] = "{npc:5594}, adentro",
 
 	-- Step 16: Aquementas
 	-- {item:11169} Book of Aquor · {quest:4005} Aquementas
@@ -394,7 +394,7 @@ return {
 	["The lake for {quest:5845}"] = "",
 
 	-- Step 88: Of Lost Honor
-	["Underwater"] = "",
+	["Underwater"] = "Bajo el agua",
 
 	-- Step 90: Egan
 	-- {npc:1855} Tirion Fordring · {area:2627} Terrordale · {npc:11140} Egan

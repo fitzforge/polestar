@@ -175,7 +175,7 @@ return {
 	-- Step 32: Captain Stoutfist
 	-- {area:150} Menethil Harbor · {area:2104} Deepwater Tavern · {npc:2104} Captain Stoutfist · {area:2103} Menethil Keep · {npc:1217} Glorin Steelbrow · {npc:2094} James Halloran
 	["Hearth back to {area:150} if you bound at the {area:2104}, or walk west along the road: {npc:2104} stands on the top floor of {area:2103}, {npc:1217} in the {area:2104} south of it, {npc:2094} by the docks on the way to the boat."] = "",
-	["On the top floor"] = "",
+	["On the top floor"] = "En el piso superior",
 	-- {zone:1437} Wetlands
 	["For the Dragonmaw catapult, on the {zone:1437} loop of 30-40/01-hillsbrad-foothills"] = "",
 	-- {npc:1217} Glorin Steelbrow · {area:2104} Deepwater Tavern
