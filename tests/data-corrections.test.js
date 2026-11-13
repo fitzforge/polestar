@@ -271,6 +271,17 @@ test('The Great Outdoors waits for The Adventurer, whatever breadcrumb links the
 	}
 });
 
+// Gnomeregan's pick-up guide (a Discord report, 2026-11-13): The Day After came into the log but was never handed in,
+// so Ozzie Togglevolt had no Gnogaine to give. The quest data names The Day After as Gnogaine's prerequisite and as its
+// breadcrumb, and a breadcrumb never blocks; players' recordings: all 28 people who took Gnogaine handed The Day After
+// in first. The corrections clear the breadcrumb links, so the prerequisite stands and the guide hands it in on the way.
+test('Gnogaine waits for The Day After, whatever breadcrumb links the data has (Gnomeregan pick-up)', () => {
+	const quest = { id: 2926, start: { npc: [1268] }, pre: [2927], breadcrumbs: [2927], ...corrections.quests[2926].set };
+	const dayAfter = { id: 2927, start: { npc: [6569] }, breadcrumbFor: 2926, ...corrections.quests[2927].set };
+	const { all, any } = blockingPrereqs(quest, (id) => (id === 2927 ? dayAfter : null));
+	assert.deepEqual({ all, any }, { all: [], any: [2927] });
+});
+
 // The 1.0.13 quest database's trace XP against our data (2026-11-08): 45 quests differed, every one confirmed by
 // players' recorded hand-ins at a full-XP level, but for Harvesting the Harvesters (92911): one hand-in in the 2026-11-08
 // count and none in the recordings archive now, so it stays as the data has it until a second source agrees. The corrections hold the recorded values, so the level model gets them.
