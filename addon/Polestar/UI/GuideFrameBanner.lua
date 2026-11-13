@@ -356,11 +356,21 @@ function GF.LayoutBanner(width)
 		banner.Close:Show()
 	elseif kind == "outlevel" then
 		banner.Icon:SetTexture(Theme.Media("icon-level"))
-		banner.Text:SetText(L["You have outlevelled this guide."])
+		-- Finished quests the route hands in before the guide the jump goes to
+		-- (RoutePlan.LeftBehind): said here, and the jump asks once.
+		local left = ns.RoutePlan and ns.RoutePlan.LeftBehind(n.to)
+		n.left = left and left.n > 0 and left or nil
+		local text = L["You have outlevelled this guide."]
+		if n.left then
+			local what = n.left.n == 1 and L["1 finished quest here first"] or string.format(L["%d finished quests here first"], n.left.n)
+			text = text .. "\n" .. (n.left.xp > 0 and string.format(L["%s (%d XP)"], what, n.left.xp) or what)
+			if n.asked then text = text .. "\n" .. L["Jump anyway? They stay in your log, and the guide lists who takes each in."] end
+		end
+		banner.Text:SetText(text)
 		-- The suggested guide is one of a route choice: offer the choice.
 		local E = Engine()
 		n.choiceFrom = n.to and E and E.RouteChoiceFor and E.RouteChoiceFor(n.to) or nil
-		placeLink(banner.Jump, n.choiceFrom and L["Choose where to level next"] or string.format(L["Jump to %s"], n.title or ""), 0, -4)
+		placeLink(banner.Jump, (n.left and n.asked) and L["Jump anyway"] or n.choiceFrom and L["Choose where to level next"] or string.format(L["Jump to %s"], n.title or ""), 0, -4)
 		banner.Close:Show()
 	elseif kind == "train" then
 		banner.Icon:SetTexture(Theme.Media("icon-train"))
@@ -520,10 +530,15 @@ function GF.TakeBanner()
 			E.StartNext(n.guideId)
 		end
 	elseif kind == "outlevel" then
-		notices.outlevel = nil
-		-- A route choice opens the choice window, which loads the zone picked.
-		if not (n.choiceFrom and UI.ShowRouteChoice(n.choiceFrom)) and E and E.SetGuide and n.to then
-			E.SetGuide(n.to)
+		-- Finished quests the jump would leave behind: the first click asks.
+		if n.left and not n.asked then
+			n.asked = true
+		else
+			notices.outlevel = nil
+			-- A route choice opens the choice window, which loads the zone picked.
+			if not (n.choiceFrom and UI.ShowRouteChoice(n.choiceFrom)) and E and E.SetGuide and n.to then
+				E.SetGuide(n.to)
+			end
 		end
 	elseif kind == "train" then
 		notices.train = nil
