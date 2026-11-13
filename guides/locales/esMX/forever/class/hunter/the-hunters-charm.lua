@@ -8,7 +8,7 @@
 return {
 	-- Guide
 	-- {zone:1447} Azshara · {area:1417} Sunken Temple
-	["Experience at 50 through {zone:1447} and the {area:1417}; Classic's item choice may be gone on Forever."] = "",
+	["Experience at 50 through {zone:1447} and the {area:1417}; Classic's item choice may be gone on Forever."] = "Experiencia a nivel 50 por {zone:1447} y {area:1417}; puede que en Forever ya no esté la elección de objeto de Classic.",
 	["Experience"] = "Experiencia",
 
 	-- Step 1: The Hunter's Charm (Alliance)
