@@ -1543,6 +1543,18 @@ test('forever/horde/30-40: Bracers of Binding and Dalaran Patrols are taken on t
 	assert.ok(at(list, 'accept 545', is('accept', 545)) < at(list, 'the Dalaran Summoners', (g) => g.t === 'kill' && g.quest === 545), 'before the ruins');
 });
 
+// Horde 30-40 audit (0.4.0): Centaur Bounty (1366) was taken at the end of the first Desolace visit (33-35) and worked
+// only on the second (38), carried through Stranglethorn; players' recordings show 4 people abandoning it on the way.
+// Felgur stands beside Gurda Wildmane at Ghost Walker Post, where the second visit stops before the Valley of Spears.
+test('forever/horde/30-40: Centaur Bounty is taken on the second Desolace visit, before the Valley of Spears', { skip }, () => {
+	const first = goals('forever/horde/30-40/02-thousand-needles.guide');
+	assert.deepEqual(first.filter(({ goal }) => is('accept', 1366)(goal)).length, 0, 'not taken on the first visit');
+	const list = goals('forever/horde/30-40/04-dustwallow-marsh.guide');
+	const acc = at(list, 'accept 1366', is('accept', 1366));
+	assert.equal(list[acc].s, list[at(list, 'accept 93225', is('accept', 93225))].s, 'with Gurda Wildmane at Ghost Walker Post');
+	assert.ok(acc < at(list, 'the centaur ears', (g) => g.t === 'collect' && g.quest === 1366), 'before the valley');
+});
+
 // --- Forever chains the quest data has no prerequisite for, so the guide took
 // a follow-up at the same visit as the quest before it and the giver did not
 // offer it: Baine's chain in Mulgore (Kori, #112) and Mull's report (#51),

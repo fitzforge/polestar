@@ -58,8 +58,7 @@ next forever/horde/30-40/03-stranglethorn-vale
 #
 # Carried on: Parts of the Swarm (1148) for Korran at the Crossroads, Load Lightening's Goblin
 # Sponsorship (1178) for Gazlowe and Kravel's parts order (Wharfmaster Dizzywig, 1111) for the
-# docks in Ratchet, and Centaur Bounty (1366) for the second Desolace
-# visit (forever/horde/30-40/04-dustwallow-marsh); Alliance Relations (1436) and Hunting in
+# docks in Ratchet; Alliance Relations (1436) and Hunting in
 # Stranglethorn (5763) for the next guide.
 
 # ---------------------------------------------------------------- Orgrimmar
@@ -360,7 +359,7 @@ step Ghost Walker Post
   accept 1436                         -- Takata Steelblade: for Keldran in Orgrimmar, next guide
   note Takata's next errand sends you after a demon lord with an elite guard: skip it.
   turnin 1365                         -- Felgur Twocuts
-  accept 1366                         -- for the second Desolace visit, in forever/horde/30-40/04-dustwallow-marsh
+  note Felgur now offers Centaur Bounty: the second Desolace visit, at 38, takes it on its way to the Valley of Spears.
 
 # ---------------------------------------------------------------- Shadowprey
 

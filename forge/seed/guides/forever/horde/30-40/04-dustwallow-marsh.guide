@@ -213,6 +213,7 @@ step Ghost Walker Post
   zone Desolace
   tip North to the post; Gurda Wildmane stands beside Felgur.
   accept 93225                        -- Gurda Wildmane
+  accept 1366                         -- Felgur Twocuts: his Centaur Bounty, from the same Maraudine
 
 step Valley of Spears
   zone Desolace
