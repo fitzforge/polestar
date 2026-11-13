@@ -196,3 +196,114 @@ test('sessions without Polestar (no step snapshots) report nothing instead of fa
 	assert.deepEqual([r.guides, r.steps, r.slowest], [[], [], []]);
 	assert.match(formatReport(r), /No guide steps recorded/);
 });
+
+test('completion ends a step at its final time, XP and position before unrelated play', () => {
+	const r = buildReport([session('Done', 1, [
+		step(0, 'login', G, 1, 1, 0, { combat: true }),
+		step(60, 'complete', G, null, 1, 100, { x: 51 }),
+		{ t: 80, e: 'death', ...at },
+		{ t: 90, e: 'turnin', q: 7, ...at },
+		step(120, 'guide', G2, 1, 1, 200),
+		step(180, 'step', G2, 2, 1, 300),
+	])]);
+	const last = stepRow(r, G, 1);
+	assert.deepEqual(
+		{ time: last.totalTime, xp: last.xp, yards: last.medianYards, deaths: last.deaths, turnins: last.turnins, combat: last.combatShare, passes: last.passes, open: last.open },
+		{ time: 60, xp: 100, yards: 52, deaths: 0, turnins: 0, combat: 1, passes: 1, open: 0 },
+	);
+	const run = r.guides.find((g) => g.id === G).runs[0];
+	assert.deepEqual({ time: run.time, xp: run.xp, completed: run.completed }, { time: 60, xp: 100, completed: true });
+	assert.equal(stepRow(r, G2, 1).totalTime, 60);
+	assert.equal(stepRow(r, G2, 1).xp, 100);
+	assert.equal(r.unattributedTime, 60, 'play between completion and the next guide is retained');
+	assert.equal(r.guides.reduce((sum, g) => sum + g.runs.reduce((n, run) => n + run.time, 0), 0) + r.unattributedTime, 180);
+});
+
+for (const order of ['before', 'after']) {
+	test(`a terminal snapshot ${order} completion does not restart the completed guide's time`, () => {
+		const terminal = step(60, 'step', G, null, 1, 100);
+		const complete = step(60, 'complete', G, null, 1, 100);
+		const events = [
+			step(0, 'login', G, 1, 1, 0),
+			...(order === 'before' ? [terminal, complete] : [complete, terminal]),
+			{ t: 120, e: 'pos', ...at },
+		];
+		const r = buildReport([
+			session('Done', 1, events),
+			// A reload or tab switch can snapshot the completed guide without a step.
+			session('Done', 1000, [
+				step(0, 'login', G, null, 1, 200),
+				{ t: 60, e: 'pos', ...at },
+				step(120, 'guide', G2, 1, 1, 250),
+				step(180, 'step', G2, 2, 1, 300),
+			]),
+		]);
+		const g = r.guides.find((g) => g.id === G);
+		assert.equal(g.completedRuns, 1);
+		assert.deepEqual({ time: g.runs[0].time, xp: g.runs[0].xp }, { time: 60, xp: 100 });
+		assert.deepEqual({ passes: stepRow(r, G, 1).passes, open: stepRow(r, G, 1).open }, { passes: 1, open: 0 });
+		assert.equal(stepRow(r, G2, 1).totalTime, 60);
+		assert.equal(stepRow(r, G2, 1).xp, 50);
+		assert.equal(r.unattributedTime, 180, 'both snapshot orders retain play without counting the offline gap');
+	});
+}
+
+test('unattributed play after completion preserves AFK state and the idle cap', () => {
+	for (const { before = [], after, expected } of [
+		{ after: [{ t: 80, e: 'afk', on: true }, { t: 160, e: 'afk', on: false }, { t: 200, e: 'pos', ...at }], expected: 60 },
+		{ before: [{ t: 40, e: 'afk', on: true }], after: [{ t: 160, e: 'afk', on: false }, { t: 200, e: 'pos', ...at }], expected: 40 },
+		{ after: [{ t: 660, e: 'pos', ...at }], expected: 300 },
+		{ after: [], expected: 0 },
+	]) {
+		const r = buildReport([session('Done', 1, [
+			step(0, 'login', G, 1, 1, 0), ...before,
+			step(60, 'complete', G, null, 1, 100), ...after,
+		])]);
+		assert.equal(r.unattributedTime, expected);
+		assert.equal(stepRow(r, G, 1).xp, 100, 'later unassigned play cannot change the completed step');
+	}
+});
+
+test('a background guide completion leaves the active guide segment running', () => {
+	const r = buildReport([session('Tabs', 1, [
+		step(0, 'login', G, 1, 1, 0),
+		step(30, 'guide', G2, 1, 1, 50),
+		step(60, 'complete', G, null, 1, 100),
+		step(120, 'step', G2, 2, 1, 200),
+	])]);
+	assert.deepEqual(
+		{ time: stepRow(r, G, 1).totalTime, xp: stepRow(r, G, 1).xp, passes: stepRow(r, G, 1).passes },
+		{ time: 30, xp: 50, passes: 1 },
+	);
+	assert.deepEqual(
+		{ time: stepRow(r, G2, 1).totalTime, xp: stepRow(r, G2, 1).xp },
+		{ time: 90, xp: 150 },
+	);
+});
+
+test('reopening an actual step after completion starts a new pass', () => {
+	const r = buildReport([session('Repeat', 1, [
+		step(0, 'login', G, 1, 1, 0),
+		step(60, 'complete', G, null, 1, 100),
+		step(60, 'step', G, null, 1, 100),
+		step(120, 'guide', G, 1, 1, 200),
+		step(180, 'complete', G, null, 1, 300),
+	])]);
+	const row = stepRow(r, G, 1);
+	assert.deepEqual({ passes: row.passes, open: row.open, time: row.totalTime, xp: row.xp }, { passes: 2, open: 0, time: 120, xp: 200 });
+	const run = r.guides[0].runs[0];
+	assert.deepEqual({ time: run.time, xp: run.xp }, { time: 120, xp: 200 });
+});
+
+test('completion without an XP snapshot does not borrow XP from the next session', () => {
+	const r = buildReport([
+		session('NoXp', 1, [
+			step(0, 'login', G, 1, 1, 0),
+			{ t: 30, e: 'accept', lvl: 1, xp: 50 },
+			{ t: 60, e: 'step', reason: 'complete', guide: G },
+		]),
+		session('NoXp', 1000, [step(0, 'login', G2, 1, 1, 200)]),
+	]);
+	assert.equal(stepRow(r, G, 1).xp, 50);
+	assert.equal(stepRow(r, G, 1).totalTime, 60);
+});
