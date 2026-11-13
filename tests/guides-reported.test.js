@@ -7196,8 +7196,8 @@ test('Horde 50-60: arrows away from the Blackmaw Thrall, the Hailspite and the A
 // Horde 50-60 audit (0.4.0): class ranks come only at even levels (training.json: 50, 52, ..., 60 for every class).
 // Several training stops came where the route has no new rank: Orgrimmar at about 53.3 (with the Druids sent to Mulgore
 // and the Paladins to Brill, a level after the Undercity's 52), a second Orgrimmar training 20 minutes after the
-// first in the Azshara guide, and the Druids' Moonglade training right after their Thunder Bluff one. Those stops now
-// hold only from the next rank's level, so a player above the model still trains there; and the Plaguelands guide
+// first in the Azshara guide, and the Druids' Moonglade training right after their Thunder Bluff one (gone: the
+// guide ends below 58; the Felwood guide's Moonglade stop trains them). The other stops now hold only from the next rank's level, so a player above the model still trains there; and the Plaguelands guide
 // trains Warriors to Warlocks on its way through Orgrimmar at about 56.6 instead of two levels later.
 test('Horde 50-60: training stops hold only from the level of the next class rank', { skip }, () => {
 	const gate = (e) => ((e.step.when || []).find((p) => p.k === 'level') || {});
@@ -7209,8 +7209,7 @@ test('Horde 50-60: training stops hold only from the level of the next class ran
 	const epl = trains('forever/horde/50-60/05-eastern-plaguelands.guide');
 	const org = epl.find((e) => forClass('WARRIOR')(e));
 	assert.ok(org && gate(org).n === 56, '05: Warriors to Warlocks train in Orgrimmar from 56');
-	const moonglade = epl.filter((e) => forClass('DRUID')(e) && !forClass('PALADIN')(e));
-	assert.ok(moonglade.length && moonglade.every((e) => gate(e).n >= 58), '05: the Druids\' Moonglade training only from 58');
+	assert.ok(!epl.some((e) => forClass('DRUID')(e) && !forClass('PALADIN')(e)), '05: no second Druid training in Moonglade (Thunder Bluff trained 56; 58 comes in the Felwood guide\'s Moonglade stop)');
 });
 
 // Final route review, Horde 40-60: each race learns to ride where the route already passes its trainer's city:

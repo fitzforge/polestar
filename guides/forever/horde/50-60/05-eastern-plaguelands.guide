@@ -306,11 +306,6 @@ step Rabine Saturna
   tip Go through Timbermaw Hold and take the Moonglade branch of the tunnel. Rabine is in Nighthaven.
   accept 5527
 
-step Class trainer
-  only Druid
-  when level>=58
-  train class only Druid
-
 step Rabine Saturna
   zone Moonglade
   turnin 1123
