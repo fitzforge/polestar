@@ -1343,6 +1343,7 @@ L["Your manual check-offs and skipped steps in the current guide are cleared fro
 -- L["How a profession guide gets a material it can gather or buy, until you answer for that guide. Ask me: a card asks when the guide opens and Mix applies meanwhile. Mix gathers what your level and professions allow and buys the rest at the Auction House. Vendor goods stay vendor steps."] = ""
 -- L["Count my other characters' materials"] = ""
 -- L["What your other characters of this realm and side hold counts toward what is still to get. Their counts show under a material either way; mail them over yourself."] = ""
+-- L["Materials window"] = ""
 
 -- UI/Dungeons.lua
 L["Ready to turn in"] = "Bereit zur Abgabe"

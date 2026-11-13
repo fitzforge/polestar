@@ -442,8 +442,8 @@ local BUILTIN = {
 			needs = function() return ns.Engine and ns.Engine.ResetProgress end },
 	} },
 	-- Gather, buy or mix (Core/Materials.lua, UI/Materials.lua): a profession guide's materials. Each guide's own
-	-- answer is the player's, per character (its card, the guide window's menu, the Materials window); this is the
-	-- way of a guide never answered.
+	-- answer is the player's, per character (its card, the guide window's menu, the Materials window, which the
+	-- last row opens); this is the way of a guide never answered.
 	{ page = GUIDE, tab = L["Professions"], section = L["Materials"], controls = {
 		{ kind = "dropdown", key = "professions.materials", label = L["Materials in profession guides"], new = "0.4.0",
 			help = L["How a profession guide gets a material it can gather or buy, until you answer for that guide. Ask me: a card asks when the guide opens and Mix applies meanwhile. Mix gathers what your level and professions allow and buys the rest at the Auction House. Vendor goods stay vendor steps."],
@@ -452,6 +452,11 @@ local BUILTIN = {
 		{ kind = "toggle", key = "professions.altMaterials", label = L["Count my other characters' materials"], new = "0.4.0",
 			help = L["What your other characters of this realm and side hold counts toward what is still to get. Their counts show under a material either way; mail them over yourself."],
 			search = "alts, other characters, bank, mail, materials, reagents, count" },
+		{ kind = "button", button = L["Show"], label = L["Materials window"], new = "0.4.0",
+			help = L["Show how the profession guide gets its materials"],
+			search = "materials window, shopping list, reagents, gather, buy, mix, prices, /polestar materials",
+			onClick = function() ns.UI.Materials.Show() end,
+			needs = function() return ns.UI and ns.UI.Materials end },
 	} },
 
 	-- Everything Polestar draws on the world map and the minimap, in one
