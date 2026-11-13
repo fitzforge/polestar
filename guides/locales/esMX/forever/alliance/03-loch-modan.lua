@@ -37,7 +37,7 @@ return {
 
 	-- Step 7: Back to the Algaz Station
 	-- {area:925} Algaz Station
-	["Back to the {area:925}"] = "",
+	["Back to the {area:925}"] = "De vuelta a {area:925}",
 
 	-- Step 8: Stonewrought Dam
 	["Chief Engineer Hinderweir stands on top of the dam, up the ramp at its west end."] = "",
@@ -115,7 +115,7 @@ return {
 	["South of Thelsamar, Ylva lies dead in the mouth of a trogg cave. Take her banner, raise it beside her and hold the spot: troggs come in waves from both sides, then {npc:269185}."] = "",
 
 	-- Step 23: The tunnel post
-	["The tunnel post"] = "",
+	["The tunnel post"] = "El puesto del túnel",
 	-- {zone:1426} Dun Morogh
 	["West to the dwarven post at the tunnel to {zone:1426}."] = "",
 
@@ -145,7 +145,7 @@ return {
 
 	-- Step 28: Tram to Stormwind
 	-- {zone:1453} Stormwind
-	["Tram to {zone:1453}"] = "",
+	["Tram to {zone:1453}"] = "Tranvía a {zone:1453}",
 
 	-- Step 29: Elwynn Forest
 	-- {zone:1453} Stormwind · {area:87} Goldshire
@@ -365,4 +365,10 @@ return {
 	["Cathedral of Light"] = "",
 	-- {npc:6171} Duthorian Rall
 	["{npc:6171}: Redemption"] = "{npc:6171}: Redención",
+
+	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["Back down to the east shore below the boars' hills: {npc:270693}, a crocolisk, patrols it among the Loch Crocolisks."] = "Baja de nuevo a la orilla este, debajo de las colinas de los jabalíes: {npc:270693}, un crocolisco, la patrulla entre los crocoliscos del lago.",
+	-- ["Elder Mountain Boars"] = "Jabalíes monteses mayores",
+	-- ["The Elder Mountain Boars roam the hills north-west of the lodge, along the east shore. {quest:258} runs for 12 minutes: kill five and go straight back to Daryl; the crocolisks come after."] = "Los jabalíes monteses mayores recorren las colinas al noroeste del pabellón, a lo largo de la orilla este. {quest:258} dura 12 minutos: mata cinco y regresa directo con Daryl; los crocoliscos van después.",
+	-- ["{npc:270693} and the loch crocolisks"] = "{npc:270693} y los crocoliscos del lago",
 }

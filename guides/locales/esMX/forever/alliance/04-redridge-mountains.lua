@@ -34,7 +34,7 @@ return {
 	-- {area:108} Sentinel Hill
 	["Fly to {area:108}"] = "",
 	-- {zone:1453} Stormwind
-	["{zone:1453} flight master"] = "",
+	["{zone:1453} flight master"] = "Maestro de vuelo de {zone:1453}",
 
 	-- Step 7: Half Pendant of Aquatic Endurance
 	-- {area:108} Sentinel Hill · {object:177790} Strange Lockbox
@@ -44,7 +44,7 @@ return {
 
 	-- Step 8: Back to Elwynn Forest
 	-- {zone:1429} Elwynn Forest
-	["Back to {zone:1429}"] = "",
+	["Back to {zone:1429}"] = "De vuelta a {zone:1429}",
 	-- {zone:1429} Elwynn Forest
 	["The road into {zone:1429}"] = "",
 
