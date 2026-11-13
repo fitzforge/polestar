@@ -659,8 +659,9 @@ local function suggestions(byId, tabs, openIndex)
 	for _, t in ipairs(tabs or {}) do
 		local h = byId[t.guideId]
 		if h then
+			-- Never an experimental offer: the route choice window offers it.
 			for _, c in ipairs(type(h.nextChoices) == "table" and h.nextChoices or { h.next }) do
-				if offered(h.id, c) then add(c, true) end
+				if offered(h.id, c) and not (G and G.ExperimentalOffer and G.ExperimentalOffer(h, c)) then add(c, true) end
 			end
 		end
 	end

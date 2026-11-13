@@ -26,6 +26,7 @@ const { blockingPrereqs } = require('../data/prereqs');
 const SOLO = require('../sim/solo');
 const { eliteWork } = require('./group');
 const { PIPE_HINT } = require('../pack/manifest');
+const { OWN_EXTRAS } = require('../pack/format');
 const { MAX_LEVEL, CUM_XP, LEVEL_XP } = require('../game/xp');
 const { checkTimedItems } = require('./timed');
 const { objectiveLabel } = require('./data');
@@ -478,10 +479,17 @@ function validateGuides(guides, data, diag) {
 	// Predecessors through `next` and every route choice (`nextChoices`,
 	// conditional options too: any of them can be the route).
 	const preds = new Map();
+	// Polestar's own extra packs (OWN_EXTRAS) with a guide in this compile: a `next` to an unknown id of one of
+	// them is an error; of one compiled elsewhere (an experimental guide our route choice offers) forge checks it
+	// where that pack is read (forge-guide's project.rs experimental_index).
+	const extraOf = (id) => (OWN_EXTRAS.find((e) => id.startsWith(`${e.id}/`)) || {}).id;
+	const extrasIn = new Set([...byId.keys()].map(extraOf).filter(Boolean));
 	for (const g of byId.values()) {
 		const nextLine = (to) => (g._ast.lines.nextOf && g._ast.lines.nextOf[to]) || g._ast.lines.next;
 		for (const to of g.nextChoices || (g.next ? [g.next] : [])) {
 			if (!byId.has(to)) {
+				const extra = extraOf(to);
+				if (extra && !extrasIn.has(extra)) continue;
 				diag.error(g._ast.file, nextLine(to), `\`next\` points to unknown guide "${to}"`, 'list guide ids with `polestar find --kind guide <text>`');
 				continue;
 			}

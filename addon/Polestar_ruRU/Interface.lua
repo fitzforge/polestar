@@ -1835,6 +1835,7 @@ L["You finished %s."] = "Вы завершили: %s."
 L["Both routes meet again in %s."] = "Оба маршрута снова сходятся в зоне %s."
 L["Every route meets again in %s."] = "Все маршруты снова сходятся в зоне %s."
 L["Pick where you want to level next."] = "Выберите, где качаться дальше."
+L["The experimental guides could not load (%s)."] = "Не удалось загрузить экспериментальные гайды (%s)."
 
 -- UI/Welcome.lua
 L["level %d %s"] = "%2$s %1$d-го уровня"

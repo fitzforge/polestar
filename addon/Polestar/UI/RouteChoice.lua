@@ -455,12 +455,15 @@ function RC.Hide()
 	if F then F:Hide() end
 end
 
+-- An experimental route whose guides could not load says why in chat
+-- (Engine.ChooseRoute's reason: the game's AddOns list turned it off, ...).
 function RC.Choose(id)
 	local E = Engine()
 	if not (fromId and id and E and E.ChooseRoute) then return end
 	local from = fromId
 	RC.Hide()
-	E.ChooseRoute(from, id)
+	local ok, why = E.ChooseRoute(from, id)
+	if not ok and why then ns.Print(string.format(L["The experimental guides could not load (%s)."], why)) end
 	ns.Set("ui.shown", true)
 end
 

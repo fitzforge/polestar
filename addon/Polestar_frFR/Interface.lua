@@ -1836,6 +1836,7 @@ L["You finished %s."] = "Vous avez terminé %s."
 L["Both routes meet again in %s."] = "Les deux itinéraires se rejoignent à %s."
 L["Every route meets again in %s."] = "Tous les itinéraires se rejoignent à %s."
 L["Pick where you want to level next."] = "Choisissez où monter en niveau ensuite."
+L["The experimental guides could not load (%s)."] = "Les guides expérimentaux n'ont pas pu se charger (%s)."
 
 -- UI/Welcome.lua
 L["level %d %s"] = "%2$s niveau %1$d"

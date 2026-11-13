@@ -27,7 +27,7 @@ one into the other. The addons:
 |---|---|---|---|---|
 | `Polestar` (`addon/Polestar/`) | The addon: engine, navigation, quests, gear, maps, quality of life, Lookup, Dungeons, Rares and every window | hand-written, plus a few generated data files | yes | yes |
 | `Polestar_Guides` (`addon/Polestar_Guides/`, with `Polestar_Guides_Alliance` and `Polestar_Guides_Horde`) | Polestar's own pack (pack id `guides`): the factionless guides, and each faction's in a part loaded on demand, the player's faction's with the pack (PACK_FORMAT, "Format 8") | `compile`, from `guides/` | yes (generated) | yes |
-| `Polestar_Experimental` (`addon/Polestar_Experimental/`) | Polestar's experimental pack (pack id `polestar-experimental`): guides for Forever's new zones in testing (alpha); loaded on demand, off until the player switches it on (Community guides), never suggested (PACK_FORMAT, "Polestar's own extra packs") | `forge guide compile experimental` and `forge release pack`, from `experimental/` | yes (generated) | yes |
+| `Polestar_Experimental` (`addon/Polestar_Experimental/`) | Polestar's experimental pack (pack id `polestar-experimental`): guides for Forever's new zones in testing (alpha); loaded on demand, off until the player chooses one of its guides at a route choice or switches it on (Community guides), never suggested; the experimental index of the guides our route choices offer is in Polestar_Guides (PACK_FORMAT, "Polestar's own extra packs") | `forge guide compile experimental` and `forge release pack`, from `experimental/` | yes (generated) | yes |
 | community addons | Addons by other authors (`X-Polestar-Pack` in their TOC; `docs/PACKS.md`, `docs/PACK_FORMAT.md`) | the same compiler, from their own repositories | in their own repositories | by their authors |
 | `Polestar_ItemDB` (`addon/Polestar_ItemDB/`) | Item stats and Forever reward choices for the gear advice; loaded on demand | `forge data itemdb` (`Items.lua`), then `forge data gear` (`Forever.lua`) | yes (generated) | yes |
 | `Polestar_<locale>` (`addon/Polestar_deDE/` … `zhTW/`) | The language folder of one client language: Polestar's interface strings (`Interface.lua`, for `Polestar.L`; translators and `forge i18n sync`), our guides' texts (`Texts.lua`, for `Polestar.GuideTexts`) and the quest, NPC, object and item names (`Names.lua`, for `Polestar.Names`); loaded on demand by `Core/Locale.lua`, only the client's own, never in English. It replaced `Polestar_Guides_<locale>` and `Polestar_Names_<locale>` in 0.3.0 | `forge guide compile` (`Texts.lua`) and `forge data names` (`Names.lua`, from the client's tables, the names the client showed players (`data/i18n/names-observed`), DingDB (pinned) and pfQuest); each writes the one TOC alike (`forge_guide::toc::language_toc`) and leaves the other's file alone | yes (generated) | yes |
@@ -1439,6 +1439,15 @@ implements them:
   the registered record in place of its TOC's.
 - Never suggested: `Guides.NEVER_SUGGESTED` (`polestar-experimental`) is
   never a suggestion source, and its guides never in `OfferedBy`.
+- Experimental index (PACK_FORMAT, "Polestar's own extra packs"):
+  Polestar_Guides' `Guides.lua` ends with `Polestar.RegisterExperimental`,
+  the guides of a NEVER_SUGGESTED pack our route choices offer, each a header
+  without steps (`steps = {}`) plus its route's `topLevel`, `questIds`,
+  `joins`, `start`, `focus`, `viaMap`/`via`; its texts go through GuideTexts
+  as a guide's (English names until the names are in, then refreshed with
+  our pack's). `Guides.ExperimentalOffer(from, id)`: whether option `id` of
+  `from` leads from outside such a pack into it (an experimental guide's own
+  `next` is its route, no offer).
 
 A pack record: `id`, `addon`, `format`, `title`, `author`, `version`,
 `license`, `website`, `source`, `notes`, `official` (ours), `imported` (the
@@ -1461,6 +1470,10 @@ Polestar.Guides.OwnsId(packId, guideId) -> bool
 Polestar.Guides.SuggestSources() -> { packId, ... }  -- "guides", then shown packs with leveling guides (never `imported` nor NEVER_SUGGESTED)
 Polestar.Guides.SuggestSource() -> packId   -- behavior.suggestFrom when it can, else "guides"
 Polestar.Guides.OfferedBy(id) -> { guide, ... }      -- shown guides whose route choice offers id now (Engine.RouteOffered), none of a NEVER_SUGGESTED pack
+Polestar.RegisterExperimental(list)        -- the experimental index (Polestar_Guides only; an entry of no NEVER_SUGGESTED pack is dropped)
+Polestar.Guides.Experimental(id) -> entry | nil      -- an experimental guide's index entry
+Polestar.Guides.ExperimentalOffer(from, id) -> bool  -- `from`'s option `id` is an experimental guide offered from outside its pack
+Polestar.Guides.ExperimentalLoadable(id) -> bool     -- its pack is installed and enabled, and not loaded yet or loaded with it
 Polestar.Guides.DropImported(id) -> bool    -- takes an imported guide out (Import.Delete), nothing else
 ```
 
@@ -2669,8 +2682,10 @@ carry `pitch`, `pros`, `cons` (see GUIDE_FORMAT). `next <id> when ...` adds
 ```lua
 Polestar.Engine.GetRouteChoice(fromId) -> { from, fromTitle, recommended, chosen, joinsAt,
     options = { { id, title, zoneName, minLevel, maxLevel, pitch, pros, cons, seconds,
-                  quests, steps, recommended, chosen, outleveled, open }, ... } } | nil
-Polestar.Engine.ChooseRoute(fromId, toId) -> bool   -- remembers, loads, fires ROUTE_CHOSEN
+                  quests, steps, recommended, chosen, outleveled, open, experimental,
+                  newInForever, thenId, thenGuideTitle, thenLevel, detour }, ... } } | nil
+Polestar.Engine.ChooseRoute(fromId, toId) -> bool, why -- remembers, loads, fires ROUTE_CHOSEN; an experimental
+                                                    -- offer's pack switched on first (why: its load failed)
 Polestar.Engine.PendingRouteChoice() -> fromId | nil -- the active tab's finished guide waiting for a choice
 Polestar.Engine.RouteChoiceFor(id) -> fromId | nil  -- the choice that offers guide `id` to this character
 Polestar.Engine.RouteOffered(fromId, toId) -> bool  -- fromId's `next` names toId and its `when`, if any, holds now
@@ -2690,8 +2705,35 @@ Polestar.Engine.GuideFocus(id) -> x, y | nil       -- live-frame percent of wher
   suggested follow-ups, and "Up next" on a finished guide); nothing is stored.
   `outleveled` when the level is at or past the option's maxLevel.
   `seconds` is `TravelCost` from the player to the option's first located goal;
-  `quests` counts the accepts this character gets there; `joinsAt` names the
-  guide every option continues to, when they share one.
+  `quests` counts the accepts this character gets there (`Own.optionQuests`;
+  never a dungeon run's, `when dungeon`, so it reads the same with dungeons
+  off); `joinsAt` names the
+  guide every option continues to, when they share one; else each option's
+  `thenId`/`thenGuideTitle` names its own (`Own.followsOn`: the first `next`
+  option of ours that fits the character, so a shared guide's other-faction
+  lines never count) and `thenLevel` the level it takes the character to.
+  `newInForever`: most of its quests are Forever's own (`NewQuests.IsNew`).
+- **Experimental offers** (`experimental`): an option that is one of
+  Polestar's experimental guides (`Guides.ExperimentalOffer`). While its pack
+  is off it comes from the experimental index (`Guides.Experimental`, offered
+  only while `Guides.ExperimentalLoadable`), and either way its card reads
+  its whole route from the index: levels to `topLevel`, `quests` of every
+  guide on the way, `seconds` to its `start`, art at its `focus`, and it goes
+  on to the guide of ours it rejoins (`Own.rejoins`). One that rejoins another
+  option of the choice is a detour: `detour` names the zone it travels
+  through first (the index's `viaMap`, in the client's language), unless the
+  character is in it. It is never recommended (`rankRoutes` skips it;
+  `recommended` is nil when nothing else fits), never the one option taken
+  without asking, and asked about only beside another option: with
+  `behavior.routeChoice = "recommended"` the route goes on exactly as without
+  it. `ChooseRoute` remembers it, switches its pack on (`Guides.SetPackShown`,
+  which loads it) and goes on there; a load a fight puts off finishes on
+  PACKS_CHANGED (`Own.pendingOffer`); one that fails is forgotten and returns
+  why (UI/RouteChoice.lua says it in chat). Until the player chose it and its
+  guides are in (`Own.offerTaken`), the catch-up (`Own.likeliestRoute`), the
+  hand-in plan (`Core/RoutePlan.lua`), `chainNeeds` (`Own.chainOf`, built
+  again when that changes) and the guide menu's suggested follow-ups leave it
+  out.
 - **Recommended:** not outlevelled, then the quickest to reach (1-minute
   bands), then the author's order.
 - **At completion** (the guide either auto-loaded or seen incomplete; a

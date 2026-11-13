@@ -175,11 +175,14 @@ version throughout.
 
    `experimental/` holds Polestar Experimental: guides for Forever's new
    zones in testing, a pack of Polestar's own that ships in the zip as
-   `Polestar_Experimental`, loaded on demand and off until a player switches
-   it on under Options > Community guides (PACK_FORMAT.md, "Polestar's own
-   extra packs"). `forge release version` sets its `pack.json` with
-   `guides/pack.json`, and `forge release pack` builds it again and stops on
-   an error in it.
+   `Polestar_Experimental`, loaded on demand and off until a player chooses
+   one of its guides at a route choice or switches it on under Options >
+   Community guides (PACK_FORMAT.md, "Polestar's own extra packs"). `forge
+   release version` sets its `pack.json` with `guides/pack.json`, and `forge
+   release pack` builds it again and stops on an error in it. `forge guide
+   compile` reads it too: Polestar_Guides carries the index of the
+   experimental guides our route choices offer, so compile both after an
+   edit to either.
 
    `Polestar_QuestDB` is not in the repository (it is ignored, like the
    Codex): build it with `forge data questdb` on every release machine

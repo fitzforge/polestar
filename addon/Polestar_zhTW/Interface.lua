@@ -1835,6 +1835,7 @@ L["You finished %s."] = "你完成了 %s。"
 L["Both routes meet again in %s."] = "兩條路線會在 %s 再次會合。"
 L["Every route meets again in %s."] = "所有路線會在 %s 再次會合。"
 L["Pick where you want to level next."] = "選擇接下來想去哪裡升級。"
+L["The experimental guides could not load (%s)."] = "無法載入實驗性指南（%s）。"
 
 -- UI/Welcome.lua
 L["level %d %s"] = "等級 %d %s"

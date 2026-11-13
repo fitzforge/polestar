@@ -5,6 +5,7 @@ faction Alliance
 levels 58-58
 zone Silithus
 next forever/alliance/50-60/06-silithus
+pitch The main route to 60: the hand-ins in Stormwind, Ironforge and Light's Hope, then Silithus, Felwood, Winterspring and the Plaguelands.
 
 # Forge's route search orders the quests of this guide and its guide writer writes the steps.
 # Fixes go into data/route-fixes.json, data/guide-fixes.json or forever-db/corrections, never

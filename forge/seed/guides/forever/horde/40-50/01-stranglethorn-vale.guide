@@ -5,6 +5,7 @@ faction Horde
 levels 39-43
 zone Stranglethorn Vale
 next forever/horde/40-50/02-feralas
+pitch Stranglethorn Vale and the Swamp of Sorrows at 40-43: Grom'gol, Booty Bay's pirates, Nesingwary's hunts and Stonard.
 
 # Forge's route search orders the quests of this guide and its guide writer writes the steps.
 # Fixes go into data/route-fixes.json, data/guide-fixes.json or forever-db/corrections, never
