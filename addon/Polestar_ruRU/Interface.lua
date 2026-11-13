@@ -243,6 +243,8 @@ L["Hiding Polestar keeps the arrow."] = "Скрытие Polestar оставля�
 L["Hiding Polestar hides the arrow too."] = "Скрытие Polestar скрывает и стрелку."
 L["Polestar is hidden: /polestar hide or the minimap button shows it again."] = "Polestar скрыт: /polestar hide или кнопка у миникарты вернёт его."
 L["Hide or show everything Polestar shows (hide arrow: keep the arrow when hidden)"] = "Скрыть или показать всё, что показывает Polestar (hide arrow: оставлять стрелку при скрытии)"
+-- L["Mark as junk"] = ""
+-- L["Mark to keep"] = ""
 
 -- Theme/Theme.lua
 L["Dusk"] = "Сумерки"
@@ -976,7 +978,6 @@ L["%d slot"] = "%d ячейка"
 L["%d slots"] = "%d ячеек"
 L["How many free slots or fewer count as nearly full."] = "При каком числе свободных ячеек (или меньше) сумки считаются почти заполненными."
 L["Junk and keep marks"] = "Пометки «хлам» и «хранить»"
-L["Ctrl+Alt-click an item in your bags to mark it as junk, again to keep it, and again to clear it. Junk is sold with the grey items; a kept item is never sold or deleted."] = "Ctrl+Alt-щелчок по предмету в сумках помечает его как хлам, повторный — для хранения, еще один — снимает пометку. Хлам продается вместе с серыми предметами; хранимый предмет никогда не продается и не удаляется."
 L["Step key talks and loots"] = "Клавиша шага: разговор и добыча"
 L["Once the step key has targeted the step's NPC, the next press talks to it; on the corpse of the step's mob, it loots; in the step's quest window, it accepts or completes. Only out of combat, and only on the step the guide is at."] = "Когда клавиша шага выбрала целью NPC шага, следующее нажатие начинает с ним разговор; на трупе противника шага — забирает добычу; в окне задания шага — принимает или выполняет его. Только вне боя и только на шаге, где сейчас находится гайд."
 L["Warn when out of breath"] = "Предупреждать о нехватке воздуха"
@@ -1017,6 +1018,11 @@ L["Travel button under the arrow"] = "Кнопка пути под стрелк�
 -- L["Game options"] = ""
 -- L["Increase game image quality"] = ""
 -- L["Sharpens the game's image. Most noticeable when Render Scale is below 100%. This is a game setting: it stays until you turn it off here or in the console."] = ""
+-- L["Mark items in your bags as junk or to keep, with Ctrl+Alt-click or the two keys below. Junk is sold with the grey items; a kept item is never sold or deleted."] = ""
+-- L["Ctrl+Alt-click cycles"] = ""
+-- L["Ctrl+Alt-click an item to mark it as junk, again to keep it, and again to clear it. Turn it off to mark items only with the keys."] = ""
+-- L["A key for the item under the mouse: marks it as junk, or takes its junk mark off. A kept item becomes junk."] = ""
+-- L["A key for the item under the mouse: marks it to keep, or takes its keep mark off. A junk item is kept instead."] = ""
 
 -- Lookup/Sources.lua
 L["Alliance only"] = "Только Альянс"
@@ -4276,3 +4282,4 @@ L["Part of the %s quests"] = "Часть заданий: %s"
 -- L["Auto-learn new spells"] = "Автоматически изучать новые заклинания"
 -- L["Automatically learns every spell a class trainer offers that you can afford, and prints the total. Profession trainers are left alone. Hold Shift to skip."] = "Автоматически изучает у учителя классовых навыков все заклинания, на которые хватает денег, и выводит итоговую сумму. У учителей профессий эта функция не срабатывает. Удерживайте Shift, чтобы пропустить."
 -- L["A level-up card lists what to train; %s learns it (thanks RikyZ90); %s updates your bars."] = "При новом уровне карточка покажет новые заклинания; «%s» изучит всё (спасибо RikyZ90); «%s» обновит ранги на панелях."
+-- L["Ctrl+Alt-click an item in your bags to mark it as junk, again to keep it, and again to clear it. Junk is sold with the grey items; a kept item is never sold or deleted."] = "Ctrl+Alt-щелчок по предмету в сумках помечает его как хлам, повторный — для хранения, еще один — снимает пометку. Хлам продается вместе с серыми предметами; хранимый предмет никогда не продается и не удаляется."

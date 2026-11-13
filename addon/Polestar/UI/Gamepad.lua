@@ -359,6 +359,8 @@ G.ACTIONS = {
 	{ action = "POLESTAR_MENU", section = "windows", label = L["Open the guide menu"], run = "Menu" },
 	{ action = "POLESTAR_OPTIONS", section = "windows", label = L["Open Polestar options"], run = "Options" },
 	{ action = "POLESTAR_REPORT", section = "windows", label = L["Report a problem"], run = "Report" },
+	{ action = "POLESTAR_MARK_JUNK", section = "bags", label = L["Mark as junk"], run = "MarkJunk" },
+	{ action = "POLESTAR_MARK_KEEP", section = "bags", label = L["Mark to keep"], run = "MarkKeep" },
 	{ action = "CLICK PolestarQuestItemButton:LeftButton", section = "buttons", label = L["Use quest item"] },
 	{ action = "CLICK PolestarTargetButton:LeftButton", section = "buttons", label = L["Target quest mob"] },
 	{ action = "CLICK PolestarRareButton:LeftButton", section = "buttons", label = L["Target rare"] },

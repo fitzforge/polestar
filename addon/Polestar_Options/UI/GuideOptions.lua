@@ -41,11 +41,13 @@ if G and G.BindingRow then
 		},
 	})
 
-	local SECTIONS = { guide = L["The guide"], windows = L["Windows"], buttons = L["Quest buttons"] }
+	local SECTIONS = { guide = L["The guide"], windows = L["Windows"], bags = L["Bags"], buttons = L["Quest buttons"] }
 	local HELP = {
 		POLESTAR_FOCUS = L["The guide window holds the gamepad until B: the D-pad picks a line, A points the arrow there or uses the item, X shows its details, LB and RB change steps, Y minimizes the window. A window that opened by itself, such as a route choice, waits for this button before it takes the gamepad."],
 		["CLICK PolestarStepButton:LeftButton"] = L["Step action: NPC, quest item, mob or Hearthstone"],
 		["CLICK PolestarTravelButton:LeftButton"] = L["Use the route's Hearthstone or teleport"],
+		POLESTAR_MARK_JUNK = L["A key for the item under the mouse: marks it as junk, or takes its junk mark off. A kept item becomes junk."],
+		POLESTAR_MARK_KEEP = L["A key for the item under the mouse: marks it to keep, or takes its keep mark off. A junk item is kept instead."],
 	}
 	for _, a in ipairs(G.ACTIONS) do
 		register({

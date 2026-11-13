@@ -6250,8 +6250,19 @@ Polestar.QoL.Space.Dismiss()                              -- the banner, until t
 
 - **Marks** (`qol.itemMarks`, on): Ctrl+Alt (no Shift) on a modified item
   click (`Hooks.ItemClick`: bag slots, loot slots, chat links) cycles none →
-  junk → keep → none and says it in chat; the tooltip line comes from
-  `Hooks.ItemLines`. Per character, by item ID.
+  junk → keep → none and says it in chat, while `qol.itemMarksClick` (on) is
+  on; the tooltip line comes from `Hooks.ItemLines`. Per character, by item
+  ID. Two key bindings, unbound until the player sets them
+  (`POLESTAR_MARK_JUNK`, `POLESTAR_MARK_KEEP`: Key Bindings, the Gamepad
+  page's key binding rows and the rows under the marks' switch), run
+  `Marks.Key("junk" | "keep")` on the item under the mouse
+  (`Marks.Hovered`: the first of `GetMouseFoci`; a bag slot's button by
+  `GetBagID`/`GetID` and `C_Container.GetContainerItemLink`, a loot slot's
+  by its element's `GetSlotIndex` and `GetLootSlotLink`, else the item
+  `GameTooltip` shows while that frame owns it): the key's mark, or none
+  when the item has it already, said in chat as the click says it. Nothing
+  under the mouse, the marks off or Polestar hidden: nothing. Not limited
+  in combat: marking touches only Polestar's saved marks.
 - **Selling** (`QoL/Vendor.lua`): a slot sells when it is grey or marked
   junk, has a vendor price, and is not protected, needed by a quest, or a
   quest's item or quest starter (`Client.SlotQuest`, from
@@ -8157,7 +8168,8 @@ Polestar.Gamepad.HasWindow() -> bool                        -- a Polestar window
   -1)`: a goal with spawn spots moves to its next or previous spot through
   `CycleSpot`, else the arrow moves to the step's next or previous open
   goal that has a place, round the step), `_FOCUS`, `_MENU`
-  (`TOGGLE_PICKER`), `_OPTIONS` (`TOGGLE_OPTIONS`), `_REPORT`, and the quest
+  (`TOGGLE_PICKER`), `_OPTIONS` (`TOGGLE_OPTIONS`), `_REPORT`, `_MARK_JUNK`
+  and `_MARK_KEEP` (`QoL.Marks.Key`, the item under the mouse), and the quest
   buttons' `CLICK` bindings; `Polestar.Bindings` runs them, and every one but
   the `CLICK` bindings takes a chord. Every binding (the Recorder's too) has
   `category="Polestar"`: Options > Keybindings lists them in a section of

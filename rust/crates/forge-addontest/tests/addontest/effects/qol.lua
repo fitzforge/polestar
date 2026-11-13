@@ -336,6 +336,16 @@ return {
 			M.Set(3, nil)
 			return mark
 		end,
+		-- The same click with Ctrl+Alt-click cycles off: no mark (#2125).
+		["qol.itemMarksClick"] = function()
+			local M = QoL.Marks
+			stub.keys.ctrl, stub.keys.alt = true, true
+			Polestar.Hooks.OnItemClick("|Hitem:3|h[Linen Cloth]|h")
+			stub.keys.ctrl, stub.keys.alt = false, false
+			local mark = M.Get(3) or false
+			M.Set(3, nil)
+			return mark
+		end,
 		-- The flight map on a step flying to Lakeshire, its node marked: the flight taken.
 		["qol.flightAutoTake"] = function()
 			q.step({ { t = "fly", location = "Lakeshire" } })

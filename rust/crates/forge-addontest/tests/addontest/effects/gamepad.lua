@@ -52,6 +52,8 @@ return {
 		["action:POLESTAR_MENU"] = bound("POLESTAR_MENU"),
 		["action:POLESTAR_OPTIONS"] = bound("POLESTAR_OPTIONS"),
 		["action:POLESTAR_REPORT"] = bound("POLESTAR_REPORT"),
+		["action:POLESTAR_MARK_JUNK"] = bound("POLESTAR_MARK_JUNK"),
+		["action:POLESTAR_MARK_KEEP"] = bound("POLESTAR_MARK_KEEP"),
 		["action:CLICK PolestarQuestItemButton:LeftButton"] = bound("CLICK PolestarQuestItemButton:LeftButton"),
 		["action:CLICK PolestarTargetButton:LeftButton"] = bound("CLICK PolestarTargetButton:LeftButton"),
 		["action:CLICK PolestarRareButton:LeftButton"] = bound("CLICK PolestarRareButton:LeftButton"),

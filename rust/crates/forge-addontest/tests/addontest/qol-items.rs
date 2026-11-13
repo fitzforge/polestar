@@ -191,6 +191,158 @@ fn marks_ctrl_alt_click_cycles_junk_keep_and_clear_junk_is_sold_kept_greys_are_n
 	assert_eq!(out[2], json!({ "fangs": 1, "shell": 0, "cloth": 13, "ring": 0 }), "junk-marked cloth sells; the kept shell and the ring stay");
 }
 
+// #2125: the two mark keys (Bindings.xml's Mark as junk and Mark to keep) act on the item under the mouse: a bag
+// slot's button (GetBagID, GetID), a loot slot's (its element's GetSlotIndex), or another frame whose item GameTooltip
+// shows. Mark as junk toggles junk, Mark to keep toggles keep, each replacing the other mark, and each says it in chat
+// as the click does. Nothing under the mouse, an empty slot, a frame without an item or another frame's tooltip: no
+// mark and no line. Off with the marks, and while Polestar is hidden.
+#[test]
+fn mark_keys_toggle_junk_and_keep_on_the_hovered_item_from_each_state_and_do_nothing_without_one() {
+	let out = run(&[
+		BAGS,
+		r#"
+		local M = QoL.Marks
+		C_Container.GetContainerItemLink = function(bag, slot)
+			local i = C_Container.GetContainerItemInfo(bag, slot)
+			return i and i.hyperlink or nil
+		end
+		fill(10)                                   -- cloth in slots 4..6, slots 7..16 empty
+		local bagFrame = CreateFrame("Frame", nil, UIParent)
+		bagFrame:SetID(0)
+		local function slotButton(slot)
+			local b = CreateFrame("Button", nil, bagFrame)
+			b:SetID(slot)
+			b.GetBagID = function(self) return self:GetParent():GetID() end
+			return b
+		end
+		local cloth, empty = slotButton(4), slotButton(12)
+		local focus
+		GetMouseFoci = function() return { focus } end
+		local function lines() return #stub.messages end
+
+		focus = cloth
+		local steps = {}
+		local function press(kind, from)
+			M.Set(3, from)
+			local n = lines()
+			local r = M.Key(kind)
+			steps[#steps + 1] = { from = from or "none", key = kind, to = M.Get(3) or "none", returned = r, said = lines() - n }
+		end
+		press("junk", nil)
+		press("junk", "junk")
+		press("junk", "keep")
+		press("keep", nil)
+		press("keep", "keep")
+		press("keep", "junk")
+		emit(steps)
+
+		M.Set(3, nil)
+		local n = lines()
+		press("junk", nil)
+		local junkSaid = printed("Linen Cloth%]|h is junk now")
+		press("keep", "junk")
+		local keepSaid = printed("Linen Cloth%]|h is kept now")
+		press("keep", "keep")
+		local clearSaid = printed("Linen Cloth%]|h: mark cleared")
+		emit({ junk = junkSaid, keep = keepSaid, cleared = clearSaid })
+
+		-- Nothing under the mouse, an empty slot, a plain frame, another frame's tooltip.
+		M.Set(3, nil)
+		local none = {}
+		local plain = CreateFrame("Frame", nil, UIParent)
+		local other = CreateFrame("Button", nil, UIParent)
+		GameTooltip.GetItem = function() return "Cracked Shell", "|Hitem:2|h[Cracked Shell]|h" end
+		GameTooltip:SetOwner(other, "ANCHOR_NONE")
+		GameTooltip:Show()
+		for _, f in ipairs({ false, empty, plain }) do
+			focus = f or nil
+			local before = lines()
+			none[#none + 1] = { returned = M.Key("junk") == nil, kept = M.Key("keep") == nil, said = lines() - before }
+		end
+		emit({ none = none, cloth = M.Get(3) or false, shell = M.Get(2) or false })
+
+		-- The tooltip of the frame under the mouse; a loot slot's button.
+		focus = other
+		local tip = M.Key("keep")
+		GameTooltip:Hide()
+		local hidden = M.Key("keep")
+		GetLootSlotLink = function(i) if i == 2 then return "|Hitem:5|h[Jade Ring]|h" end end
+		local element = CreateFrame("Frame", nil, UIParent)
+		element.GetSlotIndex = function() return 2 end
+		focus = CreateFrame("Button", nil, element)
+		local loot = M.Key("junk")
+		emit({ tip = tip, shell = M.Get(2) or false, hiddenTip = hidden == nil, loot = loot, ring = M.Get(5) or false })
+
+		-- Off with the marks, and while Polestar is hidden.
+		focus = cloth
+		M.Set(3, nil)
+		set("itemMarks", false)
+		local off = M.Key("junk")
+		set("itemMarks", true)
+		Polestar.SetHidden(true)
+		local whileHidden = M.Key("junk")
+		Polestar.SetHidden(false)
+		emit({ off = off == nil, hidden = whileHidden == nil, cloth = M.Get(3) or false, back = M.Key("junk") })
+	"#,
+	]
+	.concat());
+	assert_eq!(
+		out[0],
+		json!([
+			{ "from": "none", "key": "junk", "to": "junk", "returned": "junk", "said": 1 },
+			{ "from": "junk", "key": "junk", "to": "none", "returned": false, "said": 1 },
+			{ "from": "keep", "key": "junk", "to": "junk", "returned": "junk", "said": 1 },
+			{ "from": "none", "key": "keep", "to": "keep", "returned": "keep", "said": 1 },
+			{ "from": "keep", "key": "keep", "to": "none", "returned": false, "said": 1 },
+			{ "from": "junk", "key": "keep", "to": "keep", "returned": "keep", "said": 1 },
+		]),
+		"each key toggles its own mark and replaces the other one"
+	);
+	assert_eq!(out[1], json!({ "junk": true, "keep": true, "cleared": true }), "the click's chat lines");
+	let nothing = json!({ "returned": true, "kept": true, "said": 0 });
+	assert_eq!(out[2], json!({ "none": [nothing, nothing, nothing], "cloth": false, "shell": false }), "no item under the mouse: nothing");
+	assert_eq!(out[3], json!({ "tip": "keep", "shell": "keep", "hiddenTip": true, "loot": "junk", "ring": "junk" }));
+	assert_eq!(out[4], json!({ "off": true, "hidden": true, "cloth": false, "back": "junk" }));
+}
+
+// #2125: Ctrl+Alt-click cycles is a switch of its own (qol.itemMarksClick, on): off, the click marks nothing while
+// the keys still do; on again, the click cycles as before.
+#[test]
+fn marks_ctrl_alt_click_cycles_can_be_turned_off_and_the_keys_still_mark() {
+	let out = run(&[
+		BAGS,
+		r#"
+		local M = QoL.Marks
+		local cloth = "|Hitem:3|h[Linen Cloth]|h"
+		local default = Polestar.GetDefault("qol.itemMarksClick")
+		C_Container.GetContainerItemLink = function(bag, slot)
+			local i = C_Container.GetContainerItemInfo(bag, slot)
+			return i and i.hyperlink or nil
+		end
+		fill(10)
+		local bagFrame = CreateFrame("Frame", nil, UIParent)
+		local b = CreateFrame("Button", nil, bagFrame)
+		b:SetID(4)
+		b.GetBagID = function() return 0 end
+		GetMouseFoci = function() return { b } end
+		set("itemMarksClick", false)
+		stub.keys.ctrl, stub.keys.alt = true, true
+		local n = #stub.messages
+		Polestar.Hooks.OnItemClick(cloth)
+		local clicked, said = M.Get(3) or false, #stub.messages - n
+		stub.keys.ctrl, stub.keys.alt = false, false
+		local keyed = M.Key("keep")
+		set("itemMarksClick", true)
+		stub.keys.ctrl, stub.keys.alt = true, true
+		Polestar.Hooks.OnItemClick(cloth)
+		stub.keys.ctrl, stub.keys.alt = false, false
+		emit({ default = default, clicked = clicked, said = said, keyed = keyed, cycled = M.Get(3) or false })
+	"#,
+	]
+	.concat());
+	assert_eq!(out[0], json!({ "default": true, "clicked": false, "said": 0, "keyed": "keep", "cycled": false }));
+}
+
 // #946: junk marked in the reagent bag (bag 5, past NUM_BAG_SLOTS) is the bag button's cheapest junk and sells at a
 // merchant, while the reagent bag's free slots stay out of the free count (it takes only reagents).
 #[test]

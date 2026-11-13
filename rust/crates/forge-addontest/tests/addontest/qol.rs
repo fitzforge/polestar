@@ -76,7 +76,7 @@ fn options_every_qol_setting_is_registered_on_questing_or_quality_of_life_with_l
 			"rewardHighlight", "rewardAutoPick", "flightAutoOpen", "flightHighlight", "flightAutoTake", "deathHelper", "instantQuestText",
 			"skipGossip", "fastLoot", "declineDuels", "repairGuild", "hideErrors", "autoReleasePvP", "declineGuildInvites",
 			"declinePartyStrangers", "acceptPartyFriends", "acceptSummon", "acceptResurrect", "buyGoals",
-			"rewardEquip", "autoBind", "hideQuestTracker", "restock", "itemMarks", "bagSpace", "bagsLow", "wearOffer",
+			"rewardEquip", "autoBind", "hideQuestTracker", "restock", "itemMarks", "itemMarksClick", "bagSpace", "bagsLow", "wearOffer",
 			"questLoot", "instanceTrack" }) do keys[k] = Polestar.GetDefault("qol." .. k) end
 		emit(keys)
 	"#);
@@ -1227,6 +1227,35 @@ fn key_bindings_each_click_binding_has_its_label_and_the_step_key_its_button_fro
 		assert_eq!(r["labels"][n.as_str()], true, "{n} has a label");
 	}
 	assert_eq!(r["step"], true, "the step key's button exists from login");
+}
+
+// #2125: Mark as junk and Mark to keep sit in Polestar's section of the Key Bindings, unbound until the player sets
+// them (no default key), with their names, and on the Gamepad page's key binding rows (chords too); each runs the
+// marks on the item under the mouse.
+#[test]
+fn key_bindings_mark_as_junk_and_mark_to_keep_are_listed_unbound_named_and_run_the_marks() {
+	let xml = std::fs::read_to_string(addons_dir().join("Polestar").join("Bindings.xml")).unwrap();
+	for (name, call) in [("POLESTAR_MARK_JUNK", "MarkJunk"), ("POLESTAR_MARK_KEEP", "MarkKeep")] {
+		let re = format!(r#"(?s)<Binding name="{name}" category="Polestar" searchTags="BINDING_TAG_POLESTAR">\s*Polestar\.Bindings\.{call}\(\)\s*</Binding>"#);
+		assert!(is_match(&xml, &re), "{name} in Bindings.xml, unbound: {xml}");
+	}
+	let out = emitted(&RunAddon {
+		stubs: vec!["stub_world.lua"],
+		addons: vec![Addon::name("Polestar")],
+		login: true,
+		script: r#"
+			local got = {}
+			Polestar.QoL.Marks.Key = function(kind) got[#got + 1] = kind end
+			Polestar.Bindings.MarkJunk()
+			Polestar.Bindings.MarkKeep()
+			local G = Polestar.Gamepad
+			emit({ junk = BINDING_NAME_POLESTAR_MARK_JUNK, keep = BINDING_NAME_POLESTAR_MARK_KEEP, got = got,
+				chords = G.ChordAllowed("POLESTAR_MARK_JUNK") and G.ChordAllowed("POLESTAR_MARK_KEEP") })
+		"#
+		.into(),
+		..Default::default()
+	});
+	assert_eq!(out[0], json!({ "junk": "Mark as junk", "keep": "Mark to keep", "got": ["junk", "keep"], "chords": true }));
 }
 
 #[test]

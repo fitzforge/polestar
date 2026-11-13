@@ -1,7 +1,10 @@
 -- Junk and keep marks (qol.itemMarks, on by default): Ctrl+Alt-click an item
 -- in the bags, a loot slot or a chat link to mark it as junk; again to keep
--- it; again to clear the mark. Marks are per character, by item ID, and the
--- item's tooltip shows the one it has.
+-- it; again to clear the mark (qol.itemMarksClick, on by default, turns the
+-- click off). Two key bindings (Bindings.xml, unbound until the player sets
+-- them) act on the item under the mouse: Mark as junk toggles junk, Mark to
+-- keep toggles keep, each replacing the other mark. Marks are per character,
+-- by item ID, and the item's tooltip shows the one it has.
 --   junk: sold at a merchant along with the grey items (QoL/Vendor.lua), and
 --     one of the items the bag button can delete (QoL/Space.lua) when it is
 --     of common quality or below.
@@ -10,13 +13,19 @@
 -- kept whatever its mark says.
 --
 -- Client: HandleModifiedItemClick, through Polestar.Hooks.ItemClick
--- (Core/Hooks.lua); IsControlKeyDown, IsAltKeyDown, IsShiftKeyDown.
+-- (Core/Hooks.lua); IsControlKeyDown, IsAltKeyDown, IsShiftKeyDown. The item
+-- under the mouse, for the keys: GetMouseFoci (GetMouseFocus on older
+-- clients); a bag slot's button has GetBagID and GetID, its link from
+-- C_Container.GetContainerItemLink (Blizzard_UIPanels_Game/Mainline/
+-- ContainerFrame.lua); a loot slot's button sits in an element with
+-- GetSlotIndex, its link from GetLootSlotLink (LootFrame.lua); any other
+-- item button shows its item on GameTooltip, owned by the button.
 
 local ADDON, ns = ...
 local L = ns.L
 local QoL = ns.QoL
 
-local type, format = type, string.format
+local type, format, tonumber, pcall = type, string.format, tonumber, pcall
 
 local Marks = {}
 QoL.Marks = Marks
@@ -68,10 +77,8 @@ local function ctrlAltOnly()
 	return not (IsShiftKeyDown and IsShiftKeyDown())
 end
 
--- The next mark in the cycle, said in chat.
-function Marks.OnItemClick(link, id)
-	if not (QoL.On("itemMarks") and ctrlAltOnly()) then return end
-	local mark = NEXT[Marks.Get(id) or false] or nil
+-- The item's new mark, said in chat.
+local function apply(link, id, mark)
 	Marks.Set(id, mark)
 	local name = type(link) == "string" and link:find("|H", 1, true) and link or (L["Item"] .. " " .. id)
 	if mark == "junk" then
@@ -81,6 +88,77 @@ function Marks.OnItemClick(link, id)
 	else
 		ns.Print(format(L["%s: mark cleared."], name))
 	end
+end
+
+-- The next mark in the cycle.
+function Marks.OnItemClick(link, id)
+	if not (QoL.On("itemMarks") and QoL.On("itemMarksClick") and ctrlAltOnly()) then return end
+	apply(link, id, NEXT[Marks.Get(id) or false] or nil)
+end
+
+local secret = ns.Compat and ns.Compat.IsSecret or function() return false end
+
+local function itemLink(link)
+	if type(link) ~= "string" or secret(link) then return nil end
+	local id = tonumber(link:match("item:(%d+)"))
+	if not id then return nil end
+	return link, id
+end
+
+local function call(obj, method, ...)
+	local fn = obj and obj[method]
+	if type(fn) ~= "function" then return nil end
+	local ok, v = pcall(fn, obj, ...)
+	if ok then return v end
+end
+
+local function mouseFocus()
+	if GetMouseFoci then
+		local foci = GetMouseFoci()
+		return type(foci) == "table" and foci[1] or nil
+	end
+	return GetMouseFocus and GetMouseFocus() or nil
+end
+
+-- The item under the mouse: link, item ID, or nil.
+function Marks.Hovered()
+	local f = mouseFocus()
+	if type(f) ~= "table" then return nil end
+	local bag, slot = call(f, "GetBagID"), call(f, "GetID")
+	if type(bag) == "number" and type(slot) == "number" and C_Container and C_Container.GetContainerItemLink then
+		return itemLink(C_Container.GetContainerItemLink(bag, slot))
+	end
+	local index = call(f, "GetSlotIndex") or call(call(f, "GetParent"), "GetSlotIndex")
+	if type(index) == "number" and GetLootSlotLink then
+		return itemLink(GetLootSlotLink(index))
+	end
+	local tip = GameTooltip
+	if tip and call(tip, "IsShown") and call(tip, "GetOwner") == f then
+		local link
+		if TooltipUtil and TooltipUtil.GetDisplayedItem then
+			local ok, _, l = pcall(TooltipUtil.GetDisplayedItem, tip)
+			if ok then link = l end
+		end
+		if link == nil and tip.GetItem then
+			local ok, _, l = pcall(tip.GetItem, tip)
+			if ok then link = l end
+		end
+		return itemLink(link)
+	end
+	return nil
+end
+
+-- A key binding: `kind` ("junk" or "keep") on the item under the mouse, or
+-- off again when it has that mark. -> the new mark (false when cleared), or
+-- nil when nothing was marked. While Polestar is hidden, nothing.
+function Marks.Key(kind)
+	if kind ~= "junk" and kind ~= "keep" then return nil end
+	if not QoL.On("itemMarks") or ns.Hidden() then return nil end
+	local link, id = Marks.Hovered()
+	if not id then return nil end
+	local mark = Marks.Get(id) ~= kind and kind or nil
+	apply(link, id, mark)
+	return mark or false
 end
 
 local function color(name, fr, fg, fb)

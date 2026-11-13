@@ -309,8 +309,15 @@ register(QOL, L["Vendors"], L["Bags"], {
 		format = function(v) return string.format(v == 1 and L["%d slot"] or L["%d slots"], math.floor(v + 0.5)) end,
 		help = L["How many free slots or fewer count as nearly full."] },
 	{ kind = "toggle", key = "qol.itemMarks", label = L["Junk and keep marks"],
-		help = L["Ctrl+Alt-click an item in your bags to mark it as junk, again to keep it, and again to clear it. Junk is sold with the grey items; a kept item is never sold or deleted."],
+		help = L["Mark items in your bags as junk or to keep, with Ctrl+Alt-click or the two keys below. Junk is sold with the grey items; a kept item is never sold or deleted."],
 		search = "bags, junk, mark junk, keep item, protect item, sell list" },
+	{ kind = "toggle", key = "qol.itemMarksClick", label = L["Ctrl+Alt-click cycles"], disabled = function() return not QoL.On("itemMarks") end,
+		help = L["Ctrl+Alt-click an item to mark it as junk, again to keep it, and again to clear it. Turn it off to mark items only with the keys."],
+		search = "bags, junk, mark junk, keep item, ctrl alt click, modifier click" },
+	{ kind = "binding", action = "POLESTAR_MARK_JUNK", label = L["Mark as junk"],
+		help = L["A key for the item under the mouse: marks it as junk, or takes its junk mark off. A kept item becomes junk."] },
+	{ kind = "binding", action = "POLESTAR_MARK_KEEP", label = L["Mark to keep"],
+		help = L["A key for the item under the mouse: marks it to keep, or takes its keep mark off. A junk item is kept instead."] },
 })
 
 -- After the trainer reminders (UI/Options.lua). The level-up card and the old
