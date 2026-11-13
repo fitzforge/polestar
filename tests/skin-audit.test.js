@@ -19,9 +19,6 @@ const { audit, line, LOOKS } = require('../tools/preview/audit');
 // Breakages known on the current looks: { look ('*': every look), surface
 // ('*': every surface), check, match (a piece of the finding's where and
 // detail), owner (the area), reason }. A release ships with none listed.
-// #1802 (a big window's title bar, drag strip and close on the guide window
-// and the cards over it) is not here: the test fails on it until its fix
-// lands.
 const EXPECTED = [];
 
 const matches = (e, f) => (e.look === '*' || e.look === f.look) && (e.surface === '*' || e.surface === f.surface) && e.check === f.check && `${f.where}: ${f.detail}`.includes(e.match);
