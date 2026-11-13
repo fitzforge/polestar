@@ -24,7 +24,7 @@ step Eastern Plaguelands
 step Light's Hope Chapel
   tip Follow the road east from the Western Plaguelands, over the river and across the whole Eastern Plaguelands, to the Argent Dawn's chapel in the far east.
   getfp "Light's Hope Chapel"
-  sethome "Light's Hope Chapel"
+  sethome "Light's Hope Chapel" only Mage
   accept 5281                         -- Caretaker Alen
   accept 6021                         -- Caretaker Alen
   turnin 6030                         -- Duke Nicholas Zverenhoff
@@ -145,6 +145,11 @@ step Light's Hope Chapel
 #   and open the next guide.
 # - Dropped: A Donation of Runecloth for Thunder Bluff (7823): the route
 #   never hands it in.
+# - Binds (0.4.0, travel model): only Mages bind at Light's Hope Chapel. Everyone
+#   else keeps the Orgrimmar bind from the Azshara guide and hearths there after
+#   Carlin, instead of the flight to the Undercity and the zeppelin (about 4
+#   minutes saved per character; a Mage teleports to Orgrimmar anyway and keeps
+#   the chapel's hearths).
 #
 # Left open for later guides: Heroes of Darrowshire (5168), Tirion's hunts
 # (5542-5544), Wild Guardians (4741), Toxic Horrors (5086), A Reliquary of
@@ -236,21 +241,12 @@ step Carlin Redpath
   turnin 5181
   turnin 5211
 
-# ---------------------------------------------------------------- Eastern Plaguelands
-
-step Fly to Undercity
-  zone Eastern Plaguelands
-  goto 80.1,57.0 "Light's Hope Chapel flight master"
-  fly "Undercity"
-  zone Undercity
-
-step Zeppelin to Orgrimmar
-  zone Tirisfal Glades
-  goto 60.7,58.9 "Zeppelin to Orgrimmar"
+# ---------------------------------------------------------------- Orgrimmar
 
 step Fly to Bloodvenom Post
   only Warrior,Hunter,Rogue,Priest,Shaman,Mage,Warlock
   zone Orgrimmar
+  tip Hearth to Orgrimmar: the Hearthstone is still bound there from the Azshara guide (Mages teleport). Then the flight master.
   goto 45.3,63.7 "Orgrimmar flight master"
   fly "Bloodvenom Post"
   zone Felwood
@@ -260,6 +256,7 @@ step Fly to Bloodvenom Post
 step Fly to Thunder Bluff
   only Druid,Paladin
   zone Orgrimmar
+  tip Hearth to Orgrimmar: the Hearthstone is still bound there from the Azshara guide. Then the flight master.
   goto 45.3,63.7 "Orgrimmar flight master"
   fly "Thunder Bluff"
   zone Thunder Bluff
