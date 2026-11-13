@@ -269,6 +269,24 @@ fn a_long_step_browser_keeps_the_window_height_and_scrolls_in_normal_and_compact
 }
 
 #[test]
+fn a_one_goal_browser_keeps_a_small_window_height_and_its_card_accessible() {
+	let mut guide = GUIDE.split("step Deputy Willem").next().unwrap().to_owned();
+	guide.push_str("step Deputy Willem\n  accept 783\n");
+	let out = browser_heights(&guide);
+	assert_eq!(out.len(), 4);
+	for state in &out {
+		for stage in ["opened", "refreshed", "closed", "reopened"] {
+			assert_eq!(state[stage], state["before"], "{stage}: {state}");
+		}
+		let view = state["view"].as_f64().unwrap();
+		let content = state["content"].as_f64().unwrap();
+		assert!(view > 0.0 && view < 120.0, "a small window is not enlarged to the old list minimum: {state}");
+		assert_eq!(state["bar"], content > view, "{state}");
+		assert_eq!(state["scrolled"].as_f64().unwrap(), (content - view).max(0.0), "the whole card remains reachable: {state}");
+	}
+}
+
+#[test]
 fn a_short_step_browser_keeps_the_window_height_instead_of_shrinking_to_its_cards() {
 	let mut guide = GUIDE.split("step Deputy Willem").next().unwrap().to_owned();
 	guide.push_str("step A long step\n");
