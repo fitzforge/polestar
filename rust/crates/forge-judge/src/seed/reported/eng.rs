@@ -48,9 +48,9 @@ pub fn tests() -> Vec<SeedTest> {
 		(format!("{ELWYNN}: Syfin's report (#221): Croaky's Head is an optional extra; Ridgepoint Tower holds and leads the arrow only with the head"), croaky),
 		(format!("{ELWYNN}: zeike's report (#553): Forest's Edge does not wait for the rare Gruff Swiftbite; The Collector and Manhunt follow only the Schedule"), forests_edge),
 		("#246: no NPC or object goal is on a neighbouring zone's map where the two maps overlap".into(), neighbour_map),
-		("Zerkness's and Ioney's reports (#383, #396): every player is led to Alonso, and his quests hold only one who takes them, in both Ashenvale guides".into(), alonso),
+		("Alonso's Dragonslayer quests are left out of both Ashenvale guides: each needs an item a leveling route never gets (#383, #1117, QuestieDB 1.0.14)".into(), alonso),
 		(format!("{WESTFALL}: Smuve's report (#298): the Molsen Farm step does not wait for the Precessive Autocognition Assembly; with one, it is handed in at Saldean's"), molsen_farm),
-		(format!("{COZY}: dgc1980's report (#563): Alliance go round Honor's Stand on the way to Stonetalon, Horde go straight"), cozy_sleeping_bag),
+		(format!("{COZY}: dgc1980's report (#563): Alliance keep out of Honor's Stand on the way to Stonetalon, Horde go straight"), cozy_sleeping_bag),
 	]
 }
 
@@ -800,113 +800,23 @@ fn molsen_farm(ctx: &Ctx, c: &mut Check) {
 
 const ALONSO_CHAIN: [u32; 3] = [78132, 78133, 78134];
 
-/// The Alonso play: `offered`, whether Alonso offers the chain. The game takes no accept he does not
-/// offer; a player he offers them to takes each one the guide shows (the simulated player leaves
-/// optional goals alone). Recorded: whether the Alonso step's first goal was seen done (`reached`),
-/// and the step 78132 is handed in from (`held`).
-#[derive(Default)]
-struct AlonsoLog {
-	held: Option<Option<String>>,
-	reached: bool,
-}
-
-struct Alonso {
-	offered: bool,
-	taking: bool,
-	log: Rc<RefCell<AlonsoLog>>,
-}
-
-impl Alonso {
-	/// The wrap of E.GetStepView: after the view of step s is read (its statuses).
-	fn seen(&mut self, sim: &mut Sim<'_>, s: usize, statuses: &[Status]) {
-		let gd = sim.gd();
-		let step = gd.step(s);
-		if step.title.as_deref() == Some("Alonso") && statuses.first() == Some(&Status::Done) {
-			self.log.borrow_mut().reached = true;
-		}
-		if self.offered && !self.taking {
-			self.taking = true;
-			for (g, goal) in step.goals.iter().enumerate() {
-				let Some(q) = goal.quest else { continue };
-				if goal.t == engine::T::Accept && ALONSO_CHAIN.contains(&q) && matches!(statuses[g], Status::Pending | Status::Active) && !sim.w.log.contains_key(&q) && !sim.w.completed.contains(&q) {
-					self.accept(sim, q, vec![]);
-					sim.advance(0.6);
-				}
-			}
-			self.taking = false;
-		}
-	}
-}
-
-impl Hooks for Alonso {
-	fn accept(&mut self, sim: &mut Sim<'_>, q: u32, objectives: Vec<f64>) {
-		if !self.offered && ALONSO_CHAIN.contains(&q) {
-			return;
-		}
-		sim.raw_accept(q, objectives);
-	}
-	// Held: with 78132 taken, the step is still Alonso's when it is handed in.
-	fn turn_in(&mut self, sim: &mut Sim<'_>, q: u32) {
-		if q == 78132 {
-			let title = sim.current.map(|i| {
-				let v = sim.step_view(i);
-				let statuses: Vec<Status> = v.goals.iter().map(|g| g.status).collect();
-				self.seen(sim, i, &statuses);
-				v.title
-			});
-			self.log.borrow_mut().held = Some(title.flatten());
-		}
-		sim.raw_turn_in(q);
-	}
-	fn view(&mut self, sim: &mut Sim<'_>, s: usize, statuses: &[Status]) {
-		self.seen(sim, s, statuses);
-	}
-}
-
+/// Zerkness (#383), Ioney (#396), soockee (#1117), QuestieDB 1.0.14: Alonso's Dragonslayer quests (Warriors only) are
+/// handed in at his window with an item each names that a leveling route never gets, so the route fixes leave all
+/// three out of both Ashenvale guides (tests/guides-reported.test.js, the same case).
 fn alonso(ctx: &Ctx, c: &mut Check) {
-	for (guide, faction, paladin_race, warrior_race) in [(ASHENVALE, "Alliance", "Dwarf", "Human"), (ASHENVALE_HORDE, "Horde", "Scourge", "Orc")] {
-		let list = ctx.goals(guide);
-		let Some(first) = at(c, &list, &format!("{guide}: accept 78132"), is("accept", 78132)) else { return };
-		let step = &list[first].step;
-		c.eq(step.get("title").as_str(), Some("Alonso"), &format!("{guide}: Alonso has his own step"));
-		c.ok(!step.get("only").truthy(), &format!("{guide}: the Alonso step is for every class"));
-		let g0 = step.get("goals").at(0);
-		c.eq((g0.get("t").as_str(), g0.get("optional").truthy()), (Some("goto"), false), &format!("{guide}: a plain goto leads everyone to Alonso"));
-		for q in ALONSO_CHAIN {
-			let Some(a) = at(c, &list, &format!("{guide}: accept {q}"), is("accept", q as i64)) else { return };
-			c.ok(list[a].goal.get("optional").strict_eq(&V::Bool(true)), &format!("{guide}: accept {q} is optional"));
-			let Some(t) = at(c, &list, &format!("{guide}: turnin {q}"), is("turnin", q as i64)) else { return };
-			c.ok(!list[t].goal.get("optional").truthy(), &format!("{guide}: turnin {q} is plain"));
-		}
-		let (compiled, _) = compile_set(ctx, &[guide.to_string()]);
-		let guides: Vec<Guide> = compiled.iter().map(Guide::read).collect();
-		if !c.ok(!guides.is_empty(), &format!("{guide} compiles")) {
-			return;
-		}
-		let wd = WorldData::from_data(&ctx.data);
-		for (cls, race, offered) in [("PALADIN", paladin_race, false), ("WARRIOR", warrior_race, true)] {
-			let who = format!("{guide}: a {race} {cls}{}", if offered { "" } else { " Alonso offers nothing" });
-			let log = Rc::new(RefCell::new(AlonsoLog::default()));
-			let (out, done) = play_guide(
-				&guides,
-				&wd,
-				0,
-				(race, faction, cls),
-				|_| {},
-				|sim| {
-					sim.hooks = Some(Box::new(Alonso { offered, taking: false, log: log.clone() }));
-					let out = sim.simulate();
-					sim.hooks = None;
-					(out, ALONSO_CHAIN.map(|q| sim.w.completed.contains(&q)))
-				},
-			);
-			played(c, &who, out);
-			let log = log.borrow();
-			c.ok(log.reached, &format!("{who}: is led to Alonso"));
-			c.eq(done, [offered; 3], &format!("{who}: the chain is {}handed in", if offered { "" } else { "not " }));
-			let want = if offered { Some(Some("Alonso".to_string())) } else { None };
-			c.eq(log.held.clone(), want, &format!("{who}: {}", if offered { "held at Alonso until 78132 is handed in" } else { "hands nothing in" }));
-		}
+	let fixes = std::fs::read_to_string(ctx.root.join("data/route-fixes.json")).ok().and_then(|t| forge_guide::js::parse_json(&t).ok()).unwrap_or(V::Undef);
+	let skip = fixes.get("overrides").get("skip").items();
+	for q in ALONSO_CHAIN {
+		c.ok(skip.iter().any(|s| s.get("q").as_num() == Some(q as f64) && !s.get("faction").truthy()), &format!("route-fixes leaves {q} out on both sides"));
+	}
+	for guide in [ASHENVALE, ASHENVALE_HORDE] {
+		let left: Vec<String> = ctx
+			.goals(guide)
+			.iter()
+			.filter(|r| r.goal.get("quest").as_num().is_some_and(|q| ALONSO_CHAIN.iter().any(|&a| a as f64 == q)))
+			.map(|r| format!("{} {}", r.goal.get("t").to_js_string(), r.goal.get("quest").to_js_string()))
+			.collect();
+		c.eq(left, Vec::<String>::new(), &format!("{guide}: no Dragonslayer quest"));
 	}
 }
 
@@ -1030,25 +940,32 @@ fn hub_disks(root: &std::path::Path, id: &str) -> Vec<[f64; 3]> {
 	out
 }
 
+/// dgc1980 (#563), Alliance: the arrow pointed from the Barrens straight at the path into the Stonetalon hills, a line
+/// through Honor's Stand. Since #1813 Alliance come in from the north (the Talondeep Path), in its own step just before
+/// the hills (#1496), and every straight arrow of theirs to the path keeps out of Honor's Stand and Sun Rock Retreat,
+/// the walking maps' hostile hubs; Horde go straight (tests/guides-reported.test.js, the same case).
 fn cozy_sleeping_bag(ctx: &Ctx, c: &mut Check) {
 	let list = ctx.goals(COZY);
 	let Some(hills) = at(c, &list, "the path into the hills", |g| g.get("t").as_str() == Some("goto") && num(g, "map") == Some(1442.0)) else { return };
 	let step = list[hills].s;
-	let before: Vec<&Row> = list.iter().enumerate().filter(|(i, r)| r.s == step && *i < hills && r.goal.get("t").as_str() == Some("goto")).map(|(_, r)| r).collect();
+	let before: Vec<&Row> = list.iter().enumerate().filter(|(i, r)| (r.s == step || r.s + 1 == step) && *i < hills && r.goal.get("t").as_str() == Some("goto")).map(|(_, r)| r).collect();
 	let sided = |side: &str| -> Vec<&Row> {
 		before
 			.iter()
 			.copied()
 			.filter(|r| {
-				let only = r.goal.get("only");
-				!only.truthy() || only.get("factions").items().iter().any(|f| f.as_str() == Some(side))
+				[r.step.get("only"), r.goal.get("only")].iter().all(|o| !o.truthy() || !o.get("factions").truthy() || o.get("factions").items().iter().any(|f| f.as_str() == Some(side)))
 			})
 			.collect()
 	};
 	let (alliance, horde) = (sided("Alliance"), sided("Horde"));
-	let hubs = hub_disks(&ctx.root, "horde-honors-stand");
-	if !c.ok(!hubs.is_empty(), "the walking maps know Honor's Stand") {
-		return;
+	let mut hubs = Vec::new();
+	for id in ["horde-honors-stand", "horde-sun-rock-retreat"] {
+		let disks = hub_disks(&ctx.root, id);
+		if !c.ok(!disks.is_empty(), &format!("the walking maps know {id}")) {
+			return;
+		}
+		hubs.extend(disks);
 	}
 	// A map point in the world frame the maps use: x north, y west.
 	let world = |p: (f64, f64, f64)| {
@@ -1059,7 +976,7 @@ fn cozy_sleeping_bag(ctx: &Ctx, c: &mut Check) {
 		let n = |k: &str| num(&f, k).unwrap_or(f64::NAN);
 		Some((n("top") + (n("bottom") - n("top")) * p.2 / 100.0, n("left") + (n("right") - n("left")) * p.1 / 100.0))
 	};
-	// How far (yd) the line from a to b stays outside the hub's disks.
+	// How far (yd) the line from a to b stays outside the hubs' disks.
 	let clear = |a: (f64, f64, f64), b: (f64, f64, f64)| -> Option<f64> {
 		let (p, q) = (world(a)?, world(b)?);
 		let (dx, dy) = (q.0 - p.0, q.1 - p.1);
@@ -1074,8 +991,10 @@ fn cozy_sleeping_bag(ctx: &Ctx, c: &mut Check) {
 		)
 	};
 	let point = |g: &V| (num(g, "map").unwrap_or(f64::NAN), num(g, "x").unwrap_or(f64::NAN), num(g, "y").unwrap_or(f64::NAN));
-	let mut stops = vec![(1413.0, 42.08, 32.49)];
-	stops.extend(alliance.iter().map(|r| point(&r.goal)));
+	if !c.ok(!alliance.is_empty(), "Alliance get a waypoint before the path") {
+		return;
+	}
+	let mut stops: Vec<(f64, f64, f64)> = alliance.iter().map(|r| point(&r.goal)).collect();
 	stops.push(point(&list[hills].goal));
 	for w in stops.windows(2) {
 		let (a, b) = (w[0], w[1]);
@@ -1083,12 +1002,7 @@ fn cozy_sleeping_bag(ctx: &Ctx, c: &mut Check) {
 			c.ok(false, &format!("the points {a:?} and {b:?} have an Era frame"));
 			return;
 		};
-		c.ok(off > 50.0, &format!("the arrow from {},{} to {},{} (map {}) passes {} yd outside Honor's Stand", a.1, a.2, b.1, b.2, b.0, off.round()));
-	}
-	c.eq(alliance.len(), 1, "Alliance get one waypoint before the path");
-	if let Some(a) = alliance.first() {
-		let near = yards(ctx, c, point(&a.goal), (1413.0, 40.2, 24.88)).is_some_and(|d| d <= 30.0);
-		c.ok(near, "it is the reporter's safe spot");
+		c.ok(off > 50.0, &format!("the arrow from {},{} (map {}) to {},{} (map {}) passes {} yd outside Honor's Stand and Sun Rock Retreat", a.1, a.2, a.0, b.1, b.2, b.0, off.round()));
 	}
 	c.eq(horde.len(), 0, "Horde get none");
 }
