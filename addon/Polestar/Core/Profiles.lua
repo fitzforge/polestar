@@ -32,6 +32,9 @@
 --   P.Copy(from, to)                -> true | nil, why (to made, or replaced with a copy of from)
 --   P.Rename(old, new), P.Delete(name) -> true | nil, why
 --   P.UseForCharacter(on), P.UseForClass(on)
+--   P.Key(name) -> key | nil, P.SetKey(name, key | nil) -> true | nil, why
+--                                   a key (or gamepad button) that switches to the profile
+--                                   (PolestarDB.profileKeys, the account's; out of combat)
 --   P.Export(name?, opts) -> string, count | nil, why   -- opts.areas = { look, guiding, positions } (all when nil); opts.look: the look alone
 --   P.Import(text) -> preview | nil, why   -- nothing changes yet
 --   P.Apply(preview, name, areas?)  -> true | nil, why: into the profile in use (name = P.Active()) or as a new one
@@ -375,6 +378,12 @@ function P.Rename(old, new)
 	end
 	renamed[old] = clean
 	db.profileRenamed = renamed
+	-- Its key goes with it.
+	local keys = db.profileKeys
+	if type(keys) == "table" and keys[old] then
+		keys[clean], keys[old] = keys[old], nil
+		P.ApplyKeys()
+	end
 	changed(false)
 	return true
 end
@@ -390,9 +399,101 @@ function P.Delete(name)
 		if n == name then db.classProfiles[class] = nil end
 	end
 	forgetRenames(name)
+	if type(db.profileKeys) == "table" and db.profileKeys[name] then
+		db.profileKeys[name] = nil
+		if next(db.profileKeys) == nil then db.profileKeys = nil end
+		P.ApplyKeys()
+	end
 	changed(false)
 	return true
 end
+
+---------------------------------------------------------------------------
+-- A profile's key: pressed, it switches to that profile, out of combat (a
+-- word in chat says which, or why not). The keys are the account's
+-- (PolestarDB.profileKeys[name] = "CTRL-F5"), one profile a key; each is an
+-- override binding of Polestar's own on a button no one sees, set at login
+-- and when the keys change, never in a fight (it waits for the fight's end).
+---------------------------------------------------------------------------
+
+local keyButton, keyFor = nil, {}
+
+local function keyStore()
+	local db = ns.DB()
+	if type(db.profileKeys) ~= "table" then db.profileKeys = {} end
+	return db.profileKeys
+end
+
+function P.Key(name)
+	local keys = ns.DB().profileKeys
+	return type(keys) == "table" and keys[name] or nil
+end
+
+local function onKey(_, mouse, down)
+	if down == false then return end
+	local name = keyFor[mouse]
+	if not (name and P.Exists(name)) then return end
+	if InCombatLockdown and InCombatLockdown() then
+		ns.Print(L["Profiles switch out of combat."])
+		return
+	end
+	local ok, why = true, nil
+	if name ~= P.Active() then ok, why = P.Switch(name) end
+	ns.Print(ok and (L["Profile: %s"]):format(P.Label(name)) or why)
+end
+
+local waitingKeys = false
+function P.ApplyKeys()
+	if InCombatLockdown and InCombatLockdown() then
+		if not waitingKeys then
+			waitingKeys = true
+			ns.RegisterEvent("PLAYER_REGEN_ENABLED", P.ApplyKeys)
+		end
+		return false
+	end
+	if waitingKeys then
+		waitingKeys = false
+		ns.UnregisterEvent("PLAYER_REGEN_ENABLED", P.ApplyKeys)
+	end
+	local keys = ns.DB().profileKeys
+	if not keyButton then
+		if type(keys) ~= "table" or next(keys) == nil then return true end
+		keyButton = CreateFrame("Button", "PolestarProfileKey", UIParent)
+		keyButton:SetSize(1, 1)
+		keyButton:RegisterForClicks("AnyDown", "AnyUp")
+		keyButton:SetScript("OnClick", onKey)
+	end
+	local clear, bind = _G.ClearOverrideBindings, _G.SetOverrideBindingClick
+	if not (clear and bind) then return false end
+	clear(keyButton)
+	for k in pairs(keyFor) do keyFor[k] = nil end
+	local i = 0
+	for name, key in pairs(type(keys) == "table" and keys or {}) do
+		if type(key) == "string" and P.Exists(name) then
+			i = i + 1
+			keyFor["p" .. i] = name
+			bind(keyButton, false, key, "PolestarProfileKey", "p" .. i)
+		end
+	end
+	return true
+end
+
+-- key nil: the profile's key goes. A key another profile had moves here.
+function P.SetKey(name, key)
+	if not P.Exists(name) then return nil, missing(name) end
+	if key ~= nil and (type(key) ~= "string" or key == "") then return nil, L["That is no key."] end
+	local keys = keyStore()
+	if key then
+		for other, k in pairs(keys) do if k == key then keys[other] = nil end end
+	end
+	keys[name] = key
+	if next(keys) == nil then ns.DB().profileKeys = nil end
+	P.ApplyKeys()
+	changed(false)
+	return true
+end
+
+ns.OnLogin(function() P.ApplyKeys() end)
 
 ---------------------------------------------------------------------------
 -- Migrations: a settings key moved or changed meaning, once per id, over

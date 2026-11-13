@@ -2507,7 +2507,10 @@ local function profileMenu(button)
 	if W.MenuShown(button) then return W.HideMenu() end
 	local items = {}
 	for _, name in ipairs(names) do
-		items[#items + 1] = { text = profileLabel(name), checked = name == active, onClick = function()
+		-- Its key (the Profiles page sets one) in its tooltip.
+		local key = ns.Profiles.Key and ns.Profiles.Key(name)
+		local keyText = key and (UI.Profiles and UI.Profiles.KeyName and UI.Profiles.KeyName(key) or key)
+		items[#items + 1] = { text = profileLabel(name), checked = name == active, tip = keyText and string.format(L["Key: %s"], keyText) or nil, onClick = function()
 			if name == active then return end
 			local ok, why = ns.Profiles.Switch(name)
 			if not ok and why and ns.Print then ns.Print(why) end

@@ -518,3 +518,61 @@ fn enter_takes_a_safe_dialog_and_a_wide_reset_asks_for_a_word_first() {
 	assert_eq!(out["done"], json!([1, false]), "Enter in the field takes it");
 	assert_eq!(out["own"], json!([false, true, true]), "a character's own profile: no word");
 }
+
+// A profile can have a key: on the Profiles page its Set a key takes the next key pressed (one the game binds is
+// refused, the capture going on), set as an override binding of Polestar's own; pressing it switches to the
+// profile (never in a fight); the key follows a rename, and a right-click (or deleting the profile) takes it away.
+#[test]
+fn a_profile_key_switches_to_its_profile_and_follows_it() {
+	let out = run(r#"
+		local overrides, saved = {}, { W = "MOVEFORWARD" }
+		function SetOverrideBindingClick(owner, prio, key, button, mouse) overrides[key] = button .. ":" .. mouse end
+		function ClearOverrideBindings() for k in pairs(overrides) do overrides[k] = nil end end
+		function GetBindingAction(key, override)
+			if override and overrides[key] then return "CLICK " .. overrides[key] end
+			return saved[key] or ""
+		end
+		local P = Polestar.Profiles
+		P.New("Raid")
+		UI.ShowOptions("profiles")
+		UI.Profiles.Select("Raid")
+		local v = UI.Profiles.views["Profiles"]
+		local unset = v.Key.Label:GetText()
+		v.Key:Click()
+		local waiting = { v.Key.Label:GetText(), PolestarPadCapture:IsShown() }
+		stub.RunScript(PolestarPadCapture, "OnKeyDown", "W")
+		local refused = { P.Key("Raid") or false, v.NameError:IsShown() and v.NameError:GetText() or false, PolestarPadCapture:IsShown() }
+		stub.keys.ctrl = true
+		stub.RunScript(PolestarPadCapture, "OnKeyDown", "F5")
+		stub.keys.ctrl = false
+		local set = { P.Key("Raid"), overrides["CTRL-F5"] or false, v.Key.Label:GetText(), PolestarPadCapture:IsShown() }
+		stub.RunScript(PolestarProfileKey, "OnClick", "p1", true)
+		local switched = { P.Active(), stub.messages[#stub.messages] }
+		P.Switch("Default")
+		stub.inCombat = true
+		stub.RunScript(PolestarProfileKey, "OnClick", "p1", true)
+		local fight = { P.Active(), stub.messages[#stub.messages] }
+		stub.inCombat = false
+		P.Rename("Raid", "Dungeons")
+		local renamed = { P.Key("Dungeons") or false, P.Key("Raid") or false }
+		stub.RunScript(PolestarProfileKey, "OnClick", "p1", true)
+		local follows = P.Active()
+		P.Switch("Default")
+		UI.Profiles.Select("Dungeons")
+		v.Key:Click("RightButton")
+		local cleared = { P.Key("Dungeons") or false, next(overrides) == nil }
+		P.SetKey("Dungeons", "CTRL-F6")
+		P.Delete("Dungeons")
+		emit({ unset = unset, waiting = waiting, refused = refused, set = set, switched = switched, fight = fight, renamed = renamed,
+			follows = follows, cleared = cleared, deleted = { PolestarDB.profileKeys == nil, next(overrides) == nil } })"#);
+	assert_eq!(out["unset"], "Set a key");
+	assert_eq!(out["waiting"], json!(["Press a key...", true]));
+	assert_eq!(out["refused"], json!([false, "W is taken (MOVEFORWARD): press another key, or Escape.", true]), "a key the game binds is refused, the capture goes on");
+	assert_eq!(out["set"], json!(["CTRL-F5", "PolestarProfileKey:p1", "Key: Ctrl + F5", false]));
+	assert_eq!(out["switched"], json!(["Raid", "|cff4fd1c5Polestar|r: Profile: Raid"]), "the key switches to it");
+	assert_eq!(out["fight"], json!(["Default", "|cff4fd1c5Polestar|r: Profiles switch out of combat."]));
+	assert_eq!(out["renamed"], json!(["CTRL-F5", false]), "the key follows a rename");
+	assert_eq!(out["follows"], "Dungeons");
+	assert_eq!(out["cleared"], json!([false, true]), "right-click takes it away");
+	assert_eq!(out["deleted"], json!([true, true]), "deleting the profile takes its key");
+}

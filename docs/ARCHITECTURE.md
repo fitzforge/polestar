@@ -341,10 +341,19 @@ from the live settings, drawn again as they change), "In use" on the one
 this character uses, else who else does ("Every Mage", "Whole account"),
 the last card a new one; This character (the profile in use, this
 character's own choice, its class's); the selected profile (who uses it,
-how many settings are off their defaults, Share), with Use, Copy, Rename
-and Delete (a second click within three seconds). Picking a card selects
+how many settings are off their defaults, Share), with Use, Copy, Rename,
+its key and Delete (a second click within three seconds). Picking a card selects
 it and Use switches, as in the guide menu; New and Copy switch to the
-profile made. **Share**: the parts to put in a string and the profile it is
+profile made. A profile's key (Set a key, then the key or gamepad button,
+through `Gamepad.Capture`; a key the game or another addon binds is
+refused, and with the game's gamepad interface on, a gamepad button;
+right-click takes it away) switches to it out of combat, with a word in
+chat: `P.Key(name)`, `P.SetKey(name, key)` in `PolestarDB.profileKeys` (the
+account's, one profile a key, following renames and gone with the profile),
+set by `P.ApplyKeys()` at login and on each change as override bindings of
+the hidden button `PolestarProfileKey` (never in a fight: it waits). The
+footer's profile menu shows each profile's key in its tooltip. **Share**:
+the parts to put in a string and the profile it is
 made of, the string selected for copying; a pasted string's preview (whose,
 how many settings, how many differ, the parts it holds, each switched on or
 off, what is left out), then Import as new (named, and switched to) or

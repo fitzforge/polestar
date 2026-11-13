@@ -47,3 +47,5 @@ section: players
   profile it asks you to type RESET first.
 - In Move frames the mouse wheel over boxes on top of each other brings the
   one underneath forward.
+- A profile can have its own key: on the Profiles page, Set a key and press
+  the key (or gamepad button) that switches to that profile, out of combat.
