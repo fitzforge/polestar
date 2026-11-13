@@ -160,5 +160,7 @@ module.exports = {
 	art: [7963776, 7963779, 131839, 131848],
 	capture: ['PolestarGuideFrame'],
 	SKINS,
+	// A skin picked as these shots pick it, for other scenarios' shots in every look.
+	pick,
 	shots,
 };
