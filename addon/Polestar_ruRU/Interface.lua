@@ -1989,6 +1989,7 @@ L["Log:"] = "Журнал:"
 L["Step %d of %d (guide step %d): %s"] = "Шаг %d из %d (шаг гайда %d): %s"
 L["Install: %s"] = "Установка: %s"
 L["While here: %s"] = "Пока вы здесь: %s"
+-- L["The report lists the settings you changed and your profile's name: no character names, chat, account or realm."] = ""
 
 -- UI/Packs.lua
 L["turned off in the AddOns list"] = "отключен в списке модификаций"

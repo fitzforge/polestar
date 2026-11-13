@@ -437,9 +437,48 @@ failing would flood it); every one is still noted and counted. The rolling
 log holds `Polestar.Debug` lines, caught errors and blocked calls whether or
 not `/polestar debug` prints them; the report ends its details with its last
 five lines under "Log:", before anything else gives way to Discord's 2000
-characters, after the quest log ("Quest log 12/40: 783 1/3, 7 done, …") and
-the settings turned away from their defaults ("Settings: path=value, …"),
-each left out when empty.
+characters, after the quest log ("Quest log 12/40: 783 1/3, 7 done, …", left
+out when empty) and the Settings section.
+
+The Settings section (UI/Report.lua, `settingsSection`) lists the settings
+of the profile in use that differ from their registered defaults, so a
+report tells a setting the player turned from a bug:
+
+```
+Settings: profile Raid (character) · 23 changed
+behavior.autoAccept=off behavior.whileHereRadius=180->400 nav.routeStyle=balanced->fastest
+gear.minUpgrade=1->5 qol.sellJunk=off
+looks: skin=hearth scheme=night · 12 positions moved · 4 other looks
++9 more #3fa2c1d0
+!PSR1!3fa2c1d0!eJxL…
+```
+
+The first line names the profile and whose choice it is (`Profiles.Source`:
+character, class or account), or reads "Settings: all defaults" on the
+account's Default profile with nothing changed. Each setting goes by its
+key: a switch as `on`/`off` (its default the other one), anything else as
+`default->value` (numbers to two places, a choice's id, a place's numbers, a
+colour as `#rrggbb`). A key no module registers a default for is left out.
+The list ranks what most often changes what Polestar does first (the guide
+and its automation, navigation, quests and dungeons, targeting and the quest
+buttons, gear, quality of life, then the rest); pure looks (where frames
+sit, sizes, colours, fonts, the skin's picks: the Look pages' own sections
+and names ending in a place, colour, size, opacity, font, outline, shadow,
+backing or icon) make the one `looks:` line. Past `R.SETTINGS_MAX` (600)
+characters the list keeps the settings that rank first and ends with
+`+N more #<Adler-32 of them all>` (every setting as the list writes it,
+the list's order then the looks, one a line), and the packed line carries
+the rest, the settings the list left out and then every look, in the import
+strings' envelope (`Import.Envelope("!PSR1!", …)`, the writer profile
+strings share): with the list it is every setting, which the Discord bot
+unfolds on the issue and checks against that Adler-32
+(tools/discord-bot/lib/report.js). A
+report too long for Discord gives up the packed line first, the looks line
+and the list's last lines among the details (counted into "+N more"), the
+first line only after Routes. Settings only: no character's name, chat,
+account or realm, and a profile named after a character or realm on the
+account reads `custom`; the window says so under its buttons until the
+report shows.
 
 ### Frames under the game's UI
 
@@ -1508,6 +1547,8 @@ Polestar.Import.Delete(id) -> bool
 Polestar.Import.List() -> { { id, title, author, version, license, steps, problem }, ... }  -- by title
 Polestar.Import.Load()                                -- at login
 Polestar.Import.LIMITS                                -- { length = 50000, steps = 60, payload = 262144, text = 4096 }
+Polestar.Import.Adler32(s) -> 8 hex digits
+Polestar.Import.Envelope(prefix, payload) -> string   -- prefix .. Adler-32 .. "!" .. base64 of zlib: profile strings (!PSS1!) and the report's packed settings (!PSR1!); the client's encoder when it reads back the same, else stored zlib blocks in plain Lua
 ```
 
 Only guides of shown packs (`on`, plus the internal `lookup`) are visible to
@@ -8433,22 +8474,25 @@ Reading flow: `docs/DESIGN.md` ("Intent" and "The Guide Window").
   without a line the nearest candidate's quest, step and yards (a hand-in's
   detour too) and why it does not show (out of radius, out of the way,
   turned away by the walk, quiet, in combat, an instance, a flight, an
-  escort, no candidates, off); other packs that are on; and the errors
+  escort, no candidates, off); other packs that are on; the errors
   (`Polestar.Errors()`, plus with !BugGrabber its errors this session in
   Polestar's files, `BugGrabber:GetDB()`) by their path from the AddOns
   folder, and the calls the game blocked (`Polestar.Blocked()`) as "blocked
   in <addon>: <function> (<time>)": the newest three of both together, by
-  `seq` (!BugGrabber's count as the newest), each counted. Above the code
+  `seq` (!BugGrabber's count as the newest), each counted; the quest log;
+  and the Settings section, the settings changed from their defaults ("Caught
+  errors and the Polestar Discord" above). Above the code
   block, under the player's words, bold lines for the right spot when one
   is marked and the other addons that are loaded (quest, map and guide
   addons first, then A to Z). Every line is cut at 100 bytes, and when the
   report is still longer than one Discord message (2000 characters) it
   gives up, in order, the log's oldest lines, the Addons line (shortened,
-  then dropped), Settings, Packs, the goals other than the current one, the
-  two after it and the arrow's (furthest first), the quest log, the errors
-  but the newest, then the planned and hidden lines, While here, Install,
-  Routes and the newest error, and closes the block with "(trimmed to fit
-  Discord)". The description is never cut, nor the versions, character,
+  then dropped), the packed settings, the goals other than the current
+  one, the two after it and the arrow's (furthest first), the looks line,
+  the settings list from its last line (counted into "+N more"), Packs, the
+  quest log, the errors but the newest, then the planned and hidden lines,
+  While here, Install, Routes, the Settings line and the newest error, and
+  closes the block with "(trimmed to fit Discord)". The description is never cut, nor the versions, character,
   guide, step, current goal, Arrow, Where or Errors lines the bot reads. The
   Discord bot (`tools/discord-bot`) takes the code block for the details
   and everything above it, the bold lines included, as the description it
@@ -8459,7 +8503,8 @@ Reading flow: `docs/DESIGN.md` ("Intent" and "The Guide Window").
   Under it, the way to send the report: Discord's mark, "Report it on
   Discord", three numbered lines (press Copy report then Ctrl+C, open #bugs
   and press New Post, paste and post: the bot files it), "Copy report",
-  which shows the report box under it selected (a view of the report that
+  which shows the report box under it selected, in the place of a note
+  saying the report's settings are settings alone (a view of the report that
   scrolls, as tall as the window has room for inside a 720-unit screen,
   #1753), and "Get the invite", which
   opens the invite (`Polestar.DiscordURL`) in the copy window. Last, for a

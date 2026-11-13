@@ -442,6 +442,8 @@ mod ui_preview;
 mod ui_quest_unlocks;
 #[path = "ui-quick-settings.rs"]
 mod ui_quick_settings;
+#[path = "ui-report-settings.rs"]
+mod ui_report_settings;
 #[path = "ui-route.rs"]
 mod ui_route;
 #[path = "ui-scrub.rs"]

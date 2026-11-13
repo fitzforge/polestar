@@ -2018,6 +2018,7 @@ L["Log:"] = "Protokoll:"
 L["Step %d of %d (guide step %d): %s"] = "Schritt %d von %d (Guide-Schritt %d): %s"
 L["Install: %s"] = "Installation: %s"
 L["While here: %s"] = "Wenn du schon hier bist: %s"
+-- L["The report lists the settings you changed and your profile's name: no character names, chat, account or realm."] = ""
 
 -- Maps/Instances.lua
 L["Instance history cleared."] = "Instanzverlauf gelöscht."

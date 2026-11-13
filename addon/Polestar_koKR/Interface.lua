@@ -1989,6 +1989,7 @@ L["Log:"] = "기록:"
 L["Step %d of %d (guide step %d): %s"] = "%d단계 / %d (가이드 %d단계): %s"
 L["Install: %s"] = "설치: %s"
 L["While here: %s"] = "온 김에: %s"
+-- L["The report lists the settings you changed and your profile's name: no character names, chat, account or realm."] = ""
 
 -- UI/Packs.lua
 L["turned off in the AddOns list"] = "애드온 목록에서 꺼짐"
