@@ -6885,7 +6885,11 @@ Reading flow: `docs/DESIGN.md` ("Intent" and "The Guide Window").
   `Dungeons.GiverTarget`: the giver of the first prerequisite still to do
   (its turn-in when that one is in the log), else the quest's giver (for an
   item start, the nearest mob or object outside that drops it), its
-  tooltip saying which; the Chain (`Dungeons.Quest` per id, a pin each; the
+  tooltip saying which. An unavailable drop prerequisite sets the fifth
+  result, `blocked`, so both Starts controls stay disabled instead of
+  falling back to the quest's own giver or item location. A prerequisite
+  item's page location is used only when its drop requirements are satisfied;
+  the Chain (`Dungeons.Quest` per id, a pin each; the
   steps still to do numbered, the next one on an accent ground),
   Choose one / You get item tiles (border and name in the colour of the
   item's tooltip, else its quality, the client's then the page's, painted

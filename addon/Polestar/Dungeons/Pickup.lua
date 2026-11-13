@@ -1360,18 +1360,27 @@ local function chainPoint(key, id, rec, from)
 		if cq and located(cq.finish) then return cq.finish, true end
 		return nil
 	end
+	local pageStart
 	if cq then
 		local g = Dungeons.Giver(cq, from, rec)
 		if g then return g, false end
 		local s = cq.start
-		if located(s) and not s.inside and (s.kind == "item" or cq.startItem) then return s, false end
+		if located(s) and not s.inside and (s.kind == "item" or cq.startItem) then pageStart = s end
 	end
 	local d = (cq or rec) and Dungeons.DropPoint(key, cq or rec, from, rec)
-	if d then return dropTarget(d) end
+	if d then
+		local pt, turnIn, required, blocked = dropTarget(d)
+		-- A page's item location is usable only after any drop prerequisite.
+		if pt == d and pageStart then return pageStart, false end
+		return pt, turnIn, required, blocked
+	end
+	if pageStart then return pageStart, false end
 	local e = rec and Lk.QuestEnd(rec.start, from)
 	return e and not e.hostile and endPoint(e) or nil, false
 end
 
+-- The fifth result marks an unavailable drop prerequisite. Callers must not
+-- replace that missing target with the quest's own giver or item location.
 function Dungeons.GiverTarget(key, questId)
 	local pq = Dungeons.Quest(key, questId)
 	if not pq then return nil end
@@ -1382,15 +1391,16 @@ function Dungeons.GiverTarget(key, questId)
 			local first = Lk.QuestChain(questId, Lk.PlayerInfo())[1]
 			if first and first.id ~= questId then
 				local pt, turnIn, required, blocked = chainPoint(key, first.id, first, ns.PlayerPoint())
-				if blocked then return nil end
+				if blocked then return nil, nil, nil, nil, true end
 				if pt then return pt, pt.name, required or first.title, turnIn end
 			end
 		else
 			for _, cid in ipairs(pq.chain or {}) do
 				if not done(cid) then
 					local cq = Dungeons.Quest(key, cid)
-					local pt, turnIn = chainPoint(key, cid, nil, nil)
-					if pt then return pt, pt.name, cq and cq.title, turnIn end
+					local pt, turnIn, required, blocked = chainPoint(key, cid, nil, nil)
+					if blocked then return nil, nil, nil, nil, true end
+					if pt then return pt, pt.name, required or (cq and cq.title), turnIn end
 					break
 				end
 			end
@@ -1400,8 +1410,8 @@ function Dungeons.GiverTarget(key, questId)
 	if g then return g, g.name end
 	local d = Dungeons.DropPoint(key, pq, ns.PlayerPoint())
 	if d then
-		local pt, turnIn, required = dropTarget(d)
-		return pt, pt and pt.name, required, turnIn
+		local pt, turnIn, required, blocked = dropTarget(d)
+		return pt, pt and pt.name, required, turnIn, blocked
 	end
 	local s = pq.start
 	if located(s) and (s.inside or s.kind == "item" or pq.startItem) then return s, s.name end

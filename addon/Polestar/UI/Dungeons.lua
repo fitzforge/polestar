@@ -1639,10 +1639,10 @@ local function paintQuest(b, q, p, top, plevel, key)
 	b.StartPin:SetPoint("TOPLEFT", b, "TOPLEFT", VALUE_X - 4, -y)
 	-- The arrow goes to the first prerequisite still to do, else the giver.
 	local Dg = D()
-	local target, tlabel, first, turnIn
-	if key and Dg.GiverTarget then target, tlabel, first, turnIn = Dg.GiverTarget(key, q.id) end
+	local target, tlabel, first, turnIn, blocked
+	if key and Dg.GiverTarget then target, tlabel, first, turnIn, blocked = Dg.GiverTarget(key, q.id) end
 	-- Its own giver, or where the item that starts it drops outside (#1380).
-	if not target then target, tlabel = s, s and s.name end
+	if not target and not blocked then target, tlabel = s, s and s.name end
 	local go = canGuide(target)
 	b.StartPin.psPoint, b.StartPin.psLabel = target, tlabel
 	W.SetIconState(b.StartPin, false, go)
