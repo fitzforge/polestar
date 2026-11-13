@@ -3556,6 +3556,7 @@ L["Dazzling"] = "Deslumbrante"
 -- L["Boats"] = ""
 -- L["Zeppelins"] = ""
 -- L["Trams & lifts"] = ""
+-- L["Sparkle subtlety"] = ""
 
 -- QoL/ButtonsOptions.lua
 -- L["Out of combat"] = ""
@@ -3767,13 +3768,14 @@ L["The quest item, Hearthstone, target and rare buttons, the travel button under
 -- L["From the addon %s"] = ""
 -- L["Essentials"] = ""
 -- L["Colour & frames"] = ""
+-- L["Text shadow"] = ""
+-- L["Shadow strength"] = ""
 
 -- UI/Looks/GuideWindow.lua
 -- L["Kobold Vermin"] = ""
 -- L["Kobold Worker"] = ""
 -- L["from Kobold Worker (lvl 6–7)"] = ""
 -- L["Gold Dust"] = ""
--- L["Drawn at %s of its size"] = ""
 -- L["Elwynn Forest"] = ""
 -- L["Marshal Dughan"] = ""
 -- L["Goldshire"] = ""

@@ -511,7 +511,7 @@ local SPECS = {
 			search = "text outline, border, stroke, thick, readable, contrast, legible",
 			help = L["A dark outline round every Polestar letter, for text that holds over any background."],
 			choices = { { value = "none", label = L["None"] }, { value = "outline", label = L["Outline"] }, { value = "thick", label = L["Thick outline"] } } },
-		{ kind = "dropdown", key = "ui.textShadow", label = L["Shadow"], new = NEW,
+		{ kind = "dropdown", key = "ui.textShadow", label = L["Text shadow"], new = NEW,
 			search = "text shadow, drop shadow, glow, depth, readable, contrast",
 			help = L["The shadow under every Polestar letter: the skin's, a soft one, the game's hard one, or none."],
 			choices = { { value = "skin", label = L["The skin's"] }, { value = "soft", label = L["Soft"] }, { value = "hard", label = L["Hard"] }, { value = "none", label = L["None"] } } },
@@ -552,7 +552,7 @@ local SPECS = {
 		{ kind = "toggle", key = "ui.borderAccent", label = L["Accent border"], disabled = borderOff,
 			search = "accent border, gold border, border takes accent",
 			help = L["The border takes your accent colour. Picking your own border colour turns this off."] },
-		{ kind = "slider", key = "ui.shadowStrength", label = L["Shadow"], min = 0, max = 2, step = 0.05, format = percent, disabled = shadowOff, new = NEW,
+		{ kind = "slider", key = "ui.shadowStrength", label = L["Shadow strength"], min = 0, max = 2, step = 0.05, format = percent, disabled = shadowOff, new = NEW,
 			search = "shadow strength, window shadow, darker shadow, lighter shadow, depth, drop shadow opacity",
 			help = L["How dark the window shadow falls, against the skin's."],
 			extras = {

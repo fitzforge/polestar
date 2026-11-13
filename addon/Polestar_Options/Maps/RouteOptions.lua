@@ -598,7 +598,7 @@ register(L["Sparkles"], {
 		help = L["How bright each sparkle and its glow are. The cog holds Subtlety: smaller, dimmer, calmer twinkles."],
 		search = "sparkle brightness, glow, bright, strength",
 		more = {
-			{ kind = "slider", key = "nav.sparkleSubtlety", label = L["Subtlety"], min = 0, max = 1, step = 0.05, format = percent, disabled = off,
+			{ kind = "slider", key = "nav.sparkleSubtlety", label = L["Sparkle subtlety"], min = 0, max = 1, step = 0.05, format = percent, disabled = off,
 				help = L["Smaller, dimmer, calmer twinkles that drift less; no glow at 100%."], search = "sparkle calm, quiet, twinkle, subtle" },
 		} },
 	{ kind = "slider", key = "nav.sparkleDensity", label = L["Density"], min = 1, max = 10, step = 1, format = "%d", disabled = off,
