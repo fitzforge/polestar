@@ -23,14 +23,6 @@ const { audit, line, LOOKS } = require('../tools/preview/audit');
 // the test fails on it until its fix lands.
 const EXPECTED = [
 	{
-		look: '*', surface: '*', check: 'clickable', match: 'covered by PolestarOptions kit forward',
-		owner: 'game looks', reason: "WoW Forever and Blizzard: a slider's right step arrow overlaps the value box beside it; fixed before 0.3.8 ships.",
-	},
-	{
-		look: '*', surface: '*', check: 'clickable', match: 'covered by PolestarOptions kit back',
-		owner: 'game looks', reason: "WoW Forever and Blizzard: a slider's left step arrow overlaps the colour swatch beside it at UI scale 1.5; fixed before 0.3.8 ships.",
-	},
-	{
 		look: '*', surface: 'picker', check: 'clickable', match: 'PolestarPicker Button "Alliance": 71% covered by PolestarPicker Button "Recent"',
 		owner: 'game looks', reason: "In the game looks the picker's wider Recent tab covers the Alliance filter; fixed before 0.3.8 ships.",
 	},

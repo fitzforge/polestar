@@ -1247,9 +1247,13 @@ function Theme.KitCheck(owner, host, anchor, on)
 	return box
 end
 
+-- The steppers' widths and their gap to the track.
+local STEP_GAP, BACK_W, FORWARD_W = 4, 11, 9
+
 -- A slider's track, thumb and steppers (MinimalSliderWithSteppersTemplate:
 -- the back button 4 left of the track, the forward one 4 right of it; the
--- options slider in Classic). -> true when the kit drew them.
+-- options slider in Classic). -> true when the kit drew them, and the room
+-- each stepper takes beside the track (back, forward: none in Classic).
 function Theme.KitSlider(owner, s, thumb)
 	local kit = Theme.Kit()
 	for _, key in ipairs({ "trackHost", "trackTile", "trackEdge", "trackArt", "back", "forward" }) do hideKey(owner, key) end
@@ -1301,9 +1305,9 @@ function Theme.KitSlider(owner, s, thumb)
 			b.psWired = true
 		end
 	end
-	stepper("back", kit.slBack, 11, 19, "RIGHT", "LEFT", -4, -1)
-	stepper("forward", kit.slForward, 9, 18, "LEFT", "RIGHT", 4, 1)
-	return true
+	stepper("back", kit.slBack, BACK_W, 19, "RIGHT", "LEFT", -STEP_GAP, -1)
+	stepper("forward", kit.slForward, FORWARD_W, 18, "LEFT", "RIGHT", STEP_GAP, 1)
+	return true, STEP_GAP + BACK_W, STEP_GAP + FORWARD_W
 end
 
 -- A dropdown's arrow: Classic's arrow button; the atlas looks draw theirs

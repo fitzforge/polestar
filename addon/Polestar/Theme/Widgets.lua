@@ -1205,20 +1205,37 @@ local function sliderRefresh(self)
 	sliderPaint(self)
 end
 
+-- A slider row's track: its value box 8 to its right. The game's looks stand
+-- a stepper either side of it (Theme.KitSlider): the track gives them its
+-- room (row.psStepBack, row.psStepForward), so the control keeps its span
+-- and the value box, and a swatch left of a compact half's control, stay
+-- clear of them; they covered part of the box and the swatch. A full row's
+-- label makes room for the back stepper itself (W.SkinSlider).
+local function placeTrack(row)
+	local s = row.Slider
+	local back, forward = row.psCompact and row.psStepBack or 0, row.psStepForward or 0
+	s:ClearAllPoints()
+	s:SetPoint("RIGHT", row.Value, "LEFT", -(VALUE_PAD + 8 + forward), 0)
+	s:SetWidth(max(1, (row.psTrackW or Theme.Metric("sliderW", SLIDER_W)) - back - forward))
+end
+
 -- A slider's parts in the skin in use (rows and the guide window's own).
 function W.SkinSlider(self)
 	local hearth = Theme.SkinKey() == "hearth"
 	local s = self.Slider
 	if self.psRow then
 		self:SetHeight(keptHeight(self))
-		s:SetWidth(self.psTrackW or Theme.Metric("sliderW", SLIDER_W))
 		self.Value:SetWidth(self.psValueW or Theme.Metric("valueW", VALUE_W))
 	end
 	self.Thumb:SetTexCoord(0, 1, 0, 1)
 	-- A row's label ends short of the slider: further in the game's looks,
 	-- where the back stepper stands left of the track.
-	local kitDrawn = Theme.KitSlider(self, s, self.Thumb)
+	local kitDrawn, back, forward = Theme.KitSlider(self, s, self.Thumb)
 	self.psKitGap = kitDrawn and 10 or 0
+	if self.psRow then
+		self.psStepBack, self.psStepForward = kitDrawn and back or 0, kitDrawn and forward or 0
+		placeTrack(self)
+	end
 	if self.psRow and self.Label and not self.psDetails then self.Label:SetPoint("RIGHT", s, "LEFT", kitDrawn and -20 or -10, 0) end
 	if kitDrawn then
 		-- The game's looks: their own track and thumb, the value in gold.
@@ -1279,8 +1296,8 @@ local function sliderSpan(row, width)
 	local valueW = valueWidth(row)
 	local fixed = 12 + VALUE_PAD + valueW + VALUE_PAD + 8 + 10
 	local trackW = max(SLIDER_MIN, min(SLIDER_W, width - 12 - fixed - math.ceil(textWidth(row.Label))))
-	row.Slider:SetWidth(trackW)
 	row.psTrackW = trackW
+	placeTrack(row)
 	sliderPaint(row)
 	return fixed + trackW
 end
@@ -1821,9 +1838,7 @@ local function compactControl(row)
 		row.psTrackW = COMPACT_SLIDER
 		row.Value:ClearAllPoints()
 		row.Value:SetPoint("RIGHT", row, "RIGHT", -(right + VALUE_PAD), 0)
-		row.Slider:ClearAllPoints()
-		row.Slider:SetPoint("RIGHT", row.Value, "LEFT", -(VALUE_PAD + INLINE_GAP), 0)
-		row.Slider:SetWidth(COMPACT_SLIDER)
+		placeTrack(row)
 		return function(self)
 			return COMPACT_SLIDER + INLINE_GAP + 2 * VALUE_PAD + valueWidth(self)
 		end
