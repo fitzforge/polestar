@@ -5096,6 +5096,19 @@
 			"evidence": "route level 51.1; Hahk'Zor 54-54, Gorgon'och 54-54; recordings (2026-11-11): no objective ticks, 0 people died within 60 yd, 0 abandoned"
 		},
 		{
+			"key": "forever/alliance/50-60/01-burning-steppes.guide|kill 3823.2|over",
+			"guide": "forever/alliance/50-60/01-burning-steppes.guide",
+			"goal": "kill 3823.2",
+			"kind": "over",
+			"title": "Dreadmaul Rock",
+			"level": 51.1,
+			"mobs": [
+				"Escaped Core Hound 60-60 x2"
+			],
+			"reason": "warned at the step: its tip names Escaped Core Hounds",
+			"evidence": "route level 51.1; Escaped Core Hound 60-60 x2; recordings (2026-11-13): 1 person did the objective (median level 52.1), 0 people died within 60 yd, 1 abandoned"
+		},
+		{
 			"key": "forever/alliance/50-60/01-burning-steppes.guide|kill 3823.3|rare",
 			"guide": "forever/alliance/50-60/01-burning-steppes.guide",
 			"goal": "kill 3823.3",
@@ -5190,6 +5203,32 @@
 			"evidence": "route level 52; Malfunctioning Reaver 56-56; recordings (2026-11-11): no objective ticks, 0 people died within 60 yd, 0 abandoned"
 		},
 		{
+			"key": "forever/alliance/50-60/01-burning-steppes.guide|use 4726.1|rare",
+			"guide": "forever/alliance/50-60/01-burning-steppes.guide",
+			"goal": "use 4726.1",
+			"kind": "rare",
+			"title": "Ruins of Thaurissan: kill these as you meet them",
+			"level": 52,
+			"mobs": [
+				"Malfunctioning Reaver 56-56"
+			],
+			"reason": "warned at the step: its tip names Malfunctioning Reaver",
+			"evidence": "route level 52; Malfunctioning Reaver 56-56 about 65 yd from the Black Broodling at 81.0,28.2; recordings (2026-11-13): no objective ticks, 0 people died within 60 yd, 0 abandoned"
+		},
+		{
+			"key": "forever/alliance/50-60/01-burning-steppes.guide|collect 4726.1|pack",
+			"guide": "forever/alliance/50-60/01-burning-steppes.guide",
+			"goal": "collect 4726.1",
+			"kind": "pack",
+			"title": "Ruins of Thaurissan: kill these as you meet them",
+			"level": 52,
+			"mobs": [
+				"8 spawns 54+"
+			],
+			"reason": "a kill-as-you-meet-them step: the player picks which mobs to fight",
+			"evidence": "route level 52; 8 spawns 54+; recordings (2026-11-13): no objective ticks, 0 people died within 60 yd, 0 abandoned"
+		},
+		{
 			"key": "forever/alliance/50-60/01-burning-steppes.guide|collect 4283.1|mixed",
 			"guide": "forever/alliance/50-60/01-burning-steppes.guide",
 			"goal": "collect 4283.1",
@@ -5206,6 +5245,19 @@
 			],
 			"reason": "a kill-as-you-meet-them step: the player picks which mobs to fight",
 			"evidence": "route level 52; Giant Ember Worg 55-56, Blackrock Slayer 56-57, Blackrock Warlock 56-57, Blackrock Sorcerer 55-56, Blackrock Soldier 55-56, Blackrock Battlemaster 57-58; recordings (2026-11-11): no objective ticks, 0 people died within 60 yd, 0 abandoned"
+		},
+		{
+			"key": "forever/alliance/50-60/01-burning-steppes.guide|collect 4283.1|over",
+			"guide": "forever/alliance/50-60/01-burning-steppes.guide",
+			"goal": "collect 4283.1",
+			"kind": "over",
+			"title": "Blackrock Stronghold",
+			"level": 52.3,
+			"mobs": [
+				"Firesworn 60-61 x2"
+			],
+			"reason": "warned at the step: its tip names Firesworn",
+			"evidence": "route level 52.3; Firesworn 60-61 x2; recordings (2026-11-13): no objective ticks, 0 people died within 60 yd, 1 abandoned"
 		},
 		{
 			"key": "forever/alliance/50-60/01-burning-steppes.guide|collect 4296.1|rare",
@@ -5311,6 +5363,19 @@
 			],
 			"reason": "no recordings at this level yet: listed on #1702 for the next round with recordings",
 			"evidence": "route level 52.5; Servant of Razelikh 57-57, Servant of Sevine 55-56; recordings (2026-11-11): no objective ticks, 0 people died within 60 yd, 0 abandoned"
+		},
+		{
+			"key": "forever/alliance/50-60/01-burning-steppes.guide|collect 3501.1|elite",
+			"guide": "forever/alliance/50-60/01-burning-steppes.guide",
+			"goal": "collect 3501.1",
+			"kind": "elite",
+			"title": "Kum'isha the Collector",
+			"level": 52.5,
+			"mobs": [
+				"Vek'zol 55-55 x2"
+			],
+			"reason": "warned at the step: its tip names Vek'zol",
+			"evidence": "route level 52.5; Vek'zol 55-55 x2; recordings (2026-11-13): no objective ticks, 0 people died within 60 yd, 0 abandoned"
 		},
 		{
 			"key": "forever/alliance/50-60/02-felwood.guide|kill 5156.1|elite",
@@ -5983,8 +6048,21 @@
 			"evidence": "route level 57.4; Precious 60-60 x2; recordings (2026-11-11): no objective ticks, 0 people died within 60 yd, 0 abandoned"
 		},
 		{
-			"key": "forever/alliance/50-60/05-silithus.guide|kill npc 8529|elite",
-			"guide": "forever/alliance/50-60/05-silithus.guide",
+			"key": "forever/alliance/50-60/06-silithus.guide|collect 4084.2|elite",
+			"guide": "forever/alliance/50-60/06-silithus.guide",
+			"goal": "collect 4084.2",
+			"kind": "elite",
+			"title": "Irontree Woods",
+			"level": 57.9,
+			"mobs": [
+				"Ancient Irontree Walker 59-59 x2"
+			],
+			"reason": "warned at the step: its tip names Ancient Irontree Walkers",
+			"evidence": "route level 57.9; Ancient Irontree Walker 59-59 x2; recordings (2026-11-13): 1 person did the objective (median level 58.5), 0 people died within 60 yd, 0 abandoned"
+		},
+		{
+			"key": "forever/alliance/50-60/06-silithus.guide|kill npc 8529|elite",
+			"guide": "forever/alliance/50-60/06-silithus.guide",
 			"goal": "kill npc 8529",
 			"kind": "elite",
 			"title": "Scourge Champions",
@@ -6023,6 +6101,19 @@
 			],
 			"reason": "no recordings at this level yet: listed on #1702 for the next round with recordings",
 			"evidence": "route level 58.8; Deathclasp 59-59; recordings (2026-11-11): no objective ticks, 0 people died within 60 yd, 0 abandoned"
+		},
+		{
+			"key": "forever/alliance/50-60/06-silithus.guide|collect 5086.1|elite",
+			"guide": "forever/alliance/50-60/06-silithus.guide",
+			"goal": "collect 5086.1",
+			"kind": "elite",
+			"title": "Toxic Horrors",
+			"level": 58.9,
+			"mobs": [
+				"Ancient Irontree Walker 59-59 x2"
+			],
+			"reason": "warned at the step: its tip names Ancient Irontree Walkers; the arrow points at the Toxic Horror farthest from them",
+			"evidence": "route level 58.9; Ancient Irontree Walker 59-59 x2; recordings (2026-11-13): no objective ticks, 0 people died within 60 yd, 0 abandoned"
 		},
 		{
 			"key": "forever/alliance/50-60/06-silithus.guide|collect 5803.1|elite",

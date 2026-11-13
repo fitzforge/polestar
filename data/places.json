@@ -2157,6 +2157,25 @@
 					"ref": "npc 2944: 574 sighting rows spread over the Badlands"
 				}
 			]
+		},
+		{
+			"id": "1575-burning-steppes-broodling-essence",
+			"quest": 4726,
+			"objective": 1,
+			"at": {
+				"map": 1428,
+				"x": 81.0,
+				"y": 28.0,
+				"frame": "era"
+			},
+			"note": "Broodling Essence: the Draco-Incarcinatrix is used on a Black Broodling, whose spawns are on the slopes east of Flame Crest (81-92,26-39); the Alliance guide's point at 72.4,28.2 stood among Fel Interlopers (55) and Flamekin (54) with no broodling near. 81.0,28.0 is beside a broodling spawn (81.0,28.2), where the Horde guide's point already is (#1575 sweep, 0.4.0 audit).",
+			"source": [
+				{
+					"kind": "pfquest",
+					"ref": "npcs.json 7047 Black Broodling 51: 14 spawns at 81.0-91.9,26.5-62.1 in the Burning Steppes; Fel Interlopers (55) and Flamekin (54) at 69-72,26-32"
+				}
+			],
+			"issue": 1575
 		}
 	]
 }

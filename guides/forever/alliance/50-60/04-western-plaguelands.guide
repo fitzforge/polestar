@@ -4,7 +4,7 @@ title Western Plaguelands, Eastern Plaguelands, Feralas, Un'Goro Crater & Silith
 faction Alliance
 levels 56-58
 zone Western Plaguelands
-next forever/alliance/50-60/05-silithus
+next forever/alliance/50-60/06-silithus
 
 # Forge's route search orders the quests of this guide and its guide writer writes the steps.
 # Fixes go into data/route-fixes.json, data/guide-fixes.json or forever-db/corrections, never
@@ -281,7 +281,9 @@ step Eastern Plaguelands
 step The Undercroft
   zone Eastern Plaguelands
   tip Cross the river east to the Undercroft, the crypt in the south-west of the zone. The Torn Scroll lies inside: its key is on Infiltrator Hameya in the far north-east, done in the next guide.
+  tip Careful: About four non-elite adds come with Mercutio. They walk to the grave instead of appearing on the spot.
   accept 6024                         -- Torn Scroll, below ground
+  collect 14613 quest 5781.1 optional -- Taelan's Hammer, from Mercutio Filthgorger (57, elite): grouping up is advised
 
 step The Hinterlands
   zone The Hinterlands
@@ -345,6 +347,7 @@ step Darnassus
   turnin 3781                         -- Mathrengyl Bearwalker
   turnin 4986
   train class only Druid              -- Ironforge, where the next guide trains, has no druid trainer
+  train class only Warrior,Hunter,Rogue,Priest -- their trainers are in Darnassus too
   accept 3785 optional                -- Ten Morrowgrain from the Evergreen Pouch
   turnin 3785 optional
   turnin 6761                         -- Mathrengyl Bearwalker
@@ -423,21 +426,30 @@ step Feralas
   zone Feralas
   goto 89.5,45.9 "Thalanaar"
 
+step Fly to Ratchet
+  when taxi "Ratchet"
+  zone Feralas
+  goto 89.5,45.9 "Thalanaar flight master"
+  fly "Ratchet"
+  zone The Barrens
+
 step Fly to Theramore
+  when !taxi "Ratchet"
   zone Feralas
   goto 89.5,45.9 "Thalanaar flight master"
   fly "Theramore"
   zone Dustwallow Marsh
 
 step The Barrens
+  when !taxi "Ratchet"
   zone The Barrens
+  tip From Theramore, ride west into the Barrens and north up the coast to Ratchet.
   goto 65.8,43.8 "Ratchet"
 
 # ---------------------------------------------------------------- Ratchet and Azshara
 
 step Ratchet
   zone The Barrens
-  tip From Theramore, ride west into the Barrens and north up the coast to Ratchet.
   turnin 5158                         -- Islen Waterseer, on the coast north of town
   accept 5159                         -- For Felwood: keep it
   getfp "Ratchet"
@@ -558,7 +570,7 @@ step Silithus: kill these as you meet them
 step Level 56.89
   when !group 2944
   when level<56.89
-  tip If you skipped The Super Snapper FX, grind here to level 56.89 to stay on the route's plan. Or, with a group, run the Blackrock Depths dungeon or the Blackrock Spire dungeon (Lower) instead.
+  tip If you skipped The Super Snapper FX, grind here to level 56.89 to stay on the route's plan.
   goto 54.9,31.2 map 1451 "Dredge Striker"
   level 56.89 grind 11740              -- grind on Dredge Striker
 

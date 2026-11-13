@@ -26,8 +26,8 @@ step Winterspring
 # ---------------------------------------------------------------- Everlook
 
 step Everlook's inn
-  when !bound "Stoutlager Inn"
-  tip Your Hearthstone is not set at Thelsamar (the Hinterlands guide binds there at 47, and this guide leaves Winterspring through it): bind at Everlook instead, for the trips back to town.
+  when !bound "Ironforge"
+  tip Your Hearthstone is not set at Ironforge (the Hinterlands guide binds there at 47, and this guide leaves Winterspring through it): bind at Everlook instead, for the trips back to town.
   sethome "Everlook" npc 11118        -- Innkeeper Vizzie
 
 step Everlook
@@ -42,7 +42,8 @@ step Everlook
   collect 12383 quest 978.1                   -- Moontouched Feather, 110 yd north
 
 step Wynd Nightchaser
-  accept 5244                         -- Wynd Nightchaser
+  turnin 5249                         -- Wynd Nightchaser
+  accept 5244
   turnin 5244                         -- Jaron Stoneshaper
   accept 5245
 
@@ -72,7 +73,7 @@ step Donova Snowden
 step Frostfire Hot Springs: kill these as you meet them
   zone Winterspring
   tip The western Winterfall camp sits in the hills between Salfa and Donova. Any furbolg here can drop an Empty Firewater Flask (about one in ten: it comes within the kills these quests need) and a Winterfall Ritual Totem (about one in thirty: it comes within the top-ups): right-click whichever drops. Keep the Runecloth the furbolgs drop for Meilosh.
-  tip The rest of Winterspring's work is level 55-58: stay on this camp until level 54, so your first kills also count for Donova and Salfa. Or, with a group, run the Blackrock Depths dungeon instead.
+  tip The rest of Winterspring's work is level 55-58: stay on this camp until level 54, so your first kills also count for Donova and Salfa.
   collect 12771                       -- Empty Firewater Flask
   accept 5083
   kill 7442 quest 5082.1              -- Winterfall Pathfinder
@@ -88,7 +89,7 @@ step Donova Snowden
 
 step Level 55.05
   when level<55.05
-  tip Top up here to level 55.05 before the hand-ins at Everlook: they take you to level 56. Grind the Winterfall furbolgs camped by Frostfire Hot Springs (Pathfinders, Totemics, Den Watchers): killing them raises your Timbermaw reputation, which the quests here and the walk through Timbermaw Hold need, one of them drops the Winterfall Ritual Totem, and they fill your bags with the thirty Runecloth Meilosh asks for. Or, with a group, run the Blackrock Depths dungeon or the Blackrock Spire dungeon (Lower) instead.
+  tip Top up here to level 55.05 before the hand-ins at Everlook: they take you to level 56. Grind the Winterfall furbolgs camped by Frostfire Hot Springs (Pathfinders, Totemics, Den Watchers): killing them raises your Timbermaw reputation, which the quests here and the walk through Timbermaw Hold need, one of them drops the Winterfall Ritual Totem, and they fill your bags with the thirty Runecloth Meilosh asks for.
   goto 31.4,36.0 map 1452 "Winterfall Pathfinder"
   level 55.05 grind 7442               -- grind on Winterfall Pathfinder
 
@@ -121,33 +122,38 @@ step Everlook
   use 12928 @61.5,38.6 "Umi's Mechanical Yeti" -- On Legacki, by the inn
   kill 10978 quest 5163.1 "Scare Legacki with Umi's Mechanical Yeti" -- Legacki: Sprinkle and Quixxil come later
 
-step To Stoutlager Inn
-  when bound "Stoutlager Inn"
-  zone Loch Modan
-  tip Your Hearthstone is still set at Thelsamar: from there the gryphon to Chillwind Camp is about ten minutes quicker than Everlook's flight to Theramore and the boat.
-  goto 35.5,48.4 "Stoutlager Inn"
+step To Ironforge
+  when bound "Ironforge"
+  zone Ironforge
+  tip Your Hearthstone is still set at Ironforge: from there the gryphon to Chillwind Camp is about ten minutes quicker than Everlook's flight to Theramore and the boat.
+  goto 18.15,51.45 "Ironforge inn"
+
+step Ironforge
+  when bound "Ironforge"
+  zone Ironforge
+  train class only Warrior,Paladin,Hunter,Rogue,Priest,Shaman,Mage,Warlock
 
 step Fly to Chillwind Camp
-  when bound "Stoutlager Inn"
-  zone Loch Modan
-  goto 33.9,50.8 "Thelsamar flight master"
+  when bound "Ironforge"
+  zone Ironforge
+  goto 55.9,47.9 "Ironforge flight master"
   fly "Chillwind Camp"
   zone Western Plaguelands
 
 step Fly to Theramore
-  when !bound "Stoutlager Inn"
+  when !bound "Ironforge"
   zone Winterspring
   goto 62.3,36.6 "Everlook flight master"
   fly "Theramore"
   zone Dustwallow Marsh
 
 step Boat to Menethil Harbor
-  when !bound "Stoutlager Inn"
+  when !bound "Ironforge"
   zone Dustwallow Marsh
   goto 71.6,56.4 "Boat to Menethil Harbor"
 
 step Fly to Chillwind Camp
-  when !bound "Stoutlager Inn"
+  when !bound "Ironforge"
   zone Wetlands
   goto 9.5,59.7 "Menethil Harbor flight master"
   fly "Chillwind Camp"

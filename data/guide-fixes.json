@@ -9117,6 +9117,118 @@
 				}
 			],
 			"issue": 1575
+		},
+		{
+			"id": "1575-burning-steppes-dreadmaul-core-hounds",
+			"faction": "Alliance",
+			"at": {
+				"quest": 3823,
+				"goal": "objective",
+				"objective": 2
+			},
+			"tip": "Careful: Escaped Core Hounds (level 60) roam the Steppes, a few on the slopes west and south of Dreadmaul Rock: pull the ogres on the rock itself and look around before each pull.",
+			"note": "Danger-at-the-spot sweep (#1575, 0.4.0 audit): Escaped Core Hounds (level 60, not elite) roam the whole Burning Steppes; some of their spawns sit on the slopes west and south of Dreadmaul Rock, beside the Firegut Ogres a level 51 player kills here. No recorded deaths yet (1 person did the step).",
+			"source": [
+				{
+					"kind": "pfquest",
+					"ref": "npcs.json 227746 Escaped Core Hound 60: 24 spawns across the Burning Steppes, incl. 72.4,32.6 / 72.4,37.0 / 74.2,29.8 / 74.8,58.6 beside Dreadmaul Rock's ogres (7033, 74-87,37-56)"
+				}
+			],
+			"issue": 1575
+		},
+		{
+			"id": "1575-burning-steppes-blackrock-firesworn",
+			"faction": "Alliance",
+			"at": {
+				"quest": 3824,
+				"goal": "objective",
+				"objective": 1
+			},
+			"tip": "Careful: Firesworn, level 60 fire elementals, wander the Steppes, some between the Blackrock camps: look before each pull and let them pass.",
+			"note": "Danger-at-the-spot sweep (#1575, 0.4.0 audit): Firesworn (level 60, not elite) wander the Burning Steppes, two of their spawns between the Blackrock camps (40.2,45.2 and 41.2,34.8) where a level 52 player hunts Gor'tesh and the medallions.",
+			"source": [
+				{
+					"kind": "pfquest",
+					"ref": "npcs.json 228725 Firesworn 60: 24 spawns across the Burning Steppes, incl. 40.2,45.2 / 41.2,34.8 / 43.8,40.0 by the Blackrock Slayers, Warlocks and Battlemasters (7027-7029, 39-42,32-36)"
+				}
+			],
+			"issue": 1575
+		},
+		{
+			"id": "1575-burning-steppes-broodling-reaver",
+			"faction": "Alliance",
+			"at": {
+				"quest": 4726,
+				"goal": "objective",
+				"objective": 1
+			},
+			"tip": "Careful: a Malfunctioning Reaver (level 56, rare) walks the slopes by the broodlings, and the Black Dragonspawn and Wyrmkin around them are elite: use the Incarcinatrix on a broodling at the edge and look around before each pull.",
+			"note": "Danger-at-the-spot sweep (#1575, 0.4.0 audit): the Broodling Essence point moved to the Black Broodling spawn at 81.0,28.2 (places record 1575-burning-steppes-broodling-essence). A Malfunctioning Reaver (56, rare) spawns about 65 yd from it (79.2,29.7), and elite Black Dragonspawn (52) and Wyrmkin (53) stand around both broodling spawns nearest Flame Crest (81.0,28.2 and 81.4,26.5); the spawns clear of both lie about 370 yd further east, so the point stays and the step warns.",
+			"source": [
+				{
+					"kind": "pfquest",
+					"ref": "npcs.json 8981 Malfunctioning Reaver 56 rare at Burning Steppes 79.2,29.7 / 88.1,31.8 / 90.0,46.0 / 85.8,57.1 / 88.6,57.4; 7047 Black Broodling spawns 81.0-91.9,26.5-62.1; Black Dragonspawn (52) and Black Wyrmkin (53), rank elite, among them"
+				}
+			],
+			"issue": 1575
+		},
+		{
+			"id": "1575-blasted-lands-vekzol",
+			"faction": "Alliance",
+			"at": {
+				"quest": 3501,
+				"goal": "objective",
+				"objective": 1
+			},
+			"tip": "Careful: Vek'zol, a level 55 elite, stands by Kum'isha's hill (about 50,35) and to the west (about 39,32): take the fragments from the mobs on the way from the keep, not beside him.",
+			"note": "Danger-at-the-spot sweep (#1575, 0.4.0 audit): Vek'zol (level 55, elite) stands at 49.9,35.5, beside Kum'isha's hill (52.0,35.7), and at 39.0-39.2,32.4-33.0 to the west, where a level 52 player collects Imperfect Draenethyst Fragments from the Blasted Lands mobs.",
+			"source": [
+				{
+					"kind": "pfquest",
+					"ref": "npcs.json 247015 Vek'zol 55 rank elite: spawns in the Blasted Lands at 39.0,32.4 / 39.2,33.0 / 49.9,35.5"
+				}
+			],
+			"issue": 1575
+		},
+		{
+			"id": "1575-felwood-irontree-walkers-stompers",
+			"faction": "Alliance",
+			"at": {
+				"quest": 4084,
+				"goal": "objective",
+				"objective": 2
+			},
+			"tip": "Careful: Ancient Irontree Walkers, level 59 elites, stand among the treants in the middle of Irontree Woods: take the Stompers on the north side (about 48,21).",
+			"note": "Danger-at-the-spot sweep (#1575, 0.4.0 audit): eight Ancient Irontree Walkers (level 59, elite) stand among the Irontree Stompers (7139, 46-49,19-30) in the middle of Irontree Woods; the Stompers on the north side (48.5,21.1 / 48.8,19.4) are clear of them.",
+			"source": [
+				{
+					"kind": "pfquest",
+					"ref": "npcs.json 235912 Ancient Irontree Walker 59 rank elite: spawns in Felwood at 47.0-50.3,23.9-28.8"
+				}
+			],
+			"issue": 1575
+		},
+		{
+			"id": "1575-felwood-toxic-horrors-walkers",
+			"faction": "Alliance",
+			"at": {
+				"quest": 5086,
+				"goal": "objective",
+				"objective": 1
+			},
+			"tip": "Careful: Ancient Irontree Walkers, level 59 elites, stand among the Toxic Horrors: work the Horrors at the camp's north-east tip (about 50.6,22.4), one at a time, and look for a walker before each pull.",
+			"note": "Danger-at-the-spot sweep (#1575, 0.4.0 audit): the same Ancient Irontree Walkers (level 59, elite) stand among the Toxic Horrors (7132, 48.1-50.6,22.4-27.4); the Horror at 50.6,22.4 is the farthest from any walker, where the arrow now points (places.json, both factions). Players' recordings: 1 person died near the step's goal.",
+			"source": [
+				{
+					"kind": "pfquest",
+					"ref": "npcs.json 235912 Ancient Irontree Walker 59 rank elite at Felwood 47.0-50.3,23.9-28.8; 7132 Toxic Horror 12 spawns at 48.1-50.6,22.4-27.4"
+				},
+				{
+					"kind": "recording",
+					"ref": "rec index danger recordings (2026-11-13): 1 person died within 60 yd of the Toxic Horrors goal"
+				}
+			],
+			"issue": 1575
 		}
 	]
 }
