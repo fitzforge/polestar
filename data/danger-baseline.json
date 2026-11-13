@@ -4622,6 +4622,19 @@
 			"evidence": "route level 52; Malfunctioning Reaver 56-56; recordings (2026-11-11): no objective ticks, 0 people died within 60 yd, 0 abandoned"
 		},
 		{
+			"key": "forever/alliance/50-60/01-burning-steppes.guide|use 4726.1|rare",
+			"guide": "forever/alliance/50-60/01-burning-steppes.guide",
+			"goal": "use 4726.1",
+			"kind": "rare",
+			"title": "Ruins of Thaurissan: kill these as you meet them",
+			"level": 52,
+			"mobs": [
+				"Malfunctioning Reaver 56-56"
+			],
+			"reason": "warned at the step: its tip names Malfunctioning Reaver",
+			"evidence": "route level 52; Malfunctioning Reaver 56-56 about 65 yd from the Black Broodling at 81.0,28.2; recordings (2026-11-13): no objective ticks, 0 people died within 60 yd, 0 abandoned"
+		},
+		{
 			"key": "forever/alliance/50-60/01-burning-steppes.guide|collect 4283.1|mixed",
 			"guide": "forever/alliance/50-60/01-burning-steppes.guide",
 			"goal": "collect 4283.1",
