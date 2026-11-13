@@ -607,16 +607,24 @@ step Riding at 40
   vendor 7955 optional                -- Milli Featherwhistle: other colours, 20g
 
 step Fly to Thelsamar
-  only Human,NightElf,Skyborne
+  when taxi "Thelsamar"
+  when !zone "Dun Morogh"
   zone Ironforge
   goto 55.9,47.9 "Ironforge flight master"
   fly "Thelsamar"
   zone Loch Modan
 
 step Loch Modan
-  only Dwarf,Gnome
+  when zone "Dun Morogh"
   zone Loch Modan
   tip Ride east out of Dun Morogh through the tunnel into Loch Modan and on along the road to Thelsamar.
+  goto 35.5,48.4 "Thelsamar"
+
+step Loch Modan
+  when !taxi "Thelsamar"
+  when !zone "Dun Morogh"
+  zone Loch Modan
+  tip No flight path to Thelsamar yet: ride out of Ironforge's gates, east through Dun Morogh and the tunnel into Loch Modan, and on along the road to Thelsamar.
   goto 35.5,48.4 "Thelsamar"
 
 step Thelsamar
