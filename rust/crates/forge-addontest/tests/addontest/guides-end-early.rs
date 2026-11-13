@@ -27,7 +27,7 @@ stub.login()
 stub.fire("QUEST_LOG_UPDATE")
 local E = Polestar.Engine
 Polestar.Set("behavior.groupQuests", "do")
-E.SetDungeonRoute("skip") -- the solo route, whatever "Dungeons in my route" defaults to
+Polestar.Set("behavior.dungeons", "skip") -- the solo route, whatever "Dungeons in my route" defaults to
 ENDS = {}
 Polestar.On("GUIDE_END", function(gid, i)
 	ENDS[#ENDS + 1] = { id = gid, undone = i.undone, live = i.live or false }

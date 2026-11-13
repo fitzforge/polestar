@@ -1,8 +1,8 @@
 //! Dungeons in the route (addon/Polestar/Core/Engine.lua; docs/GUIDE_FORMAT.md, "Dungeon steps"): a leveling
 //! guide carries a dungeon's pick-ups, its run and its hand-ins as steps behind `when dungeon` (hand-ins behind
-//! `when complete`), compiled into the one route. "Dungeons in my route" (CharState().dungeonRoute: Skip / Ask me /
-//! Run them; Skip until the player picks another, so the solo route is the default) answers every dungeon the
-//! player has not answered one by one (CharState().dungeons[map], Engine.ChooseDungeon). Ask: the first dungeon
+//! `when complete`), compiled into the one route. "Dungeons in my route" (the behavior.dungeons setting: Skip / Ask
+//! me / Run them; Skip until the player picks another, so the solo route is the default) answers every dungeon the
+//! character has not answered one by one (CharState().dungeons[map], Engine.ChooseDungeon). Ask: the first dungeon
 //! step with something to do now holds the route and the window asks. At the run, "No group? Skip it"
 //! (Engine.SkipDungeon) answers Skip and the route goes on. An answer given mid-guide never moves the live step
 //! back, never re-opens a pick-up the route passed, and the run is guarded (`when onquest`). Real Core manifest,
@@ -92,7 +92,7 @@ function asked() local d = E.DungeonQuestion(); return d and { map = d.map, name
 "#;
 
 /// `saved`: the character's saved PolestarCharDB (None: a character Polestar never saw, whose tab is opened
-/// after login).
+/// after login); its `_route`, when given, is "Dungeons in my route" (behavior.dungeons), saved in PolestarDB.
 fn run(saved: Option<Value>, script: &str) -> Vec<Value> {
 	run_with("", saved, script)
 }
@@ -104,14 +104,24 @@ fn run_with(world: &str, saved: Option<Value>, script: &str) -> Vec<Value> {
 		stubs: vec!["stub_world.lua"],
 		before: format!("{WORLD}\n{world}"),
 		addons: vec![Addon::files("Polestar", &["Core/Core.xml"])],
-		saved: saved.map(|s| vec![("Polestar".into(), format!("PolestarCharDB = {}", lua_value(&s)))]).unwrap_or_default(),
+		saved: saved.map(saved_lua).unwrap_or_default(),
 		script: [TEST_PACK, TEST_SOURCE, GUIDE, HELPERS, "stub.login()", open, r#"stub.fire("QUEST_LOG_UPDATE"); stub.advance(0.6); mark()"#, script].join("\n"),
 		..Default::default()
 	})
 }
 
+/// The saved variables: PolestarCharDB, and PolestarDB's behavior.dungeons from `_route`.
+fn saved_lua(mut s: Value) -> Vec<(String, String)> {
+	let route = s.as_object_mut().and_then(|o| o.remove("_route"));
+	let mut lua = format!("PolestarCharDB = {}", lua_value(&s));
+	if let Some(r) = route {
+		lua += &format!("\nPolestarDB = {{ schema = 1, settings = {{ behavior = {{ dungeons = {} }} }} }}", lua_value(&r));
+	}
+	vec![("Polestar".into(), lua)]
+}
+
 fn char(route: &str) -> Option<Value> {
-	Some(json!({ "schema": 1, "guide": "test/route", "dungeonRoute": route }))
+	Some(json!({ "schema": 1, "guide": "test/route", "_route": route }))
 }
 
 fn non_decreasing(trace: &Value) {
@@ -121,11 +131,11 @@ fn non_decreasing(trace: &Value) {
 
 #[test]
 fn dungeon_route_skip_by_default_ask_holds_the_route_at_the_first_pick_up() {
-	let new = run(None, r#"emit({ route = E.DungeonRoute(), saved = PolestarCharDB.dungeonRoute or false, at = at(), asked = asked(), s1 = st(1) })"#);
-	assert_eq!(new[0], json!({ "route": "skip", "saved": false, "at": 2, "asked": false, "s1": "skipped" }), "no answer given: Skip, the solo route, and nothing is written for the character");
-	let seen = run(Some(json!({ "schema": 1, "guide": "test/route" })), r#"emit({ route = E.DungeonRoute(), at = at(), asked = asked(), s1 = st(1) })"#);
+	let new = run(None, r#"emit({ route = Polestar.Get("behavior.dungeons"), saved = (PolestarDB.settings.behavior or {}).dungeons or false, at = at(), asked = asked(), s1 = st(1) })"#);
+	assert_eq!(new[0], json!({ "route": "skip", "saved": false, "at": 2, "asked": false, "s1": "skipped" }), "no answer given: Skip, the solo route, and nothing is written");
+	let seen = run(Some(json!({ "schema": 1, "guide": "test/route" })), r#"emit({ route = Polestar.Get("behavior.dungeons"), at = at(), asked = asked(), s1 = st(1) })"#);
 	assert_eq!(seen[0], json!({ "route": "skip", "at": 2, "asked": false, "s1": "skipped" }), "a character Polestar had seen: Skip, no surprise stop");
-	let ask = run(char("ask"), r#"emit({ route = E.DungeonRoute(), at = at(), asked = asked(), wants = E.WantsQuest("accept", 214) })"#);
+	let ask = run(char("ask"), r#"emit({ route = Polestar.Get("behavior.dungeons"), at = at(), asked = asked(), wants = E.WantsQuest("accept", 214) })"#);
 	assert_eq!(
 		ask[0],
 		json!({ "route": "ask", "at": 1, "asked": { "map": 36, "name": "The Deadmines", "quests": 2, "runIn": 4 }, "wants": false }),
@@ -177,7 +187,7 @@ fn dungeon_route_run_picks_up_says_when_to_look_for_a_group_and_reaches_the_run(
 fn dungeon_route_skip_keeps_to_the_solo_route_an_answer_for_one_dungeon_wins() {
 	let out = run(char("skip"), r#"take(7); take(15); emit({ at = at(), s1 = st(1), s4 = st(4), s5 = st(5), asked = asked(), soon = E.DungeonSoon() or false })"#);
 	assert_eq!(out[0], json!({ "at": 7, "s1": "skipped", "s4": "skipped", "s5": "skipped", "asked": false, "soon": false }));
-	let one = run(Some(json!({ "schema": 1, "guide": "test/route", "dungeonRoute": "skip", "dungeons": { "36": true } })), "emit(at())");
+	let one = run(Some(json!({ "schema": 1, "guide": "test/route", "_route": "skip", "dungeons": { "36": true } })), "emit(at())");
 	assert_eq!(one[0], 1);
 }
 
@@ -191,7 +201,7 @@ fn dungeon_route_mid_guide_opt_in_and_out_never_moves_the_live_step_back() {
 		r#"
 		take(7)
 		local before = aim()
-		E.SetDungeonRoute("run"); flush(); mark()
+		Polestar.Set("behavior.dungeons", "run"); flush(); mark()
 		emit({ at = at(), s1 = st(1), s4 = st(4), s5 = st(5), arrow = aim(), before = before })
 		take(15); take(214); take(167)
 		emit({ at = at(), run = E.DungeonRun() and true or false, trace = trace })"#,
@@ -206,7 +216,7 @@ fn dungeon_route_mid_guide_opt_in_and_out_never_moves_the_live_step_back() {
 	assert_eq!(before_run[1]["run"], true);
 	non_decreasing(&before_run[1]["trace"]);
 
-	let after_run = run(char("skip"), r#"take(7); take(15); E.SetDungeonRoute("run"); flush(); mark(); emit({ at = at(), s4 = st(4), s5 = st(5), trace = trace })"#);
+	let after_run = run(char("skip"), r#"take(7); take(15); Polestar.Set("behavior.dungeons", "run"); flush(); mark(); emit({ at = at(), s4 = st(4), s5 = st(5), trace = trace })"#);
 	assert_eq!(after_run[0]["at"], 7, "after the run's stop nothing changes");
 	assert_eq!(after_run[0]["s4"], "skipped");
 	assert_eq!(after_run[0]["s5"], "skipped");
@@ -216,7 +226,7 @@ fn dungeon_route_mid_guide_opt_in_and_out_never_moves_the_live_step_back() {
 		char("run"),
 		r#"
 		take(214); take(7)
-		E.SetDungeonRoute("skip"); flush(); mark()
+		Polestar.Set("behavior.dungeons", "skip"); flush(); mark()
 		emit({ at = at() })
 		take(15)
 		emit({ at = at(), s4 = st(4), s5 = st(5), s6 = st(6), kept = w.log[214] ~= nil, trace = trace })"#,
@@ -235,7 +245,7 @@ fn dungeon_route_no_group_skip_it_at_the_run_goes_on_with_the_solo_route_and_kee
 		local kept = E.SkipDungeon(36); flush(); mark()
 		emit({ kept = kept, at = at(), run = E.DungeonRun() or false, s5 = st(5), s6 = st(6), log = { w.log[214] ~= nil, w.log[167] ~= nil }, trace = trace })
 		stub.fire("PLAYER_LOGOUT")
-		emit({ dungeons = PolestarCharDB.dungeons, route = PolestarCharDB.dungeonRoute, skipped = PolestarCharDB.skipped["test/route"] })"#,
+		emit({ dungeons = PolestarCharDB.dungeons, route = Polestar.Get("behavior.dungeons"), skipped = PolestarCharDB.skipped["test/route"] })"#,
 	);
 	assert_eq!(out[0], json!({ "at": 5, "run": 36 }));
 	assert_eq!(out[1], json!({ "kept": ["Oh Brother. . .", "Red Silk Bandanas"], "at": 7, "run": false, "s5": "skipped", "s6": "skipped", "log": [true, true], "trace": [1, 2, 3, 4, 5, 7] }));
@@ -254,7 +264,7 @@ fn dungeon_route_steps_of_a_skipped_dungeon_have_no_number_so_the_totals_stay_th
 		r#"
 		local n1, h1 = E.StepNumber(1)
 		emit({ total = E.StepTotal(), n1 = n1, h1 = h1, n2 = E.StepNumber(2), n7 = E.StepNumber(7) })
-		E.SetDungeonRoute("run"); flush()
+		Polestar.Set("behavior.dungeons", "run"); flush()
 		local r1, rh1 = E.StepNumber(1)
 		emit({ total = E.StepTotal(), n1 = r1, h1 = rh1, n2 = E.StepNumber(2), n7 = E.StepNumber(7) })
 		E.ChooseDungeon(36, false); flush()
@@ -272,7 +282,7 @@ fn dungeon_route_steps_of_a_skipped_dungeon_have_no_number_so_the_totals_stay_th
 // loop while it is judged; Skip: only the solo step applies and counts; Run: only the dungeon's.
 #[test]
 fn dungeon_route_a_stop_shared_with_the_solo_route_asks_before_the_prerequisite_is_handed_in() {
-	let saved = |route: &str| Some(json!({ "schema": 1, "guide": "test/shared", "dungeonRoute": route }));
+	let saved = |route: &str| Some(json!({ "schema": 1, "guide": "test/shared", "_route": route }));
 	let script = r#"emit({ at = at(), asked = asked() })
 		w.finish(155); flush()
 		emit({ at = at(), asked = asked(), total = E.StepTotal(), s2 = st(2), s3 = st(3) })"#;

@@ -209,8 +209,8 @@ version probe's players, name -> when, at most 300), `heard` (players' answers t
 at }`, at most 50, 7 days).
 `dungeons` (per character) holds this character's answer per dungeon in leveling
 guides, by the instance's Map id: true runs it, false skips it (`Engine.ChooseDungeon`, `when dungeon`);
-`dungeonRoute` (per character, "ask" | "run" | "skip") answers the rest ("Dungeons in my route",
-`Engine.SetDungeonRoute`); none stored reads as "skip", the solo route. Unanswered with "ask", the first
+the setting `behavior.dungeons` ("skip", the default, the solo route; "ask"; "run") answers the rest
+("Dungeons in my route", Options, Guide, Automation). Unanswered with "ask", the first
 `when dungeon` step with work now holds the route (`Engine.DungeonQuestion`); `Engine.DungeonSoon` is a chosen
 run a few open steps ahead (start looking for a group) and `Engine.SkipDungeon` answers "skip" at the run.
 `behavior.suggestFrom` (default `"guides"`) is the pack suggestions come from.
@@ -1580,7 +1580,7 @@ Polestar.Engine.StepHiddenFor(step, who?) -> bool  -- no step of its own for who
   names as the area's name in the client's language, `Compat.GetAreaName`,
   else as written), the dungeons the player runs
   (`Engine.DungeonChosen(map)`: the answer for that dungeon, `CharState().dungeons[map]`
-  true or false through `Engine.ChooseDungeon(map, answer)`, else `CharState().dungeonRoute`,
+  true or false through `Engine.ChooseDungeon(map, answer)`, else the setting `behavior.dungeons`,
   Skip by default; with "ask" a `when dungeon` step holds while it has work now, `Own.whenFails` and
   `Own.dungeonPending`; a predicate without `map` never holds),
   Polestar's gear advice on an item (`Own.isUpgrade`: `Gear.IsUpgrade`,
@@ -6800,12 +6800,14 @@ registered labels and help are searchable (below, "Settings search"). A `label` 
 when the control is drawn or searched (a name in the client's language that
 is not loaded at registration, `Names.Instance`). A toggle with `get()` and
 `set(on)` and no `key` holds state that is no setting (per character; a
-slider or picture cards the same, the cards' `get` naming the preset in use): it
+slider, dropdown or picture cards the same, the cards' `get` naming the preset in use): it
 reads and writes through them, right-click and Reset page call `set(nil)`.
-Discovery → Dungeons → "Dungeons in leveling guides" is one: a toggle per
-Classic dungeon (`Dungeons.ROUTE`, Map id and English name, from the Codex's
-instances), all off, writing `Engine.ChooseDungeon`. Registered toggles are
-fixed, so the list is not built from the dungeons the loaded guides name.
+Discovery → Dungeons → "Dungeons in leveling guides" is one: a dropdown per
+dungeon the character's guides have steps for (`Dungeons.ROUTE`, Map id and
+English name, the Codex's instances and Forever's new ones; `Engine.GuideDungeons`,
+read at login and again on `GUIDES_REGISTERED`), As for all dungeons (none),
+Run it or Skip it, writing `Engine.ChooseDungeon`; "As for all dungeons" is the
+setting `behavior.dungeons` on Guide → Automation ("Dungeons in my route").
 Quality of Life → Game → Game options leads with the other kind: the game's
 own state. "Increase game image quality" (`QoL/Options.lua`) reads the client
 CVar `ResampleAlwaysSharpen` and writes it only on a click (in combat, at

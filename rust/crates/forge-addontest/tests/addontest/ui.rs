@@ -2358,6 +2358,98 @@ fn a_group_quest_banner_asks_skip_it_or_do_it_with_a_group_and_cannot_be_dismiss
 	assert_eq!(group, json!({ "call": ["AnswerGroup", 6284, "do"], "after": false }));
 }
 
+// Dungeons in the route, Ask me (Engine.DungeonQuestion): the banner asks at the dungeon the live step waits on, Run
+// it (the main link, the gamepad's first focus) or Skip it; it cannot be dismissed. Each answer goes to
+// Engine.ChooseDungeon for that dungeon.
+const DUNGEON_ASK: &str = r#"
+		uistub.dungeonQuestion = { map = 36, name = "The Deadmines", quests = 2, runIn = 4 }
+		uistub.openTabs(TABS, 1)
+		local B = GF.parts.banner
+		local shown = { B:IsShown(), B.Text:GetText(), B.Jump.Label:GetText(), B.Later:IsShown() and B.Later.Label:GetText(), B.Close:IsShown(), B.Jump.psDefault == true }
+		GF.DismissBanner()
+		local kept = B:IsShown()"#;
+
+#[test]
+fn dungeon_route_ask_banner_offers_run_it_or_skip_it_and_cannot_be_dismissed() {
+	let run_it = run(&[DUNGEON_ASK, r#"
+		B.Jump:Click()
+		emit({ shown = shown, kept = kept, call = lastCall("ChooseDungeon"), after = B:IsShown() })"#]
+	.concat())
+	.remove(0);
+	assert_eq!(
+		run_it["shown"],
+		json!([
+			true,
+			"Dungeon on your way: The Deadmines, for a group of five.\nThe guide picks up 2 quests for it and runs it in about 4 steps.\nSkip it and the guide keeps to the solo route.",
+			"Run it",
+			"Skip it",
+			false,
+			true
+		])
+	);
+	assert_eq!(run_it["kept"], true, "dismissing does not answer");
+	assert_eq!(run_it["call"], json!(["ChooseDungeon", 36, true]));
+	assert_eq!(run_it["after"], false);
+	let skip = run(&[DUNGEON_ASK, r#"
+		B.Later:Click()
+		emit({ call = lastCall("ChooseDungeon"), after = B:IsShown() })"#]
+	.concat())
+	.remove(0);
+	assert_eq!(skip, json!({ "call": ["ChooseDungeon", 36, false], "after": false }));
+}
+
+// At a chosen dungeon's run, outside it (Engine.DungeonRun), the banner's link is "No group? Skip it"
+// (Engine.SkipDungeon); the quests kept in the log are named once after, until closed. Inside the instance the
+// link is gone. A few steps before a run (Engine.DungeonSoon) the window says to start looking for a group, until
+// closed for that dungeon.
+#[test]
+fn dungeon_route_no_group_skip_it_at_the_run_names_the_quests_kept_soon_says_to_look_for_a_group() {
+	let out = run(r#"
+		uistub.dungeonRun = { map = 36, name = "The Deadmines" }
+		uistub.dungeonKept = { "Oh Brother. . .", "Red Silk Bandanas" }
+		uistub.openTabs(TABS, 1)
+		local B = GF.parts.banner
+		local atRun = { B.Text:GetText(), B.Jump.Label:GetText(), B.Close:IsShown(), B.Jump.psDefault == true }
+		local realInside = Polestar.Compat.IsInInstance
+		Polestar.Compat.IsInInstance = function() return true end
+		GF.Layout()
+		local inside = B:IsShown() and B.psKind or false
+		Polestar.Compat.IsInInstance = realInside
+		GF.Layout()
+		B.Jump:Click()
+		local call = lastCall("SkipDungeon")
+		local keptText, keptClose = B:IsShown() and B.Text:GetText(), B.Close:IsShown()
+		B.Close:Click()
+		local gone = B:IsShown()
+		uistub.dungeonRun = nil
+		uistub.dungeonSoon = { map = 43, name = "Wailing Caverns", steps = 3 }
+		GF.Layout()
+		local soon = { B:IsShown(), B.Text:GetText(), B.Jump:IsShown(), B.Close:IsShown() }
+		uistub.dungeonSoon = { map = 43, name = "Wailing Caverns", steps = 1 }
+		GF.Layout()
+		local oneAhead = B.Text:GetText()
+		B.Close:Click()
+		emit({ atRun = atRun, inside = inside, call = call, kept = keptText, keptClose = keptClose, gone = gone, soon = soon, oneAhead = oneAhead, soonAfter = B:IsShown() })"#)
+	.remove(0);
+	assert_eq!(
+		out["atRun"],
+		json!([
+			"The Deadmines: a group of five runs it in about an hour.\nNo group? Skip it: the guide goes on with the solo route, and its quests stay in your log.",
+			"No group? Skip it",
+			false,
+			true
+		])
+	);
+	assert_eq!(out["inside"], false, "inside the instance the run's banner is gone");
+	assert_eq!(out["call"], json!(["SkipDungeon", 36]));
+	assert_eq!(out["kept"], "Kept in your log: “Oh Brother. . .”, “Red Silk Bandanas”\nIf you run it later, the dungeon's page has a hand-in guide for them.");
+	assert_eq!(out["keptClose"], true);
+	assert_eq!(out["gone"], false);
+	assert_eq!(out["soon"], json!([true, "Wailing Caverns in 3 steps: start looking for a group.", false, true]));
+	assert_eq!(out["oneAhead"], "Wailing Caverns next: start looking for a group.");
+	assert_eq!(out["soonAfter"], false, "closed for this dungeon");
+}
+
 #[test]
 fn train_due_shows_a_training_banner_after_the_out_levelled_offer_show_takes_the_player_there_on_a_trip_later_dismisses() {
 	let out = run(r#"

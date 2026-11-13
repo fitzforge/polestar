@@ -410,6 +410,13 @@ local BUILTIN = {
 			help = L["Elite and escort quests the guides mark for a group. Ask at each, or answer them all: with a group (a party levelling together) or skip them (solo). Discovery, Group quests changes one."],
 			choices = { { value = "ask", label = L["Ask me at each"] }, { value = "do", label = L["Do them with a group"] }, { value = "skip", label = L["Skip them"] } },
 			needs = function() local E = ns.Engine; return E and E.GroupQuests and #E.GroupQuests() > 0 end },
+		-- Dungeons in the route (`when dungeon`, Own.dungeonAnswer): the answer for every dungeon a
+		-- character has not answered one by one (Discovery > Dungeons, the guide window's question).
+		{ kind = "dropdown", key = "behavior.dungeons", label = L["Dungeons in my route"], new = "0.4.0",
+			help = L["Leveling guides can take you through the dungeons on your way, for a group of five: they pick up the quests on stops they make anyway, send you to the door at the right level and hand the quests in after. Skip them: the solo route. Ask me: the guide asks at each dungeon. Discovery, Dungeons changes one."],
+			choices = { { value = "skip", label = L["Skip them"] }, { value = "ask", label = L["Ask me"] }, { value = "run", label = L["Run them"] } },
+			search = "dungeon, dungeons, instance, group, run, deadmines, wailing caverns, zul'farrak, blackrock depths",
+			needs = function() local E = ns.Engine; return E and E.GuideDungeons and next(E.GuideDungeons()) ~= nil end },
 	} },
 	{ page = GUIDE, tab = L["Automation"], section = L["Guides"], controls = {
 		{ kind = "toggle", key = "behavior.autoSelectGuide", label = L["Pick a guide for me"], help = L["Opens the suggested guide when no tab is open."], search = "auto guide, choose guide, suggested guide" },
@@ -868,9 +875,9 @@ local function available(c)
 	if c.needs and not c.needs() then return false end
 	if c.kind == "button" then return true end
 	if c.kind == "binding" then return ns.Gamepad ~= nil and ns.Gamepad.BindingRow ~= nil end
-	-- A toggle, slider or cards with get/set and no key holds state that is no
-	-- setting (per character, or a preset the cards' get recognises).
-	if (c.kind == "toggle" or c.kind == "slider" or c.kind == "cards") and not c.key and c.get and c.set then return true end
+	-- A toggle, slider, dropdown or cards with get/set and no key holds state
+	-- that is no setting (per character, or a preset the cards' get recognises).
+	if (c.kind == "toggle" or c.kind == "slider" or c.kind == "dropdown" or c.kind == "cards") and not c.key and c.get and c.set then return true end
 	return ns.GetDefault and ns.GetDefault(c.key) ~= nil
 end
 
@@ -907,6 +914,8 @@ local function makeControl(parent, c)
 		local choices = type(c.choices) == "function" and function() return choicesOf(c) end or choicesOf(c)
 		local opts = getset
 		if c.kind == "font" then opts = { get = c.get, set = c.set, faces = true } end
+		-- State that is no setting: a right-click puts back its default through set(nil), as Reset does.
+		if c.kind == "dropdown" and not c.key and c.get and c.set then opts = { get = c.get, set = c.set, reset = true } end
 		w = W.Dropdown(parent, labelOf(c), c.key, choices, c.help, nil, opts)
 	elseif c.kind == "cards" then
 		local choices = type(c.choices) == "function" and function() return choicesOf(c) end or choicesOf(c)
@@ -1065,7 +1074,7 @@ function O.ResetSection(controls)
 	for _, c in ipairs(controls) do
 		if c.key and c.kind ~= "button" and c.kind ~= "binding" then
 			ns.Set(c.key, nil)
-		elseif (c.kind == "toggle" or c.kind == "slider" or c.kind == "cards") and not c.key and c.set then
+		elseif (c.kind == "toggle" or c.kind == "slider" or c.kind == "dropdown" or c.kind == "cards") and not c.key and c.set then
 			c.set(nil)
 		end
 	end
@@ -2449,11 +2458,11 @@ end
 
 function O.ResetPage(p)
 	for _, key in ipairs(pageKeys(p)) do ns.Set(key, nil) end
-	-- Toggles, sliders and cards of state that is no setting go back to their default too.
+	-- Toggles, sliders, dropdowns and cards of state that is no setting go back to their default too.
 	for _, t in ipairs(p.tabs) do
 		for _, s in ipairs(t.sections) do
 			for _, c in ipairs(allSettings(s)) do
-				if (c.kind == "toggle" or c.kind == "slider" or c.kind == "cards") and not c.key and c.set and available(c) then c.set(nil) end
+				if (c.kind == "toggle" or c.kind == "slider" or c.kind == "dropdown" or c.kind == "cards") and not c.key and c.set and available(c) then c.set(nil) end
 			end
 		end
 	end

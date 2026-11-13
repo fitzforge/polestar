@@ -41,6 +41,7 @@ ns.RegisterDefaults("behavior", {
 	trainReminder = "2", -- "2" | "1" | "off": remind to visit the class trainer every 2 levels, every level, never
 	offerClassQuests = true, -- offer a Class guide in a tab when it opens for the character (QoL/ClassQuests.lua)
 	groupQuests = "ask", -- "ask" | "do" | "skip": the answer at a group quest (`when group`) the player has not answered (Own.groupAnswer)
+	dungeons = "skip", -- "skip" | "ask" | "run": "Dungeons in my route", the answer for a dungeon (`when dungeon`) the character has not answered one by one (Own.dungeonAnswer)
 	lostQuests = "ask", -- "ask" | "back" | "skip": a quest the route had passed that leaves the log (abandoned, failed): the window asks, or the guide goes back for it or skips it at once (Own.holdLost)
 	suggestFrom = "guides", -- pack id the suggestions come from (Guides.SuggestSource); ours fill in
 	whileHere = true, -- "While you're here": a quick objective of a later step close by, as one line under the step (Own.hereBuild)
@@ -765,21 +766,20 @@ function Own.groupOpen(step, q)
 end
 
 -- `when dungeon "<Name>"`: the player's answer to "run this dungeon in the
--- route?", per character: true (run it), false (skip it), nil (ask). The
--- answer given for this dungeon (CharState().dungeons[map], Engine.ChooseDungeon:
+-- route?": true (run it), false (skip it), nil (ask). The answer given for
+-- this dungeon, per character (CharState().dungeons[map], Engine.ChooseDungeon:
 -- Options, Discovery, Dungeons, or the guide window's question), else the
--- answer for every dungeon (CharState().dungeonRoute, "Dungeons in my route":
--- "run", "skip", or "ask": none). Skip when neither was given, so the solo
--- route is the default. A dungeon the compiler found no Map id for is never
--- run.
+-- answer for every dungeon (behavior.dungeons, "Dungeons in my route": "run",
+-- "ask": none, anything else Skip, the default, so the solo route is what a
+-- player gets until they choose). A dungeon the compiler found no Map id for
+-- is never run.
 function Own.dungeonAnswer(map)
 	if type(map) ~= "number" then return false end
-	local s = ns.CharState()
-	local answer = s.dungeons[map]
+	local answer = ns.CharState().dungeons[map]
 	if answer ~= nil then return answer == true end
-	local all = s.dungeonRoute or "skip"
-	if all == "run" then return true elseif all == "skip" then return false end
-	return nil
+	local all = ns.Get("behavior.dungeons")
+	if all == "run" then return true elseif all == "ask" then return nil end
+	return false
 end
 
 -- Whether a `when dungeon` step of a dungeon not answered yet has something
@@ -8688,9 +8688,9 @@ end
 -- dungeon's quests on stops it makes anyway, runs it at its door and hands
 -- the quests in later behind `when complete`, all steps compiled into the one
 -- route; the player's answer only makes some of them apply, so no step index
--- ever moves. Per character, by the instance's Map id (Own.dungeonAnswer):
--- the answer for one dungeon, else "Dungeons in my route" (Skip / Ask me /
--- Run them; Skip by default). A change re-evaluates the guides at once; a
+-- ever moves. By the instance's Map id (Own.dungeonAnswer): the character's
+-- answer for one dungeon, else "Dungeons in my route" (behavior.dungeons:
+-- Skip / Ask me / Run them; Skip by default). A change re-evaluates the guides at once; a
 -- step the route has passed keeps its stored outcome (Own.latchWhen), so an
 -- answer given mid-guide never re-opens a pick-up behind the live step.
 function Engine.DungeonChosen(map)
@@ -8701,26 +8701,12 @@ end
 function Engine.DungeonAnswer(map) return Own.dungeonAnswer(map) end
 
 -- The answer for one dungeon: true runs it, false skips it, nil follows the
--- answer for every dungeon (Engine.SetDungeonRoute).
+-- answer for every dungeon (behavior.dungeons).
 function Engine.ChooseDungeon(map, answer)
 	if type(map) ~= "number" or (answer ~= nil and answer ~= true and answer ~= false) then return end
 	ns.CharState().dungeons[map] = answer
 	Own.dungeonGen = Own.dungeonGen + 1
 	ns.Fire("DUNGEON_ANSWERED", map, answer)
-	requestUpdate()
-end
-
--- "Dungeons in my route", per character: "ask", "run" or "skip" (the default).
-function Engine.DungeonRoute()
-	local v = ns.CharState().dungeonRoute
-	return (v == "ask" or v == "run") and v or "skip"
-end
-
-function Engine.SetDungeonRoute(value)
-	if value ~= "ask" and value ~= "run" and value ~= "skip" then return end
-	ns.CharState().dungeonRoute = value
-	Own.dungeonGen = Own.dungeonGen + 1
-	ns.Fire("DUNGEON_ANSWERED", nil, value)
 	requestUpdate()
 end
 
@@ -8844,10 +8830,16 @@ end
 -- these. A guide whose steps are not read yet is searched in its source
 -- (the compiler writes `{ k = "dungeon", name = "...", map = N }`, a
 -- negated one with `neg = true` after `k`), so nothing is loaded for it.
+-- Counted again only when the guides registered change (a pack loaded): the
+-- settings ask for every dungeon's row.
+Own.guideDungeons = nil -- { n = guides listed, out }
 function Engine.GuideDungeons()
 	if not player then refreshPlayer() end
+	local list = Guides.List()
+	local cached = Own.guideDungeons
+	if cached and cached.n == #list then return cached.out end
 	local out = {}
-	for _, h in ipairs(Guides.List()) do
+	for _, h in ipairs(list) do
 		local g = Guides.Get(h.id)
 		local src = g and rawget(g, "steps") == nil and rawget(g, "stepsSrc")
 		if g and Guides.GuideMatches(g, player) and type(src) == "string" then
@@ -8862,6 +8854,7 @@ function Engine.GuideDungeons()
 			end
 		end
 	end
+	Own.guideDungeons = { n = #list, out = out }
 	return out
 end
 
@@ -12832,8 +12825,14 @@ ns.On("PARTY_PROGRESS", onUpdateEvent)
 
 -- A new answer for every group quest (`when group`, Own.groupAnswer),
 -- deathskips turned on or off (`die` goals, Own.deathskips), and grey quests
--- skipped or not (greyNeed): the route on screen follows at once.
+-- skipped or not (greyNeed): the route on screen follows at once. A new
+-- answer for every dungeon (behavior.dungeons, Own.dungeonAnswer; a profile
+-- switch changes every setting) counts the step numbers afresh too.
 ns.On("SETTING_CHANGED", function(path)
+	if path == "behavior.dungeons" or path == "behavior" or path == nil or path == "" then
+		Own.dungeonGen = Own.dungeonGen + 1
+		requestUpdate()
+	end
 	if path == "behavior.groupQuests" or path == "behavior.deathskips" or path == "behavior.skipGrey" then requestUpdate() end
 end)
 
