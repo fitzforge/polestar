@@ -942,6 +942,52 @@ test('the Discord bot reads the report the window gives: the details from the co
 	assert.match(zh.description, /^The vermin were all by the tents\.\n\*\*[^*\n]+\*\* zone map 1429 · goto 51\.23,40\.50 live\n\*\*[^*\n]+\*\* Questie, TomTom$/);
 });
 
+test('the Discord bot unfolds the report\'s settings on the issue, folded: the list as the report shows it, or every setting the packed line carries, each "key = value (default d)"', () => {
+	const { parseReport } = require('../tools/discord-bot/lib/report');
+	const { issueBody } = require('../tools/discord-bot/lib/issue');
+	const [few, many] = run(`
+		local s = Polestar.DB().settings
+		s.behavior = { autoAccept = false, whileHereRadius = 400 }
+		s.ui = { scheme = "night", pos = { 100, 200 } }
+		uistub.setGuide(uistub.elwynn, 3)
+		emit({ text = UI.Report.Text("The vermin were all by the tents.", UI.Report.Details()) })
+		-- Every setting these files register, turned; room for the packed line too.
+		local n = 0
+		local function turn(def, into)
+			for k, v in pairs(def) do
+				if type(v) == "boolean" then into[k], n = not v, n + 1
+				elseif type(v) == "number" then into[k], n = v + 1, n + 1
+				elseif type(v) == "string" then into[k], n = v .. "2", n + 1
+				elseif type(v) == "table" and v[1] == nil then into[k] = {}; turn(v, into[k]) end
+			end
+		end
+		for _, sec in ipairs({ "behavior", "update", "routePlan", "ui", "guideWindow" }) do
+			s[sec] = {}
+			turn(Polestar.GetDefault(sec), s[sec])
+		end
+		UI.Report.TEXT_MAX = 100000
+		emit({ text = UI.Report.Text("The vermin were all by the tents.", UI.Report.Details()), n = n })`);
+	const a = parseReport(few.text).details.settings;
+	assert.deepEqual(a, {
+		count: 4, profile: 'Default', source: 'account', looks: 'scheme=night · 1 position moved',
+		entries: [{ key: 'behavior.autoAccept', value: 'off', default: 'on' }, { key: 'behavior.whileHereRadius', value: '400', default: '180' }],
+	});
+	const fewBody = issueBody({ report: parseReport(few.text), reporter: 'Tom', guild: '1', thread: '2' });
+	assert.match(fewBody, /^\| Settings \| 4 changed · profile Default \(account\) \|$/m);
+	assert.ok(fewBody.includes('<details><summary>Settings: 4 changed · profile Default (account)</summary>\n\n```text\nbehavior.autoAccept = off (default on)\nbehavior.whileHereRadius = 400 (default 180)\nlooks: scheme=night · 1 position moved\n```\n\n</details>'), fewBody);
+	const b = parseReport(many.text).details.settings;
+	assert.equal(b.count, many.n);
+	assert.equal(b.unfolded, true, 'the packed line unfolded');
+	assert.equal(b.entries.length, many.n, 'into every setting off its default');
+	assert.ok(b.more > 0 && /^[0-9a-f]{8}$/.test(b.hash), `${b.more} more #${b.hash}`);
+	assert.deepEqual(b.entries.find((e) => e.key === 'guideWindow.titleSize'), { key: 'guideWindow.titleSize', value: '2', default: '1' }, 'the looks with their values too');
+	const manyBody = issueBody({ report: parseReport(many.text), reporter: 'Tom', guild: '1', thread: '2' });
+	const folded = manyBody.slice(manyBody.indexOf('<details><summary>Settings: '), manyBody.indexOf('<details><summary>Full report'));
+	assert.equal(folded.split('\n').filter((l) => / = /.test(l)).length, many.n, 'one line a setting');
+	assert.match(folded, /^behavior\.autoAccept = off \(default on\)$/m);
+	assert.doesNotMatch(folded, /more the report had no room for/, 'nothing left out once unfolded');
+});
+
 test('the Discord steps say to press Ctrl+C after Copy report: the button selects the report, the game copies nothing itself', () => {
 	const [out] = run(`
 		uistub.setGuide(uistub.elwynn, 3)

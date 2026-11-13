@@ -45,8 +45,24 @@ The post's title, then "Reported by *name* on Discord" with a link to the
 thread and the post's forum tags, the player's words (with the lines the
 report sets under them, the right spot and the other addons), a table read
 from the report's details (version, client and locale, character, guide,
-step and the step the guide is really at, zone and map, errors), the details
-folded under "Full report", and the screenshots.
+step and the step the guide is really at, zone and map, routes, settings,
+errors), the settings the player changed folded under "Settings", the
+details folded under "Full report", and the screenshots.
+
+The settings come from the report's Settings section (Report.lua,
+`settingsSection`), found by its first line's English words under the
+translated label. The table's row says how many changed and the profile
+("23 changed · profile Raid (character)", or "all defaults"); the fold lists
+one setting a line, `key = value (default d)`, as the report ranks them. A
+report past the section's cap shows the settings that rank first and ends
+its list with `+N more #<Adler-32 of them all>` and a packed line
+(`!PSR1!<Adler-32>!<base64 of zlib>`: the settings the list left out, then
+every look, one a line); the bot unfolds that and adds it to the list, which
+then must match the Adler-32 after "+N more" (the packed line's own checksum
+too; at most 64 KB unfolded). A packed line that is cut off, damaged or too
+large, or a list that no longer matches, leaves
+the list as the report shows it, the looks line and "+N more" under it, and
+a note saying it did not unfold.
 
 Labels: `discord`, `triage` and `bug` on every one, then from the report
 `v0.2.3`, `guide:01-elwynn-forest`, `locale:enUS` and `lua-error` when it
