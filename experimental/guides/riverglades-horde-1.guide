@@ -78,12 +78,16 @@ step Rog'mar
   tip West to Rog'mar, the Horde's fort in the middle of the zone. Neza Bloodsnout stands on its east side, Kreza Darkthorn and Krom'rosh in the middle with Grakna, the wind rider master; Innkeeper Toka and Tan'jani on the west side.
   accept 96107                          -- Neza Bloodsnout: Feathers for Fletching
   accept 93788                          -- Kreza Darkthorn: Borrowed Blades
-  turnin 95062                          -- Krom'rosh
   accept 93786                          -- A Message in Blood
   accept 93787                          -- Food for the Taking
   getfp "Rog'mar" npc 255993            -- Grakna, in the middle of the fort
   sethome "Rog'mar" npc 256675         -- Innkeeper Toka
   accept 95951                          -- Tan'jani: Fetch 'n' Fletch
+
+step Krom'rosh
+  when onquest 95062
+  tip Frazzlespark's crate from the port goes to Krom'rosh, in the middle of the fort.
+  turnin 95062                          -- Krom'rosh
 
 step Sleebo's workshop
   when available 96063
@@ -97,6 +101,7 @@ step The plains and the marsh
   collect 272004 x8 quest 96063.1       -- Marsh Gas Vial
 
 step Sleebo Fizzlespout
+  when onquest 96063
   tip North-east to the workshop. Sleebo's stress test is a fight with his G45-B4G beside the workshop: hand the quest in once it's beaten.
   turnin 96063
   accept 96067                          -- Rock 'em and Sock 'em
