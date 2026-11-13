@@ -956,17 +956,6 @@
 			{
 				"a": [
 					"turnin",
-					98230
-				],
-				"b": [
-					"accept",
-					98300
-				],
-				"why": "Wetlands, #1299: Howin Kindfeather refused Word to Ironforge to 5 people (2 established), none with This Land Was Their Land handed in, and nobody was seen offered it; taken (optional) right after 98230's hand-in"
-			},
-			{
-				"a": [
-					"turnin",
 					465
 				],
 				"b": [
@@ -9387,6 +9376,11 @@
 				"q": 98297,
 				"reason": "F80: Howin offers it only after the elite Death to the Dragonmaw",
 				"issue": ""
+			},
+			{
+				"q": 98300,
+				"reason": "Word to Ironforge: Howin Kindfeather offers it only once Death to the Dragonmaw (98291) and Stopping the Cycle (98297) are handed in, as QuestieDB 1.0.16 lists. Players' recordings to 2026-11-12: offered to 4 people (3 established), each just after handing in 98297 with 98291 done, and refused to 38 (21 established), 4 of them 20 minutes to 10 hours after handing in This Land Was Their Land (98230). The route takes neither quest (98291's Dragonmaw are elite, 98297 is left out above), so this one goes too, with #1299's pair that took it after 98230's hand-in.",
+				"issue": "#1299"
 			},
 			{
 				"q": 620,

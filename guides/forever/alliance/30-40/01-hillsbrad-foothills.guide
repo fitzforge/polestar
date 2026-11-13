@@ -11,9 +11,9 @@ next forever/alliance/30-40/03-ashenvale
 # into this file.
 # Added here: Defeat Nek'rosh (474), Sully Balloo's Letter (637), Ironband Wants You! (707), Sara Balloo's Plea (683),
 # The Thandol Span (632, 633), Plea to the Alliance (634, handed in at Refuge Pointe in 05-arathi-highlands) and, on the
-# Defeat Nek'rosh group branch, This Land Was Their Land (98230), which Captain Stoutfist offers only after 474 is handed in (#1299),
-# with Howin's Word to Ironforge (98300, optional: never seen offered without 98230) on the same stop. Solo players never see
-# them (when group 474).
+# Defeat Nek'rosh group branch, This Land Was Their Land (98230), which Captain Stoutfist offers only after 474 is handed in (#1299).
+# Solo players never see it (when group 474). Howin's Word to Ironforge (98300) is left out: he offers it only after Death to the
+# Dragonmaw (98291) and Stopping the Cycle (98297), which the route does not take.
 # Spark of Freedom (87491) is a group quest (#1313): its escort starts at the far west of Dun Modr's elite Dark Iron ruins.
 # MacKreel's Moonshine (647) is taken in 05-arathi-highlands: its 15-minute limit does not last the walk to Menethil and the boat (#1319).
 
@@ -148,7 +148,6 @@ step Howin Kindfeather
   when group 474
   tip Back east along the road to the Green Belt: Howin Kindfeather camps among the Fenrunners, just west of Rethiel. Then west again to Menethil for the boat.
   turnin 98230                        -- Howin Kindfeather
-  accept 98300 optional               -- For King Magni in Ironforge, at the end of this guide
 
 step Level 30.8
   when !group 474
@@ -307,11 +306,6 @@ step Sara Balloo
 step King Magni Bronzebeard
   when onquest 683
   turnin 683
-
-step King Magni Bronzebeard
-  when onquest 98300
-  zone Ironforge
-  turnin 98300                        -- King Magni Bronzebeard, the High Seat
 
 step Fly to Stormwind
   zone Ironforge
