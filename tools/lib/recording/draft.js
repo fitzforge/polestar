@@ -119,14 +119,19 @@ function pad(n) {
 }
 
 // Events of quests abandoned later (and never turned in in between) do not
-// belong in the route.
+// belong in the route, including quests accepted before this recording.
 function abandonedIndices(events) {
 	const open = new Map();
 	const dropped = new Set();
-	events.forEach((ev, i) => {
+	// Kills may be appended after an abandon with their earlier death time.
+	const indices = [...events.keys()].sort((a, b) => events[a].t - events[b].t || a - b);
+	indices.forEach((i) => {
+		const ev = events[i];
 		if (ev.e === 'accept') open.set(ev.q, [i]);
-		else if ((ev.e === 'progress' || ev.e === 'kill' || ev.e === 'loot') && ev.q !== undefined && open.has(ev.q)) open.get(ev.q).push(i);
-		else if (ev.e === 'abandon' && open.has(ev.q)) {
+		else if ((ev.e === 'progress' || ev.e === 'kill' || ev.e === 'loot') && ev.q !== undefined) {
+			if (!open.has(ev.q)) open.set(ev.q, []);
+			open.get(ev.q).push(i);
+		} else if (ev.e === 'abandon' && open.has(ev.q)) {
 			for (const j of open.get(ev.q)) dropped.add(j);
 			open.delete(ev.q);
 		} else if (ev.e === 'turnin') open.delete(ev.q);
