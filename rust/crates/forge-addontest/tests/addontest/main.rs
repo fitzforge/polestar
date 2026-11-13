@@ -83,6 +83,8 @@ mod engine_dwell;
 mod engine_empty_stop;
 #[path = "engine-enter.rs"]
 mod engine_enter;
+#[path = "engine-exact-points.rs"]
+mod engine_exact_points;
 #[path = "engine-failed-quest.rs"]
 mod engine_failed_quest;
 #[path = "engine-feeders.rs"]

@@ -26,7 +26,9 @@ A route is only as good as the way the addon plays it, so the writer writes for 
   step for it (up to six listed at once; only goals the game counts anywhere: quest kills,
   collects, interacts and uses, bag counts, accepts and hand-ins).
 - **Pick up what you stand next to.** A quest open at a giver the route stands at is taken there,
-  and its work goes with work on the same ground (the planner's `join` and pickup pass).
+  and its work goes with work on the same ground (the planner's `join` and pickup pass). A giver a
+  walk passes close by is taken on that walk when its work fits there, not on a trip back later
+  (pass-by pickups below).
 - **No pointless trips.** No step sends a player somewhere to do nothing, twice to the same place
   for one visit's work, or back to a place just left.
 - **One sweep per hub.** A town or camp is walked once from the side you come in to the side you
@@ -320,6 +322,36 @@ be compared byte for byte with the old JavaScript writer.
   families, the route fixes' optional quests and the quests they keep or include are left to their
   records; an old route with no levels is not judged. Its records are the rule itself; a route build
   that should plan the levels without the quests gets `overrides.skip` lines too.
+- **Pass-by pickups** (`src/pass_by.rs`, #1959) come next, with or without route legs. A quest the
+  route takes on a later visit to its giver is taken on an earlier walk that passes the giver: a walk
+  between two of the route's stops (no hearth, flight, ride or deathskip on it) whose straight leg
+  comes within 200 yd of the giver, when the route goes more than 600 yd from the giver, or travels,
+  before its own accept. The Barrens' second Dry Hills trip passes Vrang Wildgore 150 yd off at about
+  18; the route took Bruised Pride and Lion Hides and Vrang's Game on a third trip north. The quest is
+  taken there when the character can take it (on level as the hub tour below reads it, every
+  prerequisite handed in by then, no exclusive partner taken or handed in between, not started from
+  an item, not a class's own, repeatable or on-the-spot quest, the quest log within its room: 38 open
+  quests, or the route's own peak when that is higher) and its work fits that visit: every task the
+  route works for it lies within 400 yd of the giver (Vrang's traps are 326 yd from him) and fits the
+  player's level at the walk (the level fit's test above), and the visit does something for it, a
+  task or the hand-in. The accept goes on that walk, right after the stop the walk leaves, its tasks
+  after it, and its hand-in too when the ender stands within 400 yd of the giver; quests passed on one
+  walk are taken together (the accepts, then the work, then the hand-ins, each in the route's order).
+  The pulled events take the walk's level; their travel stays at the later visit with the event after
+  them. A hand-in brought along stands the player at the next part's giver, which comes along in turn
+  when it fits (Vrang's hand-ins, then The Hermit Tanner to Walton on the ridge, then Walton's two
+  quests). Never moved: group families, elite, escort and timed quests, the route fixes' optional and
+  group quests, other starts' events, a line a class step waits for, a quest across the shared
+  route's join or out of a race's own guide into another guide. The route fixes hold: never ahead of
+  an event a `pairs` or `after` record (or an `include`'s `after`) puts first, a `together` step only
+  with its partner, a `stay` or `revert` step where it is, nothing moved onto a `southward` map before
+  its end. The log names each quest taken earlier (`pass-by: <quest> taken on the walk past its giver
+  (<yd> yd off) after <event> at level <lvl>, its work and hand-in with it; the route took it at
+  <lvl>`) and each pass a record refuses (`pass-by: <quest> passed <yd> yd off after <event> at level
+  <lvl>: left where the route takes it (route fixes keep task <quest> together with task <quest>)`):
+  today's Barrens records keep Vrang's hides on the trip of Serena's lair (`deliberate.together`, task
+  876 then task 95494), so the rule names that record instead of moving them. `--no-pass-by` turns it
+  off.
 - **The hub tour** (with route legs, `src/hub.rs`) first walks each town or camp the way leveling
   guides players trust do (#736, #737, #739, #740). A hub is the route's quest NPCs linked within
   120 yd. On a walk between two events, a giver or ender with a ready accept, hand-in or talk within
@@ -354,6 +386,31 @@ be compared byte for byte with the old JavaScript writer.
   hand-ins on the deathskip's landing before Kolkar Crag; Nathaniel Dumah's beside Chillwind Camp's
   flight master before the flight to Southshore, with A Plague Upon Thee's second part, c19). The
   log names each moved event (`hub tour: ...`).
+- **Nearby flight paths** (`src/nearby_fp.rs`, with route legs, after the hub tour). A stop within
+  800 yd (straight) of a flight master whose path the character has not learnt learns it: a walk to
+  the master and its `getfp`, on the walk into the stop or out of it, whichever adds less walking,
+  when the route's later walks gain more than that walk and two minutes by flying from or to that
+  master. Later is up to 10 levels on, until the route learns the path itself; the route's own later
+  `getfp` of it then goes. The Barrens' first guide stops at Ziz Fizziks' hut, 685 yd from Sun Rock
+  Retreat's flight master; the second Barrens guide walks the Webwinder Path up to Sun Rock and back
+  down instead of flying there. A later run of walks (between two hearths, flights, rides or
+  deathskips) gains by:
+  - flying in: the walk from where its travel left the player to a stop, through stops the run walks
+    past again on the way out (within 250 yd) or none, against a flight to the master (from where the
+    run's own flight took off, else from the known flight master nearest where its travel left the
+    player) and the walk on from it;
+  - flying out: the walk from a stop to the flight master the run flies from, through stops it walked
+    past on the way in or none, against the walk to this master and the flight from it.
+
+  The estimates are the writer's: walks at 7 yd/s on the walk store's yards (else the straight
+  line), 1.6 times faster from the riding training on, flights at 25 yd/s straight plus a minute at
+  the masters. No walk to a master while an escort or a timed quest runs. The log names each path
+  learnt, what it gains and where (`nearby fp: getfp <master> on the walk out of <event> at level
+  <lvl> (<yd> yd off, <min> min more walking): flying from or to it gains about <min> min later
+  (<guide> at <lvl>, <min> min; ...)`), and each one left unlearnt whose later flights would gain a
+  minute or more (`nearby fp: <master> not learnt at <event> ...`). The gain counts on the later
+  guide flying there (stops on the walk in done on the walk out), which a change to that guide's
+  steps makes: the log line names the guide. `--no-nearby-fp` turns it off.
 - **The chain** is v1's: from the guide holding the route's first line, through
   each guide's `next`; the guides those links do not reach join it, and then
   the whole chain is put in the route's order, by the median route position of
@@ -1211,6 +1268,8 @@ forge writer apply-route out/routes/Human.json --world out/.forge/sim/world-alli
 | `--no-along`, `--no-use`, `--no-when`, `--no-level`, `--no-tips`, `--no-warnings` | Turn off one engine rule |
 | `--no-route-legs` | The old writer's travel, then its travel repair |
 | `--no-repair` | With `--no-route-legs`: no travel repair |
+| `--no-pass-by` | No pass-by pickups: quests stay on the visits the route takes them on |
+| `--no-nearby-fp` | No flight paths learnt at stops near their masters for the route's later flights |
 
 After a `forge build --out out`, `out/.forge/root` and `out/.forge/sim` hold the
 exact root, world and walk store that build used, and `out/routes/` holds the
@@ -1221,8 +1280,10 @@ writes every start of a build's routes the way the guides stage does: the
 default options, each faction's shared guides made once for its starts, and the
 two factions at once. It writes `<dir>/<Start>/`, `<Start>.fixes.json`,
 `<Start>.log` and `<Start>.status` (`ok`, or why the start was not written).
-`--starts Orc,Human` writes only those. It is the writer-only rewrite of a
-round's routes, and the writer gate uses it.
+`--starts Orc,Human` writes only those; `--no-pass-by` and `--no-nearby-fp` leave out those two
+rules, as for `apply-route`. It is the writer-only rewrite of a round's routes, and the writer gate
+uses it. Its `<Start>.log` holds the rules' decisions (`level fit: …`, `pass-by: …`, `nearby fp: …`,
+`hub tour: …`), one line each.
 
 The command prints a summary:
 

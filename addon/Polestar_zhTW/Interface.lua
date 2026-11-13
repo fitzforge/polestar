@@ -305,6 +305,7 @@ L["It also spawns here"] = "這裡也會重生"
 L["Click to search here next"] = "點擊以接著搜尋此處"
 L["Travel route, step %s"] = "旅行路線，第 %s 步"
 L["Click to point the arrow here"] = "點擊將箭頭指向此處"
+L["Checked recently"] = "最近查看過"
 
 -- Nav/Transit.lua
 L["top"] = "上層"
@@ -1221,6 +1222,7 @@ L["%s and %d more"] = "%s 及其他 %d 個"
 L["Skipping also skips: %s"] = "跳過也會跳過：%s"
 L["Keep this: you hand it in later in %s"] = "保留此任務：稍後在%s中繳交"
 L["Keep this: a later guide hands it in"] = "保留此任務：之後的指南會繳交"
+L["%d known places: the arrow leads to each in turn"] = "已知 %d 處地點：箭頭會依序帶你前往"
 
 -- UI/GuideFrame.lua
 L["Location"] = "位置"

@@ -420,6 +420,50 @@ pub fn load_eg(sources: &Path, quest_xp: Option<&QuestXp>, log: &dyn Fn(&str)) -
 	Ok(Some(Eg { commit: EG_COMMIT.to_string(), quests, drops }))
 }
 
+/// The EG Link product and dataset holding where players' objectives progressed: the live Forever client's
+/// `objectives` (quest -> objective line -> positions of its gains).
+pub const EG_POSITIONS: (&str, &str) = ("wowf", "objectives");
+
+/// One position an objective line of a quest progressed at, in a build's EG Link output: the map and map
+/// percent the game client gave it.
+#[derive(Clone, Debug, PartialEq)]
+pub struct EgTick {
+	pub quest: i64,
+	pub line: i64,
+	pub build: i64,
+	pub map: i64,
+	pub x: f64,
+	pub y: f64,
+}
+
+/// The cached EG Link objective positions of every build (EG_POSITIONS), oldest build first; None when the
+/// index or a listed file is not cached (`forge data sources --only eglink` fetches them).
+pub fn load_eg_positions(sources: &Path) -> Result<Option<Vec<EgTick>>, String> {
+	let dir = sources.join("eg-link").join(&EG_COMMIT[..12]);
+	let (product, dataset) = EG_POSITIONS;
+	let Some(index) = read(&dir.join("index.json"))? else { return Ok(None) };
+	let mut builds: Vec<&String> =
+		index.get("products").and_then(|p| p.get(product)).and_then(J::as_object).into_iter().flatten().filter(|(_, v)| v.get(dataset).is_some_and(truthy)).map(|(k, _)| k).collect();
+	builds.sort_by(|a, b| build_number(a).partial_cmp(&build_number(b)).unwrap_or(std::cmp::Ordering::Equal));
+	let mut out = Vec::new();
+	for b in builds {
+		let Some(doc) = read(&dir.join(product).join(b).join(format!("{dataset}.json")))? else { return Ok(None) };
+		let build = build_number(b) as i64;
+		for (q, lines) in doc.get("quests").and_then(J::as_object).into_iter().flatten() {
+			let Ok(quest) = q.parse::<i64>() else { continue };
+			for (l, o) in lines.as_object().into_iter().flatten() {
+				let Ok(line) = l.parse::<i64>() else { continue };
+				for p in o.get("positions").and_then(J::as_array).into_iter().flatten() {
+					if let (Some(map), Some(x), Some(y)) = (p.get("uiMap").and_then(J::as_i64), p.get("mapX").and_then(f), p.get("mapY").and_then(f)) {
+						out.push(EgTick { quest, line, build, map, x: x * 100.0, y: y * 100.0 });
+					}
+				}
+			}
+		}
+	}
+	Ok(Some(out))
+}
+
 pub struct Vo {
 	pub commit: String,
 	pub quests: IndexMap<i64, (Ends, Ends)>,
