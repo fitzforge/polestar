@@ -17,10 +17,6 @@ next forever/alliance/30-40/03-ashenvale
 # Spark of Freedom (87491) is a group quest (#1313): its escort starts at the far west of Dun Modr's elite Dark Iron ruins.
 # MacKreel's Moonshine (647) is taken in 05-arathi-highlands: its 15-minute limit does not last the walk to Menethil and the boat (#1319).
 
-step To Deepwater Tavern
-  zone Wetlands
-  goto 10.7,61.0 "Deepwater Tavern"
-
 step Angerfang Encampment
   tip South-east from Menethil to the Dragonmaw's Angerfang Encampment: the first catapult stands on the way, and the Tattered Spellbook lies in the camp.
   turnin 465                          -- Dragonmaw Catapult
@@ -345,8 +341,9 @@ step Elling Trias
   accept 1248
 
 step Mage Quarter
-  tip Archmage Malin is in the Slaughtered Lamb; Connor Rivers south of the Mage Quarter.
+  tip Archmage Malin and Collin Mauren are in the Slaughtered Lamb; Connor Rivers south of the Mage Quarter.
   accept 690                          -- Archmage Malin
+  accept 1078                         -- Collin Mauren: the Saltstone Basilisks at the Mirage Raceway drop the scales, in the next guide
   accept 1301                         -- Connor Rivers
 
 step Druid training

@@ -2323,10 +2323,11 @@ test(`${TELDRASSIL}: Pynte's report: Zenn's Bidding is taken on the walk down to
 });
 
 const BADLANDS = 'forever/alliance/30-40/06-badlands.guide';
-test(`${BADLANDS}: the same pattern as #89: Book of the Ancients is taken from Azore on the way to Karnitol's Chest, not on a walk back from it`, { skip }, () => {
-	// Review (0.3.6): the first Desolace visit (02) opens the chest beside Azore's tower; the south loop (06) keeps
+const DESOLACE_SOUTH = 'forever/alliance/30-40/06b-desolace.guide';
+test(`${DESOLACE_SOUTH}: the same pattern as #89: Book of the Ancients is taken from Azore on the way to Karnitol's Chest, not on a walk back from it`, { skip }, () => {
+	// Review (0.3.6): the first Desolace visit (02) opens the chest beside Azore's tower; the south loop (06b) keeps
 	// the chain for a player who loads it without 02, and there Azore still comes before the chest.
-	const list = goals(BADLANDS);
+	const list = goals(DESOLACE_SOUTH);
 	const take = at(list, 'accept 6027 (Book of the Ancients)', is('accept', 6027));
 	assert.ok(at(list, 'accept 1454 (Nijel\'s Point)', is('accept', 1454)) < take, 'after Nijel\'s Point');
 	assert.ok(take < at(list, "turnin 1454 (Karnitol's Chest)", is('turnin', 1454)), 'before the chest');
@@ -6782,7 +6783,7 @@ test('forever/alliance/30-40/04-stranglethorn-vale.guide: final review: the isla
 	assert.equal(stepOf('accept', 601), stepOf('turnin', 578), 'the elementals too');
 	assert.deepEqual(compiled(file).steps.filter((st) => st.along).map((st) => st.title), [], 'no along steps');
 	const druid = list.filter(forClass('DRUID'));
-	const train = druid.findIndex(({ step, goal }) => goal.t === 'train' && step.only);
+	const train = druid.findIndex(({ step, goal }) => goal.t === 'train' && (step.only || goal.only));
 	const sw = druid.findIndex(({ goal }) => goal.t === 'fly' && /Stormwind/.test(JSON.stringify(goal)));
 	assert.ok(sw >= 0 && train > sw, 'Druids train after the flight to Stormwind');
 	assert.ok(!druid.some(({ goal }) => goal.t === 'goto' && /Ironforge|Tram/.test(JSON.stringify(goal))), 'no Ironforge or tram detour');
@@ -6915,7 +6916,7 @@ test(`${HILLSBRAD_ALLIANCE}: J's report (#1643): James Hyal is not asked for onc
 // grinded for The Karnitol Shipwreck), Stranglethorn's northern loop (04b), then the Swamp of Sorrows, Arathi &
 // Alterac and the Badlands with Desolace's south loop. High accepts wait for the visit that works them.
 test('Alliance 30-40 re-order: the Mirage Raceway on the Theramore crossing, Desolace between the Stranglethorn loops, no early accepts of high quests', { skip }, () => {
-	const chain = ['07-thousand-needles', '30-40/01-hillsbrad-foothills', '30-40/03-ashenvale', '30-40/04-stranglethorn-vale', '30-40/02-desolace', '30-40/04b-stranglethorn-vale', '30-40/05-arathi-highlands', '30-40/06-badlands', '40-50/01-stranglethorn-vale'];
+	const chain = ['07-thousand-needles', '30-40/01-hillsbrad-foothills', '30-40/03-ashenvale', '30-40/04-stranglethorn-vale', '30-40/02-desolace', '30-40/04b-stranglethorn-vale', '30-40/05-arathi-highlands', '30-40/06-badlands', '30-40/06b-desolace', '40-50/01-stranglethorn-vale'];
 	for (let i = 0; i + 1 < chain.length; i++) assert.equal(compiled(`forever/alliance/${chain[i]}.guide`).next, `forever/alliance/${chain[i + 1]}`, `${chain[i]} leads to ${chain[i + 1]}`);
 	const dust = goals('forever/alliance/30-40/03-ashenvale.guide');
 	for (const q of [1302, 1264, 1284, 1253, 1319, 1320, 1110, 1104, 1105, 1176, 1175, 1135]) assert.ok(dust.some(({ goal }) => is('turnin', q)(goal)), `30-40/03 hands in ${q}`);
@@ -6936,7 +6937,7 @@ test('Alliance 30-40 re-order: the Mirage Raceway on the Theramore crossing, Des
 	// Review (0.3.6): The Karnitol Shipwreck (39) is the exception: its first two parts are a chest beside Azore's
 	// tower and a talk to Kreldig, nothing to fight, so the first Desolace visit takes them; the satchel dive (1456) waits for the south loop.
 	assert.ok(goals('forever/alliance/30-40/02-desolace.guide').some(({ goal }) => is('turnin', 1455)(goal)), 'The Karnitol Shipwreck\'s chest and report on the first Desolace visit');
-	assert.ok(goals(BADLANDS).some(({ goal }) => goal.t === 'collect' && goal.quest === 1456), 'the satchel on the south loop');
+	assert.ok(goals(DESOLACE_SOUTH).some(({ goal }) => goal.t === 'collect' && goal.quest === 1456), 'the satchel on the south loop');
 	assert.ok(!goals(HILLSBRAD_ALLIANCE).some(({ goal }) => is('accept', 707)(goal)), 'Ironband Wants You! (37) is not taken at 32');
 	assert.ok(goals(ARATHI).some(({ goal }) => is('accept', 707)(goal)), 'it is taken on the Ironforge stop before Loch Modan');
 	assert.ok(!goals('forever/alliance/30-40/04b-stranglethorn-vale.guide').some(({ goal }) => is('accept', 209)(goal)), 'Skullsplitter Tusks (42) is not taken at 37');
@@ -9264,7 +9265,7 @@ test(`${DARKSHORE}: frostyends's report (#1442): Washed Ashore is on the Auberdi
 });
 
 // --- Alliance 30-40 audit (0.3.7, 2026-11-09) ----------------------------------------------------------------------
-const A3040 = ['01-hillsbrad-foothills', '02-desolace', '03-ashenvale', '04-stranglethorn-vale', '04b-stranglethorn-vale', '05-arathi-highlands', '06-badlands'].map((f) => `forever/alliance/30-40/${f}.guide`);
+const A3040 = ['01-hillsbrad-foothills', '02-desolace', '03-ashenvale', '04-stranglethorn-vale', '04b-stranglethorn-vale', '05-arathi-highlands', '06-badlands', '06b-desolace'].map((f) => `forever/alliance/30-40/${f}.guide`);
 const whenOn = (step, k, q) => (step.when || []).some((p) => p.k === k && !p.neg && [p.q].flat().includes(q));
 
 // A step meant for players on a quest (`when onquest|complete Q`) whose goals are all optional is done at once (the
@@ -9855,7 +9856,7 @@ test('Alliance Arathi & Alterac: Quae and Baron Vardus tips match the map', { sk
 // for the optional My Little Friends), a check-off every player had to tick, quest or not. It is now its own step for
 // players on 93176, with the specimen counted in the bags, as Arathi's Hay Weevil and Stranglethorn's Arbor Tarantula.
 test('Alliance Desolace south loop: the Flesh Picker is only for players on My Little Friends', { skip }, () => {
-	const list = goals('forever/alliance/30-40/06-badlands.guide');
+	const list = goals('forever/alliance/30-40/06b-desolace.guide');
 	assert.ok(!list.some(({ goal }) => goal.t === 'kill' && goal.npc === 217590), 'no bare Flesh Picker check-off');
 	const pick = list.filter(({ goal }) => goal.t === 'collect' && goal.item === 213567);
 	assert.equal(pick.length, 1, 'one Flesh Picker Specimen goal');
@@ -9866,7 +9867,7 @@ test('Alliance Desolace south loop: the Flesh Picker is only for players on My L
 // Lord Kragaru "a centaur chieftain" who "camps" on the coast. He is the naga lord the Gem of the Serpent (15766, the
 // quest's source item) summons at the Serpent Statue on Ranazjar Isle; the Horde guide already uses the gem there.
 test('Desolace, both sides: the Book of the Ancients uses the Gem of the Serpent at the statue first', { skip }, () => {
-	for (const guide of ['forever/alliance/30-40/06-badlands.guide', 'forever/horde/30-40/02-thousand-needles.guide']) {
+	for (const guide of ['forever/alliance/30-40/06b-desolace.guide', 'forever/horde/30-40/02-thousand-needles.guide']) {
 		const list = goals(guide);
 		const use = at(list, `${guide}: use 15766`, (g) => g.t === 'use' && g.item === 15766 && g.quest === 6027);
 		const book = at(list, `${guide}: collect 15803`, (g) => g.t === 'collect' && g.item === 15803);
@@ -9874,7 +9875,7 @@ test('Desolace, both sides: the Book of the Ancients uses the Gem of the Serpent
 		const g = list[use].goal;
 		assert.ok(g.map === 1443 && Math.abs(g.x - 28.2) < 1 && Math.abs(g.y - 6.7) < 1, `${guide}: at the Serpent Statue (${g.x},${g.y})`);
 	}
-	assert.doesNotMatch(fs.readFileSync(path.join(OFFICIAL_DIR, 'forever/alliance/30-40/06-badlands.guide'), 'utf8'), /Kragaru, a centaur/, 'Kragaru is no centaur');
+	assert.doesNotMatch(fs.readFileSync(path.join(OFFICIAL_DIR, 'forever/alliance/30-40/06b-desolace.guide'), 'utf8'), /Kragaru, a centaur/, 'Kragaru is no centaur');
 });
 
 // Final route review, Horde 40-60 (0.3.6): a quest ready to hand in is handed in on the city stop that walks past its
@@ -10956,7 +10957,7 @@ test('Alliance Desolace: the Karnitol chest on the first visit, one Nijel\'s Poi
 	assert.equal(des[report].s, des[at(des, 'turnin 1459', is('turnin', 1459))].s, "on the last Kreldig stop");
 	assert.equal(des[at(des, 'accept 1456', is('accept', 1456))].s, des[report].s, 'the satchel errand taken there');
 
-	const sth = goals('forever/alliance/30-40/06-badlands.guide');
+	const sth = goals('forever/alliance/30-40/06b-desolace.guide');
 	const satchel = at(sth, 'collect 6245', (g) => g.t === 'collect' && g.quest === 1456);
 	const statue = at(sth, 'use 15766', (g) => g.t === 'use' && g.quest === 6027);
 	const golden = at(sth, 'collect 15881', (g) => g.t === 'collect' && g.item === 15881);
@@ -11134,9 +11135,9 @@ test('rockzors (#1602): Alliance Desolace takes Carved Centaur Totems with Centa
 	assert.equal(list[totems].s, step('collect 6067', (g) => g.t === 'collect' && g.quest === 1387), 'the totems with the ears');
 	const handIn = at(list, 'turnin 93224', is('turnin', 93224));
 	assert.ok(handIn > totems && list[handIn].s === step('turnin 1387', is('turnin', 1387)), 'both hand-ins on the last Nijel\'s Point stop');
-	const south = goals('forever/alliance/30-40/06-badlands.guide');
-	at(south, 'accept 93224 (06 keeps it for a fresh start)', is('accept', 93224));
-	at(south, 'turnin 93224 (06)', is('turnin', 93224));
+	const south = goals('forever/alliance/30-40/06b-desolace.guide');
+	at(south, 'accept 93224 (06b keeps it for a fresh start)', is('accept', 93224));
+	at(south, 'turnin 93224 (06b)', is('turnin', 93224));
 });
 
 // Offered-timed sweep (2026-11-10, Apothecary Zamah reported in play with 42:00 left): Helbrim offers Apothecary Zamah (853,
@@ -12092,4 +12093,149 @@ test(`${ASHENVALE}: Sprite Jumpsprocket takes Explosive Consultation when the tr
 	const sprite = at(list, 'Explosive Consultation (92748)', is('turnin', 92748));
 	assert.ok((list[sprite].step.when || []).some((p) => p.k === 'onquest' && !p.neg), 'only while carried');
 	assert.ok(at(list, 'the tram to Stormwind', (g) => g.t === 'goto' && /Tram to Stormwind/.test(g.text || '')) < sprite, 'after the tram');
+});
+
+// 0.4.0 route audit (Refs #2025): Alliance 30-40/06 was the Badlands and then Desolace's south loop in one guide. It is
+// split at Thelsamar, where the Badlands loop ends on Ghak Healtouch's hand-in: 06-badlands, then 06b-desolace (the
+// south loop, unchanged), so Riverglades can join the route there as a choice. Every quest is in one of the two guides,
+// once, and the chain still reaches 40-50/01 at Theramore.
+test(`${BADLANDS}: split at Thelsamar: the Badlands, then Desolace's south loop as its own guide`, { skip }, () => {
+	const bad = goals(BADLANDS);
+	const south = goals(DESOLACE_SOUTH);
+	const last = bad[bad.length - 1];
+	assert.ok(is('turnin', 2500)(last.goal), 'the Badlands guide ends on Ghak Healtouch in Thelsamar');
+	assert.equal(compiled(BADLANDS).next, 'forever/alliance/30-40/06b-desolace', 'the south loop is the default next guide');
+	assert.equal(compiled(DESOLACE_SOUTH).next, 'forever/alliance/40-50/01-stranglethorn-vale', 'and 40-50/01 follows it');
+	assert.equal(south[0].goal.t, 'goto', 'the south loop opens with the walk to the Thelsamar flight master');
+	assert.ok(south.some(({ goal }) => goal.t === 'fly' && /Nijel's Point/.test(goal.location || goal.text || '')), "the flight to Nijel's Point");
+	for (const q of [6141, 261, 1466, 5501, 6132, 6134, 6161, 6027, 1456]) {
+		assert.ok(south.some(({ goal }) => is('turnin', q)(goal)), `06b hands in ${q}`);
+		assert.ok(!bad.some(({ goal }) => goal.quest === q), `06 no longer has ${q}`);
+	}
+	for (const q of [718, 719, 720, 1106, 738, 703, 1108, 710, 711, 2500]) assert.ok(bad.some(({ goal }) => is('turnin', q)(goal)), `06 still hands in ${q}`);
+	const fly = south.filter(({ goal }) => goal.t === 'fly').map(({ goal }) => goal.location || goal.text);
+	assert.equal(fly[fly.length - 1], 'Theramore', 'the south loop ends on the Theramore flight, where 40-50/01 starts');
+});
+
+// 0.4.0 route audit (Refs #2025): Scrounging (733) was collected at Agmond's End on the Badlands loop and handed in to
+// Sigrun Ironhew only on 40-50/01's return to Hammertoe's Digsite at about 43. It is handed in on the loop itself, right
+// after the second Valley of Fangs stop (Sigrun about 330 yd east of it), before Thelsamar ends the guide.
+test(`${BADLANDS}: Scrounging is handed in on the Badlands loop, after the second Valley of Fangs stop`, { skip }, () => {
+	const list = goals(BADLANDS);
+	const back = at(list, 'turnin 733', is('turnin', 733));
+	assert.ok(back > at(list, 'collect 4630 (Scrap Metal)', (g) => g.t === 'collect' && g.quest === 733), 'after the scrap');
+	assert.ok(back > at(list, 'turnin 703', is('turnin', 703)), 'after the second Valley of Fangs stop');
+	assert.ok(back < at(list, 'turnin 2500', is('turnin', 2500)), 'before Thelsamar');
+	const pairs = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', 'route-fixes.json'), 'utf8')).deliberate.pairs;
+	assert.ok(pairs.some((p) => p.faction === 'Alliance' && `${p.a}` === 'turnin,703' && `${p.b}` === 'turnin,733'), 'a record the build keeps');
+});
+
+// 0.4.0 route audit (Refs #2025): between Ironforge's training in 30-40/01 (players at about 32.5) and Stormwind's in
+// 30-40/05 (about 37.5) nobody but Druids trained, though 30-40/04's Stormwind stop (players at about 35) walks the
+// Trade District for Blessed Arm. Every class that trains in Stormwind trains there.
+test("forever/alliance/30-40/04-stranglethorn-vale.guide: every class but Shamans trains on the Stormwind stop", { skip }, () => {
+	const list = goals('forever/alliance/30-40/04-stranglethorn-vale.guide');
+	const train = list.filter(({ goal }) => goal.t === 'train');
+	assert.equal(train.length, 1, 'one training stop');
+	const arm = list[at(list, 'turnin 322 (Blessed Arm)', is('turnin', 322))].s;
+	assert.ok(train[0].s > arm && train[0].s <= arm + 2, 'on the Stormwind stop, after Grimand Elmore');
+	for (const cls of ['WARRIOR', 'PALADIN', 'HUNTER', 'ROGUE', 'PRIEST', 'MAGE', 'WARLOCK', 'DRUID']) assert.ok(forClass(cls)(train[0]), `${cls} trains there`);
+	assert.ok(!forClass('SHAMAN')(train[0]), 'Shamans train in Ironforge');
+});
+
+// 0.4.0 route audit (Refs #2025, the #1508 pattern): 30-40/05 walked every character from Ironforge through the Dun
+// Morogh tunnel to Thelsamar, though every Alliance character has had the Thelsamar flight path since 03-loch-modan
+// (Dwarves and Gnomes since their start). Players' recordings: 3 of 8 people flew it (1-2 minutes), 5 walked (9-27).
+// The flight is for whoever knows the flight path, the walk for whoever Polestar hasn't seen learn it.
+test(`${ARATHI}: Ironforge to Thelsamar by flight when you know the flight path, the tunnel when you don't`, { skip }, () => {
+	const list = goals(ARATHI);
+	const fly = list[at(list, 'fly Thelsamar', (g) => g.t === 'fly' && /Thelsamar/.test(g.location || g.text || ''))];
+	assert.ok((fly.step.when || []).some((p) => p.k === 'taxi' && !p.neg), 'the flight is when taxi "Thelsamar"');
+	const walk = list.find(({ step, goal }) => goal.t === 'goto' && /Thelsamar/.test(goal.text || goal.location || '') && (step.when || []).some((p) => p.k === 'taxi' && p.neg));
+	assert.ok(walk, 'the tunnel walk is when !taxi "Thelsamar"');
+	assert.ok(!list.some(({ step }) => step.only && step.only.races), 'no step of this guide goes by race');
+});
+
+// 0.4.0 route audit (Refs #2025): 30-40/03 sends players down the Great Lift into Thousand Needles for Highperch with no
+// word on the lift; players' recordings show 11 deaths of 3 people there on this guide's way down, none with an attacker
+// recorded (falls). The step says to wait for the lift.
+test(`${ASHENVALE_30}: the Great Lift step says to wait for the lift`, { skip }, () => {
+	const list = goals(ASHENVALE_30);
+	const sac = list[at(list, 'collect 5809', (g) => g.t === 'collect' && g.item === 5809)];
+	const tip = [].concat(sac.step.note || []).join(' ');
+	assert.match(tip, /Careful:.*lift is level/, tip);
+	const rec = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', 'guide-fixes.json'), 'utf8')).fixes.find((f) => f.id === '2025-great-lift-wait');
+	assert.ok(rec, 'a record the build keeps');
+	assert.equal(rec.tip, tip, 'the guide carries the record\'s tip');
+});
+
+// 0.4.0 route audit (Refs #2025): 30-40/04's Kurzen's Compound step sends players to the compound's outer edge for its
+// level 32 Jungle Fighters, while Kurzen Elites and Witch Doctors (36) hold its eastern half; players' recordings: 3
+// people killed 5 times by them at about 33. The step warns.
+test("forever/alliance/30-40/04-stranglethorn-vale.guide: the Kurzen's Compound step warns of the Elites in its east", { skip }, () => {
+	const list = goals('forever/alliance/30-40/04-stranglethorn-vale.guide');
+	const fight = list[at(list, 'kill 937', (g) => g.t === 'kill' && g.quest === 203)];
+	const tip = [].concat(fight.step.note || []).join(' ');
+	assert.match(tip, /Careful: Kurzen Elites and Witch Doctors \(36\)/, tip);
+	const rec = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', 'guide-fixes.json'), 'utf8')).fixes.find((f) => f.id === '2025-kurzen-compound-careful');
+	assert.ok(rec, 'a record the build keeps');
+});
+
+// 0.4.0 route audit (Refs #2025, as 6558e6487 for 04b): 30-40/05 is labelled 36-38 (the levels the route plays it at),
+// while its worked quests' median is 37 and its 80th percentile 40 (Faldir's Cove and the Alterac Syndicate). The
+// pitch says the level 40 quests are there on purpose and how to take their fights.
+test(`${ARATHI}: the pitch says why its quests run above its label`, { skip }, () => {
+	const g = compiled(ARATHI);
+	assert.match(g.pitch || '', /36 to 38.*level 40: on purpose/, g.pitch);
+	assert.equal(g.maxLevel, 38, 'the label stays');
+});
+
+// 0.4.0 route audit (Refs #2025): 30-40/01 opened with a bare waypoint to Menethil's Deepwater Tavern, 100 yd from the
+// flight master 07 lands at, with nothing to do there; the next step turned back south-east to the Angerfang
+// Encampment. The guide opens on the catapult now.
+test(`${HILLSBRAD_ALLIANCE}: the guide opens on the Dragonmaw catapult, no goal-less waypoint first`, { skip }, () => {
+	const list = goals(HILLSBRAD_ALLIANCE);
+	assert.ok(!list.some(({ goal }) => goal.t === 'goto' && /Deepwater Tavern/.test(goal.text || goal.location || '')), 'no waypoint to the Deepwater Tavern');
+	const first = list.find(({ step }) => !step.when || !step.when.length);
+	assert.ok(is('turnin', 465)(first.goal), `the first goal is the catapult (465), not ${first.goal.t}`);
+});
+
+// 0.4.0 route audit (Refs #2025): Retrieval for Mauren (1078) was taken in 06-ashenvale at about 25 and carried nine
+// levels to the Saltstone Basilisks at the Mirage Raceway (30-40/03). Collin Mauren stands in the Slaughtered Lamb
+// beside Archmage Malin, whom 30-40/01's Mage Quarter stop visits right before 30-40/03: the quest is taken there.
+test(`${HILLSBRAD_ALLIANCE}: Retrieval for Mauren is taken on the Mage Quarter stop, with Archmage Malin`, { skip }, () => {
+	const list = goals(HILLSBRAD_ALLIANCE);
+	const take = at(list, 'accept 1078', is('accept', 1078));
+	assert.equal(list[take].s, list[at(list, 'accept 690', is('accept', 690))].s, 'on the stop with Archmage Malin');
+	assert.ok(goals(ASHENVALE_30).some(({ goal }) => goal.t === 'collect' && goal.quest === 1078), 'the scales at the Raceway in 30-40/03');
+	const pairs = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', 'route-fixes.json'), 'utf8')).deliberate.pairs;
+	assert.ok(pairs.some((p) => p.faction === 'Alliance' && `${p.a}` === 'accept,690' && `${p.b}` === 'accept,1078'), 'a record the build keeps');
+});
+
+// 0.4.0 route audit (Refs #2025, danger at the spot #1575): Desolace's Valley of Bones step (Undead Ravagers, the Ghost
+// Magnets): Magram Necrokhans and Corpsefeeders (45, elite) of Shen'dralas walk the bone fields with Magram Necromancers
+// (42); players' recordings show 5 deaths around the old Ghost Magnets point. The Ravagers' arrow leads to the fields'
+// clear western edge, the crate's to the spot players used it in the east, and the step warns of the elites between.
+test(`${DESOLACE_SOUTH}: the Valley of Bones points away from the Shen'dralas elites and warns of them`, { skip }, () => {
+	const list = goals(DESOLACE_SOUTH);
+	const fight = list[at(list, 'kill 11561', (g) => g.t === 'kill' && g.quest === 261)];
+	assert.ok(fight.goal.map === 1443 && Math.hypot(fight.goal.x - 61.1, fight.goal.y - 90.9) < 1, `the Ravagers: the fields' western edge (got ${fight.goal.map} ${fight.goal.x},${fight.goal.y})`);
+	for (const [what, pred] of [['crate', (g) => g.t === 'use' && g.quest === 6134], ['ghost-o-plasm', (g) => g.t === 'collect' && g.quest === 6134]]) {
+		const { goal } = list[at(list, what, pred)];
+		assert.ok(goal.map === 1443 && Math.hypot(goal.x - 64.4, goal.y - 91.7) < 1, `${what}: the fields' eastern side (got ${goal.map} ${goal.x},${goal.y})`);
+	}
+	assert.match([].concat(fight.step.note || []).join(' '), /Careful: Magram Necrokhans and Corpsefeeders \(45, elite\) walk the bone fields between the two arrows/);
+	assert.ok(JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', 'guide-fixes.json'), 'utf8')).fixes.some((f) => f.id === '2025-valley-of-bones-careful'), 'the tip, a record the build keeps');
+	const places = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', 'places.json'), 'utf8')).places;
+	for (const id of ['1575-desolace-alliance-undead-ravagers-west', '1575-desolace-alliance-ghost-magnets-east']) assert.ok(places.some((p) => p.id === id), `${id}: a record the build keeps`);
+});
+
+// 0.4.0 route audit (Refs #2025, danger at the spot #1575): the first Desolace visit's Kolkar Village step pointed its
+// Centaur Ears at the Magram's village (65.6,70.3), among Magram Necromancers (42-43) and Guardians (39-41), at a route
+// level of 35.5. The Kolkar (30-35) drop the ears too: the arrow points into Kolkar Village.
+test('forever/alliance/30-40/02-desolace.guide: the Kolkar Village step points at Kolkar Village, not the Magram', { skip }, () => {
+	const list = goals('forever/alliance/30-40/02-desolace.guide');
+	const { goal } = list[at(list, 'ears', (g) => g.t === 'collect' && g.quest === 1387)];
+	assert.ok(goal.map === 1443 && Math.hypot(goal.x - 71.5, goal.y - 45.5) < 1, `the ears: Kolkar Village (got ${goal.map} ${goal.x},${goal.y})`);
+	assert.ok(JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', 'places.json'), 'utf8')).places.some((p) => p.id === '1575-desolace-alliance-centaur-ears-kolkar-village'), 'a record the build keeps');
 });

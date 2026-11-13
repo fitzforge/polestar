@@ -8921,6 +8921,70 @@
 				"ref": "players' recordings (addon 0.3.5 to 0.3.7.2): Nightveiled Rotheap (npc 270589, level 31, elite) killed by 13 people across the Wetlands, none killed by it; npcs.json 270589 spawns over the whole zone"
 			},
 			"issue": 2025
+		},
+		{
+			"id": "2025-great-lift-wait",
+			"faction": "Alliance",
+			"at": {
+				"quest": 1135,
+				"goal": "objective",
+				"objective": 1
+			},
+			"tip": "Down the Great Lift into Thousand Needles, then west to the wyverns' cliffs at Highperch. Every wyvern there can drop a venom sac. Careful: wait on the platform until the lift is level with it before you step on, and stay on it until it stops; the drop beside it kills.",
+			"note": "0.4.0 route audit (Refs #2025): the step sent players down the Great Lift with no word on it. The step's earlier tip (the lift, the cliffs, the venom sacs) is kept in this one.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "players' recordings (shared index, to 2026-11-13): 11 deaths of 3 people at The Great Lift while on this guide's way down to Highperch, none with an attacker recorded (falls); 16 deaths of 6 Alliance people there over every guide"
+				}
+			],
+			"issue": 2025
+		},
+		{
+			"id": "2025-kurzen-compound-careful",
+			"faction": "Alliance",
+			"at": {
+				"quest": 203,
+				"goal": "objective",
+				"objective": 1,
+				"guide": "forever/alliance/30-40/04-stranglethorn-vale"
+			},
+			"tip": "The Kurzen rebels hold the camp east of the Rebel Camp; work its outer edge, where Jungle Fighters and Medicine Men stand, and loot the supply crates by the tents. Bookie Herod's records lie in a hut on the compound's west side. Careful: Kurzen Elites and Witch Doctors (36) hold the compound's eastern half, by the cave: stay on its west side.",
+			"note": "0.4.0 route audit (Refs #2025): the step's quest mobs (Kurzen Jungle Fighters and Medicine Men, 32) stand on the compound's west side, the Elites and Witch Doctors (36) on its east side, and the step gave no warning. The step's earlier tip is kept in this one.",
+			"source": [
+				{
+					"kind": "questie",
+					"ref": "data/forever npcs.json spawns: Kurzen Jungle Fighter (937) and Medicine Man (940), level 32, at 43.6-47.1,7.1-12.6; Kurzen Elite (939) and Witch Doctor (942), level 36, at 46.7-49.7,5.7-8.7"
+				},
+				{
+					"kind": "recording",
+					"ref": "players' recordings (shared index, to 2026-11-13): on this step, 3 people killed 5 times by Kurzen Elites (36-37) and a Kurzen Witch Doctor (37) at 48.5-49.6,7.9-9.0, at about level 33.4"
+				}
+			],
+			"issue": 2025
+		},
+		{
+			"id": "2025-valley-of-bones-careful",
+			"faction": "Alliance",
+			"at": {
+				"quest": 261,
+				"goal": "objective",
+				"objective": 1,
+				"guide": "forever/alliance/30-40/06b-desolace"
+			},
+			"tip": "Undead Ravagers roam the bone fields south of the Magram village, east of the Coven: the arrow leads to their western edge. Then use the Crate of Ghost Magnets at its arrow, on the fields' eastern side, to draw the Magrami Spectres. Careful: Magram Necrokhans and Corpsefeeders (45, elite) walk the bone fields between the two arrows, with Magram Necromancers (42): pull the Ravagers and the spectres to you, away from them.",
+			"note": "0.4.0 route audit (Refs #2025, danger at the spot #1575): the Undead Ravagers (37) and the Ghost Magnets' spot lie on the bone fields at 58-65,81-92, where Magram Necrokhans and Corpsefeeders (45, elite) and Magram Necromancers (42) of Shen'dralas walk the same ground; the step gave no warning. The arrows (places 1575-desolace-alliance-undead-ravagers-west and -ghost-magnets-east) lead to the fields' clear western edge and to the magnet spot players used in the east; the tip says so and warns of the elites between. The step's earlier tip is kept in this one.",
+			"source": [
+				{
+					"kind": "questie",
+					"ref": "data/forever npcs.json spawns: Undead Ravager (11561, 37) Desolace 58.3-65.2,81.5-92.1; on Shen'dralas (map 2652), over the bone fields at Desolace 59.6-65.9,85.1-94.2: Magram Necrokhan (253274, 45, elite) 10 spawns, Corpsefeeder (253394, 45, elite) 3, Magram Necromancer (253272, 42) 6"
+				},
+				{
+					"kind": "recording",
+					"ref": "players' recordings (danger census, to 2026-11-12): Ghost-o-plasm Round Up (6134) on this step done by 8 people at a median level of 39.6; deaths within 60 yd: 5 around its Ghost Magnets goal and 3 around its Ghost-o-plasm goal; nobody died around the Ravagers (261, 18 people)"
+				}
+			],
+			"issue": 2025
 		}
 	]
 }

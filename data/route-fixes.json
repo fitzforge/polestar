@@ -5000,6 +5000,42 @@
 				],
 				"faction": "Alliance",
 				"why": "Alliance 20-30 audit (0.4.0, #2025): see accept 128 before accept 20."
+			},
+			{
+				"a": [
+					"turnin",
+					703
+				],
+				"b": [
+					"turnin",
+					733
+				],
+				"faction": "Alliance",
+				"why": "Scrounging (733): the scrap metal is collected at Agmond's End on 30-40/06-badlands' loop, but the quest was handed in to Sigrun Ironhew only on 40-50/01's return to Hammertoe's Digsite at about 43, five levels later, which a player who leaves for Riverglades from Thelsamar never reaches. Sigrun (Badlands 53.8,43.3) stands about 330 yd east of the Valley of Fangs (42.2,52.7) that 06 visits again for Martek and Rigglefuzz: 733 is handed in right after that stop, before the loop heads north to Thelsamar."
+			},
+			{
+				"a": [
+					"turnin",
+					733
+				],
+				"b": [
+					"turnin",
+					2500
+				],
+				"faction": "Alliance",
+				"why": "Scrounging (733) handed in inside 30-40/06-badlands, before Ghak Healtouch in Thelsamar ends the guide (see the pair turnin 703 -> turnin 733)."
+			},
+			{
+				"a": [
+					"accept",
+					690
+				],
+				"b": [
+					"accept",
+					1078
+				],
+				"faction": "Alliance",
+				"why": "Retrieval for Mauren (1078, eight Crystalized Scales from the Saltstone Basilisks at the Mirage Raceway, for Collin Mauren in Stormwind's Slaughtered Lamb) was taken in 06-ashenvale's Stormwind visit at about 25 and carried nine levels and four guides to the Raceway in 30-40/03. Collin stands in the Slaughtered Lamb beside Archmage Malin, whom 30-40/01's Mage Quarter stop visits at about 32, right before 30-40/03 crosses to the Raceway: the quest is taken there. The hand-in stays on 30-40/04's Stormwind stop."
 			}
 		],
 		"notes": [

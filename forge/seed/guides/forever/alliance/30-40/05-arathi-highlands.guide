@@ -5,6 +5,7 @@ faction Alliance
 levels 36-38
 zone Arathi Highlands
 next forever/alliance/30-40/06-badlands
+pitch For characters of 36 to 38, but Faldir's Cove and the Alterac Syndicate quests are level 40: on purpose, for their experience. Professor Phizzlethorpe's two water elementals (40) are immune to frost, and Baron Vardus (40) waits among his Syndicate: pull them one at a time.
 
 # Forge's route search orders the quests of this guide and its guide writer writes the steps.
 # Fixes go into data/route-fixes.json, data/guide-fixes.json or forever-db/corrections, never
@@ -412,13 +413,21 @@ step Ironforge
   accept 707                          -- Prospector Stormpike, Hall of Explorers: for Prospector Ironband in Loch Modan, next
   train class only Warrior,Paladin,Hunter,Rogue,Priest,Shaman,Mage,Warlock
 
-step Loch Modan
+step Fly to Thelsamar
+  when taxi "Thelsamar"
+  zone Ironforge
+  goto 55.9,47.9 "Ironforge flight master"
+  fly "Thelsamar"
   zone Loch Modan
+
+step Loch Modan
+  when !taxi "Thelsamar"
+  zone Loch Modan
+  tip From Ironforge take the tunnel east through Dun Morogh into Loch Modan and follow the road to Thelsamar.
   goto 37.1,49.4 "Loch Modan"
 
 step Thelsamar
   zone Loch Modan
-  tip From Ironforge take the tunnel east through Dun Morogh into Loch Modan and follow the road to Thelsamar.
   getfp "Thelsamar"
   sethome "Stoutlager Inn"
   accept 2500                         -- Ghak Healtouch, below ground
