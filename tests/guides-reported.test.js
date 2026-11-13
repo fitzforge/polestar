@@ -1637,6 +1637,26 @@ test('forever/horde/30-40: the grind steps name only the dungeons the route runs
 	}
 });
 
+// Danger at the spot (#1575, release gate #2042), Horde 30-40 audit (0.4.0): where the gate found mobs well above the
+// route at a goal and players' recordings confirm them (Kirin Tor Guards and Arcane Sentries, 55, met as hostile by 56
+// and 26 Horde players, 11 deaths), or the camp is crowded, the step's tip names them.
+test('forever/horde/30-40: the steps warn of the high mobs the danger gate finds at their goals', { skip }, () => {
+	for (const [file, quest, names, item] of [
+		['01-hillsbrad-foothills', 527, ['Kirin Tor Guard']],
+		['01-hillsbrad-foothills', 544, ['Arcane Sentries', 'Kirin Tor Guards']],
+		['03-stranglethorn-vale', 213, ['Venture Co. Agents']],
+		['03-stranglethorn-vale', 1182, ['Venture Co. Agents']],
+		['05-arathi-highlands', 545, ['Arcane Sentries', 'Kirin Tor Guards']],
+		['06-badlands', 2258, ['Malevolent Mirage'], 7847],
+		['06-badlands', 711, ['Malevolent Mirage']],
+	]) {
+		const list = goals(`forever/horde/30-40/${file}.guide`);
+		const { step } = list[at(list, `${file}: work for ${quest}`, (g) => ['kill', 'collect', 'use'].includes(g.t) && g.quest === quest && (!item || g.item === item))];
+		const tip = [step.tip].flat().filter(Boolean).join(' ');
+		for (const name of names) assert.ok(tip.includes(name), `${file} "${step.title}": the tip names ${name}`);
+	}
+});
+
 // --- Forever chains the quest data has no prerequisite for, so the guide took
 // a follow-up at the same visit as the quest before it and the giver did not
 // offer it: Baine's chain in Mulgore (Kori, #112) and Mull's report (#51),

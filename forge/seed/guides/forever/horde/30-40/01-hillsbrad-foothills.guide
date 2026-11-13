@@ -228,6 +228,7 @@ step Hillsbrad Fields
   when !turnedin 529
   zone Hillsbrad Foothills
   tip West past the hills to the farms east of Hillsbrad town. Farmer Ray works the field by the northern farmhouse, Farmer Getz the one further south-east; Farmhands and Farmers are everywhere.
+  tip Careful: Kirin Tor Guards (55) patrol Hillsbrad's fields and roads and attack the Horde: keep an eye out for them and stay out of their way.
   kill 2266 quest 527.1
   kill 2360 quest 527.2
   kill 232 quest 527.3
@@ -344,7 +345,7 @@ step Alterac Mountains
 
 step The Dalaran crater
   zone Alterac Mountains
-  tip Head west along the foot of the mountains to the violet dome of Dalaran. Ricter, Alina and Dermot (33-34) stand together inside the crater's eastern rim, Kegan Darkmar (35) a little west of them; each carries one Bloodstone piece. The Shield Guards and Theurgists (31-33) around them drop the Worn Stone Tokens. Careful: Many guards stand in linked pairs and others patrol alone around the camp.
+  tip Head west along the foot of the mountains to the violet dome of Dalaran. Ricter, Alina and Dermot (33-34) stand together inside the crater's eastern rim, Kegan Darkmar (35) a little west of them; each carries one Bloodstone piece. The Shield Guards and Theurgists (31-33) around them drop the Worn Stone Tokens. Careful: Many guards stand in linked pairs and others patrol alone around the camp. Arcane Sentries (55, elite) and Kirin Tor Guards (55) stand around the violet dome itself: keep to the camp below the rim.
   collect 3691 quest 544.1            -- Dermot
   collect 3689 quest 544.2            -- Ricter
   collect 3690 quest 544.3            -- Alina

@@ -100,7 +100,7 @@ step Lord Aliden Perenolde
 
 step Old Dalaran Ruins: kill these as you meet them
   zone Alterac Mountains
-  tip South along the lake shore to the ruins around the Dalaran crater. The Dalaran Summoners lead Elemental Slaves; the bracers drop from the slaves.
+  tip South along the lake shore to the ruins around the Dalaran crater. The Dalaran Summoners lead Elemental Slaves; the bracers drop from the slaves. Careful: Arcane Sentries (55, elite) and Kirin Tor Guards (55) guard the dome itself and attack the Horde: work the ruins' outer edge and don't go up to the dome.
   kill 2359 quest 545.2 @22.4,58.6 map 1416
   collect 3715 quest 557.1 @21.6,61.9 map 1416
   kill 2358 quest 545.1 @22.0,57.9 map 1416

@@ -64,14 +64,14 @@ step Lotwil Veriatus
 # ---------------------------------------------------------------- The south
 step Badlands: kill these as you meet them
   zone Badlands
-  tip The Elder Crag Coyotes and Giant Buzzards roam the basin south of the Dustbowl. Coyotes drop both the jawbones and the fangs; the Giant Buzzards drop the gizzards.
+  tip The Elder Crag Coyotes and Giant Buzzards roam the basin south of the Dustbowl. Coyotes drop both the jawbones and the fangs; the Giant Buzzards drop the gizzards. Careful: Malevolent Mirages (42, elite) drift across the Badlands: give them a wide berth.
   collect 6166 quest 1419
   collect 7846 quest 2258.2
   collect 7847 quest 2258.1
 
 step Rock Elementals
   zone Badlands
-  tip South-east across the basin, the bigger Rock Elementals (39) stand on the slopes west of Agmond's End; each one drops a slab. Every rock elemental can drop Jarkal's Rock Elemental Shards.
+  tip South-east across the basin, the bigger Rock Elementals (39) stand on the slopes west of Agmond's End; each one drops a slab. Every rock elemental can drop Jarkal's Rock Elemental Shards. Careful: Malevolent Mirages (42, elite) drift across these slopes too.
   collect 4627 quest 711 @40.4,77.1 map 1418
   collect 7848 quest 2258.3
 
