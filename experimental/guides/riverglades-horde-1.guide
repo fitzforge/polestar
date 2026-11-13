@@ -74,7 +74,7 @@ step The plains and the marsh
   tip South-east of Rog'mar the plains run down to Terral's Watch. The Low Plains Buzzards circle everywhere; a picked carcass lies in the grass (its skull starts A Feast for Buzzards), and the marsh vents are just past it.
   collect 271793 x6 quest 96107.1       -- Plains Buzzard Feather
   accept 96103                          -- Picked Carcass: A Feast for Buzzards
-  collect 272004 x5 quest 96063.1       -- Marsh Gas Vial
+  collect 272004 x8 quest 96063.1       -- Marsh Gas Vial
 
 step Sleebo Fizzlespout
   tip North-east to the workshop. Sleebo's stress test is a fight with his G45-B4G beside the workshop: hand the quest in once it's beaten.

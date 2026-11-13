@@ -100,7 +100,7 @@ step Sleebo's workshop
 step The tallstriders and the marsh
   tip The Roving Tallstriders graze the meadows south-west of the workshop; further south-west the marsh bubbles with gas: fill the vials at the vents.
   collect 271778 quest 95984.1          -- Intact Tallstrider Beak
-  collect 272004 x5 quest 96063.1       -- Marsh Gas Vial
+  collect 272004 x8 quest 96063.1       -- Marsh Gas Vial
 
 step Terral's Watch
   tip Watcher Cornelius's tower stands just south-west of the marsh.
