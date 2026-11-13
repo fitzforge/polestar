@@ -1149,6 +1149,65 @@
 			"budget": {
 				"flow": "measured in the 30-60 batch (flow audit dynamic, off vs this dungeon)"
 			}
+		},
+		{
+			"dungeon": "Blackrock Depths",
+			"faction": "Horde",
+			"pickups": [
+				{
+					"quest": 4081,
+					"after": {
+						"guide": "forever/horde/50-60/01-un-goro-crater",
+						"quest": 4061,
+						"goal": "accept"
+					},
+					"note": "the WANTED poster, the first Kargath stop (~51)"
+				}
+			],
+			"run": {
+				"guide": "forever/horde/50-60/01-un-goro-crater",
+				"after": {
+					"step": "Into the Searing Gorge",
+					"note": "the bridge into Blackrock Mountain the route crosses on the way to the Burning Steppes; the portal is down the walkways from it"
+				},
+				"entrance": {
+					"map": 1427,
+					"x": 34.8,
+					"y": 85.3
+				},
+				"objectives": [
+					4081
+				],
+				"insideQuests": [
+					4201,
+					4083,
+					4295,
+					7604
+				],
+				"guard": "onquest 4081"
+			},
+			"handins": [
+				{
+					"quest": 4081,
+					"guide": "forever/horde/50-60/01-un-goro-crater",
+					"after": {
+						"quest": 4061,
+						"goal": "turnin"
+					},
+					"note": "Warlord Goretooth, the last Kargath stop (~53)"
+				}
+			],
+			"leftOut": {
+				"4082": "KILL ON SIGHT: High Ranking Dark Iron Officials: its poster offers it once 4081 is handed in, after the run",
+				"3906": "Disharmony of Flame: Overmaster Pyron, outside the dungeon; 3907, 3981 and 7201 come after it",
+				"4134": "Lost Thunderbrew Recipe: after Vivian Lagrave (4133), which the route does not take",
+				"4123": "The Heart of the Mountain: Maxwort Uberglint at Flame Crest, after the mountain",
+				"4136": "Ribbly Screwspigot: Yuka Screwspigot at Flame Crest, after the mountain",
+				"4063": "The Rise of the Machines: after 4062, which the route leaves out"
+			},
+			"budget": {
+				"flow": "measured in the 30-60 batch (flow audit dynamic, off vs this dungeon)"
+			}
 		}
 	]
 }
