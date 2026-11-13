@@ -26,9 +26,11 @@ next forever/alliance/03-darkshore-return
 # Hill -> Stormwind by gryphon (Shaw, General Marcus) and back -> Moonbrook (People's Militia
 # part 2 and Alba's crates, moved here from 02-westfall's second half), the lighthouse, the
 # traitor's escort -> the gryphon to Lakeshire -> the gnoll hills north of the lake ->
-# Lakeshire, then back to Auberdine: the gryphon to Stormwind (Sprite Jumpsprocket, Baros Alexston
-# for Expanding Horizons, whose reply goes to Thundris where the boat lands) and the boat, or the
-# Hearthstone (still bound there since the first Darkshore visit).
+# Lakeshire, then back to Auberdine for Darkshore's southern loops (03-darkshore-return): the gryphon to
+# Stormwind (Sprite Jumpsprocket, Baros Alexston for Expanding Horizons, whose reply goes to Thundris where
+# the boat lands, the Paladins' Redemption, training) and the boat, or the Hearthstone (bound there since the
+# first Darkshore visit) when it is ready: those steps drop once you are in Darkshore (#2082: after a hearth
+# the guide still sent the player to the Stormwind dock).
 # The Westfall stretch needs The Defias Brotherhood (65) from 02-westfall: a player who loads
 # this guide without it goes from Goldshire to Stormwind's gate (General Marcus) and flies
 # back to Lakeshire instead.
@@ -71,7 +73,7 @@ step Boat to Menethil Harbor
 
 step Menethil Harbor
   zone Wetlands
-  tip Off the boat, walk up the pier to the flight master by the inn. Nothing to take here yet: Menethil's quests are for your Wetlands visit at about 22.
+  tip Off the boat, walk up the pier to the flight master by the inn. Nothing to take here yet: Menethil's quests are for your Wetlands visit, after Ashenvale and the Stonetalon Mountains.
   getfp "Menethil Harbor"
 
 step Into Loch Modan
@@ -185,32 +187,40 @@ step Thelsamar
 
 step Mountaineer Ylva
   tip South of Thelsamar, Ylva lies dead in the mouth of a trogg cave. Take her banner, raise it beside her and hold the spot: troggs come in waves from both sides, then Headsplitter.
+  tip Careful: Stonevault Cave Hunters (36, elite) hold the pass just south of Ylva, toward the Badlands: stay by the banner and don't chase troggs south.
   accept 86585                                -- Mountaineer Ylva
   kill 269185 quest 86585                     -- Headsplitter
 
+# Captain Rugelfuss stands inside Algaz Station, the dwarven bunker by the tunnel; the walking maps
+# have no way into it, so this goto is its door on the south-east side, where players' recordings
+# walk in, not his spot (#1506).
 step The tunnel post
   tip West to the dwarven post at the tunnel to Dun Morogh.
-  turnin 86585                                -- Captain Rugelfuss
+  goto 23.5,75.6 "Algaz Station"
+
+step Captain Rugelfuss
+  tip Captain Rugelfuss is inside the bunker at the tunnel post: go in by its door on the south-east side.
+  turnin 86585                                -- Captain Rugelfuss, inside
 
 # ---------------------------------------------------------------- Ironforge
 
 step Fly to Ironforge
-  only Dwarf,Gnome
+  when taxi "Ironforge"
   zone Loch Modan
-  tip You have the Ironforge flight path from Dun Morogh: back north to Thelsamar's gryphons, quicker than walking through the tunnel and across Dun Morogh.
+  tip You have the Ironforge flight path: back north to Thelsamar's gryphons, quicker than walking through the tunnel and across Dun Morogh.
   goto 33.9,50.8 "Thelsamar flight master"
   fly "Ironforge"
   zone Ironforge
 
 step Into Dun Morogh
-  only Human,NightElf,Skyborne
+  when !taxi "Ironforge"
   when !zone "Ironforge"
   zone Dun Morogh
   tip Through the South Gate tunnel and west along the road to Ironforge. Know the Ironforge flight path already? Fly from Thelsamar instead: these two waypoints drop once you are in the city.
   goto 86.0,49.6 "Into Dun Morogh"
 
 step Into Ironforge
-  only Human,NightElf,Skyborne
+  when !taxi "Ironforge"
   when !zone "Ironforge"
   zone Ironforge
   goto 21.6,77.8 "Into Ironforge"
@@ -233,13 +243,6 @@ step Elwynn Forest
   zone Elwynn Forest
   tip From the tram, leave Stormwind by the main gate and follow the road through Goldshire and east through Elwynn to Redridge.
   goto 65.8,74.0 "The road east to Redridge"
-
-step Guard Thomas
-  only NightElf
-  zone Elwynn Forest
-  when onquest 35
-  tip Guard Thomas guards the bridge on this road east, past the Tower of Azora: Marshal Dughan's Further Concerns, from your walk through Goldshire, goes to him.
-  turnin 35                                   -- Guard Thomas, on the bridge
 
 step Henze Faulk
   only Human,Paladin
@@ -396,6 +399,14 @@ step The Defias Messenger
   tip South along the road to Moonbrook. The Defias Messenger starts in front of the Moonbrook smithy and walks north to the Gold Coast Quarry and the back of the Jangolode Mine, then back: look along his road. Slow him when he runs at 30% health.
   collect 1381 quest 142                      -- A Mysterious Message: the Defias Messenger
 
+step Half Pendant of Aquatic Endurance
+  only NightElf,Skyborne,Druid
+  when turnedin 65
+  when onquest 272
+  zone Westfall
+  tip Druids on Trial of the Sea Lion: from the Gold Coast Quarry, west to the shore and north along it. The Strange Lockbox lies on the sea floor off the coast (about 18,33); then back south along the coast to the lighthouse.
+  collect 15882 x1                            -- Half Pendant of Aquatic Endurance: the Strange Lockbox
+
 step Westfall Lighthouse
   when turnedin 65
   tip South-west from Moonbrook to the lighthouse on the point: Captain Grayson waits on its steps. Old Murk-Eye walks the beach and the shallows north-east of it among the murlocs: pull him away from the Oracles.
@@ -460,18 +471,21 @@ step Lakeshire
 # ---------------------------------------------------------------- Back to Darkshore
 
 step Fly to Stormwind
+  when !zone "Darkshore"
   zone Redridge Mountains
-  tip Back to Auberdine for Darkshore's southern loops: the gryphon to Stormwind, then the boat from the harbour.
+  tip Back to Auberdine for Darkshore's southern loops: the gryphon to Stormwind, then the boat from the harbour. Hearthstone ready (bound in Auberdine since the first Darkshore visit)? Use it instead: these steps drop once you are in Darkshore.
   goto 25.5,59.4 "Lakeshire flight master" live
   fly "Stormwind"
 
 step Sprite Jumpsprocket
   when onquest 92748
+  when !zone "Darkshore"
   zone Stormwind City
   turnin 92748                                -- Sprite Jumpsprocket, Dwarven District
 
 step Baros Alexston
   when onquest 97914
+  when !zone "Darkshore"
   zone Stormwind City
   tip Baros Alexston stands at the east side of Cathedral Square, on the way from the Dwarven District to the harbour.
   turnin 97914                                -- Baros Alexston: Thundris' letter from Auberdine
@@ -481,12 +495,21 @@ step Gazin Tenorm
   only Human,Paladin
   zone Stormwind City
   when onquest 1787,1788
+  when !zone "Darkshore"
   tip Gazin Tenorm and Duthorian Rall are in the Cathedral of Light, on Cathedral Square, on the way to the harbour.
   goto 50.5,47.5 "Cathedral of Light" live
   turnin 1787 only Human -- Gazin Tenorm
   accept 1788 only Human
   turnin 1788 only Human -- Duthorian Rall: Redemption
 
+step Class trainer
+  only Warrior,Paladin,Hunter,Rogue,Priest,Mage,Warlock
+  when !zone "Darkshore"
+  zone Stormwind City
+  tip Train on the way to the harbour: Old Town (Warriors, Rogues), the Cathedral of Light (Paladins, Priests), the Mage Quarter (Mages, Warlocks), the Dwarven District (Hunters).
+  train class only Warrior,Paladin,Hunter,Rogue,Priest,Mage,Warlock
+
 step Boat to Auberdine
+  when !zone "Darkshore"
   zone Stormwind City
   goto 22.71,56.69 "Boat to Auberdine" live

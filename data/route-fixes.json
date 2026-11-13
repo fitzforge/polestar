@@ -4327,6 +4327,42 @@
 			},
 			{
 				"a": [
+					"task",
+					1688
+				],
+				"b": [
+					"turnin",
+					39
+				],
+				"faction": "Alliance",
+				"why": "0.4.0 route audit (B2/B3, with the start guides): Gnome Warlocks took Surena's Choker (The Binding's second part, 1688) on a walk of its own from Stormwind to the Brackwell Pumpkin Patch and back at the end of Dun Morogh, and 02-westfall's east Elwynn loop then walked the same road to Guard Thomas' bridge. Surena (71.0,80.8) stands just south of the loop's Downstream river (the bridge 74.0,72.2): the choker is taken there, and Gakin's summoning on a Goldshire -> Slaughtered Lamb -> Goldshire hop before Westfall (about 1,000 yd less, the start guide's measure; the voidwalker at about 14). The choker before Goldshire."
+			},
+			{
+				"a": [
+					"turnin",
+					39
+				],
+				"b": [
+					"turnin",
+					1689
+				],
+				"faction": "Alliance",
+				"why": "0.4.0 route audit (B2/B3, with the start guides): Gnome Warlocks took Surena's Choker (The Binding's second part, 1688) on a walk of its own from Stormwind to the Brackwell Pumpkin Patch and back at the end of Dun Morogh, and 02-westfall's east Elwynn loop then walked the same road to Guard Thomas' bridge. Surena (71.0,80.8) stands just south of the loop's Downstream river (the bridge 74.0,72.2): the choker is taken there, and Gakin's summoning on a Goldshire -> Slaughtered Lamb -> Goldshire hop before Westfall (about 1,000 yd less, the start guide's measure; the voidwalker at about 14). The summoning after Goldshire."
+			},
+			{
+				"a": [
+					"turnin",
+					1689
+				],
+				"b": [
+					"accept",
+					36
+				],
+				"faction": "Alliance",
+				"why": "0.4.0 route audit (B2/B3, with the start guides): Gnome Warlocks took Surena's Choker (The Binding's second part, 1688) on a walk of its own from Stormwind to the Brackwell Pumpkin Patch and back at the end of Dun Morogh, and 02-westfall's east Elwynn loop then walked the same road to Guard Thomas' bridge. Surena (71.0,80.8) stands just south of the loop's Downstream river (the bridge 74.0,72.2): the choker is taken there, and Gakin's summoning on a Goldshire -> Slaughtered Lamb -> Goldshire hop before Westfall (about 1,000 yd less, the start guide's measure; the voidwalker at about 14). Before Westfall."
+			},
+			{
+				"a": [
 					"turnin",
 					276
 				],

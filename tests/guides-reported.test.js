@@ -5240,6 +5240,7 @@ test('Danger at the spot (#1575): the steps players died at among elites say so,
 		[5041, 1, /Flesheaters and Berserkers \(18-19\) are elites/, ['forever/horde/02-the-barrens.guide']],
 		[872, 1, /Flesheaters and Berserkers \(18-19\) are elites/, ['forever/horde/02-the-barrens.guide']],
 		[966, 1, /Voidcallers \(28-29\)[^.]*Athrikus Narassin \(31\)/, ['forever/alliance/03-darkshore.guide']],
+		[86585, 1, /Stonevault Cave Hunters \(36, elite\)/, ['forever/alliance/03-loch-modan.guide']],
 	];
 	for (const [quest, oi, says, files] of cases) {
 		assert.ok(fixes.some((f) => f.at && f.at.quest === quest && f.at.objective === oi && says.test(f.tip || '')), `${quest}.${oi}: the tip is a guide-fixes record`);
@@ -8379,20 +8380,14 @@ test('30-40: every written grind step says where, and names a dungeon to run ins
 	}
 });
 
-// Final route review, Alliance 1-30 (2026-11-08): Night Elves take Further Concerns (35) from Marshal Dughan
-// at the end of their Darkshore guide (level 14), then walk the Elwynn road past Guard Thomas' bridge on
-// 03-loch-modan's way to Redridge at about 19; the route carried it to 04-redridge-mountains at about 24.
-test('forever/alliance/03-loch-modan.guide: final review: Night Elves hand Further Concerns to Guard Thomas on the Elwynn road', { skip }, () => {
-	const list = goals('forever/alliance/03-loch-modan.guide');
-	const thomas = at(list, 'turnin 35', is('turnin', 35));
-	const { step } = list[thomas];
-	assert.deepEqual(step.only && step.only.races, ['NightElf'], 'a Night Elf step');
-	assert.ok(step.when.some((p) => p.k === 'onquest' && !p.neg && [].concat(p.q).includes(35)), 'only while carried');
-	// The road east (65.8,74.0 since #1509: the old 65.2,69.7 was inside the Tower of Azora).
-	const road = at(list, 'goto 65.8,74.0', (g) => g.t === 'goto' && Math.abs(g.x - 65.8) < 0.1 && Math.abs(g.y - 74.0) < 0.1);
-	const wiley = at(list, 'turnin 65', is('turnin', 65));
-	assert.ok(road < thomas && thomas < wiley, 'on the road east, before Lakeshire');
-	assert.ok(!goals('forever/alliance/04-redridge-mountains.guide').some(({ goal }) => is('turnin', 35)(goal)), 'not carried to 04-redridge-mountains');
+// Final route review, Alliance 1-30 (2026-11-08): Night Elves took Further Concerns (35) from Marshal Dughan at the
+// end of their Darkshore guide (level 14) and handed it to Guard Thomas on 03-loch-modan's Elwynn road at about 21:
+// a level 10 quest carried through two guides for a fraction of its XP. 0.4.0 route audit (B5): nightelf/02-darkshore
+// no longer takes it, and neither 03-loch-modan nor 04-redridge-mountains waits for it.
+test('forever/alliance/03-loch-modan.guide: Further Concerns is no longer carried to the Elwynn road for Night Elves', { skip }, () => {
+	for (const g of ['forever/alliance/03-loch-modan.guide', 'forever/alliance/04-redridge-mountains.guide']) {
+		assert.ok(!goals(g).some(({ goal }) => goal.quest === 35), `${g}: no Further Concerns`);
+	}
 });
 
 // Final route review, Alliance 1-30 (2026-11-08): 06-ashenvale walked from Menethil Harbor through Dun Algaz, Loch
@@ -9088,8 +9083,8 @@ test(`${LOCH_MODAN}: #1415 (vLM1, vLM2): Crocolisk Hunting at the lodge; the Wes
 	const westfall = text.filter((s) => /^\s+zone Westfall/m.test(s) || /quest (14|92747|142|155)\b|accept (104|14)\b|turnin (132|141|142|155)\b/.test(s));
 	assert.ok(westfall.length >= 8, 'the Westfall stretch is there');
 	for (const s of westfall) assert.match(s, /^\s+when turnedin 65$/m, `gated on 65: ${s.split('\n')[0]}`);
-	const fresh = text.find((s) => /^\s+when !turnedin 65$/m.test(s));
-	assert.ok(fresh && /turnin 120\b/.test(fresh) && /fly "Lakeshire"/.test(fresh), 'the fresh starter hands Solomon\'s letter to Marcus and flies back');
+	const fresh = text.filter((s) => /^\s+when !turnedin 65$/m.test(s));
+	assert.ok(fresh.some((s) => /turnin 120\b/.test(s)) && fresh.some((s) => /fly "Lakeshire"/.test(s)), 'the fresh starter hands Solomon\'s letter to Marcus and flies back');
 });
 
 // Recorded spots (2026-11-09): Old Murk-Eye is killed on the beach by the lighthouse (5 people), not at his one spawn
@@ -9996,23 +9991,24 @@ test('forever/horde/40-50/02-feralas.guide: the Felsteed trip starts at Orgrimma
 });
 // #1508/#1518 (0.3.6): after the tunnel post, 03-loch-modan sent everyone through the tunnel into Dun Morogh, a
 // waypoint for players who walk to Ironforge. Dwarves and Gnomes have the Ironforge flight path from their Dun Morogh
-// guide (and Thelsamar's), so the arrow then turned them back to Thelsamar to fly. They fly from Thelsamar now; the
-// tunnel and gate waypoints are for the races who walk.
-test('forever/alliance/03-loch-modan.guide: Dwarves and Gnomes fly to Ironforge, the others walk the tunnel (#1508)', { skip }, () => {
+// guide, so the arrow then turned them back to Thelsamar to fly. 0.4.0 (#2025): the flight is for whoever knows the
+// Ironforge flight path, whatever the race (players' recordings: Humans, Night Elves and Skyborne who had it flew),
+// and the tunnel walk for whoever doesn't, a Dwarf or Gnome without it included.
+test('forever/alliance/03-loch-modan.guide: the flight to Ironforge goes by the Ironforge flight path, the tunnel walk for the rest (#1508, #1518)', { skip }, () => {
 	const list = goals('forever/alliance/03-loch-modan.guide');
 	const post = at(list, 'turnin 86585', is('turnin', 86585));
 	const stormpike = at(list, 'turnin 301', is('turnin', 301));
-	const between = list.slice(post + 1, stormpike);
-	const forRace = (race) => ({ step, goal }) => [step.only, goal.only].every((o) => !o || !o.races || o.races.includes(race));
-	for (const race of ['Dwarf', 'Gnome']) {
-		const mine = between.filter(forRace(race)).map(({ goal }) => goal);
-		assert.ok(mine.some((g) => g.t === 'fly'), `${race}: a flight to Ironforge`);
-		assert.ok(!mine.some((g) => g.t === 'goto' && g.map === 1426), `${race}: no walk into Dun Morogh`);
-	}
-	for (const race of ['Human', 'NightElf', 'Skyborne']) {
-		const mine = between.filter(forRace(race)).map(({ goal }) => goal);
-		assert.ok(!mine.some((g) => g.t === 'fly'), `${race}: no flight (no Ironforge flight path yet)`);
-		assert.ok(mine.some((g) => g.t === 'goto' && g.map === 1426), `${race}: through the tunnel into Dun Morogh`);
+	const between = list.slice(post + 1, stormpike).filter(({ step }) => !dungeonOnly(step));
+	const taxi = (step, neg) => (step.when || []).some((p) => p.k === 'taxi' && !!p.neg === neg && /Ironforge/.test(p.name || p.location || JSON.stringify(p)));
+	const fly = between.find(({ goal }) => goal.t === 'fly');
+	assert.ok(fly, 'a flight to Ironforge');
+	assert.ok(taxi(fly.step, false), 'the flight step is `when taxi "Ironforge"`');
+	assert.ok(!fly.step.only || !fly.step.only.races, 'for every race');
+	const walks = between.filter(({ goal }) => goal.t === 'goto' && (goal.map === 1426 || goal.map === 1455));
+	assert.ok(walks.some(({ goal }) => goal.map === 1426), 'the tunnel into Dun Morogh');
+	for (const { step } of walks) {
+		assert.ok(taxi(step, true), `${step.title}: \`when !taxi "Ironforge"\``);
+		assert.ok(!step.only || !step.only.races, `${step.title}: for every race`);
 	}
 });
 
@@ -11892,4 +11888,80 @@ test('#1952: the Alliance start guides\' Camping 101 trainer steps wait until th
 		}
 	}
 	assert.ok(n >= 27, `${n} in-zone Camping 101 hand-ins found`);
+});
+
+// 0.4.0 route audit, Alliance 12-21 (B1): Humans trained at Goldshire (about 11) and next at the Stormwind
+// stop before the boat (about 16); the Thor flight's Stormwind visit at about 13 passes Old Town, Cathedral
+// Square and the Mage Quarter, so the level 12 spells are learned there.
+test(`${WESTFALL}: Humans train on the Thor flight's Stormwind visit`, { skip }, () => {
+	const list = goals(WESTFALL).filter(forRaceOf('Human'));
+	const osric = at(list, 'turnin 6281', is('turnin', 6281));
+	const back = at(list, 'fly back to Sentinel Hill', (g) => g.t === 'fly' && g.location === 'Sentinel Hill');
+	const train = list.findIndex(({ goal }, i) => i > osric && i < back && goal.t === 'train' && goal.class);
+	assert.ok(train > 0, 'a class training goal between Osric Strang and the flight back');
+	for (const cls of ['WARRIOR', 'PALADIN', 'HUNTER', 'ROGUE', 'PRIEST', 'MAGE', 'WARLOCK']) assert.ok(forClass(cls)(list[train]), `${cls} trains there`);
+});
+
+// 0.4.0 route audit, Alliance 12-21 (B7): after the last Westfall hand-ins the guide said to walk to Stormwind
+// (about 2,300 yd). Every start knows both flight paths by then; players' recordings (0.3.5+): of 19 people
+// measured there, 15 flew Sentinel Hill -> Stormwind and 4 used the Hearthstone, none walked.
+test(`${WESTFALL}: the last Sentinel Hill stop flies to Stormwind`, { skip }, () => {
+	const list = goals(WESTFALL);
+	const last = at(list, 'turnin 92745', is('turnin', 92745));
+	const fly = list.findIndex(({ goal }, i) => i > last && goal.t === 'fly');
+	assert.ok(fly > last && list[fly].step === list[last].step, 'the flight is on the Sentinel Hill stop');
+	assert.equal(list[fly].goal.location, 'Stormwind');
+	assert.ok(!compiled(WESTFALL).steps.some((st) => /Walk to Stormwind/.test(st.note || '')), 'no tip says to walk there');
+});
+
+// 0.4.0 route audit, Alliance 12-21 (B9, #2082): a player with the Hearthstone in Auberdine hearthed at the end of
+// 03-loch-modan and the guide still sent him to the Stormwind dock. The gryphon, the Stormwind errands and the boat
+// stay the default way back (the level model reads the end without them as slower), and every step of it drops once
+// the player is in Darkshore; training is added to that stop (the next train step was 06-ashenvale's, at 25-27).
+test(`${LOCH_MODAN}: #2082: the way back to Auberdine drops once in Darkshore, with training on the way`, { skip }, () => {
+	const list = goals(LOCH_MODAN);
+	const lastLakeshire = list.findLastIndex(({ goal }) => is('turnin', 89)(goal));
+	const back = list.slice(lastLakeshire + 1).filter(({ step }) => step !== list[lastLakeshire].step);
+	assert.ok(back.some(({ goal }) => goal.t === 'goto' && /Boat to Auberdine/.test(goal.text || goal.label || '')), 'the boat is the default way back');
+	for (const { step } of back) assert.ok((step.when || []).some((p) => p.k === 'zone' && p.neg && /Darkshore/.test(p.name)), `${step.title}: \`when !zone "Darkshore"\``);
+	const train = back.find(({ goal }) => goal.t === 'train' && goal.class);
+	assert.ok(train, 'a training stop in Stormwind before the boat');
+	for (const cls of ['WARRIOR', 'PALADIN', 'HUNTER', 'ROGUE', 'PRIEST', 'MAGE', 'WARLOCK']) assert.ok(forClass(cls)(train), `${cls} trains there`);
+	for (const q of [92748, 97914, 1788]) assert.ok(back.some(({ goal }) => is('turnin', q)(goal)), `turnin ${q} on that stop`);
+});
+
+// 0.4.0 route audit, Alliance 12-21 (F2, with 03-darkshore-return's Cat Form trip): Night Elf and Skyborne Druids
+// took Trial of the Sea Lion (272) at about 17 and fetched the Westfall half on a gryphon of its own to Sentinel Hill
+// in 04-redridge-mountains (about 25), then joined the halves on a Moonglade trip of its own in 06-wetlands (about
+// 28). The Westfall stretch of 03-loch-modan passes the Gold Coast Quarry, close to the Strange Lockbox (Westfall
+// 17.9,33.2): the half is collected there, so the Cat Form trip can finish 272 and Aquatic Form at about 22.
+test(`${LOCH_MODAN}: Druids collect the Westfall half pendant on the Westfall stretch`, { skip }, () => {
+	const list = goals(LOCH_MODAN);
+	const half = at(list, 'collect 15882', (g) => g.t === 'collect' && g.item === 15882);
+	const { step } = list[half];
+	assert.ok(step.when.some((p) => p.k === 'onquest' && !p.neg && [p.q].flat().includes(272)), 'only with Trial of the Sea Lion in the log');
+	assert.ok(forClass('DRUID')(list[half]) && !forClass('WARRIOR')(list[half]), 'Druids only');
+	assert.ok(half > at(list, 'the Defias Messenger', (g) => g.t === 'collect' && g.quest === 142) && half < at(list, 'accept 104', is('accept', 104)), 'between the messenger\'s road and the lighthouse');
+});
+
+// 0.4.0 route audit (B9, with the 21-30 audit's numbers): the Menethil tip said the Wetlands visit comes "at about 22"; it
+// comes after Ashenvale and the Stonetalon Mountains, where players are 24-27.
+test(`${LOCH_MODAN}: the Menethil tip names when the Wetlands visit comes, not a wrong level`, { skip }, () => {
+	const step = compiled(LOCH_MODAN).steps.find((st) => st.title === 'Menethil Harbor');
+	assert.ok(step && /after Ashenvale/.test(step.note || ''), 'the tip says the Wetlands come after Ashenvale');
+	assert.ok(!/about 22/.test(step.note || ''), 'no "about 22"');
+});
+
+// 0.4.0 route audit (B2/B3, with the start guides): Gnome Warlocks took Surena's Choker on a walk of its own from
+// Stormwind to the Brackwell Pumpkin Patch and back at the end of Dun Morogh; 02-westfall's east Elwynn loop walks
+// past her (the Downstream river). The choker is taken there, The Binding on a Goldshire -> Stormwind hop before Westfall.
+test(`${WESTFALL}: Gnome Warlocks take Surena's Choker on the east Elwynn loop and summon the voidwalker before Westfall`, { skip }, () => {
+	const list = goals(WESTFALL).filter(forRaceOf('Gnome')).filter(forClass('WARLOCK'));
+	const choker = at(list, 'collect 6810', (g) => g.t === 'collect' && g.item === 6810);
+	const goldshire = at(list, 'turnin 39 (Goldshire)', is('turnin', 39));
+	const binding = at(list, 'turnin 1689', is('turnin', 1689));
+	assert.ok(at(list, 'Downstream', (g) => g.t === 'collect' && g.quest === 91733) < choker && choker < goldshire, 'the choker after Downstream, before Goldshire');
+	assert.ok(goldshire < at(list, 'turnin 1688', is('turnin', 1688)) && binding < at(list, 'accept 36 (the Jansen Stead)', is('accept', 36)), 'the summoning after Goldshire, before Westfall');
+	for (const i of [choker, binding]) assert.ok(list[i].step.when.some((p) => p.k === 'onquest' && !p.neg), `${list[i].step.title}: only while The Binding is carried`);
+	assert.ok(!goals(WESTFALL).filter(forClass('WARRIOR')).some(({ goal }) => goal.quest === 1688 || goal.quest === 1689), 'Warlocks only');
 });

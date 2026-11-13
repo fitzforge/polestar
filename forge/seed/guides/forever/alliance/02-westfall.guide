@@ -117,6 +117,13 @@ step Downstream
   collect 247818 quest 91733                  -- Waterlogged Toolbox
   collect 247817 quest 91733                  -- Waterlogged Axe
 
+step Surena Caledon
+  only Gnome,Warlock
+  when onquest 1688
+  zone Elwynn Forest
+  tip Gakin's The Binding needs Surena's Choker: Surena Caledon (level 9) stands by the farmhouse of the Brackwell Pumpkin Patch, just south of the river.
+  collect 6810 quest 1688.1                   -- Surena's Choker: Surena Caledon
+
 step The bridge
   only Dwarf,Gnome
   zone Elwynn Forest
@@ -136,6 +143,16 @@ step Goldshire
   zone Elwynn Forest
   tip Follow the road west to Goldshire, on the way to Westfall: Marshal Dughan stands outside the inn.
   turnin 39                                   -- Marshal Dughan
+
+step The Binding
+  only Gnome,Warlock
+  when onquest 1688,1689
+  zone Stormwind City
+  tip North along the road from Goldshire to Stormwind: Gakin the Darkbinder waits in the cellar of the Slaughtered Lamb, in the Mage Quarter. Use the Bloodstone Choker at the summoning circle there and defeat the voidwalker it calls, then back south through Goldshire to Westfall.
+  turnin 1688                                 -- Gakin the Darkbinder
+  accept 1689
+  kill 5676 quest 1689.1                      -- Summoned Voidwalker: use the Bloodstone Choker at the circle
+  turnin 1689                                 -- Summon Voidwalker
 
 # ---------------------------------------------------------------- The road in: the Jansen Stead and Saldean's
 
@@ -191,6 +208,7 @@ step Osric Strang
   turnin 6281                                 -- Osric Strang, Limited Immunity in Old Town
   accept 6261
   accept 399                                  -- Baros Alexston, Cathedral Square: his compass is in his old house in Westfall
+  train class only Warrior,Paladin,Hunter,Rogue,Priest,Mage,Warlock -- Old Town, the Cathedral of Light, the Mage Quarter, the Dwarven District
   turnin 6261                                 -- Dungar Longdrink, the gryphon master
   accept 6285
   getfp "Stormwind"
@@ -336,6 +354,7 @@ step Moonbrook: kill these as you meet them
 step Sentinel Hill
   turnin 13                                   -- Gryan Stoutmantle
   turnin 92745                                -- Alba Fairmoon
+  fly "Stormwind"                             -- Thor, on the south side of the hill
 
 # ---------------------------------------------------------------- Stormwind and the boat
 
@@ -367,7 +386,7 @@ step Stormwind City
 step High Priestess Laurena
   only Human,Priest
   zone Stormwind City
-  tip Walk to Stormwind. High Priestess Laurena is in the Cathedral of Light.
+  tip High Priestess Laurena is in the Cathedral of Light.
   turnin 94774 only Human -- Divine Grace
 
 step Stormwind City
@@ -412,7 +431,7 @@ step Shaman training
 step Stormwind
   only Warrior,Paladin,Hunter,Rogue,Priest,Mage,Warlock,Druid
   zone Stormwind City
-  tip Walk to Stormwind, or fly if you know its flight path. Trainers: Old Town (Warriors, Rogues), the Cathedral (Paladins, Priests), the Mage Quarter (Mages, Warlocks), the Dwarven District (Hunters), the Park (Druids).
+  tip Trainers: Old Town (Warriors, Rogues), the Cathedral (Paladins, Priests), the Mage Quarter (Mages, Warlocks), the Dwarven District (Hunters), the Park (Druids).
   enter "Stormwind City" @69.5,85.5          -- In through the main gate (already done if you are in the city)
   train class only Warrior,Paladin,Hunter,Rogue,Priest,Mage,Warlock,Druid -- Level 12, 14 and 16 spells
 
