@@ -23,7 +23,7 @@ next forever/alliance/06-ashenvale
 
 step Auberdine
   zone Darkshore
-  tip From the dock, up to the north end of the village first (Thundris Windweaver, Alanndarian Nightsong by the moonwell, Archaeologist Hollee), then down the main street: the WANTED poster outside the inn, Terenthis at its east end, where the road leaves south. Sentinel Selarin stands beside Terenthis by the flight master; if she isn't there, she has been killed and respawns shortly: wait a moment.
+  tip From the inn (or the dock, if you came by boat), up to the north end of the village first (Thundris Windweaver, Alanndarian Nightsong by the moonwell, Archaeologist Hollee), then down the main street: the WANTED poster outside the inn, Terenthis at its east end, where the road leaves south. Sentinel Selarin stands beside Terenthis by the flight master; if she isn't there, she has been killed and respawns shortly: wait a moment.
   turnin 97926 optional                       -- Thundris Windweaver, north end of the village: Baros Alexston's reply
   accept 6123 only NightElf,Skyborne,Druid             -- Alanndarian Nightsong
   accept 729                                  -- Archaeologist Hollee
