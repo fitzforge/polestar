@@ -11801,3 +11801,12 @@ test(`${WETLANDS}: the last bind before the Duskwood return is the Deepwater Tav
 	assert.ok(!binds.some(({ goal }) => goal.location === 'Astranaar'), 'no bind at Astranaar');
 	assert.ok(goals(ASHENVALE).some(({ goal }) => goal.t === 'sethome' && goal.location === 'Astranaar'), "06-ashenvale's Astranaar bind stays");
 });
+
+// Alliance 20-30 audit (0.4.0, #2025): Gathering the Cure's Lunar Fungal Blooms grow in the moonkin caves just east
+// of Auberdine, on the way south; 03-darkshore-return went to Onu at the Grove first and walked back north for them.
+test(`${DARKSHORE_RETURN}: the Lunar Fungus is picked on the way south, before Onu (Alliance 20-30 audit)`, { skip }, () => {
+	const list = goals(DARKSHORE_RETURN);
+	const fungus = at(list, 'Lunar Fungus (6123)', (g) => g.t === 'collect' && g.quest === 6123 && g.item === 15851);
+	const onu = at(list, 'Onu (948)', is('turnin', 948));
+	assert.ok(fungus < onu, 'the blooms come before Onu');
+});

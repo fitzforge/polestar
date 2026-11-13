@@ -4904,6 +4904,18 @@
 				],
 				"faction": "Horde",
 				"why": "Undead Warlocks: Carendin Halgar offers Creature of the Void (1473) only once Halgar's Summons (1478, Ageron Kargal's pointer from Brill to him) is handed in. Players' recordings: 4 people carrying 1478 had 1473 refused at Carendin, and each was offered it right after handing 1478 in. The route takes 1478 on the Brill stop that trains (Ageron offered it to 3 recorded Warlocks there at 10) and hands it in to Carendin before 1473."
+			},
+			{
+				"a": [
+					"task",
+					6123
+				],
+				"b": [
+					"turnin",
+					948
+				],
+				"faction": "Alliance",
+				"why": "Alliance 20-30 audit (0.4.0, #2025): Gathering the Cure's Lunar Fungal Blooms (object 177750) grow in the moonkin caves just east of Auberdine (Darkshore 42.4-46.7, 45.7-53.3), a short way off the road south. 03-darkshore-return took Onu at the Grove (43.6,76.3) first and then walked about 1,140 yards back north to the caves and 1,350 back south to Buzzbox 525; picked on the way south, the Night Elves', Skyborne's and Druids' walk is about 2,000 yards (some 5 minutes) shorter. The blooms are outside While-you're-here's reach from the road."
 			}
 		],
 		"notes": [

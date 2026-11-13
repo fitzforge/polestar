@@ -37,6 +37,12 @@ step Auberdine
   accept 986                                  -- Terenthis
   accept 990                                  -- Sentinel Selarin, beside Terenthis: for Raene Wolfrunner in Astranaar, in the next guide
 
+step Lunar Fungus and Earthroot
+  only NightElf,Skyborne,Druid
+  tip On the way south to the Grove: the Lunar Fungal Blooms grow in the moonkin caves in the hills just east of Auberdine, a short way off the road; the moonkin there are irritable. Earthroot needs Herbalism: herbalists pick it all over Darkshore, anyone else brings it from Stormwind (Maria Lumere) or the Auction House.
+  collect 2449 x5 quest 6123.1 only NightElf,Skyborne -- Earthroot
+  collect 15851 x12 quest 6123.2 only NightElf,Skyborne -- Lunar Fungus
+
 step Onu
   when onquest 952
   turnin 952 only NightElf
@@ -47,12 +53,6 @@ step Onu
   accept 944
 
 # ---------------------------------------------------------------- Fourth loop: the south
-
-step Lunar Fungus and Earthroot
-  only NightElf,Skyborne,Druid
-  tip The Lunar Fungal Blooms grow in the moonkin caves in the hills just east of Auberdine; the moonkin there are irritable. Earthroot needs Herbalism: herbalists pick it all over Darkshore, anyone else brings it from Stormwind (Maria Lumere) or the Auction House.
-  collect 2449 x5 quest 6123.1 only NightElf,Skyborne -- Earthroot
-  collect 15851 x12 quest 6123.2 only NightElf,Skyborne -- Lunar Fungus
 
 step The Grove of the Ancients
   tip Grizzled Thistle Bears roam the hills around the Grove; Buzzbox 525 stands west of it among them.
