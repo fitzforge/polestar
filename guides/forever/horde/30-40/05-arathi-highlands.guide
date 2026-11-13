@@ -55,6 +55,8 @@ step Tarren Mill
   zone Hillsbrad Foothills
   accept 503                          -- Krusk, inside the inn
   accept 566                          -- The WANTED poster by the inn
+  accept 557                          -- Keeper Bel'varil, inside
+  accept 545                          -- Magus Wordeen Voidglare, inside
   sethome "Tarren Mill"
 
 step Alterac Mountains

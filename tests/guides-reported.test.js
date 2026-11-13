@@ -1527,6 +1527,22 @@ test('forever/horde/30-40/06-badlands.guide: no bind at Kargath', { skip }, () =
 	at(list, 'getfp Kargath', (g) => g.t === 'getfp');
 });
 
+// Horde 30-40 audit (0.4.0): Bracers of Binding (557) and Dalaran Patrols (545) were taken at Tarren Mill at about 31
+// and worked only on the 38-39 visit, carried through four guides; players' recordings show 3 people abandoning
+// Bracers of Binding on the way. Bel'varil and Voidglare stand at the same inn on the 38-39 visit's first Tarren Mill
+// stop, which takes them now.
+test('forever/horde/30-40: Bracers of Binding and Dalaran Patrols are taken on the 38-39 visit, not carried from 31', { skip }, () => {
+	const early = goals('forever/horde/30-40/01-hillsbrad-foothills.guide');
+	assert.deepEqual(early.filter(({ goal }) => goal.t === 'accept' && [545, 557].includes(goal.quest)).map(({ goal }) => goal.quest), [], 'not taken at 31');
+	const list = goals('forever/horde/30-40/05-arathi-highlands.guide');
+	const first = list.findIndex(({ step }) => step.title === 'Tarren Mill');
+	for (const q of [545, 557]) {
+		const acc = at(list, `accept ${q}`, is('accept', q));
+		assert.equal(list[acc].s, list[first].s, `${q} on the first Tarren Mill stop`);
+	}
+	assert.ok(at(list, 'accept 545', is('accept', 545)) < at(list, 'the Dalaran Summoners', (g) => g.t === 'kill' && g.quest === 545), 'before the ruins');
+});
+
 // --- Forever chains the quest data has no prerequisite for, so the guide took
 // a follow-up at the same visit as the quest before it and the giver did not
 // offer it: Baine's chain in Mulgore (Kori, #112) and Mull's report (#51),
@@ -2093,9 +2109,10 @@ test('forever/horde/30-40/01-hillsbrad-foothills.guide: Key to the City is hande
 	const take = at(list, 'accept 93680', is('accept', 93680));
 	const key = at(list, 'collect 279469', (g) => g.t === 'collect' && g.item === 279469);
 	const done = at(list, 'turnin 93680', is('turnin', 93680));
-	const patrols = at(list, 'accept 545', is('accept', 545));
 	assert.ok(at(list, 'accept 544', is('accept', 544)) < take, 'taken with Prison Break In');
-	assert.ok(take < key && key < done && done < patrols, 'the key, its hand-in, then Dalaran Patrols');
+	assert.ok(take < key && key < done, 'the key, then its hand-in');
+	// Dalaran Patrols itself is taken on the 38-39 visit's first Tarren Mill stop (Horde 30-40 audit, 0.4.0), after it.
+	at(goals('forever/horde/30-40/05-arathi-highlands.guide'), 'accept 545 on the 38-39 visit', is('accept', 545));
 	// The Grimy Key is looted from an object the data has no spawn for: the step carries the recorded spot.
 	const g = list[key].goal;
 	assert.ok(g.map === 1416 && Math.hypot(g.x - 16.4, g.y - 89.3) < 0.5, `the key's step points at Alterac 16.4,89.3 (got ${g.map} ${g.x},${g.y})`);

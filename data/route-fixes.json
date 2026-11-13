@@ -4124,6 +4124,30 @@
 			},
 			{
 				"a": [
+					"turnin",
+					675
+				],
+				"b": [
+					"accept",
+					557
+				],
+				"faction": "Horde",
+				"why": "Horde 30-40 audit (0.4.0): Bracers of Binding (557) is worked only on the 38-39 Alterac visit; taken at Tarren Mill at 31 it rode through four guides, and players dropped it on the way (players' recordings: 3 people abandoned it). Keeper Bel'varil stands at the same inn on the 38-39 visit's first Tarren Mill stop (30-40/05-arathi-highlands), which takes it after the first Arathi visit (675)."
+			},
+			{
+				"a": [
+					"turnin",
+					675
+				],
+				"b": [
+					"accept",
+					545
+				],
+				"faction": "Horde",
+				"why": "Horde 30-40 audit (0.4.0): Dalaran Patrols (545) is worked only on the 38-39 Alterac visit; Magus Wordeen Voidglare offers it at the same inn on the 38-39 visit's first Tarren Mill stop (30-40/05-arathi-highlands), which takes it after the first Arathi visit (675), instead of carrying it from 31."
+			},
+			{
+				"a": [
 					"accept",
 					97926
 				],

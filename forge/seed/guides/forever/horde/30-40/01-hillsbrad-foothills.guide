@@ -42,7 +42,7 @@ pitch For characters of 29 to 33, but most quests here are level 32-34, a few up
 # the clerk and the miner are in the town hall and the mine on this guide's own visits.
 #
 # Saved for the 38-39 visit (forever/horde/30-40/05-arathi-highlands): Gol'dir and the
-# Perenolde chain (503-508), Dalaran Patrols and Bracers of Binding (545, 557: accepted here), Foul Magics
+# Perenolde chain (503-508), Dalaran Patrols and Bracers of Binding (545, 557: offered here, taken there), Foul Magics
 # (671, accepted here; its Syndicate are by the road in from Tarren Mill), Guile of the Raptor
 # (701) and the Stones of Binding.
 # Key to the City (93680) comes along with Prison Break In: Voidglare offers Dalaran Patrols right after
@@ -406,10 +406,8 @@ step Tarren Mill
   turnin 567
   turnin 556                          -- Keeper Bel'varil, inside
   turnin 544                          -- Magus Wordeen Voidglare, inside
-  turnin 93680                        -- Magus Wordeen Voidglare: he offers Dalaran Patrols after it
-  accept 557                          -- Keeper Bel'varil: for the 38-39 visit to Alterac
-  accept 545                          -- Magus Wordeen Voidglare: for the 38-39 visit to Alterac
-  note Krusk now offers Gol'dir (level 36): leave it for the 38-39 visit.
+  turnin 93680                        -- Magus Wordeen Voidglare
+  note Krusk now offers Gol'dir (level 36), Bel'varil Bracers of Binding and Voidglare Dalaran Patrols: leave them for the 38-39 visit, which takes them on its first Tarren Mill stop.
   turnin 515 optional                 -- Apothecary Lydon, inside
 
 step Elixir of Agony with a group
