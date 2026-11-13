@@ -32,7 +32,7 @@ local floor, max, min, ipairs, pairs, type = math.floor, math.max, math.min, ipa
 local SH = W.SHELL
 -- Sizes (one table, so the main chunk stays within the locals budget): GAP between the two columns of the
 -- Recorder's and About's tiles, HERO_H the About hero's height, INSTALL_ROOM the main column's width the
--- header's Install button needs beside the page's title.
+-- header's Install button needs beside the page's title; the window's own (BASE_W ... EDGE) with its size below.
 local SIZE = { GAP = 24, HERO_H = 96, INSTALL_ROOM = 780 }
 
 local O = {}
@@ -3460,7 +3460,7 @@ end
 -- Never past the screen, never under SIZE.MIN_W x SIZE.MIN_H (the screen allowing).
 ---------------------------------------------------------------------------
 
-local SIZE = { BASE_W = 1300, BASE_H = 946, MIN_W = 860, MIN_H = 560, EDGE = 16 }
+SIZE.BASE_W, SIZE.BASE_H, SIZE.MIN_W, SIZE.MIN_H, SIZE.EDGE = 1300, 946, 860, 560, 16
 
 -- -> the default size, in UIParent units
 function O.DefaultSize()

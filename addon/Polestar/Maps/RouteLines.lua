@@ -1092,8 +1092,9 @@ local function ensureMinimap()
 	return true
 end
 
--- Each frame the minimap's view changed (Pins.WatchMinimapView).
-local function onView(pc, px, py, radius, facing, square)
+-- Each frame the minimap's view changed (Pins.WatchMinimapView). Its own
+-- name: the maps' onView above is the one every map canvas watches.
+local function onMinimapView(pc, px, py, radius, facing, square)
 	if not (mm and mm:IsShown()) then return end
 	elapsedSince = 0
 	drawMinimap(false, true, pc, px, py, radius, facing, square)
@@ -1113,7 +1114,7 @@ local function refreshMinimap()
 	if not ensureMinimap() then return end
 	mm:Show()
 	drawMinimap(true)
-	ns.Pins.WatchMinimapView("routeLines", onView)
+	ns.Pins.WatchMinimapView("routeLines", onMinimapView)
 end
 
 ---------------------------------------------------------------------------

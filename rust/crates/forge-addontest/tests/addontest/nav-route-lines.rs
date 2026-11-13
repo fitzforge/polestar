@@ -601,6 +601,46 @@ emit({ before = before == nil, shown = f ~= nil and f:IsShown(), strokes = R.Get
 	assert!(f(&out["strokes"]) > 10.0);
 }
 
+// Another addon's map canvas, handed over with MapCanvas.Add (#1938), draws the route lines as the world map does: its
+// show and map changes reach the maps' view watcher, never the minimap's (#1800), which would take the canvas's
+// arguments for the minimap's view.
+#[test]
+fn a_map_canvas_another_addon_adds_draws_the_route_lines_as_the_world_map_does() {
+	let out = painted(
+		r#"
+		local errors = 0
+		geterrorhandler = function() return function() errors = errors + 1 end end
+		Polestar.Set("nav.travel", false)
+		nav.viewRadius = 200
+		nav.place(0, 0)
+		target(0, -600)
+		local own = stub.newMapCanvas("TestAddonWorldMap")
+		own.mapID = 9000
+		own:GetCanvas():SetSize(1000, 1000)
+		Polestar.MapCanvas.Add(own)
+		own:Show()
+		stub.runMapFrame(own, 0)
+		nav.showWorldMap(9000)
+		stub.advance(0.3)
+		-- The strokes of RouteLines' frame on a map's canvas (its pin: a projection and strokes of its own).
+		local function strokesOn(map)
+			local canvas = map:GetCanvas()
+			for _, f in ipairs(stub.frames) do
+				if rawget(f, "projection") and rawget(f, "strokes") and f:IsVisible() then
+					local p = f.parent
+					while p and p ~= canvas do p = p.parent end
+					if p then return f.strokes.n end
+				end
+			end
+			return 0
+		end
+		emit({ own = strokesOn(own), world = R.GetStrokes("world").n, minimap = R.GetStrokes("minimap").n, errors = errors })"#,
+	);
+	assert!(f(&out["world"]) > 10.0 && f(&out["minimap"]) > 3.0, "the world map and the minimap draw the walk: {out}");
+	assert!(f(&out["own"]) > 10.0, "the added canvas draws it too: {out}");
+	assert_eq!(out["errors"], 0, "no listener error: {out}");
+}
+
 #[test]
 fn review_p3_9_the_world_map_walk_starts_at_the_player_with_the_minimap_line_off() {
 	let out = painted(
