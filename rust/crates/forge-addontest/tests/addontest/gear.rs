@@ -434,9 +434,9 @@ fn spec_automatic_reads_the_talents_again_when_they_load_after_login() {
 		Opts { before: before.clone(), ..mage(36) },
 	);
 	assert_eq!(out[0], json!(["frost", "Frost", "default"]));
-	assert_eq!(out[1], true, "the talents are not there to read yet");
-	assert_eq!(out[2], json!(["arcane", "Arcane", "talents"]));
+	assert_eq!(out[2], json!(["arcane", "Arcane", "talents"]), "read again when the config list arrives");
 	assert!(out[3].as_i64().unwrap() >= 1, "the advice is redone: {}", out[3]);
+	assert_eq!(out[1], true, "the talents were not there to read yet");
 	let quiet = run(
 		r#"
 		emit({ G.GetSpec() })
