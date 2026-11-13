@@ -4202,6 +4202,7 @@ L["Part of the %s quests"] = "Fait partie des quêtes de %s"
 -- L["%d finished quests here first"] = ""
 -- L["Jump anyway? They stay in your log, and the guide lists who takes each in."] = ""
 -- L["Jump anyway"] = ""
+L["Open any flight master's map once on this continent so Polestar knows your flight paths."] = "Ouvrez une fois la carte de n'importe quel maître de vol de ce continent pour que Polestar connaisse vos trajets aériens."
 
 -- No longer in the code (its English changed or it went away): reuse or delete.
 -- L["Alliance"] = "Alliance"

@@ -4190,6 +4190,7 @@ L["Part of the %s quests"] = "Teil der Quests von %s"
 -- L["%d finished quests here first"] = ""
 -- L["Jump anyway? They stay in your log, and the guide lists who takes each in."] = ""
 -- L["Jump anyway"] = ""
+L["Open any flight master's map once on this continent so Polestar knows your flight paths."] = "Öffne auf diesem Kontinent einmal die Karte eines beliebigen Flugmeisters, damit Polestar deine Flugrouten kennt."
 
 -- No longer in the code (its English changed or it went away): reuse or delete.
 -- L["The arrow's target and the areas it spawns in."] = "Das Ziel des Pfeils und die Gebiete, in denen es spawnt."

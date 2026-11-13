@@ -4215,7 +4215,12 @@ one carries `maybe`, and a `fly` step landing there keeps "Fly to", led to
 and arrived at like a known landing (`Own.maybeLanding`, not
 `Own.unknownLanding`). The first flight map on that continent settles it:
 `recordTaxiMap` reports a continent newly seen as a change, so the plan is
-made again. It orders by
+made again. Until then, once the route flies from, through or to such a
+flight master on the player's continent, the guide window's banner asks for
+any flight master's map there, once (`UI/GuideFrameBanner.lua`'s
+`taxiMap`: gone when a flight map opens there; closed, for good on that
+continent, `flags.taxiMapAsked`, `{ [continent] = true }`, per character;
+#2189). It orders by
 a cost (the Hearthstone carries a `HEARTH_MARGIN` of 120 s on top of its
 time, a teleport a `TELEPORT_MARGIN` of 60 s) and keeps the real seconds of every leg apart, so
 `seconds`/`rest` (the arrow's ETA) stay honest. Caps: 20000 pops, 40 ms,

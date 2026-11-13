@@ -13,6 +13,10 @@
 //                          Taurajo's flight master: its "Learn the flight
 //                          path" line where a flight map has opened in
 //                          Kalimdor, none where none has (part 1)
+//   <look>-<scale>-notice  no flight map opened in Kalimdor yet, the route
+//                          flying from Camp Taurajo, which the character may
+//                          have: the guide window's banner asks for any
+//                          flight master's map there, once (#2189)
 // Studio shot names: flight-paths/<look>-<scale>-<shot>.
 
 const { SKINS, pick } = require('./skins');
@@ -60,6 +64,14 @@ end
 Polestar.Widgets.ScrollTo(F.BoxScroll, math.max(0, (before - 2) * 12))
 stub.advance(0.3)`;
 
+// The guide window with the flight map notice up (UI/GuideFrameBanner.lua's taxiMap). The scenario's setup closed
+// every banner (studio.clearHeadsUps), this one too, for good in Kalimdor: opened again, the route's event brings it.
+const NOTICE = `Polestar.CharState().flags.taxiMapAsked = nil
+Polestar.Fire("ROUTE_CHANGED", (Polestar.Nav.GetRoute()))
+Polestar.UI.GuideFrame.Layout()
+stub.advance(0.3)
+assert(Polestar.UI.GuideFrame.BannerNotice() == "taxiMap", "no flight map notice: " .. tostring(Polestar.UI.GuideFrame.BannerNotice()))`;
+
 const ROWS = `Polestar.Set("behavior.whileHereFlights", true)
 stub.advance(3)
 Polestar.UI.GuideFrame.Layout()
@@ -90,11 +102,15 @@ for (const look of LOOKS) {
 			title: `${look} at ${s}: no flight map opened in Kalimdor yet, no such line`,
 			lua: `${base}\n${SCALE(s)}\n${AT_TAURAJO(false)}\n${ROWS}`,
 		};
+		shots[`${name}-notice`] = {
+			title: `${look} at ${s}: no flight map opened in Kalimdor yet, the route flying from Camp Taurajo: the banner asks for one`,
+			lua: `${base}\n${SCALE(s)}\n${AT_TAURAJO(false)}\n${TO_CROSSROADS}\n${NOTICE}`,
+		};
 	}
 }
 
 module.exports = {
-	title: 'Flight paths Polestar has not seen yet (#1795): the learn caption, the report\'s Travel: line, While-here\'s line',
+	title: 'Flight paths Polestar has not seen yet (#1795): the learn caption, the report\'s Travel: line, While-here\'s line, the flight map notice',
 	character: { race: 'Tauren', cls: 'HUNTER', faction: 'Horde', level: 18, money: 4200 },
 	place: { map: 1413, x: 44.5, y: 59.14, zone: 'The Barrens', subzone: 'Camp Taurajo' },
 	guide: { id: 'forever/horde/02-the-barrens', play: 39, hours: 1 },
