@@ -910,7 +910,7 @@
 				"96603": "Unstable Magic: level 60"
 			},
 			"budget": {
-				"flow": "measured in the 30-60 batch (flow audit dynamic, off vs this dungeon)"
+				"flow": "flow audit (dynamic 037, off vs this dungeon): 30-40/05-arathi-highlands +0.4 km, +5.5 min (the walk to the grate and back, the four steps), backtracks +1, hub visits +0; the run's XP takes 43 min off 40-50/01-stranglethorn-vale's written grind"
 			}
 		},
 		{
@@ -999,7 +999,7 @@
 				"351": "Find OOX-17/TN!: a rare beacon from the desert, not the dungeon"
 			},
 			"budget": {
-				"flow": "measured in the 30-60 batch (flow audit dynamic, off vs this dungeon)"
+				"flow": "flow audit (dynamic 037, off vs this dungeon): 40-50/04-tanaris +1.1 km (the pool to the gate and back), backtracks +1, hub visits +0; the guide 29 min shorter (its grind to 47 shortened by the run's XP)"
 			}
 		},
 		{
@@ -1092,7 +1092,7 @@
 				"351": "Find OOX-17/TN!: a rare beacon from the desert, not the dungeon"
 			},
 			"budget": {
-				"flow": "measured in the 30-60 batch (flow audit dynamic, off vs this dungeon)"
+				"flow": "flow audit (dynamic 037, off vs this dungeon): 40-50/02-feralas +0.3 km, +1.0 min, passed givers (hub) +1 (Bilgewhizzle's Divino-matic Rod, 3 over there, taken in 04-tanaris); 40-50/04-tanaris +0.6 km, +8.1 min, hub visits -1, passed enders -3, avoidable backtracks -1; 40-50/05-the-hinterlands 34 min shorter"
 			}
 		},
 		{
@@ -1147,7 +1147,7 @@
 				"96984": "Heart of Disruption: after Blood in the Streets (92434), on the 38-39 visit"
 			},
 			"budget": {
-				"flow": "measured in the 30-60 batch (flow audit dynamic, off vs this dungeon)"
+				"flow": "flow audit (dynamic 037, off vs this dungeon): 30-40/01-hillsbrad-foothills +1.0 km, +4.5 min (the crater to the pipe and back), passed givers near +1, backtracks -1, hub visits +0; the run's XP takes 26 and 21 min off the written grind of 30-40/02-thousand-needles and 30-40/04-dustwallow-marsh"
 			}
 		},
 		{
@@ -1206,7 +1206,7 @@
 				"4063": "The Rise of the Machines: after 4062, which the route leaves out"
 			},
 			"budget": {
-				"flow": "measured in the 30-60 batch (flow audit dynamic, off vs this dungeon)"
+				"flow": "flow audit (dynamic 037, off vs this dungeon): 50-60/01-un-goro-crater +0.1 km, +2.7 min, backtracks +1, hub visits +0; 50-60/02-felwood 13 min shorter"
 			}
 		}
 	],
