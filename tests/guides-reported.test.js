@@ -11752,15 +11752,22 @@ for (const run of fs.existsSync(path.join(__dirname, '..', 'data', 'dungeon-runs
 		}
 		// Fitz, 2026-11-13: never a dungeon too low. A record with gates: the run applies from the dungeon's floor (its
 		// `gate`, the Codex's floor, which forge guide lint checks), each pick-up from the floor less the levels the
-		// route plans before the run (its own `gate`), and a pick-up at the run's own stop with the run.
+		// route plans before the run (its own `gate`), and a pick-up at the run's own stop with the run. A quest picked up
+		// on several stops of a guide (Mebok's at each Raptor Horns hand-in, then the Ratchet catch-up) has a record
+		// entry per stop: each of its steps carries one of their gates, and each gate is on a step.
 		if (run.run.gate != null) {
 			assert.equal(lowestLevel(step), run.run.gate, `${run.run.guide}: the run is gated \`when level>=${run.run.gate}\``);
-			const gated = [...(run.pickups || []).map((p) => [p.quest, (p.after && p.after.guide) || p.guide, p.gate]), ...(run.runStop || []).map((q) => [q, run.run.guide, run.run.gate])];
-			for (const [quest, guide, gate] of gated) {
+			const gated = new Map();
+			for (const [quest, guide, gate] of [...(run.pickups || []).map((p) => [p.quest, (p.after && p.after.guide) || p.guide, p.gate]), ...(run.runStop || []).map((q) => [q, run.run.guide, run.run.gate])]) {
 				assert.ok(gate != null, `${guide}: the pick-up of ${quest} has its gate in the record`);
-				for (const s of steps(guide).filter((x) => whenDungeonOf(x, run.dungeon) && x.goals.some(is('accept', quest)))) {
-					assert.equal(lowestLevel(s), gate, `${guide}: the pick-up of ${quest} is gated \`when level>=${gate}\``);
-				}
+				const key = `${guide}|${quest}`;
+				if (!gated.has(key)) gated.set(key, { quest, guide, gates: new Set() });
+				gated.get(key).gates.add(gate);
+			}
+			for (const { quest, guide, gates } of gated.values()) {
+				const on = steps(guide).filter((x) => whenDungeonOf(x, run.dungeon) && x.goals.some(is('accept', quest))).map(lowestLevel);
+				for (const g of on) assert.ok(gates.has(g), `${guide}: the pick-up of ${quest} is gated \`when level>=${g}\`, which its record doesn't give (${[...gates].join(', ')})`);
+				for (const g of gates) assert.ok(on.includes(g), `${guide}: no pick-up of ${quest} is gated \`when level>=${g}\`, as its record says`);
 			}
 		}
 	});
