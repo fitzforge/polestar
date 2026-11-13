@@ -5672,6 +5672,15 @@ Polestar.Gear.ShowWeightsSetting()                   -- Settings > Questing > Re
   `TRAIT_TREE_CURRENCY_INFO_UPDATED`, `TRAIT_NODE_CHANGED`,
   `PLAYER_ENTERING_WORLD`, and 3 s and 15 s after login, read the talents again
   (once a frame) and redo the advice only when the pick, or `pending`, changed.
+- **Talents in the weights** (`Gear.TALENT_STATS`): talents that turn one
+  stat into another, which the weights' sources (Classic formulas, sims) know
+  nothing of. On the built-in weights in use, never a custom scale, each rank
+  bought adds its share of the target stat's weight to the source stat; the
+  ranks are read by the talent's spell on the config the talent frame shows
+  (`Client.TalentSpellRanks`: each node's entry and definition, read once per
+  node). Mental Dexterity (Shaman, 3 ranks, spell 415140): a third of the
+  attack power weight to Intellect per rank, as the 12 November 2026 patch
+  notes set it (#2090). `/polestar gear spec` prints what each added.
 - **Said.** Under the tooltip's upgrade line (and the reward pick line) Gear
   says what it scored with (`Gear.ScoredFor`); the guide window's reward pick
   and the reward panel's line open Stat weights on a click.

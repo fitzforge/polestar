@@ -511,6 +511,58 @@ fn polestar_gear_spec_prints_what_each_reader_found_and_why_automatic_picks_what
 	assert!(is_match(plain[1], r"Settings > Questing > Rewards & gear > Stat weights"), "{}", plain[1]);
 }
 
+fn shaman(level: i32) -> Opts {
+	Opts { cls: "SHAMAN", class_name: "Shaman", class_id: 7, level, ..Default::default() }
+}
+
+// #2090: Mental Dexterity (Enhancement, 3 ranks, talent spell 415140) turns 33/66/100% of Intellect into attack power
+// (the 12 November patch notes). The weights' sources know no Forever talent, so Intellect counted only for mana: each
+// rank now adds a third of the attack power weight to it, on whichever built-in weights are in use (Elemental's carry
+// almost no attack power), never on a custom scale; /polestar gear spec says what it added.
+#[test]
+fn mental_dexterity_adds_a_third_of_the_attack_power_weight_to_intellect_per_rank_on_the_built_in_weights() {
+	let out = run(
+		r#"
+		local function w() local x = G.GetWeights(); return { int = x.int, ap = x.ap or 0 } end
+		g.setColumns({ { "Elemental", 0 }, { "Enhancement", 21 }, { "Restoration", 0 } })
+		local seen = { w() }
+		for r = 1, 3 do
+			g.talentSpells = { [415140] = { column = 2, ranks = r } }
+			stub.fire("TRAIT_CONFIG_UPDATED", 7)
+			seen[#seen + 1] = w()
+		end
+		local spec = { G.GetSpec() }
+		stub.messages = {}
+		SlashCmdList.POLESTAR("gear spec")
+		local report = stub.messages[#stub.messages]
+		Polestar.Set("gear.spec.SHAMAN", "elemental")
+		local ele = w()
+		local _, sc = G.Scales.Import('( Pawn: v1: "Mine": Intellect=2, Strength=1, Ap=1 )', "SHAMAN")
+		Polestar.Set("gear.spec.SHAMAN", "custom:" .. sc.scale.id)
+		local custom = G.GetWeights().int
+		g.talentSpells = nil
+		stub.fire("TRAIT_CONFIG_UPDATED", 7)
+		emit({ seen = seen, spec = spec, report = report, ele = ele, custom = { custom, G.GetWeights().int } })
+	"#,
+		shaman(45),
+	);
+	let o = &out[0];
+	assert_eq!(o["spec"], json!(["enhancement", "Enhancement", "talents"]));
+	// Level 45: the 40-49 band, Intellect 0.179, attack power 0.468.
+	let seen = o["seen"].as_array().unwrap();
+	let (int0, ap) = (seen[0]["int"].as_f64().unwrap(), seen[0]["ap"].as_f64().unwrap());
+	assert!((int0 - 0.179).abs() < 1e-9 && (ap - 0.468).abs() < 1e-9, "{o}");
+	for (r, s) in seen.iter().enumerate() {
+		let want = int0 + ap * r as f64 / 3.0;
+		assert!((s["int"].as_f64().unwrap() - want).abs() < 1e-9, "{r} ranks: Intellect {} (want {want})", s["int"]);
+		assert!((s["ap"].as_f64().unwrap() - ap).abs() < 1e-9, "{r} ranks: attack power unchanged");
+	}
+	assert!(is_match(text(&o["report"]), r"^  Talents in the weights: .+ 3/3, Intellect \+0\.47$"), "{}", o["report"]);
+	let ele = &o["ele"];
+	assert!((ele["int"].as_f64().unwrap() - 0.563).abs() < 1e-9, "Elemental's band carries no attack power: {ele}");
+	assert_eq!(o["custom"][0], o["custom"][1], "a custom scale is used as it is: {}", o["custom"]);
+}
+
 // A player set Stat weights to Restoration and saw Feral come back. The chosen spec holds over a reload, a level,
 // talent points in Feral and Cat Form, on every surface: the spec, the weights, the tooltip line and reward picks.
 #[test]

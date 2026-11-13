@@ -35,7 +35,8 @@
 --   Gear.GetWeights() -> weights (read-only): the spec's band for this level
 --       (Gear.WEIGHT_BANDS, generated SpecData.lua), else the authored table;
 --       a small melee weapon DPS weight is added where the spec has none
---       (Feral's is 14x its attack power weight)
+--       (Feral's is 14x its attack power weight), and the share of a stat that
+--       a talent turns into another (Gear.TALENT_STATS: Mental Dexterity)
 --   Gear.GetWeightsInfo() -> { source, note, upTo, level } of the weights in use
 --   Gear.GetPlayer() -> { class, classID, level, race, raceID, faction } (read-only)
 --   Gear.GetRacial() -> the racial gear traits in use (Gear.RACIALS by raceID) | nil
@@ -343,6 +344,60 @@ function Client.TreeColumns(config)
 	return out
 end
 
+-- A node's talent spell: its entry's definition (GetEntryInfo,
+-- GetDefinitionInfo), the same on every config, so read once per node.
+local spellOfNode = {} -- nodeID -> spellID | false
+local function nodeSpell(T, config, id, info)
+	local spell = spellOfNode[id]
+	if spell ~= nil then return spell or nil end
+	local entry = type(info.activeEntry) == "table" and readable(info.activeEntry.entryID) or nil
+	if entry == nil and type(info.entryIDs) == "table" then entry = readable(info.entryIDs[1]) end
+	local ok, e = pcall(T.GetEntryInfo, config, entry)
+	local def = ok and type(e) == "table" and readable(e.definitionID) or nil
+	local ok2, d = pcall(T.GetDefinitionInfo, def)
+	spell = ok2 and type(d) == "table" and readable(d.spellID) or nil
+	spellOfNode[id] = type(spell) == "number" and spell or false
+	return spellOfNode[id] or nil
+end
+
+-- Ranks bought on the config's talents whose spell is one of `spells`
+-- ({ [spellID] = true }). -> { [spellID] = ranks } (empty when none, or no tree)
+function Client.TalentSpellRanks(config, spells)
+	local T, out = C_Traits, {}
+	if not (T and T.GetTreeNodes and T.GetNodeInfo and T.GetEntryInfo and T.GetDefinitionInfo) then return out end
+	local tree = treeColumns(config)
+	if not tree then return out end
+	local ok, ids = pcall(T.GetTreeNodes, tree)
+	if not (ok and type(ids) == "table") then return out end
+	for _, id in ipairs(ids) do
+		local known = spellOfNode[id]
+		if known == nil or (known and spells[known]) then
+			local ok2, info = pcall(T.GetNodeInfo, config, id)
+			local nodeID = ok2 and type(info) == "table" and readable(info.ID) or nil
+			if nodeID and nodeID ~= 0 then
+				local spell = nodeSpell(T, config, id, info)
+				if spell and spells[spell] then
+					local rank = readable(info.ranksPurchased)
+					if type(rank) ~= "number" then rank = readable(info.activeRank) end
+					if type(rank) == "number" and rank > 0 then out[spell] = (out[spell] or 0) + rank end
+				end
+			end
+		end
+	end
+	return out
+end
+
+-- A spell's name in the client's language, or nil.
+function Client.SpellName(spellID)
+	local f = C_Spell and C_Spell.GetSpellName
+	if f then
+		local ok, name = pcall(f, spellID)
+		name = ok and readable(name)
+		if type(name) == "string" then return name end
+	end
+	return nil
+end
+
 function Client.KnowsSpell(spellID)
 	local C = ns.Compat
 	return C and C.IsSpellKnown and C.IsSpellKnown(spellID) or false
@@ -516,6 +571,7 @@ Gear.GetItemInfo = itemInfo
 local player = { class = nil, classID = nil, level = 1, race = nil, raceID = nil, faction = nil }
 local specKey, specSource, specReport, weights, weightsInfo, customLabel, customName
 local scoredText = {} -- Gear.ScoredFor's text by `short`, for the spec resolved now
+local weightTalents -- what the stat-turning talents added to the weights in use (withTalentStats)
 local racial
 
 local function refreshPlayer()
@@ -684,10 +740,51 @@ function Gear.WeightsFor(class, key, level)
 	return withMeleeDps(w, class, key), w and { source = "polestar", upTo = 60 } or nil
 end
 
+-- Talents that turn one stat into another, which the weights' sources could
+-- not see (Classic formulas and sims know no Forever talent): by class, the
+-- talent's spell and ranks, and per rank the share of `from` that counts as
+-- `into`. The built-in weights in use get `from` raised by `into`'s weight
+-- times that share times the ranks bought (a custom scale is used as it is).
+--   Mental Dexterity (Enhancement, 3 ranks): 33/66/100% of Intellect as attack
+--   power, as the 12 November 2026 patch notes give it (#2090; was 50/100/150%).
+local TALENT_STATS = {
+	SHAMAN = { { spell = 415140, ranks = 3, from = "int", into = "ap", per = 1 / 3 } },
+}
+Gear.TALENT_STATS = TALENT_STATS
+
+-- The weights with the class's stat-turning talents counted, and what each
+-- added ({ { spell, ranks, max, from, into, add } }, for /polestar gear spec).
+-- The talents are read on the config the talent frame shows. -> weights, added
+local function withTalentStats(w, class)
+	local list = TALENT_STATS[class]
+	if not (w and list) then return w, nil end
+	local configs = Client.TalentConfigs()
+	local config = type(configs) == "table" and configs[1] or nil
+	if not config then return w, nil end
+	local want = {}
+	for _, t in ipairs(list) do want[t.spell] = true end
+	local ranks = Client.TalentSpellRanks(config, want)
+	local out, added = nil, nil
+	for _, t in ipairs(list) do
+		local r = math.min(ranks[t.spell] or 0, t.ranks)
+		local add = r * t.per * (w[t.into] or 0)
+		if add > 0 then
+			if not out then
+				out = {}
+				for k, v in pairs(w) do out[k] = v end
+				added = {}
+			end
+			out[t.from] = (out[t.from] or 0) + add
+			added[#added + 1] = { spell = t.spell, ranks = r, max = t.ranks, from = t.from, into = t.into, add = add }
+		end
+	end
+	return out or w, added
+end
+
 local function resolveSpec()
 	if not player.class then refreshPlayer() end
 	local class = player.class
-	specReport, customLabel, customName = nil, nil, nil
+	specReport, customLabel, customName, weightTalents = nil, nil, nil, nil
 	scoredText[true], scoredText[false] = nil, nil
 	if not (class and WEIGHTS[class]) then
 		specKey, specSource, weights, weightsInfo = nil, "default", nil, nil
@@ -707,6 +804,7 @@ local function resolveSpec()
 		specKey, specSource, specReport = Gear.DetectSpec(class, player.classID)
 	end
 	weights, weightsInfo = Gear.WeightsFor(class, specKey, player.level)
+	weights, weightTalents = withTalentStats(weights, class)
 end
 
 function Gear.GetSpec()
@@ -1181,6 +1279,7 @@ local SPEC_SOURCE = { setting = L["setting"], talents = L["talents"], default = 
 -- /polestar gear spec: what each way of reading the talents found, and what
 -- Automatic picks from it and why, for a player to paste into a report.
 local READER = { ranks = L["ranks bought"], headers = L["column points"], tabs = L["talent tabs"], primary = L["primary tree"] }
+local STAT_NAME = { int = L["Intellect"], ap = L["Attack power"] }
 
 local function columnsText(meta, list)
 	if not list then return L["nothing"] end
@@ -1224,6 +1323,11 @@ function Gear.PrintSpecReport()
 		line((L["Automatic: %s, the class default until the talents load"]):format(name))
 	else
 		line((L["Automatic: %s, the class default (no talent points found)"]):format(name))
+	end
+	-- The talents that turn one stat into another, counted in the weights in use.
+	for _, t in ipairs(weightTalents or {}) do
+		line(("%s: %s %d/%d, %s +%.2f"):format(L["Talents in the weights"], Client.SpellName(t.spell) or ("#" .. t.spell),
+			t.ranks, t.max, STAT_NAME[t.from] or t.from, t.add))
 	end
 end
 

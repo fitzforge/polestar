@@ -115,6 +115,9 @@ function C_SpecializationInfo.GetSpecialization() return g.primary or 0 end
 --   g.talentsReady = false   the talent data has not loaded (just after login):
 --                            IsInitialized is false and no config is known
 --   g.specGroup = 2          the active spec group
+--   g.talentSpells = { [spellID] = { column = 2, ranks = 3 } }   a talent of that spell in column 2 with 3 ranks
+--                            bought on spec group 1's config (its entry and definition: GetEntryInfo,
+--                            GetDefinitionInfo); the column's own nodes keep their points
 local TREE = 1089
 local NODE_RANKS = { 5, 5, 5, 5, 5, 3, 3, 2, 1 }
 local CONFIG_OF = { 7, 8 }
@@ -154,14 +157,33 @@ function C_Traits.GetConfigInfo(config)
 	end
 	return nil
 end
+-- The talents of g.talentSpells, in spell order: node 9000 + i, entry and definition 900000 + spell.
+local function talentSpells()
+	local list = {}
+	for spell, t in pairs(g.talentSpells or {}) do list[#list + 1] = { spell = spell, column = t.column, ranks = t.ranks } end
+	table.sort(list, function(a, b) return a.spell < b.spell end)
+	return list
+end
 function C_Traits.GetTreeNodes(tree)
 	local out, list = {}, tree == TREE and names() or {}
 	for c = 1, #list do
 		for k = 1, #NODE_RANKS do out[#out + 1] = c * 100 + k end
 	end
+	if tree == TREE then
+		for i = 1, #talentSpells() do out[#out + 1] = 9000 + i end
+	end
 	return out
 end
 function C_Traits.GetNodeInfo(config, id)
+	if id > 9000 then
+		local t = talentSpells()[id - 9000]
+		if not t then return { ID = 0 } end
+		local rank = config == 7 and t.ranks or 0
+		local entry = 900000 + t.spell
+		return { ID = id, posX = 1020 + (t.column - 1) * 4000 + 300, posY = 6000, ranksPurchased = rank, activeRank = rank,
+			currentRank = rank, maxRanks = 3, isVisible = true, groupIDs = { 600 + t.column, 500 + t.column }, entryIDs = { entry },
+			activeEntry = { entryID = entry, rank = rank }, visibleEdges = {} }
+	end
 	local c, k = math.floor(id / 100), id % 100
 	local list = names()
 	if not (list and list[c] and NODE_RANKS[k]) then return { ID = 0 } end
@@ -171,6 +193,11 @@ function C_Traits.GetNodeInfo(config, id)
 	return { ID = id, posX = 1020 + (c - 1) * 4000 + ((k - 1) % 4) * 600, posY = 900 + math.floor((k - 1) / 4) * 1200,
 		ranksPurchased = rank, activeRank = rank, currentRank = rank, maxRanks = NODE_RANKS[k], isVisible = true,
 		groupIDs = { 600 + c, 500 + c }, entryIDs = { id * 10 }, visibleEdges = {} }
+end
+function C_Traits.GetEntryInfo(_, entry) return entry and { definitionID = entry, maxRanks = 3 } or nil end
+function C_Traits.GetDefinitionInfo(def)
+	if type(def) == "number" and def > 900000 then return { spellID = def - 900000 } end
+	return {}
 end
 function C_Traits.GetGroupDisplayInfoByTreeID(tree)
 	local out = {}
