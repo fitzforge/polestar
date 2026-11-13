@@ -615,6 +615,11 @@ step Egan
   tip Cross the river east of Tirion's hut into Terrordale: Egan stands by Augustus' ruined hut.
   turnin 5281
 
+step Level 59.85
+  zone Eastern Plaguelands
+  tip The Terrordale Spirits haunt the woods around Egan. Top up here to level 59.85 while you stand in Terrordale: the hand-ins still to come (the Undercroft, Caer Darrow, Chromie and Chillwind Camp) take you to level 60. Or, with a group, run the Scholomance dungeon or the Stratholme dungeon instead.
+  level 59.85 grind 14564 -- grind on Terrordale Spirit at Terrordale, Eastern Plaguelands
+
 step The Marris Stead
   zone Eastern Plaguelands
   tip Ride south to the Marris Stead, the farm north-west of Darrowshire. The three agents' remains are bone outlines on the ground: one by the road south of the farm, one on the hill east of the house, one on the mound in front of it. Coming close enough to see the Blightcaller in front of the house completes the scouting.
@@ -639,11 +644,6 @@ step Chromie
   zone Western Plaguelands
   tip Chromie waits upstairs in the ruined inn on the west side of Andorhal, on the way back to Chillwind Camp.
   turnin 5941                         -- Chromie, upstairs
-
-step Level 59.93
-  zone Eastern Plaguelands
-  tip Cross the river east of Tirion into Terrordale. The Terrordale Spirits haunt the woods there. Top up here to level 59.93 before the hand-ins at Chillwind Camp: they take you to level 60. Or, with a group, run the Scholomance dungeon or the Stratholme dungeon instead.
-  level 59.93 grind 14564 -- grind on Terrordale Spirit at Terrordale, Eastern Plaguelands
 
 step Western Plaguelands
   zone Western Plaguelands

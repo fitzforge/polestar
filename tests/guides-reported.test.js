@@ -8556,8 +8556,8 @@ test('forever/alliance/50-60/06-silithus.guide: final review: travel tips and no
 	assert.doesNotMatch(texts(ranshalla), /later/, 'so it does not come later');
 	// The goal-less Dire Maul note went in the 0.4.0 audit (the dungeons owner's runs replace such notes).
 	assert.ok(!list.some(({ goal }) => goal.t === 'note' && /Dire Maul/.test(goal.text)), 'no Dire Maul note');
-	const grind = list.find(({ goal }) => goal.t === 'level' && goal.level + (goal.frac || 0) >= 59.9);
-	assert.ok(grind && /Terrordale/.test(grind.step.note || ''), 'the solo grind to 60 (less the last Chillwind hand-ins) is in Terrordale');
+	const grind = list.find(({ goal }) => goal.t === 'level' && goal.level + (goal.frac || 0) >= 59.8);
+	assert.ok(grind && /Terrordale/.test(grind.step.note || ''), 'the solo grind to 60 (less the hand-ins after it) is in Terrordale');
 });
 
 // Final route review before 0.3.5, Alliance 40-60: texts from an older order. Vital Supplies was "for Nethergarde
@@ -9454,7 +9454,7 @@ test('Alliance 50-60: The Eastern Plagues is taken with Flint Shadowmore and the
 	const take = at(g, 'accept 6185', is('accept', 6185));
 	assert.ok(at(g, 'turnin 6184', is('turnin', 6184)) < take, 'Flint Shadowmore is handed in first');
 	const work = at(g, 'complete 6185', (x) => x.t === 'complete' && x.quest === 6185);
-	const top = g.findIndex(({ goal }) => goal.t === 'level' && goal.level + (goal.frac || 0) >= 59.9);
+	const top = g.findIndex(({ goal }) => goal.t === 'level' && goal.level + (goal.frac || 0) >= 59.8);
 	const hand = at(g, 'turnin 6185', is('turnin', 6185));
 	assert.ok(take < work && work < hand && top < hand, 'accept, the Marris Stead, the top-up, then the hand-in');
 	assert.ok(g[top].goal.level + (g[top].goal.frac || 0) < 60, 'the top-up leaves the Chillwind hand-ins their XP');
@@ -11910,4 +11910,15 @@ test('Alliance 50-60: danger warnings at Dreadmaul Rock, the Blackrock camps, Ku
 	const six = goals(L6);
 	const th = six[at(six, 'collect 5086', (g) => g.t === 'collect' && g.quest === 5086)].goal;
 	assert.deepEqual([th.x, th.y], [50.6, 22.4], 'the Toxic Horror clear of the walkers');
+});
+
+// 0.4.0 audit (A1): the last top-up is ground in Terrordale while the route stands there for Egan, before the Marris
+// Stead, the Undercroft, Caer Darrow and Chromie; it rode back north to Terrordale from Caer Darrow for it (about 3.4k yd).
+// The hand-ins after it (6024, 5846, 5941 and Chillwind Camp's) take it to 60, so it stops at 59.85.
+test('Alliance 50-60/06: the last top-up right after Egan, before the Marris Stead', { skip }, () => {
+	const g = goals('forever/alliance/50-60/06-silithus.guide');
+	const top = g.findIndex(({ goal }) => goal.t === 'level' && goal.level + (goal.frac || 0) >= 59.8);
+	assert.ok(at(g, 'turnin 5281', is('turnin', 5281)) < top, 'after Egan');
+	assert.ok(top < at(g, 'Marris Stead', (x) => x.t === 'collect' && x.quest === 6185), 'before the Marris Stead');
+	assert.ok(top < at(g, 'turnin 5846', is('turnin', 5846)), 'and before Caer Darrow');
 });
