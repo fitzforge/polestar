@@ -450,14 +450,18 @@ function Follow.Step(xs, ys, zs, left, n, S, px, py, stop, join, sight, hill)
 	local from = idx    -- the first path point the corridor holds to (past a road's join, the points after it)
 	local joined = false
 	-- A stop between two points (a split walk's chokepoint far along a piece of the path) is a spot the aim may
-	-- reach, `frac` of the way past point `limit`'s whole part, unless the projection is there already: held at the
-	-- point before it, the arrow pointed at the feet of a player standing there, the chokepoint 40 yd on along a
-	-- sparse path in open ground and the piece's end out of reach (0.3.8, an Ashenvale pass).
+	-- reach, `frac` of the way past point `limit`'s whole part, once the projection is on that point's segment
+	-- (the player past the point): the chokepoint 40 yd on along a sparse path in open ground is then in reach
+	-- (0.3.8, an Ashenvale pass). Until then the aim stops at the point, as at any stop, and the point is never
+	-- smoothed (`whole`): let on to the spot sooner, from the point's REACH or further back, the aim cut the corner
+	-- there, off the path's ramp down into Un'Goro Crater, and the starts that then walked on met zone borders
+	-- the route turned back at (0.4.0, the border sweep: 23 starts, #1543).
 	local last, frac = limit, limit % 1
 	if frac > 0 then
 		last = math.floor(limit)
-		if a + bestT < limit then last = last + 1 end
+		if a == last and bestT < frac then last = last + 1 end
 	end
+	local whole = limit - frac
 	for j = idx, last do
 		-- Point j, or (past `limit`) the stop's spot short of it.
 		local ex, ey, zj = xs[j], ys[j], zs[j]
@@ -471,8 +475,8 @@ function Follow.Step(xs, ys, zs, left, n, S, px, py, stop, join, sight, hill)
 		-- of SHORT yards or less on both sides), the aim slides along the path
 		-- smoothed over each point's neighbours (1-2-1), so the side-to-side
 		-- offsets cancel out. The last point it may reach (the goal's end,
-		-- `stop`) and the corners of a sparse path stay where they are.
-		if j > 1 and j < limit and left[j - 1] - left[j] <= SHORT and left[j] - left[j + 1] <= SHORT then
+		-- `stop`'s whole point) and the corners of a sparse path stay where they are.
+		if j > 1 and j < whole and left[j - 1] - left[j] <= SHORT and left[j] - left[j + 1] <= SHORT then
 			ex = (xs[j - 1] + 2 * ex + xs[j + 1]) * 0.25
 			ey = (ys[j - 1] + 2 * ey + ys[j + 1]) * 0.25
 		end

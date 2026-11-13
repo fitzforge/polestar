@@ -1946,10 +1946,12 @@ function Walk.Stops(pc, px, py)
 		-- never a lift the path rides (its landings join the floors).
 		local ez, za, zb = tonumber(e.z), ptsZ[a], ptsZ[a + 1]
 		if not ridden and ez and za and zb and abs(za - ez) > STOP_DZ and abs(zb - ez) > STOP_DZ then return end
-		-- stop: the follower's cap for the piece that ends here (Nav/Follow.lua), the chokepoint's spot on the path; a
-		-- lift's, the point before its landing (a spot between the landings' floors is no place to aim at).
+		-- stop: the follower's cap for the piece that ends here (Nav/Follow.lua), the chokepoint's spot on the path,
+		-- kept on its segment a when it lies at the segment's end (t = 1: as at point a + 1, which the follower lets
+		-- the aim reach from anywhere before it; the border sweep, #1543); a lift's, the point before its landing (a
+		-- spot between the landings' floors is no place to aim at).
 		found[#found + 1] = { kind = kind, entry = e, wx = sx, wy = sy, r = r < 5 and 5 or r > 20 and 20 or r, along = along, seg = a,
-			stop = kind == "lift" and a or a + t, ridden = ridden }
+			stop = kind == "lift" and a or a + (t < 1 and t or 1 - 1e-6), ridden = ridden }
 	end
 	local packed = type(_G.PolestarNavChokepoints) == "table" and _G.PolestarNavChokepoints[gc]
 	if type(packed) == "table" then
