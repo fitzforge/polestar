@@ -180,6 +180,9 @@ L["Finished, and no step from here on hands it in: handing it in now saves a tri
 -- L["%s in your quest log"] = ""
 -- L["Only if you skip %s"] = ""
 -- L["Only if you run %s in your route"] = ""
+-- L["Hand in"] = ""
+-- L["%s offers it and takes it back in one talk: it never goes in your quest log"] = ""
+-- L["Offered and taken back in one talk: it never goes in your quest log"] = ""
 
 -- Core/Automation.lua
 L["Choose a reward to finish the turn-in."] = "보상을 선택해 제출을 마치십시오."
@@ -1481,6 +1484,12 @@ L["Clears your manual check-offs and skipped steps in this guide from your last 
 -- L["The route ahead never hands these in. Click to see who takes each, with a guide there."] = ""
 -- L["1 finished quest to hand in elsewhere"] = ""
 -- L["%d finished quests to hand in elsewhere"] = ""
+-- L["1 quest in your log carries on to a later guide"] = ""
+-- L["%d quests in your log carry on to later guides"] = ""
+-- L["1 quest isn't part of your route"] = ""
+-- L["%d quests aren't part of your route"] = ""
+-- L["A later guide of your route hands these in: keep them. Click to see each with its guide."] = ""
+-- L["No guide of your route takes, works or hands these in. Click to see them and keep or abandon each."] = ""
 
 -- UI/JourneyPanel.lua
 L["Lift to %s"] = "%s행 승강기"
@@ -3181,6 +3190,14 @@ L["The route hands in every finished quest in your log."] = "경로에서 퀘스
 L["Finished, and the route ahead never hands these in: here is who takes each. Guide me leads you to them, nearest first. A grey one gives almost no XP any more: abandon it if you won't pass by."] = "완료했지만 앞으로의 경로에서 제출하지 않는 퀘스트입니다. 각각 누구에게 제출하는지 보여 줍니다. '가이드 시작'을 누르면 가까운 곳부터 안내합니다. 회색 퀘스트는 경험치를 거의 주지 않으니, 지나갈 일이 없다면 포기하십시오."
 L["Finished quests you're still carrying (%d)"] = "아직 들고 있는 완료된 퀘스트 (%d)"
 L["Hand in your finished quests"] = "완료한 퀘스트 제출"
+-- L["Handed in in %s"] = ""
+-- L["A later guide hands it in"] = ""
+-- L["No quest in your log waits for a later guide."] = ""
+-- L["A later guide of your route hands these in: keep them."] = ""
+-- L["Every quest in your log is part of your route."] = ""
+-- L["No guide of your route takes, works or hands these in. Keep the ones you want; Abandon asks in the game's own window first."] = ""
+-- L["Finished: no guide of your route hands it in"] = ""
+-- L["Not in any guide of your route"] = ""
 
 -- UI/ClassCard.lua
 L["NEW ABILITY"] = "새 능력"
@@ -3223,6 +3240,9 @@ L["Next: %s"] = "다음: %s"
 L["Pick a guide"] = "가이드 선택"
 L["Not now"] = "나중에"
 L["Carried to later guides"] = "이후 가이드로 이어지는 퀘스트"
+-- L["Not part of your route"] = ""
+-- L["Keep or abandon them"] = ""
+-- L["Each with its Abandon button, which asks in the game's own window first."] = ""
 
 -- UI/NameTargets.lua
 L["Click to target and mark %s (out of combat)."] = "클릭: %s 대상 지정 및 징표 표시 (전투 중이 아닐 때)."
