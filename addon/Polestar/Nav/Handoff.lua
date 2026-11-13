@@ -26,6 +26,8 @@
 --       waypoint mirrors (Nav/Bridges.lua). Pins, the guide window and
 --       everything else stay.
 --   Handoff.Yielding() -> bool   stepping aside for a journey not Polestar's
+--   Handoff.ClickTaken() -> bool   a map click it planned a journey of its own
+--       for (Nav/Journey.lua leaves its Shift- and Alt-click to it)
 --
 -- The target goes as one stop, owner "Polestar": its live map point, its
 -- label as the title, a stop kind (the goal's verb, a hand-set target's
@@ -33,8 +35,10 @@
 -- kill, collect, use or click goal with a spawn area `hold` with `radius`,
 -- `shapes` (every spawn spot) and the quests the area stands for, so the
 -- stop never "arrives" while the area is worked. It is sent again only when
--- what it says changes; one the player or another addon cleared or replaced,
--- or that arrived, stays theirs until Polestar's target changes. A send
+-- what it says changes; one the player cleared, or that arrived, stays theirs
+-- until Polestar's target changes. One another journey replaced (the player's
+-- own, or another addon's) goes back once no journey runs there any more, as
+-- Polestar guides again in yield when a journey not its own ends. A send
 -- refused in combat (or without a position: an instance, a loading screen)
 -- waits for combat's end or the world; one refused otherwise (Journeys off in
 -- Shortest Path Forever, a point it cannot place) lets Polestar guide that
@@ -96,6 +100,7 @@ local unguided = false -- it holds Polestar's stop but guides nothing (no way th
 local refusedKey      -- the stop (or target) refused, not offered again until it changes or the world reloads
 local sentKey         -- the stop it last took, kept after its journey ends: never sent twice
 local live = false    -- that journey still runs, as far as Polestar knows
+local replacedKey     -- that stop, when another journey replaced it: sent again once no journey runs there
 local pending = false -- a stop waits for combat's end or a position
 local worldUp = false -- PLAYER_ENTERING_WORLD seen: nothing is sent before
 local subscribed = false
@@ -383,14 +388,14 @@ local function step(force)
 			return
 		end
 		cancel(A)
-		sentKey, pending, refusedKey, refused, unguided = nil, false, nil, false, false
+		sentKey, pending, refusedKey, refused, unguided, replacedKey = nil, false, nil, false, false, nil
 		return
 	end
 	if not worldUp or dead() then return end
 	local t = Nav.GetTarget()
 	if not t then
 		cancel(A)
-		sentKey, pending, refusedKey = nil, false, nil
+		sentKey, pending, refusedKey, replacedKey = nil, false, nil, nil
 		setRefused(false)
 		return
 	end
@@ -428,9 +433,22 @@ local function sync(force)
 end
 Handoff.Sync = sync
 
+-- Does any journey run in it, whoever's? One it guides (Active), or one Journey (version 1 minor 3, version 2)
+-- still reads: guidance off, or a first search still working ("loading"). A read that fails counts as one.
+local function running(A)
+	local ok, active = pcall(A.Active)
+	if not ok or active then return true end
+	if type(A.Journey) ~= "function" then return false end
+	local ok2, j, why = pcall(A.Journey)
+	return not ok2 or j ~= nil or why == "loading"
+end
+
 -- Its guidance changed. Handing off: has the journey Polestar sent ended
 -- (arrived, cleared, replaced)? Then it stays ended until Polestar's target
--- changes. Does it still hold that stop but guide nothing (Active() false: its
+-- changes, except one another journey replaced: once no journey runs there
+-- (that one arrived or was cleared) and the target is the same, it is sent
+-- again (never in combat or while dead: the fight's end looks again). Does it
+-- still hold that stop but guide nothing (Active() false: its
 -- search found no way there, or its guidance was turned off in its tracker)?
 -- Then Polestar guides that target, also after that journey ends, until it
 -- guides anything again (that journey, the player's own, another addon's or
@@ -443,7 +461,19 @@ local function heard()
 	if not A then return end
 	if live then
 		local why = type(A.Ended) == "function" and A.Ended(OWNER)
-		if why or (type(A.CurrentStop) == "function" and A.CurrentStop(OWNER) == nil) then live = false end
+		if why or (type(A.CurrentStop) == "function" and A.CurrentStop(OWNER) == nil) then
+			live = false
+			replacedKey = why == "replaced" and sentKey or nil
+		end
+	end
+	if replacedKey and not live then
+		if replacedKey ~= sentKey then
+			replacedKey = nil
+		elseif not inCombat() and not dead() and not running(A) then
+			replacedKey, sentKey = nil, nil
+			sync(true)
+			return
+		end
 	end
 	if type(A.Active) ~= "function" or not (live or unguided) then return end
 	if A.Active() then
@@ -451,6 +481,21 @@ local function heard()
 	elseif live and not dead() then
 		setUnguided(true)
 	end
+end
+
+-- A map click Shortest Path Forever planned itself (Nav/Journey.lua): a journey not Polestar's guides there now.
+-- Never asked in combat, where the click counts as its own.
+function Handoff.ClickTaken()
+	local A = api()
+	if not A then return false end
+	if inCombat() then return true end
+	local ok, active = pcall(A.Active)
+	if not (ok and active) then return false end
+	if type(A.CurrentStop) == "function" then
+		local ok2, stop = pcall(A.CurrentStop, OWNER)
+		if ok2 and stop ~= nil then return false end
+	end
+	return true
 end
 
 local function subscribe()
@@ -476,7 +521,7 @@ end
 -- Without Subscribe (minor 0): Nav's once-a-second tick asks instead.
 function Handoff:Refresh()
 	if engaged() then
-		if (live or unguided) and not subscribed then heard() end
+		if (live or unguided or replacedKey) and not subscribed then heard() end
 	elseif (not subscribed or lookOwed) and worldUp then
 		look()
 	end
@@ -520,6 +565,7 @@ ns.RegisterEvent("PLAYER_REGEN_ENABLED", function()
 	if pending then sync() end
 	if leftoverOwed then cancelLeftover() end
 	if lookOwed then look() end
+	if replacedKey then heard() end
 end)
 -- Dead or a ghost, nothing is sent; alive again, the target goes as it is,
 -- and whether it guides is asked again.

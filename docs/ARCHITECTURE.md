@@ -3580,8 +3580,23 @@ Polestar.Nav.handoff.Yielding() -> bool  -- the option off and a journey not Pol
   itself; alive again the target goes as it is (the same stop is not resent).
 - **Not fighting.** `Subscribe` (else Nav's once-a-second tick) reads
   `Ended("Polestar")` and `CurrentStop`: once the journey arrived or was
-  cleared or replaced it is left ended, nothing is resent and no `Cancel`
-  is called, until Polestar's target changes.
+  cleared it is left ended, nothing is resent and no `Cancel` is called,
+  until Polestar's target changes. One another journey replaced (the
+  player's own, or another addon's: `Ended` says `"replaced"`) goes back
+  once no journey runs there (`Active()` false and `Journey()` nil, not
+  `"loading"`) and the target is the same, as Polestar guides again in
+  yield; never in combat or dead (combat's end looks again).
+- **Map clicks.** With it installed, Polestar's Shift- and Alt-clicks on the
+  world map and its minimap click defer a frame and plan only if Shortest
+  Path Forever planned nothing of its own for that click
+  (`Handoff.ClickTaken()`: `Active()` with no `CurrentStop("Polestar")`; in
+  combat always taken): its own click planning (Journeys on) is the player's
+  journey, Polestar yields and keeps the guide's target for after it.
+- **The game's pin.** Stepping aside never clears the game's user waypoint,
+  and Polestar clears it only while it is still the pin Polestar set
+  (`Nav/Bridges.lua`): its guide keeps the pin it found to put back and
+  reads a pin cleared under it as the player taking over, and a pin someone
+  else set over Polestar's is theirs.
 - **Refused.** A stop refused out of combat (its Journeys off, or a point it
   cannot place) and a target with no live point: Polestar guides that target
   itself (`Nav.HandedOff()` false) and cancels its earlier journey; the next
@@ -3615,7 +3630,7 @@ Polestar.Nav.handoff.Yielding() -> bool  -- the option off and a journey not Pol
   `/polestar skipleg`. Polestar's arrival chime is silent meanwhile.
 
 Tested by `rust/crates/forge-addontest/tests/addontest/nav-handoff.rs` against a fake API written to its
-`docs/api.md` (v1.16.0).
+`docs/api.md` (v1.33.0: version 1, minor 3; and 1.34.0's version 2).
 
 ### MapCanvas — drawing on Blizzard's map frames
 
