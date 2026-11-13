@@ -653,8 +653,9 @@ local SPECS = {
 		{ kind = "toggle", key = "qol.targetPlate", label = L["Who it targets"], info = true,
 			help = L["The target button's icon shows what you do next: talk, accept, turn in, kill or loot, a skull for an elite, rare or boss, or their face once you have seen them. Their name sits beside it, green for a friendly NPC, red for a mob, gold for an elite or rare, with small icons for the names after it. The cog sets those icons' size."],
 			search = "target icon, target name, portrait, npc name, elite, boss, plate, show who it targets",
-			disabled = function() return not QoL.On("targetButton") end,
+			disabled = function() return not (QoL.On("targetButton") and QoL.On("targetSimple")) end,
 			more = { { kind = "slider", key = "buttons.miniSize", label = L["Next names' icons"], min = 8, max = 32, step = 1, format = px, new = NEW,
+				disabled = function() return not (QoL.On("targetButton") and QoL.On("targetSimple")) end,
 				help = L["The small icons for the names after the next one, under the target's name, and the action badge on a face."],
 				search = "small icons, mini icons, next targets, badge size, queue" } } },
 		{ kind = "toggle", key = "buttons.hotkey", label = L["Key binding"], new = NEW,
@@ -711,7 +712,10 @@ if O and O.PresetCards and O.Ref then
 	local R = O.Ref
 	-- A preset's card: the Hearthstone, quest item and target buttons as the
 	-- set lines them up with the preset's values, drawn by the buttons' own
-	-- face code (Buttons.NewFace, Size, Paint, Offsets, Alpha) and fitted in.
+	-- face code (Buttons.NewFace, Size, Paint, Offsets, Alpha) and fitted in;
+	-- unless Simple target button is on, the target list's mark and rows in
+	-- the target button's place (Buttons.NewListFaces, PaintListFaces), as
+	-- on the screen. art.psGroup.rows: the list's faces, for the tests.
 	local function drawSetCard(art, _, values)
 		local cw, ch = art:GetWidth(), art:GetHeight()
 		if not (cw and cw > 0) then cw = W.CARD_W - 2 end
@@ -733,10 +737,13 @@ if O and O.PresetCards and O.Ref then
 			for i, key in ipairs({ "H", "E", "T" }) do g.faces[i].Hotkey:SetText(key) end
 			local t = g.faces[3]
 			t.aList, t.aVerbs, t.aIds, t.aMarks, t.aCycle = { L["Kobold Vermin"] }, { "kill" }, {}, { false }, 1
+			g.rows = Buttons.NewListFaces(g, #LIST_DEMO)
 			art.psGroup = g
 		end
 		O.WithSettings(values, function()
-			local at = Buttons.Offsets()
+			local listed = not QoL.On("targetSimple")
+			local n = listed and #LIST_DEMO or 0
+			local at = Buttons.Offsets(n)
 			local x0, x1, y0, y1 = math.huge, -math.huge, math.huge, -math.huge
 			for _, b in ipairs(g.faces) do
 				local size = Buttons.Size(b.psKind)
@@ -748,10 +755,21 @@ if O and O.PresetCards and O.Ref then
 				b:SetPoint("CENTER", g, "CENTER", o[1], o[2])
 				x0, x1, y0, y1 = min(x0, o[1] - h), max(x1, o[1] + h), min(y0, o[2] - h), max(y1, o[2] + h)
 			end
-			-- The target's name beside it, on its side: the card holds it too.
+			-- The target list in the target button's place; else the target's
+			-- name beside it, on its side: the card holds either.
 			local tb, o = g.faces[3], at.target
+			local rows = g.rows
+			tb:SetShown(not listed)
+			rows.mark:SetShown(listed)
+			if not listed then
+				for _, r in ipairs(rows.rows) do r:Hide() end
+			end
 			local lw, side, h = tb.Label:GetStringWidth() + 6, ns.Get("qol.buttonTextSide"), Buttons.Size("target") / 2
-			if side == "left" then
+			if listed then
+				Buttons.PaintListFaces(rows, tb, LIST_DEMO)
+				local r0, r1, r2, r3 = Buttons.ListRect(n)
+				x0, x1, y0, y1 = min(x0, o[1] + r0), max(x1, o[1] + r1), min(y0, o[2] + r2), max(y1, o[2] + r3)
+			elseif side == "left" then
 				x0 = min(x0, o[1] - h - lw)
 			elseif side == "above" or side == "below" then
 				x0, x1 = min(x0, o[1] - lw / 2), max(x1, o[1] + lw / 2)

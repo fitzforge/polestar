@@ -57,8 +57,8 @@ const LOGIN: f64 = LOGIN_BASE + 285.0;
 /// search in UI/Options.lua. Raised by that, as Fitz asked on 2026-11-12 ("if you hit memory budgets again, just
 /// raise them"). Then the target list in the Buttons page's previews and Unlock mode's box (#1704,
 /// Buttons.NewListFaces in QoL/ButtonsOptions.lua, Buttons.ListRect in UI/Movers.lua; +6: 1,906 to 1,912 against
-/// dev-040 at 467cdd126, 2026-11-13).
-const LOADED: f64 = 1913.0;
+/// dev-040 at 467cdd126, 2026-11-13), then the list in the Essentials preset cards (+1: 1,913.2 on 2026-11-13).
+const LOADED: f64 = 1915.0;
 /// Opened on its first page, 4,124 KiB (1,890 on 2026-11-10; 3,485 with the Look pages' previews; 3,888 with
 /// the rest moved in, then the pages' +155, then the hero previews' +67, then the Buttons and single-alert
 /// scenes and the Accent lights' +26, to 4,151; then the search's dropdown's code, +41, 4,280 to 4,322 on
@@ -69,8 +69,8 @@ const OPENED: f64 = 4287.0;
 /// then the hero previews' (+150, the same), then the Buttons and single-alert scenes and the Accent lights'
 /// (+68, the same, to 4,034), then the search's dropdown (+108, the same: 4,084 to 4,192 on 2026-11-13), then
 /// the target list in the Buttons page's previews and Unlock mode's box (#1704; +10: 4,228 to 4,238 against
-/// dev-040 at 467cdd126, 2026-11-13).
-const PEAK: f64 = 4240.0;
+/// dev-040 at 467cdd126, 2026-11-13), then the list in the Essentials preset cards (+2: 4,240.3 on 2026-11-13).
+const PEAK: f64 = 4242.0;
 
 /// What the base itself puts in the opened window, not the overhaul's cost: 0.3.7's three rows on the first
 /// page (Guide: Tell me when a newer Polestar is out, Flight paths you pass, Keep the arrow when hidden),
