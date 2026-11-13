@@ -562,6 +562,7 @@ impl Layout {
 	fn stage(&self, o: &BuildOpts) -> Result<(), String> {
 		let r = &self.stage_root;
 		symlink(&self.data, &r.join("data/forever"))?;
+		self.link_sources(&o.root)?;
 		for sub in ["data/sources", "data/rules.json", "data/corrections.json", "addon"] {
 			symlink(&o.root.join(sub), &r.join(sub))?;
 		}
@@ -593,6 +594,14 @@ impl Layout {
 		}
 		symlink(&o.root.join("data/sim/params.json"), &self.sim.join("params.json"))?;
 		Ok(())
+	}
+
+	/// The data folder as a checkout has it: `<out>/data/sources` beside `<out>/data/forever`, a link to
+	/// `root`'s data/sources, where the guide compiler reads the AreaTable and the instances from
+	/// (`<data>/../sources`). Without it the writer's pack check had no areas: every `{area:N}` token in
+	/// the tree failed it (Tyr's Watch's Bandarion Keep, the 0.4.0 round).
+	fn link_sources(&self, root: &Path) -> Result<(), String> {
+		symlink(&root.join("data/sources"), &self.data.with_file_name("sources"))
 	}
 }
 
@@ -1891,6 +1900,37 @@ mod tests {
 		symlink(&a, &stage.join("data/forever")).unwrap();
 		symlink(&b, &stage.join("data/forever")).unwrap();
 		assert_eq!(std::fs::read_link(stage.join("data/forever")).unwrap(), b, "a link to another target is replaced");
+		std::fs::remove_dir_all(&dir).ok();
+	}
+
+	/// The guide compiler reads the AreaTable from `<data>/../sources`: the build's data folder
+	/// (`<out>/data/forever`) has the checkout's sources beside it, so an `{area:N}` token resolves in
+	/// the trees the build writes and checks (Tyr's Watch's {area:16602}, the 0.4.0 round's written
+	/// check refused every start's tree on it).
+	#[test]
+	fn the_build_s_data_folder_reads_the_checkout_s_area_table() {
+		let dir = std::env::temp_dir().join(format!("forge-data-sources-{}", std::process::id()));
+		let _ = std::fs::remove_dir_all(&dir);
+		let (root, out) = (dir.join("co"), dir.join("out"));
+		let wago = root.join("data/sources/wago/1.60.1.70888");
+		std::fs::create_dir_all(&wago).unwrap();
+		std::fs::write(wago.join("AreaTable.csv"), "ID,AreaName_lang,ContinentID,ParentAreaID\n16602,Bandarion Keep,0,0\n").unwrap();
+		let l = Layout {
+			data: out.join("data/forever"),
+			world: out.join("world"),
+			walks: out.join("walks"),
+			routes: out.join("routes"),
+			guides: out.join("guides"),
+			stage_root: out.join(".forge/root"),
+			sim: out.join(".forge/sim"),
+			grid: dir.join("grid"),
+			out: out.clone(),
+		};
+		std::fs::create_dir_all(&l.data).unwrap();
+		let area = |l: &Layout| forge_guide::tokens::data_name(&forge_guide::data::load_data(&l.data).unwrap(), "area", &forge_guide::js::V::Num(16602.0));
+		assert_eq!(area(&l), None, "no sources beside the data folder: no areas");
+		l.link_sources(&root).unwrap();
+		assert_eq!(area(&l).as_deref(), Some("Bandarion Keep"));
 		std::fs::remove_dir_all(&dir).ok();
 	}
 
