@@ -164,7 +164,7 @@ step Brackenwall Village
 step Level 37.5
   when level<37.5
   zone Dustwallow Marsh
-  tip Desolace's last quests and Alterac are 38-41. Still below 37.5 after Brackenwall's hand-ins? The Darkmist spiders and Lurkers (35-38) by the cavern north-west of the village are the closest: kill them until level 37.5. Or, with a group, run the Razorfen Downs dungeon or the Scarlet Monastery dungeon (Armory) instead.
+  tip Desolace's last quests and Alterac are 38-41. Still below 37.5 after Brackenwall's hand-ins? The Darkmist spiders and Lurkers (35-38) by the cavern north-west of the village are the closest: kill them until level 37.5.
   goto 31.4,22.2 map 1445 "Darkmist cavern"
   level 37.5 grind 4377               -- grind on Darkmist Lurker
 

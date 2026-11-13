@@ -1616,6 +1616,27 @@ test('forever/horde/30-40/04-dustwallow-marsh.guide: the Valley of Spears and th
 	}
 });
 
+// Dungeons in the route (0.4.0, the grind-tip rule): a grind step names a dungeon only when its run is in the route
+// in the same or the next guide, on the same continent: City of Dalaran in Hillsbrad, Razorfen Kraul in Thousand
+// Needles; Scarlet Monastery, Blackfathom Deeps and Razorfen Downs are not route dungeons in Horde 30-40.
+test('forever/horde/30-40: the grind steps name only the dungeons the route runs nearby', { skip }, () => {
+	const want = {
+		'01-hillsbrad-foothills': ['City of Dalaran'],
+		'02-thousand-needles': ['Razorfen Kraul'],
+		'03-stranglethorn-vale': [],
+		'04-dustwallow-marsh': [],
+	};
+	for (const [file, names] of Object.entries(want)) {
+		const tips = compiled(`forever/horde/30-40/${file}.guide`).steps.filter((step) => step.goals.some((g) => g.t === 'level')).map((step) => [step.tip].flat().filter(Boolean).join(' '));
+		assert.ok(tips.length > 0, `${file}: has grind steps`);
+		for (const tip of tips) {
+			for (const bad of ['Scarlet Monastery', 'Blackfathom Deeps', 'Razorfen Downs']) assert.ok(!tip.includes(bad), `${file}: no ${bad} in "${tip}"`);
+			if (/with a group, run/.test(tip)) assert.ok(names.some((n) => tip.includes(n)), `${file}: names ${names.join(' or ') || 'no dungeon'}: "${tip}"`);
+			else assert.equal(names.length, 0, `${file}: names ${names.join(' or ')}`);
+		}
+	}
+});
+
 // --- Forever chains the quest data has no prerequisite for, so the guide took
 // a follow-up at the same visit as the quest before it and the giver did not
 // offer it: Baine's chain in Mulgore (Kori, #112) and Mull's report (#51),

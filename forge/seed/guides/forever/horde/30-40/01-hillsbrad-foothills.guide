@@ -299,7 +299,7 @@ step Helcular's Rod
 step Level 30
   when level<30
   zone Hillsbrad Foothills
-  tip Tarren Mill's Prison Break In, Stone Tokens and The Hammer May Fall are offered from level 30. Below it? Keep killing the yetis in these caves until level 30. Or, with a group, run the Scarlet Monastery dungeon (Graveyard) or the Blackfathom Deeps dungeon instead.
+  tip Tarren Mill's Prison Break In, Stone Tokens and The Hammer May Fall are offered from level 30. Below it? Keep killing the yetis in these caves until level 30. Or, with a group, run the City of Dalaran dungeon instead.
   goto 44.0,28.0 map 1424 "Foothill Caverns"
   level 30 grind 2248                 -- grind on Cave Yeti
 
@@ -479,7 +479,7 @@ step Boulderfist camp
 step Level 31
   when level<31
   zone Arathi Highlands
-  tip Hammerfall's quests are 32-36. Below 31? Keep killing the Boulderfist Ogres and Enforcers at this camp until level 31. Or, with a group, run the Scarlet Monastery dungeon (Graveyard) or the Blackfathom Deeps dungeon instead.
+  tip Hammerfall's quests are 32-36. Below 31? Keep killing the Boulderfist Ogres and Enforcers at this camp until level 31. Or, with a group, run the City of Dalaran dungeon instead.
   goto 31.2,48.0 map 1417 "Boulderfist camp"
   level 31 grind 2562                 -- grind on Boulderfist Ogre
 
