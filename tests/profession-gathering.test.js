@@ -115,6 +115,15 @@ test('a zone\'s rare kind (under a twentieth of the nodes) never leads or names 
 	assert.ok(atRareSpot(R.loop(few, project, { radius: 40, cover: 1, rare: rareKinds({}, few) })));
 });
 
+test('a zone whose nodes all turn grey inside a band is never picked for it: Teldrassil\'s Amber for Mining 65-125', () => {
+	const { coversTop } = require('../tools/lib/professions/gathering/build');
+	const amber = [{ name: 'Large Chunk of Amber', req: 1 }, { name: 'Chunk of Amber', req: 1 }];
+	assert.equal(coversTop(amber, { from: 1, to: 65 }), true, 'green at 64: Amber takes a Night Elf to 65');
+	assert.equal(coversTop(amber, { from: 65, to: 125 }), false, 'grey from 101: no point between 101 and 125');
+	assert.equal(coversTop([...amber, { name: 'Tin Vein', req: 65 }], { from: 65, to: 125 }), true, 'one Tin Vein (green at 124) is enough');
+	assert.equal(coversTop([{ name: 'Iron Deposit', req: 125 }], { from: 65, to: 125 }), false, 'nor a zone of nodes the band cannot reach yet');
+});
+
 test('live-frame spawns come out in the Era frame, so loops on redrawn maps match `coords era`', () => {
 	// A map Forever redrew: its live frame is offset from the Era frame and
 	// covers 800 yards instead of 1000.
