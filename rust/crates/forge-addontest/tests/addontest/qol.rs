@@ -5257,7 +5257,7 @@ sample()
 	assert_eq!(out[0], json!({ "step": 1, "use": "active", "shown": true, "item": "item:12346" }));
 	assert_eq!(out[1], out[0], "turning in the turtle quest leaves the bowl usable");
 	assert_eq!(out[2], json!({ "step": 1, "use": "done", "shown": false, "item": false }));
-	assert_eq!(out[3], json!({ "step": 2, "use": "done", "shown": false, "item": false }));
+	assert_eq!(out[3], json!({ "step": 2, "use": "done", "shown": true, "item": "item:12347" }));
 	assert_eq!(out[4], json!({ "step": 2, "use": "done", "shown": true, "item": "item:12347" }));
-	assert_eq!(out[5], out[3], "leaving the camp hides the filled bowl again");
+	assert_eq!(out[5], out[4], "the filled bowl stays available while its guide step is open");
 }

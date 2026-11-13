@@ -3024,9 +3024,10 @@ goalDone = function(s, g, goal)
 		return false, cur, max
 	elseif t == "kill" or t == "interact" or t == "use" then
 		if goal.quest then return objectiveState(goal) end
-		local nextGoal = ns.Guides.UseResult(guide.steps[s].goals, g)
-		if nextGoal and goalApplies(nextGoal) then
-			return goalDone(s, g + 1, nextGoal)
+		local result = guide.steps[s].goals[g + 1]
+		if t == "use" and result and result.t == "collect" and not result.quest and goalApplies(result) then
+			local done = goalDone(s, g + 1, result)
+			return done
 		end
 		-- One with no quest (the Runes of Summoning before the voidwalker,
 		-- #1120): done once a later quest goal of the step is, so the work it
@@ -6634,11 +6635,6 @@ function Own.reached(goal, c, px, py)
 	if gc ~= c then return false end
 	local dx, dy, r = gx - px, gy - py, (area or 0) + (goal.r or DEFAULT_RADIUS)
 	return dx * dx + dy * dy <= r * r
-end
-
-function Engine.AtGoal(goal)
-	local c, x, y = Compat().GetPlayerWorldPosition()
-	return c ~= nil and Own.reached(goal, c, x, y)
 end
 
 -- A goto whose label names a subzone (`area`) arrives on going in there, a
