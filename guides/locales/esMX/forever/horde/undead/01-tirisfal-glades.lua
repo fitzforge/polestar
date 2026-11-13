@@ -13,7 +13,7 @@ return {
 	-- Step 2: Shadow Priest Sarvis
 	-- {area:154} Deathknell
 	["Follow the path north into {area:154}; Sarvis stands in front of the church."] = "Sigue el sendero al norte hacia {area:154}; Sarvis está frente a la iglesia.",
-	["Inside"] = "",
+	["Inside"] = "Adentro",
 
 	-- Step 3: Mindless Zombies
 	-- plural, as words: Mindless Zombies = {npc:1501} Mindless Zombie

@@ -88,7 +88,7 @@ return {
 	["Over the {area:880}: the Dark Irons' cache of explosives sits by its Arathi end."] = "",
 
 	-- Step 19: Waterlogged Envelope
-	["Underwater"] = "",
+	["Underwater"] = "Bajo el agua",
 
 	-- Step 20: Rhag Garmason again
 	-- {npc:1075} Rhag Garmason
@@ -167,7 +167,7 @@ return {
 
 	-- Step 33: Farren
 	["Farren"] = "Farren",
-	["Inside"] = "",
+	["Inside"] = "Adentro",
 
 	-- Step 34: Murloc heads
 	["Murloc heads"] = "Cabezas de múrloc",
@@ -237,7 +237,7 @@ return {
 	-- {zone:1453} Stormwind
 	["Fly to {zone:1453}"] = "Vuela a {zone:1453}",
 	-- {zone:1455} Ironforge
-	["{zone:1455} flight master"] = "",
+	["{zone:1455} flight master"] = "Maestro de vuelo de {zone:1455}",
 
 	-- Step 54: Elling Trias
 	-- {object:2096} Trade District

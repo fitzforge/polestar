@@ -43,7 +43,7 @@ return {
 
 	-- Step 7: Lakkari Tar Pits: kill these as you meet them
 	-- {area:538} Lakkari Tar Pits
-	["{area:538}: kill these as you meet them"] = "",
+	["{area:538}: kill these as you meet them"] = "{area:538}: mata a estos según te los encuentres",
 	-- {area:537} Fire Plume Ridge · {npc:9998} Shizzle · {npc:8659} Jes'rimon · {npc:9167} Frenzied Pterrordax
 	-- plural, as words: Bloodpetal Flayers = {npc:6510} Bloodpetal Flayer · Dinosaur Bones = {item:11114} Dinosaur Bone · Bloodpetal Trappers = {npc:6512} Bloodpetal Trapper
 	["Ride south-west to {area:537}, the volcano in the middle of the crater. Bloodpetal Flayers grow around its foot.\nSouth of the hot springs, Stegodons graze and Dinosaur Bones drop from them or lie on the ground; Diemetradons nearby carry the scales {npc:9998} wants. Ravasaurs hunt in packs in the south-west: their claws are for {npc:8659}, and now and then one carries a Mangled Journal (a rare drop: take its quest only if you get one). Avoid Gruff, a level 57 Stegodon.\nRide south-west along the western cliffs. {npc:9167} fly over the west side, and Bloodpetal Trappers grow in the same jungle."] = "",
@@ -79,7 +79,7 @@ return {
 
 	-- Step 16: A Wrecked Raft
 	["The raft lies on the shore of the south-eastern lake; the small pack sits in the water beside it."] = "La balsa está en la orilla del lago del sureste; la mochila pequeña está en el agua a su lado.",
-	["Underwater"] = "",
+	["Underwater"] = "Bajo el agua",
 
 	-- Step 18: Lashers and Threshers
 	["Lashers and Threshers"] = "Azotadores y Trilladores",
@@ -90,7 +90,7 @@ return {
 
 	-- Step 19: Un'Goro Crater: kill these as you meet them
 	-- {zone:1449} Un'Goro Crater
-	["{zone:1449}: kill these as you meet them"] = "",
+	["{zone:1449}: kill these as you meet them"] = "{zone:1449}: mata a estos según te los encuentres",
 	["The expedition's crate sits at an abandoned camp in the eastern jungle."] = "El cajón de la expedición está en un campamento abandonado en la selva del este.",
 
 	-- Step 20: Marshal's Refuge
@@ -99,7 +99,7 @@ return {
 	-- {npc:9997} Spraggle Frock
 	["{npc:9997}, beside the flight master"] = "",
 	-- {npc:9117} J.D. Collie
-	["{npc:9117}, below ground"] = "",
+	["{npc:9117}, below ground"] = "{npc:9117}, bajo tierra",
 	-- {npc:9118} Larion · {quest:4147} Marvon's Workshop · {npc:8737} Linken
 	["Keep {npc:9118}'s {quest:4147} and {npc:8737}'s letter for later guides."] = "Guarda {quest:4147} de {npc:9118} y la carta de {npc:8737} para guías posteriores.",
 
@@ -145,7 +145,7 @@ return {
 
 	-- Step 29: Gadgetzan
 	-- {npc:5594} Alchemist Pestlezugg
-	["{npc:5594}, inside"] = "",
+	["{npc:5594}, inside"] = "{npc:5594}, adentro",
 
 	-- Step 30: Orgrimmar
 	-- {area:1637} Orgrimmar · {area:16727} Powderfuse Port · {zone:1458} Undercity
@@ -193,7 +193,7 @@ return {
 
 	-- Step 39: Ruins of Thaurissan: kill these as you meet them
 	-- {area:250} Ruins of Thaurissan
-	["{area:250}: kill these as you meet them"] = "",
+	["{area:250}: kill these as you meet them"] = "{area:250}: mata a estos según te los encuentres",
 	-- {npc:7039} War Reaver · {quest:4296} Tablet of the Seven · {area:251} Flame Crest · {npc:10267} Tinkee Steamboil · {item:12284} Draco-Incarcinatrix 900
 	-- plural, as words: Black Broodlings = {npc:7047} Black Broodling
 	["Ride west to the dig site. {npc:7039} golems (53) stomp around it and drop the shards often; the {quest:4296} stands in its middle among the Thaurissan dwarves. Copy it.\nBlack Broodlings nest in the hills just east of {area:251}. Use {npc:10267}'s {item:12284} on a broodling when it is almost dead to capture its essence."] = "",
@@ -215,7 +215,7 @@ return {
 	["{area:340} flight master"] = "",
 
 	-- Step 43: Apothecary Lydon
-	["Inside"] = "",
+	["Inside"] = "Adentro",
 
 	-- Step 44: Fly to Undercity
 	-- {area:1497} Undercity

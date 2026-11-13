@@ -10,7 +10,7 @@ return {
 	-- {area:2897} Zoram'gar Outpost
 	["Fly to {area:2897}"] = "",
 	-- {area:392} Ratchet
-	["{area:392} flight master"] = "",
+	["{area:392} flight master"] = "Maestro de vuelo de {area:392}",
 
 	-- Step 2: Zoram'gar Outpost
 	-- {npc:12736} Je'neu Sancrea
@@ -112,7 +112,7 @@ return {
 	-- Step 24: Mystral Lake
 	-- plural, as words: Befouled Water Elementals = {npc:3917} Befouled Water Elemental
 	["Befouled Water Elementals drift around the lake's shores; the gazebo stands on the island, overlooking the Alliance outpost."] = "",
-	["Underwater"] = "",
+	["Underwater"] = "Bajo el agua",
 	["Gazebo"] = "Mirador",
 
 	-- Step 25: Ursangous

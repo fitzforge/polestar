@@ -17,7 +17,7 @@ return {
 	["Ride north to {area:351} in the middle of the {zone:1425}. Green Sludges and Jade Oozes crawl all around it.\nCareful: Panthers move around the area in stealth."] = "",
 
 	-- Step 3: Aerie Peak
-	["Inside"] = "",
+	["Inside"] = "Adentro",
 	-- {npc:5636} Gryphon Master Talonaxe
 	["{npc:5636}, inside"] = "",
 	-- {quest:2990} Thadius Grimshade · {area:1438} Nethergarde Keep
@@ -27,7 +27,7 @@ return {
 	-- {area:1537} Ironforge
 	["Fly to {area:1537}"] = "Vuela a {area:1537}",
 	-- {area:348} Aerie Peak
-	["{area:348} flight master"] = "",
+	["{area:348} flight master"] = "Maestro de vuelo de {area:348}",
 
 	-- Step 5: Class trainer
 	["Class trainer"] = "Instructor de clase",
@@ -44,7 +44,7 @@ return {
 
 	-- Step 9: Morgan's Vigil flight master
 	-- {area:2418} Morgan's Vigil
-	["{area:2418} flight master"] = "",
+	["{area:2418} flight master"] = "Maestro de vuelo de {area:2418}",
 
 	-- Step 10: Fly to Thelsamar
 	-- {area:144} Thelsamar
@@ -56,13 +56,13 @@ return {
 
 	-- Step 12: Fly to Menethil Harbor
 	-- {area:150} Menethil Harbor
-	["Fly to {area:150}"] = "",
+	["Fly to {area:150}"] = "Vuela a {area:150}",
 	-- {area:144} Thelsamar
 	["{area:144} flight master"] = "Maestro de vuelo de {area:144}",
 
 	-- Step 15: Rut'theran Village
 	-- {npc:7907} Daryn Lightwind · {npc:7916} Erelas Ambersky
-	["{npc:7907} stands upstairs, above {npc:7916}: go up inside, the arrow cannot tell the floors apart."] = "",
+	["{npc:7907} stands upstairs, above {npc:7916}: go up inside, the arrow cannot tell the floors apart."] = "{npc:7907} está arriba, encima de {npc:7916}: sube por adentro, la flecha no distingue los pisos.",
 	-- {npc:7907} Daryn Lightwind · {zone:1446} Tanaris
 	["{npc:7907}'s next errand goes to {zone:1446}: skip it."] = "El siguiente encargo de {npc:7907} va a {zone:1446}: omítelo.",
 	-- {npc:7916} Erelas Ambersky · {zone:1428} Burning Steppes
@@ -90,9 +90,9 @@ return {
 
 	-- Step 25: Fly to Auberdine
 	-- {area:442} Auberdine
-	["Fly to {area:442}"] = "",
+	["Fly to {area:442}"] = "Vuela a {area:442}",
 	-- {area:702} Rut'theran Village
-	["{area:702} flight master"] = "",
+	["{area:702} flight master"] = "Maestro de vuelo de {area:702}",
 
 	-- Step 26: Boat to Stormwind Harbor
 	-- {area:17203} Stormwind Harbor

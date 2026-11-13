@@ -8,11 +8,11 @@
 return {
 	-- Step 1: Into Winterspring
 	-- {zone:1452} Winterspring
-	["Into {zone:1452}"] = "",
+	["Into {zone:1452}"] = "Hacia {zone:1452}",
 
 	-- Step 2: Salfa
 	-- {npc:11556} Salfa · {zone:1452} Winterspring · {area:1769} Timbermaw Hold
-	["{npc:11556} stands right at the {zone:1452} exit of {area:1769}'s tunnel, where you come out."] = "",
+	["{npc:11556} stands right at the {zone:1452} exit of {area:1769}'s tunnel, where you come out."] = "{npc:11556} está justo en la salida a {zone:1452} del túnel de {area:1769}, por donde sales.",
 
 	-- Step 3: Donova Snowden
 	-- {npc:9298} Donova Snowden · {area:2246} Frostfire Hot Springs
@@ -23,7 +23,7 @@ return {
 
 	-- Step 4: Frostfire Hot Springs: kill these as you meet them
 	-- {area:2246} Frostfire Hot Springs
-	["{area:2246}: kill these as you meet them"] = "",
+	["{area:2246}: kill these as you meet them"] = "{area:2246}: mata a estos según te los encuentres",
 	-- {item:14047} Runecloth
 	-- plural, as words: Ragged Owlbeasts = {npc:7450} Ragged Owlbeast
 	["Pathfinders, Den Watchers and Totemics share the furbolg camps around the hot springs; Ragged Owlbeasts roam the slopes between them. Kill Totemics first. Save every {item:14047} you loot for Meilosh."] = "Los Abrecaminos, Vigías del cubil y Totémicos comparten los campamentos furbolg alrededor de las aguas termales; las Lechubestias pulgosas ({npc:7450}) recorren las laderas entre ellos. Mata primero a los Totémicos. Guarda todo el {item:14047} que obtengas para Meilosh.",
@@ -85,7 +85,7 @@ return {
 	-- {area:1099} Camp Mojache
 	["Fly to {area:1099}"] = "Vuela a {area:1099}",
 	-- {area:2255} Everlook
-	["{area:2255} flight master"] = "",
+	["{area:2255} flight master"] = "Maestro de vuelo de {area:2255}",
 
 	-- Step 18: Evoroot
 	-- {item:11242} Evoroot · {npc:7775} Gregan Brewspewer · {area:1114} Ruins of Ravenwind

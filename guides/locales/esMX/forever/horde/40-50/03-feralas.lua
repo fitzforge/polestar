@@ -70,7 +70,7 @@ return {
 	["{area:2403}: kill these as you meet them"] = "",
 	-- plural, as words: Monstrous Crawlers = {npc:1088} Monstrous Crawler
 	["The snappers line the strand south of the post.\nThe Monstrous Crawlers walk the beaches of the east coast, few and far between: kill every one you see, the ones on the ride down from the pool too."] = "",
-	["Underwater"] = "",
+	["Underwater"] = "Bajo el agua",
 
 	-- Step 14: Murlocs of the Misty Reed
 	["Murlocs of the Misty Reed"] = "Múrlocs de Juncobruma",
@@ -172,7 +172,7 @@ return {
 
 	-- Step 36: Forgotten Coast: kill these as you meet them
 	-- {area:1108} Forgotten Coast
-	["{area:1108}: kill these as you meet them"] = "",
+	["{area:1108}: kill these as you meet them"] = "{area:1108}: mata a estos según te los encuentres",
 	-- {item:18904} Zorbin's Ultra-Shrinker
 	["Sea elementals and sea sprays wash along the shore around the dock. Zap the giants with {item:18904} first: shrunken, they lose their elite strength. Shore striders wade in the water; the land walkers and cliff giants roam the hills further north."] = "Los elementales de mar y rocíos del mar recorren la orilla alrededor del muelle. Primero dispara a los gigantes con {item:18904}: al encogerse, pierden su fuerza de élite. Los zancaorillas vadean en el agua; los caminatierras y gigantes del risco recorren las colinas más al norte.",
 

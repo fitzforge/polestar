@@ -12,7 +12,7 @@ return {
 
 	-- Step 2: Silithus: kill these as you meet them
 	-- {zone:1451} Silithus
-	["{zone:1451}: kill these as you meet them"] = "",
+	["{zone:1451}: kill these as you meet them"] = "{zone:1451}: mata a estos según te los encuentres",
 	-- plural, as words: Dredge Strikers = {npc:11740} Dredge Striker · Stonelash Scorpids = {npc:11735} Stonelash Scorpid · Sand Skitterers = {npc:11738} Sand Skitterer
 	["Dredge Strikers, Stonelash Scorpids and Sand Skitterers share the sands just north of the hold."] = "Los Asediadores deslizantes ({npc:11740}), los Escórpidos Latipiedra ({npc:11735}) y los Arácnidos de arena ({npc:11738}) comparten las arenas justo al norte del fuerte.",
 
@@ -22,7 +22,7 @@ return {
 
 	-- Step 4: Cenarion Hold
 	-- {npc:15189} Beetix Ficklespragg
-	["{npc:15189} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."] = "",
+	["{npc:15189} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."] = "{npc:15189} está en el piso de arriba de su edificio: sube por dentro, la flecha no distingue los pisos.",
 
 	-- Step 5: Hive in the Tower
 	-- {item:17346} Encrusted Silithid Object
@@ -31,7 +31,7 @@ return {
 
 	-- Step 6: The Spirits of Southwind
 	["The Spirits of Southwind"] = "",
-	["Inside"] = "",
+	["Inside"] = "Adentro",
 
 	-- Step 7: Hermit Ortell
 	-- {area:3447} Ortell's Hideout
@@ -114,7 +114,7 @@ return {
 	-- {area:3425} Cenarion Hold
 	["Back to {area:3425}"] = "De vuelta a {area:3425}",
 	-- {npc:15190} Noggle Ficklespragg
-	["{npc:15190} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."] = "",
+	["{npc:15190} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."] = "{npc:15190} está en el piso de arriba de su edificio: sube por dentro, la flecha no distingue los pisos.",
 	-- {area:2744} Hive'Regal
 	["Mar'alith's next errand, Into the Maw of Madness, leads into {area:2744} among elites. Skip it."] = "",
 
@@ -152,7 +152,7 @@ return {
 
 	-- Step 34: Un'Goro Crater: kill these as you meet them
 	-- {zone:1449} Un'Goro Crater
-	["{zone:1449}: kill these as you meet them"] = "",
+	["{zone:1449}: kill these as you meet them"] = "{zone:1449}: mata a estos según te los encuentres",
 	-- plural, as words: Un'Goro Gorillas = {npc:6514} Un'Goro Gorilla
 	["Careful: Un'Goro Gorillas (level 50-51) call for help from allies within 20 yd once they drop to 25% health. There is a cave full of apes in the area, and fighting there brings many adds."] = "",
 
@@ -160,13 +160,13 @@ return {
 	-- {npc:9117} J.D. Collie
 	["{npc:9117} is inside the cave."] = "",
 	-- {npc:9117} J.D. Collie
-	["{npc:9117}, below ground"] = "",
+	["{npc:9117}, below ground"] = "{npc:9117}, bajo tierra",
 	-- {quest:3942} Linken's Memory · {npc:9116} Eridan Bluewind · {area:2479} Emerald Sanctuary · {zone:1448} Felwood
 	["Keep {quest:3942}: {npc:9116} is at the {area:2479}, on the next guide's way through {zone:1448}."] = "Guarda {quest:3942}: {npc:9116} está en {area:2479}, de camino por {zone:1448} en la siguiente guía.",
 	-- {npc:10980} Umi's Mechanical Yeti · {npc:10977} Quixxil
 	["Use {npc:10980} on {npc:10977}"] = "Usa {npc:10980} en {npc:10977}",
 	-- {npc:10977} Quixxil · {npc:10980} Umi's Mechanical Yeti
-	["Scare {npc:10977} with {npc:10980}"] = "",
+	["Scare {npc:10977} with {npc:10980}"] = "Asusta a {npc:10977} con {npc:10980}",
 
 	-- Step 36: Ringo
 	-- {npc:9999} Ringo
@@ -190,7 +190,7 @@ return {
 	-- {area:1637} Orgrimmar
 	["Fly to {area:1637}"] = "Vuela a {area:1637}",
 	-- {area:976} Gadgetzan
-	["{area:976} flight master"] = "",
+	["{area:976} flight master"] = "Maestro de vuelo de {area:976}",
 
 	-- Step 43: Class trainer
 	["Class trainer"] = "Instructor de clase",
@@ -227,7 +227,7 @@ return {
 	-- plural, as words: Temporal Parasites = {npc:10717} Temporal Parasite
 	["Ride south into Andorhal. {npc:10667} waits in the ruined inn on the west side of town. Stand in the doorway of each of the four towers with the {item:12815} to mark it; keep to the edges of town. Use the {item:12627} by the silos in the middle of town to bring out Temporal Parasites."] = "Cabalga al sur hacia Andorhal. {npc:10667} espera en la posada en ruinas del lado oeste del pueblo. Párate en la entrada de cada una de las cuatro torres con {item:12815} para marcarla; no te alejes de las orillas del pueblo. Usa {item:12627} junto a los silos del centro del pueblo para hacer salir a los Parásitos temporales ({npc:10717}).",
 	-- {npc:10667} Chromie
-	["{npc:10667}, upstairs"] = "",
+	["{npc:10667}, upstairs"] = "{npc:10667}, en el piso de arriba",
 	-- {npc:10903} Andorhal Tower Two · {item:12815} Beacon Torch
 	["Mark {npc:10903} with the {item:12815}"] = "Marca {npc:10903} con {item:12815}",
 	-- {npc:10904} Andorhal Tower Three · {item:12815} Beacon Torch
@@ -297,14 +297,14 @@ return {
 
 	-- Step 80: Into Eastern Plaguelands
 	-- {zone:1423} Eastern Plaguelands
-	["Into {zone:1423}"] = "",
+	["Into {zone:1423}"] = "Hacia {zone:1423}",
 
 	-- Step 81: Eastern Plaguelands
 	-- {quest:5845} Of Lost Honor
-	["The lake for {quest:5845}"] = "",
+	["The lake for {quest:5845}"] = "El lago para {quest:5845}",
 
 	-- Step 82: Of Lost Honor
-	["Underwater"] = "",
+	["Underwater"] = "Bajo el agua",
 
 	-- Step 83: Infiltrator Hameya
 	-- {area:2273} Zul'Mashar
