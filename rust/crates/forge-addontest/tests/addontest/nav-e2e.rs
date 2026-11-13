@@ -2189,6 +2189,7 @@ fn t_234_floor_alliance_in_stormwinds_trade_district_outdoors_the_walk_out_start
 // the Hearthstone won. With the tower's stairs joined (pack/joins.json) and the two portals in the travel data, the
 // plan walks: up the tower, through the portal down, to her.
 #[test]
+#[ignore = "needs the release walking-map pack with the tower-stairs join (#2041)"]
 fn issue_1970_a_mage_in_elwynn_bound_in_stormwind_walks_to_jennea_cannon_in_the_wizards_sanctum_no_hearthstone() {
 	skip_unless_ready!();
 	let out = run(
