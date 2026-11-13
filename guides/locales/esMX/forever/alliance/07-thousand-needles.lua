@@ -87,11 +87,11 @@ return {
 	-- Step 16: Viktori Prism'Antras
 	-- {npc:276} Viktori Prism'Antras
 	["{npc:276}'s house stands at the east end of town, on the way to the flight master."] = "",
-	["Inside"] = "",
+	["Inside"] = "Adentro",
 
 	-- Step 17: Fly to Menethil Harbor
 	-- {area:150} Menethil Harbor
-	["Fly to {area:150}"] = "",
+	["Fly to {area:150}"] = "Vuela a {area:150}",
 	-- {area:42} Darkshire
 	["{area:42} flight master"] = "",
 

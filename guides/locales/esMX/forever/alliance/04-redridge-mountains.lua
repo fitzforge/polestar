@@ -23,7 +23,7 @@ return {
 
 	-- Step 4: Tram to Ironforge
 	-- {zone:1455} Ironforge
-	["Tram to {zone:1455}"] = "",
+	["Tram to {zone:1455}"] = "Tranvía a {zone:1455}",
 
 	-- Step 5: Shaman training
 	["Shaman training"] = "Entrenamiento de chamán",
