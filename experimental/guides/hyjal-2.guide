@@ -212,7 +212,7 @@ step Elderwild
   accept 95248                          -- To the Summit of Eternity: for Thisalee Crow, part 3; keep it
 
 step The overlook
-  tip West to the overlook above the valley: the veteran's old scabbard lies there. Hand his quest in at the scabbard, take the next from it, and talk to his spirit when he appears.
+  tip West to the overlook above the valley: the veteran's old scabbard lies there. Hand his quest in at the scabbard and take the next from it, then use the scabbard in your bags to call his spirit and listen to his story.
   turnin 92100                          -- Embroidered Scabbard
   accept 96550                          -- Battle Recall
   talk 255038                           -- Veteran of the Third War

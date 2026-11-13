@@ -102,7 +102,7 @@ step Johun "Punchy" Dillas
   accept 92593                          -- Avalanche of Corruption
 
 step Elaena, Witherbeard and Yashiro
-  tip North into Dae'gun, the ruins of a Horde base, now held by demons: Elaena Moonwhisper and Witherbeard camp at its western edge; Yashiro, a blademaster, waits a little east of them. Doomguards (elites, levels 58-59) walk among the demons: pull carefully.
+  tip Into Dae'gun, north of the Cradle: the ruins of a Horde base, now held by demons. Elaena Moonwhisper and Witherbeard camp at its western edge; Yashiro, a blademaster, waits a little east of them. Doomguards (elites, levels 58-59) walk among the demons: pull carefully.
   accept 92960                          -- Elaena Moonwhisper: Siphoned Ephemeral Essence
   accept 95793                          -- Witherbeard: Stemming the Demon Tide
   accept 96959                          -- Yashiro: Blademaster's Bonfires
@@ -115,7 +115,7 @@ step Renalard
   accept 96971                          -- To Outfox a Demon
 
 step Dae'gun
-  tip Work west back through Dae'gun: the Felguard Sentinels and Defiling Hounds are everywhere, the hounds carry the essence, and the Horde base's rubble (wire, scrap and dung) lies all over it. Light the two bonfires on your way, scout the Horde tower in the middle, and pick up the abandoned supplies and Azgalor's ashes in the western half.
+  tip Work west back through Dae'gun: the Felguard Sentinels and Defiling Hounds are everywhere, the hounds carry the essence, and the Horde base's rubble (wire, scrap and dung) lies all over it. Light the two bonfires on your way, scout the Horde tower in the middle, take Azgalor's ashes west of the tower, and pick up the abandoned supplies, a few just north-west of Renalard and the rest in the western half: Renalard's tuft of fur, used on a demon, distracts it while you take them.
   kill 249229 x12 quest 95793.1         -- Felguard Sentinel
   collect 271220 x6 quest 92960.1       -- Ephemeral Essence
   collect 250775 x5 quest 92011.1 @51.5,37.0  -- Frayed Wire
