@@ -191,3 +191,67 @@ fn a_sound_lists_choices_play_from_their_speaker_without_being_picked() {
 	assert_eq!(out["left"], 0, "leaving first plays nothing");
 	assert_eq!(out["none"], 0, "no speaker on a list of no sounds");
 }
+
+// The window out of the way without closing it: Peek (its eye in the header, held down) fades the window and
+// lets go back to whole; Fold leaves only the header, the page kept, and Unfold (or another page) brings the
+// rest back as it was. Shift and the wheel anywhere on the window (the body, a slider) step the window's scale
+// and light its control; the plain wheel still scrolls and steps.
+#[test]
+fn peek_fades_the_window_fold_leaves_its_header_and_shift_wheel_scales_it() {
+	let out = run(r#"
+		UI.ShowOptions("guide")
+		local F = PolestarOptions
+		local peek, fold = F.PeekButton, F.FoldButton
+		local order = { select(2, fold:GetPoint(1)) == F.HeaderTools, select(2, peek:GetPoint(1)) == fold,
+			select(2, F.Search:GetPoint(1)) == peek }
+		stub.RunScript(peek, "OnMouseDown", "LeftButton")
+		stub.advance(0.3)
+		local peeking = F:GetAlpha()
+		stub.RunScript(peek, "OnMouseUp", "LeftButton")
+		stub.advance(0.3)
+		local whole = F:GetAlpha()
+		local h = F:GetHeight()
+		local page = O.page.key
+		fold:Click()
+		local folded = { h = F:GetHeight(), header = F.Header:IsVisible(), body = F.Content:IsVisible(), footer = F.Footer:IsVisible(),
+			nav = F.NavScroll:IsVisible(), shown = F:IsShown(), tip = fold.psTip }
+		fold:Click()
+		local unfolded = { h = F:GetHeight() == h, body = F.Content:IsVisible(), footer = F.Footer:IsVisible(), nav = F.NavScroll:IsVisible(),
+			page = O.page.key == page, tip = fold.psTip }
+		fold:Click()
+		O.Select("map")
+		local another = { F.Content:IsVisible(), F.Footer:IsVisible(), F:GetHeight() == h }
+		O.Select("guide")
+		local scale = Polestar.Get("ui.menuScale")
+		stub.keys.shift = true
+		stub.RunScript(F.Scroll, "OnMouseWheel", 1)
+		stub.keys.shift = false
+		local shifted = Polestar.Get("ui.menuScale")
+		local lit = rawget(F.HeaderTools, "psFlash") ~= nil and F.HeaderTools.psFlash:IsShown()
+		local top = F.Scroll:GetVerticalScroll()
+		stub.RunScript(F.Scroll, "OnMouseWheel", -1)
+		stub.advance(0.5)
+		local scrolled = F.Scroll:GetVerticalScroll() > top
+		local slider = ctl("ui.scale")
+		local guideScale = Polestar.Get("ui.scale")
+		stub.keys.shift = true
+		stub.RunScript(slider.Slider, "OnMouseWheel", 1)
+		stub.keys.shift = false
+		local overSlider = { Polestar.Get("ui.menuScale"), Polestar.Get("ui.scale") == guideScale }
+		stub.RunScript(slider.Slider, "OnMouseWheel", 1)
+		local stepped = Polestar.Get("ui.scale") > guideScale
+		emit({ order = order, peeking = peeking, whole = whole, folded = folded, unfolded = unfolded, another = another,
+			scale = scale, shifted = shifted, lit = lit, scrolled = scrolled, overSlider = overSlider, stepped = stepped })"#);
+	assert_eq!(out["order"], json!([true, true, true]), "Fold and Peek between the search and the scale");
+	assert!(out["peeking"].as_f64().unwrap() < 0.2, "held down, the window fades: {}", out["peeking"]);
+	assert_eq!(out["whole"], 1.0, "let go, whole again");
+	assert_eq!(out["folded"], json!({ "h": 114, "header": true, "body": false, "footer": false, "nav": false, "shown": true, "tip": "Unfold" }));
+	assert_eq!(out["unfolded"], json!({ "h": true, "body": true, "footer": true, "nav": true, "page": true, "tip": "Fold" }));
+	assert_eq!(out["another"], json!([true, true, true]), "another page unfolds it");
+	assert_eq!(out["scale"], 1.0);
+	assert_eq!(out["shifted"], 1.05, "Shift + the wheel over the body: one step bigger");
+	assert_eq!(out["lit"], true, "the scale control lit");
+	assert_eq!(out["scrolled"], true, "the plain wheel scrolls the body");
+	assert_eq!(out["overSlider"], json!([1.1, true]), "over a slider, Shift + the wheel scales the window, not the slider");
+	assert_eq!(out["stepped"], true, "the plain wheel steps the slider");
+}

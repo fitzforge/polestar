@@ -252,6 +252,11 @@ const GLYPHS = {
 		arc(13.4, 12, 4.4, -48, 48, 2.2),
 		arc(13.4, 12, 8.2, -50, 50, 2.2),
 	),
+	// An eye: look through (the settings window's Peek).
+	eye: union(
+		subtract(sdf.intersect(dot(12, 21, 14), dot(12, 3, 14)), sdf.intersect(dot(12, 21, 12.1), dot(12, 3, 12.1))),
+		dot(12, 12, 2.9),
+	),
 	layers: union(
 		poly([[12, 3], [21, 8], [12, 13], [3, 8]]),
 		polyline([[3.6, 12.2], [12, 16.8], [20.4, 12.2]], 2.1),

@@ -21,3 +21,7 @@ section: players
   the settings open on that setting, highlighted.
 - The rare alert's sound list lets you hear each sound before you pick it:
   click its speaker, or rest the pointer on it a moment.
+- The settings window can get out of the way without closing: hold the eye
+  in its header to see through it, or fold it to its header and unfold it
+  where you left off. Shift and the mouse wheel anywhere on the window
+  change its scale.

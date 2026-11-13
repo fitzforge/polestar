@@ -7031,8 +7031,15 @@ it ends) and stores `ui.optionsSize` (`{ w, h }`, false: the default);
 right-click on the grip goes back to the default. It is never smaller than
 860 by 560 or larger than the screen at its Menu scale, less 16px each side,
 and is clamped anew when the scale changes. The header holds the search
-(`W.Shell` `headerSearch`), the Menu scale and the close; the navigation
-starts under the band. Sections are cards across the body, one under
+(`W.Shell` `headerSearch`), Peek and Fold, the Menu scale and the close; the
+navigation starts under the band. Peek (an eye, held down: `O.Peek`) fades
+the whole window to 15% so what it covers shows, whole again on letting go;
+Fold (`O.Fold`) leaves only the header, its top-left kept, every other part
+hidden and the page kept, until Unfold, another page or a search (or the
+window closing) brings it back. Shift and the wheel anywhere on the window
+(its body, sidebar, header and footer, a slider) step the Menu scale as its
+own control's wheel does and light that control (`O.WheelScales(frame)`);
+the plain wheel still scrolls and steps. Sections are cards across the body, one under
 another (above, "Layout"). The footer has
 Reset page, Reload UI and Move frames (with `ns.Movers`: unlock mode) on the
 left; Close, the profile in use (with `ns.Profiles`: a menu of the profiles

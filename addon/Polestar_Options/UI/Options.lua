@@ -39,6 +39,7 @@ local pages, pageList = {}, {} -- name -> page; ordered list
 local current, currentTab
 local query = ""
 local seq = 0
+local folded -- while the window is folded to its header: { h, hidden = { frame, ... } } (O.Fold)
 
 local function percent(v) return floor(v * 100 + 0.5) .. "%" end
 -- "+20%" / "0%" / "-35%"
@@ -1221,6 +1222,8 @@ local function rowOf(view, c)
 	if w then return w end
 	w = makeControl(view, c)
 	W.SetDisabledWhen(w, disabledOf(c))
+	-- Shift + the wheel over a slider scales the window, as anywhere on it.
+	if rawget(w, "Slider") and O.WheelScales then O.WheelScales(w.Slider) end
 	local extras
 	for _, e in ipairs(c.extras or {}) do
 		if available(e) then
@@ -2640,6 +2643,7 @@ local function renderFooter(p)
 	W.ShellFooter(win, left, right)
 	if rawget(win, "PlaceThanks") then win.PlaceThanks() end
 	placeUndo()
+	if folded then win.Footer:Hide() end
 end
 
 function O.ResetPage(p)
@@ -2730,9 +2734,96 @@ local function markLead(list, active)
 	end
 end
 
+---------------------------------------------------------------------------
+-- Out of the way without closing: Peek (held down, its eye in the header)
+-- fades the whole window so what it covers shows through; Fold leaves only
+-- its header, the page kept, and Unfold (or going to another page, or a
+-- search) brings the rest back. Shift and the wheel anywhere on the window
+-- step its scale, the scale control lit so the change can be traced.
+---------------------------------------------------------------------------
+
+local PEEK_ALPHA = 0.15
+
+function O.Peek(on)
+	if not win then return end
+	on = on and win:IsShown() or false
+	if (win.psPeek or false) == on then return end
+	win.psPeek = on or nil
+	Anim.To(win, "alpha", win:GetAlpha(), on and PEEK_ALPHA or 1, Anim.FAST, "out")
+end
+
+local function paintFold()
+	local b = rawget(win, "FoldButton")
+	if not b then return end
+	W.SetIcon(b, folded and "chevron-down" or "chevron-up")
+	b.psTip = folded and L["Unfold"] or L["Fold"]
+	b.psTipLines = { folded and L["The whole window back, as you left it."] or L["Folds the window to its header, so it stops covering the screen. Nothing closes."] }
+end
+
+-- on: fold the window to its header (its top-left kept where it is), every
+-- other part away; off: back as it was. -> folded
+function O.Fold(on)
+	if not win then return false end
+	if on and not folded then
+		local left, top = win:GetLeft(), win:GetTop()
+		if left and top then
+			win:ClearAllPoints()
+			win:SetPoint("TOPLEFT", UIParent, "BOTTOMLEFT", left, top)
+		end
+		folded = { h = win:GetHeight(), hidden = {} }
+		local function away(f)
+			if f and f:IsShown() then
+				f:Hide()
+				folded.hidden[#folded.hidden + 1] = f
+			end
+		end
+		for _, c in ipairs({ win.Main:GetChildren() }) do if c ~= win.Header then away(c) end end
+		for _, c in ipairs({ win.Sidebar:GetChildren() }) do away(c) end
+		away(win.Status)
+		away(rawget(win, "Grip"))
+		away(rawget(win, "ThanksLink"))
+		O.HideMore()
+		W.HideMenu()
+		win:SetHeight(SH.header + 2)
+	elseif not on and folded then
+		local f = folded
+		folded = nil
+		win:SetHeight(f.h)
+		for _, c in ipairs(f.hidden) do c:Show() end
+		if rawget(win, "PlaceThanks") then win.PlaceThanks() end
+	end
+	paintFold()
+	return folded ~= nil
+end
+
+-- Shift + the wheel: the window's scale steps as its control's wheel does.
+-- -> true when it took the wheel
+local function shiftScale(delta)
+	if not (IsShiftKeyDown and IsShiftKeyDown()) then return false end
+	local t = rawget(win, "HeaderTools")
+	local s = t and rawget(t, "Slider")
+	local fn = s and s:GetScript("OnMouseWheel")
+	if not fn then return false end
+	fn(s, delta)
+	O.Flash(t)
+	return true
+end
+
+-- A frame of the window whose wheel Shift turns into the window's scale.
+local function wheelScales(frame)
+	local own = frame:GetScript("OnMouseWheel")
+	frame:EnableMouseWheel(true)
+	frame:SetScript("OnMouseWheel", function(self, delta)
+		if shiftScale(delta) then return end
+		if own then own(self, delta) end
+	end)
+end
+O.WheelScales = wheelScales
+
 -- Show page `key` (and tab name), or the search results when searching.
 function O.Select(key, tabName)
 	if not win then return end
+	if folded then O.Fold(false) end
 	local p, aliasTab = pageByKey(key)
 	p = p or pageList[1]
 	tabName = tabName or aliasTab or tabMemory()[p.key]
@@ -2784,6 +2875,7 @@ end
 function O.SetQuery(text)
 	query = text or ""
 	if not win then return end
+	if folded then O.Fold(false) end
 	-- A query from code (a link, What's New) shows in the header's box; the
 	-- box's own change then finds it the same and does nothing more.
 	local box = win.Search
@@ -3044,6 +3136,30 @@ local function build()
 	UI.Thanks.HeaderLink(win)
 	-- A row's right-click reset (W.ResetSetting) offers its Undo too.
 	W.OnReset(offerUndo)
+	-- Peek (held down) and Fold in the header, between the search and the
+	-- scale (W.HeaderScale lays the header's tools out right to left).
+	local peekB = W.IconButton(win.Header, "eye", 24, L["Peek"], nil, 15)
+	peekB.psTipLines = { L["Hold it down to see what the window covers."] }
+	peekB:HookScript("OnMouseDown", function(_, button) if button == "LeftButton" then O.Peek(true) end end)
+	peekB:HookScript("OnMouseUp", function() O.Peek(false) end)
+	-- A hold has no gamepad press: the gamepad passes it by.
+	peekB.psPadSkip = true
+	win.PeekButton = peekB
+	local foldB = W.IconButton(win.Header, "chevron-up", 24, L["Fold"], function() O.Fold(not folded) end, 12)
+	win.FoldButton = foldB
+	paintFold()
+	win.psHeadTools = win.psHeadTools or {}
+	table.insert(win.psHeadTools, 1, foldB)
+	table.insert(win.psHeadTools, 2, peekB)
+	if rawget(win, "HeaderTools") then win.HeaderTools.Place() end
+	win:HookScript("OnHide", function()
+		O.Peek(false)
+		O.Fold(false)
+	end)
+	-- Shift + the wheel over the window, its body, its sidebar: its scale.
+	wheelScales(win)
+	wheelScales(win.Scroll)
+	wheelScales(win.NavScroll)
 	win:HookScript("OnSizeChanged", function() win.PlaceThanks() end)
 	-- After the shell's own scale handler: the size follows the scale's room.
 	ns.On("SETTING_CHANGED", function(path)
