@@ -394,13 +394,16 @@ pub fn fit(order: Vec<Order>, world: &World, data: &Data, frames: &MapFrames, ex
 		let jj = j.unwrap_or(i);
 		let anchor_desc = |x: &Order| format!("{:?} {}", x.t, x.q.map_or_else(String::new, |q| name(data, q))).to_lowercase();
 		let mut line = format!("level fit: {} task {} moved after {} ({gap}; fits there at {:.1})", name(data, q), t.map_or(0, |t| t + 1), anchor_desc(&o[jj]), lvl(&o[jj]));
-		// The accept goes with it when the route stands by its giver again on the way there.
+		// The accept goes with it when the route stands by its giver again on the way there, and no other
+		// event of the quest that stays where it is comes before that stop: Mazzranache's scales, kept with
+		// Poison Water's talons, came before the accept the gizzards took along (0.4.0, Tauren).
 		let ai = (0..i).find(|&k| o[k].t == OrderT::Accept && o[k].q == Some(q));
 		let mut moving: Vec<usize> = vec![i];
 		let skip: FxHashSet<usize> = ti.filter(|_| kt.is_some()).into_iter().chain(carry.iter().copied()).collect();
 		let acc_anchor = ai.and_then(|a| {
 			let pa = cx.pt(&o[a]);
-			(i + 1..=jj).rev().find(|k| !skip.contains(k) && Ctx::near(cx.pt(&o[*k]), pa, NPC_YD))
+			let first_staying = (a + 1..o.len()).find(|&k| k != i && !skip.contains(&k) && o[k].q == Some(q)).unwrap_or(o.len());
+			(i + 1..=jj).rev().find(|&k| k < first_staying && !skip.contains(&k) && Ctx::near(cx.pt(&o[k]), pa, NPC_YD))
 		});
 		if let (Some(a), Some(_)) = (ai, acc_anchor) {
 			moving.push(a);
