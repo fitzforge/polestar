@@ -53,8 +53,8 @@ return {
 	["{npc:8584}, outside the spider cave"] = "{npc:8584}, devant la grotte des araignées",
 
 	-- Step 7: Dolanaar
-	-- {faction:69} Darnassus
-	["Optional: the village on the road to {faction:69}, about 1,250 reputation in 45 minutes at 60. Forever pays these old quests in full at any level. Skip this step to skip the hub."] = "",
+	-- {faction:69} Darnassus · {npc:2151} Moon Priestess Amara
+	["Optional: the village on the road to {faction:69}, about 1,250 reputation in 45 minutes at 60. Forever pays these old quests in full at any level. Skip this step to skip the hub.\n{npc:2151} patrols the road west of the village: if she isn't at the arrow, follow the road until you meet her."] = "",
 
 	-- Step 8: Dolanaar: Denalan and the lake
 	-- {area:186} Dolanaar · {npc:2080} Denalan
@@ -72,6 +72,8 @@ return {
 	-- Step 10: Dolanaar: first hand-in
 	-- {area:186} Dolanaar
 	["{area:186}: first hand-in"] = "{area:186} : première remise",
+	-- {npc:2151} Moon Priestess Amara
+	["{npc:2151} patrols the road west of the village: if she isn't at the arrow, follow the road until you meet her."] = "{npc:2151} patrouille sur la route à l'ouest du village : si elle n'est pas à la flèche, suivez la route jusqu'à la croiser.",
 
 	-- Step 11: Dolanaar: the Ban'ethil Barrow Den's entrance
 	-- {area:186} Dolanaar · {area:262} Ban'ethil Barrow Den

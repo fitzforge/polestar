@@ -11673,9 +11673,9 @@ const refData = () => (data = data || loadData(DATA));
 
 // sesgoe (#227): Moon Priestess Amara rides up and down the road west of Dolanaar, and the arrow pointed at one spot
 // of it with nothing saying she moves; the same check found Private Thorsen, who walks the Rebel Camp's path down to
-// the road and back. Every step at either of them says they move. The Darnassus reputation guide's Dolanaar hub, added
-// after the fix, takes and hands in The Road to Darnassus with no word of it: the todo goes when its tips say so.
-test('Walking givers (#227): every step at Moon Priestess Amara or Private Thorsen says they move along their road', { skip, todo: "#227 is back in forever/reputation/darnassus.guide's Dolanaar hub" }, () => {
+// the road and back. Every step at either of them says they move: the Darnassus reputation guide's Dolanaar hub, added
+// after the fix, took and handed in The Road to Darnassus with no word of it until its tips said so.
+test('Walking givers (#227): every step at Moon Priestess Amara or Private Thorsen says they move along their road', { skip }, () => {
 	const walkers = { 2151: 'Moon Priestess Amara', 738: 'Private Thorsen' };
 	for (const [npc, name] of Object.entries(walkers)) assert.equal(refData().npc(Number(npc)).name, name, `npc ${npc} is ${name}`);
 	const moves = /\b(patrols?|walks?|wanders?|roams?|rides?)\b/i;
