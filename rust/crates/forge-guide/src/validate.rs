@@ -245,6 +245,58 @@ fn check_chosen_all_optional(g: &V, diag: &mut Diagnostics) {
 	}
 }
 
+/// The lowest level a step applies at by its `when level>=`/`when level>` predicates (a point inside a
+/// level counts: `level>=30.9`), 1 without one.
+pub fn lowest_level(step: &V) -> f64 {
+	let mut lo = 1.0f64;
+	for p in step.get("when").items() {
+		if p.get("k").as_str() != Some("level") {
+			continue;
+		}
+		let (n, frac) = (p.get("n").num(), p.get("frac"));
+		let at = match (p.get("op").as_str(), frac.is_num()) {
+			(Some(">=" | ">"), true) => n + frac.num(),
+			(Some(">="), false) => n,
+			(Some(">"), false) => n + 1.0,
+			_ => continue,
+		};
+		lo = lo.max(at);
+	}
+	lo
+}
+
+/// A dungeon's run (a `when dungeon "<Name>"` step, not negated, with an `enter` goal) that applies under the
+/// dungeon's floor (Fitz, 2026-11-13: never a dungeon too low): its `when level>=` gate, none meaning any
+/// level, is under the floor the Codex gives it (`Data::dungeon_floors`: the client's Group Finder minimum,
+/// its fixed minimum or where players who killed a boss there entered, whichever is highest). Below the gate
+/// the run is passed and the route keeps the solo path, so the gate is what keeps a player too low out. Its
+/// pick-ups and hand-ins aren't checked: a pick-up's gate is the floor less the levels the route plans before
+/// the run. No Codex, no check. House rule.
+fn check_dungeon_floors(g: &V, data: &Data, diag: &mut Diagnostics) {
+	if !data.dungeon_floors.truthy() {
+		return;
+	}
+	for step in g.get("steps").items() {
+		let Some(p) = step.get("when").items().into_iter().find(|p| p.get("k").as_str() == Some("dungeon") && !p.get("neg").truthy()) else { continue };
+		let Some(enter) = step.get("goals").items().into_iter().find(|goal| t_of(goal) == "enter") else { continue };
+		let row = data.dungeon_floors.get(&p.get("map").to_js_string());
+		if p.get("map").is_undef() || !row.get("floor").is_num() {
+			continue;
+		}
+		let (floor, gate) = (row.get("floor").num(), lowest_level(&step));
+		if gate + 1e-9 < floor {
+			let from = if gate > 1.0 { format!("from level {}", crate::js::num_str(gate)) } else { "at any level".to_string() };
+			let msg = format!(
+				"this {} run applies {from}, under the dungeon's floor of {} (the Codex: the Group Finder's minimum or where players who killed a boss there entered): gate it `when level>={}`",
+				ts(&row.get("name")),
+				crate::js::num_str(floor),
+				crate::js::num_str(floor)
+			);
+			house_rule(diag, g, &ast_file(g), line(&enter), msg);
+		}
+	}
+}
+
 /// The quests of g the player takes only by choosing a group quest.
 fn group_quests_of(g: &V) -> FxHashSet<Key> {
 	let mut only: FxHashMap<Key, bool> = FxHashMap::default();
@@ -1166,6 +1218,7 @@ pub fn validate_guides(guides: &[V], data: &Data, diag: &mut Diagnostics) {
 		check_bare_completes(g, data, diag);
 		check_bare_uses(g, diag);
 		check_chosen_all_optional(g, diag);
+		check_dungeon_floors(g, data, diag);
 		ctx.mark_carried(g);
 		let mut accepted: FxHashSet<Key> = FxHashSet::default();
 		let mut turned_in: FxHashSet<Key> = FxHashSet::default();

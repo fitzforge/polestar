@@ -133,6 +133,8 @@ pub struct Inputs<'a> {
 	/// Nearby flight paths (nearby_fp.rs, with route travel): a stop by a flight master the route
 	/// later gains by flying from or to learns its path. Off: the route's flight paths stand.
 	pub nearby_fp: bool,
+	/// data/dungeon-runs.json (`dungeons_near`): None names no dungeon in a grind tip.
+	pub dungeon_runs: Option<&'a serde_json::Value>,
 }
 
 /// What apply_route wrote: the chain's guides (relative path, text), in chain order.
@@ -345,6 +347,9 @@ struct Ctx<'a> {
 	others_dup: FxHashSet<Key>,
 	wq: FxHashMap<u32, usize>,
 	zone_ids: Vec<(u32, String)>,
+	/// Per guide of the chain, its header zone's continent and the dungeon runs its grind tips may name
+	/// (`dungeons_near`).
+	dungeon_near: Vec<(Option<i64>, Vec<NearRun>)>,
 }
 
 struct Pier {
@@ -1161,6 +1166,15 @@ impl<'a> Ctx<'a> {
 	/// while the route's own 20.2 stop trained only Rogues and Warlocks).
 	fn above_level(&self, s: usize, lvl: Option<f64>) -> bool {
 		lvl.zip(self.v1_level_at(s)).is_some_and(|(a, n)| n > a.floor())
+	}
+
+	/// The dungeon runs a grind inserted at the route's event `order[at]`, at world point `pt`, may name
+	/// (`dungeons_near`, `runs_at`), the guide being the last one a route line up to it is in.
+	fn near_at(&self, order: &[Order], at: usize, pt: Option<u32>) -> Vec<(String, RunAt)> {
+		let at = at.min(order.len().saturating_sub(1));
+		let Some(f) = order.get(..=at).and_then(|o| o.iter().rev().find_map(|x| x.key.map(|k| k.0))) else { return Vec::new() };
+		let Some((home, runs)) = self.dungeon_near.get(f) else { return Vec::new() };
+		runs_at(runs, order, at, f, self.w(pt).map(|p| p.c).or(*home))
 	}
 
 	/// The route passes zone `zone` (any, with none) at level `lvl` or more at one of its lines in
@@ -2242,6 +2256,7 @@ pub fn apply_route(inp: &Inputs) -> Result<Output, String> {
 			}
 		}
 	}
+	let dungeon_near = dungeons_near(&chain, inp.guides, inp.dungeon_runs, world, if route.faction.as_deref().is_some_and(|f| f.starts_with('H')) { 'H' } else { 'A' });
 	let mut cx = Ctx {
 		bag_quest,
 		race_dropped,
@@ -2282,6 +2297,7 @@ pub fn apply_route(inp: &Inputs) -> Result<Output, String> {
 		others_dup: FxHashSet::default(),
 		wq,
 		zone_ids: world.zones.iter().map(|(k, v)| (*k, v.clone())).collect(),
+		dungeon_near,
 	};
 	let mut anchor_of: FxHashMap<Key, Key> = FxHashMap::default();
 	fn put_at(m: &mut FxHashMap<Key, Vec<Line>>, anchor_of: &mut FxHashMap<Key, Key>, k2: Key, ls: Vec<Line>, front: bool) {
@@ -8113,7 +8129,7 @@ fn level_ins(cx: &Ctx, order: &[Order], oi: usize) -> Option<Ins> {
 		(None, None, Some(next)) => format!("  tip Top up here to level {n} before the hand-ins that follow: they take you to level {next}."),
 		(None, None, None) => format!("  tip Top up here to level {n} before the hand-ins that follow."),
 	};
-	if let Some(d) = grind_dungeon_tip(cx.fac, lvl) {
+	if let Some(d) = grind_dungeon_tip(cx.fac, lvl, &cx.near_at(order, oi, pt)) {
 		tip = format!("{tip} {d}");
 	}
 	lines.push(tip);
@@ -8229,40 +8245,113 @@ fn grind_lines(cx: &Ctx, target: &Option<(String, Option<u32>)>, pt: Option<u32>
 }
 
 /// Dungeons a grind step may name instead of its grind (Fitz's grind policy, 2026-11-08; never a raid):
-/// name, wing, lowest and highest level of the band it suits, and the faction letter it is for (' ' for
-/// both: the entrance is on that side's ground, Ragefire Chasm in Orgrimmar, the Stockade in Stormwind).
-const GRIND_DUNGEONS: [(&str, &str, u32, u32, char); 21] = [
+/// name, wing, lowest and highest level of its range, and the faction letter it is for (' ' for both:
+/// the entrance is on that side's ground, Ragefire Chasm in Orgrimmar, the Stockade in Stormwind). The
+/// range is the Codex's (forge-data journal.rs `levels_of`, Fitz, 2026-11-13): the client's Group Finder,
+/// never under the client's own minimum (Wailing Caverns from 17, The Shaper's Terrace 60), The Hall of
+/// Thanes to 18 (data/codex/levels.json). A tip names one only when its run in the route is near
+/// (`dungeons_near`).
+const GRIND_DUNGEONS: [(&str, &str, u32, u32, char); 30] = [
 	("Ragefire Chasm", "", 13, 18, 'H'),
 	("Wailing Caverns", "", 17, 24, ' '),
-	("Deadmines", "", 17, 24, 'A'),
-	("Shadowfang Keep", "", 22, 30, ' '),
+	("Deadmines", "", 17, 26, 'A'),
+	("Shadowfang Keep", "", 20, 30, ' '),
 	("Blackfathom Deeps", "", 24, 32, ' '),
-	("Stockade", "", 24, 30, 'A'),
-	("Razorfen Kraul", "", 25, 30, ' '),
-	("Gnomeregan", "", 28, 32, 'A'),
-	("Scarlet Monastery", "Graveyard", 28, 32, ' '),
-	("Scarlet Monastery", "Library", 32, 36, ' '),
-	("Scarlet Monastery", "Armory", 34, 38, ' '),
-	("Scarlet Monastery", "Cathedral", 36, 40, ' '),
-	("Razorfen Downs", "", 35, 40, ' '),
-	("Uldaman", "", 40, 45, ' '),
-	("Zul'Farrak", "", 44, 48, ' '),
-	("Maraudon", "", 46, 52, ' '),
-	("Sunken Temple", "", 50, 54, ' '),
-	("Blackrock Depths", "", 52, 58, ' '),
+	("Stockade", "", 24, 32, 'A'),
+	("Razorfen Kraul", "", 29, 38, ' '),
+	("Gnomeregan", "", 29, 38, 'A'),
+	("Scarlet Monastery", "Graveyard", 30, 38, ' '),
+	("Scarlet Monastery", "Library", 33, 41, ' '),
+	("Scarlet Monastery", "Armory", 36, 44, ' '),
+	("Scarlet Monastery", "Cathedral", 38, 46, ' '),
+	("Razorfen Downs", "", 37, 46, ' '),
+	("Uldaman", "", 41, 51, ' '),
+	("Zul'Farrak", "", 44, 54, ' '),
+	("Maraudon", "", 46, 55, ' '),
+	("Sunken Temple", "", 50, 60, ' '),
+	("Blackrock Depths", "", 52, 60, ' '),
 	("Blackrock Spire", "Lower", 55, 60, ' '),
 	("Scholomance", "", 58, 60, ' '),
 	("Stratholme", "", 58, 60, ' '),
+	// Forever's own, after the Classic ones: a tie in the range goes to the older dungeon.
+	("Hall of Thanes", "", 13, 18, ' '),
+	("Ruins of Lordaeron", "", 15, 22, ' '),
+	("Excavation Site", "", 26, 33, ' '),
+	("City of Dalaran", "", 28, 35, ' '),
+	("Drowned City", "", 35, 42, ' '),
+	("Krol'dok Stronghold", "", 40, 47, ' '),
+	("Alcaz Prison", "", 48, 55, ' '),
+	("Blackmaw Hold", "", 55, 60, ' '),
+	("Shaper's Terrace", "", 60, 60, ' '),
 ];
 
-/// The sentence a grind step to level `lvl` ends its tip with: the (at most two) dungeons of the faction
-/// whose band holds the level, nearest band middle first ("Or, with a group, run the Razorfen Kraul
-/// dungeon instead."; two wings of one dungeon in one bracket). None below every band.
-fn grind_dungeon_tip(fac: char, lvl: f64) -> Option<String> {
+/// Where a dungeon run a grind tip names is, seen from the grind (`Ctx::near_at`): at the grind's stop or
+/// behind it in the same guide, later in the same guide, or in the next guide; with the zone of its way in.
+#[derive(Clone, Debug, PartialEq)]
+enum RunAt {
+	Here,
+	Later(String),
+	Next(String),
+}
+
+/// A dungeon run a grind tip in a guide may name (`dungeons_near`): its key (`dungeon_key`), whether it is
+/// in a guide the guide leads to, the route event its record says it follows (`run.after` when that is a
+/// quest's goal: whether it comes after a grind in the same guide), and the zone and continent of its way in.
+#[derive(Clone, Debug, PartialEq)]
+struct NearRun {
+	key: String,
+	next: bool,
+	after: Option<(String, u32)>,
+	zone: String,
+	cont: Option<i64>,
+}
+
+/// Of a guide's `runs` (`dungeons_near`), those a grind at the route's event `order[at]` in guide `f` on
+/// continent `cont` may name: the way in on the grind's continent (unknown on either side: kept), each
+/// with where it is from the grind: in the next guide, later in this one (its record's anchor comes after
+/// the grind among the guide's events), or here (at the grind's stop or behind it).
+fn runs_at(runs: &[NearRun], order: &[Order], at: usize, f: usize, cont: Option<i64>) -> Vec<(String, RunAt)> {
+	runs.iter()
+		.filter(|r| cont.is_none() || r.cont.is_none() || r.cont == cont)
+		.map(|r| {
+			let place = if r.next {
+				RunAt::Next(r.zone.clone())
+			} else if r.after.as_ref().is_some_and(|(goal, q)| order.iter().position(|o| o.key.is_some_and(|k| k.0 == f) && anchors(o, goal, *q)).is_some_and(|p| p > at)) {
+				RunAt::Later(r.zone.clone())
+			} else {
+				RunAt::Here
+			};
+			(r.key.clone(), place)
+		})
+		.collect()
+}
+
+/// Whether route event `o` is a dungeon record's anchor: quest `q`'s `goal` (accept, turnin, or its work).
+fn anchors(o: &Order, goal: &str, q: u32) -> bool {
+	o.q == Some(q)
+		&& match goal {
+			"accept" => o.t == OrderT::Accept,
+			"turnin" => o.t == OrderT::Turnin,
+			_ => o.t == OrderT::Task,
+		}
+}
+
+/// The sentences a grind step to level `lvl` ends its tip with (Fitz, 2026-11-13): of the dungeon runs
+/// `near` names (`dungeons_near`), the (at most two) of the faction whose range holds the level, nearest
+/// range middle first. A run at the grind's stop or behind it: "Or, with a group, run the City of Dalaran
+/// dungeon instead." (two wings of one dungeon in one bracket); a run still to come is named as coming
+/// up, never as a detour from the grind: "With a group, the Uldaman run in the next guide, in Badlands,
+/// makes up the difference." None below every range, or with none near.
+fn grind_dungeon_tip(fac: char, lvl: f64, near: &[(String, RunAt)]) -> Option<String> {
 	let n = lvl.floor() as u32;
-	let mut fit: Vec<(u32, usize)> = GRIND_DUNGEONS.iter().enumerate().filter(|(_, d)| (d.4 == ' ' || d.4 == fac) && d.2 <= n && n <= d.3).map(|(i, d)| ((d.2 + d.3).abs_diff(2 * n), i)).collect();
+	let place = |name: &str| near.iter().find(|(k, _)| *k == dungeon_key(name)).map(|(_, p)| p);
+	let mut fit: Vec<(u32, usize)> =
+		GRIND_DUNGEONS.iter().enumerate().filter(|(_, d)| (d.4 == ' ' || d.4 == fac) && d.2 <= n && n <= d.3 && place(d.0).is_some()).map(|(i, d)| ((d.2 + d.3).abs_diff(2 * n), i)).collect();
 	fit.sort();
 	let picks: Vec<(&str, &str)> = fit.iter().take(2).map(|&(_, i)| (GRIND_DUNGEONS[i].0, GRIND_DUNGEONS[i].1)).collect();
+	if picks.is_empty() {
+		return None;
+	}
 	let one = |name: &str, wings: &[&str]| {
 		let w: Vec<&str> = wings.iter().copied().filter(|w| !w.is_empty()).collect();
 		if w.is_empty() {
@@ -8271,13 +8360,87 @@ fn grind_dungeon_tip(fac: char, lvl: f64) -> Option<String> {
 			format!("the {name} dungeon ({})", w.join(" or "))
 		}
 	};
-	let what = match picks.as_slice() {
-		[] => return None,
-		[(a, w)] => one(a, &[w]),
-		[(a, w1), (b, w2)] if a == b => one(a, &[w1, w2]),
-		[(a, w1), (b, w2), ..] => format!("{} or {}", one(a, &[w1]), one(b, &[w2])),
-	};
-	Some(format!("Or, with a group, run {what} instead."))
+	let here: Vec<(&str, &str)> = picks.iter().copied().filter(|(a, _)| place(a) == Some(&RunAt::Here)).collect();
+	let mut out = Vec::new();
+	match here.as_slice() {
+		[] => {}
+		[(a, w)] => out.push(one(a, &[w])),
+		[(a, w1), (b, w2)] if a == b => out.push(one(a, &[w1, w2])),
+		[(a, w1), (b, w2), ..] => out.push(format!("{} or {}", one(a, &[w1]), one(b, &[w2]))),
+	}
+	let mut out: Vec<String> = out.into_iter().map(|what| format!("Or, with a group, run {what} instead.")).collect();
+	let mut named: Vec<&str> = Vec::new();
+	for &(a, _) in &picks {
+		if named.contains(&a) {
+			continue;
+		}
+		named.push(a);
+		let (when, zone) = match place(a) {
+			Some(RunAt::Later(z)) => ("later in this guide", z),
+			Some(RunAt::Next(z)) => ("in the next guide", z),
+			_ => continue,
+		};
+		let at = if zone.is_empty() { String::new() } else { format!(", in {zone},") };
+		out.push(format!("With a group, the {a} run {when}{at} makes up the difference."));
+	}
+	Some(out.join(" "))
+}
+
+/// The dungeon runs a grind tip in each guide of `chain` may name (Fitz, 2026-11-13): those whose run in
+/// the route (data/dungeon-runs.json, the faction's or both factions') is in that guide or one it leads to
+/// (its `next` lines), with the continent of the guide's header zone (for a grind whose own point is
+/// unknown); `runs_at` keeps those on the grind's continent. A dungeon the route never runs, or runs guides
+/// later or across the sea, is no alternative to a grind.
+fn dungeons_near(chain: &[String], guides: &BTreeMap<String, String>, runs: Option<&serde_json::Value>, world: &World, fac: char) -> Vec<(Option<i64>, Vec<NearRun>)> {
+	let mut cont: FxHashMap<u32, i64> = FxHashMap::default();
+	for p in &world.points {
+		cont.entry(p.map).or_insert(p.c);
+	}
+	let zone_map: FxHashMap<&str, u32> = world.zones.iter().map(|(k, v)| (v.as_str(), *k)).collect();
+	let side = if fac == 'H' { "Horde" } else { "Alliance" };
+	// (key, guide, continent of the way in, anchor, zone of the way in)
+	type Rec = (String, String, Option<i64>, Option<(String, u32)>, String);
+	let runs: Vec<Rec> = runs
+		.and_then(|r| r.get("runs"))
+		.and_then(|r| r.as_array())
+		.map(|a| {
+			a.iter()
+				.filter_map(|r| {
+					let f = r.get("faction")?.as_str()?;
+					if f != side && f != "Both" {
+						return None;
+					}
+					let run = r.get("run")?;
+					let map = run.get("entrance").and_then(|e| e.get("map")).and_then(|m| m.as_u64()).map(|m| m as u32);
+					let after = run.get("after").and_then(|a| Some((a.get("goal")?.as_str()?.to_string(), u32::try_from(a.get("quest")?.as_u64()?).ok()?)));
+					let zone = map.and_then(|m| world.zones.get(&m).cloned()).unwrap_or_default();
+					Some((dungeon_key(r.get("dungeon")?.as_str()?), run.get("guide")?.as_str()?.to_string(), map.and_then(|m| cont.get(&m).copied()), after, zone))
+				})
+				.collect()
+		})
+		.unwrap_or_default();
+	chain
+		.iter()
+		.map(|f| {
+			let text = guides.get(f).map(String::as_str).unwrap_or("");
+			let own = f.trim_end_matches(".guide").to_string();
+			let next: Vec<String> = re!(r"(?m)^next\s+(\S+)").captures_iter(text).map(|m| m[1].to_string()).collect();
+			let c = re!(r"(?m)^zone\s+(.+?)\s*$").captures(text).and_then(|m| zone_map.get(&m[1]).copied()).and_then(|m| cont.get(&m).copied());
+			let near = runs
+				.iter()
+				.filter(|(_, g, _, _, _)| *g == own || next.contains(g))
+				.map(|(k, g, rc, after, zone)| NearRun { key: k.clone(), next: *g != own, after: if *g == own { after.clone() } else { None }, zone: zone.clone(), cont: *rc })
+				.collect();
+			(c, near)
+		})
+		.collect()
+}
+
+/// A dungeon's name as the grind tips and data/dungeon-runs.json compare it: lowercase, without a leading
+/// "The" and what follows a colon ("Excavation Site: Wetlands").
+fn dungeon_key(name: &str) -> String {
+	let n = name.split(':').next().unwrap_or(name).trim();
+	n.strip_prefix("The ").unwrap_or(n).to_lowercase()
 }
 
 /// A route's solo fallback after its event `p` (the order's index): the grind a player who skipped the
@@ -8291,7 +8454,7 @@ fn solo_fallback_ins(cx: &Ctx, order: &[Order], p: usize, root: u32, title: &str
 	// (A title's quotes, Wanted: "Hogger", are no quote of the tip's: the pack reads a quoted part and
 	// refuses the comma after it, C14Plan.)
 	let plain = re!(r"\s+").replace_all(&title.replace('"', ""), " ").into_owned();
-	let dungeon = grind_dungeon_tip(cx.fac, target).map(|d| format!(" {d}")).unwrap_or_default();
+	let dungeon = grind_dungeon_tip(cx.fac, target, &cx.near_at(order, p, pt)).map(|d| format!(" {d}")).unwrap_or_default();
 	let mut lines = vec![format!("  when !group {root}"), format!("  when level<{n}"), format!("  tip If you skipped {plain}, grind here to level {n} to stay on the route's plan.{dungeon}")];
 	lines.extend(grind_lines(cx, &camp, pt, spot.as_ref(), &n));
 	(Ins { title: format!("Level {n}"), lines, map: spot.as_ref().map(|s| s.map).or_else(|| cx.map_of_pt(pt)) }, pt)
@@ -10433,15 +10596,97 @@ mod tests {
 		assert_eq!(merge_solo_fallbacks(one.clone()), one);
 	}
 
+	/// Every dungeon of the table, run here.
+	fn here_all() -> Vec<(String, RunAt)> {
+		GRIND_DUNGEONS.iter().map(|d| (dungeon_key(d.0), RunAt::Here)).collect()
+	}
+
 	#[test]
-	fn grind_dungeon_tip_names_up_to_two_dungeons_of_the_band_for_the_faction() {
-		assert_eq!(grind_dungeon_tip('H', 12.9), None);
-		assert_eq!(grind_dungeon_tip('H', 13.0).as_deref(), Some("Or, with a group, run the Ragefire Chasm dungeon instead."));
-		assert_eq!(grind_dungeon_tip('A', 13.0), None);
-		assert_eq!(grind_dungeon_tip('A', 21.4).as_deref(), Some("Or, with a group, run the Wailing Caverns dungeon or the Deadmines dungeon instead."));
-		assert_eq!(grind_dungeon_tip('H', 29.49).as_deref(), Some("Or, with a group, run the Blackfathom Deeps dungeon or the Scarlet Monastery dungeon (Graveyard) instead."));
-		assert_eq!(grind_dungeon_tip('H', 34.0).as_deref(), Some("Or, with a group, run the Scarlet Monastery dungeon (Library or Armory) instead."));
-		assert_eq!(grind_dungeon_tip('A', 59.5).as_deref(), Some("Or, with a group, run the Scholomance dungeon or the Stratholme dungeon instead."));
+	fn grind_dungeon_tip_names_up_to_two_dungeons_of_the_range_for_the_faction() {
+		let all = here_all();
+		assert_eq!(grind_dungeon_tip('H', 12.9, &all), None);
+		assert_eq!(grind_dungeon_tip('H', 13.0, &all).as_deref(), Some("Or, with a group, run the Ragefire Chasm dungeon or the Hall of Thanes dungeon instead."));
+		assert_eq!(grind_dungeon_tip('A', 21.4, &all).as_deref(), Some("Or, with a group, run the Wailing Caverns dungeon or the Deadmines dungeon instead."));
+		let sm = [(dungeon_key("Scarlet Monastery"), RunAt::Here)];
+		assert_eq!(grind_dungeon_tip('H', 38.0, &sm).as_deref(), Some("Or, with a group, run the Scarlet Monastery dungeon (Library or Armory) instead."));
+		assert_eq!(grind_dungeon_tip('A', 59.5, &all).as_deref(), Some("Or, with a group, run the Scholomance dungeon or the Stratholme dungeon instead."));
+	}
+
+	/// Fitz, 2026-11-13: a grind tip names a dungeon only when its run is near: in the guide or the one it
+	/// leads to, with the way in on the guide's continent, and its range (the Codex's: the client's Group
+	/// Finder) holds the level. A run still to come is named as coming up, never as a detour from the grind.
+	#[test]
+	fn grind_tips_name_only_dungeons_run_in_this_guide_or_the_next_on_its_continent() {
+		let here = |names: &[&str]| names.iter().map(|n| (dungeon_key(n), RunAt::Here)).collect::<Vec<_>>();
+		assert_eq!(grind_dungeon_tip('H', 29.49, &here(&["Blackfathom Deeps"])).as_deref(), Some("Or, with a group, run the Blackfathom Deeps dungeon instead."));
+		assert_eq!(grind_dungeon_tip('H', 29.49, &here(&[])), None, "no run near: no dungeon");
+		assert_eq!(grind_dungeon_tip('H', 32.5, &here(&["Razorfen Kraul"])).as_deref(), Some("Or, with a group, run the Razorfen Kraul dungeon instead."), "29-38 by the Group Finder");
+		assert_eq!(grind_dungeon_tip('A', 36.0, &here(&["City of Dalaran"])), None, "a run near but out of its range");
+		// Coming up: later in this guide, or in the next one, with the zone of its way in.
+		let later = [(dungeon_key("City of Dalaran"), RunAt::Later("Alterac Mountains".into()))];
+		assert_eq!(grind_dungeon_tip('A', 30.8, &later).as_deref(), Some("With a group, the City of Dalaran run later in this guide, in Alterac Mountains, makes up the difference."));
+		let next = [(dungeon_key("Uldaman"), RunAt::Next("Badlands".into()))];
+		assert_eq!(grind_dungeon_tip('A', 42.16, &next).as_deref(), Some("With a group, the Uldaman run in the next guide, in Badlands, makes up the difference."));
+		let both = [(dungeon_key("Stratholme"), RunAt::Here), (dungeon_key("Scholomance"), RunAt::Later("Western Plaguelands".into()))];
+		assert_eq!(
+			grind_dungeon_tip('A', 59.85, &both).as_deref(),
+			Some("Or, with a group, run the Stratholme dungeon instead. With a group, the Scholomance run later in this guide, in Western Plaguelands, makes up the difference.")
+		);
+		let w = World {
+			points: vec![Pt { c: 0, wx: 0.0, wy: 0.0, map: 1416 }, Pt { c: 0, wx: 0.0, wy: 0.0, map: 1424 }, Pt { c: 1, wx: 0.0, wy: 0.0, map: 1446 }],
+			zones: [(1416, "Alterac Mountains".to_string()), (1424, "Hillsbrad Foothills".to_string()), (1446, "Tanaris".to_string())].into_iter().collect(),
+			..World::default()
+		};
+		let runs = serde_json::json!({ "runs": [
+			{ "dungeon": "City of Dalaran", "faction": "Alliance", "run": { "guide": "forever/alliance/30-40/01-hillsbrad-foothills", "after": { "quest": 512, "goal": "turnin" }, "entrance": { "map": 1416 } } },
+			{ "dungeon": "Zul'Farrak", "faction": "Alliance", "run": { "guide": "forever/alliance/30-40/02-arathi", "entrance": { "map": 1446 } } },
+			{ "dungeon": "The Deadmines", "faction": "Horde", "run": { "guide": "forever/alliance/30-40/01-hillsbrad-foothills", "entrance": { "map": 1424 } } },
+		] });
+		let guides: BTreeMap<String, String> = [
+			("forever/alliance/30-40/00-wetlands.guide".to_string(), "zone Wetlands\nnext forever/alliance/30-40/01-hillsbrad-foothills\n".to_string()),
+			("forever/alliance/30-40/01-hillsbrad-foothills.guide".to_string(), "zone Hillsbrad Foothills\nnext forever/alliance/30-40/02-arathi\n".to_string()),
+		]
+		.into_iter()
+		.collect();
+		let chain: Vec<String> = guides.keys().cloned().collect();
+		let n = dungeons_near(&chain, &guides, Some(&runs), &w, 'A');
+		let dalaran = |next: bool| NearRun { key: "city of dalaran".into(), next, after: (!next).then(|| ("turnin".to_string(), 512)), zone: "Alterac Mountains".into(), cont: Some(0) };
+		let zf = NearRun { key: "zul'farrak".into(), next: true, after: None, zone: "Tanaris".into(), cont: Some(1) };
+		assert_eq!(n[0], (None, vec![dalaran(true)]), "the next guide's run; the header zone with no point has no continent");
+		assert_eq!(n[1], (Some(0), vec![dalaran(false), zf.clone()]), "its own run, with its anchor, and the next guide's; the Horde's Deadmines is not the Alliance's");
+		// The grind's continent keeps the runs on it: Zul'Farrak is across the sea from a grind in Hillsbrad.
+		assert_eq!(runs_at(&n[1].1, &[], 0, 1, Some(0)), [("city of dalaran".to_string(), RunAt::Here)]);
+		assert_eq!(runs_at(&n[1].1, &[], 0, 1, Some(1)), [("zul'farrak".to_string(), RunAt::Next("Tanaris".into()))]);
+		assert_eq!(runs_at(&n[1].1, &[], 0, 1, None).len(), 2, "a grind with no continent keeps both");
+	}
+
+	/// A run in the grind's own guide is still to come when its record's anchor is among the guide's events
+	/// after the grind; at or before it, the run is here.
+	#[test]
+	fn a_run_whose_anchor_comes_after_the_grind_is_named_later_in_this_guide() {
+		let ev = |t: &str, q: u32, f: usize| {
+			let mut o = serde_json::from_value::<Order>(serde_json::json!({ "t": t, "q": q })).unwrap();
+			o.key = Some((f, 0));
+			o
+		};
+		let order = [ev("accept", 1, 3), ev("turnin", 512, 3), ev("accept", 2, 3)];
+		let runs = [NearRun { key: "city of dalaran".into(), next: false, after: Some(("turnin".into(), 512)), zone: "Alterac Mountains".into(), cont: Some(0) }];
+		assert_eq!(runs_at(&runs, &order, 0, 3, Some(0)), [("city of dalaran".to_string(), RunAt::Later("Alterac Mountains".into()))]);
+		assert_eq!(runs_at(&runs, &order, 1, 3, Some(0)), [("city of dalaran".to_string(), RunAt::Here)], "at the anchor: here");
+		assert_eq!(runs_at(&runs, &order, 2, 3, Some(0)), [("city of dalaran".to_string(), RunAt::Here)], "behind it: here");
+		assert_eq!(runs_at(&runs, &order, 0, 4, Some(0)), [("city of dalaran".to_string(), RunAt::Here)], "the anchor in another guide's events: not later in this one");
+	}
+
+	/// Whether a run in the same guide comes after the grind: its record's anchor among the guide's events.
+	#[test]
+	fn a_run_anchor_is_its_quests_accept_turn_in_or_work() {
+		let o = |t: &str, q: u32| serde_json::from_value::<Order>(serde_json::json!({ "t": t, "q": q })).unwrap();
+		assert!(anchors(&o("accept", 92458), "accept", 92458));
+		assert!(!anchors(&o("turnin", 92458), "accept", 92458));
+		assert!(anchors(&o("turnin", 155), "turnin", 155));
+		assert!(anchors(&o("task", 852), "objective", 852));
+		assert!(anchors(&o("task", 992), "use", 992));
+		assert!(!anchors(&o("task", 991), "use", 992));
 	}
 
 	#[test]

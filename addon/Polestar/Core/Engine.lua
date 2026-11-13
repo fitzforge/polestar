@@ -827,10 +827,13 @@ end
 -- itself hands that one in and it is ready: Gryan's Deadmines quests with the
 -- traitor's hand-in at Sentinel Hill), or, for a step with no accept (the
 -- run), its other predicates hold (`when onquest`: a quest of the dungeon in
--- the log). Such a step with nothing to do now does not apply: the route
--- passes it as it would for a player who skips. A step asked about again
--- while it is being judged (a prerequisite's hand-in in the same step: the
--- route asks whether that hand-in is coming) has nothing to do.
+-- the log). Either way the step's own conditions come first: below its level
+-- gate (`when level>=43`) neither a pick-up nor the run has anything to do,
+-- so Ask doesn't ask and the route keeps the solo path (Fitz, 2026-11-13:
+-- never a dungeon too low). Such a step with nothing to do now does not apply:
+-- the route passes it as it would for a player who skips. A step asked about
+-- again while it is being judged (a prerequisite's hand-in in the same step:
+-- the route asks whether that hand-in is coming) has nothing to do.
 Own.dungeonOpening = {}
 function Own.dungeonOpen(step)
 	if step.along or Own.dungeonOpening[step] then return false end
@@ -841,10 +844,12 @@ function Own.dungeonOpen(step)
 end
 
 function Own.dungeonOpenNow(step)
-	local C, takes = Compat(), false
+	for _, p in ipairs(step.when or NONE) do
+		if p.k ~= "dungeon" and not Own.predicateHolds(p) then return false end
+	end
+	local C = Compat()
 	for _, goal in ipairs(step.goals) do
 		if goal.t == "accept" and goal.quest then
-			takes = true
 			local q, lvl, pre = goal.quest, tonumber(goal.minLevel), missingPre(goal)
 			if pre then
 				for _, t in ipairs(step.goals) do
@@ -860,9 +865,8 @@ function Own.dungeonOpenNow(step)
 			end
 		end
 	end
-	if takes then return false end
-	for _, p in ipairs(step.when) do
-		if p.k ~= "dungeon" and not Own.predicateHolds(p) then return false end
+	for _, goal in ipairs(step.goals) do
+		if goal.t == "accept" and goal.quest then return false end
 	end
 	return true
 end

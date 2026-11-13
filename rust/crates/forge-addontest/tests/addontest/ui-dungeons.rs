@@ -33,6 +33,12 @@ fn instance_map(m: &Value) -> InstanceMap {
 		inner: list("inner"),
 		zones: list("zones"),
 		corpse: m["corpse"].as_object().map(|c| Corpse { c: c["c"].as_f64().unwrap(), x: c["x"].as_f64().unwrap(), y: c["y"].as_f64().unwrap() }),
+		finder: m["finder"].as_object().map(|f| forge_data::codex::client::Finder {
+			min: f["min"].as_f64().unwrap_or(0.0),
+			max: f["max"].as_f64().unwrap_or(0.0),
+			players: f["players"].as_f64().unwrap_or(5.0),
+			players_max: f.get("playersMax").and_then(Value::as_f64).or(f["players"].as_f64()).unwrap_or(5.0),
+		}),
 	}
 }
 
@@ -68,6 +74,8 @@ fn pack_of(codex: &Value, inputs: &Value) -> CodexPack {
 			journal_quests: &[],
 			attunement_table: &attunements,
 			store_xp: &Default::default(),
+			recorded_dungeons: &v(&inputs["recordedDungeons"]),
+			levels_table: &v(&inputs["levelsTable"]),
 		},
 		&c,
 	);
@@ -1667,4 +1675,73 @@ fn a_quest_only_some_classes_or_races_may_take_says_who_it_is_for_and_one_not_fo
 	assert_eq!(warlock["lookup"], false);
 	assert_eq!(orc["docks"]["state"], "Not for your race");
 	assert_eq!(orc["lookup"], "Tauren only");
+}
+
+// Fitz, 2026-11-13: never offer a dungeon too low. "For your level" starts at a dungeon's floor (the level its
+// run in the route starts at: its range's bottom or where players who killed a boss there entered, whichever is
+// higher), not its range's bottom, and the page's group size is the Group Finder's: 5 for the Deadmines and
+// Sunken Temple (the old Map table's 10 and 20 were caps), 5-10 for Blackrock Spire's two wings.
+#[test]
+fn for_your_level_starts_at_the_floor_and_the_page_shows_the_group_finders_size() {
+	let out = run(r#"
+		Polestar.Dungeons.Load()
+		Polestar.Dungeons.Register("dungeon", {
+			deadmines = { name = "Deadmines", kind = "dungeon", minLevel = 17, maxLevel = 26, floor = 19.6, players = 5, zoneName = "Westfall" },
+			["sunken-temple"] = { name = "Sunken Temple", kind = "dungeon", minLevel = 50, maxLevel = 60, floor = 50, players = 5, zoneName = "Swamp of Sorrows" },
+			["blackrock-spire"] = { name = "Blackrock Spire", kind = "dungeon", minLevel = 55, maxLevel = 60, floor = 55, players = 5, playersMax = 10, zoneName = "Searing Gorge" },
+		}, { deadmines = "return {}", ["sunken-temple"] = "return {}", ["blackrock-spire"] = "return {}" })
+		local function at(level)
+			uistub.player.level = level
+			Polestar.Dungeons.Open()
+			DS.SetFaction("All")
+			DS.SetBand("level")
+			return cardNames()
+		end
+		local function sub(key)
+			Polestar.Dungeons.Open(key)
+			local _, _, pg = DS.Frames()
+			return pg.Sub:GetText()
+		end
+		emit({ at19 = at(19), at20 = at(20), dm = sub("deadmines"), st = sub("sunken-temple"), brs = sub("blackrock-spire"),
+			floor = Polestar.Dungeons.Get("deadmines").floor, best = Polestar.Dungeons.BestAt("deadmines") })"#);
+	let out = &out[0];
+	assert_eq!(out["at19"], json!({}), "19 is in the Deadmines' 17-26 but under its floor 19.6");
+	assert_eq!(out["at20"], json!(["Deadmines"]), "from the floor up");
+	assert_eq!(out["floor"], 19.6);
+	assert!(out["best"].as_i64().unwrap() >= 20, "best at never under the floor: {}", out["best"]);
+	assert!(out["dm"].as_str().unwrap().contains("5 players"), "{}", out["dm"]);
+	assert!(out["st"].as_str().unwrap().contains("5 players"), "{}", out["st"]);
+	assert!(out["brs"].as_str().unwrap().contains("5\u{2013}10 players") || out["brs"].as_str().unwrap().contains("5-10 players"), "{}", out["brs"]);
+}
+
+// Fitz, 2026-11-13: never offer a dungeon too low. With players' recorded entries setting Wailing Caverns' floor at
+// 20.3 (71 people with a boss kill, a quarter of them under 20.3: the Codex's `levels_of`), a level 20 character, inside
+// its 17-24 range but under the floor, sees it neither in "For your level" nor on the card that says it is open; the
+// card comes at its best-at level, which never sits under the floor.
+#[test]
+fn between_the_range_and_the_floor_players_recorded_entries_set_neither_the_hub_nor_the_card_offers_the_dungeon() {
+	let f = fixture("dungeons.json");
+	let mut inputs = f["inputs"].clone();
+	inputs["recordedDungeons"] = json!({ "43": { "people": 71, "p25": 20.3, "p90": 25.6 } });
+	let out = run_pack(
+		&format!(
+			r#"{HEADS_UP}
+		local function keys(list) local t = {{}} for _, c in ipairs(list) do t[#t + 1] = c.key end return t end
+		Polestar.Dungeons.Load()
+		local best = Polestar.Dungeons.BestAt("wailing-caverns")
+		uistub.player.level = 20
+		Polestar.Dungeons.Open()
+		DS.SetFaction("All")
+		DS.SetBand("level")
+		emit({{ floor = Polestar.Dungeons.Get("wailing-caverns").floor, best = best, hub20 = cardNames(),
+			card20 = keys(DT.Candidates(20, "any")), cardBest = keys(DT.Candidates(best, "any")) }})"#
+		),
+		Some(pack_of(&f["codex"], &inputs)),
+	);
+	let out = &out[0];
+	assert_eq!(out["floor"], 20.3);
+	assert!(out["best"].as_f64().unwrap() >= 21.0, "best at never under the floor: {}", out["best"]);
+	assert_eq!(out["hub20"], json!({}), "level 20, under the floor 20.3: not for your level");
+	assert_eq!(out["card20"], json!({}), "and no card");
+	assert_eq!(out["cardBest"], json!(["wailing-caverns"]), "the card at its best-at level");
 }
