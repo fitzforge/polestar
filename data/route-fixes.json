@@ -3398,6 +3398,55 @@
 			},
 			{
 				"a": [
+					"turnin",
+					1505
+				],
+				"b": [
+					"accept",
+					97246
+				],
+				"faction": "Horde",
+				"why": "Horde start audit (0.4.0, AuditH01 with AuditH12): 01-mulgore ends with the walk Crossroads -> Far Watch Post -> Durotar road -> Orgrimmar, past Kranal Fiss (56.0,19.9), Uzzek (61.4,21.1), the thunder lizards beside the road and the Dustwind Gulch cultists. Tauren Warriors carried Veteran Uzzek (1505) and Shamans Call of Fire (1523) to 02-the-barrens at about 16 and walked Crossroads -> Far Watch -> Durotar -> back for them (about 2,650 yd for Warriors, 3,870 yd for Shamans); on the walk they cost +11 yd (Warriors) and +1,545 yd (Shamans). Uzzek takes 1505 and gives Path of Defense (1498, Defensive Stance) on that walk, before the next guide's first Orgrimmar stop (Thatog's Meal Appeal)."
+			},
+			{
+				"a": [
+					"turnin",
+					1523
+				],
+				"b": [
+					"accept",
+					97246
+				],
+				"faction": "Horde",
+				"why": "Horde start audit (0.4.0, AuditH01 with AuditH12): 01-mulgore ends with the walk Crossroads -> Far Watch Post -> Durotar road -> Orgrimmar, past Kranal Fiss (56.0,19.9), Uzzek (61.4,21.1), the thunder lizards beside the road and the Dustwind Gulch cultists. Tauren Warriors carried Veteran Uzzek (1505) and Shamans Call of Fire (1523) to 02-the-barrens at about 16 and walked Crossroads -> Far Watch -> Durotar -> back for them (about 2,650 yd for Warriors, 3,870 yd for Shamans); on the walk they cost +11 yd (Warriors) and +1,545 yd (Shamans). Kranal Fiss takes the Tauren Shaman's Call of Fire lead (1523) and gives 1524 on that walk."
+			},
+			{
+				"a": [
+					"accept",
+					1525
+				],
+				"b": [
+					"accept",
+					97246
+				],
+				"faction": "Horde",
+				"why": "Horde start audit (0.4.0, AuditH01 with AuditH12): 01-mulgore ends with the walk Crossroads -> Far Watch Post -> Durotar road -> Orgrimmar, past Kranal Fiss (56.0,19.9), Uzzek (61.4,21.1), the thunder lizards beside the road and the Dustwind Gulch cultists. Tauren Warriors carried Veteran Uzzek (1505) and Shamans Call of Fire (1523) to 02-the-barrens at about 16 and walked Crossroads -> Far Watch -> Durotar -> back for them (about 2,650 yd for Warriors, 3,870 yd for Shamans); on the walk they cost +11 yd (Warriors) and +1,545 yd (Shamans). Telf Joolam takes 1524 and gives 1525 on that walk (Orc and Troll Shamans take it at 10 in Durotar)."
+			},
+			{
+				"a": [
+					"task",
+					1525,
+					1
+				],
+				"b": [
+					"accept",
+					97246
+				],
+				"faction": "Horde",
+				"why": "Horde start audit (0.4.0, AuditH01 with AuditH12): 01-mulgore ends with the walk Crossroads -> Far Watch Post -> Durotar road -> Orgrimmar, past Kranal Fiss (56.0,19.9), Uzzek (61.4,21.1), the thunder lizards beside the road and the Dustwind Gulch cultists. Tauren Warriors carried Veteran Uzzek (1505) and Shamans Call of Fire (1523) to 02-the-barrens at about 16 and walked Crossroads -> Far Watch -> Durotar -> back for them (about 2,650 yd for Warriors, 3,870 yd for Shamans); on the walk they cost +11 yd (Warriors) and +1,545 yd (Shamans). The Reagent Pouch from the Dustwind Gulch cultists beside the road north (Orc and Troll Shamans: the Drygulch Ravine loop at 10); the Fire Tar waits for 02's Razormane camp."
+			},
+			{
+				"a": [
 					"accept",
 					1483
 				],
@@ -4911,7 +4960,8 @@
 			"Pynte #404 (no ride steps below riding level): the sim has no ride steps; it rides (mountMul) from mountLevel 40.",
 			"Forever follow-ups only after the quests before them: the turnin -> accept pairs above (the #51/#112/#128/#143/#148/#225 sweep), and every prerequisite the data has (the evaluator does not take a quest before them).",
 			"First-visit flight paths (2026-11-10, Fitz in game at Ratchet): a getfp goes in the first step that stands within about 60 yd of its flight master, not a later visit. Ratchet: Bragok stands 16 yd from Sputtervalve (accept 894) on the first Ratchet stop (horde/02-the-barrens), learned there instead of on the fly step after the beach. Camp Taurajo: Omusa Thunderhorn stands 54 yd from Kirge Sternhorn (accept 854), where Tauren pass at the end of tauren/01-mulgore, learned there instead of at 02-the-barrens' Camp Taurajo stop. Sweep of every leveling chain (all races, both factions; first route goal within 40 and 100 yd of each flight master vs its first getfp): these two only; no flight master passed with no getfp. The route writer's first-visit rule (60 yd, docs/forge/writer.md) writes both on every build.",
-			"Item-started quests' hand-ins hold (0.3.8): Sharptalon's Claw (2), Ursangous's Paw (23) and Shadumbra's Head (24) at Senani Thunderheart (horde/07-ashenvale), The Admiral's Orders (830) at Gar'Thok (orc and troll 01-durotar), Burning Shadows (832) at Neeru Fireblade (horde/03-silverpine-forest, the Neeru step now `when onquest 829,832`) and Attack on Camp Narache (781) at Chief Hawkwind (tauren/01-mulgore) were optional hand-ins beside other work at the same NPC, and the addon never holds an optional goal, so players who had the quest walked past its NPC and carried it finished. The hand-ins are plain goals (hidden for anyone who never took the quest). The guide writer marks such a hand-in optional ('optional at its NPC'); a writer rule that keeps an item-started quest's hand-in required is needed before the next route build, or that build marks them optional again."
+			"Item-started quests' hand-ins hold (0.3.8): Sharptalon's Claw (2), Ursangous's Paw (23) and Shadumbra's Head (24) at Senani Thunderheart (horde/07-ashenvale), The Admiral's Orders (830) at Gar'Thok (orc and troll 01-durotar), Burning Shadows (832) at Neeru Fireblade (horde/03-silverpine-forest, the Neeru step now `when onquest 829,832`) and Attack on Camp Narache (781) at Chief Hawkwind (tauren/01-mulgore) were optional hand-ins beside other work at the same NPC, and the addon never holds an optional goal, so players who had the quest walked past its NPC and carried it finished. The hand-ins are plain goals (hidden for anyone who never took the quest). The guide writer marks such a hand-in optional ('optional at its NPC'); a writer rule that keeps an item-started quest's hand-in required is needed before the next route build, or that build marks them optional again.",
+			"Durotar (Orc, Troll), 0.4.0 start audit: no \"Mage trainer\" step on the Razor Hill training stop at about 11 sending Mages back to Mai'ah in the Valley of Trials (Razor Hill has no mage trainer, the stop's away-trainer line in forge-writer's training pass). Mages train with Un'Thuwa at Sen'jin on the way through at 8-10 and in Orgrimmar on the next guide's arrival at about 12; players' recordings (0.3.5+) show no Mage making the trip. Hand edit, pinned by tests/guides-reported.test.js; a later writer round turns this into the training pass's rule."
 		],
 		"never": [
 			{

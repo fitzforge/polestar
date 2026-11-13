@@ -119,6 +119,103 @@
 			"issue": 1575
 		},
 		{
+			"id": "h01-1575-skull-rock",
+			"faction": "Horde",
+			"at": {
+				"quest": 827,
+				"goal": "objective",
+				"objective": 1
+			},
+			"tip": "Careful: voidwalkers fight beside the Burning Blade cultists in Skull Rock and Gazz'uz (14) waits at the back with his own: pull one cultist at a time near the entrance for the collars. The Eye of Burning Shadow is optional: leave Gazz'uz unless you are 13 or have a friend.",
+			"note": "Danger at the spot (#1575), Horde start audit (0.4.0): Skull Rock is where most Orc and Troll players die in Durotar. Players' recordings (0.3.5+): 9 people turned in the Searing Collars and 9 people died inside Skull Rock, 37 deaths, 29 of them at level 12: Voidwalker Minion 16, Burning Blade Fanatic 8, Burning Blade Apprentice 4, Gazz'uz (14) 3. The collars come from any cultist; Gazz'uz's Eye of Burning Shadow is now optional.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "AuditH01 index of players' recordings (0.3.5+): deaths inside Skull Rock (Durotar 50-57, 6-15) by killer and level"
+				},
+				{
+					"kind": "pfquest",
+					"ref": "npcs.json Gazz'uz level 14 at Skull Rock; Voidwalker Minion levels 10-14"
+				}
+			],
+			"issue": 1575
+		},
+		{
+			"id": "h01-1575-skull-rock-eye-optional",
+			"faction": "Horde",
+			"at": {
+				"quest": 832,
+				"goal": "accept"
+			},
+			"optional": true,
+			"note": "Danger at the spot (#1575): Burning Shadows (832) starts from the Eye of Burning Shadow, which only Gazz'uz (14, with a voidwalker) drops at the back of Skull Rock; players arrive at 12.0-12.6 and 3 people died to him. Optional, so a player who leaves him still finishes the step; the hand-in to Neeru Fireblade holds for whoever took it.",
+			"source": {
+				"kind": "recording",
+				"ref": "AuditH01 index of players' recordings (0.3.5+): 832 accepted at 12.1-12.6; 3 deaths to Gazz'uz at 12"
+			},
+			"issue": 1575
+		},
+		{
+			"id": "h01-1575-durotar-ukorsbane",
+			"faction": "Horde",
+			"at": {
+				"quest": 96821,
+				"goal": "objective",
+				"objective": 2
+			},
+			"tip": "Careful: Ukorsbane (8) is elite and walks among the Ridgeshade spiders in the camp south of Razor Hill: pull the spiders away from him.",
+			"note": "Danger at the spot (#1575, the danger gate's new flag on 0.4.0): Ukorsbane (8, elite) walks the camp south of Razor Hill among the Ridgeshade Creepers and Lurkers that Legging It (96821) asks for at about 6. Players' recordings: 41 people did the objective (median 5.9), 1 died to Ukorsbane.",
+			"source": [
+				{
+					"kind": "pfquest",
+					"ref": "npcs.json 266851 Ukorsbane 8 rank elite, spawn points at Durotar 49-51,54-57"
+				},
+				{
+					"kind": "recording",
+					"ref": "rec index 2026-11-13: 96821.2 done by 41 people; 1 death with killer 266851"
+				}
+			],
+			"issue": 1575
+		},
+		{
+			"id": "h01-1575-tirisfal-riptear",
+			"faction": "Horde",
+			"at": {
+				"quest": 371,
+				"goal": "objective",
+				"objective": 2
+			},
+			"tip": "Careful: Riptear (13) is elite and prowls west and north of the Scarlet Friars' camp: watch for him before you pull.",
+			"note": "Danger at the spot (#1575, the danger gate's new flag on 0.4.0): Riptear (13, elite) prowls Tirisfal 72-76,48-55, between the Balnir Farmstead and the Scarlet Friars' camp (76-78,55-57) that At War With The Scarlet Crusade (371) sends players of about 11 into. Players' recordings: 36 people did the objective (median 11.65), 2 died to Riptear.",
+			"source": [
+				{
+					"kind": "pfquest",
+					"ref": "npcs.json 276020 Riptear 13 rank elite, spawn points at Tirisfal 72-76,48-55"
+				},
+				{
+					"kind": "recording",
+					"ref": "rec index 2026-11-13: 371.2 done by 36 people; 2 deaths with killer 276020"
+				}
+			],
+			"issue": 1575
+		},
+		{
+			"id": "h01-1575-durotar-the-binding",
+			"faction": "Horde",
+			"at": {
+				"quest": 1504,
+				"goal": "objective",
+				"objective": 1
+			},
+			"tip": "Careful: the voidwalker you summon hits hard and it is the fight Warlocks die to most in Orgrimmar: start at full health and mana, send your imp in, keep Corruption and Immolate on it, and use a healthstone if you have one.",
+			"note": "Danger at the spot (#1575, the danger gate's new flag on 0.4.0, The Binding in the Cleft of Shadow): players' recordings show 16 people died within 60 yd of the summoning circle, 13 of them Warlocks at 13-17, with no killer recorded (a summoned demon); the flag's own mobs, the Summoned Incubus beside the warlock trainers, are not what kills them. The step now says what the fight asks for.",
+			"source": {
+				"kind": "recording",
+				"ref": "rec index 2026-11-13: 25 deaths of 16 people within 4 map percent of Orgrimmar 49.3,50.0, 13 Warlocks; killer unrecorded"
+			},
+			"issue": 1575
+		},
+		{
 			"id": "1575-barrens-razormane-elites-crates",
 			"faction": "Horde",
 			"at": { "quest": 5041, "goal": "objective", "objective": 1 },
@@ -7812,6 +7909,860 @@
 				}
 			],
 			"issue": 1867
+		},
+		{
+			"id": "h01-840-far-watch-warriors-orc",
+			"faction": "Horde",
+			"at": {
+				"quest": 840,
+				"goal": "turnin",
+				"guide": "forever/horde/orc/01-durotar"
+			},
+			"when": "onquest 1505",
+			"note": "Horde start audit (0.4.0, agreed with the Silverpine/Barrens slice): the last walk of Durotar went Razor Hill -> Far Watch Post -> Orgrimmar (+1,160 yd) only to hand Conscript of the Horde (840) to Kargal Battlescar, who stands at the Barrens guide's first stop anyway, where Crossroads Conscription (842) follows from him. Only Warriors, who hand Veteran Uzzek (1505) to Uzzek beside him and gather the Singed Scales on the road north, make the walk now; everyone else hands 840 in on that first Barrens stop.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "AuditH01 index of players' recordings (0.3.5+): 5 of 9 people who reached Margoz walked to Far Watch Post before Orgrimmar for 840; 4 handed it in later or never"
+				},
+				{
+					"kind": "client",
+					"ref": "Kargal Battlescar (3337) 62.26,19.38 and Uzzek (5810) 61.38,21.12, Barrens; Razor Hill -> Far Watch -> Orgrimmar gate 2,285 yd vs 1,129 yd straight (map frames)"
+				}
+			],
+			"issue": 2025
+		},
+		{
+			"id": "h01-840-far-watch-warriors-troll",
+			"faction": "Horde",
+			"at": {
+				"quest": 840,
+				"goal": "turnin",
+				"guide": "forever/horde/troll/01-durotar"
+			},
+			"when": "onquest 1505",
+			"note": "Horde start audit (0.4.0, agreed with the Silverpine/Barrens slice): the last walk of Durotar went Razor Hill -> Far Watch Post -> Orgrimmar (+1,160 yd) only to hand Conscript of the Horde (840) to Kargal Battlescar, who stands at the Barrens guide's first stop anyway, where Crossroads Conscription (842) follows from him. Only Warriors, who hand Veteran Uzzek (1505) to Uzzek beside him and gather the Singed Scales on the road north, make the walk now; everyone else hands 840 in on that first Barrens stop.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "AuditH01 index of players' recordings (0.3.5+): 5 of 9 people who reached Margoz walked to Far Watch Post before Orgrimmar for 840; 4 handed it in later or never"
+				},
+				{
+					"kind": "client",
+					"ref": "Kargal Battlescar (3337) 62.26,19.38 and Uzzek (5810) 61.38,21.12, Barrens; Razor Hill -> Far Watch -> Orgrimmar gate 2,285 yd vs 1,129 yd straight (map frames)"
+				}
+			],
+			"issue": 2025
+		},
+		{
+			"id": "1952-camping-97902-turnin",
+			"faction": "Horde",
+			"at": {
+				"quest": 97902,
+				"goal": "turnin"
+			},
+			"when": "complete 97902",
+			"note": "#1952: Camping 101: Engineering asks for Engineering at 20 before Mukdrak takes it; at skill 1-5 the trainer step waited for an objective the player could not finish there. The step now shows only once the quest is complete, and While you're here offers the hand-in on a later pass.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log lists one objective at the accept, \"Raise your <profession> skill to 20\" (#1952; forever-db corrections of the Camping 101 quests)"
+			},
+			"issue": 1952
+		},
+		{
+			"id": "1952-camping-97902-tip",
+			"faction": "Horde",
+			"at": {
+				"quest": 97902,
+				"goal": "accept"
+			},
+			"tip": "Mukdrak takes it once your Engineering skill is 20: gather or craft until then, the guide carries on meanwhile.",
+			"note": "#1952: says up front that the hand-in waits for Engineering 20.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log lists one objective at the accept, \"Raise your <profession> skill to 20\" (#1952; forever-db corrections of the Camping 101 quests)"
+			},
+			"issue": 1952
+		},
+		{
+			"id": "1952-camping-97903-turnin",
+			"faction": "Horde",
+			"at": {
+				"quest": 97903,
+				"goal": "turnin"
+			},
+			"when": "complete 97903",
+			"note": "#1952: Camping 101: First Aid asks for First Aid at 20 before Rawrk takes it; at skill 1-5 the trainer step waited for an objective the player could not finish there. The step now shows only once the quest is complete, and While you're here offers the hand-in on a later pass.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log lists one objective at the accept, \"Raise your <profession> skill to 20\" (#1952; forever-db corrections of the Camping 101 quests)"
+			},
+			"issue": 1952
+		},
+		{
+			"id": "1952-camping-97903-tip",
+			"faction": "Horde",
+			"at": {
+				"quest": 97903,
+				"goal": "accept"
+			},
+			"tip": "Rawrk takes it once your First Aid skill is 20: gather or craft until then, the guide carries on meanwhile.",
+			"note": "#1952: says up front that the hand-in waits for First Aid 20.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log lists one objective at the accept, \"Raise your <profession> skill to 20\" (#1952; forever-db corrections of the Camping 101 quests)"
+			},
+			"issue": 1952
+		},
+		{
+			"id": "1952-camping-97907-turnin",
+			"faction": "Horde",
+			"at": {
+				"quest": 97907,
+				"goal": "turnin"
+			},
+			"when": "complete 97907",
+			"note": "#1952: Camping 101: Mining asks for Mining at 20 before Krunn takes it; at skill 1-5 the trainer step waited for an objective the player could not finish there. The step now shows only once the quest is complete, and While you're here offers the hand-in on a later pass.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log lists one objective at the accept, \"Raise your <profession> skill to 20\" (#1952; forever-db corrections of the Camping 101 quests)"
+			},
+			"issue": 1952
+		},
+		{
+			"id": "1952-camping-97907-tip",
+			"faction": "Horde",
+			"at": {
+				"quest": 97907,
+				"goal": "accept"
+			},
+			"tip": "Krunn takes it once your Mining skill is 20: gather or craft until then, the guide carries on meanwhile.",
+			"note": "#1952: says up front that the hand-in waits for Mining 20.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log lists one objective at the accept, \"Raise your <profession> skill to 20\" (#1952; forever-db corrections of the Camping 101 quests)"
+			},
+			"issue": 1952
+		},
+		{
+			"id": "1952-camping-97927-turnin",
+			"faction": "Horde",
+			"at": {
+				"quest": 97927,
+				"goal": "turnin"
+			},
+			"when": "complete 97927",
+			"note": "#1952: Camping 101: Alchemy asks for Alchemy at 20 before Kray takes it; at skill 1-5 the trainer step waited for an objective the player could not finish there. The step now shows only once the quest is complete, and While you're here offers the hand-in on a later pass.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log lists one objective at the accept, \"Raise your <profession> skill to 20\" (#1952; forever-db corrections of the Camping 101 quests)"
+			},
+			"issue": 1952
+		},
+		{
+			"id": "1952-camping-97927-tip",
+			"faction": "Horde",
+			"at": {
+				"quest": 97927,
+				"goal": "accept"
+			},
+			"tip": "Kray takes it once your Alchemy skill is 20: gather or craft until then, the guide carries on meanwhile.",
+			"note": "#1952: says up front that the hand-in waits for Alchemy 20.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log lists one objective at the accept, \"Raise your <profession> skill to 20\" (#1952; forever-db corrections of the Camping 101 quests)"
+			},
+			"issue": 1952
+		},
+		{
+			"id": "1952-camping-97928-turnin",
+			"faction": "Horde",
+			"at": {
+				"quest": 97928,
+				"goal": "turnin"
+			},
+			"when": "complete 97928",
+			"note": "#1952: Camping 101: Blacksmithing asks for Blacksmithing at 20 before Thrag Stonehoof takes it; at skill 1-5 the trainer step waited for an objective the player could not finish there. The step now shows only once the quest is complete, and While you're here offers the hand-in on a later pass.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log lists one objective at the accept, \"Raise your <profession> skill to 20\" (#1952; forever-db corrections of the Camping 101 quests)"
+			},
+			"issue": 1952
+		},
+		{
+			"id": "1952-camping-97928-tip",
+			"faction": "Horde",
+			"at": {
+				"quest": 97928,
+				"goal": "accept"
+			},
+			"tip": "Thrag Stonehoof takes it once your Blacksmithing skill is 20: gather or craft until then, the guide carries on meanwhile.",
+			"note": "#1952: says up front that the hand-in waits for Blacksmithing 20.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log lists one objective at the accept, \"Raise your <profession> skill to 20\" (#1952; forever-db corrections of the Camping 101 quests)"
+			},
+			"issue": 1952
+		},
+		{
+			"id": "1952-camping-97929-turnin",
+			"faction": "Horde",
+			"at": {
+				"quest": 97929,
+				"goal": "turnin"
+			},
+			"when": "complete 97929",
+			"note": "#1952: Camping 101: Enchanting asks for Enchanting at 20 before Mot Dawnstrider takes it; at skill 1-5 the trainer step waited for an objective the player could not finish there. The step now shows only once the quest is complete, and While you're here offers the hand-in on a later pass.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log lists one objective at the accept, \"Raise your <profession> skill to 20\" (#1952; forever-db corrections of the Camping 101 quests)"
+			},
+			"issue": 1952
+		},
+		{
+			"id": "1952-camping-97929-tip",
+			"faction": "Horde",
+			"at": {
+				"quest": 97929,
+				"goal": "accept"
+			},
+			"tip": "Mot Dawnstrider takes it once your Enchanting skill is 20: gather or craft until then, the guide carries on meanwhile.",
+			"note": "#1952: says up front that the hand-in waits for Enchanting 20.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log lists one objective at the accept, \"Raise your <profession> skill to 20\" (#1952; forever-db corrections of the Camping 101 quests)"
+			},
+			"issue": 1952
+		},
+		{
+			"id": "1952-camping-97931-turnin",
+			"faction": "Horde",
+			"at": {
+				"quest": 97931,
+				"goal": "turnin"
+			},
+			"when": "complete 97931",
+			"note": "#1952: Camping 101: First Aid asks for First Aid at 20 before Vira Younghoof takes it; at skill 1-5 the trainer step waited for an objective the player could not finish there. The step now shows only once the quest is complete, and While you're here offers the hand-in on a later pass.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log lists one objective at the accept, \"Raise your <profession> skill to 20\" (#1952; forever-db corrections of the Camping 101 quests)"
+			},
+			"issue": 1952
+		},
+		{
+			"id": "1952-camping-97931-tip",
+			"faction": "Horde",
+			"at": {
+				"quest": 97931,
+				"goal": "accept"
+			},
+			"tip": "Vira Younghoof takes it once your First Aid skill is 20: gather or craft until then, the guide carries on meanwhile.",
+			"note": "#1952: says up front that the hand-in waits for First Aid 20.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log lists one objective at the accept, \"Raise your <profession> skill to 20\" (#1952; forever-db corrections of the Camping 101 quests)"
+			},
+			"issue": 1952
+		},
+		{
+			"id": "1952-camping-97932-turnin",
+			"faction": "Horde",
+			"at": {
+				"quest": 97932,
+				"goal": "turnin"
+			},
+			"when": "complete 97932",
+			"note": "#1952: Camping 101: Fishing asks for Fishing at 20 before Uthan Stillwater takes it; at skill 1-5 the trainer step waited for an objective the player could not finish there. The step now shows only once the quest is complete, and While you're here offers the hand-in on a later pass.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log lists one objective at the accept, \"Raise your <profession> skill to 20\" (#1952; forever-db corrections of the Camping 101 quests)"
+			},
+			"issue": 1952
+		},
+		{
+			"id": "1952-camping-97932-tip",
+			"faction": "Horde",
+			"at": {
+				"quest": 97932,
+				"goal": "accept"
+			},
+			"tip": "Uthan Stillwater takes it once your Fishing skill is 20: gather or craft until then, the guide carries on meanwhile.",
+			"note": "#1952: says up front that the hand-in waits for Fishing 20.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log lists one objective at the accept, \"Raise your <profession> skill to 20\" (#1952; forever-db corrections of the Camping 101 quests)"
+			},
+			"issue": 1952
+		},
+		{
+			"id": "1952-camping-97933-turnin",
+			"faction": "Horde",
+			"at": {
+				"quest": 97933,
+				"goal": "turnin"
+			},
+			"when": "complete 97933",
+			"note": "#1952: Camping 101: Herbalism asks for Herbalism at 20 before Komin Winterhoof takes it; at skill 1-5 the trainer step waited for an objective the player could not finish there. The step now shows only once the quest is complete, and While you're here offers the hand-in on a later pass.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log lists one objective at the accept, \"Raise your <profession> skill to 20\" (#1952; forever-db corrections of the Camping 101 quests)"
+			},
+			"issue": 1952
+		},
+		{
+			"id": "1952-camping-97933-tip",
+			"faction": "Horde",
+			"at": {
+				"quest": 97933,
+				"goal": "accept"
+			},
+			"tip": "Komin Winterhoof takes it once your Herbalism skill is 20: gather or craft until then, the guide carries on meanwhile.",
+			"note": "#1952: says up front that the hand-in waits for Herbalism 20.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log lists one objective at the accept, \"Raise your <profession> skill to 20\" (#1952; forever-db corrections of the Camping 101 quests)"
+			},
+			"issue": 1952
+		},
+		{
+			"id": "1952-camping-97934-turnin",
+			"faction": "Horde",
+			"at": {
+				"quest": 97934,
+				"goal": "turnin"
+			},
+			"when": "complete 97934",
+			"note": "#1952: Camping 101: Leatherworking asks for Leatherworking at 20 before Chaw Stronghide takes it; at skill 1-5 the trainer step waited for an objective the player could not finish there. The step now shows only once the quest is complete, and While you're here offers the hand-in on a later pass.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log lists one objective at the accept, \"Raise your <profession> skill to 20\" (#1952; forever-db corrections of the Camping 101 quests)"
+			},
+			"issue": 1952
+		},
+		{
+			"id": "1952-camping-97934-tip",
+			"faction": "Horde",
+			"at": {
+				"quest": 97934,
+				"goal": "accept"
+			},
+			"tip": "Chaw Stronghide takes it once your Leatherworking skill is 20: gather or craft until then, the guide carries on meanwhile.",
+			"note": "#1952: says up front that the hand-in waits for Leatherworking 20.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log lists one objective at the accept, \"Raise your <profession> skill to 20\" (#1952; forever-db corrections of the Camping 101 quests)"
+			},
+			"issue": 1952
+		},
+		{
+			"id": "1952-camping-97935-turnin",
+			"faction": "Horde",
+			"at": {
+				"quest": 97935,
+				"goal": "turnin"
+			},
+			"when": "complete 97935",
+			"note": "#1952: Camping 101: Mining asks for Mining at 20 before Brek Stonehoof takes it; at skill 1-5 the trainer step waited for an objective the player could not finish there. The step now shows only once the quest is complete, and While you're here offers the hand-in on a later pass.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log lists one objective at the accept, \"Raise your <profession> skill to 20\" (#1952; forever-db corrections of the Camping 101 quests)"
+			},
+			"issue": 1952
+		},
+		{
+			"id": "1952-camping-97935-tip",
+			"faction": "Horde",
+			"at": {
+				"quest": 97935,
+				"goal": "accept"
+			},
+			"tip": "Brek Stonehoof takes it once your Mining skill is 20: gather or craft until then, the guide carries on meanwhile.",
+			"note": "#1952: says up front that the hand-in waits for Mining 20.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log lists one objective at the accept, \"Raise your <profession> skill to 20\" (#1952; forever-db corrections of the Camping 101 quests)"
+			},
+			"issue": 1952
+		},
+		{
+			"id": "1952-camping-97936-turnin",
+			"faction": "Horde",
+			"at": {
+				"quest": 97936,
+				"goal": "turnin"
+			},
+			"when": "complete 97936",
+			"note": "#1952: Camping 101: Skinning asks for Skinning at 20 before Yonn Deepcut takes it; at skill 1-5 the trainer step waited for an objective the player could not finish there. The step now shows only once the quest is complete, and While you're here offers the hand-in on a later pass.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log lists one objective at the accept, \"Raise your <profession> skill to 20\" (#1952; forever-db corrections of the Camping 101 quests)"
+			},
+			"issue": 1952
+		},
+		{
+			"id": "1952-camping-97936-tip",
+			"faction": "Horde",
+			"at": {
+				"quest": 97936,
+				"goal": "accept"
+			},
+			"tip": "Yonn Deepcut takes it once your Skinning skill is 20: gather or craft until then, the guide carries on meanwhile.",
+			"note": "#1952: says up front that the hand-in waits for Skinning 20.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log lists one objective at the accept, \"Raise your <profession> skill to 20\" (#1952; forever-db corrections of the Camping 101 quests)"
+			},
+			"issue": 1952
+		},
+		{
+			"id": "1952-camping-97937-turnin",
+			"faction": "Horde",
+			"at": {
+				"quest": 97937,
+				"goal": "turnin"
+			},
+			"when": "complete 97937",
+			"note": "#1952: Camping 101: Tailoring asks for Tailoring at 20 before Vhan takes it; at skill 1-5 the trainer step waited for an objective the player could not finish there. The step now shows only once the quest is complete, and While you're here offers the hand-in on a later pass.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log lists one objective at the accept, \"Raise your <profession> skill to 20\" (#1952; forever-db corrections of the Camping 101 quests)"
+			},
+			"issue": 1952
+		},
+		{
+			"id": "1952-camping-97937-tip",
+			"faction": "Horde",
+			"at": {
+				"quest": 97937,
+				"goal": "accept"
+			},
+			"tip": "Vhan takes it once your Tailoring skill is 20: gather or craft until then, the guide carries on meanwhile.",
+			"note": "#1952: says up front that the hand-in waits for Tailoring 20.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log lists one objective at the accept, \"Raise your <profession> skill to 20\" (#1952; forever-db corrections of the Camping 101 quests)"
+			},
+			"issue": 1952
+		},
+		{
+			"id": "1952-camping-97951-turnin",
+			"faction": "Horde",
+			"at": {
+				"quest": 97951,
+				"goal": "turnin"
+			},
+			"when": "complete 97951",
+			"note": "#1952: Camping 101: Alchemy asks for Alchemy at 20 before Carolai Anise takes it; at skill 1-5 the trainer step waited for an objective the player could not finish there. The step now shows only once the quest is complete, and While you're here offers the hand-in on a later pass.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log lists one objective at the accept, \"Raise your <profession> skill to 20\" (#1952; forever-db corrections of the Camping 101 quests)"
+			},
+			"issue": 1952
+		},
+		{
+			"id": "1952-camping-97951-tip",
+			"faction": "Horde",
+			"at": {
+				"quest": 97951,
+				"goal": "accept"
+			},
+			"tip": "Carolai Anise takes it once your Alchemy skill is 20: gather or craft until then, the guide carries on meanwhile.",
+			"note": "#1952: says up front that the hand-in waits for Alchemy 20.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log lists one objective at the accept, \"Raise your <profession> skill to 20\" (#1952; forever-db corrections of the Camping 101 quests)"
+			},
+			"issue": 1952
+		},
+		{
+			"id": "1952-camping-97953-turnin",
+			"faction": "Horde",
+			"at": {
+				"quest": 97953,
+				"goal": "turnin"
+			},
+			"when": "complete 97953",
+			"note": "#1952: Camping 101: Enchanting asks for Enchanting at 20 before Vance Undergloom takes it; at skill 1-5 the trainer step waited for an objective the player could not finish there. The step now shows only once the quest is complete, and While you're here offers the hand-in on a later pass.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log lists one objective at the accept, \"Raise your <profession> skill to 20\" (#1952; forever-db corrections of the Camping 101 quests)"
+			},
+			"issue": 1952
+		},
+		{
+			"id": "1952-camping-97953-tip",
+			"faction": "Horde",
+			"at": {
+				"quest": 97953,
+				"goal": "accept"
+			},
+			"tip": "Vance Undergloom takes it once your Enchanting skill is 20: gather or craft until then, the guide carries on meanwhile.",
+			"note": "#1952: says up front that the hand-in waits for Enchanting 20.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log lists one objective at the accept, \"Raise your <profession> skill to 20\" (#1952; forever-db corrections of the Camping 101 quests)"
+			},
+			"issue": 1952
+		},
+		{
+			"id": "1952-camping-97955-turnin",
+			"faction": "Horde",
+			"at": {
+				"quest": 97955,
+				"goal": "turnin"
+			},
+			"when": "complete 97955",
+			"note": "#1952: Camping 101: First Aid asks for First Aid at 20 before Nurse Neela takes it; at skill 1-5 the trainer step waited for an objective the player could not finish there. The step now shows only once the quest is complete, and While you're here offers the hand-in on a later pass.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log lists one objective at the accept, \"Raise your <profession> skill to 20\" (#1952; forever-db corrections of the Camping 101 quests)"
+			},
+			"issue": 1952
+		},
+		{
+			"id": "1952-camping-97955-tip",
+			"faction": "Horde",
+			"at": {
+				"quest": 97955,
+				"goal": "accept"
+			},
+			"tip": "Nurse Neela takes it once your First Aid skill is 20: gather or craft until then, the guide carries on meanwhile.",
+			"note": "#1952: says up front that the hand-in waits for First Aid 20.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log lists one objective at the accept, \"Raise your <profession> skill to 20\" (#1952; forever-db corrections of the Camping 101 quests)"
+			},
+			"issue": 1952
+		},
+		{
+			"id": "1952-camping-97957-turnin",
+			"faction": "Horde",
+			"at": {
+				"quest": 97957,
+				"goal": "turnin"
+			},
+			"when": "complete 97957",
+			"note": "#1952: Camping 101: Herbalism asks for Herbalism at 20 before Faruza takes it; at skill 1-5 the trainer step waited for an objective the player could not finish there. The step now shows only once the quest is complete, and While you're here offers the hand-in on a later pass.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log lists one objective at the accept, \"Raise your <profession> skill to 20\" (#1952; forever-db corrections of the Camping 101 quests)"
+			},
+			"issue": 1952
+		},
+		{
+			"id": "1952-camping-97957-tip",
+			"faction": "Horde",
+			"at": {
+				"quest": 97957,
+				"goal": "accept"
+			},
+			"tip": "Faruza takes it once your Herbalism skill is 20: gather or craft until then, the guide carries on meanwhile.",
+			"note": "#1952: says up front that the hand-in waits for Herbalism 20.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log lists one objective at the accept, \"Raise your <profession> skill to 20\" (#1952; forever-db corrections of the Camping 101 quests)"
+			},
+			"issue": 1952
+		},
+		{
+			"id": "1952-camping-97958-turnin",
+			"faction": "Horde",
+			"at": {
+				"quest": 97958,
+				"goal": "turnin"
+			},
+			"when": "complete 97958",
+			"note": "#1952: Camping 101: Leatherworking asks for Leatherworking at 20 before Shelene Rhobart takes it; at skill 1-5 the trainer step waited for an objective the player could not finish there. The step now shows only once the quest is complete, and While you're here offers the hand-in on a later pass.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log lists one objective at the accept, \"Raise your <profession> skill to 20\" (#1952; forever-db corrections of the Camping 101 quests)"
+			},
+			"issue": 1952
+		},
+		{
+			"id": "1952-camping-97958-tip",
+			"faction": "Horde",
+			"at": {
+				"quest": 97958,
+				"goal": "accept"
+			},
+			"tip": "Shelene Rhobart takes it once your Leatherworking skill is 20: gather or craft until then, the guide carries on meanwhile.",
+			"note": "#1952: says up front that the hand-in waits for Leatherworking 20.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log lists one objective at the accept, \"Raise your <profession> skill to 20\" (#1952; forever-db corrections of the Camping 101 quests)"
+			},
+			"issue": 1952
+		},
+		{
+			"id": "1952-camping-97960-turnin",
+			"faction": "Horde",
+			"at": {
+				"quest": 97960,
+				"goal": "turnin"
+			},
+			"when": "complete 97960",
+			"note": "#1952: Camping 101: Skinning asks for Skinning at 20 before Rand Rhobart takes it; at skill 1-5 the trainer step waited for an objective the player could not finish there. The step now shows only once the quest is complete, and While you're here offers the hand-in on a later pass.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log lists one objective at the accept, \"Raise your <profession> skill to 20\" (#1952; forever-db corrections of the Camping 101 quests)"
+			},
+			"issue": 1952
+		},
+		{
+			"id": "1952-camping-97960-tip",
+			"faction": "Horde",
+			"at": {
+				"quest": 97960,
+				"goal": "accept"
+			},
+			"tip": "Rand Rhobart takes it once your Skinning skill is 20: gather or craft until then, the guide carries on meanwhile.",
+			"note": "#1952: says up front that the hand-in waits for Skinning 20.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log lists one objective at the accept, \"Raise your <profession> skill to 20\" (#1952; forever-db corrections of the Camping 101 quests)"
+			},
+			"issue": 1952
+		},
+		{
+			"id": "1952-camping-97961-turnin",
+			"faction": "Horde",
+			"at": {
+				"quest": 97961,
+				"goal": "turnin"
+			},
+			"when": "complete 97961",
+			"note": "#1952: Camping 101: Tailoring asks for Tailoring at 20 before Bowen Brisboise takes it; at skill 1-5 the trainer step waited for an objective the player could not finish there. The step now shows only once the quest is complete, and While you're here offers the hand-in on a later pass.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log lists one objective at the accept, \"Raise your <profession> skill to 20\" (#1952; forever-db corrections of the Camping 101 quests)"
+			},
+			"issue": 1952
+		},
+		{
+			"id": "1952-camping-97961-tip",
+			"faction": "Horde",
+			"at": {
+				"quest": 97961,
+				"goal": "accept"
+			},
+			"tip": "Bowen Brisboise takes it once your Tailoring skill is 20: gather or craft until then, the guide carries on meanwhile.",
+			"note": "#1952: says up front that the hand-in waits for Tailoring 20.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log lists one objective at the accept, \"Raise your <profession> skill to 20\" (#1952; forever-db corrections of the Camping 101 quests)"
+			},
+			"issue": 1952
+		},
+		{
+			"id": "1952-camping-97963-turnin",
+			"faction": "Horde",
+			"at": {
+				"quest": 97963,
+				"goal": "turnin"
+			},
+			"when": "complete 97963",
+			"note": "#1952: Camping 101: Alchemy asks for Alchemy at 20 before Nyassa Swiftdraught takes it; at skill 1-5 the trainer step waited for an objective the player could not finish there. The step now shows only once the quest is complete, and While you're here offers the hand-in on a later pass.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log lists one objective at the accept, \"Raise your <profession> skill to 20\" (#1952; forever-db corrections of the Camping 101 quests)"
+			},
+			"issue": 1952
+		},
+		{
+			"id": "1952-camping-97963-tip",
+			"faction": "Horde",
+			"at": {
+				"quest": 97963,
+				"goal": "accept"
+			},
+			"tip": "Nyassa Swiftdraught takes it once your Alchemy skill is 20: gather or craft until then, the guide carries on meanwhile.",
+			"note": "#1952: says up front that the hand-in waits for Alchemy 20.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log lists one objective at the accept, \"Raise your <profession> skill to 20\" (#1952; forever-db corrections of the Camping 101 quests)"
+			},
+			"issue": 1952
+		},
+		{
+			"id": "1952-camping-97964-turnin",
+			"faction": "Horde",
+			"at": {
+				"quest": 97964,
+				"goal": "turnin"
+			},
+			"when": "complete 97964",
+			"note": "#1952: Camping 101: Blacksmithing asks for Blacksmithing at 20 before Aedi Thriceforged takes it; at skill 1-5 the trainer step waited for an objective the player could not finish there. The step now shows only once the quest is complete, and While you're here offers the hand-in on a later pass.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log lists one objective at the accept, \"Raise your <profession> skill to 20\" (#1952; forever-db corrections of the Camping 101 quests)"
+			},
+			"issue": 1952
+		},
+		{
+			"id": "1952-camping-97964-tip",
+			"faction": "Horde",
+			"at": {
+				"quest": 97964,
+				"goal": "accept"
+			},
+			"tip": "Aedi Thriceforged takes it once your Blacksmithing skill is 20: gather or craft until then, the guide carries on meanwhile.",
+			"note": "#1952: says up front that the hand-in waits for Blacksmithing 20.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log lists one objective at the accept, \"Raise your <profession> skill to 20\" (#1952; forever-db corrections of the Camping 101 quests)"
+			},
+			"issue": 1952
+		},
+		{
+			"id": "1952-camping-97965-turnin",
+			"faction": "Horde",
+			"at": {
+				"quest": 97965,
+				"goal": "turnin"
+			},
+			"when": "complete 97965",
+			"note": "#1952: Camping 101: First Aid asks for First Aid at 20 before Naleeia Tattermend takes it; at skill 1-5 the trainer step waited for an objective the player could not finish there. The step now shows only once the quest is complete, and While you're here offers the hand-in on a later pass.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log lists one objective at the accept, \"Raise your <profession> skill to 20\" (#1952; forever-db corrections of the Camping 101 quests)"
+			},
+			"issue": 1952
+		},
+		{
+			"id": "1952-camping-97965-tip",
+			"faction": "Horde",
+			"at": {
+				"quest": 97965,
+				"goal": "accept"
+			},
+			"tip": "Naleeia Tattermend takes it once your First Aid skill is 20: gather or craft until then, the guide carries on meanwhile.",
+			"note": "#1952: says up front that the hand-in waits for First Aid 20.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log lists one objective at the accept, \"Raise your <profession> skill to 20\" (#1952; forever-db corrections of the Camping 101 quests)"
+			},
+			"issue": 1952
+		},
+		{
+			"id": "1952-camping-97967-turnin",
+			"faction": "Horde",
+			"at": {
+				"quest": 97967,
+				"goal": "turnin"
+			},
+			"when": "complete 97967",
+			"note": "#1952: Camping 101: Fishing asks for Fishing at 20 before Fenn Fairweather takes it; at skill 1-5 the trainer step waited for an objective the player could not finish there. The step now shows only once the quest is complete, and While you're here offers the hand-in on a later pass.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log lists one objective at the accept, \"Raise your <profession> skill to 20\" (#1952; forever-db corrections of the Camping 101 quests)"
+			},
+			"issue": 1952
+		},
+		{
+			"id": "1952-camping-97967-tip",
+			"faction": "Horde",
+			"at": {
+				"quest": 97967,
+				"goal": "accept"
+			},
+			"tip": "Fenn Fairweather takes it once your Fishing skill is 20: gather or craft until then, the guide carries on meanwhile.",
+			"note": "#1952: says up front that the hand-in waits for Fishing 20.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log lists one objective at the accept, \"Raise your <profession> skill to 20\" (#1952; forever-db corrections of the Camping 101 quests)"
+			},
+			"issue": 1952
+		},
+		{
+			"id": "1952-camping-97969-turnin",
+			"faction": "Horde",
+			"at": {
+				"quest": 97969,
+				"goal": "turnin"
+			},
+			"when": "complete 97969",
+			"note": "#1952: Camping 101: Leatherworking asks for Leatherworking at 20 before Indari Sunseam takes it; at skill 1-5 the trainer step waited for an objective the player could not finish there. The step now shows only once the quest is complete, and While you're here offers the hand-in on a later pass.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log lists one objective at the accept, \"Raise your <profession> skill to 20\" (#1952; forever-db corrections of the Camping 101 quests)"
+			},
+			"issue": 1952
+		},
+		{
+			"id": "1952-camping-97969-tip",
+			"faction": "Horde",
+			"at": {
+				"quest": 97969,
+				"goal": "accept"
+			},
+			"tip": "Indari Sunseam takes it once your Leatherworking skill is 20: gather or craft until then, the guide carries on meanwhile.",
+			"note": "#1952: says up front that the hand-in waits for Leatherworking 20.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log lists one objective at the accept, \"Raise your <profession> skill to 20\" (#1952; forever-db corrections of the Camping 101 quests)"
+			},
+			"issue": 1952
+		},
+		{
+			"id": "1952-camping-97970-turnin",
+			"faction": "Horde",
+			"at": {
+				"quest": 97970,
+				"goal": "turnin"
+			},
+			"when": "complete 97970",
+			"note": "#1952: Camping 101: Mining asks for Mining at 20 before Messana Crestwind takes it; at skill 1-5 the trainer step waited for an objective the player could not finish there. The step now shows only once the quest is complete, and While you're here offers the hand-in on a later pass.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log lists one objective at the accept, \"Raise your <profession> skill to 20\" (#1952; forever-db corrections of the Camping 101 quests)"
+			},
+			"issue": 1952
+		},
+		{
+			"id": "1952-camping-97970-tip",
+			"faction": "Horde",
+			"at": {
+				"quest": 97970,
+				"goal": "accept"
+			},
+			"tip": "Messana Crestwind takes it once your Mining skill is 20: gather or craft until then, the guide carries on meanwhile.",
+			"note": "#1952: says up front that the hand-in waits for Mining 20.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log lists one objective at the accept, \"Raise your <profession> skill to 20\" (#1952; forever-db corrections of the Camping 101 quests)"
+			},
+			"issue": 1952
+		},
+		{
+			"id": "1952-camping-97971-turnin",
+			"faction": "Horde",
+			"at": {
+				"quest": 97971,
+				"goal": "turnin"
+			},
+			"when": "complete 97971",
+			"note": "#1952: Camping 101: Skinning asks for Skinning at 20 before Mendalass Tattermend takes it; at skill 1-5 the trainer step waited for an objective the player could not finish there. The step now shows only once the quest is complete, and While you're here offers the hand-in on a later pass.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log lists one objective at the accept, \"Raise your <profession> skill to 20\" (#1952; forever-db corrections of the Camping 101 quests)"
+			},
+			"issue": 1952
+		},
+		{
+			"id": "1952-camping-97971-tip",
+			"faction": "Horde",
+			"at": {
+				"quest": 97971,
+				"goal": "accept"
+			},
+			"tip": "Mendalass Tattermend takes it once your Skinning skill is 20: gather or craft until then, the guide carries on meanwhile.",
+			"note": "#1952: says up front that the hand-in waits for Skinning 20.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log lists one objective at the accept, \"Raise your <profession> skill to 20\" (#1952; forever-db corrections of the Camping 101 quests)"
+			},
+			"issue": 1952
 		},
 		{
 			"id": "stranded-1037-carried-copies",
