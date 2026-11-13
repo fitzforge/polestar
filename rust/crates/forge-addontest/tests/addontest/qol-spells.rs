@@ -202,36 +202,65 @@ fn removing_the_highest_rank_from_the_bars_makes_the_lower_rank_eligible_again()
 }
 
 #[test]
-fn a_new_highest_rank_must_be_on_the_bars_to_leave_lower_ranks_alone() {
-	let out = run_qol(
-		r#"
-		renew(17)
-		-- Rank 3 was the highest on the bars; rank 4 is now known but not on them.
-		BOOK[#BOOK + 1] = 6075
-		stub.fire("SPELLS_CHANGED")
-		stub.advance(2)
-		local n = ranks[#ranks]
-		emit({ slots = n.slots, ids = ids(n.spells), best = n.spells[1].bestId,
-			done = S.Upgrade(), low = ACTIONS[5][2], higher = ACTIONS[17][2] })"#,
-	);
-	assert_eq!(out[0], json!({ "slots": 2, "ids": [139, 6074], "best": 6075, "done": 2, "low": 6075, "higher": 6075 }));
+fn learning_new_ranks_only_upgrades_the_highest_rank_on_the_bars() {
+	for slot in [1, 180] {
+		let out = run_qol(&format!(
+			r#"
+			renew({slot})
+			spell(6076, "Renew", 5)
+			for _, learned in ipairs({{ 6075, 6076 }}) do
+				BOOK[#BOOK + 1] = learned
+				stub.fire("LEARNED_SPELL_IN_TAB", learned, 2)
+				stub.fire("SPELLS_CHANGED")
+				stub.advance(2)
+				local n = ranks[#ranks]
+				emit({{ slots = n.slots, ids = ids(n.spells), best = n.spells[1].bestId,
+					done = S.Upgrade(), low = ACTIONS[5][2], higher = ACTIONS[{slot}][2],
+					last = ranks[#ranks], cursor = CURSOR or false }})
+			end"#,
+		));
+		assert_eq!(out[0], json!({ "slots": 1, "ids": [6074], "best": 6075, "done": 1, "low": 139, "higher": 6075, "last": false, "cursor": false }), "rank 4 learned, higher rank in slot {slot}");
+		assert_eq!(out[1], json!({ "slots": 1, "ids": [6075], "best": 6076, "done": 1, "low": 139, "higher": 6076, "last": false, "cursor": false }), "rank 5 learned, higher rank in slot {slot}");
+	}
 }
 
 #[test]
-fn an_intentional_lower_rank_does_not_hide_another_spells_outdated_rank_or_treat_a_macro_as_a_spell() {
+fn training_upgrades_every_copy_of_the_highest_rank_on_the_bars_and_keeps_the_lower_rank() {
+	let out = run_qol(
+		r#"
+		renew(1)
+		ACTIONS[180] = { "spell", 6074 }
+		BOOK[#BOOK + 1] = 6075
+		stub.fire("LEARNED_SPELL_IN_TAB", 6075, 2)
+		stub.fire("SPELLS_CHANGED")
+		stub.advance(2)
+		local n = ranks[#ranks]
+		emit({ slots = n.slots, spells = n.spells, done = S.Upgrade(),
+			low = ACTIONS[5][2], first = ACTIONS[1][2], last = ACTIONS[180][2], placed = PLACED })"#,
+	);
+	assert_eq!(
+		out[0],
+		json!({ "slots": 2, "spells": [{ "id": 6074, "bestId": 6075, "name": "Renew", "have": 3, "best": 4, "slots": [1, 180] }],
+			"done": 2, "low": 139, "first": 6075, "last": 6075, "placed": [1, 180] })
+	);
+}
+
+#[test]
+fn an_intentional_lower_rank_does_not_hide_another_spells_outdated_rank_or_treat_macros_and_items_as_spells() {
 	let out = run_qol(
 		r#"
 		spell(585, "Smite", 1); spell(591, "Smite", 2)
 		ACTIONS[30] = { "spell", 585 }
 		ACTIONS[31] = { "macro", 591 }
+		ACTIONS[32] = { "item", 591 }
 		renew(17)
 		BOOK[#BOOK + 1] = 585; BOOK[#BOOK + 1] = 591
 		S.CheckRanks(true)
 		local n = ranks[#ranks]
 		emit({ slots = n.slots, ids = ids(n.spells), done = S.Upgrade(), renew = ACTIONS[5][2],
-			best = ACTIONS[17][2], smite = ACTIONS[30][2], macro = ACTIONS[31], placed = PLACED })"#,
+			best = ACTIONS[17][2], smite = ACTIONS[30][2], macro = ACTIONS[31], item = ACTIONS[32], placed = PLACED })"#,
 	);
-	assert_eq!(out[0], json!({ "slots": 1, "ids": [585], "done": 1, "renew": 139, "best": 6074, "smite": 591, "macro": ["macro", 591], "placed": [30] }));
+	assert_eq!(out[0], json!({ "slots": 1, "ids": [585], "done": 1, "renew": 139, "best": 6074, "smite": 591, "macro": ["macro", 591], "item": ["item", 591], "placed": [30] }));
 }
 
 #[test]
@@ -280,18 +309,23 @@ fn a_lower_rank_the_player_puts_on_a_bar_is_kept_even_after_a_higher_rank_is_lea
 			return out
 		end
 		emit(listed())
-		-- Rank 4 learned at the trainer: slot 9 still kept, slots 5 and 17 listed.
+		-- Rank 4 learned at the trainer: only the highest bar rank in slot 17 is listed.
 		put(17, "spell", 6074)
 		BOOK[#BOOK + 1] = 6075
 		emit(listed())
-		-- Renew 2 dragged from slot 5 to slot 10: a move, still listed.
+		-- Remove rank 3; Renew 2 dragged from slot 5 to slot 10 is a move, still listed.
+		put(17, nil)
 		put(5, nil)
 		put(10, "spell", 139)
-		emit(listed())"#,
+		emit(listed())
+		-- With no higher rank left on the bars, the deliberately placed rank 1 is still kept.
+		put(10, nil)
+		emit(#S.OldRanks())"#,
 	);
 	assert_eq!(out[0], json!([{ "id": 139, "best": 3, "slots": [5] }]));
-	assert_eq!(out[1], json!([{ "id": 139, "best": 4, "slots": [5] }, { "id": 6074, "best": 4, "slots": [17] }]));
-	assert_eq!(out[2], json!([{ "id": 139, "best": 4, "slots": [10] }, { "id": 6074, "best": 4, "slots": [17] }]));
+	assert_eq!(out[1], json!([{ "id": 6074, "best": 4, "slots": [17] }]));
+	assert_eq!(out[2], json!([{ "id": 139, "best": 4, "slots": [10] }]));
+	assert_eq!(out[3], 0, "deliberate placement remains kept without another rank on the bars");
 }
 
 #[test]
