@@ -21,9 +21,12 @@ next forever/alliance/03-darkshore
 # Added 2026-11-07 (Alliance 12-20 zone order): east Elwynn for Dwarves and Gnomes, on the walk from
 # Goldshire to Westfall at about 13.5-14.5 (Humans do it in their start guide; Night Elves and Skyborne
 # arrive at 14.5, where its level 9-10 quests turn grey before the loop ends): A Fishy Peril (40,
-# Further Concerns needs it), Guard Thomas' chain, the Eastvale Logging Camp, the Tower of Azora and
-# the Jasperlode Mine in one loop; Report to Gryan Stoutmantle (109) comes from Dughan on the way in.
-# Left out for them: The Jasperlode Mine (76) and Westbrook's chain (239, 11), which need The Fargodeep
+# Further Concerns needs it), Guard Thomas' chain, the Eastvale Logging Camp and the Tower of Azora in one
+# loop; Report to Gryan Stoutmantle (109) comes from Dughan on the way in.
+# Left out for them: Delicate Instruments (91723) and Good Steel (91732), level 7-8 quests handed in at about
+# 14.5 for 60-80% of their XP whose work is in the Jasperlode Mine among its elites (players' recordings, 0.3.5+:
+# handed in by 6-7 people at 14.4-14.5, 4 abandons of 91723), so the loop skips the mine;
+# The Jasperlode Mine (76) and Westbrook's chain (239, 11), which need The Fargodeep
 # Mine (62) first (players' recordings: never offered without it), and Delicate Instruments' second
 # part (91724), a second trip to Stone Cairn Lake for one hand-in at the tower.
 # Alba Fairmoon's Toxic Soil chain (92742 to 92748) is for every Alliance race, Humans included: players'
@@ -45,7 +48,6 @@ step The Tower of Azora
   zone Elwynn Forest
   tip East along the road past Crystal Lake: Hamish Bergwort and Blixie Fitzwink stand at the foot of the tower.
   accept 91725                                -- Blixie Fitzwink
-  accept 91723                                -- Hamish Bergwort
 
 step The bridge
   only Dwarf,Gnome
@@ -62,7 +64,6 @@ step The Eastvale Logging Camp
   tip The camp is north-east of the bridge. Bundles of Wood lie around the camp and in the woods north of it.
   accept 83                                   -- Sara Timberlain, inside
   accept 5545                                 -- Supervisor Raelen
-  accept 91732                                -- Hagar Lowe
   collect 13872 quest 5545                    -- Bundle of Wood
   turnin 5545                                 -- Supervisor Raelen
 
@@ -87,24 +88,10 @@ step The gnoll camps
   tip Riverpaw gnolls camp in the hills west of Stone Cairn Lake; the Stolen Enchanting Supplies lie in their camps.
   collect 247805 quest 91725                  -- Stolen Enchanting Supplies
 
-step The Jasperlode Mine's entrance
-  only Dwarf,Gnome
-  zone Elwynn Forest
-  goto 61.6,54.1 "Jasperlode Mine"
-
-step Jasperlode Mine: kill these as you meet them
-  only Dwarf,Gnome
-  zone Elwynn Forest
-  tip The mine is south-west of the gnoll camps. Mining Tools lie near the entrance; Kobold Geomancers hold the tunnels.
-  tip Careful: Mother Fang (7-10), the Mine Spiders (7-9) and Geosculptor Yip (7) are elites deep in the mine: pull the kobolds one at a time near the entrance and back out if an elite comes; they're easier with a friend.
-  collect 247816 quest 91732                  -- Mining Tools
-  kill 476 quest 91723                        -- Kobold Geomancer walks around Jasperlode Mine: look inside the circle on the map
-
 step The Tower of Azora
   only Dwarf,Gnome
   zone Elwynn Forest
   tip Follow the hills south to the tower.
-  turnin 91723                                -- Hamish Bergwort
   turnin 91725                                -- Blixie Fitzwink
 
 step Downstream
@@ -136,7 +123,6 @@ step The Eastvale Logging Camp
   only Dwarf,Gnome
   zone Elwynn Forest
   turnin 83                                   -- Sara Timberlain, inside
-  turnin 91732                                -- Hagar Lowe
 
 step Goldshire
   only Dwarf,Gnome
