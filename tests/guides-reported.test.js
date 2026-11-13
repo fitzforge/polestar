@@ -651,6 +651,18 @@ test('forever/professions/tailoring.guide: #2018, the 75-150 vendor goods can be
 	}
 });
 
+// Discord (a Rogue on The Horn of Xelthos): C's payment (78307) is handed in at the Dead Drop with nothing to
+// accept. Players' recordings: five people handed it in there, none accepted it, 13 minutes to 2 hours after the horn
+// (78261). The guide asked for an accept that never comes; the payment is a `direct` hand-in at the same chest.
+test('forever/class/rogue/the-horn-of-xelthos.guide: C\'s payment is handed in at the Dead Drop with no accept', { skip }, () => {
+	const list = goals('forever/class/rogue/the-horn-of-xelthos.guide');
+	assert.deepEqual(list.filter(({ goal }) => goal.t === 'accept' && goal.quest === 78307).map(({ goal }) => goal.t), [], 'no accept for the payment');
+	const pay = at(list, 'turnin 78307', is('turnin', 78307));
+	assert.equal(list[pay].goal.direct, true, 'a direct hand-in');
+	assert.equal(list[pay].goal.object, 410369, 'at the Dead Drop');
+	assert.ok(at(list, 'turnin 78261', is('turnin', 78261)) < pay, 'after the horn');
+});
+
 // --- Bandarion Keep (Mike_, 0.2.3): Hilda the Breaker and Ephram Barbaro offer their quests to Paladins only.
 
 test(`${TIRISFAL}: Mike_'s report: only Paladins are sent to Hilda the Breaker and Ephram Barbaro at Bandarion Keep`, { skip }, () => {
