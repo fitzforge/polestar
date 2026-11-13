@@ -218,8 +218,8 @@ step Ghost Walker Post
 step Valley of Spears
   zone Desolace
   tip West of the post, the Maraudine centaurs hold the Valley of Spears. Every Maraudine can drop a Carved Centaur Totem and an ear for Felgur's Centaur Bounty. Stay with the Maraudine (36-39) in the valley: the Magram's village in the south-east has the same drops, but its Necromancers (42-43) and Guardians (39-41) are well above you.
-  collect 254432 x5 quest 93225.1 @31.5,55.5 map 1443
-  collect 6067 quest 1366 @31.5,55.5 map 1443
+  collect 254432 x5 quest 93225.1 @33.0,54.0 map 1443
+  collect 6067 quest 1366
 
 step Melizza Brimbuzzle
   zone Desolace
@@ -235,11 +235,11 @@ step Hornizz Brimbuzzle
   accept 6134
 
 step The Valley of Bones
-  zone Shen'dralas
-  tip Head south-east to the bone fields of the Valley of Bones, where Undead Ravagers roam, now the north-west of Shen'dralas. Use the Crate of Ghost Magnets at the arrow to draw the Magrami Spectres: they drop the ghost-o-plasm.
+  zone Desolace
+  tip Head south-east to the bone fields of the Valley of Bones, where Undead Ravagers roam, at Desolace's southern edge. Use the Crate of Ghost Magnets at the arrow to draw the Magrami Spectres: they drop the ghost-o-plasm.
   tip Careful: Magram Necrokhans and Corpsefeeders (45, elite) walk the bone fields just west of the arrow, well above you: use the crate at the arrow, on the valley's eastern side, and pull the spectres away from them.
-  use 15848 quest 6134.1 @33.5,29.0 map 2652
-  collect 15849 quest 6134 @33.5,29.0 map 2652 -- Ghost-o-plasm
+  use 15848 quest 6134.1 @64.4,91.7 map 1443
+  collect 15849 quest 6134 @64.4,91.7 map 1443 -- Ghost-o-plasm
 
 step Hornizz Brimbuzzle
   zone Desolace

@@ -1593,17 +1593,17 @@ test('#2025: Report to Helgrum has no prerequisite; the Badlands take it at Karg
 // Danger at the spot (#1575, release gate #2042), Horde 30-40 audit (0.4.0): Dustwallow & Desolace's second Desolace
 // visit pointed the Valley of Spears' totems and ears at the Magram's village (Necromancers 42-43) and the ghost magnet
 // at Desolace 63.5,91.6, now Shen'dralas, among Magram Necrokhans and Corpsefeeders (45, elite; players' recordings: 8
-// deaths there). The arrow now points at the Maraudine in the Valley of Spears, and at the bone fields' eastern side,
-// where players used the crate.
+// deaths there). The totems' arrow now points at the Maraudine camps in the Valley of Spears (the ears keep touring every
+// tribe's camps, #1616), and the crate at the bone fields' eastern side, where players used it.
 test('forever/horde/30-40/04-dustwallow-marsh.guide: the Valley of Spears and the Valley of Bones point away from the high Magram', { skip }, () => {
 	const list = goals('forever/horde/30-40/04-dustwallow-marsh.guide');
-	for (const [what, pred] of [['totems', (g) => g.t === 'collect' && g.quest === 93225], ['ears', (g) => g.t === 'collect' && g.quest === 1366]]) {
+	for (const [what, pred] of [['totems', (g) => g.t === 'collect' && g.quest === 93225]]) {
 		const { goal } = list[at(list, what, pred)];
-		assert.ok(goal.map === 1443 && Math.hypot(goal.x - 31.5, goal.y - 55.5) < 1, `${what}: the Valley of Spears (got ${goal.map} ${goal.x},${goal.y})`);
+		assert.ok(goal.map === 1443 && Math.hypot(goal.x - 33.0, goal.y - 54.0) < 1, `${what}: the Valley of Spears' eastern camps (got ${goal.map} ${goal.x},${goal.y})`);
 	}
 	for (const [what, pred] of [['crate', (g) => g.t === 'use' && g.quest === 6134], ['ghost-o-plasm', (g) => g.t === 'collect' && g.quest === 6134]]) {
 		const { goal } = list[at(list, what, pred)];
-		assert.ok(goal.map === 2652 && Math.hypot(goal.x - 33.5, goal.y - 29.0) < 1, `${what}: the bone fields' eastern side (got ${goal.map} ${goal.x},${goal.y})`);
+		assert.ok(goal.map === 1443 && Math.hypot(goal.x - 64.4, goal.y - 91.7) < 1, `${what}: the bone fields' eastern side (got ${goal.map} ${goal.x},${goal.y})`);
 	}
 });
 
@@ -1618,7 +1618,7 @@ test('forever/horde/30-40: the grind steps name only the dungeons the route runs
 		'04-dustwallow-marsh': [],
 	};
 	for (const [file, names] of Object.entries(want)) {
-		const tips = compiled(`forever/horde/30-40/${file}.guide`).steps.filter((step) => step.goals.some((g) => g.t === 'level')).map((step) => [step.tip].flat().filter(Boolean).join(' '));
+		const tips = compiled(`forever/horde/30-40/${file}.guide`).steps.filter((step) => step.goals.some((g) => g.t === 'level')).map((step) => [step.note, step.tip].flat().filter(Boolean).join(' '));
 		assert.ok(tips.length > 0, `${file}: has grind steps`);
 		for (const tip of tips) {
 			for (const bad of ['Scarlet Monastery', 'Blackfathom Deeps', 'Razorfen Downs']) assert.ok(!tip.includes(bad), `${file}: no ${bad} in "${tip}"`);
@@ -1643,7 +1643,7 @@ test('forever/horde/30-40: the steps warn of the high mobs the danger gate finds
 	]) {
 		const list = goals(`forever/horde/30-40/${file}.guide`);
 		const { step } = list[at(list, `${file}: work for ${quest}`, (g) => ['kill', 'collect', 'use'].includes(g.t) && g.quest === quest && (!item || g.item === item))];
-		const tip = [step.tip].flat().filter(Boolean).join(' ');
+		const tip = [step.note, step.tip].flat().filter(Boolean).join(' ');
 		for (const name of names) assert.ok(tip.includes(name), `${file} "${step.title}": the tip names ${name}`);
 	}
 });
@@ -8010,9 +8010,12 @@ test('Eastern Plaguelands (Horde 55): Druids and Paladins fly from Orgrimmar to 
 test('Desolace (Horde 33): a Shaman flies from Freewind Post straight to Sun Rock Retreat, not back to Orgrimmar first (#1191)', { skip }, () => {
 	const list = goals('forever/horde/30-40/02-thousand-needles.guide').filter(forClass('SHAMAN'));
 	const flights = list.filter(({ goal }) => goal.t === 'fly').map(({ goal }) => goal.location);
-	const at = flights.indexOf('Freewind Post');
+	// Since the 0.4.0 audit (#1976) the raceway visit ends with a flight from Gadgetzan back to Freewind Post: the
+	// flight after the last one into Freewind Post goes on to Sun Rock Retreat.
+	const at = flights.lastIndexOf('Freewind Post');
 	assert.ok(at >= 0, flights.join(', '));
 	assert.equal(flights[at + 1], 'Sun Rock Retreat', flights.join(', '));
+	assert.ok(!flights.slice(at + 1).includes('Orgrimmar') || flights.indexOf('Sun Rock Retreat', at) < flights.indexOf('Orgrimmar', at), flights.join(', '));
 });
 
 // Since the Horde 12-30 re-chain the Barrens are one stay at 15-21: Brewmaster Drohn's keg is handed in on the
@@ -8479,14 +8482,15 @@ test('Alliance Hillsbrad 30-32: the Ironforge steps are not titled after the tra
 // Final route review for 0.3.5 (Horde 30-32): the level 31 top-up said Hammerfall's quests start at 31
 // (they are offered from 29-30; the top-up keeps their 32-36 levels within reach), and the level 30 top-up
 // by Tarren Mill had no dungeon to run instead of the yetis.
-test('Horde Hillsbrad 30-32: the level 30 and 31 top-ups say why, and the first offers the Graveyard', { skip }, () => {
+test('Horde Hillsbrad 30-32: the level 30 and 31 top-ups say why, and the first offers the City of Dalaran', { skip }, () => {
 	data = data || loadData(DATA);
 	const guide = 'forever/horde/30-40/01-hillsbrad-foothills.guide';
 	for (const q of [655, 672, 677, 97539]) assert.ok(data.quests[q].minLevel <= 30, `${q} is offered below 31`);
 	const [t31] = stepTips(guide, /^\s+level 31\b/);
 	assert.doesNotMatch(t31, /start at 31/);
 	const [t30] = stepTips(guide, /^\s+level 30\b/);
-	assert.match(t30, /Scarlet Monastery/);
+	// Since the 0.4.0 dungeons rule the top-up names the dungeon the route runs in this guide, City of Dalaran.
+	assert.match(t30, /City of Dalaran/);
 });
 
 // Final route review for 0.3.5 (Alliance 30-40): Bartolo's Yeti Fur Cloak (565) also wants a Hillman's
@@ -8524,14 +8528,17 @@ test('Alliance Thousand Needles: from the Raceway to Gadgetzan and a flight to T
 
 // Final route review for 0.3.5 (Fitz: grind if we must, but say so): every written grind step in 30-40
 // names where to grind and a dungeon to run instead, in the writer's sentence.
-test('30-40: every written grind step says where, and names a dungeon to run instead', { skip }, () => {
+test('30-40: every written grind step says where, and names a dungeon to run instead where the route runs one', { skip }, () => {
 	const dir = path.join(OFFICIAL_DIR, 'forever');
 	for (const side of ['horde', 'alliance']) {
 		for (const f of fs.readdirSync(path.join(dir, side, '30-40'))) {
 			const guide = `forever/${side}/30-40/${f}`;
 			for (const { step, goal } of goals(guide)) {
 				if (goal.t !== 'level') continue;
-				assert.match([step.note, step.tip].flat().filter(Boolean).join(' '), /Or, with a group, run the .+ dungeon( \(.+\))? instead\.$/, `${guide}: "${step.title}"`);
+				// Since the 0.4.0 dungeons rule a grind step names a dungeon only where the route runs one in the same or the
+				// next guide on the same continent: Horde Stranglethorn Vale and Dustwallow have none (the Horde 30-40 case
+				// pins which guide names which).
+				if (!/forever\/horde\/30-40\/0[34]-/.test(guide)) assert.match([step.note, step.tip].flat().filter(Boolean).join(' '), /Or, with a group, run the .+ dungeon( \(.+\))? instead\.$/, `${guide}: "${step.title}"`);
 				assert.match([step.note, step.tip].flat().filter(Boolean).join(' '), /until level/, `${guide}: "${step.title}" says where`);
 			}
 		}
@@ -10779,7 +10786,7 @@ test('Horde starts: the Priest robe quests on stops the Troll and Undead starts 
 // down the vale (2,900 yd) to take Booty Bay's quests and flight path, then flew back. It now flies to Ratchet (Gazlowe's
 // 1178 and Dizzywig's 1111 handed in on the way), takes the boat to Booty Bay and walks north once: Goblin Sponsorship
 // 1180-1182 ride along (Lozgil on the pier, Revilgaz upstairs, Cozzle's footlocker by the geologists' lake), 1183 for the Raceway.
-test('Horde Stranglethorn 34: Ratchet and the boat to Booty Bay first, one walk north, Goblin Sponsorship on the way', { skip }, () => {
+test('Horde Stranglethorn 34: Ratchet and the boat to Booty Bay first, one walk north, Goblin Sponsorship on the way to Revilgaz', { skip }, () => {
 	const list = goals(STRANGLETHORN_HORDE);
 	const ratchet = at(list, 'fly Ratchet', (g) => g.t === 'fly' && /Ratchet/.test(g.location || ''));
 	const hand = at(list, 'turnin 1178', is('turnin', 1178));
@@ -10793,7 +10800,10 @@ test('Horde Stranglethorn 34: Ratchet and the boat to Booty Bay first, one walk 
 	const flights = list.filter(({ goal }) => goal.t === 'fly' && /Booty Bay/.test(goal.location || ''));
 	assert.equal(flights.length, 1, 'one flight to Booty Bay, for the hand-ins');
 	const blueprints = at(list, 'blueprints', (g) => g.t === 'collect' && g.item === 5852);
-	assert.ok(blueprints < at(list, 'turnin 1182', is('turnin', 1182)) && at(list, 'turnin 1182', is('turnin', 1182)) < at(list, 'accept 1183', is('accept', 1183)), 'footlocker, then Revilgaz, then 1183');
+	assert.ok(blueprints < at(list, 'turnin 1182', is('turnin', 1182)), 'footlocker, then Revilgaz');
+	// Since the 0.4.0 audit Goblin Sponsorship's last part (1183, to Pozzik at 43) is taken on the 40-50 guide's first
+	// Booty Bay stop, not carried from here through four guides.
+	assert.ok(!list.some(({ goal }) => is('accept', 1183)(goal)), '1183 is not taken at 36');
 	const h04 = goals('forever/horde/30-40/04-dustwallow-marsh.guide');
 	assert.ok(!h04.some(({ goal }) => [1178, 1111, 1180].includes(goal.quest)), 'Dustwallow\'s Ratchet stop keeps only Mebok');
 	const rf = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', 'route-fixes.json'), 'utf8')).overrides;
