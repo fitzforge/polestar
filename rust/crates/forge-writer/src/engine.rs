@@ -1136,7 +1136,8 @@ pub fn engine_pass(tree: &mut BTreeMap<String, String>, t: &Travel, inp: &Inputs
 				let own_only = step_only(wg.gi, wg.step_line);
 				let ok = |h: &G| {
 					h.gi == gi
-						&& h.si > from_si && h.si < wg.si
+						&& h.si > from_si
+						&& h.si < wg.si
 						&& matches!(h.verb.as_str(), "kill" | "collect" | "interact")
 						&& (h.quest, h.oi) != (Some(q), Some(oi))
 						&& !re!(r"\boptional\b").is_match(line_text(h))

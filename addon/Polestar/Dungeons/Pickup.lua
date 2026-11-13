@@ -1262,13 +1262,13 @@ function Dungeons.PickupGuide(key)
 	for i, pq in ipairs(plan.carried) do carried[i] = ns.Quoted(pq.title) or "" end
 	if #carried > 0 then notes[1] = format(L["In your log already: %s"], table.concat(carried, ", ")) end
 	-- The quests that wait for a level, in the accent: they come back then
-	-- (a chat line and a map pin say so, below).
-	local Theme = ns.Theme
-	local accent = Theme and Theme.Hex and Theme.Hex("accent")
+	-- (a chat line and a map pin say so, below). The colour is the goal's
+	-- `accent` (the guide window paints it in the look's accent): guide text
+	-- prints literally, so a colour code in it showed as "|cff...|r" (#1993).
 	local watched = {}
 	for _, w in ipairs(plan.waiting) do
 		local text = format(L["Comes back at level %d: %s"], w.level, ns.Quoted(w.quest.title) or "")
-		last.goals[#last.goals + 1] = { t = "note", text = accent and ("|c" .. accent .. text .. "|r") or text }
+		last.goals[#last.goals + 1] = { t = "note", text = text, accent = true }
 		watched[#watched + 1] = { id = w.quest.id, title = w.quest.title, level = w.level }
 	end
 	Dungeons.watch[key] = watched

@@ -1013,7 +1013,6 @@ L["Click objectives to target"] = "임무 클릭으로 대상 지정"
 L["Clicking an objective row or NPC heading also targets its NPC outside combat, using the same marking settings as the Target button. This replaces your current target; a failed search clears it."] = "임무 줄이나 NPC 제목을 클릭하면 전투 중이 아닐 때 그 NPC도 대상으로 지정합니다. 징표 설정은 대상 버튼과 같습니다. 현재 대상이 바뀌며, 찾지 못하면 대상이 해제됩니다."
 L["The target button and the step key put a raid icon on the mob and the NPC they target; out of combat, a press that finds neither clears your target. Pressing again never takes an icon off. In a party you don't lead, only a unit with no icon gets one; in a raid, only when you lead or assist."] = "대상 버튼과 단계 키가 대상으로 지정한 몹과 NPC에 공격대 아이콘을 붙입니다. 전투 중이 아닐 때 아무것도 찾지 못하면 대상을 해제합니다. 다시 눌러도 아이콘을 떼지 않습니다. 내가 파티장이 아닌 파티에서는 아이콘이 없는 대상에만 붙이고, 공격대에서는 공격대장이나 부공격대장일 때만 붙입니다."
 L["Ping what they target"] = "대상에 핑 표시"
-L["The target button and the step key ping the mob they target, so your group sees it behind rocks and buildings. Never in a raid unless you lead or assist. The rare buttons always ping."] = "대상 버튼과 단계 키가 지정한 몹에 핑을 찍어, 파티원이 바위나 건물 뒤에서도 볼 수 있게 합니다. 공격대에서는 공격대장이나 부공격대장일 때만 찍습니다. 희귀 버튼은 항상 핑을 찍습니다."
 L["Show quest-starting loot"] = "퀘스트 시작 전리품 표시"
 L["When you loot an item that starts a quest you can take, it goes on the quest item button with a glow until you click it or take the quest. The step's own item comes first; several wait their turn, oldest first."] = "받을 수 있는 퀘스트를 시작하는 아이템을 획득하면, 클릭하거나 퀘스트를 받을 때까지 퀘스트 아이템 버튼에 빛나며 표시됩니다. 단계의 아이템이 우선이며, 여러 개면 오래된 것부터 차례를 기다립니다."
 L["Track only dungeon quests in dungeons"] = "던전에서는 던전 퀘스트만 추적"
@@ -1042,6 +1041,7 @@ L["Travel button under the arrow"] = "화살표 아래 이동 버튼"
 -- L["Game options"] = ""
 -- L["Increase game image quality"] = ""
 -- L["Sharpens the game's image. Most noticeable when Render Scale is below 100%. This is a game setting: it stays until you turn it off here or in the console."] = ""
+-- L["The target button and the step key ping the mob or NPC they target, so your group sees it behind rocks and buildings. Never in a raid unless you lead or assist. The rare buttons always ping."] = ""
 
 -- Lookup/Sources.lua
 L["Alliance only"] = "얼라이언스 전용"
@@ -1888,6 +1888,10 @@ L["Guides by other players, installed like any addon. They show under Community 
 L["A few choices to start with. Everything else is in %s."] = "먼저 몇 가지를 고르십시오. 나머지는 모두 %s에 있습니다."
 L["Route line"] = "경로선"
 L["How the way to your goal shows on the world map and the minimap. The line is the easiest to follow; sparkles show as dots while Reduce motion is on."] = "지도와 미니맵에 목표까지의 길을 표시하는 방식입니다. 선이 가장 따라가기 쉽습니다. 움직임 줄이기가 켜져 있으면 반짝임은 점으로 표시됩니다."
+-- L["Mark what the target button finds"] = ""
+-- L["A skull on the enemy, a star on the friendly NPC. In a group it never takes another player's icon."] = ""
+-- L["Ping it for my group"] = ""
+-- L["Your group sees what the target button and the step key found, even behind rocks and buildings."] = ""
 
 -- UI/Copy.lua
 L["Selected for you: copy it with Ctrl+C (Cmd+C on a Mac), then press Escape."] = "선택되어 있습니다: Ctrl+C(Mac은 Cmd+C)로 복사한 뒤 Esc를 누르십시오."
@@ -4129,6 +4133,13 @@ L["Show in quest log"] = "퀘스트 목록에서 보기"
 L["Needed for %s in %s"] = "%s 퀘스트에 필요 (%s)"
 L["Part of the %s quests"] = "%s 퀘스트의 일부"
 
+-- UI/SearchDropdown.lua
+-- L["Go to page: %s"] = ""
+-- L["Tab: %s"] = ""
+-- L["Section: %s"] = ""
+-- L["See 1 result"] = ""
+-- L["See all %d results"] = ""
+
 -- No longer in the code (its English changed or it went away): reuse or delete.
 -- L["Shortest Path Forever is guiding. Turn off \"Guide with Shortest Path Forever when it's installed\" (Options, Arrow & routes) to use Polestar's arrow."] = "Shortest Path Forever가 가이드 중입니다. Polestar 화살표를 쓰려면 \"설치 시 Shortest Path Forever로 가이드\"를 끄십시오(설정, 화살표 및 경로)."
 -- L["Shortest Path Forever is guiding. Turn off \"Guide with Shortest Path Forever when it's installed\" (Options, Integrations) to use Polestar's arrow."] = "Shortest Path Forever가 안내 중입니다. Polestar의 화살표를 사용하려면 \"설치 시 Shortest Path Forever로 가이드\"(옵션, 연동)를 끄세요."
@@ -4294,3 +4305,4 @@ L["Part of the %s quests"] = "%s 퀘스트의 일부"
 -- L["Auto-learn new spells"] = "새 주문 자동으로 배우기"
 -- L["Automatically learns every spell a class trainer offers that you can afford, and prints the total. Profession trainers are left alone. Hold Shift to skip."] = "직업 상급자가 가르치는 주문 중 비용을 낼 수 있는 주문을 모두 자동으로 배우고 총비용을 표시합니다. 기술 전문가는 제외됩니다. 건너뛰려면 Shift를 누르고 있으십시오."
 -- L["A level-up card lists what to train; %s learns it (thanks RikyZ90); %s updates your bars."] = "레벨업 카드가 배울 주문을 보여 줍니다. %s 버튼으로 모두 배우고(RikyZ90 님께 감사), %s 버튼으로 단축바의 주문 레벨을 올립니다."
+-- L["The target button and the step key ping the mob they target, so your group sees it behind rocks and buildings. Never in a raid unless you lead or assist. The rare buttons always ping."] = "대상 버튼과 단계 키가 지정한 몹에 핑을 찍어, 파티원이 바위나 건물 뒤에서도 볼 수 있게 합니다. 공격대에서는 공격대장이나 부공격대장일 때만 찍습니다. 희귀 버튼은 항상 핑을 찍습니다."

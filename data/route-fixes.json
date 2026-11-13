@@ -3976,7 +3976,7 @@
 					1110
 				],
 				"faction": "Horde",
-				"why": "Horde 30-40 re-order (2026-11-07): The Mirage Raceway's quests (Rocket Car Parts, Salt Flat Venom with Kravel's crate for Nesingwary, Hardened Shells, Load Lightening, A Bump in the Road) are worked in one visit at 33, after Hillsbrad and the first Arathi visit, as both other orders do; 07-ashenvale did Rocket Car Parts and Salt Flat Venom alone at 29-30 and walked past the other three givers."
+				"why": "Horde 30-40 re-order (2026-11-07): The Mirage Raceway's quests (Rocket Car Parts, Salt Flat Venom with Kravel's crate for Nesingwary, Hardened Shells, Load Lightening, A Bump in the Road) are worked in one visit at 33, after Hillsbrad and the first Arathi visit: 07-ashenvale did Rocket Car Parts and Salt Flat Venom alone at 29-30 and walked past the other three givers."
 			},
 			{
 				"a": [
@@ -3988,7 +3988,7 @@
 					676
 				],
 				"faction": "Horde",
-				"why": "Horde 30-40 re-order (2026-11-07): Hillsbrad's Tarren Mill quests (Battle of Hillsbrad, Infiltration, Helcular's Revenge, the Dalaran crater) come before the first Arathi visit at 31-33, as both other orders have it."
+				"why": "Horde 30-40 re-order (2026-11-07): Hillsbrad's Tarren Mill quests (Battle of Hillsbrad, Infiltration, Helcular's Revenge, the Dalaran crater) come before the first Arathi visit at 31-33."
 			},
 			{
 				"a": [
@@ -4048,7 +4048,7 @@
 					5581
 				],
 				"faction": "Horde",
-				"why": "Horde 30-40 re-order (2026-11-07): Dustwallow (37-38) comes before Desolace's 38-40 quests (Taiga's portals, Melizza and the ghost-o-plasm, the centaur totems), a short second visit by flight from Ratchet, as both other orders leave them for a later visit."
+				"why": "Horde 30-40 re-order (2026-11-07): Dustwallow (37-38) comes before Desolace's 38-40 quests (Taiga's portals, Melizza and the ghost-o-plasm, the centaur totems), a short second visit by flight from Ratchet at the quests' own level (38-40) instead of 3-6 levels above the player on the first visit (34-35)."
 			},
 			{
 				"a": [
@@ -4767,7 +4767,7 @@
 					1501
 				],
 				"faction": "Horde",
-				"why": "Horde final route review (0.3.6, 2026-11-09): Durotar (Orc, Troll) Warlocks: Creature of the Void's Tablet of Verga (Skull Rock) goes to Gan'rul Bloodeye, and The Binding is done, on the guide's last arrival in Orgrimmar (the Cleft of Shadow, beside Neeru Fireblade for the next guide), after the last Razor Hill stop; the route walked from Skull Rock into Orgrimmar and back out to Margoz in the middle of the guide, then came back to the city at the end (our comparison binds the voidwalker with Neeru's hand-in at the end)."
+				"why": "Horde final route review (0.3.6, 2026-11-09): Durotar (Orc, Troll) Warlocks: Creature of the Void's Tablet of Verga (Skull Rock) goes to Gan'rul Bloodeye, and The Binding is done, on the guide's last arrival in Orgrimmar (the Cleft of Shadow, beside Neeru Fireblade for the next guide), after the last Razor Hill stop; the route walked from Skull Rock into Orgrimmar and back out to Margoz in the middle of the guide, then came back to the city at the end."
 			},
 			{
 				"a": [
@@ -4819,7 +4819,7 @@
 					1204
 				],
 				"faction": "Alliance",
-				"why": "Flow review, Alliance 40-50/01 (0.3.6, BrAlliance4060): Mudrock Soup and Bugs (1204) goes to Morgan Stern on the second Theramore stop, with Stinky's Escape (1222) to the same NPC, after The Missing Diplomat's tower (1266). The route used to ride Sentry Point -> Theramore -> back past Sentry Point north for this one hand-in (about 760 yd and a town entry). Our comparison hands both in to Morgan Stern on one visit; the tongues are still finished at Sentry Point, so nothing waits on the hand-in."
+				"why": "Flow review, Alliance 40-50/01 (0.3.6): Mudrock Soup and Bugs (1204) goes to Morgan Stern on the second Theramore stop, with Stinky's Escape (1222) to the same NPC, after The Missing Diplomat's tower (1266). The route used to ride Sentry Point -> Theramore -> back past Sentry Point north for this one hand-in (about 760 yd and a town entry). Both now go to Morgan Stern on one visit; the tongues are still finished at Sentry Point, so nothing waits on the hand-in."
 			},
 			{
 				"a": [
@@ -6494,7 +6494,7 @@
 					1454
 				],
 				"faction": "Alliance",
-				"why": "Desolace (Alliance 30-40, 0.3.6, BrAlliance3040, our comparison): Karnitol's Chest (36.1,30.4) lies about 100 yd from Azore Aldamort's tower (38.9,27.2), which the first Desolace visit (30-40/02) climbs for the Sceptre of Light on its way to Thunder Axe Fortress. The chain was opened only on the south loop (30-40/06), where the chest's follow-up (1455, Kreldig Ungor) sent the player from the wreck to Nijel's Point and back to the north-west coast for the satchel (1456): about 2,000 yd walked twice at 38. Opening it on the first visit, as our comparison does, leaves the south loop one trip to the north-west coast and one Nijel's Point stop at the end."
+				"why": "Desolace (Alliance 30-40, 0.3.6): Karnitol's Chest (36.1,30.4) lies about 100 yd from Azore Aldamort's tower (38.9,27.2), which the first Desolace visit (30-40/02) climbs for the Sceptre of Light on its way to Thunder Axe Fortress. The chain was opened only on the south loop (30-40/06), where the chest's follow-up (1455, Kreldig Ungor) sent the player from the wreck to Nijel's Point and back to the north-west coast for the satchel (1456): about 2,000 yd walked twice at 38. Opening it on the first visit leaves the south loop one trip to the north-west coast and one Nijel's Point stop at the end."
 			},
 			{
 				"a": [
@@ -6506,7 +6506,7 @@
 					1454
 				],
 				"faction": "Alliance",
-				"why": "Desolace (Alliance 30-40, 0.3.6, BrAlliance3040, our comparison): Karnitol's Chest (36.1,30.4) lies about 100 yd from Azore Aldamort's tower (38.9,27.2), which the first Desolace visit (30-40/02) climbs for the Sceptre of Light on its way to Thunder Axe Fortress. The chain was opened only on the south loop (30-40/06), where the chest's follow-up (1455, Kreldig Ungor) sent the player from the wreck to Nijel's Point and back to the north-west coast for the satchel (1456): about 2,000 yd walked twice at 38. Opening it on the first visit, as our comparison does, leaves the south loop one trip to the north-west coast and one Nijel's Point stop at the end."
+				"why": "Desolace (Alliance 30-40, 0.3.6): Karnitol's Chest (36.1,30.4) lies about 100 yd from Azore Aldamort's tower (38.9,27.2), which the first Desolace visit (30-40/02) climbs for the Sceptre of Light on its way to Thunder Axe Fortress. The chain was opened only on the south loop (30-40/06), where the chest's follow-up (1455, Kreldig Ungor) sent the player from the wreck to Nijel's Point and back to the north-west coast for the satchel (1456): about 2,000 yd walked twice at 38. Opening it on the first visit leaves the south loop one trip to the north-west coast and one Nijel's Point stop at the end."
 			},
 			{
 				"a": [
@@ -6518,7 +6518,7 @@
 					1455
 				],
 				"faction": "Alliance",
-				"why": "Desolace (Alliance 30-40, 0.3.6, BrAlliance3040, our comparison): Karnitol's Chest (36.1,30.4) lies about 100 yd from Azore Aldamort's tower (38.9,27.2), which the first Desolace visit (30-40/02) climbs for the Sceptre of Light on its way to Thunder Axe Fortress. The chain was opened only on the south loop (30-40/06), where the chest's follow-up (1455, Kreldig Ungor) sent the player from the wreck to Nijel's Point and back to the north-west coast for the satchel (1456): about 2,000 yd walked twice at 38. Opening it on the first visit, as our comparison does, leaves the south loop one trip to the north-west coast and one Nijel's Point stop at the end. The chest's report (1455) goes in with Reagents (1459) on the visit's last Kreldig stop, which gives the satchel's errand (1456) to carry to the south loop."
+				"why": "Desolace (Alliance 30-40, 0.3.6): Karnitol's Chest (36.1,30.4) lies about 100 yd from Azore Aldamort's tower (38.9,27.2), which the first Desolace visit (30-40/02) climbs for the Sceptre of Light on its way to Thunder Axe Fortress. The chain was opened only on the south loop (30-40/06), where the chest's follow-up (1455, Kreldig Ungor) sent the player from the wreck to Nijel's Point and back to the north-west coast for the satchel (1456): about 2,000 yd walked twice at 38. Opening it on the first visit leaves the south loop one trip to the north-west coast and one Nijel's Point stop at the end. The chest's report (1455) goes in with Reagents (1459) on the visit's last Kreldig stop, which gives the satchel's errand (1456) to carry to the south loop."
 			},
 			{
 				"a": [
@@ -6543,7 +6543,7 @@
 					192
 				],
 				"faction": "Alliance",
-				"why": "Stranglethorn's second loop (Alliance 30-40/04b, 0.3.6, BrAlliance3040, our comparison): the Shadowmaw Panthers (level 37) live around Lake Nazferiti (45-51,20-30) and by the Skullsplitter ruins (35-42,32-45), none in the north-west, and the Venture Co. Geologists with the Tumbled Crystals work Lake Nazferiti's shore (42-48,16-24; two stray ones at 28,8). The guide listed both on the north-west tablets' step, so the arrow went from Zul'Kunda south to 36,34 and back north to the Rebel Camp (about 2,500 yd), and the Rebel Camp was visited three times. Now Erlgadin's Panther Mastery is taken at Nesingwary's on the way in, the lake right after Kurzen's Compound, the tablets west and north-west, and every Rebel Camp hand-in on one stop at the end, as our comparison loops it."
+				"why": "Stranglethorn's second loop (Alliance 30-40/04b, 0.3.6): the Shadowmaw Panthers (level 37) live around Lake Nazferiti (45-51,20-30) and by the Skullsplitter ruins (35-42,32-45), none in the north-west, and the Venture Co. Geologists with the Tumbled Crystals work Lake Nazferiti's shore (42-48,16-24; two stray ones at 28,8). The guide listed both on the north-west tablets' step, so the arrow went from Zul'Kunda south to 36,34 and back north to the Rebel Camp (about 2,500 yd), and the Rebel Camp was visited three times. Now Erlgadin's Panther Mastery is taken at Nesingwary's on the way in, the lake right after Kurzen's Compound, the tablets west and north-west, and every Rebel Camp hand-in on one stop at the end."
 			},
 			{
 				"a": [
@@ -7602,7 +7602,7 @@
 			},
 			{
 				"q": 126,
-				"reason": "Alliance 12-30 bracket review 0.3.6: Howling in the Hills (level 25, from 15, 2000 XP) from Verner Osgood in Lakeshire, offered once 03-loch-modan's Lakeshire quests are handed in (players' offer windows: offered with A Baying of Gnolls, 124, or Underbelly Scales, 122, done, refused before). Its one objective, Yowler's Paw, comes from Yowler (level 25, not elite), whom players met at Redridge 21-25,20-28 (18 people, 13 killed him; collector spawns 22.6-22.8,21-22) at the top of the Redridge Canyons, which 04-redridge-mountains walks up to Render's Valley for Keeshan; Verner stands between the town hall and the bridge on the way back. Players' recordings: 17 people took it at 19-25, 11 handed it in. Our comparison takes it on the same Redridge visit.",
+				"reason": "Alliance 12-30 bracket review 0.3.6: Howling in the Hills (level 25, from 15, 2000 XP) from Verner Osgood in Lakeshire, offered once 03-loch-modan's Lakeshire quests are handed in (players' offer windows: offered with A Baying of Gnolls, 124, or Underbelly Scales, 122, done, refused before). Its one objective, Yowler's Paw, comes from Yowler (level 25, not elite), whom players met at Redridge 21-25,20-28 (18 people, 13 killed him; collector spawns 22.6-22.8,21-22) at the top of the Redridge Canyons, which 04-redridge-mountains walks up to Render's Valley for Keeshan; Verner stands between the town hall and the bridge on the way back. Players' recordings: 17 people took it at 19-25, 11 handed it in.",
 				"issue": "-",
 				"after": [
 					"turnin",
@@ -7611,7 +7611,7 @@
 			},
 			{
 				"q": 103,
-				"reason": "Alliance 12-30 bracket review 0.3.6: Keeper of the Flame (level 16, from 10, 1150 XP) at Captain Grayson, whom 03-loch-modan's Westfall stretch visits at about 20 for Old Murk-Eye (104). Its five Flasks of Oil drop from Westfall's Harvest Watchers without the quest (35%, quest not required), and 02-westfall kills twenty of them for The Killing Fields (9), with a `collect 814 x5 optional` 'keep five' line there. Taken and handed in at once on its own lighthouse step, `when has 814 x5`, so nobody is sent back for flasks. Players' recordings: 10 people took it, 9 handed it in, 6 of them at once with the flasks already in their bags. Our comparison does the same.",
+				"reason": "Alliance 12-30 bracket review 0.3.6: Keeper of the Flame (level 16, from 10, 1150 XP) at Captain Grayson, whom 03-loch-modan's Westfall stretch visits at about 20 for Old Murk-Eye (104). Its five Flasks of Oil drop from Westfall's Harvest Watchers without the quest (35%, quest not required), and 02-westfall kills twenty of them for The Killing Fields (9), with a `collect 814 x5 optional` 'keep five' line there. Taken and handed in at once on its own lighthouse step, `when has 814 x5`, so nobody is sent back for flasks. Players' recordings: 10 people took it, 9 handed it in, 6 of them at once with the flasks already in their bags.",
 				"issue": "-",
 				"after": [
 					"turnin",
@@ -8150,12 +8150,12 @@
 			},
 			{
 				"q": 854,
-				"reason": "BrHordeStart 0.3.6: Journey to the Crossroads (Tauren only, level 12, from 9; 230 XP) from Kirge Sternhorn at Camp Taurajo (44.9,58.6), on the road the end of tauren/01-mulgore already walks from the Mulgore pass to the Crossroads, handed to Thork by the wind rider tower there, on the same Crossroads stop (Tonga, Sergra, Devrak). Recordings (game facts, 0.3.1-0.3.4): 7 of 7 recorded Tauren who walked that road took it at Kirge and handed it to Thork (230 XP), and Sergra still offered Plainstrider Menace (844) afterwards (854's `excl` 844 only closes 854 once 844 is taken). Our comparison also takes it there.",
+				"reason": "Horde start zones (0.3.6): Journey to the Crossroads (Tauren only, level 12, from 9; 230 XP) from Kirge Sternhorn at Camp Taurajo (44.9,58.6), on the road the end of tauren/01-mulgore already walks from the Mulgore pass to the Crossroads, handed to Thork by the wind rider tower there, on the same Crossroads stop (Tonga, Sergra, Devrak). Recordings (game facts, 0.3.1-0.3.4): 7 of 7 recorded Tauren who walked that road took it at Kirge and handed it to Thork (230 XP), and Sergra still offered Plainstrider Menace (844) afterwards (854's `excl` 844 only closes 854 once 844 is taken).",
 				"issue": "-"
 			},
 			{
 				"q": 5649,
-				"reason": "BrHordeStart 0.3.6: Troll Priest robe pair, In Favor of Spirituality (90 XP) from Ken'jai at the Den on the last Valley of Trials stop (players are 5 there: 28 of 30 recorded Orcs/Trolls hand in 6394 at 5) to Tai'jin in the Razor Hill barracks on the first Razor Hill stop, then Garments of Spirituality (5648, 270 XP, Juju Hex Robes): Grunt Kor'ja (53.1,46.5) on the walk south to Tiragarde Keep, handed in on the next Razor Hill stop beside Gar'Thok. Our comparison takes them there; the Alliance pairs went into their starts the same night. Recordings (game facts): 2 of 2 recorded Troll Priests did the pair (accept at 5 at the Den, robe at 6).",
+				"reason": "Horde start zones (0.3.6): Troll Priest robe pair, In Favor of Spirituality (90 XP) from Ken'jai at the Den on the last Valley of Trials stop (players are 5 there: 28 of 30 recorded Orcs/Trolls hand in 6394 at 5) to Tai'jin in the Razor Hill barracks on the first Razor Hill stop, then Garments of Spirituality (5648, 270 XP, Juju Hex Robes): Grunt Kor'ja (53.1,46.5) on the walk south to Tiragarde Keep, handed in on the next Razor Hill stop beside Gar'Thok. The Alliance pairs went into their starts the same night. Recordings (game facts): 2 of 2 recorded Troll Priests did the pair (accept at 5 at the Den, robe at 6).",
 				"issue": "-"
 			},
 			{
@@ -8169,7 +8169,7 @@
 			},
 			{
 				"q": 5651,
-				"reason": "BrHordeStart 0.3.6: Undead Priest robe pair, In Favor of Darkness (90 XP) from Dark Cleric Duesten in the Deathknell church after Meven Korgal (players are 5 there: 41 of 42 recorded hand in 381 at 5) to Dark Cleric Beryl upstairs in Gallows' End Tavern on the first Brill stop, then Garments of Darkness (5650, 270 XP, Acolyte's Sacrificial Robes): Deathguard Kel (59.2,46.5) by the graveyard's north gate on the walk north, handed in on the next Brill stop upstairs with Gretchen. Our comparison takes them there. Recordings (game facts): 9 recorded Undead Priests took the pair (accept at 5, robe at 5-8).",
+				"reason": "Horde start zones (0.3.6): Undead Priest robe pair, In Favor of Darkness (90 XP) from Dark Cleric Duesten in the Deathknell church after Meven Korgal (players are 5 there: 41 of 42 recorded hand in 381 at 5) to Dark Cleric Beryl upstairs in Gallows' End Tavern on the first Brill stop, then Garments of Darkness (5650, 270 XP, Acolyte's Sacrificial Robes): Deathguard Kel (59.2,46.5) by the graveyard's north gate on the walk north, handed in on the next Brill stop upstairs with Gretchen. Recordings (game facts): 9 recorded Undead Priests took the pair (accept at 5, robe at 5-8).",
 				"issue": "-"
 			},
 			{
@@ -8183,137 +8183,137 @@
 			},
 			{
 				"q": 97936,
-				"reason": "BrHordeStart 0.3.6: Camping 101 profession variant at the tauren/01-mulgore (Kaga Wildhoof) campfire (270 XP, needs the profession at accept, after the campfire's rest quest): a `when skill` step right after the Cooking variant, handed to the trainer on a stop the route already makes (Orgrimmar/Undercity trainers on 03-silverpine-forest's stops, BrHorde1230). Recordings (game facts, Horde starts): 36 variants seen, e.g. Tirisfal First Aid 14 accepts/11 hand-ins, Mining 13/12, Durotar Skinning 12/9, Mulgore Skinning 7/7; our comparison takes the Skinning ones.",
+				"reason": "Horde start zones (0.3.6): Camping 101 profession variant at the tauren/01-mulgore (Kaga Wildhoof) campfire (270 XP, needs the profession at accept, after the campfire's rest quest): a `when skill` step right after the Cooking variant, handed to the trainer on a stop the route already makes (Orgrimmar/Undercity trainers on 03-silverpine-forest's stops). Recordings (game facts, Horde starts): 36 variants seen, e.g. Tirisfal First Aid 14 accepts/11 hand-ins, Mining 13/12, Durotar Skinning 12/9, Mulgore Skinning 7/7.",
 				"issue": "-"
 			},
 			{
 				"q": 97934,
-				"reason": "BrHordeStart 0.3.6: Camping 101 profession variant at the tauren/01-mulgore (Kaga Wildhoof) campfire (270 XP, needs the profession at accept, after the campfire's rest quest): a `when skill` step right after the Cooking variant, handed to the trainer on a stop the route already makes (Orgrimmar/Undercity trainers on 03-silverpine-forest's stops, BrHorde1230). Recordings (game facts, Horde starts): 36 variants seen, e.g. Tirisfal First Aid 14 accepts/11 hand-ins, Mining 13/12, Durotar Skinning 12/9, Mulgore Skinning 7/7; our comparison takes the Skinning ones.",
+				"reason": "Horde start zones (0.3.6): Camping 101 profession variant at the tauren/01-mulgore (Kaga Wildhoof) campfire (270 XP, needs the profession at accept, after the campfire's rest quest): a `when skill` step right after the Cooking variant, handed to the trainer on a stop the route already makes (Orgrimmar/Undercity trainers on 03-silverpine-forest's stops). Recordings (game facts, Horde starts): 36 variants seen, e.g. Tirisfal First Aid 14 accepts/11 hand-ins, Mining 13/12, Durotar Skinning 12/9, Mulgore Skinning 7/7.",
 				"issue": "-"
 			},
 			{
 				"q": 97931,
-				"reason": "BrHordeStart 0.3.6: Camping 101 profession variant at the tauren/01-mulgore (Kaga Wildhoof) campfire (270 XP, needs the profession at accept, after the campfire's rest quest): a `when skill` step right after the Cooking variant, handed to the trainer on a stop the route already makes (Orgrimmar/Undercity trainers on 03-silverpine-forest's stops, BrHorde1230). Recordings (game facts, Horde starts): 36 variants seen, e.g. Tirisfal First Aid 14 accepts/11 hand-ins, Mining 13/12, Durotar Skinning 12/9, Mulgore Skinning 7/7; our comparison takes the Skinning ones.",
+				"reason": "Horde start zones (0.3.6): Camping 101 profession variant at the tauren/01-mulgore (Kaga Wildhoof) campfire (270 XP, needs the profession at accept, after the campfire's rest quest): a `when skill` step right after the Cooking variant, handed to the trainer on a stop the route already makes (Orgrimmar/Undercity trainers on 03-silverpine-forest's stops). Recordings (game facts, Horde starts): 36 variants seen, e.g. Tirisfal First Aid 14 accepts/11 hand-ins, Mining 13/12, Durotar Skinning 12/9, Mulgore Skinning 7/7.",
 				"issue": "-"
 			},
 			{
 				"q": 97932,
-				"reason": "BrHordeStart 0.3.6: Camping 101 profession variant at the tauren/01-mulgore (Kaga Wildhoof) campfire (270 XP, needs the profession at accept, after the campfire's rest quest): a `when skill` step right after the Cooking variant, handed to the trainer on a stop the route already makes (Orgrimmar/Undercity trainers on 03-silverpine-forest's stops, BrHorde1230). Recordings (game facts, Horde starts): 36 variants seen, e.g. Tirisfal First Aid 14 accepts/11 hand-ins, Mining 13/12, Durotar Skinning 12/9, Mulgore Skinning 7/7; our comparison takes the Skinning ones.",
+				"reason": "Horde start zones (0.3.6): Camping 101 profession variant at the tauren/01-mulgore (Kaga Wildhoof) campfire (270 XP, needs the profession at accept, after the campfire's rest quest): a `when skill` step right after the Cooking variant, handed to the trainer on a stop the route already makes (Orgrimmar/Undercity trainers on 03-silverpine-forest's stops). Recordings (game facts, Horde starts): 36 variants seen, e.g. Tirisfal First Aid 14 accepts/11 hand-ins, Mining 13/12, Durotar Skinning 12/9, Mulgore Skinning 7/7.",
 				"issue": "-"
 			},
 			{
 				"q": 97933,
-				"reason": "BrHordeStart 0.3.6: Camping 101 profession variant at the tauren/01-mulgore (Kaga Wildhoof) campfire (270 XP, needs the profession at accept, after the campfire's rest quest): a `when skill` step right after the Cooking variant, handed to the trainer on a stop the route already makes (Orgrimmar/Undercity trainers on 03-silverpine-forest's stops, BrHorde1230). Recordings (game facts, Horde starts): 36 variants seen, e.g. Tirisfal First Aid 14 accepts/11 hand-ins, Mining 13/12, Durotar Skinning 12/9, Mulgore Skinning 7/7; our comparison takes the Skinning ones.",
+				"reason": "Horde start zones (0.3.6): Camping 101 profession variant at the tauren/01-mulgore (Kaga Wildhoof) campfire (270 XP, needs the profession at accept, after the campfire's rest quest): a `when skill` step right after the Cooking variant, handed to the trainer on a stop the route already makes (Orgrimmar/Undercity trainers on 03-silverpine-forest's stops). Recordings (game facts, Horde starts): 36 variants seen, e.g. Tirisfal First Aid 14 accepts/11 hand-ins, Mining 13/12, Durotar Skinning 12/9, Mulgore Skinning 7/7.",
 				"issue": "-"
 			},
 			{
 				"q": 97935,
-				"reason": "BrHordeStart 0.3.6: Camping 101 profession variant at the tauren/01-mulgore (Kaga Wildhoof) campfire (270 XP, needs the profession at accept, after the campfire's rest quest): a `when skill` step right after the Cooking variant, handed to the trainer on a stop the route already makes (Orgrimmar/Undercity trainers on 03-silverpine-forest's stops, BrHorde1230). Recordings (game facts, Horde starts): 36 variants seen, e.g. Tirisfal First Aid 14 accepts/11 hand-ins, Mining 13/12, Durotar Skinning 12/9, Mulgore Skinning 7/7; our comparison takes the Skinning ones.",
+				"reason": "Horde start zones (0.3.6): Camping 101 profession variant at the tauren/01-mulgore (Kaga Wildhoof) campfire (270 XP, needs the profession at accept, after the campfire's rest quest): a `when skill` step right after the Cooking variant, handed to the trainer on a stop the route already makes (Orgrimmar/Undercity trainers on 03-silverpine-forest's stops). Recordings (game facts, Horde starts): 36 variants seen, e.g. Tirisfal First Aid 14 accepts/11 hand-ins, Mining 13/12, Durotar Skinning 12/9, Mulgore Skinning 7/7.",
 				"issue": "-"
 			},
 			{
 				"q": 97927,
-				"reason": "BrHordeStart 0.3.6: Camping 101 profession variant at the tauren/01-mulgore (Kaga Wildhoof) campfire (270 XP, needs the profession at accept, after the campfire's rest quest): a `when skill` step right after the Cooking variant, handed to the trainer on a stop the route already makes (Orgrimmar/Undercity trainers on 03-silverpine-forest's stops, BrHorde1230). Recordings (game facts, Horde starts): 36 variants seen, e.g. Tirisfal First Aid 14 accepts/11 hand-ins, Mining 13/12, Durotar Skinning 12/9, Mulgore Skinning 7/7; our comparison takes the Skinning ones.",
+				"reason": "Horde start zones (0.3.6): Camping 101 profession variant at the tauren/01-mulgore (Kaga Wildhoof) campfire (270 XP, needs the profession at accept, after the campfire's rest quest): a `when skill` step right after the Cooking variant, handed to the trainer on a stop the route already makes (Orgrimmar/Undercity trainers on 03-silverpine-forest's stops). Recordings (game facts, Horde starts): 36 variants seen, e.g. Tirisfal First Aid 14 accepts/11 hand-ins, Mining 13/12, Durotar Skinning 12/9, Mulgore Skinning 7/7.",
 				"issue": "-"
 			},
 			{
 				"q": 97928,
-				"reason": "BrHordeStart 0.3.6: Camping 101 profession variant at the tauren/01-mulgore (Kaga Wildhoof) campfire (270 XP, needs the profession at accept, after the campfire's rest quest): a `when skill` step right after the Cooking variant, handed to the trainer on a stop the route already makes (Orgrimmar/Undercity trainers on 03-silverpine-forest's stops, BrHorde1230). Recordings (game facts, Horde starts): 36 variants seen, e.g. Tirisfal First Aid 14 accepts/11 hand-ins, Mining 13/12, Durotar Skinning 12/9, Mulgore Skinning 7/7; our comparison takes the Skinning ones.",
+				"reason": "Horde start zones (0.3.6): Camping 101 profession variant at the tauren/01-mulgore (Kaga Wildhoof) campfire (270 XP, needs the profession at accept, after the campfire's rest quest): a `when skill` step right after the Cooking variant, handed to the trainer on a stop the route already makes (Orgrimmar/Undercity trainers on 03-silverpine-forest's stops). Recordings (game facts, Horde starts): 36 variants seen, e.g. Tirisfal First Aid 14 accepts/11 hand-ins, Mining 13/12, Durotar Skinning 12/9, Mulgore Skinning 7/7.",
 				"issue": "-"
 			},
 			{
 				"q": 97929,
-				"reason": "BrHordeStart 0.3.6: Camping 101 profession variant at the tauren/01-mulgore (Kaga Wildhoof) campfire (270 XP, needs the profession at accept, after the campfire's rest quest): a `when skill` step right after the Cooking variant, handed to the trainer on a stop the route already makes (Orgrimmar/Undercity trainers on 03-silverpine-forest's stops, BrHorde1230). Recordings (game facts, Horde starts): 36 variants seen, e.g. Tirisfal First Aid 14 accepts/11 hand-ins, Mining 13/12, Durotar Skinning 12/9, Mulgore Skinning 7/7; our comparison takes the Skinning ones.",
+				"reason": "Horde start zones (0.3.6): Camping 101 profession variant at the tauren/01-mulgore (Kaga Wildhoof) campfire (270 XP, needs the profession at accept, after the campfire's rest quest): a `when skill` step right after the Cooking variant, handed to the trainer on a stop the route already makes (Orgrimmar/Undercity trainers on 03-silverpine-forest's stops). Recordings (game facts, Horde starts): 36 variants seen, e.g. Tirisfal First Aid 14 accepts/11 hand-ins, Mining 13/12, Durotar Skinning 12/9, Mulgore Skinning 7/7.",
 				"issue": "-"
 			},
 			{
 				"q": 97937,
-				"reason": "BrHordeStart 0.3.6: Camping 101 profession variant at the tauren/01-mulgore (Kaga Wildhoof) campfire (270 XP, needs the profession at accept, after the campfire's rest quest): a `when skill` step right after the Cooking variant, handed to the trainer on a stop the route already makes (Orgrimmar/Undercity trainers on 03-silverpine-forest's stops, BrHorde1230). Recordings (game facts, Horde starts): 36 variants seen, e.g. Tirisfal First Aid 14 accepts/11 hand-ins, Mining 13/12, Durotar Skinning 12/9, Mulgore Skinning 7/7; our comparison takes the Skinning ones.",
+				"reason": "Horde start zones (0.3.6): Camping 101 profession variant at the tauren/01-mulgore (Kaga Wildhoof) campfire (270 XP, needs the profession at accept, after the campfire's rest quest): a `when skill` step right after the Cooking variant, handed to the trainer on a stop the route already makes (Orgrimmar/Undercity trainers on 03-silverpine-forest's stops). Recordings (game facts, Horde starts): 36 variants seen, e.g. Tirisfal First Aid 14 accepts/11 hand-ins, Mining 13/12, Durotar Skinning 12/9, Mulgore Skinning 7/7.",
 				"issue": "-"
 			},
 			{
 				"q": 97907,
-				"reason": "BrHordeStart 0.3.6: Camping 101 profession variant at the orc+troll/01-durotar (Brakk) campfire (270 XP, needs the profession at accept, after the campfire's rest quest): a `when skill` step right after the Cooking variant, handed to the trainer on a stop the route already makes (Orgrimmar/Undercity trainers on 03-silverpine-forest's stops, BrHorde1230). Recordings (game facts, Horde starts): 36 variants seen, e.g. Tirisfal First Aid 14 accepts/11 hand-ins, Mining 13/12, Durotar Skinning 12/9, Mulgore Skinning 7/7; our comparison takes the Skinning ones.",
+				"reason": "Horde start zones (0.3.6): Camping 101 profession variant at the orc+troll/01-durotar (Brakk) campfire (270 XP, needs the profession at accept, after the campfire's rest quest): a `when skill` step right after the Cooking variant, handed to the trainer on a stop the route already makes (Orgrimmar/Undercity trainers on 03-silverpine-forest's stops). Recordings (game facts, Horde starts): 36 variants seen, e.g. Tirisfal First Aid 14 accepts/11 hand-ins, Mining 13/12, Durotar Skinning 12/9, Mulgore Skinning 7/7.",
 				"issue": "-"
 			},
 			{
 				"q": 97902,
-				"reason": "BrHordeStart 0.3.6: Camping 101 profession variant at the orc+troll/01-durotar (Brakk) campfire (270 XP, needs the profession at accept, after the campfire's rest quest): a `when skill` step right after the Cooking variant, handed to the trainer on a stop the route already makes (Orgrimmar/Undercity trainers on 03-silverpine-forest's stops, BrHorde1230). Recordings (game facts, Horde starts): 36 variants seen, e.g. Tirisfal First Aid 14 accepts/11 hand-ins, Mining 13/12, Durotar Skinning 12/9, Mulgore Skinning 7/7; our comparison takes the Skinning ones.",
+				"reason": "Horde start zones (0.3.6): Camping 101 profession variant at the orc+troll/01-durotar (Brakk) campfire (270 XP, needs the profession at accept, after the campfire's rest quest): a `when skill` step right after the Cooking variant, handed to the trainer on a stop the route already makes (Orgrimmar/Undercity trainers on 03-silverpine-forest's stops). Recordings (game facts, Horde starts): 36 variants seen, e.g. Tirisfal First Aid 14 accepts/11 hand-ins, Mining 13/12, Durotar Skinning 12/9, Mulgore Skinning 7/7.",
 				"issue": "-"
 			},
 			{
 				"q": 97903,
-				"reason": "BrHordeStart 0.3.6: Camping 101 profession variant at the orc+troll/01-durotar (Brakk) campfire (270 XP, needs the profession at accept, after the campfire's rest quest): a `when skill` step right after the Cooking variant, handed to the trainer on a stop the route already makes (Orgrimmar/Undercity trainers on 03-silverpine-forest's stops, BrHorde1230). Recordings (game facts, Horde starts): 36 variants seen, e.g. Tirisfal First Aid 14 accepts/11 hand-ins, Mining 13/12, Durotar Skinning 12/9, Mulgore Skinning 7/7; our comparison takes the Skinning ones.",
+				"reason": "Horde start zones (0.3.6): Camping 101 profession variant at the orc+troll/01-durotar (Brakk) campfire (270 XP, needs the profession at accept, after the campfire's rest quest): a `when skill` step right after the Cooking variant, handed to the trainer on a stop the route already makes (Orgrimmar/Undercity trainers on 03-silverpine-forest's stops). Recordings (game facts, Horde starts): 36 variants seen, e.g. Tirisfal First Aid 14 accepts/11 hand-ins, Mining 13/12, Durotar Skinning 12/9, Mulgore Skinning 7/7.",
 				"issue": "-"
 			},
 			{
 				"q": 97955,
-				"reason": "BrHordeStart 0.3.6: Camping 101 profession variant at the undead/01-tirisfal-glades (Eleanor Shackleton) campfire (270 XP, needs the profession at accept, after the campfire's rest quest): a `when skill` step right after the Cooking variant, handed to the trainer on a stop the route already makes (Orgrimmar/Undercity trainers on 03-silverpine-forest's stops, BrHorde1230). Recordings (game facts, Horde starts): 36 variants seen, e.g. Tirisfal First Aid 14 accepts/11 hand-ins, Mining 13/12, Durotar Skinning 12/9, Mulgore Skinning 7/7; our comparison takes the Skinning ones.",
+				"reason": "Horde start zones (0.3.6): Camping 101 profession variant at the undead/01-tirisfal-glades (Eleanor Shackleton) campfire (270 XP, needs the profession at accept, after the campfire's rest quest): a `when skill` step right after the Cooking variant, handed to the trainer on a stop the route already makes (Orgrimmar/Undercity trainers on 03-silverpine-forest's stops). Recordings (game facts, Horde starts): 36 variants seen, e.g. Tirisfal First Aid 14 accepts/11 hand-ins, Mining 13/12, Durotar Skinning 12/9, Mulgore Skinning 7/7.",
 				"issue": "-"
 			},
 			{
 				"q": 97953,
-				"reason": "BrHordeStart 0.3.6: Camping 101 profession variant at the undead/01-tirisfal-glades (Eleanor Shackleton) campfire (270 XP, needs the profession at accept, after the campfire's rest quest): a `when skill` step right after the Cooking variant, handed to the trainer on a stop the route already makes (Orgrimmar/Undercity trainers on 03-silverpine-forest's stops, BrHorde1230). Recordings (game facts, Horde starts): 36 variants seen, e.g. Tirisfal First Aid 14 accepts/11 hand-ins, Mining 13/12, Durotar Skinning 12/9, Mulgore Skinning 7/7; our comparison takes the Skinning ones.",
+				"reason": "Horde start zones (0.3.6): Camping 101 profession variant at the undead/01-tirisfal-glades (Eleanor Shackleton) campfire (270 XP, needs the profession at accept, after the campfire's rest quest): a `when skill` step right after the Cooking variant, handed to the trainer on a stop the route already makes (Orgrimmar/Undercity trainers on 03-silverpine-forest's stops). Recordings (game facts, Horde starts): 36 variants seen, e.g. Tirisfal First Aid 14 accepts/11 hand-ins, Mining 13/12, Durotar Skinning 12/9, Mulgore Skinning 7/7.",
 				"issue": "-"
 			},
 			{
 				"q": 97957,
-				"reason": "BrHordeStart 0.3.6: Camping 101 profession variant at the undead/01-tirisfal-glades (Eleanor Shackleton) campfire (270 XP, needs the profession at accept, after the campfire's rest quest): a `when skill` step right after the Cooking variant, handed to the trainer on a stop the route already makes (Orgrimmar/Undercity trainers on 03-silverpine-forest's stops, BrHorde1230). Recordings (game facts, Horde starts): 36 variants seen, e.g. Tirisfal First Aid 14 accepts/11 hand-ins, Mining 13/12, Durotar Skinning 12/9, Mulgore Skinning 7/7; our comparison takes the Skinning ones.",
+				"reason": "Horde start zones (0.3.6): Camping 101 profession variant at the undead/01-tirisfal-glades (Eleanor Shackleton) campfire (270 XP, needs the profession at accept, after the campfire's rest quest): a `when skill` step right after the Cooking variant, handed to the trainer on a stop the route already makes (Orgrimmar/Undercity trainers on 03-silverpine-forest's stops). Recordings (game facts, Horde starts): 36 variants seen, e.g. Tirisfal First Aid 14 accepts/11 hand-ins, Mining 13/12, Durotar Skinning 12/9, Mulgore Skinning 7/7.",
 				"issue": "-"
 			},
 			{
 				"q": 97951,
-				"reason": "BrHordeStart 0.3.6: Camping 101 profession variant at the undead/01-tirisfal-glades (Eleanor Shackleton) campfire (270 XP, needs the profession at accept, after the campfire's rest quest): a `when skill` step right after the Cooking variant, handed to the trainer on a stop the route already makes (Orgrimmar/Undercity trainers on 03-silverpine-forest's stops, BrHorde1230). Recordings (game facts, Horde starts): 36 variants seen, e.g. Tirisfal First Aid 14 accepts/11 hand-ins, Mining 13/12, Durotar Skinning 12/9, Mulgore Skinning 7/7; our comparison takes the Skinning ones.",
+				"reason": "Horde start zones (0.3.6): Camping 101 profession variant at the undead/01-tirisfal-glades (Eleanor Shackleton) campfire (270 XP, needs the profession at accept, after the campfire's rest quest): a `when skill` step right after the Cooking variant, handed to the trainer on a stop the route already makes (Orgrimmar/Undercity trainers on 03-silverpine-forest's stops). Recordings (game facts, Horde starts): 36 variants seen, e.g. Tirisfal First Aid 14 accepts/11 hand-ins, Mining 13/12, Durotar Skinning 12/9, Mulgore Skinning 7/7.",
 				"issue": "-"
 			},
 			{
 				"q": 97960,
-				"reason": "BrHordeStart 0.3.6: Camping 101 profession variant at the undead/01-tirisfal-glades (Eleanor Shackleton) campfire (270 XP, needs the profession at accept, after the campfire's rest quest): a `when skill` step right after the Cooking variant, handed to the trainer on a stop the route already makes (Orgrimmar/Undercity trainers on 03-silverpine-forest's stops, BrHorde1230). Recordings (game facts, Horde starts): 36 variants seen, e.g. Tirisfal First Aid 14 accepts/11 hand-ins, Mining 13/12, Durotar Skinning 12/9, Mulgore Skinning 7/7; our comparison takes the Skinning ones.",
+				"reason": "Horde start zones (0.3.6): Camping 101 profession variant at the undead/01-tirisfal-glades (Eleanor Shackleton) campfire (270 XP, needs the profession at accept, after the campfire's rest quest): a `when skill` step right after the Cooking variant, handed to the trainer on a stop the route already makes (Orgrimmar/Undercity trainers on 03-silverpine-forest's stops). Recordings (game facts, Horde starts): 36 variants seen, e.g. Tirisfal First Aid 14 accepts/11 hand-ins, Mining 13/12, Durotar Skinning 12/9, Mulgore Skinning 7/7.",
 				"issue": "-"
 			},
 			{
 				"q": 97958,
-				"reason": "BrHordeStart 0.3.6: Camping 101 profession variant at the undead/01-tirisfal-glades (Eleanor Shackleton) campfire (270 XP, needs the profession at accept, after the campfire's rest quest): a `when skill` step right after the Cooking variant, handed to the trainer on a stop the route already makes (Orgrimmar/Undercity trainers on 03-silverpine-forest's stops, BrHorde1230). Recordings (game facts, Horde starts): 36 variants seen, e.g. Tirisfal First Aid 14 accepts/11 hand-ins, Mining 13/12, Durotar Skinning 12/9, Mulgore Skinning 7/7; our comparison takes the Skinning ones.",
+				"reason": "Horde start zones (0.3.6): Camping 101 profession variant at the undead/01-tirisfal-glades (Eleanor Shackleton) campfire (270 XP, needs the profession at accept, after the campfire's rest quest): a `when skill` step right after the Cooking variant, handed to the trainer on a stop the route already makes (Orgrimmar/Undercity trainers on 03-silverpine-forest's stops). Recordings (game facts, Horde starts): 36 variants seen, e.g. Tirisfal First Aid 14 accepts/11 hand-ins, Mining 13/12, Durotar Skinning 12/9, Mulgore Skinning 7/7.",
 				"issue": "-"
 			},
 			{
 				"q": 97961,
-				"reason": "BrHordeStart 0.3.6: Camping 101 profession variant at the undead/01-tirisfal-glades (Eleanor Shackleton) campfire (270 XP, needs the profession at accept, after the campfire's rest quest): a `when skill` step right after the Cooking variant, handed to the trainer on a stop the route already makes (Orgrimmar/Undercity trainers on 03-silverpine-forest's stops, BrHorde1230). Recordings (game facts, Horde starts): 36 variants seen, e.g. Tirisfal First Aid 14 accepts/11 hand-ins, Mining 13/12, Durotar Skinning 12/9, Mulgore Skinning 7/7; our comparison takes the Skinning ones.",
+				"reason": "Horde start zones (0.3.6): Camping 101 profession variant at the undead/01-tirisfal-glades (Eleanor Shackleton) campfire (270 XP, needs the profession at accept, after the campfire's rest quest): a `when skill` step right after the Cooking variant, handed to the trainer on a stop the route already makes (Orgrimmar/Undercity trainers on 03-silverpine-forest's stops). Recordings (game facts, Horde starts): 36 variants seen, e.g. Tirisfal First Aid 14 accepts/11 hand-ins, Mining 13/12, Durotar Skinning 12/9, Mulgore Skinning 7/7.",
 				"issue": "-"
 			},
 			{
 				"q": 97971,
-				"reason": "BrHordeStart 0.3.6: Camping 101 profession variant at the skyborne/01-zephras-isle Horde (Raan Wildwind) campfire (270 XP, needs the profession at accept, after the campfire's rest quest): a `when skill` step right after the Cooking variant, handed to the trainer on a stop the route already makes (Orgrimmar/Undercity trainers on 03-silverpine-forest's stops, BrHorde1230). Recordings (game facts, Horde starts): 36 variants seen, e.g. Tirisfal First Aid 14 accepts/11 hand-ins, Mining 13/12, Durotar Skinning 12/9, Mulgore Skinning 7/7; our comparison takes the Skinning ones.",
+				"reason": "Horde start zones (0.3.6): Camping 101 profession variant at the skyborne/01-zephras-isle Horde (Raan Wildwind) campfire (270 XP, needs the profession at accept, after the campfire's rest quest): a `when skill` step right after the Cooking variant, handed to the trainer on a stop the route already makes (Orgrimmar/Undercity trainers on 03-silverpine-forest's stops). Recordings (game facts, Horde starts): 36 variants seen, e.g. Tirisfal First Aid 14 accepts/11 hand-ins, Mining 13/12, Durotar Skinning 12/9, Mulgore Skinning 7/7.",
 				"issue": "-"
 			},
 			{
 				"q": 97965,
-				"reason": "BrHordeStart 0.3.6: Camping 101 profession variant at the skyborne/01-zephras-isle Horde (Raan Wildwind) campfire (270 XP, needs the profession at accept, after the campfire's rest quest): a `when skill` step right after the Cooking variant, handed to the trainer on a stop the route already makes (Orgrimmar/Undercity trainers on 03-silverpine-forest's stops, BrHorde1230). Recordings (game facts, Horde starts): 36 variants seen, e.g. Tirisfal First Aid 14 accepts/11 hand-ins, Mining 13/12, Durotar Skinning 12/9, Mulgore Skinning 7/7; our comparison takes the Skinning ones.",
+				"reason": "Horde start zones (0.3.6): Camping 101 profession variant at the skyborne/01-zephras-isle Horde (Raan Wildwind) campfire (270 XP, needs the profession at accept, after the campfire's rest quest): a `when skill` step right after the Cooking variant, handed to the trainer on a stop the route already makes (Orgrimmar/Undercity trainers on 03-silverpine-forest's stops). Recordings (game facts, Horde starts): 36 variants seen, e.g. Tirisfal First Aid 14 accepts/11 hand-ins, Mining 13/12, Durotar Skinning 12/9, Mulgore Skinning 7/7.",
 				"issue": "-"
 			},
 			{
 				"q": 97969,
-				"reason": "BrHordeStart 0.3.6: Camping 101 profession variant at the skyborne/01-zephras-isle Horde (Raan Wildwind) campfire (270 XP, needs the profession at accept, after the campfire's rest quest): a `when skill` step right after the Cooking variant, handed to the trainer on a stop the route already makes (Orgrimmar/Undercity trainers on 03-silverpine-forest's stops, BrHorde1230). Recordings (game facts, Horde starts): 36 variants seen, e.g. Tirisfal First Aid 14 accepts/11 hand-ins, Mining 13/12, Durotar Skinning 12/9, Mulgore Skinning 7/7; our comparison takes the Skinning ones.",
+				"reason": "Horde start zones (0.3.6): Camping 101 profession variant at the skyborne/01-zephras-isle Horde (Raan Wildwind) campfire (270 XP, needs the profession at accept, after the campfire's rest quest): a `when skill` step right after the Cooking variant, handed to the trainer on a stop the route already makes (Orgrimmar/Undercity trainers on 03-silverpine-forest's stops). Recordings (game facts, Horde starts): 36 variants seen, e.g. Tirisfal First Aid 14 accepts/11 hand-ins, Mining 13/12, Durotar Skinning 12/9, Mulgore Skinning 7/7.",
 				"issue": "-"
 			},
 			{
 				"q": 97970,
-				"reason": "BrHordeStart 0.3.6: Camping 101 profession variant at the skyborne/01-zephras-isle Horde (Raan Wildwind) campfire (270 XP, needs the profession at accept, after the campfire's rest quest): a `when skill` step right after the Cooking variant, handed to the trainer on a stop the route already makes (Orgrimmar/Undercity trainers on 03-silverpine-forest's stops, BrHorde1230). Recordings (game facts, Horde starts): 36 variants seen, e.g. Tirisfal First Aid 14 accepts/11 hand-ins, Mining 13/12, Durotar Skinning 12/9, Mulgore Skinning 7/7; our comparison takes the Skinning ones.",
+				"reason": "Horde start zones (0.3.6): Camping 101 profession variant at the skyborne/01-zephras-isle Horde (Raan Wildwind) campfire (270 XP, needs the profession at accept, after the campfire's rest quest): a `when skill` step right after the Cooking variant, handed to the trainer on a stop the route already makes (Orgrimmar/Undercity trainers on 03-silverpine-forest's stops). Recordings (game facts, Horde starts): 36 variants seen, e.g. Tirisfal First Aid 14 accepts/11 hand-ins, Mining 13/12, Durotar Skinning 12/9, Mulgore Skinning 7/7.",
 				"issue": "-"
 			},
 			{
 				"q": 97963,
-				"reason": "BrHordeStart 0.3.6: Camping 101 profession variant at the skyborne/01-zephras-isle Horde (Raan Wildwind) campfire (270 XP, needs the profession at accept, after the campfire's rest quest): a `when skill` step right after the Cooking variant, handed to the trainer on a stop the route already makes (Orgrimmar/Undercity trainers on 03-silverpine-forest's stops, BrHorde1230). Recordings (game facts, Horde starts): 36 variants seen, e.g. Tirisfal First Aid 14 accepts/11 hand-ins, Mining 13/12, Durotar Skinning 12/9, Mulgore Skinning 7/7; our comparison takes the Skinning ones.",
+				"reason": "Horde start zones (0.3.6): Camping 101 profession variant at the skyborne/01-zephras-isle Horde (Raan Wildwind) campfire (270 XP, needs the profession at accept, after the campfire's rest quest): a `when skill` step right after the Cooking variant, handed to the trainer on a stop the route already makes (Orgrimmar/Undercity trainers on 03-silverpine-forest's stops). Recordings (game facts, Horde starts): 36 variants seen, e.g. Tirisfal First Aid 14 accepts/11 hand-ins, Mining 13/12, Durotar Skinning 12/9, Mulgore Skinning 7/7.",
 				"issue": "-"
 			},
 			{
 				"q": 97964,
-				"reason": "BrHordeStart 0.3.6: Camping 101 profession variant at the skyborne/01-zephras-isle Horde (Raan Wildwind) campfire (270 XP, needs the profession at accept, after the campfire's rest quest): a `when skill` step right after the Cooking variant, handed to the trainer on a stop the route already makes (Orgrimmar/Undercity trainers on 03-silverpine-forest's stops, BrHorde1230). Recordings (game facts, Horde starts): 36 variants seen, e.g. Tirisfal First Aid 14 accepts/11 hand-ins, Mining 13/12, Durotar Skinning 12/9, Mulgore Skinning 7/7; our comparison takes the Skinning ones.",
+				"reason": "Horde start zones (0.3.6): Camping 101 profession variant at the skyborne/01-zephras-isle Horde (Raan Wildwind) campfire (270 XP, needs the profession at accept, after the campfire's rest quest): a `when skill` step right after the Cooking variant, handed to the trainer on a stop the route already makes (Orgrimmar/Undercity trainers on 03-silverpine-forest's stops). Recordings (game facts, Horde starts): 36 variants seen, e.g. Tirisfal First Aid 14 accepts/11 hand-ins, Mining 13/12, Durotar Skinning 12/9, Mulgore Skinning 7/7.",
 				"issue": "-"
 			},
 			{
 				"q": 97967,
-				"reason": "BrHordeStart 0.3.6: Camping 101 profession variant at the skyborne/01-zephras-isle Horde (Raan Wildwind) campfire (270 XP, needs the profession at accept, after the campfire's rest quest): a `when skill` step right after the Cooking variant, handed to the trainer on a stop the route already makes (Orgrimmar/Undercity trainers on 03-silverpine-forest's stops, BrHorde1230). Recordings (game facts, Horde starts): 36 variants seen, e.g. Tirisfal First Aid 14 accepts/11 hand-ins, Mining 13/12, Durotar Skinning 12/9, Mulgore Skinning 7/7; our comparison takes the Skinning ones.",
+				"reason": "Horde start zones (0.3.6): Camping 101 profession variant at the skyborne/01-zephras-isle Horde (Raan Wildwind) campfire (270 XP, needs the profession at accept, after the campfire's rest quest): a `when skill` step right after the Cooking variant, handed to the trainer on a stop the route already makes (Orgrimmar/Undercity trainers on 03-silverpine-forest's stops). Recordings (game facts, Horde starts): 36 variants seen, e.g. Tirisfal First Aid 14 accepts/11 hand-ins, Mining 13/12, Durotar Skinning 12/9, Mulgore Skinning 7/7.",
 				"issue": "-"
 			},
 			{
@@ -8367,7 +8367,7 @@
 					"turnin",
 					552
 				],
-				"reason": "Horde 30-40 re-order (2026-11-07): Helcular's Revenge part 2: two of its flames burn in the Foothill Caverns the guide has just cleared for the rod, the third in the cave above them, and the grave is at Southshore's graveyard on the sweep from the Azurelode Mine back to Tarren Mill (both other orders take it at 30-32).",
+				"reason": "Horde 30-40 re-order (2026-11-07): Helcular's Revenge part 2: two of its flames burn in the Foothill Caverns the guide has just cleared for the rod, the third in the cave above them, and the grave is at Southshore's graveyard on the sweep from the Azurelode Mine back to Tarren Mill.",
 				"issue": ""
 			},
 			{
@@ -8448,7 +8448,7 @@
 					"turnin",
 					506
 				],
-				"reason": "Horde 30-40 re-order (2026-11-07): Krusk's Lord Aliden Perenolde follows Blackmoore's Legacy on the 38-39 Alterac visit; the manor is on the northern shore of Lordamere Lake, on the walk from Tarren Mill to the Dalaran ruins of Dalaran Patrols and Bracers of Binding (both other orders take the chain at 38-39).",
+				"reason": "Horde 30-40 re-order (2026-11-07): Krusk's Lord Aliden Perenolde follows Blackmoore's Legacy on the 38-39 Alterac visit; the manor is on the northern shore of Lordamere Lake, on the walk from Tarren Mill to the Dalaran ruins of Dalaran Patrols and Bracers of Binding.",
 				"issue": ""
 			},
 			{
@@ -8761,7 +8761,7 @@
 					"accept",
 					6027
 				],
-				"reason": "Quest volume and flow (Br3040, 0.3.6, Horde 30-40/02): Claim Rackmore's Treasure (level 36, from 30, 2,800 XP). Rackmore's Log (36.1,30.4) lies beside Azore's tower; the silver key drops (15%) from the Drysnap crabs on the clam beds (31-35,27-35), the golden key (55%) from every Slitherblade on Sar'theris Strand, and Rackmore's Chest (30.0,8.7) stands beside the Serpent Statue. The coast is now walked once, north after Thunder Axe Fortress (log, clams, strand, statue and chest, back to Azore), as both comparison routes do, about 500 yd shorter than the old coast-first order that went north twice. Every source agrees (page, Questie, TDB loot, any race); three recorded players of three races completed it.",
+				"reason": "Quest volume and flow (0.3.6, Horde 30-40/02): Claim Rackmore's Treasure (level 36, from 30, 2,800 XP). Rackmore's Log (36.1,30.4) lies beside Azore's tower; the silver key drops (15%) from the Drysnap crabs on the clam beds (31-35,27-35), the golden key (55%) from every Slitherblade on Sar'theris Strand, and Rackmore's Chest (30.0,8.7) stands beside the Serpent Statue. The coast is now walked once, north after Thunder Axe Fortress (log, clams, strand, statue and chest, back to Azore), about 500 yd shorter than the old coast-first order that went north twice. Every source agrees (page, Questie, TDB loot, any race); three recorded players of three races completed it.",
 				"issue": "-"
 			},
 			{
@@ -9082,42 +9082,42 @@
 			},
 			{
 				"q": 3453,
-				"reason": "Our comparison, Alliance 40-60 (0.3.6): Velarok Windblade's chain after The Flame's Casing (3452, a group quest in 40-50/06-searing-gorge): The Torch of Retribution (3453, 3454), Squire Maltrake (3462), Set Them Ablaze! (3463: Sentry Braziers 149025/149030/149031/149032 on the Cauldron's southern rim) and Trinkets... (3481), 13,710 XP, all given and taken at Velarok's spot (NPCs 8479, 8509, objects 149047, 149502; quest data and both comparison guides agree on the chain and its places). Done only by the group that hands 3452 in, straight after it; 3463 handed in on the way back to Thorium Point.",
+				"reason": "Alliance 40-60 (0.3.6): Velarok Windblade's chain after The Flame's Casing (3452, a group quest in 40-50/06-searing-gorge): The Torch of Retribution (3453, 3454), Squire Maltrake (3462), Set Them Ablaze! (3463: Sentry Braziers 149025/149030/149031/149032 on the Cauldron's southern rim) and Trinkets... (3481), 13,710 XP, all given and taken at Velarok's spot (NPCs 8479, 8509, objects 149047, 149502; the quest data gives the chain and its places). Done only by the group that hands 3452 in, straight after it; 3463 handed in on the way back to Thorium Point.",
 				"issue": "-"
 			},
 			{
 				"q": 3454,
-				"reason": "Our comparison, Alliance 40-60 (0.3.6): Velarok Windblade's chain after The Flame's Casing (3452, a group quest in 40-50/06-searing-gorge): The Torch of Retribution (3453, 3454), Squire Maltrake (3462), Set Them Ablaze! (3463: Sentry Braziers 149025/149030/149031/149032 on the Cauldron's southern rim) and Trinkets... (3481), 13,710 XP, all given and taken at Velarok's spot (NPCs 8479, 8509, objects 149047, 149502; quest data and both comparison guides agree on the chain and its places). Done only by the group that hands 3452 in, straight after it; 3463 handed in on the way back to Thorium Point.",
+				"reason": "Alliance 40-60 (0.3.6): Velarok Windblade's chain after The Flame's Casing (3452, a group quest in 40-50/06-searing-gorge): The Torch of Retribution (3453, 3454), Squire Maltrake (3462), Set Them Ablaze! (3463: Sentry Braziers 149025/149030/149031/149032 on the Cauldron's southern rim) and Trinkets... (3481), 13,710 XP, all given and taken at Velarok's spot (NPCs 8479, 8509, objects 149047, 149502; the quest data gives the chain and its places). Done only by the group that hands 3452 in, straight after it; 3463 handed in on the way back to Thorium Point.",
 				"issue": "-"
 			},
 			{
 				"q": 3462,
-				"reason": "Our comparison, Alliance 40-60 (0.3.6): Velarok Windblade's chain after The Flame's Casing (3452, a group quest in 40-50/06-searing-gorge): The Torch of Retribution (3453, 3454), Squire Maltrake (3462), Set Them Ablaze! (3463: Sentry Braziers 149025/149030/149031/149032 on the Cauldron's southern rim) and Trinkets... (3481), 13,710 XP, all given and taken at Velarok's spot (NPCs 8479, 8509, objects 149047, 149502; quest data and both comparison guides agree on the chain and its places). Done only by the group that hands 3452 in, straight after it; 3463 handed in on the way back to Thorium Point.",
+				"reason": "Alliance 40-60 (0.3.6): Velarok Windblade's chain after The Flame's Casing (3452, a group quest in 40-50/06-searing-gorge): The Torch of Retribution (3453, 3454), Squire Maltrake (3462), Set Them Ablaze! (3463: Sentry Braziers 149025/149030/149031/149032 on the Cauldron's southern rim) and Trinkets... (3481), 13,710 XP, all given and taken at Velarok's spot (NPCs 8479, 8509, objects 149047, 149502; the quest data gives the chain and its places). Done only by the group that hands 3452 in, straight after it; 3463 handed in on the way back to Thorium Point.",
 				"issue": "-"
 			},
 			{
 				"q": 3463,
-				"reason": "Our comparison, Alliance 40-60 (0.3.6): Velarok Windblade's chain after The Flame's Casing (3452, a group quest in 40-50/06-searing-gorge): The Torch of Retribution (3453, 3454), Squire Maltrake (3462), Set Them Ablaze! (3463: Sentry Braziers 149025/149030/149031/149032 on the Cauldron's southern rim) and Trinkets... (3481), 13,710 XP, all given and taken at Velarok's spot (NPCs 8479, 8509, objects 149047, 149502; quest data and both comparison guides agree on the chain and its places). Done only by the group that hands 3452 in, straight after it; 3463 handed in on the way back to Thorium Point.",
+				"reason": "Alliance 40-60 (0.3.6): Velarok Windblade's chain after The Flame's Casing (3452, a group quest in 40-50/06-searing-gorge): The Torch of Retribution (3453, 3454), Squire Maltrake (3462), Set Them Ablaze! (3463: Sentry Braziers 149025/149030/149031/149032 on the Cauldron's southern rim) and Trinkets... (3481), 13,710 XP, all given and taken at Velarok's spot (NPCs 8479, 8509, objects 149047, 149502; the quest data gives the chain and its places). Done only by the group that hands 3452 in, straight after it; 3463 handed in on the way back to Thorium Point.",
 				"issue": "-"
 			},
 			{
 				"q": 3481,
-				"reason": "Our comparison, Alliance 40-60 (0.3.6): Velarok Windblade's chain after The Flame's Casing (3452, a group quest in 40-50/06-searing-gorge): The Torch of Retribution (3453, 3454), Squire Maltrake (3462), Set Them Ablaze! (3463: Sentry Braziers 149025/149030/149031/149032 on the Cauldron's southern rim) and Trinkets... (3481), 13,710 XP, all given and taken at Velarok's spot (NPCs 8479, 8509, objects 149047, 149502; quest data and both comparison guides agree on the chain and its places). Done only by the group that hands 3452 in, straight after it; 3463 handed in on the way back to Thorium Point.",
+				"reason": "Alliance 40-60 (0.3.6): Velarok Windblade's chain after The Flame's Casing (3452, a group quest in 40-50/06-searing-gorge): The Torch of Retribution (3453, 3454), Squire Maltrake (3462), Set Them Ablaze! (3463: Sentry Braziers 149025/149030/149031/149032 on the Cauldron's southern rim) and Trinkets... (3481), 13,710 XP, all given and taken at Velarok's spot (NPCs 8479, 8509, objects 149047, 149502; the quest data gives the chain and its places). Done only by the group that hands 3452 in, straight after it; 3463 handed in on the way back to Thorium Point.",
 				"issue": "-"
 			},
 			{
 				"q": 2783,
-				"reason": "Our comparison, Alliance 50-60 (0.3.6): Petty Squabbles (2783, Alliance, level 57, min 50, 4,500 XP; Ambassador Ardalan 7826 in Nethergarde Keep, Blasted Lands 67.6,19.3) ends at the Fallen Hero of the Horde (7572, Swamp of Sorrows 34.3,66.1), who gives A Tale of Sorrow (2801, 600 XP, listen to him) on the spot. 50-60/01 lands at Nethergarde for Kum'isha and hearths away from the Blasted Lands, so the pair costs about 1,000 yd of riding for 5,100 XP at about 52, before the Winterspring top-up. Quest data and QuestieDB agree on givers and places; our comparison takes both on the same visit.",
+				"reason": "Alliance 50-60 (0.3.6): Petty Squabbles (2783, Alliance, level 57, min 50, 4,500 XP; Ambassador Ardalan 7826 in Nethergarde Keep, Blasted Lands 67.6,19.3) ends at the Fallen Hero of the Horde (7572, Swamp of Sorrows 34.3,66.1), who gives A Tale of Sorrow (2801, 600 XP, listen to him) on the spot. 50-60/01 lands at Nethergarde for Kum'isha and hearths away from the Blasted Lands, so the pair costs about 1,000 yd of riding for 5,100 XP at about 52, before the Winterspring top-up. Quest data and QuestieDB agree on givers and places.",
 				"issue": "-"
 			},
 			{
 				"q": 2801,
-				"reason": "Our comparison, Alliance 50-60 (0.3.6): Petty Squabbles (2783, Alliance, level 57, min 50, 4,500 XP; Ambassador Ardalan 7826 in Nethergarde Keep, Blasted Lands 67.6,19.3) ends at the Fallen Hero of the Horde (7572, Swamp of Sorrows 34.3,66.1), who gives A Tale of Sorrow (2801, 600 XP, listen to him) on the spot. 50-60/01 lands at Nethergarde for Kum'isha and hearths away from the Blasted Lands, so the pair costs about 1,000 yd of riding for 5,100 XP at about 52, before the Winterspring top-up. Quest data and QuestieDB agree on givers and places; our comparison takes both on the same visit.",
+				"reason": "Alliance 50-60 (0.3.6): Petty Squabbles (2783, Alliance, level 57, min 50, 4,500 XP; Ambassador Ardalan 7826 in Nethergarde Keep, Blasted Lands 67.6,19.3) ends at the Fallen Hero of the Horde (7572, Swamp of Sorrows 34.3,66.1), who gives A Tale of Sorrow (2801, 600 XP, listen to him) on the spot. 50-60/01 lands at Nethergarde for Kum'isha and hearths away from the Blasted Lands, so the pair costs about 1,000 yd of riding for 5,100 XP at about 52, before the Winterspring top-up. Quest data and QuestieDB agree on givers and places.",
 				"issue": "-"
 			},
 			{
 				"q": 6523,
-				"reason": "Horde 12-30 bracket review (0.3.6, 2026-11-10): Protect Kaya (level 18, from 12, 1350 XP) from Kaya Flathoof (11856, Stonetalon 73.5,85.6) in Grundig Darkcloud's hut at the bend of the Webwinder Path, which 02-the-barrens walks past going up (Grundig, 6629) and coming back down from Ziz; the escort ends at Camp Aparaje (77.1,90.8) between the hut and Malaka'jin, and Makaba takes it with Kill Grundig Darkcloud on the last Seereth stop. Players' recordings: 6 people, every one completed (levels 18-25), hand-ins at Makaba (11857). Both guides of our comparison escort her on this walk.",
+				"reason": "Horde 12-30 bracket review (0.3.6, 2026-11-10): Protect Kaya (level 18, from 12, 1350 XP) from Kaya Flathoof (11856, Stonetalon 73.5,85.6) in Grundig Darkcloud's hut at the bend of the Webwinder Path, which 02-the-barrens walks past going up (Grundig, 6629) and coming back down from Ziz; the escort ends at Camp Aparaje (77.1,90.8) between the hut and Malaka'jin, and Makaba takes it with Kill Grundig Darkcloud on the last Seereth stop. Players' recordings: 6 people, every one completed (levels 18-25), hand-ins at Makaba (11857).",
 				"issue": "-",
 				"after": [
 					"accept",
@@ -9184,7 +9184,7 @@
 					"turnin",
 					577
 				],
-				"reason": "Our comparison, Horde 40-50/01 (0.3.6, BrHorde4060): Excelsior (level 38, 2850 XP) is offered by Drizzlik when the Snapjaw skins (577) go in on the first Booty Bay stop. Its Elder Crocolisk Skin drops (100%) from the Elder Saltwater Crocolisk, a level 38 elite that shares the ordinary crocolisks' spawns on the coast between Zul'Kunda and Grom'gol (25.4,19.2 / 29.3,22.3 / 29.8,25.5), which the route walks from the Bloodscalp ruins back to Grom'gol; the skin is optional (the croc may be down) and goes back to Drizzlik on the next Booty Bay stop. Quest and spawn data from the classic and the Forever quest databases agree.",
+				"reason": "Horde 40-50/01 (0.3.6): Excelsior (level 38, 2850 XP) is offered by Drizzlik when the Snapjaw skins (577) go in on the first Booty Bay stop. Its Elder Crocolisk Skin drops (100%) from the Elder Saltwater Crocolisk, a level 38 elite that shares the ordinary crocolisks' spawns on the coast between Zul'Kunda and Grom'gol (25.4,19.2 / 29.3,22.3 / 29.8,25.5), which the route walks from the Bloodscalp ruins back to Grom'gol; the skin is optional (the croc may be down) and goes back to Drizzlik on the next Booty Bay stop. Quest and spawn data from the classic and the Forever quest databases agree.",
 				"issue": "-"
 			},
 			{
@@ -9238,7 +9238,7 @@
 					"turnin",
 					3942
 				],
-				"reason": "Our comparison, Horde 50-60/07 (0.3.6, BrHorde4060): Salve via Hunting (level 55, 4200 XP the first time; Maybess Riverbreeze at the Emerald Sanctuary, open once Cleansing Felwood 4102 is done in 50-60/02) wants six Corrupted Soul Shards, which the Jaedenar and Shadow Hold cultists drop about one kill in three (Jaedenar Warlock 35%, Darkweaver 34%, Enforcer 34%, Moora 34%, Salia 33%; observed rates). 07 already fights them for Greta's braziers and A Final Blow and walks past Maybess (west side of the Sanctuary) on the way out to Jaedenar and back; the XP comes off the guide's closing grind to 60. Quest data from the classic and Forever quest databases agree; our comparison takes it in Felwood the same way.",
+				"reason": "Horde 50-60/07 (0.3.6): Salve via Hunting (level 55, 4200 XP the first time; Maybess Riverbreeze at the Emerald Sanctuary, open once Cleansing Felwood 4102 is done in 50-60/02) wants six Corrupted Soul Shards, which the Jaedenar and Shadow Hold cultists drop about one kill in three (Jaedenar Warlock 35%, Darkweaver 34%, Enforcer 34%, Moora 34%, Salia 33%; observed rates). 07 already fights them for Greta's braziers and A Final Blow and walks past Maybess (west side of the Sanctuary) on the way out to Jaedenar and back; the XP comes off the guide's closing grind to 60. Quest data from the classic and Forever quest databases agree.",
 				"issue": "-"
 			},
 			{
@@ -9633,6 +9633,12 @@
 				"faction": "Alliance",
 				"reason": "Velinde Starsong (610 XP at quest level 30) was taken at the Shrine of Aessina in 06-wetlands (about 29.5) and handed in to Thyn'tel Bladeweaver in Darnassus only in 40-50/01-stranglethorn-vale (Night Elves, about 41) or 40-50/05-the-hinterlands (about 47, a tenth of its XP by then): an 18-level carry for about 61 XP. Left out; the 40-50 Darnassus steps still hand in a copy players carry.",
 				"issue": "-"
+			},
+			{
+				"q": 1288,
+				"faction": "Alliance",
+				"reason": "Vimes's Report is not offered in the game: Captain Garran Vimes in Theramore turned The Deserters (1287) in for at least 10 players in their recordings and none of them ever took Vimes's Report (no run of it at all, and 26 people who could take it were never offered it), and a second quest database marks it as unavailable. The 40-50 Alliance Theramore steps (01-stranglethorn-vale, 02-badlands) waited on its accept after the hand-in; left out.",
+				"issue": "#1984"
 			}
 		],
 		"revert": [
@@ -13112,7 +13118,7 @@
 					1466
 				],
 				"faction": "Alliance",
-				"why": "Desolace (Alliance 30-40, 0.3.6, BrAlliance3040, our comparison): Karnitol's Chest (36.1,30.4) lies about 100 yd from Azore Aldamort's tower (38.9,27.2), which the first Desolace visit (30-40/02) climbs for the Sceptre of Light on its way to Thunder Axe Fortress. The chain was opened only on the south loop (30-40/06), where the chest's follow-up (1455, Kreldig Ungor) sent the player from the wreck to Nijel's Point and back to the north-west coast for the satchel (1456): about 2,000 yd walked twice at 38. Opening it on the first visit, as our comparison does, leaves the south loop one trip to the north-west coast and one Nijel's Point stop at the end. The satchel is dived for before the south loop's Reagents hand-in, so Nijel's Point is visited once, at the end.",
+				"why": "Desolace (Alliance 30-40, 0.3.6): Karnitol's Chest (36.1,30.4) lies about 100 yd from Azore Aldamort's tower (38.9,27.2), which the first Desolace visit (30-40/02) climbs for the Sceptre of Light on its way to Thunder Axe Fortress. The chain was opened only on the south loop (30-40/06), where the chest's follow-up (1455, Kreldig Ungor) sent the player from the wreck to Nijel's Point and back to the north-west coast for the satchel (1456): about 2,000 yd walked twice at 38. Opening it on the first visit leaves the south loop one trip to the north-west coast and one Nijel's Point stop at the end. The satchel is dived for before the south loop's Reagents hand-in, so Nijel's Point is visited once, at the end.",
 				"source": "BrAlliance3040"
 			},
 			{
@@ -13125,7 +13131,7 @@
 					691
 				],
 				"faction": "Alliance",
-				"why": "Arathi Highlands (Alliance 30-40/05, 0.3.6, BrAlliance3040, our comparison): the loop from Northfold Manor goes once round (the Iridescent Shards before the trolls): east along the north to the Shards of Myzrael (62.5,33.7), Drywhisker Gorge and the Iridescent Shards (84.3,31.0), back to the Stone of East Binding (66.7,29.7), then south to Witherbark Village (Witch Doctors 61-68,64-77, Shadow Hunters 66-69,78-82) and north-west to Quae (60.2,53.9). The guide went from Northfold to the troll village in the south-east, north to the shards, east to the gorge and south again to Quae: about 540 yd more and the valley crossed twice. Our comparison loops the same way.",
+				"why": "Arathi Highlands (Alliance 30-40/05, 0.3.6): the loop from Northfold Manor goes once round (the Iridescent Shards before the trolls): east along the north to the Shards of Myzrael (62.5,33.7), Drywhisker Gorge and the Iridescent Shards (84.3,31.0), back to the Stone of East Binding (66.7,29.7), then south to Witherbark Village (Witch Doctors 61-68,64-77, Shadow Hunters 66-69,78-82) and north-west to Quae (60.2,53.9). The guide went from Northfold to the troll village in the south-east, north to the shards, east to the gorge and south again to Quae: about 540 yd more and the valley crossed twice.",
 				"source": "BrAlliance3040"
 			},
 			{
@@ -13138,7 +13144,7 @@
 					5149
 				],
 				"faction": "Horde",
-				"why": "Flow, Horde 50-60 (0.3.6 flow pass, BrHorde4060): Darrowshire (Pamela's doll 5149, Zaeldarr 6021, Uncle Carlin 5241) and the Marlene/Chromie chain (5152-5154, 5210) closed 50-60/01 at sim level 52.3-52.5 among Darrowshire's level 54-57 mobs; our comparison does them at 56-58. Moved to the start of 50-60/05 (Light's Hope Chapel on the road in, flight path and bind there): calibrated level model (CALIB=1 levels_ra.js, Orc, every class) puts them at 55.0-55.2, hours to 60 +0.02-0.03 h (one extra Tarren Mill -> Light's Hope flight; the grind moves from 05's hidden grind to 03's 55.04 top-up), no level hole.",
+				"why": "Flow, Horde 50-60 (0.3.6 flow pass): Darrowshire (Pamela's doll 5149, Zaeldarr 6021, Uncle Carlin 5241) and the Marlene/Chromie chain (5152-5154, 5210) closed 50-60/01 at sim level 52.3-52.5 among Darrowshire's level 54-57 mobs. Moved to the start of 50-60/05 (Light's Hope Chapel on the road in, flight path and bind there): calibrated level model (CALIB=1 levels_ra.js, Orc, every class) puts them at 55.0-55.2, hours to 60 +0.02-0.03 h (one extra Tarren Mill -> Light's Hope flight; the grind moves from 05's hidden grind to 03's 55.04 top-up), no level hole.",
 				"source": "BrHorde4060"
 			},
 			{
@@ -13151,7 +13157,7 @@
 					574
 				],
 				"faction": "Alliance",
-				"why": "Stranglethorn's second loop (Alliance 30-40/04b, 0.3.6, BrAlliance3040, our comparison): the Shadowmaw Panthers (level 37) live around Lake Nazferiti (45-51,20-30) and by the Skullsplitter ruins (35-42,32-45), none in the north-west, and the Venture Co. Geologists with the Tumbled Crystals work Lake Nazferiti's shore (42-48,16-24; two stray ones at 28,8). The guide listed both on the north-west tablets' step, so the arrow went from Zul'Kunda south to 36,34 and back north to the Rebel Camp (about 2,500 yd), and the Rebel Camp was visited three times. Now Erlgadin's Panther Mastery is taken at Nesingwary's on the way in, the lake right after Kurzen's Compound, the tablets west and north-west, and every Rebel Camp hand-in on one stop at the end, as our comparison loops it.",
+				"why": "Stranglethorn's second loop (Alliance 30-40/04b, 0.3.6): the Shadowmaw Panthers (level 37) live around Lake Nazferiti (45-51,20-30) and by the Skullsplitter ruins (35-42,32-45), none in the north-west, and the Venture Co. Geologists with the Tumbled Crystals work Lake Nazferiti's shore (42-48,16-24; two stray ones at 28,8). The guide listed both on the north-west tablets' step, so the arrow went from Zul'Kunda south to 36,34 and back north to the Rebel Camp (about 2,500 yd), and the Rebel Camp was visited three times. Now Erlgadin's Panther Mastery is taken at Nesingwary's on the way in, the lake right after Kurzen's Compound, the tablets west and north-west, and every Rebel Camp hand-in on one stop at the end.",
 				"source": "BrAlliance3040"
 			},
 			{
@@ -13164,7 +13170,7 @@
 					207
 				],
 				"faction": "Alliance",
-				"why": "Stranglethorn's second loop (Alliance 30-40/04b, 0.3.6, BrAlliance3040, our comparison): the Shadowmaw Panthers (level 37) live around Lake Nazferiti (45-51,20-30) and by the Skullsplitter ruins (35-42,32-45), none in the north-west, and the Venture Co. Geologists with the Tumbled Crystals work Lake Nazferiti's shore (42-48,16-24; two stray ones at 28,8). The guide listed both on the north-west tablets' step, so the arrow went from Zul'Kunda south to 36,34 and back north to the Rebel Camp (about 2,500 yd), and the Rebel Camp was visited three times. Now Erlgadin's Panther Mastery is taken at Nesingwary's on the way in, the lake right after Kurzen's Compound, the tablets west and north-west, and every Rebel Camp hand-in on one stop at the end, as our comparison loops it.",
+				"why": "Stranglethorn's second loop (Alliance 30-40/04b, 0.3.6): the Shadowmaw Panthers (level 37) live around Lake Nazferiti (45-51,20-30) and by the Skullsplitter ruins (35-42,32-45), none in the north-west, and the Venture Co. Geologists with the Tumbled Crystals work Lake Nazferiti's shore (42-48,16-24; two stray ones at 28,8). The guide listed both on the north-west tablets' step, so the arrow went from Zul'Kunda south to 36,34 and back north to the Rebel Camp (about 2,500 yd), and the Rebel Camp was visited three times. Now Erlgadin's Panther Mastery is taken at Nesingwary's on the way in, the lake right after Kurzen's Compound, the tablets west and north-west, and every Rebel Camp hand-in on one stop at the end.",
 				"source": "BrAlliance3040"
 			},
 			{
@@ -13177,7 +13183,7 @@
 					329
 				],
 				"faction": "Alliance",
-				"why": "Stranglethorn's second loop (Alliance 30-40/04b, 0.3.6, BrAlliance3040, our comparison): the Shadowmaw Panthers (level 37) live around Lake Nazferiti (45-51,20-30) and by the Skullsplitter ruins (35-42,32-45), none in the north-west, and the Venture Co. Geologists with the Tumbled Crystals work Lake Nazferiti's shore (42-48,16-24; two stray ones at 28,8). The guide listed both on the north-west tablets' step, so the arrow went from Zul'Kunda south to 36,34 and back north to the Rebel Camp (about 2,500 yd), and the Rebel Camp was visited three times. Now Erlgadin's Panther Mastery is taken at Nesingwary's on the way in, the lake right after Kurzen's Compound, the tablets west and north-west, and every Rebel Camp hand-in on one stop at the end, as our comparison loops it.",
+				"why": "Stranglethorn's second loop (Alliance 30-40/04b, 0.3.6): the Shadowmaw Panthers (level 37) live around Lake Nazferiti (45-51,20-30) and by the Skullsplitter ruins (35-42,32-45), none in the north-west, and the Venture Co. Geologists with the Tumbled Crystals work Lake Nazferiti's shore (42-48,16-24; two stray ones at 28,8). The guide listed both on the north-west tablets' step, so the arrow went from Zul'Kunda south to 36,34 and back north to the Rebel Camp (about 2,500 yd), and the Rebel Camp was visited three times. Now Erlgadin's Panther Mastery is taken at Nesingwary's on the way in, the lake right after Kurzen's Compound, the tablets west and north-west, and every Rebel Camp hand-in on one stop at the end.",
 				"source": "BrAlliance3040"
 			},
 			{

@@ -4336,6 +4336,22 @@ test("forever/miscellaneous/cozy-sleeping-bag.guide: shatteredeagle's report (#1
 	assert.ok(!(hills.step.when || []).some((p) => p.k === 'zone'), 'the Stonetalon step itself applies wherever the character is');
 });
 
+// Schenkee (#1982), Orc Warlock 19 on the Savage Coast (Stranglethorn 23.52,21.41): the arrow to Westfall's
+// twin note led north through Stranglethorn's level 30+ jungle and Duskwood. Players' recordings: 20 Horde
+// followed Stranglethorn's west coast into Westfall, 16 took the road through Duskwood; from Grom'gol the coast is
+// the shorter walk too. Horde now get a goto on the coast (about 12.5,12.7) before the Westfall hand-in, only while
+// they are not in Westfall yet.
+test("forever/miscellaneous/cozy-sleeping-bag.guide: Schenkee's report (#1982): Horde go to Westfall along Stranglethorn's west coast", { skip }, () => {
+	const list = goals('forever/miscellaneous/cozy-sleeping-bag.guide');
+	const twin = at(list, 'turnin 79007 in Westfall', is('turnin', 79007));
+	const coast = list.findIndex(({ goal }) => goal.t === 'goto' && goal.map === 1434 && yards(goal, { map: 1434, x: 12.5, y: 12.7 }) <= 40);
+	assert.ok(coast >= 0, "a goto on Stranglethorn's west coast");
+	const way = list[coast];
+	assert.equal(way.s, list[twin].s - 1, 'the step right before the Westfall hand-in');
+	assert.deepEqual((way.step.only || way.goal.only || {}).factions, ['Horde'], 'Horde only');
+	assert.ok((way.step.when || []).some((p) => p.k === 'zone' && p.neg && p.name === 'Westfall'), 'only while the character is not in Westfall yet');
+});
+
 // Syrael (#575): "Collect the ghost plasma is in the wrong spot, it shows the
 // same spot as for the collect the kodo bone quest above it." The Horde guide
 // had a bare `complete 6134` in the Kodo Graveyard step, so it had no place
@@ -6424,7 +6440,7 @@ test('forever/horde/07-ashenvale.guide: final route review: Sharptalon on the wa
 // without it, the guide held that step and sent him back up the lift for the bind alone, while Pacify the Centaur's
 // hand-in waited for the later stop. The canyon work (the Alien Egg, the Galak camps, Splithoof Hold, Dorn's mesa)
 // all lies around Freewind and uses no hearthstone, so the bind comes on the return, with the hand-ins, before
-// the walk west to Darkcloud and Whitereach (as our comparison's order does).
+// the walk west to Darkcloud and Whitereach.
 test(`${ASHENVALE_HORDE}: Kolbi's report (#1563): Freewind Post's bind comes on the return with the Galak hand-in, not on the first stop`, { skip }, () => {
 	const list = goals(ASHENVALE_HORDE);
 	const binds = list.filter(({ goal }) => goal.t === 'sethome' && goal.location === 'Freewind Post');
@@ -7896,7 +7912,7 @@ test('Horde 1-30: no unfinished zone quests carried into the next zone', { skip 
 
 // --- Horde 30-40 re-order (2026-11-07, Final3040's report: 379 minutes of grind in Desolace &
 // Hillsbrad and 310 in Stranglethorn, a top-up to 32.2 at Sargeron right after arriving at 30). The
-// zones in the order their quest levels fit, as both other orders run them: Hillsbrad and a first
+// zones in the order their quest levels fit: Hillsbrad and a first
 // Arathi visit 30-32, the Shimmering Flats and Desolace's 33-36 quests 32-34, Stranglethorn, Dustwallow
 // with a short second Desolace stop for its 38-40 quests, Alterac and Arathi, the Badlands, then the
 // flight to Booty Bay for 40-50. Martek the Exiled is taken once Hardened Shells is in (the game's
@@ -9721,6 +9737,20 @@ test("forever/miscellaneous/cozy-sleeping-bag.guide: off the dam's ledge the arr
 	}
 });
 
+// Schenkee (#1994): a Horde player walks east through Hillsbrad to the Stonewrought Dam, and the chain ends at
+// Thoradin's Wall, a short ride from Tarren Mill; the walk back from the dam crosses the Wetlands and Arathi. Horde
+// bind at Tarren Mill on the way, unless already bound there or past it; the arrow then hearths back.
+test("forever/miscellaneous/cozy-sleeping-bag.guide: #1994: Horde bind at Tarren Mill on the way to the dam", { skip }, () => {
+	const list = goals('forever/miscellaneous/cozy-sleeping-bag.guide');
+	const home = at(list, 'the Tarren Mill bind', (g) => g.t === 'sethome' && g.location === 'Tarren Mill');
+	assert.ok(home > at(list, 'accept 79974', is('accept', 79974)) && home < at(list, 'turnin 79974', is('turnin', 79974)), 'between Wet Job\'s accept and the dam');
+	const { step, goal } = list[home];
+	assert.deepEqual(step.only, { factions: ['Horde'] });
+	assert.equal(goal.npc, 2388, 'Innkeeper Shay');
+	const when = step.when.map((w) => `${w.neg ? '!' : ''}${w.k} ${w.name}`);
+	assert.deepEqual(when, ['!bound Tarren Mill', '!zone Loch Modan', '!zone Wetlands']);
+});
+
 // Discord question (2026-11-09, Horde Thousand Needles): the Galak centaurs step waited for the Galak Messenger, a lone
 // roaming centaur, because his plot (12564) and the quest it starts (4881) were required goals. Both are optional now,
 // and Kanati's hand-in and the assassin defence (4966, which needs 4881) apply only to a player carrying the plot.
@@ -10444,7 +10474,7 @@ test('Alliance 50-53: A Meeting with the Master on the hippogryph top-up, the re
 	for (const q of [3701, 3764]) assert.ok(rf.pairs.some((p) => p.a[0] === 'turnin' && p.a[1] === q && p.faction === 'Alliance'), `a route-fix pair keeps the ${q} hand-in early`);
 });
 
-// Our comparison, Alliance 40-60 (0.3.6): a group that hands in The Flame's Casing (3452) stood next to the rest of
+// Alliance 40-60 (0.3.6): a group that hands in The Flame's Casing (3452) stood next to the rest of
 // Velarok Windblade's chain and walked away from it: The Torch of Retribution (3453, 3454), Squire Maltrake (3462),
 // Set Them Ablaze! (3463, the four Sentry Braziers on the Cauldron's southern rim) and Trinkets... (3481), 13,710 XP,
 // all given and taken at Velarok's spot. The chain now follows the hand-in, the braziers on the way south to the
@@ -10482,7 +10512,7 @@ test('Burning Steppes (Alliance 52): after Trinkets..., A Taste of Flame is 4022
 	assert.ok(at(bs, 'turnin 4022', is('turnin', 4022)) < at(bs, 'accept 4023', is('accept', 4023)), 'the molt hand-in comes first');
 });
 
-// Our comparison, Alliance 50-60 (0.3.6): the Blasted Lands stop lands at Nethergarde Keep, where Ambassador Ardalan
+// Alliance 50-60 (0.3.6): the Blasted Lands stop lands at Nethergarde Keep, where Ambassador Ardalan
 // gives Petty Squabbles (2783, 4,500 XP), and the Fallen Hero who takes it, and gives A Tale of Sorrow (2801, 600 XP),
 // stands just over the Swamp of Sorrows border: both on the stop, before Kum'isha and the hearth.
 test('Blasted Lands (Alliance 52): Petty Squabbles and A Tale of Sorrow on the Nethergarde stop', { skip }, () => {
@@ -10650,7 +10680,7 @@ test('Horde Tanaris 46: Tanaris Field Sampling started after Scrimshank, handed 
 	assert.equal(tan[tin].s, tan[sample].s + 1, 'handed in on the next step');
 });
 
-// Our comparison (0.3.6, Horde 40-50/01): Excelsior (628, 2850 XP) from Drizzlik with the Snapjaw skins on the first
+// Horde 40-50/01 (0.3.6): Excelsior (628, 2850 XP) from Drizzlik with the Snapjaw skins on the first
 // Booty Bay stop; the Elder Saltwater Crocolisk (level 38 elite, shared spawns) lives on the coast the route walks from
 // Zul'Kunda back to Grom'gol, so its skin is an optional goal there and goes in on the next Booty Bay stop.
 test('Horde Stranglethorn 40: Excelsior from Drizzlik, the elder crocolisk on the Zul\'Kunda coast, optional', { skip }, () => {
@@ -10746,7 +10776,7 @@ test('Horde Undercity 45: Yagyin\'s Digest to Bel\'dugur between Luca and Zinge'
 	assert.ok(luca < bel && bel < zinge && list[bel].s === list[luca].s && list[zinge].s === list[luca].s, 'Luca, Bel\'dugur, Zinge on one stop');
 });
 
-// Our comparison (0.3.6, Horde 50-60/07): Salve via Hunting (5887, 4200 XP) from Maybess at the Emerald Sanctuary once
+// Horde 50-60/07 (0.3.6): Salve via Hunting (5887, 4200 XP) from Maybess at the Emerald Sanctuary once
 // Cleansing Felwood is done; its Corrupted Soul Shards drop from the Jaedenar and Shadow Hold cultists the guide fights
 // for Greta, and Maybess stands on the way out and back. The XP comes off the closing grind to 60.
 test('Horde Felwood 59: Salve via Hunting on the way to Jaedenar, shards in Shadow Hold, handed in before Greta', { skip }, () => {
@@ -10900,7 +10930,7 @@ test('Un\'Goro (Alliance 56): the gorilla pelts on the northern pass, one ride f
 	assert.ok(fallback.length >= 6, 'both pelt steps wait for 4289 in the log');
 });
 
-// Our comparison (0.3.6, BrAlliance3040, Alliance 30-40 Desolace): Karnitol's Chest lies beside Azore's tower, which the
+// Alliance 30-40 Desolace (0.3.6): Karnitol's Chest lies beside Azore's tower, which the
 // first Desolace visit (02) climbs for the Sceptre of Light, so the chain is opened there and its report goes in on that
 // visit's last Kreldig stop. The south loop (06) then dives for the satchel on its one trip to the north-west coast, opens
 // Rackmore's Chest (every race: the quest's race mask is all) right after the Serpent Statue, and visits Nijel's Point
@@ -10943,7 +10973,7 @@ test('Alliance Menethil 32: Glorin Steelbrow is in the Deepwater Tavern, not the
 	assert.doesNotMatch(tips[0], /keep\./);
 });
 
-// Our comparison (0.3.6, BrAlliance3040, Alliance 30-40 Arathi): from Northfold Manor the loop goes once round, east
+// Alliance 30-40 Arathi (0.3.6): from Northfold Manor the loop goes once round, east
 // along the north to the Shards of Myzrael and Drywhisker Gorge, back to the Stone of East Binding, south to Witherbark
 // Village and north-west to Quae. The guide went to the troll village in the south-east first, then north to the shards,
 // east to the gorge and south again to Quae.
@@ -10960,7 +10990,7 @@ test('Alliance Arathi: Northfold, the shards and the gorge, the eastern circle, 
 	assert.equal(quae, trolls + 1, 'Quae right after the village');
 });
 
-// Our comparison (0.3.6, BrAlliance3040, Alliance 30-40/04b): the Shadowmaw Panthers live around Lake Nazferiti and by
+// Alliance 30-40/04b (0.3.6): the Shadowmaw Panthers live around Lake Nazferiti and by
 // the Skullsplitter ruins, the Tumbled Crystals' geologists on Lake Nazferiti's shore, none of them by the north-west
 // tablets, where the guide listed them (the arrow went from Zul'Kunda south to 36,34 and back north), and the Rebel Camp
 // was visited three times. Panther Mastery is now taken on the way in, the lake worked right after Kurzen's Compound,
@@ -11006,7 +11036,7 @@ test('#1531: the Ashenvale hunt trophies only after The Ashenvale Hunt, offered 
 });
 
 // Flow pass (0.3.6, Horde 50-60): Darrowshire (Pamela's doll, Zaeldarr, Uncle Carlin) and the Marlene/Chromie chain
-// closed 50-60/01 at about level 52.4 among Darrowshire's level 54-57 mobs; our comparison does them at 56-58. They now
+// closed 50-60/01 at about level 52.4 among Darrowshire's level 54-57 mobs. They now
 // open 50-60/05 (about 56): Light's Hope Chapel on the road in (flight path, bind), Darrowshire, back to the chapel,
 // the flight to Tarren Mill for Marlene and Chromie, the flight back to Carlin for Heroes and Villains of Darrowshire.
 // Terrordale (Augustus' book, A Plague Upon Thee's termites) moved from 01 to 02's Tirion stop, a river away.
@@ -11610,4 +11640,20 @@ test('Riverglades (experimental): an Alliance player going on to Feralas trains 
 	assert.ok(steps.some((l) => anyLine(l, /^\s+when level>=43\b/) && anyLine(l, /^\s+fly "Stormwind"/) && !questGated(l)), 'players of 43 or more fly to Stormwind');
 	assert.ok(steps.some((l) => anyLine(l, /^\s+train class only .*\bWarrior\b/) && !questGated(l)), 'the class trainer step');
 	assert.ok(steps.some((l) => anyLine(l, /^\s+train class only Shaman\b/) && anyLine(l, /^\s+fly "Ironforge"/) && !questGated(l)), 'shamans train in Ironforge');
+});
+
+// #1984: Captain Garran Vimes never offers Vimes's Report (1288) after The Deserters (1287): at least 10 recorded
+// hand-ins of 1287 and no run of 1288 at all. The 40-50 Alliance Theramore steps waited on its accept; the route
+// leaves it out (the 0.4.0 rebuild applies the record).
+test('route-fixes leaves Vimes\'s Report out on the Alliance side (#1984)', () => {
+	const { overrides } = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', 'route-fixes.json'), 'utf8'));
+	assert.ok(overrides.skip.some((r) => r.q === 1288 && r.faction === 'Alliance'), 'route-fixes leaves 1288 out on the Alliance side');
+});
+
+// #1985: Dustwallow Marsh's venom-sac step named only the Darkfang Venomspitters; every Darkfang spider drops the
+// Acidic Venom Sacs for The Black Shield (1322), the Giant Darkfang Spiders too (drop data, players' recordings).
+test('guide-fixes says every Darkfang spider drops the Acidic Venom Sacs (#1985)', () => {
+	const { fixes } = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', 'guide-fixes.json'), 'utf8'));
+	const r = fixes.find((f) => f.at && f.at.quest === 1322 && f.at.goal === 'objective' && f.at.objective === 1);
+	assert.ok(r && /Giant Darkfang Spiders/.test(r.goalNote) && /Lurkers/.test(r.goalNote), 'a goal note on 1322.1 naming every Darkfang kind');
 });

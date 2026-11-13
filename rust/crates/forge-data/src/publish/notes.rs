@@ -412,7 +412,8 @@ pub fn apply(t: &mut Tables, records: &Value, published: &BTreeSet<i64>) -> Vec<
 							.filter(|r| r.row.get("quest").and_then(Value::as_i64) == Some(*quest))
 							.filter_map(|r| r.row.get("n").and_then(Value::as_i64))
 							.max()
-							.unwrap_or(0) + 1;
+							.unwrap_or(0)
+							+ 1;
 					new.insert("n".into(), json!(n));
 				}
 				let prov: Vec<(String, Prov)> =

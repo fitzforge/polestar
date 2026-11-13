@@ -292,6 +292,7 @@ fn the_accent_row_lights_every_surface_the_accent_paints_in_the_scene_and_in_the
 #[test]
 fn the_buttons_and_single_alert_heroes_stand_in_the_world_they_act_in() {
 	let out = run(r#"
+		Polestar.Set("qol.markTarget", false)
 		local f = shown("buttons", "Action buttons")
 		local mob, far = f.Mobs()
 		local faces = f.Faces()

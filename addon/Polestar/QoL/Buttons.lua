@@ -24,8 +24,9 @@
 --     arrow's goal comes first. After the step's own mobs (or with none), the
 --     mobs of the While you're here rows, nearest row first (#1441). After the
 --     step's NPCs too while the player is within the While you're here radius
---     of one; farther, the rows' mobs before the NPCs (#1623). Each name takes
---     its own kind's mark and ping. Every click moves the next name to the
+--     of one; farther, the rows' mobs before the NPCs (#1623). A row the
+--     arrow points at (clicked) comes before the step's own mobs (#2011).
+--     Each name takes its own kind's mark and ping. Every click moves the next name to the
 --     front. With qol.targetPlate (on by default) its icon shows what you do with the
 --     name the next click targets (Buttons.TargetLook: a speech bubble, !,
 --     ?, a sword, a bag, a skull for an elite, rare or boss), the name beside
@@ -1181,15 +1182,31 @@ end
 -- The open kill and collect rows While you're here shows now
 -- (Engine.GetWhileHereList: nearest first, none while the rows are hidden),
 -- each a goal after the ones started, with its raw goal (Engine.AlongGoal).
-local function addHereGoals(qdb)
+-- skip: a row already started (hereAimed's).
+local function addHereGoals(qdb, skip)
 	local E = ns.Engine
 	if not (E and E.GetWhileHereList and E.AlongGoal) then return end
 	for _, v in ipairs(E.GetWhileHereList()) do
-		if (v.t == "kill" or v.t == "collect") and QoL.Open(v) then
+		if v ~= skip and (v.t == "kill" or v.t == "collect") and QoL.Open(v) then
 			newGoal(v.t, v.step, v.index)
 			addGoalNames(v, E.AlongGoal(v.step, v.index) or v, qdb)
 		end
 	end
+end
+
+-- The open kill or collect row of While you're here the arrow points at
+-- (the player clicked it: Engine.AimWhileHere), or nil.
+local function hereAimed()
+	local E = ns.Engine
+	if not (E and E.GetWhileHereList and E.GetWaypoint) then return nil end
+	local wp = E.GetWaypoint()
+	if type(wp) ~= "table" or wp.goalIndex == nil then return nil end
+	for _, v in ipairs(E.GetWhileHereList()) do
+		if v.step == wp.stepIndex and v.index == wp.goalIndex then
+			return (v.t == "kill" or v.t == "collect") and QoL.Open(v) and v or nil
+		end
+	end
+	return nil
 end
 
 -- The places of the step's open NPC goals (talk, accept, turn in...) as
@@ -1266,7 +1283,9 @@ end
 -- of the While you're here rows the same way, nearest row first (the
 -- arrow's row first). After the step's NPCs too, while the player is within
 -- the While you're here radius of one of them; farther from all of them,
--- the rows' mobs come first and the NPCs after (#1441, #1623). -> names,
+-- the rows' mobs come first and the NPCs after (#1441, #1623). A row the
+-- arrow points at (the player clicked it) comes before the step's own goals:
+-- the player chose to go and do it (#2011). -> names,
 -- verbs, npc ids (nil: not known), marks (true: elite, rare or boss by the
 -- guide's data), all by index.
 function Buttons.TargetNames(view, raw, npcs, here)
@@ -1297,6 +1316,13 @@ function Buttons.TargetNames(view, raw, npcs, here)
 		goals, raws = all, allRaw
 	end
 	local named = false
+	-- The While you're here row the player aimed the arrow at, first (#2011).
+	local aimed = here and E and E.AlongGoal and hereAimed()
+	if aimed then
+		newGoal(aimed.t, aimed.step, aimed.index)
+		addGoalNames(aimed, E.AlongGoal(aimed.step, aimed.index) or aimed, qdb)
+		named = #goalNames[goalCount] > 0
+	end
 	for g = 1, #goals do
 		local gv = goals[g]
 		local rg = raws and raws[g] or gv
@@ -1311,7 +1337,7 @@ function Buttons.TargetNames(view, raw, npcs, here)
 	-- them.
 	local npcNamed = false
 	if npcs and not named then
-		goalCount = 0
+		goalCount, aimed = 0, nil
 		local N = ns.Names
 		for g = 1, own do
 			local gv = goals[g]
@@ -1328,7 +1354,7 @@ function Buttons.TargetNames(view, raw, npcs, here)
 	interleave(1, names, nameVerb, nameNpc, nameSpecial, nameSeen)
 	if here then
 		local first, before = goalCount + 1, #names
-		addHereGoals(qdb)
+		addHereGoals(qdb, aimed)
 		arrowFirst(first)
 		interleave(first, names, nameVerb, nameNpc, nameSpecial, nameSeen)
 		if npcNamed and #names > before then
@@ -1619,9 +1645,9 @@ end
 local function applyTarget(b)
 	QoL.Secure("target", function()
 		local list = target.list
-		-- A mob is pinged for the group; an NPC goal's NPC stays where it is.
+		-- A mob and an NPC goal's NPC are both pinged for the group (Fitz, 2026-11-13).
 		local kind = targetKind()
-		local text = Buttons.TargetMacro(list, target.cycle, Buttons.MarkLine(kind), kind == "mob" and Buttons.QuestPingLine() or nil)
+		local text = Buttons.TargetMacro(list, target.cycle, Buttons.MarkLine(kind), Buttons.QuestPingLine())
 		b:SetAttribute("type", text and "macro" or nil)
 		b:SetAttribute("macrotext", text)
 		b.applied = list[target.cycle]
@@ -1935,9 +1961,9 @@ local function applyStep(b)
 		local text, item
 		if step.kind == "target" then
 			local kind = stepKind()
-			text = Buttons.TargetMacro(step.list, step.cycle, Buttons.MarkLine(kind), kind == "mob" and Buttons.QuestPingLine() or nil)
+			text = Buttons.TargetMacro(step.list, step.cycle, Buttons.MarkLine(kind), Buttons.QuestPingLine())
 		elseif step.kind == "npc" then
-			text = Buttons.TargetMacro({ step.value }, 1, Buttons.MarkLine("npc"))
+			text = Buttons.TargetMacro({ step.value }, 1, Buttons.MarkLine("npc"), Buttons.QuestPingLine())
 		elseif step.kind == "item" then
 			item = "item:" .. step.value
 		end
