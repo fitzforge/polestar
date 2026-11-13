@@ -45,7 +45,7 @@ local defaults = {
 	guideNameTarget = false, -- opt in: extend navigation clicks to targeting, with shared marking settings
 	rareButton = true,       -- target button for a rare the addon spotted
 	hearthButton = true,     -- Hearthstone button while a hearth goal is active
-	markTarget = false,      -- raid icon on what the target button, step key and objective clicks target
+	markTarget = true,       -- raid icon on what the target button, step key and objective clicks target
 	pingTarget = false,      -- /ping the mob the target button and step key target (QoL/Buttons.lua)
 	markMob = "8",           -- its icon on mobs (1-8, "cycle"): skull
 	markNpc = "1",           -- and on NPCs: star
@@ -218,7 +218,7 @@ function QoL.CurrentStep()
 	if not (E and E.GetStepIndex and E.GetStepView) then return nil end
 	local i = E.GetStepIndex()
 	if not i then return nil end
-	local view = E.GetStepView(i)
+	local view = E.GetStepView(i, true)
 	if not view then return nil end
 	local guide = E.GetGuide and E.GetGuide()
 	local step = guide and guide.steps and guide.steps[i]

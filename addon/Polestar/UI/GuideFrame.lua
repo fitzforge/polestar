@@ -413,9 +413,10 @@ local function skipGoal(row)
 	if E.SkipGoal and goal.optional then E.SkipGoal(view.index, goal.index) end
 end
 
--- A quest's line, right-clicked: tick this goal done (or untick it), or skip
--- the whole quest and what follows from it (Engine.SkipQuest), or bring a
--- skipped quest back.
+-- A quest's line, right-clicked: tick this goal done (or untick it), open
+-- the game's quest log at its quest (ns.QuestLogMenuItem), or skip the whole
+-- quest and what follows from it (Engine.SkipQuest), or bring a skipped
+-- quest back.
 local function rowMenu(row)
 	local E, goal = Engine(), row.psGoal
 	if not (E and goal and goal.quest and E.SkipQuest) then return false end
@@ -427,6 +428,8 @@ local function rowMenu(row)
 	if goal.tickable and goal.status ~= "done" or goal.ticked then
 		items[#items + 1] = { text = goal.ticked and L["Untick"] or L["Tick it done"], icon = "check", onClick = function() toggleGoal(row) end }
 	end
+	local show = ns.QuestLogMenuItem and ns.QuestLogMenuItem(goal.quest)
+	if show then items[#items + 1] = show end
 	-- What this guide leaves out with it (Engine.SkipLoses), named in the tip.
 	local tip = L["This quest and the ones that follow from it are skipped, in every guide. Right-click it again to bring it back."]
 	local loses = E.SkipLoses and UI.SkipLosesText(E.SkipLoses(goal.quest))
@@ -662,9 +665,10 @@ local function paintRow(r, goal, pop, sameStep, current, noParty, noMissing, noE
 	-- White while it is to be done; done and skipped goals step back. The
 	-- turn-in of a quest whose objectives are still open, pinned (#644),
 	-- ticked by hand (#1135) or worked along the way (#853): the warning
-	-- colour, and its line says so.
+	-- colour, and its line says so. A goal marked `accent` (a pick-up
+	-- guide's "Comes back at level N") takes the look's accent.
 	local warn = goal.pinOpen and not done and not skipped
-	W.Color(r.Text, (done or skipped) and "textMuted" or (warn and "warning" or (aside and "textDim" or "text")))
+	W.Color(r.Text, (done or skipped) and "textMuted" or (warn and "warning" or (goal.accent and "accent") or (aside and "textDim" or "text")))
 	local sub = UI.GoalSubline(goal, person.Where:IsShown() and person.psPlace and person.psPlace.map or nil, noParty, noMissing, noEscort, noFinder)
 	if warn then
 		local open = goal.pinOpen == "along" and L["Its objectives are still open."]
@@ -1347,6 +1351,12 @@ local function alongRow(i)
 	r.Text:SetMaxLines(2)
 	r:SetScript("OnClick", function(self, button)
 		local E = Engine()
+		-- The finished quests no open route hands in (RoutePlan.Carried):
+		-- their list, with who takes each and a hand-in guide.
+		if self.psCarried then
+			if UI.ShowQuestRoom then UI.ShowQuestRoom("carried") end
+			return
+		end
 		-- A quest an update left behind the player (Engine.GetBehind): the
 		-- arrow on a click, Skip or Abandon on a right-click.
 		local q = self.psBehind
@@ -1375,6 +1385,9 @@ local function alongRow(i)
 		if self.psBehind then
 			lines[#lines + 1] = { L["You carry this quest; the update moved what is left of it before your place in the guide."], Theme.Color("textDim") }
 			lines[#lines + 1] = { L["Right-click to skip or abandon it."], Theme.Color("textDim") }
+		end
+		if self.psCarried then
+			lines[#lines + 1] = { L["The route ahead never hands these in. Click to see who takes each, with a guide there."], Theme.Color("textDim") }
 		end
 		W.Tooltip(self, tooltipAnchor(), self.psTitle or "", lines)
 		GF.HoverIn()
@@ -1748,11 +1761,26 @@ local function fillAlong(E)
 			local where = b.zone and (b.yards and string.format(L["back in %s, %s"], b.zone, ns.FormatDistance(b.yards)) or string.format(L["back in %s"], b.zone)) or nil
 			local quest = ns.Quoted(b.title or (L["Quest"] .. " " .. b.quest))
 			r.psStep, r.psGoal, r.psTitle, r.psPin, r.psBehind = nil, nil, b.title, nil, b.quest
-			r.psPlace = true
+			r.psPlace, r.psCarried = true, nil
 			r.Icon:SetTexture(Theme.VerbIcon("turnin"))
 			r.Text:SetText(where and string.format(L["Still to do: %s, %s"], quest, where) or string.format(L["Still to do: %s"], quest))
 			r:Show()
 		end
+	end
+	-- Then, in one row, the finished quests no open route hands in
+	-- (RoutePlan.Carried): "3 finished quests to hand in elsewhere (410 XP)";
+	-- a click lists them (UI/QuestRoom.lua, "carried").
+	local carried = ns.RoutePlan and ns.RoutePlan.Carried()
+	if carried and #carried > 0 and n < ALONG_MAX then
+		n, back = n + 1, back + 1
+		local r, xp = alongRow(n), 0
+		for _, c in ipairs(carried) do xp = xp + (c.xp or 0) end
+		r.psStep, r.psGoal, r.psTitle, r.psPin, r.psBehind = nil, nil, L["Finished quests you're still carrying"], nil, nil
+		r.psPlace, r.psCarried = nil, true
+		r.Icon:SetTexture(Theme.VerbIcon("turnin"))
+		local text = #carried == 1 and L["1 finished quest to hand in elsewhere"] or string.format(L["%d finished quests to hand in elsewhere"], #carried)
+		r.Text:SetText(xp > 0 and string.format(L["%s (%d XP)"], text, xp) or text)
+		r:Show()
 	end
 	for _, s in ipairs(E.GetAlong()) do
 		for _, gv in ipairs(s.goals) do
@@ -1763,7 +1791,7 @@ local function fillAlong(E)
 				untilStep = untilStep or s.untilStep
 				local r = alongRow(n)
 				r.psStep, r.psGoal, r.psTitle, r.psPin, r.psBehind = gv.step or s.index, gv.index, s.title or UI.GoalLine(gv), s.pin, nil
-				r.psPlace = gv.map and gv.x and gv.y and true or nil
+				r.psPlace, r.psCarried = gv.map and gv.x and gv.y and true or nil, nil
 				r.Icon:SetTexture(Theme.VerbIcon(gv.t))
 				UI.SetCounted(r.Text, UI.GoalLine(gv))
 				r:Show()
@@ -2985,6 +3013,9 @@ local function build()
 		GF.UpdateXP()
 		GF.Render()
 	end)
+	-- Another addon taking the window out of sight is told once
+	-- (ns.WatchSight). After the OnShow above: SetScript drops a hooked script.
+	ns.WatchSight(F, "window")
 	if UI.NameTargets then
 		UI.NameTargets.Bind(F, function()
 			local entries = {}

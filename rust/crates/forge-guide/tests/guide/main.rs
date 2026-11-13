@@ -34,6 +34,7 @@ mod dsl_when_dungeon;
 mod dsl_when_group;
 mod dsl_when_knows;
 mod dsl_when_skill;
+mod dsl_when_taxi;
 mod dsl_when_upgrade;
 mod exact_points;
 mod guidecheck;

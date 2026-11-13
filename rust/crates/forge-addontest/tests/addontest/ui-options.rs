@@ -505,6 +505,8 @@ fn search_finds_settings_by_label_and_help_across_pages_registered_ones_included
 		local box = PolestarOptions.Search
 		box:SetText("arrow")
 		stub.RunScript(box, "OnTextChanged", true)
+		-- Typing opens the dropdown; Enter, with no row of it lit, the results page.
+		stub.RunScript(box, "OnEnterPressed")
 		local titles = {}
 		for _, g in ipairs(O.results.groups) do titles[#titles + 1] = g.title end
 		local arrow = { titles = titles, count = O.results.count, title = PolestarOptions.Title:GetText(), sub = PolestarOptions.Subtitle:GetText(),
@@ -974,14 +976,15 @@ fn guide_window_in_dungeons_and_battlegrounds_hides_by_default_keep_visible_is_a
 	);
 }
 
-// Discovery, Dungeons: which dungeons the leveling guides' `when dungeon` steps take this character through
-// (Dungeons/Dungeons.lua, Engine.ChooseDungeon). Only the dungeons this character's guides have steps for
-// are offered (0.3.6 plan: "Options page lists only dungeons with steps"): Ragefire Chasm in a guide whose
-// steps are read and The Deadmines here (Engine.GuideDungeons; engine-when-dungeon.rs reads them from the
-// guides). A choice saved for a dungeon not offered (Gnomeregan) is kept.
+// Discovery, Dungeons: the answer for each dungeon the leveling guides' `when dungeon` steps take this character
+// through (Polestar_Options/Dungeons/Options.lua, Engine.ChooseDungeon): As for all dungeons (none: "Dungeons in my
+// route" answers), Run it, or Skip it. Only the dungeons this character's guides have steps for show (0.3.6 plan:
+// "Options page lists only dungeons with steps"): Ragefire Chasm in a guide whose steps are read and The Deadmines
+// here (Engine.GuideDungeons; engine-when-dungeon.rs reads them from the guides). An answer saved for a dungeon not
+// shown (Gnomeregan) is kept, through Reset page too.
 
 #[test]
-fn discovery_dungeons_a_toggle_per_dungeon_the_guides_have_steps_for_all_off_chosen_per_character_in_the_client_s_language() {
+fn discovery_dungeons_an_answer_per_dungeon_the_guides_have_steps_for_per_character_in_the_client_s_language() {
 	let out = emitted(&RunAddon {
 		stubs: vec!["stub_ui.lua"],
 		addons: vec![Addon::files("Polestar", &["Core/Core.xml", "Theme/Theme.xml", "Dungeons/Dungeons.xml", "UI/UI.xml"])],
@@ -991,43 +994,61 @@ fn discovery_dungeons_a_toggle_per_dungeon_the_guides_have_steps_for_all_off_cho
 		Polestar.CharState().dungeons[90] = true
 		UI.ShowOptions("dungeons")
 		local c = O.Controls("discovery", "Dungeons")
-		local labels, on = {}, 0
+		local labels, values = {}, {}
 		for _, d in ipairs(Polestar.Dungeons.ROUTE) do
 			local row = c[d[1] == 389 and "Огненная пропасть" or d[2]]
-			if row then
+			if row and row:IsShown() then
 				labels[#labels + 1] = row.Label:GetText()
-				if row.checked then on = on + 1 end
+				values[#values + 1] = row.Button.Label:GetText()
 			end
 		end
 		local help = c["The Deadmines"].psDesc
 		local rfc, dm = c["Огненная пропасть"], c["The Deadmines"]
-		rfc:Click()
-		dm:Click()
+		local function menu()
+			local out = {}
+			for _, r in ipairs(PolestarMenu.rows) do if r:IsShown() then out[#out + 1] = r.Text:GetText() end end
+			return out
+		end
+		local function pick(row, text)
+			row.Button:Click()
+			for _, r in ipairs(PolestarMenu.rows) do if r:IsShown() and r.Text:GetText() == text then r:Click() break end end
+		end
+		dm.Button:Click()
+		local choices = menu()
+		dm.Button:Click()
+		pick(rfc, "Run it")
+		pick(dm, "Skip it")
 		local saved = {}
 		for k, v in pairs(PolestarCharDB.dungeons) do saved[k] = v end
-		local clicked = { rfc = rfc.checked, chosen = E.DungeonChosen(389), dm = E.DungeonChosen(36), saved = saved }
+		local picked = { rfc = rfc.Button.Label:GetText(), dm = dm.Button.Label:GetText(), run = E.DungeonAnswer(389), skip = E.DungeonAnswer(36), saved = saved,
+			calls = { lastCall("ChooseDungeon") } }
 		local account = PolestarDB.settings.dungeons or false
 		dm:Click("RightButton")
-		local right = { dm = dm.checked, chosen = E.DungeonChosen(36) }
+		local right = { dm.Button.Label:GetText(), PolestarCharDB.dungeons[36] == nil }
+		pick(dm, "Skip it")
+		pick(dm, "As for all dungeons")
+		local back = { dm.Button.Label:GetText(), PolestarCharDB.dungeons[36] == nil }
 		local _, found = O.Search("Огненная")
 		footerButton("Reset page"):Click()
 		PolestarModal.Box.Action:Click()
-		emit({ title = PolestarOptions.Title:GetText(), labels = labels, on = on, clicked = clicked, right = right, found = found,
-			reset = { rfc = rfc.checked, chosen = E.DungeonChosen(389), saved = PolestarCharDB.dungeons },
+		emit({ title = PolestarOptions.Title:GetText(), labels = labels, values = values, choices = choices, picked = picked, right = right, back = back,
+			found = found, reset = { rfc = rfc.Button.Label:GetText(), saved = PolestarCharDB.dungeons },
 			account = account, help = help, hidden = E.DungeonChosen(90) })"#,
 		..Default::default()
 	})
 	.remove(0);
 	assert_eq!(out["title"], "Discovery");
 	assert_eq!(out["labels"], json!(["Огненная пропасть", "The Deadmines"]), "only the dungeons this character's guides have steps for");
-	assert!(out["help"].as_str().unwrap().ends_with("More dungeons join this list as they are added to the guides' route."), "{}", out["help"]);
-	assert_eq!(out["on"], 0, "every dungeon is off by default: the solo route");
-	assert_eq!(out["clicked"], json!({ "rfc": true, "chosen": true, "dm": true, "saved": { "389": true, "36": true, "90": true } }));
-	assert_eq!(out["right"], json!({ "dm": false, "chosen": false }), "right-click puts it back to off");
+	assert!(out["help"].as_str().unwrap().ends_with("As for all dungeons: Guide, Automation, Dungeons in my route answers."), "{}", out["help"]);
+	assert_eq!(out["values"], json!(["As for all dungeons", "As for all dungeons"]), "none answered by default: Dungeons in my route (Skip) answers");
+	assert_eq!(out["choices"], json!(["As for all dungeons", "Run it", "Skip it"]));
+	assert_eq!(out["picked"], json!({ "rfc": "Run it", "dm": "Skip it", "run": true, "skip": false, "saved": { "389": true, "36": false, "90": true }, "calls": [["ChooseDungeon", 36, false]] }));
+	assert_eq!(out["right"], json!(["As for all dungeons", true]), "right-click forgets the answer: As for all dungeons");
+	assert_eq!(out["back"], json!(["As for all dungeons", true]), "As for all dungeons forgets the answer");
 	assert_eq!(out["found"], 1, "search finds the dungeon by the name it shows");
-	assert_eq!(out["reset"], json!({ "rfc": false, "chosen": false, "saved": { "90": true } }), "Reset page turns the shown choices off; a hidden one's is kept");
-	assert_eq!(out["hidden"], true, "Gnomeregan's saved choice stands though it is not offered");
-	assert_eq!(out["account"], false, "the choice is per character, never an account setting");
+	assert_eq!(out["reset"], json!({ "rfc": "As for all dungeons", "saved": { "90": true } }), "Reset page forgets the shown answers; a hidden one's is kept");
+	assert_eq!(out["hidden"], true, "Gnomeregan's saved answer stands though it is not shown");
+	assert_eq!(out["account"], false, "the answer is per character, never an account setting");
 }
 
 #[test]
@@ -1039,7 +1060,8 @@ fn discovery_dungeons_with_no_guide_steps_for_any_dungeon_has_no_leveling_guides
 			+ r#"
 		UI.ShowOptions("dungeons")
 		local c = O.Controls("discovery", "Dungeons")
-		emit({ dm = c["The Deadmines"] ~= nil, rfc = c["Ragefire Chasm"] ~= nil })"#,
+		local function shown(row) return row ~= nil and row:IsShown() end
+		emit({ dm = shown(c["The Deadmines"]), rfc = shown(c["Ragefire Chasm"]) })"#,
 		..Default::default()
 	})
 	.remove(0);
@@ -1064,6 +1086,36 @@ fn guide_automation_an_answer_for_all_group_quests_while_a_guide_has_one_the_cla
 		local dd = c["behavior.groupQuests"]
 		emit({ shown = dd ~= nil, label = dd and dd.Button.Label:GetText() or false, value = Polestar.Get("behavior.groupQuests") })"#);
 	assert_eq!(out, json!({ "shown": true, "label": "Ask me at each", "value": "ask" }));
+}
+
+// Guide, Automation: "Dungeons in my route" (behavior.dungeons): Skip them (the default: the solo route), Ask me or
+// Run them, shown once a guide for the character has a dungeon in its route. Right-click puts Skip back.
+#[test]
+fn guide_automation_dungeons_in_my_route_while_a_guide_has_a_dungeon_skip_by_default() {
+	let none = run(r#"
+		UI.ShowOptions("guide")
+		O.Select("guide", "Automation")
+		local dd = O.Controls("guide", "Automation")["behavior.dungeons"]
+		emit(dd ~= nil and dd:IsShown())"#);
+	assert_eq!(none, json!(false), "not while no guide has a dungeon");
+	let out = run(r#"
+		uistub.guideDungeons = { [36] = true }
+		UI.ShowOptions("guide")
+		O.Select("guide", "Automation")
+		local dd = O.Controls("guide", "Automation")["behavior.dungeons"]
+		local before = { dd.Label:GetText(), dd.Button.Label:GetText(), Polestar.Get("behavior.dungeons") }
+		dd.Button:Click()
+		local choices = {}
+		for _, r in ipairs(PolestarMenu.rows) do if r:IsShown() then choices[#choices + 1] = r.Text:GetText() end end
+		for _, r in ipairs(PolestarMenu.rows) do if r:IsShown() and r.Text:GetText() == "Run them" then r:Click() break end end
+		local after = { dd.Button.Label:GetText(), Polestar.Get("behavior.dungeons"), Polestar.Engine.DungeonAnswer(36) }
+		dd:Click("RightButton")
+		emit({ before = before, choices = choices, after = after, right = { dd.Button.Label:GetText(), Polestar.Get("behavior.dungeons") } })"#);
+	assert_eq!(
+		out,
+		json!({ "before": ["Dungeons in my route", "Skip them", "skip"], "choices": ["Skip them", "Ask me", "Run them"], "after": ["Run them", "run", true],
+			"right": ["Skip them", "skip"] })
+	);
 }
 
 // The quest automation toggles show on Questing > Quests and on Quality of Life > Quests:
@@ -1287,6 +1339,7 @@ fn search_with_no_match_suggests_the_nearest_settings() {
 		local box = PolestarOptions.Search
 		box:SetText("hearthston xyzzy")
 		stub.RunScript(box, "OnTextChanged", true)
+		stub.RunScript(box, "OnEnterPressed")
 		local r = { count = O.results.count, suggestions = O.results.suggestions, sub = PolestarOptions.Subtitle:GetText() }
 		local _, n, none = O.Search("qqqq")
 		r.nothing = { n = n, suggestions = none }
@@ -1299,6 +1352,441 @@ fn search_with_no_match_suggests_the_nearest_settings() {
 	assert!(includes(&out["suggestions"], "Hearthstone in the button set"), "{s:?}");
 	assert_eq!(out["nothing"]["n"], 0);
 	assert_eq!(out["nothing"]["suggestions"], json!({}), "nothing near: no suggestion (an empty list)");
+}
+
+// The search box's dropdown (UI/SearchDropdown.lua): typing in the box, the keys it takes, a row of the list.
+const DROP_HELPERS: &str = r#"
+local D = O.Dropdown
+local function box() return PolestarOptions.Search end
+local function typed(q) local b = box(); b:SetFocus(); b:SetText(q); stub.RunScript(b, "OnTextChanged", true) end
+local function press(k)
+	local b = box()
+	if k == "ENTER" then stub.RunScript(b, "OnEnterPressed")
+	elseif k == "ESCAPE" then stub.RunScript(b, "OnEscapePressed")
+	elseif k == "TAB" then stub.RunScript(b, "OnTabPressed")
+	else stub.RunScript(b, "OnArrowPressed", k) end
+end
+local function rowButton(i)
+	for _, c in ipairs({ PolestarOptionsMatches:GetChildren() }) do if c.psIndex == i and c:IsShown() then return c end end
+end
+local function lit() for i, r in ipairs(D.Rows()) do if r.lit then return i end end return false end
+"#;
+
+// Typing in the search box opens a list right under it with the best settings as they type (Fitz, 0.3.8): each
+// row the setting's label, the words it matches lit, over where it lives (Page · Tab), at most eight in the search's
+// own score order, then "See all N results". The page on screen stays and the box keeps the keyboard.
+#[test]
+fn typing_in_the_search_box_opens_a_dropdown_under_it_with_the_best_settings_in_score_order_while_the_page_stays() {
+	let out = run_mods(
+		"",
+		&format!(
+			"{DROP_HELPERS}{}",
+			r#"
+		UI.ShowOptions("guide")
+		typed("minimap icon")
+		local list = PolestarOptionsMatches
+		local point, rel, relPoint = list:GetPoint(1)
+		-- The search's own results, the best first across their groups (one its section's on/off stops after an
+		-- equally good one that works).
+		local groups, count = O.Search("minimap icon")
+		local flat = {}
+		for gi, g in ipairs(groups) do
+			for ci, c in ipairs(g.controls) do flat[#flat + 1] = { key = c.key or O.LabelOf(c), score = c.psScore, stopped = c.psStopped, at = gi * 1000 + ci } end
+		end
+		table.sort(flat, function(a, b)
+			if a.score ~= b.score then return a.score > b.score end
+			if a.stopped ~= b.stopped then return not a.stopped end
+			return a.at < b.at
+		end)
+		local want, got, kinds = {}, {}, {}
+		for i = 1, math.min(8, #flat) do want[i] = flat[i].key end
+		local rows = D.Rows()
+		for i, r in ipairs(rows) do
+			kinds[i] = r.kind
+			if r.kind == "setting" then got[#got + 1] = r.key or r.label end
+		end
+		emit({ shown = list:IsShown(), parent = list:GetParent() == PolestarOptions, strata = list:GetFrameStrata(),
+			anchor = { point, rel == box(), relPoint }, wide = list:GetWidth() >= math.max(300, box():GetWidth()),
+			got = got, want = want, kinds = kinds, first = rows[1], last = rows[#rows], count = count, hex = Polestar.Theme.Hex("text"),
+			page = O.page.key, title = PolestarOptions.Title:GetText(), focus = stub.focus == box() })"#
+		),
+	);
+	assert_eq!(out["shown"], true, "the list opens as they type");
+	assert_eq!(out["parent"], true, "under Polestar's own window, never a game frame");
+	assert_eq!(out["strata"], "DIALOG", "over the page");
+	assert_eq!(out["anchor"], json!(["TOPRIGHT", true, "BOTTOMRIGHT"]), "right under the box");
+	assert_eq!(out["wide"], true);
+	assert_eq!(out["kinds"], json!(["setting", "setting", "setting", "setting", "setting", "setting", "setting", "setting", "all"]));
+	assert_eq!(out["got"], out["want"], "the best eight in the search's own order");
+	let hex = out["hex"].as_str().unwrap();
+	assert_eq!(
+		out["first"],
+		json!({ "kind": "setting", "key": "maps.minimapButtonIcon", "label": "Minimap icon", "lit": false,
+			"text": format!("|c{hex}Minimap|r |c{hex}icon|r"), "where": "Buttons  \u{b7}  Launcher & minimap" }),
+		"the label with the words it matches lit, over its page and tab"
+	);
+	assert_eq!(out["last"]["kind"], "all");
+	assert_eq!(out["last"]["text"], format!("See all {} results", out["count"]).as_str());
+	assert_eq!(json!([&out["page"], &out["title"], &out["focus"]]), json!(["guide", "Guide", true]), "the page stays and the box keeps the keyboard");
+}
+
+// Up and Down light a row, Enter picks it: the setting opens on its page and tab, its row scrolled into view and
+// lit as a result's chevron does; the list closes, the search is left. A click on a row does the same.
+#[test]
+fn up_down_and_enter_or_a_click_on_a_row_open_the_setting_on_its_page_lit_and_close_the_dropdown() {
+	let out = run_opts(
+		&format!(
+			"{DROP_HELPERS}{}",
+			r#"
+		UI.ShowOptions("guide")
+		typed("bigger pins")
+		local first = D.Rows()[1]
+		press("DOWN"); press("DOWN"); press("UP")
+		local before = { lit = lit(), page = O.page.key }
+		press("ENTER")
+		local function where()
+			local tab
+			for name, v in pairs(O.page.views) do if v == O.view then tab = name end end
+			return O.page.key .. " > " .. tostring(tab)
+		end
+		local row = O.Controls("fakepins", "World map")["fake.pinSize"]
+		local flash = rawget(row, "psFlash")
+		local key = { first = first.key, before = before, at = where(), lit = flash ~= nil and flash:IsShown(), shown = D.Shown(),
+			box = box():GetText(), focus = stub.focus == box(), scroll = PolestarOptions.Scroll:GetVerticalScroll(), top = row.psTop,
+			range = PolestarOptions.Scroll.psContent - PolestarOptions.Scroll.psView }
+		stub.advance(3)
+		O.Select("guide")
+		typed("goal opacity")
+		local n
+		for i, r in ipairs(D.Rows()) do if r.key == "fake.goalAlpha" then n = i end end
+		rowButton(n):Click()
+		local alpha = O.Controls("fakepins", "World map")["fake.goalAlpha"]
+		emit({ key = key, click = { at = where(), lit = rawget(alpha, "psFlash") ~= nil and alpha.psFlash:IsShown(), shown = D.Shown(), box = box():GetText() } })"#
+		),
+		"",
+		"",
+		LOOK_PAGE,
+	);
+	let key = &out["key"];
+	assert_eq!(key["first"], "fake.pinSize");
+	assert_eq!(key["before"], json!({ "lit": 1, "page": "guide" }), "Down, Down, Up: the first row lit, nothing opened yet");
+	assert_eq!(key["at"], "fakepins > World map", "Enter opens its page and tab");
+	assert_eq!(key["lit"], true, "the row lights");
+	assert_eq!(n(&key["scroll"]), (n(&key["top"]) - 40.0).min(n(&key["range"])), "scrolled to 40px over the row, as far as it goes");
+	assert_eq!(json!([&key["shown"], &key["box"], &key["focus"]]), json!([false, "", false]), "the list closes and the search is left");
+	assert_eq!(out["click"], json!({ "at": "fakepins > World map", "lit": true, "shown": false, "box": "" }), "a click on a row does the same");
+}
+
+// "See all N results", the last row, opens the whole results page (as Enter does with no row lit): from the
+// keys (Up from no row lights it) or a click. One result: "See 1 result".
+#[test]
+fn see_all_the_dropdown_s_last_row_opens_the_whole_results_page_by_keys_or_a_click() {
+	let out = run_opts(
+		&format!(
+			"{DROP_HELPERS}{}",
+			r#"
+		UI.ShowOptions("guide")
+		typed("size")
+		press("UP")
+		local rows = D.Rows()
+		local up = { lit = lit(), n = #rows, last = rows[#rows].kind, text = rows[#rows].text }
+		press("ENTER")
+		local keys = { title = PolestarOptions.Title:GetText(), sub = PolestarOptions.Subtitle:GetText(), count = O.results.count, box = box():GetText(), shown = D.Shown() }
+		O.Select("guide")
+		typed("glow")
+		rows = D.Rows()
+		local text = rows[#rows].text
+		rowButton(#rows):Click()
+		local mouse = { text = text, title = PolestarOptions.Title:GetText(), count = O.results.count, box = box():GetText(), shown = D.Shown() }
+		typed("sheen")
+		rows = D.Rows()
+		emit({ up = up, keys = keys, mouse = mouse, one = rows[#rows].text })"#
+		),
+		"",
+		"",
+		LOOK_PAGE,
+	);
+	assert_eq!(out["up"]["lit"], out["up"]["n"], "Up from no row lights the last one");
+	assert_eq!(out["up"]["last"], "all");
+	let count = out["keys"]["count"].as_u64().unwrap();
+	assert_eq!(out["up"]["text"], format!("See all {count} results").as_str());
+	assert_eq!(out["keys"], json!({ "title": "Search", "sub": format!("{count} settings match"), "count": count, "box": "size", "shown": false }));
+	let count = out["mouse"]["count"].as_u64().unwrap();
+	assert_eq!(out["mouse"], json!({ "text": format!("See all {count} results"), "title": "Search", "count": count, "box": "glow", "shown": false }));
+	assert_eq!(out["one"], "See 1 result");
+}
+
+// Escape closes the list and keeps the box (a second Escape leaves it), Down opens it again, Tab closes it; a
+// click anywhere but the list and the box closes it, as do an emptied box, another page and the window closing.
+#[test]
+fn escape_tab_a_click_elsewhere_an_emptied_box_another_page_or_the_window_closing_close_the_dropdown() {
+	let out = run_opts(
+		&format!(
+			"{DROP_HELPERS}{}",
+			r#"
+		UI.ShowOptions("guide")
+		local r = {}
+		typed("glow")
+		r.open = { shown = D.Shown(), focus = stub.focus == box() }
+		press("ESCAPE")
+		r.escape = { shown = D.Shown(), focus = stub.focus == box(), title = PolestarOptions.Title:GetText(), text = box():GetText() }
+		press("ESCAPE")
+		r.again = stub.focus == box()
+		box():SetFocus()
+		press("DOWN")
+		r.down = { shown = D.Shown(), lit = lit() }
+		press("TAB")
+		r.tab = { shown = D.Shown(), focus = stub.focus == box() }
+		typed("glow")
+		PolestarOptionsMatches.IsMouseOver = function() return true end
+		stub.fire("GLOBAL_MOUSE_DOWN", "LeftButton")
+		r.onList = D.Shown()
+		PolestarOptionsMatches.IsMouseOver = nil
+		box().IsMouseOver = function() return true end
+		stub.fire("GLOBAL_MOUSE_DOWN", "LeftButton")
+		r.onBox = D.Shown()
+		box().IsMouseOver = nil
+		stub.fire("GLOBAL_MOUSE_DOWN", "LeftButton")
+		r.elsewhere = D.Shown()
+		typed("glow")
+		typed("")
+		r.emptied = D.Shown()
+		typed("glow")
+		O.Select("arrow")
+		r.page = { shown = D.Shown(), text = box():GetText() }
+		typed("glow")
+		PolestarOptions:Hide()
+		UI.ShowOptions("guide")
+		r.reopened = D.Shown()
+		emit(r)"#
+		),
+		"",
+		"",
+		LOOK_PAGE,
+	);
+	assert_eq!(out["open"], json!({ "shown": true, "focus": true }));
+	assert_eq!(out["escape"], json!({ "shown": false, "focus": true, "title": "Guide", "text": "glow" }), "Escape closes the list, the box keeps the keyboard");
+	assert_eq!(out["again"], false, "a second Escape leaves the box");
+	assert_eq!(out["down"], json!({ "shown": true, "lit": 1 }), "Down opens it again on the first row");
+	assert_eq!(out["tab"], json!({ "shown": false, "focus": true }), "Tab closes it");
+	assert_eq!(json!([&out["onList"], &out["onBox"], &out["elsewhere"]]), json!([true, true, false]), "only a click elsewhere closes it");
+	assert_eq!(out["emptied"], false);
+	assert_eq!(out["page"], json!({ "shown": false, "text": "" }), "another page closes it and empties the box");
+	assert_eq!(out["reopened"], false, "the window closing closed it");
+}
+
+// Nothing matches: the list says so and offers the nearest labels as "Did you mean" rows; a click on one searches
+// for it, the box keeping the keyboard. Nothing near either: the line alone.
+#[test]
+fn with_no_match_the_dropdown_says_so_and_its_did_you_mean_rows_search_for_the_label() {
+	let out = run_mods(
+		"",
+		&format!(
+			"{DROP_HELPERS}{}",
+			r#"
+		UI.ShowOptions("guide")
+		typed("hearthston xyzzy")
+		local list = PolestarOptionsMatches
+		local _, _, suggestions = O.Search("hearthston xyzzy")
+		local kinds, texts = {}, {}
+		for i, r in ipairs(D.Rows()) do kinds[i] = r.kind; texts[i] = r.text end
+		local none = { none = list.None:IsShown() and list.None:GetText(), hint = list.Hint:IsShown() and list.Hint:GetText(), kinds = kinds, texts = texts, suggestions = suggestions }
+		local n
+		for i, t in ipairs(texts) do if t == "Hearthstone in the button set" then n = i end end
+		rowButton(n):Click()
+		local after = { text = box():GetText(), focus = stub.focus == box(), shown = D.Shown(), placeholder = box().Placeholder:IsShown(), title = PolestarOptions.Title:GetText() }
+		for _, r in ipairs(D.Rows()) do if r.key == "qol.hearthButton" then after.row = r.text end end
+		typed("qqqq")
+		emit({ none = none, after = after, hex = Polestar.Theme.Hex("text"),
+			nothing = { shown = D.Shown(), rows = #D.Rows(), none = list.None:IsShown() and list.None:GetText(), hint = list.Hint:IsShown() } })"#
+		),
+	);
+	let none = &out["none"];
+	assert_eq!(none["none"], "No settings match \u{201c}hearthston xyzzy\u{201d}.");
+	assert_eq!(none["hint"], "Did you mean:");
+	assert_eq!(none["texts"], none["suggestions"], "the search's own suggestions, in its order");
+	assert!(none["kinds"].as_array().unwrap().iter().all(|k| k == "suggest") && includes(&none["texts"], "Hearthstone in the button set"), "{none}");
+	let hex = out["hex"].as_str().unwrap();
+	assert_eq!(
+		out["after"],
+		json!({ "text": "Hearthstone in the button set", "focus": true, "shown": true, "placeholder": false, "title": "Guide",
+			"row": format!("|c{hex}Hearthstone|r in the |c{hex}button|r set") }),
+		"the suggestion is searched for in the box, which keeps the keyboard"
+	);
+	assert_eq!(out["nothing"], json!({ "shown": true, "rows": 0, "none": "No settings match \u{201c}qqqq\u{201d}.", "hint": false }));
+}
+
+// The search also finds places: typing a page's, tab's or section's name offers it over the settings ("Go to
+// page: Arrow", "Section: Flight timer", "Tab: Key bindings"), each over where it is; picking one goes there, a
+// section's card scrolled into view with its header lit.
+#[test]
+fn typing_a_page_tab_or_section_name_offers_it_over_the_settings_and_picking_it_goes_there() {
+	let out = run_mods(
+		"",
+		&format!(
+			"{DROP_HELPERS}{}",
+			r#"
+		UI.ShowOptions("guide")
+		local r = {}
+		local function brief(i) local x = D.Rows()[i] return x and { x.kind, x.text, x.where } or false end
+		typed("arrow")
+		r.arrow = { brief(1), brief(2), brief(3), brief(4) }
+		rowButton(1):Click()
+		r.page = { O.page.key, D.Shown(), box():GetText() }
+		typed("flight timer")
+		r.flight = brief(1)
+		press("DOWN")
+		press("ENTER")
+		local card
+		for _, c in ipairs(O.view.cards) do if c:IsShown() and c.psSection and c.psSection.name == "Flight timer" then card = c end end
+		r.section = { page = O.page.key, tab = O.view.psTab.name, lit = card ~= nil and rawget(card.Header, "psFlash") ~= nil and card.Header.psFlash:IsShown(),
+			scroll = PolestarOptions.Scroll:GetVerticalScroll(),
+			want = card and math.max(0, math.min(card.psTop - 40, PolestarOptions.Scroll.psContent - PolestarOptions.Scroll.psView)) }
+		typed("key bindings")
+		r.keys = brief(1)
+		press("DOWN")
+		press("ENTER")
+		r.tab = { O.page.key, O.view.psTab.name }
+		r.hex = Polestar.Theme.Hex("text")
+		emit(r)"#
+		),
+	);
+	let hex = out["hex"].as_str().unwrap();
+	let lit = |w: &str| format!("|c{hex}{w}|r");
+	assert_eq!(
+		out["arrow"],
+		json!([
+			["page", format!("Go to page: {}", lit("Arrow")), "Look"],
+			["section", format!("Section: {}", lit("Arrow")), "Guide  \u{b7}  Arrow & routes"],
+			["section", format!("Section: {}", lit("Arrow")), "Arrow  \u{b7}  Look"],
+			["setting", format!("Keep the {} when hidden", lit("arrow")), "Guide  \u{b7}  Window"]
+		]),
+		"the page first (its sidebar group under it), then its sections, then the settings"
+	);
+	assert_eq!(out["page"], json!(["arrow", false, ""]), "a click on the page's row opens it");
+	assert_eq!(out["flight"], json!(["section", format!("Section: {} {}", lit("Flight"), lit("timer")), "Trackers  \u{b7}  Travel"]));
+	let s = &out["section"];
+	assert_eq!(json!([&s["page"], &s["tab"], &s["lit"]]), json!(["trackers", "Travel", true]), "its tab opens, the card's header lit");
+	assert_eq!(s["scroll"], s["want"], "the card scrolled to 40px under the top, as far as it goes");
+	assert_eq!(out["keys"], json!(["tab", format!("Tab: {} {}", lit("Key"), lit("bindings")), "Gamepad"]));
+	assert_eq!(out["tab"], json!(["gamepad", "Key bindings"]));
+}
+
+// A page's name followed by words looks on that page alone ("arrow size": the arrow's sizes, not the pins'), in
+// the dropdown and on the results page; its name run together counts, and so do filler words inside it. When
+// nothing there matches the rest fairly the whole window is searched: the guide window's lock lives on Guide.
+#[test]
+fn a_page_name_and_more_words_look_on_that_page_alone_and_everywhere_when_it_has_no_fair_match() {
+	let out = run_mods(
+		"",
+		&format!(
+			"{DROP_HELPERS}{}",
+			r#"
+		UI.ShowOptions("guide")
+		local function scoped(q)
+			local groups, n, _, page = O.Search(q)
+			local pages, keys = {}, {}
+			for _, g in ipairs(groups) do
+				pages[g.title:match("^(.-)  \194\183  ") or g.title] = true
+				for _, c in ipairs(g.controls) do keys[#keys + 1] = c.key or O.LabelOf(c) end
+			end
+			local list = {}
+			for p in pairs(pages) do list[#list + 1] = p end
+			table.sort(list)
+			return { page = page and page.key or false, pages = list, first = keys[1] or false }
+		end
+		local r = { size = scoped("arrow size"), joined = scoped("mappins size"), qol = scoped("quality of life loot"), lock = scoped("guide window lock"),
+			alone = scoped("arrow") }
+		typed("arrow size")
+		r.wheres = {}
+		for _, x in ipairs(D.Rows()) do if x.where then r.wheres[x.where] = true end end
+		press("ENTER")
+		r.results = {}
+		for _, g in ipairs(O.results.groups) do r.results[#r.results + 1] = g.title:match("^(.-)  \194\183  ") end
+		emit(r)"#
+		),
+	);
+	assert_eq!(out["size"], json!({ "page": "arrow", "pages": ["Arrow"], "first": "nav.arrowScale" }));
+	assert_eq!(out["joined"]["page"], "mappins");
+	assert_eq!(out["joined"]["pages"], json!(["Map pins"]));
+	assert_eq!(out["qol"], json!({ "page": "qualityoflife", "pages": ["Quality of Life"], "first": "qol.fastLoot" }));
+	assert_eq!(out["lock"]["page"], false, "nothing on the Guide window page matches \"lock\" fairly");
+	assert_eq!(out["lock"]["first"], "ui.locked");
+	assert_eq!(out["alone"]["page"], false, "a page's name alone is a search, not a scope");
+	assert_eq!(out["wheres"], json!({ "Arrow  \u{b7}  Look": true, "Arrow  \u{b7}  Text": true }), "the dropdown's rows are the page's");
+	assert!(out["results"].as_array().unwrap().iter().all(|p| p == "Arrow"), "and so is the results page: {}", out["results"]);
+}
+
+// On a German client the dropdown lists the German labels, the typed word lit in the label's own letters whether
+// it was typed with its accent or without.
+#[test]
+fn the_dropdown_on_a_german_client_lists_the_german_labels_with_the_typed_word_lit() {
+	let out = run_mods(
+		&format!("function GetLocale() return \"deDE\" end\n{}", forge_addontest::shipped_strings("deDE")),
+		&format!(
+			"{DROP_HELPERS}{}",
+			r#"
+		UI.ShowOptions("guide")
+		local out = {}
+		for _, q in ipairs({ "Plündern", "plundern" }) do
+			typed(q)
+			out[q] = D.Rows()[1]
+		end
+		out.hex = Polestar.Theme.Hex("text")
+		emit(out)"#
+		),
+	);
+	let hex = out["hex"].as_str().unwrap();
+	for q in ["Plündern", "plundern"] {
+		assert_eq!(
+			out[q],
+			json!({ "kind": "setting", "key": "qol.fastLoot", "label": "Schnelleres Automatisch-Plündern", "lit": false,
+				"text": format!("Schnelleres Automatisch-|c{hex}Plündern|r"), "where": "Questen  \u{b7}  Quests" }),
+			"{q}"
+		);
+	}
+}
+
+// Every look draws the list (EVERY LOOK, EVERY TIME): the look's panel under it, its own ink for the lit words and
+// the muted line, its selected wash and accent bar on the lit row, or a game look's own lit row.
+#[test]
+fn the_dropdown_is_drawn_in_every_look_with_its_panel_its_inks_and_its_lit_row() {
+	let out = run_opts(
+		&format!(
+			"{DROP_HELPERS}{}",
+			r#"
+		local T = Polestar.Theme
+		UI.ShowOptions("guide")
+		local out = {}
+		local function same(a, b) for i = 1, 3 do if math.abs(a[i] - b[i]) > 0.002 then return false end end return true end
+		for _, key in ipairs(T.SKIN_ORDER) do
+			Polestar.Set("ui.skin", key)
+			stub.advance(0.1)
+			typed("goal size")
+			press("DOWN")
+			local list, row = PolestarOptionsMatches, rowButton(1)
+			out[key] = { skin = rawget(list, "psSkin") and list.psSkin.skin or false,
+				words = D.Rows()[1].text:find("|c" .. T.Hex("text"), 1, true) ~= nil,
+				label = same({ row.Text:GetTextColor() }, { T.Color("textDim") }), where = same({ row.Where:GetTextColor() }, { T.Color("textMuted") }),
+				lit = row.Lit:IsShown(), wash = same({ row.Lit:GetVertexColor() }, { T.Wash("selected") }), bar = row.Bar:IsShown() }
+			press("ESCAPE")
+		end
+		emit(out)"#
+		),
+		"",
+		"",
+		LOOK_PAGE,
+	);
+	let looks = out.as_object().unwrap();
+	assert_eq!(looks.len(), 6, "{out}");
+	for (key, v) in looks {
+		let game = ["forever", "blizzard", "classic"].contains(&key.as_str());
+		assert_eq!(
+			v,
+			&json!({ "skin": key, "words": true, "label": true, "where": true, "lit": !game, "wash": true, "bar": !game }),
+			"{key}: the look's panel and inks; a game look draws its own lit row"
+		);
+	}
 }
 
 // Fitz, 0.3.5 preview: "Version 0.3.5-preview.2f100bfb3" ran under the Discord mark, and the BETA chip after it
@@ -1516,6 +2004,7 @@ fn search_finds_bigger_pins_by_synonym_and_a_result_jumps_to_its_page_and_tab_sc
 		local box = PolestarOptions.Search
 		box:SetText("bigger pins")
 		stub.RunScript(box, "OnTextChanged", true)
+		stub.RunScript(box, "OnEnterPressed")
 		local first = O.results.groups[1] and O.results.groups[1].controls[1]
 		local jump
 		for _, v in ipairs({ PolestarOptions.Body:GetChildren() }) do

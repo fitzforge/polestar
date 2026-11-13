@@ -88,8 +88,9 @@ Forge uses the first of these that exists:
    native install folders.
 
 The folder must hold `.build.info`. Several products share one game folder. The default product is
-`wow_classic_beta`, the product Forever's tables are published under; `--product wowf` reads the
-`_forever_` client instead.
+the Forever client's: `wowf` (the live `_forever_` client), else the old beta `wow_classic_beta`
+(`_classic_beta_`) when no `wowf` is installed; `--product` reads another. The wago.tools tables
+stay under `wow_classic_beta`, the product wago.tools lists Forever under.
 
 `forge doctor` prints which folder was used and how, every build in it and every other install
 found.
@@ -115,7 +116,7 @@ the launcher's **Scan and Repair**; let it finish and check again.
 ```sh
 forge gamedata list                                         # every table and its file ID
 forge gamedata export --table AreaTable --out AreaTable.csv
-forge gamedata export --table Map --product wowf            # no --out: to stdout
+forge gamedata export --table Map --product wow_classic_beta  # the old beta; no --out: to stdout
 ```
 
 Common options: `--wow <dir>`, `--product <name>`, `--build auto|X.Y.Z.B` (must be the installed
@@ -199,6 +200,27 @@ Each source's name, version and licence is recorded in `data/forever/meta.json` 
 For the full credits and licences, see [rust/NOTICE.md](../../rust/NOTICE.md) and
 [THIRD_PARTY.md](../../THIRD_PARTY.md).
 
+#### Forever's quest data comes from a QuestieDB release
+
+`--questie` must point at a QuestieDB **release** (the `QuestieDB` folder from a release zip, or the
+addon as installed), never at a checkout of its repository. Only a release has the baked store
+(`QuestieDB_Forever.toc`): QuestieDB's Static Corrections are spread over many files in its
+repository and are folded into that store when a release is made. The reader refuses any other
+folder ("use a QuestieDB release").
+
+QuestieDB also has Dynamic Corrections, which the addon applies per character while it runs (by
+faction and class), so the store doesn't hold them. The reader runs each one the release declares
+for Forever (its `src/corrections/Forever` files) once for every faction and playable class, and
+folds them into the store's quests, NPCs, objects and items:
+
+- quest giver and ender lists become the union of what every character sees: a quest both
+  factions share keeps both factions' NPCs, and our data picks the right one by the NPC's faction;
+- any other field (objective text, zone, next quest, spawns, drops) changes only when every
+  character sees the same value; otherwise the store's value stays.
+
+The build log lists what changed, and `meta.json` counts it under the QuestieDB source's
+`dynamicCorrections`.
+
 ### How the merge works
 
 The build goes in layers. A later layer wins over an earlier one:
@@ -268,7 +290,7 @@ tables.
 the build the walking grid was built from (the grid's `index.json`), saved under
 `data/sources/client-tables/<build>/` (`<Table>.csv` as wago.tools writes them, and `source.json`
 naming the product, build and folder they were read from). `forge build --forever-tables client`
-refreshes that copy from the installed client (`wow_classic_beta` or `wowf` at the grid's build; each
+refreshes that copy from the installed client (`wowf`, else `wow_classic_beta`, at the grid's build; each
 table is checked to read back as the client's rows, and an unchanged copy is left as it is);
 `--forever-tables wago` reads the wago.tools cache at the grid's build. The log names the source and
 build; tables of another build than the grid's stop the build unless `--allow-build-mismatch`, and so
@@ -378,6 +400,12 @@ Rules:
   quest's breadcrumb (its `breadcrumbs`, or the other quest's `breadcrumbFor`) is dropped, and
   `forge data check-corrections` warns. When it is a real prerequisite, also set `breadcrumbs`
   without it and `breadcrumbFor: null` on the other quest (#1490, The Great Outdoors).
+- A breadcrumb in the log does hold its quest back: the game offers the quest only once the
+  breadcrumb is handed in (or abandoned). The route search, the judge, `forge guide lint`, the
+  engine and the pick-up guides all follow that. So players' recordings that show a quest
+  refused while the earlier quest was in the log, and offered after its hand-in, prove nothing
+  about a prerequisite: only a character who never took the earlier quest, refused at the giver,
+  does.
 
 After editing, run `forge data check-corrections`, then `forge data build`, and look at the changed
 record in `data/forever`.
@@ -828,7 +856,9 @@ forge data publish --check forever-db                           # the guard
 
 - With the KB (`--kb`, default `data/local/kb/forever-kb.sqlite`) the values come from the KB under
   the independent-source rule; without one, from public data builds alone, with corrections applied
-  only when their `source.kind` names an independent check.
+  only when their `source.kind` names an independent check. There a quest's races or classes that
+  no source states (a quest only a correction adds, without them) are left out, never published as
+  0, every race or class.
 - A re-run replaces only the generated files, and the same inputs give the same bytes: the version
   is `--version`, else the one already in the folder (`--previous DIR` gives the next one), the date
   is `--date` (or `SOURCE_DATE_EPOCH`), and `producerCommit` is `--producer-commit` (or

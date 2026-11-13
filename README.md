@@ -187,11 +187,19 @@ Players publish their own routes for Polestar as community guides on
 [polestar.guide](https://polestar.guide/community), and the
 [Polestar Client](https://polestar.guide/client) installs them and keeps them
 up to date ([Community guides](#community-guides)). Each new character's
-first login opens a short welcome: a hello and what Polestar does; on the
-account's first character, quest automation, the guide at login and the color
-scheme, then the route style (Fastest, Balanced or Roads, with a line on what
-each does); then the guide Polestar suggests for that character, the Discord
-and community guides (`/polestar welcome` shows it again).
+first login opens **Install**, a short setup a page at a time: a hello and
+what Polestar does; on the account's first character, Questing (quest
+automation, grey quests, the guide at login, the stat weights gear advice
+uses), Targeting (the target button, the square button with a name beside it
+that targets your step's mobs and NPCs, who it targets, its mark and ping),
+Groups and dungeons (dungeons in your route, group quests), Your route (Fastest, Balanced or Roads, and the
+route line) and Your look (Polestar's looks, the game's and the skins, with a
+preview, and the colour scheme); a later character gets only its own choice,
+its class's stat weights. Every choice works the moment you make it, Skip
+install keeps everything as it is, and the last page names the guide
+Polestar suggests and where everything is in Settings. `/polestar install`,
+About's Install and the Install button in the settings window's header open
+it again; the settings search finds it too.
 
 > [!NOTE]
 > **Beta.** Every guide compiles, lints and plays to the end in a simulator
@@ -406,6 +414,9 @@ its source is in [apps/client](apps/client).
 - **Skip a quest.** Right-click a quest's line, Skip this quest: the guide
   drops it and the quests that follow from it, in every guide, and the
   banner's Undo brings them back. Skip, at the top, passes the whole step.
+- **Show in quest log.** Right-click a quest's line, or a While you're here
+  line, and pick Show in quest log: the game's quest log opens at that
+  quest (after the fight, in combat).
 - **Abandoned a quest by mistake?** The guide stays on its step, greys out
   that quest's goals and points the arrow back at its giver, and asks: go
   back for it, or skip it and what follows. "When you abandon a guide
@@ -441,16 +452,16 @@ its source is in [apps/client](apps/client).
   objective whose quest is already in your log (12 vermin as much as one
   chest), a "While you're here" panel under the step lists it, up to three
   at once; done now, that step is done or shorter when you get there. Click
-  one for the arrow, right-click it to leave it around there (twice: for the
-  rest of the zone). A quest ready to hand in shows the same way when its
-  NPC is in the town you're in or a few seconds out of your way (20 by
-  default; Options, Guide, Window, Dynamic Questing, "Hand-ins: how far out
-  of your way"), and at that NPC it also takes the quests the next steps
-  need ("Hand in … then take …: saves a trip back"). Pick-ups count too:
-  walk near someone who gives a quest your guide takes later, anywhere in
-  the guide you have loaded, and a row says "Take “<quest>” from <NPC>:
-  saves a trip back"; talking to an NPC whose quest comes in the next few
-  steps takes it without moving the guide.
+  one for the arrow, right-click it to see its quest in the quest log or to
+  leave it around there (twice: for the rest of the zone). A quest ready to
+  hand in shows the same way when its NPC is in the town you're in or a few
+  seconds out of your way (20 by default; Options, Guide, Window, Dynamic
+  Questing, "Hand-ins: how far out of your way"), and at that NPC it also
+  takes the quests the next steps need ("Hand in … then take …: saves a trip
+  back"). Pick-ups count too: walk near someone who gives a quest your guide
+  takes later, anywhere in the guide you have loaded, and a row says "Take
+  “<quest>” from <NPC>: saves a trip back"; talking to an NPC whose quest
+  comes in the next few steps takes it without moving the guide.
 - **Group quests are your call.** At a quest a guide marks as a group quest,
   the guide window asks: Skip it keeps to the solo route, Do it with a group
   takes it on. "Group quests" (Options, Guide, Automation) can answer them
@@ -958,11 +969,11 @@ details, LB / RB look at the previous and next step, Y minimizes the window,
 and B gives the gamepad back to the game.
 
 Every Polestar window you open (the guide menu with Lookup and Dungeons, the
-options, the welcome, the route choice, the report and copy windows, the
+options, Install, the route choice, the report and copy windows, the
 drop-down menus) answers the gamepad while it is open: the D-pad moves the
 focus (an accent ring), A selects, B closes or goes back, LB / RB change tabs
 or pages, left / right adjust a slider or a drop-down, Y puts a setting back
-to its default. A window that opens by itself (the welcome on a new
+to its default. A window that opens by itself (Install on a new
 character, the choice of where to level next) takes no button until you press
 the Browse the guide button, which its bar shows. A bar under the window lists
 the buttons no button on screen shows; B sits on the window's close button.
@@ -1053,7 +1064,8 @@ settings instead, and Polestar keeps out of the game's own windows.
 | `packs` | Open Options > Community guides |
 | `import` | Open the Import page: paste a shared guide string to save it without installing an addon; `import clear` or `import delete` to remove it |
 | `gamepad` | Open Options > Gamepad: button names and key bindings |
-| `welcome` | Show the welcome again |
+| `install` | Set Polestar up again, a page at a time (Install) |
+| `welcome` | Opens Install, as `install` does |
 | `where` | Print your map and position as guide lines (`zone map <id>`, `goto x,y live`), in a box to copy |
 | `report` | Report a problem with the step on screen (the guide window's bug button) |
 | `update` | Show the update card when a newer Polestar is out (else whether this one is the newest, when Polestar Client says so) |

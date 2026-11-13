@@ -188,9 +188,11 @@ ns.RegisterCommand("path", function()
 	end
 end, L["Choose (or change) where to level next"])
 
-ns.RegisterCommand("welcome", function()
-	ns.Fire("SHOW_WELCOME")
-end, L["Show the welcome again"])
+-- Install (UI/Welcome.lua): every page, whenever asked; `welcome`, its name
+-- before, still opens it.
+local function showInstall() ns.Fire("SHOW_WELCOME") end
+ns.RegisterCommand("install", showInstall, L["Set Polestar up again, a page at a time (Install)"])
+ns.RegisterCommand("welcome", showInstall, L["Opens Install, as /polestar install does"])
 
 ns.RegisterCommand("whatsnew", function()
 	ns.Fire("SHOW_WHATSNEW")

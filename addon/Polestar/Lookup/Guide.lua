@@ -37,11 +37,11 @@
 --       an accept goal with the Codex quest's prerequisites as a compiled
 --       guide's accept carries them (all of `pre` as preAll, one of `preAny`
 --       as pre, without those of another faction, race or class while one
---       is left; their titles as preTitles), so the Engine tells "Requires X
---       first" when the route no longer brings X, and a giver's window that
---       does not list the quest for that reason passes it (#1406: Gryan
---       Stoutmantle's The Defias Brotherhood after The Defias Traitor's step
---       was skipped)
+--       is left; a child quest's `parent`; their titles as
+--       preTitles), so the Engine tells "Requires X first" when the route no
+--       longer brings X, and a giver's window that does not list the quest
+--       for that reason passes it (#1406: Gryan Stoutmantle's The Defias
+--       Brotherhood after The Defias Traitor's step was skipped)
 --   Lookup.SpawnZ(kind, id, point) -> z | nil
 --       the height of NPC or object `id`'s Codex spawn at point { map, x, y, f }
 --       (kind "npc" | "object"): its spawn on that map and frame nearest the
@@ -463,6 +463,21 @@ function Lookup.AcceptPre(goal, q)
 		end
 		goal.pre = #own > 0 and own or any
 		for _, id in ipairs(goal.pre) do title(id) end
+	end
+	-- The quests whose taking closes it for good (a breadcrumb's target, an
+	-- exclusive quest): the Engine passes the accept once one is in the log
+	-- or done, "No longer offered: you took X" (#1996: The Greenwarden after
+	-- Tramping Paws).
+	local closed = q and q.closedBy
+	if type(closed) == "table" and #closed > 0 then
+		goal.closedBy = closed
+		for _, id in ipairs(closed) do title(id) end
+	end
+	-- A child quest: its giver offers it only while the parent is in the log.
+	local parent = q and tonumber(q.parent)
+	if parent then
+		goal.parent = parent
+		title(parent)
 	end
 	goal.preTitles = titles
 	return goal

@@ -221,7 +221,7 @@ fn every_label_fits_its_column_in_every_locale_with_names_and_with_none() {
 	}
 }
 
-// RegressVisual V4: a long top name ends in an ellipsis in its column; hovering the podium then shows its names
+// A long top name ends in an ellipsis in its column; hovering the podium then shows its names
 // in full. A name that fits shows no tooltip.
 #[test]
 fn a_podium_cut_short_shows_its_names_in_full_on_hover() {

@@ -1338,7 +1338,7 @@ fn never_in_an_instance_on_a_taxi_while_hearthing_or_during_a_timed_or_escort_qu
 	assert_eq!(not_taken, vec![json!(v)]);
 }
 
-// T1327: Forever's client may have no GetQuestTimers, only the quest log's time allowed. A quest of the log with a
+// Forever's client may have no GetQuestTimers, only the quest log's time allowed. A quest of the log with a
 // running timer (Compat.QuestTimerRunning) offers no detour to another quest's work; one whose time ran out
 // (failed), or none timed, changes nothing.
 #[test]
@@ -1613,7 +1613,8 @@ fn the_step_key_targets_a_line_s_mobs_after_the_live_step_s_own_1316() {
 			HELPERS,
 			"stub.login()",
 			r#"stub.fire("QUEST_LOG_UPDATE"); stub.advance(0.6)"#,
-			r#"Polestar.Set("behavior.whileHereRadius", 60); stub.advance(0.6)"#,
+			// The macro lines without Mark target's (on by default) icon line.
+			r#"Polestar.Set("behavior.whileHereRadius", 60); Polestar.Set("qol.markTarget", false); stub.advance(0.6)"#,
 			r#"
 			local function key() return PolestarStepButton:GetAttribute("macrotext") or "nil" end
 			emit({ Polestar.GetDefault("behavior.whileHereStepKey"), lines(), key() })
@@ -1794,6 +1795,27 @@ fn a_known_flight_path_never_shows_nor_one_in_a_fight() {
 	"#,
 	);
 	assert_eq!(out, vec![json!("none"), json!([[1, -2, 2, "getfp", "Learn the flight path at Goldshire", "Step 2"]]), json!("none")]);
+}
+
+// #2003: on the step that learns a flight path itself, its flight master is the route's goal, no "Learn the flight
+// path" line beside it; another one in reach still is.
+#[test]
+fn t_2003_the_live_step_s_own_flight_path_is_no_while_you_re_here_line() {
+	let out = run_fly(
+		r#"
+		Polestar.RegisterGuide({ id = "test/flynow", pack = "test", title = "Fly now", minLevel = 1, maxLevel = 10, steps = {
+			{ title = "Goldshire flight path", goals = { { t = "getfp", location = "Goldshire", node = 2, npc = 352, npcName = "Dungar Longdrink", map = 1429, x = 50, y = 40 } } },
+			{ title = "Wolves", goals = { { t = "kill", target = "Young Wolf", npc = 299, count = 8, quest = 33, oi = 1, map = 1429, x = 60, y = 60 } } },
+		} })
+		E.SetGuide("test/flynow"); flush()
+		at(49.6, 40.6)                                  -- 17 yd from Goldshire's flight master
+		emit({ E.GetLiveStep(), fly() })
+		at(20.4, 80.4)                                  -- the Neutral Post: still a line
+		emit(fly())
+	"#,
+	);
+	assert_eq!(out[0], json!([1, "none"]), "the step's own flight path");
+	assert_eq!(out[1], json!([[1, -2, 4, "getfp", "Learn the flight path at Neutral Post", "Flight path"]]));
 }
 
 // Fitz-style, on the addon's own travel data (Nav/TravelData.lua): a Dwarf walking through Thelsamar on Loch Modan's

@@ -370,16 +370,21 @@ const TABETHA: &str = r#"
 stub.login()
 local D = Polestar.Dungeons
 D.Load()
-local giver
+local own, onWay = false, false
 for _, t in ipairs(D.PickupPlan("zulfarrak").take) do
-	if t.quest.id == 2861 then giver = t.giver end
+	if t.quest.id == 2861 then own = true end
+	for _, r in ipairs(t.pre) do
+		if r.id == 2861 then onWay = t.quest.id end
+	end
 end
 local target = D.GiverTarget("zulfarrak", 2861)
-local npc = giver and Polestar.Codex.Npc(giver.id)
-emit({ giver = giver and giver.name or false, map = giver and giver.map or false, side = npc and npc.faction or false, target = target and target.name or false })"#;
+local npc = target and target.kind == "npc" and Polestar.Codex.Npc(target.id)
+emit({ own = own, onWay = onWay, map = target and target.map or false, side = npc and npc.faction or false, target = target and target.name or false })"#;
 
 // Tabetha's Task (2861) for Zul'Farrak: the mage trainers of both sides give it; the page names the first,
-// Anastasia Hartwell in the Undercity.
+// Anastasia Hartwell in the Undercity. It is Tiara of the Deep's (2846) breadcrumb, and the game holds Tiara back
+// while it is in the log, so the pick-up guide takes it on Tiara's way (the last of Tiara's `pre`, handed in right
+// before Tiara's accept), not as a pick-up of its own.
 fn tabetha(race: &str, faction: &str, at: &[f64]) -> Value {
 	emitted(&RunAddon { stubs: vec!["stub_world.lua"], before: before(&lv(race), "\"MAGE\"", &lv(faction), 44, at), addons: vec!["Polestar".into()], script: TABETHA.into(), ..Default::default() })
 		.remove(0)
@@ -420,13 +425,14 @@ fn tabetha_s_task_a_level_44_alliance_mage_in_stormwind_is_sent_to_an_alliance_m
 		return;
 	}
 	let human = tabetha("Human", "Alliance", &[1453.0, 50.0, 60.0]);
-	assert_eq!(human["side"], "A", "an Alliance giver: {}", serde_json::to_string(&human).unwrap());
-	assert_eq!(human["map"], 1453, "in Stormwind");
-	assert_eq!(human["target"], human["giver"], "the quest card's link goes there too");
+	let shown = serde_json::to_string(&human).unwrap();
+	assert_eq!(human["side"], "A", "an Alliance giver: {shown}");
+	assert_eq!(human["map"], 1453, "in Stormwind: {shown}");
+	assert_eq!(json!([human["own"], human["onWay"]]), json!([false, 2846]), "taken on Tiara of the Deep's way: {shown}");
 	let undead = tabetha("Scourge", "Horde", &[1458.0, 66.0, 44.0]);
 	let mut u = undead.clone();
 	u["map"] = json!(undead["map"] == 1420 || undead["map"] == 1458);
-	assert_eq!(u, json!({ "giver": "Anastasia Hartwell", "map": true, "side": "H", "target": "Anastasia Hartwell" }), "in the Undercity (the Codex also places her on its Tirisfal Glades map)");
+	assert_eq!(u, json!({ "own": false, "onWay": 2846, "map": true, "side": "H", "target": "Anastasia Hartwell" }), "in the Undercity (the Codex also places her on its Tirisfal Glades map)");
 }
 
 const ATTUNE: &str = r#"

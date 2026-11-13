@@ -686,11 +686,11 @@ end
 fn rare_card_target_button_targets_the_rare_by_its_full_name_and_pings_it_where_the_client_has_ping() {
 	let plain = "/cleartarget [nocombat]\n/targetexact Thuros Lightfingers\n/cleartarget [dead]";
 	let out = run_card("SLASH_PING1 = \"/ping\"", &format!("{SPOT_THUROS}emit(card())\nemit(R.Toast.TargetMacro({{ kind = \"rare\", name = \"Bad\\n/run X()\" }}) or false)"));
-	assert_eq!(out[0], json!({ "shown": true, "enabled": true, "secure": true, "over": true, "tip": false, "macro": format!("{plain}\n/ping [@target]") }));
+	assert_eq!(out[0], json!({ "shown": true, "enabled": true, "secure": true, "over": true, "tip": false, "macro": format!("{plain}\n/ping [@target]\n/tm [@target,harm,nodead] !8") }));
 	assert_eq!(out[1], json!(false), "a name with a line break never becomes a macro");
-	// A client without the command: no ping line.
+	// A client without the command: no ping line (the mark is on by default).
 	let out = run_card("SLASH_PING1 = nil", &format!("{SPOT_THUROS}emit(card().macro)"));
-	assert_eq!(out[0], json!(plain));
+	assert_eq!(out[0], json!(format!("{plain}\n/tm [@target,harm,nodead] !8")));
 }
 
 #[test]
@@ -718,7 +718,7 @@ emit(card().macro)"#
 		),
 	);
 	let ping = "/cleartarget [nocombat]\n/targetexact Thuros Lightfingers\n/cleartarget [dead]\n/ping [@target]";
-	assert_eq!(out[0], json!(ping), "marking is off by default");
+	assert_eq!(out[0], json!(format!("{ping}\n/tm [@target,harm,nodead] !8")), "marking is on by default");
 	assert_eq!(out[1], json!(format!("{ping}\n/tm [@target,harm,nodead] !8")));
 	assert_eq!(out[2], json!(format!("{ping}\n/tm [@target,harm,nodead] ~8")));
 	assert_eq!(out[3], json!(ping));
@@ -749,8 +749,9 @@ stub.inCombat = true
 emit(card().tip)"#
 		),
 	);
-	let thuros = "/cleartarget [nocombat]\n/targetexact Thuros Lightfingers\n/cleartarget [dead]\n/ping [@target]";
-	let narg = "/cleartarget [nocombat]\n/targetexact Narg the Taskmaster\n/cleartarget [dead]\n/ping [@target]";
+	// Mark target is on by default: the skull follows the ping.
+	let thuros = "/cleartarget [nocombat]\n/targetexact Thuros Lightfingers\n/cleartarget [dead]\n/ping [@target]\n/tm [@target,harm,nodead] !8";
+	let narg = "/cleartarget [nocombat]\n/targetexact Narg the Taskmaster\n/cleartarget [dead]\n/ping [@target]\n/tm [@target,harm,nodead] !8";
 	let keyed = "The card can't target during a fight. Use the rare button or its key (sT).";
 	assert_eq!(out[0], json!({ "shown": true, "enabled": false, "secure": false, "over": false, "points": 0, "macro": thuros, "tip": keyed }));
 	assert_eq!(out[1], json!({ "shown": true, "enabled": false, "secure": false, "over": false, "macro": thuros, "tip": keyed }), "a card that appears in a fight keeps the old macro, unarmed");
@@ -851,7 +852,7 @@ end
 emit(out)"#
 		),
 	);
-	let macro_ = "/cleartarget [nocombat]\n/targetexact Rocklance\n/cleartarget [dead]\n/ping [@target]";
+	let macro_ = "/cleartarget [nocombat]\n/targetexact Rocklance\n/cleartarget [dead]\n/ping [@target]\n/tm [@target,harm,nodead] !8";
 	for (i, case) in out[0].as_array().unwrap().iter().enumerate() {
 		assert_eq!(case["first"], true, "case {i}: the click lands on the secure overlay where the card's Target button shows");
 		assert_eq!(case["moved"], true, "case {i}: and still after the card moved");

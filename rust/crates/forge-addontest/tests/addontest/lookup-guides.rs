@@ -383,3 +383,37 @@ emit({ x = kill.x, y = kill.y, spread = kill.spread or false, spots = spots, arr
 	assert_eq!(out["spread"], true, "places this far apart are searched one after another");
 	assert_eq!(out["arrow"], json!({ "kind": "kill", "x": 20, "y": 70 }), "the arrow takes the place the player stands at");
 }
+
+// #1996 (swork1, Dwarf Warrior 26 at Menethil Harbor): the pick-up guide for The Greenwarden (463), a breadcrumb to
+// Tramping Paws (276), sent him to First Mate Fitzsimmons with Tramping Paws done: the breadcrumb is closed for good,
+// so Fitzsimmons no longer offers it. The Codex carries the quests that close a quest (`closedBy`, packed as `c`);
+// the guide's accept passes with "No longer offered: you took …" once one is done or in the log.
+#[test]
+fn t_1996_a_pick_up_guide_s_accept_closed_by_a_quest_taken_or_done_says_so_and_passes() {
+	let mut c = ctx();
+	c.codex["quests"]["7010"]["closedBy"] = json!([7001]);
+	c.pack = write_codex_pack(&c.codex, &CodexOpts::default());
+	let run = |setup: &str| {
+		emitted(&RunAddon {
+			stubs: vec!["stub_world.lua"],
+			before: world(&c, &format!("w.level = 20\nw.moveTo({}, 50, 50)\n{setup}", c.home)),
+			addons: vec!["Polestar".into()],
+			script: r#"
+stub.login()
+local id = Polestar.Lookup.Guide("quest", 7010)
+stub.advance(0.6)
+local E = Polestar.Engine
+local g = E.GetGuide().steps[1].goals[1]
+local v = E.GetStepView(1).goals[1]
+emit({ t = g.t, closedBy = g.closedBy or false, status = v.status, text = v.unavailableText or false })"#
+				.into(),
+			..Default::default()
+		})
+		.remove(0)
+	};
+	let closed = run("w.complete({ 7001 })");
+	assert_eq!(closed, json!({ "t": "accept", "closedBy": [7001], "status": "skipped", "text": "No longer offered: you took \u{201c}Trouble in the Vale\u{201d}" }));
+	let open = run("");
+	assert_eq!(open["text"], json!(false), "{open}");
+	assert_ne!(open["status"], json!("skipped"), "{open}");
+}

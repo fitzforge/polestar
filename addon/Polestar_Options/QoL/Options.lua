@@ -174,7 +174,7 @@ register(QUESTING, L["Buttons"], L["Targeting"], {
 		help = L["The target button and the step key put a raid icon on the mob and the NPC they target; out of combat, a press that finds neither clears your target. Pressing again never takes an icon off. In a party you don't lead, only a unit with no icon gets one; in a raid, only when you lead or assist."],
 		search = "raid marker, raid icon, skull, star, mark target" },
 	{ kind = "toggle", key = "qol.pingTarget", label = L["Ping what they target"],
-		help = L["The target button and the step key ping the mob they target, so your group sees it behind rocks and buildings. Never in a raid unless you lead or assist. The rare buttons always ping."],
+		help = L["The target button and the step key ping the mob or NPC they target, so your group sees it behind rocks and buildings. Never in a raid unless you lead or assist. The rare buttons always ping."],
 		search = "ping, ping target, group ping" },
 	{ kind = "dropdown", key = "qol.markMob", label = L["Icon on mobs"], choices = markChoices, disabled = markOff,
 		help = L["A new one each press skips the NPCs' icon and leaves a mob that has one as it is."], search = "raid marker, raid icon, skull" },

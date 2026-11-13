@@ -589,6 +589,59 @@ fn when_a_mark_moves_the_guide_on_the_guide_window_says_which_quest_was_skipped_
 	);
 }
 
+// #1950: the guide takes The Adventurer (96630) from the Lost Journal, then hands it in to Lyreena for The Great
+// Outdoors (96606), whose data names The Adventurer as its prerequisite. Lyreena gives The Great Outdoors to a player
+// who never took The Adventurer (players' recordings), and the Lost Journal offers nothing after that: the guide held
+// the reporter on "Accept The Adventurer" for good.
+#[test]
+fn t_1950_a_prerequisite_never_taken_is_closed_once_the_quest_that_needs_it_is_taken() {
+	let guide = r#"
+	Polestar.RegisterGuide({ id = "test/tel", pack = "test", title = "Teldrassil", faction = "Horde", minLevel = 5, maxLevel = 30, steps = {
+		{ title = "Tenaron Stormgrip", goals = { { t = "accept", quest = 96630, title = "The Adventurer", object = 654846, objectName = "Lost Journal", map = 1413, x = 51, y = 30 } } },
+		{ title = "Lyreena", goals = {
+			{ t = "turnin", quest = 96630, title = "The Adventurer", npc = 265811, npcName = "Lyreena Duskblade", map = 1413, x = 52, y = 31 },
+			{ t = "accept", quest = 96606, title = "The Great Outdoors", npc = 265811, npcName = "Lyreena Duskblade", pre = { 96630 }, preTitles = { [96630] = "The Adventurer" }, map = 1413, x = 52, y = 31 },
+		} },
+		{ goals = { { t = "level", level = 30 } } },
+	} })"#;
+	let run = |before: &str| {
+		emitted(&RunAddon {
+			stubs: vec!["stub_world.lua"],
+			before: format!("{WORLD}stub.world.titles[96606] = \"The Great Outdoors\"\n{before}"),
+			addons: vec![Addon::name("Polestar")],
+			script: [
+				TEST_PACK,
+				TEST_SOURCE,
+				guide,
+				r#"			local E = Polestar.Engine
+			stub.login()
+			E.SetGuide("test/tel")
+			stub.fire("QUEST_LOG_UPDATE")
+			Polestar.Set("behavior.autoAccept", false)
+			stub.advance(0.5)
+			local function brief(i)
+				local out = {}
+				for g, v in ipairs(E.GetStepView(i).goals) do out[g] = v.status .. ":" .. tostring(v.unavailable) .. ":" .. tostring(v.unavailableText) end
+				return out
+			end
+			emit({ at = E.GetStepIndex(), tenaron = brief(1), lyreena = brief(2) })"#,
+			]
+			.join("\n"),
+			..Default::default()
+		})
+		.remove(0)
+	};
+	let took = run("stub.world.onQuest(96606, { 0 })");
+	let closed = "skipped:closed:No longer offered: you took “The Great Outdoors”";
+	assert_eq!(took["at"], 3);
+	assert_eq!(took["tenaron"], json!([closed]));
+	assert_eq!(took["lyreena"][0], closed);
+	// Neither taken: The Adventurer is the live step, as before.
+	let fresh = run("");
+	assert_eq!(fresh["at"], 1);
+	assert_eq!(fresh["tenaron"][0], "active:nil:nil");
+}
+
 // Farm spots for `collect 2589 x20 nearest` (Linen Cloth).
 const FARM: &str = r#"
 	Polestar.RegisterGuide({ id = "test/farm", pack = "test", title = "Linen", category = "Professions", minLevel = 1, maxLevel = 60, steps = {
@@ -913,4 +966,102 @@ Polestar.RegisterGuide({ id = "test/xr", pack = "test", title = "Arathi", factio
 	assert_eq!(out["ok"], true, "no Lua error: {out}");
 	assert_eq!(out["live"], 2, "{out}");
 	assert_eq!(out["events"], json!([{ "from": 1, "to": 2, "quests": ["522:Assassin's Plot:closed"] }]), "{out}");
+}
+
+// Players' recordings: the game holds a breadcrumb's target back while the breadcrumb is in the log (The Forgotten
+// Pools 870 was refused to 12 people while The Barrens Oases 886 was in their log, and offered to 30 who never had
+// it). An accept whose breadcrumb (`crumbs`) is in the log, when the guide no longer hands that breadcrumb in (its
+// turn-in step skipped), says to hand it in first, as a missing prerequisite in the log does; while the guide still
+// hands it in, the accept keeps its place; handed in, it is open.
+#[test]
+fn an_accept_whose_breadcrumb_is_in_the_log_says_to_hand_the_breadcrumb_in_first() {
+	let guide = r#"
+	Polestar.RegisterGuide({ id = "test/xr", pack = "test", title = "Crossroads", faction = "Horde", minLevel = 10, maxLevel = 20, steps = {
+		{ title = "Tonga", goals = {
+			{ t = "accept", quest = 886, title = "The Barrens Oases", npc = 3448, npcName = "Tonga Runetotem", map = 1413, x = 51, y = 30 },
+			{ t = "accept", quest = 870, title = "The Forgotten Pools", npc = 3448, npcName = "Tonga Runetotem", crumbs = { 886 }, preTitles = { [886] = "The Barrens Oases" }, map = 1413, x = 51, y = 30 },
+		} },
+		{ title = "Back", goals = {
+			{ t = "turnin", quest = 886, title = "The Barrens Oases", npc = 3448, npcName = "Tonga Runetotem", map = 1413, x = 51, y = 30 },
+		} },
+		{ goals = { { t = "level", level = 30 } } },
+	} })"#;
+	let out = run(
+		"",
+		guide,
+		r#"
+			local w = stub.world
+			stub.fire("QUEST_LOG_UPDATE"); flush()
+			w.accept(886, {}); flush()
+			local r = { kept = brief(1) }
+			-- The player skips the step that hands 886 in.
+			E.Next(); E.Skip(); flush()
+			r.skipped = brief(1)
+			w.turnIn(886); flush()
+			r.handedIn = brief(1)
+			emit(r)"#,
+	);
+	assert_eq!(out["kept"], json!(["done:nil:nil", "active:nil:nil"]), "the guide still hands it in: the accept keeps its place");
+	assert_eq!(out["skipped"], json!(["done:nil:nil", "skipped:pre:Hand in “The Barrens Oases” first"]), "held back while the breadcrumb is in the log");
+	let after = out["handedIn"][1].as_str().unwrap_or_default();
+	assert!(after.ends_with(":nil:nil"), "no mark once it is handed in: {after}");
+}
+
+// The Valik rule: Henchman Valik offers Valik (535) only while Krusk's Infiltration (533), its parent, is in the log
+// (the compiled accept's `parent`). Infiltration in the log: the accept is open. Handed in: never offered again. Not
+// in the log and the guide no longer brings it (the step that takes it was skipped): "Only with … in your quest
+// log", with the accept's later goals, and the accept's tooltip names it. A giver's refusal while the guide still
+// brings it marks it the same way, a mark that goes once Infiltration is taken.
+const KRUSK_VALIK: &str = r#"
+Polestar.RegisterGuide({ id = "test/xr", pack = "test", title = "Hillsbrad", faction = "Horde", minLevel = 10, maxLevel = 30, steps = {
+	{ title = "Krusk", goals = { { t = "accept", quest = 533, title = "Infiltration", npc = 2229, npcName = "Krusk", map = 1413, x = 51, y = 30 } } },
+	{ title = "Valik", goals = {
+		{ t = "accept", quest = 535, title = "Valik", npc = 2333, npcName = "Henchman Valik", parent = 533, preTitles = { [533] = "Infiltration" }, map = 1413, x = 45, y = 20 },
+		{ t = "turnin", quest = 535, title = "Valik", npc = 2333, npcName = "Henchman Valik" },
+	} },
+	{ title = "Back", goals = { { t = "turnin", quest = 533, title = "Infiltration", npc = 2229, npcName = "Krusk" } } },
+	{ goals = { { t = "level", level = 30 } } },
+} })
+"#;
+
+#[test]
+fn a_child_quest_is_open_only_while_its_parent_is_in_the_log_closed_once_the_parent_is_handed_in() {
+	let titles = "stub.world.titles[533] = \"Infiltration\"; stub.world.titles[535] = \"Valik\"\n";
+	let script = "emit({ at = E.GetStepIndex(), valik = brief(2), gate = (function() local g = E.AcceptGate(2, 1); return g and table.concat(g.needs, \" | \") or false end)() })";
+	let fresh = run(titles, KRUSK_VALIK, script);
+	assert_eq!(fresh["valik"], json!(["pending:nil:nil", "pending:nil:nil"]), "the guide takes Infiltration first: Valik keeps its place");
+	assert_eq!(fresh["gate"], "Infiltration in your quest log");
+	let carried = run(&format!("{titles}stub.world.onQuest(533, {{}})"), KRUSK_VALIK, script);
+	assert_eq!(json!([carried["at"], carried["valik"], carried["gate"]]), json!([2, ["active:nil:nil", "active:nil:nil"], false]));
+	let handed = run(&format!("{titles}stub.world.complete({{ 533 }})"), KRUSK_VALIK, script);
+	assert_eq!(handed["valik"], json!(["skipped:closed:Only before “Infiltration” is handed in", "skipped:closed:Only before “Infiltration” is handed in"]));
+	assert_eq!(handed["gate"], false, "Infiltration handed in: the tooltip asks for nothing it can no longer have");
+	let skipped = run(titles, KRUSK_VALIK, "E.Skip(); flush(); emit({ at = E.GetStepIndex(), valik = brief(2) })");
+	assert_eq!(skipped["valik"], json!(["skipped:pre:Only with “Infiltration” in your quest log", "skipped:pre:Only with “Infiltration” in your quest log"]));
+	assert!(skipped["at"].as_i64().is_some_and(|s| s > 2), "Krusk's step skipped: the guide passes Valik too: {}", skipped["at"]);
+}
+
+#[test]
+fn a_giver_refusing_a_child_quest_while_its_parent_is_not_in_the_log_marks_it_until_the_parent_is_taken() {
+	// The parent's accept comes after Valik here (the route's own business): Valik keeps its place until his window
+	// leaves Valik out.
+	let guide = KRUSK_VALIK
+		.replace("{ title = \"Krusk\", goals = { { t = \"accept\", quest = 533, title = \"Infiltration\", npc = 2229, npcName = \"Krusk\", map = 1413, x = 51, y = 30 } } },\n", "")
+		.replace("{ title = \"Back\", goals = {", "{ title = \"Back\", goals = { { t = \"accept\", quest = 533, title = \"Infiltration\", npc = 2229, npcName = \"Krusk\" },");
+	let out = run(
+		"stub.world.titles[533] = \"Infiltration\"\n",
+		&guide,
+		r#"
+			local w = stub.world
+			local r = { before = brief(1) }
+			w.gossip(2333, { available = {} }); w.close(); flush()
+			r.refused = brief(1)
+			w.accept(533, {}); flush()
+			r.taken = brief(1)
+			emit(r)
+		"#,
+	);
+	assert_eq!(out["before"], json!(["active:nil:nil", "active:nil:nil"]));
+	assert_eq!(out["refused"], json!(["skipped:pre:Only with “Infiltration” in your quest log", "skipped:pre:Only with “Infiltration” in your quest log"]));
+	assert_eq!(out["taken"], json!(["active:nil:nil", "active:nil:nil"]));
 }

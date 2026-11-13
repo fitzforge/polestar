@@ -292,28 +292,29 @@ w.race, w.raceName, w.faction, w.class, w.className = "Orc", "Orc", "Horde", "WA
 	assert.equal(orc.chosen, orc.default, 'ours fill in where the pack has nothing');
 });
 
-test('the welcome greets a new character on a profile that saw the beta notice, walks its three pages and reopens from About', { skip }, () => {
+test('Install greets a new character on a profile that saw the beta notice, walks its pages and reopens from About', { skip }, () => {
 	const saved = 'PolestarDB = { schema = 1, settings = {}, betaNoticeSeen = true }';
 	const [out] = run(`
 		stub.advance(3)
 		local Wel = UI.Welcome
 		local first = PolestarWelcome ~= nil and PolestarWelcome:IsShown()
 		local pages = {}
-		for i = 1, 4 do
-			pages[i] = select(4, Wel.Page())
-			if i < 4 then PolestarWelcome.Next:Click() end
-		end
+		repeat
+			pages[#pages + 1] = select(4, Wel.Page())
+			local more = PolestarWelcome.Next:IsShown()
+			if more then PolestarWelcome.Next:Click() end
+		until not more or #pages > 8
 		local next = PolestarWelcome.Next:IsShown()
 		PolestarWelcome.Browse:Click()
 		local closed = not PolestarWelcome:IsShown()
 		UI.ShowOptions("about")
-		UI.Options.view.Welcome:Click()
+		UI.Options.view.Install:Click()
 		emit({ first = first, guide = G.Get(G.Suggest()).title, pages = pages, next = next, closed = closed,
 			seen = PolestarDB.welcomeSeen, char = PolestarCharDB.welcomeSeen, old = PolestarDB.betaNoticeSeen or false,
 			reopened = PolestarWelcome:IsShown(), title = select(4, Wel.Page()) })`, { saved });
 	assert.equal(out.first, true);
-	assert.deepEqual(out.pages, ['Hello, Testchar', 'Make it yours', 'Route style', out.guide], 'the last page names the suggested guide');
-	assert.equal(out.next, false, 'the last page has the guide buttons, not Next');
+	assert.deepEqual(out.pages, ['Hello, Testchar', 'Questing', 'Targeting', 'Groups and dungeons', 'Your route', 'Your look', out.guide], 'the last page names the suggested guide');
+	assert.equal(out.next, false, 'the last page has Finish and the guide buttons, not Next');
 	assert.equal(out.closed, true);
 	assert.equal(out.seen, 1);
 	assert.equal(out.char, 1);

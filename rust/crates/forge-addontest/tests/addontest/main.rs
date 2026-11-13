@@ -65,6 +65,8 @@ mod engine_abandon_destroy;
 mod engine_aim_accept_first;
 #[path = "engine-along.rs"]
 mod engine_along;
+#[path = "engine-already-across.rs"]
+mod engine_already_across;
 #[path = "engine-alt-start.rs"]
 mod engine_alt_start;
 #[path = "engine-carried.rs"]
@@ -75,6 +77,8 @@ mod engine_cast;
 mod engine_catchup;
 #[path = "engine-die.rs"]
 mod engine_die;
+#[path = "engine-dungeon-route.rs"]
+mod engine_dungeon_route;
 #[path = "engine-dwell.rs"]
 mod engine_dwell;
 #[path = "engine-empty-stop.rs"]
@@ -285,6 +289,8 @@ mod nav_transit;
 mod new_in_forever;
 #[path = "options-memory.rs"]
 mod options_memory;
+#[path = "out-of-sight.rs"]
+mod out_of_sight;
 #[path = "pack-race-parts.rs"]
 mod pack_race_parts;
 #[path = "packs-ondemand.rs"]

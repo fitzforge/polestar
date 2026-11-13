@@ -81,6 +81,12 @@ test('Grace of An\'she and Mu\'sha allows ten minutes; a time limit is a whole n
 	assert.deepEqual(bad.map(([id]) => id), []);
 });
 
+test('A Void Path allows four minutes from the accept: the game times it (players\' recordings), its text says how long', () => {
+	const entry = corrections.quests[98252];
+	assert.equal(entry.set.limit, 240);
+	assert.ok([].concat(entry.source).some((s) => s.kind === 'recording' && /timer/.test(s.ref)), 'a recording source for the timer');
+});
+
 test('the release data carries time limits: 95805 600 s, Scalding Mornbrew Delivery the TDB\'s 300 s, none on an untimed quest', (t) => {
 	const file = path.join(__dirname, '..', 'data', 'forever', 'quests.json');
 	if (!fs.existsSync(file)) return t.skip('no data/forever');
@@ -198,6 +204,33 @@ test('Benedict\'s Chest opens with Benedict\'s Key (#467)', () => {
 	assert.deepEqual(corrections.objects[3239].set.lock, { item: 4882 });
 });
 
+// #2014: Forever moved Henrig Lonebrow's Journal about 110 yd south of its old spot (every recorded loot since
+// 2026-11-10 lies there); the Razorfen Kraul pick-up guide's collect step pointed at the old one.
+test("Henrig Lonebrow's Journal lies where players loot it now, its old spot gone (#2014)", () => {
+	assert.deepEqual(corrections.objects[19861].set.spawns, { 1441: { f: 'e', pts: [[31.29, 28.05]] } });
+});
+
+// #1992, #2007: Archmage Tervosh and Lady Jaina Proudmoore show at Sentry Point and North Point Tower only to players on
+// The Missing Diplomat; the corrections had made those spots their spawns, so the Maraudon pick-up guide sent everyone to
+// North Point Tower for Shadowshard Fragments. Their spawns are Theramore's tower; the chain's steps keep their own spots.
+test('Archmage Tervosh and Lady Jaina stand in Theramore\'s tower; the Missing Diplomat spots are no spawns of theirs (#1992)', () => {
+	assert.deepEqual(corrections.npcs[4967].set.spawns, { 1445: { f: 'e', pts: [[66.42, 49.26]] } }, 'Archmage Tervosh');
+	assert.deepEqual(corrections.npcs[4968].set.spawns, { 1445: { f: 'e', pts: [[66.27, 49.04]] } }, 'Lady Jaina Proudmoore');
+});
+
+// The 0.4.0 moved-object sweep (players' recorded loot spots against the data's spawns, in world yards through each
+// map's own frame): quest objects every player loots where the data had no place, or only one place of several.
+test('quest objects stand where players loot them: Krom\'zar\'s Banner, the coffers, the Magenta Caps, the Box of Assorted Parts', () => {
+	const at = (id, map) => corrections.objects[id].addSpawns[map];
+	assert.deepEqual(at(164690, 1413), { f: 'e', pts: [[44.44, 28.15]] }, "Krom'zar's Banner, which had no place (12 people loot it there)");
+	assert.equal(at(103574, 1458).pts.length, 7, 'the Undercity coffers, which had no place');
+	const caps = at(128293, 1418).pts;
+	for (const p of [[37.57, 15.25], [38.22, 17.03], [41.01, 15.01], [34.04, 24.42]]) assert.ok(caps.some((q) => q[0] === p[0] && q[1] === p[1]), `Magenta Cap Clusters at ${p}`);
+	const box = at(19019, 1436).pts;
+	for (const p of [[43.98, 67.79], [44.9, 71.1], [26.46, 72.78]]) assert.ok(box.some((q) => q[0] === p[0] && q[1] === p[1]), `Box of Assorted Parts at ${p}`);
+	assert.ok(at(19019, 1413).pts.some((q) => q[0] === 61.92 && q[1] === 3.62), 'and in the Barrens where players loot it');
+});
+
 test('The Glowing Shard\'s one line is to speak with Sputtervalve in Ratchet, so its hand-in guide goes there first (#1326)', () => {
 	assert.deepEqual(corrections.quests[6981].set.objectives, [{ type: 'talk', id: 3442, count: 1, text: 'Speak with someone in Ratchet about the Glowing Shard' }]);
 });
@@ -263,6 +296,17 @@ test('The Great Outdoors waits for The Adventurer, whatever breadcrumb links the
 		const { all, any } = blockingPrereqs(quest, (id) => (id === a ? adventurer : null));
 		assert.deepEqual({ all, any }, { all: [], any: [a] }, `${g} after ${a}`);
 	}
+});
+
+// Gnomeregan's pick-up guide (a Discord report, 2026-11-13): The Day After came into the log but was never handed in,
+// so Ozzie Togglevolt had no Gnogaine to give. The quest data names The Day After as Gnogaine's prerequisite and as its
+// breadcrumb, and a breadcrumb never blocks; players' recordings: all 28 people who took Gnogaine handed The Day After
+// in first. The corrections clear the breadcrumb links, so the prerequisite stands and the guide hands it in on the way.
+test('Gnogaine waits for The Day After, whatever breadcrumb links the data has (Gnomeregan pick-up)', () => {
+	const quest = { id: 2926, start: { npc: [1268] }, pre: [2927], breadcrumbs: [2927], ...corrections.quests[2926].set };
+	const dayAfter = { id: 2927, start: { npc: [6569] }, breadcrumbFor: 2926, ...corrections.quests[2927].set };
+	const { all, any } = blockingPrereqs(quest, (id) => (id === 2927 ? dayAfter : null));
+	assert.deepEqual({ all, any }, { all: [], any: [2927] });
 });
 
 // The 1.0.13 quest database's trace XP against our data (2026-11-08): 45 quests differed, every one confirmed by
@@ -363,6 +407,25 @@ test("Strange Pylons keeps the quest log's three pylon lines in their order (She
 	assert.ok(lines.every((o) => o.type === 'event' && o.count === 1 && o.map === 2652), 'three events on the Shen\'dralas map');
 });
 
+test('Open the Maw waits for Dragonmaw Rumors, so the Excavation Site pick-up guide takes Zaruk\'s lead-in first (#1939)', () => {
+	const entry = corrections.quests[95682];
+	assert.ok(entry, 'a correction for 95682');
+	assert.deepEqual(blockingPrereqs({ id: 95682, start: { npc: [13155] }, ...entry.set }), { all: [], any: [95663] });
+});
+
+test('every Camping 101 profession quest asks for the skill at 20, not a talk with the trainer (#1952)', () => {
+	const ids = [96031, 96044, 96045, 96046, 96047, 96050, 96055, 96056, 96057, 96058, 96059, 96102, 97899, 97900, 97901, 97902, 97903,
+		97904, 97905, 97906, 97907, 97908, 97915, 97916, 97917, 97918, 97919, 97920, 97921, 97922, 97923, 97924, 97925, 97927, 97928,
+		97929, 97930, 97931, 97932, 97933, 97934, 97935, 97936, 97937, 97938, 97939, 97940, 97941, 97942, 97943, 97944, 97946, 97948,
+		97949, 97950, 97951, 97952, 97953, 97954, 97955, 97956, 97957, 97958, 97959, 97960, 97961, 97963, 97964, 97965, 97967, 97968,
+		97969, 97970, 97971, 97972, 97973, 98284, 98285, 98286, 98287];
+	const bad = ids.filter((id) => {
+		const objs = corrections.quests[id] && corrections.quests[id].set.objectives;
+		return !(objs && objs.length === 1 && objs[0].type === 'event' && /^Raise your [a-z ]+ skill to 20$/.test(objs[0].text));
+	});
+	assert.deepEqual(bad, []);
+});
+
 // The 0.3.8 XP review (players' recorded hand-ins at a full-XP level, builds 70790-70888): three quests whose
 // data value no recorded hand-in pays. The Grand Betrayal's earlier correction held the 70170 build's value.
 test('quest XP the recordings confirm is held by the corrections (0.3.8 XP review)', () => {
@@ -389,4 +452,23 @@ test('the release data and Codex give Innkeeper Thulbek no Bows & guns or repair
 	assert.deepEqual(read('npcs.json')[5814].roles, ['innkeeper', 'vendor']);
 	const codex = path.join(dir, 'codex', 'npcs.json');
 	if (fs.existsSync(codex)) assert.deepEqual(JSON.parse(fs.readFileSync(codex, 'utf8'))[5814].roles, ['innkeeper', 'sells:food', 'vendor']);
+});
+
+// #1997: Lightforge Ingots (526) follows The Lost Ingots (324). The merged data listed 526 in 324's `excl`, so 324
+// blocked nothing and the Codex gave 526 no prerequisite: Lookup's pick-up guide sent players to Glorin Steelbrow
+// before the chain. The Forever TDB has no exclusive group for either.
+test('Lightforge Ingots waits for The Lost Ingots, which does not close it (#1997)', () => {
+	const lost = { id: 324, start: { object: [2734] }, preAny: [321], excl: [526], ...corrections.quests[324].set };
+	const ingots = { id: 526, start: { npc: [1217] }, ...corrections.quests[526].set };
+	assert.deepEqual(blockingPrereqs(ingots, (id) => (id === 324 ? lost : null)), { all: [], any: [324] });
+});
+
+// #2010: Nearby's stable master search named one on another continent to a Skyborne Hunter on Zephras Isle. Seven
+// Forever NPCs whose title reads Stable Master (Genn Fairweather at the Fairweather Stables in Valanaar among them)
+// had no stable master role in the merged data. Sweep: every spawned NPC titled stable master in data/forever.
+test('every stable master by title has the stable master role (#2010)', () => {
+	for (const id of [43408, 256410, 256673, 259190, 259859, 260525, 265756]) {
+		assert.ok(corrections.npcs[id] && corrections.npcs[id].set.roles.includes('stablemaster'), `npc ${id}`);
+	}
+	assert.deepEqual(corrections.npcs[265756].set.roles, ['repair', 'stablemaster', 'trainer', 'vendor'], 'Genn Fairweather keeps his other roles');
 });
