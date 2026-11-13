@@ -10,7 +10,7 @@ return {
 	-- {zone:1418} Badlands
 	["Into the {zone:1418}"] = "Ins {zone:1418}",
 	-- {object:2673} Thandol Span (no name in this language: may be words) · {zone:1437} Wetlands · {object:1668} Dun Algaz (no name in this language: may be words) · {zone:1432} Loch Modan · {area:144} Thelsamar · {zone:1418} Badlands · {area:1877} Valley of Fangs
-	["Head for the {object:2673}, the great bridge at Arathi's southern edge, cross it and follow the road south through the {zone:1437} to the {object:1668} tunnel into {zone:1432}. {area:144}, the dwarf town on the road in the middle of {zone:1432}, has guards who attack the Horde: leave the road before it and pass the town on the hills to its west. The road leaves {zone:1432} to the south into the {zone:1418}; follow it to the goblin camp in the {area:1877}."] = "",
+	["Head for the {object:2673}, the great bridge at Arathi's southern edge, cross it and follow the road south through the {zone:1437} to the {object:1668} tunnel into {zone:1432}. {area:144}, the dwarf town on the road in the middle of {zone:1432}, has guards who attack the Horde: leave the road before it and pass the town on the hills to its west. The road leaves {zone:1432} to the south into the {zone:1418}; follow it to the goblin camp in the {area:1877}."] = "Halte auf die {object:2673} zu, die große Brücke am Südrand von Arathi, überquere sie und folge der Straße nach Süden durch das {zone:1437} zum Tunnel {object:1668} nach {zone:1432}. {area:144}, die Zwergenstadt an der Straße mitten in {zone:1432}, hat Wachen, die die Horde angreifen: Verlasse die Straße davor und umgehe die Stadt auf den Hügeln westlich davon. Die Straße verlässt {zone:1432} nach Süden in die {zone:1418}; folge ihr zum Goblinlager im {area:1877}.",
 
 	-- Step 2: Valley of Fangs
 	-- {quest:1106} Martek the Exiled · {area:439} Shimmering Flats
@@ -18,51 +18,51 @@ return {
 
 	-- Step 3: The Dustbowl
 	-- {area:340} Kargath · {npc:2921} Lotwil Veriatus · {area:1878} The Dustbowl
-	["Head west along the road towards {area:340}; {npc:2921}'s camp sits in the {area:1878} halfway there."] = "",
+	["Head west along the road towards {area:340}; {npc:2921}'s camp sits in the {area:1878} halfway there."] = "Geh auf der Straße nach Westen Richtung {area:340}; das Lager von {npc:2921} liegt auf halbem Weg im {area:1878}.",
 
 	-- Step 4: Kargath
 	-- {area:340} Kargath · {npc:5394} Neeka Bloodscar
-	["{area:340} is the Horde fortress built into the cliffs at the zone's western edge. {npc:5394} stands on {area:340}'s upper level, high above the flight master: take the ramps up, the arrow cannot tell the levels apart."] = "",
+	["{area:340} is the Horde fortress built into the cliffs at the zone's western edge. {npc:5394} stands on {area:340}'s upper level, high above the flight master: take the ramps up, the arrow cannot tell the levels apart."] = "{area:340} ist die Festung der Horde, die in die Klippen am westlichen Rand des Gebiets gebaut ist. {npc:5394} steht auf der oberen Ebene von {area:340}, hoch über dem Flugmeister: Nimm die Rampen nach oben, der Pfeil kann die Ebenen nicht unterscheiden.",
 	-- {area:75} Stonard
 	["for Helgrum in {area:75}, around level 42"] = "für Helgrum in {area:75}, etwa ab Stufe 42",
 	-- {npc:6868} Jarkal Mossmeld
-	["{npc:6868}, inside"] = "",
+	["{npc:6868}, inside"] = "{npc:6868}, drinnen",
 
 	-- Step 5: Lesser Rock Elementals
 	-- plural, as words: Lesser Rock Elementals = {npc:2735} Lesser Rock Elemental
 	["Lesser Rock Elementals"] = "Kleine Felselementare",
 	-- {area:340} Kargath · {npc:2921} Lotwil Veriatus · {npc:6868} Jarkal Mossmeld
 	-- plural, as words: Rock Elemental Shards = {item:7848} Rock Elemental Shard
-	["The small elementals drift across the flats between {area:340} and {npc:2921}'s camp, on the road back east. Every rock elemental in the zone can drop {npc:6868}'s Rock Elemental Shards."] = "",
+	["The small elementals drift across the flats between {area:340} and {npc:2921}'s camp, on the road back east. Every rock elemental in the zone can drop {npc:6868}'s Rock Elemental Shards."] = "Die kleinen Elementare treiben über die Ebenen zwischen {area:340} und dem Lager von {npc:2921}, auf dem Rückweg nach Osten. Jedes Felselementar im Gebiet kann die Felselementar-Splitter von {npc:6868} fallen lassen.",
 
 	-- Step 7: Badlands: kill these as you meet them
 	-- {zone:1418} Badlands
-	["{zone:1418}: kill these as you meet them"] = "",
+	["{zone:1418}: kill these as you meet them"] = "{zone:1418}: Töte diese, wenn sie dir begegnen",
 	-- {area:1878} The Dustbowl
 	-- plural, as words: Elder Crag Coyotes = {npc:2729} Elder Crag Coyote · Giant Buzzards = {npc:2831} Giant Buzzard
-	["The Elder Crag Coyotes and Giant Buzzards roam the basin south of the {area:1878}. Coyotes drop both the jawbones and the fangs; the Giant Buzzards drop the gizzards."] = "",
+	["The Elder Crag Coyotes and Giant Buzzards roam the basin south of the {area:1878}. Coyotes drop both the jawbones and the fangs; the Giant Buzzards drop the gizzards."] = "Die Älteren Felsspalten-Kojoten und Riesenbussarde streifen durch das Becken südlich des {area:1878}. Kojoten lassen sowohl die Kieferknochen als auch die Reißzähne fallen; die Riesenbussarde die Kröpfe.",
 
 	-- Step 8: Rock Elementals
 	-- plural, as words: Rock Elementals = {npc:92} Rock Elemental
 	["Rock Elementals"] = "Felselementare",
 	-- {area:345} Agmond's End · {npc:6868} Jarkal Mossmeld
 	-- plural, as words: Rock Elementals = {npc:92} Rock Elemental · Rock Elemental Shards = {item:7848} Rock Elemental Shard
-	["South-east across the basin, the bigger Rock Elementals (39) stand on the slopes west of {area:345}; each one drops a slab. Every rock elemental can drop {npc:6868}'s Rock Elemental Shards."] = "",
+	["South-east across the basin, the bigger Rock Elementals (39) stand on the slopes west of {area:345}; each one drops a slab. Every rock elemental can drop {npc:6868}'s Rock Elemental Shards."] = "Südöstlich durch das Becken stehen die größeren Felselementare (39) an den Hängen westlich von {area:345}; jedes lässt eine Platte fallen. Jedes Felselementar kann die Felselementar-Splitter von {npc:6868} fallen lassen.",
 
 	-- Step 9: Agmond's End
 	-- {area:345} Agmond's End
-	["Theldurin sits among the dwarven ruins at {area:345}, just east of the elementals."] = "",
+	["Theldurin sits among the dwarven ruins at {area:345}, just east of the elementals."] = "Theldurin sitzt zwischen den Zwergenruinen bei {area:345}, direkt östlich der Elementare.",
 
 	-- Step 10: Stonevault troggs
 	["Stonevault troggs"] = "Steingrufttroggs",
 	-- {area:1877} Valley of Fangs · {area:345} Agmond's End · {npc:2817} Rigglefuzz
-	["The Stonevault troggs dig around the cave mouths south of the {area:1877}, on the way north from {area:345}; the Bonesnappers and Shamans drop the flakes. The Buzzards for {npc:2817}'s wings circle the hills between the {area:1877} and {area:345}."] = "",
+	["The Stonevault troggs dig around the cave mouths south of the {area:1877}, on the way north from {area:345}; the Bonesnappers and Shamans drop the flakes. The Buzzards for {npc:2817}'s wings circle the hills between the {area:1877} and {area:345}."] = "Die Stonevault-Troggs graben um die Höhleneingänge südlich des {area:1877}, auf dem Weg nach Norden von {area:345}; die Knochenschnapper und Schamanen lassen die Flocken fallen. Die Bussarde für die Flügel von {npc:2817} kreisen über den Hügeln zwischen dem {area:1877} und {area:345}.",
 
 	-- Step 11: Valley of Fangs
 	-- {area:1517} Uldaman · {area:1877} Valley of Fangs · {npc:2817} Rigglefuzz · {npc:4618} Martek the Exiled
-	["The road north to {area:1517} runs through the {area:1877}: {npc:2817} and {npc:4618} take the wings and the flakes on the way."] = "",
+	["The road north to {area:1517} runs through the {area:1877}: {npc:2817} and {npc:4618} take the wings and the flakes on the way."] = "Die Straße nach Norden nach {area:1517} führt durch das {area:1877}: {npc:2817} und {npc:4618} nehmen die Flügel und die Flocken auf dem Weg an.",
 	-- {area:2240} Mirage Raceway · {area:484} Freewind Post · {zone:1446} Tanaris
-	["for Fizzle at the {area:2240}, on the way from {area:484} to {zone:1446} around level 43"] = "",
+	["for Fizzle at the {area:2240}, on the way from {area:484} to {zone:1446} around level 43"] = "für Fizzle an der {area:2240}, auf dem Weg von {area:484} nach {zone:1446} bei etwa Stufe 43",
 
 	-- Step 12: Ancient Chest
 	-- {area:1517} Uldaman
@@ -76,16 +76,16 @@ return {
 	-- Step 14: The Dustbowl
 	-- {npc:2921} Lotwil Veriatus
 	-- plural, as words: Lesser Rock Elementals = {npc:2735} Lesser Rock Elemental
-	["North-west across the basin to {npc:2921}'s camp. Short of Jarkal's shards? The Lesser Rock Elementals (37) on the flats west of the camp drop them about one kill in five."] = "",
+	["North-west across the basin to {npc:2921}'s camp. Short of Jarkal's shards? The Lesser Rock Elementals (37) on the flats west of the camp drop them about one kill in five."] = "Nach Nordwesten durch das Becken zum Lager von {npc:2921}. Fehlen dir noch Jarkals Splitter? Die Geringeren Felselementare (37) auf den Ebenen westlich des Lagers lassen sie bei etwa jedem fünften Kill fallen.",
 	-- {npc:2921} Lotwil Veriatus
 	-- plural, as words: Greater Rock Elementals = {npc:2736} Greater Rock Elemental
-	["{npc:2921}'s next study wants bracers from the Greater Rock Elementals (42-44) in the south-western gulches, well above you: leave it."] = "",
+	["{npc:2921}'s next study wants bracers from the Greater Rock Elementals (42-44) in the south-western gulches, well above you: leave it."] = "Die nächste Studie von {npc:2921} will Armschienen von den Größeren Felselementaren (42-44) in den südwestlichen Schluchten, weit über dir: Lass sie liegen.",
 
 	-- Step 15: Kargath
 	-- {area:340} Kargath · {npc:5394} Neeka Bloodscar
-	["Head west back to {area:340}. {npc:5394} stands on {area:340}'s upper level, high above the flight master: take the ramps up, the arrow cannot tell the levels apart."] = "",
+	["Head west back to {area:340}. {npc:5394} stands on {area:340}'s upper level, high above the flight master: take the ramps up, the arrow cannot tell the levels apart."] = "Geh nach Westen zurück nach {area:340}. {npc:5394} steht auf der oberen Ebene von {area:340}, hoch über dem Flugmeister: Nimm die Rampen nach oben, der Pfeil kann die Ebenen nicht unterscheiden.",
 	-- {area:340} Kargath · {object:3202} Grom'gol (no name in this language: may be words)
-	["The next guide flies from {area:340} to {object:3202}."] = "",
+	["The next guide flies from {area:340} to {object:3202}."] = "Der nächste Guide fliegt von {area:340} nach {object:3202}.",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Theldurin sits among the dwarven ruins at {area:345}, south of the {area:1877}."] = "Theldurin sitzt zwischen den Zwergenruinen an der {area:345}, südlich vom {area:1877}.",
