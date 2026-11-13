@@ -6653,13 +6653,16 @@ test('forever/alliance/40-50/01-stranglethorn-vale.guide: final review: riding t
 });
 
 // Final route review, Alliance 40-60: a player under 45 on Sardor Isle was sent to grind in Feral Scar Vale and then back
-// to Feathermoon's dock for the boat to the coast; the boat now comes first.
-test('forever/alliance/40-50/03-feralas.guide: final review: the boat to the coast before the level-45 grind', { skip }, () => {
+// to Feathermoon's dock for the boat to the coast. Since #1999 (0.4.0 audit) the level-45 grind comes on the mainland
+// loop, before the Rage Scar yetis and the ride to Feathermoon, so it never sends you back across the water for it.
+test('forever/alliance/40-50/03-feralas.guide: final review: the level-45 grind on the mainland, no boat back for it', { skip }, () => {
 	const g = compiled('forever/alliance/40-50/03-feralas.guide');
 	const grind = g.steps.findIndex((s) => s.goals.some((x) => x.t === 'level' && x.level === 45));
 	assert.ok(grind > 0, 'the level-45 grind is in the guide');
-	assert.match(g.steps[grind - 1].title || '', /Boat to The Forgotten Coast/, 'the boat right before the grind');
+	const fm = g.steps.findIndex((s, i) => i > grind && /Feathermoon Stronghold/.test(s.title || ''));
+	assert.ok(fm > grind, 'Feathermoon after the grind');
 });
+
 
 // Final route review, Alliance 40-60: Loch Modan once each way (Ghak's quest from Thelsamar where the flight lands, the
 // seed's order). Since 0.3.7 the loop is done from the Badlands at 43, where the route already is: Ghak's quest is taken
@@ -9547,9 +9550,10 @@ test('Alliance Winterspring and Feralas: the long top-ups are split onto the que
 	const ws = goals('forever/alliance/50-60/03-winterspring.guide');
 	const k = at(ws, 'kill for 5082', (x) => x.t === 'kill' && x.quest === 5082);
 	assert.ok(ws.some(({ goal, s }) => goal.t === 'level' && lvlOf(goal) === 54 && s === ws[k].s), '03: level 54 in the Frostfire step that kills for Donova');
+	// Feralas: since Bennistrov's report (#1999) the level-45 grind is on the Feral Scar yetis (43-45), before the Rage
+	// Scar yetis' hides (see that case); the Pristine Yeti Hide still counts.
 	const fe = goals('forever/alliance/40-50/03-feralas.guide');
-	const hide = at(fe, 'Rage Scar Yeti Hide', (x) => x.t === 'collect' && x.quest === 7733);
-	assert.ok(fe.some(({ goal, s }) => goal.t === 'level' && lvlOf(goal) === 44.5 && s === fe[hide].s), '03-feralas: level 44.5 on the Rage Scar yetis');
+	assert.ok(fe.some(({ goal }) => goal.t === 'level' && goal.grind === 5292), '03-feralas: the level-45 grind on the Feral Scar yetis');
 	const pristine = at(fe, 'turnin 7735', is('turnin', 7735));
 	assert.ok(required(fe[pristine]), 'Pristine Yeti Hide is counted');
 });
@@ -11862,14 +11866,22 @@ test("Un'Goro Crater (Alliance 49-50): the written grind comes after Marshal's R
 	for (const [, i] of grind) assert.ok(i > refuge, 'every Un\'Goro top-up to 49.x comes after the refuge\'s hand-ins');
 });
 
-// #1999: the Feralas High Wilderness step grinds to level 44.5 on the Rage Scar yetis (46-48) for a player of about 44.
-// Moving the grind to the Feral Scar yetis (43-45) and making the Pristine Yeti Hide optional cost about 23 minutes to 60
-// in the calibrated level model, so both stay, with a heads-up that names the yetis' level.
-test('Feralas (Alliance 44, #1999): a heads-up on the level 46-48 Rage Scar yetis', { skip }, () => {
+// Bennistrov's report (#1999): the Feralas High Wilderness step ground to level 44.5 on the Rage Scar yetis (46-48) at
+// 43-44. The level-45 grind now comes first, on the Feral Scar yetis (43-45), and the Rage Scar yetis' hides (Improved
+// Quality, the Pristine Yeti Hide) after it, with a heads-up on their level.
+test("Bennistrov's report (#1999): Feralas never sends you to the Rage Scar yetis below 45", { skip }, () => {
 	const list = goals('forever/alliance/40-50/03-feralas.guide');
+	const at45 = list.findIndex(({ goal }) => goal.t === 'level' && goal.level >= 45);
+	assert.ok(at45 >= 0, 'a level-45 grind');
+	const rageScar = new Set([5296, 5297, 5299]); // Rage Scar Yeti 46, Ferocious Rage Scar 47, Elder Rage Scar 48
+	const onRageScar = ({ goal }) => (goal.t === 'level' && rageScar.has(goal.grind)) || (goal.t === 'kill' && rageScar.has(goal.npc)) ||
+		(goal.t === 'collect' && [18947, 18969].includes(goal.item));
+	list.forEach((e, i) => { if (onRageScar(e)) assert.ok(i > at45, `${e.goal.t} ${e.goal.item || e.goal.npc || e.goal.grind} comes after level 45`); });
+	assert.ok(list.some(onRageScar), 'the Rage Scar work is still in the guide');
 	const hides = list[at(list, 'collect 18947', (g) => g.t === 'collect' && g.quest === 7733)];
-	assert.ok(JSON.stringify(hides.step).includes('46-48'), 'a heads-up on the yetis\' level');
+	assert.ok(JSON.stringify(hides.step).includes('46-48'), "a heads-up on the yetis' level");
 });
+
 
 // 0.4.0 route audit (F5): the first Booty Bay loop runs at about 40 against level 40-43 Bloodsail casters; players died
 // in the camp and on the Wild Shore (4 people, 9 deaths in players' recordings). Both steps warn.
