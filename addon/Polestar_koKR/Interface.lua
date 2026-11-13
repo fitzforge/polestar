@@ -3146,6 +3146,7 @@ L["Show me"] = "보여 주기"
 L["Summon %s"] = "%s 소환"
 L["%s ready"] = "%s 준비됨"
 -- L["More"] = ""
+L["Level %d · %s"] = "레벨 %d · %s"
 
 -- UI/GuideEnd.lua
 L["You've completed %s"] = "%s 완료"
@@ -3204,6 +3205,7 @@ L["Turn these off"] = "이 알림 끄기"
 L["No dungeon has opened up for this character."] = "이 캐릭터에게 새로 열린 던전이 없습니다."
 L["Show the dungeon heads-up again (the next one due, or a dungeon)"] = "던전 알림 다시 보기 (다음 차례 또는 던전)"
 -- L["Dungeon heads-ups are off. Turn them back on under Options > Discovery > Lookup."] = ""
+L["Level %d · Dungeon"] = "레벨 %d · 던전"
 
 -- UI/WhileHere.lua
 L["While you're here"] = "이곳에 온 김에"
@@ -3313,6 +3315,7 @@ L["The link is selected for you: copy it with Ctrl+C (Cmd+C on a Mac) and open i
 L["This Polestar is %d weeks old: updates come often, check for a newer one."] = "이 Polestar는 %d주 전 버전입니다. 업데이트가 자주 나오니 새 버전을 확인하십시오."
 L["Polestar %s is out: you're on %s, %d updates behind."] = "Polestar %s 출시: 현재 %s 버전으로 업데이트가 %d개 밀려 있습니다."
 L["Polestar %s is out: you're on %s."] = "Polestar %s 출시: 현재 %s 버전입니다."
+L["Polestar update"] = "Polestar 업데이트"
 
 -- QoL/Rest.lua
 L["Boosted Rest: on"] = "휴식 강화: 켜짐"
@@ -3344,6 +3347,7 @@ L["%d action buttons in all."] = "행동 단축 버튼은 모두 %d개입니다.
 L["Upgrade"] = "업그레이드"
 L["Right-click: keep this rank on your bars"] = "오른쪽 클릭: 단축바에서 이 레벨 유지"
 L["Old rank cards are off. Turn them back on under Options > Quality of Life > Vendors > Trainers."] = "낮은 레벨 주문 카드가 꺼졌습니다. 설정 > 편의 기능 > 상인 > 상급자에서 다시 켤 수 있습니다."
+L["Action bars"] = "행동 단축바"
 
 -- Core/Profiles.lua
 -- L["Give the profile a name."] = ""

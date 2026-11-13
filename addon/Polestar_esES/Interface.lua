@@ -3146,6 +3146,7 @@ L["Show me"] = "Muéstramelo"
 L["Summon %s"] = "Invocar a %s"
 L["%s ready"] = "%s listo"
 -- L["More"] = ""
+L["Level %d · %s"] = "Nivel %d · %s"
 
 -- UI/GuideEnd.lua
 L["You've completed %s"] = "Has completado %s"
@@ -3204,6 +3205,7 @@ L["Turn these off"] = "Desactivar esto"
 L["No dungeon has opened up for this character."] = "No se ha abierto ninguna mazmorra para este personaje."
 L["Show the dungeon heads-up again (the next one due, or a dungeon)"] = "Volver a mostrar el aviso de mazmorra (la próxima pendiente, o una mazmorra)"
 -- L["Dungeon heads-ups are off. Turn them back on under Options > Discovery > Lookup."] = ""
+L["Level %d · Dungeon"] = "Nivel %d · Mazmorra"
 
 -- UI/WhileHere.lua
 L["While you're here"] = "Mientras estás aquí"
@@ -3313,6 +3315,7 @@ L["The link is selected for you: copy it with Ctrl+C (Cmd+C on a Mac) and open i
 L["This Polestar is %d weeks old: updates come often, check for a newer one."] = "Este Polestar tiene %d semanas: las actualizaciones son frecuentes, busca una más reciente."
 L["Polestar %s is out: you're on %s, %d updates behind."] = "Ya está disponible Polestar %s: tienes la %s, %d actualizaciones por detrás."
 L["Polestar %s is out: you're on %s."] = "Ya está disponible Polestar %s: tienes la %s."
+L["Polestar update"] = "Actualización de Polestar"
 
 -- QoL/Rest.lua
 L["Boosted Rest: on"] = "Descanso mejorado: activo"
@@ -3344,6 +3347,7 @@ L["%d action buttons in all."] = "%d botones de acción en total."
 L["Upgrade"] = "Mejorar"
 L["Right-click: keep this rank on your bars"] = "Clic derecho: mantener este rango en tus barras"
 L["Old rank cards are off. Turn them back on under Options > Quality of Life > Vendors > Trainers."] = "Las tarjetas de rangos antiguos están desactivadas. Vuelve a activarlas en Opciones > Calidad de vida > Mercaderes > Instructores."
+L["Action bars"] = "Barras de acción"
 
 -- Core/Profiles.lua
 -- L["Give the profile a name."] = ""

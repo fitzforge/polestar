@@ -3146,6 +3146,7 @@ L["Show me"] = "带我去"
 L["Summon %s"] = "召唤%s"
 L["%s ready"] = "%s已可获得"
 -- L["More"] = ""
+L["Level %d · %s"] = "%d级 · %s"
 
 -- UI/GuideEnd.lua
 L["You've completed %s"] = "你已完成 %s"
@@ -3204,6 +3205,7 @@ L["Turn these off"] = "关闭此类提醒"
 L["No dungeon has opened up for this character."] = "此角色尚无已开放的地下城。"
 L["Show the dungeon heads-up again (the next one due, or a dungeon)"] = "再次显示地下城提醒（下一个待提醒的，或指定地下城）"
 -- L["Dungeon heads-ups are off. Turn them back on under Options > Discovery > Lookup."] = ""
+L["Level %d · Dungeon"] = "%d级 · 地下城"
 
 -- UI/WhileHere.lua
 L["While you're here"] = "顺便完成"
@@ -3313,6 +3315,7 @@ L["The link is selected for you: copy it with Ctrl+C (Cmd+C on a Mac) and open i
 L["This Polestar is %d weeks old: updates come often, check for a newer one."] = "这个 Polestar 已经是 %d 周前的版本：更新很频繁，请检查是否有新版本。"
 L["Polestar %s is out: you're on %s, %d updates behind."] = "Polestar %s 已发布：你使用的是 %s，落后 %d 个版本。"
 L["Polestar %s is out: you're on %s."] = "Polestar %s 已发布：你使用的是 %s。"
+L["Polestar update"] = "Polestar 更新"
 
 -- QoL/Rest.lua
 L["Boosted Rest: on"] = "强化休息：生效中"
@@ -3344,6 +3347,7 @@ L["%d action buttons in all."] = "共 %d 个动作条按钮。"
 L["Upgrade"] = "升级"
 L["Right-click: keep this rank on your bars"] = "右键点击：在动作条上保留此等级"
 L["Old rank cards are off. Turn them back on under Options > Quality of Life > Vendors > Trainers."] = "低等级法术卡片已关闭。可在“选项 > 便利功能 > 商人 > 训练师”中重新开启。"
+L["Action bars"] = "动作条"
 
 -- Core/Profiles.lua
 -- L["Give the profile a name."] = ""

@@ -3146,6 +3146,7 @@ L["Show me"] = "Показать"
 L["Summon %s"] = "Призыв: %s"
 L["%s ready"] = "%s: готово"
 -- L["More"] = ""
+L["Level %d · %s"] = "Уровень %d · %s"
 
 -- UI/GuideEnd.lua
 L["You've completed %s"] = "Вы завершили %s"
@@ -3204,6 +3205,7 @@ L["Turn these off"] = "Отключить такие уведомления"
 L["No dungeon has opened up for this character."] = "Для этого персонажа пока не открылось ни одного подземелья."
 L["Show the dungeon heads-up again (the next one due, or a dungeon)"] = "Снова показать уведомление о подземелье (следующее на очереди или указанное подземелье)"
 -- L["Dungeon heads-ups are off. Turn them back on under Options > Discovery > Lookup."] = ""
+L["Level %d · Dungeon"] = "Уровень %d · Подземелье"
 
 -- UI/WhileHere.lua
 L["While you're here"] = "Пока вы здесь"
@@ -3313,6 +3315,7 @@ L["The link is selected for you: copy it with Ctrl+C (Cmd+C on a Mac) and open i
 L["This Polestar is %d weeks old: updates come often, check for a newer one."] = "Этой версии Polestar %d нед.: обновления выходят часто, проверьте, нет ли новой."
 L["Polestar %s is out: you're on %s, %d updates behind."] = "Вышел Polestar %s: у вас %s, пропущено обновлений: %d."
 L["Polestar %s is out: you're on %s."] = "Вышел Polestar %s: у вас %s."
+L["Polestar update"] = "Обновление Polestar"
 
 -- QoL/Rest.lua
 L["Boosted Rest: on"] = "Улучшенный отдых: активен"
@@ -3344,6 +3347,7 @@ L["%d action buttons in all."] = "Всего кнопок: %d."
 L["Upgrade"] = "Улучшить"
 L["Right-click: keep this rank on your bars"] = "Правый щелчок: оставить этот ранг на панелях"
 L["Old rank cards are off. Turn them back on under Options > Quality of Life > Vendors > Trainers."] = "Карточки старых рангов отключены. Включить их снова можно в разделе Настройки > Удобство > Торговцы > Учителя."
+L["Action bars"] = "Панели команд"
 
 -- Core/Profiles.lua
 -- L["Give the profile a name."] = ""
