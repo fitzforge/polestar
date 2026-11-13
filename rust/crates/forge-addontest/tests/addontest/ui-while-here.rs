@@ -613,3 +613,49 @@ fn on_a_flight_nothing_shows_and_a_line_from_before_takeoff_comes_back_quietly()
 	assert_eq!(out[2], json!({ "rows": "", "marks": 0 }), "flying again: hidden");
 	assert_eq!(out[3], json!({ "rows": "2:1", "chimes": 1, "pinging": false }), "landed after five minutes: back, quietly");
 }
+
+// A gathering spot line (Core/Gather.lua, behavior.whileHereGather) while the minimap tracks herbs: its row wears the
+// "Tracking is on" chip under its step line and grows by the chip and its gap; with the tracking off the chip goes
+// and the row is as tall as without it. A click leads the arrow to the spot, labelled as the line reads.
+#[test]
+fn a_gathering_spot_row_wears_the_tracking_chip_while_the_minimap_tracks_herbs_and_a_click_leads_the_arrow_to_the_spot() {
+	let out = run(
+		"",
+		r#"
+		local tracking = true
+		C_Minimap = C_Minimap or {}
+		C_Minimap.GetNumTrackingTypes = function() return 1 end
+		C_Minimap.GetTrackingInfo = function() return { name = "Find Herbs", active = tracking, spellID = 2383 } end
+		local B = "0123456789ABCDEFGHIJKLMNOPQRSTUVWYabcdefghijklmnopqrstuvwy+/"
+		local function enc(v)
+			local n = math.floor(v / 100 * 3599 + 0.5)
+			local a, b = math.floor(n / 60), n % 60
+			return B:sub(a + 1, a + 1) .. B:sub(b + 1, b + 1)
+		end
+		Polestar.MapFrames.era[1429] = { c = 0, left = 1500, right = -1500, top = 500, bottom = -1500 }
+		-- Peacebloom (Herbalism 1) 20 yd north of the player.
+		Polestar.Gather.Register({ kinds = { { "Peacebloom", 182, 1, 1618 } }, maps = { [1429] = "e;1:" .. enc(47.6) .. enc(69.0) } })
+		w.learnSkill(182, "Herbalism", 1, 75)
+		Polestar.Set("behavior.whileHereGather", true); stub.advance(1.1)
+		local R = row(1)
+		local function state()
+			local c = R and R.psChip
+			return { text = R and plain(R.Text:GetText()) or false, chip = c ~= nil and c:IsShown() and c.Text:GetText() or false, h = R and R:GetHeight() or false }
+		end
+		local on = state()
+		tracking = false
+		stub.fire("MINIMAP_UPDATE_TRACKING"); stub.advance(0.3)
+		local off = state()
+		R:GetScript("OnClick")(R, "LeftButton"); stub.advance(0.2)
+		local t = Polestar.Nav.GetTarget()
+		local function r1(v) return math.floor(v * 10 + 0.5) / 10 end
+		emit({ on = on, off = off, target = t and { t.stepIndex, t.goalIndex, t.map, r1(t.x), r1(t.y), t.label } or false })
+	"#,
+	);
+	let r = &out[0];
+	assert_eq!(r["on"]["text"], "Peacebloom can grow here");
+	assert_eq!(r["on"]["chip"], "Tracking is on", "the chip while the minimap tracks herbs: {r}");
+	assert_eq!(r["off"]["chip"], false, "no chip with the tracking off: {r}");
+	assert_eq!(r["on"]["h"].as_f64().unwrap() - r["off"]["h"].as_f64().unwrap(), 24.0, "the row grows by the chip and its gap: {r}");
+	assert_eq!(r["target"], json!([-3, 1, 1429, 47.6, 69.0, "Peacebloom can grow here"]), "a click leads the arrow to the spot");
+}
