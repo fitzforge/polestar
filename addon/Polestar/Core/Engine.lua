@@ -2502,10 +2502,10 @@ end
 
 -- Whether a place of goal (a spot, or the goal itself at its point) was left
 -- after a dwell within FORGET seconds, and not worked inside since: a fight
--- or progress within it after leaving it brings it back (ArrowGuard's grind
+-- or progress within it after leaving it brings it back (the arrow's grind
 -- sweep: a camp left on arrival, then fought in for ten minutes). Work on its
 -- fringe does not: it flipped the arrow between two goals' places sharing
--- ground (ArrowGuard's replay, the Mirage Raceway).
+-- ground (the arrow's replay of recorded sessions, the Mirage Raceway).
 function Spots.isLeft(goal, place, now)
 	now = now or GetTime()
 	local t = Spots.left[place]
@@ -2516,7 +2516,7 @@ end
 
 -- The automatic picks hold (no spot or goal change) while the player fights
 -- and for Spots.SETTLE seconds after a fight or progress: the arrow never
--- moves under a fight or right after a kill (ArrowGuard's replay).
+-- moves under a fight or right after a kill (the arrow's replay of recorded sessions).
 function Spots.busy(now)
 	if UnitAffectingCombat and UnitAffectingCombat("player") then return true end
 	return (now or GetTime()) - Spots.lastWork <= Spots.SETTLE
@@ -2524,7 +2524,7 @@ end
 
 -- Where the player worked (a fight, progress on the waypoint's goal): kept by
 -- position, not by place, so the ground counts for every goal whose places lie
--- there (two goals' spots on the same camp; ArrowGuard's replay). The nearest
+-- there (two goals' spots on the same camp; the arrow's replay of recorded sessions). The nearest
 -- entry within WORK_SAME yards is updated, else the oldest of WORK_KEEP reused.
 function Spots.noteWork(c, x, y, now)
 	Spots.lastWork = now
@@ -3983,7 +3983,7 @@ local function place()
 	-- or one the catch-up left out (the way passes with it). Progress on a
 	-- quest done before this guide (an earlier visit to the zone, an earlier
 	-- guide that offers it too) is no sign the travel and training before
-	-- the work still to do were done (SkipAheadSweep, 0.3.6: Stranglethorn's
+	-- the work still to do were done (the skip-ahead sweep, 0.3.6: Stranglethorn's
 	-- flight to Darkshire, Feralas' zeppelin, Darkshore's boat).
 	local function leadsToDone(s)
 		for t = s + 1, #steps do
@@ -5660,7 +5660,7 @@ end
 -- and a place with such a note within its radius and Spots.SWITCH yards around
 -- it (a pull from the edge) in the last Spots.FORGET seconds holds, whichever
 -- goal the note was made for: the drink or the walk to the next pull at a camp
--- being cleared never moves the arrow (ArrowGuard's replay: 13.75 moves per
+-- being cleared never moves the arrow (the arrow's replay of recorded sessions: 13.75 moves per
 -- 10 h off camps still worked with no such guard). Coming in, a fight or
 -- progress starts the count again.
 function Own.dwelt(s, g, goal, c, px, py)
@@ -5687,7 +5687,7 @@ function Own.dwelt(s, g, goal, c, px, py)
 	end
 	-- Near it, not in it yet: the count starts on arrival. Walking on (more
 	-- than Spots.STILL yards from where the count started): it starts again,
-	-- so running across a wide camp to its middle never counts (ArrowGuard).
+	-- so running across a wide camp to its middle never counts (the arrow's replay of recorded sessions).
 	if d > reach or (px - st.x) ^ 2 + (py - st.y) ^ 2 > Spots.STILL * Spots.STILL then
 		st.since, st.x, st.y = now, px, py
 		return false

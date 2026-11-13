@@ -336,7 +336,7 @@ Codex and gear are addon side products. They are not route inputs.
 objects dropped, what vendors listed and the rewards quests showed, facts only, with how many
 people saw each. It counts people the way `forge record learn` does: established Ingest
 contributors, the maintainer's own and vouched-for files, never the contributors the archive's
-`config.json` or IngestAudit's verdicts set aside, and one vote per person. It is committed, so
+`config.json` or the recordings audit's verdicts set aside, and one vote per person. It is committed, so
 every machine builds the same Codex; `forge data codex --recordings <dir> [--verdicts <file>]`
 rewrites it from a recordings folder (the maintainer's archive or `data/recordings`) before the
 build. A recorded fact changes what the Codex says only once enough people back it (`minVoters`,

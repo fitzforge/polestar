@@ -448,7 +448,7 @@ fn apply_fix(lines: &mut Vec<String>, found: &[usize], r: &Value) -> Vec<usize> 
 		let ind = lines[i][..lines[i].len() - lines[i].trim_start().len()].to_string();
 		if let Some(tip) = r["tip"].as_str() {
 			// (The fix's tip is the step's: it replaces the first, and the step's other tips go, a
-			// stale second tip a merged step brought from v1, RevSkyH3 S4.)
+			// stale second tip a merged step brought from v1, review S4.)
 			let line = format!("{ind}tip {tip}");
 			let tips: Vec<usize> = (step.0 + 1..step.1).filter(|&k| re!(r"^\s+tip\s").is_match(&lines[k])).collect();
 			match tips.first() {
@@ -1844,7 +1844,7 @@ mod tests {
 
 	#[test]
 	fn a_fix_tip_replaces_every_tip_of_its_step() {
-		// RevSkyH3 S4: a step merged from two of v1's kept its second (stale) tip beside the fix's.
+		// Review S4: a step merged from two of v1's kept its second (stale) tip beside the fix's.
 		let seed = "step Shen'dar\n  tip Old first tip.\n  accept 3505\n  tip Old second tip.\n  complete 3505\n";
 		let fixes = json!({ "fixes": [{ "id": "tip", "at": { "quest": 3505, "goal": "complete" }, "tip": "New tip." }] });
 		let (out, rows) = run(seed, json!({}), fixes.clone(), &[]);

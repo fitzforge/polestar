@@ -3057,7 +3057,7 @@ holds at its opening, see "Not yet available"):
   after it they can do, not waiting for a level or a prerequisite) is done or
   under way, or left out by the catch-up (`leadsToDone`): progress on a quest
   done before this guide (an earlier visit, an earlier guide offering it
-  too) is no sign of the travel before the work still to do (SkipAheadSweep:
+  too) is no sign of the travel before the work still to do (the skip-ahead sweep:
   Stranglethorn's flight to Darkshire, Feralas' zeppelin, Darkshore's boat).
   The judge's Rust engine (forge-judge `place`, `anchor_step`,
   `leads_to_done`) mirrors it.
@@ -9236,7 +9236,7 @@ was already built without it.
   "Who counts"): an Ingest contributor counts once established (3 days of
   history and uploads on 3 days; the maintainer's own and vouched-for files
   always; `config.json`'s `minBuild`, `minVoters` and thresholds), never when
-  `config.json`'s `exclude` or IngestAudit's verdicts (`--verdicts`, default
+  `config.json`'s `exclude` or the recordings audit's verdicts (`--verdicts`, default
   the maintainer's `ingest-audit/verdict.json` when present) set it aside, and
   a player is a person: the server's cohort merged with every contributor the
   verdicts call the same person, one vote per fact. Only facts go in, without
