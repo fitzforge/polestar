@@ -260,6 +260,16 @@ local function raise(err)
 	geterrorhandler()(err)
 end
 
+-- Moments: one more for each timer, script or game event Polestar handles
+-- (ns.Safe, the event frame), each message it sends (ns.Fire) and each
+-- change the Engine is asked to weigh (Engine.RequestUpdate). Between two
+-- reads of ns.Moment() that give the same number in the same frame, nothing
+-- Polestar knows of has changed: Engine.GetStepView(i, true) shares one view
+-- among the readers of such a moment.
+local serial = 0
+function ns.Moment() return serial end
+function ns.NewMoment() serial = serial + 1 end
+
 -- Run a callback; report its error without stopping the caller's loop.
 local function call(fn, ...)
 	local ok, err = pcall(fn, ...)
@@ -275,7 +285,10 @@ ns.SafeCall = call
 -- the client would otherwise run bare.
 function ns.Safe(fn)
 	if fn == nil then return nil end
-	return function(...) call(fn, ...) end
+	return function(...)
+		serial = serial + 1
+		call(fn, ...)
+	end
 end
 
 -- C_Timer's After, NewTicker and NewTimer with the callback through ns.Safe.
@@ -490,6 +503,7 @@ function ns.Off(h)
 end
 
 function ns.Fire(msg, ...)
+	serial = serial + 1
 	local list = listeners[msg]
 	if not list then return end
 	busDepth = busDepth + 1
@@ -559,6 +573,7 @@ function ns.UnregisterEvent(event, fn)
 end
 
 eventFrame:SetScript("OnEvent", function(_, event, ...)
+	serial = serial + 1
 	local list = gameHandlers[event]
 	if not list then return end
 	eventDepth = eventDepth + 1
@@ -685,6 +700,72 @@ function ns.SetGuideAwayInside(away)
 	if away == awayInside then return end
 	awayInside = away
 	ns.Fire("GUIDE_SHOWN", ns.GuideShown())
+end
+
+---------------------------------------------------------------------------
+-- Out of sight. Some UI addons follow the guide's steps in their own quest
+-- tracker and route, and keep one arrow on screen by turning Polestar's
+-- guide window and arrow down to nothing (a scale far below a pixel, alpha
+-- 0) instead of hiding them. Both still read as shown here, so the window's
+-- toggle would turn off a window nobody sees, and the action buttons with
+-- it. Told by the scale alone: Polestar never sets its own that low (the
+-- window's scale is 0.6 at least, the arrow's 0.5), while the player's own
+-- fades take the window and the arrow to alpha 0 in combat or 0.03 at rest.
+---------------------------------------------------------------------------
+
+local SIGHT_SCALE = 0.2
+local sight = { pending = false } -- .window, .arrow: the frames ns.WatchSight watches
+
+-- Shown, but kept out of sight by another addon.
+function ns.OutOfSight(frame)
+	return frame ~= nil and frame:IsShown() and frame:GetScale() < SIGHT_SCALE or false
+end
+
+-- Says which of the window and the arrow another addon keeps out of sight
+-- and how to get them back. -> true when it said so.
+function ns.SayOutOfSight()
+	local window, arrow = ns.OutOfSight(sight.window), ns.OutOfSight(sight.arrow)
+	if not (window or arrow) then return false end
+	DB().sightTold = true
+	if window and arrow then
+		ns.Print(L["Another addon is keeping the guide window and the arrow out of sight. Some UI addons show the guide's steps in their own quest tracker and route instead: turn that off in that addon to get Polestar's back."])
+	elseif window then
+		ns.Print(L["Another addon is keeping the guide window out of sight. Some UI addons show the guide's steps in their own quest tracker instead: turn that off in that addon to get it back."])
+	else
+		ns.Print(L["Another addon is keeping the arrow out of sight. Some UI addons lead the way with their own arrow or route instead: turn that off in that addon to get it back."])
+	end
+	return true
+end
+
+-- The first time on this account: a notice at the top of the screen for 12
+-- seconds and the chat line. The window's toggle and the arrow's commands
+-- say it again whenever they are used on what is out of sight.
+function sight.check()
+	sight.pending = false
+	if DB().sightTold or hidden then return end
+	if not (ns.OutOfSight(sight.window) or ns.OutOfSight(sight.arrow)) then return end
+	local alerts = ns.Nav and ns.Nav.alerts
+	if alerts and alerts.ShowNotice then
+		alerts.ShowNotice(L["Polestar is out of sight"], L["Another addon is hiding the guide window or the arrow. The chat says how to get it back."], 12)
+	end
+	ns.SayOutOfSight()
+end
+function sight.soon()
+	if sight.pending then return end
+	sight.pending = true
+	ns.After(0, sight.check)
+end
+function sight.scale(_, s) if type(s) == "number" and s < SIGHT_SCALE then sight.soon() end end
+function sight.show(self) if ns.OutOfSight(self) then sight.soon() end end
+
+-- One of Polestar's frames another addon may take out of sight (role
+-- "window" or "arrow"): a post-hook on its SetScale and its OnShow notice the
+-- moment it happens, looked at a frame later. Called once the frame's own
+-- OnShow is set: the client's SetScript drops a hooked script.
+function ns.WatchSight(frame, role)
+	sight[role] = frame
+	hooksecurefunc(frame, "SetScale", sight.scale)
+	frame:HookScript("OnShow", sight.show)
 end
 
 -- Forget stored values for one section (or all), back to defaults.

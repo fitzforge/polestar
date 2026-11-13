@@ -15,6 +15,11 @@ L["%d yd"] = "%d 碼"
 L["quote marks: \226\128\156%s\226\128\157"] = "「%s」"
 L["Commands"] = "指令"
 L["Unknown command '%s'."] = "未知的指令「%s」。"
+-- L["Another addon is keeping the guide window and the arrow out of sight. Some UI addons show the guide's steps in their own quest tracker and route instead: turn that off in that addon to get Polestar's back."] = ""
+-- L["Another addon is keeping the guide window out of sight. Some UI addons show the guide's steps in their own quest tracker instead: turn that off in that addon to get it back."] = ""
+-- L["Another addon is keeping the arrow out of sight. Some UI addons lead the way with their own arrow or route instead: turn that off in that addon to get it back."] = ""
+-- L["Polestar is out of sight"] = ""
+-- L["Another addon is hiding the guide window or the arrow. The chat says how to get it back."] = ""
 
 -- Core/Data.lua
 L["%s not installed"] = "%s 未安裝"
@@ -4090,6 +4095,9 @@ L["Show in quest log"] = "在任務日誌中顯示"
 -- Dungeons/Mark.lua
 L["Needed for %s in %s"] = "%s所需（位於%s）"
 L["Part of the %s quests"] = "%s任務之一"
+
+-- UI/GuideFrameHere.lua
+-- L["Right-click: show in quest log, or not now around here (twice: for the rest of this zone)."] = ""
 
 -- No longer in the code (its English changed or it went away): reuse or delete.
 -- L["Shortest Path Forever is guiding. Turn off \"Guide with Shortest Path Forever when it's installed\" (Options, Arrow & routes) to use Polestar's arrow."] = "Shortest Path Forever 正在導引。關閉「已安裝時以 Shortest Path Forever 導引」（「選項」>「箭頭與路線」）即可使用 Polestar 的箭頭。"

@@ -1197,6 +1197,17 @@ pub fn resolve_guide(ast: &V, data: &Data, diag: &mut Diagnostics, pack: Option<
 		};
 		let ez = r.resolve_zone(&spec);
 		let end_zone = if ez.truthy() { ez } else { hz.clone() };
+		// The factions the guide is for, narrowed by its races (a `taxi` predicate's flight master), when asked.
+		let guide_sides = || {
+			let factions: V = if h.get("faction").truthy() { vec![h.get("faction")].into() } else { V::Null };
+			let layer: V = obj! {
+				"factions" => factions.clone(),
+				"races" => if h.get("races").truthy() { h.get("races") } else { V::Null },
+				"classes" => if h.get("classes").truthy() { h.get("classes") } else { V::Null },
+			}
+			.into();
+			smart_sides(&sides_for(&[factions]), &crate::conditions::applicable(&[layer]))
+		};
 		let nw: V = V::obj();
 		guide.set("nextWhen", nw.clone());
 		for id in h.get("next").items() {
@@ -1212,7 +1223,7 @@ pub fn resolve_guide(ast: &V, data: &Data, diag: &mut Diagnostics, pack: Option<
 				Some("group") => r.err(&p.get("line"), "`group` asks the player at a step of the guide: it cannot decide a `next` option", Some("put `when group <quest>` on the steps of that quest")),
 				_ => {
 					let zid = if end_zone.truthy() { end_zone.get("id") } else { V::Null };
-					let w = resolve_when(&vec![p.clone()].into(), &zid, None, r);
+					let w = resolve_when(&vec![p.clone()].into(), &zid, None, &guide_sides, r);
 					nw.set(&key, w);
 				}
 			}
@@ -1376,14 +1387,20 @@ pub fn resolve_guide(ast: &V, data: &Data, diag: &mut Diagnostics, pack: Option<
 		};
 		let step_zone = r.resolve_zone(&zspec);
 		let szid = if step_zone.truthy() { step_zone.get("id") } else { V::Null };
-		set_if(&step, "when", resolve_when(&s.get("when"), &szid, levels, r));
+		// The factions the step is for, narrowed by its races as a goal's (a `taxi` predicate's flight master), when asked.
+		let step_sides = || {
+			let only = s.get("only");
+			let factions = if only.truthy() { only.get("factions") } else { only.clone() };
+			smart_sides(&sides_for(&[head_factions.clone(), factions]), &crate::conditions::applicable(&[head_layer.clone(), only]))
+		};
+		set_if(&step, "when", resolve_when(&s.get("when"), &szid, levels, &step_sides, r));
 		set_if(&step, "label", s.get("label"));
 		set_if(&step, "along", s.get("along"));
 		set_if(&step, "section", s.get("section"));
 		if s.get("skipto").truthy() {
 			let mut list = Vec::new();
 			for k in s.get("skipto").items() {
-				let w = resolve_when(&vec![k.get("when")].into(), &szid, None, r);
+				let w = resolve_when(&vec![k.get("when")].into(), &szid, None, &step_sides, r);
 				list.push(obj! { "to" => k.get("to"), "when" => w.at(0) }.into());
 			}
 			step.set("skipto", list);
@@ -1675,8 +1692,10 @@ fn accept_gate(q: &V, id: &V, data: &Data) -> V {
 	out
 }
 
-/// A step's `when` predicates as the engine reads them. `levels`: the guide's (min, max). -> array | Undef
-fn resolve_when(list: &V, zone_id: &V, levels: Option<(f64, f64)>, r: &mut R) -> V {
+/// A step's `when` predicates as the engine reads them. `levels`: the guide's (min, max). `sides`: the factions
+/// the step (or guide) is for, asked only for a `taxi` predicate's flight master (places.rs goal_node).
+/// -> array | Undef
+fn resolve_when(list: &V, zone_id: &V, levels: Option<(f64, f64)>, sides: &dyn Fn() -> V, r: &mut R) -> V {
 	let data = r.data;
 	if !list.truthy() || list.is_empty() {
 		return V::Undef;
@@ -1819,6 +1838,16 @@ fn resolve_when(list: &V, zone_id: &V, levels: Option<(f64, f64)>, r: &mut R) ->
 					);
 				}
 			}
+			"taxi" => {
+				// A flight point named as for `getfp`: its taxi node for the step's factions, else the name alone.
+				w.set("name", p.get("name"));
+				let bad = crate::places::check_location(data, "getfp", &p.get("name"));
+				if bad.truthy() {
+					r.warn(&ln, format!("taxi \"{}\": no flight point has that name, so Polestar never counts its flight path as known", p.get("name")), hint_of(&bad.get("hint")));
+				}
+				let probe: V = obj! { "t" => "getfp", "location" => p.get("name") }.into();
+				set_if(&w, "node", crate::places::goal_node(data, &probe, &sides()));
+			}
 			_ => {
 				// bound
 				w.set("name", p.get("name"));
@@ -1877,6 +1906,7 @@ fn resolve_when(list: &V, zone_id: &V, levels: Option<(f64, f64)>, r: &mut R) ->
 					}
 				}
 				"knows" => "spell",
+				"taxi" => "flight path",
 				_ => "place",
 			};
 			r.warn(&p.get("line"), format!("the step asks for `{k}` and `!{k}` of the same {what}: no character sees it"), None);

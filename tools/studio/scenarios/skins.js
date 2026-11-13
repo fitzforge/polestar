@@ -160,5 +160,6 @@ module.exports = {
 	art: [7963776, 7963779, 131839, 131848],
 	capture: ['PolestarGuideFrame'],
 	SKINS,
+	pick,
 	shots,
 };

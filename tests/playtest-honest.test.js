@@ -73,6 +73,16 @@ test('R1: fly needs both flight paths learnt, from the flight master the guide l
 	assert.match(of(away, 'R1')[0].reason, /no flight master where the guide leaves the player .*nearest learnt one is Orgrimmar/);
 });
 
+test('a `when taxi` step plays only while its flight path was learnt on the way, `!taxi` the other way round', { skip }, () => {
+	const fly = '  zone Orgrimmar\n  goto 45.3,63.8\n  fly "Crossroads"\n';
+	const flights = (text) => of(play(text), 'R1').filter((f) => /^fly /.test(f.reason));
+	assert.ok(flights(`step Fly\n${fly}`).length > 0);
+	assert.deepEqual(flights(`step Fly\n  when taxi "Crossroads"\n${fly}`), []);
+	assert.ok(flights(`step Walk\n  when !taxi "Crossroads"\n${fly}`).length > 0);
+	const learnt = 'step Crossroads\n  zone The Barrens\n  goto 51.5,30.4\n  getfp "Crossroads"\n\n';
+	assert.deepEqual(flights(`${learnt}step Walk\n  when !taxi "Crossroads"\n${fly}`), []);
+});
+
 test('R3: a collect needs a source in the data (An Apple Treat\'s applejack)', { skip }, () => {
 	const bad = play('step An Apple Treat\n  accept 91738\n  collect 247824 quest 91738.1\n', { persona: HUMAN });
 	assert.match(of(bad, 'R3')[0].reason, /Thunder Applejack: the data has no mob, object or vendor/);

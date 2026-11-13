@@ -911,20 +911,33 @@ end
 
 -- The window's toggle (its key, /polestar, the menu's Guide window) asks to
 -- see the guide: from hidden it brings Polestar back, turning the window on
--- when it was off.
+-- when it was off. A window that is on but that another addon keeps out of
+-- sight (ns.OutOfSight) stays on: turning it off would take away only the
+-- action buttons, the one part still seen. The toggle says why the window is
+-- not seen instead, as it and /polestar show do after showing one that stays
+-- out of sight.
+local function windowOutOfSight()
+	local GF = UI.GuideFrame
+	return GF ~= nil and ns.OutOfSight(GF.frame)
+end
 ns.On("TOGGLE_FRAME", function()
 	if ns.Hidden() then
 		ns.SetHidden(false)
 		if not ns.Get("ui.shown") then ns.Set("ui.shown", true) end
-		return
+	else
+		local GF = UI.GuideFrame
+		if GF and GF.ToggleInside and GF.ToggleInside() then return end
+		if not (ns.Get("ui.shown") and windowOutOfSight()) then
+			ns.Set("ui.shown", not ns.Get("ui.shown"))
+			if not ns.Get("ui.shown") then return end
+		end
 	end
-	local GF = UI.GuideFrame
-	if GF and GF.ToggleInside and GF.ToggleInside() then return end
-	ns.Set("ui.shown", not ns.Get("ui.shown"))
+	if windowOutOfSight() then ns.SayOutOfSight() end
 end)
 ns.On("SHOW_FRAME", function()
 	ns.SetHidden(false)
 	ns.Set("ui.shown", true)
+	if windowOutOfSight() then ns.SayOutOfSight() end
 end)
 ns.On("SHOW_PICKER", function() if UI.ShowPicker then UI.ShowPicker() end end)
 ns.On("SHOW_OPTIONS", function(section) if UI.ShowOptions then UI.ShowOptions(section) end end)

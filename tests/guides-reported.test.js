@@ -5572,20 +5572,18 @@ test('generated leveling guides: quests handed in on the spot are direct turn-in
 // #1117 (soockee, Tauren Shaman; #383 and #396 before it, Dwarf Paladins): Alonso's Dragonslayer quests
 // at Mystral Lake are for Warriors; other classes find no Alonso there. The lock lived only in
 // data/rules.json, which Forge does not read, so the generated Horde Ashenvale guide sent every class to
-// him. The record is the class in forever-db/corrections/quests.json.
+// him. The record is the class in forever-db/corrections/quests.json. Since the QuestieDB 1.0.14 check
+// (0.3.8) no class is sent to him: each quest needs an item the route never gets (the test above).
 test("soockee's report (#1117): only Warriors are sent to Alonso for the Dragonslayer quests", { skip }, () => {
 	const corrections = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'forever-db', 'corrections', 'quests.json'), 'utf8'));
 	const ALONSO = [78132, 78133, 78134];
 	for (const q of ALONSO) assert.equal(corrections[q] && corrections[q].set.classes, 1, `${q}: the Warrior class is a correction the build applies`);
-	let warrior = 0;
 	for (const guide of allGuides().filter((f) => /^forever\/(horde|alliance)\//.test(f))) {
 		const list = goals(guide).filter(({ goal }) => ALONSO.includes(goal.quest));
 		for (const cls of ['PALADIN', 'SHAMAN', 'DRUID', 'HUNTER', 'ROGUE', 'PRIEST', 'MAGE', 'WARLOCK']) {
 			assert.deepEqual(list.filter(forClass(cls)).map(({ goal }) => `${goal.t} ${goal.quest}`), [], `${guide}: no Alonso quest for a ${cls}`);
 		}
-		warrior += list.filter(forClass('WARRIOR')).length;
 	}
-	assert.ok(warrior > 0, 'a Warrior still takes them');
 });
 
 // Rohkin's report (#1123): Mountain Lion Blood's few, contested lions were a stop of their own on the way down to
@@ -9282,20 +9280,22 @@ test('Alliance 30-40 audit: Arathi hands in at Refuge Pointe on the way west, th
 	assert.ok(whenOn(weevil.step, 'onquest', 93176), 'the Hay Weevil only for players on My Little Friends');
 });
 
-// The Howin round trip (98230, 98300) stays on the Defeat Nek'rosh group branch only (0.3.6's #1299 fix, kept: Main,
-// 2026-11-09): a solo player never sees it.
+// The Howin round trip (98230) stays on the Defeat Nek'rosh group branch only (0.3.6's #1299 fix, kept: Main,
+// 2026-11-09): a solo player never sees it. Word to Ironforge (98300), once taken on the same stop, is left out
+// (route-fixes skip): Howin offers it only after Death to the Dragonmaw (98291) and Stopping the Cycle (98297),
+// which the route does not take (QuestieDB 1.0.16, players' recordings).
 test('Alliance 30-40 audit: Wetlands 30-32 sends only group players to Howin, Trying Times and Carnage are handed in only when done', { skip }, () => {
 	const list = goals('forever/alliance/30-40/01-hillsbrad-foothills.guide');
-	for (const q of [98230, 98300]) {
-		const mine = list.filter(({ goal }) => goal.quest === q);
-		assert.ok(mine.length > 0, `${q} is on the group branch`);
-		for (const { step } of mine) assert.ok(whenOn(step, 'group', 474) || whenOn(step, 'onquest', 98300), `${q}: only for group players (or carried to Ironforge)`);
-	}
+	const mine = list.filter(({ goal }) => goal.quest === 98230);
+	assert.ok(mine.length > 0, '98230 is on the group branch');
+	for (const { step } of mine) assert.ok(whenOn(step, 'group', 474), '98230: only for group players');
+	assert.deepEqual(list.filter(({ goal }) => goal.quest === 98300).map(({ goal }) => `${goal.t} 98300`), [], 'no Word to Ironforge');
 	const eggs = list[at(list, 'collect 280132 quest 98246.1', (g) => g.t === 'collect' && g.quest === 98246)];
 	assert.ok(whenOn(eggs.step, 'onquest', 98246), 'the eggs only for players on Trying Times');
 	for (const q of [98246, 98283]) assert.ok(whenOn(list[at(list, `turnin ${q}`, is('turnin', q))].step, 'complete', q), `${q} handed in only when complete`);
 	const rf = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', 'route-fixes.json'), 'utf8'));
-	for (const q of [98230, 98300]) assert.ok(!rf.overrides.skip.some((e) => e.q === q && e.faction === 'Alliance'), `no skip for ${q}`);
+	assert.ok(!rf.overrides.skip.some((e) => e.q === 98230 && e.faction === 'Alliance'), 'no skip for 98230');
+	assert.ok(rf.overrides.skip.some((e) => e.q === 98300 && !e.faction), 'route-fixes leaves 98300 out');
 });
 
 test('Alliance 30-40 audit: Lucien and Lotwil\'s bracers only for players who can do them', { skip }, () => {

@@ -218,7 +218,7 @@ function QoL.CurrentStep()
 	if not (E and E.GetStepIndex and E.GetStepView) then return nil end
 	local i = E.GetStepIndex()
 	if not i then return nil end
-	local view = E.GetStepView(i)
+	local view = E.GetStepView(i, true)
 	if not view then return nil end
 	local guide = E.GetGuide and E.GetGuide()
 	local step = guide and guide.steps and guide.steps[i]

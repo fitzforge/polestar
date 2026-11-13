@@ -144,7 +144,7 @@ Messages:
 | `GUIDE_PLACED` | guideId, stepIndex or nil, `{ guideId, ... }` | Engine, active tab, once placement of a guide just opened ends (see "Placement"; not for a guide a login or /reload brings back): where the guide resumes, and the guides passed whole on the way; the guide window goes over the steps before it, titles and count rolling (`GF.PlayCatchUp`, after `PLAYER_ENTERING_WORLD`) |
 | `CATCH_UP` | true \| false | Guide window, while its catch-up goes over the steps (`GF.PlayCatchUp`): the arrow shows an hourglass turning over in its dial's place (`Arrow.SetBusy`; Media/UI `hourglass`, `hourglass-sand`, tools/media/ui.js) |
 | `SETTING_CHANGED` | path, value | Core settings |
-| `TOGGLE_FRAME` / `SHOW_FRAME` | — | commands, keybinds → UI (from a hidden Polestar both show it again, the window with it) |
+| `TOGGLE_FRAME` / `SHOW_FRAME` | — | commands, keybinds → UI (from a hidden Polestar both show it again, the window with it; a window on but out of sight stays on and they say why: see "Out of sight") |
 | `POLESTAR_HIDDEN` | hidden (true \| false) | Core, `Polestar.SetHidden` (and true again as "Keep the arrow when hidden" changes while hidden): see "Hiding Polestar" |
 | `SHOW_PICKER` | — | commands → UI |
 | `SHOW_OPTIONS` | section or nil | commands → UI |
@@ -550,6 +550,44 @@ call: a new one fails the test until it is listed, so a new surface is
 decided on. New frames on the screen take `Polestar.UIParent` as their
 parent, new sounds go through `Polestar.PlaySound`, new toasts check
 `Polestar.Hidden()`, and new map drawings hang off `view.frame`.
+
+### Out of sight
+
+```lua
+Polestar.OutOfSight(frame) -> bool  -- shown, but another addon keeps it out of sight (its scale under 0.2)
+Polestar.SayOutOfSight() -> bool    -- one chat line: which of the window and the arrow is out of sight, how to get it back
+Polestar.WatchSight(frame, role)    -- role "window" | "arrow": post-hooks its SetScale and OnShow
+```
+
+Some UI addons follow the guide's steps in their own quest tracker and route
+and keep one arrow on screen by turning the guide window and the arrow down
+to nothing (a scale far below a pixel, alpha 0) instead of hiding them, laid
+again after each of Polestar's own `SetScale` and `SetAlpha`. Both still read
+as shown, so `GuideShown()` holds and the action buttons stay (the target
+button may be all the player sees). It is told by the scale alone: Polestar
+never sets its own frames' scale that low (the window's is 0.6 at least, the
+arrow's 0.5), while the player's own fades take both to alpha 0 in a fight
+(`guideWindow.combatAlpha`, `nav.arrowCombatAlpha`) and the window to 0.03 at
+rest (`ui.opacity` 0.3 times `guideWindow.idleAlpha` 0.1).
+
+- The guide window (`UI/GuideFrame.lua`) and the arrow (`Nav/Arrow.lua`) are
+  watched: the first time on the account one of them goes out of sight
+  (`PolestarDB.sightTold`), a notice at the top of the screen for 12 seconds
+  and the chat line say so; not while Polestar is hidden.
+- The window's toggle (`TOGGLE_FRAME`: `/polestar`, its key, the minimap
+  menu's Guide window) leaves a window that is on but out of sight on and
+  says why instead: turning it off would take away only the action buttons.
+  Showing a window that stays out of sight (the toggle, `SHOW_FRAME`) says
+  so too. `Nav.ToggleArrow` does the same for the arrow, and
+  `Nav.SayGuideHidden` (`/polestar arrow show`, `way`, `near`) names it.
+  Polestar never takes its frames back from the other addon.
+- Scales are worked out from the scale Polestar set, never the frame's own:
+  `GF.ApplyScale` from `GF.scale`, and unlock mode's `Movers.Ratio` from the
+  setting's scale while the frame is out of sight, so a box stands where the
+  frame would and a drag saves a place on the screen.
+
+`rust/crates/forge-addontest/tests/addontest/out-of-sight.rs` plays it with a
+stand-in for such an addon.
 
 ### Gamepad interface
 
@@ -1363,7 +1401,7 @@ Polestar.Engine.SetGuide(id)                -- persists CharState().guide, recom
 Polestar.Engine.ReplaceSteps(id, steps) -> true | false, reason   -- Polestar.API.ReplaceSteps: the guide takes `steps` in place, in its tab; done steps before the live step that the list leaves out stay in front (Own.stepsKept); ticks, skips, `when` outcomes and the view go with their steps by step key (Own.remap with the old steps' goals); the live step is found again, not placed afresh; GUIDE_CHANGED once while its tab is active
 Polestar.Engine.GetStepIndex() -> i | nil
 Polestar.Engine.GetStepCount() -> n
-Polestar.Engine.GetStepView(i) -> view | nil
+Polestar.Engine.GetStepView(i, shared?) -> view | nil   -- built afresh; shared = true for a reader that never writes into the view: one view per step for every such reader of the same moment (the same frame and ns.Moment(): no timer, script, game event or message since, no Engine.RequestUpdate; the same evaluation and guide). QoL.CurrentStep, the map layers, the quest log's room, Gossip, Up next, the hand-off and party share it; the guide window, which keeps its view, does not
 Polestar.Engine.GetSection(i) -> { index, title, skill, skillLine, from, to, rank, state } | nil   -- the skill range step i of a profession guide is under (GUIDE_FORMAT.md, "Sections"): title "First Aid 1-40" (the client's profession name), state "done" (the player's skill reached `to`), "current" (the first range it has not) or "ahead"; the view's `section`. The steps of a done range are done unless one trains a rank the player lacks, and a range's counted collect/buy goals ask for their count less what its `craft … until` goals would have used from `from` to the skill (Own.needOf)
 Polestar.Engine.Next() / Prev() / Goto(i)    -- look at another step; changes nothing (Goto un-skips its target)
 Polestar.Engine.Skip() -> stepIndex         -- skip the step shown, saved; fires PLAYER_SKIPPED_STEP
@@ -1389,6 +1427,7 @@ Polestar.Engine.GetAlong() -> { { index, title, untilStep?, goals = { goal view,
 Polestar.Engine.AimAlong(stepIndex, goalIndex) -> bool     -- lead the arrow to one of them (row click); holds while it is listed
 Polestar.Engine.GetWaypoint() -> waypoint | nil
 Polestar.Engine.GetProgress() -> doneSteps, totalSteps
+Polestar.Engine.ProgressSoon(fn) -> doneSteps, totalSteps | nil   -- the same count for the guide window's bar without the frame's spike: kept for this evaluation, else nil and counted 40 steps a frame (none while an update is due; an evaluation half way starts it again), then fn(done, total), each fn once
 Polestar.Engine.StepNumber(i) -> number, hidden     -- step i of the active guide as the player counts it (see "Steps the character has")
 Polestar.Engine.StepTotal() -> number               -- the steps the player sees
 Polestar.Engine.StepNumberOf(guide, i) -> number, hidden; Polestar.Engine.StepTotalOf(guide) -> number  -- the same for any guide
@@ -1585,7 +1624,10 @@ Polestar.Engine.StepHiddenFor(step, who?) -> bool  -- no step of its own for who
   than the global cooldown and not run out; it times an update for when it
   ends, and `BAG_UPDATE_COOLDOWN`/`SPELL_UPDATE_COOLDOWN` update once a guide
   has asked), whether the character knows a spell (`Compat.IsSpellKnown`,
-  else `Compat.IsPlayerSpell`; `SPELLS_CHANGED` updates), and the player's
+  else `Compat.IsPlayerSpell`; `SPELLS_CHANGED` updates), whether it knows a
+  flight path (`taxi`, format 10: `Own.fpKnown`, as for a `getfp` goal: the
+  node in `CharState().flags.taxi`, else the name among the flight maps
+  opened; learning one updates), and the player's
   answer at a group quest (`Own.groupAnswer`:
   `CharState().groupQuests[q]`, "do" or "skip", set by `Engine.AnswerGroup`
   from the guide window's banner or Options, Discovery, Group quests;
@@ -1805,7 +1847,7 @@ Polestar.Engine.StepHiddenFor(step, who?) -> bool  -- no step of its own for who
   dismiss holds across builds. Learning it (the flight map, "New flight path
   discovered", `TAXI_NODE_STATUS_CHANGED`: Nav marks the node known, a build
   follows) ends the line and ticks the guide's later `getfp` goal for that
-  flight master (`fpKnown`), as an early pick-up does; the live step stays.
+  flight master (`Own.fpKnown`), as an early pick-up does; the live step stays.
   The arrival poll measures at most `HERE_MAX` of them (`Own.hereList`): all
   when that many fit, else the nearest (`Own.herePick`, again each
   `HERE_REPICK` yards the player moves). It (`Own.hereTick`, allocation-free:
@@ -7156,9 +7198,15 @@ Reading flow: `docs/DESIGN.md` ("Intent" and "The Guide Window").
   fades faster (`Anim.FAST`) when its last line goes, before the window
   closes the gap; rows coming and going inside it do not slide it; under
   `ui.reduceMotion` it only fades. A row's left-click:
-  `Engine.AimWhileHere(i)`; right-click or its close button:
-  `Engine.DismissWhileHere(i)`; `WHILE_HERE_MOVED(yards, i)` moves its
-  distance. In the compact window the rows drop their "Step N" line; in the
+  `Engine.AimWhileHere(i)`; right-click: a menu with "Show in quest log"
+  (`ns.QuestLogMenuItem`, Quests/QuestLogLink.lua) and "Not now", or straight
+  away "Not now" when its quest is not in the log or the client can't open the
+  log there; "Not now" and its close button: `Engine.DismissWhileHere(i)`;
+  `WHILE_HERE_MOVED(yards, i)` moves its
+  distance. `WHILE_HERE_CHANGED` with the panel shown before and after at the
+  same height lays out only the panel (`GF.LayoutHere`) and repaints the
+  strings' shades; a panel that comes, goes or changes height lays out the
+  window (`GF.Layout`). In the compact window the rows drop their "Step N" line; in the
   transparent style the ground is the accent alone at `GF.HERE_CLEAR` (0.18)
   (the house look: the scrim at `clearShade`, 0.32) under the outlined text.
   With the window hidden, the toast (UI/WhileHere.lua,

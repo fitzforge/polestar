@@ -614,6 +614,7 @@ impl<'a> Sim<'a> {
 			"skill" => self.skill_rank(p.skill_line, p.name.as_deref()).map_or(0.0, |r| r.0) >= p.n.unwrap_or(0.0),
 			// No cooldowns run in the stub.
 			"cooldown" => false,
+			"taxi" => self.fp_known(p.node, p.name.as_deref()),
 			// No spellbook in the stub: no spell is known.
 			"knows" => false,
 			"group" => match q0.and_then(|q| self.group_answer(q)) {
@@ -1077,11 +1078,13 @@ impl<'a> Sim<'a> {
 		same(zone, goal.location.as_deref()) || same(sub, goal.location.as_deref())
 	}
 
-	fn fp_known(&self, goal: &Goal) -> bool {
-		if goal.node.is_some() {
+	/// Own.fpKnown: a getfp goal's or `taxi` predicate's flight path is known. The stub records no flight map's
+	/// nodes (CharState().flags.taxi), so one with a node never is; else by name among the opened flight maps.
+	fn fp_known(&self, node: Option<u32>, location: Option<&str>) -> bool {
+		if node.is_some() {
 			return false;
 		}
-		let want = goal.location.as_deref().unwrap_or("").to_lowercase();
+		let want = location.unwrap_or("").to_lowercase();
 		self.fp.iter().any(|n| {
 			let n = n.to_lowercase();
 			n == want || n.split(',').next() == Some(want.as_str())
@@ -1239,7 +1242,7 @@ impl<'a> Sim<'a> {
 				}
 				Done::no()
 			}
-			T::Getfp => Done::of(self.fp_known(goal)),
+			T::Getfp => Done::of(self.fp_known(goal.node, goal.location.as_deref())),
 			T::Level => Done::of(self.level_reached(goal.level.unwrap_or(1.0), goal.frac)),
 			T::Skill => {
 				let target = goal.level.unwrap_or(0.0);

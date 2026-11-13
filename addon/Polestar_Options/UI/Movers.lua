@@ -89,8 +89,11 @@ function M.OffsetOf(point, relPoint, left, bottom, w, h)
 end
 
 -- A frame's units in UIParent's (its own scale, and its parents'); fallback
--- for a frame not built yet.
+-- for a frame not built yet, or one another addon keeps out of sight at a
+-- scale far below a pixel (ns.OutOfSight): a box and a drag worked out from
+-- that would land in the corner and save a place thousands of times too far.
 function M.Ratio(frame, fallback)
+	if frame and ns.OutOfSight and ns.OutOfSight(frame) then return fallback or 1 end
 	if frame and frame.GetEffectiveScale then
 		local u = UIParent:GetEffectiveScale()
 		if u and u > 0 then return frame:GetEffectiveScale() / u end

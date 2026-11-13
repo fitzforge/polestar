@@ -223,6 +223,11 @@ L["Debug output"] = "Salida de depuración"
 L["on"] = "activada"
 L["off"] = "desactivada"
 L["Toggle debug output"] = "Activar o desactivar la salida de depuración"
+-- L["Another addon is keeping the guide window and the arrow out of sight. Some UI addons show the guide's steps in their own quest tracker and route instead: turn that off in that addon to get Polestar's back."] = ""
+-- L["Another addon is keeping the guide window out of sight. Some UI addons show the guide's steps in their own quest tracker instead: turn that off in that addon to get it back."] = ""
+-- L["Another addon is keeping the arrow out of sight. Some UI addons lead the way with their own arrow or route instead: turn that off in that addon to get it back."] = ""
+-- L["Polestar is out of sight"] = ""
+-- L["Another addon is hiding the guide window or the arrow. The chat says how to get it back."] = ""
 
 -- Core/Search.lua
 L["Guides"] = "Guías"
@@ -4089,6 +4094,9 @@ L["Show in quest log"] = "Mostrar en el registro de misiones"
 -- Dungeons/Mark.lua
 L["Needed for %s in %s"] = "Necesario para %s en %s"
 L["Part of the %s quests"] = "Parte de las misiones de %s"
+
+-- UI/GuideFrameHere.lua
+-- L["Right-click: show in quest log, or not now around here (twice: for the rest of this zone)."] = ""
 
 -- No longer in the code (its English changed or it went away): reuse or delete.
 -- L["The arrow's target, the stops of its travel route, the step's other goals and the areas their mobs and objects spawn in."] = "El objetivo de la flecha, las paradas de su ruta de viaje, los demás objetivos del paso y las zonas donde aparecen sus monstruos y objetos."

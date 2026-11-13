@@ -81,6 +81,12 @@ test('Grace of An\'she and Mu\'sha allows ten minutes; a time limit is a whole n
 	assert.deepEqual(bad.map(([id]) => id), []);
 });
 
+test('A Void Path allows four minutes from the accept: the game times it (players\' recordings), its text says how long', () => {
+	const entry = corrections.quests[98252];
+	assert.equal(entry.set.limit, 240);
+	assert.ok([].concat(entry.source).some((s) => s.kind === 'recording' && /timer/.test(s.ref)), 'a recording source for the timer');
+});
+
 test('the release data carries time limits: 95805 600 s, Scalding Mornbrew Delivery the TDB\'s 300 s, none on an untimed quest', (t) => {
 	const file = path.join(__dirname, '..', 'data', 'forever', 'quests.json');
 	if (!fs.existsSync(file)) return t.skip('no data/forever');

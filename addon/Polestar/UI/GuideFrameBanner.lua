@@ -265,8 +265,10 @@ local function placeLink(link, text, x, y)
 	return link:GetWidth()
 end
 
-function GF.LayoutBanner(width)
-	local kind, n = bannerNotice()
+-- known, kind, n: the notice GF.Layout just read (bannerNotice), with
+-- nothing run in between; else it is read here.
+function GF.LayoutBanner(width, known, kind, n)
+	if not known then kind, n = bannerNotice() end
 	banner.psKind = kind
 	banner.Jump.psDefault = (kind == "group" or kind == "lost") or nil -- the gamepad's first focus (UI/GamepadGuide.lua)
 	banner.Text:SetWidth(width - PAD * 2 - 21 - 24)

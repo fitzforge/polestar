@@ -809,6 +809,9 @@ function Own.predicateHolds(p)
 		ok = (C.GetSkillRank and C.GetSkillRank(p.skillLine or p.name) or 0) >= p.n
 	elseif k == "cooldown" then
 		ok = Own.onCooldown(p)
+	elseif k == "taxi" then
+		-- A flight path the character knows, checked as a getfp goal is.
+		ok = Own.fpKnown(p)
 	elseif k == "knows" then
 		-- IsPlayerSpell too: Forever's spellbook check says no for weapon skills.
 		ok = C.IsSpellKnown(p.spell) or C.IsPlayerSpell(p.spell) == true
@@ -943,13 +946,13 @@ end
 -- A getfp's flight path is known: by its taxi node when the compiler gave
 -- one (`node`, among the nodes Nav/Travel.lua records from the flight map in
 -- CharState().flags.taxi), else by name: taxi node names read "Stormwind,
--- Elwynn"; guides say "Stormwind".
-local function fpKnown(goal)
+-- Elwynn"; guides say "Stormwind". Also a `taxi` predicate's (its `name`).
+function Own.fpKnown(goal)
 	if goal.node then
 		local taxi = ns.CharState().flags.taxi
 		return type(taxi) == "table" and taxi[goal.node] == true
 	end
-	local want = goal.location:lower()
+	local want = (goal.location or goal.name):lower()
 	for name in pairs(fpTable()) do
 		local n = name:lower()
 		if n == want or n:match("^([^,]+)") == want then return true end
@@ -3227,7 +3230,7 @@ function Own.goalDoneLive(s, g, goal)
 		end
 		return false
 	elseif t == "getfp" then
-		return fpKnown(goal)
+		return Own.fpKnown(goal)
 	elseif t == "level" then
 		return Own.levelReached(goal.level, goal.frac)
 	elseif t == "skill" then
@@ -6674,16 +6677,22 @@ local function progressLoaded()
 	if t and t.progGen == generation and t.progGuide == guide and t.progComputed == computed then
 		return t.progDone, t.progTotal
 	end
-	local done, total = 0, 0
-	local hidden = Own.numbersOf(guide).hidden
-	for s, step in ipairs(guide.steps) do
-		if stepApplies(step) and not hidden[s] then
+	local done, total = Own.countProgress(1, #guide.steps, Own.numbersOf(guide).hidden)
+	if t then
+		t.progGen, t.progGuide, t.progComputed, t.progDone, t.progTotal = generation, guide, computed, done, total
+	end
+	return done, total
+end
+
+-- Steps s0 to s1 of the loaded guide: how many are done (progressLoaded's
+-- rules) and how many count, hidden: the steps the character doesn't have.
+function Own.countProgress(s0, s1, hidden)
+	local done, total, steps = 0, 0, guide.steps
+	for s = s0, s1 do
+		if stepApplies(steps[s]) and not hidden[s] then
 			total = total + 1
 			if (not computed or s < computed) or isSkipped(s) or stepDone(s) then done = done + 1 end
 		end
-	end
-	if t then
-		t.progGen, t.progGuide, t.progComputed, t.progDone, t.progTotal = generation, guide, computed, done, total
 	end
 	return done, total
 end
@@ -8171,6 +8180,7 @@ local function evaluate()
 	evaluateLoaded(true)
 	Own.watchHearth()
 	Own.watchWait()
+	Own.progressQueue() -- a progress count that waited for this evaluation
 	-- Out-levelled: once per guide per session; for a guide the catch-up may
 	-- pass whole for the player (Own.opened, autoChain), once it is placed.
 	local mayPass = placing and autoChain and Own.opened[guide and guide.id or ""] and ns.Get("behavior.skipGrey")
@@ -8238,6 +8248,7 @@ local function flush()
 end
 
 requestUpdate = function()
+	ns.NewMoment() -- a shared step view (Engine.GetStepView) is read again
 	if scheduled or #tabs == 0 or not ns.IsLoggedIn() then return end
 	scheduled = true
 	local wait = lastEval + MIN_INTERVAL - GetTime()
@@ -9327,7 +9338,28 @@ end
 
 -- Step i's view, with each goal's done state asked once while it is built
 -- (Own.doneMemo, at goalDone). The memo goes with the view, an error too.
-function Engine.GetStepView(i)
+-- shared: a reader that only reads the view (never writes into it) may get
+-- the one built for another such reader at the same moment: the same frame,
+-- the same ns.Moment() (no timer, script, game event or message since, no
+-- change asked of the Engine), the same evaluation and the same guide. Each
+-- message's listeners, and the Quality of Life refreshes of one frame, then
+-- build a step's view once between them (Own.shared). The views are held
+-- weakly: one no reader keeps goes with the next collection, never kept
+-- for memory's sake past its moment.
+Own.shared = { views = {}, weak = { __mode = "v" } }
+function Engine.GetStepView(i, shared)
+	if shared and not Own.doneMemo then
+		local c, now, moment = Own.shared, GetTime(), ns.Moment()
+		if c.at ~= now or c.moment ~= moment or c.gen ~= generation or c.guide ~= guide then
+			c.at, c.moment, c.gen, c.guide, c.views = now, moment, generation, guide, setmetatable({}, c.weak)
+		end
+		local v = c.views[i]
+		if v == nil then
+			v = Engine.GetStepView(i) or false
+			c.views[i] = v
+		end
+		return v or nil
+	end
 	if Own.doneMemo then return Own.stepView(i) end
 	Own.doneMemo = {}
 	local ok, view = pcall(Own.stepView, i)
@@ -11412,7 +11444,7 @@ end)
 -- HERE_CLEAR times the radius. Learning it ends the line (the flight map and
 -- "New flight path discovered" mark the node known: a build follows) and
 -- ticks any later getfp goal of the loaded guide for that flight master
--- (fpKnown), as an early pick-up does. The candidates are
+-- (Own.fpKnown), as an early pick-up does. The candidates are
 -- Own.hereFly[1..hereFlyN], built with the others (Own.hereBuild); each node
 -- of the travel data keeps its goal and entry (Own.hereFlyOf), so a dismiss
 -- or an expiry holds across builds.
@@ -11780,6 +11812,70 @@ function Engine.GetProgress()
 	if not guide then return 0, 0 end
 	if not player then refreshPlayer() end
 	return progressLoaded()
+end
+
+-- The same count for the guide window's progress bar, without the frame's
+-- spike: the count kept for this evaluation, or nil, and the count runs
+-- PROGRESS_SLICE steps a frame, then calls fn(done, total) (each fn once).
+-- A count that an evaluation overtakes starts again on the new state, and
+-- none runs while one is due (an update scheduled: the state may be ahead of
+-- the evaluation), so the answer is GetProgress's of the same evaluation;
+-- the bar shows it a few frames later.
+local PROGRESS_SLICE = 40
+function Engine.ProgressSoon(fn)
+	if not guide then return 0, 0 end
+	if not player then refreshPlayer() end
+	local t = loaded
+	if t and t.progGen == generation and t.progGuide == guide and t.progComputed == computed then
+		return t.progDone, t.progTotal
+	end
+	local job = Own.progJob
+	if not job then
+		job = { fns = {} }
+		Own.progJob = job
+		Own.progressQueue()
+	end
+	for i = 1, #job.fns do
+		if job.fns[i] == fn then return nil end
+	end
+	job.fns[#job.fns + 1] = fn
+	return nil
+end
+
+-- The count's next slice, next frame (once); evaluate() queues it again
+-- after an update that came while one was due.
+function Own.progressQueue()
+	local job = Own.progJob
+	if job and not job.queued then
+		job.queued = true
+		ns.After(0, Own.progressSlice)
+	end
+end
+
+function Own.progressSlice()
+	local job = Own.progJob
+	if not job then return end
+	job.queued = false
+	if not guide then
+		Own.progJob = nil
+		return
+	end
+	if scheduled then return end
+	if job.gen ~= generation or job.guide ~= guide or job.computed ~= computed or job.tab ~= loaded then
+		job.gen, job.guide, job.computed, job.tab = generation, guide, computed, loaded
+		job.s, job.done, job.total, job.hidden = 1, 0, 0, Own.numbersOf(guide).hidden
+	end
+	local n = #guide.steps
+	local last = math.min(n, job.s + PROGRESS_SLICE - 1)
+	local d, t = Own.countProgress(job.s, last, job.hidden)
+	job.done, job.total, job.s = job.done + d, job.total + t, last + 1
+	if job.s <= n then return Own.progressQueue() end
+	Own.progJob = nil
+	local tab = job.tab
+	if tab then
+		tab.progGen, tab.progGuide, tab.progComputed, tab.progDone, tab.progTotal = generation, guide, computed, job.done, job.total
+	end
+	for _, fn in ipairs(job.fns) do ns.SafeCall(fn, job.done, job.total) end
 end
 
 -- The live step: the first applicable, not skipped, not done one (nil when

@@ -124,6 +124,29 @@ fn r1_a_druids_own_flight_master_flies_druids_alone_with_no_path_learnt() {
 }
 
 #[test]
+fn a_taxi_step_is_played_only_while_its_flight_path_was_learnt_on_the_way_or_not_for_bang() {
+	// `when taxi` (Loch Modan's tunnel, #1508): the flight for those who learnt the path, the walk for the others.
+	let data = data_with_taxi();
+	let fly_r1 = |body: &str| -> Vec<Finding> {
+		let src = Source { source: "forever/test/01-vale.guide".into(), file: "01-vale.guide".into(), text: guide(body) };
+		let mut diag = Diagnostics::new();
+		let guides = compile_sources(&[src], &data, &mut diag, &CompileOpts { pack: None, author: None, context: None, pack_dir: None }).guides;
+		let opts = HonestOpts { legacy: false, groups: Groups::Skip, walk_far: true };
+		let who = vec![persona("Tauren", "WARRIOR")];
+		honest_play(&guides, &data, &move |_| who.clone(), None, None, &opts).into_iter().filter(|f| f.rule == "R1" && f.reason.starts_with("fly")).collect()
+	};
+	let fly = "  goto 90,90\n  fly \"Thunder Bluff\"\n";
+	let learnt = "step Learn\n  goto 90,90\n  getfp \"Thunder Bluff\"\n\n";
+	// The plain step is played, and its flight path was never learnt.
+	assert!(!fly_r1(&format!("step Fly\n{fly}")).is_empty());
+	// Not learnt: the `taxi` step is not this character's, the `!taxi` one is.
+	assert!(fly_r1(&format!("step Fly\n  when taxi \"Thunder Bluff\"\n{fly}")).is_empty());
+	assert!(!fly_r1(&format!("step Walk\n  when !taxi \"Thunder Bluff\"\n{fly}")).is_empty());
+	// Learnt on the way: the `!taxi` step goes.
+	assert!(fly_r1(&format!("{learnt}step Walk\n  when !taxi \"Thunder Bluff\"\n{fly}")).is_empty());
+}
+
+#[test]
 fn r6_data_mask_excludes_the_persona() {
 	let body = "step Elder Testa\n  accept 504\n  accept 503\n";
 	let fs = play(body, &[persona("Troll", "WARRIOR")], false);

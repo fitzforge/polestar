@@ -281,7 +281,7 @@ local function questsOf(goal, t)
 	if not own then return nil end
 	local list, seen = { own }, { [own] = true }
 	local E = ns.Engine
-	local view = E and E.GetStepView and E.GetStepView(t.stepIndex)
+	local view = E and E.GetStepView and E.GetStepView(t.stepIndex, true)
 	local step = select(2, goalOf(t))
 	if not (type(view) == "table" and type(view.goals) == "table" and step) then return list end
 	local mine
