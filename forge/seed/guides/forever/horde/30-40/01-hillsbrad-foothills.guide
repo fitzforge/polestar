@@ -402,7 +402,7 @@ step Tarren Mill
   zone Hillsbrad Foothills
   tip Head back south down the road to Tarren Mill.
   turnin 533                          -- Krusk, inside
-  turnin 539                          -- High Executor Darthalia
+  turnin 539                          -- High Executor Darthalia: her next Battle of Hillsbrad, and Deathguard Humbert's sword, are elite group quests at Dun Garok: take them only with a group
   turnin 567
   turnin 556                          -- Keeper Bel'varil, inside
   turnin 544                          -- Magus Wordeen Voidglare, inside

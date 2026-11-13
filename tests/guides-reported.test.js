@@ -1578,6 +1578,16 @@ test('forever/horde/30-40/02-thousand-needles.guide: Gadgetzan\'s flight path on
 	assert.ok(raceway < fp && fp < family, 'after the raceway, before Freewind Post');
 });
 
+// Horde 30-40 audit (0.4.0): Battle of Hillsbrad (541) and Humbert's Sword (547) are elite group quests at Dun Garok,
+// offered at Tarren Mill, and players took and dropped them (players' recordings: 547 abandoned by 5 people, 541 by
+// 3): the hand-in that opens 541 says they want a group.
+test('forever/horde/30-40/01-hillsbrad-foothills.guide: the Tarren Mill hand-in says Dun Garok is group work', { skip }, () => {
+	const list = goals('forever/horde/30-40/01-hillsbrad-foothills.guide');
+	const { goal } = list[at(list, 'turnin 539', is('turnin', 539))];
+	assert.match(goal.note || '', /Dun Garok/);
+	assert.match(goal.note || '', /group/);
+});
+
 // --- Forever chains the quest data has no prerequisite for, so the guide took
 // a follow-up at the same visit as the quest before it and the giver did not
 // offer it: Baine's chain in Mulgore (Kori, #112) and Mull's report (#51),

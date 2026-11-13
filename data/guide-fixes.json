@@ -6594,6 +6594,23 @@
 			]
 		},
 		{
+			"id": "horde-3040-dun-garok-group-only",
+			"faction": "Horde",
+			"at": {
+				"quest": 539,
+				"goal": "turnin",
+				"guide": "forever/horde/30-40/01-hillsbrad-foothills"
+			},
+			"goalNote": "High Executor Darthalia: her next Battle of Hillsbrad, and Deathguard Humbert's sword, are elite group quests at Dun Garok: take them only with a group",
+			"note": "Battle of Hillsbrad (541) and Humbert's Sword (547) are offered at this Tarren Mill stop and their steps are group-only, but players take them on the spot and drop them later: players' recordings show 547 abandoned by 5 people and 541 by 3 on this guide. The hand-in that opens 541 now says so.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "players' recordings, 0.3.5 and later: abandons on 30-40/01-hillsbrad-foothills, 547 by 5 people, 541 by 3"
+				}
+			]
+		},
+		{
 			"id": "levels-alliance-wetlands-hillsbrad-top-33",
 			"faction": "Alliance",
 			"at": {
