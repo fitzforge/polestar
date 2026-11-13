@@ -2913,7 +2913,9 @@ fn following_the_arrow_from_ashenvale_to_a_darkshore_goal_250_yd_over_the_border
 
 // Following the arrow as the 0.4.0 border sweep does: 7 yd a second toward its aim, on the walking maps' ground nearest
 // the last height, the client's zone under the player, for up to `secs` seconds. -> { arrived = seconds | false,
-// stalled = second | false (5 s with the aim on the player's feet), left = yards }.
+// stalled = second | false (5 s with the aim on the player's feet), left = yards, flips = the route's back-and-forths
+// (its current leg A, then B, then A again within 30 s; a leg is its kind, crossing, end and the legs after it),
+// keys = the first 12 changes ("second:key") }.
 const FOLLOW_ARROW: &str = r#"
 local G = stub.navNs.PathGrid
 local function ground(c, x, y, h)
@@ -2924,21 +2926,44 @@ local function ground(c, x, y, h)
 	local n = G.snap(st, k, lc, x, y, h)
 	return n and G.zOf(G.grid(st, k), n) or nil
 end
+local function routeKey()
+	local legs, ci = N.GetRoute()
+	local l = legs and legs[ci or 1]
+	if not l then return "-" end
+	local to = l.to
+	return string.format("%d:%s%s:%s", #legs - (ci or 1), l.kind, l.crossing and ("@" .. l.crossing) or "",
+		to and to.wx and string.format("%d,%d", floor(to.wx / 15 + 0.5), floor(to.wy / 15 + 0.5)) or "?")
+end
 function follow(c, x, y, z, secs)
 	local map = N.danger.ZoneAt(c, x, y)
 	place(map, x, y, z)
 	stub.fire("ZONE_CHANGED_NEW_AREA")
 	local _, tx, ty = N.GetTargetWorld()
 	for _ = 1, 100 do N.Sample(); stub.advance(0.05) end
-	local still = 0
+	local still, flips, keys, hist, last = 0, 0, {}, {}, nil
+	local function done(r)
+		r.flips, r.keys = flips, keys
+		return r
+	end
 	for t = 1, secs do
 		for _ = 1, 20 do N.Sample(); stub.advance(0.05) end
-		if dist(x, y, tx, ty) <= 10 then return { arrived = t, stalled = false, left = 0 } end
+		local k = routeKey()
+		if last and k ~= last then
+			for j = #hist, 1, -1 do
+				local h = hist[j]
+				if t - h[1] > 30 then break end
+				if h[2] == k and h[3] == last then flips = flips + 1 break end
+			end
+			hist[#hist + 1] = { t, last, k }
+			if #keys < 12 then keys[#keys + 1] = t .. ":" .. k end
+		end
+		last = k
+		if dist(x, y, tx, ty) <= 10 then return done({ arrived = t, stalled = false, left = 0 }) end
 		local _, _, _, dn, dw = N.Sample()
 		if not dn then break end
 		local da = sqrt(dn * dn + dw * dw)
 		if da < 0.5 then still = still + 1 else still = 0 end
-		if still >= 5 then return { arrived = false, stalled = t, left = floor(dist(x, y, tx, ty)) } end
+		if still >= 5 then return done({ arrived = false, stalled = t, left = floor(dist(x, y, tx, ty)) }) end
 		local step = math.min(7, da)
 		if da > 0 then x, y = x + dn / da * step, y + dw / da * step end
 		z = ground(c, x, y, z) or z
@@ -2949,7 +2974,7 @@ function follow(c, x, y, z, secs)
 			stub.fire("ZONE_CHANGED_NEW_AREA")
 		end
 	end
-	return { arrived = false, stalled = false, left = floor(dist(x, y, tx, ty)) }
+	return done({ arrived = false, stalled = false, left = floor(dist(x, y, tx, ty)) })
 end
 "#;
 
@@ -2979,4 +3004,35 @@ fn following_the_arrow_down_a_switchback_from_the_badlands_rim_to_a_burning_step
 	);
 	assert_eq!(out["stalled"], false, "the arrow never stays on the player's feet: {out}");
 	assert!(out["arrived"].as_f64().is_some(), "following the arrow gets the player to the goal: {out}");
+}
+
+// #2081: a level 39 Horde player on the Maker's Terrace (Badlands 48.82,8.33) guided to the Ancient Chest just inside
+// Uldaman's cave mouth (Badlands 39.34,18.82, height 212.2): the arrow pointed toward Loch Modan, then Uldaman, and
+// at Uldaman's entrance back toward Loch Modan. The walk itself is there (about 540 yd, never north into Loch Modan).
+// Following the arrow, the route never goes back and forth, and the player gets to the chest.
+#[test]
+fn t_2081_following_the_arrow_from_the_maker_s_terrace_to_uldaman_s_ancient_chest_never_flips_and_arrives() {
+	skip_unless_ready!();
+	let out = run(
+		&[
+			FOLLOW_ARROW,
+			r#"
+		w.faction = "Horde"
+		w.race, w.raceName = "Scourge", "Undead"
+		w.level = 39
+		local _, v = C_Map.GetWorldPosFromMapPos(1418, CreateVector2D(0.4882, 0.0833))
+		local x, y = v.x, v.y
+		local z = ground(0, x, y, nil) or 0
+		place(1418, x, y, z)
+		stub.advance(1)
+		N.Sample()
+		N.SetTarget(1418, 39.34, 18.82, "Ancient Chest", "e", nil, 212.2)
+		emit(follow(0, x, y, z, 240))"#,
+		]
+		.concat(),
+		true,
+	);
+	assert_eq!(out["flips"], 0, "the route never goes back and forth: {out}");
+	assert_eq!(out["stalled"], false, "the arrow never stays on the player's feet: {out}");
+	assert!(out["arrived"].as_f64().is_some(), "following the arrow gets the player to the chest: {out}");
 }
