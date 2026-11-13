@@ -397,3 +397,42 @@ fn a_long_list_scrolls_under_a_filter_that_narrows_it_and_enter_picks_the_first_
 	assert_eq!(out["short"], json!({ "filter": false, "scroll": false, "rows": 5, "parent": true }), "a short list as it was");
 }
 
+// A colour row remembers more: a right-click on one of the recent colours keeps it as a favourite (first among the
+// squares, in an accent edge, out of the recents' turnover; right-click again lets it go), and after a change the
+// colour the row held before stands nearest the chip, a click going back to it.
+#[test]
+fn a_colour_row_keeps_favourites_and_offers_the_colour_it_held_before() {
+	let out = run(r#"
+		UI.ShowOptions("arrow")
+		local row = ctl("nav.arrowNearColor")
+		PolestarDB.recentColors = { { 1, 0, 0 }, { 0, 1, 0 }, { 0, 0, 1 } }
+		PolestarDB.pinnedColors = nil
+		row:Refresh()
+		local function squares()
+			local out = {}
+			for _, sq in ipairs(row.Recent) do
+				if sq:IsShown() then out[#out + 1] = (sq.psPinned and "*" or "") .. W.ColorHex(sq.psColor[1], sq.psColor[2], sq.psColor[3]) end
+			end
+			return out
+		end
+		local start = squares()
+		stub.RunScript(row.Recent[2], "OnClick", "RightButton")
+		local pinned = squares()
+		for i = 1, 8 do W.PushRecentColor({ i / 10, 0.5, 0.5 }) end
+		local turnover = squares()[1]
+		stub.RunScript(row.Recent[1], "OnClick", "RightButton")
+		local unpinned = { #PolestarDB.pinnedColors, squares()[1] }
+		local noPrev = row.Prev:IsShown()
+		stub.RunScript(row.Recent[1], "OnClick", "LeftButton")
+		local picked = { Polestar.GetStored("nav.arrowNearColor") ~= nil, row.Prev:IsShown() }
+		stub.RunScript(row.Prev, "OnClick", "LeftButton")
+		local back = { Polestar.GetStored("nav.arrowNearColor") or false, row.Prev:IsShown() }
+		emit({ start = start, pinned = pinned, turnover = turnover, unpinned = unpinned, noPrev = noPrev, picked = picked, back = back })"#);
+	assert_eq!(out["start"], json!(["#FF0000", "#00FF00", "#0000FF"]));
+	assert_eq!(out["pinned"], json!(["*#00FF00", "#FF0000", "#0000FF"]), "the favourite first, the others after");
+	assert_eq!(out["turnover"], "*#00FF00", "eight new colours later it is still there");
+	assert_eq!(out["unpinned"], json!([0, "#CC8080"]), "let go: the newest recent first again");
+	assert_eq!(out["noPrev"], false, "no change yet: no previous colour");
+	assert_eq!(out["picked"], json!([true, true]), "a change: the colour before it nearest the chip");
+	assert_eq!(out["back"], json!([false, true]), "a click on it goes back (its default), and offers the other");
+}

@@ -37,3 +37,6 @@ section: players
   time explains how it works.
 - Long lists (a profile menu with many profiles, a long dropdown) scroll
   and have a filter box: type to narrow them, Enter picks the first match.
+- Colour rows keep favourites: right-click one of the recent colours to
+  keep it, and after a change the colour you had before waits by the
+  swatch, one click away.

@@ -24,7 +24,11 @@ local textWidth = W.TextWidth
 -- Colour swatch: opens the game's colour picker; right-click restores the
 -- default. Always editable. Beside the chip: the colour as hex, which takes
 -- a typed one (Enter applies it), and the colours picked last (any colour
--- row's, PolestarDB.recentColors), a click applying one. opts:
+-- row's, PolestarDB.recentColors), a click applying one; a right-click on
+-- one keeps it as a favourite (PolestarDB.pinnedColors, shown first, out of
+-- the recents' turnover; right-click again lets it go). Nearest the chip,
+-- after a change, the colour the row held before it: a click goes back.
+-- opts:
 --   shown() -> r, g, b: the colour in effect when the setting holds none
 --     (the scheme's accent, EllesmereUI's, the scheme's ground);
 --   source() -> text: where that colour comes from, shown left of the chip
@@ -80,8 +84,38 @@ local function recentList()
 	return db.recentColors
 end
 
+local function pinnedList()
+	local db = ns.DB()
+	if type(db.pinnedColors) ~= "table" then db.pinnedColors = {} end
+	return db.pinnedColors
+end
+
+local function sameColor(o, c)
+	return type(o) == "table" and type(c) == "table" and type(o[1]) == "number" and type(c[1]) == "number"
+		and math.abs(o[1] - c[1]) < 0.002 and math.abs(o[2] - c[2]) < 0.002 and math.abs(o[3] - c[3]) < 0.002
+		and math.abs((o[4] or 1) - (c[4] or 1)) < 0.002
+end
+
+local function isPinned(c)
+	for _, o in ipairs(pinnedList()) do if sameColor(o, c) then return true end end
+	return false
+end
+
 local function refreshSwatches()
 	for row in pairs(swatches) do row:Refresh() end
+end
+
+-- Keep a colour as a favourite (first among the squares, out of the
+-- recents' turnover; RECENT_N kept), or let it go (on = false).
+function W.PinColor(c, on)
+	if type(c) ~= "table" or type(c[1]) ~= "number" then return end
+	local list = pinnedList()
+	for i = #list, 1, -1 do if sameColor(list[i], c) or type(list[i]) ~= "table" then table.remove(list, i) end end
+	if on ~= false then
+		table.insert(list, 1, { c[1], c[2], c[3], c[4] })
+		for i = #list, RECENT_N + 1, -1 do list[i] = nil end
+	end
+	refreshSwatches()
 end
 
 -- Put a colour first among the recent ones (8 kept, no repeats).
@@ -109,6 +143,25 @@ local function swatchWrite(self, r, g, b, a)
 	end
 end
 
+-- What a row holds now, kept as its previous colour before a change made
+-- from it: the value as stored (nil: its default) and the colour shown.
+local function remember(row)
+	local v = ns.GetStored(row.psPath)
+	if type(v) == "table" then v = { v[1], v[2], v[3], v[4] } end
+	local r, g, b, _, a = swatchColor(row)
+	row.psPrev = { value = v, color = { r, g, b, row.psAlpha and a or nil } }
+end
+
+-- A square's edge: the accent around a favourite, the swatch hairline else.
+local function paintSquare(sq)
+	if sq.psPinned then
+		local r, g, b = Theme.Accent()
+		Theme.Border(sq, r, g, b, 0.95)
+	else
+		Theme.Border(sq, Theme.Wash("swatch"))
+	end
+end
+
 local function swatchRefresh(self)
 	local r, g, b, own, a = swatchColor(self)
 	self.Chip:SetVertexColor(r, g, b, self.psAlpha and a or 1)
@@ -120,10 +173,27 @@ local function swatchRefresh(self)
 		if not alpha:HasFocus() then alpha:SetText(floor(a * 100 + 0.5) .. "%") end
 		W.Color(alpha, own and "text" or "textDim")
 	end
-	local list = recentList()
+	-- The favourites first, then the recent ones not among them; the
+	-- colour held before the last change nearest the chip, while it differs.
+	local shown = {}
+	for _, c in ipairs(pinnedList()) do
+		if #shown < RECENT_N and type(c) == "table" and type(c[1]) == "number" then shown[#shown + 1] = c end
+	end
+	local pins = #shown
+	for _, c in ipairs(recentList()) do
+		if #shown < RECENT_N and type(c) == "table" and type(c[1]) == "number" and not isPinned(c) then shown[#shown + 1] = c end
+	end
+	local prev = rawget(self, "psPrev")
+	local back = prev ~= nil and not sameColor(prev.color, { r, g, b, self.psAlpha and a or nil }) and prev
+	self.Prev:SetShown(back and true or false)
+	if back then self.Prev.Fill:SetVertexColor(back.color[1], back.color[2], back.color[3], 1) end
+	local start = back and (RECENT_SIZE + RECENT_GAP + 4) or 0
 	for i, sq in ipairs(self.Recent) do
-		local c = list[i]
-		if type(c) == "table" and type(c[1]) == "number" then
+		local c = shown[i]
+		sq.psPinned = i <= pins
+		sq:ClearAllPoints()
+		sq:SetPoint("RIGHT", self.RecentBar, "RIGHT", -(start + (i - 1) * (RECENT_SIZE + RECENT_GAP)), 0)
+		if c then
 			sq.Fill:SetVertexColor(c[1], c[2], c[3], 1)
 			sq.psColor = c
 			sq:Show()
@@ -131,6 +201,7 @@ local function swatchRefresh(self)
 			sq.psColor = nil
 			sq:Hide()
 		end
+		paintSquare(sq)
 	end
 	dimRow(self, W.Enabled(self))
 end
@@ -162,6 +233,7 @@ local function openPicker(self)
 	end
 	local path = self.psPath
 	local r, g, b, _, a = swatchColor(self)
+	if rawget(self, "Prev") then remember(self) end
 	local previous = ns.Get(path)
 	local linked = {}
 	for i, p in ipairs(self.psLinked or {}) do linked[i] = ns.Get(p) end
@@ -189,14 +261,36 @@ local function recentClick(sq, button)
 	local row = sq.psRow
 	local c = sq.psColor
 	if not (c and W.Enabled(row)) then return end
-	if button == "RightButton" then return end
+	-- Right-click: kept as a favourite, or let go.
+	if button == "RightButton" then return W.PinColor(c, not sq.psPinned) end
 	local _, _, _, _, a = swatchColor(row)
+	remember(row)
 	swatchWrite(row, c[1], c[2], c[3], c[4] or a)
 end
 
 local function recentEnter(sq)
 	local c = sq.psColor
-	if c then W.Tooltip(sq, "ANCHOR_TOP", W.ColorHex(c[1], c[2], c[3], c[4]), { L["Click to use this colour"] }) end
+	if not c then return end
+	W.Tooltip(sq, "ANCHOR_TOP", W.ColorHex(c[1], c[2], c[3], c[4]), {
+		L["Click to use this colour"],
+		sq.psPinned and L["Right-click to stop keeping it."] or L["Right-click to keep it as a favourite."],
+	})
+end
+
+-- The square nearest the chip: the colour the row held before its last
+-- change; a click goes back to it.
+local function prevClick(sq)
+	local row = sq.psRow
+	local back = rawget(row, "psPrev")
+	if not (back and W.Enabled(row)) then return end
+	remember(row)
+	ns.Set(row.psPath, back.value)
+end
+
+local function prevEnter(sq)
+	local back = rawget(sq.psRow, "psPrev")
+	local c = back and back.color
+	if c then W.Tooltip(sq, "ANCHOR_TOP", L["Previous colour"], { W.ColorHex(c[1], c[2], c[3]), L["Click to go back to it."] }) end
 end
 
 -- A small typed field on a colour row (the hex, the opacity).
@@ -227,7 +321,7 @@ local ALPHA_W = 52
 
 -- The recent colours show in the source's place while the cursor is on the row.
 local function recentsShown(row, on)
-	row.RecentBar:SetShown(on and #recentList() > 0)
+	row.RecentBar:SetShown(on and (#recentList() > 0 or #pinnedList() > 0 or rawget(row, "psPrev") ~= nil))
 	row.Note:SetShown(not row.RecentBar:IsShown() and not row.psCompact)
 end
 
@@ -242,6 +336,7 @@ function W.Swatch(parent, label, path, desc, opts)
 			local n = tonumber((tostring(text or ""):gsub(",", ".")):match("%d*%.?%d+") or "")
 			if not n then return end
 			local r, g, b = swatchColor(row)
+			remember(row)
 			swatchWrite(row, r, g, b, min(1, max(0, n / 100)))
 		end)
 		row.Alpha:SetPoint("RIGHT", row, "RIGHT", -right, 0)
@@ -251,6 +346,7 @@ function W.Swatch(parent, label, path, desc, opts)
 		local r, g, b, a = W.ParseHex(text)
 		if not r then return end
 		if a == nil then local _, _, _, _, ca = swatchColor(row); a = ca end
+		remember(row)
 		swatchWrite(row, r, g, b, a)
 		W.PushRecentColor(ns.Get(row.psPath))
 	end)
@@ -282,7 +378,7 @@ function W.Swatch(parent, label, path, desc, opts)
 	local fixed = right + HEX_W + 8 + 34 + 8
 	-- The recent colours, newest nearest the chip.
 	local bar = CreateFrame("Frame", nil, row)
-	bar:SetSize(RECENT_W, RECENT_SIZE)
+	bar:SetSize(RECENT_W + RECENT_SIZE + RECENT_GAP + 4, RECENT_SIZE)
 	bar:SetPoint("RIGHT", chip, "LEFT", -8, 0)
 	row.RecentBar = bar
 	row.Recent = {}
@@ -294,15 +390,30 @@ function W.Swatch(parent, label, path, desc, opts)
 		sq.Fill:SetTexture(WHITE)
 		sq.Fill:SetPoint("TOPLEFT", sq, "TOPLEFT", 1, -1)
 		sq.Fill:SetPoint("BOTTOMRIGHT", sq, "BOTTOMRIGHT", -1, 1)
-		W.Painter(sq, function(f) Theme.Border(f, Theme.Wash("swatch")) end)
+		W.Painter(sq, paintSquare)
 		sq.psRow = row
-		sq:RegisterForClicks("LeftButtonUp")
+		sq:RegisterForClicks("LeftButtonUp", "RightButtonUp")
 		sq:SetScript("OnClick", recentClick)
 		sq:SetScript("OnEnter", recentEnter)
 		sq:SetScript("OnLeave", hideTip)
 		sq:Hide()
 		row.Recent[i] = sq
 	end
+	-- The previous colour, nearest the chip, set apart by a darker hairline.
+	local prev = CreateFrame("Button", nil, bar)
+	prev:SetSize(RECENT_SIZE, RECENT_SIZE)
+	prev:SetPoint("RIGHT", bar, "RIGHT", 0, 0)
+	prev.Fill = prev:CreateTexture(nil, "ARTWORK")
+	prev.Fill:SetTexture(WHITE)
+	prev.Fill:SetPoint("TOPLEFT", prev, "TOPLEFT", 1, -1)
+	prev.Fill:SetPoint("BOTTOMRIGHT", prev, "BOTTOMRIGHT", -1, 1)
+	W.Painter(prev, function(f) local r, g, b = Theme.Color("textDim"); Theme.Border(f, r, g, b, 0.9) end)
+	prev.psRow = row
+	prev:SetScript("OnClick", prevClick)
+	prev:SetScript("OnEnter", prevEnter)
+	prev:SetScript("OnLeave", hideTip)
+	prev:Hide()
+	row.Prev = prev
 	-- Gone once the cursor leaves the row (its squares are in it).
 	bar:SetScript("OnUpdate", function()
 		if not (row.IsMouseOver and row:IsMouseOver()) then recentsShown(row, false) end
@@ -310,11 +421,16 @@ function W.Swatch(parent, label, path, desc, opts)
 	bar:Hide()
 	row.Note = W.Text(row, "small", "textMuted")
 	row.Note:SetPoint("RIGHT", chip, "LEFT", -8, 0)
-	fitLabel(row, row.Note, function(self) return fixed + max(RECENT_W, math.ceil(textWidth(self.Note))) + 10 end)
+	fitLabel(row, row.Note, function(self) return fixed + max(RECENT_W + RECENT_SIZE + RECENT_GAP + 4, math.ceil(textWidth(self.Note))) + 10 end)
 	row:RegisterForClicks("LeftButtonUp", "RightButtonUp")
 	row:SetScript("OnClick", function(self, button)
 		if not W.Enabled(self) then return end
-		if button == "RightButton" then W.ResetSetting(self.psPath) else openPicker(self) end
+		if button == "RightButton" then
+			remember(self)
+			W.ResetSetting(self.psPath)
+		else
+			openPicker(self)
+		end
 	end)
 	row:SetScript("OnEnter", function(self)
 		rowEnter(self)
