@@ -8,21 +8,21 @@
 return {
 	-- Step 1: Into Badlands
 	-- {zone:1418} Badlands
-	["Into {zone:1418}"] = "",
+	["Into {zone:1418}"] = "A {zone:1418}",
 
 	-- Step 3: Hammertoe's Digsite
 	-- {zone:1432} Loch Modan · {zone:1418} Badlands · {npc:2910} Prospector Ryedol · {npc:2860} Sigrun Ironhew
-	["Head back west to the road and follow it south out of {zone:1432} through the pass into the {zone:1418}. {npc:2910} and {npc:2860} camp side by side at the dig."] = "",
+	["Head back west to the road and follow it south out of {zone:1432} through the pass into the {zone:1418}. {npc:2910} and {npc:2860} camp side by side at the dig."] = "Vuelve al oeste hasta el camino y síguelo al sur saliendo de {zone:1432} por el paso hasta {zone:1418}. {npc:2910} y {npc:2860} acampan uno al lado del otro en la excavación.",
 
 	-- Step 4: Hammertoe's Digsite: kill these as you meet them
 	-- {area:346} Hammertoe's Digsite
-	["{area:346}: kill these as you meet them"] = "",
+	["{area:346}: kill these as you meet them"] = "{area:346}: mata a estos según te los encuentres",
 	-- plural, as words: Crag Coyotes = {npc:2727} Crag Coyote
 	["The Shadowforge dwarves camp just north of the digsite; the crumpled map lies among their tents. Tunnelers and Darkweavers carry Ryedol's pick. Crag Coyotes roam the slopes around it."] = "Los enanos Forjatiniebla acampan justo al norte de la excavación; el mapa arrugado está entre sus tiendas. Los Tuneladores y los Tejeoscuros llevan el pico de Ryedol. Los Coyotes del risco recorren las laderas de alrededor.",
 
 	-- Step 5: The excavation crate
 	["The excavation crate"] = "La caja de la excavación",
-	["Head north-east to the abandoned dig; the supply crate lies there among the Dustbelcher ogres."] = "",
+	["Head north-east to the abandoned dig; the supply crate lies there among the Dustbelcher ogres."] = "Ve al noreste hasta la excavación abandonada; la caja de suministros está ahí, entre los ogros Rotapolvo.",
 
 	-- Step 6: Hammertoe's Digsite
 	-- {area:1517} Uldaman
@@ -38,41 +38,41 @@ return {
 
 	-- Step 9: Agmond's End: kill these as you meet them
 	-- {area:345} Agmond's End
-	["{area:345}: kill these as you meet them"] = "",
+	["{area:345}: kill these as you meet them"] = "{area:345}: mata a estos según te los encuentres",
 	-- {quest:739} Murdaloc · {spell:5242} Battle Shout · {spell:1160} Demoralizing Shout · {area:340} Kargath
 	-- plural, as words: Dustbelcher Lords = {npc:2719} Dustbelcher Lord
-	["The Dustbelcher ogres camp just south of the valley; any of them drops scrap. Buzzards circle the plain to the east.\nThe battered skeleton lies at the edge of the Stonevault trogg camp; {quest:739}, Agmond's killer, walks among the Bonesnappers.\nCareful: Dustbelcher Lords are level 44-45. They use {spell:5242} and {spell:1160}, and below 50% health they call for help from allies within 15 yd. Seven of them stand about 750 yd south of {area:340}."] = "",
+	["The Dustbelcher ogres camp just south of the valley; any of them drops scrap. Buzzards circle the plain to the east.\nThe battered skeleton lies at the edge of the Stonevault trogg camp; {quest:739}, Agmond's killer, walks among the Bonesnappers.\nCareful: Dustbelcher Lords are level 44-45. They use {spell:5242} and {spell:1160}, and below 50% health they call for help from allies within 15 yd. Seven of them stand about 750 yd south of {area:340}."] = "Los ogros Rotapolvo acampan justo al sur del valle; cualquiera de ellos suelta chatarra. Los buitres sobrevuelan la llanura al este.\nEl esqueleto maltrecho está en el borde del campamento de los troggs Grutacanto; {quest:739}, el asesino de Agmond, anda entre los rompehuesos.\nCuidado: Los señores Rotapolvo son de nivel 44-45. Usan {spell:5242} y {spell:1160}, y por debajo del 50% de salud piden ayuda a los aliados a menos de 15 m. Siete de ellos están unos 750 m al sur de {area:340}.",
 	-- {quest:739} Murdaloc · {zone:1418} Badlands
-	["{quest:739} himself (42) walks among the Bonesnappers: leave him for the later {zone:1418} guide at 43, and kill the Bonesnappers for this quest now."] = "",
+	["{quest:739} himself (42) walks among the Bonesnappers: leave him for the later {zone:1418} guide at 43, and kill the Bonesnappers for this quest now."] = "El propio {quest:739} (42) anda entre los rompehuesos: déjalo para la guía posterior de {zone:1418}, a nivel 43, y mata ahora a los rompehuesos para esta misión.",
 
 	-- Step 10: Lotwil Veriatus
 	-- {area:1878} Dustbowl · {npc:2921} Lotwil Veriatus
-	["Head west into the {area:1878}; {npc:2921} works by his machines in the middle of it."] = "",
+	["Head west into the {area:1878}; {npc:2921} works by his machines in the middle of it."] = "Ve al oeste hacia {area:1878}; {npc:2921} trabaja junto a sus máquinas en el medio.",
 
 	-- Step 11: Lesser Rock Elementals
 	-- plural, as words: Lesser Rock Elementals = {npc:2735} Lesser Rock Elemental
 	["Lesser Rock Elementals"] = "Elementales de roca inferiores",
 	-- {area:1878} Dustbowl · {npc:2921} Lotwil Veriatus · {npc:1470} Ghak Healtouch
 	-- plural, as words: Lesser Rock Elementals = {npc:2735} Lesser Rock Elemental · Rock Elemental Shards = {item:7848} Rock Elemental Shard
-	["The Lesser Rock Elementals wander the {area:1878} west of {npc:2921}; every rock elemental can drop {npc:1470}'s Rock Elemental Shards."] = "",
+	["The Lesser Rock Elementals wander the {area:1878} west of {npc:2921}; every rock elemental can drop {npc:1470}'s Rock Elemental Shards."] = "Los elementales de roca inferiores deambulan por {area:1878} al oeste de {npc:2921}; cualquier elemental de roca puede soltar los fragmentos de elemental de roca de {npc:1470}.",
 
 	-- Step 13: The Ancient Chest
 	-- {object:126260} Ancient Chest
 	["The {object:126260}"] = "{object:126260}",
 	-- {zone:1418} Badlands · {npc:2745} Ambassador Infernus
-	["Head north-east to the dwarven ruins in the north of the {zone:1418}; the chest sits among the Shadowforge dwarves. {npc:2745} nearby is elite: give him room."] = "",
+	["Head north-east to the dwarven ruins in the north of the {zone:1418}; the chest sits among the Shadowforge dwarves. {npc:2745} nearby is elite: give him room."] = "Ve al noreste hasta las ruinas enanas del norte de {zone:1418}; el cofre está entre los enanos Forjatiniebla. {npc:2745}, cerca, es élite: mantén distancia.",
 	-- {item:4631} Tablet of Ryun'eh
-	["{item:4631}; below ground"] = "",
+	["{item:4631}; below ground"] = "{item:4631}; bajo tierra",
 
 	-- Step 14: Valley of Fangs
 	-- {npc:4618} Martek the Exiled · {npc:2817} Rigglefuzz · {area:1877} Valley of Fangs · {area:345} Agmond's End
-	["Head south down the road: {npc:4618} and {npc:2817} camp in the {area:1877}, on the way to {area:345}."] = "",
+	["Head south down the road: {npc:4618} and {npc:2817} camp in the {area:1877}, on the way to {area:345}."] = "Al sur por el camino: {npc:4618} y {npc:2817} acampan en {area:1877}, de camino a {area:345}.",
 	-- {npc:4454} Fizzle Brassbolts · {area:2240} Mirage Raceway · {zone:1446} Tanaris
-	["For {npc:4454} at the {area:2240}: the {zone:1446} guide passes him at 45, keep it"] = "",
+	["For {npc:4454} at the {area:2240}: the {zone:1446} guide passes him at 45, keep it"] = "Para {npc:4454} en {area:2240}: la guía de {zone:1446} pasa junto a él a nivel 45, guárdala",
 
 	-- Step 15: Theldurin the Lost
 	-- {area:345} Agmond's End
-	["Head south to {area:345}."] = "",
+	["Head south to {area:345}."] = "Ve al sur hasta {area:345}.",
 	-- {npc:2786} Gerrig Bonegrip · {zone:1455} Ironforge
 	["for {npc:2786} in {zone:1455}: keep it"] = "para {npc:2786} en {zone:1455}: guárdala",
 
@@ -86,15 +86,15 @@ return {
 	-- Step 17: Lotwil Veriatus
 	-- {npc:2921} Lotwil Veriatus · {item:4628} Bracers of Rock Binding
 	-- plural, as words: Greater Rock Elementals = {npc:2736} Greater Rock Elemental
-	["{npc:2921}'s last test is optional: five {item:4628}, which only the Greater Rock Elementals (42-44) in the south-western gulches drop, about one kill in five, well above your level. Take it only if you can handle them one at a time; otherwise hand in the slabs and move on."] = "",
+	["{npc:2921}'s last test is optional: five {item:4628}, which only the Greater Rock Elementals (42-44) in the south-western gulches drop, about one kill in five, well above your level. Take it only if you can handle them one at a time; otherwise hand in the slabs and move on."] = "La última prueba de {npc:2921} es opcional: cinco {item:4628}, que solo sueltan los elementales de roca superiores (42-44) de las quebradas del suroeste, más o menos una de cada cinco muertes, muy por encima de tu nivel. Tómala solo si puedes con ellos de a uno; si no, entrega las losas y sigue adelante.",
 
 	-- Step 18: Bracers of Rock Binding
 	-- plural, as words: Greater Rock Elementals = {npc:2736} Greater Rock Elemental
-	["South-west into the gulches: only the Greater Rock Elementals there drop the bracers."] = "",
+	["South-west into the gulches: only the Greater Rock Elementals there drop the bracers."] = "Al suroeste hacia las quebradas: solo los elementales de roca superiores de ahí sueltan los brazales.",
 
 	-- Step 20: Lucien Tosselwrench
 	-- {npc:2920} Lucien Tosselwrench · {npc:2921} Lotwil Veriatus · {item:2868} Patterned Bronze Bracers
-	["{npc:2920}, beside {npc:2921}, trades for {item:2868}, a blacksmith's craft: this step shows only when you carry a pair."] = "",
+	["{npc:2920}, beside {npc:2921}, trades for {item:2868}, a blacksmith's craft: this step shows only when you carry a pair."] = "{npc:2920}, junto a {npc:2921}, intercambia por {item:2868}, una fabricación de herrero: este paso solo aparece cuando llevas un par.",
 	-- {npc:2920} Lucien Tosselwrench · {npc:2921} Lotwil Veriatus
 	["{npc:2920}, beside {npc:2921}"] = "{npc:2920}, junto a {npc:2921}",
 
@@ -104,7 +104,7 @@ return {
 
 	-- Step 22: Thelsamar
 	-- {npc:1470} Ghak Healtouch
-	["{npc:1470}, in the inn; below ground"] = "",
+	["{npc:1470}, in the inn; below ground"] = "{npc:1470}, en la posada; bajo tierra",
 
 	-- Step 23: Fly to Menethil Harbor
 	-- {area:150} Menethil Harbor
@@ -113,9 +113,9 @@ return {
 	["{area:144} flight master"] = "Maestro de vuelo de {area:144}",
 
 	-- Step 25: Theramore flight master
-	["Theramore flight master"] = "",
+	["Theramore flight master"] = "Maestro de vuelo de Theramore",
 	-- {area:514} Foothold Citadel
-	["Off the boat, walk up the pier to Baldruc, the flight master by the gate of {area:514}."] = "",
+	["Off the boat, walk up the pier to Baldruc, the flight master by the gate of {area:514}."] = "Al bajar del barco, sube por el muelle hasta Baldruc, el maestro de vuelo junto a la puerta de {area:514}.",
 
 	-- Step 26: Nijel's Point
 	-- {npc:5638} Kreldig Ungor · {npc:11863} Azore Aldamort
@@ -140,14 +140,14 @@ return {
 
 	-- Step 31: Melizza Brimbuzzle
 	-- {npc:12277} Melizza Brimbuzzle
-	["{npc:12277} is held in the centaur camp west of the graveyard. Free her and keep her alive on the walk out; she stops by the graveyard.\nCareful: The scripted groups are linked and only appear during the escort, so you cannot clear them in advance or pull them one at a time. Clearing the normal centaurs on the path before you start does help."] = "",
+	["{npc:12277} is held in the centaur camp west of the graveyard. Free her and keep her alive on the walk out; she stops by the graveyard.\nCareful: The scripted groups are linked and only appear during the escort, so you cannot clear them in advance or pull them one at a time. Clearing the normal centaurs on the path before you start does help."] = "{npc:12277} está retenida en el campamento de centauros al oeste del cementerio. Libérala y mantenla con vida en el camino de salida; se detiene junto al cementerio.\nCuidado: Los grupos del guion están vinculados y solo aparecen durante la escolta, así que no puedes despejarlos antes ni atraerlos de a uno. Sí ayuda despejar antes de empezar los centauros normales del camino.",
 	-- {npc:12277} Melizza Brimbuzzle
 	["escort {npc:12277} back toward the graveyard"] = "escolta a {npc:12277} de vuelta hacia el cementerio",
 
 	-- Step 32: Mannoroc Coven
 	-- {area:602} Mannoroc Coven · {zone:1443} Desolace
 	-- plural, as words: Mana Eaters = {npc:4678} Mana Eater · Ley Hunters = {npc:4685} Ley Hunter · Nether Maidens = {npc:4679} Nether Maiden · Doomwarder Captains = {npc:4680} Doomwarder Captain
-	["The demons gather at the {area:602} in southern {zone:1443}: felhounds (Mana Eaters, Mage and Ley Hunters), Nether Maidens and Sisters, and Doomwarder Captains around the pit.\nCareful: Most of the mobs here walk patrol routes, so you can easily pull extra mobs."] = "",
+	["The demons gather at the {area:602} in southern {zone:1443}: felhounds (Mana Eaters, Mage and Ley Hunters), Nether Maidens and Sisters, and Doomwarder Captains around the pit.\nCareful: Most of the mobs here walk patrol routes, so you can easily pull extra mobs."] = "Los demonios se reúnen en {area:602}, en el sur de {zone:1443}: canes viles (devoradores de maná, cazadores de magos y de líneas ley), doncellas y hermanas abisales, y capitanes Guardaruina alrededor del foso.\nCuidado: La mayoría de los enemigos de aquí patrullan, así que es fácil atraer enemigos de más.",
 
 	-- Step 33: The Valley of Bones
 	-- {area:2657} Valley of Bones
@@ -171,7 +171,7 @@ return {
 
 	-- Step 39: Sar'theris Strand: kill these as you meet them
 	-- {area:598} Sar'theris Strand
-	["{area:598}: kill these as you meet them"] = "",
+	["{area:598}: kill these as you meet them"] = "{area:598}: mata a estos según te los encuentres",
 	-- {npc:11863} Azore Aldamort · {area:2406} Ranazjar Isle · {item:15766} Gem of the Serpent · {object:177673} Serpent Statue (no name in this language: may be words) · {npc:12369} Lord Kragaru · {quest:6027} Book of the Ancients
 	["The Slitherblade naga hold the north-west coast north of {npc:11863}'s tower; Karnitol's satchel lies on the sea floor off it, and any naga can drop Rackmore's golden key. Swim out to {area:2406} off the far northern tip and use the {item:15766} on the {object:177673}: {npc:12369} (38) rises; kill him for the {quest:6027}."] = "Los nagas Filozante ocupan la costa noroeste, al norte de la torre de {npc:11863}; la cartera de Karnitol está en el fondo del mar frente a ella, y cualquier naga puede soltar la llave dorada de Rackmore. Nada hasta {area:2406}, frente a la punta más al norte, y usa {item:15766} en {object:177673}: surge {npc:12369} (38); mátalo para {quest:6027}.",
 	-- {item:15881} Rackmore's Golden Key

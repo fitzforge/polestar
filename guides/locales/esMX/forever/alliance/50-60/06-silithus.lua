@@ -358,7 +358,7 @@ return {
 	-- {area:271} Southshore
 	["Fly to {area:271}"] = "Vuela a {area:271}",
 	-- {zone:1455} Ironforge
-	["{zone:1455} flight master"] = "",
+	["{zone:1455} flight master"] = "Maestro de vuelo de {zone:1455}",
 
 	-- Step 82: Chillwind Camp
 	-- {npc:1852} Araj the Summoner

@@ -101,7 +101,7 @@ return {
 	-- {area:348} Aerie Peak
 	["Fly to {area:348}"] = "",
 	-- {zone:1455} Ironforge
-	["{zone:1455} flight master"] = "",
+	["{zone:1455} flight master"] = "Maestro de vuelo de {zone:1455}",
 
 	-- Step 29: Wildkin feathers
 	["Wildkin feathers"] = "Plumas de lechúcico salvaje",

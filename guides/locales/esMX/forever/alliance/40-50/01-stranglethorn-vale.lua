@@ -128,7 +128,7 @@ return {
 
 	-- Step 44: Booty Bay
 	-- {npc:773} Krazek
-	["{npc:773}, upstairs"] = "",
+	["{npc:773}, upstairs"] = "{npc:773}, en el piso de arriba",
 	-- {npc:770} Corporal Kaleb · {area:99} Rebel Camp
 	["for {npc:770} at the {area:99}, on the northern loop"] = "para {npc:770} en {area:99}, en el circuito norte",
 	-- {npc:2487} Fleet Master Seahorn
@@ -396,7 +396,7 @@ return {
 	-- {area:144} Thelsamar
 	["Fly to {area:144}"] = "",
 	-- {zone:1455} Ironforge
-	["{zone:1455} flight master"] = "",
+	["{zone:1455} flight master"] = "Maestro de vuelo de {zone:1455}",
 
 	-- Step 112: Loch Modan
 	-- {zone:1426} Dun Morogh · {zone:1432} Loch Modan · {area:144} Thelsamar
@@ -406,7 +406,7 @@ return {
 	-- {npc:1470} Ghak Healtouch · {area:144} Thelsamar · {area:1517} Uldaman · {zone:1418} Badlands
 	["{npc:1470} is below ground in {area:144}, by the inn. His mushrooms grow in the {area:1517} dig in the {zone:1418}; the next guide takes you there and back through {area:144}."] = "",
 	-- {npc:1470} Ghak Healtouch
-	["{npc:1470}, below ground"] = "",
+	["{npc:1470}, below ground"] = "{npc:1470}, bajo tierra",
 
 	-- Step 115: Hammertoe's Digsite
 	-- {zone:1432} Loch Modan · {zone:1418} Badlands · {npc:2860} Sigrun Ironhew

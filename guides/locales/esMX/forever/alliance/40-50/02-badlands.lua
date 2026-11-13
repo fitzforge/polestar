@@ -38,7 +38,7 @@ return {
 
 	-- Step 9: Into Badlands
 	-- {zone:1418} Badlands
-	["Into {zone:1418}"] = "",
+	["Into {zone:1418}"] = "A {zone:1418}",
 
 	-- Step 10: Badlands
 	-- {area:1517} Uldaman
@@ -63,7 +63,7 @@ return {
 	-- {area:144} Thelsamar
 	["Ride west along the loch to {area:144}."] = "",
 	-- {npc:1470} Ghak Healtouch
-	["{npc:1470}, below ground"] = "",
+	["{npc:1470}, below ground"] = "{npc:1470}, bajo tierra",
 
 	-- Step 15: Fly to Southshore
 	-- {area:271} Southshore
@@ -126,7 +126,7 @@ return {
 	["Inside {area:498}"] = "Dentro de {area:498}",
 
 	-- Step 26: Theramore flight master
-	["Theramore flight master"] = "",
+	["Theramore flight master"] = "Maestro de vuelo de Theramore",
 
 	-- Step 28: Warlock: Summon Felsteed
 	-- {quest:3631} Summon Felsteed

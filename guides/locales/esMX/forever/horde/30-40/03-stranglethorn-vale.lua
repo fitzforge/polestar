@@ -61,7 +61,7 @@ return {
 	-- {npc:4631} Wharfmaster Lozgil
 	["{npc:4631}, on the pier"] = "{npc:4631}, en el muelle",
 	-- {npc:2495} Drizzlik
-	["{npc:2495}, inside"] = "",
+	["{npc:2495}, inside"] = "{npc:2495}, adentro",
 	-- {npc:2498} Crank Fizzlebub
 	["{npc:2498}, inside, on the bottom floor"] = "",
 	-- {npc:2496} Baron Revilgaz
@@ -71,7 +71,7 @@ return {
 	-- {npc:737} Kebok
 	["{npc:737}, upstairs"] = "{npc:737}, en el piso de arriba",
 	-- {npc:773} Krazek
-	["{npc:773}, upstairs"] = "",
+	["{npc:773}, upstairs"] = "{npc:773}, en el piso de arriba",
 
 	-- Step 10: Grom'gol
 	-- {area:35} Booty Bay · {object:3202} Grom'gol (no name in this language: may be words)
@@ -93,7 +93,7 @@ return {
 
 	-- Step 14: Stranglethorn Vale: kill these as you meet them
 	-- {zone:1434} Stranglethorn Vale
-	["{zone:1434}: kill these as you meet them"] = "",
+	["{zone:1434}: kill these as you meet them"] = "{zone:1434}: mata a estos según te los encuentres",
 	-- {area:37} Lake Nazferiti
 	-- plural, as words: Stranglethorn Tigers = {npc:682} Stranglethorn Tiger · Venture Co. Geologists = {npc:1096} Venture Co. Geologist · Tumbled Crystals = {item:4106} Tumbled Crystal
 	["Stranglethorn Tigers (32) roam the hills around the camp and south of it, Panthers (32) the clearings west and south-west of it. The Venture Co. Geologists, who carry the Tumbled Crystals, work the camps by {area:37}, south-east of the camp."] = "",
@@ -122,7 +122,7 @@ return {
 
 	-- Step 19: The Savage Coast: kill these as you meet them
 	-- {area:301} The Savage Coast
-	["{area:301}: kill these as you meet them"] = "",
+	["{area:301}: kill these as you meet them"] = "{area:301}: mata a estos según te los encuentres",
 	-- {npc:729} Sin'Dall
 	-- plural, as words: Crystal Spine Basilisks = {npc:689} Crystal Spine Basilisk
 	["West past the camp, Crystal Spine Basilisks (34-35) sit on the rocks; every Bloodscalp in the village beyond can drop an ear.\n{npc:729}, a level 37 tiger, prowls the hilltop south-west of the camp.\nCareful: The raptor nest has young raptors that join the fight when you attack the adults."] = "",
@@ -206,7 +206,7 @@ return {
 	["The next guide takes the zeppelin to {zone:1454} from the tower on the west side of the camp."] = "",
 
 	-- Step 34: Level 36
-	["Level 36"] = "",
+	["Level 36"] = "Nivel 36",
 	-- {object:3202} Grom'gol (no name in this language: may be words) · {area:796} Scarlet Monastery · {area:1316} Razorfen Downs
 	-- plural, as words: Mosh'Ogg Brutes = {npc:1142} Mosh'Ogg Brute
 	["Dustwallow's quests are 35-38. Still below 36 after {object:3202}'s hand-ins? The Mosh'Ogg Brutes and Witch Doctors camp in the hills just east of the camp: kill them until level 36, pulling one at a time, then walk back to the zeppelin tower. Or, with a group, run the {area:796} dungeon (Armory) or the {area:1316} dungeon instead."] = "",

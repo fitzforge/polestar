@@ -47,7 +47,7 @@ return {
 	-- {area:2268} Light's Hope Chapel
 	["Fly to {area:2268}"] = "Vuela a {area:2268}",
 	-- {zone:1455} Ironforge
-	["{zone:1455} flight master"] = "",
+	["{zone:1455} flight master"] = "Maestro de vuelo de {zone:1455}",
 
 	-- Step 9: Light's Hope Chapel
 	-- {npc:11038} Caretaker Alen · {area:2627} Terrordale
