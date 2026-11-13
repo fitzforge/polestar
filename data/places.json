@@ -50,6 +50,30 @@
 			"issue": 1575
 		},
 		{
+			"id": "1575-desolace-alliance-centaur-ears-kolkar-village",
+			"quest": 1387,
+			"objective": 1,
+			"faction": "Alliance",
+			"at": {
+				"map": 1443,
+				"x": 71.5,
+				"y": 45.5,
+				"frame": "era"
+			},
+			"note": "Centaur Bounty (1387) on the first Desolace visit's Kolkar Village step: the Centaur Ears drop from every Desolace clan, and the goal pointed at the Magram's village (65.6,70.3), among Magram Necromancers (42-43) and Guardians (39-41), at a route level of 35.5. The step is Kolkar Village, whose Kolkar (30-35) drop the ears as well: the arrow points into their village, on a Kolkar Mauler's spawn (6 Kolkar spawns within 60 yd, 16 within 100), with no mob 3 levels over within 40 yd. Players work it there: 10 of the 17 people who ticked the ears did so within 150 yd of this point, 2 near the old one.",
+			"source": [
+				{
+					"kind": "pfquest",
+					"ref": "items.json 6067 Centaur Ear: dropped by the Kolkar (4632-4637, 12976, 12977) among every Desolace clan; npcs.json Kolkar spawns on map 1443 at 67.7-74.7,38.8-52.2"
+				},
+				{
+					"kind": "recording",
+					"ref": "danger gate (players' recordings to 2026-11-12): Centaur Bounty's ears done by 17 people at a median level of 36.7, 1 death within 60 yd of the old point"
+				}
+			],
+			"issue": 1575
+		},
+		{
 			"id": "610-wetlands-fen-creepers",
 			"quest": 275,
 			"objective": 1,
