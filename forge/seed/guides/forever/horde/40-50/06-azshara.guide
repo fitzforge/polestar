@@ -150,12 +150,6 @@ step Haldarr Encampment: kill these as you meet them
   kill 6126 quest 5536.2
   kill 6125 quest 5536.1
 
-step Level 50
-  when level<50
-  tip Top up here to level 50: March of the Silithid, from Zilzibin in Orgrimmar at the end of Azshara, needs it. Or, with a group, run the Maraudon dungeon or the Sunken Temple dungeon instead.
-  goto 20.1,62.0 map 1447 "Haldarr Satyr"
-  level 50 grind 6125               -- grind on Haldarr Satyr
-
 step Loh'atu
   tip Back to Loh'atu at the shrine; stay west of the Talrendis Point guards.
   turnin 5535
@@ -229,6 +223,12 @@ step Archmage Xylem
 
 step Jediga
   turnin 3565
+
+step Level 50
+  when level<50
+  tip Top up to level 50 before you fly: March of the Silithid, from Zilzibin in Orgrimmar, needs it. The Thunderhead Hippogryphs fly over the hills just south of Valormok.
+  goto 18.0,54.2 map 1447 "Thunderhead Hippogryph"
+  level 50 grind 6375               -- grind on Thunderhead Hippogryph
 
 step Fly to Orgrimmar
   zone Azshara

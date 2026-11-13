@@ -7993,6 +7993,24 @@
 				"ref": "players' in-game recordings to 2026-11-13: Black Shield (1322) objective ticks after kills of npc 4411, 4414, 4413 and 4415 (#1985)"
 			},
 			"issue": 1985
+		},
+		{
+			"id": "horde-4050-06-level-50-after-azshara",
+			"faction": "Horde",
+			"at": {
+				"quest": 3565,
+				"goal": "turnin",
+				"guide": "forever/horde/40-50/06-azshara"
+			},
+			"level": 50,
+			"after": true,
+			"note": "Horde 40-50 route audit (0.4.0, #2025's 'grind steps weighed against hand-ins you carry'): the level 50 top-up for March of the Silithid (horde-4060-accept-march-of-the-silithid-50) sat at the Haldarr satyrs, before Loh'atu's two hand-ins (8,400 XP, the very next step) and the rest of Azshara (Stealing Knowledge, Kim'jael's two quests, the deliveries and Xylem's payment, about 24,000 XP more), all of them handed in before the Orgrimmar stop that needs 50. The gate now comes after the last Azshara hand-in (Xylem's Payment to Jediga, 3565), on the Thunderhead Hippogryphs just south of Valormok (data spawns 15-32 x 45-62 % of Azshara, levels 46-48), before the flight to Orgrimmar.",
+			"source": [
+				{
+					"kind": "client",
+					"ref": "quest minimum level of March of the Silithid (4494) and Azshara quest XP in Forever's quest data"
+				}
+			]
 		}
 	]
 }
