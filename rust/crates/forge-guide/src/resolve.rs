@@ -1298,14 +1298,26 @@ pub fn resolve_guide(ast: &V, data: &Data, diag: &mut Diagnostics, pack: Option<
 		}
 	}
 
-	let mut prev = V::Null;
-	let mut used_maps: Vec<V> = Vec::new();
-	let use_map = |used: &mut Vec<V>, m: V| {
-		if let Some(i) = used.iter().position(|x| x.strict_eq(&m)) {
-			used.remove(i);
+	// Where the next goal's spawn is picked from: the last goal with coordinates (`prev`) and the maps used, most
+	// recent first. Two cursors: the dungeon runner's takes in every step, the solo route's leaves out a dungeon's
+	// steps (`when dungeon "<Name>"`), which a character who skips the dungeon never walks. A step for the runners
+	// is placed from the runner's cursor and every other step from the solo route's, so the solo route compiles as
+	// it would without the dungeon steps (Skip keeps the solo route's steps).
+	struct Cursor {
+		prev: V,
+		used_maps: Vec<V>,
+	}
+	impl Cursor {
+		fn use_map(&mut self, m: &V) {
+			if let Some(i) = self.used_maps.iter().position(|x| x.strict_eq(m)) {
+				self.used_maps.remove(i);
+			}
+			self.used_maps.insert(0, m.clone());
 		}
-		used.insert(0, m);
-	};
+	}
+	const RUNNER: usize = 0;
+	const SOLO: usize = 1;
+	let mut cursors = [Cursor { prev: V::Null, used_maps: Vec::new() }, Cursor { prev: V::Null, used_maps: Vec::new() }];
 	let classes_of = |race: &str, side: &str| data.race_classes(race, side);
 	let head_factions: V = if h.get("faction").truthy() { vec![h.get("faction")].into() } else { V::Null };
 	let head_layer: V = obj! {
@@ -1392,13 +1404,16 @@ pub fn resolve_guide(ast: &V, data: &Data, diag: &mut Diagnostics, pack: Option<
 		step.set("goals", step_goals.clone());
 		step.set_hidden("_line", s.get("line"));
 		step.set_hidden("_only", s.get("only"));
+		let for_runners = step.get("when").items().iter().any(|p| p.get("k").as_str() == Some("dungeon") && !p.get("neg").truthy());
+		let at = if for_runners { RUNNER } else { SOLO };
+		let moves = if for_runners { RUNNER..RUNNER + 1 } else { RUNNER..SOLO + 1 };
 		for g in &sgoals {
 			let zone = r.resolve_zone(&g.get("zone"));
 			let zone_id = if zone.truthy() { zone.get("id") } else { V::Null };
 			let sonly = s.get("only");
 			let gonly = g.get("only");
 			let sides = sides_for(&[head_factions.clone(), if sonly.truthy() { sonly.get("factions") } else { sonly.clone() }, if gonly.truthy() { gonly.get("factions") } else { gonly.clone() }]);
-			let um = used_maps.clone();
+			let um = cursors[at].used_maps.clone();
 			let ctx = Ctx {
 				sides,
 				used_maps: &um,
@@ -1408,7 +1423,7 @@ pub fn resolve_guide(ast: &V, data: &Data, diag: &mut Diagnostics, pack: Option<
 				zone_id: zone_id.clone(),
 				loop_: s.get("loop").truthy(),
 			};
-			let goal = resolve_goal(g, &zone_id, &prev, r, &ctx);
+			let goal = resolve_goal(g, &zone_id, &cursors[at].prev, r, &ctx);
 			goal.set_hidden("_line", g.get("line"));
 			goal.set_hidden("_only", if gonly.truthy() { gonly.clone() } else { V::Null });
 			step_goals.push(goal.clone());
@@ -1482,17 +1497,25 @@ pub fn resolve_guide(ast: &V, data: &Data, diag: &mut Diagnostics, pack: Option<
 				);
 			}
 			if !matches!(zone_id, V::Null) {
-				use_map(&mut used_maps, zone_id.clone());
+				for c in &mut cursors[moves.clone()] {
+					c.use_map(&zone_id);
+				}
 			}
 			if !goal.get("x").is_undef() {
-				prev = obj! { "map" => goal.get("map"), "x" => goal.get("x"), "y" => goal.get("y") }.into();
-				use_map(&mut used_maps, goal.get("map"));
+				let here: V = obj! { "map" => goal.get("map"), "x" => goal.get("x"), "y" => goal.get("y") }.into();
+				for c in &mut cursors[moves.clone()] {
+					c.prev = here.clone();
+					c.use_map(&goal.get("map"));
+				}
 			}
 		}
 		if s.get("loop").truthy() {
 			apply_loop(&step, s, r);
 			if let Some(last) = step.get("goals").items().iter().rev().find(|goal| !goal.get("x").is_undef()) {
-				prev = obj! { "map" => last.get("map"), "x" => last.get("x"), "y" => last.get("y") }.into();
+				let here: V = obj! { "map" => last.get("map"), "x" => last.get("x"), "y" => last.get("y") }.into();
+				for c in &mut cursors[moves.clone()] {
+					c.prev = here.clone();
+				}
 			}
 		}
 		gsteps.push(step);

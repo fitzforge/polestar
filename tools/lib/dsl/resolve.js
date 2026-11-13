@@ -862,12 +862,19 @@ function resolveGuide(ast, data, diag, opts = {}) {
 		}
 	}
 
-	let prev = null;
-	const usedMaps = []; // most recent first
-	const use = (m) => {
-		const i = usedMaps.indexOf(m);
-		if (i >= 0) usedMaps.splice(i, 1);
-		usedMaps.unshift(m);
+	// Where the next goal's spawn is picked from: the last goal with coordinates (`prev`) and the maps used, most
+	// recent first. Two cursors: the dungeon runner's takes in every step, the solo route's leaves out a dungeon's
+	// steps (`when dungeon "<Name>"`), which a character who skips the dungeon never walks. A step for the runners
+	// is placed from the runner's cursor and every other step from the solo route's, so the solo route compiles as
+	// it would without the dungeon steps (Skip keeps the solo route's steps).
+	const runner = { prev: null, usedMaps: [] };
+	const solo = { prev: null, usedMaps: [] };
+	const use = (cursors, m) => {
+		for (const c of cursors) {
+			const i = c.usedMaps.indexOf(m);
+			if (i >= 0) c.usedMaps.splice(i, 1);
+			c.usedMaps.unshift(m);
+		}
 	};
 	// A `zone` line holds for the steps after it, also when its step is for
 	// some characters only: a Druid trip's `zone Moonglade` would hold for the
@@ -919,19 +926,22 @@ function resolveGuide(ast, data, diag, opts = {}) {
 		step.goals = [];
 		hidden(step, '_line', s.line);
 		hidden(step, '_only', s.only);
+		const forRunners = (step.when || []).some((p) => p.k === 'dungeon' && !p.neg);
+		const at = forRunners ? runner : solo;
+		const moves = forRunners ? [runner] : [runner, solo];
 		for (const g of s.goals) {
 			const zone = resolveZone(g.zone);
 			const zoneId = zone ? zone.id : null;
 			const ctx = {
 				sides: sidesFor([h.faction ? [h.faction] : null, s.only && s.only.factions, g.only && g.only.factions]),
-				usedMaps,
+				usedMaps: at.usedMaps,
 				frame: g.frame ? { frame: g.frame, explicit: true } : frameDefault,
 				layers: [{ factions: h.faction ? [h.faction] : null, races: h.races || null, classes: h.classes || null }, s.only, g.only],
 				prof: profProgress,
 				zoneId,
 				loop: !!s.loop,
 			};
-			const goal = resolveGoal(g, zoneId, prev, data, err, warn, ctx);
+			const goal = resolveGoal(g, zoneId, at.prev, data, err, warn, ctx);
 			hidden(goal, '_line', g.line);
 			hidden(goal, '_only', g.only || null);
 			step.goals.push(goal);
@@ -969,16 +979,17 @@ function resolveGuide(ast, data, diag, opts = {}) {
 					`add \`zone ${other.there.name}\` to this step (or to the first step after the ${who} ones), or \`map ${other.there.id}\` to the goal`,
 				);
 			}
-			if (zoneId !== null) use(zoneId);
+			if (zoneId !== null) use(moves, zoneId);
 			if (goal.x !== undefined) {
-				prev = { map: goal.map, x: goal.x, y: goal.y };
-				use(goal.map);
+				const here = { map: goal.map, x: goal.x, y: goal.y };
+				for (const c of moves) c.prev = here;
+				use(moves, goal.map);
 			}
 		}
 		if (s.loop) {
 			applyLoop(step, s, data, err);
 			const last = step.goals.findLast((goal) => goal.x !== undefined);
-			if (last) prev = { map: last.map, x: last.x, y: last.y };
+			if (last) for (const c of moves) c.prev = { map: last.map, x: last.x, y: last.y };
 		}
 		guide.steps.push(step);
 	}

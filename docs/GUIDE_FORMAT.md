@@ -294,9 +294,10 @@ wrote.
 
 **Dungeon steps.** `when dungeon "<Name>"` is for the steps of a dungeon
 run: they apply only to characters who run that dungeon, and `when
-!dungeon "<Name>"` is the route for those who do not. Each character has an
-answer for every dungeon (Skip them, Ask me or Run them; Skip at first, so the
-solo route is the default) and may answer one dungeon (Options, Discovery,
+!dungeon "<Name>"` is the route for those who do not. Dungeons in my route
+(Options, Guide, Automation; the setting `behavior.dungeons`) answers every
+dungeon: Skip them, Ask me or Run them (Skip by default, so the solo route is
+the default), and a character may answer one dungeon (Options, Discovery,
 Dungeons). With Ask me, the first `when dungeon` step with something to do now
 (an accept the character can take, or for a step with no accept, its other
 predicates holding) holds the route until the player answers; one with nothing
@@ -317,13 +318,16 @@ step with `when dungeon "<Name>"` and `when complete <quest>` (or `when
 onquest <quest>` for one with no objectives), so a run left unfinished passes
 them and a later guide can hand in what is still carried. Every step of the
 run is behind `when dungeon`: a character who skips it keeps the solo route's
-steps. Where the run shares a stop with the solo route (a hand-in that opens
-the dungeon's quest), the dungeon's step does that stop's work too and the
-stop's own step is behind `when !dungeon "<Name>"`. A quest an item inside the
-dungeon starts, or an NPC inside gives, has no place the data knows: name it
-in the run's tip and write only its hand-in, behind `when dungeon` and `when
-onquest`. A step of `note`s only never holds (see "Errands"): the run needs
-goals of its own.
+steps. The compiler places a `when dungeon` step from the dungeon route's last
+goal and every other step from the solo route's (the spawn nearest the goal
+before it, the trainer, the order of the spots), so the solo route compiles as
+it does without the dungeon's steps. Where the run shares a stop with the solo
+route (a hand-in that opens the dungeon's quest), the dungeon's step does that
+stop's work too and the stop's own step is behind `when !dungeon "<Name>"`. A
+quest an item inside the dungeon starts, or an NPC inside gives, has no place
+the data knows: name it in the run's tip and write only its hand-in, behind
+`when dungeon` and `when onquest`. A step of `note`s only never holds (see
+"Errands"): the run needs goals of its own.
 
 ```
 step Gryan Stoutmantle
@@ -692,7 +696,7 @@ take a jump.
 |---|---|
 | quest title | `quests.json` |
 | quest giver / turn-in target | `start` / `end` of the quest; `npc`/`object` modifiers pick one explicitly |
-| coordinates | the target's spawns, trying maps in order: the current zone, then maps the guide already used (most recent first), then anywhere. On the chosen map: the spawn nearest the previous goal when that goal is on the same map, else the centroid of the highest-priority candidate |
+| coordinates | the target's spawns, trying maps in order: the current zone, then maps the guide already used (most recent first), then anywhere. On the chosen map: the spawn nearest the previous goal when that goal is on the same map, else the centroid of the highest-priority candidate. A `when dungeon` step takes the previous goal and the used maps from every step before it, any other step from the steps before it that are not `when dungeon`, which a character who skips the dungeon never walks ("Dungeon steps") |
 | `kill` target name | `npcs.json` |
 | `collect` coordinates | every drop source with spawns, ranked as above (zone, used maps, nearness), then by drop chance. On the chosen map only the likely sources count (at least half the best chance there). Where elites (rank 1-3, hostile) drop the item beside normal mobs or objects, each at 1% or more, only the normal ones count, whatever the elites' chance, and a place of theirs with more elite spawns than its own within its radius (at least 70 yd) is an alternative spot: the point and the arrow lead to the normal mobs, not into the elite camp. An item only elites drop there keeps them. For a quest objective, mobs 3 or more levels above the quest (their lowest level) are left out where their higher chance would push the likely sources nearer the quest's level under that bar: those set it instead (a level 7 quest's seeds come from the level 5 Timberlings beside the giver, not the level 10 Elder Timberlings across the zone) |
 | `collect` source `from`, `fromAlso`, `fromId`, `fromAlsoId`, `fromKind`, `fromRank`, `fromFaction` | a `collect` (quest objectives too) whose item has one source with spawns, or one that drops it at 50% or more, and at most 8 sources at 2% or more (not cloth that drops everywhere); where normal mobs or objects and elites both drop it at 1% or more, only the normal ones are named, as the arrow leads to them (so are they where a rare tops the droppers and normal mobs drop it at 50% or more, and the sources near a quest's level where mobs 3 or more levels above it would crowd them out, as for the coordinates): the source's name, a second source of the same kind at 50% or more, their ids, `npc` or `object`, the NPC's rank (1 elite, 2 rare elite, 3 boss, 4 rare) and faction (`A`, `H`, `AH`; none for a hostile mob). The goal line names it, in the client's language by its id: "Kill Grell or Grellkin for Fel Moss" for an enemy, "Collect Oats from Sack of Oats" otherwise (nothing added for an object named as the item); with author `text` the line under it says "Kill Aean Swiftriver (rare elite)" or "From <name>"; a quest started by that item reads as one line ("Runed Scroll: kill Aean Swiftriver (rare elite)") |
