@@ -522,7 +522,7 @@ return {
 	["While you're here: learn {spell:199} from {npc:11865} ({object:32359}, 10 silver); two-handers level a Warrior fastest."] = "",
 
 	-- Step 104: Druid trainer
-	["Druid trainer"] = "",
+	["Druid trainer"] = "Instructor de druidas",
 	-- {npc:5505} Theridran · {zone:1453} Stormwind · {zone:1426} Dun Morogh
 	["{npc:5505} in {zone:1453}; {zone:1426} has no druid trainer"] = "",
 

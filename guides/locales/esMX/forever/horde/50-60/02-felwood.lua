@@ -96,7 +96,7 @@ return {
 
 	-- Step 19: Orgrimmar
 	-- {zone:1454} Orgrimmar
-	["The middle of {zone:1454}"] = "",
+	["The middle of {zone:1454}"] = "El centro de {zone:1454}",
 
 	-- Step 20: Jes'rimon
 	-- {npc:8659} Jes'rimon · {object:172960} Cleft of Shadow
@@ -108,9 +108,9 @@ return {
 	["Class trainer"] = "Instructor de clase",
 
 	-- Step 22: Druid trainer
-	["Druid trainer"] = "",
+	["Druid trainer"] = "Instructor de druidas",
 	-- {npc:3034} Sheal Runetotem · {zone:1412} Mulgore · {zone:1454} Orgrimmar
-	["{npc:3034} in {zone:1412}; {zone:1454} has no druid trainer"] = "",
+	["{npc:3034} in {zone:1412}; {zone:1454} has no druid trainer"] = "{npc:3034} en {zone:1412}; {zone:1454} no tiene instructor de druidas",
 
 	-- Step 23: Fly to Splintertree Post
 	-- {area:431} Splintertree Post

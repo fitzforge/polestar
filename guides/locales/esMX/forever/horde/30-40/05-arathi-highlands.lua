@@ -8,7 +8,7 @@
 return {
 	-- Step 1: Zeppelin to Undercity
 	-- {zone:1458} Undercity
-	["Zeppelin to {zone:1458}"] = "",
+	["Zeppelin to {zone:1458}"] = "Zepelín a {zone:1458}",
 
 	-- Step 2: Undercity trainers
 	-- {zone:1458} Undercity
@@ -41,7 +41,7 @@ return {
 	-- {npc:2229} Krusk · {area:272} Tarren Mill
 	["{npc:2229} waits inside the inn at {area:272}, back south down the road."] = "",
 	-- {npc:2229} Krusk
-	["{npc:2229}, inside"] = "",
+	["{npc:2229}, inside"] = "{npc:2229}, adentro",
 
 	-- Step 9: Baron Vardus
 	-- {npc:2306} Baron Vardus · {area:280} Strahnbrad · {quest:503} Gol'dir

@@ -72,7 +72,7 @@ return {
 	-- {area:272} Tarren Mill · {area:2268} Light's Hope Chapel
 	["Ride back south to {area:272} and fly to {area:2268}."] = "Cabalga de vuelta al sur hasta {area:272} y vuela a {area:2268}.",
 	-- {area:272} Tarren Mill
-	["{area:272} flight master"] = "",
+	["{area:272} flight master"] = "Maestro de vuelo de {area:272}",
 
 	-- Step 16: Light's Hope Chapel
 	-- {quest:5168} Heroes of Darrowshire
