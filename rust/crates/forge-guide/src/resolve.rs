@@ -3492,13 +3492,26 @@ fn resolve_goal(g: &V, zone_map: &V, prev: &V, r: &mut R, ctx: &Ctx) -> V {
 			};
 			let (ax, ay, gf) = (goal.get("x").num(), goal.get("y").num(), goal.get("f"));
 			// Exact points (exact_points): those of the sources at the author's point, while one lies within `near`
-			// of it (where the data agrees, as for hand_spots); the point stays the author's.
+			// of it (where the data agrees, as for hand_spots). They replace the author's spot only when one of them
+			// is at the point, within SPAWN_CHECK_YARDS (as close as explicit coordinates must be to a spawn of their
+			// target not to be warned about); the point stays the author's. A point away from every one is a place
+			// the author chose over them (the Auction House for cloth that mobs in the city drop): it keeps its own
+			// spot, and the points are its alternatives.
 			let pinned: &[V] = alt_sources.as_deref().unwrap_or(&sources);
 			let agrees = points && spawn_points_of(data, pinned, &gmap, &gf).iter().any(|p| distance(data, &gmap, px(p), py(p), ax, ay) <= near);
 			let exact = if agrees { exact_points(data, pinned, &gmap, &gf, ax, ay, &[]) } else { None };
+			let hand = || hand_spots(data, &sources, &gmap, &gf, ax, ay, near, alt_sources.as_deref());
 			match exact {
-				Some((pts, _)) => goal.set("spots", pts),
-				None => set_if(&goal, "spots", hand_spots(data, &sources, &gmap, &gf, ax, ay, near, alt_sources.as_deref())),
+				Some((pts, _)) if pts.iter().any(|p| distance(data, &gmap, num(p, "x"), num(p, "y"), ax, ay) <= SPAWN_CHECK_YARDS) => goal.set("spots", pts),
+				Some((pts, _)) => {
+					let own = hand().at(0);
+					let own: V = if own.truthy() { own } else { obj! { "x" => ax, "y" => ay, "r" => SPOT_MIN_RADIUS, "n" => 0.0 }.into() };
+					for p in &pts {
+						p.set("alt", true);
+					}
+					goal.set("spots", std::iter::once(own).chain(pts).collect::<Vec<V>>());
+				}
+				None => set_if(&goal, "spots", hand()),
 			}
 			if recorded {
 				warn_moved(r, &ln, &goal, recorded_areas(data, &goal, &sources, &candidates, &gmap, &gf));

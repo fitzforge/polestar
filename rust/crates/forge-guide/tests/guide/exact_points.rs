@@ -2,7 +2,8 @@
 //! target stands at a few known points gets each point as a spot of its own, `r` 0, in place of spawn areas:
 //! every spawn of an object (up to 40), and a creature's when it stands at up to 8 places, no two within 70 yd
 //! of each other and none walking about. More objects, a camp of mobs, more places or a walker keep their
-//! spawn areas. Hand-placed goals get the points of the target at their point, and keep that point.
+//! spawn areas. Hand-placed goals get the points of the target at their point, and keep that point: as their
+//! spots when one is within 50 yd of the point, else as alternatives after the point's own spot.
 
 use crate::common;
 use common::*;
@@ -102,6 +103,49 @@ fn a_hand_placed_goal_at_an_object_gets_its_points_and_keeps_the_authors_point()
 	let g = goals(&d, &["step Traps", "  collect 95210 x8 @42.2,21.8"]);
 	assert_eq!(spots(&g[0]), trap_points());
 	assert_eq!(json!([g[0]["x"], g[0]["y"]]), json!([42.2, 21.8]));
+}
+
+#[test]
+fn a_hand_placed_point_at_a_spawn_of_its_target_takes_its_points_one_away_from_them_keeps_its_spot() {
+	let d = data();
+	let brutes = [json!({ "x": 20, "y": 30, "r": 0 }), json!({ "x": 30, "y": 60, "r": 0 }), json!({ "x": 60, "y": 70, "r": 0 })];
+	// About 20 yd from the brute at 20,30: the arrow walks the brutes' points, the point stays the author's.
+	let g = goals(&d, &["step Brutes", "  collect 95212 x1 @20.5,30.5"]);
+	assert_eq!(spots(&g[0]), brutes);
+	assert_eq!(json!([g[0]["x"], g[0]["y"]]), json!([20.5, 30.5]));
+	// About 85 yd from it, and further from the others: the author's place leads, the brutes are alternatives.
+	let g = goals(&d, &["step Brutes", "  collect 95212 x1 @22,32"]);
+	let s = spots(&g[0]);
+	assert_eq!(json!([s[0]["x"], s[0]["y"], s[0].get("alt")]), json!([22, 32, null]), "the author's spot first: {}", g[0]);
+	let alts: Vec<Value> = brutes.iter().map(|b| json!({ "x": b["x"], "y": b["y"], "r": 0, "alt": true })).collect();
+	assert_eq!(s[1..], alts[..], "the brutes' points as alternatives");
+	assert_eq!(json!([g[0]["x"], g[0]["y"]]), json!([22, 32]));
+}
+
+/// 06-silithus' Stormwind step: Wool Cloth at the Trade District's Auction House, with the reference data's
+/// Era frame for Stormwind and its droppers in the city (live-frame points): Old Town Thug and the Forlorn
+/// Spirit about 200 and 250 yd from the Auction House, the others further.
+fn stormwind() -> Data {
+	let mut t: Map<String, Value> = tables().into_iter().filter(|(k, _)| ["quests", "npcs", "objects", "items", "zones", "map-frames", "meta"].contains(&k.as_str())).collect();
+	t.get_mut("map-frames").unwrap()["era"]["1453"] = json!({ "left": 1380.971, "right": 36.701, "top": -8278.851, "bottom": -9175.205, "c": 1415 });
+	let npcs = t.get_mut("npcs").unwrap();
+	for (id, name, level, x, y) in [(1477, "Christoph Faral", 30, 76.87, 52.8), (1754, "Lord Gregor Lescovar", 31, 72.36, 35.12), (1755, "Marzon the Silent Blade", 30, 72.1, 35.33), (2044, "Forlorn Spirit", 25, 42.79, 72.36), (4969, "Old Town Thug", 25, 73.75, 59.18)] {
+		npcs[id.to_string()] = json!({ "id": id, "name": name, "level": level, "faction": null, "spawns": { "1453": { "f": "l", "pts": [[x, y]] } } });
+	}
+	let drops = json!({ "npc": { "1477": 5, "1754": 9.4, "1755": 9.71, "2044": 25.73, "4969": 25.97 }, "object": {} });
+	t.get_mut("items").unwrap()["2592"] = json!({ "id": 2592, "name": "Wool Cloth", "drops": drops, "vendors": [] });
+	data_from(&t, Value::Null, Value::Null)
+}
+
+#[test]
+fn cloth_bought_at_the_auction_house_keeps_the_auction_house_spot_with_droppers_in_the_city() {
+	let d = stormwind();
+	let lines = ["guide t/main", "title Test", "faction Alliance", "levels 55-60", "zone Stormwind City", "step Stormwind", "  collect 2592 x60 optional @61.2,71.3 map 1453 live -- Wool Cloth, from your bags"];
+	let g = goals(&d, &lines);
+	let s = spots(&g[0]);
+	assert_eq!(json!([s[0]["x"], s[0]["y"], s[0].get("alt")]), json!([61.2, 71.3, null]), "the Auction House is the spot the arrow takes: {}", g[0]);
+	assert_eq!(s[1..], [json!({ "x": 42.79, "y": 72.36, "r": 0, "alt": true }), json!({ "x": 73.75, "y": 59.18, "r": 0, "alt": true })], "the Forlorn Spirit and Old Town Thug only as alternatives");
+	assert_eq!(json!([g[0]["x"], g[0]["y"]]), json!([61.2, 71.3]));
 }
 
 #[test]

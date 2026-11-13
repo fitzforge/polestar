@@ -809,7 +809,9 @@ gets no `spots`, except an NPC who walks around:
   `y`, so goals on the same target write the same list. A goal point at an
   alternative (the spawn nearest the previous goal) moves to the nearest open
   point; a hand-placed goal keeps its point and gets the points of the target
-  at it, where the data agrees (see Hand-placed). The maps mark every point,
+  at it, where the data agrees (see Hand-placed), as its spots only when one
+  of them is within 50 yd of the point (else its own spot leads and the points
+  are alternatives). The maps mark every point,
   on the minimap too, rather than shade regions, and the arrow leads to the
   nearest point the player has not checked: within the arrival radius of one
   it counts as checked and the arrow moves on at once to the next (checked
@@ -858,7 +860,11 @@ gets no `spots`, except an NPC who walks around:
   every spawn of a mob or object to kill, collect or click, places the target
   where the data does not (Forever moved it) and gets no `spots`. A route
   through gathering nodes lists every node place of the zone wherever its
-  point lies.
+  point lies. A target at a few known points (above) gives a point within
+  50 yd of one of them its points as the spots the arrow takes; a point
+  further from all of them is a place the author chose over them (cloth
+  bought at the Auction House, with mobs in the city that drop it), and keeps
+  its own spot, the points following as alternatives.
 - **Loop** (a step with a `loop` line, for a search the data does not shape
   the way you want: a circuit through camps, round a lake): the step's `goto`
   points, in order, become the spawn areas of each of its `kill`, `collect`
