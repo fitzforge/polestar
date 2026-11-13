@@ -11810,3 +11810,13 @@ test(`${DARKSHORE_RETURN}: the Lunar Fungus is picked on the way south, before O
 	const onu = at(list, 'Onu (948)', is('turnin', 948));
 	assert.ok(fungus < onu, 'the blooms come before Onu');
 });
+
+// Alliance 20-30 audit (0.4.0, #2025): 06-ashenvale trains every class but Druids in Ironforge and rides the tram to
+// Stormwind, where 04-redridge-mountains begins; its Shaman steps sent Shamans back on the tram to the same trainer,
+// at the same level, and back again.
+test(`${REDRIDGE}: no tram back to Ironforge for Shamans trained there on 06-ashenvale's last stops (Alliance 20-30 audit)`, { skip }, () => {
+	const ironforge = goals(ASHENVALE).find(({ step, goal }) => goal.t === 'train' && goal.class && ((goal.only && goal.only.classes) || (step.only && step.only.classes) || []).includes('SHAMAN'));
+	assert.ok(ironforge, "06-ashenvale's Ironforge stop trains Shamans");
+	const back = compiled(REDRIDGE).steps.filter((st) => /Tram to Ironforge|Shaman training/.test(st.title));
+	assert.deepEqual(back.map((st) => st.title), [], 'no Shaman tram steps');
+});

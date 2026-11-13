@@ -94,7 +94,7 @@ next forever/alliance/05-duskwood
 # Darnassus at the start of 06-wetlands. Night Elf and Skyborne Druids fetch
 # the Westfall half pendant for Trial of the Sea Lion (272), only while it is
 # in the log: the lockbox gives the half to no one else (#1386). Train in
-# Stormwind on the way; Shamans take the Deeprun Tram to Ironforge for theirs.
+# Stormwind on the way; Shamans trained in Ironforge minutes before, on 06-ashenvale's Ironforge stop.
 # Paladins: Human Paladins do The Tome of Divinity (1786, 1787) and learn
 # Redemption on 03-loch-modan's Elwynn walk and last Stormwind stop; a
 # Paladin still carrying 1786 or 1787 does Henze Faulk by Stone Cairn Lake
@@ -142,17 +142,6 @@ step Woo Ping
   tip While you're here: learn Polearms from Woo Ping (Trade District, 1 gold); a Hunter's melee weapon is mostly its stats, and two-handers carry the most.
   train 11867                         -- Woo Ping
 
-step Tram to Ironforge
-  only Shaman
-  zone Stormwind City
-  goto 64.5,7.5 "Tram to Ironforge"
-
-step Shaman training
-  only Shaman
-  zone Ironforge
-  tip Stormwind has no shaman trainer: take the Deeprun Tram from the Dwarven District to Ironforge, train with Eldrun Stormbreaker, then ride the tram back.
-  train class
-
 step Fly to Sentinel Hill
   only NightElf,Skyborne,Druid
   when onquest 272
@@ -166,11 +155,6 @@ step Half Pendant of Aquatic Endurance
   zone Westfall
   tip Fly to Sentinel Hill and head north-west to the coast: the Strange Lockbox lies on the sea floor off the shore. Then head east along the road through Elwynn.
   collect 15882 x1                            -- Half Pendant of Aquatic Endurance: the Strange Lockbox
-
-step Back to Elwynn Forest
-  only Shaman
-  zone Elwynn Forest
-  goto 65.2,69.7 "The road into Elwynn Forest"
 
 step Elwynn Forest
   zone Elwynn Forest
