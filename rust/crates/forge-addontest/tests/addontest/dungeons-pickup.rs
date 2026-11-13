@@ -782,7 +782,10 @@ fn a_quest_the_codex_gives_no_side_whose_follow_up_is_the_alliance_s_is_never_in
 	let horde = run(&own, &k(TAKE), Opts::default()).remove(0);
 	assert_eq!(horde, json!({ "take": [1014, 1740], "accepts": [1010, 1011, 1014, 1740] }), "the Horde warlock is never sent to Shaedlass");
 	let human = run(&own, &k(TAKE), Opts { race: "Human", faction: "Alliance", cls: "MAGE", log: vec![], ..Default::default() }).remove(0);
-	assert!(takes(&human, 90400), "an Alliance character still takes it: {}", human["take"]);
+	// An Alliance character still takes it, on its follow-up's way: it is turned in to the follow-up's giver, so the
+	// pick-up hands it in right before Blackfathom Villainy's accept.
+	let accepts = human["accepts"].as_array().cloned().unwrap_or_default();
+	assert!(accepts.contains(&json!(90400)) && accepts.contains(&json!(90401)), "an Alliance character still takes it: {human}");
 }
 
 #[test]
