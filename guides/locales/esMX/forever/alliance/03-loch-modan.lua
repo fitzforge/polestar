@@ -18,7 +18,7 @@ return {
 
 	-- Step 3: Into Loch Modan
 	-- {zone:1432} Loch Modan
-	["Into {zone:1432}"] = "",
+	["Into {zone:1432}"] = "A {zone:1432}",
 	-- {area:836} Dun Algaz · {zone:1437} Wetlands
 	["Follow the road east out of Menethil and south through the {area:836} pass. Keep to the road: the {zone:1437} crocolisks and raptors beside it are over your level."] = "",
 
@@ -151,7 +151,7 @@ return {
 
 	-- Step 30: Tram to Stormwind
 	-- {zone:1453} Stormwind
-	["Tram to {zone:1453}"] = "",
+	["Tram to {zone:1453}"] = "Tranvía a {zone:1453}",
 
 	-- Step 31: Elwynn Forest
 	-- {zone:1453} Stormwind · {area:87} Goldshire

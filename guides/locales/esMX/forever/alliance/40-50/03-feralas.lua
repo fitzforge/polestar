@@ -8,19 +8,19 @@
 return {
 	-- Step 1: Into The Barrens
 	-- {zone:1413} The Barrens
-	["Into {zone:1413}"] = "",
+	["Into {zone:1413}"] = "Hacia {zone:1413}",
 
 	-- Step 2: Thalanaar flight master
 	-- {area:489} Thalanaar
-	["{area:489} flight master"] = "",
+	["{area:489} flight master"] = "Maestro de vuelo de {area:489}",
 
 	-- Step 3: Boat to Feathermoon Stronghold
 	-- {area:1116} Feathermoon Stronghold
-	["Boat to {area:1116}"] = "",
+	["Boat to {area:1116}"] = "Barco a {area:1116}",
 
 	-- Step 4: Feathermoon Stronghold
 	-- {area:1116} Feathermoon Stronghold · {area:1120} Sardor Isle · {area:1108} Forgotten Coast · {npc:7880} Ginro Hearthkindle
-	["{area:1116} stands on {area:1120}, off the {area:1108}: the boat from the coast's dock crosses to it. {npc:7880} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."] = "",
+	["{area:1116} stands on {area:1120}, off the {area:1108}: the boat from the coast's dock crosses to it. {npc:7880} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."] = "{area:1116} está en {area:1120}, frente a {area:1108}: el barco del muelle de la costa cruza hasta allí. {npc:7880} está en el piso de arriba de su edificio: sube por adentro, la flecha no distingue los pisos.",
 	-- {npc:3936} Shandris Feathermoon
 	["{npc:3936}, beside him"] = "{npc:3936}, a su lado",
 	-- {npc:7877} Latronicus Moonspear
@@ -42,7 +42,7 @@ return {
 
 	-- Step 9: Boat to Forgotten Coast
 	-- {area:1108} Forgotten Coast
-	["Boat to {area:1108}"] = "",
+	["Boat to {area:1108}"] = "Barco a {area:1108}",
 
 	-- Step 10: Feralas
 	["The courier's boat"] = "El bote del mensajero",
@@ -62,20 +62,20 @@ return {
 	-- Step 14: Isle of Dread
 	-- {area:1121} Isle of Dread · {area:1120} Sardor Isle · {npc:8136} Lord Shalzaru
 	-- plural, as words: Hatecrest Serpent Guards = {npc:5333} Hatecrest Serpent Guard
-	["The {area:1121} is the island just south of {area:1120}: swim over. Hatecrest Serpent Guards and Sorceresses hold it; {npc:8136} (level 47) waits in the cave at its south end. Pull his guards first."] = "",
+	["The {area:1121} is the island just south of {area:1120}: swim over. Hatecrest Serpent Guards and Sorceresses hold it; {npc:8136} (level 47) waits in the cave at its south end. Pull his guards first."] = "{area:1121} es la isla justo al sur de {area:1120}: cruza nadando. La ocupan guardias serpiente y hechiceras Crestafuria; {npc:8136} (nivel 47) espera en la cueva de su extremo sur. Atrae primero a sus guardias.",
 	-- {item:9248} Mysterious Relic
-	["{item:9248}; below ground"] = "",
+	["{item:9248}; below ground"] = "{item:9248}; bajo tierra",
 
 	-- Step 15: Feathermoon Stronghold
 	-- {npc:7877} Latronicus Moonspear · {npc:7878} Vestia Moonspear · {npc:7900} Angelas Moonbreeze · {npc:7880} Ginro Hearthkindle · {npc:7852} Pratt McGrubben
-	["Coming from the south: {npc:7877} and {npc:7878} first, then {npc:7900} beside {npc:7880}'s building, then the stairs. {npc:7880} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart. {npc:7852} is by the flight master, on the way out."] = "",
+	["Coming from the south: {npc:7877} and {npc:7878} first, then {npc:7900} beside {npc:7880}'s building, then the stairs. {npc:7880} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart. {npc:7852} is by the flight master, on the way out."] = "Viniendo desde el sur: primero {npc:7877} y {npc:7878}, luego {npc:7900} junto al edificio de {npc:7880}, luego la escalera. {npc:7880} está en el piso de arriba de su edificio: sube por adentro, la flecha no distingue los pisos. {npc:7852} está junto al maestro de vuelo, a la salida.",
 	-- {npc:7879} Quintis Jonespyre
-	["{npc:7879}, upstairs"] = "",
+	["{npc:7879}, upstairs"] = "{npc:7879}, arriba",
 
 	-- Step 16: Fly to Thalanaar
 	-- {area:489} Thalanaar
-	["Fly to {area:489}"] = "",
-	["Feathermoon flight master"] = "",
+	["Fly to {area:489}"] = "Vuela a {area:489}",
+	["Feathermoon flight master"] = "Maestro de vuelo de Plumaluna",
 
 	-- Step 17: Feralas
 	["Grimtotem camp"] = "Campamento Tótem Siniestro",
@@ -83,7 +83,7 @@ return {
 	-- Step 18: Grimtotem camp
 	-- {area:489} Thalanaar · {npc:7956} Kindal Moonweaver
 	-- plural, as words: Sprite Darters = {npc:5278} Sprite Darter
-	["From {area:489} ride west along the road to the Grimtotem camp north of it. {npc:7956} waits outside it; free the Sprite Darters from the pen in the middle and keep {npc:7956} and at least six of them alive."] = "",
+	["From {area:489} ride west along the road to the Grimtotem camp north of it. {npc:7956} waits outside it; free the Sprite Darters from the pen in the middle and keep {npc:7956} and at least six of them alive."] = "Desde {area:489} cabalga al oeste por el camino hasta el campamento Tótem Siniestro, al norte. {npc:7956} espera afuera; libera a los duendes dardo del corral del centro y mantén con vida a {npc:7956} y al menos a seis de ellos.",
 
 	-- Step 19: Grimtotem tauren
 	["Grimtotem tauren"] = "Taurens Tótem Siniestro",
@@ -98,23 +98,23 @@ return {
 	-- {item:11463} Undelivered Parcel
 	["{item:11463}, from the backpacks"] = "{item:11463}, de las mochilas",
 	-- {object:164954} Zukk'ash Pod
-	["{object:164954}, inside"] = "",
+	["{object:164954}, inside"] = "{object:164954}, adentro",
 
 	-- Step 22: High Wilderness: kill these as you meet them
 	-- {area:1136} High Wilderness
-	["{area:1136}: kill these as you meet them"] = "",
+	["{area:1136}: kill these as you meet them"] = "{area:1136}: mata a estos según te los encuentres",
 	-- {quest:7735} Pristine Yeti Hide · {npc:7852} Pratt McGrubben · {npc:14637} Zorbin Fandazzle · {area:978} Zul'Farrak
-	["Ride back west along the road, then north into the Rage Scar hills. Every yeti here can drop a hide, and about one in thirty a {quest:7735}, which {npc:7852} pays for too.\n{npc:14637}'s quests on the coast need level 45: grind the yetis here until level 44.5, so the kills also bring {npc:7852}'s hides. Or, with a group, run the {area:978} dungeon instead."] = "",
+	["Ride back west along the road, then north into the Rage Scar hills. Every yeti here can drop a hide, and about one in thirty a {quest:7735}, which {npc:7852} pays for too.\n{npc:14637}'s quests on the coast need level 45: grind the yetis here until level 44.5, so the kills also bring {npc:7852}'s hides. Or, with a group, run the {area:978} dungeon instead."] = "Cabalga de vuelta al oeste por el camino, luego al norte hacia las colinas de Cicatriz de Rabia. Cualquier yeti de aquí puede soltar un pellejo, y más o menos uno de cada treinta un {quest:7735}, que {npc:7852} también paga.\nLas misiones de {npc:14637} en la costa necesitan nivel 45: mata yetis aquí hasta el nivel 44.5, así las muertes también te dan los pellejos de {npc:7852}. O, con un grupo, haz en su lugar la mazmorra {area:978}.",
 	-- {npc:5296} Rage Scar Yeti
-	["grind on {npc:5296}"] = "",
+	["grind on {npc:5296}"] = "farmea {npc:5296}",
 
 	-- Step 23: Rage Scar Hold
 	-- {quest:7735} Pristine Yeti Hide
-	["No {quest:7735} yet? Keep killing the Rage Scar yetis until one drops, then right-click it."] = "",
+	["No {quest:7735} yet? Keep killing the Rage Scar yetis until one drops, then right-click it."] = "¿Todavía sin {quest:7735}? Sigue matando yetis Cicatriz de Rabia hasta que uno lo suelte, luego haz clic derecho en él.",
 
 	-- Step 24: Feathermoon Stronghold
 	-- {npc:7880} Ginro Hearthkindle
-	["{npc:7880} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."] = "",
+	["{npc:7880} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."] = "{npc:7880} está en el piso de arriba de su edificio: sube por adentro, la flecha no distingue los pisos.",
 
 	-- Step 25: Feathermoon Stronghold
 	-- {npc:3936} Shandris Feathermoon · {zone:1457} Darnassus · {area:976} Gadgetzan
@@ -123,7 +123,7 @@ return {
 	-- Step 27: Grind to 45
 	["Grind to 45"] = "Sube a nivel 45 matando",
 	-- {area:1105} Feral Scar Vale · {npc:14637} Zorbin Fandazzle · {area:978} Zul'Farrak · {area:1517} Uldaman
-	["Ride east into {area:1105}. {npc:14637}'s quests on the coast need level 45. Or, with a group, run the {area:978} dungeon or the {area:1517} dungeon instead."] = "",
+	["Ride east into {area:1105}. {npc:14637}'s quests on the coast need level 45. Or, with a group, run the {area:978} dungeon or the {area:1517} dungeon instead."] = "Cabalga al este hacia {area:1105}. Las misiones de {npc:14637} en la costa necesitan nivel 45. O, con un grupo, haz en su lugar la mazmorra {area:978} o la mazmorra {area:1517}.",
 	-- {npc:5292} Feral Scar Yeti · {area:1105} Feral Scar Vale · {zone:1444} Feralas
 	["grind on {npc:5292} at {area:1105}, {zone:1444}"] = "mata {npc:5292} en {area:1105}, {zone:1444}",
 
@@ -133,7 +133,7 @@ return {
 
 	-- Step 29: Forgotten Coast: kill these as you meet them
 	-- {area:1108} Forgotten Coast
-	["{area:1108}: kill these as you meet them"] = "",
+	["{area:1108}: kill these as you meet them"] = "{area:1108}: mata a estos según te los encuentres",
 	-- {item:18904} Zorbin's Ultra-Shrinker
 	-- plural, as words: Shore Striders = {npc:5359} Shore Strider · Deep Striders = {npc:5360} Deep Strider · Wave Striders = {npc:5361} Wave Strider · Sea Elementals = {npc:5461} Sea Elemental · Sea Sprays = {npc:5462} Sea Spray
 	["Shore Striders, Deep Striders and Wave Striders (elite giants) wade along the coast north of the dock: zap one with {item:18904} and kill the shrunken giant. Sea Elementals and Sea Sprays drift in the same surf."] = "Los zancaorillas, zancaprofundas y asaltaolas (gigantes élite) vadean la costa al norte del muelle: dispárale a uno con {item:18904} y mata al gigante encogido. Los elementales de mar y rocíos del mar flotan en el mismo oleaje.",
@@ -142,13 +142,13 @@ return {
 	-- {npc:14637} Zorbin Fandazzle
 	["{npc:14637}'s refills are level 55: skip them."] = "Las recargas de {npc:14637} son de nivel 55: omítelas.",
 	-- {zone:1446} Tanaris · {area:489} Thalanaar
-	["The {zone:1446} guide starts with the trip east, past {area:489}."] = "",
+	["The {zone:1446} guide starts with the trip east, past {area:489}."] = "La guía de {zone:1446} empieza con el viaje al este, pasando {area:489}.",
 
 	-- Step 31: Thalanaar
 	-- {zone:1441} Thousand Needles
 	["Ride north-east to the night elf outpost on the {zone:1441} border."] = "Cabalga al noreste hasta el puesto de los elfos de la noche en la frontera de {zone:1441}.",
 	-- {npc:4048} Falfindel Waywarder · {area:489} Thalanaar
-	["{npc:4048} walks around {area:489}: look inside the circle on the map"] = "",
+	["{npc:4048} walks around {area:489}: look inside the circle on the map"] = "{npc:4048} recorre {area:489}: busca dentro del círculo del mapa",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Boat to the {area:1108} and ride east across {zone:1444} to the Grimtotem camp north of the road. {npc:7956} waits outside it; free the Sprite Darters from the pen in the middle and keep {npc:7956} and at least six of them alive."] = "Toma el barco a {area:1108} y cabalga al este por {zone:1444} hasta el campamento Tótem Siniestro al norte del camino. {npc:7956} espera fuera; libera a los duendes dardo del corral del centro y mantén con vida a {npc:7956} y al menos a seis de ellos.",

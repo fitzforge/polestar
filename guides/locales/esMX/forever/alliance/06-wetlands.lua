@@ -26,9 +26,9 @@ return {
 
 	-- Step 7: Fly to Rut'theran Village
 	-- {area:702} Rut'theran Village
-	["Fly to {area:702}"] = "",
+	["Fly to {area:702}"] = "Vuela a {area:702}",
 	-- {area:442} Auberdine
-	["{area:442} flight master"] = "",
+	["{area:442} flight master"] = "Maestro de vuelo de {area:442}",
 
 	-- Step 8: Into Darnassus
 	-- {zone:1457} Darnassus
@@ -42,9 +42,9 @@ return {
 
 	-- Step 12: Fly to Menethil Harbor
 	-- {area:150} Menethil Harbor
-	["Fly to {area:150}"] = "",
+	["Fly to {area:150}"] = "Vuela a {area:150}",
 	-- {zone:1453} Stormwind City
-	["{zone:1453} flight master"] = "",
+	["{zone:1453} flight master"] = "Maestro de vuelo de {zone:1453}",
 
 	-- Step 13: Menethil Harbor
 	-- {npc:1239} First Mate Fitzsimmons
@@ -175,7 +175,7 @@ return {
 	-- Step 32: Captain Stoutfist
 	-- {area:150} Menethil Harbor · {area:2104} Deepwater Tavern · {npc:2104} Captain Stoutfist · {area:2103} Menethil Keep · {npc:1217} Glorin Steelbrow · {npc:2094} James Halloran
 	["Hearth back to {area:150} if you bound at the {area:2104}, or walk west along the road: {npc:2104} stands on the top floor of {area:2103}, {npc:1217} in the {area:2104} south of it, {npc:2094} by the docks on the way to the boat."] = "",
-	["On the top floor"] = "",
+	["On the top floor"] = "En el piso superior",
 	-- {zone:1437} Wetlands
 	["For the Dragonmaw catapult, on the {zone:1437} loop of 30-40/01-hillsbrad-foothills"] = "",
 	-- {npc:1217} Glorin Steelbrow · {area:2104} Deepwater Tavern
@@ -209,7 +209,7 @@ return {
 
 	-- Step 37: Fly to Astranaar
 	-- {area:415} Astranaar
-	["Fly to {area:415}"] = "",
+	["Fly to {area:415}"] = "Vuela a {area:415}",
 
 	-- Step 38: Shindrell Swiftfire
 	-- {npc:3845} Shindrell Swiftfire · {area:415} Astranaar
@@ -335,7 +335,7 @@ return {
 
 	-- Step 66: Fly to Auberdine
 	-- {area:442} Auberdine
-	["Fly to {area:442}"] = "",
+	["Fly to {area:442}"] = "Vuela a {area:442}",
 	-- {area:415} Astranaar
 	["{area:415} flight master"] = "",
 
@@ -345,7 +345,7 @@ return {
 	-- {npc:1571} Shellei Brondir
 	["{npc:1571} is the flight master by Menethil's inn."] = "",
 	-- {area:150} Menethil Harbor
-	["{area:150} flight master"] = "",
+	["{area:150} flight master"] = "Maestro de vuelo de {area:150}",
 
 	-- Step 70: Ironforge priests
 	-- {zone:1455} Ironforge
@@ -355,7 +355,7 @@ return {
 
 	-- Step 71: Tram to Stormwind City
 	-- {zone:1453} Stormwind City
-	["Tram to {zone:1453}"] = "",
+	["Tram to {zone:1453}"] = "Tranvía a {zone:1453}",
 
 	-- Step 72: Cathedral of Light
 	["Cathedral of Light"] = "Cathedral of Light",
