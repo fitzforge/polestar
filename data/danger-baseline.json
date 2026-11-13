@@ -351,6 +351,58 @@
 			"evidence": "route level 22; Baron Marinous 21-21; recordings (2026-11-11): done by 19 people at 18-24 (median 20), 0 people died within 60 yd, 3 abandoned"
 		},
 		{
+			"key": "forever/alliance/03-darkshore-return.guide|kill 98013.1|elite",
+			"guide": "forever/alliance/03-darkshore-return.guide",
+			"goal": "kill 98013.1",
+			"kind": "elite",
+			"title": "On the way",
+			"level": 22.3,
+			"mobs": [
+				"Baron Marinous 21-21 x5"
+			],
+			"reason": "Baron Marinous (level 21 elite) walks the Ruins of Mathystra among the naga the step works, at the route's level; players do it there safely and the step's tip (guide-fixes a2130-mathystra-baron-marinous) warns of him",
+			"evidence": "route level 22.3; Baron Marinous 21-21 x5; recordings (archive to 2026-11-12): done by 27 people at median 21.91, 0 people died within 60 yd, 5 abandoned"
+		},
+		{
+			"key": "forever/alliance/03-darkshore-return.guide|collect 951.1|elite",
+			"guide": "forever/alliance/03-darkshore-return.guide",
+			"goal": "collect 951.1",
+			"kind": "elite",
+			"title": "The naga",
+			"level": 22.3,
+			"mobs": [
+				"Baron Marinous 21-21 x4"
+			],
+			"reason": "Baron Marinous (level 21 elite) walks the Ruins of Mathystra among the naga the step works, at the route's level; players do it there safely and the step's tip (guide-fixes a2130-mathystra-baron-marinous) warns of him",
+			"evidence": "route level 22.3; Baron Marinous 21-21 x4; recordings (archive to 2026-11-12): done by 28 people at median 21.42, 0 people died within 60 yd, 3 abandoned"
+		},
+		{
+			"key": "forever/alliance/03-darkshore-return.guide|collect 272.1|over",
+			"guide": "forever/alliance/03-darkshore-return.guide",
+			"goal": "collect 272.1",
+			"kind": "over",
+			"title": "Trial of the Sea Lion",
+			"level": 23.3,
+			"mobs": [
+				"Moonglade Warden 55-55 x2"
+			],
+			"reason": "Keeper Remulos and the Moonglade Wardens guard the Shrine of Remulos and are friendly to every player; the same goal was reviewed on 06-wetlands' Moonglade trip (players do it at the route's level). Since 0.4.0 Night Elf and Skyborne Druids join the half pendants on 03-darkshore-return's Cat Form trip; players: 11 people at median 18.85, 0 died there",
+			"evidence": "route level 23.3; Moonglade Warden 55-55 x2; recordings (archive to 2026-11-12): done by 11 people (median 18.85), 0 people died within 60 yd, 0 abandoned"
+		},
+		{
+			"key": "forever/alliance/03-darkshore-return.guide|collect 272.1|elite",
+			"guide": "forever/alliance/03-darkshore-return.guide",
+			"goal": "collect 272.1",
+			"kind": "elite",
+			"title": "Trial of the Sea Lion",
+			"level": 23.3,
+			"mobs": [
+				"Keeper Remulos 62-62"
+			],
+			"reason": "Keeper Remulos and the Moonglade Wardens guard the Shrine of Remulos and are friendly to every player; the same goal was reviewed on 06-wetlands' Moonglade trip (players do it at the route's level). Since 0.4.0 Night Elf and Skyborne Druids join the half pendants on 03-darkshore-return's Cat Form trip; players: 11 people at median 18.85, 0 died there",
+			"evidence": "route level 23.3; Keeper Remulos 62-62; recordings (archive to 2026-11-12): done by 11 people (median 18.85), 0 people died within 60 yd, 0 abandoned"
+		},
+		{
 			"key": "forever/alliance/03-darkshore.guide|use item 15877|over",
 			"guide": "forever/alliance/03-darkshore.guide",
 			"goal": "use item 15877",
@@ -929,6 +981,139 @@
 			"evidence": "route level 24.5; Golm 32-32; recordings (2026-11-11): done by 29 people at 22-32 (median 27), 0 people died within 60 yd, 3 abandoned"
 		},
 		{
+			"key": "forever/alliance/06-ashenvale.guide|collect 98197.1|elite",
+			"guide": "forever/alliance/06-ashenvale.guide",
+			"goal": "collect 98197.1",
+			"kind": "elite",
+			"title": "Spoils of War",
+			"level": 24.3,
+			"mobs": [
+				"Nightveiled Rotheap 31-32"
+			],
+			"reason": "Nightveiled Rotheap (level 31 elite) roams the whole Wetlands (spawn points from Menethil's walls to the Green Belt) rather than holding this spot; 13 people killed it in the recordings and none died to it; the step warns of it (guide-fixes a2130-wetlands-rotheap-*)",
+			"evidence": "route level 24.3; Nightveiled Rotheap 31-32; recordings (archive to 2026-11-12): done by 36 people at median 26.44, 0 people died within 60 yd, 6 abandoned"
+		},
+		{
+			"key": "forever/alliance/06-ashenvale.guide|collect 98197.2|elite",
+			"guide": "forever/alliance/06-ashenvale.guide",
+			"goal": "collect 98197.2",
+			"kind": "elite",
+			"title": "Spoils of War",
+			"level": 24.3,
+			"mobs": [
+				"Nightveiled Rotheap 31-32"
+			],
+			"reason": "Nightveiled Rotheap (level 31 elite) roams the whole Wetlands (spawn points from Menethil's walls to the Green Belt) rather than holding this spot; 13 people killed it in the recordings and none died to it; the step warns of it (guide-fixes a2130-wetlands-rotheap-*)",
+			"evidence": "route level 24.3; Nightveiled Rotheap 31-32; recordings (archive to 2026-11-12): done by 37 people at median 26.35, 0 people died within 60 yd, 6 abandoned"
+		},
+		{
+			"key": "forever/alliance/06-ashenvale.guide|kill 294.1|over",
+			"guide": "forever/alliance/06-ashenvale.guide",
+			"goal": "kill 294.1",
+			"kind": "over",
+			"title": "The raptor hills",
+			"level": 24.4,
+			"mobs": [
+				"Nightveiled Rotheap 31-32 x2"
+			],
+			"reason": "Nightveiled Rotheap (level 31 elite) roams the whole Wetlands (spawn points from Menethil's walls to the Green Belt) rather than holding this spot; 13 people killed it in the recordings and none died to it; the step warns of it (guide-fixes a2130-wetlands-rotheap-*)",
+			"evidence": "route level 24.4; Nightveiled Rotheap 31-32 x2; recordings (archive to 2026-11-12): done by 39 people at median 27.05, 0 people died within 60 yd, 10 abandoned"
+		},
+		{
+			"key": "forever/alliance/06-ashenvale.guide|kill 294.1|elite",
+			"guide": "forever/alliance/06-ashenvale.guide",
+			"goal": "kill 294.1",
+			"kind": "elite",
+			"title": "The raptor hills",
+			"level": 24.4,
+			"mobs": [
+				"Nightveiled Rotheap 31-32 x2"
+			],
+			"reason": "Nightveiled Rotheap (level 31 elite) roams the whole Wetlands (spawn points from Menethil's walls to the Green Belt) rather than holding this spot; 13 people killed it in the recordings and none died to it; the step warns of it (guide-fixes a2130-wetlands-rotheap-*)",
+			"evidence": "route level 24.4; Nightveiled Rotheap 31-32 x2; recordings (archive to 2026-11-12): done by 39 people at median 27.05, 0 people died within 60 yd, 10 abandoned"
+		},
+		{
+			"key": "forever/alliance/06-ashenvale.guide|collect 98282.1|elite",
+			"guide": "forever/alliance/06-ashenvale.guide",
+			"goal": "collect 98282.1",
+			"kind": "elite",
+			"title": "Thelgen Rock",
+			"level": 24.6,
+			"mobs": [
+				"Highland Horror 28-28",
+				"Highland Lurker 28-29"
+			],
+			"reason": "Thelgen Rock holds Forever's Highland Lurkers and Horrors (level 28 elites) among the Cave and Leech Stalkers that drop the glands; the step's tip (guide-fixes a2130-thelgen-rock-highland-elites) warns of them and says to pull the stalkers one at a time; 2 of 32 people died in the cave",
+			"evidence": "route level 24.6; Highland Horror 28-28, Highland Lurker 28-29; recordings (archive to 2026-11-12): done by 32 people at median 26.82, 2 people died within 60 yd, 10 abandoned"
+		},
+		{
+			"key": "forever/alliance/06-ashenvale.guide|collect 98282.1|pack",
+			"guide": "forever/alliance/06-ashenvale.guide",
+			"goal": "collect 98282.1",
+			"kind": "pack",
+			"title": "Thelgen Rock",
+			"level": 24.6,
+			"mobs": [
+				"8 spawns 26+"
+			],
+			"reason": "Thelgen Rock holds Forever's Highland Lurkers and Horrors (level 28 elites) among the Cave and Leech Stalkers that drop the glands; the step's tip (guide-fixes a2130-thelgen-rock-highland-elites) warns of them and says to pull the stalkers one at a time; 2 of 32 people died in the cave",
+			"evidence": "route level 24.6; 8 spawns 26+; recordings (archive to 2026-11-12): done by 32 people at median 26.82, 2 people died within 60 yd, 10 abandoned"
+		},
+		{
+			"key": "forever/alliance/06-ashenvale.guide|kill 276.1|over",
+			"guide": "forever/alliance/06-ashenvale.guide",
+			"goal": "kill 276.1",
+			"kind": "over",
+			"title": "The Mosshide gnolls",
+			"level": 24.6,
+			"mobs": [
+				"Golm 32-32 x2"
+			],
+			"reason": "Golm and Neru are titan watchers (level 32 elites) that only appear when a player uses the Goaz Stone of Gleaning Our Future (98310, a group quest the solo route never takes) beside their spot; recorded kills of them are at those summon spots, and nobody died to them",
+			"evidence": "route level 24.6; Golm 32-32 x2; recordings (archive to 2026-11-12): done by 50 people at median 27.43, 0 people died within 60 yd, 3 abandoned"
+		},
+		{
+			"key": "forever/alliance/06-ashenvale.guide|kill 276.2|over",
+			"guide": "forever/alliance/06-ashenvale.guide",
+			"goal": "kill 276.2",
+			"kind": "over",
+			"title": "The Mosshide gnolls",
+			"level": 24.6,
+			"mobs": [
+				"Golm 32-32 x2"
+			],
+			"reason": "Golm and Neru are titan watchers (level 32 elites) that only appear when a player uses the Goaz Stone of Gleaning Our Future (98310, a group quest the solo route never takes) beside their spot; recorded kills of them are at those summon spots, and nobody died to them",
+			"evidence": "route level 24.6; Golm 32-32 x2; recordings (archive to 2026-11-12): done by 50 people at median 27.16, 0 people died within 60 yd, 3 abandoned"
+		},
+		{
+			"key": "forever/alliance/06-ashenvale.guide|kill 276.2|elite",
+			"guide": "forever/alliance/06-ashenvale.guide",
+			"goal": "kill 276.2",
+			"kind": "elite",
+			"title": "The Mosshide gnolls",
+			"level": 24.6,
+			"mobs": [
+				"Golm 32-32 x2",
+				"Dragonmaw Reclaimer 29-30",
+				"Dragonmaw Soulbinder 29-30"
+			],
+			"reason": "Golm and Neru are titan watchers (level 32 elites) that only appear when a player uses the Goaz Stone of Gleaning Our Future (98310, a group quest the solo route never takes) beside their spot; recorded kills of them are at those summon spots, and nobody died to them; the Dragonmaw Reclaimers and Soulbinders of Forever's Dragonmaw Retreat stand east of the Mosshide hills the step works; 50 people did it, none died there",
+			"evidence": "route level 24.6; Golm 32-32 x2, Dragonmaw Reclaimer 29-30, Dragonmaw Soulbinder 29-30; recordings (archive to 2026-11-12): done by 50 people at median 27.16, 0 people died within 60 yd, 3 abandoned"
+		},
+		{
+			"key": "forever/alliance/06-ashenvale.guide|collect 470.1|elite",
+			"guide": "forever/alliance/06-ashenvale.guide",
+			"goal": "collect 470.1",
+			"kind": "elite",
+			"title": "Ironbeard's Tomb",
+			"level": 24.7,
+			"mobs": [
+				"Neru 32-32"
+			],
+			"reason": "Golm and Neru are titan watchers (level 32 elites) that only appear when a player uses the Goaz Stone of Gleaning Our Future (98310, a group quest the solo route never takes) beside their spot; recorded kills of them are at those summon spots, and nobody died to them",
+			"evidence": "route level 24.7; Neru 32-32; recordings (archive to 2026-11-12): done by 37 people at median 26.94, 0 people died within 60 yd, 4 abandoned"
+		},
+		{
 			"key": "forever/alliance/06-wetlands.guide|collect 272.1|over",
 			"guide": "forever/alliance/06-wetlands.guide",
 			"goal": "collect 272.1",
@@ -1356,6 +1541,85 @@
 			],
 			"reason": "warned at the step: its tip names Mavoris Cloudsbreak",
 			"evidence": "route level 28.9; Mavoris Cloudsbreak 32-32; recordings (2026-11-11): done by 3 people at 29-32 (median 31), 1 people died within 60 yd (median level 29), 0 abandoned"
+		},
+		{
+			"key": "forever/alliance/06-wetlands.guide|kill 289.2|elite",
+			"guide": "forever/alliance/06-wetlands.guide",
+			"goal": "kill 289.2",
+			"kind": "elite",
+			"title": "The Lost Fleet: kill these as you meet them",
+			"level": 28,
+			"mobs": [
+				"Nightveiled Rotheap 31-32"
+			],
+			"reason": "Nightveiled Rotheap (level 31 elite) roams the whole Wetlands (spawn points from Menethil's walls to the Green Belt) rather than holding this spot; 13 people killed it in the recordings and none died to it; the step warns of it (guide-fixes a2130-wetlands-rotheap-*); the deaths near the wreck were to its own crew (Cursed Marines and Sailors, Captain Halyndor), the quest's targets, not to the Rotheap",
+			"evidence": "route level 28; Nightveiled Rotheap 31-32; recordings (archive to 2026-11-12): done by 38 people at median 28.41, 6 people died within 60 yd, 4 abandoned"
+		},
+		{
+			"key": "forever/alliance/06-wetlands.guide|kill 289.1|over",
+			"guide": "forever/alliance/06-wetlands.guide",
+			"goal": "kill 289.1",
+			"kind": "over",
+			"title": "The Lost Fleet: kill these as you meet them",
+			"level": 28,
+			"mobs": [
+				"Nightveiled Rotheap 31-32 x2"
+			],
+			"reason": "Nightveiled Rotheap (level 31 elite) roams the whole Wetlands (spawn points from Menethil's walls to the Green Belt) rather than holding this spot; 13 people killed it in the recordings and none died to it; the step warns of it (guide-fixes a2130-wetlands-rotheap-*); the deaths near the wreck were to its own crew (Cursed Marines and Sailors, Captain Halyndor), the quest's targets, not to the Rotheap",
+			"evidence": "route level 28; Nightveiled Rotheap 31-32 x2; recordings (archive to 2026-11-12): done by 38 people at median 28.42, 6 people died within 60 yd, 4 abandoned"
+		},
+		{
+			"key": "forever/alliance/06-wetlands.guide|kill 289.1|elite",
+			"guide": "forever/alliance/06-wetlands.guide",
+			"goal": "kill 289.1",
+			"kind": "elite",
+			"title": "The Lost Fleet: kill these as you meet them",
+			"level": 28,
+			"mobs": [
+				"Nightveiled Rotheap 31-32 x2"
+			],
+			"reason": "Nightveiled Rotheap (level 31 elite) roams the whole Wetlands (spawn points from Menethil's walls to the Green Belt) rather than holding this spot; 13 people killed it in the recordings and none died to it; the step warns of it (guide-fixes a2130-wetlands-rotheap-*); the deaths near the wreck were to its own crew (Cursed Marines and Sailors, Captain Halyndor), the quest's targets, not to the Rotheap",
+			"evidence": "route level 28; Nightveiled Rotheap 31-32 x2; recordings (archive to 2026-11-12): done by 38 people at median 28.42, 6 people died within 60 yd, 4 abandoned"
+		},
+		{
+			"key": "forever/alliance/06-wetlands.guide|collect 289.3|elite",
+			"guide": "forever/alliance/06-wetlands.guide",
+			"goal": "collect 289.3",
+			"kind": "elite",
+			"title": "The Lost Fleet: kill these as you meet them",
+			"level": 28,
+			"mobs": [
+				"Nightveiled Rotheap 31-32"
+			],
+			"reason": "Nightveiled Rotheap (level 31 elite) roams the whole Wetlands (spawn points from Menethil's walls to the Green Belt) rather than holding this spot; 13 people killed it in the recordings and none died to it; the step warns of it (guide-fixes a2130-wetlands-rotheap-*); the deaths near the wreck were to its own crew (Cursed Marines and Sailors, Captain Halyndor), the quest's targets, not to the Rotheap",
+			"evidence": "route level 28; Nightveiled Rotheap 31-32; recordings (archive to 2026-11-12): done by 38 people at median 28.44, 6 people died within 60 yd, 4 abandoned"
+		},
+		{
+			"key": "forever/alliance/06-wetlands.guide|collect 471.1|elite",
+			"guide": "forever/alliance/06-wetlands.guide",
+			"goal": "collect 471.1",
+			"kind": "elite",
+			"title": "The Lost Fleet: kill these as you meet them",
+			"level": 28,
+			"mobs": [
+				"Nightveiled Rotheap 31-32"
+			],
+			"reason": "Nightveiled Rotheap (level 31 elite) roams the whole Wetlands (spawn points from Menethil's walls to the Green Belt) rather than holding this spot; 13 people killed it in the recordings and none died to it; the step warns of it (guide-fixes a2130-wetlands-rotheap-*); the deaths near the wreck were to its own crew (Cursed Marines and Sailors, Captain Halyndor), the quest's targets, not to the Rotheap",
+			"evidence": "route level 28; Nightveiled Rotheap 31-32; recordings (archive to 2026-11-12): done by 37 people at median 28.36, 5 people died within 60 yd, 8 abandoned"
+		},
+		{
+			"key": "forever/alliance/06-wetlands.guide|complete 95646|elite",
+			"guide": "forever/alliance/06-wetlands.guide",
+			"goal": "complete 95646",
+			"kind": "elite",
+			"title": "Excavation Site: Wetlands",
+			"level": 28.5,
+			"mobs": [
+				"Highland Lurker 28-29",
+				"Highland Horror 28-28"
+			],
+			"reason": "a dungeon step (`when dungeon \"Excavation Site: Wetlands\"`, a group of five at 28-31): the Highland Lurkers and Horrors are the dungeon's own elites, and the solo route never has the step",
+			"evidence": "route level 28.5; Highland Lurker 28-29, Highland Horror 28-28; recordings (archive to 2026-11-12): done by 33 people at median 30.14, inside the dungeon, 1 abandoned"
 		},
 		{
 			"key": "forever/alliance/07-thousand-needles.guide|kill 173.1|rare",

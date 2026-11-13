@@ -9,7 +9,6 @@ next forever/alliance/04-redridge-mountains
 # Forge's route search orders the quests of this guide and its guide writer writes the steps.
 # Fixes go into data/route-fixes.json, data/guide-fixes.json or forever-db/corrections, never
 # into this file.
-# Added here: Retrieval for Mauren (1078).
 # Left out: Daily Delivery (469).
 # Givers passed at Menethil and left for the 27-29 Wetlands visit (06-wetlands), by design: Reclaiming
 # Goods and Apprentice's Duties (281, 471): their work is the hovels and north-coast loop that visit
@@ -155,7 +154,7 @@ step The Ruins of Stardust
 
 step Mystral Lake
   zone Ashenvale
-  tip Sentinel Velene Starstrike stands at the Silverwind Refuge on the east shore of Mystral Lake. Befouled Water Elementals wade in the lake.
+  tip Sentinel Velene Starstrike stands at the Silverwind Refuge on the east shore of Mystral Lake. Befouled Water Elementals wade in the lake. Careful: Tideress, a level 27 water elemental, walks the lake among them; she drops the bracers too, but the small elementals are the safer kills at this level.
   accept 1016                             -- Sentinel Velene Starstrike
   collect 12220 x5 optional           -- Underwater
   collect 5455 quest 1016 @49.6,71.3      -- Kill the elementals for 5 Intact Elemental Bracers, then use the Divining Scroll
@@ -224,6 +223,11 @@ step Fly to Auberdine
   fly "Auberdine"
   zone Darkshore
 
+step Terenthis
+  zone Darkshore
+  tip Terenthis stands by the flight master, at the east end of the main street; then back west to the dock.
+  turnin 994                              -- Terenthis: Volcor's escort from the end of Darkshore
+
 step Boat to Menethil Harbor
   zone Darkshore
   goto 32.4,43.8 "Boat to Menethil Harbor"
@@ -247,7 +251,7 @@ step Menethil Harbor
   accept 305                              -- Tarrel Rockweaver, by the north gate
 
 step Spoils of War
-  tip Timber and iron piles lie around the keep and along the harbor's walls.
+  tip Timber and iron piles lie around the keep and along the harbor's walls. Careful: Nightveiled Rotheap, a level 31 elite, roams the Wetlands' shores and roads: if it comes by, give it room.
   collect 279821 quest 98197              -- Khaz Modan Timber
   collect 279822 quest 98197              -- Khaz Modan Iron
 
@@ -273,7 +277,7 @@ step Whelgar's Excavation Site
 step The raptor hills
   tip Mottled Raptors and Screechers roam the hills west of the excavation site.
   tip Careful: Once a Mottled Screecher drops to 30% health, it calls for help from creatures within 20 yd. Mottled Screechers frequently come in packs of three, and raptors summoned by their calls for help may also join the fight.
-  kill 1021 quest 294                     -- Mottled Screecher
+  kill 1021 quest 294                     -- Mottled Screecher; careful: Nightveiled Rotheap, a level 31 elite, roams these hills
   kill 1020 quest 294                     -- Mottled Raptor
 
 step Ormer Ironbraid
@@ -286,7 +290,7 @@ step The Green Belt
   accept 276
 
 step Thelgen Rock
-  tip Cave Stalkers and Leech Stalkers fill Thelgen Rock, the cave south-east of the excavation site.
+  tip Cave Stalkers and Leech Stalkers fill Thelgen Rock, the cave south-east of the excavation site. Careful: Highland Lurkers and Horrors, level 28 elites, walk the same cave among them: pull the stalkers one at a time and keep clear of the elites.
   collect 280319 quest 98282              -- Unruptured Stalker Gland
 
 step The Mosshide gnolls
@@ -362,6 +366,12 @@ step Tram to Stormwind
 
 # ---------------------------------------------------------------- Stormwind
 
+step Sprite Jumpsprocket
+  when onquest 92748
+  zone Stormwind City
+  tip Still carrying Explosive Consultation (you used your Hearthstone at the end of Loch Modan)? The tram comes in at the Dwarven District, where Sprite Jumpsprocket stands.
+  turnin 92748                                -- Sprite Jumpsprocket, Dwarven District
+
 step Baros Alexston
   zone Stormwind City
   when onquest 97914
@@ -386,7 +396,6 @@ step Master Mathias Shaw
   accept 2360                             -- Master Mathias Shaw: Agent Kearnen in Westfall takes it, at the end of Duskwood's second loop
 
 step Collin Mauren
-  accept 1078
   tip The Slaughtered Lamb is in the Mage Quarter. Warlocks: Gakin the Darkbinder is in its cellar.
   turnin 1075                             -- Collin Mauren
   level 20 only Warlock

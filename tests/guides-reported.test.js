@@ -6183,7 +6183,8 @@ test('Alliance 20-30 re-order: Wetlands 27-29 then Ashenvale 29-30 in 06-wetland
 	const lowIdx = (what, t, q) => at(low, what, is(t, q));
 	for (const q of [279, 98197]) assert.equal(low[lowIdx(`turnin ${q}`, 'turnin', q)].s, low[lowIdx('turnin 484', 'turnin', 484)].s, `${q} handed in with the other Menethil hand-ins`);
 	for (const q of [1026, 1035, 1046, 1022, 1140]) assert.ok(wet.some(({ goal }) => goal.t === 'turnin' && goal.quest === q), `${q} is handed in on the Ashenvale trip`);
-	assert.ok(!wet.some(({ goal }) => goal.t === 'level'), 'no written top-up in 06-wetlands');
+	// The only written top-up is the fresh starter's (`when level<28`, Alliance 20-30 audit): the route player never stops.
+	assert.ok(!wet.some(({ step, goal }) => goal.t === 'level' && !(step.when || []).some((p) => p.k === 'level')), 'no top-up the route player stops for in 06-wetlands');
 	assert.ok(!wet.some(({ goal }) => goal.quest === 526), 'Lightforge Ingots (526, needs 324) is not taken at 27');
 	const late = goals(ASHENVALE_30);
 	assert.ok(!late.some(({ goal }) => [1026, 1035, 1046, 1022, 1140, 1031].includes(goal.quest)), '30-40/03 no longer carries the Ashenvale quests');
@@ -6203,7 +6204,8 @@ test('Alliance 20-30: no town stop for one quest where the route comes back anyw
 	assert.ok(wet.some(({ goal }) => is('turnin', 994)(goal)), 'Volcor\'s escort to Terenthis on the Auberdine stop');
 	// #1415: Selarin offers Trek to Ashenvale with no escort done (recordings: 17 people at 15-22), so it is taken on
 	// 03-darkshore-return's first Auberdine stop and handed to Raene on 06-ashenvale's first Astranaar stop.
-	assert.ok(!wet.some(({ goal }) => goal.quest === 990), 'Trek to Ashenvale is no longer carried to 28');
+	// (06-wetlands keeps a hand-in to Raene only for a character still carrying it, `when onquest`, Alliance 20-30 audit.)
+	assert.ok(!wet.some(({ step, goal }) => goal.quest === 990 && !(step.when || []).some((p) => p.k === 'onquest' && !p.neg)), 'Trek to Ashenvale is no longer carried to 28');
 	const dret = goals(DARKSHORE_RETURN);
 	assert.equal(dret[at(dret, 'accept 990', is('accept', 990))].s, 1, 'taken on the first Auberdine stop of 03-darkshore-return');
 	const ash0 = goals(ASHENVALE);
@@ -7390,14 +7392,21 @@ test('forever/alliance/03-loch-modan.guide: Alliance 12-20 zone order: Loch Moda
 	for (const race of ['Dwarf', 'Gnome']) assert.ok(!list.filter(forRaceOf(race)).some(({ goal }) => is('accept', 307)(goal)), `${race}: Filthy Paws was done in Dun Morogh`);
 });
 
-test('forever/alliance/04-redridge-mountains.guide: Alliance 12-20 zone order: Redridge\'s 15-20 quests are no longer taken at 24, its level 20-21 quests come with you from the first visit', { skip }, () => {
+test('forever/alliance/04-redridge-mountains.guide: Alliance 12-20 zone order: Redridge\'s 15-20 quests are no longer taken at 24; Murloc Poachers comes with you from the first visit, the Blackrock quests are taken on this visit (Alliance 20-30 audit)', { skip }, () => {
 	const list = goals('forever/alliance/04-redridge-mountains.guide');
 	for (const q of [244, 246, 98407, 125, 89, 129, 130, 131, 92, 65, 127]) assert.ok(!list.some(({ goal }) => goal.quest === q && (goal.t === 'accept' || goal.t === 'turnin')), `${q} is not in 04-redridge-mountains`);
-	// Marshal Marris's Blackrock quests, Alther's Mill and Murloc Poachers are taken at their givers at 20 and done here.
 	const first = goals(LOCH_MODAN);
-	for (const q of [20, 98387, 98386, 150]) {
-		assert.ok(first.some(({ goal }) => is('accept', q)(goal)), `accept ${q} at 20`);
-		assert.ok(!list.some(({ goal }) => is('accept', q)(goal)) && list.some(({ goal }) => is('turnin', q)(goal)), `${q} handed in at 24`);
+	// Murloc Poachers is taken from Baren at 20: its murlocs come before this visit's Lakeshire stop.
+	assert.ok(first.some(({ goal }) => is('accept', 150)(goal)), 'accept 150 at 20');
+	assert.ok(!list.some(({ goal }) => is('accept', 150)(goal)) && list.some(({ goal }) => is('turnin', 150)(goal)), '150 handed in at 24');
+	// Alliance 20-30 audit (0.4.0, #2025): Marshal Marris's Blackrock quests and Alther's Mill are taken on this visit's
+	// Lakeshire stop, on the way to their camps, instead of being carried for four hours from the first visit.
+	const lakeshire = list.find(({ goal }) => is('turnin', 150)(goal)).s;
+	for (const q of [20, 98387, 98386]) {
+		assert.ok(!first.some(({ goal }) => is('accept', q)(goal)), `${q} is not taken at 20`);
+		const acc = list.find(({ goal }) => is('accept', q)(goal));
+		assert.ok(acc && acc.s === lakeshire, `accept ${q} on the Lakeshire stop`);
+		assert.ok(list.findIndex(({ goal }) => is('accept', q)(goal)) < list.findIndex(({ goal }) => is('turnin', q)(goal)), `${q} handed in after`);
 	}
 	const fins = list.find(({ goal }) => goal.t === 'collect' && goal.item === 1468);
 	const baren = list.find(({ goal }) => is('turnin', 150)(goal));
@@ -11964,4 +11973,123 @@ test(`${WESTFALL}: Gnome Warlocks take Surena's Choker on the east Elwynn loop a
 	assert.ok(goldshire < at(list, 'turnin 1688', is('turnin', 1688)) && binding < at(list, 'accept 36 (the Jansen Stead)', is('accept', 36)), 'the summoning after Goldshire, before Westfall');
 	for (const i of [choker, binding]) assert.ok(list[i].step.when.some((p) => p.k === 'onquest' && !p.neg), `${list[i].step.title}: only while The Binding is carried`);
 	assert.ok(!goals(WESTFALL).filter(forClass('WARRIOR')).some(({ goal }) => goal.quest === 1688 || goal.quest === 1689), 'Warlocks only');
+});
+
+// Alliance 20-30 audit (0.4.0, #2025): 06-wetlands bound at the Deepwater Tavern on its first Menethil stop and again at
+// Astranaar on the Ashenvale visit. With the Astranaar bind gone the Hearthstone stays on Menethil, where the guide
+// goes after Ashenvale (the flight to Auberdine and the boat): the addon's route planner over nine race and class runs
+// finds it 1.5 minutes shorter per run, the Deepwater hearths taking the place of the Astranaar ones one for one.
+test(`${WETLANDS}: the last bind before the Duskwood return is the Deepwater Tavern (Alliance 20-30 audit)`, { skip }, () => {
+	const binds = goals(WETLANDS).filter(({ goal }) => goal.t === 'sethome');
+	assert.ok(binds.length >= 1, 'the guide binds the Hearthstone');
+	assert.equal(binds[binds.length - 1].goal.location, 'Deepwater Tavern', 'the last bind is the Deepwater Tavern');
+	assert.ok(!binds.some(({ goal }) => goal.location === 'Astranaar'), 'no bind at Astranaar');
+	assert.ok(goals(ASHENVALE).some(({ goal }) => goal.t === 'sethome' && goal.location === 'Astranaar'), "06-ashenvale's Astranaar bind stays");
+});
+
+// Alliance 20-30 audit (0.4.0, #2025): Gathering the Cure's Lunar Fungal Blooms grow in the moonkin caves just east
+// of Auberdine, on the way south; 03-darkshore-return went to Onu at the Grove first and walked back north for them.
+test(`${DARKSHORE_RETURN}: the Lunar Fungus is picked on the way south, before Onu (Alliance 20-30 audit)`, { skip }, () => {
+	const list = goals(DARKSHORE_RETURN);
+	const fungus = at(list, 'Lunar Fungus (6123)', (g) => g.t === 'collect' && g.quest === 6123 && g.item === 15851);
+	const onu = at(list, 'Onu (948)', is('turnin', 948));
+	assert.ok(fungus < onu, 'the blooms come before Onu');
+});
+
+// Alliance 20-30 audit (0.4.0, #2025): 06-ashenvale trains every class but Druids in Ironforge and rides the tram to
+// Stormwind, where 04-redridge-mountains begins; its Shaman steps sent Shamans back on the tram to the same trainer,
+// at the same level, and back again.
+test(`${REDRIDGE}: no tram back to Ironforge for Shamans trained there on 06-ashenvale's last stops (Alliance 20-30 audit)`, { skip }, () => {
+	const ironforge = goals(ASHENVALE).find(({ step, goal }) => goal.t === 'train' && goal.class && ((goal.only && goal.only.classes) || (step.only && step.only.classes) || []).includes('SHAMAN'));
+	assert.ok(ironforge, "06-ashenvale's Ironforge stop trains Shamans");
+	const back = compiled(REDRIDGE).steps.filter((st) => /Tram to Ironforge|Shaman training/.test(st.title));
+	assert.deepEqual(back.map((st) => st.title), [], 'no Shaman tram steps');
+});
+
+// Alliance 20-30 audit (0.4.0, #2025): Druids end 03-darkshore-return at Mathrengyl Bearwalker in Darnassus, a Druid
+// trainer, at about 22-23; their next training was 04-redridge-mountains' Stormwind stop at about 25.
+test(`${DARKSHORE_RETURN}: Druids train at Mathrengyl Bearwalker on the Cat Form hand-in (Alliance 20-30 audit)`, { skip }, () => {
+	const list = goals(DARKSHORE_RETURN);
+	const catForm = at(list, 'Cat Form (98397) to Mathrengyl', is('turnin', 98397));
+	const step = list[catForm].step;
+	assert.ok(step.goals.some((g) => g.t === 'train' && g.class), 'the Mathrengyl step trains the class');
+	assert.ok(step.only && step.only.classes && step.only.classes.join() === 'DRUID', 'a Druid step');
+});
+
+// Alliance 20-30 audit (0.4.0, #2025): Escape Through Force (994) is finished at the end of 03-darkshore-return and
+// was handed in only on 06-wetlands' Auberdine stop, six levels on; 06-ashenvale lands at Auberdine's flight master,
+// beside Terenthis, on its way to the Menethil boat.
+test(`${ASHENVALE}: Escape Through Force goes to Terenthis on the Auberdine landing, before Menethil (Alliance 20-30 audit)`, { skip }, () => {
+	const list = goals(ASHENVALE);
+	const fly = at(list, 'the flight to Auberdine', (g) => g.t === 'fly' && g.location === 'Auberdine');
+	const terenthis = at(list, 'Escape Through Force (994)', is('turnin', 994));
+	const menethil = at(list, "Karl Boran's Claws from the Deep (279)", is('accept', 279));
+	assert.ok(fly < terenthis && terenthis < menethil, 'flight, Terenthis, then Menethil');
+	assert.ok(goals(WETLANDS).some(({ goal }) => goal.t === 'turnin' && goal.quest === 994), "06-wetlands keeps a hand-in for carriers");
+});
+
+// Alliance 20-30 audit (0.4.0, #2025; first made for the 0.3.7 stranded-quests plan): four Darkshore and Stormwind
+// quests that a character from an older route or a guide left early still carries are handed in on stops 06-wetlands
+// already makes at their enders, each only while carried.
+test(`${WETLANDS}: carried Darkshore quests are handed in on the stops at their enders (Alliance 20-30 audit)`, { skip }, () => {
+	const steps = compiled(WETLANDS).steps;
+	for (const q of [990, 945, 967, 97914]) {
+		const st = steps.find((s) => s.goals.some((g) => g.t === 'turnin' && g.quest === q));
+		assert.ok(st, `${q} is handed in`);
+		assert.ok((st.when || []).some((p) => p.k === 'onquest' && !p.neg), `${q}: only while carried (when onquest)`);
+	}
+});
+
+// Alliance 20-30 audit (0.4.0, #2025): with both half pendants of Trial of the Sea Lion in the bags, Night Elf and
+// Skyborne Druids join them and take Aquatic Form on 03-darkshore-return's Cat Form trip to Moonglade and Darnassus,
+// at about 22, instead of on 06-wetlands' own trip at about 28 (which stays for a Druid still on 272).
+test(`${DARKSHORE_RETURN}: Trial of the Sea Lion and Aquatic Form on the Cat Form trip (Alliance 20-30 audit)`, { skip }, () => {
+	const list = goals(DARKSHORE_RETURN);
+	const sea = at(list, 'Trial of the Sea Lion (272) to Dendrite', is('turnin', 272));
+	const aquatic = at(list, 'Aquatic Form (5061) to Mathrengyl', is('turnin', 5061));
+	const catForm = at(list, 'Cat Form (98397) to Mathrengyl', is('turnin', 98397));
+	assert.ok(sea < aquatic && aquatic < catForm, '272 at Dendrite, then 5061 and Cat Form at Mathrengyl');
+	const when = list[sea].step.when || [];
+	for (const item of [15882, 15883]) assert.ok(when.some((p) => p.k === 'has' && !p.neg && p.item === item), `only with half pendant ${item}`);
+	assert.ok(goals(WETLANDS).some(({ goal }) => goal.t === 'turnin' && goal.quest === 272), "06-wetlands keeps its trip for a Druid still on 272");
+});
+
+// Alliance 20-30 audit (0.4.0, #2025): at Mystral Lake, Tideress (27) killed 4 people and the Befouled Water
+// Elementals 5 at about 23 (players' recordings): the step warns of her.
+test(`${ASHENVALE}: the Mystral Lake step warns of Tideress (Alliance 20-30 audit)`, { skip }, () => {
+	const list = goals(ASHENVALE);
+	const { step } = list[at(list, 'Elemental Bracers (1016)', is('accept', 1016))];
+	assert.match([step.tip, step.note].flat().filter(Boolean).join(' '), /Tideress, a level 27 water elemental/);
+});
+
+// Alliance 20-30 audit (0.4.0, #2025, with the Alliance 30-40 slice): Retrieval for Mauren (1078) was taken on
+// 06-ashenvale's Stormwind stop at about 25 and carried thirteen levels to its scales in Thousand Needles; it is taken
+// on 30-40/01-hillsbrad-foothills' Mage Quarter stop (Collin Mauren is in the Slaughtered Lamb there), right before.
+test(`${ASHENVALE}: Retrieval for Mauren is no longer taken at 25 (Alliance 20-30 audit)`, { skip }, () => {
+	assert.ok(!goals(ASHENVALE).some(({ goal }) => is('accept', 1078)(goal)), 'no accept 1078 in 06-ashenvale');
+	assert.ok(goals(ASHENVALE).some(({ goal }) => is('turnin', 1075)(goal)), 'A Scroll from Mauren still goes to Collin Mauren');
+});
+
+// Alliance 20-30 audit (0.4.0, #2025; first made for the 0.3.7 fresh-start plan): a character starting 06-wetlands
+// without 06-ashenvale's quests tops up to 28 by Menethil before the boat to Ashenvale's 28-32 quests; the route
+// player, past 28 there, never stops.
+test(`${WETLANDS}: a fresh starter tops up to 28 by Menethil before the boat to Auberdine (Alliance 20-30 audit)`, { skip }, () => {
+	const list = goals(WETLANDS);
+	const top = at(list, 'level 28', (g) => g.t === 'level' && g.level === 28);
+	const step = list[top].step;
+	assert.ok((step.when || []).some((p) => p.k === 'level'), 'only below 28 (when level<28)');
+	assert.ok(at(list, 'Daily Delivery hand-in (469)', is('turnin', 469)) < top, 'after the last Menethil hand-in');
+	// (A Night Elf Priest's Darnassus detour at the guide's start has its own "Boat to Auberdine" in Stormwind.)
+	const boat = list.findIndex(({ goal }, i) => i > top && goal.t === 'goto' && /Boat to Auberdine/.test(goal.text || ''));
+	assert.ok(boat > top && boat < at(list, 'Bloom of the Heavens to Thundris (98209)', is('turnin', 98209)), 'before the boat to Auberdine');
+});
+
+// Alliance 20-30 audit (0.4.0, #2025): 03-loch-modan's last Stormwind stop is skipped by a player who hearths to
+// Auberdine, so Explosive Consultation (92748) goes to Sprite Jumpsprocket when 06-ashenvale's tram comes in at the
+// Dwarven District, only while carried.
+test(`${ASHENVALE}: Sprite Jumpsprocket takes Explosive Consultation when the tram comes in (Alliance 20-30 audit)`, { skip }, () => {
+	const list = goals(ASHENVALE);
+	const sprite = at(list, 'Explosive Consultation (92748)', is('turnin', 92748));
+	assert.ok((list[sprite].step.when || []).some((p) => p.k === 'onquest' && !p.neg), 'only while carried');
+	assert.ok(at(list, 'the tram to Stormwind', (g) => g.t === 'goto' && /Tram to Stormwind/.test(g.text || '')) < sprite, 'after the tram');
 });

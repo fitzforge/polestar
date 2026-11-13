@@ -4243,30 +4243,6 @@
 			},
 			{
 				"a": [
-					"accept",
-					20
-				],
-				"b": [
-					"turnin",
-					118
-				],
-				"faction": "Alliance",
-				"why": "Flow (2026-11-07, Alliance 12-20): Marshal Marris's Blackrock Menace and Blockade (20, 98387, level 21) are taken from him at the bridge on Redridge's first Lakeshire stop at 20 and done on the 24 visit, where they still give full XP; the 24 visit no longer stops for them."
-			},
-			{
-				"a": [
-					"accept",
-					98387
-				],
-				"b": [
-					"turnin",
-					118
-				],
-				"faction": "Alliance",
-				"why": "Flow (2026-11-07, Alliance 12-20): see accept 20 before turnin 118."
-			},
-			{
-				"a": [
 					"turnin",
 					92
 				],
@@ -4940,6 +4916,90 @@
 				],
 				"faction": "Horde",
 				"why": "Undead Warlocks: Carendin Halgar offers Creature of the Void (1473) only once Halgar's Summons (1478, Ageron Kargal's pointer from Brill to him) is handed in. Players' recordings: 4 people carrying 1478 had 1473 refused at Carendin, and each was offered it right after handing 1478 in. The route takes 1478 on the Brill stop that trains (Ageron offered it to 3 recorded Warlocks there at 10) and hands it in to Carendin before 1473."
+			},
+			{
+				"a": [
+					"task",
+					6123
+				],
+				"b": [
+					"turnin",
+					948
+				],
+				"faction": "Alliance",
+				"why": "Alliance 20-30 audit (0.4.0, #2025): Gathering the Cure's Lunar Fungal Blooms (object 177750) grow in the moonkin caves just east of Auberdine (Darkshore 42.4-46.7, 45.7-53.3), a short way off the road south. 03-darkshore-return took Onu at the Grove (43.6,76.3) first and then walked about 1,140 yards back north to the caves and 1,350 back south to Buzzbox 525; picked on the way south, the Night Elves', Skyborne's and Druids' walk is about 2,000 yards (some 5 minutes) shorter. The blooms are outside While-you're-here's reach from the road."
+			},
+			{
+				"a": [
+					"turnin",
+					994
+				],
+				"b": [
+					"accept",
+					279
+				],
+				"faction": "Alliance",
+				"why": "Alliance 20-30 audit (0.4.0, #2025; first made for the 0.3.7 stranded-quests plan): Escape Through Force (994, quest level 22) is finished at the end of 03-darkshore-return (about 23) and was handed in to Terenthis only on 06-wetlands' Auberdine stop (about 28.5, six over: 80% of its XP, less at +7). 06-ashenvale already flies Astranaar -> Auberdine for the boat to Menethil at about 25, and Terenthis stands by the flight master: it is handed in there, before Menethil's first accept (Karl Boran, 279). 06-wetlands keeps its Terenthis step for anyone still carrying it."
+			},
+			{
+				"a": [
+					"turnin",
+					272
+				],
+				"b": [
+					"turnin",
+					98397
+				],
+				"faction": "Alliance",
+				"why": "Alliance 20-30 audit (0.4.0, #2025, with the Alliance 12-21 slice): Night Elf and Skyborne Druids carry Trial of the Sea Lion (272) from 03-darkshore; its Darkshore half pendant is taken on 03-darkshore-return's north coast and its Westfall half on 03-loch-modan's Westfall stretch (both only while 272 is in the log), so the halves are joined at the Shrine of Remulos on 03-darkshore-return's Cat Form trip to Moonglade, and 272 goes to Dendrite there, at about 22-23. It waited for 06-wetlands' own Moonglade trip at about 28 (a fallback that stays for a Druid still on 272)."
+			},
+			{
+				"a": [
+					"turnin",
+					5061
+				],
+				"b": [
+					"turnin",
+					98397
+				],
+				"faction": "Alliance",
+				"why": "Alliance 20-30 audit (0.4.0, #2025): Aquatic Form (5061) follows Trial of the Sea Lion's hand-in to Dendrite on 03-darkshore-return's Moonglade trip and goes to Mathrengyl Bearwalker on the Darnassus stop that trip already makes for Cat Form (98397), not on a second trip in 06-wetlands."
+			},
+			{
+				"a": [
+					"accept",
+					128
+				],
+				"b": [
+					"accept",
+					20
+				],
+				"faction": "Alliance",
+				"why": "Alliance 20-30 audit (0.4.0, #2025, with the Alliance 12-21 slice): Marshal Marris's Blackrock Menace and Blockade (20, 98387, level 21) and Foreman Oslow's Alther's Mill (98386, offered once The Everstill Bridge is handed in on the first visit) are taken on 04-redridge-mountains' Lakeshire stop, where both stand at the north end of the bridge on the way to the camps east of the lake, instead of on the first Redridge visit at 20 and carried about four hours through Darkshore, Ashenvale and the Wetlands. Level 21 quests handed in at about 26 still give full XP."
+			},
+			{
+				"a": [
+					"accept",
+					128
+				],
+				"b": [
+					"accept",
+					98387
+				],
+				"faction": "Alliance",
+				"why": "Alliance 20-30 audit (0.4.0, #2025): see accept 128 before accept 20."
+			},
+			{
+				"a": [
+					"accept",
+					128
+				],
+				"b": [
+					"accept",
+					98386
+				],
+				"faction": "Alliance",
+				"why": "Alliance 20-30 audit (0.4.0, #2025): see accept 128 before accept 20."
 			}
 		],
 		"notes": [
@@ -9667,7 +9727,7 @@
 			{
 				"q": 1037,
 				"faction": "Alliance",
-				"reason": "Velinde Starsong (610 XP at quest level 30) was taken at the Shrine of Aessina in 06-wetlands (about 29.5) and handed in to Thyn'tel Bladeweaver in Darnassus only in 40-50/01-stranglethorn-vale (Night Elves, about 41) or 40-50/05-the-hinterlands (about 47, a tenth of its XP by then): an 18-level carry for about 61 XP. Left out; the 40-50 Darnassus steps still hand in a copy players carry.",
+				"reason": "Velinde Starsong (610 XP at quest level 30) was taken at the Shrine of Aessina in 06-wetlands (about 29.5) and handed in to Thyn'tel Bladeweaver in Darnassus only in 40-50/01-stranglethorn-vale (Night Elves, about 41) or 40-50/05-the-hinterlands (about 47): an 18-level carry for half its XP by then, about 305 (Forever pays 50% of a quest's experience from eight levels over, players' recorded hand-ins), sitting in the log as a finished delivery all that way. Left out; the 40-50 Darnassus steps still hand in a copy players carry.",
 				"issue": "-"
 			},
 			{
