@@ -85,7 +85,7 @@ step Blackfathom Deeps
   when onquest 6921
   when level>=24.5
   zone Ashenvale
-  tip Blackfathom Deeps is a dungeon for a group of five, about levels 22 to 30, and a full run takes about an hour. Its portal is a little further along the tunnels you are in, past the Sapphires.
+  tip Blackfathom Deeps is a dungeon for a group of five, levels 24 to 32, and a full run takes about an hour. Its portal is a little further along the tunnels you are in, past the Sapphires.
   tip Inside: the Fathom Stone lies under the water of the Moonshrine Ruins' pool, beneath the walkway (clear the crabs first): open it for the Fathom Core, and Baron Aquanis comes; open the Strange Water Globe he drops for a quest for Je'neu. The Tide Priestesses sometimes drop a Damp Note: open it for another quest for Je'neu. Argent Guard Thaelrid, by a campfire in an underwater side room off Ghamoo-ra's room, offers Blackfathom Villainy (Twilight Lord Kelris' head, for Bashana Runetotem on Thunder Bluff's Elder Rise).
   enter "Blackfathom Deeps" @14.5,14.2
   complete 6921                       -- Amongst the Ruins: the Fathom Core, from the Fathom Stone

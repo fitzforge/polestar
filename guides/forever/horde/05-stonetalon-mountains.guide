@@ -229,7 +229,7 @@ step Ruins of Lordaeron
   when onquest 92421,92401
   when level>=17.9
   zone Tirisfal Glades
-  tip The Ruins of Lordaeron is a dungeon for a group of five, about levels 15 to 22, in the ruined city above the Undercity: its portal is in the ruins you walked through.
+  tip The Ruins of Lordaeron is a dungeon for a group of five, levels 15 to 22, in the ruined city above the Undercity: its portal is in the ruins you walked through.
   tip Inside: every undead can drop Intact Limbs for Morbin, so clear as you go. The Baron can drop an Abominable Head, which starts a quest for Master Apothecary Faranell, and a Crest of Lordaeron found inside starts one for Oran Snakewrithe: both are in the Undercity, on this route's next stop there.
   enter "Ruins of Lordaeron" @63.2,67.5 live
   complete 92421 @63.2,67.5 live      -- Light's Justice: the Intact Limbs, inside

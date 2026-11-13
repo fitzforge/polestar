@@ -205,7 +205,7 @@ step Shadowfang Keep
   when onquest 1098,1014
   when level>=22.8
   zone Silverpine Forest
-  tip Shadowfang Keep is a dungeon for a group of five, about levels 20 to 30, and a full run takes about an hour. Follow the road south from the Sepulcher: the keep stands on the hill above Pyrewood Village, its gate at the top of the path.
+  tip Shadowfang Keep is a dungeon for a group of five, levels 20 to 30, and a full run takes about an hour. Follow the road south from the Sepulcher: the keep stands on the hill above Pyrewood Village, its gate at the top of the path.
   tip Inside: Rethilgore first; the Deathstalker freed from the cells after him opens the courtyard door, and Deathstalker Vincent lies just inside the courtyard, to the right: hand Deathstalkers in Shadowfang in to him there. Then Razorclaw the Butcher, Baron Silverlaine, Commander Springvale, Odo the Blindwatcher, Fenrus the Devourer and Wolf Master Nandos; Archmage Arugal at the top drops his head for Dalar.
   enter "Shadowfang Keep" @44.8,67.8
   complete 1014                       -- Arugal Must Die: the Head of Arugal

@@ -337,7 +337,7 @@ step Blackrock Depths
   when onquest 4081
   when level>=52
   zone Searing Gorge
-  tip Blackrock Depths is a dungeon for a group of five from about level 48, the biggest in the mountain: its Anvilrage dwarves are this quest's, and you need not go further in than they are. Its portal is deep inside the mountain, down the chain walkways from the bridge.
+  tip Blackrock Depths is a dungeon for a group of five, levels 52 to 60, the biggest in the mountain: its Anvilrage dwarves are this quest's, and you need not go further in than they are. Its portal is deep inside the mountain, down the chain walkways from the bridge.
   tip Inside: the Anvilrage Guardsmen, Wardens and Footmen. Then back out of the portal and on through the mountain's southern exit to the Burning Steppes.
   enter "Blackrock Depths" @34.8,85.3
   complete 4081 @34.8,85.3            -- KILL ON SIGHT: Dark Iron Dwarves: the Anvilrage dwarves, inside

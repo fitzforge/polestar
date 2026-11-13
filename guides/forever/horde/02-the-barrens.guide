@@ -955,7 +955,7 @@ step Wailing Caverns
   when onquest 1486,1487,1491,959
   when level>=20.3
   zone The Barrens
-  tip Wailing Caverns is a dungeon for a group of five, about levels 17 to 24, and a full run takes about an hour. Its mouth is just north of Hezrul's shore, at the north end of Lushwater Oasis, under Nalpak's cave.
+  tip Wailing Caverns is a dungeon for a group of five, levels 17 to 24, and a full run takes about an hour. Its mouth is just north of Hezrul's shore, at the north end of Lushwater Oasis, under Nalpak's cave.
   tip In the caves before the portal: Mad Magglish, stealthed, with the 99-Year-Old Port (he moves between a few spots and comes back slowly: leave him if he's gone). Inside: the Deviates for Ebru, and their hides for Nalpak (they drop rarely: one run may not be enough, so leave the rest for another run), Wailing Essence from the Ectoplasms. After the four Fanglords, the Disciple of Naralex at the entrance leads you to Naralex: Mutanus the Devourer drops the Glowing Shard: its quest (someone in Ratchet, then Falla Sagewind above the caverns) is not on this route; the Dungeons page's hand-in guide takes it.
   enter "Wailing Caverns" @46.0,36.5
   collect 6443 x20 quest 1486.1 optional -- Deviate Hide

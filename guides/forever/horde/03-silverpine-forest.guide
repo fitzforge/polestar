@@ -537,7 +537,7 @@ step Ragefire Chasm
   when onquest 5761
   when level>=13.8
   zone Orgrimmar
-  tip Ragefire Chasm is a dungeon for a group of five, about levels 13 to 18, and a full run takes 30 to 45 minutes. Its portal is in the Cleft of Shadow, beside Neeru.
+  tip Ragefire Chasm is a dungeon for a group of five, levels 13 to 18, and a full run takes 30 to 45 minutes. Its portal is in the Cleft of Shadow, beside Neeru.
   tip Inside: past Oggleflint and his troggs, Taragaman the Hungerer waits in the lava cave and drops his heart. Jergosh the Invoker and Bazzalan, further in, are for Thrall's Hidden Enemies, which this route leaves out.
   enter "Ragefire Chasm" @52.6,49.0
   complete 5761                       -- Slaying the Beast: Taragaman the Hungerer's Heart

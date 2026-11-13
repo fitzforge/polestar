@@ -371,7 +371,7 @@ step City of Dalaran
   when onquest 96986
   when level>=31
   zone Alterac Mountains
-  tip The City of Dalaran is a dungeon for a group of five, about levels 28 to 33, under the violet dome. Without the Dalaran Sewer Key, go in through the sewer pipe north-west of the crater: the arrow leads there.
+  tip The City of Dalaran is a dungeon for a group of five, levels 28 to 35, under the violet dome. Without the Dalaran Sewer Key, go in through the sewer pipe north-west of the crater: the arrow leads there.
   tip Inside: Atrexis the Grave Knight is Melisara's. Rexxie Copperclutch, in the sewer, gives Opportunistic Education and takes it back there.
   enter "City of Dalaran" @12.8,62.2 live
   complete 96986 @12.8,62.2 live      -- The Grave Knight: Atrexis, inside
