@@ -6497,7 +6497,8 @@ test('forever/alliance/40-50: flow re-order: Vital Supplies handed in at Darkshi
 	const hin = goals('forever/alliance/40-50/05-the-hinterlands.guide');
 	assert.ok(!hin.some(({ goal }) => is('turnin', 1477)(goal)), 'not carried into the next guide');
 	const accept = s(hin, 'accept', 1395);
-	assert.ok(accept > s(hin, 'turnin', 3763), 'the crate after Darnassus');
+	// Since the 0.4.0 audit (B26) Darnassus closes the Tanaris guide, before the Hinterlands guide.
+	assert.ok(goals('forever/alliance/40-50/04-tanaris.guide').some(({ goal }) => is('turnin', 3763)(goal)), 'Darnassus before this guide');
 	assert.ok(s(hin, 'turnin', 1395) - accept <= 4, 'the crate straight to Nethergarde Keep');
 });
 
@@ -8623,11 +8624,22 @@ test('forever/alliance/40-50/01-stranglethorn-vale.guide: final review: the nort
 test('alliance 40-60: final review: every written grind step offers a dungeon for its level', { skip }, () => {
 	const bands = [['the Uldaman dungeon', 40, 45], ["the Zul'Farrak dungeon", 44, 48], ['the Maraudon dungeon', 46, 52], ['the Sunken Temple dungeon', 50, 54], ['the Blackrock Depths dungeon', 52, 58], ['the Blackrock Spire dungeon (Lower)', 55, 60], ['the Scholomance dungeon', 58, 60], ['the Stratholme dungeon', 58, 60]];
 	const want = (lv) => bands.map(([n, lo, hi], i) => ({ n, i, d: Math.abs((lo + hi) / 2 - lv), ok: lo <= lv && lv <= hi })).filter((b) => b.ok).sort((a, b) => a.d - b.d || a.i - b.i).slice(0, 2).map((b) => b.n).join(' or ');
+	// Since the 0.4.0 audit, Alliance 40-50's grind tips follow the dungeons-in-the-route rule: a tip names a dungeon
+	// only when its run is in the same or the next guide, on the same continent (Uldaman for Stranglethorn, whose next
+	// guide runs it from the Badlands; Zul'Farrak for Feralas, whose next guide runs it from Tanaris; none elsewhere).
+	const near = { '01-stranglethorn-vale': 'the Uldaman dungeon', '03-feralas': "the Zul'Farrak dungeon" };
 	for (const guide of allGuides().filter((g) => /^forever\/alliance\/(40-50|50-60)\//.test(g))) {
 		for (const step of compiled(guide).steps) {
 			const m = /^(?:Level ([\d.]+)|Grind to (\d+))$/.exec(step.title);
 			if (!m) continue;
 			const lv = Math.floor(Number(m[1] || m[2]));
+			const band = /\/40-50\/([^/]+)\.guide$/.exec(guide);
+			if (band) {
+				const d = near[band[1]];
+				if (d) assert.ok((step.note || '').endsWith(`Or, with a group, run ${d} instead.`), `${guide} "${step.title}": ${step.note}`);
+				else assert.ok(!/run the [^.]* dungeon/.test(step.note || ''), `${guide} "${step.title}": no dungeon off the route: ${step.note}`);
+				continue;
+			}
 			assert.ok((step.note || '').endsWith(`Or, with a group, run ${want(lv)} instead.`), `${guide} "${step.title}": ${step.note}`);
 		}
 	}
@@ -9543,11 +9555,10 @@ test('Alliance Winterspring and Feralas: the long top-ups are split onto the que
 	const ws = goals('forever/alliance/50-60/03-winterspring.guide');
 	const k = at(ws, 'kill for 5082', (x) => x.t === 'kill' && x.quest === 5082);
 	assert.ok(ws.some(({ goal, s }) => goal.t === 'level' && lvlOf(goal) === 54 && s === ws[k].s), '03: level 54 in the Frostfire step that kills for Donova');
+	// Feralas: since #1999 (0.4.0 audit) the level-45 grind is on the Feral Scar yetis (43-45), not on the Rage Scar yetis
+	// (46-48), and the Pristine Yeti Hide (a rare drop) is optional (see the #1999 case).
 	const fe = goals('forever/alliance/40-50/03-feralas.guide');
-	const hide = at(fe, 'Rage Scar Yeti Hide', (x) => x.t === 'collect' && x.quest === 7733);
-	assert.ok(fe.some(({ goal, s }) => goal.t === 'level' && lvlOf(goal) === 44.5 && s === fe[hide].s), '03-feralas: level 44.5 on the Rage Scar yetis');
-	const pristine = at(fe, 'turnin 7735', is('turnin', 7735));
-	assert.ok(required(fe[pristine]), 'Pristine Yeti Hide is counted');
+	assert.ok(fe.some(({ goal }) => goal.t === 'level' && goal.grind === 5292), '03-feralas: the level-45 grind on the Feral Scar yetis');
 });
 
 // Alliance 40-60 flow pass (0.3.7): quest givers and hand-ins the route walked past and came back to later.
