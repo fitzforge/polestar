@@ -282,6 +282,7 @@ step Magram: Warug sends you to the valley
   accept 92841                        -- Warug: Valley of Bones
 
 step Magram: Orgrul
+  zone Shen'dralas
   tip From the quest data: Orgrul wants bones from the valley's Undead Ravagers (the quest log counts them in hundreds) and six Outcast Necromancers dead: Gelkis exiles meddling with the Magram's new magic.
   turnin 92841                        -- Orgrul: 125
   accept 92844
@@ -293,6 +294,7 @@ step Magram: the valley's mouth
   kill 11559 x6 quest 92846.1
 
 step Magram: Corrupting Tears
+  zone Shen'dralas
   tip From the quest data: Orgrul wants three Petrified Bark from the valley's accursed trees (the game's data has no spot for them) and three Imbued Tears: Warug keeps the crystals you took from the Gelkis, so ask him.
   turnin 92844                        -- Orgrul: 500
   turnin 92846                        -- Orgrul: 500
@@ -301,12 +303,14 @@ step Magram: Corrupting Tears
   collect 254840 quest 92847.2 npc 5398 -- Imbued Tears: Warug
 
 step Magram: Proof of Concept
+  zone Shen'dralas
   tip From the quest data: Orgrul gives you a Rudimentary Necromancy Staff. He laid out two skeletons on the hill just east of his post: put the staff to use there, and the Nascent Undead Ravagers give the Well Cursed Bones.
   turnin 92847                        -- Orgrul: 500
   accept 92873
   collect 254842 quest 92873.1        -- Well Cursed Bones: Nascent Undead Ravagers
 
 step Magram: Orgrul's next tasks
+  zone Shen'dralas
   tip From the quest data: Orgrul pays 500 and your pick of three items for level 35: Blade of the Magram Clan (one-handed sword), Staff of Revelations (staff) or Desperate Barrier (shield).
   turnin 92873 choose 271796 271797 271798 -- Orgrul: 500
   accept 92893
