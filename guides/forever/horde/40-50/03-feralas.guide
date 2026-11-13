@@ -45,10 +45,17 @@ step Zeppelin to Grom'gol
   goto 61.8,59.2 "Zeppelin to Grom'gol"
 
 step Fly to Stonard
+  when taxi "Stonard"
   zone Stranglethorn Vale
   goto 32.5,29.3 "Grom'gol flight master"
   fly "Stonard"
   zone Swamp of Sorrows
+
+step To Stonard
+  when !taxi "Stonard"
+  zone Swamp of Sorrows
+  tip No flight path to Stonard yet (the Riverglades skip the Swamp of Sorrows): ride north-east from Grom'gol through Duskwood and Deadwind Pass into the swamp, then east along the road to Stonard, and learn its flight path.
+  getfp "Stonard"
 
 step Stonard
   tip Coming from Stranglethorn, you carry these already. Starting here: Dar stands inside Stonard's great hall and Fel'zerul on its top floor.

@@ -2864,6 +2864,22 @@ test('Horde 40-50/01: the Wild Shore pass comes after the Cape of Stranglethorn 
 	assert.ok(fever < fang, 'Stranglethorn Fever is still taken before Mistvale');
 });
 
+test('Horde 40-50: Feralas & Tanaris opens from Stonard or from Kargath, and every Stonard flight has a way in without its flight path (R17r)', { skip }, () => {
+	// The Riverglades route choice rejoins at Kargath (about 44) with no Stonard flight path.
+	const whenOf = (step, k) => (step.when || []).filter((p) => p.k === k);
+	const opener = goals(H40('02-feralas')).filter(({ goal }) => goal.t === 'fly' && goal.location === "Grom'gol").slice(0, 2);
+	assert.equal(opener.length, 2, 'two ways to the Grom\'gol flight at the start');
+	const zones = opener.map(({ step }) => whenOf(step, 'zone').map((p) => `${p.neg ? '!' : ''}${p.zone || p.name || p.v}`).join());
+	assert.ok(zones.some((z) => /Swamp of Sorrows/.test(z)) && zones.some((z) => /Badlands/.test(z)), `one from Stonard, one from Kargath: ${zones}`);
+	for (const n of ['03-feralas', '05-the-hinterlands']) {
+		const list = goals(H40(n));
+		const fly = list.find(({ goal }) => goal.t === 'fly' && goal.location === 'Stonard');
+		assert.ok(fly && whenOf(fly.step, 'taxi').some((p) => !p.neg), `${n}: the Stonard flight is for characters who know it`);
+		const learn = list.find(({ goal }) => goal.t === 'getfp' && /Stonard/.test(goal.location || ''));
+		assert.ok(learn && whenOf(learn.step, 'taxi').some((p) => p.neg), `${n}: the others get there another way and learn it`);
+	}
+});
+
 // The goals the stray rule moved, checked against their steps (#175 review): the
 // Grizzled Scalps are taken where the bears are, and cloth the guide says to buy
 // leads to the Auction House, not to the guards and mobs that happen to drop it.

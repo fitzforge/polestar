@@ -214,10 +214,17 @@ step Revantusk Village
   turnin 7843                           -- Otho Moji'ko
 
 step Fly to Stonard
+  when taxi "Stonard"
   zone The Hinterlands
   goto 81.7,81.9 "Revantusk Village flight master"
   fly "Stonard"
   zone Swamp of Sorrows
+
+step To Stonard
+  when !taxi "Stonard"
+  zone Swamp of Sorrows
+  tip No flight path to Stonard yet: the arrow takes the quickest way there (by the Grom'gol flight and the road through Duskwood and Deadwind Pass). Learn Stonard's flight path when you arrive.
+  getfp "Stonard"
 
 step Fel'zerul
   turnin 1444                         -- On the top floor
