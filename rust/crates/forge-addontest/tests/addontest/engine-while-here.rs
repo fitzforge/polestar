@@ -1796,6 +1796,27 @@ fn a_known_flight_path_never_shows_nor_one_in_a_fight() {
 	assert_eq!(out, vec![json!("none"), json!([[1, -2, 2, "getfp", "Learn the flight path at Goldshire", "Step 2"]]), json!("none")]);
 }
 
+// #2003: on the step that learns a flight path itself, its flight master is the route's goal, no "Learn the flight
+// path" line beside it; another one in reach still is.
+#[test]
+fn t_2003_the_live_step_s_own_flight_path_is_no_while_you_re_here_line() {
+	let out = run_fly(
+		r#"
+		Polestar.RegisterGuide({ id = "test/flynow", pack = "test", title = "Fly now", minLevel = 1, maxLevel = 10, steps = {
+			{ title = "Goldshire flight path", goals = { { t = "getfp", location = "Goldshire", node = 2, npc = 352, npcName = "Dungar Longdrink", map = 1429, x = 50, y = 40 } } },
+			{ title = "Wolves", goals = { { t = "kill", target = "Young Wolf", npc = 299, count = 8, quest = 33, oi = 1, map = 1429, x = 60, y = 60 } } },
+		} })
+		E.SetGuide("test/flynow"); flush()
+		at(49.6, 40.6)                                  -- 17 yd from Goldshire's flight master
+		emit({ E.GetLiveStep(), fly() })
+		at(20.4, 80.4)                                  -- the Neutral Post: still a line
+		emit(fly())
+	"#,
+	);
+	assert_eq!(out[0], json!([1, "none"]), "the step's own flight path");
+	assert_eq!(out[1], json!([[1, -2, 4, "getfp", "Learn the flight path at Neutral Post", "Flight path"]]));
+}
+
 // Fitz-style, on the addon's own travel data (Nav/TravelData.lua): a Dwarf walking through Thelsamar on Loch Modan's
 // way in, its flight path not learned, sees "Learn the flight path at Thelsamar", the guide's later getfp step under
 // it; a Tauren passing Sun Rock Retreat in Stonetalon sees Sun Rock's; neither sees the other side's. The maps'
