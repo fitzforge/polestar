@@ -25,6 +25,9 @@ next polestar-experimental/riverglades-alliance-4
 #   second one sends you back here.
 # - From Port to Port (95219): Friz's cask goes to Feathermoon Stronghold in Feralas; only players of level 43 or
 #   more go on to Feralas from here, and the Feralas guide doesn't hand it in.
+# Krol'dok Stronghold (`when dungeon "Krol'dok Stronghold"`, dungeons in the route; the run is at the end of part 4):
+# a character who runs it takes Ashe Amberhall's Tome of Twilight (94984) and Demar Brant's Eye of Mugg (94982) on
+# this guide's last Farholde Keep stop.
 
 step Beast Entrails as you go
   along until argo
@@ -124,6 +127,13 @@ step Demar Brant
 step Ashe Amberhall
   when onquest 94884
   turnin 94884
+
+step Ashe Amberhall and Demar Brant
+  when dungeon "Krol'dok Stronghold"
+  when level>=41.8
+  tip For your Krol'dok Stronghold run, at the end of the next guide: Ashe Amberhall and Demar Brant stand together in the keep.
+  accept 94984                          -- Ashe Amberhall: the Tome of Twilight, from Nar'gurk inside
+  accept 94982                          -- Demar Brant: the Eye of Mugg, from Overlord Mugg inside
 
 step Ember Bladewhisper
   when onquest 95912

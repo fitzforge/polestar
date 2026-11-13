@@ -31,8 +31,14 @@ next forever/alliance/40-50/01-stranglethorn-vale when level<43
 # - Upstream Contamination (96085): Krek the Noxious is an elite (42) far north, by the training grounds.
 # - Hail the Dragonslayer (95935): it starts from the head of Scaldaron, a rare elite drake in the Cinderscale
 #   hollow.
-# - Twilight Mementos (94983), Lingering Essence (94997), Curios of Curiosity (94998), Tome of Twilight (94984), Eye
-#   of Mugg (94982) and Krol'dok Moulding (94980): their items come from the Krol'dok Stronghold dungeon.
+# - Key Ingredients (94981): Alphonse Dumas wants crafted materials.
+# Krol'dok Stronghold (`when dungeon "Krol'dok Stronghold"`, dungeons in the route), for a group of five: a character
+# who runs it takes Ashe Amberhall's Tome of Twilight (94984) and Demar Brant's Eye of Mugg (94982) at the end of
+# part 3 and Sergeant Riftan's Twilight Mementos (94983) at his camp; the run comes after Bring Me His Head, at 43 (the
+# dungeon's floor), from the door north of Sunnyglade, about 362 yd from Riftan's camp, where 16 people went in.
+# Riftan takes the bangle and gives Lingering Essence (94997) for Ashe; the hearth to Farholde Keep brings the other
+# hand-ins: Ashe's two (then her Curios of Curiosity, 94998, for Melanie Sable), Demar Brant's, and Tunk the
+# blacksmith's Krol'dok Moulding (94980) for Alphonse Dumas.
 
 step Farholde Keep
   tip Experimental route (alpha): if a step is wrong, tell us on Polestar's Discord or GitHub and name the step.
@@ -78,6 +84,11 @@ step Sergeant Riftan
   accept 94889                          -- Carving a Path
   accept 96015                          -- A Miner Problem
 
+step Sergeant Riftan
+  when dungeon "Krol'dok Stronghold"
+  when level>=41.9
+  accept 94983                          -- Sergeant Riftan: Twilight Mementos, a Twilight Bangle from the cult inside the stronghold
+
 step The Twilight camps
   tip The cult's camps fill the valley north and west of Riftan. Free the captive Farholde Scouts as you find them, and kill a Twilight Thrall for Ashe: her soulstone takes it. Twilight Enforcers (elites, level 45) patrol through the camps: watch where they walk before each pull. Overlord Kilgar and Executioner Morg (elites, 46) hold the fortress at the valley's head: pull the cultists away from them.
   kill 256795 x8 quest 94889.1          -- Twilight Fanatic
@@ -111,6 +122,24 @@ step Bring Me His Head
   turnin 94890
   accept 94891                          -- News to Farholde: for Ashe Amberhall
 
+step Krol'dok Stronghold
+  when dungeon "Krol'dok Stronghold"
+  when onquest 94983,94984,94982
+  when level>=43
+  tip Krol'dok Stronghold is a dungeon for a group of five, levels 40 to 47. Its door is north of Sunnyglade at the foot of the Twilight valley, a short walk from Sergeant Riftan's camp.
+  tip Inside: a Twilight Bangle from the cult for Riftan, the Tome of Twilight from Nar'gurk for Ashe Amberhall and the Eye of Mugg from Overlord Mugg for Demar Brant. Tunk the blacksmith drops the Krol'dok Moulding, which starts a quest for Alphonse Dumas in Farholde Keep.
+  enter "Krol'dok Stronghold" @37.2,43.9
+  complete 94983 @37.2,43.9             -- Twilight Mementos: a Twilight Bangle, inside
+  complete 94984 @37.2,43.9             -- Tome of Twilight: Nar'gurk, inside
+  complete 94982 @37.2,43.9             -- Eye of Mugg: Overlord Mugg, inside
+
+step Sergeant Riftan
+  when dungeon "Krol'dok Stronghold"
+  when complete 94983
+  tip Back to Sergeant Riftan's camp, a short walk from the door.
+  turnin 94983                          -- Sergeant Riftan
+  accept 94997                          -- Sergeant Riftan: Lingering Essence, for Ashe Amberhall in Farholde Keep
+
 step Hearth to Farholde Keep
   hearth "Farholde Keep"
 
@@ -122,6 +151,32 @@ step Farholde Keep
 step Ashe Amberhall
   when onquest 94891
   turnin 94891
+
+step Ashe Amberhall
+  when dungeon "Krol'dok Stronghold"
+  when complete 94984
+  turnin 94984                          -- Ashe Amberhall
+
+step Ashe Amberhall
+  when dungeon "Krol'dok Stronghold"
+  when onquest 94997
+  turnin 94997                          -- Ashe Amberhall
+  accept 94998                          -- Ashe Amberhall: Curios of Curiosity, for Melanie Sable
+
+step Melanie Sable
+  when dungeon "Krol'dok Stronghold"
+  when onquest 94998
+  turnin 94998                          -- Melanie Sable
+
+step Demar Brant
+  when dungeon "Krol'dok Stronghold"
+  when complete 94982
+  turnin 94982                          -- Demar Brant
+
+step Alphonse Dumas
+  when dungeon "Krol'dok Stronghold"
+  when onquest 94980
+  turnin 94980                          -- Alphonse Dumas
 
 step Demar Brant
   when onquest 94892
