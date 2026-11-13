@@ -37,28 +37,30 @@ end
 -- The palette. Paper grounds (the controls a shade darker, menus a shade
 -- lighter, the band at the top a toned strip), an ink ladder, inks for the
 -- subjects. Every pair below reads at Polestar's floors as given, so the
--- registration answers true with no correction.
+-- registration answers true with no correction; the muted ink, the wax and
+-- the warning ink are deep enough for 4.5:1 on the sidebar's grained paper,
+-- the darkest ground they sit on.
 ---------------------------------------------------------------------------
 
 local INK = "#3a2a1a"
 local TOKENS = {
 	bg = "#e7dbbf", panel = "#efe5cf", panelAlt = "#dccda8", sidebar = "#d8c8a2", footer = "#dfd0ad", sky = "#d3c096",
-	text = "#2a1d12", textDim = "#4a3626", textMuted = "#5e4937",
+	text = "#2a1d12", textDim = "#4a3626", textMuted = "#513f30",
 	-- No stars on paper. shade: wells (a khaki sheet); scrim: the light sheet
 	-- under text on the world and in the fields below.
 	ink = INK, star = "#ffffff00", shade = "#6b5035", scrim = "#f3eadb", onAccent = "#f7efdc", shadow = "#3a261466",
 	-- Sealing wax: the accent for what you can act on and where you are.
-	accent = "#962c20",
+	accent = "#7b241a",
 	-- Rules on paper must be drawn, not washed: the hairlines carry real ink.
 	border = "#5a3d22bf", divider = "#5a3d2273", separator = "#5a3d2273", rowLine = "#5a3d2259",
 	hover = INK .. "14", selected = INK .. "24", progress = INK .. "1f", track = INK .. "2e", toggle = INK .. "38",
 	box = INK .. "66", thumb = INK .. "4d", swatch = INK .. "4d", chip = INK .. "14", watermark = INK .. "0d", mover = INK .. "14",
 	-- The subjects as inks: the same hues Polestar gives them, deep enough to
 	-- read on the darkest paper.
-	success = "#1f5a2e", warning = "#6d4300", danger = "#962222", quest = "#654200", npc = "#1c477c", item = "#553484",
+	success = "#1f5a2e", warning = "#5f3b00", danger = "#962222", quest = "#654200", npc = "#1c477c", item = "#553484",
 	place = "#7e3c12", object = "#524026", level = "#1e1a16", skill = "#2f5a12", spell = "#105a64", faction = "#7e2c58",
 	area = "#6c3f1a", achievement = "#804208", dungeon = "#45338c", rare = "#8f3414",
-	icon = "#4a3626", iconHover = "#2a1d12", buttonText = "#2a1d12", tabRest = "#5e4937", navRest = "#4a3626",
+	icon = "#4a3626", iconHover = "#2a1d12", buttonText = "#2a1d12", tabRest = "#513f30", navRest = "#4a3626",
 }
 
 -- The gilt line inside the window's rule.
@@ -69,7 +71,11 @@ local GILT = { 0.66, 0.47, 0.16 }
 ---------------------------------------------------------------------------
 
 -- The paper grain over a frame's ground: Polestar's flat fill goes clear and
--- the grain carries the colour, so the mottling is the ground itself.
+-- the grain carries the colour, so the mottling is the ground itself. The
+-- grain's values average GRAIN (Media/paper.tga: 214-245 of 255), so the
+-- colour is lifted by it: the paper averages the palette's ground, the
+-- colour every legibility check reads against, not a tenth darker.
+local GRAIN = 0.901
 local function paper(frame, kit, layer, sub, r, g, b, a)
 	local own = kit.store(frame)
 	if not own.paper then
@@ -78,7 +84,7 @@ local function paper(frame, kit, layer, sub, r, g, b, a)
 		own.paper:SetAllPoints(frame)
 	end
 	kit.fill(frame):SetVertexColor(r, g, b, 0)
-	own.paper:SetVertexColor(r, g, b, a)
+	own.paper:SetVertexColor(math.min(1, r / GRAIN), math.min(1, g / GRAIN), math.min(1, b / GRAIN), a)
 	own.paper:Show()
 end
 

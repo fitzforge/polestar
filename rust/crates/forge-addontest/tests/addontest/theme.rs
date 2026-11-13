@@ -96,7 +96,8 @@ fn every_colour_scheme_keeps_the_text_ladder_legible_on_every_ground_7_1_primary
 
 // Colours from outside the palette go through Theme.Legible: the client's item qualities (Poor..Artifact) and
 // quest difficulty colours. A dimmed name keeps that colour (its chip says why), so each must read at 4.5:1 on
-// the lightest place a name sits, a selected row on the panel.
+// the lightest place a name sits, a selected row on the panel, and on the darker of the window and panel grounds
+// (where a light scheme's dark text reads worst).
 #[test]
 fn item_quality_and_quest_difficulty_colours_lifted_read_at_4_5_1_on_a_selected_row_in_every_scheme() {
 	let out = run(r#"
@@ -107,16 +108,19 @@ fn item_quality_and_quest_difficulty_colours_lifted_read_at_4_5_1_on_a_selected_
 		local out = {}
 		for _, key in ipairs(T.SCHEME_ORDER) do
 			Polestar.Set("ui.scheme", key)
-			local o = { ground = T.LightestGround(), panel = T.Palette().panel, lifted = {}, epic = { Polestar.UI.Lookup.QualityColor(4) } }
+			local o = { ground = T.LightestGround(), panel = T.Palette().panel, bg = T.Palette().bg, lifted = {}, epic = { Polestar.UI.Lookup.QualityColor(4) } }
 			for i, c in ipairs(OUTSIDE) do o.lifted[i] = { T.Legible(c[1], c[2], c[3]) } end
 			out[key] = o
 		end
 		emit(out)"#);
 	for (key, o) in out.as_object().unwrap() {
 		assert!(lum(&o["ground"]) > lum(&o["panel"]), "{key}: a selected row is lighter than the panel");
+		let darker = if lum(&o["bg"]) <= lum(&o["panel"]) { &o["bg"] } else { &o["panel"] };
 		for (i, c) in o["lifted"].as_array().unwrap().iter().enumerate() {
 			let r = contrast(c, &o["ground"]);
 			assert!(r >= 4.5, "{key}: outside colour {} reads {r:.2}:1 on a selected row", i + 1);
+			let d = contrast(c, darker);
+			assert!(d >= 4.5, "{key}: outside colour {} reads {d:.2}:1 on the darker ground", i + 1);
 		}
 		let epic = contrast(&o["epic"], &o["ground"]);
 		assert!(epic >= 4.5, "{key}: an epic name (the retired Reins of the Frostsaber) reads {epic:.2}:1");

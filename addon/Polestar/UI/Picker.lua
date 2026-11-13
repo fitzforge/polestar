@@ -813,6 +813,10 @@ local function paintRow(r, g, note, width, title)
 	r.Title:SetWidth(0) -- measured below from scratch, as the note
 	r.Title:SetText(title or g.title or g.id)
 	W.Color(r.Title, sel and "text" or ((done or gate) and "textDim" or "text"))
+	-- On the selected row's wash the muted range and tab note go a step up,
+	-- so they keep 4.5:1 there as on the plain ground.
+	W.Color(r.Range, sel and "textDim" or "textMuted")
+	W.Color(r.Note, sel and "textDim" or "textMuted")
 	local lv = UI.LevelRange(g.minLevel, g.maxLevel)
 	r.Range:SetText(lv and ("(" .. lv .. ")") or "")
 	local groupW = g.group == true and (W.SetChip(r.Group, L["Group"], "dungeon") + 6) or 0

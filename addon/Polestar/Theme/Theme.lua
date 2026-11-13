@@ -1022,10 +1022,13 @@ end
 
 -- A colour from outside the palette (an item quality, a quest difficulty)
 -- moved toward the text colour until it reads at 4.5:1 on the lightest
--- ground (the subject colours' floor). -> r, g, b
+-- ground (the subject colours' floor), and on the darker of the window and
+-- panel grounds too, where a light skin's dark text reads worst. -> r, g, b
 function Theme.Legible(r, g, b)
 	local pal = Theme.Palette()
-	return liftTo(lightestOf(pal), pal.text, { r, g, b })
+	r, g, b = liftTo(lightestOf(pal), pal.text, { r, g, b })
+	local bg, panel, black = pal.bg, pal.panel, { 0, 0, 0 }
+	return liftTo(Theme.Contrast(bg, black) <= Theme.Contrast(panel, black) and bg or panel, pal.text, { r, g, b })
 end
 
 -- A ground tinted by the accent: `share` of the accent mixed into the
