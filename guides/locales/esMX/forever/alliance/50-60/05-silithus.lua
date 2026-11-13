@@ -38,7 +38,7 @@ return {
 
 	-- Step 6: Tram to Ironforge
 	-- {zone:1455} Ironforge
-	["Tram to {zone:1455}"] = "",
+	["Tram to {zone:1455}"] = "Tranvía a {zone:1455}",
 
 	-- Step 7: Ironforge
 	["Its jars are filled on the next Un'Goro visit"] = "Sus tarros se llenan en la próxima visita a Un'Goro",

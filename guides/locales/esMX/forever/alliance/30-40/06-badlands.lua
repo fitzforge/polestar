@@ -108,7 +108,7 @@ return {
 
 	-- Step 23: Fly to Menethil Harbor
 	-- {area:150} Menethil Harbor
-	["Fly to {area:150}"] = "",
+	["Fly to {area:150}"] = "Vuela a {area:150}",
 	-- {area:144} Thelsamar
 	["{area:144} flight master"] = "Maestro de vuelo de {area:144}",
 

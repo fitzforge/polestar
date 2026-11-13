@@ -56,7 +56,7 @@ return {
 
 	-- Step 12: Fly to Menethil Harbor
 	-- {area:150} Menethil Harbor
-	["Fly to {area:150}"] = "",
+	["Fly to {area:150}"] = "Vuela a {area:150}",
 	-- {area:144} Thelsamar
 	["{area:144} flight master"] = "Maestro de vuelo de {area:144}",
 
@@ -90,7 +90,7 @@ return {
 
 	-- Step 25: Fly to Auberdine
 	-- {area:442} Auberdine
-	["Fly to {area:442}"] = "",
+	["Fly to {area:442}"] = "Vuela a {area:442}",
 	-- {area:702} Rut'theran Village
 	["{area:702} flight master"] = "",
 

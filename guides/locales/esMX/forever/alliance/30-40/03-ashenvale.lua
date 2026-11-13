@@ -8,7 +8,7 @@
 return {
 	-- Step 1: Fly to Menethil Harbor
 	-- {area:150} Menethil Harbor
-	["Fly to {area:150}"] = "",
+	["Fly to {area:150}"] = "Vuela a {area:150}",
 	-- {zone:1453} Stormwind
 	["{zone:1453} flight master"] = "Maestro de vuelo de {zone:1453}",
 

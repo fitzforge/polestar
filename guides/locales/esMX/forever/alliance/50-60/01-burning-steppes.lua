@@ -255,13 +255,13 @@ return {
 
 	-- Step 71: Fly to Menethil Harbor
 	-- {area:150} Menethil Harbor
-	["Fly to {area:150}"] = "",
+	["Fly to {area:150}"] = "Vuela a {area:150}",
 
 	-- Step 73: Fly to Rut'theran Village
 	-- {area:702} Rut'theran Village
-	["Fly to {area:702}"] = "",
+	["Fly to {area:702}"] = "Vuela a {area:702}",
 	-- {area:442} Auberdine
-	["{area:442} flight master"] = "",
+	["{area:442} flight master"] = "Maestro de vuelo de {area:442}",
 
 	-- Step 74: Rut'theran Village
 	-- {zone:1452} Winterspring

@@ -30,7 +30,7 @@ return {
 
 	-- Step 7: Into Loch Modan
 	-- {zone:1432} Loch Modan
-	["Into {zone:1432}"] = "",
+	["Into {zone:1432}"] = "A {zone:1432}",
 
 	-- Step 8: Ironband's Excavation Site
 	-- {zone:1432} Loch Modan
@@ -106,7 +106,7 @@ return {
 
 	-- Step 22: Fly to Menethil Harbor
 	-- {area:150} Menethil Harbor
-	["Fly to {area:150}"] = "",
+	["Fly to {area:150}"] = "Vuela a {area:150}",
 	-- {area:348} Aerie Peak
 	["{area:348} flight master"] = "",
 

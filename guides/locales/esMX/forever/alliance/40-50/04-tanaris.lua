@@ -139,7 +139,7 @@ return {
 	-- {area:348} Aerie Peak
 	["Fly to {area:348}"] = "",
 	-- {area:150} Menethil Harbor
-	["{area:150} flight master"] = "",
+	["{area:150} flight master"] = "Maestro de vuelo de {area:150}",
 
 	-- Step 28: Aerie Peak
 	-- {npc:5636} Gryphon Master Talonaxe

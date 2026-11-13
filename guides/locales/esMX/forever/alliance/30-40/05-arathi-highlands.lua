@@ -84,7 +84,7 @@ return {
 
 	-- Step 19: Tram to Ironforge
 	-- {zone:1455} Ironforge
-	["Tram to {zone:1455}"] = "",
+	["Tram to {zone:1455}"] = "Tranvía a {zone:1455}",
 
 	-- Step 20: Fly to Southshore
 	-- {area:271} Southshore

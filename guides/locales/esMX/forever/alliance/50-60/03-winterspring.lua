@@ -111,7 +111,7 @@ return {
 
 	-- Step 22: Fly to Chillwind Camp
 	-- {area:150} Menethil Harbor
-	["{area:150} flight master"] = "",
+	["{area:150} flight master"] = "Maestro de vuelo de {area:150}",
 
 	-- Step 23: Chillwind Camp
 	["Pureheart, Dumah, Valorfist and MacDonnell stand around the middle of the camp, by the flight master."] = "Puricorazón, Dumah, Puño de Valor y MacDonnell están en el centro del campamento, junto al maestro de vuelo.",

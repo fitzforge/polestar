@@ -97,7 +97,7 @@ return {
 	-- {zone:1453} Stormwind
 	["Fly to {zone:1453}"] = "Vuela a {zone:1453}",
 	-- {area:150} Menethil Harbor
-	["{area:150} flight master"] = "",
+	["{area:150} flight master"] = "Maestro de vuelo de {area:150}",
 
 	-- Step 20: Riding at 40
 	["Riding at 40"] = "Equitación a nivel 40",
@@ -124,7 +124,7 @@ return {
 	-- {area:35} Booty Bay
 	["Fly to {area:35}"] = "Vuela a {area:35}",
 	-- {area:42} Darkshire
-	["{area:42} flight master"] = "",
+	["{area:42} flight master"] = "Maestro de vuelo de {area:42}",
 
 	-- Step 44: Booty Bay
 	-- {npc:773} Krazek
@@ -302,9 +302,9 @@ return {
 
 	-- Step 82: Fly to Rut'theran Village
 	-- {area:702} Rut'theran Village
-	["Fly to {area:702}"] = "",
+	["Fly to {area:702}"] = "Vuela a {area:702}",
 	-- {area:442} Auberdine
-	["{area:442} flight master"] = "",
+	["{area:442} flight master"] = "Maestro de vuelo de {area:442}",
 
 	-- Step 85: Riding at 40
 	-- {npc:4753} Jartsam · {zone:1457} Darnassus · {npc:4730} Lelanai · {area:17203} Stormwind Harbor · {area:442} Auberdine · {area:702} Rut'theran Village · {npc:4732} Randal Hunter · {area:88} Eastvale Logging Camp · {zone:1429} Elwynn Forest
@@ -314,7 +314,7 @@ return {
 
 	-- Step 87: Fly to Auberdine
 	-- {area:442} Auberdine
-	["Fly to {area:442}"] = "",
+	["Fly to {area:442}"] = "Vuela a {area:442}",
 	-- {area:702} Rut'theran Village
 	["{area:702} flight master"] = "",
 
@@ -372,7 +372,7 @@ return {
 
 	-- Step 103: Tram to Ironforge
 	-- {zone:1455} Ironforge
-	["Tram to {zone:1455}"] = "",
+	["Tram to {zone:1455}"] = "Tranvía a {zone:1455}",
 
 	-- Step 106: Ironforge
 	-- {npc:5637} Roetten Stonehammer · {object:32356} Hall of Explorers (no name in this language: may be words) · {npc:2786} Gerrig Bonegrip · {object:32383} Forlorn Cavern

@@ -11,7 +11,7 @@ return {
 
 	-- Step 1: Fly to Menethil Harbor
 	-- {area:150} Menethil Harbor
-	["Fly to {area:150}"] = "",
+	["Fly to {area:150}"] = "Vuela a {area:150}",
 	-- {zone:1455} Ironforge
 	["{zone:1455} flight master"] = "",
 
@@ -132,7 +132,7 @@ return {
 
 	-- Step 26: Fly to Astranaar
 	-- {area:415} Astranaar
-	["Fly to {area:415}"] = "",
+	["Fly to {area:415}"] = "Vuela a {area:415}",
 	-- {zone:1455} Ironforge · {zone:1427} Searing Gorge · {zone:1440} Ashenvale · {zone:1447} Azshara
 	["The {zone:1455} quests were taken at the end of the {zone:1427} guide: fly straight on to {zone:1440} for {zone:1447}."] = "Las misiones de {zone:1455} se tomaron al final de la guía de {zone:1427}: vuela directo a {zone:1440} para ir a {zone:1447}.",
 	-- {area:541} Marshal's Refuge
@@ -156,7 +156,7 @@ return {
 
 	-- Step 32: Fly to Astranaar
 	-- {area:442} Auberdine
-	["{area:442} flight master"] = "",
+	["{area:442} flight master"] = "Maestro de vuelo de {area:442}",
 
 	-- Step 33: Level 50.4
 	["Level 50.4"] = "",
