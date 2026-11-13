@@ -255,13 +255,6 @@ step Elwynn Forest
   tip From the tram, leave Stormwind by the main gate and follow the road through Goldshire and east through Elwynn to Redridge.
   goto 65.8,74.0 "The road east to Redridge"
 
-step Guard Thomas
-  only NightElf
-  zone Elwynn Forest
-  when onquest 35
-  tip Guard Thomas guards the bridge on this road east, past the Tower of Azora: Marshal Dughan's Further Concerns, from your walk through Goldshire, goes to him.
-  turnin 35                                   -- Guard Thomas, on the bridge
-
 step Henze Faulk
   only Human,Paladin
   zone Elwynn Forest

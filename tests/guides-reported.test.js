@@ -8380,20 +8380,14 @@ test('30-40: every written grind step says where, and names a dungeon to run ins
 	}
 });
 
-// Final route review, Alliance 1-30 (2026-11-08): Night Elves take Further Concerns (35) from Marshal Dughan
-// at the end of their Darkshore guide (level 14), then walk the Elwynn road past Guard Thomas' bridge on
-// 03-loch-modan's way to Redridge at about 19; the route carried it to 04-redridge-mountains at about 24.
-test('forever/alliance/03-loch-modan.guide: final review: Night Elves hand Further Concerns to Guard Thomas on the Elwynn road', { skip }, () => {
-	const list = goals('forever/alliance/03-loch-modan.guide');
-	const thomas = at(list, 'turnin 35', is('turnin', 35));
-	const { step } = list[thomas];
-	assert.deepEqual(step.only && step.only.races, ['NightElf'], 'a Night Elf step');
-	assert.ok(step.when.some((p) => p.k === 'onquest' && !p.neg && [].concat(p.q).includes(35)), 'only while carried');
-	// The road east (65.8,74.0 since #1509: the old 65.2,69.7 was inside the Tower of Azora).
-	const road = at(list, 'goto 65.8,74.0', (g) => g.t === 'goto' && Math.abs(g.x - 65.8) < 0.1 && Math.abs(g.y - 74.0) < 0.1);
-	const wiley = at(list, 'turnin 65', is('turnin', 65));
-	assert.ok(road < thomas && thomas < wiley, 'on the road east, before Lakeshire');
-	assert.ok(!goals('forever/alliance/04-redridge-mountains.guide').some(({ goal }) => is('turnin', 35)(goal)), 'not carried to 04-redridge-mountains');
+// Final route review, Alliance 1-30 (2026-11-08): Night Elves took Further Concerns (35) from Marshal Dughan at the
+// end of their Darkshore guide (level 14) and handed it to Guard Thomas on 03-loch-modan's Elwynn road at about 21:
+// a level 10 quest carried through two guides for a fraction of its XP. 0.4.0 route audit (B5): nightelf/02-darkshore
+// no longer takes it, and neither 03-loch-modan nor 04-redridge-mountains waits for it.
+test('forever/alliance/03-loch-modan.guide: Further Concerns is no longer carried to the Elwynn road for Night Elves', { skip }, () => {
+	for (const g of ['forever/alliance/03-loch-modan.guide', 'forever/alliance/04-redridge-mountains.guide']) {
+		assert.ok(!goals(g).some(({ goal }) => goal.quest === 35), `${g}: no Further Concerns`);
+	}
 });
 
 // Final route review, Alliance 1-30 (2026-11-08): 06-ashenvale walked from Menethil Harbor through Dun Algaz, Loch
