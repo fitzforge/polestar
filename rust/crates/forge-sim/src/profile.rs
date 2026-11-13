@@ -62,11 +62,31 @@ impl Profile {
 	}
 
 	pub fn slow(f: forge_core::Faction) -> Profile {
-		Profile { name: "slow", class_factor: Profile::factors(f).into_iter().fold(f64::MIN, f64::max), train_stops: true, plan: None, rare: None, rides: None, spots: None, groups: None, crumbs: None }
+		Profile {
+			name: "slow",
+			class_factor: Profile::factors(f).into_iter().fold(f64::MIN, f64::max),
+			train_stops: true,
+			plan: None,
+			rare: None,
+			rides: None,
+			spots: None,
+			groups: None,
+			crumbs: None,
+		}
 	}
 
 	pub fn fast(f: forge_core::Faction) -> Profile {
-		Profile { name: "fast", class_factor: Profile::factors(f).into_iter().fold(f64::MAX, f64::min), train_stops: true, plan: None, rare: None, rides: None, spots: None, groups: None, crumbs: None }
+		Profile {
+			name: "fast",
+			class_factor: Profile::factors(f).into_iter().fold(f64::MAX, f64::min),
+			train_stops: true,
+			plan: None,
+			rare: None,
+			rides: None,
+			spots: None,
+			groups: None,
+			crumbs: None,
+		}
 	}
 
 	/// The three profiles the shared route is scored over.

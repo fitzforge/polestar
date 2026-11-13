@@ -146,10 +146,18 @@ mod tests {
 	// breadcrumb's `breadcrumbFor` (469 for 484, a correction); a quest listing itself is no breadcrumb.
 	#[test]
 	fn crumb_index_reads_both_links() {
-		let quests: BTreeMap<u32, Quest> = [quest(1200, &[1198], None), quest(1198, &[], None), quest(484, &[], None), quest(469, &[], Some(484.0)), quest(8414, &[8414], None), quest(886, &[], Some(870.0)), quest(870, &[886], None)]
-			.into_iter()
-			.map(|q| (q.id, q))
-			.collect();
+		let quests: BTreeMap<u32, Quest> = [
+			quest(1200, &[1198], None),
+			quest(1198, &[], None),
+			quest(484, &[], None),
+			quest(469, &[], Some(484.0)),
+			quest(8414, &[8414], None),
+			quest(886, &[], Some(870.0)),
+			quest(870, &[886], None),
+		]
+		.into_iter()
+		.map(|q| (q.id, q))
+		.collect();
 		let ix = CrumbIndex::new(&quests);
 		assert_eq!(ix.of(1200), &[1198]);
 		assert_eq!(ix.of(484), &[469]);

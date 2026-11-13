@@ -846,11 +846,7 @@ fn levels_after(lv: &[f64], mv: &Mv) -> Vec<f64> {
 /// The last hand-in, in order `o`, of a breadcrumb of quest qi the order takes: the quest is held
 /// back while the breadcrumb is in the log, so its accept goes after that hand-in.
 fn crumbs_handed_in(run: &crate::run::Run, o: &Order, qi: usize) -> Option<usize> {
-	run.crumbs(qi)
-		.iter()
-		.filter(|&&c| o.steps.iter().any(|s| s.kind == K_ACCEPT && s.q == c))
-		.filter_map(|&c| o.steps.iter().position(|s| s.kind == K_TURNIN && s.q == c))
-		.max()
+	run.crumbs(qi).iter().filter(|&&c| o.steps.iter().any(|s| s.kind == K_ACCEPT && s.q == c)).filter_map(|&c| o.steps.iter().position(|s| s.kind == K_TURNIN && s.q == c)).max()
 }
 
 /// Whether quest q opens once the quests of `done` are handed in (any of `pre`, all of `all`, its

@@ -455,7 +455,9 @@ fn an_accept_closed_by_an_exclusive_quest_taken_earlier_in_the_chain_warns() {
 #[test]
 fn an_accept_while_its_breadcrumb_is_in_the_log_warns() {
 	let data = prereq_data();
-	let msg = |b: u32| format!("quest 9300 (Quest 9300) is not offered while its breadcrumb {b} (Quest {b}) is in the log, and the chain takes that breadcrumb earlier without handing it in: hand it in first");
+	let msg = |b: u32| {
+		format!("quest 9300 (Quest 9300) is not offered while its breadcrumb {b} (Quest {b}) is in the log, and the chain takes that breadcrumb earlier without handing it in: hand it in first")
+	};
 	let held = guide_text(&["step S", "  accept 9301", "  accept 9300", "  turnin 9301"]);
 	assert_eq!(only(&compile_with(&held, &data).warnings, "while its breadcrumb"), vec![format!("test.guide:{}: {}", line_of(&held, "  accept 9300"), msg(9301))]);
 	// By the breadcrumb's own link too (only 9302's `breadcrumbFor` names 9300), across guides chained with `next`.

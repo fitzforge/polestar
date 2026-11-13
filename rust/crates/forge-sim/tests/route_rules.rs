@@ -725,7 +725,9 @@ fn a_breadcrumb_in_the_log_holds_its_target_back_until_it_is_handed_in() {
 	use forge_sim::profile::Profile;
 	let o = common::orc();
 	let base = forge_sim::Params::effective(common::params_doc().as_ref(), None, &[]);
-	let model = |crumbs: Option<Vec<(u32, u32)>>| forge_sim::route::model_for(&o.world, "Orc", &Profile { crumbs: crumbs.map(std::sync::Arc::new), ..Profile::average(Faction::Horde) }, &base, &o.walks).unwrap().0;
+	let model = |crumbs: Option<Vec<(u32, u32)>>| {
+		forge_sim::route::model_for(&o.world, "Orc", &Profile { crumbs: crumbs.map(std::sync::Arc::new), ..Profile::average(Faction::Horde) }, &base, &o.walks).unwrap().0
+	};
 	let plain = model(None);
 	// The slice data has no breadcrumb links, so two of its quests stand in for a pair as the game data would give
 	// it: a breadcrumb with no work of its own (handed in as soon as it is taken) and a quest of the same level
