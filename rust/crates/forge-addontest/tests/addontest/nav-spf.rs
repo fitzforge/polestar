@@ -455,15 +455,49 @@ end
 "#;
 
 #[test]
-fn outdoors_a_hillside_corner_cut_wide_never_holds_the_arrow_back_on_it_indoors_6_yd_is_still_a_floor() {
+fn a_hillside_corner_cut_wide_never_holds_the_arrow_back_on_it_outdoors_or_indoors() {
 	let outdoors = run(&[LOOK, HILLSIDE, "\n\t\temit(cut(false))"].concat());
 	// 0.3.6: a corner 6+ yd lower held the projection until the player came within 5 yd of it, so past it the arrow
 	// pointed back at it (Fitz in Desolace, 0.3.7). Outdoors a slope this gentle is no floor.
 	assert!(num(&outdoors["worst"]) < 0.0, "outdoors the arrow never points back against the way walked (worst {})", outdoors["worst"]);
 	assert_eq!(outdoors["atCorner"], 0, "outdoors it never aims at the corner once past it");
-	// Indoors (a building's stairs, the Undercity's levels) every 6 yd is a floor, as before.
+	// 0.3.8 (the arrow replay): indoors too, a gentle slope that runs on is no floor (a tunnel's or a mine's corner, a
+	// city's ramp: 772 such places on the baked legs held it; Follow.Mark finds no part of this path above another).
 	let indoors = run(&[LOOK, HILLSIDE, "\n\t\temit(cut(true))"].concat());
-	assert!(num(&indoors["atCorner"]) > 0.0, "indoors the corner 10 yd lower still holds it ({})", indoors["atCorner"]);
+	assert!(num(&indoors["worst"]) < 0.0, "indoors the arrow never points back against the way walked (worst {})", indoors["worst"]);
+	assert_eq!(indoors["atCorner"], 0, "indoors it never aims at the corner once past it");
+}
+
+// Indoors where the path doubles back over itself, any 6 yd is still a floor (Follow.Mark): a switchback ramp down 7
+// yd over 30 yd south, 8 yd east across the turn and back north 7 yd lower (a spiral stair, the Undercity's ramps).
+// Walking down the upper ramp and drifting east to its edge, 1 yd from the lower one and 7 yd from its own line, the
+// player's place stays on the upper ramp: the lower one is never taken for it (it would be with 45° at every point
+// indoors: nothing then holds the place at the ramp's turn).
+const SWITCHBACK: &str = r#"
+local pts = { { 0, 0, 0 }, { 0, -30, -7 }, { 8, -30, -7.5 }, { 8, 0, -14 }, { 8, 40, -14 } }
+local function down(indoors)
+	nav.indoors = indoors
+	nav.place(0, 0)
+	target(8, 40)
+	N.Sample()
+	answerZ(pts)
+	look(0, 0, 8, 40)
+	local c = N.GetTargetWorld()
+	local out = {}
+	for k = 1, 6 do
+		look(math.min(7, 1.5 * k), -3 * k, 8, 40)
+		local along = N.walk.Progress(c, 8, 40)
+		out[#out + 1] = along and math.floor(along + 0.5) or -1
+	end
+	return out
+end
+"#;
+
+#[test]
+fn indoors_where_the_path_doubles_back_over_itself_the_player_s_place_never_jumps_to_the_ramp_below() {
+	let out = run(&[LOOK, SWITCHBACK, "\n\t\temit(down(true))"].concat());
+	let along: Vec<f64> = out.as_array().unwrap().iter().map(num).collect();
+	assert!(along.iter().all(|a| (0.0..=30.0).contains(a)), "on the upper ramp (0-30 yd along), never the lower (38 yd on): {along:?}");
 }
 
 #[test]

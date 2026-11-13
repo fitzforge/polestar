@@ -4240,8 +4240,18 @@ gets stuck on a point and fixates on it"): the paths are corners joined by
 long straight pieces, so the 6 yd rule alone took a hillside between two
 corners for a floor (14,244 of its 14,588 floors on the baked legs, in 70% of
 them), held the arrow on the first until the player came within 5 yd, and
-left it pointing back at it when they cut it. Indoors any 6 yd is a floor, as
-before; a drop, a lift, a climb and a floor straight overhead are steeper.
+left it pointing back at it when they cut it. Indoors the same 45° holds
+(0.3.8, the arrow replay: 772 of the 803 gentle indoor steps on the baked legs
+held it, in tunnels, mines and the cities' ramps) except where the path
+doubles back over itself: `Follow.Mark`, run by `Walk` on each path as it
+comes in (a router path, a baked leg), marks a point when another part of the
+path within 80 yd along it lies within 15 yd across and more than 6 yd above
+or below, further along than across (along less across over 15 yd: a spiral
+stair, a switchback, the Undercity's rings over rings), and indoors a marked
+point keeps the 6 yd rule (`state.dbl`, `state.marked`); the player's place
+is found across, and there only the floor rule keeps it from jumping to the
+part above or below. A drop, a lift, a climb and a floor straight overhead
+are steeper than 45°.
 A path that lands late (a search asked when the player strayed, from where
 they stood then) is followed from the player's place on it (`Follow.Catch`,
 called by `Walk.Aim` with the yards walked since the ask): the nearest point

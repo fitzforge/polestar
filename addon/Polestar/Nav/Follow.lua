@@ -28,8 +28,13 @@
 -- within REACH of it: cutting it by more than 5 yd left the arrow pointing
 -- back. 70% of the baked legs had such a corner, 14,244 of the rule's 14,588
 -- floors were slopes. A drop, a lift, a climb and a floor straight overhead
--- are steeper than 45° and still stop it; indoors (stairs, the Undercity's
--- levels) any 6 yd is a floor, as before.
+-- are steeper than 45° and still stop it. Indoors the same 45° holds (0.3.8:
+-- a gentle slope in a tunnel, a mine or a city's ramps held the arrow on
+-- its corner as a hillside did outdoors) except where the path doubles
+-- back over itself (Follow.Mark: a spiral stair, a switchback, the
+-- Undercity's rings over rings): there any 6 yd is a floor, as before,
+-- because the player's place on the path is found across, and only the
+-- floor rule keeps it from jumping to the part above or below.
 --
 -- A late path (Follow.Catch): a search asked when the player strayed lands
 -- seconds later, from where they stood then. Walking on, they are past its
@@ -97,6 +102,12 @@
 -- the two aims at every crossing).
 --
 --   Follow.Reset(S)                    a fresh path: S.idx = 2 (the first segment's end)
+--   Follow.Mark(xs, ys, zs, left, n, S) a fresh path's doubled-back points into S.dbl
+--     (reused): point i is marked when another part of the path within DBL_ALONG
+--     yards along it lies within DBL_ACROSS yards across and more than
+--     FLOOR_STEP above or below, further along than across (along - across over
+--     DBL_ACROSS: the path went away and came back). Indoors (no `hill`) a
+--     marked point keeps the strict floor rule, every other point 45°.
 --   Follow.Catch(xs, ys, zs, left, n, S, px, py, upto, within, stop, z) -> caught
 --     after Reset, for a path searched from a place `upto` yards from the
 --     player: the projection starts at the player's place on it, the nearest
@@ -105,7 +116,8 @@
 --     within CATCH_DZ yards of it. False (left as Reset left it) when none.
 --   Follow.Step(xs, ys, zs, left, n, S, px, py, stop, join, sight, hill) -> ax, ay | nil
 --     the point to aim at; nil once the player is within REACH of the last
---     point (from there: straight at the goal). Sets, in S (the caller's table,
+--     point (from there: straight at the goal). Indoors (no `hill`) with S.dbl
+--     from Follow.Mark, 45° except at its marked points. Sets, in S (the caller's table,
 --     reused, so it is allocation-free):
 --       S.idx     the end point of the segment the player projects onto
 --       S.along   yards along the path from its start to the projection
@@ -137,6 +149,7 @@ local LEAD = 10        -- yards along the path past the projection: the aim when
 local FLOOR_STEP = 6   -- yards above or below: another floor (with `hill`, only when also steeper than FLOOR_GRADE)
 local FLOOR_GRADE = 1  -- yards up or down per yard across (45°): steeper is another floor (a drop, a lift, a deck overhead), gentler a hillside
 local CATCH_DZ = 10    -- yards: Follow.Catch's place on a late path lies this near the player's floor (the router's ZTOL)
+local DBL_ACROSS, DBL_ALONG = 15, 80 -- yards: Follow.Mark's doubled-back test, across and along the path
 local SHORT = 8        -- yards: pieces this short on both sides of a point are a road's zigzag, smoothed
 local BISECT = 6       -- halvings when a corner cuts a segment short
 local OPEN = 100       -- yards beside the path the player may run with the arrow aiming ahead by sight (open ground)
@@ -151,6 +164,59 @@ Follow.RADIUS, Follow.AHEAD, Follow.PAD, Follow.REACH, Follow.OPEN = RADIUS, AHE
 function Follow.Reset(S)
 	S.idx, S.along, S.left, S.off, S.sighted, S.aimAlong = 2, 0, nil, nil, false, nil
 	S.sightAt, S.sightX, S.sightY, S.heldX, S.heldY = nil, nil, nil, nil, nil
+	S.marked = false -- S.dbl is the last path's until Follow.Mark
+end
+
+-- Marks, into S.dbl (reused; true or false per point), the points where the
+-- path doubles back over itself (see the API above). Each point is held
+-- against the segments within DBL_ALONG yards along the path on either
+-- side, so a path of a few hundred points costs a few thousand distance
+-- checks, once, when it comes in. A point with no height is never marked.
+function Follow.Mark(xs, ys, zs, left, n, S)
+	local dbl = S.dbl
+	if not dbl then
+		dbl = {}
+		S.dbl = dbl
+	end
+	for i = n + 1, #dbl do dbl[i] = nil end
+	local start = left[1] or 0
+	local r2 = DBL_ACROSS * DBL_ACROSS
+	local a = 1 -- the first segment within DBL_ALONG behind point i
+	for i = 1, n do
+		local zi, marked = zs[i], false
+		local ai = start - left[i]
+		while a < n and ai - (start - left[a + 1]) > DBL_ALONG do a = a + 1 end
+		if zi then
+			local x, y = xs[i], ys[i]
+			for j = a, n - 1 do
+				local aj = start - left[j]
+				if aj - ai > DBL_ALONG then break end
+				if j ~= i and j + 1 ~= i then
+					local za, zb = zs[j], zs[j + 1]
+					if za and zb then
+						local bx, by = xs[j], ys[j]
+						local dx, dy = xs[j + 1] - bx, ys[j + 1] - by
+						local l2 = dx * dx + dy * dy
+						local t = l2 > 0 and ((x - bx) * dx + (y - by) * dy) / l2 or 0
+						if t < 0 then t = 0 elseif t > 1 then t = 1 end
+						local qx, qy = bx + dx * t - x, by + dy * t - y
+						local d2 = qx * qx + qy * qy
+						if d2 <= r2 then
+							local dz = za + (zb - za) * t - zi
+							local along = aj + t * (left[j] - left[j + 1]) - ai
+							if along < 0 then along = -along end
+							if (dz > FLOOR_STEP or dz < -FLOOR_STEP) and along - sqrt(d2) > DBL_ACROSS then
+								marked = true
+								break
+							end
+						end
+					end
+				end
+			end
+		end
+		dbl[i] = marked
+	end
+	S.marked = true
 end
 
 function Follow.Catch(xs, ys, zs, left, n, S, px, py, upto, within, stop, z)
@@ -182,20 +248,23 @@ function Follow.Catch(xs, ys, zs, left, n, S, px, py, upto, within, stop, z)
 	return true
 end
 
--- The grade the floor rule asks for in this Step: FLOOR_GRADE with `hill`,
--- else 0 (any FLOOR_STEP is a floor).
-local grade = 0
+-- The grade the floor rule asks for in this Step: FLOOR_GRADE with `hill`
+-- or indoors with doubled-back marks (`marks`, S.dbl), else 0 (any
+-- FLOOR_STEP is a floor). At a marked point indoors, 0.
+local grade, marks = 0, nil
 
--- Heights dz apart, dx, dy apart across: on another floor.
-local function apart(dz, dx, dy)
+-- Heights dz apart, dx, dy apart across: on another floor. `strict`: any
+-- FLOOR_STEP is (a doubled-back point indoors).
+local function apart(dz, dx, dy, strict)
 	if dz < 0 then dz = -dz end
-	return dz > FLOOR_STEP and dz * dz > grade * grade * (dx * dx + dy * dy)
+	local g = strict and 0 or grade
+	return dz > FLOOR_STEP and dz * dz > g * g * (dx * dx + dy * dy)
 end
 
 local function floorChange(xs, ys, zs, i)
 	if i <= 1 then return false end
 	local za, zb = zs[i - 1], zs[i]
-	return za and zb and apart(zb - za, xs[i] - xs[i - 1], ys[i] - ys[i - 1]) or false
+	return za and zb and apart(zb - za, xs[i] - xs[i - 1], ys[i] - ys[i - 1], marks and (marks[i] or marks[i - 1])) or false
 end
 
 -- Point i stops the projection from moving past it until it is reached.
@@ -246,7 +315,7 @@ local function inSight(xs, ys, zs, left, idx, along, limit, zRef, px, py, sight)
 	for j = idx, limit do
 		local zj = zs[j]
 		-- Another floor: from the projection's point, or a steep step on the way (stairs between two flat pieces).
-		if zRef and zj and (apart(zj - zRef, xs[j] - xs[idx], ys[j] - ys[idx]) or (j > idx and floorChange(xs, ys, zs, j))) then break end
+		if zRef and zj and (apart(zj - zRef, xs[j] - xs[idx], ys[j] - ys[idx], marks and (marks[j] or marks[idx])) or (j > idx and floorChange(xs, ys, zs, j))) then break end
 		if start - left[j] > cap then capped = true break end
 		last = j
 	end
@@ -276,7 +345,8 @@ end
 
 function Follow.Step(xs, ys, zs, left, n, S, px, py, stop, join, sight, hill)
 	S.sighted, S.aimAlong = false, nil
-	grade = hill and FLOOR_GRADE or 0
+	marks = not hill and S.marked and S.dbl or nil
+	grade = (hill or marks) and FLOOR_GRADE or 0
 	if n == 0 then return nil end
 	if n == 1 then
 		local dx, dy = xs[1] - px, ys[1] - py
@@ -396,7 +466,7 @@ function Follow.Step(xs, ys, zs, left, n, S, px, py, stop, join, sight, hill)
 			ex, ey = xs[j - 1] + (ex - xs[j - 1]) * frac, ys[j - 1] + (ey - ys[j - 1]) * frac
 			zj = za and zj and za + (zj - za) * frac
 		end
-		if zRef and zj and (apart(zj - zRef, ex - xs[idx], ey - ys[idx]) or (j > idx and floorChange(xs, ys, zs, j))) then break end
+		if zRef and zj and (apart(zj - zRef, ex - xs[idx], ey - ys[idx], marks and (marks[j] or marks[idx])) or (j > idx and floorChange(xs, ys, zs, j))) then break end
 		-- Where the path's points are close together (a road's zigzag, pieces
 		-- of SHORT yards or less on both sides), the aim slides along the path
 		-- smoothed over each point's neighbours (1-2-1), so the side-to-side

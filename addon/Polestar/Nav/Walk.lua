@@ -417,6 +417,7 @@ local function took(points)
 	end
 	idx, shape = 1, nil
 	Nav.follow.Reset(fstate)
+	Nav.follow.Mark(ptsX, ptsY, ptsZ, left, n, fstate)
 	landX, landY = nil, nil
 end
 
@@ -1066,6 +1067,7 @@ local function takeBaked(pc, px, py)
 	end
 	idx, failed, wanted, hubs = 1, false, false, nil
 	Nav.follow.Reset(fstate)
+	Nav.follow.Mark(ptsX, ptsY, ptsZ, left, m, fstate)
 	if Walk.Split then Walk.Split() end
 	changed()
 	pumpLegs()
@@ -1112,7 +1114,9 @@ function Walk.Aim(pc, px, py, goalC, goalX, goalY, handmade, goalZ, stop)
 	-- (Nav/Follow.lua `join`); indoors every turn is a wall's. Outdoors, with the
 	-- floor under the player known, the follower may aim ahead by sight beside
 	-- the path (open ground; Path.Sight checks the line). Outdoors a hillside
-	-- between two corners is no floor change (Follow.lua `hill`).
+	-- between two corners is no floor change (Follow.lua `hill`); indoors
+	-- neither, except where the path doubles back over itself (Follow.Mark,
+	-- run on each path as it comes in: a spiral stair, the Undercity's rings).
 	local outdoors = not (IsIndoors and IsIndoors())
 	local join = outdoors and JOIN or nil
 	local look
