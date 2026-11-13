@@ -173,14 +173,19 @@ end
 function AU.CheckGuide(id)
 	local E = ns.Engine
 	local g = E and E.GetGuide and E.GetGuide()
-	if not (on() and g and g.id == id) or told()[id] or ns.Hidden() then return false end
+	if not (on() and g and g.id == id) or told()[id] then
+		if AU.startDue == id then AU.startDue = nil end
+		return false
+	end
+	if ns.Hidden() then return false end
 	if ns.Compat.InCombat() then
 		AU.startDue = id
 		return false
 	end
 	local list, pending = AB().List("guide")
 	if #list == 0 then
-		-- An item the client is still loading may join it: asked again when it comes.
+		-- An item the client is still loading may join it: asked again when one comes
+		-- (AUCTION_BUYS_CHANGED's arrived), not on every change of the bags or the step.
 		AU.startDue = pending and id or nil
 		return false
 	end
@@ -507,10 +512,10 @@ end
 
 -- The lists changed (the bags, the log, the guide's step, an item the client
 -- loaded): the window, a card on screen or waiting, and the reminder follow.
-ns.On("AUCTION_BUYS_CHANGED", function()
+ns.On("AUCTION_BUYS_CHANGED", function(arrived)
 	AU.Layout()
 	refreshCard()
-	if AU.startDue then AU.CheckGuide(AU.startDue) end
+	if arrived and AU.startDue then AU.CheckGuide(AU.startDue) end
 	checkTownSoon()
 end)
 

@@ -45,7 +45,10 @@
 --       in guide order, then log order; why "farm" (kills: the farm's kills or loots on average),
 --       "gather" (skill: the gathering skill line the character lacks), "made" (a profession makes
 --       it), "ah" (the guide's goal stands at an auctioneer). pending: an item still waits on the
---       client or the Codex; AUCTION_BUYS_CHANGED fires when its answer comes.
+--       client or the Codex. AUCTION_BUYS_CHANGED(arrived) fires once a burst of changes is over;
+--       arrived: something a judgement waited for came (an item, the quest database, the Codex).
+--       The judgement is kept until what the quests want changes (the step, the log, the guide);
+--       the bags only count again.
 --   AuctionBuys.Judge(itemID, count, goal, buys) -> why, kills, skill | false | nil (not known yet)
 
 local ADDON, ns = ...
@@ -87,11 +90,22 @@ local function hasVendor(rec)
 	return #rec > first + 2 * (rec[first] or 0)
 end
 
+-- Quest q's objectives (the quest database's list), decoded once per pass:
+-- objs[q] = list | false.
+local function objectives(objs, q)
+	local o = objs[q]
+	if o == nil then
+		local r = Q.QuestRecord(q)
+		o = r and type(r[Q.F.OBJ]) == "table" and r[Q.F.OBJ] or false
+		objs[q] = o
+	end
+	return o
+end
+
 -- The count quest q's objectives ask for item id, or nil.
-local function objectiveCount(q, id)
-	local r = Q.QuestRecord(q)
-	local obj = r and r[Q.F.OBJ]
-	if type(obj) ~= "table" then return nil end
+local function objectiveCount(objs, q, id)
+	local obj = objectives(objs, q)
+	if not obj then return nil end
 	for k = 1, #obj, 3 do
 		if obj[k] == 2 and obj[k + 1] == id then return obj[k + 2] or 1 end
 	end
@@ -247,12 +261,12 @@ end
 
 -- The quest a quest-less collect at step s serves: the first quest of this
 -- or the next LOOKAHEAD steps whose objectives ask for the item.
-local function questFor(steps, s, id)
+local function questFor(objs, steps, s, id)
 	for t = s, math.min(#steps, s + LOOKAHEAD) do
 		local goals = steps[t].goals
 		for i = 1, goals and #goals or 0 do
 			local q = goals[i].quest
-			if type(q) == "number" and objectiveCount(q, id) then return q end
+			if type(q) == "number" and objectiveCount(objs, q, id) then return q end
 		end
 	end
 	return nil
@@ -274,14 +288,16 @@ local function itemName(id, w, rec)
 	return C().GetItemName(id) or (N and N.Item and N.Item(id)) or w.itemName or (rec and rec[1]) or ("#" .. id)
 end
 
-local cache = {} -- scope -> { list, pending }
+local judged = {} -- scope -> { cands, pending }: what the quests want that the rule lists, whatever the bags hold
+local cache = {} -- scope -> { list, pending }: those of them still short
 
-local function build(scope)
-	local out, pending = {}, false
-	if not AB.On() then return out, pending end
+local function judge(scope)
+	local cands, pending = {}, false
+	if not AB.On() then return cands, pending end
 	-- The quest database still to load (at login, or after a fight): asked again once it runs.
-	if not Q.IsLoaded() then return out, Q.IsWanted() end
+	if not Q.IsLoaded() then return cands, Q.IsWanted() end
 	local Cp, E = C(), ns.Engine
+	local objs = {}
 	local wants, order = {}, {}
 	local function want(id, q, count, goal)
 		local w = wants[id]
@@ -318,10 +334,10 @@ local function build(scope)
 				local goal = goals[i]
 				local id = goal.item
 				if goal.t == "collect" and type(id) == "number" and not goal.optional and not goal.npc then
-					local q = goal.quest or questFor(steps, s, id)
+					local q = goal.quest or questFor(objs, steps, s, id)
 					if q and (s >= live or Cp.IsOnQuest(q)) and open(q, id) and E.Applies(s, i) then
 						covered[q] = true
-						want(id, q, tonumber(goal.count) or objectiveCount(q, id) or 1, goal)
+						want(id, q, tonumber(goal.count) or objectiveCount(objs, q, id) or 1, goal)
 					end
 				end
 			end
@@ -329,9 +345,8 @@ local function build(scope)
 	end
 	if scope == "all" then
 		for _, q in ipairs(Cp.GetLogQuests()) do
-			local r = not covered[q] and Q.QuestRecord(q)
-			local obj = r and r[Q.F.OBJ]
-			if type(obj) == "table" then
+			local obj = not covered[q] and objectives(objs, q)
+			if obj then
 				for k = 1, #obj, 3 do
 					local id = obj[k + 1]
 					if obj[k] == 2 and type(id) == "number" and open(q, id) then want(id, q, obj[k + 2] or 1, nil) end
@@ -343,73 +358,99 @@ local function build(scope)
 		local w = wants[id]
 		local count = 0
 		for _, qe in ipairs(w.qorder) do count = count + w.quests[qe.id] end
-		-- Core/Materials.lua's count (bags, bank, mail, what is on its way) where it runs.
-		local M = ns.Materials
-		local have = M and M.Have and tonumber((M.Have(id))) or Cp.GetItemCount(id, true) or 0
-		if have < count then
-			local why, kills, skill
-			local tries = #w.goals > 0 and w.goals or { false }
-			for _, goal in ipairs(tries) do
-				local v, k, sk = AB.Judge(id, count, goal or nil, buys)
-				if v == nil then
-					pending = true
-				elseif v then
-					why, kills, skill = v, k, sk
-					break
-				end
-			end
-			if why then
-				out[#out + 1] = { item = id, name = itemName(id, w, itemRecord(id)), need = count - have, have = have, count = count,
-					quests = w.qorder, why = why, kills = kills, skill = skill }
+		local why, kills, skill
+		local tries = #w.goals > 0 and w.goals or { false }
+		for _, goal in ipairs(tries) do
+			local v, k, sk = AB.Judge(id, count, goal or nil, buys)
+			if v == nil then
+				pending = true
+			elseif v then
+				why, kills, skill = v, k, sk
+				break
 			end
 		end
+		if why then
+			cands[#cands + 1] = { item = id, name = itemName(id, w, itemRecord(id)), count = count, quests = w.qorder,
+				why = why, kills = kills, skill = skill }
+		end
 	end
-	return out, pending
+	return cands, pending
 end
 
 function AB.List(scope)
 	scope = scope == "guide" and "guide" or "all"
 	local hit = cache[scope]
-	if not hit then
-		local list, pending = build(scope)
-		hit = { list = list, pending = pending }
-		cache[scope] = hit
+	if hit then return hit.list, hit.pending end
+	local j = judged[scope]
+	if not j then
+		local cands, pending = judge(scope)
+		j = { cands = cands, pending = pending }
+		judged[scope] = j
 	end
-	return hit.list, hit.pending
+	-- Core/Materials.lua's count (bags, bank, mail, what is on its way) where it runs.
+	local list, Cp, M = {}, C(), ns.Materials
+	for _, c in ipairs(j.cands) do
+		local have = M and M.Have and tonumber((M.Have(c.item))) or Cp.GetItemCount(c.item, true) or 0
+		if have < c.count then
+			list[#list + 1] = { item = c.item, name = c.name, need = c.count - have, have = have, count = c.count,
+				quests = c.quests, why = c.why, kills = c.kills, skill = c.skill }
+		end
+	end
+	cache[scope] = { list = list, pending = j.pending }
+	return list, j.pending
 end
 
 ---------------------------------------------------------------------------
 -- Keeping the lists current
 ---------------------------------------------------------------------------
 
--- Anything a list reads changed: the lists are built again when next asked,
--- and AUCTION_BUYS_CHANGED says so once the burst of events is over.
-local announcing = false
-local function changed()
-	cache = {}
+-- Anything a list reads changed: the lists are judged or counted again when
+-- next asked, and AUCTION_BUYS_CHANGED says so once the burst is over.
+local announcing, arrivals = false, false
+local function announce()
 	if announcing then return end
 	announcing = true
 	ns.After(0.2, function()
 		announcing = false
-		ns.Fire("AUCTION_BUYS_CHANGED")
+		local arrived = arrivals
+		arrivals = false
+		ns.Fire("AUCTION_BUYS_CHANGED", arrived)
 	end)
 end
+-- What the quests want, or what the rule reads, changed.
+local function changed()
+	judged, cache = {}, {}
+	announce()
+end
 AB.Changed = changed
+-- Only what the character holds changed: counted again, not judged.
+local function recount()
+	cache = {}
+	announce()
+end
+-- Something a judgement waited for came.
+local function arrived()
+	arrivals = true
+	changed()
+end
 
-for _, msg in ipairs({ "STEP_CHANGED", "GUIDE_CHANGED", "QUESTDB_STARTED", "CODEX_LOADED", "NAMES_LOADED", "MATERIALS_COUNTS" }) do ns.On(msg, changed) end
-for _, event in ipairs({ "BAG_UPDATE_DELAYED", "QUEST_ACCEPTED", "QUEST_REMOVED", "QUEST_TURNED_IN", "SKILL_LINES_CHANGED" }) do
+for _, msg in ipairs({ "STEP_CHANGED", "GUIDE_CHANGED", "NAMES_LOADED" }) do ns.On(msg, changed) end
+for _, msg in ipairs({ "QUESTDB_STARTED", "CODEX_LOADED" }) do ns.On(msg, arrived) end
+ns.On("MATERIALS_COUNTS", recount)
+ns.RegisterEvent("BAG_UPDATE_DELAYED", recount)
+for _, event in ipairs({ "QUEST_ACCEPTED", "QUEST_REMOVED", "QUEST_TURNED_IN", "SKILL_LINES_CHANGED" }) do
 	ns.RegisterEvent(event, changed)
 end
 ns.RegisterEvent("GET_ITEM_INFO_RECEIVED", function(_, id)
 	if id and waiting[id] then
 		waiting[id] = nil
-		changed()
+		arrived()
 	end
 end)
 ns.RegisterEvent("PLAYER_REGEN_ENABLED", function()
 	if codexWanted then
 		codexWanted = false
-		changed()
+		arrived()
 	end
 end)
 ns.On("SETTING_CHANGED", function(path)
