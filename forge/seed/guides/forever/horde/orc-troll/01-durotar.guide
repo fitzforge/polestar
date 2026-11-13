@@ -600,6 +600,7 @@ step The Binding
   only Warlock
   zone Orgrimmar
   tip Back to Gan'rul in the Cleft of Shadow. Use the Glyphs of Summoning on the summoning circle there and defeat the voidwalker to bind it.
+  tip Careful: the voidwalker you summon hits hard and it is the fight Warlocks die to most in Orgrimmar: start at full health and mana, send your imp in, keep Corruption and Immolate on it, and use a healthstone if you have one.
   turnin 1501                         -- Gan'rul Bloodeye
   accept 1504
   use 7464 @49.3,50.0                 -- Glyphs of Summoning

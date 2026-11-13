@@ -633,6 +633,7 @@ step The Binding
   only Warlock
   zone Orgrimmar
   tip Gan'rul Bloodeye stands in the Cleft of Shadow, the canyon under the Valley of Strength. Hand him the Tablet of Verga, then use the Glyphs of Summoning on the summoning circle beside him and defeat the voidwalker to bind it.
+  tip Careful: the voidwalker you summon hits hard and it is the fight Warlocks die to most in Orgrimmar: start at full health and mana, send your imp in, keep Corruption and Immolate on it, and use a healthstone if you have one.
   turnin 1501                         -- Gan'rul Bloodeye
   accept 1504
   use 7464 @49.3,50.0                 -- Glyphs of Summoning

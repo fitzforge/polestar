@@ -200,6 +200,22 @@
 			"issue": 1575
 		},
 		{
+			"id": "h01-1575-durotar-the-binding",
+			"faction": "Horde",
+			"at": {
+				"quest": 1504,
+				"goal": "objective",
+				"objective": 1
+			},
+			"tip": "Careful: the voidwalker you summon hits hard and it is the fight Warlocks die to most in Orgrimmar: start at full health and mana, send your imp in, keep Corruption and Immolate on it, and use a healthstone if you have one.",
+			"note": "Danger at the spot (#1575, the danger gate's new flag on 0.4.0, The Binding in the Cleft of Shadow): players' recordings show 16 people died within 60 yd of the summoning circle, 13 of them Warlocks at 13-17, with no killer recorded (a summoned demon); the flag's own mobs, the Summoned Incubus beside the warlock trainers, are not what kills them. The step now says what the fight asks for.",
+			"source": {
+				"kind": "recording",
+				"ref": "rec index 2026-11-13: 25 deaths of 16 people within 4 map percent of Orgrimmar 49.3,50.0, 13 Warlocks; killer unrecorded"
+			},
+			"issue": 1575
+		},
+		{
 			"id": "1575-barrens-razormane-elites-crates",
 			"faction": "Horde",
 			"at": { "quest": 5041, "goal": "objective", "objective": 1 },
