@@ -250,8 +250,15 @@ local function announce()
 	if not ok then error(err, 0) end
 end
 
+-- The Engine's waypoint as the arrow may take it: not while dismissed, nor
+-- while paused (Pause takes the arrow; a hold and a picked point still show).
+local function engineTarget()
+	if dismissed or ns.PauseHides("arrow") then return nil end
+	return engineWp
+end
+
 local function apply(shouldAnnounce)
-	local new = hold or override or (not dismissed and engineWp) or nil
+	local new = hold or override or engineTarget() or nil
 	-- Held: a step, the guide's waypoint or a picked point changing under the
 	-- hold changes nothing shown (no replan, no second chime) until Nav.Unhold.
 	if hold and new == target then return end
@@ -675,6 +682,12 @@ ns.On("SETTING_CHANGED", function(path)
 end)
 ns.On("GUIDE_SHOWN", function() Nav.Refresh() end) -- an instance hide (ns.GuideShown)
 ns.On("POLESTAR_HIDDEN", function() Nav.Refresh() end) -- the arrow and its travel button (ns.ArrowHidden)
+-- Paused or resumed: the Engine's waypoint goes or comes back (a hold or
+-- a picked point over it stays as it is: no second chime).
+ns.On("POLESTAR_PAUSED", function()
+	if not (hold or override) and engineTarget() ~= target then apply(true) end
+	Nav.Refresh()
+end)
 
 local function situationChanged()
 	if target and not tC then resolve() end
@@ -757,6 +770,8 @@ function Nav.SayGuideHidden()
 		ns.Print(L["Polestar is hidden, the arrow with it: \"Keep the arrow when hidden\" in the minimap button's menu keeps it."])
 	elseif Nav.HiddenWithGuide() then
 		ns.Print(L["The guide is hidden and \"Hide the arrow with the guide\" is on, so the arrow is hidden too: /polestar show brings them back."])
+	elseif ns.PauseHides("arrow") and not (hold or override) then
+		ns.Print(L["Polestar is paused: the arrow follows the guide again once you leave the dungeon alive, or after /polestar resume."])
 	end
 end
 

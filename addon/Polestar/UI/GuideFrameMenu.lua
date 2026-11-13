@@ -39,6 +39,9 @@ local function openMenu(button)
 		{ text = L["Reset guide progress"], icon = "reset", confirm = true, disabled = not hasGuide, tip = L["Clears your manual check-offs and skipped steps in this guide from your last quest progress on. The guide stays where your quests put you."],
 			onClick = function() if E and E.ResetProgress then E.ResetProgress() end end },
 		{ text = L["Options"], icon = "gear", onClick = function() UI.ShowOptions() end },
+		-- Pause (Core/Init.lua): the arrow, this window and its nudges step aside until you are back out of a dungeon alive.
+		{ text = L["Pause"], icon = "icon-dungeon", checked = ns.Paused() ~= nil, tip = L["The arrow and the guide window step aside. Polestar resumes by itself when you leave a dungeon alive."],
+			onClick = function() ns.TogglePaused() end },
 		{ text = L["Hide window"], icon = "close", onClick = function()
 			ns.Set("ui.shown", false)
 			ns.Print(L["Guide window hidden. Type /polestar to bring it back."])

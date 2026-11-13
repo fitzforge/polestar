@@ -319,6 +319,20 @@ local BUILTIN = {
 			help = L["What the window, its buttons and alerts do in dungeons, raids, battlegrounds and arenas. Guide window in the minimap button's menu, the key binding or /polestar opens it there until you leave."],
 			search = "dungeon, raid, battleground, arena, instance, hide, pvp, healer",
 			choices = { { value = "show", label = L["Keep visible"] }, { value = "hide", label = L["Hide"] } } },
+		-- Pause (Core/Init.lua, Core/Pause.lua): per character, like hiding; its two extras are
+		-- account settings.
+		{ kind = "toggle", label = L["Pause"],
+			help = L["The arrow, the guide window and its nudges step aside. Polestar resumes by itself when you leave a dungeon alive. Your quest progress keeps following your log. This character only."],
+			search = "pause, pause the guide, resume, dungeon, raid, instance, run, group, step aside, hide arrow",
+			get = function() return ns.Paused() ~= nil end, set = function(on) ns.SetPaused(on, "hand") end },
+		{ kind = "toggle", key = "pause.map", label = L["Hide the step's map pins while paused"],
+			help = L["While paused, the pins of the step's goals, their areas, While you're here and the upcoming steps go from the maps as well."],
+			search = "pause the guide, paused, map pins, minimap, world map", child = true },
+		{ kind = "toggle", key = "pause.automation", label = L["No quest automation while paused"],
+			help = L["While paused, quests are not accepted or turned in for you, and no reward is picked, until Polestar resumes."],
+			search = "pause the guide, paused, automation", child = true },
+		{ kind = "binding", action = "POLESTAR_PAUSE", label = L["Pause the guide"],
+			help = L["A key or gamepad button that pauses Polestar or resumes it. It also resumes by itself when you leave a dungeon alive."] },
 		{ kind = "toggle", key = "ui.launcher", label = L["Floating button"],
 			help = L["A small Polestar button you can put anywhere on the screen. Click to hide or show Polestar, right-click for a menu, drag to move it. It hides with the window in combat and in dungeons when those are set to Hide."],
 			search = "launcher, floating icon, floating button, show, hide, toggle, open polestar, quick" },
@@ -2941,3 +2955,16 @@ end
 
 -- Every module's registrations, now and later.
 W.OnOptionsRegistered(function(spec) add(spec, false) end)
+
+-- Polestar resumes by itself on the way out (Core/Pause.lua), maybe
+-- with a page open: the toggles of state that is no setting repaint, as
+-- O.ResetPage repaints them.
+ns.On("POLESTAR_PAUSED", function()
+	for _, p in ipairs(pageList) do
+		for _, v in pairs(p.views or {}) do
+			for _, w in pairs(v.cache or {}) do
+				if w.psControl and not w.psControl.key and w.Refresh then w:Refresh() end
+			end
+		end
+	end
+end)

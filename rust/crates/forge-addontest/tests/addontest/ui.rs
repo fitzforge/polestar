@@ -1510,6 +1510,7 @@ fn the_header_menu_picker_new_tab_compact_transparent_lock_destructive_items_ask
 			"Reset guide progress",
 			"Quick settings",
 			"Options",
+			"Pause",
 			"Hide window"
 		])
 	);
