@@ -1507,6 +1507,17 @@ test('forever/horde/30-40/01-hillsbrad-foothills.guide: no bind in Hillsbrad, Al
 	at(next, "the next guide's accept 1431 for a character below 30", is('accept', 1431));
 });
 
+// Horde 21-40 audit (0.4.0): Elixir of Agony (515) needs a Lesser Troll's Blood Elixir no vendor sells; Hillsbrad 22-25
+// offers it only to a character carrying one, and Hillsbrad 30-40's opening Undercity stop offers it again for a
+// character who bought one since.
+test('forever/horde/30-40/01-hillsbrad-foothills.guide: Elixir of Agony is offered in the Undercity only with the elixir in the bags', { skip }, () => {
+	const list = goals('forever/horde/30-40/01-hillsbrad-foothills.guide');
+	const acc = at(list, 'accept 515 (Faranell)', is('accept', 515));
+	assert.ok((list[acc].step.when || []).some((p) => p.k === 'has' && !p.neg && p.item === 3388), 'only with a Lesser Troll\'s Blood Elixir');
+	const fly = list.findIndex(({ step }) => step.title === 'Fly to Tarren Mill');
+	assert.ok(fly >= 0 && acc < fly, 'in the Undercity, before Tarren Mill');
+});
+
 // --- Forever chains the quest data has no prerequisite for, so the guide took
 // a follow-up at the same visit as the quest before it and the giver did not
 // offer it: Baine's chain in Mulgore (Kori, #112) and Mull's report (#51),

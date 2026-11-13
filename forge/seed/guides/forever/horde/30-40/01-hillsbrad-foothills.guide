@@ -167,6 +167,12 @@ step The Undercity
   tip Elixir of Agony needs a Lesser Troll's Blood Elixir, an Alchemy item: buy one at the auction house if you can (or ask an alchemist). The quest text says Strong, but it takes a Lesser Troll's Blood Elixir. No elixir: skip the Elixir steps in Hillsbrad.
   note Lesser Troll's Blood Elixir: auction house or an alchemist, for Elixir of Agony.
 
+step Master Apothecary Faranell
+  when has 3388
+  zone Undercity
+  tip With a Lesser Troll's Blood Elixir in your bags, Master Apothecary Faranell offers Elixir of Agony in the Apothecarium; Apothecary Lydon takes the elixir in Tarren Mill.
+  accept 515                          -- Master Apothecary Faranell
+
 step Garen Largo
   only Paladin
   zone Undercity
