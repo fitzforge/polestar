@@ -109,7 +109,10 @@
 -- goal, and where nothing further is in sight (walls, cliffs, indoors) the
 -- corridor's aim stands, as before. It is the same look as beside the path,
 -- run only after the player moves SIGHT_MOVE yards: a few line reads per look,
--- none between.
+-- none between. On the path a point held further along (found beside it or
+-- on the way onto the road, up to SIGHT_AHEAD on) stays until it is passed or
+-- a further one is found: a look up to LOOK_AHEAD cannot see it again, so not
+-- seeing it is no reason to drop it for a nearer one.
 --
 -- Smoothing (0.3.8, Fitz: "that first waypoint shouldn't make 90° bends"):
 -- a searched path runs through the walking grid's cells, so a way at a slant
@@ -430,7 +433,10 @@ function Follow.Step(xs, ys, zs, left, n, S, px, py, stop, join, sight, hill)
 	local sat
 	local holding = S.sightAt and S.sightAt > S.along or false -- (sightAt is false when the last look found none)
 	-- On the path (not beside it, holding a point found there, or on its way onto the road), the same look up to
-	-- LOOK_AHEAD yards along, except in the path's last LOOK_AHEAD yards.
+	-- LOOK_AHEAD yards along, except in the path's last LOOK_AHEAD yards. There a point held further along stays until
+	-- it is passed or a further one is found, as it did before the look ran on the path: a look up to LOOK_AHEAD cannot
+	-- see a point beyond it again, so not seeing it is no reason to drop it (dropping it swung the arrow back and
+	-- counted the yards up).
 	local beside = bestD > BODY or (holding and bestD > SIGHT_NEAR) or (join and S.along <= join)
 	local onPath = not beside and S.left > LOOK_AHEAD
 	if sight and bestD <= OPEN and (beside or onPath) then
@@ -440,7 +446,7 @@ function Follow.Step(xs, ys, zs, left, n, S, px, py, stop, join, sight, hill)
 			local found = inSight(xs, ys, zs, left, idx, S.along, limit, zRef, px, py, sight, onPath and LOOK_AHEAD or nil)
 			S.sightX, S.sightY = px, py
 			local hx, hy = px - (S.heldX or huge), py - (S.heldY or huge)
-			local held = at and at > S.along and hx * hx + hy * hy < SIGHT_HOLD * SIGHT_HOLD
+			local held = at and at > S.along and (onPath or hx * hx + hy * hy < SIGHT_HOLD * SIGHT_HOLD)
 			if found and not (held and found < at) then
 				at, S.heldX, S.heldY = found, px, py
 			elseif not held then

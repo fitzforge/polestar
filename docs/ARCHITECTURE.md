@@ -4286,20 +4286,23 @@ drop, climb or lift. The router's own straightening keeps to ground no
 costlier than the path's (a road's bends stay) and stops at its first
 blocked candidate; this one asks only for a walkable line and tries the
 candidates from the furthest in. On the 0.3.7 recordings it drops a third of
-the corners and 41% of the turns over 45°. A line the grid cannot answer (a
+the corners (2.28 to 1.56 per 100 yd) and 37% of the turns over 45° (41%
+without the read cap). A line the grid cannot answer (a
 cluster not decoded) keeps its corner, and one path costs 64 line reads at
 most, once. A search asked without a height (the floor not known yet) starts
 from every surface at its spot; its first point carries the height of the
 start node the search kept (`Path.Find`), so its start is straightened too:
-paths whose first corner turns over 45° fell from 18.2% to 15.5%, the rest
+paths whose first corner turns over 45° fell from 18.1% to 15.4%, the rest
 being real (a town's buildings, a camp's tents). On the path in open ground,
 with the floor known, the beside-the-path look also runs, up to 40 yd along
 (`LOOK_AHEAD`; Fitz: "set the arrow's point further away"): its point wins
 when it lies further along than the corridor's, past 35 yd on a straight, and
-it is a point the line check cleared. With both, on the recordings, the arrow
-turned 1% less per second, swung over 30° in a second 3% less often, and
-aimed across a wall 0.7 points less often; where it points against where
-players walked did not change (31.9° off on average, -0.3° within noise).
+it is a point the line check cleared; a point held further along (found
+beside the path) stays until it is passed or a further one is found. With
+both, on the recordings, the arrow turned 1% less per second, swung over 30°
+in a second 3% less often, and aimed across a wall 0.6 points less often;
+where it points against where players walked did not change (31.9° off on
+average, -0.3° within noise).
 A new goal (more than 1 yd away from the searched one) cancels the search
 in flight and drops the path; more than 25 yd off the path asks again, unless
 the aim is in sight as above (at

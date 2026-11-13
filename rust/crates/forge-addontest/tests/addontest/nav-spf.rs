@@ -437,20 +437,27 @@ fn outdoors_a_hillside_corner_cut_wide_never_holds_the_arrow_back_on_it_indoors_
 	assert!(num(&indoors["atCorner"]) > 0.0, "indoors the corner 10 yd lower still holds it ({})", indoors["atCorner"]);
 }
 
-// The path for the look ahead on the path: 160 yd straight on, a right-angle corner, then 340 yd on, in open ground.
-// The player walks the first piece toward the corner, past the path's first 50 yd (where the way onto the road is
-// looked along already, `join`); `sight` stands for the walking grid's line check.
+// The path for the look ahead on the path: 160 yd straight on, a right-angle corner, then 340 yd on, in open ground
+// with the floor under the player known. The player walks the first piece toward the corner, a yard every 0.3 s (the
+// floor is read every 0.25 s). The path's first 60 yd go by with nothing in sight: past the way onto the road (its
+// first 50 yd, `join`, looked along up to 150 yd), holding no point from there. Then `sight` stands for the walking
+// grid's line check. The aim at 0, -20 (dx, dy from the player) and the line reads over the last 20 yd.
 const CORNER: &str = r#"
+fake.surfaces = function() return { 0 } end
 local function walkToCorner(sight)
+	fake.sight = function() return false end
 	nav.place(0, 100)
 	target(400, -60)
 	N.Sample()
 	answerZ({ { 0, 100, 0 }, { 0, -60, 0 }, { 80, -60, 0 }, { 400, -60, 0 } })
-	fake.sight = sight
 	local s
-	for y = 100, 2, -2 do look(0, y, 400, -60) end
-	fake.sights = 0
-	for y = 0, -20, -2 do s = look(0, y, 400, -60) end
+	for y = 100, -20, -1 do
+		if y == 40 then fake.sight = sight end
+		if y == 0 then fake.sights = 0 end
+		nav.place(0, y)
+		stub.advance(0.3)
+		s = look(0, y, 400, -60)
+	end
 	return { dx = s.dx, dy = s.dy, sights = fake.sights }
 end
 "#;
