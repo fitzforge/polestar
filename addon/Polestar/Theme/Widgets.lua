@@ -3352,6 +3352,8 @@ end
 -- steps it. -> the control (control:Place() after the close button comes
 -- or goes).
 local SCALE_TRACK, SCALE_LO, SCALE_HI, SCALE_STEP = 64, 0.7, 1.4, 0.05
+-- The header search's least width, when a long title takes room from it.
+local SEARCH_LEAST = 130
 local function scaleText(v) return floor(v * 100 + 0.5) .. "%" end
 
 function W.HeaderScale(f, path)
@@ -3404,11 +3406,12 @@ function W.HeaderScale(f, path)
 		-- More tools (W.ShellHeaderTools: the settings search) right to left
 		-- before it; the title ends short of the last.
 		local left = t:IsShown() and t or nil
+		-- A tool's psHeadGap: its gap to the one right of it (16; a pair closer).
 		for _, w in ipairs(rawget(f, "psHeadTools") or {}) do
 			if w:IsShown() then
 				w:ClearAllPoints()
 				if left then
-					w:SetPoint("RIGHT", left, "LEFT", -16, 0)
+					w:SetPoint("RIGHT", left, "LEFT", -(rawget(w, "psHeadGap") or 16), 0)
 				elseif f.Close:IsShown() and inHeader then
 					w:SetPoint("RIGHT", f.Close, "LEFT", -14, 0)
 				else
@@ -3418,9 +3421,22 @@ function W.HeaderScale(f, path)
 			end
 		end
 		if left and left ~= t then
+			-- A title too long for the room left takes it from the search,
+			-- down to the search's least width (its own again for a shorter one).
+			local search, own = rawget(f, "Search"), rawget(f, "psSearchW")
+			local gives = search and own and search:IsShown()
+			if gives then search:SetWidth(own) end
 			local edge = 16
-			for _, w in ipairs(f.psHeadTools) do if w:IsShown() then edge = edge + 16 + w:GetWidth() end end
+			for _, w in ipairs(f.psHeadTools) do if w:IsShown() then edge = edge + (rawget(w, "psHeadGap") or 16) + w:GetWidth() end end
 			edge = edge + (t:IsShown() and t:GetWidth() or 0) + ((f.Close:IsShown() and inHeader) and (12 + 28 + 14) or (SHELL.pad + 16))
+			if gives then
+				local room = (tonumber(rawget(f, "psMainW")) or head:GetWidth()) - SHELL.pad - edge
+				local give = min(math.ceil(textWidth(f.Title)) - room, own - SEARCH_LEAST)
+				if give > 0 then
+					search:SetWidth(own - give)
+					edge = edge - give
+				end
+			end
 			f.Title:SetPoint("TOPRIGHT", head, "TOPRIGHT", -edge, -32)
 		elseif t:IsShown() then
 			f.Title:SetPoint("TOPRIGHT", t, "TOPLEFT", -16, -16)
@@ -3463,7 +3479,8 @@ end
 
 -- The header search's width: 30 % of the main column, 180 to 320.
 local function headerSearchW(f)
-	return floor(min(320, max(180, (f.psMainW or 600) * 0.3)))
+	f.psSearchW = floor(min(320, max(180, (f.psMainW or 600) * 0.3)))
+	return f.psSearchW
 end
 
 -- opts: { width, height, title, subtitle, searchPlaceholder, onSearch,
@@ -3909,6 +3926,8 @@ end
 -- subtitle, so it never jumps between pages.
 function W.ShellTitle(f, title, subtitle)
 	f.Title:SetText(title or "")
+	-- A longer title may take room from the header's search.
+	if rawget(f, "psSearchW") and rawget(f, "HeaderTools") then f.HeaderTools.Place() end
 	f.psSubtitle = subtitle or ""
 	-- The main column's width between its pads (a hub's narrower column too).
 	f.Subtitle:SetWidth(f.BodyWidth)

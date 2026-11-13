@@ -576,3 +576,34 @@ fn a_profile_key_switches_to_its_profile_and_follows_it() {
 	assert_eq!(out["cleared"], json!([false, true]), "right-click takes it away");
 	assert_eq!(out["deleted"], json!([true, true]), "deleting the profile takes its key");
 }
+
+// A page title too long for the header's room takes it from the search first (down to the search's least width,
+// 130 px) before it is cut short; a shorter title gives the search its width back. Peek and Fold sit as a pair.
+#[test]
+fn a_long_title_takes_room_from_the_header_search_before_it_is_cut() {
+	let out = run(r#"
+		Polestar.Set("ui.optionsSize", { 1, 700 })
+		UI.ShowOptions("guide")
+		local F = PolestarOptions
+		local function header()
+			local edge
+			for i = 1, F.Title:GetNumPoints() do
+				local p, _, _, x = F.Title:GetPoint(i)
+				if p == "TOPRIGHT" then edge = -x end
+			end
+			return { room = F.psMainW - W.SHELL.pad - edge, need = math.ceil(F.Title:GetStringWidth()), search = F.Search:GetWidth() }
+		end
+		local short = header()
+		O.Select("qol")
+		local long = header()
+		O.Select("guide")
+		local back = header()
+		local _, rel, _, gap = F.PeekButton:GetPoint(1)
+		emit({ short = short, long = long, back = back, pair = { rel == F.FoldButton, gap } })"#);
+	assert_eq!(out["short"]["search"], 185, "a short title leaves the search its own width");
+	assert!(out["short"]["room"].as_i64() >= out["short"]["need"].as_i64(), "{}", out["short"]);
+	assert_eq!(out["long"]["search"], 130, "a long one takes room from the search, down to its least");
+	assert_eq!(out["long"]["room"].as_i64().unwrap(), out["short"]["room"].as_i64().unwrap() + 55, "{}", out["long"]);
+	assert_eq!(out["back"], out["short"], "the search's width back for a shorter title");
+	assert_eq!(out["pair"], json!([true, -4]), "Peek sits close by Fold");
+}

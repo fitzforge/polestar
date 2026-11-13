@@ -3215,6 +3215,8 @@ local function build()
 	peekB:HookScript("OnMouseUp", function() O.Peek(false) end)
 	-- A hold has no gamepad press: the gamepad passes it by.
 	peekB.psPadSkip = true
+	-- Peek and Fold a pair, close together.
+	peekB.psHeadGap = 4
 	win.PeekButton = peekB
 	local foldB = W.IconButton(win.Header, "chevron-up", 24, L["Fold"], function() O.Fold(not folded) end, 12)
 	win.FoldButton = foldB

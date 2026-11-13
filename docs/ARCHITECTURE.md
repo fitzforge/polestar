@@ -7049,7 +7049,10 @@ it ends) and stores `ui.optionsSize` (`{ w, h }`, false: the default);
 right-click on the grip goes back to the default. It is never smaller than
 860 by 560 or larger than the screen at its Menu scale, less 16px each side,
 and is clamped anew when the scale changes. The header holds the search
-(`W.Shell` `headerSearch`), Peek and Fold, the Menu scale and the close; the
+(`W.Shell` `headerSearch`), Peek and Fold (a pair, `psHeadGap` 4), the Menu
+scale and the close; a page title too long for the room left takes it from
+the search first, down to 130px (`psSearchW`, its own width again for a
+shorter title). The
 navigation starts under the band. Peek (an eye, held down: `O.Peek`) fades
 the whole window to 15% so what it covers shows, whole again on letting go;
 Fold (`O.Fold`) leaves only the header, its top-left kept, every other part
