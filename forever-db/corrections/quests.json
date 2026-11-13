@@ -196,7 +196,7 @@
 				"ref": "#1997"
 			}
 		],
-		"note": "The Lost Ingots (324) does not close Lightforge Ingots (526): 526 follows it. The merged data listed 526 as exclusive with 324, so the prerequisite 324 counted as blocking nothing and the Codex gave 526 no prerequisite: Lookup's pick-up guide sent players straight to Glorin, who does not offer it before the chain (#1997)."
+		"note": "The Lost Ingots (324) does not close Lightforge Ingots (526): 526 follows it. The merged data listed 526 as exclusive with 324, so the prerequisite 324 counted as blocking nothing and 526 had no prerequisite: Lookup's pick-up guide sent players straight to Glorin, who does not offer it before the chain (#1997)."
 	},
 	"377": {
 		"set": {
@@ -15320,7 +15320,7 @@
 				"ref": "#1837: with Prison Break In handed in and Key to the City still in the log, Magus Wordeen Voidglare did not offer Dalaran Patrols; once Key to the City was handed in, he did"
 			}
 		],
-		"note": "Dalaran Patrols (Magus Wordeen Voidglare, Tarren Mill) opens only once both of his first quests are handed in: Prison Break In (544) and Key to the City (93680). QuestieDB, the world DB and Forever's quest data list Prison Break In only, so the City of Dalaran pick-up guide sent players to him for it while Key to the City was still open (#1837)."
+		"note": "Dalaran Patrols (Magus Wordeen Voidglare, Tarren Mill) opens only once both of his first quests are handed in: Prison Break In (544) and Key to the City (93680). QuestieDB and the world DB list Prison Break In only, so the City of Dalaran pick-up guide sent players to him for it while Key to the City was still open (#1837)."
 	},
 	"96044": {
 		"set": {
