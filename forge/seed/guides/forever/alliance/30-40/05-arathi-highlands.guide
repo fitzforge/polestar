@@ -5,6 +5,7 @@ faction Alliance
 levels 36-38
 zone Arathi Highlands
 next forever/alliance/30-40/06-badlands
+pitch For characters of 36 to 38, but Faldir's Cove and the Alterac Syndicate quests are level 40: on purpose, for their experience. Professor Phizzlethorpe's two water elementals (40) are immune to frost, and Baron Vardus (40) waits among his Syndicate: pull them one at a time.
 
 # Forge's route search orders the quests of this guide and its guide writer writes the steps.
 # Fixes go into data/route-fixes.json, data/guide-fixes.json or forever-db/corrections, never

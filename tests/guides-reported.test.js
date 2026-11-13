@@ -11876,3 +11876,12 @@ test("forever/alliance/30-40/04-stranglethorn-vale.guide: the Kurzen's Compound 
 	const rec = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', 'guide-fixes.json'), 'utf8')).fixes.find((f) => f.id === '2025-kurzen-compound-careful');
 	assert.ok(rec, 'a record the build keeps');
 });
+
+// 0.4.0 route audit (Refs #2025, as 6558e6487 for 04b): 30-40/05 is labelled 36-38 (the levels the route plays it at),
+// while its worked quests' median is 37 and its 80th percentile 40 (Faldir's Cove and the Alterac Syndicate). The
+// pitch says the level 40 quests are there on purpose and how to take their fights.
+test(`${ARATHI}: the pitch says why its quests run above its label`, { skip }, () => {
+	const g = compiled(ARATHI);
+	assert.match(g.pitch || '', /36 to 38.*level 40: on purpose/, g.pitch);
+	assert.equal(g.maxLevel, 38, 'the label stays');
+});
