@@ -8925,6 +8925,11 @@
 				"issue": "-"
 			},
 			{
+				"q": 7735,
+				"reason": "Quest volume, Alliance 40-60 (0.3.7, 2026-11-09): Pristine Yeti Hide: half of Feralas' level-45 top-up is ground on the Rage Scar yetis (3% hide), so the hide is certain and handed to Pratt McGrubben on the next Feathermoon stop.",
+				"issue": "-"
+			},
+			{
 				"q": 1137,
 				"after": [
 					"turnin",

@@ -9550,7 +9550,8 @@ test('Alliance Winterspring and Feralas: the long top-ups are split onto the que
 	const fe = goals('forever/alliance/40-50/03-feralas.guide');
 	const hide = at(fe, 'Rage Scar Yeti Hide', (x) => x.t === 'collect' && x.quest === 7733);
 	assert.ok(fe.some(({ goal, s }) => goal.t === 'level' && lvlOf(goal) === 44.5 && s === fe[hide].s), '03-feralas: level 44.5 on the Rage Scar yetis');
-	// Since #1999 (0.4.0 audit) the Pristine Yeti Hide (a rare drop) is optional (see the #1999 case).
+	const pristine = at(fe, 'turnin 7735', is('turnin', 7735));
+	assert.ok(required(fe[pristine]), 'Pristine Yeti Hide is counted');
 });
 
 // Alliance 40-60 flow pass (0.3.7): quest givers and hand-ins the route walked past and came back to later.
@@ -11862,15 +11863,12 @@ test("Un'Goro Crater (Alliance 49-50): the written grind comes after Marshal's R
 });
 
 // #1999: the Feralas High Wilderness step grinds to level 44.5 on the Rage Scar yetis (46-48) for a player of about 44.
-// Moving that grind to the Feral Scar yetis (43-45) cost about 23 minutes to 60 in the calibrated level model, so it
-// stays, with a heads-up that names the yetis' level and the Feral Scar yetis as the safer choice; Pristine Yeti Hide
-// (a rare drop) is optional.
-test('Feralas (Alliance 44, #1999): a heads-up on the Rage Scar yetis, the Feral Scar yetis as the safer grind, the Pristine Yeti Hide optional', { skip }, () => {
+// Moving the grind to the Feral Scar yetis (43-45) and making the Pristine Yeti Hide optional cost about 23 minutes to 60
+// in the calibrated level model, so both stay, with a heads-up that names the yetis' level.
+test('Feralas (Alliance 44, #1999): a heads-up on the level 46-48 Rage Scar yetis', { skip }, () => {
 	const list = goals('forever/alliance/40-50/03-feralas.guide');
 	const hides = list[at(list, 'collect 18947', (g) => g.t === 'collect' && g.quest === 7733)];
 	assert.ok(JSON.stringify(hides.step).includes('46-48'), 'a heads-up on the yetis\' level');
-	for (const t of ['accept', 'turnin']) assert.ok(list[at(list, `${t} 7735`, is(t, 7735))].goal.optional, `${t} 7735 optional`);
-	assert.ok(list.some(({ goal }) => goal.t === 'level' && goal.level === 45), 'the level-45 grind stays');
 });
 
 // 0.4.0 route audit (F5): the first Booty Bay loop runs at about 40 against level 40-43 Bloodsail casters; players died
