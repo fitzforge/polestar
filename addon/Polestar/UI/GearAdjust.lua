@@ -1,6 +1,6 @@
 -- The window that changes the built-in stat weights (Gear/Adjust.lua, #1529):
--- one spec of the player's class at a time, every stat it weighs, each a box
--- to change. A changed stat carries the 6px accent
+-- one spec of the player's class at a time, every stat it weighs at the
+-- player's level, each a box to change. A changed stat carries the 6px accent
 -- dot before its name (docs/DESIGN.md, the Row Rule) and a reset button that
 -- puts it back, its default in the button's tooltip; Add a stat weighs one
 -- the spec leaves out; Revert to default (click twice) clears every change of
@@ -39,6 +39,10 @@ local function gear() return ns.Gear end
 
 local function playerClass()
 	return gear().GetPlayer().class
+end
+
+local function playerLevel()
+	return gear().GetPlayer().level or 1
 end
 
 local function valueText(v)
@@ -110,7 +114,7 @@ local function newLine(parent)
 		if n == nil then
 			e:SetText(valueText(line.psValue or 0))
 		elseif f.key and n ~= f.value then
-			gear().Adjust.Set(f.class, f.spec, f.key, n)
+			gear().Adjust.Set(f.class, f.spec, f.key, n, playerLevel())
 		end
 	end
 	line.psCommit = commit
@@ -135,13 +139,13 @@ end
 local function addMenu(anchor)
 	local class = playerClass()
 	local have = {}
-	for _, row in ipairs(gear().Adjust.Rows(class, spec)) do have[row.key] = true end
+	for _, row in ipairs(gear().Adjust.Rows(class, spec, playerLevel())) do have[row.key] = true end
 	local items = {}
 	for _, key in ipairs(gear().STAT_KEYS) do
 		if not have[key] then
 			items[#items + 1] = { text = nameOf(key), onClick = function()
 				-- Weighed at 1 to start: a line at its default (0) would not stay.
-				gear().Adjust.Set(class, spec, key, 1)
+				gear().Adjust.Set(class, spec, key, 1, playerLevel())
 			end }
 		end
 	end
@@ -185,18 +189,18 @@ local listedSpec -- the spec the lines last showed: Revert stays armed while it 
 function relist()
 	if not (F and spec) then return end
 	local G = gear()
-	local class = playerClass()
-	if settle(G.Adjust.Rows(class, spec)) then return relist() end
+	local class, lv = playerClass(), playerLevel()
+	if settle(G.Adjust.Rows(class, spec, lv)) then return relist() end
 	local n = G.Adjust.Count(class, spec)
 	local label = specLabel(class, spec)
 	W.SetButtonText(F.Spec, n > 0 and (L["%s (adjusted)"]):format(label) or label)
 	local _, _, source = G.GetSpec()
-	local hint = L["A change is kept as the number you type; every other stat follows Polestar's defaults."]
+	local hint = L["A change is kept as a share of the default, so it carries over when Polestar's defaults change."]
 	if source == "custom" then
 		hint = hint .. " " .. L["A custom scale is in use: these apply once you choose a built-in spec again."]
 	end
 	F.Hint:SetText(hint)
-	local rows = G.Adjust.Rows(class, spec)
+	local rows = G.Adjust.Rows(class, spec, lv)
 	W.SetSection(F.ListH, L["Weights"], #rows)
 	local width = F:GetWidth() - PAD * 2 - SCROLL_W
 	local child = F.Scroll.Child
@@ -307,7 +311,7 @@ local function build()
 	ns.CloseOnEscape("PolestarAdjust")
 	if ns.Gamepad and ns.Gamepad.Register then ns.Gamepad.Register(F, {}) end
 
-	-- The lines follow the weights wherever they change (an edit, an update).
+	-- The lines follow the weights wherever they change (a level band, an edit).
 	ns.On("GEAR_UPDATED", function() if F:IsShown() then relist() end end)
 end
 

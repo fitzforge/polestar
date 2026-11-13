@@ -1,7 +1,8 @@
 -- Leveling stat weights per class and talent spec, and what each class can
--- wear: Polestar's own, the same at every level, and the only weights gear
--- advice uses (#1529: no simulation's numbers; a player changes them for
--- themselves with Adjust weights, Adjust.lua).
+-- wear: Polestar's own. Gear advice uses them where a spec has no level band
+-- (Gear.WEIGHT_BANDS, SpecData.lua), and in every band for Forever's own
+-- ratings, which no simulation has (haste, expertise, armorPen; #1529). A
+-- player changes them for themselves with Adjust weights (Adjust.lua).
 --
 -- Checked against Forever's own client tables (build 1.60.1.70862, read with
 -- `forge gamedata`), which agree with the Classic formulas below:

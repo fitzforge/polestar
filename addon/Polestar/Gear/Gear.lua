@@ -26,7 +26,10 @@
 --       (Adjust.lua; GetWeightsInfo().adjusted is how many)
 --       "custom": an imported Pawn scale (Pawn.lua); key is "custom:<id>", label
 --       "Custom: <name>", and its weights are used as they are, at every level
---   Gear.GetWeights() -> weights (read-only): the spec's table (Weights.lua);
+--   Gear.GetWeights() -> weights (read-only): the spec's band for this level
+--       (Gear.WEIGHT_BANDS, generated SpecData.lua), else the authored table
+--       (Weights.lua); Forever's own ratings, which no band weighs (haste,
+--       expertise, armorPen), come from the authored table;
 --       a small melee weapon DPS weight is added where the spec has none
 --       (Feral's is 14x its attack power weight), and the player's own
 --       changes on top (Gear.Adjust, Adjust.lua)
@@ -58,6 +61,7 @@ local type, tonumber, tostring, pairs, ipairs, pcall, next = type, tonumber, tos
 local floor = math.floor
 
 local CLASSES, WEIGHTS, PROFICIENCY = Gear.CLASSES, Gear.WEIGHTS, Gear.PROFICIENCY
+local BANDS = Gear.WEIGHT_BANDS or {}
 local RACIALS = Gear.RACIALS or {}
 
 ---------------------------------------------------------------------------
@@ -523,15 +527,48 @@ local function withMeleeDps(w, class, key)
 	return c
 end
 
--- The spec's weights: Polestar's own (Weights.lua), checked against
--- Forever's client tables, the same at every level (#1529: the Classic and
--- Season of Discovery sim bands SpecData.lua still carries are no longer
--- used; Forever differs too much from them). `level` is kept for callers
--- and for weights that may vary by level again. With a melee DPS weight
--- where the spec has none (above).
+-- Forever's own ratings (#1529): the Classic and Season of Discovery sims the
+-- bands come from have none, so a band takes the authored table's weight.
+local FOREVER_ONLY = { "haste", "expertise", "armorPen" }
+local withForever = setmetatable({}, { __mode = "k" }) -- band weights -> with Forever's ratings
+
+local function withForeverRatings(w, authored)
+	if not (w and authored) then return w end
+	local c = withForever[w]
+	if c then return c end
+	c = w
+	for _, k in ipairs(FOREVER_ONLY) do
+		if w[k] == nil and authored[k] then
+			if c == w then
+				c = {}
+				for kk, v in pairs(w) do c[kk] = v end
+			end
+			c[k] = authored[k]
+		end
+	end
+	withForever[w] = c
+	return c
+end
+
+-- The spec's weights at a level: the first band whose upTo covers it (the
+-- last band past the end), with Forever's own ratings from the authored
+-- table, else the authored table; with a melee DPS weight where the spec has
+-- none (above).
 -- -> weights, info { source, note, upTo }
 function Gear.WeightsFor(class, key, level)
-	local w = WEIGHTS[class] and WEIGHTS[class][key]
+	local authored = WEIGHTS[class] and WEIGHTS[class][key]
+	local bands = BANDS[class] and BANDS[class][key]
+	if bands and #bands > 0 then
+		local pick = bands[#bands]
+		for i = 1, #bands do
+			if level <= bands[i].upTo then
+				pick = bands[i]
+				break
+			end
+		end
+		return withMeleeDps(withForeverRatings(pick.weights, authored), class, key), pick
+	end
+	local w = authored
 	return withMeleeDps(w, class, key), w and { source = "polestar", upTo = 60 } or nil
 end
 
@@ -557,7 +594,7 @@ local function resolveSpec()
 		specKey, specSource = Gear.DetectSpec(class, player.classID)
 	end
 	weights, weightsInfo = Gear.WeightsFor(class, specKey, player.level)
-	-- The player's own changes on top (Adjust.lua).
+	-- The player's own changes on top (Adjust.lua), whichever band is in use.
 	adjusted = Gear.Adjust and Gear.Adjust.Count(class, specKey) or 0
 	if adjusted > 0 and weights then
 		weights = Gear.Adjust.Apply(weights, class, specKey)

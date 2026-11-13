@@ -781,8 +781,9 @@ runs solo or in a raid.
 
 
 - **Upgrade indicator** on item tooltips: by how much an item is an upgrade
-  for your spec, from Polestar's stat weights per spec (detected from your
-  talent points), checked against Forever's own stat conversions. Forever's
+  for your spec at your level, from stat weights per spec (detected from your
+  talent points) and level band, checked against Forever's own stat
+  conversions. Forever's
   ratings (crit, hit, haste, expertise, armor penetration, dodge, parry,
   block) count at the game's rating per 1%.
 - **On the game's reward panel** every choice that is an upgrade gets a green
@@ -802,8 +803,9 @@ runs solo or in a raid.
   stat, or add one; a changed stat is marked with a dot and can go back on its
   own (its reset button names the default), and **Revert to default** puts
   every weight of the spec back. A change
-  is kept as the number you type, while every other stat follows Polestar's
-  defaults, and the spec reads "(adjusted)" in the menu and on tooltips.
+  is kept as a share of the default, so it carries over when Polestar's
+  defaults change, and the spec reads "(adjusted)" in the menu and on
+  tooltips.
 
 </details>
 

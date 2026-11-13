@@ -1,5 +1,6 @@
 //! The player's own changes to the built-in stat weights (addon/Polestar/Gear/Adjust.lua, UI/GearAdjust.lua, #1529):
-//! a change kept as the number typed, the spec marked "(adjusted)", one stat or every stat back to its default.
+//! a change kept as a share of the default so it follows the level bands, the spec marked "(adjusted)", one stat or
+//! every stat back to its default.
 
 use forge_addontest::{emitted, Addon, RunAddon};
 use serde_json::{json, Value};
@@ -22,7 +23,7 @@ w.race, w.raceName, w.raceID, w.faction = "Troll", "Troll", 8, "Horde""#
 }
 
 #[test]
-fn a_change_applies_at_once_marks_the_spec_adjusted_and_stays_as_typed_when_the_default_changes() {
+fn a_change_applies_at_once_marks_the_spec_adjusted_and_follows_a_new_default() {
 	let out = run(r#"
 		local base = G.WeightsFor("WARRIOR", "arms", 30)
 		local before = G.ScoreItem("item:9001")
@@ -30,13 +31,19 @@ fn a_change_applies_at_once_marks_the_spec_adjusted_and_stays_as_typed_when_the_
 		local key, label, source = G.GetSpec()
 		emit({ label = label, source = source, adjusted = G.GetWeightsInfo().adjusted, sta = G.GetWeights().sta, want = base.sta * 1.5,
 			str = G.GetWeights().str == base.str, scored = G.ScoreItem("item:9001") > before, stored = Polestar.DB().gearAdjust.WARRIOR.arms.sta })
-		-- An update changes the defaults: the typed Stamina stays, Strength follows the new default.
-		local arms = {}
-		for k, v in pairs(G.WEIGHTS.WARRIOR.arms) do arms[k] = v end
-		arms.sta, arms.str = 0.8, 1.2
-		G.WEIGHTS.WARRIOR.arms = arms
+		-- The band in use changes the default (an update, or the next band at a level up): the change is half
+		-- again of the new one.
+		for _, b in ipairs(G.WEIGHT_BANDS.WARRIOR.arms) do
+			if 30 <= b.upTo then
+				local t = {}
+				for k, v in pairs(b.weights) do t[k] = v end
+				t.sta = 0.8
+				b.weights = t
+				break
+			end
+		end
 		G.Invalidate("spec")
-		emit({ sta = G.GetWeights().sta, str = G.GetWeights().str, rows = A.Rows("WARRIOR", "arms")[3] })
+		emit({ sta = G.GetWeights().sta, rows = A.Rows("WARRIOR", "arms")[3] })
 	"#);
 	assert_eq!(out[0], json!([true]));
 	assert_eq!(out[1]["label"], "Arms (adjusted)");
@@ -45,10 +52,9 @@ fn a_change_applies_at_once_marks_the_spec_adjusted_and_stays_as_typed_when_the_
 	assert_eq!(out[1]["sta"], out[1]["want"]);
 	assert_eq!(out[1]["str"], true, "the other stats keep their defaults");
 	assert_eq!(out[1]["scored"], true, "Stamina counts for more at once");
-	assert_eq!(out[1]["stored"], out[1]["want"], "kept as the number typed");
-	assert_eq!(out[2]["sta"], out[1]["want"], "the typed Stamina, not the new default of 0.8");
-	assert_eq!(out[2]["str"], 1.2, "a stat not changed follows the new default");
-	assert_eq!(out[2]["rows"]["default"], 0.8);
+	assert_eq!(out[1]["stored"], json!({ "x": 1.5 }), "kept as a share of the default");
+	let sta = out[2]["sta"].as_f64().unwrap();
+	assert!((sta - 1.2).abs() < 1e-9, "1.5 x the new default of 0.8, got {sta}");
 	assert_eq!(out[2]["rows"]["key"], "sta");
 	assert_eq!(out[2]["rows"]["edited"], true);
 }
@@ -90,7 +96,7 @@ fn a_stat_the_spec_does_not_weigh_is_kept_as_the_value_typed_and_bad_input_is_re
 		emit({ str = G.GetWeights().str, fury = A.Count("WARRIOR", "fury"), protection = G.WeightsFor("WARRIOR", "protection", 30).str ~= 2.5 })
 	"#);
 	assert_eq!(out[0], json!([true]));
-	assert_eq!(out[1], json!({ "stored": 0.4, "w": 0.4 }));
+	assert_eq!(out[1], json!({ "stored": { "v": 0.4 }, "w": 0.4 }));
 	assert_eq!(out[2], json!([false, "stat"]));
 	assert_eq!(out[3], json!([false, "number"]));
 	assert_eq!(out[4], json!([false, "number"]));
@@ -253,7 +259,7 @@ fn a_number_being_typed_goes_to_its_own_stat_when_the_spec_menu_or_add_a_stat_ch
 		V.frame.Spec:Click()
 		items[2].onClick()
 		local spec = { spec = V.spec, arms = (A.Edits("WARRIOR", "arms") or {}).sta ~= nil, fury = A.Count("WARRIOR", "fury"),
-			armsSta = (A.Edits("WARRIOR", "arms") or {}).sta }
+			armsSta = G.WeightsFor("WARRIOR", "arms", 30).sta * ((A.Edits("WARRIOR", "arms") or {}).sta or { x = 0 }).x }
 		-- Fury's last line, being typed in, when Add a stat puts Intellect above it.
 		local visible = {}
 		for _, l in ipairs(V.lines) do if l:IsShown() then visible[#visible + 1] = l end end
