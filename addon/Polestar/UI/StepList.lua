@@ -19,8 +19,8 @@
 -- the step card words them (UI.GoalLine, names in their kind's colour); done
 -- goals are ticked and muted, done and skipped steps muted whole, the step on
 -- screen on a lifted ground. A click looks at that step (GuideFrame.LookAt)
--- and returns to the card. It opens at the step on screen and is as tall as
--- its cards, up to the window's height cap. Steps that keep their number but
+-- and returns to the card. It opens at the step on screen and keeps the
+-- window's current height, scrolling inside it. Steps that keep their number but
 -- do not apply to the character now (a `when` that does not hold, such as a
 -- catch-up for quests already handed in) share one muted card per run that
 -- says which numbers they are and why (Engine.GetStepView `why`), so the
@@ -46,7 +46,6 @@ local GAP = 4 -- between cards
 local PX, PT, PB = 8, 6, 7 -- a card's padding: sides, top, bottom
 local TAB_H = 14 -- the "N · title" line
 local ONE_H = 20 -- a finished step's one line
-local MIN_H = 120 -- the list's least height
 local GLYPH = 13
 local MAX_LINES = 6 -- goal lines a card shows; the rest is one "+N more" line
 local LINE_GAP = 2
@@ -63,15 +62,17 @@ function SL.On() return SL.open end
 -- Open or close the list; the window draws again either way.
 function SL.Toggle(on)
 	if on == nil then on = not SL.open end
+	local G = GF()
+	if on and not SL.open then SL.height = G and G.frame and G.frame:GetHeight() end
+	if not on then SL.height = nil end
 	SL.open = on and true or false
 	SL.sig, SL.opened = nil, SL.open
-	local G = GF()
 	if G and G.Render then G.Render() end
 end
 
 local function build(parent)
 	local f = CreateFrame("Frame", nil, parent)
-	f:SetHeight(MIN_H)
+	f:SetHeight(1)
 	f:Hide()
 	SL.frame = f
 	-- Escape closes it: the game hides the frame, and a hide the layout did
@@ -105,7 +106,7 @@ function SL.Place(parent, steps)
 	local E = ns.Engine
 	local guide = E and E.GetGuide and E.GetGuide()
 	local id = guide and guide.id or false
-	if SL.open and (not steps or id ~= SL.guide) then SL.open, SL.sig = false, nil end
+	if SL.open and (not steps or id ~= SL.guide) then SL.open, SL.sig, SL.height = false, nil, nil end
 	SL.guide = id
 	local on = SL.open and steps and true or false
 	if not SL.frame then
@@ -421,7 +422,7 @@ function SL.Fill()
 end
 
 -- Fill the cards and lay them out `width` wide, each as tall as its wrapped
--- lines; the list is as tall as its cards up to `room`. -> height
+-- lines; the list fills `room`, scrolling any overflow. -> height
 function SL.Layout(width, room)
 	SL.Fill()
 	local sc = SL.scroll
@@ -476,7 +477,7 @@ function SL.Layout(width, room)
 		SL.top, SL.H = top, y
 	end
 	local y = SL.H or GAP
-	local view = min(y, max(MIN_H, room or y))
+	local view = max(1, room or y)
 	SL.frame:SetHeight(view)
 	W.SetScrollContent(sc, y, view)
 	-- Opened: the step on screen (else the live one) at the top, the steps

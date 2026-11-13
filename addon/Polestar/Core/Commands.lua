@@ -26,6 +26,9 @@ BINDING_NAME_POLESTAR_NEXT_WAYPOINT = L["Next waypoint"]
 BINDING_NAME_POLESTAR_PREV_WAYPOINT = L["Previous waypoint"]
 BINDING_NAME_POLESTAR_REOPEN_TAB = L["Reopen closed tab"]
 BINDING_NAME_POLESTAR_PAUSE = L["Pause the guide"]
+-- The item under the cursor (QoL/Marks.lua, Marks.Press).
+BINDING_NAME_POLESTAR_MARK_JUNK = L["Mark as junk"]
+BINDING_NAME_POLESTAR_MARK_KEEP = L["Mark to keep"]
 -- Labels for the QoL secure buttons' CLICK bindings (QoL/Buttons.lua). The
 -- client looks these names up as globals; they contain spaces and a colon,
 -- so they can only be set through _G.
@@ -61,6 +64,9 @@ ns.Bindings = {
 	ReopenTab = function() ns.RunCommand("reopen") end,
 	-- Pause or resume (Core/Pause.lua); it leaves hiding as it is.
 	Pause = function() ns.TogglePaused() end,
+	-- Junk or keep mark on the item under the cursor, or off again.
+	MarkJunk = function() local M = ns.QoL and ns.QoL.Marks; if M then M.Press("junk") end end,
+	MarkKeep = function() local M = ns.QoL and ns.QoL.Marks; if M then M.Press("keep") end end,
 }
 
 local function needGuide()

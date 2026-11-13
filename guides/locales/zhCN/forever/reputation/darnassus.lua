@@ -15,7 +15,7 @@ return {
 	-- {quest:3803} Morrowgrain to Darnassus · {item:11040} Morrowgrain
 	["{quest:3803}: 50 reputation for every 10 {item:11040}, as often as you like"] = "{quest:3803}：每10个{item:11040}给50点声望，可无限重复",
 	-- {faction:69} Darnassus · {zone:1438} Teldrassil · {zone:1439} Darkshore
-	["About 3,700 {faction:69} reputation from low-level quests in {zone:1438} and {zone:1439}"] = "",
+	["About 3,700 {faction:69} reputation from low-level quests in {zone:1438} and {zone:1439}"] = "{zone:1438}和{zone:1439}的低等级任务约提供3,700点{faction:69}声望",
 
 	-- Step 1: Raedon Duskstriker, the cloth quartermaster
 	-- {npc:14725} Raedon Duskstriker
@@ -27,7 +27,7 @@ return {
 
 	-- Step 2: Shadowglen
 	-- {zone:1438} Teldrassil · {area:256} Aldrassil
-	["Optional: the Night Elf start glade in north-east {zone:1438}, about 1,050 reputation in 30 minutes at 60. The givers stand around {area:256}, the great tree. Forever pays these old quests in full at any level. Skip this step to skip the hub."] = "",
+	["Optional: the Night Elf start glade in north-east {zone:1438}, about 1,050 reputation in 30 minutes at 60. The givers stand around {area:256}, the great tree. Forever pays these old quests in full at any level. Skip this step to skip the hub."] = "可选：{zone:1438}东北面的暗夜精灵起始林地，60级时用30分钟可获得约1,050点声望。任务给予者都在大树{area:256}周围。无限版本中，无论角色等级多少，这些旧任务都提供全额声望。跳过本步骤即可跳过整个任务区。",
 
 	-- Step 3: Shadowglen: the glade and the spider den
 	-- {area:188} Shadowglen
@@ -54,7 +54,7 @@ return {
 
 	-- Step 7: Dolanaar
 	-- {faction:69} Darnassus
-	["Optional: the village on the road to {faction:69}, about 1,250 reputation in 45 minutes at 60. Forever pays these old quests in full at any level. Skip this step to skip the hub."] = "",
+	["Optional: the village on the road to {faction:69}, about 1,250 reputation in 45 minutes at 60. Forever pays these old quests in full at any level. Skip this step to skip the hub."] = "可选：通往{faction:69}道路上的村庄，60级时用45分钟可获得约1,250点声望。无限版本中，无论角色等级多少，这些旧任务都提供全额声望。跳过本步骤即可跳过整个任务区。",
 
 	-- Step 8: Dolanaar: Denalan and the lake
 	-- {area:186} Dolanaar · {npc:2080} Denalan
@@ -75,7 +75,7 @@ return {
 
 	-- Step 11: Dolanaar: the Ban'ethil Barrow Den's entrance
 	-- {area:186} Dolanaar · {area:262} Ban'ethil Barrow Den
-	["{area:186}: the {area:262}'s entrance"] = "",
+	["{area:186}: the {area:262}'s entrance"] = "{area:186}：{area:262}入口",
 
 	-- Step 12: Dolanaar: the relics and Ferocitas
 	-- {area:186} Dolanaar
@@ -92,7 +92,7 @@ return {
 
 	-- Step 14: Auberdine
 	-- {area:442} Auberdine · {zone:1439} Darkshore · {area:702} Rut'theran Village
-	["Optional: {area:442} in {zone:1439}, a boat trip from {area:702}, about 1,400 reputation in an hour at 60. The givers stand along the town's street and pier. Forever pays these old quests in full at any level. Skip this step to skip the hub."] = "",
+	["Optional: {area:442} in {zone:1439}, a boat trip from {area:702}, about 1,400 reputation in an hour at 60. The givers stand along the town's street and pier. Forever pays these old quests in full at any level. Skip this step to skip the hub."] = "可选：从{area:702}乘船前往{zone:1439}的{area:442}，60级时约一小时可获得1,400点声望。任务给予者沿镇上的街道和码头分布。在无限版本中，这些旧任务在任何等级都提供全额声望。跳过此步骤即可跳过这个任务点。",
 
 	-- Step 15: Auberdine: the coast and the woods
 	-- {area:442} Auberdine
@@ -101,9 +101,9 @@ return {
 	-- plural, as words: Rabid Thistle Bears = {npc:2164} Rabid Thistle Bear
 	["The furbolg camp south of town counts for How Big a Threat; the Rabid Thistle Bears roam the woods south of town; the Highborne ghosts of the Ruins of Ameth'Aran, south-east of town, carry the relics, and Anaya's ghost walks there too; the bones lie on the beach south of town; the mushrooms grow in the {area:445} cave to the north-east."] = "镇子南边的熊怪营地可完成 熊怪的威胁；狂暴蓟熊在镇子南边的森林中游荡；镇子东南方亚米萨兰废墟中的上层精灵幽灵带着遗物，安娜雅的幽灵也在那里走动；骸骨在镇子南边的海滩上；蘑菇长在东北方 {area:445} 的洞穴里。",
 	-- {npc:2164} Rabid Thistle Bear · {quest:2139} Tharnariun's Hope · {npc:3701} Tharnariun Treetender
-	["{npc:2164}: use {quest:2139} on it and lead it back to {npc:3701}"] = "",
+	["{npc:2164}: use {quest:2139} on it and lead it back to {npc:3701}"] = "{npc:2164}：对它使用{quest:2139}，再将它带回{npc:3701}处",
 	-- {npc:2164} Rabid Thistle Bear
-	["Capture a {npc:2164}"] = "",
+	["Capture a {npc:2164}"] = "捕捉一只{npc:2164}",
 	-- {quest:954} Bashal'Aran
 	["the blue aura in the ruins of {quest:954}"] = "{quest:954} 废墟中的蓝色光环",
 
@@ -154,7 +154,7 @@ return {
 	-- {item:11040} Morrowgrain
 	["{item:11040} (optional)"] = "{item:11040}（可选）",
 	-- {quest:3803} Morrowgrain to Darnassus · {item:11040} Morrowgrain · {npc:6735} Innkeeper Saelienne · {npc:3516} Arch Druid Fandral Staghelm · {area:1658} Cenarion Enclave · {quest:3764} Un'Goro Soil · {zone:1453} Stormwind · {zone:1455} Ironforge
-	["{quest:3803} takes 10 {item:11040} for 50, as often as you like, and pays in full at 60. The chain before it is level 50: 220. {npc:6735} sends you to {npc:3516} in the {area:1658}; he wants 20 {quest:3764}. (The innkeepers of {zone:1453} and {zone:1455} give the same start.)"] = "",
+	["{quest:3803} takes 10 {item:11040} for 50, as often as you like, and pays in full at 60. The chain before it is level 50: 220. {npc:6735} sends you to {npc:3516} in the {area:1658}; he wants 20 {quest:3764}. (The innkeepers of {zone:1453} and {zone:1455} give the same start.)"] = "{quest:3803}可无限重复，每次收取10个{item:11040}，奖励50点声望，60级仍给全额。前置任务链为50级，合计220点。{npc:6735}让你去{area:1658}找{npc:3516}，他需要20个{quest:3764}。（{zone:1453}和{zone:1455}的旅店老板也提供相同的起始任务。）",
 
 	-- Step 28: Un'Goro Crater: Un'Goro Soil
 	-- {quest:3764} Un'Goro Soil · {item:11040} Morrowgrain
@@ -176,7 +176,7 @@ return {
 	-- {quest:7801} Additional Runecloth
 	["{quest:7801} to Honored"] = "{quest:7801}刷到尊敬",
 	-- {quest:7801} Additional Runecloth · {item:14047} Runecloth · {quest:4183} The True Masters · {item:11040} Morrowgrain · {faction:69} Darnassus · {zone:1439} Darkshore · {area:415} Astranaar · {zone:1440} Ashenvale · {zone:1444} Feralas
-	["{quest:7801}: 50 reputation for 20 {item:14047}, as often as you like. After the four first donations a Human, Dwarf or Gnome stands at Friendly 700 of 6,000, so Honored is 5,300 away: 106 turn-ins, 2,120 {item:14047} (Night Elves start 900 higher: 88 turn-ins; Skyborne start at Neutral 500, so 7,900 away: 158, two fewer after Exploring the Alliance). {quest:4183} and the {item:11040} chain above take 8 turn-ins off, and every 10 {item:11040} you hand in counts as one more; each hub you did takes 20 to 28 more off. More quests pay {faction:69}, in full while they are no more than 5 levels below you: the rest of {zone:1439} (about 3,400 more), {area:415} in {zone:1440} (about 3,900) and Feathermoon in {zone:1444} (about 1,700). Every city gain also gives a quarter as much to the other three Alliance cities (not counted here). Hand in all your {item:14047} at once."] = "",
+	["{quest:7801}: 50 reputation for 20 {item:14047}, as often as you like. After the four first donations a Human, Dwarf or Gnome stands at Friendly 700 of 6,000, so Honored is 5,300 away: 106 turn-ins, 2,120 {item:14047} (Night Elves start 900 higher: 88 turn-ins; Skyborne start at Neutral 500, so 7,900 away: 158, two fewer after Exploring the Alliance). {quest:4183} and the {item:11040} chain above take 8 turn-ins off, and every 10 {item:11040} you hand in counts as one more; each hub you did takes 20 to 28 more off. More quests pay {faction:69}, in full while they are no more than 5 levels below you: the rest of {zone:1439} (about 3,400 more), {area:415} in {zone:1440} (about 3,900) and Feathermoon in {zone:1444} (about 1,700). Every city gain also gives a quarter as much to the other three Alliance cities (not counted here). Hand in all your {item:14047} at once."] = "{quest:7801}：每20块{item:14047}换50点声望，可无限重复。完成最初四次捐献后，人类、矮人或侏儒的进度为友善700/6,000，距尊敬还差5,300：需交付106次，共2,120块{item:14047}（暗夜精灵起点高900，需88次；天裔从中立500开始，还差7,900，需158次，完成“联盟之旅”后可少两次）。{quest:4183}和上面的{item:11040}任务线可减少8次交布，之后每交10个{item:11040}还可再少一次；每完成一处任务点，还可少20至28次。更多任务会奖励{faction:69}声望，任务等级低于自身不超过5级时可获得全额：{zone:1439}余下的任务（另约3,400）、{zone:1440}的{area:415}（约3,900），以及{zone:1444}的羽月要塞（约1,700）。每次获得主城声望，其余三座联盟主城还会各获得四分之一（此处未计入）。一次性交付所有{item:14047}。",
 
 	-- Step 36: Additional Runecloth to Revered
 	-- {quest:7801} Additional Runecloth

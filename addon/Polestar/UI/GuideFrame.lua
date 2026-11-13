@@ -971,6 +971,7 @@ GF.Part(function(GF)
 	-- the window never passes `fit.limit`: past it, the body clips its lower
 	-- lines at the bars; at least MIN_BODY_H of it stays.
 	local MIN_BODY_H = 40
+	GF.MIN_BODY_H = MIN_BODY_H -- the step browser keeps it too (GuideFrameLayout.lua)
 	local function sizeWindow(y)
 		local natural = floor(fit.outer + y + 0.5)
 		local height, limit = natural, fit.limit
@@ -1276,7 +1277,8 @@ GF.Part(function(GF)
 					gl.Text:SetTextColor(ar + (dr - ar) * e, ag + (dg - ag) * e, ab + (db - ab) * e)
 				end
 			end
-			if moved then fitGoals() end
+			-- A fold on the hidden card must not resize the step browser.
+			if moved and card:IsShown() then fitGoals() end
 			if landed then GF.Refill() end
 			if fold.n == 0 and not fold.glow then fold.driver:SetScript("OnUpdate", nil) end
 		end

@@ -21,13 +21,13 @@ return {
 	["{npc:3354}, {object:172958}: for {area:720}, later in this guide (offered from level 30)"] = "",
 
 	-- Step 4: Fly to the Crossroads
-	["Fly to the Crossroads"] = "",
+	["Fly to the Crossroads"] = "Vuela al Cruce",
 	-- {zone:1454} Orgrimmar
 	["{zone:1454} flight master"] = "Maestro de vuelo de {zone:1454}",
 
 	-- Step 5: Korran
 	-- {npc:3428} Korran
-	["{npc:3428} stands beside the Crossroads flight master."] = "",
+	["{npc:3428} stands beside the Crossroads flight master."] = "{npc:3428} está junto al maestro de vuelo del Cruce.",
 	-- {npc:4485} Belgrom Rockmaul · {zone:1454} Orgrimmar
 	["for {npc:4485} in {zone:1454}, at the end of this guide"] = "",
 
@@ -105,7 +105,7 @@ return {
 	-- {area:392} Ratchet
 	["Fly to {area:392}"] = "Vuela a {area:392}",
 	-- {area:496} Brackenwall Village
-	["{area:496} flight master"] = "",
+	["{area:496} flight master"] = "Maestro de vuelo de {area:496}",
 
 	-- Step 22: Ratchet
 	-- {npc:3446} Mebok Mizzyrix

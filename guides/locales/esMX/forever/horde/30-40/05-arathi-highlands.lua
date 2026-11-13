@@ -20,7 +20,7 @@ return {
 	-- {area:272} Tarren Mill
 	["Fly to {area:272}"] = "Vuela a {area:272}",
 	-- {zone:1458} Undercity
-	["{zone:1458} flight master"] = "",
+	["{zone:1458} flight master"] = "Maestro de vuelo de {zone:1458}",
 
 	-- Step 4: Tarren Mill
 	-- {npc:2229} Krusk
@@ -65,9 +65,9 @@ return {
 	-- {area:272} Tarren Mill
 	["Head back east to {area:272}."] = "",
 	-- {npc:2437} Keeper Bel'varil
-	["{npc:2437}, inside"] = "",
+	["{npc:2437}, inside"] = "{npc:2437}, adentro",
 	-- {npc:2410} Magus Wordeen Voidglare
-	["{npc:2410}, inside"] = "",
+	["{npc:2410}, inside"] = "{npc:2410}, adentro",
 	["The magus offers a dungeon errand next: leave it."] = "",
 
 	-- Step 15: Thoradin's Wall
@@ -87,7 +87,7 @@ return {
 
 	-- Step 18: Hammerfall
 	-- {npc:12920} Doctor Gregory Victor
-	["{npc:12920}, at the south gate"] = "",
+	["{npc:12920}, at the south gate"] = "{npc:12920}, en la puerta sur",
 
 	-- Step 19: Stromgarde quests for a group
 	["Stromgarde quests for a group"] = "",

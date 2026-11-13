@@ -79,7 +79,7 @@ fn options_every_qol_setting_is_registered_on_questing_or_quality_of_life_with_l
 			"rewardHighlight", "rewardAutoPick", "flightAutoOpen", "flightHighlight", "flightAutoTake", "deathHelper", "instantQuestText",
 			"skipGossip", "fastLoot", "declineDuels", "repairGuild", "hideErrors", "autoReleasePvP", "declineGuildInvites",
 			"declinePartyStrangers", "acceptPartyFriends", "acceptSummon", "acceptResurrect", "buyGoals",
-			"rewardEquip", "autoBind", "hideQuestTracker", "restock", "itemMarks", "bagSpace", "bagsLow", "wearOffer",
+			"rewardEquip", "autoBind", "hideQuestTracker", "restock", "itemMarks", "itemMarksClick", "bagSpace", "bagsLow", "wearOffer",
 			"questLoot", "instanceTrack" }) do keys[k] = Polestar.GetDefault("qol." .. k) end
 		emit(keys)
 	"#);
@@ -1238,6 +1238,37 @@ fn key_bindings_each_click_binding_has_its_label_and_the_step_key_its_button_fro
 		assert_eq!(r["labels"][n.as_str()], true, "{n} has a label");
 	}
 	assert_eq!(r["step"], true, "the step key's button exists from login");
+}
+
+// Every Lua key binding in Bindings.xml (not the CLICK ones above) has its label in the key bindings window and the
+// Polestar.Bindings function it calls (the two mark keys among them).
+#[test]
+fn key_bindings_each_lua_binding_has_its_label_and_its_function() {
+	let xml = std::fs::read_to_string(addons_dir().join("Polestar").join("Bindings.xml")).unwrap();
+	let re = regex::Regex::new(r#"name="(POLESTAR_\w+)"[^>]*>\s*Polestar\.Bindings\.(\w+)\(\)"#).unwrap();
+	let pairs: Vec<(String, String)> = re.captures_iter(&xml).map(|m| (m[1].to_string(), m[2].to_string())).collect();
+	for want in ["POLESTAR_MARK_JUNK", "POLESTAR_MARK_KEEP"] {
+		assert!(pairs.iter().any(|(n, _)| n == want), "{want} is in Bindings.xml");
+	}
+	let list = pairs.iter().map(|(n, f)| format!("{{ '{n}', '{f}' }}")).collect::<Vec<_>>().join(", ");
+	let out = emitted(&RunAddon {
+		stubs: vec!["stub_world.lua"],
+		addons: vec![Addon::name("Polestar")],
+		login: true,
+		script: r#"
+			local ok = {}
+			for _, p in ipairs({ __PAIRS__ }) do
+				local l = _G["BINDING_NAME_" .. p[1]]
+				ok[p[1]] = type(l) == "string" and l ~= "" and l ~= p[1] and type(Polestar.Bindings[p[2]]) == "function"
+			end
+			emit(ok)
+		"#
+		.replace("__PAIRS__", &list),
+		..Default::default()
+	});
+	for (n, _) in &pairs {
+		assert_eq!(out[0][n.as_str()], true, "{n} has a label and its function");
+	}
 }
 
 #[test]
@@ -5285,4 +5316,81 @@ fn rest_a_real_change_fires_changed_and_the_minute_redraw_does_not() {
 	"#);
 	assert_eq!(out[0], 1, "the same aura twice: one change");
 	assert_eq!(out[1], json!([2, true, false, "Boosted Rest: 2m"]), "the redraw at the minute is no change");
+}
+
+#[test]
+fn the_empty_cleansing_bowl_stays_on_the_button_until_filled_2101() {
+	let out = emitted(&RunAddon {
+		stubs: vec!["stub_world.lua"],
+		addons: vec![Addon::files("Polestar", &["Core/Core.xml", "Theme/Theme.xml", "Quests/QuestDB.lua", "QoL/QoL.xml"]), Addon::name("Polestar_Guides"), Addon::name("Polestar_Guides_Alliance")],
+		before: r#"
+local w = stub.world
+w.level = 18
+w.moveTo(1439, 37.8, 44.0)
+w.complete({ 985, 4762 })
+w.onQuest(4763, { 1 })
+w.onQuest(4727, { 1 })
+w.onQuest(4725, { 1 })
+w.addItem(12346, 1)
+C_Item.GetItemInfoInstant = function() return nil, nil, nil, nil, nil, 12 end
+C_Item.GetItemSpell = function(id) if id == 12347 then return "Use bowl" end end
+C_Container = {
+	GetContainerNumSlots = function(bag) return bag == 0 and 1 or 0 end,
+	GetContainerItemInfo = function() if w.items[12347] then return { itemID = 12347 } end end,
+}
+C_QuestLog.GetLogIndexForQuestID = function(q) return q end
+GetQuestLogSpecialItemInfo = function(q) if q == 4763 and w.items[12347] then return "item:12347" end end
+"#
+		.into(),
+		login: true,
+		script: [
+			forge_addontest::TEST_PACK,
+			r#"
+local E, Q = Polestar.Engine, Polestar.QuestDB
+local frame = Polestar.MapFrames.era[1439]
+w.addMap(1439, { name = "Darkshore", c = frame.c, left = frame.left, right = frame.right, top = frame.top, bottom = frame.bottom })
+Q.SetMeta({})
+Q.AddChunk("quests", 4763, 4763, "4763\t'The Blackwood Corrupted;18;15;77;;1;3649;3649;;4762;;{2,12355,1;1439;;;;;1;{12341,12342,12343,12346,12347")
+local guide = assert(Polestar.Guides.Get("forever/alliance/03-darkshore"))
+local well, camp, bowlIndex
+for _, step in ipairs(guide.steps) do
+	for i, goal in ipairs(step.goals) do
+		if goal.t == "use" and goal.item == 12346 then well, bowlIndex = step, i end
+		if goal.t == "use" and goal.item == 12347 then camp = step end
+	end
+end
+Polestar.RegisterGuide({ id = "test/bowl", pack = "test", title = "Auberdine", zone = 1439, steps = { assert(well), assert(camp) } })
+E.SetGuide("test/bowl")
+local function sample()
+	stub.advance(1.1)
+	local button = PolestarQuestItemButton
+	emit({ step = E.GetStepIndex(), use = E.GetStepView(1).goals[bowlIndex].status,
+		shown = button:IsShown(), item = button:GetAttribute("item") or false })
+end
+sample()
+w.turnIn(4727)
+sample()
+w.removeItem(12346)
+w.addItem(12347, 1)
+sample()
+w.turnIn(4725)
+sample()
+w.addItem(12341, 1)
+w.addItem(12342, 1)
+w.addItem(12343, 1)
+w.moveTo(1439, 52.5, 33.4)
+sample()
+w.moveTo(1439, 37.8, 44.0)
+sample()
+"#,
+		]
+		.join("\n"),
+		..Default::default()
+	});
+	assert_eq!(out[0], json!({ "step": 1, "use": "active", "shown": true, "item": "item:12346" }));
+	assert_eq!(out[1], out[0], "turning in the turtle quest leaves the bowl usable");
+	assert_eq!(out[2], json!({ "step": 1, "use": "done", "shown": false, "item": false }));
+	assert_eq!(out[3], json!({ "step": 2, "use": "done", "shown": true, "item": "item:12347" }));
+	assert_eq!(out[4], json!({ "step": 2, "use": "done", "shown": true, "item": "item:12347" }));
+	assert_eq!(out[5], out[4], "the filled bowl stays available while its guide step is open");
 }

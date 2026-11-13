@@ -32,7 +32,7 @@ return {
 
 	-- Step 8: Into Darnassus
 	-- {zone:1457} Darnassus
-	["Into {zone:1457}"] = "",
+	["Into {zone:1457}"] = "A {zone:1457}",
 
 	-- Step 11: Boat to Menethil Harbor
 	-- {area:150} Menethil Harbor
@@ -44,7 +44,7 @@ return {
 	-- {area:150} Menethil Harbor
 	["Fly to {area:150}"] = "",
 	-- {zone:1453} Stormwind City
-	["{zone:1453} flight master"] = "",
+	["{zone:1453} flight master"] = "Maestro de vuelo de {zone:1453}",
 
 	-- Step 13: Menethil Harbor
 	-- {npc:1239} First Mate Fitzsimmons
@@ -354,7 +354,7 @@ return {
 
 	-- Step 71: Tram to Stormwind City
 	-- {zone:1453} Stormwind City
-	["Tram to {zone:1453}"] = "",
+	["Tram to {zone:1453}"] = "Tranvía a {zone:1453}",
 
 	-- Step 72: Cathedral of Light
 	["Cathedral of Light"] = "Cathedral of Light",

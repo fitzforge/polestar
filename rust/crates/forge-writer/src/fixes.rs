@@ -13,7 +13,8 @@
 //!   compiler places a written objective from the data. `label` sets the objective line's goal text.
 //! - **guide-fixes**: step content that is neither data nor route, at a goal's step:
 //!   `{ id, at: { quest, goal: "accept" | "turnin" | "complete" | "objective", objective? }, tip }`
-//!   sets the step's `tip`; `goalNote` replaces only the goal's inline note; `optional: true` marks
+//!   A `collect` anchor names `quest` and `item` for a `goalNote` on that item's collection line.
+//!   The `tip` field sets the step's `tip`; `goalNote` replaces only the goal's inline note; `optional: true` marks
 //!   only the goal optional, including its along copies (each change uses a separate record).
 //!   `level: N` puts a `level N` gate right before the anchor goal (with `after: true`, right after
 //!   it: the hand-ins at the anchor count towards the level; with `only`, a
@@ -86,6 +87,7 @@ pub struct FixRow {
 /// What a goal anchor names.
 #[derive(Clone, Debug, PartialEq, Eq, Hash)]
 enum Anchor {
+	Collect(u32, u32),
 	Giver(u32),
 	Ender(u32),
 	/// A bare `complete Q` (or `complete Q.N`).
@@ -103,12 +105,13 @@ impl Anchor {
 	/// The anchor's quest (None: a flight step, a guide's header).
 	fn quest(&self) -> Option<u32> {
 		match *self {
-			Anchor::Giver(q) | Anchor::Ender(q) | Anchor::Complete(q) | Anchor::Objective(q, _) | Anchor::Quest(q) => Some(q),
+			Anchor::Collect(q, _) | Anchor::Giver(q) | Anchor::Ender(q) | Anchor::Complete(q) | Anchor::Objective(q, _) | Anchor::Quest(q) => Some(q),
 			Anchor::Fly(_) | Anchor::Levels => None,
 		}
 	}
 	fn describe(&self) -> String {
 		match self {
+			Anchor::Collect(q, item) => format!("collect {item} quest {q}"),
 			Anchor::Giver(q) => format!("accept {q}"),
 			Anchor::Ender(q) => format!("turnin {q}"),
 			Anchor::Complete(q) => format!("complete {q}"),
@@ -146,6 +149,7 @@ fn fix_anchor(r: &Value) -> Option<Anchor> {
 	}
 	let q = at["quest"].as_u64()? as u32;
 	match at["goal"].as_str()? {
+		"collect" => Some(Anchor::Collect(q, at["item"].as_u64()? as u32)),
 		"accept" => Some(Anchor::Giver(q)),
 		"turnin" => Some(Anchor::Ender(q)),
 		"complete" => Some(Anchor::Complete(q)),
@@ -168,6 +172,7 @@ fn anchor_lines(lines: &[String], a: &Anchor) -> Vec<usize> {
 	let code = |l: &String| split_comment(l).0.to_string();
 	let find = |f: &dyn Fn(&str) -> bool| -> Vec<usize> { lines.iter().enumerate().filter(|(_, l)| f(&code(l))).map(|(i, _)| i).collect() };
 	match a {
+		Anchor::Collect(q, item) => find(&|c| re!(r"^\s+collect\s+(\d+)\b.*?\bquest\s+(\d+)(?:\.\d+)?(?:\s|$)").captures(c).is_some_and(|m| m[1] == item.to_string() && m[2] == q.to_string())),
 		Anchor::Giver(q) => find(&|c| re!(r"^\s+accept\s+(\d+)(?:\s|$)").captures(c).is_some_and(|m| m[1] == *q.to_string())),
 		Anchor::Ender(q) => find(&|c| re!(r"^\s+turnin\s+(\d+)(?:\s|$)").captures(c).is_some_and(|m| m[1] == *q.to_string())),
 		Anchor::Complete(q) => find(&|c| re!(r"^\s+complete\s+(\d+)(?:\.\d+)?(?:\s|$)").captures(c).is_some_and(|m| m[1] == *q.to_string())),
@@ -1581,6 +1586,31 @@ mod tests {
 		let rows = apply(&mut tree, &files, &quests, Some("Alliance"), records, None);
 		assert_eq!(tree, before);
 		assert!(rows.iter().all(|r| r.state == "redundant"), "{rows:?}");
+	}
+
+	#[test]
+	fn xabraxxis_collection_note_survives_rebuilds_without_changing_the_use() {
+		let seed = "step Camp\n  use 12347 quest 4763.1 @52.5,33.4\n  collect 12355 quest 4763 -- old note\n  collect 12355 quest 999\n";
+		let records: Value = serde_json::from_str(include_str!("../../../../data/guide-fixes.json")).unwrap();
+		let record = records["fixes"].as_array().unwrap().iter().find(|r| r["id"] == "2107-xabraxxis-demon-bag").unwrap();
+		let fixes = json!({ "fixes": [record] });
+		let write = |text: &str, faction: &str| {
+			let mut tree = BTreeMap::from([("a.guide".to_string(), text.to_string())]);
+			let records = Records { guide_fixes: Some(&fixes), ..Records::default() };
+			let rows = apply(&mut tree, &["a.guide".into()], &HashSet::from([4763]), Some(faction), records, None);
+			(tree["a.guide"].clone(), rows)
+		};
+		let (out, rows) = write(seed, "Alliance");
+		assert_eq!(rows[0].state, "applied");
+		assert!(out.contains("  use 12347 quest 4763.1 @52.5,33.4\n"));
+		assert!(out.contains(&format!("  collect 12355 quest 4763 -- {}\n", record["goalNote"].as_str().unwrap())));
+		assert!(out.contains("  collect 12355 quest 999\n"));
+		let (again, rows) = write(&out, "Alliance");
+		assert_eq!(again, out);
+		assert_eq!(rows[0].state, "redundant");
+		let (horde, rows) = write(seed, "Horde");
+		assert_eq!(horde, seed);
+		assert_eq!(rows[0].state, "not for this start");
 	}
 
 	#[test]

@@ -14,7 +14,7 @@ return {
 
 	-- Step 2: Grom'gol Base Camp
 	-- {npc:2519} Kin'weelay · {npc:1061} Gan'zulah
-	["{npc:2519}: the legend lies in Zul'Kunda, where this guide goes for {npc:1061}"] = "",
+	["{npc:2519}: the legend lies in Zul'Kunda, where this guide goes for {npc:1061}"] = "{npc:2519}：传说就在祖昆达废墟，本指南会去那里找{npc:1061}",
 
 	-- Step 3: Jungle Stalkers
 	-- plural, as words: Jungle Stalkers = {npc:687} Jungle Stalker
@@ -88,7 +88,7 @@ return {
 	-- {npc:1061} Gan'zulah · {npc:1062} Nezzliok the Dire · {quest:586} Speaking with Gan'zulah · {area:1517} Uldaman · {object:3202} Grom'gol · {npc:2635} Elder Saltwater Crocolisk · {npc:2495} Drizzlik
 	["West of the expedition, the Bloodscalp chiefs {npc:1061} and {npc:1062} stand together in the ruins of Zul'Kunda. Clear their guards first, then pull them. Stay on the Bloodscalps here until level 41: {quest:586}, at the cauldron next, sends you to Skullsplitters of 41-43. Or, with a group, run the {area:1517} dungeon instead.\nOn the coast between Zul'Kunda and {object:3202} an {npc:2635} (level 38 elite) shares the spawns of the ordinary crocolisks: kill it if it is up and take its skin for {npc:2495}."] = "远征队西边，血顶酋长{npc:1061}和{npc:1062}一起待在祖昆达废墟。先清掉卫兵，再引他们。在这里继续击杀血顶巨魔直到41级：下一站大锅处的{quest:586}会让你去对付41-43级的劈颅巨魔。也可组队挑战{area:1517}副本。\n在祖昆达废墟和{object:3202}之间的海岸上，{npc:2635}（38级精英）与普通鳄鱼共享刷新点：如果它在，就击杀它并拿走它的皮交给{npc:2495}。",
 	-- {object:52} Fall of Gurubashi
-	["from the {object:52}, in the ruins"] = "",
+	["from the {object:52}, in the ruins"] = "从废墟里的{object:52}处取得",
 	-- {quest:586} Speaking with Gan'zulah
 	["grind on the Bloodscalps here: {quest:586}, at the cauldron next, sends you to Skullsplitters of 41-43"] = "在这里刷血顶巨魔升级：下一站大锅处的{quest:586}会让你去对付41-43级的劈颅巨魔",
 
@@ -98,7 +98,7 @@ return {
 	-- {npc:2497} Nimboya · {zone:1425} Hinterlands
 	["{npc:2497}: for the {zone:1425}, around level 48"] = "{npc:2497}：留到约48级去{zone:1425}时完成",
 	-- {npc:2519} Kin'weelay
-	["{npc:2519}: the trophy skulls stand in the Skullsplitter ruins, later on this loop"] = "",
+	["{npc:2519}: the trophy skulls stand in the Skullsplitter ruins, later on this loop"] = "{npc:2519}：战利品头骨放在劈颅废墟内，本轮路线稍后会去",
 	-- {npc:2519} Kin'weelay · {area:104} Vile Reef
 	["{npc:2519}: the cavern entrance under the {area:104}, west of the camp"] = "{npc:2519}：洞穴入口在营地西边的{area:104}下方",
 
@@ -124,9 +124,9 @@ return {
 	-- {npc:6807} Innkeeper Skindle
 	["{npc:6807}, upstairs"] = "{npc:6807}：在楼上",
 	-- {npc:2491} Whiskey Slim · {zone:1425} Hinterlands
-	["{npc:2491}, in the inn: his bottles wash up on the {zone:1425} coast, around level 48"] = "",
+	["{npc:2491}, in the inn: his bottles wash up on the {zone:1425} coast, around level 48"] = "{npc:2491}在旅店里：他的酒瓶被冲到了{zone:1425}海岸，约48级时再去",
 	-- {npc:737} Kebok
-	["{npc:737}, upstairs: the tusks come from the Skullsplitters, later on this loop"] = "",
+	["{npc:737}, upstairs: the tusks come from the Skullsplitters, later on this loop"] = "{npc:737}在楼上：獠牙来自劈颅巨魔，本轮路线稍后会经过",
 	-- {zone:1446} Tanaris
 	["MacKinley, on the top floor: for Stoley in {zone:1446}"] = "顶层的“海狼”马克基雷：交给{zone:1446}的斯杜雷",
 	-- {npc:2495} Drizzlik · {item:4105} Elder Crocolisk Skin
@@ -162,9 +162,9 @@ return {
 	-- {object:2076} Bubbling Cauldron
 	["the {object:2076}"] = "{object:2076}",
 	-- {object:2076} Bubbling Cauldron
-	["the {object:2076} again: Yenniku's fate"] = "",
+	["the {object:2076} again: Yenniku's fate"] = "再次到{object:2076}处：耶尼库的命运",
 	-- {npc:2519} Kin'weelay · {area:35} Booty Bay
-	["{npc:2519}: the basilisks graze beside the road back from {area:35}"] = "",
+	["{npc:2519}: the basilisks graze beside the road back from {area:35}"] = "{npc:2519}：蜥蜴就在从{area:35}返回的路旁",
 
 	-- Step 31: Booty Bay
 	-- {npc:2498} Crank Fizzlebub
@@ -178,11 +178,11 @@ return {
 	-- plural, as words: Ironjaw Basilisks = {npc:1551} Ironjaw Basilisk
 	["Ironjaw Basilisks"] = "铁腭蜥蜴",
 	-- {area:35} Booty Bay · {object:3202} Grom'gol
-	["Ride north out of {area:35} along the road; the basilisks bask on the rocks east of it in the middle of the jungle, on the way back to {object:3202}. Their shards drop often."] = "",
+	["Ride north out of {area:35} along the road; the basilisks bask on the rocks east of it in the middle of the jungle, on the way back to {object:3202}. Their shards drop often."] = "沿道路向北离开{area:35}；返回{object:3202}途中，丛林中段道路东侧的岩石上有蜥蜴晒太阳。它们的碎片掉率很高。",
 
 	-- Step 33: Grom'gol Base Camp
 	-- {object:3202} Grom'gol
-	["Ride on north to {object:3202}."] = "",
+	["Ride on north to {object:3202}."] = "继续向北骑往{object:3202}。",
 
 	-- Step 35: Nesingwary's Expedition
 	["Head north up the road to the hunters' camp."] = "沿路向北前往猎人营地。",

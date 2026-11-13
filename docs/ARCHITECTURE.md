@@ -1356,7 +1356,7 @@ as on a bag item (`W.ItemClick`: Shift links, Ctrl tries it on, Alt guides;
 | `goto` | `map`, `x`, `y` | `text`, `r` (default 8 yd), `area` (its name in the client's language shows instead of `text`) | within radius, **or** gone into its `area` (subzone text equals the client's name of it, not the zone's, while indoors, after being seen elsewhere since the step came up; not for a goto after one into the same area in the step), **or** any later goal in the step is done, **or**, when only gotos, notes and goals that do not apply follow it in the step, the next step that applies is done with a quest goal of it done (`Own.nextStepDone`, counted as anchorStep counts: not a skipped step or one with `only`, not a goal with `only`; a cave's mouth or a dock ahead of work done ahead of the guide, #240) |
 | `talk` | `npc`, `npcName` | — | the player acts at that NPC during this step: a gossip option picked (`C_GossipInfo.SelectOption`/`SelectOptionByIndex`, `SelectGossipOption`, post-hooked), a quest accepted, completed or handed in there (`AcceptQuest`, `CompleteQuest`, `GetQuestReward`, QUEST_ACCEPTED / QUEST_TURNED_IN while its window is open or within 2 s of it closing), or its trainer, merchant or flight window opened; a gossip or quest window only opened is no check-off (#741); else manual |
 | `interact` | `object`, `objName` | `quest`, `oi` | objective state if `quest` (the line named after the object, else `oi`); else manual |
-| `use` | `item`, `itemName` | `quest`, `oi` | objective state if `quest`; else manual |
+| `use` | `item`, `itemName` | `quest`, `oi` | objective state if `quest`; ticked earlier by a successful cast of the item's spell (`Compat.GetItemSpellID`, `Own.latchCast`) while it is open, when its next goal collects one item from an object for the same objective (a summon and its bag, #2107); that tick is marked `item-cast:<quest>` and taking the quest again clears it (`QUEST_ACCEPTED`). Without `quest`: done with its next goal when that is a quest-less `collect` (what the use makes, #2101), else once a later quest goal of its step is (#1120) |
 | `sethome` | `location` | `npc`, `npcName`, `area` | bound at the goal's inn (`npc`'s, else the inn `location` names, in Nav/Travel.lua's data), by any of: the inn Travel finds for `GetBindLocation()` (`Nav.BoundInn`: the innkeeper learned at bind time in `flags.inn`, else the inn whose `area` the client names so, else its names); `GetBindLocation()` equal to the client's name of that inn's or the goal's `area` (`Compat.GetAreaName`); last, equal to `location` (case-insensitive). Binding at that innkeeper during the step latches it: on `HEARTHSTONE_BOUND` the innkeeper is the `npc` unit, else the open NPC window, else the last one closed within 2 minutes (the bind confirmation closes the innkeeper's window before the event, #1298). `Engine.IsSethomeInnkeeper(goal, npc)` says whether `npc` is that innkeeper (for `sethome nearest`, one of its candidates); QoL's bind helper asks it |
 | `hearth` | `location` | `area` | zone or subzone equals the client's name of `area` (without one, `location`), else manual; latched once it lands in its live step. A step whose only goals are `hearth` is hidden and passed over (`Own.hearthOnly`, see "Steps the character has"). Its view's `hearthText` (`Own.hearthPlan`): with the Hearthstone waiting or missing, the time left and, where `Nav.EstimateTravel(nil, inn, nil, true)` knows the trip, "set off now" (trip ≤ wait + its 15 s cast) or "wait for it"; ready, "travel there" when the trip is within `Nav.HEARTH_SECONDS + Nav.HEARTH_MARGIN` or under `Nav.HEARTH_MIN_TRIP` (the planner's own long-haul rule), the arrow then leading to the inn as while it waits |
 | `die` | `location`, `map`, `x`, `y` | — | back alive (never a ghost) within `Own.DIE_RADIUS` (40 yd) of the Spirit Healer; applies only while `Own.deathskips()`: `behavior.deathskips` on (Options, Automation > Guides, "Use deathskips"; off by default) and not Hardcore (`C_GameRules.IsHardcoreActive`), else its step passes |
@@ -6583,8 +6583,16 @@ Polestar.QoL.Space.Dismiss()                              -- the banner, until t
 
 - **Marks** (`qol.itemMarks`, on): Ctrl+Alt (no Shift) on a modified item
   click (`Hooks.ItemClick`: bag slots, loot slots, chat links) cycles none →
-  junk → keep → none and says it in chat; the tooltip line comes from
-  `Hooks.ItemLines`. Per character, by item ID.
+  junk → keep → none and says it in chat, while `qol.itemMarksClick` (on,
+  "Ctrl+Alt-click cycles") is on. Two key bindings, Mark as junk and
+  Mark to keep (`POLESTAR_MARK_JUNK`/`_KEEP`, unbound by default), act on the
+  item under the cursor (`Hooks.HoveredItem`: the item GameTooltip shows,
+  only from an Item tooltip where tooltips carry their type): that mark, or
+  none when the item has it already (`Marks.Press`); pressed over no item
+  they say to point at one. Key or click, `Hooks.RefreshItem` rebuilds the
+  tooltip when it shows the marked item (`RefreshData`). The tooltip line
+  comes from `Hooks.ItemLines` and names the bound key that clears the mark.
+  Per character, by item ID.
 - **Selling** (`QoL/Vendor.lua`): a slot sells when it is grey or marked
   junk, has a vendor price, and is not protected, needed by a quest, or a
   quest's item or quest starter (`Client.SlotQuest`, from
@@ -8412,8 +8420,9 @@ on it, and comes back with the window. Under the gamepad UI Escape does not
 reach it (`ns.CloseOnEscape` adds nothing there); the step number closes it.
 The guide finishing or another guide opening closes it, so the next guide
 opens on its card. The open state is not saved. `GuideFrame.Layout` asks `StepList.Place(body, steps)` for its frame
-and stacks it at `StepList.Layout(width, room)`, as tall as its cards up to
-the window's cap (`ui.maxHeight`, the screen's top with Grow upward).
+and stacks it at `StepList.Layout(width, room)`, filling the space within
+the window's height captured on opening (still limited by the screen's top
+with Grow upward). Overflow scrolls; a short list leaves the spare space.
 `StepList.Fill` reads `Engine.GetStepView` for each step not hidden for this
 character (`UI.StepHidden`): all of them when the guide, the step on screen,
 the live step, the progress, a step's gate (`Engine.StepGate`: whether it

@@ -10,7 +10,7 @@ return {
 	-- {npc:823} Deputy Willem · {npc:197} Marshal McBride · {npc:951} Brother Paxton · {npc:247229} Daniel · {npc:196} Eagan Peltskinner
 	["You start in front of the Abbey. {npc:823} stands at the foot of the steps, {npc:197} inside the hall, {npc:951} and {npc:247229} in the library to the right, {npc:196} outside the north-west corner."] = "Empiezas frente a la abadía. {npc:823} está al pie de las escaleras; {npc:197}, dentro del salón; {npc:951} y {npc:247229}, en la biblioteca a la derecha; {npc:196}, afuera, en la esquina noroeste.",
 	-- {npc:197} Marshal McBride
-	["{npc:197}, inside"] = "",
+	["{npc:197}, inside"] = "{npc:197}, adentro",
 	-- {npc:459} Drusilla La Salle
 	["{npc:459}, outside the Abbey"] = "{npc:459}, afuera de la abadía",
 
@@ -20,7 +20,7 @@ return {
 
 	-- Step 3: Deputy Willem
 	-- {npc:198} Khelden Bremen
-	["Mages: {npc:198}, the mage trainer, stands upstairs in the Abbey: take the stairs inside, the arrow cannot tell the floors apart."] = "",
+	["Mages: {npc:198}, the mage trainer, stands upstairs in the Abbey: take the stairs inside, the arrow cannot tell the floors apart."] = "Magos: {npc:198}, el instructor de magos, está arriba en la Abadía: sube por la escalera de adentro, la flecha no distingue los pisos.",
 	-- {npc:823} Deputy Willem
 	["{npc:823}, back at the Abbey steps"] = "{npc:823}, de vuelta en las escaleras de la abadía",
 
@@ -32,20 +32,20 @@ return {
 	-- Step 5: Northshire Abbey
 	["Inside"] = "Adentro",
 	-- {npc:247229} Daniel
-	["{npc:247229}, in the library; inside"] = "",
+	["{npc:247229}, in the library; inside"] = "{npc:247229}, en la biblioteca; adentro",
 
 	-- Step 6: Echo Ridge Mine: kill these as you meet them
 	-- {area:34} Echo Ridge Mine
-	["{area:34}: kill these as you meet them"] = "",
+	["{area:34}: kill these as you meet them"] = "{area:34}: mata a estos según te los encuentres",
 	-- {object:83763} Stolen Books
 	-- plural, as words: Kobold Workers = {npc:257} Kobold Worker
 	["Follow the path north to the mine. Kobold Workers swarm outside it; every kobold in the valley can drop the {object:83763}."] = "Sigue el sendero hacia el norte hasta la mina. Los Trabajadores kóbold pululan afuera; cualquier kóbold del valle puede soltar {object:83763}.",
 
 	-- Step 7: Northshire Abbey
 	-- {npc:248415} Tordrin Sternblade · {npc:198} Khelden Bremen
-	["{npc:248415} stands behind the Abbey, by the stables. {npc:198}, the mage trainer, stands upstairs in the Abbey: take the stairs inside, the arrow cannot tell the floors apart."] = "",
+	["{npc:248415} stands behind the Abbey, by the stables. {npc:198}, the mage trainer, stands upstairs in the Abbey: take the stairs inside, the arrow cannot tell the floors apart."] = "{npc:248415} está detrás de la Abadía, junto a los establos. {npc:198}, el instructor de magos, está arriba en la Abadía: sube por la escalera de adentro, la flecha no distingue los pisos.",
 	-- {npc:911} Llane Beshere
-	["{npc:911}, the warrior trainer; inside"] = "",
+	["{npc:911}, the warrior trainer; inside"] = "{npc:911}, el instructor de guerreros; adentro",
 	-- {npc:925} Brother Sammuel
 	["{npc:925}, the paladin trainer"] = "{npc:925}, el instructor de paladines",
 	-- {npc:248415} Tordrin Sternblade
@@ -86,15 +86,15 @@ return {
 	-- plural, as words: Kobold Laborers = {npc:80} Kobold Laborer
 	["Kobold Laborers work the tunnels inside the mine. {npc:248362} waits down the second turn on the right.\nCareful: {npc:248362} (3) is elite: leave him unless you have a friend."] = "Los Obreros kóbold trabajan en los túneles dentro de la mina. {npc:248362} espera al fondo de la segunda curva a la derecha.\nCuidado: {npc:248362} (3) es élite: déjalo a menos que tengas un amigo.",
 	-- {npc:80} Kobold Laborer · {area:34} Echo Ridge Mine
-	["{npc:80} walks around {area:34}: look inside the circle on the map"] = "",
+	["{npc:80} walks around {area:34}: look inside the circle on the map"] = "{npc:80} recorre {area:34}: busca dentro del círculo del mapa",
 
 	-- Step 15: Inside Echo Ridge Mine
 	-- {npc:248362} Shinyfinder Narf
-	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:248362} (level 3 elite) needs a group of 2. Skip it if you are alone: the route has you grind the XP back."] = "",
+	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:248362} (level 3 elite) needs a group of 2. Skip it if you are alone: the route has you grind the XP back."] = "Son enemigos élite: se recomienda agruparse, busca gente con quien hacerlo. {npc:248362} (élite de nivel 3) requiere un grupo de 2. Sáltalo si vas solo: la ruta te hace recuperar la experiencia matando enemigos.",
 
 	-- Step 16: Northshire Abbey
 	-- {npc:823} Deputy Willem
-	["{npc:823}, at the Abbey steps"] = "",
+	["{npc:823}, at the Abbey steps"] = "{npc:823}, en la escalinata de la Abadía",
 	-- {npc:375} Priestess Anetta · {npc:377} Priestess Josetta · {area:87} Goldshire
 	["{npc:375}, the priest trainer: {npc:377} in {area:87} takes it"] = "{npc:375}, la instructora de sacerdotes: la recibe {npc:377} en {area:87}",
 	-- {npc:952} Brother Neals
@@ -107,30 +107,30 @@ return {
 	["his kobold tracker shows the kobolds to click on the road to {area:87}"] = "su rastreador de kóbolds muestra los kóbolds en los que debes hacer clic en el camino a {area:87}",
 
 	-- Step 18: Level 5.48
-	["Level 5.48"] = "",
+	["Level 5.48"] = "Nivel 5.48",
 	-- {quest:91752} The Big Picture
-	["If you skipped {quest:91752}, grind here to level 5.48 to stay on the route's plan."] = "",
+	["If you skipped {quest:91752}, grind here to level 5.48 to stay on the route's plan."] = "Si te saltaste {quest:91752}, mata enemigos aquí hasta el nivel 5.48 para seguir el plan de la ruta.",
 	-- {npc:80} Kobold Laborer
-	["grind on {npc:80}"] = "",
+	["grind on {npc:80}"] = "farmea {npc:80}",
 
 	-- Step 19: Goldshire
 	-- {area:87} Goldshire · {npc:240} Marshal Dughan · {npc:241} Remy "Two Times" · {npc:295} Innkeeper Farley · {npc:253} William Pestle
-	["Follow the road south out of the valley to {area:87}. {npc:240} stands outside the smithy on the west side of the road, {npc:241} by the road south of it, and {npc:295} and {npc:253} in the Lion's Pride Inn across the road."] = "",
+	["Follow the road south out of the valley to {area:87}. {npc:240} stands outside the smithy on the west side of the road, {npc:241} by the road south of it, and {npc:295} and {npc:253} in the Lion's Pride Inn across the road."] = "Sigue el camino al sur, saliendo del valle, hasta {area:87}. {npc:240} está afuera de la herrería, al oeste del camino, {npc:241} junto al camino al sur de ella, y {npc:295} y {npc:253} en la Posada Orgullo de León, al otro lado del camino.",
 	-- {npc:295} Innkeeper Farley
-	["{npc:295}, inside"] = "",
+	["{npc:295}, inside"] = "{npc:295}, adentro",
 	-- {npc:253} William Pestle
-	["{npc:253}, inside"] = "",
+	["{npc:253}, inside"] = "{npc:253}, adentro",
 	-- {npc:377} Priestess Josetta
 	["{npc:377}, upstairs"] = "{npc:377}, arriba",
 	-- {npc:377} Priestess Josetta · {npc:12423} Guard Roberts · {area:18} Crystal Lake
 	["{npc:377}: heal {npc:12423} at {area:18}"] = "{npc:377}: sana a {npc:12423} en {area:18}",
 
 	-- Step 22: Level 5.77
-	["Level 5.77"] = "",
+	["Level 5.77"] = "Nivel 5.77",
 	-- {quest:91752} The Big Picture
-	["If you skipped {quest:91752}, grind here to level 5.77 to stay on the route's plan."] = "",
+	["If you skipped {quest:91752}, grind here to level 5.77 to stay on the route's plan."] = "Si te saltaste {quest:91752}, mata enemigos aquí hasta el nivel 5.77 para seguir el plan de la ruta.",
 	-- {npc:40} Kobold Miner
-	["grind on {npc:40}"] = "",
+	["grind on {npc:40}"] = "farmea {npc:40}",
 
 	-- Step 23: Sam Sarsaparilla
 	-- {npc:263399} Sam Sarsaparilla · {skill:129} First Aid · {area:87} Goldshire
@@ -172,7 +172,7 @@ return {
 	-- {npc:6306} Helene Peltskinner · {npc:383} Jason Mathers · {npc:1651} Lee Brown · {area:18} Crystal Lake
 	["{npc:6306}, {npc:383} and {npc:1651} stand on the shore of {area:18} east of town."] = "{npc:6306}, {npc:383} y {npc:1651} están en la orilla de {area:18}, al este del pueblo.",
 	-- {npc:6306} Helene Peltskinner
-	["{npc:6306}: skinners only, the pelts are skinned; inside"] = "",
+	["{npc:6306}: skinners only, the pelts are skinned; inside"] = "{npc:6306}: solo desolladores, las pieles se despellejan; adentro",
 
 	-- Step 33: Crystal Lake
 	-- plural, as words: Fishing Traps = {object:694772} Fishing Trap
@@ -187,15 +187,15 @@ return {
 
 	-- Step 36: Crystal Lake: kill these as you meet them
 	-- {area:18} Crystal Lake
-	["{area:18}: kill these as you meet them"] = "",
+	["{area:18}: kill these as you meet them"] = "{area:18}: mata a estos según te los encuentres",
 	-- plural, as words: Murloc Streamrunners = {npc:735} Murloc Streamrunner · Junk Piles = {object:694785} Junk Pile
 	["Murlocs and Murloc Streamrunners hold the east shore; the Junk Piles lie in their camp. Careful: the murlocs stand close together, so a fight easily pulls two or three at once: pull them one at a time from the edge of the camp, and don't chase one into the next group."] = "Los Múrlocs y los Correcorrientes múrloc ocupan la orilla este; los Junk Piles están en su campamento. Cuidado: los múrlocs están muy juntos, así que un combate fácilmente atrae a dos o tres a la vez: atráelos de uno en uno desde el borde del campamento y no persigas a uno hasta el siguiente grupo.",
 
 	-- Step 38: Goldshire
 	-- {npc:1430} Tomas · {npc:377} Priestess Josetta · {npc:328} Zaldimar Wefhellt · {npc:917} Keryn Sylvius
-	["{npc:1430} cooks in the inn's kitchen. {npc:377} (priests), {npc:328} (mages) and {npc:917} (rogues) stand upstairs in the inn: take the stairs inside, the arrow cannot tell the floors apart."] = "",
+	["{npc:1430} cooks in the inn's kitchen. {npc:377} (priests), {npc:328} (mages) and {npc:917} (rogues) stand upstairs in the inn: take the stairs inside, the arrow cannot tell the floors apart."] = "{npc:1430} cocina en la cocina de la posada. {npc:377} (sacerdotes), {npc:328} (magos) y {npc:917} (pícaros) están arriba en la posada: sube por la escalera de adentro, la flecha no distingue los pisos.",
 	-- {npc:1430} Tomas
-	["{npc:1430}: Camping 101 asks you to learn it; below ground"] = "",
+	["{npc:1430}: Camping 101 asks you to learn it; below ground"] = "{npc:1430}: Campamento básico te pide aprenderla; bajo tierra",
 	-- {npc:377} Priestess Josetta · {item:16605} Friar's Robes of the Light
 	["{npc:377}, upstairs: {item:16605}"] = "{npc:377}, arriba: {item:16605}",
 
@@ -215,7 +215,7 @@ return {
 	["He stands by the river west of the farm."] = "Está junto al río, al oeste de la granja.",
 
 	-- Step 43: The Stonefield Farm
-	["The Stonefield farm is west of the mine. Ma and \"Auntie\" Bernice stand by the house.\nShe sits inside the farmhouse."] = "",
+	["The Stonefield farm is west of the mine. Ma and \"Auntie\" Bernice stand by the house.\nShe sits inside the farmhouse."] = "La granja Pedregosa está al oeste de la mina. Ma y \"Tita\" Bernice están junto a la casa.\nElla está sentada dentro de la granja.",
 
 	-- Step 44: Billy Maclure
 	-- {area:64} Maclure Vineyards
@@ -223,10 +223,10 @@ return {
 
 	-- Step 45: Elwynn Forest: kill these as you meet them
 	-- {zone:1429} Elwynn Forest
-	["{zone:1429}: kill these as you meet them"] = "",
+	["{zone:1429}: kill these as you meet them"] = "{zone:1429}: mata a estos según te los encuentres",
 	-- {object:694855} Overgrown Duskweed (no name in this language: may be words)
 	-- plural, as words: Stonetusk Boars = {npc:113} Stonetusk Boar
-	["{object:694855} grows in the fields around the vineyards and the Stonefield farm; Stonetusk Boars around them give the blood.\nStonetusk Boars graze between the vineyards and the farm."] = "",
+	["{object:694855} grows in the fields around the vineyards and the Stonefield farm; Stonetusk Boars around them give the blood.\nStonetusk Boars graze between the vineyards and the farm."] = "{object:694855} crece en los campos alrededor de los viñedos y la granja Pedregosa; los jabalíes Colmipétreos de alrededor dan la sangre.\nLos jabalíes Colmipétreos pastan entre los viñedos y la granja.",
 	-- {item:286215} Vial of Animal Blood
 	-- plural, as words: Stonetusk Boars = {npc:113} Stonetusk Boar
 	["{item:286215}: Stonetusk Boars"] = "{item:286215}: Jabalíes Colmipétreos",
@@ -237,7 +237,7 @@ return {
 
 	-- Step 48: Maclure Vineyards: kill these as you meet them
 	-- {area:64} Maclure Vineyards
-	["{area:64}: kill these as you meet them"] = "",
+	["{area:64}: kill these as you meet them"] = "{area:64}: mata a estos según te los encuentres",
 	-- {npc:248464} Nimsy
 	-- plural, as words: Kobold Miners = {npc:40} Kobold Miner
 	["The mine is west of the vineyards. Kobold Miners and Tunnelers fill both levels; {npc:248464}, a named kobold, holds the picture book in the lower tunnels. {npc:248464} is elite: grouping up is advised."] = "La mina está al oeste de los viñedos. Los Mineros kóbold ({npc:40}) y los Tuneladores kóbold llenan ambos niveles; {npc:248464}, un kóbold con nombre, tiene el libro ilustrado en los túneles inferiores. {npc:248464} es de élite: se recomienda ir en grupo.",
@@ -247,7 +247,7 @@ return {
 
 	-- Step 49: Maclure Vineyards: kill these as you meet them
 	-- {npc:248464} Nimsy
-	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:248464} (level 6 elite) needs a group of 2. Skip it if you are alone: the route has you grind the XP back."] = "",
+	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:248464} (level 6 elite) needs a group of 2. Skip it if you are alone: the route has you grind the XP back."] = "Son enemigos élite: se recomienda agruparse, busca gente con quien hacerlo. {npc:248464} (élite de nivel 6) requiere un grupo de 2. Sáltalo si vas solo: la ruta te hace recuperar la experiencia matando enemigos.",
 	-- plural, as words: Lost Books = {item:248001} Lost Book · Kobold Miners = {npc:40} Kobold Miner
 	["Lost Books: Kobold Miners and Tunnelers"] = "Libros perdidos: Mineros kóbold y Tuneladores kóbold",
 	-- {npc:248464} Nimsy
@@ -258,35 +258,35 @@ return {
 	-- plural, as words: Defias Bandits = {npc:116} Defias Bandit
 	["{quest:87} is inside the {area:57}, not on the hill above it: go in at the mouth and keep left to the back of the mine floor; don't take the stairs up. Defias Bandits around the vineyards drop a {item:1972} now and then: right-click it.\nCareful: {npc:248464} (6), a kobold deep in the mine, is elite, and {npc:79} (10, rare) walks the tunnels: pull the kobolds one at a time."] = "{quest:87} está dentro de {area:57}, no en la colina de arriba: entra por la boca y mantente a la izquierda hasta el fondo de la mina; no subas las escaleras. Los Bandidos Defias de los viñedos sueltan {item:1972} de vez en cuando: haz clic derecho en ella.\nCuidado: {npc:248464} (6), un kóbold en lo profundo de la mina, es élite, y {npc:79} (10, raro) recorre los túneles: atrae a los kóbolds de uno en uno.",
 	-- {item:981} Bernice's Necklace
-	["{item:981}; below ground"] = "",
+	["{item:981}; below ground"] = "{item:981}; bajo tierra",
 
 	-- Step 51: Goldshire
 	-- {npc:377} Priestess Josetta · {npc:328} Zaldimar Wefhellt · {npc:917} Keryn Sylvius
-	["{npc:377} (priests), {npc:328} (mages) and {npc:917} (rogues) stand upstairs in the inn: take the stairs inside, the arrow cannot tell the floors apart."] = "",
+	["{npc:377} (priests), {npc:328} (mages) and {npc:917} (rogues) stand upstairs in the inn: take the stairs inside, the arrow cannot tell the floors apart."] = "{npc:377} (sacerdotes), {npc:328} (magos) y {npc:917} (pícaros) están arriba en la posada: sube por la escalera de adentro, la flecha no distingue los pisos.",
 	-- {npc:279} Morgan Pestle · {zone:1453} Stormwind
 	["{npc:279} in {zone:1453} takes it (02-westfall)"] = "{npc:279} en {zone:1453} la recibe (02-westfall)",
 
 	-- Step 53: Level 8.39
-	["Level 8.39"] = "",
+	["Level 8.39"] = "Nivel 8.39",
 	-- {quest:91775} Book Return
-	["If you skipped {quest:91775}, grind here to level 8.39 to stay on the route's plan."] = "",
+	["If you skipped {quest:91775}, grind here to level 8.39 to stay on the route's plan."] = "Si te saltaste {quest:91775}, mata enemigos aquí hasta el nivel 8.39 para seguir el plan de la ruta.",
 
 	-- Step 54: Class trainer
 	["Class trainer"] = "Instructor de clase",
 
 	-- Step 55: Shaman trainer
-	["Shaman trainer"] = "",
+	["Shaman trainer"] = "Instructor de chamanes",
 	-- {npc:257446} Teo Hammerstorm · {zone:1426} Dun Morogh · {area:87} Goldshire
-	["{npc:257446} in {zone:1426}; {area:87} has no shaman trainer"] = "",
+	["{npc:257446} in {zone:1426}; {area:87} has no shaman trainer"] = "{npc:257446} en {zone:1426}; {area:87} no tiene instructor de chamanes",
 
 	-- Step 56: Druid trainer
 	["Druid trainer"] = "Instructor de druidas",
 	-- {npc:5504} Sheldras Moontree · {zone:1453} Stormwind · {area:87} Goldshire
-	["{npc:5504} in {zone:1453}; {area:87} has no druid trainer"] = "",
+	["{npc:5504} in {zone:1453}; {area:87} has no druid trainer"] = "{npc:5504} en {zone:1453}; {area:87} no tiene instructor de druidas",
 
 	-- Step 57: Jason Mathers
 	-- {area:87} Goldshire · {npc:383} Jason Mathers
-	["Head east out of {area:87} along the lake shore. {npc:383} stands on the shore north-east of town."] = "",
+	["Head east out of {area:87} along the lake shore. {npc:383} stands on the shore north-east of town."] = "Sal de {area:87} hacia el este por la orilla del lago. {npc:383} está en la orilla al noreste del pueblo.",
 
 	-- Step 58: Crystal Lake: kill these as you meet them
 	-- {area:91} Tower of Azora
@@ -311,25 +311,25 @@ return {
 	["{quest:91733} and {npc:330}"] = "{quest:91733} y {npc:330}",
 	-- {item:247813} Waterlogged Saw · {npc:330} Princess · {area:62} Brackwell Pumpkin Patch · {npc:390} Porcine Entourage · {npc:248278} Croaky
 	-- plural, as words: Prowlers = {npc:118} Prowler · Young Forest Bears = {npc:822} Young Forest Bear
-	["The {item:247813}, Axe and Toolbox lie in the river south of the bridge. {npc:330}, a big boar, roots in the {area:62} west of the river with her {npc:390}: pull the piglets away first. Kill Prowlers and Young Forest Bears on the way. Careful: {npc:248278} is a level 11 elite on the murloc shore. Only go for his head with a group or once you're level 10; otherwise leave him: it's optional."] = "",
+	["The {item:247813}, Axe and Toolbox lie in the river south of the bridge. {npc:330}, a big boar, roots in the {area:62} west of the river with her {npc:390}: pull the piglets away first. Kill Prowlers and Young Forest Bears on the way. Careful: {npc:248278} is a level 11 elite on the murloc shore. Only go for his head with a group or once you're level 10; otherwise leave him: it's optional."] = "{item:247813}, el hacha y la caja de herramientas están en el río al sur del puente. {npc:330}, una jabalina grande, hoza en {area:62}, al oeste del río, con su {npc:390}: aleja primero a los cerditos. Mata merodeadores y osos del bosque jóvenes por el camino. Cuidado: {npc:248278} es un élite de nivel 11 en la orilla de los múrlocs. Ve por su cabeza solo con grupo o cuando seas nivel 10; si no, déjalo: es opcional.",
 
 	-- Step 62: Croaky
 	-- {npc:248278} Croaky · {quest:91740} Croaky's Head
-	["{npc:248278} is a level 11 elite on the murloc shore south of the bridge: grouping up is encouraged, look for people to do it with. {quest:91740} needs a group of 2. Skip it if you are alone: the route has you grind the XP back. Right-click the head for its quest."] = "",
+	["{npc:248278} is a level 11 elite on the murloc shore south of the bridge: grouping up is encouraged, look for people to do it with. {quest:91740} needs a group of 2. Skip it if you are alone: the route has you grind the XP back. Right-click the head for its quest."] = "{npc:248278} es un élite de nivel 11 en la orilla de los múrlocs, al sur del puente: se recomienda agruparse, busca gente con quien hacerlo. {quest:91740} requiere un grupo de 2. Sáltalo si vas solo: la ruta te hace recuperar la experiencia matando enemigos. Haz clic derecho en la cabeza para su misión.",
 
 	-- Step 64: Level 8.85
-	["Level 8.85"] = "",
+	["Level 8.85"] = "Nivel 8.85",
 	-- {quest:91740} Croaky's Head
-	["If you skipped {quest:91740}, grind here to level 8.85 to stay on the route's plan."] = "",
+	["If you skipped {quest:91740}, grind here to level 8.85 to stay on the route's plan."] = "Si te saltaste {quest:91740}, mata enemigos aquí hasta el nivel 8.85 para seguir el plan de la ruta.",
 	-- {npc:118} Prowler
-	["grind on {npc:118}"] = "",
+	["grind on {npc:118}"] = "farmea {npc:118}",
 
 	-- Step 66: The Eastvale Logging Camp
 	-- {area:88} Eastvale Logging Camp
 	["The {area:88}"] = "{area:88}",
 	["The camp is north-east of the bridge. Bundles of Wood lie around the camp and in the woods north of it."] = "El campamento está al noreste del puente. Los Fardos de madera están alrededor del campamento y en el bosque al norte.",
 	-- {npc:278} Sara Timberlain
-	["{npc:278}, inside"] = "",
+	["{npc:278}, inside"] = "{npc:278}, adentro",
 
 	-- Step 67: A half-eaten body
 	["It lies by the river north-west of the logging camp."] = "Está junto al río, al noroeste del campamento maderero.",
@@ -352,13 +352,13 @@ return {
 
 	-- Step 71: Jasperlode Mine: kill these as you meet them
 	-- {area:54} Jasperlode Mine
-	["{area:54}: kill these as you meet them"] = "",
+	["{area:54}: kill these as you meet them"] = "{area:54}: mata a estos según te los encuentres",
 	-- {item:247816} Mining Tools · {npc:471} Mother Fang · {npc:248474} Geosculptor Yip
 	-- plural, as words: Kobold Geomancers = {npc:476} Kobold Geomancer · Mine Spiders = {npc:43} Mine Spider
 	["The mine is south-west of the gnoll camps. {item:247816} lie near the entrance; Kobold Geomancers hold the tunnels.\nCareful: {npc:471} (7-10), the Mine Spiders (7-9) and {npc:248474} (7) are elites deep in the mine: pull the kobolds one at a time near the entrance and back out if an elite comes; they're easier with a friend."] = "La mina está al suroeste de los campamentos gnoll. {item:247816} están cerca de la entrada; los Geománticos kóbold ocupan los túneles.\nCuidado: {npc:471} (7-10), las Arañas de mina (7-9) y {npc:248474} (7) son élites en lo profundo de la mina: atrae a los kóbolds de uno en uno cerca de la entrada y retírate si viene un élite; son más fáciles con un amigo.",
 	["Walk into the mine"] = "Entra en la mina",
 	-- {npc:476} Kobold Geomancer · {area:54} Jasperlode Mine
-	["{npc:476} walks around {area:54}: look inside the circle on the map"] = "",
+	["{npc:476} walks around {area:54}: look inside the circle on the map"] = "{npc:476} recorre {area:54}: busca dentro del círculo del mapa",
 
 	-- Step 72: The Tower of Azora
 	["Follow the hills south to the tower."] = "Sigue las colinas hacia el sur hasta la torre.",
@@ -366,7 +366,7 @@ return {
 	-- Step 73: Guard Thomas
 	-- {area:91} Tower of Azora
 	-- plural, as words: Prowlers = {npc:118} Prowler · Young Forest Bears = {npc:822} Young Forest Bear
-	["Follow the road east past the {area:91} to the bridge. Finish the Prowlers and Young Forest Bears around the river south of it."] = "",
+	["Follow the road east past the {area:91} to the bridge. Finish the Prowlers and Young Forest Bears around the river south of it."] = "Sigue el camino al este, pasando {area:91}, hasta el puente. Termina los merodeadores y osos del bosque jóvenes alrededor del río, al sur del puente.",
 
 	-- Step 75: Stone Cairn Lake
 	-- plural, as words: Defias Rogue Wizards = {npc:474} Defias Rogue Wizard
@@ -377,17 +377,17 @@ return {
 
 	-- Step 77: Goldshire
 	-- {area:87} Goldshire · {npc:6306} Helene Peltskinner · {npc:377} Priestess Josetta · {npc:328} Zaldimar Wefhellt · {npc:917} Keryn Sylvius
-	["Follow the road west back to {area:87}; {npc:6306} stands on the lake shore before town. {npc:377} (priests), {npc:328} (mages) and {npc:917} (rogues) stand upstairs in the inn: take the stairs inside, the arrow cannot tell the floors apart."] = "",
+	["Follow the road west back to {area:87}; {npc:6306} stands on the lake shore before town. {npc:377} (priests), {npc:328} (mages) and {npc:917} (rogues) stand upstairs in the inn: take the stairs inside, the arrow cannot tell the floors apart."] = "Sigue el camino al oeste de vuelta a {area:87}; {npc:6306} está en la orilla del lago antes del pueblo. {npc:377} (sacerdotes), {npc:328} (magos) y {npc:917} (pícaros) están arriba en la posada: sube por la escalera de adentro, la flecha no distingue los pisos.",
 	-- {npc:6306} Helene Peltskinner
-	["{npc:6306}, inside"] = "",
+	["{npc:6306}, inside"] = "{npc:6306}, adentro",
 	-- {npc:240} Marshal Dughan
-	["{npc:240}, while William brews"] = "",
+	["{npc:240}, while William brews"] = "{npc:240}, mientras William prepara la poción",
 	-- {npc:514} Smith Argus · {npc:1416} Grimand Elmore · {zone:1453} Stormwind
 	["{npc:514}, at the smithy beside Dughan: {npc:1416} in {zone:1453} takes it (02-westfall)"] = "{npc:514}, en la herrería junto a Dughan: la recibe {npc:1416} en {zone:1453} (02-westfall)",
 	-- {npc:253} William Pestle
 	["{npc:253}, back in the inn"] = "{npc:253}, de vuelta en la posada",
 	-- {npc:377} Priestess Josetta · {npc:376} High Priestess Laurena · {zone:1453} Stormwind
-	["{npc:377}: {npc:376} in {zone:1453} takes it"] = "",
+	["{npc:377}: {npc:376} in {zone:1453} takes it"] = "{npc:377}: la recibe {npc:376} en {zone:1453}",
 	-- {npc:328} Zaldimar Wefhellt · {npc:5497} Jennea Cannon · {zone:1453} Stormwind
 	["{npc:328}: {npc:5497} in {zone:1453} takes it"] = "{npc:328}: la recibe {npc:5497} en {zone:1453}",
 	-- {npc:6121} Remen Marcot · {npc:6122} Gakin the Darkbinder · {zone:1453} Stormwind
@@ -403,7 +403,7 @@ return {
 
 	-- Step 82: Woo Ping
 	-- {npc:11867} Woo Ping · {object:2096} Trade District
-	["While you're here: learn Staves from {npc:11867} ({object:2096}, 10 silver); a staff carries more spell stats than a one-hander while you level."] = "",
+	["While you're here: learn Staves from {npc:11867} ({object:2096}, 10 silver); a staff carries more spell stats than a one-hander while you level."] = "Ya que estás aquí: aprende Bastones con {npc:11867} ({object:2096}, 10 de plata); un bastón tiene más estadísticas de hechizo que un arma de una mano mientras subes de nivel.",
 
 	-- Step 83: Mirror Lake
 	-- {zone:1453} Stormwind · {quest:1861} Mirror Lake · {zone:1436} Westfall · {item:7207} Jennea's Flask
@@ -420,7 +420,7 @@ return {
 
 	-- Step 86: Back to Elwynn Forest
 	-- {zone:1429} Elwynn Forest
-	["Back to {zone:1429}"] = "",
+	["Back to {zone:1429}"] = "De vuelta a {zone:1429}",
 
 	-- Step 87: Taming the Beast
 	-- {npc:251507} Josephine Carson · {area:87} Goldshire · {item:15908} Taming Rod · {area:64} Maclure Vineyards · {area:18} Crystal Lake
@@ -429,15 +429,15 @@ return {
 	-- {npc:524} Rockhide Boar · {item:15908} Taming Rod
 	["{npc:524}: tame it with the {item:15908}"] = "{npc:524}: domestícalo con {item:15908}",
 	-- {npc:524} Rockhide Boar
-	["Tame {npc:524}"] = "",
+	["Tame {npc:524}"] = "Doma un {npc:524}",
 	-- {npc:1922} Gray Forest Wolf · {item:15908} Taming Rod
 	["{npc:1922}: tame it with the {item:15908}"] = "{npc:1922}: domestícalo con {item:15908}",
 	-- {npc:1922} Gray Forest Wolf
-	["Tame {npc:1922}"] = "",
+	["Tame {npc:1922}"] = "Doma un {npc:1922}",
 	-- {npc:822} Young Forest Bear · {item:15908} Taming Rod
 	["{npc:822}: tame it with the {item:15908}"] = "{npc:822}: domestícalo con {item:15908}",
 	-- {npc:822} Young Forest Bear
-	["Tame {npc:822}"] = "",
+	["Tame {npc:822}"] = "Doma un {npc:822}",
 	-- {npc:258930} Isaac Chan · {spell:5149} Beast Training
 	["{npc:258930}, beside her: {spell:5149}"] = "{npc:258930}, a su lado: {spell:5149}",
 
@@ -448,7 +448,7 @@ return {
 	-- Step 89: The Stonefield Farm
 	-- {npc:894} Homer Stonefield · {quest:91736} Applejack Still
 	-- plural, as words: Shiny Red Apples = {item:4536} Shiny Red Apple
-	["{npc:894} sells the Shiny Red Apples for the {quest:91736}. Apples looted from kobolds and crates count too: the purchase ticks itself once you have four."] = "",
+	["{npc:894} sells the Shiny Red Apples for the {quest:91736}. Apples looted from kobolds and crates count too: the purchase ticks itself once you have four."] = "{npc:894} vende las manzanas rojas brillantes para {quest:91736}. Las manzanas saqueadas de kóbolds y cajas también cuentan: la compra se marca sola cuando tienes cuatro.",
 	-- {npc:894} Homer Stonefield · {quest:91736} Applejack Still
 	-- plural, as words: Shiny Red Apples = {item:4536} Shiny Red Apple
 	["Shiny Red Apples, from {npc:894}, for the {quest:91736}"] = "Manzanas rojas lustrosas, de {npc:894}, para {quest:91736}",
@@ -458,22 +458,22 @@ return {
 	["The {quest:91736}"] = "{quest:91736}",
 	-- {quest:91736} Applejack Still · {area:120} Westbrook Garrison · {item:247824} Thunder Applejack · {npc:955} Sergeant De Vries
 	-- plural, as words: Shiny Red Apples = {item:4536} Shiny Red Apple
-	["The {quest:91736} stands north of the {area:120}. Click it with four Shiny Red Apples in your bags: it takes them and gives you a {item:247824} on the spot (the quest never shows in your quest log). Keep the Applejack for {npc:955}: don't drink it."] = "",
+	["The {quest:91736} stands north of the {area:120}. Click it with four Shiny Red Apples in your bags: it takes them and gives you a {item:247824} on the spot (the quest never shows in your quest log). Keep the Applejack for {npc:955}: don't drink it."] = "{quest:91736} está al norte de {area:120}. Haz clic en él con cuatro manzanas rojas brillantes en tus bolsas: se las queda y te da un {item:247824} en el acto (la misión nunca aparece en tu registro). Guarda el licor de manzana para {npc:955}: no te lo bebas.",
 	-- {item:247824} Thunder Applejack
 	["{item:247824}, from the still"] = "{item:247824}, del alambique",
 
 	-- Step 91: Westbrook Garrison
 	-- {area:120} Westbrook Garrison · {zone:1436} Westfall · {npc:963} Deputy Rainer · {npc:955} Sergeant De Vries · {quest:91738} An Apple Treat · {item:247824} Thunder Applejack
-	["Follow the road south to the {area:120}, on the way into {zone:1436}. {npc:963} stands outside the barracks; {npc:955} stands inside. He has {quest:91738} only while you carry the {item:247824}: talk to him and it goes straight to the hand-in."] = "",
+	["Follow the road south to the {area:120}, on the way into {zone:1436}. {npc:963} stands outside the barracks; {npc:955} stands inside. He has {quest:91738} only while you carry the {item:247824}: talk to him and it goes straight to the hand-in."] = "Sigue el camino al sur hasta {area:120}, a la entrada de {zone:1436}. {npc:963} está afuera del cuartel; {npc:955}, adentro. Solo tiene {quest:91738} mientras llevas el {item:247824}: háblale y pasa directo a la entrega.",
 	-- {npc:963} Deputy Rainer · {npc:234} Gryan Stoutmantle · {area:108} Sentinel Hill
 	["{npc:963}: for {npc:234} at {area:108}"] = "{npc:963}: para {npc:234} en {area:108}",
 	-- {npc:955} Sergeant De Vries · {item:247824} Thunder Applejack
-	["{npc:955}: he wants your {item:247824}; inside"] = "",
+	["{npc:955}: he wants your {item:247824}; inside"] = "{npc:955}: quiere tu {item:247824}; adentro",
 
 	-- Step 92: Forest's Edge
 	-- {zone:1436} Westfall
 	-- plural, as words: Riverpaw Runts = {npc:97} Riverpaw Runt
-	["Riverpaw Runts and Outrunners hold the hills south of the garrison, along the {zone:1436} border."] = "",
+	["Riverpaw Runts and Outrunners hold the hills south of the garrison, along the {zone:1436} border."] = "Los cachorros y avanzados Zarparrío ocupan las colinas al sur de la guarnición, a lo largo de la frontera con {zone:1436}.",
 	-- plural, as words: Painted Gnoll Armbands = {item:782} Painted Gnoll Armband
 	["Painted Gnoll Armbands"] = "Bandas gnoll pintadas",
 

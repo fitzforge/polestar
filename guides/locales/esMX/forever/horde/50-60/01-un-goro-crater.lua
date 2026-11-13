@@ -12,9 +12,9 @@ return {
 	-- {area:1938} Broken Pillar · {zone:1449} Un'Goro Crater · {area:541} Marshal's Refuge
 	["From the {area:1938} ride west to the long ramp that winds down into {zone:1449}, then follow the crater's north wall to {area:541}, a camp in the cliff caves. Everyone here is neutral."] = "Desde {area:1938} cabalga al oeste hasta la larga rampa que baja serpenteando a {zone:1449}; luego sigue la pared norte del cráter hasta {area:541}, un campamento en las cuevas del acantilado. Aquí todos son neutrales.",
 	-- {npc:9997} Spraggle Frock
-	["the wooden sign beside {npc:9997}, by the flight master: the pterrordax are on this guide's ground"] = "",
+	["the wooden sign beside {npc:9997}, by the flight master: the pterrordax are on this guide's ground"] = "el cartel de madera junto a {npc:9997}, al lado del maestro de vuelo: los pterrordáctilos están en el terreno de esta guía",
 	-- {npc:9117} J.D. Collie
-	["{npc:9117}, at the back of the cave; below ground"] = "",
+	["{npc:9117}, at the back of the cave; below ground"] = "{npc:9117}, al fondo de la cueva; bajo tierra",
 
 	-- Step 3: Out of the refuge
 	["Out of the refuge"] = "Fuera del refugio",
@@ -33,8 +33,8 @@ return {
 	-- Step 5: Pterrordax
 	["Pterrordax"] = "Pterrordáctilo",
 	-- {npc:9998} Shizzle
-	["Pterrordax fly over the east of the crater, from the slopes below the refuge southward; their webbed scales are for {npc:9998}."] = "",
-	["grind on Pterrordax"] = "",
+	["Pterrordax fly over the east of the crater, from the slopes below the refuge southward; their webbed scales are for {npc:9998}."] = "Los pterrordáctilos sobrevuelan el este del cráter, desde las laderas debajo del refugio hacia el sur; sus escamas palmeadas son para {npc:9998}.",
+	["grind on Pterrordax"] = "sube de nivel con pterrordáctilos",
 
 	-- Step 6: Power Crystals and soil
 	-- plural, as words: Power Crystals = {npc:271301} Power Crystal
@@ -44,19 +44,19 @@ return {
 
 	-- Step 7: Lakkari Tar Pits: kill these as you meet them
 	-- {area:538} Lakkari Tar Pits
-	["{area:538}: kill these as you meet them"] = "",
+	["{area:538}: kill these as you meet them"] = "{area:538}: mata a estos según te los encuentres",
 	-- {area:537} Fire Plume Ridge · {npc:9998} Shizzle · {npc:8659} Jes'rimon · {npc:9167} Frenzied Pterrordax
 	-- plural, as words: Bloodpetal Flayers = {npc:6510} Bloodpetal Flayer · Dinosaur Bones = {item:11114} Dinosaur Bone · Bloodpetal Trappers = {npc:6512} Bloodpetal Trapper
-	["Ride south-west to {area:537}, the volcano in the middle of the crater. Bloodpetal Flayers grow around its foot.\nSouth of the hot springs, Stegodons graze and Dinosaur Bones drop from them or lie on the ground; Diemetradons nearby carry the scales {npc:9998} wants. Ravasaurs hunt in packs in the south-west: their claws are for {npc:8659}, and now and then one carries a Mangled Journal (a rare drop: take its quest only if you get one). Avoid Gruff, a level 57 Stegodon.\nRide south-west along the western cliffs. {npc:9167} fly over the west side, and Bloodpetal Trappers grow in the same jungle."] = "",
+	["Ride south-west to {area:537}, the volcano in the middle of the crater. Bloodpetal Flayers grow around its foot.\nSouth of the hot springs, Stegodons graze and Dinosaur Bones drop from them or lie on the ground; Diemetradons nearby carry the scales {npc:9998} wants. Ravasaurs hunt in packs in the south-west: their claws are for {npc:8659}, and now and then one carries a Mangled Journal (a rare drop: take its quest only if you get one). Avoid Gruff, a level 57 Stegodon.\nRide south-west along the western cliffs. {npc:9167} fly over the west side, and Bloodpetal Trappers grow in the same jungle."] = "Ve al suroeste hasta {area:537}, el volcán en el centro del cráter. Los desolladores Pétalo de Sangre crecen alrededor de su base.\nAl sur de las aguas termales pastan los estegodontes, y los Huesos de dinosaurio los sueltan ellos o están en el suelo; los diemetradones cercanos llevan las escamas que quiere {npc:9998}. Los ravasaurios cazan en manada en el suroeste: sus garras son para {npc:8659}, y a veces uno lleva un Diario destrozado (botín raro: toma su misión solo si te sale). Evita a Gruff, un estegodonte de nivel 57.\nVe al suroeste por los acantilados del oeste. Los {npc:9167} sobrevuelan el lado oeste, y los atrapadores Pétalo de Sangre crecen en la misma selva.",
 
 	-- Step 8: Research Equipment
 	["The expedition's lost equipment lies in the south-west jungle."] = "El equipo perdido de la expedición está en la selva del suroeste.",
 
 	-- Step 9: The Slithering Scar
 	-- plural, as words: Gorishi Workers = {npc:6552} Gorishi Worker
-	["Careful: Gorishi Workers that drop below 45% health have a 50% chance to call for help from allies within 25 yd."] = "",
+	["Careful: Gorishi Workers that drop below 45% health have a 50% chance to call for help from allies within 25 yd."] = "Cuidado: Los obreros Gorishi que bajan del 45 % de salud tienen un 50 % de probabilidad de pedir ayuda a los aliados en 25 m.",
 	-- {npc:6551} Gorishi Wasp
-	["grind on {npc:6551}"] = "",
+	["grind on {npc:6551}"] = "sube de nivel con {npc:6551}",
 
 	-- Step 11: Stegodons and ravasaurs
 	["Stegodons and ravasaurs"] = "Stegodons y ravasaurios",
@@ -87,20 +87,20 @@ return {
 	-- plural, as words: Bloodpetal Lashers = {npc:6509} Bloodpetal Lasher
 	["Ride north along the east side. Bloodpetal Lashers and Threshers fill the jungle."] = "Cabalga al norte por el lado este. Los Azotadores y Trilladores Sangrepétalo llenan la selva.",
 	-- {npc:6511} Bloodpetal Thresher
-	["grind on {npc:6511}"] = "",
+	["grind on {npc:6511}"] = "sube de nivel con {npc:6511}",
 
 	-- Step 19: Un'Goro Crater: kill these as you meet them
 	-- {zone:1449} Un'Goro Crater
-	["{zone:1449}: kill these as you meet them"] = "",
+	["{zone:1449}: kill these as you meet them"] = "{zone:1449}: mata a estos según te los encuentres",
 	["The expedition's crate sits at an abandoned camp in the eastern jungle."] = "El cajón de la expedición está en un campamento abandonado en la selva del este.",
 
 	-- Step 20: Marshal's Refuge
 	-- {npc:9998} Shizzle
 	["{npc:9998}, at the entrance"] = "{npc:9998}, en la entrada",
 	-- {npc:9997} Spraggle Frock
-	["{npc:9997}, beside the flight master"] = "",
+	["{npc:9997}, beside the flight master"] = "{npc:9997}, junto al maestro de vuelo",
 	-- {npc:9117} J.D. Collie
-	["{npc:9117}, below ground"] = "",
+	["{npc:9117}, below ground"] = "{npc:9117}, bajo tierra",
 	-- {npc:9118} Larion · {quest:4147} Marvon's Workshop · {npc:8737} Linken
 	["Keep {npc:9118}'s {quest:4147} and {npc:8737}'s letter for later guides."] = "Guarda {quest:4147} de {npc:9118} y la carta de {npc:8737} para guías posteriores.",
 
@@ -113,14 +113,14 @@ return {
 	-- {npc:9622} U'cha
 	["The gorillas live on the north-east plateau. Stay out of the deepest cave: {npc:9622} lives there."] = "Los gorilas viven en la meseta del noreste. No entres en la cueva más profunda: allí vive {npc:9622}.",
 	-- {npc:9623} A-Me 01
-	["{npc:9623}, the robot on the plateau; below ground"] = "",
+	["{npc:9623}, the robot on the plateau; below ground"] = "{npc:9623}, el robot de la meseta; bajo tierra",
 	-- {npc:9623} A-Me 01 · {item:10561} Mithril Casing · {skill:202} Engineering
 	["{npc:9623} then wants a {item:10561}, an {skill:202} item. Skip it unless you have one."] = "Luego {npc:9623} quiere una {item:10561}, un objeto de {skill:202}. Omítela salvo que tengas una.",
 
 	-- Step 23: Un'Goro Crater: kill these as you meet them
 	-- {spell:8137} Silithid Pox · {spell:14120} Tunneler Acid
 	-- plural, as words: Gorishi Workers = {npc:6552} Gorishi Worker
-	["Careful: Gorishi Workers may call for help within 25 yd when below 45% health; silithids cast {spell:8137} and Tunnelers and the Hive Guard use {spell:14120}."] = "",
+	["Careful: Gorishi Workers may call for help within 25 yd when below 45% health; silithids cast {spell:8137} and Tunnelers and the Hive Guard use {spell:14120}."] = "Cuidado: Los obreros Gorishi pueden pedir ayuda en 25 m cuando bajan del 45 % de salud; los silítidos lanzan {spell:8137} y los tuneladores y la guardia de la colmena usan {spell:14120}.",
 
 	-- Step 24: Eastern Pylon
 	["Eastern Pylon"] = "Torre de cristal del Este",
@@ -128,8 +128,8 @@ return {
 
 	-- Step 25: The Marshlands
 	-- {quest:4061} The Rise of the Machines · {area:340} Kargath · {area:1417} Sunken Temple · {area:2100} Maraudon
-	["Careful: There are many ravasaurs roaming the area, so you can easily pull several at the same time.\nBelow level 52, keep hunting the ravasaurs here after the eighth claw: {quest:4061} at {area:340} needs level 52, and the Plaguelands quests at the end of this guide are level 55. Or, with a group, run the {area:1417} dungeon or the {area:2100} dungeon instead."] = "",
-	["grind on Ravasaur"] = "",
+	["Careful: There are many ravasaurs roaming the area, so you can easily pull several at the same time.\nBelow level 52, keep hunting the ravasaurs here after the eighth claw: {quest:4061} at {area:340} needs level 52, and the Plaguelands quests at the end of this guide are level 55. Or, with a group, run the {area:1417} dungeon or the {area:2100} dungeon instead."] = "Cuidado: Hay muchos ravasaurios rondando la zona, así que es fácil atraer varios a la vez.\nPor debajo del nivel 52, sigue cazando ravasaurios aquí después de la octava garra: {quest:4061} en {area:340} necesita nivel 52, y las misiones de las Tierras de la Peste al final de esta guía son de nivel 55. O, en grupo, haz la mazmorra {area:1417} o la mazmorra {area:2100}.",
+	["grind on Ravasaur"] = "sube de nivel con ravasaurios",
 
 	-- Step 26: Western Pylon
 	["Western Pylon"] = "Torre de cristal del Oeste",
@@ -142,35 +142,35 @@ return {
 
 	-- Step 28: To Gadgetzan
 	-- {area:976} Gadgetzan
-	["To {area:976}"] = "",
+	["To {area:976}"] = "Hacia {area:976}",
 
 	-- Step 29: Gadgetzan
 	-- {npc:5594} Alchemist Pestlezugg
-	["{npc:5594}, inside"] = "",
+	["{npc:5594}, inside"] = "{npc:5594}, adentro",
 
 	-- Step 30: Orgrimmar
 	-- {area:1637} Orgrimmar · {area:16727} Powderfuse Port · {zone:1458} Undercity
-	["Fly to {area:1637} and train before the boat to {area:16727}: the {zone:1458} stop later in this guide has no Hunter or Shaman trainer."] = "",
+	["Fly to {area:1637} and train before the boat to {area:16727}: the {zone:1458} stop later in this guide has no Hunter or Shaman trainer."] = "Vuela a {area:1637} y entrena antes del barco a {area:16727}: la parada en {zone:1458} más adelante en esta guía no tiene instructor de cazadores ni de chamanes.",
 
 	-- Step 31: Back to Gadgetzan
 	-- {area:976} Gadgetzan
-	["Back to {area:976}"] = "",
+	["Back to {area:976}"] = "De vuelta a {area:976}",
 	-- {zone:1454} Orgrimmar
 	["{zone:1454} flight master"] = "Maestro de vuelo de {zone:1454}",
 
 	-- Step 32: Boat to Powderfuse Port
 	-- {area:16727} Powderfuse Port
-	["Boat to {area:16727}"] = "",
+	["Boat to {area:16727}"] = "Barco a {area:16727}",
 	-- {npc:9706} Yorba Screwspigot · {quest:4324} Yuka Screwspigot · {area:251} Flame Crest
-	["{npc:9706}, by the dock: for {quest:4324} at {area:251}, later in this guide"] = "",
+	["{npc:9706}, by the dock: for {quest:4324} at {area:251}, later in this guide"] = "{npc:9706}, junto al muelle: para {quest:4324} en {area:251}, más adelante en esta guía",
 
 	-- Step 33: Badlands
 	-- {zone:2548} Riverglades · {area:16685} Twilight's Shroud · {zone:1418} Badlands
-	["Leave {zone:2548} on foot to the north-west, north of {area:16685}, into the {zone:1418}."] = "",
+	["Leave {zone:2548} on foot to the north-west, north of {area:16685}, into the {zone:1418}."] = "Sal de {zone:2548} a pie hacia el noroeste, al norte de {area:16685}, hacia {zone:1418}.",
 
 	-- Step 34: Kargath
 	-- {area:340} Kargath · {zone:1418} Badlands
-	["{area:340} is built into the cliffs on the {zone:1418}' west edge."] = "",
+	["{area:340} is built into the cliffs on the {zone:1418}' west edge."] = "{area:340} está construida en los acantilados del borde oeste de {zone:1418}.",
 
 	-- Step 35: Into the Searing Gorge
 	-- {zone:1427} Searing Gorge
@@ -194,10 +194,10 @@ return {
 
 	-- Step 39: Ruins of Thaurissan: kill these as you meet them
 	-- {area:250} Ruins of Thaurissan
-	["{area:250}: kill these as you meet them"] = "",
+	["{area:250}: kill these as you meet them"] = "{area:250}: mata a estos según te los encuentres",
 	-- {npc:7039} War Reaver · {quest:4296} Tablet of the Seven · {area:251} Flame Crest · {npc:10267} Tinkee Steamboil · {item:12284} Draco-Incarcinatrix 900
 	-- plural, as words: Black Broodlings = {npc:7047} Black Broodling
-	["Ride west to the dig site. {npc:7039} golems (53) stomp around it and drop the shards often; the {quest:4296} stands in its middle among the Thaurissan dwarves. Copy it.\nBlack Broodlings nest in the hills just east of {area:251}. Use {npc:10267}'s {item:12284} on a broodling when it is almost dead to capture its essence."] = "",
+	["Ride west to the dig site. {npc:7039} golems (53) stomp around it and drop the shards often; the {quest:4296} stands in its middle among the Thaurissan dwarves. Copy it.\nBlack Broodlings nest in the hills just east of {area:251}. Use {npc:10267}'s {item:12284} on a broodling when it is almost dead to capture its essence."] = "Ve al oeste hasta la excavación. Los gólems {npc:7039} (53) pisotean a su alrededor y sueltan los fragmentos seguido; {quest:4296} está en el centro, entre los enanos Thaurissan. Cópiala.\nLas crías negras anidan en las colinas justo al este de {area:251}. Usa {item:12284} de {npc:10267} sobre una cría cuando esté casi muerta para capturar su esencia.",
 
 	-- Step 40: Flame Crest
 	-- {area:251} Flame Crest
@@ -213,14 +213,14 @@ return {
 	-- {area:272} Tarren Mill
 	["Fly to {area:272}"] = "Vuela a {area:272}",
 	-- {area:340} Kargath
-	["{area:340} flight master"] = "",
+	["{area:340} flight master"] = "Maestro de vuelo de {area:340}",
 
 	-- Step 43: Apothecary Lydon
 	["Inside"] = "Adentro",
 
 	-- Step 44: Fly to Undercity
 	-- {area:1497} Undercity
-	["Fly to {area:1497}"] = "",
+	["Fly to {area:1497}"] = "Vuela a {area:1497}",
 	-- {area:272} Tarren Mill
 	["{area:272} flight master"] = "Maestro de vuelo de {area:272}",
 
@@ -236,7 +236,7 @@ return {
 	-- {npc:8390} Chemist Cuely · {zone:1447} Azshara
 	["{npc:8390}, the Apothecarium: the vials fill in {zone:1447} later"] = "{npc:8390}, la botica real: los viales se llenan después en {zone:1447}",
 	-- {npc:5204} Apothecary Zinge
-	["{npc:5204}, near Cuely in the Apothecarium"] = "",
+	["{npc:5204}, near Cuely in the Apothecarium"] = "{npc:5204}, cerca de Cuely en el Boticarium",
 	-- {npc:6522} Andron Gant · {object:36073} Rogues' Quarter
 	["{npc:6522}, the {object:36073}"] = "{npc:6522}, en {object:36073}",
 
@@ -256,7 +256,7 @@ return {
 	["Back a few steps west to Felstone Farm, the first farm along the road; {npc:10778} waits in the house."] = "Regresa unos pasos al oeste a la Granja Piedramácula, la primera granja del camino; {npc:10778} espera en la casa.",
 	["Upstairs"] = "Arriba",
 	-- {object:175894} Janice's Parcel
-	["{object:175894}, beside the house; inside"] = "",
+	["{object:175894}, beside the house; inside"] = "{object:175894}, junto a la casa; adentro",
 	-- {npc:10781} Royal Overseer Bauhaus · {zone:1458} Undercity · {quest:5901} A Plague Upon Thee · {area:2627} Terrordale · {npc:10739} Mulgris Deepriver · {area:202} Writhing Haunt
 	["Keep the parcel: {npc:10781} is in the {zone:1458}. Keep {quest:5901}: its termite mounds are in {area:2627}, on the next guide's ride to Tirion. The next guide starts with {npc:10739} by the {area:202}, south-east of here."] = "Guarda el paquete: {npc:10781} está en {zone:1458}. Guarda {quest:5901}: sus montículos de termitas están en {area:2627}, en el camino hacia Tirion de la siguiente guía. La siguiente guía empieza con {npc:10739} junto a {area:202}, al sureste de aquí.",
 
