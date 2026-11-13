@@ -5873,6 +5873,8 @@ local function checkShape(g)
 		-- Its end reached is the old guide's (0.3.5 reused ids for new
 		-- content): the new one says so again when the player gets there.
 		if type(s.guideEnds) == "table" then s.guideEnds[g.id] = nil end
+		-- Its finish in the guide list is the old guide's too (checkShape, 0.3.5 reused ids).
+		if type(s.guideDone) == "table" then s.guideDone[g.id] = nil end
 	end
 	s.shapes[g.id] = h
 	s.shapeVersions[g.id] = Own.packVersion(g)
@@ -7907,6 +7909,12 @@ local function evaluateLoaded(active)
 		local id = guide.id
 		if not completedFired[id] then
 			completedFired[id] = true
+			-- The guide list keeps its check over a reload or relog (GetGuideState; CharState().guideDone).
+			-- A guide the catch-up passed whole is no finish until every quest the character can take in it
+			-- is turned in: not for its quests left out.
+			if not (Own.passedWhole[id] and Own.allQuestsDone(guide) == false) then
+				ns.CharState().guideDone[id] = true
+			end
 			if active then
 				ns.Fire("GUIDE_COMPLETED", id)
 			else
@@ -8224,10 +8232,11 @@ function Engine.MoveTab(from, to)
 end
 
 -- For the picker: "new", "started" (opened in a tab before, or has
--- check-offs/skips) or "done" (finished this session, or open and finished;
--- a guide the catch-up passed whole is done only once every quest the
--- character can take in it is turned in, not for its quests left out);
--- doneSteps/totalSteps when the guide is open in a tab.
+-- check-offs/skips) or "done" (finished this session, finished before as the
+-- save records it: guideDone, or a leveling guide's end in guideEnds, or open
+-- and finished; a guide the catch-up passed whole is done only once every
+-- quest the character can take in it is turned in, not for its quests left
+-- out); doneSteps/totalSteps when the guide is open in a tab.
 function Engine.GetGuideState(id)
 	local g = id and Guides.Get(id)
 	if not g then return nil end
@@ -8240,6 +8249,11 @@ function Engine.GetGuideState(id)
 		done, total = progressLoaded()
 		finished = finished or (computed == nil and not Engine.SkippedOut())
 		useActive()
+	else
+		local s = ns.CharState()
+		local saved, ends = s.guideDone, s.guideEnds
+		finished = finished or (type(saved) == "table" and saved[id] == true)
+			or (type(ends) == "table" and ends[id] == true)
 	end
 	if finished and not (Own.passedWhole[id] and Own.allQuestsDone(g) == false) then return "done", done, total end
 	local s = ns.CharState()
@@ -12222,9 +12236,9 @@ function Engine.CycleWaypoint(dir)
 	return false
 end
 
--- Forget check-offs, skips, the saved view and the end reached for the
--- active guide from where the player is in it: placed again as if just
--- opened, it tells its end again only when the player gets there
+-- Forget check-offs, skips, the saved view, the end reached and the finish
+-- recorded for the active guide from where the player is in it: placed again
+-- as if just opened, it tells its end again only when the player gets there
 -- (Own.noteEnd). Where they are is what the game shows, not their marks: the
 -- last step with quest progress (anchorStep, read with every mark gone).
 -- Before it, their own check-offs, skips and kept `when` steps stay, so a
@@ -12262,6 +12276,7 @@ function Engine.ResetProgress()
 		end
 	end
 	state.guideEnds[id] = nil
+	state.guideDone[id] = nil
 	Own.endOpen[id], Own.lastOpen[id] = nil, nil
 	pin, pinDone, aim, passedUpTo, placing = nil, nil, nil, 0, GetTime() + PLACE_SECONDS
 	evaluate()
