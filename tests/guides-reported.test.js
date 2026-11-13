@@ -2880,6 +2880,23 @@ test('Horde 40-50: Feralas & Tanaris opens from Stonard or from Kargath, and eve
 	}
 });
 
+test('Horde 40-50/01: the classes the Undercity trains do their level 40 training there on the way to Grom\'gol (R17)', { skip }, () => {
+	// No class trainer between 30-40/05's Undercity (~38) and 40-50/02's Orgrimmar (~43) before this.
+	const list = goals(H40('01-stranglethorn-vale'));
+	const firstGromgol = at(list, 'turnin 1240 (Kin\'weelay)', is('turnin', 1240));
+	for (const cls of ['WARRIOR', 'MAGE', 'PRIEST']) {
+		const mine = list.filter(forClass(cls));
+		const train = mine.findIndex(({ goal }) => goal.t === 'train' && goal.class);
+		const kin = mine.findIndex(({ goal }) => is('turnin', 1240)(goal));
+		assert.ok(train >= 0 && train < kin, `${cls}: trains before the first Grom'gol stop`);
+	}
+	for (const cls of ['HUNTER', 'SHAMAN']) {
+		const mine = list.slice(0, firstGromgol).filter(forClass(cls));
+		assert.ok(mine.some(({ goal }) => goal.t === 'fly' && goal.location === "Grom'gol"), `${cls}: flies straight to Grom'gol (no trainer in the Undercity)`);
+		assert.ok(!mine.some(({ goal }) => goal.t === 'fly' && goal.location === 'Undercity'), `${cls}: no Undercity detour`);
+	}
+});
+
 // The goals the stray rule moved, checked against their steps (#175 review): the
 // Grizzled Scalps are taken where the bears are, and cloth the guide says to buy
 // leads to the Auction House, not to the guards and mobs that happen to drop it.

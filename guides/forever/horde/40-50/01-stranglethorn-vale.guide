@@ -15,7 +15,34 @@ next forever/horde/40-50/02-feralas
 # Excelsior (628, Drizzlik: the Elder Saltwater Crocolisk on the coast between Zul'Kunda and Grom'gol, optional).
 # Left out: The Bloodsail Buccaneers (608), taken in forever/horde/40-50/06-azshara at 50.
 
+step Fly to the Undercity
+  only Warrior,Paladin,Rogue,Priest,Mage,Warlock
+  zone Badlands
+  tip Your level 40 training is in the Undercity: fly there from Kargath, train, and take the zeppelin from the towers outside the city to Grom'gol.
+  goto 4.1,44.9 "Kargath flight master"
+  fly "Undercity"
+  zone Undercity
+
+step Undercity trainers
+  only Warrior,Paladin,Rogue,Priest,Mage,Warlock
+  zone Undercity
+  train class only Warrior,Paladin,Rogue,Priest,Mage,Warlock
+
+step Riding at 40
+  only Undead,Warrior,Paladin,Rogue,Priest,Mage,Warlock
+  zone Tirisfal Glades
+  when level>=40
+  tip Riding needs level 40 and costs 100 gold; learning it gives you a mount. Each race learns it from its own race's trainer: yours is Velma Warnam in Brill, a short ride north of the zeppelin towers, with Zachariah Post's skeletal horses (20 gold each) beside her. Ride back to the towers for the Grom'gol zeppelin.
+  train 4773 optional                   -- Velma Warnam, riding trainer
+  note "Skeletal horses: Zachariah Post, beside Velma Warnam in Brill."
+
+step Zeppelin to Grom'gol
+  only Warrior,Paladin,Rogue,Priest,Mage,Warlock
+  zone Tirisfal Glades
+  goto 61.8,59.2 "Zeppelin to Grom'gol"
+
 step Fly to Grom'gol
+  only Hunter,Shaman,Druid
   zone Badlands
   goto 4.1,44.9 "Kargath flight master"
   fly "Grom'gol"
@@ -64,7 +91,9 @@ step Booty Bay
 # (Swamp of Sorrows 36-40 quests, at 40.0-40.4, before Desolace). Checked by
 # lint, not play-tested on Forever yet. Era + known Forever quests only.
 #
-# Flow: Kargath (where forever/horde/30-40/06-badlands ends) -> fly to Grom'gol
+# Flow: Kargath (where forever/horde/30-40/06-badlands ends) -> fly to the
+# Undercity (level 40 training, Undead riding in Brill) and the zeppelin to
+# Grom'gol; Hunters, Shamans and Druids fly straight to Grom'gol
 # (Kin'weelay, the jungle stalkers, Mok'thardin) -> fly to Booty Bay -> the
 # Bloodsail cove -> Booty Bay -> Mistvale Valley (gorillas, Mokk) -> the
 # Venture Co. mine -> Grom'gol -> Nesingwary -> Zul'Kunda -> Grom'gol ->
