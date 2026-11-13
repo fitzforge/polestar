@@ -164,7 +164,7 @@ step Mageweave Cloth
   collect 4338 x900 anywhere
 
 step Expert Tailoring
-  tip Expert raises the cap from 150 to 225; it needs Tailoring 125 and character level 20, so you can take it on any visit from 125. Only a few trainers teach it: Alliance Georgio Bolero (Stormwind City); Horde Josef Gregorian (Undercity). The arrow picks the nearest of your faction. Learn now: Bolt of Mageweave (from 140). 150-225 takes about 15s of recipes and 21g 16s of vendor goods, plus 264 Silk Cloth and 900 Mageweave Cloth to gather or buy. Come with all of it in your bags (the steps above, the rest from the Auction House): these trainers also teach Black Mageweave Vest (from 170) and Black Mageweave Headband (from 190), and the crafts need no station, so craft right here and learn each recipe as you reach its skill. One trip instead of 3.
+  tip Expert raises the cap from 150 to 225; it needs Tailoring 125 and character level 20, so you can take it on any visit from 125. Only a few trainers teach it: Alliance Georgio Bolero (Stormwind City); Horde Josef Gregorian (Undercity). The arrow picks the nearest of your faction. Learn now: Bolt of Mageweave (from 140). 150-225 takes about 15s of recipes and 21g 16s of vendor goods, plus 264 Silk Cloth and 900 Mageweave Cloth to gather or buy. Come with all of it in your bags (the steps above, the rest from the Auction House): these trainers also teach Black Mageweave Vest (from 170), and the crafts need no station, so craft right here and learn each recipe as you reach its skill. One trip instead of 2. Black Mageweave Headband (from 190) takes a second trip, to other trainers (below).
   level 20
   train Tailoring Expert
   learn 3865
@@ -185,8 +185,9 @@ step Black Mageweave Vest to 197
   craft 12048 until 197
 
 step Tailoring recipes at 197
-  tip Still at the Expert trainer: Black Mageweave Headband (from 190).
-  learn 12072
+  tip Black Mageweave Headband (from 190) is taught only by the Artisan trainers: Alliance Timothy Worthington (Dustwallow Marsh); Horde Daryl Stack (Hillsbrad Foothills).
+  learn 12072 npc 11052 only Alliance
+  learn 12072 npc 2399 only Horde
 
 step Black Mageweave Headband to 225
   tip Black Mageweave Headband is orange at 197 (yellow 205, green 220, grey 235): about 40 crafts to 225. Each takes 3 Bolt of Mageweave and 2 Heavy Silken Thread. Make the 120 Bolt of Mageweave first. The trainer teaches it, and it is the cheapest way through these points in the data. Tailoring 225 is a Legacy System milestone.
@@ -237,9 +238,9 @@ step Ironweb Spider Silk (Alliance)
 
 step Ironweb Spider Silk (Horde)
   only Horde
-  zone Silithus
-  tip 124 Ironweb Spider Silk for Runecloth Shoulders: it drops from Rock Stalker (level 57-59) at the marked spot, or buy it at the Auction House.
-  collect 14227 x124 @24.7,81.8 era
+  zone Un'Goro Crater
+  tip 124 Ironweb Spider Silk for Runecloth Shoulders: it drops from Sand Skitterer (level 55-56) at the marked spot, or buy it at the Auction House.
+  collect 14227 x124 @9.7,36.3 era
 
 step Runecloth Belt to 234
   zone Azeroth
