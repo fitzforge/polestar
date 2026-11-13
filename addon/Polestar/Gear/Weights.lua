@@ -70,8 +70,8 @@
 --     per 1%; mp5/hp5 per point per 5 seconds; weapon DPS per 1 DPS.
 --   * dps = the melee weapon's DPS (main hand, or the off hand's when a scale
 --     has no ohDps: half, its damage penalty), ohDps = the off hand's own
---     weight (Pawn's OffHandDps), rdps = the ranged slot's DPS (bows, guns,
---     crossbows, thrown, wands). Feral has no
+--     weight (Pawn's OffHandDps, Forever Leveling BiS's weights), rdps = the
+--     ranged slot's DPS (bows, guns, crossbows, thrown, wands). Feral has no
 --     dps here: Gear.WeightsFor gives it 14x its attack power weight, since
 --     Forever's forms hit with the weapon's DPS.
 --   * sp = spell damage of every school, spFire etc. = one school only, heal =

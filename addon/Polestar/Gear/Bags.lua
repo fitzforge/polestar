@@ -5,7 +5,9 @@
 -- with gear advice off, or with gear.hideForPawn on and Pawn installed). An
 -- item that fits an empty slot and is worth nothing under the weights, but no
 -- loss, gets the arrow too (Gear.FillsEmptySlot), as the tooltip's "upgrade
--- (empty slot)" says. The verdict is this character's.
+-- (empty slot)" says. The verdict is this character's. While Forever
+-- Leveling BiS's answers apply (installed, Stat weights on Automatic,
+-- gear.useFlbis on), the arrow is its own bag arrow's answer (Gear.FLB).
 --
 --   Gear.Bags.IsUpgrade(link) -> bool   -- the verdict an arrow shows
 --   Gear.Bags.Redraw()                  -- repaint the shown bags now
@@ -66,6 +68,12 @@ end
 
 function Bags.IsUpgrade(link)
 	if type(link) ~= "string" or not Bags.IsOn() then return false end
+	-- Forever Leveling BiS's own arrow while its answers apply (Gear.UsesFLB):
+	-- its "no" stands too, as while its Bag upgrades switch is off.
+	if Gear.UsesFLB and Gear.UsesFLB(1) then
+		local up = Gear.FLB.BagUpgrade(link)
+		if up ~= nil then return up end
+	end
 	return (Gear.IsUpgrade(link) or Gear.FillsEmptySlot(link)) and true or false
 end
 

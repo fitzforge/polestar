@@ -193,6 +193,8 @@ mod gear;
 mod gear_adjust;
 #[path = "gear-bags.rs"]
 mod gear_bags;
+#[path = "gear-flbis.rs"]
+mod gear_flbis;
 #[path = "gear-forever.rs"]
 mod gear_forever;
 #[path = "gear-pawn.rs"]
