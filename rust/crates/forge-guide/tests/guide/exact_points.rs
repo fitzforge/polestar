@@ -117,7 +117,8 @@ fn a_hand_placed_point_at_a_spawn_of_its_target_takes_its_points_one_away_from_t
 	let g = goals(&d, &["step Brutes", "  collect 95212 x1 @22,32"]);
 	let s = spots(&g[0]);
 	assert_eq!(json!([s[0]["x"], s[0]["y"], s[0].get("alt")]), json!([22, 32, null]), "the author's spot first: {}", g[0]);
-	let alts: Vec<Value> = brutes.iter().map(|b| json!({ "x": b["x"], "y": b["y"], "r": 0, "alt": true })).collect();
+	// Each alternative carries its brute's level (12); the author's spot has none.
+	let alts: Vec<Value> = brutes.iter().map(|b| json!({ "x": b["x"], "y": b["y"], "r": 0, "alt": true, "lvl": 12 })).collect();
 	assert_eq!(s[1..], alts[..], "the brutes' points as alternatives");
 	assert_eq!(json!([g[0]["x"], g[0]["y"]]), json!([22, 32]));
 }
@@ -129,7 +130,13 @@ fn stormwind() -> Data {
 	let mut t: Map<String, Value> = tables().into_iter().filter(|(k, _)| ["quests", "npcs", "objects", "items", "zones", "map-frames", "meta"].contains(&k.as_str())).collect();
 	t.get_mut("map-frames").unwrap()["era"]["1453"] = json!({ "left": 1380.971, "right": 36.701, "top": -8278.851, "bottom": -9175.205, "c": 1415 });
 	let npcs = t.get_mut("npcs").unwrap();
-	for (id, name, level, x, y) in [(1477, "Christoph Faral", 30, 76.87, 52.8), (1754, "Lord Gregor Lescovar", 31, 72.36, 35.12), (1755, "Marzon the Silent Blade", 30, 72.1, 35.33), (2044, "Forlorn Spirit", 25, 42.79, 72.36), (4969, "Old Town Thug", 25, 73.75, 59.18)] {
+	for (id, name, level, x, y) in [
+		(1477, "Christoph Faral", 30, 76.87, 52.8),
+		(1754, "Lord Gregor Lescovar", 31, 72.36, 35.12),
+		(1755, "Marzon the Silent Blade", 30, 72.1, 35.33),
+		(2044, "Forlorn Spirit", 25, 42.79, 72.36),
+		(4969, "Old Town Thug", 25, 73.75, 59.18),
+	] {
 		npcs[id.to_string()] = json!({ "id": id, "name": name, "level": level, "faction": null, "spawns": { "1453": { "f": "l", "pts": [[x, y]] } } });
 	}
 	let drops = json!({ "npc": { "1477": 5, "1754": 9.4, "1755": 9.71, "2044": 25.73, "4969": 25.97 }, "object": {} });
@@ -140,11 +147,20 @@ fn stormwind() -> Data {
 #[test]
 fn cloth_bought_at_the_auction_house_keeps_the_auction_house_spot_with_droppers_in_the_city() {
 	let d = stormwind();
-	let lines = ["guide t/main", "title Test", "faction Alliance", "levels 55-60", "zone Stormwind City", "step Stormwind", "  collect 2592 x60 optional @61.2,71.3 map 1453 live -- Wool Cloth, from your bags"];
+	let lines = [
+		"guide t/main",
+		"title Test",
+		"faction Alliance",
+		"levels 55-60",
+		"zone Stormwind City",
+		"step Stormwind",
+		"  collect 2592 x60 optional @61.2,71.3 map 1453 live -- Wool Cloth, from your bags",
+	];
 	let g = goals(&d, &lines);
 	let s = spots(&g[0]);
 	assert_eq!(json!([s[0]["x"], s[0]["y"], s[0].get("alt")]), json!([61.2, 71.3, null]), "the Auction House is the spot the arrow takes: {}", g[0]);
-	assert_eq!(s[1..], [json!({ "x": 42.79, "y": 72.36, "r": 0, "alt": true }), json!({ "x": 73.75, "y": 59.18, "r": 0, "alt": true })], "the Forlorn Spirit and Old Town Thug only as alternatives");
+	let alts = [json!({ "x": 42.79, "y": 72.36, "r": 0, "alt": true, "lvl": 25 }), json!({ "x": 73.75, "y": 59.18, "r": 0, "alt": true, "lvl": 25 })];
+	assert_eq!(s[1..], alts, "the Forlorn Spirit and Old Town Thug only as alternatives, each with its level");
 	assert_eq!(json!([g[0]["x"], g[0]["y"]]), json!([61.2, 71.3]));
 }
 
