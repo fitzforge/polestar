@@ -504,6 +504,56 @@ emit({ hand = hand, unfinished = unfinished, steps = steps, talk = talk })"#);
 	assert_eq!(ready["steps"], json!(["Falla Sagewind turnin:90600 accept:90602 turnin:90602"]), "no talk left");
 }
 
+// #2118 (Fyurie, Uldaman's hand-in guide, a level 45 Warrior): after Uldaman Reagent Run the guide sent the player to
+// take Badlands Reagent Run II from Ghak Healtouch, who never offered it: it is for alchemists (the quest database's
+// skill line 171), and the follow-up check knew only faction, race, class and level. A quest that asks for a
+// profession the character has not learned is not theirs to take (Lookup.QuestBlock "profession"): no accept in
+// the hand-in guide. An alchemist still gets it.
+#[test]
+fn a_follow_up_that_asks_for_a_profession_the_character_has_not_learned_is_not_offered_after_the_hand_in_2118() {
+	let (codex, inputs) = fixture_parts();
+	let mut c = codex.clone();
+	let mut i = inputs.clone();
+	c["npcs"]["9040"] = sideless_npc(9040, "Ghak Healtouch", 1413, 48, 32);
+	let quest = |id: i32, title: &str, pre: &[i32]| {
+		json!({
+			"id": id, "title": title, "level": 26, "minLevel": 15, "faction": null, "races": null, "classes": null,
+			"start": { "npc": [9040], "object": [], "item": [] }, "end": { "npc": [9040], "object": [] },
+			"objectives": [], "pre": pre, "zone": 1413, "rewards": [], "choices": [], "preAny": [],
+		})
+	};
+	c["quests"]["90700"] = quest(90700, "Reagent Run", &[]);
+	c["quests"]["90701"] = quest(90701, "Reagent Run II", &[90700]);
+	i["forever"]["quests"]["90700"] = json!({ "area": 209 });
+	let own = pack_of(&c, &i);
+	// Layout: title, level, minLevel, races, classes, faction, start, finish, startItem, pre, excl, objectives, zone,
+	// events, skill.
+	let records = format!(
+		"{}\nAddRecords(\"quests\", {{ [90701] = {{ \"Reagent Run II\", 26, 15, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, 171 }} }})\nPolestar.QuestDB.SetMeta({{}})\n",
+		forge_addontest::questdb::ADD_RECORDS_LUA
+	);
+	let script = |learn: &str| {
+		format!(
+			"{records}{learn}\n{}",
+			k(r#"
+local ups = {}
+for _, f in ipairs(D.HandinFollowUps(D.HandinPlan("{KEY}"))) do ups[#ups + 1] = f.rec.id end
+local accepts = {}
+for _, s in ipairs((D.HandinGuide("{KEY}") or { steps = {} }).steps) do
+	for _, g in ipairs(s.goals) do if g.t == "accept" then accepts[#accepts + 1] = g.quest end end
+end
+local why, text = Polestar.Lookup.QuestBlock(Polestar.Codex.Quest(90701), Polestar.Lookup.PlayerInfo())
+emit({ ups = ups, accepts = accepts, why = why or false, text = text or false })"#)
+		)
+	};
+	let warrior = run(&own, &script(""), Opts { at: Some(BARRENS), ready: vec![90700], questdb: true, ..Default::default() }).remove(0);
+	assert_eq!(warrior, json!({ "ups": [], "accepts": [], "why": "profession", "text": "Requires Alchemy" }), "no Alchemy: not offered");
+	let alchemist = run(&own, &script(r#"stub.world.learnSkill(171, "Alchemy", 210, 225)"#), Opts { at: Some(BARRENS), ready: vec![90700], questdb: true, ..Default::default() }).remove(0);
+	assert_eq!(alchemist["ups"], json!([90701]), "an alchemist is offered it: {alchemist}");
+	assert_eq!(alchemist["accepts"], json!([90701]));
+	assert_eq!(alchemist["why"], json!(false));
+}
+
 #[test]
 fn pickup_opens_the_guide_in_a_new_tab_and_it_plays_to_the_end_the_giver_link_points_at_the_first_prerequisite_still_to_do() {
 	let pack = default_pack();

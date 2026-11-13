@@ -355,13 +355,32 @@ local function questSide(q)
 end
 Lookup.QuestSide = questSide
 
+-- The profession quest q asks for (the quest database's skill line: Badlands
+-- Reagent Run II is for alchemists, #2118) when the character has none of it:
+-- that skill line, else nil. Nil too while the database is not loaded or the
+-- client does not tell skills.
+local function missingProfession(q)
+	local Q, C = ns.QuestDB, ns.Compat
+	if not (Q and q.id and Q.IsLoaded() and C.Supports and C.Supports("skill")) then return nil end
+	local r = Q.QuestRecord(q.id)
+	local line = r and r[Q.F.SKILL]
+	if type(line) ~= "number" or line <= 0 then return nil end
+	return not C.GetSkillRank(line) and line or nil
+end
+
 -- Quest availability for this character: why, text | nil. A race or class
--- lock says who it is for ("Warlock only", Lookup.QuestForText, #1730).
+-- lock says who it is for ("Warlock only", Lookup.QuestForText, #1730); a
+-- profession it has not learned, which one ("Requires Alchemy").
 local function questBlock(q, p)
 	local side = questSide(q)
 	if side and not sideOK(side, p) then return "faction", sideText(side) end
 	if maskBlocks(q.races, RACE_BIT, p.race) then return "race", Lookup.QuestForText(q) or L["Not for your race"] end
 	if maskBlocks(q.classes, CLASS_BIT, p.class) then return "class", Lookup.QuestForText(q) or L["Not for your class"] end
+	local line = missingProfession(q)
+	if line then
+		local name = Lookup.ProfessionName(line)
+		return "profession", L["Requires"] .. " " .. (name and L[name] or L["Profession"])
+	end
 	if q.minLevel and q.minLevel > p.level then return "level", levelText(q.minLevel) end
 	if ns.Compat.IsQuestCompleted(q.id) then return "done", L["Already done"] end
 	return nil
