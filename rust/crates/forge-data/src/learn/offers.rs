@@ -1,4 +1,4 @@
-//! What givers' windows say about when a quest is offered: the OfferAudit rules (Fitz,
+//! What givers' windows say about when a quest is offered: the offer audit's rules (Fitz,
 //! 2026-11-07), ported from the one-off audit that fixed #1132.
 //!
 //! - A refusal counts only from a giver's quest LIST (a gossip or greeting window): a quest the NPC

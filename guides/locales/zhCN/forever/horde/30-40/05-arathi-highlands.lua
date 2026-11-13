@@ -30,10 +30,10 @@ return {
 
 	-- Step 6: Gol'dir
 	-- {area:280} Strahnbrad · {npc:2431} Jailor Borhuin · {item:3704} Rusted Iron Key · {quest:503} Gol'dir
-	["Head north past Valik's camp to {area:280}, the Syndicate-held village (35-37). {npc:2431} carries the {item:3704}; {quest:503} sits in a cage in the house on the north side.\nCareful: Stealthed Syndicate spies roam {area:280}, and the buildings hold many Syndicate mobs, mages among them."] = "向北经过Valik的营地，前往被辛迪加占据的村庄{area:280}（35-37级）。{npc:2431}携带{item:3704}；{quest:503}被关在北侧房屋的笼子里。\n小心：潜行的辛迪加密探在{area:280}游荡，房屋里也有许多辛迪加怪物，包括法师。",
+	["Head north past Valik's camp to {area:280}, the Syndicate-held village (35-37). {npc:2431} carries the {item:3704}; {quest:503} sits in a cage in the house on the north side.\nCareful: Stealthed Syndicate spies roam {area:280}, and the buildings hold many Syndicate mobs, mages among them."] = "向北经过瓦里克的营地，前往被辛迪加占据的村庄{area:280}（35-37级）。{npc:2431}携带{item:3704}；{quest:503}被关在北侧房屋的笼子里。\n小心：潜行的辛迪加密探在{area:280}游荡，房屋里也有许多辛迪加怪物，包括法师。",
 	["Inside"] = "在里面",
 	-- {quest:503} Gol'dir
-	["Find where {quest:503} is held, on the top floor"] = "",
+	["Find where {quest:503} is held, on the top floor"] = "到顶层找到关押{quest:503}的地方",
 	-- {quest:503} Gol'dir
 	["{quest:503}, on the top floor"] = "{quest:503}，位于顶层",
 
@@ -45,7 +45,7 @@ return {
 
 	-- Step 9: Baron Vardus
 	-- {npc:2306} Baron Vardus · {area:280} Strahnbrad · {quest:503} Gol'dir
-	["{npc:2306} (40) carries the head. He turns up in one spot at a time: the cellar of {area:280}'s inn, or one of the Syndicate tent camps in the uplands north and north-west of the village, which lie on your way to the Perenolde manor. If you already met him while freeing {quest:503}, this step is done."] = "",
+	["{npc:2306} (40) carries the head. He turns up in one spot at a time: the cellar of {area:280}'s inn, or one of the Syndicate tent camps in the uplands north and north-west of the village, which lie on your way to the Perenolde manor. If you already met him while freeing {quest:503}, this step is done."] = "{npc:2306}（40级）身上有需要的头颅。他一次只出现在一处：{area:280}旅店的地窖，或村子北边及西北边高地上的某个辛迪加帐篷营地，前往匹瑞诺德庄园时会经过。如果解救{quest:503}时已经遇到过他，这一步就已完成。",
 
 	-- Step 10: Alterac Mountains
 	["Perenolde manor"] = "匹瑞诺德庄园",
@@ -72,12 +72,12 @@ return {
 
 	-- Step 15: Thoradin's Wall
 	-- {area:1057} Thoradin's Wall
-	["The road east through {area:1057}"] = "",
+	["The road east through {area:1057}"] = "向东穿过{area:1057}的道路",
 
 	-- Step 16: Northfold Manor
 	-- {area:272} Tarren Mill · {area:1057} Thoradin's Wall
 	-- plural, as words: Bloodstone Amulets = {item:4495} Bloodstone Amulet
-	["Head east out of {area:272} through {area:1057}. The Syndicate hold the walled manor and its farm north of the road; their Highwaymen, Mercenaries and Pathstalkers carry the Bloodstone Amulets.\nCareful: Highwaymen (level 30-31) can be in Sneak, so they may be hidden when you approach."] = "从{area:272}向东穿过{area:1057}。辛迪加占据道路北面的围墙庄园及农场；辛迪加路霸、辛迪加雇佣兵和Pathstalkers携带血石护符。\n小心：辛迪加路霸（30-31级）可能处于Sneak潜行状态，靠近时未必能看到。",
+	["Head east out of {area:272} through {area:1057}. The Syndicate hold the walled manor and its farm north of the road; their Highwaymen, Mercenaries and Pathstalkers carry the Bloodstone Amulets.\nCareful: Highwaymen (level 30-31) can be in Sneak, so they may be hidden when you approach."] = "从{area:272}向东穿过{area:1057}。辛迪加占据道路北面的围墙庄园及农场；辛迪加路霸、辛迪加雇佣兵和辛迪加巡路者携带血石护符。\n小心：辛迪加路霸（30-31级）可能处于潜行状态，靠近时未必能看到。",
 
 	-- Step 17: The Shards of Myzrael
 	-- {object:138492} Shards of Myzrael
@@ -118,7 +118,7 @@ return {
 	-- Step 24: Boulderfist Hall
 	-- {area:321} Hammerfall
 	-- plural, as words: Boulderfist Brutes = {npc:2566} Boulderfist Brute
-	["The Boulderfist Brutes camp outside the ogres' hall, far south-west of {area:321}; the Magus stand among them. Pull them one at a time."] = "",
+	["The Boulderfist Brutes camp outside the ogres' hall, far south-west of {area:321}; the Magus stand among them. Pull them one at a time."] = "石拳蛮兵在{area:321}西南方远处的食人魔大厅外扎营，石拳法师站在它们中间。一次引一个。",
 
 	-- Step 25: Fleshstalker raptors
 	["Fleshstalker raptors"] = "猎兽龙",
@@ -127,9 +127,9 @@ return {
 	["Highland Fleshstalkers (36-37) hunt the southern highlands, a pack north of {area:316} and another on the plain to its west. Pull them one at a time."] = "高地猎兽龙（36-37级）在南部高地狩猎，一群在{area:316}北边，另一群在其西边的平原上。一次拉一只。",
 
 	-- Step 26: Go'shek Farm
-	["Go'shek Farm"] = "Go'shek Farm",
+	["Go'shek Farm"] = "格沙克农场",
 	-- {npc:2733} Apothecary Jorell · {area:321} Hammerfall · {item:278462} Packaged Tonics
-	["{npc:2733}'s lab shack stands at Go'shek Farm, north-east of the raptors' plain on the way back to {area:321}; the case of {item:278462} is inside."] = "",
+	["{npc:2733}'s lab shack stands at Go'shek Farm, north-east of the raptors' plain on the way back to {area:321}; the case of {item:278462} is inside."] = "{npc:2733}的实验室小屋在格沙克农场，位于迅猛龙平原东北边，返回{area:321}时会经过；装有{item:278462}的箱子就在屋里。",
 
 	-- Step 27: Back to Hammerfall
 	-- {area:321} Hammerfall
@@ -160,12 +160,12 @@ return {
 	["The {object:2702}"] = "{object:2702}",
 	["The inner circle lies south of the western circle, east of Stromgarde."] = "内部法阵在西部法阵南边、激流堡东边。",
 	-- {area:321} Hammerfall
-	["The stone's next task needs Fozruk, a level 42 elite who roams west of {area:321}: leave it."] = "石头的下一步任务需要击败Fozruk，一只在{area:321}以西游荡的42级精英：先别做。",
+	["The stone's next task needs Fozruk, a level 42 elite who roams west of {area:321}: leave it."] = "石头的下一步任务需要击败弗兹鲁克，一只在{area:321}以西游荡的42级精英：先别做。",
 
 	-- Step 32: Stromgarde
 	["Stromgarde"] = "激流堡",
 	-- {npc:2783} Marez Cowl · {area:325} Tower of Arathor · {npc:2773} Or'Kalar
-	["West of the inner circle, Stromgarde's ruins: the Syndicate hold the east half (the Sigil drops from their Conjurors, Prowlers and Magi; {npc:2783} is among them), the Boulderfist the west half by the {area:325} ({npc:2773} waits in one of the roofless houses beside it)."] = "内禁锢法阵西面是激流堡废墟：辛迪加占据东半边（符印由他们的Conjurors、Prowlers和Magi掉落，{npc:2783}也在其中）；石拳食人魔占据{area:325}旁的西半边（{npc:2773}在塔旁一间没有屋顶的房子里）。",
+	["West of the inner circle, Stromgarde's ruins: the Syndicate hold the east half (the Sigil drops from their Conjurors, Prowlers and Magi; {npc:2783} is among them), the Boulderfist the west half by the {area:325} ({npc:2773} waits in one of the roofless houses beside it)."] = "内禁锢法阵西面是激流堡废墟：辛迪加占据东半边（符印由他们的辛迪咒术师、辛迪加潜伏者和辛迪加占星师掉落，{npc:2783}也在其中）；石拳食人魔占据{area:325}旁的西半边（{npc:2773}在塔旁一间没有屋顶的房子里）。",
 
 	-- Step 33: Faldir's Cove
 	-- {npc:2766} Lolo the Lookout

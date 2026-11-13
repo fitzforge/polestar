@@ -133,10 +133,10 @@ Theme.SKIN_PAINT.hearth = {
 		s:Show()
 	end,
 	-- Menus and detail panes: a flat, slightly lighter board with a dark
-	-- copper edge.
+	-- copper edge (a menu or popup, f.psMenu, on menuBg).
 	panel = function(f)
 		if f.psBare then return bare(f) end
-		fill(f):SetVertexColor(Theme.Color("panel"))
+		fill(f):SetVertexColor(Theme.Color(f.psMenu and "menuBg" or "panel"))
 		Theme.Border(f, Theme.Color("frameEdgeDark"))
 	end,
 	-- Action tiles: a shaded recess in the board.

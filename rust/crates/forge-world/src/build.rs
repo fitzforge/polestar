@@ -149,7 +149,7 @@ fn skyborne_exits(f: Faction) -> [Exit; 1] {
 pub const SKYBORNE_PORTAL_RIDE: &str = "portal-skyborne-stormwind";
 const SKYBORNE_PORTAL: (u32, (i64, f64, f64, u32)) = (631299, (0, -8840.6, 489.7, 1453));
 
-/// Zephras Isle's own portals (RevSkyA3, c13: Lorthuna's heights priced as a 546 yd walk up from the
+/// Zephras Isle's own portals (c13 review: Lorthuna's heights priced as a 546 yd walk up from the
 /// shrine): (object, ride name, arrival as isle map percent and z). The Portal To Rohashi Spires in the
 /// shrine's inner sanctum lands on the heights where Confront Lorthuna (93835) has its event, 325 yd
 /// above. (The Portal to Valanaar beside Lorthuna, 617084/617085, is left out until its arrival point
@@ -1847,7 +1847,7 @@ pub fn build_world(d: &GameData, opts: &BuildOptions, floors: &dyn Floors) -> Re
 					// A friendly vendor that sells the item, nearest the giver: bought there when that
 					// costs less than the best drop, priced as a sure drop (1) plus the walk (Look to
 					// the Stars' Bronze Tube from Herble beside Viktori in Darkshire, not a 1.9 % drop in
-					// Stonetalon carried for five levels: RevA1, c13).
+					// Stonetalon carried for five levels: c13 review).
 					// (An item a friendly NPC hands out stays a talk. Against a drop, vendors' spawns are
 					// read without making their sites: a drop that wins adds no vendor point; a buy adds
 					// every friendly vendor's, its alternatives.)

@@ -30,17 +30,31 @@ use serde_json::Value;
 /// The 0.3.7 base's core at login: next at c0c99712a (0.3.7 final), this test's script, 2026-11-11: 11,003 KiB.
 const LOGIN_BASE: f64 = 11003.0;
 /// At most 50 KiB over the base, plus what 0.3.7.1, 0.3.7.2 and the 0.3.8 work so far add at login (measured
-/// 11060 KiB after the merge, 57 over the base). Raised rather than re-measured per release: Fitz, 2026-11-12,
+/// 11060 KiB after the merge, 57 over the base; 11115 with 0.4.0's looks carried and polished, #2049 and #2084, 112
+/// over it; +77 more with the settings preview drawing the guide window itself, #2103: the guide window's code kept
+/// for the preview's copy, each UI/GuideFrame*.lua file's part and the window's build, which the live window dropped
+/// once built; 11,125 with the settings polish, #2063, and the search's dropdown on their own base). Raised rather than re-measured per release: Fitz, 2026-11-12,
 /// "if you hit memory budgets again, just raise them"; the login cost gets its review once 0.3.8's content is final.
 /// Install (0.4.0: UI/Welcome.lua's Questing, Targeting, Groups and dungeons and Your look pages, the option cards
 /// and the looks' picker) adds about 60 KiB of code at login: measured 11,136 KiB on 2026-11-13. The 0.4.0 work
 /// merged with it (dungeons in the route's notices, the stranded-quest row and banner, Show in quest log and the
 /// out-of-sight notice, the guide window's shared step view, the breadcrumb and parent-quest rules) adds about
-/// 60 KiB more: measured 11,198 KiB on 2026-11-13. The Barrow Dens' five travel chains in Nav/TravelData.lua (#1919,
-/// #1341, #2005: the arrow's way out of and into the Stormrage Barrow Dens and the Ban'ethil Barrow Den, every node
-/// with its floor's height) add 55 KiB: measured 11,252 KiB on 2026-11-13, 11,197 with the travel data before them.
-/// Raised by that and about 5%.
-const LOGIN: f64 = LOGIN_BASE + 258.0;
+/// 60 KiB more: measured 11,198 KiB on 2026-11-13.
+/// Then 0.4.0's contributor batch (#2083): Pause's state, watcher and key (Core/Init.lua, Core/Pause.lua, #1937),
+/// Adjust weights (Gear/Adjust.lua, UI/GearAdjust.lua, #1538), the Nav API's followers (Nav/Journey.lua, #1329),
+/// another addon's map canvas (#1938), the step browser's run cards (UI/StepList.lua, #2004) and the dungeon
+/// levels panel (UI/LevelTip.lua, #2008): 11,214 KiB at login on dev-040's 11,077 (a1643d59c, this test's
+/// script, 2026-11-13), +137. Raised to that figure and about 5 % (Fitz, 2026-11-12: a memory budget new content
+/// pushes over goes to the measured figure plus about 5 %; the login review comes once 0.4.0's content is final).
+/// All of 0.4.0's merges so far together (the contributor batches #2083 and #2141, the looks #2084 with #2049, the
+/// guide window's preview copy #2103, the settings polish #2063, the arrow #2098, the zone choice #2111 and its
+/// cards #2134, the report's settings #2096): 11,614 KiB on 2026-11-13. CI reads a little more than a local run of
+/// the same addon (dev-040 at 467cdd126: 11,198 here and a budget of 11,203; CI read 11,203 on a pull request that
+/// changes no addon code, and failed), so the budget is the measured figure and about 5 %: 12,195.
+/// The Barrow Dens' five travel chains in Nav/TravelData.lua (#1919, #1341, #2005: the arrow's way out of and into
+/// the Stormrage Barrow Dens and the Ban'ethil Barrow Den, every node with its floor's height) add 54 KiB (11,613 ->
+/// 11,667 KiB at dev-040's 5fe81cc6e, 2026-11-14), within it.
+const LOGIN: f64 = LOGIN_BASE + 1192.0;
 /// Loaded, 1,790 KiB on 2026-11-11 (760 on 2026-11-10): the Look pages' previews and the toasts and trackers
 /// pages moved in (1,110), then the settings-only widgets, every module's rows, Unlock mode, the profile
 /// strings, the preview stage and the skin picker's cards and presets (+400), all out of the login (1,513).
@@ -55,18 +69,31 @@ const LOGIN: f64 = LOGIN_BASE + 258.0;
 /// nameplate on the stage, and Theme > Accent lighting every part drawn in the accent. Then the search's dropdown
 /// (+41: 1,833 to 1,874 on 2026-11-13): UI/SearchDropdown.lua, and the places, page scope and lit words of the
 /// search in UI/Options.lua. Raised by that, as Fitz asked on 2026-11-12 ("if you hit memory budgets again, just
-/// raise them").
-const LOADED: f64 = 1907.0;
+/// raise them"). The bands (#2084: every Look tab's preview its element alone, the stage, its backdrops and the
+/// scenes' mobs gone) measured 1,798 on their own base. Then the settings polish (#2063: the Move frames session and
+/// box menu, the rows' and sections' Move, the reset's Undo, Peek and Fold, the glide and the sidebar's nudge, long
+/// lists' filter, the colour favourites, the callouts, the dialogs' typed word, the profile keys and the rows' reset
+/// arrow): 1,974 measured on its own base. All of 0.4.0's merges together: 1,950 on 2026-11-13; the budget is that
+/// and about 5 % (Fitz, 2026-11-12, as for the login).
+const LOADED: f64 = 2048.0;
 /// Opened on its first page, 4,124 KiB (1,890 on 2026-11-10; 3,485 with the Look pages' previews; 3,888 with
 /// the rest moved in, then the pages' +155, then the hero previews' +67, then the Buttons and single-alert
 /// scenes and the Accent lights' +26, to 4,151; then the search's dropdown's code, +41, 4,280 to 4,322 on
-/// 2026-11-13: the list itself is built only when the player first types).
-const OPENED: f64 = 4287.0;
+/// 2026-11-13: the list itself is built only when the player first types). Then 0.4.0's contributor batch
+/// (#2083), chiefly Pause's section on the first page (its switch, two extras and key binding, #1937): +155 with
+/// the base's rows, 4,435 KiB on dev-040's 4,280 (a1643d59c, this test's script, 2026-11-13), so about 4,477 with
+/// the search's dropdown (its 4,322 and the batch's 155). Raised with the base's rows to that figure and about 5 %
+/// (Fitz, 2026-11-12, as for the login). With the settings polish and the reset arrow (#2063), 4,500 measured on its
+/// own base. All of 0.4.0's merges together: 4,670 with the base's rows on 2026-11-13; the budget with the base's
+/// rows is that and about 5 %.
+const OPENED: f64 = 4809.0;
 /// Peak, 3,964 KiB (1,190 on 2026-11-10; 2,359 with the Look pages): the files that moved in compile with the
 /// collector stopped (+1,000, to 3,365), then the pages' (+430, their files' compile with the collector stopped),
 /// then the hero previews' (+150, the same), then the Buttons and single-alert scenes and the Accent lights'
-/// (+68, the same, to 4,034), then the search's dropdown (+108, the same: 4,084 to 4,192 on 2026-11-13).
-const PEAK: f64 = 4233.0;
+/// (+68, the same, to 4,034), then the search's dropdown (+108, the same: 4,084 to 4,192 on 2026-11-13). With
+/// the settings polish, 4,446 measured on 2026-11-13 (budget raised to it). All of 0.4.0's merges together: 4,376 on
+/// 2026-11-13; the budget is that and about 5 %.
+const PEAK: f64 = 4595.0;
 
 /// What the base itself puts in the opened window, not the overhaul's cost: 0.3.7's three rows on the first
 /// page (Guide: Tell me when a newer Polestar is out, Flight paths you pass, Keep the arrow when hidden),

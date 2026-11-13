@@ -118,7 +118,7 @@ pub const LEFT_VALLEY_YD: f64 = 500.0;
 pub const TOWN_MERGE_YD: f64 = 600.0;
 
 /// Per town (world point): the yards a training there costs the race's classes it has no trainer
-/// for (RevTroll: Razor Hill has no Mage trainer; RevNightElf: Goldshire no Hunter or Druid): each
+/// for (the start-zone reviews: Razor Hill has no Mage trainer; Goldshire no Hunter or Druid): each
 /// such class's share (1 / the race's classes) of a round trip to the nearest hub with its trainer
 /// in the town's region (straight yards). A town's trainers are its hubs within TOWN_MERGE_YD on its
 /// map (a starting valley's own hub only). A class with no trainer in the town's region is

@@ -1,17 +1,20 @@
 guide polestar-experimental/hyjal-3
 title Mount Hyjal 3: the Shrine of Aviana, Dae'gun and the Summit of Eternity (experimental)
+faction Alliance
 levels 57-59
 zone Mount Hyjal
 coords live
 folder Mount Hyjal · Experimental
 why Forever's new endgame zone, an alpha route from Forever's quest data and the first recording of the zone.
 keywords mount hyjal, hyjal, shrine of aviana, dae'gun, summit of eternity, nordrassil, experimental, alpha
-next forever/alliance/50-60/04-western-plaguelands when level<58
-next forever/alliance/50-60/05-silithus when level>=58
-next forever/horde/50-60/06-silithus when level<59
-next forever/horde/50-60/07-felwood when level>=59
+next forever/alliance/50-60/06-silithus
 
-# Polestar Experimental, Mount Hyjal part 3 of 3, for both factions (2026-11-12). Hand-written.
+# Polestar Experimental, Mount Hyjal part 3 of 3 (2026-11-12). Hand-written.
+# Alliance only for now: no Horde player is recorded in the zone yet, so the Horde's quest givers and flight
+# paths are unproven. The Horde's lines stay in as written, and the Horde hand-off (to
+# forever/horde/50-60/06-silithus) comes back with Horde recordings of the zone. The Alliance reaches Mount
+# Hyjal as a route choice at the end of the Western Plaguelands guide (50-60/04) and rejoins the main route at
+# its last guide (50-60/06).
 # Sources as in parts 1 and 2: Forever's quest data for quests, givers, enders and objectives; the one recorded
 # session (an Alliance player, levels 57 to 60) for the order, the spots and the chain links the data lacks.
 # Order: the Shrine of Aviana and its harpies, back south-west past the Deadwood camps to Barkskin Burrow for its

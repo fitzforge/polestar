@@ -332,8 +332,9 @@ fn b_e_f_the_arrow_aims_along_the_engine_path_ahead_of_the_player_the_route_line
 		r.path = { length = length(pts), straight = dist(GOLDSHIRE[1], GOLDSHIRE[2], tx, ty), endGap = dist(pts[#pts].x, pts[#pts].y, tx, ty) }
 		r.left = { walk = N.walk.Left(0, tx, ty), along = length(pts) }
 		r.shown = { text = N.arrow.distText:GetText(), want = Polestar.FormatDistance(floor(a.dist + 0.5)), visible = PolestarNavArrow:IsShown() }
-		-- e: the route lines' walk legs are the engine's path, the player first:
-		-- every path point, in order, along the pieces' points (the mouth between them).
+		-- e: the route lines' walk legs are the arrow's walk: the engine's path points as Follow.Smooth kept them (it
+		-- drops only corners a straight walkable line skips, and adds none), in order, the player first and the mine's
+		-- mouth between the pieces.
 		local g = N.GetRouteGeometry()
 		local along, walks, current = {}, 0, nil
 		for _, leg in ipairs(g.legs) do
@@ -343,12 +344,23 @@ fn b_e_f_the_arrow_aims_along_the_engine_path_ahead_of_the_player_the_route_line
 				for _, p in ipairs(leg.pts) do along[#along + 1] = p end
 			end
 		end
-		local k, inOrder = 1, true
-		for _, p in ipairs(pts) do
-			while along[k] and not (along[k][1] == 0 and along[k][2] == p.x and along[k][3] == p.y) do k = k + 1 end
-			if not along[k] then inOrder = false break end
+		local last, inOrder, extra, kept = 0, true, 0, 0
+		for _, q in ipairs(along) do
+			local i = nil
+			for j, p in ipairs(pts) do
+				if q[1] == 0 and q[2] == p.x and q[3] == p.y then i = j break end
+			end
+			if not i then
+				extra = extra + 1
+			elseif i < last then
+				inOrder = false
+			else
+				if i > last then kept = kept + 1 end
+				last = i
+			end
 		end
-		r.geometry = { legs = #g.legs, walks = walks, inOrder = inOrder, first = dist(current.pts[1][2], current.pts[1][3], GOLDSHIRE[1], GOLDSHIRE[2]) }
+		r.geometry = { legs = #g.legs, walks = walks, inOrder = inOrder, extra = extra, kept = kept, lastKept = last,
+			first = dist(current.pts[1][2], current.pts[1][3], GOLDSHIRE[1], GOLDSHIRE[2]) }
 		-- f: the journey's legs.
 		local legs, ci = N.GetRoute()
 		local T = N.travel
@@ -384,14 +396,17 @@ fn b_e_f_the_arrow_aims_along_the_engine_path_ahead_of_the_player_the_route_line
 	assert_eq!(first["step"], "cave");
 	assert_eq!(first["choke"], "Jasperlode Mine");
 	assert!(f(&first["mouth"]) <= MINE_MOUTH[2], "the first piece ends {:.1} yd from the mine's mouth", f(&first["mouth"]));
-	let (len, tail, d) = (f(&path["length"]), f(&first["tail"]), f(&aim["dist"]));
-	assert!((d - (len - tail)).abs() < 0.5, "the arrow shows the path's length to the mouth ({d:.1} vs {len:.1} less {tail:.1} after it)");
-	assert!(len >= f(&path["straight"]), "path {len:.0} yd, straight {:.0} yd", f(&path["straight"]));
-	assert!((f(&out["left"]["walk"]) - len).abs() < 0.5, "Walk.Left is the whole path left");
+	// The arrow's walk is the engine's path straightened once (Follow.Smooth): never longer, and what it measures and
+	// shows is along it.
+	let (raw, tail, d, len) = (f(&path["length"]), f(&first["tail"]), f(&aim["dist"]), f(&out["left"]["walk"]));
+	assert!(len <= raw + 0.5 && len >= f(&path["straight"]), "the walk {len:.1} yd: the engine's path {raw:.1} yd straightened, the straight line {:.0} yd", f(&path["straight"]));
+	assert!((d - (len - tail)).abs() < 0.5, "the arrow shows the walk's length to the mouth ({d:.1} vs {len:.1} less {tail:.1} after it)");
 	assert_eq!(out["shown"]["text"], out["shown"]["want"], "the arrow's distance text is that length");
 	// e
 	assert_eq!(out["geometry"]["walks"], 2, "two walk pieces on the route lines");
-	assert_eq!(out["geometry"]["inOrder"], true, "their points carry the engine's path, point for point, in order");
+	assert_eq!(out["geometry"]["inOrder"], true, "their points are the engine's path's, in order");
+	assert!(f(&out["geometry"]["extra"]) <= 2.0, "no point but the player's place and the mine's mouth is added ({})", out["geometry"]["extra"]);
+	assert!(f(&out["geometry"]["kept"]) >= 2.0 && out["geometry"]["lastKept"] == aim["n"], "the path's end is kept ({} of {})", out["geometry"]["lastKept"], aim["n"]);
 	assert!(f(&out["geometry"]["first"]) < 0.01, "starting where the player stands");
 	// f (K1, K6, K7)
 	assert_eq!(out["finds"], 1);
@@ -405,7 +420,7 @@ fn b_e_f_the_arrow_aims_along_the_engine_path_ahead_of_the_player_the_route_line
 	assert_eq!(journey["finite"], true);
 	assert_eq!(journey["sum"], journey["total"], "K6: the pieces' times add up to the walk's");
 	assert!(journey["progress"].as_array().unwrap().iter().all(|v| v.as_f64().is_some_and(f64::is_finite)), "K7: the walk's progress is finite");
-	assert!((f(&journey["progress"][1]) - (len - tail)).abs() < 0.5, "and measured along the engine's path to the mouth");
+	assert!((f(&journey["progress"][1]) - (len - tail)).abs() < 0.5, "and measured along the walk to the mouth");
 	assert!(f(&journey["remaining"]).is_finite());
 	// f: once the path is in, the whole walk is measured along it (the sum of its pieces), at the planner's 7 yd/s.
 	let (yards, sum) = (f(&journey["yards"]), f(&journey["sum"]));

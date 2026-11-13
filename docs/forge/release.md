@@ -47,7 +47,7 @@ parts, and its texts in the language folders `Polestar_<locale>`) and Polestar's
 
 | File | Contents |
 |---|---|
-| `Polestar-<version>.zip` | `Polestar` (with `LICENSE` and the players' `README.txt`), `Polestar_Guides` and its parts, `Polestar_Nav`, `Polestar_Experimental` (Polestar's TOC, `## LoadOnDemand: 1`: off in game until a player switches it on; left out without `experimental/pack.json`), `Polestar_QuestDB` and `Polestar_ItemDB` when built, `Polestar_Codex`, the language folders `Polestar_<locale>` (guide texts and names). The old `Polestar_Guides_<locale>` and `Polestar_Names_<locale>` are never shipped: `pack` names any left in `addon/` so they get deleted |
+| `Polestar-<version>.zip` | `Polestar` (with `LICENSE` and the players' `README.txt`), `Polestar_Guides` and its parts, `Polestar_Nav`, `Polestar_Experimental` (Polestar's TOC, `## LoadOnDemand: 1`: off in game until a player chooses one of its guides at a route choice or switches it on; left out without `experimental/pack.json`), `Polestar_QuestDB` and `Polestar_ItemDB` when built, `Polestar_Codex`, the language folders `Polestar_<locale>` (guide texts and names). The old `Polestar_Guides_<locale>` and `Polestar_Names_<locale>` are never shipped: `pack` names any left in `addon/` so they get deleted |
 | `Polestar_Recorder-<version>.zip` | `Polestar_Recorder` with `LICENSE` |
 | `SHA256SUMS` | both zips' checksums, as `sha256sum -c` reads them |
 

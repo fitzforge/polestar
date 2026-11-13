@@ -545,7 +545,7 @@ fn insert_way(text: &mut Vec<String>, i: usize, steps: &[WayStep], only_route: &
 	// The way to a step only some characters play is theirs too (the Undercity leg before the class
 	// trainers' step, A9).
 	// (With the route's races' own `only`, the step's classes too: the Tauren Druids' walk back to the
-	// Crossroads from Dreadmist Peak, not everyone's, Rev14H1 12c.)
+	// Crossroads from Dreadmist Peak, not everyone's, c14 review, item 12c.)
 	let step_list = text.get(s + 1..step_end.min(text.len())).and_then(|b| b.iter().take_while(|l| !is_goal(l)).find(|l| re!(r"^\s+only\s").is_match(l)).cloned());
 	let only: Vec<String> = match (only_route.first(), &step_list) {
 		(None, Some(l)) => vec![l.clone()],
@@ -648,7 +648,7 @@ fn step_end0(text: &[String], s: usize) -> usize {
 /// Thunder Bluff training and flight back to the Crossroads). The way on from where that trip left
 /// the player is the trip's classes', not everyone's: everyone's flight from Orgrimmar to the
 /// Crossroads was shown to the Druids and Paladins standing there (c19 Horde
-/// 30-40/03-arathi-highlands:449, Rev19-H B3).
+/// 30-40/03-arathi-highlands:449, c19 review B3).
 fn trip_classes(text: &[String], i: usize, cls: &str) -> Option<Vec<&'static str>> {
 	let mut s = i.min(text.len().saturating_sub(1));
 	while s > 0 && !step_re(&text[s]) {
@@ -950,7 +950,7 @@ fn binds_at_v1(text: &mut Vec<String>, rr: &[String]) -> usize {
 				continue;
 			}
 			// (Not v1's line in a step the route's characters do not play: everyone's line there still
-			// binds only the others; the Night Elves' own Auberdine bind was lost so, Rev15NightElf 24.)
+			// binds only the others; the Night Elves' own Auberdine bind was lost so, c15 review, item 24.)
 			if !Route::of(rr).sees(&step_audience(text, j)) {
 				break;
 			}
@@ -1388,7 +1388,7 @@ impl Repair<'_> {
 			}
 			// (Only for work of theirs that the flight led to: v1's "Back to the Crossroads" flight, left
 			// with the Warlocks' hand-ins alone after the route trained elsewhere, sends no one walking
-			// back to the Crossroads from Regthar, Rev14H1 12c.)
+			// back to the Crossroads from Regthar, c14 review, item 12c.)
 			let mut s = i.min(text.len().saturating_sub(1));
 			while s > 0 && !step_re(&text[s]) {
 				s -= 1;
@@ -1683,7 +1683,7 @@ mod tests {
 
 	#[test]
 	fn a_way_into_a_class_step_on_a_shared_guide_keeps_the_steps_classes() {
-		// Rev14H1 12c: the Tauren Druids' walk back to the Crossroads (written for the route's races on the
+		// c14 review, item 12c: the Tauren Druids' walk back to the Crossroads (written for the route's races on the
 		// shared Barrens) lost the step's `only Tauren,Druid`: everyone walked Regthar - Crossroads - Barak.
 		let mut t = v(&["step Dreadmist Peak", "  only Tauren,Druid", "  fly \"Crossroads\"", "  turnin 6127", ""]);
 		let way = WayStep { title: "Crossroads".into(), zone: Some("The Barrens".into()), lines: vec!["  goto 51.5,30.4 \"Crossroads\"".into()] };
@@ -1843,7 +1843,7 @@ mod tests {
 
 	#[test]
 	fn the_routes_bind_stays_when_v1s_line_is_in_a_step_for_the_others_only() {
-		// Rev15NightElf (24): v1's Auberdine sethome sat in v1's step left to the other starts
+		// c15 review (24): v1's Auberdine sethome sat in v1's step left to the other starts
 		// (`only Human,Dwarf,Gnome,Skyborne`); made everyone's there, it still bound only them, and the
 		// Night Elves' own bind went.
 		let mut t = s(&[

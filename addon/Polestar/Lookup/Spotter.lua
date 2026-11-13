@@ -139,6 +139,22 @@ local function color(name, r, g, b)
 	return r, g, b
 end
 
+-- A source line's two colours: its name's, then its type and place's. The
+-- house look lifts them (Theme.House "sourceLines"), the name in the accent
+-- and the place in textDim, so the line holds its own among the other
+-- lines of a shared tooltip; every other look keeps textDim over textMuted.
+local function sourceColors()
+	local T = ns.Theme
+	if T and T.House and T.House("sourceLines") then
+		local lr, lg, lb = color("accent", 0.9, 0.73, 0.4)
+		local rr, rg, rb = color("textDim", 0.69, 0.72, 0.8)
+		return lr, lg, lb, rr, rg, rb
+	end
+	local lr, lg, lb = color("textDim", 0.69, 0.72, 0.8)
+	local rr, rg, rb = color("textMuted", 0.5, 0.54, 0.63)
+	return lr, lg, lb, rr, rg, rb
+end
+
 local function sourceText(row)
 	if not row.available and row.whyText then return row.whyText end
 	return row.detail
@@ -178,8 +194,7 @@ function Lookup.ItemTooltip(tooltip, link, itemID)
 	local list = Lookup.Sources(kind, itemID, true)
 	if #list == 0 then return end
 	local H = ns.Hooks
-	local lr, lg, lb = color("textDim", 0.69, 0.72, 0.8)
-	local rr, rg, rb = color("textMuted", 0.5, 0.54, 0.63)
+	local lr, lg, lb, rr, rg, rb = sourceColors()
 	for _, row in ipairs(bestRows(list, 2)) do
 		local right = sourceText(row)
 		H.AddLine(tooltip, L["From"] .. " " .. (row.label or ""), right, lr, lg, lb, rr, rg, rb)
@@ -187,7 +202,7 @@ function Lookup.ItemTooltip(tooltip, link, itemID)
 	-- A mount is guided to only by a curated guide (Lookup.Guide); Alt-click
 	-- opens its Lookup page otherwise, so the line promises nothing.
 	if ns.Get("lookup.altClick") and ((guideable(list) and not Lookup.IsMount(item)) or Lookup.CuratedGuide(kind, itemID)) then
-		H.AddLine(tooltip, L["Alt-click: guide me"], nil, rr, rg, rb)
+		H.AddLine(tooltip, L["Alt-click: guide me"], nil, color("textMuted", 0.5, 0.54, 0.63))
 	end
 end
 
@@ -196,8 +211,7 @@ function Lookup.UnitTooltip(tooltip, unit)
 	local info = Lookup.UnitMount(unit)
 	if not info then return end
 	local H = ns.Hooks
-	local lr, lg, lb = color("textDim", 0.69, 0.72, 0.8)
-	local rr, rg, rb = color("textMuted", 0.5, 0.54, 0.63)
+	local lr, lg, lb, rr, rg, rb = sourceColors()
 	local right
 	if info.item then
 		local list = Lookup.Sources(itemKind(ns.Codex, info.item), info.item, true)
@@ -206,7 +220,7 @@ function Lookup.UnitTooltip(tooltip, unit)
 		right = L["Class mount"]
 	end
 	H.AddLine(tooltip, L["Mount"] .. ": " .. info.name, right, lr, lg, lb, rr, rg, rb)
-	H.AddLine(tooltip, L["/pole mount: how to get it"], nil, rr, rg, rb)
+	H.AddLine(tooltip, L["/pole mount: how to get it"], nil, color("textMuted", 0.5, 0.54, 0.63))
 end
 
 ns.Hooks.ItemLines("lookup", Lookup.ItemTooltip)

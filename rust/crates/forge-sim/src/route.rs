@@ -69,7 +69,7 @@ pub fn model_for(world: &World, race: &str, profile: &Profile, base: &Params, wa
 }
 
 /// Deliberate `together` work (route fixes): a task whose kill work lives at several camps is done
-/// at its camp nearest its pair's place, so the two are one visit (RevH1 c13, #274: the Raptor Horns
+/// at its camp nearest its pair's place, so the two are one visit (c13 review, #274: the Raptor Horns
 /// with Vrang's hides in the Dry Hills, at the Sunscale Scytheclaws there, not at the Raptor Grounds
 /// 2981 yd from the hides). Every kill work of the task with camps to choose from goes to its camp
 /// nearest the pair, and the task's site to the nearest of them (c15 Undead: only the first work
@@ -142,7 +142,7 @@ pub fn together_camps_for(run: &mut crate::run::Run, rules: &[crate::order::Toge
 /// work within it is one place).
 pub const CO_SITE_YD: f64 = 70.0;
 
-/// An object's site where other work is done (RevTauren3, c13 Mulgore: the Well Stones at Thunderhorn
+/// An object's site where other work is done (c13 review, Mulgore: the Well Stones at Thunderhorn
 /// well, 9 stones at 471 yd from the giver, over Winterhoof, 7 at 438 yd, 20 yd from where Rite of
 /// Vision's totem is used: 771 then needs its own trip): a task whose work is all object use, with other
 /// sites (the world's task `alts`), and no other quest's task within CO_SITE_YD of its site in its zone,
@@ -170,7 +170,7 @@ pub fn co_sited_tasks(run: &mut crate::run::Run) {
 	}
 }
 
-/// A lead-in handed in before its follow-up is taken (RevNightElf3, c13 Teldrassil: the planner's own
+/// A lead-in handed in before its follow-up is taken (c13 review, Teldrassil: the planner's own
 /// hub loop took the follow-up first twice): per quest of the run whose world `next` is another quest
 /// of the run, its hand-in before that quest's accept (a pair, as the deliberate ones: held when
 /// both are in the order, left out where v1's own order breaks it).
@@ -419,7 +419,7 @@ pub fn free_grinds(world: &World, rules: &Rules, goals: &[Goal], seed: &Order) -
 
 /// v1's `train class` events with the level they are held at or above: the highest minimum level of
 /// the quests their guide step takes (its class quests: the Tome of Divinity, 2998, at 12; Trial of
-/// the Lake at 16), so a moved training keeps them open (RevA1, RevTauren, RevDwarfGnome).
+/// the Lake at 16), so a moved training keeps them open (the start-zone reviews).
 pub fn train_floors(world: &World, goals: &[Goal], events: &[Event]) -> Vec<Event> {
 	let min_of: rustc_hash::FxHashMap<u32, f64> = world.quests.iter().map(|q| (q.id, q.min_level)).collect();
 	events
@@ -1054,7 +1054,7 @@ pub fn finish(f: &Finish, best: Order, mut edits_doc: Value, refused: rustc_hash
 	// (A training due the search's own trainings made unneeded goes: order::drop_stale_dues.)
 	let best = crate::order::drop_stale_dues(&mut bev, &best);
 	let best = clean(&mut bev, &best);
-	// A breadcrumb handed in before its follow-up is taken at the same NPC (RevA2: 2872/2873,
+	// A breadcrumb handed in before its follow-up is taken at the same NPC (review: 2872/2873,
 	// 3763/3764 the other way round).
 	let crumbs: Vec<(u32, u32)> = world.quests.iter().filter(|w| w.breadcrumb).filter_map(|w| Some((bm.run.q(w.id)?, bm.run.q(w.next? as u32)?))).collect();
 	let best = crate::order::breadcrumbs_first(&bm.run, &crumbs, &best);
@@ -1091,7 +1091,7 @@ pub fn finish(f: &Finish, best: Order, mut edits_doc: Value, refused: rustc_hash
 	let seed_other = summary(&mut oev, seed);
 	let best_other = summary(&mut oev, &best);
 	let mut dd = diff(&model.run, seed, &best);
-	// The quests the overrides skip are dropped too (RevH2: overrides.skip 5821/5943 came out
+	// The quests the overrides skip are dropped too (review: overrides.skip 5821/5943 came out
 	// before the seed, so the writer, which drops what `dropped` names, kept v1's lines).
 	dd.dropped = dropped_from_v1(&model.run, v1_seed, &best, &dd.dropped);
 	ev.reset();

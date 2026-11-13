@@ -135,7 +135,6 @@ function audit(dump, roots, fonts, kinds = ['cut', 'lines', 'word', 'window']) {
 		const bound = o.anchoredW || (o.w != null && o.w > 0);
 		const hasTop = pts.some((p) => V[p.point] === 0), hasBottom = pts.some((p) => V[p.point] === 1);
 		const lineH = (n) => (n * o.font[1] + (n - 1) * (o.spacing || 0)) * s;
-		if (want.has('overlap')) drawn.push({ o, root, text, ink: inkOf(o, r, s, bound, fonts, lineH) });
 		// What the client cuts inside the string's own box.
 		if (bound && r.w > 0) {
 			if (!o.wrap) {
@@ -164,6 +163,12 @@ function audit(dump, roots, fonts, kinds = ['cut', 'lines', 'word', 'window']) {
 			box = intersect(box, cr);
 			if (cur.kind === 'ScrollFrame') scrolls = true;
 			else fixed = intersect(fixed, cr);
+		}
+		// Overlap: the text as drawn, cut to the frames that clip it (a scroll
+		// area's text scrolled under a footer is not drawn there).
+		if (want.has('overlap')) {
+			const ink = intersect(textInk(o, r, s, fonts), { x: box.x0, y: box.y0, w: box.x1 - box.x0, h: box.y1 - box.y0 });
+			if (ink.x1 - ink.x0 > 0.5 && ink.y1 - ink.y0 > 0.5) drawn.push({ o, root, text, ink });
 		}
 		if (!bound) {
 			// Unbound: as wide as its text, grown from its anchor.
@@ -215,6 +220,13 @@ function inkOf(o, r, s, bound, fonts, lineH) {
 	const jv = o.justifyV || 'MIDDLE';
 	const y0 = jv === 'TOP' ? r.y : jv === 'BOTTOM' ? r.y + r.h - h : r.y + (r.h - h) / 2;
 	return { x0, y0, x1: x0 + w, y1: y0 + h };
+}
+
+// Where string o (its box r, at scale s) draws its text, as the overlap check
+// takes it.
+function textInk(o, r, s, fonts) {
+	const bound = o.anchoredW || (o.w != null && o.w > 0);
+	return inkOf(o, r, s, bound, fonts, (n) => (n * o.font[1] + (n - 1) * (o.spacing || 0)) * s);
 }
 
 const describe = (f) => `"${f.text.length > 70 ? f.text.slice(0, 67) + '...' : f.text}" ${f.kind === 'window' ? 'crosses' : f.kind === 'overlap' ? 'overlaps' : 'is cut at'} ${f.what} by ${f.over}${f.kind === 'lines' && f.what.includes('lines') ? ' line(s)' : f.kind === 'overlap' ? 'px in width' : 'px'}${f.box != null ? ` (box ${f.box})` : ''}`;
@@ -298,7 +310,7 @@ function fitLocales(targets, { slack = 1 } = {}) {
 	});
 }
 
-module.exports = { PASSES, audit, auditLocale, summarize, describe, fontsFor, fitLocales, interfaceFile, localeCodepoints, localeLua };
+module.exports = { PASSES, audit, auditLocale, summarize, describe, fontsFor, fitLocales, interfaceFile, localeCodepoints, localeLua, textInk };
 
 // One locale's findings as JSON, for fitLocales: node fit.js <locale>[=<file>] <slack>
 if (require.main === module) {

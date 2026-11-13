@@ -26,7 +26,7 @@ why Opens Ravenholdt Manor, the hidden rogue house in the Alterac hills, and Myr
 #   Handed in straight from a guard's window and never in the log, so a
 #   `turnin direct` with a plain collect (#1699 sweep).
 # Sources: Forever's Rogue class quest list (data/local/quest-audit/) and
-# Forever's quest pages (page snapshot) for the quests, texts, reputation and
+# Forever's quest data for the quests, texts, reputation and
 # money; quests.json, npcs.json, objects.json and items.json for the givers,
 # places and the Elegant Letter's givers (every capital's rogue trainer);
 # the KB for the starts quests.json lacks (Myrokos gives 96782; Anastasia

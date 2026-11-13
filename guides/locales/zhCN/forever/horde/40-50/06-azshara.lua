@@ -30,15 +30,15 @@ return {
 	-- {npc:7406} Oglethorpe Obnoticus
 	["{npc:7406}, inside"] = "{npc:7406}：在屋内",
 	-- {npc:2491} Whiskey Slim
-	["{npc:2491}, in the inn"] = "",
+	["{npc:2491}, in the inn"] = "{npc:2491}，在旅店里",
 	["\"Sea Wolf\" MacKinley, on the top floor"] = "“海狼”马克基雷，位于最顶层",
 	-- {npc:2487} Fleet Master Seahorn
-	["{npc:2487}, on the balcony of the same building"] = "",
+	["{npc:2487}, on the balcony of the same building"] = "{npc:2487}在同一栋建筑的阳台上",
 
 	-- Step 7: The Bloodsail ships
 	["The Bloodsail ships"] = "血帆海盗船",
 	-- {area:43} Wild Shore · {npc:2550} Captain Stillwater · {npc:2548} Captain Keelhaul · {npc:2546} Fleet Master Firallon
-	["South of Booty Bay, three Bloodsail ships lie off the {area:43}: {npc:2550}, {npc:2548} and {npc:2546} each stand on a deck with their crews. Swim out and work from ship to ship."] = "",
+	["South of Booty Bay, three Bloodsail ships lie off the {area:43}: {npc:2550}, {npc:2548} and {npc:2546} each stand on a deck with their crews. Swim out and work from ship to ship."] = "藏宝海湾南边、{area:43}外停着三艘血帆船：{npc:2550}、{npc:2548}和{npc:2546}分别与船员待在各自的甲板上。游过去，逐艘清理。",
 
 	-- Step 9: Monogrammed Sash
 	-- {quest:8552} The Monogrammed Sash

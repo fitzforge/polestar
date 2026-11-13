@@ -240,16 +240,13 @@ end
 -- card (the step), person (its header), goals (the scroll of goal rows), rows
 -- (the goal rows, pooled), tip, after ("Then:"), along, upnext, empty, banner,
 -- foot (the progress), here (While you're here). Frames to place things by
--- and to restyle; nil before the window is built. One table, made once.
-local guideParts
+-- and to restyle; nil before the window is built. One table, made once. The
+-- live window's: the guide hooks run for every guide window (the settings
+-- preview's copy too), each handing its own parts or frames, so a hook reads
+-- the window it dresses from what it is given.
 function Theme.GuideParts()
-	if guideParts then return guideParts end
 	local G = ns.UI and ns.UI.GuideFrame
-	local p = G and G.parts
-	if not (p and G.frame) then return nil end
-	guideParts = { window = G.frame, rows = G.rows }
-	for k, v in pairs(p) do guideParts[k] = v end
-	return guideParts
+	return G and G.SkinParts and G.SkinParts() or nil
 end
 
 -- The palette skin `id` would give, with the player's own colours (a card's

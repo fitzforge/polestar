@@ -63,7 +63,8 @@ end
 
 -- The card for notice n (Update.Notice).
 function UC.Model(n)
-	local m = { update = n.latest or "old", icon = Theme.Media("logo"), titleColor = "text", head = L["POLESTAR UPDATE"] }
+	-- The header, and the house look's facts line under the title (UI/ClassToast.lua).
+	local m = { update = n.latest or "old", icon = Theme.Media("logo"), titleColor = "text", head = L["POLESTAR UPDATE"], facts = L["Polestar update"] }
 	if n.kind == "old" then
 		m.title = L["Check for a newer Polestar"]
 		m.giver = format(L["This Polestar is %d weeks old: updates come often."], n.weeks)

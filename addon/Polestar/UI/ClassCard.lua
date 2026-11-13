@@ -406,7 +406,7 @@ local function newCard(parent)
 	F.Learn:SetWordWrap(true)
 	F.Trip = text(F, "small", "textDim")
 	F.Trip:SetWordWrap(true)
-	F.Only = text(F, "small", "textMuted")
+	F.Only = text(F, "small", "textDim")
 	F.Only:SetWordWrap(true)
 	-- The guide carries the class quest: the player just follows it.
 	F.Only:SetText(L["Only you see this: it's your class's quest."] .. " " .. L["Part of your route: just follow the guide."])
@@ -483,14 +483,19 @@ function paint(class, c)
 	F.Disc:SetVertexColor(r * 0.2, g * 0.2, b * 0.2, 0.95)
 	F.Ring:SetVertexColor(r, g, b, 1)
 	F.Head:SetTextColor(tr, tg, tb, 1)
-	F.Badge.Fill:SetVertexColor(r, g, b, 0.18)
+	-- The badge's wash a little lighter than the ring's colour, so its text
+	-- in that colour keeps 4.5:1 on it (Hearth's warm wood put the druid's
+	-- orange under it).
+	F.Badge.Fill:SetVertexColor(r, g, b, 0.12)
 	Theme.Border(F.Badge, r, g, b, 1)
 	F.Badge.Text:SetTextColor(tr, tg, tb, 1)
 	F.Shine:SetVertexColor(r, g, b, 0.35)
 	W.Color(F.Title, "text")
 	W.Color(F.Learn, "text")
 	W.Color(F.Trip, "textDim")
-	W.Color(F.Only, "textMuted")
+	-- The note in the secondary colour: the card's glow lifts its ground past
+	-- what the muted colour reads on (Halo).
+	W.Color(F.Only, "textDim")
 	return hexOf(tr, tg, tb)
 end
 

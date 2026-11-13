@@ -100,7 +100,7 @@ public database), conflict or stale. Writes the snapshot <out>/quests.json and m
 <report>/report.md and conflicts.json (default <root>/data/local/recorded: per zone, every fact
 against our data: new, confirms, replaces, vs correction, conflict, stale, pending). Corrections always
 win: a fact that disagrees with one is listed, never applied. --archive: the re-sessioned archive
-(default ~/work/maintainer/recordings; its config.json exclude applies); --verdicts: IngestAudit's
+(default ~/work/maintainer/recordings; its config.json exclude applies); --verdicts: the recordings audit's
 verdict.json (default ~/work/maintainer/ingest-audit/verdict.json when present: exclude and suspect
 contributors never count, one vote per merged person, re-rolled characters' race and class
 ignored); --data: data/forever (default <root>/data/forever); --sources: the source cache with the
@@ -204,7 +204,7 @@ fn jobs(args: &[String]) -> Result<usize, Fail> {
 	}
 }
 
-/// `~/work/maintainer/<rest>`: where the maintainer's recordings archive and IngestAudit live.
+/// `~/work/maintainer/<rest>`: where the maintainer's recordings archive and the recordings audit live.
 pub(super) fn maintainer(rest: &str) -> Option<PathBuf> {
 	std::env::var_os("HOME").map(|h| PathBuf::from(h).join("work/maintainer").join(rest))
 }
@@ -221,7 +221,7 @@ fn learn(rest: &[String]) -> Result<(), Fail> {
 		None => maintainer("ingest-audit/verdict.json").filter(|v| v.is_file()),
 	};
 	if verdicts.is_none() {
-		eprintln!("warning: no IngestAudit verdicts (--verdicts): only the archive's config.json exclude applies, and no one is merged into one person");
+		eprintln!("warning: no recordings audit verdicts (--verdicts): only the archive's config.json exclude applies, and no one is merged into one person");
 	}
 	let out = path("--out").unwrap_or_else(|| root.join(forge_data::learn::DIR));
 	let report = path("--report").unwrap_or_else(|| root.join("data/local/recorded"));

@@ -27,7 +27,7 @@ local GAME_METRICS = {
 	row = 28, menuRow = 22, menuPad = 6, menuWidth = 260, servicesWidth = 290,
 	buttonH = 22, buttonPad = 14, dropdownW = 170, dropdownH = 24, chevron = 10, chevronInset = 6,
 	sliderW = 120, valueW = 56, checkbox = 18,
-	shellW = 930, shellH = 690, shellSidebar = 200, shellTabs = 32, shellPad = 28, shellFooter = 56,
+	shellW = 930, shellH = 690, shellTabs = 32, shellPad = 28, shellFooter = 56,
 	pickerW = 1100, pickerH = 640, pickerDetail = 380, pickerSidebar = 230,
 	guidePad = 12, guideIconGap = 9, guideTabs = 28, guideNav = 32, guideNavBtn = 20, guideNavIcon = 12,
 	guideIconBtnW = 20, guideIconBtnH = 20, guideIcon = 11, guideRow = 22, guideCheck = 15,
