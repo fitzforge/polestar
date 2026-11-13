@@ -1141,7 +1141,11 @@ object, up to 40; a creature at up to 8 places, none in a camp or walking
 about; #1944) carries each point as a spot of radius 0 and no `n` instead:
 exact points (GUIDE_FORMAT, "Spawn areas", Points). A `loop` step's
 goals carry its `goto` points instead, in order, with `spread = true` and no
-`n` or alternatives (compile-time: `resolve.js` applyLoop). `x`/`y` stay the
+`n` or alternatives (compile-time: `resolve.js` applyLoop). A kill, collect or
+interact bound to a quest objective that players' recordings place
+(`data/recorded/quests.json`) takes its places from the trusted recorded spots
+(an area of a spot's own size, no `n` where no spawn of the target lies in it;
+GUIDE_FORMAT, "Spawn areas", Recorded). `x`/`y` stay the
 default point. `z` (optional, 0.2.4) is the height of the NPC or object the
 goal's `x`/`y` stands for (the compiler's, from `spawnz.json`: GUIDE_FORMAT,
 "Heights"); a spot and a smart target's candidate may carry their own `z`
