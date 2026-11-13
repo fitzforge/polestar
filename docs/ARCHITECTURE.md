@@ -1844,8 +1844,10 @@ Polestar.Engine.StepHiddenFor(step, who?) -> bool  -- no step of its own for who
   Minerals 2580); Polestar never changes the tracking nor the Interact Key's
   settings. Candidates: one per kind with spots on the continent
   (`Own.hereGather`, `Own.hereGatherOf` kept across builds: a dismiss mutes the
-  kind around here, twice for the zone); its goal moves to the spot its line
-  shows. A spot the walk check turns away stays away for the zone stay
+  kind around here, twice for the zone); its goal, a `gather` of its own (no
+  guide step holds it and no goal state ends it; the arrow, on a click, says
+  what the line says), moves to the spot its line shows. A spot the walk check
+  turns away stays away for the zone stay
   (`Own.hereGatherBad`). The spots of a continent are decoded the first time
   the option asks for them there (only the kinds the character gathers, in
   200 yd cells; `GATHER_CHANGED` after a skill opens or closes a kind), and
@@ -3496,7 +3498,7 @@ Polestar.Engine.RefreshMaterials()                               -- the ways cha
   list for Auctionator or the copy window. The guide window's menu: "Gather
   materials", "Buy materials", "Mix: choose per material". Options: Guide ›
   Professions › Materials (`professions.materials`,
-  `professions.altMaterials`).
+  `professions.altMaterials`, and a Show button that opens the window).
 
 ### Nav API — journeys for players and other addons
 
