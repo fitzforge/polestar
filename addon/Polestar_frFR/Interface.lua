@@ -1921,6 +1921,7 @@ L["Log:"] = "Journal :"
 L["Step %d of %d (guide step %d): %s"] = "Étape %d sur %d (étape %d du guide) : %s"
 L["Install: %s"] = "Installation : %s"
 L["While here: %s"] = "Tant qu'ici : %s"
+-- L["The report lists the settings you changed and your profile's name: no character names, chat, account or realm."] = ""
 
 -- UI/Packs.lua
 L["turned off in the AddOns list"] = "désactivé dans la liste des addons"

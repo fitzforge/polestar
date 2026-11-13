@@ -1920,6 +1920,7 @@ L["Log:"] = "Registro:"
 L["Step %d of %d (guide step %d): %s"] = "Etapa %d de %d (etapa %d do guia): %s"
 L["Install: %s"] = "Instalação: %s"
 L["While here: %s"] = "Já que está aqui: %s"
+-- L["The report lists the settings you changed and your profile's name: no character names, chat, account or realm."] = ""
 
 -- UI/Packs.lua
 L["turned off in the AddOns list"] = "desativado na lista de AddOns"

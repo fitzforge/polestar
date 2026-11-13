@@ -40,6 +40,8 @@ test('the bug in the navigator reports the step on screen: the player\'s words, 
 		stub.RunScript(F.Desc, "OnTextChanged", true)
 		local hidden = not F.Box:IsShown()
 		local closedH = F:GetHeight()
+		-- The note on the report's settings, under the buttons until the report shows: the room it gives up.
+		local note = F.SettingsNote:IsShown() and F.SettingsNote:GetStringHeight() + 10 or 0
 		F.Copy:Click()
 		local text = F.Box:GetText()
 		local selected = F.Box:IsShown() and stub.focus == F.Box
@@ -47,7 +49,7 @@ test('the bug in the navigator reports the step on screen: the player\'s words, 
 		local grown = F:GetHeight() - closedH
 		local openH = F:GetHeight()
 		F.Invite:Click()
-		emit({ noGuide = noGuide, shown = shown, opened = opened, text = text, hidden = hidden, selected = selected, grown = grown, openH = openH,
+		emit({ noGuide = noGuide, shown = shown, opened = opened, text = text, hidden = hidden, selected = selected, grown = grown, openH = openH, note = note,
 			invite = { shown = PolestarCopy:IsShown(), text = PolestarCopy.Box:GetText(), focus = stub.focus == PolestarCopy.Box }, boxH = boxH })`);
 	assert.equal(out.noGuide, false, 'no guide, no step to report: the bug is not there');
 	assert.equal(out.shown, true);
@@ -75,9 +77,10 @@ test('the bug in the navigator reports the step on screen: the player\'s words, 
 	const versions = lineWith(out.text, 'client ');
 	assert.ok(versions.startsWith('Polestar ') && versions.includes('client 1.60.1 (70338)') && versions.endsWith('enUS'), versions);
 	assert.ok(lines.includes('Errors: none'), out.text);
+	assert.equal(lines[lines.indexOf('Errors: none') + 1], 'Settings: all defaults', 'nothing changed: one line says so');
 	assert.equal(out.hidden, true, 'the report is not shown until it is asked for');
 	assert.equal(out.selected, true, 'Copy report shows the report in focus, selected for Ctrl+C');
-	assert.ok(out.grown >= out.boxH, `the window grows to hold it (${out.grown}px for a ${out.boxH}px box)`);
+	assert.ok(out.grown + out.note >= out.boxH, `the window grows to hold it, the note under the buttons giving way (${out.grown}px and the note's ${out.note}px for a ${out.boxH}px box)`);
 	assert.ok(out.openH <= 720, `with the report shown, the window fits a 720-unit screen (${out.openH})`);
 	assert.deepEqual(out.invite, { shown: true, text: INVITE, focus: true }, 'Get the invite opens the invite on its own, selected');
 	assert.ok(out.boxH >= lines.length * 11, `the box holds every line (${out.boxH}px for ${lines.length})`);
@@ -186,7 +189,7 @@ test('at its longest, a 1,000-letter description, a marked spot and 40 addons, t
 	assert.match(english, /^\(trimmed to fit Discord\)\n```$/m);
 });
 
-test('with a short description the long report only gives up its log and shortens its Addons line, then says it was trimmed', () => {
+test('with a short description the long report only gives up its log and shortens its Addons line (or gives it up, left no room for a name), then says it was trimmed', () => {
 	for (const [locale, word, letter] of SCRIPTS) {
 		const { text, details } = longest(locale, word, letter, { descLen: 250 });
 		assert.ok(text.length <= 2000, `${locale}: ${text.length} characters`);
@@ -194,14 +197,18 @@ test('with a short description the long report only gives up its log and shorten
 		// The log's lines went, which the details do not hold.
 		assert.deepEqual(block(text), [...details, '(trimmed to fit Discord)'], `${locale}: every detail line, as taken, and the note`);
 	}
-	const english = longest(...SCRIPTS[0], { descLen: 250 });
-	assert.equal(english.text.length, 2000, 'English is the one that runs over');
-	const addons = english.text.split('\n')[2];
-	assert.match(addons, /^\*\*Addons:\*\* QuestAndMapHelperWithALongName.*\.\.\.$/, `the Addons line gives way: ${addons}`);
-	const unmarked = longest(...SCRIPTS[0], { unmarked: true, descLen: 250 }).text;
+	const russian = longest(...SCRIPTS[1], { descLen: 250 });
+	assert.equal(russian.text.length, 2000, 'Russian runs over by less than its Addons line holds');
+	const addons = russian.text.split('\n')[2];
+	assert.match(addons, /^\*\*[^*]+\*\* QuestAndMapHelperWithALongName.*\.\.\.$/, `the Addons line gives way: ${addons}`);
+	const unmarked = longest(...SCRIPTS[1], { unmarked: true, descLen: 250 }).text;
 	const unmarkedAddons = unmarked.split('\n')[1];
 	assert.ok(unmarked.length <= 2000, `the unmarked report fits too: ${unmarked.length}`);
-	assert.ok(unmarkedAddons.split(', ').length > english.text.split('\n')[2].split(', ').length, `without the Right spot line the Addons line takes the room it frees, not a fixed 100 bytes: ${unmarkedAddons}`);
+	assert.ok(unmarkedAddons.split(', ').length > addons.split(', ').length, `without the Right spot line the Addons line takes the room it frees, not a fixed 100 bytes: ${unmarkedAddons}`);
+	// English, whose lines hold the most characters, leaves its Addons line less room than an addon's name: it goes
+	// whole, and every detail line stays.
+	const english = longest(...SCRIPTS[0], { descLen: 250 });
+	assert.equal(english.text.split('\n')[2], '```', 'English gives the Addons line up before any detail');
 	assert.match(english.text, /^\.\.\. 3 more goals$/m, 'goals past the sixth are counted, not listed');
 	assert.equal((english.text.match(/^ {2}1x /gm) || []).length, 3, 'the newest three of the errors and blocked calls together');
 	assert.equal((english.text.match(/^ {2}1x blocked in Polestar_Long/gm) || []).length, 3, 'the blocked calls came last');
@@ -232,12 +239,21 @@ function trimmedAt(textMax, opts = {}) {
 		add("errors", "Errors:")
 		for e = 1, 3 do add("error", line("  1x error " .. e)) end
 		add("questlog", line("Quest log 2/40: 783 1/2"))
-		add("settings", line("Settings: qol.stepInteract=true"))
+		add("settings", "Settings: profile Default (account) · 9 changed")
+		local head = #d.lines
+		add("settinglist", line("behavior.autoAccept=off behavior.autoTurnin=off nav.travel=off"))
+		local list1 = #d.lines
+		add("settinglist", line("gear.minUpgrade=1->5 qol.sellJunk=off update.card=off"))
+		local list2 = #d.lines
+		add("settinglooks", line("looks: skin=hearth"))
+		d.settings = { head = head, at = #d.lines, counts = { [list1] = 3, [list2] = 3 }, more = 2, hash = "0123abcd" }
+		add("settingmore", "+2 more #0123abcd")
+		add("settingcode", line("!PSR1!0123abcd!eJw"))
 		emit({ text = R.Text(${JSON.stringify(opts.desc || 'The vermin were all by the tents.')}, d), lines = d.lines })`)[0];
 }
 
-test('a report over one Discord message gives up, in order: the log, the Addons line, Settings, Packs, goals past the current one and the next two, the quest log, then the older errors; never the description, the guide and step, the current goal, Arrow, Where or the Errors header', () => {
-	const order = [/^> log/, /^\*\*Addons:/, /^Settings:/, /^Packs:/, /^\[ \] goal 7/, /^\[ \] goal 6/, /^\[ \] goal 1/, /^\[ \] goal 2/, /^Quest log/, /^ {2}1x error 1/, /^ {2}1x error 2/];
+test('a report over one Discord message gives up, in order: the log, the Addons line, the packed settings, goals past the current one and the next two, the looks line, the settings list from its last line (counted in "+N more"), Packs, the quest log, then the older errors; never the description, the guide and step, the current goal, Arrow, Where or the Errors header', () => {
+	const order = [/^> log/, /^\*\*Addons:/, /^!PSR1!/, /^\[ \] goal 7/, /^\[ \] goal 6/, /^\[ \] goal 1/, /^\[ \] goal 2/, /^looks: /, /^gear\.minUpgrade/, /^behavior\.autoAccept/, /^Packs:/, /^Quest log/, /^ {2}1x error 1/, /^ {2}1x error 2/];
 	const never = [/^Polestar 0\.3\.7/, /^Human Warrior/, /^Guide: /, /^Step 3 of 8/, /^\[>\] goal 3/, /^\[ \] goal 4/, /^\[ \] goal 5/, /^Arrow: /, /^Where: /, /^Errors:$/];
 	const untrimmed = trimmedAt(4000);
 	assert.doesNotMatch(untrimmed.text, /trimmed/, 'room for all: nothing goes, no note');
@@ -255,8 +271,12 @@ test('a report over one Discord message gives up, in order: the log, the Addons 
 		gone = n;
 		for (const re of never) assert.match(text, new RegExp(re.source, 'm'), `${re} kept at ${max}`);
 		assert.match(text, /\n\(trimmed to fit Discord\)\n```$/, `the note closes the block at ${max}`);
-		if (missing.slice(4, 8).some(Boolean)) assert.match(text, /^\.\.\. \d+ more goals$/m, 'goals left out are counted');
-		if (!counted && missing[7] && !missing[8]) counted = text;
+		if (missing.slice(3, 7).some(Boolean)) assert.match(text, /^\.\.\. \d+ more goals$/m, 'goals left out are counted');
+		// The settings the list gives up join the ones it never listed, under the same hash, while the Settings line stays.
+		const more = 2 + (missing[8] ? 3 : 0) + (missing[9] ? 3 : 0);
+		if (/^Settings: /m.test(text)) assert.match(text, new RegExp(`^\\+${more} more #0123abcd$`, 'm'), `+${more} more at ${max}: ${text}`);
+		else assert.doesNotMatch(text, / more #/, `no count without the Settings line, at ${max}`);
+		if (!counted && missing[6] && !missing[7]) counted = text;
 	}
 	assert.equal(gone, order.length, 'the smallest room took every line the order names');
 	assert.ok(counted, 'a room where every goal the order names went and the quest log stayed');
@@ -1002,14 +1022,16 @@ test('the report carries the quest log, the settings turned away from their defa
 		Polestar.Compat.GetLogQuests = function() return { 783, 7 } end
 		Polestar.Compat.IsQuestReadyForTurnIn = function(q) return q == 7 end
 		Polestar.Compat.GetQuestObjectives = function() return { { finished = true }, { finished = false } } end
-		Polestar.Set("qol.stepInteract", true)
+		Polestar.Set("behavior.deathskips", true)
 		Polestar.Debug("picked the inn at Goldshire")
 		uistub.setGuide(uistub.elwynn, 3)
 		UI.ShowReport()
 		emit({ text = PolestarReport.Box:GetText() })`);
 	const lines = out.text.split('\n');
 	assert.ok(lines.includes('Quest log 2/40: 783 1/2, 7 done'), out.text);
-	assert.ok(lineWith(out.text, 'Settings: ').includes('qol.stepInteract=true'), out.text);
+	const settings = lines.indexOf('Settings: profile Default (account) \u00b7 1 changed');
+	assert.ok(settings > lines.indexOf('Quest log 2/40: 783 1/2, 7 done'), out.text);
+	assert.equal(lines[settings + 1], 'behavior.deathskips=on', 'the setting by its key, a switch as on or off');
 	const log = lines.indexOf('Log:');
 	assert.ok(log > 0, out.text);
 	assert.match(lines[lines.length - 2], /^> \d\d:\d\d:\d\d picked the inn at Goldshire$/, 'the newest line last, inside the block');

@@ -160,5 +160,8 @@ module.exports = {
 	art: [7963776, 7963779, 131839, 131848],
 	capture: ['PolestarGuideFrame'],
 	SKINS,
+	// The Lua that loads and picks a skin as these shots do, for other
+	// scenarios that draw a surface in every skin (report-settings.js).
+	pick,
 	shots,
 };

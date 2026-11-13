@@ -1920,6 +1920,7 @@ L["Log:"] = "日誌："
 L["Step %d of %d (guide step %d): %s"] = "步驟 %d / %d（指南步驟 %d）：%s"
 L["Install: %s"] = "安裝：%s"
 L["While here: %s"] = "順道完成：%s"
+-- L["The report lists the settings you changed and your profile's name: no character names, chat, account or realm."] = ""
 
 -- UI/Packs.lua
 L["turned off in the AddOns list"] = "已在插件清單中關閉"
