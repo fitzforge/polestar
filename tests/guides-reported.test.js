@@ -1490,6 +1490,164 @@ test('forever/horde/06-hillsbrad-foothills.guide: Battle of Hillsbrad parts 4 an
 	for (const q of [539, 567]) assert.ok(idx(`turnin ${q}`, is('turnin', q)) > bonds, `${q} is handed in after the mine`);
 });
 
+// Horde 30-40 audit (0.4.0): the hearthstone stays bound at Freewind Post through Hillsbrad (07-ashenvale's bind), so the
+// next guide's way from the Undercity to Freewind goes by Hearthstone; the travel sweep measured 4.8 minutes saved per
+// branch against the Tarren Mill bind.
+test('forever/horde/30-40/01-hillsbrad-foothills.guide: no bind in Hillsbrad', { skip }, () => {
+	const list = goals('forever/horde/30-40/01-hillsbrad-foothills.guide');
+	assert.deepEqual(list.filter(({ goal }) => goal.t === 'sethome').map(({ goal }) => goal.location), [], 'Freewind Post stays bound');
+});
+
+// Horde 21-40 audit (0.4.0): Elixir of Agony (515) needs a Lesser Troll's Blood Elixir no vendor sells; Hillsbrad 22-25
+// offers it only to a character carrying one, and Hillsbrad 30-40's opening Undercity stop offers it again for a
+// character who bought one since.
+test('forever/horde/30-40/01-hillsbrad-foothills.guide: Elixir of Agony is offered in the Undercity only with the elixir in the bags', { skip }, () => {
+	const list = goals('forever/horde/30-40/01-hillsbrad-foothills.guide');
+	const acc = at(list, 'accept 515 (Faranell)', is('accept', 515));
+	assert.ok((list[acc].step.when || []).some((p) => p.k === 'has' && !p.neg && p.item === 3388), 'only with a Lesser Troll\'s Blood Elixir');
+	const fly = list.findIndex(({ step }) => step.title === 'Fly to Tarren Mill');
+	assert.ok(fly >= 0 && acc < fly, 'in the Undercity, before Tarren Mill');
+});
+
+// Horde 30-40 audit (0.4.0): the Badlands bound the hearthstone at Kargath, and nothing hearths back to it: the guide
+// ends at Kargath, and Stranglethorn Vale & Swamp of Sorrows binds at Grom'gol before its first hearth (the addon's
+// travel planner over every Horde branch never hearths to Kargath).
+test('forever/horde/30-40/06-badlands.guide: no bind at Kargath', { skip }, () => {
+	const list = goals('forever/horde/30-40/06-badlands.guide');
+	assert.deepEqual(list.filter(({ goal }) => goal.t === 'sethome').map(({ goal }) => goal.location), [], 'no sethome in the Badlands');
+	at(list, 'getfp Kargath', (g) => g.t === 'getfp');
+});
+
+// Horde 30-40 audit (0.4.0): Bracers of Binding (557) and Dalaran Patrols (545) were taken at Tarren Mill at about 31
+// and worked only on the 38-39 visit, carried through four guides; players' recordings show 3 people abandoning
+// Bracers of Binding on the way. Bel'varil and Voidglare stand at the same inn on the 38-39 visit's first Tarren Mill
+// stop, which takes them now.
+test('forever/horde/30-40: Bracers of Binding and Dalaran Patrols are taken on the 38-39 visit, not carried from 31', { skip }, () => {
+	const early = goals('forever/horde/30-40/01-hillsbrad-foothills.guide');
+	assert.deepEqual(early.filter(({ goal }) => goal.t === 'accept' && [545, 557].includes(goal.quest)).map(({ goal }) => goal.quest), [], 'not taken at 31');
+	const list = goals('forever/horde/30-40/05-arathi-highlands.guide');
+	const first = list.findIndex(({ step }) => step.title === 'Tarren Mill');
+	for (const q of [545, 557]) {
+		const acc = at(list, `accept ${q}`, is('accept', q));
+		assert.equal(list[acc].s, list[first].s, `${q} on the first Tarren Mill stop`);
+	}
+	assert.ok(at(list, 'accept 545', is('accept', 545)) < at(list, 'the Dalaran Summoners', (g) => g.t === 'kill' && g.quest === 545), 'before the ruins');
+});
+
+// Horde 30-40 audit (0.4.0): Centaur Bounty (1366) was taken at the end of the first Desolace visit (33-35) and worked
+// only on the second (38), carried through Stranglethorn; players' recordings show 4 people abandoning it on the way.
+// Felgur stands beside Gurda Wildmane at Ghost Walker Post, where the second visit stops before the Valley of Spears.
+test('forever/horde/30-40: Centaur Bounty is taken on the second Desolace visit, before the Valley of Spears', { skip }, () => {
+	const first = goals('forever/horde/30-40/02-thousand-needles.guide');
+	assert.deepEqual(first.filter(({ goal }) => is('accept', 1366)(goal)).length, 0, 'not taken on the first visit');
+	const list = goals('forever/horde/30-40/04-dustwallow-marsh.guide');
+	const acc = at(list, 'accept 1366', is('accept', 1366));
+	assert.equal(list[acc].s, list[at(list, 'accept 93225', is('accept', 93225))].s, 'with Gurda Wildmane at Ghost Walker Post');
+	assert.ok(acc < at(list, 'the centaur ears', (g) => g.t === 'collect' && g.quest === 1366), 'before the valley');
+});
+
+// Horde 30-40/40-50 audit (0.4.0): The Green Hills of Stranglethorn's chapters (338-342) were accepted at Nesingwary's
+// camp at 35 and turned in only on the next Stranglethorn visit at 40, five quest log slots for a 1% drop; the pages
+// drop without the quests, so the chapters are accepted and turned in together on that visit. Goblin Sponsorship
+// (1183, Revilgaz -> Pozzik) is taken on 40-50's first Booty Bay stop, closer to Pozzik.
+test('forever/horde/30-40/03-stranglethorn-vale.guide: no Green Hills chapters or Goblin Sponsorship carried to 40', { skip }, () => {
+	const list = goals('forever/horde/30-40/03-stranglethorn-vale.guide');
+	assert.deepEqual(list.filter(({ goal }) => goal.t === 'accept' && [338, 339, 340, 341, 342, 1183].includes(goal.quest)).map(({ goal }) => goal.quest), [], 'none accepted at 35');
+	assert.deepEqual(list.filter(({ goal }) => goal.t === 'collect' && [338, 339, 340, 341, 342].includes(goal.quest)).length, 0, 'no page goals for chapters not in the log');
+	at(list, 'turnin 583 (Welcome to the Jungle, which the chapters need)', is('turnin', 583));
+	at(list, 'turnin 1182 (Revilgaz)', is('turnin', 1182));
+});
+
+// #1976 (TriageNav) and the Horde 30-40/40-50 audit (0.4.0): Gadgetzan's flight path is learned at 33 on the way back
+// from the Mirage Raceway (the walk to Gadgetzan and the flight to Freewind Post beat the walk west across the flats:
+// the addon's travel planner takes that way itself), so the 40-50 guide can fly to Gadgetzan.
+test('forever/horde/30-40/02-thousand-needles.guide: Gadgetzan\'s flight path on the way back from the raceway (#1976)', { skip }, () => {
+	const list = goals('forever/horde/30-40/02-thousand-needles.guide');
+	const raceway = at(list, 'turnin 1175 (the raceway)', is('turnin', 1175));
+	const fp = at(list, 'getfp Gadgetzan', (g) => g.t === 'getfp' && /Gadgetzan/.test(JSON.stringify(g)));
+	const family = at(list, 'accept 5361 (Freewind Post)', is('accept', 5361));
+	assert.ok(raceway < fp && fp < family, 'after the raceway, before Freewind Post');
+});
+
+// Horde 30-40 audit (0.4.0): Battle of Hillsbrad (541) and Humbert's Sword (547) are elite group quests at Dun Garok,
+// offered at Tarren Mill, and players took and dropped them (players' recordings: 547 abandoned by 5 people, 541 by
+// 3): the hand-in that opens 541 says they want a group.
+test('forever/horde/30-40/01-hillsbrad-foothills.guide: the Tarren Mill hand-in says Dun Garok is group work', { skip }, () => {
+	const list = goals('forever/horde/30-40/01-hillsbrad-foothills.guide');
+	const { goal } = list[at(list, 'turnin 539', is('turnin', 539))];
+	assert.match(goal.note || '', /Dun Garok/);
+	assert.match(goal.note || '', /group/);
+});
+
+// #2025 (unclear breadcrumbs, PrereqCrumbs040): the Badlands take Report to Helgrum (1420) from Neeka Bloodscar without
+// Neeka Bloodscar (1418), which the data listed as both its prerequisite and its breadcrumb. Players' recordings: Neeka
+// offered 1420 to 7 people, none of whom ever had 1418 (two recorded from level 1): a breadcrumb only.
+test('#2025: Report to Helgrum has no prerequisite; the Badlands take it at Kargath', { skip }, () => {
+	const fix = loadCorrections().quests['1420'];
+	assert.deepEqual(fix && fix.set.pre, [], 'the correction drops 1418 as a prerequisite');
+	const list = goals('forever/horde/30-40/06-badlands.guide');
+	assert.equal(list.filter(({ goal }) => goal.quest === 1418).length, 0, 'no trip for Neeka Bloodscar (1418)');
+	at(list, 'accept 1420 at Kargath', is('accept', 1420));
+});
+
+// Danger at the spot (#1575, release gate #2042), Horde 30-40 audit (0.4.0): Dustwallow & Desolace's second Desolace
+// visit pointed the Valley of Spears' totems and ears at the Magram's village (Necromancers 42-43) and the ghost magnet
+// at Desolace 63.5,91.6, now Shen'dralas, among Magram Necrokhans and Corpsefeeders (45, elite; players' recordings: 8
+// deaths there). The totems' arrow now points at the Maraudine camps in the Valley of Spears (the ears keep touring every
+// tribe's camps, #1616), and the crate at the bone fields' eastern side, where players used it.
+test('forever/horde/30-40/04-dustwallow-marsh.guide: the Valley of Spears and the Valley of Bones point away from the high Magram', { skip }, () => {
+	const list = goals('forever/horde/30-40/04-dustwallow-marsh.guide');
+	for (const [what, pred] of [['totems', (g) => g.t === 'collect' && g.quest === 93225]]) {
+		const { goal } = list[at(list, what, pred)];
+		assert.ok(goal.map === 1443 && Math.hypot(goal.x - 33.0, goal.y - 54.0) < 1, `${what}: the Valley of Spears' eastern camps (got ${goal.map} ${goal.x},${goal.y})`);
+	}
+	for (const [what, pred] of [['crate', (g) => g.t === 'use' && g.quest === 6134], ['ghost-o-plasm', (g) => g.t === 'collect' && g.quest === 6134]]) {
+		const { goal } = list[at(list, what, pred)];
+		assert.ok(goal.map === 1443 && Math.hypot(goal.x - 64.4, goal.y - 91.7) < 1, `${what}: the bone fields' eastern side (got ${goal.map} ${goal.x},${goal.y})`);
+	}
+});
+
+// Dungeons in the route (0.4.0, the grind-tip rule): a grind step names a dungeon only when its run is in the route
+// in the same or the next guide, on the same continent: City of Dalaran in Hillsbrad, Razorfen Kraul in Thousand
+// Needles; Scarlet Monastery, Blackfathom Deeps and Razorfen Downs are not route dungeons in Horde 30-40.
+test('forever/horde/30-40: the grind steps name only the dungeons the route runs nearby', { skip }, () => {
+	const want = {
+		'01-hillsbrad-foothills': ['City of Dalaran'],
+		'02-thousand-needles': ['Razorfen Kraul'],
+		'03-stranglethorn-vale': [],
+		'04-dustwallow-marsh': [],
+	};
+	for (const [file, names] of Object.entries(want)) {
+		const tips = compiled(`forever/horde/30-40/${file}.guide`).steps.filter((step) => step.goals.some((g) => g.t === 'level')).map((step) => [step.note, step.tip].flat().filter(Boolean).join(' '));
+		assert.ok(tips.length > 0, `${file}: has grind steps`);
+		for (const tip of tips) {
+			for (const bad of ['Scarlet Monastery', 'Blackfathom Deeps', 'Razorfen Downs']) assert.ok(!tip.includes(bad), `${file}: no ${bad} in "${tip}"`);
+			if (/with a group, run/.test(tip)) assert.ok(names.some((n) => tip.includes(n)), `${file}: names ${names.join(' or ') || 'no dungeon'}: "${tip}"`);
+			else assert.equal(names.length, 0, `${file}: names ${names.join(' or ')}`);
+		}
+	}
+});
+
+// Danger at the spot (#1575, release gate #2042), Horde 30-40 audit (0.4.0): where the gate found mobs well above the
+// route at a goal and players' recordings confirm them (Kirin Tor Guards and Arcane Sentries, 55, met as hostile by 56
+// and 26 Horde players, 11 deaths), or the camp is crowded, the step's tip names them.
+test('forever/horde/30-40: the steps warn of the high mobs the danger gate finds at their goals', { skip }, () => {
+	for (const [file, quest, names, item] of [
+		['01-hillsbrad-foothills', 527, ['Kirin Tor Guard']],
+		['01-hillsbrad-foothills', 544, ['Arcane Sentries', 'Kirin Tor Guards']],
+		['03-stranglethorn-vale', 213, ['Venture Co. Agents']],
+		['03-stranglethorn-vale', 1182, ['Venture Co. Agents']],
+		['05-arathi-highlands', 545, ['Arcane Sentries', 'Kirin Tor Guards']],
+		['06-badlands', 2258, ['Malevolent Mirage'], 7847],
+		['06-badlands', 711, ['Malevolent Mirage']],
+	]) {
+		const list = goals(`forever/horde/30-40/${file}.guide`);
+		const { step } = list[at(list, `${file}: work for ${quest}`, (g) => ['kill', 'collect', 'use'].includes(g.t) && g.quest === quest && (!item || g.item === item))];
+		const tip = [step.note, step.tip].flat().filter(Boolean).join(' ');
+		for (const name of names) assert.ok(tip.includes(name), `${file} "${step.title}": the tip names ${name}`);
+	}
+});
+
 // --- Forever chains the quest data has no prerequisite for, so the guide took
 // a follow-up at the same visit as the quest before it and the giver did not
 // offer it: Baine's chain in Mulgore (Kori, #112) and Mull's report (#51),
@@ -2056,9 +2214,10 @@ test('forever/horde/30-40/01-hillsbrad-foothills.guide: Key to the City is hande
 	const take = at(list, 'accept 93680', is('accept', 93680));
 	const key = at(list, 'collect 279469', (g) => g.t === 'collect' && g.item === 279469);
 	const done = at(list, 'turnin 93680', is('turnin', 93680));
-	const patrols = at(list, 'accept 545', is('accept', 545));
 	assert.ok(at(list, 'accept 544', is('accept', 544)) < take, 'taken with Prison Break In');
-	assert.ok(take < key && key < done && done < patrols, 'the key, its hand-in, then Dalaran Patrols');
+	assert.ok(take < key && key < done, 'the key, then its hand-in');
+	// Dalaran Patrols itself is taken on the 38-39 visit's first Tarren Mill stop (Horde 30-40 audit, 0.4.0), after it.
+	at(goals('forever/horde/30-40/05-arathi-highlands.guide'), 'accept 545 on the 38-39 visit', is('accept', 545));
 	// The Grimy Key is looted from an object the data has no spawn for: the step carries the recorded spot.
 	const g = list[key].goal;
 	assert.ok(g.map === 1416 && Math.hypot(g.x - 16.4, g.y - 89.3) < 0.5, `the key's step points at Alterac 16.4,89.3 (got ${g.map} ${g.x},${g.y})`);
@@ -8036,9 +8195,12 @@ test('Eastern Plaguelands (Horde 55): Druids and Paladins fly from Orgrimmar to 
 test('Desolace (Horde 33): a Shaman flies from Freewind Post straight to Sun Rock Retreat, not back to Orgrimmar first (#1191)', { skip }, () => {
 	const list = goals('forever/horde/30-40/02-thousand-needles.guide').filter(forClass('SHAMAN'));
 	const flights = list.filter(({ goal }) => goal.t === 'fly').map(({ goal }) => goal.location);
-	const at = flights.indexOf('Freewind Post');
+	// Since the 0.4.0 audit (#1976) the raceway visit ends with a flight from Gadgetzan back to Freewind Post: the
+	// flight after the last one into Freewind Post goes on to Sun Rock Retreat.
+	const at = flights.lastIndexOf('Freewind Post');
 	assert.ok(at >= 0, flights.join(', '));
 	assert.equal(flights[at + 1], 'Sun Rock Retreat', flights.join(', '));
+	assert.ok(!flights.slice(at + 1).includes('Orgrimmar') || flights.indexOf('Sun Rock Retreat', at) < flights.indexOf('Orgrimmar', at), flights.join(', '));
 });
 
 // Since the Horde 12-30 re-chain the Barrens are one stay at 15-21: Brewmaster Drohn's keg is handed in on the
@@ -8505,14 +8667,15 @@ test('Alliance Hillsbrad 30-32: the Ironforge steps are not titled after the tra
 // Final route review for 0.3.5 (Horde 30-32): the level 31 top-up said Hammerfall's quests start at 31
 // (they are offered from 29-30; the top-up keeps their 32-36 levels within reach), and the level 30 top-up
 // by Tarren Mill had no dungeon to run instead of the yetis.
-test('Horde Hillsbrad 30-32: the level 30 and 31 top-ups say why, and the first offers the Graveyard', { skip }, () => {
+test('Horde Hillsbrad 30-32: the level 30 and 31 top-ups say why, and the first offers the City of Dalaran', { skip }, () => {
 	data = data || loadData(DATA);
 	const guide = 'forever/horde/30-40/01-hillsbrad-foothills.guide';
 	for (const q of [655, 672, 677, 97539]) assert.ok(data.quests[q].minLevel <= 30, `${q} is offered below 31`);
 	const [t31] = stepTips(guide, /^\s+level 31\b/);
 	assert.doesNotMatch(t31, /start at 31/);
 	const [t30] = stepTips(guide, /^\s+level 30\b/);
-	assert.match(t30, /Scarlet Monastery/);
+	// Since the 0.4.0 dungeons rule the top-up names the dungeon the route runs in this guide, City of Dalaran.
+	assert.match(t30, /City of Dalaran/);
 });
 
 // Final route review for 0.3.5 (Alliance 30-40): Bartolo's Yeti Fur Cloak (565) also wants a Hillman's
@@ -8550,14 +8713,17 @@ test('Alliance Thousand Needles: from the Raceway to Gadgetzan and a flight to T
 
 // Final route review for 0.3.5 (Fitz: grind if we must, but say so): every written grind step in 30-40
 // names where to grind and a dungeon to run instead, in the writer's sentence.
-test('30-40: every written grind step says where, and names a dungeon to run instead', { skip }, () => {
+test('30-40: every written grind step says where, and names a dungeon to run instead where the route runs one', { skip }, () => {
 	const dir = path.join(OFFICIAL_DIR, 'forever');
 	for (const side of ['horde', 'alliance']) {
 		for (const f of fs.readdirSync(path.join(dir, side, '30-40'))) {
 			const guide = `forever/${side}/30-40/${f}`;
 			for (const { step, goal } of goals(guide)) {
 				if (goal.t !== 'level') continue;
-				assert.match([step.note, step.tip].flat().filter(Boolean).join(' '), /Or, with a group, run the .+ dungeon( \(.+\))? instead\.$/, `${guide}: "${step.title}"`);
+				// Since the 0.4.0 dungeons rule a grind step names a dungeon only where the route runs one in the same or the
+				// next guide on the same continent: Horde Stranglethorn Vale and Dustwallow have none (the Horde 30-40 case
+				// pins which guide names which).
+				if (!/forever\/horde\/30-40\/0[34]-/.test(guide)) assert.match([step.note, step.tip].flat().filter(Boolean).join(' '), /Or, with a group, run the .+ dungeon( \(.+\))? instead\.$/, `${guide}: "${step.title}"`);
 				assert.match([step.note, step.tip].flat().filter(Boolean).join(' '), /until level/, `${guide}: "${step.title}" says where`);
 			}
 		}
@@ -10805,7 +10971,7 @@ test('Horde starts: the Priest robe quests on stops the Troll and Undead starts 
 // down the vale (2,900 yd) to take Booty Bay's quests and flight path, then flew back. It now flies to Ratchet (Gazlowe's
 // 1178 and Dizzywig's 1111 handed in on the way), takes the boat to Booty Bay and walks north once: Goblin Sponsorship
 // 1180-1182 ride along (Lozgil on the pier, Revilgaz upstairs, Cozzle's footlocker by the geologists' lake), 1183 for the Raceway.
-test('Horde Stranglethorn 34: Ratchet and the boat to Booty Bay first, one walk north, Goblin Sponsorship on the way', { skip }, () => {
+test('Horde Stranglethorn 34: Ratchet and the boat to Booty Bay first, one walk north, Goblin Sponsorship on the way to Revilgaz', { skip }, () => {
 	const list = goals(STRANGLETHORN_HORDE);
 	const ratchet = at(list, 'fly Ratchet', (g) => g.t === 'fly' && /Ratchet/.test(g.location || ''));
 	const hand = at(list, 'turnin 1178', is('turnin', 1178));
@@ -10819,7 +10985,10 @@ test('Horde Stranglethorn 34: Ratchet and the boat to Booty Bay first, one walk 
 	const flights = list.filter(({ goal }) => goal.t === 'fly' && /Booty Bay/.test(goal.location || ''));
 	assert.equal(flights.length, 1, 'one flight to Booty Bay, for the hand-ins');
 	const blueprints = at(list, 'blueprints', (g) => g.t === 'collect' && g.item === 5852);
-	assert.ok(blueprints < at(list, 'turnin 1182', is('turnin', 1182)) && at(list, 'turnin 1182', is('turnin', 1182)) < at(list, 'accept 1183', is('accept', 1183)), 'footlocker, then Revilgaz, then 1183');
+	assert.ok(blueprints < at(list, 'turnin 1182', is('turnin', 1182)), 'footlocker, then Revilgaz');
+	// Since the 0.4.0 audit Goblin Sponsorship's last part (1183, to Pozzik at 43) is taken on the 40-50 guide's first
+	// Booty Bay stop, not carried from here through four guides.
+	assert.ok(!list.some(({ goal }) => is('accept', 1183)(goal)), '1183 is not taken at 36');
 	const h04 = goals('forever/horde/30-40/04-dustwallow-marsh.guide');
 	assert.ok(!h04.some(({ goal }) => [1178, 1111, 1180].includes(goal.quest)), 'Dustwallow\'s Ratchet stop keeps only Mebok');
 	const rf = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', 'route-fixes.json'), 'utf8')).overrides;

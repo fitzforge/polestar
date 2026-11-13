@@ -4197,6 +4197,90 @@
 			},
 			{
 				"a": [
+					"turnin",
+					675
+				],
+				"b": [
+					"accept",
+					557
+				],
+				"faction": "Horde",
+				"why": "Horde 30-40 audit (0.4.0): Bracers of Binding (557) is worked only on the 38-39 Alterac visit; taken at Tarren Mill at 31 it rode through four guides, and players dropped it on the way (players' recordings: 3 people abandoned it). Keeper Bel'varil stands at the same inn on the 38-39 visit's first Tarren Mill stop (30-40/05-arathi-highlands), which takes it after the first Arathi visit (675)."
+			},
+			{
+				"a": [
+					"turnin",
+					675
+				],
+				"b": [
+					"accept",
+					545
+				],
+				"faction": "Horde",
+				"why": "Horde 30-40 audit (0.4.0): Dalaran Patrols (545) is worked only on the 38-39 Alterac visit; Magus Wordeen Voidglare offers it at the same inn on the 38-39 visit's first Tarren Mill stop (30-40/05-arathi-highlands), which takes it after the first Arathi visit (675), instead of carrying it from 31."
+			},
+			{
+				"a": [
+					"accept",
+					1146
+				],
+				"b": [
+					"accept",
+					515
+				],
+				"faction": "Horde",
+				"why": "Horde 21-40 audit (0.4.0): Elixir of Agony (515) is offered on 30-40/01-hillsbrad-foothills' Undercity stop, after Orgrimmar (Belgrom's 1146), for a character carrying the Lesser Troll's Blood Elixir it needs (guide-fixes horde-3040-elixir-of-agony-undercity-with-the-elixir)."
+			},
+			{
+				"a": [
+					"accept",
+					515
+				],
+				"b": [
+					"accept",
+					552
+				],
+				"faction": "Horde",
+				"why": "Horde 21-40 audit (0.4.0): Elixir of Agony (515) is taken in the Undercity before Tarren Mill (Novice Thaivand's 552), where Apothecary Lydon takes the elixir."
+			},
+			{
+				"a": [
+					"accept",
+					5581
+				],
+				"b": [
+					"accept",
+					1366
+				],
+				"faction": "Horde",
+				"why": "Horde 30-40 audit (0.4.0): Centaur Bounty (1366) is worked only on the second Desolace visit (30-40/04-dustwallow-marsh, at 38): taken at the end of the first it rode through Stranglethorn, and players dropped it (players' recordings: 4 people abandoned it). Felgur stands beside Gurda Wildmane at Ghost Walker Post, the second visit's stop before the Valley of Spears, after Taiga's Portals of the Legion (5581)."
+			},
+			{
+				"a": [
+					"turnin",
+					1108
+				],
+				"b": [
+					"accept",
+					338
+				],
+				"faction": "Horde",
+				"why": "Horde 30-40/40-50 audit (0.4.0): The Green Hills of Stranglethorn's chapters (338-342) are accepted and turned in together at Nesingwary's camp on 40-50/01-stranglethorn-vale's visit at 40, after the Badlands (Indurium, 1108), not accepted at 35 and carried: the pages drop from the trolls without the quests, and the five chapters took five quest log slots through Dustwallow, Alterac and the Badlands (players' recordings: 2 people abandoned 338 on the way)."
+			},
+			{
+				"a": [
+					"turnin",
+					1108
+				],
+				"b": [
+					"accept",
+					1183
+				],
+				"faction": "Horde",
+				"why": "Horde 30-40/40-50 audit (0.4.0): Goblin Sponsorship (1183, Baron Revilgaz to Pozzik at the Mirage Raceway, 700 XP) is taken on 40-50/01-stranglethorn-vale's first Booty Bay stop, after the Badlands (1108), instead of on 30-40/03's second Booty Bay stop at 36, from where it rode in the quest log through four guides to Pozzik at 43."
+			},
+			{
+				"a": [
 					"accept",
 					97926
 				],

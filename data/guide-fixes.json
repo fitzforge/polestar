@@ -4286,7 +4286,7 @@
 				"goal": "objective",
 				"objective": 1
 			},
-			"tip": "Stranglethorn Tigers (32) roam the hills around the camp and south of it, Panthers (32) the clearings west and south-west of it. The Venture Co. Geologists, who carry the Tumbled Crystals, work the camps by Lake Nazferiti, south-east of the camp.",
+			"tip": "Stranglethorn Tigers (32) roam the hills around the camp and south of it, Panthers (32) the clearings west and south-west of it. The Venture Co. Geologists, who carry the Tumbled Crystals, work the camps by Lake Nazferiti, south-east of the camp. Careful: their camps are crowded, with Venture Co. Agents (39) among the geologists (36-38): pull from the camps' edges, one at a time.",
 			"note": "Final route review 0.3.5: the Horde step put the Stranglethorn Tigers and Panthers east of Nesingwary's camp along the lake shore. Their spawns: tigers (682) x 28-48, y 8-18, median 36,14, around and south of the camp (35.6,10.6); panthers (736) median 30,13, west and south-west of it. The step's Tumbled Crystals come from the Venture Co. Geologists (1096) at 42-46,16-24, by the lake south-east of the camp.",
 			"source": [
 				{
@@ -5321,7 +5321,7 @@
 				"goal": "objective",
 				"objective": 1
 			},
-			"tip": "Head west along the foot of the mountains to the violet dome of Dalaran. Ricter, Alina and Dermot (33-34) stand together inside the crater's eastern rim, Kegan Darkmar (35) a little west of them; each carries one Bloodstone piece. The Shield Guards and Theurgists (31-33) around them drop the Worn Stone Tokens. Careful: Many guards stand in linked pairs and others patrol alone around the camp.",
+			"tip": "Head west along the foot of the mountains to the violet dome of Dalaran. Ricter, Alina and Dermot (33-34) stand together inside the crater's eastern rim, Kegan Darkmar (35) a little west of them; each carries one Bloodstone piece. The Shield Guards and Theurgists (31-33) around them drop the Worn Stone Tokens. Careful: Many guards stand in linked pairs and others patrol alone around the camp. Arcane Sentries (55, elite) and Kirin Tor Guards (55) stand around the violet dome itself: keep to the camp below the rim.",
 			"note": "Horde 30-40 audit (2026-11-09): Dalaran Shield Guard 2271 is 31-32 and Theurgist 2272 32-33 (the tip said 31-32); the step's own warning about linked guards is kept in the same tip.",
 			"source": {
 				"kind": "pfquest",
@@ -5399,7 +5399,7 @@
 				"goal": "objective",
 				"objective": 1
 			},
-			"tip": "South-east across the basin, the bigger Rock Elementals (39) stand on the slopes west of Agmond's End; each one drops a slab. Every rock elemental can drop Jarkal's Rock Elemental Shards.",
+			"tip": "South-east across the basin, the bigger Rock Elementals (39) stand on the slopes west of Agmond's End; each one drops a slab. Every rock elemental can drop Jarkal's Rock Elemental Shards. Careful: Malevolent Mirages (42, elite) drift across these slopes too.",
 			"note": "Horde 30-40 audit (2026-11-09): the Rock Elementals (92, level 39) that drop the Large Stone Slabs (100%) stand at 12-17,32-36 and 35-46,74-88; the route takes the group beside Agmond's End. The tip put them on the slopes north-west of the Dustbowl.",
 			"source": {
 				"kind": "pfquest",
@@ -6910,6 +6910,60 @@
 				{
 					"kind": "recording",
 					"ref": "players' recordings, 0.3.5 and later: 4 people leave the guide at 33.0 (p25 33.0)"
+				}
+			]
+		},
+		{
+			"id": "horde-3040-dun-garok-group-only",
+			"faction": "Horde",
+			"at": {
+				"quest": 539,
+				"goal": "turnin",
+				"guide": "forever/horde/30-40/01-hillsbrad-foothills"
+			},
+			"goalNote": "High Executor Darthalia: her next Battle of Hillsbrad, and Deathguard Humbert's sword, are elite group quests at Dun Garok: take them only with a group",
+			"note": "Battle of Hillsbrad (541) and Humbert's Sword (547) are offered at this Tarren Mill stop and their steps are group-only, but players take them on the spot and drop them later: players' recordings show 547 abandoned by 5 people and 541 by 3 on this guide. The hand-in that opens 541 now says so.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "players' recordings, 0.3.5 and later: abandons on 30-40/01-hillsbrad-foothills, 547 by 5 people, 541 by 3"
+				}
+			]
+		},
+		{
+			"id": "horde-3040-elixir-of-agony-undercity-with-the-elixir",
+			"faction": "Horde",
+			"at": {
+				"quest": 515,
+				"goal": "accept",
+				"guide": "forever/horde/30-40/01-hillsbrad-foothills"
+			},
+			"split": {
+				"title": "Master Apothecary Faranell",
+				"tip": "With a Lesser Troll's Blood Elixir in your bags, Master Apothecary Faranell offers Elixir of Agony in the Apothecarium; Apothecary Lydon takes the elixir in Tarren Mill."
+			},
+			"note": "Elixir of Agony (515) needs a Lesser Troll's Blood Elixir (item 3388), an Alchemy item no vendor sells. Hillsbrad 30-40's opening Undercity stop offers it in a step of its own, shown only to a character carrying one (the step's `when has 3388`, a guide line no record form carries); the Hillsbrad 22-25 guide no longer takes it (route-fixes pair 1145 -> 515).",
+			"source": [
+				{
+					"kind": "client",
+					"ref": "quest 515 objective: item 3388 Lesser Troll's Blood Elixir; no vendor in items.json"
+				}
+			]
+		},
+		{
+			"id": "horde-3040-elixir-of-agony-undercity-optional",
+			"faction": "Horde",
+			"at": {
+				"quest": 515,
+				"goal": "accept",
+				"guide": "forever/horde/30-40/01-hillsbrad-foothills"
+			},
+			"optional": true,
+			"note": "Elixir of Agony's accept on Hillsbrad 30-40's Undercity stop never holds the route: only a character carrying a Lesser Troll's Blood Elixir takes it.",
+			"source": [
+				{
+					"kind": "client",
+					"ref": "quest 515 objective: item 3388 Lesser Troll's Blood Elixir; no vendor in items.json"
 				}
 			]
 		},

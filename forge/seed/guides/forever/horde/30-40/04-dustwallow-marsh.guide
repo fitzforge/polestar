@@ -164,7 +164,7 @@ step Brackenwall Village
 step Level 37.5
   when level<37.5
   zone Dustwallow Marsh
-  tip Desolace's last quests and Alterac are 38-41. Still below 37.5 after Brackenwall's hand-ins? The Darkmist spiders and Lurkers (35-38) by the cavern north-west of the village are the closest: kill them until level 37.5. Or, with a group, run the Razorfen Downs dungeon or the Scarlet Monastery dungeon (Armory) instead.
+  tip Desolace's last quests and Alterac are 38-41. Still below 37.5 after Brackenwall's hand-ins? The Darkmist spiders and Lurkers (35-38) by the cavern north-west of the village are the closest: kill them until level 37.5.
   goto 31.4,22.2 map 1445 "Darkmist cavern"
   level 37.5 grind 4377               -- grind on Darkmist Lurker
 
@@ -213,11 +213,12 @@ step Ghost Walker Post
   zone Desolace
   tip North to the post; Gurda Wildmane stands beside Felgur.
   accept 93225                        -- Gurda Wildmane
+  accept 1366                         -- Felgur Twocuts: his Centaur Bounty, from the same Maraudine
 
 step Valley of Spears
   zone Desolace
-  tip West of the post, the Maraudine centaurs hold the Valley of Spears. Every Maraudine can drop a Carved Centaur Totem and an ear for Felgur's Centaur Bounty.
-  collect 254432 x5 quest 93225.1
+  tip West of the post, the Maraudine centaurs hold the Valley of Spears. Every Maraudine can drop a Carved Centaur Totem and an ear for Felgur's Centaur Bounty. Stay with the Maraudine (36-39) in the valley: the Magram's village in the south-east has the same drops, but its Necromancers (42-43) and Guardians (39-41) are well above you.
+  collect 254432 x5 quest 93225.1 @33.0,54.0 map 1443
   collect 6067 quest 1366
 
 step Melizza Brimbuzzle
@@ -235,9 +236,10 @@ step Hornizz Brimbuzzle
 
 step The Valley of Bones
   zone Desolace
-  tip Head south-east to the bone fields of the Valley of Bones, where Undead Ravagers roam. At the far south-east, use the Crate of Ghost Magnets to draw the Magrami Spectres: they drop the ghost-o-plasm.
-  use 15848 quest 6134.1 @63.5,91.6 map 1443
-  collect 15849 quest 6134            -- Ghost-o-plasm
+  tip Head south-east to the bone fields of the Valley of Bones, where Undead Ravagers roam, at Desolace's southern edge. Use the Crate of Ghost Magnets at the arrow to draw the Magrami Spectres: they drop the ghost-o-plasm.
+  tip Careful: Magram Necrokhans and Corpsefeeders (45, elite) walk the bone fields just west of the arrow, well above you: use the crate at the arrow, on the valley's eastern side, and pull the spectres away from them.
+  use 15848 quest 6134.1 @64.4,91.7 map 1443
+  collect 15849 quest 6134 @64.4,91.7 map 1443 -- Ghost-o-plasm
 
 step Hornizz Brimbuzzle
   zone Desolace

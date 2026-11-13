@@ -20,7 +20,7 @@ pitch For characters of 29 to 33, but most quests here are level 32-34, a few up
 # guide topped up to 32-33 at Sargeron and the coast.
 #
 # Flow: Freewind Post (where the previous guide ends) -> fly to the Crossroads (Korran) ->
-# Orgrimmar (Alliance Relations, Belgrom, training) -> zeppelin to the Undercity -> fly to Tarren Mill (bind) -> the yeti caves ->
+# Orgrimmar (Alliance Relations, Belgrom, training) -> zeppelin to the Undercity -> fly to Tarren Mill -> the yeti caves ->
 # Hillsbrad's town hall -> Tarren Mill -> the Foothill Caverns' flames -> the Dalaran crater ->
 # the Azurelode Mine -> Southshore's graveyard (and the coast, for Elixir of Agony) -> Valik and
 # the Syndicate camp north of Tarren Mill -> Tarren Mill -> east into Arathi: the Boulderfist camp, Hammerfall (flight path) -> raptors, spiders
@@ -42,7 +42,7 @@ pitch For characters of 29 to 33, but most quests here are level 32-34, a few up
 # the clerk and the miner are in the town hall and the mine on this guide's own visits.
 #
 # Saved for the 38-39 visit (forever/horde/30-40/05-arathi-highlands): Gol'dir and the
-# Perenolde chain (503-508), Dalaran Patrols and Bracers of Binding (545, 557: accepted here), Foul Magics
+# Perenolde chain (503-508), Dalaran Patrols and Bracers of Binding (545, 557: offered here, taken there), Foul Magics
 # (671, accepted here; its Syndicate are by the road in from Tarren Mill), Guile of the Raptor
 # (701) and the Stones of Binding.
 # Key to the City (93680) comes along with Prison Break In: Voidglare offers Dalaran Patrols right after
@@ -70,6 +70,11 @@ pitch For characters of 29 to 33, but most quests here are level 32-34, a few up
 # - Warlock: the Felhunter chain is forever/class/warlock/felhunter-horde.
 #
 # Skyborne: Exploring the Horde (93739) is handed to Thrall on the Orgrimmar stop, optional.
+#
+# Hearthstone: it stays bound at Freewind Post (forever/horde/07-ashenvale's bind); this guide sets none.
+# The next guide's travel from the Undercity to Freewind Post then goes by Hearthstone: the travel sweep
+# measured 4.8 minutes saved per branch over the chain (two Freewind hearths in the next guide against one
+# Tarren Mill hearth here).
 
 # ---------------------------------------------------------------- To Orgrimmar
 
@@ -153,6 +158,12 @@ step The Undercity
   tip Elixir of Agony needs a Lesser Troll's Blood Elixir, an Alchemy item: buy one at the auction house if you can (or ask an alchemist). The quest text says Strong, but it takes a Lesser Troll's Blood Elixir. No elixir: skip the Elixir steps in Hillsbrad.
   note Lesser Troll's Blood Elixir: auction house or an alchemist, for Elixir of Agony.
 
+step Master Apothecary Faranell
+  when has 3388
+  zone Undercity
+  tip With a Lesser Troll's Blood Elixir in your bags, Master Apothecary Faranell offers Elixir of Agony in the Apothecarium; Apothecary Lydon takes the elixir in Tarren Mill.
+  accept 515                          -- Master Apothecary Faranell
+
 step Garen Largo
   only Paladin
   zone Undercity
@@ -208,6 +219,7 @@ step Hillsbrad Fields
   when !turnedin 529
   zone Hillsbrad Foothills
   tip West past the hills to the farms east of Hillsbrad town. Farmer Ray works the field by the northern farmhouse, Farmer Getz the one further south-east; Farmhands and Farmers are everywhere.
+  tip Careful: Kirin Tor Guards (55) patrol Hillsbrad's fields and roads and attack the Horde: keep an eye out for them and stay out of their way.
   kill 2266 quest 527.1
   kill 2360 quest 527.2
   kill 232 quest 527.3
@@ -267,7 +279,6 @@ step Tarren Mill
   accept 552                          -- Novice Thaivand
   accept 533                          -- Krusk, inside
   accept 532                          -- High Executor Darthalia
-  sethome "Tarren Mill"
   buy 3703 x1 npc 2388                -- Southshore Stout, for Henchman Valik
 
 # ---------------------------------------------------------------- Yetis and the town hall
@@ -280,7 +291,7 @@ step Helcular's Rod
 step Level 30
   when level<30
   zone Hillsbrad Foothills
-  tip Tarren Mill's Prison Break In, Stone Tokens and The Hammer May Fall are offered from level 30. Below it? Keep killing the yetis in these caves until level 30. Or, with a group, run the Scarlet Monastery dungeon (Graveyard) or the Blackfathom Deeps dungeon instead.
+  tip Tarren Mill's Prison Break In, Stone Tokens and The Hammer May Fall are offered from level 30. Below it? Keep killing the yetis in these caves until level 30. Or, with a group, run the City of Dalaran dungeon instead.
   goto 44.0,28.0 map 1424 "Foothill Caverns"
   level 30 grind 2248                 -- grind on Cave Yeti
 
@@ -325,7 +336,7 @@ step Alterac Mountains
 
 step The Dalaran crater
   zone Alterac Mountains
-  tip Head west along the foot of the mountains to the violet dome of Dalaran. Ricter, Alina and Dermot (33-34) stand together inside the crater's eastern rim, Kegan Darkmar (35) a little west of them; each carries one Bloodstone piece. The Shield Guards and Theurgists (31-33) around them drop the Worn Stone Tokens. Careful: Many guards stand in linked pairs and others patrol alone around the camp.
+  tip Head west along the foot of the mountains to the violet dome of Dalaran. Ricter, Alina and Dermot (33-34) stand together inside the crater's eastern rim, Kegan Darkmar (35) a little west of them; each carries one Bloodstone piece. The Shield Guards and Theurgists (31-33) around them drop the Worn Stone Tokens. Careful: Many guards stand in linked pairs and others patrol alone around the camp. Arcane Sentries (55, elite) and Kirin Tor Guards (55) stand around the violet dome itself: keep to the camp below the rim.
   collect 3691 quest 544.1            -- Dermot
   collect 3689 quest 544.2            -- Ricter
   collect 3690 quest 544.3            -- Alina
@@ -383,14 +394,12 @@ step Tarren Mill
   zone Hillsbrad Foothills
   tip Head back south down the road to Tarren Mill.
   turnin 533                          -- Krusk, inside
-  turnin 539                          -- High Executor Darthalia
+  turnin 539                          -- High Executor Darthalia: her next Battle of Hillsbrad, and Deathguard Humbert's sword, are elite group quests at Dun Garok: take them only with a group
   turnin 567
   turnin 556                          -- Keeper Bel'varil, inside
   turnin 544                          -- Magus Wordeen Voidglare, inside
-  turnin 93680                        -- Magus Wordeen Voidglare: he offers Dalaran Patrols after it
-  accept 557                          -- Keeper Bel'varil: for the 38-39 visit to Alterac
-  accept 545                          -- Magus Wordeen Voidglare: for the 38-39 visit to Alterac
-  note Krusk now offers Gol'dir (level 36): leave it for the 38-39 visit.
+  turnin 93680                        -- Magus Wordeen Voidglare
+  note Krusk now offers Gol'dir (level 36), Bel'varil Bracers of Binding and Voidglare Dalaran Patrols: leave them for the 38-39 visit, which takes them on its first Tarren Mill stop.
   turnin 515 optional                 -- Apothecary Lydon, inside
 
 step Elixir of Agony with a group
@@ -462,7 +471,7 @@ step Boulderfist camp
 step Level 31
   when level<31
   zone Arathi Highlands
-  tip Hammerfall's quests are 32-36. Below 31? Keep killing the Boulderfist Ogres and Enforcers at this camp until level 31. Or, with a group, run the Scarlet Monastery dungeon (Graveyard) or the Blackfathom Deeps dungeon instead.
+  tip Hammerfall's quests are 32-36. Below 31? Keep killing the Boulderfist Ogres and Enforcers at this camp until level 31. Or, with a group, run the City of Dalaran dungeon instead.
   goto 31.2,48.0 map 1417 "Boulderfist camp"
   level 31 grind 2562                 -- grind on Boulderfist Ogre
 
