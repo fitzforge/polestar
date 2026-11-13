@@ -1588,6 +1588,17 @@ test('forever/horde/30-40/01-hillsbrad-foothills.guide: the Tarren Mill hand-in 
 	assert.match(goal.note || '', /group/);
 });
 
+// #2025 (unclear breadcrumbs, PrereqCrumbs040): the Badlands take Report to Helgrum (1420) from Neeka Bloodscar without
+// Neeka Bloodscar (1418), which the data listed as both its prerequisite and its breadcrumb. Players' recordings: Neeka
+// offered 1420 to 7 people, none of whom ever had 1418 (two recorded from level 1): a breadcrumb only.
+test('#2025: Report to Helgrum has no prerequisite; the Badlands take it at Kargath', { skip }, () => {
+	const fix = loadCorrections().quests['1420'];
+	assert.deepEqual(fix && fix.set.pre, [], 'the correction drops 1418 as a prerequisite');
+	const list = goals('forever/horde/30-40/06-badlands.guide');
+	assert.equal(list.filter(({ goal }) => goal.quest === 1418).length, 0, 'no trip for Neeka Bloodscar (1418)');
+	at(list, 'accept 1420 at Kargath', is('accept', 1420));
+});
+
 // --- Forever chains the quest data has no prerequisite for, so the guide took
 // a follow-up at the same visit as the quest before it and the giver did not
 // offer it: Baine's chain in Mulgore (Kori, #112) and Mull's report (#51),
