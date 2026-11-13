@@ -157,6 +157,19 @@ emit({ said = said, during = during, shown = _G.PolestarOptions ~= nil and Poles
 	assert_eq!(out["loads"], 1);
 }
 
+// /polestar ask in a fight: the settings open with the question when it ends.
+#[test]
+fn a_question_asked_in_combat_opens_with_the_settings_when_combat_ends() {
+	let out = run(r#"
+stub.inCombat = true
+Polestar.RunCommand("ask how do I hide the arrow")
+local during = Polestar.UI.Options ~= nil
+stub.inCombat = false
+stub.fire("PLAYER_REGEN_ENABLED")
+emit({ during = during, shown = PolestarOptions:IsShown(), text = PolestarOptions.Search:GetText(), open = Polestar.UI.Options.Dropdown.Shown() })"#);
+	assert_eq!(out, serde_json::json!({ "during": false, "shown": true, "text": "how do I hide the arrow", "open": true }));
+}
+
 #[test]
 fn the_settings_windows_memory_is_paid_only_after_it_opens_and_stays_within_its_budget() {
 	let out = run(r#"

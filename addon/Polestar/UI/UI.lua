@@ -952,7 +952,7 @@ ns.On("SHOW_FRAME", function()
 	if windowOutOfSight() then ns.SayOutOfSight() end
 end)
 ns.On("SHOW_PICKER", function() if UI.ShowPicker then UI.ShowPicker() end end)
-ns.On("SHOW_OPTIONS", function(section) if UI.ShowOptions then UI.ShowOptions(section) end end)
+ns.On("SHOW_OPTIONS", function(section, ask) if UI.ShowOptions then UI.ShowOptions(section, ask) end end)
 -- The guide menu and the options from a key binding or a gamepad chord: open, or close when open.
 ns.On("TOGGLE_PICKER", function()
 	local P = UI.Picker

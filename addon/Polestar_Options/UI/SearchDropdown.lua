@@ -1,8 +1,9 @@
 -- The settings search's dropdown: as the player types in the header's search
 -- box, a list opens right under it with the best of what the words find
 -- (O.Matches, the search's own scoring). First the places they name, a page,
--- a tab or a section ("Go to page: Arrow"); then the best settings, eight
--- rows in all at most, each the setting's label (the words it matches lit)
+-- a tab or a section ("Go to page: Arrow"); then the best settings (an
+-- inline one on its row when it matched better), eight rows in all at
+-- most, each the setting's label (the words it matches lit)
 -- over where it lives (Page · Tab); last "See all 12 results", the whole
 -- results page. Nothing found: it says so, and the labels nearest the words
 -- ("Did you mean:") are rows that search for them.

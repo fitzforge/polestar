@@ -1036,6 +1036,7 @@ settings instead, and Polestar keeps out of the game's own windows.
 | `hide` | Hide everything Polestar shows, or bring it back, as a click on the minimap button does; `hide arrow` turns **Keep the arrow when hidden** on or off |
 | `guides` | Open the hub on Guides |
 | `options [page]` | Open the settings, optionally on a page |
+| `ask <question>` | Open the settings on the answer to a question in your own words (`/ps ask how do I hide the arrow?`): the question in the search box and the settings it finds under it |
 | `next`, `prev` | Look at the next or previous step (nothing is skipped) |
 | `skip` | Skip the step shown, for good (the window offers Undo) |
 | `status` | Current guide and step |

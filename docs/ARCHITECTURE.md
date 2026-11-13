@@ -149,7 +149,7 @@ Messages:
 | `TOGGLE_FRAME` / `SHOW_FRAME` | — | commands, keybinds → UI (from a hidden Polestar both show it again, the window with it; a window on but out of sight stays on and they say why: see "Out of sight") |
 | `POLESTAR_HIDDEN` | hidden (true \| false) | Core, `Polestar.SetHidden` (and true again as "Keep the arrow when hidden" changes while hidden): see "Hiding Polestar" |
 | `SHOW_PICKER` | — | commands → UI |
-| `SHOW_OPTIONS` | section or nil | commands → UI |
+| `SHOW_OPTIONS` | section or nil, question or nil | commands (`/polestar ask <question>`: the question in the search box) → UI |
 | `SHOW_WELCOME` | page or nil | About's Install tile, the settings window's Install button and its search result, `/polestar install` (and `/polestar welcome`) → UI/Welcome.lua (Install) |
 | `SHOW_WHATSNEW` | — | About's "What's new", `/polestar whatsnew` → UI/WhatsNew.lua |
 | `WELCOME_CLOSED` | — | UI/Welcome.lua, Install closed (not stepped aside) → UI/WhatsNew.lua |
@@ -7020,11 +7020,59 @@ as its start, a typo off (optimal string alignment distance 1 for 4-7
 letters, 2 for 8 or more; not against help) or inside it (4 bytes or more,
 so "lag" is not found in "flag"; a query word still holding non-ASCII text
 after folding, such as one Chinese, Korean or Cyrillic letter, has no floor); filler words
-("the", "how", "turn", "off") only add to a match, the others must each
-match something. Scores, highest first: the label's whole word 100 and start
+only add to a match, the others must each match something. The filler is
+what a question or a request carries, so a player can ask: "how do I hide
+the arrow?", "where is the arrow size", "why does it close quest windows",
+"can I turn off sounds" each put that setting first. English on every client
+(a an the of to in on at and or for my me i is it how do can turn off enable
+disable toggle set setting settings option options where want does did are
+am be was what why when which who make get change find stop go there way
+you your we us please would could should will need just this that its from
+anymore, and a contraction's pieces: s t m d ll re ve don doesn didn won isn
+aren cant dont doesnt wont isnt im ive), "show me" and "get rid of" (read
+as "me" and "hide"), and the client's own language's question words
+(`QUESTION` in UI/Options.lua, folded): German (wie wo warum wieso weshalb
+was welche wann kann können ich mich mir mein man ist sind gibt es, the
+articles, zu um mal bitte will möchte soll muss ändern einstellen finden
+machen schalten aus an ab ausschalten abschalten einschalten aktivieren
+deaktivieren und oder im in am auf für von), French (comment où pourquoi
+quand quel quelle que qu' quoi est ce c' je j' me m' moi mon ma mes on peut
+peux puis pouvoir il y t faire fait changer modifier régler trouver mettre
+veux voudrais faut, the articles, au aux en pour sur dans et activer
+désactiver), Spanish (cómo dónde por porque qué cuál cuándo puedo puede
+puedes se yo me mi mis, the articles, de del al es está están hay hago hace
+hacer quiero quisiera cambiar poner encontrar activar desactivar y o en con
+para), Portuguese (como onde por porque que qual quando posso pode eu me
+meu minha, the articles, de do da no na e está fica faço faz fazer quero
+mudar alterar trocar achar encontrar ativar desativar ligar desligar em
+com para), Russian (как где почему зачем что чтобы какой когда я мне меня
+мой моя мои можно могу ли это сделать изменить поменять найти хочу
+включить выключить отключить настроить и в на у с к по для а), Korean
+(어떻게 어디 어디에 어디서 어디에서 왜 무엇 뭐 무슨 언제 내 나 제 저 수 있나요
+있어요 있습니까 있을까요 하나요 해요 하려면 하는 방법 좀) and Chinese, written
+without spaces, whose question words are taken out of the text before it
+is cut into words, the longest first (Simplified 在哪里 在哪儿 为什么 能不能
+怎么样 怎么办 怎么 怎样 如何 哪里 哪儿 在哪 为啥 什么 我的 可以 能否 请问 一下 吗
+呢 我 把; Traditional the same in its own characters). Punctuation outside
+ASCII (¿ ¡ « », curly quotes, dashes, the ellipsis, the CJK ？！，。、：；
+and brackets) is a space. A word that matches nothing of a control's own
+tries its **stem**, an English ending off ("accepting" accept, "stopping"
+stop, "repairing" repair, "windows" window, "closed" clos), as a whole word
+or a word's start at the word's own score, before its synonyms. Scores, highest first: the label's whole word 100 and start
 80, the key 75/65, search terms and English label 70/60, section, tab and
 page 50/45, help 40/35, typos 30 to 20, inside a word 12 to 5; two query
-words that are one joined pair of the control's add up to 40. Results keep
+words that are one joined pair of the control's (neighbours within one
+comma's part of its text) add up to 40. A filler word's match, and a pair
+with one in it, count a tenth: they tell settings apart, never outrank the
+words asked about ("the" in "Hide the arrow with the guide"). A control
+named whole, every word of its label or of one of its search terms asked
+for (filler aside; whole, its start, a typo off, or through a word's other
+forms or synonyms), adds 50: "where is the xp tracker" puts XP tracker
+before the tracker's other rows. A question asking to switch something
+(off, enable, disable, toggle, stop, show, hide) adds 30 to a toggle, before
+a slider or a choice that matches as well. "Hide" reads Show and Shown at
+its own weight (an on/off word is the toggle's own: "hide the arrow" asks
+for Show arrow, off), and "turn in" is the one word "turnin". Results keep
 their page and tab groups, the best first in each and the group with the
 best match first; a setting on two pages comes once, under the first. What
 a query word makes of each word is remembered while it is typed on
@@ -7050,7 +7098,9 @@ whose name holds every word that is not filler (whole, its start or a typo
 off), a name said whole first, three at most; a tab named as its page, a
 section named as its tab and a section of references (Essentials) are left
 out. Then the best settings across the groups in the search's own order,
-eight rows in all, each its label over "Page · Tab", the words it matches
+each as the setting that matched (an inline setting or a cog's, on its row,
+when it matched better than the row's own: "how do I change the colour of
+the arrow" is Arrow colour on the arrow's Size row), once, eight rows in all, each its label over "Page · Tab", the words it matches
 lit (`O.MatchSpans`: the matcher's own test, word by word, two words run
 together and a hint word's synonyms; the label in textDim, those words in
 text); then "See all N results". Up and Down light a row (round from either
@@ -7182,7 +7232,14 @@ reach, and Move frames unlocks the frames with it open (the boxes on the
 DIALOG strata over it). Ways in: the hub rail's Options, a right-click on the
 game menu's Polestar button (a left click opens the hub), the minimap
 button's right-click menu (Settings), `/polestar options` or `/ps options`,
-the key binding, and the Blizzard Settings category.
+the key binding, and the Blizzard Settings category. `/polestar ask
+<question>` (`/ps ask` too; no slash commands with the gamepad interface)
+opens it with the question in the header's box (`UI.ShowOptions(section,
+ask)`, `O.Ask`): the box takes the keyboard and the dropdown opens on what
+the words find, as if typed; asked in a fight, it waits with the window. The
+box's placeholder invites a question ("Ask or search: how do I hide the
+arrow?", "Ask or search settings" or "Search settings", the longest that
+fits).
 
 ### Guide window, guide menu and zone art
 

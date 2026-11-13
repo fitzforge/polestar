@@ -71,6 +71,7 @@ L["Polestar is hidden: /polestar hide or the minimap button shows it again."] = 
 L["Hide or show everything Polestar shows (hide arrow: keep the arrow when hidden)"] = "Alles von Polestar aus- oder einblenden (hide arrow: Pfeil beim Ausblenden behalten)"
 -- L["Set Polestar up again, a page at a time (Install)"] = ""
 -- L["Opens Install, as /polestar install does"] = ""
+-- L["Find a setting by asking, such as: how do I hide the arrow?"] = ""
 
 -- Core/Engine.lua
 L["Quest"] = "Quest"
@@ -1381,6 +1382,8 @@ L["Your manual check-offs and skipped steps in the current guide are cleared fro
 -- L["What this version of Polestar changed for you."] = ""
 -- L["Set Polestar up again, a page at a time. Each choice works at once."] = ""
 -- L["Leveling guides can take you through the dungeons on your way, for a group of five: they pick up the quests on stops they make anyway, send you to the door at the right level and hand the quests in after. Skip them: the solo route. Ask me: the guide asks at each dungeon. Discovery, Dungeons changes one."] = ""
+-- L["Ask or search: how do I hide the arrow?"] = ""
+-- L["Ask or search settings"] = ""
 
 -- UI/Dungeons.lua
 L["Ready to turn in"] = "Bereit zur Abgabe"
