@@ -397,7 +397,8 @@ fn spec_automatic_counts_the_ranks_bought_whatever_shape_the_column_points_come_
 			g.setColumns({ { "Arcane", 25 }, { "Fire", 0 }, { "Frost", 2 } })
 			local key, _, source = G.GetSpec()
 			local _, _, report = G.DetectSpec("MAGE", 8, true)
-			emit({ shape = shape, key = key, source = source, reader = report.reader, headers = report.headers[7] })
+			emit({ shape = shape, key = key, source = source, reader = report and report.reader or false,
+				headers = report and report.headers[7] or false })
 		end
 	"#,
 		mage(36),
@@ -422,7 +423,8 @@ fn spec_automatic_reads_the_talents_again_when_they_load_after_login() {
 		local updates = 0
 		Polestar.On("GEAR_UPDATED", function() updates = updates + 1 end)
 		emit({ G.GetSpec() })
-		emit(select(3, G.DetectSpec("MAGE", 8)).pending)
+		local _, _, report = G.DetectSpec("MAGE", 8)
+		emit(report and report.pending or false)
 		g.talentsReady = true
 		stub.fire("TRAIT_CONFIG_LIST_UPDATED")
 		stub.runTimers()
@@ -455,7 +457,8 @@ fn spec_automatic_with_no_talent_point_spent_is_the_class_default() {
 		r#"
 		g.setColumns({ { "Arcane", 0 }, { "Fire", 0 }, { "Frost", 0 } })
 		emit({ G.GetSpec() })
-		emit(select(3, G.DetectSpec("MAGE", 8)).pending)
+		local _, _, report = G.DetectSpec("MAGE", 8)
+		emit(report and report.pending or false)
 	"#,
 		mage(12),
 	);

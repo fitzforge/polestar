@@ -5669,7 +5669,7 @@ Polestar.Gear.ShowWeightsSetting()                   -- Settings > Questing > Re
 - **Fresh.** `PLAYER_TALENT_UPDATE`, `ACTIVE_TALENT_GROUP_CHANGED`,
   `CHARACTER_POINTS_CHANGED`, `TRAIT_CONFIG_UPDATED` and level-ups redo the
   pick. `TRAIT_CONFIG_LIST_UPDATED`, `ACTIVE_COMBAT_CONFIG_CHANGED`,
-  `TRAIT_TREE_CURRENCY_INFO_UPDATED`, `TRAIT_NODE_CHANGED`, `SPELLS_CHANGED`,
+  `TRAIT_TREE_CURRENCY_INFO_UPDATED`, `TRAIT_NODE_CHANGED`,
   `PLAYER_ENTERING_WORLD`, and 3 s and 15 s after login, read the talents again
   (once a frame) and redo the advice only when the pick, or `pending`, changed.
 - **Said.** Under the tooltip's upgrade line (and the reward pick line) Gear

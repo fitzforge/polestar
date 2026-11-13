@@ -25,7 +25,7 @@
 --       "custom": an imported Pawn scale (Pawn.lua); key is "custom:<id>", label
 --       "Custom: <name>", and its weights are used as they are, at every level.
 --       Automatic ("talents" | "default") is Gear.DetectSpec's pick, read again
---       when the talents load or change (Gear.RecheckSpec)
+--       when the talents load or change
 --   Gear.DetectSpec(class, classID, all) -> key, source, report: the spec with
 --       the most talent points, by every way the client can say (report: what
 --       each said; `/polestar gear spec` prints it)
@@ -276,8 +276,12 @@ function Client.TalentRanks(config, want)
 		local ok2, info = pcall(T.GetNodeInfo, config, id)
 		local nodeID = ok2 and type(info) == "table" and readable(info.ID) or nil
 		if nodeID and nodeID ~= 0 then
+			-- A hidden node (a stray copy of a talent far off the grid) neither
+			-- moves the columns' split nor counts outside a column's group.
+			local shown = readable(info.isVisible) ~= false
 			local x = readable(info.posX)
-			if type(x) == "number" then xs[#xs + 1] = x end
+			if type(x) ~= "number" or not shown then x = nil end
+			if x then xs[#xs + 1] = x end
 			local rank = readable(info.ranksPurchased)
 			if type(rank) ~= "number" then rank = readable(info.activeRank) end
 			if type(rank) == "number" and rank > 0 then
@@ -291,7 +295,7 @@ function Client.TalentRanks(config, want)
 				end
 				if col then
 					points[col] = points[col] + rank
-				elseif type(x) == "number" then
+				elseif x then
 					loose[#loose + 1] = { x = x, rank = rank }
 				end
 			end
@@ -577,8 +581,8 @@ local function mostPoints(meta, list)
 end
 
 -- The first talent point comes at this level (Talents.lua's fallback: one a
--- level from 10): from here a character without any config read has
--- talents the client has not given yet.
+-- level from 10): from here a character the client gives no talent config
+-- has talents it has not loaded yet.
 local TALENT_LEVEL = 10
 
 -- Where the talent points are, by every way the client can say, in the
@@ -593,7 +597,8 @@ local TALENT_LEVEL = 10
 --   { configs, group, groupConfig, activeConfig, loaded, ranks = { [config] = columns },
 --     headers = { [config] = columns }, tabs = columns, primary = index,
 --     reader = "ranks" | "headers" | "tabs" | "primary" | nil, config, pending }
---   (columns = { { name, points }, ... }; pending: the talents are not there to read yet)
+--   (columns = { { name, points }, ... }; pending: the talents are not there to read yet: the client
+--   says so, or from TALENT_LEVEL it gives no config)
 function Gear.DetectSpec(class, classID, all)
 	local meta = CLASSES[class]
 	if not meta then return nil, "default", nil end
@@ -1123,8 +1128,7 @@ local function queueRecheck()
 	recheckQueued = true
 	ns.After(0, recheck)
 end
-Gear.RecheckSpec = queueRecheck
-for _, ev in ipairs({ "TRAIT_CONFIG_LIST_UPDATED", "ACTIVE_COMBAT_CONFIG_CHANGED", "TRAIT_TREE_CURRENCY_INFO_UPDATED", "TRAIT_NODE_CHANGED", "SPELLS_CHANGED", "PLAYER_ENTERING_WORLD" }) do
+for _, ev in ipairs({ "TRAIT_CONFIG_LIST_UPDATED", "ACTIVE_COMBAT_CONFIG_CHANGED", "TRAIT_TREE_CURRENCY_INFO_UPDATED", "TRAIT_NODE_CHANGED", "PLAYER_ENTERING_WORLD" }) do
 	ns.RegisterEvent(ev, queueRecheck)
 end
 
