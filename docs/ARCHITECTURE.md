@@ -5820,13 +5820,15 @@ Polestar.Gear.ShowWeightsSetting()                   -- Settings > Questing > Re
   (once a frame) and redo the advice only when the pick, or `pending`, changed.
 - **Talents in the weights** (`Gear.TALENT_STATS`): talents that turn one
   stat into another, which the weights' sources (Classic formulas, sims) know
-  nothing of. On the built-in weights in use, never a custom scale, each rank
-  bought adds its share of the target stat's weight to the source stat; the
-  ranks are read by the talent's spell on the config the talent frame shows
-  (`Client.TalentSpellRanks`: each node's entry and definition, read once per
-  node). Mental Dexterity (Shaman, 3 ranks, spell 415140): a third of the
-  attack power weight to Intellect per rank, as the 12 November 2026 patch
-  notes set it (#2090). `/polestar gear spec` prints what each added.
+  nothing of. On Polestar's built-in weights in use, never a custom scale or
+  Forever Leveling BiS's weights, the ranks bought add their share of the
+  target stat's weight to the source stat; the ranks are read by the talent's
+  spell on the config the talent frame shows (`Client.TalentSpellRanks`: each
+  node's entry and definition, read once per node). Mental Dexterity (Shaman,
+  3 ranks, spell 415140): 33, 66 and 100% of the attack power weight to
+  Intellect, as Forever's 12 November 2026 hotfix set it (the client's hotfix
+  data, talent curve 85272; #2090). `/polestar gear spec` prints what each
+  added.
 - **Said.** Under the tooltip's upgrade line (and the reward pick line) Gear
   says what it scored with (`Gear.ScoredFor`); the guide window's reward pick
   and the reward panel's line open Stat weights on a click.
@@ -5838,7 +5840,7 @@ Polestar.Gear.ShowWeightsSetting()                   -- Settings > Questing > Re
 ### Bag upgrade arrows — Gear/Bags.lua
 
 ```lua
-Polestar.Gear.Bags.IsUpgrade(link) -> bool   -- what an arrow shows: Gear.IsUpgrade, with gear advice and gear.bagArrows on
+Polestar.Gear.Bags.IsUpgrade(link) -> bool   -- what an arrow shows: Gear.IsUpgrade (or Forever Leveling BiS's IsUpgrade, below), with gear advice and gear.bagArrows on
 Polestar.Gear.Bags.Redraw()                  -- repaint the shown bags; GEAR_UPDATED schedules it, at most every 0.2 s
 ```
 
@@ -5870,6 +5872,18 @@ Polestar.Gear.Bags.Redraw()                  -- repaint the shown bags; GEAR_UPD
   Season of Discovery simulations blended with Polestar's own), else its
   table in Weights.lua. No simulation has Forever's own ratings, so a band
   takes `haste`, `expertise` and `armorPen` from Weights.lua (#1529).
+- **Formula weights.** On that band, at the player's level, `Gear.WeightsFor`
+  works out health (Stamina / 10), mana (Intellect less its spell crit, over
+  15), haste and expertise (the band's crit and hit at the spec's own ratios in
+  Weights.lua) and armor penetration (the band's crit times a same-level
+  mob's armor share, `Gear.ArmorShare`); a formula whose input the spec does
+  not weigh leaves the value. Cached per band and level. Every rule, the
+  game numbers behind them (`Gear.HEALTH_PER_STA`, `Gear.MANA_PER_INT`,
+  `Gear.IntPerSpellCrit`, the creature armor table) and every spec's weights
+  at levels 10 to 60: docs/gear-weights.md; addon tests `gear_weights::*`.
+- **The off hand.** A one-hander in the off hand counts at the weights'
+  `ohDps` where they have one (Pawn's OffHandDps, Forever Leveling BiS's
+  weights), else at half of `dps`.
   Weights.lua's header records what was checked against Forever's client tables
   (`ChrClasses`, `PlayerExpectedStat`, `gametables/combatratings.txt`, read
   with `forge gamedata export` and `forge gamedata file`) and how the weights
@@ -5891,6 +5905,41 @@ Polestar.Gear.Bags.Redraw()                  -- repaint the shown bags; GEAR_UPD
   are per 1% and its string per point: CritRating=1 is crit 14. Scales kept before (no `PolestarDB.gearScaleUnits`) held rating
   weights per point, when items counted rating points; they are converted
   once, so each scores items as it did, and `gearScaleUnits` is 2 after.
+
+### Forever Leveling BiS's API — Gear/FLB.lua
+
+```lua
+Polestar.Gear.FLB.Installed() -> bool        -- ForeverLevelingBiS_API is there
+Polestar.Gear.FLB.Version() -> n | nil       -- its version while gear advice and gear.useFlbis are on
+Polestar.Gear.UsesFLB(min) -> bool           -- and Stat weights is Automatic (Gear.lua)
+```
+
+Gear scores from Forever Leveling BiS by Timearc when it is installed, through
+its public API (`## OptionalDeps: ForeverLevelingBiS` loads it first). Nothing
+of it is copied; every answer is asked of the player's copy, each call under
+`pcall` with a type check (a finite number, a known spec), so an API that
+changes, errors or answers otherwise leaves Polestar's own answer.
+
+- **Version 1** (its `IsUpgrade`, `OnChanged`): `Bags.IsUpgrade` takes its
+  `IsUpgrade(link)` while `Gear.UsesFLB(1)`, its false included (it says no
+  while its Bag upgrades switch is off); only for the bag arrows, never the
+  reward picks or Wear, which its bag switch is not about. One listener per
+  API table on `OnChanged` invalidates gear advice (`"flbis"`), once a frame.
+- **Version 2** (`GetGain`, `ScoreItem`, `GetWeights`, `GetSpec`), while
+  Automatic: `GetSpec()` is Automatic's spec (source `"flbis"`; its melee
+  Survival and Bear map to Survival and Feral; another class's is no answer);
+  `GetWeights(class, spec, level)`, read from its stat names (crit and hit per
+  1% to spell crit and hit for casters and healers, spell power split into
+  damage and healing, haste and expertise per rating point to per 1%), are
+  `Gear.GetWeights()` (no talents or Adjust weights on them); `GetGain(link)`
+  is the compare result's `pct`, with `delta` and `new` following it
+  (`r.flbis`); `ScoreItem(link)` is `Gear.ScoreItem`. `Gear.ScoredFor` says
+  "Scored by Forever Leveling BiS (Fury)" (short: "Scored by Forever Leveling
+  BiS") while it answers with gains or weights.
+- A spec or custom scale chosen in Stat weights, or gear.useFlbis off, keeps
+  Polestar's own advice. `/polestar gear spec` says what of it is used. Tests:
+  `gear_flbis::*`, on a stub of the API (none, version 1, version 2, answers
+  that error or make no sense).
 
 ### Adjusted weights — Gear/Adjust.lua, UI/GearAdjust.lua
 
