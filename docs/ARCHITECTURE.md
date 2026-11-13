@@ -6946,8 +6946,10 @@ outside the list and the box (GLOBAL_MOUSE_DOWN, registered only while it is
 open), an emptied box, another page and the window closing close it; the
 box keeps the keyboard throughout. With no match it says so and offers the
 suggestions as rows that search for them, the box keeping the keyboard. The
-list is the window's child (strata DIALOG) on the panel skin, in the look's
-tokens; with a gamepad it holds the D-pad while open (A picks, B closes).
+list is the window's child (strata DIALOG) on the panel skin, marked as a
+menu (`psMenu`: the menus' ground) so the page never shows through it, in
+the look's tokens; with a gamepad it holds the D-pad while open (A picks, B
+closes).
 
 A query that **starts with a page's name** and goes on ("arrow size",
 "quality of life loot"; the name's words in order, filler between them

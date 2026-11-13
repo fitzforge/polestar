@@ -113,6 +113,9 @@ local function build()
 	-- The wheel stays with the list: the page under it does not scroll.
 	list:EnableMouseWheel(true)
 	list:SetScript("OnMouseWheel", function() end)
+	-- Painted as the menus are (psMenu: their ground, the look's menuBg), so
+	-- the page under the list never shows through its rows.
+	list.psMenu = true
 	Theme.Skin(list, "panel")
 	list.None = W.Text(list, "small", "textMuted")
 	list.Hint = W.Text(list, "small", "textMuted")
