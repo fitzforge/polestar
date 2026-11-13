@@ -9,6 +9,9 @@
 //!
 //! `forge guide bake --guides <dir>[,<dir>...] [--grid <dir>] [--leffe <dir>] [--root <repo>] [--data <dir>] [--threads N]`:
 //! the baked legs of written guide trees (forge::bake).
+//!
+//! `forge guide renumber --plan [--out <file>] [--check <file>]` | `--map <file> [--dry-run] [--force]`: the
+//! leveling guides' ids in route order (forge::renumber).
 
 use forge_guide::data::Data;
 use forge_guide::diag::{format_diagnostics, Diag, Diagnostics};
@@ -176,6 +179,148 @@ fn generated(cmd: &str, args: &[String]) -> i32 {
 			}
 			Err(e) => fail(&e),
 		},
+	}
+}
+
+/// `forge guide renumber --plan [--out <file>] [--check <file>]` and `forge guide renumber --map <file>
+/// [--dry-run] [--force]` (forge::renumber).
+fn renumber(args: &[String]) -> i32 {
+	use forge::renumber;
+	let usage = |m: &str| {
+		eprintln!("forge guide renumber: {m}\n(forge guide --help for the options)");
+		2
+	};
+	let fail = |m: &str| {
+		eprintln!("forge guide renumber: {m}");
+		1
+	};
+	if let Err(e) = super::check_args(args, &["--checkout", "--map", "--out", "--check"], &["--plan", "--dry-run", "--force"], 0) {
+		return usage(&e);
+	}
+	let opt = |k: &str| args.iter().position(|a| a == k).and_then(|i| args.get(i + 1)).cloned().or_else(|| args.iter().find_map(|a| a.strip_prefix(k)?.strip_prefix('=').map(String::from)));
+	let flag = |k: &str| args.iter().any(|a| a == k);
+	let cwd = std::env::current_dir().unwrap_or_default();
+	let checkout = match opt("--checkout").map(|c| cwd.join(c)) {
+		Some(c) if c.join(forge::CHECKOUT_MARK).is_file() => c,
+		Some(c) => return usage(&format!("--checkout {}: not a Polestar checkout (no {})", c.display(), forge::CHECKOUT_MARK)),
+		None => match forge::find_checkout(&cwd) {
+			Some(c) => c,
+			None => return usage(&format!("no Polestar checkout ({}) above here: pass --checkout <dir>", forge::CHECKOUT_MARK)),
+		},
+	};
+	let checkout = checkout.canonicalize().unwrap_or(checkout);
+	match (flag("--plan"), opt("--map")) {
+		(true, None) => {
+			if flag("--dry-run") || flag("--force") {
+				return usage("--dry-run and --force go with --map");
+			}
+			let plan = match renumber::plan(&checkout) {
+				Ok(p) => p,
+				Err(e) => return fail(&e),
+			};
+			for (old, new) in &plan.order {
+				if old == new {
+					println!("  {old}");
+				} else {
+					println!("  {old} -> {new}");
+				}
+			}
+			for w in &plan.warnings {
+				eprintln!("warning: {w}");
+			}
+			eprintln!("forge guide renumber: {} of {} leveling guides get a new id", plan.renames.len(), plan.order.len());
+			if let Some(out) = opt("--out") {
+				let out = cwd.join(out);
+				if let Err(e) = std::fs::write(&out, renumber::map_document(&plan.renames)) {
+					return fail(&format!("{}: {e}", out.display()));
+				}
+				eprintln!("forge guide renumber: wrote {}", out.display());
+			}
+			if let Some(check) = opt("--check") {
+				let table = match renumber::load_map(&cwd.join(&check)) {
+					Ok(t) => t,
+					Err(e) => return fail(&e),
+				};
+				let mut differ = 0;
+				for (old, new) in &plan.renames {
+					match table.iter().find(|(o, _)| o == old) {
+						Some((_, n)) if n == new => {}
+						Some((_, n)) => {
+							differ += 1;
+							println!("differs: {old}: {check} says {n}, the guides now {new}");
+						}
+						None => {
+							differ += 1;
+							println!("missing: {old} -> {new} is not in {check}");
+						}
+					}
+				}
+				for (old, n) in &table {
+					if !plan.renames.iter().any(|(o, _)| o == old) {
+						differ += 1;
+						println!("extra: {check} renames {old} -> {n}, the guides now keep it");
+					}
+				}
+				if differ > 0 {
+					return fail(&format!("{check} differs from the guides' order and titles now in {differ} place(s): write it again with --plan --out {check}"));
+				}
+				eprintln!("forge guide renumber: {check} matches the guides' order and titles");
+			}
+			0
+		}
+		(false, Some(map)) => {
+			if opt("--out").is_some() || opt("--check").is_some() {
+				return usage("--out and --check go with --plan");
+			}
+			let map_path = cwd.join(&map);
+			let table = match renumber::load_map(&map_path) {
+				Ok(t) => t,
+				Err(e) => return fail(&e),
+			};
+			let map_file = map_path.canonicalize().ok().and_then(|p| p.strip_prefix(&checkout).ok().map(|r| r.to_string_lossy().replace('\\', "/")));
+			let opts = renumber::Options { dry_run: flag("--dry-run"), force: flag("--force"), map_file };
+			let r = match renumber::apply(&checkout, &table, &opts) {
+				Ok(r) => r,
+				Err(e) => return fail(&e),
+			};
+			for (old, new) in &r.done {
+				println!("done   {old} -> {new} (applied before)");
+			}
+			for (from, to) in &r.moves {
+				println!("move   {from} -> {to}");
+			}
+			for e in &r.edits {
+				let how = if e.how.is_empty() { String::new() } else { format!(" (by {})", e.how) };
+				println!("edit   {}:{}: {} -> {}{how}", e.file, e.line, e.from, e.to);
+			}
+			for (file, paths, hashes) in &r.manifests {
+				println!("update {file}: {paths} paths renamed, {hashes} hashes updated");
+			}
+			if let Some(n) = r.renamed {
+				println!("update {}: {n} renamed ids", renumber::RENAMED);
+			}
+			for l in &r.left {
+				println!("left   {}:{}: {} names {}: nothing on the line or above it tells which", l.file, l.line, l.text, l.candidates.join(" or "));
+			}
+			let files: std::collections::BTreeSet<&str> = r.edits.iter().map(|e| e.file.as_str()).collect();
+			let summary = format!(
+				"{} files moved, {} references rewritten in {} files, {} left as they are",
+				r.moves.len(),
+				r.edits.len(),
+				files.len(),
+				r.left.len()
+			);
+			if opts.dry_run {
+				eprintln!("forge guide renumber (dry run, nothing written): {summary}");
+			} else if r.changes() {
+				eprintln!("forge guide renumber: {summary}. Next: forge guide compile && forge guide compile experimental && forge i18n sync, then forge guide check-generated");
+			} else {
+				eprintln!("forge guide renumber: nothing to change, the table is applied");
+			}
+			0
+		}
+		(true, Some(_)) => usage("--plan or --map, not both"),
+		(false, None) => usage("renumber needs --plan (the table from the guides as they are) or --map <file> (apply a table)"),
 	}
 }
 
@@ -377,11 +522,14 @@ fn run() -> i32 {
 	if matches!(cmd.as_str(), "seed" | "publish" | "check-generated") {
 		return generated(&cmd, &args[1..]);
 	}
+	if cmd == "renumber" {
+		return renumber(&args[1..]);
+	}
 	if cmd == "bake" {
 		return bake(&args[1..]);
 	}
 	if cmd != "compile" && cmd != "lint" {
-		return usage(&format!("unknown command {cmd}: compile, lint, check, bake, seed, publish or check-generated"));
+		return usage(&format!("unknown command {cmd}: compile, lint, check, bake, seed, publish, check-generated or renumber"));
 	}
 	let rest = &args[1..];
 	let values: &[&str] = if cmd == "compile" { &COMPILE_VALUES } else { &LINT_VALUES };

@@ -35,7 +35,7 @@ fn planner(guides: &Path) -> Planner {
 	let mut p = Planner::new(&texts, &s(forge_guide::solo::load_instances(&src)), &s(forge_guide::areas::load_areas(&src))).unwrap();
 	let rels = forge_guide::project::find_guide_files(guides, false);
 	let read = |f: &str| std::fs::read_to_string(guides.join(f)).ok();
-	p.set_pack(Pack { manifest: read("pack.json").unwrap(), legs: read("legs.json"), retired: read("retired.json"), license: read("LICENSE"), translations: None, iface: String::new() }).unwrap();
+	p.set_pack(Pack { manifest: read("pack.json").unwrap(), legs: read("legs.json"), retired: read("retired.json"), renamed: read("renamed.json"), license: read("LICENSE"), translations: None, iface: String::new() }).unwrap();
 	let files: Vec<(String, String, String)> = rels.iter().map(|r| (r.clone(), format!("guides/{r}"), std::fs::read_to_string(guides.join(r)).unwrap())).collect();
 	p.set_guides(&files);
 	let params = std::fs::read_to_string(sim.join("params.json")).ok();
@@ -101,6 +101,7 @@ fn pack_files_equal_the_native_compile() {
 		manifest: read("pack.json").unwrap(),
 		legs: read("legs.json"),
 		retired: read("retired.json"),
+		renamed: read("renamed.json"),
 		license: read("LICENSE"),
 		translations: Some(forge_guide::js::stringify(&tr.get("translations"), None)),
 		iface: forge_guide::project::core_interface(&seed).unwrap(),

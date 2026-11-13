@@ -1027,6 +1027,8 @@ function ns.RegisterGuide(def)
 		problem(r, "guide-refused", (L["Guide %s was refused: %s."]):format(escape(id), escape(err)), id)
 		return false, err
 	end
+	-- A hand-over to a guide a pack renamed leads to its new id.
+	Own.followRenamed(def)
 	local deferred = rawget(def, "steps") == nil
 	if not deferred then
 		Own.stepImages(def.steps, r)
@@ -1767,6 +1769,125 @@ function Guides.IsRetired(id)
 	return retired[id] ~= nil
 end
 
+-- Guide ids a pack renamed (Polestar.RenameGuides(packId, { [old] = new }),
+-- from the pack's renamed.json; `forge guide renumber`): the same guide under
+-- a new id, its steps and their keys unchanged. At login every saved mention
+-- of an old id moves to the new one (Own.moveRenamed): the character keeps its
+-- tabs, its place, its check-offs and skips. A `next` naming an old id leads
+-- to the new one (Own.followRenamed), so another pack's hand-over to a renamed
+-- guide still works. Only ids the pack owns, and never while a guide is
+-- registered under the old id.
+local renamed = {} -- old id -> new id
+Own.renamedDirty = false -- renames registered since the save was last moved
+
+function ns.RenameGuides(packId, map)
+	if type(packId) ~= "string" or type(map) ~= "table" then return end
+	for old, new in pairs(map) do
+		if type(old) == "string" and type(new) == "string" and old ~= new and ownsId(packId, old) and ownsId(packId, new) then
+			renamed[old] = new
+			Own.renamedDirty = true
+		end
+	end
+end
+
+-- The id renamed guide `id` goes by now (a rename of a rename followed to its
+-- end), nil for an id no pack renamed or one a guide is registered under.
+function Guides.Renamed(id)
+	if type(id) ~= "string" or guides[id] then return nil end
+	local to, hops = renamed[id], 0
+	while to and renamed[to] and not guides[to] and hops < 16 do
+		to, hops = renamed[to], hops + 1
+	end
+	return to
+end
+
+-- A saved mention of a renamed guide, the id itself or "<id>:..." (the class
+-- card's and the guide notices' keys), with the new id; nil for any other.
+local function renamedMention(v)
+	if type(v) ~= "string" or not find(v, "/", 1, true) then return nil end
+	local cut = find(v, ":", 1, true)
+	local id = cut and v:sub(1, cut - 1) or v
+	local to = renamed[id] and Guides.Renamed(id)
+	if not to then return nil end
+	return cut and (to .. v:sub(cut)) or to
+end
+
+-- Every key and value of the character's save (PolestarCharDB) and the
+-- account's (PolestarDB: the alts' tabs, settings) that mentions a renamed
+-- guide names its new id. A key moves with its value; an entry the save holds
+-- under the new id already gives way to the old id's, which is where the
+-- character was until this update. The old ids are gone after it, so a second
+-- run finds nothing. -> true when anything moved.
+function Own.moveRenamed()
+	if not Own.renamedDirty then return false end
+	Own.renamedDirty = false
+	local seen, any = {}, false
+	local function walk(t)
+		if seen[t] then return end
+		seen[t] = true
+		local keys
+		for k, v in pairs(t) do
+			if type(v) == "table" then
+				walk(v)
+			else
+				local nv = renamedMention(v)
+				if nv then
+					t[k] = nv
+					any = true
+				end
+			end
+			if renamedMention(k) then
+				keys = keys or {}
+				keys[#keys + 1] = k
+			end
+		end
+		for _, k in ipairs(keys or {}) do
+			t[renamedMention(k)] = t[k]
+			t[k] = nil
+			any = true
+		end
+	end
+	if type(PolestarCharDB) == "table" then walk(PolestarCharDB) end
+	if type(PolestarDB) == "table" then walk(PolestarDB) end
+	return any
+end
+
+-- A guide's `next`, route choices and their conditions naming a renamed guide
+-- name its new id.
+function Own.followRenamed(def)
+	if type(def) ~= "table" or next(renamed) == nil then return end
+	local to = Guides.Renamed(def.next)
+	if to then def.next = to end
+	if type(def.nextChoices) == "table" then
+		for i, id in ipairs(def.nextChoices) do
+			local new = Guides.Renamed(id)
+			if new then def.nextChoices[i] = new end
+		end
+	end
+	if type(def.nextWhen) == "table" then
+		local keys
+		for id in pairs(def.nextWhen) do
+			if Guides.Renamed(id) then
+				keys = keys or {}
+				keys[#keys + 1] = id
+			end
+		end
+		for _, id in ipairs(keys or {}) do
+			def.nextWhen[Guides.Renamed(id)] = def.nextWhen[id]
+			def.nextWhen[id] = nil
+		end
+	end
+end
+
+-- The guides registered before a pack's renames came in.
+function Own.followRenamedAll()
+	if next(renamed) == nil then return end
+	for id, def in pairs(guides) do
+		Own.followRenamed(def)
+		if headers[id] then Own.followRenamed(headers[id]) end
+	end
+end
+
 -- Baked legs (pack format 7; docs/PACK_FORMAT.md, "Format 7"): a race part's
 -- Legs.lua calls Polestar.RegisterLegs(packId, grid, { [guideId] = { [step]
 -- = "<leg>", ... }, ... }) for the leveling guides a player of its race may
@@ -1799,11 +1920,15 @@ function Guides.Legs(id)
 	return bakedLegs[id]
 end
 
--- The successor of a retired guide id: its pack's best leveling guide for
--- the player at their level (as Suggestions ranks a pack's). nil for an id that is
--- not retired, or a guide still registered under it.
+-- The successor of a retired or renamed guide id: a renamed one's new id, a
+-- retired one's pack's best leveling guide for the player at their level (as
+-- Suggestions ranks a pack's). nil for any other id, or one a guide is still
+-- registered under.
 function Guides.Successor(id)
-	if not retired[id] or guides[id] then return nil end
+	if type(id) ~= "string" or guides[id] then return nil end
+	local to = Guides.Renamed(id)
+	if to then return to end
+	if not retired[id] then return nil end
 	local fitting, best = rank(retired[id], ns.Compat.GetPlayerInfo(), ns.PlayerPoint(), ns.Compat.GetZoneText())
 	return fitting[1] or best
 end
@@ -1881,6 +2006,9 @@ end
 
 ns.OnLogin(function()
 	loggedIn = true
+	-- A save naming guides a pack renamed names their new ids before anything
+	-- reads it (the tabs, the open guide, check-offs, skips).
+	Own.moveRenamed()
 	-- Parts put off for a faction not known at ADDON_LOADED.
 	for name in pairs(partsWaiting) do loadParts(name) end
 	Own.loadForSaved()
@@ -1892,5 +2020,8 @@ ns.OnLogin(function()
 	-- every installed one is listed (an addon keeps its ids: Import.Load
 	-- leaves out an imported guide under an addon's id).
 	if ns.Import then ns.Import.Load() end
+	-- Renames a pack loaded just now brought: the save, then every guide's hand-overs.
+	Own.moveRenamed()
+	Own.followRenamedAll()
 	ns.Fire("GUIDES_REGISTERED")
 end)

@@ -5,7 +5,7 @@
 //!
 //! ```ignore
 //! let mut p = Planner::new(&data_texts, &instances_json, &areas_json)?;
-//! p.set_pack(&Pack { manifest, legs, retired, license, translations, iface })?;
+//! p.set_pack(&Pack { manifest, legs, retired, renamed, license, translations, iface })?;
 //! let (guide, diags) = p.compile_guide("forever/horde/01-durotar.guide", "guides/forever/horde/01-durotar.guide", &text);
 //! p.set_world("Horde", &world_bytes, Some(&params_json))?;
 //! let h = p.hours(&Character { faction: "Horde".into(), race: "Orc".into(), cls: None }, None)?;
@@ -16,7 +16,7 @@ use forge_core::MapFrames;
 use forge_guide::data::Data;
 use forge_guide::diag::{Diag, Diagnostics};
 use forge_guide::js::{cmp_utf16, parse_json, stringify, V};
-use forge_guide::project::{build_pack_files, compile_sources, read_legs_text, read_retired_text, CompileOpts, FileContent, Source};
+use forge_guide::project::{build_pack_files, compile_sources, read_legs_text, read_renamed_text, read_retired_text, CompileOpts, FileContent, Source};
 use forge_judge::levels::SimLevels;
 use forge_judge::walk::{background, walk_chain, Chain, Ctx, WalkGoal};
 use rustc_hash::FxHashMap;
@@ -41,6 +41,8 @@ pub struct Pack {
 	pub manifest: String,
 	pub legs: Option<String>,
 	pub retired: Option<String>,
+	/// renamed.json.
+	pub renamed: Option<String>,
 	pub license: Option<String>,
 	/// The pack's translations as `pack_translations` read them natively when the bundle was made
 	/// ({ <locale>: { pack, guides } }; "{}": none).
@@ -245,18 +247,20 @@ impl Planner {
 		self.files.iter().map(|e| Source { source: e.source.clone(), file: e.file.clone(), text: e.text.clone() }).collect()
 	}
 
-	/// The pack compiled as `compile_project` does (every guide, cross-guide checks, retired.json, legs.json).
-	fn project(&self) -> (Vec<V>, Diagnostics, Vec<String>) {
+	/// The pack compiled as `compile_project` does (every guide, cross-guide checks, retired.json, renamed.json,
+	/// legs.json).
+	fn project(&self) -> (Vec<V>, Diagnostics, Vec<String>, Vec<(String, String)>) {
 		let mut diag = Diagnostics::new();
 		let c = compile_sources(&self.sources(), &self.data, &mut diag, &self.opts());
 		let retired = read_retired_text(self.pack.retired.as_deref(), "retired.json", &c.guides, &mut diag);
+		let renamed = read_renamed_text(self.pack.renamed.as_deref(), "renamed.json", &c.guides, &mut diag);
 		read_legs_text(self.pack.legs.as_deref(), "legs.json", &c.guides, &self.data, &mut diag);
-		(c.guides, diag, retired)
+		(c.guides, diag, retired, renamed)
 	}
 
 	/// The pack's lint (the planner's full compile check: build_pack without the files).
 	pub fn lint(&self) -> Vec<Diag> {
-		let (_, mut diag, _) = self.project();
+		let (_, mut diag, _, _) = self.project();
 		self.license_warning(&mut diag);
 		diag.sorted()
 	}
@@ -276,7 +280,7 @@ impl Planner {
 	/// The addon folder (`build_pack`): its files when the pack compiles without errors, and the
 	/// diagnostics. Pictures are not bundled: a guide naming one is an error here.
 	pub fn pack_files(&self) -> (Option<Vec<(String, FileContent)>>, Vec<Diag>) {
-		let (guides, mut diag, retired) = self.project();
+		let (guides, mut diag, retired, renamed) = self.project();
 		self.license_warning(&mut diag);
 		for g in &guides {
 			for st in g.get("steps").items() {
@@ -289,7 +293,7 @@ impl Planner {
 			return (None, diag.sorted());
 		}
 		let translations = self.pack.translations.as_deref().and_then(|t| parse_json(t).ok()).unwrap_or_else(V::obj);
-		let files = build_pack_files(&guides, &self.manifest, &self.data, self.pack.license.as_deref(), &translations, &retired, &self.pack.iface, Vec::new());
+		let files = build_pack_files(&guides, &self.manifest, &self.data, self.pack.license.as_deref(), &translations, &retired, &renamed, &self.pack.iface, Vec::new());
 		(Some(files), diag.sorted())
 	}
 

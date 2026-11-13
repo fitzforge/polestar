@@ -7,8 +7,8 @@
 //! - `spell-names.json.gz`: the spell names the compiler's texts read from the client's SpellName table;
 //! - `repo.json.gz`: the other files the planner's JS reads, by checkout path ({ path: text }: package.json,
 //!   the core TOC, the QuestXP table);
-//! - `set-<name>.json.gz`: a guide pack { files: [[rel, text]], pack: { manifest, legs, retired, license,
-//!   iface } }, and `set-<name>-translations.json.gz` its translations as pack_translations reads them
+//! - `set-<name>.json.gz`: a guide pack { files: [[rel, text]], pack: { manifest, legs, retired, renamed,
+//!   license, iface } }, and `set-<name>-translations.json.gz` its translations as pack_translations reads them
 //!   natively (fetched for pack_compile only);
 //! - `world-<faction>.json.gz` (fetched when a start of that faction is played), `params.json`;
 //! - `manifest.json`: sets, file sizes, sources.
@@ -104,7 +104,7 @@ fn run() -> Result<(), String> {
 		let doc = serde_json::json!({
 			"files": files,
 			"pack": {
-				"manifest": manifest_text, "legs": read("legs.json"), "retired": read("retired.json"), "license": read("LICENSE"),
+				"manifest": manifest_text, "legs": read("legs.json"), "retired": read("retired.json"), "renamed": read("renamed.json"), "license": read("LICENSE"),
 				"iface": iface,
 			},
 		});

@@ -185,7 +185,7 @@ function buildPack(pack, { dataDir = DATA, cache = null, includeDrafts = false, 
 		guides: r.guides,
 		sources: r.sources,
 		data: r.data,
-		files: ok && files ? buildPackFiles({ guides: r.guides, manifest: pack.manifest, data: r.data, license, translations, retired: r.retired }) : null,
+		files: ok && files ? buildPackFiles({ guides: r.guides, manifest: pack.manifest, data: r.data, license, translations, retired: r.retired, renamed: r.renamed }) : null,
 		tokens: r.tokens,
 		noData: false,
 	};

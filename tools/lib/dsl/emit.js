@@ -432,6 +432,12 @@ function emitRetired(packId, ids) {
 	return `\nPolestar.RetireGuides(${luaString(packId)}, {\n${ids.map((id) => `\t${luaString(id)},`).join('\n')}\n})\n`;
 }
 
+// The guides a pack renamed (renamed.json, [[old, new]]), after the retired
+// ids in Guides.lua: Polestar moves a save from each old id to its new one.
+function emitRenamed(packId, pairs) {
+	return `\nPolestar.RenameGuides(${luaString(packId)}, {\n${pairs.map(([old, now]) => `\t[${luaString(old)}] = ${luaString(now)},`).join('\n')}\n})\n`;
+}
+
 // A pack's texts addon for one language (docs/TRANSLATING.md, "Guide
 // texts"): <folder>_<locale>, which Polestar loads on demand on that client
 // only, once the pack's own files are in (Core/GuideTexts.lua). Its TOC
@@ -587,4 +593,4 @@ function emitLicense(meta, legs = false) {
 	return `${out.join('\n').trimEnd()}\n`;
 }
 
-module.exports = { emitGuides, emitPack, emitToc, emitTextsToc, emitPartToc, emitLegs, emitRetired, emitTexts, emitMapFrames, emitClassTrainers, emitLicense, luaString, luaNumber, luaKey, inline, idMap, guideData, framesData, GUIDE_KEYS, STEP_KEYS, IMAGE_KEYS, WHEN_KEYS, GOAL_KEYS, ONLY_KEYS, LIST_KEYS, FRAME_KEYS };
+module.exports = { emitGuides, emitPack, emitToc, emitTextsToc, emitPartToc, emitLegs, emitRetired, emitRenamed, emitTexts, emitMapFrames, emitClassTrainers, emitLicense, luaString, luaNumber, luaKey, inline, idMap, guideData, framesData, GUIDE_KEYS, STEP_KEYS, IMAGE_KEYS, WHEN_KEYS, GOAL_KEYS, ONLY_KEYS, LIST_KEYS, FRAME_KEYS };

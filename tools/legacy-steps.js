@@ -92,6 +92,12 @@ function optionality(g) {
 	return { opt, req };
 }
 
+// Guides renamed since an earlier release (the current pack's renamed.json,
+// `forge guide renumber`): that release's guide is this one under its new id.
+const renamedFile = path.join(current, 'renamed.json');
+const renamed = fs.existsSync(renamedFile) ? JSON.parse(fs.readFileSync(renamedFile, 'utf8')) : {};
+const idNow = (id) => (Object.hasOwn(renamed, id) ? renamed[id] : id);
+
 const now = new Map();
 const nowReq = new Map();
 for (const g of leveling(current)) {
@@ -104,15 +110,16 @@ const legacy = new Map(); // id -> Map(hash -> part)
 const required = new Map();
 for (const dir of olds) {
 	for (const g of leveling(dir)) {
-		const keep = now.get(g.id);
+		const id = idNow(g.id);
+		const keep = now.get(id);
 		if (!keep) continue;
-		const m = legacy.get(g.id) || legacy.set(g.id, new Map()).get(g.id);
+		const m = legacy.get(id) || legacy.set(id, new Map()).get(id);
 		for (const st of g.steps) {
 			const p = part(st);
 			if (p && !keep.has(p)) m.set(hash(p), p);
 		}
-		const r = required.get(g.id) || required.set(g.id, new Set()).get(g.id);
-		for (const x of optionality(g).opt) if (nowReq.get(g.id).has(x)) r.add(x);
+		const r = required.get(id) || required.set(id, new Set()).get(id);
+		for (const x of optionality(g).opt) if (nowReq.get(id).has(x)) r.add(x);
 	}
 }
 

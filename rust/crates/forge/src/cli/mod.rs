@@ -137,6 +137,8 @@ const GUIDE_HELP: &str = "usage: forge guide compile [<dir>] [options]
        forge guide seed [--checkout <dir>] [--force]
        forge guide publish --from <out>/guides [--data <dir>] [--checkout <dir>]
        forge guide check-generated [--checkout <dir>]
+       forge guide renumber --plan [--out <file>] [--check <file>] [--checkout <dir>]
+       forge guide renumber --map <file> [--dry-run] [--force] [--checkout <dir>]
 
 compile: a pack's .guide files (docs/GUIDE_FORMAT.md) into its community addon folder, as its pack.json
 describes it (TOC, Pack.lua, MapFrames.lua, Guides.lua, LICENSE-DATA.txt, and LICENSE as LICENSE.txt).
@@ -188,6 +190,17 @@ Barrens) merged into that guide as their opening steps, its id retired; one legs
 trees'. --data: the quests' races for the races' copies (default data/forever/).
 check-generated: fail (exit 1) when a generated guide or a seed file was edited by hand, and say
 where the fix goes instead.
+
+renumber --plan: the leveling guides' new ids from the guides as they are: each faction's chain followed by
+`next` from its starts, numbered per folder in the order players reach the guides, named after each title
+(one zone: its name; several: their short names). --out writes the table; --check compares it with a table
+written earlier (exit 1 when the guides' order or titles changed since).
+renumber --map: applies a table: the guides, their translations and seed copies move (git mv), every reference
+in the checkout's text files is rewritten (a fragment two guides share by the faction of its file, line or
+the lines above; one nothing tells apart is listed and left), guides/GENERATED.json and forge/seed/SEED.json
+follow, and guides/renamed.json records the renames (Polestar moves saves from the old ids). --dry-run lists
+every change and writes nothing; a second run changes nothing. Refused while check-generated fails, unless
+--force. Rebuild after it: forge guide compile, forge guide compile experimental, forge i18n sync.
 ";
 
 const SIM_HELP: &str = "usage: forge sim <command> [options]

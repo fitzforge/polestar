@@ -31,7 +31,7 @@ impl JsPlanner {
 		self.0.set_spell_names(json).map_err(err)
 	}
 
-	/// The pack's files: JSON `{ manifest, legs, retired, license, translations, iface }` (texts; null: absent).
+	/// The pack's files: JSON `{ manifest, legs, retired, renamed, license, translations, iface }` (texts; null: absent).
 	#[wasm_bindgen(js_name = setPack)]
 	pub fn set_pack(&mut self, pack: &str) -> Result<(), JsValue> {
 		let v: serde_json::Value = serde_json::from_str(pack).map_err(|e| err(format!("pack: {e}")))?;
@@ -41,6 +41,7 @@ impl JsPlanner {
 				manifest: s("manifest").unwrap_or_else(|| "{}".into()),
 				legs: s("legs"),
 				retired: s("retired"),
+				renamed: s("renamed"),
 				license: s("license"),
 				translations: s("translations"),
 				iface: s("iface").unwrap_or_default(),
