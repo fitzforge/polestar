@@ -1201,7 +1201,5 @@
 			{ "node": "tests/data-corrections.test.js", "test": "Gnogaine waits for The Day After, whatever breadcrumb links the data has (Gnomeregan pick-up)" }
 		] }
 	},
-	"seedDrift": {
-		"the cloth the guides tell you to buy leads to the Auction House: the capitals' cloth donations and Grimand's Runecloth": "the guides-reported case passes on its own compile, but the forge compile (forge-guide resolve.rs) gives Silithus' Stormwind cloth collects their droppers' exact points (#1944) in place of the Auction House: a real bug, fix pending in #2194"
-	}
+	"seedDrift": {}
 }
