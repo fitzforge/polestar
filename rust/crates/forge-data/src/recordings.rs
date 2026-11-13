@@ -441,7 +441,7 @@ const OBJECT_KEYS_SIM: [&str; 5] = ["id", "name", "roles", "spawns", "instances"
 const QUEST_KEYS: [&str; 20] =
 	["id", "title", "level", "minLevel", "races", "classes", "start", "end", "pre", "excl", "next", "objectives", "objectiveText", "zone", "xp", "xpSamples", "rewards", "skill", "event", "source"];
 const FACTION_KEYS: [&str; 5] = ["id", "name", "side", "parent", "source"];
-const MIN_KILLS: f64 = 10.0;
+pub(crate) const MIN_KILLS: f64 = 10.0;
 const ENTRANCE_RADIUS: f64 = 1.5;
 const FULL_XP_LEVELS: f64 = 5.0;
 
@@ -498,7 +498,7 @@ type Backers<K> = IndexMap<K, IndexSet<String>>;
 
 /// The players behind each value recorded for one field, in the order first recorded.
 #[derive(Default)]
-struct Ballot(IndexMap<String, (V, IndexSet<String>)>);
+pub(crate) struct Ballot(IndexMap<String, (V, IndexSet<String>)>);
 
 /// How strongly a set of players backs a value: vouched evidence first, then the number of players.
 fn weight(w: &IndexSet<String>) -> (bool, usize) {
@@ -506,13 +506,13 @@ fn weight(w: &IndexSet<String>) -> (bool, usize) {
 }
 
 impl Ballot {
-	fn vote(&mut self, v: V, who: &str) {
+	pub(crate) fn vote(&mut self, v: V, who: &str) {
 		let e = self.0.entry(stringify(&v, None)).or_insert_with(|| (v, IndexSet::new()));
 		e.1.insert(who.to_string());
 	}
 
 	/// The value the most players back (ties: the first recorded), with its players.
-	fn best(&self) -> Option<(&V, &IndexSet<String>)> {
+	pub(crate) fn best(&self) -> Option<(&V, &IndexSet<String>)> {
 		let mut best: Option<(&V, &IndexSet<String>)> = None;
 		for (v, w) in self.0.values() {
 			if best.is_none_or(|(_, b)| weight(w) > weight(b)) {
@@ -525,7 +525,7 @@ impl Ballot {
 	/// The value to write over `cur` (`present`: another source has one) and whether it is
 	/// trusted: the best value fills a gap, and replaces or confirms a present one only on
 	/// trusted evidence.
-	fn decide(&self, present: bool, min: usize) -> Option<(V, bool)> {
+	pub(crate) fn decide(&self, present: bool, min: usize) -> Option<(V, bool)> {
 		let (v, who) = self.best()?;
 		let t = trusted(who, min);
 		(!present || t).then(|| (v.clone(), t))
@@ -679,11 +679,11 @@ struct Overlay<'a> {
 	factions_seen: IndexMap<i64, IndexSet<String>>,
 	faction_parent: IndexMap<i64, Ballot>,
 	faction_side: IndexMap<i64, Ballot>,
-	// finds, counted per contributor index (one player's numbers never pool with another's)
-	kills: FxHashMap<i64, IndexMap<usize, f64>>,
-	windows: [FxHashMap<i64, IndexMap<usize, f64>>; 2],
-	/// source -> item -> contributor -> loot windows holding the item.
-	loots: [IndexMap<i64, IndexMap<i64, IndexMap<usize, f64>>>; 2],
+	// finds, counted per player (one player's numbers never pool with another's)
+	kills: FxHashMap<i64, IndexMap<String, f64>>,
+	windows: [FxHashMap<i64, IndexMap<String, f64>>; 2],
+	/// source -> item -> player -> loot windows holding the item.
+	loots: [IndexMap<i64, IndexMap<i64, IndexMap<String, f64>>>; 2],
 	found: [IndexMap<i64, ByMap>; 2],
 	killed: IndexMap<i64, ByMap>,
 	rank: IndexMap<i64, Ballot>,
@@ -1173,14 +1173,14 @@ impl<'a> Overlay<'a> {
 					return true;
 				}
 				let k = k_ix(kind);
-				let ci = self.ci;
-				*self.windows[k].entry(id).or_default().entry(ci).or_insert(0.0) += 1.0;
+				let who = self.voter.clone();
+				*self.windows[k].entry(id).or_default().entry(who.clone()).or_insert(0.0) += 1.0;
 				let mut seen: IndexSet<i64> = IndexSet::new();
 				for i in &list {
 					seen.insert(pos_int(&i.get("item")).unwrap());
 				}
 				for item in seen {
-					*self.loots[k].entry(id).or_default().entry(item).or_default().entry(ci).or_insert(0.0) += 1.0;
+					*self.loots[k].entry(id).or_default().entry(item).or_default().entry(who.clone()).or_insert(0.0) += 1.0;
 					self.item_entry(item, &V::Undef);
 				}
 				self.loots[k].entry(id).or_default();
@@ -1241,7 +1241,7 @@ impl<'a> Overlay<'a> {
 			push_point(&mut self.killed, npc, &c);
 		}
 		if !ev.get("denied").truthy() {
-			*self.kills.entry(npc).or_default().entry(self.ci).or_insert(0.0) += 1.0;
+			*self.kills.entry(npc).or_default().entry(self.voter.clone()).or_insert(0.0) += 1.0;
 		}
 	}
 
@@ -1314,33 +1314,13 @@ impl<'a> Overlay<'a> {
 		for kind in ["npc", "object"] {
 			let k = k_ix(kind);
 			for (&id, m) in &self.loots[k] {
-				// Each player's kills of the source (or loot windows, the more of the two), or its
-				// loot windows of an object.
-				let mut of_by: IndexMap<usize, f64> = self.windows[k].get(&id).cloned().unwrap_or_default();
-				if kind == "npc" {
-					for (&c, &n) in self.kills.get(&id).into_iter().flatten() {
-						let of = of_by.entry(c).or_insert(0.0);
-						*of = of.max(n);
-					}
-				}
+				let of_by = drop_samples(kind == "npc", self.windows[k].get(&id), self.kills.get(&id));
 				for (&item, n_by) in m {
 					let it = db.items.get(&item.to_string());
 					if !it.truthy() {
 						continue;
 					}
-					// From MIN_KILLS of their own, `min` players (or a vouched one) make a trusted
-					// chance that replaces another source's; otherwise the chance only fills a
-					// gap. Either way it is the median of each player's chance.
-					let all: Vec<usize> = of_by.iter().filter(|(_, of)| **of > 0.0).map(|(c, _)| *c).collect();
-					let strong: Vec<usize> = all.iter().copied().filter(|c| of_by[c] >= MIN_KILLS).collect();
-					let backers: IndexSet<String> = strong.iter().map(|c| self.contributors[*c].clone()).collect();
-					let trust = trusted(&backers, self.min);
-					let group = if trust { strong } else { all };
-					let n_of = |c: &usize| n_by.get(c).copied().unwrap_or(0.0);
-					let chance = median(group.iter().map(|c| 100.0 * n_of(c) / of_by[c]).collect());
-					if chance.is_nan() || chance <= 0.0 {
-						continue;
-					}
+					let Some(dc) = drop_chance(&of_by, n_by, self.min) else { continue };
 					if !it.get("drops").truthy() {
 						let d = Obj::new();
 						d.set("npc", Obj::new());
@@ -1351,10 +1331,10 @@ impl<'a> Overlay<'a> {
 						it.get("drops").set(kind, Obj::new());
 					}
 					let cur = it.get("drops").get(kind).get(&id.to_string());
-					if !cur.is_nullish() && !trust {
+					if !cur.is_nullish() && !dc.trusted {
 						continue;
 					}
-					it.get("drops").get(kind).set(&id.to_string(), round2(chance));
+					it.get("drops").get(kind).set(&id.to_string(), dc.chance);
 					chances += 1;
 					if !it.get("seen").truthy() {
 						it.set("seen", Obj::new());
@@ -1364,10 +1344,10 @@ impl<'a> Overlay<'a> {
 					}
 					// The loot and kills behind the chance.
 					let s = Obj::new();
-					s.set("n", group.iter().map(n_of).sum::<f64>());
-					s.set("of", group.iter().map(|c| of_by[c]).sum::<f64>());
+					s.set("n", dc.n);
+					s.set("of", dc.of);
 					it.get("seen").get(kind).set(&id.to_string(), s);
-					tag_field(&it, "drops", trust);
+					tag_field(&it, "drops", dc.trusted);
 				}
 			}
 		}
@@ -1569,15 +1549,76 @@ impl<'a> Overlay<'a> {
 				a.0.borrow_mut().insert(0, V::Num(id as f64));
 			}
 		}
-		let mut rewards = Ballot::default();
-		for (who, (_, r)) in &v.rewards {
-			rewards.vote(r.clone(), who);
-		}
-		if let Some((r, tr)) = rewards.decide(!q.get("rewards").is_nullish(), self.min) {
+		if let Some((r, tr)) = reward_ballot(&v.rewards).decide(!q.get("rewards").is_nullish(), self.min) {
 			q.set("rewards", r);
 			tag_field(q, "rewards", tr);
 		}
 	}
+}
+
+pub(crate) struct DropChance {
+	pub chance: f64,
+	pub trusted: bool,
+	pub n: f64,
+	pub of: f64,
+}
+
+/// Each player's kills of the source (or loot windows, the more of the two), or its loot windows
+/// of an object.
+pub(crate) fn drop_samples(npc: bool, windows: Option<&IndexMap<String, f64>>, kills: Option<&IndexMap<String, f64>>) -> IndexMap<String, f64> {
+	let mut of_by = windows.cloned().unwrap_or_default();
+	if npc {
+		for (who, &n) in kills.into_iter().flatten() {
+			let of = of_by.entry(who.clone()).or_insert(0.0);
+			*of = of.max(n);
+		}
+	}
+	of_by
+}
+
+/// From [`MIN_KILLS`] of their own, `min` players (or a vouched one) make a trusted chance that
+/// replaces another source's; otherwise the chance only fills a gap. Either way it is the median
+/// of each player's chance.
+pub(crate) fn drop_chance(of_by: &IndexMap<String, f64>, n_by: &IndexMap<String, f64>, min: usize) -> Option<DropChance> {
+	let all: Vec<&String> = of_by.iter().filter(|(_, of)| **of > 0.0).map(|(c, _)| c).collect();
+	let strong: Vec<&String> = all.iter().copied().filter(|c| of_by[*c] >= MIN_KILLS).collect();
+	let backers: IndexSet<String> = strong.iter().map(|c| (*c).clone()).collect();
+	let trust = trusted(&backers, min);
+	let group = if trust { strong } else { all };
+	let n_of = |c: &&String| n_by.get(*c).copied().unwrap_or(0.0);
+	let chance = median(group.iter().map(|c| 100.0 * n_of(c) / of_by[*c]).collect());
+	if chance.is_nan() || chance <= 0.0 {
+		return None;
+	}
+	Some(DropChance { chance: round2(chance), trusted: trust, n: group.iter().map(n_of).sum(), of: group.iter().map(|c| of_by[*c]).sum() })
+}
+
+/// The rewards a quest frame showed (items, choices, money), the player's latest of the highest
+/// weight (a turn-in 2 over an accept 1).
+pub(crate) fn observe_reward(rewards: &mut IndexMap<String, (u8, V)>, ev: &V, weight: u8, who: &str) {
+	let items = ids(&ev.get("items"));
+	let choices = ids(&ev.get("choices"));
+	let frame_money = pos_int(&ev.get("rewardMoney"));
+	if items.is_empty() && choices.is_empty() && frame_money.is_none() {
+		return;
+	}
+	let money = frame_money.or(if weight == 2 { pos_int(&ev.get("money")) } else { None });
+	if rewards.get(who).is_some_and(|(w, _)| *w > weight) {
+		return;
+	}
+	let o = Obj::new();
+	o.set("items", nums(&items.iter().map(|&x| x as f64).collect::<Vec<_>>()));
+	o.set("choices", nums(&choices.iter().map(|&x| x as f64).collect::<Vec<_>>()));
+	o.set("money", money.map(|m| V::Num(m as f64)).unwrap_or(V::Null));
+	rewards.insert(who.to_string(), (weight, V::Obj(o)));
+}
+
+pub(crate) fn reward_ballot(rewards: &IndexMap<String, (u8, V)>) -> Ballot {
+	let mut rewards_ballot = Ballot::default();
+	for (who, (_, r)) in rewards {
+		rewards_ballot.vote(r.clone(), who);
+	}
+	rewards_ballot
 }
 
 impl QuestVotes {
@@ -1585,24 +1626,8 @@ impl QuestVotes {
 		self.givers.entry((side, kind)).or_default().entry(id).or_default().insert(who.to_string());
 	}
 
-	/// The rewards a quest frame showed (items, choices, money), the player's latest of the
-	/// highest weight.
 	fn reward(&mut self, ev: &V, weight: u8, who: &str) {
-		let items = ids(&ev.get("items"));
-		let choices = ids(&ev.get("choices"));
-		let frame_money = pos_int(&ev.get("rewardMoney"));
-		if items.is_empty() && choices.is_empty() && frame_money.is_none() {
-			return;
-		}
-		let money = frame_money.or(if weight == 2 { pos_int(&ev.get("money")) } else { None });
-		if self.rewards.get(who).is_some_and(|(w, _)| *w > weight) {
-			return;
-		}
-		let o = Obj::new();
-		o.set("items", nums(&items.iter().map(|&x| x as f64).collect::<Vec<_>>()));
-		o.set("choices", nums(&choices.iter().map(|&x| x as f64).collect::<Vec<_>>()));
-		o.set("money", money.map(|m| V::Num(m as f64)).unwrap_or(V::Null));
-		self.rewards.insert(who.to_string(), (weight, V::Obj(o)));
+		observe_reward(&mut self.rewards, ev, weight, who);
 	}
 }
 
