@@ -18,7 +18,7 @@ return {
 
 	-- Step 4: Orgrimmar
 	-- {zone:1454} Orgrimmar
-	["The middle of {zone:1454}"] = "",
+	["The middle of {zone:1454}"] = "El centro de {zone:1454}",
 
 	-- Step 6: Riding at 40
 	["Riding at 40"] = "Equitación a nivel 40",
@@ -61,7 +61,7 @@ return {
 	-- {area:484} Freewind Post
 	["Fly to {area:484}"] = "Vuela a {area:484}",
 	-- {zone:1456} Thunder Bluff
-	["{zone:1456} flight master"] = "",
+	["{zone:1456} flight master"] = "Maestro de vuelo de {zone:1456}",
 
 	-- Step 16: Ratchet for the Felsteed
 	-- {area:392} Ratchet
@@ -85,7 +85,7 @@ return {
 
 	-- Step 21: To Gadgetzan
 	-- {area:976} Gadgetzan
-	["To {area:976}"] = "",
+	["To {area:976}"] = "Hacia {area:976}",
 
 	-- Step 22: Gadgetzan
 	-- {area:976} Gadgetzan · {zone:1446} Tanaris
@@ -130,7 +130,7 @@ return {
 
 	-- Step 30: Fly to Freewind Post
 	-- {area:976} Gadgetzan
-	["{area:976} flight master"] = "",
+	["{area:976} flight master"] = "Maestro de vuelo de {area:976}",
 
 	-- Step 32: Camp Mojache
 	-- {npc:7777} Rok Orhan · {area:1099} Camp Mojache

@@ -68,7 +68,7 @@ return {
 	-- {item:8526} Violet Tragan · {zone:1425} Hinterlands
 	["the {item:8526} grows in the {zone:1425}, around level 48"] = "{item:8526} crece en {zone:1425}, alrededor del nivel 48",
 	-- {npc:5594} Alchemist Pestlezugg
-	["{npc:5594}, inside"] = "",
+	["{npc:5594}, inside"] = "{npc:5594}, adentro",
 
 	-- Step 17: Scrimshank's gear
 	["Scrimshank's gear"] = "Equipo de Patagolpe",
@@ -94,7 +94,7 @@ return {
 
 	-- Step 21: Boat to Powderfuse Port
 	-- {area:16727} Powderfuse Port
-	["Boat to {area:16727}"] = "",
+	["Boat to {area:16727}"] = "Barco a {area:16727}",
 
 	-- Step 22: Into Searing Gorge
 	-- {zone:1427} Searing Gorge
