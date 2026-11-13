@@ -44,9 +44,7 @@ fn db() -> QuestDb {
 		let objects = raw.get_mut("objects.json").unwrap().as_object_mut().unwrap();
 		objects.insert("3000".into(), json!({ "id": 3000, "name": "Briarthorn", "spawns": { "1411": { "f": "e", "pts": [[30, 30]] } } }));
 		let items = raw.get_mut("items.json").unwrap().as_object_mut().unwrap();
-		let item = |id: i64, name: &str, npc: Value, object: Value, vendors: Value| {
-			json!({ "id": id, "name": name, "drops": { "npc": npc, "object": object }, "vendors": vendors })
-		};
+		let item = |id: i64, name: &str, npc: Value, object: Value, vendors: Value| json!({ "id": id, "name": name, "drops": { "npc": npc, "object": object }, "vendors": vendors });
 		let mut spiders = Map::new();
 		for id in 201..=208 {
 			spiders.insert(id.to_string(), json!(40));
@@ -383,10 +381,7 @@ stub.advance(1)
 emit({ waiting = waiting, bags = bags, card = card() and card().lines or false, due = AU.startDue or false })
 "#,
 	);
-	assert_eq!(
-		out[0],
-		json!({ "waiting": { "card": false, "due": "test/ah" }, "bags": 0, "card": "15 Silk Cloth for Caught!", "due": false })
-	);
+	assert_eq!(out[0], json!({ "waiting": { "card": false, "due": "test/ah" }, "bags": 0, "card": "15 Silk Cloth for Caught!", "due": false }));
 }
 
 // ---------------------------------------------------------------------------
