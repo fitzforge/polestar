@@ -29,7 +29,8 @@
 //               icon buttons and 2, in the kit's ink), a tab's inside its tab
 //   frame       no frame painted as the guide window or a toast wears a big
 //               window's title bar, drag strip or metal (#1802)
-//   error       no Lua error while the surface was built and laid out
+//   error       no Lua error while the surface was built and laid out, and
+//               the look itself drew it (a skin refused falls back unseen)
 //   shown       the surface's windows are on screen
 //
 //   const { audit, LOOKS, SURFACES, SCALES } = require('./audit');
@@ -174,6 +175,21 @@ function savedFor(look) {
 do local WN = Polestar.UI and Polestar.UI.WhatsNew; if WN and WN.LATEST then PolestarDB.whatsNewSeen = WN.LATEST end end`;
 }
 
+// A skin addon's look registers only where Polestar holds every setting its
+// layout preset names (the Skin API refuses a preset naming one it lacks):
+// the arrow's, the pins' and the route lines' come along with a surface's
+// own files for those looks (after the theme, as the TOC orders them).
+// Without them most concept skins were refused and the surface was checked
+// in Polestar's own look.
+const SKIN_FILES = ['Nav/Nav.xml', 'Maps/FlightPaths.lua', 'Maps/RouteStrokes.lua', 'Maps/RouteSparkle.lua', 'Maps/RouteLines.lua'];
+function filesFor(look, surface) {
+	const files = surface.files || P.FILES;
+	if (!look.addon) return files;
+	const extra = SKIN_FILES.filter((f) => !files.includes(f));
+	const at = files.indexOf('Theme/Theme.xml') + 1;
+	return extra.length && at > 0 ? [...files.slice(0, at), ...extra, ...files.slice(at)] : files;
+}
+
 // The Lua run of one look on one surface at UI scale `scale`, set before
 // login: the addon builds and places everything at that scale, as at a
 // player's login (a later change of scale repaints, and would hide a first
@@ -183,7 +199,7 @@ function program(look, surface, prelude, scale) {
 	return buildProgram({
 		stubs: surface.stubs || ['stub_ui.lua'],
 		before: [P.panelBefore(surface, prelude), `dofile(${q(DRIVER)})`, `dofile(${q(AUDIT_LUA)})`].join('\n'),
-		addons: [{ name: 'Polestar', files: surface.files || P.FILES }, ...(surface.addons || []), ...(look.addon ? [look.addon] : [])],
+		addons: [{ name: 'Polestar', files: filesFor(look, surface) }, ...(surface.addons || []), ...(look.addon ? [look.addon] : [])],
 		saved: { Polestar: savedFor(look) },
 		script: `UIParent:SetScale(${scale})\n${surface.stubs ? '' : 'uistub.install()\n'}stub.login()\nstub.advance(1)\n${missing}${surface.script}\nstub.advance(1)\naudit.dump(${q(surface.key)}, ${scale})`,
 	});
@@ -542,6 +558,11 @@ async function audit({ looks = LOOKS, surfaces = SURFACES, scales = SCALES, jobs
 			const t0 = Date.now();
 			const r = await run(look, surface, prelude, scale);
 			task.found = r.error ? [{ check: 'shown', where: surface.roots.join(', '), detail: `could not be built: ${r.error}` }] : r.dumps.flatMap((d) => analyze(d, surface, fonts).map((f) => ({ ...f, state: d.extra.state })));
+			// The look itself in use: a look the run fell back from is not checked at all.
+			for (const d of r.dumps || []) {
+				const drawn = d.extra.look && d.extra.look.skin;
+				if (drawn && drawn !== look.id) task.found.push({ check: 'error', where: 'the look', detail: `${look.id} did not apply: ${drawn} drew the surface`, state: d.extra.state });
+			}
 			const ms = Date.now() - t0;
 			runs.push({ look: look.id, surface: surface.key, scale, ms });
 			if (onRun) onRun(look, surface, scale, ms);

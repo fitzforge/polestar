@@ -55,6 +55,8 @@ preview.entryExtra = function(o, e)
 	local tip = rawget(o, "psTip")
 	if type(tip) == "string" then e.tip = tip end
 	if rawget(o, "psScroll") and rawget(o, "psThumb") then e.role = "scroll bar" end
+	-- A shell's sidebar row (Theme/Widgets.lua navRow: psShell and psItem).
+	if rawget(o, "psShell") and rawget(o, "psItem") then e.navRow = true end
 	-- A settings preview's hotspot (Polestar_Options/UI/Preview.lua P.Hotspot:
 	-- psKey with psPadSkip): click to find a part's settings, the smaller
 	-- parts' over the whole by design.
