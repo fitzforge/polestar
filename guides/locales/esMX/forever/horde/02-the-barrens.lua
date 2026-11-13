@@ -253,7 +253,7 @@ return {
 	["Fly from {zone:1456} straight on to {area:392}."] = "",
 
 	-- Step 59: Fly to Ratchet
-	["Crossroads flight master"] = "",
+	["Crossroads flight master"] = "Maestro de vuelo del Cruce",
 
 	-- Step 61: Ratchet
 	-- {npc:3446} Mebok Mizzyrix · {object:3972} WANTED · {area:392} Ratchet
