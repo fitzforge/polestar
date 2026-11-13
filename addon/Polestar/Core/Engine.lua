@@ -11523,7 +11523,8 @@ end)
 -- Flight paths you pass (Fitz, 2026-11-10; behavior.whileHereFlights): a
 -- friendly flight master within the While-here radius whose flight path
 -- the character has not learned (Nav.UnknownTaxiOn: its faction's or
--- neutral, its class's, on the player's continent; Nav knows the ones learnt
+-- neutral, on the player's continent, never a class's own flight such as the
+-- Druids' at Nighthaven, #2079; Nav knows the ones learnt
 -- while Polestar was off too, #1308) is a line of its own: "Learn the flight
 -- path at Thelsamar"; a click leads the arrow to it. One at a time, after
 -- the quest lines (it never takes a place they fill), with their rules: not
