@@ -19,8 +19,9 @@ const SCRIPT = path.join(ROOT, 'tools', 'public-text.js');
 const HOOK = path.join(ROOT, 'tools', 'hooks', 'commit-msg');
 const RULES = loadRules();
 const rule = (scope) => RULES.rules.find((r) => r.scope === scope);
-// A word only a message rule bans, and a phrase a tree rule bans.
-const MSG = rule('message');
+// A word only the message checks ban (a prose or message rule: messages are
+// held to every rule, files to the tree rules), and a phrase a tree rule bans.
+const MSG = RULES.rules.find((r) => r.scope !== 'tree');
 const TREE = rule('tree');
 
 let tmp;

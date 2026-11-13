@@ -4,7 +4,8 @@
 // other guide product and never say a route was compared with, follows or
 // matches another guide. The words live in tools/lib/public-text.json (its
 // `_about` says how); tests/wording.test.js holds every tracked file to the
-// `tree` rules and tools/public-text.js holds messages to all of them. A hit
+// `tree` rules, the guides and the fix records' own words to the `tree` and
+// `prose` rules, and tools/public-text.js holds messages to all of them. A hit
 // carries the rule's id and where it is, never the text it matched, so a
 // check's log never repeats the words.
 //
@@ -20,7 +21,9 @@ const fs = require('node:fs');
 const path = require('node:path');
 
 const RULES_FILE = path.join(__dirname, 'public-text.json');
-const SCOPES = ['tree', 'message'];
+// Narrowest last: tree rules hold everywhere, prose rules in the guides, the
+// fix records' words and messages, message rules in messages only.
+const SCOPES = ['tree', 'prose', 'message'];
 
 const sha256 = (s) => crypto.createHash('sha256').update(s).digest('hex');
 

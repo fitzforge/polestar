@@ -2,7 +2,7 @@
 	"_about": [
 		"The public-text rule (CONTRIBUTING.md, \"Commits and pull requests\"): what is never written in the repository, commit messages, branch names or pull request titles and descriptions.",
 		"hashed: names kept as the SHA-256 of each lower-case alphanumeric token, so nothing here spells them (other guide products, private material). A phrase matches whole consecutive tokens: the game's \"rested XP\" is two tokens, not a product's name. `node tools/public-text.js --hash <phrase>` prints a phrase's entry.",
-		"rules: case-insensitive regular expressions. A \"tree\" rule holds for every tracked file (tests/wording.test.js) and every message; a \"message\" rule only for commit messages, branch names and pull request text, since the words have plain uses in code and data.",
+		"rules: case-insensitive regular expressions. A \"tree\" rule holds for every tracked file (tests/wording.test.js) and every message; a \"prose\" rule for the guides (guides/, Forge's seed forge/seed/guides/, experimental/guides/), the fix records' own words (why, reason, note, tip, text, fact and source ref strings in data/route-fixes.json, data/guide-fixes.json, data/mechanics-public.json, data/places.json and forever-db/corrections/) and every message, since no guide or record has a plain use for its words; a \"message\" rule only for commit messages, branch names and pull request text, since the words have plain uses in code, data and the game's own terms a guide's tip may use.",
 		"match and pass: examples each rule must and must not match (tests/wording.test.js, tests/public-text.test.js). This file is the only one the wording test does not read."
 	],
 	"hashed": [
@@ -83,7 +83,7 @@
 		},
 		{
 			"id": "private-tool",
-			"scope": "message",
+			"scope": "prose",
 			"phrases": [
 				[
 					"b9776d7ddf459c9ad5b0e1d6ac61e27befb5e99fd62446677600d7cacef544d0",
@@ -175,7 +175,7 @@
 		},
 		{
 			"id": "benchmark",
-			"scope": "message",
+			"scope": "prose",
 			"re": "\\bbenchmark",
 			"match": [
 				"Benchmark A/B"
@@ -184,7 +184,7 @@
 		},
 		{
 			"id": "comparison",
-			"scope": "message",
+			"scope": "prose",
 			"re": "\\bcomparisons?\\b",
 			"match": [
 				"comparison wording"
@@ -193,7 +193,7 @@
 		},
 		{
 			"id": "other-orders",
-			"scope": "message",
+			"scope": "prose",
 			"re": "\\bother orders\\b",
 			"match": [
 				"as other orders do"
@@ -202,7 +202,7 @@
 		},
 		{
 			"id": "converted",
-			"scope": "message",
+			"scope": "prose",
 			"re": "\\bconverted\\b",
 			"match": [
 				"the converted order"
@@ -211,7 +211,7 @@
 		},
 		{
 			"id": "their-order",
-			"scope": "message",
+			"scope": "prose",
 			"re": "\\btheir (orders?|routes?|hub loops?)\\b",
 			"match": [
 				"the same as their route"

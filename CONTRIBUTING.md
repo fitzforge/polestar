@@ -342,7 +342,9 @@ your request matches it; to be sure, name it: "use polestar-triage on #123".
   they name no other guide product and never say a route was compared with,
   follows or matches another guide; a route's reasons are our own (walking,
   levels, quest data, players' recordings). Drop such a clause rather than
-  swap in another word for it. The words are in `tools/lib/public-text.json`.
+  swap in another word for it. The words are in `tools/lib/public-text.json`;
+  guides and the fix records' own words (a route fix's `why`, a correction's
+  `note`) are held to the full list, like messages.
   The *Public text* check reads every pull request's title, description,
   branch name and commits. To check each message before the commit is made,
   turn on the repository's hooks once per clone:
