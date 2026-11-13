@@ -1773,8 +1773,12 @@ Polestar.Engine.StepHiddenFor(step, who?) -> bool  -- no step of its own for who
   Pick-ups (Fitz on 0.3.6, walking past Thork with The Disruption Ends open
   since Disrupt the Attacks went in earlier): with
   `behavior.whileHereTurnins`, whatever the auto-accept setting, such an
-  accept whose prerequisites are done (`Own.READY_NONE`), never a timed one,
-  is a line of its own, kind "take": "Take X from Y: saves a trip back",
+  accept whose prerequisites are done (`Own.READY_NONE`) and whose
+  quest-log parent is active, if it has one. Without those links in the
+  data, an earlier required hand-in at the same object in that step goes
+  first. Timed pickups and pickups reserved for their own step
+  (`Own.STEP_PICKUPS`, such as Old Habits) stay with the guide. An eligible
+  pickup is a line of its own, kind "take": "Take X from Y: saves a trip back",
   weighed as a hand-in (the same seconds, town, `HERE_FAR`, `Own.hereSoon` and
   walk rules), one per quest and none an NPC's whole visit names, at most
   `HERE_TAKES` (2) of the `HERE_SHOW` lines. Clicked, the arrow points at
