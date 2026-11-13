@@ -1177,13 +1177,14 @@ const SCENES = [
 	},
 	{
 		file: 'welcome.svg',
-		title: 'The welcome, once per new character after login: Hello, Make it yours and Route style (on the account\'s first), Your first guide',
+		title: 'Install, once per new character after login: Hello, then Questing, Your route and Your look (on the account\'s first), then You\'re all set with the first guide',
 		panels: [
 			{ roots: ['PolestarWelcome'], script: 'Polestar.UI.Welcome.Show("welcome")' },
+			{ roots: ['PolestarWelcome'], script: 'Polestar.UI.Welcome.Show("questing")' },
 			// With the route lines, for the route line's cards.
-			{ roots: ['PolestarWelcome'], files: WELCOME_ROUTE_FILES, script: 'Polestar.UI.Welcome.Show("setup")' },
-			{ roots: ['PolestarWelcome'], script: 'Polestar.UI.Welcome.Show("route")' },
-			{ roots: ['PolestarWelcome'], get script() { return `${clientArtLua()}Polestar.UI.Welcome.Show("start")`; } },
+			{ roots: ['PolestarWelcome'], files: WELCOME_ROUTE_FILES, script: 'Polestar.UI.Welcome.Show("route")' },
+			{ roots: ['PolestarWelcome'], script: 'Polestar.UI.Welcome.Show("look")' },
+			{ roots: ['PolestarWelcome'], get script() { return `${clientArtLua()}Polestar.UI.Welcome.Show("finish")`; } },
 		],
 	},
 	{
@@ -1537,7 +1538,7 @@ end`,
 	},
 	{
 		file: 'skins-more.svg',
-		title: 'Skins: the welcome, the journey and the route choice in Halo, then in Hearth',
+		title: 'Skins: Install\'s first page, the journey and the route choice in Halo, then in Hearth',
 		backdrop: 'terrain',
 		panels: [
 			{ roots: ['PolestarWelcome'], script: 'Polestar.Set("ui.skin", "halo"); Polestar.UI.Welcome.Show("welcome")' },
@@ -1566,7 +1567,7 @@ end`,
 	},
 	{
 		file: 'skins-new.svg',
-		title: 'Skins: the welcome\'s Route style page, Options\' Community guides, the gamepad\'s focus and hints, and the report window, in Halo and Hearth',
+		title: 'Skins: Install\'s Your route page, Options\' Community guides, the gamepad\'s focus and hints, and the report window, in Halo and Hearth',
 		panels: ['halo', 'hearth'].flatMap((k) => [
 			{ roots: ['PolestarWelcome'], script: `Polestar.Set("ui.skin", "${k}"); Polestar.UI.Welcome.Show("route")` },
 			{ roots: OPTIONS, before: PACKS_ADDONS, script: `Polestar.Set("ui.skin", "${k}"); ${PACKS_SCENE}; Polestar.UI.ShowOptions("guidepacks")` },
@@ -1597,7 +1598,7 @@ end`,
 	// POLESTAR_CLIENT_ART (local: true), so it never lands in docs/preview.
 	...['forever', 'blizzard', 'classic'].map((k) => ({
 		file: `skins-game-${k}.svg`,
-		title: `Skins: ${k}: the guide window (a hub step, the menu), the settings window (Guide, Theme, Community guides, Gamepad), the welcome's Route style page and the report window`,
+		title: `Skins: ${k}: the guide window (a hub step, the menu), the settings window (Guide, Theme, Community guides, Gamepad), Install's Your route page and the report window`,
 		backdrop: 'terrain',
 		local: true,
 		panels: [
