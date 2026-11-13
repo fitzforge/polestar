@@ -846,6 +846,72 @@
 			"budget": {
 				"flow": "03-loch-modan +0.3 km, +7.3 min, hub visits +1.0 (mean over the starts; Human/Night Elf branches +3 within Ironforge: Filch/Afadra, the door, back), no avoidable hub revisits; Dwarf/Gnome start passed givers hub +1 (Thom Filch at ~11, 3+ over)"
 			}
+		},
+		{
+			"dungeon": "City of Dalaran",
+			"faction": "Alliance",
+			"pickups": [
+				{
+					"quest": 92457,
+					"after": {
+						"guide": "forever/alliance/30-40/05-arathi-highlands",
+						"quest": 92432,
+						"goal": "turnin"
+					},
+					"note": "the Image of Archmage Modera, where An Alarming Request is handed in (~37)"
+				},
+				{
+					"quest": 92458,
+					"after": {
+						"guide": "forever/alliance/30-40/05-arathi-highlands",
+						"quest": 92432,
+						"goal": "turnin"
+					},
+					"note": "the same; Heart of Disruption brings the Dalaran Sewer Key"
+				}
+			],
+			"run": {
+				"guide": "forever/alliance/30-40/05-arathi-highlands",
+				"after": {
+					"quest": 92458,
+					"goal": "accept",
+					"note": "at once: the western grate is 30 yd from Modera's camp"
+				},
+				"entrance": {
+					"map": 1416,
+					"x": 8.8,
+					"y": 59.5,
+					"frame": "live",
+					"source": "players' recordings: 13 of the 16 Alliance players who went in through the western grate held Heart of Disruption (its Sewer Key)"
+				},
+				"objectives": [
+					92457,
+					92458
+				],
+				"guard": "onquest 92457,92458"
+			},
+			"handins": [
+				{
+					"quest": 92457,
+					"guide": "forever/alliance/30-40/05-arathi-highlands",
+					"after": "run",
+					"note": "Modera's camp, 30 yd from the grate"
+				},
+				{
+					"quest": 92458,
+					"guide": "forever/alliance/30-40/05-arathi-highlands",
+					"after": "run"
+				}
+			],
+			"leftOut": {
+				"92456": "A Green Sample: Shylamiir in Stormwind, whose next visit (40-43) comes after Dalaran",
+				"92489": "Power Overwhelming: High Sorcerer Andromath in Stormwind, after Dalaran (40-43)",
+				"92459": "Friend of the Kirin Tor: 270 XP for a walk to Archmage Celindra",
+				"96603": "Unstable Magic: level 60"
+			},
+			"budget": {
+				"flow": "measured in the 30-60 batch (flow audit dynamic, off vs this dungeon)"
+			}
 		}
 	]
 }
