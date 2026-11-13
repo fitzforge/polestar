@@ -11,6 +11,8 @@
 //
 // A Lua error rejects with "Lua failed (...)" as runAddon throws. Files the
 // programs load must not change while the pool lives (the chunk cache).
+// close() lets running programs finish, rejects queued or new work, and
+// retires the workers once their current program finishes.
 
 const { spawn } = require('node:child_process');
 const fs = require('node:fs');
@@ -80,9 +82,11 @@ class LuaPool {
 		this.workers = [];
 		this.queue = [];
 		this.seq = 0;
+		this.closed = false;
 	}
 
 	runAddon(opts = {}) {
+		if (this.closed) return Promise.reject(new Error('Lua pool is closed'));
 		const file = path.join(os.tmpdir(), `polestar-pool-${process.pid}-${++this.seq}-${Math.random().toString(36).slice(2)}.lua`);
 		fs.writeFileSync(file, buildProgram(opts));
 		return new Promise((resolve, reject) => {
@@ -92,6 +96,7 @@ class LuaPool {
 	}
 
 	pump() {
+		if (this.closed) return;
 		while (this.queue.length) {
 			let w = this.workers.find((x) => !x.job && !x.dead);
 			if (!w) {
@@ -106,6 +111,12 @@ class LuaPool {
 	}
 
 	close() {
+		if (this.closed) return;
+		this.closed = true;
+		for (const job of this.queue.splice(0)) {
+			fs.rmSync(job.file, { force: true });
+			job.reject(new Error('Lua pool is closed'));
+		}
 		for (const w of this.workers) if (!w.dead) w.proc.stdin.end();
 		this.workers = [];
 	}
