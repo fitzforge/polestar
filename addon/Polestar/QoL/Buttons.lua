@@ -2112,7 +2112,10 @@ function Buttons.AdvanceMark(kind)
 	return true
 end
 
--- Recheck proximity when it changes the prepared actions.
+-- While the target button's or the step key's names hold the step's NPCs
+-- and the While you're here rows' mobs (farWatch set by them), or a quest
+-- item an earlier use made waits for its spot (useRanges, #2101), a check
+-- each second: crossing the radius re-orders them (#1623) or offers the item.
 local FAR_POLL = 1
 local farTicker, farWatched
 
