@@ -75,7 +75,7 @@ step Boat to Menethil Harbor
 
 step Menethil Harbor
   zone Wetlands
-  tip Off the boat, walk up the pier to the flight master by the inn. Nothing to take here yet: Menethil's quests are for your Wetlands visit at about 22.
+  tip Off the boat, walk up the pier to the flight master by the inn. Nothing to take here yet: Menethil's quests are for your Wetlands visit, after Ashenvale and the Stonetalon Mountains.
   getfp "Menethil Harbor"
 
 step Into Loch Modan

@@ -11846,3 +11846,11 @@ test(`${LOCH_MODAN}: Druids collect the Westfall half pendant on the Westfall st
 	assert.ok(forClass('DRUID')(list[half]) && !forClass('WARRIOR')(list[half]), 'Druids only');
 	assert.ok(half > at(list, 'the Defias Messenger', (g) => g.t === 'collect' && g.quest === 142) && half < at(list, 'accept 104', is('accept', 104)), 'between the messenger\'s road and the lighthouse');
 });
+
+// 0.4.0 route audit (B9, with AuditA21's numbers): the Menethil tip said the Wetlands visit comes "at about 22"; it
+// comes after Ashenvale and the Stonetalon Mountains, where players are 24-27.
+test(`${LOCH_MODAN}: the Menethil tip names when the Wetlands visit comes, not a wrong level`, { skip }, () => {
+	const step = compiled(LOCH_MODAN).steps.find((st) => st.title === 'Menethil Harbor');
+	assert.ok(step && /after Ashenvale/.test(step.note || ''), 'the tip says the Wetlands come after Ashenvale');
+	assert.ok(!/about 22/.test(step.note || ''), 'no "about 22"');
+});
