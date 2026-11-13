@@ -283,10 +283,12 @@ local function scoredTip(self)
 	if text and W and W.Tooltip then W.Tooltip(self, "ANCHOR_TOP", text, { L["Click: choose the stat weights"] }) end
 end
 
-local function scoredButton()
+-- Made under the rewards frame it first shows on (listed in hide-all.rs's
+-- SURFACES: Rewards.Mark hides it while Polestar is hidden).
+local function scoredButton(frame)
 	if scored then return scored end
 	local W, T = ns.Widgets, ns.Theme
-	local b = ns.CreateFrameUnder("Button", nil, nil)
+	local b = ns.CreateFrameUnder("Button", nil, frame)
 	b:SetHeight(18)
 	b.Arrow = b:CreateTexture(nil, "ARTWORK")
 	b.Arrow:SetSize(SCORED_ARROW, SCORED_ARROW)
@@ -317,7 +319,7 @@ local function showScored(frame)
 	local G = ns.Gear
 	local text = G and G.ScoredFor and G.ScoredFor(true)
 	if not (text and head and head.GetObjectType and head:GetObjectType() == "FontString" and head:IsShown()) then return end
-	local b = scoredButton()
+	local b = scoredButton(frame)
 	if b:GetParent() ~= frame then b:SetParent(frame) end
 	b:SetFrameLevel((frame:GetFrameLevel() or 1) + 5)
 	b.Text:SetWidth(0) -- unbounded, to measure the whole text
