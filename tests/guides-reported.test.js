@@ -5383,6 +5383,17 @@ test('Silverpine Forest (Horde 12-15): Troll Mages train and Troll Priests hand 
 	}
 });
 
+// 0.4.0 route audit, Horde 12-21: Paladins coming by the zeppelin walked Brill -> Hadric's camp by the towers -> the
+// cultists -> Hadric -> back north to Brill for Shari Stilwell -> south to Silverpine (~570 yd against ~200). They train
+// on the first Brill stop, with Terrence and Johaan.
+test('Silverpine Forest (Horde 12-15): Paladins train on the first Brill stop, no walk back to Brill after the cultists (0.4.0 audit)', { skip }, () => {
+	const list = goals(SILVERPINE);
+	const brill = list.filter(({ step, goal }) => goal.t === 'train' && goal.class && step.title === 'Brill');
+	assert.equal(brill.length, 1, 'one Brill training');
+	assert.equal(brill[0].s, list[at(list, 'accept 445', is('accept', 445))].s, 'with Apothecary Johaan');
+	assert.ok(brill[0].goal.only && brill[0].goal.only.classes.join() === 'PALADIN', 'for Paladins');
+});
+
 // 0.4.0 route audit, Horde 12-21: Neeru Fireblade offers Ak'Zeloth (809) on the Orcs' and Trolls' Cleft of Shadow stop
 // once Neeru Fireblade (829) is handed in, and Ak'Zeloth stands beside Kargal at Far Watch Post, the Barrens' first stop
 // for them: taken on the one, handed in on the other, no walk of its own.
