@@ -7993,6 +7993,27 @@
 				"ref": "players' in-game recordings to 2026-11-13: Black Shield (1322) objective ticks after kills of npc 4411, 4414, 4413 and 4415 (#1985)"
 			},
 			"issue": 1985
+		},
+		{
+			"id": "a2130-mystral-lake-tideress",
+			"faction": "Alliance",
+			"at": {
+				"quest": 1016,
+				"goal": "accept"
+			},
+			"tip": "Sentinel Velene Starstrike stands at the Silverwind Refuge on the east shore of Mystral Lake. Befouled Water Elementals wade in the lake. Careful: Tideress, a level 27 water elemental, walks the lake among them; she drops the bracers too, but the small elementals are the safer kills at this level.",
+			"note": "Alliance 20-30 audit (0.4.0, #2025): Elemental Bracers (1016, quest level 24) is worked at about 23-24 on 06-ashenvale's Mystral Lake stop. Tideress (npc 12759, level 27) walks the lake among the Befouled Water Elementals (npc 3917, level 23) and drops the Intact Elemental Bracer as they do (items.json 12220: npcs 3917 and 12759), so players attack her. Players' recordings (addon 0.3.5 and later): Tideress killed 4 people (5 deaths) there and the Befouled Water Elementals 5 (6 deaths), at about 23.3. The step's tip named neither; the tip keeps the step's old tip, the sentence added.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "players' recordings (addon 0.3.5 to 0.3.7.2): deaths on 06-ashenvale with killer npc 12759 and npc 3917"
+				},
+				{
+					"kind": "pfquest",
+					"ref": "items.json 12220; npcs.json 12759 (level 27), 3917 (level 23)"
+				}
+			],
+			"issue": 2025
 		}
 	]
 }
