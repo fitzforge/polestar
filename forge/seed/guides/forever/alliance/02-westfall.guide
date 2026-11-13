@@ -117,6 +117,13 @@ step Downstream
   collect 247818 quest 91733                  -- Waterlogged Toolbox
   collect 247817 quest 91733                  -- Waterlogged Axe
 
+step Surena Caledon
+  only Gnome,Warlock
+  when onquest 1688
+  zone Elwynn Forest
+  tip Gakin's The Binding needs Surena's Choker: Surena Caledon (level 9) stands by the farmhouse of the Brackwell Pumpkin Patch, just south of the river.
+  collect 6810 quest 1688.1                   -- Surena's Choker: Surena Caledon
+
 step The bridge
   only Dwarf,Gnome
   zone Elwynn Forest
@@ -136,6 +143,16 @@ step Goldshire
   zone Elwynn Forest
   tip Follow the road west to Goldshire, on the way to Westfall: Marshal Dughan stands outside the inn.
   turnin 39                                   -- Marshal Dughan
+
+step The Binding
+  only Gnome,Warlock
+  when onquest 1688,1689
+  zone Stormwind City
+  tip North along the road from Goldshire to Stormwind: Gakin the Darkbinder waits in the cellar of the Slaughtered Lamb, in the Mage Quarter. Use the Bloodstone Choker at the summoning circle there and defeat the voidwalker it calls, then back south through Goldshire to Westfall.
+  turnin 1688                                 -- Gakin the Darkbinder
+  accept 1689
+  complete 1689                               -- Subdue the voidwalker
+  turnin 1689                                 -- Summon Voidwalker
 
 # ---------------------------------------------------------------- The road in: the Jansen Stead and Saldean's
 
