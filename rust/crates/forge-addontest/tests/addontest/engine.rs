@@ -364,6 +364,66 @@ Polestar.RegisterGuide({ id = "test/trial", pack = "test", title = "Trial", zone
 	assert_eq!(doing, json!({ "before": { "index": 2, "collect": "active" }, "looted": "done" }), "on the trial: the bags count");
 }
 
+// #2099 on the shipped guide (addon/Polestar_Guides_Horde), Corey's state: a level 19 Tauren Druid at the Crossroads
+// who had done the aquatic form chain (27, 28, 30, 31) and Lessons Anew (6126, 6127) before The Barrens' Druid
+// block, every flight path in the guide known. Quests the guide hands in up to Trial of the Lake are done; those
+// taken by then and handed in later are in the log with nothing done yet (he carried 16), so his progress stands
+// before the Druid block. The guide stood on "Moonglade" (cast Teleport: Moonglade) with Trial of the Lake's Shrine
+// Bauble still open. With the collect done, the trip there and back passes and the route goes on.
+#[test]
+fn a_druid_who_did_the_aquatic_chain_is_not_sent_to_moonglade_on_the_shipped_barrens_2099() {
+	let dir = forge_addontest::run::addons_dir();
+	let before = r#"local w = stub.world
+w.race, w.raceName, w.faction, w.class, w.className, w.level = "Tauren", "Tauren", "Horde", "DRUID", "Druid", 19
+w.money = 500000"#;
+	let script = r#"
+E = Polestar.Engine
+for id, b in pairs(Polestar.MapFrames.era) do stub.world.addMap(id, b) end
+stub.login(); stub.advance(0.25)
+Polestar.Set("behavior.autoAccept", false)
+E.SetGuide("forever/horde/02-the-barrens"); stub.advance(0.25)
+local g = E.GetGuide()
+local moon
+for i, step in ipairs(g.steps) do
+	local goal = step.goals[1]
+	if not moon and #step.goals == 1 and goal.t == "goto" and goal.map == 1450 then moon = i end
+end
+local flags, acceptAt, turninAt = Polestar.CharState().flags, {}, {}
+flags.taxi = {}
+for i, step in ipairs(g.steps) do
+	for _, x in ipairs(step.goals) do
+		if x.quest and x.t == "accept" then acceptAt[x.quest] = acceptAt[x.quest] or i end
+		if x.quest and x.t == "turnin" then turninAt[x.quest] = i end
+		if x.node then flags.taxi[x.node] = true end
+	end
+end
+local done = { 31 }
+for q, i in pairs(turninAt) do if i <= moon + 1 then done[#done + 1] = q end end
+for q, i in pairs(acceptAt) do
+	if i <= moon + 1 and not turninAt[q] then done[#done + 1] = q end
+	if i <= moon + 1 and (turninAt[q] or 0) > moon + 1 then stub.world.onQuest(q, { { required = 1, fulfilled = 0 } }) end
+end
+stub.world.complete(done)
+stub.world.moveTo(1413, 52.02, 30.69); stub.world.setZone("The Barrens", "The Crossroads")
+stub.fire("QUEST_LOG_UPDATE"); stub.advance(0.25)
+if E.GetStepIndex() < moon then E.SkipUpTo(moon); stub.advance(0.25) end
+local wp = E.GetWaypoint()
+emit({ moon = moon, trial = g.steps[moon + 1].goals[5].item, at = E.GetStepIndex(), title = g.steps[E.GetStepIndex()].title, map = wp and wp.map or false })
+"#;
+	let out = emitted(&RunAddon {
+		stubs: vec!["stub_world.lua"],
+		before: before.to_string(),
+		addons: vec![Addon::name("Polestar"), Addon::dir("Polestar_Guides", dir.join("Polestar_Guides")), Addon::dir("Polestar_Guides_Horde", dir.join("Polestar_Guides_Horde"))],
+		script: script.to_string(),
+		..Default::default()
+	})
+	.remove(0);
+	assert_eq!(out["trial"], 15877, "the step after Moonglade is Trial of the Lake: {out}");
+	let (moon, at) = (out["moon"].as_u64().expect("the Moonglade step"), out["at"].as_u64().unwrap_or(0));
+	assert!(at > moon + 1, "past Moonglade and Trial of the Lake: {out}");
+	assert_ne!(out["map"], 1450, "the arrow is not on Moonglade: {out}");
+}
+
 #[test]
 fn goto_is_done_once_a_later_goal_in_its_step_is_done_without_arriving() {
 	let out = run1(Run {
