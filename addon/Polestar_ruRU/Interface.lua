@@ -2250,6 +2250,8 @@ L["Under a walk in the journey, say when it goes round a town of the other facti
 L["Manual check-offs and skips, current guide, from your last quest progress on."] = "Ручные отметки и пропуски, текущий гайд, начиная с последнего продвижения по заданиям."
 L["Your manual check-offs and skipped steps in %s are cleared from your last quest progress on. Quests you have done stay done, and the guide stays where they put you."] = "Ваши ручные отметки и пропущенные шаги в гайде %s будут удалены начиная с последнего продвижения по заданиям. Выполненные задания останутся выполненными, а гайд останется там, куда они вас привели."
 L["Your manual check-offs and skipped steps in the current guide are cleared from your last quest progress on. Quests you have done stay done, and the guide stays where they put you."] = "Ваши ручные отметки и пропущенные шаги в текущем гайде будут удалены начиная с последнего продвижения по заданиям. Выполненные задания останутся выполненными, а гайд останется там, куда они вас привели."
+-- L["Danger lines"] = ""
+-- L["On the world map and the minimap, draw the straight way through the other faction's town that a walk goes round as a red dashed line, and on the world map name it: \"Danger: Southshore\". It only shows it: the route and the arrow stay as they are. Needs route lines."] = ""
 
 -- Rares/Rares.lua
 L["Raid warning"] = "Предупреждение рейда"
@@ -3252,6 +3254,7 @@ L["New in Forever"] = "Новое в Forever"
 -- Maps/RouteLines.lua
 L["Line"] = "Линия"
 L["Sparkles"] = "Искры"
+-- L["Danger: %s"] = ""
 
 -- Quests/Timed.lua
 L["%d h"] = "%d ч"

@@ -1897,6 +1897,8 @@ L["Under a walk in the journey, say when it goes round a town of the other facti
 L["Manual check-offs and skips, current guide, from your last quest progress on."] = "Marcas manuales y pasos omitidos, guía actual, a partir de tu último progreso en misiones."
 L["Your manual check-offs and skipped steps in %s are cleared from your last quest progress on. Quests you have done stay done, and the guide stays where they put you."] = "Se borran tus marcas manuales y los pasos omitidos en %s a partir de tu último progreso en misiones. Las misiones que ya hiciste siguen hechas, y la guía se queda donde te ubican."
 L["Your manual check-offs and skipped steps in the current guide are cleared from your last quest progress on. Quests you have done stay done, and the guide stays where they put you."] = "Se borran tus marcas manuales y los pasos omitidos de la guía actual a partir de tu último progreso en misiones. Las misiones que ya hiciste siguen hechas, y la guía se queda donde te ubican."
+-- L["Danger lines"] = ""
+-- L["On the world map and the minimap, draw the straight way through the other faction's town that a walk goes round as a red dashed line, and on the world map name it: \"Danger: Southshore\". It only shows it: the route and the arrow stay as they are. Needs route lines."] = ""
 
 -- UI/Packs.lua
 L["turned off in the AddOns list"] = "desactivado en la lista de AddOns"
@@ -3251,6 +3253,7 @@ L["New in Forever"] = "Nueva en Forever"
 -- Maps/RouteLines.lua
 L["Line"] = "Línea"
 L["Sparkles"] = "Destellos"
+-- L["Danger: %s"] = ""
 
 -- Quests/Timed.lua
 L["%d h"] = "%d h"

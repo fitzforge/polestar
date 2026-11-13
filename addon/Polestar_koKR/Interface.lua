@@ -2250,6 +2250,8 @@ L["Under a walk in the journey, say when it goes round a town of the other facti
 L["Manual check-offs and skips, current guide, from your last quest progress on."] = "현재 가이드의 수동 체크와 건너뛰기, 마지막 퀘스트 진행 지점부터."
 L["Your manual check-offs and skipped steps in %s are cleared from your last quest progress on. Quests you have done stay done, and the guide stays where they put you."] = "%s에서 마지막 퀘스트 진행 지점부터 직접 체크한 항목과 건너뛴 단계가 지워집니다. 완료한 퀘스트는 그대로 완료 상태이며, 가이드는 그 퀘스트들이 가리키는 위치에 그대로 남습니다."
 L["Your manual check-offs and skipped steps in the current guide are cleared from your last quest progress on. Quests you have done stay done, and the guide stays where they put you."] = "현재 가이드에서 마지막 퀘스트 진행 지점부터 직접 체크한 항목과 건너뛴 단계가 지워집니다. 완료한 퀘스트는 그대로 완료 상태이며, 가이드는 그 퀘스트들이 가리키는 위치에 그대로 남습니다."
+-- L["Danger lines"] = ""
+-- L["On the world map and the minimap, draw the straight way through the other faction's town that a walk goes round as a red dashed line, and on the world map name it: \"Danger: Southshore\". It only shows it: the route and the arrow stay as they are. Needs route lines."] = ""
 
 -- Rares/Rares.lua
 L["Raid warning"] = "공격대 경보"
@@ -3252,6 +3254,7 @@ L["New in Forever"] = "Forever 신규"
 -- Maps/RouteLines.lua
 L["Line"] = "선"
 L["Sparkles"] = "반짝임"
+-- L["Danger: %s"] = ""
 
 -- Quests/Timed.lua
 L["%d h"] = "%d시간"
