@@ -4101,6 +4101,13 @@ L["Show in quest log"] = "Mostrar en el registro de misiones"
 L["Needed for %s in %s"] = "Necesario para %s en %s"
 L["Part of the %s quests"] = "Parte de las misiones de %s"
 
+-- UI/SearchDropdown.lua
+-- L["Go to page: %s"] = ""
+-- L["Tab: %s"] = ""
+-- L["Section: %s"] = ""
+-- L["See 1 result"] = ""
+-- L["See all %d results"] = ""
+
 -- No longer in the code (its English changed or it went away): reuse or delete.
 -- L["The arrow's target, the stops of its travel route, the step's other goals and the areas their mobs and objects spawn in."] = "El objetivo de la flecha, las paradas de su ruta de viaje, los demás objetivos del paso y las zonas donde aparecen sus monstruos y objetos."
 -- L["The arrow's target and the areas it spawns in."] = "El objetivo de la flecha y las zonas donde aparece."
