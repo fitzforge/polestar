@@ -9308,6 +9308,15 @@
 				],
 				"reason": "Undead Warlocks: Halgar's Summons (1478, 210 XP) from Ageron Kargal on the Brill stop that trains, handed in to Carendin Halgar before Creature of the Void (see the deliberate pair turnin 1478 -> accept 1473): carried, it blocked 1473's offer for 4 recorded players.",
 				"issue": "-"
+			},
+			{
+				"q": 97985,
+				"after": [
+					"turnin",
+					550
+				],
+				"reason": "#1933 Kolbi (Skyborne Druid 33, 0.3.7, standing in the Apothecarium at the first step of 30-40/02-thousand-needles): Thundering Hearts (97985, level 33, offered from 25, 3,300 XP) was in no Horde guide. Calder Gray (270038) gives it and takes it back in the Apothecarium, Undercity 48.7,70.2. Taken on a stop the route makes anyway: forever/horde/30-40/01-hillsbrad-foothills ends in the Undercity (Varimathras for 550, class training) and 30-40/02-thousand-needles leaves from there by zeppelin, so the accept goes right after 550's hand-in. Its one objective, Stormheart's Still-beating Heart (279186), drops from Stormheart (270094, level 30), who walks the canyon floor east of Freewind Post: players' recordings loot the heart at Thousand Needles 55.7,55.2, 59.5,56.7, 53.0,54.0 and 50.5,46.3 (16 people, 10 counted), along the ride from the lift to the Shimmering Flats that guide makes to Moktar Krin. Handed in on the route's next Undercity visit, the opening stop of 30-40/05-arathi-highlands (zeppelin and class training, at 38). Stormheart is an elite in game (Forever's quest data files 97985 as an elite quest, and Calder Gray's text asks for friends), but the creature data gives 270094 no rank, so the group rule finds no elite work for it: with Stormheart's rank set it reads one elite under the quest's level (size 1, with the solo skip). Not checked in game.",
+				"issue": "#1933"
 			}
 		],
 		"skip": [

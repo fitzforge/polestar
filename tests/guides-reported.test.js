@@ -11466,3 +11466,20 @@ test(`${TIRISFAL}: a Warlock hands Halgar's Summons to Carendin before Creature 
 	assert.ok(fixes.deliberate.pairs.some((p) => `${p.a}` === 'turnin,1478' && `${p.b}` === 'accept,1473'), 'a record the build keeps');
 	assert.ok(fixes.overrides.include.some((x) => x.q === 1478), 'the route takes 1478');
 });
+
+// #1933: Thundering Hearts (97985) was in no Horde guide. Calder Gray gives it and takes it back in the Undercity's
+// Apothecarium; Stormheart, who carries the heart, walks the canyon floor east of Freewind Post. The route takes it
+// on the Undercity stop that ends the 30-40 Hillsbrad guide, right after Varimathras (550), from where the Thousand
+// Needles guide leaves (the 0.4.0 rebuild applies the record).
+test('route-fixes takes Thundering Hearts on the Undercity stop before Thousand Needles (#1933)', { skip }, () => {
+	const { overrides } = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', 'route-fixes.json'), 'utf8'));
+	const rec = overrides.include.find((r) => r.q === 97985);
+	assert.ok(rec && /#1933/.test(`${rec.issue}`), 'route-fixes includes 97985 for #1933');
+	assert.deepEqual(rec.after, ['turnin', 550], 'its accept goes right after Varimathras');
+	assert.ok(!overrides.skip.some((r) => r.q === 97985), 'no skip record leaves it out');
+	// The anchor is the route's last hand-in before the Thousand Needles guide, in the city Calder Gray stands in.
+	const hills = goals('forever/horde/30-40/01-hillsbrad-foothills.guide');
+	const last = hills.filter(({ goal }) => goal.t === 'accept' || goal.t === 'turnin').pop();
+	assert.ok(last.goal.t === 'turnin' && last.goal.quest === 550 && last.goal.map === 1458, "Varimathras's hand-in in the Undercity closes the Hillsbrad guide's quests");
+	assert.equal(compiled('forever/horde/30-40/01-hillsbrad-foothills.guide').next.replace(/\.guide$/, ''), 'forever/horde/30-40/02-thousand-needles', 'the Thousand Needles guide comes next');
+});
