@@ -570,7 +570,7 @@ step Silithus: kill these as you meet them
 step Level 56.89
   when !group 2944
   when level<56.89
-  tip If you skipped The Super Snapper FX, grind here to level 56.89 to stay on the route's plan. Or, with a group, run the Blackrock Depths dungeon or the Blackrock Spire dungeon (Lower) instead.
+  tip If you skipped The Super Snapper FX, grind here to level 56.89 to stay on the route's plan.
   goto 54.9,31.2 map 1451 "Dredge Striker"
   level 56.89 grind 11740              -- grind on Dredge Striker
 

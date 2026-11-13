@@ -338,10 +338,6 @@ step Starfall Village
 step Donova Snowden
   turnin 4842
 
-step Dire Maul (optional)
-  tip Running Dire Maul in Feralas instead of grinding gets you there faster in a group. Skip this step to grind solo.
-  note Dire Maul fits levels 55 to 60; alone, the Terrordale grind at the end of this guide gets you to 60.
-
 step Felwood
   zone Felwood
   goto 50.0,26.9 "Felwood"
@@ -655,11 +651,6 @@ step Chromie
   zone Western Plaguelands
   tip Chromie waits upstairs in the ruined inn on the west side of Andorhal, on the way back to Chillwind Camp.
   turnin 5941                         -- Chromie, upstairs
-
-step Scholomance (optional)
-  zone Eastern Plaguelands
-  tip Running Scholomance (Caer Darrow, south-east Western Plaguelands) or Stratholme instead of grinding gets you there faster in a group. Skip this step to grind solo.
-  note Scholomance fits levels 58 to 60; The Key to Scholomance is handed in at Chillwind Camp below.
 
 step Level 59.93
   zone Eastern Plaguelands

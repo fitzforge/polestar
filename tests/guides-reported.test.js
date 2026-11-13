@@ -8554,12 +8554,10 @@ test('forever/alliance/50-60/06-silithus.guide: final review: travel tips and no
 	const ranshalla = list[at(list, 'turnin 979', is('turnin', 979))];
 	assert.equal(ranshalla.s, list[at(list, 'complete 4901', is('complete', 4901))].s, 'her escort is on the same step');
 	assert.doesNotMatch(texts(ranshalla), /later/, 'so it does not come later');
-	const dm = list.find(({ goal }) => goal.t === 'note' && /Dire Maul/.test(goal.text));
-	assert.ok(dm, 'the Dire Maul note is in the guide');
+	// The goal-less Dire Maul note went in the 0.4.0 audit (the dungeons owner's runs replace such notes).
+	assert.ok(!list.some(({ goal }) => goal.t === 'note' && /Dire Maul/.test(goal.text)), 'no Dire Maul note');
 	const grind = list.find(({ goal }) => goal.t === 'level' && goal.level + (goal.frac || 0) >= 59.9);
 	assert.ok(grind && /Terrordale/.test(grind.step.note || ''), 'the solo grind to 60 (less the last Chillwind hand-ins) is in Terrordale');
-	assert.match(dm.goal.text, /Terrordale/, 'the note points at that grind');
-	assert.doesNotMatch(dm.goal.text, /Shardtooth/, 'not at one the guide does not have');
 });
 
 // Final route review before 0.3.5, Alliance 40-60: texts from an older order. Vital Supplies was "for Nethergarde
@@ -11863,4 +11861,18 @@ test('Alliance 50-60: 05 folded into 06, the training stops at 55 and 57', { ski
 	assert.ok(train && (train.step.when || []).some((w) => w.k === 'bound' && !w.neg), 'Ironforge training on the hearth out of Winterspring');
 	const wpl = goals('forever/alliance/50-60/04-western-plaguelands.guide');
 	assert.ok(wpl.some(({ goal, step }) => goal.t === 'train' && /Darnassus/.test(step.zone || step.title || '') && JSON.stringify(goal).includes('Warrior')), 'Darnassus trains its classes');
+});
+
+// 0.4.0 audit with the dungeons owner: Alliance 50-60's grind tips name a dungeon only where its run is in the same or
+// the next guide on that continent (the Sunken Temple from 01's Swamp of Sorrows stop; Scholomance and Stratholme
+// from 06's Caer Darrow and Terrordale stops), and 06's two goal-less dungeon notes, shown to every player, are gone.
+test('Alliance 50-60: grind tips name only the dungeons the route can run there; no goal-less dungeon notes', { skip }, () => {
+	const allowed = { '01-burning-steppes': ['Sunken Temple'], '06-silithus': ['Scholomance', 'Stratholme'] };
+	for (const g of ['01-burning-steppes', '02-felwood', '03-winterspring', '04-western-plaguelands', '06-silithus']) {
+		const text = fs.readFileSync(path.join(OFFICIAL_DIR, `forever/alliance/50-60/${g}.guide`), 'utf8');
+		for (const m of text.matchAll(/run the ([A-Z][^.]*?) dungeon/g)) {
+			for (const name of m[1].split(/ dungeon or the /)) assert.ok((allowed[g] || []).some((a) => name.startsWith(a)), `${g}: names ${name}`);
+		}
+		assert.doesNotMatch(text, /^step (Dire Maul|Scholomance) \(optional\)$/m, `${g}: no goal-less dungeon note`);
+	}
 });

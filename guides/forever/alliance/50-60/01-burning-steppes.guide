@@ -290,7 +290,7 @@ step Morgan's Vigil
 
 step Level 52
   when level<52
-  tip Top up here to level 52 on the ogres of Dreadmaul Rock, on the way to Flame Crest: the hand-ins there take you to level 53. Or, with a group, run the Sunken Temple dungeon or the Maraudon dungeon instead.
+  tip Top up here to level 52 on the ogres of Dreadmaul Rock, on the way to Flame Crest: the hand-ins there take you to level 53. Or, with a group, run the Sunken Temple dungeon instead.
   goto 78.7,44.7 map 1428 "Firegut Ogre Mage"
   level 52 grind 7034               -- grind on Firegut Ogre Mage
 
@@ -344,7 +344,7 @@ step Cyrus Therepentous
 step Level 52.08
   when !group 4023
   when level<52.08
-  tip If you skipped A Taste of Flame, grind here to level 52.08 to stay on the route's plan. Or, with a group, run the Sunken Temple dungeon or the Maraudon dungeon instead.
+  tip If you skipped A Taste of Flame, grind here to level 52.08 to stay on the route's plan. Or, with a group, run the Sunken Temple dungeon instead.
   goto 89.6,51.2 map 1428 "Ember Worg"
   level 52.08 grind 9690               -- grind on Ember Worg
 
