@@ -2527,7 +2527,9 @@ Polestar.Engine.GuideFocus(id) -> x, y | nil       -- live-frame percent of wher
   suggested follow-ups, and "Up next" on a finished guide); nothing is stored.
   `outleveled` when the level is at or past the option's maxLevel.
   `seconds` is `TravelCost` from the player to the option's first located goal;
-  `quests` counts the accepts this character gets there; `joinsAt` names the
+  `quests` counts the accepts this character gets there (`Own.optionQuests`;
+  never a dungeon run's, `when dungeon`, so it reads the same with dungeons
+  off); `joinsAt` names the
   guide every option continues to, when they share one; else each option's
   `thenId`/`thenGuideTitle` names its own (`Own.followsOn`: the first `next`
   option of ours that fits the character, so a shared guide's other-faction

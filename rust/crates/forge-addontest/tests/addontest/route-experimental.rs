@@ -36,7 +36,7 @@ w.race, w.raceName, w.faction, w.class = "Orc", "Orc", "Horde", "WARRIOR"
 "#;
 
 // Our guides (the test pack): the Badlands offer the Riverglades beside Stranglethorn Vale (an alternative: both
-// meet again in Feralas); Feralas offers Shen'dralas beside Tanaris (a detour back to Tanaris). Tanaris's
+// meet again in Feralas; Stranglethorn Vale has a dungeon run); Feralas offers Shen'dralas beside Tanaris (a detour back to Tanaris). Tanaris's
 // own `next` names the Alliance's guide first, as a shared guide's lines may.
 const GUIDES: &str = r#"
 Polestar.RegisterGuide({ id = "test/badlands", pack = "test", title = "Badlands", faction = "Horde", minLevel = 39, maxLevel = 40, zone = 1418,
@@ -47,6 +47,8 @@ Polestar.RegisterGuide({ id = "test/badlands", pack = "test", title = "Badlands"
 Polestar.RegisterGuide({ id = "test/stv", pack = "test", title = "Stranglethorn Vale", faction = "Horde", minLevel = 39, maxLevel = 43, zone = 1434,
 	zoneName = "Stranglethorn Vale", next = "test/feralas", pitch = "Jungle camps from Grom'gol.", steps = {
 	{ goals = { { t = "turnin", quest = 60, title = "Jungle Errand", map = 1434, x = 30, y = 30 } } },
+	{ goals = { { t = "accept", quest = 71, title = "Jungle Hunt", map = 1434, x = 32, y = 32 } } },
+	{ when = { { k = "dungeon", name = "Zul'Gurub", map = 309 } }, goals = { { t = "accept", quest = 72, title = "Into the Temple", map = 1434, x = 33, y = 33 } } },
 	{ goals = { { t = "level", level = 43 } } },
 } })
 Polestar.RegisterGuide({ id = "test/feralas", pack = "test", title = "Feralas", faction = "Horde", minLevel = 43, maxLevel = 45, zone = 1444, steps = {
@@ -205,7 +207,7 @@ fn offered_from_the_index_while_its_pack_is_off_beside_the_one_other_option() {
 				newInForever = g.newInForever or false, thenId = g.thenId, thenGuideTitle = g.thenGuideTitle, thenLevel = g.thenLevel,
 				detour = g.detour or false }
 			local s = option(c, "test/stv") or {}
-			r.stv = { experimental = s.experimental or false, newInForever = s.newInForever or false, thenId = s.thenId }
+			r.stv = { experimental = s.experimental or false, newInForever = s.newInForever or false, thenId = s.thenId, quests = s.quests }
 		end
 		r.offeredBy = E.RouteChoiceFor("test/stv") or false
 		emit(r)"#;
@@ -226,7 +228,8 @@ fn offered_from_the_index_while_its_pack_is_off_beside_the_one_other_option() {
 			"travel": true, "focus": [50, 20], "newInForever": true, "thenId": "test/feralas", "thenGuideTitle": "Feralas", "thenLevel": 43,
 			"detour": false })
 	);
-	assert_eq!(out["stv"], json!({ "experimental": false, "newInForever": false, "thenId": "test/feralas" }));
+	// Its quests: Jungle Hunt, not the dungeon run's Into the Temple (the count reads the same with dungeons off).
+	assert_eq!(out["stv"], json!({ "experimental": false, "newInForever": false, "thenId": "test/feralas", "quests": 1 }));
 	assert_eq!(out["offeredBy"], "test/badlands", "/polestar path can offer it again from Stranglethorn Vale");
 
 	// Not installed (or turned off in the AddOns list): nothing to offer, the route goes on as before.

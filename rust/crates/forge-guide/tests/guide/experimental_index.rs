@@ -32,14 +32,14 @@ fn our_files(nexts: &[&str]) -> Vec<(String, String)> {
 }
 
 /// The experimental pack's guides: exp-1 (Stranglethorn Vale, in through Elwynn Forest) goes on to exp-2, which
-/// rejoins ours at t-after; exp-horde is the Horde's.
+/// rejoins ours at t-after (with a dungeon run, and a step for those who skip it); exp-horde is the Horde's.
 fn exp_files() -> Vec<(String, String)> {
 	vec![
 		(
 			"exp-1.guide".into(),
 			"guide polestar-experimental/exp-1\ntitle Experimental 1\nfaction Alliance\nlevels 10-15\nzone Stranglethorn Vale\nnext polestar-experimental/exp-2\npitch A new zone south of Elwynn Forest.\npro Fresh quests\ncon Experimental\n\nstep Through Elwynn\n  zone Elwynn Forest\n  goto 47.6,35.1 \"Kobold camp\"\n\nstep The camp\n  zone Stranglethorn Vale\n  goto 30.0,30.0 \"Camp\"\n  accept 783\n".into(),
 		),
-		("exp-2.guide".into(), "guide polestar-experimental/exp-2\ntitle Experimental 2\nfaction Alliance\nlevels 15-22\nzone Stranglethorn Vale\nnext forever/alliance/t-after\n\nstep Two\n  accept 7\n  accept 783\n".into()),
+		("exp-2.guide".into(), "guide polestar-experimental/exp-2\ntitle Experimental 2\nfaction Alliance\nlevels 15-22\nzone Stranglethorn Vale\nnext forever/alliance/t-after\n\nstep Two\n  accept 7\n  accept 783\n\nstep The run\n  when dungeon \"Ragefire Chasm\"\n  accept 5261\n\nstep Without the run\n  when !dungeon \"Ragefire Chasm\"\n  accept 179\n".into()),
 		("exp-horde.guide".into(), "guide polestar-experimental/exp-horde\ntitle Experimental Horde\nfaction Horde\nlevels 10-15\nzone Durotar\npitch The Horde's.\n\nstep One\n  goto 50.0,50.0 \"Camp\"\n".into()),
 	]
 }
@@ -81,7 +81,7 @@ fn our_guides_compile_with_an_experimental_offer_and_the_index_describes_its_rou
 		"its levels, and the top of its route through exp-2"
 	);
 	assert_eq!((e["zone"].clone(), e["zoneName"].clone()), (json!(1434), json!("Stranglethorn Vale")));
-	assert_eq!(e["questIds"], json!([783, 7]), "every accept of its route, each once");
+	assert_eq!(e["questIds"], json!([783, 7, 179]), "every accept of its route, each once, none of a dungeon run's (5261)");
 	assert_eq!(e["joins"], json!(["forever/alliance/t-after"]), "where exp-2 hands back to ours");
 	assert_eq!((e["start"]["map"].clone(), e["start"]["x"].clone(), e["start"]["y"].clone()), (json!(1429), json!(47.6), json!(35.1)), "its first located goal");
 	assert_eq!((e["focus"]["map"].clone(), e["focus"]["x"].clone()), (json!(1434), json!(30)), "its first goal on its zone's map");
@@ -138,7 +138,7 @@ fn the_index_is_written_after_our_guides_and_only_when_a_guide_offers_one() {
 	let at = with.find("\nPolestar.RegisterExperimental({\n").expect("the index after the guides");
 	let block = &with[at..];
 	assert!(block.contains("\t\tid = \"polestar-experimental/exp-1\",\n\t\tpack = \"polestar-experimental\",\n"), "{block}");
-	assert!(block.contains("\t\ttopLevel = 22,\n") && block.contains("\t\tjoins = { \"forever/alliance/t-after\" },\n") && block.contains("\t\tquestIds = { 783, 7 },\n"), "{block}");
+	assert!(block.contains("\t\ttopLevel = 22,\n") && block.contains("\t\tjoins = { \"forever/alliance/t-after\" },\n") && block.contains("\t\tquestIds = { 783, 7, 179 },\n"), "{block}");
 	assert!(block.contains("\t\tviaMap = 1429,\n\t\tvia = \"Elwynn Forest\",\n"), "{block}");
 	assert!(block.ends_with("\t},\n})\n"), "{block}");
 	let without = text(forge_guide::project::build_pack_files(&r.guides, &manifest, &fixture_data(), None, &V::obj(), &[], &[], &iface, Vec::new()));

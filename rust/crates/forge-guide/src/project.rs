@@ -452,9 +452,9 @@ fn via_of(g: &V, data: &Data) -> Option<(V, V)> {
 /// One experimental guide's index entry: its header (title, faction, races, classes, levels, zone, pitch,
 /// pros, cons, localised, with the `names` and `written` those texts use) and its route, walked through the
 /// extra pack's `next` lines until they lead back to ours: the top level (`topLevel`), the quests its accepts
-/// take (`questIds`, each once), our guides it rejoins (`joins`), where it starts (`start`: its first located
-/// goal; `focus`: its first on its zone's map) and the zone its first travel goes through when that is not
-/// its own (`viaMap`, `via`).
+/// take (`questIds`, each once, none of a dungeon run's), our guides it rejoins (`joins`), where it starts
+/// (`start`: its first located goal; `focus`: its first on its zone's map) and the zone its first travel goes
+/// through when that is not its own (`viaMap`, `via`).
 fn index_entry(g: &V, extras: &rustc_hash::FxHashMap<String, &V>, data: &Data) -> V {
 	let loc = g.hidden("_localised");
 	let text = if loc.truthy() { loc } else { g.clone() };
@@ -470,15 +470,18 @@ fn index_entry(g: &V, extras: &rustc_hash::FxHashMap<String, &V>, data: &Data) -
 	let mut joins: Vec<String> = Vec::new();
 	let mut seen: rustc_hash::FxHashSet<String> = rustc_hash::FxHashSet::default();
 	let mut queue: std::collections::VecDeque<V> = std::collections::VecDeque::from([g.clone()]);
-	// An `only` naming factions keeps a line from the other side: the route's quests are its faction's.
+	// An `only` naming factions keeps a line from the other side: the route's quests are its faction's. A
+	// dungeon run's steps (`when dungeon`, not negated) are left out too: the count is what a character who
+	// skips dungeons takes, so the card reads the same with dungeons off.
 	let faction = g.get("faction");
 	let theirs = |only: &V| faction.is_str() && only.get("factions").is_arr() && !only.get("factions").items().iter().any(|f| f.strict_eq(&faction));
+	let dungeon_run = |step: &V| step.get("when").items().iter().any(|p| p.get("k").as_str() == Some("dungeon") && !p.get("neg").truthy());
 	while let Some(cur) = queue.pop_front() {
 		if !seen.insert(cur.get("id").to_js_string()) {
 			continue;
 		}
 		top = top.max(cur.get("maxLevel").as_num().unwrap_or(0.0));
-		for step in cur.get("steps").items().iter().filter(|s| !theirs(&s.get("only"))) {
+		for step in cur.get("steps").items().iter().filter(|s| !theirs(&s.get("only")) && !dungeon_run(s)) {
 			for goal in step.get("goals").items() {
 				let q = goal.get("quest");
 				if goal.get("t").as_str() == Some("accept") && q.is_num() && !theirs(&goal.get("only")) && !quests.iter().any(|x| x.strict_eq(&q)) {

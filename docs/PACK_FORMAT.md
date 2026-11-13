@@ -329,11 +329,12 @@ testing (alpha). It is built from `experimental/` in the checkout
   `minLevel`, `maxLevel`, `zone`, `zoneName`, `pitch`, `pros`, `cons` and the
   `names`/`written` those texts use) and its route until it hands back to one
   of ours: `topLevel` (the highest `maxLevel` on the way), `questIds` (its
-  accepts, each once; another faction's lines left out), `joins` (our guides
-  its route hands back to), `start` (its first located goal: travel time),
-  `focus` (its first goal on its zone's map: the card's art), and `viaMap` /
-  `via` (the zone its way in goes through first, when not its own: a
-  detour's). The Era frames of those points' maps join `MapFrames.lua`.
+  accepts, each once; another faction's lines and a dungeon run's steps,
+  `when dungeon`, left out), `joins` (our guides its route hands back to),
+  `start` (its first located goal: travel time), `focus` (its first goal on
+  its zone's map: the card's art), and `viaMap` / `via` (the zone its way in
+  goes through first, when not its own: a detour's). The Era frames of those
+  points' maps join `MapFrames.lua`.
   While the pack is off, the route choice shows the option from the index;
   it is never recommended, never the one option taken without asking, and
   the hand-off, the catch-up and the hand-in plan leave it out until the

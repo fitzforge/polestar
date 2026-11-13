@@ -8621,14 +8621,15 @@ function Own.rejoins(e)
 	return found
 end
 
--- The accepts of guide `g` this character gets, as a list of quest ids;
--- an experimental route's from the index (`questIds`), whether its guide is
--- in or not.
+-- The accepts of guide `g` this character gets, as a list of quest ids,
+-- none of a dungeon run's (Own.dungeonStep: the count reads the same with
+-- dungeons off); an experimental route's from the index (`questIds`, built
+-- the same way), whether its guide is in or not.
 function Own.optionQuests(g, e)
 	if e and e.questIds then return e.questIds end
 	local out = {}
 	for _, step in ipairs(g.steps) do
-		if Guides.Matches(step.only, player) then
+		if Guides.Matches(step.only, player) and not Own.dungeonStep(step) then
 			for _, goal in ipairs(step.goals) do
 				if goal.t == "accept" and goal.quest and Guides.Matches(goal.only, player) then out[#out + 1] = goal.quest end
 			end
