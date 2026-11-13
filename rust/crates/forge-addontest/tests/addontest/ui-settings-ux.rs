@@ -607,3 +607,51 @@ fn a_long_title_takes_room_from_the_header_search_before_it_is_cut() {
 	assert_eq!(out["back"], out["short"], "the search's width back for a shorter title");
 	assert_eq!(out["pair"], json!([true, -4]), "Peek sits close by Fold");
 }
+
+// A setting off its default shows a reset button in its row's gutter (in the changed dot's place), its tooltip naming
+// the default; a click puts that one setting back and offers the Undo, and at its default the button is gone. Toggles,
+// sliders, dropdowns, colours and cards alike. The gamepad's reset (Y) on the row does the same, so the button is no
+// gamepad stop of its own.
+#[test]
+fn a_changed_row_shows_a_reset_button_that_puts_its_setting_back_with_undo() {
+	let out = run(r#"
+		UI.ShowOptions("guide")
+		local function other(key, w)
+			local d = Polestar.GetDefault(key)
+			if type(d) == "boolean" then return not d end
+			if type(d) == "number" then return d ~= 0.5 and 0.5 or 0.6 end
+			if type(d) == "table" then return { 1, 0, 0 } end
+			local choices = rawget(w, "psChoices")
+			if type(choices) == "function" then choices = choices() end
+			for _, c in ipairs(choices or {}) do if c.value ~= d then return c.value end end
+		end
+		local res = {}
+		for _, case in ipairs({ { "toggle", "ui.launcher" }, { "dropdown", "ui.combat" }, { "slider", "nav.worldRouteAlpha" },
+			{ "colour", "nav.arrowNearColor" }, { "cards", "nav.arrowStyle" } }) do
+			local kind, key = case[1], case[2]
+			local w = ctl(key)
+			local atDefault = rawget(w, "ResetB") ~= nil and w.ResetB:IsShown() or false
+			Polestar.Set(key, other(key, w))
+			w = ctl(key)
+			local b = rawget(w, "ResetB")
+			local shown = { b ~= nil and b:IsShown() or false, w.ModDot:IsShown(), b and b.psPadSkip or false }
+			local tip = b and b.psTip or false
+			if b then b:Click() end
+			local reset = { Polestar.GetStored(key) == nil, b and b:IsShown() or false, PolestarOptions.UndoChip:IsShown() }
+			O.Undo()
+			local undone = { Polestar.GetStored(key) ~= nil, b and b:IsShown() or false }
+			Polestar.Set(key, nil)
+			res[kind] = { atDefault = atDefault, shown = shown, tip = tip, reset = reset, undone = undone }
+		end
+		emit(res)"#);
+	for kind in ["toggle", "dropdown", "slider", "colour", "cards"] {
+		let r = &out[kind];
+		assert_eq!(r["atDefault"], false, "{kind}: no reset at its default");
+		assert_eq!(r["shown"], json!([true, false, true]), "{kind}: the reset in the dot's place, no gamepad stop of its own");
+		assert!(r["tip"].as_str().unwrap_or_default().starts_with("Reset to default ("), "{kind}: {}", r["tip"]);
+		assert_eq!(r["reset"], json!([true, false, true]), "{kind}: back to its default, the button gone, the Undo offered");
+		assert_eq!(r["undone"], json!([true, true]), "{kind}: the Undo puts it back, the button with it");
+	}
+	assert_eq!(out["toggle"]["tip"], "Reset to default (Off)");
+	assert_eq!(out["dropdown"]["tip"], "Reset to default (Keep visible)");
+}

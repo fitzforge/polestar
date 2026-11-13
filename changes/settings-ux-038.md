@@ -49,3 +49,6 @@ section: players
   one underneath forward.
 - A profile can have its own key: on the Profiles page, Set a key and press
   the key (or gamepad button) that switches to that profile, out of combat.
+- A changed setting shows a small reset arrow by its name: click it to put
+  that one setting back to its default (the tooltip says what that is), with
+  Undo in the footer.

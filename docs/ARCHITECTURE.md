@@ -6844,10 +6844,16 @@ second homes of the client options on Quests (Instant quest text, Hide combat
 errors, Hide the game's quest tracker). Its effect check puts it back with
 `restore` (`settings-effects.rs`). Pages sort by `order`; Recorder and
 About always close the list. A page or tab with no available control is left
-out of the sidebar and tab row. Every row resets to its default on right-click (but the game's own, above).
+out of the sidebar and tab row. Every row resets to its default on right-click (but the game's own, above),
+and a row off its default shows a reset arrow in its label's gutter, in the changed dot's place
+(`row.ResetB`, made the first time it is needed by `markRow`, Theme/Widgets.lua): its tooltip names the
+default (On or Off, the slider's text, the choice's or card's label, the colour's hex), a click resets that
+one setting through `W.ResetSetting` (so the footer's Undo offers it back), and it goes once the setting is
+at its default. It is no gamepad stop of its own (`psPadSkip`): the gamepad's reset (Y) on the row does
+the same.
 
 **New settings.** A setting's `new` puts a New pill in its section's header
-(nothing on the row: its gutter is the changed dot's), and its page's sidebar row counts the
+(nothing on the row: its gutter is the changed dot's or the reset's), and its page's sidebar row counts the
 page's new settings until the page is opened:
 `PolestarDB.optionsSeen[page key]` keeps the newest `new` release seen there
 (account-wide, not a setting, so profiles and resets leave it). The pills keep

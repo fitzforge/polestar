@@ -955,15 +955,51 @@ function W.ResetSetting(path, get, set)
 	if onReset and was ~= nil then onReset({ { path = path, value = was } }) end
 end
 
+-- The text of a row's default for its reset's tooltip ("On", "100%", a
+-- choice's or card's label, a colour's hex), nil when it has none to show.
+local function defaultText(row)
+	local d = ns.GetDefault and ns.GetDefault(row.psPath)
+	if d == nil then return nil end
+	if type(d) == "boolean" then return d and L["On"] or L["Off"] end
+	local choices = rawget(row, "psChoices")
+	if type(choices) == "function" then choices = choices() end
+	if type(choices) == "table" then
+		for _, c in ipairs(choices) do
+			if type(c) == "table" and sameValue(c.value, d) then return c.label or c.text end
+		end
+	end
+	if type(d) == "table" and type(d[1]) == "number" and W.ColorHex then return W.ColorHex(d[1], d[2], d[3]) end
+	if type(d) == "number" and rawget(row, "psFormat") and W.SliderText then return W.SliderText(row, d) end
+	if type(d) == "number" or type(d) == "string" then return tostring(d) end
+	return nil
+end
+
 local function markRow(row)
 	if not row.psCompact then return end
-	-- A compact half: the label in text and the gold dot while off its
-	-- default (the label's gutter is the changed dot's alone; newness is the
-	-- section's New pill and the sidebar's count).
+	-- A compact half: the label in text while off its default, and in the
+	-- label's gutter a reset (a small reset arrow, in the changed dot's
+	-- place; a bare row of cards has it in the gutter left of its first
+	-- card) that puts this one setting back (W.ResetSetting: the window's
+	-- Undo hears it). The gamepad's reset on the row (Y) does the same, so
+	-- the button is no stop of its own. Newness is the section's New pill.
 	local mod = W.Modified(row.psPath)
 	row.psModified = mod
 	W.Color(row.Label, row.psOff and "textMuted" or mod and "text" or "textDim")
-	row.ModDot:SetShown(mod)
+	local b = rawget(row, "ResetB")
+	if mod and not b then
+		b = W.IconButton(row, "reset", 16, L["Reset to default"], function(self) W.ResetSetting(self:GetParent().psPath) end, 11)
+		b.psActive, b.psPadSkip = true, true
+		W.Color(b.Icon, "accent")
+		b:SetPoint("CENTER", row.ModDot, "CENTER", 0, 0)
+		b:SetFrameLevel(row:GetFrameLevel() + 4)
+		row.ResetB = b
+	end
+	if b then
+		local text = mod and defaultText(row)
+		b.psTip = text and (L["Reset to default (%s)"]):format(text) or L["Reset to default"]
+		b:SetShown(mod)
+	end
+	row.ModDot:SetShown(mod and not b)
 end
 
 -- A text in textMuted while its row is off, its own colour back after.
