@@ -22,7 +22,7 @@ return {
 	-- {area:35} Booty Bay
 	["Fly to {area:35}"] = "Vuela a {area:35}",
 	-- {object:3202} Grom'gol (no name in this language: may be words)
-	["{object:3202} flight master"] = "",
+	["{object:3202} flight master"] = "Maestro de vuelo de {object:3202}",
 
 	-- Step 6: Booty Bay
 	-- {area:35} Booty Bay · {npc:7406} Oglethorpe Obnoticus
@@ -31,7 +31,7 @@ return {
 	["{npc:7406}, inside"] = "",
 	-- {npc:2491} Whiskey Slim
 	["{npc:2491}, in the inn"] = "",
-	["\"Sea Wolf\" MacKinley, on the top floor"] = "",
+	["\"Sea Wolf\" MacKinley, on the top floor"] = "MacKinley «Lobo de Mar», en el piso superior",
 	-- {npc:2487} Fleet Master Seahorn
 	["{npc:2487}, on the balcony of the same building"] = "",
 
@@ -156,7 +156,7 @@ return {
 	["Keep {npc:8659}'s payment and Ag'tor's {quest:3504}: they go back to {area:1237} on a later visit."] = "Guarda el pago de {npc:8659} y {quest:3504} de Ag'tor: vuelven a {area:1237} en una visita posterior.",
 
 	-- Step 43: Paladin trainer
-	["Paladin trainer"] = "",
+	["Paladin trainer"] = "Instructor de paladines",
 	-- {npc:246344} Alodan the Hopeful · {zone:1456} Thunder Bluff · {zone:1454} Orgrimmar
 	["{npc:246344} in {zone:1456}; {zone:1454} has no paladin trainer"] = "",
 
@@ -181,7 +181,7 @@ return {
 	-- {area:1099} Camp Mojache
 	["Fly to {area:1099}"] = "Vuela a {area:1099}",
 	-- {zone:1456} Thunder Bluff
-	["{zone:1456} flight master"] = "",
+	["{zone:1456} flight master"] = "Maestro de vuelo de {zone:1456}",
 
 	-- Step 49: Camp Mojache
 	-- {npc:7776} Talo Thornhoof · {zone:1448} Felwood
@@ -227,7 +227,7 @@ return {
 
 	-- Step 62: Gadgetzan
 	-- {npc:5594} Alchemist Pestlezugg
-	["{npc:5594}, inside"] = "",
+	["{npc:5594}, inside"] = "{npc:5594}, adentro",
 
 	-- Step 64: Gadgetzan
 	-- {npc:7876} Tran'rek

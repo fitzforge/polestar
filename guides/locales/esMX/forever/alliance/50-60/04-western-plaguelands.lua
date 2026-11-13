@@ -81,7 +81,7 @@ return {
 	["The cauldron sits at the {area:202}, by {npc:10739}' farm."] = "El caldero está en {area:202}, junto a la granja de {npc:10739}.",
 
 	-- Step 17: Mulgris Deepriver
-	["Inside"] = "",
+	["Inside"] = "Adentro",
 
 	-- Step 18: Diseased Grizzlies
 	["Diseased Grizzlies"] = "Osos pardos malsanos",
@@ -300,7 +300,7 @@ return {
 	-- {area:2255} Everlook
 	["Fly to {area:2255}"] = "",
 	-- {area:392} Ratchet
-	["{area:392} flight master"] = "",
+	["{area:392} flight master"] = "Maestro de vuelo de {area:392}",
 
 	-- Step 82: Donova Snowden
 	["Ride west along the road to the hot springs."] = "Cabalga al oeste por el camino hasta las aguas termales.",
@@ -319,7 +319,7 @@ return {
 
 	-- Step 86: Gadgetzan
 	-- {npc:5594} Alchemist Pestlezugg
-	["{npc:5594}, inside"] = "",
+	["{npc:5594}, inside"] = "{npc:5594}, adentro",
 	-- {npc:7583} Sprinkle
 	["On {npc:7583}"] = "En {npc:7583}",
 	-- {npc:7583} Sprinkle · {item:12928} Umi's Mechanical Yeti
@@ -349,7 +349,7 @@ return {
 	-- {area:976} Gadgetzan · {area:541} Marshal's Refuge · {npc:8737} Linken · {npc:9117} J.D. Collie · {npc:9997} Spraggle Frock · {npc:9999} Ringo
 	["Fly from {area:976} to {area:541}. {npc:8737} stands at the back of the refuge; {npc:9117} is in the cave behind him.\n{npc:9997}'s friend {npc:9999} has gone missing."] = "Vuela de {area:976} a {area:541}. {npc:8737} está al fondo del refugio; {npc:9117} está en la cueva detrás de él.\nEl amigo de {npc:9997}, {npc:9999}, ha desaparecido.",
 	-- {npc:9117} J.D. Collie
-	["{npc:9117}, below ground"] = "",
+	["{npc:9117}, below ground"] = "{npc:9117}, bajo tierra",
 	-- {npc:9997} Spraggle Frock
 	["The wooden sign beside {npc:9997}"] = "El letrero de madera junto a {npc:9997}",
 
@@ -410,7 +410,7 @@ return {
 
 	-- Step 106: Un'Goro Crater: kill these as you meet them
 	-- {zone:1449} Un'Goro Crater
-	["{zone:1449}: kill these as you meet them"] = "",
+	["{zone:1449}: kill these as you meet them"] = "{zone:1449}: mata a estos según te los encuentres",
 
 	-- Step 107: Krakle's Thermometer
 	-- {area:537} Fire Plume Ridge · {npc:10541} Krakle's Thermometer
@@ -438,7 +438,7 @@ return {
 
 	-- Step 112: Lakkari Tar Pits: kill these as you meet them
 	-- {area:538} Lakkari Tar Pits
-	["{area:538}: kill these as you meet them"] = "",
+	["{area:538}: kill these as you meet them"] = "{area:538}: mata a estos según te los encuentres",
 	-- {area:538} Lakkari Tar Pits
 	-- plural, as words: Tar Beasts = {npc:6517} Tar Beast · Tar Lords = {npc:6519} Tar Lord
 	["The Tar Beasts and Tar Lords wallow in the {area:538}, south of the refuge on the way down into the crater."] = "Las Bestias de alquitrán y los Señores del alquitrán se revuelcan en {area:538}, al sur del refugio, de camino al cráter.",

@@ -31,7 +31,7 @@ return {
 	-- {item:15908} Taming Rod
 	["Use the {item:15908} on a living crawler"] = "",
 	-- {npc:254588} Windsong Crawler
-	["Tame {npc:254588}"] = "",
+	["Tame {npc:254588}"] = "Doma un {npc:254588}",
 
 	-- Step 4: Ornery Galestrider
 	-- {spell:2641} Dismiss Pet · {area:16626} Gustberry Lowlands · {area:16638} Valanaar
@@ -40,7 +40,7 @@ return {
 	-- {item:15908} Taming Rod
 	["Use the {item:15908} on a living galestrider"] = "",
 	-- {npc:251707} Ornery Galestrider
-	["Tame {npc:251707}"] = "",
+	["Tame {npc:251707}"] = "Doma un {npc:251707}",
 
 	-- Step 5: Vuldren Alpha
 	-- {area:16626} Gustberry Lowlands
@@ -49,7 +49,7 @@ return {
 	-- {item:15908} Taming Rod
 	["Use the {item:15908} on a living alpha"] = "",
 	-- {npc:250874} Vuldren Alpha
-	["Tame {npc:250874}"] = "",
+	["Tame {npc:250874}"] = "Doma un {npc:250874}",
 	-- {npc:254411} Quel'dora Quickgale · {spell:5149} Beast Training
 	["{npc:254411}, beside her: {spell:5149}"] = "",
 

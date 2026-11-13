@@ -14,7 +14,7 @@ return {
 	-- {object:556670} WANTED (no name in this language: may be words)
 	["The {object:556670} poster by the inn"] = "El cartel de {object:556670} junto a la posada",
 	-- {npc:2229} Krusk
-	["{npc:2229}, inside"] = "",
+	["{npc:2229}, inside"] = "{npc:2229}, adentro",
 
 	-- Step 2: Serge Hinott
 	-- {quest:2479} Hinott's Assistance · {npc:2391} Serge Hinott · {area:272} Tarren Mill
@@ -38,7 +38,7 @@ return {
 
 	-- Step 6: Tarren Mill
 	-- {npc:2216} Apothecary Lydon
-	["{npc:2216}, inside"] = "",
+	["{npc:2216}, inside"] = "{npc:2216}, adentro",
 	-- {npc:2230} Umpi
 	["{npc:2230}, next to Lydon; inside"] = "",
 	-- {quest:567} Dangerous!
@@ -94,7 +94,7 @@ return {
 	["The smithy"] = "La herrería",
 	-- {area:287} Hillsbrad · {npc:2404} Blacksmith Verringtan · {object:1736} Shipment of Iron · {npc:2449} Citizen Wilkes
 	["The smithy stands in the middle of {area:287} town. {npc:2404} and his apprentices work at the forge; the {object:1736} is stacked beside it. {npc:2449} walks the street north of it."] = "La herrería está en el centro del pueblo de {area:287}. {npc:2404} y sus aprendices trabajan en la forja; el {object:1736} está apilado al lado. {npc:2449} camina por la calle al norte.",
-	["Inside"] = "",
+	["Inside"] = "Adentro",
 
 	-- Step 15: The western peak
 	["The western peak"] = "",
@@ -124,7 +124,7 @@ return {
 	-- {area:272} Tarren Mill · {area:228} The Sepulcher · {npc:2121} Shadow Priest Allister
 	["Walk back up to {area:272} and fly to the {area:228}: {npc:2121} stands by the crypt entrance."] = "",
 	-- {area:272} Tarren Mill
-	["{area:272} flight master"] = "",
+	["{area:272} flight master"] = "Maestro de vuelo de {area:272}",
 
 	-- Step 21: Fly to the Undercity
 	-- {area:1497} Undercity
