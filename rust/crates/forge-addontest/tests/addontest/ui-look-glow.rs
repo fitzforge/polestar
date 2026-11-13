@@ -1,7 +1,7 @@
 //! The house look's own touches (the 0.3.8 glow-up: Theme/House.lua's tokens, answered by Theme.House; docs/DESIGN.md,
 //! "The House Look's Own Touches"): each shows in Polestar's built-in house skin and nowhere else. A skin registered
 //! on the house look (Lanterns), Halo and a picker card of another skin keep their own way, number for number. Each
-//! touch is laid out at the window's narrowest and widest (260 and 560) and at window scales 0.65, 1 and 1.25 with
+//! touch is laid out at the window's narrowest and widest (260 and 560) and at window scales 0.64 to 1.5 with
 //! nothing cut, nothing overlapping and everything inside its card. Against the real Core + Theme + UI manifests, the
 //! fake Engine (tests/lua/stub_ui.lua) and one bundled skin addon.
 
@@ -240,7 +240,7 @@ fn while_youre_here_lays_out_whole_at_every_width_and_scale() {
 		for _, id in ipairs({ "polestar", "lanterns" }) do
 			Polestar.Set("ui.skin", id)
 			for _, width in ipairs({ 260, 560 }) do
-				for _, scale in ipairs({ 0.65, 1, 1.25 }) do
+				for _, scale in ipairs({ 0.64, 0.65, 1, 1.25, 1.5 }) do
 					Polestar.Set("ui.width", width)
 					Polestar.Set("ui.scale", scale)
 					showHere()
@@ -312,7 +312,7 @@ fn the_lit_goal_spans_its_row_from_the_bar_at_every_width_and_scale() {
 		Polestar.Set("ui.shown", true)
 		local out = {}
 		for _, width in ipairs({ 260, 560 }) do
-			for _, scale in ipairs({ 0.65, 1, 1.25 }) do
+			for _, scale in ipairs({ 0.64, 0.65, 1, 1.25, 1.5 }) do
 				Polestar.Set("ui.width", width)
 				Polestar.Set("ui.scale", scale)
 				layout()
@@ -328,7 +328,7 @@ fn the_lit_goal_spans_its_row_from_the_bar_at_every_width_and_scale() {
 		end
 		emit(out)"#);
 	let cases = out.as_array().unwrap();
-	assert_eq!(cases.len(), 6, "one lit goal at each width and scale: {out}");
+	assert_eq!(cases.len(), 10, "one lit goal at each width and scale: {out}");
 	for c in cases {
 		let at = &c["at"];
 		assert_eq!(c["bad"], "", "{at}: inside its row");
@@ -445,7 +445,7 @@ fn the_heads_up_card_lays_out_whole_at_every_width_and_scale_full_and_compact() 
 			for _, compact in ipairs({{ false, true }}) do
 				Polestar.Set("toasts.headsup.compact", compact or nil)
 				for _, width in ipairs({{ 260, 560 }}) do
-					for _, scale in ipairs({{ 0.65, 1, 1.25 }}) do
+					for _, scale in ipairs({{ 0.64, 0.65, 1, 1.25, 1.5 }}) do
 						c:SetScale(scale)
 						CT.FillCard(c, model(), width)
 						local parts = {{ {{ c.Ring }}, {{ c.Title, compact and "trim" or "text" }}, {{ c.Close }} }}
@@ -460,7 +460,51 @@ fn the_heads_up_card_lays_out_whole_at_every_width_and_scale_full_and_compact() 
 		emit(out)"#
 	));
 	let cases = out.as_array().unwrap();
-	assert_eq!(cases.len(), 24);
+	assert_eq!(cases.len(), 40);
+	for c in cases {
+		assert_eq!(c["bad"], "", "{}: nothing cut, overlapping or outside the card", c["at"]);
+	}
+}
+
+// 0.3.7's cards in the house look, their facts under the title, laid out at widths 260 and 560 and window scales 0.64
+// to 1.5: nothing cut, overlapping or outside the card (the level-up card with its row of spell icons, the old ranks
+// card's two spells, the update card's notes).
+#[test]
+fn the_level_up_old_ranks_and_update_cards_lay_out_whole_in_the_house_look() {
+	let out = run(&format!(
+		r#"{CARD}
+		local SC, UC = Polestar.UI.SpellCards, Polestar.UI.UpdateCard
+		local spells = {{}}
+		for i = 1, 4 do spells[i] = {{ id = 13549 + i, rank = 2, cost = 1800 }} end
+		local ranks = {{ {{ id = 13549, bestId = 13550, name = "Serpent Sting", have = 2, best = 3, slots = {{ 3 }} }},
+			{{ id = 14260, bestId = 14261, name = "Raptor Strike", have = 2, best = 3, slots = {{ 2 }} }} }}
+		local models = {{
+			{{ "level-up", SC.LevelModel({{ level = 18, cost = 7200, money = 5230, spells = spells }}) }},
+			{{ "old ranks", SC.RanksModel({{ slots = 3, spells = ranks }}) }},
+			{{ "update", UC.Model({{ kind = "new", latest = "0.3.9", mine = "0.3.7", behind = 2 }}) }},
+		}}
+		local c = names(CT.NewCard(UIParent))
+		local out = {{}}
+		for _, mm in ipairs(models) do
+			for _, width in ipairs({{ 260, 560 }}) do
+				for _, scale in ipairs({{ 0.64, 0.65, 1, 1.25, 1.5 }}) do
+					c:SetScale(scale)
+					CT.FillCard(c, mm[2], width)
+					local parts = {{ {{ c.Ring }}, {{ c.Title, "text" }}, {{ c.Close }} }}
+					for _, p in ipairs({{ {{ c.Head, "text" }}, {{ c.Badge }}, {{ c.Giver }}, {{ c.Route }}, {{ c.Act }}, {{ c.More }}, {{ c.Later }}, {{ c.Off }}, {{ c.Extra }}, {{ c.SpellMore, "text" }} }}) do
+						if p[1]:IsShown() then parts[#parts + 1] = p end
+					end
+					for i, b in ipairs(c.SpellRow) do
+						if b:IsShown() then b.psName = "spell " .. i; parts[#parts + 1] = {{ b }} end
+					end
+					out[#out + 1] = {{ at = mm[1] .. " " .. width .. " x" .. scale, bad = table.concat(breaks(c, parts), " | "), facts = c.Head:GetText() }}
+				end
+			end
+		end
+		emit(out)"#
+	));
+	let cases = out.as_array().unwrap();
+	assert_eq!(cases.len(), 30);
 	for c in cases {
 		assert_eq!(c["bad"], "", "{}: nothing cut, overlapping or outside the card", c["at"]);
 	}
@@ -519,7 +563,7 @@ fn the_house_while_here_toast_lays_out_whole_on_one_line_or_two_at_every_scale()
 		r#"{TOAST}
 		local out = {{}}
 		for _, text in ipairs({{ "Kill Kobold Worker, 5 more", "Hand in The Fargodeep Mine and Its Many Kobold Tunnels to Marshal Dughan" }}) do
-			for _, scale in ipairs({{ 0.65, 1, 1.25 }}) do
+			for _, scale in ipairs({{ 0.64, 0.65, 1, 1.25, 1.5 }}) do
 				Polestar.Set("ui.scale", scale)
 				WT.Show(line(text))
 				local t = PolestarWhileHereToast
@@ -537,8 +581,8 @@ fn the_house_while_here_toast_lays_out_whole_on_one_line_or_two_at_every_scale()
 	}
 	let cases = out.as_array().unwrap();
 	assert_eq!((cases[0]["lines"].as_i64(), cases[0]["h"].as_i64()), (Some(1), Some(56)), "one line: 56 tall");
-	assert_eq!(cases[3]["lines"], 2, "a long hand-in on two lines, not cut");
-	assert!(cases[3]["h"].as_f64().unwrap() > 56.0, "and the toast grows to hold them");
+	assert_eq!(cases[5]["lines"], 2, "a long hand-in on two lines, not cut");
+	assert!(cases[5]["h"].as_f64().unwrap() > 56.0, "and the toast grows to hold them");
 }
 
 // A house window's edges (Theme/House.lua, the window painter): once it is on screen, a 1px light inside its top edge
