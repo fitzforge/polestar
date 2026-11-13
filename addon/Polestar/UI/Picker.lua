@@ -1185,13 +1185,18 @@ local function buildDetails()
 		P.ToggleFavorite(P.Selected())
 	end, 14)
 	d.Star:SetPoint("RIGHT", win.Close, "LEFT", -4, 0)
-	-- On a bright painting the two glyphs need a dark ground of their own:
-	-- 4 past the pair at either end, 2 above and below.
+	-- On a bright painting the glyphs need a dark ground of their own: 4 past
+	-- them at either end, 2 above and below. In the game's looks the close is
+	-- the frame's own, on its corner (W.FrameClose), and the ground holds the
+	-- star alone, still clear of that corner.
 	d.Scrim = W.Pill(d.Art.Over, 68, 32)
-	d.Scrim:SetPoint("TOPRIGHT", win.Close, "TOPRIGHT", 4, 2)
 	W.Painter(d.Scrim, function(p)
 		local r, g, b = Theme.Color("scrim")
 		p:SetColor(r, g, b, 0.6)
+		local alone = Theme.Kit() ~= nil
+		p:SetWidth(alone and 36 or 68)
+		p:ClearAllPoints()
+		p:SetPoint("TOPRIGHT", alone and d.Star or win.Close, "TOPRIGHT", 4, 2)
 	end)
 	d.Scrim:SetFrameLevel(d.Art.Over:GetFrameLevel())
 	win.Close:SetFrameLevel(d.Scrim:GetFrameLevel() + 2)
