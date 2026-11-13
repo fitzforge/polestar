@@ -37,7 +37,7 @@ return {
 
 	-- Step 7: Back to the Algaz Station
 	-- {area:925} Algaz Station
-	["Back to the {area:925}"] = "",
+	["Back to the {area:925}"] = "De vuelta a {area:925}",
 
 	-- Step 8: Stonewrought Dam
 	["Chief Engineer Hinderweir stands on top of the dam, up the ramp at its west end."] = "",
@@ -121,7 +121,7 @@ return {
 	["South of Thelsamar, Ylva lies dead in the mouth of a trogg cave. Take her banner, raise it beside her and hold the spot: troggs come in waves from both sides, then {npc:269185}."] = "",
 
 	-- Step 25: The tunnel post
-	["The tunnel post"] = "",
+	["The tunnel post"] = "El puesto del túnel",
 	-- {zone:1426} Dun Morogh
 	["West to the dwarven post at the tunnel to {zone:1426}."] = "",
 
@@ -151,7 +151,7 @@ return {
 
 	-- Step 30: Tram to Stormwind
 	-- {zone:1453} Stormwind
-	["Tram to {zone:1453}"] = "",
+	["Tram to {zone:1453}"] = "Tranvía a {zone:1453}",
 
 	-- Step 31: Elwynn Forest
 	-- {zone:1453} Stormwind · {area:87} Goldshire

@@ -31,7 +31,7 @@ return {
 
 	-- Step 6: The Spirits of Southwind
 	["The Spirits of Southwind"] = "",
-	["Inside"] = "",
+	["Inside"] = "Adentro",
 
 	-- Step 7: Hermit Ortell
 	-- {area:3447} Ortell's Hideout
@@ -196,7 +196,7 @@ return {
 	["Class trainer"] = "Instructor de clase",
 
 	-- Step 44: Paladin trainer
-	["Paladin trainer"] = "",
+	["Paladin trainer"] = "Instructor de paladines",
 	-- {npc:246344} Alodan the Hopeful · {zone:1456} Thunder Bluff · {zone:1454} Orgrimmar
 	["{npc:246344} in {zone:1456}; {zone:1454} has no paladin trainer"] = "",
 
@@ -304,7 +304,7 @@ return {
 	["The lake for {quest:5845}"] = "",
 
 	-- Step 82: Of Lost Honor
-	["Underwater"] = "",
+	["Underwater"] = "Bajo el agua",
 
 	-- Step 83: Infiltrator Hameya
 	-- {area:2273} Zul'Mashar

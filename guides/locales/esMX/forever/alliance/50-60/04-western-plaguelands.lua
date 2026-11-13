@@ -81,7 +81,7 @@ return {
 	["The cauldron sits at the {area:202}, by {npc:10739}' farm."] = "El caldero está en {area:202}, junto a la granja de {npc:10739}.",
 
 	-- Step 17: Mulgris Deepriver
-	["Inside"] = "",
+	["Inside"] = "Adentro",
 
 	-- Step 18: Diseased Grizzlies
 	["Diseased Grizzlies"] = "Osos pardos malsanos",

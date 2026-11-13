@@ -22,23 +22,23 @@ return {
 
 	-- Step 4: Auberdine
 	-- {npc:3666} Wizbang Cranktoggle
-	["The boat docks west of the village. The flight master stands on the hill south of the inn; the quest givers are spread along the main street. {npc:3666} stands upstairs in the inn: take the stairs inside, the arrow cannot tell the floors apart."] = "",
+	["The boat docks west of the village. The flight master stands on the hill south of the inn; the quest givers are spread along the main street. {npc:3666} stands upstairs in the inn: take the stairs inside, the arrow cannot tell the floors apart."] = "El barco atraca al oeste de la aldea. El maestro de vuelo está en la colina al sur de la posada; los que dan misiones están repartidos por la calle principal. {npc:3666} está arriba en la posada: sube por la escalera de adentro, la flecha no distingue los pisos.",
 	-- {npc:3666} Wizbang Cranktoggle
-	["{npc:3666}, upstairs in the inn"] = "",
+	["{npc:3666}, upstairs in the inn"] = "{npc:3666}, arriba en la posada",
 
 	-- Step 5: The skeletal turtle
 	["The skeletal turtle"] = "La tortuga esquelética",
 	-- {item:12289} Sea Turtle Remains
-	["{item:12289}, on the beach west of the docks; underwater"] = "",
+	["{item:12289}, on the beach west of the docks; underwater"] = "{item:12289}, en la playa al oeste de los muelles; bajo el agua",
 
 	-- Step 6: Bears and the Blackwood camp
 	["Bears and the Blackwood camp"] = "Osos y el campamento Bosque Negro",
 	-- {area:442} Auberdine · {item:7586} Tharnariun's Hope
 	-- plural, as words: Rabid Thistle Bears = {npc:2164} Rabid Thistle Bear
-	["Rabid Thistle Bears roam the hills south of {area:442}: use {item:7586} on one to capture it. Then walk up to the furbolg camp just east of them: nothing to kill yet."] = "",
+	["Rabid Thistle Bears roam the hills south of {area:442}: use {item:7586} on one to capture it. Then walk up to the furbolg camp just east of them: nothing to kill yet."] = "Los osos cardo rabiosos recorren las colinas al sur de {area:442}: usa {item:7586} en uno para capturarlo. Luego sube hasta el campamento de fúrbolgs justo al este de ellos: todavía no hay nada que matar.",
 	-- {npc:3701} Tharnariun Treetender
 	-- plural, as words: Rabid Thistle Bears = {npc:2164} Rabid Thistle Bear
-	["the Rabid Thistle Bears nearest {npc:3701}"] = "",
+	["the Rabid Thistle Bears nearest {npc:3701}"] = "los osos cardo rabiosos más cercanos a {npc:3701}",
 
 	-- Step 7: Ameth'Aran
 	-- {npc:3639} Sentinel Tysha Moonblade · {npc:2178} Wailing Highborne · {npc:3667} Anaya Dawnrunner · {npc:270196} Jai'vhanel · {quest:4722} Beached Sea Turtle
@@ -58,7 +58,7 @@ return {
 	-- Step 9: Bashal'Aran
 	-- {npc:3650} Asterion · {quest:954} Bashal'Aran · {object:17183} Buzzbox 411 · {quest:4723} Beached Sea Creature
 	-- plural, as words: Wild Grells = {npc:2190} Wild Grell · Vile Sprites = {npc:2189} Vile Sprite · Deth'ryll Satyrs = {npc:2212} Deth'ryll Satyr
-	["North along the hills. {npc:3650} waits in the ruins of {quest:954}; Wild Grells and Vile Sprites fill them, Deth'ryll Satyrs the eastern edge. {object:17183} stands by the road west of the ruins; a {quest:4723} lies on the shore on the way to him."] = "",
+	["North along the hills. {npc:3650} waits in the ruins of {quest:954}; Wild Grells and Vile Sprites fill them, Deth'ryll Satyrs the eastern edge. {object:17183} stands by the road west of the ruins; a {quest:4723} lies on the shore on the way to him."] = "Al norte por las colinas. {npc:3650} espera en las ruinas de {quest:954}; las llenan grells salvajes y duendes viles, y los sátiros Deth'ryll ocupan el borde este. {object:17183} está junto al camino al oeste de las ruinas; un {quest:4723} yace en la orilla, de camino hacia él.",
 	-- plural, as words: Grell Earrings = {item:5336} Grell Earring
 	["Grell Earrings"] = "Pendientes grell",
 	-- {item:5338} Ancient Moonstone Seal
@@ -82,55 +82,55 @@ return {
 
 	-- Step 14: Ameth'Aran
 	-- {area:447} Ameth'Aran
-	["Back north to {area:447}: the flame burns in the south of the ruins."] = "",
+	["Back north to {area:447}: the flame burns in the south of the ruins."] = "De vuelta al norte hasta {area:447}: la llama arde en el sur de las ruinas.",
 
 	-- Step 15: The red crystal
 	["Back north-east into the mountains to the crystal."] = "Vuelve al noreste, a las montañas, hasta el cristal.",
 
 	-- Step 16: Bashal'Aran
 	-- {npc:3650} Asterion · {area:442} Auberdine
-	["North along the hills to {npc:3650}, then west down to {area:442}."] = "",
+	["North along the hills to {npc:3650}, then west down to {area:442}."] = "Al norte por las colinas hasta {npc:3650}, luego al oeste, bajando hasta {area:442}.",
 
 	-- Step 18: Boat to Stormwind Harbor
 	-- {area:17203} Stormwind Harbor
-	["Boat to {area:17203}"] = "",
+	["Boat to {area:17203}"] = "Barco al {area:17203}",
 
 	-- Step 19: Manifest Clerk Philmor
 	-- {npc:268511} Manifest Clerk Philmor · {npc:483} Elaine Trias · {object:2096} Trade District
-	["Off the boat, {npc:268511} stands on the harbor: his shipment goes to {npc:483}' cheese shop in the {object:2096}, beside the flight master."] = "",
+	["Off the boat, {npc:268511} stands on the harbor: his shipment goes to {npc:483}' cheese shop in the {object:2096}, beside the flight master."] = "Al bajar del barco, {npc:268511} está en el puerto: su envío va a la quesería de {npc:483} en {object:2096}, junto al maestro de vuelo.",
 
 	-- Step 20: Stormwind flight master
 	-- {zone:1453} Stormwind
-	["{zone:1453} flight master"] = "",
+	["{zone:1453} flight master"] = "Maestro de vuelo de {zone:1453}",
 	-- {npc:483} Elaine Trias
-	["{npc:483}, in her cheese shop"] = "",
+	["{npc:483}, in her cheese shop"] = "{npc:483}, en su quesería",
 	-- {object:460004} Gatehouse Door (no name in this language: may be words)
-	["Up the stairs in her shop: leave the shipment at the {object:460004}"] = "",
+	["Up the stairs in her shop: leave the shipment at the {object:460004}"] = "Sube la escalera de su tienda: deja el envío en {object:460004}",
 
 	-- Step 21: Baros Alexston
 	-- {npc:1646} Baros Alexston · {object:2098} Cathedral Square · {object:2096} Trade District · {zone:1436} Westfall
-	["{npc:1646} stands in {object:2098}, west of the {object:2096}: his compass is in his old house in {zone:1436}, on the way."] = "",
+	["{npc:1646} stands in {object:2098}, west of the {object:2096}: his compass is in his old house in {zone:1436}, on the way."] = "{npc:1646} está en {object:2098}, al oeste de {object:2096}: su brújula está en su vieja casa de {zone:1436}, en el camino.",
 
 	-- Step 22: Woo Ping
 	-- {spell:202} Two-Handed Swords · {npc:11867} Woo Ping · {object:2096} Trade District
-	["While you're here: learn {spell:202} from {npc:11867} ({object:2096}, 10 silver); two-handers level a Warrior fastest."] = "",
+	["While you're here: learn {spell:202} from {npc:11867} ({object:2096}, 10 silver); two-handers level a Warrior fastest."] = "Ya que estás aquí: aprende {spell:202} con {npc:11867} ({object:2096}, 10 de plata); con armas de dos manos un guerrero sube de nivel más rápido.",
 
 	-- Step 23: Woo Ping
 	-- {npc:11867} Woo Ping · {object:2096} Trade District
-	["While you're here: learn Swords from {npc:11867} ({object:2096}, 10 silver); a sword in the main hand levels a Rogue steadily."] = "",
+	["While you're here: learn Swords from {npc:11867} ({object:2096}, 10 silver); a sword in the main hand levels a Rogue steadily."] = "Ya que estás aquí: aprende Espadas con {npc:11867} ({object:2096}, 10 de plata); una espada en la mano principal hace subir de nivel a un pícaro a buen ritmo.",
 
 	-- Step 24: Druid trainer
-	["Druid trainer"] = "",
+	["Druid trainer"] = "Instructor de druidas",
 	-- {npc:5504} Sheldras Moontree · {zone:1453} Stormwind · {area:87} Goldshire
-	["{npc:5504} in {zone:1453}; {area:87} has no druid trainer"] = "",
+	["{npc:5504} in {zone:1453}; {area:87} has no druid trainer"] = "{npc:5504} en {zone:1453}; {area:87} no tiene instructor de druidas",
 
 	-- Step 26: Class trainer
 	["Class trainer"] = "Instructor de clase",
 
 	-- Step 27: Shaman trainer
-	["Shaman trainer"] = "",
+	["Shaman trainer"] = "Instructor de chamanes",
 	-- {npc:257446} Teo Hammerstorm · {zone:1426} Dun Morogh · {area:87} Goldshire
-	["{npc:257446} in {zone:1426}; {area:87} has no shaman trainer"] = "",
+	["{npc:257446} in {zone:1426}; {area:87} has no shaman trainer"] = "{npc:257446} en {zone:1426}; {area:87} no tiene instructor de chamanes",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Into {area:148}"] = "Hacia {area:148}",
