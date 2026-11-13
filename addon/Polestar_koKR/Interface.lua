@@ -305,6 +305,7 @@ L["It also spawns here"] = "여기서도 등장합니다"
 L["Click to search here next"] = "클릭하면 다음에 여기서 찾기"
 L["Travel route, step %s"] = "이동 경로, %s단계"
 L["Click to point the arrow here"] = "클릭하면 화살표가 여기를 가리킴"
+L["Checked recently"] = "최근에 확인함"
 
 -- Nav/Transit.lua
 L["top"] = "위"
@@ -1220,6 +1221,7 @@ L["%s and %d more"] = "%s 외 %d개"
 L["Skipping also skips: %s"] = "함께 건너뛰는 것: %s"
 L["Keep this: you hand it in later in %s"] = "이 퀘스트는 유지하십시오: 나중에 %s에서 제출합니다"
 L["Keep this: a later guide hands it in"] = "이 퀘스트는 유지하십시오: 이후 가이드에서 제출합니다"
+L["%d known places: the arrow leads to each in turn"] = "알려진 장소 %d곳: 화살표가 차례로 각 장소로 안내합니다"
 
 -- UI/GuideFrame.lua
 L["Location"] = "위치"

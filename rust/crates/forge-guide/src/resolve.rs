@@ -830,6 +830,93 @@ fn spawn_spots(data: &Data, sources: &[V], map: &V, f: &V, mut x: f64, mut y: f6
 	Some(SpawnSpots { spots, spread, at })
 }
 
+/// Exact points (#1944): a target that stands at a few known points, rather than anywhere about a camp, gets
+/// each point as a spot of its own with `r` 0 (docs/GUIDE_FORMAT.md, "Spawn areas", Points): the maps mark
+/// every point and the arrow leads to the nearest the player has not been to lately. Objects never move: up
+/// to OBJECT_POINTS of them (more are found all over an area: spawn areas as before). Creatures only at fixed
+/// places: up to NPC_POINTS, no two within SPOT_CLUSTER_YARDS of each other (the mobs of a camp wander it)
+/// and none that walks about (moves.json, as for walkers).
+const OBJECT_POINTS: usize = 40;
+const NPC_POINTS: usize = 8;
+/// Spawns closer than this are one point: the reference data lists some spawns twice.
+const POINT_SAME_YARDS: f64 = 5.0;
+
+/// The exact points of `sources` (all objects, or all creatures) on `map` in frame `f`, or None (spawn
+/// areas apply; see OBJECT_POINTS). A stray (spawn_spots, "Strays") and a point in the camp of `elites`
+/// (elite droppers passed over for these) are alternatives while another point is open, and a goal point
+/// (x, y) whose nearest point is one moves to the nearest open point (the second value). Open points come
+/// first, then the alternatives, each by x then y, whatever the goal's point: goals on the same target write
+/// the same list, which the game builds once (Core/Guides.lua, Own.spotsShared).
+fn exact_points(data: &Data, sources: &[V], map: &V, f: &V, x: f64, y: f64, elites: &[V]) -> Option<(Vec<V>, Option<(f64, f64)>)> {
+	let kind = sources.first()?.get("kind");
+	if !matches!(kind.as_str(), Some("object") | Some("npc")) || !sources.iter().all(|s| s.get("kind").strict_eq(&kind)) || !data.map_size(map).truthy() {
+		return None;
+	}
+	let object = kind.as_str() == Some("object");
+	let cap = if object { OBJECT_POINTS } else { NPC_POINTS };
+	let apart = |p: &V, q: &V| distance(data, map, px(p), py(p), px(q), py(q));
+	let mut pts: Vec<V> = Vec::new();
+	for p in spawn_points_of(data, sources, map, f) {
+		if !pts.iter().any(|q| apart(q, &p) < POINT_SAME_YARDS) {
+			if pts.len() == cap {
+				return None;
+			}
+			pts.push(p);
+		}
+	}
+	if pts.len() < 2 {
+		return None;
+	}
+	if !object {
+		if pts.iter().enumerate().any(|(i, p)| pts[i + 1..].iter().any(|q| apart(p, q) <= SPOT_CLUSTER_YARDS)) {
+			return None;
+		}
+		let world: Vec<V> = pts.iter().map(|p| crate::heights::world_point(data, &obj! { "map" => map.clone(), "x" => px(p), "y" => py(p), "f" => f.clone() }.into())).collect();
+		let at: Vec<(f64, f64)> = world.iter().map(|w| (w.get("wx").num(), w.get("wy").num())).collect();
+		if world[0].truthy() && sources.iter().any(|s| crate::walks::walks_near(data, &s.get("id"), &world[0].get("c"), &at)) {
+			return None;
+		}
+	}
+	// The points the arrow may take: outside elite camps, then not strays, each while any point is left.
+	let elite_pts = spawn_points_of(data, elites, map, f);
+	let in_camp = |p: &V| elite_pts.iter().filter(|&e| apart(e, p) <= SPOT_CLUSTER_YARDS).count() > 1;
+	let strays = stray_points(&pts, &data.frame(map));
+	let keep = |open: Vec<bool>, out: &dyn Fn(&V) -> bool| -> Vec<bool> {
+		let rest: Vec<bool> = open.iter().zip(&pts).map(|(&o, p)| o && !out(p)).collect();
+		if rest.contains(&true) {
+			rest
+		} else {
+			open
+		}
+	};
+	let mut open = vec![true; pts.len()];
+	if !elite_pts.is_empty() {
+		open = keep(open, &in_camp);
+	}
+	if !strays.is_empty() {
+		open = keep(open, &|p: &V| strays.contains(&ptr_key(p)));
+	}
+	let from_goal = |i: usize| distance(data, map, px(&pts[i]), py(&pts[i]), x, y);
+	let nearest = |only_open: bool| (0..pts.len()).filter(|&i| !only_open || open[i]).min_by(|&a, &b| ord(from_goal(a) - from_goal(b)));
+	let at = match nearest(false) {
+		Some(i) if !open[i] => nearest(true).map(|j| (round2(px(&pts[j])), round2(py(&pts[j])))),
+		_ => None,
+	};
+	let mut order: Vec<usize> = (0..pts.len()).collect();
+	order.sort_by(|&a, &b| (!open[a]).cmp(&!open[b]).then(ord(px(&pts[a]) - px(&pts[b]))).then(ord(py(&pts[a]) - py(&pts[b]))));
+	let spots = order
+		.into_iter()
+		.map(|i| {
+			let o = obj! { "x" => round2(px(&pts[i])), "y" => round2(py(&pts[i])), "r" => 0.0 };
+			if !open[i] {
+				o.set("alt", true);
+			}
+			o.into()
+		})
+		.collect();
+	Some((spots, at))
+}
+
 /// A hand-placed goal whose target spawns at several places: the author's point first, every other place
 /// an alternative; with `alt_sources`, only the other places of those sources. -> spots | Undef
 fn hand_spots(data: &Data, sources: &[V], map: &V, f: &V, x: f64, y: f64, near: f64, alt_sources: Option<&[V]>) -> V {
@@ -3071,18 +3158,31 @@ fn resolve_goal(g: &V, zone_map: &V, prev: &V, r: &mut R, ctx: &Ctx) -> V {
 			}
 		}
 		let area = v == "kill" || v == "collect" || v == "interact" || !goal.get("grind").is_undef();
+		// A kill, collect or interact whose target stands at a few known points gets them (exact_points).
+		let points = v == "kill" || v == "collect" || v == "interact";
 		if !explicit && !picked.get("x").is_undef() {
 			let srcs: Vec<V> = if area && picked.get("sources").truthy() { picked.get("sources").items() } else { vec![c.clone()] };
 			let elites: Vec<V> = if area { picked.get("elites").items() } else { Vec::new() };
-			let sp = spawn_spots(data, &srcs, &picked.get("map"), &picked.get("f"), picked.get("x").num(), picked.get("y").num(), &elites);
-			if let Some(sp) = sp {
+			let (pmap, pf, at_x, at_y) = (picked.get("map"), picked.get("f"), picked.get("x").num(), picked.get("y").num());
+			// A `loop` step's goals take its gotos as their spots (apply_loop).
+			let exact = if points && !ctx.loop_ { exact_points(data, &srcs, &pmap, &pf, at_x, at_y, &elites) } else { None };
+			if let Some((pts, at)) = exact {
+				goal.set("spots", pts);
+				if v != "interact" {
+					spot_levels(data, &goal, &srcs, &pmap, &pf);
+				}
+				if let Some((ax, ay)) = at {
+					goal.set("x", ax);
+					goal.set("y", ay);
+				}
+			} else if let Some(sp) = spawn_spots(data, &srcs, &pmap, &pf, at_x, at_y, &elites) {
 				// A grind keeps its mob's places the arrow picks, not the alternatives (other places it spawns, walked
 				// by hand for a quest target): any of the mob will do, and a grind's spots cost memory (#1392).
 				let grind = !goal.get("grind").is_undef();
 				let kept: Vec<V> = sp.spots.iter().filter(|s| !(grind && s.get("alt").truthy())).cloned().collect();
 				goal.set("spots", if kept.is_empty() { sp.spots } else { kept });
 				if v == "kill" || v == "collect" || !goal.get("grind").is_undef() {
-					spot_levels(data, &goal, &srcs, &picked.get("map"), &picked.get("f"));
+					spot_levels(data, &goal, &srcs, &pmap, &pf);
 				}
 				if sp.spread && area {
 					goal.set("spread", true);
@@ -3131,7 +3231,15 @@ fn resolve_goal(g: &V, zone_map: &V, prev: &V, r: &mut R, ctx: &Ctx) -> V {
 				SPREAD_YARDS
 			};
 			let (gx, gy, gf) = (goal.get("x").num(), goal.get("y").num(), goal.get("f"));
-			set_if(&goal, "spots", hand_spots(data, &sources, &gmap, &gf, gx, gy, near, alt_sources.as_deref()));
+			// Exact points (exact_points): those of the sources at the author's point, while one lies within `near`
+			// of it (where the data agrees, as for hand_spots); the point stays the author's.
+			let pinned: &[V] = alt_sources.as_deref().unwrap_or(&sources);
+			let agrees = points && spawn_points_of(data, pinned, &gmap, &gf).iter().any(|p| distance(data, &gmap, px(p), py(p), gx, gy) <= near);
+			let exact = if agrees { exact_points(data, pinned, &gmap, &gf, gx, gy, &[]) } else { None };
+			match exact {
+				Some((pts, _)) => goal.set("spots", pts),
+				None => set_if(&goal, "spots", hand_spots(data, &sources, &gmap, &gf, gx, gy, near, alt_sources.as_deref())),
+			}
 			if v == "kill" || v == "collect" {
 				spot_levels(data, &goal, &sources, &gmap, &gf);
 			}
