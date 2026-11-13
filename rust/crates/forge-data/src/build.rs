@@ -865,6 +865,15 @@ pub fn run(o: &Options, log: &dyn Fn(&str)) -> Result<Output, String> {
 	]));
 	if let Some(q) = &qz {
 		let qi = q.questie.as_ref().map(|i| obj_of(vec![("url", s(QUESTIE_REPO)), ("version", so(&i.version)), ("revision", so(&i.build_commit)), ("authors", so(&i.author))])).unwrap_or(V::Null);
+		let d = &q.dynamic;
+		let dynamic = obj_of(vec![
+			("providers", arr(d.providers.iter().map(|p| s(p)).collect())),
+			("classes", arr(d.classes.iter().map(|c| s(c)).collect())),
+			("unioned", V::Num(d.unioned.len() as f64)),
+			("taken", V::Num(d.agreed.len() as f64)),
+			("kept", V::Num(d.kept.len() as f64)),
+			("skipped", V::Num(d.skipped as f64)),
+		]);
 		sources.push(obj_of(vec![
 			("name", s("QuestieDB (Questie-Forever), baked Forever store and support data")),
 			("url", s(QUESTIEDB_REPO)),
@@ -876,6 +885,7 @@ pub fn run(o: &Options, log: &dyn Fn(&str)) -> Result<Output, String> {
 			("contract", so(&q.contract)),
 			("questie", qi),
 			("dir", s(&q.dir.to_string_lossy())),
+			("dynamicCorrections", dynamic),
 		]));
 	}
 	if let Some(w) = webxp.as_ref().filter(|w| !w.xp.is_empty()) {
