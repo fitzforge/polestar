@@ -30,7 +30,8 @@ fn main() -> Result<(), String> {
 	let radius: f64 = a.get(6).map_or(Ok(1.5), |v| v.parse()).map_err(|e| format!("radius: {e}"))?;
 	let zlo: f64 = a.get(7).map_or(Ok(f64::NEG_INFINITY), |v| v.parse()).map_err(|e| format!("zlo: {e}"))?;
 	let zhi: f64 = a.get(8).map_or(Ok(f64::INFINITY), |v| v.parse()).map_err(|e| format!("zhi: {e}"))?;
-	let product = "wow_classic_beta";
+	let product = forge_gamedata::casc::forever_product(&wow)?;
+	let product = product.as_str();
 	let client = forge_gamedata::Client::open(&wow, product, &defs)?;
 	let tables = geom::Tables::from_csv(|name| {
 		let t = client.table(name, "enUS")?;
