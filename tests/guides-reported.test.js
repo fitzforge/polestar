@@ -2830,6 +2830,12 @@ test("Horde 40-50/06: Un'Goro Soil comes after Assisting Arch Druid Runetotem is
 	assert.equal(list[take].s, list[soil].s, 'all on the one Thunder Bluff stop');
 });
 
+test('Horde 40-50/05: Venom Bottles is not taken, its hand-in is behind the route in Tarren Mill (0.4.0 route audit)', { skip }, () => {
+	for (const n of ['05-the-hinterlands', '06-azshara']) {
+		assert.deepEqual(goals(H40(n)).filter(({ goal }) => goal.quest === 2933).map(({ goal }) => goal.t), [], `${n}: no Venom Bottles goal`);
+	}
+});
+
 // The goals the stray rule moved, checked against their steps (#175 review): the
 // Grizzled Scalps are taken where the bears are, and cloth the guide says to buy
 // leads to the Auction House, not to the guards and mobs that happen to drop it.

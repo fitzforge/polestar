@@ -54,10 +54,11 @@ next forever/horde/40-50/06-azshara
 # Sprinkle's Secret Ingredient (2641) and Testing the Vessel (3123) leave
 # here with their objectives done.
 #
-# Left out: Tabetha's Task (2861) and Venom Bottles (2933): the export never
-# hands them in. Return to
-# Fel'Zerul (1444): its turn-in stop in Stonard is dropped from the next
-# guide (a zeppelin and a flight for one quest), so it is not taken.
+# Left out: Tabetha's Task (2861): the export never hands it in. Venom Bottles
+# (2933): its bottles lie in the troll villages here, but its hand-in is
+# Apothecary Lydon in Tarren Mill, which the route passes only on the way in,
+# before the bottles; the next visit would be a landing at about 52 for a
+# fifth of its experience (0.4.0 route audit).
 
 # ---------------------------------------------------------------- The Blasted Lands
 

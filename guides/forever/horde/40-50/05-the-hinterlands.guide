@@ -9,7 +9,7 @@ next forever/horde/40-50/06-azshara
 # Forge's route search orders the quests of this guide and its guide writer writes the steps.
 # Fixes go into data/route-fixes.json, data/guide-fixes.json or forever-db/corrections, never
 # into this file.
-# Added here: Gammerita, Mon! (7816), Return to Fel'Zerul (1444), Venom Bottles (2933), Fall From Grace (2784),
+# Added here: Gammerita, Mon! (7816), Return to Fel'Zerul (1444), Fall From Grace (2784),
 # The Disgraced One (2621), The Missing Orders (2622).
 # Left out: Assisting Arch Druid Runetotem (3784).
 
@@ -194,9 +194,6 @@ step The Atal'ai Exile
   turnin 1429                           -- Atal'ai Exile
   accept 1444
 
-step Venom Bottles
-  accept 2933
-
 step Grim Message
   when onquest 2932
   tip South of the lodge the Witherbark trolls hold their villages. Every one of them carries a skull: with twenty, use Nimboya's Pike to make the Laden Pike, then plant it inside the village.
@@ -294,10 +291,11 @@ step The bloodmages
 # Sprinkle's Secret Ingredient (2641) and Testing the Vessel (3123) leave
 # here with their objectives done.
 #
-# Left out: Tabetha's Task (2861) and Venom Bottles (2933): the export never
-# hands them in. Return to
-# Fel'Zerul (1444): its turn-in stop in Stonard is dropped from the next
-# guide (a zeppelin and a flight for one quest), so it is not taken.
+# Left out: Tabetha's Task (2861): the export never hands it in. Venom Bottles
+# (2933): its bottles lie in the troll villages here, but its hand-in is
+# Apothecary Lydon in Tarren Mill, which the route passes only on the way in,
+# before the bottles; the next visit would be a landing at about 52 for a
+# fifth of its experience (0.4.0 route audit).
 
 # ---------------------------------------------------------------- The Blasted Lands
 

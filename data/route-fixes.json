@@ -9660,6 +9660,12 @@
 				"faction": "Alliance",
 				"reason": "Vimes's Report is not offered in the game: Captain Garran Vimes in Theramore turned The Deserters (1287) in for at least 10 players in their recordings and none of them ever took Vimes's Report (no run of it at all, and 26 people who could take it were never offered it), and a second quest database marks it as unavailable. The 40-50 Alliance Theramore steps (01-stranglethorn-vale, 02-badlands) waited on its accept after the hand-in; left out.",
 				"issue": "#1984"
+			},
+			{
+				"q": 2933,
+				"faction": "Horde",
+				"reason": "Horde 40-50 route audit (0.4.0), agreed with the 50-60 slice: Venom Bottles (level 43, 3,600 XP) is taken from the bottles in the Hinterlands' troll villages at about 49 (40-50/05), after the route's only pass through Tarren Mill, where Apothecary Lydon takes it. The next Tarren Mill visit was a landing on 50-60/01's flight at about 52.4 made for this hand-in alone, at a fifth of its experience (9 levels over). Left out; 50-60/01 flies Kargath to the Undercity direct.",
+				"issue": "-"
 			}
 		],
 		"revert": [
