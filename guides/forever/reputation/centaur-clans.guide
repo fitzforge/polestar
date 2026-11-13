@@ -4,7 +4,7 @@ category Reputation
 folder Reputation · World
 levels 30-60
 zone Desolace
-keywords Gelkis Clan Centaur, Magram Clan Centaur, centaur, Desolace, Uthek the Wise, Warug, Captain Pentigast, Gurda Wildmane, Molkar, Gorhak, Buying Friendship, Economic Warfare, Carved Centaur Totem, Maraudine, Valley of Bones, Shen'dralas, Nerlokh, Orgrul, Khan Jehn, Ongeku, Kolkar, Centaur Banner Deployment Device, A Conqueror's Crown, Conqueror's Helm, title
+keywords Gelkis Clan Centaur, Magram Clan Centaur, centaur, Desolace, Uthek the Wise, Warug, Captain Pentigast, Gurda Wildmane, Molkar, Gorhak, Buying Friendship, Economic Warfare, Carved Centaur Totem, Maraudine, Valley of Bones, Shen'dralas, Nerlokh, Orgrul, Hagiak, Rokren, Mulara, Magram Front, Outcast Hideaway, Bristleback Retreat, Khan Jehn, Ongeku, Kolkar, Centaur Banner Deployment Device, A Conqueror's Crown, Conqueror's Helm, title
 why Desolace's feuding clans, reworked in Forever: pick one, buy its friendship, and trade totems for recipes.
 reward item 269901
 reward text 12 recipes for Carved Centaur Totems at the clan quartermasters, no standing needed
@@ -12,18 +12,37 @@ reward text Khan Jehn's quest: a clan title and a choice of three rare level 35 
 
 # Built from Forever's data: both clans start Neutral 2,000 (Forever's client faction table; Friendly is 1,000
 # away, Honored 7,000, Revered 19,000, Exalted 40,000); the kill rows (a Magram kill gives the Gelkis 20 and
-# costs the Magram 100, and the other way round; their khans and Warug's bodyguards 100 and 500); the quest rows
-# with Forever's values (the choice quests Strange Alliance, Gelkis Alliance, Brutal Politics and Magram Alliance
-# 250 and, per Forever's change log, no longer a loss with the other clan; Raid on the Kolkar, Assault on the
-# Kolkar, Stealing Supplies and Broken Tears 500; Ongeku and Gizmo for Warug 1,000); Forever's new quests: Buying
-# Friendship 3,000 (needs Neutral), Economic Warfare 750 for 5 Carved Centaur Totems (repeatable), the
-# profession turn-ins 1,000 (Friendly), A Conqueror's Crown 1,000 (Friendly), the Valley of Bones quests 125 to
-# 500 (Honored) and Khan Jehn 6,000 with a title and a choice of rare weapons (Forever's quest pages; the weapons'
-# kind and stats from the client item table); the totem drops (Maraudine centaurs) and Gorhak's 12 recipes. The
-# totems bind to no one (client item table): they trade and sell.
-# Molkar, the Gelkis quartermaster, has no spawn in our data: he is placed from a player report from the beta.
-# The Valley of Bones lies in Shen'dralas, Forever's new zone south of Desolace, which the beta (capped at level
-# 30) never opened: only the quests whose giver is in the data are steps; the rest are named in the tips.
+# costs the Magram 100, and the other way round; players' recordings agree, Shen'dralas's Magram Necromancers
+# included, and show Khan Jehn and the Magram Bonepaws paying the same, Warug's bodyguards 5 and 25, where the kill
+# rows have 100 and 500); the quest rows with Forever's values (the choice quests Strange Alliance, Gelkis Alliance,
+# Brutal Politics and Magram Alliance 250; Raid on the Kolkar, Assault on the Kolkar, Stealing Supplies and Broken
+# Tears 500; Ongeku and Gizmo for Warug 1,000); Forever's new quests: Buying Friendship 3,000 (needs Neutral),
+# Economic Warfare 750 for 5 Carved Centaur Totems (repeatable), the profession turn-ins 1,000 (Friendly), A
+# Conqueror's Crown 1,000 (Friendly), the Valley of Bones quests 125 to 500 (Honored) and Khan Jehn 6,000 with a
+# title and a choice of rare weapons (Forever's quest pages; the weapons' kind and stats from the client item
+# table); the totem drops (Maraudine centaurs) and Gorhak's 12 recipes. The totems bind to no one (client item
+# table): they trade and sell.
+# Every clan quest costs the other clan five times what it pays: the server's quest records in players' caches
+# give each one the other clan's loss, and players' recordings show it on the choice quests (3 and 4 people),
+# Buying Friendship (3,000 and -15,000), Economic Warfare (750 and -3,750) and the Kolkar quests, 2026-11-12.
+# Molkar's spot (35.6,92.0) came from a beta player's report; the data now has him at 35.7,92.2.
+# The Valley of Bones is a subzone of Shen'dralas, Forever's new zone south of Desolace (client area table). Its
+# quests, givers, items and order come from Forever's quest data and the server's quest records; the spots from
+# the data and players' sightings (Nerlokh, Orgrul, the valley's mobs). Nobody who records has done a valley
+# quest yet, so its steps say they follow the quest data. Each asks "<clan> (Honored)" as a quest-log objective
+# (Forever's quest pages; Checking Things Out and Long-Term Solutions do not).
+# Test Your Theory (93045) and the Magram's Valley of Bones, Mountain of Bones and Outcast Necromancers (92841,
+# 92844, 92846) are open to every race in the server's records; QuestieDB narrows them to one side (corrections
+# in forever-db). Khan Jehn (93196) is handed in to the risen Khan at the ritual tent: the quest data's ender.
+# Elites in the valley (the data's ranks; how they react from players' recordings): Corpsefeeders (level 45,
+# hostile to everyone), Magram Necrokhans (45, hostile below Neutral with the Magram, as the Magram
+# Necromancers are), Outcast Necrokhans (45) in the Outcast Hideaway, Kog'thug the Brave (43) and Quolga the
+# Wise (42) in Bristleback Retreat.
+# INGAME: the valley chains as written: where the Accursed Skull lies, the pond east of Gelkis Village, how
+# Mulara gives the Tears, the Petrified Bark trees, Warug's Imbued Tears, where Long-Term Solutions' Outcast
+# Necromancers stand (players met them only between Nerlokh and Orgrul), Rokren's escort, who takes 93196.
+# INGAME: Molkar's Economic Warfare (92812) is Horde-only in QuestieDB, open to every race on Forever's quest
+# pages: is it offered to an Alliance Gelkis character?
 # Captain Pentigast gives Buying Friendship: Magram (93226) to the Alliance as he gives the Gelkis one, and both
 # factions' Buying Friendship quests wait for Carved Centaur Totems (93224 Alliance, 93225 Horde) from the same
 # giver (players' recordings, 2026-11-10: Pentigast offered 93226 and 93227 to 2 people right after 93224, Gorhak
@@ -43,7 +62,7 @@ reward text Khan Jehn's quest: a clan title and a choice of three rare level 35 
 # as one beta report said (quest 456 at level 30). Classic cut it to a fifth.
 
 step Pick your clan
-  tip The Gelkis (south-west Desolace) and the Magram (south-east) are at war: every kill of one clan gives the other 20 and costs its own clan 100, so you can only climb with one. Both start Neutral. Forever's quests are worth far more than kills now, and the choice quests no longer cost the other clan anything. Alliance: Captain Pentigast at Nijel's Point offers Strange Alliance (Gelkis) and Brutal Politics (Magram). Horde: Gurda Wildmane offers Gelkis Alliance and Magram Alliance. Take the one of your clan, and Carved Centaur Totems: each clan's Buying Friendship (3,000) is offered once you bring the totems back. Then tick the task. The guide goes on with the Gelkis; take the Magram's quests instead and it goes to the Magram half. Forever pays these quests in full at any level.
+  tip The Gelkis (south-west Desolace) and the Magram (south-east) are at war: every kill of one clan gives the other 20 and costs its own clan 100, and every quest of one clan costs the other five times what it pays (Buying Friendship: 3,000 for yours, 15,000 off the other), so you can only climb with one. Both start Neutral. Forever's quests are worth far more than kills now. Alliance: Captain Pentigast at Nijel's Point offers Strange Alliance (Gelkis) and Brutal Politics (Magram). Horde: Gurda Wildmane offers Gelkis Alliance and Magram Alliance. Take the one of your clan, and Carved Centaur Totems: each clan's Buying Friendship (3,000) is offered once you bring the totems back. Then tick the task. The guide goes on with the Gelkis; take the Magram's quests instead and it goes to the Magram half. Forever pays these quests in full at any level.
   accept 1382 optional only Alliance  -- Strange Alliance: Gelkis
   accept 1368 optional only Horde     -- Gelkis Alliance
   accept 93224 only Alliance          -- Carved Centaur Totems
@@ -118,25 +137,82 @@ step Gelkis: totems and kills to Honored
   turnin 92812 @35.6,92.0 optional    -- Molkar: 750
   rep 92 Honored
 
-step Gelkis: the Valley of Bones
-  tip At Honored, Uthek sends you east to Nerlokh at the southern entrance of the Valley of Bones, in Shen'dralas. Nerlokh's quests (500 each) take you among the undead and the outcasts there: Ravaging Ravagers, Outing Outcasts and Facing the Truth, then A Cleansing Cry from Uthek, and a second line (Saving Our Own, Bone Burying, Checking Things Out) that ends with Khan Jehn: kill the Magram khan in his own village for 6,000, a title and a rare level 35 weapon. They all ask you to stay Honored or better. Honored to Revered is 12,000: the valley's quests pay about 10,600 of it, two or three Economic Warfare turn-ins the rest.
+step Gelkis: Uthek sends you to the valley
+  tip At Honored and level 35, Uthek sends you east to Nerlokh, a Gelkis scout at the western mouth of the Valley of Bones, where the south of Desolace runs into Shen'dralas. The valley steps follow Forever's quest data: nobody who records their play has done these quests yet, so a spot or the order may be off. Every valley quest asks you to stay Honored with the Gelkis, and each costs the Magram five times what it pays. Honored to Revered is 12,000; the valley pays 10,625 of it, Economic Warfare the rest.
   level 35
   accept 93034                        -- Uthek the Wise: Valley of Bones
+
+step Gelkis: Nerlokh
   zone Shen'dralas
+  tip From the quest data: Nerlokh waits at the valley's western mouth. He wants six Undead Ravagers put to rest and the ritual garb of an Outcast Necromancer: the outcasts are Gelkis exiles who took up the Magram's necromancy.
   turnin 93034                        -- Nerlokh: 125
-  accept 93035 optional
-  accept 93037 optional
-  accept 93041 optional
+  accept 93035
+  accept 93037
+
+step Gelkis: the valley's mouth
+  tip From the quest data: the Undead Ravagers and the Outcast Necromancers fill the valley from Nerlokh north-east to Orgrul's post at its northern mouth; players have met them all along it. Orgrul's Magram are hostile to a friend of the Gelkis. Corpsefeeders, elite and level 45, walk the valley and attack anyone.
+  kill 11561 x6 quest 93035.1
+  collect 255875 quest 93037.1        -- Necromantic Garb: Outcast Necromancers
+
+step Gelkis: Facing the Truth
+  tip From the quest data: Nerlokh gives you a Gelkis Necromantic Garb to show Uthek, with an Accursed Skull you find yourself: a freshly cursed skull, hoarded in the jaws of one of the valley's giant skeletons. The game's data has no spot for it.
+  turnin 93035                        -- Nerlokh: 500
+  turnin 93037                        -- Nerlokh: 500
+  accept 93041
+  collect 255945 quest 93041.1        -- Accursed Skull: in a giant skeleton's jaws
+
+step Gelkis: Uthek and Mulara
   zone Desolace
+  tip From the quest data: back west to Uthek in Gelkis Village. She needs Tears of Theradras: Mulara, the Voice of Theradras, keeps them in the cave in the south of the village, past Molkar. Ask her for them on Uthek's behalf and bring three back. Molkar takes Economic Warfare on the way.
+  turnin 93041                        -- Uthek the Wise: 500
+  accept 93044
+  talk 253713                         -- Mulara, in the cave
+  complete 93044                      -- three Tears of Theradras
+  accept 92812 @35.6,92.0 optional    -- Economic Warfare
+  turnin 92812 @35.6,92.0 optional    -- Molkar: 750
+
+step Gelkis: Test Your Theory
+  tip From the quest data: Uthek gives you her staff and a Draenethyst Crystal. Put them together into Uthek's Draenethyst Staff, take it to the ritual site by the pond just east of the village and dispel the curse on the Accursed Skull. Then east again to Nerlokh.
+  turnin 93044                        -- Uthek the Wise: 500
+  accept 93045
+  complete 93045                      -- dispel the Accursed Skull by the pond
+
+step Gelkis: back to Nerlokh
+  zone Shen'dralas
+  tip From the quest data: Nerlokh pays 500 and your pick of three weapons for level 35: Centaur Spear (polearm), Wanderer's Broadsword (two-handed sword) or Desert Crawler's Claw (dagger). Then he has two jobs deeper in the valley.
+  turnin 93045 choose 271794 271795 271799 -- Nerlokh: 500
+  accept 93058
+  accept 93062
+
+step Gelkis: the heart of the valley
+  tip From the quest data: east of Nerlokh, in the heart of the valley, the Magram hold Gelkis Captives: free five. Among them lie Haggard Bones, failed summons stuck in the ground: lay eight to rest with Uthek's Draenethyst Staff, which the quest gives you. Corpsefeeders and Magram Necrokhans, elite and level 45, walk the valley and attack a friend of the Gelkis: let them pass before you pull.
+  kill 253446 x8 quest 93062.1 "Lay Haggard Bones to rest"
+  complete 93058 @45.12,32.26 live    -- free five Gelkis Captives
+
+step Gelkis: Checking Things Out
+  tip From the quest data: Nerlokh's next order takes you deeper into Shen'dralas to scout two places: the Magram Front, a Magram camp south-east of the valley, and the Outcast Hideaway, the exiles' camp west of the Shen'dralar town, further south.
+  turnin 93058                        -- Nerlokh: 500
+  turnin 93062                        -- Nerlokh: 500
+  accept 93122
+
+step Gelkis: the Magram Front and the Outcast Hideaway
+  tip From the quest data: walk into the Magram camp at the Magram Front, then south-west into the Outcast Hideaway, where Outcast Necrokhans, elite and level 45, stand guard. In a tent there Rokren, a Gelkis the outcasts hold, asks you to get him out: escort him clear of the hideaway, then tell Nerlokh.
+  goto 59.27,53.93 "Magram Front" live
+  accept 93125                        -- Rokren
+  complete 93125                      -- escort Rokren out of the hideaway
+  complete 93122
+
+step Gelkis: Nerlokh's last order
+  tip From the quest data: with the Magram's warriors busy at the Front, Nerlokh sees a chance at their khan.
+  turnin 93122                        -- Nerlokh: 500
+  turnin 93125                        -- Nerlokh: 500
+  accept 93128
 
 step Gelkis: Khan Jehn
-  when available 93128
-  tip Khan Jehn (level 37) leads the Magram from the west side of Magram Village, with his bodyguards. The kill costs the Magram 500. Uthek pays 6,000, a title, and your pick of three rare level 35 weapons: Abandoned Ferocity (two-handed axe: Strength, Stamina, Agility), Bludgeon of Betrayed Virtues (one-handed mace: Strength, Stamina, Agility) or Thrice-Damned Effigy (off-hand: Spirit, Intellect, Stamina).
-  zone Shen'dralas
-  accept 93128                        -- Nerlokh
   zone Desolace
-  kill 5601 @66.0,80.4                -- Khan Jehn
-  turnin 93128                        -- Uthek the Wise: 6,000
+  tip From the quest data: Khan Jehn (level 37) leads the Magram from the west side of Magram Village, north-east of Nerlokh. The village is hostile to a friend of the Gelkis, and two Magram Necrokhans, elite and level 45, stand a little west of the khan. Uthek pays 6,000, a title, and your pick of three rare level 35 weapons: Abandoned Ferocity (two-handed axe: Strength, Stamina, Agility), Bludgeon of Betrayed Virtues (one-handed mace: Strength, Stamina, Agility) or Thrice-Damned Effigy (off-hand: Spirit, Intellect, Stamina). The quest costs the Magram 30,000.
+  kill 5601 quest 93128.1 @66.0,80.4  -- Khan Jehn
+  turnin 93128 choose 271801 271802 271805 -- Uthek the Wise: 6,000
 
 step Gelkis: totems to Exalted
   tip From Revered on only Economic Warfare is left: Revered to Exalted is 21,000, 28 turn-ins, 140 totems. Nothing is sold for standing; the recipes below need only totems.
@@ -200,23 +276,92 @@ step Magram: totems and kills to Honored
   turnin 92811 npc 253139 optional    -- Gorhak: 750
   rep 93 Honored
 
-step Magram: the Valley of Bones
-  tip At Honored, and after A Conqueror's Crown, Warug sends you to Orgrul at the northern entrance of the Valley of Bones, in Shen'dralas. Orgrul's quests (500 each: Mountain of Bones, Outcast Necromancers, Corrupting Tears, Proof of Concept, No Mercy for the Weak, Bone Raising) and Hagiak's at the Magram Front (Bristleback Retreat, Long-Term Solutions, Threat of Starvation, Return to Orgrul) end with Khan Jehn: raise the dead khan with Orgrul's staff at the tent by the lake in Magram Village, for 6,000, a title and a rare level 35 weapon. They all ask you to stay Honored or better. Honored to Revered is 12,000: the valley's quests pay about 11,000 of it, two Economic Warfare turn-ins the rest.
+step Magram: Warug sends you to the valley
+  tip At Honored and level 35, after A Conqueror's Crown, Warug sends you to Orgrul at the south end of Magram Village, the northern mouth of the Valley of Bones. The valley steps follow Forever's quest data: nobody who records their play has done these quests yet, so a spot or the order may be off. Every valley quest asks you to stay Honored with the Magram, and each costs the Gelkis five times what it pays. Honored to Revered is 12,000; the valley pays 11,125 of it, Economic Warfare the rest.
   level 35
   accept 92841                        -- Warug: Valley of Bones
+
+step Magram: Orgrul
   zone Shen'dralas
+  tip From the quest data: Orgrul wants bones from the valley's Undead Ravagers (the quest log counts them in hundreds) and six Outcast Necromancers dead: Gelkis exiles meddling with the Magram's new magic.
   turnin 92841                        -- Orgrul: 125
-  accept 92844 optional
-  accept 92846 optional
-  zone Desolace
+  accept 92844
+  accept 92846
+
+step Magram: the valley's mouth
+  tip From the quest data: the Undead Ravagers and the Outcast Necromancers fill the valley from Orgrul south-west to Nerlokh's post at its western mouth; players have met them all along it. Nerlokh is a Gelkis scout. Corpsefeeders, elite and level 45, walk the valley and attack anyone.
+  collect 254663 quest 92844.1        -- Gently Cursed Bones: Undead Ravagers
+  kill 11559 x6 quest 92846.1
+
+step Magram: Corrupting Tears
+  zone Shen'dralas
+  tip From the quest data: Orgrul wants three Petrified Bark from the valley's accursed trees (the game's data has no spot for them) and three Imbued Tears: Warug keeps the crystals you took from the Gelkis, so ask him.
+  turnin 92844                        -- Orgrul: 500
+  turnin 92846                        -- Orgrul: 500
+  accept 92847
+  collect 254841 quest 92847.1        -- Petrified Bark: the valley's accursed trees
+  collect 254840 quest 92847.2 npc 5398 -- Imbued Tears: Warug
+
+step Magram: Proof of Concept
+  zone Shen'dralas
+  tip From the quest data: Orgrul gives you a Rudimentary Necromancy Staff. He laid out two skeletons on the hill just east of his post: put the staff to use there, and the Nascent Undead Ravagers give the Well Cursed Bones.
+  turnin 92847                        -- Orgrul: 500
+  accept 92873
+  collect 254842 quest 92873.1        -- Well Cursed Bones: Nascent Undead Ravagers
+
+step Magram: Orgrul's next tasks
+  zone Shen'dralas
+  tip From the quest data: Orgrul pays 500 and your pick of three items for level 35: Blade of the Magram Clan (one-handed sword), Staff of Revelations (staff) or Desperate Barrier (shield).
+  turnin 92873 choose 271796 271797 271798 -- Orgrul: 500
+  accept 92893
+  accept 92894
+
+step Magram: the heart of the valley
+  zone Shen'dralas
+  tip From the quest data: south-east of Orgrul, in the heart of the valley, the Magram keep Gelkis Captives: kill five. The Haggard Bones there are failed summons stuck in the ground: raise ten with the Enhanced Necromancy Staff Orgrul gave you, and kill the ones that fight back. Corpsefeeders, elite and level 45, walk the valley and attack anyone; the Magram Necrokhans, elite too, leave a friend of the Magram alone.
+  kill 253431 x5 quest 92893.1
+  kill 253446 x10 quest 92894.1 "Raise or slay Haggard Bones"
+
+step Magram: Bristleback Retreat
+  tip From the quest data: back to Orgrul, then east to Bristleback Retreat for his next order.
+  turnin 92893                        -- Orgrul: 500
+  turnin 92894                        -- Orgrul: 500
+  accept 93066
+
+step Magram: the quilboar
+  tip From the quest data: the Bristleback quilboar hold Bristleback Retreat, east of the valley. Kog'thug the Brave (elite, level 43) and Quolga the Wise (elite, level 42) lead them: leave those two be. Then report to Hagiak at the Magram Front, south of the Retreat.
+  kill 253524 x4 quest 93066.1
+  kill 253525 x6 quest 93066.2
+  kill 253526 x6 quest 93066.3
+
+step Magram: Hagiak at the Magram Front
+  tip From the quest data: Hagiak sends you south-west to the Outcast Hideaway, the exiles' camp west of the Shen'dralar town.
+  turnin 93066                        -- Hagiak: 500
+  accept 93072
+  accept 93129
+
+step Magram: the Outcast Hideaway
+  tip From the quest data: Outcast Scouts and Marauders hold the hideaway, with Outcast Necrokhans, elite and level 45, among them. The Stolen Supplies are crates in its west. The quest wants Outcast Necromancers here too; players have met them only in the valley between Orgrul and Nerlokh so far, so take them there if the hideaway has none.
+  kill 254283 x2 quest 93072.1
+  kill 254284 x6 quest 93072.2
+  kill 11559 x8 quest 93072.3
+  collect 256892 quest 93129.1        -- Stolen Supplies: crates
+
+step Magram: back to Hagiak
+  turnin 93072                        -- Hagiak: 500
+  turnin 93129                        -- Hagiak: 500
+  accept 93188
+
+step Magram: Orgrul's ritual
+  tip From the quest data: Khan Jehn has been slain by outsiders working for the Gelkis, and Orgrul means to raise him.
+  turnin 93188                        -- Orgrul: 500
+  accept 93196
 
 step Magram: Khan Jehn
-  when available 93196
-  tip The ritual site is a tent by the lake in the middle of Magram Village. Orgrul pays 6,000, a title, and your pick of three rare level 35 weapons: Scavenged Magram Armament (polearm: Stamina, attack power, Agility), Greatstaff of the Necrokhans (staff: Intellect, Stamina, Spirit) or Soulsplatter Mace (main-hand mace: Intellect, Stamina, Spirit).
-  zone Shen'dralas
-  accept 93196 npc 253136             -- Orgrul
-  turnin 93196 npc 253136             -- Orgrul: 6,000
   zone Desolace
+  tip From the quest data: take the Ultimate Necromancy Staff to the ritual site, a tent by the lake in the middle of Magram Village, and raise Khan Jehn. The risen khan takes the quest: 6,000, a title, and your pick of three rare level 35 weapons: Scavenged Magram Armament (polearm: Stamina, attack power, Agility), Greatstaff of the Necrokhans (staff: Intellect, Stamina, Spirit) or Soulsplatter Mace (main-hand mace: Intellect, Stamina, Spirit). The quest costs the Gelkis 30,000.
+  complete 93196                      -- raise Khan Jehn at the tent by the lake
+  turnin 93196 choose 271800 271803 271804 -- Khan Jehn: 6,000
 
 step Magram: totems to Exalted
   tip From Revered on only Economic Warfare is left: Revered to Exalted is 21,000, 28 turn-ins, 140 totems.

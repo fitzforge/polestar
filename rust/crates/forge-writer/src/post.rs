@@ -3197,10 +3197,11 @@ pub fn follow_ups_at_their_giver(mut lines: Vec<String>, data: &Data, world: &Wo
 				let held = (r + 1..k).any(|j| {
 					let l = &lines[j];
 					head_ws(l) == Some("level")
-						|| paired(l) || re!(r"\b(?:accept|turnin|complete|quest)\s+(\d+)")
-						.captures_iter(split_comment(l).0)
-						.filter_map(|m| m[1].parse::<u32>().ok())
-						.any(|q| (q != x && need.contains(&q)) || excludes(q, y))
+						|| paired(l)
+						|| re!(r"\b(?:accept|turnin|complete|quest)\s+(\d+)")
+							.captures_iter(split_comment(l).0)
+							.filter_map(|m| m[1].parse::<u32>().ok())
+							.any(|q| (q != x && need.contains(&q)) || excludes(q, y))
 				});
 				let min = data.quests.get(&y).and_then(|r| r.min_level).unwrap_or(0.0);
 				if held || lvl_after(last_turnin).is_some_and(|l| l.floor() < min) {

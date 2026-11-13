@@ -36,7 +36,8 @@ options:
                          forge-gamedata), wago (the cached wago.tools CSVs) or saved (the client
                          tables forge build saved under <sources>/client-tables)
   --wow DIR              World of Warcraft folder (default: $POLESTAR_WOW_DIR or detected)
-  --product P            client product (default wow_classic_beta)
+  --product P            client product (default: the Forever client, wowf, else the old
+                         beta wow_classic_beta)
   --defs DIR             WoWDBDefs checkout (default: <sources>/wowdbdefs)
   --no-forever           skip the Forever client tables
   --no-web-xp            skip the web quest XP (looked up for the quests still without XP)
@@ -75,6 +76,23 @@ fn abs(p: String) -> PathBuf {
 }
 
 /// `key value` pairs of a subcommand's options (all take a value).
+/// The client to read and its product: `--product`, else the Forever product installed in `wow`
+/// (`wowf`, else `wow_classic_beta`). A folder without one is left out (said on stderr), so no
+/// client is read.
+fn forever_client(product: Option<String>, wow: Option<PathBuf>) -> (Option<PathBuf>, String) {
+	match (product, wow) {
+		(Some(p), w) => (w, p),
+		(None, Some(w)) => match forge_gamedata::casc::forever_product(&w) {
+			Ok(p) => (Some(w), p),
+			Err(e) => {
+				eprintln!("Forever client: {e}; reading no client");
+				(None, String::new())
+			}
+		},
+		(None, None) => (None, String::new()),
+	}
+}
+
 fn pairs(args: Vec<String>, known: &[&str]) -> Result<Vec<(String, String)>, Fail> {
 	let mut out = Vec::new();
 	let mut it = args.into_iter();
@@ -101,14 +119,13 @@ fn other(cmd: &str, args: Vec<String>) -> Result<(), Fail> {
 			let sources = get("--sources").map(abs).unwrap_or_else(|| root.join("data/sources"));
 			let out = get("--out").map(abs).ok_or_else(|| usage("--out <dir> is required"))?;
 			let defs = get("--defs").map(abs).unwrap_or_else(|| sources.join("wowdbdefs"));
-			let product = get("--product").unwrap_or_else(|| "wow_classic_beta".into());
-			let wow = get("--wow").map(abs).or_else(forge_gamedata::find_install);
+			let (wow, product) = forever_client(get("--product"), get("--wow").map(abs).or_else(forge_gamedata::find_install));
 			let src = match get("--forever-tables").as_deref() {
 				Some("wago") => Source::Wago,
 				Some("client") | None => match wow {
 					Some(w) if defs.join("definitions").is_dir() => Source::Client { wow: w, product, defs },
 					_ if get("--forever-tables").is_none() => Source::Wago,
-					_ => return Err("--forever-tables client: no World of Warcraft folder or WoWDBDefs found".into()),
+					_ => return Err("--forever-tables client: no World of Warcraft folder with a Forever client, or no WoWDBDefs, found".into()),
 				},
 				Some(x) => return Err(usage(format!("--forever-tables {x}: client or wago"))),
 			};
@@ -474,8 +491,7 @@ fn run() -> Result<(), Fail> {
 		}
 	}
 	let defs = get("--defs").map(abs).unwrap_or_else(|| o.sources.join("wowdbdefs"));
-	let product = get("--product").unwrap_or_else(|| "wow_classic_beta".into());
-	let wow = get("--wow").map(abs).or_else(forge_gamedata::find_install);
+	let (wow, product) = forever_client(get("--product"), get("--wow").map(abs).or_else(forge_gamedata::find_install));
 	o.offline = has("--offline");
 	if !o.offline {
 		// The sources the build reads, as the JS build fetched them (web XP: inside the build, for
@@ -505,7 +521,7 @@ fn run() -> Result<(), Fail> {
 	o.forever_source = match get("--forever-tables").as_deref() {
 		Some("wago") => Source::Wago,
 		Some("saved") => Source::Saved,
-		Some("client") => Source::Client { wow: wow.ok_or("--forever-tables client: no World of Warcraft folder found; pass --wow")?, product, defs },
+		Some("client") => Source::Client { wow: wow.ok_or("--forever-tables client: no World of Warcraft folder with a Forever client found; pass --wow")?, product, defs },
 		None => match wow {
 			Some(w) if defs.join("definitions").is_dir() => Source::Client { wow: w, product, defs },
 			_ => {
@@ -666,7 +682,7 @@ fn sources(args: Vec<String>) -> Result<(), Fail> {
 	plan.without_client = match get("--forever-tables").as_deref() {
 		Some("wago") => true,
 		Some("client") => false,
-		None => wow.is_none(),
+		None => !wow.is_some_and(|w| forge_gamedata::casc::forever_build(&w).is_ok_and(|b| b.is_some())),
 		Some(x) => return Err(usage(format!("--forever-tables {x}: client or wago"))),
 	};
 	if let Some(d) = get("--defs") {

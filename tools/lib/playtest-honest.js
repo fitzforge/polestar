@@ -13,7 +13,11 @@
 //       die) unless it is a short step over the border; `fly` leaves from a
 //       flight master where the guide leaves the player and needs both flight
 //       paths learnt (`getfp`); `hearth` needs the inn bound (`sethome`).
-//       Goals of an `along` step do not move the player.
+//       Goals of an `along` step do not move the player. A character knows
+//       its race's starting flight paths from the first login, and a chain
+//       that does not open at level 1 (a guide pack's zone at 38) starts
+//       with every flight path each start route of its race learns in the
+//       guides below that level.
 //   R2  accept: the giver stands at the step's place; a quest started by an
 //       item needs the item in the bags from an earlier line.
 //   R3  items: `collect` needs a source in the data (a mob or object that
@@ -26,10 +30,10 @@
 //       quest with several givers and no `npc` must resolve to the one near
 //       the player.
 //   R5  turn-in: the quest is in the log and every objective was credited by
-//       an earlier line (a kill, collect, use or interact tied to it, or the
-//       mobs and items it names); with the local knowledge base, its required
-//       steps (use an item, combine, summon, escort, buy, loot an object) each
-//       have a line.
+//       an earlier line (a kill, collect, use, talk or interact tied to it, or
+//       the mobs and items it names); with the local knowledge base, its
+//       required steps (use an item, combine, summon, escort, buy, loot an
+//       object) each have a line.
 //
 // A broken line is reported, then played as the stub world would (the quest
 // taken, the item given), so one cause gives one finding, not a cascade.
@@ -69,6 +73,9 @@ const DOCK_YD = 120;
 // kinds, kill and loot, are the data's objectives).
 const KB_ACTIONS = new Set(['use-item', 'combine', 'summon', 'escort', 'buy', 'collect-object']);
 const KB_FILE = path.join(__dirname, '..', '..', 'data', 'local', 'kb', 'forever-kb.sqlite');
+// The flight paths each race knows from character creation (the server
+// core's start nodes): its capital's, and for Night Elves Auberdine too.
+const START_NODES = { Human: [2], Orc: [23], Dwarf: [6], NightElf: [26, 27], Scourge: [11], Undead: [11], Tauren: [22], Gnome: [6], Troll: [23] };
 
 // The knowledge base's required steps per quest, { quest: [{ n, action, target, item, fact }] },
 // from `file` (default data/local/kb/forever-kb.sqlite); null when it is not there.
@@ -109,7 +116,7 @@ function fits(only, { race, faction, cls }) {
 }
 
 class World {
-	constructor(data, persona, kb) {
+	constructor(data, persona, kb, known = null) {
 		this.data = data;
 		this.persona = persona;
 		this.kb = kb;
@@ -118,7 +125,7 @@ class World {
 		this.log = new Map(); // quest -> { credit: [], since: index of the accept's goal }
 		this.done = new Set();
 		this.bags = new Map();
-		this.known = new Set(); // taxi nodes
+		this.known = new Set([...(START_NODES[persona.race] || []), ...(known || [])]); // taxi nodes
 		this.bound = null;
 		this.pos = null; // { map, x, y, f, w: { c, wx, wy } }
 		this.travelled = null; // the kind of the last travel line since pos: 'zone' | 'world'
@@ -292,9 +299,10 @@ function whenHolds(w, when) {
 	return true;
 }
 
-// Play `guides` (compiled, in chain order) as persona -> findings.
-function playChain(chain, data, persona, { kb = null, report = null, groups = 'skip' } = {}) {
-	const w = new World(data, persona, kb);
+// Play `guides` (compiled, in chain order) as persona -> findings. `known`:
+// taxi nodes the character has at the chain's start besides its race's own.
+function playChain(chain, data, persona, { kb = null, report = null, groups = 'skip', known = null } = {}) {
+	const w = new World(data, persona, kb, known);
 	w.groups = groups;
 	for (const g of chain) playGuide(w, g, !report || report.has(g.id));
 	return w.findings;
@@ -487,6 +495,7 @@ function playGoal(w, g, x, gi, find, explicitNpc, along = false) {
 			if (x.quest && x.oi) w.credit(x.quest, x.oi, x.count || 1);
 			w.worked.push(x);
 			return;
+		case 'talk':
 		case 'interact':
 			if (x.quest && x.oi) w.credit(x.quest, x.oi, x.count || 1);
 			for (const [item, it] of Object.entries(data.items)) {
@@ -725,15 +734,48 @@ function chains(guides) {
 	return out;
 }
 
+const raceOf = (r) => (r === 'Undead' ? 'Scourge' : r);
+const minLevel = (g) => Number(g.minLevel) || 0;
+
+// The taxi nodes a character has at the start of root's chain from the start
+// routes (chains whose first guide is a race's, at level 1): those every start
+// route of persona's race learns in its guides below root's level. Null for a
+// chain opening at level 1 and for a race no start route is for.
+function startRouteNodes(starts, data, persona, root, groups, memo) {
+	const level = minLevel(root);
+	if (level <= 1 || starts.some((c) => c[0] === root)) return null;
+	const mine = starts.filter((c) => c[0].races.some((r) => raceOf(r) === persona.race));
+	if (!mine.length) return null;
+	const key = `${persona.race}|${persona.cls}|${level}`;
+	if (!memo.has(key)) {
+		let common = null;
+		for (const chain of mine) {
+			const w = new World(data, persona, null);
+			w.groups = groups;
+			for (const g of chain) {
+				if (minLevel(g) >= level) break;
+				playGuide(w, g, false);
+			}
+			common = common ? new Set([...common].filter((n) => w.known.has(n))) : w.known;
+		}
+		memo.set(key, common);
+	}
+	return memo.get(key);
+}
+
 // Play every chain holding a guide of `play` (ids) as each of its personas
 // -> findings of those guides, by file and line.
 function honestPlay(guides, data, personas, { kb = null, play = null, groups = 'skip' } = {}) {
 	const report = play ? new Set(play) : null;
 	const out = [];
-	for (const chain of chains(guides)) {
+	const all = chains(guides);
+	const starts = all.filter((c) => minLevel(c[0]) <= 1 && c[0].races && c[0].races.length);
+	const memo = new Map();
+	for (const chain of all) {
 		if (report && !chain.some((g) => report.has(g.id))) continue;
 		for (const persona of personas(chain[0])) {
-			for (const f of playChain(chain, data, persona, { kb, report, groups })) out.push({ ...f, race: persona.race, cls: persona.cls });
+			const known = startRouteNodes(starts, data, persona, chain[0], groups, memo);
+			for (const f of playChain(chain, data, persona, { kb, report, groups, known })) out.push({ ...f, race: persona.race, cls: persona.cls });
 		}
 	}
 	return out.sort((a, b) => (a.file < b.file ? -1 : a.file > b.file ? 1 : a.line - b.line));

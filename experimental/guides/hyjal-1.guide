@@ -1,0 +1,347 @@
+guide polestar-experimental/hyjal-1
+title Mount Hyjal 1: the Tainted Foothills and Felblood Scar (experimental)
+levels 56-57
+zone Mount Hyjal
+coords live
+folder Mount Hyjal · Experimental
+why Forever's new endgame zone, an alpha route from Forever's quest data and the first recording of the zone.
+keywords mount hyjal, hyjal, tainted foothills, felblood scar, ketharas, moonglade, experimental, alpha
+next polestar-experimental/hyjal-2
+
+# Polestar Experimental, Mount Hyjal part 1 of 3, for both factions (2026-11-12). Hand-written.
+# Quests, givers, enders, levels and objectives come from Forever's quest data (QuestieDB 1.0.16 and EG Link,
+# as merged into data/forever); the order, the objective spots and the chain links the data lacks come from the
+# one recorded session in the zone so far: an Alliance player, levels 57 to 60. Nothing Horde-only is recorded
+# yet: the Horde steps follow the quest data alone.
+# Order: the way in from Everlook through Darkwhisper Gorge (binding the Hearthstone there), Ketharas the hermit
+# and his first errands by the road, the Tainted Foothills in one loop (Kaylaena's workshop, the ancients' outpost
+# and its flight path, the fields south and the shrub field), Ketharas again, the outpost, Felblood Scar (the
+# Curious Crow and Felflick), Velician, then Ketharas's errand to Moonglade (by Hearthstone to Everlook when it is
+# bound there and ready) with the parts order from Everlook on the way back.
+# Offered only after another quest is handed in (the recording; one player, so leads to confirm): Violence Into
+# Verdure after Seeds for a New Season, The Bounty of Nature after Hope for Hatchlings, Rites of Respect after The
+# Bounty of Nature, Ancient Allies after Rites of Respect; Bark Bite after Leaves to Ligatures; Fine Feathered
+# Friend and The Dying Ancients after Bark Bite; Felflick's chain one quest at a time; A Revenge Now Bitter after
+# Amalgamated Marrow; A Prolific Source and Prickly Pinecones after Notation, Notation, Notation; The Experimental
+# Method after A Prolific Source; The Western Post after The Experimental Method; An Oldstone But An Old Friend
+# after The Dying God; Rubble Rummage after Crate Expectations; The Capricious Corvid and Taking to New Heights
+# after The Pact.
+# Behind a group choice: Celastrus the Bitter (91923), The Dying Ancients (92959) and Amalgamated Marrow (96255):
+# Celastrus, Sunderbark and the Awakened Fel Ash Slime are elites (levels 57, 56 and 58), and A Revenge Now Bitter
+# (96322) comes only after Amalgamated Marrow. The slime rose the moment A Fitting End was handed in at the bone
+# pile in the recording, before Amalgamated Marrow was taken, so that step warns everyone. Ghansurok (elite 61)
+# prowls around Kaylaena's workshop (the data's spawns and the recording's sightings).
+# Not in the recording, from the quest data alone: Venom Maws (96833), Farsight Guided (96830), One Person's
+# Trash (94479), and the Horde's The Western Post (94782).
+
+step Into Mount Hyjal
+  when !zone "Mount Hyjal"
+  tip Experimental route (alpha). It is written from Forever's quest data and the first recording of the zone, and some steps are not checked in game yet: if a step is wrong, tell us on Polestar's Discord or GitHub and name the step.
+  tip Mount Hyjal lies south of Winterspring. Fly to Everlook and ride south through Winterspring to Darkwhisper Gorge at its southern end: the gorge leads up into Mount Hyjal. The ride in is not in our recordings yet: if the arrow loses the way, keep to the gorge.
+  tip Bind your Hearthstone at Everlook's inn before you ride: Ketharas sends you to Moonglade at the end of this part, and the way there starts in Everlook.
+  fly "Everlook"
+  zone Winterspring
+  sethome "Everlook" npc 11118          -- Innkeeper Vizzie
+  goto 50.5,82.8 "Darkwhisper Gorge"
+  zone Mount Hyjal
+  enter "Mount Hyjal" @85.5,73.2
+
+step The road in
+  tip Experimental route (alpha): if a step is wrong, tell us on Polestar's Discord or GitHub and name the step.
+  tip Quintus Wainworth (Alliance) and Thark Gorax (Horde) wait together by the road a little inside the zone. Neither of their quests is in our recordings yet.
+  accept 96833 only Alliance            -- Venom Maws: for Ketharas, the hermit
+  accept 96830 only Horde               -- Farsight Guided: for Ortak Lomgok in Elderwild, part 2; keep it
+
+step Loose Cog
+  tip The cog lies by the path south-west of the camp, on your way to Ketharas.
+  accept 94479                          -- One Person's Trash
+
+step Ketharas
+  tip Ketharas, the hermit, lives at the Hermit's Abode a little further south-west. The quest data has him take the cog; that hand-in is not recorded yet.
+  turnin 96833 only Alliance
+  turnin 94479
+  accept 95568                          -- Seeds for a New Season
+  accept 95569                          -- Hope for Hatchlings
+  accept 96796                          -- Woods Workshop: for Kaylaena, on the way
+
+step Seeds and owl eggs
+  tip The seeds and the owl eggs lie on the slopes between the Hermit's Abode and the road you came in on: search north-east up towards Quintus and Thark.
+  loop
+  goto 74.0,79.0
+  goto 77.5,75.5
+  goto 79.0,70.5
+  goto 81.5,68.0
+  collect 260176 x10 quest 95568.1      -- Untainted Seed
+  collect 269920 x12 quest 95569.1      -- Hyjal Owl Egg
+
+step Ketharas
+  turnin 95568
+  turnin 95569
+  accept 93747                          -- Violence Into Verdure
+  accept 93759                          -- The Bounty of Nature
+
+step Kaylaena's workshop
+  tip North-west over the shrub field to Kaylaena Springwhisper's workshop on the slope above it. Celastrus the Bitter, an elite (level 57), patrols the field, and Sunderbark, an elite ancient (level 56), stands in its middle: give both room. Ghansurok, an elite chimaera (level 61), prowls around the workshop itself: see where he is before you ride up to Kaylaena.
+  turnin 96796                          -- Kaylaena Springwhisper
+  accept 92594                          -- Kindling, Kinda
+  accept 92008                          -- Premiere Parts: for Nami in Everlook; you go there from Moonglade at the end of this guide
+
+step The ancients' outpost
+  tip South down the west side of the shrub field to the ancients' outpost: kill the Tainted Shrubbery you pass for Kaylaena. Bluebell, the flight mistress, waits by the outpost; Hyacinth and Thylaen stand with the ancient Fraxinus.
+  getfp "Tainted Foothills"             -- Bluebell
+  accept 91754                          -- Hyacinth: Rub Some Dirt In It
+  accept 91755                          -- Leaves to Ligatures
+
+step Celastrus the Bitter
+  when group 91923
+  tip Celastrus the Bitter is elite (level 57) and patrols the shrub field: grouping up is advised.
+  accept 91923                          -- Thylaen
+
+step Soil and venison
+  tip The untainted soil lies in the fields south and east of the outpost; Hyjal Stags graze there too, and their venison is for Ketharas's stew.
+  loop
+  goto 56.5,83.5
+  goto 57.2,89.5
+  goto 61.6,83.3
+  goto 64.2,83.3
+  collect 247889 x6 quest 91754.1       -- Untainted Soil
+  collect 251641 x2 quest 93759.1       -- Hyjal Venison Cut
+
+step The ruined catapult and flying machine
+  tip Two of the wrecks Ketharas named lie at the east end of the fields: plant one of his seeds beside each.
+  goto 62.6,82.9 "Ruined Catapult"
+  goto 66.1,83.2 "Ruined Flying Machine"
+
+step The shrub field
+  tip North into the shrub field: the Tainted Shrubbery drop the leaves, and the Scarlet Dart Tubers grow in the open ground, most of them in the field's western half. The ruined ballista stands at the field's north-eastern edge: plant the last seed there. Keep clear of Celastrus the Bitter and Sunderbark, the field's elites.
+  kill 248395 x15 quest 92594.1         -- Tainted Shrubbery
+  collect 247892 x12 quest 91755.1      -- Verdant Leaves
+  collect 267289 x6 quest 93759.2 @59.5,73.5  -- Scarlet Dart Tuber
+  complete 93747 @70.4,70.7             -- the Ruined Ballista
+
+step Celastrus
+  when group 91923
+  tip Celastrus the Bitter is elite: grouping up is advised. He walks the shrub field.
+  collect 282028 quest 91923.1          -- Broken Frond of Celastrus
+
+step Ketharas
+  tip South-east back to the Hermit's Abode.
+  turnin 93747
+  turnin 93759
+  accept 95611                          -- Rites of Respect
+
+step Ketharas's shrine
+  tip The shrine is a pair of standing stones west of the Hermit's Abode, on the way back to the outpost: bury the remains there.
+  complete 95611 @66.7,84.3
+
+step Ketharas
+  turnin 95611
+  accept 90487                          -- Ancient Allies
+
+step The ancients' outpost
+  tip West to the outpost.
+  turnin 90487                          -- Fraxinus
+  turnin 91754                          -- Hyacinth
+  turnin 91755
+  accept 91770                          -- Bark Bite
+  complete 91770 @53.4,84.3             -- put the poultice on Fraxinus
+  turnin 91770
+  accept 95766                          -- Fine Feathered Friend
+
+step Thylaen
+  when onquest 91923
+  turnin 91923
+
+step The Dying Ancients
+  when group 92959
+  tip Sunderbark is an elite corrupted ancient (level 56) in the middle of the shrub field, back east: grouping up is advised.
+  accept 92959                          -- Fraxinus
+
+step Sunderbark
+  when group 92959
+  tip Sunderbark is elite: grouping up is advised.
+  kill 248709                           -- Sunderbark
+  complete 92959 @63.1,73.8             -- plant the seed in his remains
+
+step Fraxinus
+  when onquest 92959
+  turnin 92959
+
+step The Curious Crow
+  tip West of the outpost to Felblood Scar: the Curious Crow perches at its southern end.
+  turnin 95766                          -- Curious Crow
+  accept 95317                          -- Notation, Notation, Notation
+  accept 95320                          -- A Curious Question
+
+step Felflick
+  tip North to Felflick, a demon caged in the middle of the scar. He stood at the spot marked here every time he was met in the recording, south of where the quest data puts him.
+  turnin 95320 @49.3,77.1               -- Felflick
+  accept 95318 @49.3,77.1               -- Taste of Ash
+
+step The Ashen camp
+  tip The Ashen Acolytes hold the camp at the north of the scar. Not every Acolyte carries notes: keep killing them after the twelve kills until you have all twelve notes.
+  kill 260422 x12 quest 95318.1         -- Ashen Acolyte
+  collect 274396 x12 quest 95317.1      -- Fel Ash Experimentation Notes
+
+step Felflick
+  turnin 95318 @49.3,77.1
+  accept 95319 @49.3,77.1               -- Crystalline Collection
+
+step Fel-slime crystals
+  tip The crystals grow in the scar west and south of Felflick. The pristine one turned up at the scar's southern end, close to the Curious Crow, at the spot marked.
+  collect 274412 x8 quest 95319.1 @46.9,74.4  -- Fel-Slime Crystal
+  collect 268990 quest 95319.2 @48.1,82.7  -- Pristine Fel-Slime Crystal
+
+step The Curious Crow
+  tip The Crow is just south of the pristine crystal.
+  turnin 95317
+  accept 95380                          -- A Prolific Source
+  accept 96262                          -- Prickly Pinecones
+
+step Slime ooze as you go
+  along until crow-ooze
+  background
+  tip The Noxious Slimes crawl all over the scar's southern half, and not every one leaves ooze: kill the ones you pass from here on.
+  collect 273008 x8 quest 95380.1       -- Fel-Slime Ooze
+
+step Felflick
+  turnin 95319 @49.3,77.1
+  accept 95378 @49.3,77.1               -- The Hydra's Head
+  accept 95379 @49.3,77.1               -- A Revenge So Sweet
+
+step The warlocks
+  tip The three warlocks and Brashann Grimdark are in and around the Ashen camp at the north of the scar.
+  collect 273291 quest 95378.1          -- Bones of Tyaeha Darkoath
+  collect 273292 quest 95378.2          -- Bones of Dazka Shadowsleep
+  collect 273290 quest 95378.3          -- Bones of Frezzlie Popwhiz
+  kill 260440 quest 95379.1             -- Brashann Grimdark
+
+step Felflick
+  turnin 95378 @49.3,77.1
+  turnin 95379 @49.3,77.1
+  accept 96435 @49.3,77.1               -- A Fitting End
+
+step The bone pile
+  tip West to the bone pile by the slime pools: throw the warlocks' bones on it, then hand the quest in at the pile itself. Handing it in wakes the Awakened Fel Ash Slime, an elite (level 58) that hits hard: unless you are grouped for it, hand in and ride clear at once.
+  complete 96435 @40.8,80.3
+  turnin 96435                          -- Bone Pile
+
+step Amalgamated Marrow
+  when group 96255
+  tip The bone pile wakes the Awakened Fel Ash Slime, an elite (level 58) that hits hard: grouping up is advised.
+  accept 96255                          -- Bone Pile
+  kill 264306 quest 96255.1             -- Awakened Fel Ash Slime
+
+step Prickly pinecones
+  tip The pinecones lie under the healthy trees just south of the bone pile, on the scar's south-western rim, and a few east of the Crow.
+  collect 273304 x10 quest 96262.1 @40.0,83.5  -- Prickly Pinecone
+
+step Felflick
+  when onquest 96255
+  turnin 96255 @49.3,77.1
+  accept 96322 @49.3,77.1               -- A Revenge Now Bitter
+  talk 263757 @49.3,77.1                -- Felflick: decide his fate
+
+step Finish the slime ooze
+  when !has 273008 x8
+  tip The slimes are thickest in the scar's south-western corner.
+  collect 273008 x8 quest 95380.1 @44.5,83.5  -- Fel-Slime Ooze
+
+step The Curious Crow
+  label crow-ooze
+  turnin 95380
+  turnin 96262
+  accept 95316                          -- The Experimental Method
+
+step The Curious Crow
+  when onquest 96322
+  turnin 96322
+
+step The Ashen workstations
+  tip Four workstations stand in the Ashen camp: throw a pinecone at each, from the south up.
+  goto 43.4,76.2 "Slime Workstation"
+  goto 44.3,72.5 "Alchemy Workstation"
+  goto 46.6,68.0 "Disease Workstation"
+  goto 49.6,69.6 "Vessel Workstation"
+  complete 95316
+
+step The Curious Crow
+  turnin 95316
+  accept 91881 only Alliance            -- The Western Post: for Sefira Everbright in Elderwild, part 2; keep it
+  accept 94782 only Horde               -- The Western Post: for Zet'gan in Elderwild, part 2; keep it
+
+step Velician
+  tip West across the slope from the scar: Velician waits alone.
+  accept 96321                          -- The Dying God
+
+step The Curious Crow
+  turnin 96321
+  accept 96131                          -- An Oldstone But An Old Friend
+
+step Ketharas
+  tip East across the foothills to the Hermit's Abode.
+  turnin 96131
+  accept 92612                          -- Aid from Moonglade
+
+step Hearth to Everlook
+  only !Druid
+  when bound "Everlook"
+  when !cooldown item 6948
+  tip Your Hearthstone is bound in Everlook: use it, and go on to Moonglade from there.
+  hearth "Everlook"
+
+step Fly to Moonglade
+  when zone "Mount Hyjal"
+  tip Back west to Bluebell at the ancients' outpost and fly to Moonglade. Druids: Teleport: Moonglade is quicker. (No flight path to Moonglade yet? The road in is Timbermaw Hold's tunnel, from Winterspring or Felwood.)
+  goto 55.1,82.6 "Bluebell, the flight mistress"
+  fly "Moonglade"
+
+step Fly to Moonglade
+  when zone "Winterspring"
+  tip Fly to Moonglade from Everlook's flight master. No flight path to Moonglade yet? The way in is the tunnel through Timbermaw Hold, at the western end of Winterspring.
+  fly "Moonglade"
+  zone Moonglade
+
+step Dendrite Starblaze
+  tip North into Nighthaven: Dendrite Starblaze stands in the north-east of the village.
+  turnin 92612
+  accept 96209                          -- The Ancient, Orokai
+
+step Orokai
+  tip South-west to Orokai, the ancient. Talk to him again when you are ready and watch what he shows you.
+  turnin 96209
+  accept 95006                          -- Stolen Power
+  talk 216289                           -- Orokai: ready to watch
+
+step Dendrite Starblaze
+  turnin 95006
+  accept 93773                          -- The Pact: for Ketharas
+
+step Fly to Everlook
+  tip South to Moonglade's flight master (the Alliance's at the southern end of the valley, the Horde's at its south-western end) and fly to Everlook for Kaylaena's parts order.
+  getfp "Moonglade" npc 10897 only Alliance  -- Sindrayl
+  getfp "Moonglade" npc 12740 only Horde  -- Faustron
+  fly "Everlook"
+  zone Winterspring
+
+step Nami
+  tip Nami stands between Everlook's two flight masters. Her crate holds fragile cells that fizzle out in time and when knocked about: fly straight back to the Tainted Foothills and take it to Kaylaena without detours or fights (about four minutes in the recording). If it fizzles out anyway, Nami fills it again.
+  turnin 92008                          -- Nami
+  accept 92009                          -- Crate Expectations
+
+step Fly to the Tainted Foothills
+  fly "Tainted Foothills"
+  zone Mount Hyjal
+
+step Kaylaena's workshop
+  tip North from Bluebell to the workshop, crate first. Watch for Ghansurok, the elite chimaera (level 61) that prowls around the workshop.
+  complete 92009                        -- deliver the crate before it fizzles
+  turnin 92009                          -- Kaylaena Springwhisper
+  turnin 92594
+  accept 92011                          -- Rubble Rummage: in Dae'gun, part 3; keep it
+
+step Ketharas
+  tip South-east to the Hermit's Abode.
+  turnin 93773
+  accept 96930                          -- The Capricious Corvid: for the Curious Crow, part 2
+  accept 92171                          -- Taking to New Heights: for Skylord Omnuron, part 3

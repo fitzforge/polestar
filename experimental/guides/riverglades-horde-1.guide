@@ -1,31 +1,33 @@
 guide polestar-experimental/riverglades-horde-1
-title Riverglades 1: Rog'mar (experimental)
+title Riverglades 1: Powderfuse Port, Rog'mar and the western farms (experimental)
 faction Horde
-levels 37-39
+levels 37-40
 zone Riverglades
 coords live
 folder Riverglades · Experimental
 why Forever's new zone, an alpha route written from players' recordings.
-keywords riverglades, rog'mar, powderfuse port, bristle hills, meadowsbrook, experimental, alpha
+keywords riverglades, rog'mar, powderfuse port, bristle hills, meadowsbrook, cinderscale, experimental, alpha
 next polestar-experimental/riverglades-horde-2
 
-# Polestar Experimental, Riverglades for the Horde, part 1 of 2 (2026-11-11). Hand-written from
-# players' recordings (4-7 people per quest on this leg), with Forever's quest data for titles, levels and
-# objectives.
-# Order: the way in by the goblin boat from Tanaris (how most recorded Horde players arrived; Kargath's flight
-# path, the other way in, comes only with our later Badlands guide), Powderfuse Port, Sleebo's workshop, Rog'mar
-# (flight path, inn), Neza Bloodsnout's three hunts on the plains with Sleebo's marsh on the first one, a western
-# loop (Turner's Logging Camp, the Bristle Hills, Meadowsbrook) and the hearth home, the training grounds, then the
-# river and the Farholde training camp.
-# Offered only after another quest is handed in (players' recordings, 4-12 people each): Poison Tips after
-# Feathers for Fletching, A Hunter's Quiver after Poison Tips, Gnoll Infestation and Bristle Hills Bandits after
-# A Hunter's Quiver; A Gift From Our Enemies and Show Them How It's Done after Food for the Taking; Rock 'em and
-# Sock 'em after Gaseous Gold; Tran'gul's quests after Show Them How It's Done (part 2).
+# Polestar Experimental, Riverglades for the Horde, part 1 of 4 (2026-11-12). Hand-written from players'
+# recordings of the zone (123 sessions to 2026-11-12) and Forever's quest data (the client's quest records,
+# QuestieDB 1.0.16 and EG Link) for titles, levels, objectives and places.
+# Order: the way in by the goblin boat from Tanaris (how most recorded Horde players arrived; Kargath's flight path,
+# the other way in, comes only with our later Badlands guide), Powderfuse Port, Sleebo's workshop, Rog'mar (flight
+# path, inn), Neza Bloodsnout's three hunts on the plains with Sleebo's marsh on the first one, a western loop
+# (Turner's Logging Camp, the Bristle Hills, Gelinda Coppergleam's Cinderscale hollow, Meadowsbrook) and the hearth
+# home, the training grounds, then the river and the Farholde training camp.
+# Offered only after another quest is handed in (players' recordings): Poison Tips after Feathers for Fletching,
+# A Hunter's Quiver after Poison Tips, Gnoll Infestation, Bristle Hills Bandits and Snargl's Snout after A Hunter's
+# Quiver; A Gift From Our Enemies after Food for the Taking; Show Them How It's Done after both of Krom'rosh's first
+# quests; A Serving of Strength after A Gift From Our Enemies; Stick 'Em after Fetch 'n' Fletch; The Goblin Trader
+# after Borrowed Blades; Rock 'em and Sock 'em after Gaseous Gold; Tran'gul's quests after Show Them How It's Done
+# (part 2).
+# Elites, each behind a group choice: Snargl (40), Ombassa (41), Ghostmaw (42); Scoutmaster Vargas (42) in part 2.
 # Left out on purpose:
-# - Snargl's Snout (94533), King of the Wild Plains (96105), WANTED: Ghostmaw (95992), WANTED: Scoutmaster Vargas
-#   (95882): Snargl, Ombassa, Ghostmaw and Vargas are elites (levels 40-42): Snargl behind a group choice, the rest
-#   left out.
-# - On the Other Side (95033): nobody recorded handing it in.
+# - On the Other Side (95033): Tan'jani's errand ends at Camp Mojache in Feralas.
+# - Hail the Dragonslayer (95936): it starts from the head of Scaldaron, a rare elite drake in the Cinderscale
+#   hollow.
 # - The breadcrumbs from other zones (Report to Rog'mar 95141, Finding Tan'jani 95143): this guide doesn't assume
 #   you carry them; While-you're-here hands them in when you have them.
 
@@ -50,12 +52,12 @@ step Boat to Powderfuse Port
 step Powderfuse Port
   zone Riverglades
   tip Experimental route (alpha): if a step is wrong, tell us on Polestar's Discord or GitHub and name the step.
-  tip Friz Frazzlespark keeps a stall at the west end of the docks. The port's other jobs are for later (part 2): this crate goes to the Horde's fort.
+  tip Friz Frazzlespark keeps a stall at the west end of the docks. The port's other jobs are for later (part 3): this crate goes to the Horde's fort.
   accept 95062                          -- Frazzlespark's Crate: for Krom'rosh in Rog'mar
 
 step Sleebo's workshop
   tip West up the road from the port: Sleebo Fizzlespout has his workshop on the hill. The gas vents are in the marsh south-west of it, on your first hunt for Neza.
-  accept 96063 @68.2,48.6               -- Gaseous Gold
+  accept 96063                          -- Gaseous Gold
 
 step Rog'mar
   tip West to Rog'mar, the Horde's fort in the middle of the zone. Neza Bloodsnout stands on its east side, Kreza Darkthorn and Krom'rosh in the middle with Grakna, the wind rider master; Innkeeper Toka and Tan'jani on the west side.
@@ -71,15 +73,15 @@ step Rog'mar
 step The plains and the marsh
   tip South-east of Rog'mar the plains run down to Terral's Watch. The Low Plains Buzzards circle everywhere; a picked carcass lies in the grass (its skull starts A Feast for Buzzards), and the marsh vents are just past it.
   collect 271793 x6 quest 96107.1       -- Plains Buzzard Feather
-  accept 96103 @61.6,58.8               -- Picked Carcass: A Feast for Buzzards
-  collect 272004 x8 quest 96063.1 @62.2,58.7  -- Marsh Gas Vial
+  accept 96103                          -- Picked Carcass: A Feast for Buzzards
+  collect 272004 x8 quest 96063.1       -- Marsh Gas Vial
 
 step Sleebo Fizzlespout
-  tip North-east to the workshop.
-  turnin 96063 @68.2,48.6
-  accept 96067 @68.2,48.6               -- Rock 'em and Sock 'em
-  complete 96067 @68.2,48.6             -- the stress test: fight G45-B4G beside the workshop
-  turnin 96067 @68.2,48.6
+  tip North-east to the workshop. Sleebo's stress test is a fight with his G45-B4G beside the workshop: hand the quest in once it's beaten.
+  turnin 96063
+  accept 96067                          -- Rock 'em and Sock 'em
+  complete 96067 @68.2,48.6             -- the stress test: beat G45-B4G beside the workshop
+  turnin 96067
 
 step Neza Bloodsnout
   tip West back to Rog'mar's east side.
@@ -89,52 +91,80 @@ step Neza Bloodsnout
   accept 96104                          -- Song of the Strider
 
 step The vipers and the tallstriders
-  tip The Glade Vipers hide in the long grass south-east of town; the Roving Tallstriders graze beside them.
+  tip The Glade Vipers hide in the long grass south-east of town; the Roving Tallstriders graze beside them. Cavalry Scout Alturin, an Alliance elite (level 45), rides the road from Terral's Watch to Wheeler's Grange along the grass's south-west edge: keep clear of him.
   collect 271776 x4 quest 96108.1       -- Glade Viper Venom
-  collect 271778 quest 96104.1 @64.7,58.4  -- Intact Tallstrider Beak
+  collect 271778 quest 96104.1          -- Intact Tallstrider Beak
 
 step Neza Bloodsnout
   turnin 96108
   accept 96109                          -- A Hunter's Quiver
   turnin 96104
 
+step King of the Wild Plains
+  when group 96105
+  tip Ombassa, an elite lion (level 41), prowls the plains south of Rog'mar, where the lions are: grouping up is advised.
+  accept 96105                          -- Neza Bloodsnout
+
 step The lions
   tip The Wildplains lions roam the plains just south of Rog'mar.
-  collect 266888 x6 quest 96109.1 @59.7,53.2  -- Prized Lion Hide
+  collect 266888 x6 quest 96109.1       -- Prized Lion Hide
+
+step Ombassa
+  when group 96105
+  collect 281052 quest 96105.1 @59.6,53.6  -- Ombassa's Hide
 
 step Neza Bloodsnout
   turnin 96109
   accept 94532                          -- Gnoll Infestation
 
+step Neza's elites
+  when onquest 96105
+  turnin 96105
+
 step Snargl's Snout
   when group 94533
-  tip Snargl is an elite gnoll (level 40) in the south-western camp of the Bristle Hills: grouping up is advised.
+  tip Snargl is an elite gnoll (level 40) who roams the south-western camps of the Bristle Hills: grouping up is advised.
   accept 94533                          -- Neza Bloodsnout
 
 step Kreza Darkthorn
   accept 94535                          -- Bristle Hills Bandits
 
 step Turner's Logging Camp
-  tip South-west across the river to the Alliance lumber camp. The lumberjacks carry the axes. Loot Wood Bundles from the Peasant Woodpiles around the camp and use them to fletch Makeshift Stickin' Spears.
-  collect 263972 x10 quest 93788.1 @41.1,62.1  -- Woodworker's Axe
+  tip South-west across the river to the Alliance lumber camp. The lumberjacks carry the axes. Loot Wood Bundles from the Peasant Woodpiles around the camp and use them to fletch Makeshift Stickin' Spears. Ghostmaw, an elite (level 42), prowls the river by the camp: if he comes your way, back off and let him pass.
+  collect 263972 x10 quest 93788.1      -- Woodworker's Axe
   collect 271629 @39.2,62.8             -- Wood Bundle, from the Peasant Woodpiles
   use 271629 quest 95951.1 @39.2,62.8   -- Wood Bundle: fletch it into Makeshift Stickin' Spears
 
 step The Bristle Hills
-  tip West into the Bristle Hills: the Redridge gnolls camp along the slopes and carry the stolen ore.
+  tip West into the Bristle Hills: the Redridge gnolls camp along the slopes and carry the stolen ore. Work south-west through their camps.
   kill 255770 x8 quest 94532.1          -- Redridge Mystic
   kill 255772 x8 quest 94532.2          -- Redridge Trapper
   kill 255769 x6 quest 94532.3          -- Redridge Brute
   collect 265358 x40 quest 94535.1      -- Stolen Ore
 
 step Snargl
-  when onquest 94533
+  when group 94533
   collect 265357 quest 94533.1 @16.1,73.2  -- Snargl's Snout
 
+step Gelinda Coppergleam
+  tip South-east out of the hills: Gelinda Coppergleam, a prospector who deals with both sides, has camped by the Cinderscale dragonkin's hollow.
+  accept 95792                          -- Clear 'em Out
+  accept 95934                          -- Proof of Profit
+
+step The Cinderscale hollow
+  tip The whelps nest all over the hollow; the warriors guard its back, by the Cubic Draconia. The warriors are level 41-42: pull them one at a time. Scaldaron, a rare elite drake, can be up here too: leave him be unless you have a group.
+  kill 262473 x8 quest 95792.1 @30.0,72.2  -- Cinderscale Whelp
+  kill 262477 x4 quest 95792.2 @29.6,73.1  -- Cinderscale Warrior
+  collect 271611 quest 95934.1          -- Cubic Draconia
+
+step Gelinda Coppergleam
+  turnin 95792
+  turnin 95934
+
 step Meadowsbrook
-  tip South-east to Meadowsbrook, the Alliance farm by the river: the farmhands work the fields and the feed satchels lie by the barns. Southern Watch, the Alliance outpost on the road east of the hills, has guards: pass south of it.
+  tip East to Meadowsbrook, the Alliance farm by the river: the farmhands work the fields and the feed satchels lie by the barns. Southern Watch, the Alliance outpost on the road, has guards: pass south of it.
   kill 256383 x12 quest 93786.1         -- Meadowsbrook Farmhand
-  collect 262640 x6 quest 93787.1 @45.9,81.8  -- Feed Satchel
+  collect 262640 x6 quest 93787.1       -- Feed Satchel
 
 step Hearth to Rog'mar
   hearth "Rog'mar"
@@ -158,19 +188,33 @@ step Neza Bloodsnout
   when onquest 94533
   turnin 94533
 
+step WANTED: Ghostmaw
+  when group 95992
+  tip Ghostmaw is an elite (level 42) who hunts along the river south-west of Rog'mar, by the Farholde camp you go to next: grouping up is advised. The poster hangs in the middle of the fort.
+  accept 95992                          -- the WANTED! poster
+
+
 step The training grounds
   tip North of the fort the Rog'mar Trainees drill: use Gorg's Hearty Stew on them.
-  use 265066 quest 94481.1 @60.1,39.0   -- Hearty Stew
+  use 265066 quest 94481.1 @60.8,37.0   -- Hearty Stew
 
 step Gorg
   turnin 94481
 
 step The river and the Farholde camp
-  tip South-west of Rog'mar the river runs between the farms: impale the Freshwater Crocolisks with Tan'jani's spears. The Alliance trains its scouts and priests at a camp on the far bank.
-  complete 95955 @49.7,58.6             -- impale 10 Freshwater Crocolisks with the spears
+  tip South-west of Rog'mar the river runs between the farms: impale the Freshwater Crocolisks with Tan'jani's spears. The Alliance trains its scouts and priests at a camp on the far bank. Cavalry Scout Alturin, the Alliance elite, rides the road just east of the camp: pull the scouts and priests away from it.
+  use 271639 quest 95955.1 @51.9,57.1   -- Tan'jani's spears, on the Freshwater Crocolisks
   kill 270667 x8 quest 94483.1          -- Farholde Priest
   kill 257926 x12 quest 94483.2         -- Farholde Scout
+
+step Ghostmaw
+  when group 95992
+  collect 271828 quest 95992.1 @50.0,54.4  -- Ghostmaw's Fang
 
 step Rog'mar
   turnin 95955                          -- Tan'jani
   turnin 94483                          -- Krom'rosh
+
+step Tan'jani
+  when onquest 95992
+  turnin 95992

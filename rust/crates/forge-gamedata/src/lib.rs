@@ -6,8 +6,9 @@
 //! and gameobject caches (`wdb`) and the DBCache.bin hotfix rows (`hotfix`).
 //!
 //! ```no_run
-//! let client = forge_gamedata::Client::open(
-//! 	&forge_gamedata::find_install().unwrap(), "wow_classic_beta", "data/sources/wowdbdefs".as_ref()).unwrap();
+//! let wow = forge_gamedata::find_install().unwrap();
+//! let product = forge_gamedata::casc::forever_product(&wow).unwrap();
+//! let client = forge_gamedata::Client::open(&wow, &product, "data/sources/wowdbdefs".as_ref()).unwrap();
 //! let areas = client.table("AreaTable", "enUS").unwrap();
 //! let name = areas.column("AreaName_lang").unwrap();
 //! for r in 0..areas.rows() {
@@ -43,7 +44,7 @@ pub struct Client {
 
 impl Client {
 	/// `install`: the World of Warcraft folder (holding `.build.info` and `Data/`); `product`:
-	/// e.g. `wow_classic_beta` or `wowf`; `wowdbdefs`: a WoWDBDefs checkout (with
+	/// e.g. `wowf` (see [`casc::forever_product`]); `wowdbdefs`: a WoWDBDefs checkout (with
 	/// `definitions/` and `manifest.json`).
 	pub fn open(install: &Path, product: &str, wowdbdefs: &Path) -> Result<Client, String> {
 		let storage = Storage::open(install, product)?;

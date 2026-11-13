@@ -561,5 +561,60 @@
 			"ref": "classicdb game_event_creature: the vendors' only spawns are world-event ones; Forever's world DB has none (#1735)"
 		},
 		"note": "Tunneler's Incense: off the lists of its world-event vendors (15734, 15736), who have no spawn in Forever's world (npcs.json corrections, #1735)."
+	},
+	"233197": {
+		"removeVendors": [
+			15734,
+			15736
+		],
+		"source": {
+			"kind": "cmangos",
+			"ref": "classicdb game_event_creature: the vendors' only spawns are world-event ones; Forever's world DB has none (#1735)"
+		},
+		"note": "Argent Training Manual: off the lists of its world-event vendors (15734, 15736), who have no spawn in Forever's world (npcs.json corrections, #1735)."
+	},
+	"233198": {
+		"removeVendors": [
+			15734,
+			15736
+		],
+		"source": {
+			"kind": "cmangos",
+			"ref": "classicdb game_event_creature: the vendors' only spawns are world-event ones; Forever's world DB has none (#1735)"
+		},
+		"note": "Horn of the Dawn: off the lists of its world-event vendors (15734, 15736), who have no spawn in Forever's world (npcs.json corrections, #1735)."
+	},
+	"233200": {
+		"removeVendors": [
+			15734,
+			15736
+		],
+		"source": {
+			"kind": "cmangos",
+			"ref": "classicdb game_event_creature: the vendors' only spawns are world-event ones; Forever's world DB has none (#1735)"
+		},
+		"note": "Songflower Seed: off the lists of its world-event vendors (15734, 15736), who have no spawn in Forever's world (npcs.json corrections, #1735)."
+	},
+	"233209": {
+		"removeVendors": [
+			15734,
+			15736
+		],
+		"source": {
+			"kind": "cmangos",
+			"ref": "classicdb game_event_creature: the vendors' only spawns are world-event ones; Forever's world DB has none (#1735)"
+		},
+		"note": "Firewater Cauldron: off the lists of its world-event vendors (15734, 15736), who have no spawn in Forever's world (npcs.json corrections, #1735)."
+	},
+	"233250": {
+		"removeVendors": [
+			15734,
+			15736
+		],
+		"source": {
+			"kind": "cmangos",
+			"ref": "classicdb game_event_creature: the vendors' only spawns are world-event ones; Forever's world DB has none (#1735)"
+		},
+		"note": "Ancient Branch: off the lists of its world-event vendors (15734, 15736), who have no spawn in Forever's world (npcs.json corrections, #1735)."
 	}
 }

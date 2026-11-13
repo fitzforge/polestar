@@ -425,6 +425,11 @@ fn the_setup_page_writes_its_settings_quest_automation_both_ways_the_login_guide
 		local partly = F.AutoQuest.checked
 		F.AutoGuide:Click()
 		local guide = get("behavior.autoSelectGuide")
+		local target = { F.MarkTarget.checked == (get("qol.markTarget") and true or false), F.PingTarget.checked == (get("qol.pingTarget") and true or false) }
+		local was = { get("qol.markTarget") and true or false, get("qol.pingTarget") and true or false }
+		F.MarkTarget:Click()
+		F.PingTarget:Click()
+		local target2 = { (get("qol.markTarget") and true or false) ~= was[1], (get("qol.pingTarget") and true or false) ~= was[2] }
 		local cards, selected = {}, nil
 		for i, c in ipairs(F.Schemes) do
 			if c:IsShown() then
@@ -438,7 +443,7 @@ fn the_setup_page_writes_its_settings_quest_automation_both_ways_the_login_guide
 		local now
 		for _, c in ipairs(F.Schemes) do if c.psSelected then now = c.Name:GetText() end end
 		F.Schemes[3]:Click("RightButton")
-		emit({ start = start, off = off, on = on, partly = partly, guide = guide, cards = cards, selected = selected,
+		emit({ start = start, off = off, on = on, partly = partly, guide = guide, target = target, target2 = target2, cards = cards, selected = selected,
 			scheme = F.Schemes[3].psValue, now = now, live = before[1] ~= after[1], reset = get("ui.scheme") or "default",
 			stillShown = shown() })"#);
 	assert_eq!(out["start"], json!({ "title": "Make it yours", "on": true, "desc": true, "login": true }), "descriptions shown inline");
@@ -446,6 +451,8 @@ fn the_setup_page_writes_its_settings_quest_automation_both_ways_the_login_guide
 	assert_eq!(out["on"], json!([true, true, true]));
 	assert_eq!(out["partly"], false, "on only while both are on");
 	assert_eq!(out["guide"], false);
+	assert_eq!(out["target"], json!([true, true]), "the target button's mark and ping rows show their settings");
+	assert_eq!(out["target2"], json!([true, true]), "each switch writes its setting");
 	assert_eq!(out["cards"], json!(["Dusk", "Night", "Graphite"]), "one card per scheme on offer");
 	assert_eq!(out["selected"], "Dusk");
 	assert_eq!(out["scheme"], "graphite");

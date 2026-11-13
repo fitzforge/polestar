@@ -305,6 +305,7 @@ L["It also spawns here"] = "También aparece aquí"
 L["Click to search here next"] = "Haz clic para buscar aquí después"
 L["Travel route, step %s"] = "Ruta de viaje, paso %s"
 L["Click to point the arrow here"] = "Haz clic para apuntar la flecha aquí"
+L["Checked recently"] = "Revisado hace poco"
 
 -- Nav/Transit.lua
 L["top"] = "arriba"
@@ -988,7 +989,6 @@ L["Click objectives to target"] = "Clic en los objetivos para seleccionar"
 L["Clicking an objective row or NPC heading also targets its NPC outside combat, using the same marking settings as the Target button. This replaces your current target; a failed search clears it."] = "Al hacer clic en una fila de objetivo o en el encabezado de un PNJ, también se selecciona a ese PNJ fuera de combate, con los mismos ajustes de marcado que el botón de objetivo. Esto reemplaza tu objetivo actual; una búsqueda fallida lo quita."
 L["The target button and the step key put a raid icon on the mob and the NPC they target; out of combat, a press that finds neither clears your target. Pressing again never takes an icon off. In a party you don't lead, only a unit with no icon gets one; in a raid, only when you lead or assist."] = "El botón de objetivo y la tecla del paso ponen un icono de banda al monstruo y al PNJ que seleccionan; fuera de combate, una pulsación que no encuentra ninguno borra tu objetivo. Pulsar otra vez nunca quita un icono. En un grupo que no lideras, solo recibe icono una unidad que no tenga ninguno; en una banda, solo si eres líder o ayudante."
 L["Ping what they target"] = "Marcar con ping lo que seleccionan"
-L["The target button and the step key ping the mob they target, so your group sees it behind rocks and buildings. Never in a raid unless you lead or assist. The rare buttons always ping."] = "El botón de objetivo y la tecla de paso marcan con un ping el enemigo que seleccionan, para que tu grupo lo vea detrás de rocas y edificios. Nunca en una banda salvo que seas líder o ayudante. Los botones de raros siempre hacen ping."
 L["Show quest-starting loot"] = "Mostrar el botín que inicia misiones"
 L["When you loot an item that starts a quest you can take, it goes on the quest item button with a glow until you click it or take the quest. The step's own item comes first; several wait their turn, oldest first."] = "Cuando despojas un objeto que inicia una misión que puedes aceptar, pasa al botón de objeto de misión con un brillo hasta que haces clic en él o aceptas la misión. El objeto del propio paso va primero; si hay varios, esperan su turno, del más antiguo al más reciente."
 L["Track only dungeon quests in dungeons"] = "En mazmorras, seguir solo sus misiones"
@@ -1017,6 +1017,7 @@ L["Travel button under the arrow"] = "Botón de viaje bajo la flecha"
 -- L["Game options"] = ""
 -- L["Increase game image quality"] = ""
 -- L["Sharpens the game's image. Most noticeable when Render Scale is below 100%. This is a game setting: it stays until you turn it off here or in the console."] = ""
+-- L["The target button and the step key ping the mob or NPC they target, so your group sees it behind rocks and buildings. Never in a raid unless you lead or assist. The rare buttons always ping."] = ""
 
 -- Lookup/Sources.lua
 L["Alliance only"] = "Solo Alianza"
@@ -1221,6 +1222,7 @@ L["%s and %d more"] = "%s y %d más"
 L["Skipping also skips: %s"] = "Saltar también salta: %s"
 L["Keep this: you hand it in later in %s"] = "No la abandones: la entregas más adelante en %s"
 L["Keep this: a later guide hands it in"] = "No la abandones: una guía posterior la entrega"
+L["%d known places: the arrow leads to each in turn"] = "%d lugares conocidos: la flecha te lleva a cada uno, uno tras otro"
 
 -- UI/GuideFrame.lua
 L["Location"] = "Ubicación"
@@ -1862,6 +1864,10 @@ L["Guides by other players, installed like any addon. They show under Community 
 L["A few choices to start with. Everything else is in %s."] = "Unas cuantas opciones para empezar. Todo lo demás está en %s."
 L["Route line"] = "Línea de ruta"
 L["How the way to your goal shows on the world map and the minimap. The line is the easiest to follow; sparkles show as dots while Reduce motion is on."] = "Cómo se muestra el camino hacia tu objetivo en el mapa del mundo y el minimapa. La línea es la más fácil de seguir; los destellos se ven como puntos mientras Reducir movimiento está activado."
+-- L["Mark what the target button finds"] = ""
+-- L["A skull on the enemy, a star on the friendly NPC. In a group it never takes another player's icon."] = ""
+-- L["Ping it for my group"] = ""
+-- L["Your group sees what the target button and the step key found, even behind rocks and buildings."] = ""
 
 -- UI/Copy.lua
 L["Selected for you: copy it with Ctrl+C (Cmd+C on a Mac), then press Escape."] = "Ya está seleccionado: cópialo con Ctrl+C (Cmd+C en Mac) y luego pulsa Escape."
@@ -4105,6 +4111,13 @@ L["Show in quest log"] = "Mostrar en el registro de misiones"
 L["Needed for %s in %s"] = "Necesario para %s en %s"
 L["Part of the %s quests"] = "Parte de las misiones de %s"
 
+-- UI/SearchDropdown.lua
+-- L["Go to page: %s"] = ""
+-- L["Tab: %s"] = ""
+-- L["Section: %s"] = ""
+-- L["See 1 result"] = ""
+-- L["See all %d results"] = ""
+
 -- No longer in the code (its English changed or it went away): reuse or delete.
 -- L["Shortest Path Forever is guiding. Turn off \"Guide with Shortest Path Forever when it's installed\" (Options, Arrow & routes) to use Polestar's arrow."] = "Shortest Path Forever está guiando. Desactiva \"Guiar con Shortest Path Forever si está instalado\" (Opciones, Flecha y rutas) para usar la flecha de Polestar."
 -- L["Shortest Path Forever is guiding. Turn off \"Guide with Shortest Path Forever when it's installed\" (Options, Integrations) to use Polestar's arrow."] = "Shortest Path Forever está guiando. Desactiva \"Guiar con Shortest Path Forever si está instalado\" (Opciones, Integraciones) para usar la flecha de Polestar."
@@ -4265,3 +4278,4 @@ L["Part of the %s quests"] = "Parte de las misiones de %s"
 -- L["Auto-learn new spells"] = "Aprender hechizos nuevos automáticamente"
 -- L["Automatically learns every spell a class trainer offers that you can afford, and prints the total. Profession trainers are left alone. Hold Shift to skip."] = "Aprende automáticamente todos los hechizos que puedas pagar de un instructor de clase y muestra el coste total. No se aplica a los instructores de profesión. Mantén pulsado Mayús para saltarlo."
 -- L["A level-up card lists what to train; %s learns it (thanks RikyZ90); %s updates your bars."] = "Al subir de nivel, una tarjeta lista tus hechizos; %s los aprende (gracias, RikyZ90); %s sube sus rangos en tus barras."
+-- L["The target button and the step key ping the mob they target, so your group sees it behind rocks and buildings. Never in a raid unless you lead or assist. The rare buttons always ping."] = "El botón de objetivo y la tecla de paso marcan con un ping el enemigo que seleccionan, para que tu grupo lo vea detrás de rocas y edificios. Nunca en una banda salvo que seas líder o ayudante. Los botones de raros siempre hacen ping."
