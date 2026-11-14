@@ -681,7 +681,9 @@ forge nav check
   (`area`, 3-symbol ids, run-length), and the metadata names the rows (`areaNames`). Only rows with a
   name are packed (others as none): the planner matches a surface's area by name to the client's
   subzone, and the unnamed rows were over half the field (about 0.6 MB of Polestar_Nav's resident
-  memory). A grid without sidecars, or whose rows have no names, packs format 2.
+  memory). A grid without sidecars, or whose rows have no names, packs format 2. The names are the
+  English client's: `forge data subzones` writes them in each client language into the language
+  folders (`Subzones.lua`), so run it after a pack.
 - The writer is a port of the Node writer (tools/lib/nav/pack.js, chokepoints.js): on the 1.60.1.70532
   grid every file is byte-identical to it (rust/tests/golden/nav-pack and its opt-in real-grid test);
   a format 3 grid differs from the last JS writer only by the unnamed rows left out.

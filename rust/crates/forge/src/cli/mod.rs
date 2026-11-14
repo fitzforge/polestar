@@ -108,6 +108,8 @@ The data builders, one at a time (forge build's data stage runs the ones it need
   names         Names.lua in addon/Polestar_<locale>, the data's names per language  [<locale>... --offline --no-questie
                 --no-tables --build --sources --ding --pfquest --guides --questdb --codex --travel
                 --chokepoints --out --root --json]
+  subzones      Subzones.lua in addon/Polestar_<locale>, the walking maps' subzone names per language
+                [<locale>... --offline --sources --data --nav --out --root]
   talents       build|check addon/Polestar/Talents/Builds.lua  [--root --plans --out --sources --build --offline]
   maps          build: Maps/ZoneLevels.lua [--data --lua]; overlays: UI/ZoneArtOverlays.lua
                 [--build --sources --offline --lua]

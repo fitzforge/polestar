@@ -444,14 +444,15 @@ pub fn retired_language_addons(locale: &str) -> [String; 2] {
 }
 
 /// The language folder's interface strings (`forge i18n sync` and the translators): never written or
-/// removed by `forge guide compile` or `forge data names`.
+/// removed by `forge guide compile`, `forge data names` or `forge data subzones`.
 pub const INTERFACE_FILE: &str = "Interface.lua";
 
-/// The language folder's files, in load order: every writer of the folder lists all three.
-pub const LANGUAGE_FILES: [&str; 3] = [INTERFACE_FILE, "Names.lua", "Texts.lua"];
+/// The language folder's files, in load order: every writer of the folder lists all four.
+pub const LANGUAGE_FILES: [&str; 4] = [INTERFACE_FILE, "Names.lua", "Subzones.lua", "Texts.lua"];
 
-/// <Polestar_<locale>>.toc, written whole and alike by `forge guide compile` (Texts.lua) and
-/// `forge data names` (Names.lua), so either may run first. `version`: the release's.
+/// <Polestar_<locale>>.toc, written whole and alike by `forge guide compile` (Texts.lua), `forge data
+/// names` (Names.lua) and `forge data subzones` (Subzones.lua), so any may run first. `version`: the
+/// release's.
 pub fn language_toc(locale: &str, iface: &str, version: &str) -> String {
 	let language = crate::locales::language(locale);
 	let name = language_addon(locale);
@@ -471,7 +472,7 @@ pub fn language_toc(locale: &str, iface: &str, version: &str) -> String {
 		"## X-Polestar-Texts: guides".into(),
 		format!("## X-Polestar-Locale: {locale}"),
 		"## X-License: GPL-3.0-only".into(),
-		format!("# {} (Texts.lua) and `forge data names` (Names.lua). Do not edit: rebuild with those commands.", crate::format::GENERATED_MARKER),
+		format!("# {} (Texts.lua), `forge data names` (Names.lua) and `forge data subzones` (Subzones.lua). Do not edit: rebuild with those commands.", crate::format::GENERATED_MARKER),
 		String::new(),
 	]);
 	lines.extend(LANGUAGE_FILES.map(String::from));
