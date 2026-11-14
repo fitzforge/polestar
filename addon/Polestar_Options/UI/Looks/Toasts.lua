@@ -53,8 +53,8 @@ local SOUNDS = {
 local function demoRare()
 	local Lv = ns.Levels
 	local p = Lv and Lv.Player and Lv.Player() or {}
-	return { kind = "rare", id = 61, name = L["Thuros Lightfingers"], level = max(1, p.level or 10), elite = false, yards = 85,
-		zone = L["Elwynn Forest"], map = 1429, x = 50, y = 50, source = "preview" }
+	return { kind = "rare", id = 61, name = ns.Names.Or("npc", 61, "Thuros Lightfingers"), level = max(1, p.level or 10), elite = false, yards = 85,
+		zone = ns.Names.Or("area", 12, "Elwynn Forest"), map = 1429, x = 50, y = 50, source = "preview" }
 end
 
 local function demoHeadsUp()
@@ -62,9 +62,9 @@ local function demoHeadsUp()
 	local m = { icon = Theme.Media("icon-dungeon"), iconColor = "dungeon", titleColor = "text" }
 	m.head = format(L["LEVEL %d · DUNGEON"], 18)
 	m.facts = format(L["Level %d · Dungeon"], 18)
-	m.title = format(L["%s is open to you"], L["The Deadmines"])
-	m.giver = format(L["%d quests to pick up"], 4) .. "  \194\183  " .. L["Westfall"]
-	if LT and LT.Text then m.badge = LT.Text(1.4):upper() end
+	m.title = format(L["%s is open to you"], ns.Names.Or("map", 36, "The Deadmines"))
+	m.giver = format(L["%d quests to pick up"], 4) .. "  \194\183  " .. ns.Names.Or("area", 40, "Westfall")
+	if LT and LT.Text then m.badge = ns.Upper(LT.Text(1.4)) end
 	m.act = { label = L["Pick up the quests"] }
 	m.more = { label = L["Open in Dungeons"] }
 	m.off = { label = L["Turn these off"] }
@@ -75,9 +75,9 @@ local function demoClassCard()
 	local p = ns.Levels and ns.Levels.Player and ns.Levels.Player() or {}
 	local class = p.class or "WARLOCK"
 	local name = UI.ClassName and UI.ClassName(class) or class
-	return { class = class, head = format(L["%s · LEVEL %d"], name:upper(), 10), title = L["The Binding"],
+	return { class = class, head = format(L["%s · LEVEL %d"], ns.Upper(name), 10), title = L["The Binding"],
 		learn = format(L["Learn %s"], L["Summon Voidwalker"]), badge = L["NEW PET"], icon = Theme.Media("icon-learn"),
-		trip = L["Durotar"] .. "  \226\128\186  " .. L["Orgrimmar"] .. "  \194\183  " .. format(L["%d steps"], 4) }
+		trip = ns.Names.Or("area", 14, "Durotar") .. "  \226\128\186  " .. ns.Names.Or("area", 1637, "Orgrimmar") .. "  \194\183  " .. format(L["%d steps"], 4) }
 end
 
 -- Nav's alerts as this file loads (UI loads after Nav): a test client that

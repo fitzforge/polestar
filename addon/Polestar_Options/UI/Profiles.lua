@@ -1197,11 +1197,16 @@ local function decorateCards(v)
 					chip = W.Chip(card)
 					v.Chips[card] = chip
 				end
-				local cw = W.SetChip(chip, L["In use"], "success")
+				W.SetChip(chip, L["In use"], "success")
+				-- On the picture's bottom left corner, so the name keeps the card's
+				-- width (beside the name, a long "In use", "Используется", left "По
+				-- умолчанию" 20px) and a long one stays clear of the chosen card's
+				-- check in the top right corner; above the picture's own frames (the
+				-- window drawn in the profile's look stands a few levels up).
 				chip:ClearAllPoints()
-				chip:SetPoint("BOTTOMRIGHT", card, "BOTTOMRIGHT", -8, 7)
-				chip:SetFrameLevel(card:GetFrameLevel() + 3)
-				card.Name:SetWidth(max(20, card:GetWidth() - 20 - cw - 6))
+				chip:SetPoint("BOTTOMLEFT", card.Art, "BOTTOMLEFT", 6, 6)
+				chip:SetFrameLevel(card.Art:GetFrameLevel() + 10)
+				card.Name:SetWidth(max(20, card:GetWidth() - 20))
 			end
 			paintArt(card.Art, name)
 		end

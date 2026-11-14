@@ -260,14 +260,10 @@ local function paintName(fs, k, quality)
 	end
 end
 
+-- An amount of copper in the client's coin symbols (ns.MoneyText), nil for none.
 function LK.Money(copper)
 	if type(copper) ~= "number" or copper <= 0 then return nil end
-	local g, s, c = floor(copper / 10000), floor(copper / 100) % 100, copper % 100
-	local parts = {}
-	if g > 0 then parts[#parts + 1] = g .. L["g"] end
-	if s > 0 then parts[#parts + 1] = s .. L["s"] end
-	if c > 0 then parts[#parts + 1] = c .. L["c"] end
-	return table.concat(parts, " ")
+	return ns.MoneyText(copper)
 end
 
 function LK.Travel(seconds)

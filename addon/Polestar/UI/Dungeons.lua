@@ -146,12 +146,7 @@ local function playerLevel()
 	return info and info.level or 1
 end
 
-local function thousands(n)
-	local s = tostring(floor(n or 0))
-	local out = s:reverse():gsub("(%d%d%d)", "%1,"):reverse()
-	if out:sub(1, 1) == "," then out = out:sub(2) end
-	return out
-end
+local thousands = ns.Thousands
 
 local function money(copper)
 	local LK = UI.Lookup

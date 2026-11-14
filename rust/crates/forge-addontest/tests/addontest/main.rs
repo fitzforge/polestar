@@ -240,6 +240,8 @@ mod import;
 mod import_safety;
 mod install;
 mod levels;
+#[path = "locale-format.rs"]
+mod locale_format;
 #[path = "locale-load.rs"]
 mod locale_load;
 mod lookup;
@@ -433,6 +435,8 @@ mod ui_headsup_card;
 mod ui_import;
 #[path = "ui-journey.rs"]
 mod ui_journey;
+#[path = "ui-long-translations.rs"]
+mod ui_long_translations;
 #[path = "ui-look-buttons.rs"]
 mod ui_look_buttons;
 #[path = "ui-look-glow.rs"]
@@ -467,6 +471,8 @@ mod ui_picker_packs;
 mod ui_picker_scroll;
 #[path = "ui-preview.rs"]
 mod ui_preview;
+#[path = "ui-quest-room.rs"]
+mod ui_quest_room;
 #[path = "ui-quest-unlocks.rs"]
 mod ui_quest_unlocks;
 #[path = "ui-quick-settings.rs"]

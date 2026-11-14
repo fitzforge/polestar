@@ -201,7 +201,7 @@ function DT.Model(c)
 	-- What its quests are worth, as on the dungeon's page (Dungeons.QuestXP).
 	local LT = UI.LevelTip
 	local xs = Dg.QuestXP and Dg.QuestXP(c.key)
-	if xs and not xs.maxed and (xs.levels or 0) > 0 and LT and LT.Text then m.badge = LT.Text(xs.levels):upper() end
+	if xs and not xs.maxed and (xs.levels or 0) > 0 and LT and LT.Text then m.badge = ns.Upper(LT.Text(xs.levels)) end
 	local pick = { label = c.pickLabel or L["Pick up the quests"], run = function() return DT.PickUp(c.key, c.all) end }
 	local page = { label = L["Open in Dungeons"], run = function() return DT.SeePage(c.key) end }
 	if enemy then m.act, m.more = page, pick else m.act, m.more = pick, page end

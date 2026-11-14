@@ -371,11 +371,7 @@ function UI.GoalDetail(goal)
 end
 
 -- "1,050" for XP amounts.
-local function thousands(n)
-	local s = tostring(math.floor(n + 0.5))
-	local out = s:reverse():gsub("(%d%d%d)", "%1,"):reverse()
-	return (out:gsub("^,", ""))
-end
+local thousands = ns.Thousands
 
 -- "1g 50s" from copper.
 local function money(copper)

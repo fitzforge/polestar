@@ -63,14 +63,11 @@ function localeCodepoints(files) {
 	return [...cps].filter((c) => c >= 0x180);
 }
 
-// Lua run first: the client's locale, the file that stands for its
-// interface strings (loaded when Core/Locale.lua asks for the language
-// folder, as the client loads it; the shipped Interface.lua by default), and
-// string.format's positional arguments (%1$s), which the client has and
-// Lua 5.1 does not.
-function localeLua(locale, file) {
-	const lines = [`function GetLocale() return ${JSON.stringify(locale)} end`,
-		`do
+// The client's locale and string.format's positional arguments (%1$s),
+// which the client has and Lua 5.1 does not.
+function clientLocaleLua(locale) {
+	return `function GetLocale() return ${JSON.stringify(locale)} end
+do
 	local fmt = string.format
 	string.format = function(f, ...)
 		if type(f) == "string" and f:find("%%%d+%$") then
@@ -81,7 +78,15 @@ function localeLua(locale, file) {
 		return fmt(f, ...)
 	end
 	format = string.format
-end`];
+end`;
+}
+
+// Lua run first: the client's locale (clientLocaleLua) and the file that
+// stands for its interface strings (loaded when Core/Locale.lua asks for the
+// language folder, as the client loads it; the shipped Interface.lua by
+// default).
+function localeLua(locale, file) {
+	const lines = [clientLocaleLua(locale)];
 	const strings = file || interfaceFile(locale);
 	if (fs.existsSync(strings)) {
 		lines.push(`do
@@ -312,7 +317,7 @@ function fitLocales(targets, { slack = 1 } = {}) {
 	});
 }
 
-module.exports = { PASSES, audit, auditLocale, summarize, describe, fontsFor, fitLocales, interfaceFile, localeCodepoints, localeLua, textInk };
+module.exports = { PASSES, audit, auditLocale, summarize, describe, fontsFor, fitLocales, interfaceFile, localeCodepoints, clientLocaleLua, localeLua, textInk };
 
 // One locale's findings as JSON, for fitLocales: node fit.js <locale>[=<file>] <slack>
 if (require.main === module) {

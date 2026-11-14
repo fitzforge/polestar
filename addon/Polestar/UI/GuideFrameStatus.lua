@@ -2,7 +2,7 @@
 
 local ADDON, ns = ...
 ns.UI.GuideFrame.Part(function(GF)
-	local UI, Theme, L = ns.UI, ns.Theme, ns.L
+	local UI, Theme, W, L = ns.UI, ns.Theme, ns.Widgets, ns.L
 	local Engine, Derived, whenReady = GF.Engine, GF.Derived, GF.WhenReady
 
 	-- The window's parts and sizes, handed over by the core (GF.Bind).
@@ -40,7 +40,7 @@ ns.UI.GuideFrame.Part(function(GF)
 			if not (rate and type(xp) == "number" and xp > 0 and Q and Q.Duration) then return nil end
 			return Theme.Approx() .. Q.Duration(xp / rate * 3600)
 		end
-		local level = pace.target % 1 == 0 and string.format("%d", pace.target) or string.format("%.1f", pace.target)
+		local level = pace.target % 1 == 0 and string.format("%d", pace.target) or ns.Decimal(pace.target, 1)
 		local stepNo = UI.StepNo(pace.step, E)
 		local behind = (pace.short or 0) > GF.PACE_SLACK
 		local h = pace.hard
@@ -62,7 +62,7 @@ ns.UI.GuideFrame.Part(function(GF)
 			if pace.kind == "end" and type(pace.reach) == "number" and pace.reach > pace.target then level = GF.LevelText(pace.reach) end
 			return string.format(L["On pace for level %s by step %d"], level, stepNo)
 		end
-		local by = string.format(L["%s levels"], string.format("%.1f", pace.short))
+		local by = string.format(L["%s levels"], ns.Decimal(pace.short, 1))
 		local time = grind(pace.xp)
 		if pace.kind == "goal" then
 			-- The guide grinds it at that step: said plainly, not as a warning.
@@ -77,6 +77,19 @@ ns.UI.GuideFrame.Part(function(GF)
 	-- XP pace from the QoL tracker and the route's pace (GF.PaceText), as the
 	-- window's lines give them (XPStats, Pace and RestParts). Hidden when
 	-- both are off, at max level, or before there is anything to show.
+	-- The XP row's height at `width`: its line, on a second line when the row
+	-- can't hold it ("On pace for level 24.9 by s…" read cut at the window's
+	-- default width in every look), and Boosted Rest's line under it.
+	function GF.XPHeight(width)
+		local xp = GF.xp
+		local h = GF.XPROW.h + (xp.psRest and GF.XPROW.restH or 0)
+		local room = (width or 0) - PAD * 2 - 11 - 7
+		if xp.psLine and room > 0 and W.TextWidth(xp.Text, xp.psLine) > room then
+			h = h + math.floor(xp.Text:GetLineHeight() + 0.5)
+		end
+		return h
+	end
+
 	function GF.UpdateXP(stats)
 		if not GF.xp then return end
 		local d, Q = Derived(), ns.QoL
@@ -114,8 +127,9 @@ ns.UI.GuideFrame.Part(function(GF)
 		end
 		xp.Rest:SetText(restLine or "")
 		xp.Rest:SetShown(restLine ~= nil)
-		if had ~= xp.psHas or hadRest ~= (restLine ~= nil) then
-			xp:SetHeight(restLine and GF.XPROW.h + GF.XPROW.restH or GF.XPROW.h)
+		local h = GF.XPHeight(xp:GetWidth())
+		if had ~= xp.psHas or hadRest ~= (restLine ~= nil) or h ~= xp:GetHeight() then
+			xp:SetHeight(h)
 			xp.Icon:SetPoint("LEFT", xp, "LEFT", PAD, restLine and GF.XPROW.iconY or -1)
 			GF.Layout()
 		end

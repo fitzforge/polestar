@@ -1927,7 +1927,7 @@ GF.Part(function(GF)
 			r.psPlace, r.psCarried = nil, true
 			r.Icon:SetTexture(Theme.VerbIcon("turnin"))
 			local text = #carried == 1 and L["1 finished quest to hand in elsewhere"] or string.format(L["%d finished quests to hand in elsewhere"], #carried)
-			r.Text:SetText(xp > 0 and string.format(L["%s (%d XP)"], text, xp) or text)
+			r.Text:SetText(xp > 0 and string.format(L["%s (%s XP)"], text, ns.Thousands(xp)) or text)
 			r:Show()
 		end
 		local list, byKey = {}, {}
@@ -3035,10 +3035,12 @@ GF.Part(function(GF)
 		xp.Icon:SetPoint("LEFT", xp, "LEFT", PAD, -1)
 		xp.Text = T(xp, "small", "textDim")
 		xp.Text:SetPoint("LEFT", xp.Icon, "RIGHT", 7, 0)
-		-- (A narrow window cuts the line with "..."; the hover shows all of it.)
+		-- A line longer than the row takes a second one, the row growing by it
+		-- (GF.XPHeight); past two it cuts with "...", and the hover shows all of it.
 		xp.Text:SetPoint("RIGHT", xp, "RIGHT", -PAD, 0)
 		xp.Text:SetJustifyH("LEFT")
-		xp.Text:SetWordWrap(false)
+		xp.Text:SetWordWrap(true)
+		xp.Text:SetMaxLines(2)
 		-- Boosted Rest and the sleeping bag (QoL/Rest.lua) on a short line of
 		-- their own under it, so the pace text never pushes them out of sight.
 		xp.Rest = T(xp, "small", "textDim")

@@ -588,7 +588,10 @@ local function card(p, title, desc)
 end
 
 -- The guide window's miniature: a goal row with the accent bar, its count
--- and the progress line under it.
+-- and the progress line under it. A long name (a real goal: "Young
+-- Stranglethorn Tiger", a German one) takes a second line, as the guide
+-- window's rows do, and the box grows down to it.
+local MINI_NAME_X = 12 + 11 + 6 -- the name's left edge: the glyph's inset, width and gap
 local function goalMini(m)
 	local box = CreateFrame("Frame", nil, m)
 	box:SetPoint("TOPLEFT", m, "TOPLEFT", 10, -14)
@@ -607,10 +610,9 @@ local function goalMini(m)
 	box.Count = W.Text(box, "caption", "success")
 	box.Count:SetPoint("RIGHT", box, "TOPRIGHT", -8, -13)
 	box.Name = W.Text(box, "small", "item")
-	box.Name:SetPoint("LEFT", box.Glyph, "RIGHT", 6, 0)
-	box.Name:SetPoint("RIGHT", box.Count, "LEFT", -6, 0)
 	box.Name:SetJustifyH("LEFT")
-	box.Name:SetWordWrap(false)
+	box.Name:SetWordWrap(true)
+	box.Name:SetMaxLines(2)
 	box.Line = CreateFrame("Frame", nil, box)
 	box.Line:SetPoint("TOPLEFT", box, "TOPLEFT", 12, -24)
 	box.Line:SetPoint("TOPRIGHT", box, "TOPRIGHT", -8, -24)
@@ -633,6 +635,15 @@ local function paintGoalMini(box, g)
 	box.Name:SetText(name)
 	W.Color(box.Name, kind == "kill" and "npc" or "item")
 	box.Count:SetText(cur .. "/" .. n)
+	-- The name between the glyph and the count, its first line level with them.
+	box.Name:SetWidth(max(30, CARD_W - 12 - 20 - MINI_NAME_X - 8 - W.TextWidth(box.Count) - 6))
+	local one = box.Name:GetLineHeight()
+	local extra = max(0, floor(box.Name:GetStringHeight() - one + 0.5))
+	box.Name:ClearAllPoints()
+	box.Name:SetPoint("TOPLEFT", box, "TOPLEFT", MINI_NAME_X, -(13 - floor(one / 2 + 0.5)))
+	box:SetHeight(34 + extra)
+	box.Line:SetPoint("TOPLEFT", box, "TOPLEFT", 12, -(24 + extra))
+	box.Line:SetPoint("TOPRIGHT", box, "TOPRIGHT", -8, -(24 + extra))
 	box.Line.Fill:SetWidth(max(1, (CARD_W - 12 - 20 - 20) * cur / n))
 end
 
@@ -647,7 +658,9 @@ local function arrowMini(m)
 	a.Yd = W.Text(a, "display", "text")
 	a.Yd:SetText((L["%d yd"]):format(412)) -- an illustration of the arrow's readout
 	a.To = W.Text(a, "small", "textDim")
-	a.To:SetWordWrap(false)
+	-- A long place ("Geh zu The Savage Coast") takes a second line.
+	a.To:SetWordWrap(true)
+	a.To:SetMaxLines(2)
 	return a
 end
 
@@ -2432,7 +2445,7 @@ PAGES[#PAGES + 1] = {
 		local beta = ns.routesBeta and true or false
 		p.Beta.Text:SetText((L["Played to the end in tests, but not yet by players. If a step is wrong, press %s in the guide window and tell us on Discord."]):format(cmd(L["Skip"])))
 		y = layNote(p, p.Beta, y, beta)
-		if beta then W.SetChip(p.Beta.Chip, string.upper(L["Beta"]), "warning") else p.Beta.Chip:Hide() end
+		if beta then W.SetChip(p.Beta.Chip, ns.Upper(L["Beta"]), "warning") else p.Beta.Chip:Hide() end
 		p.Recorder.Text:SetText(L["The Polestar Recorder, an optional addon of its own, records your play without names so the routes get better. Its page in Settings says how it works."])
 		y = layNote(p, p.Recorder, y, true)
 		p.Discord.Text:SetText(L["Feedback, bug reports and news."])
