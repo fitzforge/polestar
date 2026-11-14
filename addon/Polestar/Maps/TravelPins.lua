@@ -87,7 +87,9 @@ local function taxiTooltip(node, data, faction, known, seen)
 					header = true
 				end
 				local secs = Maps.LearnedFlight(node.id, dest.id)
-				local t = secs and Maps.FormatTime(secs) or ("~" .. Maps.FormatTime(Maps.LegSeconds(legs[i + 1])))
+				-- Drawn in the tooltip's font, the client's (an estimate: "≈", or "~" where it has none).
+				local approx = ns.Theme.Approx(GameTooltipText and GameTooltipText.GetFont and GameTooltipText:GetFont() or STANDARD_TEXT_FONT)
+				local t = secs and Maps.FormatTime(secs) or (approx .. Maps.FormatTime(Maps.LegSeconds(legs[i + 1])))
 				local r, g, b = rgb(known[dest.id] and "text" or "textMuted")
 				local name = taxiName(dest, true)
 				if not known[dest.id] and not unsure(dest, known, seen) then name = name .. " " .. L["(not discovered)"] end

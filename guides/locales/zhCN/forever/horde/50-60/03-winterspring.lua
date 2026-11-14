@@ -16,7 +16,7 @@ return {
 
 	-- Step 3: Donova Snowden
 	-- {npc:9298} Donova Snowden · {area:2246} Frostfire Hot Springs
-	["Ride south from the tunnel: {npc:9298} camps among the steaming pools of {area:2246}, in the west of the valley."] = "",
+	["Ride south from the tunnel: {npc:9298} camps among the steaming pools of {area:2246}, in the west of the valley."] = "从隧道向南骑行：{npc:9298}在山谷西部{area:2246}热气腾腾的水池间扎营。",
 	["Linken's letter"] = "林克的信",
 	-- {quest:3909} The Videre Elixir · {npc:7775} Gregan Brewspewer · {zone:1444} Feralas
 	["{quest:3909} comes from {npc:7775} in {zone:1444}, later in this guide."] = "{quest:3909}来自{zone:1444}的{npc:7775}，在本指南稍后。",
@@ -28,7 +28,7 @@ return {
 	-- plural, as words: Ragged Owlbeasts = {npc:7450} Ragged Owlbeast
 	["Pathfinders, Den Watchers and Totemics share the furbolg camps around the hot springs; Ragged Owlbeasts roam the slopes between them. Kill Totemics first. Save every {item:14047} you loot for Meilosh."] = "冬泉探路者、冬泉巢穴守卫和冬泉图腾师共处于温泉周围的熊怪营地；蓬毛枭兽在营地之间的山坡上游荡。先杀冬泉图腾师。把拾取到的每一块{item:14047}都留给梅罗什。",
 	-- {item:12771} Empty Firewater Flask
-	["{item:12771}: about one Winterfall furbolg in ten carries one; keep killing them until it drops"] = "",
+	["{item:12771}: about one Winterfall furbolg in ten carries one; keep killing them until it drops"] = "{item:12771}：冬泉熊怪约每十只掉一个，继续击杀直到掉落",
 	-- {quest:8471} Winterfall Ritual Totem
 	["{quest:8471}, a rare drop from the Winterfall furbolgs"] = "{quest:8471}，冬泉熊怪的稀有掉落",
 
@@ -45,7 +45,7 @@ return {
 
 	-- Step 8: Everlook
 	-- {area:2255} Everlook
-	["{area:2255} is the goblin town on the east side of the valley, past the owlbeast hills."] = "",
+	["{area:2255} is the goblin town on the east side of the valley, past the owlbeast hills."] = "{area:2255}是山谷东侧、枭兽山丘另一边的地精城镇。",
 	["Gregor's quests lead to other zones: keep them."] = "格雷戈的任务会把你带到其他地区：留着它们。",
 	-- {npc:10431} Gregor Greystone
 	["{npc:10431}, inside"] = "{npc:10431}：在屋内",

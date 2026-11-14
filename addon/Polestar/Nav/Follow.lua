@@ -112,6 +112,44 @@
 -- toward the path crossed BODY back and forth, and the arrow flipped between
 -- the two aims at every crossing).
 --
+-- On the path, the same look ahead (0.3.8, Fitz: "set the arrow's point
+-- further away from the player", a few corners on, not far toward the goal):
+-- walking on the path in open ground, the aim is the furthest point up to
+-- LOOK_AHEAD yards along it that the player can walk to in a straight line,
+-- when that lies further along than the corridor's aim (RADIUS from the
+-- player, stopped at a real corner). On a straight it runs past RADIUS, and
+-- it is a point the line check has cleared, where the corridor's aim is not
+-- checked: on the 0.3.7 recordings, with the smoothing below, the aim crossed
+-- a wall on 33.7% of the time the grid could tell, against 34.3% before, and
+-- the arrow swung over 30° in a second 3% less often. The last LOOK_AHEAD
+-- yards before the path's end keep the corridor's aim, which runs into the
+-- goal, and where nothing further is in sight (walls, cliffs, indoors) the
+-- corridor's aim stands, as before. It is the same look as beside the path,
+-- run only after the player moves SIGHT_MOVE yards: a few line reads per look,
+-- none between. On the path a point held further along (found beside it or
+-- on the way onto the road, up to SIGHT_AHEAD on) stays until it is passed or
+-- a further one is found: a look up to LOOK_AHEAD cannot see it again, so not
+-- seeing it is no reason to drop it for a nearer one.
+--
+-- Smoothing (0.3.8, Fitz: "that first waypoint shouldn't make 90° bends"):
+-- a searched path runs through the walking grid's cells, so a way at a slant
+-- across them steps sideways every few cells, and one searched from the
+-- player turns onto the road at a right angle a few yards on. Once, when the
+-- path is taken (Nav/Walk.lua), every point a straight line the player can
+-- walk skips is dropped: from each point kept, the furthest later one within
+-- SMOOTH_SPAN yards, not past a point that must stay, that sight says is in
+-- reach from it in a straight line. Points that stay: the first, the last, one
+-- on another floor than a neighbour (the floor rule above) and, on a baked
+-- leg, either end of a jump, a drop, a climb or a lift. Candidates go from the
+-- furthest in, each SMOOTH_STEP of the way nearer, so a blocked stretch costs
+-- a handful of line reads and a path some tens, once, and never more than
+-- SMOOTH_READS (a long path's far end keeps its corners); a line the grid
+-- cannot answer (a cluster not decoded) keeps the corner.
+--
+--   Follow.Smooth(xs, ys, zs, n, sight, hill, moves, at) -> n
+--     the path's points compacted in place (the rest set to nil); sight(x1,
+--     y1, x2, y2, z2, z1) is the line check from a point at height z1; moves
+--     (optional) the leg's move per segment, point j's way in moves[at + j - 2]
 --   Follow.Reset(S)                    a fresh path: S.idx = 2 (the first segment's end)
 --   Follow.Mark(xs, ys, zs, left, n, S) a fresh path's doubled-back points into S.dbl
 --     (reused): point i is marked when another part of the path within DBL_ALONG
@@ -142,7 +180,7 @@
 local ADDON, ns = ...
 local Nav = ns.Nav
 
-local sqrt, abs, huge = math.sqrt, math.abs, math.huge
+local sqrt, abs, huge, floor = math.sqrt, math.abs, math.huge, math.floor
 
 local Follow = {}
 Nav.follow = Follow
@@ -170,6 +208,11 @@ local SIGHT_GAP = 8    -- yards along the path between the closest sight candida
 local SIGHT_MOVE = 2   -- yards the player moves before the sight aim is looked for again
 local SIGHT_HOLD = 12  -- yards the player may move with the point last seen in sight held while it is not seen again
 local SIGHT_NEAR = BODY - 5 -- yards beside the path: a point held in sight stays the sight aim until the player comes this near
+local LOOK_AHEAD = 40  -- yards along the path the aim may lie ahead on it, at a point the player can walk to straight (open ground)
+local SMOOTH_SPAN = 150 -- yards: the longest straightened line
+local SMOOTH_STEP = 0.6 -- each next candidate lies this share of the way from the point kept to the last one tried
+local SMOOTH_READS = 64 -- line reads one path's smoothing may make
+local KEEP_MOVE = { [3] = true, [4] = true, [6] = true, [7] = true } -- a baked leg's jump, drop, climb, lift (Nav/Baked.lua)
 
 Follow.RADIUS, Follow.AHEAD, Follow.PAD, Follow.REACH, Follow.OPEN = RADIUS, AHEAD, PAD, REACH, OPEN
 
@@ -281,6 +324,48 @@ local function floorChange(xs, ys, zs, i)
 	return za and zb and apart(zb - za, xs[i] - xs[i - 1], ys[i] - ys[i - 1], marks and (marks[i] or marks[i - 1])) or false
 end
 
+-- Point j of a path being smoothed must stay (Follow.Smooth).
+local function mustStay(xs, ys, zs, n, j, moves, at)
+	if j >= n or floorChange(xs, ys, zs, j) or floorChange(xs, ys, zs, j + 1) then return true end
+	return moves ~= nil and (KEEP_MOVE[moves[at + j - 2]] or KEEP_MOVE[moves[at + j - 1]]) or false
+end
+
+function Follow.Smooth(xs, ys, zs, n, sight, hill, moves, at)
+	if n < 3 or not sight then return n end
+	-- A fresh path's doubled-back marks come after it is smoothed (Follow.Mark, on the smoothed points): the last
+	-- path's are not this one's, so every step of FLOOR_STEP indoors is a floor here.
+	grade, marks = hill and FLOOR_GRADE or 0, nil
+	local span2 = SMOOTH_SPAN * SMOOTH_SPAN
+	local out, i, reads = 1, 1, 0
+	while i < n do
+		-- The candidates: the points after i up to the first that must stay, within SMOOTH_SPAN. Reads stay at i
+		-- and after, which the compaction (at out, never past i) has not written yet.
+		local x1, y1, z1 = xs[i], ys[i], zs[i]
+		local last = i + 1
+		if z1 and reads < SMOOTH_READS then
+			for j = i + 1, n do
+				local dx, dy = xs[j] - x1, ys[j] - y1
+				if dx * dx + dy * dy > span2 then break end
+				last = j
+				if mustStay(xs, ys, zs, n, j, moves, at) then break end
+			end
+		end
+		local best, j = i + 1, last
+		while j > i + 1 and reads < SMOOTH_READS do
+			reads = reads + 1
+			if sight(x1, y1, xs[j], ys[j], zs[j], z1) then best = j break end
+			local nj = i + floor((j - i) * SMOOTH_STEP)
+			if nj >= j then nj = j - 1 end
+			j = nj
+		end
+		out = out + 1
+		xs[out], ys[out], zs[out] = xs[best], ys[best], zs[best]
+		i = best
+	end
+	for k = out + 1, n do xs[k], ys[k], zs[k] = nil, nil, nil end
+	return out
+end
+
 -- Point i stops the projection from moving past it until it is reached.
 -- `sticky` (outdoors): a floor change reached once stays reached (S.reached).
 local function blocked(xs, ys, zs, i, stop, px, py, S, sticky)
@@ -327,9 +412,9 @@ end
 -- in a straight line: its yards along the path, or false. The candidates run
 -- from the furthest in, each at least SIGHT_GAP (or a third of the way to the
 -- last one tried) nearer than the last, and the first point ahead last.
-local function inSight(xs, ys, zs, left, idx, along, limit, zRef, px, py, sight)
+local function inSight(xs, ys, zs, left, idx, along, limit, zRef, px, py, sight, ahead)
 	local start = left[1]
-	local cap = along + SIGHT_AHEAD
+	local cap = along + (ahead or SIGHT_AHEAD)
 	local last, capped = idx - 1, false
 	for j = idx, limit do
 		local zj = zs[j]
@@ -450,14 +535,21 @@ function Follow.Step(xs, ys, zs, left, n, S, px, py, stop, join, sight, hill)
 	-- yard across BODY.
 	local sat
 	local holding = S.sightAt and S.sightAt > S.along or false -- (sightAt is false when the last look found none)
-	if sight and bestD <= OPEN and (bestD > BODY or (holding and bestD > SIGHT_NEAR) or (join and S.along <= join)) then
+	-- On the path (not beside it, holding a point found there, or on its way onto the road), the same look up to
+	-- LOOK_AHEAD yards along, except in the path's last LOOK_AHEAD yards. There a point held further along stays until
+	-- it is passed or a further one is found, as it did before the look ran on the path: a look up to LOOK_AHEAD cannot
+	-- see a point beyond it again, so not seeing it is no reason to drop it (dropping it swung the arrow back and
+	-- counted the yards up).
+	local beside = bestD > BODY or (holding and bestD > SIGHT_NEAR) or (join and S.along <= join)
+	local onPath = not beside and S.left > LOOK_AHEAD
+	if sight and bestD <= OPEN and (beside or onPath) then
 		local at = S.sightAt
 		local mx, my = px - (S.sightX or huge), py - (S.sightY or huge)
 		if mx * mx + my * my >= SIGHT_MOVE * SIGHT_MOVE or (at and at <= S.along) then
-			local found = inSight(xs, ys, zs, left, idx, S.along, limit, zRef, px, py, sight)
+			local found = inSight(xs, ys, zs, left, idx, S.along, limit, zRef, px, py, sight, onPath and LOOK_AHEAD or nil)
 			S.sightX, S.sightY = px, py
 			local hx, hy = px - (S.heldX or huge), py - (S.heldY or huge)
-			local held = at and at > S.along and hx * hx + hy * hy < SIGHT_HOLD * SIGHT_HOLD
+			local held = at and at > S.along and (onPath or hx * hx + hy * hy < SIGHT_HOLD * SIGHT_HOLD)
 			if found and not (held and found < at) then
 				at, S.heldX, S.heldY = found, px, py
 			elseif not held then

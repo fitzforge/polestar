@@ -1740,7 +1740,7 @@ mod rule_tests {
 
 	#[test]
 	fn an_added_training_where_the_player_stands_in_a_town_trains_in_that_town() {
-		// c17 RevA 6: Dwarf and Gnome, an added stop after the Ironforge hand-ins trained at Kharanos, a
+		// c17 review, item 6: Dwarf and Gnome, an added stop after the Ironforge hand-ins trained at Kharanos, a
 		// hearth away, as Kharanos lies on the line to Westfall; Ironforge trains every class.
 		let f = fx();
 		let m = model(&f, &crate::profile::Profile::average(forge_core::Faction::Horde));

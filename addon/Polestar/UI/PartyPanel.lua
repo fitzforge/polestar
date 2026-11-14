@@ -24,6 +24,9 @@ local PP = {}
 UI.PartyPanel = PP
 
 local WIDTH = 260
+-- Its padding and head; the house look's own (Theme.House "sidePad",
+-- "sideHead": the 4-point rhythm, the guide window's strip) read as the rows
+-- are laid out.
 local PAD = 10
 local HEAD_H = 26
 local DOT = "  \194\183  "
@@ -193,7 +196,9 @@ end
 function PP.FillRows(F, list)
 	if F.psSandbox then F.psList = list end
 	local w = width(F)
-	local y = HEAD_H
+	local pad = Theme.House("sidePad") or PAD
+	local y = Theme.House("sideHead") or HEAD_H
+	F.Title:SetPoint("TOPLEFT", F, "TOPLEFT", pad, -8)
 	for i, e in ipairs(list) do
 		local r = row(F, i)
 		local name, level, step, needs = PP.RowText(e)
@@ -205,7 +210,7 @@ function PP.FillRows(F, list)
 		r.Step:SetShown(hasStep)
 		UI.SetCounted(r.Needs, needs or "")
 		r.Needs:SetShown(needs ~= nil)
-		r.Needs:SetWidth(w - PAD * 2)
+		r.Needs:SetWidth(w - pad * 2)
 		UI.FitCounts(r.Needs)
 		-- The needs line hangs under the step line only while that shows: a
 		-- hidden region still holds its place in an anchor chain, and an empty
@@ -217,13 +222,13 @@ function PP.FillRows(F, list)
 		h = math.floor(h + 4 + 0.5)
 		r:SetHeight(h)
 		r:ClearAllPoints()
-		r:SetPoint("TOPLEFT", F, "TOPLEFT", PAD, -y)
-		r:SetPoint("RIGHT", F, "RIGHT", -PAD, 0)
+		r:SetPoint("TOPLEFT", F, "TOPLEFT", pad, -y)
+		r:SetPoint("RIGHT", F, "RIGHT", -pad, 0)
 		r:Show()
 		y = y + h + 2
 	end
 	for i = #list + 1, #F.rows do F.rows[i]:Hide() end
-	F:SetHeight(math.floor(y + PAD - 2 + 0.5))
+	F:SetHeight(math.floor(y + pad - 2 + 0.5))
 end
 
 -- Repaint the rows from Party.Roster (`list`: one just read); without a row,

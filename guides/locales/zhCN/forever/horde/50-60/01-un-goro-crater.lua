@@ -12,7 +12,7 @@ return {
 	-- {area:1938} Broken Pillar · {zone:1449} Un'Goro Crater · {area:541} Marshal's Refuge
 	["From the {area:1938} ride west to the long ramp that winds down into {zone:1449}, then follow the crater's north wall to {area:541}, a camp in the cliff caves. Everyone here is neutral."] = "从{area:1938}向西骑到蜿蜒下降进入{zone:1449}的长坡道，然后沿着环形山的北壁前往{area:541}，那是建在悬崖洞穴里的营地。这里的所有人都是中立的。",
 	-- {npc:9997} Spraggle Frock
-	["the wooden sign beside {npc:9997}, by the flight master: the pterrordax are on this guide's ground"] = "",
+	["the wooden sign beside {npc:9997}, by the flight master: the pterrordax are on this guide's ground"] = "飞行管理员旁、{npc:9997}身边的木牌：本指南会前往翼手龙活动的区域",
 	-- {npc:9117} J.D. Collie
 	["{npc:9117}, at the back of the cave; below ground"] = "{npc:9117}，位于洞穴深处的地下",
 
@@ -98,7 +98,7 @@ return {
 	-- {npc:9998} Shizzle
 	["{npc:9998}, at the entrance"] = "{npc:9998}，在入口",
 	-- {npc:9997} Spraggle Frock
-	["{npc:9997}, beside the flight master"] = "",
+	["{npc:9997}, beside the flight master"] = "{npc:9997}，在飞行管理员旁",
 	-- {npc:9117} J.D. Collie
 	["{npc:9117}, below ground"] = "{npc:9117}：在地下",
 	-- {npc:9118} Larion · {quest:4147} Marvon's Workshop · {npc:8737} Linken
@@ -128,8 +128,8 @@ return {
 
 	-- Step 25: The Marshlands
 	-- {quest:4061} The Rise of the Machines · {area:340} Kargath · {area:1417} Sunken Temple · {area:2100} Maraudon
-	["Careful: There are many ravasaurs roaming the area, so you can easily pull several at the same time.\nBelow level 52, keep hunting the ravasaurs here after the eighth claw: {quest:4061} at {area:340} needs level 52, and the Plaguelands quests at the end of this guide are level 55. Or, with a group, run the {area:1417} dungeon or the {area:2100} dungeon instead."] = "",
-	["grind on Ravasaur"] = "",
+	["Careful: There are many ravasaurs roaming the area, so you can easily pull several at the same time.\nBelow level 52, keep hunting the ravasaurs here after the eighth claw: {quest:4061} at {area:340} needs level 52, and the Plaguelands quests at the end of this guide are level 55. Or, with a group, run the {area:1417} dungeon or the {area:2100} dungeon instead."] = "注意：这里有很多暴掠龙游荡，很容易同时引到多只。\n拿到第八只爪子后，如果还没到52级，就继续在这里猎杀暴掠龙：{area:340}的{quest:4061}需要52级，本指南结尾的瘟疫之地任务为55级。也可组队挑战{area:1417}副本或{area:2100}副本。",
+	["grind on Ravasaur"] = "击杀暴掠龙刷经验",
 
 	-- Step 26: Western Pylon
 	["Western Pylon"] = "西部水晶塔",
@@ -162,7 +162,7 @@ return {
 	-- {area:16727} Powderfuse Port
 	["Boat to {area:16727}"] = "乘船前往{area:16727}",
 	-- {npc:9706} Yorba Screwspigot · {quest:4324} Yuka Screwspigot · {area:251} Flame Crest
-	["{npc:9706}, by the dock: for {quest:4324} at {area:251}, later in this guide"] = "",
+	["{npc:9706}, by the dock: for {quest:4324} at {area:251}, later in this guide"] = "{npc:9706}，在码头旁：交给{area:251}的{quest:4324}，本篇指南稍后会前往",
 
 	-- Step 33: Badlands
 	-- {zone:2548} Riverglades · {area:16685} Twilight's Shroud · {zone:1418} Badlands
@@ -236,7 +236,7 @@ return {
 	-- {npc:8390} Chemist Cuely · {zone:1447} Azshara
 	["{npc:8390}, the Apothecarium: the vials fill in {zone:1447} later"] = "{npc:8390}，在炼金房：瓶子之后在{zone:1447}装满",
 	-- {npc:5204} Apothecary Zinge
-	["{npc:5204}, near Cuely in the Apothecarium"] = "",
+	["{npc:5204}, near Cuely in the Apothecarium"] = "{npc:5204}在炼金房，科雷附近",
 	-- {npc:6522} Andron Gant · {object:36073} Rogues' Quarter
 	["{npc:6522}, the {object:36073}"] = "{npc:6522}，在{object:36073}",
 

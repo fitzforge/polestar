@@ -140,10 +140,17 @@ end
 
 -- kind, id the button should hold now (nil: hidden). It goes with the guide
 -- window and with the arrow it sits under: hiding Polestar takes it with the
--- arrow (kept with it: ns.ArrowHidden), and turning the arrow off does too
--- (nav.arrow, #2009: "can't hide the Hearthstone button").
+-- arrow (kept with it: ns.ArrowHidden), turning the arrow off does too
+-- (nav.arrow, #2009: "can't hide the Hearthstone button"), and so does Pause
+-- while it drops the Engine's waypoint (ns.PauseHides): not for the way back
+-- to a corpse (Nav.Hold) or a point the player picked. (WAYPOINT_CHANGED,
+-- which a hold or a picked point announces, updates it.)
+local function pauseDropsGuide()
+	return ns.PauseHides("arrow") and not Nav.IsHeld() and not Nav.IsOverride()
+end
+
 function Prompts.Wanted()
-	if not ns.Get("nav.castPrompt") or not ns.Get("nav.arrow") or not ns.GuideWindowOn() or ns.ArrowHidden() then return nil end
+	if not ns.Get("nav.castPrompt") or not ns.Get("nav.arrow") or not ns.GuideWindowOn() or ns.ArrowHidden() or pauseDropsGuide() then return nil end
 	local kind, id = Prompts.ActionOf((currentLeg()))
 	if not kind or stepButtonHas(kind, id) then return nil end
 	return kind, id

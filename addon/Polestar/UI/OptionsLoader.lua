@@ -7,6 +7,8 @@
 --   UI.ShowOptions(section)   opens the window, loading Polestar_Options the
 --                             first time (Polestar_Options/UI/Options.lua then
 --                             puts the real UI.ShowOptions in its place)
+--   UI.ShowSetting(key)       opens it on that setting's row, scrolled to and
+--                             lit (What's New's notes)
 --   UI.LoadOptions() -> true when the window's addon is loaded (loads it now
 --                       if it can; profiles need its pages' controls)
 --   the ui.optionsSize default (a saved setting before the window exists)
@@ -34,15 +36,17 @@ function UI.LoadOptions()
 	return UI.Options ~= nil, UI.Options == nil and "error" or nil
 end
 
--- A request made in combat: the section to open when it ends (false: none).
-local waiting = false
+-- A request made in combat: the section to open when it ends (false: none),
+-- and the setting to go to there.
+local waiting, waitingKey = false, nil
 local afterCombat
 
 function afterCombat()
 	ns.UnregisterEvent("PLAYER_REGEN_ENABLED", afterCombat)
-	local section = waiting
-	waiting = false
+	local section, key = waiting, waitingKey
+	waiting, waitingKey = false, nil
 	UI.ShowOptions(section ~= true and section or nil)
+	if key and UI.Options and UI.Options.JumpTo then UI.Options.JumpTo(key) end
 end
 
 stub = function(section)
@@ -59,6 +63,12 @@ stub = function(section)
 	ns.Print(string.format(L["Polestar's settings could not be loaded (%s): is the Polestar_Options folder installed and enabled?"], tostring(why or "error")))
 end
 UI.ShowOptions = stub
+
+function UI.ShowSetting(key)
+	if UI.LoadOptions() and UI.Options.JumpTo then return UI.Options.JumpTo(key) end
+	waitingKey = key
+	UI.ShowOptions()
+end
 
 ---------------------------------------------------------------------------
 -- Blizzard Settings: a "Polestar" entry under AddOns that opens our window.

@@ -372,6 +372,55 @@ fn the_minimap_redraws_only_when_something_changed_and_its_line_pool_never_shrin
 	assert!(f(&out["limit"]) <= 600.0);
 }
 
+// The game redraws the minimap every frame; a line laid out less often lags the terrain under it and jumps to
+// catch up (jitter at 60+ fps). It follows the pins' sampling of the view, so standing still reads the player's
+// position no more often than the 10 Hz drivers do, and moving reads it once a frame (PR #1800 review).
+#[test]
+fn the_minimap_line_follows_every_rendered_frame_while_the_view_changes_and_reads_nothing_extra_standing_still() {
+	let out = painted(
+		r#"
+		Polestar.Set("nav.travel", false)
+		nav.viewRadius = 200
+		nav.place(0, 0)
+		target(0, -600)
+		stub.advance(1)
+		local C = Polestar.Compat
+		local reads, orig = {}, C.GetPlayerWorldPosition
+		C.GetPlayerWorldPosition = function(...)
+			local file = debug.getinfo(2, "S").source:match("([%w]+)%.lua$") or "?"
+			reads[file] = (reads[file] or 0) + 1
+			return orig(...)
+		end
+		local strokes = R.GetStrokes("minimap")
+		local function frame()
+			strokes.x1[1] = 12345
+			stub.advance(1 / 144)
+			return strokes.x1[1] ~= 12345 and 1 or 0
+		end
+		local r = { moving = 0, still = 0 }
+		stub.fire("PLAYER_STARTED_MOVING")              -- as the client does when the player sets off
+		for i = 1, 24 do                                 -- 24 frames at 144 fps, a step each
+			nav.place(0, -i * 0.05)
+			r.moving = r.moving + frame()
+		end
+		r.movingLine, r.movingPins = reads.RouteLines or 0, reads.Pins or 0
+		stub.advance(1)                                  -- the drivers settle
+		for _ = 1, 24 do r.still = r.still + frame() end
+		reads = {}
+		for _ = 1, 144 do stub.advance(1 / 144) end      -- one still second at 144 fps
+		r.stillLine, r.stillPins = reads.RouteLines or 0, reads.Pins or 0
+		emit(r)"#,
+	);
+	assert_eq!(out["moving"], 24, "one layout per rendered frame while moving");
+	assert_eq!(out["movingLine"], 0, "moving, the line draws from the pins' reads");
+	// 24 frames are a sixth of a second: the 10 Hz watcher ticks once or twice among them.
+	let pins = f(&out["movingPins"]);
+	assert!((24.0..=26.0).contains(&pins), "which read the position once a frame ({pins} in 24)");
+	assert_eq!(out["still"], 0, "nothing redrawn while the view holds still");
+	assert!(f(&out["stillLine"]) <= 10.0, "still, the line reads the position at its 10 Hz ({} a second)", out["stillLine"]);
+	assert!(f(&out["stillPins"]) <= 10.0, "and the pins at their watcher's 10 Hz ({} a second)", out["stillPins"]);
+}
+
 // The lines are Polestar's own frame on the canvas (Nav/MapCanvas.lua): nothing is acquired from the map or
 // released to it, so combat changes nothing.
 #[test]
@@ -550,6 +599,46 @@ emit({ before = before == nil, shown = f ~= nil and f:IsShown(), strokes = R.Get
 	assert_eq!(out["before"], true);
 	assert_eq!(out["shown"], true, "the lines show once the map addon loads");
 	assert!(f(&out["strokes"]) > 10.0);
+}
+
+// Another addon's map canvas, handed over with MapCanvas.Add (#1938), draws the route lines as the world map does: its
+// show and map changes reach the maps' view watcher, never the minimap's (#1800), which would take the canvas's
+// arguments for the minimap's view.
+#[test]
+fn a_map_canvas_another_addon_adds_draws_the_route_lines_as_the_world_map_does() {
+	let out = painted(
+		r#"
+		local errors = 0
+		geterrorhandler = function() return function() errors = errors + 1 end end
+		Polestar.Set("nav.travel", false)
+		nav.viewRadius = 200
+		nav.place(0, 0)
+		target(0, -600)
+		local own = stub.newMapCanvas("TestAddonWorldMap")
+		own.mapID = 9000
+		own:GetCanvas():SetSize(1000, 1000)
+		Polestar.MapCanvas.Add(own)
+		own:Show()
+		stub.runMapFrame(own, 0)
+		nav.showWorldMap(9000)
+		stub.advance(0.3)
+		-- The strokes of RouteLines' frame on a map's canvas (its pin: a projection and strokes of its own).
+		local function strokesOn(map)
+			local canvas = map:GetCanvas()
+			for _, f in ipairs(stub.frames) do
+				if rawget(f, "projection") and rawget(f, "strokes") and f:IsVisible() then
+					local p = f.parent
+					while p and p ~= canvas do p = p.parent end
+					if p then return f.strokes.n end
+				end
+			end
+			return 0
+		end
+		emit({ own = strokesOn(own), world = R.GetStrokes("world").n, minimap = R.GetStrokes("minimap").n, errors = errors })"#,
+	);
+	assert!(f(&out["world"]) > 10.0 && f(&out["minimap"]) > 3.0, "the world map and the minimap draw the walk: {out}");
+	assert!(f(&out["own"]) > 10.0, "the added canvas draws it too: {out}");
+	assert_eq!(out["errors"], 0, "no listener error: {out}");
 }
 
 #[test]

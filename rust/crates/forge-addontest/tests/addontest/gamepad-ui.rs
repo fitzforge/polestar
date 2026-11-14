@@ -137,9 +137,10 @@ const REACHES: &[&str] = &[
 // file -> lines that reach, why it is safe with the gamepad interface
 const ALLOWED: &[(&str, usize, &str)] = &[
 	("Polestar/Core/Init.lua", 10, "ns.CloseOnEscape (and taking Polestar's windows out of the list while Polestar is hidden) and the /polestar (/polestar, /pole, /ps) and /rl registrations, none with the gamepad interface"),
+	("Polestar/Core/Profiles.lua", 1, "a profile's key (P.ApplyKeys): override bindings on Polestar's own hidden button, never in a fight; a gamepad button is left out while the game's gamepad interface holds the buttons"),
 	("Polestar/Core/Compat.lua", 5, "Compat.OpenWorldMap and Compat.OpenQuestLog open nothing with the gamepad interface; Compat.AskAbandonQuest shows the game's abandon dialog only without it"),
 	("Polestar/Dungeons/Dungeons.lua", 1, "through Compat.OpenWorldMap"),
-	("Polestar/Nav/Journey.lua", 6, "the map's canvas click handler and /way, neither with the gamepad interface; wayTaken only reads"),
+	("Polestar/Nav/Journey.lua", 8, "the map's canvas click handler and /way, neither with the gamepad interface, and the same handler on the maps MapCanvas.Add hands over; wayTaken only reads"),
 	("Polestar/Nav/Nearby.lua", 3, "the tracking menus, not with the gamepad interface"),
 	("Polestar/Maps/Services.lua", 3, "the service tracking menus, not with the gamepad interface"),
 	("Polestar/UI/QuestLinks.lua", 3, "the quest menus, not with the gamepad interface"),

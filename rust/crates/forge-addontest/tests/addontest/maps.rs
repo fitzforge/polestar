@@ -124,7 +124,7 @@ fn tooltips_name_destinations_with_learned_or_estimated_flight_times_and_where_b
 			"Flight master, known",
 			" ",
 			"Flights from here",
-			"East Hold (not discovered) | ~1:42", // 3000 yd at 30 yd/s + 2 s
+			"East Hold (not discovered) | ≈1:42", // 3000 yd at 30 yd/s + 2 s
 			"Mid Camp | 0:41",                    // learned
 		])
 	);
@@ -196,7 +196,7 @@ fn no_flight_master_is_called_undiscovered_on_a_continent_without_a_flight_map_o
 		"Alliance",
 		true,
 	);
-	assert_eq!(out["west"], json!(["West Hold, Testshire", "Flight master, known", " ", "Flights from here", "East Hold | ~1:42", "Mid Camp | 0:41"]));
+	assert_eq!(out["west"], json!(["West Hold, Testshire", "Flight master, known", " ", "Flights from here", "East Hold | ≈1:42", "Mid Camp | 0:41"]));
 	assert_eq!(out["east"], json!(["East Hold, Testshire", "Flight master"]));
 	assert_eq!(out["badge"], "?");
 	assert_eq!(out["seen"], "Flight master, not discovered");
@@ -242,7 +242,7 @@ fn the_flight_timer_estimates_an_unflown_route_then_learns_and_prefers_the_real_
 	assert_eq!(out["first"]["dest"], "Mid Camp");
 	assert_eq!(out["first"]["source"], "estimate");
 	assert_eq!(out["first"]["left"], 35);
-	assert_eq!(out["first"]["text"], "~0:35");
+	assert_eq!(out["first"]["text"], "≈0:35");
 	assert_eq!(out["first"]["title"], "Mid Camp");
 	assert_eq!(out["first"]["visible"], true);
 	assert_eq!(out["first"]["after"], false);

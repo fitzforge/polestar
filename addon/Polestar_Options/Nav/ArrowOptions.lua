@@ -3,11 +3,13 @@
 -- row with real effect on the live arrow (Nav/Arrow.lua reads them on
 -- SETTING_CHANGED and repaints in place).
 --
--- Each tab pins a live preview over its rows: three sandbox dials built and
--- painted by the arrow's own code (Arrow.BuildDial / Arrow.PaintDial) in its
--- three states, on its way, closing in and arrived, with the current values.
--- The preview has no target, no sampling and no Nav hook, and never touches
--- the live arrow; it runs an OnUpdate only while shown and the arrival
+-- Each tab pins a band over its rows (UI.Preview.Band): sandbox dials built
+-- and painted by the arrow's own code (Arrow.BuildDial / Arrow.PaintDial) at
+-- their real size, in the states that tab's settings change, with the
+-- current values: Essentials on its way, closing in and in combat; Look the
+-- arrival too; Text one dial with its distance, label and time lines. The
+-- band has no target, no sampling and no Nav hook, and never touches the
+-- live arrow; it runs an OnUpdate only while shown and the arrival
 -- animates. Nothing is built until the page first shows.
 
 local ns = Polestar
@@ -28,18 +30,39 @@ local function H(c) return Nav.HandoffOption and Nav.HandoffOption(c) or c end
 local function arrowOff() return not ns.Get("nav.arrow") end
 
 ---------------------------------------------------------------------------
--- The preview
+-- The previews
 ---------------------------------------------------------------------------
 
--- The stage's height when the window gives it none (a preview laid out on
--- its own); the caption's line under each arrow; the chrome's row over the
--- scene and its room at the foot; the gap from an arrow's shadow to its caption.
-local STAGE_H, CAPTION_H, TOP, BOTTOM, GAP = 176, 18, 34, 12, 20
--- The demo: heading (radians), yards and seconds for each state.
-local STATES = {
-	{ state = "travel", angle = 0.6, dist = 420, eta = 95, caption = L["On its way"] },
-	{ state = "travel", angle = -0.3, dist = 40, eta = 9, caption = L["Closing in"] },
-	{ state = "arrived", caption = L["Arrived"] },
+-- Each tab's band (UI.Preview.Band): Nav's own dial (Arrow.BuildDial,
+-- Arrow.PaintDial) in the states that tab's settings change, side by side at
+-- its real size, a label under each. Essentials: on its way, closing in (the
+-- near colour), in combat (the combat opacity); Look the arrival too (its
+-- ring breathing while it shows); Text one dial on its way, its distance,
+-- label and time lines.
+local STATE = {
+	travel = { state = "travel", angle = 0.6, dist = 420, eta = 95, label = L["On its way"] },
+	near = { state = "travel", angle = -0.3, dist = 40, eta = 9, label = L["Closing in"], near = true },
+	arrived = { state = "arrived", label = L["Arrived"] },
+	combat = { state = "travel", angle = 0.6, dist = 420, eta = 95, label = L["In combat"], combat = true },
+}
+local TABS = {
+	essentials = { "travel", "near", "combat" },
+	look = { "travel", "near", "arrived", "combat" },
+	text = { "travel" },
+}
+-- What each setting lights on a band: kind -> the parts of its dials.
+local LIGHTS = {
+	holders = { "nav.arrow", "nav.arrowScale", "nav.arrowAlpha", "nav.hideArrowWithGuide", "nav.arrowNoTarget" },
+	dials = { "nav.arrowStyle", "nav.arrowGlowStrength", "nav.arrowGlow" },
+	far = { "nav.arrowColor" },
+	near = { "nav.arrowNearColor", "nav.arrowNearRange" },
+	moving = { "nav.arrowTurn" },
+	arrived = { "nav.arrowRingColor", "nav.arrowPulse", "nav.arrivalSound" },
+	combat = { "nav.arrowCombatAlpha" },
+	dist = { "nav.arrowDistSize", "nav.arrowDistance", "nav.arrowDistColor", "nav.distanceUnit" },
+	label = { "nav.arrowLabelSize", "nav.arrowLabelColor", "nav.arrowLabelLines", "nav.arrowLabelWidth" },
+	eta = { "nav.arrowEtaSize", "nav.arrowEta", "nav.arrowEtaColor" },
+	text = { "nav.arrowTextPos", "nav.arrowFont", "nav.arrowOutline", "nav.arrowBacking", "nav.arrowBackingAlpha" },
 }
 
 local function clamp(v, lo, hi, default)
@@ -47,131 +70,107 @@ local function clamp(v, lo, hi, default)
 	return min(hi, max(lo, v))
 end
 
-local function buildPreview(view)
-	-- The settings window's preview stage (UI.Preview.Stage): the arrows
-	-- over the world they float over, the zone you stand in, each on a soft
-	-- shadow. The window draws "Preview" and "Live" over it; no caption:
-	-- each arrow says its state under it.
+local function buildBand(view, which)
 	local Preview = ns.UI.Preview
-	local f = Preview.Stage(view, { height = STAGE_H, backdrop = "world" })
-
-	local lk = {}
-	local cols = {}
-	for i, s in ipairs(STATES) do
+	local f = Preview.Band(view, { watch = { "nav." } })
+	local lk, cols = {}, {}
+	for i, key in ipairs(TABS[which]) do
+		local s = STATE[key]
 		local holder = CreateFrame("Frame", nil, f)
 		holder:SetSize(Arrow.WIDTH, Arrow.HEIGHT)
-		local caption = W.Text(f, "small", "textMuted")
-		caption:SetJustifyH("CENTER")
-		caption:SetText(s.caption)
-		cols[i] = { holder = holder, dial = Arrow.BuildDial(holder), caption = caption, s = s }
+		cols[i] = { holder = holder, dial = Arrow.BuildDial(holder), s = s, label = #TABS[which] > 1 and f:Label(s.label) or nil }
 	end
 	f.Dials = cols
 
-	-- The pointer on a setting's row lights the parts it changes; a click on
-	-- a dial or a line of text finds its row.
-	local d1, d2, d3 = cols[1].dial, cols[2].dial, cols[3].dial
-	f:Hot(d1.dial, "nav.arrowScale")
-	f:Hot(d2.dial, "nav.arrowNearColor")
-	f:Hot(d3.dial, "nav.arrowRingColor")
-	f:Hot(d1.distText, "nav.arrowDistSize")
-	f:Hot(d1.labelText, "nav.arrowLabelSize")
-	f:Hot(d1.etaText, "nav.arrowEtaSize")
-	local holders = { cols[1].holder, cols[2].holder, cols[3].holder }
-	local dials, travel = { d1.dial, d2.dial, d3.dial }, { d1.dial, d2.dial }
-	local dist, eta = { d1.distText, d2.distText }, { d1.etaText, d2.etaText }
-	local labels = { d1.labelText, d2.labelText, d3.labelText }
-	local texts = { d1.distText, d1.labelText, d1.etaText, d2.distText, d2.labelText, d2.etaText }
-	for key, parts in pairs({
-		["nav.arrow"] = holders, ["nav.arrowStyle"] = dials, ["nav.arrowScale"] = holders, ["nav.arrowAlpha"] = holders,
-		["nav.arrowColor"] = { d1.dial }, ["nav.arrowNearColor"] = { d3.dial }, ["nav.arrowNearRange"] = { d2.dial },
-		["nav.arrowTurn"] = travel, ["nav.arrowRingColor"] = { d3.dial }, ["nav.arrowPulse"] = { d3.dial },
-		["nav.arrowGlowStrength"] = dials, ["nav.arrowGlow"] = dials, ["nav.arrivalSound"] = { d3.dial },
-		["nav.hideArrowWithGuide"] = holders, ["nav.arrowNoTarget"] = holders, ["nav.arrowCombatAlpha"] = holders,
-		["nav.arrowDistSize"] = dist, ["nav.arrowDistance"] = dist, ["nav.arrowDistColor"] = dist, ["nav.distanceUnit"] = dist,
-		["nav.arrowLabelSize"] = labels, ["nav.arrowLabelColor"] = labels, ["nav.arrowLabelLines"] = labels, ["nav.arrowLabelWidth"] = labels,
-		["nav.arrowEtaSize"] = eta, ["nav.arrowEta"] = eta, ["nav.arrowEtaColor"] = eta,
-		["nav.arrowTextPos"] = texts, ["nav.arrowFont"] = texts, ["nav.arrowOutline"] = texts,
-		["nav.arrowBacking"] = texts, ["nav.arrowBackingAlpha"] = texts,
-	}) do
-		f:Light(key, unpack(parts))
+	-- A click on a dial or a line of text finds its row; the pointer on a
+	-- setting's row lights the parts it changes.
+	local first = cols[1].dial
+	f:Hot(first.dial, "nav.arrowScale")
+	for i = 2, #cols do
+		local s = cols[i].s
+		f:Hot(cols[i].dial.dial, s.combat and "nav.arrowCombatAlpha" or s.state == "arrived" and "nav.arrowRingColor" or "nav.arrowNearColor")
+	end
+	f:Hot(first.distText, "nav.arrowDistSize")
+	f:Hot(first.labelText, "nav.arrowLabelSize")
+	f:Hot(first.etaText, "nav.arrowEtaSize")
+	local parts = { holders = {}, dials = {}, far = {}, near = {}, moving = {}, arrived = {}, combat = {}, dist = {}, label = {}, eta = {}, text = {} }
+	local function add(kind, region) parts[kind][#parts[kind] + 1] = region end
+	for _, c in ipairs(cols) do
+		local s, d = c.s, c.dial
+		add("holders", c.holder)
+		add("dials", d.dial)
+		add("label", d.labelText)
+		add("text", d.labelText)
+		if s.state == "arrived" then
+			add("arrived", d.dial)
+		else
+			add("moving", d.dial)
+			add(s.near and "near" or "far", d.dial)
+			add("dist", d.distText)
+			add("eta", d.etaText)
+			add("text", d.distText)
+			add("text", d.etaText)
+		end
+		if s.combat then add("combat", c.holder) end
+	end
+	for kind, keys in pairs(LIGHTS) do
+		if #parts[kind] > 0 then
+			for _, key in ipairs(keys) do f:Light(key, unpack(parts[kind])) end
+		end
 	end
 
-	local width, height, dirty = 0, STAGE_H, true
+	-- The arrival's ring breathes while the band shows (with the pulse on).
+	local arrived
+	for _, c in ipairs(cols) do if c.s.state == "arrived" then arrived = c.dial end end
 	local pulseT = 0
 	local function animating()
-		return lk.pulse and cols[3].dial.ring:IsShown() or (lk.pulse and cols[3].dial.skinRing:IsShown() and not cols[3].dial.skinCheck:IsShown())
+		return arrived and lk.pulse and (arrived.ring:IsShown() or (arrived.skinRing:IsShown() and not arrived.skinCheck:IsShown()))
 	end
 	local function onUpdate(_, elapsed)
 		pulseT = pulseT + elapsed
-		Arrow.PulseDial(cols[3].dial, pulseT)
+		Arrow.PulseDial(arrived, pulseT)
 		if not animating() then f:SetScript("OnUpdate", nil) end
 	end
-	-- The three arrows side by side at their true size (the arrow's Size on
-	-- the game's UI scale), smaller only where three would not fit across
-	-- or in the hero's height; the group in the middle, a shadow under each.
-	local function place()
-		if width <= 0 then return end
-		local pad = 32
-		local colW = (width - 2 * pad) / 3
-		local s = clamp(ns.Get("nav.arrowScale"), 0.5, 2, 1) * f:TrueScale()
-		s = min(s, colW / Arrow.WIDTH, max(0.2, (height - TOP - BOTTOM - GAP - CAPTION_H) / Arrow.HEIGHT))
-		local alpha = clamp(ns.Get("nav.arrowAlpha"), 0.1, 1, 1)
-		local snap = Preview.Snap
-		local tall = Arrow.HEIGHT * s
-		local top = TOP + max(0, floor((height - TOP - BOTTOM - (tall + GAP + CAPTION_H)) / 2))
-		for i, c in ipairs(cols) do
-			local cx = pad + colW * (i - 0.5)
-			c.holder:SetScale(s)
-			c.holder:SetAlpha(alpha)
-			c.holder:ClearAllPoints()
-			c.holder:SetPoint("TOP", f, "TOPLEFT", snap(c.holder, cx / s), snap(c.holder, -top / s))
-			-- The shadow about as wide as the dial and its text, not the
-			-- label's whole line.
-			f:Floor(c.holder, -floor(max(0, Arrow.WIDTH * s - 150) / 2))
-			c.caption:ClearAllPoints()
-			c.caption:SetPoint("TOP", f, "TOPLEFT", snap(f, cx), -snap(f, top + tall + GAP))
-		end
-	end
-	-- Every dial in its state with the current values, through the arrow's own paint.
-	local function paint()
-		dirty = false
+	f:HookScript("OnShow", function(self) if animating() then self:SetScript("OnUpdate", onUpdate) end end)
+	f:SetScript("OnHide", function(self) self:SetScript("OnUpdate", nil) end)
+
+	local snap, gap = Preview.Snap, Preview.STATE_GAP
+	function f:Content()
 		Arrow.ReadLook(lk)
 		local style = Arrow.StyleFor(ns.Get("nav.arrowStyle"))
-		for _, c in ipairs(cols) do
+		local g0 = clamp(ns.Get("nav.arrowScale"), 0.5, 2, 1) * self:TrueScale()
+		local alpha = clamp(ns.Get("nav.arrowAlpha"), 0.1, 1, 1)
+		local fight = clamp(ns.Get("nav.arrowCombatAlpha"), 0, 1, 1)
+		local w, h = Arrow.WIDTH * g0, Arrow.HEIGHT * g0
+		local labels = {}
+		for i, c in ipairs(cols) do
 			local s = c.s
 			Arrow.PaintDial(c.dial, lk, style, s.state, s.angle, s.dist, L["The innkeeper"], s.eta)
+			c.holder:SetAlpha(alpha * (s.combat and fight or 1))
+			if c.label then labels[#labels + 1] = { c.label, (i - 1) * (w + gap) + w / 2 } end
 		end
-		place()
 		pulseT = 0
-		f:SetScript("OnUpdate", f:IsVisible() and animating() and onUpdate or nil)
-	end
-	f.Paint = paint
-	-- Settings and theme changes repaint only while shown; else on the next show.
-	ns.On("SETTING_CHANGED", function(path)
-		if type(path) == "string" and path ~= "" and path ~= "nav" and path:sub(1, 4) ~= "nav." then return end
-		if f:IsVisible() then paint() else dirty = true end
-	end)
-	W.Painter(f.Dials, function()
-		if f:IsVisible() then paint() else dirty = true end
-	end)
-	f:SetScript("OnShow", function()
-		if dirty then paint() elseif animating() then f:SetScript("OnUpdate", onUpdate) end
-	end)
-	f:SetScript("OnHide", function() f:SetScript("OnUpdate", nil) end)
-
-	-- -> the hero's height (the window's; STAGE_H laid out alone), the
-	-- arrows across `w`.
-	function f:Layout(w, h)
-		self:SetWidth(w)
-		width, height = w, h or STAGE_H
-		self.psHeight = height
-		if dirty then paint() else place() end
-		return height
+		self:SetScript("OnUpdate", self:IsVisible() and animating() and onUpdate or nil)
+		return #cols * w + (#cols - 1) * gap, h, function(left, top, k)
+			local g = g0 * k
+			for i, c in ipairs(cols) do
+				c.holder:SetScale(g)
+				c.holder:ClearAllPoints()
+				c.holder:SetPoint("TOPLEFT", self, "TOPLEFT", snap(c.holder, (left + (i - 1) * (w + gap) * k) / g), snap(c.holder, -top / g))
+			end
+		end, #labels > 0 and labels or nil
 	end
 	return f
 end
--- The preview, for the tests: ArrowPreview(parent) -> f.
-Nav.ArrowPreview = buildPreview
+
+local function buildEssentialsBand(view) return buildBand(view, "essentials") end
+local function buildLookBand(view) return buildBand(view, "look") end
+local function buildTextBand(view) return buildBand(view, "text") end
+-- The previews, for the tests: ArrowPreview(parent) the Look tab's (every
+-- state), ArrowEssentialsPreview and ArrowTextPreview the others' -> f.
+Nav.ArrowPreview = buildLookBand
+Nav.ArrowEssentialsPreview = buildEssentialsBand
+Nav.ArrowTextPreview = buildTextBand
 
 ---------------------------------------------------------------------------
 -- Style cards: each a sandbox dial in that style, pointing ahead-left.
@@ -251,7 +250,7 @@ end
 local SPECS = {
 	-- Look: the arrow itself, its glow, its arrival, when it shows.
 	{ page = PAGE, key = "arrow", icon = "icon-goto", order = 22, group = "look", tab = L["Look"], section = L["Arrow"],
-		preview = buildPreview,
+		preview = buildLookBand, move = "arrow",
 		subtitle = L["The waypoint arrow: its style, size, colours, glow, arrival, text and when it shows."],
 		toggle = H({ kind = "toggle", key = "nav.arrow", label = L["Show arrow"],
 			search = "arrow, waypoint, pointer, direction, compass, navigation, hud, hide arrow",
@@ -332,7 +331,7 @@ local SPECS = {
 
 	-- Text: one card, a row per line of text (size and colour, its on/off as a
 	-- switch), then the face and the backing.
-	{ page = PAGE, tab = L["Text"], section = L["Text"], preview = buildPreview, controls = {
+	{ page = PAGE, tab = L["Text"], section = L["Text"], preview = buildTextBand, controls = {
 		{ kind = "slider", key = "nav.arrowDistSize", label = L["Distance size"], min = 0.5, max = 2.5, step = 0.05, format = percent, new = NEW,
 			search = "distance size, bigger numbers, larger text, text size, font size, huge, tiny",
 			help = L["The distance and the arrow's notes, against the skin's size. The switch hides the distance on the way; \"Arrived\" and the other notes still show."],
@@ -416,7 +415,7 @@ if O and O.Ref then
 	local R = O.Ref
 	local ESSENTIALS = L["Essentials"]
 	local list = {
-		{ page = PAGE, tab = ESSENTIALS, lead = true, section = L["Style"], preview = buildPreview,
+		{ page = PAGE, tab = ESSENTIALS, lead = true, section = L["Style"], preview = buildEssentialsBand,
 			controls = { R("cards", "nav.arrowStyle") } },
 		{ page = PAGE, tab = ESSENTIALS, section = L["Arrow"], jump = { tab = L["Look"], section = L["Arrow"] },
 			toggle = R("toggle", "nav.arrow"),

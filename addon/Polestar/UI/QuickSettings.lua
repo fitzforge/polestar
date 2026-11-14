@@ -40,6 +40,8 @@ local function build()
 	pop:SetFrameLevel(20)
 	pop:SetClampedToScreen(true)
 	pop:EnableMouse(true)
+	-- A popup over other frames: its ground never see-through (Theme's menuBg).
+	pop.psMenu = true
 	Theme.Skin(pop, "panel")
 	pop.Title = W.Text(pop, "heading", "text")
 	pop.Title:SetText(L["Quick settings"])

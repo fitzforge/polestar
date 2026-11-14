@@ -289,6 +289,126 @@ fn goto_completes_on_arrival_via_the_ticker_which_runs_only_while_a_goto_is_acti
 	);
 }
 
+#[test]
+fn item_casts_only_finish_the_use_before_a_single_object_collection() {
+	for (source, count, expected) in [("object", 1, "done"), ("object", 2, "active"), ("npc", 1, "active")] {
+		let guides = format!(
+			r#"
+Polestar.RegisterGuide({{ id = "test/item-cast", pack = "test", title = "Item cast", zone = 1429, steps = {{
+	{{ goals = {{
+		{{ t = "use", item = 900001, itemName = "Test item", quest = 7, oi = 1 }},
+		{{ t = "collect", item = 900002, itemName = "Test reward", quest = 7, oi = 1, count = {count}, fromKind = "{source}", from = "Test source" }},
+	}} }},
+}} }})
+"#
+		);
+		let out = run1(Run {
+			guides: &guides,
+			before: r#"C_Item.GetItemSpell = function(id) if id == 900001 then return "Test item spell", 900003 end end"#,
+			script: r#"
+local w = stub.world
+w.onQuest(7, { 1 })
+E.SetGuide("test/item-cast"); flush()
+stub.fire("UNIT_SPELLCAST_SUCCEEDED", "party1", "cast", 900003); flush()
+local other = E.GetStepView(1).goals[1].status
+w.cast(900003); flush()
+emit({ other, E.GetStepView(1).goals[1].status, E.GetStepView(1).goals[2].status })
+"#,
+			..Default::default()
+		});
+		assert_eq!(out, json!(["active", expected, "active"]), "{source}, count {count}");
+	}
+}
+
+#[test]
+fn the_filled_cleansing_bowl_advances_to_xabraxxis_before_the_talisman_is_collected() {
+	let fixes: Value = serde_json::from_str(include_str!("../../../../../data/guide-fixes.json")).unwrap();
+	let note = fixes["fixes"].as_array().unwrap().iter().find(|r| r["id"] == "2107-xabraxxis-demon-bag").unwrap()["goalNote"].as_str().unwrap();
+	let out = emitted(&RunAddon {
+		stubs: vec!["stub_world.lua"],
+		addons: vec![Addon::files("Polestar", &["Core/Core.xml", "Theme/Theme.xml", "UI/UI.xml", "QoL/QoL.xml"]), Addon::name("Polestar_Guides"), Addon::name("Polestar_Guides_Alliance")],
+		before: r#"
+local w = stub.world
+C_Item.GetItemSpell = function(id) if id == 12347 then return "Purify and Place Food", 16072 end end
+w.level = 18
+w.onQuest(4763, { 1 })
+for _, item in ipairs({12341, 12342, 12343, 12347}) do w.addItem(item, 1) end
+"#
+		.into(),
+		login: true,
+		script: [
+			TEST_PACK,
+			&format!("local followupNote = {}", serde_json::to_string(note).unwrap()),
+			r#"
+local E, w = Polestar.Engine, stub.world
+local guide = assert(Polestar.Guides.Get("forever/alliance/03-darkshore"))
+local camp, useIndex
+for _, step in ipairs(guide.steps) do
+	for i, goal in ipairs(step.goals) do
+		if goal.t == "use" and goal.item == 12347 then camp, useIndex = step, i end
+	end
+end
+camp.goals[useIndex + 1].note = followupNote
+local frame = Polestar.MapFrames.era[1439]
+w.addMap(1439, { name = "Darkshore", c = frame.c, left = frame.left, right = frame.right, top = frame.top, bottom = frame.bottom })
+w.moveTo(1439, 52.5, 33.4)
+Polestar.RegisterGuide({ id = "test/xabraxxis", pack = "test", title = "Blackwood camp", zone = 1439, steps = { assert(camp) } })
+E.SetGuide("test/xabraxxis")
+local function campGoals()
+	stub.advance(1.1)
+	local goals = E.GetStepView(1).goals
+	emit({ goals[useIndex].status, goals[useIndex + 1].status, goals[useIndex + 1].text })
+end
+w.cast(818)
+campGoals()
+local function summon()
+	local button = PolestarQuestItemButton
+	emit(button:IsShown() and button:GetAttribute("item") or false)
+	w.cast(16072)
+	for _, item in ipairs({12341, 12342, 12343, 12347}) do w.removeItem(item) end
+	campGoals()
+	emit(button:IsShown())
+end
+summon()
+for _, compact in ipairs({false, true}) do
+Polestar.Set("ui.compact", compact)
+Polestar.UI.GuideFrame.Render()
+local shown = {}
+for _, row in ipairs(Polestar.UI.GuideFrame.rows) do
+	if row:IsShown() and row.psGoal then
+		shown[#shown + 1] = { row.psGoal.index, row.Text:GetText(), row.Sub:IsShown() and row.Sub:GetText() or "" }
+	end
+end
+emit(shown)
+end
+w.abandon(4763)
+stub.advance(1.1)
+w.accept(4763, { 1 })
+for _, item in ipairs({12341, 12342, 12343, 12347}) do w.addItem(item, 1) end
+campGoals()
+summon()
+w.progress(4763, 1, 1)
+campGoals()
+"#,
+		]
+		.join("\n"),
+		..Default::default()
+	});
+	assert_eq!(out[0][0], "active", "an unrelated cast leaves the use open");
+	assert_eq!(out[1], "item:12347");
+	assert_eq!(out[2][0], "done");
+	assert_eq!(out[2][1], "active");
+	assert_eq!(out[3], false, "the button hides when the first bowl is consumed");
+	assert!(out[4].as_array().unwrap().iter().any(|row| row[2].as_str().unwrap().contains("kill Xabraxxis")), "{:?}", out[4]);
+	assert!(out[5].as_array().unwrap().iter().any(|row| row[2].as_str().unwrap().contains("kill Xabraxxis")), "compact {:?}", out[5]);
+	assert_eq!(out[6][0], "active", "retaking the quest opens the use again");
+	assert_eq!(out[7], "item:12347", "a replacement bowl can be used from the button");
+	assert_eq!(out[8][0], "done", "the second cast advances the guide again");
+	assert_eq!(out[8][1], "active", "the talisman is still missing after the second cast");
+	assert_eq!(out[9], false, "the button hides when the second bowl is consumed");
+	assert_eq!(out[10][1], "done", "collecting the talisman completes the objective");
+}
+
 // #1120 (Fitz, Undead Warlock, The Binding): "use 6284" (Runes of Summoning) has no quest, so it waited for a tick
 // while the voidwalker was killed and The Binding handed in, and the step never moved on. A quest-less use, click
 // or kill is done once a later quest goal of its step is; before that it holds, and an optional later goal never

@@ -1,7 +1,10 @@
 //! `forge gamedata list` and `forge gamedata export --table T --out FILE`: the installed
 //! client's tables read locally (CASC + DB2 + WoWDBDefs). `cache` decodes the client's WDB
 //! caches (quests, creatures, gameobjects the server described to it) to JSON; `hotfix` reads its
-//! DBCache.bin (the server's hotfix rows): a per-table summary, or one table's rows decoded.
+//! DBCache.bin (the server's hotfix rows): a per-table summary, or one table's rows decoded. `file`
+//! writes one file of the client by its fileDataID, as stored (game tables such as
+//! `gametables/combatratings.txt` (1391669), whose IDs the community listfile names; the Forever client has
+//! no `chancetomeleecrit` or regen tables).
 //! `compare --wago DIR` (a developer check, not in the help) exports every table a wago.tools
 //! build folder holds and compares the CSVs.
 //!
@@ -24,6 +27,7 @@ use forge_gamedata::{csv, find_install, flavor_dir, Client};
 
 pub(super) const USAGE: &str = "usage: forge gamedata list [options]                 the tables the client holds
        forge gamedata export --table <name> [--out <file>] [options]   a table as CSV (no --out: stdout)
+       forge gamedata file --fdid <id> [--out <file>] [options]   one file of the client as stored (no --out: stdout)
        forge gamedata check [--maps 0,1,...] [options]   is the install complete? (exit 1 when not)
        forge gamedata cache [--kind quest|creature|gameobject|all] [--cache <dir>] [--out <file.json>] [options]
                  the client's WDB caches as JSON keyed by id (all: keyed by kind, then id), with counts
@@ -57,6 +61,7 @@ struct Opts {
 	cache: Option<PathBuf>,
 	all_statuses: bool,
 	db2: bool,
+	fdid: Option<u32>,
 }
 
 fn parse() -> Result<Opts, Fail> {
@@ -77,6 +82,7 @@ fn parse() -> Result<Opts, Fail> {
 		cache: None,
 		all_statuses: false,
 		db2: false,
+		fdid: None,
 	};
 	while let Some(a) = args.next() {
 		let mut val = || args.next().ok_or_else(|| usage(format!("{a} needs a value")));
@@ -106,6 +112,10 @@ fn parse() -> Result<Opts, Fail> {
 				}
 			}
 			"--db2" => o.db2 = true,
+			"--fdid" => {
+				let v = val()?;
+				o.fdid = Some(v.parse().map_err(|_| usage(format!("--fdid {v}: not a fileDataID")))?);
+			}
 			"-h" | "--help" => {
 				println!("{USAGE}");
 				std::process::exit(0)
@@ -194,6 +204,21 @@ fn run() -> Result<(), Fail> {
 				None => std::io::stdout().write_all(&bytes).map_err(|e| e.to_string())?,
 			}
 			eprintln!("{table}: {} rows in {:.1} ms", tb.rows(), t.elapsed().as_secs_f64() * 1e3);
+			Ok(())
+		}
+		"file" => {
+			let fdid = o.fdid.ok_or_else(|| usage("file needs --fdid <id>"))?;
+			let c = open(&o)?;
+			let locale = forge_gamedata::casc::locale_flag(&o.locale).ok_or_else(|| usage(format!("--locale {}: not a client locale", o.locale)))?;
+			let d = c.storage.read_fdid(fdid, locale)?;
+			if !d.encrypted.is_empty() {
+				eprintln!("fileDataID {fdid}: {} encrypted chunk(s) left as zeros ({})", d.encrypted.len(), d.encrypted.join(", "));
+			}
+			match &o.out {
+				Some(p) => std::fs::write(p, &d.data).map_err(|e| format!("{}: {e}", p.display()))?,
+				None => std::io::stdout().write_all(&d.data).map_err(|e| e.to_string())?,
+			}
+			eprintln!("fileDataID {fdid}: {} bytes", d.data.len());
 			Ok(())
 		}
 		"compare" => Ok(compare(&o)?),

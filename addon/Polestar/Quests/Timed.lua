@@ -369,7 +369,8 @@ function Timed.OffText(q)
 	local place = o.zone ~= "" and o.zone or o.name
 	local sub
 	if o.secs then
-		sub = format(L["%s ~%s · this guide doesn't go there"], place, duration(o.secs))
+		-- The way's time, "about": "≈6 min", "~" in a face without it (Theme.Approx, #1906).
+		sub = format(L["%s %s · this guide doesn't go there"], place, Theme.Approx() .. duration(o.secs))
 		-- Longer than the time left: in the danger colour, as the hint on a step.
 		if o.secs > (Timed.Left(q) or 0) then sub = "|c" .. Theme.Hex("danger") .. sub .. "|r" end
 	else

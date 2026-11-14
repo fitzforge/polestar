@@ -440,7 +440,7 @@ fn pack_builds_polestar_experimental_from_experimental_and_ships_it_loaded_on_de
 	assert!(get("Polestar_Experimental/Pack.lua").contains("id = \"polestar-experimental\""));
 	assert!(get("Polestar_Experimental/Guides.lua").contains("id = \"polestar-experimental/elwynn\""));
 	let readme = get("Polestar/README.txt");
-	assert!(readme.contains("\r\n     Polestar_Experimental\r\n") && readme.contains("switch them on under Options > Community guides."), "{readme}");
+	assert!(readme.contains("\r\n     Polestar_Experimental\r\n") && readme.contains("is nothing to install or switch on: where a guide offers one of"), "{readme}");
 	// Written into the checkout too, as our guides are.
 	assert_eq!(std::fs::read_to_string(root.join("addon/Polestar_Experimental/Polestar_Experimental.toc")).unwrap(), toc);
 }

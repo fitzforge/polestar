@@ -8,12 +8,12 @@
 return {
 	-- Step 1: Auberdine
 	-- {npc:3649} Thundris Windweaver · {npc:3702} Alanndarian Nightsong · {npc:2913} Archaeologist Hollee · {npc:3693} Terenthis · {npc:3694} Sentinel Selarin
-	["From the dock, up to the north end of the village first ({npc:3649}, {npc:3702} by the moonwell, {npc:2913}), then down the main street: the WANTED poster outside the inn, {npc:3693} at its east end, where the road leaves south. {npc:3694} stands beside {npc:3693} by the flight master; if she isn't there, she has been killed and respawns shortly: wait a moment."] = "",
+	["From the dock, up to the north end of the village first ({npc:3649}, {npc:3702} by the moonwell, {npc:2913}), then down the main street: the WANTED poster outside the inn, {npc:3693} at its east end, where the road leaves south. {npc:3694} stands beside {npc:3693} by the flight master; if she isn't there, she has been killed and respawns shortly: wait a moment."] = "从码头先到村庄北端（{npc:3649}、月亮井旁的{npc:3702}，以及{npc:2913}），再沿主街往下走：旅店外有通缉告示，{npc:3693}在主街东端、道路向南出村的位置。{npc:3694}站在飞行管理员旁的{npc:3693}身边；如果她不在，说明刚被击杀，稍等片刻就会刷新。",
 	-- {npc:3649} Thundris Windweaver · {npc:1646} Baros Alexston
-	["{npc:3649}, north end of the village: {npc:1646}'s reply"] = "",
+	["{npc:3649}, north end of the village: {npc:1646}'s reply"] = "{npc:3649}，在村庄北端：{npc:1646}的回信",
 	["The WANTED poster"] = "通缉布告",
 	-- {npc:3694} Sentinel Selarin · {npc:3693} Terenthis · {npc:3691} Raene Wolfrunner · {area:415} Astranaar
-	["{npc:3694}, beside {npc:3693}: for {npc:3691} in {area:415}, in the next guide"] = "",
+	["{npc:3694}, beside {npc:3693}: for {npc:3691} in {area:415}, in the next guide"] = "{npc:3694}就在{npc:3693}旁边：交给{area:415}的{npc:3691}，见下一篇指南",
 
 	-- Step 3: Onu
 	-- {quest:948} Onu · {npc:270269} Arbal · {npc:11218} Kerlonian Evershade
@@ -50,7 +50,7 @@ return {
 	-- {object:12666} Twilight Tome
 	["The {object:12666}"] = "{object:12666}",
 	-- {object:12666} Twilight Tome · {quest:949} The Twilight Camp
-	["The {object:12666}, once it has {quest:949}"] = "",
+	["The {object:12666}, once it has {quest:949}"] = "{object:12666}：交还{quest:949}后可接取",
 	-- {item:279279} Peerless Eye
 	-- plural, as words: Twilight Disciples = {npc:2338} Twilight Disciple
 	["{item:279279}: Twilight Disciples and Thugs"] = "{item:279279}：暮光信徒和暮光暴徒",
@@ -116,7 +116,7 @@ return {
 	-- {npc:12298} Sickly Deer · {item:15826} Curative Animal Salve · {zone:1439} Darkshore
 	["{npc:12298}: use the {item:15826} on them; they roam all of {zone:1439}"] = "{npc:12298}：对它们使用{item:15826}；它们在整个{zone:1439}游荡",
 	-- {npc:12298} Sickly Deer
-	["Cure {npc:12298}"] = "",
+	["Cure {npc:12298}"] = "治愈{npc:12298}",
 
 	-- Step 21: Auberdine flight master
 	-- {area:442} Auberdine

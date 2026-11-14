@@ -130,7 +130,14 @@ forge gamedata cache --out wdb.json                          # quests, creatures
 forge gamedata cache --kind quest --out quests.json
 forge gamedata hotfix                                        # DBCache.bin: entries per table and status
 forge gamedata hotfix --table <name> --out rows.csv --db2     # one table's rows, compared with the installed table
+forge gamedata file --fdid 1391669 --out combatratings.txt     # one file of the client by its fileDataID
 ```
+
+`file` writes one file of the client as stored, by its fileDataID: the game tables that are no DB2,
+such as `gametables/combatratings.txt` (1391669), whose IDs the community listfile
+(https://github.com/wowdev/wow-listfile) names. Forever's client has no `chancetomeleecrit` or
+`regenmpperspt` tables; its crit per Agility and spell crit per Intellect are the DB2 table
+`PlayerExpectedStat`.
 
 `cache` reads the client's WDB files (`Cache/WDB/<locale>` in the product's client folder, or
 `--cache <dir>`); `hotfix` reads its hotfix file (`Cache/ADB/<locale>/DBCache.bin`, or
@@ -329,7 +336,7 @@ Codex and gear are addon side products. They are not route inputs.
 objects dropped, what vendors listed and the rewards quests showed, facts only, with how many
 people saw each. It counts people the way `forge record learn` does: established Ingest
 contributors, the maintainer's own and vouched-for files, never the contributors the archive's
-`config.json` or IngestAudit's verdicts set aside, and one vote per person. It is committed, so
+`config.json` or the recordings audit's verdicts set aside, and one vote per person. It is committed, so
 every machine builds the same Codex; `forge data codex --recordings <dir> [--verdicts <file>]`
 rewrites it from a recordings folder (the maintainer's archive or `data/recordings`) before the
 build. A recorded fact changes what the Codex says only once enough people back it (`minVoters`,

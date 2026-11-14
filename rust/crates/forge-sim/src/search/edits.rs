@@ -544,7 +544,7 @@ pub fn stay_moves(p: &Problem, m: &Member) -> Vec<Mv> {
 
 /// A gate (a v1 grind checkpoint `Feas::free_grinds` does not free) that guards an accept, not a
 /// training, waits until just before the first accept it gates: the hand-ins between give their XP
-/// first (RevA2: Feralas' level-45 grind before Shay's escort and the Feathermoon hand-ins). One
+/// first (review: Feralas' level-45 grind before Shay's escort and the Feathermoon hand-ins). One
 /// `gate later` move per such checkpoint, when no training or other grind is between.
 pub fn gate_moves(p: &Problem, m: &Member) -> Vec<Mv> {
 	let run = &p.model.run;

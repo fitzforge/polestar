@@ -35,13 +35,13 @@ return {
 
 	-- Step 7: Dorius Stonetender
 	-- {area:247} Grimesilt Dig Site · {area:1959} Dustfire Valley · {object:175704} Singed Letter
-	["Dorius stands by the road beside the {area:247}. Escort him north-east to {area:1959} and keep him alive; when it is over, read the {object:175704} he leaves on the road."] = "",
+	["Dorius stands by the road beside the {area:247}. Escort him north-east to {area:1959} and keep him alive; when it is over, read the {object:175704} he leaves on the road."] = "杜里奥斯·裂石在{area:247}旁的路边。向东北护送他到{area:1959}，确保他存活；结束后阅读他留在路上的{object:175704}。",
 	-- {npc:8256} Curator Thorius · {zone:1455} Ironforge
 	["For {npc:8256} in {zone:1455}, at the end of this guide"] = "在本指南结尾交给{zone:1455}的{npc:8256}",
 
 	-- Step 8: Thorium Point
 	-- {area:1446} Thorium Point
-	["Ride west along the north of the Gorge to {area:1446}, the scaffolded camp on the north-west rim."] = "",
+	["Ride west along the north of the Gorge to {area:1446}, the scaffolded camp on the north-west rim."] = "沿灼热峡谷北侧向西骑行，到达{area:1446}，即西北边缘搭着脚手架的营地。",
 	-- {object:179827} Wanted/Missing/Lost & Found
 	["The {object:179827} board"] = "{object:179827}布告板",
 
@@ -53,24 +53,24 @@ return {
 	-- plural, as words: Greater Lava Spiders = {npc:5858} Greater Lava Spider
 	["Greater Lava Spiders"] = "{npc:5858}",
 	-- {npc:8436} Zamael Lunthistle · {npc:8479} Velarok Windblade
-	["The spiders roam the plateaus and lava pools south of {npc:8436}, on the way to {npc:8479}."] = "",
+	["The spiders roam the plateaus and lava pools south of {npc:8436}, on the way to {npc:8479}."] = "蜘蛛在{npc:8436}南边的平台和熔岩池周围活动，前往{npc:8479}时会经过。",
 
 	-- Step 14: Velarok Windblade
 	-- {npc:8479} Velarok Windblade · {area:1446} Thorium Point
-	["{npc:8479} stands on the rim of the Cauldron, south of {area:1446}. Listen to his story."] = "",
+	["{npc:8479} stands on the rim of the Cauldron, south of {area:1446}. Listen to his story."] = "{npc:8479}站在{area:1446}南边的大熔炉边缘。听他讲述故事。",
 
 	-- Step 17: Golems and elementals
 	["Golems and elementals"] = "傀儡和元素",
 	-- {npc:8479} Velarok Windblade
 	-- plural, as words: Heavy War Golems = {npc:5854} Heavy War Golem · Magma Elementals = {npc:5855} Magma Elemental
-	["Heavy War Golems patrol the floor of the Cauldron below {npc:8479}; Magma Elementals drift among them. Golems and elementals drop the oil, elementals the hearts."] = "",
+	["Heavy War Golems patrol the floor of the Cauldron below {npc:8479}; Magma Elementals drift among them. Golems and elementals drop the oil, elementals the hearts."] = "重型作战傀儡在{npc:8479}下方的大熔炉底部巡逻，熔岩元素也在其中游荡。傀儡和元素都会掉落油，只有元素掉落心脏。",
 
 	-- Step 19: Dark Iron dwarves: kill these as you meet them
 	-- {object:147516} Dark Iron
-	["{object:147516} dwarves: kill these as you meet them"] = "",
+	["{object:147516} dwarves: kill these as you meet them"] = "{object:147516}矮人：沿途击杀",
 	-- {item:10551} Thorium Plated Dagger · {item:18959} Smithing Tuyere · {object:147516} Dark Iron · {item:11818} Grimesilt Outhouse Key
 	-- plural, as words: Dark Iron Slavers = {npc:5844} Dark Iron Slaver
-	["Taskmasters and Slavers drive the slaves all over the Cauldron, and any of them can carry a {item:10551}. The Steamsmiths work at the furnaces in the middle (the {item:18959}), the Lookouts stand on the southern ridges (the Spyglass). Any {object:147516} may drop the {item:11818}: keep it.\nCareful: Dark Iron Slavers (level 45-46) call for help from allies within 15 yd when pulled, cast Net from up to 15 yd, and use Rend in melee."] = "",
+	["Taskmasters and Slavers drive the slaves all over the Cauldron, and any of them can carry a {item:10551}. The Steamsmiths work at the furnaces in the middle (the {item:18959}), the Lookouts stand on the southern ridges (the Spyglass). Any {object:147516} may drop the {item:11818}: keep it.\nCareful: Dark Iron Slavers (level 45-46) call for help from allies within 15 yd when pulled, cast Net from up to 15 yd, and use Rend in melee."] = "黑铁工头和黑铁奴隶贩子在大熔炉各处驱赶奴隶，都可能携带{item:10551}。黑铁锻造师在中央的熔炉处工作（掉落{item:18959}），黑铁哨兵站在南侧山脊上（掉落侦查员的望远镜）。任何{object:147516}矮人都可能掉落{item:11818}：留着。\n小心：黑铁奴隶贩子（45-46级）被引到时会向15码内的同伴求援，投网射程最远为15码，近战时会使用撕裂。",
 
 	-- Step 22: Searing Gorge: kill these as you meet them
 	-- {zone:1427} Searing Gorge

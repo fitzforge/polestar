@@ -8,7 +8,7 @@
 return {
 	-- Step 2: Argent Officer Pureheart
 	-- {quest:5401} Argent Dawn Commission · {spell:437801} Light's Hope · {zone:1452} Winterspring
-	["No {quest:5401} yet ({spell:437801} gives it on the {zone:1452} guide's way through)? Pureheart gives you one here: the scourgestone quests need it."] = "",
+	["No {quest:5401} yet ({spell:437801} gives it on the {zone:1452} guide's way through)? Pureheart gives you one here: the scourgestone quests need it."] = "还没有{quest:5401}？{zone:1452}指南途中会通过{spell:437801}获得；这里也可向银色黎明军官普尔哈特领取，天灾石任务需要它。",
 
 	-- Step 3: Sorrow Hill: kill these as you meet them
 	-- {area:197} Sorrow Hill
@@ -262,7 +262,7 @@ return {
 
 	-- Step 71: Rockbiter
 	-- {npc:7765} Rockbiter · {npc:7775} Gregan Brewspewer
-	["The giant {npc:7765} sits just north-west of {npc:7775}'s camp."] = "",
+	["The giant {npc:7765} sits just north-west of {npc:7775}'s camp."] = "巨人{npc:7765}就在{npc:7775}营地的西北侧。",
 
 	-- Step 72: Evoroot
 	-- {item:11242} Evoroot · {npc:7765} Rockbiter
@@ -274,7 +274,7 @@ return {
 
 	-- Step 74: Wandering Shay
 	-- {npc:7774} Shay Leafrunner · {npc:7765} Rockbiter
-	["Lead {npc:7774} back to {npc:7765} at walking pace: she wanders off, so ring the bell to call her back (not in combat), and clear the harpies on the way before she reaches them."] = "",
+	["Lead {npc:7774} back to {npc:7765} at walking pace: she wanders off, so ring the bell to call her back (not in combat), and clear the harpies on the way before she reaches them."] = "步行带{npc:7774}返回{npc:7765}身边。她会走开，需在非战斗状态下摇铃叫她回来；提前清除沿途鹰身人，别让她靠近它们。",
 
 	-- Step 75: Gregan Brewspewer
 	-- {npc:7775} Gregan Brewspewer · {npc:7765} Rockbiter · {item:11242} Evoroot · {npc:9298} Donova Snowden · {npc:9299} Gaeriyan · {area:976} Gadgetzan
@@ -359,11 +359,11 @@ return {
 
 	-- Step 93: Layo Starstrike
 	-- {zone:1451} Silithus · {npc:13220} Layo Starstrike · {area:3077} Valor's Rest
-	["Ride out of the crater's north-western pass into {zone:1451}: {npc:13220} stands at {area:3077}, where the pass comes out."] = "",
+	["Ride out of the crater's north-western pass into {zone:1451}: {npc:13220} stands at {area:3077}, where the pass comes out."] = "从环形山西北侧的山口骑乘进入{zone:1451}，{npc:13220}在山口出口的{area:3077}。",
 
 	-- Step 95: Cenarion Hold
 	-- {area:3425} Cenarion Hold · {npc:15189} Beetix Ficklespragg
-	["Ride on west to {area:3425}. {npc:15189} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."] = "",
+	["Ride on west to {area:3425}. {npc:15189} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."] = "继续向西骑到{area:3425}。{npc:15189}在建筑的楼上：从屋内上楼，箭头无法区分楼层。",
 	-- {npc:17082} Rifleman Torrig
 	["{npc:17082}, at the Alliance tents"] = "{npc:17082}，在联盟帐篷处",
 
@@ -382,7 +382,7 @@ return {
 
 	-- Step 98: Cenarion Hold
 	-- {area:3425} Cenarion Hold · {npc:15189} Beetix Ficklespragg
-	["Ride back to {area:3425}. {npc:15189} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."] = "",
+	["Ride back to {area:3425}. {npc:15189} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."] = "骑乘返回{area:3425}。{npc:15189}在所在建筑的楼上：从屋内上楼，箭头无法区分楼层。",
 
 	-- Step 99: Silithus: kill these as you meet them
 	-- plural, as words: Dredge Crushers = {npc:11741} Dredge Crusher · Stonelash Pincers = {npc:11736} Stonelash Pincer · Rock Stalkers = {npc:11739} Rock Stalker
@@ -406,7 +406,7 @@ return {
 
 	-- Step 105: Krakle
 	-- {zone:1451} Silithus · {area:543} Golakka Hot Springs · {npc:10302} Krakle
-	["Coming in from {zone:1451}, {area:543} is just inside the crater: {npc:10302} the goblin sits by the water."] = "",
+	["Coming in from {zone:1451}, {area:543} is just inside the crater: {npc:10302} the goblin sits by the water."] = "从{zone:1451}进入环形山后不远就是{area:543}：地精{npc:10302}坐在水边。",
 
 	-- Step 106: Un'Goro Crater: kill these as you meet them
 	-- {zone:1449} Un'Goro Crater
@@ -451,9 +451,9 @@ return {
 
 	-- Step 114: Torwa Pathfinder
 	-- {npc:9619} Torwa Pathfinder
-	["{npc:9619} camps at the foot of the ramp into the crater."] = "",
+	["{npc:9619} camps at the foot of the ramp into the crater."] = "{npc:9619}的营地在进入环形山的斜坡底部。",
 	-- {area:1943} Ironstone Plateau
-	["The pelts come from the gorillas on {area:1943}"] = "",
+	["The pelts come from the gorillas on {area:1943}"] = "毛皮由{area:1943}上的猩猩掉落",
 
 	-- Step 116: Ironstone Plateau: kill these as you meet them
 	-- {area:1943} Ironstone Plateau · {area:541} Marshal's Refuge · {npc:9619} Torwa Pathfinder · {npc:9622} U'cha

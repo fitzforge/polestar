@@ -111,7 +111,7 @@ return {
 	["{area:16624}: kill these as you meet them"] = "{area:16624}：沿途击杀以下目标",
 	-- {area:16624} Shen'dar Village · {item:5469} Strider Meat · {npc:251905} Zerril Softbreeze
 	-- plural, as words: Prideclaws = {npc:251245} Prideclaw · Small Eggs = {item:6889} Small Egg
-	["Prideclaws and Galestriders share the meadows around {area:16624}; the Galestriders graze thickest just west of it. They drop both the Small Eggs and the {item:5469} for {npc:251905}."] = "",
+	["Prideclaws and Galestriders share the meadows around {area:16624}; the Galestriders graze thickest just west of it. They drop both the Small Eggs and the {item:5469} for {npc:251905}."] = "傲爪和疾风陆行鸟一同栖息在{area:16624}周围的草地上，疾风陆行鸟在村庄西边不远处最为密集。它们同时掉落小蛋和{npc:251905}需要的{item:5469}。",
 
 	-- Step 31: Shen'dar Village hand-ins
 	-- {area:16624} Shen'dar Village
@@ -470,7 +470,7 @@ return {
 	-- {area:379} Far Watch Post · {area:815} Southfury River · {zone:1411} Durotar · {zone:1454} Orgrimmar · {quest:95350} Welcome to Azeroth · {zone:1420} Tirisfal Glades · {zone:1421} Silverpine Forest
 	["From the Crossroads follow the road north-east to {area:379}, cross the {area:815} into {zone:1411} and keep north to {zone:1454}'s main gate. The next guide starts in {zone:1454}: Thrall takes {quest:95350}, and the zeppelin leaves for {zone:1420} and {zone:1421}."] = "从十字路口沿路向东北到{area:379}，跨过{area:815}进入{zone:1411}，继续向北到{zone:1454}正门。下篇指南从{zone:1454}开始：把{quest:95350}交给萨尔，然后乘飞艇前往{zone:1420}和{zone:1421}。",
 	-- {zone:1454} Orgrimmar · {object:172982} Valley of Strength
-	["{zone:1454}'s {object:172982}"] = "",
+	["{zone:1454}'s {object:172982}"] = "{zone:1454}的{object:172982}",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Back to {area:16624} with what you found."] = "带着你找到的东西返回{area:16624}。",

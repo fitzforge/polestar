@@ -52,6 +52,8 @@ return {
 		["action:POLESTAR_MENU"] = bound("POLESTAR_MENU"),
 		["action:POLESTAR_OPTIONS"] = bound("POLESTAR_OPTIONS"),
 		["action:POLESTAR_REPORT"] = bound("POLESTAR_REPORT"),
+		-- Pause's key binding, on Guide > Window beside its switch (#1937).
+		["action:POLESTAR_PAUSE"] = bound("POLESTAR_PAUSE"),
 		["action:CLICK PolestarQuestItemButton:LeftButton"] = bound("CLICK PolestarQuestItemButton:LeftButton"),
 		["action:CLICK PolestarTargetButton:LeftButton"] = bound("CLICK PolestarTargetButton:LeftButton"),
 		["action:CLICK PolestarRareButton:LeftButton"] = bound("CLICK PolestarRareButton:LeftButton"),

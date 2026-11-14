@@ -193,8 +193,12 @@ mod gamepad;
 #[path = "gamepad-ui.rs"]
 mod gamepad_ui;
 mod gear;
+#[path = "gear-adjust.rs"]
+mod gear_adjust;
 #[path = "gear-bags.rs"]
 mod gear_bags;
+#[path = "gear-forever.rs"]
+mod gear_forever;
 #[path = "gear-pawn.rs"]
 mod gear_pawn;
 #[path = "gear-upgrades.rs"]
@@ -312,6 +316,7 @@ mod party_group;
 mod party_pair;
 #[path = "party-sync.rs"]
 mod party_sync;
+mod pause;
 mod profiles;
 mod qol;
 #[path = "qol-bagglow.rs"]
@@ -351,6 +356,8 @@ mod recorder_progress;
 mod recorder_route;
 mod release;
 mod riding;
+#[path = "route-experimental.rs"]
+mod route_experimental;
 #[path = "route-plan.rs"]
 mod route_plan;
 #[path = "settings-coverage.rs"]
@@ -369,6 +376,8 @@ mod skins_bundled;
 mod skins_concepts;
 #[path = "skins-hearth.rs"]
 mod skins_hearth;
+#[path = "skins-login.rs"]
+mod skins_login;
 #[path = "skins-sweep.rs"]
 mod skins_sweep;
 mod stranded;
@@ -401,8 +410,12 @@ mod ui_import;
 mod ui_journey;
 #[path = "ui-look-buttons.rs"]
 mod ui_look_buttons;
+#[path = "ui-look-glow.rs"]
+mod ui_look_glow;
 #[path = "ui-look-guidewindow.rs"]
 mod ui_look_guidewindow;
+#[path = "ui-look-guidewindow-copy.rs"]
+mod ui_look_guidewindow_copy;
 #[path = "ui-look-theme.rs"]
 mod ui_look_theme;
 #[path = "ui-look-toasts.rs"]
@@ -431,10 +444,14 @@ mod ui_preview;
 mod ui_quest_unlocks;
 #[path = "ui-quick-settings.rs"]
 mod ui_quick_settings;
+#[path = "ui-report-settings.rs"]
+mod ui_report_settings;
 #[path = "ui-route.rs"]
 mod ui_route;
 #[path = "ui-scrub.rs"]
 mod ui_scrub;
+#[path = "ui-settings-ux.rs"]
+mod ui_settings_ux;
 #[path = "ui-steplist.rs"]
 mod ui_steplist;
 #[path = "ui-thanks.rs"]
