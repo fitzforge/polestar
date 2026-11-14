@@ -241,6 +241,7 @@ step Heartswood
   collect 190309 quest 65602.1 optional   -- Wooden Figurine, north of Maestra's Post
 
 step Stonetalon Mountains
+  when !zone "Desolace"
   zone Stonetalon Mountains
-  goto 33.7,72.8 "Stonetalon Mountains"
+  goto 30.0,76.5 "Stonetalon Mountains"
 

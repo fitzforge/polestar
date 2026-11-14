@@ -128,5 +128,6 @@ step Fly to Auberdine
   zone Darkshore
 
 step Boat to Stormwind Harbor
+  when !zone "Stormwind City"
   zone Darkshore
   goto 30.7,41.0 "Boat to Stormwind Harbor"

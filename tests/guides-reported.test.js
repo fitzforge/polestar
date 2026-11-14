@@ -14047,3 +14047,28 @@ test('#2311: a complete that leads its step has a place for the arrow', { skip }
 	assert.equal(mouth.goal.t, 'goto', 'a goto at the Rethban Caverns before the fork inside');
 	assert.ok(Math.hypot(mouth.goal.x - 15.0, mouth.goal.y - 27.3) < 0.05 && mouth.goal.f !== 'e', `the mouth at 15.0,27.3, live frame (got ${mouth.goal.x},${mouth.goal.y} ${mouth.goal.f})`);
 });
+
+// #2327 (kevintm1011, Human Priest 36): Stranglethorn Vale (Alliance 30-40) ended on "The road to Nijel's Point", a
+// goto at 33.7,72.8 in the Charred Vale, about 100 yards east of the road players walk (their positions run down x
+// 31-31.5 at y 72-74 and through the pass at 30.0, 76-77.5, 21-26 people per half-unit cell). Past it at Nijel's
+// Point, the guide sent the player back to it, and Desolace's first step then sent them back to Nijel's Point. The
+// goto now stands in the pass, and like #2082's boat back to Auberdine the step drops once the player is in the next
+// guide's zone. The same pattern, a guide's last step a lone goto into another zone with no such gate: Desolace's
+// boat to Stormwind Harbor and Ashenvale's boat to Menethil Harbor (Alliance 30-40).
+test('#2327: a leveling guide that ends on the way into another zone drops that step once you are there', { skip }, () => {
+	for (const [guide, zone] of [
+		['forever/alliance/30-40/04-stranglethorn-vale.guide', 'Desolace'],
+		['forever/alliance/30-40/02-desolace.guide', 'Stormwind City'],
+		['forever/alliance/30-40/03-ashenvale.guide', 'Wetlands'],
+		['forever/alliance/03-loch-modan.guide', 'Darkshore'],
+	]) {
+		const steps = compiled(guide).steps;
+		const last = steps[steps.length - 1];
+		assert.ok(last.goals.every((g) => g.t === 'goto'), `${guide}: ends on a travel step (${last.title})`);
+		assert.ok((last.when || []).some((p) => p.k === 'zone' && p.neg && p.name === zone), `${guide}: \`when !zone "${zone}"\` on ${last.title}`);
+	}
+	const steps = compiled('forever/alliance/30-40/04-stranglethorn-vale.guide').steps;
+	const road = steps[steps.length - 1].goals[0];
+	assert.equal(road.map, 1442, 'the road to Nijel\'s Point is in the Stonetalon Mountains');
+	assert.ok(Math.hypot(road.x - 30.0, road.y - 76.5) < 0.05, `the pass players walk through, 30.0,76.5 (got ${road.x},${road.y})`);
+});

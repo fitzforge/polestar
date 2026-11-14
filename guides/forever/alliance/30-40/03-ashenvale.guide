@@ -169,5 +169,6 @@ step Theramore
   turnin 1320                         -- Captain Garran Vimes
 
 step Boat to Menethil Harbor
+  when !zone "Wetlands"
   zone Dustwallow Marsh
   goto 71.6,56.4 "Boat to Menethil Harbor"
