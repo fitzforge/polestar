@@ -26,11 +26,41 @@ const PROFILES = `Polestar.UI.ShowOptions("profiles")
 stub.advance(0.5)
 return { shown = PolestarOptions:IsShown(), height = PolestarOptions:GetHeight(), screen = UIParent:GetHeight() }`;
 
+// The dungeon card over the guide window placed where 1300, 900 px on screen
+// is (dungeon-route's place: at UI scale 1.5 no room above it): its side,
+// the card's and the window's rectangles and how far the window's own drawing
+// (a skin's border or corner marks) reaches past them, in screen pixels.
+const DUNGEON_CARD = (scale) => `Polestar.Set("ui.pos", { 1300 / ${scale}, 900 / ${scale} })
+Polestar.UI.GuideFrame.Layout()
+stub.advance(0.5)
+local DT = Polestar.UI.DungeonToast
+local c = DT.Candidates(stub.world.level, "any")
+assert(c and c[1], "no dungeon card at this level")
+DT.Show(c[1])
+stub.advance(1)
+local f, w = PolestarClassToast, PolestarGuideFrame
+local function rect(x) local e = x:GetEffectiveScale() return { x:GetLeft() * e, x:GetBottom() * e, x:GetRight() * e, x:GetTop() * e } end
+local lo, hi = math.huge, -math.huge
+local function walk(x)
+	if not x:IsShown() then return end
+	for _, r in ipairs({ x:GetRegions() }) do
+		if r:IsShown() and r:GetBottom() then
+			local e = x:GetEffectiveScale()
+			lo, hi = math.min(lo, r:GetBottom() * e), math.max(hi, r:GetTop() * e)
+		end
+	end
+	for _, ch in ipairs({ x:GetChildren() }) do walk(ch) end
+end
+walk(w)
+local wr = rect(w)
+return { side = Polestar.UI.ClassToast.side, card = rect(f), win = wr, drawnBelow = wr[2] - lo, drawnAbove = hi - wr[4] }`;
+
 const SURFACES = {
 	room: { what: 'Make room with 25 quests', lua: ROOM, capture: ['PolestarQuestRoom', 'GameTooltip'] },
 	alts: { what: 'Characters, the worst of each field', lua: ALTS, capture: ['PolestarPicker'] },
 	profiles: { what: 'Options > Profiles', lua: PROFILES, capture: ['PolestarOptions'] },
 	classcard: { what: 'the Whirlwind Weapon class card', lua: CLASS_CARD, capture: ['PolestarGuideFrame'] },
+	dungeoncard: { what: 'the dungeon card where there is no room above the window', lua: DUNGEON_CARD, capture: ['PolestarGuideFrame', 'PolestarClassToast'] },
 };
 
 const shots = {};
@@ -40,7 +70,7 @@ for (const [name, [id, folder, variant]] of Object.entries(skins.SKINS)) {
 			shots[`${name}-${key}-${scale}`] = {
 				title: `${name}: ${s.what} at UI scale ${scale}`,
 				capture: s.capture,
-				lua: `${skins.pick(id, folder, variant)}\n${screen(1920, 1080, Number(scale))}\n${s.lua}`,
+				lua: `${skins.pick(id, folder, variant)}\n${screen(1920, 1080, Number(scale))}\n${typeof s.lua === 'function' ? s.lua(scale) : s.lua}`,
 			};
 		}
 	}
