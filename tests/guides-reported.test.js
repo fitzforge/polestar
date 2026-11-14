@@ -12495,6 +12495,20 @@ test('Tanaris (Alliance 47): the way to Aerie Peak without its flight path, for 
 	assert.ok(list.some(({ goal }) => goal.t === 'getfp' && goal.location === 'Aerie Peak'), 'learned on arrival');
 });
 
+// Pysch_MC's report (#2199): Forever names npc 5858 "Searing Lava Spider", and the Searing Gorge guide's step for Fiery
+// Menace! (7724) called them Greater Lava Spiders, so the player looked for a mob that isn't there. The step, its goal's
+// name and the seed's copy use the game's name.
+test("Pysch_MC's report (#2199): the Searing Gorge guide names the Searing Lava Spiders as the game does", { skip }, () => {
+	for (const file of ['forever/alliance/40-50/06-searing-gorge.guide']) {
+		const list = goals(file);
+		const spiders = list[at(list, 'kill 5858', (g) => g.t === 'kill' && g.npc === 5858)];
+		assert.equal(spiders.step.title, 'Searing Lava Spiders', `${file}: the step's title`);
+		const text = fs.readFileSync(path.join(OFFICIAL_DIR, file), 'utf8');
+		assert.ok(!/Greater Lava Spider/.test(text), `${file}: no "Greater Lava Spider" left`);
+	}
+	const seed = fs.readFileSync(path.join(__dirname, '..', 'forge', 'seed', 'guides', 'forever', 'alliance', '40-50', '06-searing-gorge.guide'), 'utf8');
+	assert.ok(!/Greater Lava Spider/.test(seed), 'the seed copy too');
+});
 
 // Felwood end at the tunnel (0.4.0 audit, Alliance 50-60/02): the Emerald Sanctuary's last hand-ins come before the
 // Timbermaw block, so the guide ends at Timbermaw Hold, where 50-60/03 starts through the tunnel; the "Level 52.9" top-up
@@ -12693,4 +12707,58 @@ test('Alliance 50-60/01: the Broodling Essence step warns of the Malfunctioning 
 	assert.match([use.step.note, ...(use.step.notes || []), JSON.stringify(use.step)].filter(Boolean).join(' '), /Malfunctioning Reaver \(level 56, rare\)/, 'the warning on the step');
 	const fixes = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', 'guide-fixes.json'), 'utf8')).fixes;
 	assert.ok(fixes.some((f) => f.at && f.at.quest === 4726 && f.at.objective === 1 && /Malfunctioning Reaver/.test(f.tip || '')), 'and its record');
+});
+
+// Bennistrov's and Visur's report (#2207): the Tanaris guide's Dunemaul Compound step grinds to 47.06, almost a level
+// for a player at 46.1. The gate stays (lower, the Thistleshrub Valley's level-50 quests and 48-50 mobs would come 3+
+// levels over); the step now says why and names the level 45-46 Ogres at the compound's south end as the safer grind.
+test("Bennistrov's and Visur's report (#2207): the Dunemaul grind says why, and where the safer ogres are", { skip }, () => {
+	const list = goals('forever/alliance/40-50/04-tanaris.guide');
+	const dune = list.find(({ goal }) => goal.t === 'level' && goal.grind === 5474);
+	assert.ok(dune, 'the written grind at the compound');
+	const text = JSON.stringify(dune.step);
+	assert.match(text, /Thistleshrub Valley/, 'why: the Thistleshrub Valley next');
+	assert.match(text, /Ogres \(45-46\)/, 'the safer ogres');
+});
+
+// Route feel (0.4.0 audit): the boat from Auberdine lands below Rut'theran Village; the guide walked up to Daryn and
+// Erelas and then, before handing in, back down to Vesprystus for the flight path and up again (about 160 yd each way,
+// the hand-ins and Favored of Elune? some minutes later). The flight path is learned on the way up, first.
+test("Tanaris (Alliance 47): Rut'theran's flight path on the way up from the boat, then Daryn and Erelas (0.4.0 audit)", { skip }, () => {
+	const list = goals('forever/alliance/40-50/04-tanaris.guide');
+	const fp = at(list, "getfp Rut'theran", (g) => g.t === 'getfp' && g.location === "Rut'theran Village");
+	for (const [t, q] of [['turnin', 2939], ['turnin', 3022], ['accept', 3661]]) {
+		const i = at(list, `${t} ${q}`, is(t, q));
+		assert.ok(fp < i, `the flight path before ${t} ${q}`);
+		assert.notEqual(list[fp].s, list[i].s, `the flight path in its own step, before the ${t} ${q} stop`);
+	}
+});
+
+// Alliance 1-12 route feel (0.4.0, #2025): Teldrassil's last stop in Auberdine takes Thundris', Terenthis' and
+// Tharnariun's quests, but The Red Crystal (4811) waited for Night Elf Darkshore's first steps, a second walk to
+// Sentinel Glynda in the same street. It is taken with the others (level 12 needed; players reach that stop at
+// 12.5 or more); Night Elf Darkshore keeps its accept for a player who loads it fresh.
+test(`${TELDRASSIL}: The Red Crystal is taken on the last Auberdine stop with Thundris' and Terenthis' quests`, { skip }, () => {
+	const list = goals(TELDRASSIL).filter(forClass('WARRIOR'));
+	const take = list[at(list, 'accept 4811', is('accept', 4811))];
+	assert.ok(take.step.goals.some(is('accept', 954)) && take.step.goals.some(is('accept', 984)), 'the same step as 954 and 984');
+	const ne = goals(NE_DARKSHORE).filter(nightElf);
+	assert.ok(at(ne, 'accept 4811', is('accept', 4811)) < at(ne, 'crystal', (g) => g.quest === 4811 && g.t === 'interact'), 'Night Elf Darkshore keeps the accept before the crystal');
+});
+
+// Alliance 1-12 route feel (0.4.0, #2025): Night Elf Darkshore walked through Ameth'Aran, where Anaya Dawnrunner
+// walks, with For Love Eternal (963) left to 03-darkshore, which came back to the ruins for her pendant at about 17.
+// Cerellean Whiteclaw stands where the pier meets the shore: the quest is taken there at the start, the pendant on
+// the first Ameth'Aran visit (quest 16, from level 11; players' recordings: 8 people took the pendant under 15,
+// none died to her) and the hand-in on the way to the boat.
+test(`${NE_DARKSHORE}: For Love Eternal is taken on the pier, done in Ameth'Aran and handed in on the way to the boat`, { skip }, () => {
+	const list = goals(NE_DARKSHORE).filter(nightElf);
+	const take = at(list, 'accept 963', is('accept', 963));
+	const pendant = at(list, 'collect 5382', (g) => g.t === 'collect' && g.item === 5382);
+	const give = at(list, 'turnin 963', is('turnin', 963));
+	assert.ok(take < pendant && pendant < give, 'taken, done, handed in');
+	assert.ok(list[pendant].step.goals.some(is('turnin', 953)), "on the first Ameth'Aran visit, with Sentinel Tysha's turn-in");
+	assert.match(list[pendant].goal.note || '', /Anaya Dawnrunner, level 16/, 'warns about her level');
+	const boat = list.findIndex(({ step }) => step.title === 'Boat to Stormwind Harbor');
+	assert.ok(give < boat && list.slice(give, boat).every(({ goal }) => goal.t !== 'accept'), 'handed in on the way to the boat');
 });

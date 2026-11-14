@@ -84,9 +84,9 @@ step Prayer to Elune
 step Zamael Lunthistle
   turnin 3377
 
-step Greater Lava Spiders
+step Searing Lava Spiders
   tip The spiders roam the plateaus and lava pools south of Zamael, on the way to Velarok.
-  kill 5858 quest 7724                -- Greater Lava Spider
+  kill 5858 quest 7724                -- Searing Lava Spider
 
 step Velarok Windblade
   tip Velarok stands on the rim of the Cauldron, south of Thorium Point. Listen to his story.
