@@ -1013,9 +1013,10 @@ fn while_it_guides_the_options_that_do_nothing_there_are_greyed_out_and_say_why_
 			whyNoHelp = cs["nav.arrowScale"].psControl.help ~= nil })"#
 			.replace("${GREYED}", &lua_list(&GREYED));
 	// The whole UI: the settings' addon loads as the window opens, its rows with it; the QoL module too, whose rows
-	// hold the travel button's beside the Hearthstone in the button set; and Core's names, the settings' previews'
-	// sample names in the client's language.
-	let files: Vec<&str> = FILES.iter().copied().filter(|f| !f.starts_with("UI/") && !f.starts_with("../")).chain(["Core/Compat.lua", "Core/Names.lua", "QoL/QoL.xml", "UI/UI.xml"]).collect();
+	// hold the travel button's beside the Hearthstone in the button set; and Core's names (in their chunk store), the
+	// settings' previews' sample names in the client's language.
+	let files: Vec<&str> =
+		FILES.iter().copied().filter(|f| !f.starts_with("UI/") && !f.starts_with("../")).chain(["Core/Compat.lua", "Core/LuaChunks.lua", "Core/Names.lua", "QoL/QoL.xml", "UI/UI.xml"]).collect();
 	let on = run(&script, Opts { files: files.clone(), ..Default::default() });
 	let without = run(&script, Opts { spf: None, files, ..Default::default() });
 	let all = |v: bool| Value::Object(GREYED.iter().map(|k| (k.to_string(), json!(v))).collect());
