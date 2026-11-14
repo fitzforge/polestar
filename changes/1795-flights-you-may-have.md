@@ -11,5 +11,5 @@ section: players
   which ones you really have. A "Fly to" step to such a flight master stays
   a flight. When the quickest way starts at a flight master you pass but
   haven't learned, the arrow says "Learn the flight path at X, then fly to
-  Y". The bug report now lists the arrow's travel plan. (#1795, thanks
-  Manafire Lightbound)
+  Y". The bug report now lists the arrow's travel plan. (#1795, #2184, thanks
+  Manafire Lightbound and HumiD)
