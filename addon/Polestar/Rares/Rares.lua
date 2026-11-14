@@ -352,9 +352,15 @@ local function alertOf(s, where, exact)
 	local kind = s.kind == "treasure" and "treasure" or "rare"
 	local info = s.id and Rares.Info(kind, s.id)
 	local unitLevel = s.level and s.level ~= 0 and s.level or nil
+	local key = Rares.Key(kind, s.id, s.name)
+	-- A vignette's name can be unreadable, and a Forever-only rare is not in
+	-- the Codex: an earlier sighting's name, else "Unknown rare" (unnamed:
+	-- no Target macro, and a later sighting with its name renames the card).
+	local seen = key and Rares.History()[key]
+	local name = s.name or (info and info.name) or (seen and seen.name)
 	local a = {
-		kind = kind, id = s.id, key = Rares.Key(kind, s.id, s.name), source = s.source,
-		name = s.name or (info and info.name) or L["Unknown rare"],
+		kind = kind, id = s.id, key = key, source = s.source,
+		name = name or L["Unknown rare"], unnamed = name == nil or nil,
 		level = unitLevel or (info and info.level), levelMax = not unitLevel and info and info.levelMax or nil,
 		elite = s.classification == "rareelite" or (info and info.elite) or false,
 		loot = info and #info.loot or nil,
@@ -479,8 +485,13 @@ function Rares.Sighting(s, where)
 	Rares.Record(s, where, now, action == "alert")
 	if action == "alert" then
 		fire(alertOf(s, where, exact))
-	elseif action == "hold" then
-		held = { s = s, where = where, exact = exact, at = now }
+	else
+		if action == "hold" then held = { s = s, where = where, exact = exact, at = now } end
+		-- Seen again inside the cooldown, now with its name: the card that
+		-- went up without one takes it (Toast.lua).
+		if type(s.name) == "string" and s.name ~= "" and not s.dead then
+			ns.Fire("RARE_NAMED", Rares.Key(s.kind == "treasure" and "treasure" or "rare", s.id, s.name), s.name)
+		end
 	end
 	return action, reason
 end

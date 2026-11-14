@@ -100,7 +100,7 @@ end
 -- that cannot be a macro line.
 function T.TargetMacro(a)
 	local B = ns.QoL and ns.QoL.Buttons
-	if type(a) ~= "table" or a.kind == "treasure" or (a.source == "sample" and not a.id) then return nil end
+	if type(a) ~= "table" or a.kind == "treasure" or a.unnamed or (a.source == "sample" and not a.id) then return nil end
 	if a.kind == "founder" then return B and B.FounderMacro and B.FounderMacro(a.name) or nil end
 	if not (B and B.RareCardMacro) then return nil end
 	return B.RareCardMacro(a.name)
@@ -427,6 +427,17 @@ ns.RegisterEvent("PLAYER_REGEN_ENABLED", function()
 end)
 
 function T.Current() return current end
+
+-- The card that went up without the rare's name (Rares.AlertOf: unnamed)
+-- takes it from a later sighting of the same rare: its title, and its
+-- Target button (out of combat; a fight's end arms it). The timer goes on.
+ns.On("RARE_NAMED", function(key, name)
+	if not (f and current and current.unnamed and f:IsShown()) or current.key ~= key then return end
+	current.name, current.unnamed = name, nil
+	local left = f.psLeft
+	T.Show(current)
+	f.psLeft = left
+end)
 
 -- Not while Polestar is hidden (Rares.lua sends none then either): a
 -- sighting is news, not something to show after.

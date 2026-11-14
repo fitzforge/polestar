@@ -773,6 +773,39 @@ emit({ PolestarRareToast.Target:IsShown(), PolestarRareCardTarget:IsShown() })"#
 	assert_eq!(out[1], json!([false, false]));
 }
 
+#[test]
+fn rare_card_a_rare_first_seen_without_its_name_has_no_target_button_until_a_later_sighting_names_it() {
+	// A rare the Codex doesn't know (Forever-only; the id is a stand-in) whose vignette first gives no name (#2254).
+	let out = run_card(
+		"",
+		r#"
+local U = stub.rares
+U.vignette("V9", { npc = 990001, map = 1429, x = 90, y = 78 })
+stub.fire("VIGNETTE_MINIMAP_UPDATED", "V9", true)
+local f, s = PolestarRareToast, PolestarRareCardTarget
+emit({ n = #got, name = f.Name:GetText(), target = f.Target:IsShown(), secure = s:IsShown() })
+-- Seen again inside the cooldown, now with its name: the same card takes it, no second alert or sound.
+stub.advance(4)
+U.vignette("V9", { npc = 990001, name = "Bjorn", map = 1429, x = 90, y = 78 })
+stub.fire("VIGNETTE_MINIMAP_UPDATED", "V9", true)
+emit({ n = #got, sounds = #stub.sounds, name = f.Name:GetText(), target = f.Target:IsShown(), secure = s:IsShown(),
+	macro = s:GetAttribute("macrotext") })
+-- A later alert for it, past the cooldown, starts from the name seen.
+stub.advance(11 * 60)
+U.vignette("V9", { npc = 990001, map = 1429, x = 90, y = 78 })
+stub.fire("VIGNETTE_MINIMAP_UPDATED", "V9", true)
+emit({ n = #got, name = got[#got].name, unnamed = got[#got].unnamed or false })"#,
+	);
+	assert_eq!(out[0], json!({ "n": 1, "name": "Unknown rare", "target": false, "secure": false }));
+	assert_eq!(out[1]["n"], 1);
+	assert_eq!(out[1]["sounds"], 1);
+	assert_eq!(out[1]["name"], "Bjorn");
+	assert_eq!(out[1]["target"], true);
+	assert_eq!(out[1]["secure"], true);
+	assert!(out[1]["macro"].as_str().unwrap().contains("/targetexact Bjorn"), "{:?}", out[1]["macro"]);
+	assert_eq!(out[2], json!({ "n": 2, "name": "Bjorn", "unnamed": false }));
+}
+
 // Where a frame is on screen, from its anchors (stub frames keep them, the stub lays nothing out): offsets and
 // sizes in the frame's effective scale, UIParent at its own; two anchors span, one places by size. Then what the
 // mouse hits at a point: the shown, mouse-enabled candidate highest by strata (inherited from the parents, as
