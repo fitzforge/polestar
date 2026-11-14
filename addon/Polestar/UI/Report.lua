@@ -254,6 +254,10 @@ local function arrowLine()
 	return cut(line)
 end
 
+-- Where the player is, and the height of the floor Polestar takes them to stand on (Nav/Walk.lua Walk.Floor: the
+-- client gives no height on Forever; the floor Walk follows while the arrow walks), "z 16": a walk searched from
+-- another floor than the player's goes round (#2215: beside an NPC on his upper floor, the route out of the building
+-- and back up).
 local function playerLine()
 	local C = ns.Compat
 	local zone, sub
@@ -261,7 +265,13 @@ local function playerLine()
 	local place = tostring(zone or "?") .. ((sub and sub ~= "") and (", " .. sub) or "")
 	local map, x, y
 	if C and C.GetPlayerMapPosition then map, x, y = C.GetPlayerMapPosition() end
-	return cut((L["Where: %s"]):format(place) .. SEP .. (where(map, x, y) or L["no position"]))
+	local line = (L["Where: %s"]):format(place) .. SEP .. (where(map, x, y) or L["no position"])
+	local W = ns.Nav and ns.Nav.walk
+	local pc, px, py
+	if W and W.Floor and C and C.GetPlayerWorldPosition then pc, px, py = C.GetPlayerWorldPosition() end
+	local z = pc and W.Floor(pc, px, py)
+	if type(z) == "number" then line = line .. SEP .. ("z %d"):format(floor(z + 0.5)) end
+	return cut(line)
 end
 
 -- How the arrow is set to route, so a pathing report says which router and
