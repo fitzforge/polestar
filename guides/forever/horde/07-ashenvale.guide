@@ -494,9 +494,9 @@ step Wizlo Bearingshiner
 step Level 29.49
   when !group 5151
   when level<29.49
-  tip If you skipped Hypercapacitor Gizmo and are still short of 29.49, kill harpies here first: Roguefeather Den is your next stop anyway. Past it, this step skips itself. Or, with a group, run the Blackfathom Deeps dungeon instead.
-  goto 27.0,51.9 map 1441 "Screeching Roguefeather"
-  level 29.49 grind 4101               -- grind on Screeching Roguefeather
+  tip If you skipped Hypercapacitor Gizmo and are still short of 29.49, kill harpies here first: Roguefeather Den is your next stop anyway. The Screeching Harpies (28-29) at its edge are at your level; the Roguefeathers and Windcallers (29-30) inside hit harder. Past it, this step skips itself. Or, with a group, run the Blackfathom Deeps dungeon instead.
+  goto 27.2,51.3 map 1441 "Screeching Harpy"
+  level 29.49 grind 4100               -- grind on Screeching Harpy
 
 step The Screeching Canyon: kill these as you meet them
   zone Thousand Needles

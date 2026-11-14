@@ -133,14 +133,19 @@ step Diseased Wolves
   tip The wolves roam the fields between Andorhal, Dalson's Tears and the Writhing Haunt. Finish them on the ride back east.
   kill 1817 quest 4984
 
+step Level 53
+  when level<53
+  tip Top up here to level 53 before Mulgris sends you after the Diseased Grizzlies (55-56): the Carrion Lurkers (52-53) on the way from Dalson's Tears to the Writhing Haunt are at your level. Or, with a group, run the Sunken Temple dungeon or the Blackrock Depths dungeon instead.
+  goto 51.1,64.3 map 1422 "Carrion Lurker"
+  level 53 grind 1821                  -- grind on Carrion Lurker
+
 step Mulgris Deepriver
   turnin 4984
   accept 4985
 
 step Diseased Grizzlies
-  tip The bears roam the hills north and east of the Writhing Haunt. Below level 53.02, keep hunting them after the eighth: the hand-ins at the Writhing Haunt take you to level 54. Or, with a group, run the Sunken Temple dungeon or the Blackrock Depths dungeon instead.
+  tip The bears roam the hills north and east of the Writhing Haunt.
   kill 1816 quest 4985
-  level 53.02 grind 1816               -- grind on Diseased Grizzly
 
 step Mulgris Deepriver
   turnin 4985
