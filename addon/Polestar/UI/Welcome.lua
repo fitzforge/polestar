@@ -1115,19 +1115,19 @@ local function schemeCard(p)
 	c.Sky = solid(c, "BORDER", 1)
 	c.Sky:SetPoint("TOPLEFT", c.Ground, "TOPLEFT", 0, 0)
 	c.Sky:SetPoint("TOPRIGHT", c.Ground, "TOPRIGHT", 0, 0)
-	c.Sky:SetHeight(14)
+	c.Sky:SetHeight(9)
 	c.Line1 = solid(c, "ARTWORK", 0)
-	c.Line1:SetSize(52, 4)
-	c.Line1:SetPoint("TOPLEFT", c.Ground, "TOPLEFT", 8, -20)
+	c.Line1:SetSize(52, 3)
+	c.Line1:SetPoint("TOPLEFT", c.Ground, "TOPLEFT", 8, -14)
 	c.Line2 = solid(c, "ARTWORK", 0)
-	c.Line2:SetPoint("TOPLEFT", c.Ground, "TOPLEFT", 8, -29)
-	c.Line2:SetHeight(3)
+	c.Line2:SetPoint("TOPLEFT", c.Ground, "TOPLEFT", 8, -21)
+	c.Line2:SetHeight(2)
 	c.Bar = solid(c, "ARTWORK", 1)
-	c.Bar:SetSize(2, 15)
-	c.Bar:SetPoint("TOPLEFT", c.Ground, "TOPLEFT", 0, -18)
+	c.Bar:SetSize(2, 12)
+	c.Bar:SetPoint("TOPLEFT", c.Ground, "TOPLEFT", 0, -12)
 	c.Button = solid(c, "ARTWORK", 0)
-	c.Button:SetSize(22, 7)
-	c.Button:SetPoint("BOTTOMRIGHT", c.Ground, "BOTTOMRIGHT", -6, 6)
+	c.Button:SetSize(18, 5)
+	c.Button:SetPoint("BOTTOMRIGHT", c.Ground, "BOTTOMRIGHT", -5, 4)
 	c.Name = W.Text(c, "label", "textDim")
 	c.Sel = solid(c, "OVERLAY", 2)
 	c.Sel:SetPoint("BOTTOMLEFT", c, "BOTTOMLEFT", 0, 0)
@@ -1366,35 +1366,38 @@ end
 -- The scheme cards (Theme.SchemeChoices) on page p, for the look page.
 local function buildSchemes(p)
 	F.Schemes = {}
-	p.SchemeTitle = para(p, "body", "text", CW, 2)
+	p.SchemeTitle = W.Text(p, "body", "text")
+	p.SchemeTitle:SetJustifyH("LEFT")
 	p.SchemeTitle:SetText(L["Colour scheme"])
-	p.SchemeNote = para(p, "note", "textMuted", CW, 3)
-	p.SchemeNote:SetText(L["The background of every Polestar window. It changes as you pick."])
 end
 
--- Shows the scheme cards from y, or hides them. -> the y under them
-local function laySchemes(p, y, shown)
+-- Shows the scheme cards in the column at x0, `w` wide, from y, `cols` to a
+-- row, or hides them. -> the y under them
+local SCHEME_INNER_H, SCHEME_ROW_GAP = 32, 6
+local function laySchemes(p, x0, y, w, shown, cols)
 	p.SchemeTitle:SetShown(shown)
-	p.SchemeNote:SetShown(shown)
 	local choices = shown and Theme.SchemeChoices() or {}
 	local n = #choices
 	for i = n + 1, #F.Schemes do F.Schemes[i]:Hide() end
 	if n == 0 then return y end
-	place(p.SchemeTitle, 0, y)
-	y = y + p.SchemeTitle:GetStringHeight() + 4
-	place(p.SchemeNote, 0, y)
-	y = y + p.SchemeNote:GetStringHeight() + 10
-	local cw = floor((CW - SCHEME_GAP * (n - 1)) / n)
+	place(p.SchemeTitle, x0, y)
+	y = y + p.SchemeTitle:GetStringHeight() + 8
+	cols = min(cols, n)
+	local cw = floor((w - SCHEME_GAP * (cols - 1)) / cols)
+	local ch_ = 5 + SCHEME_INNER_H + SCHEME_NAME_H
 	for i, ch in ipairs(choices) do
 		local c = F.Schemes[i] or schemeCard(p)
 		F.Schemes[i] = c
 		c.psValue = ch.value
 		c.Name:SetText(ch.text)
-		c:SetSize(cw, 5 + PREVIEW_H + SCHEME_NAME_H)
-		-- The title line and the text line inside a card as narrow as six schemes make it.
+		c:SetSize(cw, ch_)
+		c.Side:SetHeight(SCHEME_INNER_H)
+		c.Ground:SetHeight(SCHEME_INNER_H)
+		-- The title line and the text line inside a card as narrow as it is.
 		c.Line1:SetWidth(min(52, floor((cw - 10 - 22) * 0.6)))
 		c.Line2:SetWidth(floor((cw - 10 - 22) * 0.8))
-		place(c, (i - 1) * (cw + SCHEME_GAP), y)
+		local col, row = (i - 1) % cols, floor((i - 1) / cols)
+		place(c, x0 + col * (cw + SCHEME_GAP), y + row * (ch_ + SCHEME_ROW_GAP))
 		if not c.psPainted then
 			c.psPainted = true
 			W.Painter(c, paintScheme)
@@ -1403,7 +1406,7 @@ local function laySchemes(p, y, shown)
 		end
 		c:Show()
 	end
-	return y + 5 + PREVIEW_H + SCHEME_NAME_H
+	return y + math.ceil(n / cols) * (ch_ + SCHEME_ROW_GAP) - SCHEME_ROW_GAP
 end
 
 -- 2. Questing ----------------------------------------------------------------
@@ -1724,100 +1727,103 @@ end
 -- skipping does, Skip it and Do it with a group); Do them with a group: the
 -- quest in the route with its Group chip; Skip them: left out, the solo
 -- route going on. It follows the cards at once. `extra`: room to grow into.
-local GQ_CARD_W, GQ_PAD, GQ_INSET = 340, 20, 14
+local buildGroupStage, layGroupStage
+do
+	local GQ_CARD_W, GQ_PAD, GQ_INSET = 340, 20, 14
 
-local function groupDemoTitle()
-	local E = ns.Engine
-	local list = E and E.GroupQuests and E.GroupQuests() or {}
-	return known(list[1] and list[1].title) or L["Group quest"]
-end
-
-local function buildGroupStage(p)
-	local s = CreateFrame("Frame", nil, p)
-	s:SetWidth(CW)
-	outline(s)
-	s.Ground = solid(s, "BACKGROUND", -7)
-	s.Ground:SetAllPoints(s)
-	local c = CreateFrame("Frame", nil, s)
-	c:SetWidth(GQ_CARD_W)
-	W.Fill(c, "bg", "BACKGROUND", -6)
-	outline(c)
-	c.Bar = solid(c, "ARTWORK", 2)
-	c.Bar:SetPoint("TOPLEFT", c, "TOPLEFT", 0, 0)
-	c.Bar:SetPoint("BOTTOMLEFT", c, "BOTTOMLEFT", 0, 0)
-	c.Bar:SetWidth(2)
-	W.Color(c.Bar, "accent")
-	c.Title = para(c, "goal", "text", GQ_CARD_W - GQ_INSET * 2 - 60, 2)
-	c.Chip = W.Chip(c)
-	c.Text = para(c, "note", "textDim", GQ_CARD_W - GQ_INSET * 2, 3)
-	c.Skip = W.Text(c, "label", "textDim")
-	c.Do = W.Text(c, "label", "accent")
-	s.Card = c
-	s.Caption = W.Text(s, "note", "textMuted")
-	s.Caption:SetWidth(CW - GQ_PAD * 2)
-	s.Caption:SetJustifyH("CENTER")
-	W.Painter(s, function(self)
-		paintOutline(self, Theme.Wash("border"))
-		local r, g, b = Theme.Color("scrim")
-		self.Ground:SetVertexColor(r, g, b, 1)
-		paintOutline(self.Card, Theme.Wash("divider"))
-	end)
-	return s
-end
-
--- One answer drawn on the card. -> the card's height
-local function paintGroupCard(c, answer, title)
-	c.Title:SetText(answer == "ask" and (L["Group quest: %s"]):format(colored("quest", title))
-		or colored(answer == "skip" and "textMuted" or "quest", title))
-	c.Chip:SetShown(answer == "do")
-	if answer == "do" then W.SetChip(c.Chip, L["Group"], "accent") end
-	c.Text:SetText(answer == "ask" and L["It needs a group. Skip it and the guide keeps to the solo route."]
-		or answer == "do" and L["In your route: the guide takes you to it. Bring a group."]
-		or L["Left out: the guide keeps to the solo route."])
-	c.Bar:SetShown(answer ~= "skip")
-	c.Skip:SetText(L["Skip it"])
-	c.Do:SetText(L["Do it with a group"])
-	c.Skip:SetShown(answer == "ask")
-	c.Do:SetShown(answer == "ask")
-	place(c.Title, GQ_INSET, GQ_INSET)
-	c.Chip:ClearAllPoints()
-	c.Chip:SetPoint("LEFT", c.Title, "LEFT", W.TextWidth(c.Title) + 8, 0)
-	local y = GQ_INSET + c.Title:GetStringHeight() + 6
-	place(c.Text, GQ_INSET, y)
-	y = y + c.Text:GetStringHeight()
-	if answer == "ask" then
-		y = y + 8
-		place(c.Skip, GQ_INSET, y)
-		place(c.Do, GQ_INSET + W.TextWidth(c.Skip) + 16, y)
-		y = y + c.Skip:GetStringHeight()
+	local function groupDemoTitle()
+		local E = ns.Engine
+		local list = E and E.GroupQuests and E.GroupQuests() or {}
+		return known(list[1] and list[1].title) or L["Group quest"]
 	end
-	return y + GQ_INSET
-end
 
-local GROUP_CAPTIONS = {
-	ask = L["When you reach one, the guide window asks."],
-	["do"] = L["The guide takes you to each one."],
-	skip = L["The guide leaves them out."],
-}
+	function buildGroupStage(p)
+		local s = CreateFrame("Frame", nil, p)
+		s:SetWidth(CW)
+		outline(s)
+		s.Ground = solid(s, "BACKGROUND", -7)
+		s.Ground:SetAllPoints(s)
+		local c = CreateFrame("Frame", nil, s)
+		c:SetWidth(GQ_CARD_W)
+		W.Fill(c, "bg", "BACKGROUND", -6)
+		outline(c)
+		c.Bar = solid(c, "ARTWORK", 2)
+		c.Bar:SetPoint("TOPLEFT", c, "TOPLEFT", 0, 0)
+		c.Bar:SetPoint("BOTTOMLEFT", c, "BOTTOMLEFT", 0, 0)
+		c.Bar:SetWidth(2)
+		W.Color(c.Bar, "accent")
+		c.Title = para(c, "goal", "text", GQ_CARD_W - GQ_INSET * 2 - 60, 2)
+		c.Chip = W.Chip(c)
+		c.Text = para(c, "note", "textDim", GQ_CARD_W - GQ_INSET * 2, 3)
+		c.Skip = W.Text(c, "label", "textDim")
+		c.Do = W.Text(c, "label", "accent")
+		s.Card = c
+		s.Caption = W.Text(s, "note", "textMuted")
+		s.Caption:SetWidth(CW - GQ_PAD * 2)
+		s.Caption:SetJustifyH("CENTER")
+		W.Painter(s, function(self)
+			paintOutline(self, Theme.Wash("border"))
+			local r, g, b = Theme.Color("scrim")
+			self.Ground:SetVertexColor(r, g, b, 1)
+			paintOutline(self.Card, Theme.Wash("divider"))
+		end)
+		return s
+	end
 
-local function layGroupStage(s, extra)
-	s.psExtra = extra
-	local answer = oneOf("behavior.groupQuests", { "ask", "do", "skip" }, "ask")
-	local title = groupDemoTitle()
-	-- One height for every answer, so a pick never moves the cards under it.
-	local cardH = 0
-	for _, a in ipairs({ "do", "skip", "ask" }) do cardH = max(cardH, paintGroupCard(s.Card, a, title)) end
-	paintGroupCard(s.Card, answer, title)
-	s.Card:SetHeight(cardH)
-	local top = GQ_PAD + floor(extra / 2)
-	place(s.Card, floor((CW - GQ_CARD_W) / 2), top)
-	s.Caption:SetText(GROUP_CAPTIONS[answer])
-	local capY = top + cardH + 12
-	s.Caption:ClearAllPoints()
-	s.Caption:SetPoint("TOP", s, "TOPLEFT", CW / 2, -capY)
-	local h = capY + s.Caption:GetStringHeight() + GQ_PAD + (extra - floor(extra / 2))
-	s:SetHeight(h)
-	return h
+	-- One answer drawn on the card. -> the card's height
+	local function paintGroupCard(c, answer, title)
+		c.Title:SetText(answer == "ask" and (L["Group quest: %s"]):format(colored("quest", title))
+			or colored(answer == "skip" and "textMuted" or "quest", title))
+		c.Chip:SetShown(answer == "do")
+		if answer == "do" then W.SetChip(c.Chip, L["Group"], "accent") end
+		c.Text:SetText(answer == "ask" and L["It needs a group. Skip it and the guide keeps to the solo route."]
+			or answer == "do" and L["In your route: the guide takes you to it. Bring a group."]
+			or L["Left out: the guide keeps to the solo route."])
+		c.Bar:SetShown(answer ~= "skip")
+		c.Skip:SetText(L["Skip it"])
+		c.Do:SetText(L["Do it with a group"])
+		c.Skip:SetShown(answer == "ask")
+		c.Do:SetShown(answer == "ask")
+		place(c.Title, GQ_INSET, GQ_INSET)
+		c.Chip:ClearAllPoints()
+		c.Chip:SetPoint("LEFT", c.Title, "LEFT", W.TextWidth(c.Title) + 8, 0)
+		local y = GQ_INSET + c.Title:GetStringHeight() + 6
+		place(c.Text, GQ_INSET, y)
+		y = y + c.Text:GetStringHeight()
+		if answer == "ask" then
+			y = y + 8
+			place(c.Skip, GQ_INSET, y)
+			place(c.Do, GQ_INSET + W.TextWidth(c.Skip) + 16, y)
+			y = y + c.Skip:GetStringHeight()
+		end
+		return y + GQ_INSET
+	end
+
+	local GROUP_CAPTIONS = {
+		ask = L["When you reach one, the guide window asks."],
+		["do"] = L["The guide takes you to each one."],
+		skip = L["The guide leaves them out."],
+	}
+
+	function layGroupStage(s, extra)
+		s.psExtra = extra
+		local answer = oneOf("behavior.groupQuests", { "ask", "do", "skip" }, "ask")
+		local title = groupDemoTitle()
+		-- One height for every answer, so a pick never moves the cards under it.
+		local cardH = 0
+		for _, a in ipairs({ "do", "skip", "ask" }) do cardH = max(cardH, paintGroupCard(s.Card, a, title)) end
+		paintGroupCard(s.Card, answer, title)
+		s.Card:SetHeight(cardH)
+		local top = GQ_PAD + floor(extra / 2)
+		place(s.Card, floor((CW - GQ_CARD_W) / 2), top)
+		s.Caption:SetText(GROUP_CAPTIONS[answer])
+		local capY = top + cardH + 12
+		s.Caption:ClearAllPoints()
+		s.Caption:SetPoint("TOP", s, "TOPLEFT", CW / 2, -capY)
+		local h = capY + s.Caption:GetStringHeight() + GQ_PAD + (extra - floor(extra / 2))
+		s:SetHeight(h)
+		return h
+	end
 end
 
 PAGES[#PAGES + 1] = {
@@ -2404,7 +2410,7 @@ do
 	-- puts the house look back.
 	local PREVIEW_W, PREVIEW_ART_H = 256, 144
 	local SIDE_X = PREVIEW_W + 20
-	local LOOK_COLS, LOOK_GAP, LOOK_THUMB_H, LOOK_NAME_H, LOOK_RESERVE = 6, 8, 46, 22, 3
+	local LOOK_COLS, LOOK_GAP, LOOK_THUMB_H, LOOK_NAME_H, LOOK_RESERVE = 6, 8, 40, 20, 3
 	local LOOK_W = floor((CW - LOOK_GAP * (LOOK_COLS - 1)) / LOOK_COLS)
 	local LOOK_H = 4 + LOOK_THUMB_H + LOOK_NAME_H
 
@@ -2562,9 +2568,15 @@ do
 			place(p.PreviewName, SIDE_X, sy)
 			sy = sy + p.PreviewName:GetStringHeight() + 6
 			place(p.PreviewLine, SIDE_X, sy)
-			sy = sy + p.PreviewLine:GetStringHeight() + 10
+			sy = sy + p.PreviewLine:GetStringHeight() + 12
+			-- Beside the preview under the name: the colour scheme, the house
+			-- look's alone (a skin that brings its own ground colours leaves a
+			-- scheme nothing to change); else how the cards work.
+			local house = Theme.SkinKey() == "polestar" and not (Theme.SkinScheme and Theme.SkinScheme()) and not Theme.SkinToken("bg")
+			p.PreviewHint:SetShown(not house)
 			place(p.PreviewHint, SIDE_X, sy)
-			local y = PREVIEW_ART_H + 18
+			sy = house and laySchemes(p, SIDE_X, sy, CW - SIDE_X, true, 3) or laySchemes(p, SIDE_X, sy, CW - SIDE_X, false, 3) + p.PreviewHint:GetStringHeight()
+			local y = max(PREVIEW_ART_H, sy) + 16
 			-- The cards, once the page has shown (the looks load then): the
 			-- built-ins, then the skin addons' looks.
 			local choices = looksLoaded and Theme.SkinChoices() or {}
@@ -2598,10 +2610,6 @@ do
 			for k = i + 1, #F.Skins do F.Skins[k]:Hide() end
 			-- Room for the grid before the looks load, so the height does not wait for them.
 			y = max(y, top + LOOK_RESERVE * (LOOK_H + LOOK_GAP) + 2 * 18 + 12)
-			-- The colour scheme: the house look's alone (a skin that brings its
-			-- own ground colours leaves a scheme nothing to change).
-			local house = Theme.SkinKey() == "polestar" and not (Theme.SkinScheme and Theme.SkinScheme()) and not Theme.SkinToken("bg")
-			y = laySchemes(p, house and y + 18 or y, house)
 			local pad = gamepadShown()
 			y = layGroup(F.Glyphs, pad and y + 18 or y, pad) + 14
 			place(p.Keep, 0, y)
