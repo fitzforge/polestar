@@ -1046,7 +1046,9 @@ maps, the grid) changes the search key.
 
 The written check fails fast: the writer checks every tree it writes as the pack (the report's
 check, `the pack has errors:`) and refuses one with an error, so a bad line stops the routes stage
-at its first write, with the searches kept, not the report after the guides and legs.
+at its first write, with the searches kept, not the report after the guides and legs. The error
+names every start the writer refused, with five of each one's errors; all of a start's errors are
+in `<out>/.forge/flow/<start>.pack-errors.txt`, beside its tree.
 
 A resumed or reused route is the same route an uninterrupted run makes, file for file but the
 search's wall time: the members rebuilt from a checkpoint play on exactly as they would have, and

@@ -7,7 +7,8 @@
 // - Quest XP: the client's QuestXP table (DB2, one row per quest level, one
 //   column per difficulty tier), cached under data/sources/wago/<build>/ like
 //   the other wago.tools tables, reduced by how far the player is above the
-//   quest: 100% up to quest level + 5, then 80/60/40/20/10%. Without the
+//   quest: 100% up to quest level + 5, 80% at 6 over, 60% at 7, then 50%
+//   from 8 over on (what Forever pays, from players' recordings). Without the
 //   table, `baseQuestXp` estimates a typical reward.
 // - Kill XP: 45 + 5 × player level against an equal-level mob, +5% per level
 //   the mob is above (at most +4 levels counted), scaled down by the
@@ -140,15 +141,16 @@ function baseQuestXp(qlvl) {
 	return QUEST_XP_ANCHORS[QUEST_XP_ANCHORS.length - 1][1];
 }
 
-// Share of a quest's reward by player level − quest level:
+// Share of a quest's reward by player level − quest level (what Forever pays,
+// from players' recordings: forge-sim's xp::SHARE test has the table):
 //
-//   player - quest level   <=5    6    7    8    9   >=10
-//   share                 100%  80%  60%  40%  20%   10%
+//   player - quest level   <=5    6    7   >=8
+//   share                 100%  80%  60%   50%
 function questXpShare(playerLevel, questLevel) {
 	const d = playerLevel - questLevel;
 	if (d <= 5) return 1;
-	if (d >= 10) return 0.1;
-	return [0.8, 0.6, 0.4, 0.2][d - 6];
+	if (d >= 8) return 0.5;
+	return [0.8, 0.6][d - 6];
 }
 
 // A reward at a player level (the client's own rounding is ignored: < 5 XP).

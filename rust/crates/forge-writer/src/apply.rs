@@ -7039,11 +7039,30 @@ impl Writer<'_, '_> {
 		if !has_zone && s.zone_in != self.g.zone {
 			self.zone_line(s.zone_in.clone());
 		}
+		// A step searched as a circuit (`loop`) that the route splits: each piece with work keeps the
+		// circuit, its gotos copied into a piece the route's lines brought none (below), and a piece of
+		// nothing but accepts and hand-ins is no circuit, so no `loop` (Westfall's Longshore murlocs, 0.4.0
+		// round: the Gills on a later visit took the gotos before them along, and the Murloc Eyes' piece
+		// kept a `loop` with no point, which the pack check refuses).
+		let circuit_piece: Option<Vec<&Line>> = (!whole && s.lines.iter().any(|l| l.kind == Kind::Every && trim(split_comment(&l.text).0) == "loop"))
+			.then(|| keys.unwrap_or_default().iter().flat_map(|k| cx.before.get(k).into_iter().flatten().chain(s.line(k.1)).chain(cx.after.get(k).into_iter().flatten())).collect());
+		let circuit_work = circuit_piece.as_ref().is_some_and(|p| p.iter().any(|l| l.kind == Kind::Goal && !matches!(head(&l.text), Some("accept" | "turnin" | "goto" | "note"))));
 		for l in &s.lines {
+			if circuit_piece.is_some() && !circuit_work && trim(split_comment(&l.text).0) == "loop" {
+				continue;
+			}
 			if l.kind == Kind::Every || (first && matches!(l.kind, Kind::First | Kind::Other)) {
 				self.push(l.text.clone());
 				if is_head_ws(&l.text, "zone") {
 					self.g.zone = Some(trim(&re!(r"^\s+zone\s+").replace(&l.text, "")).to_string());
+				}
+			}
+		}
+		if let (Some(piece), true) = (&circuit_piece, circuit_work) {
+			if piece.iter().filter(|l| is_head_ws(&l.text, "goto")).count() < 2 {
+				let have: FxHashSet<Key> = piece.iter().map(|l| l.key()).collect();
+				for l in s.lines.iter().filter(|l| is_head_ws(&l.text, "goto") && !have.contains(&l.key())) {
+					self.push(l.text.clone());
 				}
 			}
 		}

@@ -42,7 +42,7 @@ const { MOBL, K_ACCEPT, K_TASK, K_TURNIN, K_GRIND, K_DUNGEON, W_KILL, W_USE, W_E
 const { LEVEL_XP, mobXp } = require('../game/xp');
 
 const SHARE = new Float64Array(64);
-for (let d = 0; d < 64; d++) SHARE[d] = d <= 5 ? 1 : d >= 10 ? 0.1 : [0.8, 0.6, 0.4, 0.2][d - 6];
+for (let d = 0; d < 64; d++) SHARE[d] = d <= 5 ? 1 : d >= 8 ? 0.5 : [0.8, 0.6][d - 6];
 
 // Journal array ids
 const J_DONE = 0;
@@ -95,8 +95,8 @@ class Evaluator {
 		this.uIdx = new Int32Array(1 << 12);
 		this.uOld = new Float64Array(1 << 12);
 		this.uLen = 0;
-		// Steps of the package being run whose accept (or dungeon) was deferred
-		// as too low: sized for the longest package.
+		// Steps of the package being run whose accept, work (on a red quest) or
+		// dungeon was deferred as too low: sized for the longest package.
 		let maxSteps = 0;
 		for (let p = 0; p < run.P; p++) if (run.pkgEnd[p] - run.pkgStart[p] > maxSteps) maxSteps = run.pkgEnd[p] - run.pkgStart[p];
 		this.pending = new Int32Array(maxSteps);
@@ -559,17 +559,29 @@ class Evaluator {
 		return false;
 	}
 
-	// One step. With `this.defer`, an accept above the character's level, or
-	// one the full quest log (run.logCap) has no room for, is deferred
-	// (runPackage takes it once the level allows / a turn-in frees a slot)
-	// instead of grinding for it; without, a full log skips it (counted).
+	// Quest q is red: more than `dangerGap` levels above the character, its mobs
+	// would kill it. Its work waits for the level; its accept does not (the game
+	// hands a quest over at its minimum level), unless the accept works on the
+	// spot (a quest-starting item's kills).
+	red(q) {
+		return this.level + this.p.dangerGap < this.run.qLevel[q];
+	}
+
+	// One step. With `this.defer`, an accept under its quest's minimum level,
+	// work on a red quest, or an accept the full quest log (run.logCap) has no
+	// room for, is deferred (runPackage takes it once the level allows / a
+	// turn-in frees a slot) instead of grinding for it; without, a full log
+	// skips it (counted).
 	step(kind, q, task, pt) {
 		const r = this.run;
 		if (kind === K_ACCEPT) {
 			if (this.done[q] || this.active[q] || !this.prereqOk(q)) return;
-			// Too low for the quest (minimum level, or quest level more than
-			// `dangerGap` above: red quests whose mobs would kill the character).
-			const low = this.level < r.qMinLevel[q] || this.level + this.p.dangerGap < r.qLevel[q];
+			// Too low for the quest: under its minimum level, or red with work on
+			// the spot. (The 0.4.0 audit: the model ground 385 min before the
+			// accept-only pick-up of The Apes of Un'Goro, kept for the second
+			// Un'Goro visit, and 51 min before Carved Centaur Totems.)
+			const works = task >= 0;
+			const low = this.level < r.qMinLevel[q] || (works && this.red(q));
 			if (this.defer && low) {
 				this.deferred++;
 				return;
@@ -577,7 +589,7 @@ class Evaluator {
 			// Grinding fills gaps only: a quest more than `gateGap` levels
 			// above the character is not available yet (skipped; the level it
 			// opens at is kept for the package's catch-up).
-			const opens = Math.max(r.qMinLevel[q] - this.p.gateGap, r.qLevel[q] - this.p.dangerGap - this.p.gateGap);
+			const opens = works ? Math.max(r.qMinLevel[q] - this.p.gateGap, r.qLevel[q] - this.p.dangerGap - this.p.gateGap) : r.qMinLevel[q] - this.p.gateGap;
 			if (this.level < opens) {
 				if (opens < this.gateNeed) this.gateNeed = opens;
 				return;
@@ -598,9 +610,9 @@ class Evaluator {
 				return;
 			}
 			if (this.level < r.qMinLevel[q]) this.grindTo(r.qMinLevel[q]);
-			if (this.level + this.p.dangerGap < r.qLevel[q]) this.grindTo(r.qLevel[q] - this.p.dangerGap);
+			if (works && this.red(q)) this.grindTo(r.qLevel[q] - this.p.dangerGap);
 			if (drop >= 0) this.abandon(drop);
-			if (task >= 0) this.doWork(task);
+			if (works) this.doWork(task);
 			this.time += this.p.talkSec;
 			this.set1Active(q);
 			if (!this.everActive[q]) this.set1(J_EVER, this.everActive, q);
@@ -609,10 +621,25 @@ class Evaluator {
 			if (!this.active[q] || this.taskDone[task]) return;
 			// Done by kills for other quests: no trip.
 			if (!this.covered(task)) {
+				// Work on a red quest: on level first, a gap of up to `gateGap`
+				// levels ground; further under, not yet (the level it opens at is
+				// kept for the package's catch-up).
+				if (this.red(q)) {
+					if (this.defer) {
+						this.deferred++;
+						return;
+					}
+					const opens = r.qLevel[q] - this.p.dangerGap - this.p.gateGap;
+					if (this.level < opens) {
+						if (opens < this.gateNeed) this.gateNeed = opens;
+						return;
+					}
+				}
 				if (!this.moveTo(pt)) {
 					this.unreachable++;
 					return;
 				}
+				if (this.red(q)) this.grindTo(r.qLevel[q] - this.p.dangerGap);
 				this.doWork(task);
 			}
 			this.set1(J_TASK, this.taskDone, task);
@@ -748,9 +775,9 @@ class Evaluator {
 	}
 
 	// Take the deferred steps (this.pending[0..np)) whose level gate is now
-	// open, in tour order; a quest taken this way catches up on the steps the
-	// tour already passed (catchUpPassed). -> how many are still deferred
-	// (kept in order).
+	// open, in tour order; a quest taken (or its deferred work done) this way
+	// catches up on the steps the tour already passed (catchUpPassed). -> how
+	// many are still deferred (kept in order).
 	retryDeferred(np, s0, s) {
 		const r = this.run;
 		const pend = this.pending;
@@ -759,13 +786,17 @@ class Evaluator {
 			const t = pend[i];
 			const kind = r.sKind[t];
 			const q = r.sQuest[t];
-			const open = kind === K_DUNGEON ? this.level >= r.dungeons[q].min : this.level >= r.qMinLevel[q] && this.level + this.p.dangerGap >= r.qLevel[q] && (this.open < r.logCap || this.abandonable() >= 0);
+			const task = r.sTask[t];
+			let open;
+			if (kind === K_DUNGEON) open = this.level >= r.dungeons[q].min;
+			else if (kind === K_TASK) open = !this.red(q);
+			else open = this.level >= r.qMinLevel[q] && !(task >= 0 && this.red(q)) && (this.open < r.logCap || this.abandonable() >= 0);
 			if (!open) {
 				pend[kept++] = t;
 				continue;
 			}
-			this.step(kind, q, r.sTask[t], r.sPt[t]);
-			if (kind === K_ACCEPT && this.active[q]) this.catchUpPassed(q, s0, s);
+			this.step(kind, q, task, r.sPt[t]);
+			if ((kind === K_ACCEPT && this.active[q]) || (kind === K_TASK && this.taskDone[task])) this.catchUpPassed(q, s0, s);
 		}
 		return kept;
 	}
@@ -785,7 +816,7 @@ class Evaluator {
 		for (let u = s0; u <= s && !this.finished; u++) {
 			if (r.sKind[u] !== K_ACCEPT) continue;
 			const n = r.sQuest[u];
-			if (this.done[n] || this.active[n] || this.level < r.qMinLevel[n] || this.level + this.p.dangerGap < r.qLevel[n] || !this.prereqOk(n)) continue;
+			if (this.done[n] || this.active[n] || this.level < r.qMinLevel[n] || (r.sTask[u] >= 0 && this.red(n)) || !this.prereqOk(n)) continue;
 			this.step(K_ACCEPT, n, r.sTask[u], r.sPt[u]);
 			if (this.active[n]) this.catchUpPassed(n, s0, s);
 		}

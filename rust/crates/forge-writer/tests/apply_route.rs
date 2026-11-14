@@ -10316,6 +10316,72 @@ fn level_fit_moves_work_to_the_later_visit_where_it_fits() {
 }
 
 #[test]
+fn level_fit_leaves_the_accept_where_another_task_of_its_quest_comes_first() {
+	// 0.4.0's Tauren written check: Mazzranache's gizzards, too high where the route has them, went
+	// to a later visit and took the accept with them, past the quest's Plainstrider scales, which
+	// stay with Poison Water's talons: a collect before its accept, refused by the pack check. The
+	// accept stays where it is while another task of its quest comes before the later stop by its
+	// giver; only the work that does not fit moves.
+	let a = vec![
+		"guide t/a",
+		"title A",
+		"levels 10-15",
+		"zone Durotar",
+		"",
+		"step Hub",
+		"  accept 1",
+		"  accept 2",
+		"  accept 3",
+		"",
+		"step Gnolls",
+		"  kill 10 quest 1.1",
+		"",
+		"step Boars",
+		"  kill 13 quest 3.1",
+		"  kill 13 quest 1.2",
+		"",
+		"step Hub again",
+		"  turnin 1",
+		"  turnin 3",
+		"",
+		"step Wolves",
+		"  kill 12 quest 2.1",
+		"",
+		"step Hub last",
+		"  turnin 2",
+		"",
+	];
+	let npcs: serde_json::Map<String, Value> = [camp(10, "Gnoll", 16, 16, 70.0, 50.0, 5), camp(12, "Wolf", 14, 14, 70.0, 51.0, 5), camp(13, "Boar", 11, 11, 40.0, 20.0, 5)].into_iter().collect();
+	let two_tasks = json!({ "id": 1, "pre": [], "objs": [{ "oi": 0, "type": "kill", "id": 10, "task": 0 }, { "oi": 1, "type": "kill", "id": 13, "task": 1 }],
+		"tasks": [{ "work": [["kill", 16, 5, 0, 0, 10]] }, { "work": [["kill", 11, 5, 0, 0, 13]] }] });
+	let c = Case {
+		files: vec![("a", a)],
+		route: json!({ "faction": "Horde", "diff": {}, "order": [
+			{ "t": "accept", "q": 1, "pt": 0, "lvl": 10.0, "from": f("a", 7) }, { "t": "accept", "q": 2, "pt": 0, "lvl": 10.0, "from": f("a", 8) },
+			{ "t": "accept", "q": 3, "pt": 0, "lvl": 10.0, "from": f("a", 9) },
+			{ "t": "task", "q": 1, "task": 0, "pt": 1, "lvl": 10.2, "from": f("a", 12) },
+			{ "t": "task", "q": 3, "task": 0, "pt": 2, "lvl": 10.5, "from": f("a", 15) },
+			{ "t": "task", "q": 1, "task": 1, "pt": 2, "lvl": 10.6, "from": f("a", 16) },
+			{ "t": "turnin", "q": 1, "pt": 0, "lvl": 11.0, "from": f("a", 19) }, { "t": "turnin", "q": 3, "pt": 0, "lvl": 11.5, "from": f("a", 20) },
+			{ "t": "task", "q": 2, "task": 0, "pt": 1, "lvl": 14.2, "from": f("a", 23) },
+			{ "t": "turnin", "q": 2, "pt": 0, "lvl": 15.0, "from": f("a", 26) }
+		] }),
+		world: level_world(json!([two_tasks, kill_quest(2, 12, 14, &[]), kill_quest(3, 13, 11, &[])])),
+		quests: json!({ "1": { "title": "One", "level": 16 }, "2": { "title": "Two", "level": 14 }, "3": { "title": "Three", "level": 11 } }),
+		npcs: Value::Object(npcs),
+		..Case::default()
+	};
+	let r = run(&c, None);
+	let g = pick(&r.read("a"), r"^\s+(accept|turnin|kill)");
+	let at = |l: &str| idx(&g, l);
+	assert!(at("  accept 1") >= 0 && at("  accept 1") < at("  kill 13 quest 1.2"), "taken before its boars: {g:#?} {:#?}", r.out.log);
+	assert!(at("  kill 10 quest 1.1") > at("  kill 12 quest 2.1"), "the gnolls still go to the later visit: {g:#?}");
+	assert!(at("  turnin 1") > at("  kill 10 quest 1.1"), "{g:#?}");
+	let line = r.out.log.iter().find(|l| l.starts_with("level fit: One (1) task 1 moved after")).unwrap_or_else(|| panic!("{:#?}", r.out.log));
+	assert!(!line.contains("its accept with it"), "{line}");
+}
+
+#[test]
 fn level_fit_leaves_out_work_no_later_visit_fits() {
 	// Fangore's Galardell Valley (#977): Lieutenant Fangore (26) among gnolls of 22-25 at level 21.4, and the
 	// route never comes back at a level that fits: the quest, its hand-in and its follow-up go, and the
@@ -10672,5 +10738,61 @@ fn a_flight_master_is_not_learnt_too_far_off_or_for_a_walk_it_would_not_shorten(
 		let g = r.read("a");
 		assert!(idx(&g, "  getfp \"Sun Rock Retreat\"") > idx(&g, "  accept 3"), "{why}: {g:#?}");
 		assert!(!r.out.log.iter().any(|l| l.starts_with("nearby fp:")), "{why}: {:#?}", r.out.log);
+	}
+}
+
+#[test]
+fn every_piece_of_a_loop_step_the_route_splits_keeps_its_circuit() {
+	// 0.4.0 round, Westfall's Longshore murlocs: the route took the Gills (here quest 1) on a later
+	// visit and the gotos before them went along, leaving v1's step its `loop` and the Murloc Eyes
+	// (quest 2) with no point (the pack check: `loop` needs at least two `goto` points in its step).
+	let c = Case {
+		files: vec![(
+			"a",
+			vec![
+				"guide t/a",
+				"title A",
+				"levels 10-12",
+				"zone Westfall",
+				"",
+				"step Hill",
+				"  accept 1",
+				"  accept 2",
+				"",
+				"step The Longshore murlocs",
+				"  tip Murlocs line the north coast.",
+				"  loop",
+				"  goto 42.5,10.5",
+				"  goto 45.5,9.2",
+				"  goto 49.5,9.5",
+				"  collect 100 quest 1",
+				"  collect 200 quest 2",
+				"",
+				"step Farm",
+				"  accept 3",
+				"",
+				"step Hill again",
+				"  turnin 1",
+				"  turnin 2",
+				"",
+			],
+		)],
+		quests: json!({ "1": { "title": "Gills" }, "2": { "title": "Eyes" }, "3": { "title": "Farm" } }),
+		route: json!({ "diff": {}, "order": [
+			{ "t": "accept", "q": 1, "from": f("a", 7) }, { "t": "accept", "q": 2, "from": f("a", 8) },
+			{ "t": "task", "q": 2, "task": 0, "from": f("a", 17) },
+			{ "t": "accept", "q": 3, "from": f("a", 20) },
+			{ "t": "task", "q": 1, "task": 0, "from": f("a", 16) },
+			{ "t": "turnin", "q": 1, "from": f("a", 23) }, { "t": "turnin", "q": 2, "from": f("a", 24) }
+		] }),
+		..Case::default()
+	};
+	let g = run(&c, None).read("a");
+	assert!(idx(&g, "  collect 100 quest 1") > idx(&g, "  accept 3"), "the route's split: {g:#?}");
+	for want in ["  collect 100 quest 1", "  collect 200 quest 2"] {
+		let at = idx(&g, want) as usize;
+		let s = g[..at].iter().rposition(|l| l.starts_with("step ")).unwrap();
+		assert!(g[s..at].iter().any(|l| l == "  loop"), "{want}: {g:#?}");
+		assert_eq!(g[s..at].iter().filter(|l| l.starts_with("  goto ")).count(), 3, "{want}: {g:#?}");
 	}
 }

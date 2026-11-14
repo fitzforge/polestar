@@ -134,13 +134,23 @@ pub fn lint_sources(sources: &[Source], data: &Data, excluded: &V) -> Vec<crate:
 /// `sources` compiled, or their errors as `the pack has errors:` and the first five, one
 /// `<file>:<line> <message>` a line.
 pub fn compile_checked(sources: &[Source], data: &Data, opts: &CompileOpts) -> Result<Compiled, String> {
+	compile_checked_all(sources, data, opts).map_err(|errors| pack_refusal(&errors))
+}
+
+/// The pack check with every error it finds: `sources` compiled, or all their errors, one
+/// `<file>:<line> <message>` each, in the order [`compile_checked`] names its first five.
+pub fn compile_checked_all(sources: &[Source], data: &Data, opts: &CompileOpts) -> Result<Compiled, Vec<String>> {
 	let mut diag = Diagnostics::new();
 	let compiled = compile_sources(sources, data, &mut diag, opts);
 	if diag.has_errors() {
-		let first: Vec<String> = diag.errors().iter().take(5).map(|d| format!("{}:{} {}", d.file.as_deref().unwrap_or(""), d.line, d.message)).collect();
-		return Err(format!("the pack has errors:\n{}", first.join("\n")));
+		return Err(diag.errors().iter().map(|d| format!("{}:{} {}", d.file.as_deref().unwrap_or(""), d.line, d.message)).collect());
 	}
 	Ok(compiled)
+}
+
+/// The pack check's refusal of a pack with `errors`: `the pack has errors:` and the first five.
+pub fn pack_refusal(errors: &[String]) -> String {
+	format!("the pack has errors:\n{}", errors.iter().take(5).cloned().collect::<Vec<_>>().join("\n"))
 }
 
 /// localise: gives each guide `_localised` (its prose with name tokens); -> tokens.js's stats.
@@ -854,9 +864,14 @@ mod native {
 	/// The pack check ([`compile_checked`]) on every guide of a folder, as `playtest --honest` and the
 	/// report compile a whole pack.
 	pub fn check_tree(dir: &Path, data: &Data) -> Result<(), String> {
+		check_tree_all(dir, data).map_err(|errors| pack_refusal(&errors))
+	}
+
+	/// [`check_tree`] with every error the pack check finds ([`compile_checked_all`]).
+	pub fn check_tree_all(dir: &Path, data: &Data) -> Result<(), Vec<String>> {
 		let shown = shown(dir);
 		let sources: Vec<Source> = read_sources(dir, &find_guide_files(dir, false)).into_iter().map(|s| Source { file: format!("{shown}/{}", s.source), ..s }).collect();
-		compile_checked(&sources, data, &CompileOpts { pack: None, author: None, context: None, pack_dir: None }).map(|_| ())
+		compile_checked_all(&sources, data, &CompileOpts { pack: None, author: None, context: None, pack_dir: None }).map(|_| ())
 	}
 
 	/// loadProjectData: a missing folder or core file is a warning.

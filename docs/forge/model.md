@@ -40,8 +40,8 @@ counters.
 
 | Step | What happens |
 |---|---|
-| accept | Needs the prerequisites and a level of at least the quest's minimum level − 2 and its level − 7. Travel to the giver. If the character is under the minimum level, grind to it; if more than 5 levels under the quest, grind to quest level − 5 (in the route profiles only when the quest has kill or escort work of its own: a quest done over time from what the character carries, The Green Hills of Stranglethorn's pages, is taken at once). A quest started by an item first works that item's task. Then talk. |
-| task | One objective at its place. Skipped if earlier kills already covered it. Travel there, then do the work: kills, uses, an escort or a purchase. In the route profiles, kill work on mobs more than `workGap` (3) levels above the character is not solo-safe: the character first grinds to the mobs' level (at most the quest's) − 3, so the search moves such work to a later visit (A7, A8). |
+| accept | Needs the prerequisites and a level of at least the quest's minimum level − 2. Travel to the giver. If the character is under the minimum level, grind to it. The game hands a quest over at its minimum level, so a quest far above the character is still taken here; its work waits (task, below). A quest started by an item first works that item's task, as a task of the quest: more than 5 levels under the quest, the accept also needs its level − 7 and grinds to quest level − 5 first. Then talk. |
+| task | One objective at its place. Skipped if earlier kills already covered it. Work on a quest more than `dangerGap` (5) levels above the character waits for the level; within `gateGap` (2) more, the character grinds to quest level − 5 first (in the route profiles only when the quest has kill or escort work of its own: a quest done over time from what the character carries, The Green Hills of Stranglethorn's pages, is done at once). Travel there, then do the work: kills, uses, an escort or a purchase. In the route profiles, kill work on mobs more than `workGap` (3) levels above the character is not solo-safe: the character first grinds to the mobs' level (at most the quest's) − 3, so the search moves such work to a later visit (A7, A8). |
 | turn in | Needs every task done (and any quest that must be handed in first). Travel to the ender, talk, gain the quest XP. |
 | level | Grind to a level (with a fraction: `level 12.4`), at the grind rate for the current level. |
 | train | Travel to a town's class trainers and train. |
@@ -87,7 +87,7 @@ overrides any of them for one run.
 | `levelOverhead` | 60 s | each level-up (vendor, repairs, training) |
 | `trainSec` | 60 s | each training stop |
 | `grindEff` | 0.7 | × the best grind rate |
-| `gateGap`, `dangerGap` | 2, 5 | the accept window (above) |
+| `gateGap`, `dangerGap` | 2, 5 | the accept window and the work on a quest far above the character (above) |
 | `workGap` | 3 | most levels kill work's mobs may be above the character (route profiles; above) |
 | `deathRisk` | 300 s | each dangerous zone a walk crosses |
 | `deathskips` | 0 (off) | deathskips priced (`--deathskips`; see Deathskips) |
@@ -125,8 +125,8 @@ and the hand-in of a group quest's root at `groupRisk` (600 s) per player it wan
 A quest's full XP is its recorded reward × `questXpScale`. When the reward is not recorded, it is
 estimated from the game's quest XP table by level and tier, × `questEstScale` × `questXpScale`.
 Repeatable quests without a reward give nothing. At the hand-in the character gets a share by how many
-levels it is over the quest: all of it up to 5 levels over, then 80, 60, 40 and 20 %, and 10 % from 10
-levels over.
+levels it is over the quest, as players' recorded hand-ins show Forever pays: all of it up to 5 levels
+over, then 80 % at 6, 60 % at 7 and half from 8 levels over on.
 
 ### Walking
 

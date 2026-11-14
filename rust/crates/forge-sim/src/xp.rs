@@ -62,20 +62,55 @@ pub fn mob_xp(player: i64, mob: i64, elite: bool, forever: bool) -> f64 {
 	forge_core::js_round(v) * if elite { 2.0 } else { 1.0 }
 }
 
-/// The quest XP share by levels over the quest (evaluate.js SHARE): 1 at <= 5, then
-/// 0.8/0.6/0.4/0.2, 0.1 at >= 10.
+/// The quest XP share by levels over the quest (evaluate.js SHARE): Forever's, from players'
+/// recordings (the test below): 1 at <= 5, 0.8 at 6, 0.6 at 7, then 0.5 from 8 on, a floor
+/// (Classic's 0.4, 0.2 and 0.1 further over are not what Forever pays).
 pub const SHARE: [f64; 64] = {
-	let mut s = [0.1; 64];
+	let mut s = [0.5; 64];
 	let mut d = 0;
 	while d < 64 {
-		s[d] = if d <= 5 {
-			1.0
-		} else if d >= 10 {
-			0.1
-		} else {
-			[0.8, 0.6, 0.4, 0.2][d - 6]
+		s[d] = match d {
+			0..=5 => 1.0,
+			6 => 0.8,
+			7 => 0.6,
+			_ => 0.5,
 		};
 		d += 1;
 	}
 	s
 };
+
+#[cfg(test)]
+mod tests {
+	use super::SHARE;
+
+	/// Quest XP paid above the quest's level in players' recordings (every recorded turn-in with a
+	/// quest level, 55,838 of them, 2026-11-13): what the hand-in paid against what the same quest
+	/// paid people at 5 or fewer levels over, by the player's level minus the quest's.
+	///
+	/// | levels over | turn-ins | people | paid / full: median (p10-p90) |
+	/// |---|---|---|---|
+	/// | +5 | 2,457 | 322 | 1.00 (1.00-1.03) |
+	/// | +6 | 1,522 | 271 | 0.80 (0.78-0.83) |
+	/// | +7 | 854 | 233 | 0.60 (0.59-0.62) |
+	/// | +8 | 478 | 169 | 0.50 (0.48-0.52) |
+	/// | +9 | 244 | 119 | 0.50 (0.48-0.52) |
+	/// | +10 | 139 | 72 | 0.50 (0.47-0.52) |
+	/// | +11 to +15 | 234 | 94 | 0.50 (0.47-0.52) |
+	/// | +16 and over | 100 | 32 | 0.50 (0.47-0.52) |
+	///
+	/// Every bucket has more than 3 people. From 8 over the payout stays at half however far over:
+	/// a level 14 quest worth 490 paid 250 at 8 over and still 250 at 15 over.
+	#[test]
+	fn the_quest_xp_share_is_what_players_recordings_show_forever_pays() {
+		let want = |d: usize| match d {
+			0..=5 => 1.0,
+			6 => 0.8,
+			7 => 0.6,
+			_ => 0.5,
+		};
+		for (d, s) in SHARE.iter().enumerate() {
+			assert_eq!(*s, want(d), "{d} levels over");
+		}
+	}
+}

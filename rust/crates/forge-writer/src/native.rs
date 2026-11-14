@@ -1,6 +1,7 @@
 //! File-system entry of the guides stage (native): `run_paths` reads the route, world, walk store,
 //! guides and data from their paths, runs `run`, writes the guide tree to `out` and fails when the
-//! pack check (forge_guide::project::check_tree, the report's) refuses it.
+//! pack check (forge_guide::project::check_tree, the report's) refuses it, every error it found in
+//! `<out>.pack-errors.txt` beside the tree (pack_errors_file).
 
 use crate::input::{Data, Route, World};
 use crate::RunOpts;
@@ -34,6 +35,14 @@ pub struct PathInputs {
 pub const PLACES: &str = "data/places.json";
 /// The guide fixes file of a checkout.
 pub const GUIDE_FIXES: &str = "data/guide-fixes.json";
+
+/// Where run_paths puts every error of a tree the pack check refuses: `<out>.pack-errors.txt` beside
+/// the tree `out` (forge build's written check: `<out>/.forge/flow/<Start>.pack-errors.txt`, beside the
+/// start's stamp; apply-routes: `<dir>/<Start>.pack-errors.txt`, beside its status).
+pub fn pack_errors_file(out: &Path) -> PathBuf {
+	let name = out.file_name().map_or_else(|| "out".to_string(), |n| n.to_string_lossy().into_owned());
+	out.with_file_name(format!("{name}.pack-errors.txt"))
+}
 
 /// A record file of the checkout: None when it is absent, an error when it does not parse.
 pub fn read_records(file: &Path) -> Result<Option<serde_json::Value>, String> {
@@ -130,6 +139,9 @@ pub fn run_paths(pin: &PathInputs, opts: &RunOpts, cache: &SharedCache) -> Resul
 	let root = pin.root.clone();
 	let guides_dir = pin.guides.clone();
 	let out = pin.out.clone();
+	// (An errors file beside the tree is this run's or none: the last run's goes with its tree.)
+	let errors_file = pack_errors_file(&out);
+	let _ = std::fs::remove_file(&errors_file);
 	let data_dir = pin.data_dir.clone().unwrap_or_else(|| root.join("data/forever"));
 	let mut log: Vec<String> = Vec::new();
 	let scope = format!("writer {}", pin.route.file_stem().and_then(|s| s.to_str()).unwrap_or(""));
@@ -349,6 +361,32 @@ pub fn run_paths(pin: &PathInputs, opts: &RunOpts, cache: &SharedCache) -> Resul
 		// (Last, the race lists the `races` guide fixes set: no pass after them.)
 		ro.tree.insert(rel.clone(), crate::fixes::apply_races(&text, &records, route.faction.as_deref()));
 	}
+	// (Then what the pack check refuses that the passes before can leave, on the guides as written: an
+	// `along until` after its label, a flight on from a stop with nothing to do, a hand-in of a quest
+	// nothing on the chain accepts. They read the race lists, and set none.)
+	let map_land = |m: u32| -> Option<i64> {
+		let k = m.to_string();
+		let f = gdata.map_frames.get("forever").get(&k);
+		let f = if f.truthy() { f } else { gdata.map_frames.get("era").get(&k) };
+		f.truthy().then(|| f.get("c").num() as i64)
+	};
+	let zone_land = |z: &str| gdata.zone_by_name.get(&z.to_lowercase()).and_then(|v| v.first()).and_then(|r| r.get("id").as_num()).and_then(|m| map_land(m as u32));
+	let node_land = |name: &str| {
+		gdata
+			.flight_nodes()
+			.items()
+			.into_iter()
+			.find(|x| x.get("short").to_js_string().eq_ignore_ascii_case(name) || x.get("name").to_js_string().eq_ignore_ascii_case(name))
+			.map(|x| x.get("c").num() as i64)
+	};
+	let lands = crate::post::Lands { zone: &zone_land, map: &map_land, node: &node_land };
+	for rel in &written {
+		let text = crate::post::along_before_label(&ro.tree[rel]);
+		let (text, hops) = crate::post::flight_hops(&text, route.faction.as_deref(), &lands);
+		ro.log.extend(hops.into_iter().map(|h| format!("{rel}: {h}")));
+		ro.tree.insert(rel.clone(), text);
+	}
+	ro.log.extend(crate::post::carried_hand_ins(&mut ro.tree, &written).into_iter().map(|l| format!("carried hand-in, when onquest: {l}")));
 	// (The titles: the zones each guide as written quests in, docs/forge/writer.md "Guide titles".)
 	crate::titles::guide_titles(&mut ro.tree, &written, &|z| gdata.zone_by_name.contains_key(&z.to_lowercase()));
 	// (Travel steps that end in a town of the other faction: warned about, for a `way` guide fix. A walk
@@ -397,8 +435,12 @@ pub fn run_paths(pin: &PathInputs, opts: &RunOpts, cache: &SharedCache) -> Resul
 	}
 	tm.lap(&scope, "write files");
 	// The pack check on the tree as written, the report's: no tree it refuses is handed on (forge
-	// build's written check fails at its write, not in the report after the guides and legs).
-	forge_guide::project::check_tree(&out, &gdata).map_err(|e| format!("apply-route {}: {e}", out.display()))?;
+	// build's written check fails at its write, not in the report after the guides and legs). Its
+	// message names five errors; every one goes to the errors file beside the tree.
+	if let Err(errors) = forge_guide::project::check_tree_all(&out, &gdata) {
+		std::fs::write(&errors_file, errors.join("\n") + "\n").map_err(|e| format!("{}: {e}", errors_file.display()))?;
+		return Err(format!("apply-route {}: {}\n({} errors in all, every one in {})", out.display(), forge_guide::project::pack_refusal(&errors), errors.len(), errors_file.display()));
+	}
 	println!("apply-route: {}", ro.summary.replacen("rewritten;", &format!("rewritten in {};", out.display()), 1));
 	tm.done(&scope, "pack check");
 	log.extend(std::mem::take(&mut ro.log));

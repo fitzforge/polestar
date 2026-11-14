@@ -67,8 +67,9 @@ pub const RIDE_WALK_YD: f64 = 2000.0;
 /// A plain goto into another zone farther than this is a walk across zones, not a way into the next
 /// (estimate: two zones' breadth).
 pub const WALK_FAR_YD: f64 = 4000.0;
-/// The quest log's size (R9).
-pub const LOG_MAX: usize = 20;
+/// The quest log's size (R9): Forever's quest log holds 40, the addon's `Compat.GetLogCap` when the
+/// client does not say (its MAXIMUM_NUM_QUESTS_LOG_CAN_ACCEPT); players' recordings hold 40 at once.
+pub const LOG_MAX: usize = 40;
 /// The knowledge base's step kinds a turn-in needs a line for.
 pub const KB_ACTIONS: [&str; 6] = ["use-item", "combine", "summon", "escort", "buy", "collect-object"];
 
