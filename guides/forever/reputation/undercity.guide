@@ -110,7 +110,7 @@ step Brill (optional hub)
 step Around Brill
   when done brill
   tip Use the Executor's Motivator on five Deathguards around Brill. For Patience, talk to Deathguard Dillinger west of Brill, Deathguard Kristof at the waystation east of it and Gordo on the road. The Rot Hide gnolls dig at the mass grave north of Brill. The Rotting Dead walk around the old bridge west of Brill; the dry branches lie under the trees there. Darkhounds roam everywhere.
-  complete 99134                      -- Motivate 5 Deathguards
+  complete 99134 @60.7,52.0 map 1420         -- Motivate 5 Deathguards: the Deathguards around Brill
   collect 286200 quest 99141.1 npc 1496 -- Dillinger's Report
   collect 286201 quest 99141.2 npc 251001 -- Kristof's Report
   collect 286202 quest 99141.3 npc 10666 -- Gordo's Report

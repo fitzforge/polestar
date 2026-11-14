@@ -14017,3 +14017,33 @@ test('Horde grind top-ups stand on camps at most a level over the player (#2207)
 	const mulgris = fel.findIndex((s) => s.goals.some((g) => g.t === 'turnin' && g.quest === 4984));
 	assert.ok(fel.indexOf(lurkers) === mulgris - 1 && mulgris === fel.indexOf(bears) - 1, 'on the way to Mulgris, whose hand-in sends you to the bears');
 });
+
+// #2311 (kaeldrin-gh, Human Warrior 22): "Complete The Rethban Gauntlet" had no place and nothing placed before it in
+// its step, so the arrow showed nothing while the player ran to the Rethban Caverns (the hand-in after it waits for
+// the quest). The same pattern, a `complete` with no place leading its step while its objective has one (lint: "the
+// arrow has nowhere to point"), in three more guides: The Balance of Light and Shadow (Benediction), How Big a
+// Threat? (Darnassus reputation) and Discipline (Undercity reputation). Each now has its objective's place: the
+// Rethban Caverns' first fork, where 6 people's recordings tick the objective (14.07-14.35, 25.17-25.45, live), after
+// a goto at the cave's mouth where they walk in; the others the quest data's objective points (984: 50+ people tick
+// it at 39-40.5, 52.5-54.5; 99134: 100+ around Brill, 58.5-61.5, 51.5-53.5).
+test('#2311: a complete that leads its step has a place for the arrow', { skip }, () => {
+	for (const [guide, quest, map, x, y] of [
+		['forever/class/warrior/fire-hardened-armor.guide', 1699, 1433, 14.2, 25.3],
+		['forever/class/priest/benediction.guide', 7622, 1423, 17.42, 12.24],
+		['forever/reputation/darnassus.guide', 984, 1439, 39.9, 53.9],
+		['forever/reputation/undercity.guide', 99134, 1420, 60.7, 52.0],
+	]) {
+		const list = goals(guide);
+		const i = at(list, `${guide}: complete ${quest}`, is('complete', quest));
+		const { goal } = list[i];
+		assert.ok(located(list[i]), `${guide}: complete ${quest} has a place`);
+		assert.equal(goal.map, map, `${guide}: complete ${quest} on map ${map}`);
+		assert.ok(Math.hypot(goal.x - x, goal.y - y) < 0.05, `${guide}: complete ${quest} at ${x},${y} (got ${goal.x},${goal.y})`);
+	}
+	const list = goals('forever/class/warrior/fire-hardened-armor.guide');
+	const i = at(list, 'complete 1699', is('complete', 1699));
+	const mouth = list[i - 1];
+	assert.equal(mouth.step, list[i].step, 'the cave mouth is in the same step');
+	assert.equal(mouth.goal.t, 'goto', 'a goto at the Rethban Caverns before the fork inside');
+	assert.ok(Math.hypot(mouth.goal.x - 15.0, mouth.goal.y - 27.3) < 0.05 && mouth.goal.f !== 'e', `the mouth at 15.0,27.3, live frame (got ${mouth.goal.x},${mouth.goal.y} ${mouth.goal.f})`);
+});

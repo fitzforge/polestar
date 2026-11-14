@@ -29,8 +29,10 @@ why Starts now at 20 with a shield; a hauberk at 28, then a coif, leggings and g
 # warrior can talk to Mathiel directly), so any Alliance warrior can earn all
 # three pieces; Skyborne get no breadcrumb and are sent to Grimand here.
 # Sources: quests.json, npcs.json, objects.json and items.json for the chain,
-# objectives and places (the Rethban Caverns point is the quest's own
-# objective position); the knowledge base's drop table (Scorched Spider Fang
+# objectives and places (the Rethban Caverns: the mouth where players'
+# recordings walk in, 15.0,27.3, and the first fork where their Enter the
+# Rethban Caverns ticks, 14.2,25.3, both live frame, #2311; the quest's own
+# objective position is 14.05,24.71); the knowledge base's drop table (Scorched Spider Fang
 # 100%, Charred Horn and Galvanized Horn 80%, Burning Blood and Burning Rock
 # 80%, the shells and coral 100% per object); quest-notes for the gauntlet's
 # 1-hour timer and drink, the gnolls, the few chimaeras, Roogug and the way
@@ -81,7 +83,8 @@ step Yorus Barleybrew
 
 step The Rethban Gauntlet
   tip You have one hour, and Yorus's Barleybrew Scalder leaves you drunk for 8-10 minutes. Run north-west into the Rethban Caverns, keeping close to the cliff wall to miss most gnoll packs, and go in as far as the first fork; then come back to Yorus (from the ridge you can jump down into Lakeshire). Dying and releasing your spirit fails the quest: abandon it and Yorus gives it again.
-  complete 1699                               -- Enter the Rethban Caverns and come back
+  goto 15.0,27.3 map 1433 "The Rethban Caverns" live
+  complete 1699 @14.2,25.3 map 1433 live      -- Enter the Rethban Caverns and come back; below ground, at the first fork
   turnin 1699
   accept 1702
 
