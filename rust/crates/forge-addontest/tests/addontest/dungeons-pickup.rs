@@ -2113,6 +2113,53 @@ emit(out)"#);
 	assert_eq!((out["x"].as_f64(), out["y"].as_f64()), (Some(41.0), Some(41.0)), "{out}");
 }
 
+// #2241 (Bennistrov, Night Elf Druid 46, Uldaman's pick-up guide): its step "Pozzik" said to accept Indurium Ore
+// (1192), which Forever hands in at one talk and never puts in the log (quests.json `direct`, a repeatable): Pozzik
+// takes the four ores and pays at once, so there is nothing to pick up. Such a page quest carries `direct` from the
+// Codex build; the pick-up guide leaves it out, and the hand-in guide hands it in at its giver once the bags hold
+// every item it asks. Here 90701 is one on Shadowfang Keep's page, its giver Pozzik in the Undercity.
+#[test]
+fn a_page_quest_handed_in_at_one_talk_is_no_pick_up_and_the_hand_in_guide_hands_it_in_with_its_items_2241() {
+	let (codex, inputs) = fixture_parts();
+	let mut c = codex.clone();
+	let mut i = inputs.clone();
+	c["npcs"]["90710"] = json!({
+		"id": 90710, "name": "Pozzik", "level": 30, "levelMax": null, "faction": "AH", "rare": false, "elite": false, "boss": false,
+		"instance": null, "roles": [], "spawns": [{ "map": 1458, "x": 60, "y": 40, "f": "e" }],
+	});
+	c["items"]["90720"] = json!({ "id": 90720, "name": "Indurium Ore", "quality": 1, "kind": "item", "spell": null, "reqLevel": null, "sources": [] });
+	c["quests"]["90701"] = json!({
+		"id": 90701, "title": "Indurium Ore", "level": 25, "minLevel": 20, "faction": null, "races": null, "classes": null,
+		"start": { "npc": [90710], "object": [], "item": [] }, "end": { "npc": [90710], "object": [] },
+		"objectives": [{ "type": "item", "id": 90720, "count": 4, "text": "Indurium Ore" }],
+		"pre": [], "zone": 1458, "rewards": [], "choices": [], "preAny": [],
+	});
+	i["forever"]["quests"]["90701"] = json!({ "area": 209, "direct": true });
+	let script = k(r#"
+local plan = D.PickupPlan("{KEY}")
+local take = {}
+for _, t in ipairs(plan.take) do take[#take + 1] = t.quest.id end
+local page = D.Quest("{KEY}", 90701)
+local function goal(def)
+	for _, s in ipairs(def and def.steps or {}) do
+		for _, g in ipairs(s.goals) do
+			if g.quest == 90701 then return { t = g.t, direct = g.direct or false, npc = g.npc or false } end
+		end
+	end
+	return false
+end
+local without = goal((D.HandinGuide("{KEY}")))
+stub.world.addItem(90720, 4)
+local with = goal((D.HandinGuide("{KEY}")))
+emit({ take = take, direct = page and page.direct or false, without = without, with = with })"#);
+	let out = run(&pack_of(&c, &i), &script, Opts::default()).remove(0);
+	assert_eq!(out["direct"], true, "the page carries the flag: {out}");
+	let take = out["take"].as_array().cloned().unwrap_or_default();
+	assert!(!take.is_empty() && !take.contains(&json!(90701)), "the pick-up guide takes the page's other quests, not this one: {out}");
+	assert_eq!(out["without"], false, "no ores in the bags: nothing to hand in");
+	assert_eq!(out["with"], json!({ "t": "turnin", "direct": true, "npc": 90710 }), "with the ores: handed in at Pozzik, a direct turn-in");
+}
+
 // #1593 (Fitz, out of Ragefire Chasm in the Cleft of Shadow, 20 yd from Neeru Fireblade): the hand-in guide led
 // to Rahauro in Thunder Bluff first, 5,063 yd, and came back for Neeru later. A stop at hand (AT_HAND, 15 s of
 // travel from the player) now comes first, whatever the cheapest path from there. Here the cheapest open path
