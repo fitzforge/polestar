@@ -192,8 +192,8 @@ what Polestar does; on the account's first character, Questing (quest
 automation, grey quests, the guide at login, the stat weights gear advice
 uses), Targeting (the target button, the square button with a name beside it
 that targets your step's mobs and NPCs, who it targets, its mark and ping),
-Groups and dungeons (dungeons in your route, group quests), Your route (Fastest, Balanced or Roads, and the
-route line) and Your look (Polestar's looks, the game's and the skins, with a
+Groups (group quests), Your route (Fastest, Balanced or Roads, and the route
+line) and Your look (Polestar's looks, the game's and the skins, with a
 preview, and the colour scheme); a later character gets only its own choice,
 its class's stat weights. Every choice works the moment you make it, Skip
 install keeps everything as it is, and the last page names the guide

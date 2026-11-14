@@ -827,9 +827,10 @@ end
 -- answer for every dungeon (behavior.dungeons, "Dungeons in my route": "run",
 -- "ask": none, anything else Skip, the default, so the solo route is what a
 -- player gets until they choose). A dungeon the compiler found no Map id for
--- is never run.
+-- is never run, nor is any while dungeons in the route are held back
+-- (ns.dungeonRoute off: every answer reads Skip, the saved ones are kept).
 function Own.dungeonAnswer(map)
-	if type(map) ~= "number" then return false end
+	if type(map) ~= "number" or not ns.dungeonRoute then return false end
 	local answer = ns.CharState().dungeons[map]
 	if answer ~= nil then return answer == true end
 	local all = ns.Get("behavior.dungeons")
@@ -9080,13 +9081,18 @@ function Engine.DungeonChosen(map)
 	return Own.dungeonAnswer(map) == true
 end
 
+-- Whether dungeons in the route are offered at all (ns.dungeonRoute, Core/Init.lua):
+-- off, every dungeon is skipped and no window offers the choice.
+function Engine.DungeonRouteOn() return ns.dungeonRoute == true end
+
 -- true (run it), false (skip it) or nil (ask), as the route reads it.
 function Engine.DungeonAnswer(map) return Own.dungeonAnswer(map) end
 
 -- The answer for one dungeon: true runs it, false skips it, nil follows the
--- answer for every dungeon (behavior.dungeons).
+-- answer for every dungeon (behavior.dungeons). Nothing while dungeons in the
+-- route are held back (Engine.DungeonRouteOn): the saved answers stay as they are.
 function Engine.ChooseDungeon(map, answer)
-	if type(map) ~= "number" or (answer ~= nil and answer ~= true and answer ~= false) then return end
+	if not ns.dungeonRoute or type(map) ~= "number" or (answer ~= nil and answer ~= true and answer ~= false) then return end
 	ns.CharState().dungeons[map] = answer
 	Own.dungeonGen = Own.dungeonGen + 1
 	ns.Fire("DUNGEON_ANSWERED", map, answer)
@@ -9214,9 +9220,11 @@ end
 -- (the compiler writes `{ k = "dungeon", name = "...", map = N }`, a
 -- negated one with `neg = true` after `k`), so nothing is loaded for it.
 -- Counted again only when the guides registered change (a pack loaded): the
--- settings ask for every dungeon's row.
+-- settings ask for every dungeon's row. None while dungeons in the route are
+-- held back (Engine.DungeonRouteOn), so nothing offers them.
 Own.guideDungeons = nil -- { n = guides listed, out }
 function Engine.GuideDungeons()
+	if not ns.dungeonRoute then return {} end
 	if not player then refreshPlayer() end
 	local list = Guides.List()
 	local cached = Own.guideDungeons
@@ -9915,7 +9923,7 @@ Own.numbering = setmetatable({}, { __mode = "k" })
 Own.dungeonGen = 0
 function Own.numbersOf(g)
 	if not player then refreshPlayer() end
-	local key = tostring(player.class) .. "/" .. tostring(player.race) .. "/" .. tostring(player.faction) .. "/" .. Own.dungeonGen
+	local key = tostring(player.class) .. "/" .. tostring(player.race) .. "/" .. tostring(player.faction) .. "/" .. Own.dungeonGen .. (ns.dungeonRoute and "/d" or "")
 	local n = Own.numbering[g]
 	if n and n.key == key then return n end
 	n = { key = key, of = {}, hidden = {}, total = 0 }

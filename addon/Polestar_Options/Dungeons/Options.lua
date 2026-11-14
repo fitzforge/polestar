@@ -31,8 +31,9 @@ if not ok and geterrorhandler then geterrorhandler()(err) end
 -- answer is per character (Engine.ChooseDungeon), the one the guide
 -- window's question gives. Only the dungeons this character's guides have
 -- steps for get a row (Engine.GuideDungeons, read once logged in and again
--- when more guides load; none: no section); an answer saved for one without
--- a row is kept.
+-- when more guides load; none: no section, as while dungeons in the route
+-- are held back, ns.dungeonRoute); an answer saved for one without a row is
+-- kept.
 local ROUTE = {
 	{ 389, "Ragefire Chasm" }, { 3065, "The Hall of Thanes" }, { 2999, "Ruins of Lordaeron" }, { 36, "The Deadmines" },
 	{ 43, "Wailing Caverns" }, { 33, "Shadowfang Keep" }, { 48, "Blackfathom Deeps" }, { 34, "The Stockade" },
@@ -48,6 +49,7 @@ local CHOICES = { { value = "all", label = L["As for all dungeons"] }, { value =
 local HELP = L["Run it: the leveling guide picks up its quests on the way and takes you to the door. Skip it: the guide keeps to the solo route. As for all dungeons: Guide, Automation, Dungeons in my route answers."]
 local rowFor = {} -- map -> true once its row is registered
 local function routeRows()
+	if not ns.dungeonRoute then return end
 	local E = ns.Engine
 	local have = E and E.GuideDungeons and E.GuideDungeons() or {}
 	local controls = {}

@@ -301,8 +301,9 @@ fn env(name: &str) -> Env {
 		"eui" => Env { before: "stub.withEllesmere()\n", ..env("world") },
 		// The whole addon with a guide that has a step for every dungeon in the route (Dungeons.ROUTE's, read from
 		// the settings' addon's list without it: the group's own list), registered before the settings window's
-		// addon loads, so Discovery > Dungeons has a row for each (Polestar_Options/Dungeons/Options.lua).
-		"dungeonroute" => Env { prelude: format!("stub.advance(1)\n{DUNGEON_ROUTE_GUIDE}\nassert(Polestar.UI.LoadOptions())\n"), ..env("world") },
+		// addon loads, so Discovery > Dungeons has a row for each (Polestar_Options/Dungeons/Options.lua). Dungeons in
+		// the route turned on first: held back as they ship (Core/Init.lua's switch), no row shows.
+		"dungeonroute" => Env { prelude: format!("Polestar.dungeonRoute = true\nstub.advance(1)\n{DUNGEON_ROUTE_GUIDE}\nassert(Polestar.UI.LoadOptions())\n"), ..env("world") },
 		// The real QoL against tests/lua/stub_qol.lua's client and its fake Engine, Nav and Pins (qol.rs,
 		// qol-items.rs, ui-look-buttons.rs), with its rows (the settings' addon's QoL/Options.lua) and the Buttons
 		// page that sets the action buttons' looks. The whole addon's guide window can't draw the fake Engine's
@@ -659,7 +660,9 @@ fn every_control_has_an_effect_check() {
 		script: format!(
 			r#"
 			stub.advance(1)
-			-- Guides with steps for every dungeon: each one's row on Discovery > Dungeons is a control too.
+			-- Guides with steps for every dungeon: each one's row on Discovery > Dungeons is a control too (dungeons in
+			-- the route turned on: held back as they ship, Core/Init.lua's switch).
+			Polestar.dungeonRoute = true
 			Polestar.Engine.GuideDungeons = function() return setmetatable({{}}, {{ __index = function() return true end }}) end
 			assert(Polestar.UI.LoadOptions())
 			{pending}

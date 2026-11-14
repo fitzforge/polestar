@@ -441,11 +441,12 @@ local BUILTIN = {
 			needs = function() local E = ns.Engine; return E and E.GroupQuests and #E.GroupQuests() > 0 end },
 		-- Dungeons in the route (`when dungeon`, Own.dungeonAnswer): the answer for every dungeon a
 		-- character has not answered one by one (Discovery > Dungeons, the guide window's question).
+		-- Not shown while dungeons in the route are held back (ns.dungeonRoute: GuideDungeons lists none).
 		{ kind = "dropdown", key = "behavior.dungeons", label = L["Dungeons in my route"], new = "0.4.0",
 			help = L["Leveling guides can take you through the dungeons on your way, for a group of five: they pick up the quests on stops they make anyway, send you to the door at the right level and hand the quests in after. Skip them: the solo route. Ask me: the guide asks at each dungeon. Discovery, Dungeons changes one."],
 			choices = { { value = "skip", label = L["Skip them"] }, { value = "ask", label = L["Ask me"] }, { value = "run", label = L["Run them"] } },
 			search = "dungeon, dungeons, instance, group, run, deadmines, wailing caverns, zul'farrak, blackrock depths",
-			needs = function() local E = ns.Engine; return E and E.GuideDungeons and next(E.GuideDungeons()) ~= nil end },
+			needs = function() local E = ns.Engine; return ns.dungeonRoute and E and E.GuideDungeons and next(E.GuideDungeons()) ~= nil end },
 	} },
 	{ page = GUIDE, tab = L["Automation"], section = L["Guides"], controls = {
 		{ kind = "toggle", key = "behavior.autoSelectGuide", label = L["Pick a guide for me"], help = L["Opens the suggested guide when no tab is open."], search = "auto guide, choose guide, suggested guide" },
@@ -668,8 +669,10 @@ end
 -- Install (UI/Welcome.lua) as a control, so the search finds it ("install",
 -- "setup", "wizard", "first run"): at home on About, whose Install tile is its
 -- widget there (view.cache), the one a search result's jump lights.
+-- Held back (ns.dungeonRoute), Install's groups page has no dungeon question, so neither text names dungeons.
 local INSTALL = { kind = "button", icon = "palette", button = L["Install"], label = L["Set Polestar up again"],
-	help = L["Install's pages: questing, groups and dungeons, your route and your look, a page at a time. Each choice works at once."],
+	help = ns.dungeonRoute and L["Install's pages: questing, groups and dungeons, your route and your look, a page at a time. Each choice works at once."]
+		or L["Install's pages: questing, groups, your route and your look, a page at a time. Each choice works at once."],
 	search = "install, setup, set up, wizard, first run, first time, welcome, getting started, start again, onboarding",
 	onClick = function() ns.Fire("SHOW_WELCOME") end }
 
@@ -757,7 +760,8 @@ local function buildAbout(view)
 	-- Install (UI/Welcome.lua) and what's new, first under the hero: the
 	-- setup a new character gets, again whenever the player wants it.
 	local install = W.ActionTile(view, "palette", L["Install"],
-		L["Set Polestar up again, a page at a time: questing, groups and dungeons, your route, your look. Each choice works at once."],
+		ns.dungeonRoute and L["Set Polestar up again, a page at a time: questing, groups and dungeons, your route, your look. Each choice works at once."]
+			or L["Set Polestar up again, a page at a time: questing, groups, your route, your look. Each choice works at once."],
 		function() ns.Fire("SHOW_WELCOME") end)
 	view.Install = install
 	view.cache = { [INSTALL] = install }

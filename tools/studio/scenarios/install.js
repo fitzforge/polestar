@@ -11,8 +11,11 @@
 // (skins.js's list, without its variants), each picked as skins.js picks it.
 // Shots: <look>-<page>-<scale> (studio install/hearth-look-1.5 ...), and at
 // 1.0 <look>-groups-dungeons (with "Dungeons in my route", which shows once
-// the route has dungeons and its setting) and <look>-look-gamepad (the
-// gamepad's button names, shown while a gamepad is in use).
+// dungeons in the route are turned on, Core/Init.lua's ns.dungeonRoute, and
+// the route has dungeons and its setting), <look>-groups-held (the same route
+// and a saved Run them with the switch off: group quests only) and
+// <look>-look-gamepad (the gamepad's button names, shown while a gamepad is in
+// use).
 //
 // The UI scale: UIParent at that scale, its size in UI units the screen's
 // 1920 x 1080 over it, as the client has it.
@@ -45,10 +48,15 @@ return { key = key, step = at .. " of " .. count, title = title, height = Polest
 }
 
 // The route with dungeons, and their setting, as the route lane brings them.
-const DUNGEONS = `if Polestar.GetDefault("behavior.dungeons") == nil then Polestar.RegisterDefaults("behavior", { dungeons = "skip" }) end
+const ROUTE = `if Polestar.GetDefault("behavior.dungeons") == nil then Polestar.RegisterDefaults("behavior", { dungeons = "skip" }) end
 local E = Polestar.Engine
 local had = E.GuideDungeons and E.GuideDungeons() or {}
-if next(had) == nil then E.GuideDungeons = function() return { [1581] = true } end end`;
+if next(had) == nil then E.GuideDungeons = function() return { [1581] = true } end end
+local gq = E.GroupQuests and E.GroupQuests() or {}
+if #gq == 0 then E.GroupQuests = function() return { { quest = 155, title = "The Defias Brotherhood" } } end end`;
+const DUNGEONS = `Polestar.dungeonRoute = true\n${ROUTE}`;
+// Held back (the switch off), with a saved Run them: the page asks about group quests only.
+const HELD = `${ROUTE}\nPolestar.Set("behavior.dungeons", "run")`;
 
 // A gamepad in use (Forever's gamepad interface or a pad with the mouse interface).
 const GAMEPAD = 'Polestar.Gamepad.IsActive = function() return true end';
@@ -66,6 +74,7 @@ for (const [name, [id, folder, variant]] of Object.entries(LOOKS)) {
 		}
 	}
 	shots[`${name}-groups-dungeons`] = { title: `${name}: Groups and dungeons with "Dungeons in my route"`, lua: `${base}\n${page('1.0', 'groups', DUNGEONS)}` };
+	shots[`${name}-groups-held`] = { title: `${name}: Groups while dungeons in the route are held back`, lua: `${base}\n${page('1.0', 'groups', HELD)}` };
 	shots[`${name}-look-gamepad`] = { title: `${name}: Your look with the gamepad's button names`, lua: `${base}\n${page('1.0', 'look', `${ALL_SKINS}\n${GAMEPAD}`)}` };
 }
 

@@ -33,7 +33,8 @@
 --      mark and its ping (qol.markTarget, qol.pingTarget), and a line that
 --      the step key targets the same without it and Move frames moves it;
 --   4. groups: dungeons in the route (behavior.dungeons: Skip them, Ask me,
---      Run them; once that setting exists and the character's guides have
+--      Run them; once that setting exists, dungeons in the route are not
+--      held back (ns.dungeonRoute) and the character's guides have
 --      dungeons) and group quests (behavior.groupQuests: Ask me at each, Do
 --      them with a group, Skip them; while the guides have any) as option
 --      cards;
@@ -1503,10 +1504,12 @@ end
 
 -- Dungeons in the route (behavior.dungeons; Engine's Own.dungeonAnswer):
 -- once the setting exists and the character's guides have dungeons
--- (Engine.GuideDungeons), as Options offers it.
+-- (Engine.GuideDungeons, none while dungeons in the route are held back:
+-- ns.dungeonRoute), as Options offers it. Held back, the page is about group
+-- quests only and says nothing of dungeons.
 local function dungeonsShown()
 	local E = ns.Engine
-	return ns.GetDefault("behavior.dungeons") ~= nil and E ~= nil and E.GuideDungeons ~= nil and next(E.GuideDungeons() or {}) ~= nil
+	return ns.dungeonRoute and ns.GetDefault("behavior.dungeons") ~= nil and E ~= nil and E.GuideDungeons ~= nil and next(E.GuideDungeons() or {}) ~= nil
 end
 
 -- Group quests (behavior.groupQuests; Own.groupAnswer): while the guides have any.
@@ -1525,8 +1528,12 @@ PAGES[#PAGES + 1] = {
 	key = "groups",
 	shown = function() return full and (dungeonsShown() or groupQuestsShown()) end,
 	build = function(P)
-		compactHero(P.Hero, L["Groups and dungeons"],
-			L["Leveling guides can take you through dungeons and group quests on your way. Choose how much of that you want."])
+		if ns.dungeonRoute then
+			compactHero(P.Hero, L["Groups and dungeons"],
+				L["Leveling guides can take you through dungeons and group quests on your way. Choose how much of that you want."])
+		else
+			compactHero(P.Hero, L["Groups"], L["Leveling guides mark some elite and escort quests for a group. Choose what the guide does at them."])
+		end
 		local p = P.Body
 		F.Dungeons = optionGroup(p, { title = L["Dungeons in my route"],
 			note = L["For a group of five: the guide picks up a dungeon's quests on its way, sends you to the door at the right level and hands them in after."],

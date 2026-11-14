@@ -79,6 +79,8 @@ mod engine_catchup;
 mod engine_die;
 #[path = "engine-dungeon-route.rs"]
 mod engine_dungeon_route;
+#[path = "dungeon-route-held.rs"]
+mod dungeon_route_held;
 #[path = "engine-dwell.rs"]
 mod engine_dwell;
 #[path = "engine-empty-stop.rs"]

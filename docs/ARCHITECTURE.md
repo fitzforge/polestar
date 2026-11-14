@@ -217,6 +217,9 @@ the setting `behavior.dungeons` ("skip", the default, the solo route; "ask"; "ru
 ("Dungeons in my route", Options, Guide, Automation). Unanswered with "ask", the first
 `when dungeon` step with work now holds the route (`Engine.DungeonQuestion`); `Engine.DungeonSoon` is a chosen
 run a few open steps ahead (start looking for a group) and `Engine.SkipDungeon` answers "skip" at the run.
+All of it is held back while `ns.dungeonRoute` (Core/Init.lua) is false, as this version ships: every dungeon
+reads Skip whatever is saved (`Own.dungeonAnswer`), `Engine.ChooseDungeon` writes nothing, `Engine.GuideDungeons`
+lists none and `Engine.DungeonRouteOn()` is false, so no window offers the choice; the saved values are kept.
 `behavior.suggestFrom` (default `"guides"`) is the pack suggestions come from.
 Modules keep their own keys beside these (`rares`, `instances`, `names`, `alts` account-wide;
 `ui`, `routes`, `classTrainLevel`, `classTrainVisit`, `qol`, `flightTimes`,
@@ -1801,7 +1804,7 @@ Polestar.Engine.StepHiddenFor(step, who?) -> bool  -- no step of its own for who
   (`Engine.DungeonChosen(map)`: the answer for that dungeon, `CharState().dungeons[map]`
   true or false through `Engine.ChooseDungeon(map, answer)`, else the setting `behavior.dungeons`,
   Skip by default; with "ask" a `when dungeon` step holds while it has work now, `Own.whenFails` and
-  `Own.dungeonPending`; a predicate without `map` never holds),
+  `Own.dungeonPending`; a predicate without `map` never holds, nor does any while `ns.dungeonRoute` is off),
   Polestar's gear advice on an item (`Own.isUpgrade`: `Gear.IsUpgrade`,
   counted as an upgrade when the advice is off or cannot judge the item), a
   profession's rank (`Compat.GetSkillRank` by skill line, else by name; not
@@ -7328,6 +7331,7 @@ English name, the Codex's instances and Forever's new ones; `Engine.GuideDungeon
 read at login and again on `GUIDES_REGISTERED`), As for all dungeons (none),
 Run it or Skip it, writing `Engine.ChooseDungeon`; "As for all dungeons" is the
 setting `behavior.dungeons` on Guide → Automation ("Dungeons in my route").
+Neither shows while dungeons in the route are held back (`ns.dungeonRoute` false).
 Quality of Life → Game → Game options leads with the other kind: the game's
 own state. "Increase game image quality" (`QoL/Options.lua`) reads the client
 CVar `ResampleAlwaysSharpen` and writes it only on a click (in combat, at
@@ -8361,7 +8365,8 @@ Reading flow: `docs/DESIGN.md` ("Intent" and "The Guide Window").
   `qol.pingTarget`; a line that the step key targets the same names without
   the button and that Move frames moves it); Groups and dungeons
   (`behavior.dungeons` as Skip them, Ask me and Run them once that setting
-  exists and `Engine.GuideDungeons()` has any; `behavior.groupQuests` as Ask
+  exists, `ns.dungeonRoute` is on and `Engine.GuideDungeons()` has any; with
+  it off the page is Groups, about group quests only; `behavior.groupQuests` as Ask
   me at each, Do them with a group and Skip them while `Engine.GroupQuests()`
   has any; shown while it holds one of them); Your route (polestar.guide's route demo, the same for everyone: the
   Elwynn Forest painting, Northshire Abbey to the Westfall bridge, the
