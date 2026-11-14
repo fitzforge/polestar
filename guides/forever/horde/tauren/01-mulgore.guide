@@ -562,7 +562,8 @@ step The Moonkin Stone
 step Into Mulgore
   only !Druid
   zone Mulgore
-  goto 42.1,20.2 "Into Mulgore"
+  tip From Elder Rise, take Thunder Bluff's north lift down: at its foot the way runs east along the ledge, then south-east across Mulgore to the Barrens.
+  goto 42.3,21.7 "Into Mulgore"
 
 step Into The Barrens
   zone The Barrens
