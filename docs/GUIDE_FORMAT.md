@@ -346,7 +346,8 @@ a boss there, to a tenth of a level. Each pick-up carries the floor less the
 levels the route plans between it and the run (a pick-up at the run's own
 stop, the floor). Below its gate a step doesn't apply: Ask doesn't ask, the
 pick-up isn't taken, and the run is passed, so the route keeps the solo path.
-`forge guide lint` errors on a run gated under its floor (with a built Codex),
+`forge guide lint` warns of a run gated under its floor (with a built Codex; an error again once the
+leveling route's runs carry their gates),
 and `forge judge doors` checks the walk from the stop before the run to its
 door against the gate.
 
