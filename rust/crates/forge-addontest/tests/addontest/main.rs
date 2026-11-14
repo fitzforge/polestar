@@ -51,6 +51,8 @@ mod dsl_smart;
 mod dsl_verbs;
 #[path = "dungeons-attune.rs"]
 mod dungeons_attune;
+#[path = "dungeons-e2e.rs"]
+mod dungeons_e2e;
 #[path = "dungeons-pickup.rs"]
 mod dungeons_pickup;
 #[path = "dungeons-runtime.rs"]

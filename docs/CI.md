@@ -71,6 +71,17 @@ that read `data/forever` skip with a reason.
   calibrated level model on the walking grid and from players' recorded
   saves. On GitHub the engine's skip-ahead and upgrade cases (forge-addontest)
   run instead.
+- The dungeons-in-the-route sweep (forge-addontest `dungeons_e2e`, a
+  release gate: `cargo test --profile quick -p forge-addontest --test
+  addontest -- --ignored dungeons_e2e` in rust/, with `DUNGEONS_E2E_LEVELS`
+  set to the calibrated level model's output for both factions): every
+  start played 1-60 with dungeons skipped, run, asked and switched
+  mid-route, against the same characters on the route compiled without its
+  dungeon steps. It writes `polestar-dungeons-e2e.txt` (FAIL lines, and WARN
+  lines for a run the level model reaches under its dungeon's floor: the
+  model runs about a level under players) and a report per scenario (`.md`)
+  to `DUNGEONS_E2E_OUT`. Without the level model it still runs, without the
+  floor and door checks.
 - Anything that reads recordings, the game client, the walking grid, Leffe's
   maps or other files not in the repository: route builds, navigation and
   travel builds, legs bakes, replays of the arrow on recorded sessions, the sweeps that read
