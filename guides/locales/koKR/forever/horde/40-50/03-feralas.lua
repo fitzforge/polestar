@@ -175,7 +175,7 @@ return {
 	-- Step 36: Rogue Vale screechers
 	["Rogue Vale screechers"] = "도적의 골짜기 날카로운비명",
 	-- {npc:14637} Zorbin Fandazzle · {npc:5308} Rogue Vale Screecher · {item:10699} Yeh'kinya's Bramble
-	["Rogue Vale opens just north of {npc:14637}'s dock. Kill a {npc:5308}, use {item:10699} on its body and kill the spirit that rises."] = "",
+	["Rogue Vale opens just north of {npc:14637}'s dock. Kill a {npc:5308}, use {item:10699} on its body before you loot it, then talk to the spirit that rises: it is friendly. Three spirits in all."] = "도적의 골짜기는 {npc:14637}의 부두 바로 북쪽에서 시작됩니다. {npc:5308}을(를) 처치하고, 전리품을 챙기기 전에 시체에 {item:10699}을(를) 사용한 뒤, 나타나는 혼령에게 말을 거세요. 혼령은 우호적입니다. 모두 세 마리입니다.",
 
 	-- Step 37: Forgotten Coast: kill these as you meet them
 	-- {area:1108} Forgotten Coast

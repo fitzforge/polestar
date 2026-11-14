@@ -52,8 +52,9 @@ return {
 	["The {object:179827} board"] = "O quadro {object:179827}",
 
 	-- Step 11: Zamael Lunthistle
-	-- {area:1446} Thorium Point
-	["The night elf stands alone west of {area:1446}. Hear his story."] = "O elfo noturno está sozinho a oeste de {area:1446}. Ouça a história dele.",
+	-- {npc:8436} Zamael Lunthistle · {area:1442} Firewatch Ridge · {area:1446} Thorium Point · {npc:8282} Highlord Mastrogonde · {quest:3377} Prayer to Elune
+	-- plural, as words: Twilight Fire Guards = {npc:5861} Twilight Fire Guard
+	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:8436} stands inside the Twilight camp at {area:1442}, west of {area:1446}, among Twilight Fire Guards, Idolaters and Geomancers (level 48-49 elites), with {npc:8282} (level 51, rare elite) beside him: {quest:3377} needs a group of 4. Skip it if you are alone."] = "São monstros elite: vale a pena formar grupo, procure gente para ir junto. {npc:8436} fica dentro do acampamento do Crepúsculo em {area:1442}, a oeste de {area:1446}, entre Guardas das Chamas, Idólatras e Geomantes do Crepúsculo (elites de nível 48-49), com {npc:8282} (elite raro de nível 51) ao lado dele: {quest:3377} pede um grupo de 4. Se estiver sozinho, pule.",
 
 	-- Step 14: Searing Lava Spiders
 	-- plural, as words: Searing Lava Spiders = {npc:5857} Searing Lava Spider
@@ -165,6 +166,7 @@ return {
 	-- ["Ride north-west across the Cauldron to {area:1446}, the scaffolded camp on the north-west rim."] = "Siga para noroeste pelo Caldeirão até {area:1446}, o acampamento de andaimes na borda noroeste.",
 	-- ["Taskmasters and Slavers drive the slaves all over the Cauldron, and any of them can carry a {item:10551}. The Steamsmiths work at the furnaces in the middle (the {item:18959}), the Lookouts stand on the southern ridges (the Spyglass). Any {object:147516} may drop the {item:11818}: keep it."] = "Capatazes Ferro Negro e Feitores Ferro Negro tocam os escravos por todo O Caldeirão, e qualquer um deles pode carregar uma {item:10551}. Os Vaporistas Ferro Negro trabalham nas fornalhas no meio (a {item:18959}); os Atalaias Ferro Negro ficam nas cristas do sul (a Luneta do Espia). Qualquer {object:147516} pode deixar cair a {item:11818}: guarde-a.",
 	-- ["The dwarf stands by the road at the dig site. Follow him north along the road and fight off the {object:147516} ambushes. When it is over, read the {object:175704} he leaves on the road in {area:1959}."] = "O anão fica à beira da estrada, na escavação. Siga-o para o norte pela estrada e repila as emboscadas {object:147516}. No fim, leia a {object:175704} que ele deixa na estrada em {area:1959}.",
+	-- ["The night elf stands alone west of {area:1446}. Hear his story."] = "O elfo noturno está sozinho a oeste de {area:1446}. Ouça a história dele.",
 	-- ["The spiders roam the plateaus and lava pools in the south-west of the gorge."] = "As aranhas vagam pelos platôs e poças de lava no sudoeste da garganta.",
 	-- ["{area:1442}: kill these as you meet them"] = "{area:1442}: vá matando estes pelo caminho",
 	-- ["{npc:6734}: the last guide hearths you here, so this usually ticks at once"] = "{npc:6734}: o guia anterior leva você até aqui com a pedra de regresso, então isto costuma ser marcado na hora",

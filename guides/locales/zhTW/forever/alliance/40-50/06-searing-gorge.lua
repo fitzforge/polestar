@@ -52,8 +52,9 @@ return {
 	["The {object:179827} board"] = "{object:179827}告示板",
 
 	-- Step 11: Zamael Lunthistle
-	-- {area:1446} Thorium Point
-	["The night elf stands alone west of {area:1446}. Hear his story."] = "那名夜精靈獨自站在{area:1446}西邊。聽他的故事。",
+	-- {npc:8436} Zamael Lunthistle · {area:1442} Firewatch Ridge · {area:1446} Thorium Point · {npc:8282} Highlord Mastrogonde · {quest:3377} Prayer to Elune
+	-- plural, as words: Twilight Fire Guards = {npc:5861} Twilight Fire Guard
+	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:8436} stands inside the Twilight camp at {area:1442}, west of {area:1446}, among Twilight Fire Guards, Idolaters and Geomancers (level 48-49 elites), with {npc:8282} (level 51, rare elite) beside him: {quest:3377} needs a group of 4. Skip it if you are alone."] = "這些是精英怪物：建議組隊，找人一起完成。{npc:8436}站在{area:1446}西邊{area:1442}的暮光營地裡，周圍是暮光火焰衛士、暮光崇拜者和暮光地占師（48-49級精英），旁邊還有{npc:8282}（51級稀有精英）：{quest:3377}需要4人隊伍。如果你是獨自一人就跳過。",
 
 	-- Step 14: Searing Lava Spiders
 	-- plural, as words: Searing Lava Spiders = {npc:5857} Searing Lava Spider
@@ -159,6 +160,7 @@ return {
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["For {npc:8256} in {area:1537}, later"] = "之後給{area:1537}的{npc:8256}",
 	-- ["Greater Lava Spiders"] = "巨型熔岩蜘蛛",
+	-- ["The night elf stands alone west of {area:1446}. Hear his story."] = "那名夜精靈獨自站在{area:1446}西邊。聽他的故事。",
 	-- ["{npc:6734}: the last guide hearths you here, so this usually ticks at once"] = "{npc:6734}：上一份指南用爐石把你送到這裡，所以這一步通常會立即完成",
 	-- ["{object:147516} dwarves"] = "{object:147516}矮人",
 }

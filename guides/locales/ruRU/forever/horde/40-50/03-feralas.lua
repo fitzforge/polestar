@@ -175,7 +175,7 @@ return {
 	-- Step 36: Rogue Vale screechers
 	["Rogue Vale screechers"] = "Крикуны Разбойничьей долины",
 	-- {npc:14637} Zorbin Fandazzle · {npc:5308} Rogue Vale Screecher · {item:10699} Yeh'kinya's Bramble
-	["Rogue Vale opens just north of {npc:14637}'s dock. Kill a {npc:5308}, use {item:10699} on its body and kill the spirit that rises."] = "",
+	["Rogue Vale opens just north of {npc:14637}'s dock. Kill a {npc:5308}, use {item:10699} on its body before you loot it, then talk to the spirit that rises: it is friendly. Three spirits in all."] = "Разбойничья долина начинается чуть к северу от причала ({npc:14637}). Убейте {npc:5308}, используйте {item:10699} на его теле, прежде чем обыскать его, затем поговорите с поднявшимся духом: он дружелюбен. Всего три духа.",
 
 	-- Step 37: Forgotten Coast: kill these as you meet them
 	-- {area:1108} Forgotten Coast

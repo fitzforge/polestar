@@ -52,8 +52,9 @@ return {
 	["The {object:179827} board"] = "Доска: {object:179827}",
 
 	-- Step 11: Zamael Lunthistle
-	-- {area:1446} Thorium Point
-	["The night elf stands alone west of {area:1446}. Hear his story."] = "Ночной эльф стоит один к западу от места {area:1446}. Выслушайте его историю.",
+	-- {npc:8436} Zamael Lunthistle · {area:1442} Firewatch Ridge · {area:1446} Thorium Point · {npc:8282} Highlord Mastrogonde · {quest:3377} Prayer to Elune
+	-- plural, as words: Twilight Fire Guards = {npc:5861} Twilight Fire Guard
+	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:8436} stands inside the Twilight camp at {area:1442}, west of {area:1446}, among Twilight Fire Guards, Idolaters and Geomancers (level 48-49 elites), with {npc:8282} (level 51, rare elite) beside him: {quest:3377} needs a group of 4. Skip it if you are alone."] = "Это элитные противники: лучше собраться в группу, поищите, с кем пойти. {npc:8436} стоит в лагере Сумеречного Молота ({area:1442}), к западу от места {area:1446}, среди стражей огня, идолопоклонников и геомантов из культа Сумеречного Молота (элитные противники 48-49 уровня), а рядом с ним – {npc:8282} (51-й уровень, редкий элитный): для задания «{quest:3377}» нужна группа из 4 человек. Если вы один, пропустите его.",
 
 	-- Step 14: Searing Lava Spiders
 	-- plural, as words: Searing Lava Spiders = {npc:5857} Searing Lava Spider
@@ -159,6 +160,7 @@ return {
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["For {npc:8256} in {area:1537}, later"] = "Для NPC {npc:8256} ({area:1537}), позже",
 	-- ["Greater Lava Spiders"] = "Большие лавовые пауки",
+	-- ["The night elf stands alone west of {area:1446}. Hear his story."] = "Ночной эльф стоит один к западу от места {area:1446}. Выслушайте его историю.",
 	-- ["{npc:6734}: the last guide hearths you here, so this usually ticks at once"] = "{npc:6734}: предыдущий гайд возвращает вас сюда камнем возвращения, так что это обычно отмечается сразу",
 	-- ["{object:147516} dwarves"] = "Дворфы: {object:147516}",
 }

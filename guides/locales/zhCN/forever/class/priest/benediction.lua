@@ -28,6 +28,8 @@ return {
 	-- Step 3: The Balance of Light and Shadow
 	-- {object:179694} Death Post (no name in this language: may be words) · {npc:14494} Eris Havenfire · {spell:552} Abolish Disease · {spell:139} Renew · {spell:2061} Flash Heal · {spell:15237} Holy Nova
 	["Save 50 peasants before 15 die (the {object:179694} by the path counts the dead). They walk from the cave towards {npc:14494} in waves, catch diseases and draw skeletons and skeleton archers. Cure the purple-glowing diseases first ({spell:552}), keep {spell:139} on the hurt ones, {spell:2061} the nearly dead, and kill skeletons as they spawn: one {spell:15237} of rank 3 or more kills them, oil takes two ticks while they hit you. Shield yourself at the start of each wave; friendly nameplates make the hurt peasants easy to pick out. Friends may buff you before you accept and may heal or cure peasants, but they must not heal or buff you, attack a skeleton or bring a pet once it starts, or a demon appears and kills everyone. Fail, and {npc:14494} is gone for a while (players report anything from 15 minutes to two hours); talk to her again when she is back."] = "在15名农民死亡前救下50名（路边的{object:179694}会统计死亡人数）。他们分批从洞穴走向{npc:14494}，途中会染病，并引来骷髅和骷髅弓箭手。优先驱除泛紫光的疾病（{spell:552}），给受伤者保持{spell:139}，对濒死者施放{spell:2061}，并在骷髅出现时立即击杀：3级及以上的{spell:15237}一次就能杀死它们，用油则要跳两次伤害，这期间它们仍会攻击你。每波开始时给自己套盾；开启友方姓名板便于找出受伤的农民。朋友可以在你接受任务前给你增益，也能治疗农民或驱除他们的疾病；但事件开始后，不能治疗你、给你增益、攻击骷髅或带宠物来，否则会出现一个恶魔杀死所有人。失败后，{npc:14494}会消失一段时间（玩家报告的时间从15分钟到2小时不等）；她回来后再与她交谈。",
+	-- {npc:14494} Eris Havenfire
+	["beside {npc:14494}, where the peasants walk to"] = "在{npc:14494}身边，也就是农民走去的地方",
 
 	-- Step 5: The Eye of Shadow
 	-- {item:18665} The Eye of Shadow · {npc:12397} Lord Kazzak · {zone:1419} Blasted Lands

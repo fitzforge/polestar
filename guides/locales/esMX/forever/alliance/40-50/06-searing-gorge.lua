@@ -52,8 +52,9 @@ return {
 	["The {object:179827} board"] = "El tablón {object:179827}",
 
 	-- Step 11: Zamael Lunthistle
-	-- {area:1446} Thorium Point
-	["The night elf stands alone west of {area:1446}. Hear his story."] = "El elfo de la noche está solo al oeste de {area:1446}. Escucha su historia.",
+	-- {npc:8436} Zamael Lunthistle · {area:1442} Firewatch Ridge · {area:1446} Thorium Point · {npc:8282} Highlord Mastrogonde · {quest:3377} Prayer to Elune
+	-- plural, as words: Twilight Fire Guards = {npc:5861} Twilight Fire Guard
+	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:8436} stands inside the Twilight camp at {area:1442}, west of {area:1446}, among Twilight Fire Guards, Idolaters and Geomancers (level 48-49 elites), with {npc:8282} (level 51, rare elite) beside him: {quest:3377} needs a group of 4. Skip it if you are alone."] = "Son enemigos élite: se recomienda agruparse, busca gente con quien hacerlo. {npc:8436} está dentro del campamento del Crepúsculo en {area:1442}, al oeste de {area:1446}, entre guardias de fuego, idólatras y geománticos crepusculares (élites de nivel 48-49), con {npc:8282} (élite raro de nivel 51) a su lado: {quest:3377} requiere un grupo de 4. Sáltala si vas solo.",
 
 	-- Step 14: Searing Lava Spiders
 	-- plural, as words: Searing Lava Spiders = {npc:5857} Searing Lava Spider
@@ -165,6 +166,7 @@ return {
 	-- ["Ride east across the Cauldron to the {area:247} in the south-east. The prisoner in the wooden outhouse wants 15 {item:4306} and eight dead Dark Iron Geologists from the dig site around it. The outhouse also opens with the key, if you found one."] = "Cabalga al este por La Caldera hasta {area:247}, en el sureste. El prisionero de la letrina de madera quiere 15 {item:4306} y ocho {npc:5839} muertos de la excavación que la rodea. La letrina también se abre con la llave, si encontraste una.",
 	-- ["Taskmasters and Slavers drive the slaves all over the Cauldron, and any of them can carry a {item:10551}. The Steamsmiths work at the furnaces in the middle (the {item:18959}), the Lookouts stand on the southern ridges (the Spyglass). Any {object:147516} may drop the {item:11818}: keep it."] = "Los capataces y esclavistas Hierro Negro arrean a los esclavos por toda La Caldera, y cualquiera puede llevar una {item:10551}. Los vapoherreros trabajan en las forjas del centro (la {item:18959}) y los oteadores están en las crestas del sur (el Catalejo de oteador). Cualquier enano {object:147516} puede soltar la {item:11818}: guárdala.",
 	-- ["The dwarf stands by the road at the dig site. Follow him north along the road and fight off the {object:147516} ambushes. When it is over, read the {object:175704} he leaves on the road in {area:1959}."] = "El enano está junto al camino en la excavación. Síguelo al norte por el camino y rechaza las emboscadas {object:147516}. Cuando termine, lee la {object:175704} que deja en el camino en {area:1959}.",
+	-- ["The night elf stands alone west of {area:1446}. Hear his story."] = "El elfo de la noche está solo al oeste de {area:1446}. Escucha su historia.",
 	-- ["The spiders roam the plateaus and lava pools in the south-west of the gorge."] = "Las arañas rondan las mesetas y los charcos de lava del suroeste de la garganta.",
 	-- ["{npc:6734}: the last guide hearths you here, so this usually ticks at once"] = "{npc:6734}: la guía anterior te trae aquí con la piedra de hogar, así que esto suele marcarse de inmediato",
 	-- ["{object:147516} dwarves"] = "Enanos {object:147516}",

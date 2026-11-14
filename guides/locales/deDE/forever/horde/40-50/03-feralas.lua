@@ -175,7 +175,7 @@ return {
 	-- Step 36: Rogue Vale screechers
 	["Rogue Vale screechers"] = "Kreischer",
 	-- {npc:14637} Zorbin Fandazzle · {npc:5308} Rogue Vale Screecher · {item:10699} Yeh'kinya's Bramble
-	["Rogue Vale opens just north of {npc:14637}'s dock. Kill a {npc:5308}, use {item:10699} on its body and kill the spirit that rises."] = "Rogue Vale beginnt direkt nördlich von {npc:14637}s Dock. Töte einen {npc:5308}, benutze {item:10699} an seinem Körper und töte den Geist, der sich erhebt.",
+	["Rogue Vale opens just north of {npc:14637}'s dock. Kill a {npc:5308}, use {item:10699} on its body before you loot it, then talk to the spirit that rises: it is friendly. Three spirits in all."] = "Rogue Vale beginnt direkt nördlich von {npc:14637}s Dock. Töte einen {npc:5308}, benutze {item:10699} an seinem Körper, bevor du ihn plünderst, und sprich dann mit dem Geist, der sich erhebt: Er ist freundlich. Insgesamt drei Geister.",
 
 	-- Step 37: Forgotten Coast: kill these as you meet them
 	-- {area:1108} Forgotten Coast
