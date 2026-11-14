@@ -78,6 +78,19 @@ step Cenarion Enclave
   tip Mathrengyl Bearwalker stands upstairs in the druids' building of the Cenarion Enclave. He teaches you Teleport: Moonglade with the quest (it stays in your spellbook, Balance tab).
   goto 35.8,11.6 "Cenarion Enclave"
 
+# Other trainers' letters have distinct quest IDs. Hand in only the one carried.
+step Mathrengyl Bearwalker
+  only NightElf
+  when onquest 5923
+  zone Darnassus
+  turnin 5923
+
+step Mathrengyl Bearwalker
+  only NightElf
+  when onquest 5924
+  zone Darnassus
+  turnin 5924
+
 step Mathrengyl Bearwalker
   only NightElf
   zone Darnassus
@@ -132,6 +145,18 @@ step Heeding the Call
   tip At 10 a druid's call reaches you: Gennia Runetotem in Bloodhoof Village or Innkeeper Pala in Thunder Bluff (Innkeeper Gryshka's letter in Orgrimmar works too). Any one of them sends you to Turak Runetotem on Elder Rise in Thunder Bluff.
   level 10
   accept 5928 optional                  -- Gennia Runetotem, Bloodhoof Village; Pala's and Gryshka's letters lead to the same place
+
+step Turak Runetotem
+  only Tauren
+  when onquest 5926
+  zone Thunder Bluff
+  turnin 5926
+
+step Turak Runetotem
+  only Tauren
+  when onquest 5927
+  zone Thunder Bluff
+  turnin 5927
 
 step Turak Runetotem
   only Tauren
