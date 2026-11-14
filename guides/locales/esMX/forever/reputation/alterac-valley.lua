@@ -77,7 +77,7 @@ return {
 	-- plural, as words: Sage's Cloaks = {item:6614} Sage's Cloak
 	["Honored: insignia rank 3, 100 reputation. Honored to Revered is 12000 reputation. {npc:13217} beside {npc:13841} sells the Stormpike Soldier's and Sage's Cloaks and Pendants (about 7g each), the Stormpike belts (4g74s to 7g12s) and the Major Healing and Mana Draughts (10s)."] = "",
 	-- {npc:15351} Alliance Brigadier General
-	["{npc:15351}: 100 for 3 marks"] = "",
+	["{npc:15351}: 100 for 3 marks"] = "{npc:15351}: 100 por 3 marcas",
 
 	-- Step 11: Earned Reverence
 	-- {npc:13217} Thanthaldis Snowgleam · {item:19100} Electrified Dagger · {item:19102} Crackling Staff · {item:19104} Stormstrike Hammer · {npc:14752} Stormpike Battle Standard · {zone:1459} Alterac Valley · {zone:1461} Arathi Basin · {zone:1460} Warsong Gulch
@@ -154,7 +154,7 @@ return {
 	-- {npc:13219} Jekyll Flandring · {npc:13840} Warmaster Laggrond · {npc:12051} Frostwolf Legionnaire
 	["Honored: insignia rank 3, 100 reputation. Honored to Revered is 12000 reputation. {npc:13219} beside {npc:13840} sells the {npc:12051}'s and Advisor's Cloaks and Pendants (about 7g each), the Frostwolf belts (5g9s to 7g66s) and the Major Healing and Mana Draughts (10s)."] = "",
 	-- {npc:15350} Horde Warbringer
-	["{npc:15350}: 100 for 3 marks"] = "",
+	["{npc:15350}: 100 for 3 marks"] = "{npc:15350}: 100 por 3 marcas",
 
 	-- Step 23: Earned Reverence
 	-- {npc:13219} Jekyll Flandring · {item:19099} Glacial Blade · {item:19101} Whiteout Staff · {npc:14751} Frostwolf Battle Standard · {zone:1459} Alterac Valley · {zone:1461} Arathi Basin · {zone:1460} Warsong Gulch
