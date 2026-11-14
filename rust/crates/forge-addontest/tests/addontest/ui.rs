@@ -1723,7 +1723,7 @@ fn xp_pace_from_the_qol_tracker_rate_and_time_to_level_hidden_when_off_or_maxed(
 // Boosted Rest and the sleeping bag (QoL/Rest.Parts) on a short line of their own under the XP line, so the pace
 // note (which almost always shows) never pushes them out of sight: the row grows by that line, the line fits the
 // default window's slot (its width less the paddings and the icon), the hover repeats it, and alone it takes the
-// XP line's place. Nothing to say: no line, and no row for it alone.
+// XP line's place, one line high. Nothing to say: no line, and no row for it alone.
 #[test]
 fn xp_row_puts_boosted_rest_and_the_sleeping_bag_on_their_own_line_that_fits_the_default_width() {
 	let out = run(r#"
@@ -1752,7 +1752,7 @@ fn xp_row_puts_boosted_rest_and_the_sleeping_bag_on_their_own_line_that_fits_the
 		GF.PaceText = function() return nil end
 		Polestar.QoL.GetXPStats = function() return nil end
 		Polestar.Fire("QOL_REST_UPDATED", false)
-		local alone = { shown = xp:IsShown(), text = xp.Text:GetText(), rest = xp.Rest:IsShown(), h = xp:GetHeight() == h1 }
+		local alone = { shown = xp:IsShown(), text = xp.Text:GetText(), rest = xp.Rest:IsShown(), h = xp:GetHeight() == GF.XPROW.h }
 		rest = {}
 		Polestar.Fire("QOL_REST_UPDATED", true)
 		GF.PaceText = pace
@@ -1767,6 +1767,40 @@ fn xp_row_puts_boosted_rest_and_the_sleeping_bag_on_their_own_line_that_fits_the
 	assert!(out["two"]["tip"].as_array().unwrap().iter().any(|l| l == "Boosted Rest: 42m  \u{b7}  Sleeping bag: 12m"), "the hover repeats it: {}", out["two"]["tip"]);
 	assert_eq!(out["alone"], json!({ "shown": true, "text": "Boosted Rest: 42m  \u{b7}  Sleeping bag: 12m", "rest": false, "h": true }), "alone: in the XP line's place");
 	assert_eq!(out["none"], false);
+}
+
+// A line longer than the window's default width ("48.0k XP/h · 30s to level · On pace for level 25.2 by s…" read
+// cut in every look) takes a second line, the row growing by it and the window with it; whole, with nothing cut,
+// and one line again once it fits (a wider window).
+#[test]
+fn a_long_xp_line_takes_a_second_line_instead_of_being_cut() {
+	let out = run(r#"
+		local stats = { rate = 48000, timeToLevel = 30, maxed = false }
+		Polestar.QoL = {
+			GetXPStats = function() return stats end,
+			Duration = function() return "30s" end,
+			XP = { Short = function(n) return string.format("%.1fk", n / 1000) end, Summary = function() return "Level 24" end },
+		}
+		local pace = GF.PaceText
+		GF.PaceText = function() return "On pace for level 25.2 by step 96" end
+		uistub.setGuide(uistub.elwynn, 3)
+		Polestar.Fire("QOL_XP_UPDATED", stats)
+		local xp = GF.xp
+		local one = GF.XPROW.h
+		local narrow = { h = xp:GetHeight(), lines = xp.Text:GetMaxLines(), wraps = xp.Text:GetWordWrap(), text = xp.Text:GetText(), width = F:GetWidth() }
+		Polestar.Set("ui.width", 560)
+		GF.Layout()
+		local wide = { h = xp:GetHeight() }
+		GF.PaceText = pace
+		emit({ one = one, narrow = narrow, wide = wide, line = GF.XPHeight(340) > one })"#)
+	.remove(0);
+	let one = out["one"].as_f64().unwrap();
+	assert_eq!(out["narrow"]["width"], 340, "the default width");
+	assert_eq!(out["narrow"]["text"], "48.0k XP/h  \u{b7}  30s to level  \u{b7}  On pace for level 25.2 by step 96", "{out}");
+	assert_eq!((out["narrow"]["lines"].as_u64(), out["narrow"]["wraps"].as_bool()), (Some(2), Some(true)), "up to two lines");
+	assert!(out["narrow"]["h"].as_f64().unwrap() > one, "a line taller at the default width: {out}");
+	assert_eq!(out["wide"]["h"].as_f64(), Some(one), "one line where it fits: {out}");
+	assert_eq!(out["line"], true);
 }
 
 // Where the player stands (GF.PaceText over Levels.Pace, whose sums levels.rs checks): always one line, calm

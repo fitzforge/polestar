@@ -3004,10 +3004,12 @@ GF.Part(function(GF)
 		xp.Icon:SetPoint("LEFT", xp, "LEFT", PAD, -1)
 		xp.Text = T(xp, "small", "textDim")
 		xp.Text:SetPoint("LEFT", xp.Icon, "RIGHT", 7, 0)
-		-- (A narrow window cuts the line with "..."; the hover shows all of it.)
+		-- A line longer than the row takes a second one, the row growing by it
+		-- (GF.XPHeight); past two it cuts with "...", and the hover shows all of it.
 		xp.Text:SetPoint("RIGHT", xp, "RIGHT", -PAD, 0)
 		xp.Text:SetJustifyH("LEFT")
-		xp.Text:SetWordWrap(false)
+		xp.Text:SetWordWrap(true)
+		xp.Text:SetMaxLines(2)
 		-- Boosted Rest and the sleeping bag (QoL/Rest.lua) on a short line of
 		-- their own under it, so the pace text never pushes them out of sight.
 		xp.Rest = T(xp, "small", "textDim")

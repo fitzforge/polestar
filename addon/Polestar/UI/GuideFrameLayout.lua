@@ -440,7 +440,10 @@ ns.UI.GuideFrame.Part(function(GF)
 		end
 		if GF.xp.psHas and not isCompact and state == "steps" and not list then
 			GF.xp:Show()
-			y = place("xp", GF.xp, y, GF.xp:GetHeight(), width)
+			-- Its line on two when the width can't hold it (GF.XPHeight).
+			local xh = GF.XPHeight and GF.XPHeight(width) or GF.xp:GetHeight()
+			GF.xp:SetHeight(xh)
+			y = place("xp", GF.xp, y, xh, width)
 		else
 			GF.xp:Hide()
 		end
