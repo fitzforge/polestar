@@ -905,6 +905,73 @@ fn the_guide_window_s_reward_pick_opens_stat_weights_on_a_click() {
 	assert_eq!(out[1], json!({ "linked": 1, "shown": false }), "a modified click is the item's");
 }
 
+// The reward pick's click hint ("Click: choose the stat weights") is a line on the game's tooltip, a dark ground in
+// every look: it takes the look's muted ink as Theme.TipColor lifts it there, as Polestar's other tooltip lines do
+// (#2032), so in a light look (Vellum) it reads at 4.5:1 instead of its paper's dim ink.
+#[test]
+fn the_reward_pick_s_click_hint_reads_on_the_game_s_tooltip_in_a_light_look() {
+	let out = emitted(&RunAddon {
+		stubs: vec!["stub_world.lua", "stub_gear.lua"],
+		addons: vec![Addon::name("Polestar"), Addon::name("Polestar_Skin_Vellum")],
+		login: true,
+		script: r#"
+		stub.advance(1)
+		local w, g, G, T = stub.world, stub.gear, Polestar.Gear, Polestar.Theme
+		w.race, w.raceName, w.raceID, w.faction = "Troll", "Troll", 8, "Horde"
+		w.setLevel(22)
+		Polestar.ItemDB.Register({ schema = 1, build = "test" }, {
+			[9001] = "1 20 15 2 4 3 str5 sta3 armor150",
+			[9101] = "1 25 20 2 4 3 str10 sta6 armor180",
+			[9102] = "1 25 20 2 4 1 int10 spi6 armor40",
+		})
+		Polestar.ItemDB.RegisterLeveling({ source = "test" }, {
+			names = { [9101] = "Militia Helm", [9102] = "Scholar Cap" },
+			src = { [9101] = "q5001", [9102] = "q5001" },
+			quests = { [5001] = "20 15 1 12 0 0 0|9101,9102||Alliance Choice" },
+			npcs = {}, zones = { [12] = "Elwynn Forest" },
+		})
+		G.RefreshPlayer()
+		g.equip(1, "item:9001"); G.Invalidate("equipment")
+		w.addMap(1429, { name = "Elwynn Forest", c = 0, left = 1500, right = -1500, top = 500, bottom = -1500 })
+		w.moveTo(1429, 48, 42)
+		Polestar.RegisterPack({ addon = "Polestar_Test", id = "test", format = 1, title = "Test", author = "Test", version = "1", license = "MIT" })
+		Polestar.RegisterGuide({ id = "test/gear", pack = "test", title = "Gear", minLevel = 1, maxLevel = 30, steps = {
+			{ goals = { { t = "turnin", quest = 5001, title = "Alliance Choice", npc = 197, npcName = "Marshal McBride", map = 1429, x = 48.9, y = 41.6 } } },
+		} })
+		w.onQuest(5001, { { required = 1, fulfilled = 1 } })
+		Polestar.Set("ui.skin", "vellum")
+		Polestar.Engine.SetGuide("test/gear")
+		stub.advance(0.5)
+		Polestar.Fire("STEP_UPDATED")
+		stub.advance(0.3)
+		local pick
+		for _, r in ipairs(Polestar.UI.GuideFrame.rows) do
+			if r:IsShown() and r.psGearPick and r.psGearPick:IsShown() then pick = r.psGearPick end
+		end
+		local seen, add = {}, GameTooltip.AddLine
+		GameTooltip.AddLine = function(self, text, r, gg, b, ...)
+			seen[#seen + 1] = { tostring(text), r, gg, b }
+			return add(self, text, r, gg, b, ...)
+		end
+		stub.RunScript(pick, "OnEnter")
+		GameTooltip.AddLine = add
+		local hint
+		for _, l in ipairs(seen) do
+			if l[1] == "Click: choose the stat weights" then hint = l end
+		end
+		emit({ skin = T.SkinId(), light = T.IsLightPalette(T.Palette()), hint = hint and hint[1] or false,
+			contrast = hint and math.floor(T.Contrast({ hint[2], hint[3], hint[4] }, { 0.09, 0.09, 0.19 }) * 100) / 100 or 0 })
+	"#
+		.into(),
+		..Default::default()
+	});
+	let o = &out[0];
+	assert_eq!(o["skin"], "vellum", "{o}");
+	assert_eq!(o["light"], true, "Vellum is a light look: {o}");
+	assert_eq!(o["hint"], "Click: choose the stat weights", "{o}");
+	assert!(o["contrast"].as_f64().unwrap() >= 4.5, "the hint reads at {}:1 on the game's tooltip: {o}", o["contrast"]);
+}
+
 #[test]
 fn options_the_gear_advice_on_questing_with_the_class_spec_dropdown_registered_once() {
 	// The rows are the settings' addon's (Polestar_Options/Gear/Options.lua), run here as it loads: one section, the

@@ -68,9 +68,10 @@ local function itemQuality(id)
 	return rec and rec.quality or nil
 end
 
--- Under the item's lines: what a click does.
+-- Under the item's lines: what a click does, in the look's muted ink as it
+-- reads on the game's dark tooltip (Theme.TipColor).
 local function clickHint(tip)
-	local r, g, b = Theme.Color("textMuted")
+	local r, g, b = Theme.TipColor("textMuted")
 	tip:AddLine(L["Click: choose the stat weights"], r, g, b)
 end
 
