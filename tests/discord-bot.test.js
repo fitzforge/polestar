@@ -8,6 +8,7 @@ const { test } = require('node:test');
 const assert = require('node:assert/strict');
 const fs = require('node:fs');
 const path = require('node:path');
+const zlib = require('node:zlib');
 const { parseReport } = require('../tools/discord-bot/lib/report');
 const I = require('../tools/discord-bot/lib/issue');
 const { createSync } = require('../tools/discord-bot/lib/sync');
@@ -166,6 +167,124 @@ test('a 1,000-character description of several lines reads whole, inside the bol
 	// The description continued after the block (pasted below it) is kept too.
 	const after = parseReport(`**What went wrong:** ${first}\n\`\`\`\nPolestar 0.3.7 · client 1.60.1 (70532) · enUS\nGuide: none open\nArrow: none\nWhere: Stormwind City · no position\nErrors: none\n\`\`\`\n${rest}`);
 	assert.equal(after.description, `${first}\n\n${rest}`);
+});
+
+// A report's details block with `settings` (the Settings section's lines) at its end.
+function withSettings(settings, head = 'Settings') {
+	return [
+		'**What went wrong:** The arrow points into the lake.',
+		'```',
+		'Polestar 0.4.0 Beta · client 1.60.1 (70532) · enUS',
+		'Human Warrior · level 4 · Alliance',
+		'Guide: Elwynn Forest (forever/alliance/human/01-elwynn-forest)',
+		'Step 3 of 8 (guide step 3): Kobold Camp',
+		'[>] Kill Kobold Vermin 7/10 · quest 7 · npc 6 · map 1429 @47.60,35.10 live',
+		'Arrow: Kill Kobold Vermin · 42 yd',
+		'Where: Elwynn Forest · map 1429 @47.00,35.00 live',
+		'Routes: balanced',
+		'Errors: none',
+		'Quest log 2/40: 783 1/2, 7 done',
+		...settings.map((l, i) => (i === 0 ? `${head}: ${l}` : l)),
+		'Log:',
+		'> 12:00:01 picked the inn at Goldshire',
+		'```',
+	].join('\n');
+}
+
+// The packed line the addon writes (Core/Import.lua, Import.Envelope): every setting a line, zlib, base64.
+function packed(lines, sum) {
+	const raw = Buffer.from(lines.join('\n'), 'utf8');
+	const { adler32 } = require('../tools/discord-bot/lib/report');
+	return `!PSR1!${sum || adler32(raw)}!${zlib.deflateSync(raw).toString('base64')}`;
+}
+
+test('the report\'s Settings section reads into its profile and settings, each with its default, and the issue folds them under the summary', () => {
+	const r = parseReport(withSettings([
+		'profile Raid (character) · 5 changed',
+		'behavior.autoAccept=off behavior.whileHereRadius=180->400 nav.routeStyle=balanced->fastest',
+		'gear.minUpgrade=1->5',
+		'looks: skin=hearth · 1 position moved',
+	]));
+	const s = r.details.settings;
+	assert.deepEqual(s, {
+		count: 5, profile: 'Raid', source: 'character', looks: 'skin=hearth · 1 position moved',
+		entries: [
+			{ key: 'behavior.autoAccept', value: 'off', default: 'on' },
+			{ key: 'behavior.whileHereRadius', value: '400', default: '180' },
+			{ key: 'nav.routeStyle', value: 'fastest', default: 'balanced' },
+			{ key: 'gear.minUpgrade', value: '5', default: '1' },
+		],
+	});
+	assert.deepEqual(r.details.errors, [], 'the section reads as no error');
+	const body = I.issueBody({ report: r, reporter: 'x', guild: '1', thread: '2' });
+	assert.match(body, /^\| Settings \| 5 changed · profile Raid \(character\) \|$/m);
+	const folded = body.slice(body.indexOf('<details><summary>Settings: '), body.indexOf('<details><summary>Full report'));
+	assert.equal(folded, [
+		'<details><summary>Settings: 5 changed · profile Raid (character)</summary>',
+		'',
+		'```text',
+		'behavior.autoAccept = off (default on)',
+		'behavior.whileHereRadius = 400 (default 180)',
+		'nav.routeStyle = fastest (default balanced)',
+		'gear.minUpgrade = 5 (default 1)',
+		'looks: skin=hearth · 1 position moved',
+		'```',
+		'',
+		'</details>',
+		'',
+		'',
+	].join('\n'));
+	assert.ok(body.indexOf('| Settings |') < body.indexOf('<details><summary>Settings: ') && body.indexOf('<details><summary>Settings: ') < body.indexOf('<details><summary>Full report'));
+});
+
+test('a report on the defaults says so in its row and folds nothing; a translated label and a report from before the section read too', () => {
+	const defaults = parseReport(withSettings(['all defaults']));
+	assert.deepEqual(defaults.details.settings, { count: 0, entries: [] });
+	const body = I.issueBody({ report: defaults, reporter: 'x', guild: '1', thread: '2' });
+	assert.match(body, /^\| Settings \| all defaults \|$/m);
+	assert.doesNotMatch(body, /<summary>Settings/);
+	const zh = parseReport(withSettings(['profile Default (class) · 1 changed', 'qol.sellJunk=off'], '设置').replace('Settings: ', '设置：'));
+	assert.deepEqual(zh.details.settings, { count: 1, profile: 'Default', source: 'class', entries: [{ key: 'qol.sellJunk', value: 'off', default: 'on' }] });
+	assert.equal(parseReport(POST).details.settings, undefined, 'a report from before the section has none');
+});
+
+test('past its cap the list and the packed line, which carries the rest, unfold into every setting; a damaged, altered or oversized one leaves the list as shown and says so', () => {
+	const { adler32 } = require('../tools/discord-bot/lib/report');
+	const listed = ['behavior.autoAccept=off', 'nav.routeStyle=balanced->fastest'];
+	const rest = ['qol.sellJunk=off', 'ui.pos=none->2940,13', 'guideWindow.titleSize=1->1.2'];
+	const hash = adler32(Buffer.from([...listed, ...rest].join('\n')));
+	const lines = (code, list = listed) => ['profile Default (account) · 5 changed', list.join(' '), 'looks: 1 position moved · 1 other look', `+1 more #${hash}`, code];
+	const r = parseReport(withSettings(lines(packed(rest))));
+	const s = r.details.settings;
+	assert.equal(s.unfolded, true);
+	assert.deepEqual(s.entries.map((e) => `${e.key}=${e.value}/${e.default}`), ['behavior.autoAccept=off/on', 'nav.routeStyle=fastest/balanced', 'qol.sellJunk=off/on', 'ui.pos=2940,13/none', 'guideWindow.titleSize=1.2/1']);
+	assert.deepEqual([s.more, s.hash], [1, hash]);
+	const body = I.issueBody({ report: r, reporter: 'x', guild: '1', thread: '2' });
+	assert.match(body, /^qol\.sellJunk = off \(default on\)$/m, 'the setting the list had no room for');
+	assert.match(body, /^ui\.pos = 2940,13 \(default none\)$/m, 'the looks, with their values');
+	const folded = body.slice(body.indexOf('<details><summary>Settings: '), body.indexOf('<details><summary>Full report'));
+	assert.doesNotMatch(folded, /^looks: /m, 'the looks line is not needed once every look is listed');
+	// A packed line whose own checksum does not match: the list as shown, and the note.
+	const bad = parseReport(withSettings(lines(packed(rest, '00000000')))).details.settings;
+	assert.deepEqual([bad.unfolded, bad.damaged, bad.entries.length], [undefined, true, 2]);
+	const badBody = I.issueBody({ report: parseReport(withSettings(lines(packed(rest, '00000000')))), reporter: 'x', guild: '1', thread: '2' });
+	assert.match(badBody, new RegExp(`^\\+1 more the report had no room for \\(#${hash}\\)$`, 'm'));
+	assert.match(badBody, /did not unfold/);
+	// A list changed after it was written: with the packed line, no longer the settings the hash is of.
+	assert.equal(parseReport(withSettings(lines(packed(rest), ['behavior.autoAccept=on', listed[1]]))).details.settings.damaged, true);
+	// Text that is no settings, or that unfolds past what a profile could hold, is refused.
+	assert.equal(parseReport(withSettings(lines(packed(['not a setting'])))).details.settings.damaged, true);
+	const huge = Array.from({ length: 6000 }, (_, i) => `behavior.k${i}=on`);
+	assert.equal(parseReport(withSettings(lines(packed(huge)))).details.settings.damaged, true, 'over 64 KB unfolded');
+});
+
+test('the profile\'s name is player text: inert on GitHub', () => {
+	const r = parseReport(withSettings(['profile <b>@fitz</b> #12 (account) · 1 changed', 'qol.sellJunk=off']));
+	const body = I.issueBody({ report: r, reporter: 'x', guild: '1', thread: '2' });
+	// Outside the code blocks (which GitHub shows as typed): the summary's row and the folded block's title.
+	const shown = body.split('\n').filter((l) => l.startsWith('| Settings |') || l.startsWith('<details><summary>Settings:'));
+	assert.equal(shown.length, 2, body);
+	for (const l of shown) assert.doesNotMatch(l, /<b>|@fitz|#12/, l);
 });
 
 test('player text cannot mention, link, write HTML or forge the marker on GitHub', () => {

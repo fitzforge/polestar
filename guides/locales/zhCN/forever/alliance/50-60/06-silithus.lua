@@ -36,7 +36,7 @@ return {
 	["{area:1770} braziers"] = "{area:1770}的火盆",
 	-- {area:1770} Shadow Hold · {area:1763} Jaedenar · {item:12906} Purified Moonwell Water · {item:11172} Silvery Claws · {item:13140} Blood Red Key · {npc:11018} Arko'narin
 	-- plural, as words: Jaedenar Darkweavers = {npc:7118} Jaedenar Darkweaver
-	["{area:1770} is the cave at the back of {area:1763}, west of the road. Use the {item:12906} on the four braziers inside. Kill the Angerclaw bears and Felpaw wolves you pass for the {item:11172}.\nCareful: Shadow Council mobs of level 53-55 fill the cave and often come in large linked groups, many with stuns. A group of 2-3 players is recommended.\nThe Jaedenar Darkweavers, Warlocks and Enforcers in here drop a {item:13140}, about one kill in thirty: keep killing them until it drops. It opens the cell of {npc:11018}, the night elf held in the cave."] = "",
+	["{area:1770} is the cave at the back of {area:1763}, west of the road. Use the {item:12906} on the four braziers inside. Kill the Angerclaw bears and Felpaw wolves you pass for the {item:11172}.\nCareful: Shadow Council mobs of level 53-55 fill the cave and often come in large linked groups, many with stuns. A group of 2-3 players is recommended.\nThe Jaedenar Darkweavers, Warlocks and Enforcers in here drop a {item:13140}, about one kill in thirty: keep killing them until it drops. It opens the cell of {npc:11018}, the night elf held in the cave."] = "{area:1770}是{area:1763}深处、道路西侧的洞穴。对洞内四个火盆使用{item:12906}，沿途击杀怒爪熊和魔爪狼，获取{item:11172}。\n注意：洞内遍布53-55级暗影议会成员，经常大群联动，许多怪物会使用昏迷技能。建议2-3名玩家组队。\n洞内的加德纳尔暗法师、加德纳尔术士和加德纳尔执行者会掉落{item:13140}，平均每击杀三十只掉落一把；持续击杀，直到掉落。它能打开关押在洞内的暗夜精灵{npc:11018}的牢房。",
 	["Angerclaw bears and Felpaw wolves"] = "怒爪熊和魔爪狼",
 	-- {object:176159} Brazier of Malice
 	["{object:176159}, below ground"] = "{object:176159}：在地下",
@@ -47,11 +47,11 @@ return {
 	-- {object:176161} Brazier of Hatred
 	["{object:176161}, below ground"] = "{object:176161}：在地下",
 	-- {npc:11016} Captured Arko'narin
-	["{npc:11016}, in her cell; below ground"] = "",
+	["{npc:11016}, in her cell; below ground"] = "{npc:11016}，在地下的牢房内",
 
 	-- Step 6: Arko'narin
 	-- {area:1770} Shadow Hold
-	["Lead her out of {area:1770} and keep her alive until she is outside the cave: clear the way back first."] = "",
+	["Lead her out of {area:1770} and keep her alive until she is outside the cave: clear the way back first."] = "带她离开{area:1770}，在出洞前确保她存活：先清理回程路上的怪物。",
 
 	-- Step 8: Irontree Woods
 	-- {area:1767} Irontree Woods
@@ -72,7 +72,7 @@ return {
 
 	-- Step 11: A Final Blow
 	-- {area:1770} Shadow Hold · {npc:9861} Moora · {npc:9860} Salia · {npc:9517} Shadow Lord Fel'dan · {npc:9518} Rakaiah
-	["Back into {area:1770}: {npc:9861} and {npc:9860} guard {npc:9517} in its deepest chamber. The succubus {npc:9518} waits on the way, with Trey Lightforge's remains beside her.\nCareful: The three bosses fight as a group. Kill the nearby mobs first so you don't pull extra enemies."] = "",
+	["Back into {area:1770}: {npc:9861} and {npc:9860} guard {npc:9517} in its deepest chamber. The succubus {npc:9518} waits on the way, with Trey Lightforge's remains beside her.\nCareful: The three bosses fight as a group. Kill the nearby mobs first so you don't pull extra enemies."] = "再次进入{area:1770}：{npc:9861}和{npc:9860}在最深处的房间守卫{npc:9517}。魅魔{npc:9518}在途中，特雷·莱弗治的残骸就在她旁边。\n注意：三名首领会一起战斗。先清掉附近怪物，避免额外引怪。",
 	-- {npc:9518} Rakaiah
 	["{npc:9518}, below ground"] = "{npc:9518}：在地下",
 	-- {npc:11020} Remains of Trey Lightforge
@@ -130,7 +130,7 @@ return {
 	-- {npc:8737} Linken
 	["{npc:8737}, at the back of the refuge"] = "{npc:8737}，在避难所深处",
 	-- {npc:10977} Quixxil · {npc:10980} Umi's Mechanical Yeti
-	["Scare {npc:10977} with {npc:10980}"] = "",
+	["Scare {npc:10977} with {npc:10980}"] = "用{npc:10980}吓唬{npc:10977}",
 
 	-- Step 22: Fly to Cenarion Hold
 	-- {area:3425} Cenarion Hold
@@ -250,25 +250,25 @@ return {
 
 	-- Step 49: Felwood
 	-- {quest:5086} Toxic Horrors
-	["The {quest:5086}"] = "",
+	["The {quest:5086}"] = "{quest:5086}",
 
 	-- Step 51: Kernda
 	-- {npc:11558} Kernda · {area:1769} Timbermaw Hold · {zone:1452} Winterspring
-	["{npc:11558} stands just inside the {area:1769} cave: she speaks to you from Neutral with the Timbermaw, which the Winterfall furbolgs you ground in {zone:1452} brought you to."] = "",
+	["{npc:11558} stands just inside the {area:1769} cave: she speaks to you from Neutral with the Timbermaw, which the Winterfall furbolgs you ground in {zone:1452} brought you to."] = "{npc:11558}就在{area:1769}洞穴入口内。木喉熊怪声望达到中立后，她才会交谈；此前在{zone:1452}刷冬泉熊怪已将声望提升到中立。",
 	-- {npc:11558} Kernda
-	["{npc:11558}, just inside the cave: walks around here: look inside the circle on the map"] = "",
+	["{npc:11558}, just inside the cave: walks around here: look inside the circle on the map"] = "{npc:11558}在洞口内侧附近走动：在地图圆圈范围内寻找",
 
 	-- Step 52: Kernda
 	-- {area:1762} Felpaw Village · {npc:11558} Kernda
-	["The Deadwood totem from {area:1762}, if {npc:11558} didn't take it then."] = "",
+	["The Deadwood totem from {area:1762}, if {npc:11558} didn't take it then."] = "从{area:1762}带来的死木图腾，如果当时没交给{npc:11558}。",
 	-- {npc:11558} Kernda
-	["{npc:11558}: walks around here: look inside the circle on the map"] = "",
+	["{npc:11558}: walks around here: look inside the circle on the map"] = "{npc:11558}在附近走动：到地图标示的圆圈内寻找",
 
 	-- Step 53: Meilosh
 	-- {npc:11557} Meilosh · {npc:11558} Kernda · {quest:6031} Runecloth · {zone:1452} Winterspring
-	["{npc:11557}, just inside the cave beside {npc:11558}, takes thirty {quest:6031} from Friendly with the Timbermaw: the {zone:1452} top-up on the Winterfall furbolgs gets you both."] = "",
+	["{npc:11557}, just inside the cave beside {npc:11558}, takes thirty {quest:6031} from Friendly with the Timbermaw: the {zone:1452} top-up on the Winterfall furbolgs gets you both."] = "{npc:11557}在{npc:11558}旁的洞口内侧，木喉要塞声望达到友善后可向他交付三十块{quest:6031}：此前在{zone:1452}刷冬泉熊怪补等级时，声望和布料都能凑齐。",
 	-- {npc:11557} Meilosh
-	["{npc:11557}; below ground"] = "",
+	["{npc:11557}; below ground"] = "{npc:11557}，在地下",
 
 	-- Step 57: Winterspring: kill these as you meet them
 	-- {zone:1452} Winterspring
@@ -364,7 +364,7 @@ return {
 	-- {npc:1852} Araj the Summoner
 	["{npc:1852} is a level 61 elite"] = "{npc:1852}是61级精英",
 	-- {quest:6184} Flint Shadowmore · {area:2260} Marris Stead · {zone:1423} Eastern Plaguelands
-	["{quest:6184}: the agents' remains lie at the {area:2260} in the {zone:1423}"] = "",
+	["{quest:6184}: the agents' remains lie at the {area:2260} in the {zone:1423}"] = "{quest:6184}：密探的遗骸在{zone:1423}的{area:2260}",
 
 	-- Step 83: Andorhal
 	["Andorhal"] = "安多哈尔",
@@ -391,7 +391,7 @@ return {
 
 	-- Step 87: Eastern Plaguelands
 	-- {quest:5845} Of Lost Honor
-	["The lake for {quest:5845}"] = "",
+	["The lake for {quest:5845}"] = "{quest:5845}所需的湖泊",
 
 	-- Step 88: Of Lost Honor
 	["Underwater"] = "在水下",
@@ -402,7 +402,7 @@ return {
 
 	-- Step 91: Marris Stead
 	-- {area:2260} Marris Stead · {area:2262} Darrowshire · {npc:11878} Nathanos Blightcaller
-	["Ride south to the {area:2260}, the farm north-west of {area:2262}. The three agents' remains are bone outlines on the ground: one by the road south of the farm, one on the hill east of the house, one on the mound in front of it. Coming close enough to see the Blightcaller in front of the house completes the scouting.\nCareful: {npc:11878} (level 62 elite) and his elite hounds stand in front of the house: take the remains on the mound from the side and do not pull him. You don't have to fight him."] = "",
+	["Ride south to the {area:2260}, the farm north-west of {area:2262}. The three agents' remains are bone outlines on the ground: one by the road south of the farm, one on the hill east of the house, one on the mound in front of it. Coming close enough to see the Blightcaller in front of the house completes the scouting.\nCareful: {npc:11878} (level 62 elite) and his elite hounds stand in front of the house: take the remains on the mound from the side and do not pull him. You don't have to fight him."] = "向南骑往{area:2260}，即{area:2262}西北的农场。3名密探的遗骸是地上的人形骨骸：一处在农场南面的路边，一处在房屋东侧的山丘上，还有一处在屋前的土丘上。靠近到能看见屋前的凋零者，即可完成侦察。\n注意：{npc:11878}（62级精英）与他的精英猎犬守在屋前。从侧面拾取土丘上的遗骸，别引到他，无需与他战斗。",
 
 	-- Step 93: Scholomance (optional)
 	-- {area:2057} Scholomance
@@ -413,10 +413,10 @@ return {
 	["{area:2057} fits levels 58 to 60; {quest:5505} is handed in at {area:3197} below."] = "{area:2057}适合58-60级；{quest:5505}在下面的{area:3197}交还。",
 
 	-- Step 94: Level 59.93
-	["Level 59.93"] = "",
+	["Level 59.93"] = "59.93级",
 	-- {npc:1855} Tirion Fordring · {area:2627} Terrordale · {area:3197} Chillwind Camp · {area:2057} Scholomance · {area:2279} Stratholme
 	-- plural, as words: Terrordale Spirits = {npc:14564} Terrordale Spirit
-	["Cross the river east of {npc:1855} into {area:2627}. The Terrordale Spirits haunt the woods there. Top up here to level 59.93 before the hand-ins at {area:3197}: they take you to level 60. Or, with a group, run the {area:2057} dungeon or the {area:2279} dungeon instead."] = "",
+	["Cross the river east of {npc:1855} into {area:2627}. The Terrordale Spirits haunt the woods there. Top up here to level 59.93 before the hand-ins at {area:3197}: they take you to level 60. Or, with a group, run the {area:2057} dungeon or the {area:2279} dungeon instead."] = "渡过{npc:1855}东侧的河，进入{area:2627}。恐惧谷的灵魂在那里的树林中游荡。先在此刷到59.93级，再去{area:3197}交任务，交完即可到60级。也可组队挑战{area:2057}副本或{area:2279}副本。",
 	-- {npc:14564} Terrordale Spirit · {area:2627} Terrordale · {zone:1423} Eastern Plaguelands
 	["grind on {npc:14564} at {area:2627}, {zone:1423}"] = "在{zone:1423}的{area:2627}刷{npc:14564}",
 
@@ -424,7 +424,7 @@ return {
 	-- {area:3197} Chillwind Camp
 	["Ride back south-west to {area:3197}."] = "向西南骑回{area:3197}。",
 	-- {zone:1453} Stormwind
-	["Flint's next task goes to {zone:1453}: you are level 60 now, skip it."] = "",
+	["Flint's next task goes to {zone:1453}: you are level 60 now, skip it."] = "弗林特·沙多摩尔的下一个任务要去{zone:1453}；现在已经60级了，跳过即可。",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Back into {area:1770}: {npc:9861} and {npc:9860} guard {npc:9517} in its deepest chamber."] = "回到{area:1770}：{npc:9861}和{npc:9860}在最深处的房间守护{npc:9517}。",

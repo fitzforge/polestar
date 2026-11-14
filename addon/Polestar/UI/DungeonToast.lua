@@ -182,6 +182,7 @@ function DT.Model(c)
 	local Dg = D()
 	local m = { dungeon = c.key, art = Dg.Art and Dg.Art(c.key), icon = Theme.Media("icon-dungeon"), iconColor = "dungeon", titleColor = "text" }
 	m.head = format(L["LEVEL %d · DUNGEON"], c.level)
+	m.facts = format(L["Level %d · Dungeon"], c.level)
 	m.title = format(L["%s is open to you"], c.name)
 	local quests = c.take == 1 and L["1 quest to pick up"] or format(L["%d quests to pick up"], c.take)
 	local range = UI.LevelRange and UI.LevelRange(c.minLevel, c.maxLevel)

@@ -6,7 +6,9 @@
 --
 --   Levels.Run(entries[, p[, start]]) -> summary
 --     entries, in route order:
---       { kind = "quest" (or nil), id, level, xp (full reward | nil: not known), classes = { CLASS } | nil }
+--       { kind = "quest" (or nil), id, level, xp (full reward | nil: not known), classes = { CLASS } | nil,
+--         blocked = true | nil (this character may not take it, by class or race: left out like another class's),
+--         group = name | nil, minLevel }   -- group: what the quest's XP is summed under (summary.groups)
 --       { kind = "kill", n (kills), mob (level), elite }
 --       { kind = "kill" } with no n: a kill or loot goal that could not be estimated
 --     p: { level, xp, xpMax, class, faction } (default: this character)
@@ -18,7 +20,8 @@
 --       killsUnknown (goals not estimated), xp (questXP + killXP), maxed
 --       (level 60: none counts), below (the start level | nil), now = { level,
 --       xp, need } (the character), from (where the sums start: now, or the
---       start level), to = { level, xp, need }, levels (the gain, fractional) }
+--       start level), to = { level, xp, need }, levels (the gain, fractional),
+--       groups = { [group] = { n, xp, need (highest minLevel) } } | nil (only when entries name a group) }
 --   Levels.ForGuide(id[, p[, from[, to]]]) -> summary | nil   -- a guide for this character
 --       (its race, class and faction: the steps' and goals' `only`), from its
 --       minLevel when below it: each turn-in once, its XP from the Codex; each
@@ -177,7 +180,7 @@ function Levels.Run(entries, p, start)
 			end
 		elseif C and C.IsQuestCompleted and e.id and C.IsQuestCompleted(e.id) then
 			s.done = s.done + 1
-		elseif not hasClass(e.classes, p.class) then
+		elseif e.blocked or not hasClass(e.classes, p.class) then
 			s.other = s.other + 1
 		else
 			local full = e.xp
@@ -188,6 +191,16 @@ function Levels.Run(entries, p, start)
 				local one = floor(full * part + 0.5)
 				if part < 1 then s.reduced = s.reduced + 1 end
 				s.quests, s.questXP = s.quests + 1, s.questXP + one
+				if e.group then
+					s.groups = s.groups or {}
+					local g = s.groups[e.group]
+					if not g then
+						g = { n = 0, xp = 0 }
+						s.groups[e.group] = g
+					end
+					g.n, g.xp = g.n + 1, g.xp + one
+					if e.minLevel and (not g.need or e.minLevel > g.need) then g.need = e.minLevel end
+				end
 				gain(one)
 			end
 		end

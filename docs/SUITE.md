@@ -15,15 +15,15 @@ contracts between the modules are in [docs/ARCHITECTURE.md](ARCHITECTURE.md).
 | Quests | Map and minimap pins for available quests, objective areas, quest givers (off by default, Map options); tooltip lines on mobs and items that a quest needs; quest levels in the log; a quest icon beside the health bar of nameplates of mobs a quest needs (replacement nameplates included) |
 | Lookup (Codex) | One search over guides and entities (items, mounts, pets, recipes, tabards, quests, NPCs, rares, treasures, dungeons, zones). "How to get" for any item, mount or pet: sources ranked for this character, one click to a guide (curated when one exists, otherwise built on the spot). Tooltip source lines; Alt-click an item link to guide; target or mouse over a player to see their mount and how to get it. Search only: no browse-everything lists |
 | Dungeons | A journal page per dungeon: every quest with where to get it, its objective, its chain and its rewards (item choices, XP, money, reputation), plus bosses and the entrance on the map, with "guide me" to givers and the entrance; attunements and keys (Molten Core, Onyxia's Lair, Blackwing Lair, Naxxramas, Scholomance, Blackrock Depths, the City of Dalaran...) with this character's progress and a guide through what is left. No loot tables |
-| Upgrades | Upgrade indicator on item tooltips and an upgrade arrow on bag items (the game's bags and Baganator), the best pick on quest reward choices, from stat weights per spec (detected from the client's talent points) and level band |
+| Upgrades | Upgrade indicator on item tooltips and an upgrade arrow on bag items (the game's bags and Baganator), the best pick on quest reward choices, from stat weights per spec (detected from the client's talent points) and level band, which the player can adjust |
 | Rares | Rare NPC and treasure database with locations and loot, map pins (off by default, Map options), alerts (only through APIs the Forever client has) |
 | Maps | World map without fog of war (the zone-art overlay table), coordinates, zone level ranges, dungeon entrance and travel pins (off by default, Map options) |
 | QoL | Quality of life helpers: action buttons, XP and pace, merchant, reward marks, flight masters, death helper, toggles, requests from other players |
 | Characters | An account-wide page of every character you have played: level, class, zone, hearth, gold, professions, the guide it follows and an XP bar with rested XP worked out to now. Each is as of its last logout; sorts by last played, most rested or level |
 | Talents (planned) | Where your next talent points go, level by level, on the talent panel, per class and spec. The trees are read from the client; the builds are written by contributors |
 
-Out of scope: a full UI suite (Polestar integrates with EllesmereUI through its
-public skinning API), boss and combat warnings, aura tracking, best-in-slot
+Out of scope: a full UI suite (Polestar integrates with EllesmereUI, and with
+ErgoBars through the same contract, through their public skinning APIs), boss and combat warnings, aura tracking, best-in-slot
 lists and loot browsing. Polestar keeps the dungeon quest journal and the
 upgrade indicator on tooltips.
 

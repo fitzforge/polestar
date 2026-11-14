@@ -5,6 +5,7 @@ faction Alliance
 levels 56-58
 zone Western Plaguelands
 next forever/alliance/50-60/06-silithus
+next polestar-experimental/hyjal-1
 
 # Forge's route search orders the quests of this guide and its guide writer writes the steps.
 # Fixes go into data/route-fixes.json, data/guide-fixes.json or forever-db/corrections, never

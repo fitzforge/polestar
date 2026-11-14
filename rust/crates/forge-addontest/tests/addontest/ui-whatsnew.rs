@@ -230,3 +230,36 @@ fn it_says_what_changed_in_ten_notes_in_order_and_scrolls_them_within_one_screen
 	assert_eq!(out["top"], 0.0, "it opens at the first note");
 	assert_eq!(out["bottom"].as_f64().unwrap(), content - view, "the wheel reaches the last note and stops there");
 }
+
+// A note about a setting leads to it: the whole note answers the pointer (a chevron on its heading's line, its text
+// clear of it) and a click closes What's new and opens the settings on that setting's row, lit. A note with no
+// setting stays text: no click, no chevron.
+#[test]
+fn a_note_about_a_setting_opens_the_settings_on_its_row_and_the_others_stay_text() {
+	let out = run_with(
+		r#"
+		WN.Show()
+		local linked, plainNotes, update = {}, {}, nil
+		for _, n in ipairs(PolestarWhatsNew.Body.Notes) do
+			if n.Head:IsShown() then
+				local head = n.Head:GetText()
+				if rawget(n, "Hit") and n.Hit:IsShown() then linked[#linked + 1] = head else plainNotes[#plainNotes + 1] = head end
+				if head == "Update notice" then update = n end
+			end
+		end
+		local chevron = { update.Chevron:IsShown(), update.Text:GetWidth() < PolestarWhatsNew.Body:GetWidth() - 28 }
+		update.Hit:Click()
+		local O = Polestar.UI.Options
+		local w = O.view.cache[O.ControlByKey("update.card")]
+		emit({ linked = linked, plain = plainNotes, chevron = chevron, closed = not shown(), settings = PolestarOptions:IsShown(),
+			lit = w ~= nil and rawget(w, "psFlash") ~= nil and w.psFlash:IsShown() })"#,
+		updated(),
+		"",
+	);
+	assert_eq!(out["linked"], json!(["Update notice", "New spells", "Quest helpers", "Hide it all"]), "the notes about a setting");
+	assert_eq!(out["plain"].as_array().unwrap().len(), 6, "the other six stay text");
+	assert_eq!(out["chevron"], json!([true, true]), "a chevron, the text clear of it");
+	assert_eq!(out["closed"], true, "What's new closes");
+	assert_eq!(out["settings"], true, "the settings open");
+	assert_eq!(out["lit"], true, "on the setting's row, lit");
+}

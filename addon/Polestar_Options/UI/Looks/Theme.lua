@@ -7,11 +7,11 @@
 -- palette, Theme.FontSpec) and repaints live through Theme.Refresh, the
 -- page's preview with it.
 --
--- Each tab pins a live preview over its rows (built the first time the tab
--- shows): the real surfaces at their true size, drawn by their own code in
--- the theme in use: the guide window with its heads-up card, a rare alert,
--- the arrow and the two kinds of button; the Names tab shows every subject's
--- name in its colour instead of the arrow (see "The preview" below).
+-- Each tab pins a band over its rows (UI.Preview.Band, built the first time
+-- the tab shows): the three surfaces the theme styles at their real size,
+-- side by side, drawn by their own code in the theme in use: the guide
+-- window's head and three goal rows, the heads-up card and the rare alert;
+-- the Names tab shows every subject's name in its colour instead.
 
 local ns = Polestar
 local Theme, W = ns.Theme, ns.Widgets
@@ -71,192 +71,79 @@ local SUBJECT = {
 }
 
 ---------------------------------------------------------------------------
--- The preview: the real surfaces at their true size over the zone you stand
--- in. The guide window (the Guide window page's own drawing,
--- UI.GuideWindowScene) with the heads-up card on its top edge, cropped at
--- the hero's foot; a rare alert and the arrow (their own builders); on the
--- Names tab a card of every subject's name in its colour instead of the
--- arrow. Settings that dress the settings window itself (its sidebar, its
--- header's band, haze and rim, its border) light its own parts too.
+-- The Names tab's preview, a band (UI.Preview.Band): every subject's name in
+-- its colour on a panel card, two columns, alone at its real size.
 ---------------------------------------------------------------------------
 
--- The stage's height laid out alone (the window gives its hero's); the
--- chrome's row over the scene, the room at its foot, the side pads, the gap
--- between the guide window and the right of the scene.
-local PREVIEW_H, TOP, BOTTOM, PAD, GAP = 196, 34, 14, 32, 40
-local NAME_ROW = 22 -- a line of the names card
-local SHADOW_ROOM = 40 -- each side of the guide window's box, for its drop shadow
+local NAME_ROW, NAME_COL = 22, 150 -- a line of the names card; a column, at least
 
-local function buildScene(view, names)
-	local UI, P = ns.UI, ns.UI.Preview
-	local TS = UI.Toasts
-	local f = P.Stage(view, { height = PREVIEW_H, backdrop = "world" })
-	-- The window draws "Preview" and "Live" over it; this names what it shows.
-	f.caption = L["Every Polestar surface, in your theme"]
-
-	-- The guide window, drawn by the Guide window page's code; cropped at
-	-- the hero's foot, it fades out there as a stage's cropped scene does.
-	local G = UI.GuideWindowScene and UI.GuideWindowScene(f)
-	if G then
-		function G:SetCut(cut) f:SetCut(cut) end
-	end
-	f.Scene = G
-	f.Guide = G and G.Window
-	f.StepTitle = G and G.Person.Name
-	-- The heads-up card on its top edge, a rare alert: their own builders.
-	local heads = TS and TS.Sandbox and TS.Sandbox("headsup", f)
-	local toast = TS and TS.Sandbox and TS.Sandbox("rare", f)
-	f.Heads, f.Toast = heads, toast
-	if heads then heads:Show() end
-	if toast then toast:Show() end
-	-- The arrow toward the goal (Nav's own dial).
-	local A = ns.Nav and ns.Nav.arrow
-	local arrow
-	if not names and A and A.BuildDial then
-		local holder = CreateFrame("Frame", nil, f)
-		holder:SetSize(A.WIDTH, A.HEIGHT)
-		arrow = { holder = holder, dial = A.BuildDial(holder), look = {} }
-	end
-	f.Arrow = arrow and arrow.holder
-	-- The names card: each subject's name in its own colour.
-	local card
-	if names then
-		card = CreateFrame("Frame", nil, f)
-		Theme.Skin(card, "panel")
-		card.Words = {}
-		for _, name in ipairs(Theme.SUBJECTS) do
-			local s = SUBJECT[name]
-			if s then
-				local fs = W.Text(card, "label", name)
-				fs:SetText(s[1])
-				card.Words[#card.Words + 1] = { fs = fs, name = name }
-			end
+local lightParts
+local function buildNamesPreview(view)
+	local P = ns.UI.Preview
+	local f = P.Band(view, { watch = { "ui." } })
+	local card = CreateFrame("Frame", nil, f)
+	Theme.Skin(card, "panel")
+	card.Words = {}
+	for _, name in ipairs(Theme.SUBJECTS) do
+		local s = SUBJECT[name]
+		if s then
+			local fs = W.Text(card, "label", name)
+			fs:SetText(s[1])
+			card.Words[#card.Words + 1] = { fs = fs, name = name }
 		end
 	end
 	f.Names = card
-
-	-- Their paint from the settings (the toasts' and the arrow's own).
-	local function paint()
-		if heads then
-			TS.ApplyLook(heads, true)
-			TS.Refill("headsup", heads)
-			heads:SetAlpha(TS.Alpha("headsup"))
-		end
-		if toast then
-			TS.ApplyLook(toast, true)
-			toast:SetAlpha(TS.Alpha("rare"))
-		end
-		if arrow then
-			A.ReadLook(arrow.look)
-			A.PaintDial(arrow.dial, arrow.look, A.StyleFor(ns.Get("nav.arrowStyle")), "travel", -0.35, 381, L["Brill"], 95)
-		end
-	end
-	f.Paint = paint
-	f.psWatch = { "toasts.", "nav.arrow", "ui." }
-
-	-- -> the hero's height (PREVIEW_H laid out alone): the guide window at
-	-- the left under its heads-up card, cropped at the hero's foot; at the
-	-- right the rare alert, then the arrow or the names. A page too narrow
-	-- for both keeps the window and the arrow.
-	function f:Layout(width, height)
-		height = height or PREVIEW_H
-		self:SetWidth(width)
-		self.psWidth, self.psHeight = width, height
-		paint()
+	lightParts(f, nil, nil, nil, card)
+	local snap = P.Snap
+	function f:Content()
 		local t = self:TrueScale()
-		local scale = (tonumber(ns.Get("ui.scale")) or 1) * t
-		-- The window's own width first (it lays itself out), then its box.
-		local winW = 340 * scale
-		if G then
-			G:Layout(winW + 2 * SHADOW_ROOM, height)
-			winW = G.Window:GetWidth() * scale
+		-- The columns as wide as the longest name (a translation's) needs.
+		local col = NAME_COL
+		for _, word in ipairs(card.Words) do col = max(col, math.ceil(W.TextWidth(word.fs)) + 24) end
+		local lines = math.ceil(#card.Words / 2)
+		for i, word in ipairs(card.Words) do
+			local c, line = (i - 1) % 2, floor((i - 1) / 2)
+			word.fs:ClearAllPoints()
+			word.fs:SetPoint("TOPLEFT", card, "TOPLEFT", 16 + c * col, -(10 + line * NAME_ROW))
 		end
-		local hk = heads and scale * TS.Scale("headsup") or 0
-		local hw, hh = heads and heads:GetWidth() * hk or 0, heads and heads:GetHeight() * hk or 0
-		local leftW = max(winW, hw)
-		local tk = toast and TS.Scale("rare") * t or 0
-		local tw, th = toast and toast:GetWidth() * tk or 0, toast and toast:GetHeight() * tk or 0
-		local rightX = PAD + leftW + GAP
-		local rightW = width - PAD - rightX
-		local wide = toast ~= nil and rightW >= tw * 0.75
-		local snap = P.Snap
-		-- Left: the heads-up card, the window under it to the foot.
-		local leftX = wide and PAD or max(PAD, floor((width - leftW - (arrow and (GAP + A.WIDTH * t) or 0)) / 2))
-		if heads then
-			heads:SetScale(hk)
-			heads:ClearAllPoints()
-			heads:SetPoint("TOPLEFT", self, "TOPLEFT", snap(heads, (leftX + (leftW - hw) / 2) / hk), snap(heads, -TOP / hk))
-		end
-		if G then
-			local top = TOP + hh
-			G:ClearAllPoints()
-			-- Its box wider than the window by its shadow's room, so the box
-			-- crops only at its foot, the hero's.
-			G:SetPoint("TOPLEFT", self, "TOPLEFT", snap(self, leftX + (leftW - winW) / 2 - SHADOW_ROOM), -snap(self, top))
-			G:SetSize(winW + 2 * SHADOW_ROOM, max(1, height - top))
-			G:Layout(winW + 2 * SHADOW_ROOM, max(1, height - top))
-		end
-		-- Right: the rare alert, then the arrow or the names.
-		if toast then toast:SetShown(wide) end
-		if card then card:SetShown(wide) end
-		local y = TOP
-		if wide then
-			local k = min(1, rightW / max(1, tw))
-			toast:SetScale(tk * k)
-			toast:ClearAllPoints()
-			toast:SetPoint("TOPLEFT", self, "TOPLEFT", snap(toast, rightX / (tk * k)), snap(toast, -y / (tk * k)))
-			self:Floor(toast)
-			y = y + th * k + 24
-		end
-		if card and wide then
-			-- Two columns of names, as many lines as the room under the alert holds.
-			local cw = min(rightW, max(tw * min(1, rightW / max(1, tw)), 240))
-			local lines = math.ceil(#card.Words / 2)
-			local room = height - y - BOTTOM
-			local row = min(NAME_ROW, max(14, floor((room - 16) / max(1, lines))))
-			for i, word in ipairs(card.Words) do
-				local col, line = (i - 1) % 2, floor((i - 1) / 2)
-				word.fs:ClearAllPoints()
-				word.fs:SetPoint("TOPLEFT", card, "TOPLEFT", 12 + col * (cw / 2), -(8 + line * row))
-			end
-			card:SetSize(cw, 16 + lines * row)
+		local cw, ch = 16 + 2 * col, 20 + lines * NAME_ROW
+		card:SetSize(cw, ch)
+		return cw * t, ch * t, function(left, top, k)
+			local g = t * k
+			card:SetScale(g)
 			card:ClearAllPoints()
-			card:SetPoint("TOPLEFT", self, "TOPLEFT", snap(self, rightX), -snap(self, y))
-			self:Floor(card)
-		elseif arrow then
-			-- The arrow at its true size in what is left: under the alert, or
-			-- beside the window on a narrow page.
-			local ax, aw = wide and rightX or (leftX + leftW + GAP), wide and rightW or A.WIDTH * t
-			local roomH = height - y - BOTTOM
-			local ak = t * min(1, roomH / A.HEIGHT, aw / A.WIDTH)
-			arrow.holder:SetScale(max(0.2, ak))
-			arrow.holder:ClearAllPoints()
-			arrow.holder:SetPoint("TOP", self, "TOPLEFT", snap(arrow.holder, (ax + aw / 2) / ak), snap(arrow.holder, -(wide and y or TOP) / ak))
-			self:Floor(arrow.holder, -floor(max(0, A.WIDTH * ak - 150) / 2))
+			card:SetPoint("TOPLEFT", self, "TOPLEFT", snap(card, left / g), snap(card, -top / g))
 		end
-		return height
 	end
+	return f
+end
 
-	-- A click on a part finds its setting; the pointer on a setting's row
-	-- lights the parts it changes (the settings window's own, for what
-	-- dresses it).
-	local surfaces = { f.Guide, heads, toast, card }
+-- A click on a part finds its setting; the pointer on a setting's row lights
+-- the parts it changes (the settings window's own, for what dresses it), on
+-- preview f: the guide window G (UI.GuideWindowScene, a copy of the window
+-- drawn once as it is made), the heads-up card, the rare alert and the names
+-- card, those it has.
+function lightParts(f, G, heads, toast, card)
+	local guide = rawget(f, "Guide")
+	local surfaces = { guide, heads, toast, card }
 	local win = PolestarOptions
-	local edge = {}
+	-- The scene's window: its open tab, the "1 done" line, the current goal
+	-- (the kill the arrow points at), the collect under it with its mobs, the
+	-- "Then:" line naming the step's other person (in the NPC's colour, the
+	-- quest's name in the quest's).
+	local S
 	if G then
-		f:Hot(G.Window, "ui.bgOpacity")
-		f:Hot(G.Window.Band, "ui.starAlpha")
-		f:Hot(G.Person.Name, "ui.headingFont")
-		f:Hot(G.Rows[1], "ui.textMutedColor")
-		f:Hot(G.Rows[2].Text, "ui.colors.npc")
-		f:Hot(G.Rows[3].Text, "ui.colors.item")
-		f:Hot(G.Up, "ui.colors.quest")
+		local C, P = G.Copy, G.Copy.parts
+		S = { window = G.Window, band = P.band, person = P.person, strip = P.strip, nav = P.nav, tip = P.tip, foot = P.foot,
+			up = P.upnext, tab = C.tabs[1], done = C.lines[1], current = C.rows[1], collect = C.rows[2], next = C.lines[2] }
+		f:Hot(S.window, "ui.bgOpacity")
+		f:Hot(S.band, "ui.starAlpha")
+		f:Hot(S.person.Name, "ui.headingFont")
+		f:Hot(S.collect and S.collect.Sub, "ui.textMutedColor")
+		f:Hot(S.next and S.next.Text, "ui.colors.npc")
+		f:Hot(S.collect and S.collect.Text, "ui.colors.item")
 	end
 	if toast then f:Hot(toast, "ui.panelColor") end
-	if arrow then
-		f:Hot(arrow.dial.dial, "ui.accent")
-		f:Hot(arrow.dial.distText, "ui.textSize")
-	end
 	-- The cards' own primary buttons: the heads-up's, the rare alert's.
 	local primaries = {}
 	for _, b in ipairs({ heads and rawget(heads, "Act") or false, toast and rawget(toast, "Waypoint") or false }) do
@@ -269,18 +156,16 @@ local function buildScene(view, names)
 	local function outside(key, ...) if win then f:LightEdge(key, ...) end end
 	local everything = {}
 	for _, s in pairs(surfaces) do everything[#everything + 1] = s end
-	if arrow then everything[#everything + 1] = arrow.holder end
 	for _, key in ipairs({ "ui.skin", "ui.scheme", "ui.brightness", "ui.reduceMotion", "ui.animSpeed", "ui.font", "ui.fontOutline", "ui.textShadow" }) do
 		light(key, unpack(everything))
 	end
-	local grounds = { f.Guide, heads, toast }
+	local grounds = { guide, heads, toast }
 	for _, key in ipairs({ "ui.bgOpacity", "ui.bgColor" }) do light(key, unpack(grounds)) end
 	light("ui.panelColor", toast, heads, card)
 	-- Every part the accent paints: in the scene the guide window's open tab
 	-- (its underline and icon), the current goal's bar and glyph and the
 	-- progress bar; the heads-up card's stripe, ring, headline, badge and
-	-- primary button; the rare alert's primary button and time bar; the
-	-- arrow, which the accent tints unless it has a colour of its own.
+	-- primary button; the rare alert's primary button and time bar.
 	local accents = {}
 	local function accent(...)
 		for i = 1, select("#", ...) do
@@ -289,10 +174,9 @@ local function buildScene(view, names)
 		end
 	end
 	accent(unpack(primaries))
-	if G then accent(G.Strip.Bar, G.Strip.Icon, G.Rows[2].Mark, G.Rows[2].Icon, G.Foot.Line) end
+	if S then accent(S.tab and S.tab.Bar, S.tab and S.tab.Icon, S.current and S.current.Mark, S.current and S.current.Icon, S.foot.Line) end
 	if heads then accent(rawget(heads, "Stripe"), rawget(heads, "Ring"), rawget(heads, "Head"), rawget(heads, "Badge")) end
 	if toast then accent(rawget(toast, "Timer")) end
-	if arrow then accent(arrow.dial.dial) end
 	-- Rings off them: an outline on a part in the accent would not show.
 	f:LightRing("ui.accent", unpack(accents))
 	f:LightRing("ui.classAccent", unpack(accents))
@@ -306,7 +190,7 @@ local function buildScene(view, names)
 		local function windowAccents()
 			local out, seen, ar, ag, ab = {}, {}, Theme.Accent()
 			local function walk(fr)
-				if not fr:IsVisible() or P.IsStage(fr) then return end
+				if not fr:IsVisible() or P.IsBand(fr) then return end
 				-- A border's pieces or a pill's (a switch's track) by their frame.
 				local own = {}
 				for _, t in ipairs(rawget(fr, "psBorder") or {}) do own[t] = true end
@@ -345,38 +229,111 @@ local function buildScene(view, names)
 		end
 	end
 	for _, key in ipairs({ "ui.border", "ui.borderSize", "ui.borderColor", "ui.borderAccent", "ui.shadow", "ui.shadowStrength" }) do
-		f:LightEdge(key, f.Guide, toast, heads, card)
+		f:LightEdge(key, guide, toast, heads, card)
 	end
-	if G then
-		light("ui.band", G.Window.Band)
-		light("ui.starAlpha", G.Window.Band)
-		light("ui.hairlineOpacity", G.Strip.Rule, G.Nav.Rule, G.Up.Rule)
-		light("ui.textSize", G.Rows[2].Text, G.Rows[3].Text, G.Tip)
-		light("ui.headingFont", G.Person.Name)
-		light("ui.headingSize", G.Person.Name)
-		light("ui.smallSize", G.Strip.Label, G.Nav.Title, G.Person.Where, G.Up.Label)
-		light("ui.textColor", G.Rows[2].Text, G.Rows[3].Text)
-		light("ui.textDimColor", G.Nav.Title, G.Person.Where, G.Tip)
-		light("ui.textMutedColor", G.Rows[1].Text, G.Up)
+	if S then
+		local current, collect, next, done = S.current or {}, S.collect or {}, S.next or {}, S.done or {}
+		light("ui.band", S.band)
+		light("ui.starAlpha", S.band)
+		light("ui.hairlineOpacity", S.strip.Rule, S.nav.Rule, S.up.Toggle.Rule)
+		light("ui.textSize", current.Text, collect.Text, S.tip)
+		light("ui.headingFont", S.person.Name)
+		light("ui.headingSize", S.person.Name)
+		light("ui.smallSize", S.tab and S.tab.Label, S.nav.Title, S.person.Where, S.up.Toggle.Label)
+		light("ui.textColor", current.Text, collect.Text)
+		light("ui.textDimColor", S.nav.Title, S.person.Where, S.tip, done.Text, next.Text)
+		light("ui.textMutedColor", collect.Sub, S.tab and S.tab.Range)
 		-- The names the scene draws in each subject's colour.
-		light("ui.colors.npc", G.Person.Name, G.Rows[2].Text)
-		light("ui.colors.item", G.Rows[3].Text)
-		light("ui.colors.place", G.Person.Where)
-		light("ui.colors.success", G.Rows[1].Icon)
-		light("ui.colors.level", G.Rows[2].Sub)
-		light("ui.colors.quest", G.Up)
+		light("ui.colors.npc", next.Text)
+		light("ui.colors.quest", next.Text)
+		light("ui.colors.item", collect.Text)
+		light("ui.colors.success", done.Icon)
 	end
 	if heads then light("ui.colors.dungeon", heads) end
 	if toast then light("ui.colors.rare", toast) end
 	if card then
 		for _, word in ipairs(card.Words) do light("ui.colors." .. word.name, word.fs) end
 	end
-	if arrow then light("ui.colors.place", arrow.dial.labelText) end
+end
+
+-- Theme v2, a band (UI.Preview.Band): the three surfaces the theme styles,
+-- side by side, 32 apart, their feet on one line, a label under each: the
+-- guide window (a copy drawn by its own code, UI.GuideWindowScene: its head
+-- and its goals, cut under them and faded into the panel), the heads-up card
+-- (on the window's scale, as it sits on the window) and the rare alert; drawn
+-- by their own code at their real size, all smaller alike where the band
+-- cannot hold the three across (the band's hint line says so).
+local TRIO_GAP, ROWS_ROOM, SIDE = 32, 24, 16 -- between two; the window's ground under its goals; the window's own room a side
+local function buildPreview(view)
+	local UI = ns.UI
+	local TS = UI.Toasts
+	local f = UI.Preview.Band(view, { watch = { "ui.", "guideWindow.", "toasts." } })
+	local G = UI.GuideWindowScene and UI.GuideWindowScene(f)
+	f.Scene, f.Guide = G, G and G.Window
+	f.StepTitle = G and G.Copy.parts.person.Name
+	local heads = TS and TS.Sandbox and TS.Sandbox("headsup", f)
+	local toast = TS and TS.Sandbox and TS.Sandbox("rare", f)
+	f.Heads, f.Toast = heads, toast
+	if heads then heads:Show() end
+	if toast then toast:Show() end
+	local parts = {}
+	if G then parts[#parts + 1] = { kind = "guide", label = f:Label(L["Guide window"]) } end
+	if heads then parts[#parts + 1] = { kind = "headsup", frame = heads, label = f:Label(L["Heads-up card"]) } end
+	if toast then parts[#parts + 1] = { kind = "rare", frame = toast, label = f:Label(L["Rare alert"]) } end
+	f.Parts = parts
+	lightParts(f, G, heads, toast)
+	if #parts == 0 then return f end
+	local snap = UI.Preview.Snap
+	function f:Content()
+		local t = self:TrueScale()
+		local scale = (tonumber(ns.Get("ui.scale")) or 1) * t
+		-- Each one's size at its real size (band units).
+		for _, p in ipairs(parts) do
+			if p.kind == "guide" then
+				-- Drawn whole, then given the room down to its goals' foot
+				-- (and the 8 its crop keeps under what it shows).
+				G:Layout(400 * scale + SIDE * 2, 4000)
+				p.k = scale
+				p.w = G.Window:GetWidth() * scale
+				p.h = ((G.psRowsFoot or 0) + ROWS_ROOM) * scale + 8
+			else
+				TS.ApplyLook(p.frame, true)
+				if p.kind == "headsup" then TS.Refill("headsup", p.frame) end
+				p.frame:SetAlpha(TS.Alpha(p.kind))
+				p.k = TS.Scale(p.kind) * (p.kind == "headsup" and scale or t)
+				p.w, p.h = p.frame:GetWidth() * p.k, p.frame:GetHeight() * p.k
+			end
+		end
+		local total, tall, labels = 0, 0, {}
+		for i, p in ipairs(parts) do
+			labels[i] = { p.label, total + p.w / 2 }
+			total = total + p.w + (i < #parts and TRIO_GAP or 0)
+			tall = max(tall, p.h)
+		end
+		return total, tall, function(left, top, k)
+			local x, foot = left, top + tall * k
+			for _, p in ipairs(parts) do
+				local g = p.k * k
+				if p.kind == "guide" then
+					-- Its box the window and the room it keeps a side, as tall
+					-- as the cut, its foot on the others'.
+					G:SetScale(k)
+					G:ClearAllPoints()
+					G:SetPoint("TOPLEFT", self, "TOPLEFT", snap(self, x - SIDE * k) / k, -snap(self, foot - p.h * k) / k)
+					G:Resize(p.w + SIDE * 2, p.h)
+				else
+					p.frame.psBandScale = g
+					p.frame:SetScale(g)
+					p.frame:ClearAllPoints()
+					p.frame:SetPoint("TOPLEFT", self, "TOPLEFT", snap(p.frame, x / g), snap(p.frame, -(foot - p.h * k) / g))
+				end
+				x = x + (p.w + TRIO_GAP) * k
+			end
+		end, labels
+	end
 	return f
 end
 
-local function buildPreview(view) return buildScene(view, false) end
-local function buildNamesPreview(view) return buildScene(view, true) end
 -- The preview, for the other pages and the tests: buildPreview(parent) -> f.
 ns.UI.ThemePreview = buildPreview
 
@@ -488,7 +445,7 @@ local SPECS = {
 			shown = function() return Theme.Accent() end,
 			source = function()
 				if Theme.FollowsClassAccent() then return (UnitClass and UnitClass("player")) or L["Class colour"] end
-				return Theme.FollowsEllesmereAccent() and "EllesmereUI" or L["Polestar gold"]
+				return Theme.FollowsEllesmereAccent() and (Theme.SkinProvider() or "EllesmereUI") or L["Polestar gold"]
 			end },
 		{ kind = "toggle", key = "ui.classAccent", label = L["Class colour"], search = "class colour, class color, accent follows class",
 			help = L["The accent follows your class: warlock purple, shaman blue, druid orange. Picking your own accent turns this off."] },
@@ -535,7 +492,7 @@ local SPECS = {
 			help = L["The skin's font (the default: the game's own, Fira Sans in Halo), or a font of your choice."],
 			choices = function()
 				local list = fontChoices()
-				if Theme.IsEllesmere() then list[#list + 1] = { value = "ellesmere", label = "EllesmereUI" } end
+				if Theme.IsEllesmere() then list[#list + 1] = { value = "ellesmere", label = Theme.SkinProvider() or "EllesmereUI" } end
 				return list
 			end,
 			get = function() return Theme.FollowsEllesmereFont() and "ellesmere" or ns.Get("ui.font") end,
@@ -561,7 +518,7 @@ local SPECS = {
 			search = "text outline, border, stroke, thick, readable, contrast, legible",
 			help = L["A dark outline round every Polestar letter, for text that holds over any background."],
 			choices = { { value = "none", label = L["None"] }, { value = "outline", label = L["Outline"] }, { value = "thick", label = L["Thick outline"] } } },
-		{ kind = "dropdown", key = "ui.textShadow", label = L["Shadow"], new = NEW,
+		{ kind = "dropdown", key = "ui.textShadow", label = L["Text shadow"], new = NEW,
 			search = "text shadow, drop shadow, glow, depth, readable, contrast",
 			help = L["The shadow under every Polestar letter: the skin's, a soft one, the game's hard one, or none."],
 			choices = { { value = "skin", label = L["The skin's"] }, { value = "soft", label = L["Soft"] }, { value = "hard", label = L["Hard"] }, { value = "none", label = L["None"] } } },
@@ -602,7 +559,7 @@ local SPECS = {
 		{ kind = "toggle", key = "ui.borderAccent", label = L["Accent border"], disabled = borderOff,
 			search = "accent border, gold border, border takes accent",
 			help = L["The border takes your accent colour. Picking your own border colour turns this off."] },
-		{ kind = "slider", key = "ui.shadowStrength", label = L["Shadow"], min = 0, max = 2, step = 0.05, format = percent, disabled = shadowOff, new = NEW,
+		{ kind = "slider", key = "ui.shadowStrength", label = L["Shadow strength"], min = 0, max = 2, step = 0.05, format = percent, disabled = shadowOff, new = NEW,
 			search = "shadow strength, window shadow, darker shadow, lighter shadow, depth, drop shadow opacity",
 			help = L["How dark the window shadow falls, against the skin's."],
 			extras = {

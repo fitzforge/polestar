@@ -25,7 +25,7 @@ return {
 
 	-- Step 4: Deepwater Tavern
 	-- {quest:1248} The Missing Diplomat · {npc:4963} Mikhail
-	["Tapoke Jahn (34) slips out of the tavern once you take {quest:1248}: stay close behind him. He turns on you outside, a friend joins him, and he gives up once badly hurt. If you lose him the quest fails: abandon it and take it again from {npc:4963}."] = "",
+	["Tapoke Jahn (34) slips out of the tavern once you take {quest:1248}: stay close behind him. He turns on you outside, a friend joins him, and he gives up once badly hurt. If you lose him the quest fails: abandon it and take it again from {npc:4963}."] = "接取{quest:1248}后，“干柴”塔伯克·贾恩（34级）会溜出酒馆：紧跟着他。他会在屋外攻击你，并有一名同伙加入；重伤后他会投降。跟丢就会导致任务失败：放弃任务，再向{npc:4963}重新接取。",
 
 	-- Step 5: Waterlogged Chest
 	["The wreck of the Flying Osprey lies in the shallows south of the keep."] = "飞翔鱼鹰号的残骸在城堡南侧浅水区。",
@@ -50,7 +50,7 @@ return {
 	-- {quest:1132} Fiora Longears
 	["{quest:1132}, inside the inn in the north of town"] = "{quest:1132}，在镇子北部的旅店里",
 	-- {npc:4456} Fiora Longears · {area:415} Astranaar
-	["{npc:4456}'s next errand goes to {area:415}, off this route: leave it."] = "",
+	["{npc:4456}'s next errand goes to {area:415}, off this route: leave it."] = "{npc:4456}的后续差事要去{area:415}，不在本路线内：跳过。",
 	-- {quest:1132} Fiora Longears · {zone:1441} Thousand Needles
 	["{quest:1132}: the wyverns are in {zone:1441}, later in this guide"] = "{quest:1132}：双足飞龙在{zone:1441}，本指南稍后会去",
 
@@ -78,7 +78,7 @@ return {
 	-- {area:484} Freewind Post
 	["East through the canyons. {area:484}, a Horde camp with guards, sits on the mesa here: keep to the canyon floor and give the foot of its lifts a wide berth."] = "向东穿过峡谷。{area:484}是一座有卫兵的部落营地，位于这里的台地上：沿着峡谷底部走，远离它升降梯的底部。",
 	-- {area:482} Highperch
-	["The canyons east of {area:482}"] = "",
+	["The canyons east of {area:482}"] = "{area:482}东边的峡谷",
 
 	-- Step 16: Mirage Raceway
 	-- {area:2240} Mirage Raceway
@@ -94,7 +94,7 @@ return {
 	["{object:19868} lies all over the flats. Scorpid Reavers and Salt Flats Scavengers roam the north half, Sparkleshell Snappers (tortoises) the whole flats. Saltstone Basilisks and Crystalhides hold the middle; the Gazers (34-35) only the far south."] = "{object:19868}遍布整片平原。恐蝎劫掠者和盐湖食腐鹫出没于北半部，盐壳钳嘴龟（乌龟）则遍布平原。盐石蜥蜴和盐石水晶蜥蜴在中部；盐石凝视者（34-35级）只在最南端。",
 	-- {npc:4078} Collin Mauren · {zone:1453} Stormwind
 	-- plural, as words: Saltstone Basilisks = {npc:4147} Saltstone Basilisk
-	["Crystalized Scale, from the Saltstone Basilisks: eight for {npc:4078} in {zone:1453}"] = "",
+	["Crystalized Scale, from the Saltstone Basilisks: eight for {npc:4078} in {zone:1453}"] = "水晶鳞片，盐石蜥蜴掉落：为{zone:1453}的{npc:4078}收集八片",
 
 	-- Step 18: Mirage Raceway
 	-- {npc:4454} Fizzle Brassbolts · {zone:1418} Badlands
@@ -102,13 +102,13 @@ return {
 
 	-- Step 19: Into Tanaris
 	-- {zone:1446} Tanaris
-	["Into {zone:1446}"] = "",
+	["Into {zone:1446}"] = "进入{zone:1446}",
 	-- {area:439} Shimmering Flats · {zone:1446} Tanaris
-	["From the raceway follow the road south out of the {area:439} into {zone:1446}."] = "",
+	["From the raceway follow the road south out of the {area:439} into {zone:1446}."] = "从赛道沿道路向南，离开{area:439}，进入{zone:1446}。",
 
 	-- Step 20: Gadgetzan
 	-- {area:976} Gadgetzan · {npc:7823} Bera Stonehammer
-	["{area:976} is a short walk down the road; keep to it. {npc:7823}, the Alliance flight master, stands inside the walls."] = "",
+	["{area:976} is a short walk down the road; keep to it. {npc:7823}, the Alliance flight master, stands inside the walls."] = "沿道路走一小段就到{area:976}，不要离开道路。联盟飞行管理员{npc:7823}在城墙内。",
 
 	-- Step 21: Fly to Theramore
 	["Fly to Theramore"] = "飞往塞拉摩岛",
@@ -117,7 +117,7 @@ return {
 
 	-- Step 22: Theramore
 	-- {npc:4456} Fiora Longears · {area:514} Foothold Citadel · {npc:4941} Caz Twosprocket
-	["{npc:4456} is in the north of town, Captain Vimes in {area:514}; {npc:4941} stands in the town."] = "{npc:4456}在镇子北部，Captain Vimes在{area:514}；{npc:4941}也站在镇内。",
+	["{npc:4456} is in the north of town, Captain Vimes in {area:514}; {npc:4941} stands in the town."] = "{npc:4456}在镇子北部，盖兰·维米斯队长在{area:514}；{npc:4941}也站在镇内。",
 
 	-- Step 23: Boat to Menethil Harbor
 	-- {area:150} Menethil Harbor

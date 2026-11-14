@@ -15,7 +15,7 @@ return {
 	-- {area:133} Gnomeregan · {npc:9616} Laris Geardawdle · {quest:4262} Overmaster Pyron
 	["400 {area:133} reputation from {npc:9616}'s ooze jars and {quest:4262} (level 52-54)"] = "{npc:9616}的软泥罐和{quest:4262}（52-54级）可获得400点{area:133}声望",
 	-- {area:133} Gnomeregan · {zone:1426} Dun Morogh · {zone:1455} Ironforge
-	["About 3,000 {area:133} reputation from low-level quests in {zone:1426}, paid to {zone:1455} too"] = "",
+	["About 3,000 {area:133} reputation from low-level quests in {zone:1426}, paid to {zone:1455} too"] = "完成{zone:1426}的低等级任务，获得约3,000点{area:133}声望，同时也奖励{zone:1455}声望",
 
 	-- Step 1: Bubulo Acerbus, the cloth quartermaster
 	-- {npc:14724} Bubulo Acerbus
@@ -27,7 +27,7 @@ return {
 
 	-- Step 2: Coldridge Valley
 	-- {area:131} Kharanos · {npc:658} Sten Stoutarm · {npc:713} Balir Frosthammer · {area:77} Anvilmar
-	["Optional: the Dwarf and Gnome start valley south-west of {area:131}, about 1,150 reputation in 30 minutes at 60. {npc:658} and {npc:713} stand at {area:77}. Forever pays these old quests in full at any level. Skip this step to skip the hub."] = "",
+	["Optional: the Dwarf and Gnome start valley south-west of {area:131}, about 1,150 reputation in 30 minutes at 60. {npc:658} and {npc:713} stand at {area:77}. Forever pays these old quests in full at any level. Skip this step to skip the hub."] = "可选：{area:131}西南侧的矮人和侏儒起始山谷，60级时约30分钟可得1,150点声望。{npc:658}和{npc:713}在{area:77}。无限在任何等级都为这些旧任务提供全额奖励。跳过本步骤即可跳过此任务区。",
 
 	-- Step 3: Coldridge: wolves, troggs and Felix Whindlebolt's things
 	-- {npc:8416} Felix Whindlebolt
@@ -60,7 +60,7 @@ return {
 
 	-- Step 8: Kharanos
 	-- {area:131} Kharanos · {area:133} Gnomeregan · {area:2102} Thunderbrew Distillery · {area:189} Steelgrill's Depot
-	["Optional: {area:131} and the Brewnall and {area:133} roads around it, about 1,300 reputation in 50 minutes at 60. Most givers stand in and around the {area:2102} and at {area:189} east of it. Forever pays these old quests in full at any level. Skip this step to skip the hub."] = "",
+	["Optional: {area:131} and the Brewnall and {area:133} roads around it, about 1,300 reputation in 50 minutes at 60. Most givers stand in and around the {area:2102} and at {area:189} east of it. Forever pays these old quests in full at any level. Skip this step to skip the hub."] = "可选：{area:131}及周围通往烈酒村和{area:133}的道路，60级时花约50分钟可获得约1,300点声望。大多数任务给予者在{area:2102}内外，以及其东侧的{area:189}。无限版本中，这些旧任务在任何等级都奖励全额声望。跳过本步骤即可略过这处任务点。",
 
 	-- Step 9: Kharanos: the hills and the depot
 	-- {area:131} Kharanos
@@ -87,7 +87,7 @@ return {
 	-- {area:803} Amberstill Ranch
 	["The quarry and {area:803}"] = "采石场和 {area:803}。",
 	-- {zone:1426} Dun Morogh · {npc:264936} Earthseer Farsen · {area:134} Gol'Bolar Quarry · {area:803} Amberstill Ranch
-	["Optional: eastern {zone:1426}, from {npc:264936}'s camp to the {area:134} and {area:803}, about 500 reputation in 30 minutes at 60. Forever pays these old quests in full at any level. Skip this step to skip the hub."] = "",
+	["Optional: eastern {zone:1426}, from {npc:264936}'s camp to the {area:134} and {area:803}, about 500 reputation in 30 minutes at 60. Forever pays these old quests in full at any level. Skip this step to skip the hub."] = "可选：{zone:1426}东部，从{npc:264936}的营地前往{area:134}和{area:803}，60级时用30分钟可获得约500点声望。无限版本中，无论角色等级多少，这些旧任务都提供全额声望。跳过本步骤即可跳过整个任务区。",
 
 	-- Step 14: The quarry: troggs, spies and Vagash
 	-- {npc:1388} Vagash
@@ -155,7 +155,7 @@ return {
 	-- {quest:7812} Additional Runecloth
 	["{quest:7812} to Honored"] = "{quest:7812}刷到尊敬",
 	-- {quest:7812} Additional Runecloth · {item:14047} Runecloth · {npc:9616} Laris Geardawdle · {npc:9561} Jalinda Sprig · {zone:1426} Dun Morogh · {npc:4077} Gaxim Rustfizzle · {object:171524} Tinker Town · {area:133} Gnomeregan
-	["{quest:7812}: 50 reputation for 20 {item:14047}, as often as you like. After the four first donations a Human, Dwarf or Night Elf stands at Friendly 700 of 6,000, so Honored is 5,300 away: 106 turn-ins, 2,120 {item:14047} (Gnomes start 900 higher: 88 turn-ins; Skyborne start at Neutral 2,000, so 6,400 away: 128, two fewer after Exploring the Alliance). {npc:9616}'s and {npc:9561}'s quests above take 8 turn-ins off; each {zone:1426} hub you did takes 10 to 26 more off. Outside Dun Morogh Gnomeregan pays little: {npc:4077}'s quests in Stonetalon (about 500) and {object:171524}'s {area:133} dungeon quests. Every city gain also gives a quarter as much to the other three Alliance cities (not counted here). Hand in all your {item:14047} at once."] = "",
+	["{quest:7812}: 50 reputation for 20 {item:14047}, as often as you like. After the four first donations a Human, Dwarf or Night Elf stands at Friendly 700 of 6,000, so Honored is 5,300 away: 106 turn-ins, 2,120 {item:14047} (Gnomes start 900 higher: 88 turn-ins; Skyborne start at Neutral 2,000, so 6,400 away: 128, two fewer after Exploring the Alliance). {npc:9616}'s and {npc:9561}'s quests above take 8 turn-ins off; each {zone:1426} hub you did takes 10 to 26 more off. Outside Dun Morogh Gnomeregan pays little: {npc:4077}'s quests in Stonetalon (about 500) and {object:171524}'s {area:133} dungeon quests. Every city gain also gives a quarter as much to the other three Alliance cities (not counted here). Hand in all your {item:14047} at once."] = "{quest:7812}：每20块{item:14047}换50点声望，可无限重复。完成最初四次捐献后，人类、矮人或暗夜精灵的进度为友善700/6,000，距尊敬还差5,300：需交付106次，共2,120块{item:14047}（侏儒起点高900，需88次；天裔从中立2,000开始，还差6,400，需128次，完成“联盟之旅”后可少两次）。上面{npc:9616}和{npc:9561}的任务可减少8次交布；做过的每处{zone:1426}任务点，还可少10至26次。丹莫罗以外能获得的诺莫瑞根声望很少：主要是{npc:4077}在石爪山脉的任务（约500），以及{object:171524}的{area:133}副本任务。每次获得主城声望，其余三座联盟主城还会各获得四分之一（此处未计入）。一次性交付所有{item:14047}。",
 
 	-- Step 28: Additional Runecloth to Revered
 	-- {quest:7812} Additional Runecloth

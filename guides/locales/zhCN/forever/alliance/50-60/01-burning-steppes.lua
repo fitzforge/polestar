@@ -35,18 +35,18 @@ return {
 
 	-- Step 10: Sanath Lim-yo
 	-- {npc:8395} Sanath Lim-yo · {npc:8379} Archmage Xylem
-	["Get off your mount before you talk to {npc:8395}: he teleports you up to {npc:8379}'s tower on the cliff above his camp."] = "",
+	["Get off your mount before you talk to {npc:8395}: he teleports you up to {npc:8379}'s tower on the cliff above his camp."] = "先下坐骑再与{npc:8395}交谈：他会将你传送到营地上方悬崖上的{npc:8379}之塔。",
 
 	-- Step 11: Archmage Xylem
-	["The apprentice at the top of the tower sends you back down."] = "",
+	["The apprentice at the top of the tower sends you back down."] = "塔顶的学徒会把你送回下面。",
 	-- {area:1220} Thalassian Base Camp · {npc:8420} Kim'jael
-	["The blood elves are at the {area:1220}, on the way to {npc:8420}"] = "",
+	["The blood elves are at the {area:1220}, on the way to {npc:8420}"] = "血精灵在前往{npc:8420}途中的{area:1220}",
 
 	-- Step 12: Kim'jael
 	-- {npc:8420} Kim'jael · {area:1219} Legashi Encampment · {area:1220} Thalassian Base Camp
 	["{npc:8420} camps at the {area:1219} in the north; his equipment lies all over the {area:1220} just south-east of him."] = "{npc:8420}在北部的{area:1219}扎营；他的设备散落在他东南边不远的{area:1220}各处。",
 	-- {item:20028} Glittering Dust
-	["{item:20028}, from the blood elf surveyors and reclaimers"] = "",
+	["{item:20028}, from the blood elf surveyors and reclaimers"] = "{item:20028}，击杀血精灵勘测员和血精灵搜寻者获得",
 	-- {npc:6196} Spitelash Myrmidon
 	["grind on {npc:6196}"] = "反复击杀{npc:6196}补足经验",
 
@@ -62,20 +62,20 @@ return {
 
 	-- Step 18: Sanath Lim-yo
 	-- {npc:8395} Sanath Lim-yo
-	["Ride back west to {npc:8395}'s camp and get off your mount: he teleports you up to Xylem again."] = "",
+	["Ride back west to {npc:8395}'s camp and get off your mount: he teleports you up to Xylem again."] = "向西骑行返回{npc:8395}的营地，先下坐骑：他会再次把人传送到克希雷姆那里。",
 
 	-- Step 20: The Temple of Zin-Malor
 	-- {area:1223} Temple of Zin-Malor
-	["The {area:1223}"] = "",
+	["The {area:1223}"] = "{area:1223}",
 	-- {area:1223} Temple of Zin-Malor · {npc:8395} Sanath Lim-yo
 	-- plural, as words: Spitelash Sirens = {npc:6195} Spitelash Siren
-	["The Spitelash Sirens wander the ruins and the beach around the {area:1223}, just south of {npc:8395}. Only the Sirens carry the coral, not the Screamers."] = "",
+	["The Spitelash Sirens wander the ruins and the beach around the {area:1223}, just south of {npc:8395}. Only the Sirens carry the coral, not the Screamers."] = "恶鞭海妖在{npc:8395}南面、{area:1223}周围的废墟和海滩上游荡。只有海妖掉落珊瑚，恶鞭尖啸者不掉。",
 
 	-- Step 21: Archmage Xylem
 	-- {npc:8395} Sanath Lim-yo
-	["Back up through {npc:8395}'s teleport."] = "",
+	["Back up through {npc:8395}'s teleport."] = "通过{npc:8395}的传送再次上去。",
 	-- {area:1417} Sunken Temple
-	["Xylem's last task, Destroy Morphaz, is in the {area:1417}: skip it."] = "",
+	["Xylem's last task, Destroy Morphaz, is in the {area:1417}: skip it."] = "克希雷姆的最后一个任务 “毁灭摩弗拉斯” 要去{area:1417}：跳过。",
 
 	-- Step 23: Ravencrest Monument
 	-- {zone:1447} Azshara · {npc:8392} Pilot Xiggs Fuselighter · {item:10444} Standard Issue Flare Gun

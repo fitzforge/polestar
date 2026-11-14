@@ -67,7 +67,7 @@ pub const FLOW_THREADS: usize = 5;
 /// The route planner's code: forge-sim and the workspace crates it is built from, hashed at build
 /// time (build.rs, planner_src.rs). Part of the routes search key in place of the forge binary.
 pub const PLANNER_HASH: &str = env!("FORGE_PLANNER_HASH");
-pub const GUIDES_VERSION: &str = "guides-4";
+pub const GUIDES_VERSION: &str = "guides-5";
 pub const REPORT_VERSION: &str = "report-3";
 pub const LEGS_VERSION: &str = "legs-5";
 /// The decode cache of Leffe's maps (MB): bounded memory per our measurements.
