@@ -1601,7 +1601,11 @@ Polestar.Engine.StepGate(i) -> nil | 0 | k          -- step i applies (nil), is 
 Polestar.Engine.StepNumber(i) -> number, hidden     -- step i of the active guide as the player counts it (see "Steps the character has")
 Polestar.Engine.StepTotal() -> number               -- the steps the player sees
 Polestar.Engine.StepNumberOf(guide, i) -> number, hidden; Polestar.Engine.StepTotalOf(guide) -> number  -- the same for any guide
-Polestar.Engine.StepHiddenFor(step, who?) -> bool  -- no step of its own for who = { class, race, faction } (default: the player); party sync counts the steps both have
+Polestar.Engine.StepHiddenFor(step, who?) -> bool  -- no step of its own for who = { class, race, faction, dungeons? } (default: the player, with their dungeon answers); party sync counts the steps both have
+Polestar.Engine.DungeonAnswerOf(answers, map) -> true | false | nil  -- another character's answer for a dungeon from { all, maps } (a member's "2R|")
+Polestar.Engine.DungeonAt(guide, i) -> { map, name } | nil  -- step i as a dungeon's step (`when dungeon`, not negated)
+Polestar.Engine.DungeonJoinable(map, at) -> step | nil  -- the loaded guide can still take the character on that dungeon's run with the party: its run ahead (else step `at`), its `when level` gates holding
+Polestar.Engine.PartyRun(map)                       -- "Run it this time" with the party: that run applies without its quests this session (its `when onquest` guard holds)
 ```
 
 #### Smart logic
@@ -1801,7 +1805,13 @@ Polestar.Engine.StepHiddenFor(step, who?) -> bool  -- no step of its own for who
   (`Engine.DungeonChosen(map)`: the answer for that dungeon, `CharState().dungeons[map]`
   true or false through `Engine.ChooseDungeon(map, answer)`, else the setting `behavior.dungeons`,
   Skip by default; with "ask" a `when dungeon` step holds while it has work now, `Own.whenFails` and
-  `Own.dungeonPending`; a predicate without `map` never holds),
+  `Own.dungeonPending`; a dungeon's hand-in step of a quest carried finished holds whatever the answer,
+  `dungeonHandIn`; the run of a dungeon run with the party needs none of its quests, `Engine.PartyRun`;
+  a predicate without `map` never holds, nor one of a city dungeon of the other faction, whatever the
+  answers: `Engine.EnemyCityDungeon(map or Codex key)`, Ragefire Chasm and the Ruins of Lordaeron the
+  Horde's, The Hall of Thanes and the Stockade the Alliance's, which also keeps such a dungeon out of
+  `Engine.ChooseDungeon`'s Run, `Engine.GuideDungeons`, `Engine.DungeonJoinable` and the hub's For your
+  level, `Dungeons.EnemyCapital`),
   Polestar's gear advice on an item (`Own.isUpgrade`: `Gear.IsUpgrade`,
   counted as an upgrade when the advice is off or cannot judge the item), a
   profession's rank (`Compat.GetSkillRank` by skill line, else by name; not
@@ -2366,7 +2376,11 @@ Polestar.Engine.StepHiddenFor(step, who?) -> bool  -- no step of its own for who
   cannot say (no guide, a route choice to make, a guide not loaded). A quest
   the route's quest work marks `carriedTo` a later guide (the compiler's,
   GUIDE_FORMAT.md "Quests carried to a later guide") is status `later` at
-  that guide even where the plan cannot reach it, never `unplanned`.
+  that guide even where the plan cannot reach it, never `unplanned`, unless
+  the step that carries it is of a dungeon the character skips
+  (`Engine.DungeonLeftOut`) and the quest is not finished: that later
+  hand-in is the dungeon's, as a skipped dungeon's own hand-ins count only
+  for a quest finished.
   `GetTurnIn` asks the active tab's route first; a quest it doesn't hand in
   ahead is status `other` (`via` that route's status) when another open
   tab's route hands it in (`Engine.TabLiveSteps`: each tab's guide and live
@@ -5766,18 +5780,22 @@ Polestar.Party.EncodePos(pos) / DecodePos(text)  -- "1P|<live step>|<Polestar ve
 Polestar.Party.EncodeUnit(u) / DecodeUnit(text)  -- "2U|<level>|<XP %>|<class id>|<race id>|<Polestar version>" (0.3.6 and older: no version); later fields ignored
 Polestar.Party.EncodeDone(ids) / DecodeDone(text)  -- "2D|<quest>,<quest>,...": quests handed in around the live step -> { [q] = true }
 Polestar.Party.EncodeRest(left) / DecodeRest(text)  -- "2B|<seconds left>", "2B|*" (on, no end), "2B|0" (ended) -> seconds | true | false; later fields ignored
+Polestar.Party.EncodeRoute(r) / DecodeRoute(text)  -- "2R|<s|a|r>|<map>:<1|0>,...": Dungeons in my route and each dungeon answered -> { all, maps }
+Polestar.Party.MyRoute() -> { all = "skip"|"ask"|"run", maps = { [map] = bool } }
 Polestar.Party.EncodeAt(pos, request) / DecodeAt(text)  -- "2P|<step key>|<guide id>" (where you are), "2G|" (sync request) -> at, request
 Polestar.Party.EncodeAnswer(code) / DecodeAnswer(text)  -- "2A|<y|n|x|=>": accepted, declined, cannot, already there
 Polestar.Party.StepKey(g, i) / StepAt(g, key)      -- a step's identity: the hash of its goals' kinds and ids, ".<n>" for the nth alike
-Polestar.Party.SharedSteps(g, a, b, who) -> n       -- b's place minus a's, counting steps both you and `who` have (Engine.StepHiddenFor)
+Polestar.Party.SharedSteps(g, a, b, who) -> n       -- b's place minus a's, counting steps both you and `who` have (Engine.StepHiddenFor, dungeon answers too)
 Polestar.Party.MyPos() -> { step, key, addon, pack, packVersion, guide } | nil
 Polestar.Party.MyUnit() -> { level, xp, class, race, version }
 Polestar.Party.MyDone() -> { q, ... }              -- quests of the steps from 20 before the live step to 5 after it you handed in, nearest first
 Polestar.Party.Newer(a, b) -> bool                 -- dotted versions; a dev build compares as neither
 Polestar.Party.StepLine() -> text, holding | nil   -- the guide window's party row; holding: the group waits on the step
 Polestar.Party.RequestSync() -> bool               -- "Sync to my guide": the party panel's button, /polestar party sync
-Polestar.Party.SyncOffer(at) -> offer | nil; SyncPrompt(name, offer) -> text  -- what accepting would do here
+Polestar.Party.SyncOffer(at) -> offer | nil; SyncPrompt(name, offer, dungeon) -> text  -- what accepting would do here
 Polestar.Party.AcceptSync(req) / DeclineSync(req) -> bool  -- the prompt's buttons
+Polestar.Party.DungeonOffer() -> { map, name, names } | nil  -- a member runs a dungeon you skip, at one of its steps on your guide (the banner)
+Polestar.Party.AnswerDungeonOffer(map, run)       -- Run it this time (Engine.ChooseDungeon + Engine.PartyRun) or Not now; once a session per dungeon
 Polestar.Party.Waiting(goal) -> { { name, cur, max }, ... } | nil  -- members the group waits for short of goal's line
 Polestar.Party.HoldsQuest(q) -> bool                -- a member the group waits for has q unfinished
 Polestar.Party.StepWait() -> names, ready | nil     -- the live step's wait
@@ -5844,6 +5862,11 @@ Polestar.Compat.SenderName(sender) / SenderIsUnit(sender, unit) / SenderIsMe(sen
   `Compat.IsQuestCompleted`, nearest first, as many as fit 255 bytes and 40
   at most) when it changed; a snapshot makes the receiver drop the last
   "2D|", so an empty one goes out only to clear a list the party holds.
+  "2R|" (`MyRoute`: "Dungeons in my route" as s, a or r, then each dungeon
+  the character answered one by one, `<map>:1` run, `<map>:0` skip) goes
+  out after "2P|" with the position, and two seconds after
+  `DUNGEON_ANSWERED` or a change of `behavior.dungeons` when it changed;
+  every older decoder drops it.
   Older clients drop "1P|" as malformed, 0.3.5 every "2P|"/"2G|"/"2A|", and
   0.3.6 "2D|". "2U|" goes out with every snapshot and, two seconds after
   `PLAYER_XP_UPDATE`/`PLAYER_LEVEL_UP`, when its text changed (a whole
@@ -5870,8 +5893,12 @@ Polestar.Compat.SenderName(sender) / SenderIsUnit(sender, unit) / SenderIsMe(sen
   (0.3.5), whose step number is on the same pack version; the count takes
   only steps both of you have (`Party.SharedSteps`: neither a class, race or
   hearth-only step of one of you, `Engine.StepHiddenFor` with the member's
-  class and race), so a Warrior on his Warrior-only step and a Mage on the
-  next step are on the same step. "Dee: other guide" on another; then the
+  class and race, nor a step one of you leaves out by a dungeon answer: a
+  dungeon's step for the one who skips it, the solo way for the one who runs
+  it, the member's from their "2R|"), so a Warrior on his Warrior-only step
+  and a Mage on the next step are on the same step, and a dungeon runner's
+  pick-ups never put the one who skips it behind. "Dee: other guide" on
+  another; then the
   wait ("Waiting on Ana",
   "Everyone's ready"), or with nobody holding the step "Still at it: Ana" (a
   hint). A click toggles the party panel; while the step is held, "Go on
@@ -5892,7 +5919,24 @@ Polestar.Compat.SenderName(sender) / SenderIsUnit(sender, unit) / SenderIsMe(sen
   earlier skips untouched, stored with the first one's skip so the window's
   undo (`PLAYER_SKIPPED_STEP`) takes the whole sync back; nothing moves
   back when you are past their step. Decline answers "n" and changes
-  nothing.
+  nothing. Their step a dungeon's that you skip (`Engine.DungeonAt`, on the
+  guide you have open): the prompt is `POLESTAR_PARTY_DUNGEON`, "Your party
+  is running <dungeon>: run it with them?" with Run it this time (the
+  dungeon's offer answered, below, then the sync) or Not now (declined);
+  with your route past its run or your character under its floor
+  (`Engine.DungeonJoinable`: the run's own `when level` gates) the answer
+  is "x" and chat says why.
+- A dungeon the party runs that you skip (`Party.DungeonOffer`, the guide
+  window's banner, under Ask me's question): a member whose "2R|" runs it
+  stands at one of its steps on your guide, you skip it, and your route can
+  still take you on its run (`Engine.DungeonJoinable`). "Your party is
+  running <dungeon>: run it with them?" Run it this time
+  (`Party.AnswerDungeonOffer`) sets that dungeon's answer to Run for the
+  character (`Engine.ChooseDungeon`; `behavior.dungeons` stays) and lets its
+  run apply without its quests this session (`Engine.PartyRun`: the run's
+  `when onquest` guard holds), so its pick-ups still ahead come with it and
+  otherwise the run alone; Not now keeps the route. Once a session per
+  dungeon, either way; never dismissed otherwise.
 - The wait (`party.waitForGroup`): the members the group waits for are
   those in your zone (`Compat.GetUnitZone`; unknown counts as here) and
   those offline under 2 minutes (kept apart from `Members`). The Engine asks
