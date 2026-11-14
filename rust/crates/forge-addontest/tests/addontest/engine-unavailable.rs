@@ -1055,3 +1055,66 @@ fn direct_minimum_does_not_reject_a_logged_quest_reopen_done_work_or_gate_an_ord
 		}
 	}
 }
+
+fn direct_window_guide(minimum: u32) -> String {
+	direct_level_shared_step().replace("minLevel = 12,", &format!("minLevel = {minimum},")).replace(
+		r#"{ t = "task", text = "Other work" }"#,
+		r#"{ t = "turnin", quest = 7793, title = "A Donation of Silk", direct = true, optional = true, minLevel = 26, npc = 14722, npcName = "Clavicus Knavingham" },
+		{ t = "task", text = "Other work" }"#,
+	)
+}
+
+// A player at the real Wool minimum (12) can be shown its progress/reward window directly, without a list or
+// detail event first. A stale minimum of 13 in the guide must not overrule that server window. Silk is a separate
+// quest at the same giver (minimum 26); the Wool window says nothing about its availability.
+#[test]
+fn direct_progress_and_reward_windows_override_a_stale_minimum_without_an_earlier_list_2318() {
+	for minimum in [12, 13] {
+		for (window, calls) in [("w.questProgress(14722, 7791, { completable = true })", json!(["CompleteQuest", "GetQuestReward"])), ("w.questComplete(14722, 7791)", json!(["GetQuestReward"]))] {
+			let out = run(
+				&format!("{DIRECT_LEVEL_WORLD}w.level = 12; w.repeatable[7791] = true"),
+				&direct_window_guide(minimum),
+				&format!(
+					r#"{DIRECT_LEVEL_SNAPSHOT}
+						local r = {{ before = E.WantsQuest("direct", 7791) }}
+						{window}; flush(); w.close()
+						r.status = E.GetStepView(1).goals[1].status
+						r.wanted = E.WantsQuest("direct", 7791)
+						r.other = {{ E.GetStepView(1).goals[2].status, E.WantsQuest("direct", 7793) }}
+						stub.advance(5)
+						{window}; flush(); w.close()
+						r.calls = {{}}
+						for _, c in ipairs(w.calls) do r.calls[#r.calls + 1] = c[1] end
+						emit(r)
+					"#
+				),
+			);
+			assert_eq!(out["before"], minimum == 12, "minimum {minimum}: no prior offer");
+			assert_eq!(out["status"], "done", "minimum {minimum}, {window}");
+			assert_eq!(out["wanted"], false, "a completed direct goal must not repeat");
+			assert_eq!(out["other"], json!(["na", false]), "only the displayed quest is offered");
+			assert_eq!(out["calls"], calls, "minimum {minimum}, {window}: reward only once");
+		}
+	}
+}
+
+#[test]
+fn a_direct_progress_window_does_not_complete_missing_items_or_unlock_quests_without_an_id_2318() {
+	for (window, offered) in [("w.questProgress(14722, 7791, { completable = false })", true), ("w.questProgress(14722, 0, { completable = true })", false), ("w.questComplete(14722, 0)", false)] {
+		let out = run(
+			&format!("{DIRECT_LEVEL_WORLD}w.level = 12"),
+			&direct_window_guide(13),
+			&format!(
+				r#"{DIRECT_LEVEL_SNAPSHOT}
+					{window}; flush()
+					emit({{ wanted = E.WantsQuest("direct", 7791), status = E.GetStepView(1).goals[1].status,
+						other = {{ E.GetStepView(1).goals[2].status, E.WantsQuest("direct", 7793) }}, calls = #w.calls }})
+				"#
+			),
+		);
+		assert_eq!(out["wanted"], offered, "{window}");
+		assert_eq!(out["status"], if offered { "active" } else { "na" }, "{window}");
+		assert_eq!(out["other"], json!(["na", false]), "{window}: another quest stays unavailable");
+		assert_eq!(out["calls"], 0, "an incomplete or unidentified window cannot be handed in");
+	}
+}

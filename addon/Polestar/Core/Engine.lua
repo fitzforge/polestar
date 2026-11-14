@@ -12660,6 +12660,18 @@ ns.RegisterEvent("QUEST_DETAIL", function(_, startItem) checkOffers("detail", st
 ns.RegisterEvent("QUEST_ACCEPTED", function(_, q)
 	if type(q) == "number" then Own.listed(q) end
 end)
+-- A direct hand-in can open on its progress or reward page without an offer
+-- list or detail page first. That quest is available despite stale level
+-- data; this single window says nothing about the giver's other quests.
+for _, event in ipairs({ "QUEST_PROGRESS", "QUEST_COMPLETE" }) do
+	ns.RegisterEvent(event, function()
+		local list = Compat().GetOfferedQuests("detail") -- GetQuestID of the open page
+		if list and list[1] then
+			Own.listed(list[1])
+			Own.offered[list[1]] = true
+		end
+	end)
+end
 for _, event in ipairs({ "QUEST_COMPLETE", "QUEST_TURNED_IN" }) do
 	ns.RegisterEvent(event, function()
 		local npc = Compat().GetNpcID("npc")
