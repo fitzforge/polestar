@@ -49,9 +49,8 @@ return {
 	-- {area:1446} Thorium Point
 	["The night elf stands alone west of {area:1446}. Hear his story."] = "El elfo de la noche está solo al oeste de {area:1446}. Escucha su historia.",
 
-	-- Step 13: Greater Lava Spiders
-	-- plural, as words: Greater Lava Spiders = {npc:5858} Greater Lava Spider
-	["Greater Lava Spiders"] = "Arañas de lava superiores",
+	-- Step 13: Searing Lava Spiders
+	-- plural, as words: Searing Lava Spiders = {npc:5858} Searing Lava Spider
 	-- {npc:8436} Zamael Lunthistle · {npc:8479} Velarok Windblade
 	["The spiders roam the plateaus and lava pools south of {npc:8436}, on the way to {npc:8479}."] = "",
 

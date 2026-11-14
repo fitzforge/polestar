@@ -11918,3 +11918,18 @@ test('Tanaris (Alliance 47): the way to Aerie Peak without its flight path, for 
 	assert.ok(list.some(({ goal }) => goal.t === 'getfp' && goal.location === 'Aerie Peak'), 'learned on arrival');
 });
 
+// Pysch_MC's report (#2199): Forever names npc 5858 "Searing Lava Spider", and the Searing Gorge guide's step for Fiery
+// Menace! (7724) called them Greater Lava Spiders, so the player looked for a mob that isn't there. The step, its goal's
+// name and the seed's copy use the game's name.
+test("Pysch_MC's report (#2199): the Searing Gorge guide names the Searing Lava Spiders as the game does", { skip }, () => {
+	for (const file of ['forever/alliance/40-50/06-searing-gorge.guide']) {
+		const list = goals(file);
+		const spiders = list[at(list, 'kill 5858', (g) => g.t === 'kill' && g.npc === 5858)];
+		assert.equal(spiders.step.title, 'Searing Lava Spiders', `${file}: the step's title`);
+		const text = fs.readFileSync(path.join(OFFICIAL_DIR, file), 'utf8');
+		assert.ok(!/Greater Lava Spider/.test(text), `${file}: no "Greater Lava Spider" left`);
+	}
+	const seed = fs.readFileSync(path.join(__dirname, '..', 'forge', 'seed', 'guides', 'forever', 'alliance', '40-50', '06-searing-gorge.guide'), 'utf8');
+	assert.ok(!/Greater Lava Spider/.test(seed), 'the seed copy too');
+});
+

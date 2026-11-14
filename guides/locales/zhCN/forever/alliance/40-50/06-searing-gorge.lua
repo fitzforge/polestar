@@ -49,9 +49,9 @@ return {
 	-- {area:1446} Thorium Point
 	["The night elf stands alone west of {area:1446}. Hear his story."] = "那个暗夜精灵独自站在{area:1446}西边。听他讲述他的故事。",
 
-	-- Step 13: Greater Lava Spiders
-	-- plural, as words: Greater Lava Spiders = {npc:5858} Greater Lava Spider
-	["Greater Lava Spiders"] = "{npc:5858}",
+	-- Step 13: Searing Lava Spiders
+	-- plural, as words: Searing Lava Spiders = {npc:5858} Searing Lava Spider
+	["Searing Lava Spiders"] = "{npc:5858}",
 	-- {npc:8436} Zamael Lunthistle · {npc:8479} Velarok Windblade
 	["The spiders roam the plateaus and lava pools south of {npc:8436}, on the way to {npc:8479}."] = "",
 

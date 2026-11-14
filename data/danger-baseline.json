@@ -4068,7 +4068,7 @@
 			"guide": "forever/alliance/40-50/06-searing-gorge.guide",
 			"goal": "kill 7724.1",
 			"kind": "over",
-			"title": "Greater Lava Spiders",
+			"title": "Searing Lava Spiders",
 			"level": 48.3,
 			"mobs": [
 				"Flamebringer Elementalist 55-56 x2",
@@ -4310,12 +4310,12 @@
 			"guide": "forever/alliance/40-50/06-searing-gorge.guide",
 			"goal": "kill 7724.1",
 			"kind": "pack",
-			"title": "Greater Lava Spiders",
+			"title": "Searing Lava Spiders",
 			"level": 48.3,
 			"mobs": [
 				"8 spawns 50+"
 			],
-			"reason": "the Greater Lava Spiders (48-50) are the quest's own targets in the Cauldron; the 50s are the top of their range, and players did it at 49",
+			"reason": "the Searing Lava Spiders (48-50) are the quest's own targets in the Cauldron; the 50s are the top of their range, and players did it at 49",
 			"evidence": "route level 48.3; 8 spawns 50+; recordings (2026-11-13): done by 3 (median 49.11), deaths 0, abandons 0"
 		},
 		{
