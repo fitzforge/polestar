@@ -1121,6 +1121,7 @@ settings instead, and Polestar keeps out of the game's own windows.
 | `report` | Report a problem with the step on screen (the guide window's bug button) |
 | `update` | Show the update card when a newer Polestar is out (else whether this one is the newest, when Polestar Client says so) |
 | `discord` | The invite to the Polestar Discord, to copy |
+| `memory` | Each Polestar addon's memory as the game counts it, before and after a full garbage collection: the game's figure includes garbage not yet collected, the figure after is what Polestar keeps (for a report) |
 | `debug` | Toggle debug output |
 
 The Recorder has its own: `/psrec on | off | ui | mark <text> | trail on

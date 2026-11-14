@@ -1251,6 +1251,20 @@ function C_AddOns.EnableAddOn(name)
 end
 IsAddOnLoaded = C_AddOns.IsAddOnLoaded
 GetAddOnMetadata = C_AddOns.GetAddOnMetadata
+-- The client's count of an addon's memory (KiB), read when UpdateAddOnMemoryUsage
+-- runs: stub.addonMemory[name] when set (a number, or a function giving one),
+-- else for Polestar the whole Lua heap (the tests load it alone, as the memory
+-- tests count it) and 0 for any other.
+stub.addonMemory = {}
+local memoryRead = {}
+function UpdateAddOnMemoryUsage()
+	for name in pairs(stub.addonsLoaded) do
+		local v = stub.addonMemory[name]
+		if type(v) == "function" then v = v() end
+		memoryRead[name] = v or (name == "Polestar" and collectgarbage("count")) or 0
+	end
+end
+function GetAddOnMemoryUsage(name) return memoryRead[name] or 0 end
 
 ---------------------------------------------------------------------------
 -- A fake EllesmereUI, matching its SKINNING_API.md (apiVersion 3)

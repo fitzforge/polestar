@@ -110,10 +110,23 @@ local function Codex() return ns.Codex end
 ---------------------------------------------------------------------------
 
 -- Compat.GetPlayerInfo() plus `code` ("A" | "H" | nil) for faction codes.
+-- The same table while what it holds stays the same (its callers only read
+-- it): the Dungeons hub's plans read it thousands of times a page, and a new
+-- table each time was a good part of a browse's garbage.
+local info, infoOf = nil, {}
 local function playerInfo()
+	local r = ns.Compat.Readable
+	local _, race = UnitRace("player")
+	local _, class = UnitClass("player")
+	local level, xp, faction, name = r(UnitLevel("player")), r(UnitXP and UnitXP("player")), r(UnitFactionGroup and UnitFactionGroup("player")), r((UnitName("player")))
+	race, class = r(race), r(class)
+	local s = infoOf
+	if info and s[1] == level and s[2] == xp and s[3] == faction and s[4] == race and s[5] == class and s[6] == name then return info end
+	s[1], s[2], s[3], s[4], s[5], s[6] = level, xp, faction, race, class, name
 	local p = ns.Compat.GetPlayerInfo()
 	p.code = p.faction == "Alliance" and "A" or p.faction == "Horde" and "H" or nil
 	p.level = p.level or 1
+	info = p
 	return p
 end
 Lookup.PlayerInfo = playerInfo
