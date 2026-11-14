@@ -24,9 +24,10 @@ w.titles[15] = "Investigate Echo Ridge"
 
 // The injection pattern on a small route: (1) a pick-up on a stop the route makes, (2, 3) solo steps, (4) the
 // run's own stop repeating the pick-ups, (5) the guarded run, (6) the hand-in behind `when dungeon` and `when
-// complete`, (7) solo. A second guide shares a stop with the solo route, after an escort that finishes its
-// prerequisite (Loch Modan's traitor and Sentinel Hill): the dungeon's step hands that quest in and takes the
-// dungeon's, the solo way of that stop is behind `when !dungeon`.
+// complete`, (7) solo; Oh Brother (167) is handed in by a later guide, beyond the route (`carriedTo`). A second
+// guide shares a stop with the solo route, after an escort that finishes its prerequisite (Loch Modan's traitor and
+// Sentinel Hill): the dungeon's step hands that quest in and takes the dungeon's, the solo way of that stop is behind
+// `when !dungeon`.
 const GUIDE: &str = r#"
 local DM = { k = "dungeon", name = "The Deadmines", map = 36 }
 Polestar.RegisterGuide({
@@ -43,7 +44,7 @@ Polestar.RegisterGuide({
 		} },
 		{ title = "Sentinel Hill", when = { DM }, goals = {
 			{ t = "accept", quest = 214, title = "Red Silk Bandanas", npc = 6670, npcName = "Scout Riell", map = 1429, x = 48.0, y = 42.0 },
-			{ t = "accept", quest = 167, title = "Oh Brother. . .", npc = 6670, npcName = "Scout Riell", map = 1429, x = 48.0, y = 42.0 },
+			{ t = "accept", quest = 167, title = "Oh Brother. . .", npc = 6670, npcName = "Scout Riell", map = 1429, x = 48.0, y = 42.0, carriedTo = "test/later" },
 		} },
 		{ title = "The Deadmines", when = { DM, { k = "onquest", q = { 214, 167 } } }, goals = {
 			{ t = "enter", location = "The Deadmines", map = 1429, x = 42.0, y = 70.0 },
@@ -296,4 +297,42 @@ fn dungeon_route_a_stop_shared_with_the_solo_route_asks_before_the_prerequisite_
 	assert_eq!(skip[1], json!({ "at": 3, "asked": false, "total": 3, "s2": "skipped", "s3": "current" }));
 	let go = run_with(escort, saved("run"), script);
 	assert_eq!(go[1], json!({ "at": 2, "asked": false, "total": 3, "s2": "current", "s3": "na" }));
+}
+
+// A run left part done: "No group? Skip it" at the door (or dungeons turned off) after one of its quests got done.
+// The finished quest's hand-in still comes (Core/Engine.lua dungeonHandIn: a dungeon's hand-in of a quest carried
+// finished holds whatever the answer), and the route plan says so (Core/RoutePlan.lua: "now"). An unfinished one's
+// hand-in passes, and the plan never promises it: it is no hand-in of the route, so the quest room lists it as room to
+// make (Plan.Unneeded), not "Turn in at step 6". The same for a quest a later guide hands in (`carriedTo`, beyond the
+// plan): "later" only once it is finished.
+#[test]
+fn dungeon_route_skipped_after_a_quest_got_done_that_quest_is_still_handed_in_an_unfinished_one_is_room_to_make() {
+	let script = |finish: &str| {
+		format!(
+			r#"
+		take(214); take(7); take(15); take(167)
+		{finish}
+		local kept = E.SkipDungeon(36); flush(); mark()
+		local RP, room, room167 = Polestar.RoutePlan, false, false
+		for _, u in ipairs(RP.Unneeded() or {{}}) do
+			if u.quest == 214 then room = true end
+			if u.quest == 167 then room167 = true end
+		end
+		emit({{ at = at(), s5 = st(5), s6 = st(6), plan = RP.GetTurnIn(214).status, room = room, plan167 = RP.GetTurnIn(167).status, room167 = room167, trace = trace }})"#
+		)
+	};
+	let done = run(char("run"), &script("w.finish(214); w.finish(167); flush()"));
+	assert_eq!(done[0]["at"], 6, "the hand-in of the quest done in the run comes next");
+	assert_eq!(done[0]["s5"], "skipped", "the run itself is dropped");
+	assert_eq!(done[0]["s6"], "current");
+	assert_eq!(done[0]["plan"], "now");
+	assert_eq!(done[0]["room"], false, "a quest the route hands in is no room to make");
+	assert_eq!((done[0]["plan167"].clone(), done[0]["room167"].clone()), (json!("later"), json!(false)), "finished: the later guide hands it in");
+	non_decreasing(&done[0]["trace"]);
+	let open = run(char("run"), &script(""));
+	assert_eq!(open[0]["at"], 7, "unfinished: its hand-in passes");
+	assert_eq!(open[0]["s6"], "skipped");
+	assert_eq!(open[0]["plan"], "unplanned", "no hand-in promised that the route will not make");
+	assert_eq!(open[0]["room"], true, "the quest room lists it as room to make");
+	assert_eq!((open[0]["plan167"].clone(), open[0]["room167"].clone()), (json!("unplanned"), json!(true)), "unfinished: no later hand-in promised");
 }

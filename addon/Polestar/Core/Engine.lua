@@ -970,13 +970,36 @@ function Own.predicateHolds(p)
 	return ok
 end
 
+-- A dungeon's hand-in step (no pick-up, no run: Own.dungeonAsks) with a
+-- quest the character carries finished: its hand-in comes whatever the
+-- answer for that dungeon, so a run left part done (Skip it at the door
+-- after a quest got done, dungeons turned off mid-run, a quest finished in a
+-- run the route did not make) still hands in what was done; the step's other
+-- predicates (`when complete`) still decide. Skip's solo route never carries
+-- one: its quests are taken only in the dungeon's own steps. A file local:
+-- Own is at its table size's edge, and one key more doubles it (about 20 KiB
+-- at login).
+local function dungeonHandIn(step)
+	if Own.dungeonAsks(step) then return false end
+	local C = Compat()
+	for _, goal in ipairs(step.goals) do
+		if goal.t == "turnin" and goal.quest and C.IsOnQuest(goal.quest) and C.IsQuestReadyForTurnIn(goal.quest) then return true end
+	end
+	return false
+end
+
 -- The first predicate of a step's `when` that does not hold now, or nil. A
 -- `when dungeon` of a dungeon not answered yet holds while the step asks and
 -- has something to do now (Own.dungeonAsks, Own.dungeonOpen): the route stops
--- there and asks; any other step of it waits for the answer, as for Skip.
+-- there and asks; any other step of it waits for the answer, as for Skip. A
+-- dungeon's hand-in of a quest the character carries finished holds it
+-- whatever the answer (dungeonHandIn).
 function Own.whenFails(step)
 	for _, p in ipairs(step.when or NONE) do
-		if p.k == "dungeon" and not p.neg and Own.dungeonAnswer(p.map) == nil then
+		local dungeon = p.k == "dungeon" and not p.neg
+		if dungeon and Own.dungeonAnswer(p.map) ~= true and dungeonHandIn(step) then
+			-- holds: the dungeon's finished work is handed in on the way, run or not
+		elseif dungeon and Own.dungeonAnswer(p.map) == nil then
 			if not (Own.dungeonAsks(step) and Own.dungeonOpen(step)) then return p end
 		elseif not Own.predicateHolds(p) then
 			return p
@@ -9904,6 +9927,13 @@ function Own.dungeonHidden(step)
 		end
 	end
 	return false
+end
+
+-- Whether the character's dungeon answers leave `step` (of any guide) out
+-- (Own.dungeonHidden): Core/RoutePlan.lua's hand-ins, where a skipped
+-- dungeon's hand-in counts only for a quest finished (dungeonHandIn).
+function Engine.DungeonLeftOut(step)
+	return type(step) == "table" and Own.dungeonHidden(step) or false
 end
 
 -- The numbers the player sees for guide g's steps (Own.hiddenStep and

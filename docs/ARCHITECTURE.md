@@ -1801,7 +1801,8 @@ Polestar.Engine.StepHiddenFor(step, who?) -> bool  -- no step of its own for who
   (`Engine.DungeonChosen(map)`: the answer for that dungeon, `CharState().dungeons[map]`
   true or false through `Engine.ChooseDungeon(map, answer)`, else the setting `behavior.dungeons`,
   Skip by default; with "ask" a `when dungeon` step holds while it has work now, `Own.whenFails` and
-  `Own.dungeonPending`; a predicate without `map` never holds),
+  `Own.dungeonPending`; a dungeon's hand-in step of a quest carried finished holds whatever the answer,
+  `dungeonHandIn`; a predicate without `map` never holds),
   Polestar's gear advice on an item (`Own.isUpgrade`: `Gear.IsUpgrade`,
   counted as an upgrade when the advice is off or cannot judge the item), a
   profession's rank (`Compat.GetSkillRank` by skill line, else by name; not
@@ -2366,7 +2367,11 @@ Polestar.Engine.StepHiddenFor(step, who?) -> bool  -- no step of its own for who
   cannot say (no guide, a route choice to make, a guide not loaded). A quest
   the route's quest work marks `carriedTo` a later guide (the compiler's,
   GUIDE_FORMAT.md "Quests carried to a later guide") is status `later` at
-  that guide even where the plan cannot reach it, never `unplanned`.
+  that guide even where the plan cannot reach it, never `unplanned`, unless
+  the step that carries it is of a dungeon the character skips
+  (`Engine.DungeonLeftOut`) and the quest is not finished: that later
+  hand-in is the dungeon's, as a skipped dungeon's own hand-ins count only
+  for a quest finished.
   `GetTurnIn` asks the active tab's route first; a quest it doesn't hand in
   ahead is status `other` (`via` that route's status) when another open
   tab's route hands it in (`Engine.TabLiveSteps`: each tab's guide and live
