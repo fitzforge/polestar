@@ -64,7 +64,9 @@ shot's frames cut or let cross their edges, as `i18n fit` does. The preview's
 faces have no CJK or Hangul: those are measured 1em wide and drawn as gaps.
 The `worst-case` scenario plays the realistic limits (a messy or full quest
 log, the longest names the guides show, the screens players use) through
-the stub world, never by changing the addon's frames.
+the stub world, never by changing the addon's frames; `worst-case-looks`
+draws its Quest room, Characters, Profiles and class card in every look at
+UI scales 0.64, 1.0 and 1.5.
 
 Client art (icons, atlases, the game font FRIZQT__.TTF, client tables) lives
 in a local cache, `$POLESTAR_STUDIO_ART` or `~/.cache/polestar-art`, filled
