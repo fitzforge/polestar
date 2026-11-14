@@ -12698,3 +12698,72 @@ test(`${NE_DARKSHORE}: For Love Eternal is taken on the pier, done in Ameth'Aran
 	const boat = list.findIndex(({ step }) => step.title === 'Boat to Stormwind Harbor');
 	assert.ok(give < boat && list.slice(give, boat).every(({ goal }) => goal.t !== 'accept'), 'handed in on the way to the boat');
 });
+
+// 0.4.0 route-feel audit (Alliance Felwood): the route reaches Xavaric at the far end of Jadefire Run for his Flute;
+// he is killed for Further Corruption (4906) there, not after the other satyrs on a walk back (6.3 min on every branch).
+test('Alliance 50-60/02: Xavaric killed when the route reaches him for the Flute of Xavaric', { skip }, () => {
+	const fel = goals('forever/alliance/50-60/02-felwood.guide');
+	const xav = at(fel, 'kill Xavaric', (g) => g.t === 'kill' && g.quest === 4906 && g.oi === 4);
+	const flute = at(fel, 'collect 11668', (g) => g.t === 'collect' && g.item === 11668);
+	assert.equal(fel[xav].s, fel[flute].s, 'the same step');
+	assert.ok(xav < flute, 'killed before the flute is looted');
+	for (const oi of [1, 2, 3]) assert.ok(xav < at(fel, `kill 4906.${oi}`, (g) => g.t === 'kill' && g.quest === 4906 && g.oi === oi), `before the other satyrs (4906.${oi})`);
+	const felbind = at(fel, 'collect 939.1', (g) => g.t === 'collect' && g.quest === 939);
+	for (const oi of [1, 2, 3]) assert.ok(at(fel, `kill 4906.${oi}`, (g) => g.t === 'kill' && g.quest === 4906 && g.oi === oi) < felbind, `the Felbind comes with the satyr kills, after 4906.${oi}`);
+	const rf = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', 'route-fixes.json'), 'utf8')).deliberate.together;
+	assert.ok(rf.some((r) => r.a[0] === 'task' && r.a[1] === 4906 && r.a[2] === 3 && r.b[0] === 'accept' && r.b[1] === 939), 'its record');
+	const after = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', 'route-fixes.json'), 'utf8')).deliberate.after;
+	assert.ok(after.some((r) => r.a[0] === 'task' && r.a[1] === 4906 && r.b[0] === 'task' && r.b[1] === 939), 'and the Felbind\'s');
+});
+
+// 0.4.0 route-feel audit (Alliance Western Plaguelands): the Dalson's Tears cauldron (Target: Dalson's Tears, 5219)
+// stands beside the farmhouse the route works on its first stop there; Return to Chillwind Camp (5220) was walked past
+// there and taken 30 min later on a ride out from the camp. Now it is done with the farm and handed in on the same
+// return to the camp as the scourgestones.
+test('Alliance 50-60/04: the Dalson\'s Tears cauldron on the first pass, Return to Chillwind Camp on the next camp stop', { skip }, () => {
+	const wpl = goals('forever/alliance/50-60/04-western-plaguelands.guide');
+	const p = (t, q) => at(wpl, `${t} ${q}`, is(t, q));
+	assert.equal(wpl[p('turnin', 5219)].s, wpl[p('turnin', 5060)].s, 'the cauldron with the farm\'s cabinet');
+	assert.ok(p('turnin', 5060) < p('turnin', 5219) && p('turnin', 5219) < p('accept', 5220), 'after the cabinet');
+	assert.equal(wpl[p('turnin', 5220)].s, wpl[p('turnin', 5403)].s, 'handed in with the scourgestones');
+	assert.equal(wpl[p('accept', 5222)].s, wpl[p('turnin', 5220)].s, 'Target: Writhing Haunt taken there');
+	assert.ok(p('turnin', 5220) < p('turnin', 5097), 'before the watchtowers\' hand-in');
+	const rf = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', 'route-fixes.json'), 'utf8')).deliberate.together;
+	assert.ok(rf.some((r) => r.a[0] === 'turnin' && r.a[1] === 5060 && r.b[0] === 'task' && r.b[1] === 5219), 'its record');
+	assert.ok(rf.some((r) => r.a[0] === 'turnin' && r.a[1] === 5403 && r.b[0] === 'turnin' && r.b[1] === 5220), 'and the hand-in\'s');
+});
+
+// 0.4.0 audit (route-feel, Mount Hyjal): the game's quest log holds 40. An Alliance character who takes Mount Hyjal
+// after the Western Plaguelands guide carries about 28 quests in from the 50-60 guides, and parts 2 and 3 took up to
+// 42 at once: the Shrine of Aviana's three quests on top of two breadcrumbs for Dae'gun and the Summit picked up at
+// the end of part 2. Walk the default Human Warrior chain into Hyjal and count the log (accepts in, hand-ins out,
+// optional and group goals left aside, as the route-feel audit counts them): it never goes over 40.
+test('Alliance Mount Hyjal: the quest log never holds more than 40 with what the 50-60 guides carry in', { skip }, () => {
+	const exp = (g) => {
+		const file = path.join(__dirname, '..', 'experimental', 'guides', `${g}.guide`);
+		data = data || loadData(DATA);
+		const { guides } = compileSources([{ file, text: fs.readFileSync(file, 'utf8') }], data);
+		return guides[0];
+	};
+	const chain = chainFrom('forever/alliance/human/01-elwynn-forest.guide');
+	const end = chain.indexOf('forever/alliance/50-60/04-western-plaguelands.guide');
+	assert.ok(end > 0, 'the chain reaches the Western Plaguelands guide');
+	const route = [...chain.slice(0, end + 1).map((g) => [g, compiled(g)]), ...['hyjal-1', 'hyjal-2', 'hyjal-3'].map((g) => [g, exp(g)])];
+	const fits = (o) => !o || ((!o.races || o.races.includes('Human')) && (!o.classes || o.classes.includes('WARRIOR')) && (!o.factions || o.factions.includes('Alliance')));
+	const solo = (st) => !(st.when || []).some((p) => !p.neg && (p.k === 'group' || p.k === 'dungeon'));
+	const log = new Set();
+	let peak = 0;
+	let where = '';
+	for (const [id, g] of route) {
+		for (const st of g.steps) {
+			if (!fits(st.only) || !solo(st)) continue;
+			for (const goal of st.goals) {
+				if (!fits(goal.only) || goal.optional) continue;
+				if (goal.t === 'accept') log.add(goal.quest);
+				else if (goal.t === 'turnin') log.delete(goal.quest);
+				if (log.size > peak) [peak, where] = [log.size, `${id} "${st.title}"`];
+			}
+		}
+	}
+	assert.ok(peak <= 40, `the log peaks at ${peak} (${where})`);
+});

@@ -110,13 +110,13 @@ step Irontree Woods
 step Jadefire Run: kill these as you meet them
   zone Felwood
   tip Jadefire Run is the satyr valley in the north-west, with Xavaric at its far end. He drops the Flute of Xavaric; every Jadefire satyr can drop Jadefire Felbind.
+  kill 10648 quest 4906.4             -- Xavaric
   collect 11668                       -- Flute of Xavaric
   accept 939
-  collect 11674 quest 939.1           -- Jadefire Felbind
   kill 7107 quest 4906.3              -- Jadefire Trickster
   kill 7108 quest 4906.2              -- Jadefire Betrayer
   kill 7111 quest 4906.1              -- Jadefire Hellcaller
-  kill 10648 quest 4906.4             -- Xavaric
+  collect 11674 quest 939.1           -- Jadefire Felbind
 
 step Jaedenar again
   tip Use the Empty Canteen at the corrupted moonwell in the middle of Jaedenar.
