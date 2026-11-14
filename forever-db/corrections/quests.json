@@ -2977,6 +2977,26 @@
 		],
 		"note": "The Tarnished (Tyr's Watch, Paladin): the quest log lists Rudolph Gelhardt's Head first, then the Tarnished Drudges and the Tarnished Zealots. The merged data had the head last, so forever/class/paladin/tyrs-watch counted the Drudges on the head's line, the Zealots on the Drudges' and the head on the Zealots'."
 	},
+	"91736": {
+		"set": {
+			"direct": true
+		},
+		"source": {
+			"kind": "recording",
+			"ref": "Existing public mechanics for 91736 and the maintainer's in-game confirmation on #823: four recorded hand-ins at the Applejack Still, with no accept window or quest-log entry"
+		},
+		"note": "Applejack Still takes four Shiny Red Apples and gives Thunder Applejack immediately. Represent it as a direct hand-in so the rebuilt guide does not ask players to accept a quest that never enters their log (#2312)."
+	},
+	"91738": {
+		"set": {
+			"direct": true
+		},
+		"source": {
+			"kind": "recording",
+			"ref": "Existing public mechanics for 91738 and the maintainer's in-game confirmation on #823: De Vries opens only his shop without Thunder Applejack, and goes straight to the hand-in with it"
+		},
+		"note": "An Apple Treat is handed in directly while carrying Thunder Applejack. Removing its nonexistent accept step also prevents While Here from offering it before the item is collected (#2312)."
+	},
 	"91859": {
 		"set": {
 			"pre": [
