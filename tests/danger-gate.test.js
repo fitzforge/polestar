@@ -8,7 +8,7 @@ const assert = require('node:assert/strict');
 const fs = require('node:fs');
 const os = require('node:os');
 const path = require('node:path');
-const { flagGoal, compare, threatTo, readCensus, GATE_MARGIN, CENSUS_MIN, KINDS } = require('../tools/lib/danger');
+const { flagGoal, flagGrind, compare, threatTo, readCensus, GATE_MARGIN, CENSUS_MIN, KINDS } = require('../tools/lib/danger');
 
 const npcs = {
 	1: { name: 'Cave Yeti', level: 30, levelMax: 31, spawns: { 1424: { pts: [[1, 1], [2, 2]] } } },
@@ -35,6 +35,47 @@ test('mobs over the level around a goal, an elite, a rare and a pack are flagged
 	assert.deepEqual(flagGoal({ goal: elite, level: 11.7, near: [{ id: 4, count: 3, dmin: 10 }], npcs, group: true }), []);
 	// A kill of its own mob more than 3 over.
 	assert.deepEqual(kinds(flagGoal({ goal: { t: 'kill', quest: 1, oi: 1, npc: 2 }, level: 29.5, near: [], npcs })), ['target']);
+});
+
+// #2207: Tanaris's Dunemaul Compound step grinds to 47 (6%) on Dunemaul Brutes (46-48), from 46 (11%) where the
+// reporter stood after the step's kills; Warlocks (47-48), Enforcers and Ogre Mages (46-47) and Ogres (45-46) share it.
+const dunemaul = {
+	5471: { name: 'Dunemaul Ogre', level: 45, levelMax: 46 },
+	5472: { name: 'Dunemaul Enforcer', level: 46, levelMax: 47 },
+	5473: { name: 'Dunemaul Ogre Mage', level: 46, levelMax: 47 },
+	5474: { name: 'Dunemaul Brute', level: 46, levelMax: 48 },
+	5475: { name: 'Dunemaul Warlock', level: 47, levelMax: 48 },
+};
+const compound = [{ id: 5474, count: 9, dmin: 3 }, { id: 5472, count: 8, dmin: 5 }, { id: 5475, count: 6, dmin: 8 }, { id: 5473, count: 3, dmin: 12 }, { id: 5471, count: 4, dmin: 20 }];
+
+test('a grind on a camp whose mobs stand 2+ levels over the player when it starts is flagged grind and fails the gate (#2207)', () => {
+	const goal = { t: 'level', level: 47, frac: 0.06, grind: 5474 };
+	const [flag, ...more] = flagGrind({ goal, start: 46.11, end: 47.06, near: compound, npcs: dunemaul });
+	assert.equal(more.length, 0);
+	assert.equal(flag.kind, 'grind');
+	assert.deepEqual(flag.mobs, ['Dunemaul Brute 46-48 x9 (the grind mob)', 'Dunemaul Warlock 47-48 x6']);
+	// 48s at level 46 for the 0.89 of a level from 46.11 to 47: past the margin, so a new flag fails the gate.
+	assert.equal(+flag.margin.toFixed(2), 0.89);
+	assert.deepEqual(compare([{ key: 'tanaris|level 47.06 grind 5474|grind', margin: flag.margin }], []).fail.length, 1);
+	// Started late in 46, the grind spends a tenth of a level on 48s: borderline. From 47 the camp is one over: nothing.
+	assert.ok(flagGrind({ goal, start: 46.9, end: 47.06, near: compound, npcs: dunemaul })[0].margin < GATE_MARGIN);
+	assert.deepEqual(flagGrind({ goal, start: 47.0, end: 47.06, near: compound, npcs: dunemaul }), []);
+	// Each share of a level ground three over counts twice: half a level at 45, then all of 46. A top-up of a hundredth
+	// of a level on mobs three over stays borderline; a goal the route already reached is no grind.
+	assert.equal(+flagGrind({ goal, start: 45.5, end: 47.06, near: compound, npcs: dunemaul })[0].margin.toFixed(2), 2);
+	assert.ok(flagGrind({ goal, start: 45.99, end: 46, near: compound, npcs: dunemaul })[0].margin < GATE_MARGIN);
+	assert.deepEqual(flagGrind({ goal, start: 47.2, end: 47.06, near: compound, npcs: dunemaul }), []);
+});
+
+test('a grind without a named mob is judged by its camp\'s spawn-weighted middle level, elites and rares apart', () => {
+	const goal = { t: 'level', level: 47 };
+	// The compound's middle spawn is a 47 (Enforcers, Ogre Mages): one over at 46, no flag.
+	assert.deepEqual(flagGrind({ goal, start: 46.11, end: 47, near: compound, npcs: dunemaul }), []);
+	// Brutes and Warlocks only: 48s, two over.
+	const high = compound.filter((m) => m.id === 5474 || m.id === 5475);
+	assert.deepEqual(flagGrind({ goal, start: 46.11, end: 47, near: high, npcs: dunemaul })[0].mobs, ['Dunemaul Brute 46-48 x9', 'Dunemaul Warlock 47-48 x6']);
+	// A lone spawn is no camp.
+	assert.deepEqual(flagGrind({ goal, start: 46.11, end: 47, near: [{ id: 5474, count: 1, dmin: 3 }], npcs: dunemaul }), []);
 });
 
 test('compare fails a new flag past the margin, lists a borderline one and baseline rows no longer flagged', () => {

@@ -1,14 +1,16 @@
 'use strict';
 // Danger at the spot (#1575): for every located kill/collect/use/interact/complete goal of the leveling guides
-// (forever/alliance, forever/horde), the hostile mobs around it against the level the route expects there.
+// (forever/alliance, forever/horde), the hostile mobs around it against the level the route expects there; and for
+// every grind (a `level` goal the route reaches by grinding, #2207), its camp against the level the grind starts at.
 //
 //   levelsOf(files) -> Map(guide id -> { start, q: Map(quest -> level after its turn-in) })
 //     files: the calibrated level model's output for each faction (the release audit's level run: an array of race x class
 //     branches, each { rows: [{ id, start, tq: [[quest, level], ...] }] }); levels are the mean over the branches.
 //   sweep({ dataDir, guidesDir, levels, guides?, archive? }) -> { flags: [{ key, guide, step, title, goal, quest, oi,
-//     kind, level, margin, mobs: [...] }], census: null | { sessions, cleared: [...], added: [...] } }
+//     kind, level, levelEnd (grind), margin, mobs: [...] }], census: null | { sessions, cleared: [...], added: [...] } }
 //   compare(flags, baseline) -> { fail: [flag], borderline: [flag], stale: [row] }
 //   flagGoal({ goal, level, near, npcs, group, side }) -> [{ kind, margin, mobs }]   the rules, for one goal (side: A or H)
+//   flagGrind({ goal, start, end, near, npcs }) -> [{ kind, margin, mobs }]   the grind rule, for one `level` goal
 //   threatTo(npc, side, census?) -> whether the npc attacks the side's players (below, "Who is a threat")
 //   readCensus(dir, { world, targets }) -> census   players' recordings: who met each npc and as what, who died to it,
 //     and how many people's census ran within R yd of each target's spawns (targets: Map(npc -> [{ c, x, y }]))
@@ -23,6 +25,13 @@
 //   pack    6 or more spawns within R yd 2 or more levels over
 //   mixed   #1695's pattern: an item several mobs drop, some at the player's level and some more than 3 over, on a
 //           goal that tours spots: the arrow can send the player to the high ones
+//   grind   #2207's pattern: a `level` goal over the route's level at the step's start (the route grinds there) whose
+//           camp's common mobs stand 2 or more levels over the player's level then (a level-46 character on 48s,
+//           whatever share of 46 it has). The camp is the goal's `grind` mob, else the spawn-weighted middle level of
+//           the mobs with two spawns or more within R yd of its points (elites and rares apart: the rules above flag
+//           those). The margin is the grind's length weighted by how far over the camp is: each share of a level
+//           ground with the camp 2 over counts once, 3 over twice, and so on (a top-up of a few hundredths of a level,
+//           where the level model falls just short of the goal, stays borderline)
 // A flag is identified by guide, goal and kind (`key`), never by the step's number, so steps moving around keep their
 // baseline rows. compare() fails on a key the baseline lacks when its margin is GATE_MARGIN or more; one closer to its
 // threshold is reported as borderline (a level model's tenth of a level must not flip the gate).
@@ -54,7 +63,7 @@ const GATE_MARGIN = 0.5;
 // two passers in three log a hostile mob that stands there (the census around the gate's flags, 2026-11), so fifteen
 // all missing one is chance (1 in 10^7) or a mob seldom there.
 const CENSUS_MIN = 15;
-const KINDS = ['target', 'over', 'elite', 'rare', 'pack', 'mixed'];
+const KINDS = ['target', 'over', 'elite', 'rare', 'pack', 'mixed', 'grind'];
 const WORK = new Set(['kill', 'collect', 'use', 'interact', 'complete']);
 
 const top = (n) => n.levelMax || n.level;
@@ -200,6 +209,29 @@ function flagGoal({ goal, level, near, npcs, group, side = null }) {
 	return flags;
 }
 
+// A grind's camp against the player (the `grind` rule above). goal: the `level` goal (its `grind` mob, if named);
+// start: the route's level when the step starts; end: the goal's level; near: as flagGoal's, around the goal's points.
+function flagGrind({ goal, start, end, near, npcs }) {
+	if (!(end > start)) return [];
+	const common = near.filter((m) => m.dmin <= R && m.count >= 2 && !isRare(npcs[m.id]) && !isElite(npcs[m.id]));
+	const target = goal.grind != null ? npcs[goal.grind] : null;
+	let camp;
+	if (target && counts(target) && !isRare(target)) camp = top(target);
+	else if (common.length) {
+		const byLevel = common.map((m) => [top(npcs[m.id]), m.count]).sort((a, b) => a[0] - b[0]);
+		let left = byLevel.reduce((s, [, c]) => s + c, 0) / 2;
+		camp = byLevel.find(([, c]) => (left -= c) <= 0)[0];
+	} else return [];
+	const p0 = Math.floor(start);
+	if (camp - p0 < 2) return [];
+	const named = (id, count) => `${npcs[id].name} ${npcs[id].level}-${top(npcs[id])}${count > 1 ? ' x' + count : ''}`;
+	const mobs = common.filter((m) => top(npcs[m.id]) - p0 >= 2 && m.id !== goal.grind).map((m) => named(m.id, m.count));
+	if (target && camp === top(target)) mobs.unshift(`${named(goal.grind, (near.find((m) => m.id === goal.grind) || {}).count || 0)} (the grind mob)`);
+	let margin = 0;
+	for (let p = p0; p < end && camp - p >= 2; p++) margin += (camp - p - 1) * (Math.min(end, p + 1) - Math.max(start, p));
+	return [{ kind: 'grind', margin, mobs }];
+}
+
 function sweep({ dataDir, guidesDir, levels, guides = null, archive = null }) {
 	const data = loadData(dataDir);
 	const npcs = JSON.parse(fs.readFileSync(path.join(dataDir, 'npcs.json'), 'utf8'));
@@ -236,6 +268,21 @@ function sweep({ dataDir, guidesDir, levels, guides = null, archive = null }) {
 		}
 		return out;
 	};
+	// The counted npcs within RARE_R of a goal's points: [{ id, count (spawns within R of a point), dmin (yd) }].
+	const nearOf = (goal, pts) => {
+		const seen = new Map();
+		for (const p of pts) {
+			const w = world(goal.map, p.x, p.y, goal.f);
+			if (!w) continue;
+			for (const s of around(w)) {
+				const m = seen.get(s.id) || { id: s.id, count: 0, dmin: Infinity };
+				if (s.d <= R) m.count++;
+				m.dmin = Math.min(m.dmin, s.d);
+				seen.set(s.id, m);
+			}
+		}
+		return [...seen.values()];
+	};
 	const files = [];
 	(function walk(d) {
 		for (const e of fs.readdirSync(d, { withFileTypes: true })) {
@@ -244,7 +291,7 @@ function sweep({ dataDir, guidesDir, levels, guides = null, archive = null }) {
 			else if (p.endsWith('.guide')) files.push(p);
 		}
 	})(path.join(guidesDir, 'forever'));
-	// The work goals, each with the counted npcs within RARE_R of its points.
+	// The work goals and the grinds, each with the counted npcs within RARE_R of its points.
 	const work = [];
 	for (const file of files.sort()) {
 		const rel = path.relative(guidesDir, file).split(path.sep).join('/');
@@ -256,24 +303,20 @@ function sweep({ dataDir, guidesDir, levels, guides = null, archive = null }) {
 		let level = lm ? lm.start : g.minLevel || 1;
 		g.steps.forEach((step, si) => {
 			for (const goal of step.goals) {
-				if (goal.t === 'level') level = Math.max(level, goal.level);
+				if (goal.t === 'level') {
+					// Over the route's level here, the route grinds: its camp is the goal's point and spots.
+					const end = goal.level + (goal.frac || 0);
+					if (end > level && goal.map != null && goal.x != null) {
+						work.push({ rel, side: faction[0], si, step, goal, level, end, near: nearOf(goal, [{ x: goal.x, y: goal.y }, ...(goal.spots || [])]) });
+					}
+					level = Math.max(level, goal.level);
+				}
 				if (goal.t === 'turnin' && lm && lm.q.has(goal.quest)) level = Math.max(level, lm.q.get(goal.quest));
 			}
 			for (const goal of step.goals) {
 				if (!WORK.has(goal.t) || goal.map == null || goal.x == null) continue;
 				if (goal.t === 'collect' && !goal.quest) continue;
-				const seen = new Map();
-				for (const p of [{ x: goal.x, y: goal.y }, ...(goal.spots || []).slice(0, 4)]) {
-					const w = world(goal.map, p.x, p.y, goal.f);
-					if (!w) continue;
-					for (const s of around(w)) {
-						const m = seen.get(s.id) || { id: s.id, count: 0, dmin: Infinity };
-						if (s.d <= R) m.count++;
-						m.dmin = Math.min(m.dmin, s.d);
-						seen.set(s.id, m);
-					}
-				}
-				work.push({ rel, side: faction[0], si, step, goal, level, near: [...seen.values()] });
+				work.push({ rel, side: faction[0], si, step, goal, level, near: nearOf(goal, [{ x: goal.x, y: goal.y }, ...(goal.spots || []).slice(0, 4)]) });
 			}
 		});
 	}
@@ -283,7 +326,7 @@ function sweep({ dataDir, guidesDir, levels, guides = null, archive = null }) {
 	// Templates around the goals the census settles otherwise than the data: cleared (no threat) or added (a threat).
 	const settled = new Map();
 	const flags = [];
-	for (const { rel, side, si, step, goal, level, near } of work) {
+	for (const { rel, side, si, step, goal, level, end, near } of work) {
 		const threats = near.filter((m) => {
 			const n = npcs[m.id];
 			const t = threatTo(n, side, census);
@@ -296,9 +339,12 @@ function sweep({ dataDir, guidesDir, levels, guides = null, archive = null }) {
 			}
 			return t;
 		});
-		const what = goal.quest ? `${goal.quest}${goal.oi ? '.' + goal.oi : ''}` : goal.npc ? `npc ${goal.npc}` : `item ${goal.item}`;
-		for (const f of flagGoal({ goal, level, near: threats, npcs, group: !!goal.group, side })) {
-			flags.push({ key: `${rel}|${goal.t} ${what}|${f.kind}`, guide: rel, step: si + 1, title: step.title, goal: `${goal.t} ${what}`, quest: goal.quest || null, oi: goal.oi || null, kind: f.kind, level: +level.toFixed(1), margin: +f.margin.toFixed(2), mobs: f.mobs, at: { map: goal.map, x: goal.x, y: goal.y, f: goal.f || 'l' } });
+		const grind = goal.t === 'level';
+		const what = grind ? `${goal.level}${goal.frac ? String(goal.frac).slice(1) : ''}${goal.grind ? ' grind ' + goal.grind : ''}`
+			: goal.quest ? `${goal.quest}${goal.oi ? '.' + goal.oi : ''}` : goal.npc ? `npc ${goal.npc}` : `item ${goal.item}`;
+		const found = grind ? flagGrind({ goal, start: level, end, near: threats, npcs }) : flagGoal({ goal, level, near: threats, npcs, group: !!goal.group, side });
+		for (const f of found) {
+			flags.push({ key: `${rel}|${goal.t} ${what}|${f.kind}`, guide: rel, step: si + 1, title: step.title, goal: `${goal.t} ${what}`, quest: goal.quest || null, oi: goal.oi || null, kind: f.kind, level: +level.toFixed(1), ...(grind ? { levelEnd: +end.toFixed(2) } : {}), margin: +f.margin.toFixed(2), mobs: f.mobs, at: { map: goal.map, x: goal.x, y: goal.y, f: goal.f || 'l' } });
 		}
 	}
 	// One flag per key: the strongest (a goal worked in two steps).
@@ -322,4 +368,4 @@ function compare(flags, baseline) {
 	};
 }
 
-module.exports = { levelsOf, sweep, compare, flagGoal, threatTo, readCensus, KINDS, GATE_MARGIN, CENSUS_MIN, R, RARE_R };
+module.exports = { levelsOf, sweep, compare, flagGoal, flagGrind, threatTo, readCensus, KINDS, GATE_MARGIN, CENSUS_MIN, R, RARE_R };
