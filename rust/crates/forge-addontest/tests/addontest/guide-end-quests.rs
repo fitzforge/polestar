@@ -162,11 +162,7 @@ fn the_end_card_counts_both_kinds_and_each_line_opens_its_list() {
 		] }),
 		"{out}"
 	);
-	assert_eq!(
-		out["later"],
-		json!({ "title": "Carried to later guides", "switch": false, "guideMe": false, "rows": [["Kept Errand", "Handed in in C (11–15)", false]] }),
-		"kept: no Abandon; {out}"
-	);
+	assert_eq!(out["later"], json!({ "title": "Carried to later guides", "switch": false, "guideMe": false, "rows": [["Kept Errand", "Handed in in C (11–15)", false]] }), "kept: no Abandon; {out}");
 	assert_eq!(out["after"], json!({ "carried": "1 quest in your log carries on to a later guide", "stray": false }), "{out}");
 }
 

@@ -2509,10 +2509,14 @@ fn a_page_follow_up_whose_items_are_had_in_town_is_led_there_then_handed_in_2173
 		})
 	};
 	c["quests"]["997290"] = quest(997290, &[], json!([]));
-	c["quests"]["997291"] = quest(997291, &[997290], json!([
-		{ "type": "item", "id": 981246, "count": 1, "text": "Toxic Skullcap" },
-		{ "type": "item", "id": 981300, "count": 1, "text": "Blisterweed" },
-	]));
+	c["quests"]["997291"] = quest(
+		997291,
+		&[997290],
+		json!([
+			{ "type": "item", "id": 981246, "count": 1, "text": "Toxic Skullcap" },
+			{ "type": "item", "id": 981300, "count": 1, "text": "Blisterweed" },
+		]),
+	);
 	i["forever"]["quests"]["997290"] = json!({ "area": 209 });
 	i["forever"]["quests"]["997291"] = json!({ "area": 209 });
 	let own = pack_of(&c, &i);
@@ -2532,7 +2536,8 @@ local errand, items = describe(def), goals(def)
 local skullcap = Polestar.Codex.Item(981246)
 skullcap.sources = {}
 emit({ errand = errand, items = items, unplaced = describe(D.HandinGuide("{KEY}")) })"#);
-	let after = run(&own, &script, Opts { level: 20, race: "Scourge", faction: "Horde", cls: "PALADIN", at: Some(UNDERCITY), done: vec![], log: vec![], ready: vec![997290], ..Default::default() }).remove(0);
+	let after =
+		run(&own, &script, Opts { level: 20, race: "Scourge", faction: "Horde", cls: "PALADIN", at: Some(UNDERCITY), done: vec![], log: vec![], ready: vec![997290], ..Default::default() }).remove(0);
 	assert_eq!(
 		after["errand"],
 		json!([
@@ -2552,7 +2557,12 @@ emit({ errand = errand, items = items, unplaced = describe(D.HandinGuide("{KEY}"
 	);
 	assert_eq!(after["unplaced"], json!([{ "title": "Master Apothecary Faranell", "goals": "turnin:997290 accept:997291" }]), "an item nobody places: only taken");
 	// The same part in the log (taken earlier, or the guide rebuilt after a /reload): its errand and its hand-in.
-	let in_log = run(&own, &k(r#"emit(describe(D.HandinGuide("{KEY}")))"#), Opts { level: 20, race: "Scourge", faction: "Horde", cls: "PALADIN", at: Some(UNDERCITY), done: vec![997290], log: vec![997291], ready: vec![], ..Default::default() }).remove(0);
+	let in_log = run(
+		&own,
+		&k(r#"emit(describe(D.HandinGuide("{KEY}")))"#),
+		Opts { level: 20, race: "Scourge", faction: "Horde", cls: "PALADIN", at: Some(UNDERCITY), done: vec![997290], log: vec![997291], ready: vec![], ..Default::default() },
+	)
+	.remove(0);
 	assert_eq!(
 		in_log,
 		json!([

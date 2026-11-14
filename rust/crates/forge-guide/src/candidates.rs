@@ -291,7 +291,8 @@ pub fn build_candidates(data: &Data, entries: &[V], opts: &V) -> V {
 			if hubs.len() as f64 >= cap {
 				break;
 			}
-			let same_hub = a.w.as_ref().is_some_and(|aw| hubs.iter().any(|h| h.w.as_ref().is_some_and(|hw| hw.c.strict_eq(&aw.c) && hypot(hw.wx - aw.wx, hw.wy - aw.wy) < hub_yards(&h.cand, &a.cand))));
+			let same_hub =
+				a.w.as_ref().is_some_and(|aw| hubs.iter().any(|h| h.w.as_ref().is_some_and(|hw| hw.c.strict_eq(&aw.c) && hypot(hw.wx - aw.wx, hw.wy - aw.wy) < hub_yards(&h.cand, &a.cand))));
 			if same_hub {
 				continue;
 			}

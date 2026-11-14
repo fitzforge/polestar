@@ -1413,12 +1413,8 @@ fn first_settings(before: &str, questions: &[&str]) -> Value {
 }
 
 fn assert_first(out: &Value, cases: &[(&str, &str)]) {
-	let wrong: Vec<String> = cases
-		.iter()
-		.enumerate()
-		.filter(|(i, (_, keys))| !keys.split('|').any(|key| out[*i]["first"] == key))
-		.map(|(i, (q, key))| format!("{q:?}: wanted {key}, got {}", out[i]["best"]))
-		.collect();
+	let wrong: Vec<String> =
+		cases.iter().enumerate().filter(|(i, (_, keys))| !keys.split('|').any(|key| out[*i]["first"] == key)).map(|(i, (q, key))| format!("{q:?}: wanted {key}, got {}", out[i]["best"])).collect();
 	eprintln!("questions with the right setting first: {}/{}", cases.len() - wrong.len(), cases.len());
 	assert!(wrong.is_empty(), "{} of {} questions:\n{}", wrong.len(), cases.len(), wrong.join("\n"));
 }
@@ -1479,10 +1475,7 @@ fn polestar_ask_opens_the_settings_with_the_question_in_the_box_and_the_dropdown
 		emit({ asked = asked, slash = slash, empty = empty, ps = SLASH_POLESTAR3, sameFn = SlashCmdList.POLESTAR == Polestar.RunCommand })"#
 		),
 	);
-	assert_eq!(
-		out["asked"],
-		json!({ "shown": true, "text": "how do I hide the arrow?", "focus": true, "open": true, "first": "nav.arrow", "placeholder": false, "clear": true })
-	);
+	assert_eq!(out["asked"], json!({ "shown": true, "text": "how do I hide the arrow?", "focus": true, "open": true, "first": "nav.arrow", "placeholder": false, "clear": true }));
 	assert_eq!(out["slash"]["text"], "where is the arrow size", "the question's outer spaces trimmed");
 	assert_eq!(out["slash"]["open"], true);
 	assert_eq!(out["slash"]["first"], "nav.arrowScale");
