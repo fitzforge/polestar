@@ -1230,6 +1230,9 @@
 		] },
 		"2268": { "tests": [
 			{ "node": "tests/guides-reported.test.js", "test": "#2268: Dun Morogh holds Quarrymaster Thesten for the powder keg's quest before Helm's Bed Lake" }
+		] },
+		"2300": { "tests": [
+			{ "node": "tests/guides-reported.test.js", "test": "#2300: Searing Gorge (Alliance): Prayer to Elune waits for a group, among the Twilight camp's elites" }
 		] }
 	},
 	"seedDrift": {}

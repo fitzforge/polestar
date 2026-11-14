@@ -14087,3 +14087,23 @@ test('#2326: Feralas (Horde): the Screecher Spirits are talked to, after the bra
 	const tip = [list[talk].step.note, list[talk].step.tip].flat().filter(Boolean).join(' ');
 	assert.match(tip, /talk to the spirit that rises/, 'the tip says to talk to it');
 });
+
+// #2300 (Edet, Human Warlock 48): Searing Gorge (Alliance 40-50) sent the player alone to Zamael Lunthistle for Prayer
+// to Elune, "the night elf stands alone west of Thorium Point"; he stands inside the Twilight camp at Firewatch Ridge
+// among Twilight Fire Guards, Idolaters and Geomancers (level 48-49 elites in Forever's creature data) within 10 yards,
+// with Highlord Mastrogonde (51, rare elite) beside him, and the player died there. Its second part (3378) is already a
+// group quest of 4 for the same camp; the first part is one now: its three steps wait for the player's group answer,
+// and the tip names the camp.
+test('#2300: Searing Gorge (Alliance): Prayer to Elune waits for a group, among the Twilight camp\'s elites', { skip }, () => {
+	const list = goals('forever/alliance/40-50/06-searing-gorge.guide');
+	const zamael = list.filter(({ goal }) => goal.quest === 3377);
+	assert.deepEqual(zamael.map(({ goal }) => goal.t), ['accept', 'talk', 'turnin'], 'accept, talk and hand-in');
+	for (const { step, goal } of zamael) {
+		assert.ok((step.when || []).some((p) => p.k === 'group' && !p.neg && [p.q].flat().includes(3377)), `${goal.t} 3377 waits for \`when group 3377\``);
+	}
+	const talk = zamael.find(({ goal }) => goal.t === 'talk').goal;
+	assert.equal(talk.group && talk.group.size, 4, 'the talk says a group of 4');
+	const tip = [zamael[0].step.note, zamael[0].step.tip].flat().filter(Boolean).join(' ');
+	assert.doesNotMatch(tip, /stands alone/, 'not "stands alone"');
+	assert.match(tip, /Twilight camp/, 'the tip names the Twilight camp');
+});

@@ -43,7 +43,8 @@ step Thorium Point
   accept 7722                         -- Master Smith Burninate
 
 step Zamael Lunthistle
-  tip The night elf stands alone west of Thorium Point. Hear his story.
+  when group 3377
+  tip These are elite mobs: grouping up is encouraged, look for people to do it with. Zamael Lunthistle stands inside the Twilight camp at Firewatch Ridge, west of Thorium Point, among Twilight Fire Guards, Idolaters and Geomancers (level 48-49 elites), with Highlord Mastrogonde (level 51, rare elite) beside him: Prayer to Elune needs a group of 4. Skip it if you are alone.
   accept 3377
   turnin 3377
 

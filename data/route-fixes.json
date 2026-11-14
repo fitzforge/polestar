@@ -7756,6 +7756,11 @@
 				"why": "Prayer to Elune: five Twilight Idolaters (level 49, rank 1 in Forever's creature data), which reads as a group of 2; five elites at the quest's level, a group of 4 (Winterspring/Silithus 59)"
 			},
 			{
+				"q": 3377,
+				"size": 4,
+				"why": "Prayer to Elune, its first part (#2300): Zamael Lunthistle stands inside the Twilight camp at Firewatch Ridge, among Twilight Fire Guards, Idolaters and Geomancers (level 48-49, rank 1 in Forever's creature data) within 10 yards and Highlord Mastrogonde (level 51, rank 2) beside him; players' recordings see the Twilight guards hostile. The talk-only quest reads as soloable, but reaching him means the same camp as its second part (3378), a group of 4 (Searing Gorge 48-49). Edet, a level 48 Warlock sent there on the solo route, died beside him (the report's corpse at 29.64,26.39)."
+			},
+			{
 				"q": 169,
 				"size": 2,
 				"why": "WANTED: Gath'Ilzogg: one elite (level 26, rank 1 in Forever's creature data) at the quest's level, which reads as soloable; a group quest (Duskwood/Redridge 24-27): he stands with his guards at Stonewatch Keep"
