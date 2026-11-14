@@ -8911,11 +8911,13 @@ test('Bear Form approaches follow completed visits without dropping carried work
 			? (s) => s.goals.some((g) => g.verb === 'accept' && g.quest === visit.quest)
 			: (s) => s.title.startsWith('Skyboat') && s.only.factions.includes(visit.faction);
 		assert.equal(ast.steps.filter(identifies).length, 1, `${visit.name} has one source block`);
-		const end = ast.steps.findIndex(identifies) + (visit.quest ? 0 : 1);
+		const approach = (s) => s.goals.length === 1 && s.goals[0].verb === 'goto';
+		let end = ast.steps.findIndex(identifies) + (visit.quest ? 0 : 1);
+		// Trainer hand-ins can sit between the entrance and its quest pickup.
+		if (visit.quest) while (end > 0 && !approach(ast.steps[end - 1])) end--;
 		let start = end - 1;
-		// The first visit has two reasons to approach. Include every contiguous approach
-		// before the quest stop so the test also exercises their interaction on arrival.
-		if (visit.quest) while (start > 0 && ast.steps[start - 1].goals.length === 1 && ast.steps[start - 1].goals[0].verb === 'goto') start--;
+		// Include every contiguous approach to exercise their interaction on arrival.
+		if (visit.quest) while (start > 0 && approach(ast.steps[start - 1])) start--;
 		assert.ok(start >= 0 && end < ast.steps.length);
 		// Compile the actual approaches, retaining the guide header and restrictions. A sentinel
 		// task exposes whether the Engine leaves it, without optional quest/reference data.
