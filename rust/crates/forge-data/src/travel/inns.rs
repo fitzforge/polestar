@@ -8,7 +8,7 @@ use forge_guide::js::{cmp_utf16, V};
 use super::geo::{round, Frames};
 use super::taxi::{spawn_points, LiveFrames};
 
-const INNS: [(&[&str], i64, i64); 50] = [
+const INNS: [(&[&str], i64, i64); 51] = [
 	(&["Goldshire"], 1429, 295),
 	(&["Thunderbrew Distillery", "Kharanos"], 1426, 1247),
 	(&["Deepwater Tavern", "Menethil Harbor"], 1437, 1464),
@@ -66,6 +66,11 @@ const INNS: [(&[&str], i64, i64); 50] = [
 	(&["Powderfuse Port"], 2548, 255894),
 	(&["Rog'mar"], 2548, 256675),
 	(&["Farholde Keep"], 2548, 257595),
+	// Mount Hyjal (a map Forever added: live frame). Sebelia at the Summit of Eternity: a player's
+	// recording of 2026-11-11 binds right after her window (the client's subzone there "Summit of
+	// Eternity", AreaTable 16849 under Mount Hyjal) and lands there with the Hearthstone twice after; the
+	// Mount Hyjal guides bind there (`sethome "Summit of Eternity"`).
+	(&["Summit of Eternity"], 2482, 243815),
 ];
 
 pub struct Inn {
@@ -181,6 +186,32 @@ mod tests {
 		let toka = &inns[2];
 		assert_eq!((toka.wx, toka.wy), (round(-6466.666 - 3233.334 * 0.4512, 1), round(-1891.666 - 4850.0 * 0.5801, 1)));
 		let theirs: Vec<&String> = warnings.iter().filter(|w| ["Powderfuse Port", "Rog'mar", "Farholde Keep"].iter().any(|n| w.starts_with(&format!("inn {n}:")))).collect();
+		assert!(theirs.is_empty(), "{theirs:?}");
+	}
+
+	// Mount Hyjal's inn: Sebelia at the Summit of Eternity, on the map's live frame (Forever added it), with
+	// the AreaTable area of its subzone under Mount Hyjal (616), so a Hearthstone bound there counts.
+	#[test]
+	fn mount_hyjal_s_inn_at_the_summit_of_eternity_stands_on_the_live_frame_with_its_subzone_s_area() {
+		let zones = parse_json(r#"{"2482":{"id":2482,"name":"Mount Hyjal","areaId":616,"parent":1414,"type":3}}"#).unwrap();
+		let frames = Frames::new(&V::obj(), &zones);
+		let hyjal = parse_json(r#"{"c":1,"left":-922.916,"right":-4395.834,"top":6304.166,"bottom":3989.583}"#).unwrap();
+		let live: LiveFrames = [(2482, Frame::of(&hyjal))].into_iter().collect();
+		let npcs = parse_json(r#"{"243815":{"id":243815,"name":"Sebelia","roles":["innkeeper","vendor"],"spawns":{"2482":{"f":"l","pts":[[70.87,51.55]]}}}}"#).unwrap();
+		let areas = parse_json(
+			r#"{"build":"1.60.1.1",
+				"byId":{
+					"616":{"id":616,"name":"Mount Hyjal","c":1,"parent":0},
+					"16849":{"id":16849,"name":"Summit of Eternity","c":1,"parent":616}},
+				"byName":{
+					"mount hyjal":[{"id":616,"name":"Mount Hyjal","c":1,"parent":0}],
+					"summit of eternity":[{"id":16849,"name":"Summit of Eternity","c":1,"parent":616}]}}"#,
+		)
+		.unwrap();
+		let (inns, warnings) = build_inns(&frames, &npcs, &live, &areas, &zones);
+		let got: Vec<_> = inns.iter().map(|i| (i.location.as_str(), i.area, i.npc, i.map, i.x, i.y, i.f, i.c)).collect();
+		assert_eq!(got, [("Summit of Eternity", Some(16849.0), 243815, 2482, 70.87, 51.55, "l", 1.0)]);
+		let theirs: Vec<&String> = warnings.iter().filter(|w| w.starts_with("inn Summit of Eternity:")).collect();
 		assert!(theirs.is_empty(), "{theirs:?}");
 	}
 }
