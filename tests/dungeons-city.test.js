@@ -90,3 +90,17 @@ test('the Codex journal: every dungeon whose way in lies inside a capital is a c
 		assert.ok(d && c.names.some((n) => key(n) === key(d.name)), `${c.names[0]} is the journal's map ${c.map}`);
 	}
 });
+
+// The Legacy challenges guide plans the game's own challenge list, which the player chose: its level 15-25 dungeon
+// step keeps every final boss the list names, the other side's city dungeons too, and tells each faction where it
+// stands (Fitz). It offers no run: no `when dungeon` step, so the route's dungeon features never take it up.
+test("the Legacy challenges guide keeps the city dungeons' bosses, tells each faction where it stands, and offers no run", () => {
+	const text = fs.readFileSync(path.join(ROOT, 'guides', 'forever', 'legacy', 'legacy-challenges.guide'), 'utf8');
+	assert.doesNotMatch(text, /^\s*when !?dungeon\b/m, 'no `when dungeon` step');
+	const step = text.split(/\n(?=step )/).find((s) => s.startsWith('step Dungeons: level 15-25\n'));
+	assert.ok(step, 'the level 15-25 dungeon step');
+	for (const npc of [11519, 261319, 256035]) assert.match(step, new RegExp(`^\\s+kill ${npc}\\b`, 'm'), `the challenge's boss ${npc} stays`);
+	assert.match(step, /Alliance: the Ruins of Lordaeron's entrance is in the ruins beside the Undercity, among Horde guards: go with a group/, 'the Alliance is warned of the Ruins of Lordaeron');
+	assert.match(step, /Ragefire Chasm is inside Orgrimmar: the Hall of Thanes counts for it/, 'the Alliance is pointed to the Hall of Thanes');
+	assert.match(step, /Horde: the Hall of Thanes is inside Ironforge: Ragefire Chasm counts for it/, 'the Horde is pointed to Ragefire Chasm');
+});
