@@ -45,7 +45,11 @@ local function attach(bar)
 		frame:SetAlpha(0.8)
 		frame.Tint = frame:CreateTexture(nil, "OVERLAY")
 		frame.Tint:SetTexture(ns.Theme.Media("white"))
-		frame.Tint:SetVertexColor(SAGE_R, SAGE_G, SAGE_B, 0.36)
+		if frame.Tint.SetGradient and CreateColor then
+			frame.Tint:SetGradient("VERTICAL", CreateColor(SAGE_R * 0.65, SAGE_G * 0.65, SAGE_B * 0.65, 0.5), CreateColor(SAGE_R * 1.35, SAGE_G * 1.35, SAGE_B * 1.35, 0.5))
+		else
+			frame.Tint:SetVertexColor(SAGE_R * 1.08, SAGE_G * 1.08, SAGE_B * 1.08, 0.5)
+		end
 		local mask = frame:CreateMaskTexture()
 		mask:SetAtlas("UI-HUD-ExperienceBar-Fill-Experience", false, nil, true, "CLAMPTOBLACKADDITIONAL", "CLAMPTOBLACKADDITIONAL")
 		mask:SetAllPoints(frame)
