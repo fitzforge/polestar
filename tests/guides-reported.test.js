@@ -12935,3 +12935,23 @@ test('#2151: Linen Cloth and Runecloth goals in Alliance guides lead to the Auct
 		}
 	}
 });
+
+// #2264 (rhoot, Skyborne Druid 14): the walk from Thunder Bluff to the Barrens went by "Into Mulgore" at 42.1,20.2,
+// down the north lift's ramp to the plain north-east of it and back up over the ledge south-east; rhoot stood at a
+// spot with nothing there and turned round. On the walking grid the quickest way from Eylah Sunhorn and Ansekhwa
+// (Zephras Isle's last stops) is the west lift and the road at its foot (4 s over the free walk; 54 s by 42.1,20.2),
+// and from Elder Rise (Mulgore's) the north lift and the ledge east of its foot (0 s; 13 s by 42.1,20.2).
+test('#2264: the walk from Thunder Bluff to the Barrens takes the lift on its way, in both start guides and their seeds', () => {
+	for (const [rel, at, lift] of [
+		['forever/horde/skyborne/01-zephras-isle.guide', '37.6,33.0', /west lift/],
+		['forever/horde/tauren/01-mulgore.guide', '42.3,21.7', /north lift/],
+	]) {
+		for (const file of [path.join(OFFICIAL_DIR, rel), path.join(__dirname, '..', 'forge', 'seed', 'guides', rel)]) {
+			const step = fs.readFileSync(file, 'utf8').split(/\n(?=step )/).find((s) => s.startsWith('step Into Mulgore\n'));
+			assert.ok(step, `${file}: an Into Mulgore step`);
+			assert.ok(step.includes(`\n  goto ${at} "Into Mulgore"\n`), `${file}: Into Mulgore at ${at}`);
+			assert.match(step, lift, `${file}: the tip names the lift`);
+			assert.doesNotMatch(step, /42\.1,20\.2/, `${file}: not the north lift's ramp`);
+		}
+	}
+});
