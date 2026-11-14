@@ -107,7 +107,10 @@ return {
 		["nav.worldRoute"] = function() return worldPin() ~= nil end,
 		["nav.minimapRouteAlpha"] = function() local m = R.GetMinimapFrame(); return m and r3(m.opacity) or false end,
 		["nav.minimapRoute"] = function() local m = R.GetMinimapFrame(); return { m ~= nil and m:IsShown(), R.GetStrokes("minimap").n > 0 } end,
-		["nav.minimapRouteSize"] = function() return r3(R.MinimapSize()) end,
+		-- Each style's own minimap size, its row shown while that style is drawn.
+		["nav.minimapLineSize"] = { with = { ["nav.lineStyle"] = "line" }, probe = function() return r3(R.MinimapSize()) end },
+		["nav.minimapDotsSize"] = { with = { ["nav.lineStyle"] = "dots" }, probe = function() return r3(R.MinimapSize()) end },
+		["nav.minimapSparkleSize"] = sparkling(function() return r3(R.MinimapSize()) end),
 		-- A new goal: drawn in over a moment (the minimap's strokes a share of them at first), or whole at once.
 		["nav.drawIn"] = function()
 			local tram = geom.legs[5].pts
