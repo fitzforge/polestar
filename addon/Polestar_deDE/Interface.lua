@@ -3222,7 +3222,6 @@ L["The route doesn't need these: it never hands them in, or they give no XP any 
 L["Lists the quests in your log the route doesn't need: those it never hands in, and grey ones that give no XP any more. Each has an Abandon button that asks first. The guide window's menu has it too while there are any."] = "Listet die Quests in deinem Questlog, die die Route nicht braucht: die sie nie abgibt, und graue, die keine EP mehr bringen. Jede hat einen Button „Abbrechen“, der zuerst nachfragt. Das Menü des Guide-Fensters bietet es auch an, solange es welche gibt."
 L["None of these has a known place to hand it in."] = "Für keine davon ist bekannt, wo man sie abgibt."
 L["Where it is turned in is not known"] = "Unbekannt, wo sie abgegeben wird"
-L["%d XP"] = "%d EP"
 L["Finished quests you're still carrying"] = "Erledigte Quests, die du noch dabeihast"
 L["The route hands in every finished quest in your log."] = "Die Route gibt jede erledigte Quest in deinem Log ab."
 L["Finished, and the route ahead never hands these in: here is who takes each. Guide me leads you to them, nearest first. A grey one gives almost no XP any more: abandon it if you won't pass by."] = "Erledigt, und die Route voraus gibt diese nie ab: Hier steht, bei wem du jede abgibst. „Führe mich“ bringt dich hin, die nächste zuerst. Eine graue gibt kaum noch EP: Brich sie ab, wenn du nicht vorbeikommst."

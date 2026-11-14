@@ -3251,7 +3251,6 @@ L["The route doesn't need these: it never hands them in, or they give no XP any 
 L["Lists the quests in your log the route doesn't need: those it never hands in, and grey ones that give no XP any more. Each has an Abandon button that asks first. The guide window's menu has it too while there are any."] = "퀘스트 목록에서 경로에 필요 없는 퀘스트를 보여 줍니다: 경로가 완료하지 않는 퀘스트와 더 이상 경험치를 주지 않는 회색 퀘스트입니다. 각각 먼저 확인하는 포기 버튼이 있습니다. 그런 퀘스트가 있는 동안 가이드 창 메뉴에도 나타납니다."
 L["None of these has a known place to hand it in."] = "이 중 제출 장소가 알려진 퀘스트가 없습니다."
 L["Where it is turned in is not known"] = "제출 장소를 알 수 없음"
-L["%d XP"] = "경험치 %d"
 L["Finished quests you're still carrying"] = "아직 들고 있는 완료된 퀘스트"
 L["The route hands in every finished quest in your log."] = "경로에서 퀘스트 목록의 완료된 퀘스트를 모두 제출합니다."
 L["Finished, and the route ahead never hands these in: here is who takes each. Guide me leads you to them, nearest first. A grey one gives almost no XP any more: abandon it if you won't pass by."] = "완료했지만 앞으로의 경로에서 제출하지 않는 퀘스트입니다. 각각 누구에게 제출하는지 보여 줍니다. '가이드 시작'을 누르면 가까운 곳부터 안내합니다. 회색 퀘스트는 경험치를 거의 주지 않으니, 지나갈 일이 없다면 포기하십시오."

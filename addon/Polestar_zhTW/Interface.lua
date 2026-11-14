@@ -3251,7 +3251,6 @@ L["The route doesn't need these: it never hands them in, or they give no XP any 
 L["Lists the quests in your log the route doesn't need: those it never hands in, and grey ones that give no XP any more. Each has an Abandon button that asks first. The guide window's menu has it too while there are any."] = "列出任務日誌中路線不需要的任務：它從不交付的，以及不再給予經驗值的灰色任務。每個都有一個會先確認的放棄按鈕。只要有這樣的任務，指南視窗的選單裡也有此項。"
 L["None of these has a known place to hand it in."] = "這些任務都沒有已知的繳交地點。"
 L["Where it is turned in is not known"] = "繳交地點未知"
-L["%d XP"] = "%d 經驗"
 L["Finished quests you're still carrying"] = "仍未繳交的已完成任務"
 L["The route hands in every finished quest in your log."] = "路線會繳交日誌中所有已完成的任務。"
 L["Finished, and the route ahead never hands these in: here is who takes each. Guide me leads you to them, nearest first. A grey one gives almost no XP any more: abandon it if you won't pass by."] = "已完成，但後續路線不會繳交：這裡列出每個任務要交給誰。「指引我」會帶你前往，從最近的開始。灰色任務幾乎不再給予經驗值：如果不會路過，就放棄它。"

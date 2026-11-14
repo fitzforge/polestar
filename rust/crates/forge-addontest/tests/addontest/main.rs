@@ -440,6 +440,8 @@ mod ui_picker_packs;
 mod ui_picker_scroll;
 #[path = "ui-preview.rs"]
 mod ui_preview;
+#[path = "ui-quest-room.rs"]
+mod ui_quest_room;
 #[path = "ui-quest-unlocks.rs"]
 mod ui_quest_unlocks;
 #[path = "ui-quick-settings.rs"]

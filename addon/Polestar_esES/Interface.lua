@@ -3251,7 +3251,6 @@ L["The route doesn't need these: it never hands them in, or they give no XP any 
 L["Lists the quests in your log the route doesn't need: those it never hands in, and grey ones that give no XP any more. Each has an Abandon button that asks first. The guide window's menu has it too while there are any."] = "Muestra las misiones de tu registro que la ruta no necesita: las que nunca entrega y las grises que ya no dan XP. Cada una tiene un botón Abandonar que pregunta antes. El menú de la ventana de la guía también lo ofrece mientras haya alguna."
 L["None of these has a known place to hand it in."] = "Ninguna tiene un lugar conocido donde entregarla."
 L["Where it is turned in is not known"] = "No se sabe dónde se entrega"
-L["%d XP"] = "%d XP"
 L["Finished quests you're still carrying"] = "Misiones completadas que aún llevas"
 L["The route hands in every finished quest in your log."] = "La ruta entrega todas las misiones completadas de tu registro."
 L["Finished, and the route ahead never hands these in: here is who takes each. Guide me leads you to them, nearest first. A grey one gives almost no XP any more: abandon it if you won't pass by."] = "Terminadas, y la ruta por delante nunca las entrega: aquí tienes a quién entregar cada una. Guíame te lleva hasta ellos, del más cercano al más lejano. Una gris ya casi no da XP: abandónala si no vas a pasar por allí."

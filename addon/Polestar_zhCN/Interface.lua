@@ -3251,7 +3251,6 @@ L["The route doesn't need these: it never hands them in, or they give no XP any 
 L["Lists the quests in your log the route doesn't need: those it never hands in, and grey ones that give no XP any more. Each has an Abandon button that asks first. The guide window's menu has it too while there are any."] = "列出任务日志中路线不需要的任务：它从不交付的，以及不再给予经验的灰色任务。每个都有一个会先确认的放弃按钮。只要有这样的任务，指南窗口的菜单里也有此项。"
 L["None of these has a known place to hand it in."] = "这些任务都没有已知的交还地点。"
 L["Where it is turned in is not known"] = "交还地点未知"
-L["%d XP"] = "%d 经验"
 L["Finished quests you're still carrying"] = "仍未交还的已完成任务"
 L["The route hands in every finished quest in your log."] = "路线会交还日志中所有已完成的任务。"
 L["Finished, and the route ahead never hands these in: here is who takes each. Guide me leads you to them, nearest first. A grey one gives almost no XP any more: abandon it if you won't pass by."] = "已完成，但后续路线不会交还：这里列出每个任务交给谁。“指引我”会带你去，从最近的开始。灰色任务几乎不再给予经验：如果不会路过，就放弃它。"
