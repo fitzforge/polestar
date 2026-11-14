@@ -595,9 +595,9 @@ fn held_back_the_groups_page_asks_about_group_quests_only_and_names_no_dungeon()
 		walk(F)
 		local dungeonWords = {}
 		for _, t in ipairs(texts) do if t:lower():find("dungeon") then dungeonWords[#dungeonWords + 1] = t end end
-		emit({ title = title(), dungeons = cards(F.Dungeons).shown, quests = cards(F.GroupQuests).shown, words = dungeonWords,
+		emit({ title = title(), dungeons = cards(F.Dungeons).shown, quests = cards(F.GroupQuests).shown, words = table.concat(dungeonWords, " | "),
 			route = Polestar.Get("behavior.dungeons") })"#);
-	assert_eq!(out, json!({ "title": "Groups", "dungeons": false, "quests": true, "words": [], "route": "run" }));
+	assert_eq!(out, json!({ "title": "Groups", "dungeons": false, "quests": true, "words": "", "route": "run" }));
 }
 
 // Targeting (with QoL): the target button, a preview of its face and plate, who it targets as its child, its mark

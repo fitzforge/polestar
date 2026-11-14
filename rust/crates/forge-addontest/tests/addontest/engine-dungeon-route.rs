@@ -388,22 +388,26 @@ fn dungeon_route_a_city_dungeon_of_the_other_faction_is_never_run_asked_listed_o
 #[test]
 fn held_back_every_dungeon_reads_skip_whatever_is_saved_the_route_is_the_solo_routes_and_the_answers_are_kept() {
 	let saved = Some(json!({ "schema": 1, "guide": "test/route", "_route": "run", "dungeons": { "36": true } }));
+	let walk = r#"
+		take(7)
+		emit({ at = at(), soon = E.DungeonSoon() or false, run = E.DungeonRun() or false })
+		take(15)
+		emit({ at = at(), s4 = st(4), s5 = st(5), s6 = st(6), s7 = st(7), trace = trace })"#;
 	let out = run_switch(
 		false,
 		"",
 		saved,
-		r#"
+		&format!(
+			r#"
 		local n1, h1 = E.StepNumber(1)
-		emit({ on = Polestar.dungeonRoute, routeOn = E.DungeonRouteOn(), route = Polestar.Get("behavior.dungeons"), at = at(), asked = asked(),
+		emit({{ on = Polestar.dungeonRoute, routeOn = E.DungeonRouteOn(), route = Polestar.Get("behavior.dungeons"), at = at(), asked = asked(),
 			answer = E.DungeonAnswer(36), chosen = E.DungeonChosen(36), listed = next(E.GuideDungeons()) or false, total = E.StepTotal(),
-			n1 = n1, h1 = h1, n7 = E.StepNumber(7), wants = E.WantsQuest("accept", 214), s1 = st(1) })
+			n1 = n1, h1 = h1, n7 = E.StepNumber(7), wants = E.WantsQuest("accept", 214), s1 = st(1) }})
 		E.ChooseDungeon(36, false); flush()
-		take(7)
-		emit({ at = at(), soon = E.DungeonSoon() or false, run = E.DungeonRun() or false })
-		take(15)
-		emit({ at = at(), s4 = st(4), s5 = st(5), s6 = st(6), trace = trace })
+		{walk}
 		stub.fire("PLAYER_LOGOUT")
-		emit({ route = PolestarDB.settings.behavior.dungeons, dungeons = PolestarCharDB.dungeons })"#,
+		emit({{ route = PolestarDB.settings.behavior.dungeons, dungeons = PolestarCharDB.dungeons }})"#
+		),
 	);
 	assert_eq!(
 		out[0],
@@ -412,7 +416,10 @@ fn held_back_every_dungeon_reads_skip_whatever_is_saved_the_route_is_the_solo_ro
 		"the solo route's first step and numbers"
 	);
 	assert_eq!(out[1], json!({ "at": 3, "soon": false, "run": false }));
-	assert_eq!(out[2], json!({ "at": 7, "s4": "skipped", "s5": "skipped", "s6": "skipped", "trace": [2, 3, 7] }));
+	assert_eq!((out[2]["at"].clone(), out[2]["trace"].clone()), (json!(7), json!([2, 3, 7])));
+	// Step for step what Skip them gives with dungeons in the route on.
+	let skip = run(char("skip"), walk);
+	assert_eq!((&out[1], &out[2]), (&skip[0], &skip[1]), "as Skip them");
 	assert_eq!(out[3], json!({ "route": "run", "dungeons": { "36": true } }), "the saved answers are kept, the choice wrote nothing");
 }
 

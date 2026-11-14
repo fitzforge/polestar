@@ -126,39 +126,47 @@ fn held_back_every_leveling_guide_with_dungeon_steps_is_the_solo_route_whatever_
 			lua_value(&json!({ "schema": 1, "dungeons": answers }))
 		),
 	)];
-	let mut seen = 0;
+	let (mut seen, mut diffs) = (0, Vec::new());
 	for (race, class, faction) in [("Human", "WARRIOR", "Alliance"), ("Orc", "WARRIOR", "Horde")] {
 		// This faction's guides (or both factions'), for this race when the guide names races.
 		let mine: Vec<&String> = ids.iter().filter(|(_, f, r)| (f.is_empty() || f == faction) && (r.is_empty() || r.iter().any(|x| x == race))).map(|(id, _, _)| id).collect();
 		let list = format!("HELD_IDS = {}", lua_value(&json!(mine)));
 		let before = format!("local w = stub.world\nw.race, w.raceName = {race:?}, {race:?}\nw.class, w.className = {class:?}, {class:?}\nw.faction = {faction:?}\n");
-		let play = |pack: &TestPack, saved: Vec<(String, String)>| -> Value {
+		let play = |pack: &TestPack, saved: Vec<(String, String)>, switch: &str| -> Value {
 			emitted(&RunAddon {
 				stubs: vec!["stub_world.lua"],
 				before: before.clone(),
 				addons: vec![Addon::name("Polestar")],
 				saved,
-				script: [loads(pack), list.clone(), "stub.login()".into(), READ.into()].join("\n"),
+				script: [loads(pack), list.clone(), switch.into(), "stub.login()".into(), READ.into()].join("\n"),
 				..Default::default()
 			})
 			.remove(0)
 		};
-		let held = play(&real_pack, saved_run.clone());
-		let solo = play(&solo_pack, Vec::new());
+		let held = play(&real_pack, saved_run.clone(), "");
+		let skip = play(&real_pack, Vec::new(), "Polestar.dungeonRoute = true");
+		let solo = play(&solo_pack, Vec::new(), "");
+		assert_eq!(held, skip, "{faction}: held back with Run them saved, every guide is what Skip them gives with dungeons on");
 		let (held, solo) = (held.as_object().cloned().unwrap_or_default(), solo.as_object().cloned().unwrap_or_default());
 		assert_eq!(held.len(), mine.len(), "{faction}: every guide with dungeon steps opens: {:?}", held.keys().collect::<Vec<_>>());
 		assert_eq!(held.keys().collect::<Vec<_>>(), solo.keys().collect::<Vec<_>>(), "{faction}: the same guides open");
 		for (id, h) in &held {
 			let s = &solo[id];
-			assert_eq!(h["total"], s["total"], "{faction} {id}: the step total is the solo route's");
-			assert_eq!(h["live"], s["live"], "{faction} {id}: the live step is the solo route's");
+			if h["total"] != s["total"] {
+				diffs.push(format!("{faction} {id}: {} steps, the solo route {}", h["total"], s["total"]));
+			}
+			if h["live"] != s["live"] {
+				diffs.push(format!("{faction} {id}: opens at step {}, the solo route at {}", h["live"], s["live"]));
+			}
 			let (hs, ss) = (h["steps"].as_array().unwrap(), s["steps"].as_array().unwrap());
 			for (a, b) in hs.iter().zip(ss.iter()) {
-				assert_eq!(a, b, "{faction} {id}: the steps seen are the solo route's");
+				if a != b {
+					diffs.push(format!("{faction} {id}: {a} where the solo route has {b}"));
+				}
 			}
-			assert_eq!(hs.len(), ss.len(), "{faction} {id}: as many steps seen as on the solo route");
 			seen += 1;
 		}
 	}
 	assert!(seen >= 10, "the guides with dungeon steps were opened by a character of their faction ({seen})");
+	assert!(diffs.is_empty(), "{} steps differ from the solo route:\n{}", diffs.len(), diffs.join("\n"));
 }

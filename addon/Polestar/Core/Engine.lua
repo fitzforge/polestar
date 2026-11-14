@@ -1492,7 +1492,8 @@ Own.feedTried = {} -- guide id -> true: planned this session
 -- goals for this character: { first = quest -> its nearest accept { id,
 -- guide (title), title, d, s, pre, preAll }, goals = quest -> { { id, d, s,
 -- step, goal }, ... } }, d the distance back (1: the guide just before).
--- Steps put in by an earlier plan are left out. -> index, the guide ids read.
+-- Steps put in by an earlier plan are left out, and so are a dungeon's the
+-- character skips (Own.dungeonMayHold). -> index, the guide ids read.
 function Own.feederIndex(g)
 	local idx, read = { first = {}, goals = {} }, {}
 	local into = {}
@@ -1515,7 +1516,7 @@ function Own.feederIndex(g)
 					further[#further + 1] = from
 					read[#read + 1] = from
 					for s, step in ipairs(fg.steps) do
-						if not step.feeder and Guides.Matches(step.only, player) then
+						if not step.feeder and Guides.Matches(step.only, player) and Own.dungeonStepMayHold(step) then
 							for _, goal in ipairs(step.goals) do
 								local q = goal.quest
 								if q and Guides.Matches(goal.only, player) then
@@ -1660,13 +1661,37 @@ end
 -- reads guides no tab shows: a step for those who carry a quest (Loch Modan's
 -- hand-in of Expanding Horizons, `when onquest 97914`) is not the route of a
 -- character without it, so it neither brings its quests nor asks for feeders
--- (#1353 upgrade). Other conditions are taken to hold.
+-- (#1353 upgrade). A dungeon's step (`when dungeon`, Own.dungeonMayHold) is the route only of a
+-- character who may run it, its solo way (`when !dungeon`) only of one who
+-- may skip it (Own.dungeonAnswer; Ask me: either): a skipped dungeon's
+-- pick-ups (City of Dalaran's, after An Alarming Request) bring no feeder
+-- into the solo route, and while dungeons in the route are held back none
+-- does. Other conditions are taken to hold.
+-- Whether `when dungeon` predicate p may hold for the character: its dungeon
+-- not answered Skip (Run it, or Ask me), or for `!dungeon` not answered Run.
+function Own.dungeonMayHold(p)
+	local a = Own.dungeonAnswer(p.map)
+	if p.neg then return a ~= true end
+	return a ~= false
+end
+
+-- Whether every `when dungeon` predicate of `step` may hold (Own.dungeonMayHold):
+-- a step of a dungeon the character skips is no place the route goes.
+function Own.dungeonStepMayHold(step)
+	for _, p in ipairs(step.when or NONE) do
+		if p.k == "dungeon" and not Own.dungeonMayHold(p) then return false end
+	end
+	return true
+end
+
 function Own.whenMayHold(step)
 	local C = Compat()
 	for _, p in ipairs(step.when or NONE) do
 		local qs = type(p.q) == "table" and p.q or (p.q and { p.q }) or NONE
 		local ok
-		if p.k == "onquest" then
+		if p.k == "dungeon" then
+			if not Own.dungeonMayHold(p) then return false end
+		elseif p.k == "onquest" then
 			ok = false
 			for _, q in ipairs(qs) do ok = ok or C.IsOnQuest(q) end
 		elseif p.k == "complete" then
@@ -1847,14 +1872,14 @@ function Own.feederPlan(g)
 		return nil
 	end
 	-- g's own places: each step's point (the last one before it for a step
-	-- without one), and its zones.
+	-- without one), and its zones; never a skipped dungeon's (Own.dungeonStepMayHold).
 	local zones, pointAt, ptOf, at = {}, {}, {}, nil
 	local goneAll = ns.CharState().gone
 	local goneMine = type(goneAll) == "table" and goneAll[g.id] or nil
 	local keysG = Own.stepKeys(g)
 	for s, step in ipairs(g.steps) do
 		-- A step an update passed is no place the guide goes (Own.passAdded).
-		if Guides.Matches(step.only, player) and not (goneMine and goneMine[keysG[s]] == true) then
+		if Guides.Matches(step.only, player) and not (goneMine and goneMine[keysG[s]] == true) and Own.dungeonStepMayHold(step) then
 			ptOf[s] = Own.feedPoint(step.goals)
 			at = ptOf[s] or at
 			for _, goal in ipairs(step.goals) do
