@@ -8057,6 +8057,32 @@
 				}
 			],
 			"issue": 2025
+		},
+		{
+			"id": "2253-galens-escape-careful",
+			"faction": "Alliance",
+			"at": {
+				"quest": 1393,
+				"goal": "accept",
+				"guide": "forever/alliance/30-40/05-arathi-highlands"
+			},
+			"tip": "Galen is caged at the north end of the sanctuary. Free him and keep him alive on the walk out; his strongbox waits by the road afterwards. Careful: on the walk out the camp's Lost One Riftseekers (37-38) and their pets, with the Lost Ones around them, turn on Galen: clear the cage and the start of his path first, stay beside him and pull every attacker onto yourself. Many players lose him the first time; if he dies, abandon the quest and take it again at his cage.",
+			"note": "Player report #2253 (Human Paladin 38): the escort pulls the Fallow Sanctuary's Lost One Riftseekers (37-38) and their pets onto Galen, too hard alone at 38; a level 43 warrior barely did it. The step gave no warning. Players' recordings agree it is a hard escort but one most finish: the step warns, says how to keep the attackers on the player, and that a failed escort is taken again at the cage.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#2253 (chiboman, 0.3.7.2): the escort aggroes the camp's warlock Lost Ones with their pets onto Galen"
+				},
+				{
+					"kind": "recording",
+					"ref": "players' recordings of Galen's Escape (1393): 20 people, 19 tried it (accepted at 36-44); 11 finished on the first try, 8 failed the first escort at 36-39, 5 of them finished on a retry and 3 gave up"
+				},
+				{
+					"kind": "questie",
+					"ref": "data/forever npcs.json spawns within 150 yd of Galen's cage (Swamp of Sorrows 65.5,18.2): Lost One Riftseeker (37-38), Seer (37-38), Muckdweller (36-37), Hunter (36-37), Cook (37), Chieftain (39)"
+				}
+			],
+			"issue": 2253
 		}
 	]
 }
