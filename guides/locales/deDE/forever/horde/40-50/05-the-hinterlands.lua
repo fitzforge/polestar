@@ -68,7 +68,7 @@ return {
 	["{area:1917}: kill these as you meet them"] = "{area:1917}: töte diese, wenn du sie triffst",
 	-- {area:1884} Agol'watha · {area:1917} Shaol'watha · {area:351} Skulk Rock · {item:9618} Wildkin Muisek Vessel · {npc:14738} Otho Moji'ko · {spell:7367} Infected Bite · {npc:2925} Silvermane Howler
 	-- plural, as words: Silvermane Stalkers = {npc:2926} Silvermane Stalker · Savage Owlbeasts = {npc:2929} Savage Owlbeast · Razorbeak Skylords = {npc:2659} Razorbeak Skylord · Long Elegant Feathers = {item:4589} Long Elegant Feather
-	["West of the island, the Vilebranch scalpers hold the temples of {area:1884} and {area:1917}. Slagtree's tools lie at one of the temples.\nThe Silvermane Stalkers, Savage Owlbeasts and Razorbeak Skylords share the hills between the temples and {area:351}. Use the {item:9618} on the owlbeasts you kill. The Skylords also drop Long Elegant Feathers: keep ten for {npc:14738}'s second message.\nCareful: Silvermane Stalkers are level 47-48 and stay stealthed while out of combat. Up close they use {spell:7367}. When a {npc:2925} falls to 50% health or lower, it calls for help from anything within 25 yd."] = "",
+	["West of the island, the Vilebranch scalpers hold the temples of {area:1884} and {area:1917}. Slagtree's tools lie at one of the temples.\nThe Silvermane Stalkers, Savage Owlbeasts and Razorbeak Skylords share the hills between the temples and {area:351}. Use the {item:9618} on the owlbeasts you kill. The Skylords also drop Long Elegant Feathers: keep ten for {npc:14738}'s second message.\nCareful: Silvermane Stalkers are level 47-48 and stay stealthed while out of combat. Up close they use {spell:7367}. When a {npc:2925} falls to 50% health or lower, it calls for help from anything within 25 yd."] = "Westlich der Insel halten die Vilebranch Scalpers die Tempel von {area:1884} und {area:1917}. Slagtrees Werkzeuge liegen bei einem der Tempel.\nDie Silvermane Stalkers, Savage Owlbeasts und Razorbeak Skylords teilen sich die Hügel zwischen den Tempeln und {area:351}. Benutze {item:9618} an den Owlbeasts, die du tötest. Die Skylords lassen auch Long Elegant Feathers fallen: Behalte zehn für {npc:14738}s zweite Botschaft.\nVorsicht: Silvermane Stalkers sind Stufe 47-48 und bleiben außerhalb des Kampfes getarnt. Aus der Nähe benutzen sie {spell:7367}. Wenn ein {npc:2925} auf 50% Gesundheit oder weniger fällt, ruft er alles im Umkreis von 25 yd zu Hilfe.",
 
 	-- Step 15: Skulk Rock
 	-- {item:8684} Hinterlands Honey Ripple · {area:351} Skulk Rock
@@ -116,8 +116,8 @@ return {
 
 	-- Step 25: Level 49.02
 	["Level 49.02"] = "Stufe 49,02",
-	-- {quest:7816} Gammerita, Mon! · {area:354} Jintha'Alor · {area:2100} Maraudon
-	["If you skipped {quest:7816} or the {area:354} group quests, grind here to level 49.02 to stay on the route's plan. Or, with a group, run the {area:2100} dungeon instead."] = "Wenn du {quest:7816} oder die Gruppenquests von {area:354} übersprungen hast, grinde hier bis Stufe 49,02, um im Plan der Route zu bleiben. Oder lauf stattdessen mit einer Gruppe den Dungeon {area:2100}.",
+	-- {quest:7816} Gammerita, Mon! · {area:354} Jintha'Alor
+	["If you skipped {quest:7816} or the {area:354} group quests, grind here to level 49.02 to stay on the route's plan."] = "Wenn du {quest:7816} oder die Gruppenquests von {area:354} übersprungen hast, grinde hier bis Stufe 49,02, um im Plan der Route zu bleiben.",
 	-- {npc:2505} Saltwater Snapjaw
 	["grind on {npc:2505}"] = "grinde {npc:2505}",
 
@@ -125,21 +125,27 @@ return {
 	-- {area:353} Shadra'Alor
 	["South-west again, the exile hides by the ruins of {area:353}."] = "Wieder nach Südwesten: Der Verbannte versteckt sich bei den Ruinen von {area:353}.",
 
-	-- Step 28: Grim Message
+	-- Step 27: Grim Message
 	-- {item:15002} Nimboya's Pike
 	["South of the lodge the Witherbark trolls hold their villages. Every one of them carries a skull: with twenty, use {item:15002} to make the Laden Pike, then plant it inside the village."] = "Südlich der Jagdhütte halten die Trolle der Witherbark ihre Dörfer. Jeder von ihnen trägt einen Schädel: Mit zwanzig benutzt du {item:15002}, um Nimboyas geladene Pike zu machen, und pflanzt sie dann im Dorf auf.",
 
-	-- Step 29: Aerie Peak
+	-- Step 28: Aerie Peak
 	-- {area:348} Aerie Peak
 	["Ride all the way west to the Wildhammer town of {area:348} and place the message by the well in its centre. The town is full of Alliance guards: get in, place it and get out."] = "Reite ganz nach Westen zur Stadt der Wildhammer, {area:348}, und leg die Nachricht beim Brunnen in ihrer Mitte ab. Die Stadt ist voller Wachen der Allianz: Rein, ablegen, raus.",
 	-- {area:348} Aerie Peak
 	["{area:348} well"] = "Brunnen von {area:348}",
 
-	-- Step 31: Fly to Stonard
+	-- Step 30: Fly to Stonard
 	-- {area:75} Stonard
 	["Fly to {area:75}"] = "Flieg nach {area:75}",
 	-- {area:3317} Revantusk Village
 	["{area:3317} flight master"] = "Flugmeister in {area:3317}",
+
+	-- Step 31: To Stonard
+	-- {area:75} Stonard
+	["To {area:75}"] = "Nach {area:75}",
+	-- {area:75} Stonard · {object:3202} Grom'gol (no name in this language: may be words) · {zone:1431} Duskwood · {zone:1430} Deadwind Pass
+	["No flight path to {area:75} yet: the arrow takes the quickest way there (by the {object:3202} flight and the road through {zone:1431} and {zone:1430}). Learn {area:75}'s flight path when you arrive."] = "Noch keine Flugroute nach {area:75}: Der Pfeil nimmt den schnellsten Weg dorthin (mit dem Flug nach {object:3202} und der Straße durch {zone:1431} und {zone:1430}). Lerne die Flugroute von {area:75}, wenn du ankommst.",
 
 	-- Step 32: Fel'zerul
 	["On the top floor"] = "Im obersten Stockwerk",
@@ -162,7 +168,7 @@ return {
 	["{area:1440}: kill these as you meet them"] = "{area:1440}: töte diese, wenn du sie triffst",
 	-- {npc:5982} Black Slayer · {spell:5416} Venom Sting · {npc:8301} Clack the Reaver
 	-- plural, as words: Starving Snickerfangs = {npc:5984} Starving Snickerfang · Scorpok Stingers = {npc:5988} Scorpok Stinger
-	["The five quests share the same parts: gather them all in one sweep. West of the road the {npc:5982} vultures, Starving Snickerfangs, Scorpok Stingers and Deatheye basilisks share the hills.\nEast of the road the Ashmane boars and Grunters root on the slopes beside the Redstone basilisks. Stay away from the level 52 Helboars further south.\nCareful: Scorpok Stingers use {spell:5416}; {npc:8301} adds Knockdown."] = "",
+	["The five quests share the same parts: gather them all in one sweep. West of the road the {npc:5982} vultures, Starving Snickerfangs, Scorpok Stingers and Deatheye basilisks share the hills.\nEast of the road the Ashmane boars and Grunters root on the slopes beside the Redstone basilisks. Stay away from the level 52 Helboars further south.\nCareful: Scorpok Stingers use {spell:5416}; {npc:8301} adds Knockdown."] = "Die fünf Quests brauchen dieselben Teile: Sammle sie alle in einem Durchgang. Westlich der Straße teilen sich {npc:5982}-Geier, Starving Snickerfangs, Scorpok Stingers und Deatheye-Basilisken die Hügel.\nÖstlich der Straße wühlen die Ashmane-Eber und Grunters an den Hängen neben den Redstone-Basilisken. Halte dich von den Helboars der Stufe 52 weiter südlich fern.\nVorsicht: Scorpok Stingers benutzen {spell:5416}; {npc:8301} setzt zusätzlich Knockdown ein.",
 
 	-- Step 38: The bloodmages
 	["Ride back north to the bloodmages."] = "Reite zurück nach Norden zu den Blutmagiern.",
@@ -197,13 +203,11 @@ return {
 	-- ["The central hills"] = "Die zentralen Hügel",
 	-- ["The eastern slopes"] = "Die östlichen Hänge",
 	-- ["The five quests share the same parts: gather them all in one sweep. West of the road the {npc:5982} vultures, Starving Snickerfangs, Scorpok Stingers and Deatheye basilisks share the hills."] = "Die fünf Quests teilen sich dieselben Teile: Sammle alle auf einem Durchgang. Westlich der Straße teilen sich {npc:5982}-Geier, Verhungernde Kicherfänge, Skorpokstecher und Todesaugen-Basilisken die Hügel.",
-	-- ["The five quests share the same parts: gather them all in one sweep. West of the road the {npc:5982} vultures, Starving Snickerfangs, Scorpok Stingers and Deatheye basilisks share the hills.\nEast of the road the Ashmane boars and Grunters root on the slopes beside the Redstone basilisks. Stay away from the level 52 Helboars further south.\nCareful: Scorpok Stingers use Venom Sting; {npc:8301} adds Knockdown."] = "Die fünf Quests brauchen dieselben Teile: Sammle sie alle in einem Durchgang. Westlich der Straße teilen sich {npc:5982}-Geier, Starving Snickerfangs, Scorpok Stingers und Deatheye-Basilisken die Hügel.\nÖstlich der Straße wühlen die Ashmane-Eber und Grunters an den Hängen neben den Redstone-Basilisken. Halte dich von den Helboars der Stufe 52 weiter südlich fern.\nVorsicht: Scorpok Stingers benutzen Giftstachel; {npc:8301} setzt zusätzlich Knockdown ein.",
 	-- ["The next guide starts here, at {area:3317}."] = "Der nächste Guide beginnt hier, in {area:3317}.",
 	-- ["The northern beasts"] = "Die nördlichen Bestien",
 	-- ["Vilebranch soothsayers"] = "Sterndeuter der Vilebranch",
 	-- ["Vulture hills"] = "Geierhügel",
 	-- ["West of the island, the Vilebranch scalpers hold the temples of {area:1884} and {area:1917}. Slagtree's tools lie at one of the temples."] = "Westlich der Insel halten die Skalpierer der Vilebranch die Tempel von {area:1884} und {area:1917}. Schmied Slagtrees Werkzeug liegt bei einem der Tempel.",
-	-- ["West of the island, the Vilebranch scalpers hold the temples of {area:1884} and {area:1917}. Slagtree's tools lie at one of the temples.\nThe Silvermane Stalkers, Savage Owlbeasts and Razorbeak Skylords share the hills between the temples and {area:351}. Use the {item:9618} on the owlbeasts you kill. The Skylords also drop Long Elegant Feathers: keep ten for {npc:14738}'s second message.\nCareful: Silvermane Stalkers are level 47-48 and stay stealthed while out of combat. Up close they use Infected Bite. When a {npc:2925} falls to 50% health or lower, it calls for help from anything within 25 yd."] = "Westlich der Insel halten die Vilebranch Scalpers die Tempel von {area:1884} und {area:1917}. Slagtrees Werkzeuge liegen bei einem der Tempel.\nDie Silvermane Stalkers, Savage Owlbeasts und Razorbeak Skylords teilen sich die Hügel zwischen den Tempeln und {area:351}. Benutze {item:9618} an den Owlbeasts, die du tötest. Die Skylords lassen auch Long Elegant Feathers fallen: Behalte zehn für {npc:14738}s zweite Botschaft.\nVorsicht: Silvermane Stalkers sind Stufe 47-48 und bleiben außerhalb des Kampfes getarnt. Aus der Nähe benutzen sie Infizierter Biss. Wenn ein {npc:2925} auf 50% Gesundheit oder weniger fällt, ruft er alles im Umkreis von 25 yd zu Hilfe.",
 	-- ["grind on {npc:5982} at the northern hills, {zone:1419}"] = "grinde {npc:5982} in den nördlichen Hügeln, {zone:1419}",
 	-- ["{npc:6741}: for {zone:1456}, around level 50"] = "{npc:6741}: für {zone:1456}, etwa ab Stufe 50",
 	-- ["{npc:7825}, the {object:36126}"] = "{npc:7825}, {object:36126}",

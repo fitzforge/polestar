@@ -46,8 +46,8 @@ return {
 	["Ride east to the ruins on the coast. Fill Cuely's four vials at the tide pools along the shore; Spitelash naga patrol between them."] = "Reite nach Osten zu den Ruinen an der Küste. Füll Cuelys vier Phiolen an den Gezeitentümpeln am Ufer; Naga der Grollflossen patrouillieren dazwischen.",
 
 	-- Step 9: Thalassian Base Camp
-	-- {area:1227} Bay of Storms
-	["The blood elves camp on the cliffs in the north-east, by the {area:1227}."] = "Die Blutelfen lagern auf den Klippen im Nordosten, an der {area:1227}.",
+	-- {area:1227} Bay of Storms · {npc:250023} Blackmaw Thrall
+	["The blood elves camp on the cliffs in the north-east, by the {area:1227}.\nCareful: a {npc:250023}, a level 55-57 elite, stands at the west edge of the camp: work the blood elves from its east side."] = "Die Blutelfen lagern auf den Klippen im Nordosten, an der {area:1227}.\nVorsicht: Am Westrand des Lagers steht {npc:250023}, ein Elite der Stufe 55-57: Arbeite dich von der Ostseite an die Blutelfen heran.",
 
 	-- Step 10: Magus Rimtori's camp
 	-- {npc:8578} Magus Rimtori

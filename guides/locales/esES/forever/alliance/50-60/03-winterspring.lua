@@ -17,14 +17,14 @@ return {
 	-- Step 4: Everlook's inn
 	-- {area:2255} Everlook
 	["{area:2255}'s inn"] = "La posada de {area:2255}",
-	-- {area:144} Thelsamar · {zone:1425} Hinterlands · {zone:1452} Winterspring · {area:2255} Everlook
-	["Your Hearthstone is not set at {area:144} (the {zone:1425} guide binds there at 47, and this guide leaves {zone:1452} through it): bind at {area:2255} instead, for the trips back to town."] = "Tu piedra de hogar no está vinculada en {area:144} (la guía de {zone:1425} te vincula allí a nivel 47, y esta guía sale de {zone:1452} pasando por allí): vincúlala en {area:2255}, para los viajes de vuelta al pueblo.",
+	-- {zone:1455} Ironforge · {zone:1425} Hinterlands · {zone:1452} Winterspring · {area:2255} Everlook
+	["Your Hearthstone is not set at {zone:1455} (the {zone:1425} guide binds there at 47, and this guide leaves {zone:1452} through it): bind at {area:2255} instead, for the trips back to town."] = "Tu piedra de hogar no está vinculada en {zone:1455} (la guía de {zone:1425} te vincula allí a nivel 47, y esta guía sale de {zone:1452} pasando por allí): vincúlala en {area:2255}, para los viajes de vuelta al pueblo.",
 
 	-- Step 5: Everlook
 	-- {npc:11629} Jessica Redpath · {area:2262} Darrowshire
-	["{npc:11629}: keep it for {area:2262}; inside"] = "",
+	["{npc:11629}: keep it for {area:2262}; inside"] = "{npc:11629}: guárdalo para {area:2262}; dentro",
 	-- {npc:10431} Gregor Greystone
-	["{npc:10431}: keep both for the Plaguelands; inside"] = "",
+	["{npc:10431}: keep both for the Plaguelands; inside"] = "{npc:10431}: guarda ambos para las Tierras de la Peste; dentro",
 	-- {npc:11754} Meggi Peppinrocker · {area:2255} Everlook
 	["{npc:11754} walks around {area:2255}: look inside the circle on the map"] = "",
 	-- {item:12383} Moontouched Feather
@@ -51,8 +51,8 @@ return {
 	-- Step 10: Frostfire Hot Springs: kill these as you meet them
 	-- {area:2246} Frostfire Hot Springs
 	["{area:2246}: kill these as you meet them"] = "",
-	-- {npc:11556} Salfa · {npc:9298} Donova Snowden · {item:12771} Empty Firewater Flask · {quest:8471} Winterfall Ritual Totem · {item:14047} Runecloth · {zone:1452} Winterspring · {area:1584} Blackrock Depths
-	["The western Winterfall camp sits in the hills between {npc:11556} and {npc:9298}. Any furbolg here can drop an {item:12771} (about one in ten: it comes within the kills these quests need) and a {quest:8471} (about one in thirty: it comes within the top-ups): right-click whichever drops. Keep the {item:14047} the furbolgs drop for Meilosh.\nThe rest of {zone:1452}'s work is level 55-58: stay on this camp until level 54, so your first kills also count for {npc:9298} and {npc:11556}. Or, with a group, run the {area:1584} dungeon instead."] = "",
+	-- {npc:11556} Salfa · {npc:9298} Donova Snowden · {item:12771} Empty Firewater Flask · {quest:8471} Winterfall Ritual Totem · {item:14047} Runecloth · {zone:1452} Winterspring
+	["The western Winterfall camp sits in the hills between {npc:11556} and {npc:9298}. Any furbolg here can drop an {item:12771} (about one in ten: it comes within the kills these quests need) and a {quest:8471} (about one in thirty: it comes within the top-ups): right-click whichever drops. Keep the {item:14047} the furbolgs drop for Meilosh.\nThe rest of {zone:1452}'s work is level 55-58: stay on this camp until level 54, so your first kills also count for {npc:9298} and {npc:11556}."] = "",
 	-- {npc:7442} Winterfall Pathfinder
 	["grind on {npc:7442}"] = "",
 
@@ -62,8 +62,8 @@ return {
 
 	-- Step 12: Level 55.05
 	["Level 55.05"] = "",
-	-- {area:2255} Everlook · {area:2246} Frostfire Hot Springs · {area:1769} Timbermaw Hold · {quest:8471} Winterfall Ritual Totem · {area:1584} Blackrock Depths · {area:1583} Blackrock Spire
-	["Top up here to level 55.05 before the hand-ins at {area:2255}: they take you to level 56. Grind the Winterfall furbolgs camped by {area:2246} (Pathfinders, Totemics, Den Watchers): killing them raises your Timbermaw reputation, which the quests here and the walk through {area:1769} need, one of them drops the {quest:8471}, and they fill your bags with the thirty Runecloth Meilosh asks for. Or, with a group, run the {area:1584} dungeon or the {area:1583} dungeon (Lower) instead."] = "",
+	-- {area:2255} Everlook · {area:2246} Frostfire Hot Springs · {area:1769} Timbermaw Hold · {quest:8471} Winterfall Ritual Totem
+	["Top up here to level 55.05 before the hand-ins at {area:2255}: they take you to level 56. Grind the Winterfall furbolgs camped by {area:2246} (Pathfinders, Totemics, Den Watchers): killing them raises your Timbermaw reputation, which the quests here and the walk through {area:1769} need, one of them drops the {quest:8471}, and they fill your bags with the thirty Runecloth Meilosh asks for."] = "",
 
 	-- Step 13: Winterfall Ritual Totem
 	["Any Winterfall furbolg can drop the totem, about one kill in thirty: if the top-up did not bring one, keep killing them here until it drops, then right-click it."] = "",
@@ -78,7 +78,7 @@ return {
 	-- plural, as words: Pristine Yeti Horns = {item:12367} Pristine Yeti Horn
 	["Pristine Yeti Horns"] = "Cuernos de yeti prístinos",
 	-- plural, as words: Ice Thistle Matriarchs = {npc:7459} Ice Thistle Matriarch
-	["Back to the hills: only the Ice Thistle Matriarchs and Patriarchs carry the horns."] = "",
+	["Back to the hills: only the Ice Thistle Matriarchs and Patriarchs carry the horns."] = "Vuelve a las colinas: solo las Matriarcas Cardo Nevado y los patriarcas llevan los cuernos.",
 
 	-- Step 17: Everlook
 	-- {npc:10978} Legacki
@@ -88,32 +88,34 @@ return {
 	-- {npc:10978} Legacki · {item:12928} Umi's Mechanical Yeti
 	["Scare {npc:10978} with {item:12928}"] = "Asusta a {npc:10978} con {item:12928}",
 
-	-- Step 18: To Stoutlager Inn
-	-- {area:2101} Stoutlager Inn
-	["To {area:2101}"] = "A {area:2101}",
-	-- {area:144} Thelsamar · {area:3197} Chillwind Camp · {area:2255} Everlook
-	["Your Hearthstone is still set at {area:144}: from there the gryphon to {area:3197} is about ten minutes quicker than {area:2255}'s flight to Theramore and the boat."] = "Tu piedra de hogar sigue vinculada en {area:144}: desde allí, el grifo a {area:3197} es unos diez minutos más rápido que el vuelo de {area:2255} a Theramore y el barco.",
+	-- Step 18: To Ironforge
+	-- {zone:1455} Ironforge
+	["To {zone:1455}"] = "A {zone:1455}",
+	-- {zone:1455} Ironforge · {area:3197} Chillwind Camp · {area:2255} Everlook
+	["Your Hearthstone is still set at {zone:1455}: from there the gryphon to {area:3197} is about ten minutes quicker than {area:2255}'s flight to Theramore and the boat."] = "Tu piedra de hogar sigue vinculada en {zone:1455}: desde allí, el grifo a {area:3197} es unos diez minutos más rápido que el vuelo de {area:2255} a Theramore y el barco.",
+	-- {zone:1455} Ironforge
+	["{zone:1455} inn"] = "Posada de {zone:1455}",
 
-	-- Step 19: Fly to Chillwind Camp
+	-- Step 20: Fly to Chillwind Camp
 	-- {area:3197} Chillwind Camp
 	["Fly to {area:3197}"] = "Vuela a {area:3197}",
-	-- {area:144} Thelsamar
-	["{area:144} flight master"] = "Maestro de vuelo de {area:144}",
+	-- {zone:1455} Ironforge
+	["{zone:1455} flight master"] = "Maestro de vuelo de {zone:1455}",
 
-	-- Step 20: Fly to Theramore
+	-- Step 21: Fly to Theramore
 	["Fly to Theramore"] = "Vuela a Theramore",
 	-- {area:2255} Everlook
 	["{area:2255} flight master"] = "",
 
-	-- Step 21: Boat to Menethil Harbor
+	-- Step 22: Boat to Menethil Harbor
 	-- {area:150} Menethil Harbor
 	["Boat to {area:150}"] = "Barco a {area:150}",
 
-	-- Step 22: Fly to Chillwind Camp
+	-- Step 23: Fly to Chillwind Camp
 	-- {area:150} Menethil Harbor
 	["{area:150} flight master"] = "",
 
-	-- Step 23: Chillwind Camp
+	-- Step 24: Chillwind Camp
 	["Pureheart, Dumah, Valorfist and MacDonnell stand around the middle of the camp, by the flight master."] = "Puracorazón, Dumah, Puño de Valor y MacDonnell están por el centro del campamento, junto al maestro de vuelo.",
 	-- {npc:11616} Nathaniel Dumah · {area:2627} Terrordale
 	["{npc:11616}: the termites come later, in {area:2627}"] = "{npc:11616}: las termitas vienen más tarde, en {area:2627}",
@@ -122,20 +124,20 @@ return {
 	-- {npc:11053} High Priestess MacDonnell · {area:200} Dalson's Tears
 	["{npc:11053}: the cauldron is at {area:200}, keep it"] = "",
 
-	-- Step 24: Mulgris Deepriver
+	-- Step 25: Mulgris Deepriver
 	-- {npc:10739} Mulgris Deepriver · {area:202} Writhing Haunt · {zone:1423} Eastern Plaguelands
 	["{npc:10739} stands by the farm at the {area:202}, on the road east to the {zone:1423}."] = "",
 	["Inside"] = "",
 
-	-- Step 25: Into Eastern Plaguelands
+	-- Step 26: Into Eastern Plaguelands
 	-- {zone:1423} Eastern Plaguelands
 	["Into {zone:1423}"] = "",
 
-	-- Step 27: Pamela Redpath
+	-- Step 28: Pamela Redpath
 	-- {zone:1423} Eastern Plaguelands · {area:2262} Darrowshire · {npc:10926} Pamela Redpath
 	["Follow the southern road east into the {zone:1423}; the ruins of {area:2262} lie south of it. {npc:10926}'s ghost plays by the ruined house at the south end."] = "Sigue el camino del sur hacia el este hasta {zone:1423}; las ruinas de {area:2262} están al sur. El fantasma de {npc:10926} juega junto a la casa en ruinas del extremo sur.",
 
-	-- Step 28: Pamela Redpath's doll
+	-- Step 29: Pamela Redpath's doll
 	-- {npc:10926} Pamela Redpath
 	["{npc:10926}'s doll"] = "La muñeca de {npc:10926}",
 	-- {area:2262} Darrowshire
@@ -145,34 +147,33 @@ return {
 	-- {item:12888} Pamela's Doll's Right Side
 	["{item:12888}; inside"] = "",
 
-	-- Step 29: Pamela Redpath
+	-- Step 30: Pamela Redpath
 	-- {quest:5152} Auntie Marlene · {zone:1422} Western Plaguelands
 	["{quest:5152}, in the {zone:1422}: keep it"] = "{quest:5152}, en {zone:1422}: guárdala",
 
-	-- Step 30: Light's Hope Chapel
+	-- Step 31: Light's Hope Chapel
 	["Follow the road east across the zone to the chapel."] = "Sigue el camino al este cruzando la zona hasta la capilla.",
 	-- {npc:11038} Caretaker Alen
-	["{npc:11038}: Zaeldarr is a level 54 elite"] = "",
+	["{npc:11038}: Zaeldarr is a level 54 elite"] = "{npc:11038}: Zaeldarr es un élite de nivel 54",
 
-	-- Step 31: Corin's Crossing
+	-- Step 32: Corin's Crossing
 	-- {area:2264} Corin's Crossing · {npc:10411} Eye of Naxxramas
 	-- plural, as words: Darrowshire Spirits = {npc:11064} Darrowshire Spirit · Rockwing Gargoyles = {npc:10408} Rockwing Gargoyle
-	["The Scourge around {area:2264}, west of the chapel, drop both kinds of Scourgestone; Darrowshire Spirits rise from them: talk to each one to free it.\nCareful: {npc:10411} goes invisible when out of combat and calls Rockwing Gargoyles once a fight starts. Only 3 exist and they respawn every 15 min."] = "",
+	["The Scourge around {area:2264}, west of the chapel, drop both kinds of Scourgestone; Darrowshire Spirits rise from them: talk to each one to free it.\nCareful: {npc:10411} goes invisible when out of combat and calls Rockwing Gargoyles once a fight starts. Only 3 exist and they respawn every 15 min."] = "La Plaga alrededor de {area:2264}, al oeste de la capilla, suelta ambos tipos de Piedra de la Plaga; de ellos surgen espíritus de Villa Darrow: habla con cada uno para liberarlo.\nCuidado: {npc:10411} se vuelve invisible fuera de combate y llama a gárgolas Alarroca en cuanto empieza el combate. Solo hay 3 y reaparecen cada 15 min.",
 	-- plural, as words: Darrowshire Spirits = {npc:11064} Darrowshire Spirit
 	["Free Darrowshire Spirits: talk to them"] = "Libera espíritus de Villa Darrow ({npc:11064}): habla con ellos",
 
-	-- Step 32: The Undercroft
+	-- Step 33: The Undercroft
 	-- {area:2261} The Undercroft
 	["Zaeldarr is elite: grouping up is advised. He waits at the bottom of the {area:2261}, the crypt in the south-west of the zone."] = "Zaeldarr es élite: se recomienda ir en grupo. Espera al fondo de {area:2261}, la cripta del suroeste de la zona.",
 	-- {item:15785} Zaeldarr's Head
 	["{item:15785}; below ground"] = "",
 
-	-- Step 33: Light's Hope Chapel
+	-- Step 34: Light's Hope Chapel
 	-- {area:3197} Chillwind Camp
 	["The next guide starts here and flies to {area:3197}."] = "La siguiente guía empieza aquí y vuela a {area:3197}.",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
-	-- ["Back to the hills: only the Ice Thistle Matriarchs and Patriarchs carry the horns. Keep killing yetis until level 54: Harlo's wildkin quests are red before that."] = "Vuelve a las colinas: solo las Matriarcas Cardo Nevado y los patriarcas llevan los cuernos. Sigue matando yetis hasta el nivel 54: antes de eso, las misiones de lechúcicos de Harlo están en rojo.",
 	-- ["Fly to {area:271}"] = "Vuela a {area:271}",
 	-- ["Follow the southern road east into the {area:139}; the ruins of {area:2262} lie south of it. {npc:10926}'s ghost plays by the ruined house at the south end."] = "Sigue el camino del sur hacia el este hasta {area:139}; las ruinas de {area:2262} están al sur. El fantasma de {npc:10926} juega junto a la casa en ruinas del extremo sur.",
 	-- ["Follow {npc:9298}'s directions to the mouth of {area:2256}, past the Frostmaul giants: pass them one at a time."] = "Sigue las indicaciones de {npc:9298} hasta la entrada de {area:2256}, pasando a los gigantes Machacahielo: pásalos de uno en uno.",
@@ -185,7 +186,6 @@ return {
 	-- ["Ride west along the road to the night elf village."] = "Cabalga al oeste por el camino hasta el pueblo de los elfos de la noche.",
 	-- ["Ride west along the road to {npc:10301}."] = "Cabalga al oeste por el camino hasta {npc:10301}.",
 	-- ["Short of level 54 after the yetis? Running the {area:1417} (50-54) instead of grinding gets you there faster in a group. Come back to {area:2255} afterwards."] = "¿No llegas al nivel 54 después de los yetis? Hacer {area:1417} (50-54) en grupo en vez de matar enemigos te lleva allí más rápido. Después vuelve a {area:2255}.",
-	-- ["The Scourge around {area:2264}, west of the chapel, drop both kinds of Scourgestone; Darrowshire Spirits rise from them: talk to each one to free it."] = "La Plaga alrededor de {area:2264}, al oeste de la capilla, suelta ambos tipos de Piedra de la Plaga; de ellos surgen espíritus de Villa Darrow ({npc:11064}): habla con cada uno para liberarlo.",
 	-- ["The Winterfall camp"] = "El campamento Nevada",
 	-- ["The western Winterfall camp sits in the hills between {npc:11556} and {npc:9298}. Any furbolg here can drop an {item:12771} (about one in ten) and, rarely, a {quest:8471}: right-click whichever drops. Keep the {quest:6031} the furbolgs drop for Meilosh."] = "El campamento Nevada del oeste está en las colinas entre {npc:11556} y {npc:9298}. Cualquier fúrbolg de aquí puede soltar un {item:12771} (más o menos uno de cada diez) y, rara vez, un {quest:8471}: haz clic derecho en el que caiga. Guarda el {quest:6031} que sueltan los fúrbolgs para Meilosh.",
 	-- ["The western Winterfall furbolgs drop the beads."] = "Los fúrbolgs Nevada del oeste sueltan las cuentas.",
@@ -195,11 +195,8 @@ return {
 	-- ["{item:12771}, a rare drop"] = "{item:12771}, botín poco frecuente",
 	-- ["{npc:10301}'s camp"] = "El campamento de {npc:10301}",
 	-- ["{npc:10301}'s supplies"] = "Los suministros de {npc:10301}",
-	-- ["{npc:10431}: keep both for the Plaguelands"] = "{npc:10431}: guarda ambos para las Tierras de la Peste",
-	-- ["{npc:11038}: {npc:12250} is a level 54 elite"] = "{npc:11038}: {npc:12250} es un élite de nivel 54",
 	-- ["{npc:11118}: the last guide binds here, so this usually ticks at once"] = "{npc:11118}: la guía anterior te vincula aquí, así que esto suele marcarse al instante",
 	-- ["{npc:11556} guards the mouth of {area:1769}, north-west of {npc:9298}."] = "{npc:11556} guarda la entrada de {area:1769}, al noroeste de {npc:9298}.",
-	-- ["{npc:11629}: keep it for {area:2262}"] = "{npc:11629}: guárdalo para {area:2262}",
 	-- ["{npc:12250} is elite: grouping up is advised. He waits at the bottom of the {area:2261}, the crypt in the south-west of the zone."] = "{npc:12250} es élite: se recomienda ir en grupo. Espera al fondo de {area:2261}, la cripta del suroeste de la zona.",
 	-- ["{quest:5152}, in the {area:28}: keep it"] = "{quest:5152}, en {area:28}: guárdala",
 	-- ["{quest:6031}, for Meilosh later"] = "{quest:6031}, para Meilosh más adelante",

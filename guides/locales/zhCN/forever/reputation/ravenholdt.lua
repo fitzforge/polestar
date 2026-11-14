@@ -30,12 +30,10 @@ return {
 	["{npc:266216} is inside {area:275}, the Syndicate fortress east of {area:271}. Stealth past the guards in the courtyard."] = "{npc:266216} 在 {area:271} 以东的辛迪加堡垒 {area:275} 内。潜行绕过庭院里的守卫。",
 
 	-- Step 4: Strahnbrad: Barton
-	-- {area:280} Strahnbrad
-	["{area:280}: Barton"] = "{area:280}：巴顿",
-	-- {area:280} Strahnbrad
-	["Barton hides in a house in {area:280}, among stealthed Syndicate. Pick his pocket for the report; Distract turns him around if you are under his level."] = "巴顿 藏在 {area:280} 的一栋房屋里，周围是潜行的辛迪加成员。对他使用偷窃取得报告；如果等级比他低，可用扰乱让他转身。",
-	-- {item:275482} Barton's Scouting Report
-	["{item:275482}: pickpocket Barton"] = "{item:275482}：对巴顿使用偷窃",
+	-- {npc:266357} Barton · {area:280} Strahnbrad
+	["{npc:266357} hides in a house in {area:280}, among stealthed Syndicate. Pick his pocket for the report; Distract turns him around if you are under his level."] = "{npc:266357} 藏在 {area:280} 的一栋房屋里，周围是潜行的辛迪加成员。对他使用偷窃取得报告；如果等级比他低，可用扰乱让他转身。",
+	-- {item:275482} Barton's Scouting Report · {npc:266357} Barton
+	["{item:275482}: pickpocket {npc:266357}"] = "{item:275482}：对{npc:266357}使用偷窃",
 
 	-- Step 5: Northfold Manor: a uniform
 	-- {area:313} Northfold Manor
@@ -122,5 +120,6 @@ return {
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["a {npc:6766}: 100 per emblem"] = "{npc:6766}：每枚徽记100点",
+	-- ["{area:280}: Barton"] = "{area:280}：巴顿",
 	-- ["{npc:6707}: 50 per five boxes"] = "{npc:6707}：每五个箱子换 50 点声望",
 }

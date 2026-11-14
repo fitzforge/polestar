@@ -12,7 +12,7 @@ return {
 
 	-- Step 1: The Hinterlands (1/2)
 	-- {zone:1425} The Hinterlands · {zone:1424} Hillsbrad Foothills · {zone:1415} Eastern Kingdoms
-	["Starts in the {zone:1425}, north-east of {zone:1424}. The last area of this guide completes the {zone:1415} map. 14 areas to discover here, levels 41-49."] = "",
+	["Starts in the {zone:1425}, north-east of {zone:1424}. The last area of this guide completes the {zone:1415} map. 14 areas to discover here, levels 41-49."] = "Empieza en {zone:1425}, al noreste de {zone:1424}. La última zona de esta guía completa el mapa de {zone:1415}. Aquí hay 14 zonas por descubrir, niveles 41-49.",
 	["Exploring the entire world map on one character is a Forever Legacy Challenge (1 account-wide Legacy Point)."] = "Explorar todo el mapa del mundo con un personaje es un Desafío de Legado de Forever (1 Punto de Legado para toda la cuenta).",
 	-- {area:348} Aerie Peak · {area:271} Southshore · {zone:1424} Hillsbrad Foothills · {zone:1425} The Hinterlands
 	["Fly to {area:348} if you have it; otherwise fly to {area:271} and walk north-east from {zone:1424} into the {zone:1425}."] = "Vuela a {area:348} si lo tienes; si no, vuela a {area:271} y camina al noreste desde {zone:1424} hasta {zone:1425}.",
@@ -43,7 +43,7 @@ return {
 	-- Step 4: Burning Steppes (1/2)
 	["10 areas to discover here, levels 50-59."] = "Aquí hay 10 zonas por descubrir, niveles 50-59.",
 	-- {area:254} Blackrock Mountain · {zone:1427} Searing Gorge · {zone:1428} Burning Steppes · {area:2418} Morgan's Vigil
-	["Cross {area:254} from the south of the {zone:1427} into the {zone:1428}: stay on the chain path inside, past the dungeon entrances. {area:2418} (Alliance) is in the east."] = "",
+	["Cross {area:254} from the south of the {zone:1427} into the {zone:1428}: stay on the chain path inside, past the dungeon entrances. {area:2418} (Alliance) is in the east."] = "Cruza {area:254} desde el sur de {zone:1427} hasta {zone:1428}: dentro, sigue el camino de cadenas, pasando las entradas de las mazmorras. {area:2418} (Alianza) está en el este.",
 	-- {area:2418} Morgan's Vigil · {npc:2299} Borgus Stoutarm
 	["Flight path here: {area:2418} ({npc:2299})."] = "Ruta de vuelo aquí: {area:2418} ({npc:2299}).",
 	-- {area:251} Flame Crest
@@ -57,7 +57,7 @@ return {
 	["high-level undead around the tower: discover it from the road"] = "no-muertos de nivel alto alrededor de la torre: descúbrela desde el camino",
 
 	-- Step 7: Blasted Lands (1/2)
-	["9 areas to discover here, levels 46-63."] = "",
+	["9 areas to discover here, levels 46-63."] = "Aquí hay 9 zonas por descubrir, niveles 46-63.",
 	-- {zone:1430} Deadwind Pass · {zone:1435} Swamp of Sorrows · {zone:1419} Blasted Lands · {area:1438} Nethergarde Keep
 	["Ride east out of {zone:1430} into the {zone:1435} and take the road south into the {zone:1419}; {area:1438} (Alliance) stands just inside."] = "",
 	-- {area:1438} Nethergarde Keep · {npc:8609} Alexandra Constantine
@@ -67,9 +67,9 @@ return {
 	-- Step 9: Western Plaguelands (1/2)
 	["13 areas to discover here, levels 46-57."] = "Aquí hay 13 zonas por descubrir, niveles 46-57.",
 	-- {area:3197} Chillwind Camp · {area:271} Southshore · {zone:1416} Alterac Mountains · {zone:1422} Western Plaguelands
-	["Fly to {area:3197} if you have it; otherwise fly to {area:271} and ride north through the {zone:1416} to {area:3197} in southern {zone:1422}."] = "",
+	["Fly to {area:3197} if you have it; otherwise fly to {area:271} and ride north through the {zone:1416} to {area:3197} in southern {zone:1422}."] = "Vuela a {area:3197} si tienes la ruta; si no, vuela a {area:271} y cabalga al norte por {zone:1416} hasta {area:3197}, en el sur de {zone:1422}.",
 	-- {area:272} Tarren Mill · {zone:1416} Alterac Mountains · {zone:1422} Western Plaguelands · {zone:1420} Tirisfal Glades · {area:813} The Bulwark
-	["Fly to {area:272} and ride north through the {zone:1416} into southern {zone:1422}, or go east from {zone:1420} past {area:813}."] = "",
+	["Fly to {area:272} and ride north through the {zone:1416} into southern {zone:1422}, or go east from {zone:1420} past {area:813}."] = "Vuela a {area:272} y cabalga al norte por {zone:1416} hasta el sur de {zone:1422}, o ve al este desde {zone:1420} pasando {area:813}.",
 	-- {area:3197} Chillwind Camp · {npc:12596} Bibilfaz Featherwhistle
 	["Flight path here: {area:3197} ({npc:12596})."] = "Ruta de vuelo aquí: {area:3197} ({npc:12596}).",
 
@@ -83,12 +83,7 @@ return {
 	["Flight path here: {area:2268} (Georgia)."] = "Ruta de vuelo aquí: {area:2268} (Georgia).",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
-	-- ["14 areas to discover here, levels 41-49."] = "Aquí hay 14 zonas por descubrir, niveles 41-49.",
 	-- ["Continue west into {zone:1431}, north to {zone:1433} and take the pass north out of Redridge into the {zone:1428}; {area:2418} (Alliance) is near the top."] = "Sigue al oeste hasta {zone:1431}, al norte hasta {zone:1433} y toma el paso al norte de las Montañas Crestagrana hacia {zone:1428}; {area:2418} (Alianza) está cerca de la cima.",
-	-- ["Cross {area:254} from the western {zone:1428} into the {zone:1427}: stay on the chain path inside, past the dungeon entrances."] = "Cruza {area:254} desde el oeste de {zone:1428} hasta {zone:1427}: dentro, sigue el camino de cadenas, pasando las entradas de las mazmorras.",
 	-- ["Go back north through the {zone:1435} and west into {zone:1430}."] = "Vuelve al norte por {zone:1435} y ve al oeste hasta {zone:1430}.",
-	-- ["Starts where the 30-45 guide ends, in the {zone:1435}. The last area of this guide completes the {zone:1415} map. 9 areas to discover here, levels 46-63."] = "Empieza donde termina la guía 30-45, en {zone:1435}. La última zona de esta guía completa el mapa de {zone:1415}. Aquí hay 9 zonas por descubrir, niveles 46-63.",
 	-- ["The {zone:1419} are south of the {zone:1435}; the road arrives at {area:1438} (Alliance)."] = "{zone:1419} está al sur de {zone:1435}; el camino llega a {area:1438} (Alianza).",
-	-- ["Walk back to {zone:1424} and north through the {zone:1416} to {area:3197} in southern {zone:1422}."] = "Vuelve a {zone:1424} y ve al norte por {zone:1416} hasta {area:3197}, en el sur de {zone:1422}.",
-	-- ["Walk back to {zone:1424} and north through the {zone:1416}, or from {zone:1420} east past {area:813}, into {zone:1422}."] = "Vuelve a {zone:1424} y ve al norte por {zone:1416}, o desde {zone:1420} al este pasando {area:813}, hasta {zone:1422}.",
 }

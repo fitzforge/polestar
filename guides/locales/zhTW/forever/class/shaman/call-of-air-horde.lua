@@ -14,7 +14,7 @@ return {
 
 	-- Step 1: Searn Firewarder
 	-- {npc:5892} Searn Firewarder · {object:172957} Valley of Wisdom · {npc:5905} Prate Cloudseer · {zone:1441} Thousand Needles · {spell:10596} Nature Resistance · {item:5178} Air Totem
-	["At 30 {npc:5892} in the {object:172957} sends you to {npc:5905} in {zone:1441}. Your level 30 air totems (Grounding, {spell:10596}) need the {item:5178} she gives."] = "",
+	["At 30 {npc:5892} in the {object:172957} sends you to {npc:5905} in {zone:1441}. Your level 30 air totems (Grounding, {spell:10596}) need the {item:5178} she gives."] = "30級時，{object:172957}的{npc:5892}會派你去找{zone:1441}的{npc:5905}。你30級的空氣圖騰（根基圖騰、{spell:10596}）需要她給的{item:5178}。",
 
 	-- Step 2: Alaana Stormwalker
 	-- {quest:96136} Call of Air · {npc:259119} Alaana Stormwalker · {zone:1412} Mulgore · {zone:1456} Thunder Bluff · {npc:5906} Xanis Flameweaver
@@ -34,7 +34,7 @@ return {
 
 	-- Step 9: Charlga Razorflank
 	-- {area:1717} Razorfen Kraul · {zone:1413} Barrens · {npc:4421} Charlga Razorflank · {spell:8292} Chain Bolt · {spell:139} Renew · {item:274463} Tattered Note
-	["{area:1717} is a five-player dungeon at the southern edge of the {zone:1413} (the arrow points at its entrance); {npc:4421} (level 33 elite) is its last boss. She casts {spell:8292}, {spell:139} on her allies and Purity; the {item:274463} drops only from her."] = "",
+	["{area:1717} is a five-player dungeon at the southern edge of the {zone:1413} (the arrow points at its entrance); {npc:4421} (level 33 elite) is its last boss. She casts {spell:8292}, {spell:139} on her allies and Purity; the {item:274463} drops only from her."] = "{area:1717}是位於{zone:1413}南緣的五人地城（箭頭指向入口）；{npc:4421}（33級精英）是最後一個首領。她會施放{spell:8292}、對盟友施放{spell:139}以及純淨術；{item:274463}只會從她身上掉落。",
 	-- {item:274463} Tattered Note · {npc:4421} Charlga Razorflank
 	["{item:274463}, from {npc:4421}"] = "{item:274463}，來自{npc:4421}",
 
@@ -84,14 +84,12 @@ return {
 	["{npc:6176}: the {item:280696} and your weapon"] = "{npc:6176}：{item:280696}和你的武器",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
-	-- ["At 30 {npc:5892} in the {object:172957} sends you to {npc:5905} in {zone:1441}."] = "30級時，{object:172957}的{npc:5892}會派你去找{zone:1441}的{npc:5905}。",
 	-- ["At 30 {npc:5906}, a shaman trainer in {zone:1456}, sends you to {npc:5905} in {zone:1441}."] = "30級時，{zone:1456}的薩滿訓練師{npc:5906}會派你去找{zone:1441}的{npc:5905}。",
 	-- ["Fly to {area:484}. {npc:5905} hides in a small cave in the canyon wall north-east of the post. Skyborne: your own {quest:1531} (96136) ends with her too."] = "飛往{area:484}。{npc:5905}躲在營地東北方峽谷崖壁的小洞穴中。天裔精靈：你自己的{quest:1531}（96136）也在她這裡結束。",
 	-- ["The Lost Ones in the north of the {zone:1435} carry the Twisted Earth Totems."] = "{zone:1435}北部的{npc:256028}身上帶著扭曲大地圖騰。",
 	-- ["The Maraudine centaurs of western {zone:1443} carry the Twisted Air Totems."] = "{zone:1443}西部的瑪洛迪半人馬身上帶著扭曲風之圖騰。",
 	-- ["The Mirefin murlocs of northern {zone:1445} carry the Twisted Water Totems."] = "{zone:1445}北部的黑鰭魚人身上帶著扭曲水之圖騰。",
 	-- ["The Stonevault troggs in the south of the {zone:1418} carry the Twisted Fire Totems."] = "{zone:1418}南部的石窟穴居人身上帶著扭曲火焰圖騰。",
-	-- ["{area:1717} is a dungeon at the southern edge of the {zone:1413} (the arrow points at its entrance); {npc:4421} is its last boss. Bring a group."] = "{area:1717}是位於{zone:1413}南緣的地城（箭頭指向入口）；{npc:4421}是最後一個首領。找小隊一起去。",
 	-- ["{npc:5905} hands you the {item:268582}: place them at the steam pools west of {area:484} and defeat the {npc:216474} they call. {quest:79366} is an elite quest: grouping up is advised."] = "{npc:5905}會交給你{item:268582}：把它們放在{area:484}西邊的蒸氣池，擊敗它們召喚出的{npc:216474}。{quest:79366}是精英任務：建議組隊。",
 	-- ["{npc:6176} camps in the east of {zone:1416}, north-east of {area:272}."] = "{npc:6176}在{zone:1416}東部、{area:272}東北方紮營。",
 	-- ["{npc:6176}: the {item:213086} and your weapon"] = "{npc:6176}：{item:213086}和你的武器",

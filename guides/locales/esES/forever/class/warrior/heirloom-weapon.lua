@@ -10,7 +10,7 @@ return {
 	-- {spell:71} Defensive Stance
 	["{spell:71} and a Weapon (Horde)"] = "",
 	-- {spell:71} Defensive Stance · {npc:5810} Uzzek · {area:159} Brill
-	["{spell:71} at 10 and a one-hand weapon of your choice: {npc:5810}'s road, {area:159}'s crypt, or the Skybreaker shield."] = "",
+	["{spell:71} at 10 and a one-hand weapon of your choice: {npc:5810}'s road, {area:159}'s crypt, or the Skybreaker shield."] = "{spell:71} a nivel 10 y un arma de una mano a tu elección: el camino de {npc:5810}, la cripta de {area:159} o el escudo Rompecielos.",
 
 	-- Step 1: Seena Skybreaker in Valanaar
 	-- {npc:252377} Seena Skybreaker · {area:16638} Valanaar
@@ -80,7 +80,7 @@ return {
 
 	-- Step 14: Coleman Farthing
 	-- {npc:1500} Coleman Farthing · {area:2119} Gallows' End Tavern · {area:159} Brill
-	["{npc:1500} is in the {area:2119}, the inn on {area:159}'s east side."] = "",
+	["{npc:1500} is in the {area:2119}, the inn on {area:159}'s east side."] = "{npc:1500} está en {area:2119}, la posada del lado este de {area:159}.",
 
 	-- Step 15: The Agamand Family Crypt
 	-- {area:158} Agamand Family Crypt
@@ -96,6 +96,4 @@ return {
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["The four Agamand Weapon Racks stand among the buildings of {area:157}, north of {area:159}. The mills' undead attack on sight."] = "Los cuatro portaarmas de Agamand están entre los edificios de {area:157}, al norte de {area:159}. Los no-muertos de los molinos atacan nada más verte.",
 	-- ["{npc:1496} stands in {area:159}. {npc:6390} waits in the mausoleum on the hill just north of town: open the gate and fight him."] = "{npc:1496} está en {area:159}. {npc:6390} espera en el mausoleo de la colina, justo al norte del pueblo: abre la verja y lucha contra él.",
-	-- ["{npc:1500} is in the inn, the {area:2119}, in {area:159}."] = "{npc:1500} está en la posada, {area:2119}, en {area:159}.",
-	-- ["{spell:71} and a one-hand weapon of your choice at 10."] = "{spell:71} y un arma de una mano a tu elección a nivel 10.",
 }

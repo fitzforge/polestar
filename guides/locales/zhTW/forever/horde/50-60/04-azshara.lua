@@ -35,7 +35,7 @@ return {
 	-- {npc:256386} Dokimi
 	["{npc:256386}'s crates"] = "{npc:256386}的箱子",
 	-- {npc:256386} Dokimi · {area:1237} Valormok
-	["Ride north up the road to the Crossroads; {npc:256386} stands there. Open each crate she hands you and bring back what is inside. Fly on to {area:1237} from the Crossroads."] = "",
+	["Ride north up the road to the Crossroads; {npc:256386} stands there. Open each crate she hands you and bring back what is inside. Fly on to {area:1237} from the Crossroads."] = "沿著道路向北騎到十字路口；{npc:256386}站在那裡。打開她交給你的每個箱子，把裡面的東西帶回來。再從十字路口飛往{area:1237}。",
 
 	-- Step 6: Fly to Valormok
 	-- {area:1237} Valormok
@@ -46,14 +46,14 @@ return {
 	["Ride east to the ruins on the coast. Fill Cuely's four vials at the tide pools along the shore; Spitelash naga patrol between them."] = "向東騎往海岸上的遺跡。在沿岸的潮池裝滿科雷的四個瓶子；惡鞭納迦在潮池之間巡邏。",
 
 	-- Step 9: Thalassian Base Camp
-	-- {area:1227} Bay of Storms
-	["The blood elves camp on the cliffs in the north-east, by the {area:1227}."] = "血精靈在東北方{area:1227}旁的懸崖上紮營。",
+	-- {area:1227} Bay of Storms · {npc:250023} Blackmaw Thrall
+	["The blood elves camp on the cliffs in the north-east, by the {area:1227}.\nCareful: a {npc:250023}, a level 55-57 elite, stands at the west edge of the camp: work the blood elves from its east side."] = "血精靈在東北方{area:1227}旁的懸崖上紮營。\n小心：一個{npc:250023}（55-57級精英）站在營地西緣：從營地東側對付血精靈。",
 
 	-- Step 10: Magus Rimtori's camp
 	-- {npc:8578} Magus Rimtori
 	["{npc:8578}'s camp"] = "{npc:8578}的營地",
 	-- {object:151286} Kaldorei Tome of Summoning (no name in this language: may be words)
-	["Rimtori's camp is at the east end of the base camp. Read the {object:151286} there, then kill the Magus.\nCareful: Which crystal is linked to Rimtori is random. Each of the other two summons a hostile infernal instead."] = "",
+	["Rimtori's camp is at the east end of the base camp. Read the {object:151286} there, then kill the Magus.\nCareful: Which crystal is linked to Rimtori is random. Each of the other two summons a hostile infernal instead."] = "雷姆托里的營地在基地營的東端。閱讀那裡的{object:151286}，然後殺死法師。\n小心：哪一顆水晶與雷姆托里相連是隨機的。另外兩顆各會召喚出一隻敵對的地獄火。",
 
 	-- Step 11: Ag'tor Bloodfist
 	-- {area:1237} Valormok
@@ -84,7 +84,7 @@ return {
 
 	-- Step 17: Zeppelin to Undercity
 	-- {zone:1458} Undercity
-	["Zeppelin to {zone:1458}"] = "",
+	["Zeppelin to {zone:1458}"] = "搭飛艇前往{zone:1458}",
 
 	-- Step 18: Chemist Cuely
 	-- {npc:8390} Chemist Cuely · {npc:8393} Thersa Windsong
@@ -127,11 +127,8 @@ return {
 	-- ["In the {object:172958}."] = "在{object:172958}。",
 	-- ["In the {object:172961}. Have the Wool, Silk and Mageweave in your bags."] = "在{object:172961}。背包裡要有毛料、絲綢和魔紋布。",
 	-- ["Open {object:149036} for the {item:10556}"] = "打開{object:149036}取得{item:10556}",
-	-- ["Rimtori's camp is at the east end of the base camp. Read the {object:151286} there, then kill the Magus."] = "雷姆托里的營地在基地營的東端。閱讀那裡的{object:151286}，然後殺死法師。",
 	-- ["The zeppelin tower stands just north-east of {zone:1454}'s main gate; take the {zone:1458} zeppelin."] = "飛艇塔就在{zone:1454}正門東北方不遠處；搭乘前往{zone:1458}的飛艇。",
-	-- ["Zeppelin to the {zone:1458}"] = "搭飛艇前往{zone:1458}",
 	-- ["Zeppelin tower"] = "飛艇塔",
 	-- ["{npc:11044}, in the Apothecarium"] = "{npc:11044}，在 Apothecarium",
-	-- ["{npc:256386} stands in the {area:380}. Open each crate she hands you and bring back what is inside."] = "{npc:256386}站在{area:380}。打開她交給你的每個箱子，把裡面的東西帶回來。",
 	-- ["{quest:5050} goes back to {npc:10778} in the {area:28}: keep it."] = "{quest:5050}要交回給{area:28}的{npc:10778}：保留此任務。",
 }

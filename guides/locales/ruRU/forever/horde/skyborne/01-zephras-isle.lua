@@ -73,7 +73,7 @@ return {
 
 	-- Step 10: Thendal Grove: kill these as you meet them
 	-- {npc:250926} Scrawny Ursera · {npc:252095} Hanaa Nightwind · {npc:251115} Urs'anah
-	["{npc:250926} prowl the slopes south-west of the village, on the way to {npc:252095}.\nThe Ursera den is west of the village. {npc:251115}, their matriarch, sits at its far end."] = "",
+	["{npc:250926} prowl the slopes south-west of the village, on the way to {npc:252095}.\nThe Ursera den is west of the village. {npc:251115}, their matriarch, sits at its far end."] = "Медверы ({npc:250926}) бродят по склонам к юго-западу от деревни, по пути к {npc:252095}.\nЛогово урсер – к западу от деревни. {npc:251115}, их матриарх, сидит в дальнем конце.",
 	["Below ground"] = "Под землей",
 
 	-- Step 11: Back to Thendal Village
@@ -82,7 +82,7 @@ return {
 
 	-- Step 12: Hanaa Nightwind
 	-- {npc:252095} Hanaa Nightwind · {area:16622} Thendal Grove · {npc:256935} Malduko Cloudcrush
-	["{npc:252095} waits in {area:16622}, south-west of the village. The Al'Aketh camp is just beyond her; {npc:256935} leads it.\nCareful: {npc:256935} casts shocks; drag him clear of the other cultists before fighting so they don't join in."] = "",
+	["{npc:252095} waits in {area:16622}, south-west of the village. The Al'Aketh camp is just beyond her; {npc:256935} leads it.\nCareful: {npc:256935} casts shocks; drag him clear of the other cultists before fighting so they don't join in."] = "{npc:252095} ждет здесь: {area:16622}, к юго-западу от деревни. Сразу за ней – лагерь Ал'акет; его возглавляет {npc:256935}.\nОсторожно: {npc:256935} бьет разрядами; оттащите его от других культистов перед боем, чтобы они не вмешались.",
 	-- {item:251924} Signet of Akir · {npc:252095} Hanaa Nightwind
 	["{item:251924}: the Al'Aketh in {npc:252095}'s camp carry it"] = "",
 
@@ -90,7 +90,7 @@ return {
 	-- {area:16635} Thendal Village
 	["Back to Boro in {area:16635} with the Signet."] = "Возвращайтесь с перстнем к Боро сюда: {area:16635}.",
 	-- {item:6635} Earth Sapta · {area:16988} Rise of Spirits · {npc:251166} Minor Manifestation of Earth
-	["drink the {item:6635} at the {area:16988}, just east of the village, to see the {npc:251166}"] = "",
+	["drink the {item:6635} at the {area:16988}, just east of the village, to see the {npc:251166}"] = "выпейте {item:6635} здесь: {area:16988}, чуть к востоку от деревни, чтобы увидеть персонажа {npc:251166}",
 	-- {npc:251374} Windshaper Boro · {npc:5873} Stoneskin Totem · {item:5175} Earth Totem
 	["{npc:251374}: {npc:5873} and your {item:5175}"] = "{npc:251374}: {npc:5873} и ваш {item:5175}",
 
@@ -102,13 +102,41 @@ return {
 	-- {npc:263664} Raan Wildwind · {spell:1229451} Boosted Rest
 	["/sit by {npc:263664}'s campfire until you get {spell:1229451}"] = "/sit у костра {npc:263664}, пока не получите {spell:1229451}",
 
+	-- Step 15: Camping 101: Skinning
+	-- {npc:257024} Mendalass Tattermend · {skill:393} Skinning
+	["{npc:257024} takes it once your {skill:393} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "{npc:257024} примет его, когда ваш навык {skill:393} достигнет 20: до тех пор собирайте или создавайте предметы, гайд тем временем продолжается.",
+
+	-- Step 16: Camping 101: First Aid
+	-- {npc:257018} Naleeia Tattermend · {skill:129} First Aid
+	["{npc:257018} takes it once your {skill:129} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "{npc:257018} примет его, когда ваш навык {skill:129} достигнет 20: до тех пор собирайте или создавайте предметы, гайд тем временем продолжается.",
+
+	-- Step 17: Camping 101: Leatherworking
+	-- {npc:251993} Indari Sunseam · {skill:165} Leatherworking
+	["{npc:251993} takes it once your {skill:165} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "{npc:251993} примет его, когда ваш навык {skill:165} достигнет 20: до тех пор собирайте или создавайте предметы, гайд тем временем продолжается.",
+
+	-- Step 18: Camping 101: Mining
+	-- {npc:257022} Messana Crestwind · {skill:186} Mining
+	["{npc:257022} takes it once your {skill:186} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "{npc:257022} примет его, когда ваш навык {skill:186} достигнет 20: до тех пор собирайте или создавайте предметы, гайд тем временем продолжается.",
+
+	-- Step 19: Camping 101: Alchemy
+	-- {npc:257019} Nyassa Swiftdraught · {skill:171} Alchemy
+	["{npc:257019} takes it once your {skill:171} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "{npc:257019} примет его, когда ваш навык {skill:171} достигнет 20: до тех пор собирайте или создавайте предметы, гайд тем временем продолжается.",
+
+	-- Step 20: Camping 101: Blacksmithing
+	-- {npc:251913} Aedi Thriceforged · {skill:164} Blacksmithing
+	["{npc:251913} takes it once your {skill:164} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "{npc:251913} примет его, когда ваш навык {skill:164} достигнет 20: до тех пор собирайте или создавайте предметы, гайд тем временем продолжается.",
+
+	-- Step 21: Camping 101: Fishing
+	-- {npc:251992} Fenn Fairweather · {skill:356} Fishing
+	["{npc:251992} takes it once your {skill:356} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "{npc:251992} примет его, когда ваш навык {skill:356} достигнет 20: до тех пор собирайте или создавайте предметы, гайд тем временем продолжается.",
+
 	-- Step 22: Shen'dar Village
 	-- {npc:251905} Zerril Softbreeze
 	["{npc:251905}: Camping 101 asks you to learn it"] = "",
 
 	-- Step 30: Shen'dar Village: kill these as you meet them
 	-- {area:16624} Shen'dar Village
-	["{area:16624}: kill these as you meet them"] = "",
+	["{area:16624}: kill these as you meet them"] = "{area:16624}: убивайте их, когда встретите",
 	-- {area:16624} Shen'dar Village · {item:5469} Strider Meat · {npc:251905} Zerril Softbreeze
 	-- plural, as words: Prideclaws = {npc:251245} Prideclaw · Small Eggs = {item:6889} Small Egg
 	["Prideclaws and Galestriders share the meadows around {area:16624}; the Galestriders graze thickest just west of it. They drop both the Small Eggs and the {item:5469} for {npc:251905}."] = "",
@@ -122,7 +150,7 @@ return {
 	-- Step 32: Shen'dar Highlands: kill these as you meet them
 	-- {area:16623} Shen'dar Highlands
 	["{area:16623}: kill these as you meet them"] = "",
-	["The apprentices practise north-east of the village.\nThe bandit camps are north-east of the village; \"Badwind\" Bennic holds the top camp. Bandits carry the stolen windstones."] = "",
+	["The apprentices practise north-east of the village.\nThe bandit camps are north-east of the village; \"Badwind\" Bennic holds the top camp. Bandits carry the stolen windstones."] = "Ученики упражняются к северо-востоку от деревни.\nЛагеря бандитов – к северо-востоку от деревни; Бенник-Баламут занимает верхний лагерь. Украденные ветрокамни – у бандитов.",
 
 	-- Step 33: Shen'dar bounty board
 	["Shen'dar bounty board"] = "",
@@ -144,7 +172,7 @@ return {
 
 	-- Step 37: Constable Aonda
 	-- {npc:251523} Constable Aonda · {area:16624} Shen'dar Village
-	["{npc:251523} waits in {area:16624} for what you found in the wardrobe."] = "",
+	["{npc:251523} waits in {area:16624} for what you found in the wardrobe."] = "{npc:251523} ждет здесь: {area:16624} с тем, что вы нашли в гардеробе.",
 
 	-- Step 38: Shen'dar Highlands: kill these as you meet them
 	-- {quest:92529} Falaath Village · {npc:251662} Living Lightning · {npc:251966} Commander Cyclas
@@ -164,7 +192,7 @@ return {
 
 	-- Step 42: Shen'dar Highlands: kill these as you meet them
 	-- {area:17674} West Pylon Watchtower · {quest:92529} Falaath Village · {item:263493} Hippogryph Down
-	["The hippogryph nests are north-west of the {area:17674}, west of {quest:92529}. The Matriarch sits at their western end; {item:263493} lies on the ground around the nests."] = "",
+	["The hippogryph nests are north-west of the {area:17674}, west of {quest:92529}. The Matriarch sits at their western end; {item:263493} lies on the ground around the nests."] = "Гнезда гиппогрифов – к северо-западу от места {area:17674}, к западу от места {quest:92529}. Гиппогриф-матриарх сидит в их западной части; {item:263493} лежит на земле вокруг гнезд.",
 
 	-- Step 44: Fendaal Windstone
 	-- {area:16638} Valanaar · {npc:273017} Fendaal Windstone · {quest:98512} Al'Aketh Assassins
@@ -187,8 +215,6 @@ return {
 	["Skyhoppers hop about the fields just west of Valennia."] = "Небопрыги скачут по полям чуть к западу от Валеннии.",
 
 	-- Step 48: Ayessa Dawnsinger
-	-- {npc:260628} Valennia Stormfist
-	["{npc:260628}, upstairs"] = "",
 	-- {npc:251968} Ayessa Dawnsinger
 	["talk to {npc:251968}"] = "поговорите с персонажем {npc:251968}",
 	-- {npc:252382} Sessaria Skystride · {npc:251968} Ayessa Dawnsinger · {quest:97243} Call of Fire
@@ -229,7 +255,7 @@ return {
 	-- plural, as words: Hungry Bandits = {npc:252802} Hungry Bandit
 	["Hungry Bandits"] = "Голодные бандиты",
 	-- {npc:268592} Olariaan Swiftburn
-	["{npc:268592}, at the Shrine of Flames just south-east of the orchard"] = "",
+	["{npc:268592}, at the Shrine of Flames just south-east of the orchard"] = "{npc:268592}, у святилища пламени чуть к юго-востоку от сада",
 
 	-- Step 54: Gustberry Lowlands: kill these as you meet them
 	-- {area:16626} Gustberry Lowlands
@@ -248,7 +274,7 @@ return {
 	-- {npc:252389} Quel'ana Quickgale · {item:15908} Taming Rod
 	["tame one with {npc:252389}'s first {item:15908} while you are among them"] = "",
 	-- {npc:254588} Windsong Crawler
-	["Tame {npc:254588}"] = "",
+	["Tame {npc:254588}"] = "Приручите: {npc:254588}",
 
 	-- Step 57: Enchanted Gyrozephyr
 	-- {area:16624} Shen'dar Village · {area:16625} Windsong Lake
@@ -292,9 +318,9 @@ return {
 	-- {area:17675} East Pylon Watchtower
 	["The {area:17675}"] = "{area:17675}",
 	-- {area:17675} East Pylon Watchtower · {npc:252666} Commander Belguilos
-	["Head north-east to the {area:17675}. The Al'Aketh camp is just west of it, with {npc:252666} at its north end. Every cultist can drop a windstone charm."] = "",
+	["Head north-east to the {area:17675}. The Al'Aketh camp is just west of it, with {npc:252666} at its north end. Every cultist can drop a windstone charm."] = "Идите на северо-восток сюда: {area:17675}. Лагерь Ал'акет – чуть к западу, {npc:252666} – в его северной части. С любого культиста может упасть ал'акетский ветрокаменный талисман.",
 	-- {npc:268602} Skypriest Faladiel
-	["{npc:268602}, on the hill west of the falls just north of the watchtower"] = "",
+	["{npc:268602}, on the hill west of the falls just north of the watchtower"] = "{npc:268602}, на холме к западу от водопада, чуть севернее сторожевой башни",
 
 	-- Step 68: The turncoat
 	["The turncoat"] = "Предатель",
@@ -398,7 +424,7 @@ return {
 
 	-- Step 92: Seena Skybreaker
 	-- {npc:252377} Seena Skybreaker · {npc:256083} Riaani Nightwind · {area:16638} Valanaar
-	["{npc:252377} stands beside {npc:256083}, just north-west of {area:16638}."] = "",
+	["{npc:252377} stands beside {npc:256083}, just north-west of {area:16638}."] = "{npc:252377} стоит рядом с NPC {npc:256083}, чуть к северо-западу от места {area:16638}.",
 
 	-- Step 93: Valanaar
 	-- {npc:251968} Ayessa Dawnsinger · {area:16638} Valanaar · {zone:1412} Mulgore · {npc:259119} Alaana Stormwalker
@@ -414,9 +440,9 @@ return {
 	-- {npc:259119} Alaana Stormwalker
 	["You leave the isle for good. {npc:259119} waits where the airship lands."] = "Вы покидаете остров навсегда. {npc:259119} ждет у места посадки.",
 	-- {npc:259119} Alaana Stormwalker · {zone:1454} Orgrimmar
-	["{npc:259119}: keep it: Thrall in {zone:1454}, at the start of the next guide"] = "",
-	-- {npc:259118} Muln Earthfury · {npc:3033} Turak Runetotem · {zone:1456} Thunder Bluff
-	["{npc:259118}, by the landing: for {npc:3033} in {zone:1456}"] = "{npc:259118}, у места посадки: для персонажа {npc:3033} ({zone:1456})",
+	["{npc:259119}: keep it: Thrall in {zone:1454}, at the start of the next guide"] = "{npc:259119}: сохраните задание: Тралл ({zone:1454}), в начале следующего гайда",
+	-- {npc:253957} Muln Earthfury · {npc:3033} Turak Runetotem · {zone:1456} Thunder Bluff
+	["{npc:253957}, by the landing: for {npc:3033} in {zone:1456}"] = "{npc:253957}, у места посадки: для персонажа {npc:3033} ({zone:1456})",
 
 	-- Step 97: Clarice Foster
 	-- {npc:5543} Clarice Foster · {area:2197} Pools of Vision · {area:1640} Spirit Rise
@@ -436,7 +462,7 @@ return {
 
 	-- Step 100: Turak Runetotem
 	-- {npc:3033} Turak Runetotem · {area:1639} Elder Rise · {spell:18960} Teleport: Moonglade · {npc:11802} Dendrite Starblaze · {spell:499} Cat Form
-	["{npc:3033} trains druids on {area:1639}. He teaches you {spell:18960}; {npc:11802}'s welcome waits for your {spell:499} trip at about 21 (forever/horde/02-the-barrens)."] = "",
+	["{npc:3033} trains druids on {area:1639}. He teaches you {spell:18960}; {npc:11802}'s welcome waits for your {spell:499} trip at about 21 (forever/horde/02-the-barrens)."] = "{npc:3033} обучает друидов, ориентир: {area:1639}. Он научит вас заклинанию {spell:18960}; приветствие ({npc:11802}) ждет вашего путешествия за обликом ({spell:499}) примерно на 21-м уровне (forever/horde/02-the-barrens).",
 
 	-- Step 101: Hunter Rise
 	-- {item:278078} Prepared Incense · {area:1641} Hunter Rise
@@ -455,16 +481,22 @@ return {
 	-- Step 105: Into Mulgore
 	-- {zone:1412} Mulgore
 	["Into {zone:1412}"] = "",
+	-- {zone:1456} Thunder Bluff · {zone:1412} Mulgore · {zone:1413} Barrens
+	["Take {zone:1456}'s west lift down: the road at its foot runs south-east across {zone:1412} to the {zone:1413}."] = "Спуститесь на западном подъемнике города {zone:1456}: дорога у его подножия ведет на юго-восток через {zone:1412} в зону {zone:1413}.",
 
-	-- Step 106: Into The Barrens
-	-- {zone:1413} The Barrens
+	-- Step 106: Into Barrens
+	-- {zone:1413} Barrens
 	["Into {zone:1413}"] = "",
 
-	-- Step 108: The Crossroads
-	-- {npc:3615} Devrak · {area:380} The Crossroads · {zone:1421} Silverpine Forest · {zone:1413} The Barrens
+	-- Step 107: Camp Taurajo
+	-- {zone:1412} Mulgore · {area:458} Gold Road · {area:378} Camp Taurajo · {npc:10378} Omusa Thunderhorn · {npc:3418} Kirge Sternhorn
+	["The road from {zone:1412} meets the {area:458} at {area:378}: {npc:10378}, the wind rider master, stands beside {npc:3418} on your way north to the Crossroads."] = "Дорога из зоны {zone:1412} выходит на {area:458} у места {area:378}: {npc:10378}, распорядитель полетов, стоит рядом с NPC {npc:3418} по пути на север к Перекрестку.",
+
+	-- Step 109: The Crossroads
+	-- {npc:3615} Devrak · {area:380} The Crossroads · {zone:1421} Silverpine Forest · {zone:1413} Barrens
 	["Learn the flight path from {npc:3615} on the tower platform. {area:380}' own quests come after {zone:1421}, in the {zone:1413} guide."] = "",
 
-	-- Step 109: To Orgrimmar
+	-- Step 110: To Orgrimmar
 	-- {zone:1454} Orgrimmar
 	["To {zone:1454}"] = "В {zone:1454}",
 	-- {area:379} Far Watch Post · {area:815} Southfury River · {zone:1411} Durotar · {zone:1454} Orgrimmar · {quest:95350} Welcome to Azeroth · {zone:1420} Tirisfal Glades · {zone:1421} Silverpine Forest
@@ -473,11 +505,9 @@ return {
 	["{zone:1454}'s {object:172982}"] = "",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
-	-- ["Back to {area:16624} with what you found."] = "Возвращайтесь с находкой сюда: {area:16624}.",
 	-- ["Back to {npc:268592}, then west into the {area:16623}: {npc:268605}'s home is in the hills south of the Windsong Crawlers' lakes."] = "Назад к {npc:268592}, затем на запад сюда: {area:16623}: дом {npc:268605} – на холмах к югу от озер ветроозерных крабов.",
 	-- ["Bandit Highwaymen"] = "Придорожные бандиты",
 	-- ["Climb the watchtower in the village, jump off the top and use {spell:1259416} to float down."] = "Поднимитесь на сторожевую башню в деревне, прыгните с вершины и используйте {spell:1259416}, чтобы плавно спуститься.",
-	-- ["Faladiel stands on the hill west of the falls, north of {area:16638}."] = "Фаладиэль стоит на холме к западу от водопада, к северу от места {area:16638}.",
 	-- ["Follow the road south to {area:16624}, in the middle of the isle."] = "Идите по дороге на юг сюда: {area:16624}, в центр острова.",
 	-- ["Follow the road south to {area:16624}, in the middle of the isle. {npc:251523} stands on its east side, {npc:251902} in the middle, {npc:254089} just north-west of her, {npc:263664} by the campfire on the west side."] = "Идите по дороге на юг сюда: {area:16624}, в центр острова. {npc:251523} стоит в восточной части, {npc:251902} – в центре, {npc:254089} – чуть к северо-западу от нее, {npc:263664} – у костра в западной части.",
 	-- ["High Order Apprentices"] = "Ученики Высшего ордена",
@@ -489,10 +519,8 @@ return {
 	-- ["On the way north, back to {npc:255853} by the falls."] = "По пути на север – снова к персонажу {npc:255853} у водопада.",
 	-- ["Prideclaws and Galestriders"] = "Когти прайда и буреноги",
 	-- ["Prideclaws and Galestriders share the meadows south of the village. Keep the {item:5469} for {npc:251905}; the eggs come later from the hippogryphs."] = "Когти прайда и буреноги бродят по лугам к югу от деревни. Сохраните {item:5469} для {npc:251905}; яйца будут позже, с гиппогрифов.",
-	-- ["Ride north-east to the {area:17675}. The Al'Aketh camp is just west of it, with {npc:252666} at its north end. Every cultist can drop a windstone charm."] = "Езжайте на северо-восток сюда: {area:17675}. Лагерь Ал'акет – чуть к западу, {npc:252666} – в его северной части. С любого культиста может упасть ал'акетский ветрокаменный талисман.",
 	-- ["Rorian: {quest:92485}"] = "Рориан: {quest:92485}",
 	-- ["Sit by {npc:263664}'s campfire (type /sit) until you get the {spell:1229451} buff, then find {npc:251905} at the cook fire."] = "Сядьте у костра {npc:263664} (введите /sit), пока не получите эффект {spell:1229451}, затем найдите персонажа {npc:251905} у очага.",
-	-- ["Take the Torch of Dormant Flame to {npc:268592} at the Shrine of Flames, south-west of {area:16638} in the {area:16626}."] = "Отнесите факел дремлющего пламени персонажу {npc:268592} к святилищу пламени, к юго-западу от места {area:16638} ({area:16626}).",
 	-- ["Take the portal up to the {area:16630} and join {npc:252475} and {npc:251968} against the High Priestess."] = "Поднимитесь через портал сюда: {area:16630} и вместе с {npc:252475} и {npc:251968} сразитесь с верховной жрицей.",
 	-- ["Take the road south-east to {area:16638}, the Skyborne town on the south coast. {npc:257006} and {npc:252448} stand at its western edge."] = "Идите по дороге на юго-восток сюда: {area:16638} – город небеснорожденных на южном побережье. {npc:257006} и {npc:252448} стоят на западной окраине.",
 	-- ["Talk to {npc:251902}"] = "Поговорите с персонажем {npc:251902}",
@@ -506,13 +534,11 @@ return {
 	-- ["The Ursera den is west of the village. {npc:251115}, their matriarch, sits at its far end."] = "Логово медвер – к западу от деревни. {npc:251115}, их матриарх, сидит в дальнем конце.",
 	-- ["The airship"] = "Воздушный корабль",
 	-- ["The apprentices practise north-east of the village."] = "Ученики тренируются к северо-востоку от деревни.",
-	-- ["The bandit camps are north-east of the village; \"Badwind\" Bennic holds the top camp. Bandits carry the stolen windstones."] = "Лагеря бандитов – к северо-востоку от деревни; Бенник-Баламут занимает верхний лагерь. Украденные ветрокамни – у бандитов.",
 	-- ["The crawlers scuttle along the shore south-west of town."] = "Крабы снуют по берегу к юго-западу от города.",
 	-- ["The hermit lives at {area:16625}'s west shore. {item:257128} cones grow south of him; the Wind Hollows drift east of the lake."] = "Отшельник живет на западном берегу ({area:16625}). Шишки ({item:257128}) растут к югу от него; ветряные мертвени парят к востоку от озера.",
 	-- ["The highland bandits"] = "Бандиты нагорья",
 	-- ["The highwaymen hold the hills north-east of the orchard. More {object:616466} lie near the road to {area:16638}."] = "Придорожные бандиты занимают холмы к северо-востоку от сада. Еще детали ({object:616466}) лежат у дороги к месту {area:16638}.",
 	-- ["The highwaymen hold the hills north-east of the orchard. More {object:616468} lie near the road to {area:16638}."] = "Придорожные бандиты занимают холмы к северо-востоку от сада. Еще детали ({object:616468}) лежат у дороги к месту {area:16638}.",
-	-- ["The hippogryph nests are north-west of the tower, west of {quest:92529}; the Matriarch sits at the western end. {item:263493} lies on the ground around them, and the hippogryphs drop the Small Eggs."] = "Гнезда гиппогрифов – к северо-западу от башни, к западу от места {quest:92529}; гиппогриф-матриарх сидит в западной части. {item:263493} лежит на земле вокруг, а с гиппогрифов падают небольшие яйца.",
 	-- ["The refugees' belongings lie along the north shore of {area:16625}; {npc:259013} is at its north-west end."] = "Вещи беженцев лежат вдоль северного берега ({area:16625}); {npc:259013} – в северо-западной части.",
 	-- ["The turncoat's house is in the {area:16626} north-west of {area:16638}. {npc:273017} waits nearby; his assassins lurk around the house."] = "Дом предателя – здесь: {area:16626}, к северо-западу от места {area:16638}. {npc:273017} ждет неподалеку; его убийцы прячутся вокруг дома.",
 	-- ["The watchtower"] = "Сторожевая башня",
@@ -521,7 +547,6 @@ return {
 	-- ["Wind Hollows and {object:616467}"] = "Ветряные мертвени и {object:616467}",
 	-- ["Wind Hollows drift over the lowlands around {area:16638}. The first {object:616466} lie west of the orchard road."] = "Ветряные мертвени парят над низинами вокруг места {area:16638}. Первые детали ({object:616466}) лежат к западу от дороги к саду.",
 	-- ["Wind Hollows drift over the lowlands around {area:16638}. The first {object:616467} lie west of the orchard road."] = "Ветряные мертвени парят над низинами вокруг места {area:16638}. Первые детали ({object:616467}) лежат к западу от дороги к саду.",
-	-- ["Windsong Crawlers"] = "Ветроозерные крабы",
 	-- ["With {skill:129} learned, {npc:263664} also offers its Camping 101: {npc:257018}, in Shen'dar, takes it."] = "Если вы изучили навык {skill:129}, {npc:263664} также предложит соответствующее задание «Основы походной жизни»; сдайте его персонажу {npc:257018} в Шен'даре.",
 	-- ["With {skill:164} learned, {npc:263664} also offers its Camping 101: {npc:251913}, in Shen'dar, takes it."] = "Если вы изучили навык {skill:164}, {npc:263664} также предложит соответствующее задание «Основы походной жизни»; сдайте его персонажу {npc:251913} в Шен'даре.",
 	-- ["With {skill:165} learned, {npc:263664} also offers its Camping 101: {npc:251993}, in Shen'dar, takes it."] = "Если вы изучили навык {skill:165}, {npc:263664} также предложит соответствующее задание «Основы походной жизни»; сдайте его персонажу {npc:251993} в Шен'даре.",
@@ -531,20 +556,13 @@ return {
 	-- ["With {skill:393} learned, {npc:263664} also offers its Camping 101: {npc:257024}, in Shen'dar, takes it."] = "Если вы изучили навык {skill:393}, {npc:263664} также предложит соответствующее задание «Основы походной жизни»; сдайте его персонажу {npc:257024} в Шен'даре.",
 	-- ["talk to {npc:251905}"] = "поговорите с персонажем {npc:251905}",
 	-- ["{area:1638} is beside the landing: ride up a lift and learn the flight path from {npc:2995}, the wind rider master."] = "{area:1638} – рядом с местом посадки: поднимитесь на подъемнике и откройте маршрут у персонажа {npc:2995}, распорядителя полетов.",
-	-- ["{area:16624}, last time"] = "{area:16624}, в последний раз",
-	-- ["{npc:250926} prowl the slopes south-west of the village, on the way to {npc:252095}."] = "Медверы ({npc:250926}) бродят по склонам к юго-западу от деревни, по пути к {npc:252095}.",
-	-- ["{npc:251374} sends you to the {area:16988}, just east of the village: drink the {item:6635} there to see the {npc:251166}, then take the {item:6656} back to him."] = "{npc:251374} отправляет вас сюда: {area:16988}, чуть к востоку от деревни: выпейте там {item:6635}, чтобы увидеть персонажа {npc:251166}, затем отнесите ему предмет {item:6656}.",
 	-- ["{npc:251374} stands in the village."] = "{npc:251374} стоит в деревне.",
 	-- ["{npc:251374}, at the village centre"] = "{npc:251374}, в центре деревни",
-	-- ["{npc:252095} waits in {area:16622}, south-west of the village. The Al'Aketh camp is just beyond her; {npc:256935} leads it."] = "{npc:252095} ждет здесь: {area:16622}, к юго-западу от деревни. Сразу за ней – лагерь Ал'акет; его возглавляет {npc:256935}.",
 	-- ["{npc:252359} stands on {area:16638}'s east side."] = "{npc:252359} стоит в восточной части места {area:16638}.",
-	-- ["{npc:252377} stands in the middle of {area:16638}."] = "{npc:252377} стоит в центре места {area:16638}.",
 	-- ["{npc:252382} stands on {area:16638}'s west side."] = "{npc:252382} стоит в западной части места {area:16638}.",
 	-- ["{npc:252389} in {area:16638} hands you a {item:15908} three times: tame a {npc:254588} by the lakes north-west of town, an {npc:251707} in the fields west of town and a {npc:250874} at {area:16663}, returning to her after each. {npc:254411} stands beside her."] = "{npc:252389} ({area:16638}) трижды дает вам предмет {item:15908}: приручите монстра {npc:254588} у озер к северо-западу от города, монстра {npc:251707} в полях к западу от города и монстра {npc:250874} ({area:16663}), каждый раз возвращаясь к ней. {npc:254411} стоит рядом с ней.",
 	-- ["{npc:255853} waits by the falls just north of the watchtower."] = "{npc:255853} ждет у водопада чуть к северу от сторожевой башни.",
 	-- ["{npc:258443} roams the slopes just south of the turncoat's house."] = "{npc:258443} бродит по склонам чуть к югу от дома предателя.",
-	-- ["{npc:259119}: keep it, Thrall in {zone:1454} comes two guides later"] = "{npc:259119}: сохраните задание, Тралл ({zone:1454}) – через два руководства",
 	-- ["{npc:263664}'s campfire"] = "Костер {npc:263664}",
-	-- ["{npc:3033} trains druids on {area:1639}. He teaches you {spell:18960}; {npc:11802}'s welcome waits for your {spell:499} trip at about 23 (forever/horde/04-the-barrens)."] = "{npc:3033} обучает друидов, ориентир: {area:1639}. Он научит вас заклинанию {spell:18960}; приветствие ({npc:11802}) ждет вашего путешествия за обликом ({spell:499}) примерно на 23-м уровне (forever/horde/04-the-barrens).",
 	-- ["{npc:3615}, the wind rider master"] = "{npc:3615}, распорядитель полетов",
 }

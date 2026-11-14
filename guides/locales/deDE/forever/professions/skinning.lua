@@ -43,9 +43,11 @@ return {
 	["Kill and skin Cloudrunner (6), Galestrider (5), {npc:250928} (7), {npc:251284} (6), {npc:251291} (6), {npc:250873} (1), {npc:251707} (8), Prideclaw (5), {npc:250926} (3), {npc:256092} (10), {npc:253282} (8), {npc:250937} (4), Vuldren (6), {npc:250874} (10), {npc:254588} (8) along the loop until {skill:393} 50; loot each corpse, then skin it, and skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above. Zone level 1-15. Expect about 60 beasts for these 49 points."] = "Töte und häute Cloudrunner (6), Galestrider (5), {npc:250928} (7), {npc:251284} (6), {npc:251291} (6), {npc:250873} (1), {npc:251707} (8), Prideclaw (5), {npc:250926} (3), {npc:256092} (10), {npc:253282} (8), {npc:250937} (4), Vuldren (6), {npc:250874} (10), {npc:254588} (8) entlang der Runde, bis {skill:393} 50 erreicht ist; plündere jeden Kadaver und häute ihn dann, und häute die Tiere mit der höchsten Stufe, die deine Fertigkeit erlaubt. Ein Tier der Stufe L braucht Fertigkeit (L-10)x10 bis Stufe 20 und Lx5 darüber. Gebietsstufe 1-15. Rechne mit etwa 60 Tieren für diese 49 Punkte.",
 	-- {npc:251291} Hippogryph Youth
 	["{npc:251291}, Prideclaw"] = "{npc:251291}, Rudelkralle",
-	["Prideclaw, Vuldren"] = "Prideclaw, Vuldren",
 	["Prideclaw, Galestrider"] = "Prideclaw, Galestrider",
-	["Galestrider, Vuldren"] = "Windschreiter, Vuldren",
+	-- {npc:250928} Highlands Ursera
+	["Prideclaw, {npc:250928}"] = "Prideclaw, {npc:250928}",
+	["Galestrider, Cloudrunner"] = "Windschreiter, Wolkenläufer",
+	["Prideclaw, Vuldren"] = "Prideclaw, Vuldren",
 
 	-- Step 6: Beasts 1-9: Durotar (1-50)
 	-- {zone:1411} Durotar
@@ -58,12 +60,12 @@ return {
 	["Beasts 1-9: {zone:1412} (1-50)"] = "Bestien 1-9: {zone:1412} (1-50)",
 	-- {npc:2956} Adult Plainstrider · {npc:2957} Elder Plainstrider · {npc:3035} Flatland Cougar · {npc:3566} Flatland Prowler · {npc:2972} Kodo Calf · {npc:2961} Mountain Cougar · {npc:2959} Prairie Stalker · {npc:2958} Prairie Wolf · {npc:2960} Prairie Wolf Alpha · {skill:393} Skinning · {npc:3050} Veren Tallstrider
 	["Kill and skin {npc:2956} (6), Battleboar (3), {npc:2957} (8), {npc:3035} (7), {npc:3566} (9), {npc:2972} (7), {npc:2961} (3), Plainstrider (1), {npc:2959} (7), {npc:2958} (5), {npc:2960} (9) along the loop until {skill:393} 50; loot each corpse, then skin it, and skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above. A quest here needs {skill:393}: Gathering Leather (level 8, {npc:3050}). Zone level 1-10. Expect about 60 beasts for these 49 points."] = "Töte und häute {npc:2956} (6), Battleboar (3), {npc:2957} (8), {npc:3035} (7), {npc:3566} (9), {npc:2972} (7), {npc:2961} (3), Plainstrider (1), {npc:2959} (7), {npc:2958} (5), {npc:2960} (9) entlang der Runde, bis {skill:393} 50 erreicht ist; plündere jeden Kadaver und häute ihn dann, und häute die Tiere mit der höchsten Stufe, die deine Fertigkeit erlaubt. Ein Tier der Stufe L braucht Fertigkeit (L-10)x10 bis Stufe 20 und Lx5 darüber. Eine Quest hier braucht {skill:393}: Gathering Leather (Stufe 8, {npc:3050}). Gebietsstufe 1-10. Rechne mit etwa 60 Tieren für diese 49 Punkte.",
-	["Battleboar, Plainstrider"] = "Kampfeber, Ebenenschreiter",
-	-- {npc:2961} Mountain Cougar
-	["Battleboar, {npc:2961}"] = "Kampfeber, {npc:2961}",
+	["Plainstrider"] = "Ebenenschreiter",
 	-- {npc:2961} Mountain Cougar
 	["{npc:2961}, Plainstrider"] = "{npc:2961}, Ebenenschreiter",
-	["Plainstrider"] = "Ebenenschreiter",
+	-- {npc:2961} Mountain Cougar
+	["Battleboar, {npc:2961}"] = "Kampfeber, {npc:2961}",
+	["Battleboar, Plainstrider"] = "Kampfeber, Ebenenschreiter",
 
 	-- Step 8: Beasts 1-9: Tirisfal Glades (1-50)
 	-- {zone:1420} Tirisfal Glades
@@ -105,8 +107,8 @@ return {
 	-- Step 12: Beasts 11-19: Darkshore (50-100)
 	-- {zone:1439} Darkshore
 	["Beasts 11-19: {zone:1439} (50-100)"] = "Bestien 11-19: {zone:1439} (50-100)",
-	-- {npc:2070} Moonstalker Runt · {npc:2163} Thistle Bear · {npc:2164} Rabid Thistle Bear · {npc:2165} Grizzled Thistle Bear · {npc:2237} Moonstalker Sire · {npc:3823} Ghostpaw Runner · {npc:2071} Moonstalker Matriarch · {skill:393} Skinning
-	["Kill and skin {npc:2070} (11), {npc:2163} (11), {npc:2164} (13), Moonstalker (14), {npc:2165} (16, needs 60), {npc:2237} (17, needs 70), {npc:3823} (19, needs 90), {npc:2071} (19, needs 90) along the loop until {skill:393} 100; loot each corpse, then skin it, and skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above. Zone level 10-20. Expect about 120 beasts for these 50 points."] = "Töte und häute {npc:2070} (11), {npc:2163} (11), {npc:2164} (13), Mondpirscher (14), {npc:2165} (16, braucht 60), {npc:2237} (17, braucht 70), {npc:3823} (19, braucht 90), {npc:2071} (19, braucht 90) entlang der Runde, bis {skill:393} 100 erreicht ist; plündere jeden Kadaver und häute ihn dann, und häute die Tiere mit der höchsten Stufe, die deine Fertigkeit erlaubt. Ein Tier der Stufe L braucht Fertigkeit (L-10)x10 bis Stufe 20 und Lx5 darüber. Gebietsstufe 10-20. Rechne mit etwa 120 Tieren für diese 50 Punkte.",
+	-- {npc:2163} Thistle Bear · {npc:2164} Rabid Thistle Bear · {npc:2165} Grizzled Thistle Bear · {npc:2070} Moonstalker Runt · {npc:2237} Moonstalker Sire · {npc:3823} Ghostpaw Runner · {npc:2071} Moonstalker Matriarch · {skill:393} Skinning
+	["Kill and skin {npc:2163} (11), {npc:2164} (13), Moonstalker (14), {npc:2165} (16, needs 60), {npc:2070} (16, needs 60), {npc:2237} (17, needs 70), {npc:3823} (19, needs 90), {npc:2071} (19, needs 90) along the loop until {skill:393} 100; loot each corpse, then skin it, and skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above. Zone level 10-20. Expect about 100 beasts for these 50 points."] = "Töte und häute {npc:2163} (11), {npc:2164} (13), Mondpirscher (14), {npc:2165} (16, braucht 60), {npc:2070} (16, braucht 60), {npc:2237} (17, braucht 70), {npc:3823} (19, braucht 90), {npc:2071} (19, braucht 90) entlang der Runde, bis {skill:393} 100 erreicht ist; plündere jeden Kadaver und häute ihn dann, und häute die Tiere mit der höchsten Stufe, die deine Fertigkeit erlaubt. Ein Tier der Stufe L braucht Fertigkeit (L-10)x10 bis Stufe 20 und Lx5 darüber. Gebietsstufe 10-20. Rechne mit etwa 100 Tieren für diese 50 Punkte.",
 	-- {npc:2164} Rabid Thistle Bear
 	["{npc:2164}, Moonstalker"] = "{npc:2164}, Mondpirscher",
 	-- {npc:2165} Grizzled Thistle Bear
@@ -156,11 +158,13 @@ return {
 	-- {skill:393} Skinning
 	["Expert {skill:393} raises the cap to 225; it needs skill 125 and no character level, and costs 50s: train it as soon as you reach 125. The arrow picks the nearest {skill:393} trainer of your faction."] = "Experte in {skill:393} hebt die Obergrenze auf 225 an; er braucht Fertigkeit 125, aber keine Charakterstufe, und kostet 50s: Lerne ihn, sobald du 125 erreichst. Der Pfeil wählt den nächsten {skill:393}-Lehrer deiner Fraktion.",
 
-	-- Step 20: Beasts 21-27: Hillsbrad Foothills (125-150)
+	-- Step 20: Beasts 21-29: Hillsbrad Foothills (125-150)
 	-- {zone:1424} Hillsbrad Foothills
-	["Beasts 21-27: {zone:1424} (125-150)"] = "Bestien 21-27: {zone:1424} (125-150)",
+	["Beasts 21-29: {zone:1424} (125-150)"] = "Bestien 21-29: {zone:1424} (125-150)",
 	-- {npc:2351} Gray Bear · {npc:2354} Vicious Gray Bear · {npc:2384} Starving Mountain Lion · {npc:2356} Elder Gray Bear · {npc:2385} Feral Mountain Lion · {skill:393} Skinning
-	["Kill and skin {npc:2351} (21), {npc:2354} (22), {npc:2384} (23), {npc:2356} (25), {npc:2385} (27, needs 135) along the loop until {skill:393} 150; loot each corpse, then skin it, and skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above. Zone level 20-30. Expect about 30 beasts for these 25 points."] = "Töte und häute {npc:2351} (21), {npc:2354} (22), {npc:2384} (23), {npc:2356} (25), {npc:2385} (27, braucht 135) entlang der Runde, bis {skill:393} 150 erreicht ist; plündere jeden Kadaver und häute ihn dann, und häute die Tiere mit der höchsten Stufe, die deine Fertigkeit erlaubt. Ein Tier der Stufe L braucht Fertigkeit (L-10)x10 bis Stufe 20 und Lx5 darüber. Gebietsstufe 20-30. Rechne mit etwa 30 Tieren für diese 25 Punkte.",
+	["Kill and skin {npc:2351} (21), {npc:2354} (22), {npc:2384} (23), {npc:2356} (25), {npc:2385} (27, needs 135), Snapjaw (29, needs 145) along the loop until {skill:393} 150; loot each corpse, then skin it, and skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above. Zone level 20-30. Expect about 30 beasts for these 25 points."] = "Töte und häute {npc:2351} (21), {npc:2354} (22), {npc:2384} (23), {npc:2356} (25), {npc:2385} (27, braucht 135), Snapjaw (29, braucht 145) entlang der Runde, bis {skill:393} 150 erreicht ist; plündere jeden Kadaver und häute ihn dann, und häute die Tiere mit der höchsten Stufe, die deine Fertigkeit erlaubt. Ein Tier der Stufe L braucht Fertigkeit (L-10)x10 bis Stufe 20 und Lx5 darüber. Gebietsstufe 20-30. Rechne mit etwa 30 Tieren für diese 25 Punkte.",
+	-- {npc:2351} Gray Bear
+	["{npc:2351}, Snapjaw"] = "{npc:2351}, Snapjaw",
 
 	-- Step 21: Beasts 19-29: Ashenvale (125-150)
 	-- {zone:1440} Ashenvale
@@ -172,7 +176,7 @@ return {
 	-- {zone:1416} Alterac Mountains
 	["Beasts 21-33: {zone:1416} (150-175)"] = "Tiere 21-33: {zone:1416} (150-175)",
 	-- {npc:2351} Gray Bear · {npc:2356} Elder Gray Bear · {npc:2248} Cave Yeti · {npc:2249} Ferocious Yeti · {npc:2406} Mountain Lion · {npc:2250} Mountain Yeti · {npc:2251} Giant Yeti · {npc:2407} Hulking Mountain Lion · {skill:393} Skinning
-	["Kill and skin {npc:2351} (21), {npc:2356} (25), {npc:2248} (30), Snapjaw (30), {npc:2249} (31, needs 155), {npc:2406} (32, needs 160), {npc:2250} (32, needs 160), {npc:2251} (33, needs 165), {npc:2407} (33, needs 165) along the loop until {skill:393} 175; loot each corpse, then skin it, and skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above. Zone level 30-40. Expect about 30 beasts for these 25 points."] = "Töte und häute {npc:2351} (21), {npc:2356} (25), {npc:2248} (30), Snapjaw (30), {npc:2249} (31, braucht 155), {npc:2406} (32, braucht 160), {npc:2250} (32, braucht 160), {npc:2251} (33, braucht 165), {npc:2407} (33, braucht 165) entlang der Runde, bis {skill:393} 175 erreicht ist; plündere jeden Kadaver und häute ihn dann, und häute die Tiere mit der höchsten Stufe, die deine Fertigkeit erlaubt. Ein Tier der Stufe L braucht Fertigkeit (L-10)x10 bis Stufe 20 und Lx5 darüber. Gebietsstufe 30-40. Rechne mit etwa 30 Tieren für diese 25 Punkte.",
+	["Kill and skin {npc:2351} (21), {npc:2356} (25), Snapjaw (29), {npc:2248} (30), {npc:2249} (31, needs 155), {npc:2406} (32, needs 160), {npc:2250} (32, needs 160), {npc:2251} (33, needs 165), {npc:2407} (33, needs 165) along the loop until {skill:393} 175; loot each corpse, then skin it, and skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above. Zone level 30-40. Expect about 40 beasts for these 25 points."] = "Töte und häute {npc:2351} (21), {npc:2356} (25), Snapjaw (29), {npc:2248} (30), {npc:2249} (31, braucht 155), {npc:2406} (32, braucht 160), {npc:2250} (32, braucht 160), {npc:2251} (33, braucht 165), {npc:2407} (33, braucht 165) entlang der Runde, bis {skill:393} 175 erreicht ist; plündere jeden Kadaver und häute ihn dann, und häute die Tiere mit der höchsten Stufe, die deine Fertigkeit erlaubt. Ein Tier der Stufe L braucht Fertigkeit (L-10)x10 bis Stufe 20 und Lx5 darüber. Gebietsstufe 30-40. Rechne mit etwa 40 Tieren für diese 25 Punkte.",
 	["Snapjaw"] = "Snapjaw",
 	-- {npc:2251} Giant Yeti
 	["Snapjaw, {npc:2251}"] = "Snapjaw, {npc:2251}",
@@ -205,11 +209,11 @@ return {
 	-- {npc:1084} Young Sawtooth Crocolisk · {npc:1082} Sawtooth Crocolisk · {npc:768} Shadow Panther · {npc:1087} Sawtooth Snapper · {skill:393} Skinning
 	["Kill and skin {npc:1084} (35), {npc:1082} (38), {npc:768} (39), {npc:1087} (41, needs 205) along the loop until {skill:393} 225; loot each corpse, then skin it, and skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above. Zone level 35-45. Expect about 30 beasts for these 25 points."] = "Töte und häute {npc:1084} (35), {npc:1082} (38), {npc:768} (39), {npc:1087} (41, braucht 205) entlang der Runde, bis {skill:393} 225 erreicht ist; plündere jeden Kadaver und häute ihn dann, und häute die Tiere mit der höchsten Stufe, die deine Fertigkeit erlaubt. Ein Tier der Stufe L braucht Fertigkeit (L-10)x10 bis Stufe 20 und Lx5 darüber. Gebietsstufe 35-45. Rechne mit etwa 30 Tieren für diese 25 Punkte.",
 
-	-- Step 28: Beasts 42-49: The Hinterlands (225-250)
-	-- {zone:1425} The Hinterlands
-	["Beasts 42-49: {zone:1425} (225-250)"] = "Bestien 42-49: {zone:1425} (225-250)",
-	-- {npc:2927} Vicious Owlbeast · {npc:2924} Silvermane Wolf · {npc:2928} Primitive Owlbeast · {npc:2929} Savage Owlbeast · {npc:2926} Silvermane Stalker · {npc:2505} Saltwater Snapjaw · {skill:393} Skinning
-	["Kill and skin {npc:2927} (42), {npc:2924} (43), {npc:2928} (44), {npc:2929} (46, needs 230), {npc:2926} (47, needs 235), {npc:2505} (49, needs 245) along the loop until {skill:393} 250; loot each corpse, then skin it, and skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above. Zone level 40-50. Expect about 40 beasts for these 25 points."] = "Töte und häute {npc:2927} (42), {npc:2924} (43), {npc:2928} (44), {npc:2929} (46, braucht 230), {npc:2926} (47, braucht 235), {npc:2505} (49, braucht 245) entlang der Runde, bis {skill:393} 250 erreicht ist; plündere jeden Kadaver und häute ihn dann, und häute die Tiere mit der höchsten Stufe, die deine Fertigkeit erlaubt. Ein Tier der Stufe L braucht Fertigkeit (L-10)x10 bis Stufe 20 und Lx5 darüber. Gebietsstufe 40-50. Rechne mit etwa 40 Tieren für diese 25 Punkte.",
+	-- Step 28: Beasts 45-48: Azshara (225-250)
+	-- {zone:1447} Azshara
+	["Beasts 45-48: {zone:1447} (225-250)"] = "Bestien 45-48: {zone:1447} (225-250)",
+	-- {npc:8759} Mosshoof Runner · {npc:6375} Thunderhead Hippogryph · {npc:6377} Thunderhead Stagwing · {skill:393} Skinning
+	["Kill and skin {npc:8759} (45), {npc:6375} (46, needs 230), {npc:6377} (48, needs 240) along the loop until {skill:393} 250; loot each corpse, then skin it, and skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above. Zone level 45-55. Expect about 30 beasts for these 25 points."] = "Töte und häute {npc:8759} (45), {npc:6375} (46, braucht 230), {npc:6377} (48, braucht 240) entlang der Runde, bis {skill:393} 250 erreicht ist; plündere jeden Kadaver und häute ihn dann, und häute die Tiere mit der höchsten Stufe, die deine Fertigkeit erlaubt. Ein Tier der Stufe L braucht Fertigkeit (L-10)x10 bis Stufe 20 und Lx5 darüber. Gebietsstufe 45-55. Rechne mit etwa 30 Tieren für diese 25 Punkte.",
 
 	-- Step 29: Beasts 48-54: Un'Goro Crater (250-275)
 	-- {zone:1449} Un'Goro Crater

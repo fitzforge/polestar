@@ -15,9 +15,9 @@ return {
 
 	-- Step 2: Blacksmithing 1-75: Auction House
 	-- {skill:164} Blacksmithing
-	["{skill:164} 1-75: Auction House"] = "",
+	["{skill:164} 1-75: Auction House"] = "{skill:164} 1-75: аукцион",
 	-- {item:2835} Rough Stone
-	["What 1-75 takes that the Auction House sells: 286 {item:2835}. The counts drop by what your bags, bank and mail hold."] = "",
+	["What 1-75 takes that the Auction House sells: 286 {item:2835}. The counts drop by what your bags, bank and mail hold."] = "Что нужно на 1-75 и продается на аукционе: 286 {item:2835}. Количество уменьшается на то, что уже лежит в сумках, банке и на почте.",
 
 	-- Step 3: Rough Stone (Elwynn Forest)
 	-- {item:2835} Rough Stone · {spell:2660} Rough Sharpening Stone · {spell:3320} Rough Grinding Stone · {skill:186} Mining · {object:1731} Copper Vein · {zone:1429} Elwynn Forest
@@ -49,13 +49,13 @@ return {
 
 	-- Step 10: Rough Sharpening Stone to 35
 	-- {spell:2660} Rough Sharpening Stone
-	["{spell:2660} to 35"] = "",
+	["{spell:2660} to 35"] = "{spell:2660} до 35",
 	-- {spell:2660} Rough Sharpening Stone · {item:2835} Rough Stone
 	["{spell:2660} is orange at 1 (yellow 15, green 35, grey 55): about 42 crafts to 35. Each takes 1 {item:2835}. One {item:2835} a craft, a point every craft to 15."] = "",
 
 	-- Step 11: Blacksmithing recipes at 35
 	-- {skill:164} Blacksmithing
-	["{skill:164} recipes at 35"] = "",
+	["{skill:164} recipes at 35"] = "{skill:164}: рецепты на 35",
 	-- {skill:164} Blacksmithing · {spell:3320} Rough Grinding Stone · {spell:1230171} Sharpening Wheel · {item:2835} Rough Stone · {item:2840} Copper Bar
 	["Back to a {skill:164} trainer: {spell:3320} (from 25, 1s). Also learn {spell:1230171} (1s): Forever's {skill:164} camp item, 1 {item:2835} and 1 {item:2840}, placed at a campsite beside a campfire for its buff. The Camping 101: {skill:164} quest from your starting area's camping guide (after The Great Outdoors) sends you to a blacksmithing trainer who teaches it free."] = "",
 
@@ -74,15 +74,15 @@ return {
 	-- Step 14: Blacksmithing 75-150: vendor goods
 	-- {skill:164} Blacksmithing
 	["{skill:164} 75-150: vendor goods"] = "",
-	-- {item:5956} Blacksmith Hammer · {zone:1453} Stormwind City · {npc:5519} Billibub Cogspinner · {npc:1286} Edna Mullby · {npc:5512} Kaita Deepforge · {zone:1454} Orgrimmar · {npc:3367} Felika · {npc:5817} Shimra
-	["Buy the whole bracket's share in one go: {item:5956} (a tool: one, kept in your bags, 18c); about 18c in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:5519}, {npc:1286} and {npc:5512}; {zone:1454}: {npc:3367}, {npc:5817} and Sovik)."] = "",
+	-- {item:5956} Blacksmith Hammer · {zone:1453} Stormwind City · {npc:5519} Billibub Cogspinner · {npc:1286} Edna Mullby · {npc:5512} Kaita Deepforge · {zone:1454} Orgrimmar · {npc:3367} Felika · {npc:5817} Shimra · {npc:3413} Sovik
+	["Buy the whole bracket's share in one go: {item:5956} (a tool: one, kept in your bags, 18c); about 18c in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:5519}, {npc:1286} and {npc:5512}; {zone:1454}: {npc:3367}, {npc:5817} and {npc:3413})."] = "",
 	["a tool, keep it in your bags"] = "",
 
 	-- Step 15: Blacksmithing 75-150: Auction House
 	-- {skill:164} Blacksmithing
-	["{skill:164} 75-150: Auction House"] = "",
+	["{skill:164} 75-150: Auction House"] = "{skill:164} 75-150: аукцион",
 	-- {item:2836} Coarse Stone · {item:2838} Heavy Stone · {item:2840} Copper Bar · {item:2841} Bronze Bar
-	["What 75-150 takes that the Auction House sells: 256 {item:2836}, 28 {item:2838}, 210 {item:2840} and 320 {item:2841}. The counts drop by what your bags, bank and mail hold."] = "",
+	["What 75-150 takes that the Auction House sells: 256 {item:2836}, 28 {item:2838}, 210 {item:2840} and 320 {item:2841}. The counts drop by what your bags, bank and mail hold."] = "Что нужно на 75-150 и продается на аукционе: 256 {item:2836}, 28 {item:2838}, 210 {item:2840} и 320 {item:2841}. Количество уменьшается на то, что уже лежит в сумках, банке и на почте.",
 
 	-- Step 16: Coarse Stone (Westfall)
 	-- {item:2836} Coarse Stone · {spell:2672} Patterned Bronze Bracers · {skill:186} Mining · {object:1732} Tin Vein · {zone:1436} Westfall
@@ -118,11 +118,11 @@ return {
 
 	-- Step 25: Copper Bar
 	-- {item:2840} Copper Bar · {spell:2666} Runed Copper Belt · {skill:186} Mining · {item:2770} Copper Ore
-	["210 {item:2840} for {spell:2666}: {skill:186}: smelt {item:2770}."] = "",
+	["210 {item:2840} for {spell:2666}: {skill:186}: smelt {item:2770}."] = "210 {item:2840} для {spell:2666}: {skill:186}: выплавьте из {item:2770}.",
 
 	-- Step 26: Bronze Bar
 	-- {item:2841} Bronze Bar · {spell:2672} Patterned Bronze Bracers · {skill:186} Mining · {item:2840} Copper Bar · {item:3576} Tin Bar
-	["320 {item:2841} for {spell:2672}: {skill:186}: smelt {item:2840} and {item:3576}."] = "",
+	["320 {item:2841} for {spell:2672}: {skill:186}: smelt {item:2840} and {item:3576}."] = "320 {item:2841} для {spell:2672}: {skill:186}: выплавьте из {item:2840} и {item:3576}.",
 
 	-- Step 27: Rough Grinding Stone to 83
 	-- {spell:3320} Rough Grinding Stone
@@ -141,7 +141,7 @@ return {
 	-- {skill:164} Blacksmithing
 	["{skill:164} recipes at 100"] = "{skill:164}: рецепты на 100",
 	-- {skill:164} Blacksmithing · {spell:2674} Heavy Sharpening Stone
-	["Back to a {skill:164} trainer: {spell:2674} (from 100, 10s)."] = "",
+	["Back to a {skill:164} trainer: {spell:2674} (from 100, 10s)."] = "Вернитесь к учителю ({skill:164}): {spell:2674} (с 100, 10 с).",
 
 	-- Step 30: Heavy Sharpening Stone to 113
 	-- {spell:2674} Heavy Sharpening Stone
@@ -152,9 +152,9 @@ return {
 
 	-- Step 31: Blacksmithing recipes at 113
 	-- {skill:164} Blacksmithing
-	["{skill:164} recipes at 113"] = "",
+	["{skill:164} recipes at 113"] = "{skill:164}: рецепты на 113",
 	-- {skill:164} Blacksmithing · {spell:2672} Patterned Bronze Bracers
-	["Back to a {skill:164} trainer: {spell:2672} (from 95, 5s)."] = "",
+	["Back to a {skill:164} trainer: {spell:2672} (from 95, 5s)."] = "Вернитесь к учителю ({skill:164}): {spell:2672} (с 95, 5 с).",
 
 	-- Step 32: Patterned Bronze Bracers to 150
 	-- {spell:2672} Patterned Bronze Bracers
@@ -177,9 +177,9 @@ return {
 
 	-- Step 35: Blacksmithing 150-225: Auction House
 	-- {skill:164} Blacksmithing
-	["{skill:164} 150-225: Auction House"] = "",
+	["{skill:164} 150-225: Auction House"] = "{skill:164} 150-225: аукцион",
 	-- {item:2838} Heavy Stone · {item:3575} Iron Bar · {item:3859} Steel Bar · {item:3860} Mithril Bar · {item:7912} Solid Stone
-	["What 150-225 takes that the Auction House sells: 234 {item:2838}, 168 {item:3575}, 195 {item:3859}, 320 {item:3860} and 30 {item:7912}. The counts drop by what your bags, bank and mail hold."] = "",
+	["What 150-225 takes that the Auction House sells: 234 {item:2838}, 168 {item:3575}, 195 {item:3859}, 320 {item:3860} and 30 {item:7912}. The counts drop by what your bags, bank and mail hold."] = "Что нужно на 150-225 и продается на аукционе: 234 {item:2838}, 168 {item:3575}, 195 {item:3859}, 320 {item:3860} и 30 {item:7912}. Количество уменьшается на то, что уже лежит в сумках, банке и на почте.",
 
 	-- Step 36: Heavy Stone (Alliance)
 	-- {item:2838} Heavy Stone
@@ -195,15 +195,15 @@ return {
 
 	-- Step 38: Iron Bar
 	-- {item:3575} Iron Bar · {spell:3501} Green Iron Bracers · {skill:186} Mining · {item:2772} Iron Ore
-	["168 {item:3575} for {spell:3501}: {skill:186}: smelt {item:2772}."] = "",
+	["168 {item:3575} for {spell:3501}: {skill:186}: smelt {item:2772}."] = "168 {item:3575} для {spell:3501}: {skill:186}: выплавьте из {item:2772}.",
 
 	-- Step 39: Steel Bar
 	-- {item:3859} Steel Bar · {item:6040} Golden Scale Bracers · {skill:186} Mining · {item:3575} Iron Bar
-	["195 {item:3859} for {item:6040}: {skill:186}: smelt {item:3575} and Coal."] = "",
+	["195 {item:3859} for {item:6040}: {skill:186}: smelt {item:3575} and Coal."] = "195 {item:3859} для {item:6040}: {skill:186}: выплавьте из {item:3575} и угля.",
 
 	-- Step 40: Mithril Bar
 	-- {item:3860} Mithril Bar · {item:7930} Heavy Mithril Breastplate · {skill:186} Mining · {item:3858} Mithril Ore
-	["320 {item:3860} for {item:7930}: {skill:186}: smelt {item:3858}."] = "",
+	["320 {item:3860} for {item:7930}: {skill:186}: smelt {item:3858}."] = "320 {item:3860} для {item:7930}: {skill:186}: выплавьте из {item:3858}.",
 
 	-- Step 41: Solid Stone (Alliance)
 	-- {item:7912} Solid Stone
@@ -228,7 +228,7 @@ return {
 	-- {skill:164} Blacksmithing
 	["{skill:164} recipes at 175"] = "{skill:164}: рецепты на 175",
 	-- {skill:164} Blacksmithing · {spell:9918} Solid Sharpening Stone
-	["Back to a {skill:164} trainer: {spell:9918} (from 175)."] = "",
+	["Back to a {skill:164} trainer: {spell:9918} (from 175)."] = "Вернитесь к учителю ({skill:164}): {spell:9918} (с 175).",
 
 	-- Step 45: Solid Sharpening Stone to 185
 	-- {item:7964} Solid Sharpening Stone
@@ -241,20 +241,20 @@ return {
 	-- {skill:164} Blacksmithing
 	["{skill:164} recipes at 185"] = "{skill:164}: рецепты на 185",
 	-- {skill:164} Blacksmithing · {spell:7223} Golden Scale Bracers
-	["Back to a {skill:164} trainer: {spell:7223} (from 160)."] = "",
+	["Back to a {skill:164} trainer: {spell:7223} (from 160)."] = "Вернитесь к учителю ({skill:164}): {spell:7223} (с 160).",
 
 	-- Step 47: Golden Scale Bracers to 205
 	-- {item:6040} Golden Scale Bracers
-	["{item:6040} to 205"] = "",
+	["{item:6040} to 205"] = "{item:6040} до 205",
 	-- {item:6040} Golden Scale Bracers · {item:3859} Steel Bar · {spell:3337} Heavy Grinding Stone · {item:3575} Iron Bar · {skill:186} Mining · {npc:5164} Grumnus Steelshaper · {zone:1455} Ironforge · {npc:11177} Okothos Ironrager · {zone:1454} Orgrimmar · {spell:9788} Armorsmith · {item:7936} Ornate Mithril Boots · {item:7935} Ornate Mithril Breastplate · {npc:11146} Ironus Coldsteel · {npc:11178} Borgosh Corebender · {item:3853} Moonsteel Broadsword · {npc:2482} Zarena Cromwind · {area:35} Booty Bay · {item:3855} Massive Iron Axe
 	-- plural, as words: Steel Bars = {item:3859} Steel Bar · Heavy Grinding Stones = {spell:3337} Heavy Grinding Stone · Ornate Mithril Helms = {item:7937} Ornate Mithril Helm · Moonsteel Broadswords = {item:3853} Moonsteel Broadsword · Massive Iron Axes = {item:3855} Massive Iron Axe · Heavy Mithril Axes = {item:7940} Heavy Mithril Axe · Big Black Maces = {item:7945} Big Black Mace
 	["{item:6040} is yellow at 185 (yellow 185, green 197, grey 210): about 39 crafts to 205. Each takes 5 {item:3859} and 2 {spell:3337}. Make the 78 {spell:3337} first. Steel Bars are smelted from an {item:3575} and a Coal ({skill:186} 165; Coal from trade and blacksmithing suppliers), so each bracer is five of each. Each bracer takes two Heavy Grinding Stones: make them first. Specialisation (optional): at 200 and character level 40, {npc:5164} ({zone:1455}) or {npc:11177} ({zone:1454}) starts The Art of the {spell:9788}: 4 Ornate Mithril Helms, 2 {item:7936} and an {item:7935}, whose plans come from a Mithril Order quest chain. {npc:11146} ({zone:1455}) or {npc:11178} ({zone:1454}) starts The Way of the Weaponsmith: 4 Moonsteel Broadswords, 4 Massive Iron Axes, 2 Heavy Mithril Axes and 2 Big Black Maces; on Forever the {item:3853} plans ({npc:2482}, {area:35}) and {item:3855} plans bind when picked up, so buy and use them yourself. You can take only one; neither is needed for 300, and the beta never tested them (it stopped at level 30). Needs an anvil nearby."] = "",
 
 	-- Step 48: Blacksmithing recipes at 205
 	-- {skill:164} Blacksmithing
-	["{skill:164} recipes at 205"] = "",
-	-- {skill:164} Blacksmithing · {spell:9959} Heavy Mithril Breastplate
-	["Back to a {skill:164} trainer: {spell:9959} (from 205)."] = "",
+	["{skill:164} recipes at 205"] = "{skill:164}: рецепты на 205",
+	-- {spell:9959} Heavy Mithril Breastplate · {npc:2836} Brikk Keencraft · {zone:1434} Stranglethorn Vale · {skill:164} Blacksmithing
+	["{spell:9959} (from 205) is taught only by the Artisan trainers: Alliance {npc:2836} ({zone:1434}); Horde {npc:2836} ({zone:1434}). You can train Artisan there now if you are level 35 (it needs {skill:164} 200), which saves the trip at 225."] = "{spell:9959} (от 205) обучают только учителя ранга «Искусник»: Альянс – {npc:2836} ({zone:1434}); Орда – {npc:2836} ({zone:1434}). Если у вас 35-й уровень, можно уже сейчас обучиться там рангу «Искусник» (нужен навык {skill:164} 200): это избавит от поездки на 225.",
 
 	-- Step 49: Heavy Mithril Breastplate to 225
 	-- {item:7930} Heavy Mithril Breastplate
@@ -279,17 +279,17 @@ return {
 
 	-- Step 53: Blacksmithing 225-300: Auction House
 	-- {skill:164} Blacksmithing
-	["{skill:164} 225-300: Auction House"] = "",
+	["{skill:164} 225-300: Auction House"] = "{skill:164} 225-300: аукцион",
 	-- {item:1210} Shadowgem · {item:3860} Mithril Bar · {item:4304} Thick Leather · {item:7909} Aquamarine · {item:7910} Star Ruby · {item:7912} Solid Stone · {item:7971} Black Pearl · {item:8170} Rugged Leather · {item:12359} Thorium Bar · {item:12365} Dense Stone · {item:12799} Large Opal
-	["What 225-300 takes that the Auction House sells: 44 {item:1210}, 596 {item:3860}, 142 {item:4304}, 19 {item:7909}, 19 {item:7910}, 44 {item:7912}, 11 {item:7971}, 206 {item:8170}, 2026 {item:12359}, 801 {item:12365} and 10 {item:12799}. The counts drop by what your bags, bank and mail hold."] = "",
+	["What 225-300 takes that the Auction House sells: 44 {item:1210}, 596 {item:3860}, 142 {item:4304}, 19 {item:7909}, 19 {item:7910}, 44 {item:7912}, 11 {item:7971}, 206 {item:8170}, 2026 {item:12359}, 801 {item:12365} and 10 {item:12799}. The counts drop by what your bags, bank and mail hold."] = "Что нужно на 225-300 и продается на аукционе: 44 {item:1210}, 596 {item:3860}, 142 {item:4304}, 19 {item:7909}, 19 {item:7910}, 44 {item:7912}, 11 {item:7971}, 206 {item:8170}, 2026 {item:12359}, 801 {item:12365} и 10 {item:12799}. Количество уменьшается на то, что уже лежит в сумках, банке и на почте.",
 
 	-- Step 54: Shadowgem
 	-- {item:1210} Shadowgem · {item:7945} Big Black Mace · {object:1731} Copper Vein · {object:1732} Tin Vein · {object:1733} Silver Vein
-	["44 {item:1210} for {item:7945}: {item:1210} turns up in about one {object:1731}, {object:1732} or {object:1733} in 100: keep the ones you find while mining."] = "",
+	["44 {item:1210} for {item:7945}: {item:1210} turns up in about one {object:1731}, {object:1732} or {object:1733} in 100: keep the ones you find while mining."] = "44 {item:1210} для {item:7945}: {item:1210} попадается примерно в одной жиле из 100 ({object:1731}, {object:1732} или {object:1733}): сохраняйте найденные при добыче.",
 
 	-- Step 55: Mithril Bar
 	-- {item:3860} Mithril Bar · {item:7933} Heavy Mithril Boots · {item:7945} Big Black Mace · {skill:186} Mining · {item:3858} Mithril Ore
-	["596 {item:3860} for {item:7933} and {item:7945}: {skill:186}: smelt {item:3858}."] = "",
+	["596 {item:3860} for {item:7933} and {item:7945}: {skill:186}: smelt {item:3858}."] = "596 {item:3860} для {item:7933} и {item:7945}: {skill:186}: выплавьте из {item:3858}.",
 
 	-- Step 56: Thick Leather (Alliance)
 	-- {item:4304} Thick Leather
@@ -305,11 +305,11 @@ return {
 
 	-- Step 58: Aquamarine
 	-- {item:7909} Aquamarine · {quest:7654} Imperial Plate Boots · {object:2047} Truesilver Deposit · {object:123309} Ooze Covered Truesilver Deposit
-	["19 {item:7909} for {quest:7654}: {item:7909} turns up in about one {object:2047} or {object:123309} in 500: keep the ones you find while mining."] = "",
+	["19 {item:7909} for {quest:7654}: {item:7909} turns up in about one {object:2047} or {object:123309} in 500: keep the ones you find while mining."] = "19 {item:7909} для {quest:7654}: {item:7909} попадается примерно в одной жиле из 500 ({object:2047} или {object:123309}): сохраняйте найденные при добыче.",
 
 	-- Step 59: Star Ruby
 	-- {item:7910} Star Ruby · {quest:7654} Imperial Plate Boots · {object:2047} Truesilver Deposit · {object:123309} Ooze Covered Truesilver Deposit
-	["19 {item:7910} for {quest:7654}: {item:7910} turns up in about one {object:2047} or {object:123309} in 143: keep the ones you find while mining."] = "",
+	["19 {item:7910} for {quest:7654}: {item:7910} turns up in about one {object:2047} or {object:123309} in 143: keep the ones you find while mining."] = "19 {item:7910} для {quest:7654}: {item:7910} попадается примерно в одной жиле из 143 ({object:2047} или {object:123309}): сохраняйте найденные при добыче.",
 
 	-- Step 60: Solid Stone (Alliance)
 	-- {item:7912} Solid Stone · {item:7945} Big Black Mace · {skill:186} Mining · {object:2040} Mithril Deposit · {zone:1425} The Hinterlands · {zone:1444} Feralas · {zone:1447} Azshara
@@ -323,7 +323,7 @@ return {
 	-- {item:8170} Rugged Leather
 	["{item:8170} (Alliance)"] = "{item:8170} (Альянс)",
 	-- {item:8170} Rugged Leather · {item:12773} Ornate Thorium Handaxe · {item:12775} Huge Thorium Battleaxe · {skill:393} Skinning · {npc:8598} Frenzied Plaguehound · {npc:8596} Plaguehound Runt
-	["206 {item:8170} for {item:12773} and {item:12775}: {skill:393}: beasts of level 48-60. Skin {npc:8598}, Plaguehound and {npc:8596} here (level 48-60); the {skill:393} guide routes this."] = "",
+	["206 {item:8170} for {item:12773} and {item:12775}: {skill:393}: beasts of level 48-60. Skin {npc:8598}, Plaguehound and {npc:8596} here (level 48-60); the {skill:393} guide routes this."] = "206 {item:8170} для {item:12773} и {item:12775}: {skill:393}: звери 48-60 уровня. Снимайте шкуры здесь: {npc:8598}, Чумной пес и {npc:8596} (уровень 48-60); маршрут – в гайде {skill:393}.",
 
 	-- Step 63: Rugged Leather (Horde)
 	-- {item:8170} Rugged Leather
@@ -333,7 +333,7 @@ return {
 
 	-- Step 64: Thorium Bar
 	-- {item:12359} Thorium Bar · {item:12773} Ornate Thorium Handaxe · {item:12775} Huge Thorium Battleaxe · {quest:7654} Imperial Plate Boots · {skill:186} Mining · {item:10620} Thorium Ore
-	["2026 {item:12359} for {item:12773}, {item:12775} and {quest:7654}: {skill:186}: smelt {item:10620}."] = "",
+	["2026 {item:12359} for {item:12773}, {item:12775} and {quest:7654}: {skill:186}: smelt {item:10620}."] = "2026 {item:12359} для {item:12773}, {item:12775} и {quest:7654}: {skill:186}: выплавьте из {item:10620}.",
 
 	-- Step 65: Dense Stone (Alliance)
 	-- {item:12365} Dense Stone
@@ -349,7 +349,7 @@ return {
 
 	-- Step 67: Large Opal
 	-- {item:12799} Large Opal · {item:12773} Ornate Thorium Handaxe · {object:175404} Rich Thorium Vein · {object:177388} Ooze Covered Rich Thorium Vein · {object:180215} Hakkari Thorium Vein
-	["10 {item:12799} for {item:12773}: {item:12799} turns up in about one {object:175404}, {object:177388} or {object:180215} in 143: keep the ones you find while mining."] = "",
+	["10 {item:12799} for {item:12773}: {item:12799} turns up in about one {object:175404}, {object:177388} or {object:180215} in 143: keep the ones you find while mining."] = "10 {item:12799} для {item:12773}: {item:12799} попадается примерно в одной жиле из 143 ({object:175404}, {object:177388} или {object:180215}): сохраняйте найденные при добыче.",
 
 	-- Step 68: Dense Weightstone to 235
 	-- {item:12643} Dense Weightstone
@@ -359,7 +359,7 @@ return {
 
 	-- Step 69: Heavy Mithril Boots to 247
 	-- {item:7933} Heavy Mithril Boots
-	["{item:7933} to 247"] = "",
+	["{item:7933} to 247"] = "{item:7933} до 247",
 	-- {item:7933} Heavy Mithril Boots · {item:3860} Mithril Bar · {item:4304} Thick Leather
 	-- plural, as words: Mithril Bars = {item:3860} Mithril Bar · Mithril Deposits = {object:2040} Mithril Deposit
 	["{item:7933} is yellow at 235 (yellow 230, green 240, grey 250): about 30 crafts to 247. Each takes 14 {item:3860} and 4 {item:4304}. Mithril Bars from Mithril Deposits; {item:4304} from skinners or the Auction House. Needs an anvil nearby."] = "",
@@ -380,7 +380,7 @@ return {
 
 	-- Step 72: Huge Thorium Battleaxe to 285
 	-- {item:12775} Huge Thorium Battleaxe
-	["{item:12775} to 285"] = "",
+	["{item:12775} to 285"] = "{item:12775} до 285",
 	-- {item:12775} Huge Thorium Battleaxe · {item:12359} Thorium Bar · {item:12644} Dense Grinding Stone · {item:8170} Rugged Leather · {npc:11278} Magnus Frostwake · {area:2298} Caer Darrow · {zone:1422} Western Plaguelands · {quest:7654} Imperial Plate Boots
 	-- plural, as words: Thorium Bars = {item:12359} Thorium Bar · Dense Grinding Stones = {item:12644} Dense Grinding Stone
 	["{item:12775} is orange at 255 (yellow 280, green 292, grey 305): about 31 crafts to 285. Each takes 40 {item:12359}, 6 {item:12644} and 6 {item:8170}. Make the 186 {item:12644} first. Plans from {npc:11278} ({area:2298}, {zone:1422}), unlimited stock, but they bind when picked up. Forty Thorium Bars and six Dense Grinding Stones a craft: the dearest stretch, so stop where the {quest:7654} take over. Other ways through: world-drop plans from the Auction House (the Radiant pieces: about 820 Thorium Bars and 190 Hearts of Fire for the Radiant route) or the Merchant's Favor sets. Needs an anvil nearby."] = "",
@@ -397,19 +397,14 @@ return {
 	["{item:12426} is orange at 285 (yellow 290, green 300, grey 310): about 19 crafts to 300. Each takes 34 {item:12359}, 1 {item:7910} and 1 {item:7909}. About 34 Thorium Bars a craft against the battleaxe's 40 and its grinding stones, orange to 290. Below character level 50 {npc:14567} has no quest for you: keep making Huge Thorium Battleaxes to 300 instead (yellow to 292, grey at 305: about twice the Thorium Bars). Needs an anvil nearby. {skill:164} 300 is a Legacy System milestone."] = "",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
-	-- ["206 {item:8170} for {item:12773} and {item:12775}: {skill:393}: beasts of level 48-60; or the Auction House. Skin {npc:8598}, Plaguehound and {npc:8596} here (level 48-60); the {skill:393} guide routes this."] = "206 {item:8170} для {item:12773} и {item:12775}: {skill:393}: звери 48-60 уровня; или аукцион. Снимайте шкуры здесь: {npc:8598}, Чумной пес и {npc:8596} (уровень 48-60); маршрут – в гайде {skill:393}.",
 	-- ["Apprentice {skill:164}"] = "{skill:164}: Ученик",
 	-- ["Artisan needs character level 35 and {skill:164} 200; it raises the cap to 300. Materials for 225-300 are worth about 942g in all."] = "Ранг «Искусник» требует уровня персонажа 35 и навыка {skill:164} 200; предел становится 300. Материалы на 225-300 стоят всего около 942з.",
 	-- ["Back to a {skill:164} trainer: {spell:16639} is taught from {skill:164} 230."] = "Вернитесь к учителю ({skill:164}): {spell:16639} – с навыка {skill:164} 230.",
 	-- ["Back to a {skill:164} trainer: {spell:16640} is taught from {skill:164} 230."] = "Вернитесь к учителю ({skill:164}): {spell:16640} – с навыка {skill:164} 230.",
 	-- ["Back to a {skill:164} trainer: {spell:2666} is taught from {skill:164} 80."] = "Вернитесь к учителю ({skill:164}): {spell:2666} – с навыка {skill:164} 80.",
 	-- ["Back to a {skill:164} trainer: {spell:2668} is taught from {skill:164} 95."] = "Вернитесь к учителю ({skill:164}): {spell:2668} – с навыка {skill:164} 95.",
-	-- ["Back to a {skill:164} trainer: {spell:2672} is taught from {skill:164} 120."] = "Вернитесь к учителю ({skill:164}): {spell:2672} – с навыка {skill:164} 120.",
 	-- ["Back to a {skill:164} trainer: {spell:3117} is taught from {skill:164} 100."] = "Вернитесь к учителю ({skill:164}): {spell:3117} – с навыка {skill:164} 100.",
-	-- ["Back to a {skill:164} trainer: {spell:3320} is taught from {skill:164} 45."] = "Вернитесь к учителю ({skill:164}): {spell:3320} – с навыка {skill:164} 45.",
-	-- ["Back to a {skill:164} trainer: {spell:7223} is taught from {skill:164} 185."] = "Вернитесь к учителю ({skill:164}): {spell:7223} – с навыка {skill:164} 185.",
 	-- ["Back to a {skill:164} trainer: {spell:9916} is taught from {skill:164} 200."] = "Вернитесь к учителю ({skill:164}): {spell:9916} – с навыка {skill:164} 200.",
-	-- ["Back to a {skill:164} trainer: {spell:9918} is taught from {skill:164} 175."] = "Вернитесь к учителю ({skill:164}): {spell:9918} – с навыка {skill:164} 175.",
 	-- ["Back to a {skill:164} trainer: {spell:9920}, {spell:9935} are taught from {skill:164} 210."] = "Вернитесь к учителю ({skill:164}): {spell:9920}, {spell:9935} – с навыка {skill:164} 210.",
 	-- ["Back to a {skill:164} trainer: {spell:9968} is taught from {skill:164} 230."] = "Вернитесь к учителю ({skill:164}): {spell:9968} – с навыка {skill:164} 230.",
 	-- ["Back to a {skill:164} trainer: {spell:9985} is taught from {skill:164} 155."] = "Вернитесь к учителю ({skill:164}): {spell:9985} – с навыка {skill:164} 155.",
@@ -446,7 +441,6 @@ return {
 	-- ["Yellow until 65, green until 85: not every craft gives a point."] = "Желтый до 65, зеленый до 85: не каждое изготовление дает очко.",
 	-- ["Yellow until 65, green until 85: not every craft gives a point. 75 is the Apprentice cap."] = "Желтый до 65, зеленый до 85: не каждое изготовление дает очко. 75 – предел ранга «Ученик».",
 	-- ["{item:12365} comes from {object:324} nodes ({skill:186}); this is the densest cluster in the data. The Auction House works too."] = "{item:12365} добывается из: {object:324} ({skill:186}) – по данным, здесь их больше всего. Подойдет и аукцион.",
-	-- ["{item:12775} to 300"] = "{item:12775} до 300",
 	-- ["{item:2319} (Alliance)"] = "{item:2319} (Альянс)",
 	-- ["{item:2319} (Horde)"] = "{item:2319} (Орда)",
 	-- ["{item:250562} to 268"] = "{item:250562} до 268",
@@ -458,11 +452,9 @@ return {
 	-- ["{item:2836} comes from {object:1732} nodes ({skill:186}); this is the densest cluster in the data. The Auction House works too."] = "{item:2836} добывается из: {object:1732} ({skill:186}) – по данным, здесь их больше всего. Подойдет и аукцион.",
 	-- ["{item:2838} comes from {object:1735} nodes ({skill:186}); this is the densest cluster in the data. The Auction House works too."] = "{item:2838} добывается из: {object:1735} ({skill:186}) – по данным, здесь их больше всего. Подойдет и аукцион.",
 	-- ["{item:5956}: a tool, keep it in your bags"] = "{item:5956}: инструмент, держите его в сумке",
-	-- ["{item:6040} to 200"] = "{item:6040} до 200",
 	-- ["{item:7912} comes from {object:2040} nodes ({skill:186}); this is the densest cluster in the data. The Auction House works too."] = "{item:7912} добывается из: {object:2040} ({skill:186}) – по данным, здесь их больше всего. Подойдет и аукцион.",
 	-- ["{item:7922} to 225"] = "{item:7922} до 225",
 	-- ["{item:7931} to 230"] = "{item:7931} до 230",
-	-- ["{item:7933} to 244"] = "{item:7933} до 244",
 	-- ["{item:7956} to 175"] = "{item:7956} до 175",
 	-- ["{item:7963} to 210"] = "{item:7963} до 210",
 	-- ["{item:8831} (Alliance)"] = "{item:8831} (Альянс)",
@@ -470,13 +462,10 @@ return {
 	-- ["{skill:164} materials for 150-225"] = "{skill:164}: материалы для 150-225",
 	-- ["{skill:164} materials for 225-300"] = "{skill:164}: материалы для 225-300",
 	-- ["{skill:164} materials for 75-150"] = "{skill:164}: материалы для 75-150",
-	-- ["{skill:164} recipes at 112"] = "{skill:164}: рецепты на 112",
 	-- ["{skill:164} recipes at 121"] = "{skill:164}: рецепты на 121",
 	-- ["{skill:164} recipes at 155"] = "{skill:164}: рецепты на 155",
-	-- ["{skill:164} recipes at 200"] = "{skill:164}: рецепты на 200",
 	-- ["{skill:164} recipes at 210"] = "{skill:164}: рецепты на 210",
 	-- ["{skill:164} recipes at 230"] = "{skill:164}: рецепты на 230",
-	-- ["{skill:164} recipes at 235"] = "{skill:164}: рецепты на 235",
 	-- ["{skill:164} recipes at 268"] = "{skill:164}: рецепты на 268",
 	-- ["{skill:164} recipes at 45"] = "{skill:164}: рецепты на 45",
 	-- ["{skill:164} recipes at 83"] = "{skill:164}: рецепты на 83",
@@ -490,7 +479,6 @@ return {
 	-- ["{skill:186}: smelt {item:3858} (or the Auction House)"] = "{skill:186}: выплавка – {item:3858} (или аукцион)",
 	-- ["{skill:202}: {item:249432} (or the Auction House)"] = "{skill:202}: {item:249432} (или аукцион)",
 	-- ["{skill:393} (or the Auction House)"] = "{skill:393} (или аукцион)",
-	-- ["{spell:2660} to 45"] = "{spell:2660} до 45",
 	-- ["{spell:2668} to 121"] = "{spell:2668} до 121",
 	-- ["{spell:3117} to 112"] = "{spell:3117} до 112",
 	-- ["{spell:3333} to 155"] = "{spell:3333} до 155",

@@ -7,11 +7,11 @@
 -- The comments are rewritten by sync.
 return {
 	-- Guide
-	["A robe or a tunic for Horde mages in their late 20s."] = "",
+	["A robe or a tunic for Horde mages in their late 20s."] = "20레벨대 후반 호드 마법사를 위한 로브 또는 튜닉.",
 
 	-- Step 1: Anastasia Hartwell
 	-- {npc:4568} Anastasia Hartwell · {zone:1458} Undercity · {object:36082} Magic Quarter · {spell:3563} Teleport: Undercity · {zone:1454} Orgrimmar · {zone:1420} Tirisfal Glades
-	["{npc:4568} stands in the {zone:1458}'s {object:36082}. Orcs and Trolls use {spell:3563} or take the zeppelin from {zone:1454} to {zone:1420} for her."] = "",
+	["{npc:4568} stands in the {zone:1458}'s {object:36082}. Orcs and Trolls use {spell:3563} or take the zeppelin from {zone:1454} to {zone:1420} for her."] = "{npc:4568}은(는) {zone:1458} {object:36082}에 있습니다. 오크와 트롤은 {spell:3563}을(를) 사용하거나 {zone:1454}에서 비행선을 타고 {zone:1420}(으)로 가십시오.",
 
 	-- Step 2: Deino
 	-- {zone:1454} Orgrimmar · {spell:3567} Teleport: Orgrimmar · {object:173161} Darkbriar Lodge (no name in this language: may be words) · {npc:5885} Deino · {object:172961} Valley of Spirits · {item:7269} Deino's Flask
@@ -40,10 +40,8 @@ return {
 	["{npc:3484}, a troll tailor, works at the Crossroads. The robe gives intellect, stamina and spirit; the tunic more intellect and stamina but no spirit."] = "",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
-	-- ["A robe or a tunic for Undead and Troll mages in their late 20s."] = "20레벨대 후반 언데드 및 트롤 마법사를 위한 로브 또는 튜닉.",
 	-- ["Satyrs hold the ruins of {area:429} in eastern {zone:1440}. {spell:9052} at the bottom of the highest waterfall."] = "사티로스가 {zone:1440} 동부의 {area:429} 폐허를 차지하고 있습니다. 가장 높은 폭포 아래에서 {spell:9052}을(를) 하세요.",
 	-- ["Take the zeppelin to {zone:1454}. {npc:5885} is one of {zone:1454}'s mage trainers."] = "비행선을 타고 {zone:1454}(으)로 가십시오. {npc:5885}은(는) {zone:1454}의 마법사 상급자 중 한 명입니다.",
 	-- ["The {quest:1945}, dryads, gather near the {area:426} in central {zone:1440}."] = "드라이어드인 {quest:1945}은(는) {zone:1440} 중앙의 {area:426} 근처에 모여 있습니다.",
 	-- ["{npc:3484}, a troll tailor, works at the {area:380}."] = "트롤 재봉사 {npc:3484}은(는) {area:380}에서 일합니다.",
-	-- ["{npc:4568} stands in the {zone:1458}'s {object:36082}. Trolls take the zeppelin from {zone:1454} to {zone:1420} for her."] = "{npc:4568}은(는) {zone:1458} {object:36082}에 있습니다. 트롤은 {zone:1454}에서 비행선을 타고 {zone:1420}(으)로 가십시오.",
 }

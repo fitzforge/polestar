@@ -111,8 +111,8 @@ return {
 
 	-- Step 18: Dungeons: level 15-25
 	["Dungeons: level 15-25"] = "Calabozos: nivel 15-25",
-	-- {area:2437} Ragefire Chasm · {area:16919} Hall of Thanes · {zone:1455} Ironforge
-	["The final boss of every level 15-25 dungeon earns one point together. {area:2437} and Forever's {area:16919} (in {zone:1455}) count as one: either final boss does. Tick each boss off when you kill it, and check the in-game Legacy panel for the list."] = "El jefe final de cada mazmorra de nivel 15-25 da un punto entre todas. {area:2437} y {area:16919} de Forever (en {zone:1455}) cuentan como una: sirve cualquiera de los dos jefes finales. Marca cada jefe al matarlo, y revisa la lista en el panel de legado del juego.",
+	-- {area:2437} Ragefire Chasm · {area:16919} Hall of Thanes · {zone:1455} Ironforge · {area:153} Ruins of Lordaeron · {zone:1458} Undercity · {zone:1454} Orgrimmar
+	["The final boss of every level 15-25 dungeon earns one point together. {area:2437} and Forever's {area:16919} (in {zone:1455}) count as one: either final boss does. Tick each boss off when you kill it, and check the in-game Legacy panel for the list.\nAlliance: the {area:153}'s entrance is in the ruins beside the {zone:1458}, among Horde guards: go with a group. {area:2437} is inside {zone:1454}: the {area:16919} counts for it. Horde: the {area:16919} is inside {zone:1455}: {area:2437} counts for it."] = "El jefe final de cada mazmorra de nivel 15-25 da un punto entre todas. {area:2437} y {area:16919} de Forever (en {zone:1455}) cuentan como una: sirve cualquiera de los dos jefes finales. Marca cada jefe al matarlo, y revisa la lista en el panel de legado del juego.\nAlianza: la entrada de {area:153} está en las ruinas junto a {zone:1458}, entre guardias de la Horda: ve con un grupo. {area:2437} está dentro de {zone:1454}: {area:16919} cuenta por ella. Horda: {area:16919} está dentro de {zone:1455}: {area:2437} cuenta por ella.",
 	-- {area:2437} Ragefire Chasm · {npc:11519} Bazzalan · {area:16919} Hall of Thanes
 	["{area:2437}: {npc:11519} (or {area:16919})"] = "{area:2437}: {npc:11519} (o {area:16919})",
 	-- {area:16919} Hall of Thanes · {npc:261319} Durgen Dirgehammer · {area:2437} Ragefire Chasm
@@ -126,11 +126,12 @@ return {
 
 	-- Step 19: Dungeons: level 26-45
 	["Dungeons: level 26-45"] = "Calabozos: nivel 26-45",
-	-- {area:17780} Krol'dok Stronghold · {zone:2548} Riverglades
-	["The final boss of every level 26-45 dungeon earns one point together. The Drowned City and {area:17780} (in the {zone:2548}) are new in Forever and not in our data: tick them off yourself."] = "El jefe final de cada mazmorra de nivel 26-45 da un punto entre todas. La Ciudad Sumergida y {area:17780} (en {zone:2548}) son nuevas en Forever y no están en nuestros datos: márcalas tú.",
+	-- {area:16550} The Drowned City · {area:17780} Krol'dok Stronghold · {zone:2548} Riverglades
+	["The final boss of every level 26-45 dungeon earns one point together. {area:16550} and {area:17780} (in the {zone:2548}) are new in Forever and not in our data: tick them off yourself."] = "El jefe final de cada mazmorra de nivel 26-45 da un punto entre todas. {area:16550} y {area:17780} (en {zone:2548}) son nuevas en Forever y no están en nuestros datos: márcalas tú.",
 	-- {zone:1416} Alterac Mountains · {npc:246020} Shade of the Archmage
 	["City of Dalaran (Forever's, {zone:1416}): {npc:246020}"] = "Ciudad de Dalaran (de Forever, {zone:1416}): {npc:246020}",
-	["the final boss of the Drowned City"] = "el jefe final de la Ciudad Sumergida",
+	-- {area:16550} The Drowned City
+	["the final boss of the {area:16550}"] = "el jefe final de {area:16550}",
 	-- {area:796} Scarlet Monastery
 	["{area:796}: Graveyard"] = "{area:796}: Cementerio",
 	-- {area:796} Scarlet Monastery
@@ -144,9 +145,10 @@ return {
 
 	-- Step 20: Dungeons: level 46-60
 	["Dungeons: level 46-60"] = "Calabozos: nivel 46-60",
-	-- {area:1216} Blackmaw Hold · {area:16985} Shaper's Terrace
-	["The final boss of every level 46-60 dungeon earns one point together. Alcaz Prison, {area:1216} and the {area:16985} are new in Forever and not in our data: tick them off yourself."] = "El jefe final de cada mazmorra de nivel 46-60 da un punto entre todas. La Prisión de Alcaz, {area:1216} y {area:16985} son nuevas en Forever y no están en nuestros datos: márcalas tú.",
-	["the final boss of Alcaz Prison"] = "el jefe final de la Prisión de Alcaz",
+	-- {area:16620} Alcaz Prison · {area:1216} Blackmaw Hold · {area:16985} Shaper's Terrace
+	["The final boss of every level 46-60 dungeon earns one point together. {area:16620}, {area:1216} and the {area:16985} are new in Forever and not in our data: tick them off yourself."] = "El jefe final de cada mazmorra de nivel 46-60 da un punto entre todas. {area:16620}, {area:1216} y {area:16985} son nuevas en Forever y no están en nuestros datos: márcalas tú.",
+	-- {area:16620} Alcaz Prison
+	["the final boss of {area:16620}"] = "el jefe final de {area:16620}",
 	-- {area:1216} Blackmaw Hold
 	["the final boss of {area:1216}"] = "el jefe final de {area:1216}",
 	-- {area:1583} Blackrock Spire

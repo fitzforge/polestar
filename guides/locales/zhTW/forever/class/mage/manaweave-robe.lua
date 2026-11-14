@@ -12,7 +12,7 @@ return {
 
 	-- Step 1: Zaldimar Wefhellt (Goldshire)
 	-- {npc:328} Zaldimar Wefhellt · {area:87} Goldshire
-	["{npc:328} is the {area:87} mage trainer, upstairs in the Lion's Pride Inn."] = "",
+	["{npc:328} is the {area:87} mage trainer, upstairs in the Lion's Pride Inn."] = "{npc:328}是{area:87}的法師訓練師，在獅王之傲旅店樓上。",
 
 	-- Step 2: Dink (Ironforge)
 	-- {npc:7312} Dink · {zone:1455} Ironforge · {object:32362} Mystic Ward · {area:2257} Deeprun Tram · {object:171524} Tinker Town · {zone:1453} Stormwind
@@ -38,6 +38,8 @@ return {
 	-- Step 6: Linen Cloth
 	-- {item:2589} Linen Cloth · {area:149} Silver Stream Mine · {object:2096} Trade District
 	["Any humanoid drops {item:2589}, and the Tunnel Rats in the {area:149} drop it while you gather the gems; the Auction House in the {object:2096} sells it. You hand in ten."] = "",
+	-- {item:2589} Linen Cloth
+	["{item:2589}: humanoids, or the Auction House"] = "{item:2589}：人型生物，或拍賣場",
 
 	-- Step 7: The Silver Stream Mine
 	-- {area:149} Silver Stream Mine
@@ -52,7 +54,6 @@ return {
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Humanoids drop {item:2589}; the Auction House in the {object:2096} sells it."] = "人型生物會掉落{item:2589}；{object:2096}的拍賣場也有賣。",
 	-- ["Take the {area:2257} to {zone:1455}, then the road east through the South Gate tunnel into {zone:1432}. The dwarven miners' league left the crates in the {area:149} at the north end of the loch; Tunnel Rat troggs hold the mine."] = "搭乘{area:2257}前往{zone:1455}，然後沿著道路向東穿過南門隧道進入{zone:1432}。矮人礦工聯盟把箱子留在湖北端的{area:149}；坑道鼠佔據礦坑。",
-	-- ["{npc:328} is the {area:87} mage trainer."] = "{npc:328}是{area:87}的法師訓練師。",
 	-- ["{npc:5497} stands in the Wizard's Sanctum, the tower of the {object:2101}. The {item:7247} and the {item:7308} lie behind her."] = "{npc:5497}站在{object:2101}的高塔裡。{item:7247}和{item:7308}放在她身後。",
 	-- ["{object:2169} is the tavern in the {object:2101}. Use the {item:7308} inside to make the {npc:6492} visible, subdue one with your spells, then use the {item:7247} to throw down a coffer and capture it."] = "{object:2169}是{object:2101}的酒館。在裡面使用{item:7308}讓{npc:6492}現形，用法術制服一隻，然後使用{item:7247}丟出一個容器捕捉它。",
 }

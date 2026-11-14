@@ -146,30 +146,44 @@ return {
 	["/sit by her campfire until you get {spell:1229451}"] = "在她的营火旁/sit，直到获得{spell:1229451}",
 
 	-- Step 26: Camping 101: First Aid
+	-- {npc:5759} Nurse Neela · {skill:129} First Aid
+	["{npc:5759} takes it once your {skill:129} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "{npc:5759}会在你的{skill:129}技能达到20后接收：在那之前去采集或制作，指南会同时继续进行。",
 	-- {npc:5759} Nurse Neela
 	["Eleanor: for {npc:5759}"] = "埃莉诺·沙克尔顿：交给{npc:5759}",
 
 	-- Step 27: Camping 101: Enchanting
+	-- {npc:5695} Vance Undergloom · {skill:333} Enchanting
+	["{npc:5695} takes it once your {skill:333} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "{npc:5695}会在你的{skill:333}技能达到20后接收：在那之前去采集或制作，指南会同时继续进行。",
 	-- {npc:5695} Vance Undergloom
 	["Eleanor: for {npc:5695}"] = "埃莉诺·沙克尔顿：交给{npc:5695}",
 
 	-- Step 28: Camping 101: Herbalism
+	-- {npc:2114} Faruza · {skill:182} Herbalism
+	["{npc:2114} takes it once your {skill:182} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "{npc:2114}会在你的{skill:182}技能达到20后接收：在那之前去采集或制作，指南会同时继续进行。",
 	-- {npc:2114} Faruza
 	["Eleanor: for {npc:2114}"] = "埃莉诺·沙克尔顿：交给{npc:2114}",
 
 	-- Step 29: Camping 101: Alchemy
+	-- {npc:2132} Carolai Anise · {skill:171} Alchemy
+	["{npc:2132} takes it once your {skill:171} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "{npc:2132}会在你的{skill:171}技能达到20后接收：在那之前去采集或制作，指南会同时继续进行。",
 	-- {npc:2132} Carolai Anise
 	["Eleanor: for {npc:2132}"] = "埃莉诺·沙克尔顿：交给{npc:2132}",
 
 	-- Step 30: Camping 101: Skinning
+	-- {npc:6289} Rand Rhobart · {skill:393} Skinning
+	["{npc:6289} takes it once your {skill:393} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "{npc:6289}会在你的{skill:393}技能达到20后接收：在那之前去采集或制作，指南会同时继续进行。",
 	-- {npc:6289} Rand Rhobart
 	["Eleanor: for {npc:6289}"] = "埃莉诺·沙克尔顿：交给{npc:6289}",
 
 	-- Step 31: Camping 101: Leatherworking
+	-- {npc:3549} Shelene Rhobart · {skill:165} Leatherworking
+	["{npc:3549} takes it once your {skill:165} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "{npc:3549}会在你的{skill:165}技能达到20后接收：在那之前去采集或制作，指南会同时继续进行。",
 	-- {npc:3549} Shelene Rhobart
 	["Eleanor: for {npc:3549}"] = "埃莉诺·沙克尔顿：交给{npc:3549}",
 
 	-- Step 32: Camping 101: Tailoring
+	-- {npc:3523} Bowen Brisboise · {skill:197} Tailoring
+	["{npc:3523} takes it once your {skill:197} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "{npc:3523}会在你的{skill:197}技能达到20后接收：在那之前去采集或制作，指南会同时继续进行。",
 	-- {npc:3523} Bowen Brisboise
 	["Eleanor: for {npc:3523}"] = "埃莉诺·沙克尔顿：交给{npc:3523}",
 
@@ -359,6 +373,8 @@ return {
 	["{npc:1560}, in the inn"] = "{npc:1560}，在旅店里",
 	-- {npc:2128} Cain Firesong · {npc:4568} Anastasia Hartwell · {zone:1458} Undercity
 	["{npc:2128}: {npc:4568} in the {zone:1458} takes it"] = "{npc:2128}：交给{zone:1458}的{npc:4568}",
+	-- {npc:5724} Ageron Kargal · {npc:5675} Carendin Halgar · {zone:1458} Undercity
+	["{npc:5724}: {npc:5675} in the {zone:1458} takes it"] = "{npc:5724}：交给{zone:1458}的{npc:5675}",
 	-- {npc:1738} Deathguard Terrence · {area:159} Brill
 	["{npc:1738}, if you were below 10 on the last {area:159} visit"] = "{npc:1738}，如果上次拜访 {area:159} 时还没到10级",
 
@@ -367,12 +383,16 @@ return {
 	["{npc:6390} waits in the mausoleum on the hill just north of town: open the gate and fight him."] = "{npc:6390}在镇子北边不远处山丘上的陵墓里等候：打开大门与他战斗。",
 
 	-- Step 66: Carendin Halgar
-	-- {area:159} Brill · {area:153} Ruins of Lordaeron · {zone:1458} Undercity · {npc:5675} Carendin Halgar · {object:36082} Magic Quarter
-	["Walk south from {area:159} to the {area:153} and down into the {zone:1458}. {npc:5675} stands in the {object:36082}. The Scarlet camp is just west of the ruins."] = "从{area:159}向南走到{area:153}，再往下进入{zone:1458}。{npc:5675}站在{object:36082}。血色营地就在废墟西边。",
+	-- {area:159} Brill · {area:153} Ruins of Lordaeron · {area:1497} Undercity · {npc:5675} Carendin Halgar · {object:36082} Magic Quarter
+	["Walk south from {area:159} to the {area:153} and down into the {area:1497}. {npc:5675} stands in the {object:36082}. The Scarlet camp is just west of the ruins."] = "从{area:159}向南走到{area:153}，再往下进入{area:1497}。{npc:5675}站在{object:36082}。血色营地就在废墟西边。",
+	-- {npc:4551} Michael Garrett
+	["{npc:4551}, the bat handler, on the way down from the Ruins"] = "{npc:4551}，蝙蝠管理员，在从废墟下来的路上",
+	-- {npc:5675} Carendin Halgar · {quest:1473} Creature of the Void
+	["{npc:5675}: he offers {quest:1473} only once this is handed in"] = "{npc:5675}：只有交还这个任务后，他才会提供{quest:1473}",
 
 	-- Step 67: Anastasia Hartwell
-	-- {area:159} Brill · {area:153} Ruins of Lordaeron · {zone:1458} Undercity · {npc:4568} Anastasia Hartwell · {object:36082} Magic Quarter
-	["Walk south from {area:159} to the {area:153} and down into the {zone:1458}. {npc:4568} stands in the {object:36082}. The Scarlet camp is just west of the ruins."] = "从{area:159}向南走到{area:153}，再往下进入{zone:1458}。{npc:4568}站在{object:36082}。血色营地就在废墟西边。",
+	-- {area:159} Brill · {area:153} Ruins of Lordaeron · {area:1497} Undercity · {npc:4568} Anastasia Hartwell · {object:36082} Magic Quarter
+	["Walk south from {area:159} to the {area:153} and down into the {area:1497}. {npc:4568} stands in the {object:36082}. The Scarlet camp is just west of the ruins."] = "从{area:159}向南走到{area:153}，再往下进入{area:1497}。{npc:4568}站在{object:36082}。血色营地就在废墟西边。",
 
 	-- Step 68: Back to Tirisfal Glades
 	-- {zone:1420} Tirisfal Glades
@@ -403,7 +423,7 @@ return {
 	["{area:165}: kill these as you meet them"] = "{area:165}：沿途遇到就击杀",
 	-- {quest:99142} Tomb Weed · {npc:1664} Captain Vachon
 	-- plural, as words: Bleeding Horrors = {npc:1529} Bleeding Horror · Wandering Spirits = {npc:1532} Wandering Spirit · Scarlet Friars = {npc:1538} Scarlet Friar
-	["Follow the road east. Bleeding Horrors and Wandering Spirits haunt the graves on the east side of the farmstead, where the {quest:99142} grows: Linnea wants eight of each.\nThe Scarlet Friars camp just north-east of the graves; {npc:1664} stands among them.\nThe spiders lurk in the woods at the far east end of the glades."] = "沿道路向东。{npc:1529}和{npc:1532}在农场东侧的墓地里出没，{quest:99142}也生长在那里：琳妮娅各需要八个。\n{npc:1538}在墓地东北方不远处扎营；{npc:1664}站在他们中间。\n蜘蛛潜伏在林地最东端的树林里。",
+	["Follow the road east. Bleeding Horrors and Wandering Spirits haunt the graves on the east side of the farmstead, where the {quest:99142} grows: Linnea wants eight of each.\nThe Scarlet Friars camp just north-east of the graves; {npc:1664} stands among them.\nThe spiders lurk in the woods at the far east end of the glades.\nCareful: Riptear (13) is elite and prowls west and north of the Scarlet Friars' camp: watch for him before you pull."] = "沿道路向东。可怕的血僵尸和游荡的幽灵在农场东侧的墓地里出没，{quest:99142}也生长在那里：琳妮娅各需要八个。\n血色苦行修士在墓地东北方不远处扎营；{npc:1664}站在他们中间。\n蜘蛛潜伏在林地最东端的树林里。\n小心：Riptear（13级）是精英，在血色苦行修士营地的西边和北边徘徊：引怪前先注意他的位置。",
 	-- {item:7227} Balnir Snapdragons
 	["{item:7227}, in the farmstead's garden"] = "{item:7227}，在农场的花园里",
 

@@ -55,7 +55,7 @@ return {
 
 	-- Step 13: Marshal's Refuge
 	-- {npc:271301} Power Crystal · {object:157936} Un'Goro Dirt Pile
-	["Ride west back to the refuge.\nGive the elite devilsaurs and stegodons a wide berth. Pick up every {npc:271301} and {object:157936} you pass from here on."] = "",
+	["Ride west back to the refuge.\nGive the elite devilsaurs and stegodons a wide berth. Pick up every {npc:271301} and {object:157936} you pass from here on."] = "向西騎回避難營。\n遠離精英魔暴龍和劍龍。從現在起，拾取沿途經過的每一個{npc:271301}和{object:157936}。",
 	-- {npc:9998} Shizzle
 	["{npc:9998}, at the refuge entrance"] = "{npc:9998}，在避難營入口",
 	-- {npc:8737} Linken
@@ -63,7 +63,7 @@ return {
 	-- {npc:9298} Donova Snowden · {zone:1452} Winterspring
 	["Ends with {npc:9298} in {zone:1452}: keep it"] = "在{zone:1452}的{npc:9298}處完成：保留此任務",
 	-- {npc:9117} J.D. Collie
-	["{npc:9117}, at the back of the cave; below ground"] = "",
+	["{npc:9117}, at the back of the cave; below ground"] = "{npc:9117}，在洞穴深處；在地下",
 
 	-- Step 14: Fire Plume Ridge and the eastern jungle
 	-- {area:537} Fire Plume Ridge
@@ -81,54 +81,50 @@ return {
 	-- Step 17: Northern Pylon
 	["Northern Pylon"] = "北部水晶塔",
 	-- {npc:9998} Shizzle
-	["The pylon stands on the slope east of the refuge. Pterrordax circle the slopes around it: they count for Spraggle and drop {npc:9998}'s scales."] = "",
+	["The pylon stands on the slope east of the refuge. Pterrordax circle the slopes around it: they count for Spraggle and drop {npc:9998}'s scales."] = "水晶塔位於避難營東邊的山坡上。翼手龍在周圍山坡盤旋：擊殺牠們算入斯普拉格的任務，並會掉落{npc:9998}要的鱗片。",
 
 	-- Step 18: A-Me 01
 	-- {area:1943} Ironstone Plateau
 	["Ride east to {area:1943}, where the robot stands among the gorillas. Stay out of the deep cave there."] = "向東騎往{area:1943}，機器人站在猩猩群中。不要進入那裡的深洞。",
 	["Below ground"] = "地下",
 
-	-- Step 19: Level 49.51
-	["Level 49.51"] = "",
-	-- {area:541} Marshal's Refuge · {area:2100} Maraudon
-	["Top up here to level 49.51 before the hand-ins at {area:541}: they take you to level 50. Or, with a group, run the {area:2100} dungeon instead."] = "",
-	["Pterrordax"] = "翼手龍",
-	["grind on Pterrordax"] = "",
-
-	-- Step 20: Crate of Foodstuffs
+	-- Step 19: Crate of Foodstuffs
 	-- {npc:9165} Fledgling Pterrordax · {npc:9998} Shizzle
 	-- plural, as words: Young Diemetradons = {npc:9162} Young Diemetradon
-	["Ride south down the east side. Young Diemetradons graze the eastern jungle and {npc:9165} fly near the eastern cliffs; both drop {npc:9998}'s scales. The crate sits at the abandoned camp in the eastern jungle."] = "",
+	["Ride south down the east side. Young Diemetradons graze the eastern jungle and {npc:9165} fly near the eastern cliffs; both drop {npc:9998}'s scales. The crate sits at the abandoned camp in the eastern jungle."] = "沿東側向南騎。幼雙帆龍在東部叢林覓食，{npc:9165}在東面懸崖附近飛行；兩者都會掉落{npc:9998}要的鱗片。箱子在東部叢林的廢棄營地裡。",
 
-	-- Step 21: Eastern Pylon
+	-- Step 20: Eastern Pylon
 	["Eastern Pylon"] = "東部水晶塔",
 	["The pylon stands on the eastern cliffs."] = "水晶塔位於東面懸崖上。",
 
-	-- Step 22: The Gorishi hive
+	-- Step 21: The Gorishi hive
 	["The Gorishi hive"] = "格里什蟲巢",
 	-- {npc:9619} Torwa Pathfinder · {quest:3764} Un'Goro Soil · {spell:8137} Silithid Pox · {spell:14120} Tunneler Acid
 	-- plural, as words: Gorishi Workers = {npc:6552} Gorishi Worker
 	["Ride south-west past {npc:9619}: the silithid hive fills the south of the crater. Use the Scraping Vial on a hatchery, a chamber with hanging larvae. Gorishi wasps and workers drop {quest:3764}; Pterrordax nest on the southern cliffs if you still need kills.\nCareful: Gorishi silithids are level 51-54 and cast {spell:8137} or {spell:14120} in melee; Gorishi Workers have a 50% chance to call for help within 25 yd once they fall below 45% health."] = "",
-	-- {npc:9167} Frenzied Pterrordax
-	["grind on {npc:9167}"] = "",
 
-	-- Step 23: Bones and equipment
+	-- Step 22: Bones and equipment
 	["Bones and equipment"] = "骨頭與裝備",
 	-- {item:11112} Research Equipment
 	-- plural, as words: Dinosaur Bones = {item:11114} Dinosaur Bone
 	["Dinosaur Bones lie on the ground in the south-west, among the stegodons: those are elite, pick the bones up around them and take the rest from Diemetradons. The expedition's {item:11112} lies in the south-west jungle."] = "恐龍骨頭散落在西南部的劍龍群中：劍龍是精英，在牠們周圍撿骨頭，其餘的從雙帆龍身上取得。探險隊的{item:11112}在西南部叢林。",
-	-- {npc:9164} Elder Diemetradon
-	["grind on {npc:9164}"] = "",
 
-	-- Step 24: Western Pylon
+	-- Step 23: Western Pylon
 	["Western Pylon"] = "西部水晶塔",
 	-- {npc:9167} Frenzied Pterrordax
 	["The pylon stands on the western cliffs. {npc:9167} fly over the whole west side."] = "水晶塔位於西面懸崖上。{npc:9167}在整個西側上空飛行。",
 
-	-- Step 25: Marshal's Refuge
+	-- Step 24: Marshal's Refuge
 	["Ride north along the western jungle back to the refuge."] = "沿西部叢林向北騎回避難營。",
 	-- {npc:9998} Shizzle
 	["{npc:9998}, at the refuge's entrance"] = "{npc:9998}，在避難營入口",
+
+	-- Step 25: Level 49.79
+	["Level 49.79"] = "",
+	-- {area:541} Marshal's Refuge
+	["Still short of level 49.79 after the refuge's hand-ins? Top up on the Pterrordax on the slopes east of {area:541} before you leave the crater."] = "交完避難營的任務後仍不到49.79級？離開火山口前，先在{area:541}東邊山坡上的翼手龍身上練一下。",
+	["Pterrordax"] = "翼手龍",
+	["grind on Pterrordax"] = "",
 
 	-- Step 26: Fly to Astranaar
 	-- {area:415} Astranaar
@@ -138,30 +134,24 @@ return {
 	-- {area:541} Marshal's Refuge
 	["{area:541} flight master"] = "{area:541}飛行管理員",
 
-	-- Step 27: To Stoutlager Inn
-	-- {area:2101} Stoutlager Inn
-	["To {area:2101}"] = "前往{area:2101}",
+	-- Step 27: To Ironforge
+	-- {zone:1455} Ironforge
+	["To {zone:1455}"] = "前往{zone:1455}",
 
-	-- Step 28: Fly to Ironforge
-	-- {area:1537} Ironforge
-	["Fly to {area:1537}"] = "飛往{area:1537}",
-	-- {area:144} Thelsamar
-	["{area:144} flight master"] = "",
-
-	-- Step 29: Mystic Ward
+	-- Step 28: Mystic Ward
 	-- {npc:11406} High Priest Rohan · {zone:1447} Azshara
 	["{npc:11406}: for Ogtinc in {zone:1447}, keep it"] = "{npc:11406}：交給{zone:1447}的奧汀克，保留此任務",
 	-- {npc:7312} Dink · {npc:8395} Sanath Lim-yo · {zone:1447} Azshara
 	["{npc:7312}, the mage trainer: for {npc:8395} in {zone:1447}, keep it"] = "",
 
-	-- Step 32: Fly to Astranaar
+	-- Step 31: Fly to Astranaar
 	-- {area:442} Auberdine
 	["{area:442} flight master"] = "",
 
-	-- Step 33: Level 50.4
+	-- Step 32: Level 50.4
 	["Level 50.4"] = "",
-	-- {area:3137} Talrendis Point · {area:2100} Maraudon · {area:1417} Sunken Temple
-	["Top up here to level 50.4 before the hand-ins at {area:3137}: they take you to level 51. Or, with a group, run the {area:2100} dungeon or the {area:1417} dungeon instead."] = "",
+	-- {area:3137} Talrendis Point
+	["Top up here to level 50.4 before the hand-ins at {area:3137}: they take you to level 51."] = "",
 	-- {npc:6116} Highborne Apparition
 	["grind on {npc:6116}"] = "",
 
@@ -171,6 +161,7 @@ return {
 	-- ["Cross the south of the crater to {npc:9619} by the ramp."] = "穿越環形山南部，前往坡道旁的{npc:9619}。",
 	-- ["Escort {npc:9999}"] = "護送{npc:9999}",
 	-- ["Fly from {area:144} to {area:1537}."] = "從{area:144}飛往{area:1537}。",
+	-- ["Fly to {area:1537}"] = "飛往{area:1537}",
 	-- ["Four rune rubbings in {zone:1447}: keep it"] = "在{zone:1447}拓印四個符文：保留此任務",
 	-- ["From {area:144} fly to {area:150}, take the boat to Theramore and fly on to {area:976}. {npc:9619}'s first quest in the crater needs level 48: finish the level here if you are short."] = "從{area:144}飛往{area:150}，搭船到塞拉摩，再飛往{area:976}。{npc:9619}在環形山的第一個任務需要等級48：若等級不足，先在這裡練完這一級。",
 	-- ["Grind to 50"] = "練到50級",
@@ -179,11 +170,9 @@ return {
 	-- ["Lead {npc:9999} north to {area:541}. When he faints, use {item:11804} on him to wake him."] = "帶{npc:9999}向北前往{area:541}。他昏倒時，對他使用{item:11804}把他叫醒。",
 	-- ["Ride down the ramp into the crater: {npc:9619} camps at its foot."] = "沿坡道騎下環形山：{npc:9619}在坡道底部紮營。",
 	-- ["Ride east to {area:537}, climb it and use {npc:10541} at the lava vents near the top."] = "向東騎往{area:537}，爬上去，在山頂附近的熔岩噴口使用{npc:10541}。",
-	-- ["Ride north along the east side of the crater to {area:541}, the camp in the caves of the northern cliff. Give the elite devilsaurs and stegodons a wide berth. Pick up every Power Crystal and {object:157936} you pass from here on."] = "沿著環形山東側向北騎往{area:541}，也就是北面懸崖洞穴中的營地。遠離精英魔暴龍和劍龍。從現在起，拾取沿途經過的每一個能量水晶和{object:157936}。",
 	-- ["Ride north along the east side to the gorilla plateau. {npc:9622}, a level 55 gorilla, sits in its deepest cave: clear the gorillas at the cave mouth first."] = "沿東側向北騎往猩猩高地。55級的猩猩{npc:9622}在最深的洞穴裡：先清掉洞口的猩猩。",
 	-- ["Ride north to {area:1943}, where the robot stands among the gorillas. Stay out of the deep cave there."] = "向北騎往{area:1943}，機器人站在猩猩群中。不要進入那裡的深洞。",
 	-- ["Ride south along the eastern cliffs to {npc:9619} at the foot of the ramp."] = "沿東面懸崖向南騎往坡道底部的{npc:9619}。",
-	-- ["Ride south down the east side. Young Diemetradons graze the eastern jungle and {npc:9165} fly near the eastern cliffs; both drop {npc:9998}'s scales."] = "沿東側向南騎。幼雙帆龍在東部叢林覓食，{npc:9165}在東面懸崖附近飛行；兩者都會掉落{npc:9998}要的鱗片。",
 	-- ["Ride west back to the refuge."] = "向西騎回避難營。",
 	-- ["Ride west from {npc:9619}: the silithid hive fills the south of the crater. Use the Scraping Vial on a hatchery, a chamber with hanging larvae. Gorishi wasps and workers drop {quest:3764}; {npc:9166} nest on the southern cliffs if you still need kills."] = "從{npc:9619}向西騎：異種蟲巢穴佔據環形山南部。在孵化室（掛著幼蟲的洞室）使用未使用的採集瓶。格里什異種蠍和格里什工蠍會掉落{quest:3764}；若還需要擊殺數，{npc:9166}在南面懸崖築巢。",
 	-- ["Ride west out of {area:976} to the long ramp down into {area:490}. {npc:9619} camps at the foot of the ramp, in the south-east corner of the crater."] = "從{area:976}向西出發，前往通往{area:490}的長坡道。{npc:9619}在坡道底部紮營，位於環形山東南角。",
@@ -195,7 +184,6 @@ return {
 	-- ["The gorillas live on {area:1943}, east of {area:541}. Keep their pelts for {npc:9619}. Stay out of the deepest cave: {npc:9622} is level 55."] = "猩猩住在{area:541}東邊的{area:1943}。把牠們的毛皮留給{npc:9619}。不要進入最深的洞穴：{npc:9622}是55級。",
 	-- ["The gorillas of {area:1943} come in small groups and drop nothing for you yet; {npc:9619}'s pelt quest comes later. Stay out of the deepest cave: {npc:9622} is level 55."] = "{area:1943}的猩猩成小群出現，目前還不會為你掉落任何東西；{npc:9619}的毛皮任務稍後才有。不要進入最深的洞穴：{npc:9622}是55級。",
 	-- ["The pelts come after loop 2, on the gorilla plateau"] = "毛皮在第二輪之後，到猩猩高地取得",
-	-- ["The pylon stands on the slope east of the refuge. {npc:9166} circle the slopes around it: they count for {npc:9997} and drop {npc:9998}'s scales."] = "水晶塔位於避難營東邊的山坡上。{npc:9166}在周圍山坡盤旋：擊殺牠們算入{npc:9997}的任務，並會掉落{npc:9998}要的鱗片。",
 	-- ["The relics are in the {zone:1428}: keep it"] = "聖物在{zone:1428}：保留此任務",
 	-- ["The wooden sign beside {npc:9997}"] = "{npc:9997}旁邊的木牌",
 	-- ["Xiggs waits in the {object:32359}."] = "希格斯在{object:32359}等候。",
@@ -204,7 +192,6 @@ return {
 	-- ["grind on {npc:6514} at {area:1943}, {zone:1449}"] = "在{zone:1449}的{area:1943}擊殺{npc:6514}練等",
 	-- ["{area:978} (optional)"] = "{area:978}（可選）",
 	-- ["{npc:6734}: the last guide hearths you here, so this usually ticks at once"] = "{npc:6734}：上一份指南用爐石把你送到這裡，所以這一步通常會立即完成",
-	-- ["{npc:9117}, at the back of the cave"] = "{npc:9117}，在洞穴深處",
 	-- ["{npc:9616}: the oozes are in {zone:1448}, keep it"] = "{npc:9616}：軟泥怪在{zone:1448}，保留此任務",
 	-- ["{npc:9684}'s lair lies in the jungle north of {npc:9619}, below the eastern cliffs: use {item:11568} there. {npc:9684} is level 56: start at full health."] = "{npc:9684}的巢穴位於{npc:9619}北邊的叢林，在東面懸崖下方：在那裡使用{item:11568}。{npc:9684}是56級：滿血再開打。",
 	-- ["{npc:9997}'s friend {npc:9999} has gone missing."] = "{npc:9997}的朋友{npc:9999}失蹤了。",

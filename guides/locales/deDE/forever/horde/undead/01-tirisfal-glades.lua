@@ -54,7 +54,7 @@ return {
 	-- {npc:1661} Novice Elreth
 	["{npc:1661}, inside"] = "{npc:1661}, drinnen",
 	-- {npc:244808} Aramis Hammerhand · {spell:635} Holy Light · {npc:259377} Injured Deathguard
-	["{npc:244808}: {spell:635}, once five {npc:259377} are healed"] = "",
+	["{npc:244808}: {spell:635}, once five {npc:259377} are healed"] = "{npc:244808}: {spell:635}, sobald fünf {npc:259377} geheilt sind",
 	-- {npc:1569} Shadow Priest Sarvis
 	["{npc:1569}, inside"] = "{npc:1569}, drinnen",
 	-- {npc:244808} Aramis Hammerhand
@@ -146,30 +146,44 @@ return {
 	["/sit by her campfire until you get {spell:1229451}"] = "/sit an ihrem Lagerfeuer, bis du {spell:1229451} bekommst",
 
 	-- Step 26: Camping 101: First Aid
+	-- {npc:5759} Nurse Neela · {skill:129} First Aid
+	["{npc:5759} takes it once your {skill:129} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "{npc:5759} nimmt sie entgegen, sobald deine Fertigkeit in {skill:129} 20 beträgt: Sammle oder stelle bis dahin her, der Guide geht inzwischen weiter.",
 	-- {npc:5759} Nurse Neela
 	["Eleanor: for {npc:5759}"] = "Eleanor: für {npc:5759}",
 
 	-- Step 27: Camping 101: Enchanting
+	-- {npc:5695} Vance Undergloom · {skill:333} Enchanting
+	["{npc:5695} takes it once your {skill:333} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "{npc:5695} nimmt sie entgegen, sobald deine Fertigkeit in {skill:333} 20 beträgt: Sammle oder stelle bis dahin her, der Guide geht inzwischen weiter.",
 	-- {npc:5695} Vance Undergloom
 	["Eleanor: for {npc:5695}"] = "Eleanor: für {npc:5695}",
 
 	-- Step 28: Camping 101: Herbalism
+	-- {npc:2114} Faruza · {skill:182} Herbalism
+	["{npc:2114} takes it once your {skill:182} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "{npc:2114} nimmt sie entgegen, sobald deine Fertigkeit in {skill:182} 20 beträgt: Sammle oder stelle bis dahin her, der Guide geht inzwischen weiter.",
 	-- {npc:2114} Faruza
 	["Eleanor: for {npc:2114}"] = "Eleanor: für {npc:2114}",
 
 	-- Step 29: Camping 101: Alchemy
+	-- {npc:2132} Carolai Anise · {skill:171} Alchemy
+	["{npc:2132} takes it once your {skill:171} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "{npc:2132} nimmt sie entgegen, sobald deine Fertigkeit in {skill:171} 20 beträgt: Sammle oder stelle bis dahin her, der Guide geht inzwischen weiter.",
 	-- {npc:2132} Carolai Anise
 	["Eleanor: for {npc:2132}"] = "Eleanor: für {npc:2132}",
 
 	-- Step 30: Camping 101: Skinning
+	-- {npc:6289} Rand Rhobart · {skill:393} Skinning
+	["{npc:6289} takes it once your {skill:393} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "{npc:6289} nimmt sie entgegen, sobald deine Fertigkeit in {skill:393} 20 beträgt: Sammle oder stelle bis dahin her, der Guide geht inzwischen weiter.",
 	-- {npc:6289} Rand Rhobart
 	["Eleanor: for {npc:6289}"] = "Eleanor: für {npc:6289}",
 
 	-- Step 31: Camping 101: Leatherworking
+	-- {npc:3549} Shelene Rhobart · {skill:165} Leatherworking
+	["{npc:3549} takes it once your {skill:165} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "{npc:3549} nimmt sie entgegen, sobald deine Fertigkeit in {skill:165} 20 beträgt: Sammle oder stelle bis dahin her, der Guide geht inzwischen weiter.",
 	-- {npc:3549} Shelene Rhobart
 	["Eleanor: for {npc:3549}"] = "Eleanor: für {npc:3549}",
 
 	-- Step 32: Camping 101: Tailoring
+	-- {npc:3523} Bowen Brisboise · {skill:197} Tailoring
+	["{npc:3523} takes it once your {skill:197} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "{npc:3523} nimmt sie entgegen, sobald deine Fertigkeit in {skill:197} 20 beträgt: Sammle oder stelle bis dahin her, der Guide geht inzwischen weiter.",
 	-- {npc:3523} Bowen Brisboise
 	["Eleanor: for {npc:3523}"] = "Eleanor: für {npc:3523}",
 
@@ -359,6 +373,8 @@ return {
 	["{npc:1560}, in the inn"] = "{npc:1560}, im Gasthaus",
 	-- {npc:2128} Cain Firesong · {npc:4568} Anastasia Hartwell · {zone:1458} Undercity
 	["{npc:2128}: {npc:4568} in the {zone:1458} takes it"] = "{npc:2128}: {npc:4568} in {zone:1458} nimmt es an",
+	-- {npc:5724} Ageron Kargal · {npc:5675} Carendin Halgar · {zone:1458} Undercity
+	["{npc:5724}: {npc:5675} in the {zone:1458} takes it"] = "{npc:5724}: {npc:5675} in {zone:1458} nimmt es an",
 	-- {npc:1738} Deathguard Terrence · {area:159} Brill
 	["{npc:1738}, if you were below 10 on the last {area:159} visit"] = "{npc:1738}, falls du beim letzten Besuch in {area:159} unter Stufe 10 warst",
 
@@ -367,12 +383,16 @@ return {
 	["{npc:6390} waits in the mausoleum on the hill just north of town: open the gate and fight him."] = "{npc:6390} wartet im Mausoleum auf dem Hügel direkt nördlich der Stadt: Öffne das Tor und kämpfe gegen ihn.",
 
 	-- Step 66: Carendin Halgar
-	-- {area:159} Brill · {area:153} Ruins of Lordaeron · {zone:1458} Undercity · {npc:5675} Carendin Halgar · {object:36082} Magic Quarter
-	["Walk south from {area:159} to the {area:153} and down into the {zone:1458}. {npc:5675} stands in the {object:36082}. The Scarlet camp is just west of the ruins."] = "Geh von {area:159} nach Süden zu {area:153} und hinab nach {zone:1458}. {npc:5675} steht im {object:36082}. Das scharlachrote Lager liegt direkt westlich der Ruinen.",
+	-- {area:159} Brill · {area:153} Ruins of Lordaeron · {area:1497} Undercity · {npc:5675} Carendin Halgar · {object:36082} Magic Quarter
+	["Walk south from {area:159} to the {area:153} and down into the {area:1497}. {npc:5675} stands in the {object:36082}. The Scarlet camp is just west of the ruins."] = "Geh von {area:159} nach Süden zu {area:153} und hinab nach {area:1497}. {npc:5675} steht im {object:36082}. Das scharlachrote Lager liegt direkt westlich der Ruinen.",
+	-- {npc:4551} Michael Garrett
+	["{npc:4551}, the bat handler, on the way down from the Ruins"] = "{npc:4551}, der Fledermausführer, auf dem Weg hinunter von den Ruinen",
+	-- {npc:5675} Carendin Halgar · {quest:1473} Creature of the Void
+	["{npc:5675}: he offers {quest:1473} only once this is handed in"] = "{npc:5675}: Er bietet {quest:1473} erst an, wenn dies abgegeben ist",
 
 	-- Step 67: Anastasia Hartwell
-	-- {area:159} Brill · {area:153} Ruins of Lordaeron · {zone:1458} Undercity · {npc:4568} Anastasia Hartwell · {object:36082} Magic Quarter
-	["Walk south from {area:159} to the {area:153} and down into the {zone:1458}. {npc:4568} stands in the {object:36082}. The Scarlet camp is just west of the ruins."] = "Geh von {area:159} nach Süden zu {area:153} und hinab nach {zone:1458}. {npc:4568} steht im {object:36082}. Das scharlachrote Lager liegt direkt westlich der Ruinen.",
+	-- {area:159} Brill · {area:153} Ruins of Lordaeron · {area:1497} Undercity · {npc:4568} Anastasia Hartwell · {object:36082} Magic Quarter
+	["Walk south from {area:159} to the {area:153} and down into the {area:1497}. {npc:4568} stands in the {object:36082}. The Scarlet camp is just west of the ruins."] = "Geh von {area:159} nach Süden zu {area:153} und hinab nach {area:1497}. {npc:4568} steht im {object:36082}. Das scharlachrote Lager liegt direkt westlich der Ruinen.",
 
 	-- Step 68: Back to Tirisfal Glades
 	-- {zone:1420} Tirisfal Glades
@@ -403,7 +423,7 @@ return {
 	["{area:165}: kill these as you meet them"] = "{area:165}: Töte sie, wenn sie dir begegnen",
 	-- {quest:99142} Tomb Weed · {npc:1664} Captain Vachon
 	-- plural, as words: Bleeding Horrors = {npc:1529} Bleeding Horror · Wandering Spirits = {npc:1532} Wandering Spirit · Scarlet Friars = {npc:1538} Scarlet Friar
-	["Follow the road east. Bleeding Horrors and Wandering Spirits haunt the graves on the east side of the farmstead, where the {quest:99142} grows: Linnea wants eight of each.\nThe Scarlet Friars camp just north-east of the graves; {npc:1664} stands among them.\nThe spiders lurk in the woods at the far east end of the glades."] = "Folge der Straße nach Osten. Bleeding Horrors und Wandering Spirits spuken bei den Gräbern auf der Ostseite des Gehöfts, wo das {quest:99142} wächst: Linnea will von jedem acht.\nDie Scarlet Friars lagern direkt nordöstlich der Gräber; {npc:1664} steht unter ihnen.\nDie Spinnen lauern in den Wäldern am äußersten Ostende der Auen.",
+	["Follow the road east. Bleeding Horrors and Wandering Spirits haunt the graves on the east side of the farmstead, where the {quest:99142} grows: Linnea wants eight of each.\nThe Scarlet Friars camp just north-east of the graves; {npc:1664} stands among them.\nThe spiders lurk in the woods at the far east end of the glades.\nCareful: Riptear (13) is elite and prowls west and north of the Scarlet Friars' camp: watch for him before you pull."] = "Folge der Straße nach Osten. Bleeding Horrors und Wandering Spirits spuken bei den Gräbern auf der Ostseite des Gehöfts, wo das {quest:99142} wächst: Linnea will von jedem acht.\nDie Scarlet Friars lagern direkt nordöstlich der Gräber; {npc:1664} steht unter ihnen.\nDie Spinnen lauern in den Wäldern am äußersten Ostende der Auen.\nVorsicht: Riptear (13) ist ein Elite und streift westlich und nördlich des Lagers der Scarlet Friars umher: Halte nach ihm Ausschau, bevor du ziehst.",
 	-- {item:7227} Balnir Snapdragons
 	["{item:7227}, in the farmstead's garden"] = "{item:7227}, im Garten des Hofs",
 
@@ -553,14 +573,11 @@ return {
 	-- ["{npc:2132}, beside Johaan"] = "{npc:2132}, neben Johaan",
 	-- ["{npc:244808} and {npc:5667}"] = "{npc:244808} und {npc:5667}",
 	-- ["{npc:244808} and {npc:5667} stand beside the church."] = "{npc:244808} und {npc:5667} stehen neben der Kirche.",
-	-- ["{npc:244808}: Holy Light, once five {npc:259377} are healed"] = "{npc:244808}: Heiliges Licht, sobald fünf {npc:259377} geheilt sind",
 	-- ["{npc:246389} and {npc:259190} camp at the forest's edge, just south of Leonid. Their quests need level 10."] = "{npc:246389} und {npc:259190} lagern am Waldrand, direkt südlich von Leonid. Ihre Quests brauchen Stufe 10.",
 	-- ["{npc:267009} stands at {npc:1495}'s camp."] = "{npc:267009} steht im Lager von {npc:1495}.",
 	-- ["{npc:3615}, the wind rider master"] = "{npc:3615}, der Windreitermeister",
 	-- ["{npc:5667}: Summon Imp"] = "{npc:5667}: Wichtel beschwören",
 	-- ["{npc:5675}: Summon Voidwalker"] = "{npc:5675}: Leerwandler beschwören",
-	-- ["{npc:5675}: he offers {quest:1473} only once this is handed in"] = "{npc:5675}: Er bietet {quest:1473} erst an, wenn dies abgegeben ist",
-	-- ["{npc:5724}: {npc:5675} in the {zone:1458} takes it"] = "{npc:5724}: {npc:5675} in {zone:1458} nimmt es an",
 	-- ["{quest:90902}: the {npc:259377} lie around the church. Heal five of them with Holy Light."] = "{quest:90902}: Die {npc:259377} liegen rund um die Kirche. Heile fünf von ihnen mit Heiliges Licht.",
 	-- ["{quest:91208}: the {npc:246143} fled into the hills just west of the church."] = "{quest:91208}: Der {npc:246143} ist in die Hügel direkt westlich der Kirche geflohen.",
 	-- ["{quest:96897} holds the farm just south-east of the camp. The Necrotic Crystal Fragments lie on the ground among the cultists, and the cultists carry some too."] = "{quest:96897} hält den Hof direkt südöstlich des Lagers. Die Nekrotischen Kristallfragmente liegen zwischen den Kultisten am Boden, und die Kultisten tragen auch einige bei sich.",

@@ -14,7 +14,7 @@ return {
 
 	-- Step 1: Danitha Morr
 	-- {npc:246378} Danitha Morr · {area:16602} Bandarion Keep · {area:156} Solliden Farmstead · {area:228} Sepulcher · {zone:1421} Silverpine Forest
-	["At 18 {npc:246378}, inside {area:16602} on the bluffs north-west of the {area:156}, sends you south to the {area:228} in {zone:1421}."] = "",
+	["At 18 {npc:246378}, inside {area:16602} on the bluffs north-west of the {area:156}, sends you south to the {area:228} in {zone:1421}."] = "A nivel 18, {npc:246378}, desde el interior de {area:16602}, en los riscos al noroeste de {area:156}, te envía al sur a {area:228}, en {zone:1421}.",
 
 	-- Step 2: Sepulcher
 	-- {npc:248840} Trevan Rol · {area:228} Sepulcher · {npc:259611} Deathguard Baldren
@@ -43,12 +43,12 @@ return {
 	-- Step 6: Back to the Sepulcher
 	-- {area:228} Sepulcher
 	["Back to the {area:228}"] = "Vuelve a {area:228}",
-	-- {npc:259620} Lumina Windsinger · {npc:248840} Trevan Rol · {area:228} Sepulcher · {quest:95034} The Debt
-	["{npc:259620} waits beside {npc:248840} in the {area:228} (a different {npc:259620} from the one you escorted). For {quest:95034}, click through every line of her story."] = "",
-	-- {npc:259620} Lumina Windsinger · {area:228} Sepulcher
-	["{npc:259620}, the {area:228}"] = "{npc:259620}, {area:228}",
-	-- {npc:259620} Lumina Windsinger
-	["{npc:259620}: hear her story to the end"] = "",
+	-- {npc:248840} Trevan Rol · {area:228} Sepulcher · {quest:95034} The Debt
+	["Lumina waits beside {npc:248840} in the {area:228} (a different Lumina from the one you escorted). For {quest:95034}, click through every line of her story."] = "",
+	-- {npc:248755} Lumina Windsinger · {area:228} Sepulcher
+	["{npc:248755}, the {area:228}"] = "{npc:248755}, {area:228}",
+	-- {npc:248755} Lumina Windsinger
+	["{npc:248755}: hear her story to the end"] = "",
 
 	-- Step 7: A Moon-Kissed Blade
 	-- {npc:259620} Lumina Windsinger · {quest:95140} Old Fire-Eye · {npc:248840} Trevan Rol
@@ -112,6 +112,8 @@ return {
 	-- Step 17: Old Fire-Eye
 	-- {item:268484} Moonsilver Blade · {quest:95140} Old Fire-Eye · {area:228} Sepulcher · {area:17065} Gilneas
 	["Equip the {item:268484}. {quest:95140}, the great worgen, roams the woods south of the {area:228} toward the gates of {area:17065}. He is elite (level 25): the guide waits for level 22 first, and grouping up is encouraged; players have killed him from 22 up, one needed a second, another soloed him at 25. A purple shield guards him until your first swing with the blade lands: a message tells you it broke."] = "Equípate la {item:268484}. {quest:95140}, el gran huargen, recorre los bosques al sur de {area:228} hacia las puertas de {area:17065}. Es élite (nivel 25): la guía espera primero al nivel 22, y se recomienda ir en grupo; hay jugadores que lo han matado desde el 22: uno necesitó a un segundo jugador y otro lo mató en solitario a nivel 25. Un escudo morado lo protege hasta que acierte tu primer golpe con la hoja: un mensaje te avisa de que se ha roto.",
+	-- {npc:259620} Lumina Windsinger · {area:228} Sepulcher
+	["{npc:259620}, the {area:228}"] = "{npc:259620}, {area:228}",
 	-- {quest:95140} Old Fire-Eye · {item:268484} Moonsilver Blade
 	["{quest:95140}, with the {item:268484} equipped"] = "",
 
@@ -128,7 +130,6 @@ return {
 	-- ["Ride south through {zone:1421} to the {area:228}. {npc:248840} stands in the town; {npc:259611} keeps watch near its entrance."] = "Cabalga hacia el sur por {zone:1421} hasta {area:228}. {npc:248840} está en el pueblo; {npc:259611} vigila cerca de la entrada.",
 	-- ["{area:172} lies in the lake east of the {area:228}. The charred remains are on its shore."] = "{area:172} está en el lago al este de {area:228}. Los restos calcinados están en su orilla.",
 	-- ["{item:267412}, from the {npc:14235} Hide gnolls"] = "{item:267412}, de los gnolls de {npc:14235}",
-	-- ["{npc:246378} leads the Paladins of Tyr's Watch from inside {area:16602}, on the bluffs north-west of the {area:156}."] = "{npc:246378} dirige a los Paladines de la Guardia de Tyr desde el interior de {area:16602}, en los riscos al noroeste de {area:156}.",
 	-- ["{quest:91862} is caged inside {area:235}, at the north end of the isle. The Rot Hide gnolls around her carry the key."] = "{quest:91862} está enjaulada dentro de {area:235}, en el extremo norte de la isla. Los gnolls Putrepellejo que la rodean llevan la llave.",
 	-- ["{quest:91862} is caged inside {area:235}, at the north end of the isle. {npc:14235} Hide gnolls around her carry the key."] = "{quest:91862} está enjaulada dentro de {area:235}, en el extremo norte de la isla. Los gnolls de {npc:14235} que la rodean llevan la llave.",
 	-- ["{zone:1458} and Earthen Ring reputation"] = "Reputación con {zone:1458} y el Anillo de la Tierra",

@@ -180,8 +180,8 @@ screen on a client in another language, so a new feature cannot add English
 unnoticed. It runs the addon on the client stub (`tests/lua`) in each
 language with the shipped translations, names addon and guide texts, and has
 the client answer in "its language": every name the client itself gives
-(quest titles, item, zone, map, area, spell, faction, class and race names,
-the player's name) comes back as a placeholder holding no word. Scenes then
+(quest titles, item, zone, map, area, spell, faction, class, race and key
+names, the player's name) comes back as a placeholder holding no word. Scenes then
 drive the windows: the guide window step by step with every tooltip, all
 guides (both with every step shown, whatever class, race or faction it is
 for), the welcome, the picker, Options, Lookup, Dungeons, Rares, talents,

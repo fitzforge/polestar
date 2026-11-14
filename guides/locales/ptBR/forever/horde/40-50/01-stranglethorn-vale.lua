@@ -6,30 +6,57 @@
 -- A token marked "no name in this language" would show in English: write that name in Portuguese (Brazil) words instead.
 -- The comments are rewritten by sync.
 return {
-	-- Step 1: Fly to Grom'gol
-	-- {object:3202} Grom'gol (no name in this language: may be words)
-	["Fly to {object:3202}"] = "Voe para {object:3202}",
+	-- Guide
+	-- {zone:1434} Stranglethorn Vale · {zone:1435} Swamp of Sorrows · {object:3202} Grom'gol (no name in this language: may be words) · {area:35} Booty Bay · {area:75} Stonard
+	["{zone:1434} and the {zone:1435} at 40-43: {object:3202}, {area:35}'s pirates, Nesingwary's hunts and {area:75}."] = "{zone:1434} e {zone:1435} no nível 40-43: {object:3202}, os piratas de {area:35}, as caçadas de Nesingwary e {area:75}.",
+
+	-- Step 1: Fly to the Undercity
+	-- {area:1497} Undercity
+	["Fly to the {area:1497}"] = "Voe para a {area:1497}",
+	-- {area:1497} Undercity · {area:340} Kargath · {object:3202} Grom'gol (no name in this language: may be words)
+	["Your level 40 training is in the {area:1497}: fly there from {area:340}, train, and take the zeppelin from the towers outside the city to {object:3202}."] = "Seu treinamento do nível 40 é na {area:1497}: voe para lá a partir de {area:340}, treine e pegue o zepelim nas torres do lado de fora da cidade até {object:3202}.",
 	-- {area:340} Kargath
 	["{area:340} flight master"] = "Mestre de voo de {area:340}",
 
-	-- Step 2: Grom'gol Base Camp
+	-- Step 2: Undercity trainers
+	-- {area:1497} Undercity
+	["{area:1497} trainers"] = "Instrutores da {area:1497}",
+
+	-- Step 3: Riding at 40
+	["Riding at 40"] = "Montaria no nível 40",
+	-- {npc:4773} Velma Warnam · {area:159} Brill · {npc:4731} Zachariah Post · {object:3202} Grom'gol (no name in this language: may be words)
+	["Riding needs level 40 and costs 100 gold; learning it gives you a mount. Each race learns it from its own race's trainer: yours is {npc:4773} in {area:159}, a short ride north of the zeppelin towers, with {npc:4731}'s skeletal horses (20 gold each) beside her. Ride back to the towers for the {object:3202} zeppelin."] = "Montaria exige nível 40 e custa 100 de ouro; aprender lhe dá uma montaria. Cada raça aprende com o instrutor da própria raça: o seu é {npc:4773}, em {area:159}, a uma cavalgada curta ao norte das torres de zepelim, com os cavalos esqueléticos de {npc:4731} (20 de ouro cada) ao lado dela. Cavalgue de volta até as torres para pegar o zepelim de {object:3202}.",
+	-- {npc:4773} Velma Warnam
+	["{npc:4773}, riding trainer"] = "{npc:4773}, instrutora de montaria",
+	-- {npc:4731} Zachariah Post · {npc:4773} Velma Warnam · {area:159} Brill
+	["Skeletal horses: {npc:4731}, beside {npc:4773} in {area:159}."] = "Cavalos esqueléticos: {npc:4731}, ao lado de {npc:4773}, em {area:159}.",
+
+	-- Step 4: Zeppelin to Grom'gol
+	-- {object:3202} Grom'gol (no name in this language: may be words)
+	["Zeppelin to {object:3202}"] = "Zepelim para {object:3202}",
+
+	-- Step 5: Fly to Grom'gol
+	-- {object:3202} Grom'gol (no name in this language: may be words)
+	["Fly to {object:3202}"] = "Voe para {object:3202}",
+
+	-- Step 6: Grom'gol Base Camp
 	-- {npc:2519} Kin'weelay · {npc:1061} Gan'zulah
 	["{npc:2519}: the legend lies in Zul'Kunda, where this guide goes for {npc:1061}"] = "{npc:2519}: a lenda está em Zul'Kanda, onde este guia vai atrás de {npc:1061}",
 
-	-- Step 3: Jungle Stalkers
+	-- Step 7: Jungle Stalkers
 	-- plural, as words: Jungle Stalkers = {npc:687} Jungle Stalker
 	["Jungle Stalkers"] = "Espreitadores da Selva",
 	-- {object:3202} Grom'gol (no name in this language: may be words)
 	-- plural, as words: Jungle Stalkers = {npc:687} Jungle Stalker
 	["The Jungle Stalkers (40-41) hunt the coast south of {object:3202}. They are well above you: pull one at a time and rest between fights."] = "Os Espreitadores da Selva (40-41) caçam no litoral ao sul de {object:3202}. Eles estão bem acima de você: puxe um de cada vez e descanse entre as lutas.",
 
-	-- Step 5: Fly to Booty Bay
+	-- Step 9: Fly to Booty Bay
 	-- {area:35} Booty Bay
 	["Fly to {area:35}"] = "Voe até {area:35}",
 	-- {object:3202} Grom'gol (no name in this language: may be words)
 	["{object:3202} flight master"] = "Mestre de voo de {object:3202}",
 
-	-- Step 6: Booty Bay
+	-- Step 10: Booty Bay
 	-- {area:35} Booty Bay
 	["Gringer, the flight master, waits on {area:35}'s upper deck. The quest givers stand on the boardwalks around the harbour and in the inn."] = "Gringer, o mestre de voo, espera no convés superior de {area:35}. As pessoas que dão missões ficam nos passadiços ao redor do porto e na estalagem.",
 	-- {npc:2495} Drizzlik
@@ -43,56 +70,67 @@ return {
 	["{npc:2496}, on the balcony beside MacKinley"] = "{npc:2496}, na sacada ao lado de MacKinley",
 	["Inside"] = "Lá dentro",
 
-	-- Step 7: Bloodsail Correspondence
+	-- Step 11: Baron Revilgaz
+	-- {npc:2496} Baron Revilgaz · {area:2240} Mirage Raceway · {zone:1446} Tanaris
+	["{npc:2496}, on the balcony beside MacKinley, has one more errand: the fuel regulator blueprints from Cozzle's footlocker go to Pozzik at the {area:2240}, on the way to {zone:1446} around level 43."] = "{npc:2496}, na sacada ao lado de MacKinley, tem mais uma tarefa: as plantas do regulador de combustível do baú de Cozzle vão para Pozzik em {area:2240}, a caminho de {zone:1446} por volta do nível 43.",
+
+	-- Step 12: Bloodsail Correspondence
 	-- {area:35} Booty Bay
 	["Leave town by the tunnel; the note lies in the pirates' cove just north of {area:35}."] = "Saia da cidade pelo túnel; o bilhete fica na enseada dos piratas, logo ao norte de {area:35}.",
 
-	-- Step 8: Booty Bay
-	-- {npc:2488} Deeg
-	["{npc:2488}, on the top floor"] = "{npc:2488}, no último andar",
-
-	-- Step 9: The Wild Shore
-	-- {area:43} Wild Shore
-	["The {area:43}"] = "{area:43}",
-	-- {area:43} Wild Shore · {npc:2493} Dizzy One-Eye
-	["South of Booty Bay the Bloodsail swashbucklers camp on the {area:43}; the charts and the orders lie in their tents. Any Bloodsail can carry snuff and {npc:2493}'s eye, so keep killing until you have both."] = "Ao sul de Angra do Butim, os Espadachins da Vela Sangrenta acampam em {area:43}; os mapas e as ordens ficam nas barracas deles. Qualquer pirata da Vela Sangrenta pode levar rapé e o olho do {npc:2493}, então continue matando até ter os dois.",
-
-	-- Step 11: The Bloodsail ships
-	["The Bloodsail ships"] = "Os navios da Vela Sangrenta",
-	-- {quest:624} Cortello's Riddle · {area:43} Wild Shore · {zone:1435} Swamp of Sorrows · {zone:1445} Dustwallow Marsh · {zone:1425} Hinterlands
-	["Optional, and tough at 41: the scroll, {quest:624}, lies on the decks of the three ships off the {area:43}, crewed by pirates of 42-45 who come in pairs. Take it only if you can pull the crew to the rail one at a time, or with a friend; its chain runs on through the {zone:1435}, {zone:1445} and the {zone:1425}."] = "Opcional, e difícil no nível 41: o pergaminho, {quest:624}, fica nos conveses dos três navios ao largo de {area:43}, tripulados por piratas de nível 42-45 que vêm em pares. Pegue só se conseguir puxar a tripulação até a amurada um de cada vez, ou com um amigo; a cadeia dele segue por {zone:1435}, {zone:1445} e {zone:1425}.",
-	-- {zone:1435} Swamp of Sorrows
-	["for a later stop in the {zone:1435}"] = "para uma parada posterior em {zone:1435}",
-
-	-- Step 12: Mistvale gorillas
+	-- Step 14: Mistvale gorillas
 	["Mistvale gorillas"] = "Gorilas do Vale da Névoa",
 	["The gorillas roam the valley around Unbagwa. The elders drop the giblets; any of them can drop a fang."] = "Os gorilas vagam pelo vale em volta de Unbagwa. Os anciões deixam cair os miúdos; qualquer um deles pode deixar cair uma presa.",
 
-	-- Step 13: Witch Doctor Unbagwa
+	-- Step 15: Witch Doctor Unbagwa
 	-- {npc:1514} Mokk the Savage
 	["Hand Unbagwa the fangs and stay by him: he calls three waves of gorillas, then {npc:1514}. Fight them one at a time."] = "Entregue as presas a Unbagwa e fique perto dele: ele chama três ondas de gorilas, depois {npc:1514}. Enfrente-os um de cada vez.",
 	-- {area:1742} Spirit Den
 	["Inside {area:1742}"] = "Dentro de {area:1742}",
 
-	-- Step 15: Venture Co. mine
+	-- Step 17: Venture Co. mine
 	["Venture Co. mine"] = "Mina da Empreendimentos S.A.",
 	-- plural, as words: Shadowmaw Panthers = {npc:684} Shadowmaw Panther
 	["Further north, the goblins of the Venture Co. dig at the mine east of the road; miners, foremen, surveyors and tinkerers all drop the crystals.\nCareful: Stealthed Shadowmaw Panthers and Stranglethorn Tigresses roam the area around the camp."] = "Mais ao norte, os goblins da Empreendimentos S.A. cavam na mina a leste da estrada; mineradores, encarregados, topógrafos e engenhoqueiros deixam cair os cristais.\nCuidado: Panteras Umbragorja furtivas e Tigresas-do-espinhaço andam em volta do acampamento.",
 
-	-- Step 17: Nesingwary's camp
+	-- Step 19: Nesingwary's camp
 	["Nesingwary's camp"] = "Acampamento de Rosarães Guima",
 	["Head north up the road; the hunters camp on the hill above the river."] = "Siga a estrada para o norte; os caçadores acampam no morro acima do rio.",
 
-	-- Step 19: Zul'Kunda
+	-- Step 21: The Green Hills of Stranglethorn
+	-- {npc:716} Barnil Stonepot · {quest:338} The Green Hills of Stranglethorn
+	["{npc:716} collects the pages of {quest:338}: the trolls of the vale drop them now and then. Take his quest; each chapter he takes once you have all its pages."] = "{npc:716} coleciona as páginas de {quest:338}: os trolls do vale as deixam cair de vez em quando. Pegue a missão dele; ele recebe cada capítulo assim que você tiver todas as páginas dele.",
+
+	-- Step 22: Chapter I
+	-- {npc:716} Barnil Stonepot
+	["{npc:716}: every page of chapter I is in your bags"] = "{npc:716}: todas as páginas do capítulo I estão nas suas bolsas",
+
+	-- Step 23: Chapter II
+	-- {npc:716} Barnil Stonepot
+	["{npc:716}: every page of chapter II is in your bags"] = "{npc:716}: todas as páginas do capítulo II estão nas suas bolsas",
+
+	-- Step 24: Chapter III
+	-- {npc:716} Barnil Stonepot
+	["{npc:716}: every page of chapter III is in your bags"] = "{npc:716}: todas as páginas do capítulo III estão nas suas bolsas",
+
+	-- Step 25: Chapter IV
+	-- {npc:716} Barnil Stonepot
+	["{npc:716}: every page of chapter IV is in your bags"] = "{npc:716}: todas as páginas do capítulo IV estão nas suas bolsas",
+
+	-- Step 26: The Green Hills of Stranglethorn
+	-- {npc:716} Barnil Stonepot
+	["{npc:716}: the four chapters"] = "{npc:716}: os quatro capítulos",
+
+	-- Step 27: Zul'Kunda
 	["Zul'Kunda"] = "Ruínas de Zul'Kanda",
-	-- {npc:1061} Gan'zulah · {npc:1062} Nezzliok the Dire · {quest:586} Speaking with Gan'zulah · {area:1517} Uldaman · {object:3202} Grom'gol (no name in this language: may be words) · {npc:2635} Elder Saltwater Crocolisk · {npc:2495} Drizzlik
-	["West of the expedition, the Bloodscalp chiefs {npc:1061} and {npc:1062} stand together in the ruins of Zul'Kunda. Clear their guards first, then pull them. Stay on the Bloodscalps here until level 41: {quest:586}, at the cauldron next, sends you to Skullsplitters of 41-43. Or, with a group, run the {area:1517} dungeon instead.\nOn the coast between Zul'Kunda and {object:3202} an {npc:2635} (level 38 elite) shares the spawns of the ordinary crocolisks: kill it if it is up and take its skin for {npc:2495}."] = "A oeste da expedição, os chefes Sanguescalpo {npc:1061} e {npc:1062} ficam juntos nas ruínas de Zul'Kanda. Limpe os guardas primeiro, depois puxe-os. Continue com os Sanguescalpo aqui até o nível 41: {quest:586}, no caldeirão logo adiante, manda você aos Rachacrânio de nível 41-43. Ou, em grupo, faça a masmorra {area:1517}.\nNa costa entre Zul'Kanda e {object:3202}, um {npc:2635} (elite de nível 38) compartilha os pontos de surgimento dos crocoliscos comuns: mate-o se ele estiver lá e pegue a pele dele para {npc:2495}.",
+	-- {npc:1061} Gan'zulah · {npc:1062} Nezzliok the Dire · {quest:586} Speaking with Gan'zulah · {object:3202} Grom'gol (no name in this language: may be words) · {npc:2635} Elder Saltwater Crocolisk · {npc:2495} Drizzlik
+	["West of the expedition, the Bloodscalp chiefs {npc:1061} and {npc:1062} stand together in the ruins of Zul'Kunda. Clear their guards first, then pull them. Stay on the Bloodscalps here until level 41: {quest:586}, at the cauldron next, sends you to Skullsplitters of 41-43.\nOn the coast between Zul'Kunda and {object:3202} an {npc:2635} (level 38 elite) shares the spawns of the ordinary crocolisks: kill it if it is up and take its skin for {npc:2495}."] = "A oeste da expedição, os chefes Sanguescalpo {npc:1061} e {npc:1062} ficam juntos nas ruínas de Zul'Kanda. Limpe os guardas primeiro, depois puxe-os. Continue com os Sanguescalpo aqui até o nível 41: {quest:586}, no caldeirão logo adiante, manda você aos Rachacrânio de nível 41-43.\nNa costa entre Zul'Kanda e {object:3202}, um {npc:2635} (elite de nível 38) compartilha os pontos de surgimento dos crocoliscos comuns: mate-o se ele estiver lá e pegue a pele dele para {npc:2495}.",
 	-- {object:52} Fall of Gurubashi
 	["from the {object:52}, in the ruins"] = "de {object:52}, nas ruínas",
 	-- {quest:586} Speaking with Gan'zulah
 	["grind on the Bloodscalps here: {quest:586}, at the cauldron next, sends you to Skullsplitters of 41-43"] = "mate os Sanguescalpos daqui até subir: {quest:586}, no caldeirão logo adiante, manda você para os Rachacrânios de nível 41-43",
 
-	-- Step 20: Grom'gol
+	-- Step 28: Grom'gol
 	-- {object:2076} Bubbling Cauldron · {npc:2497} Nimboya
 	["the {object:2076}, beside {npc:2497}"] = "o {object:2076}, ao lado de {npc:2497}",
 	-- {npc:2497} Nimboya · {zone:1425} Hinterlands
@@ -102,27 +140,26 @@ return {
 	-- {npc:2519} Kin'weelay · {area:104} Vile Reef
 	["{npc:2519}: the cavern entrance under the {area:104}, west of the camp"] = "{npc:2519}: a entrada da caverna sob {area:104}, a oeste do acampamento",
 
-	-- Step 21: The Vile Reef
+	-- Step 29: The Vile Reef
 	-- {quest:95770} Locating the Lost City · {object:3202} Grom'gol (no name in this language: may be words) · {area:104} Vile Reef
 	["{quest:95770}: west of {object:3202}, swim out over the {area:104} and dive to the cavern entrance in the reef; the quest completes as you find it. Leave the cavern for now: the jungle stalkers are south along the coast."] = "{quest:95770}: a oeste de {object:3202}, nade sobre {area:104} e mergulhe até a entrada da caverna no recife; a missão é concluída quando você a encontra. Deixe a caverna para depois: os espreitadores da selva estão ao sul, ao longo da costa.",
-	["the Drowned City's entrance, underwater"] = "a entrada da Cidade Submersa, debaixo d'água",
+	-- {area:16550} Drowned City
+	["the {area:16550}'s entrance, underwater"] = "a entrada de {area:16550}, debaixo d'água",
 
-	-- Step 22: Jungle stalkers
+	-- Step 30: Jungle stalkers
 	["Jungle stalkers"] = "Espreitadores da selva",
 	-- {object:3202} Grom'gol (no name in this language: may be words)
 	["The stalker raptors hunt the jungle south of {object:3202}, out towards the west coast."] = "Os raptores espreitadores caçam na selva ao sul de {object:3202}, rumo à costa oeste.",
 
-	-- Step 23: The Cape of Stranglethorn: kill these as you meet them
+	-- Step 31: The Cape of Stranglethorn: kill these as you meet them
 	-- {area:1577} The Cape of Stranglethorn
 	["{area:1577}: kill these as you meet them"] = "{area:1577}: vá matando estes pelo caminho",
 	-- {object:759} Holy Spring
 	["Follow the coast south. The naga explorers wade along the shore and carry the reed bundles; the {object:759} bubbles in the hills just east of them."] = "Siga a costa para o sul. As nagas exploradoras andam pela água ao longo da costa e levam os feixes de junco; {object:759} borbulha nas colinas logo a leste delas.",
 
-	-- Step 24: Booty Bay
+	-- Step 32: Booty Bay
 	-- {area:35} Booty Bay
 	["Head south to {area:35}. Shaky Phillipe waits on the docks."] = "Siga para o sul até {area:35}. Shaky Phillipe espera no cais.",
-	-- {npc:6807} Innkeeper Skindle
-	["{npc:6807}, upstairs"] = "{npc:6807}, no andar de cima",
 	-- {npc:2491} Whiskey Slim · {zone:1425} Hinterlands
 	["{npc:2491}, in the inn: his bottles wash up on the {zone:1425} coast, around level 48"] = "{npc:2491}, na estalagem: as garrafas dele dão na costa de {zone:1425}, por volta do nível 48",
 	-- {npc:737} Kebok
@@ -131,17 +168,32 @@ return {
 	["MacKinley, on the top floor: for Stoley in {zone:1446}"] = "MacKinley, no último andar: para Esmirno, em {zone:1446}",
 	-- {npc:2495} Drizzlik · {item:4105} Elder Crocolisk Skin
 	["{npc:2495}, inside: the {item:4105}"] = "{npc:2495}, lá dentro: a {item:4105}",
+	-- {npc:2488} Deeg
+	["{npc:2488}, on the top floor"] = "{npc:2488}, no último andar",
 
-	-- Step 25: Zanzil's camps
+	-- Step 33: The Wild Shore
+	-- {area:43} Wild Shore
+	["The {area:43}"] = "{area:43}",
+	-- {area:43} Wild Shore · {npc:2493} Dizzy One-Eye
+	["South of Booty Bay the Bloodsail swashbucklers camp on the {area:43}; the charts and the orders lie in their tents and in the rowboat beside the larger camp. Any Bloodsail can carry snuff and {npc:2493}'s eye, so keep killing until you have both."] = "Ao sul de Angra do Butim, os Espadachins da Vela Sangrenta acampam em {area:43}; os mapas e as ordens ficam nas barracas deles e no bote ao lado do acampamento maior. Qualquer pirata da Vela Sangrenta pode levar rapé e o olho do {npc:2493}, então continue matando até ter os dois.",
+
+	-- Step 35: The Bloodsail ships
+	["The Bloodsail ships"] = "Os navios da Vela Sangrenta",
+	-- {quest:624} Cortello's Riddle · {area:43} Wild Shore · {zone:1435} Swamp of Sorrows · {zone:1445} Dustwallow Marsh · {zone:1425} Hinterlands
+	["Optional, and tough at 42: the scroll, {quest:624}, lies on the decks of the three ships off the {area:43}, crewed by pirates of 42-45 who come in pairs. Take it only if you can pull the crew to the rail one at a time, or with a friend; its chain runs on through the {zone:1435}, {zone:1445} and the {zone:1425}."] = "Opcional, e difícil no nível 42: o pergaminho, {quest:624}, fica nos conveses dos três navios ao largo de {area:43}, tripulados por piratas de nível 42-45 que vêm em pares. Pegue só se conseguir puxar a tripulação até a amurada um de cada vez, ou com um amigo; a cadeia dele segue por {zone:1435}, {zone:1445} e {zone:1425}.",
+	-- {zone:1435} Swamp of Sorrows
+	["for a later stop in the {zone:1435}"] = "para uma parada posterior em {zone:1435}",
+
+	-- Step 36: Zanzil's camps
 	["Zanzil's camps"] = "Acampamentos de Zanzil",
 	["North-east of Mistvale, Zanzil's followers camp in the jungle; every one of them can carry the mixture."] = "A nordeste do Vale da Névoa, os seguidores de Zanzil acampam na selva; todos eles podem levar o preparado.",
 
-	-- Step 26: Pirate ghosts
+	-- Step 37: Pirate ghosts
 	["Pirate ghosts"] = "Fantasmas piratas",
 	-- {area:35} Booty Bay · {npc:2535} Maury "Club Foot" Wilkins · {npc:2536} Jon-Jon the Crow · {npc:2537} Chucky "Ten Thumbs"
 	["The three ghostly pirates haunt the jungle north of {area:35}, near Zanzil's camps: {npc:2535} and {npc:2536} stand together, {npc:2537} further east."] = "Os três piratas fantasmagóricos assombram a selva ao norte de {area:35}, perto dos acampamentos de Zanzil: {npc:2535} e {npc:2536} ficam juntos, {npc:2537} mais a leste.",
 
-	-- Step 27: Zul'Mamwe
+	-- Step 38: Zul'Mamwe
 	["Zul'Mamwe"] = "Ruínas de Zul'Mamwe",
 	-- {npc:1059} Ana'thek the Cruel
 	["Head north to the Skullsplitter ruins east of the Venture Co. mine; pull the headhunters and berserkers one at a time. {npc:1059} guards the south-western ruins, and one pile of trophy skulls stands on the ruins' north side. Every Skullsplitter can drop a tusk or a necklace: the necklaces are the slow part, so keep killing in the warriors' camp north of the ruins until you have them all."] = "Siga para o norte até as ruínas dos Rachacrânio, a leste da mina da Empreendimentos S.A.; puxe os caçadores de cabeças e os berserkers um de cada vez. {npc:1059} guarda as ruínas do sudoeste, e uma pilha de crânios-troféu fica no lado norte das ruínas. Qualquer Rachacrânio pode deixar cair uma presa ou um colar: os colares são a parte demorada, então continue matando no acampamento dos guerreiros ao norte das ruínas até completar.",
@@ -150,13 +202,13 @@ return {
 	["{npc:669} walks around here: look inside the circle on the map"] = "{npc:669} anda por aqui: procure dentro do círculo no mapa",
 	["Below ground"] = "No subterrâneo",
 
-	-- Step 28: Balia'mah Ruins: kill these as you meet them
+	-- Step 39: Balia'mah Ruins: kill these as you meet them
 	-- {area:127} Balia'mah Ruins
 	["{area:127}: kill these as you meet them"] = "{area:127}: vá matando estes pelo caminho",
 	-- {object:3202} Grom'gol (no name in this language: may be words)
 	["The next trophy skulls stand in the small ruins just north of the warriors' camp.\nThe last skulls are in the ruins a short walk west, on the way back to {object:3202}."] = "Os próximos crânios-troféu ficam nas ruínas pequenas logo ao norte do acampamento dos guerreiros.\nOs últimos crânios ficam nas ruínas a uma curta caminhada a oeste, no caminho de volta a {object:3202}.",
 
-	-- Step 29: Grom'gol Base Camp
+	-- Step 40: Grom'gol Base Camp
 	-- {object:3202} Grom'gol (no name in this language: may be words)
 	["Head west to {object:3202}."] = "Siga para oeste até {object:3202}.",
 	-- {object:2076} Bubbling Cauldron
@@ -166,7 +218,7 @@ return {
 	-- {npc:2519} Kin'weelay · {area:35} Booty Bay
 	["{npc:2519}: the basilisks graze beside the road back from {area:35}"] = "{npc:2519}: os basiliscos pastam ao lado da estrada na volta de {area:35}",
 
-	-- Step 31: Booty Bay
+	-- Step 42: Booty Bay
 	-- {npc:2498} Crank Fizzlebub
 	["{npc:2498}, inside"] = "{npc:2498}, lá dentro",
 	-- {npc:737} Kebok
@@ -174,84 +226,82 @@ return {
 	-- {npc:773} Krazek · {quest:2864} Tran'rek · {area:976} Gadgetzan
 	["{npc:773}, upstairs: for {quest:2864} in {area:976}"] = "{npc:773}, no andar de cima: para {quest:2864} em {area:976}",
 
-	-- Step 32: Ironjaw Basilisks
+	-- Step 43: Ironjaw Basilisks
 	-- plural, as words: Ironjaw Basilisks = {npc:1551} Ironjaw Basilisk
 	["Ironjaw Basilisks"] = "Basiliscos Ferroqueixo",
 	-- {area:35} Booty Bay · {object:3202} Grom'gol (no name in this language: may be words)
 	["Ride north out of {area:35} along the road; the basilisks bask on the rocks east of it in the middle of the jungle, on the way back to {object:3202}. Their shards drop often."] = "Siga a cavalo para o norte, saindo de {area:35}, pela estrada; os basiliscos tomam sol nas rochas a leste dela, no meio da selva, no caminho de volta a {object:3202}. Os estilhaços deles caem com frequência.",
 
-	-- Step 33: Grom'gol Base Camp
+	-- Step 44: Grom'gol Base Camp
 	-- {object:3202} Grom'gol (no name in this language: may be words)
 	["Ride on north to {object:3202}."] = "Siga a cavalo para o norte até {object:3202}.",
 
-	-- Step 35: Nesingwary's Expedition
+	-- Step 46: Nesingwary's Expedition
 	["Head north up the road to the hunters' camp."] = "Siga a estrada para o norte até o acampamento dos caçadores.",
 
-	-- Step 37: Raptor Mastery
+	-- Step 48: Raptor Mastery
 	-- {npc:730} Tethis
 	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:730} is a level 43 elite: most classes solo it at level 45, but you may need help. Skip it if you are alone: the route has you grind the XP back."] = "São monstros elite: vale a pena formar grupo, procure gente para ir junto. {npc:730} é elite de nível 43: a maioria das classes encara sozinha no nível 45, mas talvez você precise de ajuda. Se estiver sozinho, pule: a rota faz você recuperar a XP matando monstros.",
 
-	-- Step 38: Panther Mastery
+	-- Step 49: Panther Mastery
 	-- {npc:728} Bhag'thera
 	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:728} is a level 40 elite: most classes solo it at level 42, but you may need help. Skip it if you are alone: the route has you grind the XP back."] = "São monstros elite: vale a pena formar grupo, procure gente para ir junto. {npc:728} é elite de nível 40: a maioria das classes encara sozinha no nível 42, mas talvez você precise de ajuda. Se estiver sozinho, pule: a rota faz você recuperar a XP matando monstros.",
 
-	-- Step 42: Level 42.68
+	-- Step 53: Level 42.68
 	["Level 42.68"] = "Nível 42.68",
-	-- {quest:192} Panther Mastery · {quest:195} Raptor Mastery · {area:1517} Uldaman
-	["If you skipped {quest:192} or {quest:195}, grind here to level 42.68 to stay on the route's plan. Or, with a group, run the {area:1517} dungeon instead."] = "Se você pulou {quest:192} ou {quest:195}, mate monstros aqui até o nível 42.68 para seguir o plano da rota. Ou, em grupo, faça a masmorra {area:1517}.",
+	-- {quest:192} Panther Mastery · {quest:195} Raptor Mastery
+	["If you skipped {quest:192} or {quest:195}, grind here to level 42.68 to stay on the route's plan."] = "Se você pulou {quest:192} ou {quest:195}, mate monstros aqui até o nível 42.68 para seguir o plano da rota.",
 	-- {npc:667} Skullsplitter Warrior
 	["grind on {npc:667}"] = "mate {npc:667} até subir",
 
-	-- Step 43: Big Game Hunter
+	-- Step 54: Big Game Hunter
 	-- {npc:731} King Bangalash
 	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:731} is a level 43 elite: most classes solo it at level 45, but you may need help. Skip it if you are alone: the route has you grind the XP back.\nCareful: Tigers and stealthed shadowmaw panthers roam close to him. Clear them before you pull him. When he is pulled, {npc:731} calls for help from creatures within 20 yd."] = "São monstros elite: vale a pena formar grupo, procure gente para ir junto. {npc:731} é elite de nível 43: a maioria das classes encara sozinha no nível 45, mas talvez você precise de ajuda. Se estiver sozinho, pule: a rota faz você recuperar a XP matando monstros.\nCuidado: tigres e panteras umbragorja furtivas andam perto dele. Limpe tudo antes de puxá-lo. Quando é puxado, {npc:731} chama ajuda de qualquer bicho num raio de 20 metros.",
 
-	-- Step 45: Level 42.74
+	-- Step 56: Level 42.74
 	["Level 42.74"] = "Nível 42.74",
-	-- {quest:208} Big Game Hunter · {area:1517} Uldaman
-	["If you skipped {quest:208}, grind here to level 42.74 to stay on the route's plan. Or, with a group, run the {area:1517} dungeon instead."] = "Se você pulou {quest:208}, mate monstros aqui até o nível 42.74 para seguir o plano da rota. Ou, em grupo, faça a masmorra {area:1517}.",
+	-- {quest:208} Big Game Hunter
+	["If you skipped {quest:208}, grind here to level 42.74 to stay on the route's plan."] = "Se você pulou {quest:208}, mate monstros aqui até o nível 42.74 para seguir o plano da rota.",
 
-	-- Step 49: Into the Swamp of Sorrows
+	-- Step 60: Into the Swamp of Sorrows
 	-- {zone:1435} Swamp of Sorrows
 	["Into the {zone:1435}"] = "Rumo a {zone:1435}",
 	-- {zone:1431} Duskwood · {zone:1430} Deadwind Pass · {npc:1776} Magtoor · {area:657} Harborage
 	["Follow the road east from {zone:1431} through {zone:1430} into the swamp. {npc:1776} waits at the {area:657}, the draenei camp just off the road where it comes in from {zone:1430}."] = "Siga a estrada para leste a partir de {zone:1431}, por {zone:1430}, até o pântano. {npc:1776} espera em {area:657}, o acampamento dos draeneis logo fora da estrada, onde ela chega de {zone:1430}.",
 
-	-- Step 50: Stonard
+	-- Step 61: Stonard
 	-- {area:75} Stonard
-	["Head east to {area:75}, in the reeds south of the road. Bind here."] = "Siga para o leste até {area:75}, nos juncos ao sul da estrada. Fixe sua Pedra de Regresso aqui.",
+	["Head east to {area:75}, in the reeds south of the road."] = "Siga para o leste até {area:75}, nos juncos ao sul da estrada.",
 	-- {npc:5591} Dar
 	["{npc:5591}, inside"] = "{npc:5591}, lá dentro",
 	-- {npc:1442} Helgrum the Swift
 	["{npc:1442}, upstairs"] = "{npc:1442}, no andar de cima",
-	-- {npc:6930} Innkeeper Karakul
-	["{npc:6930}, upstairs"] = "{npc:6930}, no andar de cima",
 	-- {npc:1443} Fel'zerul
 	["{npc:1443}, on the top floor"] = "{npc:1443}, no último andar",
 
-	-- Step 51: Sawtooth crocolisks
+	-- Step 62: Sawtooth crocolisks
 	["Sawtooth crocolisks"] = "Crocoliscos Dentesserra",
 	-- {npc:5391} Galen Goodward · {area:75} Stonard
 	["The crocolisks wallow in the pools around {npc:5391}'s camp and south towards {area:75}; about one in four drops a flank."] = "Os crocoliscos chafurdam nas poças em volta do acampamento de {npc:5391} e ao sul rumo a {area:75}; cerca de um em quatro deixa cair uma anca.",
 
-	-- Step 52: Noboru the Cudgel
+	-- Step 63: Noboru the Cudgel
 	-- {area:76} Fallow Sanctuary
 	["Noboru wanders the clearing south-west of the {area:76}; his cudgel starts a quest."] = "Noboru vaga pela clareira a sudoeste de {area:76}; a clava dele inicia uma missão.",
 
-	-- Step 53: Draenethyst crystals
+	-- Step 64: Draenethyst crystals
 	["Draenethyst crystals"] = "Cristais de draenetista",
 	-- {area:76} Fallow Sanctuary · {npc:5391} Galen Goodward
 	["Ride north-east to the {area:76}. The crystals stand along the way up to {npc:5391}'s cage."] = "Cavalgue para nordeste até {area:76}. Os cristais ficam ao longo da subida até a jaula de {npc:5391}.",
 
-	-- Step 54: Galen's Escape
+	-- Step 65: Galen's Escape
 	-- {npc:5391} Galen Goodward · {area:76} Fallow Sanctuary
 	["{npc:5391} is held in the {area:76} in the swamp's north-east. Free him and follow him out, fighting off the swamp creatures that chase him."] = "{npc:5391} está preso em {area:76}, no nordeste do pântano. Liberte-o e siga-o para fora, enfrentando as criaturas do pântano que o perseguem.",
 
-	-- Step 55: Galen's Strongbox
+	-- Step 66: Galen's Strongbox
 	-- {area:75} Stonard
 	["His strongbox waits at his old camp north of {area:75}, on the way back west."] = "O cofre dele espera no antigo acampamento dele, ao norte de {area:75}, no caminho de volta a oeste.",
 
-	-- Step 56: Harborage
+	-- Step 67: Harborage
 	-- {area:657} Harborage · {zone:1430} Deadwind Pass · {quest:698} Lack of Surplus · {npc:5592} Tok'Kar · {area:1978} Misty Reed Post
 	["Ride west along the road to the draenei camp at the {area:657}, near the way in from {zone:1430}. {quest:698} goes to {npc:5592} at {area:1978} on the next swamp visit: keep the flanks."] = "Cavalgue para oeste pela estrada até o acampamento dos draeneis em {area:657}, perto da entrada vinda de {zone:1430}. {quest:698} vai para {npc:5592} em {area:1978} na próxima visita ao pântano: guarde os flancos.",
 
@@ -292,5 +342,7 @@ return {
 	-- ["the {object:2076}, beside {npc:2497}"] = "o {object:2076}, ao lado de {npc:2497}",
 	-- ["{area:35} flight master"] = "Mestre de voo de {area:35}",
 	-- ["{area:392} pier"] = "Píer de {area:392}",
+	-- ["{npc:6807}, upstairs"] = "{npc:6807}, no andar de cima",
+	-- ["{npc:6930}, upstairs"] = "{npc:6930}, no andar de cima",
 	-- ["{npc:773}: for {quest:2864} in {area:976}"] = "{npc:773}: para {quest:2864}, em {area:976}",
 }

@@ -13,12 +13,12 @@ return {
 	-- Step 1: C's dead drop
 	["C's dead drop"] = "El escondite secreto de C",
 	-- {object:410369} Dead Drop · {area:204} Pyrewood Village · {area:236} Shadowfang Keep
-	["The {object:410369} is a chest in a house just outside {area:204} in southern Silverpine, south of {area:236}. Open it and read C's note: the job has to be done alone, out of any group."] = "",
+	["The {object:410369} is a chest in a house just outside {area:204} in southern Silverpine, south of {area:236}. Open it and read C's note: the job has to be done alone, out of any group."] = "{object:410369} es un cofre en una casa justo a las afueras de {area:204}, en el sur del Bosque de Argénteos, al sur del {area:236}. Ábrelo y lee la nota de C: el trabajo hay que hacerlo solo, fuera de cualquier grupo.",
 
 	-- Step 2: Veenix
 	-- {npc:4086} Veenix · {area:461} Windshear Crag · {area:460} Sun Rock Retreat · {area:467} Stonetalon Peak · {item:210187} Venture Co. Work Order · {spell:921} Pick Pocket
 	-- plural, as words: Venture Co. Loggers = {npc:3989} Venture Co. Logger
-	["{npc:4086}, a goblin friendly to both factions, stands among the Venture Co. in the {area:461}, east Stonetalon, a short way north-east of {area:460}. Horde fly to {area:460}; Alliance to {area:467}. He wants a {item:210187} before he hands over explosives: the Venture Co. Loggers (level 18) working around him carry them in their pockets. Stealth up behind one and {spell:921} it; killing them does not give it."] = "",
+	["{npc:4086}, a goblin friendly to both factions, stands among the Venture Co. in the {area:461}, east Stonetalon, a short way north-east of {area:460}. Horde fly to {area:460}; Alliance to {area:467}. He wants a {item:210187} before he hands over explosives: the Venture Co. Loggers (level 18) working around him carry them in their pockets. Stealth up behind one and {spell:921} it; killing them does not give it."] = "{npc:4086}, un goblin amistoso con ambas facciones, está entre los de Ventura y Cía. en {area:461}, en el este de Sierra Espolón, un poco al noreste de {area:460}. La Horda vuela a {area:460}; la Alianza, a {area:467}. Quiere un {item:210187} antes de darte explosivos: los Leñeros de Ventura y Cía. (nivel 18) que trabajan a su alrededor los llevan en los bolsillos. Acércate en sigilo por detrás de uno y usa {spell:921}; matarlos no te lo da.",
 	-- {spell:921} Pick Pocket · {npc:3989} Venture Co. Logger · {item:210187} Venture Co. Work Order
 	["{spell:921} a {npc:3989} for a {item:210187}"] = "",
 
@@ -31,11 +31,9 @@ return {
 	-- Step 4: Back to the dead drop
 	["Back to the dead drop"] = "Vuelve al escondite secreto",
 	-- {object:410369} Dead Drop
-	["Place the horn in the {object:410369} near Pyrewood. The payment may not appear immediately: check a capital mailbox for C's follow-up letter on your next planned city visit, then return to this chest for the reward quest. Do not repeat the dungeon just because the payment is not yet offered."] = "",
+	["Open the {object:410369} again, the chest outside Pyrewood you took the job from, and hand in the horn there. C's payment is a second hand-in at the same chest, with nothing to accept first, and it may not be there right away: players have waited from a quarter of an hour to two hours. Check a capital mailbox for C's follow-up letter on your next planned city visit, then return to this chest for it. Do not repeat the dungeon just because the payment is not yet offered."] = "",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Go in alone. The {item:210186} gets you past the courtyard gate; the data does not say where in the keep the horn lies."] = "Entra solo. {item:210186} te permite pasar la puerta del patio; los datos no dicen en qué parte del castillo está el cuerno.",
 	-- ["Place the horn in the {object:410369} near Pyrewood. C's payment is the second {item:210183} quest at the same chest."] = "Deja el cuerno en {object:410369}, cerca de Piroleña. El pago de C es la segunda misión de {item:210183} en el mismo cofre.",
-	-- ["The {object:410369} is a chest near {area:204} in southern Silverpine, just south of {area:236}. Read C's note."] = "{object:410369} es un cofre cerca de {area:204}, en el sur del Bosque de Argénteos, justo al sur del {area:236}. Lee la nota de C.",
-	-- ["{npc:4086}, a goblin friendly to both factions, stands among the Venture Co. in the {area:461}, east Stonetalon. Horde fly to {area:460}; Alliance to {area:467}. He wants a {item:210187} before he hands over explosives: the Venture Co. Loggers around him carry them."] = "{npc:4086}, un goblin amistoso con ambas facciones, está entre los de Ventura y Cía. en {area:461}, en el este de Sierra Espolón. La Horda vuela a {area:460}; la Alianza, a {area:467}. Quiere un {item:210187} antes de darte explosivos: los Leñeros de Ventura y Cía. de su alrededor los llevan.",
 }

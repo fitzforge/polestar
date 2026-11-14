@@ -16,7 +16,7 @@ return {
 
 	-- Step 3: Dendrite Starblaze
 	-- {spell:18960} Teleport: Moonglade · {npc:11802} Dendrite Starblaze · {area:2361} Nighthaven
-	["Cast {spell:18960}. {npc:11802} stands upstairs in his building in {area:2361}: go up inside, the arrow cannot tell the floors apart. Learn the flight path there if you do not have it."] = "",
+	["Cast {spell:18960}. {npc:11802} stands upstairs in his building in {area:2361}: go up inside, the arrow cannot tell the floors apart. Learn the flight path there if you do not have it."] = "Lancez {spell:18960}. {npc:11802} se tient à l'étage de son bâtiment à {area:2361} : montez par l'intérieur, la flèche ne distingue pas les étages. Apprenez-y le trajet aérien si vous ne l'avez pas.",
 
 	-- Step 4: The relics of the Barrow Dens
 	["The relics of the Barrow Dens"] = "Les reliques du Refuge des saisons",
@@ -27,7 +27,7 @@ return {
 	-- {npc:11802} Dendrite Starblaze
 	["Back to {npc:11802}"] = "Retour auprès de {npc:11802}",
 	-- {spell:18960} Teleport: Moonglade · {npc:11802} Dendrite Starblaze · {area:2361} Nighthaven · {npc:11800} Silva Fil'naveth · {area:702} Rut'theran Village
-	["Cast {spell:18960} to land by {npc:11802} in {area:2361} (nobody on Zephras Isle takes the Skyborne quest), then take {npc:11800}'s flight to {area:702}: she stands in the middle of {area:2361} and flies druids there, no flight path needed. {npc:11802} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."] = "",
+	["Cast {spell:18960} to land by {npc:11802} in {area:2361} (nobody on Zephras Isle takes the Skyborne quest), then take {npc:11800}'s flight to {area:702}: she stands in the middle of {area:2361} and flies druids there, no flight path needed. {npc:11802} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."] = "Lancez {spell:18960} pour arriver près de {npc:11802} à {area:2361} (personne sur l'Île de Zéphras ne donne la quête des Éolides), puis prenez le vol de {npc:11800} pour le {area:702} : elle se tient au milieu de {area:2361} et y emmène les druides, pas besoin du trajet aérien. {npc:11802} se tient à l'étage de son bâtiment : montez par l'intérieur, la flèche ne distingue pas les étages.",
 
 	-- Step 6: Cenarion Enclave
 	-- {npc:4217} Mathrengyl Bearwalker · {area:1658} Cenarion Enclave · {spell:768} Cat Form
@@ -39,7 +39,7 @@ return {
 
 	-- Step 9: Dendrite Starblaze
 	-- {spell:18960} Teleport: Moonglade · {npc:11802} Dendrite Starblaze · {area:2361} Nighthaven
-	["Cast {spell:18960}. {npc:11802} stands upstairs in his building in {area:2361}: go up inside, the arrow cannot tell the floors apart."] = "",
+	["Cast {spell:18960}. {npc:11802} stands upstairs in his building in {area:2361}: go up inside, the arrow cannot tell the floors apart."] = "Lancez {spell:18960}. {npc:11802} se tient à l'étage de son bâtiment à {area:2361} : montez par l'intérieur, la flèche ne distingue pas les étages.",
 
 	-- Step 10: The Stormrage Barrow Dens
 	-- {area:2363} Stormrage Barrow Dens
@@ -49,7 +49,7 @@ return {
 
 	-- Step 11: Back to Dendrite Starblaze
 	-- {spell:18960} Teleport: Moonglade · {npc:11802} Dendrite Starblaze · {area:2361} Nighthaven · {npc:11798} Bunthen Plainswind · {area:1638} Thunder Bluff
-	["Cast {spell:18960} to land by {npc:11802} in {area:2361} (nobody on Zephras Isle takes the Skyborne quest), then take {npc:11798}'s flight to {area:1638}. {npc:11802} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."] = "",
+	["Cast {spell:18960} to land by {npc:11802} in {area:2361} (nobody on Zephras Isle takes the Skyborne quest), then take {npc:11798}'s flight to {area:1638}. {npc:11802} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."] = "Lancez {spell:18960} pour arriver près de {npc:11802} à {area:2361} (personne sur l'Île de Zéphras ne donne la quête des Éolides), puis prenez le vol de {npc:11798} pour {area:1638}. {npc:11802} se tient à l'étage de son bâtiment : montez par l'intérieur, la flèche ne distingue pas les étages.",
 
 	-- Step 12: To Thunder Bluff
 	-- {npc:3033} Turak Runetotem · {area:1639} Elder Rise · {spell:768} Cat Form
@@ -59,11 +59,7 @@ return {
 	-- ["Back to {npc:11802} in {area:2361}, then fly to {area:702}."] = "Retournez voir {npc:11802} à {area:2361}, puis prenez un vol pour {area:702}.",
 	-- ["Back to {npc:11802} in {area:2361}, then take {npc:11798}'s flight to {area:1638}."] = "Retournez voir {npc:11802} à {area:2361}, puis prenez le vol de {npc:11798} pour {area:1638}.",
 	-- ["Cast Teleport: {area:493}. {npc:11802} is in {area:2361}."] = "Lancez Téléportation : {area:493}. {npc:11802} se trouve à {area:2361}.",
-	-- ["Cast Teleport: {area:493}. {npc:11802} is in {area:2361}; learn the flight path there if you do not have it."] = "Lancez Téléportation : {area:493}. {npc:11802} se trouve à {area:2361} ; apprenez-y le trajet aérien si vous ne l'avez pas.",
-	-- ["Cast {spell:18960} to land by {npc:11802} in {area:2361} (nobody on Zephras Isle takes the Skyborne quest), then take {npc:11798}'s flight to {area:1638}."] = "Lancez {spell:18960} pour arriver près de {npc:11802} à {area:2361} (personne sur l'Île de Zéphras ne donne la quête des Éolides), puis prenez le vol de {npc:11798} pour {area:1638}.",
-	-- ["Cast {spell:18960} to land by {npc:11802} in {area:2361} (nobody on Zephras Isle takes the Skyborne quest), then take {npc:11800}'s flight to {area:702}: she stands in the middle of {area:2361} and flies druids there, no flight path needed."] = "Lancez {spell:18960} pour arriver près de {npc:11802} à {area:2361} (personne sur l'Île de Zéphras ne donne la quête des Éolides), puis prenez le vol de {npc:11800} pour le {area:702} : elle se tient au milieu de {area:2361} et y emmène les druides, pas besoin du trajet aérien.",
 	-- ["Cast {spell:18960}. {npc:11802} is in {area:2361}."] = "Lancez {spell:18960}. {npc:11802} est à {area:2361}.",
-	-- ["Cast {spell:18960}. {npc:11802} is in {area:2361}; learn the flight path there if you do not have it."] = "Lancez {spell:18960}. {npc:11802} est à {area:2361} ; apprenez-y le trajet aérien si vous ne l'avez pas.",
 	-- ["Take the portal up to {npc:4217} in the {area:1658}."] = "Prenez le portail pour monter voir {npc:4217} dans {area:1658}.",
 	-- ["{npc:3033} stands in the druids' hut on {area:1639}. No Aquatic Form yet? Take A Lesson to Learn from him too: it also goes to {npc:11802}, and its Trial of the Lake (the Aquatic Form guide) is in the same {area:493}."] = "{npc:3033} se tient dans la hutte des druides, sur {area:1639}. Pas encore de forme aquatique ? Prenez-lui aussi Une leçon à apprendre : elle mène aussi à {npc:11802}, et son épreuve du lac (le guide de la forme aquatique) se passe dans le même {area:493}.",
 	-- ["{npc:3033} stands on {area:1639}."] = "{npc:3033} se trouve sur {area:1639}.",

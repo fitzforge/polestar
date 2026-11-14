@@ -39,14 +39,14 @@ return {
 	-- {item:18752} Exorcism Censer
 	["{item:18752}, inside a green patch"] = "",
 	-- plural, as words: Terrordale Spirits = {npc:14564} Terrordale Spirit
-	["Terrordale Spirits x25"] = "",
+	["Terrordale Spirits x25"] = "Духи долины Ужаса x25",
 
 	-- Step 6: Lord Grayson Shadowbreaker
 	["Lord Grayson takes the censer back."] = "",
 
 	-- Step 7: Grimand Elmore
 	-- {npc:1416} Grimand Elmore · {zone:1453} Stormwind · {object:28027} Dwarven District · {item:18753} Arcanite Barding
-	["{npc:1416} works in {zone:1453}'s {object:28027}. He forges the {item:18753} from your materials and 150 gold."] = "",
+	["{npc:1416} works in {zone:1453}'s {object:28027}. He forges the {item:18753} from your materials and 150 gold."] = "{npc:1416} работает здесь: {object:28027} ({zone:1453}). Он выкует {item:18753} из ваших материалов за 150 золотых.",
 
 	-- Step 8: Grimand Elmore's materials
 	-- {npc:1416} Grimand Elmore
@@ -58,7 +58,7 @@ return {
 	-- {item:8836} Arthas' Tears
 	["{item:8836} x10"] = "",
 	-- plural, as words: Arcanite Bars = {item:12360} Arcanite Bar
-	["Arcanite Bars x6: an alchemist, or the Trade District Auction House"] = "",
+	["Arcanite Bars x6: an alchemist, or the Trade District Auction House"] = "Арканитовые слитки x6: алхимик или аукцион в Торговом квартале",
 
 	-- Step 9: Stratholme Holy Water
 	-- {area:2279} Stratholme · {zone:1423} Eastern Plaguelands
@@ -83,14 +83,14 @@ return {
 	["Enriched Manna Biscuits"] = "Витаминизированное печенье из манны",
 	-- {object:2160} The Argent Dawn · {object:92525} Argent Dawn · {npc:10857} Argent Quartermaster Lightspark · {area:3197} Chillwind Camp · {npc:11536} Quartermaster Miranda Breechlock · {area:2268} Light's Hope Chapel
 	-- plural, as words: Enriched Manna Biscuits = {item:13724} Enriched Manna Biscuit
-	["{object:2160} quartermasters sell Enriched Manna Biscuits, five for 60 silver, once the {object:92525} is Friendly with you: {npc:10857} at {area:3197} or {npc:11536} at {area:2268}. Scourgestones and the Plaguelands quests raise the standing."] = "",
+	["{object:2160} quartermasters sell Enriched Manna Biscuits, five for 60 silver, once the {object:92525} is Friendly with you: {npc:10857} at {area:3197} or {npc:11536} at {area:2268}. Scourgestones and the Plaguelands quests raise the standing."] = "Интенданты ({object:2160}) продают обогащенное манное печенье по пять штук за 60 серебра, когда ваше отношение с фракцией {object:92525} – дружелюбие: {npc:10857} ({area:3197}) или {npc:11536} ({area:2268}). Репутацию повышают камни Плети и задания Чумных земель.",
 	-- {npc:10857} Argent Quartermaster Lightspark · {area:3197} Chillwind Camp
 	-- plural, as words: Enriched Manna Biscuits = {item:13724} Enriched Manna Biscuit
 	["Enriched Manna Biscuits: {npc:10857}, {area:3197}"] = "Витаминизированное печенье из манны: {npc:10857}, {area:3197}",
 
 	-- Step 13: Merideth Carlson
 	-- {npc:2357} Merideth Carlson · {area:271} Southshore · {quest:7645} Manna-Enriched Horse Feed
-	["{npc:2357} breeds horses in {area:271}'s stable. She makes the {quest:7645} from the 20 biscuits and 50 gold, taken at the hand-in."] = "",
+	["{npc:2357} breeds horses in {area:271}'s stable. She makes the {quest:7645} from the 20 biscuits and 50 gold, taken at the hand-in."] = "{npc:2357} разводит лошадей в конюшне ({area:271}). Она делает {quest:7645} из 20 печений и 50 золотых, которые забирает при сдаче.",
 
 	-- Step 14: Dire Maul: Tendris Warpwood
 	-- {area:2577} Dire Maul · {zone:1444} Feralas · {item:18249} Crescent Key · {npc:11489} Tendris Warpwood · {npc:11459} Ironbark Protector · {quest:7643} Ancient Equine Spirit · {item:18753} Arcanite Barding
@@ -118,10 +118,8 @@ return {
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["An {item:12800} comes from Thorium veins, a {item:18335} from the elites of the {zone:1422}, both rarely: the Auction House is the usual source."] = "{item:12800} добывается из ториевых жил, {item:18335} — с элитных противников зоны {zone:1422}, оба редко: обычно их покупают на аукционе.",
-	-- ["Arcanite Bars: the Auction House"] = "Арканитовые слитки: аукцион",
 	-- ["Bring 150 gold for {npc:1416} along with the materials."] = "Вместе с материалами возьмите 150 золотых для {npc:1416}.",
 	-- ["Supply Crates, inside"] = "Ящики с припасами, внутри",
-	-- ["Terrordale Spirits"] = "Духи долины Ужаса",
 	-- ["The {spell:23214} chain is long: it takes you through {area:2279}, {area:2577} and {area:2057}, and costs about 350 gold in donations on top of the materials. Lord Grayson stands in the Cathedral of Light."] = "Цепочка {spell:23214} длинная: она проведет вас через {area:2279}, {area:2577} и {area:2057} и обойдется примерно в 350 золотых пожертвований сверх материалов. Лорд Грейсон стоит в Соборе Света.",
 	-- ["he hands you the {item:18746}"] = "он вручает вам {item:18746}",
 	-- ["{area:2057} lies under {area:2298}, the island town in the south-east of the {zone:1422}. Use the {item:18746} in the heart of the {object:179746}'s basement, defeat the spirits it calls and then {npc:14516}, and give his Fallen Charger the {item:18799} and the {item:18792}. All are elite: bring a group. If the attempt fails, Lord Grayson gives you a new scryer through Again Into the {object:179746}."] = "{area:2057} находится под местом {area:2298} — городком на острове на юго-востоке зоны {zone:1422}. Используйте {item:18746} в центре подвала Главного склепа, победите призванных духов, а затем: {npc:14516}; отдайте его падшему скакуну {item:18799} и {item:18792}. Все они элитные: возьмите группу. Если попытка не удалась, лорд Грейсон даст вам новый прорицатель через задание «Снова в Главный склеп».",
@@ -130,7 +128,4 @@ return {
 	-- ["{area:2627} lies in the far north-west of the {zone:1423}, by the {zone:1422} border. Use the {item:18752} there to drive out the spirits, then defeat them."] = "{area:2627} находится на крайнем северо-западе зоны {zone:1423}, у границы с зоной {zone:1422}. Используйте там {item:18752}, чтобы изгнать духов, затем победите их.",
 	-- ["{item:14047} drops from humanoids around level 50 and up; {item:8836} is an herb of the Plaguelands and {zone:1448}; Arcanite Bars are an {skill:171} transmute. The Auction House in {zone:1453}'s {object:2096} sells all three, and so do crafters."] = "{item:14047} падает с гуманоидов примерно с 50-го уровня; {item:8836} — трава Чумных земель и зоны {zone:1448}; арканитовые слитки получают трансмутацией ({skill:171}). Все три продаются на аукционе ({zone:1453}, {object:2096}), а также у ремесленников.",
 	-- ["{npc:11406} is in {zone:1455}'s {object:32362}. Bring 150 gold: the censer is yours for a donation."] = "{npc:11406} находится здесь: {object:32362} ({zone:1455}). Возьмите 150 золотых: кадило ваше за пожертвование.",
-	-- ["{npc:1416} works in {zone:1453}'s {object:28027}."] = "{npc:1416} работает здесь: {object:28027} ({zone:1453}).",
-	-- ["{npc:2357} breeds horses in {area:271}. She also wants 50 gold."] = "{npc:2357} разводит лошадей здесь: {area:271}. Ей также нужно 50 золотых.",
-	-- ["{object:2160} quartermasters sell the biscuits in fives once the {object:92525} is Friendly with you: {npc:10857} at {area:3197}, {npc:11536} at {area:2268}, {npc:10856} at the {area:813}."] = "Интенданты ({object:2160}) продают печенье по пять штук, когда ваше отношение с фракцией {object:92525} — дружелюбие: {npc:10857} ({area:3197}), {npc:11536} ({area:2268}), {npc:10856} ({area:813}).",
 }

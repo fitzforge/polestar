@@ -6,11 +6,17 @@
 -- A token marked "no name in this language" would show in English: write that name in German words instead.
 -- The comments are rewritten by sync.
 return {
-	-- Step 2: Fly to Grom'gol
+	-- Step 1: Fly to Grom'gol
 	-- {object:3202} Grom'gol (no name in this language: may be words)
 	["Fly to {object:3202}"] = "Flieg nach {object:3202}",
 	-- {area:75} Stonard
 	["{area:75} flight master"] = "Flugmeister in {area:75}",
+
+	-- Step 2: Fly to Grom'gol
+	-- {zone:2548} Riverglades · {area:340} Kargath
+	["Coming from the {zone:2548}: {area:340}'s flight master stands at the foot of the fortress."] = "Aus {zone:2548} kommend: Der Flugmeister von {area:340} steht am Fuß der Festung.",
+	-- {area:340} Kargath
+	["{area:340} flight master"] = "Flugmeister in {area:340}",
 
 	-- Step 3: Zeppelin to Orgrimmar
 	-- {zone:1454} Orgrimmar
@@ -63,19 +69,31 @@ return {
 	-- {zone:1456} Thunder Bluff
 	["{zone:1456} flight master"] = "Flugmeister von {zone:1456}",
 
-	-- Step 16: Ratchet for the Felsteed
+	-- Step 15: Fly to Gadgetzan
+	-- {area:976} Gadgetzan
+	["Fly to {area:976}"] = "Flieg nach {area:976}",
+
+	-- Step 18: Ratchet for the Felsteed
 	-- {area:392} Ratchet
 	["{area:392} for the Felsteed"] = "{area:392} für das Teufelsross",
 	-- {zone:1454} Orgrimmar · {area:392} Ratchet · {npc:6251} Strahad Farsan
 	["Fly from {zone:1454} to {area:392}; {npc:6251} stands on the hill above the docks."] = "Flieg von {zone:1454} nach {area:392}; {npc:6251} steht auf dem Hügel über den Docks.",
 
-	-- Step 17: Fly to Freewind Post
+	-- Step 19: Fly to Freewind Post
 	-- {area:392} Ratchet
 	["{area:392} flight master"] = "Flugmeister in {area:392}",
 
-	-- Step 20: Mirage Raceway
-	-- {area:484} Freewind Post · {zone:1446} Tanaris · {area:2240} Mirage Raceway · {area:439} Shimmering Flats · {npc:4454} Fizzle Brassbolts · {npc:4630} Pozzik · {npc:4709} Zamek
-	["The road from {area:484} to {zone:1446} runs past the {area:2240} on the {area:439}: {npc:4454} is in the gnomes' camp beside the track, {npc:4630} and {npc:4709} by the goblins' camp. {npc:4630} first, then {npc:4709}, who runs off to keep Rizzle busy; then take Rizzle's plans from the gnomes' camp and bring them back to {npc:4630}."] = "Die Straße von {area:484} nach {zone:1446} führt an {area:2240} auf {area:439} vorbei: {npc:4454} ist im Lager der Gnome neben der Piste, {npc:4630} und {npc:4709} beim Lager der Goblins. Erst {npc:4630}, dann {npc:4709}, der losrennt, um Rizzle zu beschäftigen; dann nimm Rizzles Pläne aus dem Lager der Gnome und bring sie zu {npc:4630} zurück.",
+	-- Step 25: Gadgetzan
+	-- {area:976} Gadgetzan · {area:2240} Mirage Raceway · {zone:1446} Tanaris
+	["Flown in: {area:976}'s quests first, by the flight master, then the {area:2240} is a short ride north over the {zone:1446} border."] = "Eingeflogen: Zuerst die Quests von {area:976} beim Flugmeister, dann ist {area:2240} ein kurzer Ritt nach Norden über die Grenze von {zone:1446}.",
+
+	-- Step 26: Gadgetzan
+	-- {area:978} Zul'Farrak · {quest:2864} Tran'rek · {npc:7804} Trenton Lighthammer · {quest:3042} Troll Temper
+	["For your {area:978} run, in the next guide: {quest:2864} wants scarab shells, and {npc:7804}, a short walk from the flight master, {quest:3042} from the Sandfury trolls."] = "Für deinen Run durch {area:978} im nächsten Guide: {quest:2864} will Skarabäuspanzer, und {npc:7804}, ein kurzes Stück vom Flugmeister entfernt, {quest:3042} von den Trollen der Sandfury.",
+
+	-- Step 27: Mirage Raceway
+	-- {area:976} Gadgetzan · {zone:1446} Tanaris · {area:484} Freewind Post · {area:2240} Mirage Raceway · {area:439} Shimmering Flats · {npc:4454} Fizzle Brassbolts · {npc:4630} Pozzik · {npc:4709} Zamek
+	["Flown in to {area:976}: the raceway is a short ride north over the {zone:1446} border.\nThe road from {area:484} to {zone:1446} runs past the {area:2240} on the {area:439}: {npc:4454} is in the gnomes' camp beside the track, {npc:4630} and {npc:4709} by the goblins' camp. {npc:4630} first, then {npc:4709}, who runs off to keep Rizzle busy; then take Rizzle's plans from the gnomes' camp and bring them back to {npc:4630}."] = "Mit dem Flug in {area:976} angekommen: Die Rennstrecke liegt einen kurzen Ritt nördlich, gleich hinter der Grenze zu {zone:1446}.\nDie Straße von {area:484} nach {zone:1446} führt an {area:2240} auf {area:439} vorbei: {npc:4454} ist im Lager der Gnome neben der Piste, {npc:4630} und {npc:4709} beim Lager der Goblins. Erst {npc:4630}, dann {npc:4709}, der losrennt, um Rizzle zu beschäftigen; dann nimm Rizzles Pläne aus dem Lager der Gnome und bring sie zu {npc:4630} zurück.",
 	-- {npc:4454} Fizzle Brassbolts · {quest:1137} News for Fizzle · {zone:1418} Badlands
 	["{npc:4454}: {quest:1137}, from Martek in the {zone:1418}"] = "{npc:4454}: {quest:1137}, von Martek in {zone:1418}",
 	-- {npc:4630} Pozzik · {item:5852} Fuel Regulator Blueprints · {npc:2496} Baron Revilgaz
@@ -83,15 +101,15 @@ return {
 	-- {npc:4706} Razzeric · {npc:4630} Pozzik
 	["{npc:4706}, beside {npc:4630}"] = "{npc:4706}, neben {npc:4630}",
 
-	-- Step 21: To Gadgetzan
+	-- Step 28: To Gadgetzan
 	-- {area:976} Gadgetzan
 	["To {area:976}"] = "Nach {area:976}",
 
-	-- Step 22: Gadgetzan
+	-- Step 29: Gadgetzan
 	-- {area:976} Gadgetzan · {zone:1446} Tanaris
 	["{area:976} is the walled goblin town just past the {zone:1446} border."] = "{area:976} ist die ummauerte Goblinstadt gleich hinter der Grenze von {zone:1446}.",
 
-	-- Step 23: Noonshade Ruins: kill these as you meet them
+	-- Step 31: Noonshade Ruins: kill these as you meet them
 	-- {area:1937} Noonshade Ruins
 	["{area:1937}: kill these as you meet them"] = "{area:1937}: Töte diese, sobald sie dir begegnen",
 	-- {area:976} Gadgetzan
@@ -99,7 +117,7 @@ return {
 	["The bandits and thieves camp in the dunes east of {area:976}. Every Wastewander can carry a water pouch: keep ten, five for each of Luglunket's bounties.\nCareful: Wastewander Rogues (level 43-44) move stealthed, so they can approach unseen."] = "Die Banditen und Diebe lagern in den Dünen östlich von {area:976}. Jeder Wastewander kann einen Wasserbeutel tragen: Behalte zehn, fünf für jedes von Luglunkets Kopfgeldern.\nVorsicht: Wastewander Rogues (Stufe 43-44) bewegen sich getarnt und können sich unbemerkt nähern.",
 	["water pouches in your bags"] = "Wasserbeutel in deinen Taschen",
 
-	-- Step 25: Steamwheedle Port
+	-- Step 33: Steamwheedle Port
 	["Ride north-east to the goblin harbour on the coast."] = "Reite nach Nordosten zum Goblinhafen an der Küste.",
 	-- {npc:7882} Security Chief Bilgewhizzle
 	["{npc:7882}, inside"] = "{npc:7882}, drinnen",
@@ -108,31 +126,31 @@ return {
 	-- {npc:8579} Yeh'kinya · {zone:1444} Feralas
 	["{npc:8579}: the screechers live in {zone:1444}, on the next {zone:1444} visit"] = "{npc:8579}: Die Screechers leben in {zone:1444}, beim nächsten Besuch in {zone:1444}",
 
-	-- Step 26: Lost Rigger Cove: kill these as you meet them
+	-- Step 34: Lost Rigger Cove: kill these as you meet them
 	-- {area:1336} Lost Rigger Cove
 	["{area:1336}: kill these as you meet them"] = "{area:1336}: Töte diese, sobald sie dir begegnen",
 	-- {npc:7883} Andre Firebeard
 	["South along the coast, the Southsea pirates hold the cove. {npc:7883} and the stolen cargo are on the docks at its far end. Any pirate can drop a hat, the kidnappers most often.\nCareful: Two or three pirates stand with {npc:7883}, and many more pirates from the town join the fight once it starts."] = "Südlich an der Küste halten die Piraten der Südsee die Bucht. {npc:7883} und die gestohlene Fracht liegen an den Docks am Ende der Bucht. Jeder Pirat kann einen Hut fallen lassen, die Entführer am häufigsten.\nVorsicht: Zwei oder drei Piraten stehen bei {npc:7883}, und viele weitere Piraten aus der Stadt schließen sich dem Kampf an, sobald er beginnt.",
 	["Upstairs"] = "Oben",
 
-	-- Step 27: Waterspring Field: kill these as you meet them
+	-- Step 35: Waterspring Field: kill these as you meet them
 	-- {area:985} Waterspring Field
 	["{area:985}: kill these as you meet them"] = "{area:985}: töte diese, wenn du sie triffst",
 	-- {area:976} Gadgetzan · {npc:7847} Caliph Scorpidsting
 	-- plural, as words: Wastewander Rogues = {npc:5615} Wastewander Rogue
 	["The shadow mages, rogues and assassins camp south-east of {area:976}.\nSouth-east of Gadgetzan the Wastewander bandits camp in the dunes; {npc:7847} stands in the eastern camp.\nCareful: Wastewander Rogues keep Sneak up while out of combat, so hidden rogues can join a fight you start at a camp.\nCareful: Two stealthed Wastewander Rogues travel with him wherever he goes. At his spawn camp, two shadowmages and their minions are close enough to join a fight with him. Out by the towers you can fight him without them."] = "Die Schattenmagier, Schurken und Assassinen lagern südöstlich von {area:976}.\nSüdöstlich von Gadgetzan lagern die Banditen der Wastewander in den Dünen; {npc:7847} steht im östlichen Lager.\nVorsicht: Wastewander Rogues bleiben außerhalb des Kampfes in Verstohlenheit, sodass versteckte Schurken in einen Kampf eingreifen können, den du an einem Lager beginnst.\nVorsicht: Zwei getarnte Wastewander Rogues begleiten ihn, wohin er auch geht. An seinem Spawn-Lager sind zwei Schattenmagier und ihre Diener nah genug, um in den Kampf mit ihm einzugreifen. Draußen bei den Türmen kannst du ihn ohne sie bekämpfen.",
 
-	-- Step 28: Steamwheedle Port
+	-- Step 36: Steamwheedle Port
 	-- {npc:7881} Stoley · {npc:15165} Haughty Modiste · {area:1336} Lost Rigger Cove · {area:976} Gadgetzan
 	["Ride north-east back to the port: {npc:7881}, the {npc:15165} and the Security Chief take what {area:1336} gave you. {area:976} is west of it."] = "Reite nach Nordosten zurück zum Hafen: {npc:7881}, {npc:15165} und der Sicherheitschef nehmen, was {area:1336} dir gegeben hat. {area:976} liegt westlich davon.",
 	-- {area:35} Booty Bay
 	["for {area:35}, around level 50"] = "für {area:35}, etwa ab Stufe 50",
 
-	-- Step 30: Fly to Freewind Post
+	-- Step 38: Fly to Freewind Post
 	-- {area:976} Gadgetzan
 	["{area:976} flight master"] = "Flugmeister von {area:976}",
 
-	-- Step 32: Camp Mojache
+	-- Step 40: Camp Mojache
 	-- {npc:7777} Rok Orhan · {area:1099} Camp Mojache
 	["{npc:7777} walks around {area:1099}: look inside the circle on the map"] = "{npc:7777} läuft um {area:1099} herum: schau in den Kreis auf der Karte",
 	-- {npc:8115} Witch Doctor Uzer'i · {zone:1454} Orgrimmar
@@ -140,39 +158,41 @@ return {
 	-- {npc:7854} Jangdor Swiftstrider
 	["{npc:7854}, inside"] = "{npc:7854}, drinnen",
 
-	-- Step 33: Gordunni Outpost
-	["North of the gnolls the ogres hold a hilltop outpost; pull the ogre-magi to you. The cobalt is in the dirt mounds around the outpost, and the scroll lies on the ground inside it."] = "Nördlich der Gnolle halten die Oger einen Außenposten auf einem Hügel; zieh die Ogermagier zu dir. Das Kobalt ist in den Erdhügeln um den Außenposten, und die Schriftrolle liegt drinnen auf dem Boden.",
+	-- Step 41: Gordunni Outpost
+	-- {npc:222233} Ohk'zi
+	["North of the gnolls the ogres hold a hilltop outpost; pull the ogre-magi to you. The cobalt is in the dirt mounds around the outpost, and the scroll lies on the ground inside it.\nCareful: {npc:222233} (level 43, elite) stands in the outpost: pull the ogres out to you, away from him."] = "Nördlich der Gnolle halten die Oger einen Außenposten auf einem Hügel; zieh die Ogermagier zu dir. Das Kobalt ist in den Erdhügeln um den Außenposten, und die Schriftrolle liegt drinnen auf dem Boden.\nVorsicht: {npc:222233} (Stufe 43, Elite) steht im Außenposten: Zieh die Oger zu dir heraus, weg von ihm.",
 
-	-- Step 34: Woodpaw north camp
+	-- Step 42: Woodpaw north camp
 	["Woodpaw north camp"] = "Nördliches Lager der Waldpfoten",
 	["The Woodpaw gnolls camp in the hills just north-west of Mojache; any of them can drop a mane.\nCareful: Every Woodpaw gnoll except the Alpha runs off for help at 15% health, which can pull more gnolls into the fight."] = "Die Woodpaw-Gnolle lagern in den Hügeln direkt nordwestlich von Mojache; jeder von ihnen kann eine Mähne fallen lassen.\nVorsicht: Jeder Woodpaw-Gnoll außer dem Alpha rennt bei 15% Gesundheit los, um Hilfe zu holen, wodurch weitere Gnolle in den Kampf gezogen werden können.",
 
-	-- Step 35: Camp Mojache
+	-- Step 43: Camp Mojache
 	-- {quest:2863} Alpha Strike
 	["{quest:2863}: one hour from now"] = "{quest:2863}: eine Stunde ab jetzt",
 
-	-- Step 36: Feralas: kill these as you meet them
+	-- Step 44: Feralas: kill these as you meet them
 	-- {zone:1444} Feralas
 	["{zone:1444}: kill these as you meet them"] = "{zone:1444}: töte diese, wenn du sie triffst",
 	["The sprite darters flit over the grove just west of Mojache; nearly every one drops a wing. The Woodpaw alphas lead the camps south-west of it: kill them within the hour.\nCareful: Most Alphas sit in small tent camps with 2-4 other gnolls that join the fight, and other gnolls patrol between the camps."] = "Die Sprite Darters schwirren über den Hain direkt westlich von Mojache; fast jeder lässt einen Flügel fallen. Die Woodpaw Alphas führen die Lager südwestlich davon an: Töte sie innerhalb einer Stunde.\nVorsicht: Die meisten Alphas sitzen in kleinen Zeltlagern mit 2-4 anderen Gnollen, die in den Kampf eingreifen, und zwischen den Lagern patrouillieren weitere Gnolle.",
 
-	-- Step 38: Grimtotem camp
+	-- Step 46: Grimtotem camp
 	["Grimtotem camp"] = "Lager der Grimmtotem",
-	["The Grimtotem tauren camp beside the sprite darters' grove; raiders, naturalists and shamans all carry horns."] = "Die Tauren der Grimmtotem lagern neben dem Hain der Grimmlingflitzer; Räuber, Naturalisten und Schamanen tragen alle Hörner.",
+	-- {npc:222286} Namida Grimtotem
+	["The Grimtotem tauren camp beside the sprite darters' grove; raiders, naturalists and shamans all carry horns.\nCareful: {npc:222286} (level 43, elite) stands in the camp: pull the raiders and shamans away from her."] = "Die Tauren der Grimmtotem lagern neben dem Hain der Grimmlingflitzer; Räuber, Naturalisten und Schamanen tragen alle Hörner.\nVorsicht: {npc:222286} (Stufe 43, Elite) steht im Lager: Zieh die Räuber und Schamanen von ihr weg.",
 
-	-- Step 39: Woodpaw battle map
+	-- Step 47: Woodpaw battle map
 	["Woodpaw battle map"] = "Schlachtplan der Waldpfoten",
 	["The battle map lies in the Woodpaw camp south of Mojache."] = "Der Schlachtplan liegt im Lager der Waldpfoten südlich von Mojache.",
 
-	-- Step 40: Camp Mojache
+	-- Step 48: Camp Mojache
 	-- {zone:1454} Orgrimmar
 	["for {zone:1454}, around level 45"] = "für {zone:1454}, etwa ab Stufe 45",
 
-	-- Step 41: The Writhing Deep
+	-- Step 49: The Writhing Deep
 	-- {quest:7731} Stinglasher
 	["The Zukk'ash hive burrows into the hills south-east of the camp; {quest:7731} waits in its deepest chamber."] = "Der Bau der Zukk'ash gräbt sich in die Hügel südöstlich des Lagers; {quest:7731} wartet in seiner tiefsten Kammer.",
 
-	-- Step 42: Ruins of Isildien: kill these as you meet them
+	-- Step 50: Ruins of Isildien: kill these as you meet them
 	-- {area:2522} Ruins of Isildien
 	["{area:2522}: kill these as you meet them"] = "{area:2522}: töte diese, wenn du sie triffst",
 	-- {area:1105} Feral Scar Vale
@@ -180,29 +200,29 @@ return {
 	-- {npc:5234} Gordunni Mauler · {area:2522} Ruins of Isildien
 	["{npc:5234} walks around {area:2522}: look inside the circle on the map"] = "{npc:5234} läuft um {area:2522} herum: schau in den Kreis auf der Karte",
 
-	-- Step 43: Feral Scar Vale yetis
+	-- Step 51: Feral Scar Vale yetis
 	-- {area:1105} Feral Scar Vale
 	["{area:1105} yetis"] = "Yetis in {area:1105}",
 	-- {area:1105} Feral Scar Vale
 	["North-west of the ruins, the yetis den in {area:1105}; every yeti there can drop a thick hide."] = "Nordwestlich der Ruinen hausen die Yetis in {area:1105}; jeder Yeti dort kann ein dickes Fell fallen lassen.",
 
-	-- Step 44: Homing Robot OOX-22/FE
+	-- Step 52: Homing Robot OOX-22/FE
 	-- {zone:1444} Feralas · {area:1105} Feral Scar Vale · {area:1108} Forgotten Coast · {area:35} Booty Bay
 	["Only with the distress beacon: any beast, gnoll or ogre in {zone:1444} can drop it, about one kill in a hundred; use it to start the quest. The robot sits in a small cave on the north side of {area:1105}, just north-west of the ruins. Escort it to the dock on the {area:1108}; yetis and gorillas ambush you on the way. Its reward waits in {area:35} for a later visit.\nCareful: Three ambushes spawn during the escort, and the robot warns you before each one. The first is 3 yetis, just after the robot leaves the cave and climbs toward the road. The second is 3 gorillas, on the path that runs along the cliff. The third is about 4 gnolls, one of them a caster, where the route turns off toward the dock."] = "Nur mit dem Notsignal: Jedes Tier, jeder Gnoll und jeder Oger in {zone:1444} kann es fallen lassen, ungefähr bei jedem hundertsten Kill; benutze es, um die Quest zu starten. Der Roboter sitzt in einer kleinen Höhle an der Nordseite von {area:1105}, direkt nordwestlich der Ruinen. Eskortiere ihn zum Dock an der {area:1108}; Yetis und Gorillas überfallen dich unterwegs. Seine Belohnung wartet in {area:35} auf einen späteren Besuch.\nVorsicht: Während der Eskorte tauchen drei Hinterhalte auf, und der Roboter warnt dich vor jedem. Der erste sind 3 Yetis, direkt nachdem der Roboter die Höhle verlässt und zur Straße hinaufklettert. Der zweite sind 3 Gorillas, auf dem Pfad entlang der Klippe. Der dritte sind etwa 4 Gnolle, einer davon ein Zauberwirker, dort wo die Route zum Dock abbiegt.",
 
-	-- Step 45: Camp Mojache
+	-- Step 53: Camp Mojache
 	-- {zone:1444} Feralas
 	["the Rage Scar yetis, on the next visit to {zone:1444}"] = "die Rage Scar Yetis, beim nächsten Besuch in {zone:1444}",
 	-- {npc:7875} Hadoken Swiftstrider · {npc:7010} Zilzibin Drumlore · {zone:1454} Orgrimmar
 	["{npc:7875}: for {npc:7010} in {zone:1454}"] = "{npc:7875}: für {npc:7010} in {zone:1454}",
 
-	-- Step 46: Fly to Orgrimmar
+	-- Step 54: Fly to Orgrimmar
 	-- {area:1637} Orgrimmar
 	["Fly to {area:1637}"] = "Flieg nach {area:1637}",
 	-- {area:1099} Camp Mojache
 	["{area:1099} flight master"] = "Flugmeister in {area:1099}",
 
-	-- Step 47: Orgrimmar
+	-- Step 55: Orgrimmar
 	-- {zone:1454} Orgrimmar · {object:172960} Cleft of Shadow · {object:172958} Valley of Honor
 	["Fly to {zone:1454}. From the flight master: the {object:172960}, then the Drag, then the {object:172958}."] = "Flieg nach {zone:1454}. Vom Flugmeister aus: {object:172960}, dann die Gasse, dann {object:172958}.",
 	-- {npc:7010} Zilzibin Drumlore

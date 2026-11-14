@@ -129,109 +129,111 @@ return {
 	-- {npc:11897} Duskwing
 	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:11897} is a level 60 elite: most classes solo it at level 62, but you may need help. Skip it if you are alone: the route has you grind the XP back."] = "São monstros elite: vale a pena formar grupo, procure gente para ir junto. {npc:11897} é elite de nível 60: a maioria das classes encara sozinha no nível 62, mas talvez você precise de ajuda. Se estiver sozinho, pule: a rota faz você recuperar a XP matando monstros.",
 
-	-- Step 29: Fly to Undercity
-	-- {area:1497} Undercity
-	["Fly to {area:1497}"] = "Voe para {area:1497}",
+	-- Step 29: Class trainer
+	["Class trainer"] = "Instrutor de classe",
+	-- {zone:1454} Orgrimmar · {zone:1447} Azshara
+	["Hearth to {zone:1454}: the Hearthstone is still bound there from the {zone:1447} guide (Mages teleport). Train before the flight."] = "Pedra de Regresso para {zone:1454}: ela ainda está vinculada lá desde o guia de {zone:1447} (Magos se teleportam). Treine antes do voo.",
 
-	-- Step 30: Zeppelin to Orgrimmar
-	-- {zone:1454} Orgrimmar
-	["Zeppelin to {zone:1454}"] = "Zepelim para {zone:1454}",
-
-	-- Step 31: Fly to Bloodvenom Post
+	-- Step 30: Fly to Bloodvenom Post
 	-- {area:1997} Bloodvenom Post
 	["Fly to {area:1997}"] = "Voe para {area:1997}",
+	-- {zone:1454} Orgrimmar · {zone:1447} Azshara
+	["Hearth to {zone:1454}: the Hearthstone is still bound there from the {zone:1447} guide (Mages teleport). Then the flight master."] = "Pedra de Regresso para {zone:1454}: ela ainda está vinculada lá desde o guia de {zone:1447} (Magos se teleportam). Depois, o mestre de voo.",
 	-- {zone:1454} Orgrimmar
 	["{zone:1454} flight master"] = "Mestre de voo de {zone:1454}",
 
-	-- Step 32: Fly to Thunder Bluff
+	-- Step 31: Fly to Thunder Bluff
 	-- {area:1638} Thunder Bluff
 	["Fly to {area:1638}"] = "Voe para {area:1638}",
+	-- {zone:1454} Orgrimmar · {zone:1447} Azshara
+	["Hearth to {zone:1454}: the Hearthstone is still bound there from the {zone:1447} guide. Then the flight master."] = "Pedra de Regresso para {zone:1454}: ela ainda está vinculada lá desde o guia de {zone:1447}. Depois, o mestre de voo.",
 
-	-- Step 33: Thunder Bluff
+	-- Step 32: Thunder Bluff
 	-- {npc:3033} Turak Runetotem · {area:1639} Elder Rise · {npc:246344} Alodan the Hopeful
 	["{npc:3033} (Druids) trains on {area:1639}, {npc:246344} (Paladins) in the city too."] = "{npc:3033} (Druidas) treina em {area:1639}, {npc:246344} (Paladinos) também na cidade.",
 	-- {npc:3033} Turak Runetotem · {area:1639} Elder Rise · {npc:246344} Alodan the Hopeful
 	["{npc:3033} on {area:1639}; {npc:246344}"] = "{npc:3033} no {area:1639}; {npc:246344}",
 
-	-- Step 34: Fly to Bloodvenom Post
+	-- Step 33: Fly to Bloodvenom Post
 	-- {zone:1456} Thunder Bluff
 	["{zone:1456} flight master"] = "Mestre de voo de {zone:1456}",
 
-	-- Step 36: Deadwood Cauldron
+	-- Step 35: Deadwood Cauldron
 	-- {area:1762} Felpaw Village · {area:1769} Timbermaw Hold
 	["Ride north up the road. The cauldron stands in {area:1762}, just south-west of {area:1769}; the Deadwood furbolgs there are hostile."] = "Suba a estrada para o norte. O caldeirão fica em {area:1762}, logo a sudoeste de {area:1769}; os furbolgs Lenha Morta de lá são hostis.",
 
-	-- Step 37: Kernda
+	-- Step 36: Kernda
 	-- {quest:8471} Winterfall Ritual Totem · {npc:11558} Kernda · {zone:1448} Felwood · {area:1769} Timbermaw Hold
 	["Only if a {quest:8471} dropped for you: {npc:11558} waits at the {zone:1448} entrance of {area:1769}, and speaks to you only at Neutral with the Timbermaw."] = "Só se {quest:8471} caiu para você: {npc:11558} espera na entrada de {area:1769} pelo lado de {zone:1448}, e só fala com você com reputação Neutra com os Presamatos.",
 	-- {npc:11558} Kernda
 	["{npc:11558} walks around here: look inside the circle on the map"] = "{npc:11558} anda por aqui: procure dentro do círculo no mapa",
 
-	-- Step 39: Rabine Saturna
+	-- Step 38: Rabine Saturna
 	-- {area:1769} Timbermaw Hold · {zone:1450} Moonglade · {npc:11801} Rabine Saturna · {area:2361} Nighthaven
 	["Go through {area:1769} and take the {zone:1450} branch of the tunnel. {npc:11801} is in {area:2361}."] = "Atravesse {area:1769} e pegue o ramo do túnel para {zone:1450}. {npc:11801} está em {area:2361}.",
 
-	-- Step 40: Class trainer
-	["Class trainer"] = "Instrutor de classe",
-
-	-- Step 41: Rabine Saturna
+	-- Step 39: Rabine Saturna
 	-- {zone:1451} Silithus
 	["Both quests lead to {zone:1451}: keep them."] = "As duas missões levam a {zone:1451}: guarde-as.",
 
-	-- Step 43: Donova Snowden
+	-- Step 40: Salfa
+	-- {zone:1452} Winterspring · {npc:11556} Salfa
+	["Back through the tunnel and take the {zone:1452} exit: {npc:11556} stands right where it comes out."] = "Volte pelo túnel e pegue a saída para {zone:1452}: {npc:11556} fica bem onde ela termina.",
+
+	-- Step 42: Donova Snowden
 	-- {zone:1452} Winterspring · {area:2246} Frostfire Hot Springs
-	["Back through the tunnel and take the {zone:1452} exit, then ride south to {area:2246}."] = "Volte pelo túnel, pegue a saída para {zone:1452} e siga para o sul até {area:2246}.",
+	["From the tunnel's {zone:1452} exit, ride south to {area:2246}."] = "Da saída do túnel para {zone:1452}, cavalgue para o sul até {area:2246}.",
 	-- {quest:5086} Toxic Horrors · {zone:1448} Felwood
 	["{quest:5086} are in {zone:1448}, on a later trip: keep it."] = "{quest:5086} fica em {zone:1448}, numa viagem futura: guarde-a.",
 
-	-- Step 44: Moontouched Owlbeasts
+	-- Step 43: Moontouched Owlbeasts
 	-- plural, as words: Moontouched Owlbeasts = {npc:7453} Moontouched Owlbeast
 	["Moontouched Owlbeasts"] = "Ferujas Lunamarcas",
 	-- {area:2255} Everlook · {area:2241} Frostsaber Rock
 	-- plural, as words: Moontouched Owlbeasts = {npc:7453} Moontouched Owlbeast
-	["Ride east to {area:2255} and north out of it; the Moontouched Owlbeasts roam the hills of {area:2241}'s southern slopes. Pull them one at a time."] = "Siga para leste até {area:2255} e saia dela para o norte; as Ferujas Lunamarcas vagam pelas colinas das encostas sul de {area:2241}. Puxe uma de cada vez.",
+	["Ride east to {area:2255} and north out of it; the Moontouched Owlbeasts roam the hills of {area:2241}'s southern slopes. Pull them one at a time.\nCareful: Hailspite, level 60 elites, gather in the snowfields south-east of {area:2255}, where a few Moontouched Owlbeasts roam too: stay on the slopes north of town."] = "Siga para leste até {area:2255} e saia dela para o norte; as Ferujas Lunamarcas vagam pelas colinas das encostas sul de {area:2241}. Puxe uma de cada vez.\nCuidado: os Hailspite, elites de nível 60, se juntam nos campos de neve a sudeste de {area:2255}, onde também vagam algumas Ferujas Lunamarcas: fique nas encostas ao norte da cidade.",
 
-	-- Step 46: Fly to Gadgetzan
+	-- Step 45: Fly to Gadgetzan
 	-- {area:976} Gadgetzan
 	["Fly to {area:976}"] = "Voar para {area:976}",
 	-- {area:2255} Everlook
 	["{area:2255} flight master"] = "Mestre de voo de {area:2255}",
 
-	-- Step 47: Gaeriyan
+	-- Step 46: Gaeriyan
 	-- {item:11243} Videre Elixir · {area:976} Gadgetzan · {npc:9299} Gaeriyan
 	["Drink the {item:11243} at the graveyard just east of {area:976}: it kills you, and only as a ghost can you see {npc:9299}, in a rocky crevice in the hills due north of it. Talk to him there, then run back to your body and resurrect: the Conspicuous Gravestone he sends you to stands in that graveyard."] = "Beba o {item:11243} no cemitério logo a leste de {area:976}: ele mata você, e só como fantasma você consegue ver {npc:9299}, em uma fenda rochosa nas colinas bem ao norte dele. Fale com ele lá, depois corra de volta ao seu corpo e ressuscite: a Lápide Conspícua para onde ele manda você fica naquele cemitério.",
 
-	-- Step 48: Sprinkle
+	-- Step 47: Sprinkle
 	-- {item:12928} Umi's Mechanical Yeti · {npc:7583} Sprinkle · {area:976} Gadgetzan · {npc:10977} Quixxil · {npc:10978} Legacki
 	["Use {item:12928} on {npc:7583}, the goblin girl in {area:976}. {npc:10977} and {npc:10978} are scared later in the route."] = "Use {item:12928} em {npc:7583}, a menina goblin em {area:976}. {npc:10977} e {npc:10978} levam o susto mais adiante na rota.",
 	-- {npc:7583} Sprinkle · {item:12928} Umi's Mechanical Yeti
 	["Scare {npc:7583} with {item:12928}"] = "Assuste {npc:7583} com {item:12928}",
 
-	-- Step 49: Gaeriyan
+	-- Step 48: Gaeriyan
 	-- {quest:3914} Linken's Sword · {npc:8737} Linken
 	["{quest:3914} goes back to {npc:8737} in Un'Goro: keep it."] = "{quest:3914} volta para {npc:8737} na Cratera Un'Goro: guarde-a.",
 
-	-- Step 50: Marvon Rivetseeker
+	-- Step 49: Marvon Rivetseeker
 	-- {npc:7771} Marvon Rivetseeker · {area:1336} Lost Rigger Cove · {area:976} Gadgetzan
 	["{npc:7771} camps by the {area:1336} road, south of {area:976}."] = "{npc:7771} acampa junto à estrada da {area:1336}, ao sul de {area:976}.",
 
-	-- Step 51: Fly to Marshal's Refuge
+	-- Step 50: Fly to Marshal's Refuge
 	-- {area:541} Marshal's Refuge
 	["Fly to {area:541}"] = "Voe para {area:541}",
 	-- {area:976} Gadgetzan
 	["{area:976} flight master"] = "Mestre de voo de {area:976}",
 
-	-- Step 52: Marshal's Refuge
+	-- Step 51: Marshal's Refuge
 	-- {area:541} Marshal's Refuge · {npc:9997} Spraggle Frock · {npc:8737} Linken
 	["The flight lands at {area:541}: {npc:9997} stands beside the flight master, and {npc:8737} by the cave a few steps away. {npc:9997}'s work is in Un'Goro on the next guide's way back north."] = "O voo pousa em {area:541}: {npc:9997} fica ao lado do mestre de voo, e {npc:8737}, junto à caverna a poucos passos. O trabalho de {npc:9997} fica em Un'Goro, na volta para o norte do próximo guia.",
 	-- {quest:3941} A Gnome's Assistance · {npc:9117} J.D. Collie · {area:541} Marshal's Refuge
 	["{quest:3941} goes to {npc:9117} in the cave here, on the next guide's return to {area:541}: keep it."] = "{quest:3941} vai para {npc:9117} na caverna daqui, na volta do próximo guia a {area:541}: guarde-a.",
 
-	-- Step 53: Layo Starstrike
+	-- Step 52: Layo Starstrike
 	-- {area:3077} Valor's Rest · {zone:1451} Silithus · {npc:13220} Layo Starstrike
 	["The pass from Un'Goro comes out at {area:3077}, the graveyard in north-east {zone:1451}. {npc:13220} stands among the graves."] = "O desfiladeiro vindo de Un'Goro sai no {area:3077}, o cemitério no nordeste de {zone:1451}. {npc:13220} fica entre os túmulos.",
 
-	-- Step 54: The Spirits of Southwind
+	-- Step 53: The Spirits of Southwind
 	-- {area:2738} Southwind Village · {object:179565} Dusty Reliquary · {quest:1123} Rabine Saturna
 	["Ride south-west to the ruins of {area:2738}. The {object:179565} for {quest:1123} sits inside one of the ruined houses."] = "Cavalgue para sudoeste até as ruínas da {area:2738}. O {object:179565} para {quest:1123} fica dentro de uma das casas em ruínas.",
 
@@ -242,6 +244,7 @@ return {
 	-- ["Fly to the {zone:1458}, take the zeppelin to {zone:1454} and fly on to {area:1638}."] = "Voe para {zone:1458}, pegue o zepelim para {zone:1454} e siga voando para {area:1638}.",
 	-- ["Fly to {area:1099}"] = "Voe para {area:1099}",
 	-- ["Fly to {area:1099}. The hippogryph nests are in the south of {zone:1444}; each holds an egg for the {object:142071}."] = "Voe para o {area:1099}. Os ninhos de hipogrifo ficam no sul de {zone:1444}; cada um guarda um ovo para o {object:142071}.",
+	-- ["Fly to {area:1497}"] = "Voe para {area:1497}",
 	-- ["Fly to {area:541}, then ride south-west through Un'Goro to the pass into {zone:1451}. The next guide opens at {area:3077}, where the pass comes out."] = "Voe para o {area:541}, depois siga para sudoeste pela Cratera Un'Goro até o desfiladeiro que leva a {zone:1451}. O próximo guia começa em {area:3077}, onde o desfiladeiro termina.",
 	-- ["Go through {area:1769} and take the {area:493} branch of the tunnel. {npc:11801} is in {area:2361}."] = "Atravesse {area:1769} e pegue o ramo do túnel para {area:493}. {npc:11801} está em {area:2361}.",
 	-- ["Hameya hides among the Mossflayer trolls of {area:2273}, in the north-east corner."] = "Hameya se esconde entre os trolls Esfolamusgo de {area:2273}, no canto nordeste.",
@@ -266,6 +269,7 @@ return {
 	-- ["The {object:142071} machine"] = "A máquina {object:142071}",
 	-- ["The {object:177675} is just behind the {area:2261}."] = "O {object:177675} fica logo atrás da {area:2261}.",
 	-- ["Upstairs"] = "No andar de cima",
+	-- ["Zeppelin to {zone:1454}"] = "Zepelim para {zone:1454}",
 	-- ["{area:1099} flight master"] = "Mestre de voo de {area:1099}",
 	-- ["{item:15447} spoils within ten minutes: kill the town's Scourge quickly and grind the seven pieces with the {item:15454} at once."] = "{item:15447} estraga em dez minutos: mate rápido o Flagelo da cidade e moa as sete partes com o {item:15454} na hora.",
 	-- ["{npc:10778}'s farm is the first one east of the {area:152}. Jabbering Ghouls on the farm carry the other half of her charm; {npc:11075} guards the cauldron in the field.\nCareful: One or two undead usually fight alongside him, and more cauldron lords can attack after you use the cauldron."] = "A fazenda de {npc:10778} é a primeira a leste de {area:152}. Os Carniçais Grasnantes da fazenda carregam a outra metade do pingente dela; {npc:11075} guarda o caldeirão no campo.\nCuidado: um ou dois mortos-vivos costumam lutar ao lado dele, e mais mestres da caldeira podem atacar depois que você usar o caldeirão.",

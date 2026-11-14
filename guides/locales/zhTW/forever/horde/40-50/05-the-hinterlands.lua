@@ -10,7 +10,7 @@ return {
 	-- {area:272} Tarren Mill
 	["Fly to {area:272}"] = "飛往{area:272}",
 	-- {area:1446} Thorium Point
-	["{area:1446} flight master"] = "",
+	["{area:1446} flight master"] = "{area:1446}飛行管理員",
 
 	-- Step 2: The Hinterlands
 	-- {npc:7801} Gilveradin Sunchaser
@@ -23,7 +23,7 @@ return {
 	-- Step 4: Highvale
 	["Highvale"] = "高原精靈",
 	-- {area:350} Quel'Danil Lodge · {npc:7780} Rin'ji
-	["The Highvale elves camp around {area:350}. Burn the report, the notes and the records in their camps. {npc:7780} is held inside the lodge: lead him out and fight off the ambush on the way.\nCareful: Groups of about three elves ambush the escort, usually twice."] = "",
+	["The Highvale elves camp around {area:350}. Burn the report, the notes and the records in their camps. {npc:7780} is held inside the lodge: lead him out and fight off the ambush on the way.\nCareful: Groups of about three elves ambush the escort, usually twice."] = "高原精靈在{area:350}周圍紮營。燒掉他們營地中的報告、筆記和紀錄。{npc:7780}被關在小屋裡：帶他出來，途中擊退伏擊。\n小心：每次約三名精靈伏擊護送，通常兩次。",
 
 	-- Step 5: Violet Tragan
 	["East of the village, the violet flower grows in the hills."] = "村子東邊的丘陵上長著紫色水生菇。",
@@ -41,7 +41,7 @@ return {
 	-- {area:307} The Overlook Cliffs
 	["{area:307}: kill these as you meet them"] = "",
 	-- {npc:2491} Whiskey Slim · {area:307} The Overlook Cliffs
-	["The big turtles crawl along the beaches north of the village, and {npc:2491}'s bottles of port lie on the same beaches, from the village up to the {area:307}: pick them up as you go. A snapjaw can drop OOX-09/HL's distress beacon, rarely: keep it."] = "",
+	["The big turtles crawl along the beaches north of the village, and {npc:2491}'s bottles of port lie on the same beaches, from the village up to the {area:307}: pick them up as you go. A snapjaw can drop OOX-09/HL's distress beacon, rarely: keep it."] = "大海龜在村子北邊的海灘上爬行，{npc:2491}的波特酒瓶也散落在同一片海灘上，從村子一路到{area:307}：邊走邊撿。鉗嘴龜偶爾會掉落OOX-09/HL的求救信標：留著它。",
 	-- {object:2068} Pupellyverbos Port
 	["{object:2068}, on the beaches"] = "",
 	-- {item:8704} OOX-09/HL Distress Beacon
@@ -83,7 +83,7 @@ return {
 	["{area:355}: kill these as you meet them"] = "",
 	-- {area:355} The Altar of Zul · {npc:8636} Morta'gya the Keeper
 	-- plural, as words: Silvermane Howlers = {npc:2925} Silvermane Howler
-	["South-west of the lake, the Vilebranch soothsayers hold the {area:355}, the troll temple south of the central hills. Qiaga and {npc:8636} (elite, 50) stand at its top: take the soothsayers on the lower steps.\nSouth-west, the Silvermane Howlers roam the hills east of the Witherbark villages."] = "",
+	["South-west of the lake, the Vilebranch soothsayers hold the {area:355}, the troll temple south of the central hills. Qiaga and {npc:8636} (elite, 50) stand at its top: take the soothsayers on the lower steps.\nSouth-west, the Silvermane Howlers roam the hills east of the Witherbark villages."] = "在湖的西南方，邪枝占卜者佔據中部丘陵南邊的食人妖神廟{area:355}。守護者奇爾加和{npc:8636}（精英，50級）站在頂端：在下層階梯對付占卜者。\n往西南，銀鬃嚎叫者在枯木村莊東邊的丘陵上遊蕩。",
 
 	-- Step 18: OOX-09/HL
 	["OOX-09/HL"] = "OOX-09/HL",
@@ -100,7 +100,7 @@ return {
 
 	-- Step 21: Jintha'Alor
 	-- {area:354} Jintha'Alor · {npc:14757} Elder Torntusk
-	["Huntsman Malkhor's skull lies on a pile below the Vilebranch ruins, his bones on a pile at the foot of {area:354}. The Vessels of Tainted Blood sit on the lower terraces, and {npc:14757} is held at the top. The trolls inside are elite: stay with your group and keep to the paths."] = "",
+	["Huntsman Malkhor's skull lies on a pile below the Vilebranch ruins, his bones on a pile at the foot of {area:354}. The Vessels of Tainted Blood sit on the lower terraces, and {npc:14757} is held at the top. The trolls inside are elite: stay with your group and keep to the paths."] = "獵戶莫克霍爾的顱骨在邪枝廢墟下方的一堆東西上，他的骨頭在{area:354}山腳的另一堆上。污染之血之瓶放在下層平台，{npc:14757}被關在頂端。裡面的食人妖是精英：跟隊伍待在一起，走在小路上。",
 	-- {npc:14757} Elder Torntusk · {area:354} Jintha'Alor
 	["{npc:14757}, at the top of {area:354}"] = "{npc:14757}，在{area:354}頂端",
 	-- {area:355} The Altar of Zul
@@ -116,8 +116,8 @@ return {
 
 	-- Step 25: Level 49.02
 	["Level 49.02"] = "",
-	-- {quest:7816} Gammerita, Mon! · {area:354} Jintha'Alor · {area:2100} Maraudon
-	["If you skipped {quest:7816} or the {area:354} group quests, grind here to level 49.02 to stay on the route's plan. Or, with a group, run the {area:2100} dungeon instead."] = "",
+	-- {quest:7816} Gammerita, Mon! · {area:354} Jintha'Alor
+	["If you skipped {quest:7816} or the {area:354} group quests, grind here to level 49.02 to stay on the route's plan."] = "",
 	-- {npc:2505} Saltwater Snapjaw
 	["grind on {npc:2505}"] = "",
 
@@ -125,21 +125,27 @@ return {
 	-- {area:353} Shadra'Alor
 	["South-west again, the exile hides by the ruins of {area:353}."] = "再往西南，流放者躲在{area:353}的廢墟旁。",
 
-	-- Step 28: Grim Message
+	-- Step 27: Grim Message
 	-- {item:15002} Nimboya's Pike
 	["South of the lodge the Witherbark trolls hold their villages. Every one of them carries a skull: with twenty, use {item:15002} to make the Laden Pike, then plant it inside the village."] = "小屋南邊，枯木食人妖佔據他們的村落。每一隻身上都帶著頭骨：收集二十個後，使用{item:15002}製作尼姆布亞的長矛，然後插在村子裡。",
 
-	-- Step 29: Aerie Peak
+	-- Step 28: Aerie Peak
 	-- {area:348} Aerie Peak
 	["Ride all the way west to the Wildhammer town of {area:348} and place the message by the well in its centre. The town is full of Alliance guards: get in, place it and get out."] = "一路向西騎到蠻錘矮人的城鎮{area:348}，把訊息放在鎮中央的井邊。鎮上滿是聯盟守衛：進去、放下、離開。",
 	-- {area:348} Aerie Peak
 	["{area:348} well"] = "{area:348}的井",
 
-	-- Step 31: Fly to Stonard
+	-- Step 30: Fly to Stonard
 	-- {area:75} Stonard
 	["Fly to {area:75}"] = "飛往{area:75}",
 	-- {area:3317} Revantusk Village
 	["{area:3317} flight master"] = "",
+
+	-- Step 31: To Stonard
+	-- {area:75} Stonard
+	["To {area:75}"] = "前往{area:75}",
+	-- {area:75} Stonard · {object:3202} Grom'gol · {zone:1431} Duskwood · {zone:1430} Deadwind Pass
+	["No flight path to {area:75} yet: the arrow takes the quickest way there (by the {object:3202} flight and the road through {zone:1431} and {zone:1430}). Learn {area:75}'s flight path when you arrive."] = "還沒有{area:75}的飛行路線：箭頭會走最快的路線（搭飛往{object:3202}的班機，再走穿過{zone:1431}和{zone:1430}的道路）。抵達後學會{area:75}的飛行路線。",
 
 	-- Step 32: Fel'zerul
 	["On the top floor"] = "",
@@ -162,7 +168,7 @@ return {
 	["{area:1440}: kill these as you meet them"] = "",
 	-- {npc:5982} Black Slayer · {spell:5416} Venom Sting · {npc:8301} Clack the Reaver
 	-- plural, as words: Starving Snickerfangs = {npc:5984} Starving Snickerfang · Scorpok Stingers = {npc:5988} Scorpok Stinger
-	["The five quests share the same parts: gather them all in one sweep. West of the road the {npc:5982} vultures, Starving Snickerfangs, Scorpok Stingers and Deatheye basilisks share the hills.\nEast of the road the Ashmane boars and Grunters root on the slopes beside the Redstone basilisks. Stay away from the level 52 Helboars further south.\nCareful: Scorpok Stingers use {spell:5416}; {npc:8301} adds Knockdown."] = "",
+	["The five quests share the same parts: gather them all in one sweep. West of the road the {npc:5982} vultures, Starving Snickerfangs, Scorpok Stingers and Deatheye basilisks share the hills.\nEast of the road the Ashmane boars and Grunters root on the slopes beside the Redstone basilisks. Stay away from the level 52 Helboars further south.\nCareful: Scorpok Stingers use {spell:5416}; {npc:8301} adds Knockdown."] = "五個任務需要相同的材料：一趟全部收集。道路西邊，{npc:5982}禿鷲、饑餓的彎牙土狼、厚甲毒刺蠍和死眼蜥蜴共同分布在丘陵上。\n道路東邊，灰鬃野豬和灰鬃咕嚕豬在紅石蜥蜴旁的山坡上拱土。遠離更南邊的52級地獄野豬。\n小心：厚甲毒刺蠍會使用{spell:5416}；{npc:8301}還會擊倒。",
 
 	-- Step 38: The bloodmages
 	["Ride back north to the bloodmages."] = "向北騎回血法師那裡。",
@@ -178,11 +184,8 @@ return {
 	-- ["East of the road the Ashmane boars and Grunters root on the slopes beside the Redstone basilisks. Stay away from the level 52 Helboars further south."] = "道路東邊，灰鬃野豬和格朗特在紅石蜥蜴旁的山坡上拱土。遠離更南邊52級的地獄野豬。",
 	-- ["Fly to the {area:1497}"] = "飛往{area:1497}",
 	-- ["Follow the roads east across the {area:47} to the troll village on the eastern coast."] = "沿道路向東穿過{area:47}，前往東海岸的食人妖村落。",
-	-- ["From {area:1446}'s flight master."] = "從{area:1446}的飛行管理員出發。",
 	-- ["Grind to 48"] = "刷到48級",
-	-- ["Huntsman Malkhor's skull lies on a pile below the Vilebranch ruins, his bones on a pile at the foot of {area:354}. The Vessels of Tainted Blood sit on the lower terraces, and {npc:14757} is held at the top. Keep to the paths: the trolls inside are elite."] = "獵戶莫克霍爾的顱骨在邪枝廢墟下方的一堆東西上，他的骨頭在{area:354}山腳的另一堆上。污染之血之瓶放在下層平台，{npc:14757}被關在頂端。走在小路上：裡面的食人妖是精英。",
 	-- ["Huntsman Malkhor's skull lies on a pile below the Vilebranch ruins, his bones on a pile at the foot of {area:354}. The Vessels of {spell:19478} sit on the lower terraces, and {npc:14757} is held at the top. Keep to the paths: the trolls inside are elite."] = "獵戶莫克霍爾的顱骨在邪枝廢墟下方的一堆東西上，他的骨頭在{area:354}山腳的另一堆上。{spell:19478}之瓶放在下層平台，{npc:14757}被關在頂端。走在小路上：裡面的食人妖是精英。",
-	-- ["On the way back east, the Vilebranch soothsayers hold the {area:355}, the troll temple south of the central hills. Qiaga and {npc:8636} (elite, 50) stand at its top: take the soothsayers on the lower steps."] = "在往東回去的路上，邪枝占卜者佔據中部丘陵南邊的食人妖神廟{area:355}。守護者奇爾加和{npc:8636}（精英，50級）站在頂端：在下層階梯對付占卜者。",
 	-- ["Only if you are not level 48 yet."] = "只有在你還沒48級時。",
 	-- ["Only with the distress beacon: the robot sits at the head of the river west of {area:351}. Escort it east to the shore beyond the {area:307}; its reward waits with Oglethorpe in {area:35}."] = "只有在持有求救信標時：機器人在{area:351}西邊的河流源頭。護送它向東到{area:307}之外的海岸；獎勵在{area:35}的奧格索普·奧布諾提斯那裡。",
 	-- ["Ride north back to {area:75} and fly to the {area:1497}."] = "向北騎回{area:75}，飛往{area:1497}。",
@@ -190,13 +193,10 @@ return {
 	-- ["Saltwater Snapjaws"] = "海水鉗嘴龜",
 	-- ["Silvermane Howlers"] = "銀鬃嗥狼",
 	-- ["South-west, the Silvermane Howlers roam the hills east of the Witherbark villages."] = "往西南，銀鬃嗥狼在枯木村落東邊的丘陵遊蕩。",
-	-- ["The Highvale elves camp around {area:350}. Burn the report, the notes and the records in their camps. {npc:7780} is held inside the lodge: lead him out and fight off the ambush on the way."] = "高原精靈在{area:350}周圍紮營。燒掉他們營地中的報告、筆記和紀錄。{npc:7780}被關在小屋裡：帶他出來，途中擊退伏擊。",
 	-- ["The Silvermane Stalkers, Savage Owlbeasts and Razorbeak Skylords share the hills between the temples and {area:351}. Use the {item:9618} on the owlbeasts you kill. The Skylords also drop Long Elegant Feathers: keep ten for {npc:14738}'s second message."] = "銀鬃捕獵者、野蠻的梟獸和翱翔的鋒喙獅鷲獸共同分布在神廟與{area:351}之間的丘陵。對你殺死的梟獸使用{item:9618}。翱翔的鋒喙獅鷲獸也會掉落細長的獅鷲獸羽毛：留十根給{npc:14738}的第二個訊息。",
 	-- ["The Vilebranch temples"] = "邪枝神廟",
-	-- ["The big turtles crawl along the beaches north of the village. {npc:2491}'s port bottles lie on these beaches too, but his quest is not on this route. A snapjaw can drop OOX-09/HL's distress beacon, rarely: keep it."] = "大海龜在村子北邊的海灘上爬行。{npc:2491}的波特酒瓶也在這些海灘上，但他的任務不在本路線上。鉗嘴龜偶爾會掉落OOX-09/HL的求救信標：留著它。",
 	-- ["The central hills"] = "中部丘陵",
 	-- ["The eastern slopes"] = "東坡",
-	-- ["The five quests share the same parts: gather them all in one sweep. West of the road the {npc:5982} vultures, Starving Snickerfangs, Scorpok Stingers and Deatheye basilisks share the hills."] = "五個任務需要相同的材料：一趟全部收集。道路西邊，{npc:5982}禿鷲、饑餓的彎牙土狼、厚甲毒刺蠍和死眼蜥蜴共同分布在丘陵上。",
 	-- ["The next guide starts here, at {area:3317}."] = "下一份指南從{area:3317}開始。",
 	-- ["The northern beasts"] = "北方的野獸",
 	-- ["Vilebranch soothsayers"] = "邪枝占卜者",

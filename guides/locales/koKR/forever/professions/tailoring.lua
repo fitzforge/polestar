@@ -20,13 +20,13 @@ return {
 
 	-- Step 3: Tailoring 1-75: Auction House
 	-- {skill:197} Tailoring
-	["{skill:197} 1-75: Auction House"] = "",
+	["{skill:197} 1-75: Auction House"] = "{skill:197} 1-75: 경매장",
 	-- {item:2589} Linen Cloth
-	["What 1-75 takes that the Auction House sells: 144 {item:2589}. The counts drop by what your bags, bank and mail hold."] = "",
+	["What 1-75 takes that the Auction House sells: 144 {item:2589}. The counts drop by what your bags, bank and mail hold."] = "1-75 구간에 필요한 것 중 경매장에서 파는 것: {item:2589} 144개. 가방, 은행, 우편함에 있는 만큼 수량이 줄어듭니다.",
 
 	-- Step 4: Linen Cloth
 	-- {item:2589} Linen Cloth · {spell:2387} Linen Cloak · {item:7026} Linen Belt
-	["144 {item:2589} for {spell:2387} and {item:7026}: humanoids of level 5-20 drop it. Keep what you loot as you level, or take it from your bank."] = "",
+	["144 {item:2589} for {spell:2387} and {item:7026}: humanoids of level 5-20 drop it. Keep what you loot as you level, or take it from your bank."] = "{spell:2387}와(과) {item:7026}에 쓸 {item:2589} 144개: 5-20레벨 인간형 몹이 떨어뜨립니다. 레벨을 올리며 얻은 것을 모아 두거나 은행에서 꺼내세요.",
 
 	-- Step 5: Linen Cloak to 15
 	-- {spell:2387} Linen Cloak
@@ -36,9 +36,9 @@ return {
 
 	-- Step 6: Tailoring recipes at 15
 	-- {skill:197} Tailoring
-	["{skill:197} recipes at 15"] = "",
+	["{skill:197} recipes at 15"] = "15에서 {skill:197} 제조법",
 	-- {skill:197} Tailoring · {spell:8776} Linen Belt
-	["Back to a {skill:197} trainer: {spell:8776} (from 15, 50c)."] = "",
+	["Back to a {skill:197} trainer: {spell:8776} (from 15, 50c)."] = "{skill:197} 상급자에게 돌아가세요: {spell:8776}(15부터, 50코퍼).",
 
 	-- Step 7: Linen Belt to 75
 	-- {item:7026} Linen Belt
@@ -60,29 +60,29 @@ return {
 
 	-- Step 10: Tailoring 75-150: Auction House
 	-- {skill:197} Tailoring
-	["{skill:197} 75-150: Auction House"] = "",
+	["{skill:197} 75-150: Auction House"] = "{skill:197} 75-150: 경매장",
 	-- {item:2592} Wool Cloth · {item:4306} Silk Cloth
-	["What 75-150 takes that the Auction House sells: 567 {item:2592} and 204 {item:4306}. The counts drop by what your bags, bank and mail hold."] = "",
+	["What 75-150 takes that the Auction House sells: 567 {item:2592} and 204 {item:4306}. The counts drop by what your bags, bank and mail hold."] = "75-150 구간에 필요한 것 중 경매장에서 파는 것: {item:2592} 567개, {item:4306} 204개. 가방, 은행, 우편함에 있는 만큼 수량이 줄어듭니다.",
 
 	-- Step 11: Wool Cloth
 	-- {item:2592} Wool Cloth · {spell:2402} Woolen Cape · {spell:3866} Stylish Red Shirt
-	["567 {item:2592} for {spell:2402} and {spell:3866}: humanoids of level 15-30 drop it. Keep what you loot as you level, or take it from your bank."] = "",
+	["567 {item:2592} for {spell:2402} and {spell:3866}: humanoids of level 15-30 drop it. Keep what you loot as you level, or take it from your bank."] = "{spell:2402}와(과) {spell:3866}에 쓸 {item:2592} 567개: 15-30레벨 인간형 몹이 떨어뜨립니다. 레벨을 올리며 얻은 것을 모아 두거나 은행에서 꺼내세요.",
 
 	-- Step 12: Silk Cloth
 	-- {item:4306} Silk Cloth · {spell:3871} Formal White Shirt
-	["204 {item:4306} for {spell:3871}: humanoids of level 25-45 drop it. Keep what you loot as you level, or take it from your bank."] = "",
+	["204 {item:4306} for {spell:3871}: humanoids of level 25-45 drop it. Keep what you loot as you level, or take it from your bank."] = "{spell:3871}에 쓸 {item:4306} 204개: 25-45레벨 인간형 몹이 떨어뜨립니다. 레벨을 올리며 얻은 것을 모아 두거나 은행에서 꺼내세요.",
 
 	-- Step 13: Woolen Cape to 104
 	-- {spell:2402} Woolen Cape
-	["{spell:2402} to 104"] = "",
+	["{spell:2402} to 104"] = "{spell:2402}: 104까지",
 	-- {spell:2402} Woolen Cape · {spell:2964} Bolt of Woolen Cloth · {item:2321} Fine Thread
 	["{spell:2402} is orange at 75 (yellow 80, green 97, grey 115): about 42 crafts to 104. Each takes 1 {spell:2964} and 1 {item:2321}. Make the 42 {spell:2964} first: it gives points too while not grey. {spell:2964} is taught from 55 on Forever."] = "",
 
 	-- Step 14: Tailoring recipes at 104
 	-- {skill:197} Tailoring
-	["{skill:197} recipes at 104"] = "",
+	["{skill:197} recipes at 104"] = "104에서 {skill:197} 제조법",
 	-- {skill:197} Tailoring · {spell:3866} Stylish Red Shirt
-	["Back to a {skill:197} trainer: {spell:3866} (from 85, 2s 50c)."] = "",
+	["Back to a {skill:197} trainer: {spell:3866} (from 85, 2s 50c)."] = "{skill:197} 상급자에게 돌아가세요: {spell:3866}(85부터, 2실버 50코퍼).",
 
 	-- Step 15: Stylish Red Shirt to 135
 	-- {spell:3866} Stylish Red Shirt
@@ -92,7 +92,7 @@ return {
 
 	-- Step 16: Tailoring recipes at 135
 	-- {skill:197} Tailoring
-	["{skill:197} recipes at 135"] = "",
+	["{skill:197} recipes at 135"] = "135에서 {skill:197} 제조법",
 	-- {skill:197} Tailoring · {spell:3839} Bolt of Silk Cloth · {spell:3871} Formal White Shirt
 	["Back to a {skill:197} trainer: {spell:3839} (from 100, 5s) and {spell:3871} (from 135)."] = "",
 
@@ -114,48 +114,48 @@ return {
 
 	-- Step 20: Tailoring 150-225: Auction House
 	-- {skill:197} Tailoring
-	["{skill:197} 150-225: Auction House"] = "",
+	["{skill:197} 150-225: Auction House"] = "{skill:197} 150-225: 경매장",
 	-- {item:4306} Silk Cloth · {item:4338} Mageweave Cloth
-	["What 150-225 takes that the Auction House sells: 264 {item:4306} and 900 {item:4338}. The counts drop by what your bags, bank and mail hold."] = "",
+	["What 150-225 takes that the Auction House sells: 264 {item:4306} and 900 {item:4338}. The counts drop by what your bags, bank and mail hold."] = "150-225 구간에 필요한 것 중 경매장에서 파는 것: {item:4306} 264개, {item:4338} 900개. 가방, 은행, 우편함에 있는 만큼 수량이 줄어듭니다.",
 
 	-- Step 21: Silk Cloth
 	-- {item:4306} Silk Cloth · {item:7053} Azure Silk Cloak
-	["264 {item:4306} for {item:7053}: humanoids of level 25-45 drop it. Keep what you loot as you level, or take it from your bank."] = "",
+	["264 {item:4306} for {item:7053}: humanoids of level 25-45 drop it. Keep what you loot as you level, or take it from your bank."] = "{item:7053}에 쓸 {item:4306} 264개: 25-45레벨 인간형 몹이 떨어뜨립니다. 레벨을 올리며 얻은 것을 모아 두거나 은행에서 꺼내세요.",
 
 	-- Step 22: Mageweave Cloth
 	-- {item:4338} Mageweave Cloth · {item:9998} Black Mageweave Vest · {item:10024} Black Mageweave Headband
-	["900 {item:4338} for {item:9998} and {item:10024}: humanoids of level 35-50 drop it. Keep what you loot as you level, or take it from your bank."] = "",
+	["900 {item:4338} for {item:9998} and {item:10024}: humanoids of level 35-50 drop it. Keep what you loot as you level, or take it from your bank."] = "{item:9998}와(과) {item:10024}에 쓸 {item:4338} 900개: 35-50레벨 인간형 몹이 떨어뜨립니다. 레벨을 올리며 얻은 것을 모아 두거나 은행에서 꺼내세요.",
 
 	-- Step 23: Expert Tailoring
 	-- {skill:197} Tailoring
 	["Expert {skill:197}"] = "숙련 {skill:197}",
 	-- {skill:197} Tailoring · {npc:1346} Georgio Bolero · {zone:1453} Stormwind City · {npc:4576} Josef Gregorian · {zone:1458} Undercity · {spell:3865} Bolt of Mageweave · {item:4306} Silk Cloth · {item:4338} Mageweave Cloth · {item:9998} Black Mageweave Vest · {item:10024} Black Mageweave Headband
-	["Expert raises the cap from 150 to 225; it needs {skill:197} 125 and character level 20, so you can take it on any visit from 125. Only a few trainers teach it: Alliance {npc:1346} ({zone:1453}); Horde {npc:4576} ({zone:1458}). The arrow picks the nearest of your faction. Learn now: {spell:3865} (from 140). 150-225 takes about 15s of recipes and 21g 16s of vendor goods, plus 264 {item:4306} and 900 {item:4338} to gather or buy. Come with all of it in your bags (the steps above, the rest from the Auction House): these trainers also teach {item:9998} (from 170) and {item:10024} (from 190), and the crafts need no station, so craft right here and learn each recipe as you reach its skill. One trip instead of 3."] = "숙련 단계는 최대 숙련도를 150에서 225로 올립니다. {skill:197} 125와 캐릭터 레벨 20이 필요하므로, 125가 되면 언제 들러도 배울 수 있습니다. 가르치는 상급자는 몇 명뿐입니다: 얼라이언스는 {npc:1346}({zone:1453}), 호드는 {npc:4576}({zone:1458})입니다. 화살표가 진영의 가장 가까운 상급자를 가리킵니다. 지금 배우세요: {spell:3865}(140부터). 150-225에는 제조법 약 15실버와 상인 재료 약 21골드 16실버, 그리고 채집하거나 살 {item:4306} 264개, {item:4338} 900개가 듭니다. 모든 재료를 가방에 챙겨서 오세요(위 단계에서 모으고, 나머지는 경매장에서). 이 상급자들은 {item:9998}(170부터)와(과) {item:10024}(190부터)도 가르치며, 제작에 작업대가 필요 없으므로 바로 여기서 만들고 숙련도에 도달할 때마다 제조법을 배우세요. 세 번 올 것을 한 번에 끝냅니다.",
+	["Expert raises the cap from 150 to 225; it needs {skill:197} 125 and character level 20, so you can take it on any visit from 125. Only a few trainers teach it: Alliance {npc:1346} ({zone:1453}); Horde {npc:4576} ({zone:1458}). The arrow picks the nearest of your faction. Learn now: {spell:3865} (from 140). 150-225 takes about 15s of recipes and 21g 16s of vendor goods, plus 264 {item:4306} and 900 {item:4338} to gather or buy. Come with all of it in your bags (the steps above, the rest from the Auction House): these trainers also teach {item:9998} (from 170), and the crafts need no station, so craft right here and learn each recipe as you reach its skill. One trip instead of 2. {item:10024} (from 190) takes a second trip, to other trainers (below)."] = "숙련 단계는 최대 숙련도를 150에서 225로 올립니다. {skill:197} 125와 캐릭터 레벨 20이 필요하므로, 125가 되면 언제 들러도 배울 수 있습니다. 가르치는 상급자는 몇 명뿐입니다: 얼라이언스는 {npc:1346}({zone:1453}), 호드는 {npc:4576}({zone:1458})입니다. 화살표가 진영의 가장 가까운 상급자를 가리킵니다. 지금 배우세요: {spell:3865}(140부터). 150-225에는 제조법 약 15실버와 상인 재료 약 21골드 16실버, 그리고 채집하거나 살 {item:4306} 264개, {item:4338} 900개가 듭니다. 모든 재료를 가방에 챙겨서 오세요(위 단계에서 모으고, 나머지는 경매장에서). 이 상급자들은 {item:9998}(170부터)도 가르치며, 제작에 작업대가 필요 없으므로 바로 여기서 만들고 숙련도에 도달할 때마다 제조법을 배우세요. 두 번 올 것을 한 번에 끝냅니다. {item:10024}(190부터)은(는) 다른 상급자에게 두 번째로 가야 합니다(아래 참조).",
 
 	-- Step 24: Azure Silk Cloak to 170
 	-- {item:7053} Azure Silk Cloak
-	["{item:7053} to 170"] = "",
+	["{item:7053} to 170"] = "{item:7053}: 170까지",
 	-- {item:7053} Azure Silk Cloak · {spell:3839} Bolt of Silk Cloth · {item:6260} Blue Dye · {item:2321} Fine Thread
 	["{item:7053} is orange at 150 (yellow 160, green 175, grey 190): about 22 crafts to 170. Each takes 3 {spell:3839}, 2 {item:6260} and 2 {item:2321}. Make the 66 {spell:3839} first. Its recipe is the one bought above; it is the cheapest way through these points in the data."] = "",
 	["from the recipe in your bags"] = "가방에 있는 제조법으로",
 
 	-- Step 25: Tailoring recipes at 170
 	-- {skill:197} Tailoring
-	["{skill:197} recipes at 170"] = "",
+	["{skill:197} recipes at 170"] = "170에서 {skill:197} 제조법",
 	-- {spell:12048} Black Mageweave Vest
-	["Still at the Expert trainer: {spell:12048} (from 170)."] = "",
+	["Still at the Expert trainer: {spell:12048} (from 170)."] = "계속 숙련 상급자에게서: {spell:12048}(170부터).",
 
 	-- Step 26: Black Mageweave Vest to 197
 	-- {item:9998} Black Mageweave Vest
-	["{item:9998} to 197"] = "",
+	["{item:9998} to 197"] = "{item:9998}: 197까지",
 	-- {item:9998} Black Mageweave Vest · {spell:3865} Bolt of Mageweave · {item:4291} Silken Thread
 	["{item:9998} is orange at 170 (yellow 185, green 200, grey 215): about 30 crafts to 197. Each takes 2 {spell:3865} and 3 {item:4291}. Make the 60 {spell:3865} first. The trainer teaches it, and it is the cheapest way through these points in the data."] = "",
 
 	-- Step 27: Tailoring recipes at 197
 	-- {skill:197} Tailoring
-	["{skill:197} recipes at 197"] = "",
-	-- {spell:12072} Black Mageweave Headband
-	["Still at the Expert trainer: {spell:12072} (from 190)."] = "",
+	["{skill:197} recipes at 197"] = "197에서 {skill:197} 제조법",
+	-- {spell:12072} Black Mageweave Headband · {npc:11052} Timothy Worthington · {zone:1445} Dustwallow Marsh · {npc:2399} Daryl Stack · {zone:1424} Hillsbrad Foothills
+	["{spell:12072} (from 190) is taught only by the Artisan trainers: Alliance {npc:11052} ({zone:1445}); Horde {npc:2399} ({zone:1424})."] = "{spell:12072}(190부터)은(는) 전문 상급자만 가르칩니다: 얼라이언스 {npc:11052}({zone:1445}), 호드 {npc:2399}({zone:1424}).",
 
 	-- Step 28: Black Mageweave Headband to 225
 	-- {item:10024} Black Mageweave Headband
@@ -181,15 +181,15 @@ return {
 
 	-- Step 32: Tailoring 225-300: Auction House
 	-- {skill:197} Tailoring
-	["{skill:197} 225-300: Auction House"] = "",
+	["{skill:197} 225-300: Auction House"] = "{skill:197} 225-300: 경매장",
 	-- {item:8170} Rugged Leather · {item:14047} Runecloth · {item:14227} Ironweb Spider Silk · {item:14504} Pattern: Runecloth Shoulders
-	["What 225-300 takes that the Auction House sells: 420 {item:8170}, 3195 {item:14047}, 124 {item:14227} and a {item:14504}. The counts drop by what your bags, bank and mail hold."] = "",
+	["What 225-300 takes that the Auction House sells: 420 {item:8170}, 3195 {item:14047}, 124 {item:14227} and a {item:14504}. The counts drop by what your bags, bank and mail hold."] = "225-300 구간에 필요한 것 중 경매장에서 파는 것: {item:8170} 420개, {item:14047} 3195개, {item:14227} 124개, {item:14504} 1개. 가방, 은행, 우편함에 있는 만큼 수량이 줄어듭니다.",
 
 	-- Step 33: Rugged Leather (Alliance)
 	-- {item:8170} Rugged Leather
 	["{item:8170} (Alliance)"] = "{item:8170} (얼라이언스)",
 	-- {item:8170} Rugged Leather · {item:13863} Runecloth Gloves · {item:13867} Runecloth Shoulders · {skill:393} Skinning · {npc:8598} Frenzied Plaguehound · {npc:8596} Plaguehound Runt
-	["420 {item:8170} for {item:13863} and {item:13867}: {skill:393}: beasts of level 48-60. Skin {npc:8598}, Plaguehound and {npc:8596} here (level 48-60); the {skill:393} guide routes this."] = "",
+	["420 {item:8170} for {item:13863} and {item:13867}: {skill:393}: beasts of level 48-60. Skin {npc:8598}, Plaguehound and {npc:8596} here (level 48-60); the {skill:393} guide routes this."] = "{item:13863}와(과) {item:13867}에 쓸 {item:8170} 420개: {skill:393}: 48-60레벨 야수. 여기서 {npc:8598}, 역병사냥개, {npc:8596}의 가죽을 벗기세요(48-60레벨). {skill:393} 가이드에 경로가 있습니다.",
 
 	-- Step 34: Rugged Leather (Horde)
 	-- {item:8170} Rugged Leather
@@ -199,7 +199,7 @@ return {
 
 	-- Step 35: Runecloth
 	-- {item:14047} Runecloth · {item:13856} Runecloth Belt · {item:13863} Runecloth Gloves · {item:13867} Runecloth Shoulders
-	["3195 {item:14047} for {item:13856}, {item:13863} and {item:13867}: humanoids of level 45-60 drop it. Keep what you loot as you level, or take it from your bank."] = "",
+	["3195 {item:14047} for {item:13856}, {item:13863} and {item:13867}: humanoids of level 45-60 drop it. Keep what you loot as you level, or take it from your bank."] = "{item:13856}, {item:13863}, {item:13867}에 쓸 {item:14047} 3195개: 45-60레벨 인간형 몹이 떨어뜨립니다. 레벨을 올리며 얻은 것을 모아 두거나 은행에서 꺼내세요.",
 
 	-- Step 36: Ironweb Spider Silk (Alliance)
 	-- {item:14227} Ironweb Spider Silk
@@ -210,18 +210,18 @@ return {
 	-- Step 37: Ironweb Spider Silk (Horde)
 	-- {item:14227} Ironweb Spider Silk
 	["{item:14227} (Horde)"] = "{item:14227} (호드)",
-	-- {item:14227} Ironweb Spider Silk · {item:13867} Runecloth Shoulders · {npc:11738} Sand Skitterer
-	["124 {item:14227} for {item:13867}: it drops from {npc:11738} (level 55-56) at the marked spot."] = "",
+	-- {item:14227} Ironweb Spider Silk · {item:13867} Runecloth Shoulders · {npc:11739} Rock Stalker
+	["124 {item:14227} for {item:13867}: it drops from {npc:11739} (level 57-59) at the marked spot."] = "{item:13867}에 필요한 {item:14227} 124개: 표시된 지점의 {npc:11739}(57-59레벨)이(가) 떨어뜨립니다.",
 
 	-- Step 38: Runecloth Belt to 234
 	-- {item:13856} Runecloth Belt
-	["{item:13856} to 234"] = "",
+	["{item:13856} to 234"] = "{item:13856}: 234까지",
 	-- {item:13856} Runecloth Belt · {item:14048} Bolt of Runecloth · {item:14341} Rune Thread
 	["{item:13856} is yellow at 225 (yellow 225, green 240, grey 255): about 11 crafts to 234. Each takes 3 {item:14048} and 1 {item:14341}. Make the 33 {item:14048} first. {item:14341} from tailoring vendors."] = "",
 
 	-- Step 39: Runecloth Gloves to 265
 	-- {item:13863} Runecloth Gloves
-	["{item:13863} to 265"] = "",
+	["{item:13863} to 265"] = "{item:13863}: 265까지",
 	-- {item:13863} Runecloth Gloves · {item:14048} Bolt of Runecloth · {item:8170} Rugged Leather · {item:14341} Rune Thread · {npc:11189} Qia · {area:2255} Everlook · {area:1769} Timbermaw Hold · {zone:1448} Felwood
 	["{item:13863} is orange at 234 (yellow 245, green 260, grey 275): about 43 crafts to 265. Each takes 4 {item:14048}, 4 {item:8170} and 1 {item:14341}. Make the 172 {item:14048} first. {npc:11189} in {area:2255} keeps one pattern at a time; the {area:1769} tunnel from {zone:1448} is the road in, so never kill Timbermaw furbolgs on the way."] = "",
 
@@ -233,21 +233,11 @@ return {
 	["from the pattern bought at the Auction House"] = "",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
-	-- ["144 {item:2589} for {spell:2387} and {item:7026}: humanoids of level 5-20 drop it. Keep what you loot as you level, take it from your bank, or buy it at the Auction House."] = "{spell:2387}와(과) {item:7026}에 쓸 {item:2589} 144개: 5-20레벨 인간형 몹이 떨어뜨립니다. 레벨을 올리며 얻은 것을 모아 두거나, 은행에서 꺼내거나, 경매장에서 사세요.",
-	-- ["204 {item:4306} for {spell:3871}: humanoids of level 25-45 drop it. Keep what you loot as you level, take it from your bank, or buy it at the Auction House."] = "{spell:3871}에 쓸 {item:4306} 204개: 25-45레벨 인간형 몹이 떨어뜨립니다. 레벨을 올리며 얻은 것을 모아 두거나, 은행에서 꺼내거나, 경매장에서 사세요.",
-	-- ["264 {item:4306} for {item:7053}: humanoids of level 25-45 drop it. Keep what you loot as you level, take it from your bank, or buy it at the Auction House."] = "{item:7053}에 쓸 {item:4306} 264개: 25-45레벨 인간형 몹이 떨어뜨립니다. 레벨을 올리며 얻은 것을 모아 두거나, 은행에서 꺼내거나, 경매장에서 사세요.",
-	-- ["3195 {item:14047} for {item:13856}, {item:13863} and {item:13867}: humanoids of level 45-60 drop it. Keep what you loot as you level, take it from your bank, or buy it at the Auction House."] = "{item:13856}, {item:13863}, {item:13867}에 쓸 {item:14047} 3195개: 45-60레벨 인간형 몹이 떨어뜨립니다. 레벨을 올리며 얻은 것을 모아 두거나, 은행에서 꺼내거나, 경매장에서 사세요.",
-	-- ["420 {item:8170} for {item:13863} and {item:13867}: {skill:393}: beasts of level 48-60; or the Auction House. Skin {npc:8598}, Plaguehound and {npc:8596} here (level 48-60); the {skill:393} guide routes this."] = "{item:13863}와(과) {item:13867}에 쓸 {item:8170} 420개: {skill:393}: 48-60레벨 야수, 또는 경매장. 여기서 {npc:8598}, 역병사냥개, {npc:8596}의 가죽을 벗기세요(48-60레벨). {skill:393} 가이드에 경로가 있습니다.",
-	-- ["567 {item:2592} for {spell:2402} and {spell:3866}: humanoids of level 15-30 drop it. Keep what you loot as you level, take it from your bank, or buy it at the Auction House."] = "{spell:2402}와(과) {spell:3866}에 쓸 {item:2592} 567개: 15-30레벨 인간형 몹이 떨어뜨립니다. 레벨을 올리며 얻은 것을 모아 두거나, 은행에서 꺼내거나, 경매장에서 사세요.",
-	-- ["900 {item:4338} for {item:9998} and {item:10024}: humanoids of level 35-50 drop it. Keep what you loot as you level, take it from your bank, or buy it at the Auction House."] = "{item:9998}와(과) {item:10024}에 쓸 {item:4338} 900개: 35-50레벨 인간형 몹이 떨어뜨립니다. 레벨을 올리며 얻은 것을 모아 두거나, 은행에서 꺼내거나, 경매장에서 사세요.",
 	-- ["Apprentice {skill:197}"] = "초급 {skill:197}",
 	-- ["Artisan needs character level 35 and {skill:197} 200; it raises the cap to 300. Materials for 225-300 are worth about 845g in all."] = "전문은(는) 캐릭터 레벨 35, {skill:197} 200이(가) 필요하며 최대 숙련도를 300(으)로 올립니다. 225-300 재료는 모두 약 845골드입니다.",
-	-- ["Back to a {skill:197} trainer: {spell:12048} is taught from {skill:197} 185."] = "{skill:197} 상급자에게 돌아가세요. {spell:12048}은(는) {skill:197} 185부터 배울 수 있습니다.",
 	-- ["Back to a {skill:197} trainer: {spell:12072} is taught from {skill:197} 205."] = "{skill:197} 상급자에게 돌아가세요. {spell:12072}은(는) {skill:197} 205부터 배울 수 있습니다.",
 	-- ["Back to a {skill:197} trainer: {spell:2402} is taught from {skill:197} 80."] = "{skill:197} 상급자에게 돌아가세요. {spell:2402}은(는) {skill:197} 80부터 배울 수 있습니다.",
 	-- ["Back to a {skill:197} trainer: {spell:3848} is taught from {skill:197} 110."] = "{skill:197} 상급자에게 돌아가세요. {spell:3848}은(는) {skill:197} 110부터 배울 수 있습니다.",
-	-- ["Back to a {skill:197} trainer: {spell:3852} is taught from {skill:197} 125."] = "{skill:197} 상급자에게 돌아가세요. {spell:3852}은(는) {skill:197} 125부터 배울 수 있습니다.",
-	-- ["Back to a {skill:197} trainer: {spell:8776} is taught from {skill:197} 50."] = "{skill:197} 상급자에게 돌아가세요. {spell:8776}은(는) {skill:197} 50부터 배울 수 있습니다.",
 	-- ["Back to a {skill:197} trainer: {spell:8799} is taught from {skill:197} 180."] = "{skill:197} 상급자에게 돌아가세요. {spell:8799}은(는) {skill:197} 180부터 배울 수 있습니다.",
 	-- ["Expert needs character level 20 and {skill:197} 125; it raises the cap to 225. Materials for 150-225 are worth about 135g in all."] = "숙련은(는) 캐릭터 레벨 20, {skill:197} 125이(가) 필요하며 최대 숙련도를 225(으)로 올립니다. 150-225 재료는 모두 약 135골드입니다.",
 	-- ["Journeyman needs character level 10 and {skill:197} 50; it raises the cap to 150. Materials for 75-150 are worth about 17g in all."] = "수습은(는) 캐릭터 레벨 10, {skill:197} 50이(가) 필요하며 최대 숙련도를 150(으)로 올립니다. 75-150 재료는 모두 약 17골드입니다.",
@@ -273,8 +263,6 @@ return {
 	-- ["Yellow until 67, green until 85: not every craft gives a point. 75 is the Apprentice cap."] = "67까지 노란색, 85까지 초록색입니다. 만들 때마다 점수가 오르지는 않습니다. 75은(는) 초급 최대치입니다.",
 	-- ["Yellow until 97, green until 115: not every craft gives a point."] = "97까지 노란색, 115까지 초록색입니다. 만들 때마다 점수가 오르지는 않습니다.",
 	-- ["{item:10045} to 50"] = "{item:10045}: 50까지",
-	-- ["{item:13856} to 236"] = "{item:13856}: 236까지",
-	-- ["{item:13863} to 251"] = "{item:13863}: 251까지",
 	-- ["{item:14047} (Alliance)"] = "{item:14047} (얼라이언스)",
 	-- ["{item:14047} (Horde)"] = "{item:14047} (호드)",
 	-- ["{item:254123} to 295"] = "{item:254123}: 295까지",
@@ -283,9 +271,7 @@ return {
 	-- ["{item:4338} (Alliance)"] = "{item:4338} (얼라이언스)",
 	-- ["{item:4338} (Horde)"] = "{item:4338} (호드)",
 	-- ["{item:7026} to 80"] = "{item:7026}: 80까지",
-	-- ["{item:7053} to 180"] = "{item:7053}: 180까지",
 	-- ["{item:7062} to 185"] = "{item:7062}: 185까지",
-	-- ["{item:9998} to 205"] = "{item:9998}: 205까지",
 	-- ["{npc:11739} (level 57-59) drop it here. The Auction House works too."] = "이곳의 {npc:11739}(57-59레벨)이(가) 떨어뜨립니다. 경매장도 됩니다.",
 	-- ["{npc:1824} (level 54-55) drop it here. The Auction House works too."] = "이곳의 {npc:1824}(54-55레벨)이(가) 떨어뜨립니다. 경매장도 됩니다.",
 	-- ["{npc:3263} (level 19-20) drop it here. The Auction House works too."] = "이곳의 {npc:3263}(19-20레벨)이(가) 떨어뜨립니다. 경매장도 됩니다.",
@@ -296,15 +282,9 @@ return {
 	-- ["{npc:98} (level 17-18) drop it here. The Auction House works too."] = "이곳의 {npc:98}(17-18레벨)이(가) 떨어뜨립니다. 경매장도 됩니다.",
 	-- ["{skill:171}: {item:3383} (or the Auction House)"] = "{skill:171}: {item:3383} (또는 경매장)",
 	-- ["{skill:197} materials for 75-150"] = "{skill:197} 재료(75-150)",
-	-- ["{skill:197} recipes at 110"] = "110에서 {skill:197} 제조법",
-	-- ["{skill:197} recipes at 125"] = "125에서 {skill:197} 제조법",
-	-- ["{skill:197} recipes at 180"] = "180에서 {skill:197} 제조법",
-	-- ["{skill:197} recipes at 185"] = "185에서 {skill:197} 제조법",
 	-- ["{skill:197} recipes at 205"] = "205에서 {skill:197} 제조법",
-	-- ["{skill:197} recipes at 50"] = "50에서 {skill:197} 제조법",
 	-- ["{skill:197} recipes at 80"] = "80에서 {skill:197} 제조법",
 	-- ["{skill:197} runs alongside leveling. Forever's Legacy System rewards crafting professions at skill 150, 225 and 300 (the Journeyman, Expert and Artisan caps), so each of those checkpoints counts. Materials for 1-75 are worth about 1g 8s in all."] = "{skill:197}은(는) 레벨업과 함께 진행합니다. Forever의 유산 시스템은 제작 전문 기술 숙련도 150, 225, 300(수습, 숙련, 전문 최대치)에 보상을 주므로, 각 단계가 중요합니다. 1-75 재료는 모두 약 1골드 8실버입니다.",
-	-- ["{spell:2402} to 110"] = "{spell:2402}: 110까지",
 	-- ["{spell:3848} to 125"] = "{spell:3848}: 125까지",
 	-- ["{spell:3852} to 150"] = "{spell:3852}: 150까지",
 }

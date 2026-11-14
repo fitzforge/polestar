@@ -93,42 +93,62 @@ return {
 	["/sit by Kaga's campfire until you get {spell:1229451}"] = "Use /sit junto à fogueira de Kaja até ganhar {spell:1229451}",
 
 	-- Step 16: Camping 101: Skinning
+	-- {npc:6290} Yonn Deepcut · {skill:393} Skinning
+	["{npc:6290} takes it once your {skill:393} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "{npc:6290} a recebe quando sua perícia em {skill:393} chegar a 20: colete ou fabrique até lá; enquanto isso, o guia segue em frente.",
 	-- {npc:265810} Kaga Wildhoof · {npc:6290} Yonn Deepcut
 	["{npc:265810}: for {npc:6290}"] = "{npc:265810}: para {npc:6290}",
 
 	-- Step 17: Camping 101: Leatherworking
+	-- {npc:3069} Chaw Stronghide · {skill:165} Leatherworking
+	["{npc:3069} takes it once your {skill:165} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "{npc:3069} a recebe quando sua perícia em {skill:165} chegar a 20: colete ou fabrique até lá; enquanto isso, o guia segue em frente.",
 	-- {npc:265810} Kaga Wildhoof · {npc:3069} Chaw Stronghide
 	["{npc:265810}: for {npc:3069}"] = "{npc:265810}: para {npc:3069}",
 
 	-- Step 18: Camping 101: First Aid
+	-- {npc:5939} Vira Younghoof · {skill:129} First Aid
+	["{npc:5939} takes it once your {skill:129} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "{npc:5939} a recebe quando sua perícia em {skill:129} chegar a 20: colete ou fabrique até lá; enquanto isso, o guia segue em frente.",
 	-- {npc:265810} Kaga Wildhoof · {npc:5939} Vira Younghoof
 	["{npc:265810}: for {npc:5939}"] = "{npc:265810}: para {npc:5939}",
 
 	-- Step 19: Camping 101: Fishing
+	-- {npc:5938} Uthan Stillwater · {skill:356} Fishing
+	["{npc:5938} takes it once your {skill:356} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "{npc:5938} a recebe quando sua perícia em {skill:356} chegar a 20: colete ou fabrique até lá; enquanto isso, o guia segue em frente.",
 	-- {npc:265810} Kaga Wildhoof · {npc:5938} Uthan Stillwater
 	["{npc:265810}: for {npc:5938}"] = "{npc:265810}: para {npc:5938}",
 
 	-- Step 20: Camping 101: Herbalism
+	-- {npc:3013} Komin Winterhoof · {skill:182} Herbalism
+	["{npc:3013} takes it once your {skill:182} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "{npc:3013} a recebe quando sua perícia em {skill:182} chegar a 20: colete ou fabrique até lá; enquanto isso, o guia segue em frente.",
 	-- {npc:265810} Kaga Wildhoof · {npc:3013} Komin Winterhoof
 	["{npc:265810}: for {npc:3013}"] = "{npc:265810}: para {npc:3013}",
 
 	-- Step 21: Camping 101: Mining
+	-- {npc:3001} Brek Stonehoof · {skill:186} Mining
+	["{npc:3001} takes it once your {skill:186} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "{npc:3001} a recebe quando sua perícia em {skill:186} chegar a 20: colete ou fabrique até lá; enquanto isso, o guia segue em frente.",
 	-- {npc:265810} Kaga Wildhoof · {npc:3001} Brek Stonehoof
 	["{npc:265810}: for {npc:3001}"] = "{npc:265810}: para {npc:3001}",
 
 	-- Step 22: Camping 101: Alchemy
+	-- {npc:11047} Kray · {skill:171} Alchemy
+	["{npc:11047} takes it once your {skill:171} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "{npc:11047} a recebe quando sua perícia em {skill:171} chegar a 20: colete ou fabrique até lá; enquanto isso, o guia segue em frente.",
 	-- {npc:265810} Kaga Wildhoof · {npc:11047} Kray
 	["{npc:265810}: for {npc:11047}"] = "{npc:265810}: para {npc:11047}",
 
 	-- Step 23: Camping 101: Blacksmithing
+	-- {npc:10278} Thrag Stonehoof · {skill:164} Blacksmithing
+	["{npc:10278} takes it once your {skill:164} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "{npc:10278} a recebe quando sua perícia em {skill:164} chegar a 20: colete ou fabrique até lá; enquanto isso, o guia segue em frente.",
 	-- {npc:265810} Kaga Wildhoof · {npc:10278} Thrag Stonehoof
 	["{npc:265810}: for {npc:10278}"] = "{npc:265810}: para {npc:10278}",
 
 	-- Step 24: Camping 101: Enchanting
+	-- {npc:11071} Mot Dawnstrider · {skill:333} Enchanting
+	["{npc:11071} takes it once your {skill:333} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "{npc:11071} a recebe quando sua perícia em {skill:333} chegar a 20: colete ou fabrique até lá; enquanto isso, o guia segue em frente.",
 	-- {npc:265810} Kaga Wildhoof · {npc:11071} Mot Dawnstrider
 	["{npc:265810}: for {npc:11071}"] = "{npc:265810}: para {npc:11071}",
 
 	-- Step 25: Camping 101: Tailoring
+	-- {npc:11051} Vhan · {skill:197} Tailoring
+	["{npc:11051} takes it once your {skill:197} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "{npc:11051} a recebe quando sua perícia em {skill:197} chegar a 20: colete ou fabrique até lá; enquanto isso, o guia segue em frente.",
 	-- {npc:265810} Kaga Wildhoof · {npc:11051} Vhan
 	["{npc:265810}: for {npc:11051}"] = "{npc:265810}: para {npc:11051}",
 
@@ -343,9 +363,11 @@ return {
 	-- Step 79: Into Mulgore
 	-- {zone:1412} Mulgore
 	["Into {zone:1412}"] = "Rumo a {zone:1412}",
+	-- {area:1639} Elder Rise · {zone:1456} Thunder Bluff · {zone:1412} Mulgore · {zone:1413} Barrens
+	["From {area:1639}, take {zone:1456}'s north lift down: at its foot the way runs east along the ledge, then south-east across {zone:1412} to the {zone:1413}."] = "De {area:1639}, desça pelo elevador norte de {zone:1456}: ao pé dele, o caminho segue para leste pela saliência e depois para sudeste por {zone:1412} até {zone:1413}.",
 
-	-- Step 80: Into The Barrens
-	-- {zone:1413} The Barrens
+	-- Step 80: Into Barrens
+	-- {zone:1413} Barrens
 	["Into {zone:1413}"] = "Rumo a {zone:1413}",
 
 	-- Step 81: Kirge Sternhorn
@@ -357,7 +379,7 @@ return {
 	["{npc:10378}, beside {npc:3418}"] = "{npc:10378}, ao lado de {npc:3418}",
 
 	-- Step 83: The Crossroads
-	-- {zone:1412} Mulgore · {npc:3448} Tonga Runetotem · {quest:860} Sergra Darkthorn · {npc:3615} Devrak · {area:380} The Crossroads · {zone:1421} Silverpine Forest · {zone:1413} The Barrens
+	-- {zone:1412} Mulgore · {npc:3448} Tonga Runetotem · {quest:860} Sergra Darkthorn · {npc:3615} Devrak · {area:380} The Crossroads · {zone:1421} Silverpine Forest · {zone:1413} Barrens
 	["Leave {zone:1412} by the south-eastern pass and follow the road to the Crossroads. {npc:3448} stands at the south gate, {quest:860} by the inn, {npc:3615} on the tower platform. {area:380}' own quests come after {zone:1421}, in the {zone:1413} guide."] = "Saia de {zone:1412} pela passagem a sudeste e siga a estrada até a Encruzilhada. {npc:3448} fica no portão sul, {quest:860} junto à estalagem, {npc:3615} na plataforma da torre. As missões próprias de {area:380} vêm depois de {zone:1421}, no guia de {zone:1413}.",
 	-- {npc:3429} Thork
 	["{npc:3429}, by the wind rider tower"] = "{npc:3429}, junto à torre das mantícoras",
@@ -374,11 +396,36 @@ return {
 	-- {npc:8359} Ahanu
 	["{npc:8359}, by the wind riders on the central rise"] = "{npc:8359}, junto às mantícoras no platô central",
 
-	-- Step 87: To Orgrimmar
+	-- Step 90: Kranal Fiss
+	-- {npc:5907} Kranal Fiss · {area:379} Far Watch Post
+	["{npc:5907} stands alone on the ridge above the Razormane camp, north-east of the Crossroads on the road to {area:379}."] = "{npc:5907} fica sozinho na serra acima do acampamento Crinavalha, a nordeste da Encruzilhada, na estrada para {area:379}.",
+
+	-- Step 91: Uzzek
+	-- {area:379} Far Watch Post · {area:814} Southfury River · {zone:1454} Orgrimmar · {npc:5810} Uzzek · {npc:3337} Kargal Battlescar
+	["{area:379} sits above the {area:814} bridge on the road to {zone:1454}: {npc:5810} stands beside {npc:3337}."] = "{area:379} fica acima da ponte de {area:814}, na estrada para {zone:1454}: {npc:5810} fica ao lado de {npc:3337}.",
+
+	-- Step 92: Telf Joolam
+	-- {area:379} Far Watch Post · {zone:1411} Durotar · {npc:5900} Telf Joolam
+	["Over the bridge below {area:379} and south along the {zone:1411} bank of the river to where a narrow trail climbs the mountain: {npc:5900} keeps the shrine at the top. Mind the edges on the way up, and come back down the same trail."] = "Atravesse a ponte abaixo de {area:379} e siga para o sul pela margem do rio do lado de {zone:1411}, até onde uma trilha estreita sobe a montanha: {npc:5900} cuida do santuário no topo. Cuidado com as beiradas na subida, e desça pela mesma trilha.",
+
+	-- Step 93: Thunder lizards on the way north
+	["Thunder lizards on the way north"] = "Lagartos trovejantes no caminho para o norte",
+	-- {area:369} Thunder Ridge · {zone:1454} Orgrimmar · {item:6486} Singed Scale · {npc:5810} Uzzek · {area:379} Far Watch Post
+	-- plural, as words: Thunder Lizards = {npc:3130} Thunder Lizard · Lightning Hides = {npc:3131} Lightning Hide
+	["Thunder Lizards and Lightning Hides graze on {area:369}, beside the road north to {zone:1454}; any of them can drop a {item:6486}. {npc:5810} takes them when the next guide passes {area:379}.\nCareful: Halikor, a level 12 elite, roams {area:369} among the lizards: watch for him before you pull."] = "Lagartos Trovejantes e Pelegos de Relâmpago pastam em {area:369}, ao lado da estrada para o norte até {zone:1454}; qualquer um deles pode deixar cair uma {item:6486}. {npc:5810} as recebe quando o próximo guia passar por {area:379}.\nCuidado: Halikor, um elite de nível 12, vagueia por {area:369} entre os lagartos: fique de olho nele antes de puxar.",
+
+	-- Step 94: Dustwind Gulch cultists
+	-- {area:1898} Dustwind Gulch
+	["{area:1898} cultists"] = "Sectários de {area:1898}",
+	-- {area:1898} Dustwind Gulch · {zone:1454} Orgrimmar · {item:6652} Reagent Pouch · {item:5026} Fire Tar
+	-- plural, as words: Burning Blade Cultists = {npc:3199} Burning Blade Cultist
+	["Burning Blade Cultists hold {area:1898}, east of the road north to {zone:1454}; they drop the {item:6652}. The {item:5026} comes from the Razormane on the next guide's first visit to their camp."] = "Sectários da Lâmina Ardente ocupam {area:1898}, a leste da estrada para o norte até {zone:1454}; eles deixam cair a {item:6652}. O {item:5026} vem dos Crinavalha, na primeira visita do próximo guia ao acampamento deles.",
+
+	-- Step 95: To Orgrimmar
 	-- {zone:1454} Orgrimmar
 	["To {zone:1454}"] = "Até {zone:1454}",
-	-- {area:379} Far Watch Post · {area:815} Southfury River · {zone:1411} Durotar · {zone:1454} Orgrimmar · {zone:1420} Tirisfal Glades · {zone:1421} Silverpine Forest
-	["From the Crossroads follow the road north-east to {area:379}, cross the {area:815} into {zone:1411} and keep north to {zone:1454}'s main gate. The next guide starts in {zone:1454} and takes the zeppelin to {zone:1420} and {zone:1421}."] = "Da Encruzilhada, siga a estrada para nordeste até {area:379}, atravesse {area:815} para {zone:1411} e continue ao norte até o portão principal de {zone:1454}. O próximo guia começa em {zone:1454} e pega o zepelim para {zone:1420} e {zone:1421}.",
+	-- {area:379} Far Watch Post · {area:814} Southfury River · {zone:1411} Durotar · {zone:1454} Orgrimmar · {zone:1420} Tirisfal Glades · {zone:1421} Silverpine Forest
+	["From the Crossroads follow the road north-east to {area:379}, cross the {area:814} into {zone:1411} and keep north to {zone:1454}'s main gate. The next guide starts in {zone:1454} and takes the zeppelin to {zone:1420} and {zone:1421}."] = "Da Encruzilhada, siga a estrada para nordeste até {area:379}, atravesse {area:814} para {zone:1411} e continue ao norte até o portão principal de {zone:1454}. O próximo guia começa em {zone:1454} e pega o zepelim para {zone:1420} e {zone:1421}.",
 	-- {zone:1454} Orgrimmar · {object:172982} Valley of Strength (no name in this language: may be words)
 	["{zone:1454}'s {object:172982}"] = "{object:172982} de {zone:1454}",
 

@@ -12,19 +12,23 @@ return {
 	-- {npc:840} Watcher Backus · {area:42} Darkshire
 	["{npc:840}, at the north entrance of town; walks around {area:42}: look inside the circle on the map"] = "{npc:840}在城镇北侧入口附近巡逻；他会在{area:42}走动，请在地图标示的圆圈内寻找",
 
-	-- Step 3: Nightbane Shadow Weavers
+	-- Step 3: Councilman Millstipe
+	-- {quest:377} Crime and Punishment · {area:717} Stockade · {npc:270} Councilman Millstipe
+	["{quest:377}, from your {area:717} run: {npc:270} is in the town hall, beside Commander Althea."] = "{area:717}之行得到的{quest:377}：{npc:270}在市政厅，指挥官阿尔泰娅旁边。",
+
+	-- Step 4: Nightbane Shadow Weavers
 	-- plural, as words: Nightbane Shadow Weavers = {npc:533} Nightbane Shadow Weaver
 	["Nightbane Shadow Weavers"] = "夜行织影狼人",
 	-- {area:42} Darkshire
 	["The worgen hold the woods of Brightwood, west of {area:42} and north of the road. Pull them one at a time."] = "狼人盘踞在{area:42}西边、道路北侧的阳光树林中。一次只拉一个。",
 
-	-- Step 5: Nightbane Dark Runners
+	-- Step 6: Nightbane Dark Runners
 	-- plural, as words: Nightbane Dark Runners = {npc:205} Nightbane Dark Runner
 	["Nightbane Dark Runners"] = "夜行黑暗狼人",
 	-- {area:42} Darkshire
 	["The Dark Runners prowl the woods south of the road, west of {area:42}."] = "黑暗狼人在{area:42}西边、道路南侧的树林中潜行。",
 
-	-- Step 7: Nightbane Vile Fangs and the Insane Ghoul
+	-- Step 8: Nightbane Vile Fangs and the Insane Ghoul
 	-- {npc:511} Insane Ghoul
 	-- plural, as words: Nightbane Vile Fangs = {npc:206} Nightbane Vile Fang
 	["Nightbane Vile Fangs and the {npc:511}"] = "夜行邪齿狼人和{npc:511}",
@@ -33,13 +37,13 @@ return {
 	-- {item:1946} Mary's Looking Glass
 	["{item:1946}; inside"] = "{item:1946}：在屋内",
 
-	-- Step 8: Darkshire
+	-- Step 9: Darkshire
 	-- {npc:276} Viktori Prism'Antras
 	["{npc:276}, inside"] = "{npc:276}：在屋内",
 	-- {npc:661} Jonathan Carevin · {npc:633} Elaine Carevin
 	["{npc:661}, by {npc:633}'s house; inside"] = "{npc:661}在{npc:633}房屋附近的屋内",
 
-	-- Step 9: Vul'Gol Ogre Mound: kill these as you meet them
+	-- Step 10: Vul'Gol Ogre Mound: kill these as you meet them
 	-- {area:93} Vul'Gol Ogre Mound
 	["{area:93}: kill these as you meet them"] = "{area:93}：沿途击杀以下目标",
 	-- {area:42} Darkshire · {object:119} Abercrombie's Crate
@@ -48,30 +52,30 @@ return {
 	["Only if a {npc:272273} dropped {quest:96138}: right-click it"] = "仅当{npc:272273}掉落了{quest:96138}时：右键点击它",
 	["Below ground"] = "在地下",
 
-	-- Step 10: Defias Strongbox
+	-- Step 11: Defias Strongbox
 	-- {zone:1431} Duskwood · {area:94} Raven Hill · {zone:1436} Westfall
 	["The Defias camp lies in the south-west of {zone:1431}, south of {area:94} near the {zone:1436} border. The strongbox stands among the tents."] = "迪菲亚营地位于{zone:1431}西南部，{area:94}南边，靠近{zone:1436}边界。保险箱在帐篷之间。",
 	-- {item:5947} Defias Docket
 	["{item:5947}; inside"] = "{item:5947}：在屋内",
 
-	-- Step 12: Raven Hill Cemetery: kill these as you meet them
+	-- Step 13: Raven Hill Cemetery: kill these as you meet them
 	-- {area:492} Raven Hill Cemetery
 	["{area:492}: kill these as you meet them"] = "{area:492}：沿途击杀以下目标",
 	-- {area:492} Raven Hill Cemetery · {npc:522} Mor'Ladim · {npc:311} Sven Yorgen
 	-- plural, as words: Plague Spreaders = {npc:604} Plague Spreader · Skeletal Raiders = {npc:1110} Skeletal Raider
 	["The Plague Spreaders walk the northern half of the {area:492}. {npc:522}, an elite, wanders the graves: keep away from him.\nSkeletal Raiders, Healers and Warders hold the west part of the cemetery, just east of {npc:311}'s camp.\nCareful: The skeletons in the catacombs are packed close together, so you can easily pull extra mobs."] = "瘟疫食尸鬼在{area:492}北半部游荡。精英{npc:522}会在墓地间巡逻：远离他。\n骷髅袭击者、骷髅医师和骷髅看守占据墓地西部，就在{npc:311}营地的东面。\n小心：地下墓穴里的骷髅十分密集，很容易引到额外的怪物。",
 
-	-- Step 13: The Weathered Grave
+	-- Step 14: The Weathered Grave
 	-- {npc:311} Sven Yorgen · {npc:268} Sirra Von'Indi · {area:42} Darkshire
 	["The grave stands among the skeletons at the cemetery's north-west corner, on the way to {npc:311}. Its quest and the next are talk-only, to {npc:268} and Commander Althea in {area:42}: level 35 from level 28, but no fight."] = "坟墓在墓地西北角的骷髅之间，前往{npc:311}时顺路经过。此任务和下一步都只需对话，去找{area:42}的{npc:268}和指挥官阿尔泰娅：28级即可接35级任务，但无需战斗。",
 
-	-- Step 14: Sven Yorgen's Camp
+	-- Step 15: Sven Yorgen's Camp
 	-- {npc:311} Sven Yorgen
 	["{npc:311}'s Camp"] = "{npc:311}的营地",
 	-- {npc:1212} Bishop Farthing · {zone:1453} Stormwind
 	["For {npc:1212} in {zone:1453}, in the next guide"] = "交给{zone:1453}的{npc:1212}，在下一份指南中",
 
-	-- Step 15: Back to Darkshire
+	-- Step 16: Back to Darkshire
 	-- {area:42} Darkshire
 	["Back to {area:42}"] = "回到{area:42}",
 	-- {npc:263} Lord Ello Ebonlocke
@@ -84,12 +88,12 @@ return {
 	-- {npc:482} Elling Trias · {zone:1453} Stormwind
 	["For {npc:482} in {zone:1453}, in the next guide"] = "交给{zone:1453}的{npc:482}，在下一份指南中",
 
-	-- Step 16: Viktori Prism'Antras
+	-- Step 17: Viktori Prism'Antras
 	-- {npc:276} Viktori Prism'Antras
 	["{npc:276}'s house stands at the east end of town, on the way to the flight master."] = "{npc:276}的房子在镇子东端，前往飞行管理员时会经过。",
 	["Inside"] = "在里面",
 
-	-- Step 17: Fly to Menethil Harbor
+	-- Step 18: Fly to Menethil Harbor
 	-- {area:150} Menethil Harbor
 	["Fly to {area:150}"] = "飞往{area:150}",
 	-- {area:42} Darkshire

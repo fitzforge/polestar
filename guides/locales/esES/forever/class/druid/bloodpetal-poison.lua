@@ -7,11 +7,11 @@
 -- The comments are rewritten by sync.
 return {
 	-- Guide
-	["Experience in Un'Goro at 50 and two healing potions; the Classic item choice may be gone in Forever."] = "",
+	["Experience in Un'Goro at 50 and two healing potions; the Classic item choice may be gone in Forever."] = "Experiencia en Un'Goro a nivel 50 y dos pociones de sanación; puede que Forever haya eliminado la elección de objeto de Classic.",
 
 	-- Step 1: Loganaar
 	-- {spell:18960} Teleport: Moonglade · {npc:12042} Loganaar · {area:2361} Nighthaven · {npc:3033} Turak Runetotem · {npc:4217} Mathrengyl Bearwalker · {zone:1453} Stormwind
-	["Cast {spell:18960}. {npc:12042} stands in {area:2361}; your class trainer ({npc:3033}, {npc:4217} or Theridran in {zone:1453}) offers the same quest."] = "",
+	["Cast {spell:18960}. {npc:12042} stands in {area:2361}; your class trainer ({npc:3033}, {npc:4217} or Theridran in {zone:1453}) offers the same quest."] = "Lanza {spell:18960}. {npc:12042} está en {area:2361}; tu instructor de clase ({npc:3033}, {npc:4217} o Theridran en {zone:1453}) ofrece la misma misión.",
 
 	-- Step 2: Torwa Pathfinder
 	-- {area:976} Gadgetzan · {zone:1449} Un'Goro Crater · {npc:9619} Torwa Pathfinder
@@ -47,9 +47,7 @@ return {
 	["{npc:9619}: the old item choice may be gone, count on the experience"] = "",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
-	-- ["Cast Teleport: {zone:1450}. {npc:12042} stands in {area:2361}; your class trainer offers the same quest."] = "Lanza Teletransporte: {zone:1450}. {npc:12042} está en {area:2361}; tu instructor de clase ofrece la misma misión.",
 	-- ["Cast {spell:18960}. {npc:12042} stands in {area:2361}; your class trainer offers the same quest."] = "Lanza {spell:18960}. {npc:12042} está en {area:2361}; tu instructor de clase ofrece la misma misión.",
-	-- ["Experience in Un'Goro at 50 and two healing potions; Forever removed the Classic item choice."] = "Experiencia en Un'Goro a nivel 50 y dos pociones de sanación; Forever eliminó la elección de objeto de Classic.",
 	-- ["The Gorishi wasps, workers and reavers of the hive in the south of the crater drop the stings; the Bloodpetal Sprouts that give the {item:22434} grow all over the crater's western half."] = "Las avispas, obreras y atracadoras Gorishi de la colmena del sur del cráter sueltan los aguijones; los Brotes pétalo de sangre que dan {item:22434} crecen por toda la mitad oeste del cráter.",
 	-- ["Use the {item:22432} on a {npc:6498}. Devilsaurs are elite (level 54-55) and roam the crater: grouping up is advised."] = "Usa {item:22432} en un {npc:6498}. Los devilsaurios son élite (nivel 54-55) y recorren el cráter: se recomienda ir en grupo.",
 	-- ["{area:1477} lies in the {area:74} in the {zone:1435}. {npc:8580} guards the bottom of the temple: a dungeon boss, so bring a group."] = "{area:1477} está en {area:74}, en {zone:1435}. {npc:8580} guarda el fondo del templo: es un jefe de mazmorra, así que lleva un grupo.",

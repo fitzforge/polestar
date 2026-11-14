@@ -87,6 +87,8 @@ return {
 
 	-- Step 19: Grimtotem tauren
 	["Grimtotem tauren"] = "Taurens Temível Totem",
+	-- {npc:222286} Namida Grimtotem
+	["Careful: {npc:222286}, an elite of level 43, stands at the camp's north-east edge, around 67,39: pull the Naturalists, Raiders and Shamans away from her."] = "Cuidado: {npc:222286}, elite de nível 43, fica na borda nordeste do acampamento, por volta de 67,39: puxe os Naturalistas, Saqueadores e Xamãs para longe dela.",
 
 	-- Step 20: Jer'kai Moonweaver
 	-- {zone:1457} Darnassus
@@ -100,32 +102,30 @@ return {
 	-- {object:164954} Zukk'ash Pod
 	["{object:164954}, inside"] = "{object:164954}, lá dentro",
 
-	-- Step 22: High Wilderness: kill these as you meet them
+	-- Step 22: Grind to 45
+	["Grind to 45"] = "Farme até o 45",
+	-- {area:1105} Feral Scar Vale · {area:978} Zul'Farrak
+	["Ride west into {area:1105}: its yetis are 43-45. The Rage Scar yetis in the hills to the north are 46-48, so they wait until you are 45. Or, with a group, run the {area:978} dungeon instead."] = "Siga para oeste até {area:1105}: os yetis de lá são de nível 43-45. Os yetis Cortifúria nas colinas ao norte são de nível 46-48, então ficam para quando você tiver nível 45. Ou, com um grupo, faça a masmorra {area:978}.",
+	-- {npc:5292} Feral Scar Yeti · {area:1105} Feral Scar Vale · {zone:1444} Feralas
+	["grind on {npc:5292} at {area:1105}, {zone:1444}"] = "farme {npc:5292} em {area:1105}, {zone:1444}",
+
+	-- Step 23: High Wilderness: kill these as you meet them
 	-- {area:1136} High Wilderness
 	["{area:1136}: kill these as you meet them"] = "{area:1136}: vá matando estes pelo caminho",
-	-- {quest:7735} Pristine Yeti Hide · {npc:7852} Pratt McGrubben · {npc:14637} Zorbin Fandazzle · {area:978} Zul'Farrak
-	["Ride back west along the road, then north into the Rage Scar hills. Every yeti here can drop a hide, and about one in thirty a {quest:7735}, which {npc:7852} pays for too.\n{npc:14637}'s quests on the coast need level 45: grind the yetis here until level 44.5, so the kills also bring {npc:7852}'s hides. Or, with a group, run the {area:978} dungeon instead."] = "Cavalgue de volta para oeste pela estrada e depois para o norte, pelas colinas Cortifúria. Todo yeti daqui pode soltar um pelego, e cerca de um em trinta, {quest:7735}, que {npc:7852} também paga.\nAs missões de {npc:14637} na costa exigem nível 45: mate os yetis daqui até o nível 44.5, para que as mortes também rendam os pelegos de {npc:7852}. Ou, com um grupo, faça a masmorra {area:978}.",
-	-- {npc:5296} Rage Scar Yeti
-	["grind on {npc:5296}"] = "mate {npc:5296} até subir",
+	-- {area:1105} Feral Scar Vale · {quest:7735} Pristine Yeti Hide · {npc:7852} Pratt McGrubben
+	["Ride north out of {area:1105} into the Rage Scar hills. Every yeti here can drop a hide, and about one in thirty a {quest:7735}, which {npc:7852} pays for too.\nCareful: the Rage Scar yetis are level 46-48, still one to three above you at 45: take them from the edge of the hills, one at a time."] = "Cavalgue para o norte, saindo de {area:1105}, pelas colinas Cortifúria. Todo yeti daqui pode soltar um pelego, e cerca de um em trinta, {quest:7735}, que {npc:7852} também paga.\nCuidado: os yetis Cortifúria são de nível 46-48, ainda de um a três acima de você no nível 45: pegue-os pela borda das colinas, um de cada vez.",
 
-	-- Step 23: Rage Scar Hold
+	-- Step 24: Rage Scar Hold
 	-- {quest:7735} Pristine Yeti Hide
 	["No {quest:7735} yet? Keep killing the Rage Scar yetis until one drops, then right-click it."] = "Ainda sem {quest:7735}? Continue matando os yetis Cortifúria até um soltar, depois clique nele com o botão direito.",
 
-	-- Step 24: Feathermoon Stronghold
+	-- Step 25: Feathermoon Stronghold
 	-- {npc:7880} Ginro Hearthkindle
 	["{npc:7880} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."] = "{npc:7880} fica no andar de cima do prédio dele: suba por dentro, a seta não diferencia os andares.",
 
-	-- Step 25: Feathermoon Stronghold
+	-- Step 26: Feathermoon Stronghold
 	-- {npc:3936} Shandris Feathermoon · {zone:1457} Darnassus · {area:976} Gadgetzan
 	["{npc:3936} then asks you to carry news to {zone:1457}: skip it, {area:976} sends you there instead."] = "{npc:3936} então pede que você leve notícias a {zone:1457}: pule, {area:976} manda você lá em vez disso.",
-
-	-- Step 27: Grind to 45
-	["Grind to 45"] = "Farme até o 45",
-	-- {area:1105} Feral Scar Vale · {npc:14637} Zorbin Fandazzle · {area:978} Zul'Farrak · {area:1517} Uldaman
-	["Ride east into {area:1105}. {npc:14637}'s quests on the coast need level 45. Or, with a group, run the {area:978} dungeon or the {area:1517} dungeon instead."] = "Siga para leste até {area:1105}. As missões de {npc:14637} na costa precisam de nível 45. Ou, com um grupo, faça a masmorra {area:978} ou a masmorra {area:1517}.",
-	-- {npc:5292} Feral Scar Yeti · {area:1105} Feral Scar Vale · {zone:1444} Feralas
-	["grind on {npc:5292} at {area:1105}, {zone:1444}"] = "farme {npc:5292} em {area:1105}, {zone:1444}",
 
 	-- Step 28: Zorbin Fandazzle
 	-- {area:1108} Forgotten Coast
@@ -166,6 +166,7 @@ return {
 	-- ["Swim south from the island to the {area:1121}. Hatecrest Serpent Guards and Sorceresses hold it; {npc:8136} (level 47) waits in the cave at its south end. Pull his guards first."] = "Nade para o sul da ilha até {area:1121}. Serpentes Guardas Cristafúria e Feiticeiras Cristafúria a ocupam; {npc:8136} (nível 47) espera na caverna no extremo sul. Puxe os guardas dele primeiro.",
 	-- ["You end at the {area:1108} dock: the {zone:1446} guide starts with the trip east from here."] = "Você termina na doca de {area:1108}: o guia de {zone:1446} começa com a viagem para leste a partir daqui.",
 	-- ["grind on {npc:5292} at {area:1105}, {area:357}"] = "farme {npc:5292} em {area:1105}, {area:357}",
+	-- ["grind on {npc:5296}"] = "mate {npc:5296} até subir",
 	-- ["if you carry {quest:1100} from {zone:1441}"] = "se você trouxer {quest:1100} de {zone:1441}",
 	-- ["{area:978} instead of grinding"] = "{area:978} em vez de farmar",
 	-- ["{npc:7774} wanders the hills north of {npc:7765}, among the Northspring harpies; her bell is in the chest beside her."] = "{npc:7774} vaga pelas colinas ao norte de {npc:7765}, entre as harpias da Nascente Norte; o sino dela está no baú ao lado.",

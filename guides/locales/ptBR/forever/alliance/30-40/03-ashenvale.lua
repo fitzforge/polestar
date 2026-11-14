@@ -72,7 +72,7 @@ return {
 
 	-- Step 13: Highperch
 	-- {area:485} Great Lift · {zone:1441} Thousand Needles · {area:482} Highperch
-	["Down the {area:485} into {zone:1441}, then west to the wyverns' cliffs at {area:482}. Every wyvern there can drop a venom sac."] = "Desça por {area:485} até {zone:1441}, depois a oeste até os penhascos das serpes em {area:482}. Toda serpe de lá pode soltar uma glândula de veneno.",
+	["Down the {area:485} into {zone:1441}, then west to the wyverns' cliffs at {area:482}. Every wyvern there can drop a venom sac. Careful: wait on the platform until the lift is level with it before you step on, and stay on it until it stops; the drop beside it kills."] = "Desça por {area:485} até {zone:1441}, depois a oeste até os penhascos das serpes em {area:482}. Toda serpe de lá pode soltar uma glândula de veneno. Cuidado: espere na plataforma até o elevador ficar nivelado com ela antes de subir, e fique nele até ele parar; a queda ao lado mata.",
 
 	-- Step 14: Thousand Needles
 	-- {area:484} Freewind Post

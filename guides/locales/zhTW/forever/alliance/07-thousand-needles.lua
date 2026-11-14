@@ -10,21 +10,25 @@ return {
 	-- {npc:6790} Innkeeper Trelayne
 	["{npc:6790}, Scarlet Raven Tavern"] = "{npc:6790}，在旅店",
 	-- {npc:840} Watcher Backus · {area:42} Darkshire
-	["{npc:840}, at the north entrance of town; walks around {area:42}: look inside the circle on the map"] = "",
+	["{npc:840}, at the north entrance of town; walks around {area:42}: look inside the circle on the map"] = "{npc:840}，在城鎮北側入口；會在{area:42}四處走動：在地圖上的圓圈內找他",
 
-	-- Step 3: Nightbane Shadow Weavers
+	-- Step 3: Councilman Millstipe
+	-- {quest:377} Crime and Punishment · {area:717} Stockade · {npc:270} Councilman Millstipe
+	["{quest:377}, from your {area:717} run: {npc:270} is in the town hall, beside Commander Althea."] = "你{area:717}之行的{quest:377}：{npc:270}在市政廳，在指揮官艾爾希亞旁邊。",
+
+	-- Step 4: Nightbane Shadow Weavers
 	-- plural, as words: Nightbane Shadow Weavers = {npc:533} Nightbane Shadow Weaver
 	["Nightbane Shadow Weavers"] = "夜行織影狼人",
 	-- {area:42} Darkshire
 	["The worgen hold the woods of Brightwood, west of {area:42} and north of the road. Pull them one at a time."] = "狼人佔據亮木樹林的樹林，在{area:42}西邊、道路北側。一次只拉一隻。",
 
-	-- Step 5: Nightbane Dark Runners
+	-- Step 6: Nightbane Dark Runners
 	-- plural, as words: Nightbane Dark Runners = {npc:205} Nightbane Dark Runner
 	["Nightbane Dark Runners"] = "夜行黑暗狼人",
 	-- {area:42} Darkshire
 	["The Dark Runners prowl the woods south of the road, west of {area:42}."] = "黑暗狼人在道路南側、{area:42}西邊的樹林中徘徊。",
 
-	-- Step 7: Nightbane Vile Fangs and the Insane Ghoul
+	-- Step 8: Nightbane Vile Fangs and the Insane Ghoul
 	-- {npc:511} Insane Ghoul
 	-- plural, as words: Nightbane Vile Fangs = {npc:206} Nightbane Vile Fang
 	["Nightbane Vile Fangs and the {npc:511}"] = "夜行邪齒狼人與{npc:511}",
@@ -33,45 +37,45 @@ return {
 	-- {item:1946} Mary's Looking Glass
 	["{item:1946}; inside"] = "",
 
-	-- Step 8: Darkshire
+	-- Step 9: Darkshire
 	-- {npc:276} Viktori Prism'Antras
 	["{npc:276}, inside"] = "",
 	-- {npc:661} Jonathan Carevin · {npc:633} Elaine Carevin
-	["{npc:661}, by {npc:633}'s house; inside"] = "",
+	["{npc:661}, by {npc:633}'s house; inside"] = "{npc:661}，在{npc:633}的房子旁；在裡面",
 
-	-- Step 9: Vul'Gol Ogre Mound: kill these as you meet them
+	-- Step 10: Vul'Gol Ogre Mound: kill these as you meet them
 	-- {area:93} Vul'Gol Ogre Mound
 	["{area:93}: kill these as you meet them"] = "",
 	-- {area:42} Darkshire · {object:119} Abercrombie's Crate
-	["Head south-west from {area:42} to the ogre mound. {object:119} sits in the camp at its entrance; Splinter Fist ogres guard it."] = "",
+	["Head south-west from {area:42} to the ogre mound. {object:119} sits in the camp at its entrance; Splinter Fist ogres guard it."] = "從{area:42}向西南前往巨魔山。{object:119}放在入口處的營地裡；裂拳巨魔守衛著它。",
 	-- {npc:272273} Lost Watcher · {quest:96138} Merrick's Bow
 	["Only if a {npc:272273} dropped {quest:96138}: right-click it"] = "僅限{npc:272273}掉落了{quest:96138}時：右鍵點擊它",
 	["Below ground"] = "地下",
 
-	-- Step 10: Defias Strongbox
+	-- Step 11: Defias Strongbox
 	-- {zone:1431} Duskwood · {area:94} Raven Hill · {zone:1436} Westfall
 	["The Defias camp lies in the south-west of {zone:1431}, south of {area:94} near the {zone:1436} border. The strongbox stands among the tents."] = "迪菲亞營地位於{zone:1431}西南部，{area:94}南邊，靠近{zone:1436}邊界。保險箱在帳篷之間。",
 	-- {item:5947} Defias Docket
 	["{item:5947}; inside"] = "",
 
-	-- Step 12: Raven Hill Cemetery: kill these as you meet them
+	-- Step 13: Raven Hill Cemetery: kill these as you meet them
 	-- {area:492} Raven Hill Cemetery
 	["{area:492}: kill these as you meet them"] = "",
 	-- {area:492} Raven Hill Cemetery · {npc:522} Mor'Ladim · {npc:311} Sven Yorgen
 	-- plural, as words: Plague Spreaders = {npc:604} Plague Spreader · Skeletal Raiders = {npc:1110} Skeletal Raider
 	["The Plague Spreaders walk the northern half of the {area:492}. {npc:522}, an elite, wanders the graves: keep away from him.\nSkeletal Raiders, Healers and Warders hold the west part of the cemetery, just east of {npc:311}'s camp.\nCareful: The skeletons in the catacombs are packed close together, so you can easily pull extra mobs."] = "",
 
-	-- Step 13: The Weathered Grave
+	-- Step 14: The Weathered Grave
 	-- {npc:311} Sven Yorgen · {npc:268} Sirra Von'Indi · {area:42} Darkshire
 	["The grave stands among the skeletons at the cemetery's north-west corner, on the way to {npc:311}. Its quest and the next are talk-only, to {npc:268} and Commander Althea in {area:42}: level 35 from level 28, but no fight."] = "",
 
-	-- Step 14: Sven Yorgen's Camp
+	-- Step 15: Sven Yorgen's Camp
 	-- {npc:311} Sven Yorgen
 	["{npc:311}'s Camp"] = "{npc:311}的營地",
 	-- {npc:1212} Bishop Farthing · {zone:1453} Stormwind
 	["For {npc:1212} in {zone:1453}, in the next guide"] = "交給{zone:1453}的{npc:1212}，在下一份指南",
 
-	-- Step 15: Back to Darkshire
+	-- Step 16: Back to Darkshire
 	-- {area:42} Darkshire
 	["Back to {area:42}"] = "回到{area:42}",
 	-- {npc:263} Lord Ello Ebonlocke
@@ -84,12 +88,12 @@ return {
 	-- {npc:482} Elling Trias · {zone:1453} Stormwind
 	["For {npc:482} in {zone:1453}, in the next guide"] = "交給{zone:1453}的{npc:482}，在下一份指南",
 
-	-- Step 16: Viktori Prism'Antras
+	-- Step 17: Viktori Prism'Antras
 	-- {npc:276} Viktori Prism'Antras
-	["{npc:276}'s house stands at the east end of town, on the way to the flight master."] = "",
+	["{npc:276}'s house stands at the east end of town, on the way to the flight master."] = "{npc:276}的房子在城鎮東端，就在前往飛行管理員的路上。",
 	["Inside"] = "",
 
-	-- Step 17: Fly to Menethil Harbor
+	-- Step 18: Fly to Menethil Harbor
 	-- {area:150} Menethil Harbor
 	["Fly to {area:150}"] = "",
 	-- {area:42} Darkshire
@@ -119,7 +123,6 @@ return {
 	-- ["Ride east again to the Dragonmaw camp. The four sets of Attack Plans lie in the {area:1036}; {npc:2091}, an elite, stands in the camp too."] = "再次向東騎到龍喉營地。四份攻擊計畫在{area:1036}；精英{npc:2091}也站在營地裡。",
 	-- ["Ride east again; the catapult stands at the Dragonmaw camp south of the road."] = "再次向東騎；投石車在道路南邊的龍喉營地裡。",
 	-- ["Ride east to the ogre mound. {item:1349} sits in the camp at its entrance; Splinter Fist ogres guard it."] = "向東騎往巨魔山。{item:1349}放在入口處的營地裡；裂拳巨魔守衛著它。",
-	-- ["Ride east to the ogre mound. {object:119} sits in the camp at its entrance; Splinter Fist ogres guard it."] = "向東騎往巨魔山。{object:119}放在入口處的營地裡；裂拳巨魔守衛著它。",
 	-- ["Ride west along the road; the hermit's shack stands north-east of the {area:492}."] = "沿著道路向西騎；隱士的小屋在{area:492}東北方。",
 	-- ["Skeletal Raiders, Healers and Warders hold the west part of the cemetery, just east of {npc:311}'s camp."] = "骷髏襲擊者、骷髏醫師和骷髏看守佔據墓地西側，就在{npc:311}營地的東邊。",
 	-- ["Take the boat from Menethil's pier to {area:513} in {zone:1445}."] = "從米奈希爾的碼頭搭船前往{zone:1445}的{area:513}。",
@@ -144,11 +147,8 @@ return {
 	-- ["{npc:2104}, by the keep"] = "{npc:2104}，在城堡旁",
 	-- ["{npc:2104}, in {area:2103}"] = "{npc:2104}，在{area:2103}",
 	-- ["{npc:267}, in the town hall"] = "{npc:267}，在市政廳裡",
-	-- ["{npc:276}, at the east end of town"] = "{npc:276}，在城鎮東端",
 	-- ["{npc:4454}: for Martek in the {zone:1418}, later"] = "{npc:4454}：交給{zone:1418}的馬特克，稍後",
-	-- ["{npc:661}, by {npc:633}'s house"] = "{npc:661}，在{npc:633}的房子旁",
 	-- ["{npc:663}, by the town hall"] = "{npc:663}，在市政廳旁",
-	-- ["{npc:840}, at the north entrance of town"] = "{npc:840}，在城鎮北側入口",
 	-- ["{object:19868} lies all over the flats. Scorpid Reavers, Sparkleshell Tortoises and Saltstone Basilisks roam the north half, Crystalhides, Scorpid Terrors and Snappers the middle, and the Gazers (34-35, five levels above you: one at a time) the far south. Vultures circle over all of it."] = "{object:19868}遍布整片鹽湖。恐蠍劫掠者、鹽殼龜和鹽石蜥蜴在北半部遊蕩，鹽石水晶蜥蜴、恐蠍和鹽殼鉗嘴龜在中間，鹽石凝視者（34-35級，比你高五級：一次一隻）在最南邊。鹽湖禿鷲在整片上空盤旋。",
 	-- ["{quest:1738}: in {zone:1440}, on the way to {zone:1443}"] = "{quest:1738}：在{zone:1440}，前往{zone:1443}的路上",
 	-- ["{quest:65602}: the incubus, beside the succubus; the {item:190309} is near the {quest:1738}"] = "{quest:65602}：夢魔在魅魔旁邊；{item:190309}在{quest:1738}附近",

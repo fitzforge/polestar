@@ -10,7 +10,7 @@ return {
 	-- {spell:71} Defensive Stance
 	["{spell:71} and a Weapon (Alliance)"] = "",
 	-- {spell:71} Defensive Stance · {zone:1453} Stormwind · {zone:1455} Ironforge · {zone:1457} Darnassus
-	["{spell:71} at 10 and a one-hand weapon of your choice from {zone:1453}, {zone:1455} or {zone:1457}."] = "",
+	["{spell:71} at 10 and a one-hand weapon of your choice from {zone:1453}, {zone:1455} or {zone:1457}."] = "{spell:71} a nivel 10 y un arma de una mano a tu elección de {zone:1453}, {zone:1455} o {zone:1457}.",
 
 	-- Step 1: Seena Skybreaker in Valanaar
 	-- {npc:252377} Seena Skybreaker · {area:16638} Valanaar
@@ -110,5 +110,4 @@ return {
 	-- ["{npc:5480} trains warriors in {object:2100}; {npc:6089} and {npc:6090} stand together by the {object:2152} there. {npc:6090} fights you for his mug."] = "{npc:5480} entrena a los guerreros en {object:2100}; {npc:6089} y {npc:6090} están juntos junto a {object:2152}. {npc:6090} pelea contigo por su jarra.",
 	-- ["{npc:6093} camps in the far south-east of {zone:1429}, south-east of {npc:294}. He carries the key to the strongbox in his camp."] = "{npc:6093} acampa en el extremo sureste de {zone:1429}, al sureste de {npc:294}. Lleva la llave del cofre de su campamento.",
 	-- ["{npc:6093}: his key opens the strongbox"] = "{npc:6093}: su llave abre el cofre",
-	-- ["{spell:71} and a one-hand weapon of your choice at 10."] = "{spell:71} y un arma de una mano a tu elección a nivel 10.",
 }

@@ -14,7 +14,7 @@ return {
 
 	-- Step 1: Searn Firewarder
 	-- {npc:5892} Searn Firewarder · {object:172957} Valley of Wisdom · {npc:5905} Prate Cloudseer · {zone:1441} Thousand Needles · {spell:10596} Nature Resistance · {item:5178} Air Totem
-	["At 30 {npc:5892} in the {object:172957} sends you to {npc:5905} in {zone:1441}. Your level 30 air totems (Grounding, {spell:10596}) need the {item:5178} she gives."] = "",
+	["At 30 {npc:5892} in the {object:172957} sends you to {npc:5905} in {zone:1441}. Your level 30 air totems (Grounding, {spell:10596}) need the {item:5178} she gives."] = "30레벨에 {object:172957}의 {npc:5892}이(가) 당신을 {zone:1441}의 {npc:5905}에게 보냅니다. 30레벨 바람 토템(마법 정화, {spell:10596})에는 그녀가 주는 {item:5178}이(가) 필요합니다.",
 
 	-- Step 2: Alaana Stormwalker
 	-- {quest:96136} Call of Air · {npc:259119} Alaana Stormwalker · {zone:1412} Mulgore · {zone:1456} Thunder Bluff · {npc:5906} Xanis Flameweaver
@@ -34,7 +34,7 @@ return {
 
 	-- Step 9: Charlga Razorflank
 	-- {area:1717} Razorfen Kraul · {zone:1413} Barrens · {npc:4421} Charlga Razorflank · {spell:8292} Chain Bolt · {spell:139} Renew · {item:274463} Tattered Note
-	["{area:1717} is a five-player dungeon at the southern edge of the {zone:1413} (the arrow points at its entrance); {npc:4421} (level 33 elite) is its last boss. She casts {spell:8292}, {spell:139} on her allies and Purity; the {item:274463} drops only from her."] = "",
+	["{area:1717} is a five-player dungeon at the southern edge of the {zone:1413} (the arrow points at its entrance); {npc:4421} (level 33 elite) is its last boss. She casts {spell:8292}, {spell:139} on her allies and Purity; the {item:274463} drops only from her."] = "{area:1717}은(는) {zone:1413} 남쪽 끝의 5인 던전입니다(화살표가 입구를 가리킵니다). {npc:4421}(33레벨 정예)은(는) 마지막 우두머리입니다. 그녀는 {spell:8292}, 아군에게 {spell:139}, 정화를 시전하며, {item:274463}은(는) 그녀에게서만 떨어집니다.",
 	-- {item:274463} Tattered Note · {npc:4421} Charlga Razorflank
 	["{item:274463}, from {npc:4421}"] = "{item:274463}, {npc:4421}에게서",
 
@@ -84,14 +84,12 @@ return {
 	["{npc:6176}: the {item:280696} and your weapon"] = "{npc:6176}: {item:280696}와(과) 무기",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
-	-- ["At 30 {npc:5892} in the {object:172957} sends you to {npc:5905} in {zone:1441}."] = "30레벨에 {object:172957}의 {npc:5892}이(가) 당신을 {zone:1441}의 {npc:5905}에게 보냅니다.",
 	-- ["At 30 {npc:5906}, a shaman trainer in {zone:1456}, sends you to {npc:5905} in {zone:1441}."] = "30레벨에 {zone:1456}의 주술사 상급자 {npc:5906}이(가) 당신을 {zone:1441}의 {npc:5905}에게 보냅니다.",
 	-- ["Fly to {area:484}. {npc:5905} hides in a small cave in the canyon wall north-east of the post. Skyborne: your own {quest:1531} (96136) ends with her too."] = "{area:484}(으)로 날아가세요. {npc:5905}은(는) 거점 북동쪽 협곡 벽의 작은 동굴에 숨어 있습니다. 스카이본: 당신의 {quest:1531}(96136)도 그녀에게서 끝납니다.",
 	-- ["The Lost Ones in the north of the {zone:1435} carry the Twisted Earth Totems."] = "{zone:1435} 북부의 드레노어 난민이 뒤틀린 대지 토템을 지니고 있습니다.",
 	-- ["The Maraudine centaurs of western {zone:1443} carry the Twisted Air Totems."] = "{zone:1443} 서부의 마라우돈일족 켄타우로스가 뒤틀린 바람 토템을 지니고 있습니다.",
 	-- ["The Mirefin murlocs of northern {zone:1445} carry the Twisted Water Totems."] = "{zone:1445} 북부의 진흙아가미멀록이 뒤틀린 물 토템을 지니고 있습니다.",
 	-- ["The Stonevault troggs in the south of the {zone:1418} carry the Twisted Fire Totems."] = "{zone:1418} 남부의 바위동굴 트로그가 뒤틀린 불의 토템을 지니고 있습니다.",
-	-- ["{area:1717} is a dungeon at the southern edge of the {zone:1413} (the arrow points at its entrance); {npc:4421} is its last boss. Bring a group."] = "{area:1717}은(는) {zone:1413} 남쪽 끝의 던전입니다(화살표가 입구를 가리킵니다). {npc:4421}은(는) 마지막 우두머리입니다. 파티를 데려가세요.",
 	-- ["{npc:5905} hands you the {item:268582}: place them at the steam pools west of {area:484} and defeat the {npc:216474} they call. {quest:79366} is an elite quest: grouping up is advised."] = "{npc:5905}이(가) {item:268582}을(를) 줍니다. {area:484} 서쪽 증기 웅덩이에 놓고 나타나는 {npc:216474}을(를) 물리치세요. {quest:79366}은(는) 정예 퀘스트이니 파티를 권장합니다.",
 	-- ["{npc:6176} camps in the east of {zone:1416}, north-east of {area:272}."] = "{npc:6176}은(는) {zone:1416} 동쪽, {area:272} 북동쪽에 진을 치고 있습니다.",
 	-- ["{npc:6176}: the {item:213086} and your weapon"] = "{npc:6176}: {item:213086}와(과) 무기",

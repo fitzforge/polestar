@@ -96,7 +96,7 @@ return {
 
 	-- Step 15: A Lesson to Learn
 	-- {area:442} Auberdine · {area:702} Rut'theran Village · {npc:4217} Mathrengyl Bearwalker · {area:1658} Cenarion Enclave
-	["Fly from {area:442} to {area:702} and take the portal up to {npc:4217} in the {area:1658}."] = "Vuela de {area:442} a {area:702} y toma el portal para subir con {npc:4217} en {area:1658}.",
+	["Night Elves fly from {area:442} to {area:702}; Skyborne take the boat from the {area:442} dock and learn the Rut'theran flight path. Then take the portal up to {npc:4217} in the {area:1658}."] = "Los elfos de la noche vuelan de {area:442} a {area:702}; los Cielonatos toman el barco desde el muelle de {area:442} y aprenden la ruta de vuelo de la Aldea Rut'theran. Luego toma el portal para subir con {npc:4217} en {area:1658}.",
 
 	-- Step 18: Moonglade
 	-- {spell:18960} Teleport: Moonglade
@@ -190,8 +190,8 @@ return {
 	-- {area:456} Cliffspring River · {item:12347} Filled Cleansing Bowl · {item:12346} Empty Cleansing Bowl · {object:174795} Auberdine Moonwell · {item:12355} Talisman of Corruption
 	["The furbolg camp south of the {area:456} keeps its Nut, Fruit and Grain Stores by the bonfires. With a sample of each and the {item:12347} in your bags (the {item:12346} is filled at the {object:174795}), use the bowl by the bonfire closest to the river: it summons Xabraxxis, the satyr corruptor, and the {item:12355} lies in his Demon Bag."] = "El campamento de fúrbolgs al sur de {area:456} guarda sus reservas de nueces, frutas y grano junto a las hogueras. Con una muestra de cada una y {item:12347} en tus bolsas ({item:12346} se llena en {object:174795}), usa el cuenco junto a la hoguera más cercana al río: invoca a Xabraxxis, el corruptor sátiro, y {item:12355} está en su bolsa demoníaca.",
 	["By the bonfire closest to the river: summons Xabraxxis"] = "Junto a la hoguera más cercana al río: invoca a Xabraxxis",
-	-- {item:12355} Talisman of Corruption · {object:177624} Xabraxxis' Demon Bag
-	["{item:12355}, in {object:177624}"] = "{item:12355}, en {object:177624}",
+	-- {item:12347} Filled Cleansing Bowl
+	["After using the {item:12347}, kill Xabraxxis, then click his Demon Bag on the ground to collect the talisman. If Xabraxxis despawns before you get it, retake the quest for a new bowl."] = "Después de usar {item:12347}, mata a Xabraxxis y luego haz clic en su bolsa de demonio en el suelo para recoger el talismán. Si Xabraxxis desaparece antes de que lo consigas, vuelve a tomar la misión para obtener un cuenco nuevo.",
 
 	-- Step 34: The cave and the Den Mother
 	["Careful: If you attack one cub, the other cubs and often the mother join the fight, so expect to take on several at the same time."] = "Cuidado: Si atacas a un osezno, los demás oseznos y a menudo la madre se suman a la pelea, así que cuenta con enfrentarte a varios a la vez.",
@@ -247,6 +247,7 @@ return {
 	-- ["Two wrecks lie on the sea floor in the bay north of {area:442}; each holds a lockbox. Reef Crawlers and Encrusted Tide Crawlers line this shore."] = "Hay dos naufragios en el fondo de la bahía al norte de {area:442}; cada uno tiene una caja fuerte. Los reptadores de arrecife y los reptadores de marea escamados recorren esta costa.",
 	-- ["{area:450} lies on the coast south of {npc:10323}'s beach. Protect the prospector while he searches for the fossil."] = "{area:450} está en la costa al sur de la playa de {npc:10323}. Protege al prospector mientras busca el fósil.",
 	-- ["{item:12289}, on the beach west of the docks"] = "{item:12289}, en la playa al oeste de los muelles",
+	-- ["{item:12355}, in {object:177624}"] = "{item:12355}, en {object:177624}",
 	-- ["{item:15851} and {item:2449}"] = "{item:15851} y {item:2449}",
 	-- ["{item:15883}: the {object:177790} under the water off the north coast, west of the ruins"] = "{item:15883}: {object:177790}, bajo el agua frente a la costa norte, al oeste de las ruinas",
 	-- ["{item:15883}: the {object:177792} under the water off the north coast, west of the ruins"] = "{item:15883}: {object:177792}, bajo el agua frente a la costa norte, al oeste de las ruinas",

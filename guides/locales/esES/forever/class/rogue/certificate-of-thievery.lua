@@ -12,11 +12,11 @@ return {
 
 	-- Step 1: SI:7 (Goldshire)
 	-- {npc:917} Keryn Sylvius · {area:87} Goldshire · {npc:6946} Renzik "The Shiv" · {zone:1453} Stormwind
-	["At 16 {npc:917}, the rogue trainer upstairs in the Lion's Pride Inn in {area:87}, sends you to {npc:6946} in {zone:1453}. Taking it shuts out the other towns' breadcrumbs."] = "",
+	["At 16 {npc:917}, the rogue trainer upstairs in the Lion's Pride Inn in {area:87}, sends you to {npc:6946} in {zone:1453}. Taking it shuts out the other towns' breadcrumbs."] = "A nivel 16, {npc:917}, el instructor de pícaros del piso de arriba de la Posada Orgullo de León en {area:87}, te envía con {npc:6946} en {zone:1453}. Aceptarla cierra las misiones de enlace de los demás pueblos.",
 
 	-- Step 2: To Hulfdan! (Kharanos)
 	-- {npc:1234} Hogral Bakkan · {area:2102} Thunderbrew Distillery · {area:131} Kharanos · {npc:5165} Hulfdan Blackbeard · {zone:1455} Ironforge · {object:32383} Forlorn Cavern
-	["At 16 {npc:1234} in the {area:2102} in {area:131} sends you to {npc:5165} in {zone:1455}'s {object:32383}."] = "",
+	["At 16 {npc:1234} in the {area:2102} in {area:131} sends you to {npc:5165} in {zone:1455}'s {object:32383}."] = "A nivel 16, {npc:1234}, en {area:2102} de {area:131}, te envía con {npc:5165}, en {object:32383} de {zone:1455}.",
 
 	-- Step 3: Hulfdan Blackbeard
 	-- {npc:5165} Hulfdan Blackbeard · {object:32383} Forlorn Cavern · {area:2257} Deeprun Tram · {zone:1453} Stormwind
@@ -24,7 +24,7 @@ return {
 
 	-- Step 4: Erion Shadewhisper (Dolanaar)
 	-- {npc:3599} Jannok Breezesong · {area:186} Dolanaar · {quest:2259} Erion Shadewhisper · {zone:1457} Darnassus
-	["At 16 {npc:3599} in the {area:186} inn sends you to {quest:2259} in {zone:1457}."] = "",
+	["At 16 {npc:3599} in the {area:186} inn sends you to {quest:2259} in {zone:1457}."] = "A nivel 16, {npc:3599}, en la posada de {area:186}, te envía con {quest:2259} en {zone:1457}.",
 
 	-- Step 5: Erion Shadewhisper
 	-- {npc:4214} Erion Shadewhisper · {area:1658} Cenarion Enclave · {area:702} Rut'theran Village · {area:442} Auberdine · {area:17203} Stormwind Harbor
@@ -47,9 +47,6 @@ return {
 	["Back to {npc:6966}"] = "Vuelve con {npc:6966}",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
-	-- ["At 16 {npc:1234} in the {area:2102} in {area:131} sends you to {npc:5165}, in the north of {zone:1455}."] = "A nivel 16, {npc:1234}, en {area:2102} de {area:131}, te envía con {npc:5165}, en el norte de {zone:1455}.",
-	-- ["At 16 {npc:3599} in {area:186} sends you to {quest:2259} in {zone:1457}."] = "A nivel 16, {npc:3599}, en {area:186}, te envía con {quest:2259} en {zone:1457}.",
-	-- ["At 16 {npc:917}, the rogue trainer in the Lion's Pride Inn in {area:87}, sends you to {npc:6946} in {zone:1453}."] = "A nivel 16, {npc:917}, el instructor de pícaros de la Posada Orgullo de León en {area:87}, te envía con {npc:6946} en {zone:1453}.",
 	-- ["Ride east through {zone:1429} into Redridge, or fly to {area:69}. {npc:6966} waits on the west side of {area:69} and gives you {item:5060}."] = "Cabalga hacia el este por {zone:1429} hasta las Montañas Crestagrana, o vuela a {area:69}. {npc:6966} espera en el lado oeste de {area:69} y te da {item:5060}.",
 	-- ["Your first lockpicking job at 16: {npc:6966}'s lockbox at {quest:2282}, for {quest:2300}."] = "Tu primer trabajo de forzar cerraduras a nivel 16: la caja fuerte de {npc:6966} en {quest:2282}, para {quest:2300}.",
 	-- ["{npc:6946} stands beside {npc:332} at {quest:2300} in {object:2100}. Dwarves and Gnomes take the {area:2257} from {zone:1455}; Night Elves take the boat from {area:442} to {area:17203}."] = "{npc:6946} está junto a {npc:332} en {quest:2300}, en {object:2100}. Enanos y gnomos: tomad {area:2257} desde {zone:1455}; elfos de la noche: tomad el barco de {area:442} a {area:17203}.",

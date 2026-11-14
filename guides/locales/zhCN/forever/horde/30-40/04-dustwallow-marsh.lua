@@ -84,7 +84,7 @@ return {
 
 	-- Step 18: The Theramore Docks
 	-- {area:513} Theramore Isle · {object:20925} Captain's Footlocker
-	["South-east from the manor to {area:513}: the {object:20925} lies on the sea floor off the docks on the isle's east side. Swim in and out and keep off the piers and the town: Theramore's guards are level 53-57."] = "从庄园向东南前往{area:513}：{object:20925}在岛东侧码头外的海底。游进游出，远离码头栈桥和城镇：塞拉摩的卫兵是53-57级。",
+	["South-east from the manor to {area:513}: the {object:20925} lies on the sea floor off the docks on the isle's east side. Swim in and out and keep off the piers and the town: Theramore's guards are level 53-57, and a death here is a long run back from the spirit healer."] = "从庄园向东南前往{area:513}：{object:20925}在岛东侧码头外的海底。游进游出，远离码头栈桥和城镇：塞拉摩的卫兵是53-57级，在这里死亡的话，从灵魂医者那里跑回来要很久。",
 	["Underwater"] = "在水下",
 
 	-- Step 19: Brackenwall Village
@@ -95,8 +95,8 @@ return {
 
 	-- Step 20: Level 37.5
 	["Level 37.5"] = "等级37.5",
-	-- {zone:1443} Desolace · {area:1316} Razorfen Downs · {area:796} Scarlet Monastery
-	["{zone:1443}'s last quests and Alterac are 38-41. Still below 37.5 after Brackenwall's hand-ins? The Darkmist spiders and Lurkers (35-38) by the cavern north-west of the village are the closest: kill them until level 37.5. Or, with a group, run the {area:1316} dungeon or the {area:796} dungeon (Armory) instead."] = "{zone:1443}最后的任务和奥特兰克任务适合38-41级。交还蕨墙村的任务后仍未到37.5级，就在村庄西北侧洞穴附近击杀最近的暗雾蜘蛛和暗雾潜伏者（35-38级），直到37.5级；也可以组队刷{area:1316}副本或{area:796}副本的武器库。",
+	-- {zone:1443} Desolace
+	["{zone:1443}'s last quests and Alterac are 38-41. Still below 37.5 after Brackenwall's hand-ins? The Darkmist spiders and Lurkers (35-38) by the cavern north-west of the village are the closest: kill them until level 37.5."] = "{zone:1443}最后的任务和奥特兰克任务适合38-41级。交还蕨墙村的任务后仍未到37.5级，就在村庄西北侧洞穴附近击杀最近的暗雾蜘蛛和暗雾潜伏者（35-38级），直到37.5级。",
 	["Darkmist cavern"] = "暗雾洞穴",
 	-- {npc:4377} Darkmist Lurker
 	["grind on {npc:4377}"] = "刷{npc:4377}升级",
@@ -133,10 +133,12 @@ return {
 	-- Step 27: Ghost Walker Post
 	-- {npc:5412} Gurda Wildmane · {npc:5395} Felgur Twocuts
 	["North to the post; {npc:5412} stands beside {npc:5395}."] = "向北到哨所；{npc:5412}站在{npc:5395}旁。",
+	-- {npc:5395} Felgur Twocuts · {quest:1366} Centaur Bounty
+	["{npc:5395}: his {quest:1366}, from the same Maraudine"] = "{npc:5395}：他的{quest:1366}，来自同一批玛洛迪半人马",
 
 	-- Step 28: Valley of Spears
 	-- {area:607} Valley of Spears · {item:254432} Carved Centaur Totem · {npc:5395} Felgur Twocuts · {quest:1366} Centaur Bounty
-	["West of the post, the Maraudine centaurs hold the {area:607}. Every Maraudine can drop a {item:254432} and an ear for {npc:5395}'s {quest:1366}."] = "哨所西边的{area:607}被玛洛迪半人马占据。所有玛洛迪半人马都可能掉落{item:254432}，以及{npc:5395}的{quest:1366}所需的耳朵。",
+	["West of the post, the Maraudine centaurs hold the {area:607}. Every Maraudine can drop a {item:254432} and an ear for {npc:5395}'s {quest:1366}. Stay with the Maraudine (36-39) in the valley: the Magram's village in the south-east has the same drops, but its Necromancers (42-43) and Guardians (39-41) are well above you."] = "哨所西边的{area:607}被玛洛迪半人马占据。所有玛洛迪半人马都可能掉落{item:254432}，以及{npc:5395}的{quest:1366}所需的耳朵。待在山谷里的玛洛迪半人马（36-39级）这边：东南方的玛格拉姆村落也掉落同样的东西，但那里的死灵法师（42-43级）和守护者（39-41级）等级远高于你。",
 
 	-- Step 29: Melizza Brimbuzzle
 	-- {npc:12277} Melizza Brimbuzzle
@@ -149,9 +151,9 @@ return {
 	-- Step 31: The Valley of Bones
 	-- {area:2657} Valley of Bones
 	["The {area:2657}"] = "{area:2657}",
-	-- {area:2657} Valley of Bones · {item:15848} Crate of Ghost Magnets
-	-- plural, as words: Undead Ravagers = {npc:11561} Undead Ravager · Magrami Spectres = {npc:11560} Magrami Spectre
-	["Head south-east to the bone fields of the {area:2657}, where Undead Ravagers roam. At the far south-east, use the {item:15848} to draw the Magrami Spectres: they drop the ghost-o-plasm."] = "向东南前往{area:2657}的白骨荒地，那里有亡灵劫掠者游荡。在最东南边使用{item:15848}引来玛格拉姆鬼魂：它们会掉落幽灵电浆。",
+	-- {area:2657} Valley of Bones · {zone:1443} Desolace · {item:15848} Crate of Ghost Magnets
+	-- plural, as words: Undead Ravagers = {npc:11561} Undead Ravager · Magrami Spectres = {npc:11560} Magrami Spectre · Magram Necrokhans = {npc:253274} Magram Necrokhan
+	["Head south-east to the bone fields of the {area:2657}, where Undead Ravagers roam, at {zone:1443}'s southern edge. Use the {item:15848} at the arrow to draw the Magrami Spectres: they drop the ghost-o-plasm.\nCareful: Magram Necrokhans and Corpsefeeders (45, elite) walk the bone fields just west of the arrow, well above you: use the crate at the arrow, on the valley's eastern side, and pull the spectres away from them."] = "向东南前往{area:2657}的白骨荒地，那里有亡灵劫掠者游荡，位于{zone:1443}的南缘。在箭头处使用{item:15848}引来玛格拉姆鬼魂：它们会掉落幽灵电浆。\n小心：玛格拉姆死灵可汗和玛格拉姆食尸者（45级，精英）在箭头正西边的白骨荒地上走动，等级远高于你：在山谷东侧的箭头处使用箱子，并把鬼魂从它们身边引开。",
 
 	-- Step 32: Hornizz Brimbuzzle
 	-- {area:596} Kodo Graveyard

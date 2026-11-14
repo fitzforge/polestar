@@ -21,9 +21,9 @@ return {
 
 	-- Step 3: Engineering 1-75: Auction House
 	-- {skill:202} Engineering
-	["{skill:202} 1-75: Auction House"] = "",
+	["{skill:202} 1-75: Auction House"] = "{skill:202} 1-75：拍賣場",
 	-- {item:2835} Rough Stone · {item:2840} Copper Bar
-	["What 1-75 takes that the Auction House sells: 46 {item:2835} and 75 {item:2840}. The counts drop by what your bags, bank and mail hold."] = "",
+	["What 1-75 takes that the Auction House sells: 46 {item:2835} and 75 {item:2840}. The counts drop by what your bags, bank and mail hold."] = "1-75階段所需的材料中，拍賣場有賣的：46個{item:2835}和75個{item:2840}。數量會扣除你背包、銀行和郵件中已有的。",
 
 	-- Step 4: Rough Stone (Elwynn Forest)
 	-- {item:2835} Rough Stone · {spell:3918} Rough Blasting Powder · {skill:186} Mining · {object:1731} Copper Vein · {zone:1429} Elwynn Forest
@@ -55,37 +55,37 @@ return {
 
 	-- Step 11: Copper Bar
 	-- {item:2840} Copper Bar · {spell:3922} Handful of Copper Bolts · {item:6219} Arclight Spanner · {spell:3924} Copper Tube · {skill:186} Mining · {item:2770} Copper Ore
-	["75 {item:2840} for {spell:3922}, {item:6219} and {spell:3924}: {skill:186}: smelt {item:2770}."] = "",
+	["75 {item:2840} for {spell:3922}, {item:6219} and {spell:3924}: {skill:186}: smelt {item:2770}."] = "準備75個{item:2840}製作{spell:3922}、{item:6219}和{spell:3924}：{skill:186}：熔煉{item:2770}。",
 
 	-- Step 12: Rough Blasting Powder to 35
 	-- {spell:3918} Rough Blasting Powder
-	["{spell:3918} to 35"] = "",
+	["{spell:3918} to 35"] = "{spell:3918}練到 35",
 	-- {spell:3918} Rough Blasting Powder · {item:2835} Rough Stone · {item:2770} Copper Ore
 	-- plural, as words: Copper Veins = {object:1731} Copper Vein
 	["{spell:3918} is orange at 1 (yellow 20, green 30, grey 40): about 46 crafts to 35. Each takes 1 {item:2835}. One {item:2835} a craft; {item:2835} comes with the {item:2770} from Copper Veins."] = "",
 
 	-- Step 13: Engineering recipes at 35
 	-- {skill:202} Engineering
-	["{skill:202} recipes at 35"] = "",
+	["{skill:202} recipes at 35"] = "{skill:202} 35 配方",
 	-- {skill:202} Engineering · {spell:3922} Handful of Copper Bolts · {spell:1230656} Reagent Bot · {spell:3924} Copper Tube
 	["Back to an {skill:202} trainer: {spell:3922} (from 30, 1s 15c). Also learn {spell:1230656} (1s): Forever's {skill:202} camp item, placed at a campsite beside a campfire. It takes a {spell:3922} and a {spell:3924}, which you learn at 30 and 50, so it gives no points. The Camping 101: {skill:202} quest from your starting area's camping guide (after The Great Outdoors) sends you to an engineering trainer who teaches it free."] = "",
 
 	-- Step 14: Handful of Copper Bolts to 57
 	-- {spell:3922} Handful of Copper Bolts
-	["{spell:3922} to 57"] = "",
+	["{spell:3922} to 57"] = "{spell:3922}練到 57",
 	-- {spell:3922} Handful of Copper Bolts · {item:2840} Copper Bar · {item:5956} Blacksmith Hammer
 	-- plural, as words: Practice Locks = {item:6712} Practice Lock
 	["{spell:3922} is orange at 35 (yellow 45, green 52, grey 60): about 33 crafts to 57. Each takes 1 {item:2840}. One {item:2840} a craft. Keep the bolts: Practice Locks and later gadgets take them. Needs an anvil nearby. {item:5956} is a tool: keep it in your bags."] = "",
 
 	-- Step 15: Engineering recipes at 57
 	-- {skill:202} Engineering
-	["{skill:202} recipes at 57"] = "",
+	["{skill:202} recipes at 57"] = "{skill:202} 57 配方",
 	-- {skill:202} Engineering · {spell:7430} Arclight Spanner · {spell:3924} Copper Tube
 	["Back to an {skill:202} trainer: {spell:7430} (from 50, 1s 50c) and {spell:3924} (from 50, 1s 50c)."] = "",
 
 	-- Step 16: Copper Tube to 75
 	-- {spell:3924} Copper Tube
-	["{spell:3924} to 75"] = "",
+	["{spell:3924} to 75"] = "{spell:3924}練到 75",
 	-- {spell:3924} Copper Tube · {item:2840} Copper Bar · {item:2880} Weak Flux · {item:6219} Arclight Spanner
 	-- plural, as words: Copper Bars = {item:2840} Copper Bar
 	["{spell:3924} is orange at 57 (yellow 80, green 95, grey 110): about 18 crafts to 75, a point every craft. Each takes 2 {item:2840} and 1 {item:2880}. Two Copper Bars and a {item:2880} a craft (blacksmithing and engineering suppliers). Needs an anvil nearby. Make the {item:6219} now, while it still gives a point: a later recipe needs it in your bags, so keep it there."] = "",
@@ -95,7 +95,7 @@ return {
 	-- {skill:202} Engineering
 	["Journeyman {skill:202}"] = "中級{skill:202}",
 	-- {skill:202} Engineering · {npc:1676} Finbus Geargrind · {zone:1431} Duskwood · {npc:5518} Lilliam Sparkspindle · {zone:1453} Stormwind City · {npc:11029} Trixie Quikswitch · {zone:1455} Ironforge · {npc:11031} Franklin Lloyd · {zone:1458} Undercity · {spell:3929} Coarse Blasting Powder · {spell:3930} Crafted Heavy Shot · {item:2836} Coarse Stone · {item:2838} Heavy Stone · {item:2840} Copper Bar · {item:2841} Bronze Bar · {item:2842} Silver Bar
-	["Journeyman raises the cap from 75 to 150 for 5s (Classic's price; Forever's is not in the data); it needs {skill:202} 50 and character level 10, so you can take it on any visit from 50. Not every {skill:202} trainer teaches it: Alliance {npc:1676} ({zone:1431}), {npc:5518} ({zone:1453}) and {npc:11029} ({zone:1455}); Horde {npc:11031} ({zone:1458}). The arrow picks the nearest of your faction. Learn now: {spell:3929} (from 75, 2s 50c) and {spell:3930} (from 75, 2s 50c). 75-150 takes about 5s of recipes and 45s of vendor goods, plus 15 {item:2836}, 27 {item:2838}, 72 {item:2840}, 61 {item:2841} and 2 {item:2842} to gather or buy."] = "",
+	["Journeyman raises the cap from 75 to 150 for 5s (Classic's price; Forever's is not in the data); it needs {skill:202} 50 and character level 10, so you can take it on any visit from 50. Not every {skill:202} trainer teaches it: Alliance {npc:1676} ({zone:1431}), {npc:5518} ({zone:1453}) and {npc:11029} ({zone:1455}); Horde {npc:11031} ({zone:1458}). The arrow picks the nearest of your faction. Learn now: {spell:3929} (from 75, 2s 50c) and {spell:3930} (from 75, 2s 50c). 75-150 takes about 5s of recipes and 45s of vendor goods, plus 15 {item:2836}, 27 {item:2838}, 72 {item:2840}, 61 {item:2841} and 2 {item:2842} to gather or buy."] = "中級將上限從75提高到150，費用5銀（經典版的價格；資料中沒有Forever的價格）；需要{skill:202} 50和角色等級10，所以技能達到50後，任何一次經過都可以學。並非每位{skill:202}訓練師都會教：聯盟有{npc:1676}（{zone:1431}）、{npc:5518}（{zone:1453}）和{npc:11029}（{zone:1455}）；部落有{npc:11031}（{zone:1458}）。箭頭會選擇你陣營最近的一位。現在學習：{spell:3929}（技能75起，2銀50銅）和{spell:3930}（技能75起，2銀50銅）。75-150約需5銀的配方和45銀的商人材料，另需採集或購買15個{item:2836}、27個{item:2838}、72個{item:2840}、61個{item:2841}和2個{item:2842}。",
 
 	-- Step 18: Engineering 75-150: vendor goods
 	-- {skill:202} Engineering
@@ -105,9 +105,9 @@ return {
 
 	-- Step 19: Engineering 75-150: Auction House
 	-- {skill:202} Engineering
-	["{skill:202} 75-150: Auction House"] = "",
+	["{skill:202} 75-150: Auction House"] = "{skill:202} 75-150：拍賣場",
 	-- {item:2836} Coarse Stone · {item:2838} Heavy Stone · {item:2840} Copper Bar · {item:2841} Bronze Bar · {item:2842} Silver Bar
-	["What 75-150 takes that the Auction House sells: 15 {item:2836}, 27 {item:2838}, 72 {item:2840}, 61 {item:2841} and 2 {item:2842}. The counts drop by what your bags, bank and mail hold."] = "",
+	["What 75-150 takes that the Auction House sells: 15 {item:2836}, 27 {item:2838}, 72 {item:2840}, 61 {item:2841} and 2 {item:2842}. The counts drop by what your bags, bank and mail hold."] = "75-150階段所需的材料中，拍賣場有賣的：15個{item:2836}、27個{item:2838}、72個{item:2840}、61個{item:2841}和2個{item:2842}。數量會扣除你背包、銀行和郵件中已有的。",
 
 	-- Step 20: Coarse Stone (Westfall)
 	-- {item:2836} Coarse Stone · {spell:3930} Crafted Heavy Shot · {skill:186} Mining · {object:1732} Tin Vein · {zone:1436} Westfall
@@ -143,15 +143,15 @@ return {
 
 	-- Step 29: Copper Bar
 	-- {item:2840} Copper Bar · {spell:3930} Crafted Heavy Shot · {spell:3924} Copper Tube · {item:6712} Practice Lock · {skill:186} Mining · {item:2770} Copper Ore
-	["72 {item:2840} for {spell:3930}, {spell:3924} and {item:6712}: {skill:186}: smelt {item:2770}."] = "",
+	["72 {item:2840} for {spell:3930}, {spell:3924} and {item:6712}: {skill:186}: smelt {item:2770}."] = "準備72個{item:2840}製作{spell:3930}、{spell:3924}和{item:6712}：{skill:186}：熔煉{item:2770}。",
 
 	-- Step 30: Bronze Bar
 	-- {item:2841} Bronze Bar · {item:6712} Practice Lock · {spell:3950} Big Bronze Bomb · {skill:186} Mining · {item:2840} Copper Bar · {item:3576} Tin Bar
-	["61 {item:2841} for {item:6712} and {spell:3950}: {skill:186}: smelt {item:2840} and {item:3576}."] = "",
+	["61 {item:2841} for {item:6712} and {spell:3950}: {skill:186}: smelt {item:2840} and {item:3576}."] = "準備61個{item:2841}製作{item:6712}和{spell:3950}：{skill:186}：熔煉{item:2840}和{item:3576}。",
 
 	-- Step 31: Silver Bar
 	-- {item:2842} Silver Bar · {spell:3950} Big Bronze Bomb · {skill:186} Mining · {item:2775} Silver Ore
-	["2 {item:2842} for {spell:3950}: {skill:186}: smelt {item:2775}."] = "",
+	["2 {item:2842} for {spell:3950}: {skill:186}: smelt {item:2775}."] = "準備2個{item:2842}製作{spell:3950}：{skill:186}：熔煉{item:2775}。",
 
 	-- Step 32: Crafted Heavy Shot to 94
 	-- {spell:3930} Crafted Heavy Shot
@@ -168,9 +168,9 @@ return {
 
 	-- Step 34: Engineering recipes at 100
 	-- {skill:202} Engineering
-	["{skill:202} recipes at 100"] = "",
+	["{skill:202} recipes at 100"] = "{skill:202} 100 配方",
 	-- {skill:202} Engineering · {spell:8334} Practice Lock
-	["Back to an {skill:202} trainer: {spell:8334} (from 100)."] = "",
+	["Back to an {skill:202} trainer: {spell:8334} (from 100)."] = "回到{skill:202}訓練師處：{spell:8334}（100起）。",
 
 	-- Step 35: Practice Lock to 125
 	-- {item:6712} Practice Lock
@@ -183,20 +183,20 @@ return {
 	-- {skill:202} Engineering
 	["{skill:202} recipes at 125"] = "{skill:202} 125 配方",
 	-- {skill:202} Engineering · {spell:3945} Heavy Blasting Powder
-	["Back to an {skill:202} trainer: {spell:3945} (from 125)."] = "",
+	["Back to an {skill:202} trainer: {spell:3945} (from 125)."] = "回到{skill:202}訓練師處：{spell:3945}（125起）。",
 
 	-- Step 37: Heavy Blasting Powder to 140
 	-- {spell:3945} Heavy Blasting Powder
-	["{spell:3945} to 140"] = "",
+	["{spell:3945} to 140"] = "{spell:3945}練到 140",
 	-- {spell:3945} Heavy Blasting Powder · {item:2838} Heavy Stone
 	-- plural, as words: Iron Deposits = {object:1735} Iron Deposit · Iron Grenades = {item:4390} Iron Grenade
 	["{spell:3945} is yellow at 125 (yellow 125, green 135, grey 145): about 27 crafts to 140. Each takes 1 {item:2838}. One {item:2838} a craft (Iron Deposits). Keep some: Iron Grenades take one each."] = "",
 
 	-- Step 38: Engineering recipes at 140
 	-- {skill:202} Engineering
-	["{skill:202} recipes at 140"] = "",
+	["{skill:202} recipes at 140"] = "{skill:202} 140 配方",
 	-- {skill:202} Engineering · {spell:3973} Silver Contact · {spell:3950} Big Bronze Bomb
-	["Back to an {skill:202} trainer: {spell:3973} (from 90) and {spell:3950} (from 140)."] = "",
+	["Back to an {skill:202} trainer: {spell:3973} (from 90) and {spell:3950} (from 140)."] = "回到{skill:202}訓練師處：{spell:3973}（90起）和{spell:3950}（140起）。",
 
 	-- Step 39: Big Bronze Bomb to 150
 	-- {spell:3950} Big Bronze Bomb
@@ -218,9 +218,9 @@ return {
 
 	-- Step 42: Engineering 150-225: Auction House
 	-- {skill:202} Engineering
-	["{skill:202} 150-225: Auction House"] = "",
+	["{skill:202} 150-225: Auction House"] = "{skill:202} 150-225：拍賣場",
 	-- {item:2319} Medium Leather · {item:2592} Wool Cloth · {item:2836} Coarse Stone · {item:2838} Heavy Stone · {item:2841} Bronze Bar · {item:2842} Silver Bar · {item:3575} Iron Bar · {item:3860} Mithril Bar · {item:7912} Solid Stone
-	["What 150-225 takes that the Auction House sells: 19 {item:2319}, 19 {item:2592}, 31 {item:2836}, 74 {item:2838}, 100 {item:2841}, 6 {item:2842}, 81 {item:3575}, 19 {item:3860} and 62 {item:7912}. The counts drop by what your bags, bank and mail hold."] = "",
+	["What 150-225 takes that the Auction House sells: 19 {item:2319}, 19 {item:2592}, 31 {item:2836}, 74 {item:2838}, 100 {item:2841}, 6 {item:2842}, 81 {item:3575}, 19 {item:3860} and 62 {item:7912}. The counts drop by what your bags, bank and mail hold."] = "150-225階段所需的材料中，拍賣場有賣的：19個{item:2319}、19個{item:2592}、31個{item:2836}、74個{item:2838}、100個{item:2841}、6個{item:2842}、81個{item:3575}、19個{item:3860}和62個{item:7912}。數量會扣除你背包、銀行和郵件中已有的。",
 
 	-- Step 43: Medium Leather (Alliance)
 	-- {item:2319} Medium Leather
@@ -236,7 +236,7 @@ return {
 
 	-- Step 45: Wool Cloth
 	-- {item:2592} Wool Cloth · {spell:3953} Bronze Framework
-	["19 {item:2592} for {spell:3953}: humanoids of level 15-30 drop it. Keep what you loot as you level, or take it from your bank."] = "",
+	["19 {item:2592} for {spell:3953}: humanoids of level 15-30 drop it. Keep what you loot as you level, or take it from your bank."] = "為{spell:3953}準備19個{item:2592}：15-30級的人型生物會掉落。練等時把撿到的留著，或從銀行取出。",
 
 	-- Step 46: Coarse Stone (Alliance)
 	-- {item:2836} Coarse Stone
@@ -264,19 +264,19 @@ return {
 
 	-- Step 50: Bronze Bar
 	-- {item:2841} Bronze Bar · {item:6533} Aquadynamic Fish Attractor · {spell:3953} Bronze Framework · {skill:186} Mining · {item:2840} Copper Bar · {item:3576} Tin Bar
-	["100 {item:2841} for {item:6533} and {spell:3953}: {skill:186}: smelt {item:2840} and {item:3576}."] = "",
+	["100 {item:2841} for {item:6533} and {spell:3953}: {skill:186}: smelt {item:2840} and {item:3576}."] = "準備100個{item:2841}製作{item:6533}和{spell:3953}：{skill:186}：熔煉{item:2840}和{item:3576}。",
 
 	-- Step 51: Silver Bar
 	-- {item:2842} Silver Bar · {spell:3967} Big Iron Bomb · {skill:186} Mining · {item:2775} Silver Ore
-	["6 {item:2842} for {spell:3967}: {skill:186}: smelt {item:2775}."] = "",
+	["6 {item:2842} for {spell:3967}: {skill:186}: smelt {item:2775}."] = "準備6個{item:2842}製作{spell:3967}：{skill:186}：熔煉{item:2775}。",
 
 	-- Step 52: Iron Bar
 	-- {item:3575} Iron Bar · {spell:3967} Big Iron Bomb · {skill:186} Mining · {item:2772} Iron Ore
-	["81 {item:3575} for {spell:3967}: {skill:186}: smelt {item:2772}."] = "",
+	["81 {item:3575} for {spell:3967}: {skill:186}: smelt {item:2772}."] = "準備81個{item:3575}製作{spell:3967}：{skill:186}：熔煉{item:2772}。",
 
 	-- Step 53: Mithril Bar
 	-- {item:3860} Mithril Bar · {item:10512} Hi-Impact Mithril Slugs · {skill:186} Mining · {item:3858} Mithril Ore
-	["19 {item:3860} for {item:10512}: {skill:186}: smelt {item:3858}."] = "",
+	["19 {item:3860} for {item:10512}: {skill:186}: smelt {item:3858}."] = "準備19個{item:3860}製作{item:10512}：{skill:186}：熔煉{item:3858}。",
 
 	-- Step 54: Solid Stone (Alliance)
 	-- {item:7912} Solid Stone
@@ -307,7 +307,7 @@ return {
 	-- {skill:202} Engineering
 	["{skill:202} recipes at 175"] = "{skill:202} 175 配方",
 	-- {skill:202} Engineering · {spell:12585} Solid Blasting Powder
-	["Back to an {skill:202} trainer: {spell:12585} (from 175)."] = "",
+	["Back to an {skill:202} trainer: {spell:12585} (from 175)."] = "回到{skill:202}訓練師處：{spell:12585}（175起）。",
 
 	-- Step 59: Solid Blasting Powder to 191
 	-- {item:10505} Solid Blasting Powder
@@ -318,9 +318,9 @@ return {
 
 	-- Step 60: Engineering recipes at 191
 	-- {skill:202} Engineering
-	["{skill:202} recipes at 191"] = "",
+	["{skill:202} recipes at 191"] = "{skill:202} 191 配方",
 	-- {skill:202} Engineering · {spell:3967} Big Iron Bomb
-	["Back to an {skill:202} trainer: {spell:3967} (from 190)."] = "",
+	["Back to an {skill:202} trainer: {spell:3967} (from 190)."] = "回到{skill:202}訓練師處：{spell:3967}（190起）。",
 
 	-- Step 61: Big Iron Bomb to 210
 	-- {spell:3967} Big Iron Bomb
@@ -333,7 +333,7 @@ return {
 	-- {skill:202} Engineering
 	["{skill:202} recipes at 210"] = "{skill:202} 210 配方",
 	-- {skill:202} Engineering · {spell:12596} Hi-Impact Mithril Slugs
-	["Back to an {skill:202} trainer: {spell:12596} (from 210)."] = "",
+	["Back to an {skill:202} trainer: {spell:12596} (from 210)."] = "回到{skill:202}訓練師處：{spell:12596}（210起）。",
 
 	-- Step 63: Hi-Impact Mithril Slugs to 225
 	-- {item:10512} Hi-Impact Mithril Slugs
@@ -357,13 +357,13 @@ return {
 
 	-- Step 67: Engineering 225-300: Auction House
 	-- {skill:202} Engineering
-	["{skill:202} 225-300: Auction House"] = "",
+	["{skill:202} 225-300: Auction House"] = "{skill:202} 225-300：拍賣場",
 	-- {item:3860} Mithril Bar · {item:7912} Solid Stone · {item:12359} Thorium Bar · {item:14047} Runecloth
-	["What 225-300 takes that the Auction House sells: 118 {item:3860}, 212 {item:7912}, 156 {item:12359} and 24 {item:14047}. The counts drop by what your bags, bank and mail hold."] = "",
+	["What 225-300 takes that the Auction House sells: 118 {item:3860}, 212 {item:7912}, 156 {item:12359} and 24 {item:14047}. The counts drop by what your bags, bank and mail hold."] = "225-300階段所需的材料中，拍賣場有賣的：118個{item:3860}、212個{item:7912}、156個{item:12359}和24個{item:14047}。數量會扣除你背包、銀行和郵件中已有的。",
 
 	-- Step 68: Mithril Bar
 	-- {item:3860} Mithril Bar · {item:10512} Hi-Impact Mithril Slugs · {item:10513} Mithril Gyro-Shot · {skill:186} Mining · {item:3858} Mithril Ore
-	["118 {item:3860} for {item:10512} and {item:10513}: {skill:186}: smelt {item:3858}."] = "",
+	["118 {item:3860} for {item:10512} and {item:10513}: {skill:186}: smelt {item:3858}."] = "準備118個{item:3860}製作{item:10512}和{item:10513}：{skill:186}：熔煉{item:3858}。",
 
 	-- Step 69: Solid Stone (Alliance)
 	-- {item:7912} Solid Stone · {item:10512} Hi-Impact Mithril Slugs · {item:10513} Mithril Gyro-Shot · {skill:186} Mining · {object:2040} Mithril Deposit · {zone:1425} The Hinterlands · {zone:1444} Feralas · {zone:1447} Azshara
@@ -375,11 +375,11 @@ return {
 
 	-- Step 71: Thorium Bar
 	-- {item:12359} Thorium Bar · {item:15994} Thorium Widget · {item:16000} Thorium Tube · {skill:186} Mining · {item:10620} Thorium Ore
-	["156 {item:12359} for {item:15994} and {item:16000}: {skill:186}: smelt {item:10620}."] = "",
+	["156 {item:12359} for {item:15994} and {item:16000}: {skill:186}: smelt {item:10620}."] = "準備156個{item:12359}製作{item:15994}和{item:16000}：{skill:186}：熔煉{item:10620}。",
 
 	-- Step 72: Runecloth
 	-- {item:14047} Runecloth · {item:15994} Thorium Widget
-	["24 {item:14047} for {item:15994}: humanoids of level 45-60 drop it. Keep what you loot as you level, or take it from your bank."] = "",
+	["24 {item:14047} for {item:15994}: humanoids of level 45-60 drop it. Keep what you loot as you level, or take it from your bank."] = "為{item:15994}準備24個{item:14047}：45-60級的人型生物會掉落。練等時把撿到的留著，或從銀行取出。",
 
 	-- Step 73: Hi-Impact Mithril Slugs to 245
 	-- {item:10512} Hi-Impact Mithril Slugs
@@ -391,18 +391,18 @@ return {
 	-- {skill:202} Engineering
 	["{skill:202} recipes at 245"] = "{skill:202} 245 配方",
 	-- {skill:202} Engineering · {spell:12621} Mithril Gyro-Shot
-	["Back to an {skill:202} trainer: {spell:12621} (from 245)."] = "",
+	["Back to an {skill:202} trainer: {spell:12621} (from 245)."] = "回到{skill:202}訓練師處：{spell:12621}（245起）。",
 
 	-- Step 75: Mithril Gyro-Shot to 265
 	-- {item:10513} Mithril Gyro-Shot
-	["{item:10513} to 265"] = "",
+	["{item:10513} to 265"] = "{item:10513}練到 265",
 	-- {item:10513} Mithril Gyro-Shot · {item:3860} Mithril Bar · {item:10505} Solid Blasting Powder
 	-- plural, as words: Mithril Bars = {item:3860} Mithril Bar
 	["{item:10513} is yellow at 245 (yellow 245, green 265, grey 285): about 28 crafts to 265. Each takes 2 {item:3860} and 2 {item:10505} and makes 200. Make the 56 {item:10505} first. Two Mithril Bars and two {item:10505} a craft. Needs an anvil nearby."] = "",
 
 	-- Step 76: Thorium Widget to 287
 	-- {item:15994} Thorium Widget
-	["{item:15994} to 287"] = "",
+	["{item:15994} to 287"] = "{item:15994}練到 287",
 	-- {item:15994} Thorium Widget · {item:12359} Thorium Bar · {item:14047} Runecloth
 	-- plural, as words: Thorium Bars = {item:12359} Thorium Bar
 	["{item:15994} is orange at 265 (yellow 280, green 290, grey 300): about 24 crafts to 287. Each takes 3 {item:12359} and 1 {item:14047}. Three Thorium Bars and a {item:14047} a craft; the widgets are parts for the later Thorium gadgets. Needs an anvil nearby."] = "",
@@ -416,24 +416,14 @@ return {
 	["{item:16000} is orange at 287 (yellow 295, green 305, grey 315): about 14 crafts to 300. Each takes 6 {item:12359}. The schematic binds when picked up; six Thorium Bars a craft. Needs an anvil nearby. {skill:202} 300 is a Legacy System milestone."] = "",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
-	-- ["19 {item:2592} for {spell:3953}: humanoids of level 15-30 drop it. Keep what you loot as you level, take it from your bank, or buy it at the Auction House."] = "為{spell:3953}準備19個{item:2592}：15-30級的人型生物會掉落。練等時把撿到的留著，從銀行取出，或在拍賣場購買。",
-	-- ["24 {item:14047} for {item:15994}: humanoids of level 45-60 drop it. Keep what you loot as you level, take it from your bank, or buy it at the Auction House."] = "為{item:15994}準備24個{item:14047}：45-60級的人型生物會掉落。練等時把撿到的留著，從銀行取出，或在拍賣場購買。",
 	-- ["Apprentice {skill:202}"] = "初級{skill:202}",
 	-- ["Artisan needs character level 35 and {skill:202} 200; it raises the cap to 300. Materials for 225-300 are worth about 67g in all."] = "專家級需要角色等級 35 且{skill:202} 200；上限提高到 300。225-300 的材料總值約 67g。",
-	-- ["Back to an {skill:202} trainer: {spell:12585}, {spell:12596} are taught from {skill:202} 210."] = "回到{skill:202}訓練師處：{skill:202} 210 起可學{spell:12585}、{spell:12596}。",
 	-- ["Back to an {skill:202} trainer: {spell:12590} is taught from {skill:202} 175."] = "回到{skill:202}訓練師處：{skill:202} 175 起可學{spell:12590}。",
-	-- ["Back to an {skill:202} trainer: {spell:12621} is taught from {skill:202} 245."] = "回到{skill:202}訓練師處：{skill:202} 245 起可學{spell:12621}。",
 	-- ["Back to an {skill:202} trainer: {spell:3922} is taught from {skill:202} 45."] = "回到{skill:202}訓練師處：{skill:202} 45 起可學{spell:3922}。",
-	-- ["Back to an {skill:202} trainer: {spell:3923} is taught from {skill:202} 60."] = "回到{skill:202}訓練師處：{skill:202} 60 起可學{spell:3923}。",
-	-- ["Back to an {skill:202} trainer: {spell:3924} is taught from {skill:202} 80."] = "回到{skill:202}訓練師處：{skill:202} 80 起可學{spell:3924}。",
 	-- ["Back to an {skill:202} trainer: {spell:3926} is taught from {skill:202} 95."] = "回到{skill:202}訓練師處：{skill:202} 95 起可學{spell:3926}。",
-	-- ["Back to an {skill:202} trainer: {spell:3929} is taught from {skill:202} 85."] = "回到{skill:202}訓練師處：{skill:202} 85 起可學{spell:3929}。",
-	-- ["Back to an {skill:202} trainer: {spell:3937} is taught from {skill:202} 105."] = "回到{skill:202}訓練師處：{skill:202} 105 起可學{spell:3937}。",
 	-- ["Back to an {skill:202} trainer: {spell:3942} is taught from {skill:202} 125."] = "回到{skill:202}訓練師處：{skill:202} 125 起可學{spell:3942}。",
-	-- ["Back to an {skill:202} trainer: {spell:3945} is taught from {skill:202} 125."] = "回到{skill:202}訓練師處：{skill:202} 125 起可學{spell:3945}。",
 	-- ["Expert needs character level 20 and {skill:202} 125; it raises the cap to 225. Materials for 150-225 are worth about 15g in all."] = "高級需要角色等級 20 且{skill:202} 125；上限提高到 225。150-225 的材料總值約 15g。",
 	-- ["Journeyman needs character level 10 and {skill:202} 50; it raises the cap to 150. Materials for 75-150 are worth about 3g 23s in all."] = "中級需要角色等級 10 且{skill:202} 50；上限提高到 150。75-150 的材料總值約 3g 23s。",
-	-- ["Journeyman raises the cap from 75 to 150 for 5s (Classic's price; Forever's is not in the data); it needs {skill:202} 50 and character level 10, so you can take it on any visit from 50. Not every {skill:202} trainer teaches it: Alliance {npc:1676} ({zone:1431}), {npc:5518} ({zone:1453}) and {npc:11029} ({zone:1455}); Horde {npc:11031} ({zone:1458}) and {npc:3412} ({zone:1454}). The arrow picks the nearest of your faction. Learn now: {spell:3929} (from 75, 2s 50c) and {spell:3930} (from 75, 2s 50c). 75-150 takes about 5s of recipes and 45s of vendor goods, plus 15 {item:2836}, 27 {item:2838}, 72 {item:2840}, 61 {item:2841} and 2 {item:2842} to gather or buy."] = "中級將上限從75提高到150，費用5銀（經典版的價格；資料中沒有Forever的價格）；需要{skill:202} 50和角色等級10，所以技能達到50後，任何一次經過都可以學。並非每位{skill:202}訓練師都會教：聯盟有{npc:1676}（{zone:1431}）、{npc:5518}（{zone:1453}）和{npc:11029}（{zone:1455}）；部落有{npc:11031}（{zone:1458}）和{npc:3412}（{zone:1454}）。箭頭會選擇你陣營最近的一位。現在學習：{spell:3929}（技能75起，2銀50銅）和{spell:3930}（技能75起，2銀50銅）。75-150約需5銀的配方和45銀的商人材料，另需採集或購買15個{item:2836}、27個{item:2838}、72個{item:2840}、61個{item:2841}和2個{item:2842}。",
 	-- ["Kill the mobs that drop it at the farm spot Polestar picks for your level and faction. The Auction House works too."] = "在 Polestar 依你的等級和陣營挑選的刷怪點擊殺會掉落它的怪物。也可以在拍賣場購買。",
 	-- ["Orange (a point every craft) until 20, yellow until 30, green until 40."] = "橙色（每次製造加 1 點）到 20，黃色到 30，綠色到 40。",
 	-- ["Orange (a point every craft) until 280, yellow until 290, green until 300. Needs an anvil nearby."] = "橙色（每次製造加 1 點）到 280，黃色到 290，綠色到 300。附近需要鐵砧。",
@@ -459,10 +449,8 @@ return {
 	-- ["Yellow until 90, green until 95: not every craft gives a point."] = "黃色到 90，綠色到 95：並非每次製造都會加點。",
 	-- ["Yellow until 95, green until 110: not every craft gives a point. Needs an anvil nearby."] = "黃色到 95，綠色到 110：並非每次製造都會加點。附近需要鐵砧。",
 	-- ["{item:10498} to 210"] = "{item:10498}練到 210",
-	-- ["{item:10513} to 264"] = "{item:10513}練到 264",
 	-- ["{item:14047} (Alliance)"] = "{item:14047}（聯盟）",
 	-- ["{item:14047} (Horde)"] = "{item:14047}（部落）",
-	-- ["{item:15994} to 288"] = "{item:15994}練到 288",
 	-- ["{item:2592} (Alliance)"] = "{item:2592}（聯盟）",
 	-- ["{item:2592} (Horde)"] = "{item:2592}（部落）",
 	-- ["{item:2835} (Alliance)"] = "{item:2835}（聯盟）",
@@ -485,23 +473,14 @@ return {
 	-- ["{skill:202} materials for 150-225"] = "{skill:202} 150-225 材料",
 	-- ["{skill:202} materials for 225-300"] = "{skill:202} 225-300 材料",
 	-- ["{skill:202} materials for 75-150"] = "{skill:202} 75-150 材料",
-	-- ["{skill:202} recipes at 111"] = "{skill:202} 111 配方",
 	-- ["{skill:202} recipes at 139"] = "{skill:202} 139 配方",
-	-- ["{skill:202} recipes at 45"] = "{skill:202} 45 配方",
-	-- ["{skill:202} recipes at 60"] = "{skill:202} 60 配方",
-	-- ["{skill:202} recipes at 80"] = "{skill:202} 80 配方",
-	-- ["{skill:202} recipes at 85"] = "{skill:202} 85 配方",
 	-- ["{skill:202} recipes at 95"] = "{skill:202} 95 配方",
 	-- ["{skill:202} runs alongside leveling. Forever's Legacy System rewards crafting professions at skill 150, 225 and 300 (the Journeyman, Expert and Artisan caps), so each of those checkpoints counts. Materials for 1-75 are worth about 62s in all."] = "{skill:202}可與升級同步進行。Forever 的傳承系統會在技能 150、225 和 300（中級、高級和專家級的上限）時獎勵製造專業，因此每個檢查點都很重要。1-75 的材料總值約 62s。",
-	-- ["{spell:3918} to 37"] = "{spell:3918}練到 37",
 	-- ["{spell:3920} to 45"] = "{spell:3920}練到 45",
-	-- ["{spell:3922} to 60"] = "{spell:3922}練到 60",
 	-- ["{spell:3923} to 75"] = "{spell:3923}練到 75",
 	-- ["{spell:3923} to 80"] = "{spell:3923}練到 80",
-	-- ["{spell:3924} to 85"] = "{spell:3924}練到 85",
 	-- ["{spell:3926} to 111"] = "{spell:3926}練到 111",
 	-- ["{spell:3929} to 95"] = "{spell:3929}練到 95",
 	-- ["{spell:3937} to 125"] = "{spell:3937}練到 125",
 	-- ["{spell:3942} to 150"] = "{spell:3942}練到 150",
-	-- ["{spell:3945} to 139"] = "{spell:3945}練到 139",
 }

@@ -35,7 +35,7 @@ return {
 	-- {npc:256386} Dokimi
 	["{npc:256386}'s crates"] = "{npc:256386}의 상자",
 	-- {npc:256386} Dokimi · {area:1237} Valormok
-	["Ride north up the road to the Crossroads; {npc:256386} stands there. Open each crate she hands you and bring back what is inside. Fly on to {area:1237} from the Crossroads."] = "",
+	["Ride north up the road to the Crossroads; {npc:256386} stands there. Open each crate she hands you and bring back what is inside. Fly on to {area:1237} from the Crossroads."] = "길을 따라 북쪽 크로스로드로 가세요. {npc:256386}이(가) 그곳에 서 있습니다. 그녀가 건네는 상자를 하나씩 열어 안에 든 것을 가져가세요. 크로스로드에서 {area:1237}(으)로 날아가세요.",
 
 	-- Step 6: Fly to Valormok
 	-- {area:1237} Valormok
@@ -46,14 +46,14 @@ return {
 	["Ride east to the ruins on the coast. Fill Cuely's four vials at the tide pools along the shore; Spitelash naga patrol between them."] = "동쪽 해안의 폐허로 가세요. 해안을 따라 있는 조수 웅덩이에서 큘리의 약병 네 개를 채우세요. 원한의꼬리일족 나가가 그 사이를 순찰합니다.",
 
 	-- Step 9: Thalassian Base Camp
-	-- {area:1227} Bay of Storms
-	["The blood elves camp on the cliffs in the north-east, by the {area:1227}."] = "블러드 엘프는 북동쪽 {area:1227} 옆 절벽에 야영하고 있습니다.",
+	-- {area:1227} Bay of Storms · {npc:250023} Blackmaw Thrall
+	["The blood elves camp on the cliffs in the north-east, by the {area:1227}.\nCareful: a {npc:250023}, a level 55-57 elite, stands at the west edge of the camp: work the blood elves from its east side."] = "블러드 엘프는 북동쪽 {area:1227} 옆 절벽에 야영하고 있습니다.\n주의: 야영지 서쪽 끝에 55-57레벨 정예인 {npc:250023}이(가) 서 있습니다. 블러드 엘프는 야영지 동쪽부터 처치하세요.",
 
 	-- Step 10: Magus Rimtori's camp
 	-- {npc:8578} Magus Rimtori
 	["{npc:8578}'s camp"] = "{npc:8578}의 야영지",
 	-- {object:151286} Kaldorei Tome of Summoning
-	["Rimtori's camp is at the east end of the base camp. Read the {object:151286} there, then kill the Magus.\nCareful: Which crystal is linked to Rimtori is random. Each of the other two summons a hostile infernal instead."] = "",
+	["Rimtori's camp is at the east end of the base camp. Read the {object:151286} there, then kill the Magus.\nCareful: Which crystal is linked to Rimtori is random. Each of the other two summons a hostile infernal instead."] = "림토리의 야영지는 주 야영지 동쪽 끝에 있습니다. 그곳에서 {object:151286}을(를) 읽은 뒤 마법사를 처치하세요.\n주의: 어느 수정이 림토리와 연결되어 있는지는 무작위입니다. 나머지 두 수정은 각각 적대적인 지옥불정령을 소환합니다.",
 
 	-- Step 11: Ag'tor Bloodfist
 	-- {area:1237} Valormok
@@ -84,7 +84,7 @@ return {
 
 	-- Step 17: Zeppelin to Undercity
 	-- {zone:1458} Undercity
-	["Zeppelin to {zone:1458}"] = "",
+	["Zeppelin to {zone:1458}"] = "{zone:1458}행 비행선",
 
 	-- Step 18: Chemist Cuely
 	-- {npc:8390} Chemist Cuely · {npc:8393} Thersa Windsong
@@ -127,11 +127,8 @@ return {
 	-- ["In the {object:172958}."] = "{object:172958}에 있습니다.",
 	-- ["In the {object:172961}. Have the Wool, Silk and Mageweave in your bags."] = "{object:172961}에 있습니다. 양모 옷감, 비단 옷감, 마법 옷감을 가방에 넣어 두세요.",
 	-- ["Open {object:149036} for the {item:10556}"] = "{object:149036}을(를) 열어 {item:10556} 얻기",
-	-- ["Rimtori's camp is at the east end of the base camp. Read the {object:151286} there, then kill the Magus."] = "림토리의 야영지는 주 야영지 동쪽 끝에 있습니다. 그곳에서 {object:151286}을(를) 읽은 뒤 마법사를 처치하세요.",
 	-- ["The zeppelin tower stands just north-east of {zone:1454}'s main gate; take the {zone:1458} zeppelin."] = "비행선 탑은 {zone:1454} 정문 바로 북동쪽에 있습니다. {zone:1458}행 비행선을 타세요.",
-	-- ["Zeppelin to the {zone:1458}"] = "{zone:1458}행 비행선",
 	-- ["Zeppelin tower"] = "비행선 탑",
 	-- ["{npc:11044}, in the Apothecarium"] = "연금술 실험실의 {npc:11044}",
-	-- ["{npc:256386} stands in the {area:380}. Open each crate she hands you and bring back what is inside."] = "{npc:256386}은(는) {area:380}에 서 있습니다. 그녀가 건네는 상자를 하나씩 열어 안에 든 것을 가져가세요.",
 	-- ["{quest:5050} goes back to {npc:10778} in the {area:28}: keep it."] = "{quest:5050}은(는) {area:28}의 {npc:10778}에게 돌아갑니다. 보관하세요.",
 }

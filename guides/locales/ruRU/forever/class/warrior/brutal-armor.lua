@@ -7,7 +7,7 @@
 -- The comments are rewritten by sync.
 return {
 	-- Guide
-	["Starts now at 20 at your trainer; four armor pieces at 30 (hauberk, helm, gauntlets, legguards), a shield on the way."] = "",
+	["Starts now at 20 at your trainer; four armor pieces at 30 (hauberk, helm, gauntlets, legguards), a shield on the way."] = "Начинается сейчас, на 20-м уровне, у вашего учителя; четыре части доспехов на 30-м уровне (хауберк, шлем, рукавицы, поножи), а по пути еще и щит.",
 
 	-- Step 1: Speak with Ruga (Orgrimmar)
 	-- {npc:3354} Sorek · {object:172958} Valley of Honor · {npc:6394} Ruga Ragetotem · {area:378} Camp Taurajo
@@ -30,7 +30,7 @@ return {
 	-- plural, as words: Silithid Mounds = {object:3685} Silithid Mound
 	["You have 30 minutes, and each {item:7119} rots 15 minutes after you loot it, so take the quest only when ready (logging out does not stop the clock). The Silithid Mounds dot the {area:390} south of {area:378}; every silithid drops an antenna. Creepers (level 20-21) and Grubs are the easiest: Swarmers (21-22) call small swarms and Creepers lay eggs that hatch adds. The eastern part of the field has plenty of Creepers. {item:7120}, a shield, is the reward."] = "",
 	-- {item:7119} Twitching Antenna
-	["{item:7119}, from the silithid"] = "",
+	["{item:7119}, from the silithid"] = "{item:7119} с силитидов",
 
 	-- Step 6: Thun'grim Firegaze
 	-- {npc:5878} Thun'grim Firegaze · {area:1699} Thorn Hill · {quest:1838} Brutal Armor · {item:7587} Thun'grim's Instructions
@@ -41,7 +41,7 @@ return {
 	-- plural, as words: Smoky Iron Ingots = {item:7126} Smoky Iron Ingot
 	["You need 15 Smoky Iron Ingots. The {area:2160} lies at the east end of {area:461}, east of {area:460}; every Windshear kobold (level 19-23) drops an ingot four kills in five. Stonecutters, Geomancers and Overlords run for help when low; Geomancers cast {spell:116}."] = "",
 	-- {item:7126} Smoky Iron Ingot
-	["{item:7126}, from the Windshear kobolds"] = "",
+	["{item:7126}, from the Windshear kobolds"] = "{item:7126} с кобольдов из племени Ветрорезов",
 
 	-- Step 8: Hillsbrad Miners
 	-- plural, as words: Hillsbrad Miners = {npc:2269} Hillsbrad Miner
@@ -51,7 +51,7 @@ return {
 	["You need 10 {item:7127}. The guide waits for level 25 first. The Hillsbrad Miners (level 26-27) work the mine in the hills west of {area:271} and drop the azurite four kills in five; they fight in {spell:71}, sunder your armor and run for help at 30% health. Fly to {area:272} and head south-west."] = "Нужно 10 шт. {item:7127}. Сначала гайд ждет 25-го уровня. Хилсбрадские шахтеры (26-27 уровень) работают в шахте на холмах к западу от места {area:271} и роняют азурит в четырех случаях из пяти; они дерутся в защитной стойке ({spell:71}), раскалывают вашу броню и при 30% здоровья бегут за подмогой. Летите сюда: {area:272}, и идите на юго-запад.",
 	-- {item:7127} Powdered Azurite
 	-- plural, as words: Hillsbrad Miners = {npc:2269} Hillsbrad Miner
-	["{item:7127}, from the Hillsbrad Miners"] = "",
+	["{item:7127}, from the Hillsbrad Miners"] = "{item:7127} с хилсбрадских шахтеров",
 
 	-- Step 9: Roogug in Razorfen Kraul
 	-- {area:1717} Razorfen Kraul
@@ -66,18 +66,18 @@ return {
 	["Iron Bars"] = "Железные слитки",
 	-- {item:2772} Iron Ore · {spell:3307} Smelt Iron · {skill:186} Mining · {zone:1454} Orgrimmar
 	-- plural, as words: Iron Bars = {item:3575} Iron Bar
-	["You need 10 Iron Bars. Miners smelt them from {item:2772} (one ore a bar, {spell:3307} at {skill:186} 125); everyone else buys them at the auction house in {zone:1454}."] = "",
+	["You need 10 Iron Bars. Miners smelt them from {item:2772} (one ore a bar, {spell:3307} at {skill:186} 125); everyone else buys them at the auction house in {zone:1454}."] = "Вам нужно 10 железных слитков. Шахтеры выплавляют их из руды ({item:2772}, одна руда на слиток, {spell:3307} при навыке {skill:186} 125); остальные покупают их на аукционе ({zone:1454}).",
 	-- {npc:8673} Auctioneer Thathung
 	-- plural, as words: Iron Bars = {item:3575} Iron Bar
 	["Iron Bars: {npc:8673}"] = "Железные слитки: {npc:8673}",
 
 	-- Step 11: Brutal Hauberk
 	-- {npc:5878} Thun'grim Firegaze · {area:1699} Thorn Hill · {quest:1848} Brutal Hauberk
-	["Back to {npc:5878} on {area:1699}. {quest:1848} is the first piece; he then sends you to three crafters, one per piece: take all three."] = "",
+	["Back to {npc:5878} on {area:1699}. {quest:1848} is the first piece; he then sends you to three crafters, one per piece: take all three."] = "Вернитесь к {npc:5878}: {area:1699}. {quest:1848} – первая часть; затем он отправляет вас к трем мастерам, по одному на часть: возьмите все три задания.",
 
 	-- Step 12: Ula'elek
 	-- {npc:6408} Ula'elek · {area:367} Sen'jin Village · {zone:1411} Durotar
-	["{npc:6408} is in {area:367} on the {zone:1411} coast. He wants 7 Uncloven Satyr Hooves."] = "",
+	["{npc:6408} is in {area:367} on the {zone:1411} coast. He wants 7 Uncloven Satyr Hooves."] = "{npc:6408} находится здесь: {area:367}, на побережье зоны {zone:1411}. Ему нужны 7 нерасщепленных копыт сатира.",
 
 	-- Step 13: Satyr Hooves
 	-- {area:430} Satyrnaar · {area:431} Splintertree Post · {area:429} Xavian · {spell:6925} Gift of the Xavian
@@ -92,12 +92,12 @@ return {
 	-- {npc:6167} Chimaera Matriarch · {area:465} Charred Vale · {zone:1443} Desolace · {item:6840} Galvanized Horn · {spell:3396} Corrosive Poison
 	["The {npc:6167} (level 28, not elite, larger than the young ones around her) roams the south edge of the {area:465} in south-west Stonetalon, near the road to {zone:1443}. She is the only one: she returns 5 minutes after dying and drops the {item:6840} four kills in five. She spits {spell:3396} from 30 yards."] = "",
 	-- {item:6840} Galvanized Horn · {npc:6167} Chimaera Matriarch
-	["{item:6840}, from the {npc:6167}"] = "",
+	["{item:6840}, from the {npc:6167}"] = "{item:6840}: {npc:6167}",
 
 	-- Step 18: Velora Nitely
 	-- {zone:1454} Orgrimmar · {zone:1420} Tirisfal Glades · {npc:6411} Velora Nitely · {zone:1458} Undercity · {object:36078} Trade Quarter
 	-- plural, as words: Sturdy Dragonmaw Shinbones = {item:7134} Sturdy Dragonmaw Shinbone
-	["Take the zeppelin from {zone:1454} to {zone:1420}; {npc:6411} works in the {zone:1458}'s {object:36078}. She wants 8 Sturdy Dragonmaw Shinbones."] = "",
+	["Take the zeppelin from {zone:1454} to {zone:1420}; {npc:6411} works in the {zone:1458}'s {object:36078}. She wants 8 Sturdy Dragonmaw Shinbones."] = "Сядьте на дирижабль из города {zone:1454} до зоны {zone:1420}; {npc:6411} работает здесь: {zone:1458}, {object:36078}. Ей нужны 8 крепких берцовых костей Драконьей Пасти.",
 
 	-- Step 19: Dragonmaw Shinbones
 	-- {zone:1437} Wetlands · {area:321} Hammerfall · {area:881} Thandol Span · {area:150} Menethil Harbor · {quest:1846} Dragonmaw Shinbones · {npc:6411} Velora Nitely · {item:7131} Dragonmaw Shinbone · {spell:686} Shadow Bolt
@@ -105,23 +105,14 @@ return {
 	["from the Dragonmaw orcs: right-click to test it"] = "",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
-	-- ["Back to {npc:5878} beside the road east of the {area:380}. {quest:1848} is the first piece; he then sends you to three crafters for the rest."] = "Вернитесь к {npc:5878} у дороги к востоку от места {area:380}. {quest:1848} — первая часть; затем он отправляет вас к трем мастерам за остальным.",
 	-- ["Fly to {area:378}. South of the camp the Silithid Mounds dot the {area:390}: the silithid there carry the Twitching Antennae."] = "Летите сюда: {area:378}. К югу от лагеря по местности {area:390} разбросаны холмы силитидов: силитиды там носят дергающиеся усики.",
-	-- ["Four armor pieces at 30 (hauberk, helm, gauntlets, legguards) and a shield on the way."] = "Четыре части доспехов на 30-м уровне (хауберк, шлем, рукавицы, поножи), а по пути еще и щит.",
-	-- ["Miners smelt Iron Bars from {item:2772} ({skill:186} 125); everyone else buys them at the auction house in {zone:1454}."] = "Шахтеры выплавляют железные слитки из руды ({item:2772}, {skill:186} 125); остальные покупают их на аукционе ({zone:1454}).",
 	-- ["Roogug is an elite quilboar inside {area:1717}, the dungeon at the south end of the {zone:1413}; he drops the {item:6841}. {area:1717} is a dungeon: grouping up is advised."] = "Ругуг — элитный свинобраз в подземелье {area:1717} на южной окраине зоны {zone:1413}; он оставляет {item:6841}. {area:1717} — подземелье: лучше собрать группу.",
-	-- ["Smoky Iron Ingots from the Windshear kobolds"] = "Закопченые железные слитки с кобольдов из племени Ветрорезов",
 	-- ["Sturdy Dragonmaw Shinbones"] = "Прочные берцовые кости Драконьей Пасти",
-	-- ["Take the zeppelin from {zone:1454} to {zone:1420}; the {zone:1458} lies below the {area:153}."] = "Сядьте на дирижабль из города {zone:1454} до зоны {zone:1420}; город {zone:1458} находится под местом {area:153}.",
 	-- ["The Dragonmaw orcs camp in the middle of the {zone:1437}, south of the road; Raiders, Swamprunners, Centurions, Shadowwarders and Bonewarders all drop the Sturdy Dragonmaw Shinbones."] = "Орки клана Драконьей Пасти стоят лагерем в центре зоны {zone:1437}, к югу от дороги; с налетчиков, болотных бегунов, центурионов, хранителей теней и костостражей падают прочные берцовые кости Драконьей Пасти.",
 	-- ["The Hillsbrad Miners work the mine in the west of {zone:1424}; they drop the {item:7127}. Take the zeppelin from {zone:1454} to {zone:1420} and ride south through {zone:1421}."] = "Хилсбрадские шахтеры работают в шахте на западе зоны {zone:1424}; с них падает {item:7127}. Летите на дирижабле: {zone:1454} → {zone:1420}, затем езжайте на юг через зону {zone:1421}.",
 	-- ["The {area:2160} lies at the east end of {area:461} in Stonetalon. Its kobolds drop the Smoky Iron Ingots."] = "{area:2160} находится в восточной части места {area:461} в Когтистых горах. Кобольды там оставляют закопченые железные слитки.",
 	-- ["The {area:429} satyrs camp in eastern {zone:1440}, with the Felmusk satyrs further west; both drop Uncloven Satyr Hooves."] = "Сатиры ({area:429}) живут на востоке зоны {zone:1440}, а сатиры из племени Мускуса Скверны – западнее; с тех и других падают нераздвоенные копыта сатира.",
 	-- ["The {npc:6167} roams the south-west of Stonetalon near the Fledgling and Young Chimaeras; she drops the {item:6840}."] = "{npc:6167} бродит на юго-западе Когтистых гор рядом с химерами-слетками и молодыми химерами; она оставляет {item:6840}.",
-	-- ["Twitching Antennae from the silithid"] = "Дергающиеся усики с силитидов",
 	-- ["Uncloven {quest:1842}"] = "Нераздвоенные {quest:1842}",
-	-- ["{item:6840} from the {npc:6167}"] = "{item:6840}: {npc:6167}",
-	-- ["{item:7127} from the Hillsbrad Miners"] = "{item:7127} с хилсбрадских шахтеров",
 	-- ["{npc:5878} camps beside the road east of the {area:380}. {quest:1838} is a level 30 quest; you can take it now and gather for it on the way."] = "{npc:5878} разбил лагерь у дороги к востоку от места {area:380}. {quest:1838} — задание 30-го уровня; можно взять его сейчас и собирать нужное по пути.",
-	-- ["{npc:6408} is in {area:367} on the {zone:1411} coast."] = "{npc:6408} находится здесь: {area:367}, на побережье зоны {zone:1411}.",
 }

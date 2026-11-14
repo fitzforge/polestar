@@ -12,11 +12,11 @@ return {
 
 	-- Step 2: Salfa
 	-- {npc:11556} Salfa · {zone:1452} Winterspring · {area:1769} Timbermaw Hold
-	["{npc:11556} stands right at the {zone:1452} exit of {area:1769}'s tunnel, where you come out."] = "",
+	["{npc:11556} stands right at the {zone:1452} exit of {area:1769}'s tunnel, where you come out."] = "{npc:11556}은(는) {area:1769} 터널의 {zone:1452} 쪽 출구, 나오는 바로 그 자리에 서 있습니다.",
 
 	-- Step 3: Donova Snowden
 	-- {npc:9298} Donova Snowden · {area:2246} Frostfire Hot Springs
-	["Ride south from the tunnel: {npc:9298} camps among the steaming pools of {area:2246}, in the west of the valley."] = "",
+	["Ride south from the tunnel: {npc:9298} camps among the steaming pools of {area:2246}, in the west of the valley."] = "터널에서 남쪽으로 가세요. {npc:9298}은(는) 골짜기 서쪽, {area:2246}의 김이 오르는 웅덩이 사이에 야영하고 있습니다.",
 	["Linken's letter"] = "링쿠의 편지",
 	-- {quest:3909} The Videre Elixir · {npc:7775} Gregan Brewspewer · {zone:1444} Feralas
 	["{quest:3909} comes from {npc:7775} in {zone:1444}, later in this guide."] = "{quest:3909}은(는) 이 가이드 후반에 {zone:1444}의 {npc:7775}에게서 받습니다.",
@@ -45,7 +45,7 @@ return {
 
 	-- Step 8: Everlook
 	-- {area:2255} Everlook
-	["{area:2255} is the goblin town on the east side of the valley, past the owlbeast hills."] = "",
+	["{area:2255} is the goblin town on the east side of the valley, past the owlbeast hills."] = "{area:2255}은(는) 골짜기 동쪽, 올빼미야수 언덕 너머의 고블린 마을입니다.",
 	["Gregor's quests lead to other zones: keep them."] = "그레고르의 퀘스트는 다른 지역으로 이어집니다. 보관하세요.",
 	-- {npc:10431} Gregor Greystone
 	["{npc:10431}, inside"] = "",
@@ -58,9 +58,10 @@ return {
 	-- Step 11: Level 55.04
 	["Level 55.04"] = "",
 	-- {area:2255} Everlook · {area:1584} Blackrock Depths · {area:1583} Blackrock Spire
-	["Top up here to level 55.04 before the hand-ins at {area:2255}: they take you to level 56. Or, with a group, run the {area:1584} dungeon or the {area:1583} dungeon (Lower) instead."] = "",
-	-- {npc:7460} Ice Thistle Patriarch
-	["grind on {npc:7460}"] = "",
+	-- plural, as words: Ice Thistle Yetis = {npc:7458} Ice Thistle Yeti
+	["Top up here to level 55.04 before the hand-ins at {area:2255}: they take you to level 56. The Ice Thistle Yetis (55-56) are the lowest here; the Matriarchs and Patriarchs (56-58) hit harder. Or, with a group, run the {area:1584} dungeon or the {area:1583} dungeon (Lower) instead."] = "{area:2255}에서 퀘스트를 제출하기 전에 이곳에서 55.04레벨까지 올리십시오. 제출하면 56레벨이 됩니다. 이곳에서는 얼음엉겅퀴설인(55-56)이 가장 레벨이 낮고, 맹렬한 얼음엉겅퀴설인과 덩치큰 얼음엉겅퀴설인(56-58)은 더 강하게 공격합니다. 또는 파티와 함께 대신 {area:1584} 던전이나 {area:1583} 던전(아래쪽)을 도십시오.",
+	-- {npc:7458} Ice Thistle Yeti
+	["grind on {npc:7458}"] = "",
 
 	-- Step 12: Pristine Yeti Horns
 	-- plural, as words: Pristine Yeti Horns = {item:12367} Pristine Yeti Horn
@@ -150,13 +151,10 @@ return {
 	-- ["Ride east, then south down {area:2249}. The Frostmaul giants there are elite level 59: keep to the middle and keep moving. The strange source is at the mouth of {area:2256}, at the south end."] = "동쪽으로 간 뒤 남쪽으로 {area:2249}을(를) 내려가세요. 그곳의 서리망치거인은 59레벨 정예입니다. 가운데로 다니며 멈추지 마세요. 이상한 근원은 남쪽 끝, {area:2256} 입구에 있습니다.",
 	-- ["Ride west along the road past {area:2251}; Raging Owlbeasts roam the hills north of it."] = "길을 따라 서쪽으로 {area:2251}을(를) 지나가세요. 흉포한 올빼미야수는 그 북쪽 언덕을 돌아다닙니다.",
 	-- ["grind on {npc:7440} at {area:2244}, {zone:1452}"] = "{zone:1452} {area:2244}에서 {npc:7440} 사냥",
-	-- ["{area:2255} is the goblin town on the east side of the valley."] = "{area:2255}은(는) 골짜기 동쪽의 고블린 마을입니다.",
 	-- ["{item:12771}, a rare drop from the Winterfall furbolgs"] = "눈사태일족 털보숭이가 드물게 떨어뜨리는 {item:12771}",
 	-- ["{npc:10307}, beside him"] = "그 옆의 {npc:10307}",
 	-- ["{npc:11118}: the last guide binds here, so this usually ticks at once"] = "{npc:11118}: 이전 가이드에서 이곳에 귀환 지점을 정하므로 보통 바로 완료됩니다",
-	-- ["{npc:11556} stands by the {zone:1452} exit of {area:1769}'s tunnel, north of the hot springs."] = "{npc:11556}은(는) 온천 북쪽, {area:1769} 터널의 {zone:1452} 쪽 출구 옆에 서 있습니다.",
 	-- ["{npc:7775}, a dwarf, camps in the {area:1137} north-west of {area:1099}. He brews the {item:11243} only from an {item:11242} you bring him."] = "드워프 {npc:7775}은(는) {area:1099} 북서쪽 {area:1137}에 야영하고 있습니다. 그는 당신이 가져온 {item:11242}(으)로만 {item:11243}을(를) 만듭니다.",
 	-- ["{npc:7775}, a dwarf, camps in the {area:1137} north-west of {area:1099}; he has the elixir."] = "드워프 {npc:7775}은(는) {area:1099} 북서쪽 {area:1137}에 야영하고 있습니다. 그가 비약을 가지고 있습니다.",
 	-- ["{npc:9087} buys {item:11040} grown from your {quest:3761}."] = "{npc:9087}은(는) {quest:3761}(으)로 기른 {item:11040}을(를) 삽니다.",
-	-- ["{npc:9298} camps among the steaming pools of {area:2246}, in the west of the valley."] = "{npc:9298}은(는) 골짜기 서쪽, {area:2246}의 김이 오르는 웅덩이 사이에 야영하고 있습니다.",
 }

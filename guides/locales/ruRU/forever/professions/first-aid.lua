@@ -15,15 +15,15 @@ return {
 
 	-- Step 2: Linen Bandage: Auction House
 	-- {item:1251} Linen Bandage
-	["{item:1251}: Auction House"] = "",
+	["{item:1251}: Auction House"] = "{item:1251}: аукцион",
 	-- {item:1251} Linen Bandage · {item:2589} Linen Cloth
-	["What {item:1251} takes that the Auction House sells: 41 {item:2589}. The counts drop by what your bags, bank and mail hold."] = "",
+	["What {item:1251} takes that the Auction House sells: 41 {item:2589}. The counts drop by what your bags, bank and mail hold."] = "Что нужно для {item:1251} и продается на аукционе: 41 {item:2589}. Количество уменьшается на то, что уже лежит в сумках, банке и на почте.",
 
 	-- Step 3: Linen Bandage: cloth
 	-- {item:1251} Linen Bandage
 	["{item:1251}: cloth"] = "{item:1251}: ткань",
 	-- {item:2589} Linen Cloth
-	["{item:2589} drops from humanoids of level 5-20: keep what you loot as you level, or take it from your bank."] = "",
+	["{item:2589} drops from humanoids of level 5-20: keep what you loot as you level, or take it from your bank."] = "{item:2589} падает с гуманоидов 5-20 уровня: сохраняйте то, что добываете при прокачке или берите из банка.",
 
 	-- Step 4: Linen Bandage (1-40)
 	-- {item:1251} Linen Bandage · {item:279968} First Aid Kit · {skill:129} First Aid · {item:159} Refreshing Spring Water
@@ -32,9 +32,9 @@ return {
 
 	-- Step 5: Heavy Linen Bandage: Auction House
 	-- {item:2581} Heavy Linen Bandage
-	["{item:2581}: Auction House"] = "",
+	["{item:2581}: Auction House"] = "{item:2581}: аукцион",
 	-- {item:2581} Heavy Linen Bandage · {item:2589} Linen Cloth
-	["What {item:2581} takes that the Auction House sells: 20 {item:2589}. The counts drop by what your bags, bank and mail hold."] = "",
+	["What {item:2581} takes that the Auction House sells: 20 {item:2589}. The counts drop by what your bags, bank and mail hold."] = "Что нужно для {item:2581} и продается на аукционе: 20 {item:2589}. Количество уменьшается на то, что уже лежит в сумках, банке и на почте.",
 
 	-- Step 6: Heavy Linen Bandage: cloth
 	-- {item:2581} Heavy Linen Bandage
@@ -52,7 +52,7 @@ return {
 
 	-- Step 9: Heavy Linen Bandage: Auction House
 	-- {item:2581} Heavy Linen Bandage · {item:2589} Linen Cloth
-	["What {item:2581} takes that the Auction House sells: 92 {item:2589}. The counts drop by what your bags, bank and mail hold."] = "",
+	["What {item:2581} takes that the Auction House sells: 92 {item:2589}. The counts drop by what your bags, bank and mail hold."] = "Что нужно для {item:2581} и продается на аукционе: 92 {item:2589}. Количество уменьшается на то, что уже лежит в сумках, банке и на почте.",
 
 	-- Step 11: Heavy Linen Bandage (50-80)
 	-- {item:2581} Heavy Linen Bandage · {item:858} Lesser Healing Potion · {item:2450} Briarthorn · {item:2678} Mild Spices · {item:3371} Empty Vial
@@ -60,15 +60,15 @@ return {
 
 	-- Step 12: Wool Bandage: Auction House
 	-- {spell:3277} Wool Bandage
-	["{spell:3277}: Auction House"] = "",
+	["{spell:3277}: Auction House"] = "{spell:3277}: аукцион",
 	-- {spell:3277} Wool Bandage · {item:2592} Wool Cloth
-	["What {spell:3277} takes that the Auction House sells: 49 {item:2592}. The counts drop by what your bags, bank and mail hold."] = "",
+	["What {spell:3277} takes that the Auction House sells: 49 {item:2592}. The counts drop by what your bags, bank and mail hold."] = "Что нужно для {spell:3277} и продается на аукционе: 49 {item:2592}. Количество уменьшается на то, что уже лежит в сумках, банке и на почте.",
 
 	-- Step 13: Wool Bandage: cloth
 	-- {spell:3277} Wool Bandage
 	["{spell:3277}: cloth"] = "{spell:3277}: ткань",
 	-- {item:2592} Wool Cloth
-	["{item:2592} drops from humanoids of level 15-30: keep what you loot as you level, or take it from your bank."] = "",
+	["{item:2592} drops from humanoids of level 15-30: keep what you loot as you level, or take it from your bank."] = "{item:2592} падает с гуманоидов 15-30 уровня: сохраняйте то, что добываете при прокачке или берите из банка.",
 
 	-- Step 14: Wool Bandage (80-115)
 	-- {spell:3277} Wool Bandage · {skill:129} First Aid · {item:6452} Anti-Venom · {item:1475} Small Venom Sac · {spell:9810} Touch of Zanzil
@@ -76,9 +76,9 @@ return {
 
 	-- Step 15: Heavy Wool Bandage: Auction House
 	-- {spell:3278} Heavy Wool Bandage
-	["{spell:3278}: Auction House"] = "",
+	["{spell:3278}: Auction House"] = "{spell:3278}: аукцион",
 	-- {spell:3278} Heavy Wool Bandage · {item:2592} Wool Cloth
-	["What {spell:3278} takes that the Auction House sells: 22 {item:2592}. The counts drop by what your bags, bank and mail hold."] = "",
+	["What {spell:3278} takes that the Auction House sells: 22 {item:2592}. The counts drop by what your bags, bank and mail hold."] = "Что нужно для {spell:3278} и продается на аукционе: 22 {item:2592}. Количество уменьшается на то, что уже лежит в сумках, банке и на почте.",
 
 	-- Step 16: Heavy Wool Bandage: cloth
 	-- {spell:3278} Heavy Wool Bandage
@@ -98,7 +98,7 @@ return {
 
 	-- Step 19: Heavy Wool Bandage: Auction House
 	-- {spell:3278} Heavy Wool Bandage · {item:2592} Wool Cloth
-	["What {spell:3278} takes that the Auction House sells: 76 {item:2592}. The counts drop by what your bags, bank and mail hold."] = "",
+	["What {spell:3278} takes that the Auction House sells: 76 {item:2592}. The counts drop by what your bags, bank and mail hold."] = "Что нужно для {spell:3278} и продается на аукционе: 76 {item:2592}. Количество уменьшается на то, что уже лежит в сумках, банке и на почте.",
 
 	-- Step 21: Heavy Wool Bandage (125-150)
 	-- {spell:3278} Heavy Wool Bandage
@@ -106,15 +106,15 @@ return {
 
 	-- Step 22: Silk Bandage: Auction House
 	-- {item:6450} Silk Bandage
-	["{item:6450}: Auction House"] = "",
+	["{item:6450}: Auction House"] = "{item:6450}: аукцион",
 	-- {item:6450} Silk Bandage · {item:4306} Silk Cloth
-	["What {item:6450} takes that the Auction House sells: 42 {item:4306}. The counts drop by what your bags, bank and mail hold."] = "",
+	["What {item:6450} takes that the Auction House sells: 42 {item:4306}. The counts drop by what your bags, bank and mail hold."] = "Что нужно для {item:6450} и продается на аукционе: 42 {item:4306}. Количество уменьшается на то, что уже лежит в сумках, банке и на почте.",
 
 	-- Step 23: Silk Bandage: cloth
 	-- {item:6450} Silk Bandage
 	["{item:6450}: cloth"] = "{item:6450}: ткань",
 	-- {item:4306} Silk Cloth
-	["{item:4306} drops from humanoids of level 25-45: keep what you loot as you level, or take it from your bank."] = "",
+	["{item:4306} drops from humanoids of level 25-45: keep what you loot as you level, or take it from your bank."] = "{item:4306} падает с гуманоидов 25-45 уровня: сохраняйте то, что добываете при прокачке или берите из банка.",
 
 	-- Step 24: Silk Bandage (150-180)
 	-- {item:6450} Silk Bandage · {skill:129} First Aid
@@ -122,9 +122,9 @@ return {
 
 	-- Step 25: Heavy Silk Bandage: Auction House
 	-- {item:6451} Heavy Silk Bandage
-	["{item:6451}: Auction House"] = "",
+	["{item:6451}: Auction House"] = "{item:6451}: аукцион",
 	-- {item:6451} Heavy Silk Bandage · {item:4306} Silk Cloth
-	["What {item:6451} takes that the Auction House sells: 84 {item:4306}. The counts drop by what your bags, bank and mail hold."] = "",
+	["What {item:6451} takes that the Auction House sells: 84 {item:4306}. The counts drop by what your bags, bank and mail hold."] = "Что нужно для {item:6451} и продается на аукционе: 84 {item:4306}. Количество уменьшается на то, что уже лежит в сумках, банке и на почте.",
 
 	-- Step 26: Heavy Silk Bandage: cloth
 	-- {item:6451} Heavy Silk Bandage
@@ -136,15 +136,15 @@ return {
 
 	-- Step 28: Mageweave Bandage: Auction House
 	-- {item:8544} Mageweave Bandage
-	["{item:8544}: Auction House"] = "",
+	["{item:8544}: Auction House"] = "{item:8544}: аукцион",
 	-- {item:8544} Mageweave Bandage · {item:4338} Mageweave Cloth
-	["What {item:8544} takes that the Auction House sells: 18 {item:4338}. The counts drop by what your bags, bank and mail hold."] = "",
+	["What {item:8544} takes that the Auction House sells: 18 {item:4338}. The counts drop by what your bags, bank and mail hold."] = "Что нужно для {item:8544} и продается на аукционе: 18 {item:4338}. Количество уменьшается на то, что уже лежит в сумках, банке и на почте.",
 
 	-- Step 29: Mageweave Bandage: cloth
 	-- {item:8544} Mageweave Bandage
 	["{item:8544}: cloth"] = "{item:8544}: ткань",
 	-- {item:4338} Mageweave Cloth
-	["{item:4338} drops from humanoids of level 35-50: keep what you loot as you level, or take it from your bank."] = "",
+	["{item:4338} drops from humanoids of level 35-50: keep what you loot as you level, or take it from your bank."] = "{item:4338} падает с гуманоидов 35-50 уровня: сохраняйте то, что добываете при прокачке или берите из банка.",
 
 	-- Step 30: Mageweave Bandage (210-225)
 	-- {item:8544} Mageweave Bandage
@@ -173,7 +173,7 @@ return {
 
 	-- Step 35: Mageweave Bandage: Auction House
 	-- {item:8544} Mageweave Bandage · {item:4338} Mageweave Cloth
-	["What {item:8544} takes that the Auction House sells: 24 {item:4338}. The counts drop by what your bags, bank and mail hold."] = "",
+	["What {item:8544} takes that the Auction House sells: 24 {item:4338}. The counts drop by what your bags, bank and mail hold."] = "Что нужно для {item:8544} и продается на аукционе: 24 {item:4338}. Количество уменьшается на то, что уже лежит в сумках, банке и на почте.",
 
 	-- Step 37: Mageweave Bandage (225-240)
 	-- {item:8544} Mageweave Bandage
@@ -186,9 +186,9 @@ return {
 
 	-- Step 39: Heavy Mageweave Bandage: Auction House
 	-- {item:8545} Heavy Mageweave Bandage
-	["{item:8545}: Auction House"] = "",
+	["{item:8545}: Auction House"] = "{item:8545}: аукцион",
 	-- {item:8545} Heavy Mageweave Bandage · {item:4338} Mageweave Cloth
-	["What {item:8545} takes that the Auction House sells: 50 {item:4338}. The counts drop by what your bags, bank and mail hold."] = "",
+	["What {item:8545} takes that the Auction House sells: 50 {item:4338}. The counts drop by what your bags, bank and mail hold."] = "Что нужно для {item:8545} и продается на аукционе: 50 {item:4338}. Количество уменьшается на то, что уже лежит в сумках, банке и на почте.",
 
 	-- Step 40: Heavy Mageweave Bandage: cloth
 	-- {item:8545} Heavy Mageweave Bandage
@@ -204,15 +204,15 @@ return {
 
 	-- Step 43: Runecloth Bandage: Auction House
 	-- {item:14529} Runecloth Bandage
-	["{item:14529}: Auction House"] = "",
+	["{item:14529}: Auction House"] = "{item:14529}: аукцион",
 	-- {item:14529} Runecloth Bandage · {item:14047} Runecloth
-	["What {item:14529} takes that the Auction House sells: 65 {item:14047}. The counts drop by what your bags, bank and mail hold."] = "",
+	["What {item:14529} takes that the Auction House sells: 65 {item:14047}. The counts drop by what your bags, bank and mail hold."] = "Что нужно для {item:14529} и продается на аукционе: 65 {item:14047}. Количество уменьшается на то, что уже лежит в сумках, банке и на почте.",
 
 	-- Step 44: Runecloth Bandage: cloth
 	-- {item:14529} Runecloth Bandage
 	["{item:14529}: cloth"] = "{item:14529}: ткань",
 	-- {item:14047} Runecloth
-	["{item:14047} drops from humanoids of level 45-60: keep what you loot as you level, or take it from your bank."] = "",
+	["{item:14047} drops from humanoids of level 45-60: keep what you loot as you level, or take it from your bank."] = "{item:14047} падает с гуманоидов 45-60 уровня: сохраняйте то, что добываете при прокачке или берите из банка.",
 
 	-- Step 45: Runecloth Bandage (260-300)
 	-- {item:14529} Runecloth Bandage · {item:14047} Runecloth · {item:14530} Heavy Runecloth Bandage
@@ -232,13 +232,8 @@ return {
 	-- ["humanoids of level 45-60 drop {item:14047} (or buy it at the Auction House)."] = "с гуманоидов 45-60 уровня падает {item:14047} (или купите на аукционе).",
 	-- ["humanoids of level 5-20 drop {item:2589} (or buy it at the Auction House)."] = "с гуманоидов 5-20 уровня падает {item:2589} (или купите на аукционе).",
 	-- ["{item:1251} is orange from 1 (yellow at 30, grey at 60): about 61 crafts to 50. Bandages need no fire: craft them anywhere."] = "{item:1251} — оранжевый с 1 (желтый с 30, серый с 60): примерно 61 изготовление до 50. Для бинтов не нужен огонь: делайте их где угодно.",
-	-- ["{item:14047} drops from humanoids of level 45-60: keep what you loot as you level, take it from your bank, or buy it at the Auction House."] = "{item:14047} падает с гуманоидов 45-60 уровня: сохраняйте то, что добываете при прокачке, берите из банка или покупайте на аукционе.",
 	-- ["{item:14529} is yellow from 260 (yellow at 260, grey at 320): about 65 crafts to 300. Bandages need no fire: craft them anywhere. {item:14529} stays yellow to 320, so it carries you to 300 without a trip for Heavy Runecloth."] = "{item:14529}: желтый с 260 (желтый с 260, серый с 320) – около 65 изготовлений до 300. Бинтам не нужен огонь: делайте их где угодно. {item:14529} остается желтым до 320, так что доведет вас до 300 без похода за плотными бинтами из рунной ткани.",
 	-- ["{item:2581} is yellow from 50 (yellow at 50, grey at 100): about 46 crafts to 80. Bandages need no fire: craft them anywhere."] = "{item:2581} — желтый с 50 (желтый с 50, серый с 100): примерно 46 изготовлений до 80. Для бинтов не нужен огонь: делайте их где угодно.",
-	-- ["{item:2589} drops from humanoids of level 5-20: keep what you loot as you level, take it from your bank, or buy it at the Auction House."] = "{item:2589} падает с гуманоидов 5-20 уровня: сохраняйте то, что добываете при прокачке, берите из банка или покупайте на аукционе.",
-	-- ["{item:2592} drops from humanoids of level 15-30: keep what you loot as you level, take it from your bank, or buy it at the Auction House."] = "{item:2592} падает с гуманоидов 15-30 уровня: сохраняйте то, что добываете при прокачке, берите из банка или покупайте на аукционе.",
-	-- ["{item:4306} drops from humanoids of level 25-45: keep what you loot as you level, take it from your bank, or buy it at the Auction House."] = "{item:4306} падает с гуманоидов 25-45 уровня: сохраняйте то, что добываете при прокачке, берите из банка или покупайте на аукционе.",
-	-- ["{item:4338} drops from humanoids of level 35-50: keep what you loot as you level, take it from your bank, or buy it at the Auction House."] = "{item:4338} падает с гуманоидов 35-50 уровня: сохраняйте то, что добываете при прокачке, берите из банка или покупайте на аукционе.",
 	-- ["{item:6450} is yellow from 150 (yellow at 150, grey at 210): about 42 crafts to 180. Bandages need no fire: craft them anywhere."] = "{item:6450} — желтый с 150 (желтый с 150, серый с 210): примерно 42 изготовлений до 180. Для бинтов не нужен огонь: делайте их где угодно.",
 	-- ["{item:6451} is yellow from 180 (yellow at 180, grey at 240): about 42 crafts to 210. Bandages need no fire: craft them anywhere."] = "{item:6451} — желтый с 180 (желтый с 180, серый с 240): примерно 42 изготовлений до 210. Для бинтов не нужен огонь: делайте их где угодно.",
 	-- ["{item:8544} is yellow from 210 (yellow at 210, grey at 270): about 18 crafts to 225. Bandages need no fire: craft them anywhere."] = "{item:8544} — желтый с 210 (желтый с 210, серый с 270): примерно 18 изготовлений до 225. Для бинтов не нужен огонь: делайте их где угодно.",

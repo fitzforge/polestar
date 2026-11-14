@@ -21,8 +21,8 @@ return {
 	["Head west along the road towards {area:340}; {npc:2921}'s camp sits in the {area:1878} halfway there."] = "Идите на запад по дороге к месту {area:340}; лагерь {npc:2921} – здесь: {area:1878}, на полпути.",
 
 	-- Step 4: Kargath
-	-- {area:340} Kargath · {npc:5394} Neeka Bloodscar
-	["{area:340} is the Horde fortress built into the cliffs at the zone's western edge. {npc:5394} stands on {area:340}'s upper level, high above the flight master: take the ramps up, the arrow cannot tell the levels apart."] = "{area:340} – крепость Орды в скалах у западного края зоны. {npc:5394} стоит на верхнем ярусе ({area:340}), высоко над распорядителем полетов: поднимайтесь по пандусам, стрелка не различает ярусы.",
+	-- {area:340} Kargath · {quest:1418} Neeka Bloodscar
+	["{area:340} is the Horde fortress built into the cliffs at the zone's western edge. {quest:1418} stands on {area:340}'s upper level, high above the flight master: take the ramps up, the arrow cannot tell the levels apart."] = "{area:340} – крепость Орды в скалах у западного края зоны. {quest:1418} стоит на верхнем ярусе ({area:340}), высоко над распорядителем полетов: поднимайтесь по пандусам, стрелка не различает ярусы.",
 	-- {area:75} Stonard
 	["for Helgrum in {area:75}, around level 42"] = "для Хелгрума ({area:75}), примерно на 42-м уровне",
 	-- {npc:6868} Jarkal Mossmeld
@@ -38,25 +38,25 @@ return {
 	-- Step 7: Badlands: kill these as you meet them
 	-- {zone:1418} Badlands
 	["{zone:1418}: kill these as you meet them"] = "",
-	-- {area:1878} The Dustbowl
-	-- plural, as words: Elder Crag Coyotes = {npc:2729} Elder Crag Coyote · Giant Buzzards = {npc:2831} Giant Buzzard
-	["The Elder Crag Coyotes and Giant Buzzards roam the basin south of the {area:1878}. Coyotes drop both the jawbones and the fangs; the Giant Buzzards drop the gizzards."] = "",
+	-- {area:1878} The Dustbowl · {zone:1418} Badlands
+	-- plural, as words: Elder Crag Coyotes = {npc:2729} Elder Crag Coyote · Giant Buzzards = {npc:2831} Giant Buzzard · Malevolent Mirages = {npc:269756} Malevolent Mirage
+	["The Elder Crag Coyotes and Giant Buzzards roam the basin south of the {area:1878}. Coyotes drop both the jawbones and the fangs; the Giant Buzzards drop the gizzards. Careful: Malevolent Mirages (42, elite) drift across the {zone:1418}: give them a wide berth."] = "",
 
 	-- Step 8: Rock Elementals
 	-- plural, as words: Rock Elementals = {npc:92} Rock Elemental
 	["Rock Elementals"] = "Каменные элементали",
 	-- {area:345} Agmond's End · {npc:6868} Jarkal Mossmeld
-	-- plural, as words: Rock Elementals = {npc:92} Rock Elemental · Rock Elemental Shards = {item:7848} Rock Elemental Shard
-	["South-east across the basin, the bigger Rock Elementals (39) stand on the slopes west of {area:345}; each one drops a slab. Every rock elemental can drop {npc:6868}'s Rock Elemental Shards."] = "",
+	-- plural, as words: Rock Elementals = {npc:92} Rock Elemental · Rock Elemental Shards = {item:7848} Rock Elemental Shard · Malevolent Mirages = {npc:269756} Malevolent Mirage
+	["South-east across the basin, the bigger Rock Elementals (39) stand on the slopes west of {area:345}; each one drops a slab. Every rock elemental can drop {npc:6868}'s Rock Elemental Shards. Careful: Malevolent Mirages (42, elite) drift across these slopes too."] = "",
 
 	-- Step 9: Agmond's End
-	-- {area:345} Agmond's End
-	["Theldurin sits among the dwarven ruins at {area:345}, just east of the elementals."] = "",
+	-- {area:345} Agmond's End · {area:1517} Uldaman
+	["Theldurin sits among the dwarven ruins at {area:345}, just east of the elementals. His tablet lies just inside {area:1517}'s cave mouth, beside level 38 elites: a quest for a group."] = "",
 
 	-- Step 10: Stonevault troggs
 	["Stonevault troggs"] = "Трогги Каменного Свода",
 	-- {area:1877} Valley of Fangs · {area:345} Agmond's End · {npc:2817} Rigglefuzz
-	["The Stonevault troggs dig around the cave mouths south of the {area:1877}, on the way north from {area:345}; the Bonesnappers and Shamans drop the flakes. The Buzzards for {npc:2817}'s wings circle the hills between the {area:1877} and {area:345}."] = "",
+	["The Stonevault troggs dig around the cave mouths south of the {area:1877}, on the way north from {area:345}; the Bonesnappers and Shamans drop the flakes. The Buzzards for {npc:2817}'s wings circle the hills between the {area:1877} and {area:345}."] = "Трогги племени Каменного Свода копают у входов в пещеры к югу от места {area:1877}, по пути на север от места {area:345}; хлопья падают с костегрызов и шаманов. Канюки, нужные для крыльев ({npc:2817}), кружат над холмами между местами {area:1877} и {area:345}.",
 
 	-- Step 11: Valley of Fangs
 	-- {area:1517} Uldaman · {area:1877} Valley of Fangs · {npc:2817} Rigglefuzz · {npc:4618} Martek the Exiled
@@ -65,8 +65,9 @@ return {
 	["for Fizzle at the {area:2240}, on the way from {area:484} to {zone:1446} around level 43"] = "",
 
 	-- Step 12: Ancient Chest
-	-- {area:1517} Uldaman
-	["Keep north on the road; the chest lies in the {area:1517} dig site, at the foot of the ruins north-west of the road."] = "Идите дальше на север по дороге; сундук – на раскопках ({area:1517}), у подножия руин к северо-западу от дороги.",
+	-- {area:1517} Uldaman · {zone:1418} Badlands · {npc:2932} Magregan Deepshadow
+	-- plural, as words: Obsidian Golems = {npc:4872} Obsidian Golem · Shadowforge Diggers = {npc:4846} Shadowforge Digger
+	["Keep north on the road to {area:1517}'s entrance, in the north of the {zone:1418}: the chest lies just inside the cave mouth. {npc:2932} and the Obsidian Golems (38) stand beside it and Shadowforge Diggers (35-36) work the tunnel, all elite: keep your group together."] = "Продолжайте путь на север по дороге ко входу ({area:1517}) на севере зоны {zone:1418}: сундук лежит сразу за входом в пещеру. Рядом с ним стоят {npc:2932} и обсидиановые големы (38), а в туннеле работают землекопы Тенегорна (35-36), все элитные: держитесь группой.",
 	["Below ground"] = "Под землей",
 
 	-- Step 13: Agmond's End
@@ -83,14 +84,13 @@ return {
 
 	-- Step 15: Kargath
 	-- {area:340} Kargath · {npc:5394} Neeka Bloodscar
-	["Head west back to {area:340}. {npc:5394} stands on {area:340}'s upper level, high above the flight master: take the ramps up, the arrow cannot tell the levels apart."] = "",
+	["Head west back to {area:340}. {npc:5394} stands on {area:340}'s upper level, high above the flight master: take the ramps up, the arrow cannot tell the levels apart."] = "Возвращайтесь на запад сюда: {area:340}. {npc:5394} стоит на верхнем ярусе ({area:340}), высоко над распорядителем полетов: поднимайтесь по пандусам, стрелка не различает ярусы.",
 	-- {area:340} Kargath · {object:3202} Grom'gol
 	["The next guide flies from {area:340} to {object:3202}."] = "",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
-	-- ["Head north back to {area:340}. {npc:5394} stands on {area:340}'s upper level, high above the flight master: take the ramps up, the arrow cannot tell the levels apart."] = "Возвращайтесь на север сюда: {area:340}. {npc:5394} стоит на верхнем ярусе ({area:340}), высоко над распорядителем полетов: поднимайтесь по пандусам, стрелка не различает ярусы.",
+	-- ["Keep north on the road; the chest lies in the {area:1517} dig site, at the foot of the ruins north-west of the road."] = "Идите дальше на север по дороге; сундук – на раскопках ({area:1517}), у подножия руин к северо-западу от дороги.",
 	-- ["The Elder Crag Coyotes and Giant Buzzards roam the basin south of the {area:1878}. Coyotes drop both the jawbones and the fangs; the Giant Buzzards drop the gizzards.\nThe bigger Rock Elementals stand on the slopes north-west of the {area:1878}; each one drops a slab. Every rock elemental can drop {npc:6868}'s Rock Elemental Shards."] = "Старые скальные койоты и гигантские канюки бродят по низине к югу от места {area:1878}. С койотов падают и челюсти, и клыки; желудки – с гигантских канюков.\nКаменные элементали покрупнее стоят на склонах к северо-западу от места {area:1878}; с каждого падает плита. С любого каменного элементаля могут падать осколки каменного элементаля для {npc:6868}.",
-	-- ["The Stonevault troggs dig around the cave mouths south of the {area:1877}, on the way to {area:345}; the Bonesnappers and Shamans drop the flakes. The Buzzards for {npc:2817}'s wings circle the hills between the {area:1877} and {area:345}."] = "Трогги племени Каменного Свода копают у входов в пещеры к югу от места {area:1877}, по пути к месту {area:345}; хлопья падают с костегрызов и шаманов. Канюки, нужные для крыльев ({npc:2817}), кружат над холмами между местами {area:1877} и {area:345}.",
 	-- ["Theldurin sits among the dwarven ruins at {area:345}, south of the {area:1877}."] = "Тельдарин сидит среди руин дворфов ({area:345}), к югу от места {area:1877}.",
 	-- ["{npc:2920}: only if you carry {item:2868} ({skill:164} or the Auction House)"] = "{npc:2920}: только если у вас есть {item:2868} ({skill:164} или аукцион)",
 }

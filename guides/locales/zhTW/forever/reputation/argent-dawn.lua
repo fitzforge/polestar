@@ -90,7 +90,7 @@ return {
 	-- plural, as words: Dark Adepts = {npc:8546} Dark Adept · Shadowmages = {npc:8550} Shadowmage · Dread Weavers = {npc:8528} Dread Weaver · Scourge Champions = {npc:8529} Scourge Champion · Enriched Manna Biscuits = {item:13724} Enriched Manna Biscuit
 	["Normal Scourge outside the dungeons stop giving reputation halfway through Friendly (3,000 of 6,000); {npc:10826}, {npc:10821} and {npc:10825} stop at the end of Friendly. After that only Araj, the {area:2057} and {area:2279} mobs, the cauldron deliveries and Scourgestones count. Now turn in the stones you saved: {npc:11039} at {area:2268} takes all three kinds, and so do the officers at {area:3197} and the {area:152}. Every turn-in pays 25 and an {item:12844}: keep 35 tokens for the mantles at Revered and Exalted. {quest:5509} are worth twice as much per stone: the Dark Adepts, Shadowmages, Dread Weavers and Scourge Champions (level 58-60) at {area:2272}, just north of {area:2268}, drop them about a third of the time or more, next to the turn-in. The named Scourge below drop a {item:12843} half the time or more ({npc:1850} two times in three, Araj and {npc:10821} half the time) and give 15 a kill, Araj until Exalted; {npc:1850} gives no reputation, only the stone. Friendly opens the Enriched Manna Biscuits (60 silver) at the quartermasters."] = "",
 	-- {item:12843} Corruptor's Scourgestone
-	["{item:12843}: the named Scourge below, and dungeon bosses"] = "",
+	["{item:12843}: the named Scourge below, and dungeon bosses"] = "{item:12843}：下列有名字的天譴軍，以及地城首領",
 	-- {area:2272} Northdale
 	-- plural, as words: Dark Adepts = {npc:8546} Dark Adept · Shadowmages = {npc:8550} Shadowmage
 	["Dark Adepts and Shadowmages at {area:2272}"] = "",
@@ -152,7 +152,6 @@ return {
 	["Argent Dawn Valor Tokens"] = "",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
-	-- ["Corruptor's Scourgestones and dungeons to Revered"] = "墮落者的天譴石與地城到崇敬",
 	-- ["Dark Adepts and Shadowmages (level 58-60) drop Invader's Scourgestones here, along with Minion's stones and {item:14047}. Hand Invader's in 10 at a time and Minion's 20 at a time to {npc:11039} at {area:2268}. In Classic both stop giving reputation at Honored."] = "黑暗教徒和暗影法師（58-60級）在這裡會掉落侵略者的天譴石，還有爪牙的天譴石和{item:14047}。侵略者的每次10個、爪牙的每次20個交給{area:2268}的{npc:11039}。在經典版中，兩者到尊敬後就不再提供聲望。",
 	-- ["From Honored on, Corruptor's Scourgestones (one per turn-in) and Scourge kills in {area:2279} and {area:2057} carry the reputation. Corruptor's stones drop from the Scourge bosses there ({npc:1853}, {npc:10433}, Vectus) and from {npc:1852} and Putridius in {zone:1422}. Many dungeon runs pay off faster than any open-world farm."] = "從尊敬開始，墮落者的天譴石（每次繳交一個）和在{area:2279}及{area:2057}擊殺天譴軍團可提升聲望。墮落者的天譴石由那裡的天譴首領（{npc:1853}、{npc:10433}、維克圖斯）以及{zone:1422}的{npc:1852}和普特迪烏斯掉落。多跑地城比任何野外刷怪都快。",
 	-- ["Ghouls and skeletons all over {zone:1422} drop Minion's Scourgestones about half the time; this cluster is dense. Hand them in 20 at a time to any Argent Officer (Pureheart at {area:3197}, Garush at {area:152}, {npc:11039} at {area:2268}). Each turn-in also pays an {item:12844} for the Argent quartermasters."] = "{zone:1422}各處的食屍鬼和骷髏約有一半機率掉落爪牙的天譴石；這一帶很密集。每次20個交給任一銀色黎明軍官（{area:3197}的普爾哈特、{area:152}的加魯什、{area:2268}的{npc:11039}）。每次繳交也會得到一個{item:12844}，可在銀色黎明軍需官處使用。",

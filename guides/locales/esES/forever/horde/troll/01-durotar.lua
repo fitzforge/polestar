@@ -100,8 +100,8 @@ return {
 	["{npc:6786} stands on the road at the valley's eastern exit."] = "{npc:6786} está en el camino, en la salida este del valle.",
 
 	-- Step 20: Sen'jin Village
-	-- {area:367} Sen'jin Village
-	["Follow the road east out of the valley to {area:367} on the coast."] = "Sigue el camino hacia el este fuera del valle hasta {area:367}, en la costa.",
+	-- {area:367} Sen'jin Village · {area:362} Razor Hill
+	["Follow the road east out of the valley to {area:367} on the coast.\nCareful: Ukorsbane (8) is elite and walks among the Ridgeshade spiders in the camp south of {area:362}: pull the spiders away from him."] = "Sigue el camino hacia el este fuera del valle hasta {area:367}, en la costa.\nCuidado: Ukorsbane (8) es élite y anda entre las arañas Sombracresta en el campamento al sur de {area:362}: atrae a las arañas lejos de él.",
 	-- {npc:266881} Pa'zula
 	-- plural, as words: Hexed Pendants = {item:275724} Hexed Pendant
 	["{npc:266881}: enchanters only, the residue is disenchanted from Hexed Pendants"] = "{npc:266881}: solo encantadores; el residuo se obtiene desencantando colgantes embrujados",
@@ -115,14 +115,20 @@ return {
 	["{npc:265809} camps just south of {area:362}. Sit by his campfire (/sit) until the {spell:1229451} buff appears. With a profession learned, {npc:265809} also offers its Camping 101, which its trainer takes: in {area:362} or in {zone:1454} at the start of the next guide."] = "{npc:265809} acampa justo al sur de {area:362}. Siéntate junto a su hoguera (/sit) hasta que aparezca el beneficio {spell:1229451}. Si has aprendido una profesión, {npc:265809} también ofrece su Acampada 101, que se entrega a su instructor: en {area:362} o en {zone:1454}, al comienzo de la siguiente guía.",
 
 	-- Step 22: Camping 101: Mining
+	-- {npc:3175} Krunn · {skill:186} Mining
+	["{npc:3175} takes it once your {skill:186} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "{npc:3175} la recoge en cuanto tu habilidad de {skill:186} llegue a 20: recolecta o fabrica hasta entonces, la guía sigue mientras tanto.",
 	-- {npc:265809} Brakk · {npc:3175} Krunn
 	["{npc:265809}: for {npc:3175}"] = "{npc:265809}: para {npc:3175}",
 
 	-- Step 23: Camping 101: Engineering
+	-- {npc:11025} Mukdrak · {skill:202} Engineering
+	["{npc:11025} takes it once your {skill:202} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "{npc:11025} la recoge en cuanto tu habilidad de {skill:202} llegue a 20: recolecta o fabrica hasta entonces, la guía sigue mientras tanto.",
 	-- {npc:265809} Brakk · {npc:11025} Mukdrak
 	["{npc:265809}: for {npc:11025}"] = "{npc:265809}: para {npc:11025}",
 
 	-- Step 24: Camping 101: First Aid
+	-- {npc:5943} Rawrk · {skill:129} First Aid
+	["{npc:5943} takes it once your {skill:129} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "{npc:5943} la recoge en cuanto tu habilidad de {skill:129} llegue a 20: recolecta o fabrica hasta entonces, la guía sigue mientras tanto.",
 	-- {npc:265809} Brakk · {npc:5943} Rawrk
 	["{npc:265809}: for {npc:5943}"] = "{npc:265809}: para {npc:5943}",
 
@@ -196,7 +202,7 @@ return {
 
 	-- Step 42: Bloodtalon Matriarch
 	-- plural, as words: Durotar Tigers = {npc:3121} Durotar Tiger
-	["Wade across to the northern Echo Isle. The Matriarch prowls among the raptors there; Durotar Tigers roam the isle and the shore south of Sen'jin."] = "",
+	["Wade across to the northern Echo Isle. The Matriarch prowls among the raptors there; Durotar Tigers roam the isle and the shore south of Sen'jin."] = "Cruza vadeando a la isla del norte de las Islas del Eco. La Matriarca ronda entre los raptores de allí; los Tigres de Durotar recorren la isla y la orilla al sur de Sen'jin.",
 
 	-- Step 43: Echo Isles: kill these as you meet them
 	-- {area:368} Echo Isles
@@ -255,7 +261,7 @@ return {
 	-- {npc:3118} Dustwind Storm Witch · {npc:6491} Spirit Healer
 	["Die to the mobs at 52.0,21.4 ({npc:3118}): a death there sends you to this graveyard. Release your spirit and take the {npc:6491}'s resurrection."] = "",
 
-	-- Step 62: Thunder Ridge: kill these as you meet them
+	-- Step 63: Thunder Ridge: kill these as you meet them
 	-- {area:369} Thunder Ridge
 	["{area:369}: kill these as you meet them"] = "",
 	-- {area:369} Thunder Ridge · {npc:3293} Rezlak · {area:362} Razor Hill · {npc:3099} Dire Mottled Boar · {item:15908} Taming Rod
@@ -264,22 +270,17 @@ return {
 	-- {item:15908} Taming Rod
 	["Tame it with the {item:15908}"] = "Domestícalo con {item:15908}",
 
-	-- Step 63: Misha Tor'kren
+	-- Step 64: Misha Tor'kren
 	-- {area:814} Southfury River · {item:4891} Kron's Amulet
 	["Misha's hut stands south of the lizards. The crocolisks along the {area:814} to the west carry {item:4891}."] = "La choza de Misha está al sur de los lagartos. Los crocoliscos de {area:814}, al oeste, llevan {item:4891}.",
 
-	-- Step 65: Heglan Shadeeye
+	-- Step 66: Heglan Shadeeye
 	-- {npc:275657} Heglan Shadeeye · {area:362} Razor Hill
 	["{npc:275657} stands on the shore east of {area:362}. The trident, banner and dagger lie on the beach around him."] = "{npc:275657} está en la orilla, al este de {area:362}. El tridente, el estandarte y la daga están en la playa a su alrededor.",
 
-	-- Step 67: Paladin trainer
+	-- Step 68: Paladin trainer
 	-- {npc:246344} Alodan the Hopeful · {zone:1456} Thunder Bluff · {area:362} Razor Hill
 	["{npc:246344} in {zone:1456}; {area:362} has no paladin trainer"] = "",
-
-	-- Step 68: Mage trainer
-	["Mage trainer"] = "",
-	-- {npc:5884} Mai'ah · {zone:1411} Durotar · {area:362} Razor Hill
-	["{npc:5884} in {zone:1411}; {area:362} has no mage trainer"] = "",
 
 	-- Step 69: Druid trainer
 	-- {npc:3034} Sheal Runetotem · {zone:1412} Mulgore · {area:362} Razor Hill
@@ -293,7 +294,7 @@ return {
 	["Spitelash naga"] = "Nagas Látigo de Ira",
 	-- {area:370} Drygulch Ravine · {npc:275657} Heglan Shadeeye · {npc:3107} Surf Crawler
 	-- plural, as words: Spitelash Scouts = {npc:275662} Spitelash Scout
-	["North-east to the beach below {area:370}, north of {npc:275657}: Spitelash Scouts and Attendants hold it. Hunters: tame a {npc:3107} on the beach."] = "",
+	["North-east to the beach below {area:370}, north of {npc:275657}: Spitelash Scouts and Attendants hold it. Hunters: tame a {npc:3107} on the beach."] = "Al noreste, a la playa bajo {area:370}, al norte de {npc:275657}: la ocupan los exploradores y ayudantes Látigo de Ira. Cazadores: domestica un {npc:3107} en la playa.",
 
 	-- Step 72: Margoz
 	-- {quest:828} Margoz · {quest:827} Skull Rock
@@ -317,7 +318,7 @@ return {
 
 	-- Step 78: Skull Rock
 	-- {quest:827} Skull Rock · {item:4871} Searing Collar · {npc:3204} Gazz'uz · {item:4903} Eye of Burning Shadow
-	["Burning Blade cultists hold the caves of {quest:827}; any of them drops a {item:4871}. {npc:3204}, a level 14 warlock, stands deep inside and drops the {item:4903}."] = "Los fieles Filo Ardiente ocupan las cuevas de {quest:827}; cualquiera de ellos suelta {item:4871}. {npc:3204}, un brujo de nivel 14, está en lo más hondo y suelta {item:4903}.",
+	["Burning Blade cultists hold the caves of {quest:827}; any of them drops a {item:4871}. {npc:3204}, a level 14 warlock, stands deep inside and drops the {item:4903}.\nCareful: voidwalkers fight beside the Burning Blade cultists in {quest:827} and {npc:3204} (14) waits at the back with his own: pull one cultist at a time near the entrance for the collars. The {item:4903} is optional: leave {npc:3204} unless you are 13 or have a friend."] = "Los fieles Filo Ardiente ocupan las cuevas de {quest:827}; cualquiera de ellos suelta {item:4871}. {npc:3204}, un brujo de nivel 14, está en lo más hondo y suelta {item:4903}.\nCuidado: los abisarios luchan junto a los fieles Filo Ardiente en {quest:827} y {npc:3204} (14) espera al fondo con el suyo: atrae a un fiel cada vez cerca de la entrada para los collares. {item:4903} es opcional: deja a {npc:3204} en paz salvo que seas de nivel 13 o vayas con un amigo.",
 
 	-- Step 79: Tablet of Verga
 	-- {object:58595} Burning Blade Stash · {area:817} Skull Rock
@@ -371,16 +372,14 @@ return {
 	["{zone:1454}'s {object:172982}"] = "",
 
 	-- Step 91: The Binding
-	-- {npc:5875} Gan'rul Bloodeye · {object:172960} Cleft of Shadow · {object:172982} Valley of Strength · {item:6535} Tablet of Verga · {item:7464} Glyphs of Summoning
-	["{npc:5875} stands in the {object:172960}, the canyon under the {object:172982}. Hand him the {item:6535}, then use the {item:7464} on the summoning circle beside him and defeat the voidwalker to bind it."] = "{npc:5875} está en {object:172960}, el cañón bajo {object:172982}. Entrégale {item:6535}, luego usa {item:7464} en el círculo de invocación junto a él y derrota al abisario para vincularlo.",
+	-- {npc:5875} Gan'rul Bloodeye · {object:172960} Cleft of Shadow · {object:172982} Valley of Strength · {item:6535} Tablet of Verga · {item:7464} Glyphs of Summoning · {zone:1454} Orgrimmar
+	["{npc:5875} stands in the {object:172960}, the canyon under the {object:172982}. Hand him the {item:6535}, then use the {item:7464} on the summoning circle beside him and defeat the voidwalker to bind it.\nCareful: the voidwalker you summon hits hard and it is the fight Warlocks die to most in {zone:1454}: start at full health and mana, send your imp in, keep Corruption and Immolate on it, and use a healthstone if you have one."] = "{npc:5875} está en {object:172960}, el cañón bajo {object:172982}. Entrégale {item:6535}, luego usa {item:7464} en el círculo de invocación junto a él y derrota al abisario para vincularlo.\nCuidado: el abisario que invocas pega fuerte y es el combate en el que más mueren los brujos en {zone:1454}: empieza con la salud y el maná al máximo, manda a tu diablillo por delante, mantén Corrupción e Inmolar sobre él y usa una piedra de salud si tienes una.",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
-	-- ["Back east to the shore north of {npc:275657}. Spitelash Scouts and Attendants hold the beach below {area:370}. Hunters: tame a {npc:3107} on the beach."] = "Vuelve al este, a la orilla al norte de {npc:275657}. Los exploradores y ayudantes Látigo de Ira ocupan la playa bajo {area:370}. Cazadores: domesticad un {npc:3107} en la playa.",
 	-- ["Back south to {area:362}."] = "Vuelve al sur a {area:362}.",
 	-- ["Back to {npc:5875} in the {object:172960}. Use the {item:7464} on the summoning circle there and defeat the voidwalker to bind it."] = "Vuelve con {npc:5875} en {object:172960}. Usa {item:7464} en el círculo de invocación de allí y derrota al abisario para vincularlo.",
 	-- ["Thunder Lizards and Lightning Hides graze on {area:369} across the bridge; any of them can drop a {item:6486}."] = "Los truenagartos y los lomorrayos pastan en {area:369}, al otro lado del puente; cualquiera de ellos puede soltar {item:6486}.",
 	-- ["Thunder lizards across the river"] = "Truenagartos al otro lado del río",
-	-- ["Wade across to the northern Echo Isle. The Matriarch prowls among the raptors there."] = "Cruza vadeando a la isla del norte de las Islas del Eco. La Matriarca ronda entre los raptores de allí.",
 	-- ["With {skill:129} learned, {npc:265809} also offers its Camping 101: {npc:5943} in {area:362} takes it."] = "Si has aprendido {skill:129}, {npc:265809} también ofrece su Acampada 101: la entregas a {npc:5943} en {area:362}.",
 	-- ["With {skill:165} learned, {npc:265809} also offers its Camping 101: {npc:3365} in {zone:1454} (next guide) takes it."] = "Si has aprendido {skill:165}, {npc:265809} también ofrece su Acampada 101: la entregas a {npc:3365} en {zone:1454} (siguiente guía).",
 	-- ["With {skill:171} learned, {npc:265809} also offers its Camping 101: {npc:11046} in {zone:1454} (next guide) takes it."] = "Si has aprendido {skill:171}, {npc:265809} también ofrece su Acampada 101: la entregas a {npc:11046} en {zone:1454} (siguiente guía).",

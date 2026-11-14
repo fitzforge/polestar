@@ -47,7 +47,7 @@ return {
 	-- {npc:5643} Tyranis Malem
 	["{npc:5643} and the Seer"] = "{npc:5643} Malem y el Vidente",
 	-- {npc:5643} Tyranis Malem · {npc:13019} Burning Blade Seer · {npc:5642} Vahlarriel Demonslayer
-	["Her brother {npc:5643} (36) walks the fortress with the Burning Blade cultists (30-33): pull him alone. The {npc:13019} keeps the sceptre in the fortress's main building. {npc:5642} wants four of each kind of cultist on the way."] = "",
+	["Her brother {npc:5643} (36) walks the fortress with the Burning Blade cultists (30-33): pull him alone. The {npc:13019} keeps the sceptre in the fortress's main building. {npc:5642} wants four of each kind of cultist on the way."] = "Su hermano {npc:5643} Malem (36) recorre la fortaleza con los Fieles Filo Ardiente (30-33): atráelo solo. {npc:13019} guarda el cetro en el edificio principal de la fortaleza. {npc:5642} quiere cuatro de cada tipo de fiel por el camino.",
 	-- {item:6767} Tyranis' Pendant
 	["{item:6767}; inside"] = "",
 	-- {quest:5741} Sceptre of Light
@@ -98,7 +98,6 @@ return {
 	-- ["From {area:415} head south-west to the {area:1276}, a tunnel through the mountains into Stonetalon."] = "Desde {area:415}, ve al suroeste hasta {area:1276}, un túnel a través de las montañas hasta Sierra Espolón.",
 	-- ["From {area:415} ride north-west into the hills: the {quest:1738} is a glowing tree north of the road to {area:413}. If you took {quest:65602}, the {item:190309} lies in a house among the trees north of {area:413} (26.6,22.0). Then back past {area:415} to the {area:1276}."] = "Desde {area:415}, cabalga hacia el noroeste por las colinas: {quest:1738} es un árbol brillante al norte del camino a {area:413}. Si aceptaste {quest:65602}, la {item:190309} está en una casa entre los árboles al norte de {area:413} (26.6,22.0). Después vuelve pasando por {area:415} hasta {area:1276}.",
 	-- ["From {zone:1455}'s {npc:1573}"] = "Desde {npc:1573}, en {zone:1455}",
-	-- ["Her brother {npc:5643} (36) walks the fortress with the Burning Blade cultists (30-33): pull him alone. The {npc:13019} keeps the sceptre in the fortress's main building."] = "Su hermano {npc:5643} Malem (36) recorre la fortaleza con los Fieles Filo Ardiente (30-33): atráelo solo. {npc:13019} guarda el cetro en el edificio principal de la fortaleza.",
 	-- ["Scorpashi venom"] = "Veneno Scorpashi",
 	-- ["Take the boat to {area:442} from Menethil's docks."] = "Toma el barco a {area:442} en los muelles de Puerto de Menethil.",
 	-- ["Take the boat to {area:442} from Menethil's docks. {npc:3649} stands in {area:442}, north of the flight master."] = "Toma el barco a {area:442} en los muelles de Puerto de Menethil. {npc:3649} está en {area:442}, al norte del maestro de vuelo.",

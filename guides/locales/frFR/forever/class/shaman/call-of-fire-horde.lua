@@ -22,7 +22,7 @@ return {
 
 	-- Step 3: Kranal Fiss
 	-- {npc:5907} Kranal Fiss · {zone:1411} Durotar · {area:1704} Grol'dom Farm · {area:379} Far Watch Post · {zone:1440} Ashenvale
-	["{npc:5907} is not in the Crossroads: take the road north from the Crossroads and fork east towards {zone:1411}; past {area:1704} he paces by a tall tower east of the road (from {zone:1411}: over the Southfury bridge, past {area:379}). If you reach {zone:1440} you went too far."] = "",
+	["{npc:5907} is not in the Crossroads: take the road north from the Crossroads and fork east towards {zone:1411}; past {area:1704} he paces by a tall tower east of the road (from {zone:1411}: over the Southfury bridge, past {area:379}). If you reach {zone:1440} you went too far."] = "{npc:5907} n'est pas à la Croisée : prenez la route au nord de la Croisée et bifurquez à l'est vers {zone:1411} ; après la {area:1704}, il fait les cent pas près d'une haute tour à l'est de la route (depuis {zone:1411} : passez le pont de la Furie-du-Sud, puis le {area:379}). Si vous arrivez en {zone:1440}, vous êtes allé trop loin.",
 
 	-- Step 4
 	-- {npc:5907} Kranal Fiss · {npc:3173} Swart
@@ -51,7 +51,7 @@ return {
 	-- Step 10: Fire Tar
 	-- {item:5026} Fire Tar
 	-- plural, as words: Fireballs = {spell:133} Fireball
-	["The Razormane casters north-east of the Crossroads drop the {item:5026} three times in four: Water Seekers and Thornweavers (level 10-11), Geomancers (level 12-13, they throw Fireballs and run for help when hurt) and Mystics (level 13-14, they heal themselves at low health). Pull them one at a time."] = "",
+	["The Razormane casters north-east of the Crossroads drop the {item:5026} three times in four: Water Seekers and Thornweavers (level 10-11), Geomancers (level 12-13, they throw Fireballs and run for help when hurt) and Mystics (level 13-14, they heal themselves at low health). Pull them one at a time."] = "Les lanceurs de sorts Tranchecrin au nord-est de la Croisée lâchent le {item:5026} trois fois sur quatre : Chercheurs d'eau et Tisse-épines (niveau 10-11), Géomanciens (niveau 12-13, ils lancent des Boules de feu et fuient chercher de l'aide quand ils sont blessés) et Mystiques (niveau 13-14, ils se soignent quand leur vie est basse). Attirez-les un par un.",
 
 	-- Step 11: Reagent Pouch
 	-- {spell:348} Immolate · {area:371} Dustwind Cave · {area:362} Razor Hill · {area:817} Skull Rock · {zone:1454} Orgrimmar
@@ -126,8 +126,4 @@ return {
 	["Keep the {item:5176} in your bags for good: every fire totem needs it."] = "Gardez le {item:5176} dans vos sacs pour de bon : chaque totem de feu en a besoin.",
 	-- {npc:252382} Sessaria Skystride · {spell:3599} Searing Totem · {item:5176} Fire Totem · {item:263412} Totem of Charged Flames
 	["{npc:252382}: {spell:3599}, your {item:5176} and the {item:263412}"] = "{npc:252382} : {spell:3599}, votre {item:5176} et le {item:263412}",
-
-	-- No longer in the guide (its English changed or it went away): reuse or delete.
-	-- ["The Razormane casters north-east of the {area:380} drop the {item:5026} three times in four: Water Seekers and Thornweavers (level 10-11), Geomancers (level 12-13, they throw Fireballs and run for help when hurt) and Mystics (level 13-14, they heal themselves at low health). Pull them one at a time."] = "Les lanceurs de sorts Tranchecrin au nord-est de la {area:380} lâchent le {item:5026} trois fois sur quatre : Chercheurs d'eau et Tisse-épines (niveau 10-11), Géomanciens (niveau 12-13, ils lancent des Boules de feu et fuient chercher de l'aide quand ils sont blessés) et Mystiques (niveau 13-14, ils se soignent quand leur vie est basse). Attirez-les un par un.",
-	-- ["{npc:5907} is not in the {area:380}: take the road north from the {area:380} and fork east towards {zone:1411}; past {area:1704} he paces by a tall tower east of the road (from {zone:1411}: over the Southfury bridge, past {area:379}). If you reach {zone:1440} you went too far."] = "{npc:5907} n'est pas à la {area:380} : prenez la route au nord de la {area:380} et bifurquez à l'est vers {zone:1411} ; après la {area:1704}, il fait les cent pas près d'une haute tour à l'est de la route (depuis {zone:1411} : passez le pont de la Furie-du-Sud, puis le {area:379}). Si vous arrivez en {zone:1440}, vous êtes allé trop loin.",
 }

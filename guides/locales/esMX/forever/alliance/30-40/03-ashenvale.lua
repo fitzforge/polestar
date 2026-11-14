@@ -72,7 +72,7 @@ return {
 
 	-- Step 13: Highperch
 	-- {area:485} Great Lift · {zone:1441} Thousand Needles · {area:482} Highperch
-	["Down the {area:485} into {zone:1441}, then west to the wyverns' cliffs at {area:482}. Every wyvern there can drop a venom sac."] = "Baja por {area:485} hasta {zone:1441}, luego al oeste hasta los acantilados de los dracos en {area:482}. Cualquier draco de ahí puede soltar un saco de veneno.",
+	["Down the {area:485} into {zone:1441}, then west to the wyverns' cliffs at {area:482}. Every wyvern there can drop a venom sac. Careful: wait on the platform until the lift is level with it before you step on, and stay on it until it stops; the drop beside it kills."] = "Baja por {area:485} hasta {zone:1441}, luego al oeste hasta los acantilados de los dracos en {area:482}. Cualquier draco de ahí puede soltar un saco de veneno. Cuidado: espera en la plataforma hasta que el elevador esté a su nivel antes de subirte, y quédate en él hasta que se detenga; la caída de al lado mata.",
 
 	-- Step 14: Thousand Needles
 	-- {area:484} Freewind Post

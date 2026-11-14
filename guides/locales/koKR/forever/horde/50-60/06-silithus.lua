@@ -64,7 +64,7 @@ return {
 	-- Step 12: Twilight Vanguard
 	["Twilight Vanguard"] = "황혼의 선봉대",
 	-- {npc:11803} Twilight Keeper Exeter · {item:20404} Encrypted Twilight Text · {npc:15306} Bor Wildmane
-	["{npc:11803} walks the Vanguard camp in the far south-west. Keep every {item:20404} the cultists drop: {npc:15306} and Ortell want ten each later."] = "",
+	["{npc:11803} walks the Vanguard camp in the far south-west. Keep every {item:20404} the cultists drop: {npc:15306} and Ortell want ten each later."] = "{npc:11803}은(는) 맨 남서쪽의 선봉대 야영지를 돌아다닙니다. 이교도가 떨어뜨리는 {item:20404}은(는) 모두 보관하세요. 나중에 {npc:15306}와(과) 오르텔이 각각 열 개씩 원합니다.",
 
 	-- Step 14: Twilight Post
 	-- {npc:15200} Twilight Keeper Mayna
@@ -73,15 +73,15 @@ return {
 	-- Step 15: Twilight Outpost
 	-- {npc:11804} Twilight Keeper Havunth · {area:3425} Cenarion Hold
 	-- plural, as words: Encrypted Twilight Texts = {item:20404} Encrypted Twilight Text
-	["{npc:11804} stands in the outpost west of {area:3425}. Keep any Encrypted Twilight Texts that drop here too."] = "",
+	["{npc:11804} stands in the outpost west of {area:3425}. Keep any Encrypted Twilight Texts that drop here too."] = "{npc:11804}은(는) {area:3425} 서쪽 전초기지에 서 있습니다. 이곳에서 떨어지는 암호화된 황혼의 문서도 보관하세요.",
 
 	-- Step 16: Level 58
 	["Level 58"] = "",
 	-- {npc:15181} Commander Mar'alith · {quest:8304} Dearest Natalia · {area:3425} Cenarion Hold · {area:1583} Blackrock Spire · {quest:838} Scholomance
-	-- plural, as words: Twilight Avengers = {npc:11880} Twilight Avenger
-	["{npc:15181}'s {quest:8304}, at {area:3425}, needs level 58: top up on the Twilight Avengers, Geolords and Stonecallers west of the outpost. Or, with a group, run the {area:1583} dungeon (Lower) or the {quest:838} dungeon instead."] = "",
-	-- {npc:11880} Twilight Avenger
-	["grind on {npc:11880}"] = "",
+	-- plural, as words: Dredge Crushers = {npc:11741} Dredge Crusher · Twilight Avengers = {npc:11880} Twilight Avenger
+	["{npc:15181}'s {quest:8304}, at {area:3425}, needs level 58: top up on the Dredge Crushers (57-58) west of the outpost, and leave the Twilight Avengers, Geolords and Stonecallers (57-61) around them be. Or, with a group, run the {area:1583} dungeon (Lower) or the {quest:838} dungeon instead."] = "{area:3425}에 있는 {npc:15181}의 {quest:8304}에는 58레벨이 필요합니다. 전초기지 서쪽의 망치미늘벌레(57-58)로 레벨을 채우고, 그 주변의 Twilight Avengers, Geolords, Stonecallers(57-61)는 건드리지 마십시오. 또는 파티와 함께 대신 {area:1583} 던전(아래쪽)이나 {quest:838} 던전을 도십시오.",
+	-- {npc:11741} Dredge Crusher
+	["grind on {npc:11741}"] = "{npc:11741} 사냥",
 
 	-- Step 17: Cenarion Hold
 	-- {npc:15189} Beetix Ficklespragg · {npc:15190} Noggle Ficklespragg
@@ -116,7 +116,7 @@ return {
 	-- {npc:15190} Noggle Ficklespragg
 	["{npc:15190} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."] = "",
 	-- {area:2744} Hive'Regal
-	["Mar'alith's next errand, Into the Maw of Madness, leads into {area:2744} among elites. Skip it."] = "",
+	["Mar'alith's next errand, Into the Maw of Madness, leads into {area:2744} among elites. Skip it."] = "마랄리스의 다음 심부름인 '광기의 아가리 속으로'는 정예가 있는 {area:2744} 안으로 이어집니다. 건너뛰세요.",
 
 	-- Step 25: Layo Starstrike
 	-- {area:3077} Valor's Rest · {zone:1451} Silithus
@@ -124,7 +124,7 @@ return {
 
 	-- Step 27: Marshal's Refuge
 	-- {area:541} Marshal's Refuge · {npc:9997} Spraggle Frock
-	["Through the pass and east along the northern cliffs to {area:541}. {npc:9997} stands beside the flight master."] = "",
+	["Through the pass and east along the northern cliffs to {area:541}. {npc:9997} stands beside the flight master."] = "고갯길을 지나 북쪽 절벽을 따라 동쪽의 {area:541}(으)로 가세요. {npc:9997}은(는) 비행 조련사 옆에 서 있습니다.",
 
 	-- Step 28: Krakle
 	-- {npc:10302} Krakle · {area:543} Golakka Hot Springs
@@ -211,7 +211,7 @@ return {
 
 	-- Step 51: Northridge Lumber Camp
 	-- {npc:11615} Mickey Levine
-	["The lumber mill is right beside Radley: set {npc:11615}'s termite barrel down in the middle of it."] = "",
+	["The lumber mill is right beside Radley: set {npc:11615}'s termite barrel down in the middle of it."] = "제재소는 래들리 바로 옆에 있습니다. {npc:11615}의 흰개미 통을 제재소 한가운데에 내려놓으세요.",
 
 	-- Step 53: Davil's Libram
 	-- {area:190} Hearthglen
@@ -244,90 +244,100 @@ return {
 	-- {npc:10667} Chromie
 	["The lockboxes sit in Andorhal's ruined houses around {npc:10667}'s inn. Careful: Ghouls and skeletons usually stand next to the boxes and attack when you come close. Searing ghouls also hurt anyone nearby and will break stealth."] = "",
 
-	-- Step 63: Dalson's Tears
+	-- Step 62: High Executor Derrington
+	-- {quest:105} Alas, Andorhal · {npc:1852} Araj the Summoner
+	-- plural, as words: Skeletal Warlords = {npc:1788} Skeletal Warlord
+	["{quest:105}'s shard lies at {npc:1852}'s feet, in the middle of Andorhal: he is a level 61 elite with elite Skeletal Warlords about him, a fight for a group."] = "{quest:105}의 파편은 안돌할 한가운데, {npc:1852}의 발밑에 있습니다. 그는 정예 해골 전쟁군주에 둘러싸인 61레벨 정예이므로 파티용 전투입니다.",
+
+	-- Step 64: Dalson's Tears
 	-- {npc:11077} Cauldron Lord Malvinious · {area:200} Dalson's Tears
 	["East along the road, {npc:11077} guards the cauldron at {area:200}."] = "길을 따라 동쪽으로 가면 {npc:11077}이(가) {area:200}의 가마솥을 지키고 있습니다.",
 
-	-- Step 65: Redpath's Shield
+	-- Step 66: Redpath's Shield
 	-- {area:201} Gahrron's Withering · {npc:1855} Tirion Fordring
 	["The shield lies at {area:201}, south of {npc:1855}'s hut."] = "방패는 {npc:1855}의 오두막 남쪽 {area:201}에 있습니다.",
 
-	-- Step 66: Tirion Fordring
+	-- Step 67: Tirion Fordring
 	-- {npc:1855} Tirion Fordring · {area:2619} Thondroril River
 	["Ride east to {npc:1855}'s hut by the {area:2619} and hear him out."] = "동쪽으로 {area:2619} 옆 {npc:1855}의 오두막으로 가서 그의 이야기를 들으세요.",
 
-	-- Step 69: Scourge Champions
+	-- Step 70: Scourge Champions
 	-- plural, as words: Scourge Champions = {npc:8529} Scourge Champion
 	["Scourge Champions"] = "스컬지 용사",
 	-- {area:2270} Noxious Glade · {npc:11063} Carlin Redpath · {item:13156} Mystic Crystal
 	-- plural, as words: Scourge Champions = {npc:8529} Scourge Champion
 	["Scourge Champions roam the {area:2270}, north of the chapel. Pass {npc:11063}'s {item:13156} over each one you kill: the skulls that resonate are the ones he wants."] = "스컬지 용사는 예배당 북쪽 {area:2270}을(를) 돌아다닙니다. 처치한 용사마다 {npc:11063}의 {item:13156}을(를) 대 보세요. 공명하는 해골이 그가 원하는 것입니다.",
 
-	-- Step 71: Hameya's scroll
+	-- Step 72: Hameya's scroll
 	["Hameya's scroll"] = "하메야의 두루마리",
 	-- {area:2261} Undercroft · {area:2260} Marris Stead
 	["A torn scroll lies at the entrance of the {area:2261}, the crypt south of the {area:2260}."] = "찢어진 두루마리는 {area:2260} 남쪽의 납골당인 {area:2261} 입구에 있습니다.",
 
-	-- Step 72: Pamela and the Undercroft
+	-- Step 73: Pamela and the Undercroft
 	-- {area:2261} Undercroft
-	["Pamela and the {area:2261}"] = "",
+	["Pamela and the {area:2261}"] = "파멜라와 {area:2261}",
 	-- {area:2262} Darrowshire · {npc:11886} Mercutio Filthgorger · {area:2261} Undercroft
-	["Ride to {area:2262} in the south-west; Pamela plays among the houses. {npc:11886} lurks in the {area:2261}, the crypt just west of the town.\nCareful: About four non-elite adds come with Mercutio. They walk to the grave instead of appearing on the spot."] = "",
+	["Ride to {area:2262} in the south-west; Pamela plays among the houses. {npc:11886} lurks in the {area:2261}, the crypt just west of the town.\nCareful: About four non-elite adds come with Mercutio. They walk to the grave instead of appearing on the spot."] = "남서쪽의 {area:2262}(으)로 가세요. 파멜라는 집들 사이에서 놀고 있습니다. {npc:11886}은(는) 마을 바로 서쪽의 납골당인 {area:2261}에 숨어 있습니다.\n주의: 머큐시오와 함께 정예가 아닌 몹 약 넷이 나옵니다. 그 자리에 나타나지 않고 무덤까지 걸어옵니다.",
 
-	-- Step 74: Tirion Fordring
+	-- Step 75: Tirion Fordring
 	-- {npc:1855} Tirion Fordring
 	["Ride north-west to {npc:1855}'s hut."] = "북서쪽의 {npc:1855} 오두막으로 가세요.",
 
-	-- Step 77: Level 59.14
+	-- Step 77: Alas, Andorhal
+	-- {npc:1852} Araj the Summoner · {object:177241} Araj's Phylactery
+	-- plural, as words: Skeletal Warlords = {npc:1788} Skeletal Warlord
+	["{npc:1852} (61, elite) stands in the middle of Andorhal among Skeletal Warlords (56-57, elite): kill him with your group, then take the shard from {object:177241} there."] = "{npc:1852}(61, 정예)은(는) 안돌할 한가운데에서 해골 전쟁군주(56-57, 정예) 사이에 서 있습니다. 파티와 함께 처치한 뒤 그곳의 {object:177241}에서 파편을 가져가십시오.",
+
+	-- Step 78: Level 59.14
 	["Level 59.14"] = "",
 	-- {quest:6135} Duskwing, Oh How I Hate Thee... · {quest:838} Scholomance · {area:2279} Stratholme
 	["If you skipped {quest:6135}, grind here to level 59.14 to stay on the route's plan. Or, with a group, run the {quest:838} dungeon or the {area:2279} dungeon instead."] = "",
 	-- {npc:10717} Temporal Parasite
 	["grind on {npc:10717}"] = "",
 
-	-- Step 78: Chromie
+	-- Step 79: Chromie
 	-- {npc:10667} Chromie
 	["Ride south-west to {npc:10667} in Andorhal."] = "남서쪽 안돌할의 {npc:10667}에게 가세요.",
 	-- {npc:10667} Chromie
 	["{npc:10667}'s Battle of Darrowshire ends against elites. Skip it."] = "{npc:10667}의 다로우샤이어 전투는 정예와 싸우며 끝납니다. 건너뛰세요.",
 
-	-- Step 79: The Bulwark
+	-- Step 80: The Bulwark
 	-- {area:152} The Bulwark
 	["West to the {area:152}."] = "",
 
-	-- Step 80: Into Eastern Plaguelands
+	-- Step 82: Into Eastern Plaguelands
 	-- {zone:1423} Eastern Plaguelands
 	["Into {zone:1423}"] = "",
 
-	-- Step 81: Eastern Plaguelands
+	-- Step 83: Eastern Plaguelands
 	-- {quest:5845} Of Lost Honor
 	["The lake for {quest:5845}"] = "",
 
-	-- Step 82: Of Lost Honor
+	-- Step 84: Of Lost Honor
 	["Underwater"] = "",
 
-	-- Step 83: Infiltrator Hameya
+	-- Step 85: Infiltrator Hameya
 	-- {area:2273} Zul'Mashar
 	["Hameya hides among the Mossflayer trolls of {area:2273}, in the north-east corner.\nCareful: The trolls along the path to {area:2273} are level 57-59. They run away at low health and call for help, so they often bring adds with them."] = "",
 
-	-- Step 85: Hameya's mound
+	-- Step 87: Hameya's mound
 	["Hameya's mound"] = "하메야의 흙더미",
 	-- {npc:1855} Tirion Fordring · {area:2261} Undercroft · {object:177675} Mound of Dirt
 	["Ride south-east from {npc:1855} to the {area:2261}; the {object:177675} is just behind it."] = "",
 
-	-- Step 86: Into Western Plaguelands
+	-- Step 88: Into Western Plaguelands
 	-- {zone:1422} Western Plaguelands
 	["Into {zone:1422}"] = "",
 
-	-- Step 89: Target: Writhing Haunt
+	-- Step 91: Target: Writhing Haunt
 	-- {npc:11055} Shadow Priestess Vandis · {area:152} The Bulwark
 	["from the cauldron, for {npc:11055} at the {area:152}"] = "",
 
-	-- Step 91: Target: Gahrron's Withering
+	-- Step 93: Target: Gahrron's Withering
 	-- {area:202} Writhing Haunt · {area:201} Gahrron's Withering · {npc:11078} Cauldron Lord Soulwrath
 	["Back east past the {area:202} to {area:201}, the farm under the eastern hills: {npc:11078} guards its cauldron. Kill him for the key, then use the cauldron."] = "",
 
-	-- Step 92: The Bulwark
+	-- Step 94: The Bulwark
 	-- {area:152} The Bulwark
 	["West to the {area:152} one last time."] = "",
 
@@ -337,25 +347,18 @@ return {
 	-- ["Dredge and scorpids"] = "미늘벌레와 전갈",
 	-- ["Fly to {area:1637} and train."] = "{area:1637}(으)로 날아가 기술을 배우세요.",
 	-- ["Fly to {area:976}. The {object:142071} stands in the middle of town."] = "{area:976}(으)로 날아가세요. {object:142071}은(는) 마을 한가운데에 있습니다.",
-	-- ["Mar'alith's Dearest Natalia needs level 58 and leads into {area:2744} among elites. Skip it."] = "마랄리스의 사랑하는 여군주 나탈리아는 58레벨이 필요하고 정예가 있는 {area:2744} 안으로 이어집니다. 건너뛰세요.",
-	-- ["North to the lumber camp; set the termite barrel down in the middle of the mill."] = "북쪽의 벌목지로 가서 흰개미 통을 제재소 한가운데에 내려놓으세요.",
 	-- ["Ride east across the plaguelands to the chapel."] = "동쪽으로 역병지대를 가로질러 예배당으로 가세요.",
 	-- ["Ride east along the road to the {area:152} on the border."] = "길을 따라 동쪽으로 경계의 {area:152}로 가세요.",
 	-- ["Ride south-west to the ruins of {area:2738}. The {object:179565} for {npc:11801} sits inside one of the ruined houses."] = "남서쪽의 {area:2738} 폐허로 가세요. {npc:11801}을(를) 위한 {object:179565}은(는) 무너진 집 중 한 곳 안에 있습니다.",
-	-- ["Ride to {area:2262} in the south-west; {npc:10926} plays among the houses. {npc:11886} lurks in the {area:2261}, the crypt just west of the town."] = "남서쪽의 {area:2262}(으)로 가세요. {npc:10926}은(는) 집들 사이에서 놀고 있습니다. {npc:11886}은(는) 마을 바로 서쪽의 납골당인 {area:2261}에 숨어 있습니다.",
 	-- ["Ride west to the walled hold in the middle of the desert."] = "서쪽으로 사막 한가운데의 성벽 두른 요새로 가세요.",
 	-- ["Take the zeppelin from the tower outside {area:1637} to {zone:1420} and ride into the {zone:1458}. Lady Sylvanas holds the {object:36126}."] = "{area:1637} 밖의 탑에서 {zone:1420}행 비행선을 타고 {zone:1458}(으)로 들어가세요. 실바나스는 {object:36126}에 있습니다.",
 	-- ["The glowing tablet fragments lie around the Twilight camp in the far north-west; the Dust Stormers and Desert Rumblers there drop them too."] = "빛나는 서판 조각은 맨 북서쪽 황혼의 망치단 야영지 주변에 있습니다. 그곳의 먼지 폭풍과 우레의 모래정령도 조각을 떨어뜨립니다.",
 	-- ["The pass from Un'Goro comes out at {area:3077}, the graveyard in north-east {zone:1451}. {npc:13220} stands among the graves."] = "운고로 분화구에서 오는 고갯길은 {zone:1451} 북동쪽의 묘지인 {area:3077}(으)로 이어집니다. {npc:13220}은(는) 무덤 사이에 서 있습니다.",
 	-- ["The wooden sign beside {npc:9997}"] = "{npc:9997} 옆의 나무 표지판",
 	-- ["The {object:177675} is just behind the {area:2261}."] = "{object:177675}은(는) {area:2261} 바로 뒤에 있습니다.",
-	-- ["Through the pass and east along the northern cliffs to {area:541}. {npc:8737} stands by the cave; {npc:9117} is inside it."] = "고갯길을 지나 북쪽 절벽을 따라 동쪽의 {area:541}(으)로 가세요. {npc:8737}은(는) 동굴 옆에 서 있고, {npc:9117}은(는) 그 안에 있습니다.",
 	-- ["West to the {area:152}. The next guide starts in the {zone:1458}, a short ride west."] = "서쪽의 {area:152}로 가세요. 다음 가이드는 조금 서쪽의 {zone:1458}에서 시작합니다.",
 	-- ["{npc:10778}'s farm is the first one east of the {area:152}. Jabbering Ghouls on the farm carry the other half of her charm; {npc:11075} guards the cauldron in the field."] = "{npc:10778}의 농장은 {area:152} 동쪽으로 첫 번째 농장입니다. 농장의 비명소리 구울이 그녀의 부적 나머지 반쪽을 지니고 있고, {npc:11075}은(는) 들판의 가마솥을 지키고 있습니다.",
-	-- ["{npc:10926} and the {area:2261}"] = "{npc:10926}와(과) {area:2261}",
 	-- ["{npc:10926}'s own errand is not on this route. Skip it."] = "{npc:10926}의 심부름은 이 경로에 없습니다. 건너뛰세요.",
-	-- ["{npc:11803} walks the Vanguard camp in the far south-west. Every cultist here drops Encrypted Twilight Texts, quest or not: collect twenty, ten for {npc:15306} and ten for Ortell."] = "{npc:11803}은(는) 맨 남서쪽의 선봉대 야영지를 돌아다닙니다. 이곳의 이교도는 퀘스트와 상관없이 모두 암호화된 황혼의 문서를 떨어뜨립니다. {npc:15306}에게 열 개, 오르텔에게 열 개, 모두 스무 개를 모으세요.",
-	-- ["{npc:11804} stands in the outpost west of {area:3425}. Top your Encrypted Twilight Texts up to twenty on the cultists here."] = "{npc:11804}은(는) {area:3425} 서쪽 전초기지에 서 있습니다. 이곳 이교도에게서 암호화된 황혼의 문서를 스무 개까지 채우세요.",
 	-- ["{npc:11878}' errands are not on this route. Skip them."] = "{npc:11878}의 심부름은 이 경로에 없습니다. 건너뛰세요.",
 	-- ["{npc:15193}'s champion holds the {area:2260} farmhouse, north of the {area:2261}."] = "{npc:15193}의 용사가 {area:2261} 북쪽의 {area:2260} 농가를 차지하고 있습니다.",
 	-- ["{npc:15306}, on the west side of the Hold"] = "요새 서쪽의 {npc:15306}",

@@ -83,15 +83,15 @@ return {
 	-- Step 14: Adventure: explore the world map
 	["Adventure: explore the world map"] = "모험: 세계 지도 탐험",
 	-- {zone:2548} Riverglades · {zone:2652} Shen'dralas · {zone:2482} Mount Hyjal
-	["Exploring the entire world map on one character is a point, and it can also unlock the Legacy System. It must all be on the same character. Forever's new zones are part of the map: the {zone:2548}, {zone:2652} and {zone:2482}, a level 60 zone."] = "",
-	["Follow the Polestar Exploration guides: Exploration: Eastern Kingdoms 1-30, 30-45 and 45-60, and Exploration: Kalimdor 1-30, 30-45 and 45-60. They track every area as you discover it. Exploration: Zephras Isle covers the Skyborne island; whether its map counts towards this challenge is not confirmed yet."] = "",
+	["Exploring the entire world map on one character is a point, and it can also unlock the Legacy System. It must all be on the same character. Forever's new zones are part of the map: the {zone:2548}, {zone:2652} and {zone:2482}, a level 60 zone."] = "한 캐릭터로 세계 지도 전체를 탐험하면 1점이며, 유산 시스템을 해금할 수도 있습니다. 모두 같은 캐릭터로 탐험해야 합니다. Forever의 새 지역도 지도에 포함됩니다: {zone:2548}, {zone:2652}, 그리고 60레벨 지역인 {zone:2482}.",
+	["Follow the Polestar Exploration guides: Exploration: Eastern Kingdoms 1-30, 30-45 and 45-60, and Exploration: Kalimdor 1-30, 30-45 and 45-60. They track every area as you discover it. Exploration: Zephras Isle covers the Skyborne island; whether its map counts towards this challenge is not confirmed yet."] = "Polestar 탐험 가이드를 따르십시오: 탐험: 동부 왕국 1-30, 30-45, 45-60과 탐험: 칼림도어 1-30, 30-45, 45-60. 발견하는 모든 지역을 추적합니다. 탐험: 제프라스 섬은 스카이본 섬을 다룹니다. 이 섬의 지도가 이 도전에 포함되는지는 아직 확인되지 않았습니다.",
 	["This step cannot check the whole map by itself yet; it becomes a tracked goal once the Legacy achievement ids are recorded."] = "이 단계는 아직 지도 전체를 스스로 확인할 수 없습니다. 유산 업적 ID가 기록되면 추적되는 목표가 됩니다.",
 
 	-- Step 15: Adventure: Lord Valthalak
 	-- {npc:16042} Lord Valthalak
 	["Adventure: {npc:16042}"] = "모험: {npc:16042}",
 	-- {npc:16042} Lord Valthalak · {quest:8999} Saving the Best for Last · {npc:16013} Deliana · {zone:1455} Ironforge · {npc:16012} Mokvar · {zone:1454} Orgrimmar · {npc:16033} Bodley · {area:254} Blackrock Mountain · {quest:8995} Mea Culpa, Lord Valthalak · {quest:8996} Return to Bodley · {quest:8997} Back to the Beginning
-	["The {npc:16042} questline is a point. It is the level 60 dungeon-set chain, from An Earnest Proposition to your class's {quest:8999}: {npc:16013} ({zone:1455}) or {npc:16012} ({zone:1454}) send you through In Search of Anthion and Anthion's Parting Words to {npc:16033} at {area:254}, whose Three Kings of Flame, the Left and Right Pieces of Lord Valthalak's Amulet, Final Preparations and {quest:8995} end with {quest:8996}. {quest:8997} then leads to {quest:8999}."] = "",
+	["The {npc:16042} questline is a point. It is the level 60 dungeon-set chain, from An Earnest Proposition to your class's {quest:8999}: {npc:16013} ({zone:1455}) or {npc:16012} ({zone:1454}) send you through In Search of Anthion and Anthion's Parting Words to {npc:16033} at {area:254}, whose Three Kings of Flame, the Left and Right Pieces of Lord Valthalak's Amulet, Final Preparations and {quest:8995} end with {quest:8996}. {quest:8997} then leads to {quest:8999}."] = "{npc:16042} 퀘스트 라인은 1점입니다. 레벨 60 던전 세트 연계 퀘스트로, '진지한 제안'부터 직업별 {quest:8999}까지입니다. {npc:16013}({zone:1455}) 또는 {npc:16012}({zone:1454})이(가) 안시온 찾기와 안시온의 작별 인사를 거쳐 {area:254}의 {npc:16033}에게 보냅니다. 그의 세 고위 정령의 불꽃, 군주 발타라크의 아뮬렛의 왼쪽 조각과 오른쪽 조각, 마지막 준비, {quest:8995}을(를) 거쳐 {quest:8996}(으)로 끝납니다. 그다음 {quest:8997}이(가) {quest:8999}(으)로 이어집니다.",
 	-- {npc:16073} Spirit of Lord Valthalak · {npc:16033} Bodley · {area:254} Blackrock Mountain
 	["{npc:16073}, inside Upper Blackrock Spire after Mea Culpa (no spawn in the data: the arrow leads to {npc:16033}'s {area:254})"] = "검은바위 첨탑 상층에서 '군주 발타라크여, 내 탓이오.' 이후의 {npc:16073} (데이터에 생성 위치 없음: 화살표는 {npc:16033}이(가) 있는 {area:254}(으)로 안내합니다)",
 	-- {npc:16033} Bodley · {quest:8996} Return to Bodley
@@ -101,18 +101,18 @@ return {
 	-- {quest:8999} Saving the Best for Last
 	["Adventure: {quest:8999} (Alliance)"] = "",
 	-- {npc:16013} Deliana · {quest:8999} Saving the Best for Last
-	["{npc:16013} then offers your class's {quest:8999}, the last quest of the challenge: it takes your class's dungeon-set helm and chest and upgrades them."] = "",
+	["{npc:16013} then offers your class's {quest:8999}, the last quest of the challenge: it takes your class's dungeon-set helm and chest and upgrades them."] = "그다음 {npc:16013}이(가) 직업별 {quest:8999}을(를) 줍니다. 이 도전의 마지막 퀘스트로, 직업별 던전 세트 투구와 가슴 방어구를 받아 강화해 줍니다.",
 
 	-- Step 17: Adventure: Saving the Best for Last (Horde)
 	-- {quest:9007} Saving the Best for Last
 	["Adventure: {quest:9007} (Horde)"] = "",
 	-- {npc:16012} Mokvar · {quest:9007} Saving the Best for Last
-	["{npc:16012} then offers your class's {quest:9007}, the last quest of the challenge: it takes your class's dungeon-set helm and chest and upgrades them."] = "",
+	["{npc:16012} then offers your class's {quest:9007}, the last quest of the challenge: it takes your class's dungeon-set helm and chest and upgrades them."] = "그다음 {npc:16012}이(가) 직업별 {quest:9007}을(를) 줍니다. 이 도전의 마지막 퀘스트로, 직업별 던전 세트 투구와 가슴 방어구를 받아 강화해 줍니다.",
 
 	-- Step 18: Dungeons: level 15-25
 	["Dungeons: level 15-25"] = "던전: 레벨 15-25",
-	-- {area:2437} Ragefire Chasm · {area:16919} Hall of Thanes · {zone:1455} Ironforge
-	["The final boss of every level 15-25 dungeon earns one point together. {area:2437} and Forever's {area:16919} (in {zone:1455}) count as one: either final boss does. Tick each boss off when you kill it, and check the in-game Legacy panel for the list."] = "",
+	-- {area:2437} Ragefire Chasm · {area:16919} Hall of Thanes · {zone:1455} Ironforge · {area:153} Ruins of Lordaeron · {zone:1458} Undercity · {zone:1454} Orgrimmar
+	["The final boss of every level 15-25 dungeon earns one point together. {area:2437} and Forever's {area:16919} (in {zone:1455}) count as one: either final boss does. Tick each boss off when you kill it, and check the in-game Legacy panel for the list.\nAlliance: the {area:153}'s entrance is in the ruins beside the {zone:1458}, among Horde guards: go with a group. {area:2437} is inside {zone:1454}: the {area:16919} counts for it. Horde: the {area:16919} is inside {zone:1455}: {area:2437} counts for it."] = "",
 	-- {area:2437} Ragefire Chasm · {npc:11519} Bazzalan · {area:16919} Hall of Thanes
 	["{area:2437}: {npc:11519} (or {area:16919})"] = "",
 	-- {area:16919} Hall of Thanes · {npc:261319} Durgen Dirgehammer · {area:2437} Ragefire Chasm
@@ -126,11 +126,12 @@ return {
 
 	-- Step 19: Dungeons: level 26-45
 	["Dungeons: level 26-45"] = "던전: 레벨 26-45",
-	-- {area:17780} Krol'dok Stronghold · {zone:2548} Riverglades
-	["The final boss of every level 26-45 dungeon earns one point together. The Drowned City and {area:17780} (in the {zone:2548}) are new in Forever and not in our data: tick them off yourself."] = "",
+	-- {area:16550} The Drowned City · {area:17780} Krol'dok Stronghold · {zone:2548} Riverglades
+	["The final boss of every level 26-45 dungeon earns one point together. {area:16550} and {area:17780} (in the {zone:2548}) are new in Forever and not in our data: tick them off yourself."] = "",
 	-- {zone:1416} Alterac Mountains · {npc:246020} Shade of the Archmage
 	["City of Dalaran (Forever's, {zone:1416}): {npc:246020}"] = "",
-	["the final boss of the Drowned City"] = "",
+	-- {area:16550} The Drowned City
+	["the final boss of the {area:16550}"] = "",
 	-- {area:796} Scarlet Monastery
 	["{area:796}: Graveyard"] = "{area:796}: 묘지",
 	-- {area:796} Scarlet Monastery
@@ -144,9 +145,10 @@ return {
 
 	-- Step 20: Dungeons: level 46-60
 	["Dungeons: level 46-60"] = "던전: 레벨 46-60",
-	-- {area:1216} Blackmaw Hold · {area:16985} Shaper's Terrace
-	["The final boss of every level 46-60 dungeon earns one point together. Alcaz Prison, {area:1216} and the {area:16985} are new in Forever and not in our data: tick them off yourself."] = "",
-	["the final boss of Alcaz Prison"] = "",
+	-- {area:16620} Alcaz Prison · {area:1216} Blackmaw Hold · {area:16985} Shaper's Terrace
+	["The final boss of every level 46-60 dungeon earns one point together. {area:16620}, {area:1216} and the {area:16985} are new in Forever and not in our data: tick them off yourself."] = "",
+	-- {area:16620} Alcaz Prison
+	["the final boss of {area:16620}"] = "",
 	-- {area:1216} Blackmaw Hold
 	["the final boss of {area:1216}"] = "",
 	-- {area:1583} Blackrock Spire
@@ -172,31 +174,26 @@ return {
 	-- Step 22: Raids: Hyjal Summit
 	["Raids: Hyjal Summit"] = "공격대: Hyjal Summit",
 	-- {zone:2482} Mount Hyjal
-	["All 13 Hyjal Summit bosses are a point. Hyjal Summit is a new 20-player Forever raid at the top of {zone:2482}, near Nordrassil, open from 9 December; its bosses are not in our data, so tick it off once all 13 are down."] = "",
+	["All 13 Hyjal Summit bosses are a point. Hyjal Summit is a new 20-player Forever raid at the top of {zone:2482}, near Nordrassil, open from 9 December; its bosses are not in our data, so tick it off once all 13 are down."] = "Hyjal Summit 우두머리 13명을 모두 처치하면 1점입니다. Hyjal Summit은(는) Forever의 새 20인 공격대로, {zone:2482} 꼭대기의 놀드랏실 근처에 있으며 12월 9일부터 열립니다. 우두머리가 우리 데이터에 없으니, 13명을 모두 처치하면 직접 체크하십시오.",
 	["all 13 Hyjal Summit bosses"] = "하이잘 정상의 우두머리 13명 전원",
 
 	-- Step 23: Raids: Barrow Deeps
 	["Raids: Barrow Deeps"] = "공격대: Barrow Deeps",
 	-- {zone:2482} Mount Hyjal · {zone:1452} Winterspring · {area:1216} Blackmaw Hold
-	["All 8 Barrow Deeps bosses are a point. Barrow Deeps is a new 10-player Forever raid beneath {zone:2482}, entered from {zone:2482}, {zone:1452} or {area:1216} and open from 9 December; its bosses are not in our data, so tick it off once all 8 are down."] = "",
+	["All 8 Barrow Deeps bosses are a point. Barrow Deeps is a new 10-player Forever raid beneath {zone:2482}, entered from {zone:2482}, {zone:1452} or {area:1216} and open from 9 December; its bosses are not in our data, so tick it off once all 8 are down."] = "Barrow Deeps 우두머리 8명을 모두 처치하면 1점입니다. Barrow Deeps은(는) Forever의 새 10인 공격대로, {zone:2482} 아래에 있으며 {zone:2482}, {zone:1452}, {area:1216}에서 들어가고 12월 9일부터 열립니다. 우두머리가 우리 데이터에 없으니, 8명을 모두 처치하면 직접 체크하십시오.",
 	["all 8 Barrow Deeps bosses"] = "고분 심연의 우두머리 8명 전원",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Adventure: {quest:8997} (Alliance)"] = "모험: {quest:8997} (얼라이언스)",
 	-- ["Adventure: {quest:8998} (Horde)"] = "모험: {quest:8998} (호드)",
-	-- ["All 13 Hyjal Summit bosses are a point. Hyjal Summit is a new Forever raid; its bosses are not in our data, so tick it off once all 13 are down."] = "Hyjal Summit 우두머리 13명을 모두 처치하면 1점입니다. Hyjal Summit은(는) Forever의 새 공격대이며 우두머리가 우리 데이터에 없으니, 13명을 모두 처치하면 직접 체크하십시오.",
-	-- ["All 8 Barrow Deeps bosses are a point. Barrow Deeps is a new Forever raid; its bosses are not in our data, so tick it off once all 8 are down."] = "Barrow Deeps 우두머리 8명을 모두 처치하면 1점입니다. Barrow Deeps은(는) Forever의 새 공격대이며 우두머리가 우리 데이터에 없으니, 8명을 모두 처치하면 직접 체크하십시오.",
 	-- ["Blizzard counts four battleground reputations, but our faction data has three per side ({zone:1460}, {zone:1461}, {zone:1459}). The fourth is likely tied to Forever's new PvP content; check the in-game Legacy panel."] = "블리자드는 전장 평판 4개를 계산하지만, 우리 세력 데이터에는 진영마다 3개({zone:1460}, {zone:1461}, {zone:1459})만 있습니다. 네 번째는 Forever의 새 PvP 콘텐츠와 관련된 것으로 보입니다. 게임 내 유산 창을 확인하십시오.",
 	-- ["Exalted with each battleground faction is worth a point (4 in all; this page shows three, see the note). Follow the Polestar Reputation guides Warsong Gulch Reputation, Arathi Basin Reputation and Alterac Valley Reputation. The Diplomat Legacy perk increases reputation gains."] = "각 전장 세력과 확고한 동맹이 되면 1점입니다(총 4점, 이 페이지에는 3개만 나옵니다. 참고를 보세요). Polestar 평판 가이드 전쟁노래 협곡 평판, 아라시 분지 평판, 알터랙 계곡 평판을 따르세요. 외교관 유산 특전은 평판 획득량을 늘려 줍니다.",
-	-- ["Exploring the entire world map on one character is a point, and it can also unlock the Legacy System. It must all be on the same character."] = "한 캐릭터로 세계 지도 전체를 탐험하면 1점이며, 유산 시스템을 해금할 수도 있습니다. 모두 같은 캐릭터로 탐험해야 합니다.",
-	-- ["Follow the Polestar Exploration guides: Exploration: Eastern Kingdoms 1-30, 30-45 and 45-60, and Exploration: Kalimdor 1-30, 30-45 and 45-60. They track every area as you discover it."] = "Polestar 탐험 가이드를 따르십시오: 탐험: 동부 왕국 1-30, 30-45, 45-60과 탐험: 칼림도어 1-30, 30-45, 45-60. 발견하는 모든 지역을 추적합니다.",
 	-- ["Forever adds the dungeons {area:16919} and {area:153}; their bosses and brackets are not in our data yet."] = "Forever는 던전 {area:16919}와(과) {area:153}을(를) 추가합니다. 그 우두머리와 레벨대는 아직 우리 데이터에 없습니다.",
 	-- ["Forever's new dungeons"] = "Forever의 새 던전",
 	-- ["Killing {npc:10184} is a point. In Classic her lair needs an attunement: {item:16309} for the Alliance, {item:16663} for the Horde."] = "{npc:10184}을(를) 처치하면 1점입니다. 클래식에서 그녀의 둥지에 들어가려면 입장 퀘스트가 필요합니다: 얼라이언스는 {item:16309}, 호드는 {item:16663}.",
 	-- ["The final boss of every level 15-25 dungeon earns one point together. Tick each boss off when you kill it; the grouping follows the usual Classic level ranges, so check the in-game Legacy panel for the exact list."] = "레벨 15-25 던전의 마지막 우두머리를 모두 처치하면 합쳐서 1점입니다. 우두머리를 처치할 때마다 체크하십시오. 분류는 일반적인 클래식 레벨대를 따르므로, 정확한 목록은 게임 내 유산 창에서 확인하십시오.",
 	-- ["The final boss of every level 26-45 dungeon earns one point together."] = "레벨 26-45 던전의 마지막 우두머리를 모두 처치하면 합쳐서 1점입니다.",
 	-- ["The final boss of every level 46-60 dungeon earns one point together."] = "레벨 46-60 던전의 마지막 우두머리를 모두 처치하면 합쳐서 1점입니다.",
-	-- ["The {npc:16042} questline is a point. It is the level 60 dungeon-set chain: {npc:16013} ({zone:1455}) or {npc:16012} ({zone:1454}) send you through In Search of Anthion and Anthion's Parting Words to {npc:16033} at {area:254}, whose Three Kings of Flame, the Left and Right Pieces of Lord Valthalak's Amulet, Final Preparations and Mea Culpa, {npc:16042} end with {quest:8996}. {quest:8997} then leads to the class Saving the Best for Last quests."] = "{npc:16042} 퀘스트 라인은 1점입니다. 레벨 60 던전 세트 연계 퀘스트입니다. {npc:16013}({zone:1455}) 또는 {npc:16012}({zone:1454})이(가) 안시온 찾기와 안시온의 작별 인사를 거쳐 {area:254}의 {npc:16033}에게 보냅니다. 그의 세 고위 정령의 불꽃, 군주 발타라크의 아뮬렛의 왼쪽 조각과 오른쪽 조각, 마지막 준비, 군주 발타라크여, 내 탓이오.를 거쳐 {quest:8996}(으)로 {npc:16042} 퀘스트 라인이 끝납니다. 그다음 {quest:8997}이(가) 직업별 은혜의 보답 퀘스트로 이어집니다.",
 	-- ["The {npc:16042} questline is a point. It is the level 60 dungeon-set chain: {npc:16013} ({zone:1455}) or {npc:16012} ({zone:1454}) send you through In Search of Anthion and Anthion's Parting Words to {npc:16033} at {area:254}, whose Three Kings of Flame, the Left and Right Pieces of Lord Valthalak's Amulet, Final Preparations and {quest:8995} end with {quest:8996}. {quest:8997} then leads to the class Saving the Best for Last quests."] = "{npc:16042} 퀘스트 라인은 1점입니다. 레벨 60 던전 세트 연계 퀘스트입니다. {npc:16013}({zone:1455}) 또는 {npc:16012}({zone:1454})이(가) 안시온 찾기와 안시온의 작별 인사를 거쳐 {area:254}의 {npc:16033}에게 보냅니다. 그의 세 고위 정령의 불꽃, 군주 발타라크의 아뮬렛 왼쪽 조각과 오른쪽 조각, 마지막 준비, {quest:8995}은(는) {quest:8996}(으)로 끝납니다. 그다음 {quest:8997}이(가) 직업별 은혜의 보답 퀘스트로 이어집니다.",
 	-- ["The {npc:16042} questline is a point. It is the level 60 dungeon-set chain: {npc:16013} ({zone:1455}) or {npc:16012} ({zone:1454}) send you through In Search of Anthion and Anthion's Parting Words to {npc:16033} at {area:254}, whose Three Kings of Flame, the Left and Right Pieces of {item:22048}, Final Preparations and Mea Culpa, {npc:16042} end with {quest:8996}. {quest:8997} then leads to the class Saving the Best for Last quests."] = "{npc:16042} 퀘스트 라인은 1점입니다. 레벨 60 던전 세트 연계 퀘스트입니다. {npc:16013}({zone:1455}) 또는 {npc:16012}({zone:1454})이(가) 안시온 찾기와 안시온의 작별 인사를 거쳐 {area:254}의 {npc:16033}에게 보냅니다. 그의 세 고위 정령의 불꽃, {item:22048}의 왼쪽 조각과 오른쪽 조각, 마지막 준비, 군주 발타라크여, 내 탓이오.를 거쳐 {quest:8996}(으)로 {npc:16042} 퀘스트 라인이 끝납니다. 그다음 {quest:8997}이(가) 직업별 은혜의 보답 퀘스트로 이어집니다.",
 	-- ["Which quest Blizzard counts as the end of the questline ({quest:8996} or your class's Saving the Best for Last) is unconfirmed until the Legacy data is recorded."] = "블리자드가 퀘스트 라인의 끝으로 어느 퀘스트({quest:8996} 또는 직업별 은혜의 보답)를 계산하는지는 유산 데이터가 기록될 때까지 확실하지 않습니다.",
@@ -205,6 +202,4 @@ return {
 	-- ["{area:1517} (level 41-51; may count in the 46-60 bracket)"] = "{area:1517}(레벨 41-51, 46-60 구간에 계산될 수 있음)",
 	-- ["{area:16919} and {area:153} are new in Forever. Their bosses, levels and Legacy bracket are not in our data, so tick them off yourself."] = "{area:16919}와(과) {area:153}은(는) Forever에 새로 추가되었습니다. 우두머리, 레벨, 유산 구간이 우리 데이터에 없으니 직접 체크하십시오.",
 	-- ["{area:717}: the usual last kill; the {area:717} has no fixed final boss"] = "{area:717}: 보통 마지막으로 처치하는 대상. {area:717}에는 정해진 마지막 우두머리가 없습니다",
-	-- ["{npc:16012} then offers your class's Saving the Best for Last, the final upgrade of the dungeon set."] = "그다음 {npc:16012}이(가) 던전 세트의 마지막 강화인 직업별 마지막 보은을 줍니다.",
-	-- ["{npc:16013} then offers your class's Saving the Best for Last, the final upgrade of the dungeon set."] = "그다음 {npc:16013}이(가) 던전 세트의 마지막 강화인 직업별 은혜의 보답을 줍니다.",
 }

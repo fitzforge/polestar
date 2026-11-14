@@ -13,11 +13,8 @@ return {
 
 	-- Step 1: Halpa
 	-- {npc:8401} Halpa · {zone:1456} Thunder Bluff
-	["{npc:8401} sells three whistles in {zone:1456} (50s each, 1g 50s for all three); the two ground squirrels are new in Forever. Each pet item teaches its companion when you use it; the goals stay ticked afterwards."] = "",
+	["{npc:8401} sells three whistles in {zone:1456} (50s each, 1g 50s for all three); the two ground squirrels are new in Forever. Each pet item teaches its companion when you use it; the goals stay ticked afterwards."] = "{npc:8401} vende tres silbatos en {zone:1456} (50 p cada uno, 1 o 50 p por los tres); las dos ardillas de tierra son nuevas en Forever. Cada objeto de mascota enseña su compañero al usarlo; los objetivos siguen marcados después.",
 	-- {item:10394} Prairie Dog Whistle
 	["{item:10394}, 50s"] = "{item:10394}, 50 p",
 	["50s"] = "50 p",
-
-	-- No longer in the guide (its English changed or it went away): reuse or delete.
-	-- ["{npc:8401} sells three whistles in {zone:1456} (50s each); the two ground squirrels are new in Forever. Each pet item teaches its companion when you use it; the goals stay ticked afterwards."] = "{npc:8401} vende tres silbatos en {zone:1456} (50 p cada uno); las dos ardillas de tierra son nuevas en Forever. Cada objeto de mascota enseña su compañero al usarlo; los objetivos siguen marcados después.",
 }

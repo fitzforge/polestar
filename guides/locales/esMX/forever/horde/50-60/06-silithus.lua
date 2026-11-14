@@ -78,10 +78,10 @@ return {
 	-- Step 16: Level 58
 	["Level 58"] = "Nivel 58",
 	-- {npc:15181} Commander Mar'alith · {quest:8304} Dearest Natalia · {area:3425} Cenarion Hold · {area:1583} Blackrock Spire · {quest:838} Scholomance
-	-- plural, as words: Twilight Avengers = {npc:11880} Twilight Avenger
-	["{npc:15181}'s {quest:8304}, at {area:3425}, needs level 58: top up on the Twilight Avengers, Geolords and Stonecallers west of the outpost. Or, with a group, run the {area:1583} dungeon (Lower) or the {quest:838} dungeon instead."] = "{quest:8304} de {npc:15181}, en {area:3425}, necesita nivel 58: complétalo con los vengadores, geoseñores y clamapiedras del Crepúsculo al oeste del puesto. O, en grupo, haz la mazmorra {area:1583} (Inferior) o la mazmorra {quest:838}.",
-	-- {npc:11880} Twilight Avenger
-	["grind on {npc:11880}"] = "sube de nivel con {npc:11880}",
+	-- plural, as words: Dredge Crushers = {npc:11741} Dredge Crusher · Twilight Avengers = {npc:11880} Twilight Avenger
+	["{npc:15181}'s {quest:8304}, at {area:3425}, needs level 58: top up on the Dredge Crushers (57-58) west of the outpost, and leave the Twilight Avengers, Geolords and Stonecallers (57-61) around them be. Or, with a group, run the {area:1583} dungeon (Lower) or the {quest:838} dungeon instead."] = "{quest:8304} de {npc:15181}, en {area:3425}, necesita nivel 58: complétalo con los Trituradores deslizantes (57-58) al oeste del puesto, y deja en paz a los vengadores, geoseñores y clamapiedras del Crepúsculo (57-61) que los rodean. O, en grupo, haz la mazmorra {area:1583} (Inferior) o la mazmorra {quest:838}.",
+	-- {npc:11741} Dredge Crusher
+	["grind on {npc:11741}"] = "sube de nivel con {npc:11741}",
 
 	-- Step 17: Cenarion Hold
 	-- {npc:15189} Beetix Ficklespragg · {npc:15190} Noggle Ficklespragg
@@ -244,90 +244,100 @@ return {
 	-- {npc:10667} Chromie
 	["The lockboxes sit in Andorhal's ruined houses around {npc:10667}'s inn. Careful: Ghouls and skeletons usually stand next to the boxes and attack when you come close. Searing ghouls also hurt anyone nearby and will break stealth."] = "Las cajas fuertes están en las casas en ruinas de Andorhal alrededor de la posada de {npc:10667}. Cuidado: Suele haber necrófagos y esqueletos junto a las cajas que atacan cuando te acercas. Los necrófagos abrasadores también dañan a todo el que esté cerca y rompen el sigilo.",
 
-	-- Step 63: Dalson's Tears
+	-- Step 62: High Executor Derrington
+	-- {quest:105} Alas, Andorhal · {npc:1852} Araj the Summoner
+	-- plural, as words: Skeletal Warlords = {npc:1788} Skeletal Warlord
+	["{quest:105}'s shard lies at {npc:1852}'s feet, in the middle of Andorhal: he is a level 61 elite with elite Skeletal Warlords about him, a fight for a group."] = "El fragmento de {quest:105} está a los pies de {npc:1852}, en el centro de Andorhal: es un élite de nivel 61 con señores de la guerra esqueléticos élite a su alrededor, una pelea para grupo.",
+
+	-- Step 64: Dalson's Tears
 	-- {npc:11077} Cauldron Lord Malvinious · {area:200} Dalson's Tears
 	["East along the road, {npc:11077} guards the cauldron at {area:200}."] = "Al este por el camino, {npc:11077} custodia el caldero de {area:200}.",
 
-	-- Step 65: Redpath's Shield
+	-- Step 66: Redpath's Shield
 	-- {area:201} Gahrron's Withering · {npc:1855} Tirion Fordring
 	["The shield lies at {area:201}, south of {npc:1855}'s hut."] = "El escudo está en {area:201}, al sur de la choza de {npc:1855}.",
 
-	-- Step 66: Tirion Fordring
+	-- Step 67: Tirion Fordring
 	-- {npc:1855} Tirion Fordring · {area:2619} Thondroril River
 	["Ride east to {npc:1855}'s hut by the {area:2619} and hear him out."] = "Cabalga al este hasta la choza de {npc:1855} junto a {area:2619} y escúchalo.",
 
-	-- Step 69: Scourge Champions
+	-- Step 70: Scourge Champions
 	-- plural, as words: Scourge Champions = {npc:8529} Scourge Champion
 	["Scourge Champions"] = "Campeones de la Plaga ({npc:8529})",
 	-- {area:2270} Noxious Glade · {npc:11063} Carlin Redpath · {item:13156} Mystic Crystal
 	-- plural, as words: Scourge Champions = {npc:8529} Scourge Champion
 	["Scourge Champions roam the {area:2270}, north of the chapel. Pass {npc:11063}'s {item:13156} over each one you kill: the skulls that resonate are the ones he wants."] = "Los Campeones de la Plaga ({npc:8529}) recorren {area:2270}, al norte de la capilla. Pasa {item:13156} de {npc:11063} sobre cada uno que mates: los cráneos que resuenan son los que él quiere.",
 
-	-- Step 71: Hameya's scroll
+	-- Step 72: Hameya's scroll
 	["Hameya's scroll"] = "El pergamino de Hameya",
 	-- {area:2261} Undercroft · {area:2260} Marris Stead
 	["A torn scroll lies at the entrance of the {area:2261}, the crypt south of the {area:2260}."] = "Un pergamino roto está en la entrada de {area:2261}, la cripta al sur de {area:2260}.",
 
-	-- Step 72: Pamela and the Undercroft
+	-- Step 73: Pamela and the Undercroft
 	-- {area:2261} Undercroft
 	["Pamela and the {area:2261}"] = "Pamela y {area:2261}",
 	-- {area:2262} Darrowshire · {npc:11886} Mercutio Filthgorger · {area:2261} Undercroft
 	["Ride to {area:2262} in the south-west; Pamela plays among the houses. {npc:11886} lurks in the {area:2261}, the crypt just west of the town.\nCareful: About four non-elite adds come with Mercutio. They walk to the grave instead of appearing on the spot."] = "Ve a {area:2262}, en el suroeste; Pamela juega entre las casas. {npc:11886} acecha en {area:2261}, la cripta justo al oeste del pueblo.\nCuidado: Con Mercutio vienen unos cuatro refuerzos no élite. Caminan hacia la tumba en vez de aparecer en el lugar.",
 
-	-- Step 74: Tirion Fordring
+	-- Step 75: Tirion Fordring
 	-- {npc:1855} Tirion Fordring
 	["Ride north-west to {npc:1855}'s hut."] = "Cabalga al noroeste hasta la choza de {npc:1855}.",
 
-	-- Step 77: Level 59.14
+	-- Step 77: Alas, Andorhal
+	-- {npc:1852} Araj the Summoner · {object:177241} Araj's Phylactery
+	-- plural, as words: Skeletal Warlords = {npc:1788} Skeletal Warlord
+	["{npc:1852} (61, elite) stands in the middle of Andorhal among Skeletal Warlords (56-57, elite): kill him with your group, then take the shard from {object:177241} there."] = "{npc:1852} (61, élite) está en el centro de Andorhal entre señores de la guerra esqueléticos (56-57, élite): mátalo con tu grupo y luego toma el fragmento de {object:177241} ahí.",
+
+	-- Step 78: Level 59.14
 	["Level 59.14"] = "Nivel 59.14",
 	-- {quest:6135} Duskwing, Oh How I Hate Thee... · {quest:838} Scholomance · {area:2279} Stratholme
 	["If you skipped {quest:6135}, grind here to level 59.14 to stay on the route's plan. Or, with a group, run the {quest:838} dungeon or the {area:2279} dungeon instead."] = "Si omitiste {quest:6135}, sube de nivel aquí hasta 59.14 para seguir el plan de la ruta. O, en grupo, haz la mazmorra {quest:838} o la mazmorra {area:2279}.",
 	-- {npc:10717} Temporal Parasite
 	["grind on {npc:10717}"] = "sube de nivel con {npc:10717}",
 
-	-- Step 78: Chromie
+	-- Step 79: Chromie
 	-- {npc:10667} Chromie
 	["Ride south-west to {npc:10667} in Andorhal."] = "Cabalga al suroeste hasta {npc:10667}, en Andorhal.",
 	-- {npc:10667} Chromie
 	["{npc:10667}'s Battle of Darrowshire ends against elites. Skip it."] = "La Batalla de Villa Darrow de {npc:10667} termina contra élites. Omítela.",
 
-	-- Step 79: The Bulwark
+	-- Step 80: The Bulwark
 	-- {area:152} The Bulwark
 	["West to the {area:152}."] = "Al oeste, hasta {area:152}.",
 
-	-- Step 80: Into Eastern Plaguelands
+	-- Step 82: Into Eastern Plaguelands
 	-- {zone:1423} Eastern Plaguelands
 	["Into {zone:1423}"] = "Hacia {zone:1423}",
 
-	-- Step 81: Eastern Plaguelands
+	-- Step 83: Eastern Plaguelands
 	-- {quest:5845} Of Lost Honor
 	["The lake for {quest:5845}"] = "El lago para {quest:5845}",
 
-	-- Step 82: Of Lost Honor
+	-- Step 84: Of Lost Honor
 	["Underwater"] = "Bajo el agua",
 
-	-- Step 83: Infiltrator Hameya
+	-- Step 85: Infiltrator Hameya
 	-- {area:2273} Zul'Mashar
 	["Hameya hides among the Mossflayer trolls of {area:2273}, in the north-east corner.\nCareful: The trolls along the path to {area:2273} are level 57-59. They run away at low health and call for help, so they often bring adds with them."] = "Hameya se esconde entre los trols Desuellamusgo de {area:2273}, en la esquina noreste.\nCuidado: Los trols del camino a {area:2273} son de nivel 57-59. Huyen con poca salud y piden ayuda, así que suelen traer refuerzos.",
 
-	-- Step 85: Hameya's mound
+	-- Step 87: Hameya's mound
 	["Hameya's mound"] = "El montículo de Hameya",
 	-- {npc:1855} Tirion Fordring · {area:2261} Undercroft · {object:177675} Mound of Dirt
 	["Ride south-east from {npc:1855} to the {area:2261}; the {object:177675} is just behind it."] = "Ve al sureste desde {npc:1855} hasta {area:2261}; {object:177675} está justo detrás.",
 
-	-- Step 86: Into Western Plaguelands
+	-- Step 88: Into Western Plaguelands
 	-- {zone:1422} Western Plaguelands
 	["Into {zone:1422}"] = "Hacia {zone:1422}",
 
-	-- Step 89: Target: Writhing Haunt
+	-- Step 91: Target: Writhing Haunt
 	-- {npc:11055} Shadow Priestess Vandis · {area:152} The Bulwark
 	["from the cauldron, for {npc:11055} at the {area:152}"] = "del caldero, para {npc:11055} en {area:152}",
 
-	-- Step 91: Target: Gahrron's Withering
+	-- Step 93: Target: Gahrron's Withering
 	-- {area:202} Writhing Haunt · {area:201} Gahrron's Withering · {npc:11078} Cauldron Lord Soulwrath
 	["Back east past the {area:202} to {area:201}, the farm under the eastern hills: {npc:11078} guards its cauldron. Kill him for the key, then use the cauldron."] = "De vuelta al este pasando {area:202} hasta {area:201}, la granja bajo las colinas del este: {npc:11078} custodia su caldero. Mátalo para conseguir la llave y luego usa el caldero.",
 
-	-- Step 92: The Bulwark
+	-- Step 94: The Bulwark
 	-- {area:152} The Bulwark
 	["West to the {area:152} one last time."] = "Al oeste, hasta {area:152}, por última vez.",
 

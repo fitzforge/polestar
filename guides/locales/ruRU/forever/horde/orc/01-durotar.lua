@@ -104,6 +104,8 @@ return {
 	["{npc:6786} stands on the road at the valley's eastern exit."] = "{npc:6786} стоит на дороге у восточного выхода из долины.",
 
 	-- Step 19: Sen'jin Village
+	-- {area:362} Razor Hill
+	["Careful: Ukorsbane (8) is elite and walks among the Ridgeshade spiders in the camp south of {area:362}: pull the spiders away from him."] = "Осторожно: Ukorsbane (8) – элитный противник, он ходит среди теневых пауков в лагере к югу от места {area:362}: выманивайте пауков подальше от него.",
 	-- {npc:266881} Pa'zula
 	-- plural, as words: Hexed Pendants = {item:275724} Hexed Pendant
 	["{npc:266881}: enchanters only, the residue is disenchanted from Hexed Pendants"] = "{npc:266881}: только для зачарователей – остаток получают, распыляя проклятые подвески",
@@ -117,14 +119,20 @@ return {
 	["{npc:265809} camps just south of {area:362}. Sit by his campfire (/sit) until the {spell:1229451} buff appears. With a profession learned, {npc:265809} also offers its Camping 101, which its trainer takes: in {area:362} or in {zone:1454} at the start of the next guide."] = "{npc:265809} стоит лагерем чуть к югу от места {area:362}. Сядьте у его костра (/sit) и ждите, пока не появится эффект {spell:1229451}. Если вы освоили профессию, {npc:265809} также предлагает свое задание «Основы походной жизни»: его принимает учитель этой профессии – здесь ({area:362}) или в начале следующего руководства, место: {zone:1454}.",
 
 	-- Step 21: Camping 101: Mining
+	-- {npc:3175} Krunn · {skill:186} Mining
+	["{npc:3175} takes it once your {skill:186} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "{npc:3175} примет его, когда ваш навык {skill:186} достигнет 20: до тех пор собирайте или создавайте предметы, гайд тем временем продолжается.",
 	-- {npc:265809} Brakk · {npc:3175} Krunn
 	["{npc:265809}: for {npc:3175}"] = "{npc:265809}: для персонажа {npc:3175}",
 
 	-- Step 22: Camping 101: Engineering
+	-- {npc:11025} Mukdrak · {skill:202} Engineering
+	["{npc:11025} takes it once your {skill:202} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "{npc:11025} примет его, когда ваш навык {skill:202} достигнет 20: до тех пор собирайте или создавайте предметы, гайд тем временем продолжается.",
 	-- {npc:265809} Brakk · {npc:11025} Mukdrak
 	["{npc:265809}: for {npc:11025}"] = "{npc:265809}: для персонажа {npc:11025}",
 
 	-- Step 23: Camping 101: First Aid
+	-- {npc:5943} Rawrk · {skill:129} First Aid
+	["{npc:5943} takes it once your {skill:129} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "{npc:5943} примет его, когда ваш навык {skill:129} достигнет 20: до тех пор собирайте или создавайте предметы, гайд тем временем продолжается.",
 	-- {npc:265809} Brakk · {npc:5943} Rawrk
 	["{npc:265809}: for {npc:5943}"] = "{npc:265809}: для персонажа {npc:5943}",
 
@@ -251,7 +259,7 @@ return {
 	-- {npc:3118} Dustwind Storm Witch · {npc:6491} Spirit Healer
 	["Die to the mobs at 52.0,21.4 ({npc:3118}): a death there sends you to this graveyard. Release your spirit and take the {npc:6491}'s resurrection."] = "",
 
-	-- Step 61: Thunder Ridge: kill these as you meet them
+	-- Step 62: Thunder Ridge: kill these as you meet them
 	-- {area:369} Thunder Ridge
 	["{area:369}: kill these as you meet them"] = "",
 	-- {area:369} Thunder Ridge · {npc:3293} Rezlak · {area:362} Razor Hill · {npc:3099} Dire Mottled Boar · {item:15908} Taming Rod
@@ -260,22 +268,17 @@ return {
 	-- {item:15908} Taming Rod
 	["Tame it with the {item:15908}"] = "Приручите его предметом {item:15908}",
 
-	-- Step 62: Misha Tor'kren
+	-- Step 63: Misha Tor'kren
 	-- {area:814} Southfury River · {item:4891} Kron's Amulet
 	["Misha's hut stands south of the lizards. The crocolisks along the {area:814} to the west carry {item:4891}."] = "Хижина Майши – к югу от ящеров. {item:4891} – у кроколисков вдоль реки ({area:814}) к западу.",
 
-	-- Step 64: Heglan Shadeeye
+	-- Step 65: Heglan Shadeeye
 	-- {npc:275657} Heglan Shadeeye · {area:362} Razor Hill
 	["{npc:275657} stands on the shore east of {area:362}. The trident, banner and dagger lie on the beach around him."] = "{npc:275657} стоит на берегу к востоку от места {area:362}. Трезубец, знамя и кинжал лежат на пляже вокруг него.",
 
-	-- Step 66: Paladin trainer
+	-- Step 67: Paladin trainer
 	-- {npc:246344} Alodan the Hopeful · {zone:1456} Thunder Bluff · {area:362} Razor Hill
 	["{npc:246344} in {zone:1456}; {area:362} has no paladin trainer"] = "",
-
-	-- Step 67: Mage trainer
-	["Mage trainer"] = "",
-	-- {npc:5884} Mai'ah · {zone:1411} Durotar · {area:362} Razor Hill
-	["{npc:5884} in {zone:1411}; {area:362} has no mage trainer"] = "",
 
 	-- Step 68: Druid trainer
 	-- {npc:3034} Sheal Runetotem · {zone:1412} Mulgore · {area:362} Razor Hill
@@ -289,7 +292,7 @@ return {
 	["Spitelash naga"] = "Наги Бича Злобы",
 	-- {area:370} Drygulch Ravine · {npc:275657} Heglan Shadeeye · {npc:3107} Surf Crawler
 	-- plural, as words: Spitelash Scouts = {npc:275662} Spitelash Scout
-	["North-east to the beach below {area:370}, north of {npc:275657}: Spitelash Scouts and Attendants hold it. Hunters: tame a {npc:3107} on the beach."] = "",
+	["North-east to the beach below {area:370}, north of {npc:275657}: Spitelash Scouts and Attendants hold it. Hunters: tame a {npc:3107} on the beach."] = "На северо-восток к пляжу под местом {area:370}, к северу от {npc:275657}: его занимают разведчики и прислужники из клана Бича Злобы. Охотники: приручите на пляже монстра {npc:3107}.",
 
 	-- Step 71: Margoz
 	-- {quest:828} Margoz · {quest:827} Skull Rock
@@ -313,7 +316,7 @@ return {
 
 	-- Step 77: Skull Rock
 	-- {quest:827} Skull Rock · {item:4871} Searing Collar · {npc:3204} Gazz'uz · {item:4903} Eye of Burning Shadow
-	["Burning Blade cultists hold the caves of {quest:827}; any of them drops a {item:4871}. {npc:3204}, a level 14 warlock, stands deep inside and drops the {item:4903}."] = "Культисты (Пылающий Клинок) занимают пещеры ({quest:827}); {item:4871} падает с любого. {npc:3204}, чернокнижник 14-го уровня, стоит в глубине, с него падает {item:4903}.",
+	["Burning Blade cultists hold the caves of {quest:827}; any of them drops a {item:4871}. {npc:3204}, a level 14 warlock, stands deep inside and drops the {item:4903}.\nCareful: voidwalkers fight beside the Burning Blade cultists in {quest:827} and {npc:3204} (14) waits at the back with his own: pull one cultist at a time near the entrance for the collars. The {item:4903} is optional: leave {npc:3204} unless you are 13 or have a friend."] = "Культисты (Пылающий Клинок) занимают пещеры ({quest:827}); {item:4871} падает с любого. {npc:3204}, чернокнижник 14-го уровня, стоит в глубине, с него падает {item:4903}.\nОсторожно: в пещерах ({quest:827}) рядом с культистами Пылающего Клинка сражаются демоны Бездны, а {npc:3204} (14) ждет в глубине со своим: выманивайте культистов по одному у входа ради ошейников. {item:4903} – по желанию: не трогайте NPC {npc:3204}, если вы ниже 13-го уровня и без друга.",
 
 	-- Step 78: Tablet of Verga
 	-- {object:58595} Burning Blade Stash · {area:817} Skull Rock
@@ -352,7 +355,7 @@ return {
 
 	-- Step 87: Ormak Grimshot
 	-- {area:379} Far Watch Post · {zone:1454} Orgrimmar · {area:817} Skull Rock · {npc:3352} Ormak Grimshot · {object:172958} Valley of Honor
-	["Follow the road north from {area:379} to {zone:1454}'s main gate, just west of {area:817}. {npc:3352} stands with the hunter trainers in the {object:172958}."] = "",
+	["Follow the road north from {area:379} to {zone:1454}'s main gate, just west of {area:817}. {npc:3352} stands with the hunter trainers in the {object:172958}."] = "Идите по дороге на север от места {area:379} к главным воротам ({zone:1454}), чуть к западу от места {area:817}. {npc:3352} стоит с учителями охотников, ориентир: {object:172958}.",
 
 	-- Step 88: Hanashi
 	-- {npc:2704} Hanashi · {object:172958} Valley of Honor
@@ -367,14 +370,12 @@ return {
 	["{zone:1454}'s {object:172982}"] = "",
 
 	-- Step 90: The Binding
-	-- {npc:5875} Gan'rul Bloodeye · {object:172960} Cleft of Shadow · {object:172982} Valley of Strength · {item:6535} Tablet of Verga · {item:7464} Glyphs of Summoning
-	["{npc:5875} stands in the {object:172960}, the canyon under the {object:172982}. Hand him the {item:6535}, then use the {item:7464} on the summoning circle beside him and defeat the voidwalker to bind it."] = "{npc:5875} стоит здесь: {object:172960} – каньон под объектом {object:172982}. Отдайте ему {item:6535}, затем используйте предмет {item:7464} на круге призыва рядом с ним и одолейте демона Бездны, чтобы подчинить его.",
+	-- {npc:5875} Gan'rul Bloodeye · {object:172960} Cleft of Shadow · {object:172982} Valley of Strength · {item:6535} Tablet of Verga · {item:7464} Glyphs of Summoning · {zone:1454} Orgrimmar
+	["{npc:5875} stands in the {object:172960}, the canyon under the {object:172982}. Hand him the {item:6535}, then use the {item:7464} on the summoning circle beside him and defeat the voidwalker to bind it.\nCareful: the voidwalker you summon hits hard and it is the fight Warlocks die to most in {zone:1454}: start at full health and mana, send your imp in, keep Corruption and Immolate on it, and use a healthstone if you have one."] = "{npc:5875} стоит здесь: {object:172960} – каньон под объектом {object:172982}. Отдайте ему {item:6535}, затем используйте предмет {item:7464} на круге призыва рядом с ним и одолейте демона Бездны, чтобы подчинить его.\nОсторожно: призванный демон Бездны бьет сильно, и в этом бою в зоне {zone:1454} чернокнижники гибнут чаще всего: начинайте с полным здоровьем и маной, отправьте вперед беса, держите на нем «Порчу» и «Жертвенный огонь» и используйте камень здоровья, если он у вас есть.",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
-	-- ["Back east to the shore north of {npc:275657}. Spitelash Scouts and Attendants hold the beach below {area:370}. Hunters: tame a {npc:3107} on the beach."] = "Назад на восток к берегу к северу от {npc:275657}. Разведчики и прислужники из клана Бича Злобы занимают пляж под местом {area:370}. Охотники: приручите на пляже монстра {npc:3107}.",
 	-- ["Back south to {area:362}."] = "Назад на юг сюда: {area:362}.",
 	-- ["Back to {npc:5875} in the {object:172960}. Use the {item:7464} on the summoning circle there and defeat the voidwalker to bind it."] = "Назад к {npc:5875} ({object:172960}). Используйте предмет {item:7464} на круге призыва и одолейте демона Бездны, чтобы подчинить его.",
-	-- ["Follow the road north from {area:362} to {zone:1454}'s main gate, just west of {area:817}. {npc:3352} stands with the hunter trainers in the {object:172958}."] = "Идите по дороге на север от места {area:362} к главным воротам ({zone:1454}), чуть к западу от места {area:817}. {npc:3352} стоит с учителями охотников, ориентир: {object:172958}.",
 	-- ["Thunder Lizards and Lightning Hides graze on {area:369} across the bridge; any of them can drop a {item:6486}."] = "Рокочущие ящерицы и бурешкуры пасутся здесь: {area:369}, за мостом; {item:6486} может упасть с любого.",
 	-- ["Thunder lizards across the river"] = "Рокочущие ящерицы за рекой",
 	-- ["With {skill:129} learned, {npc:265809} also offers its Camping 101: {npc:5943} in {area:362} takes it."] = "Если вы освоили навык {skill:129}, {npc:265809} также предлагает свое задание «Основы походной жизни»: его принимает {npc:5943}, место: {area:362}.",

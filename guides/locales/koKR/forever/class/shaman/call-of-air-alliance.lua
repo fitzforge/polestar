@@ -14,7 +14,7 @@ return {
 
 	-- Step 1: Eldrun Stormbreaker
 	-- {npc:258098} Eldrun Stormbreaker · {zone:1455} Ironforge · {npc:259023} Veyric Thunderhame · {zone:1417} Arathi Highlands · {spell:10596} Nature Resistance · {item:5178} Air Totem
-	["At 30 {npc:258098}, the shaman trainer in {zone:1455}, sends you to {npc:259023} in {zone:1417}. Your level 30 air totems (Grounding, {spell:10596}) need the {item:5178} he gives."] = "",
+	["At 30 {npc:258098}, the shaman trainer in {zone:1455}, sends you to {npc:259023} in {zone:1417}. Your level 30 air totems (Grounding, {spell:10596}) need the {item:5178} he gives."] = "30레벨에 {zone:1455}의 주술사 상급자 {npc:258098}이(가) {zone:1417}의 {npc:259023}에게 보냅니다. 30레벨 바람 토템(마법 정화, {spell:10596})에는 그가 주는 {item:5178}이(가) 필요합니다.",
 
 	-- Step 2: Veyric Thunderhame
 	-- {npc:259023} Veyric Thunderhame · {area:321} Hammerfall · {area:320} Refuge Pointe
@@ -24,7 +24,7 @@ return {
 
 	-- Step 3: Charlga Razorflank
 	-- {area:1717} Razorfen Kraul · {zone:1413} Barrens · {npc:4421} Charlga Razorflank · {spell:8292} Chain Bolt · {spell:139} Renew · {item:274463} Tattered Note
-	["{area:1717} is a five-player dungeon at the southern edge of the {zone:1413} (the arrow points at its entrance); {npc:4421} (level 33 elite) is its last boss. She casts {spell:8292}, {spell:139} on her allies and Purity; the {item:274463} drops only from her."] = "",
+	["{area:1717} is a five-player dungeon at the southern edge of the {zone:1413} (the arrow points at its entrance); {npc:4421} (level 33 elite) is its last boss. She casts {spell:8292}, {spell:139} on her allies and Purity; the {item:274463} drops only from her."] = "{area:1717}은(는) {zone:1413} 남쪽 끝의 5인 던전이며(화살표가 입구를 가리킵니다), {npc:4421}(33레벨 정예)이(가) 마지막 우두머리입니다. 그녀는 {spell:8292}, 아군에게 {spell:139}, 정화를 시전하며, {item:274463}은(는) 그녀에게서만 떨어집니다.",
 	-- {item:274463} Tattered Note · {npc:4421} Charlga Razorflank
 	["{item:274463}, from {npc:4421}"] = "{npc:4421}에게서 얻는 {item:274463}",
 
@@ -70,12 +70,10 @@ return {
 	["{npc:6176}: the {item:280696} and your weapon"] = "{npc:6176}: {item:280696}와(과) 무기",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
-	-- ["At 30 {npc:258098}, the shaman trainer in {zone:1455}, sends you to {npc:259023} in {zone:1417}."] = "30레벨에 {zone:1455}의 주술사 상급자 {npc:258098}이(가) {zone:1417}의 {npc:259023}에게 보냅니다.",
 	-- ["The Lost Ones in the north of the {zone:1435} carry the Twisted Earth Totems."] = "{zone:1435} 북부의 Lost One이 뒤틀린 대지 토템을 가지고 있습니다.",
 	-- ["The Maraudine centaurs of western {zone:1443} carry the Twisted Air Totems."] = "{zone:1443} 서부의 마라우돈일족 켄타우로스가 뒤틀린 바람 토템을 가지고 있습니다.",
 	-- ["The Mirefin murlocs of northern {zone:1445} carry the Twisted Water Totems."] = "{zone:1445} 북부의 진흙아가미멀록이 뒤틀린 물 토템을 가지고 있습니다.",
 	-- ["The Stonevault troggs in the south of the {zone:1418} carry the Twisted Fire Totems."] = "{zone:1418} 남부의 바위동굴일족 트로그가 뒤틀린 불의 토템을 가지고 있습니다.",
-	-- ["{area:1717} is a dungeon at the southern edge of the {zone:1413} (the arrow points at its entrance); {npc:4421} is its last boss. Bring a group."] = "{area:1717}은(는) {zone:1413} 남쪽 끝의 던전이며(화살표가 입구를 가리킵니다), {npc:4421}이(가) 마지막 우두머리입니다. 파티를 꾸리십시오.",
 	-- ["{npc:259023} camps in the northern hills of {zone:1417}."] = "{npc:259023}은(는) {zone:1417} 북쪽 언덕에 야영하고 있습니다.",
 	-- ["{npc:259023} hands you the {item:268582}: place them at the steam pools of {zone:1441} and defeat the {npc:216474} they call. {quest:96135} is an elite quest: grouping up is advised."] = "{npc:259023}이(가) {item:268582}을(를) 줍니다: {zone:1441}의 증기 웅덩이에 놓고, 토템이 불러낸 {npc:216474}을(를) 처치하십시오. {quest:96135}은(는) 정예 퀘스트이니 파티를 권장합니다.",
 	-- ["{npc:6176} camps in the east of {zone:1416}, north-east of {area:272}."] = "{npc:6176}은(는) {area:272} 북동쪽, {zone:1416} 동부에 야영하고 있습니다.",

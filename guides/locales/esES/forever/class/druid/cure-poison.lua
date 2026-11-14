@@ -55,7 +55,7 @@ return {
 
 	-- Step 12: Cenarion Enclave
 	-- {npc:4217} Mathrengyl Bearwalker · {area:1658} Cenarion Enclave · {spell:8946} Cure Poison
-	["{npc:4217}, upstairs in the {area:1658}, teaches you {spell:8946}."] = "",
+	["{npc:4217}, upstairs in the {area:1658}, teaches you {spell:8946}."] = "{npc:4217}, en el piso de arriba del {area:1658}, te enseña {spell:8946}.",
 
 	-- Step 14: Lessons Anew
 	-- {npc:3033} Turak Runetotem · {area:1639} Elder Rise · {npc:262560} Hana Lighthoof · {zone:1412} Mulgore · {skill:182} Herbalism · {npc:3490} Hula'mahi · {item:2449} Earthroot
@@ -65,7 +65,7 @@ return {
 
 	-- Step 15: Dendrite Starblaze
 	-- {spell:18960} Teleport: Moonglade · {npc:11802} Dendrite Starblaze · {item:15842} Empty Dreadmist Peak Sampler · {npc:11798} Bunthen Plainswind · {area:1638} Thunder Bluff
-	["Cast {spell:18960}: {npc:11802} stands upstairs in the building beside you. He hands you the {item:15842}. {npc:11798} flies druids to {area:1638}; fly on to the Crossroads from there."] = "",
+	["Cast {spell:18960}: {npc:11802} stands upstairs in the building beside you. He hands you the {item:15842}. {npc:11798} flies druids to {area:1638}; fly on to the Crossroads from there."] = "Lanza {spell:18960}: {npc:11802} está en el piso de arriba del edificio de al lado. Te da el {item:15842}. {npc:11798} lleva a los druidas a {area:1638}; desde allí, vuela al Cruce.",
 
 	-- Step 16: Dreadmist Peak
 	-- {area:384} Dreadmist Peak · {object:19464} Dreadmist Peak Pool (no name in this language: may be words) · {item:15842} Empty Dreadmist Peak Sampler
@@ -76,7 +76,7 @@ return {
 
 	-- Step 17: Tonga Runetotem
 	-- {npc:3448} Tonga Runetotem · {skill:182} Herbalism · {npc:3490} Hula'mahi · {item:2449} Earthroot
-	["{npc:3448} stands in the Crossroads. No {skill:182}? {npc:3490}, a few steps away by the wind rider master, sells {item:2449} for 80 copper each, three at a time until he restocks."] = "",
+	["{npc:3448} stands in the Crossroads. No {skill:182}? {npc:3490}, a few steps away by the wind rider master, sells {item:2449} for 80 copper each, three at a time until he restocks."] = "{npc:3448} está en el Cruce. ¿No tienes {skill:182}? {npc:3490}, a pocos pasos, junto al maestro de jinetes del viento, vende {item:2449} a 80 de cobre cada una, de tres en tres hasta que repone.",
 	-- {item:2449} Earthroot
 	["{item:2449}; herbalists pick it on the plains"] = "{item:2449}; los herboristas la recogen en las llanuras",
 
@@ -103,18 +103,16 @@ return {
 
 	-- Step 21: Curing the Sick
 	-- {spell:18960} Teleport: Moonglade · {npc:11802} Dendrite Starblaze · {npc:11798} Bunthen Plainswind · {area:1638} Thunder Bluff
-	["Cast {spell:18960} and see {npc:11802}, then take {npc:11798}'s flight to {area:1638}. {npc:11802} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."] = "",
+	["Cast {spell:18960} and see {npc:11802}, then take {npc:11798}'s flight to {area:1638}. {npc:11802} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."] = "Lanza {spell:18960} y habla con {npc:11802}; luego toma el vuelo de {npc:11798} a {area:1638}. {npc:11802} está en el piso de arriba de su edificio: sube por dentro, la flecha no distingue los pisos.",
 
 	-- Step 22: Power over Poison
 	-- {npc:3033} Turak Runetotem · {area:1639} Elder Rise · {spell:8946} Cure Poison
-	["{npc:3033} on {area:1639} teaches you {spell:8946}."] = "",
+	["{npc:3033} on {area:1639} teaches you {spell:8946}."] = "{npc:3033}, en {area:1639}, te enseña {spell:8946}.",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Back in {area:442}."] = "De vuelta en {area:442}.",
 	-- ["Cast Teleport: {zone:1450} and see {npc:11802}, then fly to {area:702} and take the portal up to {zone:1457}."] = "Lanza Teletransporte: {zone:1450} y habla con {npc:11802}; luego vuela a {area:702} y toma el portal para subir a {zone:1457}.",
-	-- ["Cast Teleport: {zone:1450} and see {npc:11802}, then take {npc:11798}'s flight to {area:1638}."] = "Lanza Teletransporte: {zone:1450} y habla con {npc:11802}; luego toma el vuelo de {npc:11798} a {area:1638}.",
 	-- ["Cast Teleport: {zone:1450}. {npc:11802} is in {area:2361}. Then fly to {area:442}."] = "Lanza Teletransporte: {zone:1450}. {npc:11802} está en {area:2361}. Luego vuela a {area:442}.",
-	-- ["Cast Teleport: {zone:1450}. {npc:11802} is in {area:2361}. {npc:11798} flies druids to {area:1638}; fly on to the {area:380} from there."] = "Lanza Teletransporte: {zone:1450}. {npc:11802} está en {area:2361}. {npc:11798} lleva a los druidas a {area:1638}; desde allí, vuela a {area:380}.",
 	-- ["Cast {spell:18960} and see {npc:11802}, then fly to {area:702} and take the portal up to {zone:1457}."] = "Lanza {spell:18960} y habla con {npc:11802}; luego vuela a {area:702} y toma el portal para subir a {zone:1457}.",
 	-- ["Cast {spell:18960} and see {npc:11802}, then take {npc:11798}'s flight to {area:1638}."] = "Lanza {spell:18960} y habla con {npc:11802}; luego toma el vuelo de {npc:11798} a {area:1638}.",
 	-- ["Cast {spell:18960}. {npc:11802} is in {area:2361}. Then fly to {area:442}."] = "Lanza {spell:18960}. {npc:11802} está en {area:2361}. Luego vuela a {area:442}.",
@@ -128,7 +126,4 @@ return {
 	-- ["Use the {item:15826} on {npc:12298}. They roam {zone:1439} from the {area:456} in the north to the {zone:1440} border in the south."] = "Usa el {item:15826} en los {npc:12298}. Deambulan por {zone:1439}, desde el {area:456} al norte hasta la frontera con {zone:1440} al sur.",
 	-- ["{npc:12296}: use the salve on them"] = "{npc:12296}: usa el ungüento en ellas",
 	-- ["{npc:12298}: use the salve on them"] = "{npc:12298}: usa el ungüento en ellos",
-	-- ["{npc:3033} stands on {area:1639}."] = "{npc:3033} está en {area:1639}.",
-	-- ["{npc:3448} stands in the {area:380}. No {skill:182}? {npc:3490}, a few steps away, sells {item:2449}, three at a time until he restocks."] = "{npc:3448} está en {area:380}. ¿No tienes {skill:182}? {npc:3490}, a pocos pasos, vende {item:2449}, de tres en tres hasta que repone.",
-	-- ["{npc:4217} stands in the {area:1658}."] = "{npc:4217} está en el {area:1658}.",
 }

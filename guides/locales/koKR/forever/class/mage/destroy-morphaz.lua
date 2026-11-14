@@ -8,7 +8,7 @@
 return {
 	-- Guide
 	-- {zone:1447} Azshara · {area:1417} Sunken Temple
-	["Experience at 50 through {zone:1447} and the {area:1417}; Classic's item choice may be gone on Forever."] = "",
+	["Experience at 50 through {zone:1447} and the {area:1417}; Classic's item choice may be gone on Forever."] = "50레벨에 {zone:1447}와(과) {area:1417}을(를) 거치며 얻는 경험치. Forever에서는 클래식의 아이템 보상 선택이 사라졌을 수 있습니다.",
 	["Experience"] = "경험치",
 
 	-- Step 1: Magecraft (Stormwind)
@@ -17,11 +17,11 @@ return {
 
 	-- Step 2: Magecraft (Orgrimmar)
 	-- {npc:7311} Uthel'nay · {zone:1454} Orgrimmar · {object:173161} Darkbriar Lodge (no name in this language: may be words) · {npc:4567} Pierce Shackleton · {zone:1458} Undercity · {npc:3047} Archmage Shymm · {zone:1456} Thunder Bluff
-	["{npc:7311}, one of {zone:1454}'s mage trainers in {object:173161}, gives it; so do {npc:4567} in the {zone:1458} and {npc:3047} in {zone:1456}."] = "",
+	["{npc:7311}, one of {zone:1454}'s mage trainers in {object:173161}, gives it; so do {npc:4567} in the {zone:1458} and {npc:3047} in {zone:1456}."] = "{zone:1454}의 {object:173161}에 있는 마법사 상급자 중 한 명인 {npc:7311}이(가) 줍니다. {zone:1458}의 {npc:4567}와(과) {zone:1456}의 {npc:3047}도 줍니다.",
 
 	-- Step 3: Sanath Lim-yo
 	-- {area:3137} Talrendis Point · {area:1237} Valormok · {npc:8395} Sanath Lim-yo · {zone:1447} Azshara · {area:1221} Ruins of Eldarath · {npc:8379} Archmage Xylem
-	["Fly to {area:3137} (Alliance) or {area:1237} (Horde). {npc:8395} camps below his master's tower, a short way east of {area:1237}: from the fork of {zone:1447}'s main road at the {area:1221}, head straight north to the cliffs. Get off your mount before he teleports you up, or the teleport may not take you. A trail with no enemies climbs to {npc:8379} at the top of the tower; an attendant at the top sends you back down, as often as you like."] = "",
+	["Fly to {area:3137} (Alliance) or {area:1237} (Horde). {npc:8395} camps below his master's tower, a short way east of {area:1237}: from the fork of {zone:1447}'s main road at the {area:1221}, head straight north to the cliffs. Get off your mount before he teleports you up, or the teleport may not take you. A trail with no enemies climbs to {npc:8379} at the top of the tower; an attendant at the top sends you back down, as often as you like."] = "{area:3137}(얼라이언스) 또는 {area:1237}(호드)(으)로 날아가세요. {npc:8395}은(는) {area:1237}에서 동쪽으로 조금 떨어진 스승의 탑 아래에 야영합니다. {zone:1447} 큰길의 {area:1221} 갈림길에서 곧장 북쪽 절벽으로 가세요. 그가 순간이동시켜 주기 전에 탈것에서 내리세요. 그렇지 않으면 순간이동이 되지 않을 수 있습니다. 적이 없는 오솔길이 탑 꼭대기의 {npc:8379}에게 이어지며, 꼭대기의 시종이 원하는 만큼 다시 내려보내 줍니다.",
 	-- {npc:8379} Archmage Xylem
 	["{npc:8379}, in the tower"] = "탑 안의 {npc:8379}",
 
@@ -60,10 +60,7 @@ return {
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Back to {zone:1447}, {npc:8395} and the tower."] = "{zone:1447}의 {npc:8395}에게 돌아가 탑으로 가세요.",
-	-- ["Experience at 50 through {zone:1447} and the {area:1417}; Forever removed the Classic item choice."] = "50레벨에 {zone:1447}와(과) {area:1417}을(를) 거치며 얻는 경험치. Forever에서는 클래식의 아이템 보상 선택이 사라졌습니다.",
-	-- ["Fly to {area:3137} (Alliance) or {area:1237} (Horde). {npc:8395} camps below his master's tower: from the fork of {zone:1447}'s main road at the {area:1221}, head straight north to the cliffs. He teleports you up to {npc:8379}."] = "{area:3137}(얼라이언스) 또는 {area:1237}(호드)(으)로 날아가세요. {npc:8395}은(는) 스승의 탑 아래에 야영합니다. {zone:1447} 큰길의 {area:1221} 갈림길에서 곧장 북쪽 절벽으로 가세요. 그가 {npc:8379}에게 순간이동시켜 줍니다.",
 	-- ["Morphaz, a green drake, waits deep in the {area:1477}, the {area:1417} in the {area:74}: a group of five, level 50-54. Kill him for the {item:20085}."] = "녹색 비룡 몰파즈는 {area:74}에 있는 {area:1417}, {area:1477} 깊숙한 곳에서 기다립니다. 5인 파티, 레벨 50-54. 그를 처치해 {item:20085}을(를) 얻으세요.",
 	-- ["The Spitelash Sirens walk the ruins and beaches around the {area:1221} and the bay; they carry the coral."] = "원한의꼬리일족 세이렌이 {area:1221}와(과) 만 주변의 폐허와 해변을 돌아다니며, 산호를 가지고 있습니다.",
 	-- ["The blood elves camp along the cliffs of north-eastern {zone:1447}; Blood Elf Surveyors and Reclaimers drop the dust."] = "블러드 엘프들은 {zone:1447} 북동부 절벽을 따라 야영합니다. 블러드 엘프 감정관과 블러드 엘프 수색꾼이 가루를 떨어뜨립니다.",
-	-- ["{npc:7311}, one of {zone:1454}'s mage trainers, gives it; so do {npc:4567} in the {zone:1458} and {npc:3047} in {zone:1456}."] = "{zone:1454}의 마법사 상급자 중 한 명인 {npc:7311}이(가) 줍니다. {zone:1458}의 {npc:4567}와(과) {zone:1456}의 {npc:3047}도 줍니다.",
 }

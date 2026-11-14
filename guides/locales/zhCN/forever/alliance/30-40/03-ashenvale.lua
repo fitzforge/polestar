@@ -72,7 +72,7 @@ return {
 
 	-- Step 13: Highperch
 	-- {area:485} Great Lift · {zone:1441} Thousand Needles · {area:482} Highperch
-	["Down the {area:485} into {zone:1441}, then west to the wyverns' cliffs at {area:482}. Every wyvern there can drop a venom sac."] = "乘{area:485}下到{zone:1441}，再向西前往{area:482}的双足飞龙悬崖。那里所有双足飞龙都可能掉落毒囊。",
+	["Down the {area:485} into {zone:1441}, then west to the wyverns' cliffs at {area:482}. Every wyvern there can drop a venom sac. Careful: wait on the platform until the lift is level with it before you step on, and stay on it until it stops; the drop beside it kills."] = "乘{area:485}下到{zone:1441}，再向西前往{area:482}的双足飞龙悬崖。那里所有双足飞龙都可能掉落毒囊。小心：在平台上等升降梯与平台齐平后再踏上去，并一直站到它停下；旁边的落差会摔死人。",
 
 	-- Step 14: Thousand Needles
 	-- {area:484} Freewind Post

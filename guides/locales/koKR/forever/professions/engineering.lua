@@ -21,9 +21,9 @@ return {
 
 	-- Step 3: Engineering 1-75: Auction House
 	-- {skill:202} Engineering
-	["{skill:202} 1-75: Auction House"] = "",
+	["{skill:202} 1-75: Auction House"] = "{skill:202} 1-75: 경매장",
 	-- {item:2835} Rough Stone · {item:2840} Copper Bar
-	["What 1-75 takes that the Auction House sells: 46 {item:2835} and 75 {item:2840}. The counts drop by what your bags, bank and mail hold."] = "",
+	["What 1-75 takes that the Auction House sells: 46 {item:2835} and 75 {item:2840}. The counts drop by what your bags, bank and mail hold."] = "1-75 구간에 필요한 것 중 경매장에서 파는 것: {item:2835} 46개, {item:2840} 75개. 가방, 은행, 우편함에 있는 만큼 수량이 줄어듭니다.",
 
 	-- Step 4: Rough Stone (Elwynn Forest)
 	-- {item:2835} Rough Stone · {spell:3918} Rough Blasting Powder · {skill:186} Mining · {object:1731} Copper Vein · {zone:1429} Elwynn Forest
@@ -55,37 +55,37 @@ return {
 
 	-- Step 11: Copper Bar
 	-- {item:2840} Copper Bar · {spell:3922} Handful of Copper Bolts · {item:6219} Arclight Spanner · {spell:3924} Copper Tube · {skill:186} Mining · {item:2770} Copper Ore
-	["75 {item:2840} for {spell:3922}, {item:6219} and {spell:3924}: {skill:186}: smelt {item:2770}."] = "",
+	["75 {item:2840} for {spell:3922}, {item:6219} and {spell:3924}: {skill:186}: smelt {item:2770}."] = "{spell:3922}, {item:6219}, {spell:3924}에 쓸 {item:2840} 75개: {skill:186}: {item:2770} 제련.",
 
 	-- Step 12: Rough Blasting Powder to 35
 	-- {spell:3918} Rough Blasting Powder
-	["{spell:3918} to 35"] = "",
+	["{spell:3918} to 35"] = "{spell:3918}: 35까지",
 	-- {spell:3918} Rough Blasting Powder · {item:2835} Rough Stone · {item:2770} Copper Ore
 	-- plural, as words: Copper Veins = {object:1731} Copper Vein
 	["{spell:3918} is orange at 1 (yellow 20, green 30, grey 40): about 46 crafts to 35. Each takes 1 {item:2835}. One {item:2835} a craft; {item:2835} comes with the {item:2770} from Copper Veins."] = "",
 
 	-- Step 13: Engineering recipes at 35
 	-- {skill:202} Engineering
-	["{skill:202} recipes at 35"] = "",
+	["{skill:202} recipes at 35"] = "35에서 {skill:202} 제조법",
 	-- {skill:202} Engineering · {spell:3922} Handful of Copper Bolts · {spell:1230656} Reagent Bot · {spell:3924} Copper Tube
 	["Back to an {skill:202} trainer: {spell:3922} (from 30, 1s 15c). Also learn {spell:1230656} (1s): Forever's {skill:202} camp item, placed at a campsite beside a campfire. It takes a {spell:3922} and a {spell:3924}, which you learn at 30 and 50, so it gives no points. The Camping 101: {skill:202} quest from your starting area's camping guide (after The Great Outdoors) sends you to an engineering trainer who teaches it free."] = "",
 
 	-- Step 14: Handful of Copper Bolts to 57
 	-- {spell:3922} Handful of Copper Bolts
-	["{spell:3922} to 57"] = "",
+	["{spell:3922} to 57"] = "{spell:3922}: 57까지",
 	-- {spell:3922} Handful of Copper Bolts · {item:2840} Copper Bar · {item:5956} Blacksmith Hammer
 	-- plural, as words: Practice Locks = {item:6712} Practice Lock
 	["{spell:3922} is orange at 35 (yellow 45, green 52, grey 60): about 33 crafts to 57. Each takes 1 {item:2840}. One {item:2840} a craft. Keep the bolts: Practice Locks and later gadgets take them. Needs an anvil nearby. {item:5956} is a tool: keep it in your bags."] = "",
 
 	-- Step 15: Engineering recipes at 57
 	-- {skill:202} Engineering
-	["{skill:202} recipes at 57"] = "",
+	["{skill:202} recipes at 57"] = "57에서 {skill:202} 제조법",
 	-- {skill:202} Engineering · {spell:7430} Arclight Spanner · {spell:3924} Copper Tube
 	["Back to an {skill:202} trainer: {spell:7430} (from 50, 1s 50c) and {spell:3924} (from 50, 1s 50c)."] = "",
 
 	-- Step 16: Copper Tube to 75
 	-- {spell:3924} Copper Tube
-	["{spell:3924} to 75"] = "",
+	["{spell:3924} to 75"] = "{spell:3924}: 75까지",
 	-- {spell:3924} Copper Tube · {item:2840} Copper Bar · {item:2880} Weak Flux · {item:6219} Arclight Spanner
 	-- plural, as words: Copper Bars = {item:2840} Copper Bar
 	["{spell:3924} is orange at 57 (yellow 80, green 95, grey 110): about 18 crafts to 75, a point every craft. Each takes 2 {item:2840} and 1 {item:2880}. Two Copper Bars and a {item:2880} a craft (blacksmithing and engineering suppliers). Needs an anvil nearby. Make the {item:6219} now, while it still gives a point: a later recipe needs it in your bags, so keep it there."] = "",
@@ -95,7 +95,7 @@ return {
 	-- {skill:202} Engineering
 	["Journeyman {skill:202}"] = "수습 {skill:202}",
 	-- {skill:202} Engineering · {npc:1676} Finbus Geargrind · {zone:1431} Duskwood · {npc:5518} Lilliam Sparkspindle · {zone:1453} Stormwind City · {npc:11029} Trixie Quikswitch · {zone:1455} Ironforge · {npc:11031} Franklin Lloyd · {zone:1458} Undercity · {spell:3929} Coarse Blasting Powder · {spell:3930} Crafted Heavy Shot · {item:2836} Coarse Stone · {item:2838} Heavy Stone · {item:2840} Copper Bar · {item:2841} Bronze Bar · {item:2842} Silver Bar
-	["Journeyman raises the cap from 75 to 150 for 5s (Classic's price; Forever's is not in the data); it needs {skill:202} 50 and character level 10, so you can take it on any visit from 50. Not every {skill:202} trainer teaches it: Alliance {npc:1676} ({zone:1431}), {npc:5518} ({zone:1453}) and {npc:11029} ({zone:1455}); Horde {npc:11031} ({zone:1458}). The arrow picks the nearest of your faction. Learn now: {spell:3929} (from 75, 2s 50c) and {spell:3930} (from 75, 2s 50c). 75-150 takes about 5s of recipes and 45s of vendor goods, plus 15 {item:2836}, 27 {item:2838}, 72 {item:2840}, 61 {item:2841} and 2 {item:2842} to gather or buy."] = "",
+	["Journeyman raises the cap from 75 to 150 for 5s (Classic's price; Forever's is not in the data); it needs {skill:202} 50 and character level 10, so you can take it on any visit from 50. Not every {skill:202} trainer teaches it: Alliance {npc:1676} ({zone:1431}), {npc:5518} ({zone:1453}) and {npc:11029} ({zone:1455}); Horde {npc:11031} ({zone:1458}). The arrow picks the nearest of your faction. Learn now: {spell:3929} (from 75, 2s 50c) and {spell:3930} (from 75, 2s 50c). 75-150 takes about 5s of recipes and 45s of vendor goods, plus 15 {item:2836}, 27 {item:2838}, 72 {item:2840}, 61 {item:2841} and 2 {item:2842} to gather or buy."] = "수습 단계는 5실버(클래식 가격이며, Forever 가격은 데이터에 없습니다)로 최대 숙련도를 75에서 150으로 올립니다. {skill:202} 50과 캐릭터 레벨 10이 필요하므로, 50이 되면 언제 들러도 배울 수 있습니다. 모든 {skill:202} 상급자가 가르치지는 않습니다: 얼라이언스는 {npc:1676}({zone:1431}), {npc:5518}({zone:1453}), {npc:11029}({zone:1455}), 호드는 {npc:11031}({zone:1458})입니다. 화살표가 진영의 가장 가까운 상급자를 가리킵니다. 지금 배우세요: {spell:3929}(75부터, 2실버 50코퍼), {spell:3930}(75부터, 2실버 50코퍼). 75-150에는 제조법 약 5실버와 상인 재료 약 45실버, 그리고 채집하거나 살 {item:2836} 15개, {item:2838} 27개, {item:2840} 72개, {item:2841} 61개, {item:2842} 2개가 듭니다.",
 
 	-- Step 18: Engineering 75-150: vendor goods
 	-- {skill:202} Engineering
@@ -105,9 +105,9 @@ return {
 
 	-- Step 19: Engineering 75-150: Auction House
 	-- {skill:202} Engineering
-	["{skill:202} 75-150: Auction House"] = "",
+	["{skill:202} 75-150: Auction House"] = "{skill:202} 75-150: 경매장",
 	-- {item:2836} Coarse Stone · {item:2838} Heavy Stone · {item:2840} Copper Bar · {item:2841} Bronze Bar · {item:2842} Silver Bar
-	["What 75-150 takes that the Auction House sells: 15 {item:2836}, 27 {item:2838}, 72 {item:2840}, 61 {item:2841} and 2 {item:2842}. The counts drop by what your bags, bank and mail hold."] = "",
+	["What 75-150 takes that the Auction House sells: 15 {item:2836}, 27 {item:2838}, 72 {item:2840}, 61 {item:2841} and 2 {item:2842}. The counts drop by what your bags, bank and mail hold."] = "75-150 구간에 필요한 것 중 경매장에서 파는 것: {item:2836} 15개, {item:2838} 27개, {item:2840} 72개, {item:2841} 61개, {item:2842} 2개. 가방, 은행, 우편함에 있는 만큼 수량이 줄어듭니다.",
 
 	-- Step 20: Coarse Stone (Westfall)
 	-- {item:2836} Coarse Stone · {spell:3930} Crafted Heavy Shot · {skill:186} Mining · {object:1732} Tin Vein · {zone:1436} Westfall
@@ -143,15 +143,15 @@ return {
 
 	-- Step 29: Copper Bar
 	-- {item:2840} Copper Bar · {spell:3930} Crafted Heavy Shot · {spell:3924} Copper Tube · {item:6712} Practice Lock · {skill:186} Mining · {item:2770} Copper Ore
-	["72 {item:2840} for {spell:3930}, {spell:3924} and {item:6712}: {skill:186}: smelt {item:2770}."] = "",
+	["72 {item:2840} for {spell:3930}, {spell:3924} and {item:6712}: {skill:186}: smelt {item:2770}."] = "{spell:3930}, {spell:3924}, {item:6712}에 쓸 {item:2840} 72개: {skill:186}: {item:2770} 제련.",
 
 	-- Step 30: Bronze Bar
 	-- {item:2841} Bronze Bar · {item:6712} Practice Lock · {spell:3950} Big Bronze Bomb · {skill:186} Mining · {item:2840} Copper Bar · {item:3576} Tin Bar
-	["61 {item:2841} for {item:6712} and {spell:3950}: {skill:186}: smelt {item:2840} and {item:3576}."] = "",
+	["61 {item:2841} for {item:6712} and {spell:3950}: {skill:186}: smelt {item:2840} and {item:3576}."] = "{item:6712}와(과) {spell:3950}에 쓸 {item:2841} 61개: {skill:186}: {item:2840}와(과) {item:3576} 제련.",
 
 	-- Step 31: Silver Bar
 	-- {item:2842} Silver Bar · {spell:3950} Big Bronze Bomb · {skill:186} Mining · {item:2775} Silver Ore
-	["2 {item:2842} for {spell:3950}: {skill:186}: smelt {item:2775}."] = "",
+	["2 {item:2842} for {spell:3950}: {skill:186}: smelt {item:2775}."] = "{spell:3950}에 쓸 {item:2842} 2개: {skill:186}: {item:2775} 제련.",
 
 	-- Step 32: Crafted Heavy Shot to 94
 	-- {spell:3930} Crafted Heavy Shot
@@ -168,9 +168,9 @@ return {
 
 	-- Step 34: Engineering recipes at 100
 	-- {skill:202} Engineering
-	["{skill:202} recipes at 100"] = "",
+	["{skill:202} recipes at 100"] = "100에서 {skill:202} 제조법",
 	-- {skill:202} Engineering · {spell:8334} Practice Lock
-	["Back to an {skill:202} trainer: {spell:8334} (from 100)."] = "",
+	["Back to an {skill:202} trainer: {spell:8334} (from 100)."] = "{skill:202} 상급자에게 돌아가세요: {spell:8334}(100부터).",
 
 	-- Step 35: Practice Lock to 125
 	-- {item:6712} Practice Lock
@@ -183,20 +183,20 @@ return {
 	-- {skill:202} Engineering
 	["{skill:202} recipes at 125"] = "125에서 {skill:202} 제조법",
 	-- {skill:202} Engineering · {spell:3945} Heavy Blasting Powder
-	["Back to an {skill:202} trainer: {spell:3945} (from 125)."] = "",
+	["Back to an {skill:202} trainer: {spell:3945} (from 125)."] = "{skill:202} 상급자에게 돌아가세요: {spell:3945}(125부터).",
 
 	-- Step 37: Heavy Blasting Powder to 140
 	-- {spell:3945} Heavy Blasting Powder
-	["{spell:3945} to 140"] = "",
+	["{spell:3945} to 140"] = "{spell:3945}: 140까지",
 	-- {spell:3945} Heavy Blasting Powder · {item:2838} Heavy Stone
 	-- plural, as words: Iron Deposits = {object:1735} Iron Deposit · Iron Grenades = {item:4390} Iron Grenade
 	["{spell:3945} is yellow at 125 (yellow 125, green 135, grey 145): about 27 crafts to 140. Each takes 1 {item:2838}. One {item:2838} a craft (Iron Deposits). Keep some: Iron Grenades take one each."] = "",
 
 	-- Step 38: Engineering recipes at 140
 	-- {skill:202} Engineering
-	["{skill:202} recipes at 140"] = "",
+	["{skill:202} recipes at 140"] = "140에서 {skill:202} 제조법",
 	-- {skill:202} Engineering · {spell:3973} Silver Contact · {spell:3950} Big Bronze Bomb
-	["Back to an {skill:202} trainer: {spell:3973} (from 90) and {spell:3950} (from 140)."] = "",
+	["Back to an {skill:202} trainer: {spell:3973} (from 90) and {spell:3950} (from 140)."] = "{skill:202} 상급자에게 돌아가세요: {spell:3973}(90부터), {spell:3950}(140부터).",
 
 	-- Step 39: Big Bronze Bomb to 150
 	-- {spell:3950} Big Bronze Bomb
@@ -218,9 +218,9 @@ return {
 
 	-- Step 42: Engineering 150-225: Auction House
 	-- {skill:202} Engineering
-	["{skill:202} 150-225: Auction House"] = "",
+	["{skill:202} 150-225: Auction House"] = "{skill:202} 150-225: 경매장",
 	-- {item:2319} Medium Leather · {item:2592} Wool Cloth · {item:2836} Coarse Stone · {item:2838} Heavy Stone · {item:2841} Bronze Bar · {item:2842} Silver Bar · {item:3575} Iron Bar · {item:3860} Mithril Bar · {item:7912} Solid Stone
-	["What 150-225 takes that the Auction House sells: 19 {item:2319}, 19 {item:2592}, 31 {item:2836}, 74 {item:2838}, 100 {item:2841}, 6 {item:2842}, 81 {item:3575}, 19 {item:3860} and 62 {item:7912}. The counts drop by what your bags, bank and mail hold."] = "",
+	["What 150-225 takes that the Auction House sells: 19 {item:2319}, 19 {item:2592}, 31 {item:2836}, 74 {item:2838}, 100 {item:2841}, 6 {item:2842}, 81 {item:3575}, 19 {item:3860} and 62 {item:7912}. The counts drop by what your bags, bank and mail hold."] = "150-225 구간에 필요한 것 중 경매장에서 파는 것: {item:2319} 19개, {item:2592} 19개, {item:2836} 31개, {item:2838} 74개, {item:2841} 100개, {item:2842} 6개, {item:3575} 81개, {item:3860} 19개, {item:7912} 62개. 가방, 은행, 우편함에 있는 만큼 수량이 줄어듭니다.",
 
 	-- Step 43: Medium Leather (Alliance)
 	-- {item:2319} Medium Leather
@@ -236,7 +236,7 @@ return {
 
 	-- Step 45: Wool Cloth
 	-- {item:2592} Wool Cloth · {spell:3953} Bronze Framework
-	["19 {item:2592} for {spell:3953}: humanoids of level 15-30 drop it. Keep what you loot as you level, or take it from your bank."] = "",
+	["19 {item:2592} for {spell:3953}: humanoids of level 15-30 drop it. Keep what you loot as you level, or take it from your bank."] = "{spell:3953}에 쓸 {item:2592} 19개: 15-30레벨 인간형 몹이 떨어뜨립니다. 레벨을 올리며 얻은 것을 모아 두거나 은행에서 꺼내세요.",
 
 	-- Step 46: Coarse Stone (Alliance)
 	-- {item:2836} Coarse Stone
@@ -264,19 +264,19 @@ return {
 
 	-- Step 50: Bronze Bar
 	-- {item:2841} Bronze Bar · {item:6533} Aquadynamic Fish Attractor · {spell:3953} Bronze Framework · {skill:186} Mining · {item:2840} Copper Bar · {item:3576} Tin Bar
-	["100 {item:2841} for {item:6533} and {spell:3953}: {skill:186}: smelt {item:2840} and {item:3576}."] = "",
+	["100 {item:2841} for {item:6533} and {spell:3953}: {skill:186}: smelt {item:2840} and {item:3576}."] = "{item:6533}와(과) {spell:3953}에 쓸 {item:2841} 100개: {skill:186}: {item:2840}와(과) {item:3576} 제련.",
 
 	-- Step 51: Silver Bar
 	-- {item:2842} Silver Bar · {spell:3967} Big Iron Bomb · {skill:186} Mining · {item:2775} Silver Ore
-	["6 {item:2842} for {spell:3967}: {skill:186}: smelt {item:2775}."] = "",
+	["6 {item:2842} for {spell:3967}: {skill:186}: smelt {item:2775}."] = "{spell:3967}에 쓸 {item:2842} 6개: {skill:186}: {item:2775} 제련.",
 
 	-- Step 52: Iron Bar
 	-- {item:3575} Iron Bar · {spell:3967} Big Iron Bomb · {skill:186} Mining · {item:2772} Iron Ore
-	["81 {item:3575} for {spell:3967}: {skill:186}: smelt {item:2772}."] = "",
+	["81 {item:3575} for {spell:3967}: {skill:186}: smelt {item:2772}."] = "{spell:3967}에 쓸 {item:3575} 81개: {skill:186}: {item:2772} 제련.",
 
 	-- Step 53: Mithril Bar
 	-- {item:3860} Mithril Bar · {item:10512} Hi-Impact Mithril Slugs · {skill:186} Mining · {item:3858} Mithril Ore
-	["19 {item:3860} for {item:10512}: {skill:186}: smelt {item:3858}."] = "",
+	["19 {item:3860} for {item:10512}: {skill:186}: smelt {item:3858}."] = "{item:10512}에 쓸 {item:3860} 19개: {skill:186}: {item:3858} 제련.",
 
 	-- Step 54: Solid Stone (Alliance)
 	-- {item:7912} Solid Stone
@@ -307,7 +307,7 @@ return {
 	-- {skill:202} Engineering
 	["{skill:202} recipes at 175"] = "175에서 {skill:202} 제조법",
 	-- {skill:202} Engineering · {spell:12585} Solid Blasting Powder
-	["Back to an {skill:202} trainer: {spell:12585} (from 175)."] = "",
+	["Back to an {skill:202} trainer: {spell:12585} (from 175)."] = "{skill:202} 상급자에게 돌아가세요: {spell:12585}(175부터).",
 
 	-- Step 59: Solid Blasting Powder to 191
 	-- {item:10505} Solid Blasting Powder
@@ -318,9 +318,9 @@ return {
 
 	-- Step 60: Engineering recipes at 191
 	-- {skill:202} Engineering
-	["{skill:202} recipes at 191"] = "",
+	["{skill:202} recipes at 191"] = "191에서 {skill:202} 제조법",
 	-- {skill:202} Engineering · {spell:3967} Big Iron Bomb
-	["Back to an {skill:202} trainer: {spell:3967} (from 190)."] = "",
+	["Back to an {skill:202} trainer: {spell:3967} (from 190)."] = "{skill:202} 상급자에게 돌아가세요: {spell:3967}(190부터).",
 
 	-- Step 61: Big Iron Bomb to 210
 	-- {spell:3967} Big Iron Bomb
@@ -333,7 +333,7 @@ return {
 	-- {skill:202} Engineering
 	["{skill:202} recipes at 210"] = "210에서 {skill:202} 제조법",
 	-- {skill:202} Engineering · {spell:12596} Hi-Impact Mithril Slugs
-	["Back to an {skill:202} trainer: {spell:12596} (from 210)."] = "",
+	["Back to an {skill:202} trainer: {spell:12596} (from 210)."] = "{skill:202} 상급자에게 돌아가세요: {spell:12596}(210부터).",
 
 	-- Step 63: Hi-Impact Mithril Slugs to 225
 	-- {item:10512} Hi-Impact Mithril Slugs
@@ -357,13 +357,13 @@ return {
 
 	-- Step 67: Engineering 225-300: Auction House
 	-- {skill:202} Engineering
-	["{skill:202} 225-300: Auction House"] = "",
+	["{skill:202} 225-300: Auction House"] = "{skill:202} 225-300: 경매장",
 	-- {item:3860} Mithril Bar · {item:7912} Solid Stone · {item:12359} Thorium Bar · {item:14047} Runecloth
-	["What 225-300 takes that the Auction House sells: 118 {item:3860}, 212 {item:7912}, 156 {item:12359} and 24 {item:14047}. The counts drop by what your bags, bank and mail hold."] = "",
+	["What 225-300 takes that the Auction House sells: 118 {item:3860}, 212 {item:7912}, 156 {item:12359} and 24 {item:14047}. The counts drop by what your bags, bank and mail hold."] = "225-300 구간에 필요한 것 중 경매장에서 파는 것: {item:3860} 118개, {item:7912} 212개, {item:12359} 156개, {item:14047} 24개. 가방, 은행, 우편함에 있는 만큼 수량이 줄어듭니다.",
 
 	-- Step 68: Mithril Bar
 	-- {item:3860} Mithril Bar · {item:10512} Hi-Impact Mithril Slugs · {item:10513} Mithril Gyro-Shot · {skill:186} Mining · {item:3858} Mithril Ore
-	["118 {item:3860} for {item:10512} and {item:10513}: {skill:186}: smelt {item:3858}."] = "",
+	["118 {item:3860} for {item:10512} and {item:10513}: {skill:186}: smelt {item:3858}."] = "{item:10512}와(과) {item:10513}에 쓸 {item:3860} 118개: {skill:186}: {item:3858} 제련.",
 
 	-- Step 69: Solid Stone (Alliance)
 	-- {item:7912} Solid Stone · {item:10512} Hi-Impact Mithril Slugs · {item:10513} Mithril Gyro-Shot · {skill:186} Mining · {object:2040} Mithril Deposit · {zone:1425} The Hinterlands · {zone:1444} Feralas · {zone:1447} Azshara
@@ -375,11 +375,11 @@ return {
 
 	-- Step 71: Thorium Bar
 	-- {item:12359} Thorium Bar · {item:15994} Thorium Widget · {item:16000} Thorium Tube · {skill:186} Mining · {item:10620} Thorium Ore
-	["156 {item:12359} for {item:15994} and {item:16000}: {skill:186}: smelt {item:10620}."] = "",
+	["156 {item:12359} for {item:15994} and {item:16000}: {skill:186}: smelt {item:10620}."] = "{item:15994}와(과) {item:16000}에 쓸 {item:12359} 156개: {skill:186}: {item:10620} 제련.",
 
 	-- Step 72: Runecloth
 	-- {item:14047} Runecloth · {item:15994} Thorium Widget
-	["24 {item:14047} for {item:15994}: humanoids of level 45-60 drop it. Keep what you loot as you level, or take it from your bank."] = "",
+	["24 {item:14047} for {item:15994}: humanoids of level 45-60 drop it. Keep what you loot as you level, or take it from your bank."] = "{item:15994}에 쓸 {item:14047} 24개: 45-60레벨 인간형 몹이 떨어뜨립니다. 레벨을 올리며 얻은 것을 모아 두거나 은행에서 꺼내세요.",
 
 	-- Step 73: Hi-Impact Mithril Slugs to 245
 	-- {item:10512} Hi-Impact Mithril Slugs
@@ -391,18 +391,18 @@ return {
 	-- {skill:202} Engineering
 	["{skill:202} recipes at 245"] = "245에서 {skill:202} 제조법",
 	-- {skill:202} Engineering · {spell:12621} Mithril Gyro-Shot
-	["Back to an {skill:202} trainer: {spell:12621} (from 245)."] = "",
+	["Back to an {skill:202} trainer: {spell:12621} (from 245)."] = "{skill:202} 상급자에게 돌아가세요: {spell:12621}(245부터).",
 
 	-- Step 75: Mithril Gyro-Shot to 265
 	-- {item:10513} Mithril Gyro-Shot
-	["{item:10513} to 265"] = "",
+	["{item:10513} to 265"] = "{item:10513}: 265까지",
 	-- {item:10513} Mithril Gyro-Shot · {item:3860} Mithril Bar · {item:10505} Solid Blasting Powder
 	-- plural, as words: Mithril Bars = {item:3860} Mithril Bar
 	["{item:10513} is yellow at 245 (yellow 245, green 265, grey 285): about 28 crafts to 265. Each takes 2 {item:3860} and 2 {item:10505} and makes 200. Make the 56 {item:10505} first. Two Mithril Bars and two {item:10505} a craft. Needs an anvil nearby."] = "",
 
 	-- Step 76: Thorium Widget to 287
 	-- {item:15994} Thorium Widget
-	["{item:15994} to 287"] = "",
+	["{item:15994} to 287"] = "{item:15994}: 287까지",
 	-- {item:15994} Thorium Widget · {item:12359} Thorium Bar · {item:14047} Runecloth
 	-- plural, as words: Thorium Bars = {item:12359} Thorium Bar
 	["{item:15994} is orange at 265 (yellow 280, green 290, grey 300): about 24 crafts to 287. Each takes 3 {item:12359} and 1 {item:14047}. Three Thorium Bars and a {item:14047} a craft; the widgets are parts for the later Thorium gadgets. Needs an anvil nearby."] = "",
@@ -416,24 +416,14 @@ return {
 	["{item:16000} is orange at 287 (yellow 295, green 305, grey 315): about 14 crafts to 300. Each takes 6 {item:12359}. The schematic binds when picked up; six Thorium Bars a craft. Needs an anvil nearby. {skill:202} 300 is a Legacy System milestone."] = "",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
-	-- ["19 {item:2592} for {spell:3953}: humanoids of level 15-30 drop it. Keep what you loot as you level, take it from your bank, or buy it at the Auction House."] = "{spell:3953}에 쓸 {item:2592} 19개: 15-30레벨 인간형 몹이 떨어뜨립니다. 레벨을 올리며 얻은 것을 모아 두거나, 은행에서 꺼내거나, 경매장에서 사세요.",
-	-- ["24 {item:14047} for {item:15994}: humanoids of level 45-60 drop it. Keep what you loot as you level, take it from your bank, or buy it at the Auction House."] = "{item:15994}에 쓸 {item:14047} 24개: 45-60레벨 인간형 몹이 떨어뜨립니다. 레벨을 올리며 얻은 것을 모아 두거나, 은행에서 꺼내거나, 경매장에서 사세요.",
 	-- ["Apprentice {skill:202}"] = "초급 {skill:202}",
 	-- ["Artisan needs character level 35 and {skill:202} 200; it raises the cap to 300. Materials for 225-300 are worth about 67g in all."] = "전문은(는) 캐릭터 레벨 35, {skill:202} 200이(가) 필요하며 최대 숙련도를 300(으)로 올립니다. 225-300 재료는 모두 약 67골드입니다.",
-	-- ["Back to an {skill:202} trainer: {spell:12585}, {spell:12596} are taught from {skill:202} 210."] = "{skill:202} 상급자에게 돌아가세요. {spell:12585}, {spell:12596}은(는) {skill:202} 210부터 배울 수 있습니다.",
 	-- ["Back to an {skill:202} trainer: {spell:12590} is taught from {skill:202} 175."] = "{skill:202} 상급자에게 돌아가세요. {spell:12590}은(는) {skill:202} 175부터 배울 수 있습니다.",
-	-- ["Back to an {skill:202} trainer: {spell:12621} is taught from {skill:202} 245."] = "{skill:202} 상급자에게 돌아가세요. {spell:12621}은(는) {skill:202} 245부터 배울 수 있습니다.",
 	-- ["Back to an {skill:202} trainer: {spell:3922} is taught from {skill:202} 45."] = "{skill:202} 상급자에게 돌아가세요. {spell:3922}은(는) {skill:202} 45부터 배울 수 있습니다.",
-	-- ["Back to an {skill:202} trainer: {spell:3923} is taught from {skill:202} 60."] = "{skill:202} 상급자에게 돌아가세요. {spell:3923}은(는) {skill:202} 60부터 배울 수 있습니다.",
-	-- ["Back to an {skill:202} trainer: {spell:3924} is taught from {skill:202} 80."] = "{skill:202} 상급자에게 돌아가세요. {spell:3924}은(는) {skill:202} 80부터 배울 수 있습니다.",
 	-- ["Back to an {skill:202} trainer: {spell:3926} is taught from {skill:202} 95."] = "{skill:202} 상급자에게 돌아가세요. {spell:3926}은(는) {skill:202} 95부터 배울 수 있습니다.",
-	-- ["Back to an {skill:202} trainer: {spell:3929} is taught from {skill:202} 85."] = "{skill:202} 상급자에게 돌아가세요. {spell:3929}은(는) {skill:202} 85부터 배울 수 있습니다.",
-	-- ["Back to an {skill:202} trainer: {spell:3937} is taught from {skill:202} 105."] = "{skill:202} 상급자에게 돌아가세요. {spell:3937}은(는) {skill:202} 105부터 배울 수 있습니다.",
 	-- ["Back to an {skill:202} trainer: {spell:3942} is taught from {skill:202} 125."] = "{skill:202} 상급자에게 돌아가세요. {spell:3942}은(는) {skill:202} 125부터 배울 수 있습니다.",
-	-- ["Back to an {skill:202} trainer: {spell:3945} is taught from {skill:202} 125."] = "{skill:202} 상급자에게 돌아가세요. {spell:3945}은(는) {skill:202} 125부터 배울 수 있습니다.",
 	-- ["Expert needs character level 20 and {skill:202} 125; it raises the cap to 225. Materials for 150-225 are worth about 15g in all."] = "숙련은(는) 캐릭터 레벨 20, {skill:202} 125이(가) 필요하며 최대 숙련도를 225(으)로 올립니다. 150-225 재료는 모두 약 15골드입니다.",
 	-- ["Journeyman needs character level 10 and {skill:202} 50; it raises the cap to 150. Materials for 75-150 are worth about 3g 23s in all."] = "수습은(는) 캐릭터 레벨 10, {skill:202} 50이(가) 필요하며 최대 숙련도를 150(으)로 올립니다. 75-150 재료는 모두 약 3골드 23실버입니다.",
-	-- ["Journeyman raises the cap from 75 to 150 for 5s (Classic's price; Forever's is not in the data); it needs {skill:202} 50 and character level 10, so you can take it on any visit from 50. Not every {skill:202} trainer teaches it: Alliance {npc:1676} ({zone:1431}), {npc:5518} ({zone:1453}) and {npc:11029} ({zone:1455}); Horde {npc:11031} ({zone:1458}) and {npc:3412} ({zone:1454}). The arrow picks the nearest of your faction. Learn now: {spell:3929} (from 75, 2s 50c) and {spell:3930} (from 75, 2s 50c). 75-150 takes about 5s of recipes and 45s of vendor goods, plus 15 {item:2836}, 27 {item:2838}, 72 {item:2840}, 61 {item:2841} and 2 {item:2842} to gather or buy."] = "수습 단계는 5실버(클래식 가격이며, Forever 가격은 데이터에 없습니다)로 최대 숙련도를 75에서 150으로 올립니다. {skill:202} 50과 캐릭터 레벨 10이 필요하므로, 50이 되면 언제 들러도 배울 수 있습니다. 모든 {skill:202} 상급자가 가르치지는 않습니다: 얼라이언스는 {npc:1676}({zone:1431}), {npc:5518}({zone:1453}), {npc:11029}({zone:1455}), 호드는 {npc:11031}({zone:1458}), {npc:3412}({zone:1454})입니다. 화살표가 진영의 가장 가까운 상급자를 가리킵니다. 지금 배우세요: {spell:3929}(75부터, 2실버 50코퍼), {spell:3930}(75부터, 2실버 50코퍼). 75-150에는 제조법 약 5실버와 상인 재료 약 45실버, 그리고 채집하거나 살 {item:2836} 15개, {item:2838} 27개, {item:2840} 72개, {item:2841} 61개, {item:2842} 2개가 듭니다.",
 	-- ["Kill the mobs that drop it at the farm spot Polestar picks for your level and faction. The Auction House works too."] = "Polestar가 레벨과 진영에 맞춰 고른 사냥터에서 이것을 떨어뜨리는 몹을 처치하세요. 경매장도 됩니다.",
 	-- ["Orange (a point every craft) until 20, yellow until 30, green until 40."] = "20까지 주황색(만들 때마다 1점), 30까지 노란색, 40까지 초록색입니다.",
 	-- ["Orange (a point every craft) until 280, yellow until 290, green until 300. Needs an anvil nearby."] = "280까지 주황색(만들 때마다 1점), 290까지 노란색, 300까지 초록색입니다. 근처에 모루가 필요합니다.",
@@ -459,10 +449,8 @@ return {
 	-- ["Yellow until 90, green until 95: not every craft gives a point."] = "90까지 노란색, 95까지 초록색입니다. 만들 때마다 점수가 오르지는 않습니다.",
 	-- ["Yellow until 95, green until 110: not every craft gives a point. Needs an anvil nearby."] = "95까지 노란색, 110까지 초록색입니다. 만들 때마다 점수가 오르지는 않습니다. 근처에 모루가 필요합니다.",
 	-- ["{item:10498} to 210"] = "{item:10498}: 210까지",
-	-- ["{item:10513} to 264"] = "{item:10513}: 264까지",
 	-- ["{item:14047} (Alliance)"] = "{item:14047} (얼라이언스)",
 	-- ["{item:14047} (Horde)"] = "{item:14047} (호드)",
-	-- ["{item:15994} to 288"] = "{item:15994}: 288까지",
 	-- ["{item:2592} (Alliance)"] = "{item:2592} (얼라이언스)",
 	-- ["{item:2592} (Horde)"] = "{item:2592} (호드)",
 	-- ["{item:2835} (Alliance)"] = "{item:2835} (얼라이언스)",
@@ -485,23 +473,14 @@ return {
 	-- ["{skill:202} materials for 150-225"] = "{skill:202} 재료(150-225)",
 	-- ["{skill:202} materials for 225-300"] = "{skill:202} 재료(225-300)",
 	-- ["{skill:202} materials for 75-150"] = "{skill:202} 재료(75-150)",
-	-- ["{skill:202} recipes at 111"] = "111에서 {skill:202} 제조법",
 	-- ["{skill:202} recipes at 139"] = "139에서 {skill:202} 제조법",
-	-- ["{skill:202} recipes at 45"] = "45에서 {skill:202} 제조법",
-	-- ["{skill:202} recipes at 60"] = "60에서 {skill:202} 제조법",
-	-- ["{skill:202} recipes at 80"] = "80에서 {skill:202} 제조법",
-	-- ["{skill:202} recipes at 85"] = "85에서 {skill:202} 제조법",
 	-- ["{skill:202} recipes at 95"] = "95에서 {skill:202} 제조법",
 	-- ["{skill:202} runs alongside leveling. Forever's Legacy System rewards crafting professions at skill 150, 225 and 300 (the Journeyman, Expert and Artisan caps), so each of those checkpoints counts. Materials for 1-75 are worth about 62s in all."] = "{skill:202}은(는) 레벨업과 함께 진행합니다. Forever의 유산 시스템은 제작 전문 기술 숙련도 150, 225, 300(수습, 숙련, 전문 최대치)에 보상을 주므로, 각 단계가 중요합니다. 1-75 재료는 모두 약 62실버입니다.",
-	-- ["{spell:3918} to 37"] = "{spell:3918}: 37까지",
 	-- ["{spell:3920} to 45"] = "{spell:3920}: 45까지",
-	-- ["{spell:3922} to 60"] = "{spell:3922}: 60까지",
 	-- ["{spell:3923} to 75"] = "{spell:3923}: 75까지",
 	-- ["{spell:3923} to 80"] = "{spell:3923}: 80까지",
-	-- ["{spell:3924} to 85"] = "{spell:3924}: 85까지",
 	-- ["{spell:3926} to 111"] = "{spell:3926}: 111까지",
 	-- ["{spell:3929} to 95"] = "{spell:3929}: 95까지",
 	-- ["{spell:3937} to 125"] = "{spell:3937}: 125까지",
 	-- ["{spell:3942} to 150"] = "{spell:3942}: 150까지",
-	-- ["{spell:3945} to 139"] = "{spell:3945}: 139까지",
 }

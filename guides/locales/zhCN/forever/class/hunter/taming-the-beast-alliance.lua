@@ -56,8 +56,8 @@ return {
 	-- Step 6: Grif Wildheart in Kharanos
 	-- {npc:1231} Grif Wildheart · {area:131} Kharanos
 	["{npc:1231} in {area:131}"] = "{area:131}的{npc:1231}",
-	-- {npc:1231} Grif Wildheart · {area:131} Kharanos · {npc:5116} Olmin Burningbeard · {zone:1455} Ironforge · {npc:11807} Tristane Shadowstone · {npc:5515} Einris Brightspear · {zone:1453} Stormwind · {npc:251507} Josephine Carson · {area:87} Goldshire
-	["At 10 go to {npc:1231}, the hunter trainer at the smithy in {area:131}. The Hunter's Path from {npc:5116} in {zone:1455}, {npc:11807} north-west of {area:131} or {npc:5515} in {zone:1453} also leads here, for a little experience; it is only a pointer. In Elwynn at 10 instead? {npc:251507}'s chain in {area:87} teaches the same."] = "10级时，去找{area:131}铁匠铺里的猎人训练师{npc:1231}。{zone:1455}的{npc:5116}、{area:131}西北面的{npc:11807}或{zone:1453}的{npc:5515}给予的“猎人之道”也会指引你来这里，能额外获得少量经验；它只是引导任务。10级时人在艾尔文森林？{area:87}的{npc:251507}提供的任务链也教相同的技能。",
+	-- {npc:1231} Grif Wildheart · {area:131} Kharanos · {quest:6074} The Hunter's Path · {npc:5116} Olmin Burningbeard · {zone:1455} Ironforge · {npc:11807} Tristane Shadowstone · {npc:5515} Einris Brightspear · {zone:1453} Stormwind · {npc:251507} Josephine Carson · {area:87} Goldshire
+	["At 10 go to {npc:1231}, the hunter trainer at the smithy in {area:131}. {quest:6074} from {npc:5116} in {zone:1455}, {npc:11807} north-west of {area:131} or {npc:5515} in {zone:1453} also leads here, for a little experience; it is only a pointer. In Elwynn at 10 instead? {npc:251507}'s chain in {area:87} teaches the same."] = "10级时，去找{area:131}铁匠铺里的猎人训练师{npc:1231}。{zone:1455}的{npc:5116}、{area:131}西北面的{npc:11807}或{zone:1453}的{npc:5515}给予的{quest:6074}也会指引你来这里，能额外获得少量经验；它只是引导任务。10级时人在艾尔文森林？{area:87}的{npc:251507}提供的任务链也教相同的技能。",
 	-- {npc:1231} Grif Wildheart · {item:15908} Taming Rod
 	["{npc:1231}: the first {item:15908}"] = "{npc:1231}：第一份{item:15908}",
 
@@ -91,8 +91,8 @@ return {
 	-- Step 11: Dazalar in Dolanaar
 	-- {npc:3601} Dazalar · {area:186} Dolanaar
 	["{npc:3601} in {area:186}"] = "{area:186}的{npc:3601}",
-	-- {npc:3601} Dazalar · {area:186} Dolanaar · {npc:3596} Ayanna Everstride · {area:256} Aldrassil · {npc:4146} Jocaste · {zone:1457} Darnassus · {npc:5515} Einris Brightspear · {zone:1453} Stormwind · {npc:5116} Olmin Burningbeard · {zone:1455} Ironforge · {npc:1231} Grif Wildheart · {area:131} Kharanos · {npc:251507} Josephine Carson · {area:87} Goldshire
-	["At 10 go to {npc:3601}, the hunter trainer in {area:186}. The Hunter's Path from {npc:3596} at {area:256}, {npc:4146} in {zone:1457}, {npc:5515} in {zone:1453}, {npc:5116} in {zone:1455} or {npc:1231} in {area:131} also leads here, for a little experience; it is only a pointer. In Elwynn at 10 instead? {npc:251507}'s chain in {area:87} teaches the same."] = "10级时，去找{area:186}的猎人训练师{npc:3601}。{area:256}的{npc:3596}、{zone:1457}的{npc:4146}、{zone:1453}的{npc:5515}、{zone:1455}的{npc:5116}或{area:131}的{npc:1231}给予的“猎人之道”也会指引你来这里，能额外获得少量经验；它只是引导任务。10级时人在艾尔文森林？{area:87}的{npc:251507}提供的任务链也教相同的技能。",
+	-- {npc:3601} Dazalar · {area:186} Dolanaar · {quest:6071} The Hunter's Path · {npc:3596} Ayanna Everstride · {area:256} Aldrassil · {npc:4146} Jocaste · {zone:1457} Darnassus · {npc:5515} Einris Brightspear · {zone:1453} Stormwind · {npc:5116} Olmin Burningbeard · {zone:1455} Ironforge · {npc:1231} Grif Wildheart · {area:131} Kharanos · {npc:251507} Josephine Carson · {area:87} Goldshire
+	["At 10 go to {npc:3601}, the hunter trainer in {area:186}. {quest:6071} from {npc:3596} at {area:256}, {npc:4146} in {zone:1457}, {npc:5515} in {zone:1453}, {npc:5116} in {zone:1455} or {npc:1231} in {area:131} also leads here, for a little experience; it is only a pointer. In Elwynn at 10 instead? {npc:251507}'s chain in {area:87} teaches the same."] = "10级时，去找{area:186}的猎人训练师{npc:3601}。{area:256}的{npc:3596}、{zone:1457}的{npc:4146}、{zone:1453}的{npc:5515}、{zone:1455}的{npc:5116}或{area:131}的{npc:1231}给予的{quest:6071}也会指引你来这里，能额外获得少量经验；它只是引导任务。10级时人在艾尔文森林？{area:87}的{npc:251507}提供的任务链也教相同的技能。",
 	-- {npc:3601} Dazalar · {item:15908} Taming Rod
 	["{npc:3601}: the first {item:15908}"] = "{npc:3601}：第一份{item:15908}",
 

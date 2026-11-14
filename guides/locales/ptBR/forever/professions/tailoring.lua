@@ -20,13 +20,13 @@ return {
 
 	-- Step 3: Tailoring 1-75: Auction House
 	-- {skill:197} Tailoring
-	["{skill:197} 1-75: Auction House"] = "",
+	["{skill:197} 1-75: Auction House"] = "{skill:197} 1-75: Casa de Leilões",
 	-- {item:2589} Linen Cloth
-	["What 1-75 takes that the Auction House sells: 144 {item:2589}. The counts drop by what your bags, bank and mail hold."] = "",
+	["What 1-75 takes that the Auction House sells: 144 {item:2589}. The counts drop by what your bags, bank and mail hold."] = "O que 1-75 exige e a Casa de Leilões vende: 144 {item:2589}. As contagens diminuem conforme o que suas bolsas, seu banco e sua correspondência guardam.",
 
 	-- Step 4: Linen Cloth
 	-- {item:2589} Linen Cloth · {spell:2387} Linen Cloak · {item:7026} Linen Belt
-	["144 {item:2589} for {spell:2387} and {item:7026}: humanoids of level 5-20 drop it. Keep what you loot as you level, or take it from your bank."] = "",
+	["144 {item:2589} for {spell:2387} and {item:7026}: humanoids of level 5-20 drop it. Keep what you loot as you level, or take it from your bank."] = "144 {item:2589} para {spell:2387} e {item:7026}: humanoides de nível 5-20 soltam. Guarde o que saquear enquanto sobe de nível ou pegue no seu banco.",
 
 	-- Step 5: Linen Cloak to 15
 	-- {spell:2387} Linen Cloak
@@ -60,17 +60,17 @@ return {
 
 	-- Step 10: Tailoring 75-150: Auction House
 	-- {skill:197} Tailoring
-	["{skill:197} 75-150: Auction House"] = "",
+	["{skill:197} 75-150: Auction House"] = "{skill:197} 75-150: Casa de Leilões",
 	-- {item:2592} Wool Cloth · {item:4306} Silk Cloth
-	["What 75-150 takes that the Auction House sells: 567 {item:2592} and 204 {item:4306}. The counts drop by what your bags, bank and mail hold."] = "",
+	["What 75-150 takes that the Auction House sells: 567 {item:2592} and 204 {item:4306}. The counts drop by what your bags, bank and mail hold."] = "O que 75-150 exige e a Casa de Leilões vende: 567 {item:2592} e 204 {item:4306}. As contagens diminuem conforme o que suas bolsas, seu banco e sua correspondência guardam.",
 
 	-- Step 11: Wool Cloth
 	-- {item:2592} Wool Cloth · {spell:2402} Woolen Cape · {spell:3866} Stylish Red Shirt
-	["567 {item:2592} for {spell:2402} and {spell:3866}: humanoids of level 15-30 drop it. Keep what you loot as you level, or take it from your bank."] = "",
+	["567 {item:2592} for {spell:2402} and {spell:3866}: humanoids of level 15-30 drop it. Keep what you loot as you level, or take it from your bank."] = "567 {item:2592} para {spell:2402} e {spell:3866}: humanoides de nível 15-30 soltam. Guarde o que saquear enquanto sobe de nível ou pegue no seu banco.",
 
 	-- Step 12: Silk Cloth
 	-- {item:4306} Silk Cloth · {spell:3871} Formal White Shirt
-	["204 {item:4306} for {spell:3871}: humanoids of level 25-45 drop it. Keep what you loot as you level, or take it from your bank."] = "",
+	["204 {item:4306} for {spell:3871}: humanoids of level 25-45 drop it. Keep what you loot as you level, or take it from your bank."] = "204 {item:4306} para {spell:3871}: humanoides de nível 25-45 soltam. Guarde o que saquear enquanto sobe de nível ou pegue no seu banco.",
 
 	-- Step 13: Woolen Cape to 104
 	-- {spell:2402} Woolen Cape
@@ -114,23 +114,23 @@ return {
 
 	-- Step 20: Tailoring 150-225: Auction House
 	-- {skill:197} Tailoring
-	["{skill:197} 150-225: Auction House"] = "",
+	["{skill:197} 150-225: Auction House"] = "{skill:197} 150-225: Casa de Leilões",
 	-- {item:4306} Silk Cloth · {item:4338} Mageweave Cloth
-	["What 150-225 takes that the Auction House sells: 264 {item:4306} and 900 {item:4338}. The counts drop by what your bags, bank and mail hold."] = "",
+	["What 150-225 takes that the Auction House sells: 264 {item:4306} and 900 {item:4338}. The counts drop by what your bags, bank and mail hold."] = "O que 150-225 exige e a Casa de Leilões vende: 264 {item:4306} e 900 {item:4338}. As contagens diminuem conforme o que suas bolsas, seu banco e sua correspondência guardam.",
 
 	-- Step 21: Silk Cloth
 	-- {item:4306} Silk Cloth · {item:7053} Azure Silk Cloak
-	["264 {item:4306} for {item:7053}: humanoids of level 25-45 drop it. Keep what you loot as you level, or take it from your bank."] = "",
+	["264 {item:4306} for {item:7053}: humanoids of level 25-45 drop it. Keep what you loot as you level, or take it from your bank."] = "264 {item:4306} para {item:7053}: humanoides de nível 25-45 soltam. Guarde o que saquear enquanto sobe de nível ou pegue no seu banco.",
 
 	-- Step 22: Mageweave Cloth
 	-- {item:4338} Mageweave Cloth · {item:9998} Black Mageweave Vest · {item:10024} Black Mageweave Headband
-	["900 {item:4338} for {item:9998} and {item:10024}: humanoids of level 35-50 drop it. Keep what you loot as you level, or take it from your bank."] = "",
+	["900 {item:4338} for {item:9998} and {item:10024}: humanoids of level 35-50 drop it. Keep what you loot as you level, or take it from your bank."] = "900 {item:4338} para {item:9998} e {item:10024}: humanoides de nível 35-50 soltam. Guarde o que saquear enquanto sobe de nível ou pegue no seu banco.",
 
 	-- Step 23: Expert Tailoring
 	-- {skill:197} Tailoring
 	["Expert {skill:197}"] = "{skill:197} (Perito)",
 	-- {skill:197} Tailoring · {npc:1346} Georgio Bolero · {zone:1453} Stormwind City · {npc:4576} Josef Gregorian · {zone:1458} Undercity · {spell:3865} Bolt of Mageweave · {item:4306} Silk Cloth · {item:4338} Mageweave Cloth · {item:9998} Black Mageweave Vest · {item:10024} Black Mageweave Headband
-	["Expert raises the cap from 150 to 225; it needs {skill:197} 125 and character level 20, so you can take it on any visit from 125. Only a few trainers teach it: Alliance {npc:1346} ({zone:1453}); Horde {npc:4576} ({zone:1458}). The arrow picks the nearest of your faction. Learn now: {spell:3865} (from 140). 150-225 takes about 15s of recipes and 21g 16s of vendor goods, plus 264 {item:4306} and 900 {item:4338} to gather or buy. Come with all of it in your bags (the steps above, the rest from the Auction House): these trainers also teach {item:9998} (from 170) and {item:10024} (from 190), and the crafts need no station, so craft right here and learn each recipe as you reach its skill. One trip instead of 3."] = "Perito eleva o limite de 150 para 225; exige {skill:197} 125 e nível de personagem 20, então você pode aprender em qualquer visita a partir de 125. Só alguns instrutores ensinam: na Aliança, {npc:1346} ({zone:1453}); na Horda, {npc:4576} ({zone:1458}). A seta indica o mais próximo da sua facção. Aprenda agora: {spell:3865} (a partir de 140). De 150 a 225 você gasta cerca de 15s em receitas e 21g 16s em itens de vendedor, além de 264 {item:4306} e 900 {item:4338} para coletar ou comprar. Venha com tudo na bolsa (os passos acima, o resto da Casa de Leilões): esses instrutores também ensinam {item:9998} (a partir de 170) e {item:10024} (a partir de 190), e as criações dispensam estação, então fabrique aqui mesmo e aprenda cada receita ao chegar à sua perícia. Uma viagem em vez de 3.",
+	["Expert raises the cap from 150 to 225; it needs {skill:197} 125 and character level 20, so you can take it on any visit from 125. Only a few trainers teach it: Alliance {npc:1346} ({zone:1453}); Horde {npc:4576} ({zone:1458}). The arrow picks the nearest of your faction. Learn now: {spell:3865} (from 140). 150-225 takes about 15s of recipes and 21g 16s of vendor goods, plus 264 {item:4306} and 900 {item:4338} to gather or buy. Come with all of it in your bags (the steps above, the rest from the Auction House): these trainers also teach {item:9998} (from 170), and the crafts need no station, so craft right here and learn each recipe as you reach its skill. One trip instead of 2. {item:10024} (from 190) takes a second trip, to other trainers (below)."] = "Perito eleva o limite de 150 para 225; exige {skill:197} 125 e nível de personagem 20, então você pode aprender em qualquer visita a partir de 125. Só alguns instrutores ensinam: na Aliança, {npc:1346} ({zone:1453}); na Horda, {npc:4576} ({zone:1458}). A seta indica o mais próximo da sua facção. Aprenda agora: {spell:3865} (a partir de 140). De 150 a 225 você gasta cerca de 15s em receitas e 21g 16s em itens de vendedor, além de 264 {item:4306} e 900 {item:4338} para coletar ou comprar. Venha com tudo na bolsa (os passos acima, o resto da Casa de Leilões): esses instrutores também ensinam {item:9998} (a partir de 170), e as criações dispensam estação, então fabrique aqui mesmo e aprenda cada receita ao chegar à sua perícia. Uma viagem em vez de 2. {item:10024} (a partir de 190) exige uma segunda viagem, a outros instrutores (abaixo).",
 
 	-- Step 24: Azure Silk Cloak to 170
 	-- {item:7053} Azure Silk Cloak
@@ -154,8 +154,8 @@ return {
 	-- Step 27: Tailoring recipes at 197
 	-- {skill:197} Tailoring
 	["{skill:197} recipes at 197"] = "Receitas de {skill:197} aos 197",
-	-- {spell:12072} Black Mageweave Headband
-	["Still at the Expert trainer: {spell:12072} (from 190)."] = "Ainda no instrutor de Perito: {spell:12072} (a partir de 190).",
+	-- {spell:12072} Black Mageweave Headband · {npc:11052} Timothy Worthington · {zone:1445} Dustwallow Marsh · {npc:2399} Daryl Stack · {zone:1424} Hillsbrad Foothills
+	["{spell:12072} (from 190) is taught only by the Artisan trainers: Alliance {npc:11052} ({zone:1445}); Horde {npc:2399} ({zone:1424})."] = "{spell:12072} (a partir de 190) só é ensinada pelos instrutores Artífice: Aliança {npc:11052} ({zone:1445}); Horda {npc:2399} ({zone:1424}).",
 
 	-- Step 28: Black Mageweave Headband to 225
 	-- {item:10024} Black Mageweave Headband
@@ -181,37 +181,37 @@ return {
 
 	-- Step 32: Tailoring 225-300: Auction House
 	-- {skill:197} Tailoring
-	["{skill:197} 225-300: Auction House"] = "",
+	["{skill:197} 225-300: Auction House"] = "{skill:197} 225-300: Casa de Leilões",
 	-- {item:8170} Rugged Leather · {item:14047} Runecloth · {item:14227} Ironweb Spider Silk · {item:14504} Pattern: Runecloth Shoulders
-	["What 225-300 takes that the Auction House sells: 420 {item:8170}, 3195 {item:14047}, 124 {item:14227} and a {item:14504}. The counts drop by what your bags, bank and mail hold."] = "",
+	["What 225-300 takes that the Auction House sells: 420 {item:8170}, 3195 {item:14047}, 124 {item:14227} and a {item:14504}. The counts drop by what your bags, bank and mail hold."] = "O que 225-300 exige e a Casa de Leilões vende: 420 {item:8170}, 3195 {item:14047}, 124 {item:14227} e um {item:14504}. As contagens diminuem conforme o que suas bolsas, seu banco e sua correspondência guardam.",
 
 	-- Step 33: Rugged Leather (Alliance)
 	-- {item:8170} Rugged Leather
 	["{item:8170} (Alliance)"] = "{item:8170} (Aliança)",
 	-- {item:8170} Rugged Leather · {item:13863} Runecloth Gloves · {item:13867} Runecloth Shoulders · {skill:393} Skinning · {npc:8598} Frenzied Plaguehound · {npc:8596} Plaguehound Runt
-	["420 {item:8170} for {item:13863} and {item:13867}: {skill:393}: beasts of level 48-60. Skin {npc:8598}, Plaguehound and {npc:8596} here (level 48-60); the {skill:393} guide routes this."] = "",
+	["420 {item:8170} for {item:13863} and {item:13867}: {skill:393}: beasts of level 48-60. Skin {npc:8598}, Plaguehound and {npc:8596} here (level 48-60); the {skill:393} guide routes this."] = "420 {item:8170} para {item:13863} e {item:13867}: {skill:393}: feras de nível 48-60. Esfole {npc:8598}, Cães Pestilentos e {npc:8596} aqui (nível 48-60); o guia de {skill:393} traça essa rota.",
 
 	-- Step 34: Rugged Leather (Horde)
 	-- {item:8170} Rugged Leather
 	["{item:8170} (Horde)"] = "{item:8170} (Horda)",
 	-- {item:8170} Rugged Leather · {item:13863} Runecloth Gloves · {item:13867} Runecloth Shoulders · {skill:393} Skinning · {npc:6369} Coralshell Tortoise · {npc:8760} Mosshoof Stag · {npc:6380} Thunderhead Consort · {npc:6379} Thunderhead Patriarch · {npc:6378} Thunderhead Skystormer · {npc:6377} Thunderhead Stagwing
-	["420 {item:8170} for {item:13863} and {item:13867}: {skill:393}: beasts of level 48-60. Skin {npc:6369}, {npc:8760}, {npc:6380}, {npc:6379}, {npc:6378} and {npc:6377} here (level 48-60); the {skill:393} guide routes this."] = "",
+	["420 {item:8170} for {item:13863} and {item:13867}: {skill:393}: beasts of level 48-60. Skin {npc:6369}, {npc:8760}, {npc:6380}, {npc:6379}, {npc:6378} and {npc:6377} here (level 48-60); the {skill:393} guide routes this."] = "420 {item:8170} para {item:13863} e {item:13867}: {skill:393}: feras de nível 48-60. Esfole {npc:6369}, {npc:8760}, {npc:6380}, {npc:6379}, {npc:6378} e {npc:6377} aqui (nível 48-60); o guia de {skill:393} traça essa rota.",
 
 	-- Step 35: Runecloth
 	-- {item:14047} Runecloth · {item:13856} Runecloth Belt · {item:13863} Runecloth Gloves · {item:13867} Runecloth Shoulders
-	["3195 {item:14047} for {item:13856}, {item:13863} and {item:13867}: humanoids of level 45-60 drop it. Keep what you loot as you level, or take it from your bank."] = "",
+	["3195 {item:14047} for {item:13856}, {item:13863} and {item:13867}: humanoids of level 45-60 drop it. Keep what you loot as you level, or take it from your bank."] = "3195 {item:14047} para {item:13856}, {item:13863} e {item:13867}: humanoides de nível 45-60 soltam. Guarde o que saquear enquanto sobe de nível ou pegue no seu banco.",
 
 	-- Step 36: Ironweb Spider Silk (Alliance)
 	-- {item:14227} Ironweb Spider Silk
 	["{item:14227} (Alliance)"] = "{item:14227} (Aliança)",
 	-- {item:14227} Ironweb Spider Silk · {item:13867} Runecloth Shoulders · {npc:1824} Plague Lurker
-	["124 {item:14227} for {item:13867}: it drops from {npc:1824} (level 54-55) at the marked spot."] = "",
+	["124 {item:14227} for {item:13867}: it drops from {npc:1824} (level 54-55) at the marked spot."] = "124 {item:14227} para {item:13867}: cai de {npc:1824} (nível 54-55) no ponto marcado.",
 
 	-- Step 37: Ironweb Spider Silk (Horde)
 	-- {item:14227} Ironweb Spider Silk
 	["{item:14227} (Horde)"] = "{item:14227} (Horda)",
-	-- {item:14227} Ironweb Spider Silk · {item:13867} Runecloth Shoulders · {npc:11738} Sand Skitterer
-	["124 {item:14227} for {item:13867}: it drops from {npc:11738} (level 55-56) at the marked spot."] = "",
+	-- {item:14227} Ironweb Spider Silk · {item:13867} Runecloth Shoulders · {npc:11739} Rock Stalker
+	["124 {item:14227} for {item:13867}: it drops from {npc:11739} (level 57-59) at the marked spot."] = "124 {item:14227} para {item:13867}: cai de {npc:11739} (nível 57-59) no ponto marcado.",
 
 	-- Step 38: Runecloth Belt to 234
 	-- {item:13856} Runecloth Belt
@@ -234,24 +234,15 @@ return {
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["124 {item:14227} for {item:13867}: it drops from {npc:11739} (level 57-59) at the marked spot, or buy it at the Auction House."] = "124 {item:14227} para {item:13867}: cai de {npc:11739} (nível 57-59) no ponto marcado, ou compre na Casa de Leilões.",
-	-- ["124 {item:14227} for {item:13867}: it drops from {npc:1824} (level 54-55) at the marked spot, or buy it at the Auction House."] = "124 {item:14227} para {item:13867}: cai de {npc:1824} (nível 54-55) no ponto marcado, ou compre na Casa de Leilões.",
-	-- ["144 {item:2589} for {spell:2387} and {item:7026}: humanoids of level 5-20 drop it. Keep what you loot as you level, take it from your bank, or buy it at the Auction House."] = "144 {item:2589} para {spell:2387} e {item:7026}: humanoides de nível 5-20 soltam. Guarde o que saquear enquanto sobe de nível, pegue no seu banco ou compre na Casa de Leilões.",
 	-- ["144 {item:2589} for {spell:2387} and {item:7026}: humanoids of level 5-20 drop it; or the Auction House. The arrow picks a farm spot for your level and faction."] = "144 {item:2589} para {spell:2387} e {item:7026}: humanoides de nível 5-20 o soltam; ou na Casa de Leilões. A seta indica um ponto de farm para o seu nível e facção.",
-	-- ["204 {item:4306} for {spell:3871}: humanoids of level 25-45 drop it. Keep what you loot as you level, take it from your bank, or buy it at the Auction House."] = "204 {item:4306} para {spell:3871}: humanoides de nível 25-45 soltam. Guarde o que saquear enquanto sobe de nível, pegue no seu banco ou compre na Casa de Leilões.",
 	-- ["204 {item:4306} for {spell:3871}: humanoids of level 25-45 drop it; or the Auction House. It drops from {npc:11697} (level 29-30) here."] = "204 {item:4306} para {spell:3871}: humanoides de nível 25-45 o soltam; ou na Casa de Leilões. Aqui ele cai de {npc:11697} (nível 29-30).",
 	-- ["204 {item:4306} for {spell:3871}: humanoids of level 25-45 drop it; or the Auction House. It drops from {npc:2240} (level 32-33) here."] = "204 {item:4306} para {spell:3871}: humanoides de nível 25-45 o soltam; ou na Casa de Leilões. Aqui ele cai de {npc:2240} (nível 32-33).",
-	-- ["264 {item:4306} for {item:7053}: humanoids of level 25-45 drop it. Keep what you loot as you level, take it from your bank, or buy it at the Auction House."] = "264 {item:4306} para {item:7053}: humanoides de nível 25-45 soltam. Guarde o que saquear enquanto sobe de nível, pegue no seu banco ou compre na Casa de Leilões.",
 	-- ["264 {item:4306} for {item:7053}: humanoids of level 25-45 drop it; or the Auction House. The arrow picks a farm spot for your level and faction."] = "264 {item:4306} para {item:7053}: humanoides de nível 25-45 o soltam; ou na Casa de Leilões. A seta indica um ponto de farm para o seu nível e facção.",
-	-- ["3195 {item:14047} for {item:13856}, {item:13863} and {item:13867}: humanoids of level 45-60 drop it. Keep what you loot as you level, take it from your bank, or buy it at the Auction House."] = "3195 {item:14047} para {item:13856}, {item:13863} e {item:13867}: humanoides de nível 45-60 soltam. Guarde o que saquear enquanto sobe de nível, pegue no seu banco ou compre na Casa de Leilões.",
 	-- ["3195 {item:14047} for {item:13856}, {item:13863} and {item:13867}: humanoids of level 45-60 drop it; or the Auction House. It drops from {npc:11880} (level 57-59) here."] = "3195 {item:14047} para {item:13856}, {item:13863} e {item:13867}: humanoides de nível 45-60 o soltam; ou na Casa de Leilões. Aqui ele cai de {npc:11880} (nível 57-59).",
 	-- ["3195 {item:14047} for {item:13856}, {item:13863} and {item:13867}: humanoids of level 45-60 drop it; or the Auction House. It drops from {npc:7027} (level 56-57) here."] = "3195 {item:14047} para {item:13856}, {item:13863} e {item:13867}: humanoides de nível 45-60 o soltam; ou na Casa de Leilões. Aqui ele cai de {npc:7027} (nível 56-57).",
 	-- ["420 {item:8170} for {item:13863} and {item:13867}: {skill:393}: beasts of level 48-60; or the Auction House. Skin {npc:1815}, {npc:1816} and {npc:1817} here (level 48-60); the {skill:393} guide routes this."] = "420 {item:8170} para {item:13863} e {item:13867}: {skill:393}: feras de nível 48-60; ou na Casa de Leilões. Esfole {npc:1815}, {npc:1816} e {npc:1817} aqui (nível 48-60); o guia de {skill:393} traça essa rota.",
-	-- ["420 {item:8170} for {item:13863} and {item:13867}: {skill:393}: beasts of level 48-60; or the Auction House. Skin {npc:6369}, {npc:8760}, {npc:6380}, {npc:6379}, {npc:6378} and {npc:6377} here (level 48-60); the {skill:393} guide routes this."] = "420 {item:8170} para {item:13863} e {item:13867}: {skill:393}: feras de nível 48-60; ou na Casa de Leilões. Esfole {npc:6369}, {npc:8760}, {npc:6380}, {npc:6379}, {npc:6378} e {npc:6377} aqui (nível 48-60); o guia de {skill:393} traça essa rota.",
-	-- ["420 {item:8170} for {item:13863} and {item:13867}: {skill:393}: beasts of level 48-60; or the Auction House. Skin {npc:8598}, Plaguehound and {npc:8596} here (level 48-60); the {skill:393} guide routes this."] = "420 {item:8170} para {item:13863} e {item:13867}: {skill:393}: feras de nível 48-60; ou na Casa de Leilões. Esfole {npc:8598}, Cães Pestilentos e {npc:8596} aqui (nível 48-60); o guia de {skill:393} traça essa rota.",
-	-- ["567 {item:2592} for {spell:2402} and {spell:3866}: humanoids of level 15-30 drop it. Keep what you loot as you level, take it from your bank, or buy it at the Auction House."] = "567 {item:2592} para {spell:2402} e {spell:3866}: humanoides de nível 15-30 soltam. Guarde o que saquear enquanto sobe de nível, pegue no seu banco ou compre na Casa de Leilões.",
 	-- ["567 {item:2592} for {spell:2402} and {spell:3866}: humanoids of level 15-30 drop it; or the Auction House. It drops from {npc:3263} (level 19-20) here."] = "567 {item:2592} para {spell:2402} e {spell:3866}: humanoides de nível 15-30 o soltam; ou na Casa de Leilões. Aqui ele cai de {npc:3263} (nível 19-20).",
 	-- ["567 {item:2592} for {spell:2402} and {spell:3866}: humanoids of level 15-30 drop it; or the Auction House. It drops from {npc:98} (level 17-18) here."] = "567 {item:2592} para {spell:2402} e {spell:3866}: humanoides de nível 15-30 o soltam; ou na Casa de Leilões. Aqui ele cai de {npc:98} (nível 17-18).",
-	-- ["900 {item:4338} for {item:9998} and {item:10024}: humanoids of level 35-50 drop it. Keep what you loot as you level, take it from your bank, or buy it at the Auction House."] = "900 {item:4338} para {item:9998} e {item:10024}: humanoides de nível 35-50 soltam. Guarde o que saquear enquanto sobe de nível, pegue no seu banco ou compre na Casa de Leilões.",
 	-- ["900 {item:4338} for {item:9998} and {item:10024}: humanoids of level 35-50 drop it; or the Auction House. It drops from {npc:4467} (level 46-47) here."] = "900 {item:4338} para {item:9998} e {item:10024}: humanoides de nível 35-50 o soltam; ou na Casa de Leilões. Aqui ele cai de {npc:4467} (nível 46-47).",
 	-- ["900 {item:4338} for {item:9998} and {item:10024}: humanoids of level 35-50 drop it; or the Auction House. It drops from {npc:5472} (level 46-47) here."] = "900 {item:4338} para {item:9998} e {item:10024}: humanoides de nível 35-50 o soltam; ou na Casa de Leilões. Aqui ele cai de {npc:5472} (nível 46-47).",
 	-- ["Apprentice {skill:197}"] = "{skill:197} (Aprendiz)",
@@ -280,6 +271,7 @@ return {
 	-- ["Skin {npc:1815}, {npc:1816}, {npc:1817} here (beasts of level 48-60 yield it); the {skill:393} guide routes this. The Auction House works too."] = "Esfole {npc:1815}, {npc:1816}, {npc:1817} aqui (feras de nível 48-60 o fornecem); o guia de {skill:393} traça essa rota. A Casa de Leilões também serve.",
 	-- ["Skin {npc:6369}, {npc:8760}, {npc:6380}, {npc:6379}, {npc:6378}, {npc:6377} here (beasts of level 48-60 yield it); the {skill:393} guide routes this. The Auction House works too."] = "Esfole {npc:6369}, {npc:8760}, {npc:6380}, {npc:6379}, {npc:6378}, {npc:6377} aqui (feras de nível 48-60 o fornecem); o guia de {skill:393} traça essa rota. A Casa de Leilões também serve.",
 	-- ["Skinned, disenchanted or crafted by another profession: gather them yourself or buy them on the Auction House."] = "Vêm de esfolar, desencantar ou de outra profissão: colete você mesmo ou compre na Casa de Leilões.",
+	-- ["Still at the Expert trainer: {spell:12072} (from 190)."] = "Ainda no instrutor de Perito: {spell:12072} (a partir de 190).",
 	-- ["Teaches {item:13863} (needs {skill:197} 230). Vendors sell it in limited stock that restocks."] = "Ensina {item:13863} (exige {skill:197} 230). Mercadores vendem em estoque limitado que se renova.",
 	-- ["Teaches {item:254123} (needs {skill:197} 250)."] = "Ensina {item:254123} (exige {skill:197} 250).",
 	-- ["Teaches {item:7053} (needs {skill:197} 140). Vendors sell it in limited stock that restocks."] = "Ensina {item:7053} (exige {skill:197} 140). Mercadores vendem em estoque limitado que se renova.",

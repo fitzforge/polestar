@@ -13,7 +13,7 @@ return {
 
 	-- Step 1: Seek out SI: 7
 	-- {npc:917} Keryn Sylvius · {area:87} Goldshire · {npc:332} Master Mathias Shaw · {zone:1453} Stormwind · {spell:921} Pick Pocket
-	["At 10 {npc:917}, the rogue trainer upstairs in the Lion's Pride Inn in {area:87}, gives you a package for {npc:332} in {zone:1453}. Train {spell:921} if you lack it: this chain needs it."] = "",
+	["At 10 {npc:917}, the rogue trainer upstairs in the Lion's Pride Inn in {area:87}, gives you a package for {npc:332} in {zone:1453}. Train {spell:921} if you lack it: this chain needs it."] = "A nivel 10, {npc:917}, el instructor de pícaros del piso de arriba de la posada Orgullo de León en {area:87}, te da un paquete para {npc:332} en {zone:1453}. Aprende {spell:921} si no lo tienes: esta cadena lo necesita.",
 
 	-- Step 2: Master Mathias Shaw
 	-- {zone:1453} Stormwind · {object:2100} Old Town
@@ -48,7 +48,7 @@ return {
 
 	-- Step 9: The Apple Falls
 	-- {npc:3599} Jannok Breezesong · {area:186} Dolanaar · {npc:4163} Syurna · {zone:1457} Darnassus
-	["At 10 {npc:3599}, the rogue trainer in the {area:186} inn, gives you a rose for {npc:4163} in {zone:1457}. If you lose the rose, abandon the quest and take it again."] = "",
+	["At 10 {npc:3599}, the rogue trainer in the {area:186} inn, gives you a rose for {npc:4163} in {zone:1457}. If you lose the rose, abandon the quest and take it again."] = "A nivel 10, {npc:3599}, el instructor de pícaros de la posada de {area:186}, te da una rosa para {npc:4163} en {zone:1457}. Si pierdes la rosa, abandona la misión y vuelve a aceptarla.",
 
 	-- Step 10: Syurna
 	-- {zone:1457} Darnassus · {npc:4163} Syurna · {area:1658} Cenarion Enclave
@@ -65,8 +65,6 @@ return {
 	["Back to {npc:4163}"] = "De vuelta con {npc:4163}",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
-	-- ["At 10 {npc:3599}, the rogue trainer in {area:186}, gives you a rose for {npc:4163} in {zone:1457}."] = "A nivel 10, {npc:3599}, el instructor de pícaros de {area:186}, te da una rosa para {npc:4163} en {zone:1457}.",
-	-- ["At 10 {npc:917}, the rogue trainer in the Lion's Pride Inn in {area:87}, gives you a package for {npc:332} in {zone:1453}."] = "A nivel 10, {npc:917}, el instructor de pícaros de la posada Orgullo de León en {area:87}, te da un paquete para {npc:332} en {zone:1453}.",
 	-- ["Ride north to {zone:1453}; Mathias Shaw is at SI:7 in {object:2100}."] = "Cabalga al norte hasta {zone:1453}; Mathias Shaw está en el IV:7, en {object:2100}.",
 	-- ["Ride west to {zone:1457}. {npc:4163} stands in the north-west of the city."] = "Cabalga al oeste hasta {zone:1457}. {npc:4163} está en el noroeste de la ciudad.",
 	-- ["The {npc:6846} stands by the river at Elwynn's southern edge, south of {area:87}. He carries the shipping schedule."] = "El {npc:6846} está junto al río, en el extremo sur del Bosque de Elwynn, al sur de {area:87}. Lleva el horario de envíos.",

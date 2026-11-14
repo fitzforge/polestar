@@ -17,21 +17,21 @@ return {
 	["after a win"] = "",
 
 	-- Step 4: Horde Warbringer
-	-- {npc:15350} Horde Warbringer · {quest:98887} Conflict at Darkspear Islands · {zone:1413} Barrens · {zone:1454} Orgrimmar · {zone:1456} Thunder Bluff · {zone:1458} Undercity · {area:321} Hammerfall · {zone:1459} Alterac Valley · {zone:2524} Darkspear Islands
-	["The {npc:15350} pays 150 reputation for 3 Darkspear Islands Marks of Honor the first time ({quest:98887}), then 100 for every 3 more. The nearest stand at Mor'shan in the north of the {zone:1413} and in {zone:1454}; others in {zone:1456} and the {zone:1458}, at {area:321} and by the {zone:1459} gate. Forever's PvP gear also costs Marks of Honor along with honor: decide what you want before you hand them in. You can carry at most 30 {zone:2524} marks: hand in or spend them before you reach that."] = "",
+	-- {npc:15350} Horde Warbringer · {quest:98887} Conflict at Darkspear Islands · {area:391} Merchant Coast · {zone:1413} Barrens · {zone:1454} Orgrimmar · {zone:1456} Thunder Bluff · {zone:1458} Undercity · {area:321} Hammerfall · {zone:1459} Alterac Valley · {zone:2524} Darkspear Islands
+	["The {npc:15350} pays 150 reputation for 3 Darkspear Islands Marks of Honor the first time ({quest:98887}), then 100 for every 3 more. One stands here at the {area:391}, beside the portal; others at Mor'shan in the north of the {zone:1413}, in {zone:1454}, {zone:1456} and the {zone:1458}, at {area:321} and by the {zone:1459} gate. Forever's PvP gear also costs Marks of Honor along with honor: decide what you want before you hand them in. You can carry at most 30 {zone:2524} marks: hand in or spend them before you reach that."] = "",
 	["Darkspear Islands Marks of Honor: play games"] = "",
 
 	-- Step 5: Horde Warbringer
-	-- {npc:15350} Horde Warbringer · {quest:98889} Conflict at Darkspear Islands · {zone:1413} Barrens · {zone:1454} Orgrimmar · {zone:2524} Darkspear Islands
-	["The {npc:15350} pays 150 reputation for 3 Darkspear Islands Marks of Honor the first time in each bracket ({quest:98889}), then keeps taking 3 more. The nearest stand at Mor'shan in the north of the {zone:1413} and in {zone:1454}. Forever's PvP gear also costs Marks of Honor along with honor: decide what you want before you hand them in. You can carry at most 30 {zone:2524} marks."] = "",
+	-- {npc:15350} Horde Warbringer · {quest:98889} Conflict at Darkspear Islands · {area:391} Merchant Coast · {zone:1413} Barrens · {zone:1454} Orgrimmar · {zone:2524} Darkspear Islands
+	["The {npc:15350} pays 150 reputation for 3 Darkspear Islands Marks of Honor the first time in each bracket ({quest:98889}), then keeps taking 3 more. One stands here at the {area:391}, beside the portal; others at Mor'shan in the north of the {zone:1413} and in {zone:1454}. Forever's PvP gear also costs Marks of Honor along with honor: decide what you want before you hand them in. You can carry at most 30 {zone:2524} marks."] = "",
 
 	-- Step 6: Horde Warbringer
-	-- {npc:15350} Horde Warbringer · {quest:98891} Conflict at Darkspear Islands · {zone:1413} Barrens · {zone:1454} Orgrimmar · {zone:2524} Darkspear Islands
-	["The {npc:15350} pays 150 reputation for 3 Darkspear Islands Marks of Honor the first time in each bracket ({quest:98891}), then keeps taking 3 more. The nearest stand at Mor'shan in the north of the {zone:1413} and in {zone:1454}. Forever's PvP gear also costs Marks of Honor along with honor: decide what you want before you hand them in. You can carry at most 30 {zone:2524} marks."] = "",
+	-- {npc:15350} Horde Warbringer · {quest:98891} Conflict at Darkspear Islands · {area:391} Merchant Coast · {zone:1413} Barrens · {zone:1454} Orgrimmar · {zone:2524} Darkspear Islands
+	["The {npc:15350} pays 150 reputation for 3 Darkspear Islands Marks of Honor the first time in each bracket ({quest:98891}), then keeps taking 3 more. One stands here at the {area:391}, beside the portal; others at Mor'shan in the north of the {zone:1413} and in {zone:1454}. Forever's PvP gear also costs Marks of Honor along with honor: decide what you want before you hand them in. You can carry at most 30 {zone:2524} marks."] = "",
 
 	-- Step 7: Horde Warbringer
-	-- {npc:15350} Horde Warbringer · {quest:98893} Conflict at Darkspear Islands · {zone:1413} Barrens · {zone:1454} Orgrimmar · {zone:2524} Darkspear Islands
-	["The {npc:15350} pays 150 reputation for 3 Darkspear Islands Marks of Honor the first time in each bracket ({quest:98893}), then keeps taking 3 more. The nearest stand at Mor'shan in the north of the {zone:1413} and in {zone:1454}. Forever's PvP gear also costs Marks of Honor along with honor: decide what you want before you hand them in. You can carry at most 30 {zone:2524} marks."] = "",
+	-- {npc:15350} Horde Warbringer · {quest:98893} Conflict at Darkspear Islands · {area:391} Merchant Coast · {zone:1413} Barrens · {zone:1454} Orgrimmar · {zone:2524} Darkspear Islands
+	["The {npc:15350} pays 150 reputation for 3 Darkspear Islands Marks of Honor the first time in each bracket ({quest:98893}), then keeps taking 3 more. One stands here at the {area:391}, beside the portal; others at Mor'shan in the north of the {zone:1413} and in {zone:1454}. Forever's PvP gear also costs Marks of Honor along with honor: decide what you want before you hand them in. You can carry at most 30 {zone:2524} marks."] = "",
 
 	-- Step 8: Darkspear Raiders to Friendly
 	-- {faction:2798} Darkspear Raiders
@@ -78,20 +78,20 @@ return {
 	["The {zone:2524} lie off the coast of {zone:1445}: 15 against 15, from level 30. Hold the four capture points to gain points, faster the more you hold, and carry the flag from the middle to a base your team holds for more; the first team to 2000 points wins. The sea kills: cross on the bridges. Queue at any battlemaster or step through the portal here at {area:385}, south of {area:392}. {npc:275273} pays 200 reputation for your first win. Forever's Legacy Diplomat perk adds up to 10% to every number in this guide."] = "",
 
 	-- Step 16: Alliance Brigadier General
-	-- {npc:15351} Alliance Brigadier General · {quest:98895} Darkspear Islands Clash · {zone:1453} Stormwind · {zone:1455} Ironforge · {zone:1457} Darnassus · {area:3319} Silverwing Grove · {zone:1440} Ashenvale · {area:320} Refuge Pointe · {zone:1417} Arathi Highlands · {zone:1459} Alterac Valley · {zone:2524} Darkspear Islands
-	["The {npc:15351} pays 150 reputation for 3 Darkspear Islands Marks of Honor the first time ({quest:98895}), then 100 for every 3 more. He stands in {zone:1453}, {zone:1455} and {zone:1457}, at {area:3319} in southern {zone:1440}, at {area:320} in the {zone:1417} and at both gates of {zone:1459}. Forever's PvP gear also costs Marks of Honor along with honor: decide what you want before you hand them in. You can carry at most 30 {zone:2524} marks: hand in or spend them before you reach that."] = "",
+	-- {npc:15351} Alliance Brigadier General · {quest:98895} Darkspear Islands Clash · {area:385} Northwatch Hold · {zone:1453} Stormwind · {zone:1455} Ironforge · {zone:1457} Darnassus · {area:3319} Silverwing Grove · {zone:1440} Ashenvale · {area:320} Refuge Pointe · {zone:1417} Arathi Highlands · {zone:1459} Alterac Valley · {zone:2524} Darkspear Islands
+	["The {npc:15351} pays 150 reputation for 3 Darkspear Islands Marks of Honor the first time ({quest:98895}), then 100 for every 3 more. One stands here at {area:385}, beside the portal; others in {zone:1453}, {zone:1455} and {zone:1457}, at {area:3319} in southern {zone:1440}, at {area:320} in the {zone:1417} and at both gates of {zone:1459}. Forever's PvP gear also costs Marks of Honor along with honor: decide what you want before you hand them in. You can carry at most 30 {zone:2524} marks: hand in or spend them before you reach that."] = "",
 
 	-- Step 17: Alliance Brigadier General
-	-- {npc:15351} Alliance Brigadier General · {quest:98897} Darkspear Islands Clash · {zone:1453} Stormwind · {zone:1455} Ironforge · {zone:1457} Darnassus · {area:3319} Silverwing Grove · {zone:1440} Ashenvale · {area:320} Refuge Pointe · {zone:2524} Darkspear Islands
-	["The {npc:15351} pays 150 reputation for 3 Darkspear Islands Marks of Honor the first time in each bracket ({quest:98897}), then keeps taking 3 more. He stands in {zone:1453}, {zone:1455} and {zone:1457}, at {area:3319} in southern {zone:1440} and at {area:320}. Forever's PvP gear also costs Marks of Honor along with honor: decide what you want before you hand them in. You can carry at most 30 {zone:2524} marks."] = "",
+	-- {npc:15351} Alliance Brigadier General · {quest:98897} Darkspear Islands Clash · {area:385} Northwatch Hold · {zone:1453} Stormwind · {zone:1455} Ironforge · {zone:1457} Darnassus · {area:3319} Silverwing Grove · {zone:1440} Ashenvale · {area:320} Refuge Pointe · {zone:2524} Darkspear Islands
+	["The {npc:15351} pays 150 reputation for 3 Darkspear Islands Marks of Honor the first time in each bracket ({quest:98897}), then keeps taking 3 more. One stands here at {area:385}, beside the portal; others in {zone:1453}, {zone:1455} and {zone:1457}, at {area:3319} in southern {zone:1440} and at {area:320}. Forever's PvP gear also costs Marks of Honor along with honor: decide what you want before you hand them in. You can carry at most 30 {zone:2524} marks."] = "",
 
 	-- Step 18: Alliance Brigadier General
-	-- {npc:15351} Alliance Brigadier General · {quest:98899} Darkspear Islands Clash · {zone:1453} Stormwind · {zone:1455} Ironforge · {zone:1457} Darnassus · {area:3319} Silverwing Grove · {zone:1440} Ashenvale · {area:320} Refuge Pointe · {zone:2524} Darkspear Islands
-	["The {npc:15351} pays 150 reputation for 3 Darkspear Islands Marks of Honor the first time in each bracket ({quest:98899}), then keeps taking 3 more. He stands in {zone:1453}, {zone:1455} and {zone:1457}, at {area:3319} in southern {zone:1440} and at {area:320}. Forever's PvP gear also costs Marks of Honor along with honor: decide what you want before you hand them in. You can carry at most 30 {zone:2524} marks."] = "",
+	-- {npc:15351} Alliance Brigadier General · {quest:98899} Darkspear Islands Clash · {area:385} Northwatch Hold · {zone:1453} Stormwind · {zone:1455} Ironforge · {zone:1457} Darnassus · {area:3319} Silverwing Grove · {zone:1440} Ashenvale · {area:320} Refuge Pointe · {zone:2524} Darkspear Islands
+	["The {npc:15351} pays 150 reputation for 3 Darkspear Islands Marks of Honor the first time in each bracket ({quest:98899}), then keeps taking 3 more. One stands here at {area:385}, beside the portal; others in {zone:1453}, {zone:1455} and {zone:1457}, at {area:3319} in southern {zone:1440} and at {area:320}. Forever's PvP gear also costs Marks of Honor along with honor: decide what you want before you hand them in. You can carry at most 30 {zone:2524} marks."] = "",
 
 	-- Step 19: Alliance Brigadier General
-	-- {npc:15351} Alliance Brigadier General · {quest:98901} Darkspear Islands Clash · {zone:1453} Stormwind · {zone:1455} Ironforge · {zone:1457} Darnassus · {area:3319} Silverwing Grove · {zone:1440} Ashenvale · {area:320} Refuge Pointe · {zone:2524} Darkspear Islands
-	["The {npc:15351} pays 150 reputation for 3 Darkspear Islands Marks of Honor the first time in each bracket ({quest:98901}), then keeps taking 3 more. He stands in {zone:1453}, {zone:1455} and {zone:1457}, at {area:3319} in southern {zone:1440} and at {area:320}. Forever's PvP gear also costs Marks of Honor along with honor: decide what you want before you hand them in. You can carry at most 30 {zone:2524} marks."] = "",
+	-- {npc:15351} Alliance Brigadier General · {quest:98901} Darkspear Islands Clash · {area:385} Northwatch Hold · {zone:1453} Stormwind · {zone:1455} Ironforge · {zone:1457} Darnassus · {area:3319} Silverwing Grove · {zone:1440} Ashenvale · {area:320} Refuge Pointe · {zone:2524} Darkspear Islands
+	["The {npc:15351} pays 150 reputation for 3 Darkspear Islands Marks of Honor the first time in each bracket ({quest:98901}), then keeps taking 3 more. One stands here at {area:385}, beside the portal; others in {zone:1453}, {zone:1455} and {zone:1457}, at {area:3319} in southern {zone:1440} and at {area:320}. Forever's PvP gear also costs Marks of Honor along with honor: decide what you want before you hand them in. You can carry at most 30 {zone:2524} marks."] = "",
 
 	-- Step 20: Theramore Expeditionary Force to Friendly
 	-- {faction:2799} Theramore Expeditionary Force
@@ -122,8 +122,8 @@ return {
 	-- Step 23: Theramore Expeditionary Force to Exalted
 	-- {faction:2799} Theramore Expeditionary Force
 	["{faction:2799} to Exalted"] = "",
-	-- {item:271924} Rebels' Rugged Reaper · {item:271928} Clever Expeditionary's Spellblade · {item:271932} Insurgent's Manifesto
-	["Revered to Exalted is 21000 reputation, half the climb. Revered opens the weapons for levels 28, 38, 48 and 58: {item:271924} (two-handed axe), {item:271928} (dagger), Guerrilla's Jagged Mace and {item:271932} (off-hand), 1g44s to 37g15s."] = "",
+	-- {item:271924} Rebels' Rugged Reaper · {item:271928} Clever Expeditionary's Spellblade · {item:271936} Guerrilla's Jagged Mace · {item:271932} Insurgent's Manifesto
+	["Revered to Exalted is 21000 reputation, half the climb. Revered opens the weapons for levels 28, 38, 48 and 58: {item:271924} (two-handed axe), {item:271928} (dagger), {item:271936} and {item:271932} (off-hand), 1g44s to 37g15s."] = "",
 	-- {npc:263569} Bryanna Embreeze
 	["{npc:263569}: Revered rewards"] = "",
 

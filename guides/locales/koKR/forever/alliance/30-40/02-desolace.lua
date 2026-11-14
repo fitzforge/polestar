@@ -47,7 +47,7 @@ return {
 	-- {npc:5643} Tyranis Malem
 	["{npc:5643} and the Seer"] = "{npc:5643}와(과) 현자",
 	-- {npc:5643} Tyranis Malem · {npc:13019} Burning Blade Seer · {npc:5642} Vahlarriel Demonslayer
-	["Her brother {npc:5643} (36) walks the fortress with the Burning Blade cultists (30-33): pull him alone. The {npc:13019} keeps the sceptre in the fortress's main building. {npc:5642} wants four of each kind of cultist on the way."] = "",
+	["Her brother {npc:5643} (36) walks the fortress with the Burning Blade cultists (30-33): pull him alone. The {npc:13019} keeps the sceptre in the fortress's main building. {npc:5642} wants four of each kind of cultist on the way."] = "그녀의 오빠 {npc:5643}(36)는 불타는 칼날단 사교도(30-33)와 함께 요새를 돌아다닙니다. 그만 따로 끌어오세요. {npc:13019}은(는) 요새 본관에 홀을 가지고 있습니다. {npc:5642}은(는) 가는 길에 사교도를 종류별로 넷씩 원합니다.",
 	-- {item:6767} Tyranis' Pendant
 	["{item:6767}; inside"] = "",
 	-- {quest:5741} Sceptre of Light
@@ -98,7 +98,6 @@ return {
 	-- ["From {area:415} head south-west to the {area:1276}, a tunnel through the mountains into Stonetalon."] = "{area:415}에서 남서쪽 {area:1276}(으)로 가십시오. 산을 뚫고 돌발톱 산맥으로 이어지는 터널입니다.",
 	-- ["From {area:415} ride north-west into the hills: the {quest:1738} is a glowing tree north of the road to {area:413}. If you took {quest:65602}, the {item:190309} lies in a house among the trees north of {area:413} (26.6,22.0). Then back past {area:415} to the {area:1276}."] = "{area:415}에서 북서쪽 언덕으로 가십시오. {quest:1738}은(는) {area:413}(으)로 가는 길 북쪽의 빛나는 나무입니다. {quest:65602}을(를) 수락했다면 {item:190309}은(는) {area:413} 북쪽 나무 사이의 집 안에 있습니다(26.6,22.0). 그다음 {area:415}을(를) 지나 {area:1276}(으)로 돌아가십시오.",
 	-- ["From {zone:1455}'s {npc:1573}"] = "{zone:1455}의 {npc:1573}에게서",
-	-- ["Her brother {npc:5643} (36) walks the fortress with the Burning Blade cultists (30-33): pull him alone. The {npc:13019} keeps the sceptre in the fortress's main building."] = "그녀의 오빠 {npc:5643}(36)는 불타는 칼날단 사교도(30-33)와 함께 요새를 돌아다닙니다. 그만 따로 끌어오세요. {npc:13019}은(는) 요새 본관에 홀을 가지고 있습니다.",
 	-- ["Scorpashi venom"] = "스콜파시 독",
 	-- ["Take the boat to {area:442} from Menethil's docks."] = "메네실 항구의 부두에서 {area:442}행 배를 타십시오.",
 	-- ["Take the boat to {area:442} from Menethil's docks. {npc:3649} stands in {area:442}, north of the flight master."] = "메네실 항구의 부두에서 {area:442}행 배를 타십시오. {npc:3649}은(는) {area:442}의 비행 조련사 북쪽에 있습니다.",

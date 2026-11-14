@@ -81,63 +81,57 @@ return {
 	-- {zone:1447} Azshara · {npc:8392} Pilot Xiggs Fuselighter · {item:10444} Standard Issue Flare Gun
 	["Swim to the small island off the southern tip of {zone:1447}. If {npc:8392} isn't there, fire your {item:10444} to signal him, and wait for him to land."] = "Schwimm zur kleinen Insel vor der Südspitze von {zone:1447}. Ist {npc:8392} nicht da, feuere deine {item:10444} ab, um ihm ein Signal zu geben, und warte, bis er landet.",
 
-	-- Step 24: To Stoutlager Inn
-	-- {area:2101} Stoutlager Inn
-	["To {area:2101}"] = "Zum {area:2101}",
+	-- Step 24: To Ironforge
+	-- {zone:1455} Ironforge
+	["To {zone:1455}"] = "Zum {zone:1455}",
+	-- {zone:1455} Ironforge · {zone:1425} Hinterlands
+	["Your Hearthstone is set at {zone:1455} (the {zone:1425} guide binds it there): hearth back to the inn."] = "Dein Ruhestein ist auf {zone:1455} gesetzt (der Guide für {zone:1425} bindet ihn dort): Kehr mit ihm zum Gasthaus zurück.",
+	-- {zone:1455} Ironforge
+	["{zone:1455} inn"] = "Gasthaus von {zone:1455}",
 
-	-- Step 25: Fly to Ironforge
-	-- {area:1537} Ironforge
-	["Fly to {area:1537}"] = "Flieg nach {area:1537}",
-	-- {area:144} Thelsamar
-	["{area:144} flight master"] = "Flugmeister in {area:144}",
-
-	-- Step 27: Royal Historian Archesonus
+	-- Step 26: Royal Historian Archesonus
 	-- {object:171709} High Seat
 	["Archesonus stands beside King Magni in the {object:171709}."] = "Archesonus steht neben König Magni im {object:171709}.",
 	-- {zone:1428} Burning Steppes
 	["The relics are in the {zone:1428}: keep it"] = "Die Relikte sind in der {zone:1428}: Behalte es",
 
-	-- Step 28: Fly to Aerie Peak
+	-- Step 27: Fly to Aerie Peak
 	-- {area:348} Aerie Peak
 	["Fly to {area:348}"] = "Flieg nach {area:348}",
 	-- {zone:1455} Ironforge
 	["{zone:1455} flight master"] = "Flugmeister von {zone:1455}",
 
-	-- Step 29: Wildkin feathers
-	["Wildkin feathers"] = "Wildekinfedern",
-	-- {zone:1425} Hinterlands · {area:348} Aerie Peak
-	-- plural, as words: Wildkin Feathers = {item:10819} Wildkin Feather
-	["The Wildkin Feathers lie on the ground across the {zone:1425}, south and east of {area:348}, where the owlbeasts roam; the mobs here are well below you now."] = "Die Wildkin Feathers liegen im {zone:1425} auf dem Boden, südlich und östlich von {area:348}, wo die Eulenbestien umherziehen; die Mobs hier sind jetzt weit unter deiner Stufe.",
+	-- Step 28: Fly to Southshore
+	-- {area:271} Southshore
+	["Fly to {area:271}"] = "Flieg nach {area:271}",
 
-	-- Step 30: The Super Snapper FX
+	-- Step 29: The Super Snapper FX
 	-- {npc:7977} Gammerita · {zone:1425} Hinterlands · {area:307} Overlook Cliffs
 	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:7977} (level 48 elite) needs a group of 2. Skip it if you are alone: the route has you grind the XP back.\n{npc:7977} walks the {zone:1425} shore below the {area:307}, from the arrow south to about 75,66 and north to about 82,52: if she isn't at the arrow, follow the shore."] = "Das sind Elitegegner: Gruppenspiel wird empfohlen, such dir Leute dafür. {npc:7977} (Stufe 48, Elite) braucht eine Gruppe von 2. Überspring es, wenn du allein bist: Die Route lässt dich die EP wieder ergrinden.\n{npc:7977} wandert am Ufer des {zone:1425} unterhalb der {area:307} entlang, vom Pfeil nach Süden bis etwa 75,66 und nach Norden bis etwa 82,52: Ist sie nicht beim Pfeil, folge dem Ufer.",
 
-	-- Step 32: Fly to Southshore
-	-- {area:271} Southshore
-	["Fly to {area:271}"] = "Flieg nach {area:271}",
+	-- Step 30: Fly to Southshore
 	-- {area:348} Aerie Peak
 	["{area:348} flight master"] = "Flugmeister von {area:348}",
 
-	-- Step 33: Western Plaguelands
+	-- Step 31: Western Plaguelands
 	-- {area:271} Southshore · {area:3197} Chillwind Camp
 	["Ride north from {area:271} up the road through Alterac to {area:3197}."] = "Reite von {area:271} nach Norden die Straße durch Alterac entlang bis {area:3197}.",
 
-	-- Step 34: Chillwind Camp
+	-- Step 32: Chillwind Camp
 	-- {npc:10838} Commander Ashlam Valorfist
 	["{npc:10838} stands in the middle of the camp."] = "{npc:10838} steht mitten im Lager.",
 
-	-- Step 35: Sorrow Hill: kill these as you meet them
+	-- Step 33: Sorrow Hill: kill these as you meet them
 	-- {area:197} Sorrow Hill
 	["{area:197}: kill these as you meet them"] = "{area:197}: Töte sie, wenn du ihnen begegnest",
 	-- {npc:10411} Eye of Naxxramas
 	-- plural, as words: Skeletal Flayers = {npc:1783} Skeletal Flayer · Slavering Ghouls = {npc:1791} Slavering Ghoul · Rockwing Gargoyles = {npc:10408} Rockwing Gargoyle
 	["Skeletal Flayers and Slavering Ghouls roam the fields north of the camp; all the Scourge here drop Scourgestones.\nCareful: These undead notice you from far away, and other undead nearby join the fight when one is pulled.\nCareful: The {npc:10411} (3 spawns, 15 min respawn) turns invisible when out of combat and calls in Rockwing Gargoyles once a fight starts."] = "Skeletal Flayers und Slavering Ghouls streifen über die Felder nördlich des Lagers; alle Geißel-Mobs hier lassen Geißelsteine (Scourgestones) fallen.\nVorsicht: Diese Untoten bemerken dich schon von weitem, und weitere Untote in der Nähe schließen sich dem Kampf an, wenn einer gepullt wird.\nVorsicht: Das {npc:10411} (3 Spawns, 15 Min. Respawn) wird unsichtbar, wenn es nicht im Kampf ist, und ruft Rockwing Gargoyles, sobald ein Kampf beginnt.",
 
-	-- Step 36: Chillwind Camp
+	-- Step 34: Chillwind Camp
 	["Ride back south to the camp."] = "Reite zurück nach Süden zum Lager.",
 
-	-- Step 37: Janice Felstone
+	-- Step 35: Janice Felstone
 	-- {npc:10778} Janice Felstone · {area:199} Felstone Field · {area:200} Dalson's Tears
 	["{npc:10778}'s ghost wanders by the farmhouse of {area:199}, west of {area:200}; her parcel lies inside."] = "{npc:10778}s Geist wandert beim Bauernhaus im {area:199} umher, westlich von {area:200}; ihr Paket liegt drinnen.",
 	["Upstairs"] = "Oben",
@@ -146,24 +140,36 @@ return {
 	-- {zone:1453} Stormwind
 	["For {zone:1453}: keep it"] = "Für {zone:1453}: Behalte es",
 
-	-- Step 38: Felstone Field cauldron
+	-- Step 36: Felstone Field cauldron
 	-- {area:199} Felstone Field
 	["{area:199} cauldron"] = "Kessel im {area:199}",
 	-- {npc:11075} Cauldron Lord Bilemaw · {area:199} Felstone Field
 	["{npc:11075} guards the cauldron in {area:199}, west of Andorhal."] = "{npc:11075} bewacht den Kessel im {area:199}, westlich von Andorhal.",
 
-	-- Step 40: Fly to Morgan's Vigil
+	-- Step 38: Fly to Morgan's Vigil
 	-- {area:2418} Morgan's Vigil
 	["Fly to {area:2418}"] = "Flieg nach {area:2418}",
 	-- {area:3197} Chillwind Camp
 	["{area:3197} flight master"] = "Flugmeister in {area:3197}",
+
+	-- Step 39: Fly to Lakeshire
+	-- {area:69} Lakeshire
+	["Fly to {area:69}"] = "Flieg nach {area:69}",
+
+	-- Step 40: Morgan's Vigil flight master
+	-- {area:2418} Morgan's Vigil
+	["{area:2418} flight master"] = "Flugmeister von {area:2418}",
+	-- {area:69} Lakeshire · {zone:1428} Burning Steppes · {area:2418} Morgan's Vigil
+	["Ride east out of {area:69} and up the pass into the {zone:1428}: {area:2418} stands at the top."] = "Reite nach Osten aus {area:69} hinaus und den Pass hinauf in die {zone:1428}: {area:2418} liegt oben.",
 
 	-- Step 41: Morgan's Vigil
 	-- {area:2418} Morgan's Vigil
 	["{area:2418} sits in the south-east of the Steppes, at the top of the pass up from Redridge."] = "{area:2418} liegt im Südosten der Steppe, oben am Pass von Rotkammgebirge herauf.",
 
 	-- Step 42: Dreadmaul Rock
-	["The Firegut ogres hold the great rock north of the Vigil, with the Brutes on its east side."] = "Die Oger der Feuermägen halten den großen Felsen nördlich der Wacht, mit den Schlägern auf seiner Ostseite.",
+	-- {area:249} Dreadmaul Rock
+	-- plural, as words: Escaped Core Hounds = {npc:227746} Escaped Core Hound
+	["The Firegut ogres hold the great rock north of the Vigil, with the Brutes on its east side.\nCareful: Escaped Core Hounds (level 60) roam the Steppes, a few on the slopes west and south of {area:249}: pull the ogres on the rock itself and look around before each pull."] = "Die Oger der Feuermägen halten den großen Felsen nördlich der Wacht, mit den Schlägern auf seiner Ostseite.\nVorsicht: Entkommene Kernhunde (Stufe 60) streifen durch die Steppe, ein paar an den Hängen westlich und südlich von {area:249}: Zieh die Oger auf dem Felsen selbst und sieh dich vor jedem Pull um.",
 	-- {npc:7034} Firegut Ogre Mage
 	["{npc:7034}, below ground"] = "{npc:7034}, unterirdisch",
 	-- {npc:7033} Firegut Ogre · {npc:9177} Oralius · {quest:4283} FIFTY! YEP!
@@ -175,8 +181,8 @@ return {
 
 	-- Step 44: Level 52
 	["Level 52"] = "Stufe 52",
-	-- {area:249} Dreadmaul Rock · {area:251} Flame Crest · {area:1417} Sunken Temple · {area:2100} Maraudon
-	["Top up here to level 52 on the ogres of {area:249}, on the way to {area:251}: the hand-ins there take you to level 53. Or, with a group, run the {area:1417} dungeon or the {area:2100} dungeon instead."] = "Grinde hier auf Stufe 52 an den Ogern von {area:249}, auf dem Weg nach {area:251}: Die Abgaben dort bringen dich auf Stufe 53. Oder lauf mit einer Gruppe stattdessen den Dungeon {area:1417} oder den Dungeon {area:2100}.",
+	-- {area:249} Dreadmaul Rock · {area:251} Flame Crest · {area:1417} Sunken Temple
+	["Top up here to level 52 on the ogres of {area:249}, on the way to {area:251}: the hand-ins there take you to level 53. Or, with a group, run the {area:1417} dungeon instead."] = "Grinde hier auf Stufe 52 an den Ogern von {area:249}, auf dem Weg nach {area:251}: Die Abgaben dort bringen dich auf Stufe 53. Oder lauf mit einer Gruppe stattdessen den Dungeon {area:1417}.",
 	-- {npc:7034} Firegut Ogre Mage
 	["grind on {npc:7034}"] = "Grinde an {npc:7034}",
 
@@ -187,8 +193,8 @@ return {
 	-- Step 46: Ruins of Thaurissan: kill these as you meet them
 	-- {area:250} Ruins of Thaurissan
 	["{area:250}: kill these as you meet them"] = "{area:250}: Töte sie, wenn du ihnen begegnest",
-	-- {area:250} Ruins of Thaurissan · {area:251} Flame Crest · {object:147516} Dark Iron · {item:12284} Draco-Incarcinatrix 900 · {npc:7047} Black Broodling
-	["The relics are the carved stones scattered through the {area:250} around {area:251}: click them until the information is recovered.\nRead the tablet in the {object:147516} camp among the ruins, south-west of {area:251}, to copy the transcript.\nUse the {item:12284} on a {npc:7047} on the slopes east of {area:251} just before it dies, then loot the essence it leaves."] = "Die Relikte sind die geschnitzten Steine, die über {area:250} um {area:251} verstreut liegen: Klicke sie an, bis die Informationen wiederhergestellt sind.\nLies die Tafel im Lager {object:147516} inmitten der Ruinen, südwestlich von {area:251}, um das Protokoll zu kopieren.\nBenutze {item:12284} an einem {npc:7047} an den Hängen östlich von {area:251}, kurz bevor er stirbt, und plündere dann die Essenz, die er hinterlässt.",
+	-- {area:250} Ruins of Thaurissan · {area:251} Flame Crest · {object:147516} Dark Iron · {item:12284} Draco-Incarcinatrix 900 · {npc:7047} Black Broodling · {npc:8981} Malfunctioning Reaver · {npc:7040} Black Dragonspawn
+	["The relics are the carved stones scattered through the {area:250} around {area:251}: click them until the information is recovered.\nRead the tablet in the {object:147516} camp among the ruins, south-west of {area:251}, to copy the transcript.\nUse the {item:12284} on a {npc:7047} on the slopes east of {area:251} just before it dies, then loot the essence it leaves.\nCareful: a {npc:8981} (level 56, rare) walks the slopes by the broodlings, and the {npc:7040} and Wyrmkin around them are elite: use the Incarcinatrix on a broodling at the edge and look around before each pull."] = "Die Relikte sind die geschnitzten Steine, die über {area:250} um {area:251} verstreut liegen: Klicke sie an, bis die Informationen wiederhergestellt sind.\nLies die Tafel im Lager {object:147516} inmitten der Ruinen, südwestlich von {area:251}, um das Protokoll zu kopieren.\nBenutze {item:12284} an einem {npc:7047} an den Hängen östlich von {area:251}, kurz bevor er stirbt, und plündere dann die Essenz, die er hinterlässt.\nVorsicht: An den Hängen bei den Brutlingen läuft {npc:8981} (Stufe 56, Rare) umher, und {npc:7040} und die Wyrmkin um sie herum sind Elite: Benutze die Incarcinatrix an einem Brutling am Rand und sieh dich vor jedem Pull um.",
 
 	-- Step 47: Flame Crest
 	-- {quest:4808} Felnok Steelspring · {area:2255} Everlook · {zone:1452} Winterspring
@@ -207,14 +213,14 @@ return {
 
 	-- Step 52: Level 52.08
 	["Level 52.08"] = "Stufe 52,08",
-	-- {quest:4022} A Taste of Flame · {area:1417} Sunken Temple · {area:2100} Maraudon
-	["If you skipped {quest:4022}, grind here to level 52.08 to stay on the route's plan. Or, with a group, run the {area:1417} dungeon or the {area:2100} dungeon instead."] = "Wenn du {quest:4022} übersprungen hast, grinde hier bis Stufe 52,08, um im Plan der Route zu bleiben. Oder lauf mit einer Gruppe stattdessen den Dungeon {area:1417} oder den Dungeon {area:2100}.",
+	-- {quest:4022} A Taste of Flame · {area:1417} Sunken Temple
+	["If you skipped {quest:4022}, grind here to level 52.08 to stay on the route's plan. Or, with a group, run the {area:1417} dungeon instead."] = "Wenn du {quest:4022} übersprungen hast, grinde hier bis Stufe 52,08, um im Plan der Route zu bleiben. Oder lauf mit einer Gruppe stattdessen den Dungeon {area:1417}.",
 	-- {npc:9690} Ember Worg
 	["grind on {npc:9690}"] = "Grinde an {npc:9690}",
 
 	-- Step 53: Blackrock Stronghold
 	-- {npc:9176} Gor'tesh · {area:254} Blackrock Mountain · {area:251} Flame Crest
-	["{npc:9176} and the Blackrock orcs hold the camps and the stronghold at the foot of {area:254}, west of {area:251}. Pull them one at a time; every orc and worg may drop a medallion, so kill them until you have fifty.\nCareful: {npc:9176} has a guard linked to him that joins the fight, and a second soldier patrols close by; clear the patrol before pulling."] = "{npc:9176} und die Orcs des Schwarzfels halten die Lager und die Festung am Fuß von {area:254}, westlich von {area:251}. Zieh sie einzeln heran; jeder Orc und Worg kann ein Medaillon fallen lassen, also töte sie, bis du fünfzig hast.\nVorsicht: {npc:9176} hat eine Wache bei sich, die sich dem Kampf anschließt, und ein zweiter Soldat patrouilliert in der Nähe; räume die Patrouille, bevor du pullst.",
+	["{npc:9176} and the Blackrock orcs hold the camps and the stronghold at the foot of {area:254}, west of {area:251}. Pull them one at a time; every orc and worg may drop a medallion, so kill them until you have fifty.\nCareful: {npc:9176} has a guard linked to him that joins the fight, and a second soldier patrols close by; clear the patrol before pulling.\nCareful: Firesworn, level 60 fire elementals, wander the Steppes, some between the Blackrock camps: look before each pull and let them pass."] = "{npc:9176} und die Orcs des Schwarzfels halten die Lager und die Festung am Fuß von {area:254}, westlich von {area:251}. Zieh sie einzeln heran; jeder Orc und Worg kann ein Medaillon fallen lassen, also töte sie, bis du fünfzig hast.\nVorsicht: {npc:9176} hat eine Wache bei sich, die sich dem Kampf anschließt, und ein zweiter Soldat patrouilliert in der Nähe; räume die Patrouille, bevor du pullst.\nVorsicht: Feuergeschworene, Feuerelementare der Stufe 60, wandern durch die Steppe, manche zwischen den Lagern des Schwarzfels: Sieh dich vor jedem Pull um und lass sie vorbeiziehen.",
 	-- {item:11467} Blackrock Medallion
 	["{item:11467}; inside"] = "{item:11467}; drinnen",
 
@@ -228,8 +234,6 @@ return {
 	-- Step 57: Fly to Nethergarde Keep
 	-- {area:1438} Nethergarde Keep
 	["Fly to {area:1438}"] = "Flieg nach {area:1438}",
-	-- {area:2418} Morgan's Vigil
-	["{area:2418} flight master"] = "Flugmeister von {area:2418}",
 
 	-- Step 58: Ambassador Ardalan
 	-- {area:1438} Nethergarde Keep
@@ -243,11 +247,25 @@ return {
 	["Listen to his tale, then ride back south to Kum'isha."] = "Hör dir seine Geschichte an und reite dann zurück nach Süden zu Kum'isha.",
 
 	-- Step 62: Kum'isha the Collector
-	-- {area:2517} Rise of the Defiler · {zone:1419} Blasted Lands · {npc:7664} Razelikh the Defiler · {spell:2691} Mana Burn · {spell:8255} Strong Cleave · {object:141891} Razelikh's Tear (no name in this language: may be words) · {spell:10854} Flames of Chaos
+	-- {area:2517} Rise of the Defiler · {zone:1419} Blasted Lands · {npc:7664} Razelikh the Defiler · {spell:2691} Mana Burn · {spell:8255} Strong Cleave · {object:141891} Razelikh's Tear (no name in this language: may be words) · {spell:10854} Flames of Chaos · {npc:247015} Vek'zol
 	-- plural, as words: Imperfect Draenethyst Fragments = {item:10593} Imperfect Draenethyst Fragment
-	["Kum'isha waits at the {area:2517}, the hill south-west of the keep. The {zone:1419} mobs on the way drop the Imperfect Draenethyst Fragments; bring her what you have.\nCareful: Felcular, {npc:7664} and Ilifar are all level 60 elites. Razelikh casts {spell:2691}, {spell:8255} and Decimate, and as its health drops it adds {object:141891}, {spell:10854} and then Enrage at 15%."] = "",
+	["Kum'isha waits at the {area:2517}, the hill south-west of the keep. The {zone:1419} mobs on the way drop the Imperfect Draenethyst Fragments; bring her what you have.\nCareful: Felcular, {npc:7664} and Ilifar are all level 60 elites. Razelikh casts {spell:2691}, {spell:8255} and Decimate, and as its health drops it adds {object:141891}, {spell:10854} and then Enrage at 15%.\nCareful: {npc:247015}, a level 55 elite, stands by Kum'isha's hill (about 50,35) and to the west (about 39,32): take the fragments from the mobs on the way from the keep, not beside him."] = "Kum'isha wartet am {area:2517}, dem Hügel südwestlich der Festung. Die Mobs in {zone:1419} auf dem Weg lassen die Imperfect Draenethyst Fragments fallen; bring ihr, was du hast.\nVorsicht: Felcular, {npc:7664} und Ilifar sind alle Elites der Stufe 60. Razelikh wirkt {spell:2691}, {spell:8255} und Decimate, und wenn seine Gesundheit sinkt, kommen {object:141891}, {spell:10854} und bei 15 % Wutanfall hinzu.\nVorsicht: {npc:247015}, ein Elite der Stufe 55, steht bei Kum'ishas Hügel (etwa 50,35) und im Westen (etwa 39,32): Hol dir die Fragmente von den Mobs auf dem Weg von der Festung, nicht neben ihm.",
 	-- {npc:7363} Kum'isha the Collector
 	["{npc:7363} walks around here: look inside the circle on the map"] = "{npc:7363} läuft hier umher: Schau in den Kreis auf der Karte",
+
+	-- Step 63: To Ironforge
+	-- {zone:1455} Ironforge
+	["Hearth back to {zone:1455}'s inn."] = "Ruhestein zurück zum Gasthaus von {zone:1455}.",
+
+	-- Step 64: Fly to Thelsamar
+	-- {area:144} Thelsamar
+	["Fly to {area:144}"] = "Flieg nach {area:144}",
+
+	-- Step 67: Fly to Ironforge
+	-- {area:1537} Ironforge
+	["Fly to {area:1537}"] = "Flieg nach {area:1537}",
+	-- {area:144} Thelsamar
+	["{area:144} flight master"] = "Flugmeister in {area:144}",
 
 	-- Step 70: Royal Historian Archesonus
 	-- {object:171709} High Seat
@@ -267,7 +285,7 @@ return {
 	-- {zone:1452} Winterspring
 	["The wildkin are in {zone:1452}: keep it"] = "Die Wildekin sind in {zone:1452}: Behalte es",
 
-	-- Step 76: Darnassus
+	-- Step 77: Darnassus
 	-- {area:702} Rut'theran Village · {zone:1457} Darnassus · {npc:9047} Jenal · {area:1658} Cenarion Enclave
 	["The portal in {area:702} leads up to {zone:1457}: {npc:9047} waits in the {area:1658}, in the north of the city."] = "Das Portal in {area:702} führt hinauf nach {zone:1457}: {npc:9047} wartet im {area:1658}, im Norden der Stadt.",
 	-- {npc:9047} Jenal · {area:1658} Cenarion Enclave
@@ -275,11 +293,11 @@ return {
 	-- {zone:1455} Ironforge
 	["{zone:1455} has no druid trainer"] = "{zone:1455} hat keinen Druidenlehrer",
 
-	-- Step 77: Portal to Teldrassil
+	-- Step 78: Portal to Teldrassil
 	-- {zone:1438} Teldrassil
 	["Portal to {zone:1438}"] = "Portal nach {zone:1438}",
 
-	-- Step 78: Daryn Lightwind
+	-- Step 79: Daryn Lightwind
 	-- {npc:7907} Daryn Lightwind · {npc:7916} Erelas Ambersky
 	["{npc:7907} stands upstairs, above {npc:7916}: go up inside, the arrow cannot tell the floors apart."] = "{npc:7907} steht oben, über {npc:7916}: Geh drinnen nach oben, der Pfeil kann die Stockwerke nicht unterscheiden.",
 
@@ -292,7 +310,6 @@ return {
 	-- ["Fly to {area:1438}."] = "Flieg nach {area:1438}.",
 	-- ["Fly to {area:150} and take the boat to {area:442}, then the boat on to {area:702}."] = "Flieg nach {area:150} und nimm das Boot nach {area:442}, dann das Boot weiter nach {area:702}.",
 	-- ["From the {area:442} dock, fly to {area:415}."] = "Flieg vom Steg in {area:442} nach {area:415}.",
-	-- ["Kum'isha waits at the {area:2517}, the hill south-west of the keep. The {zone:1419} mobs on the way drop the Imperfect Draenethyst Fragments; bring her what you have.\nCareful: Felcular, {npc:7664} and Ilifar are all level 60 elites. Razelikh casts Mana Burn, Strong Cleave and Decimate, and as its health drops it adds {object:141891}, Flames of Chaos and then Enrage at 15%."] = "Kum'isha wartet am {area:2517}, dem Hügel südwestlich der Festung. Die Mobs in {zone:1419} auf dem Weg lassen die Imperfect Draenethyst Fragments fallen; bring ihr, was du hast.\nVorsicht: Felcular, {npc:7664} und Ilifar sind alle Elites der Stufe 60. Razelikh wirkt Manabrand, Starkes Spalten und Decimate, und wenn seine Gesundheit sinkt, kommen {object:141891}, Flammen des Chaos und bei 15 % Wutanfall hinzu.",
 	-- ["Optional: {npc:8395} wants two Undamaged Hippogryph Feathers from the hippogryphs around his camp. The data lists no experience for it."] = "Optional: {npc:8395} will zwei Unbeschädigte Hippogryphenfedern von den Hippogryphen um sein Lager. Die Daten nennen dafür keine Erfahrung.",
 	-- ["Optional: {npc:8888}'s ghost stands on his tomb on the great chain inside {area:254}, and only the dead can see him. If you die near the mountain anyway, run your spirit to him before resurrecting."] = "Optional: {npc:8888}s Geist steht auf seinem Grab an der großen Kette im {area:254}, und nur Tote können ihn sehen. Stirbst du ohnehin nahe dem Berg, lauf als Geist zu ihm, bevor du wiederbelebt wirst.",
 	-- ["Priests and Mages trained here at the end of the Un'Goro guide"] = "Priester und Magier haben hier schon am Ende des Un'Goro-Guides trainiert",
@@ -304,10 +321,12 @@ return {
 	-- ["Swim to the small island off the southern tip of {area:16}: {npc:8392} waits by the monument."] = "Schwimm zur kleinen Insel vor der Südspitze von {area:16}: {npc:8392} wartet beim Denkmal.",
 	-- ["Swim to the small island off the southern tip of {zone:1447}: {npc:8392} waits by the monument."] = "Schwimm zur kleinen Insel vor der Südspitze von {zone:1447}: {npc:8392} wartet beim Denkmal.",
 	-- ["Thaurissan Relics"] = "Thauris-Relikte",
+	-- ["The Wildkin Feathers lie on the ground across the {zone:1425}, south and east of {area:348}, where the owlbeasts roam; the mobs here are well below you now."] = "Die Wildkin Feathers liegen im {zone:1425} auf dem Boden, südlich und östlich von {area:348}, wo die Eulenbestien umherziehen; die Mobs hier sind jetzt weit unter deiner Stufe.",
 	-- ["The relics are the carved stones scattered through the {area:250} around {area:251}: click them until the information is recovered."] = "Die Relikte sind die behauenen Steine, verstreut in den {area:250} um den {area:251}: Klick sie an, bis die Informationen geborgen sind.",
 	-- ["The shrine lies in the south-west corner of {area:16}, south of {area:3137}."] = "Der Schrein liegt in der Südwestecke von {area:16}, südlich von {area:3137}.",
 	-- ["The {quest:4296}"] = "{quest:4296}",
 	-- ["Use the {item:12284} on a {npc:7047} on the slopes east of {area:251} just before it dies, then loot the essence it leaves."] = "Benutze die {item:12284} an einem {npc:7047} an den Hängen östlich des {area:251} kurz vor seinem Tod und plündere dann die Essenz, die er hinterlässt.",
+	-- ["Wildkin feathers"] = "Wildekinfedern",
 	-- ["{npc:5111}: the last guide binds here, so this usually ticks at once"] = "{npc:5111}: Der letzte Guide bindet dich hier, daher ist das meist sofort abgehakt",
 	-- ["{npc:7363} waits at the {area:2517}, the hill south-west of the keep. The {zone:1419} mobs on the way drop the Imperfect Draenethyst Fragments; bring her what you have."] = "{npc:7363} wartet beim {area:2517}, dem Hügel südwestlich der Burg. Die Gegner der {zone:1419} unterwegs lassen die Unvollständigen Draenethystfragmente fallen; bring ihr, was du hast.",
 	-- ["{npc:9176} and the Blackrock orcs hold the camps and the stronghold at the foot of {area:254}, west of {area:251}. Pull them one at a time; every orc and worg may drop a medallion, so kill them until you have fifty."] = "{npc:9176} und die Orcs der Blackrock halten die Lager und die Festung am Fuß des {area:254}, westlich des {area:251}. Zieh sie einzeln; jeder Orc und Worg kann ein Medaillon fallen lassen, töte sie also, bis du fünfzig hast.",

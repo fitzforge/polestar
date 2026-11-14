@@ -104,6 +104,8 @@ return {
 	["{npc:6786} stands on the road at the valley's eastern exit."] = "{npc:6786} fica na estrada, na saída leste do vale.",
 
 	-- Step 19: Sen'jin Village
+	-- {area:362} Razor Hill
+	["Careful: Ukorsbane (8) is elite and walks among the Ridgeshade spiders in the camp south of {area:362}: pull the spiders away from him."] = "Cuidado: Ukorsbane (8) é elite e anda entre as aranhas Sombracume no acampamento ao sul de {area:362}: puxe as aranhas para longe dele.",
 	-- {npc:266881} Pa'zula
 	-- plural, as words: Hexed Pendants = {item:275724} Hexed Pendant
 	["{npc:266881}: enchanters only, the residue is disenchanted from Hexed Pendants"] = "{npc:266881}: só encantadores, o resíduo vem do desencantamento de Pingentes Bagateados",
@@ -117,14 +119,20 @@ return {
 	["{npc:265809} camps just south of {area:362}. Sit by his campfire (/sit) until the {spell:1229451} buff appears. With a profession learned, {npc:265809} also offers its Camping 101, which its trainer takes: in {area:362} or in {zone:1454} at the start of the next guide."] = "{npc:265809} acampa logo ao sul de {area:362}. Sente na fogueira dele (/sit) até aparecer o bônus {spell:1229451}. Com uma profissão aprendida, {npc:265809} também oferece a Introdução ao acampamento dessa profissão, que é entregue ao instrutor dela: em {area:362} ou em {zone:1454}, no início do próximo guia.",
 
 	-- Step 21: Camping 101: Mining
+	-- {npc:3175} Krunn · {skill:186} Mining
+	["{npc:3175} takes it once your {skill:186} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "{npc:3175} a recebe quando sua perícia em {skill:186} chegar a 20: colete ou fabrique até lá; enquanto isso, o guia segue em frente.",
 	-- {npc:265809} Brakk · {npc:3175} Krunn
 	["{npc:265809}: for {npc:3175}"] = "{npc:265809}: para {npc:3175}",
 
 	-- Step 22: Camping 101: Engineering
+	-- {npc:11025} Mukdrak · {skill:202} Engineering
+	["{npc:11025} takes it once your {skill:202} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "{npc:11025} a recebe quando sua perícia em {skill:202} chegar a 20: colete ou fabrique até lá; enquanto isso, o guia segue em frente.",
 	-- {npc:265809} Brakk · {npc:11025} Mukdrak
 	["{npc:265809}: for {npc:11025}"] = "{npc:265809}: para {npc:11025}",
 
 	-- Step 23: Camping 101: First Aid
+	-- {npc:5943} Rawrk · {skill:129} First Aid
+	["{npc:5943} takes it once your {skill:129} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "{npc:5943} a recebe quando sua perícia em {skill:129} chegar a 20: colete ou fabrique até lá; enquanto isso, o guia segue em frente.",
 	-- {npc:265809} Brakk · {npc:5943} Rawrk
 	["{npc:265809}: for {npc:5943}"] = "{npc:265809}: para {npc:5943}",
 
@@ -251,7 +259,7 @@ return {
 	-- {npc:3118} Dustwind Storm Witch · {npc:6491} Spirit Healer
 	["Die to the mobs at 52.0,21.4 ({npc:3118}): a death there sends you to this graveyard. Release your spirit and take the {npc:6491}'s resurrection."] = "Morra para os monstros em 52.0,21.4 ({npc:3118}): morrendo ali, você vai parar neste cemitério. Libere o espírito e aceite a ressurreição do {npc:6491}.",
 
-	-- Step 61: Thunder Ridge: kill these as you meet them
+	-- Step 62: Thunder Ridge: kill these as you meet them
 	-- {area:369} Thunder Ridge
 	["{area:369}: kill these as you meet them"] = "{area:369}: vá matando estes pelo caminho",
 	-- {area:369} Thunder Ridge · {npc:3293} Rezlak · {area:362} Razor Hill · {npc:3099} Dire Mottled Boar · {item:15908} Taming Rod
@@ -260,22 +268,17 @@ return {
 	-- {item:15908} Taming Rod
 	["Tame it with the {item:15908}"] = "Domestique-o com a {item:15908}",
 
-	-- Step 62: Misha Tor'kren
+	-- Step 63: Misha Tor'kren
 	-- {area:814} Southfury River · {item:4891} Kron's Amulet
 	["Misha's hut stands south of the lizards. The crocolisks along the {area:814} to the west carry {item:4891}."] = "A cabana de Misha fica ao sul dos lagartos. Os crocoliscos ao longo do {area:814}, a oeste, carregam o {item:4891}.",
 
-	-- Step 64: Heglan Shadeeye
+	-- Step 65: Heglan Shadeeye
 	-- {npc:275657} Heglan Shadeeye · {area:362} Razor Hill
 	["{npc:275657} stands on the shore east of {area:362}. The trident, banner and dagger lie on the beach around him."] = "{npc:275657} fica na praia a leste de {area:362}. O tridente, o estandarte e a adaga estão na areia em volta dele.",
 
-	-- Step 66: Paladin trainer
+	-- Step 67: Paladin trainer
 	-- {npc:246344} Alodan the Hopeful · {zone:1456} Thunder Bluff · {area:362} Razor Hill
 	["{npc:246344} in {zone:1456}; {area:362} has no paladin trainer"] = "{npc:246344} em {zone:1456}; {area:362} não tem instrutor de paladino",
-
-	-- Step 67: Mage trainer
-	["Mage trainer"] = "Instrutor de mago",
-	-- {npc:5884} Mai'ah · {zone:1411} Durotar · {area:362} Razor Hill
-	["{npc:5884} in {zone:1411}; {area:362} has no mage trainer"] = "{npc:5884} em {zone:1411}; {area:362} não tem instrutor de mago",
 
 	-- Step 68: Druid trainer
 	-- {npc:3034} Sheal Runetotem · {zone:1412} Mulgore · {area:362} Razor Hill
@@ -313,7 +316,7 @@ return {
 
 	-- Step 77: Skull Rock
 	-- {quest:827} Skull Rock · {item:4871} Searing Collar · {npc:3204} Gazz'uz · {item:4903} Eye of Burning Shadow
-	["Burning Blade cultists hold the caves of {quest:827}; any of them drops a {item:4871}. {npc:3204}, a level 14 warlock, stands deep inside and drops the {item:4903}."] = "Sectários de Lâmina Ardente ocupam as cavernas de {quest:827}; qualquer um deles deixa cair um {item:4871}. {npc:3204}, um bruxo de nível 14, fica no fundo e deixa cair o {item:4903}.",
+	["Burning Blade cultists hold the caves of {quest:827}; any of them drops a {item:4871}. {npc:3204}, a level 14 warlock, stands deep inside and drops the {item:4903}.\nCareful: voidwalkers fight beside the Burning Blade cultists in {quest:827} and {npc:3204} (14) waits at the back with his own: pull one cultist at a time near the entrance for the collars. The {item:4903} is optional: leave {npc:3204} unless you are 13 or have a friend."] = "Sectários de Lâmina Ardente ocupam as cavernas de {quest:827}; qualquer um deles deixa cair um {item:4871}. {npc:3204}, um bruxo de nível 14, fica no fundo e deixa cair o {item:4903}.\nCuidado: emissários do caos lutam ao lado dos sectários de Lâmina Ardente em {quest:827}, e {npc:3204} (14) espera no fundo com o seu: puxe um sectário de cada vez perto da entrada para pegar as coleiras. O {item:4903} é opcional: deixe {npc:3204} em paz, a menos que você seja nível 13 ou tenha um amigo.",
 
 	-- Step 78: Tablet of Verga
 	-- {object:58595} Burning Blade Stash · {area:817} Skull Rock
@@ -367,13 +370,14 @@ return {
 	["{zone:1454}'s {object:172982}"] = "{object:172982} de {zone:1454}",
 
 	-- Step 90: The Binding
-	-- {npc:5875} Gan'rul Bloodeye · {object:172960} Cleft of Shadow (no name in this language: may be words) · {object:172982} Valley of Strength (no name in this language: may be words) · {item:6535} Tablet of Verga · {item:7464} Glyphs of Summoning
-	["{npc:5875} stands in the {object:172960}, the canyon under the {object:172982}. Hand him the {item:6535}, then use the {item:7464} on the summoning circle beside him and defeat the voidwalker to bind it."] = "{npc:5875} fica na {object:172960}, o cânion sob a {object:172982}. Entregue a ele o {item:6535}, depois use os {item:7464} no círculo de evocação ao lado dele e derrote o emissário do caos para prendê-lo.",
+	-- {npc:5875} Gan'rul Bloodeye · {object:172960} Cleft of Shadow (no name in this language: may be words) · {object:172982} Valley of Strength (no name in this language: may be words) · {item:6535} Tablet of Verga · {item:7464} Glyphs of Summoning · {zone:1454} Orgrimmar
+	["{npc:5875} stands in the {object:172960}, the canyon under the {object:172982}. Hand him the {item:6535}, then use the {item:7464} on the summoning circle beside him and defeat the voidwalker to bind it.\nCareful: the voidwalker you summon hits hard and it is the fight Warlocks die to most in {zone:1454}: start at full health and mana, send your imp in, keep Corruption and Immolate on it, and use a healthstone if you have one."] = "{npc:5875} fica na {object:172960}, o cânion sob a {object:172982}. Entregue a ele o {item:6535}, depois use os {item:7464} no círculo de evocação ao lado dele e derrote o emissário do caos para prendê-lo.\nCuidado: o emissário do caos que você invoca bate forte, e é a luta em que os Bruxos mais morrem em {zone:1454}: comece com vida e mana cheias, mande seu diabrete na frente, mantenha Corrupção e Imolar nele e use uma pedra de vida se tiver.",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Back south to {area:362}."] = "Volte para o sul até {area:362}.",
 	-- ["Back to {npc:5875} in the {object:172960}. Use the {item:7464} on the summoning circle there and defeat the voidwalker to bind it."] = "Volte até {npc:5875} na {object:172960}. Use os {item:7464} no círculo de evocação de lá e derrote o emissário do caos para prendê-lo.",
 	-- ["Into {zone:1454}"] = "Rumo a {zone:1454}",
+	-- ["Mage trainer"] = "Instrutor de mago",
 	-- ["Thunder Lizards and Lightning Hides graze on {area:369} across the bridge; any of them can drop a {item:6486}."] = "Lagartos Trovejantes e Pelegos de Relâmpago pastam no {area:369}, do outro lado da ponte; qualquer um deles pode derrubar uma {item:6486}.",
 	-- ["Thunder Lizards and Lightning Hides graze on {area:369}, beside the road north to {zone:1454}; any of them can drop a {item:6486}. {npc:5810} takes it when the next guide passes {area:379}."] = "Lagartos Trovejantes e Pelegos de Relâmpago pastam em {area:369}, ao lado da estrada ao norte para {zone:1454}; qualquer um pode deixar cair {item:6486}. {npc:5810} o recebe quando o próximo guia passar por {area:379}.",
 	-- ["Thunder Lizards and Lightning Hides graze on {area:369}, just west and south-west of {npc:3293}.\nFizzle holds the Burning Blade camp on {area:369}, north-west of {area:362}. Hunters: tame a {npc:3099} with the {item:15908} on the way.\nCareful: Burning Blade cultists surround Fizzle, some linked so they aggro in pairs, and they respawn quickly."] = "Lagartos Trovejantes e Pelegos de Relâmpago pastam em {area:369}, logo a oeste e sudoeste de {npc:3293}.\nBulho manda no acampamento da Lâmina Ardente em {area:369}, a noroeste de {area:362}. Caçadores: domem um {npc:3099} com o {item:15908} pelo caminho.\nCuidado: sectários da Lâmina Ardente cercam Bulho, alguns andam em dupla e puxam juntos, e eles renascem rápido.",
@@ -389,4 +393,5 @@ return {
 	-- ["With {skill:333} learned, {npc:265809} also offers its Camping 101: {npc:11066} in {zone:1454} (next guide) takes it."] = "Com {skill:333} aprendido, {npc:265809} também oferece a Introdução ao acampamento dessa profissão: entregue-a a {npc:11066}, em {zone:1454} (próximo guia).",
 	-- ["With {skill:393} learned, {npc:265809} also offers its Camping 101: {npc:7088} in {zone:1454} (next guide) takes it."] = "Com {skill:393} aprendida, {npc:265809} também oferece a Introdução ao acampamento dessa profissão: entregue-a a {npc:7088}, em {zone:1454} (próximo guia).",
 	-- ["{npc:265809} camps just south of {area:362}. Sit by his campfire (/sit) until the {spell:1229451} buff appears."] = "{npc:265809} acampa logo ao sul de {area:362}. Sente na fogueira dele (/sit) até aparecer o bônus {spell:1229451}.",
+	-- ["{npc:5884} in {zone:1411}; {area:362} has no mage trainer"] = "{npc:5884} em {zone:1411}; {area:362} não tem instrutor de mago",
 }

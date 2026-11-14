@@ -10,21 +10,25 @@ return {
 	-- {npc:6790} Innkeeper Trelayne
 	["{npc:6790}, Scarlet Raven Tavern"] = "{npc:6790} – таверна «Scarlet Raven»",
 	-- {npc:840} Watcher Backus · {area:42} Darkshire
-	["{npc:840}, at the north entrance of town; walks around {area:42}: look inside the circle on the map"] = "",
+	["{npc:840}, at the north entrance of town; walks around {area:42}: look inside the circle on the map"] = "{npc:840} – у северного въезда в город; ходит по месту {area:42}: ищите внутри круга на карте",
 
-	-- Step 3: Nightbane Shadow Weavers
+	-- Step 3: Councilman Millstipe
+	-- {quest:377} Crime and Punishment · {area:717} Stockade · {npc:270} Councilman Millstipe
+	["{quest:377}, from your {area:717} run: {npc:270} is in the town hall, beside Commander Althea."] = "{quest:377} из подземелья {area:717}: {npc:270} – в ратуше, рядом с командиром Алтеей.",
+
+	-- Step 4: Nightbane Shadow Weavers
 	-- plural, as words: Nightbane Shadow Weavers = {npc:533} Nightbane Shadow Weaver
 	["Nightbane Shadow Weavers"] = "Тенеткачи Ночной Погибели",
 	-- {area:42} Darkshire
 	["The worgen hold the woods of Brightwood, west of {area:42} and north of the road. Pull them one at a time."] = "Ворги занимают лес Светлой рощи к западу от поселка {area:42} и к северу от дороги. Выманивайте их по одному.",
 
-	-- Step 5: Nightbane Dark Runners
+	-- Step 6: Nightbane Dark Runners
 	-- plural, as words: Nightbane Dark Runners = {npc:205} Nightbane Dark Runner
 	["Nightbane Dark Runners"] = "Вестники Тьмы из стаи Ночной Погибели",
 	-- {area:42} Darkshire
 	["The Dark Runners prowl the woods south of the road, west of {area:42}."] = "Вестники Тьмы рыщут по лесу к югу от дороги, к западу от поселка {area:42}.",
 
-	-- Step 7: Nightbane Vile Fangs and the Insane Ghoul
+	-- Step 8: Nightbane Vile Fangs and the Insane Ghoul
 	-- {npc:511} Insane Ghoul
 	-- plural, as words: Nightbane Vile Fangs = {npc:206} Nightbane Vile Fang
 	["Nightbane Vile Fangs and the {npc:511}"] = "Ярые Клыки Ночной Погибели и {npc:511}",
@@ -33,45 +37,45 @@ return {
 	-- {item:1946} Mary's Looking Glass
 	["{item:1946}; inside"] = "",
 
-	-- Step 8: Darkshire
+	-- Step 9: Darkshire
 	-- {npc:276} Viktori Prism'Antras
 	["{npc:276}, inside"] = "",
 	-- {npc:661} Jonathan Carevin · {npc:633} Elaine Carevin
-	["{npc:661}, by {npc:633}'s house; inside"] = "",
+	["{npc:661}, by {npc:633}'s house; inside"] = "{npc:661} – у дома, где живет {npc:633}; внутри",
 
-	-- Step 9: Vul'Gol Ogre Mound: kill these as you meet them
+	-- Step 10: Vul'Gol Ogre Mound: kill these as you meet them
 	-- {area:93} Vul'Gol Ogre Mound
 	["{area:93}: kill these as you meet them"] = "",
 	-- {area:42} Darkshire · {object:119} Abercrombie's Crate
-	["Head south-west from {area:42} to the ogre mound. {object:119} sits in the camp at its entrance; Splinter Fist ogres guard it."] = "",
+	["Head south-west from {area:42} to the ogre mound. {object:119} sits in the camp at its entrance; Splinter Fist ogres guard it."] = "Идите на юго-запад от места {area:42} к кургану огров. {object:119} лежит в лагере у входа; его охраняют огры из клана Дробящего Кулака.",
 	-- {npc:272273} Lost Watcher · {quest:96138} Merrick's Bow
 	["Only if a {npc:272273} dropped {quest:96138}: right-click it"] = "Только если с противника {npc:272273} выпал предмет «{quest:96138}»: щелкните по нему правой кнопкой",
 	["Below ground"] = "Под землей",
 
-	-- Step 10: Defias Strongbox
+	-- Step 11: Defias Strongbox
 	-- {zone:1431} Duskwood · {area:94} Raven Hill · {zone:1436} Westfall
 	["The Defias camp lies in the south-west of {zone:1431}, south of {area:94} near the {zone:1436} border. The strongbox stands among the tents."] = "Лагерь Братства Справедливости лежит на юго-западе зоны {zone:1431}, к югу от деревни {area:94}, у границы с зоной {zone:1436}. Сундук стоит среди палаток.",
 	-- {item:5947} Defias Docket
 	["{item:5947}; inside"] = "",
 
-	-- Step 12: Raven Hill Cemetery: kill these as you meet them
+	-- Step 13: Raven Hill Cemetery: kill these as you meet them
 	-- {area:492} Raven Hill Cemetery
 	["{area:492}: kill these as you meet them"] = "",
 	-- {area:492} Raven Hill Cemetery · {npc:522} Mor'Ladim · {npc:311} Sven Yorgen
 	-- plural, as words: Plague Spreaders = {npc:604} Plague Spreader · Skeletal Raiders = {npc:1110} Skeletal Raider
 	["The Plague Spreaders walk the northern half of the {area:492}. {npc:522}, an elite, wanders the graves: keep away from him.\nSkeletal Raiders, Healers and Warders hold the west part of the cemetery, just east of {npc:311}'s camp.\nCareful: The skeletons in the catacombs are packed close together, so you can easily pull extra mobs."] = "",
 
-	-- Step 13: The Weathered Grave
+	-- Step 14: The Weathered Grave
 	-- {npc:311} Sven Yorgen · {npc:268} Sirra Von'Indi · {area:42} Darkshire
 	["The grave stands among the skeletons at the cemetery's north-west corner, on the way to {npc:311}. Its quest and the next are talk-only, to {npc:268} and Commander Althea in {area:42}: level 35 from level 28, but no fight."] = "",
 
-	-- Step 14: Sven Yorgen's Camp
+	-- Step 15: Sven Yorgen's Camp
 	-- {npc:311} Sven Yorgen
 	["{npc:311}'s Camp"] = "Лагерь {npc:311}",
 	-- {npc:1212} Bishop Farthing · {zone:1453} Stormwind
 	["For {npc:1212} in {zone:1453}, in the next guide"] = "Для NPC {npc:1212} ({zone:1453}), в следующем гайде",
 
-	-- Step 15: Back to Darkshire
+	-- Step 16: Back to Darkshire
 	-- {area:42} Darkshire
 	["Back to {area:42}"] = "Назад: {area:42}",
 	-- {npc:263} Lord Ello Ebonlocke
@@ -84,12 +88,12 @@ return {
 	-- {npc:482} Elling Trias · {zone:1453} Stormwind
 	["For {npc:482} in {zone:1453}, in the next guide"] = "Для NPC {npc:482} ({zone:1453}), в следующем гайде",
 
-	-- Step 16: Viktori Prism'Antras
+	-- Step 17: Viktori Prism'Antras
 	-- {npc:276} Viktori Prism'Antras
-	["{npc:276}'s house stands at the east end of town, on the way to the flight master."] = "",
+	["{npc:276}'s house stands at the east end of town, on the way to the flight master."] = "Дом NPC {npc:276} стоит в восточной части города, по пути к распорядителю полетов.",
 	["Inside"] = "Внутри",
 
-	-- Step 17: Fly to Menethil Harbor
+	-- Step 18: Fly to Menethil Harbor
 	-- {area:150} Menethil Harbor
 	["Fly to {area:150}"] = "",
 	-- {area:42} Darkshire
@@ -119,7 +123,6 @@ return {
 	-- ["Ride east again to the Dragonmaw camp. The four sets of Attack Plans lie in the {area:1036}; {npc:2091}, an elite, stands in the camp too."] = "Снова езжайте на восток к лагерю клана Драконьей Пасти. Четыре комплекта планов атаки лежат здесь: {area:1036}; {npc:2091}, элитный противник, тоже стоит в лагере.",
 	-- ["Ride east again; the catapult stands at the Dragonmaw camp south of the road."] = "Снова езжайте на восток; катапульта стоит в лагере клана Драконьей Пасти к югу от дороги.",
 	-- ["Ride east to the ogre mound. {item:1349} sits in the camp at its entrance; Splinter Fist ogres guard it."] = "Езжайте на восток к кургану огров. {item:1349} лежит в лагере у входа; его охраняют огры из клана Дробящего Кулака.",
-	-- ["Ride east to the ogre mound. {object:119} sits in the camp at its entrance; Splinter Fist ogres guard it."] = "Езжайте на восток к кургану огров. {object:119} лежит в лагере у входа; его охраняют огры из клана Дробящего Кулака.",
 	-- ["Ride west along the road; the hermit's shack stands north-east of the {area:492}."] = "Езжайте по дороге на запад; хижина отшельника стоит к северо-востоку от кладбища (ориентир: {area:492}).",
 	-- ["Skeletal Raiders, Healers and Warders hold the west part of the cemetery, just east of {npc:311}'s camp."] = "Скелеты-налетчики, скелеты-лекари и скелеты-хранители занимают западную часть кладбища, сразу к востоку от лагеря {npc:311}.",
 	-- ["Take the boat from Menethil's pier to {area:513} in {zone:1445}."] = "Сядьте на корабль у причала Гавани Менетилов: {area:513} ({zone:1445}).",
@@ -144,11 +147,8 @@ return {
 	-- ["{npc:2104}, by the keep"] = "{npc:2104} – у крепости",
 	-- ["{npc:2104}, in {area:2103}"] = "{npc:2104} – здесь: {area:2103}",
 	-- ["{npc:267}, in the town hall"] = "{npc:267} – в ратуше",
-	-- ["{npc:276}, at the east end of town"] = "{npc:276} – в восточной части города",
 	-- ["{npc:4454}: for Martek in the {zone:1418}, later"] = "{npc:4454}: для Мартека (зона {zone:1418}), позже",
-	-- ["{npc:661}, by {npc:633}'s house"] = "{npc:661} – у дома, где живет {npc:633}",
 	-- ["{npc:663}, by the town hall"] = "{npc:663} – у ратуши",
-	-- ["{npc:840}, at the north entrance of town"] = "{npc:840} – у северного въезда в город",
 	-- ["{object:19868} lies all over the flats. Scorpid Reavers, Sparkleshell Tortoises and Saltstone Basilisks roam the north half, Crystalhides, Scorpid Terrors and Snappers the middle, and the Gazers (34-35, five levels above you: one at a time) the far south. Vultures circle over all of it."] = "{object:19868} – по всей равнине. Скорпиды-разорители, блестопанцирные черепахи и просоленные василиски бродят в северной части, просоленные хрусталиски, скорпиды-убийцы и блестопанцирные крепкохваты – в середине, а просоленные взорени (34-35, на пять уровней выше вас: по одному) – на дальнем юге. Над всем этим кружат стервятники соляных равнин.",
 	-- ["{quest:1738}: in {zone:1440}, on the way to {zone:1443}"] = "{quest:1738}: в зоне {zone:1440}, по пути в зону {zone:1443}",
 	-- ["{quest:65602}: the incubus, beside the succubus; the {item:190309} is near the {quest:1738}"] = "{quest:65602}: инкуб, рядом с суккубом; {item:190309} – рядом с целью задания «{quest:1738}»",

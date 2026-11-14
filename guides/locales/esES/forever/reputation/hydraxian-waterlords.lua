@@ -64,7 +64,7 @@ return {
 
 	-- Step 10: Hands of the Enemy
 	-- {npc:12118} Lucifron · {npc:12259} Gehennas · {npc:12264} Shazzrah · {npc:12098} Sulfuron Harbinger · {area:2717} Molten Core
-	["{npc:12118}, {npc:12259}, {npc:12264} and {npc:12098} are {area:2717} bosses: each drops his hand for the quest."] = "",
+	["{npc:12118}, {npc:12259}, {npc:12264} and {npc:12098} are {area:2717} bosses: each drops his hand for the quest."] = "{npc:12118}, {npc:12259}, {npc:12264} y {npc:12098} son jefes de {area:2717}: cada uno suelta su mano para la misión.",
 	-- {item:17332} Hand of Shazzrah
 	["{item:17332}: raid of 40"] = "",
 
@@ -98,7 +98,6 @@ return {
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Both elementals roam north-western {zone:1451}; the Rumblers cluster a little further north."] = "Ambos elementales recorren el noroeste de {zone:1451}; los estruendores se agrupan un poco más al norte.",
-	-- ["Bring the Hands of Lucifron, Gehennas, Shazzrah and Sulfuron from the {area:2717}."] = "Trae las manos de Lucifron, Gehennas, Shazzrah y Sulfuron de {area:2717}.",
 	-- ["Dust Stormers and Desert Rumblers"] = "Sirocosos y Estruendores del desierto",
 	-- ["Keep clearing the {area:2717} until Exalted."] = "Sigue limpiando {area:2717} hasta Exaltado.",
 	-- ["Kill a {npc:11668}, a {npc:11658}, an {npc:11673} and a {npc:12101} in the {area:2717}. Every {area:2717} elemental and boss also counts toward the Waterlords."] = "Mata a un {npc:11668}, un {npc:11658}, un {npc:11673} y un {npc:12101} en {area:2717}. Todos los elementales y jefes de {area:2717} también cuentan para los Señores del Agua.",

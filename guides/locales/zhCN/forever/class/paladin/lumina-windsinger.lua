@@ -43,12 +43,12 @@ return {
 	-- Step 6: Back to the Sepulcher
 	-- {area:228} Sepulcher
 	["Back to the {area:228}"] = "回到{area:228}",
-	-- {npc:259620} Lumina Windsinger · {npc:248840} Trevan Rol · {area:228} Sepulcher · {quest:95034} The Debt
-	["{npc:259620} waits beside {npc:248840} in the {area:228} (a different {npc:259620} from the one you escorted). For {quest:95034}, click through every line of her story."] = "{npc:259620} 在 {area:228} 内的 {npc:248840} 身边等候（这名 {npc:259620} 与你护送的那位不是同一个）。做 {quest:95034} 时，要逐项点击，听完她的全部故事。",
-	-- {npc:259620} Lumina Windsinger · {area:228} Sepulcher
-	["{npc:259620}, the {area:228}"] = "{npc:259620}，{area:228}",
-	-- {npc:259620} Lumina Windsinger
-	["{npc:259620}: hear her story to the end"] = "{npc:259620}：听完她的故事",
+	-- {npc:248840} Trevan Rol · {area:228} Sepulcher · {quest:95034} The Debt
+	["Lumina waits beside {npc:248840} in the {area:228} (a different Lumina from the one you escorted). For {quest:95034}, click through every line of her story."] = "卢米娜在 {area:228} 内的 {npc:248840} 身边等候（这名卢米娜与你护送的那位不是同一个）。做 {quest:95034} 时，要逐项点击，听完她的全部故事。",
+	-- {npc:248755} Lumina Windsinger · {area:228} Sepulcher
+	["{npc:248755}, the {area:228}"] = "{npc:248755}，{area:228}",
+	-- {npc:248755} Lumina Windsinger
+	["{npc:248755}: hear her story to the end"] = "{npc:248755}：听完她的故事",
 
 	-- Step 7: A Moon-Kissed Blade
 	-- {npc:259620} Lumina Windsinger · {quest:95140} Old Fire-Eye · {npc:248840} Trevan Rol
@@ -112,6 +112,8 @@ return {
 	-- Step 17: Old Fire-Eye
 	-- {item:268484} Moonsilver Blade · {quest:95140} Old Fire-Eye · {area:228} Sepulcher · {area:17065} Gilneas
 	["Equip the {item:268484}. {quest:95140}, the great worgen, roams the woods south of the {area:228} toward the gates of {area:17065}. He is elite (level 25): the guide waits for level 22 first, and grouping up is encouraged; players have killed him from 22 up, one needed a second, another soloed him at 25. A purple shield guards him until your first swing with the blade lands: a message tells you it broke."] = "装备 {item:268484}。巨型狼人 {quest:95140} 在 {area:228} 南侧、通往 {area:17065} 大门方向的林地游荡。他是精英（25 级）：指南会先等到 22 级，并建议组队；玩家从 22 级起就击杀过他，有人需要再找一人帮忙，也有人在 25 级时独自击败了他。你用这把剑第一次击中他前，他会受到紫色护盾保护；护盾破裂时会出现提示。",
+	-- {npc:259620} Lumina Windsinger · {area:228} Sepulcher
+	["{npc:259620}, the {area:228}"] = "{npc:259620}，{area:228}",
 	-- {quest:95140} Old Fire-Eye · {item:268484} Moonsilver Blade
 	["{quest:95140}, with the {item:268484} equipped"] = "装备 {item:268484} 后，对付 {quest:95140}",
 

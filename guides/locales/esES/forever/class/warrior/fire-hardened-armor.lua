@@ -12,7 +12,7 @@ return {
 
 	-- Step 1: Yorus Barleybrew (Stormwind)
 	-- {npc:5479} Wu Shen · {npc:5480} Ilsa Corbin · {object:2100} Old Town · {quest:1698} Yorus Barleybrew
-	["At 20, {npc:5479}, beside {npc:5480} in the warrior trainers' building of {object:2100}, sends you to {quest:1698} in Redridge."] = "",
+	["At 20, {npc:5479}, beside {npc:5480} in the warrior trainers' building of {object:2100}, sends you to {quest:1698} in Redridge."] = "A nivel 20, {npc:5479}, junto a {npc:5480} en el edificio de los instructores de guerreros de {object:2100}, te envía con {quest:1698} en las Montañas Crestagrana.",
 
 	-- Step 2: Yorus Barleybrew (Ironforge)
 	-- {npc:5113} Kelv Sternhammer · {zone:1455} Ironforge · {quest:1698} Yorus Barleybrew
@@ -34,7 +34,7 @@ return {
 
 	-- Step 6: The Shieldsmith
 	-- {npc:5413} Furen Longbeard · {item:6843} Cask of Scalder · {npc:6166} Yorus Barleybrew · {item:6970} Furen's Favor · {quest:1701} Fire Hardened Mail · {item:6842} Furen's Instructions
-	["{npc:5413} works in the Dwarven District of Stormwind. He takes the {item:6843} (lost it? abandon the quest and {npc:6166} gives a new one) and gives you {item:6970}, a shield; {quest:1701} is a level 28 quest, with {item:6842} listing what it needs."] = "",
+	["{npc:5413} works in the Dwarven District of Stormwind. He takes the {item:6843} (lost it? abandon the quest and {npc:6166} gives a new one) and gives you {item:6970}, a shield; {quest:1701} is a level 28 quest, with {item:6842} listing what it needs."] = "{npc:5413} trabaja en el Distrito enano de Ventormenta. Recoge {item:6843} (¿lo has perdido? abandona la misión y {npc:6166} te da otro) y te da {item:6970}, un escudo; {quest:1701} es una misión de nivel 28, con {item:6842} que enumera lo que necesita.",
 
 	-- Step 7: Scorched Spider Fangs
 	-- plural, as words: Scorched Spider Fangs = {item:6838} Scorched Spider Fang
@@ -50,9 +50,9 @@ return {
 	-- plural, as words: Charred Horns = {item:6839} Charred Horn · Young Chimaeras = {npc:4032} Young Chimaera
 	["The chimaeras live south-west of {area:460} in the {area:465}; the guide waits for level 26 first. You need 12 Charred Horns from the Fledgling (level 25-27) and Young Chimaeras (23-25), four kills in five, and the {item:6840} from the {npc:6167} (28, the big one), also four in five. Only three Fledglings, two Young and one Matriarch live there, each back in 5 minutes, so expect to wait. Fledglings and the Matriarch spit {spell:3396}, the Young cast {spell:403}. Alliance: fly to {area:467} and head south."] = "Las quimeras viven al suroeste de {area:460}, en {area:465}; la guía espera primero al nivel 26. Necesitas 12 Cuernos carbonizados de las Quimeras volantonas (nivel 25-27) y las Quimeras jóvenes (23-25), en cuatro de cada cinco muertes, y el {item:6840} de la {npc:6167} (28, la grande), también en cuatro de cada cinco. Allí solo viven tres volantonas, dos jóvenes y una matriarca, y cada una vuelve en 5 minutos, así que cuenta con esperar. Las volantonas y la matriarca escupen {spell:3396}; las jóvenes lanzan {spell:403}. Alianza: vuela a {area:467} y dirígete al sur.",
 	-- {item:6839} Charred Horn
-	["{item:6839}, from the young chimaeras"] = "",
+	["{item:6839}, from the young chimaeras"] = "{item:6839}, de las quimeras jóvenes",
 	-- {item:6840} Galvanized Horn · {npc:6167} Chimaera Matriarch
-	["{item:6840}, from the {npc:6167}"] = "",
+	["{item:6840}, from the {npc:6167}"] = "{item:6840}, de {npc:6167}",
 
 	-- Step 9: Roogug in Razorfen Kraul
 	-- {area:1717} Razorfen Kraul
@@ -64,7 +64,7 @@ return {
 
 	-- Step 10: Furen's Armor
 	-- {npc:5413} Furen Longbeard · {object:28027} Dwarven District
-	["Back to {npc:5413} in the {object:28027} for the hauberk. He then sends you to the smith of your race; the other two smiths' pieces are open to you as well: talk to them directly."] = "",
+	["Back to {npc:5413} in the {object:28027} for the hauberk. He then sends you to the smith of your race; the other two smiths' pieces are open to you as well: talk to them directly."] = "Vuelve con {npc:5413} en {object:28027} para el camisote. Después te envía con el herrero de tu raza; las piezas de los otros dos herreros también están a tu alcance: habla directamente con ellos.",
 
 	-- Step 11: Grimand Elmore
 	-- {npc:1416} Grimand Elmore · {object:28027} Dwarven District · {npc:5413} Furen Longbeard · {quest:1705} Burning Blood · {item:6845} Burning Rock
@@ -74,13 +74,13 @@ return {
 	-- {zone:1431} Duskwood · {area:42} Darkshire · {quest:1705} Burning Blood · {spell:3427} Infected Wound
 	["The Nightbane worgen of {zone:1431} (Dark Runners, Vile Fangs, Shadow Weavers, Worgen and Tainted Ones, level 26-31) south and west of {area:42} drop the {quest:1705} four kills in five. The Tainted Ones poison and howl; Vile Fangs cause {spell:3427}."] = "Los huargen Nocturnos de {zone:1431} (Correoscuros, Colmilloviles, Tejesombras, Ferocanis y Corruptos, nivel 26-31) al sur y al oeste de {area:42} sueltan la {quest:1705} en cuatro de cada cinco muertes. Los Corruptos envenenan y aúllan; los Colmilloviles causan {spell:3427}.",
 	-- {quest:1705} Burning Blood
-	["{quest:1705}, from the Nightbane worgen"] = "",
+	["{quest:1705}, from the Nightbane worgen"] = "{quest:1705}, de los huargos Nocturno",
 
 	-- Step 13: Gutspill
 	-- {npc:6170} Gutspill · {item:6845} Burning Rock · {area:2161} Roland's Doom · {area:42} Darkshire
 	["{npc:6170} (level 32, not elite) carries the {item:6845}, four kills in five; the guide waits for level 30 first. He walks between the inside and the mouth of the {area:2161} mine south-east of {area:42}, so wait at the entrance and pull him outside. He poisons and howls."] = "{npc:6170} (nivel 32, no élite) lleva la {item:6845}, en cuatro de cada cinco muertes; la guía espera primero al nivel 30. Camina entre el interior y la boca de la mina de {area:2161}, al sureste de {area:42}, así que espera en la entrada y atráelo fuera. Envenena y aúlla.",
 	-- {item:6845} Burning Rock · {npc:6170} Gutspill
-	["{item:6845}, from {npc:6170}"] = "",
+	["{item:6845}, from {npc:6170}"] = "{item:6845}, de {npc:6170}",
 
 	-- Step 15: Mathiel
 	-- {quest:1703} Mathiel · {area:1660} Warrior's Terrace · {zone:1457} Darnassus · {quest:1710} Sunscorched Shells
@@ -103,8 +103,6 @@ return {
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["A hauberk at 28, a coif, leggings or gauntlets by race, and a shield on the way."] = "Una cota a nivel 28; un almófar, unas calzas o unos guanteletes según tu raza; y un escudo por el camino.",
-	-- ["At 20, {npc:5479} in {object:2100}, beside the Pig and Whistle, sends you to {quest:1698} in Redridge."] = "A nivel 20, {npc:5479}, en {object:2100}, junto a la taberna Pig and Whistle, te envía con {quest:1698} en las Montañas Crestagrana.",
-	-- ["Back to {npc:5413} in the {object:28027}. He sends you on to a smith of your own race."] = "Vuelve con {npc:5413} en {object:28027}. Te envía con un herrero de tu raza.",
 	-- ["Ride the {area:2257} from {zone:1453} to {zone:1455}."] = "Toma {area:2257} de {zone:1453} a {zone:1455}.",
 	-- ["Roogug is an elite quilboar inside {area:1717}, the dungeon at the south end of the {zone:1413}; he drops the {item:6841}. {area:1717} is a dungeon: grouping up is advised."] = "Roogug es un jabaespín élite dentro de {area:1717}, la mazmorra del extremo sur de {zone:1413}; suelta {item:6841}. {area:1717} es una mazmorra: se recomienda ir en grupo.",
 	-- ["The Fledgling and Young Chimaeras roam the south-west of Stonetalon, with the {npc:6167} among them: the young ones drop the {item:6839}, the Matriarch the {item:6840}."] = "Las quimeras volantonas y las quimeras jóvenes recorren el suroeste de Sierra Espolón, con {npc:6167} entre ellas: las jóvenes sueltan {item:6839} y la matriarca, {item:6840}.",
@@ -112,12 +110,7 @@ return {
 	-- ["The Nightbane worgen of {zone:1431} drop the {quest:1705}. {npc:6170} walks in the far south-east of {zone:1431} and carries the {item:6845}."] = "Los huargos Nocturno de {zone:1431} sueltan {quest:1705}. {npc:6170} recorre el extremo sureste de {zone:1431} y lleva {item:6845}.",
 	-- ["The {quest:1708} grows along the {zone:1437}' west coast, south of {area:150}."] = "{quest:1708} crece en la costa oeste de {zone:1437}, al sur de {area:150}.",
 	-- ["The {quest:1710} lie along the western edge of {zone:1441}."] = "{quest:1710} están por el borde occidental de {zone:1441}.",
-	-- ["{item:6839} from the young chimaeras"] = "{item:6839} de las quimeras jóvenes",
-	-- ["{item:6840} from the {npc:6167}"] = "{item:6840} de {npc:6167}",
-	-- ["{item:6845} from {npc:6170}"] = "{item:6845} de {npc:6170}",
 	-- ["{npc:1416} is in {zone:1453}, a short walk from {npc:5413}."] = "{npc:1416} está en {zone:1453}, a poca distancia de {npc:5413}.",
-	-- ["{npc:5413} works in the Dwarven District of Stormwind. He keeps the {item:6843} and gives you {item:6970}, a shield; {quest:1701} is a level 28 quest."] = "{npc:5413} trabaja en el Distrito enano de Ventormenta. Se queda {item:6843} y te da {item:6970}, un escudo; {quest:1701} es una misión de nivel 28.",
 	-- ["{quest:1698} is in {area:69}, at the inn. His test is timed: run north-west into the {area:98}, reach the first fork and come back to him before the timer runs out. Do not die and release your spirit."] = "{quest:1698} está en la posada de {area:69}. Su prueba tiene tiempo límite: corre al noroeste hasta {area:98}, llega a la primera bifurcación y vuelve con él antes de que se acabe el tiempo. No mueras ni liberes tu espíritu.",
 	-- ["{quest:1703} is a smith in {zone:1457}."] = "{quest:1703} es una herrera de {zone:1457}.",
-	-- ["{quest:1705} from the Nightbane worgen"] = "{quest:1705} de los huargos Nocturno",
 }

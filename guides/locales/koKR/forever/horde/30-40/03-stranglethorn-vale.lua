@@ -81,8 +81,8 @@ return {
 
 	-- Step 11: Nesingwary's camp
 	["Nesingwary's camp"] = "네싱워리의 야영지",
-	-- {object:3202} Grom'gol · {npc:773} Krazek · {quest:338} The Green Hills of Stranglethorn · {npc:716} Barnil Stonepot
-	["Follow the road north out of {object:3202}; Nesingwary's hunting camp sits on the hill north-east of the river. {npc:773} wants it investigated: walk among its tents. From here on, keep every page of {quest:338} you loot: {npc:716} takes them on your next Stranglethorn visit."] = "길을 따라 {object:3202}에서 북쪽으로 나가세요. 네싱워리의 사냥 야영지는 강 북동쪽 언덕에 있습니다. {npc:773}이(가) 조사를 원하니 천막 사이를 걸어 다니세요. 지금부터 얻는 {quest:338}의 모든 쪽은 보관하세요. 다음에 가시덤불 골짜기에 올 때 {npc:716}이(가) 받습니다.",
+	-- {object:3202} Grom'gol · {npc:773} Krazek · {item:2755} Green Hills of Stranglethorn · {npc:716} Barnil Stonepot
+	["Follow the road north out of {object:3202}; Nesingwary's hunting camp sits on the hill north-east of the river. {npc:773} wants it investigated: walk among its tents. From here on, keep every page of The {item:2755} you loot: {npc:716} takes them on your next Stranglethorn visit."] = "길을 따라 {object:3202}에서 북쪽으로 나가세요. 네싱워리의 사냥 야영지는 강 북동쪽 언덕에 있습니다. {npc:773}이(가) 조사를 원하니 천막 사이를 걸어 다니세요. 지금부터 얻는 {item:2755}의 모든 쪽은 보관하세요. 다음에 가시덤불 골짜기에 올 때 {npc:716}이(가) 받습니다.",
 
 	-- Step 12: Nesingwary's Expedition: kill these as you meet them
 	-- {area:100} Nesingwary's Expedition
@@ -95,12 +95,13 @@ return {
 	-- {zone:1434} Stranglethorn Vale
 	["{zone:1434}: kill these as you meet them"] = "",
 	-- {area:37} Lake Nazferiti
-	-- plural, as words: Stranglethorn Tigers = {npc:682} Stranglethorn Tiger · Venture Co. Geologists = {npc:1096} Venture Co. Geologist · Tumbled Crystals = {item:4106} Tumbled Crystal
-	["Stranglethorn Tigers (32) roam the hills around the camp and south of it, Panthers (32) the clearings west and south-west of it. The Venture Co. Geologists, who carry the Tumbled Crystals, work the camps by {area:37}, south-east of the camp."] = "",
+	-- plural, as words: Stranglethorn Tigers = {npc:682} Stranglethorn Tiger · Venture Co. Geologists = {npc:1096} Venture Co. Geologist · Tumbled Crystals = {item:4106} Tumbled Crystal · Venture Co. Agents = {npc:260429} Venture Co. Agent
+	["Stranglethorn Tigers (32) roam the hills around the camp and south of it, Panthers (32) the clearings west and south-west of it. The Venture Co. Geologists, who carry the Tumbled Crystals, work the camps by {area:37}, south-east of the camp. Careful: their camps are crowded, with Venture Co. Agents (39) among the geologists (36-38): pull from the camps' edges, one at a time."] = "",
 
 	-- Step 15: Cozzle's Footlocker
 	-- {npc:4723} Foreman Cozzle · {area:37} Lake Nazferiti · {object:20691} Cozzle's Footlocker · {npc:2496} Baron Revilgaz
-	["{npc:4723} (38) is inside the Venture Co. house on {area:37}'s west shore, among the geologists: his key opens {object:20691} in the same house, which holds the blueprints for {npc:2496}."] = "{npc:4723}(38)은(는) {area:37} 서쪽 기슭의 투자개발회사 건물 안 지질학자들 사이에 있습니다. 그의 열쇠로 같은 건물의 {object:20691}을(를) 열 수 있으며, 그 안에 {npc:2496}에게 줄 설계도가 있습니다.",
+	-- plural, as words: Venture Co. Agents = {npc:260429} Venture Co. Agent
+	["{npc:4723} (38) is inside the Venture Co. house on {area:37}'s west shore, among the geologists: his key opens {object:20691} in the same house, which holds the blueprints for {npc:2496}. Careful: Venture Co. Agents (39) stand in and around the house: clear the doorway before you go in."] = "{npc:4723}(38)은(는) {area:37} 서쪽 기슭의 투자개발회사 건물 안 지질학자들 사이에 있습니다. 그의 열쇠로 같은 건물의 {object:20691}을(를) 열 수 있으며, 그 안에 {npc:2496}에게 줄 설계도가 있습니다. 주의: 투자개발회사 요원(39)이 건물 안팎에 서 있습니다. 들어가기 전에 입구를 정리하세요.",
 	-- {npc:4723} Foreman Cozzle
 	["from {npc:4723}"] = "{npc:4723}에게서",
 	-- {item:5852} Fuel Regulator Blueprints · {object:20691} Cozzle's Footlocker
@@ -142,9 +143,9 @@ return {
 
 	-- Step 23: Level 35
 	["Level 35"] = "",
-	-- {area:35} Booty Bay · {object:3202} Grom'gol · {area:796} Scarlet Monastery
+	-- {area:35} Booty Bay · {object:3202} Grom'gol
 	-- plural, as words: Lashtail Raptors = {npc:686} Lashtail Raptor
-	["{area:35}'s and {object:3202}'s next quests are 35-38. Still below 35 after Aggro'gosh's hand-in? The Lashtail Raptors (35) hunt the jungle just north of {object:3202}: kill them until level 35. Or, with a group, run the {area:796} dungeon (Library or Armory) instead."] = "",
+	["{area:35}'s and {object:3202}'s next quests are 35-38. Still below 35 after Aggro'gosh's hand-in? The Lashtail Raptors (35) hunt the jungle just north of {object:3202}: kill them until level 35."] = "",
 	-- {npc:686} Lashtail Raptor
 	["grind on {npc:686}"] = "",
 
@@ -159,8 +160,6 @@ return {
 	["{npc:2495}'s shop is in the building east of the inn; {npc:2498} is on the inn's bottom floor, {npc:2496}, {npc:737} and {npc:773} upstairs beside the flight master."] = "{npc:2495}의 상점은 여관 동쪽 건물에 있고, {npc:2498}은(는) 여관 1층, {npc:2496}, {npc:737}, {npc:773}은(는) 위층 비행 조련사 옆에 있습니다.",
 	-- {npc:2498} Crank Fizzlebub
 	["{npc:2498}, inside"] = "",
-	-- {npc:2496} Baron Revilgaz · {area:2240} Mirage Raceway · {zone:1446} Tanaris
-	["{npc:2496}: for Pozzik at the {area:2240}, on the way to {zone:1446} around level 43"] = "{npc:2496}: 레벨 43쯤 {zone:1446}(으)로 가는 길에 있는 {area:2240}의 포직에게 전달",
 
 	-- Step 26: Fly to Grom'gol
 	-- {object:3202} Grom'gol
@@ -176,26 +175,21 @@ return {
 	-- Step 28: Ruins of Zul'Kunda: kill these as you meet them
 	-- {area:102} Ruins of Zul'Kunda
 	["{area:102}: kill these as you meet them"] = "",
-	-- {item:3915} Bloody Bone Necklace · {quest:338} The Green Hills of Stranglethorn
+	-- {item:3915} Bloody Bone Necklace · {item:2755} Green Hills of Stranglethorn
 	-- plural, as words: Bloodscalp Headhunters = {npc:671} Bloodscalp Headhunter
-	["The Bloodscalp Headhunters (36-37) in the village on the coast carry the shrunken heads.\nThe Bloodscalp trolls hold the ruins up the coast north of the reef and the village beyond; every one can drop a {item:3915}. Keep looting pages of {quest:338}."] = "",
+	["The Bloodscalp Headhunters (36-37) in the village on the coast carry the shrunken heads.\nThe Bloodscalp trolls hold the ruins up the coast north of the reef and the village beyond; every one can drop a {item:3915}. Keep looting pages of The {item:2755}."] = "",
 
 	-- Step 30: Stranglethorn Vale: kill these as you meet them
 	-- {npc:2495} Drizzlik
 	-- plural, as words: Shadowmaw Panthers = {npc:684} Shadowmaw Panther · Snapjaw Crocolisks = {npc:1152} Snapjaw Crocolisk · Elder Shadowmaw Panthers = {npc:1713} Elder Shadowmaw Panther
 	["East of the Mosh'Ogg hills, Shadowmaw Panthers (37-38) stalk the jungle towards the lake; the Stranglethorn Tigresses roam the same ground and now and then drop a pristine fang. Snapjaw Crocolisks line the river just west of the jungle; keep their skins for {npc:2495}. Careful: Shadowmaw Panthers (level 37-38) and Elder Shadowmaw Panthers (level 42-43) use Sneak while out of combat, so they remain hidden until you get near them."] = "",
 
-	-- Step 31: Green Hills pages
-	["Green Hills pages"] = "푸른 언덕의 쪽",
-	-- {item:2755} Green Hills of Stranglethorn · {npc:716} Barnil Stonepot
-	["Pages of The {item:2755} drop at about 1% each from the Bloodscalp and Skullsplitter trolls; keep every page you loot and look on the auction house for the rest. {npc:716} takes the chapters on your next Stranglethorn visit, at about 40."] = "",
-
-	-- Step 32: Mosh'Ogg camp
+	-- Step 31: Mosh'Ogg camp
 	["Mosh'Ogg camp"] = "모쉬오그일족 야영지",
 	-- {object:3202} Grom'gol
-	["The Mosh'Ogg ogres camp in the hills just east of {object:3202}, on your way back. Kill 10 Brutes and 5 Witch Doctors (36-37); pull them one at a time."] = "",
+	["The Mosh'Ogg ogres camp in the hills just east of {object:3202}, on your way back. Kill 10 Brutes and 5 Witch Doctors (36-37); pull them one at a time."] = "모쉬오그일족 오우거는 돌아가는 길, {object:3202} 바로 동쪽 언덕에 야영하고 있습니다. 모쉬오그일족 투사 10마리와 모쉬오그일족 의술사 5마리(36-37)를 처치하세요. 한 마리씩 끌어오세요.",
 
-	-- Step 33: Grom'gol
+	-- Step 32: Grom'gol
 	-- {object:3202} Grom'gol
 	["Back to {object:3202}."] = "{object:3202}(으)로 돌아가세요.",
 	-- {npc:2465} Far Seer Mok'thardin
@@ -203,13 +197,13 @@ return {
 	-- {npc:2497} Nimboya
 	["{npc:2497}: for forever/horde/40-50/01-stranglethorn-vale"] = "",
 	-- {zone:1454} Orgrimmar
-	["The next guide takes the zeppelin to {zone:1454} from the tower on the west side of the camp."] = "",
+	["The next guide takes the zeppelin to {zone:1454} from the tower on the west side of the camp."] = "다음 가이드는 주둔지 서쪽의 탑에서 비행선을 타고 {zone:1454}(으)로 갑니다.",
 
-	-- Step 34: Level 36
+	-- Step 33: Level 36
 	["Level 36"] = "",
-	-- {object:3202} Grom'gol · {area:796} Scarlet Monastery · {area:1316} Razorfen Downs
+	-- {object:3202} Grom'gol
 	-- plural, as words: Mosh'Ogg Brutes = {npc:1142} Mosh'Ogg Brute
-	["Dustwallow's quests are 35-38. Still below 36 after {object:3202}'s hand-ins? The Mosh'Ogg Brutes and Witch Doctors camp in the hills just east of the camp: kill them until level 36, pulling one at a time, then walk back to the zeppelin tower. Or, with a group, run the {area:796} dungeon (Armory) or the {area:1316} dungeon instead."] = "",
+	["Dustwallow's quests are 35-38. Still below 36 after {object:3202}'s hand-ins? The Mosh'Ogg Brutes and Witch Doctors camp in the hills just east of the camp: kill them until level 36, pulling one at a time, then walk back to the zeppelin tower."] = "",
 	-- {npc:1142} Mosh'Ogg Brute
 	["grind on {npc:1142}"] = "",
 
@@ -217,14 +211,14 @@ return {
 	-- ["Elder tigers and Lashtail raptors"] = "덩치큰 호랑이와 채찍꼬리랩터",
 	-- ["Follow the road north out of {object:3202}; Nesingwary's hunting camp sits on the hill north-east of the river. From here on, keep every page of {quest:338} you loot: {npc:716} asks for them later."] = "길을 따라 {object:3202}에서 북쪽으로 나가세요. 네싱워리의 사냥 야영지는 강 북동쪽 언덕에 있습니다. 지금부터 얻는 {quest:338}의 모든 쪽은 보관하세요. 나중에 {npc:716}이(가) 요구합니다.",
 	-- ["Follow the road south to {area:35} at the southern tip of the vale and enter through the tunnel in the cliffs. Stay on the road: the jungle beside it is well above your level. {npc:2858}, the Horde flight master, waits on the upper deck."] = "길을 따라 골짜기 남쪽 끝의 {area:35}(으)로 가서 절벽의 터널로 들어가세요. 길에서 벗어나지 마세요. 길 옆 정글은 레벨이 훨씬 높습니다. 호드 비행 조련사 {npc:2858}은(는) 위층 갑판에 있습니다.",
+	-- ["Green Hills pages"] = "푸른 언덕의 쪽",
 	-- ["Pages of The {item:2755} drop at about 1% each from the Bloodscalp and Skullsplitter trolls; keep every page you loot and look on the auction house for the rest. {npc:716} takes the chapters later in this guide."] = "{item:2755}의 쪽은 붉은머리부족과 백골가루부족 트롤에게서 각각 약 1% 확률로 떨어집니다. 얻은 쪽은 모두 보관하고 나머지는 경매장에서 찾아보세요. {npc:716}은(는) 이 가이드 후반에 장을 받습니다.",
 	-- ["Shadowmaw panthers"] = "그림자퓨마",
 	-- ["The Lashtail Raptors (35-36) hunt the jungle just north-east of {object:3202}."] = "채찍꼬리랩터(35-36)는 {object:3202} 바로 북동쪽 정글에서 사냥합니다.",
-	-- ["The Mosh'Ogg ogres camp in the hills just east of {object:3202}. Kill one Brute and one Witch Doctor (36-37); pull them one at a time."] = "모쉬오그일족 오우거는 {object:3202} 바로 동쪽 언덕에 야영하고 있습니다. 모쉬오그일족 투사와 모쉬오그일족 의술사(36-37)를 하나씩 처치하세요. 한 마리씩 끌어오세요.",
 	-- ["The Shadowmaw Panthers (37-38) stalk the jungle east of the Mosh'Ogg hills and north-east towards the lake; they strike from stealth. Loot every Green Hills page you find on the way."] = "그림자퓨마(37-38)는 모쉬오그일족 언덕 동쪽과 북동쪽 호수 방향 정글에 숨어 다니며, 은신 상태에서 공격합니다. 가는 길에 보이는 푸른 언덕의 쪽은 모두 챙기세요.",
 	-- ["The camp by the river"] = "강가의 야영지",
-	-- ["The zeppelin lands at the tower on the west side of the camp."] = "비행선은 주둔지 서쪽의 탑에 도착합니다.",
 	-- ["Venture Co. camp"] = "투자개발회사 야영지",
 	-- ["Zeppelin to {object:3202}"] = "{object:3202}행 비행선",
+	-- ["{npc:2496}: for Pozzik at the {area:2240}, on the way to {zone:1446} around level 43"] = "{npc:2496}: 레벨 43쯤 {zone:1446}(으)로 가는 길에 있는 {area:2240}의 포직에게 전달",
 	-- ["{npc:773}'s missing hunters' camp is Nesingwary's: walk among its tents and the investigation completes. River Crocolisks lie along the river below the camp."] = "{npc:773}의 실종된 사냥꾼들의 야영지는 네싱워리의 야영지입니다. 천막 사이를 걸으면 조사가 완료됩니다. 민물악어는 야영지 아래 강을 따라 있습니다.",
 }

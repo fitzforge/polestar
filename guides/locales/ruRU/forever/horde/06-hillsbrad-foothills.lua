@@ -31,7 +31,8 @@ return {
 
 	-- Step 4: Hillsbrad Fields
 	-- {area:287} Hillsbrad · {npc:232} Farmer Ray · {npc:2403} Farmer Getz · {npc:2451} Farmer Kalaba
-	["The farms east of {area:287} town. {npc:232} works the field by the northern farmhouse, {npc:2403} the one further south-east; Farmhands and Farmers are everywhere. {npc:2451} tends the field south of the farms."] = "Фермы к востоку от городка {area:287}. {npc:232} работает на поле у северного фермерского дома, {npc:2403} — на поле юго-восточнее; батраки и фермеры повсюду. {npc:2451} ухаживает за полем к югу от ферм.",
+	-- plural, as words: Kirin Tor Guards = {npc:246848} Kirin Tor Guard
+	["The farms east of {area:287} town. {npc:232} works the field by the northern farmhouse, {npc:2403} the one further south-east; Farmhands and Farmers are everywhere. {npc:2451} tends the field south of the farms. Careful: Kirin Tor Guards (55) stand north of the farms, on the road up toward Alterac: keep to the fields."] = "Фермы к востоку от городка {area:287}. {npc:232} работает на поле у северного фермерского дома, {npc:2403} – на поле юго-восточнее; батраки и фермеры повсюду. {npc:2451} ухаживает за полем к югу от ферм. Осторожно: стражи Кирин-Тора (55) стоят к северу от ферм, на дороге к Альтераку: держитесь полей.",
 
 	-- Step 5: Mountain Lion Blood
 	["Careful: When one lion is attacked, nearby lions come to its aid, and the Vicious Black Bears sharing those fields can also join the fight."] = "",
@@ -40,9 +41,9 @@ return {
 	-- {npc:2216} Apothecary Lydon
 	["{npc:2216}, inside"] = "",
 	-- {npc:2230} Umpi
-	["{npc:2230}, next to Lydon; inside"] = "",
+	["{npc:2230}, next to Lydon; inside"] = "{npc:2230}, рядом с Лидоном; внутри",
 	-- {quest:567} Dangerous!
-	["The {quest:567} poster: Kalaba with the peasants, Wilkes at the smithy; the clerk and the miner on the visit at about 30; inside"] = "",
+	["The {quest:567} poster: Kalaba with the peasants, Wilkes at the smithy; the clerk and the miner on the visit at about 30; inside"] = "Плакат «{quest:567}»: Калаба с крестьянами, Уилкс у кузницы; клерк и шахтер – при визите примерно на 30; внутри",
 
 	-- Step 7: Stanley
 	-- {npc:2274} Stanley · {npc:232} Farmer Ray · {area:286} Hillsbrad Fields
@@ -99,7 +100,7 @@ return {
 	-- Step 15: The western peak
 	["The western peak"] = "Западная вершина",
 	-- {area:287} Hillsbrad
-	["From {area:287} town climb the mountain to the north, right up to its top on the Alterac border: the western vial goes there, not on the lower slope."] = "",
+	["From {area:287} town climb the mountain to the north, right up to its top on the Alterac border: the western vial goes there, not on the lower slope."] = "Из городка {area:287} поднимитесь на гору к северу, до самой вершины на границе Альтерака: западная склянка ставится там, а не на нижнем склоне.",
 
 	-- Step 16: Back to Tarren Mill
 	-- {area:272} Tarren Mill
@@ -126,55 +127,83 @@ return {
 	-- {area:272} Tarren Mill
 	["{area:272} flight master"] = "",
 
-	-- Step 21: Fly to the Undercity
+	-- Step 21: Hadrec and Dalar Dawnweaver
+	-- {npc:1938} Dalar Dawnweaver
+	["Hadrec and {npc:1938}"] = "Хадрек и {npc:1938}",
+	-- {area:236} Shadowfang Keep · {npc:1952} High Executor Hadrec · {npc:1938} Dalar Dawnweaver
+	["For your {area:236} run: {npc:1952} stands below ground in the crypt, {npc:1938} just north of Allister."] = "Для подземелья {area:236}: {npc:1952} стоит под землей в склепе, {npc:1938} – чуть севернее Аллистера.",
+	-- {npc:1952} High Executor Hadrec
+	["{npc:1952}, below ground"] = "{npc:1952}, под землей",
+
+	-- Step 22: Shadowfang Keep
+	-- {area:236} Shadowfang Keep · {area:228} The Sepulcher · {area:204} Pyrewood Village · {npc:4444} Deathstalker Vincent · {quest:1098} Deathstalkers in Shadowfang · {npc:3886} Razorclaw the Butcher · {npc:3887} Baron Silverlaine · {npc:4278} Commander Springvale · {npc:4279} Odo the Blindwatcher · {npc:4274} Fenrus the Devourer · {npc:3927} Wolf Master Nandos · {npc:4275} Archmage Arugal · {npc:1938} Dalar Dawnweaver
+	["{area:236} is a dungeon for a group of five, about levels 20 to 30, and a full run takes about an hour. Follow the road south from the {area:228}: the keep stands on the hill above {area:204}, its gate at the top of the path.\nInside: Rethilgore first; the Deathstalker freed from the cells after him opens the courtyard door, and {npc:4444} lies just inside the courtyard, to the right: hand {quest:1098} in to him there. Then {npc:3886}, {npc:3887}, {npc:4278}, {npc:4279}, {npc:4274} and {npc:3927}; {npc:4275} at the top drops his head for {npc:1938}."] = "{area:236} – подземелье для группы из пяти игроков, примерно 20-30-й уровень; полное прохождение занимает около часа. Идите по дороге на юг от места {area:228}: замок стоит на холме над местом {area:204}, ворота – в конце тропы.\nВнутри: сначала Ретилгор; освобожденный после него из камер следопыт смерти открывает дверь во двор, а {npc:4444} лежит сразу за ней во дворе, справа: сдайте ему там задание {quest:1098}. Затем {npc:3886}, {npc:3887}, {npc:4278}, {npc:4279}, {npc:4274} и {npc:3927}; с NPC {npc:4275} наверху падает его голова для NPC {npc:1938}.",
+	-- {quest:1014} Arugal Must Die · {item:5442} Head of Arugal
+	["{quest:1014}: the {item:5442}"] = "{quest:1014}: {item:5442}",
+
+	-- Step 23: Dalar Dawnweaver
+	-- {area:228} The Sepulcher · {npc:1938} Dalar Dawnweaver
+	["Back north up the road to the {area:228}: {npc:1938} stands just north of Allister."] = "Назад на север по дороге: {area:228}. {npc:1938} стоит чуть севернее Аллистера.",
+
+	-- Step 24: Fly to the Undercity
 	-- {area:1497} Undercity
 	["Fly to the {area:1497}"] = "",
 	-- {npc:2226} Karos Razok · {area:1497} Undercity
 	["Fly on from {npc:2226}, the bat handler just east of the crypt, to the {area:1497}."] = "",
 
-	-- Step 22: Aelthalyste
+	-- Step 25: Aelthalyste
 	-- {npc:4606} Aelthalyste · {object:36070} War Quarter
 	["{npc:4606} stands in the {object:36070}."] = "{npc:4606} стоит здесь: {object:36070}.",
 
-	-- Step 23: Master Apothecary Faranell
+	-- Step 26: Master Apothecary Faranell
 	-- {npc:2055} Master Apothecary Faranell
 	["{npc:2055}, in the Apothecarium"] = "{npc:2055}, в Аптекарии",
-	-- {area:287} Hillsbrad
-	["Keep it: the {area:287} coast, later on the route"] = "Сохраните его: побережье ({area:287}), позже по маршруту",
 
-	-- Step 24: Archibald
+	-- Step 27: Master Apothecary Faranell
+	-- {item:280438} Abominable Head · {area:153} Ruins of Lordaeron
+	["The {item:280438} from the {area:153}: Faranell takes it here."] = "{item:280438} из подземелья {area:153}: его принимает Фаранелл.",
+
+	-- Step 28: Morbin Lightbane
+	-- {area:153} Ruins of Lordaeron · {npc:266484} Morbin Lightbane · {object:36126} Royal Quarter
+	["Your {area:153} limbs: {npc:266484} stands in the {object:36126}, just past the Apothecarium."] = "Конечности из подземелья {area:153}: {npc:266484} стоит здесь: {object:36126}, сразу за Районом Фармацевтов.",
+
+	-- Step 29: Oran Snakewrithe
+	-- {quest:95204} Crest of Lordaeron · {area:153} Ruins of Lordaeron · {npc:7825} Oran Snakewrithe
+	["The {quest:95204} from your {area:153} run: {npc:7825} takes it."] = "{quest:95204} из подземелья {area:153}: его принимает {npc:7825}.",
+
+	-- Step 30: Archibald
 	-- {spell:202} Two-Handed Swords · {npc:11870} Archibald · {object:36070} War Quarter
 	["While you're here: learn {spell:202} from {npc:11870} ({object:36070}, 10 silver); two-handers level a Warrior fastest."] = "",
 
-	-- Step 25: Archibald
+	-- Step 31: Archibald
 	-- {npc:11870} Archibald · {object:36070} War Quarter
 	["While you're here: learn Polearms from {npc:11870} ({object:36070}, 1 gold); two-handers level a Warrior fastest."] = "",
 
-	-- Step 26: Archibald
+	-- Step 32: Archibald
 	-- {spell:202} Two-Handed Swords · {npc:11870} Archibald · {object:36070} War Quarter
 	["While you're here: learn {spell:202} from {npc:11870} ({object:36070}, 10 silver); two-handers level a Paladin fastest."] = "",
 
-	-- Step 27: Archibald
+	-- Step 33: Archibald
 	-- {npc:11870} Archibald · {object:36070} War Quarter
 	["While you're here: learn Polearms from {npc:11870} ({object:36070}, 1 gold); a Hunter's melee weapon is mostly its stats, and two-handers carry the most."] = "",
 
-	-- Step 28: Archibald
+	-- Step 34: Archibald
 	-- {npc:11870} Archibald · {object:36070} War Quarter
 	["While you're here: learn Swords from {npc:11870} ({object:36070}, 10 silver); a sword in the main hand levels a Rogue steadily."] = "",
 
-	-- Step 29: Trial of the Sea Lion
+	-- Step 35: Trial of the Sea Lion
 	-- {spell:18960} Teleport: Moonglade · {area:2362} Shrine of Remulos · {npc:11802} Dendrite Starblaze · {area:2361} Nighthaven
 	["Cast {spell:18960}. Join the two pendant halves at the {area:2362}, on the north-west shore of the lake, before you see {npc:11802} in {area:2361}. {npc:11802} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."] = "",
 	-- {item:15885} Pendant of the Sea Lion · {area:2362} Shrine of Remulos
 	["{item:15885}: use a half at the {area:2362}"] = "{item:15885}: используйте половинку здесь: {area:2362}",
 
-	-- Step 30: Aquatic Form
+	-- Step 36: Aquatic Form
 	-- {quest:31} Aquatic Form · {npc:11802} Dendrite Starblaze · {npc:11798} Bunthen Plainswind · {area:2361} Nighthaven · {area:1638} Thunder Bluff · {npc:3033} Turak Runetotem · {area:1639} Elder Rise
 	["Take {quest:31} from {npc:11802}, who stands upstairs in his building. Then {npc:11798} in {area:2361} flies druids to {area:1638}: {npc:3033} is on {area:1639}."] = "",
 	-- {npc:11798} Bunthen Plainswind · {area:2361} Nighthaven
 	["{npc:11798} in {area:2361} flies druids there"] = "{npc:11798} ({area:2361}) отправляет туда друидов по воздуху",
 
-	-- Step 31: Back to the Crossroads
+	-- Step 37: Back to the Crossroads
 	["Back to the Crossroads"] = "",
 	-- {npc:3033} Turak Runetotem · {npc:3024} Tah Winterhoof · {npc:4721} Zangen Stonehoof
 	["Train with {npc:3033}. Before you fly on, {npc:3024} and {npc:4721}, a short walk east of the wind rider master, give two quests worked on the next guides' walks; then fly on to the Crossroads, where the next guide starts."] = "Обучитесь у NPC {npc:3033}. Перед вылетом возьмите два задания у NPC {npc:3024} и {npc:4721}, недалеко к востоку от распорядителя ветрокрылов: их выполняют по пути в следующих гайдах. Затем летите на Перекресток, где начинается следующий гайд.",
@@ -184,15 +213,15 @@ return {
 	-- plural, as words: Laughing Sisters = {npc:4054} Laughing Sister
 	["{npc:4721}: {quest:1195}, the phial from {zone:1440}'s Laughing Sisters"] = "{npc:4721}: {quest:1195}, флакон с хохочущих сестер ({zone:1440})",
 
-	-- Step 32: Zeppelin to Orgrimmar
+	-- Step 38: Zeppelin to Orgrimmar
 	-- {zone:1454} Orgrimmar
 	["Zeppelin to {zone:1454}"] = "Дирижабль: {zone:1454}",
 
-	-- Step 33: Orgrimmar
+	-- Step 39: Orgrimmar
 	-- {zone:1454} Orgrimmar
 	["The middle of {zone:1454}"] = "",
 
-	-- Step 34: Orgrimmar
+	-- Step 40: Orgrimmar
 	["Train before you fly on: the next guide flies from here to the Crossroads."] = "",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
@@ -200,10 +229,10 @@ return {
 	-- ["Fly to {area:392}. {quest:874} camps on the shore north of {area:392}."] = "Летите в {area:392}. {quest:874} стоит лагерем на берегу к северу от места {area:392}.",
 	-- ["Follow the road south to the dwarf dig site at {area:359}. {npc:3421} hides at the south edge of the dig; {object:3646} sits at the bottom of the excavation."] = "Идите по дороге на юг к раскопкам дворфов: {area:359}. {npc:3421} прячется у южного края раскопок; {object:3646} стоит на дне котлована.",
 	-- ["From {area:272} go south-east into the hills on the way to {area:275}. Rogues and Watchmen hold the camps along the way."] = "Из места {area:272} идите на юго-восток в холмы по пути к месту {area:275}. Лагеря на пути занимают разбойники и сторожа Синдиката.",
-	-- ["From {area:287} town go north into the foothills of Alterac: the western vial goes on the hilltop just past the border."] = "Из городка {area:287} идите на север в предгорья Альтерака: западная склянка ставится на холме сразу за границей.",
 	-- ["From {zone:1454} (zeppelin from the towers outside the {zone:1458}) fly to {area:1638} and train on {area:1639}, then fly on to {area:378}."] = "Из города {zone:1454} (дирижабль от башен у города {zone:1458}) летите в {area:1638} и обучитесь здесь: {area:1639}, затем летите дальше в {area:378}.",
 	-- ["From {zone:1454} (zeppelin from the towers outside the {zone:1458}) fly to {area:378}."] = "Из города {zone:1454} (дирижабль от башен у города {zone:1458}) летите в {area:378}.",
 	-- ["Hearth to {area:378} and fly to {area:392}. {quest:874} camps on the shore north of {area:392}."] = "Используйте Камень возвращения: {area:378}, и летите в {area:392}. {quest:874} стоит лагерем на берегу к северу от места {area:392}.",
+	-- ["Keep it: the {area:287} coast, later on the route"] = "Сохраните его: побережье ({area:287}), позже по маршруту",
 	-- ["Masoj hides on the hillside above {area:290}, south of Durnholde, on the way down to the blossoms."] = "Масодж прячется на склоне над местом {area:290}, к югу от Дарнхольда, по пути вниз к цветам.",
 	-- ["Masoj wants an Apothecary Vial placed on three peaks. The southern one is the hilltop above {area:290}, just south of him: use a vial at the top."] = "Масоджу нужно, чтобы на трех вершинах поставили склянки аптекаря. Южная — холм над местом {area:290}, сразу к югу от него: используйте склянку на вершине.",
 	-- ["No Gallywix yet? The Class guide Poisons (Horde) runs the chain from Shenthul again, with a group for Gallywix."] = "Нервотреп еще жив? Классовый гайд «Яды (Орда)» снова проводит цепочку от Шентула, с группой для Нервотрепа.",
@@ -219,12 +248,10 @@ return {
 	-- ["The smithy stands in the middle of {area:287} town. {npc:2404} and his apprentices work at the forge; the {item:3564} is stacked beside it. {npc:2449} walks the street north of it."] = "Кузница стоит в центре городка {area:287}. {npc:2404} и его подмастерья работают у горна; {item:3564} сложена рядом. {npc:2449} ходит по улице к северу от нее.",
 	-- ["The town hall is on the west side of {area:287}. {npc:2335} (30) and {npc:2448} are inside with the Town Registry; the Proclamation is pinned up beside it. Councilmen walk the town."] = "Ратуша — в западной части места {area:287}. {npc:2335} (30) и {npc:2448} внутри, там же Регистрационная книга Хилсбрада; рядом висит Хилсбрадское официальное объявление. По городку ходят члены совета Хилсбрада.",
 	-- ["The {area:288} lies south of {area:287} town. Miners work the tunnels; {npc:2305} (30) and {npc:2450} (29) are deep inside."] = "{area:288} — к югу от городка {area:287}. В туннелях работают шахтеры; {npc:2305} (30) и {npc:2450} (29) — в глубине.",
-	-- ["The {quest:567} poster: Kalaba and Wilkes come up here, the clerk and the miner on the visit at about 32; inside"] = "Плакат «{quest:567}»: Калаба и Уилкс попадутся здесь, клерк и шахтер — при визите примерно на 32; внутри",
 	-- ["The {quest:567} poster: its targets come up along the way"] = "Плакат «{quest:567}»: его цели попадутся по пути",
 	-- ["Town hall"] = "Ратуша",
 	-- ["You arrive bound at the {area:272} inn. Everyone stands around the town square."] = "Вы прибываете в таверну, где привязан ваш камень: {area:272}. Все стоят вокруг городской площади.",
 	-- ["{npc:10079} stands at the top of the {area:1718}, beside {npc:12576}."] = "{npc:10079} стоит наверху ({area:1718}), рядом с NPC {npc:12576}.",
-	-- ["{npc:2230}, next to Lydon"] = "{npc:2230}, рядом с Лидоном",
 	-- ["{npc:2388}: the last guide binds here, so this usually ticks at once"] = "{npc:2388}: предыдущий гайд привязывает вас здесь, так что это обычно отмечается сразу",
 	-- ["{npc:3442}, by the docks in {area:392}"] = "{npc:3442}, у причалов ({area:392})",
 	-- ["{npc:5899}'s hut stands on the ridge above the quilboar watering hole, south of {area:378}, on the way to {area:359}."] = "Хижина ({npc:5899}) стоит на гребне над водопоем свинобразов, к югу от места {area:378}, по пути в {area:359}.",

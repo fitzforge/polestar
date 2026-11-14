@@ -14,7 +14,7 @@ return {
 
 	-- Step 1: Searn Firewarder
 	-- {npc:5892} Searn Firewarder · {object:172957} Valley of Wisdom · {npc:5905} Prate Cloudseer · {zone:1441} Thousand Needles · {spell:10596} Nature Resistance · {item:5178} Air Totem
-	["At 30 {npc:5892} in the {object:172957} sends you to {npc:5905} in {zone:1441}. Your level 30 air totems (Grounding, {spell:10596}) need the {item:5178} she gives."] = "",
+	["At 30 {npc:5892} in the {object:172957} sends you to {npc:5905} in {zone:1441}. Your level 30 air totems (Grounding, {spell:10596}) need the {item:5178} she gives."] = "На 30-м уровне {npc:5892} ({object:172957}) отправляет вас к NPC {npc:5905} ({zone:1441}). Для ваших тотемов воздуха 30-го уровня («Тотем заземления», {spell:10596}) нужен {item:5178}, который она дает.",
 
 	-- Step 2: Alaana Stormwalker
 	-- {quest:96136} Call of Air · {npc:259119} Alaana Stormwalker · {zone:1412} Mulgore · {zone:1456} Thunder Bluff · {npc:5906} Xanis Flameweaver
@@ -34,7 +34,7 @@ return {
 
 	-- Step 9: Charlga Razorflank
 	-- {area:1717} Razorfen Kraul · {zone:1413} Barrens · {npc:4421} Charlga Razorflank · {spell:8292} Chain Bolt · {spell:139} Renew · {item:274463} Tattered Note
-	["{area:1717} is a five-player dungeon at the southern edge of the {zone:1413} (the arrow points at its entrance); {npc:4421} (level 33 elite) is its last boss. She casts {spell:8292}, {spell:139} on her allies and Purity; the {item:274463} drops only from her."] = "",
+	["{area:1717} is a five-player dungeon at the southern edge of the {zone:1413} (the arrow points at its entrance); {npc:4421} (level 33 elite) is its last boss. She casts {spell:8292}, {spell:139} on her allies and Purity; the {item:274463} drops only from her."] = "{area:1717} – подземелье для пяти игроков на южной окраине зоны {zone:1413} (стрелка указывает на вход); {npc:4421} (элитный противник 33-го уровня) – его последний босс. Она применяет {spell:8292}, {spell:139} на союзников и «Чистоту»; {item:274463} падает только с нее.",
 	-- {item:274463} Tattered Note · {npc:4421} Charlga Razorflank
 	["{item:274463}, from {npc:4421}"] = "{item:274463}, с NPC {npc:4421}",
 
@@ -84,14 +84,12 @@ return {
 	["{npc:6176}: the {item:280696} and your weapon"] = "{npc:6176}: {item:280696} и ваше оружие",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
-	-- ["At 30 {npc:5892} in the {object:172957} sends you to {npc:5905} in {zone:1441}."] = "На 30-м уровне {npc:5892} ({object:172957}) отправляет вас к NPC {npc:5905} ({zone:1441}).",
 	-- ["At 30 {npc:5906}, a shaman trainer in {zone:1456}, sends you to {npc:5905} in {zone:1441}."] = "На 30-м уровне {npc:5906}, учитель шаманов ({zone:1456}), отправляет вас к NPC {npc:5905} ({zone:1441}).",
 	-- ["Fly to {area:484}. {npc:5905} hides in a small cave in the canyon wall north-east of the post. Skyborne: your own {quest:1531} (96136) ends with her too."] = "Летите сюда: {area:484}. {npc:5905} прячется в маленькой пещере в стене каньона к северо-востоку от лагеря. Небеснорожденные: ваше собственное задание {quest:1531} (96136) тоже завершается у нее.",
 	-- ["The Lost Ones in the north of the {zone:1435} carry the Twisted Earth Totems."] = "Изуродованные тотемы земли носят Заблудшие на севере зоны {zone:1435}.",
 	-- ["The Maraudine centaurs of western {zone:1443} carry the Twisted Air Totems."] = "Изуродованные тотемы воздуха носят кентавры из племени Мародин на западе зоны {zone:1443}.",
 	-- ["The Mirefin murlocs of northern {zone:1445} carry the Twisted Water Totems."] = "Изуродованные тотемы воды носят мурлоки из племени Болотного Плавника на севере зоны {zone:1445}.",
 	-- ["The Stonevault troggs in the south of the {zone:1418} carry the Twisted Fire Totems."] = "Изуродованные тотемы огня носят троггы из племени Каменного Свода на юге зоны {zone:1418}.",
-	-- ["{area:1717} is a dungeon at the southern edge of the {zone:1413} (the arrow points at its entrance); {npc:4421} is its last boss. Bring a group."] = "{area:1717} — подземелье на южной окраине зоны {zone:1413} (стрелка указывает на вход); {npc:4421} — его последний босс. Возьмите группу.",
 	-- ["{npc:5905} hands you the {item:268582}: place them at the steam pools west of {area:484} and defeat the {npc:216474} they call. {quest:79366} is an elite quest: grouping up is advised."] = "{npc:5905} вручает вам {item:268582}: поставьте их у паровых озерец к западу от места {area:484} и победите призванного ими NPC {npc:216474}. {quest:79366} — элитное задание: лучше собрать группу.",
 	-- ["{npc:6176} camps in the east of {zone:1416}, north-east of {area:272}."] = "{npc:6176} разбил лагерь на востоке зоны {zone:1416}, к северо-востоку от места {area:272}.",
 	-- ["{npc:6176}: the {item:213086} and your weapon"] = "{npc:6176}: {item:213086} и ваше оружие",

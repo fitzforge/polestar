@@ -81,8 +81,8 @@ return {
 
 	-- Step 11: Nesingwary's camp
 	["Nesingwary's camp"] = "奈辛瓦里的營地",
-	-- {object:3202} Grom'gol · {npc:773} Krazek · {quest:338} The Green Hills of Stranglethorn · {npc:716} Barnil Stonepot
-	["Follow the road north out of {object:3202}; Nesingwary's hunting camp sits on the hill north-east of the river. {npc:773} wants it investigated: walk among its tents. From here on, keep every page of {quest:338} you loot: {npc:716} takes them on your next Stranglethorn visit."] = "沿著道路從{object:3202}向北走；奈辛瓦里的狩獵營地在河東北方的山丘上。{npc:773}要你調查那裡：在帳篷之間走一走。從現在起，保留你拾取的每一頁{quest:338}：{npc:716}會在你下次來荊棘谷時收下。",
+	-- {object:3202} Grom'gol · {npc:773} Krazek · {item:2755} Green Hills of Stranglethorn · {npc:716} Barnil Stonepot
+	["Follow the road north out of {object:3202}; Nesingwary's hunting camp sits on the hill north-east of the river. {npc:773} wants it investigated: walk among its tents. From here on, keep every page of The {item:2755} you loot: {npc:716} takes them on your next Stranglethorn visit."] = "沿著道路從{object:3202}向北走；奈辛瓦里的狩獵營地在河東北方的山丘上。{npc:773}要你調查那裡：在帳篷之間走一走。從現在起，保留你拾取的每一頁{item:2755}：{npc:716}會在你下次來荊棘谷時收下。",
 
 	-- Step 12: Nesingwary's Expedition: kill these as you meet them
 	-- {area:100} Nesingwary's Expedition
@@ -95,12 +95,13 @@ return {
 	-- {zone:1434} Stranglethorn Vale
 	["{zone:1434}: kill these as you meet them"] = "",
 	-- {area:37} Lake Nazferiti
-	-- plural, as words: Stranglethorn Tigers = {npc:682} Stranglethorn Tiger · Venture Co. Geologists = {npc:1096} Venture Co. Geologist · Tumbled Crystals = {item:4106} Tumbled Crystal
-	["Stranglethorn Tigers (32) roam the hills around the camp and south of it, Panthers (32) the clearings west and south-west of it. The Venture Co. Geologists, who carry the Tumbled Crystals, work the camps by {area:37}, south-east of the camp."] = "",
+	-- plural, as words: Stranglethorn Tigers = {npc:682} Stranglethorn Tiger · Venture Co. Geologists = {npc:1096} Venture Co. Geologist · Tumbled Crystals = {item:4106} Tumbled Crystal · Venture Co. Agents = {npc:260429} Venture Co. Agent
+	["Stranglethorn Tigers (32) roam the hills around the camp and south of it, Panthers (32) the clearings west and south-west of it. The Venture Co. Geologists, who carry the Tumbled Crystals, work the camps by {area:37}, south-east of the camp. Careful: their camps are crowded, with Venture Co. Agents (39) among the geologists (36-38): pull from the camps' edges, one at a time."] = "",
 
 	-- Step 15: Cozzle's Footlocker
 	-- {npc:4723} Foreman Cozzle · {area:37} Lake Nazferiti · {object:20691} Cozzle's Footlocker · {npc:2496} Baron Revilgaz
-	["{npc:4723} (38) is inside the Venture Co. house on {area:37}'s west shore, among the geologists: his key opens {object:20691} in the same house, which holds the blueprints for {npc:2496}."] = "{npc:4723}（38級）在{area:37}西岸的風險投資公司房屋內，周圍都是地質學家：他的鑰匙可以打開同一棟房屋裡的{object:20691}，裡面有給{npc:2496}的藍圖。",
+	-- plural, as words: Venture Co. Agents = {npc:260429} Venture Co. Agent
+	["{npc:4723} (38) is inside the Venture Co. house on {area:37}'s west shore, among the geologists: his key opens {object:20691} in the same house, which holds the blueprints for {npc:2496}. Careful: Venture Co. Agents (39) stand in and around the house: clear the doorway before you go in."] = "{npc:4723}（38級）在{area:37}西岸的風險投資公司房屋內，周圍都是地質學家：他的鑰匙可以打開同一棟房屋裡的{object:20691}，裡面有給{npc:2496}的藍圖。小心：風險投資公司特工（39級）站在房屋內外：進去前先清掉門口。",
 	-- {npc:4723} Foreman Cozzle
 	["from {npc:4723}"] = "從{npc:4723}身上取得",
 	-- {item:5852} Fuel Regulator Blueprints · {object:20691} Cozzle's Footlocker
@@ -142,9 +143,9 @@ return {
 
 	-- Step 23: Level 35
 	["Level 35"] = "",
-	-- {area:35} Booty Bay · {object:3202} Grom'gol · {area:796} Scarlet Monastery
+	-- {area:35} Booty Bay · {object:3202} Grom'gol
 	-- plural, as words: Lashtail Raptors = {npc:686} Lashtail Raptor
-	["{area:35}'s and {object:3202}'s next quests are 35-38. Still below 35 after Aggro'gosh's hand-in? The Lashtail Raptors (35) hunt the jungle just north of {object:3202}: kill them until level 35. Or, with a group, run the {area:796} dungeon (Library or Armory) instead."] = "",
+	["{area:35}'s and {object:3202}'s next quests are 35-38. Still below 35 after Aggro'gosh's hand-in? The Lashtail Raptors (35) hunt the jungle just north of {object:3202}: kill them until level 35."] = "",
 	-- {npc:686} Lashtail Raptor
 	["grind on {npc:686}"] = "",
 
@@ -159,8 +160,6 @@ return {
 	["{npc:2495}'s shop is in the building east of the inn; {npc:2498} is on the inn's bottom floor, {npc:2496}, {npc:737} and {npc:773} upstairs beside the flight master."] = "{npc:2495}的商店在旅店東邊的建築裡；{npc:2498}在旅店的一樓，{npc:2496}、{npc:737}和{npc:773}在樓上的飛行管理員旁邊。",
 	-- {npc:2498} Crank Fizzlebub
 	["{npc:2498}, inside"] = "",
-	-- {npc:2496} Baron Revilgaz · {area:2240} Mirage Raceway · {zone:1446} Tanaris
-	["{npc:2496}: for Pozzik at the {area:2240}, on the way to {zone:1446} around level 43"] = "{npc:2496}：給{area:2240}的波茲克，大約43級前往{zone:1446}的途中",
 
 	-- Step 26: Fly to Grom'gol
 	-- {object:3202} Grom'gol
@@ -176,26 +175,21 @@ return {
 	-- Step 28: Ruins of Zul'Kunda: kill these as you meet them
 	-- {area:102} Ruins of Zul'Kunda
 	["{area:102}: kill these as you meet them"] = "",
-	-- {item:3915} Bloody Bone Necklace · {quest:338} The Green Hills of Stranglethorn
+	-- {item:3915} Bloody Bone Necklace · {item:2755} Green Hills of Stranglethorn
 	-- plural, as words: Bloodscalp Headhunters = {npc:671} Bloodscalp Headhunter
-	["The Bloodscalp Headhunters (36-37) in the village on the coast carry the shrunken heads.\nThe Bloodscalp trolls hold the ruins up the coast north of the reef and the village beyond; every one can drop a {item:3915}. Keep looting pages of {quest:338}."] = "",
+	["The Bloodscalp Headhunters (36-37) in the village on the coast carry the shrunken heads.\nThe Bloodscalp trolls hold the ruins up the coast north of the reef and the village beyond; every one can drop a {item:3915}. Keep looting pages of The {item:2755}."] = "",
 
 	-- Step 30: Stranglethorn Vale: kill these as you meet them
 	-- {npc:2495} Drizzlik
 	-- plural, as words: Shadowmaw Panthers = {npc:684} Shadowmaw Panther · Snapjaw Crocolisks = {npc:1152} Snapjaw Crocolisk · Elder Shadowmaw Panthers = {npc:1713} Elder Shadowmaw Panther
 	["East of the Mosh'Ogg hills, Shadowmaw Panthers (37-38) stalk the jungle towards the lake; the Stranglethorn Tigresses roam the same ground and now and then drop a pristine fang. Snapjaw Crocolisks line the river just west of the jungle; keep their skins for {npc:2495}. Careful: Shadowmaw Panthers (level 37-38) and Elder Shadowmaw Panthers (level 42-43) use Sneak while out of combat, so they remain hidden until you get near them."] = "",
 
-	-- Step 31: Green Hills pages
-	["Green Hills pages"] = "荊棘谷的青山書頁",
-	-- {item:2755} Green Hills of Stranglethorn · {npc:716} Barnil Stonepot
-	["Pages of The {item:2755} drop at about 1% each from the Bloodscalp and Skullsplitter trolls; keep every page you loot and look on the auction house for the rest. {npc:716} takes the chapters on your next Stranglethorn visit, at about 40."] = "",
-
-	-- Step 32: Mosh'Ogg camp
+	-- Step 31: Mosh'Ogg camp
 	["Mosh'Ogg camp"] = "莫什奧格營地",
 	-- {object:3202} Grom'gol
-	["The Mosh'Ogg ogres camp in the hills just east of {object:3202}, on your way back. Kill 10 Brutes and 5 Witch Doctors (36-37); pull them one at a time."] = "",
+	["The Mosh'Ogg ogres camp in the hills just east of {object:3202}, on your way back. Kill 10 Brutes and 5 Witch Doctors (36-37); pull them one at a time."] = "莫什奧格巨魔在{object:3202}東邊不遠處的山丘上紮營，就在你回去的路上。擊殺10個莫什奧格蠻兵和5個莫什奧格巫醫（36-37級）；一次拉一隻。",
 
-	-- Step 33: Grom'gol
+	-- Step 32: Grom'gol
 	-- {object:3202} Grom'gol
 	["Back to {object:3202}."] = "返回{object:3202}。",
 	-- {npc:2465} Far Seer Mok'thardin
@@ -203,13 +197,13 @@ return {
 	-- {npc:2497} Nimboya
 	["{npc:2497}: for forever/horde/40-50/01-stranglethorn-vale"] = "",
 	-- {zone:1454} Orgrimmar
-	["The next guide takes the zeppelin to {zone:1454} from the tower on the west side of the camp."] = "",
+	["The next guide takes the zeppelin to {zone:1454} from the tower on the west side of the camp."] = "下一份指南會從營地西側的塔搭飛艇前往{zone:1454}。",
 
-	-- Step 34: Level 36
+	-- Step 33: Level 36
 	["Level 36"] = "",
-	-- {object:3202} Grom'gol · {area:796} Scarlet Monastery · {area:1316} Razorfen Downs
+	-- {object:3202} Grom'gol
 	-- plural, as words: Mosh'Ogg Brutes = {npc:1142} Mosh'Ogg Brute
-	["Dustwallow's quests are 35-38. Still below 36 after {object:3202}'s hand-ins? The Mosh'Ogg Brutes and Witch Doctors camp in the hills just east of the camp: kill them until level 36, pulling one at a time, then walk back to the zeppelin tower. Or, with a group, run the {area:796} dungeon (Armory) or the {area:1316} dungeon instead."] = "",
+	["Dustwallow's quests are 35-38. Still below 36 after {object:3202}'s hand-ins? The Mosh'Ogg Brutes and Witch Doctors camp in the hills just east of the camp: kill them until level 36, pulling one at a time, then walk back to the zeppelin tower."] = "",
 	-- {npc:1142} Mosh'Ogg Brute
 	["grind on {npc:1142}"] = "",
 
@@ -217,14 +211,14 @@ return {
 	-- ["Elder tigers and Lashtail raptors"] = "老虎與鞭尾迅猛龍",
 	-- ["Follow the road north out of {object:3202}; Nesingwary's hunting camp sits on the hill north-east of the river. From here on, keep every page of {quest:338} you loot: {npc:716} asks for them later."] = "沿著道路從{object:3202}向北走；奈辛瓦里的狩獵營地在河東北方的山丘上。從現在起，保留你拾取的每一頁{quest:338}：{npc:716}稍後會要。",
 	-- ["Follow the road south to {area:35} at the southern tip of the vale and enter through the tunnel in the cliffs. Stay on the road: the jungle beside it is well above your level. {npc:2858}, the Horde flight master, waits on the upper deck."] = "沿著道路向南前往山谷南端的{area:35}，從懸崖中的隧道進入。待在道路上：路旁叢林的等級比你高很多。部落飛行管理員{npc:2858}在上層平台等候。",
+	-- ["Green Hills pages"] = "荊棘谷的青山書頁",
 	-- ["Pages of The {item:2755} drop at about 1% each from the Bloodscalp and Skullsplitter trolls; keep every page you loot and look on the auction house for the rest. {npc:716} takes the chapters later in this guide."] = "{item:2755}的每一頁從血頂和劈顱食人妖身上的掉落率約為1%；保留你拾取的每一頁，其餘的到拍賣場找。{npc:716}會在本指南稍後收下這些章節。",
 	-- ["Shadowmaw panthers"] = "深喉獵豹",
 	-- ["The Lashtail Raptors (35-36) hunt the jungle just north-east of {object:3202}."] = "鞭尾迅猛龍（35-36級）在{object:3202}東北方不遠處的叢林中獵食。",
-	-- ["The Mosh'Ogg ogres camp in the hills just east of {object:3202}. Kill one Brute and one Witch Doctor (36-37); pull them one at a time."] = "莫什奧格巨魔在{object:3202}東邊不遠處的山丘上紮營。擊殺一個莫什奧格蠻兵和一個莫什奧格巫醫（36-37級）；一次拉一隻。",
 	-- ["The Shadowmaw Panthers (37-38) stalk the jungle east of the Mosh'Ogg hills and north-east towards the lake; they strike from stealth. Loot every Green Hills page you find on the way."] = "深喉獵豹（37-38級）在莫什奧格山丘東邊以及往東北通往湖泊的叢林中潛行；牠們會從潛行中發動攻擊。沿途拾取你找到的每一頁荊棘谷的青山。",
 	-- ["The camp by the river"] = "河邊的營地",
-	-- ["The zeppelin lands at the tower on the west side of the camp."] = "飛艇降落在營地西側的塔。",
 	-- ["Venture Co. camp"] = "風險投資公司營地",
 	-- ["Zeppelin to {object:3202}"] = "搭飛艇前往{object:3202}",
+	-- ["{npc:2496}: for Pozzik at the {area:2240}, on the way to {zone:1446} around level 43"] = "{npc:2496}：給{area:2240}的波茲克，大約43級前往{zone:1446}的途中",
 	-- ["{npc:773}'s missing hunters' camp is Nesingwary's: walk among its tents and the investigation completes. River Crocolisks lie along the river below the camp."] = "{npc:773}失蹤的獵人營地就是奈辛瓦里的營地：在帳篷之間走一走，調查就會完成。淡水鱷沿著營地下方的河邊趴著。",
 }

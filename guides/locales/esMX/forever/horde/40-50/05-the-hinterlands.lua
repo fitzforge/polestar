@@ -116,8 +116,8 @@ return {
 
 	-- Step 25: Level 49.02
 	["Level 49.02"] = "Nivel 49.02",
-	-- {quest:7816} Gammerita, Mon! · {area:354} Jintha'Alor · {area:2100} Maraudon
-	["If you skipped {quest:7816} or the {area:354} group quests, grind here to level 49.02 to stay on the route's plan. Or, with a group, run the {area:2100} dungeon instead."] = "Si omitiste {quest:7816} o las misiones de grupo de {area:354}, sube de nivel aquí hasta 49.02 para seguir el plan de la ruta. O, en grupo, haz la mazmorra {area:2100}.",
+	-- {quest:7816} Gammerita, Mon! · {area:354} Jintha'Alor
+	["If you skipped {quest:7816} or the {area:354} group quests, grind here to level 49.02 to stay on the route's plan."] = "Si omitiste {quest:7816} o las misiones de grupo de {area:354}, sube de nivel aquí hasta 49.02 para seguir el plan de la ruta.",
 	-- {npc:2505} Saltwater Snapjaw
 	["grind on {npc:2505}"] = "sube de nivel con {npc:2505}",
 
@@ -125,21 +125,27 @@ return {
 	-- {area:353} Shadra'Alor
 	["South-west again, the exile hides by the ruins of {area:353}."] = "De nuevo al suroeste, el exiliado se esconde junto a las ruinas de {area:353}.",
 
-	-- Step 28: Grim Message
+	-- Step 27: Grim Message
 	-- {item:15002} Nimboya's Pike
 	["South of the lodge the Witherbark trolls hold their villages. Every one of them carries a skull: with twenty, use {item:15002} to make the Laden Pike, then plant it inside the village."] = "Al sur del refugio, los trols Secacorteza ocupan sus poblados. Todos llevan un cráneo: con veinte, usa {item:15002} para hacer la Pica cargada de Nimboya y luego clávala dentro del poblado.",
 
-	-- Step 29: Aerie Peak
+	-- Step 28: Aerie Peak
 	-- {area:348} Aerie Peak
 	["Ride all the way west to the Wildhammer town of {area:348} and place the message by the well in its centre. The town is full of Alliance guards: get in, place it and get out."] = "Cabalga todo el camino al oeste hasta {area:348}, el pueblo de los Martillo Salvaje, y coloca el mensaje junto al pozo del centro. El pueblo está lleno de guardias de la Alianza: entra, colócalo y sal.",
 	-- {area:348} Aerie Peak
 	["{area:348} well"] = "Pozo de {area:348}",
 
-	-- Step 31: Fly to Stonard
+	-- Step 30: Fly to Stonard
 	-- {area:75} Stonard
 	["Fly to {area:75}"] = "Vuela a {area:75}",
 	-- {area:3317} Revantusk Village
 	["{area:3317} flight master"] = "Maestro de vuelo de {area:3317}",
+
+	-- Step 31: To Stonard
+	-- {area:75} Stonard
+	["To {area:75}"] = "A {area:75}",
+	-- {area:75} Stonard · {object:3202} Grom'gol (no name in this language: may be words) · {zone:1431} Duskwood · {zone:1430} Deadwind Pass
+	["No flight path to {area:75} yet: the arrow takes the quickest way there (by the {object:3202} flight and the road through {zone:1431} and {zone:1430}). Learn {area:75}'s flight path when you arrive."] = "Aún no tienes ruta de vuelo a {area:75}: la flecha toma el camino más rápido hasta ahí (por el vuelo a {object:3202} y el camino a través de {zone:1431} y {zone:1430}). Aprende la ruta de vuelo de {area:75} al llegar.",
 
 	-- Step 32: Fel'zerul
 	["On the top floor"] = "En el piso superior",

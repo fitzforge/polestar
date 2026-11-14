@@ -21,41 +21,26 @@ return {
 	-- {npc:11867} Woo Ping · {object:2096} Trade District
 	["While you're here: learn Polearms from {npc:11867} ({object:2096}, 1 gold); a Hunter's melee weapon is mostly its stats, and two-handers carry the most."] = "",
 
-	-- Step 4: Tram to Ironforge
-	-- {zone:1455} Ironforge
-	["Tram to {zone:1455}"] = "Поезд до {zone:1455}",
-
-	-- Step 5: Shaman training
-	["Shaman training"] = "Обучение шамана",
-	-- {zone:1453} Stormwind · {area:2257} Deeprun Tram · {object:28027} Dwarven District · {zone:1455} Ironforge · {npc:258098} Eldrun Stormbreaker
-	["{zone:1453} has no shaman trainer: take the {area:2257} from the {object:28027} to {zone:1455}, train with {npc:258098}, then ride the tram back."] = "В городе {zone:1453} нет учителя шаманов: сядьте на поезд ({area:2257}) в месте {object:28027} до города {zone:1455}, обучитесь у NPC {npc:258098}, затем вернитесь на поезде.",
-
-	-- Step 6: Fly to Sentinel Hill
+	-- Step 4: Fly to Sentinel Hill
 	-- {area:108} Sentinel Hill
 	["Fly to {area:108}"] = "",
 	-- {zone:1453} Stormwind
 	["{zone:1453} flight master"] = "Распорядитель полетов: {zone:1453}",
 
-	-- Step 7: Half Pendant of Aquatic Endurance
+	-- Step 5: Half Pendant of Aquatic Endurance
 	-- {area:108} Sentinel Hill · {object:177790} Strange Lockbox
-	["Fly to {area:108} and head north-west to the coast: the {object:177790} lies on the sea floor off the shore. Then head east along the road through Elwynn."] = "",
+	["Fly to {area:108} and head north-west to the coast: the {object:177790} lies on the sea floor off the shore. Then head east along the road through Elwynn."] = "Летите сюда: {area:108}. Идите на северо-запад к побережью: {object:177790} лежит на морском дне недалеко от берега. Затем идите на восток по дороге через Элвиннский лес.",
 	-- {item:15882} Half Pendant of Aquatic Endurance · {object:177790} Strange Lockbox
 	["{item:15882}: the {object:177790}"] = "{item:15882}: {object:177790}",
 
-	-- Step 8: Back to Elwynn Forest
-	-- {zone:1429} Elwynn Forest
-	["Back to {zone:1429}"] = "Назад: {zone:1429}",
-	-- {zone:1429} Elwynn Forest
-	["The road into {zone:1429}"] = "",
-
-	-- Step 9: Elwynn Forest
+	-- Step 6: Elwynn Forest
 	-- {area:91} Tower of Azora
 	["The {area:91}"] = "{area:91}",
 
-	-- Step 10: Theocritus
+	-- Step 7: Theocritus
 	["On the top floor"] = "",
 
-	-- Step 11: Henze Faulk
+	-- Step 8: Henze Faulk
 	-- {area:91} Tower of Azora · {area:86} Stone Cairn Lake · {npc:6172} Henze Faulk · {item:6866} Symbol of Life · {item:6846} Defias Script
 	-- plural, as words: Defias Rogue Wizards = {npc:474} Defias Rogue Wizard
 	["On the road east, past the {area:91}, head north from the bridge to {area:86}. {npc:6172} lies south of the lake: use the {item:6866} on him. The Defias Rogue Wizards around him carry the {item:6846}."] = "",
@@ -65,13 +50,13 @@ return {
 	-- plural, as words: Defias Rogue Wizards = {npc:474} Defias Rogue Wizard
 	["{item:6846}: Defias Rogue Wizards"] = "{item:6846}: волшебники-плуты из Братства Справедливости",
 
-	-- Step 12: Three Corners
+	-- Step 9: Three Corners
 	-- {area:1002} Three Corners · {zone:1431} Duskwood
-	["The road east through Elwynn crosses into Redridge at {area:1002}, where the roads to Redridge, {zone:1431} and Elwynn meet: south to {zone:1431} first."] = "",
+	["The road east through Elwynn crosses into Redridge at {area:1002}, where the roads to Redridge, {zone:1431} and Elwynn meet: south to {zone:1431} first."] = "Дорога на восток через Элвиннский лес входит в Красногорье здесь: {area:1002}, где сходятся дороги в Красногорье, в зону {zone:1431} и в Элвиннский лес: сначала на юг, в зону {zone:1431}.",
 
-	-- Step 14: Darkshire
-	-- {area:1002} Three Corners · {zone:1431} Duskwood · {area:42} Darkshire · {item:4371} Bronze Tube · {quest:174} Look to the Stars · {npc:3133} Herble Baubbletump · {npc:276} Viktori Prism'Antras
-	["Follow the road south from {area:1002} into {zone:1431}; {area:42} lies on the east side of the forest.\nNo {item:4371} for {quest:174}? {npc:3133}, in the house beside {npc:276}, is nearly always sold out. Without one, right-click the quest in the guide window and skip it."] = "",
+	-- Step 11: Darkshire
+	-- {area:1002} Three Corners · {zone:1431} Duskwood · {area:42} Darkshire
+	["Follow the road south from {area:1002} into {zone:1431}; {area:42} lies on the east side of the forest."] = "Идите по дороге на юг от места {area:1002} в зону {zone:1431}; {area:42} – в восточной части леса.",
 	-- {npc:2409} Felicia Maline
 	["{npc:2409}, at the north end of town"] = "{npc:2409} – в северной части города",
 	-- {npc:265} Madame Eva
@@ -90,10 +75,20 @@ return {
 	["{npc:633}, at the south end of town; inside"] = "",
 	-- {npc:633} Elaine Carevin · {npc:288} Jitters · {quest:163} Raven Hill
 	["{npc:633}: {npc:288}, at {quest:163}"] = "",
+
+	-- Step 12: Viktori Prism'Antras
+	-- {npc:276} Viktori Prism'Antras · {quest:174} Look to the Stars · {item:4371} Bronze Tube
+	["{npc:276} is in her house at the east end of town. {quest:174} needs a {item:4371}, so this step shows only while you carry one: without a tube the guide passes {npc:276} and her chain."] = "{npc:276} – в своем доме в восточной части города. Для задания «{quest:174}» нужен предмет {item:4371}, поэтому этот шаг показывается, только пока он у вас есть: без трубы гайд пропускает NPC {npc:276} и ее цепочку.",
 	-- {npc:276} Viktori Prism'Antras
 	["{npc:276}, inside"] = "",
+
+	-- Step 13: Viktori Prism'Antras
 	-- {npc:302} Blind Mary
 	["For {npc:302}, on the hill south-east of town"] = "Для NPC {npc:302} – на холме к юго-востоку от города",
+
+	-- Step 14: Councilman Millstipe
+	-- {area:717} Stockade · {zone:1453} Stormwind · {npc:270} Councilman Millstipe
+	["For your {area:717} run, in {zone:1453} at about 29: {npc:270} is in the town hall. Keep it until then."] = "Для подземелья {area:717} в городе {zone:1453}, примерно на 29-м уровне: {npc:270} – в ратуше. Сохраните задание до тех пор.",
 
 	-- Step 15: Tranquil Gardens Cemetery: kill these as you meet them
 	-- {area:121} Tranquil Gardens Cemetery
@@ -168,27 +163,31 @@ return {
 
 	-- Step 27: Lakeridge Highway
 	-- {area:68} Lake Everstill · {npc:903} Guard Howe
-	["Follow the road along the south shore of {area:68} to the gryphon master. {npc:903} stands by the road next to her."] = "",
+	["Follow the road along the south shore of {area:68} to the gryphon master. {npc:903} stands by the road next to her."] = "Идите по дороге вдоль южного берега озера ({area:68}) к распорядителю полетов. {npc:903} стоит у дороги рядом с ней.",
 
 	-- Step 28: Lake Everstill's murlocs: kill these as you meet them
 	-- {area:68} Lake Everstill
 	["{area:68}'s murlocs: kill these as you meet them"] = "",
 	-- {area:68} Lake Everstill
 	-- plural, as words: Murloc Flesheaters = {npc:422} Murloc Flesheater
-	["Murloc Flesheaters and Tidecallers line the south shore of {area:68}, just east of the gryphons and the bridge. Any of them can carry a fin."] = "",
+	["Murloc Flesheaters and Tidecallers line the south shore of {area:68}, just east of the gryphons and the bridge. Any of them can carry a fin."] = "Мурлоки-трупоеды и мурлоки-волномуты стоят вдоль южного берега ({area:68}), чуть восточнее грифонов и моста. У любого из них может оказаться плавник.",
 
 	-- Step 29: Lakeshire
-	-- {npc:381} Dockmaster Baren · {npc:900} Bailiff Conacher · {npc:342} Martie Jainrose · {npc:382} Marshal Marris · {quest:98386} Alther's Mill
-	["Cross the long bridge north into town: {npc:381} on the docks, {npc:900} in the town hall, {npc:342} in her garden at the west end. {npc:382}'s Blackrock quests and {quest:98386} came with you from your first Redridge visit."] = "Перейдите по длинному мосту на север в город: {npc:381} – на пристани, {npc:900} – в ратуше, {npc:342} – в своем огороде в западной части. Задания NPC {npc:382} о клане Черной Горы и задание {quest:98386} остались у вас с первого посещения Красногорья.",
+	-- {npc:381} Dockmaster Baren · {npc:900} Bailiff Conacher · {npc:342} Martie Jainrose · {npc:382} Marshal Marris · {npc:341} Foreman Oslow · {quest:98386} Alther's Mill
+	["Cross the long bridge north into town: {npc:381} on the docks, {npc:900} in the town hall, {npc:342} in her garden at the west end. {npc:382} and {npc:341} stand at the north end of the bridge: the Blackrock camps' quests and {quest:98386} are worked on this visit's loop east of the lake."] = "Перейдите по длинному мосту на север в город: {npc:381} – на пристани, {npc:900} – в ратуше, {npc:342} – в своем огороде в западной части. {npc:382} и {npc:341} стоят у северного конца моста: задания о лагерях клана Черной Горы и задание {quest:98386} выполняются на маршруте этого посещения к востоку от озера.",
 	-- {npc:415} Verner Osgood
 	["{npc:415}, by the road at the north end of the bridge"] = "",
+	-- {npc:382} Marshal Marris
+	["{npc:382}, at the north end of the bridge"] = "{npc:382}, у северного конца моста",
+	-- {npc:341} Foreman Oslow
+	["{npc:341}, beside him"] = "{npc:341}, рядом с ним",
 	-- {npc:900} Bailiff Conacher
 	["{npc:900}, in the town hall"] = "",
 	["The Wanted poster by the inn"] = "Плакат «Разыскивается» у таверны",
 
 	-- Step 30: Bellygrub
 	-- {npc:345} Bellygrub · {area:69} Lakeshire · {npc:342} Martie Jainrose
-	["{npc:345} (level 24) roots around the pen just west of {area:69}, beside {npc:342}'s garden. Pull him away from the other boars and fight at full health."] = "",
+	["{npc:345} (level 24) roots around the pen just west of {area:69}, beside {npc:342}'s garden. Pull him away from the other boars and fight at full health."] = "{npc:345} (уровень 24) роется в загоне чуть западнее места {area:69}, рядом с огородом NPC {npc:342}. Выманите его от других кабанов и сражайтесь с полным здоровьем.",
 
 	-- Step 31: Martie Jainrose
 	-- {npc:342} Martie Jainrose
@@ -203,7 +202,7 @@ return {
 	-- Step 33: Alther's Mill
 	-- {quest:98386} Alther's Mill
 	-- plural, as words: Greater Tarantulas = {npc:505} Greater Tarantula · Tarantula Eggs = {object:673101} Tarantula Egg
-	["Greater Tarantulas crawl on the slopes around {quest:98386}, north-east of the lake; their Tarantula Eggs lie on the ground among them: click six."] = "",
+	["Greater Tarantulas crawl on the slopes around {quest:98386}, north-east of the lake; their Tarantula Eggs lie on the ground among them: click six."] = "Крупные тарантулы ползают по склонам ({quest:98386}) к северо-востоку от озера; их яйца лежат на земле среди них: соберите шесть.",
 
 	-- Step 34: Blackrock camps
 	["Blackrock camps"] = "",
@@ -271,23 +270,21 @@ return {
 	["Next: the gryphon to {area:42} for {zone:1431}'s second loop (05-duskwood)."] = "",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["Back to {zone:1429}"] = "Назад: {zone:1429}",
 	-- ["Bellygrub"] = "Грубобрюх",
 	-- ["Cross the long bridge north into town. {npc:341} and {npc:382} stand at the north end of the bridge, {npc:900} in the town hall, {npc:381} and {npc:266} on the docks, {npc:343} at the inn, {npc:342} in her garden at the west end."] = "Перейдите по длинному мосту на север в город. {npc:341} и {npc:382} стоят у северного конца моста, {npc:900} — в ратуше, {npc:381} и {npc:266} — на пристани, {npc:343} — в таверне, {npc:342} — в своем огороде в западной части.",
 	-- ["East past the mill and across the river. Shadowhide gnolls fill the valley; {npc:703} (26, well above you) leads them at its north end: clear his escort first and fight him at full health. Stay out of {area:2099} to the south: its orcs are elite."] = "На восток мимо лесопилки и через реку. Долина полна гноллов из стаи Темношкуров; {npc:703} (26, намного выше вас) возглавляет их в северной части: сначала перебейте его свиту и сражайтесь с ним с полным здоровьем. Не заходите в {area:2099} на юге: там элитные орки.",
-	-- ["Fly to {area:108} and ride north-west to the coast: the {object:177790} lies on the sea floor off the shore. Then ride east along the road through Elwynn to Redridge."] = "Летите сюда: {area:108}. Скачите на северо-запад к побережью: {object:177790} лежит на морском дне недалеко от берега. Затем скачите на восток по дороге через Элвиннский лес в Красногорье.",
-	-- ["Follow the road along the south shore of {area:68} to the gryphon master. {npc:1070} and {npc:903} stand by the road next to her."] = "Идите по дороге вдоль южного берега озера ({area:68}) к распорядителю полетов. {npc:1070} и {npc:903} стоят у дороги рядом с ней.",
 	-- ["Follow the road south from {area:1002} into {area:10}; {area:42} lies on the east side of the forest.\nNo {item:4371} for {quest:174}? {npc:3133} sells it in the house beside {npc:276}, in limited stock; {npc:1448} in {area:150} sells it too.\n{npc:276}'s house stands at the east end of town. {npc:3133} sells engineering goods in the house beside it."] = "Идите по дороге на юг от развилки {area:1002} в зону {area:10}; поселок {area:42} лежит в восточной части леса.\nНет предмета {item:4371} для задания {quest:174}? Его продает {npc:3133} в доме рядом с домом {npc:276}, запас ограничен; его же продает {npc:1448} ({area:150}).\nДом {npc:276} стоит в восточной части города. {npc:3133} продает инженерные товары в соседнем доме.",
 	-- ["For {npc:3649}, on the return to {area:442} (06-ashenvale)"] = "Для NPC {npc:3649}, по возвращении в {area:442} (06-ashenvale)",
 	-- ["Gnolls toward {area:1002}"] = "Гноллы по пути к месту {area:1002}",
-	-- ["Greater Tarantulas crawl on the slopes around the mill north-east of the lake; Blackrock Renegades hold the mill itself."] = "Крупные тарантулы ползают по склонам вокруг лесопилки к северо-востоку от озера; перебежчики из клана Черной Горы удерживают саму лесопилку.",
 	-- ["Head north out of {area:69} up the {area:95} to {area:997}. Blackrock Champions camp in the valley."] = "Идите на север из места {area:69} вверх через {area:95} сюда: {area:997}. В долине стоят лагерем воители из клана Черной Горы.",
 	-- ["Lake murlocs"] = "Озерные мурлоки",
-	-- ["Murloc Flesheaters and Tidecallers line the south shore east of the bridge. Any of them can carry a {item:1467} or a fin."] = "Мурлоки-трупоеды и мурлоки-волномуты стоят вдоль южного берега к востоку от моста. У любого из них может оказаться {item:1467} или плавник.",
 	-- ["Redridge Mongrels and other gnolls hold the hills east of {area:1002}, north of the road; Redridge Thrashers prowl among them, Poachers camp south of the road. Dire Condors and Great Goretusks roam the same hills."] = "Полукровки из стаи Красногорья и другие гноллы удерживают холмы к востоку от места {area:1002}, к северу от дороги; между ними бродят твердозубы из стаи Красногорья, а браконьеры стоят лагерем к югу от дороги. По тем же холмам бродят ужасающие кондоры и большие жутевепри.",
+	-- ["Shaman training"] = "Обучение шамана",
 	-- ["Swim east from the bridge into {area:68}; the chest lies on the lake bed."] = "Плывите от моста на восток ({area:68}); сундук лежит на дне озера.",
 	-- ["The Wanted poster by the inn: {npc:703}, in {area:1000}"] = "Объявление о розыске у таверны: {npc:703}, {area:1000}",
-	-- ["The road from Elwynn enters Redridge at {area:1002}. {npc:464} stands where the roads to Redridge and {zone:1431} meet."] = "Дорога из Элвиннского леса входит в Красногорье здесь: {area:1002}. {npc:464} стоит там, где сходятся дороги в Красногорье и в зону {zone:1431}.",
 	-- ["The {area:442} boat docks at {area:17203}. Walk up into the city for training and {npc:1646}, then leave by the main gate and follow the road east through {zone:1429}."] = "Корабль из места {area:442} причаливает здесь: {area:17203}. Поднимитесь в город за обучением и к NPC {npc:1646}, затем выйдите через главные ворота и идите по дороге на восток через зону {zone:1429}.",
+	-- ["Tram to {zone:1455}"] = "Поезд до {zone:1455}",
 	-- ["{item:1075}: any Shadowhide gnoll"] = "{item:1075}: любой гнолл из стаи Темношкуров",
 	-- ["{item:280911}: Redridge Thrashers"] = "{item:280911}: твердозубы из стаи Красногорья",
 	-- ["{item:3014}: any Blackrock orc"] = "{item:3014}: любой орк клана Черной Горы",
@@ -299,11 +296,11 @@ return {
 	-- ["{npc:332}: {npc:7024} in {zone:1436} takes it, at the end of {zone:1431}"] = "{npc:332}: сдается NPC {npc:7024} ({zone:1436}), в конце зоны {zone:1431}",
 	-- ["{npc:341}: after {quest:89}"] = "{npc:341}: после задания {quest:89}",
 	-- ["{npc:344}, in the town hall"] = "{npc:344}, в ратуше",
-	-- ["{npc:345} (level 24) roots around the pen just west of {area:69}. Pull him away from the other boars and fight at full health."] = "{npc:345} (уровень 24) роется в загоне чуть западнее места {area:69}. Выманите его от других кабанов и сражайтесь с полным здоровьем.",
 	-- ["{npc:376}: {npc:11401} in {zone:1457} takes it, later"] = "{npc:376}: сдается NPC {npc:11401} ({zone:1457}), позже",
 	-- ["{npc:376}: {npc:11406} in {zone:1455} takes it, later"] = "{npc:376}: сдается NPC {npc:11406} ({zone:1455}), позже",
 	-- ["{npc:376}: {npc:258785} in {zone:1455} takes it, later"] = "{npc:376}: сдается NPC {npc:258785} ({zone:1455}), позже",
 	-- ["{npc:6122}: {npc:6244} in the {zone:1413} takes it, later"] = "{npc:6122}: сдается NPC {npc:6244} ({zone:1413}), позже",
 	-- ["{zone:1431} is next: follow the road west to {area:1002}, then south to {area:42}."] = "Далее — {zone:1431}: идите по дороге на запад до места {area:1002}, затем на юг сюда: {area:42}.",
 	-- ["{zone:1453} class quests"] = "Классовые задания: {zone:1453}",
+	-- ["{zone:1453} has no shaman trainer: take the {area:2257} from the {object:28027} to {zone:1455}, train with {npc:258098}, then ride the tram back."] = "В городе {zone:1453} нет учителя шаманов: сядьте на поезд ({area:2257}) в месте {object:28027} до города {zone:1455}, обучитесь у NPC {npc:258098}, затем вернитесь на поезде.",
 }

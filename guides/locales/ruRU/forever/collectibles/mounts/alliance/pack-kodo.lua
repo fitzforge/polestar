@@ -10,7 +10,7 @@ return {
 	-- {area:1002} Three Corners · {zone:1433} Redridge Mountains · {zone:1429} Elwynn Forest · {zone:1431} Duskwood · {area:69} Lakeshire · {npc:256736} Huey Sunnydale · {npc:10636} Pack Kodo · {faction:2586} Azeroth Commerce Authority · {item:280179} Shipping Label
 	["The camp is at {area:1002} in western {zone:1433}, where the roads from {zone:1429}, {zone:1431} and {area:69} meet. {npc:256736} sells the {npc:10636} only once you are Exalted with the {faction:2586}, and it costs 6,000 Merchant's Favor. Crates pay only Favor (about 15 a crate return); the reputation comes from Craftsman's Writs and the one-time {item:280179}, so follow the Supply Factions Reputation guide and keep 6,000 Favor aside."] = "",
 	-- {faction:2586} Azeroth Commerce Authority
-	["{faction:2586} camp"] = "",
+	["{faction:2586} camp"] = "Лагерь: {faction:2586}",
 
 	-- Step 2: Pack Kodo
 	["The reins need level 60 and Journeyman Riding to ride (Forever client); you can buy them earlier."] = "Для езды нужны 60-й уровень и верховая езда уровня подмастерья (клиент Forever); купить поводья можно раньше.",
@@ -18,6 +18,5 @@ return {
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Azeroth Commerce Authority"] = "Азеротское торговое управление",
-	-- ["Azeroth Commerce Authority camp"] = "Лагерь Азеротского торгового управления",
 	-- ["The camp is at {area:1002} in western {zone:1433}, between {zone:1429} and {area:69}. Loot supply crates in the world, fill them, and hand them in at the camp for Merchant's Favor (5-20 a crate); the {npc:10636} costs 6,000. Craftsman's Writs may help from level 10."] = "Лагерь – здесь: {area:1002}, запад зоны {zone:1433}, между зоной {zone:1429} и местом {area:69}. Добывайте в мире ящики с припасами, заполняйте их и сдавайте в лагере за Merchant's Favor (5-20 за ящик); {npc:10636} стоит 6000. С 10-го уровня могут помочь задания мастера.",
 }

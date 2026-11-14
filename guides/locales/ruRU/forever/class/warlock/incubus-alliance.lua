@@ -18,7 +18,7 @@ return {
 
 	-- Step 2: Devourer of Souls
 	-- {npc:6122} Gakin the Darkbinder · {object:2164} Slaughtered Lamb · {object:2101} Mage Quarter · {npc:6244} Takar the Seer · {zone:1413} Barrens · {area:150} Menethil Harbor · {zone:1445} Dustwallow Marsh · {area:35} Booty Bay · {area:392} Ratchet
-	["At 20 {npc:6122}, in the cellar of the {object:2164} in the {object:2101}, sends you to {npc:6244} in the {zone:1413}: a long trip for the Alliance. Take the boat from {area:150} to Theramore and head west through {zone:1445}, or the boat from {area:35} to {area:392}."] = "",
+	["At 20 {npc:6122}, in the cellar of the {object:2164} in the {object:2101}, sends you to {npc:6244} in the {zone:1413}: a long trip for the Alliance. Take the boat from {area:150} to Theramore and head west through {zone:1445}, or the boat from {area:35} to {area:392}."] = "На 20-м уровне {npc:6122} из подвала таверны ({object:2164}, {object:2101}) отправляет вас к персонажу {npc:6244} ({zone:1413}): для Альянса это долгий путь. Плывите на корабле из места {area:150} на Терамор и идите на запад через {zone:1445} или плывите из места {area:35} сюда: {area:392}.",
 
 	-- Step 3: Takar the Seer
 	-- {npc:6244} Takar the Seer · {area:378} Camp Taurajo · {npc:6247} Doan Karhan · {item:6898} Orb of Soran'ruk
@@ -58,7 +58,6 @@ return {
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["A second seducer demon, the male sayaad, and a soul shard bag to carry your shards."] = "Второй демон-соблазнитель – сайаад мужского пола – и сумка для осколков души.",
-	-- ["At 20 {npc:6122}, in the cellar of the {object:2164} in the {object:2101}, sends you to {npc:6244} in the {zone:1413}."] = "На 20-м уровне {npc:6122} из подвала таверны ({object:2164}, {object:2101}) отправляет вас к персонажу {npc:6244} ({zone:1413}).",
 	-- ["Back to {npc:6122} in the {object:2164}. Place the figurine at the summoning circle in the crypt below him and defeat the incubus it calls."] = "Назад к {npc:6122} ({object:2164}). Поставьте статуэтку в круг призыва в склепе под ним и победите вызванного инкуба.",
 	-- ["From {area:415} take the road west to {area:413}: the figurine lies in a house among the trees north of the post."] = "Идите по дороге на запад: {area:415} → {area:413}. Статуэтка лежит в доме среди деревьев к северу от заставы.",
 	-- ["Incubus (Alliance)"] = "Инкуб (Альянс)",

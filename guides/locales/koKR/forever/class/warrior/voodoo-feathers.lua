@@ -8,12 +8,12 @@
 return {
 	-- Guide
 	-- {area:1417} Sunken Temple
-	["Experience at 50, ending in the {area:1417}; Classic's item choice may be gone on Forever."] = "",
+	["Experience at 50, ending in the {area:1417}; Classic's item choice may be gone on Forever."] = "50레벨에 얻는 경험치이며, {area:1417}에서 끝납니다. Forever에서는 클래식의 아이템 선택 보상이 제거되었을 수 있습니다.",
 	["Experience"] = "경험치",
 
 	-- Step 1: A Troubled Spirit (Stormwind)
 	-- {npc:5479} Wu Shen · {npc:5480} Ilsa Corbin · {object:2100} Old Town · {npc:7572} Fallen Hero of the Horde · {zone:1435} Swamp of Sorrows
-	["At 50, {npc:5479}, beside {npc:5480} in the warrior trainers' building of {object:2100}, sends you to the {npc:7572} in the {zone:1435}."] = "",
+	["At 50, {npc:5479}, beside {npc:5480} in the warrior trainers' building of {object:2100}, sends you to the {npc:7572} in the {zone:1435}."] = "50레벨에 {object:2100} 전사 상급자 건물의 {npc:5480} 옆에 있는 {npc:5479}이(가) {zone:1435}의 {npc:7572}에게 보냅니다.",
 
 	-- Step 2: A Troubled Spirit (Ironforge)
 	-- {npc:5113} Kelv Sternhammer · {zone:1455} Ironforge · {npc:7572} Fallen Hero of the Horde · {zone:1435} Swamp of Sorrows
@@ -72,8 +72,6 @@ return {
 	["In Classic the {npc:10996} let you choose the {item:20130}, the {item:20521} or the {item:20517} here. Forever's change notes say the choice is gone, though its quest page still lists three unnamed rewards: look at the reward window before you hand in."] = "",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
-	-- ["At 50, {npc:5479} in {object:2100}, beside the Pig and Whistle, sends you to the {npc:7572} in the {zone:1435}."] = "50레벨에 돼지와 휘파람 선술집 옆 {object:2100}의 {npc:5479}이(가) {zone:1435}의 {npc:7572}에게 보냅니다.",
-	-- ["Experience at 50, ending in the {area:1417}; Forever removed the Classic item choice."] = "50레벨에 얻는 경험치이며, {area:1417}에서 끝납니다. Forever에서는 클래식의 아이템 선택 보상이 제거되었습니다.",
 	-- ["The Helboars roam the north of the {zone:1419}, south of the {npc:10996}."] = "지옥멧돼지는 {npc:10996} 남쪽, {zone:1419} 북부를 돌아다닙니다.",
 	-- ["The Shadowsworn cultists hold the east of the {zone:1419}."] = "어둠의혈맹 이교도들이 {zone:1419} 동부를 차지하고 있습니다.",
 	-- ["The {area:1417} lies under the {area:74} in the east of the {zone:1435}. Each of the six Atal'ai trolls on the balcony drops a voodoo feather: Gasher or {npc:5716} the amber, Hukku or Mijan the blue, Zolo or Loro the green. The {area:1417} is a dungeon and the trolls are elite: grouping up is advised."] = "{area:1417}은(는) {zone:1435} 동부의 {area:74} 아래에 있습니다. 발코니의 아탈라이 트롤 여섯이 각각 부두 깃털을 떨어뜨립니다: 게이셔 또는 {npc:5716}은(는) 호박색, 후쿠 또는 마이잔은 파란색, 졸로 또는 로로는 녹색입니다. {area:1417}은(는) 던전이고 트롤은 정예이므로 파티를 권장합니다.",

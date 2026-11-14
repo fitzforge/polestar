@@ -190,7 +190,7 @@ return {
 
 	-- Step 29: Encrypted Twilight Texts to Revered
 	-- {quest:8319} Encrypted Twilight Texts
-	["{quest:8319} to Revered"] = "",
+	["{quest:8319} to Revered"] = "{quest:8319}(으)로 매우 우호적까지",
 	-- {npc:15306} Bor Wildmane · {quest:8319} Encrypted Twilight Texts · {npc:14479} Twilight Lord Everun · {item:20733} Formula: Enchant Cloak - Greater Nature Resistance · {item:22773} Pattern: Sylvan Crown
 	["Honored to Revered is 12,000 reputation. {npc:15306} takes 10 {quest:8319} for 100 reputation, again and again, until Exalted: 120 turn-ins (1,200 texts) to Revered without the quests, or about 950 texts after them. Hand in the texts you saved now. The cultists no longer count, but the Flamereavers, Twilight Keepers, Marauders and Templars count until 11,999 of 12,000 Honored, and the {npc:14479} and Prophet until Exalted. Honored opens Kania's {item:20733} (10g), Mishta's {item:22773} (5g) and Forever's new Honored patterns (7g 50s each)."] = "",
 	-- {npc:15306} Bor Wildmane
@@ -257,7 +257,6 @@ return {
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Abyssal Crests, Abyssal Signets and Abyssal Scepters are repeatable at {npc:15306} once their opening quests are done."] = "심연의 문장, 심연의 인장, 심연의 홀은 시작 퀘스트를 마치면 {npc:15306}에게 반복해서 제출할 수 있습니다.",
 	-- ["Encrypted Twilight Texts repeats: {npc:15306} takes more texts again and again. The cultist camps are the place to farm them."] = "암호화된 황혼의 문서는 반복 퀘스트입니다. {npc:15306}이(가) 문서를 계속 받습니다. 신도 야영지에서 모으십시오.",
-	-- ["Encrypted Twilight Texts to Friendly"] = "암호화된 황혼의 문서로 우호까지",
 	-- ["From here on, the {area:3454} raid and the Abyssal Council turn-ins (crests, signets, scepters) carry most of the reputation."] = "이제부터는 {area:3454} 공격대와 Abyssal Council 반납품(문장, 인장, 홀)이 평판 대부분을 줍니다.",
 	-- ["Keep farming the Twilight camps. Wearing the Twilight Trappings (the Twilight cultist set plus a Medallion of Station, from {npc:15282}'s Medallion of Station quest) lets you summon Abyssal Templars at the Wind Stones; their Abyssal Crests go to {npc:15306}."] = "황혼의 야영지에서 계속 사냥하십시오. Twilight Trappings(황혼의 신도 세트와 {npc:15282}의 황혼의 신도 계급장 퀘스트에서 얻는 계급장)를 착용하면 바람의 돌에서 Abyssal Templar를 소환할 수 있으며, 그들의 심연의 문장은 {npc:15306}에게 가져가십시오.",
 	-- ["Keep running the {area:3454} and turning in Abyssal Council insignia until Exalted."] = "확고한 동맹이 될 때까지 {area:3454}을(를) 계속 돌고 Abyssal Council 휘장을 제출하십시오.",

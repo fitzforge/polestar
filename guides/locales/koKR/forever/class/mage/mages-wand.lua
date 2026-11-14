@@ -11,11 +11,11 @@ return {
 
 	-- Step 1: Journey to the Marsh (Stormwind)
 	-- {npc:5497} Jennea Cannon · {zone:1453} Stormwind · {object:2101} Mage Quarter · {npc:6546} Tabetha · {zone:1455} Ironforge
-	["{npc:5497} at the top of the Wizard's Sanctum, {zone:1453}'s {object:2101}, sends you to {npc:6546}; Bink in {zone:1455} gives the same quest."] = "",
+	["{npc:5497} at the top of the Wizard's Sanctum, {zone:1453}'s {object:2101}, sends you to {npc:6546}; Bink in {zone:1455} gives the same quest."] = "{zone:1453} {object:2101}의 마법사의 성소 꼭대기에 있는 {npc:5497}이(가) {npc:6546}에게 보냅니다. {zone:1455}의 빙크도 같은 퀘스트를 줍니다.",
 
 	-- Step 2: Journey to the Marsh (Orgrimmar)
 	-- {npc:5885} Deino · {zone:1454} Orgrimmar · {object:173161} Darkbriar Lodge (no name in this language: may be words) · {npc:6546} Tabetha · {npc:4568} Anastasia Hartwell · {zone:1458} Undercity · {npc:3048} Ursyn Ghull · {zone:1456} Thunder Bluff
-	["{npc:5885}, one of {zone:1454}'s mage trainers in {object:173161}, sends you to {npc:6546}; {npc:4568} in the {zone:1458} and {npc:3048} in {zone:1456} give the same quest."] = "",
+	["{npc:5885}, one of {zone:1454}'s mage trainers in {object:173161}, sends you to {npc:6546}; {npc:4568} in the {zone:1458} and {npc:3048} in {zone:1456} give the same quest."] = "{zone:1454}의 {object:173161}에 있는 마법사 상급자 중 한 명인 {npc:5885}이(가) {npc:6546}에게 보냅니다. {zone:1458}의 {npc:4568}와(과) {zone:1456}의 {npc:3048}도 같은 퀘스트를 줍니다.",
 
 	-- Step 3: Tabetha
 	-- {npc:6546} Tabetha · {area:508} Stonemaul Ruins · {zone:1413} Barrens
@@ -60,7 +60,5 @@ return {
 	-- ["Tirth sold the book to the Scarlet Brotherhood. The {area:796} stands in north-eastern {zone:1420}; take the Library wing. The book juts out of the wall on the left as you enter the Athenaeum, before {npc:6487}."] = "틸스는 책을 붉은십자군에 팔았습니다. {area:796}은(는) {zone:1420} 북동쪽에 있습니다. 도서관 구역으로 가십시오. {npc:6487}이(가) 있는 방에 들어서면 그보다 앞쪽 왼쪽 벽에서 책이 튀어나와 있습니다.",
 	-- ["Tirth's apprentice is \"Plucky\" Johnson, a small grey chicken by the race track. Target him and type /beckon: he turns human for a moment, long enough to talk to him."] = "틸스의 제자는 경주로 옆의 작은 회색 닭 \"씩씩이\" 존슨입니다. 그를 대상으로 지정하고 /beckon을 입력하십시오. 잠시 인간으로 변해 대화할 수 있습니다.",
 	-- ["Witherbark trolls"] = "마른나무껍질 트롤",
-	-- ["{npc:5497} in the Wizard's Sanctum, {zone:1453}'s {object:2101}, sends you to {npc:6546}; Bink in {zone:1455} gives the same quest."] = "{zone:1453} {object:2101}의 마법사의 성소에 있는 {npc:5497}이(가) {npc:6546}에게 보냅니다. {zone:1455}의 빙크도 같은 퀘스트를 줍니다.",
-	-- ["{npc:5885}, one of {zone:1454}'s mage trainers, sends you to {npc:6546}; {npc:4568} in the {zone:1458} and {npc:3048} in {zone:1456} give the same quest."] = "{zone:1454}의 마법사 상급자 중 한 명인 {npc:5885}이(가) {npc:6546}에게 보냅니다. {zone:1458}의 {npc:4568}와(과) {zone:1456}의 {npc:3048}도 같은 퀘스트를 줍니다.",
 	-- ["{npc:6546}, a hermit, lives in a cottage deep in the marsh west of Theramore, just north of the {area:508}."] = "은둔자 {npc:6546}은(는) 테라모어 섬 서쪽 늪 깊숙한 곳, {area:508} 바로 북쪽의 오두막에 삽니다.",
 }

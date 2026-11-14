@@ -63,6 +63,10 @@ return {
 	-- {npc:4201} Ziz Fizziks
 	["{npc:4201}, inside"] = "{npc:4201}, drinnen",
 
+	-- Step 15: Ziz Fizziks
+	-- {quest:1483} Ziz Fizziks
+	["{quest:1483}, inside"] = "{quest:1483}, drinnen",
+
 	-- Step 16: Windshear Crag: kill these as you meet them
 	-- {area:461} Windshear Crag
 	["{area:461}: kill these as you meet them"] = "{area:461}: Töte diese, wenn sie dir begegnen",
@@ -76,41 +80,37 @@ return {
 	-- {area:1276} Talondeep Path · {area:421} Mystral Lake
 	["Back north through the {area:1276}: west of {area:421}, the stardust bushes grow among the ruins."] = "Zurück nach Norden durch den {area:1276}: Westlich von {area:421} wachsen die Sternenstaub-Büsche zwischen den Ruinen.",
 
-	-- Step 19: Alonso
-	-- {npc:210995} Alonso · {area:1276} Talondeep Path
-	["{npc:210995} may not offer these to every class; if he doesn't, carry on.; walks around {area:1276}: the map marks where to look"] = "{npc:210995} bietet diese vielleicht nicht jeder Klasse an; wenn nicht, mach einfach weiter.; läuft um {area:1276} herum: Die Karte markiert, wo du suchen musst",
-
-	-- Step 20: Mystral Lake
-	-- {npc:3885} Sentinel Velene Starstrike · {area:420} Silverwind Refuge · {area:421} Mystral Lake · {npc:210995} Alonso
+	-- Step 19: Mystral Lake
+	-- {npc:3885} Sentinel Velene Starstrike · {area:420} Silverwind Refuge · {area:421} Mystral Lake · {npc:12759} Tideress
 	-- plural, as words: Befouled Water Elementals = {npc:3917} Befouled Water Elemental
-	["{npc:3885} stands at the {area:420} on the east shore of {area:421}; {npc:210995} camps on its west shore. Befouled Water Elementals wade in the lake between them."] = "{npc:3885} steht bei {area:420} am Ostufer von {area:421}; {npc:210995} lagert an dessen Westufer. Beschmutzte Wasserelementare waten im See dazwischen.",
+	["{npc:3885} stands at the {area:420} on the east shore of {area:421}. Befouled Water Elementals wade in the lake. Careful: {npc:12759}, a level 27 water elemental, walks the lake among them; she drops the bracers too, but the small elementals are the safer kills at this level."] = "{npc:3885} steht bei {area:420} am Ostufer von {area:421}. Beschmutzte Wasserelementare waten im See. Vorsicht: {npc:12759}, ein Wasserelementar der Stufe 27, läuft zwischen ihnen durch den See; sie lässt ebenfalls die Armschienen fallen, aber die kleinen Elementare sind auf dieser Stufe die sichereren Kills.",
 	["Underwater"] = "Unter Wasser",
 	-- {item:5456} Divining Scroll
 	-- plural, as words: Intact Elemental Bracers = {item:12220} Intact Elemental Bracer
 	["Kill the elementals for 5 Intact Elemental Bracers, then use the {item:5456}"] = "Töte die Elementare für 5 intakte Elementararmschienen und benutze dann {item:5456}",
 
-	-- Step 21: The Foulweald
+	-- Step 20: The Foulweald
 	["The Foulweald"] = "Die Fäulnisklauen",
 	-- {area:415} Astranaar
 	["The Foulweald furbolgs live in the woods south of the road, south-east of {area:415}. The Den Watcher and the Ursas guard the den."] = "Die Furbolgs der Fäulnisklauen leben in den Wäldern südlich der Straße, südöstlich von {area:415}. Der Höhlenbehüter und die Ursas bewachen die Höhle.",
 
-	-- Step 22: Shael'dryn
+	-- Step 21: Shael'dryn
 	-- {area:419} Howling Vale · {npc:3916} Shael'dryn
 	["Follow the road east to the {area:419}; {npc:3916} stands by the moonwell."] = "Folge der Straße nach Osten zu {area:419}; {npc:3916} steht am Mondbrunnen.",
 
-	-- Step 23: Dal Bloodclaw
+	-- Step 22: Dal Bloodclaw
 	-- {npc:3987} Dal Bloodclaw · {area:415} Astranaar
 	["{npc:3987} (25) leads the Thistlefur furbolgs at the camp north of {area:415}. Clear his guards first, one at a time.\nCareful: The furbolgs near him usually join in when he is pulled. Killing the ones along his path first lets you fight him alone."] = "{npc:3987} (25) führt die Thistlefur-Furbolgs im Lager nördlich von {area:415} an. Räum zuerst seine Wachen, eine nach der anderen.\nVorsicht: Die Furbolgs in seiner Nähe greifen meist ein, wenn er gezogen wird. Wenn du zuerst die entlang seines Wegs tötest, kannst du ihn allein bekämpfen.",
 
-	-- Step 24: Astranaar
+	-- Step 23: Astranaar
 	-- {npc:3987} Dal Bloodclaw · {area:415} Astranaar · {npc:3691} Raene Wolfrunner · {npc:3894} Pelturas Whitemoon
 	["South from {npc:3987}'s camp, {area:415} is on the way west: {npc:3691} in the inn, {npc:3894} inside the building beyond it."] = "Südlich vom Lager von {npc:3987} liegt {area:415} auf dem Weg nach Westen: {npc:3691} im Gasthaus, {npc:3894} im Gebäude dahinter.",
 
-	-- Step 25: Ilkrud Magthrull
+	-- Step 24: Ilkrud Magthrull
 	-- {area:415} Astranaar · {area:412} Ruins of Ordil'Aran · {npc:3664} Ilkrud Magthrull
 	["From {area:415} head south-west to the {area:412} south of the shrine: {npc:3664} and his voidwalkers hold them. Pull his guards first."] = "Geh von {area:415} nach Südwesten zu den {area:412} südlich des Schreins: {npc:3664} und seine Leerwandler halten sie. Zieh zuerst seine Wachen.",
 
-	-- Step 26: The Zoram Strand
+	-- Step 25: The Zoram Strand
 	-- {area:414} Zoram Strand · {npc:3846} Talen
 	["Follow the coast north to the {area:414}. {npc:3846} camps on the beach; Wrathtail nagas fill the shore."] = "Folge der Küste nach Norden zum {area:414}. {npc:3846} lagert am Strand; Naga der Rächerflossen bevölkern das Ufer.",
 	-- {item:5424} Ancient Statuette
@@ -118,9 +118,17 @@ return {
 	-- {item:5490} Wrathtail Head
 	["{item:5490}: any Wrathtail naga on the strand"] = "{item:5490}: jeder Wrathtail-Naga am Strand",
 
-	-- Step 28: Ruuzel
+	-- Step 27: Ruuzel
 	-- {quest:1009} Ruuzel · {area:414} Zoram Strand
 	["{quest:1009} walks the northern tip of the {area:414} with Wrathtail guards."] = "{quest:1009} streift mit Wachen der Rächerflossen über die Nordspitze des {area:414}s.",
+
+	-- Step 28: Blackfathom Deeps
+	-- {area:2797} Blackfathom Deeps · {npc:4787} Argent Guard Thaelrid · {zone:1457} Darnassus
+	-- plural, as words: Corrupted Brain Stems = {item:5952} Corrupted Brain Stem
+	["{area:2797} is a dungeon for a group of five, about levels 22 to 30, and a full run takes about an hour. The way in is the sunken ruins at the north end of the strand: go down the stairs into the pit, swim through the tunnels under the wall, past the blue crystals, to the portal.\nInside: the naga and the satyrs drop the Corrupted Brain Stems for Gershala. {npc:4787}, by a campfire in an underwater side room off Ghamoo-ra's room, has a quest for {zone:1457}, which this route leaves to the Dungeons page."] = "{area:2797} ist ein Dungeon für eine Gruppe aus fünf Spielern, etwa Stufe 22 bis 30; ein kompletter Run dauert etwa eine Stunde. Der Weg hinein führt durch die versunkenen Ruinen am Nordende des Strands: Steig die Treppe in die Grube hinab und schwimm durch die Tunnel unter der Mauer, an den blauen Kristallen vorbei, zum Portal.\nDrinnen: Die Naga und Satyrn lassen die Corrupted Brain Stems für Gershala fallen. {npc:4787} hat an einem Lagerfeuer in einem Unterwasser-Nebenraum von Ghamoo-ras Raum eine Quest für {zone:1457}, die diese Route der Seite „Dungeons“ überlässt.",
+	-- {quest:1275} Researching the Corruption
+	-- plural, as words: Corrupted Brain Stems = {item:5952} Corrupted Brain Stem
+	["{quest:1275}: Corrupted Brain Stems"] = "{quest:1275}: Corrupted Brain Stems",
 
 	-- Step 30: Maestra's Post
 	-- {npc:3663} Delgren the Purifier · {zone:1440} Ashenvale
@@ -136,15 +144,21 @@ return {
 	-- {area:415} Astranaar
 	["{area:415} flight master"] = "Flugmeister von {area:415}",
 
-	-- Step 33: Boat to Menethil Harbor
+	-- Step 33: Terenthis
+	-- {npc:3693} Terenthis
+	["{npc:3693} stands by the flight master, at the east end of the main street; then back west to the dock."] = "{npc:3693} steht beim Flugmeister am Ostende der Hauptstraße; dann zurück nach Westen zum Steg.",
+	-- {npc:3693} Terenthis · {zone:1439} Darkshore
+	["{npc:3693}: Volcor's escort from the end of {zone:1439}"] = "{npc:3693}: Volcors Eskorte vom Ende von {zone:1439}",
+
+	-- Step 34: Boat to Menethil Harbor
 	-- {area:150} Menethil Harbor
 	["Boat to {area:150}"] = "Schiff nach {area:150}",
 
-	-- Step 34: To Menethil Harbor
+	-- Step 35: To Menethil Harbor
 	-- {area:150} Menethil Harbor
 	["To {area:150}"] = "Nach {area:150}",
 
-	-- Step 35: Menethil Harbor
+	-- Step 36: Menethil Harbor
 	-- {npc:1242} Karl Boran · {npc:2094} James Halloran · {npc:2086} Valstag Ironjaw · {npc:1239} First Mate Fitzsimmons · {npc:1480} Caitlin Grassman · {npc:2111} Sida · {npc:2096} Tarrel Rockweaver
 	["Off the boat, walk up the pier: {npc:1242} on the pier, {npc:2094} by the docks to the north, {npc:2086} in the keep, the inn ({npc:1239}) east of it with {npc:1480} and {npc:2111} beside it, {npc:2096} by the north gate on the way out east."] = "Geh nach dem Boot den Pier hinauf: {npc:1242} auf dem Pier, {npc:2094} bei den Docks im Norden, {npc:2086} in der Festung, das Gasthaus ({npc:1239}) östlich davon mit {npc:1480} und {npc:2111} daneben, {npc:2096} am Nordtor auf dem Weg hinaus nach Osten.",
 	-- {npc:1242} Karl Boran
@@ -158,56 +172,59 @@ return {
 	-- {npc:2096} Tarrel Rockweaver
 	["{npc:2096}, by the north gate"] = "{npc:2096}, beim Nordtor",
 
-	-- Step 36: Spoils of War
-	["Timber and iron piles lie around the keep and along the harbor's walls."] = "Holz- und Eisenstapel liegen um die Burg und entlang der Hafenmauern.",
+	-- Step 37: Spoils of War
+	-- {npc:270589} Nightveiled Rotheap · {zone:1437} Wetlands
+	["Timber and iron piles lie around the keep and along the harbor's walls. Careful: {npc:270589}, a level 31 elite, roams the {zone:1437}' shores and roads: if it comes by, give it room."] = "Holz- und Eisenstapel liegen um die Burg und entlang der Hafenmauern. Vorsicht: {npc:270589}, ein Elite der Stufe 31, streift über die Ufer und Straßen von {zone:1437}: Wenn er vorbeikommt, weich ihm aus.",
 
-	-- Step 37: Bluegill Marsh
+	-- Step 38: Bluegill Marsh
 	-- {npc:1259} Gobbler
 	-- plural, as words: Bluegill Murlocs = {npc:1024} Bluegill Murloc
 	["Follow the coast north out of Menethil. Bluegill Murlocs fill the marsh; {npc:1259} walks with a pack in the middle of it."] = "Folge der Küste von Menethil aus nach Norden. Murlocs der Blaukiemen füllen den Sumpf; {npc:1259} zieht mit einer Gruppe mitten hindurch.",
 
-	-- Step 38: Young crocolisks
+	-- Step 39: Young crocolisks
 	["Young crocolisks"] = "Junge Krokilisken",
 	-- {zone:1437} Wetlands
 	-- plural, as words: Young Wetlands Crocolisks = {npc:1417} Young Wetlands Crocolisk
 	["From the marsh head east across the {zone:1437}. Young Wetlands Crocolisks lurk in the pools north of the excavation site."] = "Geh vom Sumpf nach Osten durch das {zone:1437}. Young Wetlands Crocolisks lauern in den Tümpeln nördlich der Ausgrabungsstätte.",
 
-	-- Step 39: Whelgar's Excavation Site
+	-- Step 40: Whelgar's Excavation Site
 	["The excavation site sits on the hill south of the road."] = "Die Ausgrabungsstätte liegt auf dem Hügel südlich der Straße.",
 	-- {npc:1076} Merrin Rockweaver
 	["{npc:1076}, below ground"] = "{npc:1076}, unter der Erde",
 
-	-- Step 40: The raptor hills
+	-- Step 41: The raptor hills
 	["The raptor hills"] = "Die Raptorenhügel",
 	-- {npc:1021} Mottled Screecher
 	-- plural, as words: Mottled Raptors = {npc:1020} Mottled Raptor · Mottled Screechers = {npc:1021} Mottled Screecher
 	["Mottled Raptors and Screechers roam the hills west of the excavation site.\nCareful: Once a {npc:1021} drops to 30% health, it calls for help from creatures within 20 yd. Mottled Screechers frequently come in packs of three, and raptors summoned by their calls for help may also join the fight."] = "Mottled Raptors und Screechers streifen durch die Hügel westlich der Ausgrabungsstätte.\nVorsicht: Sobald ein {npc:1021} auf 30% Gesundheit fällt, ruft er Kreaturen im Umkreis von 20 Metern zu Hilfe. Mottled Screechers kommen oft in Dreiergruppen, und Raptoren, die durch ihre Hilferufe herbeigerufen werden, können ebenfalls in den Kampf eingreifen.",
+	-- {npc:1021} Mottled Screecher · {npc:270589} Nightveiled Rotheap
+	["{npc:1021}; careful: {npc:270589}, a level 31 elite, roams these hills"] = "{npc:1021}; Vorsicht: {npc:270589}, ein Elite der Stufe 31, streift durch diese Hügel",
 
-	-- Step 41: Ormer Ironbraid
+	-- Step 42: Ormer Ironbraid
 	-- {npc:1078} Ormer Ironbraid · {zone:1437} Wetlands
 	["{npc:1078}: the bigger raptors in the valley west of the dig are for your next {zone:1437} visit, at about 27"] = "{npc:1078}: Die größeren Raptoren im Tal westlich der Ausgrabung sind für deinen nächsten Besuch im {zone:1437}, bei etwa Stufe 27",
 
-	-- Step 42: The Green Belt
+	-- Step 43: The Green Belt
 	-- {npc:2093} Einar Stonegrip · {npc:1244} Rethiel the Greenwarden
 	["{npc:2093} camps by the road; {npc:1244} stands farther east, by the river."] = "{npc:2093} lagert an der Straße; {npc:1244} steht weiter östlich am Fluss.",
 
-	-- Step 43: Thelgen Rock
+	-- Step 44: Thelgen Rock
 	-- {area:1021} Thelgen Rock
-	-- plural, as words: Cave Stalkers = {npc:4040} Cave Stalker · Leech Stalkers = {npc:1111} Leech Stalker
-	["Cave Stalkers and Leech Stalkers fill {area:1021}, the cave south-east of the excavation site."] = "Höhlenpirscher und Egelpirscher füllen {area:1021}, die Höhle südöstlich der Ausgrabungsstätte.",
+	-- plural, as words: Cave Stalkers = {npc:4040} Cave Stalker · Leech Stalkers = {npc:1111} Leech Stalker · Highland Lurkers = {npc:260804} Highland Lurker
+	["Cave Stalkers and Leech Stalkers fill {area:1021}, the cave south-east of the excavation site. Careful: Highland Lurkers and Horrors, level 28 elites, walk the same cave among them: pull the stalkers one at a time and keep clear of the elites."] = "Höhlenpirscher und Egelpirscher füllen {area:1021}, die Höhle südöstlich der Ausgrabungsstätte. Vorsicht: Hochland-Lauerer und -Schrecken, Elites der Stufe 28, laufen zwischen ihnen durch dieselbe Höhle: Zieh die Pirscher einzeln und halte dich von den Elites fern.",
 
-	-- Step 44: The Mosshide gnolls
+	-- Step 45: The Mosshide gnolls
 	["The Mosshide gnolls"] = "Die Gnolle der Moosfelle",
 	-- {area:1025} The Green Belt
 	-- plural, as words: Mosshide Gnolls = {npc:1007} Mosshide Gnoll
 	["Mosshide Gnolls and Mongrels hold the hills south-east of the {area:1025}."] = "Gnolle der Moosfelle und Bastarde der Moosfelle halten die Hügel südöstlich von {area:1025}.",
 
-	-- Step 45: Rethiel the Greenwarden
+	-- Step 46: Rethiel the Greenwarden
 	-- {area:309} Ironbeard's Tomb · {npc:1244} Rethiel the Greenwarden · {zone:1437} Wetlands
 	-- plural, as words: Mosshide Fenrunners = {npc:1010} Mosshide Fenrunner
 	["Its flint comes from the Mosshide Fenrunners on the way to {area:309}; {npc:1244} takes it on your next {zone:1437} visit"] = "Sein Feuerstein kommt von den Mosshide Fenrunners auf dem Weg nach {area:309}; {npc:1244} nimmt ihn bei deinem nächsten Besuch im {zone:1437} an",
 
-	-- Step 46: Ironbeard's Tomb
+	-- Step 47: Ironbeard's Tomb
 	-- {npc:1244} Rethiel the Greenwarden · {area:309} Ironbeard's Tomb · {area:205} Dun Modr · {npc:2111} Sida
 	-- plural, as words: Mosshide Fenrunners = {npc:1010} Mosshide Fenrunner · Monstrous Oozes = {npc:1033} Monstrous Ooze
 	["North-west from {npc:1244}: Mosshide Fenrunners and Mistweavers roam the riverbanks on the way, and almost every one drops flint. Black, Crimson and Monstrous Oozes fill {area:309}, just west of the road to {area:205} and north of Einar's camp. Any ooze there may hold {npc:2111}'s bag."] = "Nordwestlich von {npc:1244}: Mosshide Fenrunners und Mistweavers streifen unterwegs durch die Flussufer, und fast jeder lässt Feuerstein fallen. Black, Crimson und Monstrous Oozes füllen {area:309}, direkt westlich der Straße nach {area:205} und nördlich von Einars Lager. Jeder Ooze dort kann die Tasche von {npc:2111} enthalten.",
@@ -215,7 +232,7 @@ return {
 	-- plural, as words: Mosshide Fenrunners = {npc:1010} Mosshide Fenrunner
 	["{item:2611}: Mosshide Fenrunners and Mistweavers"] = "{item:2611}: Mosshide Fenrunners und Mistweavers",
 
-	-- Step 47: Menethil
+	-- Step 48: Menethil
 	["Menethil"] = "Menethil",
 	-- {area:150} Menethil Harbor · {area:2104} Deepwater Tavern · {npc:2096} Tarrel Rockweaver · {npc:2111} Sida · {npc:1480} Caitlin Grassman · {npc:2086} Valstag Ironjaw · {npc:2094} James Halloran · {npc:1242} Karl Boran
 	["Hearth back to {area:150} if you bound at the {area:2104}, or walk west along the road into Menethil: {npc:2096} by the road in at the north gate, {npc:2111} and {npc:1480} at the inn, {npc:2086} in the keep, {npc:2094} on the west side by the docks, {npc:1242} on the pier north of the inn."] = "Kehr per Ruhestein nach {area:150} zurück, wenn du in der {area:2104} gebunden hast, oder geh die Straße nach Westen nach Menethil: {npc:2096} an der Straße am Nordtor, {npc:2111} und {npc:1480} im Gasthaus, {npc:2086} in der Festung, {npc:2094} auf der Westseite bei den Docks, {npc:1242} auf dem Pier nördlich des Gasthauses.",
@@ -226,7 +243,7 @@ return {
 	-- {npc:1242} Karl Boran
 	["{npc:1242}, on the pier"] = "{npc:1242}, auf dem Pier",
 
-	-- Step 48: Fly to Ironforge
+	-- Step 49: Fly to Ironforge
 	-- {area:1537} Ironforge
 	["Fly to {area:1537}"] = "Flieg nach {area:1537}",
 	-- {npc:1571} Shellei Brondir
@@ -234,7 +251,7 @@ return {
 	-- {area:150} Menethil Harbor
 	["{area:150} flight master"] = "Flugmeister von {area:150}",
 
-	-- Step 49: Ironforge
+	-- Step 50: Ironforge
 	-- {object:32372} Great Forge (no name in this language: may be words) · {npc:4081} Lomac Gearstrip · {object:171524} Tinker Town · {area:2257} Deeprun Tram
 	["The gryphons land in the {object:32372}. {npc:4081} stands in {object:171524}, east of it, by the {area:2257}."] = "Die Greifen landen in der {object:32372}. {npc:4081} steht in {object:171524}, östlich davon, bei der {area:2257}.",
 	-- {item:4371} Bronze Tube · {area:42} Darkshire · {npc:5175} Gearcutter Cogspinner · {npc:4081} Lomac Gearstrip
@@ -242,23 +259,27 @@ return {
 	-- {item:5352} Book: The Powers Below · {zone:1439} Darkshore · {npc:2786} Gerrig Bonegrip · {object:32383} Forlorn Cavern
 	["Only with {item:5352} from {zone:1439}: {npc:2786}, the {object:32383}"] = "Nur mit {item:5352} aus {zone:1439}: {npc:2786}, {object:32383}",
 
-	-- Step 50: Buliwyf Stonehand
-	-- {spell:197} Two-Handed Axes · {npc:11865} Buliwyf Stonehand · {object:32359} Military Ward (no name in this language: may be words)
-	["While you're here: learn {spell:197} from {npc:11865} ({object:32359}, 10 silver); two-handers level a Warrior fastest."] = "",
-
 	-- Step 51: Buliwyf Stonehand
-	-- {spell:199} Two-Handed Maces · {npc:11865} Buliwyf Stonehand · {object:32359} Military Ward (no name in this language: may be words)
-	["While you're here: learn {spell:199} from {npc:11865} ({object:32359}, 10 silver); two-handers level a Warrior fastest."] = "",
+	-- {spell:197} Two-Handed Axes · {npc:11865} Buliwyf Stonehand · {object:32359} Military Ward (no name in this language: may be words)
+	["While you're here: learn {spell:197} from {npc:11865} ({object:32359}, 10 silver); two-handers level a Warrior fastest."] = "Wenn du schon hier bist: Lerne {spell:197} bei {npc:11865} ({object:32359}, 10 Silber); Zweihandwaffen leveln einen Krieger am schnellsten.",
 
 	-- Step 52: Buliwyf Stonehand
-	-- {spell:197} Two-Handed Axes · {npc:11865} Buliwyf Stonehand · {object:32359} Military Ward (no name in this language: may be words)
-	["While you're here: learn {spell:197} from {npc:11865} ({object:32359}, 10 silver); two-handers level a Paladin fastest."] = "",
+	-- {spell:199} Two-Handed Maces · {npc:11865} Buliwyf Stonehand · {object:32359} Military Ward (no name in this language: may be words)
+	["While you're here: learn {spell:199} from {npc:11865} ({object:32359}, 10 silver); two-handers level a Warrior fastest."] = "Wenn du schon hier bist: Lerne {spell:199} bei {npc:11865} ({object:32359}, 10 Silber); Zweihandwaffen leveln einen Krieger am schnellsten.",
 
-	-- Step 53: Tram to Stormwind
+	-- Step 53: Buliwyf Stonehand
+	-- {spell:197} Two-Handed Axes · {npc:11865} Buliwyf Stonehand · {object:32359} Military Ward (no name in this language: may be words)
+	["While you're here: learn {spell:197} from {npc:11865} ({object:32359}, 10 silver); two-handers level a Paladin fastest."] = "Wenn du schon hier bist: Lerne {spell:197} bei {npc:11865} ({object:32359}, 10 Silber); Zweihandwaffen leveln einen Paladin am schnellsten.",
+
+	-- Step 54: Tram to Stormwind
 	-- {zone:1453} Stormwind
 	["Tram to {zone:1453}"] = "Tiefenbahn nach {zone:1453}",
 
-	-- Step 54: Baros Alexston
+	-- Step 55: Sprite Jumpsprocket
+	-- {quest:92748} Explosive Consultation · {zone:1432} Loch Modan · {object:28027} Dwarven District · {npc:11026} Sprite Jumpsprocket
+	["Still carrying {quest:92748} (you used your Hearthstone at the end of {zone:1432})? The tram comes in at the {object:28027}, where {npc:11026} stands."] = "Hast du noch {quest:92748} (du hast am Ende von {zone:1432} deinen Ruhestein benutzt)? Die Tiefenbahn kommt im {object:28027} an, wo {npc:11026} steht.",
+
+	-- Step 56: Baros Alexston
 	-- {object:28027} Dwarven District · {object:2098} Cathedral Square · {npc:1646} Baros Alexston
 	["The tram comes in at the {object:28027}; walk west to the {object:2098}: {npc:1646} stands at its east side. (The route hands his letter in at the end of 03-loch-modan; this is for a character still carrying it.)"] = "Die Tiefenbahn kommt im {object:28027} an; geh nach Westen zum {object:2098}: {npc:1646} steht an dessen Ostseite. (Die Route gibt seinen Brief am Ende von 03-loch-modan ab; dies ist für einen Charakter, der ihn noch bei sich hat.)",
 	-- {npc:1646} Baros Alexston · {area:442} Auberdine
@@ -266,7 +287,7 @@ return {
 	-- {npc:3649} Thundris Windweaver · {area:442} Auberdine
 	["For {npc:3649}, back in {area:442} (06-wetlands)"] = "Für {npc:3649}, zurück in {area:442} (06-wetlands)",
 
-	-- Step 55: Cathedral Square
+	-- Step 57: Cathedral Square
 	-- {object:28027} Dwarven District · {object:2098} Cathedral Square · {npc:376} High Priestess Laurena
 	["The tram comes in at the {object:28027}; walk west to the {object:2098}. {npc:376} is in the Cathedral of Light."] = "Die Tiefenbahn kommt im {object:28027} an; geh nach Westen zum {object:2098}. {npc:376} ist in der Kathedrale des Lichts.",
 	-- {npc:376} High Priestess Laurena · {npc:11406} High Priest Rohan · {zone:1455} Ironforge
@@ -276,19 +297,19 @@ return {
 	-- {npc:376} High Priestess Laurena · {npc:11401} Priestess Alathea · {zone:1457} Darnassus
 	["{npc:376}: {npc:11401} in {zone:1457} takes it, later"] = "{npc:376}: {npc:11401} in {zone:1457} nimmt sie an, später",
 
-	-- Step 56: Master Mathias Shaw
+	-- Step 58: Master Mathias Shaw
 	-- {object:2100} Old Town
 	["Mathias Shaw is at SI:7 in {object:2100}, south of the Keep."] = "Mathias Shaw ist bei SI:7 in {object:2100}, südlich der Burg.",
 	-- {npc:332} Master Mathias Shaw · {npc:7024} Agent Kearnen · {zone:1436} Westfall · {zone:1431} Duskwood
 	["{npc:332}: {npc:7024} in {zone:1436} takes it, at the end of {zone:1431}'s second loop"] = "{npc:332}: {npc:7024} in {zone:1436} nimmt sie an, am Ende der zweiten Runde durch den {zone:1431}",
 
-	-- Step 57: Collin Mauren
+	-- Step 59: Collin Mauren
 	-- {object:2164} The Slaughtered Lamb · {object:2101} Mage Quarter · {npc:6122} Gakin the Darkbinder
 	["{object:2164} is in the {object:2101}. Warlocks: {npc:6122} is in its cellar."] = "{object:2164} ist im {object:2101}. Hexenmeister: {npc:6122} ist in dessen Keller.",
 	-- {npc:6122} Gakin the Darkbinder · {npc:6244} Takar the Seer · {zone:1413} Barrens
 	["{npc:6122}: {npc:6244} in the {zone:1413} takes it, later"] = "{npc:6122}: {npc:6244} in {zone:1413} nimmt sie an, später",
 
-	-- Step 58: Trade District
+	-- Step 60: Trade District
 	-- {zone:1453} Stormwind · {zone:1431} Duskwood
 	["Next: training in {zone:1453}, then the road east through Elwynn and south to {zone:1431}."] = "Als Nächstes: Training in {zone:1453}, dann die Straße nach Osten durch den Wald von Elwynn und nach Süden in den {zone:1431}.",
 
@@ -337,9 +358,6 @@ return {
 	-- ["Three containers in the murloc hovels, south to north: the {object:261}, then the {object:142151}, then the {object:259} at the north end."] = "Drei Behälter in den Murlochütten, von Süden nach Norden: {object:261}, dann {object:142151}, dann {object:259} am Nordende.",
 	-- ["Venture Co. loggers"] = "Holzarbeiter der Venture Co.",
 	-- ["West of Mystral Lake, the stardust bushes grow among the ruins."] = "Westlich vom Mystralsee wachsen die Sternenstaubbüsche zwischen den Ruinen.",
-	-- ["While you're here: learn Two-Handed Axes from {npc:11865} ({object:32359}, 10 silver); two-handers level a Paladin fastest."] = "Wenn du schon hier bist: Lerne Zweihandäxte bei {npc:11865} ({object:32359}, 10 Silber); Zweihandwaffen leveln einen Paladin am schnellsten.",
-	-- ["While you're here: learn Two-Handed Axes from {npc:11865} ({object:32359}, 10 silver); two-handers level a Warrior fastest."] = "Wenn du schon hier bist: Lerne Zweihandäxte bei {npc:11865} ({object:32359}, 10 Silber); Zweihandwaffen leveln einen Krieger am schnellsten.",
-	-- ["While you're here: learn Two-Handed Maces from {npc:11865} ({object:32359}, 10 silver); two-handers level a Warrior fastest."] = "Wenn du schon hier bist: Lerne Zweihandstreitkolben bei {npc:11865} ({object:32359}, 10 Silber); Zweihandwaffen leveln einen Krieger am schnellsten.",
 	-- ["grind on Dragonmaw Raiders and Swamprunners at the Dragonmaw camp, {zone:1437}"] = "grinde Räuber und Sumpfläufer der Dragonmaw im Lager der Dragonmaw, {zone:1437}",
 	-- ["{item:15885}: join the two halves"] = "{item:15885}: Füge die beiden Hälften zusammen",
 	-- ["{npc:11406} and {npc:258785} are in the {object:32386}, in the {object:32362}."] = "{npc:11406} und {npc:258785} sind in {object:32386}, in {object:32362}.",
@@ -353,6 +371,7 @@ return {
 	-- ["{npc:2097}, by the north gate"] = "{npc:2097}, beim Nordtor",
 	-- ["{npc:2104} stands in {area:2103}, a short walk from {npc:1242}."] = "{npc:2104} steht in {area:2103}, ein kurzes Stück von {npc:1242} entfernt.",
 	-- ["{npc:210995} may not offer these to every class; if he doesn't, carry on."] = "{npc:210995} bietet diese vielleicht nicht jeder Klasse an; wenn nicht, mach weiter.",
+	-- ["{npc:210995} may not offer these to every class; if he doesn't, carry on.; walks around {area:1276}: the map marks where to look"] = "{npc:210995} bietet diese vielleicht nicht jeder Klasse an; wenn nicht, mach einfach weiter.; läuft um {area:1276} herum: Die Karte markiert, wo du suchen musst",
 	-- ["{npc:3649}: Alexston's reply"] = "{npc:3649}: Alexstons Antwort",
 	-- ["{npc:3649}: Alexston's reply, if you took it in {zone:1453}"] = "{npc:3649}: Alexstons Antwort, falls du sie in {zone:1453} angenommen hast",
 	-- ["{npc:3664} and his voidwalkers hold the {area:412} south of the shrine. Pull his guards first."] = "{npc:3664} und seine Leerwandler halten {area:412} südlich des Schreins. Lock zuerst seine Wachen.",

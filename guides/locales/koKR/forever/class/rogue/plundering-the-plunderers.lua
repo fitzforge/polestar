@@ -22,7 +22,7 @@ return {
 	-- {npc:3401} Shenthul · {quest:2379} Zando'zan
 	["{npc:3401} and {quest:2379}"] = "{npc:3401}와(과) {quest:2379}",
 	-- {zone:1458} Undercity · {zone:1411} Durotar · {npc:3401} Shenthul · {quest:2379} Zando'zan · {object:172960} Cleft of Shadow · {object:172982} Valley of Strength · {spell:1804} Pick Lock
-	["Undead take the zeppelin from the towers outside the {zone:1458} to {zone:1411}. {npc:3401} and {quest:2379} stand in the {object:172960}, the canyon under the {object:172982}. Train {spell:1804} from {npc:3401} (or any rogue trainer) now if you lack it: this job is a lockpicking test."] = "",
+	["Undead take the zeppelin from the towers outside the {zone:1458} to {zone:1411}. {npc:3401} and {quest:2379} stand in the {object:172960}, the canyon under the {object:172982}. Train {spell:1804} from {npc:3401} (or any rogue trainer) now if you lack it: this job is a lockpicking test."] = "언데드는 {zone:1458} 밖의 탑에서 비행선을 타고 {zone:1411}(으)로 가십시오. {npc:3401}와(과) {quest:2379}은(는) {object:172982} 아래 협곡인 {object:172960}에 있습니다. {spell:1804}이(가) 없다면 지금 {npc:3401}(또는 아무 도적 상급자)에게서 배우십시오. 이 임무는 자물쇠 따기 시험입니다.",
 
 	-- Step 4: Wrenix the Wretched
 	-- {area:392} Ratchet · {zone:1413} Barrens · {npc:7161} Wrenix the Wretched · {item:7970} E.C.A.C. · {item:5060} Thieves' Tools · {spell:1804} Pick Lock
@@ -61,5 +61,4 @@ return {
 	-- ["South along the coast from {area:392}, at the Southsea pirates' camp. If an unusually hostile parrot attacks you, use the {item:7970} on it (the quest's own advice)."] = "{area:392}에서 해안을 따라 남쪽, 남쪽바다 해적단 야영지입니다. 유난히 적대적인 앵무새가 공격하면 {item:7970}을(를) 사용하십시오(퀘스트 자체의 조언입니다).",
 	-- ["Take the zeppelin from {zone:1454} to the {zone:1458} and ride south into Silverpine. {quest:1998} stands north-east of the {area:228}."] = "{zone:1454}에서 비행선을 타고 {zone:1458}(으)로 간 뒤 남쪽 은빛소나무 숲으로 달려가십시오. {quest:1998}은(는) {area:228} 북동쪽에 있습니다.",
 	-- ["The Kirin Tor keep their reports at {area:233}, in south-east Silverpine: pick the lock on the {object:103815}."] = "키린 토는 은빛소나무 숲 남동쪽의 {area:233}에 보고서를 보관합니다: {object:103815}의 자물쇠를 따십시오.",
-	-- ["Undead take the zeppelin from the towers outside the {zone:1458} to {zone:1411}. {npc:3401} and {quest:2379} stand in the {object:172960}, the canyon under the {object:172982}."] = "언데드는 {zone:1458} 밖의 탑에서 비행선을 타고 {zone:1411}(으)로 가십시오. {npc:3401}와(과) {quest:2379}은(는) {object:172982} 아래 협곡인 {object:172960}에 있습니다.",
 }

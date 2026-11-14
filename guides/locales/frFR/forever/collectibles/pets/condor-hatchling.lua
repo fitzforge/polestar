@@ -6,6 +6,9 @@
 -- A token marked "no name in this language" would show in English: write that name in French words instead.
 -- The comments are rewritten by sync.
 return {
+	-- Guide
+	["Condor Hatchling"] = "Condor Hatchling",
+
 	-- Step 1: Lord Condar
 	-- {npc:14268} Lord Condar · {zone:1432} Loch Modan · {item:282637} Shaking Egg
 	["{npc:14268} is a rare level 15-16 condor in south-eastern {zone:1432}. He appears at one of four spots, hours after he last died; the arrow takes you round them. He drops the {item:282637} only about once in 500 kills, so this is a pet for players who pass through {zone:1432} often: check his spots each time, and kill him whenever you see him."] = "{npc:14268} est un condor rare de niveau 15-16 dans le sud-est du {zone:1432}. Il apparaît à l'un de quatre endroits, des heures après sa dernière mort ; la flèche vous en fait faire le tour. Il ne lâche l'{item:282637} qu'environ une fois sur 500 : c'est donc une mascotte pour les joueurs qui passent souvent par le {zone:1432} ; vérifiez ses emplacements à chaque fois et tuez-le dès que vous le voyez.",

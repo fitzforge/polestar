@@ -60,7 +60,7 @@ return {
 
 	-- Step 10: Rhok'delar and Lok'delar
 	-- {item:18707} Ancient Rune Etched Stave · {item:18724} Enchanted Black Dragon Sinew · {item:18715} Lok'delar, Stave of the Ancient Keepers
-	["Not confirmed in Forever. In Classic, using the {item:18707} with the {item:18724} in your bags made Rhok'delar, and talking to Vartrus once more then gave {item:18715}, at no extra cost."] = "",
+	["Not confirmed in Forever. In Classic, using the {item:18707} with the {item:18724} in your bags made Rhok'delar, and talking to Vartrus once more then gave {item:18715}, at no extra cost."] = "В Forever не подтверждено. В Classic {item:18707}, использованный с предметом {item:18724} в сумках, превращался в Рок-Делар, а если еще раз поговорить с Вартусом, он давал {item:18715} без дополнительной платы.",
 	-- {item:18707} Ancient Rune Etched Stave
 	["{item:18707}, by Vartrus"] = "{item:18707}, от Вартуса",
 	-- {npc:14524} Vartrus the Ancient
@@ -75,7 +75,6 @@ return {
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Azuregos"] = "Азурегос",
 	-- ["Hastat's quiver needs the {item:18704}. {npc:6109}, a world boss for a raid, roams the south of {zone:1447} and drops it most of the time; the Cobalt dragonkin of {zone:1452} drop it very rarely. Skip the rest of this guide if you do not want the quiver."] = "Для колчана Хастата нужен предмет {item:18704}. {npc:6109}, мировой босс для рейда, бродит на юге зоны {zone:1447} и чаще всего оставляет его; синие дракониды зоны {zone:1452} оставляют его очень редко. Пропустите остаток этого гайда, если колчан вам не нужен.",
-	-- ["Not confirmed in Forever. In Classic, using the {item:18707} with the {item:18724} in your bags made Rhok'delar, and Vartrus then gave {item:18715} ({spell:425121})."] = "В Forever не подтверждено. В Classic {item:18707}, использованный с предметом {item:18724} в сумках, превращался в Рок-Делар, а Вартус затем давал {item:18715} ({spell:425121}).",
 	-- ["Onyxia drops the {item:18705}; she is the 40-player raid boss of {area:2159}, a cave in the {area:511} of southern {zone:1445}."] = "{item:18705} добывается с Ониксии — босса рейда на 40 игроков (локация: {area:2159}), пещеры в месте {area:511} на юге зоны {zone:1445}.",
 	-- ["The {object:179703} appears in {area:2717} when {npc:12018} yields; it holds the {item:18703} about half the time. {area:2717} is a 40-player raid inside {area:254}. Right-click the leaf to start the quest."] = "{object:179703} появляется здесь: {area:2717}, когда сдается {npc:12018}; примерно в половине случаев в нем лежит {item:18703}. {area:2717} — рейд на 40 игроков внутри места {area:254}. Щелкните по листу правой кнопкой мыши, чтобы начать задание.",
 	-- ["Vartrus, Stoma and {npc:14526} stand together in the north of {zone:1448}. Alliance: {area:1998} is the nearest flight point; Horde: {area:1997}."] = "Вартус, Стома и {npc:14526} стоят вместе на севере зоны {zone:1448}. Альянс: ближайшая точка полета — {area:1998}; Орда: {area:1997}.",

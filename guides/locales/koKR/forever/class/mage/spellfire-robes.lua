@@ -12,7 +12,7 @@ return {
 
 	-- Step 1: Uthel'nay (Orgrimmar)
 	-- {npc:7311} Uthel'nay · {zone:1454} Orgrimmar · {object:173161} Darkbriar Lodge (no name in this language: may be words) · {object:172961} Valley of Spirits · {zone:1420} Tirisfal Glades
-	["{npc:7311} is one of {zone:1454}'s mage trainers, in {object:173161} in the {object:172961}. Then take the zeppelin to {zone:1420} from the tower outside {zone:1454}'s main gate."] = "",
+	["{npc:7311} is one of {zone:1454}'s mage trainers, in {object:173161} in the {object:172961}. Then take the zeppelin to {zone:1420} from the tower outside {zone:1454}'s main gate."] = "{npc:7311}은(는) {zone:1454}의 마법사 상급자 중 하나로, {object:172961}의 {object:173161}에 있습니다. 그런 다음 {zone:1454} 정문 밖 탑에서 비행선을 타고 {zone:1420}(으)로 가세요.",
 
 	-- Step 2: Cain Firesong (Brill)
 	-- {npc:2128} Cain Firesong · {area:159} Brill · {area:2119} Gallows' End Tavern
@@ -20,7 +20,7 @@ return {
 
 	-- Step 3: Anastasia Hartwell
 	-- {npc:4568} Anastasia Hartwell · {object:36082} Magic Quarter · {item:7247} Chest of Containment Coffers · {item:7308} Cantation of Manifestation
-	["{npc:4568} stands in the {object:36082}. The {item:7247} and the {item:7308} lie on the ledge behind her (both come back 5 minutes after someone takes them). You hand both in at the end, so keep them."] = "",
+	["{npc:4568} stands in the {object:36082}. The {item:7247} and the {item:7308} lie on the ledge behind her (both come back 5 minutes after someone takes them). You hand both in at the end, so keep them."] = "{npc:4568}은(는) {object:36082}에 서 있습니다. {item:7247}와(과) {item:7308}은(는) 그녀 뒤 바위턱에 있습니다(누군가 가져가면 둘 다 5분 뒤에 다시 나타납니다). 마지막에 둘 다 제출하므로 보관하세요.",
 
 	-- Step 4: The alchemist shop
 	["The alchemist shop"] = "연금술 상점",
@@ -51,6 +51,4 @@ return {
 	-- ["Humanoids drop {item:2589}; the Undercity Auction House sells it."] = "인간형 몹이 {item:2589}을(를) 떨어뜨립니다. 언더시티 경매장에서도 팝니다.",
 	-- ["Leave the {zone:1458} and follow the road south through {zone:1421}. The {area:279} mages hold {area:233}, south-east of the {area:228}; every {npc:1867}, Mage, Protector, Warder, Conjuror, Watcher and Wizard can drop a {item:7293}."] = "{zone:1458}을(를) 나와 길을 따라 남쪽으로 {zone:1421}을(를) 지나가세요. {area:279} 마법사들이 {area:228} 남동쪽의 {area:233}을(를) 차지하고 있습니다. {npc:1867}, 달라란 마법사, 수호병, 보초병, 요술사, 파수꾼, 마술사 모두 {item:7293}을(를) 떨어뜨릴 수 있습니다.",
 	-- ["{npc:2128} is the {area:159} mage trainer."] = "{npc:2128}은(는) {area:159}의 마법사 상급자입니다.",
-	-- ["{npc:4568} stands in the {object:36082}. The {item:7247} and the {item:7308} lie behind her."] = "{npc:4568}은(는) {object:36082}에 서 있습니다. {item:7247}와(과) {item:7308}은(는) 그녀 뒤에 있습니다.",
-	-- ["{npc:7311} is one of {zone:1454}'s mage trainers. Then take the zeppelin to {zone:1420} from the tower outside {zone:1454}'s main gate."] = "{npc:7311}은(는) {zone:1454}의 마법사 상급자 중 하나입니다. 그런 다음 {zone:1454} 정문 밖 탑에서 비행선을 타고 {zone:1420}(으)로 가세요.",
 }

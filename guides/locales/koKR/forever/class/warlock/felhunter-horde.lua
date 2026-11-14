@@ -17,7 +17,7 @@ return {
 
 	-- Step 2: Seeking Strahad (Undercity)
 	-- {npc:5675} Carendin Halgar · {object:36082} Magic Quarter · {npc:6251} Strahad Farsan · {area:392} Ratchet · {zone:1420} Tirisfal Glades · {zone:1411} Durotar · {quest:2996} Seeking Strahad
-	["At 30 {npc:5675}, in the {object:36082}, sends you to {npc:6251} in {area:392}. The zeppelin from {zone:1420} flies to {zone:1411}. Take only one {quest:2996}: if {npc:6251} offers nothing, drop the duplicate from your log."] = "",
+	["At 30 {npc:5675}, in the {object:36082}, sends you to {npc:6251} in {area:392}. The zeppelin from {zone:1420} flies to {zone:1411}. Take only one {quest:2996}: if {npc:6251} offers nothing, drop the duplicate from your log."] = "30레벨에 {object:36082}의 {npc:5675}이(가) {area:392}의 {npc:6251}에게 보냅니다. {zone:1420}에서 비행선을 타면 {zone:1411}(으)로 갑니다. {quest:2996}은(는) 하나만 받으십시오. {npc:6251}이(가) 아무것도 주지 않으면 퀘스트 목록에서 중복된 것을 버리십시오.",
 
 	-- Step 3: Strahad Farsan
 	-- {area:392} Ratchet · {zone:1454} Orgrimmar · {npc:6251} Strahad Farsan · {npc:6266} Menara Voidrender · {npc:6293} Jorah Annison · {zone:1458} Undercity
@@ -58,7 +58,6 @@ return {
 	["{quest:1804}, on the circle"] = "",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
-	-- ["At 30 {npc:5675}, in the {object:36082}, sends you to {npc:6251} in {area:392}. The zeppelin from {zone:1420} flies to {zone:1411}."] = "30레벨에 {object:36082}의 {npc:5675}이(가) {area:392}의 {npc:6251}에게 보냅니다. {zone:1420}에서 비행선을 타면 {zone:1411}(으)로 갑니다.",
 	-- ["Back to {npc:6251} in {area:392}. Use the {quest:1804} on the summoning circle beside him and defeat the felhunter to bind it."] = "{area:392}의 {npc:6251}에게 돌아가십시오. 그 옆의 소환진에서 {quest:1804}을(를) 사용하고 지옥사냥개를 물리쳐 속박하십시오.",
 	-- ["Fly to {area:392}; {npc:6251} stands on the hill in town."] = "{area:392}(으)로 날아가십시오. {npc:6251}은(는) 마을 언덕 위에 있습니다.",
 	-- ["The Dragonmaw Bonewarders and Shadowwarders hold the hills east of the road through the {zone:1437}: the rods drop from them."] = "{zone:1437}을(를) 지나는 길 동쪽 언덕은 용아귀부족 해골감시자와 용아귀부족 어둠보초병이 차지하고 있습니다. 마법봉은 이들에게서 떨어집니다.",

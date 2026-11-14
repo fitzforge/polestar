@@ -24,7 +24,7 @@ return {
 
 	-- Step 4: Grull Hawkwind
 	-- {npc:3059} Harutt Thunderhorn
-	["{npc:3059}, the warrior trainer; inside"] = "",
+	["{npc:3059}, the warrior trainer; inside"] = "{npc:3059}, учитель воинов; внутри",
 	-- {npc:3061} Lanka Farshot
 	["{npc:3061}, the hunter trainer"] = "{npc:3061}, учитель охотников",
 	-- {npc:3062} Meela Dawnstrider
@@ -93,42 +93,62 @@ return {
 	["/sit by Kaga's campfire until you get {spell:1229451}"] = "/sit у костра Каги, пока не получите {spell:1229451}",
 
 	-- Step 16: Camping 101: Skinning
+	-- {npc:6290} Yonn Deepcut · {skill:393} Skinning
+	["{npc:6290} takes it once your {skill:393} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "{npc:6290} примет его, когда ваш навык {skill:393} достигнет 20: до тех пор собирайте или создавайте предметы, гайд тем временем продолжается.",
 	-- {npc:265810} Kaga Wildhoof · {npc:6290} Yonn Deepcut
 	["{npc:265810}: for {npc:6290}"] = "{npc:265810}: для персонажа {npc:6290}",
 
 	-- Step 17: Camping 101: Leatherworking
+	-- {npc:3069} Chaw Stronghide · {skill:165} Leatherworking
+	["{npc:3069} takes it once your {skill:165} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "{npc:3069} примет его, когда ваш навык {skill:165} достигнет 20: до тех пор собирайте или создавайте предметы, гайд тем временем продолжается.",
 	-- {npc:265810} Kaga Wildhoof · {npc:3069} Chaw Stronghide
 	["{npc:265810}: for {npc:3069}"] = "{npc:265810}: для персонажа {npc:3069}",
 
 	-- Step 18: Camping 101: First Aid
+	-- {npc:5939} Vira Younghoof · {skill:129} First Aid
+	["{npc:5939} takes it once your {skill:129} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "{npc:5939} примет его, когда ваш навык {skill:129} достигнет 20: до тех пор собирайте или создавайте предметы, гайд тем временем продолжается.",
 	-- {npc:265810} Kaga Wildhoof · {npc:5939} Vira Younghoof
 	["{npc:265810}: for {npc:5939}"] = "{npc:265810}: для персонажа {npc:5939}",
 
 	-- Step 19: Camping 101: Fishing
+	-- {npc:5938} Uthan Stillwater · {skill:356} Fishing
+	["{npc:5938} takes it once your {skill:356} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "{npc:5938} примет его, когда ваш навык {skill:356} достигнет 20: до тех пор собирайте или создавайте предметы, гайд тем временем продолжается.",
 	-- {npc:265810} Kaga Wildhoof · {npc:5938} Uthan Stillwater
 	["{npc:265810}: for {npc:5938}"] = "{npc:265810}: для персонажа {npc:5938}",
 
 	-- Step 20: Camping 101: Herbalism
+	-- {npc:3013} Komin Winterhoof · {skill:182} Herbalism
+	["{npc:3013} takes it once your {skill:182} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "{npc:3013} примет его, когда ваш навык {skill:182} достигнет 20: до тех пор собирайте или создавайте предметы, гайд тем временем продолжается.",
 	-- {npc:265810} Kaga Wildhoof · {npc:3013} Komin Winterhoof
 	["{npc:265810}: for {npc:3013}"] = "{npc:265810}: для персонажа {npc:3013}",
 
 	-- Step 21: Camping 101: Mining
+	-- {npc:3001} Brek Stonehoof · {skill:186} Mining
+	["{npc:3001} takes it once your {skill:186} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "{npc:3001} примет его, когда ваш навык {skill:186} достигнет 20: до тех пор собирайте или создавайте предметы, гайд тем временем продолжается.",
 	-- {npc:265810} Kaga Wildhoof · {npc:3001} Brek Stonehoof
 	["{npc:265810}: for {npc:3001}"] = "{npc:265810}: для персонажа {npc:3001}",
 
 	-- Step 22: Camping 101: Alchemy
+	-- {npc:11047} Kray · {skill:171} Alchemy
+	["{npc:11047} takes it once your {skill:171} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "{npc:11047} примет его, когда ваш навык {skill:171} достигнет 20: до тех пор собирайте или создавайте предметы, гайд тем временем продолжается.",
 	-- {npc:265810} Kaga Wildhoof · {npc:11047} Kray
 	["{npc:265810}: for {npc:11047}"] = "{npc:265810}: для персонажа {npc:11047}",
 
 	-- Step 23: Camping 101: Blacksmithing
+	-- {npc:10278} Thrag Stonehoof · {skill:164} Blacksmithing
+	["{npc:10278} takes it once your {skill:164} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "{npc:10278} примет его, когда ваш навык {skill:164} достигнет 20: до тех пор собирайте или создавайте предметы, гайд тем временем продолжается.",
 	-- {npc:265810} Kaga Wildhoof · {npc:10278} Thrag Stonehoof
 	["{npc:265810}: for {npc:10278}"] = "{npc:265810}: для персонажа {npc:10278}",
 
 	-- Step 24: Camping 101: Enchanting
+	-- {npc:11071} Mot Dawnstrider · {skill:333} Enchanting
+	["{npc:11071} takes it once your {skill:333} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "{npc:11071} примет его, когда ваш навык {skill:333} достигнет 20: до тех пор собирайте или создавайте предметы, гайд тем временем продолжается.",
 	-- {npc:265810} Kaga Wildhoof · {npc:11071} Mot Dawnstrider
 	["{npc:265810}: for {npc:11071}"] = "{npc:265810}: для персонажа {npc:11071}",
 
 	-- Step 25: Camping 101: Tailoring
+	-- {npc:11051} Vhan · {skill:197} Tailoring
+	["{npc:11051} takes it once your {skill:197} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "{npc:11051} примет его, когда ваш навык {skill:197} достигнет 20: до тех пор собирайте или создавайте предметы, гайд тем временем продолжается.",
 	-- {npc:265810} Kaga Wildhoof · {npc:11051} Vhan
 	["{npc:265810}: for {npc:11051}"] = "{npc:265810}: для персонажа {npc:11051}",
 
@@ -202,7 +222,7 @@ return {
 
 	-- Step 44: Galak centaurs
 	["Galak centaurs"] = "Кентавры из племени Галак",
-	["The Galak centaurs camp on the plains east of the well; Herak leads them."] = "",
+	["The Galak centaurs camp on the plains east of the well; Herak leads them."] = "Кентавры из племени Галак стоят лагерем на равнинах к востоку от колодца; их ведет Херак.",
 
 	-- Step 45: The Venture Co. Mine
 	-- {quest:765} Supervisor Fizsprocket · {item:281031} Mulgore Expansion Plans · {quest:98424} Fizsprocket's Notes
@@ -243,7 +263,7 @@ return {
 
 	-- Step 52: Yaw Sharpmane
 	-- {npc:3065} Yaw Sharpmane · {area:222} Bloodhoof Village · {item:15908} Taming Rod · {npc:2956} Adult Plainstrider · {npc:2959} Prairie Stalker · {npc:2970} Swoop
-	["{npc:3065} stands at the north end of {area:222}. Tame with the {item:15908}: an {npc:2956} on the plains, a {npc:2959} north of the village, a {npc:2970} to the north-west."] = "",
+	["{npc:3065} stands at the north end of {area:222}. Tame with the {item:15908}: an {npc:2956} on the plains, a {npc:2959} north of the village, a {npc:2970} to the north-west."] = "{npc:3065} стоит в северной части места {area:222}. Приручайте предметом {item:15908}: монстра {npc:2956} на равнинах, монстра {npc:2959} к северу от деревни и монстра {npc:2970} к северо-западу.",
 	-- {item:15908} Taming Rod
 	["Tame it with the {item:15908}"] = "Приручите его предметом {item:15908}",
 
@@ -279,7 +299,7 @@ return {
 	-- {npc:6746} Innkeeper Pala · {quest:5922} Moonglade
 	["{npc:6746}, at the south end of the central rise: the hearth from {quest:5922} brings you back here"] = "",
 	-- {npc:6746} Innkeeper Pala · {quest:5926} Heeding the Call · {npc:3033} Turak Runetotem · {area:1639} Elder Rise
-	["{npc:6746}: {quest:5926}, for {npc:3033} on {area:1639}"] = "",
+	["{npc:6746}: {quest:5926}, for {npc:3033} on {area:1639}"] = "{npc:6746}: {quest:5926}, для NPC {npc:3033} ({area:1639})",
 
 	-- Step 64: Hunter Rise
 	-- {item:278078} Prepared Incense · {area:1641} Hunter Rise
@@ -287,7 +307,7 @@ return {
 	-- {item:278078} Prepared Incense · {area:1641} Hunter Rise
 	["Spread the {item:278078} off {area:1641}"] = "Развейте предмет {item:278078} с обрыва ({area:1641})",
 	-- {npc:3441} Melor Stonehoof · {quest:860} Sergra Darkthorn
-	["{npc:3441}: for {quest:860} at the Crossroads"] = "",
+	["{npc:3441}: for {quest:860} at the Crossroads"] = "{npc:3441}: для задания {quest:860} на Перекрестке",
 	-- {npc:3039} Holt Thunderhorn · {npc:3041} Torm Ragetotem
 	["{npc:3039}, beside {npc:3041}"] = "",
 
@@ -320,7 +340,7 @@ return {
 
 	-- Step 74: Elder Rise
 	-- {npc:5769} Arch Druid Hamuul Runetotem · {npc:3448} Tonga Runetotem
-	["{npc:5769}: for {npc:3448} at the Crossroads"] = "",
+	["{npc:5769}: for {npc:3448} at the Crossroads"] = "{npc:5769}: для персонажа {npc:3448} на Перекрестке",
 
 	-- Step 75: Turak Runetotem
 	-- {npc:3033} Turak Runetotem · {area:1639} Elder Rise
@@ -343,9 +363,11 @@ return {
 	-- Step 79: Into Mulgore
 	-- {zone:1412} Mulgore
 	["Into {zone:1412}"] = "",
+	-- {area:1639} Elder Rise · {zone:1456} Thunder Bluff · {zone:1412} Mulgore · {zone:1413} Barrens
+	["From {area:1639}, take {zone:1456}'s north lift down: at its foot the way runs east along the ledge, then south-east across {zone:1412} to the {zone:1413}."] = "От места {area:1639} спуститесь на северном подъемнике города {zone:1456}: у его подножия путь идет на восток вдоль уступа, затем на юго-восток через {zone:1412} в зону {zone:1413}.",
 
-	-- Step 80: Into The Barrens
-	-- {zone:1413} The Barrens
+	-- Step 80: Into Barrens
+	-- {zone:1413} Barrens
 	["Into {zone:1413}"] = "",
 
 	-- Step 81: Kirge Sternhorn
@@ -357,7 +379,7 @@ return {
 	["{npc:10378}, beside {npc:3418}"] = "{npc:10378} – рядом с NPC {npc:3418}",
 
 	-- Step 83: The Crossroads
-	-- {zone:1412} Mulgore · {npc:3448} Tonga Runetotem · {quest:860} Sergra Darkthorn · {npc:3615} Devrak · {area:380} The Crossroads · {zone:1421} Silverpine Forest · {zone:1413} The Barrens
+	-- {zone:1412} Mulgore · {npc:3448} Tonga Runetotem · {quest:860} Sergra Darkthorn · {npc:3615} Devrak · {area:380} The Crossroads · {zone:1421} Silverpine Forest · {zone:1413} Barrens
 	["Leave {zone:1412} by the south-eastern pass and follow the road to the Crossroads. {npc:3448} stands at the south gate, {quest:860} by the inn, {npc:3615} on the tower platform. {area:380}' own quests come after {zone:1421}, in the {zone:1413} guide."] = "",
 	-- {npc:3429} Thork
 	["{npc:3429}, by the wind rider tower"] = "{npc:3429}, у башни ветрокрылов",
@@ -370,15 +392,40 @@ return {
 
 	-- Step 85: Class turn-in in Thunder Bluff
 	-- {area:1638} Thunder Bluff
-	["Class turn-in in {area:1638}"] = "",
+	["Class turn-in in {area:1638}"] = "Сдача классового задания: {area:1638}",
 	-- {npc:8359} Ahanu
 	["{npc:8359}, by the wind riders on the central rise"] = "",
 
-	-- Step 87: To Orgrimmar
+	-- Step 90: Kranal Fiss
+	-- {npc:5907} Kranal Fiss · {area:379} Far Watch Post
+	["{npc:5907} stands alone on the ridge above the Razormane camp, north-east of the Crossroads on the road to {area:379}."] = "{npc:5907} стоит один на гребне над лагерем Иглогривых, к северо-востоку от Перекрестка, на дороге к месту {area:379}.",
+
+	-- Step 91: Uzzek
+	-- {area:379} Far Watch Post · {area:814} Southfury River · {zone:1454} Orgrimmar · {npc:5810} Uzzek · {npc:3337} Kargal Battlescar
+	["{area:379} sits above the {area:814} bridge on the road to {zone:1454}: {npc:5810} stands beside {npc:3337}."] = "{area:379} – над мостом через {area:814} на дороге к городу {zone:1454}: {npc:5810} стоит рядом с NPC {npc:3337}.",
+
+	-- Step 92: Telf Joolam
+	-- {area:379} Far Watch Post · {zone:1411} Durotar · {npc:5900} Telf Joolam
+	["Over the bridge below {area:379} and south along the {zone:1411} bank of the river to where a narrow trail climbs the mountain: {npc:5900} keeps the shrine at the top. Mind the edges on the way up, and come back down the same trail."] = "Через мост ниже места {area:379} и на юг вдоль берега реки со стороны зоны {zone:1411}, до места, где узкая тропа поднимается в гору: {npc:5900} хранит святилище на вершине. Осторожнее у краев по пути наверх и спускайтесь по той же тропе.",
+
+	-- Step 93: Thunder lizards on the way north
+	["Thunder lizards on the way north"] = "Рокочущие ящерицы по пути на север",
+	-- {area:369} Thunder Ridge · {zone:1454} Orgrimmar · {item:6486} Singed Scale · {npc:5810} Uzzek · {area:379} Far Watch Post
+	-- plural, as words: Thunder Lizards = {npc:3130} Thunder Lizard · Lightning Hides = {npc:3131} Lightning Hide
+	["Thunder Lizards and Lightning Hides graze on {area:369}, beside the road north to {zone:1454}; any of them can drop a {item:6486}. {npc:5810} takes them when the next guide passes {area:379}.\nCareful: Halikor, a level 12 elite, roams {area:369} among the lizards: watch for him before you pull."] = "Рокочущие ящерицы и бурешкуры пасутся здесь: {area:369}, рядом с дорогой на север к городу {zone:1454}; с любого из них может упасть {item:6486}. {npc:5810} примет их, когда следующий гайд будет проходить мимо места {area:379}.\nОсторожно: Халикор, элитный противник 12-го уровня, бродит среди ящериц ({area:369}): высматривайте его, прежде чем нападать.",
+
+	-- Step 94: Dustwind Gulch cultists
+	-- {area:1898} Dustwind Gulch
+	["{area:1898} cultists"] = "Сектанты: {area:1898}",
+	-- {area:1898} Dustwind Gulch · {zone:1454} Orgrimmar · {item:6652} Reagent Pouch · {item:5026} Fire Tar
+	-- plural, as words: Burning Blade Cultists = {npc:3199} Burning Blade Cultist
+	["Burning Blade Cultists hold {area:1898}, east of the road north to {zone:1454}; they drop the {item:6652}. The {item:5026} comes from the Razormane on the next guide's first visit to their camp."] = "Сектанты из клана Пылающего Клинка удерживают {area:1898} к востоку от дороги на север к городу {zone:1454}; с них падает {item:6652}. {item:5026} добудете у Иглогривых в следующем гайде, при первом заходе в их лагерь.",
+
+	-- Step 95: To Orgrimmar
 	-- {zone:1454} Orgrimmar
 	["To {zone:1454}"] = "В {zone:1454}",
-	-- {area:379} Far Watch Post · {area:815} Southfury River · {zone:1411} Durotar · {zone:1454} Orgrimmar · {zone:1420} Tirisfal Glades · {zone:1421} Silverpine Forest
-	["From the Crossroads follow the road north-east to {area:379}, cross the {area:815} into {zone:1411} and keep north to {zone:1454}'s main gate. The next guide starts in {zone:1454} and takes the zeppelin to {zone:1420} and {zone:1421}."] = "",
+	-- {area:379} Far Watch Post · {area:814} Southfury River · {zone:1411} Durotar · {zone:1454} Orgrimmar · {zone:1420} Tirisfal Glades · {zone:1421} Silverpine Forest
+	["From the Crossroads follow the road north-east to {area:379}, cross the {area:814} into {zone:1411} and keep north to {zone:1454}'s main gate. The next guide starts in {zone:1454} and takes the zeppelin to {zone:1420} and {zone:1421}."] = "",
 	-- {zone:1454} Orgrimmar · {object:172982} Valley of Strength
 	["{zone:1454}'s {object:172982}"] = "",
 
@@ -386,7 +433,6 @@ return {
 	-- ["Back to Bloodhoof"] = "Назад в Деревня Кровавого Копыта",
 	-- ["Battleboars graze north of the shrine; the Bristleback quilboar hold the ravine to the north-east. {npc:8554} stands at its eastern end, and the {item:4851} lies on the ground in the camp."] = "К северу от святилища пасутся боевые вепри; дыбогривые свинобразы занимают ущелье к северо-востоку. {npc:8554} стоит в его восточной части, а {item:4851} лежит на земле в лагере.",
 	-- ["Cast {spell:18960}. {npc:11802} is in {area:2361}; the {quest:5930} sits in the north-western woods."] = "Используйте {spell:18960}. {npc:11802} – здесь: {area:2361}; {quest:5930} – в северо-западных лесах.",
-	-- ["Class turn-ins in {area:1638}"] = "Сдача классовых заданий: {area:1638}",
 	-- ["Finish the wolf heart, cougar femur, plainstrider scale and swoop gizzard on the plains around the village."] = "Доберите сердце волка, бедро пумы, чешую долгонога и желудок перепелятника на равнинах вокруг деревни.",
 	-- ["Flatland Prowlers roam the plains around {area:225}"] = "Хищники плоскогорья бродят по равнинам вокруг места {area:225}",
 	-- ["Follow the path south out of camp to the Seer's tent at the foot of the hills."] = "Идите по тропе на юг из лагеря к шатру провидца у подножия холмов.",
@@ -397,10 +443,8 @@ return {
 	-- ["Leave {zone:1412} by the south-eastern pass and follow the road to the {area:380}. {quest:860} stands by the inn, {npc:3448} at the south gate. {zone:1413} guide starts here."] = "Покиньте край {zone:1412} через юго-восточный перевал и идите по дороге сюда: {area:380}. {quest:860} стоит у таверны, {npc:3448} – у южных ворот. Здесь начинается руководство: {zone:1413}.",
 	-- ["Plainstriders roam the grass all around the camp."] = "Равнинные долгоноги бродят по траве вокруг лагеря.",
 	-- ["Prairie Wolf Alphas"] = "Могучие волки прерий",
-	-- ["Ride down to {area:222} and tame with the {item:15908}: an {npc:2956} on the plains, a {npc:2959} north of the village, a Swoop to the north-west."] = "Спуститесь сюда: {area:222} и приручите предметом {item:15908}: монстра {npc:2956} на равнинах, монстра {npc:2959} к северу от деревни и перепелятника к северо-западу.",
 	-- ["Speak with {npc:3067}"] = "Поговорите с персонажем {npc:3067}",
 	-- ["Swoops glide over the plains all around Bloodhoof."] = "Перепелятники парят над равнинами вокруг Деревни Кровавого Копыта.",
-	-- ["The Galak centaurs camp on the plains east of the well; {npc:275767} leads them."] = "Кентавры из племени Галак стоят лагерем на равнинах к востоку от колодца; их ведет {npc:275767}.",
 	-- ["The Galak centaurs camp on the plains north of the {area:821}; Herak leads them. Prairie Wolf Alphas roam among the wolves."] = "Кентавры племени Галак стоят лагерем на равнинах к северу от места {area:821}; их ведет Херак. Среди волков бродят могучие волки прерий.",
 	-- ["The dwarves of the {area:404} carry the Prospector's Picks. Smash them at the forge in {area:222}."] = "Кирки геолога – у дворфов ({area:404}). Разбейте их в кузнице ({area:222}).",
 	-- ["The well lies north of the village. Adult Plainstriders graze around it: they drop the {item:287505} for Kyle."] = "Колодец – к северу от деревни. Вокруг него пасутся взрослые равнинные долгоноги: с них падает {item:287505} для Кайла.",
@@ -422,11 +466,7 @@ return {
 	-- ["{npc:277182} stands at the north edge of the village. Kyle wants {item:287505} from plainstriders."] = "{npc:277182} стоит на северной окраине деревни. Кайлу нужен предмет {item:287505} с равнинных долгоногов.",
 	-- ["{npc:2988} camps by the {area:396} south-east of Bloodhoof."] = "{npc:2988} стоит лагерем у места {area:396}, к юго-востоку от Деревни Кровавого Копыта.",
 	-- ["{npc:2991} sits by the tent on the camp's eastern edge; the {item:4755} stands next to her."] = "{npc:2991} сидит у шатра на восточном краю лагеря; {item:4755} стоит рядом с ней.",
-	-- ["{npc:3059}, the warrior trainer"] = "{npc:3059}, учитель воинов",
 	-- ["{npc:3209}, next to {npc:2980}"] = "{npc:3209}, рядом с {npc:2980}",
-	-- ["{npc:3441}: for {quest:860} at the {area:380}"] = "{npc:3441}: для задания {quest:860} ({area:380})",
-	-- ["{npc:5769}: for {npc:3448} at the {area:380}"] = "{npc:5769}: для персонажа {npc:3448} ({area:380})",
-	-- ["{npc:6746} on the central rise sends you to {npc:3033} on {area:1639}."] = "{npc:6746} на центральном холме отправляет вас к NPC {npc:3033} ({area:1639}).",
 	-- ["{npc:6775} stands at the west end of the camp, at the north-west corner of the hills where the Mountain Cougars prowl: take his quest, hunt the cougars from there south and east, then come back up to {npc:2980}."] = "{npc:6775} стоит в западной части лагеря, у северо-западного угла холмов, где бродят горные пумы: возьмите его задание, охотьтесь на пум оттуда к югу и востоку, затем вернитесь к {npc:2980}.",
 	-- ["{quest:96130} and {quest:756}"] = "{quest:96130} и {quest:756}",
 }

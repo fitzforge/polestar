@@ -26,7 +26,7 @@ return {
 
 	-- Step 4: Grazle
 	-- {npc:11554} Grazle · {area:2479} Emerald Sanctuary
-	["{npc:11554} the furbolg stands by the road just south of the {area:2479}."] = "",
+	["{npc:11554} the furbolg stands by the road just south of the {area:2479}."] = "펄볼그 {npc:11554}은(는) {area:2479} 바로 남쪽 길가에 서 있습니다.",
 
 	-- Step 5: Deadwood Village
 	-- {npc:11554} Grazle
@@ -35,8 +35,8 @@ return {
 
 	-- Step 6: Level 52.58
 	["Level 52.58"] = "",
-	-- {item:9328} Super Snapper FX · {area:1417} Sunken Temple · {area:2100} Maraudon
-	["If you skipped The Horn of the Beast or The {item:9328}, grind here to level 52.58 to stay on the route's plan. Or, with a group, run the {area:1417} dungeon or the {area:2100} dungeon instead."] = "",
+	-- {item:9328} Super Snapper FX
+	["If you skipped The Horn of the Beast or The {item:9328}, grind here to level 52.58 to stay on the route's plan."] = "",
 	-- {npc:7153} Deadwood Warrior
 	["grind on {npc:7153}"] = "",
 
@@ -46,8 +46,8 @@ return {
 
 	-- Step 8: Level 52.69
 	["Level 52.69"] = "",
-	-- {area:1763} Jaedenar · {area:1417} Sunken Temple · {area:2100} Maraudon
-	["Top up here to level 52.69 before the hand-ins at {area:1763}: they take you to level 53. Or, with a group, run the {area:1417} dungeon or the {area:2100} dungeon instead."] = "",
+	-- {area:1763} Jaedenar
+	["Top up here to level 52.69 before the hand-ins at {area:1763}: they take you to level 53."] = "",
 	-- {npc:7155} Deadwood Pathfinder
 	["grind on {npc:7155}"] = "",
 
@@ -64,13 +64,14 @@ return {
 	-- {item:11949} Filled Tainted Ooze Jar · {area:1763} Jaedenar
 	-- plural, as words: Tainted Oozes = {npc:7092} Tainted Ooze
 	["{item:11949}: Tainted Oozes slide about {area:1763}'s fel pools"] = "",
-	-- {npc:7125} Jaedenar Hound
-	["grind on {npc:7125}"] = "",
 
-	-- Step 12: Level 52.9
+	-- Step 13: Level 52.9
 	["Level 52.9"] = "",
-	-- {area:2479} Emerald Sanctuary · {area:1417} Sunken Temple · {area:2100} Maraudon
-	["Top up here to level 52.9 before the hand-ins at {area:2479}: they take you to level 53. Or, with a group, run the {area:1417} dungeon or the {area:2100} dungeon instead."] = "",
+	-- {area:2479} Emerald Sanctuary · {area:1766} Shatter Scar Vale
+	-- plural, as words: Entropic Beasts = {npc:9878} Entropic Beast
+	["Still short of level 52.9 after the {area:2479}'s hand-ins? Top up on the Entropic Beasts in {area:1766}, the next stop north."] = "{area:2479}의 퀘스트를 제출한 뒤에도 52.9레벨이 안 됩니까? 다음 목적지인 북쪽 {area:1766}의 혼돈의 야수를 잡아 경험치를 채우십시오.",
+	-- {npc:9878} Entropic Beast
+	["grind on {npc:9878}"] = "",
 
 	-- Step 14: Shatter Scar Vale
 	-- plural, as words: Entropic Beasts = {npc:9878} Entropic Beast
@@ -84,45 +85,47 @@ return {
 	["The Warpwood treants of {area:1767}, east of {area:2618}, carry the {item:11503}."] = "{area:2618} 동쪽 {area:1767}의 굽이나무정령이 {item:11503}을(를) 가지고 있습니다.",
 	["Below ground"] = "지하",
 
-	-- Step 16: Nafien
-	-- {area:1769} Timbermaw Hold · {npc:15395} Nafien
-	["Follow the road north to the cave mouth of {area:1769}; {npc:15395} guards it."] = "길을 따라 북쪽으로 {area:1769}의 동굴 입구까지 가세요. {npc:15395}이(가) 입구를 지킵니다.",
-
-	-- Step 17: Felpaw Village
-	-- {area:1762} Felpaw Village · {quest:8470} Deadwood Ritual Totem · {npc:11558} Kernda · {area:1769} Timbermaw Hold
-	["The Deadwood furbolgs of {area:1762} fill the hills west of the cave. Keep killing them until one drops a {quest:8470}, about one kill in thirty, then right-click it: {npc:11558} in {area:1769} takes it once the Timbermaw are Neutral to you, now if they already are, or when the last guide passes the cave again at 58.\nCareful: Den Watchers are level 53-54; they call nearby allies within 25 yd once below 50% health and run off for help below 15%."] = "",
-
-	-- Step 18: Nafien
-	-- {zone:1452} Winterspring
-	["Salfa stands at the {zone:1452} end of the tunnel: keep it"] = "살파는 터널의 {zone:1452} 쪽 끝에 서 있습니다: 보관하세요",
-
-	-- Step 20: Timbermaw Hold
-	-- {npc:11558} Kernda
-	["Step into the cave: {npc:11558} stands just inside."] = "",
-	-- {npc:11558} Kernda
-	["{npc:11558}: the Timbermaw speak to you only from Neutral; walks around here: look inside the circle on the map"] = "",
-
-	-- Step 21: Jadefire Run: kill these as you meet them
+	-- Step 16: Jadefire Run: kill these as you meet them
 	-- {area:2618} Jadefire Run
 	["{area:2618}: kill these as you meet them"] = "",
 	-- {area:2618} Jadefire Run · {npc:10648} Xavaric · {quest:939} Flute of Xavaric · {item:11674} Jadefire Felbind
 	["{area:2618} is the satyr valley in the north-west, with {npc:10648} at its far end. He drops the {quest:939}; every Jadefire satyr can drop {item:11674}."] = "{area:2618}은(는) 북서쪽의 사티로스 골짜기이며, 맨 끝에 {npc:10648}이(가) 있습니다. 그가 {quest:939}을(를) 떨어뜨리고, 비취불꽃의 사티로스는 누구나 {item:11674}을(를) 떨어뜨릴 수 있습니다.",
 
-	-- Step 22: Jaedenar again
+	-- Step 17: Jaedenar again
 	-- {area:1763} Jaedenar
 	["{area:1763} again"] = "다시 {area:1763}",
 	-- {item:12922} Empty Canteen · {area:1763} Jaedenar
 	["Use the {item:12922} at the corrupted moonwell in the middle of {area:1763}."] = "",
 
-	-- Step 23: The Emerald Sanctuary
+	-- Step 18: The Emerald Sanctuary
 	-- {area:1763} Jaedenar · {area:2479} Emerald Sanctuary · {zone:1448} Felwood
 	["Ride south-east from {area:1763} to the {area:2479}, the druids' camp by the road in southern {zone:1448}."] = "",
 
-	-- Step 24: The Emerald Sanctuary
+	-- Step 19: The Emerald Sanctuary
 	-- {zone:1457} Darnassus
-	["The vial is filled in {zone:1457}: keep it; inside"] = "",
+	["The vial is filled in {zone:1457}: keep it; inside"] = "유리병은 {zone:1457}에서 채웁니다: 보관하세요. 안",
 	-- {zone:1413} Barrens
 	["Ends in the {zone:1413}: keep it"] = "{zone:1413}에서 끝납니다: 보관하세요",
+	-- {npc:10924} Ivy Leafrunner · {npc:11079} Wynd Nightchaser · {zone:1452} Winterspring
+	["{npc:10924}: for {npc:11079} in {zone:1452}, keep it"] = "{npc:10924}: {zone:1452}의 {npc:11079}에게, 보관하십시오",
+
+	-- Step 20: Nafien
+	-- {area:1769} Timbermaw Hold · {npc:15395} Nafien
+	["Ride north up the road from the Sanctuary, all the way to the cave mouth of {area:1769}; {npc:15395} guards it."] = "성소에서 길을 따라 북쪽으로 {area:1769}의 동굴 입구까지 쭉 가세요. {npc:15395}이(가) 입구를 지킵니다.",
+
+	-- Step 21: Felpaw Village
+	-- {area:1762} Felpaw Village · {quest:8470} Deadwood Ritual Totem · {npc:11558} Kernda · {area:1769} Timbermaw Hold
+	["The Deadwood furbolgs of {area:1762} fill the hills west of the cave. Keep killing them until one drops a {quest:8470}, about one kill in thirty, then right-click it: {npc:11558} in {area:1769} takes it once the Timbermaw are Neutral to you, now if they already are, or when the last guide passes the cave again at 58.\nCareful: Den Watchers are level 53-54; they call nearby allies within 25 yd once below 50% health and run off for help below 15%."] = "",
+
+	-- Step 22: Nafien
+	-- {zone:1452} Winterspring
+	["Salfa stands at the {zone:1452} end of the tunnel: keep it"] = "살파는 터널의 {zone:1452} 쪽 끝에 서 있습니다: 보관하세요",
+
+	-- Step 24: Timbermaw Hold
+	-- {npc:11558} Kernda
+	["Step into the cave: {npc:11558} stands just inside."] = "동굴에 들어가세요. {npc:11558}이(가) 바로 안쪽에 서 있습니다.",
+	-- {npc:11558} Kernda
+	["{npc:11558}: the Timbermaw speak to you only from Neutral; walks around here: look inside the circle on the map"] = "{npc:11558}: 나무구렁 요새는 중립부터 대화해 줍니다. 이 주변을 돌아다닙니다. 지도의 원 안을 살펴보세요",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Five feathers buy a little Timbermaw reputation"] = "깃털 5개로 나무구렁 요새 평판을 조금 얻습니다",
@@ -130,20 +133,16 @@ return {
 	-- ["Keep her alive until she is out of the cave"] = "동굴을 나갈 때까지 그녀를 살려 두세요",
 	-- ["Oozes"] = "수액괴물",
 	-- ["Ride east to the night elf camp at {area:1998}."] = "동쪽으로 {area:1998}의 나이트 엘프 야영지로 가세요.",
-	-- ["Ride north out of {area:415} into {zone:1448}. {npc:11554} the furbolg stands by the road just south of the {area:2479}."] = "{area:415}에서 북쪽으로 {zone:1448}에 들어가세요. 펄볼그 {npc:11554}은(는) {area:2479} 바로 남쪽 길가에 서 있습니다.",
 	-- ["Ride north to {area:1769} (or fly back to {area:1998} first) and through the tunnel into {zone:1452}; follow the road east to the goblin town of {area:2255}."] = "북쪽으로 {area:1769}까지 가서(또는 먼저 {area:1998}(으)로 날아가서) 터널을 지나 {zone:1452}에 들어가세요. 길을 따라 동쪽으로 고블린 마을 {area:2255}까지 가세요.",
-	-- ["Step into the cave: {npc:11558} and {npc:11557} stand just inside."] = "동굴에 들어가세요. {npc:11558}와(과) {npc:11557}이(가) 바로 안쪽에 서 있습니다.",
 	-- ["Take the boat from {area:702} to {area:442} and fly to {area:415}."] = "{area:702}에서 배를 타고 {area:442}(으)로 간 뒤 {area:415}(으)로 날아가세요.",
 	-- ["The Cursed and Tainted Oozes slide about the streams and fel pools around {area:1763} and {area:1765}: kill them and use Laris's Empty Ooze Jars on their remains."] = "저주받은 수액괴물과 {npc:7092}이(가) {area:1763}와(과) {area:1765} 주변의 개울과 지옥 웅덩이를 미끄러져 다닙니다. 처치한 뒤 라리스의 빈 수액괴물 단지를 그 잔해에 사용하세요.",
 	-- ["The Deadwood furbolgs of {area:1762} fill the hills west of the cave. The Avengers can drop a {quest:8470}."] = "{area:1762}의 마른가지일족 펄볼그가 동굴 서쪽 언덕을 채우고 있습니다. 마른가지일족 복수자가 {quest:8470}을(를) 떨어뜨릴 수 있습니다.",
 	-- ["The Jadefire satyrs hold the glen west of the road, with {npc:9454} at its back."] = "비취불꽃의 사티로스가 길 서쪽 숲을 차지하고 있으며, {npc:9454}은(는) 그 안쪽에 있습니다.",
-	-- ["The vial is filled in {zone:1457}: keep it"] = "유리병은 {zone:1457}에서 채웁니다: 보관하세요",
 	-- ["Use the {item:12922} at the corrupted moonwell in the middle of {area:1763}. If you freed {npc:11018}, go back into {area:1770} for the succubus {npc:9518}; Trey Lightforge's remains lie beside her."] = "{area:1763} 한가운데의 타락한 달샘에서 {item:12922}을(를) 사용하세요. {npc:11018}을(를) 풀어 주었다면 {area:1770}에 다시 들어가 서큐버스 {npc:9518}을(를) 처치하세요. 트레이 라이트포지의 유해가 그녀 옆에 있습니다.",
 	-- ["{area:1763} is the ruined temple north of the glen. Some of its cultists drop a {item:13140}, about one kill in thirty: it opens {npc:11018}'s cell in {area:1770}, the cave at the back. If it drops, clear the way out before you free her; if not, skip her quests."] = "{area:1763}은(는) 숲 북쪽의 폐허가 된 사원입니다. 일부 이교도가 약 30마리에 한 번꼴로 {item:13140}을(를) 떨어뜨립니다. 이 열쇠로 안쪽 동굴인 {area:1770}의 {npc:11018} 감옥을 엽니다. 열쇠가 나오면 그녀를 풀어 주기 전에 나가는 길을 정리하고, 안 나오면 그녀의 퀘스트는 건너뛰세요.",
 	-- ["{item:13140}, a rare drop"] = "{item:13140}, 드물게 획득",
 	-- ["{npc:11016}, in {area:1770}"] = "{npc:11016}, {area:1770} 안",
 	-- ["{npc:11557}: thirty {quest:6031}, handed in when you pass through again at 57"] = "{npc:11557}: {quest:6031} 30장, 57레벨에 다시 지나갈 때 제출",
-	-- ["{npc:11558}: the Timbermaw speak to you only from Neutral"] = "{npc:11558}: 나무구렁 요새는 중립부터 대화해 줍니다",
 	-- ["{npc:15395} waits at the north end of {area:361}"] = "{npc:15395}은(는) {area:361} 북쪽 끝에서 기다립니다",
 	-- ["{quest:8470}, a rare drop"] = "{quest:8470}, 드물게 획득",
 }

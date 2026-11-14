@@ -91,38 +91,56 @@ return {
 	["/sit by {npc:263664}'s campfire until you get {spell:1229451}"] = "/sit an {npc:263664}s Lagerfeuer, bis du {spell:1229451} bekommst",
 
 	-- Step 15: Camping 101: Alchemy
+	-- {npc:257019} Nyassa Swiftdraught · {skill:171} Alchemy
+	["{npc:257019} takes it once your {skill:171} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "{npc:257019} nimmt sie entgegen, sobald deine Fertigkeit in {skill:171} 20 beträgt: Sammle oder stelle bis dahin her, der Guide geht inzwischen weiter.",
 	-- {npc:263664} Raan Wildwind · {npc:257019} Nyassa Swiftdraught
 	["{npc:263664}: for {npc:257019}"] = "{npc:263664}: für {npc:257019}",
 
 	-- Step 16: Camping 101: Blacksmithing
+	-- {npc:251913} Aedi Thriceforged · {skill:164} Blacksmithing
+	["{npc:251913} takes it once your {skill:164} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "{npc:251913} nimmt sie entgegen, sobald deine Fertigkeit in {skill:164} 20 beträgt: Sammle oder stelle bis dahin her, der Guide geht inzwischen weiter.",
 	-- {npc:263664} Raan Wildwind · {npc:251913} Aedi Thriceforged
 	["{npc:263664}: for {npc:251913}"] = "{npc:263664}: für {npc:251913}",
 
 	-- Step 17: Camping 101: First Aid
+	-- {npc:257018} Naleeia Tattermend · {skill:129} First Aid
+	["{npc:257018} takes it once your {skill:129} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "{npc:257018} nimmt sie entgegen, sobald deine Fertigkeit in {skill:129} 20 beträgt: Sammle oder stelle bis dahin her, der Guide geht inzwischen weiter.",
 	-- {npc:263664} Raan Wildwind · {npc:257018} Naleeia Tattermend
 	["{npc:263664}: for {npc:257018}"] = "{npc:263664}: für {npc:257018}",
 
 	-- Step 18: Camping 101: Fishing
+	-- {npc:251992} Fenn Fairweather · {skill:356} Fishing
+	["{npc:251992} takes it once your {skill:356} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "{npc:251992} nimmt sie entgegen, sobald deine Fertigkeit in {skill:356} 20 beträgt: Sammle oder stelle bis dahin her, der Guide geht inzwischen weiter.",
 	-- {npc:263664} Raan Wildwind · {npc:251992} Fenn Fairweather
 	["{npc:263664}: for {npc:251992}"] = "{npc:263664}: für {npc:251992}",
 
 	-- Step 19: Camping 101: Leatherworking
+	-- {npc:251993} Indari Sunseam · {skill:165} Leatherworking
+	["{npc:251993} takes it once your {skill:165} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "{npc:251993} nimmt sie entgegen, sobald deine Fertigkeit in {skill:165} 20 beträgt: Sammle oder stelle bis dahin her, der Guide geht inzwischen weiter.",
 	-- {npc:263664} Raan Wildwind · {npc:251993} Indari Sunseam
 	["{npc:263664}: for {npc:251993}"] = "{npc:263664}: für {npc:251993}",
 
 	-- Step 20: Camping 101: Mining
+	-- {npc:257022} Messana Crestwind · {skill:186} Mining
+	["{npc:257022} takes it once your {skill:186} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "{npc:257022} nimmt sie entgegen, sobald deine Fertigkeit in {skill:186} 20 beträgt: Sammle oder stelle bis dahin her, der Guide geht inzwischen weiter.",
 	-- {npc:263664} Raan Wildwind · {npc:257022} Messana Crestwind
 	["{npc:263664}: for {npc:257022}"] = "{npc:263664}: für {npc:257022}",
 
 	-- Step 21: Camping 101: Skinning
+	-- {npc:257024} Mendalass Tattermend · {skill:393} Skinning
+	["{npc:257024} takes it once your {skill:393} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "{npc:257024} nimmt sie entgegen, sobald deine Fertigkeit in {skill:393} 20 beträgt: Sammle oder stelle bis dahin her, der Guide geht inzwischen weiter.",
 	-- {npc:263664} Raan Wildwind · {npc:257024} Mendalass Tattermend
 	["{npc:263664}: for {npc:257024}"] = "{npc:263664}: für {npc:257024}",
 
 	-- Step 22: Camping 101: Tailoring
+	-- {npc:251991} Taleen Shimmerthread · {skill:197} Tailoring
+	["{npc:251991} takes it once your {skill:197} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "{npc:251991} nimmt sie entgegen, sobald deine Fertigkeit in {skill:197} 20 beträgt: Sammle oder stelle bis dahin her, der Guide geht inzwischen weiter.",
 	-- {npc:263664} Raan Wildwind · {npc:251991} Taleen Shimmerthread
 	["{npc:263664}: for {npc:251991}"] = "{npc:263664}: für {npc:251991}",
 
 	-- Step 23: Camping 101: Enchanting
+	-- {npc:257020} Nasalanna Windsinger · {skill:333} Enchanting
+	["{npc:257020} takes it once your {skill:333} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "{npc:257020} nimmt sie entgegen, sobald deine Fertigkeit in {skill:333} 20 beträgt: Sammle oder stelle bis dahin her, der Guide geht inzwischen weiter.",
 	-- {npc:263664} Raan Wildwind · {npc:257020} Nasalanna Windsinger
 	["{npc:263664}: for {npc:257020}"] = "{npc:263664}: für {npc:257020}",
 
@@ -194,8 +212,8 @@ return {
 
 	-- Step 46: Warlock trainer
 	["Warlock trainer"] = "Hexenmeisterlehrer",
-	-- {item:2450} Briarthorn · {zone:1455} Ironforge · {area:16624} Shen'dar Village
-	["{item:2450} in {zone:1455}; {area:16624} has no warlock trainer"] = "{item:2450} in {zone:1455}; {area:16624} hat keinen Hexenmeisterlehrer",
+	-- {npc:5172} Briarthorn · {zone:1455} Ironforge · {area:16624} Shen'dar Village
+	["{npc:5172} in {zone:1455}; {area:16624} has no warlock trainer"] = "{npc:5172} in {zone:1455}; {area:16624} hat keinen Hexenmeisterlehrer",
 
 	-- Step 47: Falaath Village
 	-- {npc:257065} Missionary Jasaan · {quest:92529} Falaath Village · {spell:1254832} Mark of Akir
@@ -246,8 +264,6 @@ return {
 	-- {area:16638} Valanaar
 	-- plural, as words: Skyhoppers = {npc:251727} Skyhopper
 	["Skyhoppers swarm the fields west of {area:16638}."] = "Himmelshüpfer schwärmen über die Felder westlich von {area:16638}.",
-	-- {npc:260628} Valennia Stormfist
-	["{npc:260628}, upstairs"] = "",
 
 	-- Step 60: The road to Valanaar
 	-- {area:16638} Valanaar
@@ -327,7 +343,7 @@ return {
 	-- Step 72: Taming the Beast
 	-- {npc:252389} Quel'ana Quickgale · {item:15908} Taming Rod · {npc:254411} Quel'dora Quickgale · {spell:5149} Beast Training
 	-- plural, as words: Ornery Galestriders = {npc:251707} Ornery Galestrider · Vuldren Alphas = {npc:250874} Vuldren Alpha
-	["{npc:252389} takes back the first {item:15908} and hands you two more, one at a time: Ornery Galestriders and Vuldren Alphas roam the fields just north of her. Tame each with its rod and bring the rod back to her. {npc:254411}, beside her, teaches {spell:5149}."] = "",
+	["{npc:252389} takes back the first {item:15908} and hands you two more, one at a time: Ornery Galestriders and Vuldren Alphas roam the fields just north of her. Tame each with its rod and bring the rod back to her. {npc:254411}, beside her, teaches {spell:5149}."] = "{npc:252389} nimmt den ersten {item:15908} zurück und gibt dir zwei weitere, einen nach dem anderen: Ornery Galestriders und Vuldren Alphas streifen über die Felder direkt nördlich von ihr. Zähme jeweils eins mit seinem Stab und bring den Stab zu ihr zurück. {npc:254411}, neben ihr, lehrt {spell:5149}.",
 	-- {item:15908} Taming Rod
 	["Tame it with the {item:15908}"] = "Zähme es mit der {item:15908}",
 	-- {npc:251707} Ornery Galestrider
@@ -378,14 +394,14 @@ return {
 	["{npc:258098} in {zone:1455}; {area:16638} has no shaman trainer"] = "{npc:258098} in {zone:1455}; {area:16638} hat keinen Schamanenlehrer",
 
 	-- Step 84: Warlock trainer
-	-- {item:2450} Briarthorn · {zone:1455} Ironforge · {area:16638} Valanaar
-	["{item:2450} in {zone:1455}; {area:16638} has no warlock trainer"] = "{item:2450} in {zone:1455}; {area:16638} hat keinen Hexenmeisterlehrer",
+	-- {npc:5172} Briarthorn · {zone:1455} Ironforge · {area:16638} Valanaar
+	["{npc:5172} in {zone:1455}; {area:16638} has no warlock trainer"] = "{npc:5172} in {zone:1455}; {area:16638} hat keinen Hexenmeisterlehrer",
 
 	-- Step 85: Desperate times
 	-- {npc:253844} Valennia Stormfist
 	["Meet {npc:253844} at the gate"] = "Triff {npc:253844} am Tor",
 	-- {npc:255853} Urs'endris · {area:16638} Valanaar · {spell:5487} Bear Form
-	["{npc:255853}, by the falls north-east of {area:16638}, on the way north: {spell:5487}"] = "",
+	["{npc:255853}, by the falls north-east of {area:16638}, on the way north: {spell:5487}"] = "{npc:255853}, an den Fällen nordöstlich von {area:16638}, auf dem Weg nach Norden: {spell:5487}",
 
 	-- Step 86: Elegael Thornpaw
 	-- {area:16631} Shadowgale Forest · {npc:257944} Elegael Thornpaw
@@ -488,27 +504,38 @@ return {
 	-- {npc:1646} Baros Alexston · {object:2098} Cathedral Square · {zone:1436} Westfall
 	["{npc:1646} stands in {object:2098}, on the way from the Keep to the main gate: his compass is in his old house in {zone:1436}, on the way."] = "{npc:1646} steht in {object:2098}, auf dem Weg von der Burg zum Haupttor: Sein Kompass liegt in seinem alten Haus in {zone:1436}, auf dem Weg.",
 
-	-- Step 106: Woo Ping
-	-- {spell:202} Two-Handed Swords · {npc:11867} Woo Ping · {object:2096} Trade District
-	["While you're here: learn {spell:202} from {npc:11867} ({object:2096}, 10 silver); two-handers level a Warrior fastest."] = "",
+	-- Step 106: Stormwind trainers
+	-- {zone:1453} Stormwind
+	["{zone:1453} trainers"] = "Lehrer in {zone:1453}",
+	-- {zone:1453} Stormwind · {object:2100} Old Town · {object:28027} Dwarven District · {object:2101} Mage Quarter · {npc:5504} Sheldras Moontree
+	["Level 14 spells while you're in {zone:1453}: warriors and rogues train in {object:2100}, hunters in the {object:28027}, mages in the Wizard's Sanctum of the {object:2101}. Druids train with {npc:5504} below."] = "Zauber der Stufe 14, wenn du schon in {zone:1453} bist: Krieger und Schurken trainieren in {object:2100}, Jäger im {object:28027}, Magier im Wizard's Sanctum im {object:2101}. Druiden trainieren unten bei {npc:5504}.",
 
 	-- Step 107: Woo Ping
-	-- {npc:11867} Woo Ping · {object:2096} Trade District
-	["While you're here: learn Staves from {npc:11867} ({object:2096}, 10 silver); a Hunter's melee weapon is mostly its stats, and two-handers carry the most."] = "Wenn du schon hier bist: Lerne Stäbe bei {npc:11867} ({object:2096}, 10 Silber); die Nahkampfwaffe eines Jägers besteht vor allem aus ihren Werten, und Zweihandwaffen haben davon am meisten.",
+	-- {spell:202} Two-Handed Swords · {npc:11867} Woo Ping · {object:2096} Trade District
+	["While you're here: learn {spell:202} from {npc:11867} ({object:2096}, 10 silver); two-handers level a Warrior fastest."] = "Wenn du schon hier bist: Lerne {spell:202} bei {npc:11867} ({object:2096}, 10 Silber); Zweihandwaffen leveln einen Krieger am schnellsten.",
 
 	-- Step 108: Woo Ping
 	-- {npc:11867} Woo Ping · {object:2096} Trade District
+	["While you're here: learn Staves from {npc:11867} ({object:2096}, 10 silver); a Hunter's melee weapon is mostly its stats, and two-handers carry the most."] = "Wenn du schon hier bist: Lerne Stäbe bei {npc:11867} ({object:2096}, 10 Silber); die Nahkampfwaffe eines Jägers besteht vor allem aus ihren Werten, und Zweihandwaffen haben davon am meisten.",
+
+	-- Step 109: Woo Ping
+	-- {npc:11867} Woo Ping · {object:2096} Trade District
 	["While you're here: learn Swords from {npc:11867} ({object:2096}, 10 silver); a sword in the main hand levels a Rogue steadily."] = "Wenn du schon hier bist: Lerne Schwerter bei {npc:11867} ({object:2096}, 10 Silber); ein Schwert in der Haupthand levelt einen Schurken zuverlässig.",
 
-	-- Step 110: Sheldras Moontree
+	-- Step 111: Sheldras Moontree
 	-- {npc:5504} Sheldras Moontree · {zone:1453} Stormwind · {spell:18960} Teleport: Moonglade · {npc:11802} Dendrite Starblaze · {spell:499} Cat Form · {zone:1439} Darkshore
 	["{npc:5504}, {zone:1453}'s druid trainer, teaches you {spell:18960}. {npc:11802}'s welcome waits for your {spell:499} trip at the end of {zone:1439}."] = "{npc:5504}, der Druidenlehrer von {zone:1453}, lehrt dich {spell:18960}. Der Willkommensgruß von {npc:11802} wartet am Ende von {zone:1439} auf deine Reise für {spell:499}.",
 
-	-- Step 112: Jennea Cannon
+	-- Step 112: Druid trainer
+	["Druid trainer"] = "Druidenlehrer",
+	-- {npc:5504} Sheldras Moontree
+	["Level 14 spells while you're with {npc:5504}."] = "Zauber der Stufe 14, wenn du schon bei {npc:5504} bist.",
+
+	-- Step 114: Jennea Cannon
 	-- {npc:5497} Jennea Cannon · {object:2101} Mage Quarter · {quest:1861} Mirror Lake
 	["{npc:5497} stands in the Wizard's Sanctum, the tower of the {object:2101}; she gives you a flask for the {quest:1861} waterfall."] = "{npc:5497} steht im Magiersanktum, dem Turm im Gebiet {object:2101}; sie gibt dir ein Fläschchen für den Wasserfall am {quest:1861}.",
 
-	-- Step 113: Mirror Lake
+	-- Step 115: Mirror Lake
 	-- {zone:1453} Stormwind · {quest:1861} Mirror Lake · {zone:1436} Westfall · {item:7207} Jennea's Flask
 	["Leave {zone:1453} by the main gate. The {quest:1861} waterfall is south-west of the gates, on the way west to {zone:1436}: fill {item:7207} at its base."] = "Verlass {zone:1453} durch das Haupttor. Der Wasserfall am {quest:1861} liegt südwestlich der Tore, auf dem Weg nach Westen nach {zone:1436}: Fülle {item:7207} an seinem Fuß.",
 
@@ -548,7 +575,6 @@ return {
 	-- ["The {object:581822} lies by the path west of {area:16638}; Fillion's camp is north-west of it, and the Shriekling Matriarchs nest just west of the camp."] = "Der {object:581822} liegt am Weg westlich von {area:16638}; Fillions Lager ist nordwestlich davon, und die Kreischlingmatriarchinnen nisten direkt westlich des Lagers.",
 	-- ["Use {spell:1259416}"] = "Benutze {spell:1259416}",
 	-- ["Vuldren and Cirrusflies"] = "Vuldren und Zirrusfliegen",
-	-- ["While you're here: learn Two-Handed Swords from {npc:11867} ({object:2096}, 10 silver); two-handers level a Warrior fastest."] = "Wenn du schon hier bist: Lerne Zweihandschwerter bei {npc:11867} ({object:2096}, 10 Silber); Zweihandwaffen leveln einen Krieger am schnellsten.",
 	-- ["Windshaper Novice Seers"] = "Sehernovizen der Windformer",
 	-- ["{item:262668}: by the wind shrine south of {quest:92529}"] = "{item:262668}: am Windschrein südlich von {quest:92529}",
 	-- ["{item:263993}: {npc:257196}, west of the shrine's approach"] = "{item:263993}: {npc:257196}, westlich des Zugangs zum Schrein",
@@ -563,13 +589,11 @@ return {
 	-- ["{npc:252095} camps south of the Ursera den. The Al'Aketh thugs hold the camp south-west of her; {npc:256935} stands in its middle."] = "{npc:252095} lagert südlich des Urserabaus. Die Schläger der Al'Aketh halten das Lager südwestlich von ihr; {npc:256935} steht in der Mitte.",
 	-- ["{npc:252377}: Defensive Stance"] = "{npc:252377}: Verteidigungshaltung",
 	-- ["{npc:252377}: {npc:257196} waits at the {area:16629}"] = "{npc:252377}: {npc:257196} wartet am {area:16629}",
-	-- ["{npc:252389} takes back the first {item:15908} and hands you two more, one at a time: Ornery Galestriders and Vuldren Alphas roam the fields just north of her. Tame each with its rod and bring the rod back to her. {npc:254411}, beside her, teaches Beast Training."] = "{npc:252389} nimmt den ersten {item:15908} zurück und gibt dir zwei weitere, einen nach dem anderen: Ornery Galestriders und Vuldren Alphas streifen über die Felder direkt nördlich von ihr. Zähme jeweils eins mit seinem Stab und bring den Stab zu ihr zurück. {npc:254411}, neben ihr, lehrt Wildtierausbildung.",
 	-- ["{npc:253590}, in the sanctum"] = "{npc:253590}, im Sanktum",
 	-- ["{npc:254151}, {npc:258130} and {npc:258134} are north-east of {npc:257944}; {npc:253622} stands east of them. Haalien also drops a {quest:94490}."] = "{npc:254151}, {npc:258130} und {npc:258134} sind nordöstlich von {npc:257944}; {npc:253622} steht östlich von ihnen. Haalien lässt auch ein {quest:94490} fallen.",
 	-- ["{npc:254411}: Beast Training"] = "{npc:254411}: Wildtierausbildung",
 	-- ["{npc:254588}: tame it with the {item:15908}"] = "{npc:254588}: Zähme ihn mit der {item:15908}",
 	-- ["{npc:255853} waits by the falls north-east of {area:16638}. {npc:258443} prowls the {area:16623} west of {area:16638}, by the road you take next."] = "{npc:255853} wartet an den Wasserfällen nordöstlich von {area:16638}. {npc:258443} streift im Gebiet {area:16623} westlich von {area:16638} umher, an der Straße, die du als Nächstes nimmst.",
-	-- ["{npc:255853}, by the falls north-east of {area:16638}, on the way north: Bear Form"] = "{npc:255853}, an den Fällen nordöstlich von {area:16638}, auf dem Weg nach Norden: Bärengestalt",
 	-- ["{npc:257018}, at the south side of the village: Camping 101, {skill:129}"] = "{npc:257018}, auf der Südseite des Dorfes: Camping 101, {skill:129}",
 	-- ["{npc:257019}, west of {npc:251905}: Camping 101, alchemists"] = "{npc:257019}, westlich von {npc:251905}: Camping 101, Alchemisten",
 	-- ["{npc:257020}: Camping 101, enchanters"] = "{npc:257020}: Camping 101, Verzauberer",

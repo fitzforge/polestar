@@ -23,7 +23,7 @@ return {
 	-- {npc:9618} Karna Remtravel
 	["{npc:9618}, just outside"] = "{npc:9618}, logo do lado de fora",
 	-- {npc:271301} Power Crystal · {quest:3761} Un'Goro Soil
-	["From here on pick up every {npc:271301} (blue, green, red, yellow) and every {quest:3761} pile you pass: 25 soil in all, 20 for Hamuul and 5 for Pestlezugg."] = "",
+	["From here on pick up every {npc:271301} (blue, green, red, yellow) and every {quest:3761} pile you pass: 25 soil in all, 20 for Hamuul and 5 for Pestlezugg."] = "Daqui em diante, pegue todo {npc:271301} (azul, verde, vermelho, amarelo) e todo monte de {quest:3761} pelo caminho: 25 de solo ao todo, 20 para Hamuul e 5 para Almofarrista.",
 
 	-- Step 4: Lakkari Tar Pits
 	-- {item:11834} Super Sticky Tar
@@ -172,7 +172,13 @@ return {
 	-- {area:340} Kargath · {zone:1418} Badlands
 	["{area:340} is built into the cliffs on the {zone:1418}' west edge."] = "{area:340} é construída nos penhascos, na borda oeste de {zone:1418}.",
 
-	-- Step 35: Into the Searing Gorge
+	-- Step 35: The WANTED poster
+	-- {object:164867} WANTED
+	["The {object:164867} poster"] = "O cartaz {object:164867}",
+	-- {area:1584} Blackrock Depths · {area:254} Blackrock Mountain · {object:164867} WANTED · {area:340} Kargath
+	["For your {area:1584} run, next, on the way through {area:254}: the {object:164867} poster in {area:340} wants the Anvilrage dwarves inside thinned out."] = "Para a masmorra {area:1584}, em seguida, no caminho por {area:254}: o cartaz {object:164867} em {area:340} quer que você reduza os anões Anvilrage lá de dentro.",
+
+	-- Step 36: Into the Searing Gorge
 	-- {zone:1427} Searing Gorge
 	["Into the {zone:1427}"] = "Para {zone:1427}",
 	-- {area:340} Kargath · {zone:1427} Searing Gorge · {area:254} Blackrock Mountain
@@ -180,59 +186,60 @@ return {
 	-- {area:254} Blackrock Mountain
 	["Bridge into {area:254}"] = "Ponte para {area:254}",
 
-	-- Step 36: Flame Crest
+	-- Step 37: Blackrock Depths
+	-- {area:1584} Blackrock Depths · {zone:1428} Burning Steppes
+	["{area:1584} is a dungeon for a group of five from about level 48, the biggest in the mountain: its Anvilrage dwarves are this quest's, and you need not go further in than they are. Its portal is deep inside the mountain, down the chain walkways from the bridge.\nInside: the Anvilrage Guardsmen, Wardens and Footmen. Then back out of the portal and on through the mountain's southern exit to the {zone:1428}."] = "{area:1584} é uma masmorra para um grupo de cinco a partir do nível 48, a maior da montanha: os anões Anvilrage dela são os desta missão, e você não precisa ir além de onde eles estão. O portal fica no fundo da montanha, descendo pelas passarelas de correntes a partir da ponte.\nLá dentro: os Anvilrage Guardsmen, Wardens e Footmen. Depois saia de volta pelo portal e siga pela saída sul da montanha até {zone:1428}.",
+	-- {quest:4081} KILL ON SIGHT: Dark Iron Dwarves
+	["{quest:4081}: the Anvilrage dwarves, inside"] = "{quest:4081}: os anões Anvilrage, lá dentro",
+
+	-- Step 38: Flame Crest
 	-- {area:252} Blackrock Stronghold · {area:251} Flame Crest
 	["The mountain lets you out beside {area:252}, full of 55-57 orcs. Follow the road east along the northern cliffs to the Horde camp at {area:251}."] = "A montanha sai ao lado de {area:252}, cheia de orcs de nível 55-57. Siga a estrada para o leste pelos penhascos ao norte até o acampamento da Horda em {area:251}.",
 
-	-- Step 37: Sha'ni Proudtusk
+	-- Step 39: Sha'ni Proudtusk
 	-- {quest:3821} Dreadmaul Rock · {npc:9136} Sha'ni Proudtusk
 	["Follow the cliffs south to {quest:3821}, the Firegut ogres' hill. {npc:9136}'s remains lie at its foot."] = "Siga os penhascos para o sul até {quest:3821}, a colina dos ogros Pirobucho. Os restos de {npc:9136} estão no sopé.",
 
-	-- Step 38: Krom'Grul
+	-- Step 40: Krom'Grul
 	-- {quest:3822} Krom'Grul · {quest:3821} Dreadmaul Rock
 	["{quest:3822} walks the caves and mine tunnels of {quest:3821}; if he isn't home, clear the ogres around the entrances until he comes back."] = "{quest:3822} anda pelas cavernas e túneis de mina de {quest:3821}; se ele não estiver lá, limpe os ogros em volta das entradas até ele voltar.",
 
-	-- Step 39: Ruins of Thaurissan: kill these as you meet them
+	-- Step 41: Ruins of Thaurissan: kill these as you meet them
 	-- {area:250} Ruins of Thaurissan
 	["{area:250}: kill these as you meet them"] = "{area:250}: vá matando estes pelo caminho",
 	-- {npc:7039} War Reaver · {quest:4296} Tablet of the Seven · {area:251} Flame Crest · {npc:10267} Tinkee Steamboil · {item:12284} Draco-Incarcinatrix 900
 	-- plural, as words: Black Broodlings = {npc:7047} Black Broodling
 	["Ride west to the dig site. {npc:7039} golems (53) stomp around it and drop the shards often; the {quest:4296} stands in its middle among the Thaurissan dwarves. Copy it.\nBlack Broodlings nest in the hills just east of {area:251}. Use {npc:10267}'s {item:12284} on a broodling when it is almost dead to capture its essence."] = "Cavalgue para oeste até a escavação. Os golens {npc:7039} (53) pisoteiam em volta dela e deixam cair os estilhaços com frequência; as {quest:4296} ficam no meio, entre os anões de Thaurissan. Copie-as.\nOs Filhotes Negros fazem ninho nas colinas logo a leste de {area:251}. Use o {item:12284} de {npc:10267} num filhote quando ele estiver quase morto para capturar a essência.",
 
-	-- Step 40: Flame Crest
+	-- Step 42: Flame Crest
 	-- {area:251} Flame Crest
 	["Back north-east to {area:251}."] = "Volte para o nordeste até {area:251}.",
 	-- {npc:10267} Tinkee Steamboil · {quest:4808} Felnok Steelspring · {area:2255} Everlook · {zone:1452} Winterspring
 	["Keep {npc:10267}'s letter: {quest:4808} is in {area:2255}, {zone:1452}."] = "Guarde a carta de {npc:10267}: {quest:4808} fica em {area:2255}, {zone:1452}.",
 
-	-- Step 41: Kargath
+	-- Step 43: Kargath
 	-- {area:1584} Blackrock Depths
 	["Theodora's next errand goes to Lotwil east of town and then into {area:1584}: skip it."] = "A próxima tarefa de Theodora leva a Lotwil, a leste da cidade, e depois para {area:1584}: pule.",
 
-	-- Step 42: Fly to Tarren Mill
-	-- {area:272} Tarren Mill
-	["Fly to {area:272}"] = "Voe para {area:272}",
+	-- Step 44: Warlord Goretooth
+	-- {area:1584} Blackrock Depths · {npc:9077} Warlord Goretooth · {area:340} Kargath
+	["The Anvilrage dwarves of your {area:1584} run: {npc:9077}, in {area:340}."] = "Os anões Anvilrage da sua ida à masmorra {area:1584}: {npc:9077}, em {area:340}.",
+
+	-- Step 45: Fly to Undercity
+	-- {area:1497} Undercity
+	["Fly to {area:1497}"] = "Voe para {area:1497}",
 	-- {area:340} Kargath
 	["{area:340} flight master"] = "Mestre de voo de {area:340}",
 
-	-- Step 43: Apothecary Lydon
-	["Inside"] = "Lá dentro",
-
-	-- Step 44: Fly to Undercity
-	-- {area:1497} Undercity
-	["Fly to {area:1497}"] = "Voe para {area:1497}",
-	-- {area:272} Tarren Mill
-	["{area:272} flight master"] = "Mestre de voo de {area:272}",
-
-	-- Step 45: Harbinger Balthazad
+	-- Step 46: Harbinger Balthazad
 	-- {npc:10879} Harbinger Balthazad · {object:36078} Trade Quarter (no name in this language: may be words)
 	["{npc:10879}, the {object:36078}, beside the bat master"] = "{npc:10879}, {object:36078}, ao lado do mestre de voo",
 
-	-- Step 46: Oran Snakewrithe
+	-- Step 47: Oran Snakewrithe
 	-- {npc:7825} Oran Snakewrithe · {object:36082} Magic Quarter (no name in this language: may be words)
 	["{npc:7825} stands in the {object:36082}."] = "{npc:7825} fica no {object:36082}.",
 
-	-- Step 47: Undercity
+	-- Step 48: Undercity
 	-- {npc:8390} Chemist Cuely · {zone:1447} Azshara
 	["{npc:8390}, the Apothecarium: the vials fill in {zone:1447} later"] = "{npc:8390}, no Apothecarium: os frascos são enchidos em {zone:1447} depois",
 	-- {npc:5204} Apothecary Zinge
@@ -240,18 +247,18 @@ return {
 	-- {npc:6522} Andron Gant · {object:36073} Rogues' Quarter (no name in this language: may be words)
 	["{npc:6522}, the {object:36073}"] = "{npc:6522}, {object:36073}",
 
-	-- Step 49: The Bulwark
+	-- Step 50: The Bulwark
 	-- {zone:1458} Undercity · {zone:1420} Tirisfal Glades · {area:152} The Bulwark
 	["Leave the {zone:1458} and ride east along the road through {zone:1420} to the {area:152}, the Forsaken fort on the border."] = "Saia de {zone:1458} e siga para o leste pela estrada através de {zone:1420} até o {area:152}, o forte dos Renegados na fronteira.",
 	-- {object:176092} Box of Incendiaries · {quest:5096} Scarlet Diversions · {quest:5405} Argent Dawn Commission
 	["Take a {object:176092} from the crate next to Derrington for {quest:5096}, done on the way back. Equip the {quest:5405}: Scourgestones only drop while you wear it."] = "Pegue {object:176092} no caixote ao lado de Arcabuz para {quest:5096}, feita na volta. Equipe {quest:5405}: Pedras do Flagelo só caem enquanto você a usa.",
 
-	-- Step 50: Scarlet forward camp
+	-- Step 51: Scarlet forward camp
 	["Scarlet forward camp"] = "Acampamento avançado Escarlate",
 	-- {area:152} The Bulwark · {zone:1422} Western Plaguelands · {area:199} Felstone Field · {area:200} Dalson's Tears · {object:176092} Box of Incendiaries
 	["From the {area:152}, follow the road east into the {zone:1422}. The Scarlet Crusade's tents stand just past Felstone Farm, between {area:199} and {area:200}. Torch the command tent with the {object:176092} and plant the Scourge banner."] = "De {area:152}, siga a estrada para leste até {zone:1422}. As barracas da Cruzada Escarlate ficam logo depois da Fazenda Pedravil, entre {area:199} e {area:200}. Incendeie a barraca de comando com a {object:176092} e finque o estandarte do Flagelo.",
 
-	-- Step 51: Janice Felstone
+	-- Step 52: Janice Felstone
 	-- {npc:10778} Janice Felstone
 	["Back a few steps west to Felstone Farm, the first farm along the road; {npc:10778} waits in the house."] = "Volte alguns passos para o oeste até a Fazenda Pedravil, a primeira fazenda ao longo da estrada; {npc:10778} espera na casa.",
 	["Upstairs"] = "No andar de cima",
@@ -271,14 +278,15 @@ return {
 	-- ["Escort {npc:9999}"] = "Escolte {npc:9999}",
 	-- ["Fly to {area:1637}, take the zeppelin to {object:3202} and fly from there to {area:340}, built into the cliffs on the {zone:1418}' west edge."] = "Voe para {area:1637}, pegue o zepelim para {object:3202} e de lá voe para {area:340}, construída nos penhascos da borda oeste de {zone:1418}.",
 	-- ["Fly to {area:1638} and train with {npc:3033} on {area:1639}, then fly to {area:1637} for the {object:3202} zeppelin."] = "Voe para {area:1638} e treine com {npc:3033} em {area:1639}; depois voe para {area:1637} para pegar o zepelim para {object:3202}.",
+	-- ["Fly to {area:272}"] = "Voe para {area:272}",
 	-- ["Fly to {area:340}"] = "Voe para {area:340}",
 	-- ["Follow the road east through the {area:28} and across the river into the {area:139}; leave it north for {area:2627}, the ruined town in the north-west. {npc:12384} sits in a hut at its edge."] = "Siga a estrada para o leste através de {area:28} e atravesse o rio para {area:139}; saia dela para o norte rumo a {area:2627}, a cidade em ruínas no noroeste. {npc:12384} fica numa cabana na borda.",
 	-- ["Follow the road east through the {zone:1422} and across the river into the {zone:1423}; leave it north for {area:2627}, the ruined town in the north-west. {npc:12384} sits in a hut at its edge."] = "Siga a estrada para o leste através de {zone:1422} e atravesse o rio para {zone:1423}; saia dela para o norte rumo a {area:2627}, a cidade em ruínas no noroeste. {npc:12384} fica numa cabana na borda.",
 	-- ["Free Darrowshire Spirits: talk to them"] = "Liberte os Espíritos da Vila das Flechas: fale com eles",
-	-- ["From here on pick up every Power Crystal (blue, green, red, yellow) and every {quest:3761} pile you pass: 25 soil in all, 20 for Hamuul and 5 for Pestlezugg."] = "Daqui em diante, pegue todo Cristal de Poder (azul, verde, vermelho, amarelo) e todo monte de {quest:3761} pelo caminho: 25 de solo ao todo, 20 para Hamuul e 5 para Almofarrista.",
 	-- ["From the {area:152}, follow the road east into the {zone:1422}. Felstone Farm is the first farm along the road; {npc:10778} waits in the house."] = "De {area:152}, siga a estrada para leste até {zone:1422}. A Fazenda Pedravil é a primeira fazenda ao longo da estrada; {npc:10778} espera na casa.",
 	-- ["From the {area:1938} ride west to the long ramp that winds down into {area:490}, then follow the crater's north wall to {area:541}, a camp in the cliff caves. Everyone here is neutral."] = "De {area:1938}, siga para o oeste até a longa rampa que desce para {area:490} e então acompanhe a parede norte da cratera até {area:541}, um acampamento nas cavernas do penhasco. Todos aqui são neutros.",
 	-- ["Gorillas"] = "Gorilas",
+	-- ["Inside"] = "Lá dentro",
 	-- ["Into {area:490}"] = "Para {area:490}",
 	-- ["Keep the bait: {npc:9684} is level 56, and the second loop passes his lair."] = "Guarde a isca: {npc:9684} é nível 56, e a segunda volta passa pelo covil dele.",
 	-- ["Keep the parcel: {npc:10781} is in the {zone:1458}."] = "Guarde o embrulho: {npc:10781} fica em {zone:1458}.",
@@ -327,6 +335,7 @@ return {
 	-- ["{area:139}: kill these as you meet them"] = "{area:139}: vá matando estes pelo caminho",
 	-- ["{area:2268} flight master"] = "Mestre de voo de {area:2268}",
 	-- ["{area:2627}: kill these as you meet them"] = "{area:2627}: vá matando estes pelo caminho",
+	-- ["{area:272} flight master"] = "Mestre de voo de {area:272}",
 	-- ["{npc:10302} sends you to {npc:9298} in {zone:1452}: keep it."] = "{npc:10302} manda você até {npc:9298} em {zone:1452}: guarde.",
 	-- ["{npc:10302} the goblin sits at {area:543}, just east of the pylon."] = "O goblin {npc:10302} fica em {area:543}, logo a leste do pilar.",
 	-- ["{npc:10926}'s ghost stands in the ruins of {area:2262}, in the south-west."] = "O fantasma de {npc:10926} fica nas ruínas de {area:2262}, no sudoeste.",

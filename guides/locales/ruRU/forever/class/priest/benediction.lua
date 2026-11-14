@@ -38,12 +38,11 @@ return {
 	-- {item:18659} Splinter of Nordrassil · {item:18646} The Eye of Divinity · {item:18665} The Eye of Shadow · {item:18608} Benediction
 	["With the {item:18659}, {item:18646} and {item:18665} in your bags, use the splinter wherever you are: it becomes {item:18608}. Use {item:18608} to turn it into Anathema, the shadow staff, and back (a 30-minute cooldown)."] = "",
 	-- {item:18659} Splinter of Nordrassil · {item:18608} Benediction
-	["Use the {item:18659} with both Eyes in your bags: {item:18608}"] = "",
+	["Use the {item:18659} with both Eyes in your bags: {item:18608}"] = "Используйте {item:18659}, когда оба Ока в сумках: {item:18608}",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Equip {item:18646} to see {npc:14494}, a ghost on the mountainside in the north-west of the {zone:1423}. Come with full mana, Major Mana Potions and {item:8956}: if you fail, the event takes about two hours to return."] = "Наденьте {item:18646}, чтобы увидеть NPC {npc:14494} — призрака на склоне горы на северо-западе зоны {zone:1423}. Приходите с полной маной, запасом хороших зелий маны и предметом {item:8956}: при провале событие возвращается примерно через два часа.",
 	-- ["Save 50 peasants before 15 die. Kill the skeletons that attack them, cure their diseases (the purple ones first) and heal the wounded with {spell:139}. Friends may buff you beforehand but must stay out of the fight, or a demon appears and kills everyone."] = "Спасите 50 крестьян, пока не погибли 15. Убивайте нападающих на них скелетов, лечите их болезни (сначала фиолетовые) и исцеляйте раненых заклинанием «{spell:139}». Друзья могут наложить на вас бафы заранее, но должны держаться вне боя, иначе появится демон и убьет всех.",
-	-- ["With both Eyes in your bags: {item:18608}"] = "С обоими Оками в сумках: {item:18608}",
 	-- ["You need {item:18646} first: it comes from the {object:179703} after {npc:12018} in {area:2717}. {item:18665} drops from elite demons ({npc:12397}, a world boss, always; Doomguard Commanders and Manahounds rarely); it binds when equipped, so buying one works too."] = "Сначала нужен предмет {item:18646}: он лежит в объекте {object:179703} после победы над NPC {npc:12018} ({area:2717}). {item:18665} падает с элитных демонов ({npc:12397}, мировой босс — всегда; стражники ужаса-командиры и гончие маны — редко); он становится персональным при надевании, так что его можно и купить.",
 	-- ["{npc:14494}'s splinter and the two Eyes make {item:18608}, the epic priest staff that turns into Anathema."] = "Осколок {npc:14494} и два Ока дают {item:18608}, эпический посох жреца, который превращается в Анафему.",
 }

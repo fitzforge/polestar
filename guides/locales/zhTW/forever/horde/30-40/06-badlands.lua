@@ -21,8 +21,8 @@ return {
 	["Head west along the road towards {area:340}; {npc:2921}'s camp sits in the {area:1878} halfway there."] = "",
 
 	-- Step 4: Kargath
-	-- {area:340} Kargath · {npc:5394} Neeka Bloodscar
-	["{area:340} is the Horde fortress built into the cliffs at the zone's western edge. {npc:5394} stands on {area:340}'s upper level, high above the flight master: take the ramps up, the arrow cannot tell the levels apart."] = "",
+	-- {area:340} Kargath · {quest:1418} Neeka Bloodscar
+	["{area:340} is the Horde fortress built into the cliffs at the zone's western edge. {quest:1418} stands on {area:340}'s upper level, high above the flight master: take the ramps up, the arrow cannot tell the levels apart."] = "",
 	-- {area:75} Stonard
 	["for Helgrum in {area:75}, around level 42"] = "給{area:75}的赫格拉姆，約42級時",
 	-- {npc:6868} Jarkal Mossmeld
@@ -38,20 +38,20 @@ return {
 	-- Step 7: Badlands: kill these as you meet them
 	-- {zone:1418} Badlands
 	["{zone:1418}: kill these as you meet them"] = "",
-	-- {area:1878} The Dustbowl
-	-- plural, as words: Elder Crag Coyotes = {npc:2729} Elder Crag Coyote · Giant Buzzards = {npc:2831} Giant Buzzard
-	["The Elder Crag Coyotes and Giant Buzzards roam the basin south of the {area:1878}. Coyotes drop both the jawbones and the fangs; the Giant Buzzards drop the gizzards."] = "",
+	-- {area:1878} The Dustbowl · {zone:1418} Badlands
+	-- plural, as words: Elder Crag Coyotes = {npc:2729} Elder Crag Coyote · Giant Buzzards = {npc:2831} Giant Buzzard · Malevolent Mirages = {npc:269756} Malevolent Mirage
+	["The Elder Crag Coyotes and Giant Buzzards roam the basin south of the {area:1878}. Coyotes drop both the jawbones and the fangs; the Giant Buzzards drop the gizzards. Careful: Malevolent Mirages (42, elite) drift across the {zone:1418}: give them a wide berth."] = "",
 
 	-- Step 8: Rock Elementals
 	-- plural, as words: Rock Elementals = {npc:92} Rock Elemental
 	["Rock Elementals"] = "石元素",
 	-- {area:345} Agmond's End · {npc:6868} Jarkal Mossmeld
-	-- plural, as words: Rock Elementals = {npc:92} Rock Elemental · Rock Elemental Shards = {item:7848} Rock Elemental Shard
-	["South-east across the basin, the bigger Rock Elementals (39) stand on the slopes west of {area:345}; each one drops a slab. Every rock elemental can drop {npc:6868}'s Rock Elemental Shards."] = "",
+	-- plural, as words: Rock Elementals = {npc:92} Rock Elemental · Rock Elemental Shards = {item:7848} Rock Elemental Shard · Malevolent Mirages = {npc:269756} Malevolent Mirage
+	["South-east across the basin, the bigger Rock Elementals (39) stand on the slopes west of {area:345}; each one drops a slab. Every rock elemental can drop {npc:6868}'s Rock Elemental Shards. Careful: Malevolent Mirages (42, elite) drift across these slopes too."] = "",
 
 	-- Step 9: Agmond's End
-	-- {area:345} Agmond's End
-	["Theldurin sits among the dwarven ruins at {area:345}, just east of the elementals."] = "",
+	-- {area:345} Agmond's End · {area:1517} Uldaman
+	["Theldurin sits among the dwarven ruins at {area:345}, just east of the elementals. His tablet lies just inside {area:1517}'s cave mouth, beside level 38 elites: a quest for a group."] = "",
 
 	-- Step 10: Stonevault troggs
 	["Stonevault troggs"] = "石窟穴居人",
@@ -65,8 +65,9 @@ return {
 	["for Fizzle at the {area:2240}, on the way from {area:484} to {zone:1446} around level 43"] = "",
 
 	-- Step 12: Ancient Chest
-	-- {area:1517} Uldaman
-	["Keep north on the road; the chest lies in the {area:1517} dig site, at the foot of the ruins north-west of the road."] = "沿著道路繼續向北；箱子在{area:1517}挖掘場，位於道路西北方遺跡的底部。",
+	-- {area:1517} Uldaman · {zone:1418} Badlands · {npc:2932} Magregan Deepshadow
+	-- plural, as words: Obsidian Golems = {npc:4872} Obsidian Golem · Shadowforge Diggers = {npc:4846} Shadowforge Digger
+	["Keep north on the road to {area:1517}'s entrance, in the north of the {zone:1418}: the chest lies just inside the cave mouth. {npc:2932} and the Obsidian Golems (38) stand beside it and Shadowforge Diggers (35-36) work the tunnel, all elite: keep your group together."] = "繼續沿道路向北前往{zone:1418}北部的{area:1517}入口：箱子就在洞口內。{npc:2932}和黑曜石魔像（38級）站在旁邊，暗爐挖掘者（35-36級）在隧道裡工作，全都是精英：讓隊伍待在一起。",
 	["Below ground"] = "地下",
 
 	-- Step 13: Agmond's End
@@ -88,6 +89,7 @@ return {
 	["The next guide flies from {area:340} to {object:3202}."] = "",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["Keep north on the road; the chest lies in the {area:1517} dig site, at the foot of the ruins north-west of the road."] = "沿著道路繼續向北；箱子在{area:1517}挖掘場，位於道路西北方遺跡的底部。",
 	-- ["Theldurin sits among the dwarven ruins at {area:345}, south of the {area:1877}."] = "塞爾杜林坐在{area:1877}南邊{area:345}的矮人遺跡中。",
 	-- ["{npc:2920}: only if you carry {item:2868} ({skill:164} or the Auction House)"] = "{npc:2920}：只有在你帶著{item:2868}時（{skill:164}或拍賣場）",
 }

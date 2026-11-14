@@ -22,7 +22,7 @@ return {
 	-- {npc:3401} Shenthul · {quest:2379} Zando'zan
 	["{npc:3401} and {quest:2379}"] = "{npc:3401}與{quest:2379}",
 	-- {zone:1458} Undercity · {zone:1411} Durotar · {npc:3401} Shenthul · {quest:2379} Zando'zan · {object:172960} Cleft of Shadow · {object:172982} Valley of Strength · {spell:1804} Pick Lock
-	["Undead take the zeppelin from the towers outside the {zone:1458} to {zone:1411}. {npc:3401} and {quest:2379} stand in the {object:172960}, the canyon under the {object:172982}. Train {spell:1804} from {npc:3401} (or any rogue trainer) now if you lack it: this job is a lockpicking test."] = "",
+	["Undead take the zeppelin from the towers outside the {zone:1458} to {zone:1411}. {npc:3401} and {quest:2379} stand in the {object:172960}, the canyon under the {object:172982}. Train {spell:1804} from {npc:3401} (or any rogue trainer) now if you lack it: this job is a lockpicking test."] = "不死族從{zone:1458}外的塔搭飛艇前往{zone:1411}。{npc:3401}和{quest:2379}站在{object:172960}，就是{object:172982}下方的峽谷。如果你還沒學{spell:1804}，現在就向{npc:3401}（或任何盜賊訓練師）學習：這個差事是開鎖測試。",
 
 	-- Step 4: Wrenix the Wretched
 	-- {area:392} Ratchet · {zone:1413} Barrens · {npc:7161} Wrenix the Wretched · {item:7970} E.C.A.C. · {item:5060} Thieves' Tools · {spell:1804} Pick Lock
@@ -61,5 +61,4 @@ return {
 	-- ["South along the coast from {area:392}, at the Southsea pirates' camp. If an unusually hostile parrot attacks you, use the {item:7970} on it (the quest's own advice)."] = "在{area:392}沿海岸往南的南海海盜營地。如果有一隻特別兇的鸚鵡攻擊你，對牠使用{item:7970}（任務本身的建議）。",
 	-- ["Take the zeppelin from {zone:1454} to the {zone:1458} and ride south into Silverpine. {quest:1998} stands north-east of the {area:228}."] = "從{zone:1454}搭飛艇前往{zone:1458}，向南騎進銀松森林。{quest:1998}站在{area:228}東北方。",
 	-- ["The Kirin Tor keep their reports at {area:233}, in south-east Silverpine: pick the lock on the {object:103815}."] = "祈倫托把他們的報告放在銀松森林東南部的{area:233}：撬開{object:103815}的鎖。",
-	-- ["Undead take the zeppelin from the towers outside the {zone:1458} to {zone:1411}. {npc:3401} and {quest:2379} stand in the {object:172960}, the canyon under the {object:172982}."] = "不死族從{zone:1458}外的塔搭飛艇前往{zone:1411}。{npc:3401}和{quest:2379}站在{object:172960}，就是{object:172982}下方的峽谷。",
 }

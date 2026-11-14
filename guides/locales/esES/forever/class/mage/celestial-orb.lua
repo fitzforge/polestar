@@ -13,15 +13,15 @@ return {
 
 	-- Step 1: Return to the Marsh (Stormwind)
 	-- {npc:5497} Jennea Cannon · {zone:1453} Stormwind · {object:2101} Mage Quarter · {npc:6546} Tabetha · {zone:1455} Ironforge
-	["{npc:5497} at the top of the Wizard's Sanctum, {zone:1453}'s {object:2101}, sends you back to {npc:6546}; Bink in {zone:1455} gives the same quest."] = "",
+	["{npc:5497} at the top of the Wizard's Sanctum, {zone:1453}'s {object:2101}, sends you back to {npc:6546}; Bink in {zone:1455} gives the same quest."] = "{npc:5497}, en lo alto del Sagrario del Mago, en {object:2101} de {zone:1453}, te envía con {npc:6546}; Bink, en {zone:1455}, da la misma misión.",
 
 	-- Step 2: Return to the Marsh (Orgrimmar)
 	-- {npc:5885} Deino · {zone:1454} Orgrimmar · {object:173161} Darkbriar Lodge (no name in this language: may be words) · {npc:6546} Tabetha · {npc:4568} Anastasia Hartwell · {zone:1458} Undercity · {npc:3048} Ursyn Ghull · {zone:1456} Thunder Bluff
-	["{npc:5885}, one of {zone:1454}'s mage trainers in {object:173161}, sends you back to {npc:6546}; {npc:4568} in the {zone:1458} and {npc:3048} in {zone:1456} give the same quest."] = "",
+	["{npc:5885}, one of {zone:1454}'s mage trainers in {object:173161}, sends you back to {npc:6546}; {npc:4568} in the {zone:1458} and {npc:3048} in {zone:1456} give the same quest."] = "{npc:5885}, uno de los instructores de magos de {zone:1454}, en {object:173161}, te envía con {npc:6546}; {npc:4568} en {zone:1458} y {npc:3048} en {zone:1456} dan la misma misión.",
 
 	-- Step 3: Tabetha
 	-- {npc:6546} Tabetha · {area:508} Stonemaul Ruins
-	["{npc:6546}'s cottage is deep in the marsh west of Theramore, just north of the {area:508}; come in from the west road, the elites roam its east side."] = "",
+	["{npc:6546}'s cottage is deep in the marsh west of Theramore, just north of the {area:508}; come in from the west road, the elites roam its east side."] = "La cabaña de {npc:6546} está en lo profundo del pantano al oeste de Isla de Theramore, justo al norte de {area:508}; entra por el camino del oeste, los élites rondan por su lado este.",
 
 	-- Step 4: The Infernal Orb
 	-- {area:602} Mannoroc Coven · {zone:1443} Desolace · {area:2408} Shadowprey Village · {item:7291} Infernal Orb · {spell:686} Shadow Bolt · {zone:1412} Mulgore · {zone:1456} Thunder Bluff
@@ -60,8 +60,5 @@ return {
 	-- ["Back to {npc:6546}. She opens a mana rift beside her cottage: kill twelve {quest:1957} within ten minutes."] = "Vuelve con {npc:6546}. Abre una falla de maná junto a su cabaña: mata doce Oleadas de maná ({quest:1957}) en diez minutos.",
 	-- ["The Burning Blade Summoners work the {area:602} in southern {zone:1443}; any of them carries an {item:7291}."] = "Los Invocadores Filo Ardiente ocupan {area:602}, en el sur de {zone:1443}; cualquiera de ellos lleva un {item:7291}.",
 	-- ["{area:1517} is a dungeon in the northern {zone:1418}, by the {object:178824}: a group of five. Defeat the {npc:7023} inside for its power source."] = "{area:1517} es una mazmorra al norte de {zone:1418}, junto a la {object:178824}: un grupo de cinco. Derrota al {npc:7023} del interior para conseguir su fuente de energía.",
-	-- ["{npc:5497} in the Wizard's Sanctum, {zone:1453}'s {object:2101}, sends you back to {npc:6546}; Bink in {zone:1455} gives the same quest."] = "{npc:5497}, en la torre de los magos de {object:2101} de {zone:1453}, te envía con {npc:6546}; Bink, en {zone:1455}, da la misma misión.",
-	-- ["{npc:5885}, one of {zone:1454}'s mage trainers, sends you back to {npc:6546}; {npc:4568} in the {zone:1458} and {npc:3048} in {zone:1456} give the same quest."] = "{npc:5885}, uno de los instructores de magos de {zone:1454}, te envía con {npc:6546}; {npc:4568} en {zone:1458} y {npc:3048} en {zone:1456} dan la misma misión.",
 	-- ["{npc:6546} draws the demon out of the orb beside her cottage. The {npc:6549} is elite: grouping up is advised. You have three minutes before it slips back into the orb."] = "{npc:6546} saca al demonio del orbe junto a su cabaña. El {npc:6549} es élite: se recomienda ir en grupo. Tienes tres minutos antes de que vuelva a meterse en el orbe.",
-	-- ["{npc:6546}'s cottage is deep in the marsh west of Theramore, just north of the {area:508}."] = "La cabaña de {npc:6546} está en lo profundo del pantano al oeste de Isla de Theramore, justo al norte de {area:508}.",
 }

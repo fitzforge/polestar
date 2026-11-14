@@ -11,7 +11,7 @@ return {
 
 	-- Step 1: Anastasia Hartwell
 	-- {npc:4568} Anastasia Hartwell · {zone:1458} Undercity · {object:36082} Magic Quarter · {spell:3563} Teleport: Undercity · {zone:1454} Orgrimmar · {zone:1420} Tirisfal Glades
-	["{npc:4568} stands in the {zone:1458}'s {object:36082}. Orcs and Trolls use {spell:3563} or take the zeppelin from {zone:1454} to {zone:1420} for her."] = "",
+	["{npc:4568} stands in the {zone:1458}'s {object:36082}. Orcs and Trolls use {spell:3563} or take the zeppelin from {zone:1454} to {zone:1420} for her."] = "{npc:4568} стоит здесь: {zone:1458}, {object:36082}. Орки и тролли добираются к ней с помощью заклинания {spell:3563} или на дирижабле из города {zone:1454} в {zone:1420}.",
 
 	-- Step 2: Deino
 	-- {zone:1454} Orgrimmar · {spell:3567} Teleport: Orgrimmar · {object:173161} Darkbriar Lodge (no name in this language: may be words) · {npc:5885} Deino · {object:172961} Valley of Spirits · {item:7269} Deino's Flask
@@ -45,5 +45,4 @@ return {
 	-- ["Take the zeppelin to {zone:1454}. {npc:5885} is one of {zone:1454}'s mage trainers."] = "Летите на дирижабле в {zone:1454}. {npc:5885} — один из учителей магов города {zone:1454}.",
 	-- ["The {quest:1945}, dryads, gather near the {area:426} in central {zone:1440}."] = "{quest:1945}, дриады, собираются у места {area:426} в центре зоны {zone:1440}.",
 	-- ["{npc:3484}, a troll tailor, works at the {area:380}."] = "{npc:3484}, портниха-тролль, работает здесь: {area:380}.",
-	-- ["{npc:4568} stands in the {zone:1458}'s {object:36082}. Trolls take the zeppelin from {zone:1454} to {zone:1420} for her."] = "{npc:4568} стоит здесь: {zone:1458}, {object:36082}. Тролли летят к ней на дирижабле из города {zone:1454} в {zone:1420}.",
 }

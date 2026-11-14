@@ -8,7 +8,7 @@
 return {
 	-- Guide
 	-- {area:2057} Scholomance · {item:20134} Skyfury Helm
-	["A {area:2057} fight at 60 for Horde reputation; the {item:20134} may be gone in Forever."] = "",
+	["A {area:2057} fight at 60 for Horde reputation; the {item:20134} may be gone in Forever."] = "호드 평판을 위한 60레벨 {area:2057} 전투. Forever에서는 {item:20134}이(가) 사라졌을 수 있습니다.",
 	["200 Horde reputation"] = "호드 평판 200",
 
 	-- Step 1: Sagorne Creststrider
@@ -37,7 +37,6 @@ return {
 	["{npc:13417}: 200 Horde reputation; the {item:20134} may be gone"] = "",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
-	-- ["A {area:2057} fight at 60 for Horde reputation; Forever removed the {item:20134}."] = "호드 평판을 위한 60레벨 {area:2057} 전투. Forever에서는 {item:20134}이(가) 사라졌습니다.",
 	-- ["An {item:12800} comes from Thorium veins, a {item:18335} from the elites of the {zone:1422}, both rarely: buy them at the auction house if you can."] = "{item:12800}은(는) 토륨 광맥에서, {item:18335}은(는) {zone:1422}의 정예 몹에게서 나오며 둘 다 드뭅니다. 가능하면 경매장에서 사세요.",
 	-- ["At 58 {npc:13417}, the shaman trainer in the {object:172957}, asks for two rare diamonds."] = "58레벨에 {object:172957}의 주술사 상급자 {npc:13417}이(가) 희귀한 다이아몬드 두 개를 요구합니다.",
 	-- ["{area:2057} lies under {area:2298}, the island town in the south-east of the {zone:1422}. Use the {item:18746} in the heart of the {object:179746}'s basement, beat the spirits it calls, then {npc:14516}. All are elite: bring a group."] = "{area:2057}은(는) {zone:1422} 남동쪽의 섬 마을인 {area:2298} 아래에 있습니다. 거대한 납골당 지하실 중앙에서 {item:18746}을(를) 사용하고 나타나는 영혼들을 물리친 뒤 {npc:14516}을(를) 물리치세요. 모두 정예이니 파티를 데려가세요.",

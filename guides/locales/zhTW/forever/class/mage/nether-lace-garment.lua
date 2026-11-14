@@ -7,11 +7,11 @@
 -- The comments are rewritten by sync.
 return {
 	-- Guide
-	["A robe or a tunic for Horde mages in their late 20s."] = "",
+	["A robe or a tunic for Horde mages in their late 20s."] = "給20多級後段部落法師的長袍或外衣。",
 
 	-- Step 1: Anastasia Hartwell
 	-- {npc:4568} Anastasia Hartwell · {zone:1458} Undercity · {object:36082} Magic Quarter · {spell:3563} Teleport: Undercity · {zone:1454} Orgrimmar · {zone:1420} Tirisfal Glades
-	["{npc:4568} stands in the {zone:1458}'s {object:36082}. Orcs and Trolls use {spell:3563} or take the zeppelin from {zone:1454} to {zone:1420} for her."] = "",
+	["{npc:4568} stands in the {zone:1458}'s {object:36082}. Orcs and Trolls use {spell:3563} or take the zeppelin from {zone:1454} to {zone:1420} for her."] = "{npc:4568}站在{zone:1458}的{object:36082}。獸人和食人妖使用{spell:3563}，或從{zone:1454}搭飛艇到{zone:1420}去找她。",
 
 	-- Step 2: Deino
 	-- {zone:1454} Orgrimmar · {spell:3567} Teleport: Orgrimmar · {object:173161} Darkbriar Lodge (no name in this language: may be words) · {npc:5885} Deino · {object:172961} Valley of Spirits · {item:7269} Deino's Flask
@@ -40,10 +40,8 @@ return {
 	["{npc:3484}, a troll tailor, works at the Crossroads. The robe gives intellect, stamina and spirit; the tunic more intellect and stamina but no spirit."] = "",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
-	-- ["A robe or a tunic for Undead and Troll mages in their late 20s."] = "給20多級後段不死族和食人妖法師的長袍或外衣。",
 	-- ["Satyrs hold the ruins of {area:429} in eastern {zone:1440}. {spell:9052} at the bottom of the highest waterfall."] = "薩特佔據了{zone:1440}東部的{area:429}廢墟。在最高瀑布的底部{spell:9052}。",
 	-- ["Take the zeppelin to {zone:1454}. {npc:5885} is one of {zone:1454}'s mage trainers."] = "搭飛艇前往{zone:1454}。{npc:5885}是{zone:1454}的法師訓練師之一。",
 	-- ["The {quest:1945}, dryads, gather near the {area:426} in central {zone:1440}."] = "{quest:1945}是樹妖，聚集在{zone:1440}中部的{area:426}附近。",
 	-- ["{npc:3484}, a troll tailor, works at the {area:380}."] = "食人妖裁縫{npc:3484}在{area:380}工作。",
-	-- ["{npc:4568} stands in the {zone:1458}'s {object:36082}. Trolls take the zeppelin from {zone:1454} to {zone:1420} for her."] = "{npc:4568}站在{zone:1458}的{object:36082}。食人妖從{zone:1454}搭飛艇到{zone:1420}去找她。",
 }

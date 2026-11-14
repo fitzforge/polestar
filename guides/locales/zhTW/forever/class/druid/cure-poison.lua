@@ -55,7 +55,7 @@ return {
 
 	-- Step 12: Cenarion Enclave
 	-- {npc:4217} Mathrengyl Bearwalker · {area:1658} Cenarion Enclave · {spell:8946} Cure Poison
-	["{npc:4217}, upstairs in the {area:1658}, teaches you {spell:8946}."] = "",
+	["{npc:4217}, upstairs in the {area:1658}, teaches you {spell:8946}."] = "{area:1658}樓上的{npc:4217}會教你{spell:8946}。",
 
 	-- Step 14: Lessons Anew
 	-- {npc:3033} Turak Runetotem · {area:1639} Elder Rise · {npc:262560} Hana Lighthoof · {zone:1412} Mulgore · {skill:182} Herbalism · {npc:3490} Hula'mahi · {item:2449} Earthroot
@@ -65,7 +65,7 @@ return {
 
 	-- Step 15: Dendrite Starblaze
 	-- {spell:18960} Teleport: Moonglade · {npc:11802} Dendrite Starblaze · {item:15842} Empty Dreadmist Peak Sampler · {npc:11798} Bunthen Plainswind · {area:1638} Thunder Bluff
-	["Cast {spell:18960}: {npc:11802} stands upstairs in the building beside you. He hands you the {item:15842}. {npc:11798} flies druids to {area:1638}; fly on to the Crossroads from there."] = "",
+	["Cast {spell:18960}: {npc:11802} stands upstairs in the building beside you. He hands you the {item:15842}. {npc:11798} flies druids to {area:1638}; fly on to the Crossroads from there."] = "施放{spell:18960}：{npc:11802}站在你旁邊建築的樓上。他會交給你{item:15842}。{npc:11798}會載德魯伊飛往{area:1638}；再從那裡飛往十字路口。",
 
 	-- Step 16: Dreadmist Peak
 	-- {area:384} Dreadmist Peak · {object:19464} Dreadmist Peak Pool · {item:15842} Empty Dreadmist Peak Sampler
@@ -76,7 +76,7 @@ return {
 
 	-- Step 17: Tonga Runetotem
 	-- {npc:3448} Tonga Runetotem · {skill:182} Herbalism · {npc:3490} Hula'mahi · {item:2449} Earthroot
-	["{npc:3448} stands in the Crossroads. No {skill:182}? {npc:3490}, a few steps away by the wind rider master, sells {item:2449} for 80 copper each, three at a time until he restocks."] = "",
+	["{npc:3448} stands in the Crossroads. No {skill:182}? {npc:3490}, a few steps away by the wind rider master, sells {item:2449} for 80 copper each, three at a time until he restocks."] = "{npc:3448}站在十字路口。沒有{skill:182}？幾步外雙足飛龍管理員旁的{npc:3490}販售{item:2449}，每個80銅幣，每次補貨前只有三個。",
 	-- {item:2449} Earthroot
 	["{item:2449}; herbalists pick it on the plains"] = "{item:2449}；草藥師可以在平原上採集",
 
@@ -103,18 +103,16 @@ return {
 
 	-- Step 21: Curing the Sick
 	-- {spell:18960} Teleport: Moonglade · {npc:11802} Dendrite Starblaze · {npc:11798} Bunthen Plainswind · {area:1638} Thunder Bluff
-	["Cast {spell:18960} and see {npc:11802}, then take {npc:11798}'s flight to {area:1638}. {npc:11802} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."] = "",
+	["Cast {spell:18960} and see {npc:11802}, then take {npc:11798}'s flight to {area:1638}. {npc:11802} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."] = "施放{spell:18960}並找{npc:11802}，然後搭乘{npc:11798}的飛行路線前往{area:1638}。{npc:11802}站在他建築的樓上：從裡面走上去，箭頭無法分辨樓層。",
 
 	-- Step 22: Power over Poison
 	-- {npc:3033} Turak Runetotem · {area:1639} Elder Rise · {spell:8946} Cure Poison
-	["{npc:3033} on {area:1639} teaches you {spell:8946}."] = "",
+	["{npc:3033} on {area:1639} teaches you {spell:8946}."] = "{area:1639}的{npc:3033}會教你{spell:8946}。",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Back in {area:442}."] = "回到{area:442}。",
 	-- ["Cast {spell:18960} and see {npc:11802}, then fly to {area:702} and take the portal up to {zone:1457}."] = "施放{spell:18960}並找{npc:11802}，然後飛往{area:702}，走傳送門上到{zone:1457}。",
-	-- ["Cast {spell:18960} and see {npc:11802}, then take {npc:11798}'s flight to {area:1638}."] = "施放{spell:18960}並找{npc:11802}，然後搭乘{npc:11798}的飛行路線前往{area:1638}。",
 	-- ["Cast {spell:18960}. {npc:11802} is in {area:2361}. Then fly to {area:442}."] = "施放{spell:18960}。{npc:11802}在{area:2361}。然後飛往{area:442}。",
-	-- ["Cast {spell:18960}. {npc:11802} is in {area:2361}. {npc:11798} flies druids to {area:1638}; fly on to the {area:380} from there."] = "施放{spell:18960}。{npc:11802}在{area:2361}。{npc:11798}會載德魯伊飛往{area:1638}；再從那裡飛往{area:380}。",
 	-- ["From the {area:380} ride north to {area:384} and fill the {item:15842} at the {object:19464}."] = "從{area:380}向北騎往{area:384}，在{object:19464}裝滿{item:15842}。",
 	-- ["Lost Barrens Kodos roam the plains north and west of the {area:380} and around the {area:388}; each drops a horn. Herbalists find {item:2449} all over the northern {zone:1413}."] = "落單的草原科多獸在{area:380}北邊和西邊的平原以及{area:388}周圍遊蕩；每隻都會掉落一根角。草藥師在{zone:1413}北部各處都能找到{item:2449}。",
 	-- ["Ride north-east from {area:442} to {area:445} and fill the {item:15844} at the mouth of the cave by the falls."] = "從{area:442}向東北騎往{area:445}，在瀑布旁的洞口裝滿{item:15844}。",
@@ -123,7 +121,4 @@ return {
 	-- ["Use the {item:15826} on {npc:12298}. They roam {zone:1439} from the {area:456} in the north to the {zone:1440} border in the south."] = "對{npc:12298}使用{item:15826}。牠們在{zone:1439}從北邊的{area:456}到南邊的{zone:1440}邊界一帶遊蕩。",
 	-- ["{npc:12296}: use the salve on them"] = "{npc:12296}：對牠們使用藥膏",
 	-- ["{npc:12298}: use the salve on them"] = "{npc:12298}：對牠們使用藥膏",
-	-- ["{npc:3033} stands on {area:1639}."] = "{npc:3033}站在{area:1639}。",
-	-- ["{npc:3448} stands in the {area:380}. No {skill:182}? {npc:3490}, a few steps away, sells {item:2449}, three at a time until he restocks."] = "{npc:3448}站在{area:380}。沒有{skill:182}？幾步外的{npc:3490}販售{item:2449}，每次補貨前只有三個。",
-	-- ["{npc:4217} stands in the {area:1658}."] = "{npc:4217}站在{area:1658}。",
 }

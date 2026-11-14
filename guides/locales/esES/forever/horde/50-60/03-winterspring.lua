@@ -12,11 +12,11 @@ return {
 
 	-- Step 2: Salfa
 	-- {npc:11556} Salfa · {zone:1452} Winterspring · {area:1769} Timbermaw Hold
-	["{npc:11556} stands right at the {zone:1452} exit of {area:1769}'s tunnel, where you come out."] = "",
+	["{npc:11556} stands right at the {zone:1452} exit of {area:1769}'s tunnel, where you come out."] = "{npc:11556} está justo en la salida a {zone:1452} del túnel de {area:1769}, por donde sales.",
 
 	-- Step 3: Donova Snowden
 	-- {npc:9298} Donova Snowden · {area:2246} Frostfire Hot Springs
-	["Ride south from the tunnel: {npc:9298} camps among the steaming pools of {area:2246}, in the west of the valley."] = "",
+	["Ride south from the tunnel: {npc:9298} camps among the steaming pools of {area:2246}, in the west of the valley."] = "Cabalga al sur desde el túnel: {npc:9298} acampa entre las pozas humeantes de {area:2246}, al oeste del valle.",
 	["Linken's letter"] = "La carta de Linken",
 	-- {quest:3909} The Videre Elixir · {npc:7775} Gregan Brewspewer · {zone:1444} Feralas
 	["{quest:3909} comes from {npc:7775} in {zone:1444}, later in this guide."] = "{quest:3909} la da {npc:7775} en {zone:1444}, más adelante en esta guía.",
@@ -45,7 +45,7 @@ return {
 
 	-- Step 8: Everlook
 	-- {area:2255} Everlook
-	["{area:2255} is the goblin town on the east side of the valley, past the owlbeast hills."] = "",
+	["{area:2255} is the goblin town on the east side of the valley, past the owlbeast hills."] = "{area:2255} es el pueblo goblin del lado este del valle, pasadas las colinas de los lechúcicos.",
 	["Gregor's quests lead to other zones: keep them."] = "Las misiones de Gregor llevan a otras zonas: guárdalas.",
 	-- {npc:10431} Gregor Greystone
 	["{npc:10431}, inside"] = "",
@@ -58,9 +58,10 @@ return {
 	-- Step 11: Level 55.04
 	["Level 55.04"] = "",
 	-- {area:2255} Everlook · {area:1584} Blackrock Depths · {area:1583} Blackrock Spire
-	["Top up here to level 55.04 before the hand-ins at {area:2255}: they take you to level 56. Or, with a group, run the {area:1584} dungeon or the {area:1583} dungeon (Lower) instead."] = "",
-	-- {npc:7460} Ice Thistle Patriarch
-	["grind on {npc:7460}"] = "",
+	-- plural, as words: Ice Thistle Yetis = {npc:7458} Ice Thistle Yeti
+	["Top up here to level 55.04 before the hand-ins at {area:2255}: they take you to level 56. The Ice Thistle Yetis (55-56) are the lowest here; the Matriarchs and Patriarchs (56-58) hit harder. Or, with a group, run the {area:1584} dungeon or the {area:1583} dungeon (Lower) instead."] = "Sube aquí hasta el nivel 55.04 antes de las entregas en {area:2255}: te llevan al nivel 56. Los yetis Cardo Nevado (55-56) son los de menor nivel aquí; las matriarcas y patriarcas (56-58) pegan más fuerte. O, con un grupo, haz en su lugar la mazmorra {area:1584} o la mazmorra {area:1583} (inferior).",
+	-- {npc:7458} Ice Thistle Yeti
+	["grind on {npc:7458}"] = "",
 
 	-- Step 12: Pristine Yeti Horns
 	-- plural, as words: Pristine Yeti Horns = {item:12367} Pristine Yeti Horn
@@ -150,13 +151,10 @@ return {
 	-- ["Ride east, then south down {area:2249}. The Frostmaul giants there are elite level 59: keep to the middle and keep moving. The strange source is at the mouth of {area:2256}, at the south end."] = "Cabalga al este y luego al sur bajando por {area:2249}. Los Gigantes Machacahielo de allí son élite de nivel 59: ve por el centro y no te detengas. La fuente extraña está en la boca de {area:2256}, en el extremo sur.",
 	-- ["Ride west along the road past {area:2251}; Raging Owlbeasts roam the hills north of it."] = "Cabalga al oeste por el camino pasando {area:2251}; las Lechubestias enfurecidas deambulan por las colinas al norte.",
 	-- ["grind on {npc:7440} at {area:2244}, {zone:1452}"] = "sube de nivel con {npc:7440} en {area:2244}, {zone:1452}",
-	-- ["{area:2255} is the goblin town on the east side of the valley."] = "{area:2255} es el pueblo goblin del lado este del valle.",
 	-- ["{item:12771}, a rare drop from the Winterfall furbolgs"] = "{item:12771}, botín raro de los fúrbolgs Nevada",
 	-- ["{npc:10307}, beside him"] = "{npc:10307}, a su lado",
 	-- ["{npc:11118}: the last guide binds here, so this usually ticks at once"] = "{npc:11118}: la guía anterior te vincula aquí, así que esto suele marcarse al instante",
-	-- ["{npc:11556} stands by the {zone:1452} exit of {area:1769}'s tunnel, north of the hot springs."] = "{npc:11556} está junto a la salida a {zone:1452} del túnel de {area:1769}, al norte de las fuentes termales.",
 	-- ["{npc:7775}, a dwarf, camps in the {area:1137} north-west of {area:1099}. He brews the {item:11243} only from an {item:11242} you bring him."] = "{npc:7775}, un enano, acampa en {area:1137}, al noroeste de {area:1099}. Solo prepara el {item:11243} a partir de una {item:11242} que le lleves.",
 	-- ["{npc:7775}, a dwarf, camps in the {area:1137} north-west of {area:1099}; he has the elixir."] = "{npc:7775}, un enano, acampa en {area:1137}, al noroeste de {area:1099}; tiene el elixir.",
 	-- ["{npc:9087} buys {item:11040} grown from your {quest:3761}."] = "{npc:9087} compra {item:11040} cultivado con tu {quest:3761}.",
-	-- ["{npc:9298} camps among the steaming pools of {area:2246}, in the west of the valley."] = "{npc:9298} acampa entre las pozas humeantes de {area:2246}, al oeste del valle.",
 }

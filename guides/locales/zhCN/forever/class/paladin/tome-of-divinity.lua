@@ -27,16 +27,16 @@ return {
 	["{npc:6171}, Cathedral of Light"] = "{npc:6171}，光明大教堂",
 
 	-- Step 5: The Tome of Divinity
-	-- {npc:6171} Duthorian Rall · {item:6775} Tome of Divinity · {item:2589} Linen Cloth
-	["{npc:6171} stands inside the Cathedral of Light. He hands you the {item:6775}: right-click it in your bags to start the next quest. If the book says the quest is already done, destroy it and ask {npc:6171} for a new copy. Bring 10 {item:2589} for the next step if you have it."] = "{npc:6171} 站在圣光大教堂内。他会给你 {item:6775}：在背包中右键点击，开始下一个任务。如果书提示任务已经完成，销毁它，再找 {npc:6171} 要一本新的。如果手头有10块 {item:2589}，带上以备下一步使用。",
-	-- {item:6775} Tome of Divinity
-	["Right-click the {item:6775}"] = "右键点击{item:6775}",
+	-- {npc:6171} Duthorian Rall · {quest:2998} Tome of Divinity · {item:2589} Linen Cloth
+	["{npc:6171} stands inside the Cathedral of Light. He hands you the {quest:2998}: right-click it in your bags to start the next quest. If the book says the quest is already done, destroy it and ask {npc:6171} for a new copy. Bring 10 {item:2589} for the next step if you have it."] = "{npc:6171} 站在圣光大教堂内。他会给你 {quest:2998}：在背包中右键点击，开始下一个任务。如果书提示任务已经完成，销毁它，再找 {npc:6171} 要一本新的。如果手头有10块 {item:2589}，带上以备下一步使用。",
+	-- {quest:2998} Tome of Divinity
+	["Right-click the {quest:2998}"] = "右键点击{quest:2998}",
 
 	-- Step 6: Stephanie Turner
 	-- {npc:6174} Stephanie Turner · {object:2096} Trade District · {item:2589} Linen Cloth · {zone:1436} Westfall
 	["{npc:6174} stands at a corner in the middle of the {object:2096}, outside a general goods store. She wants 10 {item:2589}: humanoids drop it (Riverpaw gnolls in {zone:1436} about every other kill, Defias and kobolds a little less), or buy it at the Auction House a few steps away in the {object:2096}."] = "{npc:6174} 站在 {object:2096} 中部的一个街角，位于一家杂货店外。她需要10块 {item:2589}：人形生物会掉落（{zone:1436} 的河爪豺狼人约每杀两只掉一块，迪菲亚成员和狗头人的掉率稍低），也可以到几步之外的 {object:2096} 拍卖行购买。",
 	-- {item:2589} Linen Cloth
-	["{item:2589} x10"] = "{item:2589} × 10",
+	["{item:2589} x10: humanoids, or the Auction House"] = "{item:2589} x10：人形怪，或拍卖行",
 
 	-- Step 7: The Symbol of Life
 	-- {item:6866} Symbol of Life
@@ -70,15 +70,15 @@ return {
 	["{npc:6179}, upstairs in the {object:32386}"] = "{npc:6179}，在{object:32386}楼上",
 
 	-- Step 14: The Tome of Divinity
-	-- {npc:6179} Tiza Battleforge · {object:32386} Hall of Mysteries · {object:32362} Mystic Ward · {item:6916} Tome of Divinity · {item:2589} Linen Cloth
-	["{npc:6179} stands upstairs in the {object:32386}, in the {object:32362}: take the ramp at the back of the hall. She hands you the {item:6916}: right-click it in your bags to start the next quest. If the book says the quest is already done, destroy it and ask {npc:6179} for a new copy. Bring 10 {item:2589} for the next step if you have it."] = "{npc:6179} 位于 {object:32362} 的 {object:32386} 楼上：走大厅后面的斜坡上去。她会给你 {item:6916}：在背包里右键点击它，开始下一个任务。如果书提示任务已经完成，就摧毁它，再向 {npc:6179} 要一本。有的话，带上 10 个 {item:2589}，下一步要用。",
-	-- {item:6916} Tome of Divinity
-	["Right-click the {item:6916}"] = "右键点击{item:6916}",
+	-- {npc:6179} Tiza Battleforge · {object:32386} Hall of Mysteries · {object:32362} Mystic Ward · {quest:2997} Tome of Divinity · {item:2589} Linen Cloth
+	["{npc:6179} stands upstairs in the {object:32386}, in the {object:32362}: take the ramp at the back of the hall. She hands you the {quest:2997}: right-click it in your bags to start the next quest. If the book says the quest is already done, destroy it and ask {npc:6179} for a new copy. Bring 10 {item:2589} for the next step if you have it."] = "{npc:6179} 位于 {object:32362} 的 {object:32386} 楼上：走大厅后面的斜坡上去。她会给你 {quest:2997}：在背包里右键点击它，开始下一个任务。如果书提示任务已经完成，就摧毁它，再向 {npc:6179} 要一本。有的话，带上 10 个 {item:2589}，下一步要用。",
+	-- {quest:2997} Tome of Divinity
+	["Right-click the {quest:2997}"] = "右键点击{quest:2997}",
 
 	-- Step 15: John Turner
-	-- {npc:6175} John Turner · {item:2589} Linen Cloth · {npc:1245} Kogan Forgestone · {area:131} Kharanos
+	-- {npc:6175} John Turner · {item:2589} Linen Cloth · {zone:1432} Loch Modan
 	-- plural, as words: Dark Iron Ambushers = {npc:1981} Dark Iron Ambusher
-	["{npc:6175} walks the outer ring of the Commons, past the front gate, the bank and the Auction House. He wants 10 {item:2589}: humanoids drop it ({npc:1245} in {area:131} every time, Dark Iron Ambushers about two kills in five), or buy it at the Auction House on his ring."] = "{npc:6175} 在平民区外圈行走，会经过前门、银行和拍卖行。他需要 10 个 {item:2589}：人型生物会掉落（{area:131} 的 {npc:1245} 每次都掉，黑铁伏击者大约每击杀五只掉落两次），也可以在他行走路线上的拍卖行购买。",
+	["{npc:6175} walks the outer ring of the Commons, past the front gate, the bank and the Auction House. He wants 10 {item:2589}: humanoids drop it (in {zone:1432} the Dark Iron Ambushers, Tunnel Rat kobolds and Stonesplinter troggs about two kills in five), or buy it at the Auction House on his ring."] = "{npc:6175} 在平民区外圈行走，会经过前门、银行和拍卖行。他需要 10 个 {item:2589}：人型生物会掉落（在 {zone:1432}，黑铁伏击者、坑道鼠狗头人和碎石穴居人大约每击杀五只掉落两次），也可以在他行走路线上的拍卖行购买。",
 
 	-- Step 16: The Symbol of Life
 	-- {object:32386} Hall of Mysteries · {npc:6179} Tiza Battleforge · {item:6866} Symbol of Life · {npc:6178} Muiredon Battleforge · {npc:6177} Narm Faulk
@@ -101,4 +101,7 @@ return {
 	-- Step 19: Redemption
 	-- {object:32386} Hall of Mysteries · {npc:6178} Muiredon Battleforge · {npc:6179} Tiza Battleforge · {spell:7328} Redemption
 	["Back up to the {object:32386}: {npc:6178} takes the script, {npc:6179} teaches you {spell:7328}."] = "回到 {object:32386} 楼上：{npc:6178} 收下书稿，{npc:6179} 教你 {spell:7328}。",
+
+	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["{item:2589} x10"] = "{item:2589} × 10",
 }

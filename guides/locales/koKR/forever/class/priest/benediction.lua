@@ -38,12 +38,11 @@ return {
 	-- {item:18659} Splinter of Nordrassil · {item:18646} The Eye of Divinity · {item:18665} The Eye of Shadow · {item:18608} Benediction
 	["With the {item:18659}, {item:18646} and {item:18665} in your bags, use the splinter wherever you are: it becomes {item:18608}. Use {item:18608} to turn it into Anathema, the shadow staff, and back (a 30-minute cooldown)."] = "",
 	-- {item:18659} Splinter of Nordrassil · {item:18608} Benediction
-	["Use the {item:18659} with both Eyes in your bags: {item:18608}"] = "",
+	["Use the {item:18659} with both Eyes in your bags: {item:18608}"] = "두 눈을 가방에 넣고 {item:18659} 사용: {item:18608}",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Equip {item:18646} to see {npc:14494}, a ghost on the mountainside in the north-west of the {zone:1423}. Come with full mana, Major Mana Potions and {item:8956}: if you fail, the event takes about two hours to return."] = "{item:18646}을(를) 착용하면 {zone:1423} 북서쪽 산비탈의 유령 {npc:14494}이(가) 보입니다. 마나를 가득 채우고 일급 마나 물약과 {item:8956}을(를) 챙겨 오십시오. 실패하면 이벤트가 다시 열리기까지 약 두 시간이 걸립니다.",
 	-- ["Save 50 peasants before 15 die. Kill the skeletons that attack them, cure their diseases (the purple ones first) and heal the wounded with {spell:139}. Friends may buff you beforehand but must stay out of the fight, or a demon appears and kills everyone."] = "농민 15명이 죽기 전에 50명을 구하세요. 농민을 공격하는 해골을 처치하고, 질병을 치료하고(보라색부터), 부상자는 {spell:139}(으)로 치유하세요. 친구가 미리 강화 효과를 걸어 줄 수는 있지만 전투에는 끼면 안 됩니다. 그렇지 않으면 악마가 나타나 모두를 죽입니다.",
-	-- ["With both Eyes in your bags: {item:18608}"] = "두 눈을 가방에 넣고: {item:18608}",
 	-- ["You need {item:18646} first: it comes from the {object:179703} after {npc:12018} in {area:2717}. {item:18665} drops from elite demons ({npc:12397}, a world boss, always; Doomguard Commanders and Manahounds rarely); it binds when equipped, so buying one works too."] = "먼저 {item:18646}이(가) 필요합니다. {area:2717}에서 {npc:12018} 처치 후 나오는 {object:179703}에서 얻습니다. {item:18665}은(는) 정예 악마에게서 떨어집니다(필드 우두머리 {npc:12397}은(는) 항상, 파멸의수호대 사령관과 마나사냥개는 드물게). 착용 시 귀속이므로 구매해도 됩니다.",
 	-- ["{npc:14494}'s splinter and the two Eyes make {item:18608}, the epic priest staff that turns into Anathema."] = "{npc:14494}의 조각과 두 개의 눈으로 {item:18608}을(를) 만듭니다. 저주의 지팡이로 변하는 사제 영웅 지팡이입니다.",
 }

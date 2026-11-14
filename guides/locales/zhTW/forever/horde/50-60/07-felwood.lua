@@ -41,7 +41,7 @@ return {
 
 	-- Step 9: Dousing the Flames of Protection
 	-- {area:1763} Jaedenar
-	["Ride north-west to {area:1763}. The four braziers stand among the Shadow Council's buildings; use the Cleansed Water on each one.\nCareful: Shadow Council mobs of level 53-55 fill the cave and often come in large linked groups, many with stuns. A group of 2-3 players is recommended."] = "",
+	["Ride north-west to {area:1763}. The four braziers stand among the Shadow Council's buildings; use the Cleansed Water on each one.\nCareful: Shadow Council mobs of level 53-55 fill the cave and often come in large linked groups, many with stuns. A group of 2-3 players is recommended."] = "向西北騎往{area:1763}。四個火盆位於教徒的建築之間；對每個火盆使用淨化過的水。\n小心：洞穴裡滿是53-55級的暗影議會怪物，常常成群連動，很多會擊暈。建議2-3人組隊。",
 	["Below ground"] = "地下",
 
 	-- Step 10: Greta Mosshoof
@@ -55,21 +55,22 @@ return {
 
 	-- Step 12: A Final Blow
 	-- {npc:9861} Moora · {npc:9860} Salia · {npc:9517} Shadow Lord Fel'dan · {area:1770} Shadow Hold · {area:1763} Jaedenar
-	["{npc:9861}, {npc:9860} and {npc:9517} wait at the back of {area:1770}, the cave in {area:1763}'s north. Clear the tunnel as you go.\nCareful: The three bosses fight as a group. Kill the nearby mobs first so you don't pull extra enemies."] = "",
+	["{npc:9861}, {npc:9860} and {npc:9517} wait at the back of {area:1770}, the cave in {area:1763}'s north. Clear the tunnel as you go.\nCareful: The three bosses fight as a group. Kill the nearby mobs first so you don't pull extra enemies."] = "{npc:9861}、{npc:9860}和{npc:9517}在{area:1763}北部洞穴{area:1770}的深處等候。沿途清理隧道。\n小心：三名首領會一起戰鬥。先殺掉附近的怪，以免多拉到敵人。",
 	-- {quest:5887} Salve via Hunting
 	-- plural, as words: Corrupted Soul Shards = {item:11515} Corrupted Soul Shard
 	["Corrupted Soul Shards from the cultists, {quest:5887}"] = "從教徒身上取得腐化的靈魂碎片，{quest:5887}",
 
 	-- Step 13: Maybess Riverbreeze
 	-- {npc:9529} Maybess Riverbreeze
-	["On the way back south to Greta, {npc:9529} takes the shards on the west side of the Sanctuary."] = "",
+	["On the way back south to Greta, {npc:9529} takes the shards on the west side of the Sanctuary."] = "在向南返回葛瑞塔的路上，到聖地西側把碎片交給{npc:9529}。",
 
 	-- Step 14: Greta Mosshoof
 	["South to the Sanctuary once more."] = "再次向南前往聖地。",
 
 	-- Step 15: Toxic Horrors
-	-- {zone:1448} Felwood · {area:1767} Irontree Woods · {quest:5086} Toxic Horrors
-	["Ride north up the {zone:1448} road to {area:1767}; the {quest:5086} ooze between the trees, and most of them drop a droplet."] = "",
+	-- {zone:1448} Felwood · {area:1767} Irontree Woods · {quest:5086} Toxic Horrors · {npc:14524} Vartrus the Ancient
+	-- plural, as words: Ancient Irontree Walkers = {npc:235912} Ancient Irontree Walker
+	["Ride north up the {zone:1448} road to {area:1767}; the {quest:5086} ooze between the trees, and most of them drop a droplet.\nCareful: Ancient Irontree Walkers, level 59 elites, walk among the {quest:5086}, and {npc:14524} (63, elite) roams the woods: work the Horrors at the north tip of {area:1767}, one at a time."] = "",
 
 	-- Step 17: Umber
 	-- {zone:1450} Moonglade · {npc:11939} Umber · {area:2361} Nighthaven
@@ -93,6 +94,10 @@ return {
 	-- {area:1769} Timbermaw Hold · {area:2244} Winterfall Village · {npc:9298} Donova Snowden · {spell:5384} Feign Death
 	["The runners walk the road from {area:1769} toward {area:2244} in small groups; wait by the road near {npc:9298} and kill them as they pass. Each one carries a crate.\nCareful: Turning in spawns three or four level 56-57 Winterfall ambushers that attack you; you can escape them while mounted, in stealth or with {spell:5384}, and they then gather by the lake so you can take the next quest."] = "",
 
+	-- Step 25: Salfa
+	-- {zone:1423} Eastern Plaguelands
+	["only if still carried: the {zone:1423} guide hands it in on its way through"] = "只有在還帶著時：{zone:1423}指南會在途中繳交它",
+
 	-- Step 26: Beads for Salfa
 	-- {npc:11556} Salfa
 	["Any Winterfall furbolg can carry the beads; the camps just south of {npc:11556} are the closest."] = "任何冬泉熊怪都可能帶著珠串；{npc:11556}南邊的營地最近。",
@@ -100,7 +105,7 @@ return {
 
 	-- Step 28: Meilosh
 	-- {quest:6031} Runecloth · {area:1769} Timbermaw Hold · {npc:11557} Meilosh
-	["With 30 {quest:6031} in your bags: follow the road north to {area:1769}; {npc:11557} trades just inside the entrance."] = "",
+	["With 30 {quest:6031} in your bags: follow the road north to {area:1769}; {npc:11557} trades just inside the entrance."] = "背包裡有30塊{quest:6031}時：沿著道路向北前往{area:1769}；{npc:11557}就在入口內交易。",
 
 	-- Step 29: Kernda
 	-- {area:1762} Felpaw Village · {npc:11558} Kernda · {area:1769} Timbermaw Hold · {zone:1448} Felwood
@@ -134,13 +139,7 @@ return {
 	-- {area:2255} Everlook
 	["Ride east along the road to {area:2255}."] = "沿著道路向東騎往{area:2255}。",
 
-	-- Step 36: Dungeon instead of grinding
-	["Dungeon instead of grinding"] = "以地城代替練等",
-	-- {area:2279} Stratholme · {area:2057} Scholomance · {area:1584} Blackrock Depths
-	["Optional. Running {area:2279}, {area:2057}, Lower Blackrock Spire or {area:1584} with a group instead of grinding gets you there faster."] = "可選。和小隊打{area:2279}、{area:2057}、黑石塔下層或{area:1584}代替練等，能更快達到目標。",
-	["Optional: with a group, a 55-60 dungeon replaces the grind below."] = "可選：有小隊的話，一個55-60級地城可以取代下面的練等。",
-
-	-- Step 37: Grind to 60
+	-- Step 36: Grind to 60
 	["Grind to 60"] = "練到60級",
 	-- {area:2249} Frostwhisper Gorge · {zone:1452} Winterspring · {area:2255} Everlook
 	-- plural, as words: Rabid Shardtooths = {npc:7446} Rabid Shardtooth
@@ -154,13 +153,13 @@ return {
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Back into the Timbermaw tunnel and take the {area:618} exit; {npc:9298} camps by the hot springs just outside."] = "回到木喉隧道，從{area:618}出口出去；{npc:9298}就在出口外的溫泉旁紮營。",
+	-- ["Dungeon instead of grinding"] = "以地城代替練等",
 	-- ["Fly to {area:431} and ride north-west along the road out of {zone:1440} into {area:361}. The {area:2479} is the druids' camp just past the border."] = "飛往{area:431}，沿著道路向西北離開{zone:1440}進入{area:361}。{area:2479}就是過了邊界不遠的德魯伊營地。",
 	-- ["From the {zone:1458}, take the zeppelin from the tower outside the city to {zone:1454}."] = "從{zone:1458}出發，在城外的塔搭飛艇前往{zone:1454}。",
-	-- ["On the way back south to {npc:10922}, {npc:9529} takes the shards on the west side of the Sanctuary."] = "在向南返回{npc:10922}的路上，到聖地西側把碎片交給{npc:9529}。",
 	-- ["Only if you carry {quest:5087}: the runners walk the road from {area:1769} toward {area:2244} in small groups; wait by the road near {npc:9298} and kill them as they pass. Each one carries a crate."] = "僅限你帶著{quest:5087}時：信使們成小群從{area:1769}沿著道路走向{area:2244}；在{npc:9298}附近的路旁等候，趁他們經過時擊殺。每個信使都帶著一個箱子。",
 	-- ["Only if {npc:9298} gave you {quest:5086}: ride north up the {area:361} road to {area:1767}; the {quest:5086} ooze between the trees."] = "僅限{npc:9298}給了你{quest:5086}時：沿著{area:361}的道路向北騎往{area:1767}；{quest:5086}在樹林間蠕動。",
-	-- ["Only with 30 {quest:6031}, and only at Neutral with the Timbermaw: follow the road north to {area:1769}; {npc:11557} trades just inside the entrance."] = "僅限持有30塊{quest:6031}，且木喉聲望為中立時：沿著道路向北前往{area:1769}；{npc:11557}就在入口內交易。",
-	-- ["Ride north-west to {area:1763}. The four braziers stand among the Shadow Council's buildings; use the Cleansed Water on each one."] = "向西北騎往{area:1763}。四個火盆位於教徒的建築之間；對每個火盆使用淨化過的水。",
+	-- ["Optional. Running {area:2279}, {area:2057}, Lower Blackrock Spire or {area:1584} with a group instead of grinding gets you there faster."] = "可選。和小隊打{area:2279}、{area:2057}、黑石塔下層或{area:1584}代替練等，能更快達到目標。",
+	-- ["Optional: with a group, a 55-60 dungeon replaces the grind below."] = "可選：有小隊的話，一個55-60級地城可以取代下面的練等。",
 	-- ["The quests run out here. Rabid Shardtooths prowl {area:2249} in southern {area:618}, south of the road from {area:2255}."] = "任務到這裡就沒了。瘋狂的碎齒熊在{area:618}南部、{area:2255}出來的道路南邊的{area:2249}徘徊。",
 	-- ["Through the Timbermaw tunnel to {area:493}. {npc:11939} reads in a house in {area:2361}."] = "穿過木喉隧道前往{area:493}。{npc:11939}在{area:2361}的一間房子裡看書。",
 	-- ["Zeppelin to {zone:1454}"] = "搭飛艇前往{zone:1454}",
@@ -168,5 +167,4 @@ return {
 	-- ["{npc:10306}'s next {quest:4741} would bring you back here from {area:618}. Skip it."] = "{npc:10306}接下來的{quest:4741}會讓你從{area:618}跑回這裡。跳過。",
 	-- ["{npc:9116}'s Silver Heart needs an {item:11173} from northern {area:361} and a ride back here. Skip it."] = "{npc:9116}的「銀爪鐵心」需要{area:361}北部的{item:11173}，還要騎回這裡。跳過。",
 	-- ["{npc:9529} stands on the west side of the Sanctuary, the way out to {area:1763}. With {quest:4102} done, her {quest:5887} asks for six Corrupted Soul Shards: the Shadow Council cultists in {area:1763} and {area:1770} drop them about one kill in three, and you fight dozens of them for {npc:10922}."] = "{npc:9529}站在聖地西側，也就是前往{area:1763}的出口。完成{quest:4102}後，她的{quest:5887}需要六個腐化的靈魂碎片：{area:1763}和{area:1770}的暗影議會教徒大約每殺三個掉落一個，而你為了{npc:10922}要打上幾十個。",
-	-- ["{npc:9861}, {npc:9860} and {npc:9517} wait at the back of {area:1770}, the cave in {area:1763}'s north. Clear the tunnel as you go."] = "{npc:9861}、{npc:9860}和{npc:9517}在{area:1763}北部洞穴{area:1770}的深處等候。沿途清理隧道。",
 }

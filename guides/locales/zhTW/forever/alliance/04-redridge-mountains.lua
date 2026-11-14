@@ -21,41 +21,26 @@ return {
 	-- {npc:11867} Woo Ping · {object:2096} Trade District
 	["While you're here: learn Polearms from {npc:11867} ({object:2096}, 1 gold); a Hunter's melee weapon is mostly its stats, and two-handers carry the most."] = "",
 
-	-- Step 4: Tram to Ironforge
-	-- {zone:1455} Ironforge
-	["Tram to {zone:1455}"] = "",
-
-	-- Step 5: Shaman training
-	["Shaman training"] = "薩滿訓練",
-	-- {zone:1453} Stormwind · {area:2257} Deeprun Tram · {object:28027} Dwarven District · {zone:1455} Ironforge · {npc:258098} Eldrun Stormbreaker
-	["{zone:1453} has no shaman trainer: take the {area:2257} from the {object:28027} to {zone:1455}, train with {npc:258098}, then ride the tram back."] = "{zone:1453}沒有薩滿訓練師：從{object:28027}搭乘{area:2257}前往{zone:1455}，向{npc:258098}學習，然後搭地鐵回來。",
-
-	-- Step 6: Fly to Sentinel Hill
+	-- Step 4: Fly to Sentinel Hill
 	-- {area:108} Sentinel Hill
 	["Fly to {area:108}"] = "",
 	-- {zone:1453} Stormwind
 	["{zone:1453} flight master"] = "",
 
-	-- Step 7: Half Pendant of Aquatic Endurance
+	-- Step 5: Half Pendant of Aquatic Endurance
 	-- {area:108} Sentinel Hill · {object:177790} Strange Lockbox
-	["Fly to {area:108} and head north-west to the coast: the {object:177790} lies on the sea floor off the shore. Then head east along the road through Elwynn."] = "",
+	["Fly to {area:108} and head north-west to the coast: the {object:177790} lies on the sea floor off the shore. Then head east along the road through Elwynn."] = "飛往{area:108}，向西北前往海岸：{object:177790}在岸外的海底。然後沿著道路向東穿過艾爾文森林。",
 	-- {item:15882} Half Pendant of Aquatic Endurance · {object:177790} Strange Lockbox
 	["{item:15882}: the {object:177790}"] = "{item:15882}：{object:177790}",
 
-	-- Step 8: Back to Elwynn Forest
-	-- {zone:1429} Elwynn Forest
-	["Back to {zone:1429}"] = "",
-	-- {zone:1429} Elwynn Forest
-	["The road into {zone:1429}"] = "",
-
-	-- Step 9: Elwynn Forest
+	-- Step 6: Elwynn Forest
 	-- {area:91} Tower of Azora
 	["The {area:91}"] = "{area:91}",
 
-	-- Step 10: Theocritus
+	-- Step 7: Theocritus
 	["On the top floor"] = "",
 
-	-- Step 11: Henze Faulk
+	-- Step 8: Henze Faulk
 	-- {area:91} Tower of Azora · {area:86} Stone Cairn Lake · {npc:6172} Henze Faulk · {item:6866} Symbol of Life · {item:6846} Defias Script
 	-- plural, as words: Defias Rogue Wizards = {npc:474} Defias Rogue Wizard
 	["On the road east, past the {area:91}, head north from the bridge to {area:86}. {npc:6172} lies south of the lake: use the {item:6866} on him. The Defias Rogue Wizards around him carry the {item:6846}."] = "",
@@ -65,13 +50,13 @@ return {
 	-- plural, as words: Defias Rogue Wizards = {npc:474} Defias Rogue Wizard
 	["{item:6846}: Defias Rogue Wizards"] = "{item:6846}：迪菲亞流浪巫師",
 
-	-- Step 12: Three Corners
+	-- Step 9: Three Corners
 	-- {area:1002} Three Corners · {zone:1431} Duskwood
-	["The road east through Elwynn crosses into Redridge at {area:1002}, where the roads to Redridge, {zone:1431} and Elwynn meet: south to {zone:1431} first."] = "",
+	["The road east through Elwynn crosses into Redridge at {area:1002}, where the roads to Redridge, {zone:1431} and Elwynn meet: south to {zone:1431} first."] = "向東穿過艾爾文森林的道路在{area:1002}進入赤脊山，通往赤脊山、{zone:1431}和艾爾文森林的道路在那裡交會：先往南前往{zone:1431}。",
 
-	-- Step 14: Darkshire
-	-- {area:1002} Three Corners · {zone:1431} Duskwood · {area:42} Darkshire · {item:4371} Bronze Tube · {quest:174} Look to the Stars · {npc:3133} Herble Baubbletump · {npc:276} Viktori Prism'Antras
-	["Follow the road south from {area:1002} into {zone:1431}; {area:42} lies on the east side of the forest.\nNo {item:4371} for {quest:174}? {npc:3133}, in the house beside {npc:276}, is nearly always sold out. Without one, right-click the quest in the guide window and skip it."] = "",
+	-- Step 11: Darkshire
+	-- {area:1002} Three Corners · {zone:1431} Duskwood · {area:42} Darkshire
+	["Follow the road south from {area:1002} into {zone:1431}; {area:42} lies on the east side of the forest."] = "沿著道路從{area:1002}向南進入{zone:1431}；{area:42}位於森林東側。",
 	-- {npc:2409} Felicia Maline
 	["{npc:2409}, at the north end of town"] = "{npc:2409}，在城鎮北端",
 	-- {npc:265} Madame Eva
@@ -90,10 +75,20 @@ return {
 	["{npc:633}, at the south end of town; inside"] = "",
 	-- {npc:633} Elaine Carevin · {npc:288} Jitters · {quest:163} Raven Hill
 	["{npc:633}: {npc:288}, at {quest:163}"] = "",
+
+	-- Step 12: Viktori Prism'Antras
+	-- {npc:276} Viktori Prism'Antras · {quest:174} Look to the Stars · {item:4371} Bronze Tube
+	["{npc:276} is in her house at the east end of town. {quest:174} needs a {item:4371}, so this step shows only while you carry one: without a tube the guide passes {npc:276} and her chain."] = "{npc:276}在城鎮東端她的房子裡。{quest:174}需要一個{item:4371}，所以只有你身上帶著一個時才會顯示這個步驟：沒有銅管的話，指南會略過{npc:276}和她的任務鏈。",
 	-- {npc:276} Viktori Prism'Antras
 	["{npc:276}, inside"] = "",
+
+	-- Step 13: Viktori Prism'Antras
 	-- {npc:302} Blind Mary
 	["For {npc:302}, on the hill south-east of town"] = "",
+
+	-- Step 14: Councilman Millstipe
+	-- {area:717} Stockade · {zone:1453} Stormwind · {npc:270} Councilman Millstipe
+	["For your {area:717} run, in {zone:1453} at about 29: {npc:270} is in the town hall. Keep it until then."] = "為了你約29級時在{zone:1453}的{area:717}之行：{npc:270}在市政廳。在那之前先留著它。",
 
 	-- Step 15: Tranquil Gardens Cemetery: kill these as you meet them
 	-- {area:121} Tranquil Gardens Cemetery
@@ -168,27 +163,31 @@ return {
 
 	-- Step 27: Lakeridge Highway
 	-- {area:68} Lake Everstill · {npc:903} Guard Howe
-	["Follow the road along the south shore of {area:68} to the gryphon master. {npc:903} stands by the road next to her."] = "",
+	["Follow the road along the south shore of {area:68} to the gryphon master. {npc:903} stands by the road next to her."] = "沿著{area:68}南岸的道路前往獅鷲管理員處。{npc:903}站在她旁邊的路旁。",
 
 	-- Step 28: Lake Everstill's murlocs: kill these as you meet them
 	-- {area:68} Lake Everstill
 	["{area:68}'s murlocs: kill these as you meet them"] = "",
 	-- {area:68} Lake Everstill
 	-- plural, as words: Murloc Flesheaters = {npc:422} Murloc Flesheater
-	["Murloc Flesheaters and Tidecallers line the south shore of {area:68}, just east of the gryphons and the bridge. Any of them can carry a fin."] = "",
+	["Murloc Flesheaters and Tidecallers line the south shore of {area:68}, just east of the gryphons and the bridge. Any of them can carry a fin."] = "魚人食腐者和魚人招潮者分布在{area:68}的南岸，就在獅鷲和橋的東邊。他們每一個都可能帶著魚鰭。",
 
 	-- Step 29: Lakeshire
-	-- {npc:381} Dockmaster Baren · {npc:900} Bailiff Conacher · {npc:342} Martie Jainrose · {npc:382} Marshal Marris · {quest:98386} Alther's Mill
-	["Cross the long bridge north into town: {npc:381} on the docks, {npc:900} in the town hall, {npc:342} in her garden at the west end. {npc:382}'s Blackrock quests and {quest:98386} came with you from your first Redridge visit."] = "向北走過長橋進入城鎮：{npc:381}在碼頭，{npc:900}在市政廳，{npc:342}在西端她的花園裡。{npc:382}的黑石任務和{quest:98386}是你第一次來赤脊山時就接下的。",
+	-- {npc:381} Dockmaster Baren · {npc:900} Bailiff Conacher · {npc:342} Martie Jainrose · {npc:382} Marshal Marris · {npc:341} Foreman Oslow · {quest:98386} Alther's Mill
+	["Cross the long bridge north into town: {npc:381} on the docks, {npc:900} in the town hall, {npc:342} in her garden at the west end. {npc:382} and {npc:341} stand at the north end of the bridge: the Blackrock camps' quests and {quest:98386} are worked on this visit's loop east of the lake."] = "向北走過長橋進入城鎮：{npc:381}在碼頭，{npc:900}在市政廳，{npc:342}在西端她的花園裡。{npc:382}和{npc:341}站在橋的北端：黑石營地的任務和{quest:98386}要在這次湖東邊的環線中完成。",
 	-- {npc:415} Verner Osgood
 	["{npc:415}, by the road at the north end of the bridge"] = "",
+	-- {npc:382} Marshal Marris
+	["{npc:382}, at the north end of the bridge"] = "{npc:382}，在橋的北端",
+	-- {npc:341} Foreman Oslow
+	["{npc:341}, beside him"] = "{npc:341}，在他旁邊",
 	-- {npc:900} Bailiff Conacher
 	["{npc:900}, in the town hall"] = "",
 	["The Wanted poster by the inn"] = "旅店旁的通緝告示",
 
 	-- Step 30: Bellygrub
 	-- {npc:345} Bellygrub · {area:69} Lakeshire · {npc:342} Martie Jainrose
-	["{npc:345} (level 24) roots around the pen just west of {area:69}, beside {npc:342}'s garden. Pull him away from the other boars and fight at full health."] = "",
+	["{npc:345} (level 24) roots around the pen just west of {area:69}, beside {npc:342}'s garden. Pull him away from the other boars and fight at full health."] = "{npc:345}（24級）在{area:69}西邊不遠處的豬圈裡拱土，就在{npc:342}的花園旁。把牠從其他野豬旁拉開，滿血再戰。",
 
 	-- Step 31: Martie Jainrose
 	-- {npc:342} Martie Jainrose
@@ -203,7 +202,7 @@ return {
 	-- Step 33: Alther's Mill
 	-- {quest:98386} Alther's Mill
 	-- plural, as words: Greater Tarantulas = {npc:505} Greater Tarantula · Tarantula Eggs = {object:673101} Tarantula Egg
-	["Greater Tarantulas crawl on the slopes around {quest:98386}, north-east of the lake; their Tarantula Eggs lie on the ground among them: click six."] = "",
+	["Greater Tarantulas crawl on the slopes around {quest:98386}, north-east of the lake; their Tarantula Eggs lie on the ground among them: click six."] = "巨型狼蛛在湖東北方{quest:98386}周圍的山坡上爬行；牠們的狼蛛卵散落在牠們之間的地上：點擊六顆。",
 
 	-- Step 34: Blackrock camps
 	["Blackrock camps"] = "",
@@ -274,18 +273,14 @@ return {
 	-- ["Bellygrub"] = "貝利格拉布",
 	-- ["Cross the long bridge north into town. {npc:341} and {npc:382} stand at the north end of the bridge, {npc:900} in the town hall, {npc:381} and {npc:266} on the docks, {npc:343} at the inn, {npc:342} in her garden at the west end."] = "向北走過長橋進入城鎮。{npc:341}和{npc:382}站在橋的北端，{npc:900}在市政廳，{npc:381}和{npc:266}在碼頭，{npc:343}在旅店，{npc:342}在西端她的花園裡。",
 	-- ["East past the mill and across the river. Shadowhide gnolls fill the valley; {npc:703} (26, well above you) leads them at its north end: clear his escort first and fight him at full health. Stay out of {area:2099} to the south: its orcs are elite."] = "向東經過伐木場並渡河。暗皮豺狼人遍布山谷；{npc:703}（26級，遠高於你）在北端帶領他們：先清掉他的護衛，滿血再打他。不要進入南邊的{area:2099}：那裡的獸人是精英。",
-	-- ["Fly to {area:108} and ride north-west to the coast: the {object:177790} lies on the sea floor off the shore. Then ride east along the road through Elwynn to Redridge."] = "飛往{area:108}，向西北騎往海岸：{object:177790}在岸外的海底。然後沿著道路向東穿過艾爾文森林前往赤脊山。",
-	-- ["Follow the road along the south shore of {area:68} to the gryphon master. {npc:1070} and {npc:903} stand by the road next to her."] = "沿著{area:68}南岸的道路前往獅鷲管理員處。{npc:1070}和{npc:903}站在她旁邊的路旁。",
 	-- ["For {npc:3649}, on the return to {area:442} (06-ashenvale)"] = "給{npc:3649}，在回到{area:442}時（06-ashenvale）",
 	-- ["Gnolls toward {area:1002}"] = "前往{area:1002}方向的豺狼人",
-	-- ["Greater Tarantulas crawl on the slopes around the mill north-east of the lake; Blackrock Renegades hold the mill itself."] = "巨型狼蛛在湖東北方伐木場周圍的山坡上爬行；黑石叛節者佔據伐木場本身。",
 	-- ["Head north out of {area:69} up the {area:95} to {area:997}. Blackrock Champions camp in the valley."] = "向北離開{area:69}，沿著{area:95}前往{area:997}。黑石勇士在山谷中紮營。",
 	-- ["Lake murlocs"] = "湖邊魚人",
-	-- ["Murloc Flesheaters and Tidecallers line the south shore east of the bridge. Any of them can carry a {item:1467} or a fin."] = "魚人食腐者和魚人招潮者分布在橋東邊的南岸。他們每一個都可能帶著{item:1467}或魚鰭。",
 	-- ["Redridge Mongrels and other gnolls hold the hills east of {area:1002}, north of the road; Redridge Thrashers prowl among them, Poachers camp south of the road. Dire Condors and Great Goretusks roam the same hills."] = "混血赤脊山豺狼人和其他豺狼人佔據{area:1002}東邊、道路北側的山丘；赤脊山鞭笞者在牠們之間徘徊，赤脊山偷獵者在道路南側紮營。恐鷲和巨型血牙野豬在同樣的山丘上遊蕩。",
+	-- ["Shaman training"] = "薩滿訓練",
 	-- ["Swim east from the bridge into {area:68}; the chest lies on the lake bed."] = "從橋向東游進{area:68}；箱子在湖底。",
 	-- ["The Wanted poster by the inn: {npc:703}, in {area:1000}"] = "旅店旁的通緝告示：{npc:703}，在{area:1000}",
-	-- ["The road from Elwynn enters Redridge at {area:1002}. {npc:464} stands where the roads to Redridge and {zone:1431} meet."] = "從艾爾文森林來的道路在{area:1002}進入赤脊山。{npc:464}站在通往赤脊山和{zone:1431}的道路交會處。",
 	-- ["The {area:442} boat docks at {area:17203}. Walk up into the city for training and {npc:1646}, then leave by the main gate and follow the road east through {zone:1429}."] = "{area:442}的船停靠在{area:17203}。走進城裡學習技能並找{npc:1646}，然後從正門離開，沿著道路向東穿過{zone:1429}。",
 	-- ["{item:1075}: any Shadowhide gnoll"] = "{item:1075}：任何暗皮豺狼人",
 	-- ["{item:280911}: Redridge Thrashers"] = "{item:280911}：赤脊山鞭笞者",
@@ -298,11 +293,11 @@ return {
 	-- ["{npc:332}: {npc:7024} in {zone:1436} takes it, at the end of {zone:1431}"] = "{npc:332}：由{zone:1436}的{npc:7024}接收，在{zone:1431}的結尾",
 	-- ["{npc:341}: after {quest:89}"] = "{npc:341}：在{quest:89}之後",
 	-- ["{npc:344}, in the town hall"] = "{npc:344}，在市政廳",
-	-- ["{npc:345} (level 24) roots around the pen just west of {area:69}. Pull him away from the other boars and fight at full health."] = "{npc:345}（24級）在{area:69}西邊不遠處的豬圈裡拱土。把牠從其他野豬旁拉開，滿血再戰。",
 	-- ["{npc:376}: {npc:11401} in {zone:1457} takes it, later"] = "{npc:376}：由{zone:1457}的{npc:11401}接收，稍後",
 	-- ["{npc:376}: {npc:11406} in {zone:1455} takes it, later"] = "{npc:376}：由{zone:1455}的{npc:11406}接收，稍後",
 	-- ["{npc:376}: {npc:258785} in {zone:1455} takes it, later"] = "{npc:376}：由{zone:1455}的{npc:258785}接收，稍後",
 	-- ["{npc:6122}: {npc:6244} in the {zone:1413} takes it, later"] = "{npc:6122}：由{zone:1413}的{npc:6244}接收，稍後",
 	-- ["{zone:1431} is next: follow the road west to {area:1002}, then south to {area:42}."] = "下一站是{zone:1431}：沿著道路向西前往{area:1002}，再向南前往{area:42}。",
 	-- ["{zone:1453} class quests"] = "{zone:1453}職業任務",
+	-- ["{zone:1453} has no shaman trainer: take the {area:2257} from the {object:28027} to {zone:1455}, train with {npc:258098}, then ride the tram back."] = "{zone:1453}沒有薩滿訓練師：從{object:28027}搭乘{area:2257}前往{zone:1455}，向{npc:258098}學習，然後搭地鐵回來。",
 }

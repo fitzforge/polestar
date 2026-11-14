@@ -14,7 +14,7 @@ return {
 	-- {npc:9997} Spraggle Frock
 	["the wooden sign beside {npc:9997}, by the flight master: the pterrordax are on this guide's ground"] = "",
 	-- {npc:9117} J.D. Collie
-	["{npc:9117}, at the back of the cave; below ground"] = "",
+	["{npc:9117}, at the back of the cave; below ground"] = "{npc:9117}, в глубине пещеры; под землей",
 
 	-- Step 3: Out of the refuge
 	["Out of the refuge"] = "Снаружи лагеря",
@@ -23,7 +23,7 @@ return {
 	-- {npc:9618} Karna Remtravel
 	["{npc:9618}, just outside"] = "{npc:9618}, сразу снаружи",
 	-- {npc:271301} Power Crystal · {quest:3761} Un'Goro Soil
-	["From here on pick up every {npc:271301} (blue, green, red, yellow) and every {quest:3761} pile you pass: 25 soil in all, 20 for Hamuul and 5 for Pestlezugg."] = "",
+	["From here on pick up every {npc:271301} (blue, green, red, yellow) and every {quest:3761} pile you pass: 25 soil in all, 20 for Hamuul and 5 for Pestlezugg."] = "Отсюда собирайте все {npc:271301} (синие, зеленые, красные, желтые) и все кучи земли ({quest:3761}) по пути: всего 25 земли – 20 для Хамуула и 5 для Пестычинса.",
 
 	-- Step 4: Lakkari Tar Pits
 	-- {item:11834} Super Sticky Tar
@@ -47,7 +47,7 @@ return {
 	["{area:538}: kill these as you meet them"] = "",
 	-- {area:537} Fire Plume Ridge · {npc:9998} Shizzle · {npc:8659} Jes'rimon · {npc:9167} Frenzied Pterrordax
 	-- plural, as words: Bloodpetal Flayers = {npc:6510} Bloodpetal Flayer · Dinosaur Bones = {item:11114} Dinosaur Bone · Bloodpetal Trappers = {npc:6512} Bloodpetal Trapper
-	["Ride south-west to {area:537}, the volcano in the middle of the crater. Bloodpetal Flayers grow around its foot.\nSouth of the hot springs, Stegodons graze and Dinosaur Bones drop from them or lie on the ground; Diemetradons nearby carry the scales {npc:9998} wants. Ravasaurs hunt in packs in the south-west: their claws are for {npc:8659}, and now and then one carries a Mangled Journal (a rare drop: take its quest only if you get one). Avoid Gruff, a level 57 Stegodon.\nRide south-west along the western cliffs. {npc:9167} fly over the west side, and Bloodpetal Trappers grow in the same jungle."] = "",
+	["Ride south-west to {area:537}, the volcano in the middle of the crater. Bloodpetal Flayers grow around its foot.\nSouth of the hot springs, Stegodons graze and Dinosaur Bones drop from them or lie on the ground; Diemetradons nearby carry the scales {npc:9998} wants. Ravasaurs hunt in packs in the south-west: their claws are for {npc:8659}, and now and then one carries a Mangled Journal (a rare drop: take its quest only if you get one). Avoid Gruff, a level 57 Stegodon.\nRide south-west along the western cliffs. {npc:9167} fly over the west side, and Bloodpetal Trappers grow in the same jungle."] = "Езжайте на юго-запад: {area:537}, вулкан в центре кратера. У его подножия растут кровоцветы-живодеры.\nК югу от горячих источников пасутся стегодоны; кости динозавров падают с них или лежат на земле; у деметродонов рядом – чешуя для персонажа {npc:9998}. Равазавры охотятся стаями на юго-западе: их когти – для персонажа {npc:8659}, а иногда с них падает истрепанный дневник (редкая добыча: берите задание, только если он выпадет). Избегайте Граффа – стегодона 57-го уровня.\nЕзжайте на юго-запад вдоль западных утесов. Над западной частью летают {npc:9167}, а в тех же джунглях растут кровоцветы-ловцы.",
 
 	-- Step 8: Research Equipment
 	["The expedition's lost equipment lies in the south-west jungle."] = "Потерянное снаряжение экспедиции лежит в юго-западных джунглях.",
@@ -113,7 +113,7 @@ return {
 	-- {npc:9622} U'cha
 	["The gorillas live on the north-east plateau. Stay out of the deepest cave: {npc:9622} lives there."] = "Гориллы живут на северо-восточном плато. Не заходите в самую дальнюю пещеру: там живет {npc:9622}.",
 	-- {npc:9623} A-Me 01
-	["{npc:9623}, the robot on the plateau; below ground"] = "",
+	["{npc:9623}, the robot on the plateau; below ground"] = "{npc:9623}, робот на плато; под землей",
 	-- {npc:9623} A-Me 01 · {item:10561} Mithril Casing · {skill:202} Engineering
 	["{npc:9623} then wants a {item:10561}, an {skill:202} item. Skip it unless you have one."] = "Затем {npc:9623} просит предмет {item:10561} (профессия {skill:202}). Пропустите, если его у вас нет.",
 
@@ -150,7 +150,7 @@ return {
 
 	-- Step 30: Orgrimmar
 	-- {area:1637} Orgrimmar · {area:16727} Powderfuse Port · {zone:1458} Undercity
-	["Fly to {area:1637} and train before the boat to {area:16727}: the {zone:1458} stop later in this guide has no Hunter or Shaman trainer."] = "",
+	["Fly to {area:1637} and train before the boat to {area:16727}: the {zone:1458} stop later in this guide has no Hunter or Shaman trainer."] = "Летите сюда: {area:1637} и обучитесь до корабля в {area:16727}: там ({zone:1458}), куда вы попадете позже в этом гайде, нет учителей охотников и шаманов.",
 
 	-- Step 31: Back to Gadgetzan
 	-- {area:976} Gadgetzan
@@ -170,9 +170,15 @@ return {
 
 	-- Step 34: Kargath
 	-- {area:340} Kargath · {zone:1418} Badlands
-	["{area:340} is built into the cliffs on the {zone:1418}' west edge."] = "",
+	["{area:340} is built into the cliffs on the {zone:1418}' west edge."] = "{area:340} – крепость в скалах у западного края ({zone:1418}).",
 
-	-- Step 35: Into the Searing Gorge
+	-- Step 35: The WANTED poster
+	-- {object:164867} WANTED
+	["The {object:164867} poster"] = "Плакат «{object:164867}»",
+	-- {area:1584} Blackrock Depths · {area:254} Blackrock Mountain · {object:164867} WANTED · {area:340} Kargath
+	["For your {area:1584} run, next, on the way through {area:254}: the {object:164867} poster in {area:340} wants the Anvilrage dwarves inside thinned out."] = "Для подземелья {area:1584}, далее, по пути через {area:254}: плакат «{object:164867}» ({area:340}) просит проредить дворфов из клана Гнева Наковальни внутри.",
+
+	-- Step 36: Into the Searing Gorge
 	-- {zone:1427} Searing Gorge
 	["Into the {zone:1427}"] = "В край {zone:1427}",
 	-- {area:340} Kargath · {zone:1427} Searing Gorge · {area:254} Blackrock Mountain
@@ -180,59 +186,60 @@ return {
 	-- {area:254} Blackrock Mountain
 	["Bridge into {area:254}"] = "Мост: {area:254}",
 
-	-- Step 36: Flame Crest
+	-- Step 37: Blackrock Depths
+	-- {area:1584} Blackrock Depths · {zone:1428} Burning Steppes
+	["{area:1584} is a dungeon for a group of five from about level 48, the biggest in the mountain: its Anvilrage dwarves are this quest's, and you need not go further in than they are. Its portal is deep inside the mountain, down the chain walkways from the bridge.\nInside: the Anvilrage Guardsmen, Wardens and Footmen. Then back out of the portal and on through the mountain's southern exit to the {zone:1428}."] = "{area:1584} – подземелье для группы из пяти игроков примерно с 48-го уровня, самое большое в горе: его дворфы из клана Гнева Наковальни нужны для этого задания, и дальше них заходить не нужно. Его портал – глубоко внутри горы, вниз по цепным мосткам от моста.\nВнутри: стражники, надзиратели и пехотинцы из клана Гнева Наковальни. Затем назад через портал и дальше через южный выход из горы в зону {zone:1428}.",
+	-- {quest:4081} KILL ON SIGHT: Dark Iron Dwarves
+	["{quest:4081}: the Anvilrage dwarves, inside"] = "{quest:4081}: дворфы из клана Гнева Наковальни, внутри",
+
+	-- Step 38: Flame Crest
 	-- {area:252} Blackrock Stronghold · {area:251} Flame Crest
 	["The mountain lets you out beside {area:252}, full of 55-57 orcs. Follow the road east along the northern cliffs to the Horde camp at {area:251}."] = "Из горы вы выйдете рядом с местом {area:252}, полным орков 55-57 уровня. Езжайте по дороге на восток вдоль северных скал к лагерю Орды ({area:251}).",
 
-	-- Step 37: Sha'ni Proudtusk
+	-- Step 39: Sha'ni Proudtusk
 	-- {quest:3821} Dreadmaul Rock · {npc:9136} Sha'ni Proudtusk
 	["Follow the cliffs south to {quest:3821}, the Firegut ogres' hill. {npc:9136}'s remains lie at its foot."] = "Идите вдоль скал на юг сюда: {quest:3821} – холм огров клана Огненного Чрева. Останки ({npc:9136}) лежат у подножия.",
 
-	-- Step 38: Krom'Grul
+	-- Step 40: Krom'Grul
 	-- {quest:3822} Krom'Grul · {quest:3821} Dreadmaul Rock
 	["{quest:3822} walks the caves and mine tunnels of {quest:3821}; if he isn't home, clear the ogres around the entrances until he comes back."] = "{quest:3822} бродит по пещерам и штольням ({quest:3821}); если его нет, бейте огров у входов, пока он не вернется.",
 
-	-- Step 39: Ruins of Thaurissan: kill these as you meet them
+	-- Step 41: Ruins of Thaurissan: kill these as you meet them
 	-- {area:250} Ruins of Thaurissan
 	["{area:250}: kill these as you meet them"] = "",
 	-- {npc:7039} War Reaver · {quest:4296} Tablet of the Seven · {area:251} Flame Crest · {npc:10267} Tinkee Steamboil · {item:12284} Draco-Incarcinatrix 900
 	-- plural, as words: Black Broodlings = {npc:7047} Black Broodling
-	["Ride west to the dig site. {npc:7039} golems (53) stomp around it and drop the shards often; the {quest:4296} stands in its middle among the Thaurissan dwarves. Copy it.\nBlack Broodlings nest in the hills just east of {area:251}. Use {npc:10267}'s {item:12284} on a broodling when it is almost dead to capture its essence."] = "",
+	["Ride west to the dig site. {npc:7039} golems (53) stomp around it and drop the shards often; the {quest:4296} stands in its middle among the Thaurissan dwarves. Copy it.\nBlack Broodlings nest in the hills just east of {area:251}. Use {npc:10267}'s {item:12284} on a broodling when it is almost dead to capture its essence."] = "Езжайте на запад к раскопкам. Големы ({npc:7039}, 53) топчутся вокруг, осколки с них падают часто; табличка ({quest:4296}) стоит в центре среди дворфов Тауриссана. Скопируйте ее.\nЧерные дракончики гнездятся на холмах чуть восточнее места {area:251}. Используйте {item:12284} (от NPC {npc:10267}) на почти мертвом дракончике, чтобы поймать его сущность.",
 
-	-- Step 40: Flame Crest
+	-- Step 42: Flame Crest
 	-- {area:251} Flame Crest
 	["Back north-east to {area:251}."] = "Назад на северо-восток сюда: {area:251}.",
 	-- {npc:10267} Tinkee Steamboil · {quest:4808} Felnok Steelspring · {area:2255} Everlook · {zone:1452} Winterspring
 	["Keep {npc:10267}'s letter: {quest:4808} is in {area:2255}, {zone:1452}."] = "Сохраните письмо {npc:10267}: {quest:4808} – здесь: {area:2255}, {zone:1452}.",
 
-	-- Step 41: Kargath
+	-- Step 43: Kargath
 	-- {area:1584} Blackrock Depths
 	["Theodora's next errand goes to Lotwil east of town and then into {area:1584}: skip it."] = "Следующее поручение Теодоры ведет к Лотвилю к востоку от города, а затем сюда: {area:1584}: пропустите.",
 
-	-- Step 42: Fly to Tarren Mill
-	-- {area:272} Tarren Mill
-	["Fly to {area:272}"] = "Летите сюда: {area:272}",
+	-- Step 44: Warlord Goretooth
+	-- {area:1584} Blackrock Depths · {npc:9077} Warlord Goretooth · {area:340} Kargath
+	["The Anvilrage dwarves of your {area:1584} run: {npc:9077}, in {area:340}."] = "Дворфы из клана Гнева Наковальни из подземелья {area:1584}: {npc:9077}, здесь: {area:340}.",
+
+	-- Step 45: Fly to Undercity
+	-- {area:1497} Undercity
+	["Fly to {area:1497}"] = "",
 	-- {area:340} Kargath
 	["{area:340} flight master"] = "",
 
-	-- Step 43: Apothecary Lydon
-	["Inside"] = "Внутри",
-
-	-- Step 44: Fly to Undercity
-	-- {area:1497} Undercity
-	["Fly to {area:1497}"] = "",
-	-- {area:272} Tarren Mill
-	["{area:272} flight master"] = "",
-
-	-- Step 45: Harbinger Balthazad
+	-- Step 46: Harbinger Balthazad
 	-- {npc:10879} Harbinger Balthazad · {object:36078} Trade Quarter
 	["{npc:10879}, the {object:36078}, beside the bat master"] = "{npc:10879}, {object:36078}, рядом с распорядителем полетов",
 
-	-- Step 46: Oran Snakewrithe
+	-- Step 47: Oran Snakewrithe
 	-- {npc:7825} Oran Snakewrithe · {object:36082} Magic Quarter
 	["{npc:7825} stands in the {object:36082}."] = "{npc:7825} стоит здесь: {object:36082}.",
 
-	-- Step 47: Undercity
+	-- Step 48: Undercity
 	-- {npc:8390} Chemist Cuely · {zone:1447} Azshara
 	["{npc:8390}, the Apothecarium: the vials fill in {zone:1447} later"] = "{npc:8390}, Район Фармацевтов: склянки наполните позже ({zone:1447})",
 	-- {npc:5204} Apothecary Zinge
@@ -240,18 +247,18 @@ return {
 	-- {npc:6522} Andron Gant · {object:36073} Rogues' Quarter
 	["{npc:6522}, the {object:36073}"] = "{npc:6522}, {object:36073}",
 
-	-- Step 49: The Bulwark
+	-- Step 50: The Bulwark
 	-- {zone:1458} Undercity · {zone:1420} Tirisfal Glades · {area:152} The Bulwark
 	["Leave the {zone:1458} and ride east along the road through {zone:1420} to the {area:152}, the Forsaken fort on the border."] = "Покиньте город {zone:1458} и езжайте на восток по дороге через край {zone:1420} к {area:152} – форту Отрекшихся на границе.",
 	-- {object:176092} Box of Incendiaries · {quest:5096} Scarlet Diversions · {quest:5405} Argent Dawn Commission
 	["Take a {object:176092} from the crate next to Derrington for {quest:5096}, done on the way back. Equip the {quest:5405}: Scourgestones only drop while you wear it."] = "Возьмите {object:176092} из ящика рядом с Деррингтоном для задания {quest:5096} – выполните его на обратном пути. Наденьте {quest:5405}: камни Плети падают, только пока он надет.",
 
-	-- Step 50: Scarlet forward camp
+	-- Step 51: Scarlet forward camp
 	["Scarlet forward camp"] = "Передовой лагерь Алого ордена",
 	-- {area:152} The Bulwark · {zone:1422} Western Plaguelands · {area:199} Felstone Field · {area:200} Dalson's Tears · {object:176092} Box of Incendiaries
 	["From the {area:152}, follow the road east into the {zone:1422}. The Scarlet Crusade's tents stand just past Felstone Farm, between {area:199} and {area:200}. Torch the command tent with the {object:176092} and plant the Scourge banner."] = "От места {area:152} езжайте по дороге на восток в край {zone:1422}. Палатки Алого ордена стоят сразу за фермой Фелстоунов, между местами {area:199} и {area:200}. Подожгите командную палатку ({object:176092}) и установите знамя Плети.",
 
-	-- Step 51: Janice Felstone
+	-- Step 52: Janice Felstone
 	-- {npc:10778} Janice Felstone
 	["Back a few steps west to Felstone Farm, the first farm along the road; {npc:10778} waits in the house."] = "Вернитесь немного на запад к ферме Фелстоунов – первой ферме у дороги; {npc:10778} ждет в доме.",
 	["Upstairs"] = "Наверху",
@@ -267,16 +274,15 @@ return {
 	-- ["Bloodpetal Flayers"] = "Кровоцветы-живодеры",
 	-- ["Darrowshire Spirits"] = "Духи Дарроушира",
 	-- ["Escort {npc:9999}"] = "Сопровождение: {npc:9999}",
-	-- ["Fly to {area:1637} and train before the {object:3202} zeppelin: the {zone:1458} stop later in this guide has no Hunter or Shaman trainer."] = "Летите сюда: {area:1637} и обучитесь до дирижабля ({object:3202}): там ({zone:1458}), куда вы попадете позже, нет учителей охотников и шаманов.",
-	-- ["Fly to {area:1637}, take the zeppelin to {object:3202} and fly from there to {area:340}, built into the cliffs on the {zone:1418}' west edge."] = "Летите сюда: {area:1637}, садитесь на дирижабль ({object:3202}) и оттуда летите сюда: {area:340} – крепость в скалах у западного края ({zone:1418}).",
 	-- ["Fly to {area:1638} and train with {npc:3033} on {area:1639}, then fly to {area:1637} for the {object:3202} zeppelin."] = "Летите сюда: {area:1638}, учитель: {npc:3033} ({area:1639}), затем летите сюда: {area:1637} к дирижаблю ({object:3202}).",
+	-- ["Fly to {area:272}"] = "Летите сюда: {area:272}",
 	-- ["Fly to {area:340}"] = "Летите сюда: {area:340}",
 	-- ["Follow the road east through the {area:28} and across the river into the {area:139}; leave it north for {area:2627}, the ruined town in the north-west. {npc:12384} sits in a hut at its edge."] = "Езжайте по дороге на восток через край {area:28} и за реку в край {area:139}; сверните на север сюда: {area:2627} – разрушенный город на северо-западе. {npc:12384} сидит в хижине на его краю.",
 	-- ["Follow the road east through the {zone:1422} and across the river into the {zone:1423}; leave it north for {area:2627}, the ruined town in the north-west. {npc:12384} sits in a hut at its edge."] = "Езжайте по дороге на восток через край {zone:1422} и за реку в край {zone:1423}; сверните на север сюда: {area:2627} – разрушенный город на северо-западе. {npc:12384} сидит в хижине на его краю.",
 	-- ["Free Darrowshire Spirits: talk to them"] = "Освободите духов Дарроушира: поговорите с ними",
-	-- ["From here on pick up every Power Crystal (blue, green, red, yellow) and every {quest:3761} pile you pass: 25 soil in all, 20 for Hamuul and 5 for Pestlezugg."] = "Отсюда собирайте все кристаллы силы (синие, зеленые, красные, желтые) и все кучи земли ({quest:3761}) по пути: всего 25 земли – 20 для Хамуула и 5 для Пестычинса.",
 	-- ["From the {area:1938} ride west to the long ramp that winds down into {area:490}, then follow the crater's north wall to {area:541}, a camp in the cliff caves. Everyone here is neutral."] = "От места {area:1938} езжайте на запад к длинному извилистому спуску в край {area:490}, затем вдоль северной стены кратера сюда: {area:541} – лагерь в пещерах скалы. Все здесь нейтральны.",
 	-- ["Gorillas"] = "Гориллы",
+	-- ["Inside"] = "Внутри",
 	-- ["Into {area:490}"] = "В край {area:490}",
 	-- ["Keep the bait: {npc:9684} is level 56, and the second loop passes his lair."] = "Сохраните приманку: {npc:9684} – 56-го уровня, а второй круг проходит мимо его логова.",
 	-- ["Keep {quest:5152}: Marlene lives at {area:197} in the {zone:1422}."] = "Сохраните задание {quest:5152}: Марлен живет здесь: {area:197}, {zone:1422}.",
@@ -292,8 +298,6 @@ return {
 	-- ["Ride south back to the road and follow it east across the whole zone to {area:2268}."] = "Возвращайтесь на юг к дороге и езжайте по ней на восток через всю зону сюда: {area:2268}.",
 	-- ["Ride south-west along the western cliffs. {npc:9167} fly over the west side, and Bloodpetal Trappers grow in the same jungle."] = "Езжайте на юго-запад вдоль западных скал. Над западной частью летают монстры {npc:9167}, а в тех же джунглях растут кровоцветы-звероловы.",
 	-- ["Ride south-west to {area:537}, the volcano in the middle of the crater. Bloodpetal Flayers grow around its foot."] = "Езжайте на юго-запад сюда: {area:537} – вулкан в центре кратера. У его подножия растут кровоцветы-живодеры.",
-	-- ["Ride west to the dig site. {npc:7039} golems (53) stomp around it and drop the shards often; the {quest:4296} stands in its middle among the Thaurissan dwarves. Copy it."] = "Езжайте на запад к раскопкам. Големы ({npc:7039}, 53) топчутся вокруг, осколки с них падают часто; табличка ({quest:4296}) стоит в центре среди дворфов Тауриссана. Скопируйте ее.",
-	-- ["South of the hot springs, Stegodons graze and Dinosaur Bones drop from them or lie on the ground; Diemetradons nearby carry the scales {npc:9998} wants. Ravasaurs hunt in packs in the south-west: their claws are for {npc:8659}, and now and then one carries a Mangled Journal (a rare drop: take its quest only if you get one). Avoid Gruff, a level 57 Stegodon."] = "К югу от горячих источников пасутся стегодоны; кости динозавров падают с них или лежат на земле; у деметродонов рядом – чешуя для персонажа {npc:9998}. Равазавры охотятся стаями на юго-западе: их когти – для персонажа {npc:8659}, а иногда с них падает истрепанный дневник (редкая добыча: берите задание, только если он выпадет). Избегайте Граффа – стегодона 57-го уровня.",
 	-- ["Take a {object:176092} from the crate next to Derrington for {quest:5096}, done on the way back. Equip the {quest:5401}: Scourgestones only drop while you wear it."] = "Возьмите {object:176092} из ящика рядом с Деррингтоном для задания {quest:5096} – выполните его на обратном пути. Наденьте {quest:5401}: камни Плети падают, только пока он надет.",
 	-- ["Termite mounds"] = "Термитники",
 	-- ["Thaurissan dig site"] = "Раскопки Тауриссана",
@@ -318,10 +322,8 @@ return {
 	-- ["{npc:10302} the goblin sits at {area:543}, just east of the pylon."] = "Гоблин {npc:10302} сидит здесь: {area:543}, чуть к востоку от пилона.",
 	-- ["{npc:10926}'s ghost stands in the ruins of {area:2262}, in the south-west."] = "Призрак {npc:10926} стоит в руинах ({area:2262}) на юго-западе.",
 	-- ["{npc:12250} lurks just west of {area:2262}."] = "{npc:12250} прячется чуть к западу от места {area:2262}.",
-	-- ["{npc:9117}, at the back of the cave"] = "{npc:9117}, в глубине пещеры",
 	-- ["{npc:9619} now asks for {npc:9622}'s pelt, back in the north-east cave: skip it."] = "Теперь {npc:9619} просит шкуру ({npc:9622}) из северо-восточной пещеры: пропустите.",
 	-- ["{npc:9623} then wants a {item:10561}, an {skill:202} item. Skip it unless you have one."] = "Затем {npc:9623} просит предмет {item:10561} (профессия {skill:202}). Пропустите, если его у вас нет.",
-	-- ["{npc:9623}, the robot on the plateau"] = "{npc:9623}, робот на плато",
 	-- ["{npc:9684}'s lair is just south of the pylon. Use {npc:9619}'s bait there; {npc:9684} is level 56 and hits hard, so start at full health."] = "Логово ({npc:9684}) – чуть к югу от пилона. Используйте там приманку {npc:9619}; {npc:9684} – 56-го уровня и бьет сильно, начинайте с полным здоровьем.",
 	-- ["{npc:9999} sits on the ridge, lost and exhausted."] = "{npc:9999} сидит на хребте, заблудившийся и обессиленный.",
 	-- ["{quest:5211}'s spirits come with the {zone:1423} guide's {area:2264} stop: keep it."] = "Духи для задания {quest:5211} будут на остановке {area:2264} в руководстве по краю {zone:1423}: сохраните задание.",

@@ -17,14 +17,14 @@ return {
 	-- {zone:1429} Elwynn Forest
 	["Copper: {zone:1429} (1-50)"] = "Cobre: {zone:1429} (1-50)",
 	-- {skill:186} Mining · {spell:2657} Smelt Copper
-	["Mine every Copper (1, orange), Poor Copper (1, orange) node you pass and circle the waypoints until {skill:186} 50. Smelt at a forge when your bags fill: {spell:2657} (orange to 25, grey at 70) gives points too. Zone level 1-10. Expect about 60 nodes for these 49 points."] = "",
+	["Mine every Copper (1, orange), Poor Copper (1, orange) node you pass and circle the waypoints until {skill:186} 50. Smelt at a forge when your bags fill: {spell:2657} (orange to 25, grey at 70) gives points too. Zone level 1-10. Expect about 60 nodes for these 49 points."] = "Extrae cada nodo de cobre (1, naranja) y cobre pobre (1, naranja) que encuentres y recorre los puntos de ruta hasta {skill:186} 50. Funde en una forja cuando se te llenen las bolsas: {spell:2657} (naranja hasta 25, gris a 70) también da puntos. Nivel de zona 1-10. Calcula unos 60 nodos para estos 49 puntos.",
 	["Copper"] = "Cobre",
 	["Poor Copper"] = "",
 	["Copper, Poor Copper"] = "",
 
 	-- Step 3: Copper & Poor Copper: Dun Morogh (1-50)
 	-- {zone:1426} Dun Morogh
-	["Copper & Poor Copper: {zone:1426} (1-50)"] = "",
+	["Copper & Poor Copper: {zone:1426} (1-50)"] = "Cobre y cobre pobre: {zone:1426} (1-50)",
 
 	-- Step 4: Chunk of Amber & Large Chunk of Amber: Teldrassil (1-50)
 	-- {object:656332} Chunk of Amber (no name in this language: may be words) · {object:656333} Large Chunk of Amber (no name in this language: may be words) · {skill:186} Mining · {spell:2657} Smelt Copper
@@ -34,11 +34,11 @@ return {
 	-- {zone:2521} Zephras Isle
 	["Copper: {zone:2521} (1-50)"] = "",
 	-- {skill:186} Mining · {spell:2657} Smelt Copper
-	["Mine every Copper (1, orange) node you pass and circle the waypoints until {skill:186} 50. Smelt at a forge when your bags fill: {spell:2657} (orange to 25, grey at 70) gives points too. Zone level 1-15. Expect about 60 nodes for these 49 points."] = "",
+	["Mine every Copper (1, orange) node you pass and circle the waypoints until {skill:186} 50. Smelt at a forge when your bags fill: {spell:2657} (orange to 25, grey at 70) gives points too. Zone level 1-15. Expect about 60 nodes for these 49 points."] = "Extrae cada nodo de cobre (1, naranja) que encuentres y recorre los puntos de ruta hasta {skill:186} 50. Funde en una forja cuando se te llenen las bolsas: {spell:2657} (naranja hasta 25, gris a 70) también da puntos. Nivel de zona 1-15. Calcula unos 60 nodos para estos 49 puntos.",
 
 	-- Step 6: Copper & Poor Copper: Durotar (1-50)
 	-- {zone:1411} Durotar
-	["Copper & Poor Copper: {zone:1411} (1-50)"] = "",
+	["Copper & Poor Copper: {zone:1411} (1-50)"] = "Cobre y cobre pobre: {zone:1411} (1-50)",
 
 	-- Step 7: Copper: Mulgore (1-50)
 	-- {zone:1412} Mulgore
@@ -48,7 +48,7 @@ return {
 
 	-- Step 8: Copper & Poor Copper: Tirisfal Glades (1-50)
 	-- {zone:1420} Tirisfal Glades
-	["Copper & Poor Copper: {zone:1420} (1-50)"] = "",
+	["Copper & Poor Copper: {zone:1420} (1-50)"] = "Cobre y cobre pobre: {zone:1420} (1-50)",
 	["Poor Copper, Copper"] = "",
 
 	-- Step 9: Journeyman Mining
@@ -65,7 +65,7 @@ return {
 
 	-- Step 11: Copper & Poor Copper: Dun Morogh (50-65) cont.
 	-- {zone:1426} Dun Morogh
-	["Copper & Poor Copper: {zone:1426} (50-65) cont."] = "",
+	["Copper & Poor Copper: {zone:1426} (50-65) cont."] = "Cobre y cobre pobre: {zone:1426} (50-65), continuación",
 
 	-- Step 12: Chunk of Amber & Large Chunk of Amber: Teldrassil (50-65) cont.
 	-- {object:656332} Chunk of Amber (no name in this language: may be words) · {object:656333} Large Chunk of Amber (no name in this language: may be words) · {zone:1438} Teldrassil
@@ -77,11 +77,11 @@ return {
 	-- {zone:2521} Zephras Isle
 	["Copper: {zone:2521} (50-65) cont."] = "",
 	-- {skill:186} Mining · {spell:2657} Smelt Copper
-	["Mine every Copper (1, yellow) node you pass and circle the waypoints until {skill:186} 65. Smelt at a forge when your bags fill: {spell:2657} (orange to 25, grey at 70) gives points too. Zone level 1-15. Expect about 80 nodes for these 15 points."] = "",
+	["Mine every Copper (1, yellow) node you pass and circle the waypoints until {skill:186} 65. Smelt at a forge when your bags fill: {spell:2657} (orange to 25, grey at 70) gives points too. Zone level 1-15. Expect about 80 nodes for these 15 points."] = "Extrae cada nodo de cobre (1, amarillo) que encuentres y recorre los puntos de ruta hasta {skill:186} 65. Funde en una forja cuando se te llenen las bolsas: {spell:2657} (naranja hasta 25, gris a 70) también da puntos. Nivel de zona 1-15. Calcula unos 80 nodos para estos 15 puntos.",
 
 	-- Step 14: Copper & Poor Copper: Durotar (50-65) cont.
 	-- {zone:1411} Durotar
-	["Copper & Poor Copper: {zone:1411} (50-65) cont."] = "",
+	["Copper & Poor Copper: {zone:1411} (50-65) cont."] = "Cobre y cobre pobre: {zone:1411} (50-65), continuación",
 
 	-- Step 15: Copper: Mulgore (50-65) cont.
 	-- {zone:1412} Mulgore
@@ -91,7 +91,7 @@ return {
 
 	-- Step 16: Copper & Poor Copper: Tirisfal Glades (50-65) cont.
 	-- {zone:1420} Tirisfal Glades
-	["Copper & Poor Copper: {zone:1420} (50-65) cont."] = "",
+	["Copper & Poor Copper: {zone:1420} (50-65) cont."] = "Cobre y cobre pobre: {zone:1420} (50-65), continuación",
 
 	-- Step 17: Smelt Bronze & Smelt Tin
 	-- {skill:186} Mining · {spell:2659} Smelt Bronze · {spell:3304} Smelt Tin
@@ -121,7 +121,7 @@ return {
 
 	-- Step 21: Tin: Hillsbrad Foothills (65-125)
 	-- {zone:1424} Hillsbrad Foothills
-	["Tin: {zone:1424} (65-125)"] = "",
+	["Tin: {zone:1424} (65-125)"] = "Estaño: {zone:1424} (65-125)",
 	-- {skill:186} Mining · {spell:2657} Smelt Copper · {spell:3304} Smelt Tin · {spell:2659} Smelt Bronze · {item:2840} Copper Bar · {item:3576} Tin Bar · {spell:2658} Smelt Silver
 	["Mine every Copper (1, green), Tin (65, orange), Silver (from 75, rare) node you pass and circle the waypoints until {skill:186} 125. Smelt at a forge when your bags fill: {spell:2657} (orange to 25, grey at 70), {spell:3304} (grey at 75), {spell:2659} (grey at 115) give points too. {spell:2659} takes a {item:2840} and a {item:3576} each: keep bars from the smelts before it. Zone level 20-30. Expect about 140 nodes for these 60 points. {spell:2658} (2s; orange to 100, grey at 125) is taught from 75: learn it if you pass a {skill:186} trainer, it is not worth a trip of its own."] = "",
 
@@ -135,7 +135,7 @@ return {
 	-- {zone:1417} Arathi Highlands
 	["Iron: {zone:1417} (125-155)"] = "",
 	-- {skill:186} Mining · {spell:3307} Smelt Iron
-	["Mine every Tin (65, green), Lesser Bloodstone (75, green), Silver (75, green, rare), Iron (125, orange) node you pass and circle the waypoints until {skill:186} 155. Smelt at a forge when your bags fill: {spell:3307} (orange to 130, grey at 140) gives points too. Zone level 30-40. Expect about 50 nodes for these 30 points."] = "",
+	["Mine every Tin (65, green), Lesser Bloodstone (75, green), Silver (75, green, rare), Iron (125, orange) node you pass and circle the waypoints until {skill:186} 155. Smelt at a forge when your bags fill: {spell:3307} (orange to 130, grey at 140) gives points too. Zone level 30-40. Expect about 50 nodes for these 30 points."] = "Extrae cada nodo de estaño (65, verde), petrosangre inferior (75, verde), plata (75, verde, rara), hierro (125, naranja) que encuentres y recorre los puntos de ruta hasta {skill:186} 155. Funde en una forja cuando se te llenen las bolsas: {spell:3307} (naranja hasta 130, gris a 140) también da puntos. Nivel de zona 30-40. Calcula unos 50 nodos para estos 30 puntos.",
 	["Iron, Tin"] = "",
 	["Lesser Bloodstone"] = "Petrosangre inferior",
 
@@ -149,14 +149,14 @@ return {
 	-- {zone:1418} Badlands
 	["Mithril: {zone:1418} (175-200)"] = "",
 	-- {skill:186} Mining · {spell:3308} Smelt Gold
-	["Mine every Iron (125, green), Gold (155, orange), Mithril (175, orange) node you pass and circle the waypoints until {skill:186} 200. Smelt at a forge when your bags fill: {spell:3308} (orange to 170, grey at 185) gives points too. Zone level 35-45. Expect about 40 nodes for these 25 points."] = "",
+	["Mine every Iron (125, green), Gold (155, orange), Mithril (175, orange) node you pass and circle the waypoints until {skill:186} 200. Smelt at a forge when your bags fill: {spell:3308} (orange to 170, grey at 185) gives points too. Zone level 35-45. Expect about 40 nodes for these 25 points."] = "Extrae cada nodo de hierro (125, verde), oro (155, naranja), mitril (175, naranja) que encuentres y recorre los puntos de ruta hasta {skill:186} 200. Funde en una forja cuando se te llenen las bolsas: {spell:3308} (naranja hasta 170, gris a 185) también da puntos. Nivel de zona 35-45. Calcula unos 40 nodos para estos 25 puntos.",
 	["Iron, Mithril"] = "",
 
 	-- Step 26: Artisan Mining
 	-- {skill:186} Mining
 	["Artisan {skill:186}"] = "{skill:186} de artesano",
 	-- {skill:186} Mining
-	["Artisan {skill:186} raises the cap to 300; it needs skill 200 and no character level, and costs 5g: train it as soon as you reach 200. The arrow picks the nearest {skill:186} trainer of your faction."] = "",
+	["Artisan {skill:186} raises the cap to 300; it needs skill 200 and no character level, and costs 5g: train it as soon as you reach 200. The arrow picks the nearest {skill:186} trainer of your faction."] = "{skill:186} de artesano sube el límite a 300; requiere 200 de habilidad y ningún nivel de personaje, y cuesta 5 o: apréndelo en cuanto llegues a 200. La flecha elige el instructor de {skill:186} de tu facción más cercano.",
 
 	-- Step 27: Mithril: Badlands (200-230) cont.
 	-- {zone:1418} Badlands
@@ -166,7 +166,7 @@ return {
 
 	-- Step 28: Mithril & Dark Iron: Searing Gorge (230-245)
 	-- {object:147516} Dark Iron · {zone:1427} Searing Gorge
-	["Mithril & {object:147516}: {zone:1427} (230-245)"] = "",
+	["Mithril & {object:147516}: {zone:1427} (230-245)"] = "Mitril y {object:147516}: {zone:1427} (230-245)",
 	-- {object:147516} Dark Iron · {skill:186} Mining · {item:11099} Dark Iron Ore · {object:174824} Black Forge (no name in this language: may be words) · {area:1584} Blackrock Depths
 	["Mine every Gold (155, green), Mithril (175, green), {object:147516} (230, orange), Truesilver (230, orange) node you pass and circle the waypoints until {skill:186} 245. Smelting gives no points from here (the higher smelts are grey once learned): smelt to craft or sell, or sell the ore. {item:11099} smelts only at the {object:174824} in {area:1584} (8 ore a bar). Zone level 43-50. Expect about 40 nodes for these 15 points."] = "",
 	-- {object:147516} Dark Iron
@@ -182,7 +182,7 @@ return {
 
 	-- Step 30: Small Thorium & Rich Thorium: Winterspring (275-300)
 	-- {zone:1452} Winterspring
-	["Small Thorium & Rich Thorium: {zone:1452} (275-300)"] = "",
+	["Small Thorium & Rich Thorium: {zone:1452} (275-300)"] = "Filón de torio pequeño y filón de torio enriquecido: {zone:1452} (275-300)",
 	-- {skill:186} Mining
 	["Mine every Truesilver (230, yellow), Small Thorium (245, yellow), Rich Thorium (275, orange) node you pass and circle the waypoints until {skill:186} 300. Smelting gives no points from here (the higher smelts are grey once learned): smelt to craft or sell, or sell the ore. Zone level 55-60. Expect about 40 nodes for these 25 points."] = "",
 	["Rich Thorium, Small Thorium"] = "",
@@ -192,14 +192,7 @@ return {
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Any {skill:186} trainer of your faction teaches Apprentice {skill:186} (character level 5); the arrow picks the nearest. Buy a {item:2901} from a trade goods or general vendor: keep it in your bags, you cannot mine without it."] = "Cualquier instructor de {skill:186} de tu facción enseña {skill:186} de aprendiz (nivel de personaje 5); la flecha elige el más cercano. Compra un {item:2901} a un proveedor de mercancías o general: guárdalo en las bolsas, no puedes extraer sin ella.",
-	-- ["Artisan {skill:186} raises the cap to 300; it needs skill 200 and character level 35. The arrow picks the nearest {skill:186} trainer of your faction."] = "{skill:186} de artesano sube el límite a 300; requiere 200 de habilidad y nivel de personaje 35. La flecha elige el instructor de {skill:186} de tu facción más cercano.",
 	-- ["Copper, Silver"] = "Cobre, plata",
-	-- ["Copper: {zone:1411} (1-50)"] = "Cobre: {zone:1411} (1-50)",
-	-- ["Copper: {zone:1411} (50-65) cont."] = "Cobre: {zone:1411} (50-65), continuación",
-	-- ["Copper: {zone:1420} (1-50)"] = "Cobre: {zone:1420} (1-50)",
-	-- ["Copper: {zone:1420} (50-65) cont."] = "Cobre: {zone:1420} (50-65), continuación",
-	-- ["Copper: {zone:1426} (1-50)"] = "Cobre: {zone:1426} (1-50)",
-	-- ["Copper: {zone:1426} (50-65) cont."] = "Cobre: {zone:1426} (50-65), continuación",
 	-- ["Copper: {zone:1439} (1-50)"] = "Cobre: {zone:1439} (1-50)",
 	-- ["Copper: {zone:1439} (50-65) cont."] = "Cobre: {zone:1439} (50-65), continuación",
 	-- ["Expert {skill:186} raises the cap to 225; it needs skill 125 and character level 20. The arrow picks the nearest {skill:186} trainer of your faction."] = "{skill:186} de experto sube el límite a 225; requiere 125 de habilidad y nivel de personaje 20. La flecha elige el instructor de {skill:186} de tu facción más cercano.",
@@ -217,28 +210,20 @@ return {
 	-- ["Mine every Copper (1, green), Tin (65, orange), Silver (from 75) node you pass and circle the waypoints until {skill:186} 125. Smelt the ore at a forge when your bags fill: smelting also raises {skill:186}. Zone level 10-25."] = "Extrae cada nodo de cobre (1, verde), estaño (65, naranja), plata (desde 75) que encuentres y recorre los puntos de ruta hasta {skill:186} 125. Funde el mineral en una forja cuando se te llenen las bolsas: fundir también sube {skill:186}. Nivel de zona 10-25.",
 	-- ["Mine every Copper (1, green), Tin (65, orange), Silver (from 75) node you pass and circle the waypoints until {skill:186} 125. Smelt the ore at a forge when your bags fill: smelting also raises {skill:186}. Zone level 15-25."] = "Extrae cada nodo de cobre (1, verde), estaño (65, naranja), plata (desde 75) que encuentres y recorre los puntos de ruta hasta {skill:186} 125. Funde el mineral en una forja cuando se te llenen las bolsas: fundir también sube {skill:186}. Nivel de zona 15-25.",
 	-- ["Mine every Copper (1, green), Tin (65, orange), Silver (from 75) node you pass and circle the waypoints until {skill:186} 125. Smelt the ore at a forge when your bags fill: smelting also raises {skill:186}. Zone level 20-30."] = "Extrae cada nodo de cobre (1, verde), estaño (65, naranja), plata (desde 75) que encuentres y recorre los puntos de ruta hasta {skill:186} 125. Funde el mineral en una forja cuando se te llenen las bolsas: fundir también sube {skill:186}. Nivel de zona 20-30.",
-	-- ["Mine every Copper (1, orange) node you pass and circle the waypoints until {skill:186} 50. Smelt the ore at a forge when your bags fill: smelting also raises {skill:186}. Zone level 1-10."] = "Extrae cada nodo de cobre (1, naranja) que encuentres y recorre los puntos de ruta hasta {skill:186} 50. Funde el mineral en una forja cuando se te llenen las bolsas: fundir también sube {skill:186}. Nivel de zona 1-10.",
-	-- ["Mine every Copper (1, orange) node you pass and circle the waypoints until {skill:186} 50. Smelt the ore at a forge when your bags fill: smelting also raises {skill:186}. Zone level 10-20."] = "Extrae cada nodo de cobre (1, naranja) que encuentres y recorre los puntos de ruta hasta {skill:186} 50. Funde el mineral en una forja cuando se te llenen las bolsas: fundir también sube {skill:186}. Nivel de zona 10-20.",
-	-- ["Mine every Copper (1, yellow) node you pass and circle the waypoints until {skill:186} 65. Smelt the ore at a forge when your bags fill: smelting also raises {skill:186}. Zone level 1-10."] = "Extrae cada nodo de cobre (1, amarillo) que encuentres y recorre los puntos de ruta hasta {skill:186} 65. Funde el mineral en una forja cuando se te llenen las bolsas: fundir también sube {skill:186}. Nivel de zona 1-10.",
 	-- ["Mine every Copper (1, yellow) node you pass and circle the waypoints until {skill:186} 65. Smelt the ore at a forge when your bags fill: smelting also raises {skill:186}. Zone level 10-20."] = "Extrae cada nodo de cobre (1, amarillo) que encuentres y recorre los puntos de ruta hasta {skill:186} 65. Funde el mineral en una forja cuando se te llenen las bolsas: fundir también sube {skill:186}. Nivel de zona 10-20.",
 	-- ["Mine every Gold (155, green), Mithril (175, green), Truesilver (230, orange), Small Thorium (245, orange) node you pass and circle the waypoints until {skill:186} 275. Smelt the ore at a forge when your bags fill: smelting also raises {skill:186}. Zone level 45-55."] = "Extrae cada nodo de oro (155, verde), mitril (175, verde), veraplata (230, naranja), filón pequeño de torio (245, naranja) que encuentres y recorre los puntos de ruta hasta {skill:186} 275. Funde el mineral en una forja cuando se te llenen las bolsas: fundir también sube {skill:186}. Nivel de zona 45-55.",
 	-- ["Mine every Gold (155, green), Mithril (175, green), {object:147516} (230, orange), Truesilver (230, orange) node you pass and circle the waypoints until {skill:186} 245. Smelt the ore at a forge when your bags fill: smelting also raises {skill:186}. Zone level 43-50."] = "Extrae cada nodo de oro (155, verde), mitril (175, verde), {object:147516} (230, naranja), veraplata (230, naranja) que encuentres y recorre los puntos de ruta hasta {skill:186} 245. Funde el mineral en una forja cuando se te llenen las bolsas: fundir también sube {skill:186}. Nivel de zona 43-50.",
-	-- ["Mine every Iron (125, green), Gold (155, orange), Mithril (175, orange) node you pass and circle the waypoints until {skill:186} 200. Smelt the ore at a forge when your bags fill: smelting also raises {skill:186}. Zone level 35-45."] = "Extrae cada nodo de hierro (125, verde), oro (155, naranja), mitril (175, naranja) que encuentres y recorre los puntos de ruta hasta {skill:186} 200. Funde el mineral en una forja cuando se te llenen las bolsas: fundir también sube {skill:186}. Nivel de zona 35-45.",
 	-- ["Mine every Iron (125, green), Gold (155, yellow), Mithril (175, yellow) node you pass and circle the waypoints until {skill:186} 230. Smelt the ore at a forge when your bags fill: smelting also raises {skill:186}. Zone level 35-45."] = "Extrae cada nodo de hierro (125, verde), oro (155, amarillo), mitril (175, amarillo) que encuentres y recorre los puntos de ruta hasta {skill:186} 230. Funde el mineral en una forja cuando se te llenen las bolsas: fundir también sube {skill:186}. Nivel de zona 35-45.",
 	-- ["Mine every Silver (75, green), Iron (125, yellow), Gold (155, orange) node you pass and circle the waypoints until {skill:186} 175. Smelt the ore at a forge when your bags fill: smelting also raises {skill:186}. Zone level 35-45."] = "Extrae cada nodo de plata (75, verde), hierro (125, amarillo), oro (155, naranja) que encuentres y recorre los puntos de ruta hasta {skill:186} 175. Funde el mineral en una forja cuando se te llenen las bolsas: fundir también sube {skill:186}. Nivel de zona 35-45.",
 	-- ["Mine every Tin (65, green), Silver (75, green), Iron (125, orange) node you pass and circle the waypoints until {skill:186} 155. Smelt the ore at a forge when your bags fill: smelting also raises {skill:186}. Zone level 18-30."] = "Extrae cada nodo de estaño (65, verde), plata (75, verde), hierro (125, naranja) que encuentres y recorre los puntos de ruta hasta {skill:186} 155. Funde el mineral en una forja cuando se te llenen las bolsas: fundir también sube {skill:186}. Nivel de zona 18-30.",
-	-- ["Mine every Tin (65, green), Silver (75, green), Iron (125, orange) node you pass and circle the waypoints until {skill:186} 155. Smelt the ore at a forge when your bags fill: smelting also raises {skill:186}. Zone level 30-40."] = "Extrae cada nodo de estaño (65, verde), plata (75, verde), hierro (125, naranja) que encuentres y recorre los puntos de ruta hasta {skill:186} 155. Funde el mineral en una forja cuando se te llenen las bolsas: fundir también sube {skill:186}. Nivel de zona 30-40.",
 	-- ["Mine every {object:147516} (230, yellow), Truesilver (230, yellow), Small Thorium (245, yellow), Rich Thorium (275, orange) node you pass and circle the waypoints until {skill:186} 300. Smelt the ore at a forge when your bags fill: smelting also raises {skill:186}. Zone level 50-58."] = "Extrae cada nodo de {object:147516} (230, amarillo), veraplata (230, amarillo), filón pequeño de torio (245, amarillo), filón de torio enriquecido (275, naranja) que encuentres y recorre los puntos de ruta hasta {skill:186} 300. Funde el mineral en una forja cuando se te llenen las bolsas: fundir también sube {skill:186}. Nivel de zona 50-58.",
-	-- ["Rich Thorium: {zone:1428} (275-300)"] = "Filón de torio enriquecido: {zone:1428} (275-300)",
 	-- ["Silver, Tin"] = "Plata, estaño",
 	-- ["Tin & Silver: {zone:1413} (65-125)"] = "Estaño y plata: {zone:1413} (65-125)",
-	-- ["Tin & Silver: {zone:1424} (65-125)"] = "Estaño y plata: {zone:1424} (65-125)",
 	-- ["Tin & Silver: {zone:1433} (65-125)"] = "Estaño y plata: {zone:1433} (65-125)",
 	-- ["Tin & Silver: {zone:1439} (65-125)"] = "Estaño y plata: {zone:1439} (65-125)",
 	-- ["Tin, Silver"] = "Estaño, plata",
 	-- ["Truesilver & Small Thorium: {zone:1419} (245-275)"] = "Veraplata y filón pequeño de torio: {zone:1419} (245-275)",
 	-- ["Truesilver, {object:147516}"] = "Veraplata, {object:147516}",
-	-- ["{object:147516} & Truesilver: {zone:1427} (230-245)"] = "{object:147516} y veraplata: {zone:1427} (230-245)",
 	-- ["{object:147516}, Gold"] = "{object:147516}, oro",
 	-- ["{object:147516}, Rich Thorium"] = "{object:147516}, filón de torio enriquecido",
 }
