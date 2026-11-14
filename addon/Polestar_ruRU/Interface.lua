@@ -649,6 +649,9 @@ L["%s is on Polestar %s: your guides can differ."] = "У %s Polestar %s: ваш�
 L["Party sync is on: you and your party see each other's quest progress. Turn it off in Options."] = "Синхронизация группы включена: вы и ваша группа видите прогресс заданий друг друга. Выключить ее можно в настройках."
 L["Ask other players' Polestar which version it is"] = "Спрашивать версию Polestar у других игроков"
 L["Up to 10 hidden addon whispers a session, to players of your faction you target or mouse over outside cities, combat and dungeons, and an answer to theirs: only the version number, so Polestar can tell you when a newer one is out. Off: none sent or answered."] = "До 10 скрытых шепотов аддона за сессию игрокам вашей фракции, которых вы выбираете целью или на которых наводите курсор вне городов, боя и подземелий, и ответ на их шепот: только номер версии, чтобы Polestar мог сообщить о выходе новой. Выкл.: ничего не отправляется и не отвечается."
+-- L["Your party is running %s: run it with them?"] = ""
+-- L["Run it this time"] = ""
+-- L["%s asked you to sync to their run of %s, but your route has passed it or your character is below its level."] = ""
 
 -- Gear/Gear.lua
 L["big upgrade"] = "большое улучшение"
@@ -4318,6 +4321,7 @@ L["Part of the %s quests"] = "Часть заданий: %s"
 -- L["%d finished quests here first"] = ""
 -- L["Jump anyway? They stay in your log, and the guide lists who takes each in."] = ""
 -- L["Jump anyway"] = ""
+-- L["Not now keeps your route as it is."] = ""
 
 -- Core/Pause.lua
 -- L["Press %s to resume, or open the guide window."] = ""

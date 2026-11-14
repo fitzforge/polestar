@@ -21,7 +21,9 @@ ns.UI.GuideFrame.Part(function(GF)
 	-- quest the live step waits on
 	-- (`when group`: Skip it, the default, or Do it with a group; it cannot be
 	-- dismissed); the dungeon it waits on ("Dungeons in my route": Ask me; Run
-	-- it or Skip it, never dismissed), and after "No group? Skip it" the
+	-- it or Skip it, never dismissed); a dungeon the party is running that the
+	-- character skips (Quests/Party.lua Party.DungeonOffer: Run it this time or
+	-- Not now, once a session per dungeon), and after "No group? Skip it" the
 	-- dungeon's quests kept in the log; the step the player just skipped, with
 	-- its undo; why the guide just moved past a quest (while that step's guide
 	-- and next step are on screen); the step on screen when it is not the live
@@ -110,6 +112,10 @@ ns.UI.GuideFrame.Part(function(GF)
 		-- A dungeon in the route not answered yet (Engine.DungeonQuestion): the guide waits and asks.
 		local dq = E and E.DungeonQuestion and E.DungeonQuestion()
 		if dq then return "dungeon", dq end
+		-- Your party is running a dungeon you skip (Party.DungeonOffer): run it with them, or not now.
+		local P = ns.Party
+		local po = P and P.DungeonOffer and P.DungeonOffer()
+		if po then return "partyDungeon", po end
 		-- After "No group? Skip it": the quests kept in the log, until closed.
 		if notices.dungeonKept then return "dungeonKept", notices.dungeonKept end
 		local k = notices.stepSkip
@@ -295,7 +301,7 @@ ns.UI.GuideFrame.Part(function(GF)
 	function GF.LayoutBanner(width, known, kind, n)
 		if not known then kind, n = bannerNotice() end
 		banner.psKind = kind
-		banner.Jump.psDefault = (kind == "group" or kind == "lost" or kind == "dungeon" or kind == "dungeonRun") or nil -- the gamepad's first focus (UI/GamepadGuide.lua)
+		banner.Jump.psDefault = (kind == "group" or kind == "lost" or kind == "dungeon" or kind == "dungeonRun" or kind == "partyDungeon") or nil -- the gamepad's first focus (UI/GamepadGuide.lua)
 		banner.Text:SetWidth(width - PAD * 2 - 21 - 24)
 		banner.Later:Hide()
 		if kind == "skipped" then
@@ -384,6 +390,14 @@ ns.UI.GuideFrame.Part(function(GF)
 			banner.Text:SetText(text .. "\n" .. L["Skip it and the guide keeps to the solo route."])
 			local w = placeLink(banner.Jump, L["Run it"], 0, -4)
 			placeLink(banner.Later, L["Skip it"], w + 10, -4)
+			banner.Close:Hide()
+		elseif kind == "partyDungeon" then
+			-- A party member runs a dungeon this character skips (Party.DungeonOffer): once a session per dungeon.
+			banner.Icon:SetTexture(Theme.Media("icon-dungeon"))
+			banner.Text:SetText(string.format(L["Your party is running %s: run it with them?"], n.name or "") .. "\n"
+				.. L["Not now keeps your route as it is."])
+			local w = placeLink(banner.Jump, L["Run it this time"], 0, -4)
+			placeLink(banner.Later, L["Not now"], w + 10, -4)
 			banner.Close:Hide()
 		elseif kind == "dungeonRun" then
 			-- At a chosen dungeon's run, outside: no group found, the solo route goes on.
@@ -584,6 +598,9 @@ ns.UI.GuideFrame.Part(function(GF)
 			if E and E.AnswerGroup then E.AnswerGroup(n.quest, "skip") end
 		elseif kind == "dungeon" then
 			if E and E.ChooseDungeon then E.ChooseDungeon(n.map, true) end
+		elseif kind == "partyDungeon" then
+			-- Run it this time: this dungeon only; "Dungeons in my route" stays.
+			if ns.Party and ns.Party.AnswerDungeonOffer then ns.Party.AnswerDungeonOffer(n.map, true) end
 		elseif kind == "dungeonRun" then
 			-- The quests it keeps in the log are named once, until closed.
 			local kept = E and E.SkipDungeon and E.SkipDungeon(n.map)
@@ -657,6 +674,9 @@ ns.UI.GuideFrame.Part(function(GF)
 		elseif kind == "dungeon" then
 			if E and E.ChooseDungeon then E.ChooseDungeon(n.map, false) end
 			GF.Layout()
+		elseif kind == "partyDungeon" then
+			if ns.Party and ns.Party.AnswerDungeonOffer then ns.Party.AnswerDungeonOffer(n.map, false) end
+			GF.Layout()
 		elseif kind == "lost" then
 			if E and E.AnswerLost then E.AnswerLost(n.quest, "skip") end
 			GF.Layout()
@@ -679,8 +699,8 @@ ns.UI.GuideFrame.Part(function(GF)
 		elseif kind == "away" then
 			-- Looking ahead or back: closed for this step (awayNotice), another step has its own
 			notices.away = n.guideId .. ":" .. n.index
-		elseif kind == "group" or kind == "lost" or kind == "dungeon" or kind == "dungeonRun" then
-			-- a group quest, a lost one or a dungeon is answered, never dismissed
+		elseif kind == "group" or kind == "lost" or kind == "dungeon" or kind == "dungeonRun" or kind == "partyDungeon" then
+			-- a group quest, a lost one or a dungeon is answered, never dismissed (the party's dungeon: Not now)
 		elseif kind == "dungeonSoon" then
 			-- closed for this dungeon's run
 			notices.soonSeen = n.map

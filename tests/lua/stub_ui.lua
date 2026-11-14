@@ -533,6 +533,12 @@ function Engine.TrainingAdvice()
 	end
 	return { steps = steps, title = title, trainer = uistub.plannerTrainer }
 end
+-- The real rule (Core/Engine.lua Engine.EnemyCityDungeon: a city dungeon is its
+-- faction's only), which the Dungeons window and the dungeon heads-up read.
+function Engine.EnemyCityDungeon(id, side)
+	local E = uistub.realEngine
+	return E and E.EnemyCityDungeon and E.EnemyCityDungeon(id, side) or false
+end
 function Engine.Prev() record("Prev"); if guide and current and current > 1 then move(current - 1) end end
 function Engine.Goto(i) record("Goto", i); if guide and guide.steps[i] then move(i) end end
 -- Any goal but a note ticks done and back.
@@ -818,6 +824,7 @@ function uistub.install(opts)
 	if opts.noTabs then
 		for _, k in ipairs({ "GetTabs", "OpenTab", "CloseTab", "SelectTab", "MoveTab", "GetGuideState" }) do Engine[k] = nil end
 	end
+	if Polestar.Engine ~= Engine then uistub.realEngine = Polestar.Engine end
 	Polestar.Engine = Engine
 	-- The real registry stays reachable for pages that show its records
 	-- (the Community guides page): Polestar.Guides = uistub.realGuides.

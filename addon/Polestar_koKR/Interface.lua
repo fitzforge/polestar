@@ -649,6 +649,9 @@ L["%s is on Polestar %s: your guides can differ."] = "%s 님은 Polestar %s 버�
 L["Party sync is on: you and your party see each other's quest progress. Turn it off in Options."] = "파티 동기화가 켜져 있습니다. 나와 파티원이 서로의 퀘스트 진행 상황을 봅니다. 설정에서 끌 수 있습니다."
 L["Ask other players' Polestar which version it is"] = "다른 플레이어의 Polestar 버전 묻기"
 L["Up to 10 hidden addon whispers a session, to players of your faction you target or mouse over outside cities, combat and dungeons, and an answer to theirs: only the version number, so Polestar can tell you when a newer one is out. Off: none sent or answered."] = "도시, 전투, 던전 밖에서 대상으로 지정하거나 마우스를 올린 같은 진영 플레이어에게 접속당 최대 10번 숨겨진 애드온 귓속말을 보내고, 그들의 귓속말에 답합니다. 버전 번호만 주고받으므로 Polestar가 새 버전이 나왔을 때 알려 줄 수 있습니다. 끄면 보내지도 답하지도 않습니다."
+-- L["Your party is running %s: run it with them?"] = ""
+-- L["Run it this time"] = ""
+-- L["%s asked you to sync to their run of %s, but your route has passed it or your character is below its level."] = ""
 
 -- Gear/Gear.lua
 L["big upgrade"] = "큰 향상"
@@ -4318,6 +4321,7 @@ L["Part of the %s quests"] = "%s 퀘스트의 일부"
 -- L["%d finished quests here first"] = ""
 -- L["Jump anyway? They stay in your log, and the guide lists who takes each in."] = ""
 -- L["Jump anyway"] = ""
+-- L["Not now keeps your route as it is."] = ""
 
 -- Core/Pause.lua
 -- L["Press %s to resume, or open the guide window."] = ""

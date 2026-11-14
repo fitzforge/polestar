@@ -1,13 +1,14 @@
 'use strict';
 // Dungeons in the route, in every skin at the game's UI scales 0.64, 1.0 and 1.5: the guide window's question
 // at a dungeon not answered yet (Ask me), the start-looking line a few steps before a chosen dungeon's run, "No
-// group? Skip it" at the run, the quests kept in the log after it; the settings window on Guide > Automation (Dungeons
-// in my route) and on Discovery > Dungeons (an answer per dungeon). A Tauren Hunter
+// group? Skip it" at the run, the quests kept in the log after it, the party's offer when a party member runs a
+// dungeon this character skips (Party.DungeonOffer: Run it this time / Not now); the settings window on Guide >
+// Automation (Dungeons in my route) and on Discovery > Dungeons (an answer per dungeon). A Tauren Hunter
 // at 18 on the shipped Barrens guide, Wailing Caverns ahead. The game's UI scale is UIParent's: everything under
 // it is drawn at that scale, as in the client.
 //
 // Shots: <skin>-<scale>-<surface> (studio dungeon-route/polestar-064-ask ...), scale 064, 100 or 150; surface
-// ask, soon, nogroup, kept, automation, discovery. The skins and their loading are the skins scenario's.
+// ask, soon, nogroup, kept, party, automation, discovery. The skins and their loading are the skins scenario's.
 
 const skins = require('./skins');
 
@@ -43,6 +44,7 @@ E.DungeonSoon = function() return { map = 43, name = "Wailing Caverns", steps = 
 	nogroup: `local E = Polestar.Engine
 E.DungeonRun = function() return { map = 43, name = "Wailing Caverns" } end`,
 	kept: `Polestar.UI.GuideFrame.notices.dungeonKept = { map = 43, titles = { "Deviate Hides", "Smart Drinks", "Serpentbloom" } }`,
+	party: `Polestar.Party.DungeonOffer = function() return { map = 43, name = "Wailing Caverns", names = { "Ana" } } end`,
 };
 
 // The settings window alone, on a page and tab; a few dungeons answered one by one.
@@ -62,6 +64,7 @@ const SURFACES = {
 	soon: { capture: ['PolestarGuideFrame'], lua: `${BANNER.soon}\nPolestar.UI.GuideFrame.Layout()` },
 	nogroup: { capture: ['PolestarGuideFrame'], lua: `${BANNER.nogroup}\nPolestar.UI.GuideFrame.Layout()` },
 	kept: { capture: ['PolestarGuideFrame'], lua: `${BANNER.kept}\nPolestar.UI.GuideFrame.Layout()` },
+	party: { capture: ['PolestarGuideFrame'], lua: `${BANNER.party}\nPolestar.UI.GuideFrame.Layout()` },
 	automation: { capture: ['PolestarOptions'], lua: SETTINGS('guide', 'Automation') },
 	discovery: { capture: ['PolestarOptions'], lua: SETTINGS('dungeons') },
 };

@@ -308,7 +308,10 @@ accept) or the run asks; the dungeon's other steps follow the answer, and with
 none yet the solo route. An answer changes only the steps still ahead: like
 any `when`, a step the route has passed keeps its outcome. A step of a dungeon
 the character skips (and a `when !dungeon` step of one they run) has no step
-number, so the solo route's numbers stay as they are.
+number, so the solo route's numbers stay as they are. A city dungeon is its
+faction's only (Ragefire Chasm and the Ruins of Lordaeron the Horde's, The
+Hall of Thanes and the Stockade the Alliance's): for the other faction its
+steps never apply, whatever the answers, so its guides never carry them.
 
 A run is three parts. Its quests are picked up in `when dungeon` steps on
 stops the route makes anyway; the run itself is one `when dungeon` step, also
@@ -318,9 +321,13 @@ first (the arrow leads to the door) and the quests' objectives (`optional`
 for the slow or rare ones); the hand-ins come on the next stops, each in a
 step with `when dungeon "<Name>"` and `when complete <quest>` (or `when
 onquest <quest>` for one with no objectives), so a run left unfinished passes
-them and a later guide can hand in what is still carried. Every step of the
-run is behind `when dungeon`: a character who skips it keeps the solo route's
-steps. The compiler places a `when dungeon` step from the dungeon route's last
+them and a later guide can hand in what is still carried. A hand-in of a
+quest the character has finished comes whatever the answer for the dungeon
+(No group? Skip it at the door after a quest got done, the dungeon turned off
+mid-run); an unfinished one's never does, and the quest room lists that quest
+as room to make. Every other step of the run is behind `when dungeon`: a
+character who skips it keeps the solo route's steps. The compiler places a
+`when dungeon` step from the dungeon route's last
 goal and every other step from the solo route's (the spawn nearest the goal
 before it, the trainer, the order of the spots), so the solo route compiles as
 it does without the dungeon's steps. Where the run shares a stop with the solo
