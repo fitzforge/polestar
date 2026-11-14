@@ -34,9 +34,9 @@ return {
 	-- plural, as words: Dark Iron Lookouts = {npc:8566} Dark Iron Lookout
 	["{item:18960}, Dark Iron Lookouts"] = "{item:18960}, Guetteurs Sombrefer",
 
-	-- Step 3: Greater Lava Spiders
-	-- plural, as words: Greater Lava Spiders = {npc:5858} Greater Lava Spider
-	["Greater Lava Spiders"] = "Araignées de lave incendiaires",
+	-- Step 3: Searing Lava Spiders
+	-- plural, as words: Searing Lava Spiders = {npc:5858} Searing Lava Spider
+	["Searing Lava Spiders"] = "Araignées de lave incendiaires",
 	["The spiders roam the lava pools and plateaus of the south-west."] = "Les araignées parcourent les mares de lave et les plateaux du sud-ouest.",
 
 	-- Step 4: The Slag Pit
