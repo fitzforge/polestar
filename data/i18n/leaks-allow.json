@@ -98,6 +98,7 @@
 		"a guide id": "(?<![\\p{L}\\p{N}/])[a-z0-9]+(?:-[a-z0-9]+)*(?:/[a-z0-9]+(?:-[a-z0-9]+)*){2,}",
 		"a slash command and its documented arguments (slashArguments, and every /polestar command the addon registers)": "(?<![\\p{L}\\p{N}])/[a-z][a-z0-9]*(?:(?:, ?| \\| | )(?:{ARGS}|<[^>]*>|\\[[^\\]]*\\]|-?\\d+(?:\\.\\d+)?))*",
 		"a command's usage in its help line (a registered command and one or more arguments, without the slash)": "(?<![\\p{L}\\p{N}/])(?:{COMMANDS})(?: (?:{ARGS}|<[^>]*>|\\[[^\\]]*\\]))+(?![\\p{L}\\p{N}])",
+		"a command's arguments listed in brackets in its help line, as the English lists them (on, off)": "[(（](?:{ARGS})(?:[,，、] ?(?:{ARGS}))*[)）]",
 		"a licence": "\\bGPL-3\\.0(?:-only|-or-later)?|\\bCC BY(?:-SA)? \\d\\.\\d",
 		"a locale code": "\\b(?:de|en|es|fr|it|ko|pt|ru|zh)(?:DE|US|GB|ES|MX|FR|IT|KR|BR|RU|CN|TW)\\b",
 		"guide lines /polestar where prints, in the guide format's own words": "\\bzone map \\d+|\\bgoto -?[\\d.]+,-?[\\d.]+(?: live)?|@-?[\\d.]+,-?[\\d.]+ live",
@@ -197,6 +198,9 @@
 			"Uldaman",
 			"Maraudon",
 			"Zul'Farrak"
+		],
+		"zhCN": [
+			"Beta"
 		]
 	}
 }
