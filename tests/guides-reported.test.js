@@ -12001,3 +12001,19 @@ test('Alliance 50-60/02: Xavaric killed when the route reaches him for the Flute
 	assert.ok(rf.some((r) => r.a[0] === 'task' && r.a[1] === 4906 && r.a[2] === 3 && r.b[0] === 'accept' && r.b[1] === 939), 'its record');
 });
 
+// 0.4.0 route-feel audit (Alliance Western Plaguelands): the Dalson's Tears cauldron (Target: Dalson's Tears, 5219)
+// stands beside the farmhouse the route works on its first stop there; Return to Chillwind Camp (5220) was walked past
+// there and taken 30 min later on a ride out from the camp. Now it is done with the farm and handed in on the same
+// return to the camp as the scourgestones.
+test('Alliance 50-60/04: the Dalson\'s Tears cauldron on the first pass, Return to Chillwind Camp on the next camp stop', { skip }, () => {
+	const wpl = goals('forever/alliance/50-60/04-western-plaguelands.guide');
+	const p = (t, q) => at(wpl, `${t} ${q}`, is(t, q));
+	assert.equal(wpl[p('turnin', 5219)].s, wpl[p('turnin', 5060)].s, 'the cauldron with the farm\'s cabinet');
+	assert.ok(p('turnin', 5060) < p('turnin', 5219) && p('turnin', 5219) < p('accept', 5220), 'after the cabinet');
+	assert.equal(wpl[p('turnin', 5220)].s, wpl[p('turnin', 5403)].s, 'handed in with the scourgestones');
+	assert.equal(wpl[p('accept', 5222)].s, wpl[p('turnin', 5220)].s, 'Target: Writhing Haunt taken there');
+	assert.ok(p('turnin', 5220) < p('turnin', 5097), 'before the watchtowers\' hand-in');
+	const rf = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', 'route-fixes.json'), 'utf8')).deliberate.together;
+	assert.ok(rf.some((r) => r.a[0] === 'turnin' && r.a[1] === 5060 && r.b[0] === 'task' && r.b[1] === 5219), 'its record');
+	assert.ok(rf.some((r) => r.a[0] === 'turnin' && r.a[1] === 5403 && r.b[0] === 'turnin' && r.b[1] === 5220), 'and the hand-in\'s');
+});

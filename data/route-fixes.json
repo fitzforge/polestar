@@ -6609,6 +6609,31 @@
 				],
 				"faction": "Alliance",
 				"why": "Alliance Felwood (0.4.0 route-feel audit): Xavaric (Further Corruption's fourth objective) stands at the far end of Jadefire Run, where his Flute of Xavaric starts Felbind. Killed when the route reaches him for the flute, instead of after the Tricksters, Betrayers and Hellcallers: the flow audit saw every Alliance branch cross him for the flute and walk back about 2.4k yd for the kill (6.3 min)."
+			},
+			{
+				"a": [
+					"turnin",
+					5060
+				],
+				"b": [
+					"task",
+					5219,
+					0
+				],
+				"faction": "Alliance",
+				"why": "Alliance Western Plaguelands (0.4.0 route-feel audit): Dalson's Tears' Scourge Cauldron (Target: Dalson's Tears, 46.1,52.6) stands just south-west of the Dalson farmhouse the route works at its first stop there; its key and hand-in come with the farm's cabinet, instead of a second ride out from Chillwind Camp 30 min later (933 yd out and back on every Alliance branch)."
+			},
+			{
+				"a": [
+					"turnin",
+					5403
+				],
+				"b": [
+					"turnin",
+					5220
+				],
+				"faction": "Alliance",
+				"why": "Alliance Western Plaguelands (0.4.0 route-feel audit): Return to Chillwind Camp (5220), taken at the Dalson's Tears cauldron on the first pass, is handed to High Priestess MacDonnell on the same return to the camp as the scourgestones."
 			}
 		],
 		"after": [
