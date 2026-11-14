@@ -49,7 +49,7 @@ return {
 	-- {npc:263570} Creeg Bothunk
 	["{npc:263570}: Friendly rewards"] = "",
 	-- {npc:15350} Horde Warbringer
-	["{npc:15350}: 100 for 3 marks"] = "",
+	["{npc:15350}: 100 for 3 marks"] = "{npc:15350}: 100 por 3 marcas",
 
 	-- Step 10: Darkspear Raiders to Revered
 	-- {faction:2798} Darkspear Raiders
@@ -109,7 +109,7 @@ return {
 	-- {npc:263569} Bryanna Embreeze
 	["{npc:263569}: Friendly rewards"] = "",
 	-- {npc:15351} Alliance Brigadier General
-	["{npc:15351}: 100 for 3 marks"] = "",
+	["{npc:15351}: 100 for 3 marks"] = "{npc:15351}: 100 por 3 marcas",
 
 	-- Step 22: Theramore Expeditionary Force to Revered
 	-- {faction:2799} Theramore Expeditionary Force
