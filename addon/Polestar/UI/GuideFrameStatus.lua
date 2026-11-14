@@ -127,7 +127,9 @@ ns.UI.GuideFrame.Part(function(GF)
 		end
 		xp.Rest:SetText(restLine or "")
 		xp.Rest:SetShown(restLine ~= nil)
-		local h = GF.XPHeight(xp:GetWidth())
+		-- At the window's width, as the layout measures it (GF.Layout): the row's own is the window's once laid out
+		-- but 0 before, and where the two disagreed every update laid the whole window out again.
+		local h = GF.XPHeight(GF.frame and GF.frame:GetWidth() or xp:GetWidth())
 		if had ~= xp.psHas or hadRest ~= (restLine ~= nil) or h ~= xp:GetHeight() then
 			xp:SetHeight(h)
 			xp.Icon:SetPoint("LEFT", xp, "LEFT", PAD, restLine and GF.XPROW.iconY or -1)

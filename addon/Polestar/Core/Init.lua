@@ -798,7 +798,15 @@ local function keysOf(path)
 	return keys
 end
 
+-- (A path of one or two keys, nearly every setting read, skips the loop.)
 local function lookup(root, keys)
+	local k1, k2 = keys[1], keys[2]
+	if k1 ~= nil and keys[3] == nil and type(root) == "table" then
+		local node = root[k1]
+		if k2 == nil then return node end
+		if type(node) ~= "table" then return nil end
+		return node[k2]
+	end
 	local node = root
 	for i = 1, #keys do
 		if type(node) ~= "table" then return nil end
@@ -812,15 +820,20 @@ end
 -- saved one if there is one, so still holding it at ADDON_LOADED means a
 -- fresh install.
 local madeDB
+-- The table DB()'s checks last passed: only the saved variables replace PolestarDB, and its settings are only ever
+-- set to a table (a profile switched to or copied in).
+local checkedDB
 
 local function DB()
 	local db = PolestarDB
+	if db ~= nil and db == checkedDB then return db end
 	if type(db) ~= "table" then
 		db = { schema = 1 }
 		PolestarDB = db
 		madeDB = db
 	end
 	if type(db.settings) ~= "table" then db.settings = {} end
+	checkedDB = db
 	return db
 end
 ns.DB = DB
@@ -975,8 +988,13 @@ function ns.ResetSettings(section)
 	ns.Fire("SETTING_CHANGED", section or "", nil)
 end
 
+-- The table the checks below last passed: only the saved variables replace PolestarCharDB (a reload, a new
+-- character) and nothing else sets the fields they make, so one table needs them once (it is asked for on every goal
+-- a step change reads).
+local checkedChar
 function ns.CharState()
 	local s = PolestarCharDB
+	if s ~= nil and s == checkedChar then return s end
 	if type(s) ~= "table" then
 		s = {}
 		PolestarCharDB = s
@@ -1002,6 +1020,7 @@ function ns.CharState()
 	-- evaluateLoaded), kept over a reload or relog for the guide list's check (Engine.GetGuideState); a
 	-- reset forgets it, and so does a pack update that changes the guide's steps (checkShape).
 	if type(s.guideDone) ~= "table" then s.guideDone = {} end
+	checkedChar = s
 	return s
 end
 

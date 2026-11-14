@@ -465,3 +465,30 @@ fn a_departure_line_too_long_for_the_width_wraps_and_its_row_grows_never_cut_sho
 	assert_eq!(s["de"]["lines"], 2, "{s}");
 	assert!(num(&s["de"]["h"]) > num(&s["en"]["h"]), "the row makes room for the second line: {s}");
 }
+
+#[test]
+fn a_new_plan_of_the_same_shape_repaints_the_rows_without_laying_the_window_out_a_row_more_lays_it_out_once() {
+	let out = run(r#"
+		LAYOUTS = 0
+		-- A replan: new legs of the same shape (the pieces of a split walk planned again), one time changed.
+		local legs = {}
+		for i, l in ipairs(R.legs) do
+			local c = {}
+			for k, v in pairs(l) do c[k] = v end
+			legs[i] = c
+		end
+		legs[3].seconds = 1400
+		R.legs = legs
+		Polestar.Fire("ROUTE_CHANGED", R.legs)
+		emit(shot()); emit(LAYOUTS)
+		R.legs[4] = { kind = "walk", label = "Walk to Cenarion Hold", seconds = 300, yards = 900, to = { name = "Cenarion Hold" } }
+		Polestar.Fire("ROUTE_CHANGED", R.legs)
+		emit(shot()); emit(LAYOUTS)"#);
+	let (same, same_layouts, longer, layouts) = (&out[0], &out[1], &out[2], &out[3]);
+	assert_eq!(pick(same, &["num", "text", "time"]), json!([["1", "Walk to The Great Lift, Top", "11:10"], ["2", "Ride the elevator down", "0:25"], ["3", "Walk to Silithus", "23:20"]]));
+	assert_eq!(same["rows"][1]["sub"], "average wait 0:15 \u{b7} ride 0:10");
+	assert!(num(&same["rows"][1]["h"]) > num(&same["rows"][0]["h"]), "the departure line keeps its room");
+	assert_eq!(*same_layouts, 0, "the same shape: the window is not laid out again");
+	assert_eq!(col(longer, "text"), json!(["Walk to The Great Lift, Top", "Ride the elevator down", "Walk to Silithus", "Walk to Cenarion Hold"]));
+	assert_eq!(*layouts, 1, "a row more: laid out once");
+}
