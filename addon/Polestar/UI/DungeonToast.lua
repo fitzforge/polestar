@@ -230,6 +230,8 @@ function DT.RouteEntry(key)
 	local Dg, E = D(), ns.Engine
 	local d = Dg and Dg.Get and Dg.Get(key)
 	if not (d and type(d.map) == "number" and E and E.DungeonsAhead) then return nil end
+	-- A city dungeon is its faction's only: never Add to my route for the other's.
+	if E.EnemyCityDungeon and E.EnemyCityDungeon(d.map) then return nil end
 	for _, r in ipairs(E.DungeonsAhead(8)) do
 		if r.map == d.map then return r end
 	end

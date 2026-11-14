@@ -367,7 +367,9 @@ fn the_guide_menu_opens_dungeons_on_your_way_with_the_next_dungeons_and_a_switch
 fn the_dungeon_card_offers_add_to_my_route_for_a_dungeon_the_route_can_still_take() {
 	let out = ui(r#"
 		Polestar.Dungeons = {
-			Get = function(key) return key == "wailing-caverns" and { key = key, map = 43 } or { key = key, map = 999 } end,
+			Get = function(key)
+				return key == "wailing-caverns" and { key = key, map = 43 } or key == "ragefire-chasm" and { key = key, map = 389 } or { key = key, map = 999 }
+			end,
 			PickUp = function() return nil, "nothing" end,
 		}
 		local DT = UI.DungeonToast
@@ -380,7 +382,11 @@ fn the_dungeon_card_offers_add_to_my_route_for_a_dungeon_the_route_can_still_tak
 		local m2 = DT.Model(c)
 		local onRoute = { m2.act.label, m2.more and m2.more.label or false, m2.giver }
 		local m3 = DT.Model({ key = "the-deadmines", name = "The Deadmines", level = 20, take = 2, minLevel = 17, maxLevel = 26 })
-		emit({ offered = offered, call = call, onRoute = onRoute, offRoute = m3.act.label })"#);
+		-- Ragefire Chasm, Orgrimmar's, for an Alliance character: even listed ahead, never Add to my route.
+		UnitFactionGroup = function(unit) if unit == "player" then return "Alliance", "Alliance" end end
+		uistub.dungeonsAhead = { { map = 389, name = "Ragefire Chasm", level = 15, runMap = 1454, pickMap = 1454, pickMaps = { 1454 }, picks = 1, inLog = 0, here = true } }
+		local m4 = DT.Model({ key = "ragefire-chasm", name = "Ragefire Chasm", level = 15, take = 1, minLevel = 13, maxLevel = 18 })
+		emit({ offered = offered, call = call, onRoute = onRoute, offRoute = m3.act.label, city = m4.act.label })"#);
 	assert_eq!(out["offered"], json!(["Add to my route", "Open in Dungeons"]));
 	assert_eq!(out["call"], json!(["ChooseDungeon", 43, true]));
 	assert_eq!(
@@ -388,6 +394,7 @@ fn the_dungeon_card_offers_add_to_my_route_for_a_dungeon_the_route_can_still_tak
 		json!(["Open in Dungeons", false, "4 quests to pick up  ·  Levels 17–24  ·  The Barrens\nOn your route: the guide picks its quests up on your way."])
 	);
 	assert_eq!(out["offRoute"], "Pick up the quests");
+	assert_eq!(out["city"], "Pick up the quests", "a city dungeon of the other faction: never Add to my route");
 }
 
 // ---------------------------------------------------------------------------------------------------------------
