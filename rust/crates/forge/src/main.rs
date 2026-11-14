@@ -117,8 +117,7 @@ const FETCH_HELP: &str = "usage: forge data fetch [--url <pack index URL or path
 
 Downloads the data pack (default: the `data-pack` release, or $POLESTAR_DATA_PACK_URL), checks its
 BLAKE3 and unpacks it into --dest (default: $POLESTAR_DATA_PACK, else the user's data folder,
-polestar/data-pack). No public data pack has been published yet: until one is, build from your own
-game client (forge build --wow <dir>).";
+polestar/data-pack).";
 
 /// The options each of build, pack and fetch takes: (with a value, flags).
 fn options(cmd: &str) -> (&'static [&'static str], &'static [&'static str]) {

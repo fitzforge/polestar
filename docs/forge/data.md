@@ -564,9 +564,9 @@ Most contributors do not have our `data/sources` and `data/local` folders. The *
 the public part, so `forge build` works without them. The code is `rust/crates/forge/src/pack.rs` and
 `fetch.rs`. The list of what goes in is `rust/crates/forge/src/pack-spec.json`.
 
-**No public data pack has been published yet.** Once it is, `forge data fetch` downloads it from
-the `data-pack` release of the Polestar repository. Until then, `forge data fetch` says so; build
-from your own game client instead (`forge build --wow <path>`).
+`forge data fetch` downloads the public pack from the
+[`data-pack` release](https://github.com/fitzforge/polestar/releases/tag/data-pack) of the Polestar
+repository.
 
 ### What is in it
 
