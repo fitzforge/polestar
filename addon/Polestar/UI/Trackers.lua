@@ -162,7 +162,9 @@ function TR.Attach(kind, frame, opts)
 			end
 		end)
 	end
-	TR.ApplyLook(frame)
+	-- Laid out for the saved sizes from the first (the flight timer grows to
+	-- hold larger type), not only once a setting changes.
+	TR.ApplyLook(frame, true)
 end
 
 -- Strings a tracker makes later (a new row): they take its type sizes.
