@@ -60,6 +60,12 @@
 			"instance": "scarlet-monastery",
 			"source": { "kind": "tdb", "ref": "gameobject 103664 (Rituals of Power) has one spawn, in map 189 (Scarlet Monastery)" },
 			"note": "Rituals of Power (Mage; Magus Tirth, Thousand Needles, for Tabetha in Dustwallow Marsh): its one objective is the book Rituals of Power, taken from an object that stands only inside the Scarlet Monastery (QuestieDB's object data agrees). No rule ties a quest to a dungeon through an object its item comes from."
+		},
+		{
+			"quest": 93604,
+			"instance": "razorfen-downs",
+			"source": { "kind": "questie", "ref": "QuestieDB 1.0.16 quest 93604: \"Venture to Razorfen Downs and acquire Virulent Blood of Agamaggan, then return it to Kog'thug the Brave at Bristleback Retreat\"" },
+			"note": "Agamaggan's Blood (both factions; Kog'thug the Brave at Bristleback Retreat): the Virulent Blood of Agamaggan is found inside Razorfen Downs, the quest text says, and the quest data places no mob or object that holds it (#2204)."
 		}
 	]
 }

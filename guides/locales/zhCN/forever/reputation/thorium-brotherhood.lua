@@ -34,9 +34,9 @@ return {
 	-- plural, as words: Dark Iron Lookouts = {npc:8566} Dark Iron Lookout
 	["{item:18960}, Dark Iron Lookouts"] = "{item:18960}，来自黑铁哨兵。",
 
-	-- Step 3: Greater Lava Spiders
-	-- plural, as words: Greater Lava Spiders = {npc:5858} Greater Lava Spider
-	["Greater Lava Spiders"] = "{npc:5858}",
+	-- Step 3: Searing Lava Spiders
+	-- plural, as words: Searing Lava Spiders = {npc:5858} Searing Lava Spider
+	["Searing Lava Spiders"] = "{npc:5858}",
 	["The spiders roam the lava pools and plateaus of the south-west."] = "蜘蛛在西南部的熔岩池和高地上游荡。",
 
 	-- Step 4: The Slag Pit
