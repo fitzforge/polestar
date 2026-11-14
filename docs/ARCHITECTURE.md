@@ -1647,7 +1647,11 @@ Polestar.Engine.StepHiddenFor(step, who?) -> bool  -- no step of its own for who
   (`Engine.DungeonChosen(map)`: the answer for that dungeon, `CharState().dungeons[map]`
   true or false through `Engine.ChooseDungeon(map, answer)`, else the setting `behavior.dungeons`,
   Skip by default; with "ask" a `when dungeon` step holds while it has work now, `Own.whenFails` and
-  `Own.dungeonPending`; a predicate without `map` never holds),
+  `Own.dungeonPending`; a predicate without `map` never holds, nor one of a city dungeon of the other
+  faction, whatever the answers: `Engine.EnemyCityDungeon(map or Codex key)`, Ragefire Chasm and the Ruins
+  of Lordaeron the Horde's, The Hall of Thanes and the Stockade the Alliance's, which also keeps such a
+  dungeon out of `Engine.ChooseDungeon`'s Run, `Engine.GuideDungeons`, the hub's For your level
+  (`Dungeons.EnemyCapital`) and the dungeon heads-up (`UI.DungeonToast.Candidates`)),
   Polestar's gear advice on an item (`Own.isUpgrade`: `Gear.IsUpgrade`,
   counted as an upgrade when the advice is off or cannot judge the item), a
   profession's rank (`Compat.GetSkillRank` by skill line, else by name; not

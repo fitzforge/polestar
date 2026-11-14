@@ -93,6 +93,21 @@ Polestar.RegisterGuide({
 		} },
 	},
 })
+local RFC = { k = "dungeon", name = "Ragefire Chasm", map = 389 }
+Polestar.RegisterGuide({
+	id = "test/city", pack = "test", title = "City", minLevel = 1, maxLevel = 30,
+	steps = {
+		{ title = "Orgrimmar", when = { RFC }, goals = {
+			{ t = "accept", quest = 5761, title = "Slaying the Beast", npc = 3216, npcName = "Neeru Fireblade", map = 1429, x = 50.0, y = 50.0 },
+		} },
+		{ title = "Ragefire Chasm", when = { RFC, { k = "onquest", q = { 5761 } } }, goals = {
+			{ t = "enter", location = "Ragefire Chasm", map = 1429, x = 51.0, y = 51.0 },
+		} },
+		{ title = "Goldshire", goals = {
+			{ t = "goto", map = 1429, x = 42.1, y = 65.9, label = "Goldshire" },
+		} },
+	},
+})
 "#;
 
 // `trace` records the live step after each action; `take(q)` accepts quest q (its objective open) and settles.
@@ -331,4 +346,27 @@ fn dungeon_route_a_level_gate_holds_back_the_pick_up_the_question_and_the_run() 
 	assert_eq!(run_low[0], json!({ "at": 4, "s3": "skipped" }), "Run mode, 13.1 under the run's 13.5: the run is passed for the solo route");
 	let run_at = run_with("w.setLevel(13); w.setXP(600, 1000); w.onQuest(214, { 1 })", saved("run"), r#"take(7); emit({ at = at(), s3 = st(3) })"#);
 	assert_eq!(run_at[0], json!({ "at": 3, "s3": "current" }), "13.6: the run applies");
+}
+
+// Fitz, 2026-11-14: a city dungeon is its faction's only (Engine.EnemyCityDungeon). The stub's Human Warrior
+// (Alliance) on a guide with Ragefire Chasm's steps (Orgrimmar's): on Run them nothing of it applies, on Ask me
+// nothing is asked, Run it for it is refused and Dungeons in my route never lists it; the Stockade (Stormwind's)
+// is the Alliance's own.
+#[test]
+fn dungeon_route_a_city_dungeon_of_the_other_faction_is_never_run_asked_listed_or_offered() {
+	let saved = |route: &str| Some(json!({ "schema": 1, "guide": "test/city", "_route": route }));
+	let script = r#"
+		local before = { at = at(), asked = asked(), answer = E.DungeonAnswer(389),
+			listed = E.GuideDungeons()[389] or false, enemy = E.EnemyCityDungeon(389), own = E.EnemyCityDungeon(34), key = E.EnemyCityDungeon("ragefire-chasm") }
+		E.ChooseDungeon(389, true); flush()
+		emit({ before = before, chosen = E.DungeonChosen(389), at = at() })"#;
+	let run_them = run(saved("run"), script);
+	assert_eq!(
+		run_them[0]["before"],
+		json!({ "at": 3, "asked": false, "answer": false, "listed": false, "enemy": true, "own": false, "key": true }),
+		"Run them: none of Ragefire Chasm's steps applies, nothing is asked or listed"
+	);
+	assert_eq!((run_them[0]["chosen"].clone(), run_them[0]["at"].clone()), (json!(false), json!(3)), "Run it for it is refused");
+	let ask = run(saved("ask"), "emit({ at = at(), asked = asked() })");
+	assert_eq!(ask[0], json!({ "at": 3, "asked": false }), "Ask me never asks about it");
 }
