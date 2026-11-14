@@ -188,6 +188,42 @@ fn no_data_compiles_guides_that_give_every_name_themselves() {
 	assert!(both.stderr.contains("--no-data and --data cannot be used together"), "{}", both.stderr);
 }
 
+/// A step's title takes the token of an object no goal of the step names only where the name stands alone:
+/// "Copper Vein" before "hills" stays words (its note still names it by its token), "Kobold Crate" alone is its
+/// token, as is the object of the step's own goal; that one before a lower-case word keeps its token, and compile
+/// and lint warn (tests/guide-texts.test.js, the same guide through the JS compiler).
+#[test]
+fn a_step_title_takes_an_unnamed_objects_token_only_where_its_name_stands_alone() {
+	let guides = tmp("title-objects");
+	std::fs::write(
+		guides.join("a.guide"),
+		"guide forever/a\ntitle Elwynn Forest\nfaction Alliance\nlevels 1-10\nzone Elwynn Forest\n\nstep Marshal McBride\n  accept 7\n\nstep Copper Vein hills: kill as you go\n  kill 6 quest 7 -- the Copper Vein spots draw Kobold Vermin\n\nstep Battered Chest\n  interact 2843\n\nstep Kobold Crate\n  goto 48,32\n\nstep Battered Chest lids open easily\n  interact 2843\n\nstep Marshal McBride\n  turnin 7\n",
+	)
+	.unwrap();
+	let out = tmp("title-objects-out");
+	let _ = std::fs::remove_dir_all(out.with_file_name("title-objects-out_Alliance"));
+	let r = forge(&["compile", "--guides", guides.to_str().unwrap(), "--data", &data_dir(), "--out", out.to_str().unwrap()]);
+	assert_eq!(r.status, 0, "{}", r.stderr);
+	// An Alliance guide of our own pack goes to its faction part, beside the pack (docs/PACK_FORMAT.md, "Format 8").
+	let lua = std::fs::read_to_string(out.with_file_name("title-objects-out_Alliance").join("Guides.lua")).unwrap();
+	assert!(lua.contains("title = \"Copper Vein hills: kill as you go\""), "the title keeps its words: {lua}");
+	assert!(lua.contains("the {object:1731} spots draw {npc:6}"), "the step's note names the object: {lua}");
+	assert!(lua.contains("title = \"{object:2843}\""), "the object of the step's goal is its title's token: {lua}");
+	assert!(lua.contains("title = \"{object:1617}\""), "an object's name alone is its token: {lua}");
+	// The step's own object before a lower-case word keeps its token, and the lint warns the author.
+	assert!(lua.contains("title = \"{object:2843} lids open easily\""), "{lua}");
+	assert!(
+		r.stderr.contains(
+			"the title's \"Battered Chest\" is the token of object 2843, which the step's goals name, though \"lids\" follows it in lower case: a translated client shows the object's name there"
+		),
+		"{}",
+		r.stderr
+	);
+	let lint = forge(&["lint", "--guides", guides.to_str().unwrap(), "--data", &data_dir()]);
+	assert_eq!(lint.status, 0, "a warning only: {}", lint.stderr);
+	assert!(lint.stderr.contains("reword the title if \"Battered Chest lids\" means a kind of thing rather than that object"), "{}", lint.stderr);
+}
+
 #[test]
 fn compile_never_writes_into_a_folder_that_is_not_a_generated_pack() {
 	let out = tmp("precious");

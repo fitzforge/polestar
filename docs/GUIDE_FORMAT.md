@@ -839,9 +839,16 @@ lacks ("Rot Hide" gnolls, "Young Wetlands Crocolisks", "Cleft of Shadow",
 opening word does not count),
 and a one-word name the pack's texts
 also use as a lower-case word ("Barracks"), and two names a space apart (a
-name the data lacks, "Longshore Murloc Gills"). You may write a token
-yourself, `{npc:240}`: its kind and id must be in the data. `i18n guides
-stats` counts the tokens, by kind and by where the compiler found them.
+name the data lacks, "Longshore Murloc Gills"). In a step's title,
+an object no goal of the step names stays words before a lower-case word:
+"Dark Iron dwarves" though the data has an object named "Dark Iron"; alone
+("Trade District", a city's sign) it is that object's token. An object the
+step's goals name is its token there too, and compile and lint warn when a
+lower-case word follows it: reword the title if the words mean a kind of
+thing. You may write a token yourself, `{npc:240}`: its kind and id must be
+in the data.
+`i18n guides stats` counts the tokens, by kind and by where the compiler
+found them.
 
 **Spawn areas.** Mobs, quest objects and some NPCs spawn at more than one
 place, and a player who finds nothing where the arrow led must be able to try
