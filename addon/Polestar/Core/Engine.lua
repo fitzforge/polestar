@@ -3978,8 +3978,11 @@ local function place()
 	-- An accept waiting for a level holds the guide (Own.levelHold).
 	local start, later, anyOut = nil, Own.levelHold() ~= nil, nil
 	for s = 1, #steps do
+		-- A step of a dungeon the character skips (and the solo way of one they run) is no step of theirs: its
+		-- quests never make the guide past for them (Skip's route is the solo route).
+		local hidden = Own.dungeonHidden(steps[s])
 		for _, goal in ipairs(steps[s].goals) do
-			if (goal.t == "accept" or goal.direct) and goal.quest and ((out and out[goal.quest]) or greyNeed(goal) == false) then anyOut = true end
+			if not hidden and (goal.t == "accept" or goal.direct) and goal.quest and ((out and out[goal.quest]) or greyNeed(goal) == false) then anyOut = true end
 		end
 		if stepApplies(steps[s]) and not (sk and sk[s]) and not stepDone(s) then
 			local started, doable = false, false
@@ -4021,8 +4024,10 @@ local function place()
 	-- passes with it.
 	local lastOut = 0
 	for s = 1, limit - 1 do
-		for _, goal in ipairs(steps[s].goals) do
-			if (goal.t == "accept" or goal.direct) and goal.quest and ((out and out[goal.quest]) or greyNeed(goal) == false) then lastOut = s end
+		if not Own.dungeonHidden(steps[s]) then
+			for _, goal in ipairs(steps[s].goals) do
+				if (goal.t == "accept" or goal.direct) and goal.quest and ((out and out[goal.quest]) or greyNeed(goal) == false) then lastOut = s end
+			end
 		end
 	end
 	local here = false

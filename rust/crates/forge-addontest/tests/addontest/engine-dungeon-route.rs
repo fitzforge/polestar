@@ -76,6 +76,22 @@ Polestar.RegisterGuide({
 		} },
 	},
 })
+-- A guide that starts with travel, then a dungeon's hand-in of a quest grey for a level 40 (`direct`, its level
+-- compiled in), then the work; and the same guide as the solo compile has it (no dungeon step).
+local function greyway(id, withDungeon)
+	local steps = { { title = "Boat", goals = { { t = "goto", map = 1429, x = 10.0, y = 10.0, label = "Boat" } } } }
+	if withDungeon then
+		steps[#steps + 1] = { title = "Scout Riell", when = { DM, { k = "complete", q = 214 } }, goals = {
+			{ t = "turnin", quest = 214, direct = true, qlvl = 17, title = "Red Silk Bandanas", npc = 6670, npcName = "Scout Riell", map = 1429, x = 48.0, y = 42.0 },
+		} }
+	end
+	steps[#steps + 1] = { title = "Work", goals = {
+		{ t = "accept", quest = 7, title = "Kobold Camp Cleanup", npc = 197, npcName = "Marshal McBride", map = 1429, x = 80.0, y = 80.0 },
+	} }
+	Polestar.RegisterGuide({ id = id, pack = "test", title = "Grey way", minLevel = 1, maxLevel = 60, steps = steps })
+end
+greyway("test/greyway", true)
+greyway("test/greyway-solo", false)
 local RFC = { k = "dungeon", name = "Ragefire Chasm", map = 389 }
 Polestar.RegisterGuide({
 	id = "test/city", pack = "test", title = "City", minLevel = 1, maxLevel = 30,
@@ -373,4 +389,21 @@ fn dungeon_route_a_city_dungeon_of_the_other_faction_is_never_run_asked_listed_o
 	assert_eq!((run_them[0]["chosen"].clone(), run_them[0]["at"].clone()), (json!(false), json!(3)), "Run it for it is refused");
 	let ask = run(saved("ask"), "emit({ at = at(), asked = asked() })");
 	assert_eq!(ask[0], json!({ "at": 3, "asked": false }), "Ask me never asks about it");
+}
+
+// Skip is the solo route where a guide starts too: a skipped dungeon's step is no step of the character's, so its
+// quests (a hand-in of a quest grey for them, which Skip grey quests leaves out) never let the guide's opening travel
+// pass as "the way to a quest left out" (Horde 30-40 Arathi's "Zeppelin to Undercity", passed with Skip ahead of
+// Razorfen Kraul's hand-ins in the Undercity; the solo route keeps it).
+#[test]
+fn dungeon_route_a_skipped_dungeons_step_never_moves_where_a_guide_starts() {
+	let script = r#"
+		Polestar.Set("behavior.skipGrey", true)
+		E.SetGuide("test/greyway"); flush()
+		local with = { at = at(), s2 = st(2) }
+		E.SetGuide("test/greyway-solo"); flush()
+		emit({ with = with, solo = at() })"#;
+	let out = run_with("w.setLevel(40)", char("skip"), script);
+	assert_eq!(out[0]["solo"], 1, "the solo route starts with the boat");
+	assert_eq!(out[0]["with"]["at"], 1, "so does Skip: the skipped dungeon's hand-in moves nothing");
 }
