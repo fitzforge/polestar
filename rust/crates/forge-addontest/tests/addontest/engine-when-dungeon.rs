@@ -176,7 +176,7 @@ emit({ maps = maps, read = rawget(Polestar.Guides.Get("test/deferred"), "steps")
 fn held_back_no_dungeon_is_listed_and_a_chosen_one_is_passed() {
 	let guides = r#"
 Polestar.RegisterGuide({ id = "test/read", pack = "test", title = "Read", faction = "Alliance", minLevel = 1, maxLevel = 20, steps = {
-	{ title = "Run", when = { { k = "dungeon", name = "Ragefire Chasm", map = 389 } }, goals = { { t = "note", text = "in" } } },
+	{ title = "Run", when = { { k = "dungeon", name = "Blackfathom Deeps", map = 48 } }, goals = { { t = "note", text = "in" } } },
 } })
 "#;
 	let listed = emitted(&RunAddon {
@@ -188,7 +188,7 @@ Polestar.RegisterGuide({ id = "test/read", pack = "test", title = "Read", factio
 	})
 	.remove(0);
 	assert_eq!(listed, json!({ "listed": false }));
-	let guide = GUIDE.replace("@WHEN@", RFC);
+	let guide = GUIDE.replace("@WHEN@", BFD);
 	let out = emitted(&RunAddon {
 		stubs: vec!["stub_world.lua"],
 		before: WORLD.into(),
