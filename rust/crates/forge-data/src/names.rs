@@ -316,6 +316,19 @@ fn usable(s: &str) -> bool {
 	!s.is_empty() && !PLACEHOLDER.is_match(s)
 }
 
+/// Whether a name fits the script of its language: a Korean, Chinese or Russian name with Latin letters and
+/// none of the language's own is another language's (the web data once named a koKR NPC in Portuguese,
+/// "Cavalo de Guerra Descarnado Ocre"), and the English shows instead. A name of no letters fits any.
+fn fits_script(locale: &str, s: &str) -> bool {
+	let own: fn(char) -> bool = match locale {
+		"koKR" => |c| matches!(c, '\u{AC00}'..='\u{D7A3}' | '\u{1100}'..='\u{11FF}' | '\u{3130}'..='\u{318F}'),
+		"zhCN" | "zhTW" => |c| matches!(c, '\u{4E00}'..='\u{9FFF}' | '\u{3400}'..='\u{4DBF}' | '\u{F900}'..='\u{FAFF}'),
+		"ruRU" => |c| matches!(c, '\u{0400}'..='\u{04FF}'),
+		_ => return true,
+	};
+	s.chars().any(own) || !s.chars().any(|c| c.is_ascii_alphabetic() || matches!(c, '\u{00C0}'..='\u{024F}'))
+}
+
 /// English names to tell a translation from a string left in English, per pack kind.
 pub type English = [HashMap<i64, HashSet<String>>; 9];
 
@@ -360,7 +373,8 @@ pub struct Inputs<'a> {
 
 /// Per id the first source with a name that is no English name wins, so any real translation beats a
 /// string some source left in English; an id whose names are all English gets none (the English shows
-/// anyway). A name with a placeholder marker is none.
+/// anyway). A name with a placeholder marker is none, and so is one in another script ([`fits_script`]):
+/// an id whose other names are English is still one named as in English, and one with no other name has none.
 pub fn build_names(locales: &[&str], i: &Inputs) -> BTreeMap<String, Built> {
 	let mut out = BTreeMap::new();
 	let en = i.pf.get("enUS");
@@ -405,13 +419,13 @@ pub fn build_names(locales: &[&str], i: &Inputs) -> BTreeMap<String, Built> {
 					]
 				};
 				let named: Vec<(usize, String)> = candidates.into_iter().map(|(s, v)| (s, v.map(|v| text(v)).unwrap_or_default())).filter(|(_, v)| usable(v)).collect();
-				match named.iter().find(|(_, v)| !english.contains(v)) {
+				match named.iter().find(|(_, v)| !english.contains(v) && fits_script(locale, v)) {
 					Some((s, v)) => {
 						b.names[k].insert(id, v.clone());
 						b.from[k][*s] += 1;
 					}
 					None => {
-						if !named.is_empty() {
+						if named.iter().any(|(_, v)| english.contains(v)) {
 							b.english[k].insert(id);
 						}
 					}
