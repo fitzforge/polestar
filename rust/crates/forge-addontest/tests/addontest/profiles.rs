@@ -515,16 +515,16 @@ fn every_setting_has_a_category_and_every_control_takes_its_page_s() {
 		local missing, fromNoPage, counts, ids = {}, {}, {}, {}
 		for _, c in ipairs(P.CATEGORIES) do ids[#ids + 1] = c.id end
 		for _, path in ipairs(paths) do
-			local id = P.CategoryOf(path)
-			if id then counts[id] = (counts[id] or 0) + 1 else missing[#missing + 1] = path end
+			local id, how = P.CategoryOf(path)
+			if how == "fallback" then missing[#missing + 1] = path else counts[id] = (counts[id] or 0) + 1 end
 		end
 		-- Every control on the pages (a key binding is the game's, never a profile's).
 		local controls = 0
 		for _, c in ipairs(O.AllControls()) do
 			if c.key and c.kind ~= "button" and c.kind ~= "binding" then
 				controls = controls + 1
-				local id, how = P.CategoryOf(c.key)
-				if not id then
+				local _, how = P.CategoryOf(c.key)
+				if how == "fallback" then
 					missing[#missing + 1] = c.key
 				elseif how == "hidden" then
 					fromNoPage[#fromNoPage + 1] = c.key .. " (" .. tostring(c.page and c.page.key) .. ")"
@@ -534,7 +534,7 @@ fn every_setting_has_a_category_and_every_control_takes_its_page_s() {
 		table.sort(missing)
 		table.sort(fromNoPage)
 		-- A setting added to a page falls in with it; one on a page no rule names takes no page's,
-		-- and one no page shows under a start of key no rule knows has none: each would fail above.
+		-- and one no page shows under a start of key no rule knows goes to the fallback: each fails above.
 		Polestar.RegisterDefaults("ui", { profileTestSwitch = true, profileTestPage = true })
 		Polestar.RegisterDefaults("profileTest", { thing = true })
 		assert(Polestar.RegisterOptions({ page = Polestar.L["Guide"], tab = Polestar.L["Window"], section = Polestar.L["What it shows"],
@@ -542,11 +542,11 @@ fn every_setting_has_a_category_and_every_control_takes_its_page_s() {
 		assert(Polestar.RegisterOptions({ page = "Profile test", key = "profiletest", controls = { { kind = "toggle", key = "ui.profileTestPage", label = "Test" } } }))
 		emit({ settings = #paths, controls = controls, missing = table.concat(missing, ", "), fromNoPage = table.concat(fromNoPage, ", "),
 			counts = counts, ids = ids, added = { P.CategoryOf("ui.profileTestSwitch") }, newPage = { P.CategoryOf("ui.profileTestPage") },
-			unknown = P.CategoryOf("profileTest.thing") or false })"#,
+			unknown = { P.CategoryOf("profileTest.thing") } })"#,
 	);
 	assert!(out["settings"].as_u64().unwrap_or(0) > 400, "{}", out["settings"]);
 	assert!(out["controls"].as_u64().unwrap_or(0) > 400, "{}", out["controls"]);
-	assert_eq!(out["missing"], "", "every registered setting and every control has a category");
+	assert_eq!(out["missing"], "", "a rule names every registered setting's and every control's category (else it falls back)");
 	assert_eq!(out["fromNoPage"], "", "every control's category comes from its page (PAGES in ProfileStrings.lua)");
 	assert_eq!(out["ids"], json!(CATEGORIES));
 	for id in CATEGORIES {
@@ -554,7 +554,7 @@ fn every_setting_has_a_category_and_every_control_takes_its_page_s() {
 	}
 	assert_eq!(out["added"], json!(["window", "page"]), "a setting added to a page falls in with it");
 	assert_eq!(out["newPage"], json!(["window", "hidden"]), "a page no rule names: caught above");
-	assert_eq!(out["unknown"], false, "a start of key no rule knows: caught above");
+	assert_eq!(out["unknown"], json!(["quests", "fallback"]), "a start of key no rule knows: carried, caught above");
 }
 
 // Two settings of each category off their defaults, the first controls in the pages' order that take a plain

@@ -304,7 +304,7 @@ Polestar.Profiles.Import(text) -> preview | nil, why     -- nothing changes unti
 Polestar.Profiles.Changes(preview, pick?) -> { { path, category, label, theirs, reset }, ... }
 Polestar.Profiles.Apply(preview, name, pick?) -> true, undo   -- name = Active(): into the profile in use; else a new profile
 Polestar.Profiles.Undo(undo) -> true | nil, why           -- an Apply taken back
-Polestar.Profiles.CategoryOf(path) -> id, how             -- how: "position" | "own" | "page" | "hidden"
+Polestar.Profiles.CategoryOf(path) -> id, how             -- how: "position" | "own" | "page" | "hidden" | "fallback"
 Polestar.Profiles.RegisterPosition(path, shape)          -- a position setting a string may carry ("xy" | "pxy" | "ppxy" | "anchor")
 Polestar.RegisterMigration(id, fn(settings))             -- at file load: runs once per id over every profile
 ```
@@ -353,10 +353,11 @@ category, else its tab's or section's as `PAGES` in `ProfileStrings.lua`
 says. Before that, a position (`RegisterPosition`) is Window positions and a
 few settings go with another part than the section they sit in (`OWN`, by
 key or the start of one); a setting no page shows goes by the start of its
-key (`HIDDEN`). Profiles carry no key bindings: the bindings are the game's,
-and a profile's own key is the account's. `forge-addontest`'s `profiles.rs`
-checks every registered setting and every control has a category, and every
-control one from its page.
+key (`HIDDEN`), and one no rule names goes with Quests & automation rather
+than out of the string (`how = "fallback"`). Profiles carry no key bindings:
+the bindings are the game's, and a profile's own key is the account's.
+`forge-addontest`'s `profiles.rs` fails on a setting of Polestar's that falls
+back and on a control whose category is not its page's.
 
 | Category (`id`) | Its settings |
 |---|---|

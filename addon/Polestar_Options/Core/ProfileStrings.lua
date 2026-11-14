@@ -229,8 +229,10 @@ local function index()
 end
 if ns.Widgets and ns.Widgets.OnOptionsRegistered then ns.Widgets.OnOptionsRegistered(function() built = nil end) end
 
--- -> the category's id and how it was found ("position" | "own" | "page" |
--- "hidden": no page shows it), or nil when nothing says.
+-- -> the category's id and how it was found: "position", "own", "page",
+-- "hidden" (no page shows it), or "fallback": no rule names it (none of
+-- Polestar's own, profiles.rs holds them to that), so it goes with what
+-- Polestar does rather than out of the string.
 local function categoryOf(path, ix)
 	if positions[path] then return "positions", "position" end
 	local id = nearest(OWN, path)
@@ -239,7 +241,7 @@ local function categoryOf(path, ix)
 	if id then return id, "page" end
 	id = nearest(HIDDEN, path)
 	if id then return id, "hidden" end
-	return nil
+	return "quests", "fallback"
 end
 P.CategoryOf = function(path) return categoryOf(path, index()) end
 
