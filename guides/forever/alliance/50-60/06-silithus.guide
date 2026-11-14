@@ -513,6 +513,13 @@ step Brohann Caskbelly
   tip The Atal'ai Tablets from your Sunken Temple run: Brohann Caskbelly, in the Dwarven District, on the way to the tram.
   turnin 1475                         -- Brohann Caskbelly
 
+step Abandon Into The Temple of Atal'Hakkar
+  when dungeon "Sunken Temple"
+  when onquest 1475
+  when !complete 1475
+  tip Into The Temple of Atal'Hakkar is still unfinished: without a Sunken Temple run at its level the route doesn't come back for it, so abandon it.
+  abandon 1475                        -- Into The Temple of Atal'Hakkar
+
 step Tram to Ironforge
   zone Stormwind City
   goto 64.5,7.5 "Tram to Ironforge"

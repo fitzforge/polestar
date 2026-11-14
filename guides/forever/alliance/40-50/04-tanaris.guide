@@ -152,6 +152,13 @@ step Tran'rek
   tip Your Zul'Farrak scarab shells: Tran'rek, on the north side of town.
   turnin 2865                         -- Tran'rek
 
+step Abandon Scarab Shells
+  when dungeon "Zul'Farrak"
+  when onquest 2865
+  when !complete 2865
+  tip Scarab Shells is still unfinished: without a Zul'Farrak run at its level the route doesn't come back for it, so abandon it.
+  abandon 2865                        -- Scarab Shells
+
 step Chief Engineer Bilgewhizzle
   when dungeon "Zul'Farrak"
   when complete 2768
@@ -159,12 +166,26 @@ step Chief Engineer Bilgewhizzle
   tip The Divino-matic Rod: Chief Engineer Bilgewhizzle, by the water tower.
   turnin 2768                         -- Chief Engineer Bilgewhizzle
 
+step Abandon Divino-matic Rod
+  when dungeon "Zul'Farrak"
+  when onquest 2768
+  when !complete 2768
+  tip Divino-matic Rod is still unfinished: without a Zul'Farrak run at its level the route doesn't come back for it, so abandon it.
+  abandon 2768                        -- Divino-matic Rod
+
 step Trenton Lighthammer
   when dungeon "Zul'Farrak"
   when complete 3042
   zone Tanaris
   tip The Troll Temper: Trenton Lighthammer, in town.
   turnin 3042                         -- Trenton Lighthammer
+
+step Abandon Troll Temper
+  when dungeon "Zul'Farrak"
+  when onquest 3042
+  when !complete 3042
+  tip Troll Temper is still unfinished: without a Zul'Farrak run at its level the route doesn't come back for it, so abandon it.
+  abandon 3042                        -- Troll Temper
 
 # ---------------------------------------------------------------- The deep desert
 

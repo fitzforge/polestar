@@ -287,6 +287,12 @@ step Warden Thelwater
   zone Stormwind City
   turnin 389                              -- Warden Thelwater: Bazil Thredd, from Baros Alexston
 
+step Abandon Bazil Thredd
+  when dungeon "The Stockade"
+  when onquest 389
+  tip Bazil Thredd is still in your log: without a Stockade run at its level the route doesn't come back for it, so abandon it.
+  abandon 389                         -- Bazil Thredd
+
 step Warden Thelwater
   when dungeon "The Stockade"
   when turnedin 389

@@ -426,12 +426,26 @@ step High Sorcerer Andromath
   tip The Arcanic Enigma from your City of Dalaran run: High Sorcerer Andromath waits on the spiral walkway of the Wizard's Sanctum, the violet tower of the Mage Quarter, just past the door of the portal room.
   turnin 92489                        -- High Sorcerer Andromath
 
+step Abandon Power Overwhelming
+  when dungeon "City of Dalaran"
+  when onquest 92489
+  when !complete 92489
+  tip Power Overwhelming is still unfinished: without a City of Dalaran run at its level the route doesn't come back for it, so abandon it.
+  abandon 92489                       -- Power Overwhelming
+
 step Shylamiir
   when dungeon "City of Dalaran"
   when complete 92456
   zone Stormwind City
   tip The Fel Infused Blossom from your City of Dalaran run: back to Shylamiir.
   turnin 92456 npc 5502               -- Shylamiir
+
+step Abandon A Green Sample
+  when dungeon "City of Dalaran"
+  when onquest 92456
+  when !complete 92456
+  tip A Green Sample is still unfinished: without a City of Dalaran run at its level the route doesn't come back for it, so abandon it.
+  abandon 92456                       -- A Green Sample
 
 step Druid training
   only Druid

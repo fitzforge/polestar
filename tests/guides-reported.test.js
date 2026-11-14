@@ -11885,6 +11885,14 @@ for (const run of fs.existsSync(path.join(__dirname, '..', 'data', 'dungeon-runs
 				for (const g of on) assert.ok(gates.has(g), `${guide}: the pick-up of ${quest} is gated \`when level>=${g}\`, which its record doesn't give (${[...gates].join(', ')})`);
 				for (const g of gates) assert.ok(on.includes(g), `${guide}: no pick-up of ${quest} is gated \`when level>=${g}\`, as its record says`);
 			}
+			// And never under the level its quests ask for: the game refuses an accept under its quest's minimum, and the
+			// route comes back to the step once the character gets there (the Ruins of Lordaeron's Silverpine pick-up).
+			for (const guide of new Set(pickups.map(([, g]) => g))) {
+				for (const s of steps(guide).filter((x) => whenDungeonOf(x, run.dungeon) && x.goals.some((g) => g.t === 'accept'))) {
+					const asks = Math.max(0, ...s.goals.filter((g) => g.t === 'accept' && g.minLevel).map((g) => g.minLevel));
+					assert.ok(lowestLevel(s) >= asks, `${guide}: "${s.title}" is gated \`when level>=${lowestLevel(s)}\`, under the level its quests ask for (${asks})`);
+				}
+			}
 		}
 	});
 }

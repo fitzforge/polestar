@@ -74,6 +74,13 @@ step Krom Stoutarm
   tip Reclaimed Treasures: Krom Stoutarm, in the Hall of Explorers.
   turnin 1360                         -- Krom Stoutarm
 
+step Abandon Reclaimed Treasures
+  when dungeon "Uldaman"
+  when onquest 1360
+  when !complete 1360
+  tip Reclaimed Treasures is still unfinished: without an Uldaman run at its level the route doesn't come back for it, so abandon it.
+  abandon 1360                        -- Reclaimed Treasures
+
 step High Explorer Magellas
   when dungeon "Uldaman"
   when onquest 2279
