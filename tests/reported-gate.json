@@ -1233,6 +1233,15 @@
 		] },
 		"2300": { "tests": [
 			{ "node": "tests/guides-reported.test.js", "test": "#2300: Searing Gorge (Alliance): Prayer to Elune waits for a group, among the Twilight camp's elites" }
+		] },
+		"2311": { "tests": [
+			{ "node": "tests/guides-reported.test.js", "test": "#2311: a complete that leads its step has a place for the arrow" }
+		] },
+		"2326": { "tests": [
+			{ "node": "tests/guides-reported.test.js", "test": "#2326: Feralas (Horde): the Screecher Spirits are talked to, after the bramble" }
+		] },
+		"2327": { "tests": [
+			{ "node": "tests/guides-reported.test.js", "test": "#2327: a leveling guide that ends on the way into another zone drops that step once you are there" }
 		] }
 	},
 	"seedDrift": {}
