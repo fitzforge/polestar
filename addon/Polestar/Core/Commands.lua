@@ -10,10 +10,13 @@ local Engine = ns.Engine
 
 -- Options > Keybindings lists them in a "Polestar" section of their own
 -- (Bindings.xml's category, the Recorder's too), whose rows are only ~22
--- characters wide: short names. The settings search matches a binding's
--- name and its search tags, never its section, so each carries the tag
--- BINDING_TAG_POLESTAR: "polestar" finds them all.
-BINDING_TAG_POLESTAR = "Polestar"
+-- characters wide: short names. None has searchTags: after login the game
+-- builds the Options search's list of bindings and reads each tag's global
+-- outside securecallfunction (Blizzard_SettingsDefinitions_Frame/
+-- Keybindings.lua, CreateSearchableSettings), so a tag global of ours
+-- tainted every search, and the game blocked the Discord sign-in row's
+-- C_Discord.IsUserOAuthed() in its results, blaming Polestar or the
+-- Recorder (#1996, #2207). The search finds a binding by its name.
 BINDING_NAME_POLESTAR_TOGGLE = L["Toggle guide window"]
 BINDING_NAME_POLESTAR_HIDE = L["Hide/show Polestar"]
 BINDING_NAME_POLESTAR_NEXT = L["Next step"]

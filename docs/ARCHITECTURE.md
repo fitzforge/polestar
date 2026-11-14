@@ -86,8 +86,8 @@ Only these globals may be assigned anywhere under `addon/` (enforced by
 
 `Polestar`, `PolestarDB`, `PolestarCharDB`, `PolestarRecorderDB`,
 `SLASH_POLESTAR<n>`, `SLASH_POLESTARREC<n>`, `SLASH_POLESTARWAY<n>` (`/way`,
-claimed only while no addon has it), `BINDING_TAG_POLESTAR`,
-`BINDING_NAME_POLESTAR_*`, in `Polestar_Nav` only `Polestar_NavEngine`
+claimed only while no addon has it), `BINDING_NAME_POLESTAR_*`, in
+`Polestar_Nav` only `Polestar_NavEngine`
 (the engine's handoff), `PolestarPathData` (the walking maps) and, in
 `Routing/Costs.lua` only, `Polestar_NavCosts` (the router's ground-class
 costs), and in `Nav/Journey.lua` only `TomTom` (its stand-in, set while TomTom is not
@@ -8860,10 +8860,17 @@ Polestar.Gamepad.HasWindow() -> bool                        -- a Polestar window
   `category="Polestar"`: Options > Keybindings lists them in a section of
   their own after AddOns (the game shows a category that is no global string
   as itself; `_G.Polestar` is the addon's table), so their names are short
-  (the column fits ~22 characters) and say no "Polestar". The settings search
-  matches names and search tags, never the section, so each has
-  `searchTags="BINDING_TAG_POLESTAR"` (`"Polestar"`, set in Core/Commands.lua
-  and the Recorder's Panel.lua). Bindings are saved by name, so moving the
+  (the column fits ~22 characters) and say no "Polestar". No binding has
+  `searchTags`: after login the game builds the Options search's list of
+  bindings and asks `C_KeyBindings.GetSearchTagsForAction` for each one's
+  tags (each tag is a global's value) outside `securecallfunction`
+  (Blizzard_SettingsDefinitions_Frame/Keybindings.lua,
+  `CreateSearchableSettings`), so a global of ours there (0.3.7's
+  `BINDING_TAG_POLESTAR`) tainted that list and every search after it, and
+  the game blocked the Discord sign-in row's `C_Discord.IsUserOAuthed()` in
+  the results, blaming Polestar or the Recorder (#1996, #2207;
+  `tests/lua/stub_options_search.lua`). The search finds a binding by its
+  name. Bindings are saved by name, so moving the
   section keeps every key. Nothing is bound unasked. A binding goes into the
   binding set in use (`SaveBindings(GetCurrentBindingSet())`: the account's
   or the character's). With the gamepad interface on, its own binding

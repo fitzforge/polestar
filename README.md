@@ -712,8 +712,8 @@ guides you there instead.
   again when it closes. The window's Okay keeps the keys (for this character
   only if you tick its box), Cancel drops them. Nothing changes in a fight.
 - **Key bindings** (Options > Keybindings): all of Polestar's, the
-  Recorder's included, have a **Polestar** section of their own, and
-  searching "polestar" there finds them.
+  Recorder's included, have a **Polestar** section of their own, and the
+  Options search finds each one by its name.
 
 </details>
 
