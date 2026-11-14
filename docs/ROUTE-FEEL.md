@@ -23,8 +23,8 @@ node tools/flow-audit.js run --addon build --faction Horde --out horde.json --md
 
 `--md` writes a readable report: every guide ranked by its flow score, the strict
 walk next to the Dynamic Questing walk, the organisation numbers per guide, and
-examples per guide. `--start` and `--class` narrow the branches; `--route` and
-`--dungeons` pick the way to play (below).
+examples per guide. `--start` and `--class` narrow the branches; `--route`,
+`--dungeons` and `--dungeon-quests` pick the way to play (below).
 
 The gate runs the audit in every mode on both trees (each tree's guides compiled
 into its own folder, both packs, from its own checkout), then compares:
@@ -74,14 +74,17 @@ in game for a player following the route from the start:
 
 | Mode | What the player chose |
 |---|---|
-| `skip` | Dungeons in my route on Skip, the default route |
+| `skip` | Dungeons in my route off, the default route |
 | `riverglades`, `shendralas`, `hyjal`, ... | the route choice a guide's `next` offers (an experimental zone), the default everywhere else; each choice the faction's guides offer gets a mode |
 | `riverglades+shendralas` | every route choice the faction's guides offer, taken together |
-| `run` | Dungeons on Run: every `when dungeon` step |
-| `run+<choice>` | dungeons on Run with a route choice |
+| `run` | Dungeons in my route on, every dungeon quest: every `when dungeon` step, `when dungeon "<X>" all` too |
+| `run-way` | Dungeons in my route on, only the quests on my way: the `when dungeon` steps without `all` |
+| `run+<choice>`, `run-way+<choice>` | either with a route choice |
 
 `modes` writes one audit per mode and faction (`<mode>-<faction>.json`); the gate
-pairs the files of the two folders by name.
+pairs the files of the two folders by name. A player who answers per dungeon (Ask
+me, or a dungeon's own style in "Dungeons on your way") plays a mix of these; the
+modes play each choice whole (`--dungeons` with map ids plays a few dungeons).
 
 ## What it counts
 
@@ -116,7 +119,7 @@ visits) / quests. Lower is better.
 | Carried | A quest handed in by a later guide than the one that picked it up; its span counts the guides from pick-up to hand-in, both included |
 | Carried far | Carried through a whole guide (a span of 3 or more), or held 2 hours or more |
 | Hours carried | The time each carried quest stays in the log, summed |
-| Deliveries | A carried quest with no objectives (a letter into the next zone), counted apart: one handed in by the next guide is carried by design |
+| Deliveries | A carried quest with no objectives (a letter into the next zone) is marked as one: the report lists them apart, since one handed in by the next guide is carried by design (the gate counts every carried quest) |
 | Early pick-ups | A quest picked up an hour or more before its first objective is worked |
 | Never handed in | A quest picked up and not handed in by the end of the chain |
 | Quest log | Its peak, and its mean over time |
@@ -124,7 +127,7 @@ visits) / quests. Lower is better.
 
 ### Dungeons in the route
 
-With dungeons on Run, the audit also lists what the `when dungeon` steps cost:
+With dungeons in the route, the audit also lists what the `when dungeon` steps cost:
 
 | Count | Definition |
 |---|---|
@@ -135,10 +138,11 @@ With dungeons on Run, the audit also lists what the `when dungeon` steps cost:
 ## The gate
 
 `gate` compares each mode's candidate audit with the shipped one and fails on any
-of these, unless `data/flow-gate.json` states a reason for it. With dungeons on
-Run the route takes every dungeon quest it can, so the travel that adds (the
-dungeon trips, the door detours, more walking, quests carried to their run) is
-expected: the report shows it and the gate does not hold it against the route.
+of these, unless `data/flow-gate.json` states a reason for it. With dungeons in
+the route the guides take the dungeon quests (every one, or those on the way), so
+the travel that adds (the dungeon trips, the door detours, more walking, quests
+carried to their run) is expected: the report shows it and the gate does not hold
+it against the route.
 
 | Check | Per | Worse when | Modes |
 |---|---|---|---|
@@ -153,8 +157,8 @@ expected: the report shows it and the gate does not hold it against the route.
 | `never_handed` | branch | it picks up more quests it never hands in | solo, Run |
 | `log_cap` | branch | its quest log holds more than the game's 40 at any point, whatever the shipped guides did | every mode |
 
-"Solo" is dungeons on Skip, with or without a route choice; "Run" is dungeons on
-Run. A guide the shipped guides don't have (a new or renamed guide), or one whose
+"Solo" is dungeons off, with or without a route choice; "Run" is dungeons on,
+in either style. A guide the shipped guides don't have (a new or renamed guide), or one whose
 quests changed by more than a quarter (split, merged, content moved between
 guides), is compared through the branches only: its own numbers would measure a
 different guide. The gate lists both. The tolerances keep small knock-on changes
@@ -170,7 +174,7 @@ A stated reason is a row in `data/flow-gate.json`'s `reasons`:
 
 `check` and the guide (for a guide check) or the branch (`"Orc/WARRIOR"`, for a
 branch check) name what it accepts; `"*"` accepts every guide or branch, and a
-`mode` or `faction` left out or `"*"` holds in all of them. The reason says why
+`mode` or `faction` left out or `"*"` holds in all of them (`"run*"`: every mode with dungeons on). The reason says why
 the route is better that way for players, in the evidence's own terms (levels,
 time carried, a dangerous spot, a fixed report).
 

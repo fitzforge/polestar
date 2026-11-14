@@ -103,6 +103,11 @@ test('the walk reads the character state the guides gate on: a taxi pair plays o
 	assert.equal(whenOk([{ k: 'group' }], 30), false);
 	assert.equal(whenOk([{ k: 'dungeon', map: 43 }], 30, null, '43,47'), true);
 	assert.equal(whenOk([{ k: 'dungeon', map: 43 }], 30, null, ''), false);
+	// `when dungeon "X" all`: only when X is run with every quest; a plain dungeon step in both styles
+	assert.equal(whenOk([{ k: 'dungeon', map: 43, all: true }], 30, null, 'all', 'all'), true);
+	assert.equal(whenOk([{ k: 'dungeon', map: 43, all: true }], 30, null, 'all', 'way'), false);
+	assert.equal(whenOk([{ k: 'dungeon', map: 43 }], 30, null, 'all', 'way'), true);
+	assert.equal(whenOk([{ k: 'dungeon', map: 43, neg: true }], 30, null, '', 'way'), true);
 });
 
 test('a route choice is taken where a guide offers it, and nextWhen picks the option that holds at the level', () => {
@@ -132,14 +137,18 @@ test('with dungeons in the route, a pick-up stop there only for a dungeon quest 
 	assert.equal(skip.branches[0].dng_quests, 0);
 });
 
-test('the modes cover dungeons Skip and Run, each route choice and all of them together', () => {
+test('the modes cover dungeons Skip, Run with every quest and with the quests on the way, each route choice the compiled guides hold and all of them', () => {
+	const exp = (id) => ({ id: `polestar-experimental/${id}`, category: 'Leveling', faction: 'Horde' });
 	const compiled = { guides: [
 		{ id: 'forever/horde/a', category: 'Leveling', faction: 'Horde', nextChoices: ['forever/horde/b', 'polestar-experimental/riverglades-horde-1'] },
 		{ id: 'forever/horde/c', category: 'Leveling', faction: 'Horde', nextChoices: ['forever/horde/d', 'polestar-experimental/shendralas'] },
+		{ id: 'forever/horde/e', category: 'Leveling', faction: 'Horde', nextChoices: ['forever/horde/f', 'polestar-experimental/not-compiled'] },
+		exp('riverglades-horde-1'), exp('shendralas'),
 	] };
 	assert.deepEqual(modesOf(compiled, 'Horde').map((m) => m.mode),
-		['skip', 'riverglades', 'shendralas', 'riverglades+shendralas', 'run', 'run+riverglades', 'run+shendralas', 'run+riverglades+shendralas']);
-	assert.deepEqual(modesOf(compiled, 'Alliance').map((m) => m.mode), ['skip', 'run']);
+		['skip', 'riverglades', 'shendralas', 'riverglades+shendralas', 'run', 'run+riverglades', 'run+shendralas', 'run+riverglades+shendralas',
+			'run-way', 'run-way+riverglades', 'run-way+shendralas', 'run-way+riverglades+shendralas']);
+	assert.deepEqual(modesOf(compiled, 'Alliance').map((m) => [m.mode, m.dungeons, m.dungeonQuests]), [['skip', '', 'all'], ['run', 'all', 'all'], ['run-way', 'all', 'way']]);
 });
 
 // A made-up audit: one guide's means, one branch with one zone.
@@ -195,12 +204,15 @@ test('a guide whose quests changed by more than a quarter is compared through it
 	assert.deepEqual(res.restructured, [{ guide: 'forever/horde/a', before: 20, after: 30 }]);
 });
 
-test('a reason names the guide or branch it accepts, or all of them with "*"', () => {
+test('a reason names the guide or branch it accepts, or all of them with "*"; "run*" holds in every dungeons-on-Run mode', () => {
 	const f = { check: 'score', guide: 'forever/horde/a' };
 	assert.ok(reasonFor(f, [{ check: 'score', guide: 'forever/horde/a', reason: 'r' }], {}));
 	assert.ok(reasonFor(f, [{ check: 'score', guide: '*', reason: 'r' }], {}));
 	assert.equal(reasonFor(f, [{ check: 'score', reason: 'r' }], {}), null);
 	assert.equal(reasonFor(f, [{ check: 'score', guide: 'forever/horde/b', reason: 'r' }], {}), null);
+	const run = [{ check: 'score', guide: '*', mode: 'run*', reason: 'r' }];
+	assert.ok(reasonFor(f, run, { mode: 'run+riverglades' }));
+	assert.equal(reasonFor(f, run, { mode: 'riverglades' }), null);
 });
 
 test('numbers round as the audit always printed them: an exact tie goes to the even digit', () => {

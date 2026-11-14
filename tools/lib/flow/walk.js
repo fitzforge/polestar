@@ -59,14 +59,16 @@ function applies(only, race, cls) {
 }
 
 // A `when` list as the walk reads it: levels, and dungeons by `dungeons` ("all", or map ids "36,34": the dungeons the
-// player chose; "" none). With `walk`, the character's state as the Engine reads it: onquest / complete (accepted and
-// not handed in), turnedin, available (not yet taken or handed in), `done <label>`, taxi (a flight path learnt on the
-// walk: its getfp lines, the flights taken), bound (the inn of the walk's last sethome), has (an item the walk got:
-// collected, bought, a quest's starting item, with its count), zone (the zone of the walk's last goal); so a
-// `taxi`/`!taxi` or `bound`/`!bound` pair plays one side, not both. knows never holds (the walk learns no spells: a
-// fresh character does the training steps); group, money, skill, profession, item and reputation conditions never
-// hold (the solo route, no optional purchases).
-function whenOk(when, level, walk = null, dungeons = '') {
+// player runs; "" none) in the style `dungeonQuests` ("all": every quest of a dungeon run, "way": only the quests on the
+// way): `when dungeon "<X>"` holds when X is run, `when dungeon "<X>" all` (compiled `all = true`) only when it is run
+// with every quest. With `walk`, the character's state as the Engine reads it: onquest / complete (accepted and not
+// handed in), turnedin, available (not yet taken or handed in), `done <label>`, taxi (a flight path learnt on the walk:
+// its getfp lines, the flights taken), bound (the inn of the walk's last sethome), has (an item the walk got: collected,
+// bought, a quest's starting item, with its count), zone (the zone of the walk's last goal); so a `taxi`/`!taxi` or
+// `bound`/`!bound` pair plays one side, not both. knows never holds (the walk learns no spells: a fresh character does
+// the training steps); group, money, skill, profession, item and reputation conditions never hold (the solo route, no
+// optional purchases).
+function whenOk(when, level, walk = null, dungeons = '', dungeonQuests = 'all') {
 	for (const c of list(when)) {
 		const k = c.k;
 		let ok = true;
@@ -92,6 +94,7 @@ function whenOk(when, level, walk = null, dungeons = '') {
 			ok = op === '>=' ? level >= n : op === '<' ? level < n : op === '<=' ? level <= n : op === '>' ? level > n : level === n;
 		} else if (k === 'dungeon') {
 			ok = dungeons === 'all' || dungeons.split(',').includes(String(c.map));
+			if (c.all) ok = ok && dungeonQuests === 'all';
 		} else if (['group', 'money', 'skill', 'prof', 'item', 'rep'].includes(k)) {
 			ok = false;
 		}
@@ -105,16 +108,17 @@ function whenOk(when, level, walk = null, dungeons = '') {
 // default) whose `nextWhen` holds at the walk's level, and of those the first one a wanted route choice names (`route`:
 // substrings of guide ids: "riverglades", "shendralas", "hyjal"), else the first.
 class Router {
-	constructor(start, route = [], dungeons = '') {
+	constructor(start, route = [], dungeons = '', dungeonQuests = 'all') {
 		this.start = start;
 		this.route = route;
 		this.dungeons = dungeons;
+		this.dungeonQuests = dungeonQuests;
 	}
 
 	nextOf(g, level) {
 		const choices = (truthy(g.nextChoices) ? list(g.nextChoices) : [g.next]).filter(Boolean);
 		const nw = g.nextWhen || {};
-		const ok0 = choices.filter((c) => whenOk(nw[c], level, null, this.dungeons));
+		const ok0 = choices.filter((c) => whenOk(nw[c], level, null, this.dungeons, this.dungeonQuests));
 		const ok = ok0.length ? ok0 : choices;
 		for (const want of this.route) for (const c of ok) if (c.includes(want)) return c;
 		return ok.length ? ok[0] : null;
@@ -197,7 +201,7 @@ class Walk {
 	// walk's `chain`). data: loadData's. dyn: null (strict), "036" or "037". future: quest -> level at the guide's own
 	// hand-in on the strict walk (the XP rule). timed: quest -> timer seconds. take: "near" (lines taken where nearly
 	// free, as players do) or "all". followups: accept the follow-ups an early hand-in's NPC gives (players do).
-	constructor({ chain, race, cls, guides, legs, data, longFly = 0, dyn = null, future = null, timed = null, take = 'near', followups = true, dungeons = '' }) {
+	constructor({ chain, race, cls, guides, legs, data, longFly = 0, dyn = null, future = null, timed = null, take = 'near', followups = true, dungeons = '', dungeonQuests = 'all' }) {
 		this.race = race;
 		this.cls = cls;
 		this.proj = data.proj;
@@ -244,6 +248,7 @@ class Walk {
 		this.liveTurnins = new Set();
 		this.curGi = null;
 		this.dungeons = dungeons;
+		this.dungeonQuests = dungeonQuests;
 		this.chain = [];
 		this.stepDng = new Map();
 		this.labelsPlayed = new Set();
@@ -260,7 +265,7 @@ class Walk {
 			this.labelsPlayed = new Set();
 			for (let si = 1; si <= g.steps.length; si++) {
 				const step = g.steps[si - 1];
-				if (!applies(step.only, race, cls) || !whenOk(step.when, this.L, this, dungeons)) continue;
+				if (!applies(step.only, race, cls) || !whenOk(step.when, this.L, this, dungeons, dungeonQuests)) continue;
 				if (step.label) this.labelsPlayed.add(step.label);
 				if (dyn) {
 					const gl = list(step.goals).filter((go) => !go.optional && applies(go.only, race, cls));
@@ -669,7 +674,7 @@ class Walk {
 		let k = 0;
 		const npc = c.go.npc, obj = c.go.object;
 		for (const [s2, step, gl] of this.whSteps.get(gid)) {
-			if (s2 <= si || !whenOk(step.when, this.L, null, this.dungeons)) continue;
+			if (s2 <= si || !whenOk(step.when, this.L, null, this.dungeons, this.dungeonQuests)) continue;
 			if (s2 === c.si) return true;
 			for (const [, o] of gl) {
 				if ((npc != null && o.npc === npc) || (obj != null && o.object === obj)) {
@@ -705,7 +710,7 @@ class Walk {
 			const go = c.go;
 			const q = go.quest;
 			if (!this.acceptAt.has(q) || this.turninAt.has(q)) continue;
-			if (!whenOk(c.step.when, L, null, this.dungeons)) continue;
+			if (!whenOk(c.step.when, L, null, this.dungeons, this.dungeonQuests)) continue;
 			if (go.t === 'turnin') {
 				if (this.dynTurned.has(q) || this.liveTurnins.has(q) || !this.ready(q)) continue;
 				let budget = WH_SECONDS;
@@ -914,7 +919,7 @@ class Walk {
 		const npc = go.npc;
 		if (npc == null) return;
 		for (const [s2, step, gl] of this.whSteps.get(gid)) {
-			if (s2 <= si || !whenOk(step.when, this.L, null, this.dungeons)) continue;
+			if (s2 <= si || !whenOk(step.when, this.L, null, this.dungeons, this.dungeonQuests)) continue;
 			for (const [gi2, o] of gl) {
 				const q2 = o.quest;
 				if (o.t !== 'accept' || o.npc !== npc || q2 == null || this.acceptAt.has(q2)) continue;

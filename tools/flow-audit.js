@@ -4,7 +4,7 @@
 // branch (every start x class), and whether a candidate got worse than the guides that shipped.
 //
 //   node tools/flow-audit.js run --addon <dir> [options]          one audit: JSON (--out) and a report (--md)
-//   node tools/flow-audit.js modes --addon <dir> --out-dir <dir>   every way to play: dungeons Skip and Run, each route
+//   node tools/flow-audit.js modes --addon <dir> --out-dir <dir>   every way to play: dungeons off and on (both styles), each route
 //                                                                   choice and all of them, alone and with Run
 //   node tools/flow-audit.js gate <before> <after> [--reasons F]   the gate: two audits, or two --out-dir folders
 //
@@ -14,6 +14,8 @@
 //   --faction F      Horde or Alliance (default both); --start, --class: comma lists to narrow the branches
 //   --route LIST     route choices to take where a guide offers them (comma list: riverglades, shendralas, hyjal)
 //   --dungeons D     "all" or dungeon map ids: the `when dungeon` steps of the dungeons the player runs (default none)
+//   --dungeon-quests S  with --dungeons: all (default: every dungeon quest, the `when dungeon "X" all` steps too) or
+//                    way (only the quests on the way)
 //   --dynamic V      the While-here rules the player follows: 037 (default), 036, or off (the strict walk only)
 //   --wh-take T      near (default: lines taken where nearly free, as players do) or all
 //   --no-followups   an early hand-in's NPC's follow-ups are not taken there
@@ -30,7 +32,7 @@ const { runAudit, routeChoices, renderMd } = require('./lib/flow/audit');
 const { compare, table, formatResult } = require('./lib/flow/gate');
 
 const USAGE = `usage: node tools/flow-audit.js run --addon <dir> [--data DIR] [--faction F] [--start LIST] [--class LIST] [--route LIST]
-                                [--dungeons all|IDS] [--dynamic 037|036|off] [--wh-take near|all] [--no-followups] [--no-legs]
+                                [--dungeons all|IDS] [--dungeon-quests all|way] [--dynamic 037|036|off] [--wh-take near|all] [--no-followups] [--no-legs]
                                 [--out FILE] [--md FILE]
        node tools/flow-audit.js modes --addon <dir> --out-dir <dir> [--faction F] [the run options]
        node tools/flow-audit.js gate <before.json|dir> <after.json|dir> [--reasons FILE] [--json]`;
@@ -41,9 +43,10 @@ function auditOpts(opts) {
 	const dynamic = opts.dynamic === 'off' ? null : opts.dynamic || '037';
 	if (dynamic && !['036', '037'].includes(dynamic)) throw new Error(`--dynamic ${opts.dynamic}: 037, 036 or off`);
 	if (opts.whTake && !['near', 'all'].includes(opts.whTake)) throw new Error(`--wh-take ${opts.whTake}: near or all`);
+	if (opts.dungeonQuests && !['all', 'way'].includes(opts.dungeonQuests)) throw new Error(`--dungeon-quests ${opts.dungeonQuests}: all or way`);
 	return {
 		faction: opts.faction || '', starts: listOf(opts.start).map((s) => s.toLowerCase()), classes: listOf(opts.class).map((s) => s.toUpperCase()),
-		guide: opts.guide || '', route: listOf(opts.route), dungeons: opts.dungeons || '', dynamic, whTake: opts.whTake || 'near',
+		guide: opts.guide || '', route: listOf(opts.route), dungeons: opts.dungeons || '', dungeonQuests: opts.dungeonQuests || 'all', dynamic, whTake: opts.whTake || 'near',
 		followups: !opts.noFollowups, noLegs: Boolean(opts.noLegs),
 	};
 }
@@ -62,16 +65,19 @@ function run(opts) {
 	return 0;
 }
 
-// Every way to play a faction's route: dungeons Skip and Run, each experimental route choice its guides offer, all of
-// them together, alone and with Run. -> [{ mode, route, dungeons }]
+// Every way to play a faction's route: dungeons off, and on with every dungeon quest ("run") or only the quests on the
+// way ("run-way"); each experimental route choice its guides offer and all of them together, alone and with each Run.
+// -> [{ mode, route, dungeons, dungeonQuests }]
 function modesOf(compiled, faction) {
 	const routes = routeChoices(compiled, faction);
-	const out = [{ mode: 'skip', route: [], dungeons: '' }];
+	const out = [{ mode: 'skip', route: [], dungeons: '', dungeonQuests: 'all' }];
 	const ways = routes.map(([label, id]) => [label, [id]]);
 	if (routes.length > 1) ways.push([routes.map(([label]) => label).join('+'), routes.map(([, id]) => id)]);
-	for (const [label, route] of ways) out.push({ mode: label, route, dungeons: '' });
-	out.push({ mode: 'run', route: [], dungeons: 'all' });
-	for (const [label, route] of ways) out.push({ mode: `run+${label}`, route, dungeons: 'all' });
+	for (const [label, route] of ways) out.push({ mode: label, route, dungeons: '', dungeonQuests: 'all' });
+	for (const [run, dungeonQuests] of [['run', 'all'], ['run-way', 'way']]) {
+		out.push({ mode: run, route: [], dungeons: 'all', dungeonQuests });
+		for (const [label, route] of ways) out.push({ mode: `${run}+${label}`, route, dungeons: 'all', dungeonQuests });
+	}
 	return out;
 }
 
@@ -82,7 +88,7 @@ function modes(opts) {
 	const base = auditOpts(opts);
 	for (const faction of opts.faction ? [opts.faction] : ['Alliance', 'Horde']) {
 		for (const m of modesOf(compiled, faction)) {
-			const res = runAudit(compiled, dataDir, { ...base, faction, route: m.route, dungeons: m.dungeons });
+			const res = runAudit(compiled, dataDir, { ...base, faction, route: m.route, dungeons: m.dungeons, dungeonQuests: m.dungeonQuests });
 			res.mode = m.mode;
 			res.faction = faction;
 			const file = path.join(opts.outDir, `${m.mode}-${faction}.json`);
@@ -112,7 +118,8 @@ function gate(opts, positional) {
 	for (const [label, b, a] of pairs(positional[0], positional[1])) {
 		const before = JSON.parse(fs.readFileSync(b, 'utf8'));
 		const after = JSON.parse(fs.readFileSync(a, 'utf8'));
-		const [mode, faction] = before.mode ? [before.mode, before.faction] : label.split('-');
+		const cut = label.lastIndexOf('-');
+		const [mode, faction] = before.mode ? [before.mode, before.faction] : [label.slice(0, cut), label.slice(cut + 1)];
 		const res = compare(before, after, reasons, { mode, faction });
 		failed += res.fail.length;
 		results.push({ label, mode, faction, ...res, table: table(before, after, { dungeons: Boolean(after.dungeons) }) });
@@ -133,7 +140,7 @@ function main(argv) {
 	const [cmd, ...rest] = argv;
 	const { opts, positional, error } = parseArgs(rest, {
 		flags: ['--no-followups', '--no-legs', '--json', '--table'],
-		options: ['--addon', '--data', '--faction', '--start', '--class', '--guide', '--route', '--dungeons', '--dynamic', '--wh-take', '--out', '--md', '--out-dir', '--reasons'],
+		options: ['--addon', '--data', '--faction', '--start', '--class', '--guide', '--route', '--dungeons', '--dungeon-quests', '--dynamic', '--wh-take', '--out', '--md', '--out-dir', '--reasons'],
 	});
 	if (opts.help || error || !['run', 'modes', 'gate'].includes(cmd) || (cmd !== 'gate' && !opts.addon)) {
 		console.error((error ? error + '\n' : '') + USAGE);

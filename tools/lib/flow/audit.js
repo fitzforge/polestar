@@ -155,7 +155,7 @@ function sharedSort(list_, keyOf, extra) {
 // opts: addon guides ({ guides, legs }), dataDir, starts/classes filters, guide (id substring), noLegs, longFly, dynamic
 // ("036" | "037" | null), whTake ("near" | "all"), followups, route (list of id substrings), dungeons ("all", ids, "").
 function runAudit(compiled, dataDir, opts = {}, log = () => {}) {
-	const { faction = '', starts = [], classes = [], guide = '', noLegs = false, longFly = 2500, dynamic = null, whTake = 'near', followups = true, route = [], dungeons = '' } = opts;
+	const { faction = '', starts = [], classes = [], guide = '', noLegs = false, longFly = 2500, dynamic = null, whTake = 'near', followups = true, route = [], dungeons = '', dungeonQuests = 'all' } = opts;
 	const data = loadData(dataDir);
 	const G = new Map();
 	for (const g of compiled.guides) if (g.category === 'Leveling') G.set(g.id, g);
@@ -168,8 +168,8 @@ function runAudit(compiled, dataDir, opts = {}, log = () => {}) {
 	};
 	const branchRows = [];
 	for (const b of branchesOf(G, data.races, { faction, starts, classes })) {
-		const common = { race: b.race, cls: b.cls, guides: G, legs, data, longFly, dungeons };
-		let w = new Walk({ ...common, chain: new Router(b.first, route, dungeons) });
+		const common = { race: b.race, cls: b.cls, guides: G, legs, data, longFly, dungeons, dungeonQuests };
+		let w = new Walk({ ...common, chain: new Router(b.first, route, dungeons, dungeonQuests) });
 		let r = analyse(w, data.quests, data.proj);
 		const bkey = `${b.start}/${b.cls}`;
 		let strict = null;
@@ -355,17 +355,19 @@ function runAudit(compiled, dataDir, opts = {}, log = () => {}) {
 		}
 		guides[gid] = s;
 	}
-	return { branches: branchRows, guides, dynamic, route, dungeons };
+	return { branches: branchRows, guides, dynamic, route, dungeons, dungeon_quests: dungeons ? dungeonQuests : null };
 }
 
-// The experimental route choices a faction's leveling guides offer (`next` options in Polestar Experimental), as
-// [label, guide id]: "riverglades" for polestar-experimental/riverglades-horde-1.
+// The experimental route choices a faction's leveling guides offer (`next` options in Polestar Experimental) and the
+// compiled guides hold (compile the experimental pack too), as [label, guide id]: "riverglades" for
+// polestar-experimental/riverglades-horde-1.
 function routeChoices(compiled, faction) {
+	const have = new Set(compiled.guides.map((g) => g.id));
 	const out = new Map();
 	for (const g of compiled.guides) {
 		if (g.category !== 'Leveling' || g.faction !== faction || String(g.id).startsWith('polestar-experimental/')) continue;
 		for (const c of list(g.nextChoices)) {
-			if (!String(c).startsWith('polestar-experimental/')) continue;
+			if (!String(c).startsWith('polestar-experimental/') || !have.has(c)) continue;
 			const label = c.slice('polestar-experimental/'.length).replace(/(-(horde|alliance))?(-\d+)?$/, '');
 			if (!out.has(label)) out.set(label, c);
 		}

@@ -2,11 +2,11 @@
 // The route-feel gate (docs/ROUTE-FEEL.md): a candidate's flow audit against the shipped guides' audit, in the same
 // mode (the same faction, route choices and dungeons). It fails when a guide or a branch got worse than shipped and
 // data/flow-gate.json gives no reason for it.
-//   The solo route (dungeons on Skip, any route choice): per guide, the mean over the branches that play it: the flow
+//   The solo route (dungeons off, any route choice): per guide, the mean over the branches that play it: the flow
 //     score, avoidable backtracks, givers passed within 40 yd and taken later; per branch, the whole chain:
 //     back-and-forth (avoidable backtracks and hub revisits; wasted walking minutes), carried quests (carried far:
 //     held through a whole guide or 2+ hours; hours carried) and quests never handed in.
-//   Dungeons on Run: the route takes every dungeon quest it can, so its extra travel and detours are expected and only
+//   Dungeons on (either style): the route takes the dungeon quests it can, so its extra travel and detours are expected and only
 //     reported. It fails on avoidable backtracks and hub revisits, givers and enders walked past, and quests never
 //     handed in.
 //   Every mode: a quest log over the game's 40 at any point fails, whatever the shipped guides did.
@@ -30,7 +30,7 @@ const LOG_CAP = 40;
 // A guide whose quests changed by more than this share (split, merged) is compared through the branches only.
 const RESTRUCTURED = 0.25;
 
-// [check, value, tolerance, what, modes]: "solo" (dungeons on Skip), "run" (dungeons on Run) or both.
+// [check, value, tolerance, what, modes]: "solo" (dungeons off), "run" (dungeons on) or both.
 const GUIDE_CHECKS = [
 	['score', (m) => score(m), TOL.score, 'flow score per 10 quests', ['solo']],
 	['backtracks_avoidable', (m) => m.backtracks_avoidable, TOL.backtracks_avoidable, 'avoidable backtracks', ['solo', 'run']],
@@ -67,7 +67,8 @@ const BRANCH_CHECKS = [
 	['never_handed', (m) => m.never_handed, () => 0, 'quests picked up and never handed in', ['solo', 'run']],
 ];
 
-const matches = (want, v) => want == null || want === '*' || want === v;
+// A reason's mode or faction: left out or "*" holds in all; "run*" in every mode that starts with run.
+const matches = (want, v) => want == null || want === '*' || want === v || (want.endsWith('*') && String(v ?? '').startsWith(want.slice(0, -1)));
 
 // The reason (data/flow-gate.json `reasons`) that accepts a failure: the same check, mode and faction where the reason
 // names them, and the failing guide (a guide check) or branch (a branch check) by name, or "*" for all of them.
@@ -76,7 +77,7 @@ function reasonFor(f, reasons, ctx) {
 	return reasons.find((r) => r.check === f.check && matches(r.mode, ctx.mode) && matches(r.faction, ctx.faction) && target(r)) || null;
 }
 
-// before / after: runAudit's output. ctx: { mode, faction } for the reasons; `run` (dungeons on Run) picks the run
+// before / after: runAudit's output. ctx: { mode, faction } for the reasons; `run` (dungeons on) picks the run
 // mode's checks (default: the audit's own `dungeons`). A guide new to the candidate, or one whose quests changed by more
 // than RESTRUCTURED (split, merged, content moved), is compared through the branches only: its own numbers measure a
 // different guide. -> { fail, accepted, notCompared, restructured, checked, kind }
@@ -180,7 +181,7 @@ function table(before, after, { dungeons = false } = {}) {
 function formatResult(res, title) {
 	const num = (v) => (Number.isInteger(v) ? String(v) : v.toFixed(2));
 	const line = (f) => `  ${f.guide ? f.guide.replace(/^forever\//, '') : f.branch}: ${f.what} ${num(f.before)} -> ${num(f.after)}${f.reason ? ` (reason: ${f.reason})` : ''}`;
-	const out = [`${title} (${res.kind === 'run' ? 'dungeons on Run: detours reported, not gated' : 'solo route'}): ${res.fail.length ? 'FAIL' : 'pass'} (${res.checked} checks, ${res.fail.length} worse than before, ${res.accepted.length} accepted with a reason)`];
+	const out = [`${title} (${res.kind === 'run' ? 'dungeons on: detours reported, not gated' : 'solo route'}): ${res.fail.length ? 'FAIL' : 'pass'} (${res.checked} checks, ${res.fail.length} worse than before, ${res.accepted.length} accepted with a reason)`];
 	for (const f of res.fail) out.push(line(f));
 	if (res.accepted.length) {
 		out.push(' accepted:');
