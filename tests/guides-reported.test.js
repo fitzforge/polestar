@@ -15,7 +15,7 @@ const fs = require('node:fs');
 const path = require('node:path');
 const { needs } = require('./helpers/data');
 const { compileSources, compileProject, OFFICIAL_DIR } = require('../tools/lib/dsl/project');
-const { loadData } = require('../tools/lib/dsl/data');
+const { loadData, Data } = require('../tools/lib/dsl/data');
 const { parseGuide } = require('../tools/lib/dsl/parse');
 const { Diagnostics } = require('../tools/lib/dsl/diag');
 const { loadCorrections } = require('../tools/lib/data/corrections');
@@ -9596,6 +9596,113 @@ test('Class audit: Aquatic Form (Horde) takes the Sludge Fen half before the zep
 	const zeppelin = at(list, 'Zeppelin to Undercity', (g) => g.t === 'goto' && /Zeppelin to Undercity/.test(g.label || g.text || ''));
 	const endurance = at(list, 'collect 15882', (g) => g.t === 'collect' && g.item === 15882);
 	assert.ok(agility < zeppelin && zeppelin < endurance, 'Barrens half, zeppelin, Silverpine half');
+});
+
+test('Bear Form hands in each carried alternative trainer letter (#2310)', async (t) => {
+	const file = path.join(OFFICIAL_DIR, 'forever/class/druid/bear-form.guide');
+	const text = fs.readFileSync(file, 'utf8');
+	const diag = new Diagnostics();
+	const ast = parseGuide(text, file, diag);
+	assert.deepEqual(diag.errors, []);
+	const letters = [5923, 5924, 5926, 5927];
+	const sides = [
+		{ quests: [5923, 5924], race: 'NightElf', npc: 4217, name: 'Mathrengyl Bearwalker', map: 1457, zone: 'Darnassus', x: 35.4, y: 8.4, next: 5921 },
+		{ quests: [5926, 5927], race: 'Tauren', npc: 3033, name: 'Turak Runetotem', map: 1456, zone: 'Thunder Bluff', x: 76.5, y: 27.2, next: 5922 },
+	];
+	// Canonical distinct IDs/enders (forever-db quest_end.jsonl:2623-2628), with
+	// published giver positions. This fixture tests ready client windows, not eligibility.
+	const quests = {}, npcs = {}, zones = { 1450: { id: 1450, name: 'Moonglade' } };
+	for (const side of sides) {
+		for (const id of side.quests) quests[id] = { id, title: 'Heeding the Call', end: { npc: [side.npc] }, objectives: [] };
+		npcs[side.npc] = { id: side.npc, name: side.name, spawns: { [side.map]: { f: 'e', pts: [[side.x, side.y]] } } };
+		zones[side.map] = { id: side.map, name: side.zone };
+	}
+	const data = new Data({ quests, npcs, zones });
+	const lines = text.split('\n');
+	const handins = ast.steps.flatMap((s, i) => s.goals.some((g) => g.verb === 'turnin' && letters.includes(g.quest))
+		? lines.slice(s.line - 1, ast.steps[i + 1]?.line - 1 || lines.length) : []);
+	const compiled = compileSources([{ file, text: [
+		...lines.slice(0, ast.steps[0].line - 1), ...handins,
+		'step Continue after trainer letters', '  task "Continue"',
+	].join('\n') }], data);
+	assert.deepEqual(compiled.diag.list, []);
+	const pack = writeTestPack(compiled.guides, data);
+	const loads = pack.scripts.map((f) => `assert(loadfile(${JSON.stringify(f)}))("Polestar_Guides", ns)`).join('\n');
+	const sentinel = compiled.guides[0].steps.length;
+	const run = (side, q, { state = 'held', race = side.race, mode = 'gossip', auto = true, action = '' } = {}) => runAddon({
+		stubs: ['stub_world.lua'],
+		addons: [{ name: 'Polestar', files: ['Core/Core.xml'] }],
+		saved: { Polestar: 'PolestarDB={schema=1,settings={behavior={autoSelectGuide=false,autoAccept=false,autoTurnin=true}}}' },
+		before: `local w = stub.world
+			w.race, w.raceName, w.faction, w.class, w.className = "${race}", "${race}", "${race === 'NightElf' ? 'Alliance' : 'Horde'}", "DRUID", "Druid"
+			w.level = 10
+			w.addMap(1457, {name="Darnassus", c=1, left=2938.363, right=1880.03, top=10238.316, bottom=9532.587})
+			w.addMap(1456, {name="Thunder Bluff", c=1, left=516.667, right=-527.083, top=-850, bottom=-1545.833})
+			w.moveTo(${side.map}, ${side.x}, ${side.y})`,
+		script: `do local ns = {}
+			${loads}
+			end
+			local w, E = stub.world, Polestar.Engine
+			${state === 'held' ? `w.onQuest(${q}, {})` : state === 'done' ? `w.complete({${q}})` : ''}
+			stub.login(); stub.advance(0.5)
+			E.SetGuide("forever/class/druid/bear-form"); stub.advance(0.5)
+			Polestar.Set("behavior.autoTurnin", ${auto})
+			${action}
+			stub.advance(0.5)
+			emit({step=E.GetStepIndex(), wanted=E.WantsQuest("turnin",${q}), wants={${letters.map((id) => `[${id}]=E.WantsQuest("turnin",${id})`).join(',')}}})
+			w.calls={}
+			${mode === 'gossip' || mode === 'greeting'
+				? `w.${mode}(${side.npc}, {active={{questID=${q}, isComplete=true}}, available={}})`
+				: `w.quest${mode === 'progress' ? 'Progress' : 'Complete'}(${side.npc}, ${q})`}
+			stub.advance(1)
+			emit({step=E.GetStepIndex(), held=w.log[${q}]~=nil, done=w.completed[${q}]==true, calls=#w.calls})`,
+	}).emitted;
+	try {
+		for (const side of sides) for (const q of side.quests) {
+			for (const mode of ['gossip', 'greeting', 'progress', 'complete']) {
+				await t.test(`${q}: ready letter through ${mode}`, () => {
+					const [before, after] = run(side, q, { mode });
+					assert.equal(before.wanted, true, 'the carried alternative is an exact wanted hand-in');
+					for (const id of letters) assert.equal(before.wants[id], id === q, 'unheld alternatives are not wanted');
+					assert.equal(after.done, true, 'the ready NPC window hands in the letter');
+					assert.equal(after.held, false);
+					assert.equal(after.step, sentinel, 'no other letter is required');
+					const turnin = ast.steps.findIndex((s) => s.goals.some((g) => g.verb === 'turnin' && g.quest === q));
+					const accept = ast.steps.findIndex((s) => s.goals.some((g) => g.verb === 'accept' && g.quest === side.next));
+					assert.ok(turnin >= 0 && turnin < accept, 'hand in a carried letter before accepting Moonglade');
+					if (side.race === 'NightElf') {
+						const entrance = ast.steps.findIndex((s) => s.goals.some((g) => g.verb === 'goto' && g.x === 35.8 && g.y === 11.6));
+						assert.ok(entrance >= 0 && entrance < turnin, 'reach the Cenarion entrance before the upstairs hand-in');
+					}
+				});
+			}
+			for (const [name, opts, held, done] of [
+				['absent', { state: 'absent' }, false, false],
+				['already handed in', { state: 'done' }, false, true],
+				['wrong race', { race: side.race === 'NightElf' ? 'Tauren' : 'NightElf' }, true, false],
+				['skipped quest', { action: `E.SkipQuest(${q}, true)` }, true, false],
+				['abandoned before the window', { action: `w.abandon(${q})` }, false, false],
+			]) {
+				await t.test(`${q}: ${name}`, () => {
+					const [before, after] = run(side, q, opts);
+					assert.equal(before.wanted, false);
+					assert.equal(before.step, sentinel, 'an inapplicable letter does not hold the guide');
+					assert.equal(after.held, held);
+					assert.equal(after.done, done);
+					assert.equal(after.calls, 0, 'no unwanted hand-in action');
+				});
+			}
+			await t.test(`${q}: auto-turn-in disabled`, () => {
+				const [before, after] = run(side, q, { auto: false });
+				assert.equal(before.wanted, true, 'manual hand-in stays in the guide');
+				assert.equal(after.held, true);
+				assert.equal(after.done, false);
+				assert.equal(after.calls, 0, 'respect the automation setting');
+			});
+		}
+	} finally {
+		fs.rmSync(pack.dir, { recursive: true, force: true });
+	}
 });
 
 // Tyr's Watch: a step gated `when onquest 99152,99153` whose hand-ins were all optional counted done at once, so
