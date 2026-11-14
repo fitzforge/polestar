@@ -715,6 +715,7 @@ L["%s Inn"] = "Posada de %s"
 L["Detour around %s"] = "Rodeo para evitar %s"
 L["Walk to the airship dock"] = "Camina hasta el muelle de la aeronave"
 L["Take the airship to %s"] = "Toma la aeronave a %s"
+-- L["Learn the flight path at %s, then fly to %s"] = ""
 
 -- QoL/QuickBind.lua
 L["Not needed right now: shown so you can bind it."] = "Ahora no se necesita: se muestra para que puedas asignarle una tecla."
@@ -2209,6 +2210,7 @@ L["Log:"] = "Registro:"
 L["Step %d of %d (guide step %d): %s"] = "Paso %d de %d (paso %d de la guía): %s"
 L["Install: %s"] = "Instalación: %s"
 L["While here: %s"] = "Mientras estás aquí: %s"
+-- L["Travel: %s"] = ""
 -- L["The report lists the settings you changed and your profile's name: no character names, chat, account or realm."] = ""
 
 -- UI/RouteChoice.lua
@@ -3531,6 +3533,7 @@ L["%s · this guide doesn't go there"] = "%s · esta guía no va allá"
 L["Timed quest"] = "Misión con tiempo"
 L["This guide's route doesn't hand this quest in: go there yourself before the time runs out, or let it go."] = "La ruta de esta guía no entrega esta misión: ve tú antes de que se acabe el tiempo, o déjala."
 L["Right-click: hide this until the timer ends."] = "Clic derecho: ocultar hasta que se acabe el tiempo."
+-- L["%s ~%s · go now, the route gets there too late"] = ""
 
 -- Core/Update.lua
 L["(outdated: latest %s)"] = "(desactualizado: la última es %s)"
@@ -4425,6 +4428,7 @@ L["Part of the %s quests"] = "Parte de las misiones de %s"
 -- L["%d finished quests here first"] = ""
 -- L["Jump anyway? They stay in your log, and the guide lists who takes each in."] = ""
 -- L["Jump anyway"] = ""
+L["Open any flight master's map once on this continent so Polestar knows your flight paths."] = "Abre una vez el mapa de cualquier maestro de vuelo de este continente para que Polestar conozca tus rutas de vuelo."
 
 -- Core/Pause.lua
 -- L["Press %s to resume, or open the guide window."] = ""

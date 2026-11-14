@@ -1377,6 +1377,49 @@ fn on_the_path_every_style_s_first_minimap_mark_sits_by_the_player_s_arrow_even_
 	}
 }
 
+// The arrow replay (0.3.8): more than LIVE_REACH (60 yd) off the walk with nothing in sight, the line kept the start
+// it last had in reach, so it began away from the player while the arrow pointed back to the walk (12.5% of the
+// moving time on a stray-heavy sample). Now it starts at the player and runs to where the arrow points
+// (Walk.LastAim): the player 80 yd east of a walk running south, the arrow aiming at the walk 10 yd past their place.
+// Within 60 yd nothing changes (the tests above).
+#[test]
+fn far_off_the_walk_with_nothing_in_sight_the_minimap_line_starts_at_the_player_toward_the_arrows_aim() {
+	let out = painted_line(
+		r#"
+		Polestar.Set("nav.travel", false)
+		Polestar.Set("ui.reduceMotion", true) -- no draw-in
+		nav.viewRadius = 150
+		local m, x, y = nav.mapPoint(0, -400)
+		N.SetTarget(m, x, y, "T")
+		geom.legs = { { kind = "walk", pts = { { 0, 0, 0 }, { 0, 0, -200 }, { 0, 0, -400 } }, current = true } }
+		local W = N.walk
+		W.SightAim = function() return nil end
+		W.LastAim = function() return 0, 0, -160 end
+		nav.place(80, -150)
+		Polestar.Fire("NAV_ROUTE_GEOMETRY")
+		stub.advance(0.5)
+		local r = {}
+		local cx, cy = Minimap:GetWidth() / 2, -Minimap:GetHeight() / 2
+		for _, style in ipairs({ "line", "dots" }) do
+			Polestar.Set("nav.lineStyle", style)
+			stub.advance(0.5)
+			local s, best = R.GetStrokes("minimap"), math.huge
+			for i = 1, s.n do
+				for _, p in ipairs({ { s.x1[i], s.y1[i] }, { s.x2[i], s.y2[i] } }) do
+					best = math.min(best, math.sqrt((p[1] - cx) ^ 2 + (p[2] - cy) ^ 2))
+				end
+			end
+			r[style] = best
+		end
+		r.walkPx = 80 / 150 * Minimap:GetWidth() / 2
+		emit(r)"#,
+	);
+	assert!(f(&out["walkPx"]) > 30.0, "the walk lies {} px from the arrow", out["walkPx"]);
+	for style in ["line", "dots"] {
+		assert!(f(&out[style]) < 12.0, "{style}: the first mark {} px from the arrow, the walk {} px off", out[style], out["walkPx"]);
+	}
+}
+
 // The minimap dots move with the player as 0.3.5's did: every step along the walk lays them out again from the
 // player (the minimap's 10 Hz driver), and standing still they stay.
 #[test]

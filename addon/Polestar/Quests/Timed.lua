@@ -18,6 +18,16 @@
 -- A quest that failed (C_QuestLog.IsFailed) loses its countdown at once; its
 -- goals grey with the Engine's "failed: abandon it and take it again"
 -- (Own.failedQuest) and the alert says the same in chat.
+-- The way to a running timer's hand-in on the route is read every READ_EVERY
+-- seconds whichever step is shown (Timed.Way). When the route's way there
+-- (Engine.RouteSeconds: the errands before it, in order) would get in after
+-- the timer runs out and the way straight there still makes it, with the quest
+-- ready to hand in, the hand-in is pulled forward (0.3.8, plan item 3F-C7):
+-- the Engine leads the arrow there ahead of the live step's other errands
+-- (Own.timedAim) and the While-here panel opens with the quest's row, "Durnan
+-- Furcutter ~3 min · go now, the route gets there too late" (a right-click
+-- lets the route be: the row goes, the arrow back to the step). TIMED_PULL
+-- when a pull starts or ends.
 -- A running timer whose hand-in the active guide's route does not make from
 -- the live step on (0.3.7: Apothecary Zamah, offered by a giver
 -- the Barrens route visits, with 42:00 left) gets a line of its own at the top
@@ -45,6 +55,11 @@
 --   Timed.Soonest()        the quest whose running timer ends first, or nil
 --   Timed.LimitText(goal)  "Timed: 10 min once accepted" for an open accept with a `limit`, or nil
 --   Timed.Hint(goal)       the hand-in hint, on the shown step's goal that carries it, or nil
+--   Timed.Running(out)     the running timers, soonest first (fills `out`, wiped)
+--   Timed.Way(q)           seconds the way straight to quest q's hand-in on the route takes from where the player
+--                          was at the last reading (Nav.EstimateTravel, as the hint's), or nil
+--   Timed.Pulling()        the quest whose hand-in is pulled forward (soonest first), or nil
+--   Timed.Pulled(q)        its hand-in on the route: step, goal index; or nil
 --   Timed.OffRoute(out)    the running timers the route does not hand in, soonest first (fills `out`, wiped)
 --   Timed.OffText(q)       an off-route timer's line and subline, or nil
 --   Timed.AimOff(q)        the arrow to its ender; true when it could
@@ -77,6 +92,7 @@ local way = {} -- questID -> { secs, name }: the way to its hand-in, last estima
 local hintAt = {} -- questID -> index of the shown step's goal that carries the hint
 local off = {} -- questID -> its ender { name, zone, map, x, y, f, z, secs } while the route does not hand it in; false: none known
 local muted = {} -- questID -> true: its off-route line hidden until the timer ends
+local pull = {} -- questID -> { s, g }: its hand-in on the route, pulled forward (Timed.Pulling)
 local ticker, lastRead = nil, nil
 
 function Timed.Left(q)
@@ -125,6 +141,36 @@ function Timed.Soonest()
 		if not bestAt or d < bestAt then best, bestAt = q, d end
 	end
 	return best
+end
+
+local function byDeadline(a, b) return deadline[a] < deadline[b] end
+
+function Timed.Running(out)
+	out = out or {}
+	for i = #out, 1, -1 do out[i] = nil end
+	for q in pairs(deadline) do out[#out + 1] = q end
+	table.sort(out, byDeadline)
+	return out
+end
+
+function Timed.Way(q)
+	local w = q and way[q]
+	return w and w.secs or nil
+end
+
+function Timed.Pulling()
+	local best, bestAt
+	for q in pairs(pull) do
+		local d = deadline[q]
+		if d and (not bestAt or d < bestAt) then best, bestAt = q, d end
+	end
+	return best
+end
+
+function Timed.Pulled(q)
+	local p = q and pull[q]
+	if not p then return nil end
+	return p[1], p[2]
 end
 
 function Timed.Badge(goal)
@@ -233,9 +279,21 @@ local function hintGoal(guide, shown, q)
 	return last
 end
 
+-- Whether quest q's hand-in on the route is pulled forward now (see the top):
+-- its step and goal index, or nil.
+local function pulls(E, q)
+	local C, w, left = ns.Compat, way[q], Timed.Left(q)
+	if muted[q] or not (w and left and w.secs <= left and E.RouteSeconds) then return nil end
+	if not (C and C.IsQuestReadyForTurnIn and C.IsQuestReadyForTurnIn(q)) or (C.IsQuestFailed and C.IsQuestFailed(q)) then return nil end
+	local secs, s, g = E.RouteSeconds(q)
+	if not (secs and secs > left) then return nil end
+	return s, g
+end
+
 local function measure()
 	local E, nav = ns.Engine, ns.Nav
 	local guide = E and E.GetGuide and E.GetGuide()
+	local was = next(pull) ~= nil and Timed.Pulling()
 	for q in pairs(way) do
 		if not deadline[q] then way[q] = nil end
 	end
@@ -243,8 +301,13 @@ local function measure()
 		if not deadline[q] then off[q], muted[q] = nil, nil end
 	end
 	for q in pairs(hintAt) do hintAt[q] = nil end
+	for q in pairs(pull) do pull[q] = nil end
+	for q in pairs(muted) do
+		if not deadline[q] then muted[q] = nil end
+	end
 	if not (guide and E.GetLiveStep and E.GetLiveStep()) then
 		for q in pairs(off) do off[q] = nil end
+		if was then ns.Fire("TIMED_PULL") end
 		return
 	end
 	local shown = E.GetStepIndex and E.GetStepIndex()
@@ -255,7 +318,7 @@ local function measure()
 			offPlace(q, nav)
 		else
 			off[q] = nil
-			local goal = hintAt[q] and nav and nav.EstimateTravel and turninOf(E, guide, q)
+			local goal = nav and nav.EstimateTravel and turninOf(E, guide, q)
 			if goal then
 				local ok, secs, busy = pcall(nav.EstimateTravel, nil, { map = goal.map, x = goal.x, y = goal.y, f = goal.f }, true)
 				if ok and type(secs) == "number" then
@@ -263,24 +326,31 @@ local function measure()
 				elseif not (ok and busy == "busy") then
 					way[q] = nil
 				end
+				local s, g = pulls(E, q)
+				if s then pull[q] = { s, g } end
 			else
 				way[q] = nil
 			end
 		end
 	end
+	local now = next(pull) ~= nil and Timed.Pulling()
+	if now ~= was then ns.Fire("TIMED_PULL") end
 end
 
 ---------------------------------------------------------------------------
 -- Timers the route does not hand in
 ---------------------------------------------------------------------------
 
-local function byDeadline(a, b) return deadline[a] < deadline[b] end
-
 function Timed.OffRoute(out)
 	out = out or {}
 	for i = #out, 1, -1 do out[i] = nil end
+	local C = ns.Compat
 	for q, o in pairs(off) do
-		if o and deadline[q] and not muted[q] and not (ns.Compat and ns.Compat.IsQuestFailed and ns.Compat.IsQuestFailed(q)) then out[#out + 1] = q end
+		if o and deadline[q] and not muted[q] and not (C and C.IsQuestFailed and C.IsQuestFailed(q)) then out[#out + 1] = q end
+	end
+	-- A hand-in pulled forward has its row too: it says why the arrow left the step.
+	for q in pairs(pull) do
+		if deadline[q] and not muted[q] then out[#out + 1] = q end
 	end
 	table.sort(out, byDeadline)
 	return out
@@ -288,9 +358,14 @@ end
 
 function Timed.OffText(q)
 	local o, countdown = off[q], Timed.Countdown(q)
-	if not (o and countdown) then return nil end
+	local w = pull[q] and way[q]
+	if not ((o or w) and countdown) then return nil end
 	local C = ns.Compat
 	local name = (C and C.GetQuestTitle and C.GetQuestTitle(q)) or ("#" .. q)
+	if w then
+		-- Timed.Countdown starts with the hourglass and its own space: "<quest> <hourglass> 4:12 left".
+		return name .. " " .. countdown, format(L["%s ~%s · go now, the route gets there too late"], w.name, duration(w.secs))
+	end
 	local place = o.zone ~= "" and o.zone or o.name
 	local sub
 	if o.secs then
@@ -306,6 +381,11 @@ function Timed.OffText(q)
 end
 
 function Timed.AimOff(q)
+	-- A pulled hand-in: the Engine's arrow leads there already (Own.timedAim).
+	if q and pull[q] then
+		ns.Fire("TIMED_PULL")
+		return true
+	end
 	local o, nav = off[q], ns.Nav
 	if not (o and nav and nav.SetTarget) then return false end
 	local C = ns.Compat
@@ -314,8 +394,13 @@ function Timed.AimOff(q)
 end
 
 function Timed.MuteOff(q)
-	if not (q and off[q]) then return false end
+	if not (q and (off[q] or pull[q])) then return false end
 	muted[q] = true
+	-- Let the route be: no pull, the arrow back to the step.
+	if pull[q] then
+		pull[q] = nil
+		ns.Fire("TIMED_PULL")
+	end
 	return true
 end
 

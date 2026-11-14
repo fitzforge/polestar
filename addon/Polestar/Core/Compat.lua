@@ -222,6 +222,27 @@ function Compat.GetSpellCooldown(spellID)
 	return start, duration
 end
 
+-- A spell's full cooldown in seconds as the client tells it (its base
+-- cooldown, cooling down now or not), or nil when it tells none.
+function Compat.GetSpellBaseCooldown(spellID)
+	local fn = GetSpellBaseCooldown
+	if not fn then return nil end
+	local ok, ms = pcall(fn, spellID)
+	ms = ok and readable(ms) or nil
+	if type(ms) == "number" and ms > 0 then return ms / 1000 end
+	return nil
+end
+
+-- An item's full cooldown in seconds: its use spell's
+-- (Compat.GetSpellBaseCooldown), or nil.
+function Compat.GetItemBaseCooldown(itemID)
+	local fn = (C_Item and C_Item.GetItemSpell) or GetItemSpell
+	if not fn then return nil end
+	local ok, _, spellID = pcall(fn, itemID)
+	if ok and type(spellID) == "number" then return Compat.GetSpellBaseCooldown(spellID) end
+	return nil
+end
+
 -- An item's cooldown, as Compat.GetSpellCooldown.
 function Compat.GetItemCooldown(itemID)
 	local fn = (C_Container and C_Container.GetItemCooldown) or GetItemCooldown

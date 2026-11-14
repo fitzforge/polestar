@@ -198,6 +198,8 @@ mod engine_when_upgrade;
 mod engine_while_here;
 #[path = "engine-zone-walk.rs"]
 mod engine_zone_walk;
+#[path = "flight-map-notice.rs"]
+mod flight_map_notice;
 mod gamepad;
 #[path = "gamepad-ui.rs"]
 mod gamepad_ui;

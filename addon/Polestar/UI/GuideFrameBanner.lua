@@ -33,16 +33,17 @@ ns.UI.GuideFrame.Part(function(GF)
 	-- earlier one (Engine.FreshStart: Open that guide in a tab), then the
 	-- out-levelled offer
 	-- (while its guide is active), then the training reminder, the riding one,
-	-- then a Class guide that just opened (QoL/ClassQuests.lua), then the bags
-	-- nearly full while the step collects (QoL/Space.lua: delete the cheapest
-	-- junk, two clicks), then gear worth wearing from loot or a merchant
-	-- (QoL/Wear.lua: Wear it, Not this one), last a newer Polestar or an old
+	-- then a Class guide that just opened (QoL/ClassQuests.lua), then a flight
+	-- map to open once where Polestar doesn't know the flight paths yet (#1795),
+	-- then the bags nearly full while the step collects (QoL/Space.lua: delete
+	-- the cheapest junk, two clicks), then gear worth wearing from loot or a
+	-- merchant (QoL/Wear.lua: Wear it, Not this one), last a newer Polestar or an old
 	-- build (UI/UpdateCard.lua: Update; shown with no guide open too). Taking
 	-- or dismissing one lets the next through.
 	---------------------------------------------------------------------------
 
 	local SKIPPED_SECONDS = 20 -- how long the "Skipped …" notices stay
-	local notices = { closedTab = nil, questSkip = nil, stepSkip = nil, skipped = nil, away = nil, outlevel = nil, train = nil, riding = nil, classQuest = nil, dungeonKept = nil, soonSeen = nil, freshSeen = {} }
+	local notices = { closedTab = nil, questSkip = nil, stepSkip = nil, skipped = nil, away = nil, outlevel = nil, train = nil, riding = nil, classQuest = nil, dungeonKept = nil, soonSeen = nil, freshSeen = {}, taxiMap = nil }
 	GF.notices = notices
 
 	-- The step on screen when it is not the live step: { guideId, index, live,
@@ -61,6 +62,47 @@ ns.UI.GuideFrame.Part(function(GF)
 	local function navTrip()
 		local nav = ns.Nav
 		return nav and nav.Trip and nav.Trip() or nil
+	end
+
+	-- The flight map notice (#1795, #2189): on a continent where no flight map has opened yet for this character,
+	-- Polestar can't tell the flight paths it has from those it lacks (Nav.GetTaxiSeen), so the route flies from and to
+	-- the ones it may have at a cost (Nav.TaxiMaybe), and players read the flight masters they had as ones to learn.
+	-- Once the route flies from, through or to one of those on the player's continent (a flight the player skips was
+	-- the route's own first, so the notice is up by then), the banner asks them to open any flight master's map there
+	-- once: until a flight map opens there, or for good once closed there (flags.taxiMapAsked[continent]).
+	-- notices.taxiMap holds the continent; elsewhere the notice waits.
+	local function playerContinent()
+		local C = ns.Compat
+		return C and C.GetPlayerWorldPosition and C.GetPlayerWorldPosition() or nil
+	end
+
+	-- The player's continent when route `legs` fly from, through or to a flight master there the character may have,
+	-- and the notice was not closed there; else nil.
+	local function maybeFlightHere(legs)
+		local N, pc = ns.Nav, playerContinent()
+		if pc == nil or type(legs) ~= "table" or not (N and N.TaxiMaybe) then return nil end
+		local asked = ns.CharState().flags.taxiMapAsked
+		if asked and asked[pc] then return nil end
+		for _, leg in ipairs(legs) do
+			if leg.kind == "fly" and type(leg.stops) == "table" then
+				for _, s in ipairs(leg.stops) do
+					if s.c == pc and N.TaxiMaybe(s.id) then return pc end
+				end
+			end
+		end
+		return nil
+	end
+
+	-- The continent the flight map notice stands for, while the player is there and no flight map has opened there;
+	-- else nil.
+	local function taxiMapNotice()
+		local c = notices.taxiMap
+		if c == nil or c ~= playerContinent() then return nil end
+		local N = ns.Nav
+		local seen = N and N.GetTaxiSeen and N.GetTaxiSeen()
+		local asked = ns.CharState().flags.taxiMapAsked
+		if (seen and seen[c]) or (asked and asked[c]) then return nil end
+		return c
 	end
 
 	-- The end of the active leveling guide reached while steps are still open
@@ -143,6 +185,8 @@ ns.UI.GuideFrame.Part(function(GF)
 		if notices.train then return "train", notices.train end
 		if notices.riding then return "riding", notices.riding end
 		if notices.classQuest then return "classQuest", notices.classQuest end
+		local tm = taxiMapNotice()
+		if tm then return "taxiMap", tm end
 		local Q = ns.QoL
 		local bags = Q and Q.Space and Q.Space.Banner and Q.Space.Banner()
 		if bags then return "bags", bags end
@@ -348,6 +392,15 @@ ns.UI.GuideFrame.Part(function(GF)
 			banner.Icon:SetTexture(Theme.Media("icon-dungeon"))
 			banner.Text:SetText(n.steps == 1 and string.format(L["%s next: start looking for a group."], n.name or "")
 				or string.format(L["%s in %d steps: start looking for a group."], n.name or "", n.steps or 0))
+			banner.Jump:Hide()
+			banner.Close:Show()
+			local h = floor(9 + banner.Text:GetStringHeight() + 9 + 0.5)
+			banner:SetHeight(h)
+			return h
+		elseif kind == "taxiMap" then
+			-- A continent where Polestar doesn't know the flight paths yet (taxiMapNotice): open a flight map there once.
+			banner.Icon:SetTexture(Theme.Media("icon-fly"))
+			banner.Text:SetText(L["Open any flight master's map once on this continent so Polestar knows your flight paths."])
 			banner.Jump:Hide()
 			banner.Close:Show()
 			local h = floor(9 + banner.Text:GetStringHeight() + 9 + 0.5)
@@ -718,6 +771,12 @@ ns.UI.GuideFrame.Part(function(GF)
 			notices.classQuest = nil
 			local CQ = ns.QoL and ns.QoL.ClassQuests
 			if CQ and CQ.Resolve then CQ.Resolve(n.guideId, later == true) end
+		elseif kind == "taxiMap" then
+			-- for good on that continent
+			local flags = ns.CharState().flags
+			flags.taxiMapAsked = flags.taxiMapAsked or {}
+			flags.taxiMapAsked[n] = true
+			notices.taxiMap = nil
 		elseif kind == "bags" then
 			ns.QoL.Space.Dismiss()
 		elseif kind == "wear" then
@@ -813,6 +872,24 @@ ns.UI.GuideFrame.Part(function(GF)
 			if not F then return end
 			notices.classQuest = notice
 			if ns.IsLoggedIn() then GF.Layout() end
+		end)
+		-- ROUTE_CHANGED(legs): a flight the route takes from, through or to a flight
+		-- master the character may have on this continent brings the flight map
+		-- notice (taxiMapNotice).
+		ns.On("ROUTE_CHANGED", function(legs)
+			if not F then return end
+			local c = maybeFlightHere(legs)
+			if c == nil or notices.taxiMap == c then return end
+			notices.taxiMap = c
+			if ns.IsLoggedIn() then GF.Layout() end
+		end)
+		-- A flight map opened: once Nav/Travel.lua has recorded its continent (its
+		-- own handler), the flight map notice for it goes.
+		ns.RegisterEvent("TAXIMAP_OPENED", function()
+			if not (F and notices.taxiMap ~= nil) then return end
+			ns.After(0, function()
+				if ns.IsLoggedIn() then GF.Layout() end
+			end)
 		end)
 		-- RIDING_MONEY: player's gold changed while a riding banner is pending; re-render
 		-- so the "Take me there" button appears/disappears based on affordability.
