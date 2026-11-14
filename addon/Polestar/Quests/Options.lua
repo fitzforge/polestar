@@ -71,6 +71,9 @@ Q.OPTIONS = {
 		controls = {
 			{ kind = "toggle", key = "qol.questTooltips", label = L["Quest tooltips"], disabled = dbOff, search = "tooltip, quest progress, mob quests",
 				help = L["Name the quests a mob, item or object is for, with your progress."] },
+			{ kind = "toggle", key = "qol.questDropChance", label = L["Drop chance"], child = true,
+				disabled = function() return dbOff() or not ns.Get("qol.questTooltips") end, search = "drop rate, drop chance, loot chance, percent",
+				help = L["On a mob that drops a quest item you still need, show how often it drops it."] },
 			{ kind = "toggle", key = "qol.questBagMarks", label = L["Quest marks in bags"], disabled = dbOff,
 				help = L["Mark bag items a quest still needs, in your log or ahead in your guide, until you hand the quest in."] },
 			{ kind = "toggle", key = "qol.questSellWarning", label = L["Offer to buy back quest items"], disabled = dbOff,

@@ -4867,6 +4867,7 @@ Polestar.QuestDB.GetQuest(id)  -> { id, title, level, minLevel, races, classes, 
 Polestar.QuestDB.GetNpc(id) / GetObject(id) -> { id, name, spawns = { { map, x, y, r (yd), f } } } | nil
 Polestar.QuestDB.GetItem(id)   -> { id, name, droppers = { { id, name, chance } }, objects = { ... }, vendors = { { id, name } } } | nil
 Polestar.QuestDB.GetItemDroppers(itemID) -> { { id, name, chance }, ... } | nil   -- best chance first
+Polestar.QuestDB.GetDropChance(itemID, npcID) -> percent | nil                   -- one dropper's chance, no table made
 Polestar.QuestDB.GetObjectiveMobs(questID, oi) -> { name, ... } | nil            -- kill target or item droppers
 Polestar.QuestDB.CheckAvailable(id, ctx, isDone, isOn, opts) -> ok, reason      -- opts: lowLevel, levelAbove, skillRank
 Polestar.QuestDB.EachAvailabilityRef(id, fn) -> needsSkill                       -- fn(q) per quest whose done/in-log state CheckAvailable reads
@@ -4956,7 +4957,7 @@ Quest markers): `questDB`, `availableQuests`,
 `questLevelWindow` (0–10, 10 = any; default 5), `lowLevelQuests`,
 `mapObjectives`, `objectiveSpots` (`groups` | `icons` | `areas`),
 `objectiveAreaAlpha`, `turnInMarkers`, `minimapObjectives`, `questMarkerSize`,
-`guideHighlight`, `guideDim`, `questTooltips`, `nameplateIcons`,
+`guideHighlight`, `guideDim`, `questTooltips`, `questDropChance`, `nameplateIcons`,
 `nameplateIconSide` (`left` | `right` | `above`), `questLevels`.
 The four marker layers (`availableQuests`, `mapObjectives`, `turnInMarkers`,
 `minimapObjectives`) default to off (Map → Guide & quests → Quest markers);

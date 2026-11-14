@@ -636,6 +636,41 @@ emit(sq.hoverUnit(6, true))         -- GUID is a secret value (combat): no lines
 	assert_eq!(out[5], json!(["?"]));
 }
 
+// qol.questDropChance (off by default): on a mob that drops a quest item still needed, the line says how often,
+// from Polestar.QuestDB.GetDropChance, written as the Lookup window writes a chance. The fixture's Large Candle
+// (772) drops from Kobold Vermin (6) at 40% and from Kobold Miner (40) at 20.456%, stored as 20.5.
+#[test]
+fn a_mob_s_tooltip_says_how_often_it_drops_the_quest_item_you_still_need_once_asked_to() {
+	let db = fixture();
+	let out = run(
+		&db,
+		r#"
+w.accept(7, { { text = "Kobold Vermin slain: 0/10", type = "monster", required = 10 } })
+w.accept(60, { { text = "Large Candle: 0/8", type = "item", required = 8 } })
+w.progress(60, 1, 3)
+stub.advance(0.3)
+emit({ Q.GetDropChance(772, 6), Q.GetDropChance(772, 40), Q.GetDropChance(772, 99) == nil, Q.GetDropChance(99999, 6) == nil })
+emit(Polestar.Get("qol.questDropChance"))
+emit(sq.hoverUnit(6))
+Polestar.Set("qol.questDropChance", true)
+emit(sq.hoverUnit(6))
+emit(sq.hoverUnit(40))
+emit(sq.hoverItem(772))
+w.progress(60, 1, 8)
+stub.advance(0.3)
+emit(sq.hoverUnit(6))
+"#,
+		"",
+	);
+	assert_eq!(out[0], json!([40, 20.5, true, true]), "a dropper's chance in percent; none for another mob or an unknown item");
+	assert_eq!(out[1], false);
+	assert_eq!(out[2], json!(["?", "Kobold Camp Cleanup: | Kill Kobold Vermin 0/10", "Kobold Candles: | Large Candle 3/8"]), "off: the lines as they were");
+	assert_eq!(out[3], json!(["?", "Kobold Camp Cleanup: | Kill Kobold Vermin 0/10", "Kobold Candles: | Large Candle 3/8  40%"]), "on the item's line only, never on a kill");
+	assert_eq!(out[4], json!(["?", "Kobold Candles: | Large Candle 3/8  21%"]), "each dropper its own chance, whole percents from 10 up");
+	assert_eq!(out[5], json!(["?", "Kobold Candles: | 3/8"]), "the item's own tooltip has no mob to speak for");
+	assert_eq!(out[6], json!(["?", "Kobold Camp Cleanup: | Kill Kobold Vermin 0/10", "Kobold Candles: | Large Candle 8/8"]), "nothing left to drop for: no chance");
+}
+
 // The "New in Forever" mark (Quests/NewQuests.lua): a quest Forever added carries its ∞ after its name on the quest
 // lines of a mob's and an item's tooltip ("Starts a quest" too); ui.newInForever off takes it away. Kobold Camp
 // Cleanup (7) and A Strange Note (1972's) stand in for Forever's quests here.
