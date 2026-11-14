@@ -82,11 +82,12 @@
 --     canal ring keeps canal and walkway under every step, never the roofs.
 --   Named: on a map whose surfaces carry their area (Path.AreaFormat: each
 --     WMO group's WMOAreaTable row), the surfaces the client's subzone names
---     (Compat.GetZoneText; the rows' English names, Path.AreaName; other
---     languages wait for WMOAreaTable names in Polestar_Names)
---     are the floor at once when they lie within ZTOL, before seed and the
---     candidates, and they correct a followed floor on another level. A
---     subzone two levels share, or none, leaves it to movement.
+--     (Compat.GetZoneText; each row's name in the client's language: the
+--     language folder's Subzones.lua, Names kind "subzone", else the row's
+--     English name, Path.AreaName) are the floor at once when they lie
+--     within ZTOL, before seed and the candidates, and they correct a
+--     followed floor on another level. A subzone two levels share, or none,
+--     leaves it to movement.
 --   Follow: the surface nearest the floor, never more than RISE (4) yards
 --     above it (a ramp or stairs at mount speed, plus a jump); any drop (a
 --     fall). None (a cell with no surface at or below the floor plus RISE:
@@ -436,8 +437,8 @@ local LIFT = 8        -- yards from a lift (Transit.LiftNear): it changes level 
 local INDOOR = 2      -- Path.SURFACE_INDOOR
 
 local surf = {}       -- Path.SurfacesAt's out, reused
-local surfArea = {}   -- Path.SurfacesAt's areas (each surface's AreaTable id, 0: none), reused
-local areaNames = {}  -- WMOAreaTable row id -> its English name (false: none), read once each
+local surfArea = {}   -- Path.SurfacesAt's areas (each surface's WMOAreaTable row id, 0: none), reused
+local areaNames = {}  -- WMOAreaTable row id -> its name in the client's language (false: none), read once each
 local isNamed = {}    -- per surface of the last read: its area is the client's subzone (named), reused
 local floorZ          -- the floor's height (nil: unknown)
 local cand, candMiss, candN = {}, {}, 0 -- while the floor is unknown and seed cannot tell: the floors the player may be on, and reads each has missed (reused)
@@ -622,11 +623,12 @@ local function dropCandidates()
 end
 
 -- The floor the client names: of the n surfaces read, those whose area (the WMO group's WMOAreaTable row, maps with
--- areas: Path.AreaFormat; its English name Path.AreaName) is named as the client's subzone (the Undercity's "The
--- Canals", its quarters, the "Ruins of Lordaeron" hall over them), when they lie within ZTOL: the lowest. nil when the
--- map has no areas, the client names no subzone, or no surface or surfaces on several floors match (an area shared
--- by two levels: movement decides). English names only: on another client's language no subzone matches until
--- Polestar_Names carries WMOAreaTable names, and movement decides as before.
+-- areas: Path.AreaFormat) is named as the client's subzone (the Undercity's "The Canals", its quarters, the "Ruins of
+-- Lordaeron" hall over them), when they lie within ZTOL: the lowest. nil when the map has no areas, the client names
+-- no subzone, or no surface or surfaces on several floors match (an area shared by two levels: movement decides).
+-- A row's name in the client's language (#2244): the language folder's (Names kind "subzone": Subzones.lua, the rows
+-- not named as in English), else its English one (Path.AreaName). Read once each, but not while the language folder
+-- is still to load (refused in combat: Names.Ready), whose name would be the English one until it does.
 local function named(P, pc, n)
 	if not (P.AreaFormat and P.AreaFormat(pc)) then return nil end
 	local C = ns.Compat
@@ -639,8 +641,9 @@ local function named(P, pc, n)
 		if id and id ~= 0 then
 			local name = areaNames[id]
 			if name == nil then
-				name = P.AreaName and P.AreaName(pc, id) or false
-				areaNames[id] = name
+				local N = ns.Names
+				name = N and N.Get("subzone", id) or P.AreaName and P.AreaName(pc, id) or false
+				if not (N and N.Localised() and not N.Ready()) then areaNames[id] = name end
 			end
 			if name == sub then
 				isNamed[i] = true

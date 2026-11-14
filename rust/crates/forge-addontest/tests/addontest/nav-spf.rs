@@ -5,8 +5,9 @@
 //! failure (no engine, no data, unreachable, an error, the option off) is today's straight arrow. Runs the
 //! real Core/Init.lua + Nav/Nav.xml against tests/lua/stub_nav.lua.
 
+use forge_addontest::names::language_pack;
 use forge_addontest::run::addons_dir;
-use forge_addontest::{emitted, is_match, truthy, Addon, RunAddon};
+use forge_addontest::{emitted, is_match, lua_string, truthy, Addon, RunAddon};
 use serde_json::{json, Value};
 
 // The fake engine, installed before the addon loads (Polestar_Nav's API.lua sets the same global).
@@ -3626,6 +3627,115 @@ fn t_234_floor_on_a_map_with_areas_the_floor_is_the_surface_the_client_s_subzone
 	assert_eq!(out["sharedFloors"], json!([-62, -45]), "but the floors the player may be on are those two (Walk.Floors), never the hall");
 	assert_eq!(out["wrong"], 62);
 	assert_eq!(out["corrected"], -45, "the subzone names the ring: the floor followed on the hall's level is corrected");
+}
+
+// Reaperwest in the Apothecarium on a Spanish (Latin America) client (#2244): the client names the subzone in its
+// own language ("El Apothecarium") and the walking maps name their areas in English, so on every other language no
+// floor matched and the walk started from a floor above. The language folder's Subzones.lua (`forge data
+// subzones`) names each area as that language's client does; a row it does not name is named as in English. The
+// rows and names are the Undercity's, as the Forever client's tables give them.
+const UNDERCITY: &str = r#"
+nav.indoors = true
+SUB = ""
+Polestar.Compat.GetZoneText = function() return "Undercity", SUB ~= "" and SUB or nil end
+-- The Apothecarium's floor, the canal ring's walkway over it, the Ruins' hall, and a row the language folder does
+-- not name (its name in that language is the English one).
+fake.areaNames = { [141154] = "The Apothecarium", [141153] = "Canals", [141070] = "Ruins of Lordaeron", [9001] = "Bandit Hideout" }
+fake.surfaces = function() return { -85, -64, 62, 80, [-1] = 2, [-2] = 2, [-3] = 2, [-4] = 2, area = { 141154, 141153, 141070, 9001 } } end
+local function fresh(sub)
+	SUB = sub
+	nav.place(0, 300)
+	stub.advance(3)
+	N.Sample()
+	nav.place(0, 50)
+	stub.advance(0.3)
+	N.Sample()
+	return startZ()
+end
+"#;
+
+/// `script` on a client in `locale` whose language folder names the Undercity's rows (the Apothecarium, Canals,
+/// Ruins of Lordaeron) `names`, with Core/Names.lua in; the script loads the folder (Core/Locale.lua at startup).
+fn run_in(locale: &str, names: [&str; 3], script: &str) -> Value {
+	let pack = language_pack(locale, &[], &[(141154, names[0]), (141153, names[1]), (141070, names[2])]);
+	emitted(&RunAddon {
+		stubs: vec!["stub_nav.lua"],
+		before: format!("{ENGINE}\nfunction GetLocale() return {} end\n{}", lua_string(locale), pack.stub_lua),
+		addons: vec![Addon::files("Polestar", &["Core/Init.lua", "Core/LuaChunks.lua", "Core/Names.lua", "Nav/Nav.xml"])],
+		login: true,
+		script: format!("{PRELUDE}\n{FLOORS}\n{UNDERCITY}\n{script}"),
+		..Default::default()
+	})
+	.remove(0)
+}
+
+/// On a client in `locale` whose folder names the Apothecarium, Canals and Ruins of Lordaeron `names`: the floor each
+/// subzone in that language names at once, the English name of a translated row naming none, a row the folder does
+/// not name by its English name.
+fn floors_named_in(locale: &str, names: [&str; 3]) {
+	let out = run_in(
+		locale,
+		names,
+		&format!(
+			r#"
+			C_AddOns.LoadAddOn(Polestar.Names.PackName())
+			local r = {{}}
+			r.apothecarium = fresh({})
+			r.canal = fresh({})
+			r.ruins = fresh({})
+			r.english = fresh("The Apothecarium")
+			r.same = fresh("Bandit Hideout")
+			r.none = fresh("")
+			emit(r)"#,
+			lua_string(names[0]),
+			lua_string(names[1]),
+			lua_string(names[2])
+		),
+	);
+	assert_eq!(out["apothecarium"], -85, "{locale}: the Apothecarium's floor at once");
+	assert_eq!(out["canal"], -64, "{locale}: the canal ring's walkway");
+	assert_eq!(out["ruins"], 62, "{locale}: the Ruins' hall");
+	assert_eq!(out["english"], "none", "{locale}: a row named in this language is no longer named in English");
+	assert_eq!(out["same"], 80, "{locale}: a row the folder does not name keeps its English name");
+	assert_eq!(out["none"], "none", "{locale}: no subzone: unknown");
+}
+
+#[test]
+fn t_2244_floor_on_a_spanish_latin_america_client_its_subzone_names_the_floor() {
+	floors_named_in("esMX", ["El Apothecarium", "Canales", "Ruinas de Lordaeron"]);
+}
+
+#[test]
+fn t_2244_floor_on_a_german_client_its_subzone_names_the_floor() {
+	floors_named_in("deDE", ["Das Apothekarium", "Die Kanäle", "Die Ruinen von Lordaeron"]);
+}
+
+#[test]
+fn t_2244_floor_on_a_russian_client_its_subzone_names_the_floor() {
+	floors_named_in("ruRU", ["Квартал аптекарей", "Каналы", "Руины Лордерона"]);
+}
+
+#[test]
+fn t_2244_floor_on_a_simplified_chinese_client_its_subzone_names_the_floor() {
+	floors_named_in("zhCN", ["炼金房", "运河", "洛丹伦废墟"]);
+}
+
+#[test]
+fn t_2244_floor_the_language_folder_refused_in_combat_leaves_the_floor_to_movement_until_it_loads_never_keeping_the_english_names() {
+	let out = run_in(
+		"esMX",
+		["El Apothecarium", "Canales", "Ruinas de Lordaeron"],
+		r#"
+		Polestar.Data = { Pack = function() return false, "combat" end }
+		local r = {}
+		r.pending = fresh("El Apothecarium")
+		Polestar.Data.Pack = function(name) return C_AddOns.LoadAddOn(name) end
+		stub.fire("PLAYER_REGEN_ENABLED")
+		r.loaded = fresh("El Apothecarium")
+		emit(r)"#,
+	);
+	assert_eq!(out["pending"], "none", "the folder not in: the rows' English names, no match");
+	assert_eq!(out["loaded"], -85, "once it is in, its names: the English ones read meanwhile were not kept");
 }
 
 #[test]
