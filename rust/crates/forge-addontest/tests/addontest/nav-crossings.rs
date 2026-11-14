@@ -48,8 +48,11 @@ local function crossings(extra)
 end
 "#;
 
+// The character has opened a flight map on both continents (flags.taxiSeen): a flight master Polestar doesn't know is
+// one it lacks, as these walks were written for (#1795's flights to ones it may have are in travel.rs).
 fn run_raw(script: &str) -> Value {
-	emitted(&RunAddon { stubs: vec!["stub_nav.lua"], addons: vec![nav()], login: true, script: script.to_string(), ..Default::default() }).remove(0)
+	let script = format!("Polestar.CharState().flags.taxiSeen = {{ [0] = true, [1] = true }}\n{script}");
+	emitted(&RunAddon { stubs: vec!["stub_nav.lua"], addons: vec![nav()], login: true, script, ..Default::default() }).remove(0)
 }
 
 fn run(script: &str) -> Value {
@@ -186,6 +189,103 @@ fn a_crossing_end_with_a_height_12_yd_away_is_already_walked_only_on_its_floor()
 	);
 }
 
+// Reaching a crossing's near end passes it: planned again a few steps on, or where its far end is reached, the route
+// walks on to the far end and from there, never back to the near end, whatever zone the walking maps put the player
+// in (0.4.0's border sweep: the zone line between a crossing's ends can wind, and from just past the near end's reach
+// the plan sent players back to it, and from beside the far end back through the crossing, round and round: 68 times
+// in 4 minutes between the Swamp of Sorrows and the Blasted Lands). Gate Yard, a patch of ground open to West Vale,
+// lies between the gate's ends: at (600, 25) the player is out of the near end's reach, and at (600, -8) within the
+// far end's, both in Gate Yard. The walk on to the far end makes no step of a pass along it, as the crossing's own walk
+// makes none (a pass 40 yd from both ends, 5 yd on). Farther from the far end than the ends are apart, the near end
+// comes first again.
+#[test]
+fn walking_a_crossing_passes_its_near_end_the_plan_from_its_far_end_walks_on_never_back_through_it() {
+	let out = run(r#"
+		local zones = { [9002] = ZONES[9002], [9003] = ZONES[9003], [9004] = { name = "Gate Yard", c = 0, top = 620, bottom = 580, left = 30, right = -10 } }
+		N.RegisterCrossings({ complete = true, zones = zones, open = { 9004, 9002, 0 }, crossings = {
+			{ id = "gate", a = { map = 9002, c = 0, wx = 600, wy = 60, r = 15 }, b = { map = 9003, c = 0, wx = 600, wy = -20, r = 15 } } } })
+		local function first()
+			local legs, ci = N.GetRoute()
+			local l = legs[ci]
+			return { l.to.wx, l.to.wy, #legs - ci }
+		end
+		local r = {}
+		nav.place(-500, 500)
+		target(-500, -500, "Kobolds")
+		stub.advance(0.2)
+		r.start = first()
+		nav.place(600, 58)                               -- at the gate's near end
+		stub.advance(1.2)
+		r.near = first()
+		nav.place(600, 25)                               -- a few steps on, out of its reach, in Gate Yard
+		stub.fire("ZONE_CHANGED")
+		r.between = first()
+		do                                               -- a pass on the walk on: no step of its own
+			local before = #N.GetRoute()
+			N.travel.SplitWalk(0, 600, -20, { { kind = "pass", wx = 600, wy = 20, r = 10, along = 5, seg = 1, stop = 1.5, to = "Gate Pass" } }, 45)
+			r.split = #N.GetRoute() - before
+		end
+		nav.place(600, -8)                               -- through it, within the far end's reach, in Gate Yard
+		stub.advance(1.2)
+		r.far = first()
+		stub.fire("ZONE_CHANGED")
+		r.zone = first()
+		nav.place(600, 300)                              -- back out in West Vale, far from the gate
+		stub.fire("ZONE_CHANGED")
+		r.away = first()
+		emit(r)"#);
+	assert_eq!(out["start"], json!([600, 60, 2]), "to the gate's near end first: {out}");
+	assert_eq!(out["near"], json!([600, -20, 1]), "at it, through the gate: {out}");
+	assert_eq!(out["between"], json!([600, -20, 1]), "a few steps on, on to the far end, not back to the near one: {out}");
+	assert_eq!(out["split"], 0, "a pass on the walk on to the far end is no step of its own, as on the crossing's own walk: {out}");
+	assert_eq!(out["far"], json!([-500, -500, 0]), "through it, on to Kobolds, not back to the near end: {out}");
+	assert_eq!(out["zone"], json!([-500, -500, 0]), "planned again there, still on: {out}");
+	assert_eq!(out["away"], json!([600, 60, 2]), "far from the gate, the near end first again: {out}");
+}
+
+// A crossing walked through (its far end reached) holds the far side's zone near its far end. The zone line can wind
+// past a crossing's far end too: the walking maps put a patch of Durotar beside Orgrimmar's end of its gate to the
+// Barrens, and from there Orgrimmar is reached only through a crossing, so the plan from just past the far end's reach
+// sent the player back to it, the plan from beside it on into the city, and the arrow turned at every step (0.4.0's
+// border sweep: 80 times in 4 minutes). Gate Lane, a patch of ground open to West Vale, lies just past the gate's East
+// Vale end: planned again there, the route goes on from where the player stands. Farther from the far end than the
+// ends are apart, the near end comes first again.
+#[test]
+fn a_crossing_walked_through_holds_its_far_sides_zone_so_a_plan_from_a_patch_of_the_near_sides_past_it_goes_on() {
+	let out = run(r#"
+		local zones = { [9002] = ZONES[9002], [9003] = ZONES[9003], [9005] = { name = "Gate Lane", c = 0, top = 620, bottom = 580, left = -30, right = -60 } }
+		N.RegisterCrossings({ complete = true, zones = zones, open = { 9005, 9002, 0 }, crossings = {
+			{ id = "gate", a = { map = 9002, c = 0, wx = 600, wy = 60, r = 15 }, b = { map = 9003, c = 0, wx = 600, wy = -20, r = 15 } } } })
+		local function first()
+			local legs, ci = N.GetRoute()
+			local l = legs[ci]
+			return { l.to.wx, l.to.wy, #legs - ci }
+		end
+		local r = {}
+		nav.place(-500, 500)
+		target(-500, -500, "Kobolds")
+		stub.advance(0.2)
+		r.start = first()
+		nav.place(600, 58)                               -- at the gate's near end
+		stub.advance(1.2)
+		r.near = first()
+		nav.place(600, -8)                               -- through it, within the far end's reach
+		stub.advance(1.2)
+		r.far = first()
+		nav.place(600, -45)                              -- a few steps on, out of its reach, in Gate Lane
+		stub.fire("ZONE_CHANGED")
+		r.lane = first()
+		nav.place(600, 300)                              -- back out in West Vale, far from the gate
+		stub.fire("ZONE_CHANGED")
+		r.away = first()
+		emit(r)"#);
+	assert_eq!(out["start"], json!([600, 60, 2]), "to the gate's near end first: {out}");
+	assert_eq!(out["near"], json!([600, -20, 1]), "at it, through the gate: {out}");
+	assert_eq!(out["far"], json!([-500, -500, 0]), "through it, on to Kobolds: {out}");
+	assert_eq!(out["lane"], json!([-500, -500, 0]), "past the far end in Gate Lane, on to Kobolds, not back to the far end: {out}");
+	assert_eq!(out["away"], json!([600, 60, 2]), "far from the gate, the near end first again: {out}");
+}
+
 // The Undercity's fixed way in and out (Fitz, 2026-10-23): an approach chain both of whose ends are mouths, from the
 // zone outside through the hall to its lift's top and bottom landings in the city. The hop between the two landings
 // (floors 20 yd or more apart within 15 yd on the map) is a lift ride, both ways, timed by the lift's timetable.
@@ -315,8 +415,8 @@ fn moving_more_than_50_yd_re_plans_once_the_plan_is_30_s_old_at_most_once_a_seco
 	assert_eq!(out["after"], 1);
 }
 
-// Standing at a flight master not learnt yet, the plan already flies out of it (learnt there, #1174);
-// the game's "New flight path discovered" saves it, and only that message does.
+// Standing at a flight master not learnt yet, the plan already flies out of it (learnt there, #1174), the flight leg
+// saying so; the game's "New flight path discovered" saves it, and only that message does.
 #[test]
 fn learning_a_flight_path_saves_it_and_the_flight_out_stays() {
 	let out = run(r#"
@@ -329,8 +429,8 @@ fn learning_a_flight_path_saves_it_and_the_flight_out_stays() {
 		local other = { route = route(), saved = Polestar.CharState().flags.taxi[1] == true }
 		stub.fire("UI_INFO_MESSAGE", 0, ERR_NEWTAXIPATH)
 		emit({ before = before, other = other, after = route(), saved = Polestar.CharState().flags.taxi[1] == true })"#);
-	assert_eq!(out["before"], json!(["fly|Fly to East Hold", "walk|Target"]));
-	assert_eq!(out["other"], json!({ "route": ["fly|Fly to East Hold", "walk|Target"], "saved": false }));
+	assert_eq!(out["before"], json!(["fly|Learn the flight path at West Hold, then fly to East Hold", "walk|Target"]));
+	assert_eq!(out["other"], json!({ "route": ["fly|Learn the flight path at West Hold, then fly to East Hold", "walk|Target"], "saved": false }));
 	assert_eq!(out["after"], json!(["fly|Fly to East Hold", "walk|Target"]));
 	assert_eq!(out["saved"], true);
 }
@@ -734,4 +834,48 @@ fn a_target_on_the_next_zone_s_map_is_in_the_zone_the_walking_maps_put_it_in_a_c
 	assert_eq!(out["city"], out["cityPlain"], "the Undercity's map keeps its target");
 	assert_ne!(out["city"], json!(["walk|Aelthalyste"]), "into the Undercity by its way, not a walk to the ground above");
 }
+
+// #1543's near walk (Nav.PlanRoute's p.nearWalk): a target within that many straight yards over a closed zone border
+// is walked to straight; with p.nearProbe instead the planner only says it would be (nearProbe.yards) and plans the
+// crossing's way. Beyond the reach, without either (an estimate; the live route with no walking engine to ask, as in
+// this world), and into an area (ground no walk joins to its zone, #1761), the way goes through the crossing, as
+// before #1543. Kobolds 200 yd east of the player, over the border; the gate 1100 yd north.
+#[test]
+fn the_near_walk_over_a_closed_zone_border_goes_only_within_its_reach_and_never_without_a_walking_engine_1543() {
+	let out = run(r#"
+		local function plan(nearWalk, probe)
+			local legs = N.PlanRoute({ c = 0, wx = -500, wy = 100, map = 9002, faction = 1, known = {}, nearWalk = nearWalk,
+				nearProbe = probe, target = { c = 0, wx = -500, wy = -100, label = "Kobolds", map = 9003 } })
+			if not legs then return "no route" end
+			local out = {}
+			for i, l in ipairs(legs) do out[i] = l.label end
+			return out
+		end
+		crossings()
+		local probe, far = { reach = 400 }, { reach = 150 }
+		local r = { near = plan(400), short = plan(150), none = plan(nil), probed = plan(nil, probe), probedFar = plan(nil, far) }
+		r.yards, r.farYards = probe.yards, far.yards or false
+		nav.place(-500, 100)
+		target(-500, -100, "Kobolds")
+		r.live = route()
+		N.RegisterTravelData({}, true)
+		nav.useTravelWorld()
+		crossings({ areas = { { id = "kobold-den", name = "Kobold Den", map = 9003, c = 0, top = -400, bottom = -600, left = -50, right = -150 } } })
+		local den = { reach = 400 }
+		r.area = plan(400)
+		plan(nil, den)
+		r.areaYards = den.yards or false
+		emit(r)"#);
+	assert_eq!(out["near"], json!(["Kobolds"]), "200 yd over the border, within its reach: the near walk");
+	let gate = json!(["Through the gate to East Vale", "Through the gate to East Vale", "Kobolds"]);
+	assert_eq!(out["short"], gate, "beyond its reach: through the gate");
+	assert_eq!(out["none"], gate, "without p.nearWalk: through the gate");
+	assert_eq!(out["probed"], gate, "p.nearProbe plans nothing through it: through the gate");
+	assert_eq!(out["yards"], 200, "and says the near walk would be offered: 200 straight yards");
+	assert_eq!((out["probedFar"].clone(), out["farYards"].clone()), (gate, json!(false)), "beyond the probe's reach: nothing to say");
+	assert_eq!(out["live"], json!(["walk|Through the gate to East Vale", "walk|Through the gate to East Vale", "walk|Kobolds"]), "the live route with no walking engine to ask: through the gate");
+	assert_eq!(out["area"], "no route", "into an area no walk joins: never the near walk (and no other way in here)");
+	assert_eq!(out["areaYards"], false, "nor probed");
+}
+
 // KEPT IN JS:

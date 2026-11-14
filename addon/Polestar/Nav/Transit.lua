@@ -864,8 +864,10 @@ local function cooldown(spell)
 end
 
 -- -> { { spell, name (the client's, in its language), cast = s, ready = s until castable, to = point | nil,
---   bind = true (lands at the bind point) }, ... }: known, with reagents in
--- the bags. The entries keep their identity while the set is unchanged.
+--   bind = true (lands at the bind point: Astral Recall), length = s: its full
+--   cooldown as the client tells it (nil when it tells none) }, ... }: known,
+-- with reagents in the bags. The entries keep their identity while the set is
+-- unchanged.
 function Transit.Teleports(now)
 	if not ns.Get("nav.teleports") then return NONE end
 	local list, keys = {}, {}
@@ -883,7 +885,11 @@ function Transit.Teleports(now)
 			usable[i] = { spell = t.spell, name = (N and N.Spell(t.spell)) or t.name, cast = t.cast, to = t.to, bind = t.bind, ready = 0 }
 		end
 	end
-	for _, u in ipairs(usable) do u.ready = cooldown(u.spell) end
+	local C = ns.Compat
+	for _, u in ipairs(usable) do
+		u.ready = cooldown(u.spell)
+		u.length = C and C.GetSpellBaseCooldown and C.GetSpellBaseCooldown(u.spell) or nil
+	end
 	return usable
 end
 

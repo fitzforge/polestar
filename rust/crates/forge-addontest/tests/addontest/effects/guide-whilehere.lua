@@ -39,7 +39,9 @@ return {
 		} })
 		Polestar.Engine.SetGuide("test/here")
 		-- A friendly flight master by the road at 30,60, its flight path not learned (Nav's travel data, its point on
-		-- the game's frame, as engine-while-here.rs's flight paths have it).
+		-- the game's frame, as engine-while-here.rs's flight paths have it). The character has opened a flight map on
+		-- this continent before, so a flight master not on it is one it lacks (#1795: until then none is asked for).
+		Polestar.CharState().flags.taxiSeen = { [0] = true }
 		Polestar.Nav.RegisterTravelData({ build = "test", taxi = { { 2, 0, -700, 600, 1429, 30, 60, 1, "Brackwell Pumpkin Patch, Elwynn Forest" } } }, true)
 		Polestar.MapFrames.era[1429] = { c = 0, left = 1500, right = -1500, top = 500, bottom = -1500 }
 		-- The quests put in the log above, as the client announces a log change.

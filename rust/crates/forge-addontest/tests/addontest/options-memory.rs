@@ -51,6 +51,14 @@ const LOGIN_BASE: f64 = 11003.0;
 /// cards #2134, the report's settings #2096): 11,614 KiB on 2026-11-13. CI reads a little more than a local run of
 /// the same addon (dev-040 at 467cdd126: 11,198 here and a budget of 11,203; CI read 11,203 on a pull request that
 /// changes no addon code, and failed), so the budget is the measured figure and about 5 %: 12,195.
+/// The travel lane (#2029) adds about 72 KiB on top, within it: 11,268 KiB against dev-040's 11,196 at 467cdd126
+/// (2026-11-14), 60 of it code (each file's compiled chunk): Nav/Travel.lua +27 (flights from and to flight masters
+/// the character may have, #1795; the Hearthstone's cooldown and its hold, #1915; Astral Recall; the roads through
+/// high zones, #1972; crossings walked through and zone changes, #1543), Nav/Walk.lua +7 and Nav/Follow.lua +5 (the
+/// arrow on the walking engine's path, #1543), Core/Engine.lua +6 and Quests/Timed.lua +5 (flight steps landing where
+/// the character may have the flight path; the timed hand-in pulled forward), UI/GuideFrameBanner.lua +5 (the flight
+/// map notice, #2189), Nav/Danger.lua +3, UI/Report.lua +2, Core/Compat.lua, Maps/TravelPins.lua and
+/// Maps/RouteLines.lua +2. None of it can load later: the planner runs as soon as a guide step has a target.
 const LOGIN: f64 = LOGIN_BASE + 1192.0;
 /// Loaded, 1,790 KiB on 2026-11-11 (760 on 2026-11-10): the Look pages' previews and the toasts and trackers
 /// pages moved in (1,110), then the settings-only widgets, every module's rows, Unlock mode, the profile

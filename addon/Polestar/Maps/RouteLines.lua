@@ -285,13 +285,23 @@ end
 -- On the path the route starts at the player, whatever the arrow aims at:
 -- since 0.3.6 the arrow holds a point in sight until the player is within 10
 -- yards of the path (Follow.lua SIGHT_NEAR), and taken from there every style
--- started at that far point, the stretch between left out.
+-- started at that far point, the stretch between left out. Further off than
+-- LIVE_REACH, where no point of the walk is in reach, the arrow's aim
+-- whatever it is (Walk.LastAim: the point in sight, the corridor's or the one
+-- just past the player's place on the walk): before 0.3.8 the line kept the
+-- start it last had in reach, so it began behind the player while the arrow
+-- pointed back to the walk (12.5% of the moving time on a stray-heavy sample).
 local JOIN_BESIDE = 15 -- Follow.lua's BODY: beside the path, not on it
 local function joinPoint(pc, px, py)
 	local W = Nav.walk
+	local first = paths[1]
+	local i, nx, ny = Strokes.Live(first, pc, px, py, nil, LIVE_REACH)
+	local off2 = i and (nx - px) * (nx - px) + (ny - py) * (ny - py)
+	if i and off2 <= JOIN_BESIDE * JOIN_BESIDE then return px, py end
 	local ac, ax, ay
 	if W and W.SightAim then ac, ax, ay = W.SightAim() end
-	if ac == pc and ax and not Strokes.Live(paths[1], pc, px, py, nil, JOIN_BESIDE) then return ax, ay end
+	if not (ac == pc and ax) and not i and W and W.LastAim then ac, ax, ay = W.LastAim() end
+	if ac == pc and ax then return ax, ay end
 	return px, py
 end
 

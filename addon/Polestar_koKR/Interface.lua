@@ -401,6 +401,7 @@ L["%s Inn"] = "%s 여관"
 L["Detour around %s"] = "%s 우회"
 L["Walk to the airship dock"] = "비행선 승강장까지 걸어가기"
 L["Take the airship to %s"] = "비행선 타고 이동: %s"
+-- L["Learn the flight path at %s, then fly to %s"] = ""
 
 -- Nav/Journey.lua
 L["%s %d, %d"] = "%s %d, %d"
@@ -1998,6 +1999,7 @@ L["Log:"] = "기록:"
 L["Step %d of %d (guide step %d): %s"] = "%d단계 / %d (가이드 %d단계): %s"
 L["Install: %s"] = "설치: %s"
 L["While here: %s"] = "온 김에: %s"
+-- L["Travel: %s"] = ""
 -- L["The report lists the settings you changed and your profile's name: no character names, chat, account or realm."] = ""
 
 -- UI/Packs.lua
@@ -3438,6 +3440,7 @@ L["%s · this guide doesn't go there"] = "%s · 이 가이드는 그곳에 가�
 L["Timed quest"] = "시간 제한 퀘스트"
 L["This guide's route doesn't hand this quest in: go there yourself before the time runs out, or let it go."] = "이 가이드의 경로는 이 퀘스트를 완료하지 않습니다: 시간이 다 되기 전에 직접 가거나 포기하세요."
 L["Right-click: hide this until the timer ends."] = "오른쪽 클릭: 타이머가 끝날 때까지 숨기기."
+-- L["%s ~%s · go now, the route gets there too late"] = ""
 
 -- Core/Update.lua
 L["(outdated: latest %s)"] = "(구버전: 최신 %s)"
@@ -4318,6 +4321,7 @@ L["Part of the %s quests"] = "%s 퀘스트의 일부"
 -- L["%d finished quests here first"] = ""
 -- L["Jump anyway? They stay in your log, and the guide lists who takes each in."] = ""
 -- L["Jump anyway"] = ""
+L["Open any flight master's map once on this continent so Polestar knows your flight paths."] = "이 대륙에서 아무 비행 조련사의 지도를 한 번 열면 Polestar가 당신의 비행 경로를 알게 됩니다."
 
 -- Core/Pause.lua
 -- L["Press %s to resume, or open the guide window."] = ""

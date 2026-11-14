@@ -2024,7 +2024,9 @@ Polestar.Engine.StepHiddenFor(step, who?) -> bool  -- no step of its own for who
   default, Options' "Flight paths you pass"): a friendly flight master
   (`Nav.UnknownTaxiOn`: the travel data's nodes on the player's continent
   for the character's faction or neutral, and its class, that Nav does not
-  know, those learnt while Polestar was off included, #1308) within the
+  know, once a flight map has opened on that continent for the character,
+  `flags.taxiSeen`, below; on another, none: one not known there may have
+  been learnt before Polestar ran, #1795) within the
   radius is a line of its own, kind "flight": "Learn the flight path at
   Thelsamar" (the node's name in the client's language before the comma),
   under it the later step whose `getfp` learns it ("Step 25"), else "Flight
@@ -2037,7 +2039,7 @@ Polestar.Engine.StepHiddenFor(step, who?) -> bool  -- no step of its own for who
   each build), each travel-data node's goal (at the node's own world point)
   and entry kept while the node is (`Own.hereFlyOf`, weak by node), so a
   dismiss holds across builds. Learning it (the flight map, "New flight path
-  discovered", `TAXI_NODE_STATUS_CHANGED`: Nav marks the node known, a build
+  discovered": Nav marks the node known, a build
   follows) ends the line and ticks the guide's later `getfp` goal for that
   flight master (`Own.fpKnown`), as an early pick-up does; the live step stays.
   The arrival poll measures at most `HERE_MAX` of them (`Own.hereList`): all
@@ -2155,7 +2157,21 @@ Polestar.Engine.StepHiddenFor(step, who?) -> bool  -- no step of its own for who
   row shows. A click points the arrow there (`Timed.AimOff`: `Nav.SetTarget`
   with the spawn's `z`), a right-click hides it until the timer ends
   (`Timed.MuteOff`). In combat such rows never come or go (`GF.offs` is
-  kept; `PLAYER_REGEN_ENABLED` catches up).
+  kept; `PLAYER_REGEN_ENABLED` catches up). The hand-in pulled forward
+  (0.3.8, plan 3F-C7): each reading also takes the way straight to every
+  running timer's hand-in on the route (`Timed.Way`), whichever step is
+  shown, and with the quest ready to hand in, when the route's own way there
+  (`Engine.RouteSeconds`: the open goals from the live step on, in order,
+  straight lines `HERE_WINDING` longer at `HERE_SPEED`, `GOAL_SECONDS` each;
+  one on another continent or leading away counts as forever) gets in after
+  the timer and the way straight there still makes it, the hand-in is pulled
+  (`Timed.Pulling`, `Timed.Pulled`: its step and goal): the Engine's arrow
+  leads to it ahead of the live step's errands (`Own.timedAim`, after a
+  lost quest's and the party's, before the step's goals; the player's own
+  choice wins), the live step stays, and the panel opens with the quest's
+  row, "<NPC> ~N min · go now, the route gets there too late". A right-click
+  lets the route be (`Timed.MuteOff`: no pull, the arrow back to the step);
+  `TIMED_PULL` when a pull starts or ends (the Engine evaluates again).
 - **Jumps.** A step with `skipto` (format 5; GUIDE_FORMAT, "Jumps") is
   checked when `computeCurrent` reaches it as the first open step, once the
   quest log can be read (`logReady`): `Own.jump` takes the first jump whose
@@ -4419,16 +4435,40 @@ The planner is Dijkstra over the player, the target, known flight masters,
 docks, walk-in portals (one way, `portals` in TravelData), the bound inn,
 class teleports, learned path nodes and crossing waypoints. A flight master
 of the player's faction not learnt yet, on the start's or the target's
-continent, is a vertex too: walked to, learnt there (5 s) and flown from to
-known ones, never flown to and never walked on from (no walk measure from it;
-otherwise Rut'theran's would beat the Darnassus portal, #989) (#1174:
-Ironforge's, beside a player who knows Menethil Harbor). The known flight
-masters (`flags.taxi`) come from the flight map when one opens, the game's
-"New flight path discovered", and the world map's flight points
-(`C_TaxiMap.GetTaxiNodesForMap`, a node's `isUndiscovered`), read on every
-loading screen and on `TAXI_NODE_STATUS_CHANGED`, so a flight path learnt
-while Polestar was not running counts before the next flight map (#1308);
-a client that reads no node as undiscovered is not trusted. It orders by
+continent, is a vertex too: walked to, learnt there (10 s: talking to it, its
+"New flight path discovered") and flown from to known ones, never flown to
+and never walked on from (no walk measure from it; otherwise Rut'theran's
+would beat the Darnassus portal, #989) (#1174: Ironforge's, beside a player
+who knows Menethil Harbor); its flight leg reads "Learn the flight path at X,
+then fly to Y". The known flight
+masters (`flags.taxi`) come from the flight map when one opens and the game's
+"New flight path discovered" (the world map's flight points can't add any:
+on Forever they mark every node discovered, #1795). A continent counts
+as seen (`flags.taxiSeen`, `{ [continent] = true }`, per character;
+`Nav.GetTaxiSeen`) once a flight map opened there listed a discovered node of
+it: that map lists every flight path the character has there. On a seen
+continent a node missing from `flags.taxi` is one the character lacks; on
+another Polestar can't tell, so While-here's "Learn the flight path" lines
+(`Nav.UnknownTaxiOn`) and the map pins' "not discovered" wording
+(`Maps.BuildTravelPins`, `o.seen`) stay away there (#1795). The set is made
+once from the continents of the nodes `flags.taxi` already holds (each came
+from a flight map there), so a character that opened one keeps its lines; it
+waits for the travel data. On a continent not seen (the start's or the
+target's), a flight master the
+character may have (`maybeTaxi`, `Nav.TaxiMaybe`: its faction's or neutral,
+its class's, in a zone whose level range starts at most 5 levels above the
+character's, a capital's having none) is a vertex like a known one, each
+landing there costing 60 s more (a cost, never a time); a flight leg through
+one carries `maybe`, and a `fly` step landing there keeps "Fly to", led to
+and arrived at like a known landing (`Own.maybeLanding`, not
+`Own.unknownLanding`). The first flight map on that continent settles it:
+`recordTaxiMap` reports a continent newly seen as a change, so the plan is
+made again. Until then, once the route flies from, through or to such a
+flight master on the player's continent, the guide window's banner asks for
+any flight master's map there, once (`UI/GuideFrameBanner.lua`'s
+`taxiMap`: gone when a flight map opens there; closed, for good on that
+continent, `flags.taxiMapAsked`, `{ [continent] = true }`, per character;
+#2189). It orders by
 a cost (the Hearthstone carries a `HEARTH_MARGIN` of 120 s on top of its
 time, a teleport a `TELEPORT_MARGIN` of 60 s) and keeps the real seconds of every leg apart, so
 `seconds`/`rest` (the arrow's ETA) stay honest. Caps: 20000 pops, 40 ms,
@@ -4452,6 +4492,25 @@ at least `HEARTH_MARGIN` (120 s) after its cast and loading screen
 Sentinel Hill: saves 6 min"). It plans from wherever the Hearthstone is
 bound (`bindInn`), for any target. `Nav.EstimateTravel` and the Engine's
 `hearth` goal (`Own.hearthPlan`, via `Nav.HEARTH_*`) weigh it the same way.
+A Hearthstone still cooling down counts with its wait (`p.hearthWait`, from
+`hearthWait`: #1915), as a teleport's `ready` does: the wait plus its 15 s
+against the other ways, with the same margin and minimum trip, and the hearth
+leg's `seconds` hold the wait (the travel button shows the cooldown). Once the
+live route hearths for a target (`legsFor`), a new plan for it passes
+`hearthHeld`: the hearth stays while it saves any time at all, so a saving
+near `HEARTH_MARGIN` does not flip the route between the hearth and the way
+without it at each plan. A teleport to the bind point (`bind` in
+`Transit.Teleports`: a Shaman's Astral Recall, spell 556) lands where the
+Hearthstone does (`p.hearth`, resolved with no Hearthstone in the bags too:
+`p.noStone`) and is weighed by the Hearthstone's rules, not a class
+teleport's (`bindV`: its own `ready` and cast, `HEARTH_MARGIN`, the long-haul
+hold, `hearthHeld`), its leg a teleport ("Cast Astral Recall", `leg.bind`).
+With both at hand the one whose full cooldown the client says is shorter is
+spent (`p.hearthLength`, the Hearthstone's use spell's, against the spell's
+`length`, both `Compat.GetSpellBaseCooldown`; a cost under a second), the
+Hearthstone when the client tells either not. A `hearth` goal takes it too:
+`Own.hearthWait` reads nothing to wait for while it is ready (`Own.bindRecall`),
+and `hearthText` then says "Cast Astral Recall".
 A class teleport is cast only when it clearly pays (#1823: Teleport:
 Stormwind won by a few seconds over a flight to Darkshire): it must save at
 least `TELEPORT_MARGIN` (60 s) over the best way without teleports, and
@@ -4502,7 +4561,22 @@ else the flight master within 60 yd of where the flight left;
 60 yd of it, one that never got away), a boat's, zeppelin's, tram's or
 portal's transport once it has arrived. So a plan made later on the way
 never goes back: from Stormwind the route flew to Sentinel Hill and on
-landing planned the flight back, over and over (#1890). `Progress` counts a
+landing planned the flight back, over and over (#1890). A crossing's near
+end reached (the walk to it, or the far end on the crossing's own walk or on
+the walk on to it from a start on it) is passed the same way a skipped one is
+(`passCrossing`): a plan from within the ends' distance of the far end walks on
+to it and from there, whatever zone the walking maps put the player in (0.4.0,
+the border sweep: reaching an end plans again, and by then the player was a few
+steps on; just past the near end's reach the plan sent them back to it, and at
+the far end, in a zone the winding zone line put them in, back through the
+crossing, 68 times in 4 minutes between the Swamp of Sorrows and the Blasted
+Lands). Its far end reached, the crossing is walked through: within that
+distance the plan starts on the far end's side, so where the zone line winds
+past the far end (a patch of Durotar beside Orgrimmar's end of its gate to the
+Barrens) it goes on from where the player stands, never back to the far end.
+The walk on to the far end from a start on the crossing makes no step of a pass
+along it, as the crossing's own walk makes none (a lift it rides still is one).
+`Progress` counts a
 ride, flight, hearth or teleport down from when it became current (a flight
 from take-off, when the player is first on the taxi); `Remaining`, the
 arrow's ETA on those legs, counts down the same way. `EstimateTravel`
@@ -4534,9 +4608,26 @@ road never holds the arrow on a node. The projection only moves forward;
 a later segment that is not the next one takes over only when 4 yd nearer
 (the far side of a hairpin), and it never moves past a blocking point the
 player has not come within 5 yd of: a point on another floor than the one
-before it (stairs, a ramp, a lift's landing), and,
-on a piece of a split walk, every point after the last one before its
-chokepoint (`Travel.Aim` passes `leg.seg` as `stop`). Another floor is more
+before it (stairs, a ramp, a lift's landing; outdoors one come within 5 yd of
+stays passed for the path, 0.4.0: a player who walked by a dip at its edge was
+held behind it for good), and,
+on a piece of a split walk, every point past its chokepoint's spot on the path
+(`Travel.Aim` passes `leg.stop` as `stop`: the point before the spot plus the
+share of the way to the next). The aim slides on to the spot, never past it,
+once the player is past that point before it or within 1 yd of it (held at
+the point, the arrow pointed at the feet of a player standing there when the
+chokepoint lay far along a sparse path's piece, 0.3.8, and of one standing a
+hair short of it, 0.4.0); from further back it stops at the point, as at any
+stop (0.4.0, the border sweep: let on sooner it cut the corner there, off the
+ramp down into Un'Goro Crater). Nor does the aim pass a floor change that ends
+the player's own segment before they come within 5 yd of it (0.4.0: measured
+from that point's floor, the path beyond lay on the aim's floor, and a walk to
+a Thunder Bluff lift that dropped into a hollow first stopped at the drop with
+the arrow at the player's feet). Once the player comes within 5 yd of the
+arrow's last aim along the path, the segments up to the aim's own take over at
+once (0.4.0: in a switchback of points 4 yd apart the arrow kept aiming at the
+spot the player stood on).
+Another floor is more
 than 6 yd (`FLOOR_STEP`) above or below; outdoors (`Walk.Aim` passes `hill`)
 it must also be steeper than 45° (`FLOOR_GRADE`, 1 yd up or down per yard
 across from the point it is measured against). 0.3.7 (Fitz in Desolace: "it
@@ -4544,8 +4635,18 @@ gets stuck on a point and fixates on it"): the paths are corners joined by
 long straight pieces, so the 6 yd rule alone took a hillside between two
 corners for a floor (14,244 of its 14,588 floors on the baked legs, in 70% of
 them), held the arrow on the first until the player came within 5 yd, and
-left it pointing back at it when they cut it. Indoors any 6 yd is a floor, as
-before; a drop, a lift, a climb and a floor straight overhead are steeper.
+left it pointing back at it when they cut it. Indoors the same 45° holds
+(0.3.8, the arrow replay: 772 of the 803 gentle indoor steps on the baked legs
+held it, in tunnels, mines and the cities' ramps) except where the path
+doubles back over itself: `Follow.Mark`, run by `Walk` on each path as it
+comes in (a router path, a baked leg), marks a point when another part of the
+path within 80 yd along it lies within 15 yd across and more than 6 yd above
+or below, further along than across (along less across over 15 yd: a spiral
+stair, a switchback, the Undercity's rings over rings), and indoors a marked
+point keeps the 6 yd rule (`state.dbl`, `state.marked`); the player's place
+is found across, and there only the floor rule keeps it from jumping to the
+part above or below. A drop, a lift, a climb and a floor straight overhead
+are steeper than 45°.
 A path that lands late (a search asked when the player strayed, from where
 they stood then) is followed from the player's place on it (`Follow.Catch`,
 called by `Walk.Aim` with the yards walked since the ask): the nearest point
@@ -4599,7 +4700,12 @@ wobbled across 15 yd, and the arrow flipped 37-57° between the two aims at
 every crossing). While a point ahead is in sight
 (`state.sighted`) the player has not strayed: no new search. The route line's walk then starts
 from the player toward that point (`Walk.SightAim`, Maps/RouteLines.lua), not
-straight across to the nearest one. The yards it reports are
+straight across to the nearest one. More than 60 yd off the walk
+(`LIVE_REACH`), where no point of it is in reach, the line starts from the
+player toward the arrow's aim whatever it is (`Walk.LastAim`: the point in
+sight, the corridor's, or the point 10 yd past the player's place); before
+0.3.8 it kept the start it last had in reach, so line and arrow disagreed on
+every stray (12.5% of the moving time on a stray-heavy replay sample). The yards it reports are
 the yards left along the path (straight to the end of the segment the player
 is on, then along it); with the arrow on a point in sight beside the path,
 straight to that point, then along the path from it (0.3.6: beside the path
@@ -4823,11 +4929,32 @@ crossings inside Western Plaguelands is a walk through it, #566) (`Travel.Replan
 too). A walk half through a far-above zone costs x10.5, half through a
 dangerous one x2. The zones read are kept per chunk (16 to a tile) for the
 session's `Path.ZoneAt`, so later plans between the same places ask the
-router nothing. With `nav.navRouting` off or the guiding handed to Shortest
+router nothing; a chunk not seen yet is read with its whole tile in one pass
+(`Path.ZoneTile`: 512 bytes a tile, kept beside the chunks; 0.4.0, D18: a
+plan's first lines across a continent read up to 4,569 chunks one pass each,
+up to 22 ms; by tile under 13 ms, the same answers). With `nav.navRouting` off or the guiding handed to Shortest
 Path Forever (`Nav.HandedOff()`), the next plan's estimates are today's at
 once, even though the loaded engine stays; likewise without `Path.ZoneAt` (no
 maps), its zone field or a dangerous zone. A measured walk (`p.walkCost`)
 already carries the router's pricing.
+
+A zone's road through (0.4.0, #1972): a straight walk from one of a zone's
+crossings to another, or over one (both ends crossing ends of the crossing
+data, in the same zone or the two ends of one crossing), is the zone's road
+through, and there a zone far above by at most 20 levels counts as
+dangerous, x3, never x20 (`Nav.danger.Along`'s `road`; the Table's zones
+within the gap, `roadOf`). A zone's lowest level comes from all its
+creatures, and the road through can run well clear of them: Deadwind Pass
+(55) lies between Duskwood and the Swamp of Sorrows, players' recordings show
+12 people walking or riding its pass at levels 36 to 46 with no death and no
+fight on it, and its level-55 creatures live 64 yd and more off the pass. At
+x20 a level 37 bound for Watcher Biggs was sent by flight to Lakeshire and
+round the Riverglades coast, three times as far; at x3 the plan walks the
+pass, and a way about as short elsewhere still wins. More than 20 levels
+above (no recording shows such a road walked), off the road (a walk that
+cuts across the zone elsewhere) and in the engine's own walks, x20 as
+before: the arrow's legs along the road start or end in the zone, so its
+walks there never count it.
 
 **Walks priced by the engine.** A straight line x1.25 cannot tell a walk
 round a ridge from one over it, so the planner would land at a flight master
@@ -4934,7 +5061,10 @@ pack`: lifts, gates, bridges, tunnels, passes, cave and building mouths, each
 with a radius), read instead of the Transit lifts. A chokepoint counts within its radius of the path, snapped to the
 nearest point on the path (the step ends there, so no leg runs out and back:
 K5); ones within 20 yd of the player, the walk's end or the step before are
-dropped (K7), and ones within 30 yd of a crossing, chain node or a guide
+dropped (K7; one dropped as near or behind, or a piece already walked, stays out
+of the goal's walk until it lies 100 yd ahead again: 0.4.0, a search a few steps
+on made it a step again and the route went to it and back as it was reached at
+once), and ones within 30 yd of a crossing, chain node or a guide
 `goto` end leave the hand-made caption alone (K8), but a lift the path rides
 (its height changes 20 yd or more there) is always a step, whatever its
 floor guard or the ends near it. Captions: a passage names
@@ -5040,6 +5170,27 @@ walk stays inside one zone; between zones it goes only through
   through; the player's floor is not read there (`Nav.Sample`'s floor hint,
   `offFloor`). A reload inside leaves the player outside until the next portal.
 
+One exception, the near walk: the live route walks the start straight to a
+target within 400 yd over a closed zone border (#1543) once the walking engine
+has found that walk short. The engine measures no walk that near (`Walk.lua`
+`MEASURE_NEAR`), so the border's crossing is only a guess: on the Barrens' side
+of the Great Lift, Lakota Windsong on Darkcloud Pinnacle is a walk along the
+plateau, and the crossing sent players down the lift and its foot's walk up it
+again. The route is planned without the near walk first; when the planner says
+it would offer one (`nearProbe`), the engine is asked for that walk once per
+target, apart from the arrow's own search (`Walk.Probe`, `Travel.NearWalk`). A
+path of at most 1.5 x the straight yards + 100 plans it, and it then holds within
+700 yd; a longer one or none changes nothing, so the route stays exactly the one
+planned without it (a detour round a ridge led players out past 400 yd, where
+the zone rule sent them back to the crossing, round and round; with no path the
+arrow pointed straight over the cliffs). Asked only while the engine searches
+the continent (`Walk.Searches`), never for the walk after a guide `goto`;
+estimates and plans without the engine keep the crossing. Never into or out of
+an area (no walk joins it to its zone), not when the engine found no walk from
+the player (`noDirect`), not from or to a chain's inside, and not when a chain
+joins the two zones (its hand-made way stays the way: the Undercity's south
+lift).
+
 A point's zone is its uiMap when the crossing data knows that zone (the area
 whose box holds it, if the map has one); a zone
 the data lists as `wild` (no crossing data, e.g. the zones only Forever has)
@@ -5064,8 +5215,18 @@ Hearthstone coming off cooldown, binding, the flight map opening, a flight
 path learned (`UI_INFO_MESSAGE` `ERR_NEWTAXIPATH`: the flight master within
 60 yd is marked known), and, with crossing data, on arriving at a crossing or
 chain waypoint and on moving more than 50 yd from where a plan at least 30 s
-old was made (checked at most once a second). `ROUTE_CHANGED` (legs) fires on
-every plan, `ROUTE_ADVANCED` (legs, ci) when the current leg moves on.
+old was made (checked at most once a second). A plan made again for a zone or
+subzone change or for walking on keeps the live route while its current leg is
+a walk the player follows (not a crossing's own walk; within 25 yd of the
+arrow's path to it and 50 yd or more from its end) unless the fresh plan goes
+another way that saves 20 s or more (`keepLive`). A way the live route left like that is remembered with what
+its walk had left along its path, and within 100 yd a fresh plan going that way
+again costs at least that, not its straight-line estimate (0.4.0, the border
+sweep: planned from each side of a zone border the player's walk crosses, two
+ways that differed only in the zone the plan started in, each priced by its
+straight line against the other's path, turned the arrow back at every step
+across it, up to 118 times in 4 minutes). `ROUTE_CHANGED` (legs) fires on every
+plan, `ROUTE_ADVANCED` (legs, ci) when the current leg moves on.
 
 **Data.** `node tools/polestar.js travel build` writes TravelData.lua
 (committed: flight masters and flight times, boats, zeppelins, the tram and
@@ -7567,7 +7728,7 @@ Dungeons and Characters sections stand on Lookup, beside Lookup's own); QoL, Map
 (flight timer, instances, coordinates, minimap button), Nav (transport alerts, nearby
 services) and the options window (trainer reminders) fill Quality of Life. The Hearthstone's two buttons, each
 its own switch (`qol.hearthButton`, the one in the action set; `nav.castPrompt`, the travel button under the
-arrow), sit side by side wherever both show: the Buttons page, Questing > Buttons and Quality of Life > Travel
+arrow, which also goes with the arrow: off with `nav.arrow`, #2009), sit side by side wherever both show: the Buttons page, Questing > Buttons and Quality of Life > Travel
 (QoL/Options.lua's pair, `QoL.HearthOptions` for the Buttons page); a settings search for "hearth", "HS" or
 "hearthstone" finds the Buttons page's pair first. On the **Map** page (Guide &
 quests: Guide, Quest markers; Rares, travel & zones: Rares and treasures, Dungeons and travel, NPC services,
@@ -8492,7 +8653,10 @@ Reading flow: `docs/DESIGN.md` ("Intent" and "The Guide Window").
   `fastest`, `balanced` or `roads`, in English) and only the routing settings
   away from their defaults (`real paths off`, `travel planner off`, `handed
   to Shortest Path Forever`), after Where so the bug bot still finds Arrow and
-  Where by position and reads this line by its style word; "While here:"
+  Where by position and reads this line by its style word; "Travel:" with
+  the travel plan's legs from the current one (`Nav.GetRoute`: each leg's
+  caption and m:ss, "(maybe)" on a flight to a flight master the character
+  may not have), none without a plan; "While here:"
   (`Engine.WhileHereState`, English words) with the line shown (its text,
   quest, step, yards) or "none", the radius, a hand-in's seconds out of the
   way ("hand-ins 20 s", or off) and the count of candidates, and

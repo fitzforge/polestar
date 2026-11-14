@@ -401,6 +401,7 @@ L["%s Inn"] = "%s旅店"
 L["Detour around %s"] = "繞開%s"
 L["Walk to the airship dock"] = "走到飛艇碼頭"
 L["Take the airship to %s"] = "搭飛艇前往 %s"
+-- L["Learn the flight path at %s, then fly to %s"] = ""
 
 -- Nav/Journey.lua
 L["%s %d, %d"] = "%s %d, %d"
@@ -1998,6 +1999,7 @@ L["Log:"] = "日誌："
 L["Step %d of %d (guide step %d): %s"] = "步驟 %d / %d（指南步驟 %d）：%s"
 L["Install: %s"] = "安裝：%s"
 L["While here: %s"] = "順道完成：%s"
+-- L["Travel: %s"] = ""
 -- L["The report lists the settings you changed and your profile's name: no character names, chat, account or realm."] = ""
 
 -- UI/Packs.lua
@@ -3438,6 +3440,7 @@ L["%s · this guide doesn't go there"] = "%s · 此指南不去那裡"
 L["Timed quest"] = "限時任務"
 L["This guide's route doesn't hand this quest in: go there yourself before the time runs out, or let it go."] = "此指南的路線不會交這個任務：請在時間耗盡前自行前往，或放棄它。"
 L["Right-click: hide this until the timer ends."] = "右鍵：隱藏直到計時結束。"
+-- L["%s ~%s · go now, the route gets there too late"] = ""
 
 -- Core/Update.lua
 L["(outdated: latest %s)"] = "（已過時：最新為 %s）"
@@ -4318,6 +4321,7 @@ L["Part of the %s quests"] = "%s任務之一"
 -- L["%d finished quests here first"] = ""
 -- L["Jump anyway? They stay in your log, and the guide lists who takes each in."] = ""
 -- L["Jump anyway"] = ""
+L["Open any flight master's map once on this continent so Polestar knows your flight paths."] = "在這片大陸上開啟任一位飛行管理員的地圖一次，Polestar 就能知道你的飛行路線。"
 
 -- Core/Pause.lua
 -- L["Press %s to resume, or open the guide window."] = ""

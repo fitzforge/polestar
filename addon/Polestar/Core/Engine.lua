@@ -4920,17 +4920,32 @@ end
 -- Waypoint and goto arrival
 ---------------------------------------------------------------------------
 
+-- A teleport to the bind point the character can cast now (a Shaman's
+-- Astral Recall: Nav/Transit.lua's `bind`, known, ready): it takes the player
+-- where the Hearthstone does. { spell, name, ... } or nil.
+function Own.bindRecall()
+	local X = ns.Transit
+	if not (X and X.Teleports) then return nil end
+	local ok, list = pcall(X.Teleports)
+	if not (ok and type(list) == "table") then return nil end
+	for _, e in ipairs(list) do
+		if e.bind and (e.ready or 0) <= 0 then return e end
+	end
+	return nil
+end
+
 -- A hearth goal while the Hearthstone cannot take the player there (#576):
 -- seconds until it is ready, 0 with no Hearthstone in the bags; nil when it
--- is ready (or QoL, which reads it, is not loaded).
+-- is ready, or a teleport to the bind point is (Own.bindRecall: Astral
+-- Recall does a hearth goal as well), or QoL, which reads it, is not loaded.
 function Own.hearthWait(goal)
 	if goal.t ~= "hearth" then return nil end
 	local Q = ns.QoL
 	local h = Q and Q.GetHearth and Q.GetHearth()
 	if not h then return nil end
-	if not h.have then return 0 end
-	if (h.remaining or 0) > 0 then return h.remaining end
-	return nil
+	local wait = not h.have and 0 or (h.remaining or 0) > 0 and h.remaining or nil
+	if wait and Own.bindRecall() then return nil end
+	return wait
 end
 
 -- The inn a hearth goal's location names (Nav/Travel.lua's inns), to walk to.
@@ -5016,6 +5031,10 @@ function Own.hearthText(goal)
 	end
 	if not wait then
 		if go then return L["The inn is only %s away: travel there and keep the Hearthstone"]:format(Own.minutes(trip)) end
+		-- The Hearthstone waits or is not in the bags, Astral Recall is ready: it names the spell.
+		local h = ns.QoL and ns.QoL.GetHearth and ns.QoL.GetHearth()
+		local r = not (h and h.have and (h.remaining or 0) <= 0) and Own.bindRecall()
+		if r then return L["Cast %s"]:format(r.name or "") end
 		return nil
 	end
 	if wait == 0 then
@@ -5221,6 +5240,21 @@ function Own.failedAim(s)
 	return nil
 end
 
+-- A timed quest's hand-in pulled forward (Quests/Timed.lua, Timed.Pulling:
+-- the route's way there gets in after its timer runs out, going now still
+-- makes it): the arrow leads to that hand-in, a later step's goal, ahead of
+-- the live step's other errands; the window's While-here panel says why.
+-- Nil when no hand-in is pulled.
+function Own.timedAim()
+	local T = ns.Timed
+	local q = T and T.Pulling and T.Pulling()
+	if not q then return nil end
+	local s, g = T.Pulled(q)
+	local goal = s and guide.steps[s] and guide.steps[s].goals[g]
+	if not (goal and goal.t == "turnin" and goal.quest == q) then return nil end
+	return waypointOf(g, goal, nil, s)
+end
+
 -- The arrow's goal: the one the player chose in the current step (a row
 -- click, the next spot), while it is open and its quest is not waiting for
 -- its accept in the step (Own.acceptFirst); else the current goal's own place;
@@ -5237,8 +5271,10 @@ end
 -- so does the "While you're here" line the player clicked (Engine.AimWhileHere),
 -- while it shows. On the live step, a quest that left the log and waits for
 -- the player's answer leads back to its giver (Own.lostAim), whose accept the
--- window's notice names. A flight step leads to the flight's end while the
--- travel planner flies there (Own.flyAim), past the flight master it names.
+-- window's notice names; a timed quest's hand-in the route would reach too
+-- late leads ahead of the step's errands (Own.timedAim). A flight step leads
+-- to the flight's end while the travel planner flies there (Own.flyAim), past
+-- the flight master it names.
 local function findWaypoint()
 	if not current or (current == computed and (Own.startGate(guide) or Own.awayStart(guide))) then return nil end
 	local goals = guide.steps[current].goals
@@ -5257,7 +5293,7 @@ local function findWaypoint()
 		if wp then return wp end
 	end
 	if current == computed then
-		local wp = Own.lostAim() or Own.partyAim(current)
+		local wp = Own.lostAim() or Own.partyAim(current) or Own.timedAim()
 		if wp then return wp end
 	end
 	local fly = Own.flyAim(current) or Own.flyFromAim(current)
@@ -7083,8 +7119,9 @@ end
 -- (#1530: a flight to the Crossroads landed but never ended its step, the
 -- zone text reading "The Crossroads" and the goal "Crossroads"; so with
 -- Stormwind, Grom'gol, Theramore, Feathermoon), with a place; else nil.
+-- The known landing first: the common case asks Nav once.
 function Own.landingNode(goal)
-	local node = Own.unknownLanding(goal) or (goal.node and ns.Nav and ns.Nav.GetTaxiNode and Own.knownLanding(goal))
+	local node = (goal.node and ns.Nav and ns.Nav.GetTaxiNode and Own.knownLanding(goal)) or Own.unknownLanding(goal) or Own.maybeLanding(goal)
 	return node and node.map and node.x and node.y and node or nil
 end
 Own.LANDING_RADIUS = 30 -- yards around the flight master: where the taxi sets the player down
@@ -9485,7 +9522,9 @@ end
 -- the planner on, to the landing as travel: its arrow and its goal read "Go
 -- to", the route walks, sails or takes the flights the character knows, and
 -- the goal is done on arriving there or once that flight path is learned
--- (Own.unknownLanding, Own.landingReached).
+-- (Own.unknownLanding, Own.landingReached). A landing it may have though
+-- Polestar doesn't know it (Nav.TaxiMaybe: no flight map opened on that
+-- continent yet, #1795) stays a flight: the planner flies there at a cost.
 -- With the planner off the guide's steps hold as written.
 ---------------------------------------------------------------------------
 
@@ -9538,12 +9577,23 @@ function Own.knownLanding(goal)
 	return node and nav.GetKnownTaxiNodes()[goal.node] and node or nil
 end
 
--- The landing node of a `fly` goal the character does not know, while the
--- planner leads (see above); else nil.
+-- The landing node of a `fly` goal the character does not know and may not
+-- have (Nav.TaxiMaybe), while the planner leads (see above); else nil.
 function Own.unknownLanding(goal)
 	if not (goal and goal.t == "fly" and goal.node and Own.plannerFlies()) then return nil end
 	local nav = ns.Nav
-	if nav.GetKnownTaxiNodes()[goal.node] then return nil end
+	if nav.GetKnownTaxiNodes()[goal.node] or (nav.TaxiMaybe and nav.TaxiMaybe(goal.node)) then return nil end
+	local node = nav.GetTaxiNode(goal.node)
+	return node and node.map and node.x and node.y and node or nil
+end
+
+-- The landing node of a `fly` goal the character may have though Polestar
+-- doesn't know it (Nav.TaxiMaybe, #1795), while the planner leads; else nil.
+-- Led to and arrived at like a known landing (Own.flyAimed, Own.landingNode).
+function Own.maybeLanding(goal)
+	if not (goal and goal.t == "fly" and goal.node and Own.plannerFlies()) then return nil end
+	local nav = ns.Nav
+	if not (nav.TaxiMaybe and nav.TaxiMaybe(goal.node)) then return nil end
 	local node = nav.GetTaxiNode(goal.node)
 	return node and node.map and node.x and node.y and node or nil
 end
@@ -9794,7 +9844,7 @@ end
 function Own.flyAimed(s)
 	if not (Own.plannerFlies() and Own.transitKind(s) == "fly") then return nil end
 	local goal, g = Own.flyGoal(s)
-	local node = Own.knownLanding(goal) or Own.unknownLanding(goal)
+	local node = Own.knownLanding(goal) or Own.maybeLanding(goal) or Own.unknownLanding(goal)
 	if not (node and node.map and node.x and node.y) then return nil end
 	return goal, g, node
 end
@@ -10732,6 +10782,49 @@ function Own.aheadLimitOk(a, npc, c, x, y)
 		end
 	end
 	return false
+end
+
+-- Seconds the route's way from where the player stands to quest q's hand-in
+-- takes, for the timed hand-in's pull (Quests/Timed.lua): the open goals
+-- from the live step on, in order, those with a place by straight lines
+-- HERE_WINDING longer at HERE_SPEED, GOAL_SECONDS each, as Own.aheadLimitOk
+-- weighs a timed accept. A goal on the way on another continent, or one that
+-- leads away (HERE_SOON_AWAY: a level, a flight, a hearth, a wait), counts as
+-- forever; none before the hand-in, 0 (the route goes there next). ->
+-- seconds, the hand-in's step and goal index; nil when the route hands q in
+-- nowhere from the live step on, or the hand-in has no place.
+function Engine.RouteSeconds(q)
+	if not (guide and computed and q) then return nil end
+	local c, x, y = Compat().GetPlayerWorldPosition()
+	if not c then return nil end
+	local steps, yards, secs, errands, far = guide.steps, 0, 0, 0, false
+	for i = computed, #steps do
+		local step = steps[i]
+		if stepApplies(step) and not isSkipped(i) then
+			for j, goal in ipairs(step.goals) do
+				local t = goal.t
+				if t ~= "note" and goalApplies(goal) and not Own.goalSkipped(i, j) and not goalDone(i, j, goal) then
+					local oc, ox, oy
+					if goal.map and goal.x and goal.y then oc, ox, oy = goalWorld(goal) end
+					if t == "turnin" and goal.quest == q then
+						if not oc then return nil end
+						if errands == 0 then return 0, i, j end
+						if far or oc ~= c then return math.huge, i, j end
+						yards = yards + ((ox - x) ^ 2 + (oy - y) ^ 2) ^ 0.5
+						return secs + yards * Own.HERE_WINDING / Own.HERE_SPEED, i, j
+					end
+					errands = errands + 1
+					secs = secs + Own.GOAL_SECONDS
+					if Own.HERE_SOON_AWAY[t] or (oc and oc ~= c) then
+						far = true
+					elseif oc then
+						yards, x, y = yards + ((ox - x) ^ 2 + (oy - y) ^ 2) ^ 0.5, ox, oy
+					end
+				end
+			end
+		end
+	end
+	return nil
 end
 
 -- Whether accept a, goal j of step i, may be taken now at its NPC (see
@@ -12136,9 +12229,10 @@ end)
 ---------------------------------------------------------------------------
 -- Flight paths you pass (Fitz, 2026-11-10; behavior.whileHereFlights): a
 -- friendly flight master within the While-here radius whose flight path
--- the character has not learned (Nav.UnknownTaxiOn: its faction's or
--- neutral, its class's, on the player's continent; Nav knows the ones learnt
--- while Polestar was off too, #1308) is a line of its own: "Learn the flight
+-- the character does not have (Nav.UnknownTaxiOn: its faction's or
+-- neutral, its class's, on the player's continent, once a flight map has
+-- opened there: before that a flight master not known may be one learnt
+-- before Polestar ran, #1795) is a line of its own: "Learn the flight
 -- path at Thelsamar"; a click leads the arrow to it. One at a time, after
 -- the quest lines (it never takes a place they fill), with their rules: not
 -- in combat, an instance or on a taxi, nor while a timed quest's clock
@@ -12297,14 +12391,9 @@ function Own.hereFlyView(e)
 	return v
 end
 
--- A flight path learnt (the flight map, "New flight path discovered", the
--- world map's nodes changing): Nav marks it known in its own handler; the
--- build after ends its line.
+-- A flight path learnt (the flight map, "New flight path discovered"): Nav
+-- marks it known in its own handler; the build after ends its line.
 ns.RegisterEvent("TAXIMAP_OPENED", function()
-	Own.hereDirty = true
-	requestUpdate()
-end)
-ns.RegisterEvent("TAXI_NODE_STATUS_CHANGED", function()
 	Own.hereDirty = true
 	requestUpdate()
 end)
@@ -13392,6 +13481,7 @@ end
 ns.On("QUESTDB_LOADED", onUpdateEvent)
 -- The Hearthstone's cooldown started, ended or the bind moved (QoL/Hearth.lua).
 ns.On("QOL_HEARTH_CHANGED", onUpdateEvent)
+ns.On("TIMED_PULL", onUpdateEvent) -- a timed hand-in pulled forward or let go (Own.timedAim)
 
 -- New gear verdicts (equipment, spec, level, item data): `when upgrade`.
 ns.On("GEAR_UPDATED", onUpdateEvent)
