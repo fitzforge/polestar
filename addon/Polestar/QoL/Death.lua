@@ -17,15 +17,20 @@
 -- A choice only flips when the other one is clearly better, so the arrow
 -- does not flicker.
 --
---   Polestar.QoL.GetDeathAdvice() -> { choice = "corpse"|"healer", corpseYards, healerYards,
---                                      corpseSeconds, healerSeconds, sickness, note } | nil
+--   Polestar.QoL.GetDeathAdvice() -> { choice = "corpse"|"healer"|"inside", corpseYards, healerYards,
+--                                      corpseSeconds, healerSeconds, sickness, note, via } | nil
 --
 -- Died in a dungeon or raid and released outside it, the corpse is on no map
--- the client answers for: the instance's entrance (the Codex) stands for it.
+-- the client answers for: the instance's entrance (the Codex) stands for it,
+-- and the run back in is the advice however long it is: a corpse inside an
+-- instance is never weighed against the Spirit Healer. Where that entrance is
+-- not known (one of Forever's own dungeons the Codex has no entrance for, or
+-- Lookup off with the Codex not loaded), the advice says the corpse is inside
+-- that instance and to run back in through its entrance, and holds no arrow.
 --
 -- Client: UnitIsGhost, C_DeathInfo.GetCorpseMapPosition, GetUnitSpeed,
 -- C_UnitAuras.GetPlayerAuraBySpellID (AuraData.duration), IsInInstance,
--- GetInstanceInfo (through Compat) (Forever API docs).
+-- GetInstanceInfo (through Compat, and its name) (Forever API docs).
 
 local ADDON, ns = ...
 local L = ns.L
@@ -167,13 +172,15 @@ function Death.EntranceOf(map)
 end
 
 -- Where the character died, when in a dungeon or raid (QoL.State().diedIn =
--- { map }), kept until alive: once released outside, the corpse is on no map
--- the client answers for, so the run back is to the instance's entrance.
+-- { map, name }), kept until alive: once released outside, the corpse is on
+-- no map the client answers for, so the run back is to the instance's
+-- entrance. The name is the client's, for when the entrance is not known.
 local function noteDeathPlace()
 	local C = ns.Compat
 	local inside, kind = C.IsInInstance()
 	local map = inside and (kind == "party" or kind == "raid") and C.GetInstanceMapID and C.GetInstanceMapID() or nil
-	QoL.State().diedIn = map and { map = map } or nil
+	local name = map and GetInstanceInfo and readable((GetInstanceInfo())) or nil
+	QoL.State().diedIn = map and { map = map, name = type(name) == "string" and name ~= "" and name or nil } or nil
 end
 
 ---------------------------------------------------------------------------
@@ -272,6 +279,28 @@ local function pins(a)
 	P.SetLayer(LAYER, list, { world = true, minimap = true, edge = true })
 end
 
+-- The corpse in a dungeon or raid whose entrance is not known (`name`, the
+-- client's), or on another continent: the run back into it, said once; the
+-- arrow is let go (nothing points at a place nobody knows) and no Spirit
+-- Healer is offered.
+local function insideAdvice(name)
+	for k in pairs(advice) do advice[k] = nil end
+	advice.choice, advice.via = "inside", name
+	advice.note = format(L["Your corpse is inside %s: run back in through its entrance."], name)
+	local changed = current ~= "inside"
+	local Nav = ns.Nav
+	if mine and Nav and Nav.Unhold then Nav.Unhold() end
+	mine = nil
+	if ns.Pins and ns.Pins.ClearLayer then ns.Pins.ClearLayer(LAYER) end
+	pinned.choice, pinned.hx, pinned.cx = nil, nil, nil
+	current = "inside"
+	if not noted or changed then
+		noted = true
+		ns.Print(advice.note)
+	end
+	return advice
+end
+
 function Death.Update()
 	if not (QoL.On("deathHelper") and isGhost()) then return nil end
 	local C = ns.Compat
@@ -279,17 +308,21 @@ function Death.Update()
 	if not pc then return nil end
 	local cc, cwx, cwy, cmap, cx, cy = corpse()
 	-- Released outside the dungeon or raid the character died in: its
-	-- entrance stands for the corpse.
+	-- entrance stands for the corpse; with none known, the run back into it.
 	local died, via = QoL.State().diedIn, nil
 	if not cc and type(died) == "table" and not C.IsInInstance() then
 		local em, ex, ey, name = Death.EntranceOf(died.map)
 		local ec, ewx, ewy
 		if em then ec, ewx, ewy = C.MapToWorld(em, ex, ey) end
-		if ec then cc, cwx, cwy, cmap, cx, cy, via = ec, ewx, ewy, em, ex, ey, name or L["the dungeon"] end
+		if not ec then return insideAdvice(died.name or name or L["the dungeon"]) end
+		cc, cwx, cwy, cmap, cx, cy, via = ec, ewx, ewy, em, ex, ey, name or L["the dungeon"]
 	end
 	local corpseYards
 	if cc == pc then corpseYards = sqrt((cwx - px) ^ 2 + (cwy - py) ^ 2) end
-	local hc, hwx, hwy, hmap, hx, hy, healerYards = Death.NearestHealer(pc, px, py)
+	-- A corpse inside a dungeon or raid: the way back in, whatever it costs; never the Spirit Healer.
+	if via and not corpseYards then return insideAdvice(via) end
+	local hc, hwx, hwy, hmap, hx, hy, healerYards
+	if not via then hc, hwx, hwy, hmap, hx, hy, healerYards = Death.NearestHealer(pc, px, py) end
 	local info = C.GetPlayerInfo and C.GetPlayerInfo()
 	local choice, cs, hs, sickness = Death.Decide(corpseYards, healerYards, runSpeed(), info and info.level, current,
 		QoL.State().resSickness)

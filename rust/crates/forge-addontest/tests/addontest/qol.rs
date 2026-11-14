@@ -4709,6 +4709,57 @@ fn death_released_outside_the_dungeon_you_died_in_the_arrow_runs_to_its_entrance
 	assert_eq!(out[1], true);
 }
 
+// A corpse inside a dungeon or raid is never weighed against the Spirit Healer. One of Forever's own dungeons whose
+// entrance the Codex lacks (Alcaz Prison), or a Codex that never loads (Lookup off): the corpse is in there all the
+// same, and the advice says so, with nothing holding the arrow. A known entrance 5,000 yd away (a long run against
+// ten minutes of sickness) is still the run back in.
+#[test]
+fn death_in_a_dungeon_is_the_run_back_in_never_the_spirit_healer_entrance_known_or_not() {
+	let out = run(r#"
+		QoL.SetData({ spiritHealers = { { 0, 20, 0, 9000, 50, 49 } }, flightMasters = {} })
+		q.player = { c = 0, wx = 0, wy = 0 }
+		q.level = 40
+		local function die(name, map)
+			IsInInstance = function() return true, "party" end
+			GetInstanceInfo = function() return name, "party", 1, "Normal", 5, 0, false, map end
+			stub.fire("PLAYER_DEAD")
+			IsInInstance = function() return false, "none" end
+			q.corpse = nil
+			q.ghost = true
+			stub.fire("PLAYER_ALIVE")
+			local a = QoL.GetDeathAdvice()
+			local out = { choice = a and a.choice, note = a and a.note, held = q.nav.held ~= nil, label = q.nav.held and q.nav.held.label or false,
+				pins = q.pins["qol.death"] and #q.pins["qol.death"] or 0 }
+			q.ghost = false
+			stub.fire("PLAYER_UNGHOST")
+			return out
+		end
+		-- The Codex has the instance, not its entrance.
+		Polestar.Codex = { IsLoaded = function() return true end, Each = function(_, fn) fn("alcaz-prison") end,
+			Instance = function(key) return { key = key, name = "Alcaz Prison", map = 2994 } end }
+		emit(die("Alcaz Prison", 2994))
+		-- The Deadmines' entrance known, 5,000 yd away.
+		Polestar.Codex = { IsLoaded = function() return true end, Each = function(_, fn) fn("deadmines") end,
+			Instance = function(key) return { key = key, name = "The Deadmines", map = 36, entrance = { map = 9000, x = 50, y = 500 } } end }
+		emit(die("The Deadmines", 36))
+		-- Lookup off and the Codex not loaded: a raid's entrance is out of reach.
+		Polestar.Set("lookup.enabled", false)
+		Polestar.Codex = { IsLoaded = function() return false end, Load = function() return true end, Each = function(_, fn) fn("zg") end,
+			Instance = function(key) return { key = key, name = "Zul'Gurub", map = 309, entrance = { map = 9000, x = 50, y = 30 } } end }
+		emit(die("Zul'Gurub", 309))
+	"#);
+	for (i, name) in [(0, "Alcaz Prison"), (2, "Zul'Gurub")] {
+		assert_eq!(out[i]["choice"], "inside", "{out:?}");
+		assert_eq!(out[i]["note"], format!("Your corpse is inside {name}: run back in through its entrance."), "{out:?}");
+		assert_eq!(out[i]["held"], false, "nothing holds the arrow: {out:?}");
+		assert_eq!(out[i]["pins"], 0, "{out:?}");
+	}
+	assert_eq!(out[1]["choice"], "corpse", "{out:?}");
+	assert_eq!(out[1]["label"], "The Deadmines (your corpse is inside)", "{out:?}");
+	assert!(is_match(text(&out[1]["note"]), r"^Run back to The Deadmines, your corpse is inside"), "{out:?}");
+	assert_eq!(out[1]["pins"], 1, "the entrance alone, no Spirit Healer: {out:?}");
+}
+
 // ---------------------------------------------------------------------------
 // Questing toggles
 // ---------------------------------------------------------------------------
