@@ -2602,6 +2602,22 @@
 		],
 		"note": "Genn Fairweather is a stable master (the title under the name reads \"Stablemaster and Riding Trainer\"), but the merged data had no stable master role for this Forever NPC, so Nearby's stable master search passed over it and named one on another continent (#2010). It keeps its repair, trainer and vendor roles."
 	},
+	"278863": {
+		"set": {
+			"spawns": {}
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' recordings to 2026-11-12: no sighting of npc 278863 and no death to it, while 337 people on foot logged other creatures within 40 yd of its points (danger gate census)"
+			},
+			{
+				"kind": "tdb",
+				"ref": "Forever world DB of 2026-10-14: no creature_template 278863"
+			}
+		],
+		"note": "Infernal (npc 278863, a level 30 elite) is nowhere players go: the quest data puts it at 133 points in Durotar, Elwynn Forest, Teldrassil, Thunder Bluff, Mulgore, Stormwind City and Zephras Isle, and no player has met it or died to it there. Those points made the danger gate flag the starting zones' quests, and would mark For Honor and An Enticing Offer \"Elite: group advised\" (#1575)."
+	},
 	"5858": {
 		"set": {
 			"name": "Searing Lava Spider"

@@ -497,3 +497,11 @@ test('the Searing Lava Spider and Velarok Windblade have the names the game show
 	assert.equal(corrections.npcs[8479].set.name, 'Velarok Windblade');
 	assert.ok(!corrections.npcs[5857], 'npc 5857 keeps its own name');
 });
+
+// #1575 (danger gate census): QuestieDB places Infernal 278863, a level 30 elite, at 133 points in the starting zones
+// and capitals. No player has met it or died to it there, while 337 people's recordings logged other creatures within
+// 40 yd of those points; the danger gate flagged the starting zones' quests, and the compiler's "Elite: group advised"
+// (an object's work among hostile elites) would mark For Honor and An Enticing Offer. It stands nowhere.
+test('Infernal 278863 stands nowhere players go: no spawns (#1575)', () => {
+	assert.deepEqual(corrections.npcs[278863].set, { spawns: {} });
+});

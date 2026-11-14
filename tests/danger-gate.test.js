@@ -1,12 +1,14 @@
 'use strict';
-// The danger-at-the-spot gate's rules and baseline comparison (tools/lib/danger.js, #1575), on made-up mobs: no
-// reference data needed. The gate itself runs on the release candidate (tools/danger-gate.js, gate 10).
+// The danger-at-the-spot gate's rules and its check against the reviewed baseline (tools/lib/danger.js, #1575), on
+// made-up mobs and a made-up recordings archive: no reference data needed. The gate itself runs on the release
+// candidate (tools/danger-gate.js, gate 10).
 
 const { test } = require('node:test');
 const assert = require('node:assert/strict');
 const fs = require('node:fs');
+const os = require('node:os');
 const path = require('node:path');
-const { flagGoal, compare, GATE_MARGIN, KINDS } = require('../tools/lib/danger');
+const { flagGoal, compare, threatTo, readCensus, GATE_MARGIN, CENSUS_MIN, KINDS } = require('../tools/lib/danger');
 
 const npcs = {
 	1: { name: 'Cave Yeti', level: 30, levelMax: 31, spawns: { 1424: { pts: [[1, 1], [2, 2]] } } },
@@ -46,6 +48,81 @@ test('compare fails a new flag past the margin, lists a borderline one and basel
 	assert.deepEqual(r.fail.map((f) => f.key), ['a|kill 1.1|target']);
 	assert.deepEqual(r.borderline.map((f) => f.key), ['b|use 2.1|over']);
 	assert.deepEqual(r.stale.map((f) => f.key), ['d|kill 4.1|pack']);
+});
+
+// A recordings archive of made-up sessions: map 1's percent is 10 yd (world x = 10 * map x).
+function archive(t, sessions, exclude = []) {
+	const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'danger-census-'));
+	t.after(() => fs.rmSync(dir, { recursive: true, force: true }));
+	fs.writeFileSync(path.join(dir, 'config.json'), JSON.stringify({ exclude }));
+	sessions.forEach((s, i) => fs.writeFileSync(path.join(dir, `s${String(i).padStart(3, '0')}.json`), JSON.stringify({ schema: 2, ...s })));
+	return dir;
+}
+const world = (map, x, y) => ({ c: map, x: x * 10, y: y * 10 });
+const unit = (npc, react, x = 50, y = 50) => ({ e: 'unit', npc, react, map: 1, x, y });
+const mobs = {
+	11: { id: 11, name: 'Pack Mule', level: 60 },
+	12: { id: 12, name: 'Territorial Terran', level: 60 },
+	13: { id: 13, name: 'Snapjaw', level: 30, rank: 4 },
+	14: { id: 14, name: 'Lone Sentinel', level: 60 },
+	15: { id: 15, name: 'Kirin Tor Guard', level: 55, faction: 'A' },
+	16: { id: 16, name: 'Dermot', level: 33 },
+	17: { id: 17, name: 'Calvin Montague', level: 5, faction: 'AH' },
+	18: { id: 18, name: 'Highperch Soarer', level: 29 },
+	20: { id: 20, name: 'Restless Spirit', level: 23 },
+};
+
+test('the census settles who is a threat: met friendly, never met where CENSUS_MIN people passed, met hostile or killing one; else the data', (t) => {
+	// CENSUS_MIN Horde players pass the den (one of them twice, under one cohort) and meet only its Restless Spirits;
+	// Alliance players meet the Pack Mule as friendly, a Kirin Tor Guard as hostile and Dermot as neutral; Calvin Montague
+	// kills a Horde player; a Soarer no census logged is killed by the den; a flight's sightings over the lone spot and
+	// an excluded contributor's session (the Terran as friendly) do not count.
+	const cohort = 'aaaaaaaaaaaaaaaa';
+	const passers = Array.from({ length: CENSUS_MIN }, (_, i) => ({ contributor: `h${i}`, cohort: i === 0 ? cohort : undefined, char: { faction: 'Horde' }, events: [unit(20, 'hostile')] }));
+	const dir = archive(t, [
+		...passers,
+		{ contributor: 'h-alt', cohort, char: { faction: 'Horde' }, events: [unit(20, 'hostile')] },
+		{ contributor: 'a1', char: { faction: 'Alliance' }, events: [unit(11, 'friendly', 70, 70), unit(15, 'hostile', 70, 70), unit(16, 'neutral', 70, 70)] },
+		{ contributor: 'a2', char: { faction: 'Alliance' }, events: [unit(20, 'hostile', 90, 90), unit(20, 'hostile', 91, 91)] },
+		{ contributor: 'h-dead', char: { faction: 'Horde' }, events: [{ e: 'death', killer: 17, map: 1, x: 20, y: 20 }] },
+		{ contributor: 'h-kill', char: { faction: 'Horde' }, events: [{ e: 'kill', npc: 18, map: 1, x: 50, y: 50 }] },
+		{ contributor: 'h-fly', char: { faction: 'Horde' }, events: [{ e: 'taxi' }, unit(20, 'hostile', 90, 90), { e: 'land' }] },
+		{ contributor: 'bad', char: { faction: 'Horde' }, events: [unit(12, 'friendly')] },
+	], ['bad']);
+	const den = [{ c: 1, x: 505, y: 500 }];
+	const census = readCensus(dir, { world, targets: new Map([[12, den], [13, den], [18, den], [14, [{ c: 1, x: 900, y: 900 }]]]) });
+	assert.equal(census.sessions, CENSUS_MIN + 6);
+	assert.equal(census.near.get(12), CENSUS_MIN, 'one cohort is one person; the excluded session is left out');
+	assert.equal(census.near.get(14), 1, 'a flight saw from high above');
+	const threat = (id, side) => threatTo(mobs[id], side, census);
+	// Met as friendly by the Alliance: no threat to it; the Horde never met it, so the data (no side) decides.
+	assert.equal(threat(11, 'A'), false);
+	assert.equal(threat(11, 'H'), true);
+	// Never met by anyone though CENSUS_MIN people's census ran by its spawns: not there, for either side.
+	assert.equal(threat(12, 'A'), false);
+	assert.equal(threat(12, 'H'), false);
+	// A rare never met is still counted (seldom up), and so is a template too few people passed, or one killed where no
+	// census logged it.
+	assert.equal(threat(13, 'H'), true);
+	assert.equal(threat(14, 'H'), true);
+	assert.equal(threat(18, 'H'), true);
+	// Met as hostile, or killing one of the side's players, is a threat even where the data has it friendly.
+	assert.equal(threatTo(mobs[15], 'A'), false);
+	assert.equal(threat(15, 'A'), true);
+	assert.equal(threatTo(mobs[17], 'H'), false);
+	assert.equal(threat(17, 'H'), true);
+	// Met only as neutral: the data decides (players fight neutral mobs; quest targets are neutral until attacked).
+	assert.equal(threat(16, 'A'), true);
+});
+
+test('a level-60 template players meet as friendly, or never meet, raises no flag at a level-20 goal; without the census it does', (t) => {
+	const passers = Array.from({ length: CENSUS_MIN }, (_, i) => ({ contributor: `p${i}`, char: { faction: 'Alliance' }, events: [unit(20, 'hostile'), unit(11, 'friendly')] }));
+	const census = readCensus(archive(t, passers), { world, targets: new Map([[12, [{ c: 1, x: 510, y: 500 }]]]) });
+	const goal = { t: 'collect', quest: 98396, oi: 3, fromNpcs: [] };
+	const near = [{ id: 11, count: 6, dmin: 10 }, { id: 12, count: 12, dmin: 15 }];
+	const keep = (c) => near.filter((m) => threatTo(mobs[m.id], 'A', c));
+	assert.deepEqual(kinds(flagGoal({ goal, level: 20.6, near: keep(null), npcs: mobs, side: 'A' })), ['over', 'pack']);
+	assert.deepEqual(flagGoal({ goal, level: 20.6, near: keep(census), npcs: mobs, side: 'A' }), []);
 });
 
 test('the committed baseline: every row is a known kind with its guide, goal, reason and evidence, keys unique', () => {

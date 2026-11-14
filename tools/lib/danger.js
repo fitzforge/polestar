@@ -5,10 +5,13 @@
 //   levelsOf(files) -> Map(guide id -> { start, q: Map(quest -> level after its turn-in) })
 //     files: the calibrated level model's output for each faction (the release audit's level run: an array of race x class
 //     branches, each { rows: [{ id, start, tq: [[quest, level], ...] }] }); levels are the mean over the branches.
-//   sweep({ dataDir, guidesDir, levels, guides? }) -> [{ key, guide, step, title, goal, quest, oi, kind, level,
-//     margin, mobs: [...] }]
+//   sweep({ dataDir, guidesDir, levels, guides?, archive? }) -> { flags: [{ key, guide, step, title, goal, quest, oi,
+//     kind, level, margin, mobs: [...] }], census: null | { sessions, cleared: [...], added: [...] } }
 //   compare(flags, baseline) -> { fail: [flag], borderline: [flag], stale: [row] }
 //   flagGoal({ goal, level, near, npcs, group, side }) -> [{ kind, margin, mobs }]   the rules, for one goal (side: A or H)
+//   threatTo(npc, side, census?) -> whether the npc attacks the side's players (below, "Who is a threat")
+//   readCensus(dir, { world, targets }) -> census   players' recordings: who met each npc and as what, who died to it,
+//     and how many people's census ran within R yd of each target's spawns (targets: Map(npc -> [{ c, x, y }]))
 //
 // The level at a goal is the route's (the level model's level after the last turn-in before the step, raised by the
 // guide's own `level` goals), not the guide's title range. The rules (each flag's margin is how far past its
@@ -23,6 +26,19 @@
 // A flag is identified by guide, goal and kind (`key`), never by the step's number, so steps moving around keep their
 // baseline rows. compare() fails on a key the baseline lacks when its margin is GATE_MARGIN or more; one closer to its
 // threshold is reported as borderline (a level model's tenth of a level must not flip the gate).
+//
+// Who is a threat: npcs.json's `faction` is the side an npc serves. It is null for a hostile mob, but also for an
+// NPC friendly to both sides that sells nothing (the quest data's "friendly to both" is dropped then, and it is wrong
+// for some hostile mobs, Stitches among them), for Forever's new NPCs whose side no source gives, and for templates
+// the quest data places where the game shows none (Season of Discovery leftovers, event spawns). Without players'
+// recordings every npc of no side counts as hostile. With the recordings archive (`archive`: the Recorder's unit
+// census, every npc a player saw with its reaction to that player, and what killed them), a template is
+//   - a threat to a side when one of its players met it as hostile or died to it, whatever the data says;
+//   - none when the side's players met it as friendly (some may see it neutral: reputation) and never as hostile;
+//   - none when nobody ever met it or died to it though CENSUS_MIN people's census ran within R yd of its spawns:
+//     players don't meet it there (rares apart: they are seldom up);
+//   - else as the data says: one met only as neutral still counts (players fight neutral mobs, and quest targets
+//     such as the Dalaran traitors are neutral until attacked).
 
 const fs = require('node:fs');
 const path = require('node:path');
@@ -34,6 +50,10 @@ const R = 40;
 const RARE_R = 80;
 const CELL = 50;
 const GATE_MARGIN = 0.5;
+// People whose census ran around a template's spawns before "nobody met it" says players don't meet it there: about
+// two passers in three log a hostile mob that stands there (the census around the gate's flags, 2026-11), so fifteen
+// all missing one is chance (1 in 10^7) or a mob seldom there.
+const CENSUS_MIN = 15;
 const KINDS = ['target', 'over', 'elite', 'rare', 'pack', 'mixed'];
 const WORK = new Set(['kill', 'collect', 'use', 'interact', 'complete']);
 
@@ -43,7 +63,89 @@ const isElite = (n) => n.rank === 1 || n.rank === 3;
 // Templates whose level spans more than 5 (critters such as Cat 7-30 or Hawk 20-30, summoned pets) or sits at the
 // game's boss sentinel (63+, 9999) say nothing about the mobs a player meets: never counted.
 const counts = (n) => !!n && !!n.level && top(n) - n.level <= 5 && n.level < 63;
+// A goal's own mob is a fight unless it serves the side (a kill objective on a friendly leader is a talk).
 const hostileTo = (n, side) => !(n.faction && n.faction.includes(side));
+
+// Whether n attacks the side's players (A or H): the census first, else the data (header, "Who is a threat").
+function threatTo(n, side, census = null) {
+	const met = census && census.met.get(n.id);
+	const died = census && census.died.get(n.id);
+	if ((met && met[side].hostile.size) || (died && died[side].size)) return true;
+	if (met && met[side].friendly.size) return false;
+	if (census && !met && !died && !isRare(n) && (census.near.get(n.id) || 0) >= CENSUS_MIN) return false;
+	return hostileTo(n, side);
+}
+
+// The Recorder's census in a recordings archive (its session files; config.json's `exclude` contributors left out):
+// every `unit` and `rare` sighting (the npc, its reaction to the player, where the player stood), every kill out in
+// the world (a meeting too, of no known reaction) and every death with its killer. Only sightings on the ground
+// count toward the people whose census ran by a spawn (one seen from a flight saw from high above). A person is a
+// voter as the data build counts them (rust/crates/forge-data/src/recordings.rs): the session's cohort, else its
+// contributor. world(map, x, y) -> { c, x, y } in yards, or null.
+const REACT = new Set(['hostile', 'friendly']);
+const meet = (met, npc) => {
+	if (!met.has(npc)) met.set(npc, { A: { hostile: new Set(), friendly: new Set() }, H: { hostile: new Set(), friendly: new Set() } });
+	return met.get(npc);
+};
+function readCensus(dir, { world, targets }) {
+	const config = path.join(dir, 'config.json');
+	const exclude = new Set((fs.existsSync(config) && JSON.parse(fs.readFileSync(config, 'utf8')).exclude) || []);
+	const key = (c, cx, cy) => (c * 8192 + cx + 4096) * 8192 + cy + 4096;
+	const points = new Map();
+	for (const [id, pts] of targets) {
+		for (const w of pts) {
+			const k = key(w.c, Math.floor(w.x / R), Math.floor(w.y / R));
+			if (!points.has(k)) points.set(k, []);
+			points.get(k).push({ id, w });
+		}
+	}
+	const met = new Map();
+	const died = new Map();
+	const near = new Map();
+	let sessions = 0;
+	for (const file of fs.readdirSync(dir).filter((f) => f.endsWith('.json') && f !== 'config.json' && !f.startsWith('.')).sort()) {
+		let s;
+		try {
+			s = JSON.parse(fs.readFileSync(path.join(dir, file), 'utf8'));
+		} catch {
+			continue;
+		}
+		const side = s && s.char && { Alliance: 'A', Horde: 'H' }[s.char.faction];
+		const contributor = (s && s.contributor) || 'local';
+		if (!side || !Array.isArray(s.events) || exclude.has(contributor)) continue;
+		const who = /^[0-9a-f]{16}$/.test(s.cohort || '') ? `cohort:${s.cohort}` : contributor;
+		sessions++;
+		let aloft = false;
+		for (const e of s.events) {
+			if (!e) continue;
+			if (e.e === 'taxi' || e.e === 'land') aloft = e.e === 'taxi';
+			if (e.e === 'death') {
+				if (!e.killer) continue;
+				if (!died.has(e.killer)) died.set(e.killer, { A: new Set(), H: new Set() });
+				died.get(e.killer)[side].add(who);
+				continue;
+			}
+			if (e.e === 'kill' && e.npc && e.map != null && e.inst == null) meet(met, e.npc);
+			if ((e.e !== 'unit' && e.e !== 'rare') || !e.npc) continue;
+			const m = meet(met, e.npc);
+			if (REACT.has(e.react)) m[side][e.react].add(who);
+			const w = !aloft && e.map != null && e.x != null ? world(e.map, e.x, e.y) : null;
+			if (!w) continue;
+			const cx = Math.floor(w.x / R);
+			const cy = Math.floor(w.y / R);
+			for (let i = -1; i <= 1; i++) {
+				for (let j = -1; j <= 1; j++) {
+					for (const p of points.get(key(w.c, cx + i, cy + j)) || []) {
+						if (Math.hypot(p.w.x - w.x, p.w.y - w.y) > R) continue;
+						if (!near.has(p.id)) near.set(p.id, new Set());
+						near.get(p.id).add(who);
+					}
+				}
+			}
+		}
+	}
+	return { sessions, met, died, near: new Map([...near].map(([id, people]) => [id, people.size])) };
+}
 
 function levelsOf(files) {
 	const per = new Map();
@@ -98,7 +200,7 @@ function flagGoal({ goal, level, near, npcs, group, side = null }) {
 	return flags;
 }
 
-function sweep({ dataDir, guidesDir, levels, guides = null }) {
+function sweep({ dataDir, guidesDir, levels, guides = null, archive = null }) {
 	const data = loadData(dataDir);
 	const npcs = JSON.parse(fs.readFileSync(path.join(dataDir, 'npcs.json'), 'utf8'));
 	const geo = new Geo(JSON.parse(fs.readFileSync(path.join(dataDir, 'map-frames.json'), 'utf8')), JSON.parse(fs.readFileSync(path.join(dataDir, 'zones.json'), 'utf8')));
@@ -106,28 +208,28 @@ function sweep({ dataDir, guidesDir, levels, guides = null }) {
 		const w = geo.toWorld(map, x, y, f === 'e' ? 'e' : 'l');
 		return w ? { c: w.c, x: w.wx ?? w[0], y: w.wy ?? w[1] } : null;
 	};
-	// Hostile spawns per side on a CELL-yard grid (an npc friendly to a side is no danger to it).
-	const grid = { A: new Map(), H: new Map() };
+	// Every counted npc's spawns on a CELL-yard grid; whether one is a threat to a goal's side is settled per goal.
+	const grid = new Map();
+	const spawnsOf = new Map();
 	for (const [id, n] of Object.entries(npcs)) {
 		if (!n.spawns || !counts(n)) continue;
-		for (const side of ['A', 'H']) {
-			if (n.faction && n.faction.includes(side)) continue;
-			for (const [map, s] of Object.entries(n.spawns)) {
-				for (const [x, y] of s.pts || []) {
-					const w = world(+map, x, y, s.f);
-					if (!w) continue;
-					const k = `${w.c}:${Math.floor(w.x / CELL)}:${Math.floor(w.y / CELL)}`;
-					if (!grid[side].has(k)) grid[side].set(k, []);
-					grid[side].get(k).push({ id: +id, w });
-				}
+		for (const [map, s] of Object.entries(n.spawns)) {
+			for (const [x, y] of s.pts || []) {
+				const w = world(+map, x, y, s.f);
+				if (!w) continue;
+				const k = `${w.c}:${Math.floor(w.x / CELL)}:${Math.floor(w.y / CELL)}`;
+				if (!grid.has(k)) grid.set(k, []);
+				grid.get(k).push({ id: +id, w });
+				if (!spawnsOf.has(+id)) spawnsOf.set(+id, []);
+				spawnsOf.get(+id).push(w);
 			}
 		}
 	}
-	const around = (side, w) => {
+	const around = (w) => {
 		const out = [];
 		const cx = Math.floor(w.x / CELL), cy = Math.floor(w.y / CELL), k = Math.ceil(RARE_R / CELL);
 		for (let i = -k; i <= k; i++) for (let j = -k; j <= k; j++) {
-			for (const s of grid[side].get(`${w.c}:${cx + i}:${cy + j}`) || []) {
+			for (const s of grid.get(`${w.c}:${cx + i}:${cy + j}`) || []) {
 				const d = Math.hypot(s.w.x - w.x, s.w.y - w.y);
 				if (d <= RARE_R) out.push({ id: s.id, d });
 			}
@@ -142,7 +244,8 @@ function sweep({ dataDir, guidesDir, levels, guides = null }) {
 			else if (p.endsWith('.guide')) files.push(p);
 		}
 	})(path.join(guidesDir, 'forever'));
-	const flags = [];
+	// The work goals, each with the counted npcs within RARE_R of its points.
+	const work = [];
 	for (const file of files.sort()) {
 		const rel = path.relative(guidesDir, file).split(path.sep).join('/');
 		const faction = rel.startsWith('forever/alliance/') ? 'Alliance' : rel.startsWith('forever/horde/') ? 'Horde' : null;
@@ -163,24 +266,49 @@ function sweep({ dataDir, guidesDir, levels, guides = null }) {
 				for (const p of [{ x: goal.x, y: goal.y }, ...(goal.spots || []).slice(0, 4)]) {
 					const w = world(goal.map, p.x, p.y, goal.f);
 					if (!w) continue;
-					for (const s of around(faction[0], w)) {
+					for (const s of around(w)) {
 						const m = seen.get(s.id) || { id: s.id, count: 0, dmin: Infinity };
 						if (s.d <= R) m.count++;
 						m.dmin = Math.min(m.dmin, s.d);
 						seen.set(s.id, m);
 					}
 				}
-				const what = goal.quest ? `${goal.quest}${goal.oi ? '.' + goal.oi : ''}` : goal.npc ? `npc ${goal.npc}` : `item ${goal.item}`;
-				for (const f of flagGoal({ goal, level, near: [...seen.values()], npcs, group: !!goal.group, side: faction[0] })) {
-					flags.push({ key: `${rel}|${goal.t} ${what}|${f.kind}`, guide: rel, step: si + 1, title: step.title, goal: `${goal.t} ${what}`, quest: goal.quest || null, oi: goal.oi || null, kind: f.kind, level: +level.toFixed(1), margin: +f.margin.toFixed(2), mobs: f.mobs, at: { map: goal.map, x: goal.x, y: goal.y, f: goal.f || 'l' } });
-				}
+				work.push({ rel, side: faction[0], si, step, goal, level, near: [...seen.values()] });
 			}
 		});
+	}
+	const census = archive
+		? readCensus(archive, { world: (map, x, y) => world(map, x, y, 'l'), targets: new Map([...new Set(work.flatMap((w) => w.near.map((m) => m.id)))].map((id) => [id, spawnsOf.get(id)])) })
+		: null;
+	// Templates around the goals the census settles otherwise than the data: cleared (no threat) or added (a threat).
+	const settled = new Map();
+	const flags = [];
+	for (const { rel, side, si, step, goal, level, near } of work) {
+		const threats = near.filter((m) => {
+			const n = npcs[m.id];
+			const t = threatTo(n, side, census);
+			if (census && t !== hostileTo(n, side) && !settled.has(`${m.id}:${side}`)) {
+				const met = census.met.get(m.id);
+				const died = census.died.get(m.id);
+				const why = t ? (met && met[side].hostile.size ? 'met hostile' : 'killed one') : met ? 'met friendly' : 'never met';
+				const people = t ? new Set([...(met ? met[side].hostile : []), ...(died ? died[side] : [])]).size : met ? met[side].friendly.size : census.near.get(m.id);
+				settled.set(`${m.id}:${side}`, { id: m.id, name: n.name, level: top(n), side, threat: t, why, people });
+			}
+			return t;
+		});
+		const what = goal.quest ? `${goal.quest}${goal.oi ? '.' + goal.oi : ''}` : goal.npc ? `npc ${goal.npc}` : `item ${goal.item}`;
+		for (const f of flagGoal({ goal, level, near: threats, npcs, group: !!goal.group, side })) {
+			flags.push({ key: `${rel}|${goal.t} ${what}|${f.kind}`, guide: rel, step: si + 1, title: step.title, goal: `${goal.t} ${what}`, quest: goal.quest || null, oi: goal.oi || null, kind: f.kind, level: +level.toFixed(1), margin: +f.margin.toFixed(2), mobs: f.mobs, at: { map: goal.map, x: goal.x, y: goal.y, f: goal.f || 'l' } });
+		}
 	}
 	// One flag per key: the strongest (a goal worked in two steps).
 	const byKey = new Map();
 	for (const f of flags) if (!byKey.has(f.key) || byKey.get(f.key).margin < f.margin) byKey.set(f.key, f);
-	return [...byKey.values()];
+	const list = [...settled.values()].sort((a, b) => b.level - a.level || a.side.localeCompare(b.side) || a.id - b.id);
+	return {
+		flags: [...byKey.values()],
+		census: census && { sessions: census.sessions, cleared: list.filter((s) => !s.threat), added: list.filter((s) => s.threat) },
+	};
 }
 
 function compare(flags, baseline) {
@@ -194,4 +322,4 @@ function compare(flags, baseline) {
 	};
 }
 
-module.exports = { levelsOf, sweep, compare, flagGoal, KINDS, GATE_MARGIN, R, RARE_R };
+module.exports = { levelsOf, sweep, compare, flagGoal, threatTo, readCensus, KINDS, GATE_MARGIN, CENSUS_MIN, R, RARE_R };
