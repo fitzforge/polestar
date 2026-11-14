@@ -414,11 +414,55 @@ fn quests_handing_over(data: &Data, item: &V) -> Vec<V> {
 	by.get(&item.to_js_string()).items()
 }
 
+/// The creatures the quest mechanics say a `use` goal's item works on: `use-item-on-mob` params naming `npcs`
+/// (data/forever/mechanics.json, `Data::mechanics`; #2238). Zorbin's Ultra-Shrinker shrinks Feralas's giants for
+/// Zapped Giants, whose objective counts only the residue the shrunken ones drop, so nothing else names the
+/// giants. The goal's quest's own params for the item; without a quest, every quest's, in quest id order.
+fn item_targets(data: &Data, goal: &V) -> Vec<V> {
+	let item = goal.get("item");
+	if item.is_undef() || !data.mechanics.is_obj() {
+		return Vec::new();
+	}
+	let on_mobs = |m: &V| -> Vec<(String, Vec<V>)> {
+		m.get("params")
+			.items()
+			.into_iter()
+			.filter(|p| p.get("kind").as_str() == Some("use-item-on-mob") && p.get("item").is_num())
+			.map(|p| (p.get("item").to_js_string(), p.get("npcs").items()))
+			.collect()
+	};
+	let key = item.to_js_string();
+	let quest = goal.get("quest");
+	if !quest.is_undef() {
+		return on_mobs(&data.mechanics.get(&quest.to_js_string())).into_iter().filter(|(k, _)| *k == key).flat_map(|(_, n)| n).collect();
+	}
+	const KEY: &str = "resolve.useItemTargets";
+	let memo = data.memo.borrow().get(KEY).cloned();
+	let by = memo.unwrap_or_else(|| {
+		let by = V::obj();
+		// JS key order: quest ids ascending.
+		for id in data.mechanics.keys() {
+			for (k, npcs) in on_mobs(&data.mechanics.get(&id)) {
+				if !by.get(&k).is_arr() {
+					by.set(&k, V::arr());
+				}
+				for n in npcs {
+					by.get(&k).push(n);
+				}
+			}
+		}
+		data.memo.borrow_mut().insert(KEY, by.clone());
+		by
+	});
+	by.get(&key).items()
+}
+
 /// The creatures a `kill` or `use` goal's quest objective credits when the data lists several (#1614): Kodo
 /// Roundup counts a tamed Aged, Dying or Ancient Kodo, and the Kodo Kombobulator the quest hands over works on
 /// all three. A `kill` bound to such an objective, or a `use` bound to one or of the item such a quest hands
 /// over (its `sourceItem`), gets them as `fromNpcs`, the goal's own creature first, so the target button names
-/// each. -> [{ npc, npcName }] | Undef
+/// each; a `use` also gets the creatures the quest mechanics say its item works on (item_targets, #2238).
+/// -> [{ npc, npcName }] | Undef
 fn credit_npcs(data: &Data, goal: &V) -> V {
 	// A quest's kill objectives with a credit list: objective `oi` alone when given.
 	let credited = |quest: &V, oi: &V| -> Vec<V> {
@@ -436,12 +480,15 @@ fn credit_npcs(data: &Data, goal: &V) -> V {
 		picked.iter().filter(|o| o.get("type").as_str() == Some("kill") && o.get("credit").len() > 1).flat_map(|o| o.get("credit").items()).collect()
 	};
 	let (quest, oi) = (goal.get("quest"), goal.get("oi"));
-	let ids: Vec<V> = match goal.get("t").as_str() {
+	let mut ids: Vec<V> = match goal.get("t").as_str() {
 		Some("kill") if !quest.is_undef() && !oi.is_undef() => credited(&quest, &oi),
 		Some("use") if !quest.is_undef() => credited(&quest, &oi),
 		Some("use") if !goal.get("item").is_undef() => quests_handing_over(data, &goal.get("item")).iter().flat_map(|q| credited(q, &V::Undef)).collect(),
 		_ => Vec::new(),
 	};
+	if goal.get("t").as_str() == Some("use") {
+		ids.extend(item_targets(data, goal));
+	}
 	if ids.is_empty() {
 		return V::Undef;
 	}

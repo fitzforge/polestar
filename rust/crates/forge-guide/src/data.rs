@@ -106,6 +106,9 @@ pub struct Data {
 	pub recorded: V,
 	/// The counted voters each recorded spot needs (data/recorded/meta.json `thresholds.spotVoters`).
 	pub spot_voters: f64,
+	/// mechanics.json's `quests` (quest id -> { kinds, params, ... }: how each quest is done, `forge data build`), or
+	/// Null; resolve.rs reads its `use-item-on-mob` params for the creatures a `use` goal's item works on.
+	pub mechanics: V,
 	/// moves.json ({ npc } -> id -> [[instance map, x, y, centre x, centre y, radius]]: the ground a
 	/// walking creature's spawn covers, world yards) or Null.
 	pub moves: V,
@@ -163,6 +166,7 @@ impl Data {
 			goal_heights: V::Null,
 			recorded: V::Null,
 			spot_voters: crate::recorded::SPOT_VOTERS,
+			mechanics: V::Null,
 			moves,
 			instances: if raw.instances.is_nullish() { V::Null } else { raw.instances },
 			areas: if raw.areas.is_nullish() { V::Null } else { raw.areas },
@@ -546,7 +550,8 @@ pub fn objective_label(quest_id: &V, o: &V) -> String {
 	format!("{}.{} = {} {}{}", quest_id, o.get("index"), verb, what, count)
 }
 
-/// `loadData(dir)` (native): reads dir/<name>.json and the instance/area tables from dir/../sources.
+/// `loadData(dir)` (native): reads dir/<name>.json and the instance/area tables from dir/../sources, plus
+/// dir/mechanics.json's quests when the folder has one (`Data::mechanics`).
 #[cfg(feature = "native")]
 pub fn load_data(dir: &std::path::Path) -> Result<Data, String> {
 	let mut texts = FxHashMap::default();
@@ -575,6 +580,9 @@ pub fn load_data(dir: &std::path::Path) -> Result<Data, String> {
 		data.recorded = doc;
 		let need = read(beside.join("recorded").join("meta.json"))?.map(|m| m.get("thresholds").get("spotVoters").num()).filter(|n| *n >= 1.0);
 		data.spot_voters = need.unwrap_or(crate::recorded::SPOT_VOTERS);
+	}
+	if let Some(doc) = read(dir.join("mechanics.json"))? {
+		data.mechanics = doc.get("quests");
 	}
 	Ok(data)
 }

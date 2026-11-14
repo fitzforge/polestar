@@ -624,3 +624,38 @@ fn a_use_of_the_item_a_quest_hands_over_and_a_kill_of_its_objective_name_every_c
 	assert_eq!(ids(4), Value::Null, "a kill with no credit list names its own target only");
 	assert_eq!(ids(5), Value::Null, "a use of an item no such quest hands over");
 }
+
+// #2238 (Fyurie, Feralas, Zapped Giants): Zorbin's Ultra-Shrinker shrinks the coast's giants, and the quest counts
+// only the residue the shrunken ones drop, so the target button named the zapped giants alone, never the giants to
+// use the shrinker on. A `use` goal names the creatures the quest mechanics say its item works on
+// (mechanics.json's `use-item-on-mob` params): its quest's own, or, with no quest, every quest's for the item.
+#[test]
+fn a_use_goal_names_the_creatures_the_quest_mechanics_say_its_item_works_on_2238() {
+	let dir = data_dir_with("item-targets", &data_dir(), |raw| {
+		raw.get_mut("quests.json").unwrap()["95930"] = json!({ "id": 95930, "title": "Shrunken Rams", "level": 5, "minLevel": 1, "races": null, "classes": null,
+			"start": { "npc": [95934], "object": [], "item": [] }, "end": { "npc": [95934], "object": [] }, "pre": [], "excl": [], "next": null,
+			"objectives": [{ "type": "item", "id": 95941, "count": 15, "text": "Ram Dust" }],
+			"objectiveText": "", "zone": 1429, "xp": 250, "source": ["fixture"] });
+		raw.get_mut("items.json").unwrap()["95940"] = json!({ "id": 95940, "name": "Ram Shrinker", "drops": { "npc": {}, "object": {} }, "vendors": [] });
+		raw.get_mut("items.json").unwrap()["95941"] = json!({ "id": 95941, "name": "Ram Dust", "drops": { "npc": { "95933": 100 }, "object": {} }, "vendors": [] });
+		for (id, name, faction) in [(95931, "Old Ram", Value::Null), (95932, "Cliff Ram", Value::Null), (95933, "Shrunken Ram", Value::Null), (95934, "Ram Herder", json!("AH"))] {
+			raw.get_mut("npcs.json").unwrap()[id.to_string()] = json!({ "id": id, "name": name, "level": 5, "faction": faction, "spawns": { "1429": { "f": "e", "pts": [[55, 55]] } } });
+		}
+		raw.insert(
+			"mechanics.json".into(),
+			json!({ "schema": 1, "sources": [], "quests": {
+			"95930": { "kinds": [{ "kind": "use-item-on-mob", "confidence": "high" }],
+				"params": [{ "kind": "use-item-on-mob", "item": 95940, "npcs": [95931, 95932], "dead": false, "source": "server" }] } } }),
+		);
+	});
+	let lines = ["step One", "  accept 95930", "  use 95940 quest 95930.1 @55,55", "  use 95940 @55,55", "  use 1210 @55,55"];
+	let r = compile_with(&guide_text(&lines), &forge_guide::data::load_data(&dir).unwrap());
+	assert!(r.errors.is_empty(), "{}", r.text);
+	let steps = r.steps();
+	let g = &steps[0]["goals"];
+	let ids = |i: usize| json!(g[i]["fromNpcs"].as_array().map(|l| l.iter().map(|n| n["npc"].clone()).collect::<Vec<_>>()));
+	assert_eq!(ids(1), json!([95931, 95932]), "bound to the quest: the creatures its mechanics name for the item: {}", g[1]);
+	assert_eq!(g[1]["fromNpcs"][1], json!({ "npc": 95932, "npcName": "Cliff Ram" }));
+	assert_eq!(ids(2), json!([95931, 95932]), "no quest: every quest's for the item");
+	assert_eq!(ids(3), Value::Null, "an item no quest's mechanics name creatures for");
+}
