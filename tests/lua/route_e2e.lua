@@ -121,6 +121,10 @@ local function noteLive()
 	local role, map = roleOf(step)
 	push({ e = "live", g = gid, s = i, n = n, h = h and true or nil, t = E.StepTotal(), k = stepKey(G, i), ti = step and step.title or "",
 		l = round2(level()), q = noteLog(), d = role, m = map })
+	-- A city dungeon of the other faction (Engine.EnemyCityDungeon) is never this character's.
+	if map and role ~= "solo" and E.EnemyCityDungeon and E.EnemyCityDungeon(map) then
+		push({ e = "city", g = gid, s = i, m = map, ti = step and step.title or "", why = "its step came" })
+	end
 end
 
 local function act(i, g, r, role, map)
@@ -328,6 +332,7 @@ while guard < maxIter do
 		local dq = E.DungeonQuestion and E.DungeonQuestion()
 		if dq then
 			local a = answerFor(dq.map)
+			if E.EnemyCityDungeon and E.EnemyCityDungeon(dq.map) then push({ e = "city", g = gid, s = i, m = dq.map, ti = dq.name or "", why = "asked about" }) end
 			asked[dq.map] = (asked[dq.map] or 0) + 1
 			push({ e = "ask", g = gid, s = i, m = dq.map, name = dq.name, a = a, l = round2(level()), n = asked[dq.map] })
 			if asked[dq.map] > 3 then

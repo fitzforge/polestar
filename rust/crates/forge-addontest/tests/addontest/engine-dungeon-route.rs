@@ -76,6 +76,21 @@ Polestar.RegisterGuide({
 		} },
 	},
 })
+local RFC = { k = "dungeon", name = "Ragefire Chasm", map = 389 }
+Polestar.RegisterGuide({
+	id = "test/city", pack = "test", title = "City", minLevel = 1, maxLevel = 30,
+	steps = {
+		{ title = "Orgrimmar", when = { RFC }, goals = {
+			{ t = "accept", quest = 5761, title = "Slaying the Beast", npc = 3216, npcName = "Neeru Fireblade", map = 1429, x = 50.0, y = 50.0 },
+		} },
+		{ title = "Ragefire Chasm", when = { RFC, { k = "onquest", q = { 5761 } } }, goals = {
+			{ t = "enter", location = "Ragefire Chasm", map = 1429, x = 51.0, y = 51.0 },
+		} },
+		{ title = "Goldshire", goals = {
+			{ t = "goto", map = 1429, x = 42.1, y = 65.9, label = "Goldshire" },
+		} },
+	},
+})
 "#;
 
 // `trace` records the live step after each action; `take(q)` accepts quest q (its objective open) and settles.
@@ -335,4 +350,27 @@ fn dungeon_route_skipped_after_a_quest_got_done_that_quest_is_still_handed_in_an
 	assert_eq!(open[0]["plan"], "unplanned", "no hand-in promised that the route will not make");
 	assert_eq!(open[0]["room"], true, "the quest room lists it as room to make");
 	assert_eq!((open[0]["plan167"].clone(), open[0]["room167"].clone()), (json!("unplanned"), json!(true)), "unfinished: no later hand-in promised");
+}
+
+// Fitz, 2026-11-14: a city dungeon is its faction's only (Engine.EnemyCityDungeon). The stub's Human Warrior
+// (Alliance) on a guide with Ragefire Chasm's steps (Orgrimmar's): on Run them nothing of it applies, on Ask me
+// nothing is asked, Run it for it is refused, Dungeons in my route never lists it and a party's run of it is never
+// joinable (Party.DungeonOffer); the Stockade (Stormwind's) is the Alliance's own.
+#[test]
+fn dungeon_route_a_city_dungeon_of_the_other_faction_is_never_run_asked_listed_or_offered() {
+	let saved = |route: &str| Some(json!({ "schema": 1, "guide": "test/city", "_route": route }));
+	let script = r#"
+		local before = { at = at(), asked = asked(), answer = E.DungeonAnswer(389), joinable = E.DungeonJoinable(389, 2) or false,
+			listed = E.GuideDungeons()[389] or false, enemy = E.EnemyCityDungeon(389), own = E.EnemyCityDungeon(34), key = E.EnemyCityDungeon("ragefire-chasm") }
+		E.ChooseDungeon(389, true); flush()
+		emit({ before = before, chosen = E.DungeonChosen(389), at = at() })"#;
+	let run_them = run(saved("run"), script);
+	assert_eq!(
+		run_them[0]["before"],
+		json!({ "at": 3, "asked": false, "answer": false, "joinable": false, "listed": false, "enemy": true, "own": false, "key": true }),
+		"Run them: none of Ragefire Chasm's steps applies, nothing is asked, listed or joinable"
+	);
+	assert_eq!((run_them[0]["chosen"].clone(), run_them[0]["at"].clone()), (json!(false), json!(3)), "Run it for it is refused");
+	let ask = run(saved("ask"), "emit({ at = at(), asked = asked() })");
+	assert_eq!(ask[0], json!({ "at": 3, "asked": false }), "Ask me never asks about it");
 }

@@ -1807,7 +1807,11 @@ Polestar.Engine.PartyRun(map)                       -- "Run it this time" with t
   Skip by default; with "ask" a `when dungeon` step holds while it has work now, `Own.whenFails` and
   `Own.dungeonPending`; a dungeon's hand-in step of a quest carried finished holds whatever the answer,
   `dungeonHandIn`; the run of a dungeon run with the party needs none of its quests, `Engine.PartyRun`;
-  a predicate without `map` never holds),
+  a predicate without `map` never holds, nor one of a city dungeon of the other faction, whatever the
+  answers: `Engine.EnemyCityDungeon(map or Codex key)`, Ragefire Chasm and the Ruins of Lordaeron the
+  Horde's, The Hall of Thanes and the Stockade the Alliance's, which also keeps such a dungeon out of
+  `Engine.ChooseDungeon`'s Run, `Engine.GuideDungeons`, `Engine.DungeonJoinable` and the hub's For your
+  level, `Dungeons.EnemyCapital`),
   Polestar's gear advice on an item (`Own.isUpgrade`: `Gear.IsUpgrade`,
   counted as an upgrade when the advice is off or cannot judge the item), a
   profession's rank (`Compat.GetSkillRank` by skill line, else by name; not
