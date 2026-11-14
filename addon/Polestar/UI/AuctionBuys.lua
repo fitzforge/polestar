@@ -422,7 +422,7 @@ function AU.Layout()
 		if #list > 0 then y = y + 6 end
 		F.MatHead:ClearAllPoints()
 		F.MatHead:SetPoint("TOPLEFT", F, "TOPLEFT", PAD, -y)
-		F.MatHead:SetText(format(L["MATERIALS FOR %s"], (mats[1].guideTitle or ""):upper()))
+		F.MatHead:SetText(format(L["MATERIALS FOR %s"], ns.Upper(mats[1].guideTitle)))
 		y = y + 20
 	end
 	for i, e in ipairs(mats) do

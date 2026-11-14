@@ -151,7 +151,7 @@ function MA.CardModel(g, sections)
 	local id = g.id
 	return {
 		kind = "materials", forGuide = id, answers = true,
-		head = format("%s%s%s", L["MATERIALS"], DOT, (g.title or ""):upper()),
+		head = format("%s%s%s", L["MATERIALS"], DOT, ns.Upper(g.title)),
 		title = L["How do you want to get them?"], titleColor = "text",
 		giver = format(L["The rest of the guide takes %s."], names(all)),
 		route = route,
@@ -469,7 +469,7 @@ function MA.Layout()
 		local h = heading(nh)
 		h:ClearAllPoints()
 		h:SetPoint("TOPLEFT", F.Body, "TOPLEFT", 0, -(y + 6))
-		h:SetText(format("%s%s%s", sec.title:upper(), DOT, format(L["your skill %d"], sec.rank)))
+		h:SetText(format("%s%s%s", ns.Upper(sec.title), DOT, format(L["your skill %d"], sec.rank)))
 		h:Show()
 		y = y + SEC_H
 		for _, r in ipairs(sec.items) do

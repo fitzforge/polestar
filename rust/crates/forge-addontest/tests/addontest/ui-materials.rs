@@ -75,16 +75,31 @@ r = {}
 "#;
 
 fn run(script: &str) -> Value {
+	run_in(WORLD, GUIDE, script)
+}
+
+fn run_in(world: &str, guide: &str, script: &str) -> Value {
 	emitted(&RunAddon {
 		stubs: vec!["stub_world.lua"],
-		before: WORLD.into(),
+		before: world.into(),
 		addons: vec![Addon::name("Polestar")],
 		saved: vec![("Polestar".into(), r#"PolestarCharDB = { schema = 1, guide = "test/tailoring" }"#.into())],
-		script: [TEST_PACK, TEST_SOURCE, GUIDE, "stub.login()", "stub.advance(1)", HELPERS, script, "emit(r)"].join("\n"),
+		script: [TEST_PACK, TEST_SOURCE, guide, "stub.login()", "stub.advance(1)", HELPERS, script, "emit(r)"].join("\n"),
 		..Default::default()
 	})
 	.remove(0)
 }
+
+// The game's Auction House window (Blizzard_AuctionHouseUI) and its buy view, opened.
+const AUCTION_HOUSE: &str = r#"
+		AuctionHouseFrame = CreateFrame("Frame", "AuctionHouseFrame", UIParent)
+		AuctionHouseFrame:SetSize(800, 600)
+		function AuctionHouseFrame:SelectBrowseResult(result) selected[#selected + 1] = result.itemKey.itemID end
+		function AuctionHouseFrame:TriggerEvent() end
+		C_AuctionHouse = { MakeItemKey = function(id) return { itemID = id } end, GetItemKeyInfo = function() return { isCommodity = true } end }
+		AuctionHouseFrame:Show()
+		stub.fire("AUCTION_HOUSE_SHOW"); stub.advance(0.5)
+"#;
 
 #[test]
 fn a_profession_guide_asks_once_on_a_card_and_its_answers_mix_gather_and_buy_come_before_later() {
@@ -184,16 +199,10 @@ fn later_keeps_mix_and_asks_no_more_a_guide_switch_asks_again_and_the_menu_chang
 
 #[test]
 fn at_the_auction_house_the_list_opens_beside_it_with_the_guides_materials_to_buy_and_a_search_for_each() {
-	let out = run(r#"
-		-- The game's Auction House window (Blizzard_AuctionHouseUI) and its buy view.
-		local selected = {}
-		AuctionHouseFrame = CreateFrame("Frame", "AuctionHouseFrame", UIParent)
-		AuctionHouseFrame:SetSize(800, 600)
-		function AuctionHouseFrame:SelectBrowseResult(result) selected[#selected + 1] = result.itemKey.itemID end
-		function AuctionHouseFrame:TriggerEvent() end
-		C_AuctionHouse = { MakeItemKey = function(id) return { itemID = id } end, GetItemKeyInfo = function() return { isCommodity = true } end }
-		AuctionHouseFrame:Show()
-		stub.fire("AUCTION_HOUSE_SHOW"); stub.advance(0.5)
+	let out = run(&[
+		"local selected = {}",
+		AUCTION_HOUSE,
+		r#"
 		local F = PolestarAuctionBuys
 		local _, to = F:GetPoint(1)
 		r.docked = { F:IsShown(), to == AuctionHouseFrame }
@@ -207,10 +216,39 @@ fn at_the_auction_house_the_list_opens_beside_it_with_the_guides_materials_to_bu
 		AuctionHouseFrame:Hide()
 		stub.fire("AUCTION_HOUSE_CLOSED"); stub.advance(0.5)
 		r.closed = F:IsShown()
-		"#);
+		"#,
+	]
+	.concat());
 	assert_eq!(out["docked"], json!([true, true]), "beside the game's window");
 	assert_eq!(out["head"], "MATERIALS FOR TAILORING 1-150");
 	assert_eq!(out["rows"], json!([["10 Light Leather", "Tailoring 1-75", true], ["50 Wool Cloth", "Tailoring 75-150", true]]));
 	assert_eq!(out["selected"], json!([2592]), "Search opens the game's own buy view of the item");
 	assert_eq!(out["closed"], json!(false), "it goes with the Auction House");
+}
+
+// A client in another language names the skill its own way, and a guide's title may be in it: the headings stay in
+// capitals (Polestar.Upper), where Lua's upper() leaves accented and Cyrillic letters small ("ПОРТНЯЖНОЕ ДЕЛО", not
+// "Портняжное дело"; "PREMIÈRE", not "PREMIèRE").
+#[test]
+fn the_headings_keep_their_capitals_in_the_clients_language() {
+	let world = WORLD.replace(r#"w.learnSkill(197, "Tailoring", 1, 75)"#, r#"w.learnSkill(197, "Портняжное дело", 1, 75)"#);
+	let guide = GUIDE.replace(r#"title = "Tailoring 1-150""#, r#"title = "Couture, première étape 1-150""#);
+	let out = run_in(
+		&world,
+		&guide,
+		&[
+			r#"
+		stub.advance(4)
+		r.card = CT.current and CT.current.head
+		MA.Show(); stub.advance(0.5)
+		r.heads = heads()
+		local selected = {}"#,
+			AUCTION_HOUSE,
+			"r.auction = PolestarAuctionBuys.MatHead:GetText()",
+		]
+		.concat(),
+	);
+	assert_eq!(out["card"], "MATERIALS  \u{b7}  COUTURE, PREMIÈRE ÉTAPE 1-150");
+	assert_eq!(out["heads"], json!(["ПОРТНЯЖНОЕ ДЕЛО 1-75  \u{b7}  your skill 1", "ПОРТНЯЖНОЕ ДЕЛО 75-150  \u{b7}  your skill 1"]));
+	assert_eq!(out["auction"], "MATERIALS FOR COUTURE, PREMIÈRE ÉTAPE 1-150");
 }
