@@ -254,7 +254,8 @@ local function checkWhen(list)
 		elseif k == "has" or k == "upgrade" then
 			if not isNum(p.item) then return false end
 		elseif k == "dungeon" then
-			if not (isStr(p.name) and (p.map == nil or isNum(p.map))) then return false end
+			-- `all` (true): a step of the dungeon's every-quest route; never on a negated one.
+			if not (isStr(p.name) and (p.map == nil or isNum(p.map)) and (p.all == nil or (p.all == true and not p.neg))) then return false end
 		elseif k == "done" then
 			-- A step label (format 5); validate checks it names a step of the guide.
 			if not isStr(p.label) then return false end

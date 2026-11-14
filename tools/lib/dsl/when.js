@@ -17,6 +17,8 @@
 //   [!]zone "<Name>"  [!]subzone "<Name>"     the zone or subzone text reads so
 //   [!]bound "<Location>"                     the hearthstone is bound there
 //   [!]dungeon "<Name>"                       the player chose to run that dungeon
+//   dungeon "<Name>" all                      a step of the dungeon's every-quest route (the quests
+//                                             off the way): it runs and the player kept every quest
 //   money<A  money<=A  money>A  money>=A     the character's money; A as copper or 1g50s / 7s / 25c
 //   [!]done <label>                           the step so labelled was completed, not skipped
 //   [!]skill <Profession> <N>                 the profession's skill rank is N or more
@@ -26,7 +28,7 @@
 //                                             the route waits at the step until they answer
 //   [!]knows <spell>                          the character knows the spell (spellbook or recipe)
 //   [!]taxi "<Flight point>"                  the character knows that flight path
-// value = { k, neg?, op?, n?, frac?, q?, item?, spell?, name?, label? }; `q` is a list for onquest.
+// value = { k, neg?, op?, n?, frac?, q?, item?, spell?, name?, label?, all? }; `q` is a list for onquest.
 
 const { levelPoint } = require('../game/xp');
 const { readMoney } = require('./money');
@@ -37,7 +39,7 @@ const KINDS = ['level', 'money', 'onquest', 'complete', 'turnedin', 'available',
 const LABEL_RE = /^[A-Za-z0-9_-]+$/;
 const QUEST_ONE = new Set(['complete', 'turnedin', 'available', 'group']);
 const PLACE = new Set(['zone', 'subzone', 'bound']);
-const USAGE = `predicates: level<N, level>=N, money>=1s, [!]onquest <quest>, [!]complete <quest>, [!]turnedin <quest>, [!]available <quest>, [!]has <item> [xN], [!]upgrade <item>, [!]zone "<Name>", [!]subzone "<Name>", [!]bound "<Location>", [!]dungeon "<Name>", [!]done <label>, [!]skill <Profession> <N>, [!]cooldown item <item>, [!]cooldown spell <spell>, [!]group <quest>, [!]knows <spell>, [!]taxi "<Flight point>"`;
+const USAGE = `predicates: level<N, level>=N, money>=1s, [!]onquest <quest>, [!]complete <quest>, [!]turnedin <quest>, [!]available <quest>, [!]has <item> [xN], [!]upgrade <item>, [!]zone "<Name>", [!]subzone "<Name>", [!]bound "<Location>", [!]dungeon "<Name>", dungeon "<Name>" all, [!]done <label>, [!]skill <Profession> <N>, [!]cooldown item <item>, [!]cooldown spell <spell>, [!]group <quest>, [!]knows <spell>, [!]taxi "<Flight point>"`;
 
 // A name written quoted or bare: `"Razor Hill"` or `Razor Hill`.
 function nameOf(text) {
@@ -71,7 +73,7 @@ function parseWhen(rest) {
 	const kind = m ? m[2].toLowerCase() : null;
 	if (!kind || !KINDS.includes(kind)) return { error: `unknown \`when\` predicate "${text.split(/\s+/)[0]}"`, hint: USAGE };
 	const neg = m[1] === '!';
-	const args = m[3].trim();
+	let args = m[3].trim();
 	const value = { k: kind };
 	if (neg) value.neg = true;
 	if (kind === 'level') return { error: 'malformed `level` predicate (expected level<N, level<=N, level>N or level>=N)' };
@@ -125,7 +127,16 @@ function parseWhen(rest) {
 		value.spell = Number(args);
 		return { value };
 	}
-	// zone, subzone, bound, dungeon, taxi
+	// zone, subzone, bound, dungeon, taxi. A dungeon's step of its every-quest route (the quests off the way, taken
+	// unless the player chose only the quests on the way): `dungeon "<Name>" all`.
+	if (kind === 'dungeon') {
+		const a = /^(.*?)\s+all$/i.exec(args);
+		if (a) {
+			if (value.neg) return { error: '`!dungeon` takes no `all`: `all` marks a step of the dungeon\'s every-quest route, and a player who skips the dungeon takes none of them' };
+			value.all = true;
+			args = a[1];
+		}
+	}
 	const name = nameOf(args);
 	if (!name) return { error: `\`${kind}\` needs a name: ${kind} "<${kind === 'bound' ? 'Location' : kind === 'taxi' ? 'Flight point' : 'Name'}>"` };
 	value.name = name;
