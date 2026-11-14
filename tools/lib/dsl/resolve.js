@@ -202,15 +202,12 @@ function sourceNpcs(data, first, sources) {
 	return out.length ? out : undefined;
 }
 
-// Which of a collect's NPC sources spawn at each of its spots (#1616).
-// Centaur Bounty's ears drop from every centaur tribe in Desolace and its
-// spots run through all their camps, while `fromNpcs` names the five of the
-// goal's point: at a Magram camp the target button named Kolkar. Only when
-// some spot holds a source `fromNpcs` leaves out: those follow in `fromNpcs`
-// (the most spawns at the spots first, up to MAX_SPOT_NPCS), and `fromNpcsAt`
-// gives, per spot in `spots` order, the 1-based places in `fromNpcs` of the
-// sources spawning there (within its radius and a yard), most spawns first:
-// "1,2;3,4;;5". Left out when that string would pass MAX_SPOT_NPCS_TEXT.
+// A collect's target names follow each spot's connected spawn areas (#1869):
+// overlapping bear populations share targets, while separate centaur camps
+// stay apart (#1616). The spot's own sources (radius + 1 yd) lead, then other
+// kinds linked through eligible NPC spawns within STRAY_YARDS. Only emitted
+// when a source was missing from `fromNpcs`; its original order and caps stay.
+// If the expanded mapping exceeds the text cap, retain the local mapping.
 function spotNpcs(data, goal, sources, map, f) {
 	const spots = goal.spots || [];
 	if (spots.length < 2 || !data.mapSize(map)) return;
@@ -221,6 +218,8 @@ function spotNpcs(data, goal, sources, map, f) {
 		const pts = spawnPointsOf(data, [s], map, f);
 		if (name && pts.length) mobs.push({ id: s.id, name, pts });
 	}
+	const initial = goal.fromNpcs || [];
+	if (mobs.every((m) => initial.some((n) => n.npc === m.id))) return;
 	const at = spots.map((spot) => {
 		const here = [];
 		mobs.forEach((m, i) => {
@@ -229,12 +228,37 @@ function spotNpcs(data, goal, sources, map, f) {
 		});
 		return here.sort((a, b) => b[1] - a[1] || a[0] - b[0]);
 	});
-	const list = [...(goal.fromNpcs || [])];
+	const local = packSpotNpcs(initial, mobs, at);
+	const pts = mobs.flatMap((m) => m.pts);
+	const owners = mobs.flatMap((m, i) => m.pts.map(() => i));
+	const areas = spawnAreas(pts, data.frame(map));
+	const expanded = spots.map((spot, si) => {
+		const counts = mobs.map(() => 0);
+		for (const area of areas) {
+			if (!area.some((p) => distance(data, map, pts[p][0], pts[p][1], spot.x, spot.y) <= spot.r + 1)) continue;
+			for (const p of area) counts[owners[p]]++;
+		}
+		const localIds = new Set(at[si].map(([i]) => i));
+		const extra = counts.map((n, i) => [i, n]).filter(([i, n]) => n > 0 && !localIds.has(i));
+		extra.sort((a, b) => b[1] - a[1] || a[0] - b[0]);
+		return [...at[si], ...extra];
+	});
+	// Reserve every original local name before connected additions: the 32-name
+	// cap must not evict a creature that spawns at one of the marker circles.
+	const joined = packSpotNpcs(local.list, mobs, expanded);
+	if (!local.missingSources && !joined.missingSources) return;
+	const result = joined.packed.length <= MAX_SPOT_NPCS_TEXT ? joined : local;
+	if ((!local.missingSources && result === local) || result.packed.length > MAX_SPOT_NPCS_TEXT) return;
+	goal.fromNpcs = result.list;
+	goal.fromNpcsAt = result.packed;
+}
+
+function packSpotNpcs(initial, mobs, at) {
+	const list = [...initial];
 	const ids = list.map((n) => n.npc);
 	const total = mobs.map(() => 0);
 	for (const here of at) for (const [i, n] of here) total[i] += n;
 	const left = mobs.map((_, i) => i).filter((i) => total[i] > 0 && !ids.includes(mobs[i].id));
-	if (!left.length) return;
 	left.sort((a, b) => total[b] - total[a] || a - b);
 	for (const i of left) {
 		if (list.length >= MAX_SPOT_NPCS) break;
@@ -242,9 +266,7 @@ function spotNpcs(data, goal, sources, map, f) {
 		ids.push(mobs[i].id);
 	}
 	const packed = at.map((here) => here.map(([i]) => ids.indexOf(mobs[i].id)).filter((k) => k >= 0).map((k) => k + 1).join(',')).join(';');
-	if (packed.length > MAX_SPOT_NPCS_TEXT) return;
-	goal.fromNpcs = list;
-	goal.fromNpcsAt = packed;
+	return { list, packed, missingSources: left.length > 0 };
 }
 
 // The quests that hand item `item` over when taken (their `sourceItem`), by
@@ -522,12 +544,9 @@ function walk(data, map, spots, x, y) {
 	return out;
 }
 
-// The stray spawns of `pts` (see spawnSpots, "Strays"): the groups of at most
-// STRAY_MAX spawns, linked within STRAY_YARDS, beside one group holding at
-// least STRAY_SHARE of them. -> Set of points
-function strayPoints(pts, frame) {
-	const strays = new Set();
-	if (pts.length <= SPOT_CAP) return strays;
+// Connected spawn areas, including small groups: point indices, so one NPC
+// kind appearing in two distant camps does not connect those camps.
+function spawnAreas(pts, frame) {
 	const { sx, sy } = scaleOf(frame);
 	const root = pts.map((_, i) => i);
 	const find = (i) => (root[i] === i ? i : (root[i] = find(root[i])));
@@ -544,14 +563,23 @@ function strayPoints(pts, frame) {
 		}
 	}
 	const groups = new Map();
-	pts.forEach((p, i) => {
+	pts.forEach((_, i) => {
 		const g = find(i);
 		if (!groups.has(g)) groups.set(g, []);
-		groups.get(g).push(p);
+		groups.get(g).push(i);
 	});
-	const sizes = [...groups.values()];
-	if (Math.max(...sizes.map((g) => g.length)) < STRAY_SHARE * pts.length) return strays;
-	for (const g of sizes) if (g.length <= STRAY_MAX) for (const p of g) strays.add(p);
+	return [...groups.values()];
+}
+
+// The stray spawns of `pts` (see spawnSpots, "Strays"): the groups of at most
+// STRAY_MAX spawns, linked within STRAY_YARDS, beside one group holding at
+// least STRAY_SHARE of them. -> Set of points
+function strayPoints(pts, frame) {
+	const strays = new Set();
+	if (pts.length <= SPOT_CAP) return strays;
+	const groups = spawnAreas(pts, frame);
+	if (Math.max(...groups.map((g) => g.length)) < STRAY_SHARE * pts.length) return strays;
+	for (const g of groups) if (g.length <= STRAY_MAX) for (const i of g) strays.add(pts[i]);
 	return strays;
 }
 
