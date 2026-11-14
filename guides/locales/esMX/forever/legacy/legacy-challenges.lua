@@ -59,7 +59,7 @@ return {
 
 	-- Step 10: PvP: battleground reputations (Alliance)
 	["PvP: battleground reputations (Alliance)"] = "JcJ: reputaciones de campos de batalla (Alianza)",
-	["Exalted with each of the four battleground factions is worth a point. Follow the Polestar Reputation guides Warsong Gulch Reputation, Arathi Basin Reputation, Alterac Valley Reputation and Darkspear Islands Reputation (Forever's new battleground, open from level 30). The Diplomat Legacy perk increases reputation gains."] = "",
+	["Exalted with each of the four battleground factions is worth a point. Follow the Polestar Reputation guides Warsong Gulch Reputation, Arathi Basin Reputation, Alterac Valley Reputation and Darkspear Islands Reputation (Forever's new battleground, open from level 30). The Diplomat Legacy perk increases reputation gains."] = "Exaltado con cada una de las cuatro facciones de campo de batalla vale un punto. Sigue las guías de reputación de Polestar de la Garganta Grito de Guerra, la Cuenca de Arathi, el Valle de Alterac y las Islas Lanza Negra (el nuevo campo de batalla de Forever, abierto desde el nivel 30). La ventaja Diplomático del Legado aumenta la reputación ganada.",
 
 	-- Step 11: PvP: battleground reputations (Horde)
 	["PvP: battleground reputations (Horde)"] = "JcJ: reputaciones de campos de batalla (Horda)",
@@ -83,15 +83,15 @@ return {
 	-- Step 14: Adventure: explore the world map
 	["Adventure: explore the world map"] = "Aventura: explora el mapa del mundo",
 	-- {zone:2548} Riverglades · {zone:2652} Shen'dralas · {zone:2482} Mount Hyjal
-	["Exploring the entire world map on one character is a point, and it can also unlock the Legacy System. It must all be on the same character. Forever's new zones are part of the map: the {zone:2548}, {zone:2652} and {zone:2482}, a level 60 zone."] = "",
-	["Follow the Polestar Exploration guides: Exploration: Eastern Kingdoms 1-30, 30-45 and 45-60, and Exploration: Kalimdor 1-30, 30-45 and 45-60. They track every area as you discover it. Exploration: Zephras Isle covers the Skyborne island; whether its map counts towards this challenge is not confirmed yet."] = "",
+	["Exploring the entire world map on one character is a point, and it can also unlock the Legacy System. It must all be on the same character. Forever's new zones are part of the map: the {zone:2548}, {zone:2652} and {zone:2482}, a level 60 zone."] = "Explorar todo el mapa del mundo con un solo personaje vale un punto, y también puede desbloquear el Sistema de legado. Todo tiene que ser con el mismo personaje. Las zonas nuevas de Forever son parte del mapa: {zone:2548}, {zone:2652} y {zone:2482}, una zona de nivel 60.",
+	["Follow the Polestar Exploration guides: Exploration: Eastern Kingdoms 1-30, 30-45 and 45-60, and Exploration: Kalimdor 1-30, 30-45 and 45-60. They track every area as you discover it. Exploration: Zephras Isle covers the Skyborne island; whether its map counts towards this challenge is not confirmed yet."] = "Sigue las guías de exploración de Polestar: Exploración: Reinos del Este 1-30, 30-45 y 45-60, y Exploración: Kalimdor 1-30, 30-45 y 45-60. Registran cada área a medida que la descubres. Exploración: Isla Zephras cubre la isla de los Cielonato; todavía no está confirmado si su mapa cuenta para este desafío.",
 	["This step cannot check the whole map by itself yet; it becomes a tracked goal once the Legacy achievement ids are recorded."] = "Este paso aún no puede comprobar todo el mapa por sí solo; será un objetivo con seguimiento cuando se registren los ids de logros de Legado.",
 
 	-- Step 15: Adventure: Lord Valthalak
 	-- {npc:16042} Lord Valthalak
 	["Adventure: {npc:16042}"] = "Aventura: {npc:16042}",
 	-- {npc:16042} Lord Valthalak · {quest:8999} Saving the Best for Last · {npc:16013} Deliana · {zone:1455} Ironforge · {npc:16012} Mokvar · {zone:1454} Orgrimmar · {npc:16033} Bodley · {area:254} Blackrock Mountain · {quest:8995} Mea Culpa, Lord Valthalak · {quest:8996} Return to Bodley · {quest:8997} Back to the Beginning
-	["The {npc:16042} questline is a point. It is the level 60 dungeon-set chain, from An Earnest Proposition to your class's {quest:8999}: {npc:16013} ({zone:1455}) or {npc:16012} ({zone:1454}) send you through In Search of Anthion and Anthion's Parting Words to {npc:16033} at {area:254}, whose Three Kings of Flame, the Left and Right Pieces of Lord Valthalak's Amulet, Final Preparations and {quest:8995} end with {quest:8996}. {quest:8997} then leads to {quest:8999}."] = "",
+	["The {npc:16042} questline is a point. It is the level 60 dungeon-set chain, from An Earnest Proposition to your class's {quest:8999}: {npc:16013} ({zone:1455}) or {npc:16012} ({zone:1454}) send you through In Search of Anthion and Anthion's Parting Words to {npc:16033} at {area:254}, whose Three Kings of Flame, the Left and Right Pieces of Lord Valthalak's Amulet, Final Preparations and {quest:8995} end with {quest:8996}. {quest:8997} then leads to {quest:8999}."] = "La cadena de {npc:16042} vale un punto. Es la cadena del conjunto de mazmorra de nivel 60, de Una propuesta sincera hasta {quest:8999} de tu clase: {npc:16013} ({zone:1455}) o {npc:16012} ({zone:1454}) te mandan, por En busca de Anthion y Las últimas palabras de Anthion, con {npc:16033} en {area:254}, cuyas Tres reyes de la llama, las partes izquierda y derecha del amuleto de Lord Valthalak, Preparativos finales y {quest:8995} terminan con {quest:8996}. {quest:8997} lleva luego a {quest:8999}.",
 	-- {npc:16073} Spirit of Lord Valthalak · {npc:16033} Bodley · {area:254} Blackrock Mountain
 	["{npc:16073}, inside Upper Blackrock Spire after Mea Culpa (no spawn in the data: the arrow leads to {npc:16033}'s {area:254})"] = "{npc:16073}, dentro de la Cumbre de Roca Negra superior después de Mea Culpa (sin punto de aparición en los datos: la flecha lleva a {area:254}, donde está {npc:16033})",
 	-- {npc:16033} Bodley · {quest:8996} Return to Bodley
@@ -99,38 +99,38 @@ return {
 
 	-- Step 16: Adventure: Saving the Best for Last (Alliance)
 	-- {quest:8999} Saving the Best for Last
-	["Adventure: {quest:8999} (Alliance)"] = "",
+	["Adventure: {quest:8999} (Alliance)"] = "Aventura: {quest:8999} (Alianza)",
 	-- {npc:16013} Deliana · {quest:8999} Saving the Best for Last
-	["{npc:16013} then offers your class's {quest:8999}, the last quest of the challenge: it takes your class's dungeon-set helm and chest and upgrades them."] = "",
+	["{npc:16013} then offers your class's {quest:8999}, the last quest of the challenge: it takes your class's dungeon-set helm and chest and upgrades them."] = "Luego {npc:16013} ofrece {quest:8999} de tu clase, la última misión del desafío: toma el yelmo y la pechera del conjunto de mazmorra de tu clase y los mejora.",
 
 	-- Step 17: Adventure: Saving the Best for Last (Horde)
 	-- {quest:9007} Saving the Best for Last
-	["Adventure: {quest:9007} (Horde)"] = "",
+	["Adventure: {quest:9007} (Horde)"] = "Aventura: {quest:9007} (Horda)",
 	-- {npc:16012} Mokvar · {quest:9007} Saving the Best for Last
-	["{npc:16012} then offers your class's {quest:9007}, the last quest of the challenge: it takes your class's dungeon-set helm and chest and upgrades them."] = "",
+	["{npc:16012} then offers your class's {quest:9007}, the last quest of the challenge: it takes your class's dungeon-set helm and chest and upgrades them."] = "Luego {npc:16012} ofrece {quest:9007} de tu clase, la última misión del desafío: toma el yelmo y la pechera del conjunto de mazmorra de tu clase y los mejora.",
 
 	-- Step 18: Dungeons: level 15-25
 	["Dungeons: level 15-25"] = "Calabozos: nivel 15-25",
 	-- {area:2437} Ragefire Chasm · {area:16919} Hall of Thanes · {zone:1455} Ironforge
-	["The final boss of every level 15-25 dungeon earns one point together. {area:2437} and Forever's {area:16919} (in {zone:1455}) count as one: either final boss does. Tick each boss off when you kill it, and check the in-game Legacy panel for the list."] = "",
+	["The final boss of every level 15-25 dungeon earns one point together. {area:2437} and Forever's {area:16919} (in {zone:1455}) count as one: either final boss does. Tick each boss off when you kill it, and check the in-game Legacy panel for the list."] = "El jefe final de cada mazmorra de nivel 15-25 da un punto entre todas. {area:2437} y {area:16919} de Forever (en {zone:1455}) cuentan como una: sirve cualquiera de los dos jefes finales. Marca cada jefe al matarlo, y revisa la lista en el panel de legado del juego.",
 	-- {area:2437} Ragefire Chasm · {npc:11519} Bazzalan · {area:16919} Hall of Thanes
-	["{area:2437}: {npc:11519} (or {area:16919})"] = "",
+	["{area:2437}: {npc:11519} (or {area:16919})"] = "{area:2437}: {npc:11519} (o {area:16919})",
 	-- {area:16919} Hall of Thanes · {npc:261319} Durgen Dirgehammer · {area:2437} Ragefire Chasm
-	["{area:16919}: {npc:261319} (or {area:2437})"] = "",
+	["{area:16919}: {npc:261319} (or {area:2437})"] = "{area:16919}: {npc:261319} (o {area:2437})",
 	-- {area:153} Ruins of Lordaeron · {zone:1420} Tirisfal Glades · {npc:256035} Viktor the Vile
-	["{area:153} (Forever's, {zone:1420}): {npc:256035}"] = "",
+	["{area:153} (Forever's, {zone:1420}): {npc:256035}"] = "{area:153} (de Forever, {zone:1420}): {npc:256035}",
 	-- {area:718} Wailing Caverns · {npc:3678} Disciple of Naralex
 	["{area:718} (appears after the {npc:3678}'s event)"] = "{area:718} (aparece tras el evento de {npc:3678})",
 	-- {area:17732} Excavation Site: Wetlands · {npc:260326} Relic Guardian
-	["{area:17732} (Forever's): {npc:260326}"] = "",
+	["{area:17732} (Forever's): {npc:260326}"] = "{area:17732} (de Forever): {npc:260326}",
 
 	-- Step 19: Dungeons: level 26-45
 	["Dungeons: level 26-45"] = "Calabozos: nivel 26-45",
 	-- {area:17780} Krol'dok Stronghold · {zone:2548} Riverglades
-	["The final boss of every level 26-45 dungeon earns one point together. The Drowned City and {area:17780} (in the {zone:2548}) are new in Forever and not in our data: tick them off yourself."] = "",
+	["The final boss of every level 26-45 dungeon earns one point together. The Drowned City and {area:17780} (in the {zone:2548}) are new in Forever and not in our data: tick them off yourself."] = "El jefe final de cada mazmorra de nivel 26-45 da un punto entre todas. La Ciudad Sumergida y {area:17780} (en {zone:2548}) son nuevas en Forever y no están en nuestros datos: márcalas tú.",
 	-- {zone:1416} Alterac Mountains · {npc:246020} Shade of the Archmage
-	["City of Dalaran (Forever's, {zone:1416}): {npc:246020}"] = "",
-	["the final boss of the Drowned City"] = "",
+	["City of Dalaran (Forever's, {zone:1416}): {npc:246020}"] = "Ciudad de Dalaran (de Forever, {zone:1416}): {npc:246020}",
+	["the final boss of the Drowned City"] = "el jefe final de la Ciudad Sumergida",
 	-- {area:796} Scarlet Monastery
 	["{area:796}: Graveyard"] = "{area:796}: Cementerio",
 	-- {area:796} Scarlet Monastery
@@ -140,15 +140,15 @@ return {
 	-- {area:796} Scarlet Monastery
 	["{area:796}: Cathedral"] = "{area:796}: Catedral",
 	-- {area:17780} Krol'dok Stronghold
-	["the final boss of {area:17780}"] = "",
+	["the final boss of {area:17780}"] = "el jefe final de {area:17780}",
 
 	-- Step 20: Dungeons: level 46-60
 	["Dungeons: level 46-60"] = "Calabozos: nivel 46-60",
 	-- {area:1216} Blackmaw Hold · {area:16985} Shaper's Terrace
-	["The final boss of every level 46-60 dungeon earns one point together. Alcaz Prison, {area:1216} and the {area:16985} are new in Forever and not in our data: tick them off yourself."] = "",
-	["the final boss of Alcaz Prison"] = "",
+	["The final boss of every level 46-60 dungeon earns one point together. Alcaz Prison, {area:1216} and the {area:16985} are new in Forever and not in our data: tick them off yourself."] = "El jefe final de cada mazmorra de nivel 46-60 da un punto entre todas. La Prisión de Alcaz, {area:1216} y {area:16985} son nuevas en Forever y no están en nuestros datos: márcalas tú.",
+	["the final boss of Alcaz Prison"] = "el jefe final de la Prisión de Alcaz",
 	-- {area:1216} Blackmaw Hold
-	["the final boss of {area:1216}"] = "",
+	["the final boss of {area:1216}"] = "el jefe final de {area:1216}",
 	-- {area:1583} Blackrock Spire
 	["Lower {area:1583}"] = "{area:1583} inferior",
 	-- {area:1583} Blackrock Spire
@@ -161,24 +161,24 @@ return {
 	["Dire Maul North"] = "La Masacre: Norte",
 	["Dire Maul West"] = "La Masacre: Oeste",
 	-- {area:16985} Shaper's Terrace
-	["the final boss of the {area:16985}"] = "",
+	["the final boss of the {area:16985}"] = "el jefe final de {area:16985}",
 
 	-- Step 21: Raids: Onyxia
 	-- {npc:10184} Onyxia
 	["Raids: {npc:10184}"] = "Bandas: {npc:10184}",
 	-- {npc:10184} Onyxia · {area:2159} Onyxia's Lair · {zone:1445} Dustwallow Marsh · {item:16309} Drakefire Amulet · {zone:1428} Burning Steppes · {area:340} Kargath · {zone:1418} Badlands · {npc:10363} General Drakkisath
-	["Killing {npc:10184} is a point. {area:2159} is a 40-player raid in {zone:1445}, open from 9 December. Every raider needs the {item:16309} in the bags: the Alliance chain starts with Dragonkin Menace in the {zone:1428}, the Horde chain with Blood and Thunder in {area:340} ({zone:1418}); both end in Upper Blackrock Spire with {npc:10363}."] = "",
+	["Killing {npc:10184} is a point. {area:2159} is a 40-player raid in {zone:1445}, open from 9 December. Every raider needs the {item:16309} in the bags: the Alliance chain starts with Dragonkin Menace in the {zone:1428}, the Horde chain with Blood and Thunder in {area:340} ({zone:1418}); both end in Upper Blackrock Spire with {npc:10363}."] = "Matar a {npc:10184} vale un punto. {area:2159} es una banda de 40 jugadores en {zone:1445}, abierta desde el 9 de diciembre. Cada miembro de la banda necesita el {item:16309} en las bolsas: la cadena de la Alianza empieza con Amenaza dracónida en {zone:1428}, la de la Horda con Sangre y trueno en {area:340} ({zone:1418}); ambas terminan en la Cumbre de Roca Negra superior con {npc:10363}.",
 
 	-- Step 22: Raids: Hyjal Summit
 	["Raids: Hyjal Summit"] = "Bandas: Hyjal Summit",
 	-- {zone:2482} Mount Hyjal
-	["All 13 Hyjal Summit bosses are a point. Hyjal Summit is a new 20-player Forever raid at the top of {zone:2482}, near Nordrassil, open from 9 December; its bosses are not in our data, so tick it off once all 13 are down."] = "",
+	["All 13 Hyjal Summit bosses are a point. Hyjal Summit is a new 20-player Forever raid at the top of {zone:2482}, near Nordrassil, open from 9 December; its bosses are not in our data, so tick it off once all 13 are down."] = "Los 13 jefes de la Cima Hyjal valen un punto. La Cima Hyjal es una banda nueva de Forever de 20 jugadores en lo alto de {zone:2482}, cerca de Nordrassil, abierta desde el 9 de diciembre; sus jefes no están en nuestros datos, así que márcala cuando caigan los 13.",
 	["all 13 Hyjal Summit bosses"] = "todos los 13 jefes de la Cima Hyjal",
 
 	-- Step 23: Raids: Barrow Deeps
 	["Raids: Barrow Deeps"] = "Bandas: Barrow Deeps",
 	-- {zone:2482} Mount Hyjal · {zone:1452} Winterspring · {area:1216} Blackmaw Hold
-	["All 8 Barrow Deeps bosses are a point. Barrow Deeps is a new 10-player Forever raid beneath {zone:2482}, entered from {zone:2482}, {zone:1452} or {area:1216} and open from 9 December; its bosses are not in our data, so tick it off once all 8 are down."] = "",
+	["All 8 Barrow Deeps bosses are a point. Barrow Deeps is a new 10-player Forever raid beneath {zone:2482}, entered from {zone:2482}, {zone:1452} or {area:1216} and open from 9 December; its bosses are not in our data, so tick it off once all 8 are down."] = "Los 8 jefes de las Profundidades del Túmulo valen un punto. Las Profundidades del Túmulo son una banda nueva de Forever de 10 jugadores debajo de {zone:2482}, con entrada desde {zone:2482}, {zone:1452} o {area:1216}, abierta desde el 9 de diciembre; sus jefes no están en nuestros datos, así que márcala cuando caigan los 8.",
 	["all 8 Barrow Deeps bosses"] = "todos los 8 jefes de las Profundidades de los Túmulos",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
