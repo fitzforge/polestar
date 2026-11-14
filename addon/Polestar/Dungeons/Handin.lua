@@ -7,7 +7,7 @@
 -- at its last step), rebuilt after /reload.
 --
 --   Dungeons.HandinPlan(key) -> plan | nil, reason
---       plan = { dungeon, hand = { { quest, rec, ender, talks } }, unfinished = { quest, ... },
+--       plan = { dungeon, hand = { { quest, rec, ender, talks, direct } }, unfinished = { quest, ... },
 --         inside = { quest, ... }, unplaced = { quest, ... }, errands = { { quest, rec } } }
 --       the page's quests in the log: hand (objectives done, or only talks
 --       left, turned in outside at `ender`, a point { kind, id, name, map,
@@ -18,11 +18,15 @@
 --       point with its line `oi`: The Glowing Shard's Sputtervalve in
 --       Ratchet before Falla Sagewind, #1326), unfinished (other objectives
 --       still open), inside (done, turned in inside the dungeon), unplaced
---       (done, nowhere known); errands: those of `unfinished` done outside
---       that are the next part of a chain of the page's quests (an earlier
---       part done) and whose objectives are all errand items (below);
---       HandinGuide places each as HandinFollowUps' `errand`, then its
---       ender (one it cannot place stays a note). No follow-up search and
+--       (done, nowhere known). A page quest handed in at one talk and never
+--       in the log (`direct`: Pozzik's Indurium Ore, #2241) is in `hand`
+--       with `direct` once the bags hold every item it asks and its giver
+--       would take it (Lookup.QuestBlock, Dungeons.PreDone), turned in
+--       outside; its turn-in goal is `direct`. errands: those of `unfinished`
+--       done outside that are the next part of a chain of the page's quests
+--       (an earlier part done) and whose objectives are all errand items
+--       (below); HandinGuide places each as HandinFollowUps' `errand`, then
+--       its ender (one it cannot place stays a note). No follow-up search and
 --       no placing: the Dungeons page asks for the plan on every render.
 --   Dungeons.HandinFollowUps(plan) -> { { rec, giver, after = { questId, ... }, ender, errand } }
 --       the quests the `hand` quests open (Codex.FollowUps: every `pre`
@@ -280,6 +284,16 @@ function Dungeons.HandinPlan(key)
 					plan.unplaced[#plan.unplaced + 1] = pq
 				end
 			end
+		elseif pq.direct and not (pq.finish and pq.finish.inside) then
+			-- One handed in at one talk and never in the log (the page's
+			-- `direct`: Pozzik's Indurium Ore, #2241), once the bags hold
+			-- every item it asks and its giver would take it (Lookup's
+			-- QuestBlock, its prerequisites done): handed in at its ender.
+			local rec = C.Quest(pq.id)
+			if rec and #(rec.objectives or {}) > 0 and carried(rec) and not Lk.QuestBlock(rec, p) and Dungeons.PreDone(rec) then
+				local ender = Dungeons.Ender(pq, from, rec)
+				if ender then plan.hand[#plan.hand + 1] = { quest = pq, rec = rec, ender = ender, direct = true } end
+			end
 		end
 	end
 	return plan
@@ -488,7 +502,10 @@ function Dungeons.HandinGuide(key)
 			step.goals[#step.goals + 1] = goal
 		end
 		for _, h in ipairs(s.turnins) do
-			step.goals[#step.goals + 1] = questGoal("turnin", h.quest.id, titleOf(h.quest, h.rec), s.at)
+			local goal = questGoal("turnin", h.quest.id, titleOf(h.quest, h.rec), s.at)
+			-- A direct hand-in: never in the log, the engine counts its turn-in (#2241).
+			goal.direct = h.direct
+			step.goals[#step.goals + 1] = goal
 		end
 		for _, f in ipairs(s.accepts) do
 			-- Its prerequisites (Lookup.AcceptPre): a turn-in skipped here

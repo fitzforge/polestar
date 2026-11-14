@@ -7586,7 +7586,11 @@ Polestar.Lookup.AcceptPre(goal, quest) -> goal         -- the accept with the qu
   `fromFaction`, `fromAlso`, `fromAlsoId`): of the Codex sources with a
   spawn, both when there are at most two, else one at 50% or more (and a
   second of its kind at 50%), so Hidden Enemies reads "Kill Burning Blade
-  Fanatic or Burning Blade Apprentice for Lieutenant's Insignia" (#1589). A
+  Fanatic or Burning Blade Apprentice for Lieutenant's Insignia" (#1589). The
+  goal's place and names come from the sources that need no group (not an
+  elite, rare elite or boss) when any of them gives the item 1% of the time or
+  more, as compiled guides do: Indurium's flakes from the Badlands' Stonevault
+  Bonesnappers and Shamans, not the elites in Uldaman's cave (#2236). A
   talk objective's step note says to click through the NPC's dialogue until
   the quest's line is done (#1590, Neeru Fireblade).
 - **Codex records** use the field names of `data/forever/codex/*.json` (see
@@ -7700,7 +7704,9 @@ the quest list's rewards, choice versus fixed as the list files them; XP from
 with the quests tied to them (an encounter's boss carries its DungeonEncounter
 id, `encounter`, for its name in every language); entrances from the Codex, else the client's Map
 table (the corpse point, placed on its zone); and the page's `attunement`
-list (below). No loot tables. The page also carries the instance's Map id
+list (below). A quest Forever hands in at one talk, never in the log
+(`quests.json` `direct`: Pozzik's Indurium Ore), carries `direct` (#2241). No
+loot tables. The page also carries the instance's Map id
 (`map`): the list shows the dungeon's name in the client's language
 (`Names.Instance`) and its zone's (`C_Map`); attunement notes are our prose,
 read through `L[note]` (`forge i18n keys` lists them from
@@ -7715,7 +7721,8 @@ guides.
 The pick-up guide is built in game (`addon/Polestar/Dungeons/Pickup.lua`):
 `Dungeons.PickupPlan(key, offer)` takes the page's quests that apply to the character
 (faction, race and class masks through `Lookup.QuestBlock`, the page's class
-list), not done, not in the log (those are `carried`), not closed for good (a
+list), not done, not in the log (those are `carried`), not handed in at one
+talk (`direct`: the hand-in guide hands it in, #2241), not closed for good (a
 quest of the page's `closedBy` done or in the log: a breadcrumb whose quest is
 taken, such as Klockmort's Essentials once Essential Artificials is; each
 accept carries `closedBy` too, so the Engine passes it once taken on the way,
@@ -7810,7 +7817,10 @@ objective of the Codex quest at a placed NPC of the character's side, kept
 as `talks` with the line's `oi`, as The Glowing Shard's Sputtervalve in
 Ratchet, #1326; turned in outside at the page's ender, else the Codex ender
 nearest the player), `unfinished` (any other line open), `inside` (turned
-in inside the dungeon) and `unplaced`; it searches no follow-ups, so the
+in inside the dungeon) and `unplaced`, and a page quest handed in at one talk
+(`direct`) joins `hand` once the bags hold every item it asks and its giver
+would take it (`Lookup.QuestBlock`, `Dungeons.PreDone`), its turn-in goal
+`direct` (#2241); it searches no follow-ups, so the
 page can ask for it on every render. `Dungeons.HandinFollowUps(plan)` adds
 the quests the `hand` quests open (`Codex.FollowUps(id)`: the quests whose
 `pre` or `preAny` name

@@ -929,6 +929,13 @@ fn build_pages(inp: &JournalInputs, codex: &Codex, warnings: &mut Vec<String>) -
 				}
 			}
 		}
+		// A quest Forever hands in at one talk, never in the log (quests.json `direct`: Pozzik's Indurium Ore, the
+		// Sparklematic 5200): nothing to pick up before the run; the hand-in guide hands it in after (#2241).
+		for q in &quests {
+			if inp.fv_quests.get(&kstr(&q.get("id"))).get("direct").truthy() {
+				q.set("direct", true);
+			}
+		}
 		let chain = Obj::new();
 		for q in &quests {
 			for cid in q.get("chain").items() {
