@@ -76,6 +76,28 @@ Polestar.RegisterGuide({
 		} },
 	},
 })
+-- A shared stop split in two (an Alliance dungeon layer's Gryan): the dungeon's hand-in of the traitor's quest
+-- alone, then its pick-up, and the solo way's hand-in of the same quest.
+Polestar.RegisterGuide({
+	id = "test/shared2", pack = "test", title = "Shared stop, split", minLevel = 1, maxLevel = 30,
+	steps = {
+		{ title = "The Defias Traitor", goals = {
+			{ t = "complete", quest = 155, title = "The Defias Brotherhood", map = 1429, x = 45.0, y = 50.0 },
+		} },
+		{ title = "Gryan Stoutmantle", when = { DM }, goals = {
+			{ t = "turnin", quest = 155, title = "The Defias Brotherhood", npc = 234, npcName = "Gryan Stoutmantle", map = 1429, x = 48.0, y = 42.0 },
+		} },
+		{ title = "Gryan Stoutmantle", when = { DM }, goals = {
+			{ t = "accept", quest = 166, title = "The Defias Brotherhood", npc = 234, npcName = "Gryan Stoutmantle", map = 1429, x = 48.0, y = 42.0, pre = { 155 } },
+		} },
+		{ title = "Sentinel Hill", when = { { k = "dungeon", name = "The Deadmines", map = 36, neg = true } }, goals = {
+			{ t = "turnin", quest = 155, title = "The Defias Brotherhood", npc = 234, npcName = "Gryan Stoutmantle", map = 1429, x = 48.0, y = 42.0 },
+		} },
+		{ title = "Goldshire", goals = {
+			{ t = "goto", map = 1429, x = 42.1, y = 65.9, label = "Goldshire" },
+		} },
+	},
+})
 -- A guide that starts with travel, then a dungeon's hand-in of a quest grey for a level 40 (`direct`, its level
 -- compiled in), then the work; and the same guide as the solo compile has it (no dungeon step).
 local function greyway(id, withDungeon)
@@ -406,4 +428,20 @@ fn dungeon_route_a_skipped_dungeons_step_never_moves_where_a_guide_starts() {
 	let out = run_with("w.setLevel(40)", char("skip"), script);
 	assert_eq!(out[0]["solo"], 1, "the solo route starts with the boat");
 	assert_eq!(out[0]["with"]["at"], 1, "so does Skip: the skipped dungeon's hand-in moves nothing");
+}
+
+// The solo way of a shared stop hands the traitor's quest in (Sentinel Hill, `when !dungeon`); the dungeon's own
+// hand-in of it (Gryan, `when dungeon`, with no pick-up of its own since an Alliance dungeon layer split the stop)
+// never holds for a character who skips the dungeon, the quest carried finished or not: Skip's route is the solo
+// route, and the route plan points at the solo way.
+#[test]
+fn dungeon_route_a_skipped_dungeons_hand_in_of_a_quest_the_solo_way_hands_in_never_holds() {
+	let saved = Some(json!({ "schema": 1, "guide": "test/shared2", "_route": "skip" }));
+	let script = r#"take(155); w.finish(155); flush()
+		local r = Polestar.RoutePlan.GetTurnIn(155)
+		emit({ at = at(), s2 = st(2), plan = r.status, step = r.step or false })"#;
+	let out = run(saved, script);
+	assert_eq!(out[0]["at"], 4, "the solo way's Sentinel Hill hands it in");
+	assert_ne!(out[0]["s2"], "current", "never the dungeon's hand-in");
+	assert_eq!((out[0]["plan"].clone(), out[0]["step"].clone()), (json!("now"), json!(4)), "the route plan points at the solo way");
 }

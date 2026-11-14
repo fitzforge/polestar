@@ -1003,14 +1003,34 @@ end
 -- after a quest got done, dungeons turned off mid-run, a quest finished in a
 -- run the route did not make) still hands in what was done; the step's other
 -- predicates (`when complete`) still decide. Skip's solo route never carries
--- one: its quests are taken only in the dungeon's own steps. A file local,
--- as are partyRuns and partyRunGuard: Own is at its table size's edge, and
--- one key more doubles it (about 20 KiB at login).
+-- one: its quests are taken only in the dungeon's own steps. A quest the
+-- guide also hands in outside a dungeon's own steps (the solo way of a shared
+-- stop: the traitor's Defias Brotherhood at Sentinel Hill) is the solo
+-- route's there, never this step's. A file local, as are partyRuns and
+-- partyRunGuard: Own is at its table size's edge, and one key more doubles it
+-- (about 20 KiB at login).
+local soloTurnins = setmetatable({}, { __mode = "k" }) -- guide -> { [quest] = true }
 local function dungeonHandIn(step)
 	if Own.dungeonAsks(step) then return false end
+	local solo = guide and soloTurnins[guide]
+	if guide and not solo then
+		solo = {}
+		for _, st in ipairs(guide.steps) do
+			local ofDungeon = false
+			for _, p in ipairs(st.when or NONE) do
+				if p.k == "dungeon" and not p.neg then ofDungeon = true break end
+			end
+			if not ofDungeon then
+				for _, goal in ipairs(st.goals) do
+					if goal.t == "turnin" and goal.quest then solo[goal.quest] = true end
+				end
+			end
+		end
+		soloTurnins[guide] = solo
+	end
 	local C = Compat()
 	for _, goal in ipairs(step.goals) do
-		if goal.t == "turnin" and goal.quest and C.IsOnQuest(goal.quest) and C.IsQuestReadyForTurnIn(goal.quest) then return true end
+		if goal.t == "turnin" and goal.quest and not (solo and solo[goal.quest]) and C.IsOnQuest(goal.quest) and C.IsQuestReadyForTurnIn(goal.quest) then return true end
 	end
 	return false
 end

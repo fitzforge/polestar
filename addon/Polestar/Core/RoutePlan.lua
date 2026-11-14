@@ -81,8 +81,11 @@ local function build(active)
 	-- finished, as the Engine hands it in then (turnIn). So is a quest
 	-- carried from such a step (carriedDungeon): its later hand-in is the
 	-- dungeon's too.
+	-- routed: quests a hand-in step the character's answers keep hands in; a
+	-- skipped dungeon's hand-in of such a quest (the solo way of a shared stop
+	-- hands it in too) is never the quest's.
 	local E = ns.Engine
-	local index, carried, carriedDungeon = {}, {}, {}
+	local index, carried, carriedDungeon, routed = {}, {}, {}, {}
 	for chapter, g in ipairs(route) do
 		for si, step in ipairs(g.steps or {}) do
 			if G.Matches(step.only, player) then
@@ -93,6 +96,7 @@ local function build(active)
 						index[goal.quest] = entries
 						entries[#entries + 1] = { guide = g.id, title = g.title, step = si, goal = gi,
 							chapter = chapter, optional = goal.optional or step.optional or false, dungeon = skipped }
+						if not skipped then routed[goal.quest] = true end
 					elseif goal.carriedTo and goal.quest and not carried[goal.quest] and G.Matches(goal.only, player) then
 						carried[goal.quest] = goal.carriedTo
 						carriedDungeon[goal.quest] = skipped
@@ -102,7 +106,7 @@ local function build(active)
 		end
 	end
 	return { active = active, chapter = seen[active.id], seen = seen, index = index, carried = carried, carriedDungeon = carriedDungeon,
-		pending = pending, missing = missing }
+		routed = routed, pending = pending, missing = missing }
 end
 
 local function planOf(g)
@@ -133,7 +137,7 @@ local function turnIn(plan, questId, step)
 	local flags = ns.CharState().skipped or {}
 	for _, entry in ipairs(plan.index[questId] or {}) do
 		if entry.dungeon and ready == nil then ready = ns.Compat.IsQuestReadyForTurnIn(questId) and true or false end
-		if not entry.dungeon or ready then
+		if not entry.dungeon or (ready and not plan.routed[questId]) then
 			local s = flags[entry.guide] or {}
 			local isSkipped = s[entry.step] or s[entry.step .. ":" .. entry.goal]
 			local behind = entry.chapter < plan.chapter or (entry.chapter == plan.chapter and entry.step < step)
