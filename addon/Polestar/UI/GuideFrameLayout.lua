@@ -222,6 +222,22 @@ ns.UI.GuideFrame.Part(function(GF)
 		empty.Text:ClearAllPoints()
 		empty.Text:SetPoint("TOP", empty, "TOP", 0, y)
 		y = y - empty.Text:GetStringHeight() - 18
+		-- A finished guide's quest lines (GF.EndQuestLines), 20px each, under the text.
+		local lines = empty.Carried:IsShown() or empty.Stray:IsShown()
+		if lines then
+			y = y + 10
+			if empty.Carried:IsShown() then
+				empty.Carried:ClearAllPoints()
+				empty.Carried:SetPoint("TOP", empty, "TOP", 0, y)
+				y = y - 20 - 2
+			end
+			if empty.Stray:IsShown() then
+				empty.Stray:ClearAllPoints()
+				empty.Stray:SetPoint("TOP", empty, "TOP", 0, y)
+				y = y - 20 - 2
+			end
+			y = y - 10
+		end
 		if empty.Primary:IsShown() then
 			empty.Primary:ClearAllPoints()
 			empty.Primary:SetPoint("TOP", empty, "TOP", 0, y)

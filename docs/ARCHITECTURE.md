@@ -1388,7 +1388,7 @@ as on a bag item (`W.ItemClick`: Shift links, Ctrl tries it on, Alt guides;
 | `t` | Required | Optional | Done when (Engine) |
 |---|---|---|---|
 | `accept` | `quest`, `title` | `npc`/`npcName`, `object`/`objName`, `item`/`itemName`, `minLevel`, `qlvl`, `limit`, `pre`, `preAll`, `closedBy`, `parent`, `preTitles` | on quest **or** completed (or abandoned by the guide); a hand tick never stands for it (#739): the accept stays open with `noticeText` "<title> isn't in your quest log", and its quest's later goals stay (never orphaned by the tick) |
-| `turnin` | `quest`, `title` | `npc`/`npcName`, `object`/`objName`, `rewards = { choices = { { item, itemName, quality } }, items = { ... }, xp, money }` (copper), `direct` | completed; `direct` (never accepted, so never orphaned): its QUEST_TURNED_IN during the step (latched) or the completed flag, not the session's turn-ins, so one hand-in of a repeatable closes one goal |
+| `turnin` | `quest`, `title` | `npc`/`npcName`, `object`/`objName`, `rewards = { choices = { { item, itemName, quality } }, items = { ... }, xp, money }` (copper), `direct`, with `direct` its giver's wait as an accept's (`pre`, `preAll`, `parent`) | completed; `direct` (never accepted): its QUEST_TURNED_IN during the step (latched) or the completed flag, not the session's turn-ins, so one hand-in of a repeatable closes one goal. It reads "Hand in" with `directText` ("<giver> offers it and takes it back in one talk: it never goes in your quest log", on `UI.GoalSubline`), and is orphaned only through the quest its giver waits on: one this guide accepts that the character neither has nor has done and does not take at or before the step (`Own.directOrphaned`: Unbagwa's Stranglethorn Fever 349 without Fin Fizracket's 348) |
 | `complete` | `quest`, `title` | — | ready for turn-in or completed |
 | `kill` | `target` | `npc`, `count`, `quest`, `oi` | its objective finished (the quest-log line named after `target`, else line `oi`), or quest ready/completed (not while the log lists no objectives yet, right after the accept); without `quest`: manual |
 | `collect` | `item`, `itemName` | `count`, `quest`, `oi`, `gather` (`true` or `{ skill, skillLine, rank, min, max }`: the item's gather way, applying only while its way is gather; see "Materials") | objective finished (the line named after the item, else `oi`) / quest ready (as `kill`) / completed; without `quest`: item count ≥ `count`, or, for a single item the step's next `accept … item` starts its quest with (paired as in the step view), that quest in the log or done (accepting uses the item up) |
@@ -2936,7 +2936,25 @@ and both of its values start on `"ask"`.
 - **Carried quests:** `Engine.CarriedQuests(id)` -> `{ { quest, title,
   guideId } }`, the guide's quests still in the log whose quest work carries
   `carriedTo` for this character, in step order; the guide-end window lists
-  them under "Carried to later guides". On the step view a goal's `carriedTo`
+  them under "Carried to later guides", and the guide window's end card says
+  how many ("10 quests in your log carry on to later guides", a link opening
+  that list in the Quest room, `UI.ShowQuestRoom("later", id)`).
+- **Quests not part of the route:** `RoutePlan.OffRoute(id)` -> `{ { quest,
+  title, ready } }` | nil, the quests in the log that no guide of the route
+  of guide `id` (its unambiguous predecessors, it, and every guide after it,
+  each option of a route choice not made yet) takes, works or hands in for
+  this character, names in a `when`, or needs before an accept (`pre`,
+  `preAll`, `crumbs`), leaving out the steps of a dungeon the character
+  skips (`Engine.DungeonAnswer` false), nor any other open tab's chain or a
+  dungeon open in a tab; nil when a guide of a chain is not loaded. The
+  chains' quest sets are kept until `RoutePlan.Invalidate` (also on
+  `DUNGEON_ANSWERED` and a change of `behavior.dungeons`). Read when the end
+  card is painted and when the guide-end window opens, never on a frame
+  tick: the card's second line ("2 quests aren't part of your route") opens
+  `UI.ShowQuestRoom("offroute", id)`, each row with its Abandon button (the
+  game's own confirmation); the guide-end window lists them under "Not part
+  of your route" with "Keep or abandon them". Nothing is abandoned by itself.
+  On the step view a goal's `carriedTo`
   is set once per quest and step (`Own.carriedTo`: its last such goal there
   that applies), and `UI.CarriedLine` reads "Keep this: you hand it in later
   in <guide> (<levels>)" (`UI.GuideLabel`, as the guide-end window names

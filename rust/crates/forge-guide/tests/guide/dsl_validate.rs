@@ -338,6 +338,18 @@ fn an_accept_of_a_child_quest_compiles_its_parent_titled_for_the_reason_text() {
 	assert!(g[0].get("parent").is_none() && g[2].get("parent").is_none());
 }
 
+// A `turnin ... direct` carries what its giver waits on, as an accept does (the engine lets it go when the guide's
+// accept of that quest was skipped): Stranglethorn Fever (349) under Fin Fizracket's (348) is 9340 under 9341; 9310
+// needs both 9311 and 9312. Not the rest of an accept's gate (closedBy, preTitles), and a plain turn-in gets none.
+#[test]
+fn a_direct_turnin_compiles_its_givers_wait_as_an_accept_does() {
+	let r = compile_with(&guide_text(&["step S", "  accept 9341", "  turnin 9340 direct", "  turnin 9310 direct", "  accept 9300", "  turnin 9300"]), &prereq_data());
+	let g = r.steps()[0]["goals"].as_array().unwrap().clone();
+	assert_eq!(json!([g[1]["parent"], g[1].get("pre"), g[1].get("preTitles")]), json!([9341, null, null]), "{}", g[1]);
+	assert_eq!(json!([g[2]["preAll"], g[2].get("parent")]), json!([[9311, 9312], null]), "{}", g[2]);
+	assert!(g[4].get("parent").is_none() && g[4].get("pre").is_none() && g[4].get("preAll").is_none(), "{}", g[4]);
+}
+
 // The Valik rule: a child quest (9340, `parent` 9341, like Valik 535 and Infiltration 533) is offered only while its
 // parent is in the log. Lint warns when the chain does not hold the parent there: never taken before it, or handed in
 // before it; a step that applies only with the parent in the log (`when onquest`) holds it. A parent nobody can start

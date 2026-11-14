@@ -679,6 +679,8 @@ function UI.GoalSubline(goal, shownMap, noParty, noMissing, noEscort, noFinder)
 	if finder then parts[#parts + 1] = finder end
 	local starter = UI.StarterLine(goal)
 	if starter then parts[#parts + 1] = starter end
+	-- A `direct` hand-in: its giver offers it and takes it back in one talk.
+	if goal.directText then parts[#parts + 1] = goal.directText end
 	-- A hearth goal while the Hearthstone waits, or while travelling there
 	-- is about as fast: what to do (#576).
 	if goal.hearthText then parts[#parts + 1] = goal.hearthText end

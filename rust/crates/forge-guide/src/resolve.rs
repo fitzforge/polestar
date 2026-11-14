@@ -3625,6 +3625,12 @@ fn resolve_goal(g: &V, zone_map: &V, prev: &V, r: &mut R, ctx: &Ctx) -> V {
 		if q.truthy() && q.get("level").num() > 0.0 {
 			goal.set("qlvl", q.get("level").num());
 		}
+		// What its giver waits on, as for an accept: the engine lets the goal go when the guide's accept of that
+		// quest is skipped or never taken (Stranglethorn Fever 349 wants Fin Fizracket's 348 in the log).
+		let gate = accept_gate(&q, &goal.get("quest"), data);
+		set_if(&goal, "pre", gate.get("pre"));
+		set_if(&goal, "preAll", gate.get("preAll"));
+		set_if(&goal, "parent", gate.get("parent"));
 	}
 	if (v == "kill" || v == "use") && goal.get("fromNpcs").is_undef() {
 		set_if(&goal, "fromNpcs", credit_npcs(data, &goal));

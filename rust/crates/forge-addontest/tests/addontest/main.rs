@@ -79,6 +79,8 @@ mod engine_cast;
 mod engine_catchup;
 #[path = "engine-die.rs"]
 mod engine_die;
+#[path = "engine-direct.rs"]
+mod engine_direct;
 #[path = "engine-dungeon-route.rs"]
 mod engine_dungeon_route;
 #[path = "engine-dwell.rs"]
@@ -213,6 +215,8 @@ mod gear_pawn;
 mod gear_upgrades;
 #[path = "gear-weights.rs"]
 mod gear_weights;
+#[path = "guide-end-quests.rs"]
+mod guide_end_quests;
 #[path = "guides-compiled.rs"]
 mod guides_compiled;
 #[path = "guides-end.rs"]

@@ -196,6 +196,9 @@ L["Finished, and no step from here on hands it in: handing it in now saves a tri
 -- L["%s %d"] = ""
 -- L["The Interact Key has one in reach."] = ""
 -- L["A place where it can spawn: it may be up, or gathered already."] = ""
+-- L["Hand in"] = ""
+-- L["%s offers it and takes it back in one talk: it never goes in your quest log"] = ""
+-- L["Offered and taken back in one talk: it never goes in your quest log"] = ""
 
 -- Core/Automation.lua
 L["Choose a reward to finish the turn-in."] = "Choisissez une récompense pour rendre la quête."
@@ -1560,6 +1563,12 @@ L["Clears your manual check-offs and skipped steps in this guide from your last 
 -- L["The route ahead never hands these in. Click to see who takes each, with a guide there."] = ""
 -- L["1 finished quest to hand in elsewhere"] = ""
 -- L["%d finished quests to hand in elsewhere"] = ""
+-- L["1 quest in your log carries on to a later guide"] = ""
+-- L["%d quests in your log carry on to later guides"] = ""
+-- L["1 quest isn't part of your route"] = ""
+-- L["%d quests aren't part of your route"] = ""
+-- L["A later guide of your route hands these in: keep them. Click to see each with its guide."] = ""
+-- L["No guide of your route takes, works or hands these in. Click to see them and keep or abandon each."] = ""
 
 -- UI/JourneyPanel.lua
 L["Lift to %s"] = "Ascenseur vers %s"
@@ -3331,6 +3340,14 @@ L["The route hands in every finished quest in your log."] = "L'itinéraire rend 
 L["Finished, and the route ahead never hands these in: here is who takes each. Guide me leads you to them, nearest first. A grey one gives almost no XP any more: abandon it if you won't pass by."] = "Terminées, et l'itinéraire à venir ne les rend jamais : voici à qui rendre chacune. « Me guider » vous y mène, la plus proche d'abord. Une quête grise ne donne presque plus d'XP : abandonnez-la si vous ne passez pas par là."
 L["Finished quests you're still carrying (%d)"] = "Quêtes terminées que vous gardez encore (%d)"
 L["Hand in your finished quests"] = "Rendre vos quêtes terminées"
+-- L["Handed in in %s"] = ""
+-- L["A later guide hands it in"] = ""
+-- L["No quest in your log waits for a later guide."] = ""
+-- L["A later guide of your route hands these in: keep them."] = ""
+-- L["Every quest in your log is part of your route."] = ""
+-- L["No guide of your route takes, works or hands these in. Keep the ones you want; Abandon asks in the game's own window first."] = ""
+-- L["Finished: no guide of your route hands it in"] = ""
+-- L["Not in any guide of your route"] = ""
 
 -- UI/ClassCard.lua
 L["NEW ABILITY"] = "NOUVELLE TECHNIQUE"
@@ -3374,6 +3391,9 @@ L["Next: %s"] = "Suivant : %s"
 L["Pick a guide"] = "Choisir un guide"
 L["Not now"] = "Pas maintenant"
 L["Carried to later guides"] = "Reportées aux guides suivants"
+-- L["Not part of your route"] = ""
+-- L["Keep or abandon them"] = ""
+-- L["Each with its Abandon button, which asks in the game's own window first."] = ""
 
 -- UI/NameTargets.lua
 L["Click to target and mark %s (out of combat)."] = "Cliquez pour cibler et marquer %s (hors combat)."
