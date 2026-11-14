@@ -120,9 +120,9 @@ return {
 
 	-- Step 19: Fly to Menethil Harbor
 	-- {area:150} Menethil Harbor
-	["Fly to {area:150}"] = "",
+	["Fly to {area:150}"] = "{area:150}(으)로 비행",
 	-- {zone:1455} Ironforge
-	["{zone:1455} flight master"] = "",
+	["{zone:1455} flight master"] = "{zone:1455} 비행 조련사",
 
 	-- Step 21: Fly to Gadgetzan
 	-- {area:976} Gadgetzan
@@ -343,7 +343,7 @@ return {
 
 	-- Step 77: Fly to Auberdine
 	-- {area:702} Rut'theran Village
-	["{area:702} flight master"] = "",
+	["{area:702} flight master"] = "{area:702} 비행 조련사",
 
 	-- Step 79: Fly to Stormwind
 	-- {zone:1453} Stormwind
@@ -421,7 +421,7 @@ return {
 	["The lake for {quest:5845}"] = "",
 
 	-- Step 95: Of Lost Honor
-	["Underwater"] = "",
+	["Underwater"] = "물속",
 
 	-- Step 96: Light's Hope Chapel
 	["Ride south-east from the lake to the chapel."] = "호수에서 남동쪽 예배당으로 가십시오.",

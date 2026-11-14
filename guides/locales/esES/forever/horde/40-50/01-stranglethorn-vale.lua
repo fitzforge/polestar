@@ -16,7 +16,7 @@ return {
 	-- {area:1497} Undercity · {area:340} Kargath · {object:3202} Grom'gol (no name in this language: may be words)
 	["Your level 40 training is in the {area:1497}: fly there from {area:340}, train, and take the zeppelin from the towers outside the city to {object:3202}."] = "Tu entrenamiento de nivel 40 está en {area:1497}: vuela allí desde {area:340}, entrena y toma el zepelín de las torres de fuera de la ciudad hasta {object:3202}.",
 	-- {area:340} Kargath
-	["{area:340} flight master"] = "",
+	["{area:340} flight master"] = "Maestro de vuelo de {area:340}",
 
 	-- Step 2: Undercity trainers
 	-- {area:1497} Undercity

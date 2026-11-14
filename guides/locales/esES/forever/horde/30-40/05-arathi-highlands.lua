@@ -8,7 +8,7 @@
 return {
 	-- Step 1: Zeppelin to Undercity
 	-- {zone:1458} Undercity
-	["Zeppelin to {zone:1458}"] = "",
+	["Zeppelin to {zone:1458}"] = "Zepelín a {zone:1458}",
 
 	-- Step 2: Undercity trainers
 	-- {zone:1458} Undercity
@@ -185,7 +185,7 @@ return {
 	["{area:328}: kill these as you meet them"] = "",
 	-- plural, as words: Daggerspine Raiders = {npc:2595} Daggerspine Raider
 	["West of the cove the Daggerspine Raiders and Sorceresses (38-40) hold the shore: pull them one at a time. The two wrecks lie in the shallows off it, the charts and logs inside them; the gems lie on the sea floor around the wrecks."] = "Al oeste de la cala, los Asaltantes Espinadaga y las hechiceras (38-40) ocupan la orilla: atráelos de uno en uno. Los dos naufragios están en las aguas poco profundas, con las cartas y los diarios dentro; las gemas están en el fondo del mar alrededor de los naufragios.",
-	["Underwater"] = "",
+	["Underwater"] = "Bajo el agua",
 
 	-- Step 38: Faldir's Cove
 	-- {npc:2487} Fleet Master Seahorn · {area:35} Booty Bay

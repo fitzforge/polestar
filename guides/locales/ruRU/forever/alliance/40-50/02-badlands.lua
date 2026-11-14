@@ -69,7 +69,7 @@ return {
 	-- {area:271} Southshore
 	["Fly to {area:271}"] = "Летите сюда: {area:271}",
 	-- {area:144} Thelsamar
-	["{area:144} flight master"] = "",
+	["{area:144} flight master"] = "Распорядитель полетов: {area:144}",
 
 	-- Step 16: Southshore
 	-- {npc:3980} Raleigh the Devout
@@ -104,7 +104,7 @@ return {
 
 	-- Step 22: Fly to Menethil Harbor
 	-- {area:150} Menethil Harbor
-	["Fly to {area:150}"] = "",
+	["Fly to {area:150}"] = "Летите сюда: {area:150}",
 	-- {area:348} Aerie Peak
 	["{area:348} flight master"] = "",
 
@@ -124,7 +124,7 @@ return {
 	["Inside {area:498}"] = "",
 
 	-- Step 26: Theramore flight master
-	["Theramore flight master"] = "",
+	["Theramore flight master"] = "Распорядитель полетов: Терамор",
 
 	-- Step 28: Warlock: Summon Felsteed
 	-- {quest:3631} Summon Felsteed

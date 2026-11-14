@@ -112,7 +112,7 @@ return {
 
 	-- Step 21: Zeppelin to Undercity
 	-- {zone:1458} Undercity
-	["Zeppelin to {zone:1458}"] = "",
+	["Zeppelin to {zone:1458}"] = "搭飛艇前往{zone:1458}",
 
 	-- Step 22: Brill
 	-- {area:159} Brill · {npc:1738} Deathguard Terrence · {npc:1518} Apothecary Johaan · {npc:246152} Shari Stilwell
@@ -137,7 +137,7 @@ return {
 	-- {npc:2226} Karos Razok · {npc:4556} Gordon Wendham · {zone:1458} Undercity
 	["{npc:2226}: {npc:4556} in the {zone:1458}, at the end of this guide; no need to buy the flight"] = "{npc:2226}：{zone:1458}的{npc:4556}，在本指南的最後；不需要購買飛行路線",
 	-- {npc:1952} High Executor Hadrec
-	["{npc:1952}, below ground"] = "",
+	["{npc:1952}, below ground"] = "{npc:1952}，在地下",
 
 	-- Step 28: The Sepulcher
 	-- {quest:264} Until Death Do Us Part · {object:24776} Yuriv's Tombstone

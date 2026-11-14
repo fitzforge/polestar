@@ -158,7 +158,7 @@ return {
 
 	-- Step 31: Tram to Stormwind
 	-- {zone:1453} Stormwind
-	["Tram to {zone:1453}"] = "",
+	["Tram to {zone:1453}"] = "Tranvía a {zone:1453}",
 
 	-- Step 32: Elwynn Forest
 	-- {zone:1453} Stormwind · {area:87} Goldshire
@@ -307,7 +307,7 @@ return {
 	-- {area:113} Gold Coast Quarry · {object:177790} Strange Lockbox
 	["Druids on Trial of the Sea Lion: from the {area:113}, west to the shore and north along it. The {object:177790} lies on the sea floor off the coast (about 18,33); then back south along the coast to the lighthouse."] = "Druidas con La prueba del león marino: desde {area:113}, al oeste hasta la orilla y luego al norte por ella. {object:177790} está en el fondo del mar frente a la costa (hacia 18,33); después vuelve al sur por la costa hasta el faro.",
 	-- {item:15882} Half Pendant of Aquatic Endurance · {object:177790} Strange Lockbox
-	["{item:15882}: the {object:177790}"] = "",
+	["{item:15882}: the {object:177790}"] = "{item:15882}: la {object:177790}",
 
 	-- Step 55: Westfall Lighthouse
 	-- {area:20} Moonbrook · {npc:392} Captain Grayson · {npc:391} Old Murk-Eye

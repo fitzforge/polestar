@@ -80,7 +80,7 @@ return {
 
 	-- Step 16: A Wrecked Raft
 	["The raft lies on the shore of the south-eastern lake; the small pack sits in the water beside it."] = "Плот лежит на берегу юго-восточного озера; небольшой рюкзак – в воде рядом.",
-	["Underwater"] = "",
+	["Underwater"] = "Под водой",
 
 	-- Step 18: Lashers and Threshers
 	["Lashers and Threshers"] = "Хлыстуны и крепкозубы",
@@ -229,7 +229,7 @@ return {
 	-- {area:1497} Undercity
 	["Fly to {area:1497}"] = "",
 	-- {area:340} Kargath
-	["{area:340} flight master"] = "",
+	["{area:340} flight master"] = "Распорядитель полетов: {area:340}",
 
 	-- Step 46: Harbinger Balthazad
 	-- {npc:10879} Harbinger Balthazad · {object:36078} Trade Quarter

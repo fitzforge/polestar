@@ -192,7 +192,7 @@ return {
 	["{area:373}: kill these as you meet them"] = "",
 	-- {area:362} Razor Hill
 	["The gnomish toolboxes lie in the wreckage along the shore east and south-east of {area:362}. Follow the shore south to Sen'jin.\nMakrura and surf crawlers line the beaches north-east of Sen'jin."] = "Гномские ящики с инструментами лежат среди обломков на побережье к востоку и юго-востоку от {area:362}. Идите вдоль берега на юг к Сен'джину.\nМакруры и прибойные ползуны встречаются на пляжах к северо-востоку от Сен'джина.",
-	["Underwater"] = "",
+	["Underwater"] = "Под водой",
 
 	-- Step 40: Echo Isles: kill these as you meet them
 	-- {area:368} Echo Isles
@@ -348,7 +348,7 @@ return {
 	["West from {area:362} over the {area:814} bridge: {npc:3337} and {npc:5810} stand together at {area:379} above it. From there the road north through {zone:1411} leads to {zone:1454}."] = "",
 
 	-- Step 85: Thunder lizards on the way north
-	["Thunder lizards on the way north"] = "",
+	["Thunder lizards on the way north"] = "Рокочущие ящерицы по пути на север",
 	-- {area:369} Thunder Ridge · {zone:1454} Orgrimmar · {item:6486} Singed Scale · {npc:5810} Uzzek · {area:379} Far Watch Post
 	-- plural, as words: Thunder Lizards = {npc:3130} Thunder Lizard · Lightning Hides = {npc:3131} Lightning Hide
 	["Thunder Lizards and Lightning Hides graze on {area:369}, beside the road north to {zone:1454}; any of them can drop a {item:6486}. {npc:5810} takes it when the next guide passes {area:379}.\nCareful: Halikor, a level 12 elite, roams {area:369} among the lizards: watch for him before you pull."] = "Рокочущие ящерицы и бурешкуры пасутся здесь: {area:369}, у дороги на север к городу {zone:1454}; {item:6486} может упасть с любого. {npc:5810} примет ее, когда следующий гайд будет проходить мимо заставы {area:379}.\nОсторожно: Халикор, элитный противник 12-го уровня, бродит среди ящериц ({area:369}): высматривайте его, прежде чем нападать.",

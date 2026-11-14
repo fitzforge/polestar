@@ -60,7 +60,7 @@ return {
 	["{npc:246344} in {zone:1456}; {area:363} has no paladin trainer"] = "",
 
 	-- Step 8: Druid trainer
-	["Druid trainer"] = "",
+	["Druid trainer"] = "Instructor de druidas",
 	-- {npc:3034} Sheal Runetotem · {zone:1412} Mulgore · {area:363} Valley of Trials
 	["{npc:3034} in {zone:1412}; {area:363} has no druid trainer"] = "",
 
@@ -192,7 +192,7 @@ return {
 	["{area:373}: kill these as you meet them"] = "",
 	-- {area:362} Razor Hill
 	["The gnomish toolboxes lie in the wreckage along the shore east and south-east of {area:362}. Follow the shore south to Sen'jin.\nMakrura and surf crawlers line the beaches north-east of Sen'jin."] = "",
-	["Underwater"] = "",
+	["Underwater"] = "Bajo el agua",
 
 	-- Step 40: Echo Isles: kill these as you meet them
 	-- {area:368} Echo Isles
@@ -348,7 +348,7 @@ return {
 	["West from {area:362} over the {area:814} bridge: {npc:3337} and {npc:5810} stand together at {area:379} above it. From there the road north through {zone:1411} leads to {zone:1454}."] = "",
 
 	-- Step 85: Thunder lizards on the way north
-	["Thunder lizards on the way north"] = "",
+	["Thunder lizards on the way north"] = "Truenagartos de camino al norte",
 	-- {area:369} Thunder Ridge · {zone:1454} Orgrimmar · {item:6486} Singed Scale · {npc:5810} Uzzek · {area:379} Far Watch Post
 	-- plural, as words: Thunder Lizards = {npc:3130} Thunder Lizard · Lightning Hides = {npc:3131} Lightning Hide
 	["Thunder Lizards and Lightning Hides graze on {area:369}, beside the road north to {zone:1454}; any of them can drop a {item:6486}. {npc:5810} takes it when the next guide passes {area:379}.\nCareful: Halikor, a level 12 elite, roams {area:369} among the lizards: watch for him before you pull."] = "Los truenagartos y los lomorrayos pastan en {area:369}, junto al camino al norte hacia {zone:1454}; cualquiera de ellos puede soltar {item:6486}. {npc:5810} la recoge cuando la siguiente guía pasa por {area:379}.\nCuidado: Halikor, un élite de nivel 12, recorre {area:369} entre los lagartos: localízalo antes de atraer.",

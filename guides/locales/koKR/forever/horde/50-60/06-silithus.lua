@@ -190,7 +190,7 @@ return {
 	-- {area:1637} Orgrimmar
 	["Fly to {area:1637}"] = "{area:1637}(으)로 날아가기",
 	-- {area:976} Gadgetzan
-	["{area:976} flight master"] = "",
+	["{area:976} flight master"] = "{area:976} 비행 조련사",
 
 	-- Step 43: Class trainer
 	["Class trainer"] = "직업 전문가",
@@ -202,7 +202,7 @@ return {
 
 	-- Step 47: Zeppelin to Undercity
 	-- {zone:1458} Undercity
-	["Zeppelin to {zone:1458}"] = "",
+	["Zeppelin to {zone:1458}"] = "{zone:1458}행 비행선",
 
 	-- Step 50: Radley and Durgen
 	["Radley and Durgen"] = "래들리와 드루겐",
@@ -314,7 +314,7 @@ return {
 	["The lake for {quest:5845}"] = "",
 
 	-- Step 84: Of Lost Honor
-	["Underwater"] = "",
+	["Underwater"] = "물속",
 
 	-- Step 85: Infiltrator Hameya
 	-- {area:2273} Zul'Mashar

@@ -84,7 +84,7 @@ return {
 	["Over the {area:880}: the Dark Irons' cache of explosives sits by its Arathi end."] = "",
 
 	-- Step 18: Waterlogged Envelope
-	["Underwater"] = "",
+	["Underwater"] = "물속",
 
 	-- Step 19: Rhag Garmason again
 	-- {npc:1075} Rhag Garmason
@@ -138,7 +138,7 @@ return {
 	-- {quest:474} Defeat Nek'rosh · {area:133} Gnomeregan · {area:796} Scarlet Monastery
 	["Skipped {quest:474} and short of 30.8? Kill the Bluegill murlocs on the coast south of Menethil until level 30.8. Or, with a group, run the {area:133} dungeon or the {area:796} dungeon (Graveyard) instead."] = "",
 	-- {npc:1418} Bluegill Raider
-	["grind on {npc:1418}"] = "",
+	["grind on {npc:1418}"] = "{npc:1418} 사냥",
 
 	-- Step 31: Boat to Southshore
 	-- {area:271} Southshore
@@ -241,7 +241,7 @@ return {
 	-- {zone:1453} Stormwind
 	["Fly to {zone:1453}"] = "{zone:1453}로 비행",
 	-- {zone:1455} Ironforge
-	["{zone:1455} flight master"] = "",
+	["{zone:1455} flight master"] = "{zone:1455} 비행 조련사",
 
 	-- Step 56: Elling Trias
 	-- {object:2096} Trade District

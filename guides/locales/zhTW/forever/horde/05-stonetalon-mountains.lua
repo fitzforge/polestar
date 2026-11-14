@@ -91,7 +91,7 @@ return {
 	["{area:431} flight master"] = "",
 
 	-- Step 16: Druid trainer
-	["Druid trainer"] = "",
+	["Druid trainer"] = "德魯伊訓練師",
 	-- {npc:3034} Sheal Runetotem · {zone:1412} Mulgore · {zone:1454} Orgrimmar
 	["{npc:3034} in {zone:1412}; {zone:1454} has no druid trainer"] = "",
 
@@ -107,7 +107,7 @@ return {
 
 	-- Step 20: Zeppelin to Undercity
 	-- {zone:1458} Undercity
-	["Zeppelin to {zone:1458}"] = "",
+	["Zeppelin to {zone:1458}"] = "搭飛艇前往{zone:1458}",
 
 	-- Step 21: Brill
 	-- {npc:246152} Shari Stilwell · {area:159} Brill
@@ -131,7 +131,7 @@ return {
 	-- {area:240} Dead Field · {object:177844} Strange Lockbox · {item:15882} Half Pendant of Aquatic Endurance · {area:228} The Sepulcher
 	["From the zeppelin towers, run south into Silverpine and west past the {area:240} to the coast: the {object:177844} lies at the bottom of very deep water there, beside an air fissure where you can breathe. Watch your breath on the way down. It holds the {item:15882} for Trial of the Sea Lion. Then on to the {area:228}."] = "",
 	-- {item:15882} Half Pendant of Aquatic Endurance · {object:177844} Strange Lockbox
-	["{item:15882}, from the {object:177844}"] = "",
+	["{item:15882}, from the {object:177844}"] = "{item:15882}，來自{object:177844}",
 
 	-- Step 26: The Sepulcher
 	-- {area:228} The Sepulcher · {object:177844} Strange Lockbox · {npc:2121} Shadow Priest Allister · {npc:1937} Apothecary Renferrel

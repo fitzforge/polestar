@@ -61,7 +61,7 @@ return {
 	-- {npc:4080} Kaela Shadowspear · {npc:4077} Gaxim Rustfizzle
 	["His hut stands just north of {npc:4080} and {npc:4077}."] = "",
 	-- {npc:4201} Ziz Fizziks
-	["{npc:4201}, inside"] = "",
+	["{npc:4201}, inside"] = "{npc:4201}, dentro",
 
 	-- Step 15: Ziz Fizziks
 	-- {quest:1483} Ziz Fizziks
@@ -84,7 +84,7 @@ return {
 	-- {npc:3885} Sentinel Velene Starstrike · {area:420} Silverwind Refuge · {area:421} Mystral Lake · {npc:12759} Tideress
 	-- plural, as words: Befouled Water Elementals = {npc:3917} Befouled Water Elemental
 	["{npc:3885} stands at the {area:420} on the east shore of {area:421}. Befouled Water Elementals wade in the lake. Careful: {npc:12759}, a level 27 water elemental, walks the lake among them; she drops the bracers too, but the small elementals are the safer kills at this level."] = "{npc:3885} está en {area:420}, en la orilla este de {area:421}. Los Elementales de agua podrida vadean el lago. Cuidado: {npc:12759}, una elemental de agua de nivel 27, recorre el lago entre ellos; también suelta los brazales, pero los elementales pequeños son más seguros a este nivel.",
-	["Underwater"] = "",
+	["Underwater"] = "Bajo el agua",
 	-- {item:5456} Divining Scroll
 	-- plural, as words: Intact Elemental Bracers = {item:12220} Intact Elemental Bracer
 	["Kill the elementals for 5 Intact Elemental Bracers, then use the {item:5456}"] = "Mata a los elementales para conseguir 5 brazales elementales intactos ({item:12220}) y luego usa el {item:5456}",
@@ -140,7 +140,7 @@ return {
 
 	-- Step 32: Fly to Auberdine
 	-- {area:442} Auberdine
-	["Fly to {area:442}"] = "",
+	["Fly to {area:442}"] = "Vuela a {area:442}",
 	-- {area:415} Astranaar
 	["{area:415} flight master"] = "",
 
@@ -273,7 +273,7 @@ return {
 
 	-- Step 54: Tram to Stormwind
 	-- {zone:1453} Stormwind
-	["Tram to {zone:1453}"] = "",
+	["Tram to {zone:1453}"] = "Tranvía a {zone:1453}",
 
 	-- Step 55: Sprite Jumpsprocket
 	-- {quest:92748} Explosive Consultation · {zone:1432} Loch Modan · {object:28027} Dwarven District · {npc:11026} Sprite Jumpsprocket

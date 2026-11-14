@@ -95,7 +95,7 @@ return {
 
 	-- Step 18: Fly to Menethil Harbor
 	-- {area:150} Menethil Harbor
-	["Fly to {area:150}"] = "",
+	["Fly to {area:150}"] = "飛往{area:150}",
 	-- {area:42} Darkshire
 	["{area:42} flight master"] = "",
 

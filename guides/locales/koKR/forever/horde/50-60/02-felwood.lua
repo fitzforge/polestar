@@ -112,7 +112,7 @@ return {
 	["Class trainer"] = "직업 전문가",
 
 	-- Step 23: Druid trainer
-	["Druid trainer"] = "",
+	["Druid trainer"] = "드루이드 상급자",
 	-- {npc:3034} Sheal Runetotem · {zone:1412} Mulgore · {zone:1454} Orgrimmar
 	["{npc:3034} in {zone:1412}; {zone:1454} has no druid trainer"] = "",
 
@@ -218,9 +218,9 @@ return {
 
 	-- Step 47: Timbermaw Hold
 	-- {npc:11558} Kernda
-	["Step into the cave: {npc:11558} stands just inside."] = "",
+	["Step into the cave: {npc:11558} stands just inside."] = "동굴에 들어가세요. {npc:11558}이(가) 바로 안쪽에 서 있습니다.",
 	-- {npc:11558} Kernda
-	["{npc:11558}: the Timbermaw speak to you only from Neutral; walks around here: look inside the circle on the map"] = "",
+	["{npc:11558}: the Timbermaw speak to you only from Neutral; walks around here: look inside the circle on the map"] = "{npc:11558}: 나무구렁 요새는 중립부터 대화해 줍니다. 이 주변을 돌아다닙니다. 지도의 원 안을 살펴보세요",
 
 	-- Step 48: Emerald Sanctuary
 	-- {zone:1448} Felwood

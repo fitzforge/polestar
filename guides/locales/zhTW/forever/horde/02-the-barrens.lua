@@ -362,7 +362,7 @@ return {
 	-- Step 82: Verog the Dervish
 	-- {npc:3395} Verog the Dervish · {area:388} Stagnant Oasis · {npc:3448} Tonga Runetotem
 	["{npc:3395} walks among the Kolkar at the {area:388} south-east of the Crossroads. Test {npc:3448}'s seeds at the bubbling fissure on the oasis' east bank while you are there."] = "{npc:3395}在十字路口東南方{area:388}的科卡爾之間走動。趁在那裡，到綠洲東岸冒泡的裂縫測試{npc:3448}的種子。",
-	["Underwater"] = "",
+	["Underwater"] = "在水下",
 	-- {npc:12296} Sickly Gazelle · {item:15826} Curative Animal Salve
 	["{npc:12296}: use the {item:15826} on them; they roam the plains all around the Crossroads"] = "",
 	-- {npc:12296} Sickly Gazelle
@@ -635,7 +635,7 @@ return {
 	-- {area:1076} Webwinder Path · {quest:1483} Ziz Fizziks · {area:461} Windshear Crag
 	["The road climbs north as the {area:1076}. {quest:1483} has a hut where the road forks east to {area:461}."] = "道路以{area:1076}向北爬升。{quest:1483}的小屋在道路向東分岔通往{area:461}的地方。",
 	-- {quest:1483} Ziz Fizziks
-	["{quest:1483}, inside"] = "",
+	["{quest:1483}, inside"] = "{quest:1483}，在裡面",
 
 	-- Step 148: Windshear Crag
 	-- {area:461} Windshear Crag
@@ -651,7 +651,7 @@ return {
 
 	-- Step 150: Ziz Fizziks: Gerenzo's Orders
 	-- {npc:4201} Ziz Fizziks
-	["{npc:4201}, inside"] = "",
+	["{npc:4201}, inside"] = "{npc:4201}，在裡面",
 
 	-- Step 151: Ziz Fizziks
 	-- {npc:4201} Ziz Fizziks · {npc:3442} Sputtervalve · {area:392} Ratchet · {zone:1413} The Barrens

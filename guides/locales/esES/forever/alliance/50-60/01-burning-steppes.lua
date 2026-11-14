@@ -99,7 +99,7 @@ return {
 	-- {area:348} Aerie Peak
 	["Fly to {area:348}"] = "",
 	-- {zone:1455} Ironforge
-	["{zone:1455} flight master"] = "",
+	["{zone:1455} flight master"] = "Maestro de vuelo de {zone:1455}",
 
 	-- Step 28: Fly to Southshore
 	-- {area:271} Southshore
@@ -273,7 +273,7 @@ return {
 
 	-- Step 71: Fly to Menethil Harbor
 	-- {area:150} Menethil Harbor
-	["Fly to {area:150}"] = "",
+	["Fly to {area:150}"] = "Vuela a {area:150}",
 
 	-- Step 73: Fly to Rut'theran Village
 	-- {area:702} Rut'theran Village
@@ -299,7 +299,7 @@ return {
 
 	-- Step 79: Daryn Lightwind
 	-- {npc:7907} Daryn Lightwind · {npc:7916} Erelas Ambersky
-	["{npc:7907} stands upstairs, above {npc:7916}: go up inside, the arrow cannot tell the floors apart."] = "",
+	["{npc:7907} stands upstairs, above {npc:7916}: go up inside, the arrow cannot tell the floors apart."] = "{npc:7907} está en el piso de arriba, encima de {npc:7916}: sube por dentro, la flecha no distingue los pisos.",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Class trainer"] = "Instructor de clase",

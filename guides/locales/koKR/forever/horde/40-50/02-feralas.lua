@@ -148,7 +148,7 @@ return {
 
 	-- Step 38: Fly to Freewind Post
 	-- {area:976} Gadgetzan
-	["{area:976} flight master"] = "",
+	["{area:976} flight master"] = "{area:976} 비행 조련사",
 
 	-- Step 40: Camp Mojache
 	-- {npc:7777} Rok Orhan · {area:1099} Camp Mojache
@@ -220,7 +220,7 @@ return {
 	-- {area:1637} Orgrimmar
 	["Fly to {area:1637}"] = "{area:1637}(으)로 날아가기",
 	-- {area:1099} Camp Mojache
-	["{area:1099} flight master"] = "",
+	["{area:1099} flight master"] = "{area:1099}의 비행 조련사",
 
 	-- Step 55: Orgrimmar
 	-- {zone:1454} Orgrimmar · {object:172960} Cleft of Shadow · {object:172958} Valley of Honor

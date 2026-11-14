@@ -99,7 +99,7 @@ return {
 	-- {area:348} Aerie Peak
 	["Fly to {area:348}"] = "",
 	-- {zone:1455} Ironforge
-	["{zone:1455} flight master"] = "",
+	["{zone:1455} flight master"] = "{zone:1455} 비행 조련사",
 
 	-- Step 28: Fly to Southshore
 	-- {area:271} Southshore
@@ -273,7 +273,7 @@ return {
 
 	-- Step 71: Fly to Menethil Harbor
 	-- {area:150} Menethil Harbor
-	["Fly to {area:150}"] = "",
+	["Fly to {area:150}"] = "{area:150}(으)로 비행",
 
 	-- Step 73: Fly to Rut'theran Village
 	-- {area:702} Rut'theran Village
@@ -299,7 +299,7 @@ return {
 
 	-- Step 79: Daryn Lightwind
 	-- {npc:7907} Daryn Lightwind · {npc:7916} Erelas Ambersky
-	["{npc:7907} stands upstairs, above {npc:7916}: go up inside, the arrow cannot tell the floors apart."] = "",
+	["{npc:7907} stands upstairs, above {npc:7916}: go up inside, the arrow cannot tell the floors apart."] = "{npc:7907}은(는) {npc:7916} 위층에 서 있습니다. 건물 안에서 올라가십시오. 화살표는 층을 구분하지 못합니다.",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Class trainer"] = "직업 전문가",

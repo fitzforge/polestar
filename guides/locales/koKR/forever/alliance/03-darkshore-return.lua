@@ -96,7 +96,7 @@ return {
 	-- {npc:6667} Gelkak Gyromast
 	-- plural, as words: Giant Foreststriders = {npc:2323} Giant Foreststrider · Raging Reef Crawlers = {npc:2236} Raging Reef Crawler
 	["{npc:6667} hides on the little island off the ruins. The key pieces drop from Giant Foreststriders (top), Greymist murlocs (middle) and Raging Reef Crawlers (bottom)."] = "{npc:6667}은(는) 폐허 앞바다의 작은 섬에 숨어 있습니다. 열쇠 조각은 거대한 숲타조(윗부분), 잿빛안개멀록(가운데), 사나운 모래톱게(아랫부분)에게서 떨어집니다.",
-	["Underwater"] = "",
+	["Underwater"] = "물속",
 
 	-- Step 17: Strange Lockbox
 	-- {item:15883} Half Pendant of Aquatic Agility · {object:177792} Strange Lockbox
@@ -136,7 +136,7 @@ return {
 
 	-- Step 27: Dendrite Starblaze
 	-- {spell:18960} Teleport: Moonglade · {npc:11802} Dendrite Starblaze · {area:2361} Nighthaven
-	["Cast {spell:18960}. {npc:11802} stands upstairs in his building in {area:2361}: go up inside, the arrow cannot tell the floors apart. Learn the flight path there if you do not have it."] = "",
+	["Cast {spell:18960}. {npc:11802} stands upstairs in his building in {area:2361}: go up inside, the arrow cannot tell the floors apart. Learn the flight path there if you do not have it."] = "{spell:18960}을(를) 시전하세요. {npc:11802}은(는) {area:2361}에 있는 자기 건물 위층에 서 있습니다. 건물 안에서 올라가세요. 화살표는 층을 구분하지 못합니다. 비행 경로가 없다면 그곳에서 배우세요.",
 
 	-- Step 28: Dendrite Starblaze
 	-- {npc:11802} Dendrite Starblaze · {area:2361} Nighthaven

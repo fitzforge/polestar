@@ -85,7 +85,7 @@ return {
 	-- Step 18: The Theramore Docks
 	-- {area:513} Theramore Isle · {object:20925} Captain's Footlocker
 	["South-east from the manor to {area:513}: the {object:20925} lies on the sea floor off the docks on the isle's east side. Swim in and out and keep off the piers and the town: Theramore's guards are level 53-57, and a death here is a long run back from the spirit healer."] = "На юго-восток от поместья к месту {area:513}: {object:20925} лежит на морском дне у причалов на восточной стороне острова. Подплывайте и уплывайте, держитесь подальше от пирсов и городка: стражники Терамора 53-57 уровня, а после смерти здесь придется долго бежать обратно от целителя душ.",
-	["Underwater"] = "",
+	["Underwater"] = "Под водой",
 
 	-- Step 19: Brackenwall Village
 	-- {npc:4503} Mudcrush Durtfeet · {npc:4791} Nazeer Bloodpike

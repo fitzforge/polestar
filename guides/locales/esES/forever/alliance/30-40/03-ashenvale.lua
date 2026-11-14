@@ -8,7 +8,7 @@
 return {
 	-- Step 1: Fly to Menethil Harbor
 	-- {area:150} Menethil Harbor
-	["Fly to {area:150}"] = "",
+	["Fly to {area:150}"] = "Vuela a {area:150}",
 	-- {zone:1453} Stormwind
 	["{zone:1453} flight master"] = "",
 
@@ -113,7 +113,7 @@ return {
 	-- Step 21: Fly to Theramore
 	["Fly to Theramore"] = "Vuela a Theramore",
 	-- {area:976} Gadgetzan
-	["{area:976} flight master"] = "",
+	["{area:976} flight master"] = "Maestro de vuelo de {area:976}",
 
 	-- Step 22: Theramore
 	-- {npc:4456} Fiora Longears · {area:514} Foothold Citadel · {npc:4941} Caz Twosprocket

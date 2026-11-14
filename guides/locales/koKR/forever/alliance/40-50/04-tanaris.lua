@@ -159,7 +159,7 @@ return {
 	-- {zone:1457} Darnassus · {npc:7763} Curgle Cranklehop · {area:442} Auberdine · {area:150} Menethil Harbor · {area:348} Aerie Peak
 	["{zone:1457} first, while you are on this side of the sea: Troyas' answer, {npc:7763}'s crate, Tyrande and the soil errand, then the boat from {area:442} to {area:150} and the gryphon to {area:348}."] = "바다 이쪽에 있는 동안 {zone:1457}부터 들르십시오: 트로야스의 답신, {npc:7763}의 상자, 티란데와 흙 심부름. 그런 다음 {area:442}에서 배를 타고 {area:150}(으)로 가서 그리폰을 타고 {area:348}(으)로 가십시오.",
 	-- {area:976} Gadgetzan
-	["{area:976} flight master"] = "",
+	["{area:976} flight master"] = "{area:976} 비행 조련사",
 
 	-- Step 31: Teldrassil
 	-- {area:442} Auberdine · {area:702} Rut'theran Village · {npc:3838} Vesprystus
@@ -223,7 +223,7 @@ return {
 	["{npc:7884}, inside"] = "",
 
 	-- Step 50: Sprinkle's Secret Ingredient
-	["Underwater"] = "",
+	["Underwater"] = "물속",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Fly from {area:976} to Theramore, take the boat to {area:150} and fly to {area:1537}. Train."] = "{area:976}에서 테라모어 섬으로 날아가, 배를 타고 {area:150}(으)로 간 다음 {area:1537}(으)로 날아가십시오. 기술을 배우십시오.",

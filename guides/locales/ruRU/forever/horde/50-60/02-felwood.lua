@@ -218,9 +218,9 @@ return {
 
 	-- Step 47: Timbermaw Hold
 	-- {npc:11558} Kernda
-	["Step into the cave: {npc:11558} stands just inside."] = "",
+	["Step into the cave: {npc:11558} stands just inside."] = "Войдите в пещеру: {npc:11558} стоит сразу у входа.",
 	-- {npc:11558} Kernda
-	["{npc:11558}: the Timbermaw speak to you only from Neutral; walks around here: look inside the circle on the map"] = "",
+	["{npc:11558}: the Timbermaw speak to you only from Neutral; walks around here: look inside the circle on the map"] = "{npc:11558}: Древобрюхи разговаривают с вами только начиная с уровня «Равнодушие»; ходит здесь: ищите внутри круга на карте",
 
 	-- Step 48: Emerald Sanctuary
 	-- {zone:1448} Felwood

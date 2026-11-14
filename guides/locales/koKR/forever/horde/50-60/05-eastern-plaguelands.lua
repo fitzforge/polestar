@@ -108,7 +108,7 @@ return {
 	-- {area:2275} Northpass Tower · {area:2622} Pestilent Scar
 	-- plural, as words: Rangers = {npc:8564} Ranger · Pathstriders = {npc:8565} Pathstrider · Noxious Plaguebats = {npc:8601} Noxious Plaguebat · Blighted Horrors = {npc:8521} Blighted Horror
 	["The high elf Rangers, Pathstriders and Woodsmen guard the lodge by {area:2275}; the Registry lies inside. Rangers reach 60: pull one at a time. Noxious Plaguebats fly over the fields on the way.\nThe skull sits in the {area:2622}, among Blighted Horrors and Plague Monstrosities."] = "하이 엘프 순찰자, 길잡이, 수렵꾼이 {area:2275} 옆의 오두막을 지키고 있으며, 명부는 그 안에 있습니다. 순찰자는 60레벨까지 됩니다. 한 번에 한 명씩 끌어오세요. 가는 길에 맹독 역병박쥐가 들판 위를 날아다닙니다.\n해골은 {area:2622}에서 역병 걸린 공포와 역병 괴물 사이에 있습니다.",
-	["Underwater"] = "",
+	["Underwater"] = "물속",
 
 	-- Step 23: Pathstrider
 	-- {npc:8565} Pathstrider · {area:2276} Quel'Lithien Lodge
@@ -221,7 +221,7 @@ return {
 	-- {area:541} Marshal's Refuge
 	["Fly to {area:541}"] = "",
 	-- {area:976} Gadgetzan
-	["{area:976} flight master"] = "",
+	["{area:976} flight master"] = "{area:976} 비행 조련사",
 
 	-- Step 51: Marshal's Refuge
 	-- {area:541} Marshal's Refuge · {npc:9997} Spraggle Frock · {npc:8737} Linken

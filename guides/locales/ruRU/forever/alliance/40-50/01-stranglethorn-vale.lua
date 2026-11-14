@@ -319,9 +319,9 @@ return {
 
 	-- Step 69: Fly to Auberdine
 	-- {area:442} Auberdine
-	["Fly to {area:442}"] = "",
+	["Fly to {area:442}"] = "Летите сюда: {area:442}",
 	-- {area:702} Rut'theran Village
-	["{area:702} flight master"] = "",
+	["{area:702} flight master"] = "Распорядитель полетов: {area:702}",
 
 	-- Step 70: Boat to Stormwind Harbor
 	-- {area:17203} Stormwind Harbor
@@ -399,7 +399,7 @@ return {
 
 	-- Step 93: Fly to Thelsamar
 	-- {area:144} Thelsamar
-	["Fly to {area:144}"] = "",
+	["Fly to {area:144}"] = "Летите сюда: {area:144}",
 	-- {zone:1455} Ironforge
 	["{zone:1455} flight master"] = "",
 

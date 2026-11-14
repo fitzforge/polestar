@@ -96,7 +96,7 @@ return {
 	-- {npc:6667} Gelkak Gyromast
 	-- plural, as words: Giant Foreststriders = {npc:2323} Giant Foreststrider · Raging Reef Crawlers = {npc:2236} Raging Reef Crawler
 	["{npc:6667} hides on the little island off the ruins. The key pieces drop from Giant Foreststriders (top), Greymist murlocs (middle) and Raging Reef Crawlers (bottom)."] = "{npc:6667} se esconde en el islote frente a las ruinas. Las piezas de la llave las sueltan los Zancudos del bosque gigantes (arriba), los múrlocs Brumagris (centro) y los Reptadores Correarrecifes enfurecidos (abajo).",
-	["Underwater"] = "",
+	["Underwater"] = "Bajo el agua",
 
 	-- Step 17: Strange Lockbox
 	-- {item:15883} Half Pendant of Aquatic Agility · {object:177792} Strange Lockbox
@@ -136,7 +136,7 @@ return {
 
 	-- Step 27: Dendrite Starblaze
 	-- {spell:18960} Teleport: Moonglade · {npc:11802} Dendrite Starblaze · {area:2361} Nighthaven
-	["Cast {spell:18960}. {npc:11802} stands upstairs in his building in {area:2361}: go up inside, the arrow cannot tell the floors apart. Learn the flight path there if you do not have it."] = "",
+	["Cast {spell:18960}. {npc:11802} stands upstairs in his building in {area:2361}: go up inside, the arrow cannot tell the floors apart. Learn the flight path there if you do not have it."] = "Lanza {spell:18960}. {npc:11802} está en el piso de arriba de su edificio, en {area:2361}: sube por dentro, la flecha no distingue los pisos. Aprende allí la ruta de vuelo si no la tienes.",
 
 	-- Step 28: Dendrite Starblaze
 	-- {npc:11802} Dendrite Starblaze · {area:2361} Nighthaven

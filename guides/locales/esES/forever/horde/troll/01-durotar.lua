@@ -54,7 +54,7 @@ return {
 	["{npc:246344} in {zone:1456}; {area:363} has no paladin trainer"] = "",
 
 	-- Step 9: Druid trainer
-	["Druid trainer"] = "",
+	["Druid trainer"] = "Instructor de druidas",
 	-- {npc:3034} Sheal Runetotem · {zone:1412} Mulgore · {area:363} Valley of Trials
 	["{npc:3034} in {zone:1412}; {area:363} has no druid trainer"] = "",
 
@@ -198,7 +198,7 @@ return {
 	["{area:373}: kill these as you meet them"] = "",
 	-- {area:362} Razor Hill
 	["Makrura and surf crawlers line the beaches north-east of Sen'jin; the Taillasher eggs sit in nests along the beach.\nThe gnomish toolboxes lie in the wreckage along the shore east and south-east of {area:362}. Follow the shore south to Sen'jin."] = "",
-	["Underwater"] = "",
+	["Underwater"] = "Bajo el agua",
 
 	-- Step 42: Bloodtalon Matriarch
 	-- plural, as words: Durotar Tigers = {npc:3121} Durotar Tiger
@@ -350,14 +350,14 @@ return {
 	["West from {area:362} over the {area:814} bridge: {npc:3337} and {npc:5810} stand together at {area:379} above it. From there the road north through {zone:1411} leads to {zone:1454}."] = "",
 
 	-- Step 86: Thunder lizards on the way north
-	["Thunder lizards on the way north"] = "",
+	["Thunder lizards on the way north"] = "Truenagartos de camino al norte",
 	-- {area:369} Thunder Ridge · {zone:1454} Orgrimmar · {item:6486} Singed Scale · {npc:5810} Uzzek · {area:379} Far Watch Post
 	-- plural, as words: Thunder Lizards = {npc:3130} Thunder Lizard · Lightning Hides = {npc:3131} Lightning Hide
 	["Thunder Lizards and Lightning Hides graze on {area:369}, beside the road north to {zone:1454}; any of them can drop a {item:6486}. {npc:5810} takes it when the next guide passes {area:379}.\nCareful: Halikor, a level 12 elite, roams {area:369} among the lizards: watch for him before you pull."] = "Los truenagartos y los lomorrayos pastan en {area:369}, junto al camino al norte hacia {zone:1454}; cualquiera de ellos puede soltar {item:6486}. {npc:5810} la recoge cuando la siguiente guía pasa por {area:379}.\nCuidado: Halikor, un élite de nivel 12, recorre {area:369} entre los lagartos: localízalo antes de atraer.",
 
 	-- Step 88: Ormak Grimshot
 	-- {area:379} Far Watch Post · {zone:1454} Orgrimmar · {area:817} Skull Rock · {npc:3352} Ormak Grimshot · {object:172958} Valley of Honor
-	["Follow the road north from {area:379} to {zone:1454}'s main gate, just west of {area:817}. {npc:3352} stands with the hunter trainers in the {object:172958}."] = "",
+	["Follow the road north from {area:379} to {zone:1454}'s main gate, just west of {area:817}. {npc:3352} stands with the hunter trainers in the {object:172958}."] = "Sigue el camino hacia el norte desde {area:379} hasta la puerta principal de {zone:1454}, justo al oeste de {area:817}. {npc:3352} está con los instructores de cazadores en {object:172958}.",
 
 	-- Step 89: Hanashi
 	-- {npc:2704} Hanashi · {object:172958} Valley of Honor

@@ -108,7 +108,7 @@ return {
 	-- {area:2275} Northpass Tower · {area:2622} Pestilent Scar
 	-- plural, as words: Rangers = {npc:8564} Ranger · Pathstriders = {npc:8565} Pathstrider · Noxious Plaguebats = {npc:8601} Noxious Plaguebat · Blighted Horrors = {npc:8521} Blighted Horror
 	["The high elf Rangers, Pathstriders and Woodsmen guard the lodge by {area:2275}; the Registry lies inside. Rangers reach 60: pull one at a time. Noxious Plaguebats fly over the fields on the way.\nThe skull sits in the {area:2622}, among Blighted Horrors and Plague Monstrosities."] = "Los especialistas, zancaminos y leñantros altos elfos guardan el refugio junto a {area:2275}; el registro está dentro. Los especialistas llegan al nivel 60: atráelos de uno en uno. Por el camino, los murcipestes tóxicos sobrevuelan los campos.\nLa calavera está en {area:2622}, entre Horrores malditos y Monstruosidades de la peste.",
-	["Underwater"] = "",
+	["Underwater"] = "Bajo el agua",
 
 	-- Step 23: Pathstrider
 	-- {npc:8565} Pathstrider · {area:2276} Quel'Lithien Lodge
@@ -221,7 +221,7 @@ return {
 	-- {area:541} Marshal's Refuge
 	["Fly to {area:541}"] = "",
 	-- {area:976} Gadgetzan
-	["{area:976} flight master"] = "",
+	["{area:976} flight master"] = "Maestro de vuelo de {area:976}",
 
 	-- Step 51: Marshal's Refuge
 	-- {area:541} Marshal's Refuge · {npc:9997} Spraggle Frock · {npc:8737} Linken

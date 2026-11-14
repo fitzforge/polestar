@@ -201,7 +201,7 @@ return {
 	["{npc:5148} in {zone:1455}; {area:16624} has no paladin trainer"] = "",
 
 	-- Step 44: Priest trainer
-	["Priest trainer"] = "",
+	["Priest trainer"] = "Instructor de sacerdotes",
 	-- {zone:1438} Teldrassil · {area:16624} Shen'dar Village
 	["Lariia in {zone:1438}; {area:16624} has no priest trainer"] = "",
 
@@ -293,8 +293,8 @@ return {
 	-- {npc:254588} Windsong Crawler · {npc:252389} Quel'ana Quickgale · {item:15908} Taming Rod
 	["{npc:254588}, among the crabs: tame one with {npc:252389}'s first {item:15908} while you are there"] = "",
 	-- {npc:254588} Windsong Crawler
-	["Tame {npc:254588}"] = "",
-	["Underwater"] = "",
+	["Tame {npc:254588}"] = "Domestica un {npc:254588}",
+	["Underwater"] = "Bajo el agua",
 
 	-- Step 64: The missing scholar
 	-- plural, as words: Shriekling Matriarchs = {npc:253283} Shriekling Matriarch

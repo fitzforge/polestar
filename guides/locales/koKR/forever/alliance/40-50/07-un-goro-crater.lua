@@ -11,9 +11,9 @@ return {
 
 	-- Step 1: Fly to Menethil Harbor
 	-- {area:150} Menethil Harbor
-	["Fly to {area:150}"] = "",
+	["Fly to {area:150}"] = "{area:150}(으)로 비행",
 	-- {zone:1455} Ironforge
-	["{zone:1455} flight master"] = "",
+	["{zone:1455} flight master"] = "{zone:1455} 비행 조련사",
 
 	-- Step 3: Fly to Gadgetzan
 	-- {area:976} Gadgetzan

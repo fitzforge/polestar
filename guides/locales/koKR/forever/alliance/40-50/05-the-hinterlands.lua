@@ -46,7 +46,7 @@ return {
 
 	-- Step 8: Tram to Stormwind
 	-- {zone:1453} Stormwind
-	["Tram to {zone:1453}"] = "",
+	["Tram to {zone:1453}"] = "지하철을 타고 {zone:1453}(으)로",
 
 	-- Step 10: Fly to Darkshire
 	-- {area:42} Darkshire

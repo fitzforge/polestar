@@ -112,7 +112,7 @@ return {
 	["Class trainer"] = "Instructor de clase",
 
 	-- Step 23: Druid trainer
-	["Druid trainer"] = "",
+	["Druid trainer"] = "Instructor de druidas",
 	-- {npc:3034} Sheal Runetotem · {zone:1412} Mulgore · {zone:1454} Orgrimmar
 	["{npc:3034} in {zone:1412}; {zone:1454} has no druid trainer"] = "",
 
@@ -218,9 +218,9 @@ return {
 
 	-- Step 47: Timbermaw Hold
 	-- {npc:11558} Kernda
-	["Step into the cave: {npc:11558} stands just inside."] = "",
+	["Step into the cave: {npc:11558} stands just inside."] = "Entra en la cueva: {npc:11558} está justo dentro.",
 	-- {npc:11558} Kernda
-	["{npc:11558}: the Timbermaw speak to you only from Neutral; walks around here: look inside the circle on the map"] = "",
+	["{npc:11558}: the Timbermaw speak to you only from Neutral; walks around here: look inside the circle on the map"] = "{npc:11558}: los Fauces de Madera solo te hablan desde Neutral; recorre esta zona: busca dentro del círculo del mapa",
 
 	-- Step 48: Emerald Sanctuary
 	-- {zone:1448} Felwood

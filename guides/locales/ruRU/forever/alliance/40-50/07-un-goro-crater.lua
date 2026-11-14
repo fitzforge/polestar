@@ -11,14 +11,14 @@ return {
 
 	-- Step 1: Fly to Menethil Harbor
 	-- {area:150} Menethil Harbor
-	["Fly to {area:150}"] = "",
+	["Fly to {area:150}"] = "Летите сюда: {area:150}",
 	-- {zone:1455} Ironforge
 	["{zone:1455} flight master"] = "",
 
 	-- Step 3: Fly to Gadgetzan
 	-- {area:976} Gadgetzan
 	["Fly to {area:976}"] = "Летите сюда: {area:976}",
-	["Theramore flight master"] = "",
+	["Theramore flight master"] = "Распорядитель полетов: Терамор",
 
 	-- Step 4: Gadgetzan
 	-- {area:976} Gadgetzan
