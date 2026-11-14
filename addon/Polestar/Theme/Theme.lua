@@ -1549,11 +1549,18 @@ end
 -- from the string: Polestar's strings on the world map would read the map's
 -- frames (Nav/MapCanvas reads only what it must there). A parent seen
 -- outside every scope stays outside: the guide window reparents nothing.
+local markChildren
 local function markScope(frame, key)
 	local own = textScopes[frame]
 	if own ~= nil then key = own end
 	scopedFrames[frame] = key
-	for _, child in ipairs({ frame:GetChildren() }) do markScope(child, key) end
+	markChildren(key, frame:GetChildren())
+end
+-- The children as GetChildren returns them, with no table made: a lookup
+-- that misses walks every scoped window, and the settings window's rows miss
+-- often as they are built.
+function markChildren(key, ...)
+	for i = 1, select("#", ...) do markScope((select(i, ...)), key) end
 end
 local function scopeOf(region)
 	local p = region.GetParent and region:GetParent()
@@ -3277,13 +3284,6 @@ end
 local function migrate()
 	local db = ns.DB and ns.DB()
 	local ui = db and db.settings and db.settings.ui
-	-- Before the guide window had its own text size, ui.textSize sized it
-	-- too: it keeps that size until the player sets its own. Once only
-	-- (guideTextSizeV), so a guide size reset later stays at the default.
-	if db and db.guideTextSizeV ~= 1 then
-		if type(ui) == "table" and ui.guideTextSize == nil and tonumber(ui.textSize) then ui.guideTextSize = ui.textSize end
-		db.guideTextSizeV = 1
-	end
 	if type(ui) ~= "table" then return end
 	local c = ui.accent
 	if isColor(c) then
@@ -3298,6 +3298,19 @@ local function migrate()
 	P = nil
 end
 if ns.OnInit then ns.OnInit(migrate) end
+
+-- Before the guide window had its own text size, ui.textSize sized it too:
+-- each profile keeps that size for the guide window until the player sets
+-- its own. A migration (Core/Profiles.lua): once, over the settings in use,
+-- every stored profile and a profile string from before it, so a guide size
+-- reset later stays at the default and a fresh install copies nothing.
+if ns.RegisterMigration then
+	ns.RegisterMigration("guideTextSize", function(s)
+		local ui = s.ui
+		if type(ui) == "table" and ui.guideTextSize == nil and tonumber(ui.textSize) then ui.guideTextSize = ui.textSize end
+	end)
+end
+
 -- The class is certain once logged in; a palette read earlier is redone.
 if ns.OnLogin then ns.OnLogin(function() if get("ui.classAccent") then Theme.Refresh() end end) end
 

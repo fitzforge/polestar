@@ -1599,20 +1599,32 @@ fn the_guide_window_s_text_takes_its_own_size_and_the_rest_of_polestar_s_text_th
 	assert!((out["guideCapped"].as_f64().unwrap() - 1.4).abs() < 0.05, "at most 140%: {}", out["guideCapped"]);
 }
 
+// A migration (Core/Profiles.lua's registry): once per account, over the settings in use and every stored profile,
+// and over a profile string from before it.
 #[test]
 fn settings_from_before_the_guide_text_size_keep_the_guide_window_s_text_at_the_general_size_once() {
-	let script = r#"emit({ guide = Polestar.Get("ui.guideTextSize"), general = Polestar.Get("ui.textSize"), v = PolestarDB.guideTextSizeV })"#;
-	let old = run_with(script, "PolestarDB = { schema = 1, settings = { ui = { textSize = 1.2 } } }");
+	let script = r#"emit({ guide = Polestar.Get("ui.guideTextSize"), general = Polestar.Get("ui.textSize"),
+		marked = PolestarDB.migrations and PolestarDB.migrations.guideTextSize,
+		raid = PolestarDB.profiles and PolestarDB.profiles.Raid and PolestarDB.profiles.Raid.ui })"#;
+	let old = run_with(script, "PolestarDB = { schema = 1, settings = { ui = { textSize = 1.2 } }, profiles = { Raid = { ui = { textSize = 0.9 } } } }");
 	assert_eq!(old["guide"], 1.2, "the size the guide window had before");
 	assert_eq!(old["general"], 1.2);
-	assert_eq!(old["v"], 1);
-	let reset = run_with(script, "PolestarDB = { schema = 1, guideTextSizeV = 1, settings = { ui = { textSize = 1.2 } } }");
+	assert_eq!(old["marked"], true);
+	assert_eq!(old["raid"], json!({ "textSize": 0.9, "guideTextSize": 0.9 }), "a stored profile keeps its own the same way");
+	let reset = run_with(script, "PolestarDB = { schema = 1, migrations = { guideTextSize = true }, settings = { ui = { textSize = 1.2 } } }");
 	assert_eq!(reset["guide"], 1, "once only: a guide size reset afterwards stays at the default");
 	let own = run_with(script, "PolestarDB = { schema = 1, settings = { ui = { textSize = 1.2, guideTextSize = 0.9 } } }");
 	assert_eq!(own["guide"], 0.9, "a guide size of the player's own stays");
 	let fresh = run_with(script, "");
 	assert_eq!(fresh["guide"], 1);
-	assert_eq!(fresh["v"], 1, "a fresh install is marked too, so a general size set later is not copied");
+	assert_eq!(fresh["marked"], true, "a fresh install is marked too, so a general size set later is not copied");
+	let strings = run(r#"
+		local P = Polestar.Profiles
+		local before = P.Import(P.Pack('{"format":1,"migrations":[],"settings":{"ui.textSize":1.3}}'))
+		local after = P.Import(P.Pack('{"format":1,"migrations":["guideTextSize"],"settings":{"ui.textSize":1.3}}'))
+		emit({ before = before.settings, after = after.settings })"#);
+	assert_eq!(strings["before"], json!({ "ui.textSize": 1.3, "ui.guideTextSize": 1.3 }), "a profile string from before it too");
+	assert_eq!(strings["after"], json!({ "ui.textSize": 1.3 }));
 }
 
 #[test]

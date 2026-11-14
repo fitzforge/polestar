@@ -5,4 +5,4 @@ section: players
   (Guide window > Window, beside Scale), so you can make the guide's text
   bigger or smaller without changing the rest of Polestar's. The Text size
   under Theme > Text sizes everything else, the class quest card included.
-  Your guide window keeps the size it had (thanks tbasten).
+  Your guide window keeps the size it had (thanks tbasten, #1777).
