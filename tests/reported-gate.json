@@ -726,7 +726,8 @@
 			{ "node": "tests/guides-reported.test.js", "test": "Image of Archmage Modera is met at the Kirin Tor camp in Silverpine Forest, never by the Dalaran sewer entrance in Alterac (#1305)" }
 		] },
 		"1308": { "tests": [
-			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/travel-transit.rs", "test": "a_flight_path_learnt_without_polestar_counts_from_the_world_map_on_a_loading_screen" }
+			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/travel.rs", "test": "an_unseen_continent_plans_a_flight_to_a_flight_master_the_player_may_have_1795" },
+			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/travel.rs", "test": "the_first_flight_map_on_a_continent_settles_a_maybe_flight_1795" }
 		] },
 		"1312": { "tests": [
 			{ "node": "tests/guides-reported.test.js", "test": "${WETLANDS}: Bennistrov's report: From the Ashes points at each of the four Attack Plans, not at Nek'rosh (#1312)" }
@@ -878,7 +879,7 @@
 			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/engine-training.rs", "test": "training_with_dargh_trueaim_at_the_farstrider_lodge_ticks_loch_modan_s_train_class_step_1507" }
 		] },
 		"1508": { "tests": [
-			{ "node": "tests/guides-reported.test.js", "test": "forever/alliance/03-loch-modan.guide: Dwarves and Gnomes fly to Ironforge, the others walk the tunnel (#1508)" },
+			{ "node": "tests/guides-reported.test.js", "test": "forever/alliance/03-loch-modan.guide: the flight to Ironforge goes by the Ironforge flight path, the tunnel walk for the rest (#1508, #1518)" },
 			{ "node": "tests/guides-reported.test.js", "test": "forever/alliance/03-loch-modan.guide: the tunnel and gate waypoints drop once the player is in Ironforge (#1508)" }
 		] },
 		"1509": { "tests": [
@@ -886,6 +887,9 @@
 		] },
 		"1515": { "tests": [
 			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/travel-transit.rs", "test": "issue_1515_a_class_teleport_landing_in_the_zone_the_player_stands_in_is_never_planned" }
+		] },
+		"1518": { "tests": [
+			{ "node": "tests/guides-reported.test.js", "test": "forever/alliance/03-loch-modan.guide: the flight to Ironforge goes by the Ironforge flight path, the tunnel walk for the rest (#1508, #1518)" }
 		] },
 		"1521": { "tests": [
 			{ "node": "tests/guides-reported.test.js", "test": "forever/alliance/30-40/03-ashenvale.guide: the walk east from Highperch keeps away from Freewind Post (#1521)" }
@@ -1007,7 +1011,7 @@
 			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/engine.rs", "test": "talk_sethome_getfp_fly_vendor_buy_collect_and_hearth_complete_from_interactions" }
 		] },
 		"1632": { "tests": [
-			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/nav-spf.rs", "test": "outdoors_a_hillside_corner_cut_wide_never_holds_the_arrow_back_on_it_indoors_6_yd_is_still_a_floor" },
+			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/nav-spf.rs", "test": "a_hillside_corner_cut_wide_never_holds_the_arrow_back_on_it_outdoors_or_indoors" },
 			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/nav-spf.rs", "test": "a_search_landing_100_yd_behind_a_player_running_down_a_steep_slope_is_followed_from_where_they_are_now" }
 		] },
 		"1633": { "tests": [
@@ -1084,7 +1088,7 @@
 			{ "node": "tests/guides-reported.test.js", "test": "generated leveling guides: quests handed in on the spot are direct turn-ins, with no accept, bound objective or quest condition (#1699 sweep)" }
 		] },
 		"1700": { "tests": [
-			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/nav-spf.rs", "test": "outdoors_a_hillside_corner_cut_wide_never_holds_the_arrow_back_on_it_indoors_6_yd_is_still_a_floor" },
+			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/nav-spf.rs", "test": "a_hillside_corner_cut_wide_never_holds_the_arrow_back_on_it_outdoors_or_indoors" },
 			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/nav-spf.rs", "test": "a_search_landing_100_yd_behind_a_player_running_down_a_steep_slope_is_followed_from_where_they_are_now" }
 		] },
 		"1708": { "tests": [
@@ -1181,6 +1185,9 @@
 			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/travel-transit.rs", "test": "issue_1890_after_landing_the_route_never_flies_back_to_the_flight_master_it_left_from_another_target_may" },
 			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/travel-transit.rs", "test": "issue_1890_after_a_ride_arrives_the_route_never_rides_it_back_another_target_may" }
 		] },
+		"1952": { "tests": [
+			{ "node": "tests/guides-reported.test.js", "test": "#1952: the Alliance start guides' Camping 101 trainer steps wait until the quest is complete" }
+		] },
 		"1956": { "tests": [
 			{ "node": "tests/profession-trainers.test.js", "test": "Pyzx's report (#1956): recipes only the Artisan trainers teach are learned from them, not the Expert trainers" }
 		] },
@@ -1189,6 +1196,9 @@
 		] },
 		"1993": { "tests": [
 			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/dungeons-pickup.rs", "test": "a_waiting_quest_s_line_is_plain_text_marked_accent_never_a_colour_code_the_window_prints_1993" }
+		] },
+		"1999": { "tests": [
+			{ "node": "tests/guides-reported.test.js", "test": "Bennistrov's report (#1999): Feralas never sends you to the Rage Scar yetis below 45" }
 		] },
 		"2014": { "tests": [
 			{ "node": "tests/data-corrections.test.js", "test": "Henrig Lonebrow's Journal lies where players loot it now, its old spot gone (#2014)" }
@@ -1199,6 +1209,27 @@
 		] },
 		"2046": { "tests": [
 			{ "node": "tests/data-corrections.test.js", "test": "Gnogaine waits for The Day After, whatever breadcrumb links the data has (Gnomeregan pick-up)" }
+		] },
+		"2082": { "tests": [
+			{ "node": "tests/guides-reported.test.js", "test": "${LOCH_MODAN}: #2082: the way back to Auberdine drops once in Darkshore, with training on the way" }
+		] },
+		"2199": { "tests": [
+			{ "node": "tests/guides-reported.test.js", "test": "Pysch_MC's report (#2199): the Searing Gorge guide names the Searing Lava Spiders as the game does" }
+		] },
+		"2201": { "tests": [
+			{ "node": "tests/guides-reported.test.js", "test": "forever/alliance/03-loch-modan.guide: the flight to Ironforge goes by the Ironforge flight path, the tunnel walk for the rest (#1508, #1518)" }
+		] },
+		"2207": { "tests": [
+			{ "node": "tests/guides-reported.test.js", "test": "Bennistrov's and Visur's report (#2207): the Dunemaul grind says why, and grinds on the safer ogres" }
+		] },
+		"2243": { "tests": [
+			{ "node": "tests/guides-reported.test.js", "test": "${REDRIDGE}: Acrylic's report (#2243): Look to the Stars is a step of its own, only with a Bronze Tube; the chain drops out without one" }
+		] },
+		"2253": { "tests": [
+			{ "node": "tests/guides-reported.test.js", "test": "${ARATHI}: Galen's Escape warns of the Lost Ones the escort pulls onto Galen (#2253)" }
+		] },
+		"2268": { "tests": [
+			{ "node": "tests/guides-reported.test.js", "test": "#2268: Dun Morogh holds Quarrymaster Thesten for the powder keg's quest before Helm's Bed Lake" }
 		] }
 	},
 	"seedDrift": {}
