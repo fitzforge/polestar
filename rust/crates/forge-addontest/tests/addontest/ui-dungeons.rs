@@ -190,9 +190,10 @@ fn show_dungeon_nil_opens_the_hub_at_home_level_bands_in_the_sidebar_the_dungeon
 }
 
 // Fitz, 2026-11-08 (a level 13 Horde Warlock saw the Ruins of Lordaeron, 15-22, and The Hall of Thanes, in
-// Ironforge, under "For your level"): a dungeon is for your level from its recommended start, and
-// one whose way in lies inside the other faction's capital is not under that faction's filter. The Ruins,
-// outside the Undercity, can be reached by both.
+// Ironforge, under "For your level"): a dungeon is for your level from its recommended start. Fitz, 2026-11-14:
+// a city dungeon (its way in inside a capital, or under it: the Ruins of Lordaeron, the Undercity's) is its
+// faction's only, so never under the other faction's filter, nor under All for a player of the other faction
+// (SETUP's player is a Horde Tauren).
 #[test]
 fn for_your_level_starts_at_the_recommended_level_and_leaves_out_dungeons_inside_the_other_factions_capital() {
 	let f = fixture("dungeons.json");
@@ -225,8 +226,8 @@ fn for_your_level_starts_at_the_recommended_level_and_leaves_out_dungeons_inside
 	assert_eq!(out["h15"], json!(["Ragefire Chasm", "Ruins of Lordaeron"]));
 	assert_eq!(out["h22"], json!(["Ruins of Lordaeron"]));
 	assert_eq!(out["a13"], json!(["The Hall of Thanes"]), "not Ragefire Chasm (Orgrimmar) for the Alliance");
-	assert_eq!(out["a15"], json!(["Ruins of Lordaeron", "The Hall of Thanes"]), "the Ruins lie outside the Undercity: the Alliance can get there");
-	assert_eq!(out["all13"], json!(["Ragefire Chasm", "The Hall of Thanes"]), "All shows both sides'");
+	assert_eq!(out["a15"], json!(["The Hall of Thanes"]), "not the Ruins of Lordaeron (the Undercity's) for the Alliance");
+	assert_eq!(out["all13"], json!(["Ragefire Chasm"]), "All: never the Horde player's other faction's city dungeon (The Hall of Thanes)");
 }
 
 // A player asked why Uldaman (35-47) showed under "For your level" at 35, where most of it suits ~42. It still
@@ -1593,6 +1594,49 @@ fn only_dungeons_with_quests_for_the_characters_faction_are_told_and_counted_for
 	));
 	assert_eq!(out[0], json!({ "horde": [["wailing-caverns", 3]] }), "the Deadmines has nothing for the Horde");
 	assert_eq!(out[1], json!({ "alliance": [["deadmines", 1], ["wailing-caverns", 2]] }), "Leaders of the Fang is not the Alliance's");
+}
+
+// Fitz, 2026-11-14 (#2026): a city dungeon is its faction's only, so the heads-up never tells the other faction one
+// is open, though its page has quests for them (the Ruins of Lordaeron has Alliance quests; The Hall of Thanes has one
+// for both sides). The fixture's Wailing Caverns (quests for both sides) under each city dungeon's key in turn: the
+// card is the owners' only, and the Deadmines (the Alliance's quest) stays as it was.
+#[test]
+fn the_dungeon_heads_up_never_tells_the_other_faction_about_a_city_dungeon() {
+	let as_key = |key: &str| {
+		let f = fixture("dungeons.json");
+		let (mut codex, mut inputs) = (f["codex"].clone(), f["inputs"].clone());
+		let mut wc = codex["instances"].as_object_mut().unwrap().remove("wailing-caverns").unwrap();
+		wc["key"] = json!(key);
+		codex["instances"][key] = wc;
+		for d in inputs["forever"]["dungeons"]["dungeons"].as_array_mut().unwrap() {
+			if d["key"] == "wailing-caverns" {
+				d["key"] = json!(key);
+			}
+		}
+		pack_of(&codex, &inputs)
+	};
+	let script = format!(
+		r#"{HEADS_UP}
+		log[914] = nil
+		uistub.player.level = 21
+		local function list()
+			local t = {{}}
+			for _, c in ipairs(DT.Candidates(21, "any")) do t[#t + 1] = c.key end
+			table.sort(t)
+			return t
+		end
+		emit({{ horde = list() }})
+		uistub.player.race, uistub.player.class, uistub.player.faction = "Human", "WARRIOR", "Alliance"
+		UnitRace = function() return "Human", "Human", 1 end
+		UnitFactionGroup = function() return "Alliance", "Alliance" end
+		emit({{ alliance = list() }})"#
+	);
+	let rol = run_pack(&script, Some(as_key("ruins-of-lordaeron")));
+	assert_eq!(rol[0], json!({ "horde": ["ruins-of-lordaeron"] }), "the Undercity's dungeon is the Horde's");
+	assert_eq!(rol[1], json!({ "alliance": ["deadmines"] }), "never the Ruins of Lordaeron for the Alliance");
+	let hot = run_pack(&script, Some(as_key("the-hall-of-thanes")));
+	assert_eq!(hot[0], json!({ "horde": {} }), "never The Hall of Thanes (Ironforge) for the Horde");
+	assert_eq!(hot[1], json!({ "alliance": ["deadmines", "the-hall-of-thanes"] }), "Ironforge's dungeon is the Alliance's");
 }
 
 // "Pick up the quests" builds the dungeon's real pick-up guide and opens it in a new tab beside the leveling guide.

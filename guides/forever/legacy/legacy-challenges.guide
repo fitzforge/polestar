@@ -231,6 +231,7 @@ step Adventure: Saving the Best for Last (Horde)
 
 step Dungeons: level 15-25
   tip The final boss of every level 15-25 dungeon earns one point together. Ragefire Chasm and Forever's Hall of Thanes (in Ironforge) count as one: either final boss does. Tick each boss off when you kill it, and check the in-game Legacy panel for the list.
+  tip Alliance: the Ruins of Lordaeron's entrance is in the ruins beside the Undercity, among Horde guards: go with a group. Ragefire Chasm is inside Orgrimmar: the Hall of Thanes counts for it. Horde: the Hall of Thanes is inside Ironforge: Ragefire Chasm counts for it.
   kill 11519 optional         -- Ragefire Chasm: Bazzalan (or Hall of Thanes)
   kill 261319 optional        -- Hall of Thanes: Durgen Dirgehammer (or Ragefire Chasm)
   kill 256035                 -- Ruins of Lordaeron (Forever's, Tirisfal Glades): Viktor the Vile

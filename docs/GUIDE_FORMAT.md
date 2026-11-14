@@ -316,7 +316,10 @@ too, unless they chose "Only quests on my way" for it (one answer per
 dungeon); plain `when dungeon` steps are the quests on the way, which every
 runner takes. The run's record in data/dungeon-runs.json (`allQuests`: the
 minutes and XP those steps add) goes into the guide that holds the run, so the
-guide window can say what the opt-out saves.
+guide window can say what the opt-out saves. A city dungeon is its
+faction's only (Ragefire Chasm and the Ruins of Lordaeron the Horde's, The
+Hall of Thanes and the Stockade the Alliance's): for the other faction its
+steps never apply, whatever the answers, so its guides never carry them.
 
 A run is three parts. Its quests are picked up in `when dungeon` steps on
 stops the route makes anyway; the run itself is one `when dungeon` step, also
