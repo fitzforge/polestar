@@ -2398,3 +2398,90 @@ emit({ carried = carried, magellas = magellas, without = without, unknown = desc
 	assert_eq!(out["without"], only_taken, "no relic in the bags: Prehistoric Prism still asks for it, so it is only taken");
 	assert_eq!(out["unknown"], only_taken, "an ender with no known place: no stop for it");
 }
+
+// #2173 (TrustmeXD, Scourge Paladin 20): the Ruins of Lordaeron's hand-in guide handed Unending Torment (97290) in to
+// Master Apothecary Faranell, took its next part (97291) and ended: the next part asks for three items to be had in
+// the Undercity (Toxic Skullcap from Tawny Grisette, Essence of Agony from a poison supplier, Blisterweed picked by
+// the Apothecarium), and nothing led there. A follow-up that is one of the dungeon's own page quests, done outside,
+// whose objectives are all items to be had out in the world, now gets its errand: a step of its own after the stop
+// that gives it, a collect goal per item where it lies, drops outside any instance or is sold by the nearest vendor
+// of the character's side, then its turn-in. A quest in the log whose objectives are such items (the same part,
+// taken earlier or carried over a /reload) gets the errand and the turn-in too. One with an item nobody places stays
+// taken only, as before.
+#[test]
+fn a_page_follow_up_whose_items_are_had_in_town_is_led_there_then_handed_in_2173_unending_torment() {
+	let (codex, inputs) = fixture_parts();
+	let mut c = codex.clone();
+	let mut i = inputs.clone();
+	let npc = |id: i32, name: &str, x: f64, y: f64| {
+		json!({ "id": id, "name": name, "level": 30, "levelMax": null, "faction": "H", "rare": false, "elite": false, "boss": false,
+			"instance": null, "roles": [], "spawns": [{ "map": 1458, "x": x, "y": y, "f": "e" }] })
+	};
+	c["npcs"]["92055"] = npc(92055, "Master Apothecary Faranell", 48.8, 69.3);
+	c["npcs"]["94554"] = npc(94554, "Tawny Grisette", 65.2, 49.8);
+	c["objects"]["973933"] = json!({ "id": 973933, "name": "Blisterweed", "treasure": false, "spawns": [{ "map": 1458, "x": 54.0, "y": 49.3, "f": "e" }] });
+	c["items"]["981246"] = json!({ "id": 981246, "name": "Toxic Skullcap", "quality": 1, "kind": "item", "spell": null, "reqLevel": null,
+		"sources": [{ "type": "vendor", "npc": 94554 }] });
+	c["items"]["981300"] = json!({ "id": 981300, "name": "Blisterweed", "quality": 1, "kind": "item", "spell": null, "reqLevel": null,
+		"sources": [{ "type": "object", "object": 973933 }] });
+	let quest = |id: i32, pre: &[i32], objectives: Value| {
+		json!({
+			"id": id, "title": "Unending Torment", "level": 21, "minLevel": 16, "faction": "H", "races": null, "classes": null,
+			"start": { "npc": [92055], "object": [], "item": [] }, "end": { "npc": [92055], "object": [] },
+			"objectives": objectives, "pre": pre, "zone": 1458, "rewards": [], "choices": [], "preAny": pre,
+		})
+	};
+	c["quests"]["997290"] = quest(997290, &[], json!([]));
+	c["quests"]["997291"] = quest(997291, &[997290], json!([
+		{ "type": "item", "id": 981246, "count": 1, "text": "Toxic Skullcap" },
+		{ "type": "item", "id": 981300, "count": 1, "text": "Blisterweed" },
+	]));
+	i["forever"]["quests"]["997290"] = json!({ "area": 209 });
+	i["forever"]["quests"]["997291"] = json!({ "area": 209 });
+	let own = pack_of(&c, &i);
+	let script = k(r#"
+local function goals(def)
+	local out = {}
+	for _, s in ipairs(def and def.steps or {}) do
+		for _, g in ipairs(s.goals) do
+			if g.t == "collect" then out[#out + 1] = { item = g.item, from = g.from, kind = g.fromKind, faction = g.fromFaction, map = g.map, x = g.x, y = g.y } end
+		end
+	end
+	return out
+end
+local def = D.HandinGuide("{KEY}")
+local errand, items = describe(def), goals(def)
+-- Held, so the Codex keeps this record while nobody sells its skullcap any more.
+local skullcap = Polestar.Codex.Item(981246)
+skullcap.sources = {}
+emit({ errand = errand, items = items, unplaced = describe(D.HandinGuide("{KEY}")) })"#);
+	let after = run(&own, &script, Opts { level: 20, race: "Scourge", faction: "Horde", cls: "PALADIN", at: Some(UNDERCITY), done: vec![], log: vec![], ready: vec![997290], ..Default::default() }).remove(0);
+	assert_eq!(
+		after["errand"],
+		json!([
+			{ "title": "Master Apothecary Faranell", "goals": "turnin:997290 accept:997291" },
+			{ "title": "Unending Torment", "goals": "collect:997291 collect:997291" },
+			{ "title": "Master Apothecary Faranell", "goals": "turnin:997291" },
+		]),
+		"the next part's errand in town, then its hand-in"
+	);
+	assert_eq!(
+		after["items"],
+		json!([
+			{ "item": 981246, "from": "Tawny Grisette", "kind": "npc", "faction": "H", "map": 1458, "x": 65.2, "y": 49.8 },
+			{ "item": 981300, "from": "Blisterweed", "kind": "object", "map": 1458, "x": 54, "y": 49.3 },
+		]),
+		"the skullcap from its vendor, the weed where it grows"
+	);
+	assert_eq!(after["unplaced"], json!([{ "title": "Master Apothecary Faranell", "goals": "turnin:997290 accept:997291" }]), "an item nobody places: only taken");
+	// The same part in the log (taken earlier, or the guide rebuilt after a /reload): its errand and its hand-in.
+	let in_log = run(&own, &k(r#"emit(describe(D.HandinGuide("{KEY}")))"#), Opts { level: 20, race: "Scourge", faction: "Horde", cls: "PALADIN", at: Some(UNDERCITY), done: vec![997290], log: vec![997291], ready: vec![], ..Default::default() }).remove(0);
+	assert_eq!(
+		in_log,
+		json!([
+			{ "title": "Unending Torment", "goals": "collect:997291 collect:997291" },
+			{ "title": "Master Apothecary Faranell", "goals": "turnin:997291" },
+		]),
+		"a part in the log: its errand, then its hand-in"
+	);
+}

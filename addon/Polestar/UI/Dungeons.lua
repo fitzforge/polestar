@@ -1319,8 +1319,8 @@ local function pageHeader(d)
 	local plan = LKm and LKm.Guide and Dg.PickupPlan and Dg.PickupPlan(d.key) or nil
 	local hplan = LKm and LKm.Guide and Dg.HandinPlan and Dg.HandinPlan(d.key) or nil
 	local take = plan and #plan.take or 0
-	local hand = hplan and #hplan.hand or 0
-	local logged = hplan and hand + #hplan.unfinished + #hplan.inside + #hplan.unplaced or 0
+	local hand = hplan and #hplan.hand + #(hplan.errands or {}) or 0
+	local logged = hplan and #hplan.hand + #hplan.unfinished + #hplan.inside + #hplan.unplaced or 0
 	local lead = hand > 0 and "handin" or take > 0 and "pickup" or "go"
 	local side = SIDE[UI.PlayerFaction() or ""]
 	local none = plan ~= nil and take == 0 and #Dg.Quests(d.key, side) > 0 and lead == "go"

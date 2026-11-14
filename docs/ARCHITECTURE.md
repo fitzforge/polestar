@@ -7079,11 +7079,23 @@ it, one scan of the quest records per id, kept until the quest chunks
 change): every `pre` done or handed in here and one of `preAny` likewise,
 takeable now (`Lookup.QuestBlock`: faction, race, class, level), not done or
 in the log, from the NPC or object a quest it waits on is turned in to or
-one within 60 seconds of it (`ns.TravelCost`). `Dungeons.HandinGuide(key)`
+one within 60 seconds of it (`ns.TravelCost`). A follow-up that is one of
+the dungeon's own page quests done outside it, whose objectives are all
+errand items, gets an `errand` (#2173, Unending Torment's three Undercity
+items). An errand item is one no instance's NPC or object gives (that is the
+run's) and that an NPC or object spawned outside gives at least 25 % of the
+time, or of no known chance (placed at its nearest spawn), or that a vendor
+of the character's side sells (the nearest): a collect goal each ("Collect
+Toxic Skullcap from Tawny Grisette"), then its turn-in at its ender. A quest
+in the log of that kind whose earlier part on the page is done (`errands` in
+the plan, a check that places nothing; a quest taken before the run is the
+run's) gets the same errand and turn-in when the guide is built.
+`Dungeons.HandinGuide(key)`
 makes a stop per turn-in place (its turn-ins, then the follow-ups that same
 NPC gives), per NPC a `talks` line is at (a talk goal on that line, before
-the turn-in place of its quest) and per other follow-up giver (after the
-turn-ins it waits on),
+the turn-in place of its quest), per other follow-up giver (after the
+turn-ins it waits on) and per errand (a step titled with its quest, after the
+stop that gives it, before its turn-in),
 ordered by `Dungeons.OrderStops` with no fixed end (`CharState().dungeonHandin[key]`);
 the last step lists the rest as notes ("Not finished yet: …", "Turned in
 inside the dungeon: …"). Nothing routable: nil, "nothing", and
