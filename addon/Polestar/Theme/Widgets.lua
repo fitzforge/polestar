@@ -2691,6 +2691,83 @@ local function paintRim(rim)
 	layoutRim(rim)
 end
 
+-- W.DragWindow(handle, frame, opts): the left button held on `handle` moves
+-- `frame` with the pointer from the first pixel it travels, as the hand
+-- moves it: no drag threshold to cross first (the client's drag start, then
+-- StartMoving, left the window still for a few pixels and then made it leap
+-- to catch up), and a press that does not move it leaves it exactly where it
+-- was (no anchor rewritten, nothing re-snapped). While it moves, the window
+-- hangs by its top-left corner off UIParent's bottom-left, moved by exactly
+-- the pointer's travel (whole pixels from where it stood, so what sat on the
+-- pixel grid stays on it), kept on screen while it is clamped there; the
+-- frame's scale and the UI scale are both counted, so the window keeps its
+-- place under the pointer at any scale. opts: locked() (true: the
+-- press does nothing; the guide window's lock), onStop(frame) (after a move
+-- that changed it: save the spot, re-record an Anim anchor).
+local dragging -- the move under way: { frame, handle, opts, x0, y0 (the pointer, physical px), left, top, moved }
+
+local function dragTo(d)
+	local f = d.frame
+	local s = f:GetEffectiveScale()
+	if not s or s <= 0 then return end
+	local cx, cy = GetCursorPosition()
+	local dx, dy = (cx - d.x0) / s, (cy - d.y0) / s
+	if not d.moved and dx == 0 and dy == 0 then return end
+	d.moved = true
+	local left, top = d.left + dx, d.top + dy
+	if f.IsClampedToScreen and f:IsClampedToScreen() then
+		local us = UIParent:GetEffectiveScale()
+		local sw, sh = UIParent:GetWidth() * us / s, UIParent:GetHeight() * us / s
+		local w, h = f:GetWidth(), f:GetHeight()
+		left = math.min(math.max(left, 0), math.max(0, sw - w))
+		top = math.max(math.min(top, sh), math.min(sh, h))
+	end
+	f:ClearAllPoints()
+	f:SetPoint("TOPLEFT", UIParent, "BOTTOMLEFT", left, top)
+end
+
+local function dragEnd()
+	local d = dragging
+	if not d then return end
+	dragging = nil
+	d.handle:SetScript("OnUpdate", nil)
+	if d.moved and d.opts.onStop then d.opts.onStop(d.frame) end
+end
+
+local function dragUpdate()
+	local d = dragging
+	if not d then return end
+	-- A release the handle did not hear (the pointer let go over another window).
+	if IsMouseButtonDown and not IsMouseButtonDown("LeftButton") then
+		dragTo(d)
+		return dragEnd()
+	end
+	dragTo(d)
+end
+
+function W.DragWindow(handle, frame, opts)
+	opts = opts or {}
+	handle:EnableMouse(true)
+	handle:SetScript("OnMouseDown", function(self, button)
+		if button ~= "LeftButton" or dragging then return end
+		if opts.locked and opts.locked() then return end
+		if frame.IsMovable and not frame:IsMovable() then return end
+		local left, top = frame:GetLeft(), frame:GetTop()
+		if not (left and top) then return end
+		local x0, y0 = GetCursorPosition()
+		dragging = { frame = frame, handle = self, opts = opts, x0 = x0, y0 = y0, left = left, top = top, moved = false }
+		self:SetScript("OnUpdate", dragUpdate)
+	end)
+	handle:SetScript("OnMouseUp", function(_, button)
+		if button ~= "LeftButton" or not dragging or dragging.handle ~= handle then return end
+		dragTo(dragging)
+		dragEnd()
+	end)
+	handle:HookScript("OnHide", function()
+		if dragging and dragging.handle == handle then dragEnd() end
+	end)
+end
+
 -- W.Rim(frame, opts) -> rim: the rim on `frame`'s top edge, over its
 -- children (its own frame, mouse-transparent, levels above), repainted on
 -- theme changes and hidden outside the house style or on a bare frame.
@@ -3697,10 +3774,7 @@ function W.Shell(name, opts)
 	f.psRail = RAIL
 
 	local function draggable(frame)
-		frame:EnableMouse(true)
-		frame:RegisterForDrag("LeftButton")
-		frame:SetScript("OnDragStart", function() f:StartMoving() end)
-		frame:SetScript("OnDragStop", function() f:StopMovingOrSizing() end)
+		W.DragWindow(frame, f)
 	end
 
 	-- The section rail: the emblem on the title's line, then one button per
@@ -3807,10 +3881,7 @@ function W.Shell(name, opts)
 	head:SetPoint("TOPLEFT", main, "TOPLEFT", 0, 0)
 	head:SetPoint("TOPRIGHT", main, "TOPRIGHT", 0, 0)
 	head:SetHeight(SHELL.header)
-	head:EnableMouse(true)
-	head:RegisterForDrag("LeftButton")
-	head:SetScript("OnDragStart", function() f:StartMoving() end)
-	head:SetScript("OnDragStop", function() f:StopMovingOrSizing() end)
+	W.DragWindow(head, f)
 	f.Header = head
 	f.Band = Theme.Band(head, "BACKGROUND", -5)
 	f.Band:SetAllPoints(head)

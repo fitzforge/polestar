@@ -241,13 +241,8 @@ ns.UI.GuideFrame.Part(function(GF)
 
 	local savePosition = GF.SavePosition
 
-	local function dragStart()
-		if ns.Get("ui.locked") then return end
-		F:StartMoving()
-	end
-
+	-- After a move (W.DragWindow, which the bars and the foot carry): the spot kept.
 	local function dragStop()
-		F:StopMovingOrSizing()
 		savePosition()
 		-- The class quest card on the window flips below it when there is no room above.
 		if UI.ClassToast and UI.ClassToast.Place then UI.ClassToast.Place(false) end
@@ -409,7 +404,7 @@ ns.UI.GuideFrame.Part(function(GF)
 	end
 
 	GF.ApplyAll = applyAll
-	GF.DragStart, GF.DragStop, GF.ResizeStart, GF.ResizeStop = dragStart, dragStop, resizeStart, resizeStop
+	GF.DragStop, GF.ResizeStart, GF.ResizeStop = dragStop, resizeStart, resizeStop
 
 	-- In a fight now (PLAYER_REGEN_*).
 	function GF.InCombat() return inCombat end

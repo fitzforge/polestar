@@ -2666,10 +2666,7 @@ GF.Part(function(GF)
 
 	local function draggable(frame)
 		if not GF.live then return frame end
-		frame:EnableMouse(true)
-		frame:RegisterForDrag("LeftButton")
-		frame:SetScript("OnDragStart", GF.DragStart)
-		frame:SetScript("OnDragStop", GF.DragStop)
+		W.DragWindow(frame, F, { locked = function() return ns.Get("ui.locked") end, onStop = function() GF.DragStop() end })
 		return hoverable(frame)
 	end
 

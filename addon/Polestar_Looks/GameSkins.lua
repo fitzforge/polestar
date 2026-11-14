@@ -662,11 +662,8 @@ local function dragBar(f, host)
 	local bar = child(f, "drag", 7, "Button")
 	bar:SetParent(host)
 	bar:SetFrameLevel(host:GetFrameLevel() + 1)
-	bar:EnableMouse(true)
-	bar:RegisterForDrag("LeftButton")
 	if not bar.psWired then
-		bar:SetScript("OnDragStart", function() if f:IsMovable() then f:StartMoving() end end)
-		bar:SetScript("OnDragStop", function() f:StopMovingOrSizing() end)
+		ns.Widgets.DragWindow(bar, f)
 		bar.psWired = true
 	end
 	return bar

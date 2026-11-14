@@ -166,10 +166,7 @@ local function build()
 	F:Hide()
 	Theme.Skin(F, "window")
 	local function drag(frame)
-		frame:EnableMouse(true)
-		frame:RegisterForDrag("LeftButton")
-		frame:SetScript("OnDragStart", function() F:StartMoving() end)
-		frame:SetScript("OnDragStop", function() F:StopMovingOrSizing() end)
+		W.DragWindow(frame, F)
 	end
 	drag(F)
 
