@@ -537,6 +537,7 @@ const SURFACES: &[(&str, &str, usize, &str, &str)] = &[
 	("Polestar/Maps/WorldMap.lua", "owner", 1, "Hidden", "the world map's info bar: off while hidden"),
 	("Polestar/QoL/XPMark.lua", "bar", 1, "Hidden", "the guide level on the XP bar: off while hidden"),
 	("Polestar/QoL/Rewards.lua", "button", 1, "Hidden", "the quest reward marks: off while hidden"),
+	("Polestar/QoL/Rewards.lua", "frame", 1, "Hidden", "the reward panel's weights line beside its heading: off while hidden"),
 	("Polestar/Talents/Overlay.lua", "button", 1, "Hidden", "the talent marks: off while hidden"),
 	("Polestar/Talents/Overlay.lua", "m", 2, "Hidden", "their ring and badge, under the mark"),
 ];

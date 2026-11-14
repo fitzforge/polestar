@@ -1,13 +1,15 @@
 -- Gear lines on item tooltips (bags, loot, vendors, quest rewards, chat
 -- links, dungeon loot: every item tooltip Polestar.Hooks sees):
---   * is it an upgrade for this spec at this level, against what it would
---     replace ("Polestar · Arms   +12.4% upgrade · Head")
+--   * is it an upgrade at this level, against what it would replace
+--     ("Polestar   +12.4% upgrade · Head")
 --   * on a quest reward choice, whether it is the one to take ("Best pick"),
 --     when that pick is an upgrade; with none, the reward panel's own mark
 --     (QoL: the choice that sells for most) decides, so nothing is said here
+--   * under those, the weights they were scored with and where they came
+--     from (Gear.ScoredFor: "Scored for Arcane, from your talents", #2035)
 --
---   Gear.TooltipLine(link) -> left, right, r, g, b | nil       (the comparison)
---   Gear.TooltipLines(link) -> { { left, right, lr, lg, lb, rr, rg, rb }, ... }
+--   Gear.TooltipLine(link) -> left, right, r, g, b, scored | nil   (the upgrade line;
+--       scored: it rests on the weights, not on the item being unusable)
 --
 -- Work happens only when a tooltip shows. The comparison is cached per link
 -- (Gear.CompareToEquipped) and the reward pick per item (Gear.ChoiceOf);
@@ -52,11 +54,7 @@ local function color(name, fr, fg, fb)
 	return fr, fg, fb
 end
 
-local function prefix()
-	local _, label = Gear.GetSpec()
-	if label then return L["Polestar"] .. " · " .. L[label] end
-	return L["Polestar"]
-end
+local PREFIX = L["Polestar"]
 
 local REASON = {
 	class = L["not for your class"], armor = L["armor you cannot wear"],
@@ -70,7 +68,7 @@ function Gear.TooltipLine(link)
 	if not r.usable then
 		if not r.reason then return nil end
 		local cr, cg, cb = color("textMuted", 0.5, 0.54, 0.63)
-		return prefix(), REASON[r.reason], cr, cg, cb
+		return PREFIX, REASON[r.reason], cr, cg, cb, false
 	end
 	if not r.delta then return nil end
 	local right, cr, cg, cb
@@ -95,12 +93,13 @@ function Gear.TooltipLine(link)
 	end
 	local slotName = r.slot and not r.empty and Gear.SlotName(r.slot)
 	if slotName then right = right .. " · " .. slotName end
-	return prefix(), right, cr, cg, cb
+	return PREFIX, right, cr, cg, cb, true
 end
 
+-- -> whether a line was added
 local function pickLine(id, out)
 	local c = Gear.ChoiceOf(id)
-	if not (c and c.pick and c.pick.upgrade) then return end
+	if not (c and c.pick and c.pick.upgrade) then return false end
 	local lr, lg, lb = color("textDim", 0.69, 0.72, 0.8)
 	local q = c.quest.name or (L["Quest"] .. " " .. c.quest.id)
 	if c.isPick then
@@ -111,21 +110,29 @@ local function pickLine(id, out)
 		local name = ns.ItemDB.ItemName(c.pick.entry.id) or (L["Item"] .. " " .. c.pick.entry.id)
 		out[#out + 1] = { L["Reward pick"], name, lr, lg, lb, r, g, b }
 	end
+	return true
 end
 
 function Gear.TooltipLines(link)
 	local out = {}
 	if not Gear.IsEnabled() then return out end
+	local scored = false
 	if ns.Get("gear.tooltip") then
-		local left, right, r, g, b = Gear.TooltipLine(link)
+		local left, right, r, g, b, fromWeights = Gear.TooltipLine(link)
 		if left then
 			local lr, lg, lb = color("textDim", 0.69, 0.72, 0.8)
 			out[#out + 1] = { left, right, lr, lg, lb, r, g, b }
+			scored = fromWeights
 		end
 	end
 	if ns.Get("gear.pickTooltip") then
 		local id = Gear.ItemID(link)
-		if id then pickLine(id, out) end
+		if id and pickLine(id, out) then scored = true end
+	end
+	local note = scored and Gear.ScoredFor()
+	if note then
+		local r, g, b = color("textMuted", 0.5, 0.54, 0.63)
+		out[#out + 1] = { note, nil, r, g, b }
 	end
 	return out
 end

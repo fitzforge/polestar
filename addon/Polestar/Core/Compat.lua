@@ -302,6 +302,39 @@ function Compat.AddOnPresent(name)
 	return select(4, A.GetAddOnInfo(name)) and true or false
 end
 
+-- The trait configs that can hold the player's talents, most trusted first:
+-- the active spec group's combat config, the one Forever's talent frame
+-- shows (Blizzard_PlayerSpells Camelot, ClassTalentsFrameMixin:SetTab), then
+-- C_ClassTalents.GetActiveConfigID, which that frame only starts from and
+-- falls back past when it is nil (ClassTalentsFrameMixin:RefreshConfigID).
+-- -> { configID, ... } (distinct; empty while the client has none), the
+-- active spec group, that group's config, the active config (each nil when
+-- the client gives none)
+function Compat.TalentConfigs()
+	local out, group, groupConfig, activeConfig = {}, nil, nil, nil
+	local S = C_SpecializationInfo
+	if S and S.GetActiveSpecGroup and S.GetCombatConfigIDForSpecGroup then
+		local ok, g = pcall(S.GetActiveSpecGroup)
+		g = ok and readable(g) or nil
+		if type(g) == "number" then
+			group = g
+			local ok2, c = pcall(S.GetCombatConfigIDForSpecGroup, g)
+			c = ok2 and readable(c) or nil
+			if type(c) == "number" then groupConfig, out[1] = c, c end
+		end
+	end
+	local CT = C_ClassTalents
+	if CT and CT.GetActiveConfigID then
+		local ok, c = pcall(CT.GetActiveConfigID)
+		c = ok and readable(c) or nil
+		if type(c) == "number" then
+			activeConfig = c
+			if c ~= groupConfig then out[#out + 1] = c end
+		end
+	end
+	return out, group, groupConfig, activeConfig
+end
+
 ---------------------------------------------------------------------------
 -- Quests
 ---------------------------------------------------------------------------

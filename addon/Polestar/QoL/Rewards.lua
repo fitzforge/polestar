@@ -20,7 +20,13 @@
 --   * the most valuable of two or more choices (sell price times the stack,
 --     every price known): the coin (qol-coin, accent) in the icon's top-right
 --     corner, whether or not some choice is an upgrade, so the best seller
---     shows beside the upgrade arrows; ties all get it, no price no coin.
+--     shows beside the upgrade arrows; ties all get it, no price no coin;
+--   * with an upgrade arrow among them, what the arrows were scored for at
+--     the right of the panel's Rewards heading ("Scored for Arcane", #2035):
+--     its tooltip says where the weights came from (Gear.ScoredFor), a click
+--     opens Stat weights (Gear.ShowWeightsSetting). Panels without that
+--     heading (the map's quest details) have none; their choices' tooltips
+--     say it.
 -- Hovering a choice shows Gear's comparison line ("+12% upgrade · Head")
 -- through Polestar.Hooks (the client's SetQuestItem / SetQuestLogItem run the
 -- item tooltip post-calls).
@@ -263,9 +269,87 @@ local function show(button, up, coin, best)
 	m:Show()
 end
 
+---------------------------------------------------------------------------
+-- What the upgrade arrows were scored for
+---------------------------------------------------------------------------
+
+local SCORED_ARROW = 14 -- the arrow beside the line: the badge's glyph at the line's height
+local scored -- the line (a button), made the first time it shows
+
+local function scoredTip(self)
+	local G = ns.Gear
+	local W = ns.Widgets
+	local text = G and G.ScoredFor and G.ScoredFor()
+	if text and W and W.Tooltip then W.Tooltip(self, "ANCHOR_TOP", text, { L["Click: choose the stat weights"] }) end
+end
+
+-- Made under the rewards frame it first shows on (listed in hide-all.rs's
+-- SURFACES: Rewards.Mark hides it while Polestar is hidden).
+local function scoredButton(frame)
+	if scored then return scored end
+	local W, T = ns.Widgets, ns.Theme
+	local b = ns.CreateFrameUnder("Button", nil, frame)
+	b:SetHeight(18)
+	b.Arrow = b:CreateTexture(nil, "ARTWORK")
+	b.Arrow:SetSize(SCORED_ARROW, SCORED_ARROW)
+	b.Arrow:SetPoint("LEFT", b, "LEFT", 0, 0)
+	b.Arrow:SetTexture(T and T.Media and T.Media("qol-upgrade") or nil)
+	b.Text = W.Text(b, "small", "text")
+	b.Text:SetPoint("LEFT", b.Arrow, "RIGHT", 1, 0)
+	b.Text:SetJustifyH("LEFT")
+	b.Text:SetWordWrap(false)
+	b:SetScript("OnEnter", scoredTip)
+	b:SetScript("OnLeave", function(self) if W.HideTooltip then W.HideTooltip(self) end end)
+	b:SetScript("OnClick", function()
+		local G = ns.Gear
+		if G and G.ShowWeightsSetting then G.ShowWeightsSetting() end
+	end)
+	scored = b
+	return b
+end
+
+-- The line at the right of frame's Rewards heading, in the panel's own text
+-- colour (its quest material's: the choose line's), so it reads on parchment
+-- and stone alike; the arrow in the look's success colour, as on the icons;
+-- the look's small font. It keeps clear of the heading's text. The map's
+-- quest details (MapQuestInfoRewardsFrame) have no heading: their Header is
+-- an anchor-only frame, so they get no line; nor does a panel without a
+-- Header (a stand-in, another addon's), whose fields may be anything.
+local function showScored(frame)
+	local head = frame.Header
+	local G = ns.Gear
+	local text = G and G.ScoredFor and G.ScoredFor(true)
+	if not (text and type(head) == "table" and head.GetObjectType and head:GetObjectType() == "FontString" and head:IsShown()) then return end
+	local b = scoredButton(frame)
+	if b:GetParent() ~= frame then b:SetParent(frame) end
+	b:SetFrameLevel((frame:GetFrameLevel() or 1) + 5)
+	b.Text:SetWidth(0) -- unbounded, to measure the whole text
+	b.Text:SetText(text)
+	local W = ns.Widgets
+	local choose = frame.ItemChooseText
+	local r, g, bl
+	if type(choose) == "table" and choose.GetTextColor then r, g, bl = choose:GetTextColor() end
+	if type(r) == "number" then
+		W.Uncolor(b.Text)
+		b.Text:SetTextColor(r, g, bl, 1)
+	else
+		W.Color(b.Text, "text")
+	end
+	W.Color(b.Arrow, "success")
+	local room = (frame:GetWidth() or 285) - (head:GetStringWidth() or 0) - 12 - SCORED_ARROW - 1
+	local w = math.max(0, math.min(b.Text:GetStringWidth() or 0, room))
+	b.Text:SetWidth(w)
+	b:SetWidth(SCORED_ARROW + 1 + w)
+	b:ClearAllPoints()
+	b:SetPoint("RIGHT", head, "RIGHT", 0, 0)
+	b:SetShown(w > 0)
+end
+
 function Rewards.HideMarks()
 	for _, m in pairs(marks) do m:Hide() end
+	if scored then scored:Hide() end
 end
+Rewards.ScoredLine = function() return scored end
 
 local function rewardsFrame()
 	local f = (QuestInfoFrame and QuestInfoFrame.rewardsFrame) or QuestInfoRewardsFrame
@@ -316,7 +400,7 @@ function Rewards.Mark()
 		end
 	end
 	local buttons = choiceButtons(frame)
-	local marked
+	local marked, anyUp
 	if best then marked = false end
 	for i, c in pairs(choices) do
 		local b = buttons[i]
@@ -325,9 +409,11 @@ function Rewards.Mark()
 			if up or isBest or coin then
 				show(b, up, coin, isBest)
 				if isBest then marked = true end
+				if up then anyUp = true end
 			end
 		end
 	end
+	if anyUp then showScored(frame) end
 	return marked
 end
 

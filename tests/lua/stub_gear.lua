@@ -8,8 +8,11 @@
 --   g.equip(16, "item:1482")          -- fires PLAYER_EQUIPMENT_CHANGED
 --   g.bag(0, 1, "item:2041")          -- updates the shown bag frames holding bag 0, fires BAG_UPDATE_DELAYED
 --   g.setSpecs({ { "Arms", 31 }, { "Fury", 5 }, { "Protection", 0 } })   -- talent tabs; fires PLAYER_TALENT_UPDATE
---   g.setColumns({ { "Balance", 0 }, { "Feral Combat", 2 }, { "Restoration", 14 } })  -- Forever's C_Traits tree:
---                                     -- each column's name and points spent; fires TRAIT_CONFIG_UPDATED (nil: no tree)
+--   g.setColumns({ { "Balance", 0 }, { "Feral Combat", 2 }, { "Restoration", 14 } }, opts)  -- Forever's C_Traits
+--                                     -- tree: each column's name and points spent (nil: no columns); fires
+--                                     -- TRAIT_CONFIG_UPDATED. opts.group = 2: the second spec group's config
+--                                     -- (dual spec); opts.silent: no event. The shapes the client may give
+--                                     -- otherwise are fields of g (below, at the talent API).
 --   g.secret["item:999"] = true       -- issecretvalue() is true for that value
 --   g.showTooltip(GameTooltip, link)  -- what TooltipDataHandler does: clear, post-calls; returns tooltip.lines
 --   g.rewards({ "item:1", "item:2" }, { fromLog = false })  -- reward panel with these choices, runs QuestInfo_Display
@@ -45,9 +48,10 @@ function g.setSpecs(list)
 	fire("PLAYER_TALENT_UPDATE")
 end
 
-function g.setColumns(list)
-	g.columns = list
-	fire("TRAIT_CONFIG_UPDATED", 7)
+function g.setColumns(list, opts)
+	opts = opts or {}
+	if opts.group == 2 then g.columns2 = list else g.columns = list end
+	if not opts.silent then fire("TRAIT_CONFIG_UPDATED", opts.group == 2 and 8 or 7) end
 end
 
 function issecretvalue(v) return v ~= nil and g.secret[v] == true end
@@ -91,25 +95,127 @@ end
 function C_SpecializationInfo.IsSpecSelectionEnabled() return g.specSelection == true end
 function C_SpecializationInfo.GetSpecialization() return g.primary or 0 end
 
--- Forever's talent frame reads its column headers this way (Blizzard_PlayerSpells
--- Camelot ClassTalentsFrameMixin:RefreshTreeHeaders): the active config, its
--- tree, the tree's groups in column order, each group's points spent.
+-- Forever's talents (Blizzard_PlayerSpells Camelot): one C_Traits tree per
+-- class whose spec columns are node groups. Its talent frame shows the active
+-- spec group's combat config (C_SpecializationInfo.GetCombatConfigIDForSpecGroup)
+-- and heads each column with its group's name and points
+-- (ClassTalentsFrameMixin:RefreshTreeHeaders: GetGroupDisplayInfoByTreeID, then
+-- GetGroupCurrencyInfo's currencyInfos[1].spent); the column's nodes hold the
+-- ranks bought (GetTreeNodes, GetNodeInfo: ranksPurchased, groupIDs, posX).
+-- g.columns are spec group 1's config (7), g.columns2 spec group 2's (8). Each
+-- column's nodes take its points in order, up to their ranks; a node lists a
+-- gate group before its column's group, as the client's Mage tree does.
+-- Shapes the client may give otherwise:
+--   g.activeConfig = false   C_ClassTalents.GetActiveConfigID gives nil (the
+--                            frame then falls back to the spec group's config)
+--                  = <id>    it names that config, which holds no points
+--   g.currency = "noid" | "keyed" | "empty" | "none"   GetGroupCurrencyInfo's rows
+--                            lack traitNodeGroupID, are keyed by group, have no
+--                            currency, or are missing
+--   g.talentsReady = false   the talent data has not loaded (just after login):
+--                            IsInitialized is false and no config is known
+--   g.specGroup = 2          the active spec group
+--   g.talentSpells = { [spellID] = { column = 2, ranks = 3 } }   a talent of that spell in column 2 with 3 ranks
+--                            bought on spec group 1's config (its entry and definition: GetEntryInfo,
+--                            GetDefinitionInfo); the column's own nodes keep their points
+local TREE = 1089
+local NODE_RANKS = { 5, 5, 5, 5, 5, 3, 3, 2, 1 }
+local CONFIG_OF = { 7, 8 }
+
+local function columnsOf(config)
+	if config == 7 then return g.columns end
+	if config == 8 then return g.columns2 end
+	return nil
+end
+
+-- The tree's column names: from either spec group's list.
+local function names() return g.columns or g.columns2 end
+
+-- A config's points in column c.
+local function pointsIn(config, c)
+	local list = columnsOf(config)
+	return list and list[c] and list[c][2] or 0
+end
+
+function C_SpecializationInfo.IsInitialized() return g.talentsReady ~= false end
+function C_SpecializationInfo.GetActiveSpecGroup() return g.specGroup or 1 end
+function C_SpecializationInfo.GetCombatConfigIDForSpecGroup(group)
+	if g.talentsReady == false then return nil end
+	if group == 2 and not g.columns2 then return nil end
+	return CONFIG_OF[group]
+end
+
 C_ClassTalents = C_ClassTalents or {}
-function C_ClassTalents.GetActiveConfigID() return g.columns and 7 or nil end
+function C_ClassTalents.GetActiveConfigID()
+	if g.talentsReady == false or g.activeConfig == false then return nil end
+	return g.activeConfig or CONFIG_OF[g.specGroup or 1]
+end
 C_Traits = C_Traits or {}
-function C_Traits.GetConfigInfo(config) return config == 7 and { ID = 7, type = 1, name = "", treeIDs = { 1089 } } or nil end
+function C_Traits.GetConfigInfo(config)
+	if config == 7 or config == 8 or (config ~= nil and config == g.activeConfig) then
+		return { ID = config, type = 1, name = "", treeIDs = { TREE } }
+	end
+	return nil
+end
+-- The talents of g.talentSpells, in spell order: node 9000 + i, entry and definition 900000 + spell.
+local function talentSpells()
+	local list = {}
+	for spell, t in pairs(g.talentSpells or {}) do list[#list + 1] = { spell = spell, column = t.column, ranks = t.ranks } end
+	table.sort(list, function(a, b) return a.spell < b.spell end)
+	return list
+end
+function C_Traits.GetTreeNodes(tree)
+	local out, list = {}, tree == TREE and names() or {}
+	for c = 1, #list do
+		for k = 1, #NODE_RANKS do out[#out + 1] = c * 100 + k end
+	end
+	if tree == TREE then
+		for i = 1, #talentSpells() do out[#out + 1] = 9000 + i end
+	end
+	return out
+end
+function C_Traits.GetNodeInfo(config, id)
+	if id > 9000 then
+		local t = talentSpells()[id - 9000]
+		if not t then return { ID = 0 } end
+		local rank = config == 7 and t.ranks or 0
+		local entry = 900000 + t.spell
+		return { ID = id, posX = 1020 + (t.column - 1) * 4000 + 300, posY = 6000, ranksPurchased = rank, activeRank = rank,
+			currentRank = rank, maxRanks = 3, isVisible = true, groupIDs = { 600 + t.column, 500 + t.column }, entryIDs = { entry },
+			activeEntry = { entryID = entry, rank = rank }, visibleEdges = {} }
+	end
+	local c, k = math.floor(id / 100), id % 100
+	local list = names()
+	if not (list and list[c] and NODE_RANKS[k]) then return { ID = 0 } end
+	local before = 0
+	for i = 1, k - 1 do before = before + NODE_RANKS[i] end
+	local rank = math.max(0, math.min(NODE_RANKS[k], pointsIn(config, c) - before))
+	return { ID = id, posX = 1020 + (c - 1) * 4000 + ((k - 1) % 4) * 600, posY = 900 + math.floor((k - 1) / 4) * 1200,
+		ranksPurchased = rank, activeRank = rank, currentRank = rank, maxRanks = NODE_RANKS[k], isVisible = true,
+		groupIDs = { 600 + c, 500 + c }, entryIDs = { id * 10 }, visibleEdges = {} }
+end
+function C_Traits.GetEntryInfo(_, entry) return entry and { definitionID = entry, maxRanks = 3 } or nil end
+function C_Traits.GetDefinitionInfo(def)
+	if type(def) == "number" and def > 900000 then return { spellID = def - 900000 } end
+	return {}
+end
 function C_Traits.GetGroupDisplayInfoByTreeID(tree)
 	local out = {}
-	for i, c in ipairs(tree == 1089 and g.columns or {}) do
+	for i, c in ipairs(tree == TREE and names() or {}) do
 		out[i] = { groupID = 500 + i, treeID = tree, skillLineID = 0, orderIndex = i - 1, displayName = c[1], icon = 0 }
 	end
 	return out
 end
 function C_Traits.GetGroupCurrencyInfo(config, ids)
 	local out = {}
-	for i, id in ipairs(ids) do
-		local c = config == 7 and g.columns and g.columns[id - 500]
-		if c then out[#out + 1] = { traitNodeGroupID = id, currencyInfos = { { traitCurrencyID = 1, quantity = 0, spent = c[2] or 0 } } } end
+	if g.currency == "none" then return out end
+	local list = columnsOf(config) or (config ~= nil and config == g.activeConfig and names()) or nil
+	for _, id in ipairs(ids) do
+		if list and list[id - 500] then
+			local infos = g.currency ~= "empty" and { { traitCurrencyID = 1, quantity = 0, spent = pointsIn(config, id - 500) } } or {}
+			local row = { traitNodeGroupID = g.currency ~= "noid" and id or nil, currencyInfos = infos }
+			if g.currency == "keyed" then out[id] = row else out[#out + 1] = row end
+		end
 	end
 	return out
 end

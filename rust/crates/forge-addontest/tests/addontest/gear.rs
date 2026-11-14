@@ -438,20 +438,218 @@ fn spec_automatic_on_forever_reads_the_talent_columns_points_a_restoration_druid
 	assert_eq!(out[4], json!(["restoration", "Restoration (healer)", "talents"]), "no trait tree: the talent tabs");
 }
 
-// A group row the client gives without its traitNodeGroupID (a tree it shapes otherwise) is no Lua error: its
-// points are unknown, and the talent tabs answer.
+fn mage(level: i32) -> Opts {
+	Opts { cls: "MAGE", class_name: "Mage", class_id: 8, level, ..Default::default() }
+}
+
+// Reported on Discord, 2026-11-13: a level 36 Mage with Arcane 25, Fire 0, Frost 2 in Forever's talent frame (its
+// Primary tab the active one) was scored for Frost, the Mage default. That frame shows the active spec group's config
+// (C_SpecializationInfo.GetCombatConfigIDForSpecGroup) and treats C_ClassTalents.GetActiveConfigID as optional;
+// Polestar asked only the latter, so no config, or one without the points, read as no points at all. Automatic reads
+// the spec group's config first, from the ranks bought on its nodes.
 #[test]
-fn spec_automatic_a_talent_group_row_without_its_id_is_no_lua_error_the_talent_tabs_answer() {
+fn spec_automatic_reads_the_active_spec_group_s_talents_a_mage_with_25_arcane_and_2_frost_is_arcane() {
 	let out = run(
 		r#"
-		g.setSpecs({ { "Balance", 0 }, { "Feral Combat", 0 }, { "Restoration", 12 } })
-		g.setColumns({ { "Balance", 0 }, { "Feral Combat", 0 }, { "Restoration", 11 } })
-		C_Traits.GetGroupCurrencyInfo = function() return { { currencyInfos = { { traitCurrencyID = 1, quantity = 0, spent = 11 } } } } end
+		g.setSpecs({ { "Arcane", 0 }, { "Fire", 0 }, { "Frost", 0 } })
+		g.activeConfig = false
+		g.setColumns({ { "Arcane", 25 }, { "Fire", 0 }, { "Frost", 2 } })
+		emit({ G.GetSpec() })
+		g.activeConfig = 99
+		g.setColumns({ { "Arcane", 25 }, { "Fire", 0 }, { "Frost", 2 } })
+		emit({ G.GetSpec() })
+		g.activeConfig = 8
+		g.setColumns({ { "Arcane", 0 }, { "Fire", 0 }, { "Frost", 20 } }, { group = 2 })
+		emit({ G.GetSpec() })
+		g.specGroup = 2
+		stub.fire("ACTIVE_TALENT_GROUP_CHANGED")
 		emit({ G.GetSpec() })
 	"#,
-		druid(20),
+		mage(36),
 	);
-	assert_eq!(out[0], json!(["restoration", "Restoration (healer)", "talents"]));
+	assert_eq!(out[0], json!(["arcane", "Arcane", "talents"]), "no active config: the spec group's");
+	assert_eq!(out[1], json!(["arcane", "Arcane", "talents"]), "an active config without the points");
+	assert_eq!(out[2], json!(["arcane", "Arcane", "talents"]), "the active config is the other spec group's: the Primary's points");
+	assert_eq!(out[3], json!(["frost", "Frost", "talents"]), "the second spec group made active");
+}
+
+// The column points the talent frame heads its columns with may come shaped otherwise (rows without their
+// traitNodeGroupID, keyed by group, without currency, or none at all): each read as no points, and Automatic fell to
+// the default. The ranks bought on the nodes count whatever the shape, and every reader takes each shape without an
+// error (/polestar gear spec asks them all).
+#[test]
+fn spec_automatic_counts_the_ranks_bought_whatever_shape_the_column_points_come_in() {
+	let out = run(
+		r#"
+		for _, shape in ipairs({ "noid", "keyed", "empty", "none" }) do
+			g.currency = shape
+			g.setColumns({ { "Arcane", 25 }, { "Fire", 0 }, { "Frost", 2 } })
+			local key, _, source = G.GetSpec()
+			local _, _, report = G.DetectSpec("MAGE", 8, true)
+			emit({ shape = shape, key = key, source = source, reader = report and report.reader or false,
+				headers = report and report.headers[7] or false })
+		end
+	"#,
+		mage(36),
+	);
+	assert_eq!(out.len(), 4);
+	for o in &out {
+		assert_eq!(o["key"], "arcane", "{o}");
+		assert_eq!(o["source"], "talents", "{o}");
+		assert_eq!(o["reader"], "ranks", "{o}");
+		assert_eq!(o["headers"], json!([{ "name": "Arcane", "points": 0 }, { "name": "Fire", "points": 0 }, { "name": "Frost", "points": 0 }]), "{o}");
+	}
+}
+
+// Just after login the client may not have the talents yet (IsInitialized false, no config): Automatic says the
+// default, then reads them again when they come, on TRAIT_CONFIG_LIST_UPDATED (no event Polestar redid the pick on)
+// or, with no event at all, a few seconds after login; the advice is redone with them.
+#[test]
+fn spec_automatic_reads_the_talents_again_when_they_load_after_login() {
+	let before = "g.talentsReady = false\ng.columns = { { \"Arcane\", 25 }, { \"Fire\", 0 }, { \"Frost\", 2 } }".to_string();
+	let out = run(
+		r#"
+		local updates = 0
+		Polestar.On("GEAR_UPDATED", function() updates = updates + 1 end)
+		emit({ G.GetSpec() })
+		local _, _, report = G.DetectSpec("MAGE", 8)
+		emit(report and report.pending or false)
+		g.talentsReady = true
+		stub.fire("TRAIT_CONFIG_LIST_UPDATED")
+		stub.runTimers()
+		emit({ G.GetSpec() })
+		emit(updates)
+	"#,
+		Opts { before: before.clone(), ..mage(36) },
+	);
+	assert_eq!(out[0], json!(["frost", "Frost", "default"]));
+	assert_eq!(out[2], json!(["arcane", "Arcane", "talents"]), "read again when the config list arrives");
+	assert!(out[3].as_i64().unwrap() >= 1, "the advice is redone: {}", out[3]);
+	assert_eq!(out[1], true, "the talents were not there to read yet");
+	let quiet = run(
+		r#"
+		emit({ G.GetSpec() })
+		g.talentsReady = true
+		stub.advance(4)
+		emit({ G.GetSpec() })
+	"#,
+		Opts { before, ..mage(36) },
+	);
+	assert_eq!(quiet[0], json!(["frost", "Frost", "default"]));
+	assert_eq!(quiet[1], json!(["arcane", "Arcane", "talents"]), "no event: read again a few seconds after login");
+}
+
+// With no point spent anywhere, Automatic is the class's levelling default: the talents were read, so nothing waits.
+#[test]
+fn spec_automatic_with_no_talent_point_spent_is_the_class_default() {
+	let out = run(
+		r#"
+		g.setColumns({ { "Arcane", 0 }, { "Fire", 0 }, { "Frost", 0 } })
+		emit({ G.GetSpec() })
+		local _, _, report = G.DetectSpec("MAGE", 8)
+		emit(report and report.pending or false)
+	"#,
+		mage(12),
+	);
+	assert_eq!(out[0], json!(["frost", "Frost", "default"]));
+	assert_eq!(out[1], false);
+}
+
+// /polestar gear spec prints what each way of reading the talents found, and what Automatic picks and why, for a
+// player to paste: the spec group and the configs, each config's ranks and column points, the tabs, the primary tree.
+#[test]
+fn polestar_gear_spec_prints_what_each_reader_found_and_why_automatic_picks_what_it_picks() {
+	let out = run(
+		r#"
+		g.setSpecs({ { "Arcane", 0 }, { "Fire", 0 }, { "Frost", 0 } })
+		g.activeConfig = false
+		g.setColumns({ { "Arcane", 25 }, { "Fire", 0 }, { "Frost", 2 } })
+		stub.messages = {}
+		SlashCmdList.POLESTAR("gear spec")
+		emit(stub.messages)
+		stub.messages = {}
+		g.setColumns({ { "Arcane", 0 }, { "Fire", 0 }, { "Frost", 0 } })
+		SlashCmdList.POLESTAR("gear spec")
+		emit(stub.messages)
+		stub.messages = {}
+		SlashCmdList.POLESTAR("gear")
+		emit(stub.messages)
+	"#,
+		mage(36),
+	);
+	let lines: Vec<&str> = out[0].as_array().unwrap().iter().map(text).collect();
+	assert_eq!(
+		lines,
+		vec![
+			"|cff4fd1c5Polestar|r: Gear weights: Arcane (talents)",
+			"  Talent configs: spec group 1: 7, active config: none",
+			"  ranks bought, config 7: Arcane 25, Fire 0, Frost 2",
+			"  column points, config 7: Arcane 25, Fire 0, Frost 2",
+			"  Talent tabs: Arcane 0, Fire 0, Frost 0",
+			"  Primary tree: none",
+			"  Automatic: Arcane, the most points (ranks bought, config 7)",
+		],
+		"{}",
+		out[0]
+	);
+	let none: Vec<&str> = out[1].as_array().unwrap().iter().map(text).collect();
+	assert_eq!(none[0], "|cff4fd1c5Polestar|r: Gear weights: Frost (default)");
+	assert_eq!(none.last().copied(), Some("  Automatic: Frost, the class default (no talent points found)"));
+	let plain: Vec<&str> = out[2].as_array().unwrap().iter().map(text).collect();
+	assert_eq!(plain[0], "|cff4fd1c5Polestar|r: Gear weights: Frost (default)", "today's line: the source in brackets");
+	assert!(is_match(plain[1], r"Settings > Questing > Rewards & gear > Stat weights"), "{}", plain[1]);
+}
+
+fn shaman(level: i32) -> Opts {
+	Opts { cls: "SHAMAN", class_name: "Shaman", class_id: 7, level, ..Default::default() }
+}
+
+// #2090: Mental Dexterity (Enhancement, 3 ranks, talent spell 415140) turns 33/66/100% of Intellect into attack power
+// (the 12 November patch notes). The weights' sources know no Forever talent, so Intellect counted only for mana: each
+// rank now adds a third of the attack power weight to it, on whichever built-in weights are in use (Elemental's carry
+// almost no attack power), never on a custom scale; /polestar gear spec says what it added.
+#[test]
+fn mental_dexterity_adds_a_third_of_the_attack_power_weight_to_intellect_per_rank_on_the_built_in_weights() {
+	let out = run(
+		r#"
+		local function w() local x = G.GetWeights(); return { int = x.int, ap = x.ap or 0 } end
+		g.setColumns({ { "Elemental", 0 }, { "Enhancement", 21 }, { "Restoration", 0 } })
+		local seen = { w() }
+		for r = 1, 3 do
+			g.talentSpells = { [415140] = { column = 2, ranks = r } }
+			stub.fire("TRAIT_CONFIG_UPDATED", 7)
+			seen[#seen + 1] = w()
+		end
+		local spec = { G.GetSpec() }
+		stub.messages = {}
+		SlashCmdList.POLESTAR("gear spec")
+		local report = stub.messages[#stub.messages]
+		Polestar.Set("gear.spec.SHAMAN", "elemental")
+		local ele = w()
+		local _, sc = G.Scales.Import('( Pawn: v1: "Mine": Intellect=2, Strength=1, Ap=1 )', "SHAMAN")
+		Polestar.Set("gear.spec.SHAMAN", "custom:" .. sc.scale.id)
+		local custom = G.GetWeights().int
+		g.talentSpells = nil
+		stub.fire("TRAIT_CONFIG_UPDATED", 7)
+		emit({ seen = seen, spec = spec, report = report, ele = ele, custom = { custom, G.GetWeights().int } })
+	"#,
+		shaman(45),
+	);
+	let o = &out[0];
+	assert_eq!(o["spec"], json!(["enhancement", "Enhancement", "talents"]));
+	// Level 45: the 40-49 band, Intellect 0.179, attack power 0.468.
+	let seen = o["seen"].as_array().unwrap();
+	let (int0, ap) = (seen[0]["int"].as_f64().unwrap(), seen[0]["ap"].as_f64().unwrap());
+	assert!((int0 - 0.179).abs() < 1e-9 && (ap - 0.468).abs() < 1e-9, "{o}");
+	for (r, s) in seen.iter().enumerate() {
+		let want = int0 + ap * r as f64 / 3.0;
+		assert!((s["int"].as_f64().unwrap() - want).abs() < 1e-9, "{r} ranks: Intellect {} (want {want})", s["int"]);
+		assert!((s["ap"].as_f64().unwrap() - ap).abs() < 1e-9, "{r} ranks: attack power unchanged");
+	}
+	assert!(is_match(text(&o["report"]), r"^  Talents in the weights: .+ 3/3, Intellect \+0\.47$"), "{}", o["report"]);
+	let ele = &o["ele"];
+	assert!((ele["int"].as_f64().unwrap() - 0.563).abs() < 1e-9, "Elemental's band carries no attack power: {ele}");
+	assert_eq!(o["custom"][0], o["custom"][1], "a custom scale is used as it is: {}", o["custom"]);
 }
 
 // A player set Stat weights to Restoration and saw Feral come back. The chosen spec holds over a reload, a level,
@@ -484,9 +682,9 @@ fn a_chosen_spec_holds_over_reload_level_up_talent_points_and_cat_form_on_every_
 		local function surfaces(when)
 			local key, label, source = G.GetSpec()
 			local _, pick = G.RankChoices({ "item:8001", "item:8002" })
-			local line = g.showTooltip(GameTooltip, "item:8002")[1]
+			local lines = g.showTooltip(GameTooltip, "item:8002")
 			emit({ when = when, key = key, label = label, source = source, heal = G.GetWeights().heal or false,
-				pick = pick, line = line, saved = PolestarDB.settings.gear.spec.DRUID })
+				pick = pick, line = lines[1], scored = lines[2] or false, saved = PolestarDB.settings.gear.spec.DRUID })
 		end
 		surfaces("login")
 		w.setLevel(21)
@@ -510,7 +708,8 @@ fn a_chosen_spec_holds_over_reload_level_up_talent_points_and_cat_form_on_every_
 		assert_eq!(o["saved"], "restoration", "{when}: the setting is still saved");
 		assert!(o["heal"].as_f64().unwrap() > 0.0, "{when}: Restoration weights");
 		assert_eq!(o["pick"], 2, "{when}: the Intellect/Spirit chest over the Agility one");
-		assert!(is_match(text(&o["line"]), r"^Polestar · Restoration \(healer\) \| "), "{when}: {}", o["line"]);
+		assert!(is_match(text(&o["line"]), r"^Polestar \| "), "{when}: {}", o["line"]);
+		assert_eq!(o["scored"], "Scored for Restoration (healer), as chosen in Settings", "{when}");
 	}
 	assert_eq!(out[4]["key"], "feral", "Automatic follows the Feral points again");
 	assert_eq!(out[4]["pick"], 1);
@@ -539,11 +738,12 @@ fn tooltip_line_upgrade_and_downgrade_percentages_empty_slot_later_level_skipped
 	"#,
 		Opts::default(),
 	);
-	// The slot it replaces follows the gain; an empty slot needs no name.
-	assert_eq!(out[0], json!(["Polestar · Arms | +62% upgrade · Head"]));
-	assert_eq!(out[1], json!(["Polestar · Arms | -88% downgrade · Head"]));
-	assert_eq!(out[2], json!(["Polestar · Arms | upgrade (empty slot)"]));
-	assert_eq!(out[3], json!(["Polestar · Arms | +89% upgrade at level 40 · Head"]));
+	// The slot it replaces follows the gain; an empty slot needs no name. Under it, the weights it was scored with.
+	let scored = "Scored for Arms until you spend talent points";
+	assert_eq!(out[0], json!(["Polestar | +62% upgrade · Head", scored]));
+	assert_eq!(out[1], json!(["Polestar | -88% downgrade · Head", scored]));
+	assert_eq!(out[2], json!(["Polestar | upgrade (empty slot)", scored]));
+	assert_eq!(out[3], json!(["Polestar | +89% upgrade at level 40 · Head", scored]));
 	assert_eq!(out[4], json!({}));
 	assert_eq!(out[5], json!({}));
 	assert_eq!(out[6], json!({}));
@@ -565,8 +765,8 @@ fn tooltip_line_the_slot_is_the_client_s_own_word_backslot_chestslot_apart_from_
 	"#,
 		Opts { before: format!("{}\nBACKSLOT, CHESTSLOT = \"Espalda\", \"Pecho\"", fake_locale("itIT", &[("Back", "Atrás"), ("Chest", "Cofre"), ("boss: Chest", "Arca")])), ..Default::default() },
 	);
-	assert!(is_match(text(&out[0][0]), r"^Polestar · Arms \| .*upgrade · Espalda$"));
-	assert!(is_match(text(&out[1][0]), r"^Polestar · Arms \| .*upgrade · Pecho$"));
+	assert!(is_match(text(&out[0][0]), r"^Polestar \| .*upgrade · Espalda$"));
+	assert!(is_match(text(&out[1][0]), r"^Polestar \| .*upgrade · Pecho$"));
 }
 
 #[test]
@@ -584,10 +784,125 @@ fn quest_reward_tooltips_hovering_a_choice_setquestitem_setquestlogitem_shows_th
 	"#,
 		Opts::default(),
 	);
-	assert_eq!(out[0], json!([["Polestar · Arms | -88% downgrade · Head"], ["Polestar · Arms | +62% upgrade · Head"]]));
-	assert_eq!(out[1], json!(["Polestar · Arms | +62% upgrade · Head"]));
-	assert_eq!(out[2], json!(["Polestar · Arms | +62% upgrade · Head"]));
+	let scored = "Scored for Arms until you spend talent points";
+	assert_eq!(out[0], json!([["Polestar | -88% downgrade · Head", scored], ["Polestar | +62% upgrade · Head", scored]]));
+	assert_eq!(out[1], json!(["Polestar | +62% upgrade · Head", scored]));
+	assert_eq!(out[2], json!(["Polestar | +62% upgrade · Head", scored]));
 	assert_eq!(out[3], json!({}));
+}
+
+// #2035: under the upgrade line (and the reward pick) the tooltip says which weights scored it and where they came from:
+// the talents, a choice in Settings, a custom scale, or the class default (until a point is spent, or until the talents
+// load). An unusable item's line rests on no weights: nothing under it.
+#[test]
+fn gear_advice_says_which_weights_it_scored_with_and_where_they_came_from() {
+	let out = run(
+		r#"
+		g.equip(1, "item:9001")
+		local function last(link) local lines = g.showTooltip(GameTooltip, link); return lines[#lines] end
+		g.setColumns({ { "Arms", 0 }, { "Fury", 0 }, { "Protection", 0 } })
+		emit(last("item:9002"))
+		g.setColumns({ { "Arms", 0 }, { "Fury", 12 }, { "Protection", 0 } })
+		emit(last("item:9002"))
+		Polestar.Set("gear.spec.WARRIOR", "protection")
+		emit(last("item:9002"))
+		local _, r = G.Scales.Import('( Pawn: v1: "Mine": Strength=10, Stamina=1 )', "WARRIOR")
+		Polestar.Set("gear.spec.WARRIOR", "custom:" .. r.scale.id)
+		emit(last("item:9002"))
+		Polestar.Set("gear.spec.WARRIOR", "auto")
+		g.talentsReady = false
+		stub.fire("PLAYER_TALENT_UPDATE")
+		emit(last("item:9002"))
+		emit(g.showTooltip(GameTooltip, "item:9050"))
+	"#,
+		Opts::default(),
+	);
+	assert_eq!(out[0], "Scored for Arms until you spend talent points");
+	assert_eq!(out[1], "Scored for Fury, from your talents");
+	assert_eq!(out[2], "Scored for Protection (tank), as chosen in Settings");
+	assert_eq!(out[3], "Scored with your custom weights: Mine");
+	assert_eq!(out[4], "Scored for Arms until your talents load");
+	assert_eq!(out[5], json!(["Polestar | not for your class"]));
+}
+
+// #2035: the guide window's reward pick under a turn-in names the item; hovering it says what a click does, and a click
+// opens Settings at Questing > Rewards & gear with the Gear advice section (its Stat weights first) in view. A modified
+// click still links the item.
+#[test]
+fn the_guide_window_s_reward_pick_opens_stat_weights_on_a_click() {
+	let out = emitted(&RunAddon {
+		stubs: vec!["stub_world.lua", "stub_gear.lua"],
+		addons: vec![Addon::name("Polestar")],
+		login: true,
+		script: r#"
+		stub.advance(1)
+		assert(Polestar.UI.LoadOptions())
+		local w, g, G = stub.world, stub.gear, Polestar.Gear
+		w.race, w.raceName, w.raceID, w.faction = "Troll", "Troll", 8, "Horde"
+		w.setLevel(22)
+		Polestar.ItemDB.Register({ schema = 1, build = "test" }, {
+			[9001] = "1 20 15 2 4 3 str5 sta3 armor150",
+			[9101] = "1 25 20 2 4 3 str10 sta6 armor180",
+			[9102] = "1 25 20 2 4 1 int10 spi6 armor40",
+			[9103] = "1 25 20 2 4 3 str10 sta6 armor180",
+		})
+		Polestar.ItemDB.RegisterLeveling({ source = "test" }, {
+			names = { [9101] = "Militia Helm", [9102] = "Scholar Cap", [9103] = "Twin Helm" },
+			src = { [9101] = "q5001", [9102] = "q5001", [9103] = "q5001" },
+			quests = { [5001] = "20 15 1 12 0 0 0|9101,9102,9103||Alliance Choice" },
+			npcs = {}, zones = { [12] = "Elwynn Forest" },
+		})
+		G.RefreshPlayer()
+		g.equip(1, "item:9001"); G.Invalidate("equipment")
+		w.addMap(1429, { name = "Elwynn Forest", c = 0, left = 1500, right = -1500, top = 500, bottom = -1500 })
+		w.moveTo(1429, 48, 42)
+		Polestar.RegisterPack({ addon = "Polestar_Test", id = "test", format = 1, title = "Test", author = "Test", version = "1", license = "MIT" })
+		Polestar.RegisterGuide({ id = "test/gear", pack = "test", title = "Gear", minLevel = 1, maxLevel = 30, steps = {
+			{ goals = { { t = "turnin", quest = 5001, title = "Alliance Choice", npc = 197, npcName = "Marshal McBride", map = 1429, x = 48.9, y = 41.6 } } },
+		} })
+		w.onQuest(5001, { { required = 1, fulfilled = 1 } })
+		Polestar.Engine.SetGuide("test/gear")
+		stub.advance(0.5)
+		Polestar.Fire("STEP_UPDATED")
+		stub.advance(0.3)
+		local pick
+		for _, r in ipairs(Polestar.UI.GuideFrame.rows) do
+			if r:IsShown() and r.psGearPick and r.psGearPick:IsShown() then pick = r.psGearPick end
+		end
+		stub.RunScript(pick, "OnEnter")
+		local lines = GameTooltip.lines
+		local hint = lines[#lines]
+		local before = PolestarOptions ~= nil and PolestarOptions:IsShown()
+		pick:Click()
+		local O = Polestar.UI.Options
+		local sections = {}
+		for _, c in ipairs(O.view and O.view.cards or {}) do
+			if c:IsShown() and c.psName then sections[#sections + 1] = c.psName end
+		end
+		emit({ text = pick.Text:GetText(), hint = hint, before = before, shown = PolestarOptions:IsShown(), page = O.page and O.page.key,
+			gearAdvice = table.concat(sections, ","):find("Gear advice", 1, true) ~= nil })
+		PolestarOptions:Hide()
+		-- A modified click is the item's (a link, the dressing room): with no cached link, Polestar's item click.
+		local linked, H = 0, Polestar.Hooks
+		local realHandle, realHook, realModified = HandleModifiedItemClick, H.OnItemClick, IsModifiedClick
+		HandleModifiedItemClick = function() linked = linked + 1 end
+		H.OnItemClick = function() linked = linked + 1 end
+		IsModifiedClick = function() return true end
+		pick:Click()
+		HandleModifiedItemClick, H.OnItemClick, IsModifiedClick = realHandle, realHook, realModified
+		emit({ linked = linked, shown = PolestarOptions:IsShown() })
+	"#
+		.into(),
+		..Default::default()
+	});
+	let first = &out[0];
+	assert!(is_match(text(&first["text"]), "Militia Helm"), "{first}");
+	assert_eq!(first["hint"], "Click: choose the stat weights");
+	assert_eq!(first["before"], false);
+	assert_eq!(first["shown"], true, "a click opens Settings: {first}");
+	assert_eq!(first["page"], "questing");
+	assert_eq!(first["gearAdvice"], true, "on Rewards & gear, the Gear advice section: {first}");
+	assert_eq!(out[1], json!({ "linked": 1, "shown": false }), "a modified click is the item's");
 }
 
 #[test]
@@ -786,7 +1101,7 @@ fn an_orc_hunters_axe_specialization_counts_by_how_much_a_hunter_fights_in_melee
 	let hunter = run(AXE_AND_DAGGER, orc("HUNTER", "Hunter", 3));
 	// 2.9 x 0.5 + 10 x 1% x (0.5 / 6.5); 6.0 x 0.5 + 0.1.
 	assert_eq!(hunter[0], json!({ "axe": 2.22, "dagger": 3.1 }));
-	assert_eq!(hunter[1], json!(["Polestar · Beast Mastery | +40% upgrade · Main Hand"]));
+	assert_eq!(hunter[1], json!(["Polestar | +40% upgrade · Main Hand", "Scored for Beast Mastery until you spend talent points"]));
 	// A Warrior fights with the axe: Axe Specialization counts whole (the dagger's double DPS still wins).
 	let warrior = run(AXE_AND_DAGGER, orc("WARRIOR", "Warrior", 1));
 	let (axe, dagger) = (warrior[0]["axe"].as_f64().unwrap(), warrior[0]["dagger"].as_f64().unwrap());

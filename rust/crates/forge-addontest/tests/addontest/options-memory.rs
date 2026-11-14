@@ -39,7 +39,9 @@ const LOGIN_BASE: f64 = 11003.0;
 /// and the looks' picker) adds about 60 KiB of code at login: measured 11,136 KiB on 2026-11-13. The 0.4.0 work
 /// merged with it (dungeons in the route's notices, the stranded-quest row and banner, Show in quest log and the
 /// out-of-sight notice, the guide window's shared step view, the breadcrumb and parent-quest rules) adds about
-/// 60 KiB more: measured 11,198 KiB on 2026-11-13.
+/// 60 KiB more: measured 11,198 KiB on 2026-11-13. Gear advice reading the talents the talent frame shows, its
+/// /polestar gear spec report, the "Scored for" lines and Mental Dexterity in the weights (#2086, #2035, #2090) add
+/// 36 KiB: measured 11,234 KiB on 2026-11-13 (11,198 on the same tree without them).
 /// Then 0.4.0's contributor batch (#2083): Pause's state, watcher and key (Core/Init.lua, Core/Pause.lua, #1937),
 /// Adjust weights (Gear/Adjust.lua, UI/GearAdjust.lua, #1538), the Nav API's followers (Nav/Journey.lua, #1329),
 /// another addon's map canvas (#1938), the step browser's run cards (UI/StepList.lua, #2004) and the dungeon

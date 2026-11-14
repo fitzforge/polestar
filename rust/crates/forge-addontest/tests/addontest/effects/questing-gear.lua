@@ -18,9 +18,13 @@ local function arrows()
 	for slot = 1, 16 do if arrow(g.bagButton(0, slot)) then out[#out + 1] = slot end end
 	return table.concat(out, ",")
 end
+-- The tooltip's gear lines: the upgrade line or the pick, and the weights they were scored with.
 local function tip(link)
-	for _, l in ipairs(g.showTooltip(GameTooltip, link)) do if l:find("^Polestar") or l:find("pick") then return l end end
-	return false
+	local out = {}
+	for _, l in ipairs(g.showTooltip(GameTooltip, link)) do
+		if l:find("^Polestar") or l:find("pick") or l:find("^Scored ") then out[#out + 1] = l end
+	end
+	return out[1] and table.concat(out, " / ") or false
 end
 local function wear(slot, link) g.equip(slot, link); G.Invalidate("equipment"); stub.advance(0.3) end
 -- The guide window's reward pick under the hand-in.
