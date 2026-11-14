@@ -18,9 +18,14 @@ next forever/alliance/50-60/06-silithus
 # Sources as in parts 1 and 2: Forever's quest data for quests, givers, enders and objectives; the one recorded
 # session (an Alliance player, levels 57 to 60) for the order, the spots and the chain links the data lacks.
 # Order: the Shrine of Aviana and its harpies, back south-west past the Deadwood camps to Barkskin Burrow for its
-# three hand-ins, north-east through the Cradle to Johun (Alliance) and Dae'gun (Renalard first, then the demon
-# camps west to east and back), the Summit of Eternity (flight path, inn), a flight down for Kaylaena and Ketharas,
-# then the Summit's Blackthorne camps in one sweep, and out by Everlook.
+# three hand-ins, north-east through the Cradle (Galvinquam's and Jereman's breadcrumbs taken on the way) to Johun
+# (Alliance) and Dae'gun (Renalard first, then the demon camps west to east and back), the Summit of Eternity
+# (flight path, inn), a flight down for Kaylaena and Ketharas, then the Summit's Blackthorne camps in one sweep, and
+# out by Everlook.
+# Quest log: a character arrives with about 28 quests carried from the 50-60 guides, and the game's log holds 40.
+# So the breadcrumbs for Dae'gun and the Summit (A Clever Creature, Trail Assist) are taken on this part's way
+# through the Cradle rather than at the end of part 2, and Fetid Corruption is handed in before the Shrine's three
+# quests are taken.
 # Offered only after another quest is handed in (the recording; one player, so leads to confirm): A Bit of the
 # Sky after Taking to New Heights; Avalanche of Corruption after Resupply; Drawing Down the Malevolent after
 # Siphoned Ephemeral Essence; As the Crow Flies after Drawing Down the Malevolent; Ashes of the Legion Ascent and
@@ -56,6 +61,7 @@ step Corrupted Growth
   tip Experimental route (alpha): if a step is wrong, tell us on Polestar's Discord or GitHub and name the step.
   tip East from the Cradle towards the Shrine of Aviana, where the Wormwing harpies nest: a corrupted growth on the shrine's western slope starts a quest for Phoebe.
   accept 96296                          -- Fetid Corruption
+  complete 96296 @52.6,60.3             -- remove the corrupted knots on the trees just north-west of the shrine, on your way
 
 step Skylord Omnuron
   when onquest 92171
@@ -68,6 +74,7 @@ step Phoebe Highfeather
   turnin 96145
 
 step The Shrine of Aviana
+  turnin 96296                          -- Phoebe Highfeather
   accept 91883                          -- Skylord Omnuron: Spear of the Skylord
   accept 92147                          -- Phoebe Highfeather: Highfeather Helper
   accept 96252                          -- Tarnished Treasures
@@ -79,13 +86,11 @@ step The harpy grounds
   collect 273164 x8 quest 96252.1 @53.0,60.4  -- Tarnished Highfeather Bangle
   collect 272974 quest 92500.1 @47.7,59.4  -- The Jewel of the Horizon
   collect 268998 quest 91883.1          -- Omnuron's Spear
-  complete 96296 @52.6,60.3             -- remove the corrupted knots
 
 step The Shrine of Aviana
   turnin 91883                          -- Skylord Omnuron
   turnin 92147                          -- Phoebe Highfeather
   turnin 96252
-  turnin 96296
 
 step The Deadwood camps
   tip South-west back towards Barkskin Burrow: the Deadwood camps on the slopes east of the burrow hold the Totemics and Fel-Tenders. An elite named Head Scratcher (level 60) may roam the camps' eastern end.
@@ -97,6 +102,14 @@ step Barkskin Burrow
   turnin 93826                          -- Elder Pinespeaker
   turnin 93825                          -- Suma Mossmane
   turnin 93827 @20.6,78.8               -- Thobon Sapclaw
+
+step Galvinquam Leafsyre
+  tip North-east into the Cradle of Tranquility: Galvinquam rests in the ruins south of Shalla'kal, on your way.
+  accept 96991                          -- Trail Assist: for Marn Euhorn at the Summit of Eternity, later in this guide
+
+step Jereman
+  tip On to the old bridge over the Cradle: touch the crow effigy on it and Jereman appears again.
+  accept 96964                          -- A Clever Creature: for Renalard in Dae'gun, just ahead
 
 step Johun "Punchy" Dillas
   only Alliance

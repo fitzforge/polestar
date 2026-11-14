@@ -46,10 +46,14 @@ step The Writhing Haunt: kill these as you meet them
   kill 1817 quest 4984.1              -- Diseased Wolf
 
 step Dalson's Tears
+  tip After the farm's keys: the Scourge Cauldron stands just south-west of the farmhouse, and its Cauldron Lord beside it carries the key.
   collect 12738 @47.7,49.9 map 1422 -- Dalson Outhouse Key
   turnin 5059 direct
   collect 12739 @48.2,49.7 map 1422 -- Dalson Cabinet Key
   turnin 5060 direct -- Locked Cabinet, in the farmhouse; inside
+  collect 13195 quest 5219.1 @46.1,52.6 map 1422 -- Dalson's Tears Cauldron Key
+  turnin 5219                         -- Scourge Cauldron
+  accept 5220
 
 # ---------------------------------------------------------------- The cauldrons
 
@@ -57,6 +61,8 @@ step Chillwind Camp
   tip Ride back south to the camp.
   turnin 5402 direct -- Argent Officer Pureheart
   turnin 5403 direct
+  turnin 5220                         -- High Priestess MacDonnell
+  accept 5222
 
 step The Andorhal watchtowers
   tip Use the Beacon Torch at the foot of each of the four watchtowers around the edge of Andorhal, north of the camp.
@@ -81,12 +87,6 @@ step Chillwind Camp
   turnin 5533                         -- Alchemist Arbington
   accept 5537
 
-step Dalson's Tears cauldron
-  tip The cauldron sits at Dalson's Tears, north-east of Felstone; its Cauldron Lord stands beside it.
-  collect 13195 quest 5219.1 @46.1,52.6 map 1422 -- Dalson's Tears Cauldron Key
-  turnin 5219                         -- Scourge Cauldron
-  accept 5220
-
 # ---------------------------------------------------------------- Andorhal
 
 step Andorhal
@@ -94,10 +94,6 @@ step Andorhal
   collect 12900 quest 5154.1          -- Annals of Darrowshire
   use 12627 @45.1,62.3 "Temporal Displacer"
   kill 10717 quest 4971.1 @45.1,62.3  -- Temporal Parasite
-
-step Chillwind Camp
-  turnin 5220                         -- High Priestess MacDonnell
-  accept 5222
 
 step Writhing Haunt cauldron
   tip The cauldron sits at the Writhing Haunt, by Mulgris' farm.

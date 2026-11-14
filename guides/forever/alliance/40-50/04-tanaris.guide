@@ -205,11 +205,11 @@ step The Noxious Lair
 
 step Dunemaul Compound
   tip Ride south-west to the ogre compound. Brutes and Enforcers (46-48) fill it; Gor'marok the Ravager (49) stands in the middle with guards around him: clear them first.
-  tip Why the grind: the Thistleshrub Valley comes next, with mobs of 48-50 and quests of level 50. The Dunemaul Ogres (45-46) at the compound's south end are the safer ones to grind.
+  tip Why the grind to 47: the Thistleshrub Valley comes next, with mobs of 48-50 and quests of level 50. Grind it on the Dunemaul Ogres (45-46) at the compound's south end, the safer camp, not on the Brutes.
   kill 5474 quest 5863                -- Dunemaul Brute
   kill 5472 quest 5863                -- Dunemaul Enforcer
   kill 12046 x1 quest 5863            -- Gor'marok the Ravager, below ground
-  level 47.06 grind 5474               -- grind on Dunemaul Brute
+  level 47.06 grind 5471               -- grind on Dunemaul Ogre, at the compound's south end
 
 step Thistleshrub Valley: kill these as you meet them
   zone Tanaris
