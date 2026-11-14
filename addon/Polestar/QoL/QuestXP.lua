@@ -11,7 +11,7 @@ local hookedShows, hookedTips, hookedRested = {}, {}, {}
 local excluded = {}
 local dirty = true
 local schedule
-local AMBER_R, AMBER_G, AMBER_B = 233 / 255, 170 / 255, 50 / 255
+local SAGE_R, SAGE_G, SAGE_B = 156 / 255, 183 / 255, 167 / 255
 
 local function draw()
 	if not frame then return end
@@ -45,7 +45,7 @@ local function attach(bar)
 		frame:SetAlpha(0.8)
 		frame.Tint = frame:CreateTexture(nil, "OVERLAY")
 		frame.Tint:SetTexture(ns.Theme.Media("white"))
-		frame.Tint:SetVertexColor(AMBER_R, AMBER_G, AMBER_B, 0.36)
+		frame.Tint:SetVertexColor(SAGE_R, SAGE_G, SAGE_B, 0.36)
 		local mask = frame:CreateMaskTexture()
 		mask:SetAtlas("UI-HUD-ExperienceBar-Fill-Experience", false, nil, true, "CLAMPTOBLACKADDITIONAL", "CLAMPTOBLACKADDITIONAL")
 		mask:SetAllPoints(frame)
@@ -62,7 +62,7 @@ local function attach(bar)
 		if ns.Theme and ns.Theme.Font then ns.Theme.Font(frame.LevelLabel, "small") end
 		if ns.Theme and ns.Theme.SetOutline then ns.Theme.SetOutline(frame.LevelLabel, true) end
 		frame.LevelLabel:SetText(L["+1 Level"])
-		frame.LevelLabel:SetTextColor(AMBER_R, AMBER_G, AMBER_B, 1)
+		frame.LevelLabel:SetTextColor(SAGE_R, SAGE_G, SAGE_B, 1)
 		frame.LevelLabel:SetPoint("BOTTOMLEFT", frame, "TOPLEFT", 0, 2)
 		frame:SetScript("OnSizeChanged", draw)
 		QuestXP.frame = frame
@@ -109,12 +109,12 @@ local function tooltip(owner)
 	end
 	tip:AddLine(" ")
 	tip:AddDoubleLine(L["Completed quests"], format("%d", QuestXP.count))
-	tip:AddDoubleLine(L["Pending Quest XP"], format("+%d (%.1f%%)", QuestXP.total, QuestXP.total / QuestXP.limit * 100), AMBER_R, AMBER_G, AMBER_B, AMBER_R, AMBER_G, AMBER_B)
+	tip:AddDoubleLine(L["Pending Quest XP"], format("+%d (%.1f%%)", QuestXP.total, QuestXP.total / QuestXP.limit * 100), SAGE_R, SAGE_G, SAGE_B, SAGE_R, SAGE_G, SAGE_B)
 	if QuestXP.xp + QuestXP.total >= QuestXP.limit then
-		tip:AddLine(L["After turn-ins: at least +1 level"], AMBER_R, AMBER_G, AMBER_B)
+		tip:AddLine(L["After turn-ins: at least +1 level"], SAGE_R, SAGE_G, SAGE_B)
 	else
 		local projected = QuestXP.xp + QuestXP.total
-		tip:AddDoubleLine(L["XP after turn-ins"], format("%d / %d (%.1f%%)", projected, QuestXP.limit, projected / QuestXP.limit * 100), AMBER_R, AMBER_G, AMBER_B, AMBER_R, AMBER_G, AMBER_B)
+		tip:AddDoubleLine(L["XP after turn-ins"], format("%d / %d (%.1f%%)", projected, QuestXP.limit, projected / QuestXP.limit * 100), SAGE_R, SAGE_G, SAGE_B, SAGE_R, SAGE_G, SAGE_B)
 		tip:AddDoubleLine(L["XP remaining after turn-ins"], format("%d", QuestXP.limit - projected))
 	end
 	tip:Show()
