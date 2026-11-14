@@ -1945,8 +1945,8 @@ L["Route line"] = "경로선"
 -- L["Their name beside the button: green for an NPC, red for a mob, gold for an elite or rare."] = ""
 -- L["The step key targets the same names without the button. Move frames, in Settings, moves the button."] = ""
 -- L["For each dungeon the route runs."] = ""
--- L["Its quests off the way too: a few detours, more XP."] = ""
 -- L["Only the ones on stops the route makes anyway."] = ""
+-- L["Be ready for more travelling: the quests are scattered across the world, so the route takes extra trips for them."] = ""
 
 -- UI/Copy.lua
 L["Selected for you: copy it with Ctrl+C (Cmd+C on a Mac), then press Escape."] = "선택되어 있습니다: Ctrl+C(Mac은 Cmd+C)로 복사한 뒤 Esc를 누르십시오."
@@ -2385,7 +2385,7 @@ L["Your manual check-offs and skipped steps in the current guide are cleared fro
 -- L["Follow ErgoBars' accent, live. Picking your own accent turns this off."] = ""
 -- L["Match ErgoBars font"] = ""
 -- L["Follow ErgoBars' font, live. Choosing another font turns this off."] = ""
--- L["For a dungeon the route runs: every one of its quests, the ones off the way too, or only the quests on your way. Dungeons on your way, in the guide window's menu, changes one dungeon."] = ""
+-- L["Every dungeon quest: be ready for more travelling. Dungeon quests are scattered across the world, so the route takes extra trips to pick them up and hand them in. Only quests on my way: the ones on stops the route makes anyway. Dungeons on your way, in the guide window's menu, changes one dungeon."] = ""
 
 -- Rares/Rares.lua
 L["Raid warning"] = "공격대 경보"
@@ -4406,7 +4406,9 @@ L["Part of the %s quests"] = "%s 퀘스트의 일부"
 -- L["Every dungeon"] = ""
 -- L["Dungeon quests"] = ""
 -- L["Every quest"] = ""
--- L["For a dungeon the route runs: every one of its quests, the ones off the way too, or only the quests on your way."] = ""
+-- L["Every dungeon quest"] = ""
+-- L["Be ready for more travelling. Dungeon quests are scattered across the world, so the route takes extra trips to pick them up and hand them in."] = ""
+-- L["Every dungeon quest: be ready for more travelling. Dungeon quests are scattered across the world, so the route takes extra trips to pick them up and hand them in. Only quests on my way: the ones on stops the route makes anyway."] = ""
 
 -- UI/FindGroup.lua
 -- L["Press %s for the group finder."] = ""

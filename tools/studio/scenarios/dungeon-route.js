@@ -11,7 +11,7 @@
 // the client.
 //
 // Shots: <skin>-<scale>-<surface> (studio dungeon-route/polestar-064-ask ...), scale 064, 100 or 150; surface
-// ask, soon, nogroup, doorparty, kept, party, changed, far, off, menu, popover, card, automation, discovery. The
+// ask, soon, nogroup, doorparty, kept, party, changed, far, off, menu, popover, everyquest, card, automation, discovery. The
 // skins and their loading are the skins scenario's.
 
 const skins = require('./skins');
@@ -41,7 +41,9 @@ const LOOKS = ['polestar', 'halo', ...Object.keys(SKINS).filter((n) => n !== 'po
 // What the engine says about the dungeon, for the guide window's banner (Engine.DungeonQuestion, DungeonSoon,
 // DungeonRun, DungeonsAhead, DungeonQuestsInLog; the notice Skip this one leaves). Wailing Caverns' real quests on
 // this guide; the levels and places about where the Horde route has them.
-const AHEAD = `local E = Polestar.Engine
+// Every dungeon quest's one-time warning was seen (its own surface, everyquest, shows it).
+const AHEAD = `Polestar.DB().dungeonQuestsWarned = true
+local E = Polestar.Engine
 E.GuideDungeons = function() return { [43] = true, [2999] = true, [33] = true } end
 E.DungeonsAhead = function()
 	local function a(map) return E.DungeonAnswer(map) end
@@ -115,6 +117,11 @@ Polestar.CharState().dungeons[33] = false
 local GF = Polestar.UI.GuideFrame
 GF.DismissBanner()
 Polestar.UI.DungeonRoute.Show(GF.menuButton)` },
+	// Every dungeon quest's warning, once per account, before it applies (here: dungeons turned on with it chosen).
+	everyquest: { capture: ['PolestarGuideFrame', 'PolestarModal'], lua: `${AHEAD}
+Polestar.DB().dungeonQuestsWarned = nil
+Polestar.UI.GuideFrame.DismissBanner()
+Polestar.Set("behavior.dungeons", "run")` },
 	// The dungeon card at 20 for a dungeon the route can still take: Add to my route.
 	card: { capture: ['PolestarGuideFrame', 'PolestarClassToast'], lua: `${AHEAD}
 stub.world.setLevel(20)

@@ -449,7 +449,7 @@ local BUILTIN = {
 		-- For a dungeon the route runs: every quest of it (`when dungeon "<Name>" all` steps too) or only the ones on
 		-- the way (Own.wayOnly); a dungeon's own choice in Dungeons on your way wins. Off while dungeons are skipped.
 		{ kind = "dropdown", key = "behavior.dungeonQuests", label = L["Dungeon quests"], new = "0.4.0", child = true,
-			help = L["For a dungeon the route runs: every one of its quests, the ones off the way too, or only the quests on your way. Dungeons on your way, in the guide window's menu, changes one dungeon."],
+			help = L["Every dungeon quest: be ready for more travelling. Dungeon quests are scattered across the world, so the route takes extra trips to pick them up and hand them in. Only quests on my way: the ones on stops the route makes anyway. Dungeons on your way, in the guide window's menu, changes one dungeon."],
 			choices = { { value = "all", label = L["Every quest"] }, { value = "way", label = L["Only quests on my way"] } },
 			search = "dungeon quests, every quest, quests on my way, detour",
 			disabled = function() return ns.Get("behavior.dungeons") == "skip" end,

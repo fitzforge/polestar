@@ -7,8 +7,10 @@ section: players
   quests are picked up where, each with its own switch.
 - Dungeon quests (in the settings, the install's Groups and dungeons page
   and Dungeons on your way): a dungeon you run takes every one of its quests,
-  or only the ones on your way. One dungeon can differ: its own "Only quests
-  on my way" switch says how much time that saves.
+  or only the ones on your way. The first time you pick Every dungeon
+  quest, the guide warns you to be ready for more travelling: dungeon quests
+  are scattered across the world. One dungeon can differ: its own "Only
+  quests on my way" switch says how much time that saves.
 - Whatever you change, there or in the settings, the guide window says at
   once what it means ("Dungeons on: next is Wailing Caverns, at about level
   21. Its 7 quests are picked up on your way through The Barrens and Thunder

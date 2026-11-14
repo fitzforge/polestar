@@ -1547,7 +1547,7 @@ PAGES[#PAGES + 1] = {
 			set = function(v) ns.Set("behavior.dungeonQuests", v) end,
 			choices = function()
 				return {
-					{ value = "all", name = L["Every quest"], desc = L["Its quests off the way too: a few detours, more XP."] },
+					{ value = "all", name = L["Every quest"], desc = L["Be ready for more travelling: the quests are scattered across the world, so the route takes extra trips for them."] },
 					{ value = "way", name = L["Only quests on my way"], desc = L["Only the ones on stops the route makes anyway."] },
 				}
 			end })

@@ -40,6 +40,27 @@ local pop, rows, shown = nil, {}, 0
 
 local function Engine() return ns.Engine end
 
+-- Every dungeon quest warns once per account (PolestarDB.dungeonQuestsWarned;
+-- Fitz, 2026-11-14): more travelling, the dungeons' quests being scattered
+-- across the world. -> whether it was shown before.
+local function accountDB() return ns.DB and ns.DB() or PolestarDB end
+local function warned()
+	local db = accountDB()
+	local was = type(db) == "table" and db.dungeonQuestsWarned == true
+	if type(db) == "table" then db.dungeonQuestsWarned = true end
+	return was
+end
+
+-- The warning, before Every dungeon quest applies: `apply` on Every quest,
+-- `instead` (if any) on Only quests on my way or Escape. Shown before: apply.
+function DR.ConfirmEveryQuest(apply, instead)
+	if warned() then return apply() end
+	W.Modal({ title = L["Every dungeon quest"], icon = "icon-dungeon",
+		text = L["Be ready for more travelling. Dungeon quests are scattered across the world, so the route takes extra trips to pick them up and hand them in."],
+		action = L["Every quest"], cancel = L["Only quests on my way"],
+		onAccept = apply, onCancel = instead })
+end
+
 -- "23,100" for XP amounts.
 local function thousands(n)
 	local s = tostring(floor(n + 0.5))
@@ -101,10 +122,14 @@ local function row(i)
 	way.Note = W.Text(way, "small", "textDim")
 	way.Note:SetPoint("TOPLEFT", way.Label, "BOTTOMLEFT", 0, -3)
 	way.Switch = W.Switch(way, function() return way.psOn end, function(on)
-		local E = Engine()
-		if not (E and E.ChooseDungeonWayOnly and r.psMap) then return end
-		E.ChooseDungeonWayOnly(r.psMap, on and true or false)
-		DR.Fill()
+		local E, map = Engine(), r.psMap
+		if not (E and E.ChooseDungeonWayOnly and map) then return end
+		local function choose(only)
+			E.ChooseDungeonWayOnly(map, only)
+			DR.Fill()
+		end
+		if on then return choose(true) end
+		DR.ConfirmEveryQuest(function() choose(false) end, function() DR.Fill() end)
 	end, L["On: the guide takes only this dungeon's quests on your way and leaves out the rest. Off: every quest of it."])
 	way.Switch:SetPoint("TOPRIGHT", way, "TOPRIGHT", -8, -5)
 	local wayW = WIDTH - INDENT - way.Switch:GetWidth() - 16
@@ -206,7 +231,7 @@ local function build()
 	-- or only the ones on the way; a dungeon's own switch below wins.
 	local quests = W.Dropdown(pop, L["Dungeon quests"], "behavior.dungeonQuests", {
 		{ value = "all", text = L["Every quest"] }, { value = "way", text = L["Only quests on my way"] },
-	}, L["For a dungeon the route runs: every one of its quests, the ones off the way too, or only the quests on your way."])
+	}, L["Every dungeon quest: be ready for more travelling. Dungeon quests are scattered across the world, so the route takes extra trips to pick them up and hand them in. Only quests on my way: the ones on stops the route makes anyway."])
 	W.CompactRow(quests, { height = ROW_H })
 	pop.questsH = W.LayoutRow(quests, WIDTH)
 	pop.Quests = quests
@@ -241,6 +266,38 @@ local function build()
 		if pop:IsShown() and (path == "behavior.dungeons" or path == "behavior.dungeonQuests" or path == "behavior" or path == "") then DR.Fill() end
 	end)
 	ns.On("DUNGEON_ANSWERED", function() if pop:IsShown() then DR.Fill() end end)
+end
+
+-- The warning comes before Every dungeon quest applies, from wherever it is
+-- chosen (the settings, this popover, the install): the choice waits as Only
+-- quests on my way until the player takes it. Turned on with Every dungeon
+-- quest already chosen (the default), it asks then, the route not walked
+-- yet. Once per account; never over the install, whose card says it.
+do
+	local holding = false
+	local function installing() return UI.Welcome and UI.Welcome.IsShown and UI.Welcome.IsShown() end
+	ns.On("SETTING_CHANGED", function(path, value)
+		if holding or not ns.IsLoggedIn() then return end
+		local dq = path == "behavior.dungeonQuests" and value == "all"
+		local on = path == "behavior.dungeons" and value ~= "skip" and ns.Get("behavior.dungeonQuests") == "all"
+		local db = accountDB()
+		if not (dq or on) or (type(db) == "table" and db.dungeonQuestsWarned) then return end
+		if installing() then warned(); return end
+		if dq then
+			holding = true
+			ns.Set("behavior.dungeonQuests", "way")
+			holding = false
+		end
+		DR.ConfirmEveryQuest(function()
+			holding = true
+			ns.Set("behavior.dungeonQuests", "all")
+			holding = false
+		end, function()
+			holding = true
+			ns.Set("behavior.dungeonQuests", "way")
+			holding = false
+		end)
+	end)
 end
 
 -- Open by `anchor` (the guide window's menu button), its right edges lined

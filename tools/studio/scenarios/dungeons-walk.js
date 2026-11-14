@@ -115,8 +115,8 @@ module.exports = {
 	place: skins.place,
 	guide: { id: 'forever/horde/02-the-barrens', play: 40 },
 	settings: { 'behavior.dungeons': 'skip', 'behavior.offerClassQuests': false },
-	// The game's Group Finder button, as the client has it (Find a group presses it).
-	setup: 'LFGMicroButton = LFGMicroButton or CreateFrame("Button", "LFGMicroButton", UIParent)',
+	// The game's Group Finder button; Every dungeon quest's one-time warning seen.
+	setup: 'LFGMicroButton = LFGMicroButton or CreateFrame("Button", "LFGMicroButton", UIParent)\nPolestar.DB().dungeonQuestsWarned = true',
 	window: skins.window,
 	stubs: skins.stubs,
 	art: skins.art,

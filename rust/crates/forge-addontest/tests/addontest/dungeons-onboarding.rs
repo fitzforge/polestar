@@ -557,7 +557,7 @@ fn dungeons_ahead_lists_each_dungeon_the_route_can_still_take_with_its_level_and
 	assert_eq!(carried[0]["picks"], 1, "Oh Brother. . . still to pick up");
 	let passed = engine("test/route", "skip", "", r#"take(7); take(15); Polestar.Set("behavior.dungeons", "run"); flush(); emit({ at = at(), ahead = ahead() })"#);
 	assert_eq!(passed["at"], 7, "the pick-ups passed with none taken");
-	assert_eq!(passed["ahead"], json!([]), "its run would not come: not listed");
+	assert_eq!(passed["ahead"], json!({}), "its run would not come: not listed");
 	let later = engine("test/first", "ask", "", "emit(ahead())");
 	assert_eq!(
 		later,
@@ -607,7 +607,7 @@ fn a_dungeon_run_takes_every_quest_and_only_quests_on_my_way_leaves_the_ones_off
 	assert_eq!(out["every"]["at"], 3, "every quest: the one off the way comes next");
 	assert_eq!(out["every"]["ahead"], json!([1, [1455], false, { "minutes": 14, "xp": 23100 }]));
 	assert_eq!(out["wayOnly"]["at"], 4, "only quests on my way: on to the run");
-	assert_eq!(out["wayOnly"]["s3"], "na");
+	assert_eq!(out["wayOnly"]["s3"], "skipped", "passed: not for this character");
 	assert_eq!(out["wayOnly"]["saved"], true);
 	assert_eq!(out["wayOnly"]["ahead"], json!([0, {}, true, { "minutes": 14, "xp": 23100 }]), "its quest off the way is no pick-up any more");
 	assert_eq!(out["wayOnly"]["total"].as_i64().unwrap() + 1, out["every"]["total"].as_i64().unwrap(), "its step has no number");
@@ -640,6 +640,54 @@ fn dungeon_quests_takes_every_quest_or_only_the_ones_on_the_way_and_a_dungeons_o
 	assert_eq!(style("way", ""), json!({ "at": 4, "wayOnly": true }), "only the ones on the way: on to the run");
 	assert_eq!(style("way", "E.ChooseDungeonWayOnly(36, false)"), json!({ "at": 3, "wayOnly": false }), "its own choice wins: every quest");
 	assert_eq!(style("all", "E.ChooseDungeonWayOnly(36, true)"), json!({ "at": 4, "wayOnly": true }), "its own choice wins: only on the way");
-	let off = engine("test/every", "skip", "", r#"take(7); emit({ s1 = st(1), s3 = st(3), s4 = st(4) })"#);
-	assert_eq!(off, json!({ "s1": "na", "s3": "na", "s4": "na" }), "dungeons off: none of its steps");
+	let off = engine("test/every", "skip", "", r#"take(7); emit({ at = at(), s1 = st(1), s3 = st(3), s4 = st(4) })"#);
+	assert_eq!(off, json!({ "at": 5, "s1": "skipped", "s3": "skipped", "s4": "skipped" }), "dungeons off: none of its steps");
+}
+
+// Fitz, 2026-11-14: Every dungeon quest warns before it applies, once per account: be ready for more travelling.
+// Chosen in the settings (or the popover), the choice waits as Only quests on my way until the player takes it;
+// turned on with it already chosen (the default), it asks then. After the first time it applies at once.
+#[test]
+fn every_dungeon_quest_warns_once_before_it_applies() {
+	let out = ui(r#"
+		local function q() return Polestar.Get("behavior.dungeonQuests") end
+		local function dialog() return W.ModalShown() and PolestarModal.Box.Text:GetText() or false end
+		Polestar.Set("behavior.dungeonQuests", "way")
+		Polestar.Set("behavior.dungeonQuests", "all")
+		local held = { q(), dialog() }
+		PolestarModal.Box.Action:Click()
+		local taken = { q(), W.ModalShown(), Polestar.DB().dungeonQuestsWarned }
+		Polestar.Set("behavior.dungeonQuests", "way")
+		Polestar.Set("behavior.dungeonQuests", "all")
+		local again = { q(), W.ModalShown() }
+		emit({ held = held, taken = taken, again = again })"#);
+	assert_eq!(
+		out["held"],
+		json!(["way", "Be ready for more travelling. Dungeon quests are scattered across the world, so the route takes extra trips to pick them up and hand them in."]),
+		"asked first, the choice waiting"
+	);
+	assert_eq!(out["taken"], json!(["all", false, true]));
+	assert_eq!(out["again"], json!(["all", false]), "once per account: no second warning");
+	let on = ui(r#"
+		Polestar.Set("behavior.dungeons", "run")
+		local asked = W.ModalShown()
+		PolestarModal.Box.Cancel:Click()
+		emit({ asked = asked, quests = Polestar.Get("behavior.dungeonQuests") })"#);
+	assert_eq!(on, json!({ "asked": true, "quests": "way" }), "turned on with Every dungeon quest: asked then; Only quests on my way chosen");
+}
+
+// With Ask me: answered Run at the dungeon's first pick-up (a plain `when dungeon` step), its every-quest step after it
+// applies with Every dungeon quest and is passed with Only quests on my way.
+#[test]
+fn ask_me_answered_run_then_the_every_quest_step_applies_or_is_passed_by_dungeon_quests() {
+	let run = |quests: &str| {
+		engine(
+			"test/every",
+			"ask",
+			"",
+			&format!(r#"Polestar.Set("behavior.dungeonQuests", "{quests}"); flush(); local asked = at(); E.ChooseDungeon(36, true); flush(); take(214); take(7); emit({{ asked = asked, at = at(), s3 = st(3) }})"#),
+		)
+	};
+	assert_eq!(run("all"), json!({ "asked": 1, "at": 3, "s3": "current" }));
+	assert_eq!(run("way"), json!({ "asked": 1, "at": 4, "s3": "skipped" }));
 }
