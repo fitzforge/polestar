@@ -5932,6 +5932,26 @@ test("Fyurie's report (#1550): Favor for Krazek never holds the route, while Myz
 	assert.ok(!motes.goal.optional, 'collecting the Motes of Myzrael still holds the step');
 });
 
+// The generated Searing Gorge guide picks up these records on the maintainer's next Forge build.
+test("Edet's report (#2300): Prayer to Elune never requires the elite camp, even with the quest already held", { skip }, () => {
+	const list = goals('forever/alliance/40-50/06-searing-gorge.guide');
+	const prayer = list.filter(({ goal }) => goal.quest === 3377);
+	assert.deepEqual(prayer.map(({ goal }) => goal.t), ['accept', 'talk', 'turnin'], 'keep the optional quest available');
+	assert.ok(prayer.every(({ goal }) => goal.optional), 'pickup, unfinished talk and hand-in must all let the route continue');
+	const { goal: talk } = prayer[1];
+	assert.deepEqual([talk.npc, talk.oi, talk.map, talk.x, talk.y], [8436, 1, 1427, 29.6, 26.3], 'keep the real talk target and coordinates');
+	for (const [verb, quest] of [['kill', 7724], ['accept', 3441], ['talk', 3441], ['turnin', 3441]]) {
+		const { goal } = list[at(list, `${verb} ${quest}`, is(verb, quest))];
+		assert.ok(!goal.optional, `${verb} ${quest} remains required`);
+	}
+});
+
+test("Edet's report (#2300): the route records keep the elite-camp quest optional and available", () => {
+	const fixes = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', 'route-fixes.json'), 'utf8'));
+	assert.ok(fixes.deliberate.optional.some((r) => r.q === 3377), 'the route excludes the visit from required progress');
+	assert.ok(!fixes.overrides.skip.some((r) => r.q === 3377), 'the quest remains available for players who choose to do it');
+});
+
 // Flow re-order (2026-11-07): Alliance Arathi took the tusks and pouches from the few Witherbark west of
 // Refuge Pointe and made a second trip to Witherbark Village for the knife.
 test(`${ARATHI}: flow re-order: Worth Its Weight in Gold in one visit to Witherbark Village`, { skip }, () => {

@@ -2,6 +2,42 @@
 	"about": "Step content that is neither data nor route, anchored on a quest's goal: a step's tip (tip), a goal's inline note (goalNote), a goal that never holds the route (optional: true), a level gate before the goal (level), the goal's step shown only from a level (when: \"level>=N\"), a take on the way (early: { after: { quest, goal }, title, when?, tip? }, an along step right after the step of `after` listing the accept and its objectives until the quest's own step), or a slow, zone-wide collection worked over the stay (background: { title, tip?, mobs, mention?, finish: { title, tip?, map, x, y } }, on an objective: an `along until … background` step from the accept to the hand-in, a finish step before the hand-in, the mention in the steps between that pass the mobs). at: { quest, goal: accept | turnin | complete | objective, objective? }. forge-writer applies each record to the guides it writes, every build; forge data check-corrections checks this file. A record with faction (Alliance or Horde) holds for that side's routes only. Each record has a note, its source ({ kind, ref }) and its issue or pr.",
 	"fixes": [
 		{
+			"id": "2300-prayer-to-elune-optional-pickup",
+			"faction": "Alliance",
+			"at": { "quest": 3377, "goal": "accept" },
+			"optional": true,
+			"note": "#2300: reaching Zamael requires entering an elite camp, so the solo route must not require this pickup. The quest remains available to players who choose the visit.",
+			"source": { "kind": "in-game-check", "ref": "#2300: Edet's in-game report of repeated deaths among elites at Zamael's camp" },
+			"issue": 2300
+		},
+		{
+			"id": "2300-prayer-to-elune-optional-story",
+			"faction": "Alliance",
+			"at": { "quest": 3377, "goal": "objective", "objective": 1 },
+			"optional": true,
+			"note": "#2300: Edet already carried unfinished 3377. Making only the pickup optional would still require the unsafe visit to hear Zamael's story. Preserve the talk objective and its correct coordinates, but let the route continue without it.",
+			"source": { "kind": "in-game-check", "ref": "#2300: Edet's report shows Talk to Zamael Lunthistle 0/1 for quest 3377 at 29.60,26.30" },
+			"issue": 2300
+		},
+		{
+			"id": "2300-prayer-to-elune-optional-handin",
+			"faction": "Alliance",
+			"at": { "quest": 3377, "goal": "turnin" },
+			"optional": true,
+			"note": "#2300: the route must not send a player carrying unfinished 3377 back to the elite camp through its hand-in. Unlike a safe town hand-in, this remains optional even when ready; players may select it and hand in manually.",
+			"source": { "kind": "in-game-check", "ref": "#2300: Edet's unsafe Zamael visit with unfinished 3377 already in the quest log" },
+			"issue": 2300
+		},
+		{
+			"id": "2300-prayer-to-elune-elite-camp-advice",
+			"faction": "Alliance",
+			"at": { "quest": 3377, "goal": "accept" },
+			"tip": "Zamael stands among level 48-51 Twilight elites. This visit is optional: skip it while alone, or return with a group to hear his story.",
+			"note": "#2300: replace the false 'stands alone' assurance. Independently corroborated by forever-db/data/npc.jsonl and spawn.jsonl: Twilight Idolater 8419 (49-51), Fire Guard 5861 (48-49) and Geomancer 5862 (49-50) are rank 1, within ten horizontal yards and 0.3 vertical yards of Zamael 8436 on world map 0. Quest 3377 itself remains a non-elite talk quest; neither its location nor quest type changes.",
+			"source": { "kind": "in-game-check", "ref": "#2300: Edet reports Zamael is surrounded by elites; the checked-in Forever NPC/spawn rows independently support the warning" },
+			"issue": 2300
+		},
+		{
 			"id": "1550-krazek-pickup-mining-advice",
 			"faction": "Alliance",
 			"at": { "quest": 627, "goal": "accept" },
