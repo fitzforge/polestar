@@ -90,6 +90,18 @@ fn captions_follow_the_direction_a_crossing_without_one_says_where_it_goes() {
 	assert_eq!(out, json!(["walk|Walk to West Vale", "walk|Walk to West Vale", "walk|Target"]));
 }
 
+// A character with the riding skill (line 762) reads "Ride to <zone>" where the walker reads "Walk to <zone>".
+#[test]
+fn a_character_who_can_ride_reads_ride_to_on_a_crossing_without_a_caption() {
+	let out = run(r#"
+		Polestar.Compat.GetSkillRank = function(line) if line == 762 then return 75, 75 end end
+		crossings()
+		nav.place(-500, -500)                            -- East Vale, heading west
+		target(-500, 500)
+		emit(route())"#);
+	assert_eq!(out, json!(["walk|Ride to West Vale", "walk|Ride to West Vale", "walk|Target"]));
+}
+
 #[test]
 fn an_open_ground_pair_walks_straight_across_the_border_a_one_way_pair_only_one_way() {
 	let out = run(r#"

@@ -128,10 +128,12 @@ local function placeName(p)
 	return nil
 end
 
--- A step's line: the planner's caption, else the kind's words and where it ends.
+-- A step's line: the planner's caption, else the kind's words and where it
+-- ends; a walk reads "Ride to" for a character who can ride (ns.CanRide).
 function JP.StepText(leg)
 	if nonEmpty(leg.label) then return leg.label end
-	return format(STEP_TEXT[leg.kind] or L["Go to %s"], placeName(leg.to) or L["the next stop"])
+	local text = leg.kind == "walk" and ns.CanRide() and L["Ride to %s"] or STEP_TEXT[leg.kind] or L["Go to %s"]
+	return format(text, placeName(leg.to) or L["the next stop"])
 end
 
 local function glyphOf(leg)
