@@ -11945,3 +11945,16 @@ test("Bennistrov's and Visur's report (#2207): the Dunemaul grind says why, and 
 	assert.match(text, /Ogres \(45-46\)/, 'the safer ogres');
 });
 
+// Route feel (0.4.0 audit): the boat from Auberdine lands below Rut'theran Village; the guide walked up to Daryn and
+// Erelas and then, before handing in, back down to Vesprystus for the flight path and up again (about 160 yd each way,
+// the hand-ins and Favored of Elune? some minutes later). The flight path is learned on the way up, first.
+test("Tanaris (Alliance 47): Rut'theran's flight path on the way up from the boat, then Daryn and Erelas (0.4.0 audit)", { skip }, () => {
+	const list = goals('forever/alliance/40-50/04-tanaris.guide');
+	const fp = at(list, "getfp Rut'theran", (g) => g.t === 'getfp' && g.location === "Rut'theran Village");
+	for (const [t, q] of [['turnin', 2939], ['turnin', 3022], ['accept', 3661]]) {
+		const i = at(list, `${t} ${q}`, is(t, q));
+		assert.ok(fp < i, `the flight path before ${t} ${q}`);
+		assert.notEqual(list[fp].s, list[i].s, `the flight path in its own step, before the ${t} ${q} stop`);
+	}
+});
+

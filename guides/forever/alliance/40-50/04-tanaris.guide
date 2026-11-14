@@ -245,15 +245,15 @@ step Fly to Auberdine
 
 step Teldrassil
   zone Teldrassil
-  tip Take the boat from Auberdine's dock to Rut'theran Village.
-  goto 55.4,92.2 "Rut'theran Village"
+  tip Take the boat from Auberdine's dock to Rut'theran Village; Vesprystus, the hippogryph master, stands on the rise just east of the landing: learn the flight path on the way up to the village.
+  goto 58.4,93.9 "Rut'theran Village flight master"
+  getfp "Rut'theran Village"
 
 # ---------------------------------------------------------------- Rut'theran Village and Darnassus
 
 step Rut'theran Village
   zone Teldrassil
   tip Daryn Lightwind stands upstairs, above Erelas Ambersky: go up inside, the arrow cannot tell the floors apart.
-  getfp "Rut'theran Village"
   turnin 2939                         -- Daryn Lightwind
   note Daryn's next errand goes to Tanaris: skip it.
   turnin 3022                         -- Erelas Ambersky
