@@ -68,6 +68,145 @@ Polestar.RegisterGuide({ id = "test/ashenvale", pack = "test", title = "Ashenval
 } })
 "#;
 
+// #1853: the Druid opening of Horde Stranglethorn Vale puts a bare flight and
+// Turak's training in one step. The navigation nodes use this file's fake world.
+const MIXED_FLIGHT: &str = r#"
+stub.world.class, stub.world.className, stub.world.level = "DRUID", "Druid", 36
+Polestar.Set("behavior.trainReminder", "off")
+Polestar.RegisterMapFrames({ era = { [1412] = { c = 1, left = 3000, right = -1000, top = -3000, bottom = -6000 } } })
+Polestar.RegisterGuide({ id = "test/mixed-flight", pack = "test", title = "Thunder Bluff", minLevel = 1, maxLevel = 60, steps = {
+	{ title = "Thunder Bluff", goals = {
+		{ t = "fly", location = "Thunder Bluff", node = 22 },
+		{ t = "train", class = true, npc = 3033, npcName = "Turak Runetotem", map = 1456, x = 76.48, y = 27.22 },
+	} },
+	{ title = "Fly to Astranaar", goals = { { t = "fly", location = "Astranaar", node = 28 } } },
+	{ title = "Astranaar", goals = { { t = "accept", quest = 1008, title = "The Zoram Strand", npc = 3880, map = 1440, x = 34.7, y = 48.8 } } },
+} })
+"#;
+
+#[test]
+fn a_flight_before_training_in_the_same_step_leads_to_its_landing_and_keeps_the_training_1853() {
+	for known in [true, false] {
+		let out = run(
+			MIXED_FLIGHT,
+			&format!(
+				r#"
+				KNOWN[22] = {known}
+				E.SetGuide("test/mixed-flight"); flush()
+				local function at()
+					local wp, v = E.GetWaypoint(), E.GetStepView(1)
+					return {{ E.GetStepIndex(), wp and wp.kind or false, wp and wp.goalIndex or false,
+						wp and wp.map or false, v.goals[1].status, v.goals[2].status }}
+				end
+				local r = {{ lead = at() }}
+				stub.world.moveTo(1412, 47, 50); stub.advance(1)
+				r.landed = at()
+				stub.world.trainer(3033); stub.world.learnSpell(774); flush()
+				r.trained = at()
+				emit(r)
+				"#
+			),
+		);
+		assert_eq!(out["lead"], json!([1, "fly", 1, 1412, "active", "active"]), "known={known}: {out}");
+		assert_eq!(out["landed"], json!([1, "train", 2, 1456, "done", "active"]), "known={known}: {out}");
+		assert_eq!(out["trained"], json!([2, "fly", 1, 1440, "done", "done"]), "known={known}: {out}");
+	}
+}
+
+#[test]
+fn earlier_work_keeps_its_waypoint_before_a_mixed_flight_1853() {
+	let guides = MIXED_FLIGHT.replace(
+		"{ t = \"fly\", location = \"Thunder Bluff\", node = 22 },",
+		r#"{ t = "accept", quest = 1436, title = "Alliance Relations", npc = 5641, map = 1442, x = 70, y = 50 },
+		{ t = "goto", map = 1442, x = 36.4, y = 7.2, text = "Stonetalon Peak flight master" },
+		{ t = "fly", location = "Thunder Bluff", node = 22 },"#,
+	);
+	let out = run(
+		&guides,
+		r#"
+		KNOWN[22] = true
+		E.SetGuide("test/mixed-flight"); flush()
+		local function at()
+			local wp = E.GetWaypoint()
+			return { wp and wp.kind or false, wp and wp.goalIndex or false, wp and wp.map or false }
+		end
+		local r = { before = at() }
+		stub.world.accept(1436, {}); flush()
+		r.accepted = at()
+		emit(r)
+		"#,
+	);
+	assert_eq!(out, json!({ "before": ["accept", 1, 1442], "accepted": ["fly", 3, 1412] }));
+}
+
+#[test]
+fn a_mixed_flight_does_not_aim_an_optional_or_inapplicable_flight_1853() {
+	let guides = MIXED_FLIGHT.replace(
+		"{ t = \"fly\", location = \"Thunder Bluff\", node = 22 },",
+		r#"{ t = "fly", location = "Auberdine", node = 26, optional = true },
+		{ t = "fly", location = "Astranaar", node = 28, only = { classes = { "MAGE" } } },
+		{ t = "fly", location = "Thunder Bluff", node = 22 },"#,
+	);
+	let out = run(
+		&guides,
+		r#"
+		KNOWN[22] = true
+		E.SetGuide("test/mixed-flight"); flush()
+		local function at()
+			local wp = E.GetWaypoint()
+			return { wp and wp.kind or false, wp and wp.goalIndex or false, wp and wp.map or false, E.GetStepView(1).current }
+		end
+		local r = { before = at() }
+		assert(E.SkipGoal(1, 1)); flush()
+		r.skipped = at()
+		emit(r)
+		"#,
+	);
+	assert_eq!(out, json!({ "before": ["fly", 3, 1412, 3], "skipped": ["fly", 3, 1412, 3] }));
+}
+
+#[test]
+fn a_mixed_flight_without_a_landing_does_not_aim_a_later_flight_1853() {
+	let guides = MIXED_FLIGHT.replace(
+		"{ t = \"fly\", location = \"Thunder Bluff\", node = 22 },",
+		r#"{ t = "fly", location = "Thunder Bluff", node = 22 },
+		{ t = "fly", location = "Astranaar", node = 28 },"#,
+	);
+	let out = run(
+		&guides,
+		r#"
+		NODES[22] = nil
+		E.SetGuide("test/mixed-flight"); flush()
+		emit({ E.GetWaypoint() or false, E.GetStepView(1).current })
+		"#,
+	);
+	assert_eq!(out, json!([false, 1]));
+}
+
+#[test]
+fn a_mixed_flight_keeps_the_named_departure_when_the_planner_is_not_leading_1853() {
+	let guides = MIXED_FLIGHT.replace(
+		"{ t = \"fly\", location = \"Thunder Bluff\", node = 22 },",
+		r#"{ t = "goto", map = 1442, x = 36.4, y = 7.2, text = "Stonetalon Peak flight master" },
+		{ t = "fly", location = "Thunder Bluff", node = 22 },"#,
+	);
+	for setup in [r#"Polestar.Set("nav.travel", false)"#, r#"Polestar.Set("nav.arrow", false)"#, "TOMTOM = true", "Polestar.Nav.HandedOff = function() return true end"] {
+		let out = run(
+			&guides,
+			&format!(
+				r#"
+				KNOWN[22] = true
+				{setup}
+				E.SetGuide("test/mixed-flight"); flush()
+				local wp = E.GetWaypoint()
+				emit({{ wp and wp.kind or false, wp and wp.goalIndex or false, wp and wp.map or false }})
+				"#
+			),
+		);
+		assert_eq!(out, json!(["goto", 1, 1442]), "{setup}: {out}");
+	}
+}
+
 #[test]
 fn a_walk_to_the_flight_master_passes_and_the_flight_step_leads_to_its_end_so_the_route_flies_there_directly_1191() {
 	let out = run(

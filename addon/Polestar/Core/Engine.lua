@@ -8970,10 +8970,19 @@ function Own.flightJudged(s)
 end
 
 -- Flight step s's flight the arrow leads to the end of (see above): its goal,
--- index and landing node; nil to lead as written.
+-- index and landing node; nil to lead as written. Work after the flight may
+-- share its step (#1853: fly to Thunder Bluff, then train); work before it
+-- still leads first. Only the travel prefix is aimed, not passed as done.
 function Own.flyAimed(s)
-	if not (Own.plannerFlies() and Own.transitKind(s) == "fly") then return nil end
-	local goal, g = Own.flyGoal(s)
+	if not Own.plannerFlies() then return nil end
+	local goal, g
+	for j, other in ipairs(guide.steps[s].goals) do
+		if blocks(other) and goalApplies(other) and not unavailableFor(other) and not Own.goalSkipped(s, j)
+			and not Own.lostGoal(other) and not goalDone(s, j, other) then
+			if other.t == "fly" then goal, g = other, j break end
+			if other.t ~= "goto" then return nil end
+		end
+	end
 	local node = Own.knownLanding(goal) or Own.unknownLanding(goal)
 	if not (node and node.map and node.x and node.y) then return nil end
 	return goal, g, node
