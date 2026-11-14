@@ -785,20 +785,22 @@ end
 
 -- Step i of the active guide as the player counts it: steps that do not
 -- exist for the character (another class's or race's, Engine.StepNumber)
--- left out (#942); whether it is such a step; how many the player sees.
-function UI.StepNo(i)
-	local E = ns.Engine
+-- left out (#942); whether it is such a step; how many the player sees. `E`:
+-- what to ask instead of the Engine (a guide window's content, which answers
+-- as the Engine does).
+function UI.StepNo(i, E)
+	E = E or ns.Engine
 	if E and E.StepNumber and type(i) == "number" then return (E.StepNumber(i)) end
 	return i
 end
-function UI.StepHidden(i)
-	local E = ns.Engine
+function UI.StepHidden(i, E)
+	E = E or ns.Engine
 	if not (E and E.StepNumber and type(i) == "number") then return false end
 	local _, hidden = E.StepNumber(i)
 	return hidden == true
 end
-function UI.StepTotal()
-	local E = ns.Engine
+function UI.StepTotal(E)
+	E = E or ns.Engine
 	if E and E.StepTotal then return E.StepTotal() end
 	return E and E.GetStepCount and E.GetStepCount() or 0
 end
@@ -928,12 +930,22 @@ end
 -- sight (ns.OutOfSight) stays on: turning it off would take away only the
 -- action buttons, the one part still seen. The toggle says why the window is
 -- not seen instead, as it and /polestar show do after showing one that stays
--- out of sight.
+-- out of sight. Paused, Polestar resumes (Core/Init.lua) and shows the
+-- window: inside, a ui.shown set again opens it for the visit (GuideFrame.lua's
+-- APPLY), as /polestar show does.
 local function windowOutOfSight()
 	local GF = UI.GuideFrame
 	return GF ~= nil and ns.OutOfSight(GF.frame)
 end
+local function resumeForWindow()
+	if not ns.PauseHides("window") then return false end
+	ns.SetHidden(false)
+	ns.SetPaused(false, "window")
+	ns.Set("ui.shown", true)
+	return true
+end
 ns.On("TOGGLE_FRAME", function()
+	if resumeForWindow() then return end
 	if ns.Hidden() then
 		ns.SetHidden(false)
 		if not ns.Get("ui.shown") then ns.Set("ui.shown", true) end
@@ -948,6 +960,7 @@ ns.On("TOGGLE_FRAME", function()
 	if windowOutOfSight() then ns.SayOutOfSight() end
 end)
 ns.On("SHOW_FRAME", function()
+	if resumeForWindow() then return end
 	ns.SetHidden(false)
 	ns.Set("ui.shown", true)
 	if windowOutOfSight() then ns.SayOutOfSight() end

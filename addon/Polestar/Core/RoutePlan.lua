@@ -22,7 +22,11 @@ local function nextGuide(g, player)
 		-- An option with `when` (nextWhen) is decided at the hand-off, on the
 		-- character as they are then: not yet known here.
 		local cond = g.nextWhen ~= nil and g.nextWhen[id] ~= nil
-		if not target then
+		-- An experimental offer (Guides.ExperimentalOffer) is the route only
+		-- once taken: chosen, and its guide in (Engine, Own.offerTaken).
+		if G.ExperimentalOffer(g, id) then
+			if id == remembered and target and not cond then return id, false end
+		elseif not target then
 			unloaded = true
 			if id == remembered and not cond then return id, false end
 		elseif G.GuideMatches(target, player) then

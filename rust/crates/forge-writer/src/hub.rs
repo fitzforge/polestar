@@ -699,9 +699,9 @@ const TRIP_MIN_YD: f64 = 600.0;
 /// spot, which the route comes back for only after it has left, is done there: before the flight, or
 /// on landing, the travel going with the first of them (the walk on to the event after them is the
 /// event's own). Sen'jin Village's hand-ins on the deathskip's landing before Kolkar Crag, not after
-/// it (c19 Orc durotar:384, Rev19-H A2); Mebok's at Ratchet on landing (Rev19-H B2);
+/// it (c19 Orc durotar:384, c19 review A2); Mebok's at Ratchet on landing (c19 review B2);
 /// Nathaniel Dumah's beside Chillwind Camp's flight master before the flight to Southshore, not two
-/// zones later (c19 Alliance 06-silithus:657, Rev19-A).
+/// zones later (c19 Alliance 06-silithus:657, c19 review).
 fn ready_where_you_stand(t: &Tour, mut order: Vec<Order>, log: &mut Vec<String>) -> Vec<Order> {
 	let mut x = 1;
 	while x < order.len() {
@@ -914,7 +914,7 @@ fn hub_visits(t: &Tour, hub_of: &FxHashMap<u32, usize>, mut order: Vec<Order>, l
 		// (A hand-in the route comes back for after leaving, at an NPC outside the hub but within
 		// LEAVE_YD of where the visit stands, joins it too: Ozwin's isosprings, 160 yd from Saldean,
 		// handed in at the Saldean's Farm stop, not after the walk to Furlbrow's and back, c19 Alliance
-		// 02-westfall:227, Rev19-A.) Not one whose NPC the route comes back to later anyway: J.D. Collie's
+		// 02-westfall:227, c19 review.) Not one whose NPC the route comes back to later anyway: J.D. Collie's
 		// Linken's Memory, which he gives after it, was left for that later stop, a trip of its own.
 		let here: Vec<Pt> = order[i..j].iter().filter(|o| t.at_npc(o)).filter_map(|o| t.pos(o)).collect();
 		let near = |o: &Order, after: &[Order]| {
@@ -1086,7 +1086,7 @@ fn sweep(t: &Tour, order: &mut [Order], i: usize, j: usize, lvl0: f64) {
 	let solve = |stops: &[Vec<usize>]| -> Option<(f64, f64, Vec<usize>)> {
 		let mut pred = preds(stops)?;
 		// (A delivery whose item runs out leads the visit, after its way in: Durnan's Scalding Mornbrew
-		// before Anvilmar's other NPCs, RevDwarfGnome3.)
+		// before Anvilmar's other NPCs.)
 		if let Some(s0) = stops.iter().position(|s| s.iter().any(|&k| t.timed(&order[ev[k]]))) {
 			let way_in = travels(first).then(|| stops.iter().position(|s| s.contains(&0))).flatten();
 			for b in 0..stops.len() {
@@ -1295,7 +1295,7 @@ mod tour_tests {
 
 	#[test]
 	fn hand_ins_ready_where_a_deathskip_lands_are_done_on_landing() {
-		// c19 Orc durotar:384 (Rev19-H A2): the deathskip lands in Sen'jin Village with Vel'rin's hand-in
+		// c19 Orc durotar:384 (c19 review A2): the deathskip lands in Sen'jin Village with Vel'rin's hand-in
 		// ready beside the Spirit Healer; the route went on to Kolkar Crag (600 yd) and handed it in on
 		// the way back.
 		let w = world(
@@ -1323,7 +1323,7 @@ mod tour_tests {
 
 	#[test]
 	fn hand_ins_ready_by_the_flight_master_are_done_before_the_flight() {
-		// c19 Alliance 06-silithus:657 (Rev19-A): Nathaniel Dumah stands beside Chillwind Camp's flight
+		// c19 Alliance 06-silithus:657 (c19 review): Nathaniel Dumah stands beside Chillwind Camp's flight
 		// master; the route flew to Southshore with his hand-in ready and came back for it much later.
 		let mut w = world(
 			&[(0.0, 0.0), (5.0, 0.0), (800.0, 0.0), (5000.0, 0.0), (4900.0, 0.0)],
@@ -1356,7 +1356,7 @@ mod tour_tests {
 
 	#[test]
 	fn a_hand_in_ready_beside_a_visit_joins_it() {
-		// c19 Alliance 02-westfall:227 (Rev19-A): Ozwin, 160 yd from Saldean, with his isosprings ready at
+		// c19 Alliance 02-westfall:227 (c19 review): Ozwin, 160 yd from Saldean, with his isosprings ready at
 		// the Saldean's Farm stop; the route walked to Furlbrow's and came back for him.
 		let w = world(
 			&[(0.0, 0.0), (0.0, 160.0), (50.0, -400.0), (900.0, 0.0)],

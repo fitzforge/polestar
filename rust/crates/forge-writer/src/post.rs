@@ -623,7 +623,7 @@ pub fn play_order(chain: &[String], median: &dyn Fn(&str) -> Option<usize>) -> V
 /// A step for a quest the route does not take, written before that quest's accept: a step `when
 /// onquest Q`, or one whose every goal collects a quest item that drops only for Q (`item_quest`):
 /// the Druids' Strange Lockbox (the Half Pendant, Trial of the Sea Lion's) at 15.5, before the Moonglade
-/// accept, so the box held nothing and the Druids reached Moonglade at 23 without it, c15 Rev15H1. It
+/// accept, so the box held nothing and the Druids reached Moonglade at 23 without it, c15 review. It
 /// goes, whole, to the end of the first step after the accept that stands near it (`place`, within
 /// `near_yd`), else right after the accept's step. Only into a guide whose players include its own's;
 /// where its players' guides have no such step, it stays, `when onquest Q`. `files` are in play order
@@ -829,7 +829,7 @@ pub fn first_visit_flight_paths(
 /// accept moves to right after the accept; a step left with no goal goes. A hand-in whose ender
 /// stands elsewhere goes instead to the end of the first step after the accept that stands by the
 /// ender (`place`: a line's NPC points), when one comes: c15's Orgrimmar training wrote Ruga's 1823
-/// and Islen's 1528 right after Sorek's and Searn's accepts, a flight to Camp Taurajo and back, Rev15H1.
+/// and Islen's 1528 right after Sorek's and Searn's accepts, a flight to Camp Taurajo and back, c15 review.
 /// A moved line takes its step's `only` when it has none of its own.
 pub fn fix_order(files: &mut [String], in_route: &FxHashSet<u32>, may: &dyn Fn(usize, usize) -> bool, place: &dyn Fn(&str) -> Vec<crate::input::Pt>) {
 	let texts = split_lines(files);
@@ -886,7 +886,7 @@ pub fn fix_order(files: &mut [String], in_route: &FxHashSet<u32>, may: &dyn Fn(u
 			};
 			// (Its audience: the accept's, the line's own `only` with its step's, that it follows; with
 			// none, its own step's. The Tauren Shamans' Telf 1525 taken in the shared Barrens, its Orc
-			// guide hand-in moved there `only Shaman`, sent Orc and Skyborne Shamans to Telf, c15 Rev15SkyH.)
+			// guide hand-in moved there `only Shaman`, sent Orc and Skyborne Shamans to Telf, c15 review.)
 			let (ab, a_end) = step_of(afi, ali);
 			// (By kind: the accept line's races, else its step's; its classes, else its step's. Sorek's
 			// `accept 1823 only Warrior` in a step for seven classes is the Warriors'.)
@@ -3007,7 +3007,7 @@ pub fn detour_hand_ins(files: &mut [(String, Vec<String>)], world: &World) -> us
 	let mut adds: Vec<(usize, String)> = Vec::new();
 	let mut sets: FxHashMap<usize, String> = FxHashMap::default();
 	// (The quests a class's detour already hands in: not again at its next step beside the same NPC,
-	// the Warlocks' 876 at Gazrog's two Crossroads steps, c14 Rev14H1 A2.)
+	// the Warlocks' 876 at Gazrog's two Crossroads steps, c14 review A2.)
 	let mut added: FxHashSet<(u32, String)> = FxHashSet::default();
 	for (s0, s1, sa) in &steps {
 		// (A class's own step: classes, no races.)
@@ -3373,7 +3373,7 @@ mod tests {
 
 	#[test]
 	fn a_class_accept_waits_for_its_prerequisite_handed_in_in_a_later_guide() {
-		// RevH1-3 F3: News of Dogran (1510) taken in the Barrens before Gan'rul's hand-in of its
+		// Review F3: News of Dogran (1510) taken in the Barrens before Gan'rul's hand-in of its
 		// prerequisite (1509) in the next guide.
 		let q: crate::input::Quest = serde_json::from_value(serde_json::json!({ "pre": [1509] })).unwrap();
 		let mut data = Data::default();
@@ -3494,7 +3494,7 @@ mod tests {
 
 	#[test]
 	fn an_only_list_names_only_the_classes_the_guides_races_play() {
-		// RevSkyA3 W3: `only Warrior,Paladin,Hunter,Rogue,Priest,Shaman,Warlock` in the Skyborne isle guide.
+		// Review W3: `only Warrior,Paladin,Hunter,Rogue,Priest,Shaman,Warlock` in the Skyborne isle guide.
 		let playable = |r: &str| if r == "Skyborne" { ["Warrior", "Hunter", "Rogue", "Mage", "Druid"].map(String::from).to_vec() } else { Vec::new() };
 		let t = "guide g\nrace Skyborne\n\nstep A\n  only Warrior,Paladin,Hunter,Rogue,Priest,Shaman,Warlock\n  train class\n  accept 1 only Mage,Priest\n  accept 2 only Priest";
 		let out = playable_only(t, &playable).unwrap();
@@ -3778,7 +3778,7 @@ mod tests {
 
 	#[test]
 	fn hand_ins_go_before_a_level_gate_for_class_accepts() {
-		// c14 Razor Hill (Rev14OrcTroll A1): `level 10 only Warrior`, the class accepts, then Gar'Thok's and
+		// c14 Razor Hill (c14 review A1): `level 10 only Warrior`, the class accepts, then Gar'Thok's and
 		// Cook Torka's hand-ins, whose experience is what reaches 10. The hand-ins first.
 		let mut f = vec!["guide t/a\n\nstep Razor Hill\n  accept 837\n  level 10 only Warrior\n  accept 1505 only Warrior\n  level 10 only Shaman\n  accept 2983 only Shaman\n  turnin 825\n  accept 9\n  turnin 9\n  turnin 815\n\nstep Next\n  level 12\n  turnin 7\n".to_string()];
 		hand_ins_before_level_gate(&mut f);
@@ -3790,7 +3790,7 @@ mod tests {
 
 	#[test]
 	fn a_class_detour_hands_in_a_quest_once() {
-		// c14 Orc 04-the-barrens (Rev14H1 A2): the Warlocks' two steps at Gazrog, beside Darsok, each
+		// c14 Orc 04-the-barrens (c14 review A2): the Warlocks' two steps at Gazrog, beside Darsok, each
 		// handed in 876.
 		let world: World = serde_json::from_value(serde_json::json!({
 			"points": [[1, 1, 0, 0, 1413], [1, 1, 5000, 0, 1413], [1, 1, 5040, 0, 1413]],
@@ -3855,7 +3855,7 @@ mod tests {
 
 	#[test]
 	fn a_hand_in_before_its_accept_goes_to_the_next_step_by_its_ender() {
-		// c15 Horde 04-the-barrens (Rev15H1): Sorek's 1823 taken at the Orgrimmar training, Ruga's
+		// c15 Horde 04-the-barrens (c15 review): Sorek's 1823 taken at the Orgrimmar training, Ruga's
 		// hand-in (Camp Taurajo) written right after it, a flight there and back; and Islen's 1528 for
 		// the Shamans. They go to the route's next step by their ender, with their step's `only`.
 		let pt = |x: f64| crate::input::Pt { c: 1, wx: x, wy: 0.0, map: 1413 };
@@ -3875,7 +3875,7 @@ mod tests {
 		];
 		fix_order(&mut files, &[5, 882].into_iter().collect(), &|_, _| true, &place);
 		let first = files[0].clone();
-		// The Tauren Shamans' Telf 1525 (Rev15SkyH): an Orc guide's hand-in `only Shaman` moved after the
+		// The Tauren Shamans' Telf 1525 (c15 review): an Orc guide's hand-in `only Shaman` moved after the
 		// shared accept for Tauren Shamans takes that audience, and none is added where one follows.
 		let mut tel =
 			vec!["guide o\n\nstep Telf\n  only Shaman\n  turnin 1525\n".to_string(), "guide s\n\nstep Telf\n  only Tauren,Shaman\n  accept 1525 only Tauren\n\nstep Away\n  accept 5\n".to_string()];
@@ -3921,7 +3921,7 @@ mod tests {
 
 	#[test]
 	fn a_step_for_a_quest_not_yet_taken_goes_after_its_accept_near_its_place() {
-		// c15 Horde (Rev15H1): the Druids' Strange Lockbox (`collect 15883`, the Half Pendant, a quest
+		// c15 Horde (c15 review): the Druids' Strange Lockbox (`collect 15883`, the Half Pendant, a quest
 		// item of Trial of the Sea Lion, 30) at 15.5, before the Moonglade accept; and a seed step `when
 		// onquest 30` placed there too. Both go after the accept, to the Sludge Fen pass.
 		let pt = |x: f64| crate::input::Pt { c: 1, wx: x, wy: 0.0, map: 1413 };
@@ -3946,7 +3946,7 @@ mod tests {
 
 	#[test]
 	fn the_chain_is_read_in_the_routes_order_not_the_files() {
-		// #1386 (T1386): Silverpine (12-15) is played before the Barrens (15-21), but the chain had the
+		// #1386: Silverpine (12-15) is played before the Barrens (15-21), but the chain had the
 		// Barrens first, so the Barrens' accept of Trial of the Sea Lion (30) read as coming before
 		// Silverpine's Strange Lockbox step (15882, a quest item that drops only with 30 in the log),
 		// which stayed at 12-15 with nothing to open it for.
@@ -4103,7 +4103,7 @@ mod tests {
 	#[test]
 	fn a_riding_lesson_holds_from_level_40() {
 		// c19 Orc 40-50/02-feralas:99: the Orgrimmar riding step at about 38 told the player to learn
-		// riding from Kildar, who cannot teach them yet (Rev19-H A1).
+		// riding from Kildar, who cannot teach them yet (c19 review A1).
 		let mut data = Data::default();
 		data.npcs.insert(4752, serde_json::from_value(serde_json::json!({ "name": "Kildar", "subName": "Wolf Riding Instructor" })).unwrap());
 		data.npcs.insert(3353, serde_json::from_value(serde_json::json!({ "name": "Grezz Ragefist", "subName": "Warrior Trainer" })).unwrap());

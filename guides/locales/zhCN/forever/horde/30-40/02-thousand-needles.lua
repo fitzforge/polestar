@@ -109,7 +109,7 @@ return {
 	-- Step 21: Mirage Raceway
 	["South-west back to the raceway."] = "向西南返回赛道。",
 	-- {npc:4452} Kravel Koalbeard · {quest:1111} Wharfmaster Dizzywig · {area:392} Ratchet
-	["{npc:4452}: his parts order goes to {quest:1111} in {area:392}, later on the route"] = "",
+	["{npc:4452}: his parts order goes to {quest:1111} in {area:392}, later on the route"] = "{npc:4452}：他的零件订单要交给{area:392}的{quest:1111}，后续路线会去",
 	-- {npc:4454} Fizzle Brassbolts · {zone:1418} Badlands
 	["{npc:4454}: his letter goes to Martek in the {zone:1418}, at 39"] = "{npc:4454}：他的信要交给{zone:1418}的流放者马特克，39级时会去",
 	-- {npc:4630} Pozzik · {area:392} Ratchet
@@ -119,7 +119,7 @@ return {
 	["Level 32.5"] = "32.5级",
 	-- {zone:1443} Desolace · {area:796} Scarlet Monastery
 	-- plural, as words: Sparkleshell Snappers = {npc:4143} Sparkleshell Snapper
-	["{zone:1443}'s quests are 33-38. Still below 32.5 after the raceway's hand-ins? Keep killing the Sparkleshell Snappers on the flats just north of the raceway until level 32.5. Or, with a group, run the {area:796} dungeon (Graveyard or Library) instead."] = "",
+	["{zone:1443}'s quests are 33-38. Still below 32.5 after the raceway's hand-ins? Keep killing the Sparkleshell Snappers on the flats just north of the raceway until level 32.5. Or, with a group, run the {area:796} dungeon (Graveyard or Library) instead."] = "{zone:1443}的任务适合33-38级。交还赛道的任务后仍未到32.5级，就在赛道正北的平原上继续击杀盐壳钳嘴龟，直到32.5级；也可以组队刷{area:796}副本的墓地或图书馆。",
 	-- plural, as words: Sparkleshell Snappers = {npc:4143} Sparkleshell Snapper
 	["Sparkleshell Snappers"] = "盐壳钳嘴龟",
 	-- {npc:4143} Sparkleshell Snapper
@@ -151,9 +151,9 @@ return {
 	-- {npc:11596} Smeed Scrabblescrew · {item:13892} Kodo Kombobulator · {npc:4702} Ancient Kodo
 	["Use {npc:11596}'s {item:13892} on an Aged, Dying or {npc:4702} in the graveyard and walk the tamed kodo back to {npc:11596}. At his camp, talk to the kodo: that counts it and lets you tame the next. Five kodos, one at a time."] = "在墓地对老迈的科多兽、濒死的科多兽或{npc:4702}使用{npc:11596}的{item:13892}，把驯服的科多兽带回{npc:11596}身边。到营地后与科多兽对话，才会计入进度并让你驯服下一只。共需五只，每次带一只。",
 	-- {npc:4702} Ancient Kodo
-	["on an Aged, Dying or {npc:4702} in the graveyard; don't kill it"] = "",
+	["on an Aged, Dying or {npc:4702} in the graveyard; don't kill it"] = "对墓地里的老迈的科多兽、濒死的科多兽或{npc:4702}使用；不要击杀",
 	-- {npc:11596} Smeed Scrabblescrew
-	["the tamed kodo, at {npc:11596}'s camp: talk to it, five times"] = "",
+	["the tamed kodo, at {npc:11596}'s camp: talk to it, five times"] = "把驯服的科多兽带到{npc:11596}的营地，与它交谈；重复五次",
 
 	-- Step 30: Level 33
 	["Level 33"] = "33级",
@@ -167,13 +167,13 @@ return {
 
 	-- Step 31: Shadowprey Village
 	-- {area:606} Gelkis Village · {npc:268705} Aka'rai · {quest:97265} Hate the Hatefury
-	["Head west to the troll village on the coast, keeping clear of the {area:606} on the way. {npc:268705} stands on the path just north of the village.\n{npc:268705} may not be here on Forever: if {npc:268705} doesn't offer {quest:97265}, skip it."] = "",
+	["Head west to the troll village on the coast, keeping clear of the {area:606} on the way. {npc:268705} stands on the path just north of the village.\n{npc:268705} may not be here on Forever: if {npc:268705} doesn't offer {quest:97265}, skip it."] = "向西前往海岸上的巨魔村庄，途中避开 {area:606}。{npc:268705} 站在村子北边不远的小路上。\n{npc:268705} 在无限版本中可能不在这里：如果 {npc:268705} 没有提供 {quest:97265}，就跳过。",
 	-- {npc:268705} Aka'rai · {area:603} Sargeron
 	["{npc:268705}: the Hatefury satyrs of {area:603}, later in this guide"] = "{npc:268705}：目标是{area:603}的怨怒萨特，本指南稍后会去",
 	-- {npc:11877} Roon Wildmane · {quest:5762} Hemet Nesingwary
 	["{npc:11877}: for {quest:5762} in Stranglethorn, next guide"] = "{npc:11877}：交给荆棘谷的{quest:5762}，下篇指南会去",
 	-- {npc:6726} Thalon
-	["{npc:6726}, at the village's south-west end"] = "",
+	["{npc:6726}, at the village's south-west end"] = "{npc:6726}，在村庄西南端",
 
 	-- Step 32: Ethel Rethor
 	-- {area:2405} Ethel Rethor · {npc:11863} Azore Aldamort · {area:599} Thunder Axe Fortress · {area:2406} Ranazjar Isle
@@ -181,10 +181,10 @@ return {
 
 	-- Step 33: Thunder Axe Fortress
 	-- {area:599} Thunder Axe Fortress · {item:6436} Burning Gem · {item:6435} Infused Burning Gem · {npc:13019} Burning Blade Seer · {item:20310} Flayed Demon Skin · {quest:5381} Hand of Iruxos · {item:14523} Demon Pick · {object:176581} Hand of Iruxos Crystal (no name in this language: may be words) · {npc:11876} Demon Spirit · {item:13542} Demon Box
-	["Head east to {area:599}. Beat a Burning Blade cultist down, then use the {item:6436} on it before it dies to fill one {item:6435}. The {npc:13019} stands on the fortress's top floor with the Sceptre. The cultists also drop a {item:20310} now and then (1-5%); if one drops, read it. {quest:5381}: clear the middle of the largest building, then use the {item:14523} on the red {object:176581} there. A {npc:11876} (37) comes out: kill it for the {item:13542}."] = "",
+	["Head east to {area:599}. Beat a Burning Blade cultist down, then use the {item:6436} on it before it dies to fill one {item:6435}. The {npc:13019} stands on the fortress's top floor with the Sceptre. The cultists also drop a {item:20310} now and then (1-5%); if one drops, read it. {quest:5381}: clear the middle of the largest building, then use the {item:14523} on the red {object:176581} there. A {npc:11876} (37) comes out: kill it for the {item:13542}."] = "向东前往{area:599}。将一名火刃教徒打至残血，在其死亡前使用{item:6436}，灌满一个{item:6435}。{npc:13019}带着权杖站在堡垒顶层。教徒偶尔也会掉落{item:20310}（1-5%）；拾取后阅读。{quest:5381}：先清理最大建筑中央的怪物，再对那里的红色{object:176581}使用{item:14523}。随后会出现一只{npc:11876}（37级），击杀它取得{item:13542}。",
 	["On the top floor"] = "在最顶层",
 	-- {item:14523} Demon Pick · {object:176581} Hand of Iruxos Crystal (no name in this language: may be words)
-	["{item:14523}, on the {object:176581}"] = "",
+	["{item:14523}, on the {object:176581}"] = "{item:14523}，在{object:176581}上",
 
 	-- Step 34: Ethel Rethor
 	-- {npc:11863} Azore Aldamort
@@ -200,9 +200,9 @@ return {
 	-- plural, as words: Giant Softshell Clams = {object:177784} Giant Softshell Clam · Enraged Reef Crawlers = {npc:12347} Enraged Reef Crawler · Drysnap Crawlers = {npc:11562} Drysnap Crawler
 	["West to the shore. Giant Softshell Clams lie in the shallows and the Enraged Reef Crawlers walk the beach: each clam you open on the sea floor, and some crawlers, give a {item:15874}. Open each one in your bags for its meat.\nThe Drysnap Crawlers and Pincers on the same beach carry {item:15878}, about one in seven."] = "向西前往海岸。巨型软壳蚌分布在浅水中，狂怒的暗礁蟹在沙滩上行走：在海底打开的每个蚌，以及部分暗礁蟹，都会给你一个{item:15874}。在背包里逐个打开，取出蚌肉。\n同一片沙滩上的旱钳蟹和旱钳巨蟹身上带着{item:15878}，大约每七只掉一把。",
 	-- plural, as words: Giant Softshell Clams = {object:177784} Giant Softshell Clam
-	["Giant Softshell Clams, on the sea floor"] = "",
+	["Giant Softshell Clams, on the sea floor"] = "巨型软壳蚌，在海底",
 	-- {item:15874} Soft-shelled Clam
-	["{item:15874}: open it in your bags"] = "",
+	["{item:15874}: open it in your bags"] = "{item:15874}：在背包中打开",
 	["Underwater"] = "在水下",
 	-- {item:15878} Rackmore's Silver Key
 	["{item:15878}, from the Drysnap crabs"] = "{item:15878}，击杀干钳蟹获取",
@@ -259,7 +259,7 @@ return {
 	-- ["Head north up the coast. Giant Softshell Clams lie in the shallows and the Enraged Reef Crawlers walk the beach; open each clam in your bags for its meat."] = "沿海岸向北。巨型软壳蚌分布在浅水中，狂怒的暗礁蟹在沙滩行走；打开背包里的每个蚌壳取出蚌肉。",
 	-- ["Head west to the troll village on the coast, keeping clear of the {area:606} on the way. {npc:268705} stands on the path just north of the village."] = "向西前往海岸上的巨魔村庄，途中避开{area:606}。{npc:268705}站在村子北边不远的小路上。",
 	-- ["Keep north to {area:598}. The Slitherblade Myrmidons, Naga and Sorceresses hold the beach; pull them one at a time."] = "继续向北到{area:598}。海滩上有滑刃侍从、滑刃纳迦和滑刃巫师，逐只引来击杀。",
-	-- ["Run {area:133} with a group when it suits you: {npc:7800} at the end drops his Safe Combination; open his safe behind the northern bomb pillar for the {item:9153}."] = "方便时组队前往{area:133}：最终首领{npc:7800}会掉落他的Safe Combination；用它打开北侧炸弹柱后方的保险箱，取得{item:9153}。",
+	-- ["Run {area:133} with a group when it suits you: {npc:7800} at the end drops his Safe Combination; open his safe behind the northern bomb pillar for the {item:9153}."] = "方便时组队前往{area:133}：最终首领{npc:7800}会掉落他的保险箱密码；用它打开北侧炸弹柱后方的保险箱，取得{item:9153}。",
 	-- ["The Slitherblade naga hold the coast north of {area:2405}; {npc:12369} guards the {quest:6027} at the far northern tip."] = "滑刃纳迦占据了{area:2405}北边的海岸；{npc:12369}在最北端守着{quest:6027}。",
 	-- ["The zeppelin lands at the tower outside {zone:1454}'s main gate. {npc:5639} waits in the Drag; {npc:5640} stands in the {object:172961} on the west side of the city."] = "飞艇停靠在{zone:1454}正门外的高塔。{npc:5639}在暗巷区等候；{npc:5640}位于城西的{object:172961}。",
 	-- ["{npc:11863} waits in the ruined tower of {area:2405}, inland to the east."] = "{npc:11863}在东边内陆{area:2405}的废塔里等候。",

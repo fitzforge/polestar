@@ -1546,6 +1546,7 @@ fn the_header_menu_picker_new_tab_compact_transparent_lock_destructive_items_ask
 			"Reset guide progress",
 			"Quick settings",
 			"Options",
+			"Pause",
 			"Hide window"
 		])
 	);
@@ -1822,21 +1823,21 @@ fn the_pace_line_says_on_pace_behind_with_a_grind_coming_behind_with_none_and_na
 	assert_eq!(out["ahead"], "On pace for level 25.3 by step 21", "past the guide's top: where the route gets you, not the top");
 	assert_eq!(out["atTop"], "On pace for level 21 by step 97", "exactly the top: the top");
 	// Behind with a `level` goal ahead: how far, and that the guide grinds it there; not a warning.
-	assert_eq!(out["grind"], "Behind by 1.2 levels: step 32 grinds to level 20 (~0h 30m)");
+	assert_eq!(out["grind"], "Behind by 1.2 levels: step 32 grinds to level 20 (≈0h 30m)");
 	assert_eq!(out["grindNoRate"], "Behind by 1.2 levels: step 32 grinds to level 20");
 	assert_eq!(out["bars"], "On pace for level 18.5 by step 12", "under a level short: on pace, no warning");
 	// Behind with no grind step: the guide's end level, and how long to grind on the way.
-	assert_eq!(out["none"], warn("Behind by 2.4 levels for level 24 by step 21: grind ~2h 00m before then").as_str());
+	assert_eq!(out["none"], warn("Behind by 2.4 levels for level 24 by step 21: grind ≈2h 00m before then").as_str());
 	assert_eq!(out["noneNoRate"], warn("Behind by 2.4 levels for level 24 by step 21, and no grind step ahead").as_str());
 	// A quest 3+ levels over you is named only on its own step; before it, the plain line.
-	assert_eq!(out["hard"], warn("Behind by 3.6 levels for level 24 by step 21: grind ~2h 38m before then").as_str());
+	assert_eq!(out["hard"], warn("Behind by 3.6 levels for level 24 by step 21: grind ≈2h 38m before then").as_str());
 	assert_eq!(out["hardNoRate"], warn("Behind by 3.6 levels for level 24 by step 21, and no grind step ahead").as_str());
-	assert_eq!(out["hardNow"], warn("Behind: “Missing In Action” (25) at step 20, you're 20.0; grind ~1h 00m first").as_str());
+	assert_eq!(out["hardNow"], warn("Behind: “Missing In Action” (25) at step 20, you're 20.0; grind ≈1h 00m first").as_str());
 	// The same quest with the character on pace for the target: "On pace", calm, the quest only on its step.
 	assert_eq!(out["hardOnPace"], "On pace for level 22.5 by step 29");
 	assert_eq!(out["hardOnPaceNoRate"], "On pace for level 22.5 by step 29");
 	assert_eq!(out["hardOnPaceNow"], "On pace, but “Ashenvale Outrunners” (24) at step 4 is hard: you're 21.3; reach 22 first");
-	assert_eq!(out["row"], "3.4k XP/h  \u{b7}  Behind by 1.2 levels: step 32 grinds to level 20 (~0h 30m)", "one line in the XP row");
+	assert_eq!(out["row"], "3.4k XP/h  \u{b7}  Behind by 1.2 levels: step 32 grinds to level 20 (≈0h 30m)", "one line in the XP row");
 	assert_eq!(out["nothing"], false, "no target and no Codex: no line");
 }
 

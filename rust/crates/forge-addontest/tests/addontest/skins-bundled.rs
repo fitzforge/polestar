@@ -245,3 +245,96 @@ emit(out)
 	assert_eq!(out["bar"], serde_json::json!(["c7fbee", 100]), "a paler accent line");
 	assert_eq!(out["noBand"], serde_json::json!(["ffffff", 10]), "no band, no night drawn over it");
 }
+
+// Menus and popups open over other frames (a panel marked psMenu: the dropdown menu, a setting's cog, Quick
+// settings) and the settings window's tooltip are never see-through, in every look the picker lists (the six built
+// in and each bundled skin, in each variant): their ground (menuBg) is at least 0.97 opaque, fully solid in the six
+// built in (Halo's and Hearth's were 0.97), and the menu draws it (the house fill under every painter that builds on
+// it, the game looks' ground under their art, Lanterns' rounded ground). Text under a menu used to show through in
+// WoW Forever, Blizzard, Classic, Lumen, Hairline, Lanterns and Sheen.
+#[test]
+fn menus_popups_and_the_tooltip_are_never_see_through_in_any_look_or_variant() {
+	let script = r#"
+local T, W = Polestar.Theme, Polestar.Widgets
+T._testShowHidden = true
+local host = CreateFrame("Frame", nil, UIParent)
+host:SetSize(120, 24)
+host:SetPoint("CENTER", UIParent, "CENTER", 0, 0)
+local function alphaOf(t)
+	if not (t and t:IsShown()) then return 0 end
+	local _, _, _, a = t:GetVertexColor()
+	return (a or 1) * t:GetAlpha()
+end
+-- The most opaque ground the frame draws: the house fill, or the skin's own (Vellum's paper,
+-- Lanterns' rounded ground; a registered skin keeps its pieces under psSkin.kit.api[id]).
+local function ground(f)
+	local d = f.psSkin or {}
+	local best = alphaOf(d.bg)
+	local own = d.kit and d.kit.api and d.kit.api[T.SkinId()] or {}
+	best = math.max(best, alphaOf(own.paper))
+	for _, t in ipairs(own.ground or {}) do best = math.max(best, alphaOf(t)) end
+	return best
+end
+local out = {}
+for _, c in ipairs(T.SkinChoices()) do
+	local runs = T.SkinVariants(c.value) or { false }
+	for _, v in ipairs(runs) do
+		if v then Polestar.Set("ui.skinVariants." .. c.value, v.id) end
+		Polestar.Set("ui.skin", c.value)
+		W.ShowMenu(host, { { text = "One" }, { text = "Two" } })
+		W.Tip(host, "Title", { "A line" })
+		stub.advance(1)
+		local _, _, _, token = T.Color("menuBg")
+		out[#out + 1] = { key = c.value .. (v and ("/" .. v.id) or ""), inUse = T.SkinId() == c.value, token = token,
+			menu = ground(PolestarMenu), tip = alphaOf(PolestarTip.Ground) }
+		W.HideMenu()
+		W.TipHide(host)
+	end
+end
+emit(out)
+"#;
+	let mut addons = vec![Addon::name("Polestar"), Addon::name("Polestar_Looks")];
+	addons.extend(SKINS.iter().map(|(_, addon, _)| Addon::name(addon)));
+	let out = emitted(&RunAddon { stubs: vec!["stub_world.lua"], addons, login: true, script: script.to_string(), ..Default::default() }).remove(0);
+	let looks = out.as_array().unwrap();
+	let runs: usize = 6 + SKINS.iter().map(|(_, _, v)| v.len().max(1)).sum::<usize>();
+	assert_eq!(looks.len(), runs, "every look and variant: {out}");
+	for l in looks {
+		let key = l["key"].as_str().unwrap();
+		assert_eq!(l["inUse"], true, "{key}: in use once picked");
+		for part in ["token", "menu", "tip"] {
+			assert!(l[part].as_f64().unwrap() >= 0.97, "{key}: the {part} ground is see-through: {l}");
+		}
+		if ["polestar", "halo", "hearth", "forever", "blizzard", "classic"].contains(&key) {
+			assert_eq!(l["token"].as_f64().unwrap(), 1.0, "{key}: a built-in look's menus are fully solid: {l}");
+		}
+	}
+}
+
+// The guide list's star on the zone painting keeps a dark ground under its glyphs: the star and the window's close in
+// the house look and Halo (68 wide), the star alone in the game looks, whose close is the frame's own on its corner
+// (36 wide, on the star): the ground used to run on under nothing where the close had been.
+#[test]
+fn the_guide_list_s_star_ground_holds_only_the_glyphs_it_backs() {
+	let script = r#"
+local out = {}
+for _, id in ipairs({ "polestar", "halo", "forever", "blizzard", "classic" }) do
+	Polestar.Set("ui.skin", id)
+	Polestar.UI.ShowPicker()
+	stub.advance(0.5)
+	local d = Polestar.UI.Picker.details
+	local _, rel = d.Scrim:GetPoint(1)
+	out[id] = { width = d.Scrim:GetWidth(), on = rel == d.Star and "star" or rel == PolestarPicker.Close and "close" or "other",
+		close = PolestarPicker.Close:IsShown() }
+end
+emit(out)
+"#;
+	let addons = vec![Addon::name("Polestar"), Addon::name("Polestar_Looks")];
+	let out = emitted(&RunAddon { stubs: vec!["stub_world.lua"], addons, login: true, script: script.into(), ..Default::default() }).remove(0);
+	for id in ["polestar", "halo"] {
+		assert_eq!(out[id], serde_json::json!({ "width": 68, "on": "close", "close": true }), "{id}: the star and the close: {out}");
+	}
+	for id in ["forever", "blizzard", "classic"] {
+		assert_eq!(out[id], serde_json::json!({ "width": 36, "on": "star", "close": false }), "{id}: the star alone: {out}");
+	}
+}

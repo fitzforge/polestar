@@ -49,6 +49,27 @@ test('docking is opt-in; the floating guide keeps its position and settings', ()
 	assert.deepEqual(out, { enabled: false, attached: false, pos: [100,200], scale: 1.2 });
 });
 
+test('docking affects only the live guide, leaving settings preview copies independent', () => {
+	const [out] = run(`
+	GF.dock:SetSelected(true,true);GF.dock:Layout(ObjectiveTrackerFrame,false)
+	assert(Polestar.UI.LoadOptions())
+	local preview=Polestar.UI.GuideWindowPreview(UIParent)
+	preview:SetSize(600,600);preview:Show();stub.advance(0.5)
+	local copy=preview.Scene.Copy
+	assert(copy.live==false and copy.dock==nil)
+	Polestar.Set("ui.barsBottom",true)
+	copy.Draw()
+	local cap=copy.CapHeight()
+	local expected=UIParent:GetHeight()*Polestar.Get("ui.maxHeight")/Polestar.Get("ui.scale")
+	assert(math.abs(cap-expected)<0.01,"preview used dock height")
+	local original=copy.frame:GetParent()
+	GF.dock.available=80;GF.Layout();copy.Draw()
+	emit({independent=copy.frame:GetParent()==original and original~=GF.dock.pane,
+		copyBottom=copy.BarsBottom(),liveBottom=GF.BarsBottom(),sameCap=math.abs(copy.CapHeight()-cap)<0.01,
+		docked=GF.frame:GetParent()==GF.dock.pane})`);
+	assert.deepEqual(out,{independent:true,copyBottom:true,liveBottom:false,sameCap:true,docked:true});
+});
+
 test('the docked guide mover saves the future floating position without moving the live guide', () => {
 	const [out] = run(`
 	GF.dock:SetSelected(true,true);GF.dock:Layout(ObjectiveTrackerFrame,false)

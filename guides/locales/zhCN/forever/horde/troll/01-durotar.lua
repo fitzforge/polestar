@@ -287,13 +287,13 @@ return {
 
 	-- Step 70: Razor Hill
 	-- {area:362} Razor Hill · {npc:3139} Gar'Thok · {npc:3142} Orgnil Soulscar
-	["Back to {area:362}: {npc:3139}, then {npc:3142}."] = "",
+	["Back to {area:362}: {npc:3139}, then {npc:3142}."] = "返回{area:362}，先找{npc:3139}，再找{npc:3142}。",
 
 	-- Step 71: Spitelash naga
 	["Spitelash naga"] = "恶鞭纳迦",
 	-- {area:370} Drygulch Ravine · {npc:275657} Heglan Shadeeye · {npc:3107} Surf Crawler
 	-- plural, as words: Spitelash Scouts = {npc:275662} Spitelash Scout
-	["North-east to the beach below {area:370}, north of {npc:275657}: Spitelash Scouts and Attendants hold it. Hunters: tame a {npc:3107} on the beach."] = "",
+	["North-east to the beach below {area:370}, north of {npc:275657}: Spitelash Scouts and Attendants hold it. Hunters: tame a {npc:3107} on the beach."] = "向东北走到{area:370}下方、{npc:275657}北边的海滩：Spitelash Scouts和Spitelash Attendants占据着这里。猎人：在海滩上驯服一只{npc:3107}。",
 
 	-- Step 72: Margoz
 	-- {quest:828} Margoz · {quest:827} Skull Rock
@@ -368,7 +368,7 @@ return {
 	-- {area:379} Far Watch Post · {zone:1454} Orgrimmar · {quest:829} Neeru Fireblade · {zone:1420} Tirisfal Glades · {zone:1421} Silverpine Forest · {zone:1413} The Barrens
 	["Follow the road north from {area:379} to {zone:1454}'s main gate. The next guide starts in {zone:1454}: {quest:829} takes the cultists' quest, the trainers teach your new ranks, and the zeppelin leaves from the towers outside the gate for {zone:1420} and {zone:1421}. {zone:1413} come after Silverpine."] = "从{area:379}沿路向北前往{zone:1454}正门。下篇指南从{zone:1454}开始：把邪教徒相关的任务交给{quest:829}，找训练师学习新等级技能，然后到城门外的高塔乘飞艇，前往{zone:1420}和{zone:1421}。银松森林之后才去{zone:1413}。",
 	-- {zone:1454} Orgrimmar · {object:172982} Valley of Strength
-	["{zone:1454}'s {object:172982}"] = "",
+	["{zone:1454}'s {object:172982}"] = "{zone:1454}的{object:172982}",
 
 	-- Step 91: The Binding
 	-- {npc:5875} Gan'rul Bloodeye · {object:172960} Cleft of Shadow · {object:172982} Valley of Strength · {item:6535} Tablet of Verga · {item:7464} Glyphs of Summoning

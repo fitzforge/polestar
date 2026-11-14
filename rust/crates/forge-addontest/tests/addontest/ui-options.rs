@@ -200,6 +200,32 @@ const SHOW: &str = r#"
 			toggle = toggle ~= nil and toggle:IsShown() or false, on = Polestar.Get("routePlan.questie"),
 			nav = navLabels() })"#;
 
+// #1345: with ErgoBars (EllesmereUI's skinning contract under its own name) the Integrations section and its two
+// switches name ErgoBars, not EllesmereUI.
+#[test]
+fn integrations_names_ergobars_when_polestar_follows_its_look_1345() {
+	let ergo = r#"
+local S = { GetAccentColor = function() return 0.96, 0.55, 0.73 end, GetPanelColor = function() return 0.06, 0.06, 0.07, 0.9 end,
+	GetFont = function() return "Fonts\\FRIZQT__.TTF", "" end, OnLooksChanged = function() end }
+local waiting = {}
+ErgoBarsLooks = { version = 1, RegisterSkin = function(_, fn) table.insert(waiting, fn) return true end }
+local drain = CreateFrame("Frame")
+drain:RegisterEvent("PLAYER_LOGIN")
+drain:SetScript("OnEvent", function() for _, fn in ipairs(waiting) do fn(S) end end)
+"#;
+	let out = run_opts(
+		r#"
+		UI.ShowOptions("integrations")
+		local c = O.Controls("integrations")
+		local function label(key) return c[key] ~= nil and c[key]:IsShown() and c[key].Label:GetText() or false end
+		emit({ headers = cardTitles(), accent = label("ui.matchAccent"), font = label("ui.matchFont") })"#,
+		"",
+		ergo,
+		"",
+	);
+	assert_eq!(out, json!({ "headers": ["Quest Tracker", "ErgoBars"], "accent": "Match ErgoBars accent", "font": "Match ErgoBars font" }));
+}
+
 #[test]
 fn integrations_lists_spoken_with_its_wait_off_only_while_spoken_quests_is_there() {
 	let script = r#"
@@ -619,6 +645,9 @@ fn about_reset_all_settings_asks_in_the_confirm_dialog_reset_positions_clears_sa
 		PolestarModal.Box.Cancel:Click()
 		local cancelled = Polestar.Get("ui.scale")
 		reset:Click()
+		-- The profile in use is the whole account's: the word first.
+		PolestarModal.Box.Word:SetText("reset")
+		stub.RunScript(PolestarModal.Box.Word, "OnTextChanged", true)
 		PolestarModal.Box.Action:Click()
 		O.ResetPositions()
 		emit({ asked = asked, cancelled = cancelled, accepted = Polestar.Get("ui.scale"), pos = Polestar.Get("ui.pos") or false,
@@ -2071,8 +2100,9 @@ fn new_settings_put_a_pill_on_their_section_and_a_count_on_their_page_until_open
 }
 
 // A tab's preview is built when the tab first shows, laid out across the main column and pinned between the tab
-// band and the rows, which scroll under it; the slot's chrome says what it shows. Another tab's taller preview
-// is capped; a tab without one gives the room back; nothing is built twice.
+// band and the rows, which scroll under it; its caption is the one line under it (10 over it, 15, 10 under), no
+// chrome over it. Another tab's taller preview is capped; a tab without one gives the room back; nothing is built
+// twice.
 #[test]
 fn a_tab_s_preview_is_built_on_first_show_pinned_over_the_scrolling_rows_capped_and_given_back() {
 	let out = run_opts(
@@ -2084,7 +2114,8 @@ fn a_tab_s_preview_is_built_on_first_show_pinned_over_the_scrolling_rows_capped_
 		local _, _, _, _, scrollY = f.Scroll:GetPoint(1)
 		local host = O.view.PreviewHost
 		local first = { built = uifake.built(), laid = uifake.laid(), main = f.psMainW, slot = slot:IsShown(), h = f.psPreviewH,
-			scrollY = scrollY, viewH = f.psViewH, room = f:GetHeight() - 112 - 40 - 56, caption = host.Caption:GetText(), label = host.Label:GetText() }
+			scrollY = scrollY, viewH = f.psViewH, room = f:GetHeight() - 112 - 40 - 56, caption = host.Line:GetText(),
+			chrome = rawget(host, "Chrome") == nil and rawget(host, "Label") == nil }
 		O.Select("fakepins", "Minimap")
 		local capped = { h = f.psPreviewH, room = f:GetHeight() - 112 - 40 - 56 }
 		O.Select("guide")
@@ -2100,11 +2131,11 @@ fn a_tab_s_preview_is_built_on_first_show_pinned_over_the_scrolling_rows_capped_
 	assert_eq!(first["built"], 1);
 	assert_eq!(first["laid"], first["main"], "laid out across the main column");
 	assert_eq!(first["slot"], true);
-	assert_eq!(first["h"], 200);
-	assert_eq!(first["scrollY"], -204, "the rows start under it");
-	assert_eq!(n(&first["viewH"]), n(&first["room"]) - 200.0, "and scroll in the room left");
+	assert_eq!(first["h"], 235, "the preview and its caption's line");
+	assert_eq!(first["scrollY"], -239, "the rows start under it");
+	assert_eq!(n(&first["viewH"]), n(&first["room"]) - 235.0, "and scroll in the room left");
 	assert_eq!(first["caption"], "Elwynn Forest, zoomed out");
-	assert_eq!(first["label"], "Preview");
+	assert_eq!(first["chrome"], true, "no chrome: no \"Preview\" label");
 	assert_eq!(n(&out["capped"]["h"]), (n(&out["capped"]["room"]) * 0.55).floor(), "a taller preview is capped at 55% of the body");
 	assert_eq!(out["gone"], json!({ "h": 0, "slot": false }), "a page without one gives the room back");
 	assert_eq!(out["built"], 2, "each tab's preview built once");
@@ -2439,7 +2470,7 @@ fn a_preview_hotspot_opens_its_setting_s_row_and_the_one_time_hint_goes_on_the_f
 		UI.ShowOptions("fakepins")
 		O.Select("fakepins", "Medallions")
 		local host = O.view.PreviewHost
-		local hint = host.Hint:IsShown() and host.Hint:GetText() or false
+		local hint = host.Line:IsShown() and host.Line:GetText() or false
 		local spot = uifake.spot
 		stub.RunScript(spot, "OnEnter")
 		local tip = GameTooltip:IsShown() and GameTooltip:GetOwner() == spot
@@ -2450,7 +2481,7 @@ fn a_preview_hotspot_opens_its_setting_s_row_and_the_one_time_hint_goes_on_the_f
 		local row = O.Controls("fakepins", "World map")["fake.goalSize"]
 		local lit = rawget(row, "psFlash") ~= nil and row.psFlash:IsShown()
 		O.Select("fakepins", "Medallions")
-		emit({ hint = hint, tip = tip, tab = tab, lit = lit, after = host.Hint:IsShown(), stored = PolestarDB.optionsPreviewHint == true })"#;
+		emit({ hint = hint, tip = tip, tab = tab, lit = lit, after = host.Line:IsShown(), stored = PolestarDB.optionsPreviewHint == true })"#;
 	let out = run_opts(script, "", "", LOOK_PAGE);
 	assert_eq!(out["hint"], "Click a part of the preview to find its settings.");
 	assert_eq!(out["tip"], true, "the setting's name under the cursor");

@@ -5,7 +5,8 @@
 -- recording of that exact from -> to flight when there is one
 -- (CharState().flightTimes, learned on every landing at the destination),
 -- otherwise an estimate from the travel data: the shortest chain of known
--- flight legs at gryphon speed. Estimates show with a "~".
+-- flight legs at gryphon speed. Estimates show with a "≈" ("~" in a face
+-- without it: Theme.Approx, #1906).
 --
 -- Its look (size, width, type, outline, the bar's thickness and colour, the
 -- time as time left or percent, the ground) and whether it shows in a fight
@@ -174,7 +175,7 @@ local function trackers() return ns.UI and ns.UI.Trackers end
 function Maps.FlightTimeText(state, second, frac)
 	if state == "late" then return L["landing"] end
 	local text = Maps.FormatTime(second)
-	if state == "estimate" then text = "~" .. text end
+	if state == "estimate" then text = ns.Theme.Approx() .. text end
 	local TR = trackers()
 	local fmt = TR and TR.Get("flight", "format") or "left"
 	if state == "up" or not frac or fmt == "left" then return text end

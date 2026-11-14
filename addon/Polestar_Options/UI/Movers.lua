@@ -12,9 +12,18 @@
 -- movers.gridSize 8, 16 or 32 px, drawn out from the screen's centre with an
 -- accent crosshair); movers.snap off leaves only the grid. A click selects a
 -- box: the arrow keys nudge it 1 px (Shift: 10) and its line shows where it
--- stands. A right-click puts that frame back in its default place. The bar at
--- the top holds Grid, the grid size, Snap, Reset all positions (asks first) and
--- Lock; Escape locks, and so does a fight (no unlocking in one).
+-- stands. A right-click opens its menu (its settings, back to its default
+-- place on a second click, hide the box); Shift-right-click hides the box for
+-- the session, so it cannot be dragged by mistake. The bar at
+-- the top holds Grid, the grid size, Snap, Revert, Reset all positions (asks
+-- first), Exit and Save and exit.
+--
+-- An unlock is a session: where every frame stood when it began is kept, so
+-- Revert puts them all back without leaving, and Exit (or Escape) asks
+-- whether to keep or discard what moved (nothing moved: it just locks). A
+-- move still lands at once through the frame's own key, so a reload keeps
+-- it. A fight pauses the session (the boxes go before the lockdown) and the
+-- fight's end brings it back as it was; no unlocking in one.
 --
 -- Each frame keeps its own saved key and format: a mover only reads where the
 -- frame is (get) and hands the new spot back (set), both as a point on
@@ -28,8 +37,18 @@
 --     reset = fn
 --     anchor = fn -> point, relPoint  optional: the point set is given (else get's)
 --     enabled = fn -> bool            optional: no box while its feature is off
---     fixedSize = true                optional: always size(), never the frame's })
---   ns.Movers.Unlock([key]) -> ok (key: that box selected), Lock(), IsUnlocked(), Toggle()
+--     fixedSize = true                optional: always size(), never the frame's
+--     keys = { path, ... }            optional: the settings set writes, which the
+--                                     session keeps as stored (else get/set's spot)
+--     save = fn -> value, restore = fn(value)   optional, for a place kept
+--                                     elsewhere (a character's)
+--     via = fn -> key | nil           optional: the box that stands for this
+--                                     frame while its own is off (an alert
+--                                     in the alerts' line)
+--     settings = key                  optional: the setting its box's menu opens })
+--   ns.Movers.Unlock([key]) -> ok (key: that box selected), Lock() (keeps what
+--     moved), Save(), Exit() (asks when something moved), Revert() -> count,
+--     Changed() -> count, IsUnlocked(), IsSuspended() (paused for a fight), Toggle()
 --   ns.Movers.Rect(key) -> left, bottom, w, h; MoveTo(key, left, bottom); Reset(key); ResetAll()
 --   ns.Movers.Snap(left, bottom, w, h, others, opts) -> left, bottom, guideX, guideY (pure)
 --
@@ -38,7 +57,7 @@
 
 local ns = Polestar
 local L = ns.L
-local Theme, W = ns.Theme, ns.Widgets
+local Theme, W, Anim = ns.Theme, ns.Widgets, ns.Anim
 
 local type, pairs, ipairs, floor, ceil, abs, max, min = type, pairs, ipairs, math.floor, math.ceil, math.abs, math.max, math.min
 local format, sort = string.format, table.sort
@@ -52,10 +71,15 @@ M.NUDGE, M.NUDGE_SHIFT = 1, 10
 
 local specs, order = {}, {}
 local unlocked = false
+local suspended = false -- paused for a fight, the session kept
+-- The session, from an unlock to its end: snap[key] is where that frame
+-- stood when it began (saveOf), back() what runs when it ends.
+local session
 local root, bar, gridFrame, guides
 local boxes = {} -- key -> box
 local selected, dragging
 
+local NONE = {}
 local function round(v) return floor(v + 0.5) end
 local function combat() return InCombatLockdown and InCombatLockdown() and true or false end
 local function screen() return UIParent:GetWidth(), UIParent:GetHeight() end
@@ -156,17 +180,94 @@ function M.Snap(left, bottom, w, h, others, opts)
 	return left, bottom, gx, gy
 end
 
+local placeBox, refresh, sessionChanged
+
+---------------------------------------------------------------------------
+-- The session's snapshot: where each frame stood when it began
+---------------------------------------------------------------------------
+
+local function copyValue(v)
+	if type(v) ~= "table" then return v end
+	local c = {}
+	for k, x in pairs(v) do c[k] = copyValue(x) end
+	return c
+end
+
+-- A frame's place as kept: its save(), else the settings it writes as they
+-- are stored (nil at the default, so putting it back clears them), else the
+-- spot get() gives.
+local function saveOf(spec)
+	if spec.save then return { copyValue(spec.save()) } end
+	if spec.keys then
+		local t = {}
+		for i, path in ipairs(spec.keys) do t[i] = copyValue(ns.GetStored(path)) end
+		return t
+	end
+	return { spec.get() }
+end
+
+local function restoreTo(spec, saved)
+	if spec.restore then
+		spec.restore(copyValue(saved[1]))
+	elseif spec.keys then
+		for i, path in ipairs(spec.keys) do ns.Set(path, copyValue(saved[i])) end
+	else
+		spec.set(saved[1], saved[2], saved[3], saved[4])
+	end
+end
+
+-- Deep equality, numbers within rounding.
+local function same(a, b)
+	if type(a) ~= type(b) then return false end
+	if type(a) == "number" then return abs(a - b) < 0.01 end
+	if type(a) ~= "table" then return a == b end
+	for k, v in pairs(a) do if not same(v, b[k]) then return false end end
+	for k in pairs(b) do if a[k] == nil then return false end end
+	return true
+end
+
+local function snapshot(key)
+	local spec = specs[key]
+	if session and spec and session.snap[key] == nil then session.snap[key] = saveOf(spec) end
+end
+
+local function moved(key)
+	local spec, saved = specs[key], session and session.snap[key]
+	return spec ~= nil and saved ~= nil and not same(saveOf(spec), saved)
+end
+
+-- How many frames moved (or went back to their default) since the session
+-- began; 0 with none.
+function M.Changed()
+	local n = 0
+	for _, key in ipairs(order) do if moved(key) then n = n + 1 end end
+	return n
+end
+
+-- Every frame back where it stood when the session began; the session goes
+-- on. -> how many moved back
+function M.Revert()
+	local n = 0
+	for _, key in ipairs(order) do
+		if moved(key) then
+			restoreTo(specs[key], session.snap[key])
+			n = n + 1
+		end
+	end
+	if unlocked then refresh(true) end
+	return n
+end
+
 ---------------------------------------------------------------------------
 -- Registry
 ---------------------------------------------------------------------------
-
-local placeBox, refresh
 
 function M.Register(spec)
 	if type(spec) ~= "table" or type(spec.key) ~= "string" or spec.key == "" then return false, "Movers.Register: key must be a string" end
 	if type(spec.get) ~= "function" or type(spec.set) ~= "function" then return false, "Movers.Register: get and set must be functions" end
 	if not specs[spec.key] then order[#order + 1] = spec.key end
 	specs[spec.key] = spec
+	snapshot(spec.key)
 	if unlocked then refresh() end
 	return true
 end
@@ -180,6 +281,22 @@ end
 local function enabled(spec)
 	if not spec.enabled then return true end
 	return spec.enabled() and true or false
+end
+
+-- The box that stands for key's frame: its own, or the one its spec's via()
+-- names while its own is off (an alert in the alerts' line). -> key | nil
+local function standIn(key)
+	local spec = specs[key]
+	if not spec then return nil end
+	if enabled(spec) then return key end
+	local other = spec.via and spec.via()
+	if other and specs[other] and enabled(specs[other]) then return other end
+	return nil
+end
+
+-- Whether key's frame has a box now (its feature on, or its stand-in's).
+function M.Movable(key)
+	return standIn(key) ~= nil
 end
 
 local function frameOf(spec)
@@ -233,6 +350,7 @@ function M.MoveTo(key, left, bottom)
 	local x, y = M.OffsetOf(point, relPoint, left, bottom, w, h)
 	spec.set(point, relPoint, x, y)
 	if unlocked and boxes[key] then placeBox(key) end
+	sessionChanged()
 	return true
 end
 
@@ -241,6 +359,7 @@ function M.Reset(key)
 	if not (spec and spec.reset) then return false end
 	spec.reset()
 	if unlocked and boxes[key] then placeBox(key) end
+	sessionChanged()
 	return true
 end
 
@@ -250,9 +369,11 @@ function M.ResetAll()
 		if spec.reset then spec.reset() end
 	end
 	if unlocked then refresh() end
+	sessionChanged()
 end
 
 function M.IsUnlocked() return unlocked end
+function M.IsSuspended() return suspended end
 function M.Box(key) return boxes[key] end
 function M.Selected() return selected and selected.psKey or nil end
 
@@ -282,12 +403,35 @@ local function paintBox(b)
 	b.Edges[4]:SetWidth(px)
 end
 
+-- Where a box's centre stands from the screen's centre: x, y (rounded).
+local function centreOf(b)
+	local sw, sh = screen()
+	return round(b.psLeft + b.psW / 2 - sw / 2), round(b.psBottom + b.psH / 2 - sh / 2)
+end
+
+-- The selected box's place to type (the panel under the bar, built with
+-- it): its name and its centre's X and Y, while one is selected; a field
+-- being typed in keeps its text.
+local function paintPick()
+	local p = bar and rawget(bar, "Pick")
+	if not p then return end
+	local b = selected
+	p:SetShown(b ~= nil)
+	if not b then return end
+	p.Name:SetText(b.Label:GetText() or "")
+	local x, y = centreOf(b)
+	if not p.X:HasFocus() then p.X:SetText(tostring(x)) end
+	if not p.Y:HasFocus() then p.Y:SetText(tostring(y)) end
+	p:SetWidth(16 + ceil(p.Name:GetStringWidth()) + 14 + p.X.Label:GetStringWidth() + 6 + p.X:GetWidth()
+		+ 12 + p.Y.Label:GetStringWidth() + 6 + p.Y:GetWidth() + 16)
+end
+
 -- The selected box says where it stands (its centre from the screen's);
 -- the others their size.
 local function boxText(b)
 	if b == selected or b == dragging then
-		local sw, sh = screen()
-		b.Size:SetText(format(L["%d, %d"], round(b.psLeft + b.psW / 2 - sw / 2), round(b.psBottom + b.psH / 2 - sh / 2)))
+		b.Size:SetText(format(L["%d, %d"], centreOf(b)))
+		if b == selected then paintPick() end
 	else
 		b.Size:SetText(format(L["%d × %d"], round(b.psW), round(b.psH)))
 	end
@@ -332,7 +476,51 @@ local function selectBox(b)
 		boxText(b)
 		layoutText(b)
 	end
+	paintPick()
 end
+
+-- A box asked for by name (a settings row's Move) pulses a few times in the
+-- accent so it stands out among the others: a layer of its own fades in and
+-- out (its frame's alpha, never the texture's: a repaint keeps it). A drag
+-- ends it.
+M.PULSES = 3
+local function stopPulse(b)
+	local p = rawget(b, "PulseLayer")
+	if p and p:IsShown() then
+		p.psLeft = 0
+		p:Hide()
+		Anim.Stop(p, "alpha")
+	end
+end
+
+local function pulse(b)
+	local p = rawget(b, "PulseLayer")
+	if not p then
+		p = CreateFrame("Frame", nil, b)
+		p:SetAllPoints(b)
+		p:SetFrameLevel(b:GetFrameLevel() + 1)
+		local fill = W.Tex(p, "ARTWORK", nil, "accent")
+		fill:SetAllPoints(p)
+		W.Painter(fill, function(t) local r, g, bl = Theme.Accent(); t:SetVertexColor(r, g, bl, 0.42) end)
+		b.PulseLayer = p
+	end
+	p.psLeft = M.PULSES
+	local beat
+	function beat()
+		if p.psLeft <= 0 then
+			p:Hide()
+			return
+		end
+		p.psLeft = p.psLeft - 1
+		Anim.To(p, "alpha", 0, 1, Anim.BASE, "out", function()
+			if p:IsShown() then Anim.To(p, "alpha", 1, 0, Anim.SLOW * 1.6, "inout", beat) end
+		end)
+	end
+	p:SetAlpha(0)
+	p:Show()
+	beat()
+end
+M.Pulse = function(key) local b = boxes[key]; if b then pulse(b) end end
 
 local function showGuides(gx, gy)
 	guides.X:SetShown(gx ~= nil)
@@ -418,6 +606,7 @@ end
 
 local function beginDrag(b)
 	dragging = b
+	stopPulse(b)
 	local cx, cy = cursor()
 	b.psGrab = { cx - b.psLeft, cy - b.psBottom }
 	b.psStartLeft, b.psStartBottom, b.psMoved = b.psLeft, b.psBottom, false
@@ -453,8 +642,96 @@ M.EndDrag = endDrag
 local function boxTip(b)
 	W.Tooltip(b, "ANCHOR_TOP", b.Label:GetText(), {
 		{ L["Drag to move it (Shift: along one line). Arrow keys nudge it, Shift for 10 px."], Theme.Color("textDim") },
-		{ L["Right-click: back to its default place."], Theme.Color("textDim") },
+		{ L["Right-click: its settings, or back to its default place. Shift-right-click hides the box until you exit."], Theme.Color("textDim") },
 	})
+end
+
+-- A box hidden for the rest of the session (Shift-right-click, or its
+-- menu), so it cannot be dragged by mistake; the bar's Show hidden, a Move
+-- asking for it or the session's end brings it back. -> ok
+function M.HideBox(key)
+	local b = boxes[key]
+	if not (session and b and b:IsShown()) then return false end
+	session.hidden = session.hidden or {}
+	session.hidden[key] = true
+	if selected == b then selectBox(nil) end
+	W.HideTooltip(b)
+	refresh(true)
+	return true
+end
+
+local function hiddenCount()
+	local n = 0
+	for _ in pairs(session and session.hidden or {}) do n = n + 1 end
+	return n
+end
+M.HiddenCount = hiddenCount
+
+function M.ShowHidden()
+	if not (session and session.hidden) then return end
+	session.hidden = nil
+	refresh(true)
+end
+
+-- A box's menu, by the cursor: its frame's settings (the spec's `settings`
+-- key, when the settings hold it), its default place (a second click), and
+-- hiding the box.
+local menuAt
+local function boxMenu(b)
+	local key, spec = b.psKey, specs[b.psKey]
+	selectBox(b)
+	if not menuAt then
+		menuAt = CreateFrame("Frame", nil, root)
+		menuAt:SetSize(1, 1)
+	end
+	local cx, cy = cursor()
+	menuAt:ClearAllPoints()
+	menuAt:SetPoint("CENTER", root, "BOTTOMLEFT", cx, cy)
+	local O = ns.UI and ns.UI.Options
+	local items = {}
+	if spec.settings and O and O.ControlByKey and O.ControlByKey(spec.settings) then
+		items[#items + 1] = { text = L["Its settings"], icon = "gear", tip = L["Opens the settings on this frame's look; the boxes stay up."],
+			onClick = function() O.JumpTo(spec.settings) end }
+	end
+	items[#items + 1] = { text = L["Reset position"], icon = "reset", confirm = true, disabled = not spec.reset,
+		tip = L["Back to its default place."], onClick = function() M.Reset(key) end }
+	items[#items + 1] = { text = L["Hide this box"], icon = "close", tip = L["Until you exit, so it can't be moved by mistake. Also Shift-right-click."],
+		onClick = function() M.HideBox(key) end }
+	W.ShowMenu(menuAt, items, { point = "TOPLEFT", relPoint = "CENTER", x = 2, y = -2 })
+end
+
+-- The boxes under the pointer, the top one first.
+local function stackAt(x, y)
+	local out = {}
+	for _, b in pairs(boxes) do
+		if b:IsShown() and x >= b.psLeft and x <= b.psLeft + b.psW and y >= b.psBottom and y <= b.psBottom + b.psH then out[#out + 1] = b end
+	end
+	sort(out, function(a, c) return a:GetFrameLevel() > c:GetFrameLevel() end)
+	return out
+end
+
+-- The wheel over boxes on top of each other turns which is on top (down:
+-- the top one goes to the bottom; up: the bottom one comes to the top), so
+-- one under another of its size is within reach. Until the boxes are laid
+-- out again.
+function M.CycleStack(delta)
+	if dragging or not unlocked then return false end
+	local stack = stackAt(cursor())
+	local n = #stack
+	if n < 2 then return false end
+	local levels = {}
+	for i, b in ipairs(stack) do levels[i] = b:GetFrameLevel() end
+	for i, b in ipairs(stack) do
+		local to = delta < 0 and (i == 1 and n or i - 1) or (i == n and 1 or i + 1)
+		b:SetFrameLevel(levels[to])
+		b.psHover = nil
+	end
+	local top = stackAt(cursor())[1]
+	for _, b in ipairs(stack) do paintBox(b) end
+	top.psHover = true
+	paintBox(top)
+	boxTip(top)
+	return true
 end
 
 local function newBox(key)
@@ -491,11 +768,14 @@ local function newBox(key)
 	end)
 	b:SetScript("OnMouseUp", function(self, button)
 		if button == "RightButton" then
-			if not dragging then M.Reset(self.psKey) end
+			if dragging then return end
+			if IsShiftKeyDown and IsShiftKeyDown() then M.HideBox(self.psKey) else boxMenu(self) end
 		elseif dragging == self then
 			endDrag()
 		end
 	end)
+	b:EnableMouseWheel(true)
+	b:SetScript("OnMouseWheel", function(_, delta) M.CycleStack(delta) end)
 	b:SetScript("OnEnter", function(self)
 		self.psHover = true
 		paintBox(self)
@@ -570,7 +850,7 @@ end
 M.GridLines = function() return gridFrame and gridFrame.lines or {} end
 
 ---------------------------------------------------------------------------
--- The bar: Grid, its size, Snap, Reset all positions, Lock
+-- The bar: Grid, its size, Snap, Revert, Reset all positions, Exit, Save and exit
 ---------------------------------------------------------------------------
 
 local BAR_H, PAD = 56, 16
@@ -594,9 +874,16 @@ local function paintSegments()
 	end
 end
 
+-- Revert only while something moved.
+local function paintRevert()
+	local on = M.Changed() > 0
+	bar.Revert:SetEnabled(on)
+	bar.Revert:SetAlpha(on and 1 or 0.45)
+end
+
 local function layoutBar()
 	local x = PAD
-	local tw = max(bar.Title:GetStringWidth(), bar.Hint:GetStringWidth())
+	local tw = max(bar.Title:GetStringWidth() + 6 + bar.Info:GetWidth(), bar.Hint:GetStringWidth())
 	x = x + ceil(tw) + 20
 	bar.Rule1:SetPoint("TOPLEFT", bar, "TOPLEFT", x - 10, -12)
 	bar.Rule1:SetPoint("BOTTOMLEFT", bar, "BOTTOMLEFT", x - 10, 12)
@@ -613,11 +900,81 @@ local function layoutBar()
 	x = x + bar.Snap:GetWidth() + 2 + ceil(bar.Snap.Text:GetStringWidth()) + 20
 	bar.Rule2:SetPoint("TOPLEFT", bar, "TOPLEFT", x - 10, -12)
 	bar.Rule2:SetPoint("BOTTOMLEFT", bar, "BOTTOMLEFT", x - 10, 12)
+	if bar.Unhide:IsShown() then
+		bar.Unhide:SetPoint("LEFT", bar, "LEFT", x, 0)
+		x = x + bar.Unhide:GetWidth() + 8
+	end
+	bar.Revert:SetPoint("LEFT", bar, "LEFT", x, 0)
+	x = x + bar.Revert:GetWidth() + 8
 	bar.ResetAll:SetPoint("LEFT", bar, "LEFT", x, 0)
-	x = x + bar.ResetAll:GetWidth() + 8
-	bar.Lock:SetPoint("LEFT", bar, "LEFT", x, 0)
-	x = x + bar.Lock:GetWidth() + PAD
+	x = x + bar.ResetAll:GetWidth() + 20
+	bar.Rule3:SetPoint("TOPLEFT", bar, "TOPLEFT", x - 10, -12)
+	bar.Rule3:SetPoint("BOTTOMLEFT", bar, "BOTTOMLEFT", x - 10, 12)
+	bar.Exit:SetPoint("LEFT", bar, "LEFT", x, 0)
+	x = x + bar.Exit:GetWidth() + 8
+	bar.Save:SetPoint("LEFT", bar, "LEFT", x, 0)
+	x = x + bar.Save:GetWidth() + PAD
 	bar:SetWidth(x)
+	-- Wider than the screen (a big UI scale, a long translation): smaller.
+	local sw = UIParent:GetWidth()
+	bar:SetScale((sw and sw > 0 and x > sw - 24) and (sw - 24) / x or 1)
+end
+
+-- A typed centre: the field's number on its axis, the other axis kept;
+-- anything else puts the field back.
+local function typedMove(axis, text)
+	local b = selected
+	local n = tonumber((tostring(text or ""):gsub(",", ".")):match("^%s*([-+]?%d+%.?%d*)%s*$") or "")
+	if not (b and n) then return paintPick() end
+	local x, y = centreOf(b)
+	if axis == "x" then x = n else y = n end
+	M.MoveCentre(b.psKey, x, y)
+end
+
+-- One of the panel's fields: Enter moves the frame, Tab goes to the other
+-- field, Escape leaves it as it was.
+local function pickField(parent, label, axis, tip)
+	local e = CreateFrame("EditBox", nil, parent)
+	e:SetAutoFocus(false)
+	e:SetSize(64, 24)
+	e:SetTextInsets(6, 6, 0, 0)
+	e:SetJustifyH("RIGHT")
+	e:SetMaxLetters(6)
+	Theme.Font(e, "number")
+	W.Color(e, "text")
+	Theme.Skin(e, "editbox")
+	e.Label = W.Text(parent, "label", "textDim")
+	e.Label:SetText(label)
+	e:SetScript("OnEditFocusGained", function(self)
+		Theme.SetFocused(self, true)
+		self:HighlightText()
+	end)
+	e:SetScript("OnEditFocusLost", function(self)
+		Theme.SetFocused(self, false)
+		paintPick()
+	end)
+	e:SetScript("OnEscapePressed", function(self) self:ClearFocus() end)
+	e:SetScript("OnEnterPressed", function(self)
+		local text = self:GetText()
+		self:ClearFocus()
+		typedMove(axis, text)
+	end)
+	e:SetScript("OnTabPressed", function(self)
+		local text = self:GetText()
+		typedMove(axis, text)
+		if self.psOther then self.psOther:SetFocus() end
+	end)
+	e:SetScript("OnEnter", function(self) W.Tooltip(self, "ANCHOR_BOTTOM", label, { tip }) end)
+	e:SetScript("OnLeave", function(self) W.HideTooltip(self) end)
+	return e
+end
+
+-- The selected frame's centre, typed (the panel under the bar).
+function M.MoveCentre(key, x, y)
+	local _, _, w, h = M.Rect(key)
+	if not w then return false end
+	local sw, sh = screen()
+	return M.MoveTo(key, x + sw / 2 - w / 2, y + sh / 2 - h / 2)
 end
 
 local function confirmResetAll()
@@ -640,7 +997,18 @@ local function buildBar()
 	bar.Hint = W.Text(bar, "small", "textMuted")
 	bar.Hint:SetPoint("TOPLEFT", bar, "TOPLEFT", PAD, -31)
 	bar.Hint:SetText(L["Drag a box. Click one, then nudge it with the arrow keys."])
-	bar.Rule1, bar.Rule2 = W.Divider(bar, true), W.Divider(bar, true)
+	-- Every mouse and key control of the mode, in one tooltip.
+	bar.Info = W.IconButton(bar, "info", 20, L["Move frames: every control"], nil, 13)
+	bar.Info:SetPoint("LEFT", bar.Title, "RIGHT", 6, 0)
+	bar.Info.psTipLines = {
+		L["Drag a box to move its frame; hold Shift to keep to one line."],
+		L["Click a box to select it: the arrow keys nudge it 1 px (Shift: 10), and its X and Y can be typed under this bar."],
+		L["Right-click a box: its settings, its default place, or hide it. Shift-right-click hides it until you exit."],
+		L["The mouse wheel over boxes on top of each other brings the next one forward."],
+		L["Hold Shift to see through this bar and reach a frame under it."],
+		L["Escape or Exit to finish (it asks before discarding what moved); Save and exit keeps it."],
+	}
+	bar.Rule1, bar.Rule2, bar.Rule3 = W.Divider(bar, true), W.Divider(bar, true), W.Divider(bar, true)
 	bar.Grid = labelled(bar, L["Grid"], function() return ns.Get("movers.grid") end,
 		function(v) ns.Set("movers.grid", v and true or false) end, L["Lines to line frames up on; a dragged frame lands on them."])
 	bar.Segs = {}
@@ -659,9 +1027,35 @@ local function buildBar()
 	end
 	bar.Snap = labelled(bar, L["Snap"], function() return ns.Get("movers.snap") ~= false end,
 		function(v) ns.Set("movers.snap", v and true or false) end, L["Frames line up with the screen's centre and with each other's edges as you drag."])
+	bar.Unhide = W.Button(bar, "", function() M.ShowHidden() end, { ghost = true })
+	bar.Unhide.psTip, bar.Unhide.psTipLines = L["Show hidden boxes"], { L["The boxes you hid with Shift-right-click, back."] }
+	bar.Unhide:Hide()
+	bar.Revert = W.Button(bar, L["Revert"], function() M.Revert() end, { ghost = true, icon = "reload" })
+	bar.Revert.psTip, bar.Revert.psTipLines = L["Revert"], { L["Every frame back where it stood when you unlocked them."] }
 	bar.ResetAll = W.Button(bar, L["Reset all positions"], confirmResetAll, { danger = true, icon = "reset" })
-	bar.Lock = W.Button(bar, L["Lock"], function() M.Lock() end, { primary = true, icon = "lock" })
-	bar.Lock.psTip, bar.Lock.psTipLines = L["Lock"], { L["Also Escape."] }
+	bar.Exit = W.Button(bar, L["Exit"], function() M.Exit() end)
+	bar.Exit.psTip, bar.Exit.psTipLines = L["Exit"], { L["Also Escape. When something moved, it asks whether to keep it."] }
+	bar.Save = W.Button(bar, L["Save and exit"], function() M.Save() end, { primary = true, icon = "check" })
+	bar.Save.psTip, bar.Save.psTipLines = L["Save and exit"], { L["Every frame stays where it is now."] }
+	-- The selected frame's centre to type: X and Y from the screen's centre
+	-- (what its box shows), under the bar while a box is selected.
+	local pick = CreateFrame("Frame", nil, bar)
+	pick:SetHeight(36)
+	pick:SetPoint("TOP", bar, "BOTTOM", 0, -6)
+	pick:EnableMouse(true)
+	pick.psLight = true
+	Theme.Skin(pick, "window")
+	pick.Name = W.Text(pick, "label", "text")
+	pick.Name:SetPoint("LEFT", pick, "LEFT", 16, 0)
+	pick.X = pickField(pick, L["X"], "x", L["Its centre's distance from the screen's centre, right of it; type one and press Enter."])
+	pick.Y = pickField(pick, L["Y"], "y", L["Its centre's distance from the screen's centre, above it; type one and press Enter."])
+	pick.X.Label:SetPoint("LEFT", pick.Name, "RIGHT", 14, 0)
+	pick.X:SetPoint("LEFT", pick.X.Label, "RIGHT", 6, 0)
+	pick.Y.Label:SetPoint("LEFT", pick.X, "RIGHT", 12, 0)
+	pick.Y:SetPoint("LEFT", pick.Y.Label, "RIGHT", 6, 0)
+	pick.X.psOther, pick.Y.psOther = pick.Y, pick.X
+	pick:Hide()
+	bar.Pick = pick
 	layoutBar()
 end
 
@@ -669,6 +1063,20 @@ local function refreshBar()
 	bar.Grid:Refresh()
 	bar.Snap:Refresh()
 	paintSegments()
+	paintRevert()
+	-- Show hidden (n) while boxes are hidden: the bar lays out anew as it
+	-- comes, goes or its count changes.
+	local n = hiddenCount()
+	local text = n > 0 and format(L["Show hidden (%d)"], n) or ""
+	if (n > 0) ~= bar.Unhide:IsShown() or bar.Unhide.Label:GetText() ~= text then
+		bar.Unhide:SetShown(n > 0)
+		W.SetButtonText(bar.Unhide, text)
+		layoutBar()
+	end
+end
+
+function sessionChanged()
+	if bar and unlocked then paintRevert() end
 end
 
 ---------------------------------------------------------------------------
@@ -686,7 +1094,7 @@ end
 local function onKey(self, key)
 	local handled = true
 	if key == "ESCAPE" then
-		M.Lock()
+		M.Exit()
 	elseif selected and NUDGE[key] and not dragging then
 		local d = (IsShiftKeyDown and IsShiftKeyDown()) and M.NUDGE_SHIFT or M.NUDGE
 		M.Nudge(selected.psKey, NUDGE[key][1] * d, NUDGE[key][2] * d)
@@ -720,15 +1128,17 @@ local function build()
 	buildBar()
 end
 
--- Every enabled frame's box, the smaller ones over the bigger, so a box
--- inside another stays within reach; withGrid: the grid and the bar too.
+-- Every enabled frame's box (not one hidden for the session), the smaller
+-- ones over the bigger, so a box inside another stays within reach;
+-- withGrid: the grid and the bar too.
 function refresh(withGrid)
 	if not root then return end
 	local shown = {}
+	local hidden = session and session.hidden or NONE
 	for _, key in ipairs(order) do
 		local spec = specs[key]
 		local b = boxes[key]
-		if enabled(spec) then
+		if enabled(spec) and not hidden[key] then
 			b = b or newBox(key)
 			b.Label:SetText(spec.label or key)
 			placeBox(key)
@@ -749,49 +1159,155 @@ function refresh(withGrid)
 end
 M.Refresh = function() if unlocked then refresh(true) end end
 
-local function onCombat()
+local onCombat, onCombatEnd, onResize
+
+-- Shift held: the bar (and the panel under it) fades away, so a frame under
+-- it can be grabbed; let go, it comes back. Not while one of its fields is
+-- being typed in.
+local function barAway(away)
+	if not bar or (bar.psAway or false) == away then return end
+	bar.psAway = away or nil
+	if away then
+		Anim.To(bar, "alpha", bar:GetAlpha(), 0, Anim.FAST, "out", function(b) if b.psAway then b:Hide() end end)
+	else
+		bar:Show()
+		Anim.To(bar, "alpha", bar:GetAlpha(), 1, Anim.FAST, "out")
+	end
+end
+
+local function onModifier(_, key, down)
+	if not unlocked or type(key) ~= "string" or not key:find("SHIFT", 1, true) then return end
+	local pick = rawget(bar, "Pick")
+	if pick and (pick.X:HasFocus() or pick.Y:HasFocus()) then return end
+	barAway(down == 1 or down == true)
+end
+
+local function watch(on)
+	local reg = on and ns.RegisterEvent or ns.UnregisterEvent
+	reg("PLAYER_REGEN_DISABLED", onCombat)
+	reg("DISPLAY_SIZE_CHANGED", onResize)
+	reg("UI_SCALE_CHANGED", onResize)
+	reg("MODIFIER_STATE_CHANGED", onModifier)
+end
+
+-- The first unlock on the account says how it goes, once
+-- (PolestarDB.moversHint), under the bar.
+local function firstCallout()
+	local db = ns.DB()
+	if db.moversHint or not W.Callout then return end
+	db.moversHint = true
+	W.Callout(bar, { title = L["Moving Polestar's frames"], width = 300, point = "TOP", relPoint = "BOTTOM", y = -50,
+		text = L["Drag a box to move its frame, or click it and nudge it with the arrow keys. Right-click a box for more. Save and exit keeps what you moved; Exit asks first. The (i) lists every control."] })
+end
+
+-- The boxes and the bar away, nothing left running.
+local function standDown()
+	if dragging then endDrag() end
+	for _, b in pairs(boxes) do stopPulse(b) end
+	root:SetScript("OnUpdate", nil)
+	root:Hide()
+	if W.ModalShown and W.ModalShown() then W.HideModal() end
+	if menuAt and W.MenuShown(menuAt) then W.HideMenu() end
+end
+
+-- A fight: the session pauses before the lockdown (frames that move only
+-- out of combat) and comes back as it was when the fight ends.
+function onCombat()
 	if not unlocked then return end
-	M.Lock()
-	ns.Print(L["Frames locked for the fight."])
+	standDown()
+	unlocked, suspended = false, true
+	ns.RegisterEvent("PLAYER_REGEN_ENABLED", onCombatEnd)
+	ns.Print(L["Unlock mode waits for the fight to end; what you moved is kept."])
 end
 
-local function onResize()
-	if unlocked then refresh(true) end
+function onCombatEnd()
+	ns.UnregisterEvent("PLAYER_REGEN_ENABLED", onCombatEnd)
+	if not suspended or combat() then return end
+	suspended, unlocked = false, true
+	barAway(false)
+	root:Show()
+	refresh(true)
+	if selected then selectBox(selected) end
 end
 
-function M.Unlock(key)
+function onResize()
+	if not unlocked then return end
+	layoutBar()
+	refresh(true)
+end
+
+-- key: that frame's box selected (or the box standing in for it, M.Movable).
+-- opts: { pulse = true (the box pulses: a settings row's Move), back = fn
+-- (runs when the session ends) }.
+function M.Unlock(key, opts)
 	if combat() then
 		ns.Print(L["You can't move frames in combat."])
 		return false
 	end
 	if not root then build() end
+	if suspended then onCombatEnd() end
 	if not unlocked then
 		unlocked = true
-		ns.RegisterEvent("PLAYER_REGEN_DISABLED", onCombat)
-		ns.RegisterEvent("DISPLAY_SIZE_CHANGED", onResize)
-		ns.RegisterEvent("UI_SCALE_CHANGED", onResize)
+		if not session then
+			session = { snap = {} }
+			for _, k in ipairs(order) do snapshot(k) end
+		end
+		watch(true)
+		barAway(false)
 		root:Show()
 		refresh(true)
+		firstCallout()
 	end
-	if key and boxes[key] and boxes[key]:IsShown() then selectBox(boxes[key]) end
+	if opts and opts.back then session.back = opts.back end
+	key = key and standIn(key)
+	if key and session.hidden and session.hidden[key] then
+		session.hidden[key] = nil
+		refresh(true)
+	end
+	local b = key and boxes[key]
+	if b and b:IsShown() then
+		selectBox(b)
+		if opts and opts.pulse then pulse(b) end
+	end
 	return true
 end
 
+-- The session ends; what moved stays (Save and exit, /polestar lock).
 function M.Lock()
-	if not unlocked then return end
-	if dragging then endDrag() end
-	unlocked = false
+	if not (unlocked or suspended) then return end
+	if unlocked then standDown() end
+	unlocked, suspended = false, false
 	selectBox(nil)
-	root:SetScript("OnUpdate", nil)
-	root:Hide()
-	if W.ModalShown and W.ModalShown() then W.HideModal() end
-	ns.UnregisterEvent("PLAYER_REGEN_DISABLED", onCombat)
-	ns.UnregisterEvent("DISPLAY_SIZE_CHANGED", onResize)
-	ns.UnregisterEvent("UI_SCALE_CHANGED", onResize)
+	watch(false)
+	-- The first unlock's callout says its piece once.
+	local callout = bar and rawget(bar, "psCallout")
+	if callout then callout:Hide() end
+	ns.UnregisterEvent("PLAYER_REGEN_ENABLED", onCombatEnd)
+	local back = session and session.back
+	session = nil
+	if back then back() end
+end
+M.Save = M.Lock
+
+-- Exit (and Escape): nothing moved locks; else the dialog asks whether to
+-- keep it (Save and exit), put it back (Discard) or go on (Keep editing).
+function M.Exit()
+	if not unlocked then return M.Lock() end
+	if dragging then endDrag() end
+	local n = M.Changed()
+	if n == 0 then return M.Lock() end
+	W.Modal({ title = L["Discard your changes?"], icon = "reset", danger = true, action = L["Discard"], cancel = L["Keep editing"],
+		text = n == 1 and L["One frame moved since you unlocked. Discard puts it back where it stood."]
+			or format(L["%d frames moved since you unlocked. Discard puts them back where they stood."], n),
+		alt = L["Save and exit"], onAlt = function() M.Lock() end,
+		onAccept = function()
+			M.Revert()
+			M.Lock()
+		end })
 end
 
 function M.Toggle()
-	if unlocked then
+	if unlocked or suspended then
 		M.Lock()
 		return true
 	end
@@ -803,6 +1319,7 @@ end
 ns.On("SETTING_CHANGED", function(path)
 	if not unlocked or dragging then return end
 	refresh(path == "" or path == "movers" or (type(path) == "string" and path:sub(1, 7) == "movers."))
+	sessionChanged()
 end)
 
 ---------------------------------------------------------------------------
@@ -843,6 +1360,7 @@ local function pointFormat(spec, posKey, default)
 		ns.Set(posKey, { point, round(x / k), round(y / k) })
 	end
 	spec.reset = function() ns.Set(posKey, nil) end
+	spec.keys = { posKey }
 	return M.Register(spec)
 end
 
@@ -857,7 +1375,7 @@ local function guideScale()
 	return M.Ratio(guideFrame(), ns.Get("ui.scale") or 1)
 end
 M.Register({
-	key = "guide", label = L["Guide window"], frame = guideFrame,
+	key = "guide", label = L["Guide window"], frame = guideFrame, settings = "ui.scale",
 	-- Keep the real frame for mover geometry, but only preview a drag on it
 	-- when floating. The drop still saves ui.pos in either mode.
 	preview = function()
@@ -888,6 +1406,7 @@ M.Register({
 		ns.Set("ui.pos", { round(x / k), round(y / k) })
 	end,
 	reset = function() ns.Set("ui.pos", nil) end,
+	keys = { "ui.pos" },
 })
 
 -- The arrow (Nav/Arrow.lua): nav.arrowPos, unset its top 140 under the
@@ -896,7 +1415,7 @@ if ns.Nav then
 	local arrow = G("PolestarNavArrow")
 	local function k() return M.Ratio(arrow(), ns.Get("nav.arrowScale") or 1) end
 	M.Register({
-		key = "arrow", label = L["Arrow"], frame = arrow,
+		key = "arrow", label = L["Arrow"], frame = arrow, settings = "nav.arrowScale",
 		enabled = function() return ns.Get("nav.arrow") ~= false end,
 		size = function() return 200 * k(), 130 * k() end,
 		get = function()
@@ -913,6 +1432,7 @@ if ns.Nav then
 		reset = function()
 			if ns.Nav.ResetArrowPosition then ns.Nav.ResetArrowPosition() else ns.Set("nav.arrowPos", nil) end
 		end,
+		keys = { "nav.arrowPos" },
 	})
 end
 
@@ -922,7 +1442,7 @@ do
 	local launcher = G("PolestarLauncher")
 	local function k() return M.Ratio(launcher(), 1) end
 	M.Register({
-		key = "launcher", label = L["Floating button"], frame = launcher,
+		key = "launcher", label = L["Floating button"], frame = launcher, settings = "ui.launcherSize",
 		enabled = function() return ns.Get("ui.launcher") and true or false end,
 		size = function() return 32 * k(), 32 * k() end,
 		get = function()
@@ -936,6 +1456,7 @@ do
 			ns.Set("ui.launcherPos", { round(x / s), round(y / s) })
 		end,
 		reset = function() ns.Set("ui.launcherPos", nil) end,
+		keys = { "ui.launcherPos" },
 	})
 end
 
@@ -964,7 +1485,7 @@ if B and B.SavedPos and B.SetPosition and B.Offsets and B.Size then
 		return l + hs / 2, b + hs / 2
 	end
 	M.Register({
-		key = "buttons", label = L["Quest buttons"], frame = B.Holder, fixedSize = true,
+		key = "buttons", label = L["Quest buttons"], frame = B.Holder, fixedSize = true, settings = "qol.buttonScale",
 		size = function()
 			local x0, x1, y0, y1 = edges()
 			local s = k()
@@ -986,21 +1507,24 @@ if B and B.SavedPos and B.SetPosition and B.Offsets and B.Size then
 			B.SetPosition({ p[1], p[2], round(ox / s), round(oy / s) })
 		end,
 		reset = function() B.SetPosition(nil) end,
+		-- The character's own spot (QoL/Buttons.lua), nil at the default.
+		save = function() return ns.QoL.State().buttonPos end,
+		restore = function(p) B.SetPosition(p) end,
 	})
 end
 
 -- The compact frames (Maps.CompactFrame): saved as { "CENTER", x, y } once
 -- dragged; their modules re-place them on the setting's change.
 if ns.Maps then
-	pointFormat({ key = "flightTimer", label = L["Flight timer"], frame = G("PolestarFlightTimer"),
+	pointFormat({ key = "flightTimer", label = L["Flight timer"], frame = G("PolestarFlightTimer"), settings = "trackers.flight.scale",
 		enabled = function() return ns.Get("maps.flightTimer") ~= false end,
 		size = function() return 220, 34 end }, "maps.timerPos", { "TOP", 0, -140 })
-	pointFormat({ key = "instances", label = L["Instance tracker"], frame = G("PolestarInstanceTracker"),
+	pointFormat({ key = "instances", label = L["Instance tracker"], frame = G("PolestarInstanceTracker"), settings = "trackers.instances.scale",
 		enabled = function() return ns.Get("maps.instances") ~= false end,
 		size = function() return 230, 30 end }, "maps.trackerPos", { "TOPRIGHT", -220, -220 })
 end
 if ns.Party then
-	pointFormat({ key = "party", label = L["Party panel"], frame = G("PolestarPartyPanel"),
+	pointFormat({ key = "party", label = L["Party panel"], frame = G("PolestarPartyPanel"), settings = "trackers.party.scale",
 		enabled = function() return ns.Get("party.panel") ~= false end,
 		size = function() return 260, 96 end }, "party.panelPos", { "TOPLEFT", 280, -220 })
 end
@@ -1012,29 +1536,35 @@ end
 -- own (UI/ClassToast.lua, toasts.headsup.pos); each module re-places its card
 -- on the change.
 -- While the alerts line up (toasts.stack) they hang from one line, which
--- UI/Looks/Toasts.lua registers as its own mover, so these step aside.
+-- UI/Looks/Toasts.lua registers as its own mover, so these step aside (and
+-- the line's box stands in for them: via).
 -- Registered once every file has loaded: Rares loads after UI.
 local function own(fn) return function() return ns.Get("toasts.stack") ~= true and fn() end end
+local function line() return ns.Get("toasts.stack") == true and "toastLine" or nil end
 ns.OnInit(function()
 	if ns.Rares and ns.Rares.Toast then
-		pointFormat({ key = "rareAlert", label = L["Rare alert"], frame = G("PolestarRareToast"),
+		pointFormat({ key = "rareAlert", label = L["Rare alert"], frame = G("PolestarRareToast"), via = line, settings = "toasts.rare.scale",
 			enabled = own(function() return ns.Get("rares.alerts") ~= false end),
 			size = function() return 368, 104 end }, "rares.toastPoint", { "TOP", 0, -132 })
 	end
 	if ns.Nav and ns.Nav.alerts then
-		pointFormat({ key = "transportAlert", label = L["Transport alert"], frame = G("PolestarAlert"),
+		pointFormat({ key = "transportAlert", label = L["Transport alert"], frame = G("PolestarAlert"), via = line, settings = "toasts.transport.scale",
 			enabled = own(function() return ns.Get("nav.alerts") ~= false and ns.Get("nav.alertBanner") ~= false end),
 			size = function() return 320, 56 end }, "toasts.transport.point", { "TOP", 0, -72 })
 	end
-	pointFormat({ key = "whileHere", label = L["While you're here"], frame = G("PolestarWhileHereToast"),
+	pointFormat({ key = "whileHere", label = L["While you're here"], frame = G("PolestarWhileHereToast"), via = line, settings = "toasts.whilehere.seconds",
 		enabled = own(function() return ns.Get("behavior.whileHere") ~= false end),
-		size = function() return 320, 46 end }, "toasts.whilehere.point", { "TOP", 0, -150 })
+		size = function()
+			local T = ns.UI and ns.UI.WhileHereToast
+			if T and T.Size then return T.Size() end
+			return 320, 46
+		end }, "toasts.whilehere.point", { "TOP", 0, -150 })
 	-- The heads-up card (UI/ClassToast.lua: a class quest, a dungeon) on a spot
 	-- of its own: only while its place is "free" (else it sits on the guide
 	-- window and follows it).
 	local CT = ns.UI and ns.UI.ClassToast
 	if CT and CT.PlaceSetting then
-		pointFormat({ key = "headsUp", label = L["Heads-up card"], frame = G("PolestarClassToast"),
+		pointFormat({ key = "headsUp", label = L["Heads-up card"], frame = G("PolestarClassToast"), settings = "toasts.headsup.place",
 			enabled = function() return CT.PlaceSetting() == "free" end,
 			size = function() return 340, CT.Compact() and 40 or 120 end }, "toasts.headsup.pos", CT.FREE_AT)
 	end

@@ -98,9 +98,11 @@ local STAT_LABEL = {
 	mp5 = L["Mana per 5 seconds"], hp5 = L["Health per 5 seconds"],
 	defense = L["Defense skill"], dodge = L["Dodge (%)"], parry = L["Parry (%)"], block = L["Block (%)"],
 	blockValue = L["Block value"],
+	haste = L["Haste (%)"], expertise = L["Expertise (%)"], armorPen = L["Armor penetration (%)"],
 }
 
 local function nameOf(key) return STAT_LABEL[key] or gear().Pawn.NameOf(key) end
+UI.ScalesStatName = nameOf -- the adjust window (UI/GearAdjust.lua) names stats the same way
 
 -- The weights of a scale as { { key, name, value }, ... } in the order of
 -- Gear.STAT_KEYS (the main stats first, weapon DPS last).
@@ -443,6 +445,7 @@ local function build()
 	F.Band:SetTexCoord(Theme.BandCoords(F:GetWidth() - 2, HEAD_H))
 	F.Close = W.IconButton(head, "close", 28, L["Close"], close, 14)
 	F.Close:SetPoint("TOPRIGHT", head, "TOPRIGHT", -12, -14)
+	W.FrameClose(F, F.Close)
 	F.Title = W.Text(head, "title", "text")
 	F.Title:SetPoint("LEFT", head, "LEFT", PAD, 0)
 	F.Title:SetPoint("RIGHT", F.Close, "LEFT", -8, 0)

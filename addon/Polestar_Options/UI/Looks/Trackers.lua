@@ -3,7 +3,8 @@
 -- its pinned previews. The trackers' look itself is core (Polestar/UI/Trackers.lua,
 -- UI.Trackers); this file is part of the settings window's addon.
 --
---   UI.Trackers.Preview(view, tab)   the options' pinned preview (sandbox trackers with made-up values)
+--   UI.Trackers.Preview(view, tab)   the options' pinned preview, a band (UI.Preview.Band):
+--                                    sandbox trackers with made-up values, at their real size
 
 local ns = Polestar
 local UI, Theme, W, Anim = ns.UI, ns.Theme, ns.Widgets, ns.Anim
@@ -15,16 +16,6 @@ local TR = UI.Trackers
 local NEW = "0.3.8"
 local FADED = TR.FADED
 local num = TR.Num
-
--- A trackers setting changed: the stages repaint (now when shown, else when
--- they show); the trackers themselves follow in UI.Trackers.
-local stages = setmetatable({}, { __mode = "k" })
-ns.On("SETTING_CHANGED", function(path)
-	if path ~= "" and path ~= "trackers" and path:sub(1, 9) ~= "trackers." then return end
-	for s in pairs(stages) do
-		if s:IsVisible() then s:Refresh() else s.psDirty = true end
-	end
-end)
 
 ---------------------------------------------------------------------------
 -- Previews: the trackers' own builders, made-up values, no events
@@ -69,8 +60,8 @@ local BUILD = {
 	end,
 }
 
--- The game's XP bar, drawn plainly, with the guide's real mark on it, in
--- stage s. -> { bar, mark, Refresh(), Item() (one of the stage's surfaces) }
+-- The game's XP bar, drawn plainly, with the guide's real mark on it, on
+-- band s. -> { bar, mark, Refresh(), Item() (one of the band's elements) }
 local MARK_ROOM = 20 -- the mark's label over the bar
 local function xpBar(s)
 	local Mk = ns.QoL and ns.QoL.XPMark
@@ -108,8 +99,8 @@ local function xpBar(s)
 	end
 	function x.Item()
 		local t = s:TrueScale()
-		return { w = BAR_W * t, h = (12 + MARK_ROOM) * t, foot = bar,
-			place = function(k, left, top)
+		return { w = BAR_W * t, h = (12 + MARK_ROOM) * t, label = x.Label,
+			place = function(left, top, k)
 				local g = t * k
 				bar:SetScale(g)
 				bar:ClearAllPoints()
@@ -216,8 +207,8 @@ local function journey(s)
 	end
 	function j.Item()
 		local k0 = (tonumber(ns.Get("ui.scale")) or 1) * s:TrueScale()
-		return { w = J_W * k0, h = f:GetHeight() * k0, foot = f, caption = j.Caption,
-			place = function(k, left, top)
+		return { w = J_W * k0, h = f:GetHeight() * k0, label = j.Label,
+			place = function(left, top, k)
 				local g = k0 * k
 				f:SetScale(g)
 				f:ClearAllPoints()
@@ -227,13 +218,14 @@ local function journey(s)
 	return j
 end
 
--- A tracker as one of the stage's surfaces: at its true size (its Scale on
+-- A tracker as one of the band's elements: at its real size (its Scale on
 -- the game's UI scale), its place its fight look's (Anim.Anchor).
-local function trackerItem(s, kind, f, caption)
+local function trackerItem(s, kind, f, label)
 	local k0 = num(kind, "scale", 0.4, 2.5) * s:TrueScale()
-	return { w = f:GetWidth() * k0, h = f:GetHeight() * k0, foot = f, caption = caption,
-		place = function(k, left, top)
+	return { w = f:GetWidth() * k0, h = f:GetHeight() * k0, label = label,
+		place = function(left, top, k)
 			local g = k0 * k
+			f.psBandScale = g
 			f:SetScale(g)
 			Anim.Anchor(f, "TOPLEFT", s, "TOPLEFT", left / g, -top / g)
 		end }
@@ -263,98 +255,128 @@ local function lightTracker(s, kind, f, fight)
 	if kind == "flight" then s:Light("trackers.flight.format", t.titles[1]) end
 end
 
--- A stage of trackers: kinds (their sandbox panels), with the journey and
--- the XP bar when asked, all at their true size on soft shadows; the first
--- panel's fight look behind a button when it has a fight rule.
-local HEIGHT = { flight = 130, instances = 200, party = 260 }
+-- A band of trackers (UI.Preview.Band): kinds (their sandbox panels), with
+-- the journey or the XP bar when asked, side by side at their real size, a
+-- label under each when there are several. opts.pick: a dropdown picks one
+-- of the kinds, the journey or the level mark on its XP bar instead
+-- (Essentials, whose rows set all five), and the pointer on a row picks the
+-- one its setting draws. A tab's own tracker with a fight rule has "In a
+-- fight" in Play's place: its fight look, faded or gone, for a moment.
+-- s.Tracker, s.Journey, s.XP: its parts, for the tests.
 local NAMES = { flight = L["Flight timer"], instances = L["Instance tracker"], party = L["Party panel"] }
+local WATCH = { "trackers.", "maps.flightTimer", "maps.instances", "party.panel", "nav.journeySteps", "qol.xpTargetMark", "ui." }
+-- The choice a setting draws, where its key does not say (trackers.<kind>.*).
+local OWNER = { ["nav.journeySteps"] = "journey", ["qol.xpTargetMark"] = "xp", ["maps.flightTimer"] = "flight",
+	["maps.instances"] = "instances", ["maps.instanceDisplay"] = "instances", ["party.panel"] = "party" }
 
-local function trackerStage(view, kinds, opts)
-	local TS = UI.Toasts
-	local first = kinds[1]
-	local s = TS.NewStage(view, HEIGHT[first])
-	stages[s] = true
-	local panels, caps = {}, {}
+local function trackerBand(view, kinds, opts)
+	local first, pick = kinds[1], kinds[1]
+	local picker
+	if opts.pick then
+		local choices = {}
+		for i, kind in ipairs(kinds) do choices[i] = { value = kind, label = NAMES[kind] } end
+		choices[#choices + 1] = { value = "journey", label = L["Journey"] }
+		choices[#choices + 1] = { value = "xp", label = L["Level mark"] }
+		picker = { choices = choices, get = function() return pick end, set = function(v) pick = v end }
+	end
+	local panels = {}
+	local s
+	local fight = not opts.pick and TR.Get(first, "combat") and function()
+		local f = panels[first]
+		if not f then return end
+		local rule = TR.Get(first, "combat")
+		local a = num(first, "alpha", 0.1, 1)
+		local to = rule == "hide" and 0 or rule == "fade" and a * FADED or a
+		Anim.To(f, "alpha", a, to, Anim.SLOW, "out", function()
+			ns.After(1.2, function() Anim.To(f, "alpha", f:GetAlpha(), a, Anim.SLOW, "out") end)
+		end)
+	end or nil
+	s = UI.Preview.Band(view, { watch = WATCH, picker = picker, play = fight, playLabel = L["In a fight"] })
+	local several = not opts.pick and (opts.journey or opts.xp)
+	local labels, hots = {}, {}
 	for _, kind in ipairs(kinds) do
 		local f = BUILD[kind] and BUILD[kind](s)
 		if f then
 			f:Show()
 			panels[kind] = f
-			if opts.captions then
-				caps[kind] = W.Text(s, "small", "textMuted")
-				caps[kind]:SetJustifyH("CENTER")
-				caps[kind]:SetText(NAMES[kind])
+			if several then labels[kind] = s:Label(NAMES[kind]) end
+			-- Its parts lead to their rows: the panel, its bar, its first lines.
+			local t, k, list = f.psTracker, "trackers." .. kind .. ".", {}
+			for _, hot in ipairs({ { f, "scale" }, { t.bar, "barHeight" }, { t.titles[1], "titleSize" }, { t.bodies[1], "bodySize" } }) do
+				if hot[1] then list[#list + 1] = s:Hot(hot[1], k .. hot[2]) end
 			end
+			hots[kind] = list
 		end
 	end
-	local f = panels[first]
-	s.Tracker = f
-	local j = opts.journey and journey(s) or nil
-	if j and opts.captions then
-		j.Caption = W.Text(s, "small", "textMuted")
-		j.Caption:SetJustifyH("CENTER")
-		j.Caption:SetText(L["Journey"])
-	end
-	local xp = opts.xp and xpBar(s) or nil
+	s.Tracker = panels[first]
+	local j = (opts.journey or opts.pick) and journey(s) or nil
+	if j and several then j.Label = s:Label(L["Journey"]) end
+	local xp = (opts.xp or opts.pick) and xpBar(s) or nil
+	if xp and several then xp.Label = s:Label(L["Level mark"]) end
 	s.XP, s.Journey = xp, j
-	function s:Refresh()
+	for kind, p in pairs(panels) do lightTracker(s, kind, p, kind == first and rawget(s, "Play") or nil) end
+	if opts.pick then
+		function s:Focus(key)
+			local want = type(key) == "string" and (OWNER[key] or key:match("^trackers%.(%a+)%."))
+			if not (want == "journey" and j or want == "xp" and xp or panels[want]) or want == pick then return end
+			pick = want
+			UI.Preview.Again(self)
+		end
+	end
+
+	function s:Content()
 		local items = {}
 		for _, kind in ipairs(kinds) do
 			local p = panels[kind]
 			if p then
-				p.psFit = nil
-				TR.ApplyLook(p)
-				p:Fill()
-				p:SetAlpha(num(kind, "alpha", 0.1, 1))
-				items[#items + 1] = trackerItem(self, kind, p, caps[kind])
+				local on = not opts.pick or kind == pick
+				p:SetShown(on)
+				for _, h in ipairs(hots[kind]) do h:SetShown(on) end
+				if on then
+					p.psFit = nil
+					TR.ApplyLook(p)
+					p:Fill()
+					p:SetAlpha(num(kind, "alpha", 0.1, 1))
+					items[#items + 1] = trackerItem(self, kind, p, labels[kind])
+				end
 			end
 		end
-		if j then
+		local jOn = j and (not opts.pick or pick == "journey")
+		if j then j.frame:SetShown(jOn and true or false) end
+		if jOn then
 			j.Refresh()
 			items[#items + 1] = j.Item()
 		end
-		if xp then
+		local xpOn = xp and (not opts.pick or pick == "xp")
+		if xp then xp.bar:SetShown(xpOn and true or false) end
+		if xpOn then
 			xp.Refresh()
 			items[#items + 1] = xp.Item()
 		end
-		if #items > 0 then self:SideBySide(items, { bottom = rawget(self, "Play") and 40 or 12 }) end
-	end
-	if f then
-		local t, k = f.psTracker, "trackers." .. first .. "."
-		s:Hot(f, k .. "scale")
-		if t.bar then s:Hot(t.bar, k .. "barHeight") end
-		s:Hot(t.titles[1], k .. "titleSize")
-		s:Hot(t.bodies[1], k .. "bodySize")
-		-- Play: its fight look, faded or gone, for a moment.
-		if not opts.captions and TR.Get(first, "combat") then
-			s.Play = W.Button(s, L["In a fight"], function()
-				local rule = TR.Get(first, "combat")
-				local a = num(first, "alpha", 0.1, 1)
-				local to = rule == "hide" and 0 or rule == "fade" and a * FADED or a
-				Anim.To(f, "alpha", a, to, Anim.SLOW, "out", function()
-					ns.After(1.2, function() Anim.To(f, "alpha", f:GetAlpha(), a, Anim.SLOW, "out") end)
-				end)
-			end, { height = 22 })
-			s.Play:SetPoint("BOTTOMRIGHT", s, "BOTTOMRIGHT", -12, 10)
+		if #items == 0 then return nil end
+		local total, tall, out = 0, 0, {}
+		for i, it in ipairs(items) do
+			if it.label then out[#out + 1] = { it.label, total + it.w / 2 } end
+			total = total + it.w + (i < #items and UI.Preview.STATE_GAP or 0)
+			tall = max(tall, it.h)
 		end
-	else
-		s.psNote = (L["Not loaded"])
-	end
-	for kind, p in pairs(panels) do lightTracker(s, kind, p, kind == first and rawget(s, "Play") or nil) end
-	function s:Layout(width, height)
-		self:SetWidth(width)
-		self.psWidth, self.psHeight = width, height or HEIGHT[first]
-		self:Refresh()
-		return self.psHeight
+		return total, tall, function(left, top, k)
+			local x = left
+			for _, it in ipairs(items) do
+				it.place(x, top + (tall - it.h) * k, k)
+				x = x + (it.w + UI.Preview.STATE_GAP) * k
+			end
+		end, #out > 0 and out or nil
 	end
 	return s
 end
 
 -- tab: "flight" (with the journey) | "instances" (with the XP bar) |
--- "party" | "all" (Essentials: every tracker, the journey and the XP bar)
+-- "party" | "all" (Essentials: its dropdown picks the tracker, the journey
+-- or the level mark)
 function TR.Preview(view, tab)
-	if tab == "all" then return trackerStage(view, { "flight", "instances", "party" }, { journey = true, xp = true, captions = true }) end
-	return trackerStage(view, { tab }, { journey = tab == "flight", xp = tab == "instances" })
+	if tab == "all" then return trackerBand(view, { "flight", "instances", "party" }, { pick = true }) end
+	return trackerBand(view, { tab }, { journey = tab == "flight", xp = tab == "instances" })
 end
 
 ---------------------------------------------------------------------------
@@ -465,13 +487,13 @@ end
 -- Travel: the flight timer, and the journey in the guide window.
 local TRAVEL = L["Travel"]
 panelPage(TRAVEL, "flight", L["flight timer"], {
-	section = L["Flight timer"], preview = function(view) return TR.Preview(view, "flight") end,
+	section = L["Flight timer"], preview = function(view) return TR.Preview(view, "flight") end, move = "flightTimer",
 	subtitle = L["The flight timer, the journey, the instance tracker, the guide's mark on the XP bar and the party panel: their size, look and when they show."],
 	toggle = { kind = "toggle", key = "maps.flightTimer", label = L["Flight timer"], search = "flight, taxi, timer, time left", needs = function() return ns.Maps end,
 		help = L["While flying, shows the destination and the time left. Learns each route's real duration for this character; drag to move."] },
 }, { bar = true, noRules = true, titleLabel = L["Time size"], titleHelp = L["The size of the time against Polestar's text size."],
 	format = { kind = "dropdown", key = "trackers.flight.format", label = L["Time shows"], new = NEW,
-		help = L["The time left (with ~ while it is an estimate), how far along the flight is, or both."],
+		help = string.format(L["The time left (with %s while it is an estimate), how far along the flight is, or both."], Theme.Approx()),
 		search = "format, percent, time left, countdown, display, numbers, flight",
 		choices = { { value = "left", label = L["Time left"] }, { value = "percent", label = L["How far along"] }, { value = "both", label = L["Both"] } } } })
 -- The journey (in the guide window: its frame, type and ground are the window's).
@@ -492,7 +514,7 @@ register({ tab = TRAVEL, section = L["Journey"],
 -- Instances & XP: the instance tracker, then the guide's level on the XP bar.
 local INST = L["Instances & XP"]
 panelPage(INST, "instances", L["instance tracker"], {
-	section = L["Instance tracker"], preview = function(view) return TR.Preview(view, "instances") end,
+	section = L["Instance tracker"], preview = function(view) return TR.Preview(view, "instances") end, move = "instances",
 	toggle = { kind = "toggle", key = "maps.instances", label = L["Track instances"], search = "dungeon, instance lockout, instance cap, reset, runs",
 		needs = function() return ns.Maps end,
 		help = L["Records dungeon and raid entries, time and experience per run. /pole instances lists them."] },
@@ -535,7 +557,7 @@ register({ tab = INST, section = L["Level mark"],
 -- Party panel
 local PARTY = L["Party panel"]
 panelPage(PARTY, "party", L["party panel"], {
-	section = L["Party panel"], preview = function(view) return TR.Preview(view, "party") end,
+	section = L["Party panel"], preview = function(view) return TR.Preview(view, "party") end, move = "party",
 	toggle = { kind = "toggle", key = "party.panel", label = L["Party panel"], search = "party, group, members, steps, sync",
 		needs = function() return ns.Party end,
 		help = L["A small panel with your party members who run Polestar: their level, step and what they still need. Opens by itself in a party."] },

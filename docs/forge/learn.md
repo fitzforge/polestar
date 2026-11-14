@@ -24,7 +24,7 @@ paths follow.
 | Input | Default | What it gives |
 |---|---|---|
 | `--archive` | `~/work/maintainer/recordings` | the re-sessioned sessions (`forge record pull` / `resession`) and the archive's `config.json` (`exclude`, `minBuild`, the establishment thresholds, `minVoters`) |
-| `--verdicts` | `~/work/maintainer/ingest-audit/verdict.json` when present | IngestAudit's verdict: contributors marked `exclude` or `suspect`, who is the same person, re-rolled character ids |
+| `--verdicts` | `~/work/maintainer/ingest-audit/verdict.json` when present | the recordings audit's verdict: contributors marked `exclude` or `suspect`, who is the same person, re-rolled character ids |
 | `--data` | `data/forever` | the current data the facts are compared with (quests, NPC/object spawns, item drops, zones, map frames) |
 | corrections | `forever-db/corrections` | the fields facts never override |
 | `--sources` | `data/sources` | the client quest tables that say which quests are new in Forever (`forge data newquests`'s rule; `--offline`: cached only), and the EG Link output's objective positions (`forge data sources --only eglink`; without them, spots come from recordings alone) |

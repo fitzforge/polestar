@@ -26,6 +26,15 @@ local function frameRect(f)
 end
 local root = function() return PolestarMovers end
 local function key(k) stub.RunScript(root(), "OnKeyDown", k) end
+-- The shared menu's shown rows: their texts, and one by its text.
+local function menuTexts()
+	local out = {}
+	for _, r in ipairs(PolestarMenu.rows) do if r:IsShown() then out[#out + 1] = r.Text:GetText() end end
+	return out
+end
+local function menuRow(text)
+	for _, r in ipairs(PolestarMenu.rows) do if r:IsShown() and r.Text:GetText() == text then return r end end
+end
 "#;
 
 fn run(script: &str) -> Value {
@@ -218,10 +227,10 @@ fn snapping_takes_the_screen_centre_and_other_edges_within_six_pixels_else_the_g
 	assert_eq!(out["clamped"], json!([0, 1040, false, false]));
 }
 
-// The arrow keys nudge the selected box 1 px (Shift: 10) through the frame's key; a right-click puts that
-// frame back; Reset all positions puts every one back.
+// The arrow keys nudge the selected box 1 px (Shift: 10) through the frame's key; its menu's Reset position puts
+// that frame back; Reset all positions puts every one back.
 #[test]
-fn arrow_keys_nudge_right_click_resets_one_and_reset_all_resets_every_frame() {
+fn arrow_keys_nudge_the_menu_resets_one_and_reset_all_resets_every_frame() {
 	let out = run(r#"
 		Polestar.Set("ui.launcher", true)
 		Polestar.Set("ui.launcherPos", { 500, 500 })
@@ -236,6 +245,8 @@ fn arrow_keys_nudge_right_click_resets_one_and_reset_all_resets_every_frame() {
 		stub.keys.shift = false
 		local ten = Polestar.Get("ui.launcherPos")
 		stub.RunScript(M.Box("launcher"), "OnMouseUp", "RightButton")
+		local item = menuRow("Reset position")
+		item:Click(); item:Click()
 		local reset = Polestar.Get("ui.launcherPos")
 		Polestar.QoL.Buttons.SetPosition({ "CENTER", "CENTER", 0, 0 })
 		M.ResetAll()
@@ -244,32 +255,264 @@ fn arrow_keys_nudge_right_click_resets_one_and_reset_all_resets_every_frame() {
 	assert_eq!(out["sel"], "launcher", "Unlock(key) selects that box");
 	assert_eq!(out["one"], json!([501, 501]));
 	assert_eq!(out["ten"], json!([491, 501]));
-	assert_eq!(out["reset"], false, "right-click: back to its default place");
+	assert_eq!(out["reset"], false, "the menu's Reset position: back to its default place");
 	assert_eq!(out["timer"], false);
 	assert_eq!(out["guide"], false);
 	assert_eq!(out["buttons"], false);
 }
 
-// A fight locks (it starts before the lockdown) and no unlocking in one; Escape and /polestar unlock lock too.
+// A right-click on a box no longer resets it at once: it opens a menu by the cursor with the frame's settings, Reset
+// position (a second click acts) and Hide this box. Its settings open the window on the frame's look with the
+// boxes still up. Shift-right-click hides the box for the session (the bar offers them back, and so does a Move
+// asking for it); the session's end forgets it.
 #[test]
-fn a_fight_escape_and_the_command_lock_and_no_unlocking_in_combat() {
+fn a_right_click_opens_the_boxs_menu_and_shift_right_click_hides_the_box_for_the_session() {
 	let out = run(r#"
+		Polestar.Set("ui.launcher", true)
+		Polestar.Set("ui.launcherPos", { 500, 500 })
+		Polestar.Set("behavior.whileHere", true)
 		M.Unlock()
+		local b = M.Box("launcher")
+		stub.RunScript(b, "OnMouseUp", "RightButton")
+		local menu = { shown = PolestarMenu:IsShown(), items = menuTexts(), selected = M.Selected() or false }
+		local item = menuRow("Reset position")
+		item:Click()
+		local armed = { item.Text:GetText(), Polestar.Get("ui.launcherPos"), PolestarMenu:IsShown() }
+		Polestar.Widgets.HideMenu()
+		stub.RunScript(M.Box("arrow"), "OnMouseUp", "RightButton")
+		menuRow("Its settings"):Click()
+		local settings = { shown = PolestarOptions:IsShown(), page = Polestar.UI.Options.page.key, unlocked = M.IsUnlocked() }
+		stub.keys.shift = true
+		stub.RunScript(M.Box("whileHere"), "OnMouseUp", "RightButton")
+		stub.keys.shift = false
+		local bar = PolestarMoversBar
+		local hidden = { box = M.Box("whileHere"):IsShown(), count = M.HiddenCount(), offer = bar.Unhide:IsShown() and bar.Unhide.Label:GetText() or false,
+			menu = PolestarMenu:IsShown() }
+		M.Unlock("whileHere")
+		local asked = { M.Box("whileHere"):IsShown(), M.Selected() or false }
+		stub.keys.shift = true
+		stub.RunScript(M.Box("whileHere"), "OnMouseUp", "RightButton")
+		stub.keys.shift = false
+		bar.Unhide:Click()
+		local offered = { M.Box("whileHere"):IsShown(), bar.Unhide:IsShown() }
+		stub.keys.shift = true
+		stub.RunScript(M.Box("whileHere"), "OnMouseUp", "RightButton")
+		stub.keys.shift = false
+		M.Save()
+		M.Unlock()
+		emit({ menu = menu, armed = armed, settings = settings, hidden = hidden, asked = asked, offered = offered,
+			again = M.Box("whileHere"):IsShown() })"#);
+	assert_eq!(out["menu"], json!({ "shown": true, "items": ["Its settings", "Reset position", "Hide this box"], "selected": "launcher" }));
+	assert_eq!(out["armed"], json!(["Click again to confirm", [500, 500], true]), "one click arms the reset");
+	assert_eq!(out["settings"], json!({ "shown": true, "page": "arrow", "unlocked": true }), "the arrow's look page, the boxes still up");
+	assert_eq!(out["hidden"], json!({ "box": false, "count": 1, "offer": "Show hidden (1)", "menu": false }), "Shift-right-click hides it, no menu");
+	assert_eq!(out["asked"], json!([true, "whileHere"]), "a Move asking for it shows it again");
+	assert_eq!(out["offered"], json!([true, false]), "the bar's Show hidden");
+	assert_eq!(out["again"], true, "a new session shows every box");
+}
+
+// A fight pauses the session before the lockdown (no unlocking in one) and its end brings it back as it was: the
+// boxes, the selection and what moved since the unlock (Revert still puts it back). Escape and /polestar unlock
+// lock (nothing moved: no question).
+#[test]
+fn a_fight_pauses_the_session_and_its_end_brings_it_back_with_what_moved() {
+	let out = run(r#"
+		Polestar.Set("ui.launcher", true)
+		Polestar.Set("ui.launcherPos", { 500, 500 })
+		M.Unlock("launcher")
+		key("UP")
 		stub.inCombat = true
 		stub.fire("PLAYER_REGEN_DISABLED")
-		local fight = { M.IsUnlocked(), root():IsShown(), stub.messages[#stub.messages] }
+		local fight = { M.IsUnlocked(), M.IsSuspended(), root():IsShown(), stub.messages[#stub.messages] }
 		local refused = { M.Unlock(), M.IsUnlocked(), stub.messages[#stub.messages] }
 		stub.inCombat = false
+		stub.fire("PLAYER_REGEN_ENABLED")
+		local after = { M.IsUnlocked(), M.IsSuspended(), root():IsShown(), M.Selected() or false, M.Changed() }
+		local reverted = { M.Revert(), Polestar.Get("ui.launcherPos"), M.Changed() }
+		key("ESCAPE")
+		local esc = { M.IsUnlocked(), root():IsShown(), root():GetScript("OnUpdate") == nil, Polestar.Widgets.ModalShown() }
 		SlashCmdList.POLESTAR("unlock")
 		local cmd = M.IsUnlocked()
-		key("ESCAPE")
-		local esc = { M.IsUnlocked(), root():IsShown(), root():GetScript("OnUpdate") == nil }
 		SlashCmdList.POLESTAR("unlock")
-		SlashCmdList.POLESTAR("unlock")
-		emit({ fight = fight, refused = refused, cmd = cmd, esc = esc, toggled = M.IsUnlocked() })"#);
-	assert_eq!(out["fight"], json!([false, false, "|cff4fd1c5Polestar|r: Frames locked for the fight."]));
+		emit({ fight = fight, refused = refused, after = after, reverted = reverted, esc = esc, cmd = cmd, toggled = M.IsUnlocked() })"#);
+	assert_eq!(out["fight"], json!([false, true, false, "|cff4fd1c5Polestar|r: Unlock mode waits for the fight to end; what you moved is kept."]));
 	assert_eq!(out["refused"], json!([false, false, "|cff4fd1c5Polestar|r: You can't move frames in combat."]));
+	assert_eq!(out["after"], json!([true, false, true, "launcher", 1]), "back after the fight: the box selected, the move kept");
+	assert_eq!(out["reverted"], json!([1, [500, 500], 0]), "Revert puts the launcher back where it stood at the unlock");
+	assert_eq!(out["esc"], json!([false, false, true, false]), "Escape with nothing moved locks, no question; nothing left running");
 	assert_eq!(out["cmd"], true, "/polestar unlock");
-	assert_eq!(out["esc"], json!([false, false, true]), "Escape locks; nothing left running");
 	assert_eq!(out["toggled"], false, "/polestar unlock again locks");
+}
+
+// The session keeps where every frame stood when it began, as stored (nil at the default): Revert puts back what
+// moved (a drag, a nudge, a reset, Reset all) without leaving, and is on only while something moved.
+#[test]
+fn revert_puts_every_frame_back_where_it_stood_at_the_unlock_and_the_session_goes_on() {
+	let out = run(r#"
+		Polestar.Set("ui.launcher", true)
+		Polestar.Set("ui.launcherPos", { 500, 500 })
+		Polestar.Set("ui.pos", { 100, 900 })
+		Polestar.QoL.Buttons.SetPosition({ "CENTER", "CENTER", 40, 40 })
+		M.Unlock()
+		local bar = PolestarMoversBar
+		local idle = { M.Changed(), bar.Revert:IsEnabled() }
+		M.MoveTo("launcher", 40, 60)
+		M.MoveTo("arrow", 900, 300)
+		M.Reset("guide")
+		M.MoveTo("buttons", 1500, 300)
+		local moved = { M.Changed(), bar.Revert:IsEnabled() }
+		local n = M.Revert()
+		emit({ idle = idle, moved = moved, n = n, after = { M.Changed(), bar.Revert:IsEnabled(), M.IsUnlocked() },
+			launcher = Polestar.Get("ui.launcherPos"), arrow = Polestar.GetStored("nav.arrowPos") or false,
+			guide = Polestar.Get("ui.pos"), buttons = Polestar.CharState().qol.buttonPos })"#);
+	assert_eq!(out["idle"], json!([0, false]), "nothing moved: Revert is off");
+	assert_eq!(out["moved"], json!([4, true]));
+	assert_eq!(out["n"], 4);
+	assert_eq!(out["after"], json!([0, false, true]), "all back, still unlocked");
+	assert_eq!(out["launcher"], json!([500, 500]));
+	assert_eq!(out["arrow"], false, "the arrow had no spot of its own: none again");
+	assert_eq!(out["guide"], json!([100, 900]), "a reset taken back too");
+	assert_eq!(out["buttons"], json!(["CENTER", "CENTER", 40, 40]), "the character's own spot");
+}
+
+// Exit (and Escape) with something moved asks: Keep editing stays, Discard puts it back and locks, Save and exit
+// keeps it and locks; the bar's Save and exit keeps it without a question.
+#[test]
+fn exit_asks_when_something_moved_discard_puts_it_back_and_save_keeps_it() {
+	let out = run(r#"
+		Polestar.Set("ui.launcher", true)
+		Polestar.Set("ui.launcherPos", { 500, 500 })
+		local box = function() return PolestarModal.Box end
+		local function shown() return Polestar.Widgets.ModalShown() end
+		M.Unlock("launcher")
+		key("RIGHT")
+		key("ESCAPE")
+		local asked = { shown(), M.IsUnlocked(), box().Title:GetText(), box().Text:GetText(), box().Action.Label:GetText(),
+			box().Cancel.Label:GetText(), box().Alt:IsShown() and box().Alt.Label:GetText() or false }
+		box().Cancel:Click()
+		local kept = { shown(), M.IsUnlocked(), Polestar.Get("ui.launcherPos") }
+		PolestarMoversBar.Exit:Click()
+		box().Action:Click()
+		local discarded = { shown(), M.IsUnlocked(), Polestar.Get("ui.launcherPos") }
+		M.Unlock("launcher")
+		key("RIGHT"); key("RIGHT")
+		PolestarMoversBar.Exit:Click()
+		box().Alt:Click()
+		local saved = { shown(), M.IsUnlocked(), Polestar.Get("ui.launcherPos") }
+		M.Unlock("launcher")
+		key("UP")
+		PolestarMoversBar.Save:Click()
+		emit({ asked = asked, kept = kept, discarded = discarded, saved = saved,
+			bar = { shown(), M.IsUnlocked(), Polestar.Get("ui.launcherPos") } })"#);
+	assert_eq!(out["asked"], json!([true, true, "Discard your changes?", "One frame moved since you unlocked. Discard puts it back where it stood.", "Discard", "Keep editing", "Save and exit"]));
+	assert_eq!(out["kept"], json!([false, true, [501, 500]]), "Keep editing: still unlocked, the move kept");
+	assert_eq!(out["discarded"], json!([false, false, [500, 500]]), "Discard: back where it stood, locked");
+	assert_eq!(out["saved"], json!([false, false, [502, 500]]), "Save and exit from the question");
+	assert_eq!(out["bar"], json!([false, false, [502, 501]]), "the bar's Save and exit, no question");
+}
+
+// The selected frame's place can be typed: under the bar, its name and its centre's X and Y from the screen's centre
+// (what its box shows). Enter moves it there on that axis, the other kept; Tab moves and goes to the other field;
+// something not a number puts the field back; no selection, no panel.
+#[test]
+fn the_selected_frames_centre_can_be_typed_under_the_bar() {
+	let out = run(r#"
+		Polestar.Set("ui.launcher", true)
+		Polestar.Set("ui.launcherPos", { 500, 500 })
+		M.Unlock()
+		local pick = PolestarMoversBar.Pick
+		local idle = pick:IsShown()
+		M.Unlock("launcher")
+		local shown = { pick:IsShown(), pick.Name:GetText(), pick.X:GetText(), pick.Y:GetText() }
+		pick.X:SetText("100")
+		stub.RunScript(pick.X, "OnEnterPressed")
+		local x = Polestar.Get("ui.launcherPos")
+		pick.Y:SetText("60")
+		stub.RunScript(pick.Y, "OnEnterPressed")
+		local y = Polestar.Get("ui.launcherPos")
+		pick.Y:SetFocus()
+		pick.Y:SetText("up a bit")
+		stub.RunScript(pick.Y, "OnEnterPressed")
+		local bad = { Polestar.Get("ui.launcherPos"), pick.Y:GetText() }
+		pick.X:SetFocus()
+		pick.X:SetText("-200")
+		stub.RunScript(pick.X, "OnTabPressed")
+		local tab = { Polestar.Get("ui.launcherPos"), pick.Y:HasFocus(), M.Box("launcher").Size:GetText() }
+		stub.RunScript(pick.Y, "OnEscapePressed")
+		local esc = { pick.Y:HasFocus(), M.IsUnlocked() }
+		M.Save()
+		emit({ idle = idle, shown = shown, x = x, y = y, bad = bad, tab = tab, esc = esc, gone = pick:IsVisible() })"#);
+	assert_eq!(out["idle"], false, "nothing selected: no panel");
+	assert_eq!(out["shown"], json!([true, "Floating button", "-460", "-40"]), "its centre from the screen's centre");
+	assert_eq!(out["x"], json!([1060, 500]), "X 100: its centre 100 right of the screen's, its height kept");
+	assert_eq!(out["y"], json!([1060, 600]));
+	assert_eq!(out["bad"], json!([[1060, 600], "60"]), "not a number: nothing moves, the field back");
+	assert_eq!(out["tab"], json!([[760, 600], true, "-200, 60"]), "Tab moves it and goes on to Y");
+	assert_eq!(out["esc"], json!([false, true]), "Escape leaves the field, not the mode");
+	assert_eq!(out["gone"], false);
+}
+
+// The bar helps: an (i) after its title lists every mouse and key control in one tooltip; holding Shift fades the
+// bar away (and the panel under it) so a frame under it can be grabbed, letting go brings it back (not while a field
+// is typed in); the first unlock on the account says how it goes in a callout under the bar, once.
+#[test]
+fn the_bar_lists_every_control_shift_fades_it_and_the_first_unlock_says_how_it_goes_once() {
+	let out = run(r#"
+		Polestar.Set("ui.launcher", true)
+		local before = PolestarDB.moversHint or false
+		M.Unlock()
+		local bar = PolestarMoversBar
+		local c = rawget(bar, "psCallout")
+		local first = { c ~= nil and c:IsShown(), c and c.Title:GetText() or false, PolestarDB.moversHint or false }
+		local info = { bar.Info:IsShown(), #bar.Info.psTipLines, select(2, bar.Info:GetPoint(1)) == bar.Title }
+		c.Close:Click()
+		local closed = c:IsShown()
+		stub.fire("MODIFIER_STATE_CHANGED", "LSHIFT", 1)
+		stub.advance(0.3)
+		local away = { bar:IsShown(), bar:GetAlpha() }
+		stub.fire("MODIFIER_STATE_CHANGED", "LSHIFT", 0)
+		stub.advance(0.3)
+		local back = { bar:IsShown(), bar:GetAlpha() }
+		M.Unlock("launcher")
+		bar.Pick.X:SetFocus()
+		stub.fire("MODIFIER_STATE_CHANGED", "LSHIFT", 1)
+		stub.advance(0.3)
+		local typing = bar:IsShown()
+		stub.fire("MODIFIER_STATE_CHANGED", "LSHIFT", 0)
+		bar.Pick.X:ClearFocus()
+		M.Save()
+		M.Unlock()
+		emit({ before = before, first = first, info = info, closed = closed, away = away, back = back, typing = typing, again = c:IsShown() })"#);
+	assert_eq!(out["before"], false);
+	assert_eq!(out["first"], json!([true, "Moving Polestar's frames", true]), "the first unlock's callout, marked as shown");
+	assert_eq!(out["info"], json!([true, 6, true]), "the (i) after the title, six lines");
+	assert_eq!(out["closed"], false, "Got it closes it");
+	assert_eq!(out["away"], json!([false, 0]), "Shift held: the bar fades away");
+	assert_eq!(out["back"], json!([true, 1]), "let go: back");
+	assert_eq!(out["typing"], true, "typing in its field: the bar stays");
+	assert_eq!(out["again"], false, "never again");
+}
+
+// Boxes on top of each other: the wheel over them turns which is on top (down: the top one to the bottom; up: back),
+// so a box under another of about its size is within reach; one box alone under the pointer stays as it is.
+#[test]
+fn the_wheel_over_stacked_boxes_turns_which_one_is_on_top() {
+	let out = run(r#"
+		M.Unlock()
+		M.MoveTo("flightTimer", 800, 500)
+		M.MoveTo("instances", 800, 500)
+		local ft, it = M.Box("flightTimer"), M.Box("instances")
+		local before = it:GetFrameLevel() > ft:GetFrameLevel()
+		stub.cursor = { 850, 510 }
+		stub.RunScript(it, "OnMouseWheel", -1)
+		local down = { ft:GetFrameLevel() > it:GetFrameLevel(), ft.psHover == true, it.psHover == nil }
+		stub.RunScript(ft, "OnMouseWheel", 1)
+		local up = it:GetFrameLevel() > ft:GetFrameLevel()
+		stub.cursor = { 3, 3 }
+		local alone = M.CycleStack(-1)
+		emit({ before = before, down = down, up = up, alone = alone })"#);
+	assert_eq!(out["before"], true, "the smaller box on top at first");
+	assert_eq!(out["down"], json!([true, true, true]), "the wheel down: the other one on top, lit as under the pointer");
+	assert_eq!(out["up"], true, "and up: back");
+	assert_eq!(out["alone"], false, "nothing stacked under the pointer: nothing turns");
 }

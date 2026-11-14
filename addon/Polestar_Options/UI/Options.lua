@@ -32,7 +32,7 @@ local floor, max, min, ipairs, pairs, type = math.floor, math.max, math.min, ipa
 local SH = W.SHELL
 -- Sizes (one table, so the main chunk stays within the locals budget): GAP between the two columns of the
 -- Recorder's and About's tiles, HERO_H the About hero's height, INSTALL_ROOM the main column's width the
--- header's Install button needs beside the page's title.
+-- header's Install button needs beside the page's title; the window's own (BASE_W ... EDGE) with its size below.
 local SIZE = { GAP = 24, HERO_H = 96, INSTALL_ROOM = 780 }
 
 local O = {}
@@ -43,6 +43,10 @@ local pages, pageList = {}, {} -- name -> page; ordered list
 local current, currentTab
 local query = ""
 local seq = 0
+-- The window out of the way without closing (O.Fold, O.Peek, Shift + the
+-- wheel; below): state = while it is folded to its header, { h, hidden =
+-- { frame, ... } }.
+local Fold = {}
 
 local function percent(v) return floor(v * 100 + 0.5) .. "%" end
 -- "+20%" / "0%" / "-35%"
@@ -153,6 +157,9 @@ local function add(spec, builtin)
 	-- columns = { left, right }: a caption over each half of the section's
 	-- rows (two places taking the same settings: world map | minimap).
 	if spec.columns then s.columns = spec.columns end
+	-- move = a frame's mover key (UI/Movers.lua): a Move in the section's
+	-- header opens Move frames with that frame picked (O.MoveFrame).
+	if spec.move then s.move = spec.move end
 	local function place(c, owner)
 		c.page, c.tab, c.section, c.psSection, c.psOwner = p, spec.tab, spec.section, s, owner
 		for _, e in ipairs(c.extras or {}) do place(e, c) end
@@ -302,7 +309,7 @@ local BUILTIN = {
 			disabled = function() return not ns.Get("behavior.whileHere") end },
 		-- The toast that says a new suggestion while the guide window is hidden (UI/WhileHere.lua): how long it
 		-- stays. It has no look of its own (the theme's, the shared toast style).
-		{ kind = "slider", key = "toasts.whilehere.seconds", label = L["Stays for"], min = 3, max = 30, step = 1, new = "0.3.8",
+		{ kind = "slider", key = "toasts.whilehere.seconds", label = L["Stays for"], min = 3, max = 30, step = 1, new = "0.3.8", move = "whileHere",
 			format = function(v) return L["%d s"]:format(v) end,
 			help = L["How long the toast stays while the guide window is hidden. Hovering it holds it."],
 			search = "duration, how long, seconds, time on screen, stays, timeout, toast, while you're here, dynamic questing",
@@ -323,7 +330,7 @@ local BUILTIN = {
 			help = L["What the window, its buttons and alerts do in dungeons, raids, battlegrounds and arenas. Guide window in the minimap button's menu, the key binding or /polestar opens it there until you leave."],
 			search = "dungeon, raid, battleground, arena, instance, hide, pvp, healer",
 			choices = { { value = "show", label = L["Keep visible"] }, { value = "hide", label = L["Hide"] } } },
-		{ kind = "toggle", key = "ui.launcher", label = L["Floating button"],
+		{ kind = "toggle", key = "ui.launcher", label = L["Floating button"], move = "launcher",
 			help = L["A small Polestar button you can put anywhere on the screen. Click to hide or show Polestar, right-click for a menu, drag to move it. It hides with the window in combat and in dungeons when those are set to Hide."],
 			search = "launcher, floating icon, floating button, show, hide, toggle, open polestar, quick" },
 		{ kind = "toggle", key = "maps.minimapButton", label = L["Minimap button"],
@@ -335,6 +342,22 @@ local BUILTIN = {
 			needs = function() return ns.SetHideKeepsArrow ~= nil end,
 			get = function() return ns.HideKeepsArrow() end, set = function(on) ns.SetHideKeepsArrow(on) end },
 	} },
+	-- Pause (Core/Init.lua, Core/Pause.lua): per character, like hiding; its two extras are
+	-- account settings. A section of its own, so its rows stay together.
+	{ page = GUIDE, tab = L["Window"], section = L["Pause"], controls = {
+		{ kind = "toggle", label = L["Pause"],
+			help = L["The arrow, the guide window and its nudges step aside. Polestar resumes by itself when you leave a dungeon alive. Your quest progress keeps following your log. This character only."],
+			search = "pause, pause the guide, resume, dungeon, raid, instance, run, group, step aside, hide arrow",
+			get = function() return ns.Paused() ~= nil end, set = function(on) ns.SetPaused(on, "hand") end },
+		{ kind = "toggle", key = "pause.map", label = L["Hide the step's map pins while paused"],
+			help = L["While paused, the pins of the step's goals, their areas, While you're here and the upcoming steps go from the maps as well."],
+			search = "pause the guide, paused, map pins, minimap, world map", child = true },
+		{ kind = "toggle", key = "pause.automation", label = L["No quest automation while paused"],
+			help = L["While paused, quests are not accepted or turned in for you, and no reward is picked, until Polestar resumes."],
+			search = "pause the guide, paused, automation", child = true },
+		{ kind = "binding", action = "POLESTAR_PAUSE", label = L["Pause the guide"],
+			help = L["A key or gamepad button that pauses Polestar or resumes it. It also resumes by itself when you leave a dungeon alive."] },
+	} },
 	{ page = GUIDE, tab = L["Window"], section = L["Position"], controls = {
 		{ kind = "toggle", key = "ui.locked", label = L["Lock window"], help = L["Prevents moving and resizing."], search = "lock, move, drag, resize, unlock" },
 		{ kind = "toggle", key = "ui.lockHud", label = L["Lock arrow and buttons"],
@@ -342,10 +365,10 @@ local BUILTIN = {
 		{ kind = "toggle", key = "ui.growUp", label = L["Grow upward"], help = L["Keep the bottom edge in place, so longer steps extend the window up."] },
 		{ kind = "toggle", key = "ui.barsBottom", label = L["Bar at the bottom"], help = L["With Grow upward, put the tabs and the step bar at the bottom edge, next to where the window is pinned."],
 			child = true, disabled = function() return not ns.Get("ui.growUp") end },
-		{ kind = "button", icon = "reset", button = L["Reset"], label = L["Reset position"], help = L["Put the guide window back in its corner."], onClick = function() ns.Set("ui.pos", nil) end },
+		{ kind = "button", icon = "reset", button = L["Reset"], label = L["Reset position"], move = "guide", help = L["Put the guide window back in its corner."], onClick = function() ns.Set("ui.pos", nil) end },
 	} },
 	{ page = GUIDE, tab = L["Arrow & routes"], section = L["Arrow"], controls = {
-		H({ kind = "toggle", key = "nav.arrow", label = L["Show arrow"], help = L["Points to the current goal. Its look and colours are on the Arrow page."],
+		H({ kind = "toggle", key = "nav.arrow", label = L["Show arrow"], move = "arrow", help = L["Points to the current goal. Its look and colours are on the Arrow page."],
 			search = "arrow, waypoint, pointer, direction, compass, navigation, hud" }),
 		H({ kind = "toggle", key = "nav.hideArrowWithGuide", label = L["Hide the arrow with the guide"], help = L["When the guide window is hidden, hide the arrow too."],
 			child = true, disabled = function() return not ns.Get("nav.arrow") end }),
@@ -394,6 +417,8 @@ local BUILTIN = {
 		H({ kind = "toggle", key = "nav.tomtom", label = L["Mirror to TomTom"], help = L["Adds the target as a TomTom waypoint when TomTom is loaded."], search = "waypoints, tomtom" }),
 		H({ kind = "toggle", key = "nav.useTomTomArrow", label = L["Use TomTom's arrow"], help = L["Hides Polestar's arrow in favour of TomTom's, except on the way to another continent, where TomTom's arrow cannot point."],
 			child = true, disabled = function() return not ns.Get("nav.tomtom") end }),
+		H({ kind = "toggle", key = "nav.arrowToFollower", label = L["Let a following addon show the way"], help = L["Hides Polestar's arrow while another addon shows Polestar's target itself, as Naowh Forever's Waypoint Pin does with Follow Polestar on. That addon also sets the game's map pin then."],
+			search = "naowh, waypoint pin, navigator bar, hide arrow, follow polestar" }),
 	} },
 	{ page = GUIDE, tab = L["Automation"], section = L["Quests"], controls = {
 		{ kind = "toggle", key = "behavior.closeSkipped", label = L["Close offers the guide skips"], help = L["After Polestar accepts or turns in a quest, closes the quest window the NPC opens next when the guide skips its quests. Hold Shift to keep it open."],
@@ -529,14 +554,22 @@ add({ page = L["Integrations"], section = L["Quest Tracker"], controls = {
 		end,
 		search = "dock, tracker, quests, EllesmereUI, FTA" },
 } }, true)
-add({ page = L["Integrations"], section = "EllesmereUI", controls = {
-	{ kind = "toggle", key = "ui.matchAccent", label = L["Match EllesmereUI accent"],
-		help = L["Follow EllesmereUI's accent, live. Picking your own accent turns this off."],
-		needs = function() return Theme.IsEllesmere() end },
-	{ kind = "toggle", key = "ui.matchFont", label = L["Match EllesmereUI font"],
-		help = L["Follow EllesmereUI's font, live. Choosing another font turns this off."],
-		needs = function() return Theme.IsEllesmere() end },
-} }, true)
+-- EllesmereUI's skinning contract, or ErgoBars' under its own name
+-- (Theme.SkinProvider): the section and its two switches name the suite
+-- (EllesmereUI's strings kept as they were, so their translations stay).
+do
+	local ergo = Theme.SkinProvider() == "ErgoBars"
+	add({ page = L["Integrations"], section = ergo and "ErgoBars" or "EllesmereUI", controls = {
+		{ kind = "toggle", key = "ui.matchAccent", label = ergo and L["Match ErgoBars accent"] or L["Match EllesmereUI accent"],
+			help = ergo and L["Follow ErgoBars' accent, live. Picking your own accent turns this off."]
+				or L["Follow EllesmereUI's accent, live. Picking your own accent turns this off."],
+			needs = function() return Theme.IsEllesmere() end },
+		{ kind = "toggle", key = "ui.matchFont", label = ergo and L["Match ErgoBars font"] or L["Match EllesmereUI font"],
+			help = ergo and L["Follow ErgoBars' font, live. Choosing another font turns this off."]
+				or L["Follow EllesmereUI's font, live. Choosing another font turns this off."],
+			needs = function() return Theme.IsEllesmere() end },
+	} }, true)
+end
 add({ page = L["Integrations"], section = "Spoken", controls = {
 	{ kind = "toggle", key = "behavior.spokenDelay", label = L["Wait for Spoken"],
 		help = L["Waits 200 ms before each automatic quest accept, turn-in and reward pick, so Spoken has time to notice the window and read it."],
@@ -754,10 +787,27 @@ local function buildAbout(view)
 		.. L["With EllesmereUI installed, Polestar can follow its accent, font and panel colour through its public skinning API."])
 	local maintH = W.SectionHeader(view)
 	W.SetSection(maintH, L["Maintenance"])
+	-- The profile in use is what goes back: the dialog says whose it is, and
+	-- one the whole account or a class uses asks for a word first.
 	local resetAll = W.ActionTile(view, "reset", L["Reset all settings"], L["Every Polestar setting back to default. Progress is kept."],
 		function()
-			W.Modal({ title = L["Reset all settings?"], icon = "reset", danger = true, action = L["Reset all"],
-				text = L["Every Polestar setting goes back to its default. Your guides and progress are kept."],
+			local P = ns.Profiles
+			local name = P and P.Active and P.Active()
+			local label = name and P.Label and P.Label(name) or ""
+			local account = name ~= nil and P.AccountProfile and P.AccountProfile() == name
+			local classes = 0
+			local map = ns.DB().classProfiles
+			for _, n in pairs(type(map) == "table" and map or {}) do if n == name then classes = classes + 1 end end
+			local text
+			if account then
+				text = string.format(L["Every setting of the profile %s goes back to its default, for every character on the account that uses it. Your guides and progress are kept."], label)
+			elseif classes > 0 then
+				text = string.format(L["Every setting of the profile %s goes back to its default, for every character of the classes that use it. Your guides and progress are kept."], label)
+			else
+				text = string.format(L["Every setting of the profile %s, this character's, goes back to its default. Your guides and progress are kept."], label)
+			end
+			W.Modal({ title = L["Reset all settings?"], icon = "reset", danger = true, action = L["Reset all"], text = text,
+				typeToConfirm = (account or classes > 0) and L["RESET"] or nil,
 				onAccept = function() if ns.ResetSettings then ns.ResetSettings() end end })
 		end, { danger = true })
 	local resetPos = W.ActionTile(view, "window", L["Reset positions"], L["Guide window, arrow and these windows."], resetPositions)
@@ -851,8 +901,8 @@ local ALIASES = {
 ---------------------------------------------------------------------------
 
 -- What a reference never takes from its home: where it stands, its own
--- state (ps* fields), the home's cog and New mark.
-local REF_OWN = { page = true, tab = true, section = true, more = true, new = true, child = true }
+-- state (ps* fields), the home's cog, Move and New mark.
+local REF_OWN = { page = true, tab = true, section = true, more = true, move = true, new = true, child = true }
 
 -- -> the home of reference c, or nil (c is no reference, or has no home yet)
 local function homeOf(c)
@@ -920,7 +970,7 @@ local function choicesOf(c)
 	if type(list) == "function" then list = list() end
 	for i, ch in ipairs(list or {}) do
 		out[i] = { value = ch.value, text = ch.text or ch.label or tostring(ch.value), font = ch.font, draw = ch.draw,
-			disabled = ch.disabled, note = ch.note, tip = ch.tip }
+			disabled = ch.disabled, note = ch.note, tip = ch.tip, preview = ch.preview }
 	end
 	return out
 end
@@ -1094,9 +1144,32 @@ local function modifiedCount(controls)
 end
 O.ModifiedCount = modifiedCount
 
+-- The footer's Undo for what a reset changed (filled in further down).
+local Undo = {}
+
+-- What a list of controls holds off its default, for Undo: { path, value }
+-- per setting (as stored), { get, set, value } per state that is no
+-- setting; each setting once.
+function Undo.holdings(controls)
+	local out, seen = {}, {}
+	for _, c in ipairs(controls) do
+		if c.key and c.kind ~= "button" and c.kind ~= "binding" then
+			if not seen[c.key] then
+				seen[c.key] = true
+				local was = ns.GetStored(c.key)
+				if was ~= nil then out[#out + 1] = { path = c.key, value = was } end
+			end
+		elseif (c.kind == "toggle" or c.kind == "slider" or c.kind == "dropdown" or c.kind == "cards") and not c.key and c.set and c.get then
+			out[#out + 1] = { get = c.get, set = c.set, value = c.get() }
+		end
+	end
+	return out
+end
+
 -- Every setting of a list back to its default (state that is no setting
--- too, through its set(nil)).
+-- too, through its set(nil)); the footer offers to undo it.
 function O.ResetSection(controls)
+	local held = Undo.holdings(controls)
 	for _, c in ipairs(controls) do
 		if c.key and c.kind ~= "button" and c.kind ~= "binding" then
 			ns.Set(c.key, nil)
@@ -1111,6 +1184,7 @@ function O.ResetSection(controls)
 			if w and not c.key and w.Refresh then w:Refresh() end
 		end
 	end
+	Undo.offer(held)
 end
 
 -- Is a section's on/off (its header's toggle) off?
@@ -1206,13 +1280,32 @@ end
 -- optional f:Focus(key) (a preview that scrolls to the part it draws).
 function O.PreviewFocus(key) UI.Preview.Focus(O.view, key) end
 
+-- A ghost Move for a row or a section's header whose setting places a frame
+-- (`move`, the frame's mover key in UI/Movers.lua): O.MoveFrame. Off while
+-- the frame has no box (its feature off) or its setting is.
+local function moveButton(parent, key, label, offFn, onClick)
+	local b = W.Button(parent, L["Move"], onClick, { ghost = true, height = 22 })
+	b.psTight = true
+	W.SetButtonText(b, L["Move"])
+	b.psTip, b.psTipLines = L["Move"], { string.format(L["Opens Move frames with %s picked; the settings come back when you are done."], label or "") }
+	b.Refresh = inlineRefresh
+	W.SetDisabledWhen(b, function()
+		local M = ns.Movers
+		if not (M and M.Movable and M.Movable(key)) then return true end
+		return offFn and offFn() or false
+	end)
+	return b
+end
+
 -- A setting's half, built once per view (view: a page tab's, the search
--- results', the cog popup's), with its extras and cog.
+-- results', the cog popup's), with its extras, its cog and its Move.
 local function rowOf(view, c)
 	local w = view.cache[c]
 	if w then return w end
 	w = makeControl(view, c)
 	W.SetDisabledWhen(w, disabledOf(c))
+	-- Shift + the wheel over a slider scales the window, as anywhere on it.
+	if rawget(w, "Slider") and O.WheelScales then O.WheelScales(w.Slider) end
 	local extras
 	for _, e in ipairs(c.extras or {}) do
 		if available(e) then
@@ -1239,10 +1332,20 @@ local function rowOf(view, c)
 		W.SetDisabledWhen(cog, disabledOf(c))
 		view.cogs[c] = cog
 	end
+	-- Move stands in the cog's column, or left of a cog.
+	local move
+	if c.move and ns.Movers and ns.Movers.Unlock then
+		move = moveButton(w, c.move, labelOf(c), disabledOf(c), function() O.MoveFrame(c.move, w) end)
+		w.MoveButton = move
+		if cog then
+			extras = extras or {}
+			extras[#extras + 1] = move
+		end
+	end
 	-- Picture cards named as their section need no label of their own: the
 	-- card's header says it.
 	local bare = c.kind == "cards" and not view.psSearch and labelOf(c) == c.section
-	W.CompactRow(w, { tip = tipOf(c, view.psSearch), info = c.info, extras = extras, cog = cog,
+	W.CompactRow(w, { tip = tipOf(c, view.psSearch), info = c.info, extras = extras, cog = cog or move,
 		height = view.psRowH, bare = bare })
 	if c.notice then W.RowNotice(w, c.notice) end
 	-- The pointer on the row, an extra or the cog: the tab's preview lights
@@ -1328,7 +1431,8 @@ local function layoutRows(view, controls, top, x, width, whole)
 	return y - top
 end
 
--- Header widgets, right to left from the 16 edge: the toggle, More, Reset, New.
+-- Header widgets, right to left from the 16 edge: the toggle, Move, More,
+-- Reset, New.
 local function placeHeader(card)
 	local x = 16
 	local function put(f)
@@ -1338,6 +1442,7 @@ local function placeHeader(card)
 	end
 	local sw = card.psToggle
 	if sw and sw:IsShown() then put(sw) end
+	if card.Move:IsShown() then put(card.Move) end
 	if card.More:IsShown() then put(card.More) end
 	if card.Reset:IsShown() then put(card.Reset) end
 	if card.New:IsShown() then put(card.New) end
@@ -1418,6 +1523,23 @@ local function cardOf(view, n)
 	W.SetChip(card.New, L["New"], "accent")
 	card.New:Hide()
 	card.More = moreLink(card)
+	-- The section's Move (its `move`): the frame the section sets.
+	card.Move = W.Button(card.Header, L["Move"], function()
+		local s = card.psSection
+		if s and s.move then O.MoveFrame(s.move, card) end
+	end, { ghost = true, height = 22 })
+	card.Move.psTight = true
+	W.SetButtonText(card.Move, L["Move"])
+	card.Move.Refresh = inlineRefresh
+	card.Move:SetScript("OnEnter", function(self)
+		W.Tooltip(self, "ANCHOR_TOP", L["Move"], { string.format(L["Opens Move frames with %s picked; the settings come back when you are done."], card.psName or "") })
+	end)
+	W.SetDisabledWhen(card.Move, function()
+		local s, M = card.psSection, ns.Movers
+		if not (s and s.move and M and M.Movable and M.Movable(s.move)) then return true end
+		return sectionOff(s)
+	end)
+	card.Move:Hide()
 	view.cards[n] = card
 	return card
 end
@@ -1448,7 +1570,8 @@ local function markSections(view)
 		end
 	end
 	for c, cog in pairs(view.cogs or {}) do
-		if cog:IsVisible() then
+		-- A cog pointed out (its first-use cue) keeps its dot while it pulses.
+		if cog:IsVisible() and not rawget(cog, "psPulsing") then
 			local list = {}
 			for _, m in ipairs(c.more) do eachSetting(m, function(x) list[#list + 1] = x end) end
 			W.SetCogDot(cog, modifiedCount(list) > 0)
@@ -1504,6 +1627,8 @@ local function layoutSections(view, groups, y, opts)
 		end
 		card.New:SetShown(header and new)
 		card.More:SetShown(header and not view.psSearch and s ~= nil and s.jump ~= nil)
+		card.Move:SetShown(header and not view.psSearch and s ~= nil and s.move ~= nil and ns.Movers ~= nil and ns.Movers.Unlock ~= nil)
+		if card.Move:IsShown() then card.Move:Refresh() end
 		local gutter = opts and opts.gutter or 0
 		local whole = opts and opts.whole
 		-- A caption over each half (s.columns), while the rows stand in halves.
@@ -1555,6 +1680,8 @@ local function buildMore()
 	more:SetFrameLevel(10)
 	more:SetClampedToScreen(true)
 	more:EnableMouse(true)
+	-- A popup over the page: its ground never see-through (Theme's menuBg).
+	more.psMenu = true
 	Theme.Skin(more, "panel")
 	viewTables(more)
 	more.psRowH = MORE_ROW
@@ -1583,6 +1710,10 @@ end
 -- Open (or, from its own cog, close) the popup of control c's `more`.
 function O.ShowMore(cog, c)
 	if not more then buildMore() end
+	-- A cog opened: its first-use cue has nothing left to say.
+	ns.DB().optionsCogHint = true
+	local cue = win and rawget(win, "psCallout")
+	if cue and cue.psCog then cue:Hide() end
 	if more:IsShown() and more.psFor == c then
 		more:Hide()
 		return
@@ -1621,7 +1752,7 @@ function O.MoreControls()
 end
 
 ---------------------------------------------------------------------------
--- The pinned preview, its stage and its hotspots are UI/Preview.lua's
+-- The pinned preview, its bands and its hotspots are UI/Preview.lua's
 -- (UI.Preview); here, what it asks of the window.
 ---------------------------------------------------------------------------
 
@@ -1880,12 +2011,12 @@ end
 
 -- Optimal string alignment distance (a swap of two neighbours is one edit)
 -- between the bytes qb[1..lq] and the word t; cap + 1 once it is over cap.
-local rowA, rowB, rowC, tb = {}, {}, {}, {}
+local DIST_ROWS = { {}, {}, {}, {} } -- three rows and the word's bytes, reused
 local function distance(qb, lq, t, cap)
 	local lt = #t
 	if lt - lq > cap or lq - lt > cap then return cap + 1 end
+	local r0, r1, r2, tb = DIST_ROWS[1], DIST_ROWS[2], DIST_ROWS[3], DIST_ROWS[4]
 	for j = 1, lt do tb[j] = byte(t, j) end
-	local r0, r1, r2 = rowA, rowB, rowC
 	for j = 0, lt do r1[j] = j end
 	for i = 1, lq do
 		local a, low = qb[i], i
@@ -2616,7 +2747,10 @@ local function profileMenu(button)
 	if W.MenuShown(button) then return W.HideMenu() end
 	local items = {}
 	for _, name in ipairs(names) do
-		items[#items + 1] = { text = profileLabel(name), checked = name == active, onClick = function()
+		-- Its key (the Profiles page sets one) in its tooltip.
+		local key = ns.Profiles.Key and ns.Profiles.Key(name)
+		local keyText = key and (UI.Profiles and UI.Profiles.KeyName and UI.Profiles.KeyName(key) or key)
+		items[#items + 1] = { text = profileLabel(name), checked = name == active, tip = keyText and string.format(L["Key: %s"], keyText) or nil, onClick = function()
 			if name == active then return end
 			local ok, why = ns.Profiles.Switch(name)
 			if not ok and why and ns.Print then ns.Print(why) end
@@ -2625,6 +2759,126 @@ local function profileMenu(button)
 	items[#items + 1] = { separator = true }
 	items[#items + 1] = { text = L["Manage profiles"], icon = "layers", onClick = function() O.Select("profiles") end }
 	W.ShowMenu(button, items, { point = "BOTTOMRIGHT", relPoint = "TOPRIGHT", y = 4 })
+end
+
+---------------------------------------------------------------------------
+-- One step of undo for resets (a row's right-click, a section's Reset, the
+-- page's): what the settings held before is kept, and a chip in the footer
+-- says what was reset with an Undo for Undo.S seconds. A new reset takes
+-- its place; Undo puts every one back at once.
+---------------------------------------------------------------------------
+
+Undo.S = 10
+Undo.list, Undo.seq = nil, 0
+
+function Undo.same(a, b)
+	if type(a) == "table" and type(b) == "table" then
+		for k, v in pairs(a) do if not Undo.same(v, b[k]) then return false end end
+		for k in pairs(b) do if a[k] == nil then return false end end
+		return true
+	end
+	if type(a) == "number" and type(b) == "number" then return math.abs(a - b) < 1e-6 end
+	return a == b
+end
+
+-- The chip, left of the footer's right-hand buttons in place of the thanks
+-- line while it shows.
+function Undo.place()
+	local chip = rawget(win, "UndoChip")
+	if not (chip and chip:IsShown()) then return end
+	local anchor
+	for _, fb in ipairs(win.footerButtons.right) do if fb:IsShown() then anchor = fb end end
+	chip:ClearAllPoints()
+	if anchor then chip:SetPoint("RIGHT", anchor, "LEFT", -16, 0) else chip:SetPoint("RIGHT", win.Footer, "RIGHT", -SH.pad, 0) end
+	chip:SetWidth(12 + 6 + math.ceil(chip.Text:GetStringWidth()) + 4 + chip.Undo:GetWidth())
+	local thanks = rawget(win, "ThanksLink")
+	if thanks then thanks:Hide() end
+end
+
+function Undo.hide()
+	local chip = rawget(win, "UndoChip")
+	if not (chip and chip:IsShown()) then return end
+	chip:Hide()
+	if rawget(win, "PlaceThanks") then win.PlaceThanks() end
+end
+
+function Undo.chip()
+	local chip = rawget(win, "UndoChip")
+	if chip then return chip end
+	chip = CreateFrame("Frame", nil, win.Footer)
+	chip:SetHeight(28)
+	chip:SetFrameLevel(win.Footer:GetFrameLevel() + 5)
+	chip.Icon = W.Tex(chip, "ARTWORK", "reset", "textDim")
+	chip.Icon:SetSize(12, 12)
+	chip.Icon:SetPoint("LEFT", chip, "LEFT", 0, 0)
+	chip.Text = W.Text(chip, "label", "textDim")
+	chip.Text:SetPoint("LEFT", chip.Icon, "RIGHT", 6, 0)
+	chip.Undo = W.Button(chip, L["Undo"], function() O.Undo() end, { ghost = true, height = 22 })
+	chip.Undo.psTight = true
+	W.SetButtonText(chip.Undo, L["Undo"])
+	W.Color(chip.Undo.Label, "accent")
+	chip.Undo.psTip, chip.Undo.psTipLines = L["Undo"], { L["Puts back what that reset changed."] }
+	chip.Undo:SetPoint("LEFT", chip.Text, "RIGHT", 4, 0)
+	chip:Hide()
+	win.UndoChip = chip
+	return chip
+end
+
+-- list: what a reset changed (holdings, W.OnReset's records). Offered only
+-- while the window is up, and only what the reset did change.
+function Undo.offer(list)
+	if not (win and win:IsShown()) then return end
+	local kept = {}
+	for _, u in ipairs(list or {}) do
+		if u.path or not Undo.same(u.get(), u.value) then kept[#kept + 1] = u end
+	end
+	if #kept == 0 then return end
+	Undo.list = kept
+	Undo.seq = Undo.seq + 1
+	local seq = Undo.seq
+	local chip = Undo.chip()
+	local c = #kept == 1 and kept[1].path and O.ControlByKey(kept[1].path)
+	if c then
+		chip.Text:SetText(string.format(L["%s reset."], labelOf(c) or ""))
+	elseif #kept == 1 then
+		chip.Text:SetText(L["One setting reset."])
+	else
+		chip.Text:SetText(string.format(L["%d settings reset."], #kept))
+	end
+	chip:Show()
+	Undo.place()
+	Anim.To(chip, "alpha", 0, 1, Anim.FAST, "out")
+	ns.After(Undo.S, function()
+		if Undo.seq ~= seq or not chip:IsShown() then return end
+		Anim.To(chip, "alpha", 1, 0, Anim.SLOW, "out", function()
+			if Undo.seq == seq then
+				Undo.list = nil
+				Undo.hide()
+			end
+		end)
+	end)
+end
+
+-- Put back what the last reset changed. -> true when there was one
+function O.Undo()
+	local list = Undo.list
+	if not list then return false end
+	Undo.list = nil
+	Undo.seq = Undo.seq + 1
+	Undo.hide()
+	local function put()
+		for _, u in ipairs(list) do
+			if u.set then u.set(u.value) else ns.Set(u.path, u.value) end
+		end
+	end
+	local I = ns.ThemeInternal
+	if I and I.batch then I.batch(put) else put() end
+	-- State that is no setting repaints itself.
+	local view = O.view
+	for _, w in pairs(view and view.cache or {}) do
+		if w.psControl and not w.psControl.key and w.Refresh then w:Refresh() end
+	end
+	return true
 end
 
 local footerProfile
@@ -2653,15 +2907,25 @@ local function renderFooter(p)
 	end
 	W.ShellFooter(win, left, right)
 	if rawget(win, "PlaceThanks") then win.PlaceThanks() end
+	Undo.place()
+	if Fold.state then win.Footer:Hide() end
 end
 
 function O.ResetPage(p)
-	for _, key in ipairs(pageKeys(p)) do ns.Set(key, nil) end
+	local held = {}
+	for _, key in ipairs(pageKeys(p)) do
+		local was = ns.GetStored(key)
+		if was ~= nil then held[#held + 1] = { path = key, value = was } end
+		ns.Set(key, nil)
+	end
 	-- Toggles, sliders, dropdowns and cards of state that is no setting go back to their default too.
 	for _, t in ipairs(p.tabs) do
 		for _, s in ipairs(t.sections) do
 			for _, c in ipairs(allSettings(s)) do
-				if (c.kind == "toggle" or c.kind == "slider" or c.kind == "dropdown" or c.kind == "cards") and not c.key and c.set and available(c) then c.set(nil) end
+				if (c.kind == "toggle" or c.kind == "slider" or c.kind == "dropdown" or c.kind == "cards") and not c.key and c.set and available(c) then
+					if c.get then held[#held + 1] = { get = c.get, set = c.set, value = c.get() } end
+					c.set(nil)
+				end
 			end
 		end
 	end
@@ -2670,6 +2934,7 @@ function O.ResetPage(p)
 			if w.psControl and not w.psControl.key and w.Refresh then w:Refresh() end
 		end
 	end
+	Undo.offer(held)
 end
 
 -- The tab last opened on each page (PolestarDB.optionsTab, account-wide,
@@ -2684,11 +2949,11 @@ end
 -- short upright hairline after it, the other tabs moved along to make room.
 -- Run after every W.ShellTabs, which lays the row out afresh (the game's
 -- tab looks keep their label's anchor: the shift made here comes off first).
-local LEAD_STAR, LEAD_GAP, LEAD_RULE = 11, 4, 17
+local LEAD = { STAR = 11, GAP = 4, RULE = 17 }
 local function markLead(list, active)
 	local first = win.tabButtons and win.tabButtons[1]
 	if not first then return end
-	local grow = LEAD_STAR + LEAD_GAP
+	local grow = LEAD.STAR + LEAD.GAP
 	local lp, lrel, lrp, lx, ly = first.Label:GetPoint(1)
 	lx = lx or 0
 	if first.psLeadX and math.abs(lx - first.psLeadX) < 0.01 then lx = lx - grow / 2 end
@@ -2705,12 +2970,12 @@ local function markLead(list, active)
 	first.psLeadX = lx + grow / 2
 	if not star then
 		star = W.Tex(first, "ARTWORK", "star", "textMuted")
-		star:SetSize(LEAD_STAR, LEAD_STAR)
+		star:SetSize(LEAD.STAR, LEAD.STAR)
 		first.psStar = star
 	end
 	W.Color(star, list[1] == active and "accent" or "textMuted")
 	star:ClearAllPoints()
-	star:SetPoint("RIGHT", first.Label, "LEFT", -LEAD_GAP, 0)
+	star:SetPoint("RIGHT", first.Label, "LEFT", -LEAD.GAP, 0)
 	star:Show()
 	first:SetWidth(first:GetWidth() + grow)
 	if not rule then
@@ -2723,7 +2988,7 @@ local function markLead(list, active)
 	rule:SetSize(1, 16)
 	rule:SetPoint("LEFT", win.TabRow, "BOTTOMLEFT", (fx or 0) + first:GetWidth() + 8, SH.tabs / 2)
 	rule:Show()
-	local shift = grow + LEAD_RULE
+	local shift = grow + LEAD.RULE
 	for i = 2, #win.tabButtons do
 		local t = win.tabButtons[i]
 		if t:IsShown() then
@@ -2733,6 +2998,137 @@ local function markLead(list, active)
 		end
 	end
 end
+
+---------------------------------------------------------------------------
+-- The first-use cue of a row's cog: the first change ever (on the account,
+-- PolestarDB.optionsCogHint) of a setting whose row has a cog pulses the
+-- cog's dot and says in a callout by it that more of that setting's
+-- settings are behind it; once, and never after a cog has been opened.
+---------------------------------------------------------------------------
+
+do
+	local function pulseDot(cog)
+		local dot = cog.Dot
+		local n = 3
+		cog.psPulsing = true
+		local function beat()
+			if n <= 0 or not cog:IsVisible() then
+				dot:SetSize(6, 6)
+				cog.psPulsing = nil
+				markSections(O.view)
+				return
+			end
+			n = n - 1
+			dot:Show()
+			Anim.To(dot, "size", 6, 10, Anim.BASE, "out", function()
+				Anim.To(dot, "size", 10, 6, Anim.SLOW, "inout", beat)
+			end)
+		end
+		beat()
+	end
+
+	function O.CogCue(path)
+		local db = ns.DB()
+		if db.optionsCogHint or query ~= "" or not (win and win:IsShown() and O.view) then return end
+		for c, cog in pairs(O.view.cogs or {}) do
+			if c.key == path and cog:IsVisible() then
+				db.optionsCogHint = true
+				pulseDot(cog)
+				local cue = W.Callout(win, { title = L["More settings here"], width = 260,
+					text = string.format(L["%s has more settings behind its gear."], labelOf(c) or ""),
+					anchor = cog, point = "TOPRIGHT", relPoint = "BOTTOMRIGHT", x = 8, y = -6 })
+				cue.psCog = cog
+				return
+			end
+		end
+	end
+end
+
+---------------------------------------------------------------------------
+-- Out of the way without closing: Peek (held down, its eye in the header)
+-- fades the whole window so what it covers shows through; Fold leaves only
+-- its header, the page kept, and Unfold (or going to another page, or a
+-- search) brings the rest back. Shift and the wheel anywhere on the window
+-- step its scale, the scale control lit so the change can be traced.
+---------------------------------------------------------------------------
+
+Fold.peekAlpha = 0.15
+
+function O.Peek(on)
+	if not win then return end
+	on = on and win:IsShown() or false
+	if (win.psPeek or false) == on then return end
+	win.psPeek = on or nil
+	Anim.To(win, "alpha", win:GetAlpha(), on and Fold.peekAlpha or 1, Anim.FAST, "out")
+end
+
+function Fold.paint()
+	local b = rawget(win, "FoldButton")
+	if not b then return end
+	W.SetIcon(b, Fold.state and "chevron-down" or "chevron-up")
+	b.psTip = Fold.state and L["Unfold"] or L["Fold"]
+	b.psTipLines = { Fold.state and L["The whole window back, as you left it."] or L["Folds the window to its header, so it stops covering the screen. Nothing closes."] }
+end
+
+-- on: fold the window to its header (its top-left kept where it is), every
+-- other part away; off: back as it was. -> true while folded
+function O.Fold(on)
+	if not win then return false end
+	if on and not Fold.state then
+		local left, top = win:GetLeft(), win:GetTop()
+		if left and top then
+			win:ClearAllPoints()
+			win:SetPoint("TOPLEFT", UIParent, "BOTTOMLEFT", left, top)
+		end
+		Fold.state = { h = win:GetHeight(), hidden = {} }
+		local function away(f)
+			if f and f:IsShown() then
+				f:Hide()
+				Fold.state.hidden[#Fold.state.hidden + 1] = f
+			end
+		end
+		for _, c in ipairs({ win.Main:GetChildren() }) do if c ~= win.Header then away(c) end end
+		for _, c in ipairs({ win.Sidebar:GetChildren() }) do away(c) end
+		away(win.Status)
+		away(rawget(win, "Grip"))
+		away(rawget(win, "ThanksLink"))
+		O.HideMore()
+		W.HideMenu()
+		win:SetHeight(SH.header + 2)
+	elseif not on and Fold.state then
+		local f = Fold.state
+		Fold.state = nil
+		win:SetHeight(f.h)
+		for _, c in ipairs(f.hidden) do c:Show() end
+		if rawget(win, "PlaceThanks") then win.PlaceThanks() end
+	end
+	Fold.paint()
+	return Fold.state ~= nil
+end
+
+-- Shift + the wheel: the window's scale steps as its control's wheel does.
+-- -> true when it took the wheel
+function Fold.shiftScale(delta)
+	if not (IsShiftKeyDown and IsShiftKeyDown()) then return false end
+	local t = rawget(win, "HeaderTools")
+	local s = t and rawget(t, "Slider")
+	local fn = s and s:GetScript("OnMouseWheel")
+	if not fn then return false end
+	fn(s, delta)
+	O.Flash(t)
+	return true
+end
+
+-- A frame of the window whose wheel Shift turns into the window's scale.
+function Fold.wheelScales(frame)
+	local own = frame:GetScript("OnMouseWheel")
+	frame:EnableMouseWheel(true)
+	frame:SetScript("OnMouseWheel", function(self, delta)
+		if Fold.shiftScale(delta) then return end
+		if own then own(self, delta) end
+	end)
+end
+O.WheelScales = Fold.wheelScales
 
 -- The header box's text, with its placeholder and clear button (a text set
 -- from code: the box's own change may not run first).
@@ -2747,6 +3143,9 @@ O.SetBoxText = setBoxText
 -- Show page `key` (and tab name), or the search results when searching.
 function O.Select(key, tabName)
 	if not win then return end
+	if Fold.state then O.Fold(false) end
+	local cue = rawget(win, "psCallout")
+	if cue and cue.psCog then cue:Hide() end
 	local p, aliasTab = pageByKey(key)
 	p = p or pageList[1]
 	tabName = tabName or aliasTab or tabMemory()[p.key]
@@ -2800,6 +3199,7 @@ end
 function O.SetQuery(text)
 	query = text or ""
 	if not win then return end
+	if Fold.state then O.Fold(false) end
 	-- A query from code (a link, What's New, the dropdown's See all) shows in
 	-- the header's box; the box's own change then finds it the same and does
 	-- nothing more.
@@ -2861,6 +3261,36 @@ function O.Jump(c)
 	W.ScrollTo(win.Scroll, max(0, (top or 0) - 40))
 	O.Flash(w)
 	return w
+end
+
+-- Open the window on setting `key`'s row (its home control, O.ControlByKey),
+-- scrolled into view and lit (a mover's menu, What's New). -> the row, or nil
+function O.JumpTo(key)
+	UI.ShowOptions()
+	local c = key and O.ControlByKey(key)
+	return c and O.Jump(c) or nil
+end
+
+-- A setting's Move (a row's or a section's): the window steps aside, Move
+-- frames opens with that frame's box picked and pulsing (ns.Movers.Unlock),
+-- and when it ends the window comes back where it was (the page and tab,
+-- the search, the scroll), `lit` (the row or section) lit. Without the
+-- window up (a control pressed elsewhere), Move frames just opens on that
+-- frame's box. -> ok
+function O.MoveFrame(key, lit)
+	local M = ns.Movers
+	if not (M and M.Unlock) then return false end
+	if not (win and win:IsShown()) then return M.Unlock(key, { pulse = true }) end
+	local p, q, scroll = current, query, win.Scroll:GetVerticalScroll()
+	win:Hide()
+	local ok = M.Unlock(key, { pulse = true, back = function()
+		UI.ShowOptions(p and p.key)
+		if q ~= "" then O.SetQuery(q) end
+		W.ScrollTo(win.Scroll, scroll)
+		if lit and lit:IsVisible() then O.Flash(lit) end
+	end })
+	if not ok then win:Show() end
+	return ok
 end
 
 -- The next (delta 1) or previous tab, running on into the next page's
@@ -3044,10 +3474,10 @@ end
 -- than 1440 pixels, in 5 % steps) at the default Menu scale, whatever the UI
 -- scale, until the player drags the grip (ui.optionsSize: { w, h } in the
 -- window's own units; false: the default).
--- Never past the screen, never under MIN_W x MIN_H (the screen allowing).
+-- Never past the screen, never under SIZE.MIN_W x SIZE.MIN_H (the screen allowing).
 ---------------------------------------------------------------------------
 
-local BASE_W, BASE_H, MIN_W, MIN_H, EDGE = 1300, 946, 860, 560, 16
+SIZE.BASE_W, SIZE.BASE_H, SIZE.MIN_W, SIZE.MIN_H, SIZE.EDGE = 1300, 946, 860, 560, 16
 
 -- -> the default size, in UIParent units
 function O.DefaultSize()
@@ -3056,16 +3486,16 @@ function O.DefaultSize()
 	local uh = UIParent:GetHeight()
 	local perUnit = (ph and ph > 0 and uh and uh > 0) and ph / uh or 1
 	local k = max(1, floor((ph or 0) / 1440 * 20 + 0.5) / 20)
-	return floor(BASE_W * k / perUnit + 0.5), floor(BASE_H * k / perUnit + 0.5)
+	return floor(SIZE.BASE_W * k / perUnit + 0.5), floor(SIZE.BASE_H * k / perUnit + 0.5)
 end
 
 -- -> minW, minH, maxW, maxH in the window's units (its Menu scale applied)
 local function sizeBounds()
 	local s = win:GetScale() or 1
 	if s <= 0 then s = 1 end
-	local maxW = floor(UIParent:GetWidth() / s - 2 * EDGE)
-	local maxH = floor(UIParent:GetHeight() / s - 2 * EDGE)
-	return min(MIN_W, maxW), min(MIN_H, maxH), maxW, maxH
+	local maxW = floor(UIParent:GetWidth() / s - 2 * SIZE.EDGE)
+	local maxH = floor(UIParent:GetHeight() / s - 2 * SIZE.EDGE)
+	return min(SIZE.MIN_W, maxW), min(SIZE.MIN_H, maxH), maxW, maxH
 end
 
 -- Size the window from the setting, within the screen. -> true when it changed
@@ -3192,9 +3622,52 @@ local function build()
 		-- The footer runs the main column's width (the shell's own number: the
 		-- footer's anchored rect may not be laid out yet as the window opens).
 		local room = tonumber(rawget(win, "psMainW")) or win.Footer:GetWidth()
-		b:SetShown((b.Name:GetText() or "") ~= "" and used + 16 + b:GetWidth() <= room)
+		-- The reset's Undo stands there while it shows.
+		local chip = rawget(win, "UndoChip")
+		b:SetShown((b.Name:GetText() or "") ~= "" and used + 16 + b:GetWidth() <= room and not (chip and chip:IsShown()))
 	end
 	UI.Thanks.HeaderLink(win)
+	-- A row's right-click reset (W.ResetSetting) offers its Undo too.
+	W.OnReset(Undo.offer)
+	-- Peek (held down) and Fold in the header, between the search and the
+	-- scale (W.HeaderScale lays the header's tools out right to left).
+	local peekB = W.IconButton(win.Header, "eye", 24, L["Peek"], nil, 15)
+	peekB.psTipLines = { L["Hold it down to see what the window covers."] }
+	peekB:HookScript("OnMouseDown", function(_, button) if button == "LeftButton" then O.Peek(true) end end)
+	peekB:HookScript("OnMouseUp", function() O.Peek(false) end)
+	-- A hold has no gamepad press: the gamepad passes it by.
+	peekB.psPadSkip = true
+	-- Peek and Fold a pair, close together.
+	peekB.psHeadGap = 4
+	win.PeekButton = peekB
+	local foldB = W.IconButton(win.Header, "chevron-up", 24, L["Fold"], function() O.Fold(not Fold.state) end, 12)
+	win.FoldButton = foldB
+	Fold.paint()
+	win.psHeadTools = win.psHeadTools or {}
+	table.insert(win.psHeadTools, 1, foldB)
+	table.insert(win.psHeadTools, 2, peekB)
+	if rawget(win, "HeaderTools") then win.HeaderTools.Place() end
+	win:HookScript("OnHide", function()
+		O.Peek(false)
+		O.Fold(false)
+	end)
+	-- Shift + the wheel over the window, its body, its sidebar: its scale.
+	Fold.wheelScales(win)
+	Fold.wheelScales(win.Scroll)
+	Fold.wheelScales(win.NavScroll)
+	-- The body and the sidebar glide to where the wheel sends them (W.Scroll).
+	win.Scroll.psGlide, win.NavScroll.psGlide = true, true
+	-- The sidebar's nudge: a chevron at its foot while more of it lies below;
+	-- a click glides to the bottom. In the sidebar's foot, on the version line
+	-- left of the Discord mark (UI/Report.lua's R.SidebarLink), so it covers
+	-- neither the list's last row nor a game look's scroll bar arrow.
+	local side = win.NavScroll:GetParent()
+	local nudge = W.IconButton(side, "chevron-down", 20, L["More below"], function() W.GlideTo(win.NavScroll, math.huge) end, 11)
+	nudge:SetPoint("RIGHT", side, "BOTTOMRIGHT", -(SH.side + 28), SH.foot + 7)
+	nudge:SetFrameLevel(win.NavScroll:GetFrameLevel() + 10)
+	nudge:Hide()
+	win.NavMore = nudge
+	win.NavScroll.psOnScroll = function(_, cur, range) nudge:SetShown(range > 0 and cur < range - 1) end
 	-- Install from the header, left of the search: the first run's setup,
 	-- again whenever the player wants it (UI/Welcome.lua over this window).
 	-- A window too narrow for it beside the page's title (under SIZE.INSTALL_ROOM
@@ -3222,6 +3695,7 @@ local function build()
 			if applySize() then relayout() end
 		end
 		if win:IsShown() then
+			if type(path) == "string" and path ~= "" then O.CogCue(path) end
 			-- A section's shown() turned: the page lays out again.
 			local v = O.view
 			if query == "" and v and v:IsShown() and rawget(v, "psShownSig") and v.psShownSig ~= shownSig(v.psTab) then
@@ -3345,3 +3819,16 @@ end
 
 -- Every module's registrations, now and later.
 W.OnOptionsRegistered(function(spec) add(spec, false) end)
+
+-- Polestar resumes by itself on the way out (Core/Pause.lua), maybe
+-- with a page open: the toggles of state that is no setting repaint, as
+-- O.ResetPage repaints them.
+ns.On("POLESTAR_PAUSED", function()
+	for _, p in ipairs(pageList) do
+		for _, v in pairs(p.views or {}) do
+			for _, w in pairs(v.cache or {}) do
+				if w.psControl and not w.psControl.key and w.Refresh then w:Refresh() end
+			end
+		end
+	end
+end)

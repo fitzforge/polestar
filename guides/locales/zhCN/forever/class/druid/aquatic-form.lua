@@ -16,7 +16,7 @@ return {
 	-- Step 3: Trial of the Lake
 	-- {spell:18960} Teleport: Moonglade · {npc:11802} Dendrite Starblaze · {quest:29} Trial of the Lake · {npc:11799} Tajarri · {area:656} Lake Elune'ara · {area:2361} Nighthaven · {object:177524} Bubbly Fissure (no name in this language: may be words) · {item:15877} Shrine Bauble · {area:2362} Shrine of Remulos
 	-- plural, as words: Bauble Containers = {object:177785} Bauble Container
-	["Cast {spell:18960} to get here: {npc:11802} stands upstairs in the building beside where you land. {quest:29} runs on a 30-minute timer: once you accept it, no teleport or Hearthstone until {npc:11799} has it. Six Bauble Containers (vases) lie in narrow hollows deep on the floor of {area:656} below {area:2361}, often near the bubbling fissures (the {object:177524} in the middle of the lake refills your breath); each comes back three minutes after it is opened, and other druids take them too. Check the {item:15877} is in your bags before you surface: it fades five minutes after you loot it. Swim it straight to the {area:2362} on the north-west shore, use it inside the shrine grounds and speak to {npc:11799} by the tree."] = "",
+	["Cast {spell:18960} to get here: {npc:11802} stands upstairs in the building beside where you land. {quest:29} runs on a 30-minute timer: once you accept it, no teleport or Hearthstone until {npc:11799} has it. Six Bauble Containers (vases) lie in narrow hollows deep on the floor of {area:656} below {area:2361}, often near the bubbling fissures (the {object:177524} in the middle of the lake refills your breath); each comes back three minutes after it is opened, and other druids take them too. Check the {item:15877} is in your bags before you surface: it fades five minutes after you loot it. Swim it straight to the {area:2362} on the north-west shore, use it inside the shrine grounds and speak to {npc:11799} by the tree."] = "施放 {spell:18960} 传送到这里：{npc:11802} 站在传送落点旁建筑的楼上。{quest:29} 限时 30 分钟：接取后，在 {npc:11799} 收下之前，不要传送或使用炉石。在 {area:2361} 下方、{area:656} 深处的湖底，有六个神殿灵珠容器（花瓶），藏在狭窄的凹坑里，通常靠近冒泡的裂隙（湖中央的 {object:177524} 可让你恢复呼吸）；每个容器打开三分钟后会刷新，其他德鲁伊也会取用。浮出水面前，确认背包里已有 {item:15877}：它在拾取五分钟后就会消失。立即带着它游向西北岸的 {area:2362}，在神殿范围内使用，然后与树旁的 {npc:11799} 交谈。",
 	-- {item:15877} Shrine Bauble · {object:177785} Bauble Container
 	["{item:15877}, from a {object:177785} in the lake"] = "{item:15877}，来自湖中的{object:177785}",
 	-- {area:2362} Shrine of Remulos
@@ -43,7 +43,7 @@ return {
 
 	-- Step 7: Cenarion Enclave
 	-- {npc:4217} Mathrengyl Bearwalker · {area:1658} Cenarion Enclave · {quest:31} Aquatic Form
-	["Take the portal up to {npc:4217} in the {area:1658}. {quest:31}: swim fast and breathe underwater."] = "",
+	["Take the portal up to {npc:4217} in the {area:1658}. {quest:31}: swim fast and breathe underwater."] = "通过传送门上去，找{area:1658}的{npc:4217}。{quest:31}：提高游泳速度，并可在水下呼吸。",
 
 	-- Step 8: Aquatic Form
 	-- {npc:4217} Mathrengyl Bearwalker · {area:1658} Cenarion Enclave · {quest:5061} Aquatic Form
@@ -56,21 +56,21 @@ return {
 	-- Step 10: Trial of the Lake
 	-- {spell:18960} Teleport: Moonglade · {npc:11802} Dendrite Starblaze · {quest:28} Trial of the Lake · {npc:11799} Tajarri · {area:656} Lake Elune'ara · {area:2361} Nighthaven · {object:177524} Bubbly Fissure (no name in this language: may be words) · {item:15877} Shrine Bauble · {area:2362} Shrine of Remulos
 	-- plural, as words: Bauble Containers = {object:177785} Bauble Container
-	["Cast {spell:18960} to get here: {npc:11802} stands upstairs in the building beside where you land. {quest:28} runs on a 30-minute timer: once you accept it, no teleport or Hearthstone until {npc:11799} has it. Six Bauble Containers (vases) lie in narrow hollows deep on the floor of {area:656} below {area:2361}, often near the bubbling fissures (the {object:177524} in the middle of the lake refills your breath); each comes back three minutes after it is opened, and other druids take them too. Check the {item:15877} is in your bags before you surface: it fades five minutes after you loot it. Swim it straight to the {area:2362} on the north-west shore, use it inside the shrine grounds and speak to {npc:11799} by the tree."] = "",
+	["Cast {spell:18960} to get here: {npc:11802} stands upstairs in the building beside where you land. {quest:28} runs on a 30-minute timer: once you accept it, no teleport or Hearthstone until {npc:11799} has it. Six Bauble Containers (vases) lie in narrow hollows deep on the floor of {area:656} below {area:2361}, often near the bubbling fissures (the {object:177524} in the middle of the lake refills your breath); each comes back three minutes after it is opened, and other druids take them too. Check the {item:15877} is in your bags before you surface: it fades five minutes after you loot it. Swim it straight to the {area:2362} on the north-west shore, use it inside the shrine grounds and speak to {npc:11799} by the tree."] = "施放 {spell:18960} 传送到这里：{npc:11802} 站在传送落点旁建筑的楼上。{quest:28} 限时 30 分钟：接取后，在 {npc:11799} 收下之前，不要传送或使用炉石。在 {area:2361} 下方、{area:656} 深处的湖底，有六个神殿灵珠容器（花瓶），藏在狭窄的凹坑里，通常靠近冒泡的裂隙（湖中央的 {object:177524} 可让你恢复呼吸）；每个容器打开三分钟后会刷新，其他德鲁伊也会取用。浮出水面前，确认背包里已有 {item:15877}：它在拾取五分钟后就会消失。立即带着它游向西北岸的 {area:2362}，在神殿范围内使用，然后与树旁的 {npc:11799} 交谈。",
 
 	-- Step 11: Half Pendant of Aquatic Agility
 	-- {npc:11798} Bunthen Plainswind · {area:1638} Thunder Bluff · {area:1637} Orgrimmar · {object:177792} Strange Lockbox · {area:382} Sludge Fen
-	["Take {npc:11798}'s flight to {area:1638} and fly on to {area:1637}. The {object:177792} lies underwater in the {area:382} pond, a short walk out of {area:1637}'s west gate, in front of a wooden wall. The Venture Co. there are quick to join a fight: come in from the west to avoid most of them."] = "",
+	["Take {npc:11798}'s flight to {area:1638} and fly on to {area:1637}. The {object:177792} lies underwater in the {area:382} pond, a short walk out of {area:1637}'s west gate, in front of a wooden wall. The Venture Co. there are quick to join a fight: come in from the west to avoid most of them."] = "乘坐{npc:11798}的航班前往{area:1638}，再飞往{area:1637}。从{area:1637}西门步行一小段路即可到达{area:382}，{object:177792}就在池塘水下的一面木墙前。那里的风险投资公司成员很容易加入战斗，从西面接近可避开大部分敌人。",
 
 	-- Step 12: Zeppelin to Undercity
 	-- {zone:1458} Undercity
 	["Zeppelin to {zone:1458}"] = "乘飞艇前往{zone:1458}",
 	-- {area:1637} Orgrimmar · {zone:1458} Undercity · {zone:1420} Tirisfal Glades · {zone:1421} Silverpine Forest
-	["Back through {area:1637} to the zeppelin towers outside its main gate: the zeppelin to the {zone:1458} lands in {zone:1420}, and {zone:1421} is south of the {zone:1458}."] = "",
+	["Back through {area:1637} to the zeppelin towers outside its main gate: the zeppelin to the {zone:1458} lands in {zone:1420}, and {zone:1421} is south of the {zone:1458}."] = "穿过{area:1637}返回主城门外的飞艇塔：前往{zone:1458}的飞艇会降落在{zone:1420}，{zone:1421}位于{zone:1458}南面。",
 
 	-- Step 13: Half Pendant of Aquatic Endurance
 	-- {object:177790} Strange Lockbox · {area:228} Sepulcher · {spell:18960} Teleport: Moonglade
-	["The {object:177790} lies at the bottom of very deep water off the coast north-west of the {area:228}, beside an air fissure where you can breathe: watch your breath on the way down. Then {spell:18960} takes you straight back."] = "",
+	["The {object:177790} lies at the bottom of very deep water off the coast north-west of the {area:228}, beside an air fissure where you can breathe: watch your breath on the way down. Then {spell:18960} takes you straight back."] = "{object:177790}在{area:228}西北海岸外的深水底部，旁边有可供呼吸的气泡裂隙，下潜时注意呼吸条。拿到后用{spell:18960}直接返回。",
 
 	-- Step 14: Pendant of the Sea Lion
 	-- {spell:18960} Teleport: Moonglade · {area:2362} Shrine of Remulos · {item:15883} Half Pendant of Aquatic Agility · {zone:1450} Moonglade · {npc:11802} Dendrite Starblaze · {npc:11798} Bunthen Plainswind · {area:1638} Thunder Bluff

@@ -65,7 +65,7 @@ Every line before the first `step`.
 | `faction` | no | `Alliance` or `Horde` |
 | `race` | no | comma list (see Conditions) |
 | `class` | no | comma list |
-| `next` | no | id of the guide that follows, or several ids separated by commas: a **route choice**. The player picks where to level next in the "Choose your path" window; the first id is the author's default. Every option must be the guide's own faction. Repeatable: each line adds its guides in order, and `next <id> when <predicate>` offers that guide only while the predicate holds at the hand-off (see "Conditional hand-offs"). |
+| `next` | no | id of the guide that follows, or several ids separated by commas: a **route choice**. The player picks where to level next in the "Choose your path" window; the first id is the author's default. Every option must be the guide's own faction. Repeatable: each line adds its guides in order, and `next <id> when <predicate>` offers that guide only while the predicate holds at the hand-off (see "Conditional hand-offs"). Polestar's own guides may also offer one of Polestar's experimental guides (`polestar-experimental/<id>`, never the first line): see "Route choices". |
 | `category` | no | default `Leveling`; others: `Class` (class quest chains, mounts and weapons; pair with a `class` header), `Professions`, `Reputation`, `Legacy`, `Exploration`, `Collectibles`, `Miscellaneous` (side chains and collections that fit no other category: the Cozy Sleeping Bag), `Dungeons` |
 | `folder` | no | the guide menu folder this guide is listed under, any category (e.g. `Mounts · Level 40`, `Companion pets · Vendors`). Guides sharing a folder sort by faction (yours first), then level. Without it: the category's folder (Leveling: by faction and level band). |
 | `keywords` | no | comma list of extra words the guide menu search matches (e.g. the colours a mount guide covers); an empty entry is an error, a repeated one a warning |
@@ -1492,6 +1492,25 @@ pro Every trainer in one city
 con A long ride down the lift
 next forever/horde/02-the-barrens
 ```
+
+Polestar's own guides may offer one of Polestar's experimental guides as one
+more option, an alpha route through one of Forever's new zones:
+
+```
+guide forever/horde/30-40/06-badlands
+next forever/horde/40-50/01-stranglethorn-vale
+next polestar-experimental/riverglades-horde-1
+```
+
+The first line stays the route's default: an experimental guide may never be
+it. Its pack (Polestar Experimental) loads on demand and is off until the
+player wants it, so `forge guide compile` writes an index of the experimental
+guides our route choices offer after Polestar_Guides' guides (its header and
+its route until it hands back to one of ours, docs/PACK_FORMAT.md); the choice
+shows it from there, marked experimental, and never recommends it. Choosing it
+switches the pack on, with nothing to install, and the route goes on through
+its guides and back to ours where its last guide's `next` hands over. Lint
+checks the id against `experimental/` and refuses another faction's guide.
 
 ### Optional extras
 

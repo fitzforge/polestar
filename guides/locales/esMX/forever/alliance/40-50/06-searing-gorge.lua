@@ -12,7 +12,7 @@ return {
 
 	-- Step 2: Into Searing Gorge
 	-- {zone:1427} Searing Gorge
-	["Into {zone:1427}"] = "",
+	["Into {zone:1427}"] = "Hacia {zone:1427}",
 
 	-- Step 3: Searing Gorge
 	["The Grimesilt outhouse"] = "La letrina de Limugre",
@@ -74,7 +74,7 @@ return {
 
 	-- Step 22: Searing Gorge: kill these as you meet them
 	-- {zone:1427} Searing Gorge
-	["{zone:1427}: kill these as you meet them"] = "",
+	["{zone:1427}: kill these as you meet them"] = "{zone:1427}: mata a estos según te los encuentres",
 	-- {area:1443} The Slag Pit · {npc:14621} Overseer Maltorius
 	-- plural, as words: Incendosaurs = {npc:9318} Incendosaur
 	["{area:1443} opens in the north of the Cauldron. The Secret Plans lie on its upper ledge; Incendosaurs swim in the lava pools further in, so pull them to the edge. Stay clear of {npc:14621} and his elite guards deep inside."] = "{area:1443} se abre en el norte de La Caldera. Los Diseños secretos: flujo ígneo están en su cornisa superior; los incendosaurios nadan en los charcos de lava más adentro, así que atráelos al borde. Aléjate de {npc:14621} y sus guardias élite en lo más profundo.",
@@ -135,7 +135,7 @@ return {
 	-- {area:1537} Ironforge
 	["Fly to {area:1537}"] = "Vuela a {area:1537}",
 	-- {area:1446} Thorium Point
-	["{area:1446} flight master"] = "",
+	["{area:1446} flight master"] = "Maestro de vuelo de {area:1446}",
 
 	-- Step 38: Hall of Explorers
 	-- {npc:9616} Laris Geardawdle · {zone:1448} Felwood

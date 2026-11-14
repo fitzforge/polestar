@@ -123,7 +123,7 @@ return {
 
 	-- Step 25: Cortello's Riddle
 	-- {area:498} Bloodfen Burrow
-	["Inside {area:498}"] = "",
+	["Inside {area:498}"] = "Dentro de {area:498}",
 
 	-- Step 26: Theramore flight master
 	["Theramore flight master"] = "",
