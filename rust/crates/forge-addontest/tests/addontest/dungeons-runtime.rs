@@ -160,6 +160,51 @@ fn instancemapsof_instances_only_their_areas_inner_on_the_map_itself_the_zone_ho
 	assert!(instance_maps_of(&[], &[]).is_empty());
 }
 
+// Fitz, 2026-11-14 (the Dungeons hub's 50-60 band: "Missing game art for these zones"): Forever's Blackmaw Hold
+// has no corpse point and nobody has recorded its door, so its page had no zone and its card no painting. The
+// client's AreaTable names an open-world area after it (1216 "Blackmaw Hold" under Azshara, 16; build
+// 1.60.1.70888), so the page takes Azshara as its zone. Alcaz Prison's name is on no outdoor area (Alcaz Island
+// shares only a word, no evidence: the Drowned Reef is in Arathi, The Drowned City's door in Stranglethorn), so it
+// stays without one.
+#[test]
+fn a_dungeon_without_an_entrance_takes_the_zone_the_clients_areas_name_it_in_blackmaw_hold_azshara() {
+	let maps: [&[(&str, &str)]; 3] = [
+		&[("ID", "1"), ("MapName_lang", "Kalimdor"), ("InstanceType", "0"), ("CorpseMapID", "-1")],
+		&[("ID", "2974"), ("MapName_lang", "Blackmaw Hold"), ("InstanceType", "1"), ("AreaTableID", "16554"), ("CorpseMapID", "-1"), ("Corpse_0", "0"), ("Corpse_1", "0")],
+		&[("ID", "2994"), ("MapName_lang", "Alcaz Prison"), ("InstanceType", "1"), ("AreaTableID", "0"), ("CorpseMapID", "-1"), ("Corpse_0", "0"), ("Corpse_1", "0")],
+	];
+	let areas: [&[(&str, &str)]; 7] = [
+		&[("ID", "15"), ("AreaName_lang", "Dustwallow Marsh"), ("ContinentID", "1"), ("ParentAreaID", "0")],
+		&[("ID", "16"), ("AreaName_lang", "Azshara"), ("ContinentID", "1"), ("ParentAreaID", "0")],
+		&[("ID", "1216"), ("AreaName_lang", "Blackmaw Hold"), ("ContinentID", "1"), ("ParentAreaID", "16")],
+		&[("ID", "2079"), ("AreaName_lang", "Alcaz Island"), ("ContinentID", "1"), ("ParentAreaID", "15")],
+		&[("ID", "16554"), ("AreaName_lang", "Blackmaw Hold"), ("ContinentID", "2974"), ("ParentAreaID", "0")],
+		&[("ID", "16620"), ("AreaName_lang", "Alcaz Prison"), ("ContinentID", "2994"), ("ParentAreaID", "0")],
+		&[("ID", "17311"), ("AreaName_lang", "Blackmaw Grove"), ("ContinentID", "2974"), ("ParentAreaID", "16554")],
+	];
+	let found = instance_maps_of(rows(&maps).as_slice(), rows(&areas).as_slice());
+	let out: Vec<Value> = found.iter().map(map_json).collect();
+	assert_eq!(
+		Value::Array(out.clone()),
+		json!([
+			{ "id": 2974, "name": "Blackmaw Hold", "raid": false, "players": null, "area": 16554, "areas": [1216, 16554, 17311], "inner": [16554, 17311], "zones": [16], "corpse": null },
+			{ "id": 2994, "name": "Alcaz Prison", "raid": false, "players": null, "area": null, "areas": [16620], "inner": [16620], "zones": [], "corpse": null },
+		])
+	);
+	let inst =
+		|key: &str, name: &str, map: i64| json!({ "key": key, "name": name, "kind": "dungeon", "forever": true, "areaId": null, "map": map, "entrance": null, "levels": [50, 55, 59], "bosses": [] });
+	let codex = json!({ "instances": { "blackmaw-hold": inst("blackmaw-hold", "Blackmaw Hold", 2974), "alcaz-prison": inst("alcaz-prison", "Alcaz Prison", 2994) } });
+	let inputs = json!({
+		"client": { "instanceMaps": out },
+		"forever": { "zones": { "1445": { "id": 1445, "name": "Dustwallow Marsh", "areaId": 15, "type": 3 }, "1447": { "id": 1447, "name": "Azshara", "areaId": 16, "type": 3 } } },
+	});
+	let pages = journal_json(&inputs, &codex);
+	let page = |k: &str| pages["dungeons"][k].clone();
+	assert_eq!((page("blackmaw-hold")["zone"].clone(), page("blackmaw-hold")["zoneName"].clone()), (json!(1447), json!("Azshara")));
+	assert_eq!(page("blackmaw-hold")["entrance"], Value::Null, "the zone, not a made-up door");
+	assert_eq!((page("alcaz-prison")["zone"].clone(), page("alcaz-prison")["zoneName"].clone()), (Value::Null, Value::Null));
+}
+
 #[test]
 fn zonepoint_the_preferred_zone_holding_the_point_else_the_frame_it_sits_nearest_the_middle_of_continents_skipped() {
 	let frames = v(&json!({

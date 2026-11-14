@@ -400,6 +400,29 @@ fn match_map<'a>(inst: &V, maps: &'a [InstanceMap]) -> Option<&'a InstanceMap> {
 	m
 }
 
+/// journal.js `zoneOfAreas(m, zonesIn, quests)`: the zone of an instance whose entrance is not known,
+/// the zone map (UiMap type 3, or 6 an orphan zone) of the outdoor areas the client names after it
+/// (`InstanceMap::zones`), where the most of its quests start or end when there are several, else
+/// the lowest id.
+fn zone_of_areas(m: &InstanceMap, zones_in: &V, quests: &[V]) -> Option<f64> {
+	if m.zones.is_empty() {
+		return None;
+	}
+	let mut found: Vec<f64> = zones_in
+		.values()
+		.into_iter()
+		.filter(|z| {
+			let (a, t) = (z.get("areaId"), z.get("type"));
+			a.truthy() && m.zones.contains(&a.num()) && (t.is_nullish() || t.num() == 3.0 || t.num() == 6.0)
+		})
+		.map(|z| z.get("id").num())
+		.collect();
+	let at = |p: V, id: f64| p.truthy() && p.get("map").is_num() && p.get("map").num() == id;
+	let givers = |id: f64| quests.iter().filter(|q| at(q.get("start"), id) || at(q.get("finish"), id)).count();
+	found.sort_by(|a, b| givers(*b).cmp(&givers(*a)).then(super::util::by_num(*a, *b)));
+	found.first().copied()
+}
+
 /// An ordered set of strings (JS Set).
 fn add_s(v: &mut Vec<String>, s: &str) {
 	if !v.iter().any(|x| x == s) {
@@ -1152,7 +1175,7 @@ fn build_pages(inp: &JournalInputs, codex: &Codex, warnings: &mut Vec<String>) -
 			})
 			.collect();
 		let lv = inst.get("levels");
-		let zone = if entrance.truthy() { entrance.get("map") } else { V::Null };
+		let zone = if entrance.truthy() { entrance.get("map") } else { m.and_then(|m| zone_of_areas(m, inp.fv_zones, &quests)).map(V::Num).unwrap_or(V::Null) };
 		let zname = if zone.truthy() {
 			let z = codex.zones.get(&kstr(&zone));
 			let z = if z.truthy() { z } else { inp.fv_zones.get(&kstr(&zone)) };

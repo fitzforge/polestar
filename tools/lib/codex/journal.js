@@ -20,7 +20,8 @@
 // `codex` the merged Codex (instances, items, npcs, objects, quests). Every
 // input may be missing; the result then holds less.
 //
-// Page: { key, name, map (the instance's Map id), kind, forever, minLevel, maxLevel, players, zone, zoneName,
+// Page: { key, name, map (the instance's Map id), kind, forever, minLevel, maxLevel, players,
+//   zone (uiMapID: the entrance's map, else zoneOfAreas: the zone the client's areas place it in) | null, zoneName,
 //   entrance: { map, x, y, f, A? } | null (A: the Alliance's own way in, { map, x, y }),
 //   quests: [ Quest ] (level order), chain: { id: Quest } (prerequisites not on the page),
 //   bosses: [ { order, name, npc, level, object?, role?, encounter?, quests: [ { id, how, item?, itemName? } ] } ],
@@ -64,6 +65,10 @@ const round1 = (v) => Math.round(v * 10) / 10;
 // west) on map CorpseMapID where a ghost comes back: the entrance. zones: the
 // outdoor zone areas holding an area of the instance's name on that
 // continent (Uldaman in the Badlands), to place the entrance on the right map.
+// A map without a corpse point takes them on any open-world map (InstanceType
+// 0): Forever's Blackmaw Hold in Azshara, The Shaper's Terrace in Un'Goro
+// Crater. (A name's first word alone is no evidence: the client's Drowned
+// Reef is in Arathi, The Drowned City's door in Stranglethorn.)
 function instanceMapsOf(mapRows, areaRows) {
 	const areasByMap = {};
 	const areaNames = {};
@@ -76,6 +81,7 @@ function instanceMapsOf(mapRows, areaRows) {
 		const n = norm(a.AreaName_lang);
 		if (n) (areaNames[n] = areaNames[n] || []).push(id);
 	}
+	const world = new Set((mapRows || []).filter((r) => num(r.InstanceType) === 0).map((r) => num(r.ID)));
 	const out = [];
 	for (const r of mapRows || []) {
 		const type = num(r.InstanceType);
@@ -85,17 +91,18 @@ function instanceMapsOf(mapRows, areaRows) {
 		const c = num(r.CorpseMapID);
 		const x = num(r.Corpse_0);
 		const y = num(r.Corpse_1);
+		const corpse = c >= 0 && (x || y) ? { c, x, y } : null;
 		const areas = new Set(areasByMap[id] || []);
 		if (num(r.AreaTableID)) areas.add(num(r.AreaTableID));
 		// The areas on the instance's own map (what Forever's `location` names).
 		const inner = [...areas].sort((a, b) => a - b);
 		// Areas of the same name outside the instance (Questie files some
 		// dungeon quests under the outdoor sub-zone, e.g. Gnomeregan in Dun Morogh).
+		const outdoor = (row) => !!row && num(row.ParentAreaID) !== 0 && (corpse ? num(row.ContinentID) === c : world.has(num(row.ContinentID)));
 		const zones = new Set();
 		for (const a of areaNames[norm(name)] || []) {
 			areas.add(a);
-			const row = areaRow[a];
-			if (row && num(row.ContinentID) === c && num(row.ParentAreaID)) zones.add(num(row.ParentAreaID));
+			if (outdoor(areaRow[a])) zones.add(num(areaRow[a].ParentAreaID));
 		}
 		out.push({
 			id,
@@ -106,7 +113,7 @@ function instanceMapsOf(mapRows, areaRows) {
 			areas: [...areas].sort((a, b) => a - b),
 			inner,
 			zones: [...zones].sort((a, b) => a - b),
-			corpse: c >= 0 && (x || y) ? { c, x, y } : null,
+			corpse,
 		});
 	}
 	return out.sort((a, b) => a.id - b.id);
@@ -564,7 +571,7 @@ function buildPages(inputs, codex, warnings = []) {
 			return page;
 		});
 		const lv = inst.levels;
-		const zone = entrance ? entrance.map : null;
+		const zone = entrance ? entrance.map : zoneOfAreas(m, fv.zones, quests);
 		pages[key] = {
 			key,
 			name: inst.name || key,
@@ -608,6 +615,20 @@ function matchMap(inst, maps) {
 	// Wings: "Scarlet Monastery Armory" in "Scarlet Monastery".
 	if (!m) m = maps.find((x) => norm(x.name).length > 6 && n.startsWith(norm(x.name)));
 	return m || null;
+}
+
+// The zone of an instance whose entrance is not known: the zone map (UiMap
+// type 3, or 6 an orphan zone) of the outdoor areas the client names after it
+// (instanceMapsOf's zones), where the most of its quests start or end when
+// there are several, else the lowest id; null without one. zonesIn: Forever's
+// zones.json { uiMapID: { id, areaId, type } }.
+function zoneOfAreas(m, zonesIn, quests = []) {
+	if (!m || !(m.zones || []).length) return null;
+	const found = Object.values(zonesIn || {}).filter((z) => z.areaId && m.zones.includes(z.areaId) && (z.type == null || z.type === 3 || z.type === 6));
+	if (!found.length) return null;
+	const givers = (id) => quests.filter((q) => (q.start && q.start.map === id) || (q.finish && q.finish.map === id)).length;
+	found.sort((a, b) => givers(b.id) - givers(a.id) || a.id - b.id);
+	return found[0].id;
 }
 
 function buildJournal(inputs = {}, codex = {}) {
