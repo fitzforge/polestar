@@ -427,7 +427,7 @@ local SPECS = {
 			help = L["The whole guide window, text and all."],
 			search = "size, bigger, smaller, zoom, scale, huge, tiny, window scale" },
 		{ kind = "slider", key = "ui.guideTextSize", label = L["Text size"], min = 0.8, max = 1.4, step = 0.05, format = percent, new = NEW,
-			help = L["The size of the guide window's text, apart from its scale and the rest of Polestar's text (Theme > Text). Changes at once. Right-click to reset."],
+			help = L["The size of the guide window's text, apart from its scale and the rest of Polestar's text (Theme > Text). The class quest card keeps that general size. Changes at once. Right-click to reset."],
 			search = "text size, font size, bigger text, smaller text, readability, larger, huge, tiny, guide text" },
 		{ kind = "slider", key = "ui.width", label = L["Width"], min = 260, max = 560, step = 10, format = "%d",
 			help = L["How wide the guide window is. You can also drag its bottom-right corner."],

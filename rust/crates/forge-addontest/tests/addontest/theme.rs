@@ -1607,3 +1607,23 @@ fn settings_from_before_the_guide_text_size_keep_the_guide_window_s_text_at_the_
 	assert_eq!(fresh["guide"], 1);
 	assert_eq!(fresh["v"], 1, "a fresh install is marked too, so a general size set later is not copied");
 }
+
+#[test]
+fn the_class_quest_card_in_the_guide_window_keeps_the_general_text_size() {
+	let out = run(r#"
+		-- The card as UI/ClassCard.lua draws it into the guide window (its parts.card, a frame of the window's).
+		local card = Polestar.UI.ClassCard.NewCard(Polestar.UI.GuideFrame.parts.card)
+		local inCard = card.Title
+		local guide = PolestarGuideFrame:CreateFontString()
+		T.Font(guide, "title")
+		local _, base = inCard:GetFont()
+		Polestar.Set("ui.guideTextSize", 1.4)
+		local _, cardGuide = inCard:GetFont()
+		local _, guideGuide = guide:GetFont()
+		Polestar.Set("ui.textSize", 0.8)
+		local _, cardGeneral = inCard:GetFont()
+		emit({ cardGuide = cardGuide / base, guideGuide = guideGuide / base, cardGeneral = cardGeneral / base })"#);
+	assert_eq!(out["cardGuide"], 1, "the guide size leaves the card alone");
+	assert!((out["guideGuide"].as_f64().unwrap() - 1.4).abs() < 0.05, "and sizes the window around it: {}", out["guideGuide"]);
+	assert!((out["cardGeneral"].as_f64().unwrap() - 0.8).abs() < 0.05, "the card follows the general size: {}", out["cardGeneral"]);
+}

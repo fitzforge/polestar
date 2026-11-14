@@ -1321,10 +1321,20 @@ function Theme.TextScale(key)
 end
 
 -- A window whose text takes its own size setting instead of ui.textSize
--- (the guide window: ui.guideTextSize). Every string under `frame` follows it.
+-- (the guide window: ui.guideTextSize). Every string under `frame` follows
+-- it. key = false: back to ui.textSize for `frame` and what is under it,
+-- inside another scope (the class quest card in the guide window); the
+-- innermost scope decides.
 local textScopes = setmetatable({}, { __mode = "k" })
+local scopedFrames = setmetatable({}, { __mode = "k" }) -- frame -> key | false
+local unscoped = setmetatable({}, { __mode = "k" })
 function Theme.TextScope(frame, key)
-	if type(frame) == "table" then textScopes[frame] = key end
+	if type(frame) ~= "table" then return end
+	textScopes[frame] = key or false
+	-- Found again on the next lookup: a scope set now may cover frames
+	-- already seen.
+	for f in pairs(scopedFrames) do scopedFrames[f] = nil end
+	for f in pairs(unscoped) do unscoped[f] = nil end
 end
 
 -- The size setting a string follows: its scoped window's, else nil. Found
@@ -1332,9 +1342,9 @@ end
 -- from the string: Polestar's strings on the world map would read the map's
 -- frames (Nav/MapCanvas reads only what it must there). A parent seen
 -- outside every scope stays outside: the guide window reparents nothing.
-local scopedFrames = setmetatable({}, { __mode = "k" })
-local unscoped = setmetatable({}, { __mode = "k" })
 local function markScope(frame, key)
+	local own = textScopes[frame]
+	if own ~= nil then key = own end
 	scopedFrames[frame] = key
 	for _, child in ipairs({ frame:GetChildren() }) do markScope(child, key) end
 end
@@ -1342,11 +1352,12 @@ local function scopeOf(region)
 	local p = region.GetParent and region:GetParent()
 	if not p then return nil end
 	local key = scopedFrames[p]
-	if key or unscoped[p] then return key end
+	if key ~= nil then return key or nil end
+	if unscoped[p] then return nil end
 	for frame, k in pairs(textScopes) do markScope(frame, k) end
 	key = scopedFrames[p]
-	if not key then unscoped[p] = true end
-	return key
+	if key == nil then unscoped[p] = true end
+	return key or nil
 end
 
 -- The roles each size nudge moves (ui.headingSize, ui.smallSize, on top of
