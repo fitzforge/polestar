@@ -1977,14 +1977,15 @@ fn t_2003_the_live_step_s_own_flight_path_is_no_while_you_re_here_line() {
 // #2079 (DexeeXI, a Skyborne Druid in Moonglade): While you're here asked a Druid to learn the flight path at
 // Nighthaven, where Bunthen Plainswind flies Druids to Thunder Bluff from his gossip: a class's own flight master has
 // no flight path to learn, so the line never went. A Druid beside the Druids' grove sees no line for it;
-// Goldshire's, 49 yd off, still shows.
+// Goldshire's, 49 yd off, still shows. The character has opened a flight map on this continent before (SEEN): before
+// that no flight path line shows at all, as a flight master not known may be one learnt before Polestar ran (#1795).
 #[test]
 fn t_2079_a_class_s_own_flight_master_is_never_a_flight_path_to_learn_even_for_that_class() {
 	let out = emitted(&RunAddon {
 		stubs: vec!["stub_world.lua"],
 		before: format!("{WORLD}w.class, w.className, w.classID = \"DRUID\", \"Druid\", 11\n"),
 		addons: vec![Addon::files("Polestar", &["Core/Core.xml", "Theme/Theme.xml", "Nav/Nav.xml"])],
-		saved: vec![("Polestar".into(), r#"PolestarCharDB = { schema = 1, guide = "test/fly" }"#.into())],
+		saved: vec![("Polestar".into(), SEEN.into())],
 		script: [
 			TEST_PACK,
 			TEST_SOURCE,
