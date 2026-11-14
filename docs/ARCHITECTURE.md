@@ -10311,8 +10311,11 @@ shows on a continent other than 0 and 1. Recorded `inst` fields add to them.
   the 1.12 table), so level-ups inside a step count in full.
 
 Per step: passes, median/p75 time, XP, XP/hr, combat share (the rest is
-mostly travel), deaths, turn-ins, travel yards (taxis and jumps faster than
-40 yd/s excluded), revisits. Per guide: time (completed runs), levels gained,
+mostly travel), deaths, turn-ins, travel yards (completed taxi and transport
+rides, and jumps faster than 40 yd/s, excluded), revisits. Transport samples
+do not bridge the walking positions before and after a trip. A missing end
+event does not hide later movement; ride time and XP still count normally.
+Per guide: time (completed runs), levels gained,
 XP/hr. Then three lists: slowest steps by XP/hr; steps at least twice and
 2 minutes over the guide's median step time (compiled packs carry no time
 estimate to compare against); detours, steps with 600+ yd of median travel and
