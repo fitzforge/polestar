@@ -308,6 +308,7 @@ step Excavation Site: Wetlands
 step Prospector Whelgar
   when dungeon "Excavation Site: Wetlands"
   when onquest 95810
+  when level>=28
   zone Wetlands
   tip The Titan Relic from your Excavation Site: Wetlands run: Prospector Whelgar is below ground in his dig, west of the entrance on the way back west.
   turnin 95810                        -- Prospector Whelgar, below ground
