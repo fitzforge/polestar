@@ -6847,7 +6847,11 @@ Polestar.Lookup.AcceptPre(goal, quest) -> goal         -- the accept with the qu
   `fromFaction`, `fromAlso`, `fromAlsoId`): of the Codex sources with a
   spawn, both when there are at most two, else one at 50% or more (and a
   second of its kind at 50%), so Hidden Enemies reads "Kill Burning Blade
-  Fanatic or Burning Blade Apprentice for Lieutenant's Insignia" (#1589). A
+  Fanatic or Burning Blade Apprentice for Lieutenant's Insignia" (#1589). The
+  goal's place and names come from the sources that need no group (not an
+  elite, rare elite or boss) when any of them gives the item 1% of the time or
+  more, as compiled guides do: Indurium's flakes from the Badlands' Stonevault
+  Bonesnappers and Shamans, not the elites in Uldaman's cave (#2236). A
   talk objective's step note says to click through the NPC's dialogue until
   the quest's line is done (#1590, Neeru Fireblade).
 - **Codex records** use the field names of `data/forever/codex/*.json` (see

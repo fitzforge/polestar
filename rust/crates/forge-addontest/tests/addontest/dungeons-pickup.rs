@@ -2047,6 +2047,72 @@ emit(out)"#);
 	assert_eq!(json!([out["collect"]["from"], out["collect"]["text"]]), json!([false, "Collect Lieutenant's Insignia"]));
 }
 
+// #2236 (Bennistrov, Night Elf Druid 46, Uldaman's pick-up guide): Indurium's step sent him to Stonevault
+// Rockchewers and Cave Hunters, elites in Uldaman's cave that the data has dropping the flakes every time, while
+// players' recordings get every flake from the Stonevault Bonesnappers and Shamans in the Badlands. A Lookup step
+// collects an item from the sources that need no group when any gives it 1% of the time or more, as compiled
+// guides do; from elites only when nothing else drops it. Here the elites stand beside the giver and drop the item
+// at 100%, two normal mobs farther off at 60%.
+#[test]
+fn a_lookup_step_collects_its_item_from_mobs_that_need_no_group_before_elites_that_drop_it_more_often_2236() {
+	let (codex, inputs) = fixture_parts();
+	let mut c = codex.clone();
+	let mut i = inputs.clone();
+	let npc = |id: i32, name: &str, faction: Value, elite: bool, x: i32, y: i32| {
+		json!({
+			"id": id, "name": name, "level": 11, "levelMax": null, "faction": faction, "rare": false, "elite": elite, "boss": false,
+			"instance": null, "roles": [], "spawns": [{ "map": 1421, "x": x, "y": y, "f": "e" }],
+		})
+	};
+	c["npcs"]["90610"] = npc(90610, "Thrall", json!("H"), false, 40, 40);
+	c["npcs"]["90613"] = npc(90613, "Stonevault Rockchewer", Value::Null, true, 41, 41);
+	c["npcs"]["90614"] = npc(90614, "Stonevault Cave Hunter", Value::Null, true, 42, 42);
+	c["npcs"]["90615"] = npc(90615, "Stonevault Bonesnapper", Value::Null, false, 55, 10);
+	c["npcs"]["90616"] = npc(90616, "Stonevault Shaman", Value::Null, false, 56, 11);
+	let drop = |npc: i32, chance: f64| json!({ "type": "drop", "npc": npc, "chance": chance });
+	c["items"]["90620"] = json!({ "id": 90620, "name": "Indurium Flake", "quality": 1, "kind": "item", "spell": null, "reqLevel": null,
+		"sources": [drop(90613, 100.0), drop(90614, 100.0), drop(90615, 60.0), drop(90616, 60.0)] });
+	let quest = |id: i32, title: &str, pre: &[i32], objectives: Value| {
+		json!({
+			"id": id, "title": title, "level": 14, "minLevel": 10, "faction": "H", "races": null, "classes": null,
+			"start": { "npc": [90610], "object": [], "item": [] }, "end": { "npc": [90610], "object": [] },
+			"objectives": objectives, "pre": pre, "zone": 1421, "rewards": [], "choices": [], "preAny": [],
+		})
+	};
+	c["quests"]["90601"] = quest(90601, "Indurium", &[], json!([{ "type": "item", "id": 90620, "count": 1, "text": "Indurium Flake" }]));
+	c["quests"]["90603"] = quest(90603, "The Dungeon Quest", &[90601], json!([{ "type": "kill", "id": 90621, "count": 1, "text": "Boss" }]));
+	i["forever"]["quests"]["90603"] = json!({ "area": 209 });
+	let script = k(r#"
+local E = Polestar.Engine
+D.PickUp("{KEY}")
+local g = E.GetGuide()
+local out = {}
+for s, step in ipairs(g.steps) do
+	for gi, goal in ipairs(step.goals) do
+		if goal.t == "collect" and goal.quest == 90601 then
+			local v = E.GetStepView(s).goals[gi]
+			out = { from = goal.from or false, also = goal.fromAlso or false, x = goal.x or false, y = goal.y or false,
+				group = goal.group and goal.group.kind or false, text = v.text }
+		end
+	end
+end
+emit(out)"#);
+	let out = run(&pack_of(&c, &i), &script, Opts { cls: "MAGE", ..Default::default() }).remove(0);
+	assert_eq!(
+		json!([out["from"], out["also"], out["group"], out["text"]]),
+		json!(["Stonevault Bonesnapper", "Stonevault Shaman", false, "Kill Stonevault Bonesnapper or Stonevault Shaman for Indurium Flake"]),
+		"the mobs that need no group; the elites beside the giver are left out: {out}"
+	);
+	assert_eq!((out["x"].as_f64(), out["y"].as_f64()), (Some(55.0), Some(10.0)), "at the Bonesnapper's spawn: {out}");
+
+	// Only the elites drop it: the step goes to them, with the group warning, as before.
+	let mut elites = c.clone();
+	elites["items"]["90620"]["sources"] = json!([drop(90613, 100.0), drop(90614, 100.0)]);
+	let out = run(&pack_of(&elites, &i), &script, Opts { cls: "MAGE", ..Default::default() }).remove(0);
+	assert_eq!(json!([out["from"], out["also"], out["group"]]), json!(["Stonevault Rockchewer", "Stonevault Cave Hunter", "elite"]), "{out}");
+	assert_eq!((out["x"].as_f64(), out["y"].as_f64()), (Some(41.0), Some(41.0)), "{out}");
+}
+
 // #1593 (Fitz, out of Ragefire Chasm in the Cleft of Shadow, 20 yd from Neeru Fireblade): the hand-in guide led
 // to Rahauro in Thunder Bluff first, 5,063 yd, and came back for Neeru later. A stop at hand (AT_HAND, 15 s of
 // travel from the player) now comes first, whatever the cheapest path from there. Here the cheapest open path

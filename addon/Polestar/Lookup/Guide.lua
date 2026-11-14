@@ -210,8 +210,23 @@ local function percent(n)
 	return format("%.3g%%", n)
 end
 
+-- An item source that needs a group out in the world: an elite, a rare elite
+-- or a boss. While anything else with a known spawn gives the item
+-- REAL_CHANCE percent of the time or more (or at an unknown chance), a step
+-- collects it there instead, as compiled guides do (resolve.rs elite_split):
+-- Indurium's flakes come from the Stonevault Bonesnappers and Shamans in the
+-- Badlands, not from the elites in Uldaman's cave the data has at 100%
+-- (#2236).
+local REAL_CHANCE = 1
+
+local function soloSource(kind, rec, chance)
+	if kind == "npc" and (rec.elite or rec.boss) then return false end
+	return chance == nil or chance >= REAL_CHANCE
+end
+
 -- Where to collect a quest item: the nearest spawn of its best drop or object
--- source; else, with `inside` (see questStep), where its best source without
+-- source (of those that need no group, when there are any: soloSource); else,
+-- with `inside` (see questStep), where its best source without
 -- a known spawn is, unless that source rarely gives it (under INSIDE_CHANCE
 -- percent: Razorgore's 1.5% Nexus Crystal is no errand) -> point, its name
 -- (an inside source only), the best source's spawns (a placed source only),
@@ -220,7 +235,8 @@ local function itemSpot(itemId, from, inside)
 	local C = Codex()
 	local item = C.Item(itemId)
 	if not item then return nil end
-	local best, bestChance, bestSpawns, bestNpc, placed, placedChance, placedName
+	-- best[1]: the best placed source that needs no group; best[2]: the best of all.
+	local best, placed, placedChance, placedName = {}, nil, nil, nil
 	for _, src in ipairs(item.sources or {}) do
 		local rec, kind, id
 		if src.type == "drop" and src.npc then
@@ -230,16 +246,16 @@ local function itemSpot(itemId, from, inside)
 		end
 		local chance = src.chance or 0
 		if rec and rec.spawns and #rec.spawns > 0 then
-			if not best or chance > bestChance then
-				best, bestChance, bestSpawns = Lookup.Nearest(rec.spawns, from), chance, rec.spawns
-				bestNpc = kind == "npc" and rec or nil
+			for i = soloSource(kind, rec, src.chance) and 1 or 2, 2 do
+				if not best[i] or chance > best[i].chance then best[i] = { rec = rec, kind = kind, chance = chance } end
 			end
-		elseif kind and inside and not best and (src.chance == nil or chance >= INSIDE_CHANCE) and (not placed or chance > placedChance) then
+		elseif kind and inside and not best[2] and (src.chance == nil or chance >= INSIDE_CHANCE) and (not placed or chance > placedChance) then
 			local p = inside(kind, id)
 			if p then placed, placedChance, placedName = p, chance, (rec and rec.name) or (C.Name(kind, id)) end
 		end
 	end
-	if best then return best, nil, bestSpawns, bestNpc end
+	local b = best[1] or best[2]
+	if b then return Lookup.Nearest(b.rec.spawns, from), nil, b.rec.spawns, b.kind == "npc" and b.rec or nil end
 	return placed, placedName
 end
 
@@ -248,7 +264,8 @@ end
 -- carry them: tools/lib/dsl/resolve.js), so the step reads "Kill Burning
 -- Blade Fanatic or Burning Blade Apprentice for Lieutenant's Insignia"
 -- instead of only the item (#1589, Hidden Enemies: the insignia drops in
--- Skull Rock's cave). Of its NPC and object sources with a known spawn, best
+-- Skull Rock's cave). Of its NPC and object sources with a known spawn (those
+-- that need no group when there are any, as itemSpot), best
 -- chance first: named when there are at most two (each one is where it
 -- drops), else when the best gives it NAMED_CHANCE percent of the time or
 -- more, with a second of the same kind that does too. -> goal
@@ -258,7 +275,7 @@ local function itemFrom(goal, itemId)
 	local C = Codex()
 	local item = C.Item(itemId)
 	if not item then return goal end
-	local located = {}
+	local located, solo = {}, {}
 	for _, src in ipairs(item.sources or {}) do
 		local kind, rec
 		if src.type == "drop" and src.npc then
@@ -267,9 +284,12 @@ local function itemFrom(goal, itemId)
 			kind, rec = "object", C.Object(src.object)
 		end
 		if rec and rec.name and rec.spawns and #rec.spawns > 0 then
-			located[#located + 1] = { kind = kind, id = src.npc or src.object, rec = rec, chance = src.chance or 0 }
+			local s = { kind = kind, id = src.npc or src.object, rec = rec, chance = src.chance or 0 }
+			located[#located + 1] = s
+			if soloSource(kind, rec, src.chance) then solo[#solo + 1] = s end
 		end
 	end
+	if #solo > 0 then located = solo end
 	if #located == 0 then return goal end
 	table.sort(located, function(a, b)
 		if a.chance ~= b.chance then return a.chance > b.chance end
