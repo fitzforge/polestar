@@ -987,8 +987,10 @@ Names.AddChunk(locale, kind, lo, hi, text)   -- the pack's files only; any kind
   equal to the English one, from any source, is never stored: a translation
   from a later source wins, else the English shows as it would; a name
   marking unused content (`[PH]`, `[UNUSED]`, `(DNT)`, `<NYI>`, `(test)`
-  and their translations) is none. Areas need no pack: the client names
-  them by id (`Compat.GetAreaName`). Only the ids the compiled guides, the
+  and their translations) is none, and so is a Korean, Chinese or Russian
+  name with Latin letters and none of the language's own script (another
+  language's, as the web data once gave a koKR NPC its Portuguese name).
+  Areas need no pack: the client names them by id (`Compat.GetAreaName`). Only the ids the compiled guides, the
   quest database, the Codex's data and the travel data name are kept.
   `--no-questie` leaves DingDB out. `Data.CheckInstall` checks the client's
   language folder like the other optional data packs: never missing, named

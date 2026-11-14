@@ -278,7 +278,8 @@ has the details.
   quest database (`forge data questdb`, or `--questdb <dir>`), the Codex's data
   (`forge data codex`, or `--codex <dir>`) and the travel data name. A name equal
   to the English one is not stored (a later source's translation wins), nor
-  is one marking unused content (`[PH]`, `(DNT)`...). The client tables
+  is one marking unused content (`[PH]`, `(DNT)`...), nor a Korean, Chinese
+  or Russian one written in Latin letters alone (another language's). The client tables
   come from the newest build that has them all in English and every
   language; without one the build stops (`--no-tables` leaves them out on
   purpose). The web names are read from the cache in

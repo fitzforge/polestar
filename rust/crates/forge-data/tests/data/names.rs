@@ -338,6 +338,37 @@ fn per_id_the_client_tables_win_then_the_web_names_dingdb_and_pfquest() {
 	assert_eq!(b.from[3], [1, 0, 1, 0, 0]);
 }
 
+/// A Korean, Chinese or Russian name in Latin letters with none of its language's own is another
+/// language's: the koKR web data named NPC 276793 "Cavalo de Guerra Descarnado Ocre" (Portuguese), and
+/// that went into the Korean names pack. It is no name, so the next source's (or the English) shows; a
+/// name of the language's own script, one of digits alone, and any name for a Latin-script language stay.
+/// An id another source names as in English is still one named as in English (the leaks baseline's
+/// `same-as-english`); one with no other name has none (`no-source`).
+#[test]
+fn a_name_in_another_script_is_no_name_for_a_korean_chinese_or_russian_client() {
+	let ids: IdSets = [set(&[]), set(&[276793, 2, 3, 4]), set(&[]), set(&[]), None, None, None, None, None];
+	let web = |n: Names| WebNames { names: [m(&[]), n, m(&[]), m(&[])], ..Default::default() };
+	let web: BTreeMap<String, WebNames> = [
+		("koKR".to_string(), web(m(&[(276793, "Cavalo de Guerra Descarnado Ocre"), (2, "해골 군마"), (3, "XT-9 정찰기"), (4, "4711")]))),
+		("zhCN".to_string(), web(m(&[(276793, "Cavalo de Guerra Descarnado Ocre"), (2, "赭色骷髅战马")]))),
+		("ruRU".to_string(), web(m(&[(276793, "Cavalo de Guerra Descarnado Ocre"), (2, "Охристый скелет")]))),
+		("ptBR".to_string(), web(m(&[(276793, "Cavalo de Guerra Descarnado Ocre")]))),
+	]
+	.into();
+	let ding: BTreeMap<String, [Names; 4]> =
+		[("koKR".to_string(), [m(&[]), m(&[(276793, "황토색 해골 전투마")]), m(&[]), m(&[])]), ("ruRU".to_string(), [m(&[]), m(&[(276793, "Ochre Skeletal Warhorse")]), m(&[]), m(&[])])].into();
+	let pf: BTreeMap<String, PfNames> = [("enUS".to_string(), PfNames::default())].into();
+	let mut english = English::default();
+	add_english(&mut english, "npc", 276793, "Ochre Skeletal Warhorse");
+	let out = build_names(&["koKR", "zhCN", "ruRU", "ptBR"], &Inputs { ids: &ids, ding: Some(&ding), pf: &pf, wago: None, observed: None, web: Some(&web), english: &english });
+	assert_eq!(pairs(&out["koKR"].names[1]), [(2, "해골 군마"), (3, "XT-9 정찰기"), (4, "4711"), (276793, "황토색 해골 전투마")], "DingDB's Korean, after the web's Portuguese");
+	assert_eq!(pairs(&out["zhCN"].names[1]), [(2, "赭色骷髅战马")]);
+	assert_eq!(pairs(&out["ruRU"].names[1]), [(2, "Охристый скелет")]);
+	assert_eq!(pairs(&out["ptBR"].names[1]), [(276793, "Cavalo de Guerra Descarnado Ocre")]);
+	assert_eq!(out["ruRU"].english[1].iter().copied().collect::<Vec<_>>(), [276793], "DingDB names it as in English");
+	assert!(out["zhCN"].english[1].is_empty(), "a name in another script is no English one");
+}
+
 fn observed(locale: &str, records: serde_json::Value) -> serde_json::Value {
 	serde_json::json!({ "schema": 1, "locale": locale, "names": records })
 }
