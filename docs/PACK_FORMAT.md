@@ -395,7 +395,7 @@ hold:
 | `"upgrade"` | `item` | Polestar's gear advice rates the item an upgrade for the character now (`Gear.IsUpgrade`); an item it cannot judge, or gear advice turned off, counts as one |
 | `"zone"`, `"subzone"` | `name`; optional `area` | the zone (subzone) text reads as the area's name in the client's language, or as `name` |
 | `"bound"` | `name`; optional `area` | the bind location reads so |
-| `"dungeon"` | `name`; optional `map` (the instance's Map.csv id) | the character runs the dungeon with that `map` in leveling guides (its answer for that dungeon, else its answer for every dungeon, Skip at first; unanswered with Ask me, a step with work now holds and asks); without `map` it never holds |
+| `"dungeon"` | `name`; optional `map` (the instance's Map.csv id), `all` (`true`: a step of the dungeon's every-quest route) | the character runs the dungeon with that `map` in leveling guides (its answer for that dungeon, else its answer for every dungeon, Skip at first; unanswered with Ask me, a step with work now holds and asks); without `map` it never holds. With `all`, also unless the character chose only the quests on the way for that dungeon (`CharState().dungeonsWayOnly[map]`); an addon that does not know `all` reads it as a plain `dungeon` |
 | `"done"` | `label`: a step label of the same guide (format 5) | the step so labelled applies, its goals are done and it was not skipped (by the player, a failed `when` or a `skipto` jump); refused in `nextWhen` |
 | `"skill"` | `name`, `n`; optional `skillLine` (format 5) | the character's rank in that profession is `n` or more; one not learned is rank 0 |
 | `"cooldown"` | `item` or `spell` (format 5) | the item or spell is on cooldown for more than the global cooldown (1.5 s) |
@@ -594,6 +594,7 @@ Guide keys (the compiler writes them in this order):
 | `reward` | no | format 2: what the guide's goal gives, shown first in the guide menu's details, in order: `{ item = 20536, itemName = "Soul Harvester", quality = 3, choice = true }` (an item; `choice` when one of several to choose from; the name shows in the client's quality colour when the item is cached, else the compiled `quality`'s), `{ spell = 23161, spellName = "Summon Dreadsteed" }` or `{ text = "Shen'dralar reputation" }`; an entry with none of `item`, `spell` or `text` refuses the guide |
 | `why` | no | format 2: one line on why the goal is worth doing, shown under the reward |
 | `zone`, `zoneName` | no | the default zone's uiMapID and name |
+| `dungeonAll` | no | `{ [<instance map id>] = { minutes = 14, xp = 23100 } }`: for each dungeon whose run this guide holds, what its every-quest steps (`when dungeon "<Name>" all`) add to the route, from the run's record (data/dungeon-runs.json `allQuests`); the guide window says what "Only quests on my way" saves. Our pack's guides only; older Polestar ignores it |
 | `next` | no | the id of the guide that follows: one of the pack's or one of Polestar's |
 | `nextChoices` | no | list of guide ids offered as a route choice (the first is the default); with `nextWhen`, every option, even one |
 | `nextWhen` | no | format 4: `{ [<guide id>] = { <predicate>, ... } }`, an option of `nextChoices` offered only while its predicates hold (Format 4, above) |

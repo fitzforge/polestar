@@ -259,6 +259,7 @@ step Back to Gornek
 | `subzone "<Name>"` | the subzone text reads so |
 | `bound "<Location>"` | the hearthstone is bound there (a bind location, as for `sethome`) |
 | `dungeon "<Name>"` | the character runs that dungeon: its answer for it, else its answer for every dungeon (see "Dungeon steps" below) |
+| `dungeon "<Name>" all` | a step of that dungeon's every-quest route (the quests off the way): the character runs it and has not chosen only the quests on the way for it; no `!` (see "Dungeon steps") |
 | `done <label>` | the step carrying `label <label>` in this guide was completed: it applies, its goals are done, and it was not skipped by the player, a failed `when` or a `skipto` jump (see "Jumps"); not on a `next` line |
 | `skill <Profession> <N>` | the character's rank in that profession is N (1 or more) or higher, the profession named as for the `skill` goal (`when skill Cooking 50`, `when skill "First Aid" 1`); one not learned counts as rank 0, so `!skill Herbalism 1` holds while the character has no Herbalism. A weapon skill works the same, by its skill name or its trainer spell's (`when !skill "Two-Handed Axes" 1` while the character has not learned it; `Swords` or `"One-Handed Swords"`) |
 | `cooldown item <item>`, `cooldown spell <spell>` | the item or spell is on cooldown, the global cooldown aside: `when !cooldown item 6948` while the Hearthstone is ready. Polestar looks again when the cooldown runs out |
@@ -312,6 +313,14 @@ number, so the solo route's numbers stay as they are. A city dungeon is its
 faction's only (Ragefire Chasm and the Ruins of Lordaeron the Horde's, The
 Hall of Thanes and the Stockade the Alliance's): for the other faction its
 steps never apply, whatever the answers, so its guides never carry them.
+A dungeon's quests the
+route would not take on its way (a detour, a flight, another hub) go in steps
+with `when dungeon "<Name>" all`: a character who runs the dungeon takes them
+too, unless they chose "Only quests on my way" for it (one answer per
+dungeon); plain `when dungeon` steps are the quests on the way, which every
+runner takes. The run's record in data/dungeon-runs.json (`allQuests`: the
+minutes and XP those steps add) goes into the guide that holds the run, so the
+guide window can say what the opt-out saves.
 
 A run is three parts. Its quests are picked up in `when dungeon` steps on
 stops the route makes anyway; the run itself is one `when dungeon` step, also
