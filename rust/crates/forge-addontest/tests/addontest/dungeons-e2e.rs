@@ -26,6 +26,10 @@
 //!   stay in the log, a finished one is handed in and an unfinished one is handed in or listed as room to make
 //!   in the quest log (Core/RoutePlan.lua Plan.Unneeded).
 //!
+//! Quest styles (behavior.dungeonQuests, DUNGEONS_E2E_STYLES, default both): each Run them, Ask me and mid-route
+//! scenario is played with every dungeon quest ("all": a run's `when dungeon "<X>" all` steps too) and with only the
+//! quests on the way ("way", named "-way"), where no every-quest step may come.
+//!
 //! WARN lines (a pass all the same): what turns on the level model's pace, which runs about a level under
 //! players': a run the model reaches under the dungeon's floor, and a run that never came where the model is
 //! under its floor there (the floor's gate holds it).
@@ -98,6 +102,9 @@ struct Scenario {
 	name: String,
 	persona: usize,
 	kind: Kind,
+	/// The dungeon quests while dungeons are on (behavior.dungeonQuests): "all", every quest of a dungeon run
+	/// (its `when dungeon "<X>" all` steps too), or "way", only the quests on the way.
+	style: &'static str,
 }
 
 impl Scenario {
@@ -111,6 +118,20 @@ impl Scenario {
 			Kind::MidAsk(l) => format!("Skip, Ask me from level {l}"),
 		}
 	}
+	fn styled_label(&self) -> String {
+		match (self.kind, self.style) {
+			(Kind::Solo | Kind::Skip, _) => self.label(),
+			(_, "way") => format!("{}; only the quests on the way", self.label()),
+			_ => format!("{}; every dungeon quest", self.label()),
+		}
+	}
+}
+
+/// The quest styles played (DUNGEONS_E2E_STYLES, default both): each Run them, Ask me and mid-route scenario once
+/// per style, "way" ones named with a "-way" suffix.
+fn styles() -> Vec<&'static str> {
+	let want = std::env::var("DUNGEONS_E2E_STYLES").unwrap_or_else(|_| "all,way".into());
+	["all", "way"].into_iter().filter(|s| want.split(',').any(|w| w.trim() == *s)).collect()
 }
 
 // ---------------------------------------------------------------------------------------------------------
@@ -554,6 +575,7 @@ fn dname(fl: &Floors, map: i64, fallback: &str) -> String {
 	}
 }
 
+#[derive(Clone, Copy)]
 struct Ctx<'a> {
 	dsteps: &'a [DStep],
 	floors: &'a Floors,
@@ -613,8 +635,13 @@ fn check_skip(r: &Value, solo: Option<&Value>, out: &mut Outcome) {
 		}
 	}
 	let Some(solo) = solo else { return };
+	// A step's identity: its key (Party.StepKey) without the ".N" that tells apart steps of the same content in one
+	// guide, as a dungeon's own copy of a stop (its run's flight) makes the solo one the second of two.
 	let steps = |r: &Value| {
-		events(r, "live").into_iter().map(|(_, e)| (s(e, "g").to_string(), s(e, "k").to_string(), e["n"].clone(), e["t"].clone(), e["h"] == true, s(e, "ti").to_string())).collect::<Vec<_>>()
+		events(r, "live")
+			.into_iter()
+			.map(|(_, e)| (s(e, "g").to_string(), s(e, "k").split('.').next().unwrap_or("").to_string(), e["n"].clone(), e["t"].clone(), e["h"] == true, s(e, "ti").to_string()))
+			.collect::<Vec<_>>()
 	};
 	let (a, b) = (steps(r), steps(solo));
 	if let Some(k) = (0..a.len().max(b.len())).find(|&k| a.get(k) != b.get(k)) {
@@ -824,9 +851,48 @@ fn check_switches(r: &Value, ctx: &Ctx, kind: Kind, out: &mut Outcome) {
 	}
 }
 
+/// The dungeon steps of the guides a scenario played, as the engine numbered them (route_e2e.lua's "dstep"
+/// events: the pack's guides, where a writer pass may split a step, so the compile's own numbers can differ).
+fn played_dungeon_steps(r: &Value) -> Vec<DStep> {
+	let role = |x: &str| match x {
+		"pickup" => "pickup",
+		"run" => "run",
+		"handin" => "handin",
+		_ => "other",
+	};
+	events(r, "dstep")
+		.into_iter()
+		.map(|(_, e)| DStep {
+			guide: s(e, "g").to_string(),
+			index: e["s"].as_u64().unwrap_or(0) as usize,
+			role: role(s(e, "role")),
+			map: e["m"].as_i64().unwrap_or(0),
+			name: s(e, "name").to_string(),
+			title: s(e, "ti").to_string(),
+			quests: e["qs"].as_array().into_iter().flatten().filter_map(|q| q.as_i64()).collect(),
+		})
+		.collect()
+}
+
+/// The quest style: under "way" no every-quest step (`when dungeon "<X>" all`) comes; under "all" those that came
+/// are counted.
+fn check_style(sc: &Scenario, r: &Value, out: &mut Outcome) {
+	let all: Vec<&Value> = events(r, "live").into_iter().map(|(_, e)| e).filter(|e| e["da"] == true).collect();
+	if sc.style == "way" {
+		for e in &all {
+			out.fails.push(format!("an every-quest step came with only the quests on the way: {} step {} \"{}\"", s(e, "g"), e["s"], s(e, "ti")));
+		}
+	} else if !matches!(sc.kind, Kind::Solo | Kind::Skip) {
+		out.notes.push(format!("{} every-quest steps came", all.len()));
+	}
+}
+
 fn check(sc: &Scenario, r: &Value, solo: Option<&Value>, ctx: &Ctx) -> Outcome {
+	let played = played_dungeon_steps(r);
+	let ctx = &Ctx { dsteps: if played.is_empty() { ctx.dsteps } else { &played }, ..*ctx };
 	let mut out = Outcome::default();
 	common(r, &mut out);
+	check_style(sc, r, &mut out);
 	match sc.kind {
 		Kind::Solo => {}
 		Kind::Skip => check_skip(r, solo, &mut out),
@@ -857,7 +923,7 @@ fn check(sc: &Scenario, r: &Value, solo: Option<&Value>, ctx: &Ctx) -> Outcome {
 fn summary(sc: &Scenario, r: &Value, o: &Outcome, ctx: &Ctx) -> String {
 	let p = &PERSONAS[sc.persona];
 	let mut md = String::new();
-	let _ = writeln!(md, "### {}: {} {} {}, {} ({})\n", sc.name, p.faction, p.race, p.class, sc.label(), o.verdict(false));
+	let _ = writeln!(md, "### {}: {} {} {}, {} ({})\n", sc.name, p.faction, p.race, p.class, sc.styled_label(), o.verdict(false));
 	let lives = events(r, "live");
 	let ended = &r["ended"];
 	let _ = writeln!(
@@ -974,16 +1040,26 @@ fn loads_of(pack: &forge_addontest::dsl::TestPack) -> String {
 fn scenarios() -> Vec<Scenario> {
 	let mut out = Vec::new();
 	let tag = |p: &Persona| format!("{}-{}", p.race.to_lowercase(), p.class.to_lowercase());
+	let styles = styles();
+	let suffix = |style: &str| if style == "way" { "-way" } else { "" };
 	for (i, p) in PERSONAS.iter().enumerate() {
-		for (kind, mode) in [(Kind::Solo, "solo"), (Kind::Skip, "skip"), (Kind::Run, "run"), (Kind::Ask, "ask")] {
-			out.push(Scenario { name: format!("{}/{}/{mode}", p.faction.to_lowercase(), tag(p)), persona: i, kind });
+		for (kind, mode) in [(Kind::Solo, "solo"), (Kind::Skip, "skip")] {
+			out.push(Scenario { name: format!("{}/{}/{mode}", p.faction.to_lowercase(), tag(p)), persona: i, kind, style: "all" });
+		}
+		for &style in &styles {
+			for (kind, mode) in [(Kind::Run, "run"), (Kind::Ask, "ask")] {
+				out.push(Scenario { name: format!("{}/{}/{mode}{}", p.faction.to_lowercase(), tag(p), suffix(style)), persona: i, kind, style });
+			}
 		}
 	}
 	for f in ["Alliance", "Horde"] {
 		let i = PERSONAS.iter().position(|p| p.faction == f).unwrap();
-		for &l in SWITCH_AT {
-			out.push(Scenario { name: format!("{}/{}/on-at-{l}", f.to_lowercase(), tag(&PERSONAS[i])), persona: i, kind: Kind::MidRun(l) });
-			out.push(Scenario { name: format!("{}/{}/ask-at-{l}", f.to_lowercase(), tag(&PERSONAS[i])), persona: i, kind: Kind::MidAsk(l) });
+		for &style in &styles {
+			for &l in SWITCH_AT {
+				let t = tag(&PERSONAS[i]);
+				out.push(Scenario { name: format!("{}/{t}/on-at-{l}{}", f.to_lowercase(), suffix(style)), persona: i, kind: Kind::MidRun(l), style });
+				out.push(Scenario { name: format!("{}/{t}/ask-at-{l}{}", f.to_lowercase(), suffix(style)), persona: i, kind: Kind::MidAsk(l), style });
+			}
 		}
 	}
 	out
@@ -998,7 +1074,7 @@ fn e2e_table(sc: &Scenario, levels: Option<&Value>) -> Value {
 		Kind::MidRun(l) => ("skip", json!([{ "level": l, "set": "run", "offAtRun": true, "why": "on mid-route" }])),
 		Kind::MidAsk(l) => ("skip", json!([{ "level": l, "set": "ask", "why": "Ask me mid-route" }])),
 	};
-	json!({ "start": p.start, "mode": mode, "ask": "alternate", "switches": switches, "levels": levels.cloned().unwrap_or(Value::Null), "maxIter": 150000 })
+	json!({ "start": p.start, "mode": mode, "style": sc.style, "ask": "alternate", "switches": switches, "levels": levels.cloned().unwrap_or(Value::Null), "maxIter": 150000 })
 }
 
 #[test]
@@ -1107,7 +1183,7 @@ fn dungeons_in_the_route_end_to_end_on_the_shipped_guides() {
 				let line = format!("FAIL  {}: the play stopped: {}", sc.name, e.lines().next().unwrap_or(""));
 				fails.push(line.clone());
 				rows.push(line);
-				let _ = writeln!(table, "| {} | {} | error |", sc.name, sc.label());
+				let _ = writeln!(table, "| {} | {} | error |", sc.name, sc.styled_label());
 			}
 			Ok(v) => {
 				let solo = if sc.kind == Kind::Skip { by_name.get(sc.name.replace("/skip", "/solo").as_str()).copied() } else { None };
@@ -1123,7 +1199,7 @@ fn dungeons_in_the_route_end_to_end_on_the_shipped_guides() {
 				} else {
 					format!("FAIL  {}: {} findings", sc.name, o.fails.len())
 				});
-				let _ = writeln!(table, "| {} | {} | {} |", sc.name, sc.label(), o.verdict(true));
+				let _ = writeln!(table, "| {} | {} | {} |", sc.name, sc.styled_label(), o.verdict(true));
 				md.push_str(&summary(sc, v, &o, &ctx));
 				traces.insert(sc.name.clone(), v.clone());
 			}

@@ -76,7 +76,8 @@ local function objectivesFor(q)
 end
 
 -- A step's dungeon role: "pickup" (an accept), "run" (an enter), "handin", "other" for a `when dungeon`
--- step; "solo" for a `when !dungeon` one; and the dungeon's map. nil for any other step.
+-- step; "solo" for a `when !dungeon` one; the dungeon's map and name; and whether it is one of the dungeon's
+-- every-quest steps (`when dungeon "<X>" all`: `all = true`). nil for any other step.
 local function roleOf(step)
 	for _, p in ipairs(step and step.when or {}) do
 		if p.k == "dungeon" then
@@ -86,7 +87,7 @@ local function roleOf(step)
 				if g.t == "enter" then r = "run" break end
 				if g.t == "accept" then r = "pickup" elseif g.t == "turnin" and r == "other" then r = "handin" end
 			end
-			return r, p.map, p.name
+			return r, p.map, p.name, p.all and true or nil
 		end
 	end
 	return nil
@@ -101,11 +102,31 @@ local function stepKey(g, i)
 	return P and P.StepKey and P.StepKey(g, i) or tostring(i)
 end
 
+-- Each guide's dungeon steps as the engine numbers them (the pack's guides: a writer pass may split a step), once,
+-- when the guide is first live: { e = "dstep", g, s, role, m, name, ti, qs } (qs: a pick-up's accepts, any other
+-- step's quests).
+local listed = {}
+local function listDungeonSteps()
+	if not gid or listed[gid] then return end
+	listed[gid] = true
+	for si, st in ipairs(G.steps or {}) do
+		local role, map, name = roleOf(st)
+		if role and role ~= "solo" then
+			local qs = {}
+			for _, gl in ipairs(st.goals) do
+				if gl.quest and (role ~= "pickup" or gl.t == "accept") then qs[#qs + 1] = gl.quest end
+			end
+			push({ e = "dstep", g = gid, s = si, role = role, m = map or false, name = name or "", ti = st.title or "", qs = qs })
+		end
+	end
+end
+
 local function bumpGuide()
 	local g = E.GetGuide()
 	if g ~= G then
 		G, gid = g, g and g.id or nil
 		if gid and OPT.levels and OPT.levels[gid] then raise(OPT.levels[gid].s, "start " .. gid) end
+		listDungeonSteps()
 	end
 end
 
@@ -118,9 +139,9 @@ local function noteLive()
 	live = i
 	local n, h = E.StepNumber(i)
 	local step = G.steps[i]
-	local role, map = roleOf(step)
+	local role, map, _, all = roleOf(step)
 	push({ e = "live", g = gid, s = i, n = n, h = h and true or nil, t = E.StepTotal(), k = stepKey(G, i), ti = step and step.title or "",
-		l = round2(level()), q = noteLog(), d = role, m = map })
+		l = round2(level()), q = noteLog(), d = role, m = map, da = all })
 	-- A city dungeon of the other faction (Engine.EnemyCityDungeon) is never this character's.
 	if map and role ~= "solo" and E.EnemyCityDungeon and E.EnemyCityDungeon(map) then
 		push({ e = "city", g = gid, s = i, m = map, ti = step and step.title or "", why = "its step came" })
@@ -297,6 +318,9 @@ Polestar.Set("behavior.guideEnd", "continue")
 Polestar.Set("behavior.routeChoice", "recommended")
 Polestar.Set("behavior.groupQuests", "skip")
 Polestar.Set("behavior.dungeons", OPT.mode or "skip")
+-- The dungeon quests while dungeons are on: "all" (every quest of a run, its `when dungeon "<X>" all` steps too) or
+-- "way" (only the quests on the way).
+if OPT.style and Polestar.Get("behavior.dungeonQuests") ~= nil then Polestar.Set("behavior.dungeonQuests", OPT.style) end
 E.SetGuide(OPT.start)
 stub.advance(3)
 ev = { g = false, s = false }
