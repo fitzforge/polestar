@@ -319,13 +319,11 @@ fn source_npcs(data: &Data, first: &V, sources: &[V]) -> V {
 	}
 }
 
-/// Which of a collect's NPC sources spawn at each of its spots (#1616). Centaur Bounty's ears drop from every
-/// centaur tribe in Desolace and its spots run through all their camps, while `fromNpcs` names the five of the
-/// goal's point: at a Magram camp the target button named Kolkar. Only when some spot holds a source `fromNpcs`
-/// leaves out: those follow in `fromNpcs` (the most spawns at the spots first, up to the import string's cap),
-/// and `fromNpcsAt` gives, per spot in `spots` order, the 1-based places in `fromNpcs` of the sources spawning
-/// there (within its radius and a yard), most spawns first: "1,2;3,4;;5". Left out when that string would pass
-/// an import string's text cap.
+/// A collect's target names follow each spot's connected spawn areas (#1869): overlapping bear populations
+/// share targets, while separate centaur camps stay apart (#1616). The spot's own sources (radius + 1 yd)
+/// lead, then other kinds linked through eligible NPC spawns within STRAY_YARDS. Only emitted when a source
+/// was missing from `fromNpcs`; its original order and caps stay. If the expanded mapping exceeds the text
+/// cap, retain the local mapping.
 fn spot_npcs(data: &Data, goal: &V, sources: &[V], map: &V, f: &V) {
 	let spots = goal.get("spots").items();
 	if spots.len() < 2 || !data.map_size(map).truthy() {
@@ -340,6 +338,10 @@ fn spot_npcs(data: &Data, goal: &V, sources: &[V], map: &V, f: &V) {
 			(!pts.is_empty()).then(|| (s.get("id"), name, pts))
 		})
 		.collect();
+	let initial = goal.get("fromNpcs").items();
+	if mobs.iter().all(|m| initial.iter().any(|n| n.get("npc").strict_eq(&m.0))) {
+		return;
+	}
 	// Per spot, the mobs spawning in it: (index in mobs, spawns there), the most first.
 	let at: Vec<Vec<(usize, usize)>> = spots
 		.iter()
@@ -357,16 +359,65 @@ fn spot_npcs(data: &Data, goal: &V, sources: &[V], map: &V, f: &V) {
 			here
 		})
 		.collect();
-	let mut list: Vec<V> = goal.get("fromNpcs").items();
+	let local = pack_spot_npcs(&initial, &mobs, &at);
+	let pts: Vec<V> = mobs.iter().flat_map(|m| m.2.iter().cloned()).collect();
+	let owners: Vec<usize> = mobs.iter().enumerate().flat_map(|(i, m)| m.2.iter().map(move |_| i)).collect();
+	let areas = spawn_areas(&pts, &data.frame(map));
+	let expanded: Vec<Vec<(usize, usize)>> = spots
+		.iter()
+		.enumerate()
+		.map(|(si, spot)| {
+			let (sx, sy, r) = (num(spot, "x"), num(spot, "y"), num(spot, "r"));
+			let mut counts = vec![0usize; mobs.len()];
+			for area in &areas {
+				if !area.iter().any(|&p| distance(data, map, px(&pts[p]), py(&pts[p]), sx, sy) <= r + 1.0) {
+					continue;
+				}
+				for &p in area {
+					counts[owners[p]] += 1;
+				}
+			}
+			let mut extra: Vec<(usize, usize)> = counts.into_iter().enumerate().filter(|&(i, n)| n > 0 && !at[si].iter().any(|&(j, _)| i == j)).collect();
+			extra.sort_by(|a, b| b.1.cmp(&a.1).then(a.0.cmp(&b.0)));
+			at[si].iter().copied().chain(extra).collect()
+		})
+		.collect();
+	// Reserve every original local name before connected additions: the 32-name cap must not evict
+	// a creature that spawns at one of the marker circles.
+	let joined = pack_spot_npcs(&local.list, &mobs, &expanded);
+	if !local.missing_sources && !joined.missing_sources {
+		return;
+	}
+	let result = if joined.packed.len() <= crate::importstring::LIMITS.text {
+		joined
+	} else if local.missing_sources {
+		local
+	} else {
+		return;
+	};
+	if result.packed.len() > crate::importstring::LIMITS.text {
+		return;
+	}
+	goal.set("fromNpcs", result.list);
+	goal.set("fromNpcsAt", result.packed);
+}
+
+struct SpotNpcMapping {
+	list: Vec<V>,
+	packed: String,
+	// Missing from the initial list, even when the source cap prevents appending them.
+	missing_sources: bool,
+}
+
+fn pack_spot_npcs(initial: &[V], mobs: &[(V, String, Vec<V>)], at: &[Vec<(usize, usize)>]) -> SpotNpcMapping {
+	let mut list = initial.to_vec();
 	let mut ids: Vec<V> = list.iter().map(|n| n.get("npc")).collect();
 	let mut total = vec![0usize; mobs.len()];
 	for &(i, n) in at.iter().flatten() {
 		total[i] += n;
 	}
 	let mut left: Vec<usize> = (0..mobs.len()).filter(|&i| total[i] > 0 && !includes(&ids, &mobs[i].0)).collect();
-	if left.is_empty() {
-		return;
-	}
+	let missing_sources = !left.is_empty();
 	left.sort_by(|&a, &b| total[b].cmp(&total[a]).then(a.cmp(&b)));
 	for i in left {
 		if list.len() >= crate::importstring::LIMITS.from_npcs {
@@ -380,11 +431,7 @@ fn spot_npcs(data: &Data, goal: &V, sources: &[V], map: &V, f: &V) {
 		.map(|here| here.iter().filter_map(|&(i, _)| ids.iter().position(|id| id.strict_eq(&mobs[i].0)).map(|k| (k + 1).to_string())).collect::<Vec<_>>().join(","))
 		.collect::<Vec<_>>()
 		.join(";");
-	if packed.len() > crate::importstring::LIMITS.text {
-		return;
-	}
-	goal.set("fromNpcs", list);
-	goal.set("fromNpcsAt", packed);
+	SpotNpcMapping { list, packed, missing_sources }
 }
 
 /// The quests that hand item `item` over when taken (their `sourceItem`), by quest id.
@@ -659,12 +706,9 @@ fn walk(data: &Data, map: &V, spots: &[V], x: f64, y: f64) -> Vec<V> {
 	out
 }
 
-/// The stray spawns of `pts` (see spawn_spots, "Strays"), as a set of point identities.
-fn stray_points(pts: &[V], frame: &V) -> FxHashSet<usize> {
-	let mut strays = FxHashSet::default();
-	if pts.len() <= SPOT_CAP {
-		return strays;
-	}
+/// Connected spawn areas, as point indices: each link is at most STRAY_YARDS, measured in the map's frame.
+/// No source identity joins separate areas, and small populations have areas too.
+fn spawn_areas(pts: &[V], frame: &V) -> Vec<Vec<usize>> {
 	let (sx, sy) = crate::cluster::scale_of(frame);
 	let mut root: Vec<usize> = (0..pts.len()).collect();
 	fn find(root: &mut Vec<usize>, i: usize) -> usize {
@@ -701,11 +745,21 @@ fn stray_points(pts: &[V], frame: &V) -> FxHashSet<usize> {
 		});
 		groups[k].1.push(i);
 	}
-	let biggest = js_max(groups.iter().map(|g| g.1.len() as f64));
+	groups.into_iter().map(|(_, points)| points).collect()
+}
+
+/// The stray spawns of `pts` (see spawn_spots, "Strays"), as a set of point identities.
+fn stray_points(pts: &[V], frame: &V) -> FxHashSet<usize> {
+	let mut strays = FxHashSet::default();
+	if pts.len() <= SPOT_CAP {
+		return strays;
+	}
+	let groups = spawn_areas(pts, frame);
+	let biggest = js_max(groups.iter().map(|g| g.len() as f64));
 	if biggest < STRAY_SHARE * pts.len() as f64 {
 		return strays;
 	}
-	for (_, g) in &groups {
+	for g in &groups {
 		if g.len() <= STRAY_MAX {
 			for &i in g {
 				strays.insert(ptr_key(&pts[i]));
