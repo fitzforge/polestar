@@ -7,11 +7,12 @@
 --   Hooks.UnitLines(owner, fn(tooltip, unit))           -- unit tooltips (GameTooltip)
 --   Hooks.ObjectLines(owner, fn(tooltip, objectID, name)) -- game object tooltips (GameTooltip);
 --       objectID and name may each be nil (never both)
---   Hooks.QuestRows(owner, fn(tooltip, kind, id, name, row, rowType) -> true to leave it out)
+--   Hooks.QuestRows(owner, fn(tooltip, kind, id, name, row, rowType, data) -> true to leave it out)
 --       the client's own quest rows on a unit or object tooltip (GameTooltip), each before it is
---       drawn: kind "unit" (id the NPC's) or "object" (id and name as ObjectLines); row the client's
---       line data ({ leftText, id: a title's quest }, fields may be secret); rowType "QuestTitle",
---       "QuestObjective" or "QuestPlayer"
+--       drawn: kind "unit" (id the NPC's, found as UnitLines' callbacks find it) or "object" (id
+--       and name as ObjectLines); row the client's line data ({ leftText, id: a title's quest },
+--       fields may be secret); rowType "QuestTitle", "QuestObjective" or "QuestPlayer"; data the
+--       tooltip's data, one table per tooltip built
 --   Hooks.ItemClick(owner, fn(link, itemID))            -- modified clicks on item links, bag and loot items
 --   Hooks.AddLine(tooltip, left, right?, r, g, b, rr, rg, rb)
 --
@@ -232,17 +233,12 @@ local function unitTooltip(tooltip, data)
 end
 Hooks.OnUnitTooltip = unitTooltip
 
--- "GameObject-0-4372-0-17-2843-0000123456" -> "GameObject", 2843
-local function idOfGUID(guid)
+-- "GameObject-0-4372-0-17-2843-0000123456" -> 2843
+local function objectIdOfGUID(guid)
 	if type(guid) ~= "string" or secret(guid) then return nil end
 	local kind, id = guid:match("^(%a+)%-%d+%-%d+%-%d+%-%d+%-(%d+)%-")
-	return kind, tonumber(id)
-end
-
-local function objectIdOfGUID(guid)
-	local kind, id = idOfGUID(guid)
 	if kind ~= "GameObject" then return nil end
-	return id
+	return tonumber(id)
 end
 
 -- An object tooltip's id and name (each may be nil).
@@ -283,8 +279,11 @@ local function questRow(tooltip, row, rowType)
 	if not T or secret(dataType) then return nil end
 	local kind, id, name
 	if dataType == T.Unit then
-		local guidKind, npc = idOfGUID(data.guid)
-		if guidKind == "Creature" or guidKind == "Vehicle" then kind, id = "unit", npc end
+		-- The unit as the post-call finds it (unitTooltip), and its NPC as the
+		-- UnitLines callbacks read it: a row is only left out for a unit
+		-- they can name.
+		local unit = unitOf(tooltip, data)
+		kind, id = "unit", unit and ns.Compat.GetNpcID(unit)
 	elseif dataType == T.Object then
 		kind = "object"
 		id, name = objectOf(data)
@@ -293,7 +292,7 @@ local function questRow(tooltip, row, rowType)
 	local hide
 	local list = lists.row
 	for i = 1, #list do
-		local ok, res = pcall(list[i].fn, tooltip, kind, id, name, row, rowType)
+		local ok, res = pcall(list[i].fn, tooltip, kind, id, name, row, rowType, data)
 		if not ok then report(res) elseif res == true then hide = true end
 	end
 	return hide

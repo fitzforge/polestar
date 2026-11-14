@@ -636,9 +636,10 @@ emit(sq.hoverUnit(6, true))         -- GUID is a secret value (combat): no lines
 	assert_eq!(out[5], json!(["?"]));
 }
 
-// qol.questDropChance (off by default): on a mob that drops a quest item still needed, the line says how often,
-// from Polestar.QuestDB.GetDropChance, written as the Lookup window writes a chance. The fixture's Large Candle
-// (772) drops from Kobold Vermin (6) at 40% and from Kobold Miner (40) at 20.456%, stored as 20.5.
+// qol.questDropChance (off by default): on a mob that drops a quest item still needed, or an object it comes out
+// of, the line says how often, from Polestar.QuestDB.GetDropChance and GetObjectDropChance, written as the
+// Lookup window writes a chance. The fixture's Large Candle (772) drops from Kobold Vermin (6) at 40% and from
+// Kobold Miner (40) at 20.456%, stored as 20.5, and comes out of the Candle Crate (object 77) every time.
 #[test]
 fn a_mob_s_tooltip_says_how_often_it_drops_the_quest_item_you_still_need_once_asked_to() {
 	let db = fixture();
@@ -656,6 +657,9 @@ Polestar.Set("qol.questDropChance", true)
 emit(sq.hoverUnit(6))
 emit(sq.hoverUnit(40))
 emit(sq.hoverItem(772))
+emit({ Q.GetObjectDropChance(772, 77), Q.GetObjectDropChance(772, 6) == nil, Q.GetObjectDropChance(99999, 77) == nil })
+emit(sq.hoverObject(77, "Candle Crate"))
+emit(sq.hoverObject(nil, "Candle Crate"))
 w.progress(60, 1, 8)
 stub.advance(0.3)
 emit(sq.hoverUnit(6))
@@ -668,13 +672,17 @@ emit(sq.hoverUnit(6))
 	assert_eq!(out[3], json!(["?", "Kobold Camp Cleanup: | Kill Kobold Vermin 0/10", "Kobold Candles: | Large Candle 3/8  40%"]), "on the item's line only, never on a kill");
 	assert_eq!(out[4], json!(["?", "Kobold Candles: | Large Candle 3/8  21%"]), "each dropper its own chance, whole percents from 10 up");
 	assert_eq!(out[5], json!(["?", "Kobold Candles: | 3/8"]), "the item's own tooltip has no mob to speak for");
-	assert_eq!(out[6], json!(["?", "Kobold Camp Cleanup: | Kill Kobold Vermin 0/10", "Kobold Candles: | Large Candle 8/8"]), "nothing left to drop for: no chance");
+	assert_eq!(out[6], json!([100, true, true]), "an object the item comes out of has its own chance; a mob is no object");
+	assert_eq!(out[7], json!(["?", "Kobold Candles: | Large Candle 3/8  100%"]), "on the object's tooltip too");
+	assert_eq!(out[8], json!(["?", "Kobold Candles: | Large Candle 3/8"]), "an object hovered without an id cannot be looked up: no chance");
+	assert_eq!(out[9], json!(["?", "Kobold Camp Cleanup: | Kill Kobold Vermin 0/10", "Kobold Candles: | Large Candle 8/8"]), "nothing left to drop for: no chance");
 }
 
 // qol.questTooltipsReplace (off by default): the client names a mob's quests itself (a title row, then its
 // objectives), so with Polestar's lines each objective reads twice. On, the client's rows for a quest Polestar's
-// lines name are left out, by the title row's quest id or its text; the rows of a quest Polestar does not name
-// stay, as do all of them in a group, on a tooltip whose data is secret, and while quest tooltips are off.
+// lines name are left out, by the title row's quest id; the rows of a quest Polestar does not name stay, as do
+// all of them in a group, on a tooltip whose data is secret, and while quest tooltips are off. A title hidden on
+// one tooltip never hides rows on the next.
 #[test]
 fn the_client_s_own_quest_rows_step_aside_for_the_quests_polestar_s_lines_name_once_asked_to() {
 	let db = fixture();
@@ -696,8 +704,16 @@ emit(Polestar.Get("qol.questTooltipsReplace"))
 emit(sq.hoverUnit(6, nil, rows()))
 Polestar.Set("qol.questTooltipsReplace", true)
 emit(sq.hoverUnit(6, nil, rows()))
--- A title row without a quest id is matched by its text; a party member's row under it goes with it.
-emit(sq.hoverUnit(6, nil, { { type = "QuestTitle", leftText = "Kobold Camp Cleanup" }, { type = "QuestPlayer", leftText = "Friend" }, { type = "QuestObjective", leftText = "0/10 Kobold Vermin slain" } }))
+-- A party member's row under a hidden title goes with it.
+emit(sq.hoverUnit(6, nil, { { type = "QuestTitle", id = 7, leftText = "Kobold Camp Cleanup" }, { type = "QuestPlayer", leftText = "Friend" }, { type = "QuestObjective", leftText = "0/10 Kobold Vermin slain" } }))
+-- A title row without a quest id is not matched by its name: another quest may share it.
+emit(sq.hoverUnit(6, nil, { { type = "QuestTitle", leftText = "Kobold Camp Cleanup" }, { type = "QuestObjective", leftText = "0/10 Kobold Vermin slain" } }))
+-- The title hidden above does not reach the next tooltip, whose rows come without a title.
+local function hidden() return sq.hoverUnit(6, nil, { { type = "QuestTitle", id = 7, leftText = "Kobold Camp Cleanup" }, { type = "QuestObjective", leftText = "0/10 Kobold Vermin slain" } }) end
+hidden()
+emit(sq.hoverUnit(99, nil, { { type = "QuestObjective", leftText = "0/1 Untitled" }, { type = "QuestPlayer", leftText = "Friend" } }))
+hidden()
+emit(sq.hoverUnit(6, nil, { { type = "QuestObjective", leftText = "0/1 Untitled" } }))
 emit(sq.hoverObject(55, "Bundle of Wood", { { type = "QuestTitle", id = 18, leftText = "Gathering Wood" }, { type = "QuestObjective", leftText = "0/1 Bundle of Wood" } }))
 emit(sq.hoverUnit(99, nil, rows()))                                  -- a mob Polestar names no quest on
 local grouped = true
@@ -720,12 +736,15 @@ emit(sq.hoverUnit(6, true, rows()))                                  -- secret G
 		json!(["?", "Someone Else's Quest", "0/1 Something", "Kobold Camp Cleanup: | Kill Kobold Vermin 0/10"]),
 		"the quest Polestar names shows once; the other keeps the client's rows"
 	);
-	assert_eq!(out[3], json!(["?", "Kobold Camp Cleanup: | Kill Kobold Vermin 0/10"]));
-	assert_eq!(out[4], json!(["?", "Gathering Wood: | Not done"]), "objects too");
-	assert_eq!(out[5], json!(["?", "Kobold Camp Cleanup", "0/10 Kobold Vermin slain", "Someone Else's Quest", "0/1 Something"]), "nothing of Polestar's to show: nothing left out");
-	assert_eq!(out[6], 6, "in a group the client's rows carry the party's progress: all stay");
-	assert_eq!(out[7], 5, "quest tooltips off: the client's rows alone");
-	assert_eq!(out[8], json!(["?", "Kobold Camp Cleanup", "0/10 Kobold Vermin slain", "Someone Else's Quest", "0/1 Something"]), "unreadable data: the client's rows stay and Polestar adds none");
+	assert_eq!(out[3], json!(["?", "Kobold Camp Cleanup: | Kill Kobold Vermin 0/10"]), "the rows under a hidden title go with it");
+	assert_eq!(out[4], json!(["?", "Kobold Camp Cleanup", "0/10 Kobold Vermin slain", "Kobold Camp Cleanup: | Kill Kobold Vermin 0/10"]), "no quest id on the title: its rows stay");
+	assert_eq!(out[5], json!(["?", "0/1 Untitled", "Friend"]), "untitled rows on the next tooltip stay, on a mob Polestar names nothing on");
+	assert_eq!(out[6], json!(["?", "0/1 Untitled", "Kobold Camp Cleanup: | Kill Kobold Vermin 0/10"]), "and on one it does name a quest on");
+	assert_eq!(out[7], json!(["?", "Gathering Wood: | Not done"]), "objects too");
+	assert_eq!(out[8], json!(["?", "Kobold Camp Cleanup", "0/10 Kobold Vermin slain", "Someone Else's Quest", "0/1 Something"]), "nothing of Polestar's to show: nothing left out");
+	assert_eq!(out[9], 6, "in a group the client's rows carry the party's progress: all stay");
+	assert_eq!(out[10], 5, "quest tooltips off: the client's rows alone");
+	assert_eq!(out[11], json!(["?", "Kobold Camp Cleanup", "0/10 Kobold Vermin slain", "Someone Else's Quest", "0/1 Something"]), "unreadable data: the client's rows stay and Polestar adds none");
 }
 
 // The "New in Forever" mark (Quests/NewQuests.lua): a quest Forever added carries its ∞ after its name on the quest

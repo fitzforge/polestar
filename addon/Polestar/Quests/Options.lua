@@ -73,7 +73,7 @@ Q.OPTIONS = {
 				help = L["Name the quests a mob, item or object is for, with your progress."] },
 			{ kind = "toggle", key = "qol.questDropChance", label = L["Drop chance"], child = true,
 				disabled = function() return dbOff() or not ns.Get("qol.questTooltips") end, search = "drop rate, drop chance, loot chance, percent",
-				help = L["On a mob that drops a quest item you still need, show how often it drops it."] },
+				help = L["On a mob that drops a quest item you still need, or an object it comes out of, show how often."] },
 			{ kind = "toggle", key = "qol.questTooltipsReplace", label = L["Replace the game's quest lines"], child = true,
 				disabled = function() return dbOff() or not ns.Get("qol.questTooltips") end, search = "duplicate, twice, double, native, blizzard",
 				help = L["On mobs and objects, leave out the game's own lines for the quests these tooltips name, so each quest shows once. In a group the game's lines stay: they show your party's progress."] },

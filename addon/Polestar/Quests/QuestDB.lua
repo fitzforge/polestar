@@ -26,7 +26,7 @@ ns.RegisterDefaults("qol", {
 	lowLevelQuests = false, -- include grey (trivial) quests among available ones
 	questLevelWindow = 5, -- available quests up to this many levels above yours (10: any)
 	questTooltips = true, -- quest lines on unit, item and object tooltips
-	questDropChance = false, -- ... with how often a mob drops the quest item, on that mob
+	questDropChance = false, -- ... with how often a mob or object gives the quest item, on its tooltip
 	questTooltipsReplace = false, -- ... in place of the client's own rows for the same quests
 	questSellWarning = true, -- at a vendor, offer to buy back a sold item a quest needs
 	questBagMarks = true, -- a quest mark on bag items a quest (in the log or ahead in the guide) still needs
@@ -364,6 +364,17 @@ function Q.GetDropChance(itemID, npcID)
 	local rec = itemID and data.items[itemID]
 	for k = 1, rec and rec[2] or 0 do
 		if rec[1 + 2 * k] == npcID then return rec[2 + 2 * k] end
+	end
+	return nil
+end
+
+-- The same for an object the item comes out of (a chest, a plant).
+function Q.GetObjectDropChance(itemID, objectID)
+	local rec = itemID and data.items[itemID]
+	if not rec then return nil end
+	local i = 3 + 2 * (rec[2] or 0)
+	for k = 1, rec[i] or 0 do
+		if rec[i + 2 * k - 1] == objectID then return rec[i + 2 * k] end
 	end
 	return nil
 end

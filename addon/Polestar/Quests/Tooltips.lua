@@ -58,9 +58,10 @@ local function addObjectiveLines(tt, list, selfKind, selfID, selfName)
 		elseif not isSelf and o.name then
 			what = o.name .. " " .. what
 		end
-		-- On a mob that drops an item still needed: how often (qol.questDropChance).
-		if selfKind == 1 and o.kind == 2 and not o.done and ns.Get("qol.questDropChance") then
-			local chance = Q.GetDropChance(o.id, selfID)
+		-- On a mob that drops an item still needed, or an object it comes
+		-- out of: how often (qol.questDropChance).
+		if o.kind == 2 and not o.done and selfID and (selfKind == 1 or selfKind == 3) and ns.Get("qol.questDropChance") then
+			local chance = selfKind == 1 and Q.GetDropChance(o.id, selfID) or selfKind == 3 and Q.GetObjectDropChance(o.id, selfID)
 			if chance and chance > 0 then what = what .. "  " .. chanceText(chance) end
 		end
 		addLine(tt, (e.title or ("Quest " .. o.q)) .. mark(o.q) .. ":", what, qc, (o.done or e.ready) and ok or dim)
@@ -171,12 +172,19 @@ end
 -- client names the quest itself: a title row, then its objectives. With
 -- Polestar's lines under them every objective reads twice. With
 -- qol.questTooltipsReplace the client's rows for a quest Polestar's lines name
--- there are left out (Hooks.QuestRows), by the title row's quest id or its
--- text. The rows of a quest Polestar does not name stay, and
+-- there are left out (Hooks.QuestRows), by the title row's quest id (Forever's
+-- title rows carry it). The rows of a quest Polestar does not name stay, and
 -- in a group all of them: they carry the party's progress.
+--
+-- Polestar's own line follows in the post-call for the same unit or object,
+-- found the same way (Hooks gives both the unit UnitLines gets), from the
+-- same index, so a row is never left out without its line.
 local hidingRows = false -- the rows under the title last seen are left out too
+local rowsOf -- the tooltip data that title belongs to
 
-local function hideQuestRow(_, kind, id, name, row, rowType)
+local function hideQuestRow(_, kind, id, name, row, rowType, data)
+	-- Another tooltip: its rows start afresh, whatever the last one's title did.
+	if data ~= rowsOf then rowsOf, hidingRows = data, false end
 	if not (tooltipsOn() and ns.Get("qol.questTooltipsReplace")) or (IsInGroup and IsInGroup()) then
 		hidingRows = false
 		return false
@@ -191,13 +199,10 @@ local function hideQuestRow(_, kind, id, name, row, rowType)
 		if not list and name then list = Q.ObjectivesForObjectName(name) end
 	end
 	if not list then return false end
-	local secret = ns.Compat.IsSecret
-	local quest, title = row.id, row.leftText
-	if secret(quest) or type(quest) ~= "number" then quest = nil end
-	if secret(title) or type(title) ~= "string" then title = nil end
+	local quest = row.id
+	if ns.Compat.IsSecret(quest) or type(quest) ~= "number" then return false end
 	for i = 1, #list do
-		local o = list[i]
-		if (quest and o.q == quest) or (title and o.entry.title == title) then
+		if list[i].q == quest then
 			hidingRows = true
 			break
 		end

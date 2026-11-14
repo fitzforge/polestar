@@ -955,6 +955,7 @@ Polestar.Data.InstallLine() -> string|nil   -- a mixed install in one English li
 Polestar.Hooks.ItemLines(owner, fn(tooltip, link, itemID))       -- GameTooltip, ItemRefTooltip
 Polestar.Hooks.UnitLines(owner, fn(tooltip, unit))               -- GameTooltip
 Polestar.Hooks.ObjectLines(owner, fn(tooltip, objectID, name))   -- GameTooltip; either may be nil
+Polestar.Hooks.QuestRows(owner, fn(tooltip, kind, id, name, row, rowType, data) -> true)  -- the client's own quest rows on a unit or object tooltip, each before it is drawn; true leaves it out
 Polestar.Hooks.ItemClick(owner, fn(link, itemID))                -- modified clicks on chat links, bag and loot items
 Polestar.Hooks.AddLine(tooltip, left, right?, r, g, b, rr, rg, rb)
 
@@ -4868,6 +4869,7 @@ Polestar.QuestDB.GetNpc(id) / GetObject(id) -> { id, name, spawns = { { map, x, 
 Polestar.QuestDB.GetItem(id)   -> { id, name, droppers = { { id, name, chance } }, objects = { ... }, vendors = { { id, name } } } | nil
 Polestar.QuestDB.GetItemDroppers(itemID) -> { { id, name, chance }, ... } | nil   -- best chance first
 Polestar.QuestDB.GetDropChance(itemID, npcID) -> percent | nil                   -- one dropper's chance, no table made
+Polestar.QuestDB.GetObjectDropChance(itemID, objectID) -> percent | nil          -- the same for an object it comes out of
 Polestar.QuestDB.GetObjectiveMobs(questID, oi) -> { name, ... } | nil            -- kill target or item droppers
 Polestar.QuestDB.CheckAvailable(id, ctx, isDone, isOn, opts) -> ok, reason      -- opts: lowLevel, levelAbove, skillRank
 Polestar.QuestDB.EachAvailabilityRef(id, fn) -> needsSkill                       -- fn(q) per quest whose done/in-log state CheckAvailable reads
