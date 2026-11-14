@@ -10335,6 +10335,14 @@ include those events. The recording has no marker distinguishing cached
 coordinates from fresh fallback coordinates, so fresh samples of these kinds
 are omitted too; ordinary NPC/object detail and offer positions still count.
 
+Instance-entry (`enter`) coordinates are excluded from travel distance: they
+are the recorder's cached last outdoor position, which may precede newer
+player samples when the loading screen has no usable position. The event's
+timestamp still counts for play time, and it does not replace or clear the
+last player-position anchor. Fresh and stale entrance coordinates are
+indistinguishable, so sparse recordings can undercount travel to a portal
+when no other fresh sample records that movement.
+
 ### Route planner (`planner`)
 
 `node tools/polestar.js planner [<pack dir>...] [--port 8078] [--nav <dir>] [--guides <dir>]` serves a local
