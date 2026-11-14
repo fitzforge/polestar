@@ -8865,7 +8865,14 @@
 	},
 	"93128": {
 		"set": {
-			"races": null
+			"races": null,
+			"pre": [
+				93122
+			],
+			"preAll": [
+				93122
+			],
+			"preAny": []
 		},
 		"source": [
 			{
@@ -8875,9 +8882,17 @@
 			{
 				"kind": "questie",
 				"ref": "QuestieDB generated Forever base, requiredRaces: 0 (every race, its reviewed assumption reviewed_shared_races) in 1.0.10 to 1.0.13, ALL_HORDE in 1.0.14"
+			},
+			{
+				"kind": "factoruide",
+				"ref": "Factoruide's quest row for Khan Jehn: pre_all [93122] (Checking Things Out)"
+			},
+			{
+				"kind": "in-game-check",
+				"ref": "#2337: Nerlokh offered Khan Jehn only once his chain was done, ending with Checking Things Out (93122), whose quest data names Khan Jehn as its next quest"
 			}
 		],
-		"note": "Khan Jehn has no race limit: Forever's server sets no race limit (players' caches). QuestieDB 1.0.14 narrowed it to the Horde races (up to 1.0.13: no race limit), which closed it to the Alliance races."
+		"note": "Khan Jehn has no race limit: Forever's server sets no race limit (players' caches). QuestieDB 1.0.14 narrowed it to the Horde races (up to 1.0.13: no race limit), which closed it to the Alliance races. Nerlokh offers it only after Checking Things Out (93122), the last of his chain; the quest data had no prerequisite, so it read as open from the first visit to him (#2337)."
 	},
 	"93160": {
 		"set": {
