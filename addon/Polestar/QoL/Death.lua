@@ -23,6 +23,11 @@
 -- Died in a dungeon or raid and released outside it, the corpse is on no map
 -- the client answers for: the instance's entrance (the Codex) stands for it.
 --
+-- A corpse where the character died is held with the height of the floor they
+-- died on (Walk's tracked floor, Nav/Walk.lua Walk.Floor; none while it was not
+-- known), so the walk back ends on it: a corpse in a cave (the Fargodeep Mine,
+-- the Coldridge troll cave), not the ground above it.
+--
 -- Client: UnitIsGhost, C_DeathInfo.GetCorpseMapPosition, GetUnitSpeed,
 -- C_UnitAuras.GetPlayerAuraBySpellID (AuraData.duration), IsInInstance,
 -- GetInstanceInfo (through Compat) (Forever API docs).
@@ -38,6 +43,7 @@ local Death = {}
 QoL.Death = Death
 
 local RUN_SPEED = 7
+local DIED_NEAR = 10 -- yards: a corpse this close to where the character died lies on the floor they died on
 local HYSTERESIS = 5      -- seconds the other choice must win by to flip
 local INTERVAL = 1
 local LAYER = "qol.death"
@@ -173,7 +179,13 @@ local function noteDeathPlace()
 	local C = ns.Compat
 	local inside, kind = C.IsInInstance()
 	local map = inside and (kind == "party" or kind == "raid") and C.GetInstanceMapID and C.GetInstanceMapID() or nil
-	QoL.State().diedIn = map and { map = map } or nil
+	local state = QoL.State()
+	state.diedIn = map and { map = map } or nil
+	-- Where, and on which floor (QoL.State().diedAt = { c, x, y, z }): the way back to the corpse ends on it (point).
+	local W = ns.Nav and ns.Nav.walk
+	local pc, px, py = C.GetPlayerWorldPosition()
+	local z = pc and W and W.Floor and W.Floor(pc, px, py)
+	state.diedAt = type(z) == "number" and { c = pc, x = px, y = py, z = z } or nil
 end
 
 ---------------------------------------------------------------------------
@@ -233,7 +245,13 @@ local function point(a)
 	if mine and a.choice == current then return end
 	local C = ns.Compat
 	if a.choice == "corpse" then
-		mine = Nav.Hold(a.corpseMap, a.corpseX, a.corpseY, a.via and format(L["%s (your corpse is inside)"], a.via) or L["Your corpse"])
+		-- On the floor the character died on, when the corpse lies where they died.
+		local at, z = not a.via and QoL.State().diedAt, nil
+		if type(at) == "table" and at.c == a.corpseC and a.corpseWX
+			and (a.corpseWX - at.x) ^ 2 + (a.corpseWY - at.y) ^ 2 <= DIED_NEAR * DIED_NEAR then
+			z = at.z
+		end
+		mine = Nav.Hold(a.corpseMap, a.corpseX, a.corpseY, a.via and format(L["%s (your corpse is inside)"], a.via) or L["Your corpse"], nil, z)
 	else
 		-- Live percent on the healer's own map; Era frame if the client cannot convert.
 		local x, y = C.WorldToMap(a.healerC, a.healerWX, a.healerWY, a.healerMap)
@@ -345,7 +363,10 @@ Death.Check = check
 -- length, again a second later in case it lands after the event.
 local function alive()
 	check()
-	if not isGhost() and not readable(UnitIsDeadOrGhost and UnitIsDeadOrGhost("player")) then QoL.State().diedIn = nil end
+	if not isGhost() and not readable(UnitIsDeadOrGhost and UnitIsDeadOrGhost("player")) then
+		local state = QoL.State()
+		state.diedIn, state.diedAt = nil, nil
+	end
 	if not QoL.On("deathHelper") or isGhost() then return end
 	readSickness()
 	if C_Timer and C_Timer.After then ns.After(1, readSickness) end

@@ -3595,7 +3595,7 @@ Polestar.Nav.Trip() -> { target, name, label, ends, inside } | nil   -- the trip
 Polestar.Nav.EndTrip(arrived) -> ok                    -- back to the guide: the trip's target lets go
 Polestar.Nav.BackToGuide() -> ok                       -- any point picked by hand lets go (a trip as EndTrip); false on the guide's own
 Polestar.Nav.MoveTarget(target, map, x, y) -> ok       -- a point of your own that moves (a party member): the same target, its arrival kept (one chime)
-Polestar.Nav.Hold(map, x, y, label, f) -> target | nil  -- the arrow held there over every other target until Unhold (the death helper)
+Polestar.Nav.Hold(map, x, y, label, f, z) -> target | nil  -- the arrow held there over every other target until Unhold (the death helper); z: the floor's height there, optional
 Polestar.Nav.Unhold()
 Polestar.Nav.IsHeld() -> bool
 Polestar.Nav.GetTarget() -> waypoint | nil
@@ -3676,7 +3676,10 @@ waypoint, a point picked by hand and another addon's `SetTarget` all go on
 underneath without touching the arrow (no replan, no `WAYPOINT_CHANGED`);
 `Nav.Unhold` once alive shows what is underneath then (a picked point only
 while the step is still the one it was picked on, as an override always is).
-While held, `Nav.HiddenWithGuide()` is false.
+While held, `Nav.HiddenWithGuide()` is false. The corpse is held with the
+height of the floor the character died on (`Walk.Floor` at `PLAYER_DEAD`,
+kept as `QoL.State().diedAt` while it is within 10 yd of the corpse), so the
+walk back ends on it: a corpse in a cave, not the ground above it.
 
 ### Nav API — journeys for players and other addons
 
