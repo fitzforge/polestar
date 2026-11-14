@@ -9,7 +9,7 @@ next forever/horde/40-50/06-azshara
 # Forge's route search orders the quests of this guide and its guide writer writes the steps.
 # Fixes go into data/route-fixes.json, data/guide-fixes.json or forever-db/corrections, never
 # into this file.
-# Added here: Gammerita, Mon! (7816), Return to Fel'Zerul (1444), Venom Bottles (2933), Fall From Grace (2784),
+# Added here: Gammerita, Mon! (7816), Return to Fel'Zerul (1444), Fall From Grace (2784),
 # The Disgraced One (2621), The Missing Orders (2622).
 # Left out: Assisting Arch Druid Runetotem (3784).
 
@@ -185,7 +185,7 @@ step Revantusk Village
 
 step Level 49.02
   when level<49.02
-  tip If you skipped Gammerita, Mon! or the Jintha'Alor group quests, grind here to level 49.02 to stay on the route's plan. Or, with a group, run the Maraudon dungeon instead.
+  tip If you skipped Gammerita, Mon! or the Jintha'Alor group quests, grind here to level 49.02 to stay on the route's plan.
   goto 77.8,68.9 map 1425 "Saltwater Snapjaw"
   level 49.02 grind 2505               -- grind on Saltwater Snapjaw
 
@@ -193,9 +193,6 @@ step The Atal'ai Exile
   tip South-west again, the exile hides by the ruins of Shadra'Alor.
   turnin 1429                           -- Atal'ai Exile
   accept 1444
-
-step Venom Bottles
-  accept 2933
 
 step Grim Message
   when onquest 2932
@@ -217,10 +214,17 @@ step Revantusk Village
   turnin 7843                           -- Otho Moji'ko
 
 step Fly to Stonard
+  when taxi "Stonard"
   zone The Hinterlands
   goto 81.7,81.9 "Revantusk Village flight master"
   fly "Stonard"
   zone Swamp of Sorrows
+
+step To Stonard
+  when !taxi "Stonard"
+  zone Swamp of Sorrows
+  tip No flight path to Stonard yet: the arrow takes the quickest way there (by the Grom'gol flight and the road through Duskwood and Deadwind Pass). Learn Stonard's flight path when you arrive.
+  getfp "Stonard"
 
 step Fel'zerul
   turnin 1444                         -- On the top floor
@@ -248,15 +252,14 @@ step The bloodmages
 # visits 49-53, levels 47.6-49.5. Checked by lint, not play-tested on
 # Forever yet. Era + known Forever quests only.
 #
-# Flow: Thorium Point (where the previous guide ends) -> fly Stonard -> the
-# bloodmages in the Blasted Lands -> the northern beasts and the eastern
-# slopes -> the bloodmages -> Stonard, fly Undercity (training) -> fly
-# Tarren Mill -> Gilveradin's camp -> Highvale and Rin'ji -> the Witherbark
-# village (Grim Message) -> the Violet Tragan -> the Atal'ai Exile ->
-# Revantusk Village (flight path, bind) -> the north coast -> the Vilebranch
-# temples -> the central hills -> Skulk Rock -> the Silvermane Howlers ->
-# Highvale -> Gilveradin -> Jintha'Alor -> Revantusk -> Aerie Peak -> hearth
-# Revantusk Village, where the next guide starts.
+# Flow (as shipped): Thorium Point (where the previous guide ends) -> fly
+# Tarren Mill -> Gilveradin's camp -> Highvale and Rin'ji -> the Violet
+# Tragan -> Revantusk Village (flight path, bind) -> the north coast -> the
+# Vilebranch temples and the central hills -> Skulk Rock -> the Altar of Zul
+# -> Gilveradin -> Highvale -> Jintha'Alor (group) -> Revantusk -> the
+# Atal'ai Exile -> the Witherbark village (Grim Message) -> Aerie Peak ->
+# Revantusk -> fly Stonard -> the Fallen Hero -> the bloodmages in the
+# Blasted Lands -> Stonard, where the next guide starts.
 #
 # Deviations from the export:
 # - The Booty Bay stop (visit 49) is dropped: a flight and a zeppelin for
@@ -281,10 +284,8 @@ step The bloodmages
 #   Rin'ji. Revantusk Village: round the village from the west side, where
 #   you ride in; Gorkas, the flight master at the far east end, last.
 #
-# Class training: the Undercity for Warriors, Paladins, Rogues, Priests,
-# Mages and Warlocks; Hunters, Shamans and Druids trained at the end of the
-# previous guide and train next in Orgrimmar and Thunder Bluff in the next
-# guide.
+# Class training: none in this guide; every class trains next in Orgrimmar at
+# about 50 (40-50/06; Druids and Paladins in Thunder Bluff).
 #
 # Optional: Find and Rescue OOX-09/HL! (485, 836): the beacon is a rare drop.
 #
@@ -294,10 +295,11 @@ step The bloodmages
 # Sprinkle's Secret Ingredient (2641) and Testing the Vessel (3123) leave
 # here with their objectives done.
 #
-# Left out: Tabetha's Task (2861) and Venom Bottles (2933): the export never
-# hands them in. Return to
-# Fel'Zerul (1444): its turn-in stop in Stonard is dropped from the next
-# guide (a zeppelin and a flight for one quest), so it is not taken.
+# Left out: Tabetha's Task (2861): the export never hands it in. Venom Bottles
+# (2933): its bottles lie in the troll villages here, but its hand-in is
+# Apothecary Lydon in Tarren Mill, which the route passes only on the way in,
+# before the bottles; the next visit would be a landing at about 52 for a
+# fifth of its experience (0.4.0 route audit).
 
 # ---------------------------------------------------------------- The Blasted Lands
 

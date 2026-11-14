@@ -120,6 +120,7 @@ step Tirisfal Glades
 
 step Paladin trainer
   only Paladin
+  when level>=54
   zone Tirisfal Glades
   train class only Paladin -- Shari Stilwell in Tirisfal Glades; Orgrimmar has no paladin trainer
 
@@ -139,10 +140,12 @@ step Jes'rimon
 
 step Class trainer
   only Warrior,Hunter,Rogue,Priest,Shaman,Mage,Warlock
+  when level>=54
   train class only Warrior,Hunter,Rogue,Priest,Shaman,Mage,Warlock
 
 step Druid trainer
   only Druid
+  when level>=54
   train class only Druid -- Sheal Runetotem in Mulgore; Orgrimmar has no druid trainer
 
 step Fly to Splintertree Post

@@ -1,7 +1,7 @@
 guide polestar-experimental/riverglades-horde-1
 title Riverglades 1: Powderfuse Port, Rog'mar and the western farms (experimental)
 faction Horde
-levels 37-40
+levels 40-41
 zone Riverglades
 coords live
 folder Riverglades · Experimental
@@ -20,9 +20,10 @@ con Elite camps, and a few quests that need a group (each behind a group choice)
 # Polestar Experimental, Riverglades for the Horde, part 1 of 4 (2026-11-12). Hand-written from players'
 # recordings of the zone (123 sessions to 2026-11-12) and Forever's quest data (the client's quest records,
 # QuestieDB 1.0.16 and EG Link) for titles, levels, objectives and places.
-# Order: the way in by the goblin boat from Tanaris (how most recorded Horde players arrived; Kargath's flight path,
-# the other way in, comes only with our later Badlands guide), Powderfuse Port, Sleebo's workshop, Rog'mar (flight
-# path, inn), Neza Bloodsnout's three hunts on the plains with Sleebo's marsh on the first one, a western loop
+# Order: the way in on foot from Kargath through Twilight's Shroud (the route choice at the end of the Badlands
+# guide, about level 40: Rog'mar first, then Sleebo's workshop; 0.4.0 route audit), or by the goblin boat from
+# Tanaris for a character without Kargath's flight path (Powderfuse Port, Sleebo's workshop, then Rog'mar); Rog'mar
+# (flight path, inn), Neza Bloodsnout's three hunts on the plains with Sleebo's marsh on the first one, a western loop
 # (Turner's Logging Camp, the Bristle Hills, Gelinda Coppergleam's Cinderscale hollow, Meadowsbrook) and the hearth
 # home, the training grounds, then the river and the Farholde training camp.
 # Offered only after another quest is handed in (players' recordings): Poison Tips after Feathers for Fletching,
@@ -39,31 +40,45 @@ con Elite camps, and a few quests that need a group (each behind a group choice)
 # - The breadcrumbs from other zones (Report to Rog'mar 95141, Finding Tan'jani 95143): this guide doesn't assume
 #   you carry them; While-you're-here hands them in when you have them.
 
+step Into the Riverglades
+  when taxi "Kargath"
+  when !zone "Riverglades"
+  zone Badlands
+  tip Experimental route (alpha). It follows what players did in the Riverglades and may still have rough spots: if a step is wrong, tell us on Polestar's Discord or GitHub and name the step.
+  tip From Kargath, ride south-east across the Badlands to the zone's southern edge: the pass of Twilight's Shroud leads down into the Riverglades. Rog'mar, the Horde's fort, stands in the middle of the zone, east along the valley.
+  tip Coming from the Badlands guide, you can abandon the Stranglethorn Vale quests still in your log (The Troll Witchdoctor, Mok'thardin's Enchantment, Some Assembly Required, Sunken Treasure, Panther Mastery, Raptor Mastery, Bloodscalp Clan Heads): this route doesn't go back to them. Keep Report to Helgrum: the Feralas guide passes Stonard later.
+  goto 55.0,93.0 "Into the Riverglades"
+
 step Fly to Freewind Post
+  when !taxi "Kargath"
   when !zone "Riverglades"
   tip Experimental route (alpha). It follows what players did in the Riverglades and may still have rough spots: if a step is wrong, tell us on Polestar's Discord or GitHub and name the step.
   tip The Riverglades lie across the sea from Tanaris: a goblin boat sails from Steamwheedle Port, north-east of Gadgetzan, to Powderfuse Port. Fly to Freewind Post in Thousand Needles and head south-east through the Shimmering Flats to Gadgetzan. (If you already know Kargath in the Badlands, the way in through Twilight's Shroud works too.)
   fly "Freewind Post"
 
 step Gadgetzan
+  when !taxi "Kargath"
   when !zone "Riverglades"
   zone Tanaris
   tip Learn Gadgetzan's flight path: it saves the ride next time.
   getfp "Gadgetzan"
 
 step Boat to Powderfuse Port
+  when !taxi "Kargath"
   when !zone "Riverglades"
   zone Tanaris
   tip Steamwheedle Port is on the coast north-east of Gadgetzan: wait on the pier for the goblin boat to Powderfuse Port.
   goto 67.57,23.1 "Boat to Powderfuse Port"
 
 step Powderfuse Port
+  when !taxi "Kargath"
   zone Riverglades
   tip Experimental route (alpha): if a step is wrong, tell us on Polestar's Discord or GitHub and name the step.
   tip Friz Frazzlespark keeps a stall at the west end of the docks. The port's other jobs are for later (part 3): this crate goes to the Horde's fort.
   accept 95062                          -- Frazzlespark's Crate: for Krom'rosh in Rog'mar
 
 step Sleebo's workshop
+  when !taxi "Kargath"
   tip West up the road from the port: Sleebo Fizzlespout has his workshop on the hill. The gas vents are in the marsh south-west of it, on your first hunt for Neza.
   accept 96063                          -- Gaseous Gold
 
@@ -71,12 +86,21 @@ step Rog'mar
   tip West to Rog'mar, the Horde's fort in the middle of the zone. Neza Bloodsnout stands on its east side, Kreza Darkthorn and Krom'rosh in the middle with Grakna, the wind rider master; Innkeeper Toka and Tan'jani on the west side.
   accept 96107                          -- Neza Bloodsnout: Feathers for Fletching
   accept 93788                          -- Kreza Darkthorn: Borrowed Blades
-  turnin 95062                          -- Krom'rosh
   accept 93786                          -- A Message in Blood
   accept 93787                          -- Food for the Taking
   getfp "Rog'mar" npc 255993            -- Grakna, in the middle of the fort
   sethome "Rog'mar" npc 256675         -- Innkeeper Toka
   accept 95951                          -- Tan'jani: Fetch 'n' Fletch
+
+step Krom'rosh
+  when onquest 95062
+  tip Frazzlespark's crate from the port goes to Krom'rosh, in the middle of the fort.
+  turnin 95062                          -- Krom'rosh
+
+step Sleebo's workshop
+  when available 96063
+  tip East of Rog'mar, on the hill above the road to Powderfuse Port: Sleebo Fizzlespout has his workshop there. The gas vents are in the marsh south-west of it, on your first hunt for Neza.
+  accept 96063                          -- Gaseous Gold
 
 step The plains and the marsh
   tip South-east of Rog'mar the plains run down to Terral's Watch. The Low Plains Buzzards circle everywhere; a picked carcass lies in the grass (its skull starts A Feast for Buzzards), and the marsh vents are just past it.
@@ -85,6 +109,7 @@ step The plains and the marsh
   collect 272004 x8 quest 96063.1       -- Marsh Gas Vial
 
 step Sleebo Fizzlespout
+  when onquest 96063
   tip North-east to the workshop. Sleebo's stress test is a fight with his G45-B4G beside the workshop: hand the quest in once it's beaten.
   turnin 96063
   accept 96067                          -- Rock 'em and Sock 'em

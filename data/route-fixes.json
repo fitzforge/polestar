@@ -3398,6 +3398,55 @@
 			},
 			{
 				"a": [
+					"turnin",
+					1505
+				],
+				"b": [
+					"accept",
+					97246
+				],
+				"faction": "Horde",
+				"why": "Horde start audit (0.4.0, AuditH01 with AuditH12): 01-mulgore ends with the walk Crossroads -> Far Watch Post -> Durotar road -> Orgrimmar, past Kranal Fiss (56.0,19.9), Uzzek (61.4,21.1), the thunder lizards beside the road and the Dustwind Gulch cultists. Tauren Warriors carried Veteran Uzzek (1505) and Shamans Call of Fire (1523) to 02-the-barrens at about 16 and walked Crossroads -> Far Watch -> Durotar -> back for them (about 2,650 yd for Warriors, 3,870 yd for Shamans); on the walk they cost +11 yd (Warriors) and +1,545 yd (Shamans). Uzzek takes 1505 and gives Path of Defense (1498, Defensive Stance) on that walk, before the next guide's first Orgrimmar stop (Thatog's Meal Appeal)."
+			},
+			{
+				"a": [
+					"turnin",
+					1523
+				],
+				"b": [
+					"accept",
+					97246
+				],
+				"faction": "Horde",
+				"why": "Horde start audit (0.4.0, AuditH01 with AuditH12): 01-mulgore ends with the walk Crossroads -> Far Watch Post -> Durotar road -> Orgrimmar, past Kranal Fiss (56.0,19.9), Uzzek (61.4,21.1), the thunder lizards beside the road and the Dustwind Gulch cultists. Tauren Warriors carried Veteran Uzzek (1505) and Shamans Call of Fire (1523) to 02-the-barrens at about 16 and walked Crossroads -> Far Watch -> Durotar -> back for them (about 2,650 yd for Warriors, 3,870 yd for Shamans); on the walk they cost +11 yd (Warriors) and +1,545 yd (Shamans). Kranal Fiss takes the Tauren Shaman's Call of Fire lead (1523) and gives 1524 on that walk."
+			},
+			{
+				"a": [
+					"accept",
+					1525
+				],
+				"b": [
+					"accept",
+					97246
+				],
+				"faction": "Horde",
+				"why": "Horde start audit (0.4.0, AuditH01 with AuditH12): 01-mulgore ends with the walk Crossroads -> Far Watch Post -> Durotar road -> Orgrimmar, past Kranal Fiss (56.0,19.9), Uzzek (61.4,21.1), the thunder lizards beside the road and the Dustwind Gulch cultists. Tauren Warriors carried Veteran Uzzek (1505) and Shamans Call of Fire (1523) to 02-the-barrens at about 16 and walked Crossroads -> Far Watch -> Durotar -> back for them (about 2,650 yd for Warriors, 3,870 yd for Shamans); on the walk they cost +11 yd (Warriors) and +1,545 yd (Shamans). Telf Joolam takes 1524 and gives 1525 on that walk (Orc and Troll Shamans take it at 10 in Durotar)."
+			},
+			{
+				"a": [
+					"task",
+					1525,
+					1
+				],
+				"b": [
+					"accept",
+					97246
+				],
+				"faction": "Horde",
+				"why": "Horde start audit (0.4.0, AuditH01 with AuditH12): 01-mulgore ends with the walk Crossroads -> Far Watch Post -> Durotar road -> Orgrimmar, past Kranal Fiss (56.0,19.9), Uzzek (61.4,21.1), the thunder lizards beside the road and the Dustwind Gulch cultists. Tauren Warriors carried Veteran Uzzek (1505) and Shamans Call of Fire (1523) to 02-the-barrens at about 16 and walked Crossroads -> Far Watch -> Durotar -> back for them (about 2,650 yd for Warriors, 3,870 yd for Shamans); on the walk they cost +11 yd (Warriors) and +1,545 yd (Shamans). The Reagent Pouch from the Dustwind Gulch cultists beside the road north (Orc and Troll Shamans: the Drygulch Ravine loop at 10); the Fire Tar waits for 02's Razormane camp."
+			},
+			{
+				"a": [
 					"accept",
 					1483
 				],
@@ -3460,15 +3509,15 @@
 			},
 			{
 				"a": [
+					"task",
+					25
+				],
+				"b": [
 					"accept",
 					2
 				],
-				"b": [
-					"turnin",
-					6544
-				],
 				"faction": "Horde",
-				"why": "Final route review (2026-11-07, Ashenvale 28, #1175): Sharptalon (75.0,70.1) prowls between Torek's fight and Splintertree Post (73.8,61.5), so her claw comes on the way north; the order hunted her on a walk back south from the town before the satyrs to its north-west"
+				"why": "Horde 21-30 audit (0.4.0, Discord report relayed on #2025): Sharptalon (12676) is a level 31 nightsaber and Sharptalon's Claw (2) a level 30 quest; taken on the way in from Torek's assault (#1175's order) players met her at 27 (recordings: most kills at 27, 3 deaths near her). Her claw is taken on the later pass, after Stonetalon Standstill at Mystral Lake (25), on the walk back north-east to Splintertree past her woods (75.0,70.1), about half a level to a level later."
 			},
 			{
 				"a": [
@@ -3746,6 +3795,42 @@
 				],
 				"faction": "Horde",
 				"why": "Horde 12-30 re-chain (2026-11-07): Hillsbrad at 22-24 comes before Sun Rock Retreat and Stonetalon Peak (level 23-26)."
+			},
+			{
+				"a": [
+					"turnin",
+					849
+				],
+				"b": [
+					"accept",
+					1058
+				],
+				"faction": "Horde",
+				"why": "Horde 21-30 audit (phase 2, R10, #2025): forever/horde/04-the-barrens works the southern Barrens (Gann Stonespire's Bael Modan, Blackthorn Ridge) and the Ratchet coast before Stonetalon. The old order walked Sun Rock -> Malaka'jin -> Seereth -> Camp Taurajo (about 4.7 km) between the halves and back up from the Great Lift; the flow audit ranked 04 the worst Horde guide (12.7 wasted walking minutes). Calibrated level model: 0.10-0.15 h sooner to 60 on all 28 Horde branches; travel sweep no worse (Warriors -2.7 min, Druid 0.0, Mages +0.3)."
+			},
+			{
+				"a": [
+					"accept",
+					1145
+				],
+				"b": [
+					"accept",
+					515
+				],
+				"faction": "Horde",
+				"why": "Horde 21-30 audit (0.4.0, #2025): Elixir of Agony (515) needs a Lesser Troll's Blood Elixir (item 3388), an Alchemy potion no vendor sells, and its hand-in waits about six levels for the Hillsbrad coast in forever/horde/30-40/01-hillsbrad-foothills. The Hillsbrad 22-25 guide told everyone to take it from Faranell and keep it; players' recordings: 2 people took it, 1 handed it in (at 38.8), 2 abandoned it. It is taken in the 30-40 guide (after Korran's The Swarm Grows, 1145, its first accept), on its opening Undercity stop, by players who carry the elixir."
+			},
+			{
+				"a": [
+					"turnin",
+					873
+				],
+				"b": [
+					"accept",
+					1058
+				],
+				"faction": "Horde",
+				"why": "Horde 21-30 audit (phase 2, R10): Ratchet (Further Instructions 1094 -> 1095, Mahren Skyseer and Isha Awak) before the walk west into Stonetalon, so Sputtervalve's orders (1095) and Gerenzo Wrenchwhistle (1096) are on the way up the Webwinder Path."
 			},
 			{
 				"a": [
@@ -4109,6 +4194,90 @@
 				],
 				"faction": "Horde",
 				"why": "Horde 30-40 re-order (2026-11-07): The Dustwallow accepts for 40-50/03-feralas (Overlord Mok'Morokk's Concern, Army of the Black Dragon, Identifying the Brood, quest level 43) are taken on the last Brackenwall stop, the latest point of the visit."
+			},
+			{
+				"a": [
+					"turnin",
+					675
+				],
+				"b": [
+					"accept",
+					557
+				],
+				"faction": "Horde",
+				"why": "Horde 30-40 audit (0.4.0): Bracers of Binding (557) is worked only on the 38-39 Alterac visit; taken at Tarren Mill at 31 it rode through four guides, and players dropped it on the way (players' recordings: 3 people abandoned it). Keeper Bel'varil stands at the same inn on the 38-39 visit's first Tarren Mill stop (30-40/05-arathi-highlands), which takes it after the first Arathi visit (675)."
+			},
+			{
+				"a": [
+					"turnin",
+					675
+				],
+				"b": [
+					"accept",
+					545
+				],
+				"faction": "Horde",
+				"why": "Horde 30-40 audit (0.4.0): Dalaran Patrols (545) is worked only on the 38-39 Alterac visit; Magus Wordeen Voidglare offers it at the same inn on the 38-39 visit's first Tarren Mill stop (30-40/05-arathi-highlands), which takes it after the first Arathi visit (675), instead of carrying it from 31."
+			},
+			{
+				"a": [
+					"accept",
+					1146
+				],
+				"b": [
+					"accept",
+					515
+				],
+				"faction": "Horde",
+				"why": "Horde 21-40 audit (0.4.0): Elixir of Agony (515) is offered on 30-40/01-hillsbrad-foothills' Undercity stop, after Orgrimmar (Belgrom's 1146), for a character carrying the Lesser Troll's Blood Elixir it needs (guide-fixes horde-3040-elixir-of-agony-undercity-with-the-elixir)."
+			},
+			{
+				"a": [
+					"accept",
+					515
+				],
+				"b": [
+					"accept",
+					552
+				],
+				"faction": "Horde",
+				"why": "Horde 21-40 audit (0.4.0): Elixir of Agony (515) is taken in the Undercity before Tarren Mill (Novice Thaivand's 552), where Apothecary Lydon takes the elixir."
+			},
+			{
+				"a": [
+					"accept",
+					5581
+				],
+				"b": [
+					"accept",
+					1366
+				],
+				"faction": "Horde",
+				"why": "Horde 30-40 audit (0.4.0): Centaur Bounty (1366) is worked only on the second Desolace visit (30-40/04-dustwallow-marsh, at 38): taken at the end of the first it rode through Stranglethorn, and players dropped it (players' recordings: 4 people abandoned it). Felgur stands beside Gurda Wildmane at Ghost Walker Post, the second visit's stop before the Valley of Spears, after Taiga's Portals of the Legion (5581)."
+			},
+			{
+				"a": [
+					"turnin",
+					1108
+				],
+				"b": [
+					"accept",
+					338
+				],
+				"faction": "Horde",
+				"why": "Horde 30-40/40-50 audit (0.4.0): The Green Hills of Stranglethorn's chapters (338-342) are accepted and turned in together at Nesingwary's camp on 40-50/01-stranglethorn-vale's visit at 40, after the Badlands (Indurium, 1108), not accepted at 35 and carried: the pages drop from the trolls without the quests, and the five chapters took five quest log slots through Dustwallow, Alterac and the Badlands (players' recordings: 2 people abandoned 338 on the way)."
+			},
+			{
+				"a": [
+					"turnin",
+					1108
+				],
+				"b": [
+					"accept",
+					1183
+				],
+				"faction": "Horde",
+				"why": "Horde 30-40/40-50 audit (0.4.0): Goblin Sponsorship (1183, Baron Revilgaz to Pozzik at the Mirage Raceway, 700 XP) is taken on 40-50/01-stranglethorn-vale's first Booty Bay stop, after the Badlands (1108), instead of on 30-40/03's second Booty Bay stop at 36, from where it rode in the quest log through four guides to Pozzik at 43."
 			},
 			{
 				"a": [
@@ -4904,6 +5073,102 @@
 				],
 				"faction": "Horde",
 				"why": "Undead Warlocks: Carendin Halgar offers Creature of the Void (1473) only once Halgar's Summons (1478, Ageron Kargal's pointer from Brill to him) is handed in. Players' recordings: 4 people carrying 1478 had 1473 refused at Carendin, and each was offered it right after handing 1478 in. The route takes 1478 on the Brill stop that trains (Ageron offered it to 3 recorded Warlocks there at 10) and hands it in to Carendin before 1473."
+			},
+			{
+				"a": [
+					"turnin",
+					3762
+				],
+				"b": [
+					"accept",
+					3761
+				],
+				"faction": "Horde",
+				"why": "Horde 40-50 route audit (0.4.0): Assisting Arch Druid Runetotem (3762, Innkeeper Pala) is handed to Hamuul before he is asked for Un'Goro Soil (3761) on 40-50/06's Thunder Bluff stop: a breadcrumb in the log holds its target back (#2085), and if the pair is a prerequisite instead, 3761 needs it handed in."
+			},
+			{
+				"a": [
+					"turnin",
+					606
+				],
+				"b": [
+					"accept",
+					604
+				],
+				"faction": "Horde",
+				"why": "#2102 (Horde 40-50/01, a Scourge Warrior at 39.9): The Bloodsail Buccaneers (604) is level 43 and its Bloodsail Swashbucklers 41-43; the guide sent players to the Wild Shore right after the opening, at about 40, and the pace line warned it was hard. Players' recordings: 13 people handed 604 in at 39-45, most at 41-44; the danger gate flagged the Wild Shore at the route's 39.9. Up to Snuff (587) and Keep An Eye Out (576) drop from the same pirates, so the whole Wild Shore pass (accepts, the swashbucklers, the hand-ins, and the optional ships) moves to the Booty Bay stop after the Cape of Stranglethorn coast, about 41.5 in the calibrated model: one Booty Bay -> Wild Shore -> Booty Bay loop moves instead of being added."
+			},
+			{
+				"a": [
+					"turnin",
+					606
+				],
+				"b": [
+					"accept",
+					587
+				],
+				"faction": "Horde",
+				"why": "#2102: see turnin 606 -> accept 604; 587 shares the Wild Shore's pirates and moves with it."
+			},
+			{
+				"a": [
+					"turnin",
+					606
+				],
+				"b": [
+					"accept",
+					576
+				],
+				"faction": "Horde",
+				"why": "#2102: see turnin 606 -> accept 604; 576 shares the Wild Shore's pirates and moves with it."
+			},
+			{
+				"a": [
+					"task",
+					7722
+				],
+				"b": [
+					"turnin",
+					7727
+				],
+				"faction": "Horde",
+				"why": "Horde 40-50 route audit (0.4.0): the Slag Pit's Secret Plans: Fiery Flux (What the Flux?, 7722) lie on the pit's upper ledge, above the Incendosaurs the gorge sweep already kills for 7727 (40-50/04). The order collected them only after Velarok's second round and came back to Thorium Point a second time for Master Smith Burninate (the flow audit: avoidable backtrack at the 7722 hand-in, 28/28 branches, and passed enders at Thorium Point). Taken in the sweep, they are handed in on the first Thorium Point return with the other hand-ins."
+			},
+			{
+				"a": [
+					"turnin",
+					7722
+				],
+				"b": [
+					"task",
+					3443
+				],
+				"faction": "Horde",
+				"why": "Horde 40-50 route audit (0.4.0): see task 7722 -> turnin 7727: What the Flux? is handed to Master Smith Burninate on the Thorium Point return before the furnaces (Forging the Shaft, 3443), not on a later return."
+			},
+			{
+				"a": [
+					"turnin",
+					608
+				],
+				"b": [
+					"turnin",
+					2932
+				],
+				"faction": "Horde",
+				"why": "Horde 40-50 route audit (0.4.0): 40-50/06 flew Stonard -> Grom'gol for Grim Message's hand-in (Nimboya) alone, then Grom'gol -> Booty Bay and back to Grom'gol for the zeppelin. Stonard flies straight to Booty Bay (a direct leg in the travel data), so Booty Bay comes first and Nimboya is passed on the way to the Grom'gol zeppelin: one flight and one Grom'gol stop fewer (the flow audit: 06 has the band's most retraced walking, 21.7 minutes)."
+			},
+			{
+				"a": [
+					"turnin",
+					8464
+				],
+				"b": [
+					"turnin",
+					5085
+				],
+				"faction": "Horde",
+				"why": "Horde 50-60 audit (0.4.0): Winterfall Activity (8464) is complete at the end of the Winterspring guide (Winterfall Village, about 55.4) and was handed in to Salfa only in the Felwood guide at about 59.7. Salfa stands where Timbermaw Hold's tunnel comes out into Winterspring (27.7,34.5), which the Eastern Plaguelands guide rides out of on its way from Moonglade to Donova Snowden (564 yd on): the hand-in goes there, three levels earlier, with no detour. The Felwood guide keeps a hand-in only while it is still carried."
 			}
 		],
 		"notes": [
@@ -4911,7 +5176,8 @@
 			"Pynte #404 (no ride steps below riding level): the sim has no ride steps; it rides (mountMul) from mountLevel 40.",
 			"Forever follow-ups only after the quests before them: the turnin -> accept pairs above (the #51/#112/#128/#143/#148/#225 sweep), and every prerequisite the data has (the evaluator does not take a quest before them).",
 			"First-visit flight paths (2026-11-10, Fitz in game at Ratchet): a getfp goes in the first step that stands within about 60 yd of its flight master, not a later visit. Ratchet: Bragok stands 16 yd from Sputtervalve (accept 894) on the first Ratchet stop (horde/02-the-barrens), learned there instead of on the fly step after the beach. Camp Taurajo: Omusa Thunderhorn stands 54 yd from Kirge Sternhorn (accept 854), where Tauren pass at the end of tauren/01-mulgore, learned there instead of at 02-the-barrens' Camp Taurajo stop. Sweep of every leveling chain (all races, both factions; first route goal within 40 and 100 yd of each flight master vs its first getfp): these two only; no flight master passed with no getfp. The route writer's first-visit rule (60 yd, docs/forge/writer.md) writes both on every build.",
-			"Item-started quests' hand-ins hold (0.3.8): Sharptalon's Claw (2), Ursangous's Paw (23) and Shadumbra's Head (24) at Senani Thunderheart (horde/07-ashenvale), The Admiral's Orders (830) at Gar'Thok (orc and troll 01-durotar), Burning Shadows (832) at Neeru Fireblade (horde/03-silverpine-forest, the Neeru step now `when onquest 829,832`) and Attack on Camp Narache (781) at Chief Hawkwind (tauren/01-mulgore) were optional hand-ins beside other work at the same NPC, and the addon never holds an optional goal, so players who had the quest walked past its NPC and carried it finished. The hand-ins are plain goals (hidden for anyone who never took the quest). The guide writer marks such a hand-in optional ('optional at its NPC'); a writer rule that keeps an item-started quest's hand-in required is needed before the next route build, or that build marks them optional again."
+			"Item-started quests' hand-ins hold (0.3.8): Sharptalon's Claw (2), Ursangous's Paw (23) and Shadumbra's Head (24) at Senani Thunderheart (horde/07-ashenvale), The Admiral's Orders (830) at Gar'Thok (orc and troll 01-durotar), Burning Shadows (832) at Neeru Fireblade (horde/03-silverpine-forest, the Neeru step now `when onquest 829,832`) and Attack on Camp Narache (781) at Chief Hawkwind (tauren/01-mulgore) were optional hand-ins beside other work at the same NPC, and the addon never holds an optional goal, so players who had the quest walked past its NPC and carried it finished. The hand-ins are plain goals (hidden for anyone who never took the quest). The guide writer marks such a hand-in optional ('optional at its NPC'); a writer rule that keeps an item-started quest's hand-in required is needed before the next route build, or that build marks them optional again.",
+			"Durotar (Orc, Troll), 0.4.0 start audit: no \"Mage trainer\" step on the Razor Hill training stop at about 11 sending Mages back to Mai'ah in the Valley of Trials (Razor Hill has no mage trainer, the stop's away-trainer line in forge-writer's training pass). Mages train with Un'Thuwa at Sen'jin on the way through at 8-10 and in Orgrimmar on the next guide's arrival at about 12; players' recordings (0.3.5+) show no Mage making the trip. Hand edit, pinned by tests/guides-reported.test.js; a later writer round turns this into the training pass's rule."
 		],
 		"never": [
 			{
@@ -7331,6 +7597,11 @@
 				"why": "#1370: Gerenzo's Orders is Piznik's five-minute defence at the bottom of the Windshear Mine (quest level 22): past the mine's kobolds (19-23), then 11-18 more in waves while he mines, and the quest fails if he dies. Both routes reach it at 20-23 (Alliance 06-ashenvale, Horde 02-the-barrens). Players' recordings: 15 people; the two who lost it were alone (23 and 25: died, failed, abandoned); grouped players finished it 4 of 4, from level 23. A group quest of 2, with the solo skip."
 			},
 			{
+				"q": 97003,
+				"size": 3,
+				"why": "Chol'aruk the Ravener (Forever, level 21): Chol'aruk is a level 20 elite in the Thorn Hill cave, past the Razormane Flesheaters and Berserkers (18-19, elite) of the camp 02-the-barrens clears for The Disruption Ends. Players' recordings: 15 people killed it, 12 of 18 kills in a group (median level 19.7); 2 people died to it (22-23). Offered as a group choice (`when group 97003`), accepted at the Crossroads before the camp, handed back on the Crossroads stop after it."
+			},
+			{
 				"q": 517,
 				"size": 3,
 				"why": "Horde 30-40 audit (2026-11-09): Elixir of Agony part 2 wants a Keg of Shindigger Stout (object 1727), which stands only in Dun Garok's cellar beside Captain Ironhill (2304, elite 32) and the elite dwarves (2344-2346); 2 recorded players looted it at Hillsbrad 71.6,80.7. A group quest the route offers with Battle of Hillsbrad's, not an optional solo accept."
@@ -8146,6 +8417,24 @@
 				"after": [
 					"turnin",
 					1093
+				]
+			},
+			{
+				"q": 1095,
+				"reason": "Horde 21-30 audit (phase 2, R10): Further Instructions (level 27, from 16, 1100 XP), Sputtervalve's new orders when Further Instructions (1094) is handed in at Ratchet, go back to Ziz Fizziks (4201, Stonetalon 59.0,62.6). forever/horde/04-the-barrens now visits Ratchet before Stonetalon (the southern Barrens first), so the hand-in is on its way up the Webwinder Path instead of never being offered. Players' recordings: 2 people took and handed it in.",
+				"issue": "2025",
+				"after": [
+					"turnin",
+					1094
+				]
+			},
+			{
+				"q": 1096,
+				"reason": "Horde 21-30 audit (phase 2, R10): Gerenzo Wrenchwhistle (level 27, from 16, 2200 XP) from Ziz Fizziks on 1095's hand-in: Gerenzo (4202, level 27, normal) stands at the top of the Venture Co. tower on Windshear Crag (64.5,40.3), about 260 yd north of XT:4 (Shredding Machines, 1068), on the same walk. Calibrated level model (R10, all 28 Horde branches): 0.10-0.15 h sooner to 60 with the swap it belongs to.",
+				"issue": "2025",
+				"after": [
+					"turnin",
+					1095
 				]
 			},
 			{
@@ -9152,6 +9441,24 @@
 				]
 			},
 			{
+				"q": 809,
+				"reason": "Horde 12-21 audit (0.4.0, 2026-11-13): Ak'Zeloth (level 13, 460 XP) is offered by Neeru Fireblade on Burning Shadows' Cleft of Shadow stop in 03-silverpine-forest's Orgrimmar opener (Orc and Troll only, where they hand in Neeru Fireblade 829, its prerequisite), and Ak'Zeloth (3521) stands beside Kargal Battlescar at Far Watch Post (62.3,20.1), the Orcs' and Trolls' first stop in 02-the-barrens: no walk of its own. Players' recordings: Neeru offered it to 7 people, and 12 handed it in. The Demon Seed (924) that follows stays out: its stone is at Far Watch, the altar on Dreadmist Peak and the hand-in back at Far Watch, a return the route never makes.",
+				"issue": "-",
+				"after": [
+					"turnin",
+					829
+				]
+			},
+			{
+				"q": 97003,
+				"reason": "Horde 12-21 audit (0.4.0, 2026-11-13): Chol'aruk the Ravener (Forever, level 21, from 15, 4,100 XP, no prerequisite) is offered by Gur'ak (267310) on the north-east side of the Crossroads, and Chol'aruk (267307, level 20, elite) sits in the Thorn Hill cave of the Razormane camp the route already clears for The Disruption Ends. A group quest (deliberate group, size 3), like WANTED: Bruuz: players' recordings show Gur'ak offering it to 27 people and 15 people killing Chol'aruk (18 kills, 12 of them grouped, median level 19.7); 2 died to it, at 22 and 23.",
+				"issue": "-",
+				"after": [
+					"accept",
+					903
+				]
+			},
+			{
 				"q": 6322,
 				"reason": "Horde 12-30 bracket review (0.3.6, 2026-11-10): Michael Garrett (Undead only, 210 XP) from Gordon Wendham to Michael Garrett, the Undercity bat handler (4551, 63.3,48.6), whose flight path the same stop learns. Recordings: 6 people, all handed in to Garrett.",
 				"issue": "-",
@@ -9320,6 +9627,15 @@
 				"q": 567,
 				"reason": "Catch-up in forever/horde/30-40/01-hillsbrad-foothills (#1776): Dangerous! is taken from the poster in the 22-25 guide, which kills Farmer Kalaba (567.4) with the peasants (528) and Citizen Wilkes (567.2) at the smithy (529), and leaves the clerk (567.1, the town hall with 532) and the miner (567.3, Azurelode Mine with 539) to this guide. A character who carries it but left the 22-25 guide before the smithy had no step for Kalaba or Wilkes here: the catch-up's peasants and smithy steps (`when !turnedin 529`) now list them, as the 22-25 guide does. Kolbi (Skyborne Druid 31, 0.3.6) had 567 at 2/4, with 529 neither in the log nor handed in.",
 				"issue": "#1776"
+			},
+			{
+				"q": 3762,
+				"after": [
+					"accept",
+					3518
+				],
+				"reason": "Horde 40-50 route audit (0.4.0): Un'Goro Soil (3761) lists the three Assisting Arch Druid Runetotem quests (936, 3762, 3784, the capital innkeepers) as breadcrumbs or prerequisites, and 40-50/06 took it at Hamuul with none of them in its history (#2025's unclear-breadcrumb list, 06-azshara:271). No recorded player of 47 or more has asked Hamuul yet (every recorded Hamuul window lists 3761 as not offered, all from low-level characters). Innkeeper Pala stands in Thunder Bluff, the city of the same stop: 3762 is taken and handed to Hamuul before 3761, so the step works whether the pair is a breadcrumb or a prerequisite, and the breadcrumb is out of the log before its target (#2085). 470 XP, about a minute.",
+				"issue": "#2025"
 			}
 		],
 		"skip": [
@@ -9639,6 +9955,12 @@
 				"faction": "Alliance",
 				"reason": "Vimes's Report is not offered in the game: Captain Garran Vimes in Theramore turned The Deserters (1287) in for at least 10 players in their recordings and none of them ever took Vimes's Report (no run of it at all, and 26 people who could take it were never offered it), and a second quest database marks it as unavailable. The 40-50 Alliance Theramore steps (01-stranglethorn-vale, 02-badlands) waited on its accept after the hand-in; left out.",
 				"issue": "#1984"
+			},
+			{
+				"q": 2933,
+				"faction": "Horde",
+				"reason": "Horde 40-50 route audit (0.4.0), agreed with the 50-60 slice: Venom Bottles (level 43, 3,600 XP) is taken from the bottles in the Hinterlands' troll villages at about 49 (40-50/05), after the route's only pass through Tarren Mill, where Apothecary Lydon takes it. The next Tarren Mill visit was a landing on 50-60/01's flight at about 52.4 made for this hand-in alone, at a fifth of its experience (9 levels over). Left out; 50-60/01 flies Kargath to the Undercity direct.",
+				"issue": "-"
 			}
 		],
 		"revert": [
@@ -11135,6 +11457,84 @@
 					844
 				],
 				"why": "#1077: Orcs and Trolls hand Crossroads Conscription to Sergra before taking Plainstrider Menace from her, on the one Crossroads arrival stop. The v2 write (its fixes ledger) took 844 first and handed 842 in on a separate later step, splitting the arrival stop in two"
+			},
+			{
+				"a": [
+					"turnin",
+					840
+				],
+				"b": [
+					"accept",
+					842
+				],
+				"faction": "Horde",
+				"why": "Horde 12-21 audit (0.4.0): Orcs and Trolls who did not pass Kargal Battlescar at the end of Durotar (only Warriors stop at Far Watch Post there, for Uzzek) hand him Conscript of the Horde on the Barrens' first stop at Far Watch Post, on the road from Orgrimmar to the Crossroads, and take Crossroads Conscription from him at once (842 needs 840). Saves Durotar's last walk Razor Hill -> Far Watch -> Orgrimmar (+1,160 yd against Razor Hill -> Orgrimmar) for every non-Warrior.",
+				"source": "Horde 12-21 audit 0.4.0"
+			},
+			{
+				"a": [
+					"turnin",
+					809
+				],
+				"b": [
+					"accept",
+					844
+				],
+				"faction": "Horde",
+				"why": "Horde 12-21 audit (0.4.0): Ak'Zeloth stands beside Kargal Battlescar at Far Watch Post, so Ak'Zeloth (809, from Neeru in Orgrimmar) is handed in on the Orcs' and Trolls' Far Watch stop, before the Crossroads.",
+				"source": "Horde 12-21 audit 0.4.0"
+			},
+			{
+				"a": [
+					"turnin",
+					98362
+				],
+				"b": [
+					"turnin",
+					896
+				],
+				"faction": "Horde",
+				"why": "Horde 12-21 audit (0.4.0): Druids skip the Orgrimmar trip at 20 (no Druid trainer there) and train in Thunder Bluff instead; Cure Poison's gazelles are done on the Verog pass before it and players stand at 22 there (recordings: 22.2-22.3 on that step), so Cat Form (98340-98362, 20) and Power over Poison go on the same Thunder Bluff and Moonglade trip, before the Ratchet stop it flies on to, instead of a second Crossroads -> Thunder Bluff -> Moonglade -> Crossroads trip after Counterattack! (two flights and the Elder Rise walk, ~5 min). Recordings, 0.3.7: both Druids who reached the old split flew Crossroads -> Orgrimmar for Rilli Greasygob and on to Thunder Bluff.",
+				"source": "Horde 12-21 audit 0.4.0"
+			},
+			{
+				"a": [
+					"turnin",
+					6130
+				],
+				"b": [
+					"turnin",
+					896
+				],
+				"faction": "Horde",
+				"why": "Horde 12-21 audit (0.4.0): Power over Poison goes back to Turak on the same Thunder Bluff and Moonglade trip as Cat Form, before the Ratchet stop (see the pair turnin 98362 before turnin 896).",
+				"source": "Horde 12-21 audit 0.4.0"
+			},
+			{
+				"a": [
+					"turnin",
+					1498
+				],
+				"b": [
+					"accept",
+					844
+				],
+				"faction": "Horde",
+				"why": "Horde 1-21 audit (0.4.0), with Mulgore's half: Tauren Warriors and Shamans take Veteran Uzzek, Path of Defense, and Call of Fire up to 1525 on Mulgore's walk past Far Watch Post to Orgrimmar, as Orcs and Trolls do in Durotar. In the Barrens they finish them on the Orcs' and Trolls' first loop (Uzzek on the walk from Orgrimmar, Thun'grim and the Razormane chest, the Fire Tar, Telf and Kranal) before the Crossroads quests, instead of Tauren-only trips into Durotar from the Crossroads at about 16 (~3,160 yd for Warriors against ~690; two Durotar trips for Shamans).",
+				"source": "Horde 1-21 audit 0.4.0"
+			},
+			{
+				"a": [
+					"turnin",
+					1527
+				],
+				"b": [
+					"turnin",
+					844
+				],
+				"faction": "Horde",
+				"why": "Horde 1-21 audit (0.4.0), with Mulgore's half: Tauren Warriors and Shamans take Veteran Uzzek, Path of Defense, and Call of Fire up to 1525 on Mulgore's walk past Far Watch Post to Orgrimmar, as Orcs and Trolls do in Durotar. In the Barrens they finish them on the Orcs' and Trolls' first loop (Uzzek on the walk from Orgrimmar, Thun'grim and the Razormane chest, the Fire Tar, Telf and Kranal) before the Crossroads quests, instead of Tauren-only trips into Durotar from the Crossroads at about 16 (~3,160 yd for Warriors against ~690; two Durotar trips for Shamans).",
+				"source": "Horde 1-21 audit 0.4.0"
 			},
 			{
 				"a": [
@@ -12706,6 +13106,18 @@
 				],
 				"faction": "Horde",
 				"why": "#1333 (2026-11-08): The Tear of the Moons is done in Bael Modan on the way from Camp Taurajo to the Great Lift, before the descent to Freewind Post (Message to Freewind Post's hand-in), as the pair above places it."
+			},
+			{
+				"a": [
+					"turnin",
+					857
+				],
+				"b": [
+					"turnin",
+					5881
+				],
+				"faction": "Horde",
+				"why": "Horde 21-30 audit (phase 2, R10): Calling in the Reserves (5881, Maggran at Sun Rock) is taken at the end of forever/horde/04-the-barrens' Stonetalon half and handed to Grish Longrunner at the top of the Great Lift on forever/horde/07-ashenvale's way down into Thousand Needles, after The Tear of the Moons on the same road; Message to Freewind Post (4542) is taken there from Brave Moonhorn beside him."
 			},
 			{
 				"a": [

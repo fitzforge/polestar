@@ -9,6 +9,10 @@ next forever/horde/30-40/01-hillsbrad-foothills
 # Forge's route search orders the quests of this guide and its guide writer writes the steps.
 # Fixes go into data/route-fixes.json, data/guide-fixes.json or forever-db/corrections, never
 # into this file.
+# forever/horde/04-the-barrens ends at Seereth's camp after Stonetalon: this guide opens with the walk east to the
+# Crossroads' flight master (the hearth is kept for Splintertree Post's bind), and its Great Lift step takes
+# Calling in the Reserves (5881, from Maggran at Sun Rock) to Grish Longrunner and Message to Freewind Post (4542)
+# from Brave Moonhorn, both at the top of the lift.
 # Added here: The Broodmother (96261), Hypercapacitor Gizmo (5151), The Tear of the Moons (857, a
 # level 30 quest, at 28 on the road from Camp Taurajo to the Great Lift, #1333).
 # Carried in from forever/horde/04-the-barrens' Thunder Bluff stop (or 06's for Druids), for players
@@ -36,21 +40,11 @@ next forever/horde/30-40/01-hillsbrad-foothills
 # Villainy (6561: Argent Guard Thaelrid gives it inside, a giver our data has no place for, and Bashana
 # Runetotem takes it on the Elder Rise, off this guide's Thunder Bluff stop; the run tip names it),
 # Allegiance to the Old Gods part 2 (6565, a second run) and the Warlock's Orb of Soran'ruk (1740, class guide).
-#
-# Razorfen Kraul (`when dungeon "Razorfen Kraul"`, dungeons in the route): for a character who chose it
-# and took Mebok's Blueleaf Tubers (1221) on the Ratchet stop of forever/horde/04-the-barrens, the run
-# follows the Tear of the Moons, at about 28: the kraul's entrance is just west of the road to the
-# Great Lift. Mebok takes the tubers on the Ratchet stop of forever/horde/30-40/04-dustwallow-marsh
-# (`when complete`): a flight back to Ratchet from here is over the travel budget. Willix the
-# Importer's escort (1144) starts and ends inside (the run tip names it). Left out: Going, Going,
-# Guano! (1109, level 33, Faranell in the Undercity), Elemental Aid (79360, level 33, Rau
-# Cliffrunner here), A Vengeful Fate (1102, level 34, Auld Stonespire in Thunder Bluff): 3+ levels
-# over at 28; Brutal Armor (1838, Warrior class chain); An Unholy Alliance (6522: a Small Scroll from
-# inside, for Varimathras in the Undercity).
 
 step Fly to Zoram'gar Outpost
   zone The Barrens
-  goto 63.1,37.1 "Ratchet flight master"
+  tip East along the road from Seereth's camp to the Crossroads' wind rider master, and fly to Zoram'gar Outpost. Keep your hearthstone: Splintertree Post's bind later in this guide saves more.
+  goto 51.5,30.4 "Crossroads flight master"
   fly "Zoram'gar Outpost"
   zone Ashenvale
 
@@ -98,7 +92,7 @@ step Zoram'gar Outpost
   note Je'neu offers a Blackfathom Deeps quest next; leave it unless you have a group.
   tip Back to Zoram'gar from the ruins before heading east for good.
   turnin 6563                         -- Je'neu Sancrea
-  accept 6621                         -- Karang Amakkar
+  accept 6621                         -- Karang Amakkar: a banner defence in the Foulweald, east of Mystral Lake: furbolg waves, then Chief Murgut
 
 step Je'neu Sancrea
   when dungeon "Blackfathom Deeps"
@@ -151,12 +145,6 @@ step Ashenvale Outrunners
   tip The night elf Ashenvale Outrunners (23-24) stalk the woods south and south-east of the lumber camp; they stealth, so watch for them.
   kill 12856 quest 6503 @72.5,69.5 map 1440
 
-step Sharptalon
-  when turnedin 6383
-  tip Sharptalon, a big nightsaber, prowls the same woods further east, on the way north to Splintertree. Her claw starts the next hunt quest.
-  collect 16305
-  accept 2 item 16305
-
 step Warsong lumber camp
   tip Back to Kuray'bin at the lumber camp, on the road north to Splintertree.
   turnin 6503                         -- Kuray'bin
@@ -184,7 +172,7 @@ step Splintertree Post
   vendor nearest
 
 step Felmusk satyrs
-  tip North-west of Splintertree, the Felmusk satyrs camp in the woods. Every satyr can drop horns.
+  tip North-west of Splintertree, the Felmusk satyrs camp in the woods. Every satyr can drop horns. Careful: Felmusk Rogues and Shadowstalkers move in stealth and join fights without warning.
   collect 5481 quest 6441
 
 step Shadumbra
@@ -228,7 +216,7 @@ step Sharptalon
   when turnedin 6383
   when !onquest 2
   when !turnedin 2
-  tip On the way back north-east to Splintertree: Sharptalon prowls the woods south-east of the Warsong lumber camp.
+  tip On the way back north-east to Splintertree: Sharptalon prowls the woods south-east of the Warsong lumber camp. Her claw starts the next hunt quest. Careful: Sharptalon is a level 31 nightsaber and hits hard: pull her alone, away from the Outrunners.
   collect 16305 @75.0,70.1
   accept 2 item 16305
 
@@ -285,7 +273,7 @@ step The Earthen Ring
 
 step Gloomrise: kill these as you meet them
   zone Mulgore
-  tip North of the camp, spiders overrun the burial ground at Gloomrise. Use Mazu'kon's Toxin Extractor on the Gnawed Corpses; the Spinners drop the Crystalline Silk. Broodmother Valraxx sits at the north end: her Bloody Parchment starts A Darker Truth.
+  tip North of the camp, spiders overrun the burial ground at Gloomrise. Use Mazu'kon's Toxin Extractor on the Gnawed Corpses; the Spinners drop the Crystalline Silk. Broodmother Valraxx (30, elite) sits at the north end: leave her unless you do The Broodmother with a group; her Bloody Parchment starts A Darker Truth.
   collect 273181 quest 96260.1        -- Crystalline Silk, from Gloomrise Spinners
   kill 264083 quest 96259.2
   kill 264079 quest 96259.1
@@ -316,19 +304,21 @@ step The Earthen Ring
   turnin 96294 optional
 
 step Class trainer
-  only Paladin,Priest,Shaman,Mage,Druid
+  only Warrior,Hunter,Paladin,Priest,Shaman,Mage,Druid
   zone Thunder Bluff
-  train class only Paladin,Priest,Shaman,Mage,Druid
+  train class only Warrior,Hunter,Paladin,Priest,Shaman,Mage,Druid
 
 
 # ---------------------------------------------------------------- Gloomrise, Mulgore
 
 step Thunder Bluff
   zone Thunder Bluff
+  when onquest 1195,97538
   goto 47.0,49.8 "Thunder Bluff's central rise"
 
 step Thunder Bluff
   zone Thunder Bluff
+  when onquest 1195,97538
   tip Into Thunder Bluff by a lift: Tal, the wind rider master, stands on the central rise. Take his flight path if you don't know it yet.
   getfp "Thunder Bluff" npc 2995      -- Tal
   kill 3057 quest 93739.3 "Talk to Cairne Bloodhoof" only Skyborne optional -- Speak with Cairne Bloodhoof, in Thunder Bluff: Exploring the Horde
@@ -374,18 +364,11 @@ step Tear of the Moons
   collect 5038 quest 857 @49.1,84.3   -- General Twinbraid's Strongbox; below ground
   turnin 857
 
-step Razorfen Kraul
-  when dungeon "Razorfen Kraul"
-  when onquest 1221
-  zone The Barrens
-  tip Razorfen Kraul is a dungeon for a group of five, about levels 25 to 33, and a full run takes about an hour. Its entrance is in the thorny hills just west of the road south to the Great Lift.
-  tip Inside: the Blueleaf Tubers are under the vines on the ground: stand on a vine, use the Crate with Holes for a Snufflenose Gopher, then the Command Stick on the gopher, and it digs a tuber up. Willix the Importer, a prisoner inside, offers an escort out of the kraul: it starts and ends with him. The bosses: Roogug, Aggem Thorncurse, Death Speaker Jargba, Overlord Ramtusk, Agathelos the Raging and Charlga Razorflank.
-  enter "Razorfen Kraul" @42.9,90.2
-  complete 1221 @42.9,90.2            -- Blueleaf Tubers: under the vines, inside
-
 step The Great Lift
   zone Thousand Needles
-  goto 31.9,23.9 "The Great Lift, down into Thousand Needles"
+  tip Grish Longrunner and Brave Moonhorn wait at the top of the Great Lift: Maggran's letter is for Grish, and Moonhorn's message goes down to Freewind Post with you.
+  turnin 5881                         -- Grish Longrunner
+  accept 4542 npc 10079               -- Brave Moonhorn, at the top of the lift: Cliffwatcher Longhorn at Freewind Post
 
 step Freewind Post's lift
   zone Thousand Needles
@@ -415,7 +398,7 @@ step Alien Egg
   collect 12467 quest 4821 @37.6,56.1 map 1441
 
 step Galak centaurs
-  tip The Galak camps fill the canyon north of Freewind; Scouts, Wranglers and Windchasers share every camp. A lone Galak Messenger walks a long path between the camps: if you meet him, kill him, his note starts a quest for Whitereach Post. Don't wait for him.
+  tip The Galak camps fill the canyon north of Freewind; Scouts, Wranglers and Windchasers share every camp. A lone Galak Messenger walks a long path between the camps: if you meet him, kill him, his note starts a quest for Whitereach Post. Don't wait for him. Careful: storm elementals roam the canyon floor around the camps: Stormheart (30), the Ravaging Tempests (40) and Ailgrha Splittusk (38), all elite. Keep clear of them.
   kill 4094 quest 4841.1
   kill 4093 quest 4841.2
   kill 4096 quest 4841.3
@@ -458,7 +441,7 @@ step Darkcloud Pinnacle
 
 step Level 28.9
   when level<28.9
-  tip Short of 28.9? The Grimtotem around these camps (25-28) are the right level: kill a few more before the climb to Lakota. Past it, this step skips itself. Or, with a group, run the Blackfathom Deeps dungeon or the Razorfen Kraul dungeon instead.
+  tip Short of 28.9? The Grimtotem around these camps (25-28) are the right level: kill a few more before the climb to Lakota. Past it, this step skips itself. Or, with a group, run the Blackfathom Deeps dungeon instead.
   goto 35.0,31.5 map 1441 "Grimtotem camps below Darkcloud Pinnacle"
   level 28.9 grind 10759              -- grind on Grimtotem Stomper
 
@@ -511,7 +494,7 @@ step Wizlo Bearingshiner
 step Level 29.49
   when !group 5151
   when level<29.49
-  tip If you skipped Hypercapacitor Gizmo and are still short of 29.49, kill harpies here first: Roguefeather Den is your next stop anyway. Past it, this step skips itself. Or, with a group, run the Blackfathom Deeps dungeon or the Scarlet Monastery dungeon (Graveyard) instead.
+  tip If you skipped Hypercapacitor Gizmo and are still short of 29.49, kill harpies here first: Roguefeather Den is your next stop anyway. Past it, this step skips itself. Or, with a group, run the Blackfathom Deeps dungeon instead.
   goto 27.0,51.9 map 1441 "Screeching Roguefeather"
   level 29.49 grind 4101               -- grind on Screeching Roguefeather
 

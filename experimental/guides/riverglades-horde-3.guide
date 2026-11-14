@@ -89,7 +89,7 @@ step Wharfmaster Whizzbuzz
   turnin 95120
 
 step The pirates' second wave
-  tip North along the coast from the port: the Eastsea raiders and bombardiers have dug in on the slopes west of the buccaneers' camp, among their powder kegs. They are a couple of levels above you: pull them one at a time. Watch for Gul'gash on these cliffs.
+  tip North along the coast from the port: the Eastsea raiders and bombardiers have dug in on the slopes west of the buccaneers' camp, among their powder kegs. They are level 44-45, a few levels above you here: pull them one at a time. Watch for Gul'gash on these cliffs.
   kill 257915 x8 quest 95122.1          -- Eastsea Raider
   kill 257916 x8 quest 95122.2 @79.1,33.8  -- Eastsea Bombardier
   collect 268346 x5 quest 95123.1       -- Eastsea Powder Keg

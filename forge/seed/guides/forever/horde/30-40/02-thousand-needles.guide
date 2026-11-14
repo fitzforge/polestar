@@ -26,7 +26,7 @@ next forever/horde/30-40/03-stranglethorn-vale
 # Shaman training) -> fly to Freewind Post -> Moktar Krin -> the Mirage
 # Raceway -> the southern flats and the silithid dig -> Moktar Krin -> basilisks, tortoises and
 # vultures -> the
-# raceway -> Freewind Post (Family Tree) -> fly to Sun Rock Retreat -> ride into
+# raceway -> Gadgetzan (flight path, fly back) -> Freewind Post (Family Tree) -> fly to Sun Rock Retreat -> ride into
 # Desolace: Scrabblescrew's Camp, Ghost Walker Post -> the Kodo Graveyard -> Shadowprey Village
 # (flight path, bind) -> Ethel Rethor -> Thunder Axe Fortress -> Ethel Rethor -> Rackmore's Log,
 # the clam beds, Sar'theris Strand and the Book of the Ancients (one walk north) -> Azore -> Sargeron
@@ -58,8 +58,7 @@ next forever/horde/30-40/03-stranglethorn-vale
 #
 # Carried on: Parts of the Swarm (1148) for Korran at the Crossroads, Load Lightening's Goblin
 # Sponsorship (1178) for Gazlowe and Kravel's parts order (Wharfmaster Dizzywig, 1111) for the
-# docks in Ratchet, and Centaur Bounty (1366) for the second Desolace
-# visit (forever/horde/30-40/04-dustwallow-marsh); Alliance Relations (1436) and Hunting in
+# docks in Ratchet; Alliance Relations (1436) and Hunting in
 # Stranglethorn (5763) for the next guide.
 
 # ---------------------------------------------------------------- Orgrimmar
@@ -205,13 +204,23 @@ step Mirage Raceway
 step Level 32.5
   when level<32.5
   zone Thousand Needles
-  tip Desolace's quests are 33-38. Still below 32.5 after the raceway's hand-ins? Keep killing the Sparkleshell Snappers on the flats just north of the raceway until level 32.5. Or, with a group, run the Scarlet Monastery dungeon (Graveyard or Library) instead.
+  tip Desolace's quests are 33-38. Still below 32.5 after the raceway's hand-ins? Keep killing the Sparkleshell Snappers on the flats just north of the raceway until level 32.5. Or, with a group, run the Razorfen Kraul dungeon instead.
   goto 77.5,70.5 map 1441 "Sparkleshell Snappers"
   level 32.5 grind 4143               -- grind on Sparkleshell Snapper
 
+step Gadgetzan
+  zone Tanaris
+  tip South from the raceway over the Tanaris border to Gadgetzan, the walled goblin town: learn its flight path and fly back to Freewind Post from there, which is quicker than the walk west across the flats, and the next guides fly straight to Gadgetzan.
+  getfp "Gadgetzan"
+
+step Fly to Freewind Post
+  zone Tanaris
+  fly "Freewind Post"
+  zone Thousand Needles
+
 step Freewind Post
   zone Thousand Needles
-  tip West back to Freewind Post. Cliffwatcher Longhorn stands in the middle of the post, on the way to the flight master.
+  tip Cliffwatcher Longhorn stands in the middle of the post, on the way to the flight master.
   accept 5361                         -- Cliffwatcher Longhorn: for Nataka Longhorn in Desolace, next
   vendor nearest
 
@@ -256,7 +265,7 @@ step Scrabblescrew's Camp
 step Level 33
   when level<33
   zone Desolace
-  tip Shadowprey's Hand of Iruxos and the coast's naga want 33. Below that? The Scorpashi Lashers on the slopes north of Smeed's camp are on your way west: kill them until level 33. Or, with a group, run the Scarlet Monastery dungeon (Library) instead.
+  tip Shadowprey's Hand of Iruxos and the coast's naga want 33. Below that? The Scorpashi Lashers on the slopes north of Smeed's camp are on your way west: kill them until level 33. Or, with a group, run the Razorfen Kraul dungeon instead.
   goto 59.9,54.6 map 1443 "Scorpashi Lashers"
   level 33 grind 4697                 -- grind on Scorpashi Lasher
 
@@ -360,7 +369,7 @@ step Ghost Walker Post
   accept 1436                         -- Takata Steelblade: for Keldran in Orgrimmar, next guide
   note Takata's next errand sends you after a demon lord with an elite guard: skip it.
   turnin 1365                         -- Felgur Twocuts
-  accept 1366                         -- for the second Desolace visit, in forever/horde/30-40/04-dustwallow-marsh
+  note Felgur now offers Centaur Bounty: the second Desolace visit, at 38, takes it on its way to the Valley of Spears.
 
 # ---------------------------------------------------------------- Shadowprey
 

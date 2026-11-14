@@ -6850,6 +6850,72 @@
 			"evidence": "route level 21.7; Foreman Rigger 24-24; recordings (2026-11-11): done by 40 people at 18-28 (median 23), 3 people died within 60 yd (median level 22), 9 abandoned"
 		},
 		{
+			"key": "forever/horde/02-the-barrens.guide|kill 871.3|over",
+			"guide": "forever/horde/02-the-barrens.guide",
+			"goal": "kill 871.3",
+			"kind": "over",
+			"title": "Razormane camp: Thork's quilboar",
+			"level": 14.9,
+			"mobs": [
+				"Razormane Berserker 18-19 x2"
+			],
+			"reason": "warned at the step: its tip names the Razormane Flesheaters and Berserkers (18-19, elite) and says to pull the quilboar away from them; the Hunters Thork asks for stand in the camp's middle, not in the elites' corner",
+			"evidence": "route level 14.9; Razormane Berserker 18-19 x2; recordings (2026-11-13): done by 67 people (median 13.88), 2 people died within 60 yd, 6 abandoned"
+		},
+		{
+			"key": "forever/horde/02-the-barrens.guide|collect 844.1|elite",
+			"guide": "forever/horde/02-the-barrens.guide",
+			"goal": "collect 844.1",
+			"kind": "elite",
+			"title": "Plainstrider Beaks as you go",
+			"level": 16.4,
+			"mobs": [
+				"Razormane Flesheater 18-19"
+			],
+			"reason": "a background collection from plainstriders anywhere in the zone: the camp's Flesheater is only near the goal's map point, the step never sends the player into the camp, and no one died doing it",
+			"evidence": "route level 16.4; Razormane Flesheater 18-19; recordings (2026-11-13): done by 71 people (median 13.83), 0 people died within 60 yd, 6 abandoned"
+		},
+		{
+			"key": "forever/horde/02-the-barrens.guide|collect 872.3|elite",
+			"guide": "forever/horde/02-the-barrens.guide",
+			"goal": "collect 872.3",
+			"kind": "elite",
+			"title": "The Disruption Ends",
+			"level": 16.9,
+			"mobs": [
+				"Razormane Berserker 18-19",
+				"Chol'aruk 20-20 x2"
+			],
+			"reason": "warned at the step: its tip names the Flesheaters and Berserkers (18-19, elite) by the supply crates and Chol'aruk (20, elite) in the cave beside them, says to pull Kreenig and the quilboar away from them and to leave the cave alone without a group (#1980, 0.4.0 audit)",
+			"evidence": "route level 16.9; Razormane Berserker 18-19, Chol'aruk 20-20 x2; recordings (2026-11-13): done by 53 people (median 16.83), 8 people died within 60 yd, 9 abandoned"
+		},
+		{
+			"key": "forever/horde/02-the-barrens.guide|collect 97003.1|pack",
+			"guide": "forever/horde/02-the-barrens.guide",
+			"goal": "collect 97003.1",
+			"kind": "pack",
+			"title": "Chol'aruk",
+			"level": 16.9,
+			"mobs": [
+				"9 spawns 18+"
+			],
+			"reason": "a group quest: the step is `when group 97003` (route-fixes deliberate group, size 3), so a solo player never sees it, and its tip says the elites stand on the way to Chol'aruk",
+			"evidence": "route level 16.9; 9 spawns 18+; recordings (2026-11-13): done by 13 people (median 20.78), 4 people died within 60 yd, 6 abandoned"
+		},
+		{
+			"key": "forever/horde/02-the-barrens.guide|collect 1824.1|rare",
+			"guide": "forever/horde/02-the-barrens.guide",
+			"goal": "collect 1824.1",
+			"kind": "rare",
+			"title": "Twitching Antennae",
+			"level": 21.2,
+			"mobs": [
+				"Silithid Harvester 24-24"
+			],
+			"reason": "warned at the step: its tip names the Silithid Harvester (24, rare) that wanders the mounds and says to leave it (0.4.0 audit); Warriors only",
+			"evidence": "route level 21.2; Silithid Harvester 24-24; recordings (2026-11-13): done by 6 people (median 22), 1 people died within 60 yd, 4 abandoned"
+		},
+		{
 			"key": "forever/horde/03-silverpine-forest.guide|collect 97326.1|over",
 			"guide": "forever/horde/03-silverpine-forest.guide",
 			"goal": "collect 97326.1",
@@ -6915,56 +6981,43 @@
 			"evidence": "route level 14.9; Dalaran Conjuror 17-18; recordings (2026-11-11): done by 22 people at 15-23 (median 18), 0 people died within 60 yd, 5 abandoned"
 		},
 		{
-			"key": "forever/horde/04-the-barrens.guide|collect 6301.1|rare",
-			"guide": "forever/horde/04-the-barrens.guide",
-			"goal": "collect 6301.1",
-			"kind": "rare",
-			"title": "Gaea Seeds",
-			"level": 25,
+			"key": "forever/horde/03-silverpine-forest.guide|complete 97905|over",
+			"guide": "forever/horde/03-silverpine-forest.guide",
+			"goal": "complete 97905",
+			"kind": "over",
+			"title": "Jandi",
+			"level": 13.1,
 			"mobs": [
-				"Sorrow Wing 27-27"
+				"Nalrekk Fizzlewrench 55-55 x2"
 			],
-			"reason": "players do it (33 people, median 25); the 1 who died there fought other mobs (Deepmoss Venomspitter), not Sorrow Wing",
-			"evidence": "route level 25; Sorrow Wing 27-27; recordings (2026-11-11): done by 33 people at 21-30 (median 25), 1 people died within 60 yd (median level 17), 5 abandoned"
+			"reason": "Nalrekk Fizzlewrench (55) is an Orgrimmar goblin of the city's neutral goblin faction, not a threat in the Drag; the step is the Camping 101 hand-in to Jandi, shown only once the profession is at 20 (#1952)",
+			"evidence": "route level 13.1; Nalrekk Fizzlewrench 55-55 x2; recordings (2026-11-13): done by 0 people, 0 people died within 60 yd, 3 abandoned"
 		},
 		{
-			"key": "forever/horde/04-the-barrens.guide|kill 1087.2|rare",
-			"guide": "forever/horde/04-the-barrens.guide",
-			"goal": "kill 1087.2",
-			"kind": "rare",
-			"title": "Stonetalon Mountains: kill these as you meet them",
-			"level": 25,
+			"key": "forever/horde/03-silverpine-forest.guide|complete 97899|over",
+			"guide": "forever/horde/03-silverpine-forest.guide",
+			"goal": "complete 97899",
+			"kind": "over",
+			"title": "Whuut",
+			"level": 13.2,
 			"mobs": [
-				"Sentinel Amarassan 27-27"
+				"Nalrekk Fizzlewrench 55-55 x2"
 			],
-			"reason": "players do it (30 people, median 25); the 1 who died there fought other mobs (Cenarion Botanist), not Sentinel Amarassan",
-			"evidence": "route level 25; Sentinel Amarassan 27-27; recordings (2026-11-11): done by 30 people at 22-28 (median 25), 1 people died within 60 yd (median level 25), 2 abandoned"
+			"reason": "Nalrekk Fizzlewrench (55) is an Orgrimmar goblin of the city's neutral goblin faction, not a threat in the Drag; the step is the Camping 101 hand-in to Whuut, shown only once the profession is at 20 (#1952)",
+			"evidence": "route level 13.2; Nalrekk Fizzlewrench 55-55 x2; recordings (2026-11-13): done by 0 people, 0 people died within 60 yd, 1 abandoned"
 		},
 		{
-			"key": "forever/horde/04-the-barrens.guide|kill 1087.1|rare",
-			"guide": "forever/horde/04-the-barrens.guide",
-			"goal": "kill 1087.1",
-			"kind": "rare",
-			"title": "Stonetalon Mountains: kill these as you meet them",
-			"level": 25,
+			"key": "forever/horde/03-silverpine-forest.guide|collect 479.1|over",
+			"guide": "forever/horde/03-silverpine-forest.guide",
+			"goal": "collect 479.1",
+			"kind": "over",
+			"title": "Ambermill",
+			"level": 14.8,
 			"mobs": [
-				"Sentinel Amarassan 27-27"
+				"High Order Mage 30-30 x2"
 			],
-			"reason": "players do it (30 people, median 25); the 2 who died there fought other mobs (Cenarion Botanist), not Sentinel Amarassan",
-			"evidence": "route level 25; Sentinel Amarassan 27-27; recordings (2026-11-11): done by 30 people at 22-28 (median 25), 2 people died within 60 yd (median level 24), 2 abandoned"
-		},
-		{
-			"key": "forever/horde/04-the-barrens.guide|kill 1087.3|rare",
-			"guide": "forever/horde/04-the-barrens.guide",
-			"goal": "kill 1087.3",
-			"kind": "rare",
-			"title": "Stonetalon Mountains: kill these as you meet them",
-			"level": 25,
-			"mobs": [
-				"Sentinel Amarassan 27-27"
-			],
-			"reason": "a kill-as-you-meet-them step: the player picks which mobs to fight",
-			"evidence": "route level 25; Sentinel Amarassan 27-27; recordings (2026-11-11): done by 30 people at 22-28 (median 25), 0 people died within 60 yd, 2 abandoned"
+			"reason": "the two High Order Mages (30) stand in Alterac's Dalaran ruins, 520 yd or more from Ambermill, only inside the gate's radius; Ambermill's own mobs are the Dalaran Mages (15), Serpents (15) and Protectors (14), which the step's tip names (0.4.0 audit), and no one died to a High Order Mage there",
+			"evidence": "route level 14.8; High Order Mage 30-30 x2; recordings (2026-11-13): done by 40 people (median 18.1), 0 people died within 60 yd, 9 abandoned"
 		},
 		{
 			"key": "forever/horde/04-the-barrens.guide|collect 86576.1|rare",
@@ -7027,13 +7080,13 @@
 			"goal": "kill 98093.1",
 			"kind": "elite",
 			"title": "Field to Clear",
-			"level": 26.1,
+			"level": 24.9,
 			"mobs": [
 				"Qiraji Lieutenant 28-28",
 				"Qiraji Lieutenant Jo-rel 28-28"
 			],
-			"reason": "players do it (29 people, median 25); the 1 who died there fought other mobs (Razormane Pathfinder), not Qiraji Lieutenant, Qiraji Lieutenant Jo-rel",
-			"evidence": "route level 26.1; Qiraji Lieutenant 28-28, Qiraji Lieutenant Jo-rel 28-28; recordings (2026-11-11): done by 29 people at 21-28 (median 25), 1 people died within 60 yd (median level 22), 1 abandoned"
+			"reason": "warned at the step: its tip names the Qiraji Lieutenants",
+			"evidence": "route level 24.9 (the southern Barrens first since the Horde 21-30 audit); Qiraji Lieutenant 28-28, Qiraji Lieutenant Jo-rel 28-28; recordings (2026-11-13): done by 29 people at 21-28 (median 25), 1 people died within 60 yd (median level 22, to a Razormane Pathfinder), 1 abandoned"
 		},
 		{
 			"key": "forever/horde/04-the-barrens.guide|collect 846.1|over",
@@ -7041,12 +7094,12 @@
 			"goal": "collect 846.1",
 			"kind": "over",
 			"title": "Bael'dun fortress",
-			"level": 26.3,
+			"level": 25.2,
 			"mobs": [
 				"General Twinbraid 30-30 x4"
 			],
-			"reason": "players do it (27 people, median 26); the 4 who died there fought other mobs (Bael'dun Rifleman), not General Twinbraid",
-			"evidence": "route level 26.3; General Twinbraid 30-30 x4; recordings (2026-11-11): done by 27 people at 21-28 (median 26), 4 people died within 60 yd (median level 23), 2 abandoned"
+			"reason": "warned at the step: its tip names General Twinbraid",
+			"evidence": "route level 25.2 (the southern Barrens first since the Horde 21-30 audit); General Twinbraid 30-30 x4; recordings (2026-11-13): done by 27 people at 21-28 (median 26), 4 people died within 60 yd (median level 23, to Bael'dun Riflemen), 2 abandoned"
 		},
 		{
 			"key": "forever/horde/04-the-barrens.guide|collect 846.2|over",
@@ -7054,12 +7107,12 @@
 			"goal": "collect 846.2",
 			"kind": "over",
 			"title": "Bael'dun fortress",
-			"level": 26.3,
+			"level": 25.2,
 			"mobs": [
 				"General Twinbraid 30-30 x4"
 			],
-			"reason": "players do it (27 people, median 26); the 4 who died there fought other mobs (Bael'dun Rifleman), not General Twinbraid",
-			"evidence": "route level 26.3; General Twinbraid 30-30 x4; recordings (2026-11-11): done by 27 people at 21-28 (median 26), 4 people died within 60 yd (median level 23), 2 abandoned"
+			"reason": "warned at the step: its tip names General Twinbraid",
+			"evidence": "route level 25.2 (the southern Barrens first since the Horde 21-30 audit); General Twinbraid 30-30 x4; recordings (2026-11-13): done by 27 people at 21-28 (median 26), 4 people died within 60 yd (median level 23, to Bael'dun Riflemen), 2 abandoned"
 		},
 		{
 			"key": "forever/horde/04-the-barrens.guide|collect 846.3|over",
@@ -7067,12 +7120,12 @@
 			"goal": "collect 846.3",
 			"kind": "over",
 			"title": "Bael'dun fortress",
-			"level": 26.3,
+			"level": 25.2,
 			"mobs": [
 				"General Twinbraid 30-30 x4"
 			],
-			"reason": "players do it (27 people, median 26); the 4 who died there fought other mobs (Bael'dun Rifleman), not General Twinbraid",
-			"evidence": "route level 26.3; General Twinbraid 30-30 x4; recordings (2026-11-11): done by 27 people at 21-28 (median 26), 4 people died within 60 yd (median level 23), 2 abandoned"
+			"reason": "warned at the step: its tip names General Twinbraid",
+			"evidence": "route level 25.2 (the southern Barrens first since the Horde 21-30 audit); General Twinbraid 30-30 x4; recordings (2026-11-13): done by 27 people at 21-28 (median 26), 4 people died within 60 yd (median level 23, to Bael'dun Riflemen), 2 abandoned"
 		},
 		{
 			"key": "forever/horde/05-stonetalon-mountains.guide|kill 216.1|rare",
@@ -7099,6 +7152,32 @@
 			],
 			"reason": "a rare near the goal with no recorded deaths at the spot",
 			"evidence": "route level 22.2; Rorgish Jowl 25-25; recordings (2026-11-11): done by 19 people at 21-29 (median 27), 0 people died within 60 yd, 12 abandoned"
+		},
+		{
+			"key": "forever/horde/05-stonetalon-mountains.guide|kill 95981.2|over",
+			"guide": "forever/horde/05-stonetalon-mountains.guide",
+			"goal": "kill 95981.2",
+			"kind": "over",
+			"title": "Silverpine Forest: kill these as you meet them",
+			"level": 22.7,
+			"mobs": [
+				"High Order Mage 30-30 x3"
+			],
+			"reason": "warned at the step: its tip names High Order Mage",
+			"evidence": "route level 22.7; High Order Mage 30-30 x3; recordings (2026-11-13): done by 29 people (median 21.77), 1 died within 60 yd, 9 abandoned. Forever's spawn data puts High Order Mages (30) along the Ambermill road among the Dalaran Watchers and Wizards; none of the named killers of the 30 people who died on that stretch (recordings, all versions) is a High Order Mage (Dalaran Mages, Wizards, Serpents, Conjurors 14-20); the step's tip now names them"
+		},
+		{
+			"key": "forever/horde/05-stonetalon-mountains.guide|kill 95981.1|over",
+			"guide": "forever/horde/05-stonetalon-mountains.guide",
+			"goal": "kill 95981.1",
+			"kind": "over",
+			"title": "Silverpine Forest: kill these as you meet them",
+			"level": 22.7,
+			"mobs": [
+				"High Order Mage 30-30 x3"
+			],
+			"reason": "warned at the step: its tip names High Order Mage",
+			"evidence": "route level 22.7; High Order Mage 30-30 x3; recordings (2026-11-13): done by 29 people (median 20.78), 2 died within 60 yd, 9 abandoned. Forever's spawn data puts High Order Mages (30) along the Ambermill road among the Dalaran Watchers and Wizards; none of the named killers of the 30 people who died on that stretch (recordings, all versions) is a High Order Mage (Dalaran Mages, Wizards, Serpents, Conjurors 14-20); the step's tip now names them"
 		},
 		{
 			"key": "forever/horde/06-hillsbrad-foothills.guide|collect 501.1|mixed",
@@ -7271,6 +7350,45 @@
 			"evidence": "route level 23.9; 18 spawns 25+; recordings (2026-11-11): done by 27 people at 23-33 (median 26), 8 people died within 60 yd (median level 25), 2 abandoned"
 		},
 		{
+			"key": "forever/horde/06-hillsbrad-foothills.guide|collect 1536.1|over",
+			"guide": "forever/horde/06-hillsbrad-foothills.guide",
+			"goal": "collect 1536.1",
+			"kind": "over",
+			"title": "Tarren Mill",
+			"level": 22.9,
+			"mobs": [
+				"Southshore Defender 55-55 x3"
+			],
+			"reason": "players do it at the spot with no deaths: the Spring Well is beside Tarren Mill's inn",
+			"evidence": "route level 22.9; Southshore Defender 55-55 x3 (spawn data within 30 yd of Tarren Mill's Spring Well, object 107045); recordings (2026-11-13): done by 12 people (median 24.3), 0 died within 60 yd, 0 abandoned; no Southshore Defender among the band's recorded killers; the census met a Southshore Defender at Tarren Mill only twice (2 of 221 people whose census ran by its spawns): an occasional spawn"
+		},
+		{
+			"key": "forever/horde/06-hillsbrad-foothills.guide|kill 527.1|over",
+			"guide": "forever/horde/06-hillsbrad-foothills.guide",
+			"goal": "kill 527.1",
+			"kind": "over",
+			"title": "Hillsbrad Fields",
+			"level": 22.9,
+			"mobs": [
+				"Kirin Tor Guard 55-55 x2"
+			],
+			"reason": "warned at the step: its tip names Kirin Tor Guard",
+			"evidence": "route level 22.9; Kirin Tor Guard 55-55 x2; recordings (2026-11-13): done by 45 people (median 25.34), 4 died within 60 yd, 5 abandoned. Forever's spawn data puts Kirin Tor Guards (55) at the fields' northern edge; players' recordings: 26 Horde people met them as hostile there, north of the farms; the people who died in the fields were killed by farmers, farmhands and a bear where the killer is known (the 8 recorded deaths to Kirin Tor Guards were at the Dalaran crater)"
+		},
+		{
+			"key": "forever/horde/06-hillsbrad-foothills.guide|kill 527.3|over",
+			"guide": "forever/horde/06-hillsbrad-foothills.guide",
+			"goal": "kill 527.3",
+			"kind": "over",
+			"title": "Hillsbrad Fields",
+			"level": 22.9,
+			"mobs": [
+				"Kirin Tor Guard 55-55 x2"
+			],
+			"reason": "warned at the step: its tip names Kirin Tor Guard",
+			"evidence": "route level 22.9; Kirin Tor Guard 55-55 x2; recordings (2026-11-13): done by 43 people (median 25.46), 6 died within 60 yd, 5 abandoned. Forever's spawn data puts Kirin Tor Guards (55) at the fields' northern edge; players' recordings: 26 Horde people met them as hostile there, north of the farms; the people who died in the fields were killed by farmers, farmhands and a bear where the killer is known (the 8 recorded deaths to Kirin Tor Guards were at the Dalaran crater)"
+		},
+		{
 			"key": "forever/horde/07-ashenvale.guide|kill 96259.1|elite",
 			"guide": "forever/horde/07-ashenvale.guide",
 			"goal": "kill 96259.1",
@@ -7347,6 +7465,87 @@
 			],
 			"reason": "players do it (27 people, median 30); the 4 who died there fought other mobs (Screeching Roguefeather, Grenka Bloodscreech), not ",
 			"evidence": "route level 29; 6 spawns 31+; recordings (2026-11-11): done by 27 people at 28-35 (median 30), 4 people died within 60 yd (median level 29), 0 abandoned"
+		},
+		{
+			"key": "forever/horde/07-ashenvale.guide|collect 96260.1|elite",
+			"guide": "forever/horde/07-ashenvale.guide",
+			"goal": "collect 96260.1",
+			"kind": "elite",
+			"title": "Gloomrise: kill these as you meet them",
+			"level": 27.5,
+			"mobs": [
+				"Broodmother Valraxx 30-30 x4"
+			],
+			"reason": "a kill-as-you-meet-them step: the player picks which mobs to fight; the step's tip names Broodmother Valraxx (elite) at Gloomrise's north end",
+			"evidence": "route level 27.5; Broodmother Valraxx 30-30; recordings (2026-11-13): done by 44 people (median 28.67), 1 died within 60 yd, 0 abandoned"
+		},
+		{
+			"key": "forever/horde/07-ashenvale.guide|kill 96259.2|elite",
+			"guide": "forever/horde/07-ashenvale.guide",
+			"goal": "kill 96259.2",
+			"kind": "elite",
+			"title": "Gloomrise: kill these as you meet them",
+			"level": 27.5,
+			"mobs": [
+				"Broodmother Valraxx 30-30 x2"
+			],
+			"reason": "a kill-as-you-meet-them step: the player picks which mobs to fight; the step's tip names Broodmother Valraxx (elite) at Gloomrise's north end",
+			"evidence": "route level 27.5; Broodmother Valraxx 30-30; recordings (2026-11-13): done by 44 people (median 28.61), 1 died within 60 yd, 2 abandoned"
+		},
+		{
+			"key": "forever/horde/07-ashenvale.guide|kill 4841.1|elite",
+			"guide": "forever/horde/07-ashenvale.guide",
+			"goal": "kill 4841.1",
+			"kind": "elite",
+			"title": "Galak centaurs",
+			"level": 28,
+			"mobs": [
+				"Stormheart 30-30"
+			],
+			"reason": "warned at the step: its tip names Stormheart, Ravaging Tempest and Ailgrha Splittusk",
+			"evidence": "route level 28; Stormheart 30-30; recordings (2026-11-13): done by 44 people (median 29.3), 1 died within 60 yd, 1 abandoned. the storm elementals (Stormheart 30, Ravaging Tempest 40, Ailgrha Splittusk 38, all elite) roam the canyon floor around the Galak camps; the 13 people who died there (recordings) were killed by Grimtotem and Galak where the killer is known, none by these; the step's tip now names them"
+		},
+		{
+			"key": "forever/horde/07-ashenvale.guide|kill 4841.2|over",
+			"guide": "forever/horde/07-ashenvale.guide",
+			"goal": "kill 4841.2",
+			"kind": "over",
+			"title": "Galak centaurs",
+			"level": 28,
+			"mobs": [
+				"Ravaging Tempest 40-40 x2"
+			],
+			"reason": "warned at the step: its tip names Stormheart, Ravaging Tempest and Ailgrha Splittusk",
+			"evidence": "route level 28; Ravaging Tempest 40-40 x2; recordings (2026-11-13): done by 44 people (median 29.3), 1 died within 60 yd, 1 abandoned. the storm elementals (Stormheart 30, Ravaging Tempest 40, Ailgrha Splittusk 38, all elite) roam the canyon floor around the Galak camps; the 13 people who died there (recordings) were killed by Grimtotem and Galak where the killer is known, none by these; the step's tip now names them"
+		},
+		{
+			"key": "forever/horde/07-ashenvale.guide|kill 4841.2|elite",
+			"guide": "forever/horde/07-ashenvale.guide",
+			"goal": "kill 4841.2",
+			"kind": "elite",
+			"title": "Galak centaurs",
+			"level": 28,
+			"mobs": [
+				"Stormheart 30-30",
+				"Ravaging Tempest 40-40 x2"
+			],
+			"reason": "warned at the step: its tip names Stormheart, Ravaging Tempest and Ailgrha Splittusk",
+			"evidence": "route level 28; Stormheart 30-30, Ravaging Tempest 40-40 x2; recordings (2026-11-13): done by 44 people (median 29.3), 1 died within 60 yd, 1 abandoned. the storm elementals (Stormheart 30, Ravaging Tempest 40, Ailgrha Splittusk 38, all elite) roam the canyon floor around the Galak camps; the 13 people who died there (recordings) were killed by Grimtotem and Galak where the killer is known, none by these; the step's tip now names them"
+		},
+		{
+			"key": "forever/horde/07-ashenvale.guide|kill 4841.3|elite",
+			"guide": "forever/horde/07-ashenvale.guide",
+			"goal": "kill 4841.3",
+			"kind": "elite",
+			"title": "Galak centaurs",
+			"level": 28,
+			"mobs": [
+				"Stormheart 30-30",
+				"Ravaging Tempest 40-40",
+				"Ailgrha Splittusk 38-38"
+			],
+			"reason": "warned at the step: its tip names Stormheart, Ravaging Tempest and Ailgrha Splittusk",
+			"evidence": "route level 28; Stormheart 30-30, Ravaging Tempest 40-40, Ailgrha Splittusk 38-38; recordings (2026-11-13): done by 44 people (median 29.3), 1 died within 60 yd, 1 abandoned. the storm elementals (Stormheart 30, Ravaging Tempest 40, Ailgrha Splittusk 38, all elite) roam the canyon floor around the Galak camps; the 13 people who died there (recordings) were killed by Grimtotem and Galak where the killer is known, none by these; the step's tip now names them"
 		},
 		{
 			"key": "forever/horde/30-40/01-hillsbrad-foothills.guide|collect 533.1|over",
@@ -7776,6 +7975,84 @@
 			],
 			"reason": "players do it at the route's level: 12 people at median 32, 0 died there",
 			"evidence": "route level 31.1; 17 spawns 33+; recordings (2026-11-11): done by 12 people at 31-35 (median 32), 0 people died within 60 yd, 1 abandoned"
+		},
+		{
+			"key": "forever/horde/30-40/01-hillsbrad-foothills.guide|kill 527.1|over",
+			"guide": "forever/horde/30-40/01-hillsbrad-foothills.guide",
+			"goal": "kill 527.1",
+			"kind": "over",
+			"title": "Hillsbrad Fields",
+			"level": 29.4,
+			"mobs": [
+				"Kirin Tor Guard 55-55 x2"
+			],
+			"reason": "warned at the step: its tip names Kirin Tor Guard (players met it as hostile)",
+			"evidence": "route level 29.4; Kirin Tor Guard 55-55 x2; recordings (2026-11-13): done by 45 people (median 25.34), 4 people died within 60 yd, 5 abandoned"
+		},
+		{
+			"key": "forever/horde/30-40/01-hillsbrad-foothills.guide|kill 527.3|over",
+			"guide": "forever/horde/30-40/01-hillsbrad-foothills.guide",
+			"goal": "kill 527.3",
+			"kind": "over",
+			"title": "Hillsbrad Fields",
+			"level": 29.4,
+			"mobs": [
+				"Kirin Tor Guard 55-55 x2"
+			],
+			"reason": "warned at the step: its tip names Kirin Tor Guard (players met it as hostile)",
+			"evidence": "route level 29.4; Kirin Tor Guard 55-55 x2; recordings (2026-11-13): done by 43 people (median 25.46), 6 people died within 60 yd, 5 abandoned"
+		},
+		{
+			"key": "forever/horde/30-40/01-hillsbrad-foothills.guide|collect 544.2|elite",
+			"guide": "forever/horde/30-40/01-hillsbrad-foothills.guide",
+			"goal": "collect 544.2",
+			"kind": "elite",
+			"title": "The Dalaran crater",
+			"level": 30.1,
+			"mobs": [
+				"Arcane Sentry 55-55"
+			],
+			"reason": "warned at the step: its tip names Arcane Sentry and Kirin Tor Guard by the dome",
+			"evidence": "route level 30.1; Arcane Sentry 55-55; recordings (2026-11-13): done by 48 people (median 31.46), 3 people died within 60 yd, 1 abandoned"
+		},
+		{
+			"key": "forever/horde/30-40/01-hillsbrad-foothills.guide|collect 556.1|elite",
+			"guide": "forever/horde/30-40/01-hillsbrad-foothills.guide",
+			"goal": "collect 556.1",
+			"kind": "elite",
+			"title": "The Dalaran crater",
+			"level": 30.1,
+			"mobs": [
+				"Arcane Sentry 55-55 x2"
+			],
+			"reason": "warned at the step: its tip names Arcane Sentry and Kirin Tor Guard by the dome",
+			"evidence": "route level 30.1; Arcane Sentry 55-55 x2; recordings (2026-11-13): done by 40 people (median 31.65), 1 people died within 60 yd, 7 abandoned"
+		},
+		{
+			"key": "forever/horde/30-40/01-hillsbrad-foothills.guide|complete 96986|over",
+			"guide": "forever/horde/30-40/01-hillsbrad-foothills.guide",
+			"goal": "complete 96986",
+			"kind": "over",
+			"title": "City of Dalaran",
+			"level": 30.1,
+			"mobs": [
+				"Archmage Alvareaux 55-55 x2"
+			],
+			"reason": "a dungeon step (when dungeon \"City of Dalaran\"): The Grave Knight is done inside the City of Dalaran with a group of five; Archmage Alvareaux is one of the dungeon's own",
+			"evidence": "route level 30.1; Archmage Alvareaux 55-55 x2"
+		},
+		{
+			"key": "forever/horde/30-40/01-hillsbrad-foothills.guide|kill 676.1|pack",
+			"guide": "forever/horde/30-40/01-hillsbrad-foothills.guide",
+			"goal": "kill 676.1",
+			"kind": "pack",
+			"title": "Boulderfist camp",
+			"level": 31,
+			"mobs": [
+				"15 spawns 32+"
+			],
+			"reason": "a pack of higher spawns near the goal with no recorded deaths at the spot",
+			"evidence": "route level 31; 15 spawns 32+; recordings (2026-11-13): done by 26 people (median 32.72), 0 people died within 60 yd, 1 abandoned"
 		},
 		{
 			"key": "forever/horde/30-40/02-thousand-needles.guide|kill 1175.2|over",
@@ -8320,238 +8597,6 @@
 			"evidence": "route level 35.7; 10 spawns 37+; recordings (2026-11-11): done by 14 people at 34-41 (median 37), 1 people died within 60 yd (median level 19), 1 abandoned"
 		},
 		{
-			"key": "forever/horde/30-40/03-stranglethorn-vale.guide|collect 339.4|elite",
-			"guide": "forever/horde/30-40/03-stranglethorn-vale.guide",
-			"goal": "collect 339.4",
-			"kind": "elite",
-			"title": "Green Hills pages",
-			"level": 35.7,
-			"mobs": [
-				"Colonel Kurzen 39-40",
-				"Lieutenant Doren 60-60"
-			],
-			"reason": "an elite within 40 yd with no recorded deaths at the spot",
-			"evidence": "route level 35.7; Colonel Kurzen 39-40, Lieutenant Doren 60-60; recordings (2026-11-11): done by 1 people at 38-38 (median 38), 0 people died within 60 yd, 3 abandoned"
-		},
-		{
-			"key": "forever/horde/30-40/03-stranglethorn-vale.guide|collect 339.4|pack",
-			"guide": "forever/horde/30-40/03-stranglethorn-vale.guide",
-			"goal": "collect 339.4",
-			"kind": "pack",
-			"title": "Green Hills pages",
-			"level": 35.7,
-			"mobs": [
-				"12 spawns 37+"
-			],
-			"reason": "a pack of higher spawns near the goal with no recorded deaths at the spot",
-			"evidence": "route level 35.7; 12 spawns 37+; recordings (2026-11-11): done by 1 people at 38-38 (median 38), 0 people died within 60 yd, 3 abandoned"
-		},
-		{
-			"key": "forever/horde/30-40/03-stranglethorn-vale.guide|collect 339.4|mixed",
-			"guide": "forever/horde/30-40/03-stranglethorn-vale.guide",
-			"goal": "collect 339.4",
-			"kind": "mixed",
-			"title": "Green Hills pages",
-			"level": 35.7,
-			"mobs": [
-				"Bloodsail Mage 39-41",
-				"Bloodsail Raider 39-41",
-				"Venture Co. Surveyor 41-42"
-			],
-			"reason": "too few recordings to judge (fewer than 3 people) and no recorded deaths: listed on #1702 for the next round with recordings",
-			"evidence": "route level 35.7; Bloodsail Mage 39-41, Bloodsail Raider 39-41, Venture Co. Surveyor 41-42; recordings (2026-11-11): done by 1 people at 38-38 (median 38), 0 people died within 60 yd, 3 abandoned"
-		},
-		{
-			"key": "forever/horde/30-40/03-stranglethorn-vale.guide|collect 340.1|over",
-			"guide": "forever/horde/30-40/03-stranglethorn-vale.guide",
-			"goal": "collect 340.1",
-			"kind": "over",
-			"title": "Green Hills pages",
-			"level": 35.7,
-			"mobs": [
-				"Bloodsail Deckhand 43-44 x2",
-				"Bloodsail Sea Dog 43-45 x3",
-				"Bloodsail Elder Magus 44-45 x2"
-			],
-			"reason": "too few recordings to judge (fewer than 3 people) and no recorded deaths: listed on #1702 for the next round with recordings",
-			"evidence": "route level 35.7; Bloodsail Deckhand 43-44 x2, Bloodsail Sea Dog 43-45 x3, Bloodsail Elder Magus 44-45 x2; recordings (2026-11-11): done by 2 people at 36-38 (median 38), 0 people died within 60 yd, 2 abandoned"
-		},
-		{
-			"key": "forever/horde/30-40/03-stranglethorn-vale.guide|collect 340.1|pack",
-			"guide": "forever/horde/30-40/03-stranglethorn-vale.guide",
-			"goal": "collect 340.1",
-			"kind": "pack",
-			"title": "Green Hills pages",
-			"level": 35.7,
-			"mobs": [
-				"10 spawns 37+"
-			],
-			"reason": "a pack of higher spawns near the goal with no recorded deaths at the spot",
-			"evidence": "route level 35.7; 10 spawns 37+; recordings (2026-11-11): done by 2 people at 36-38 (median 38), 0 people died within 60 yd, 2 abandoned"
-		},
-		{
-			"key": "forever/horde/30-40/03-stranglethorn-vale.guide|collect 340.2|rare",
-			"guide": "forever/horde/30-40/03-stranglethorn-vale.guide",
-			"goal": "collect 340.2",
-			"kind": "rare",
-			"title": "Green Hills pages",
-			"level": 35.7,
-			"mobs": [
-				"Roloch 38-38"
-			],
-			"reason": "a rare near the goal with no recorded deaths at the spot",
-			"evidence": "route level 35.7; Roloch 38-38; recordings (2026-11-11): done by 2 people at 36-38 (median 38), 0 people died within 60 yd, 2 abandoned"
-		},
-		{
-			"key": "forever/horde/30-40/03-stranglethorn-vale.guide|collect 340.3|over",
-			"guide": "forever/horde/30-40/03-stranglethorn-vale.guide",
-			"goal": "collect 340.3",
-			"kind": "over",
-			"title": "Green Hills pages",
-			"level": 35.7,
-			"mobs": [
-				"Elder Shadowmaw Panther 42-43 x2"
-			],
-			"reason": "players do it at the route's level: 4 people at median 36, 0 died there",
-			"evidence": "route level 35.7; Elder Shadowmaw Panther 42-43 x2; recordings (2026-11-11): done by 4 people at 36-38 (median 36), 0 people died within 60 yd, 2 abandoned"
-		},
-		{
-			"key": "forever/horde/30-40/03-stranglethorn-vale.guide|collect 340.3|rare",
-			"guide": "forever/horde/30-40/03-stranglethorn-vale.guide",
-			"goal": "collect 340.3",
-			"kind": "rare",
-			"title": "Green Hills pages",
-			"level": 35.7,
-			"mobs": [
-				"Verifonix 42-42 x4"
-			],
-			"reason": "players do it at the route's level: 4 people at median 36, 0 died there",
-			"evidence": "route level 35.7; Verifonix 42-42 x4; recordings (2026-11-11): done by 4 people at 36-38 (median 36), 0 people died within 60 yd, 2 abandoned"
-		},
-		{
-			"key": "forever/horde/30-40/03-stranglethorn-vale.guide|collect 340.3|pack",
-			"guide": "forever/horde/30-40/03-stranglethorn-vale.guide",
-			"goal": "collect 340.3",
-			"kind": "pack",
-			"title": "Green Hills pages",
-			"level": 35.7,
-			"mobs": [
-				"6 spawns 37+"
-			],
-			"reason": "players do it at the route's level: 4 people at median 36, 0 died there",
-			"evidence": "route level 35.7; 6 spawns 37+; recordings (2026-11-11): done by 4 people at 36-38 (median 36), 0 people died within 60 yd, 2 abandoned"
-		},
-		{
-			"key": "forever/horde/30-40/03-stranglethorn-vale.guide|collect 341.1|rare",
-			"guide": "forever/horde/30-40/03-stranglethorn-vale.guide",
-			"goal": "collect 341.1",
-			"kind": "rare",
-			"title": "Green Hills pages",
-			"level": 35.7,
-			"mobs": [
-				"Roloch 38-38"
-			],
-			"reason": "a rare near the goal with no recorded deaths at the spot",
-			"evidence": "route level 35.7; Roloch 38-38; recordings (2026-11-11): done by 2 people at 37-38 (median 38), 0 people died within 60 yd, 2 abandoned"
-		},
-		{
-			"key": "forever/horde/30-40/03-stranglethorn-vale.guide|collect 341.3|rare",
-			"guide": "forever/horde/30-40/03-stranglethorn-vale.guide",
-			"goal": "collect 341.3",
-			"kind": "rare",
-			"title": "Green Hills pages",
-			"level": 35.7,
-			"mobs": [
-				"Roloch 38-38"
-			],
-			"reason": "a rare near the goal with no recorded deaths at the spot",
-			"evidence": "route level 35.7; Roloch 38-38; recordings (2026-11-11): done by 2 people at 36-37 (median 37), 0 people died within 60 yd, 2 abandoned"
-		},
-		{
-			"key": "forever/horde/30-40/03-stranglethorn-vale.guide|collect 341.3|mixed",
-			"guide": "forever/horde/30-40/03-stranglethorn-vale.guide",
-			"goal": "collect 341.3",
-			"kind": "mixed",
-			"title": "Green Hills pages",
-			"level": 35.7,
-			"mobs": [
-				"Bloodsail Mage 39-41",
-				"Bloodsail Raider 39-41",
-				"Bloodsail Deckhand 43-44"
-			],
-			"reason": "too few recordings to judge (fewer than 3 people) and no recorded deaths: listed on #1702 for the next round with recordings",
-			"evidence": "route level 35.7; Bloodsail Mage 39-41, Bloodsail Raider 39-41, Bloodsail Deckhand 43-44; recordings (2026-11-11): done by 2 people at 36-37 (median 37), 0 people died within 60 yd, 2 abandoned"
-		},
-		{
-			"key": "forever/horde/30-40/03-stranglethorn-vale.guide|collect 341.4|rare",
-			"guide": "forever/horde/30-40/03-stranglethorn-vale.guide",
-			"goal": "collect 341.4",
-			"kind": "rare",
-			"title": "Green Hills pages",
-			"level": 35.7,
-			"mobs": [
-				"Roloch 38-38"
-			],
-			"reason": "a rare near the goal with no recorded deaths at the spot",
-			"evidence": "route level 35.7; Roloch 38-38; recordings (2026-11-11): done by 2 people at 36-37 (median 37), 0 people died within 60 yd, 2 abandoned"
-		},
-		{
-			"key": "forever/horde/30-40/03-stranglethorn-vale.guide|collect 342.1|rare",
-			"guide": "forever/horde/30-40/03-stranglethorn-vale.guide",
-			"goal": "collect 342.1",
-			"kind": "rare",
-			"title": "Green Hills pages",
-			"level": 35.7,
-			"mobs": [
-				"Roloch 38-38 x2"
-			],
-			"reason": "a rare near the goal with no recorded deaths at the spot",
-			"evidence": "route level 35.7; Roloch 38-38 x2; recordings (2026-11-11): done by 1 people at 38-38 (median 38), 0 people died within 60 yd, 2 abandoned"
-		},
-		{
-			"key": "forever/horde/30-40/03-stranglethorn-vale.guide|collect 342.1|mixed",
-			"guide": "forever/horde/30-40/03-stranglethorn-vale.guide",
-			"goal": "collect 342.1",
-			"kind": "mixed",
-			"title": "Green Hills pages",
-			"level": 35.7,
-			"mobs": [
-				"Bloodsail Sea Dog 43-45",
-				"Bloodsail Elder Magus 44-45",
-				"Bloodsail Mage 39-41",
-				"Bloodsail Raider 39-41",
-				"Bloodsail Deckhand 43-44"
-			],
-			"reason": "too few recordings to judge (fewer than 3 people) and no recorded deaths: listed on #1702 for the next round with recordings",
-			"evidence": "route level 35.7; Bloodsail Sea Dog 43-45, Bloodsail Elder Magus 44-45, Bloodsail Mage 39-41, Bloodsail Raider 39-41, Bloodsail Deckhand 43-44; recordings (2026-11-11): done by 1 people at 38-38 (median 38), 0 people died within 60 yd, 2 abandoned"
-		},
-		{
-			"key": "forever/horde/30-40/03-stranglethorn-vale.guide|collect 342.2|rare",
-			"guide": "forever/horde/30-40/03-stranglethorn-vale.guide",
-			"goal": "collect 342.2",
-			"kind": "rare",
-			"title": "Green Hills pages",
-			"level": 35.7,
-			"mobs": [
-				"Roloch 38-38"
-			],
-			"reason": "a rare near the goal with no recorded deaths at the spot",
-			"evidence": "route level 35.7; Roloch 38-38; recordings (2026-11-11): no objective ticks, 0 people died within 60 yd, 2 abandoned"
-		},
-		{
-			"key": "forever/horde/30-40/03-stranglethorn-vale.guide|collect 342.3|rare",
-			"guide": "forever/horde/30-40/03-stranglethorn-vale.guide",
-			"goal": "collect 342.3",
-			"kind": "rare",
-			"title": "Green Hills pages",
-			"level": 35.7,
-			"mobs": [
-				"Roloch 38-38"
-			],
-			"reason": "a rare near the goal with no recorded deaths at the spot",
-			"evidence": "route level 35.7; Roloch 38-38; recordings (2026-11-11): no objective ticks, 0 people died within 60 yd, 2 abandoned"
-		},
-		{
 			"key": "forever/horde/30-40/03-stranglethorn-vale.guide|kill 569.1|rare",
 			"guide": "forever/horde/30-40/03-stranglethorn-vale.guide",
 			"goal": "kill 569.1",
@@ -8576,6 +8621,32 @@
 			],
 			"reason": "a rare near the goal with no recorded deaths at the spot",
 			"evidence": "route level 35.7; Roloch 38-38 x2; recordings (2026-11-11): done by 5 people at 35-40 (median 37), 0 people died within 60 yd, 1 abandoned"
+		},
+		{
+			"key": "forever/horde/30-40/03-stranglethorn-vale.guide|collect 213.1|pack",
+			"guide": "forever/horde/30-40/03-stranglethorn-vale.guide",
+			"goal": "collect 213.1",
+			"kind": "pack",
+			"title": "Stranglethorn Vale: kill these as you meet them",
+			"level": 34.1,
+			"mobs": [
+				"10 spawns 36+"
+			],
+			"reason": "warned at the step: its tip names the crowded Venture Co. camps and their Agents",
+			"evidence": "route level 34.1; 10 spawns 36+; recordings (2026-11-13): done by 31 people (median 36.21), 2 people died within 60 yd, 4 abandoned"
+		},
+		{
+			"key": "forever/horde/30-40/03-stranglethorn-vale.guide|collect 1182.1|over",
+			"guide": "forever/horde/30-40/03-stranglethorn-vale.guide",
+			"goal": "collect 1182.1",
+			"kind": "over",
+			"title": "Cozzle's Footlocker",
+			"level": 34.1,
+			"mobs": [
+				"Venture Co. Agent 39-39 x3"
+			],
+			"reason": "warned at the step: its tip names Venture Co. Agent",
+			"evidence": "route level 34.1; Venture Co. Agent 39-39 x3; recordings (2026-11-13): done by 17 people (median 36.21), 0 people died within 60 yd, 1 abandoned"
 		},
 		{
 			"key": "forever/horde/30-40/04-dustwallow-marsh.guide|collect 1322.1|mixed",
@@ -8864,6 +8935,86 @@
 			"evidence": "route level 38.7; Prince Nazjak 41-41; recordings (2026-11-11): done by 4 people at 36-39 (median 38), 0 people died within 60 yd, 0 abandoned"
 		},
 		{
+			"key": "forever/horde/30-40/05-arathi-highlands.guide|kill 545.2|over",
+			"guide": "forever/horde/30-40/05-arathi-highlands.guide",
+			"goal": "kill 545.2",
+			"kind": "over",
+			"title": "Old Dalaran Ruins: kill these as you meet them",
+			"level": 37.6,
+			"mobs": [
+				"Kirin Tor Guard 55-55 x2"
+			],
+			"reason": "warned at the step: its tip names Arcane Sentry and Kirin Tor Guard by the dome",
+			"evidence": "route level 37.6; Kirin Tor Guard 55-55 x2; recordings (2026-11-13): done by 36 people (median 32.76), 2 people died within 60 yd, 1 abandoned"
+		},
+		{
+			"key": "forever/horde/30-40/05-arathi-highlands.guide|kill 545.2|elite",
+			"guide": "forever/horde/30-40/05-arathi-highlands.guide",
+			"goal": "kill 545.2",
+			"kind": "elite",
+			"title": "Old Dalaran Ruins: kill these as you meet them",
+			"level": 37.6,
+			"mobs": [
+				"Arcane Sentry 55-55"
+			],
+			"reason": "warned at the step: its tip names Arcane Sentry and Kirin Tor Guard by the dome",
+			"evidence": "route level 37.6; Arcane Sentry 55-55; recordings (2026-11-13): done by 36 people (median 32.76), 2 people died within 60 yd, 1 abandoned"
+		},
+		{
+			"key": "forever/horde/30-40/05-arathi-highlands.guide|collect 557.1|over",
+			"guide": "forever/horde/30-40/05-arathi-highlands.guide",
+			"goal": "collect 557.1",
+			"kind": "over",
+			"title": "Old Dalaran Ruins: kill these as you meet them",
+			"level": 37.6,
+			"mobs": [
+				"Arcane Sentry 55-55 x3",
+				"Kirin Tor Guard 55-55 x2"
+			],
+			"reason": "warned at the step: its tip names Arcane Sentry and Kirin Tor Guard by the dome",
+			"evidence": "route level 37.6; Arcane Sentry 55-55 x3, Kirin Tor Guard 55-55 x2; recordings (2026-11-13): done by 23 people (median 33.81), 0 people died within 60 yd, 4 abandoned"
+		},
+		{
+			"key": "forever/horde/30-40/05-arathi-highlands.guide|collect 557.1|elite",
+			"guide": "forever/horde/30-40/05-arathi-highlands.guide",
+			"goal": "collect 557.1",
+			"kind": "elite",
+			"title": "Old Dalaran Ruins: kill these as you meet them",
+			"level": 37.6,
+			"mobs": [
+				"Arcane Sentry 55-55 x3"
+			],
+			"reason": "warned at the step: its tip names Arcane Sentry and Kirin Tor Guard by the dome",
+			"evidence": "route level 37.6; Arcane Sentry 55-55 x3; recordings (2026-11-13): done by 23 people (median 33.81), 0 people died within 60 yd, 4 abandoned"
+		},
+		{
+			"key": "forever/horde/30-40/05-arathi-highlands.guide|kill 545.1|over",
+			"guide": "forever/horde/30-40/05-arathi-highlands.guide",
+			"goal": "kill 545.1",
+			"kind": "over",
+			"title": "Old Dalaran Ruins: kill these as you meet them",
+			"level": 37.6,
+			"mobs": [
+				"Arcane Sentry 55-55 x2",
+				"Kirin Tor Guard 55-55 x2"
+			],
+			"reason": "warned at the step: its tip names Arcane Sentry and Kirin Tor Guard by the dome",
+			"evidence": "route level 37.6; Arcane Sentry 55-55 x2, Kirin Tor Guard 55-55 x2; recordings (2026-11-13): done by 36 people (median 32.76), 3 people died within 60 yd, 1 abandoned"
+		},
+		{
+			"key": "forever/horde/30-40/05-arathi-highlands.guide|kill 545.1|elite",
+			"guide": "forever/horde/30-40/05-arathi-highlands.guide",
+			"goal": "kill 545.1",
+			"kind": "elite",
+			"title": "Old Dalaran Ruins: kill these as you meet them",
+			"level": 37.6,
+			"mobs": [
+				"Arcane Sentry 55-55 x2"
+			],
+			"reason": "warned at the step: its tip names Arcane Sentry and Kirin Tor Guard by the dome",
+			"evidence": "route level 37.6; Arcane Sentry 55-55 x2; recordings (2026-11-13): done by 36 people (median 32.76), 3 people died within 60 yd, 1 abandoned"
+		},
+		{
 			"key": "forever/horde/30-40/06-badlands.guide|collect 2258.3|mixed",
 			"guide": "forever/horde/30-40/06-badlands.guide",
 			"goal": "collect 2258.3",
@@ -8929,6 +9080,45 @@
 			],
 			"reason": "the chest sits among elite Shadowforge golems and dwarves (38) at a route level of 39.5; 1 person did it, 1 death: a Careful tip once a second source confirms (#1702)",
 			"evidence": "route level 39.5; Obsidian Golem 38-38 x4, Magregan Deepshadow 38-38; recordings (2026-11-11): done by 1 people at 41-41 (median 41), 1 people died within 60 yd (median level 41), 0 abandoned"
+		},
+		{
+			"key": "forever/horde/30-40/06-badlands.guide|collect 2258.1|elite",
+			"guide": "forever/horde/30-40/06-badlands.guide",
+			"goal": "collect 2258.1",
+			"kind": "elite",
+			"title": "Badlands: kill these as you meet them",
+			"level": 39.2,
+			"mobs": [
+				"Malevolent Mirage 42-42 x2"
+			],
+			"reason": "warned at the step: its tip names Malevolent Mirage",
+			"evidence": "route level 39.2; Malevolent Mirage 42-42 x2; recordings (2026-11-13): done by 7 people (median 41.25), 0 people died within 60 yd, 0 abandoned"
+		},
+		{
+			"key": "forever/horde/30-40/06-badlands.guide|collect 711.1|elite",
+			"guide": "forever/horde/30-40/06-badlands.guide",
+			"goal": "collect 711.1",
+			"kind": "elite",
+			"title": "Rock Elementals",
+			"level": 39.2,
+			"mobs": [
+				"Malevolent Mirage 42-42"
+			],
+			"reason": "warned at the step: its tip names Malevolent Mirage",
+			"evidence": "route level 39.2; Malevolent Mirage 42-42; recordings (2026-11-13): done by 8 people (median 40.2), 0 people died within 60 yd, 1 abandoned"
+		},
+		{
+			"key": "forever/horde/30-40/06-badlands.guide|collect 2258.3|elite",
+			"guide": "forever/horde/30-40/06-badlands.guide",
+			"goal": "collect 2258.3",
+			"kind": "elite",
+			"title": "Rock Elementals",
+			"level": 39.2,
+			"mobs": [
+				"Malevolent Mirage 42-42"
+			],
+			"reason": "warned at the step: its tip names Malevolent Mirage",
+			"evidence": "route level 39.2; Malevolent Mirage 42-42; recordings (2026-11-13): done by 7 people (median 40.93), 0 people died within 60 yd, 0 abandoned"
 		},
 		{
 			"key": "forever/horde/40-50/01-stranglethorn-vale.guide|collect 572.1|elite",
@@ -12223,6 +12413,45 @@
 			"evidence": "route level 12.2; Halikor 12-12 x11; recordings (2026-11-11): done by 7 people at 10-12 (median 11), 3 people died within 60 yd (median level 11), 0 abandoned"
 		},
 		{
+			"key": "forever/horde/orc/01-durotar.guide|kill 96821.2|elite",
+			"guide": "forever/horde/orc/01-durotar.guide",
+			"goal": "kill 96821.2",
+			"kind": "elite",
+			"title": "Sen'jin Village",
+			"level": 5.8,
+			"mobs": [
+				"Ukorsbane 8-8"
+			],
+			"reason": "warned at the step: its tip names Ukorsbane",
+			"evidence": "route level 5.8; Ukorsbane 8-8; recordings (2026-11-13): done by 41 people (median 6), 1 death within 60 yd, 1 abandoned"
+		},
+		{
+			"key": "forever/horde/orc/01-durotar.guide|use item 7464|over",
+			"guide": "forever/horde/orc/01-durotar.guide",
+			"goal": "use item 7464",
+			"kind": "over",
+			"title": "The Binding",
+			"level": 12.3,
+			"mobs": [
+				"Summoned Incubus 20-20 x5"
+			],
+			"reason": "warned at the step: its tip names the voidwalker fight; the Summoned Incubus (20) are the Cleft of Shadow's bound demons, not a foe at the circle",
+			"evidence": "route level 12.3; Summoned Incubus 20-20 x5; recordings (2026-11-13): done by 0 people, 16 deaths within 60 yd, 0 abandoned"
+		},
+		{
+			"key": "forever/horde/orc/01-durotar.guide|kill 1504.1|over",
+			"guide": "forever/horde/orc/01-durotar.guide",
+			"goal": "kill 1504.1",
+			"kind": "over",
+			"title": "The Binding",
+			"level": 12.3,
+			"mobs": [
+				"Summoned Incubus 20-20 x5"
+			],
+			"reason": "warned at the step: its tip names the voidwalker fight; the Summoned Incubus (20) are the Cleft of Shadow's bound demons, not a foe at the circle",
+			"evidence": "route level 12.3; Summoned Incubus 20-20 x5; recordings (2026-11-13): done by 9 people (median 11), 16 deaths within 60 yd, 0 abandoned"
+		},
+		{
 			"key": "forever/horde/skyborne/01-zephras-isle.guide|kill 92461.1|over",
 			"guide": "forever/horde/skyborne/01-zephras-isle.guide",
 			"goal": "kill 92461.1",
@@ -12365,6 +12594,32 @@
 			],
 			"reason": "an elite within 40 yd with no recorded deaths at the spot",
 			"evidence": "route level 14.4; Duke Anvillaxx 13-13 x2; recordings (2026-11-11): no objective ticks, 0 people died within 60 yd, 0 abandoned"
+		},
+		{
+			"key": "forever/horde/skyborne/01-zephras-isle.guide|kill 92462.1|over",
+			"guide": "forever/horde/skyborne/01-zephras-isle.guide",
+			"goal": "kill 92462.1",
+			"kind": "over",
+			"title": "Thendal Grove: kill these as you meet them",
+			"level": 1.1,
+			"mobs": [
+				"Falorne Fallwind 5-5 x2"
+			],
+			"reason": "Falorne Fallwind and the Thendal Grove Rangers guard the start village; players do it at the route's level",
+			"evidence": "route level 1.1; Falorne Fallwind 5-5 x2; recordings (2026-11-13): done by 36 people (median 2), 1 death within 60 yd, 0 abandoned"
+		},
+		{
+			"key": "forever/horde/skyborne/01-zephras-isle.guide|complete 92646|over",
+			"guide": "forever/horde/skyborne/01-zephras-isle.guide",
+			"goal": "complete 92646",
+			"kind": "over",
+			"title": "Confront Lorthuna",
+			"level": 14.3,
+			"mobs": [
+				"Rohash 60-60 x2"
+			],
+			"reason": "Rohash (60) is the isle's scripted wind lord at the end of the quest: players see him, he does not fight them, and the world data has him immune to players",
+			"evidence": "route level 14.3; Rohash 60-60 x2; recordings (2026-11-13): done by 0 people, 0 deaths within 60 yd, 0 abandoned"
 		},
 		{
 			"key": "forever/horde/tauren/01-mulgore.guide|collect 761.1|mixed",
@@ -12603,6 +12858,58 @@
 			"evidence": "route level 12.2; Halikor 12-12 x11; recordings (2026-11-11): done by 7 people at 10-12 (median 11), 3 people died within 60 yd (median level 11), 0 abandoned"
 		},
 		{
+			"key": "forever/horde/troll/01-durotar.guide|kill 96821.2|elite",
+			"guide": "forever/horde/troll/01-durotar.guide",
+			"goal": "kill 96821.2",
+			"kind": "elite",
+			"title": "Sen'jin Village",
+			"level": 5.8,
+			"mobs": [
+				"Ukorsbane 8-8"
+			],
+			"reason": "warned at the step: its tip names Ukorsbane",
+			"evidence": "route level 5.8; Ukorsbane 8-8; recordings (2026-11-13): done by 41 people (median 6), 1 death within 60 yd, 1 abandoned"
+		},
+		{
+			"key": "forever/horde/troll/01-durotar.guide|kill 5648.1|elite",
+			"guide": "forever/horde/troll/01-durotar.guide",
+			"goal": "kill 5648.1",
+			"kind": "elite",
+			"title": "Grunt Kor'ja",
+			"level": 6.6,
+			"mobs": [
+				"Ukorsbane 8-8"
+			],
+			"reason": "warned on the way: the Sen'jin Village step's tip names Ukorsbane; Grunt Kor'ja kneels off the road north-east of the spiders' camp he walks",
+			"evidence": "route level 6.6; Ukorsbane 8-8; recordings (2026-11-13): done by 2 people (median 7), 0 deaths within 60 yd, 0 abandoned"
+		},
+		{
+			"key": "forever/horde/troll/01-durotar.guide|use item 7464|over",
+			"guide": "forever/horde/troll/01-durotar.guide",
+			"goal": "use item 7464",
+			"kind": "over",
+			"title": "The Binding",
+			"level": 12.3,
+			"mobs": [
+				"Summoned Incubus 20-20 x5"
+			],
+			"reason": "warned at the step: its tip names the voidwalker fight; the Summoned Incubus (20) are the Cleft of Shadow's bound demons, not a foe at the circle",
+			"evidence": "route level 12.3; Summoned Incubus 20-20 x5; recordings (2026-11-13): done by 0 people, 16 deaths within 60 yd, 0 abandoned"
+		},
+		{
+			"key": "forever/horde/troll/01-durotar.guide|kill 1504.1|over",
+			"guide": "forever/horde/troll/01-durotar.guide",
+			"goal": "kill 1504.1",
+			"kind": "over",
+			"title": "The Binding",
+			"level": 12.3,
+			"mobs": [
+				"Summoned Incubus 20-20 x5"
+			],
+			"reason": "warned at the step: its tip names the voidwalker fight; the Summoned Incubus (20) are the Cleft of Shadow's bound demons, not a foe at the circle",
+			"evidence": "route level 12.3; Summoned Incubus 20-20 x5; recordings (2026-11-13): done by 9 people (median 11), 16 deaths within 60 yd, 0 abandoned"
+		},
+		{
 			"key": "forever/horde/undead/01-tirisfal-glades.guide|collect 97558.3|rare",
 			"guide": "forever/horde/undead/01-tirisfal-glades.guide",
 			"goal": "collect 97558.3",
@@ -12679,6 +12986,254 @@
 			],
 			"reason": "players do it at the route's level: 5 people at median 12, 0 died there",
 			"evidence": "route level 12.9; Summoned Incubus 20-20 x4; recordings (2026-11-11): done by 5 people at 10-13 (median 12), 0 people died within 60 yd, 0 abandoned"
+		},
+		{
+			"key": "forever/horde/undead/01-tirisfal-glades.guide|kill 371.2|elite",
+			"guide": "forever/horde/undead/01-tirisfal-glades.guide",
+			"goal": "kill 371.2",
+			"kind": "elite",
+			"title": "Balnir Farmstead: kill these as you meet them",
+			"level": 11.3,
+			"mobs": [
+				"Riptear 13-13"
+			],
+			"reason": "warned at the step: its tip names Riptear",
+			"evidence": "route level 11.3; Riptear 13-13; recordings (2026-11-13): done by 36 people (median 12), 0 deaths within 60 yd, 1 abandoned"
+		},
+		{
+			"key": "forever/horde/undead/01-tirisfal-glades.guide|use item 6284|pack",
+			"guide": "forever/horde/undead/01-tirisfal-glades.guide",
+			"goal": "use item 6284",
+			"kind": "pack",
+			"title": "The Undercity",
+			"level": 13,
+			"mobs": [
+				"13 spawns 14+"
+			],
+			"reason": "the spawns counted are the Undercity's own people: the goal is the summoning circle in the Magic Quarter",
+			"evidence": "route level 13; 13 spawns 14+; recordings (2026-11-13): done by 0 people, 0 deaths within 60 yd, 0 abandoned"
+		},
+		{
+			"key": "forever/horde/undead/01-tirisfal-glades.guide|kill 1471.1|pack",
+			"guide": "forever/horde/undead/01-tirisfal-glades.guide",
+			"goal": "kill 1471.1",
+			"kind": "pack",
+			"title": "The Undercity",
+			"level": 13,
+			"mobs": [
+				"13 spawns 14+"
+			],
+			"reason": "the spawns counted are the Undercity's own people: the goal is the summoning circle in the Magic Quarter",
+			"evidence": "route level 13; 13 spawns 14+; recordings (2026-11-13): done by 5 people (median 12), 0 deaths within 60 yd, 0 abandoned"
+		},
+		{
+			"key": "forever/horde/40-50/02-feralas.guide|collect 2974.1|elite",
+			"guide": "forever/horde/40-50/02-feralas.guide",
+			"goal": "collect 2974.1",
+			"kind": "elite",
+			"title": "A Grim Discovery",
+			"level": 44.2,
+			"mobs": [
+				"Namida Grimtotem 43-43"
+			],
+			"reason": "players do it above the route's level with 0 deaths: Namida Grimtotem (43, elite) stands in the Grimtotem camp; the step's tip warns about her",
+			"evidence": "route level 44.2; Namida Grimtotem 43-43; recordings (2026-11-13): A Grim Discovery done by 4 people (median 46.4), 0 died within 60 yd; Namida met hostile at 67,38-39, killed by 4 people, killed nobody"
+		},
+		{
+			"key": "forever/horde/40-50/02-feralas.guide|kill 2975.1|elite",
+			"guide": "forever/horde/40-50/02-feralas.guide",
+			"goal": "kill 2975.1",
+			"kind": "elite",
+			"title": "The Ogres of Feralas",
+			"level": 43.9,
+			"mobs": [
+				"Ohk'zi 43-43 x4"
+			],
+			"reason": "players do it above the route's level with 0 deaths: Ohk'zi (43, elite) stands in the Gordunni Outpost; the step's tip warns about him",
+			"evidence": "route level 43.9; Ohk'zi 43-43 x4; recordings (2026-11-13): The Ogres of Feralas done by 4 people (median 46.0), 0 died within 60 yd, 1 abandoned; Ohk'zi met hostile at 75,25-26, killed by 2 people, killed nobody"
+		},
+		{
+			"key": "forever/horde/40-50/02-feralas.guide|kill 2975.2|elite",
+			"guide": "forever/horde/40-50/02-feralas.guide",
+			"goal": "kill 2975.2",
+			"kind": "elite",
+			"title": "The Ogres of Feralas",
+			"level": 43.9,
+			"mobs": [
+				"Ohk'zi 43-43"
+			],
+			"reason": "players do it above the route's level with 0 deaths: Ohk'zi (43, elite) stands in the Gordunni Outpost; the step's tip warns about him",
+			"evidence": "route level 43.9; Ohk'zi 43-43; recordings (2026-11-13): The Ogres of Feralas done by 4 people (median 46.0), 0 died within 60 yd, 1 abandoned; Ohk'zi met hostile at 75,25-26, killed by 2 people, killed nobody"
+		},
+		{
+			"key": "forever/horde/40-50/02-feralas.guide|kill 2975.3|elite",
+			"guide": "forever/horde/40-50/02-feralas.guide",
+			"goal": "kill 2975.3",
+			"kind": "elite",
+			"title": "The Ogres of Feralas",
+			"level": 43.9,
+			"mobs": [
+				"Ohk'zi 43-43 x4"
+			],
+			"reason": "players do it above the route's level with 0 deaths: Ohk'zi (43, elite) stands in the Gordunni Outpost; the step's tip warns about him",
+			"evidence": "route level 43.9; Ohk'zi 43-43 x4; recordings (2026-11-13): The Ogres of Feralas done by 4 people (median 46.0), 0 died within 60 yd, 1 abandoned; Ohk'zi met hostile at 75,25-26, killed by 2 people, killed nobody"
+		},
+		{
+			"key": "forever/horde/40-50/03-feralas.guide|collect 1424.1|elite",
+			"guide": "forever/horde/40-50/03-feralas.guide",
+			"goal": "collect 1424.1",
+			"kind": "elite",
+			"title": "Pool of Tears",
+			"level": 44.8,
+			"mobs": [
+				"Mukomonji 62-62"
+			],
+			"reason": "not a threat: Mukomonji is a neutral quest NPC at the Pool of Tears, whom the data lacks a reaction for",
+			"evidence": "route level 44.8; Mukomonji 62-62; recordings (2026-11-13): met as neutral at 61-63,52-55 and handed a quest in to; Pool of Tears done by 3 people (median 45.2), 0 died there"
+		},
+		{
+			"key": "forever/horde/40-50/03-feralas.guide|collect 1430.1|over",
+			"guide": "forever/horde/40-50/03-feralas.guide",
+			"goal": "collect 1430.1",
+			"kind": "over",
+			"title": "Fresh Meat",
+			"level": 44.8,
+			"mobs": [
+				"Methuselah Crab 60-60 x3"
+			],
+			"reason": "a level 60 roamer players give room to: the Methuselah Crab walks the south-east strand, and the step's tip warns about it",
+			"evidence": "route level 44.8; Methuselah Crab 60-60 x3; recordings (2026-11-13): 13 sightings of the Methuselah Crab (hostile, level 60) at 79-80,90-94, never fought, it killed nobody; the strand's quests done by 2 people (median 45.3), 0 died there"
+		},
+		{
+			"key": "forever/horde/40-50/03-feralas.guide|collect 3128.1|over",
+			"guide": "forever/horde/40-50/03-feralas.guide",
+			"goal": "collect 3128.1",
+			"kind": "over",
+			"title": "Natural Materials",
+			"level": 45.8,
+			"mobs": [
+				"Vale Screamer 60-60 x2"
+			],
+			"reason": "a level 60 flyer players keep clear of: the Vale Screamer over the forest west of Camp Mojache; the step's tip warns about it",
+			"evidence": "route level 45.8; Vale Screamer 60-60 x2; recordings (2026-11-13): 23 sightings of the Vale Screamer (hostile, level 60) at 46-54,38-51, one kill by a player, it killed nobody"
+		},
+		{
+			"key": "forever/horde/40-50/03-feralas.guide|collect 699.1|over",
+			"guide": "forever/horde/40-50/03-feralas.guide",
+			"goal": "collect 699.1",
+			"kind": "over",
+			"title": "Lack of Surplus",
+			"level": 44.8,
+			"mobs": [
+				"Methuselah Crab 60-60 x8"
+			],
+			"reason": "a level 60 roamer players give room to: the Methuselah Crab walks the south-east strand, and the step's tip warns about it",
+			"evidence": "route level 44.8; Methuselah Crab 60-60 x8; recordings (2026-11-13): 13 sightings of the Methuselah Crab (hostile, level 60) at 79-80,90-94, never fought, it killed nobody; the strand's quests done by 2 people (median 45.3), 0 died there"
+		},
+		{
+			"key": "forever/horde/40-50/03-feralas.guide|collect 699.1|pack",
+			"guide": "forever/horde/40-50/03-feralas.guide",
+			"goal": "collect 699.1",
+			"kind": "pack",
+			"title": "Lack of Surplus",
+			"level": 44.8,
+			"mobs": [
+				"8 spawns 46+"
+			],
+			"reason": "players do it at the route's level: the strand's snappers and crawlers stand one level over",
+			"evidence": "route level 44.8; 8 spawns 46+; recordings (2026-11-13): Lack of Surplus done by 2 people (median 45.3), 0 died within 60 yd"
+		},
+		{
+			"key": "forever/horde/40-50/03-feralas.guide|kill 1426.1|over",
+			"guide": "forever/horde/40-50/03-feralas.guide",
+			"goal": "kill 1426.1",
+			"kind": "over",
+			"title": "Threat From the Sea",
+			"level": 45.1,
+			"mobs": [
+				"Methuselah Crab 60-60 x2"
+			],
+			"reason": "a level 60 roamer players give room to: the Methuselah Crab walks the south-east strand, and the step's tip warns about it",
+			"evidence": "route level 45.1; Methuselah Crab 60-60 x2; recordings (2026-11-13): 13 sightings of the Methuselah Crab (hostile, level 60) at 79-80,90-94, never fought, it killed nobody; the strand's quests done by 2 people (median 45.3), 0 died there"
+		},
+		{
+			"key": "forever/horde/40-50/04-tanaris.guide|collect 3161.1|over",
+			"guide": "forever/horde/40-50/04-tanaris.guide",
+			"goal": "collect 3161.1",
+			"kind": "over",
+			"title": "Gahz'ridian",
+			"level": 46.3,
+			"mobs": [
+				"Sun Admirer 62-62 x2"
+			],
+			"reason": "no player has met it: no recorded sighting at all, though players did the quest there; a data leftover the census rule doesn't reach",
+			"evidence": "route level 46.3; Sun Admirer 62-62 x2; recordings (2026-11-13): zero unit, kill or death events for this creature in the whole archive; the quest done there by 5 people (median 46.9), 0 died within 60 yd, none to it"
+		},
+		{
+			"key": "forever/horde/40-50/04-tanaris.guide|collect 7722.1|over",
+			"guide": "forever/horde/40-50/04-tanaris.guide",
+			"goal": "collect 7722.1",
+			"kind": "over",
+			"title": "What the Flux?",
+			"level": 47.5,
+			"mobs": [
+				"Lieutenant Skarresh 58-60 x2"
+			],
+			"reason": "no player has met it: no recorded sighting at all, though players did the quest there; a data leftover the census rule doesn't reach",
+			"evidence": "route level 47.5; Lieutenant Skarresh 58-60 x2; recordings (2026-11-13): zero unit, kill or death events for this creature in the whole archive; the quest done there by 2 people (median 50.3), 1 died within 60 yd, none to it"
+		},
+		{
+			"key": "forever/horde/40-50/04-tanaris.guide|collect 7728.2|over",
+			"guide": "forever/horde/40-50/04-tanaris.guide",
+			"goal": "collect 7728.2",
+			"kind": "over",
+			"title": "STOLEN: Smithing Tuyere and Lookout's Spyglass",
+			"level": 47.5,
+			"mobs": [
+				"Infernus Siege Giant 60-60 x2",
+				"Lord Gazzran 62-62 x2"
+			],
+			"reason": "no player has met it: no recorded sighting at all, though players did the quest there; a data leftover the census rule doesn't reach",
+			"evidence": "route level 47.5; Infernus Siege Giant 60-60 x2, Lord Gazzran 62-62 x2; recordings (2026-11-13): zero unit, kill or death events for this creature in the whole archive; the quest done there by 3 people (median 49.1), 0 died within 60 yd, none to it"
+		},
+		{
+			"key": "forever/horde/40-50/04-tanaris.guide|kill 7724.1|pack",
+			"guide": "forever/horde/40-50/04-tanaris.guide",
+			"goal": "kill 7724.1",
+			"kind": "pack",
+			"title": "Fiery Menace!",
+			"level": 47,
+			"mobs": [
+				"8 spawns 49+"
+			],
+			"reason": "players do it above the route's level: the Greater Lava Spiders stand two levels over the model, players come about two levels higher",
+			"evidence": "route level 47; 8 spawns 49+; recordings (2026-11-13): Fiery Menace! done by 3 people (median 49.1), 0 died within 60 yd"
+		},
+		{
+			"key": "forever/horde/50-60/04-azshara.guide|kill 3505.2|elite",
+			"guide": "forever/horde/50-60/04-azshara.guide",
+			"goal": "kill 3505.2",
+			"kind": "elite",
+			"title": "Thalassian Base Camp",
+			"level": 55.4,
+			"mobs": [
+				"Blackmaw Thrall 55-57"
+			],
+			"reason": "one elite at the camp's west edge; the arrow points at the east side, away from him, and the step's tip names him",
+			"evidence": "route level 55.4; Blackmaw Thrall 55-57 (one spawn at Azshara 54.8,26.0, rank elite), within 40 yd of the westernmost Blood Elf Surveyor; the other surveyors stand east of him (55.4-58.8,26.5-31.2); recordings (2026-11-13): no Horde player recorded at this level, 0 deaths; guide-fixes 1575-azshara-blackmaw-thrall, places azshara-3505-surveyors-east"
+		},
+		{
+			"key": "forever/horde/50-60/07-felwood.guide|collect 5086.1|elite",
+			"guide": "forever/horde/50-60/07-felwood.guide",
+			"goal": "collect 5086.1",
+			"kind": "elite",
+			"title": "Toxic Horrors",
+			"level": 59.5,
+			"mobs": [
+				"Ancient Irontree Walker 59-59 x2"
+			],
+			"reason": "the walkers share the Toxic Horrors' ground in Irontree Woods; the arrow points at the Horror farthest from them (north tip) and the step's tip names them; at 59.5 the walkers are the player's level",
+			"evidence": "route level 59.5; Ancient Irontree Walker 59 (8 spawns at Felwood 47.0-50.3,23.9-28.8, rank elite) among the Toxic Horrors (48.1-51.1,22.5-27.4); the arrow's Horror at 50.6,22.4 is about 63 yd from the nearest walker; recordings (2026-11-13): 1 death within 60 yd on the route before this fix; guide-fixes 1575-felwood-irontree-walkers, places felwood-5086-toxic-horrors-north-tip"
 		}
 	]
 }
