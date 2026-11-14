@@ -5926,7 +5926,7 @@ local function waypointOf(g, goal, at, s, held)
 	local exact = area and Spots.exact(goal) or nil
 	return {
 		map = map, x = x, y = y, f = f, z = z,
-		label = walk and L["Walk to %s"]:format(subject) or (goalText(goal, verb, subject, detail, kind)),
+		label = walk and (ns.CanRide() and L["Ride to %s"] or L["Walk to %s"]):format(subject) or (goalText(goal, verb, subject, detail, kind)),
 		stepIndex = s, goalIndex = g, kind = goal.t, quest = goal.quest,
 		r = goal.r or DEFAULT_RADIUS, area = area,
 		search = area and (goal.spread or exact) or nil,
@@ -11044,7 +11044,7 @@ function Own.flyFromAim(s)
 	if not best or bestD + Own.FLY_FROM_MARGIN >= namedD or bestD >= namedD * Own.FLY_FROM_SHARE then return nil end
 	return {
 		map = best.map, x = best.x, y = best.y, f = best.f,
-		label = L["Walk to the flight master"],
+		label = ns.CanRide() and L["Ride to the flight master"] or L["Walk to the flight master"],
 		stepIndex = s, goalIndex = ng, kind = "goto", r = DEFAULT_RADIUS,
 	}
 end
