@@ -152,6 +152,7 @@ const ALLOWED: &[(&str, usize, &str)] = &[
 	("Polestar/UI/Picker.lua", 3, "the guide menu's leave-the-route's-hand-ins question, never with the gamepad interface (its focus owns the dialogs; chat says so instead and the guide loads)"),
 	("Polestar/UI/Packs.lua", 3, "the turn-Polestar-Guides-on question at login, never with the gamepad interface (its focus owns the dialogs; the guide window's button stays)"),
 	("Polestar/QoL/Toggles.lua", 3, "the error-message setting, which does nothing with the gamepad interface"),
+	("Polestar/Maps/Arcade.lua", 2, "the standalone Freedoom Arcade's command, run to open it while its window is hidden and named after a landing; never with the gamepad interface (the game plays with the keyboard: no copy of it is offered then)"),
 	("Polestar/UI/GameMenu.lua", 1, "the game menu's Polestar button closes the menu (HideUIPanel); never with the gamepad interface, which gets no button"),
 	("Polestar/UI/OptionsLoader.lua", 2, "closing the game's Settings panel, never with the gamepad interface or in combat"),
 	("Polestar/UI/Gamepad.lua", 3, "a window's override bindings, only with the keyboard and mouse interface; the gamepad interface's focused window only read (a field, never a call)"),
@@ -181,7 +182,9 @@ fn lua_files(dir: &Path) -> Vec<PathBuf> {
 fn every_reach_into_the_game_s_ui_is_guarded_for_the_gamepad_interface_and_listed() {
 	let reaches = regex::Regex::new(&format!(r"\b({})\b", REACHES.join("|"))).unwrap();
 	let comment = regex::Regex::new(r"(^|\s)--.*$").unwrap();
-	let skip = regex::Regex::new(r"^Polestar_(Names_|Guides)").unwrap();
+	// Polestar_Arcade is Freedoom Arcade, a program of its own with its own commands: Polestar never loads it
+	// with the gamepad interface on (Maps/Arcade.lua).
+	let skip = regex::Regex::new(r"^Polestar_(Names_|Guides|Arcade$)").unwrap();
 	let addons = addons_dir();
 	let mut found: BTreeMap<String, usize> = BTreeMap::new();
 	for entry in std::fs::read_dir(&addons).unwrap() {

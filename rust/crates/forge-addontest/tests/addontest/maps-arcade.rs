@@ -42,7 +42,7 @@ local function standalone(withApi)
 end
 -- Boards a flight from West Hold to Mid Camp this character has flown in `seconds`.
 local function takeoff(seconds)
-	Polestar.CharState().flightTimes["1>3"] = seconds
+	M.CharTable("flightTimes")["1>3"] = seconds
 	m.openTaxi(1, { 3, 2 })
 	TakeTaxiNode(2)
 	m.board()
@@ -112,7 +112,7 @@ fn without_the_api_play_opens_by_the_command_once_and_landing_only_warns() {
 	assert_eq!(out["calls"], json!(["slash:"]));
 	assert_eq!(out["landing"], json!({ "open": true, "card": false }));
 	assert_eq!(out["notices"], json!([["Landing in 10 seconds", "Close Freedoom Arcade to get your keys back.", 10]]));
-	assert_eq!(out["chat"], json!([]));
+	assert_eq!(out["chat"], json!({}), "nothing said after the landing");
 }
 
 // With FreedoomArcadeAPI: Play calls Open(); 10 seconds before arrival the banner warns and Close(true) saves,
@@ -147,7 +147,7 @@ fn a_flight_under_a_minute_offers_nothing() {
 		local seen = card()
 		stub.advance(20)
 		emit({ seen = seen, later = card(), asked = A.Trip().asked, calls = calls })"#);
-	assert_eq!(out, json!({ "seen": false, "later": false, "asked": false, "calls": [] }));
+	assert_eq!(out, json!({ "seen": false, "later": false, "asked": false, "calls": {} }));
 }
 
 // After "Not now" the row stays under the timer until a minute is left; then nothing.
@@ -174,7 +174,7 @@ fn the_setting_off_offers_nothing_and_dont_ask_again_turns_it_off() {
 		emit({ card = card(), calls = calls })"#,
 		Some("PolestarDB = { schema = 1, settings = { maps = { flightArcade = false } } }"),
 	);
-	assert_eq!(off, json!({ "card": false, "calls": [] }));
+	assert_eq!(off, json!({ "card": false, "calls": {} }));
 	let never = run(r#"
 		standalone(true)
 		takeoff(300)
@@ -184,7 +184,7 @@ fn the_setting_off_offers_nothing_and_dont_ask_again_turns_it_off() {
 		local now = card()
 		stub.advance(5)
 		emit({ now = now, later = card(), setting = Polestar.Get("maps.flightArcade"), calls = calls })"#);
-	assert_eq!(never, json!({ "now": false, "later": false, "setting": false, "calls": [] }));
+	assert_eq!(never, json!({ "now": false, "later": false, "setting": false, "calls": {} }));
 }
 
 // Neither copy there: no card, and /polestar arcade says why.

@@ -46,11 +46,22 @@ ns.Arcade = Arcade
 -- The game
 ---------------------------------------------------------------------------
 
--- "FreedoomArcade" | "Polestar_Arcade" | nil: the copy Polestar uses.
+-- "FreedoomArcade" | "Polestar_Arcade" | nil: the copy Polestar uses. None
+-- with the game's gamepad interface: the game plays with the keyboard.
+-- Installed and enabled: loaded, or loadable (on demand too) by the client's
+-- addon list.
+local function present(name)
+	if ns.Compat.AddOnPresent(name) then return true end
+	local A = C_AddOns
+	if not (A and A.GetAddOnInfo) then return false end
+	local ok, _, _, _, loadable = pcall(A.GetAddOnInfo, name)
+	return ok and loadable and true or false
+end
+
 function Arcade.Which()
-	local C = ns.Compat
-	if C.AddOnPresent(STANDALONE) then return STANDALONE end
-	if C.AddOnPresent(BUNDLED) then return BUNDLED end
+	if ns.GamepadUI() then return nil end
+	if present(STANDALONE) then return STANDALONE end
+	if present(BUNDLED) then return BUNDLED end
 	return nil
 end
 
@@ -172,8 +183,8 @@ function dressWindow(f)
 	back.Note = W.Text(bar, "note", "textDim")
 	back.Note:SetPoint("LEFT", back.Title, "RIGHT", 10, 0)
 	back.Note:SetText(L["3 levels of Freedoom Phase 1. Esc: menu, P: pause, F6/F9: save/load."])
-	-- Our close in place of the game's red one; a game look's corner close
-	-- stands for it (W.FrameClose).
+	-- Our close in place of the game's red one (a game look draws it in its
+	-- own art, as every close icon button).
 	local close = W.IconButton(bar, "close", 20, L["Close"], function() call("Close", false) end)
 	close:SetPoint("RIGHT", bar, "RIGHT", -2, 0)
 	back.Close = close
@@ -184,7 +195,7 @@ function dressWindow(f)
 	end
 	back.Note:SetPoint("RIGHT", (f.fps or close), "LEFT", -8, 0)
 	back.Note:SetWordWrap(false)
-	W.FrameClose(back, close)
+	Theme.Repaint(back)
 	Arcade.window = back
 end
 Arcade.DressWindow = function(f) dressWindow(f) end
@@ -223,7 +234,7 @@ local function build()
 	q.By:SetPoint("TOPLEFT", q.Title, "BOTTOMLEFT", 0, -3)
 	q.By:SetPoint("RIGHT", q, "RIGHT", -PAD, 0)
 	q.By:SetJustifyH("LEFT")
-	q.Play = W.Button(q, L["Play"], function() Arcade.Play() end, { primary = true, height = BTN_H })
+	q.Play = W.Button(q, ns.LC("a game", "Play"), function() Arcade.Play() end, { primary = true, height = BTN_H })
 	q.Play:SetPoint("BOTTOMRIGHT", q, "BOTTOMRIGHT", -PAD, PAD)
 	q.Later = W.Button(q, L["Not now"], function() Arcade.NotNow() end, { height = BTN_H })
 	q.Later:SetPoint("RIGHT", q.Play, "LEFT", -6, 0)
