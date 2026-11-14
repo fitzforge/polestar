@@ -5,6 +5,10 @@ use std::path::Path;
 /// Always in the release: the addon, our guides, the walking router and maps, the settings window, the Skin
 /// API's checks and the game looks with Hearth (the last three loaded on demand; all committed).
 pub const RELEASE_ADDONS: [&str; 6] = ["Polestar", "Polestar_Guides", "Polestar_Nav", "Polestar_Options", "Polestar_SkinAPI", "Polestar_Looks"];
+/// Freedoom Arcade by petllama, three levels to play on a flight (GPL-2.0-or-later, its own folder: LICENSE,
+/// FREEDOOM-COPYING.txt, CREDITS.md), loaded on demand the first time Play is pressed; shipped when present
+/// (committed), right after the game looks.
+pub const ARCADE: &str = "Polestar_Arcade";
 /// The Codex folder (Lookup, Dungeons and Rares read it): a release refuses to go without it.
 pub const CODEX: &str = "Polestar_Codex";
 /// The optional recorder, in a zip of its own.
@@ -46,8 +50,8 @@ fn has_toc(addons: &Path, name: &str) -> bool {
 /// Leffe's, loaded on demand by Polestar_Nav's router).
 pub const NAV_PARTS: [&str; 2] = ["Polestar_Nav_EK", "Polestar_Nav_Kalimdor"];
 
-/// The release's folders: the six always shipped, the walking maps' part addons when written, our guides'
-/// faction parts and race parts once built, Polestar's own extra packs once built (Polestar_Experimental:
+/// The release's folders: the six always shipped, Freedoom Arcade's folder when there, the walking maps' part
+/// addons when written, our guides' faction parts and race parts once built, Polestar's own extra packs once built (Polestar_Experimental:
 /// loaded on demand, once a player switches it on), the data addons that are built (our guides' texts are in
 /// the language folders), then the skin addons.
 pub fn release_addons(addons: &Path) -> Release {
@@ -56,6 +60,7 @@ pub fn release_addons(addons: &Path) -> Release {
 	let parts = forge_guide::races::RACE_FILES.iter().map(|r| forge_guide::project::part_addon(guides, r));
 	let (data, skipped): (Vec<String>, Vec<String>) = data_addons().into_iter().partition(|n| has_toc(addons, n));
 	let mut names: Vec<String> = RELEASE_ADDONS.iter().map(|s| s.to_string()).collect();
+	names.extend(std::iter::once(ARCADE.to_string()).filter(|n| has_toc(addons, n)));
 	names.extend(NAV_PARTS.iter().map(|s| s.to_string()).filter(|n| has_toc(addons, n)));
 	names.extend(factions.chain(parts).filter(|n| has_toc(addons, n)));
 	names.extend(forge_guide::project::OWN_EXTRAS.iter().map(|e| e.folder.to_string()).filter(|n| has_toc(addons, n)));
@@ -216,6 +221,22 @@ mod tests {
 		assert!(!r.skipped.contains(&"Polestar_Codex".to_string()));
 		// The folders the language folders replaced never ship; the release names them.
 		assert_eq!(retired_addons(&root), ["Polestar_Guides_deDE", "Polestar_Names_frFR"]);
+	}
+
+	// Freedoom Arcade's folder ships when it is there (it is committed), after the game looks and before the
+	// walking maps' parts.
+	#[test]
+	fn the_arcade_folder_ships_after_the_looks_when_it_is_there() {
+		let root = tmp("arcade");
+		for n in ["Polestar", "Polestar_Nav_EK"] {
+			addon(&root, n);
+		}
+		assert!(!release_addons(&root).names.contains(&ARCADE.to_string()));
+		addon(&root, ARCADE);
+		let names = release_addons(&root).names;
+		let at = |n: &str| names.iter().position(|x| x == n).unwrap();
+		assert_eq!(at(ARCADE), at("Polestar_Looks") + 1);
+		assert!(at(ARCADE) < at("Polestar_Nav_EK"));
 	}
 
 	#[test]

@@ -40,6 +40,17 @@ pub fn readme(version: &str, names: &[String]) -> String {
 		.iter()
 		.map(|s| s.to_string()),
 	);
+	if names.iter().any(|n| n == crate::addons::ARCADE) {
+		lines.extend(
+			[
+				"   Polestar_Arcade is Freedoom Arcade by petllama: three levels of",
+				"   Freedoom to play on a flight, loaded when you press Play (its own",
+				"   licence, GPL-2.0 or later: see its LICENSE and CREDITS.md).",
+			]
+			.iter()
+			.map(|s| s.to_string()),
+		);
+	}
 	if names.iter().any(|n| forge_guide::project::own_extra(n).is_some()) {
 		lines.extend(
 			[
@@ -68,6 +79,10 @@ pub fn readme(version: &str, names: &[String]) -> String {
 			"GPL-3.0 or later, adapted with his permission: the route lines, journey",
 			"panel, transit times, travel prompts and alerts in Polestar/ (LICENSE",
 			"names the files) and the walking routes in Polestar_Nav/.",
+			"Polestar_Arcade/ is a program of its own: Freedoom Arcade, Copyright",
+			"(C) 2026 petllama, from id Software's DOOM source, GPL-2.0 or later;",
+			"Freedoom's levels and art (C) the Freedoom project, BSD licence",
+			"(FREEDOOM-COPYING.txt).",
 			"",
 		]
 		.iter()
@@ -168,6 +183,18 @@ mod tests {
 		let without = readme("0.3.8", &with[..2]);
 		assert!(!without.contains("Polestar_Experimental"));
 		assert!(without.contains("Theme and loads only when you pick it.\r\n2. Quit"));
+	}
+
+	// Freedoom Arcade's folder: what it is and its own licence, only when it ships.
+	#[test]
+	fn the_readme_names_freedoom_arcade_and_its_licence_only_when_it_ships() {
+		let with: Vec<String> = ["Polestar", "Polestar_Guides", "Polestar_Looks", "Polestar_Arcade", "Polestar_Codex"].iter().map(|s| s.to_string()).collect();
+		let text = readme("0.4.0", &with);
+		assert!(text.contains("\r\n     Polestar_Arcade\r\n"));
+		assert!(text.contains("\r\n   Polestar_Arcade is Freedoom Arcade by petllama: three levels of\r\n"));
+		assert!(text.contains("\r\nPolestar_Arcade/ is a program of its own: Freedoom Arcade, Copyright\r\n(C) 2026 petllama, from id Software's DOOM source, GPL-2.0 or later;\r\n"));
+		let without = readme("0.4.0", &[with[0].clone(), with[1].clone()]);
+		assert!(!without.contains("Polestar_Arcade is Freedoom Arcade"));
 	}
 
 	#[test]
