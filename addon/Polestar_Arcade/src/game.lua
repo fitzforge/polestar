@@ -64,6 +64,20 @@ end
 ------------------------------------------------------------------------ levels
 local function MapName(ep, map) return "E" .. ep .. "M" .. map end
 
+-- A copy built with a few maps (D.MAPSET, data/maps.lua, tools/subset.py) offers only their episodes,
+-- and the game ends after the last of them.
+local function InSet(ep, map)
+	if not D.MAPSET then return true end
+	local name = MapName(ep, map)
+	for _, m in ipairs(D.MAPSET) do
+		if m == name then return true end
+	end
+	return false
+end
+function G.SelectionNote()
+	return D.MAPSET and string.format("A %d-LEVEL SELECTION OF FREEDOOM PHASE 1", #D.MAPSET) or nil
+end
+
 function G.DoLoadLevel()
 	local name = MapName(G.gameepisode, G.gamemap)
 	if not D.EnsureMapLoaded(name) then
@@ -132,6 +146,7 @@ local function DoCompleted()
 		G.nextmap = m + 1
 	end
 	if m == 8 then G.nextmap = nil end
+	if G.nextmap and not InSet(G.gameepisode, G.nextmap) then G.nextmap = nil end
 	G.state = "intermission"
 	if D.Sound then D.Sound.Start(nil, D.SFX.barexp) end
 end
@@ -454,6 +469,23 @@ local menus = {
 	} },
 }
 
+-- Only the episodes the copy holds maps of; with one, New Game goes straight to the skills.
+do
+	local all = menus.episode.items
+	local kept = {}
+	for i, it in ipairs(all) do
+		if InSet(i, 1) then kept[#kept + 1] = it end
+	end
+	menus.episode.items = kept
+	if #kept == 1 then
+		local only = kept[1][2]
+		menus.main.items[1][2] = function()
+			only()
+			G.menu.single = true
+		end
+	end
+end
+
 function G.OpenMenu()
 	G.menuReturn = G.state
 	G.state = "menu"
@@ -476,7 +508,9 @@ function G.MenuKey(action)
 		if D.Sound then D.Sound.Start(nil, SFX.pistol) end
 		m.items[G.menu.item][2]()
 	elseif action == "back" then
-		if G.menu.page == "skill" then
+		if G.menu.page == "skill" and G.menu.single then
+			G.menu.page = "main"; G.menu.item = 1
+		elseif G.menu.page == "skill" then
 			G.menu.page = "episode"; G.menu.item = G.menu.episode or 1
 		elseif G.menu.page == "episode" then
 			G.menu.page = "main"; G.menu.item = 1
@@ -496,6 +530,8 @@ local function DrawMenu()
 	end
 	local skull = (floor(G.gametic / 8) % 2 == 0) and "M_SKULL1" or "M_SKULL2"
 	Draw.Patch(HUD + 21, m.x - 32, m.y - 5 + (G.menu.item - 1) * 16, GfxTex(skull))
+	local note = G.SelectionNote()
+	if note then G.DrawText(HUD + 21, (320 - G.TextWidth(note)) / 2, 186, note) end
 end
 
 ------------------------------------------------------------------------ intermission / finale
@@ -541,9 +577,17 @@ local finaleText = {
 	"",
 	"PRESS USE TO RETURN TO THE MENU.",
 }
+local selectionText = {
+	"YOU HAVE FINISHED THIS SELECTION.",
+	"",
+	"ALL 36 LEVELS ARE IN",
+	"FREEDOOM ARCADE BY PETLLAMA.",
+	"",
+	"PRESS USE TO RETURN TO THE MENU.",
+}
 local function DrawFinale()
 	Draw.Rect(HUD + 10, 0, 0, 320, 200, 0.05, 0.02, 0.02, 1)
-	for i, line in ipairs(finaleText) do
+	for i, line in ipairs(D.MAPSET and selectionText or finaleText) do
 		G.DrawText(HUD + 11, 20, 40 + i * 12, line)
 	end
 end

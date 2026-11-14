@@ -36,6 +36,8 @@ end
 
 function D.EnsureMapLoaded(mapname)
 	if D.MAPS[mapname] then return true end
+	-- A copy built with a few maps (D.MAPSET, data/maps.lua) holds them all: no episode addons to load.
+	if D.MAPSET then return false end
 	local addon = D.EpisodeAddon(mapname)
 	if not addon then return false end
 	local loader = (C_AddOns and C_AddOns.LoadAddOn) or LoadAddOn
