@@ -250,6 +250,9 @@ function sessionItems(s, xpModel, completed) {
 		}
 		// Quest points and vignettes locate remote places, not the player.
 		const remotePoint = e.e === 'poi' || e.e === 'treasure' || (e.e === 'rare' && (e.src === 'v' || e.src === 'vignette'));
+		// These positions can come from an earlier dialog or item use. Keep
+		// the event's facts and timing, but leave the walking anchor unchanged.
+		const dialogPosition = e.e === 'accept' || e.e === 'turnin' || (e.e === 'detail' && num(e.item) > 0);
 		while (tripIndex < trips.length && trips[tripIndex][1] < k) tripIndex++;
 		const trip = trips[tripIndex];
 		let recordPosition = true;
@@ -259,7 +262,7 @@ function sessionItems(s, xpModel, completed) {
 			// Only the final endpoint can anchor the walk after a completed trip.
 			recordPosition = k === trip[1];
 		}
-		if (recordPosition && !remotePoint && typeof e.map === 'number' && num(e.x) !== null && num(e.y) !== null) {
+		if (recordPosition && !remotePoint && !dialogPosition && typeof e.map === 'number' && num(e.x) !== null && num(e.y) !== null) {
 			if (lastPos && lastPos.map === e.map && active) {
 				const [w, h] = mapSize(s.maps, e.map);
 				const d = Math.hypot(((e.x - lastPos.x) * w) / 100, ((e.y - lastPos.y) * h) / 100);
