@@ -532,12 +532,12 @@ step Kor'geld
   accept 97275                        -- Yelmak
   turnin 97275                        -- Whuut
 
-step Zor Lonetree
-  accept 1061                         -- Zor Lonetree: Seereth Stonebreak, on the road into Stonetalon in the next guide
-
 step Valley of Wisdom
   tip Thra and Migi sit behind Grommash Hold in the Valley of Wisdom; the Smooth Boulders lie around them. The next guide walks from here to Far Watch Post and the Crossroads.
   turnin 97249                        -- Migi
   accept 97326                        -- Thra
   collect 277952 quest 97326.1
   turnin 97326
+
+step Zor Lonetree
+  accept 1061                         -- Zor Lonetree: Seereth Stonebreak, on the road into Stonetalon in the next guide

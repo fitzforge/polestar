@@ -25,13 +25,13 @@ local g = E.GetGuide()
 local function stepOf(title)
 	for i, st in ipairs(g.steps) do if st.title == title then return i end end
 end
--- Booty Bay, where Fin Fizracket gives 348 (the guide has several steps of that name).
+-- A step by one of its goals (Booty Bay: the guide has several steps of that name).
 local function stepWith(t, q)
 	for i, st in ipairs(g.steps) do
 		for _, goal in ipairs(st.goals) do if goal.t == t and goal.quest == q then return i end end
 	end
 end
-local unbagwa, booty = stepOf("Witch Doctor Unbagwa"), stepWith("accept", 348)
+local unbagwa = stepOf("Witch Doctor Unbagwa")
 -- Every step before Unbagwa skipped (Booty Bay's accept of 348 with them).
 E.SkipUpTo(unbagwa)
 stub.advance(2)
@@ -47,7 +47,8 @@ local r = { compiled = {}, live = E.GetLiveStep() == unbagwa, unbagwa = goals(un
 for _, goal in ipairs(g.steps[unbagwa].goals) do
 	if goal.direct then r.compiled = { parent = goal.parent or false, pre = goal.pre or false } end
 end
-for _, gv in ipairs(goals(booty)) do
+-- A plain turn-in in the same guide: Up to Snuff (587) to Deeg in Booty Bay.
+for _, gv in ipairs(goals(stepWith("turnin", 587))) do
 	if gv.t == "turnin" and gv.quest == 587 then r.plain = gv end
 end
 emit(r)

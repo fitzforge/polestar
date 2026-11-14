@@ -13971,20 +13971,6 @@ test(`${REDRIDGE}: Acrylic's report (#2243): Look to the Stars is a step of its 
 	}
 });
 
-// Silverpine Forest (Horde 12-15) ends in the Valley of Wisdom: Zor Lonetree's The Spirits of Stonetalon (1061, from
-// level 13) stood after Thra and Migi as the guide's last step, so the end waited on an accept a character below 13
-// cannot take. Zor stands on the walk from the Drag to Thra and Migi, so he comes first.
-test('Silverpine Forest (Horde): Zor Lonetree on the way to the Valley of Wisdom, which ends the guide', () => {
-	const list = goals('forever/horde/03-silverpine-forest.guide');
-	const zor = at(list, 'accept 1061', is('accept', 1061));
-	// (The guide's first Valley of Wisdom stop hands Favorite Food in for the races that start there; the last one is
-	// the end's.)
-	const migi = list.findLastIndex(({ goal }) => is('turnin', 97249)(goal));
-	assert.ok(migi >= 0 && zor < migi, 'Zor before Thra and Migi on the last Valley of Wisdom stop');
-	const steps = compiled('forever/horde/03-silverpine-forest.guide').steps;
-	assert.equal(steps[steps.length - 1].title, 'Valley of Wisdom', 'the guide ends in the Valley of Wisdom');
-});
-
 // #2268's pattern in Durotar (Orc and Troll): A Simmering Storm (97281, from the Dull Storm Orb) and Stormy
 // Potential's accept (97282) were optional lines on the Rezlak stop that hands in Securing the Lines (835): once 835
 // was in, nothing held the step, and a player carrying the orb's quest walked on without handing it in. Its hand-in

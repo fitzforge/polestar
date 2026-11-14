@@ -293,14 +293,14 @@ return {
 	-- {spell:197} Two-Handed Axes · {npc:11868} Sayoc · {object:172958} Valley of Honor
 	["While you're here: learn {spell:197} from {npc:11868} ({object:172958}, 10 silver); two-handers level a Paladin fastest."] = "Ya que estás aquí: aprende {spell:197} con {npc:11868} ({object:172958}, 10 de plata); las armas de dos manos suben de nivel más rápido a un paladín.",
 
-	-- Step 65: Zor Lonetree
-	-- {npc:4047} Zor Lonetree · {npc:4049} Seereth Stonebreak
-	["{npc:4047}: {npc:4049}, on the road into Stonetalon in the next guide"] = "{npc:4047}: {npc:4049}, en el camino hacia Stonetalon, en la siguiente guía",
-
-	-- Step 66: Valley of Wisdom
+	-- Step 65: Valley of Wisdom
 	-- {npc:268684} Thra · {npc:268682} Migi · {object:172957} Valley of Wisdom · {area:379} Far Watch Post
 	-- plural, as words: Smooth Boulders = {item:277952} Smooth Boulder
 	["{npc:268684} and {npc:268682} sit behind Grommash Hold in the {object:172957}; the Smooth Boulders lie around them. The next guide walks from here to {area:379} and the Crossroads."] = "{npc:268684} y {npc:268682} están detrás de la fortaleza de Thrall en {object:172957}; las Rocas lisas están a su alrededor. La siguiente guía camina desde aquí hasta {area:379} y el Cruce.",
+
+	-- Step 66: Zor Lonetree
+	-- {npc:4047} Zor Lonetree · {npc:4049} Seereth Stonebreak
+	["{npc:4047}: {npc:4049}, on the road into Stonetalon in the next guide"] = "{npc:4047}: {npc:4049}, en el camino hacia Stonetalon, en la siguiente guía",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["At the {area:2362}"] = "En el {area:2362}",

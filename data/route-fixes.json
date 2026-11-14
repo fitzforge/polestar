@@ -13898,19 +13898,6 @@
 				"faction": "Alliance",
 				"why": "Forest Song is on the road from the Emerald Sanctuary back to Talrendis Point, ridden right after Arei's escort (Ancient Spirit): the quest is handed in to Kayneth Stillwind there instead of on a later Gadgetzan -> Talrendis Point -> Forest Song -> Talrendis Point detour between flights (about 1,400 yd and a landing).",
 				"source": "0.4.0 audit (route audit A2)"
-			},
-			{
-				"a": [
-					"accept",
-					1061
-				],
-				"b": [
-					"turnin",
-					97249
-				],
-				"faction": "Horde",
-				"why": "Silverpine Forest (Horde 12-15, 0.4.0 audit): the guide ended on Zor Lonetree's The Spirits of Stonetalon (1061, from level 13) after Thra and Migi, so the last step for everyone was an accept a character below 13 cannot take and the Valley of Wisdom done ahead was no end. Zor (38.9,38.4) stands on the walk from the Drag to Thra and Migi (36.5,28.8): he comes first now, and the guide ends in the Valley of Wisdom, where the next guide starts its walk to Far Watch Post.",
-				"source": "review"
 			}
 		]
 	}

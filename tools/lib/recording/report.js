@@ -108,11 +108,66 @@ function mapSize(maps, map) {
 	return [FALLBACK_W, FALLBACK_H];
 }
 
+// Only complete observed trips exclude distance: recording off/on or a reload
+// can omit an end, so an unmatched start must not suppress later walking.
+// Indices refer to the time-sorted events; chunk membership comes from their
+// original order, since delayed records can overlap the next chunk's timestamp.
+function completedTransports(events, chunks, original) {
+	const gaps = new Set();
+	if (Array.isArray(chunks) && chunks.every((n) => Number.isSafeInteger(n) && n > 0)) {
+		const headers = original.filter((e) => e.e === 'session');
+		for (let i = 1; i < chunks.length; i++) {
+			if (chunks[i] === chunks[i - 1] + 1) continue;
+			// A known gap without its header cannot safely locate either side.
+			if (headers.length !== chunks.length) return [];
+			gaps.add(headers[i]);
+		}
+	}
+	const runs = new Map();
+	if (gaps.size) {
+		let run = 0;
+		for (const e of original) {
+			if (gaps.has(e)) run++;
+			runs.set(e, run);
+		}
+	}
+	const starts = { taxi: null, ride: null };
+	const ranges = [];
+	let previousRun;
+	for (let i = 0; i < events.length; i++) {
+		const e = events[i];
+		const run = runs.get(e);
+		if (run !== previousRun) starts.taxi = starts.ride = null;
+		previousRun = run;
+		if (e.e === 'taxi' || (e.e === 'ride' && e.on === true)) {
+			starts[e.e] = i;
+		} else {
+			const kind = e.e === 'land' ? 'taxi' : e.e === 'ride' && e.on === false ? 'ride' : null;
+			if (kind && starts[kind] !== null) {
+				ranges.push([starts[kind], i]);
+				starts[kind] = null;
+			}
+		}
+	}
+	// Both kinds may be observed together. Ending one must not resume walking
+	// inside the other, while separate trips must retain the walking between them.
+	ranges.sort((a, b) => a[0] - b[0]);
+	const merged = [];
+	for (const range of ranges) {
+		const prev = merged[merged.length - 1];
+		if (prev && range[0] <= prev[1]) prev[1] = Math.max(prev[1], range[1]);
+		else merged.push(range);
+	}
+	return merged;
+}
+
 // One session -> ordered items: segments and guide completions. Completion
 // state follows the character across sessions until an actual step is opened.
 function sessionItems(s, xpModel, completed) {
-	const events = [...(s.events || [])].filter((e) => e && typeof e.e === 'string' && typeof e.t === 'number');
-	events.sort((a, b) => a.t - b.t);
+	const original = (s.events || []).filter((e) => e && typeof e.e === 'string' && typeof e.t === 'number');
+	const events = [...original].sort((a, b) => a.t - b.t);
+	const trips = completedTransports(events, s.chunks, original);
+	let tripIndex = 0;
 	const items = [];
 	let cur = null;
 	let combat = false;
@@ -195,7 +250,22 @@ function sessionItems(s, xpModel, completed) {
 		}
 		// Quest points and vignettes locate remote places, not the player.
 		const remotePoint = e.e === 'poi' || e.e === 'treasure' || (e.e === 'rare' && (e.src === 'v' || e.src === 'vignette'));
-		if (!remotePoint && typeof e.map === 'number' && num(e.x) !== null && num(e.y) !== null) {
+		// These positions can come from an earlier dialog or item use. Keep
+		// the event's facts and timing, but leave the walking anchor unchanged.
+		const dialogPosition = e.e === 'accept' || e.e === 'turnin' || (e.e === 'detail' && num(e.item) > 0);
+		// Instance entries carry the cached last outdoor position, not a sample
+		// at their event time. Keep the preceding player anchor and event timing.
+		const entrance = e.e === 'enter';
+		while (tripIndex < trips.length && trips[tripIndex][1] < k) tripIndex++;
+		const trip = trips[tripIndex];
+		let recordPosition = true;
+		if (trip && k >= trip[0]) {
+			lastPos = null;
+			// Ride starts carry a cached origin, not the detection-time position.
+			// Only the final endpoint can anchor the walk after a completed trip.
+			recordPosition = k === trip[1];
+		}
+		if (recordPosition && !remotePoint && !dialogPosition && !entrance && typeof e.map === 'number' && num(e.x) !== null && num(e.y) !== null) {
 			if (lastPos && lastPos.map === e.map && active) {
 				const [w, h] = mapSize(s.maps, e.map);
 				const d = Math.hypot(((e.x - lastPos.x) * w) / 100, ((e.y - lastPos.y) * h) / 100);

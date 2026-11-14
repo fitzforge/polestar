@@ -13524,19 +13524,26 @@ function Engine.SkipUpTo(t, keep)
 	local before = Own.skipState(id)
 	local sk = skippedFor(id, true)
 	local first, n, feed = nil, 0, {}
-	for s = computed, t - 1 do
-		if not sk[s] and stepApplies(guide.steps[s]) and not stepDone(s) and not (keep and keep(guide.steps[s])) then
-			sk[s] = true
-			first, n = first or s, n + 1
-			Own.feedSkip(s, feed)
+	-- A walk that passes because the stop after it reads empty (Own.stopEmpty) opens again once the steps after it
+	-- are skipped, the stop then being the work at t: a second pass skips it too.
+	for _ = 1, 3 do
+		local more = false
+		for s = computed, t - 1 do
+			if not sk[s] and stepApplies(guide.steps[s]) and not stepDone(s) and not (keep and keep(guide.steps[s])) then
+				sk[s] = true
+				first, n, more = math.min(first or s, s), n + 1, true
+				Own.feedSkip(s, feed)
+			end
 		end
+		if not more then break end
+		Own.view(nil)
+		evaluate()
+		if not computed or computed >= t then break end
 	end
 	if not first then
 		if not next(sk) then ns.CharState().skipped[id] = nil end
 		return 0
 	end
-	Own.view(nil)
-	evaluate()
 	Own.skipStore(id, first, before, feed)
 	ns.Fire("PLAYER_SKIPPED_STEP", id, first)
 	return n
