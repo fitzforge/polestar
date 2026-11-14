@@ -175,7 +175,7 @@ return {
 	-- Step 36: Rogue Vale screechers
 	["Rogue Vale screechers"] = "Estridadores del valle huido",
 	-- {npc:14637} Zorbin Fandazzle · {npc:5308} Rogue Vale Screecher · {item:10699} Yeh'kinya's Bramble
-	["Rogue Vale opens just north of {npc:14637}'s dock. Kill a {npc:5308}, use {item:10699} on its body and kill the spirit that rises."] = "Valle Rufián se abre justo al norte del muelle de {npc:14637}. Mata a un {npc:5308}, usa {item:10699} sobre su cuerpo y mata al espíritu que se levanta.",
+	["Rogue Vale opens just north of {npc:14637}'s dock. Kill a {npc:5308}, use {item:10699} on its body before you loot it, then talk to the spirit that rises: it is friendly. Three spirits in all."] = "Valle Rufián se abre justo al norte del muelle de {npc:14637}. Mata a un {npc:5308}, usa {item:10699} sobre su cuerpo antes de saquearlo y luego habla con el espíritu que se levanta: es amistoso. Son tres espíritus en total.",
 
 	-- Step 37: Forgotten Coast: kill these as you meet them
 	-- {area:1108} Forgotten Coast

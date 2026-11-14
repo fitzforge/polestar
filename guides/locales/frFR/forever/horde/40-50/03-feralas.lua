@@ -175,7 +175,7 @@ return {
 	-- Step 36: Rogue Vale screechers
 	["Rogue Vale screechers"] = "Hurleurs des vallées insoumis",
 	-- {npc:14637} Zorbin Fandazzle · {npc:5308} Rogue Vale Screecher · {item:10699} Yeh'kinya's Bramble
-	["Rogue Vale opens just north of {npc:14637}'s dock. Kill a {npc:5308}, use {item:10699} on its body and kill the spirit that rises."] = "Le Val des voleurs s'ouvre juste au nord du quai de {npc:14637}. Tuez un {npc:5308}, utilisez la {item:10699} sur son corps et tuez l'esprit qui en sort.",
+	["Rogue Vale opens just north of {npc:14637}'s dock. Kill a {npc:5308}, use {item:10699} on its body before you loot it, then talk to the spirit that rises: it is friendly. Three spirits in all."] = "Le Val des voleurs s'ouvre juste au nord du quai de {npc:14637}. Tuez un {npc:5308}, utilisez la {item:10699} sur son corps avant de le fouiller, puis parlez à l'esprit qui en sort : il est amical. Trois esprits en tout.",
 
 	-- Step 37: Forgotten Coast: kill these as you meet them
 	-- {area:1108} Forgotten Coast

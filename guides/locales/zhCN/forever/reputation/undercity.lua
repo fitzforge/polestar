@@ -64,7 +64,8 @@ return {
 	["Around {area:159}"] = "{area:159}周围",
 	-- {item:286176} Executor's Motivator · {area:159} Brill · {quest:99141} Patience · {npc:1496} Deathguard Dillinger · {npc:251001} Deathguard Kristof · {npc:10666} Gordo · {npc:1525} Rotting Dead
 	["Use the {item:286176} on five Deathguards around {area:159}. For {quest:99141}, talk to {npc:1496} west of {area:159}, {npc:251001} at the waystation east of it and {npc:10666} on the road. The Rot Hide gnolls dig at the mass grave north of {area:159}. The {npc:1525} walk around the old bridge west of {area:159}; the dry branches lie under the trees there. Darkhounds roam everywhere."] = "对{area:159}周围的5名亡灵卫兵使用{item:286176}。做{quest:99141}时，与{area:159}西面的{npc:1496}、东面驿站的{npc:251001}及路上的{npc:10666}交谈。腐皮豺狼人在{area:159}北面的乱葬岗挖掘。{npc:1525}在{area:159}西面旧桥周围行走；干树枝散落在那里的树下。黑暗犬到处都有。",
-	["Motivate 5 Deathguards"] = "激励5名亡灵卫兵",
+	-- {area:159} Brill
+	["Motivate 5 Deathguards: the Deathguards around {area:159}"] = "激励5名亡灵卫兵：{area:159}周围的亡灵卫兵",
 
 	-- Step 10: Agamand Mills
 	-- {npc:1657} Devlin Agamand · {area:157} Agamand Mills

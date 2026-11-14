@@ -30,7 +30,9 @@ return {
 	-- {npc:6166} Yorus Barleybrew · {spell:8553} Barleybrew Scalder · {area:98} Rethban Caverns · {area:69} Lakeshire
 	["You have one hour, and {npc:6166}'s {spell:8553} leaves you drunk for 8-10 minutes. Run north-west into the {area:98}, keeping close to the cliff wall to miss most gnoll packs, and go in as far as the first fork; then come back to {npc:6166} (from the ridge you can jump down into {area:69}). Dying and releasing your spirit fails the quest: abandon it and {npc:6166} gives it again."] = "Tienes una hora, y {spell:8553} de {npc:6166} te deja borracho de 8 a 10 minutos. Corre al noroeste hacia {area:98}, pegado a la pared del acantilado para evitar la mayoría de los grupos de gnolls, y entra hasta la primera bifurcación; luego vuelve con {npc:6166} (desde la cresta puedes saltar hasta {area:69}). Morir y liberar tu espíritu hace fracasar la misión: abandónala y {npc:6166} te la vuelve a dar.",
 	-- {area:98} Rethban Caverns
-	["Enter the {area:98} and come back"] = "Entra en {area:98} y vuelve",
+	["The {area:98}"] = "{area:98}",
+	-- {area:98} Rethban Caverns
+	["Enter the {area:98} and come back; below ground, at the first fork"] = "Entra en {area:98} y vuelve; bajo tierra, en la primera bifurcación",
 
 	-- Step 6: The Shieldsmith
 	-- {npc:5413} Furen Longbeard · {item:6843} Cask of Scalder · {npc:6166} Yorus Barleybrew · {item:6970} Furen's Favor · {quest:1701} Fire Hardened Mail · {item:6842} Furen's Instructions

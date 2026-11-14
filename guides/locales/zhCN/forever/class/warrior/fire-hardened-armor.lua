@@ -30,7 +30,9 @@ return {
 	-- {npc:6166} Yorus Barleybrew · {spell:8553} Barleybrew Scalder · {area:98} Rethban Caverns · {area:69} Lakeshire
 	["You have one hour, and {npc:6166}'s {spell:8553} leaves you drunk for 8-10 minutes. Run north-west into the {area:98}, keeping close to the cliff wall to miss most gnoll packs, and go in as far as the first fork; then come back to {npc:6166} (from the ridge you can jump down into {area:69}). Dying and releasing your spirit fails the quest: abandon it and {npc:6166} gives it again."] = "你有一小时，且{npc:6166}的{spell:8553}会让你醉上8-10分钟。向西北跑进{area:98}，紧贴崖壁避开大部分豺狼人群，深入至第一个岔路口即可；然后回到{npc:6166}处（可从山脊跳下到{area:69}）。死亡后释放灵魂会使任务失败：放弃任务，{npc:6166}会再次提供。",
 	-- {area:98} Rethban Caverns
-	["Enter the {area:98} and come back"] = "进入{area:98}后返回",
+	["The {area:98}"] = "{area:98}",
+	-- {area:98} Rethban Caverns
+	["Enter the {area:98} and come back; below ground, at the first fork"] = "进入{area:98}后返回；在地下，第一个岔路口",
 
 	-- Step 6: The Shieldsmith
 	-- {npc:5413} Furen Longbeard · {item:6843} Cask of Scalder · {npc:6166} Yorus Barleybrew · {item:6970} Furen's Favor · {quest:1701} Fire Hardened Mail · {item:6842} Furen's Instructions

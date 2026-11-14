@@ -64,7 +64,8 @@ return {
 	["Around {area:159}"] = "Rund um {area:159}",
 	-- {item:286176} Executor's Motivator · {area:159} Brill · {quest:99141} Patience · {npc:1496} Deathguard Dillinger · {npc:251001} Deathguard Kristof · {npc:10666} Gordo · {npc:1525} Rotting Dead
 	["Use the {item:286176} on five Deathguards around {area:159}. For {quest:99141}, talk to {npc:1496} west of {area:159}, {npc:251001} at the waystation east of it and {npc:10666} on the road. The Rot Hide gnolls dig at the mass grave north of {area:159}. The {npc:1525} walk around the old bridge west of {area:159}; the dry branches lie under the trees there. Darkhounds roam everywhere."] = "Benutze den {item:286176} an fünf Todeswachen rund um {area:159}. Für {quest:99141} sprich mit {npc:1496} westlich von {area:159}, {npc:251001} an der Wegstation östlich davon und {npc:10666} auf der Straße. Die Rot Hide-Gnolle graben am Massengrab nördlich von {area:159}. Die {npc:1525} laufen um die alte Brücke westlich von {area:159}; die trockenen Äste liegen dort unter den Bäumen. Darkhounds streifen überall umher.",
-	["Motivate 5 Deathguards"] = "Motiviere 5 Todeswachen",
+	-- {area:159} Brill
+	["Motivate 5 Deathguards: the Deathguards around {area:159}"] = "Motiviere 5 Todeswachen: die Todeswachen rund um {area:159}",
 
 	-- Step 10: Agamand Mills
 	-- {npc:1657} Devlin Agamand · {area:157} Agamand Mills

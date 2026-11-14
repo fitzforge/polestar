@@ -52,8 +52,9 @@ return {
 	["The {object:179827} board"] = "{object:179827}布告板",
 
 	-- Step 11: Zamael Lunthistle
-	-- {area:1446} Thorium Point
-	["The night elf stands alone west of {area:1446}. Hear his story."] = "那个暗夜精灵独自站在{area:1446}西边。听他讲述他的故事。",
+	-- {npc:8436} Zamael Lunthistle · {area:1442} Firewatch Ridge · {area:1446} Thorium Point · {npc:8282} Highlord Mastrogonde · {quest:3377} Prayer to Elune
+	-- plural, as words: Twilight Fire Guards = {npc:5861} Twilight Fire Guard
+	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:8436} stands inside the Twilight camp at {area:1442}, west of {area:1446}, among Twilight Fire Guards, Idolaters and Geomancers (level 48-49 elites), with {npc:8282} (level 51, rare elite) beside him: {quest:3377} needs a group of 4. Skip it if you are alone."] = "这些是精英敌人，建议寻找其他玩家组队完成。{npc:8436}站在{area:1446}西边{area:1442}的暮光营地里，周围是暮光火焰卫士、暮光崇拜者和暮光地占师（48-49 级精英），旁边还有{npc:8282}（51 级稀有精英）：{quest:3377}需要 4 人小队。独自一人时可跳过。",
 
 	-- Step 14: Searing Lava Spiders
 	-- plural, as words: Searing Lava Spiders = {npc:5857} Searing Lava Spider
@@ -170,6 +171,7 @@ return {
 	-- ["Ride north-west across the Cauldron to {area:1446}, the scaffolded camp on the north-west rim."] = "向西北骑行穿过大熔炉，到达{area:1446}，即西北边缘搭着脚手架的营地。",
 	-- ["Taskmasters and Slavers drive the slaves all over the Cauldron, and any of them can carry a {item:10551}. The Steamsmiths work at the furnaces in the middle (the {item:18959}), the Lookouts stand on the southern ridges (the Spyglass). Any {object:147516} may drop the {item:11818}: keep it."] = "黑铁工头和黑铁奴隶贩子在大熔炉各处驱使奴隶，任何一个都可能带着{item:10551}。黑铁锻造师在中间的熔炉旁干活（{item:18959}），黑铁哨兵站在南边的山脊上（侦查员的望远镜）。任何{object:147516}都可能掉落{item:11818}：留着它。",
 	-- ["The dwarf stands by the road at the dig site. Follow him north along the road and fight off the {object:147516} ambushes. When it is over, read the {object:175704} he leaves on the road in {area:1959}."] = "那个矮人站在挖掘场的路旁。跟着他沿道路向北，击退{object:147516}的伏击。结束后，阅读他留在{area:1959}路上的{object:175704}。",
+	-- ["The night elf stands alone west of {area:1446}. Hear his story."] = "那个暗夜精灵独自站在{area:1446}西边。听他讲述他的故事。",
 	-- ["The spiders roam the plateaus and lava pools in the south-west of the gorge."] = "蜘蛛在峡谷西南部的高地和熔岩池中游荡。",
 	-- ["The spiders roam the plateaus and lava pools south of {npc:8436}, on the way to Kalaran."] = "蜘蛛在{npc:8436}南面的高地和熔岩池一带游荡，前往卡拉然的路上会经过。",
 	-- ["{area:1442}: kill these as you meet them"] = "{area:1442}：沿途击杀以下目标",

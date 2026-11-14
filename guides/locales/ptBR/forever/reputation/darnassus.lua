@@ -102,6 +102,7 @@ return {
 	-- {area:445} Cliffspring Falls
 	-- plural, as words: Rabid Thistle Bears = {npc:2164} Rabid Thistle Bear
 	["The furbolg camp south of town counts for How Big a Threat; the Rabid Thistle Bears roam the woods south of town; the Highborne ghosts of the Ruins of Ameth'Aran, south-east of town, carry the relics, and Anaya's ghost walks there too; the bones lie on the beach south of town; the mushrooms grow in the {area:445} cave to the north-east."] = "O acampamento dos furbolgs ao sul da cidade vale para Uma grande ameaça?; os Ursocardos Raivosos vagam pelas matas ao sul da cidade; os fantasmas Altaneiros das Ruínas de Ameth'Aran, a sudeste da cidade, carregam as relíquias, e o fantasma de Anaya também anda por lá; os ossos estão na praia ao sul da cidade; os cogumelos crescem na caverna de {area:445}, a nordeste.",
+	["the corrupt furbolg camp south of town"] = "o acampamento dos furbolgs corrompidos ao sul da cidade",
 	-- {npc:2164} Rabid Thistle Bear · {quest:2139} Tharnariun's Hope · {npc:3701} Tharnariun Treetender
 	["{npc:2164}: use {quest:2139} on it and lead it back to {npc:3701}"] = "{npc:2164}: use {quest:2139} nele e leve-o de volta a {npc:3701}",
 	-- {npc:2164} Rabid Thistle Bear

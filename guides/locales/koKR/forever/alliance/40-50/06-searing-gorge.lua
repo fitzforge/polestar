@@ -52,8 +52,9 @@ return {
 	["The {object:179827} board"] = "{object:179827} 게시판",
 
 	-- Step 11: Zamael Lunthistle
-	-- {area:1446} Thorium Point
-	["The night elf stands alone west of {area:1446}. Hear his story."] = "나이트 엘프 잠마엘 룬시슬이 {area:1446} 서쪽에 홀로 서 있습니다. 그의 이야기를 들으십시오.",
+	-- {npc:8436} Zamael Lunthistle · {area:1442} Firewatch Ridge · {area:1446} Thorium Point · {npc:8282} Highlord Mastrogonde · {quest:3377} Prayer to Elune
+	-- plural, as words: Twilight Fire Guards = {npc:5861} Twilight Fire Guard
+	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:8436} stands inside the Twilight camp at {area:1442}, west of {area:1446}, among Twilight Fire Guards, Idolaters and Geomancers (level 48-49 elites), with {npc:8282} (level 51, rare elite) beside him: {quest:3377} needs a group of 4. Skip it if you are alone."] = "정예 몹입니다. 파티를 맺는 것을 권장하니 함께할 사람을 찾아보십시오. {npc:8436}은(는) {area:1446} 서쪽, {area:1442}의 황혼의 망치단 야영지에서 황혼의망치단 화염경비병, 황혼의망치단 우상숭배자, 황혼의망치단 풍수사(48-49레벨 정예) 사이에 서 있고, 그 옆에는 {npc:8282}(51레벨 희귀 정예)이(가) 있습니다. {quest:3377}에는 4인 파티가 필요합니다. 혼자라면 건너뛰십시오.",
 
 	-- Step 14: Searing Lava Spiders
 	-- plural, as words: Searing Lava Spiders = {npc:5857} Searing Lava Spider
@@ -159,6 +160,7 @@ return {
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["For {npc:8256} in {area:1537}, later"] = "나중에 {area:1537}의 {npc:8256}에게",
 	-- ["Greater Lava Spiders"] = "거대한 용암거미",
+	-- ["The night elf stands alone west of {area:1446}. Hear his story."] = "나이트 엘프 잠마엘 룬시슬이 {area:1446} 서쪽에 홀로 서 있습니다. 그의 이야기를 들으십시오.",
 	-- ["{npc:6734}: the last guide hearths you here, so this usually ticks at once"] = "{npc:6734}: 이전 가이드가 귀환석으로 이곳에 데려오므로 보통 바로 완료됩니다",
 	-- ["{object:147516} dwarves"] = "{object:147516} 드워프",
 }

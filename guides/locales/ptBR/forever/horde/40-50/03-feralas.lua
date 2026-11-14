@@ -175,7 +175,7 @@ return {
 	-- Step 36: Rogue Vale screechers
 	["Rogue Vale screechers"] = "Guinchadores Errantes do Vale",
 	-- {npc:14637} Zorbin Fandazzle · {npc:5308} Rogue Vale Screecher · {item:10699} Yeh'kinya's Bramble
-	["Rogue Vale opens just north of {npc:14637}'s dock. Kill a {npc:5308}, use {item:10699} on its body and kill the spirit that rises."] = "O Vale Errante abre logo ao norte do cais de {npc:14637}. Mate um {npc:5308}, use {item:10699} no corpo dele e mate o espírito que se levantar.",
+	["Rogue Vale opens just north of {npc:14637}'s dock. Kill a {npc:5308}, use {item:10699} on its body before you loot it, then talk to the spirit that rises: it is friendly. Three spirits in all."] = "O Vale Errante abre logo ao norte do cais de {npc:14637}. Mate um {npc:5308}, use {item:10699} no corpo dele antes de saqueá-lo e depois fale com o espírito que se levantar: ele é amistoso. São três espíritos ao todo.",
 
 	-- Step 37: Forgotten Coast: kill these as you meet them
 	-- {area:1108} Forgotten Coast
