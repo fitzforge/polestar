@@ -851,6 +851,29 @@ fn a_blizzard_settings_category_opens_the_options_window() {
 	assert_eq!(out, json!({ "registered": true, "opened": true }));
 }
 
+// The game's Settings panel shows a canvas category with frame:Show() and hides it with frame:Hide() as another
+// category is picked (Blizzard_SettingsPanel.lua's DisplayLayout and ClearCurrentCategoryCanvas, 1.60.1), outside
+// securecallfunction: an OnShow or OnHide of ours there would run inside the panel's category switch, and the rows
+// it builds next (Social's Discord sign-in row calls the restricted C_Discord.IsUserOAuthed) would carry our taint.
+#[test]
+fn the_blizzard_settings_canvas_runs_no_show_or_hide_script_of_ours() {
+	let out = run(r#"
+		local cat
+		for _, c in ipairs(Settings.categories) do if c.name == "Polestar" then cat = c end end
+		local frames, found = 0, {}
+		local function walk(f, path)
+			frames = frames + 1
+			for _, s in ipairs({ "OnShow", "OnHide" }) do
+				if f.scripts[s] or (f.hooks[s] and #f.hooks[s] > 0) then found[#found + 1] = path .. " " .. s end
+			end
+			for i, child in ipairs(f.children) do walk(child, path .. "." .. (child.name or i)) end
+		end
+		walk(cat.frame, "canvas")
+		emit({ frames = frames, found = table.concat(found, ", ") })"#);
+	assert!(n(&out["frames"]) >= 3.0, "the canvas, its chip and its button: {out}");
+	assert_eq!(out["found"], "");
+}
+
 #[test]
 fn in_combat_the_settings_canvas_button_leaves_the_protected_game_panel_alone() {
 	let out = run(r#"

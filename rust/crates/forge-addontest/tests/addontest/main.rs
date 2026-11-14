@@ -310,6 +310,8 @@ mod nav_transit;
 mod new_in_forever;
 #[path = "options-memory.rs"]
 mod options_memory;
+#[path = "options-search.rs"]
+mod options_search;
 #[path = "out-of-sight.rs"]
 mod out_of_sight;
 #[path = "pack-race-parts.rs"]
