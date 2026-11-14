@@ -140,6 +140,8 @@ end
 -- kind, id the button should hold now (nil: hidden). It goes with the guide
 -- window; hiding Polestar takes it with the arrow (kept with it: ns.ArrowHidden).
 function Prompts.Wanted()
+	-- Travel keeps its current leg during flight, but its cast cannot be used there.
+	if ns.Compat.IsOnTaxi() then return nil end
 	if not ns.Get("nav.castPrompt") or not ns.GuideWindowOn() or ns.ArrowHidden() then return nil end
 	local kind, id = Prompts.ActionOf((currentLeg()))
 	if not kind or stepButtonHas(kind, id) then return nil end

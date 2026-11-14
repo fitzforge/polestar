@@ -105,6 +105,105 @@ fn travel_button_a_hearth_leg_gets_a_secure_item_button_under_the_arrow_out_of_c
 }
 
 #[test]
+fn travel_button_2297_cast_prompts_hide_on_takeoff_and_return_only_for_the_remaining_leg() {
+	let out = run_nav(
+		r#"
+		nav.items[6948], nav.items[900001] = 1, 1
+		Polestar.Compat.IsSpellKnown = function(id) return id == 3565 end
+		for _, leg in ipairs({ HEARTH, { kind="teleport", spell=3565 }, { kind="item", item=900001 } }) do
+			leg.from, leg.to = HEARTH.from, HEARTH.to
+			setRoute({ leg, WALK })
+			local ground = state()
+			nav.taxi = true
+			stub.fire("PLAYER_CONTROL_LOST")
+			local takeoff = state()
+			-- Reannouncing the same leg and the ordinary refresh cannot revive it.
+			setRoute(route.legs)
+			N.Refresh()
+			local flying = state()
+			nav.taxi = false
+			stub.fire("PLAYER_CONTROL_GAINED")
+			emit({ground=ground,takeoff=takeoff,flying=flying,landed=state(),leg=route.ci,skipped=skipped})
+		end
+	"#,
+	);
+	let hidden = json!({ "exists": true, "shown": false, "type1": false, "item": false, "spell": false });
+	assert_eq!(out.len(), 3);
+	for row in out {
+		assert_eq!(row["ground"]["shown"], true);
+		assert_eq!(row["takeoff"], hidden, "takeoff hides and empties the secure action immediately");
+		assert_eq!(row["flying"], hidden, "refreshing a frozen route cannot offer its cast during a taxi");
+		assert_eq!(row["landed"], row["ground"], "landing restores the still-current action");
+		assert_eq!(row["leg"], 1, "hiding the prompt does not complete or skip the leg");
+		assert_eq!(row["skipped"], 0);
+	}
+}
+
+#[test]
+fn travel_button_2297_landing_does_not_revive_an_advanced_or_cleared_cast_leg() {
+	let out = run_nav(
+		r#"
+		nav.items[6948] = 1
+		setRoute({ HEARTH, WALK })
+		nav.taxi = true
+		stub.fire("PLAYER_CONTROL_LOST")
+		route.ci = 2
+		Polestar.Fire("ROUTE_ADVANCED", route.legs, 2)
+		nav.taxi = false
+		stub.fire("PLAYER_CONTROL_GAINED")
+		emit(state())
+		setRoute({ HEARTH, WALK })
+		nav.taxi = true
+		stub.fire("PLAYER_CONTROL_LOST")
+		setRoute(nil)
+		nav.taxi = false
+		stub.fire("PLAYER_CONTROL_GAINED")
+		emit(state())
+	"#,
+	);
+	for row in out {
+		assert_eq!(row, json!({ "exists": true, "shown": false, "type1": false, "item": false, "spell": false }));
+	}
+}
+
+#[test]
+fn travel_button_2297_taxi_changes_respect_combat_lockdown_and_the_latest_request() {
+	let out = run_nav(
+		r#"
+		nav.items[6948] = 1
+		setRoute({ HEARTH, WALK })
+		combat(true)
+		nav.taxi = true
+		stub.fire("PLAYER_CONTROL_LOST")
+		emit({state(),P.Pending()})
+		combat(false)
+		emit({state(),P.Pending()})
+		-- Landing during lockdown queues restoration, but taking off again wins.
+		combat(true)
+		nav.taxi = false
+		stub.fire("PLAYER_CONTROL_GAINED")
+		nav.taxi = true
+		stub.fire("PLAYER_CONTROL_LOST")
+		combat(false)
+		emit({state(),P.Pending()})
+		-- The reverse ordering also follows the latest state, without protected calls.
+		nav.taxi = false
+		stub.fire("PLAYER_CONTROL_GAINED")
+		combat(true)
+		nav.taxi = true
+		stub.fire("PLAYER_CONTROL_LOST")
+		nav.taxi = false
+		stub.fire("PLAYER_CONTROL_GAINED")
+		combat(false)
+		emit({state(),P.Pending()})
+	"#,
+	);
+	let shown = json!({ "exists": true, "shown": true, "type1": "item", "item": "item:6948", "spell": false });
+	let hidden = json!({ "exists": true, "shown": false, "type1": false, "item": false, "spell": false });
+	assert_eq!(out, vec![json!([shown, true]), json!([hidden, false]), json!([hidden, false]), json!([shown, false])]);
+}
+
+#[test]
 fn travel_button_a_mouse_click_casts_once_on_its_release_its_binding_once_and_a_right_click_casts_nothing_at_either_key_down_setting() {
 	let out = run_nav(
 		r#"
