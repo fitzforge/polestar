@@ -303,10 +303,11 @@ function PV.Export()
 	end
 end
 
--- Every category, ticked when ids is nil or names it.
+-- Every category, ticked when ids is nil or names it (none where core's
+-- profiles are not loaded: a part of Polestar on its own).
 local function picked(ids)
-	local t = {}
-	for _, c in ipairs(Profiles().CATEGORIES or {}) do t[c.id] = ids == nil or ids[c.id] == true end
+	local t, P = {}, Profiles()
+	for _, c in ipairs(P and P.CATEGORIES or {}) do t[c.id] = ids == nil or ids[c.id] == true end
 	return t
 end
 
