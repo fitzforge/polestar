@@ -59,7 +59,7 @@ local TOKENS = {
 	-- read on the darkest paper.
 	success = "#1f5a2e", warning = "#5f3b00", danger = "#962222", quest = "#654200", npc = "#1c477c", item = "#553484",
 	place = "#7e3c12", object = "#524026", level = "#1e1a16", skill = "#2f5a12", spell = "#105a64", faction = "#7e2c58",
-	area = "#6c3f1a", achievement = "#804208", dungeon = "#45338c", rare = "#8f3414",
+	area = "#6c3f1a", achievement = "#804208", dungeon = "#45338c", experimental = "#6b2a88", rare = "#8f3414",
 	icon = "#4a3626", iconHover = "#2a1d12", buttonText = "#2a1d12", tabRest = "#513f30", navRest = "#4a3626",
 }
 

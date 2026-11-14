@@ -147,7 +147,7 @@ end
 local function stateOf(o)
 	if o.open then return L["Your current route"], "success" end
 	if o.recommended then return L["Recommended"], "accent" end
-	if o.experimental then return L["Experimental"], "warning" end
+	if o.experimental then return L["Experimental"], "experimental" end
 	if o.outleveled then return L["Outlevelled"], "neutral" end
 end
 
@@ -238,7 +238,7 @@ local function paintTag(t)
 	if kind == "accent" then
 		local r, g, b = Theme.Accent()
 		tint(t.Tint, r, g, b, 0.16)
-	elseif kind == "success" or kind == "warning" then
+	elseif kind == "success" or kind == "warning" or kind == "experimental" then
 		local r, g, b = Theme.Color(kind)
 		tint(t.Tint, r, g, b, 0.14)
 	else

@@ -32,6 +32,7 @@ local SHARED = {
 	area = { 0.93, 0.75, 0.6, 1 },
 	achievement = { 1, 0.64, 0.32, 1 },
 	dungeon = { 0.64, 0.52, 1, 1 }, -- dungeon and raid entrances (portal violet)
+	experimental = { 0.78, 0.49, 1, 1 }, -- Polestar's experimental guides' chip (orchid, redder than the portal violet)
 	rare = { 1, 0.5, 0.32, 1 }, -- rare NPCs (ember; treasures keep object)
 }
 House.DEFAULT_ACCENT, House.SHARED = DEFAULT_ACCENT, SHARED

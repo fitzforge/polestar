@@ -127,6 +127,8 @@ ns.UI.GuideFrame.Part(function(GF)
 			self.Close:SetAlpha(1)
 			local lines = {}
 			if self.psMeta and self.psMeta ~= "" then lines[#lines + 1] = self.psMeta end
+			-- One of Polestar's experimental guides: in the chip's purple.
+			if self.psExperimental then lines[#lines + 1] = { L["Experimental"], Theme.Color("experimental") } end
 			local t = (tabsOf(Engine(), true) or {})[self.psIndex]
 			local total = t and (t.total or t.stepCount)
 			if t and t.done and total and total > 0 then lines[#lines + 1] = string.format(L["%d of %d steps done"], t.done, total) end
@@ -174,6 +176,7 @@ ns.UI.GuideFrame.Part(function(GF)
 			-- (a copy's sample tab, which no registry holds).
 			local guide = G and G.Get and G.Get(t.guideId) or (t.minLevel and t) or nil
 			b.psMeta = guide and UI.GuideMeta(guide) or nil
+			b.psExperimental = G and G.IsExperimental and G.IsExperimental(guide) or nil
 			b.Label:SetText(b.psTitle)
 			b.Label:SetWidth(0) -- unbound, to measure the whole title
 			b.psTitleW = floor(b.Label:GetStringWidth() + 1)

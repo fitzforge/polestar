@@ -5,6 +5,7 @@ faction Alliance
 levels 38-39
 zone Badlands
 next forever/alliance/30-40/06b-desolace
+next polestar-experimental/riverglades-alliance-1
 
 # Forge's route search orders the quests of this guide and its guide writer writes the steps.
 # Fixes go into data/route-fixes.json, data/guide-fixes.json or forever-db/corrections, never

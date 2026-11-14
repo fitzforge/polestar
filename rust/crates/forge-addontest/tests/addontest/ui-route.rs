@@ -161,7 +161,7 @@ fn routes_going_on_to_guides_of_their_own_say_which_an_experimental_guide_wears_
 			return { tag = c.Tag:IsShown() and c.Tag.Text:GetText(), tagColor = colorOf(c.Tag.Text), go = c.Go.Label:GetText(),
 				primary = c.Go.psPrimary or false, ring = c.Ring[1]:IsShown(), ["then"] = thenOf(c) }
 		end
-		local out = { stv = card(s), riverglades = card(r), accent = tokenOf("accent"), warning = tokenOf("warning") }
+		local out = { stv = card(s), riverglades = card(r), accent = tokenOf("accent"), experimental = tokenOf("experimental") }
 		-- Every route meeting again in one guide: the header says so, no card has a "Then" line.
 		PENDING = "tirisfal"
 		Polestar.Fire("ROUTE_CHOICE", "tirisfal")
@@ -187,7 +187,7 @@ fn routes_going_on_to_guides_of_their_own_say_which_an_experimental_guide_wears_
 	assert_eq!(out["stv"]["primary"], true);
 	assert_eq!(out["stv"]["ring"], true);
 	assert_eq!(out["riverglades"]["tag"], "Experimental");
-	assert_eq!(out["riverglades"]["tagColor"], out["warning"], "the experimental chip in the warning colour");
+	assert_eq!(out["riverglades"]["tagColor"], out["experimental"], "the experimental chip in its own purple");
 	assert_eq!(out["riverglades"]["go"], "Try Riverglades");
 	assert_eq!(out["riverglades"]["primary"], false, "an experimental guide is never the one the window leads with");
 	assert_eq!(out["riverglades"]["ring"], false);

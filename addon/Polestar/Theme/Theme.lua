@@ -102,7 +102,7 @@ local SKIN_PALETTES = {
 		icon = hex("C2B9A9"), iconHover = hex("F4EFE6"), buttonText = hex("F4EFE6"), personName = hex("8CCBFF"), tabRest = hex("C2B9A9"),
 		rowLabel = hex("F4EFE6"), navRest = hex("C2B9A9"),
 		link = hex("8CCBFF"), npc = hex("8CCBFF"), quest = hex("FFE07A"), place = hex("F5AD85"),
-		rare = hex("FF8052"), dungeon = hex("A385FF"), discord = hex("5865F2"),
+		rare = hex("FF8052"), dungeon = hex("A385FF"), experimental = hex("CF8CFF"), discord = hex("5865F2"),
 	},
 	hearth = {
 		-- Grounds: the window a walnut board, lit at the top (bg) and in
@@ -131,7 +131,7 @@ local SKIN_PALETTES = {
 		frameEdge = hex("B07A3C"), frameEdgeDark = hex("5A3618"), titleLine = hex("9A6430"),
 		-- Status, warmed to the wood: a leaf green, amber, a coal red.
 		success = hex("8FD66E"), arrive = hex("8FD66E"), todo = hex("FF9440"), warning = hex("FFB84D"),
-		later = hex("FFB84D"), danger = hex("FF7A5C"), manual = hex("D6A6FF"), skipped = hex("7FD0E0"),
+		later = hex("FFB84D"), danger = hex("FF7A5C"), manual = hex("D6A6FF"), skipped = hex("7FD0E0"), experimental = hex("E0A6FF"),
 		icon = hex("D2BE9C"), iconHover = hex("FFD9A0"), buttonText = hex("F5E9D3"), personName = hex("FFD9A0"), tabRest = hex("B39D79"),
 		rowLabel = hex("F5E9D3"), navRest = hex("D2BE9C"),
 		link = hex("FFB070"), discord = hex("5865F2"),
@@ -182,6 +182,8 @@ SKIN_PALETTES.forever = gamePalette({
 	-- A mechanic's violet (an escort's line) a step lighter, to read on the
 	-- lit goal's gold card as well as on black.
 	dungeon = hex("BBA6FF"),
+	-- The experimental chip's orchid, lighter for the same reason.
+	experimental = hex("DCA6FF"),
 })
 -- Blizzard Style: the damage meter's greys. Its parts are parted by 1px
 -- grey hairlines (#3a3a3a), the selection a flat grey row (GameSkins'

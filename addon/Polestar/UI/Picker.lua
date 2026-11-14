@@ -120,17 +120,25 @@ local categoryOf = UI.Category
 -- Favorites and search cover every shown guide.
 local PACK = "pack:"
 
--- The community pack a guide (header) comes from; nil for ours (`guides`)
--- and Polestar's internal packs.
+-- The community pack a guide (header) comes from; nil for ours (`guides`),
+-- Polestar's internal packs and its extra packs (Guides.OWN_EXTRA: the
+-- experimental guides, listed with ours under Leveling).
 local function packOf(g)
 	local id = g and g.pack
 	if id == nil or id == "guides" then return nil end
 	local G = ns.Guides
+	if G and G.OWN_EXTRA and G.OWN_EXTRA[id] then return nil end
 	local r = G and G.Pack and G.Pack(id)
 	if r and not r.internal then return r end
 	return nil
 end
 P.PackOf = packOf
+
+-- One of Polestar's experimental guides (its "Experimental" chip).
+local function isExperimental(g)
+	local G = ns.Guides
+	return G and G.IsExperimental and G.IsExperimental(g) or false
+end
 
 -- Where a guide is listed: its pack's entry, else its category.
 local function bucketOf(g)
@@ -208,7 +216,7 @@ end
 
 local function haystack(g)
 	local c = categoryOf(g)
-	local parts = { g.title or "", g.zoneName or "", c, L[c], g.id or "", g.folder or "" }
+	local parts = { g.title or "", g.zoneName or "", c, L[c], g.id or "", g.folder or "", isExperimental(g) and L["Experimental"] or "" }
 	if type(g.keywords) == "table" then
 		for _, k in ipairs(g.keywords) do parts[#parts + 1] = k end
 	end
@@ -271,15 +279,17 @@ local FACTION_ORDER = { Alliance = 1, Horde = 2 }
 -- The folder a guide is listed under -> label, sort key, id. A guide's own
 -- `folder` wins; guides sharing it still sort by faction, then level. The
 -- id names the folder whatever the client's language or the character's
--- faction (the collapsed folders are kept by it, account-wide).
-local function folderOf(g, mine)
+-- faction (the collapsed folders are kept by it, account-wide). `side`: the
+-- faction a leveling guide for both is listed under (an experimental guide
+-- such as Shen'dralas sits in that side's band, as ours do).
+local function folderOf(g, mine, side)
 	local c = categoryOf(g)
 	if type(g.folder) == "string" and g.folder ~= "" then
 		return g.folder, string.format("%02d", CATEGORY_RANK[c] or 99) .. c .. "/" .. g.folder, c .. "/" .. g.folder
 	end
 	if c == "Leveling" then
 		local lo, hi = band(g)
-		local f = g.faction
+		local f = g.faction or side
 		local rank = f == nil and 3 or (f == mine and 0 or (FACTION_ORDER[f] or 4))
 		local label = (f and ns.FactionName(f) or L["Leveling"]) .. " " .. UI.LevelRange(lo, hi)
 		return label, string.format("%02d%d%03d", CATEGORY_RANK.Leveling, rank, lo), "Leveling/" .. (f or "") .. "/" .. lo
@@ -395,17 +405,21 @@ function P.Entries(filter, q, cat)
 			if cat == "All" or c == cat then picked[#picked + 1] = g end
 		end
 	end
-	local key, label, fid = {}, {}, {}
+	-- An experimental guide for both factions sits in the band of the faction
+	-- the list shows (the player's own under "All").
+	local side = (filter == "Alliance" or filter == "Horde") and filter or mine
+	local key, label, fid, fac = {}, {}, {}, {}
 	for _, g in ipairs(picked) do
+		fac[g] = g.faction or (isExperimental(g) and side or nil)
 		if other[g] then
 			label[g], key[g], fid[g] = L["Other starting zones"], string.format("%02d0001~", CATEGORY_RANK.Leveling), OTHER_STARTS
 		else
-			label[g], key[g], fid[g] = folderOf(g, mine)
+			label[g], key[g], fid[g] = folderOf(g, mine, fac[g])
 		end
 	end
 	table.sort(picked, function(a, b)
 		if key[a] ~= key[b] then return key[a] < key[b] end
-		local fa, fb = rankOfFaction(a.faction, mine), rankOfFaction(b.faction, mine)
+		local fa, fb = rankOfFaction(fac[a], mine), rankOfFaction(fac[b], mine)
 		if fa ~= fb then return fa < fb end
 		local la, lb = a.minLevel or 0, b.minLevel or 0
 		if la ~= lb then return la < lb end
@@ -778,7 +792,13 @@ local function guideRow(i)
 	r.Title:SetPoint("LEFT", r, "LEFT", TEXT_X, 0)
 	r.Range = W.Text(r, "body", "textMuted")
 	r.Range:SetPoint("LEFT", r.Title, "RIGHT", 5, 0)
-	-- A guide with group content (compiled `group`): "Group" after the range.
+	-- One of Polestar's experimental guides: "Experimental" after the range
+	-- (the route choice's chip, Guides.IsExperimental).
+	r.Exp = W.Chip(r)
+	r.Exp:SetPoint("LEFT", r.Range, "RIGHT", 6, 0)
+	r.Exp:Hide()
+	-- A guide with group content (compiled `group`): "Group" after the range
+	-- and that chip.
 	r.Group = W.Chip(r)
 	r.Group:SetPoint("LEFT", r.Range, "RIGHT", 6, 0)
 	r.Group:Hide()
@@ -820,8 +840,12 @@ local function paintRow(r, g, note, width, title)
 	W.Color(r.Note, sel and "textDim" or "textMuted")
 	local lv = UI.LevelRange(g.minLevel, g.maxLevel)
 	r.Range:SetText(lv and ("(" .. lv .. ")") or "")
+	local expW = isExperimental(g) and (W.SetChip(r.Exp, L["Experimental"], "experimental") + 6) or 0
+	r.Exp:SetShown(expW > 0)
 	local groupW = g.group == true and (W.SetChip(r.Group, L["Group"], "dungeon") + 6) or 0
 	r.Group:SetShown(groupW > 0)
+	r.Group:ClearAllPoints()
+	r.Group:SetPoint("LEFT", expW > 0 and r.Exp or r.Range, "RIGHT", 6, 0)
 	-- A pack's guide carries its pack's title, except in that pack's own list.
 	local pack = packOf(g)
 	if pack and not (view == "browse" and category == PACK .. pack.id) then
@@ -834,7 +858,7 @@ local function paintRow(r, g, note, width, title)
 	-- The note never takes more than 45% of the row: a long pack title is cut.
 	local noteW = note and min(floor(r.Note:GetStringWidth() + 1), floor(width * 0.45)) or 0
 	r.Note:SetWidth(noteW)
-	local room = width - TEXT_X * 2 - (note and (noteW + 12) or 0) - (lv and (r.Range:GetStringWidth() + 5) or 0) - groupW
+	local room = width - TEXT_X * 2 - (note and (noteW + 12) or 0) - (lv and (r.Range:GetStringWidth() + 5) or 0) - groupW - expW
 	r.Title:SetWidth(max(40, min(room, floor(r.Title:GetStringWidth() + 1))))
 	r:SetWidth(width)
 end
@@ -899,10 +923,13 @@ local function card(i)
 	c.Note = W.Text(c, "small", "textMuted")
 	c.Note:SetJustifyH("RIGHT")
 	c.Note:SetPoint("RIGHT", c, "TOPRIGHT", -TEXT_X, -20)
-	-- A guide with group content: "Group" left of the tab.
+	-- A guide with group content: "Group" left of the tab; an experimental
+	-- guide: "Experimental" left of that.
 	c.Group = W.Chip(c)
 	c.Group:SetPoint("RIGHT", c.Note, "LEFT", -8, 0)
 	c.Group:Hide()
+	c.Exp = W.Chip(c)
+	c.Exp:Hide()
 	c.Step = W.Text(c, "small", "textDim")
 	c.Step:SetPoint("TOPLEFT", c, "TOPLEFT", TEXT_X, -38)
 	c.Pct = W.Text(c, "number", "textDim")
@@ -980,7 +1007,11 @@ local function layoutCards(tabs, active, byId, y)
 		c.Note:SetText(string.format(L["Tab %d"], i))
 		local groupW = c.psGuide.group == true and (W.SetChip(c.Group, L["Group"], "dungeon") + 8) or 0
 		c.Group:SetShown(groupW > 0)
-		local room = cw - TEXT_X * 2 - 14 - 8 - c.Note:GetStringWidth() - 8 - groupW
+		local expW = isExperimental(c.psGuide) and (W.SetChip(c.Exp, L["Experimental"], "experimental") + 8) or 0
+		c.Exp:SetShown(expW > 0)
+		c.Exp:ClearAllPoints()
+		c.Exp:SetPoint("RIGHT", groupW > 0 and c.Group or c.Note, "LEFT", -8, 0)
+		local room = cw - TEXT_X * 2 - 14 - 8 - c.Note:GetStringWidth() - 8 - groupW - expW
 		c.Title:SetWidth(max(40, floor(room)))
 		local col, line = (n - 1) % per, floor((n - 1) / per)
 		c:ClearAllPoints()
@@ -1283,10 +1314,11 @@ local function setPrimary(b, on)
 	W.RepaintButton(b)
 end
 
--- A guide's credits: "By <author>" for ours; for a pack's guide "By
--- <author> · <pack title> <version> · <licence>" (an imported guide: "By
--- <author> · Imported · <its own licence>"). The author is the guide's
--- own, else its pack's. -> text or nil, the pack's source or nil
+-- A guide's credits: "By <author>" for ours ("By Polestar · Experimental"
+-- for one of its experimental guides); for a pack's guide "By <author> ·
+-- <pack title> <version> · <licence>" (an imported guide: "By <author> ·
+-- Imported · <its own licence>"). The author is the guide's own, else its
+-- pack's. -> text or nil, the pack's source or nil
 function P.Credits(g)
 	if not g then return nil end
 	local G = ns.Guides
@@ -1300,6 +1332,7 @@ function P.Credits(g)
 		local license = pack.license or (pack.imported and type(g.license) == "string" and g.license or nil)
 		if license then parts[#parts + 1] = license end
 	end
+	if isExperimental(g) then parts[#parts + 1] = L["Experimental"] end
 	if #parts == 0 then return nil end
 	return table.concat(parts, DOT), pack and pack.source or nil
 end
@@ -1338,8 +1371,8 @@ local function renderDetails(byId, tabs, active)
 	d.Star.psTip = fav and L["Remove from favourites"] or L["Add to favourites"]
 	d.Title:SetText(g.title or g.id)
 
-	-- Chips: levels, what a leveling guide is worth in levels, group content,
-	-- faction, races, classes; on two lines at most.
+	-- Chips: levels, what a leveling guide is worth in levels, experimental,
+	-- group content, faction, races, classes; on two lines at most.
 	local y = ART_H + 16
 	local n, x, line, full = 0, DPAD, 0, false
 	local function place(c, w)
@@ -1375,6 +1408,7 @@ local function renderDetails(byId, tabs, active)
 		local _, _, _, cx = d.XP:GetPoint(1)
 		d.XP.psTipX = DPAD - (cx or DPAD)
 	end
+	if isExperimental(g) then addChip(L["Experimental"], "experimental") end
 	if g.group == true then addChip(L["Group"], "dungeon") end
 	addChip(ns.FactionName(g.faction) or L["Both factions"])
 	if type(g.races) == "table" then for _, race in ipairs(g.races) do addChip(UI.RaceName(race)) end end
@@ -1841,7 +1875,8 @@ function P.Render()
 	-- shown guide is in (its pack was switched off): back to All.
 	if category:sub(1, #PACK) == PACK then
 		local r = packOfKey(category)
-		if not (r and r.status == "on" and (r.guideCount or 0) > 0) then category = "All" end
+		local own = r and ns.Guides.OWN_EXTRA and ns.Guides.OWN_EXTRA[r.id]
+		if own or not (r and r.status == "on" and (r.guideCount or 0) > 0) then category = "All" end
 	elseif category ~= "All" and category ~= "Favorites" then
 		local shown = false
 		for _, g in ipairs(ns.Guides and ns.Guides.List and ns.Guides.List() or {}) do

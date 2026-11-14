@@ -12413,10 +12413,10 @@ test('Riverglades (experimental): an escort is taken and walked in one step, so 
 // Demar Brant offers The Western Front, and Ashe Amberhall A Small Favor, only once Curious Trinkets and Scraps of
 // Knowledge are handed in (players' offer windows): in the keep, Ashe's hand-ins come first.
 test("Riverglades (experimental): Ashe Amberhall's Sunnyglade hand-ins come before The Western Front and A Small Favor", () => {
-	const lines = fs.readFileSync(path.join(RIVERGLADES, 'riverglades-alliance-3.guide'), 'utf8').split('\n').map(codeOf);
+	const lines = fs.readFileSync(path.join(RIVERGLADES, 'riverglades-alliance-1.guide'), 'utf8').split('\n').map(codeOf);
 	const first = (verb, q) => lines.findIndex((l) => new RegExp(`^\\s+${verb} ${q}\\b`).test(l));
 	for (const q of [94886, 94907]) {
-		assert.ok(first('accept', q) >= 0, `${q} is taken in part 3`);
+		assert.ok(first('accept', q) >= 0, `${q} is taken`);
 		for (const t of [94881, 94879]) {
 			assert.ok(first('turnin', t) >= 0 && first('turnin', t) < first('accept', q), `${t} is handed in before ${q} is taken`);
 		}
@@ -12432,7 +12432,7 @@ const anyLine = (lines, re) => lines.some((l) => re.test(l));
 test("Riverglades (experimental): Benjy Wheeler's murlocs and Halligan Turner's murloc heads are one sweep", () => {
 	const steps = rivergladesSteps('riverglades-alliance-1.guide');
 	const sweep = steps.findIndex((lines) => anyLine(lines, /^\s+collect 267266\b/));
-	assert.ok(sweep >= 0, 'the murloc heads are collected in part 1');
+	assert.ok(sweep >= 0, 'the murloc heads are collected');
 	for (const npc of [258574, 258573]) {
 		assert.ok(anyLine(steps[sweep], new RegExp(`^\\s+kill ${npc}\\b.*\\bquest 94614\\.`)), `the heads' step kills ${npc} for Freshwater Fiends`);
 	}
@@ -12441,22 +12441,23 @@ test("Riverglades (experimental): Benjy Wheeler's murlocs and Halligan Turner's 
 });
 
 // No class trainer stands in the Riverglades, and the Feralas guide passes none: an Alliance player who goes on to
-// Feralas (level 43 or more) trains in part 4 whatever quests they carry, shamans in Ironforge (Stormwind has none).
-test('Riverglades (experimental): an Alliance player going on to Feralas trains in part 4', () => {
-	const steps = rivergladesSteps('riverglades-alliance-4.guide');
+// Feralas (level 43 or more) trains at the end of the Riverglades guide whatever quests they carry, shamans in
+// Ironforge (Stormwind has none).
+test('Riverglades (experimental): an Alliance player going on to Feralas trains at the end of the Riverglades guide', () => {
+	const steps = rivergladesSteps('riverglades-alliance-1.guide');
 	const questGated = (lines) => anyLine(lines, /^\s+when !?(onquest|complete|turnedin|available)\b/);
 	assert.ok(steps.some((l) => anyLine(l, /^\s+when level>=43\b/) && anyLine(l, /^\s+fly "Stormwind"/) && !questGated(l)), 'players of 43 or more fly to Stormwind');
 	assert.ok(steps.some((l) => anyLine(l, /^\s+train class only .*\bWarrior\b/) && !questGated(l)), 'the class trainer step');
 	assert.ok(steps.some((l) => anyLine(l, /^\s+train class only Shaman\b/) && anyLine(l, /^\s+fly "Ironforge"/) && !questGated(l)), 'shamans train in Ironforge');
 });
 
-// The Horde route choice at the end of the Badlands guide (Kargath, about 40) offers part 1: a character there knows
-// Kargath's flight path and rides in through Twilight's Shroud; the boat from Tanaris is for everyone else
-// (0.4.0 route audit, R17r).
-test('Riverglades (experimental): Horde part 1 rides in from Kargath, the boat only for characters without its flight path', () => {
+// The Horde route choice at the end of the Badlands guide (Kargath, about 40) offers the Riverglades: a character
+// there knows Kargath's flight path and rides in through Twilight's Shroud; the boat from Tanaris is for everyone
+// else (0.4.0 route audit, R17r).
+test('Riverglades (experimental): the Horde rides in from Kargath, the boat only for characters without its flight path', () => {
 	const steps = rivergladesSteps('riverglades-horde-1.guide');
 	const header = steps[0];
-	assert.ok(anyLine(header, /^levels 40-/), 'part 1 is written for players arriving at about 40');
+	assert.ok(anyLine(header, /^levels 40-/), 'written for players arriving at about 40');
 	const foot = steps.findIndex((l) => anyLine(l, /^\s+when taxi "Kargath"/) && anyLine(l, /^\s+goto /));
 	assert.ok(foot > 0, 'a step rides in from Kargath');
 	for (const re of [/^\s+fly "Freewind Post"/, /^\s+getfp "Gadgetzan"/, /Boat to Powderfuse Port/]) {

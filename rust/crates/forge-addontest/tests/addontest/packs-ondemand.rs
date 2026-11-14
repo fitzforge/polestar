@@ -1,9 +1,12 @@
 //! Packs whose addon the client loads only on demand (Core/Guides.lua, Own.loadDemand; UI/Packs.lua), and
-//! Polestar's own one, Polestar_Experimental: listed from its TOC and off until the player switches it on on the
-//! Community guides page, then loaded (never in a fight: once it ends) and again at every login while it stays
-//! on; switched off, its guides hide. The experimental guides are never suggested, never where suggestions
-//! come from and never a route choice. Installed and off, the pack costs a login only its scan record. Its id
-//! is reserved: no other addon or import string can take it.
+//! Polestar's own one, Polestar_Experimental: shown unless the player switched its guides off (Options, Guide:
+//! Show experimental guides, behavior.experimentalGuides; Guides.OWN_EXTRA), so loaded at every login (never
+//! in a fight: once it ends) and its guides listed with ours; switched off, its guides hide and nothing of it
+//! loads, and that choice is kept. It is not a community pack: the Community guides page leaves it out. A
+//! community pack that loads on demand stays off until switched on there. The experimental guides are never
+//! suggested, never where suggestions come from and never a route choice. Switched off, the pack costs a login
+//! only its scan record; on, its guides, within a measured budget. Its id is reserved: no other addon or import
+//! string can take it.
 //!
 //! The behaviour is tested on a fixture pack built as `forge guide compile experimental` builds the real one
 //! (forge-guide's build_pack_files with the extra pack's id and folder: Polestar's TOC, LoadOnDemand). The
@@ -73,7 +76,11 @@ fn addons(pack: Option<&Path>) -> String {
 	s
 }
 
-const SAVED_ON: &str = r#"PolestarDB = { schema = 1, packs = { ["polestar-experimental"] = { on = true } } }"#;
+/// The experimental guides switched off by the player (Options, Guide: Show experimental guides), saved.
+const SAVED_OFF: &str = r#"PolestarDB = { schema = 1, settings = { behavior = { experimentalGuides = false } } }"#;
+/// Before 0.4.0: switched on, or switched off, on the Community guides page.
+const LEGACY_ON: &str = r#"PolestarDB = { schema = 1, packs = { ["polestar-experimental"] = { on = true } } }"#;
+const LEGACY_OFF: &str = r#"PolestarDB = { schema = 1, packs = { ["polestar-experimental"] = { off = true } } }"#;
 
 /// The core with the pack built in `dir` installed, logged in unless `script` logs in itself.
 fn core(dir: &Path, saved: &[(&str, String)], login: bool, script: &str) -> Value {
@@ -130,7 +137,7 @@ fn the_checkout_s_experimental_build_matches_experimental() {
 }
 
 #[test]
-fn off_until_switched_on_then_loaded_once_its_guides_shown_and_hidden_with_the_switch() {
+fn on_by_default_loaded_at_login_its_guides_shown_and_hidden_with_the_setting() {
 	let p = pack();
 	let out = core(
 		&p.dir,
@@ -149,55 +156,64 @@ local function rows()
 end
 local r = G.Pack(ID)
 local out = { listed = { status = r.status, addon = r.addon, title = r.title, author = r.author, tocOnly = r.tocOnly or false,
-	shown = G.PackShown(ID), guides = #mine(), loads = stub.packLoads.Polestar_Experimental or 0, rows = rows() } }
+	shown = G.PackShown(ID), guides = #mine(), count = r.guideCount, loads = stub.packLoads.Polestar_Experimental or 0, rows = rows(),
+	setting = Polestar.Get("behavior.experimentalGuides") } }
 local fired = {}
 Polestar.On("GUIDES_REGISTERED", function() fired[#fired + 1] = "guides" end)
 Polestar.On("PACKS_CHANGED", function(id) fired[#fired + 1] = "packs " .. tostring(id) end)
-G.SetPackShown(ID, true)
-r = G.Pack(ID)
-out.on = { status = r.status, tocOnly = r.tocOnly or false, guides = #mine(), count = r.guideCount, rows = rows(),
-	loads = stub.packLoads.Polestar_Experimental or 0, saved = PolestarDB.packs[ID].on, fired = table.concat(fired, ", ") }
 local first = mine()[1]
 G.SetPackShown(ID, false)
-out.off = { status = G.Pack(ID).status, guides = #mine(), get = G.Get(first) ~= nil, saved = PolestarDB.packs[ID] ~= nil }
-G.SetPackShown(ID, true)
-out.again = { status = G.Pack(ID).status, guides = #mine(), loads = stub.packLoads.Polestar_Experimental }
+out.off = { status = G.Pack(ID).status, guides = #mine(), get = G.Get(first) ~= nil, saved = Polestar.GetStored("behavior.experimentalGuides"),
+	fired = table.concat(fired, ", ") }
+fired = {}
+Polestar.Set("behavior.experimentalGuides", true)
+out.again = { status = G.Pack(ID).status, guides = #mine(), loads = stub.packLoads.Polestar_Experimental, saved = Polestar.GetStored("behavior.experimentalGuides") or false,
+	fired = table.concat(fired, ", ") }
 emit(out)"#,
-	);
-	assert_eq!(
-		out["listed"],
-		json!({ "status": "off", "addon": EXP, "title": "Polestar Experimental", "author": "Polestar", "tocOnly": true, "shown": false,
-			"guides": 0, "loads": 0, "rows": 1 }),
-		"listed from its TOC, switched off, nothing of it loaded"
 	);
 	let n = guide_ids(&p.dir).len();
 	assert_eq!(
-		out["on"],
-		json!({ "status": "on", "tocOnly": false, "guides": n, "count": n, "rows": 1, "loads": 1, "saved": true,
-			"fired": "guides, packs polestar-experimental" }),
-		"switched on: loaded, registered in place of its TOC's record, every guide shown"
+		out["listed"],
+		json!({ "status": "on", "addon": EXP, "title": "Polestar Experimental", "author": "Polestar", "tocOnly": false, "shown": true,
+			"guides": n, "count": n, "loads": 1, "rows": 0, "setting": true }),
+		"no saved choice: shown, loaded at login, every guide in; not on the Community guides page"
 	);
-	assert_eq!(out["off"], json!({ "status": "off", "guides": 0, "get": false, "saved": false }), "switched off: hidden, nothing kept");
-	assert_eq!(out["again"], json!({ "status": "on", "guides": n, "loads": 1 }), "on again: shown, never loaded twice");
+	assert_eq!(
+		out["off"],
+		json!({ "status": "off", "guides": 0, "get": false, "saved": false, "fired": "packs polestar-experimental" }),
+		"switched off: hidden, and the choice saved"
+	);
+	assert_eq!(
+		out["again"],
+		json!({ "status": "on", "guides": n, "loads": 1, "saved": false, "fired": "packs polestar-experimental" }),
+		"the Options toggle on again: shown, never loaded twice, back at the default"
+	);
 }
 
 #[test]
-fn left_on_it_loads_at_login_before_the_saved_tabs_reopen_left_off_its_tab_waits_for_the_switch() {
+fn shown_it_loads_at_login_before_the_saved_tabs_reopen_switched_off_its_tab_waits_and_the_choice_is_kept() {
 	let p = pack();
 	let first = guide_ids(&p.dir).remove(0);
 	let tabs = format!("PolestarCharDB = {{ schema = 1, tabs = {{ \"{first}\" }}, activeTab = 1 }}");
 	let script = r#"
 local function open() local g = Polestar.Engine.GetGuide(); return g and g.id or false end
-local out = { loads = stub.packLoads.Polestar_Experimental or 0, status = G.Pack(ID).status, guide = open() }
+local out = { loads = stub.packLoads.Polestar_Experimental or 0, status = G.Pack(ID).status, guide = open(),
+	setting = Polestar.Get("behavior.experimentalGuides"), legacy = PolestarDB.packs and PolestarDB.packs[ID] ~= nil or false }
 if out.loads == 0 then
 	G.SetPackShown(ID, true)
 	out.switched = { loads = stub.packLoads.Polestar_Experimental or 0, guide = open() }
 end
 emit(out)"#;
-	let on = core(&p.dir, &[("Polestar", format!("{SAVED_ON}\n{tabs}"))], true, script);
-	assert_eq!(on, json!({ "loads": 1, "status": "on", "guide": first }), "loaded at login, its saved tab back");
-	let off = core(&p.dir, &[("Polestar", tabs.clone())], true, script);
-	assert_eq!(off, json!({ "loads": 0, "status": "off", "guide": false, "switched": { "loads": 1, "guide": first } }), "off: not loaded at login, its tab kept for when it comes back");
+	let shown = json!({ "loads": 1, "status": "on", "guide": first, "setting": true, "legacy": false });
+	let kept_off = json!({ "loads": 0, "status": "off", "guide": false, "setting": false, "legacy": false, "switched": { "loads": 1, "guide": first } });
+	let default = core(&p.dir, &[("Polestar", tabs.clone())], true, script);
+	assert_eq!(default, shown, "a new install, no saved choice: loaded at login, its saved tab back");
+	let off = core(&p.dir, &[("Polestar", format!("{SAVED_OFF}\n{tabs}"))], true, script);
+	assert_eq!(off, kept_off, "switched off: not loaded at login, its tab kept for when it comes back");
+	let on = core(&p.dir, &[("Polestar", format!("{LEGACY_ON}\n{tabs}"))], true, script);
+	assert_eq!(on, shown, "switched on before 0.4.0: on, the old entry gone");
+	let off = core(&p.dir, &[("Polestar", format!("{LEGACY_OFF}\n{tabs}"))], true, script);
+	assert_eq!(off, kept_off, "an explicit off saved before 0.4.0 stays off, as the setting");
 }
 
 #[test]
@@ -205,7 +221,7 @@ fn switched_on_in_a_fight_it_loads_once_the_fight_ends() {
 	let p = pack();
 	let out = core(
 		&p.dir,
-		&[],
+		&[("Polestar", SAVED_OFF.to_string())],
 		true,
 		r#"
 stub.inCombat = true
@@ -312,10 +328,14 @@ local function row(addon)
 	end
 	return false
 end
-local out = { ok = ok, err = err, impostor = row("Impostor"), lazy = row("LazyImpostor"), ours = row("Polestar_Experimental"),
-	imported = G.OwnsId("imported", "polestar-experimental/riverglades") }
+local function ours()
+	local r = G.Pack(ID)
+	return r and r.addon == "Polestar_Experimental" and { status = r.status, problems = #r.problems } or false
+end
+local out = { ok = ok, err = err, impostor = row("Impostor"), lazy = row("LazyImpostor"), listed = row("Polestar_Experimental"), ours = ours(),
+	loads = stub.packLoads.Polestar_Experimental or 0, imported = G.OwnsId("imported", "polestar-experimental/riverglades") }
 G.SetPackShown(ID, true)
-out.on = { ours = row("Polestar_Experimental"), fake = G.Get("polestar-experimental/fake") ~= nil,
+out.on = { ours = ours(), fake = G.Get("polestar-experimental/fake") ~= nil,
 	loads = stub.packLoads.Polestar_Experimental or 0, lazyLoaded = stub.addonsLoaded.LazyImpostor or false }
 emit(out)"#
 			.into(),
@@ -326,9 +346,10 @@ emit(out)"#
 	assert_eq!(out["err"], "Pack id polestar-experimental is reserved for Polestar.");
 	assert_eq!(out["impostor"], json!({ "status": "refused", "problems": "Pack id polestar-experimental is reserved for Polestar. 1 guide dropped." }));
 	assert_eq!(out["lazy"]["status"], "not-loaded", "never loaded for the reserved id");
-	assert_eq!(out["ours"], json!({ "status": "off", "problems": "" }));
+	assert_eq!(out["listed"], false, "ours is not on the Community guides page");
+	assert_eq!((out["ours"].clone(), out["loads"].clone()), (json!({ "status": "on", "problems": 0 }), json!(1)), "ours loads at login, as it is on by default");
 	assert_eq!(out["imported"], false);
-	assert_eq!(out["on"], json!({ "ours": { "status": "on", "problems": "" }, "fake": false, "loads": 1, "lazyLoaded": false }));
+	assert_eq!(out["on"], json!({ "ours": { "status": "on", "problems": 0 }, "fake": false, "loads": 1, "lazyLoaded": false }));
 }
 
 // Lint (forge's RESERVED_IDS), the JS tools (tools/lib/pack/format.js) and the runtime (Guides.RESERVED) reserve
@@ -399,11 +420,11 @@ emit(out)"#
 	assert_eq!(out["failed"], json!({ "status": "not-loaded", "reason": "Missing" }));
 }
 
-// The Community guides page: the row is there from the TOC, its switch off and no guide count (none is known
-// until the pack loads); switching it on loads the pack, the count shows and the guide menu lists its guides
-// under its own entry; switching it off takes them out again.
+// Not a community pack: the Community guides page has no row for it; the guide menu lists its guides with ours,
+// under Leveling in their faction's band (no "Community guides" entry), counted there, each "By Polestar ·
+// Experimental"; Options' Show experimental guides takes them out and brings them back.
 #[test]
-fn the_community_guides_switch_loads_it_and_its_guides_appear_and_go_with_the_switch() {
+fn the_community_guides_page_leaves_it_out_and_the_guide_menu_lists_its_guides_under_leveling() {
 	let p = pack();
 	let out = emitted(&RunAddon {
 		stubs: vec!["stub_ui.lua", "stub_packs.lua"],
@@ -418,59 +439,55 @@ stub.login()
 local UI, P, Picker = Polestar.UI, Polestar.UI.Packs, Polestar.UI.Picker
 local function rowOf(addon)
 	for _, r in ipairs(P.view.rows) do if r:IsShown() and r.psRecord.addon == addon then return r end end
+	return false
 end
-local function shownText(fs) return fs:IsShown() and fs:GetText() or false end
-local function row()
-	local r = rowOf("Polestar_Experimental")
-	return { title = r.Title:GetText(), credits = r.Credits:GetText(), switch = r.Switch:IsShown(), checked = r.Switch.checked or false,
-		count = shownText(r.Count), status = shownText(r.Status), enable = r.Enable:IsShown() }
-end
--- The guide menu's entry for the pack: its guides' ids, sorted, comma-joined.
-local function menu()
+-- The guide menu's experimental guides under `cat`, sorted, comma-joined, each with its folder.
+local function menu(cat)
 	local out = {}
-	for _, e in ipairs(Picker.Entries("All", "", "pack:" .. ID)) do if e.kind == "guide" then out[#out + 1] = e.guide.id end end
+	for _, e in ipairs(Picker.Entries("All", "", cat)) do
+		if e.kind == "guide" and G.IsExperimental(e.guide) then out[#out + 1] = e.guide.id .. "@" .. e.folder.id end
+	end
 	table.sort(out)
 	return table.concat(out, ",")
 end
 UI.ShowOptions("guidepacks")
-local out = { before = row(), menuBefore = menu() }
-rowOf("Polestar_Experimental").Switch:Click()
-local n = #G.Pack(ID).guides
-out.after = row()
-out.count = n == 1 and "1 guide" or (n .. " guides")
-out.loads = stub.packLoads.Polestar_Experimental or 0
-out.menu = menu()
-rowOf("Polestar_Experimental").Switch:Click()
-out.off = row()
-out.menuOff = menu()
+local _, _, counts = Picker.Entries("All", "", "All")
+local first = G.Pack(ID).guides[1]
+local out = { row = rowOf("Polestar_Experimental") ~= false, loads = stub.packLoads.Polestar_Experimental or 0, leveling = menu("Leveling"),
+	packEntry = menu("pack:" .. ID), countLeveling = counts.Leveling or 0, countPack = counts["pack:" .. ID] or 0,
+	credits = Picker.Credits(G.Get(first)) or false, packOf = Picker.PackOf(G.Get(first)) ~= nil }
+Polestar.Set("behavior.experimentalGuides", false)
+out.off = menu("Leveling")
+Polestar.Set("behavior.experimentalGuides", true)
+out.on = menu("Leveling")
 emit(out)"#
 			.into(),
 		..Default::default()
 	})
 	.remove(0);
-	let credits = format!("Polestar  ·  {}  ·  {}", field(&p.dir, "Version"), field(&p.dir, "X-License"));
-	assert_eq!(out["before"], json!({ "title": "Polestar Experimental", "credits": credits, "switch": true, "checked": false, "count": false, "status": false, "enable": false }));
-	assert_eq!(out["menuBefore"], "");
-	assert_eq!(out["loads"], 1);
-	assert_eq!(out["after"]["checked"], true);
-	assert_eq!(out["after"]["count"], out["count"]);
-	let mut ids = guide_ids(&p.dir);
+	let mut ids: Vec<String> = guide_ids(&p.dir).iter().map(|id| format!("{id}@Leveling/Alliance/1")).collect();
 	ids.sort();
-	assert_eq!(out["menu"], ids.join(","), "the guide menu lists every guide of it");
-	assert_eq!(out["off"]["checked"], false);
-	assert_eq!(out["off"]["count"], out["count"], "its guides are known now");
-	assert_eq!(out["menuOff"], "");
+	let listed = ids.join(",");
+	assert_eq!(out["row"], false, "no row on the Community guides page");
+	assert_eq!(out["loads"], 1);
+	assert_eq!(out["leveling"], listed, "under Leveling, in the Alliance's 1-30 band (the fixture's 10-20 guides)");
+	assert_eq!((out["packEntry"].clone(), out["countPack"].clone()), (json!(""), json!(0)), "no entry of its own");
+	assert_eq!(out["countLeveling"], json!(ids.len()), "counted in Leveling");
+	assert_eq!(out["credits"], "By Polestar  ·  Experimental");
+	assert_eq!(out["packOf"], false, "no pack line in the details");
+	assert_eq!(out["off"], "", "switched off: out of the menu");
+	assert_eq!(out["on"], listed, "and back");
 }
 
 /// The heap a login adds (KiB, Lua 5.1, after two full collects) with the whole of Polestar loaded: with the pack
-/// built in `pack` in the AddOns list, switched off as it ships or switched on (`on`), or without it; the whole
-/// heap after the login (the stubs' tables included); and how often its files loaded.
-fn login_kib(pack: Option<&Path>, on: bool) -> (f64, f64, i64) {
+/// built in `pack` in the AddOns list, shown as it ships or switched off (`saved`), or without it; the whole heap
+/// after the login (the stubs' tables included); and how often its files loaded.
+fn login_kib(pack: Option<&Path>, saved: Option<&str>) -> (f64, f64, i64) {
 	let out = emitted(&RunAddon {
 		stubs: vec!["stub_world.lua", "stub_packs.lua"],
 		before: addons(pack),
 		addons: vec![Addon::name("Polestar")],
-		saved: if on { vec![("Polestar".into(), SAVED_ON.into())] } else { Vec::new() },
+		saved: saved.map(|s| vec![("Polestar".into(), s.into())]).unwrap_or_default(),
 		script: r#"
 local function full() collectgarbage("collect"); collectgarbage("collect"); return collectgarbage("count") end
 local base = full()
@@ -484,32 +501,40 @@ emit({ login = after - base, heap = after, loads = stub.packLoads.Polestar_Exper
 	(out["login"].as_f64().unwrap(), out["heap"].as_f64().unwrap(), out["loads"].as_i64().unwrap())
 }
 
-/// What having the folder installed and off may add to a login: its scan record (the Community guides page's
-/// row) and the entries naming it, whatever its guides. The stub's TOC strings are shared with the test's own
-/// tables, so the client also pays for its title, author, version, licence and format strings (about 0.3 KiB).
-/// Measured 2026-11-11 (Lua 5.1) with the shipped Riverglades build: +1.11 KiB installed and off.
+/// What having the folder installed and switched off may add to a login: its scan record and the entries naming
+/// it, whatever its guides. The stub's TOC strings are shared with the test's own tables, so the client also pays
+/// for its title, author, version, licence and format strings (about 0.3 KiB). Measured 2026-11-11 (Lua 5.1)
+/// with the shipped Riverglades build: +1.11 KiB installed and off.
 const INSTALLED_OFF_BUDGET_KIB: f64 = 2.0;
 
+/// What the shipped experimental guides add to a login now that they are on by default (0.4.0: listed with our
+/// guides, so loaded at login): measured 2026-11-14 (Lua 5.1) with Riverglades (Alliance and Horde), Shen'dralas
+/// and Mount Hyjal, +ON_MEASURED_KIB, and the budget that plus about 5 %.
+const ON_MEASURED_KIB: f64 = 0.0;
+const ON_BUDGET_KIB: f64 = ON_MEASURED_KIB * 1.05;
+
 #[test]
-fn installed_and_off_it_costs_a_login_only_its_scan_record() {
+fn switched_off_it_costs_a_login_only_its_scan_record_and_on_its_guides_within_budget() {
 	let p = pack();
-	let measure = |dir: &Path, what: &str| {
-		let (absent, heap, a) = login_kib(None, false);
-		let (off, _, o) = login_kib(Some(dir), false);
-		let (on, _, n) = login_kib(Some(dir), true);
+	let measure = |dir: &Path, what: &str| -> f64 {
+		let (absent, heap, a) = login_kib(None, None);
+		let (off, _, o) = login_kib(Some(dir), Some(SAVED_OFF));
+		let (on, _, n) = login_kib(Some(dir), None);
 		eprintln!(
-			"login heap ({what}): without {EXP} {absent:.2} KiB (whole heap {heap:.0} KiB); installed and off {off:.2} KiB (+{:.2}); switched on {on:.2} KiB (+{:.2})",
+			"login heap ({what}): without {EXP} {absent:.2} KiB (whole heap {heap:.0} KiB); switched off {off:.2} KiB (+{:.2}); on, as it ships, {on:.2} KiB (+{:.2})",
 			off - absent,
 			on - absent
 		);
-		assert_eq!((a, o, n), (0, 0, 1), "{what}: off, never loaded; on, loaded at login once");
-		assert!(off - absent < INSTALLED_OFF_BUDGET_KIB, "{what}: installed and off adds {:.2} KiB to a login (budget {INSTALLED_OFF_BUDGET_KIB})", off - absent);
-		assert!(on > off, "{what}: switched on, its guides are in");
+		assert_eq!((a, o, n), (0, 0, 1), "{what}: switched off, never loaded; on, loaded at login once");
+		assert!(off - absent < INSTALLED_OFF_BUDGET_KIB, "{what}: installed and switched off adds {:.2} KiB to a login (budget {INSTALLED_OFF_BUDGET_KIB})", off - absent);
+		assert!(on > off, "{what}: on, its guides are in");
+		on - absent
 	};
 	measure(&p.dir, "fixture pack");
-	// The checkout's own build too, when it has one.
+	// The checkout's own build too, when it has one: on by default, within its budget.
 	let shipped = addons_dir().join(EXP);
 	if shipped.join(format!("{EXP}.toc")).exists() {
-		measure(&shipped, "addon/Polestar_Experimental");
+		let cost = measure(&shipped, "addon/Polestar_Experimental");
+		assert!(cost <= ON_BUDGET_KIB, "the experimental guides add {cost:.1} KiB to a login (budget {ON_BUDGET_KIB:.1}: measured {ON_MEASURED_KIB} + 5 %)");
 	}
 }

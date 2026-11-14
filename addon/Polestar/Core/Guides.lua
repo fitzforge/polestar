@@ -711,6 +711,21 @@ local function reservedAgainst(id, addon)
 	return Guides.RESERVED[id] ~= nil and not (addon ~= nil and RESERVED_ADDON[id] == addon)
 end
 
+-- Polestar's own extra packs that are part of its guides, not community
+-- addons: pack id -> the setting that shows them (on by default). Their
+-- guides are listed with ours (UI/Picker.lua: Leveling, in their band),
+-- never on the Community guides page (Guides.Packs leaves their own record
+-- out). Polestar_Experimental is one: its guides are shown unless the
+-- player switched them off (Options, Guide: Show experimental guides).
+Guides.OWN_EXTRA = { ["polestar-experimental"] = "behavior.experimentalGuides" }
+ns.RegisterDefaults("behavior", { experimentalGuides = true })
+
+-- Is record r the own record of one of Polestar's extra packs (its own
+-- addon's, not an impostor's under the reserved id)?
+function Own.ownExtra(r)
+	return Guides.OWN_EXTRA[r.id] ~= nil and r.addon == RESERVED_ADDON[r.id]
+end
+
 local REQUIRED_META = { "addon", "title", "author", "version", "license" }
 local OPTIONAL_META = { "website", "source", "notes" }
 
@@ -1121,16 +1136,21 @@ end
 
 -- Packs whose addon the client loads only on demand (## LoadOnDemand: 1;
 -- Polestar's own Polestar_Experimental is one): pack id -> its addon. Such a
--- pack is off until the player switches it on on the Community guides page;
--- its addon loads then, and at every login while it stays on
--- (Own.loadDemand), so one left off costs its row and nothing more.
+-- community pack is off until the player switches it on on the Community
+-- guides page; one of Polestar's extra packs is on until its setting is
+-- switched off (Guides.OWN_EXTRA). Its addon loads then, and at every login
+-- while it stays on (Own.loadDemand), so one left off costs its row and
+-- nothing more.
 Own.demand = {}
 
--- Is pack `id` shown? Internal packs always are; one that loads on demand
--- only once switched on.
+-- Is pack `id` shown? Internal packs always are; one of Polestar's extra
+-- packs while its setting is on; a community one that loads on demand only
+-- once switched on.
 function Guides.PackShown(id)
 	local r = packs[id]
 	if r and r.internal then return true end
+	local setting = Guides.OWN_EXTRA[id]
+	if setting then return ns.Get(setting) ~= false end
 	local p = packState(id)
 	if Own.demand[id] then return p ~= nil and p.on == true end
 	return not (p and p.off)
@@ -1160,6 +1180,13 @@ function Guides.SetPackShown(id, shown)
 	if type(id) ~= "string" or (packs[id] and packs[id].internal) then return end
 	shown = shown and true or false
 	if packShown(id) == shown then return end
+	-- One of Polestar's extra packs: its setting (SETTING_CHANGED applies it,
+	-- Own.extraChanged), as the Options toggle sets it.
+	local setting = Guides.OWN_EXTRA[id]
+	if setting then
+		ns.Set(setting, shown)
+		return
+	end
 	local db = ns.DB()
 	if type(db.packs) ~= "table" then db.packs = {} end
 	local demand = Own.demand[id] ~= nil
@@ -1201,12 +1228,15 @@ function Guides.Pack(id)
 	return nil
 end
 
--- Every pack record but internal ones and the imported guides (registered
--- and installed, refused ones too): ours first, then by title.
+-- Every pack record but internal ones, the imported guides and the own
+-- records of Polestar's extra packs (listed with our guides; an impostor's
+-- refused record under their id is listed): registered and installed,
+-- refused ones too, ours first, then by title.
 function Guides.Packs()
 	local out = {}
 	for i = 1, #records do
-		if not (records[i].internal or records[i].imported) then out[#out + 1] = syncStatus(records[i]) end
+		local r = records[i]
+		if not (r.internal or r.imported or Own.ownExtra(r)) then out[#out + 1] = syncStatus(r) end
 	end
 	table.sort(out, function(a, b)
 		if a.official ~= b.official then return a.official end
@@ -1285,6 +1315,41 @@ function Own.loadDemandAll()
 	for _, id in ipairs(ids) do came = Own.loadDemand(id) or came end
 	return came
 end
+
+-- One of Polestar's extra packs whose setting changed (the Options toggle,
+-- Guides.SetPackShown, a reset or another profile): its record follows, its
+-- addon loads when it comes on (never in a fight: after it), and the guide
+-- menu hears of it. Before login the login does all of that.
+Own.extraShown = {} -- pack id -> shown when last applied
+function Own.extraChanged(id)
+	local shown = packShown(id)
+	if not ns.IsLoggedIn() or Own.extraShown[id] == shown then return end
+	Own.extraShown[id] = shown
+	local r = Guides.Pack(id)
+	if r then syncStatus(r) end
+	if shown and Own.demand[id] and Own.loadDemand(id) then ns.Fire("GUIDES_REGISTERED") end
+	ns.Fire("PACKS_CHANGED", id)
+end
+
+ns.On("SETTING_CHANGED", function(path)
+	for id, key in pairs(Guides.OWN_EXTRA) do
+		if path == key or path == "behavior" or path == "" then Own.extraChanged(id) end
+	end
+end)
+
+-- Before 0.4.0 the experimental pack was a community-style switch, off until
+-- switched on (PolestarDB.packs[id].on). It is on by default now: a pack
+-- switched on stays on; an `off` kept from a pack switched off stays off as
+-- the setting; the old entry goes.
+ns.OnInit(function()
+	local all = PolestarDB and PolestarDB.packs
+	if type(all) ~= "table" then return end
+	for id, key in pairs(Guides.OWN_EXTRA) do
+		local p = all[id]
+		if type(p) == "table" and p.off and ns.GetStored(key) == nil then ns.Set(key, false) end
+		all[id] = nil
+	end
+end)
 
 local function meta(addon, field)
 	local v = C_AddOns.GetAddOnMetadata(addon, field)
@@ -1618,8 +1683,15 @@ Guides.Start = guideStart
 
 -- Packs never suggested and never part of the route, whatever Suggest
 -- guides from says: Polestar's experimental guides (Polestar_Experimental,
--- alpha) are followed only when the player opens one from the guide menu.
+-- alpha) are listed with ours in the guide menu, with an "Experimental"
+-- chip, and followed only when the player opens one there or picks its zone
+-- where a route choice offers it.
 Guides.NEVER_SUGGESTED = { ["polestar-experimental"] = true }
+
+-- Is guide (or header) g one of Polestar's experimental guides?
+function Guides.IsExperimental(g)
+	return type(g) == "table" and g.pack ~= nil and Guides.NEVER_SUGGESTED[g.pack] == true
+end
 
 -- Shown guides whose route choice (`nextChoices`) offers `id` now (an
 -- option with `when` only while it holds: Engine.RouteOffered), in
@@ -1644,8 +1716,8 @@ end
 ---------------------------------------------------------------------------
 -- Experimental route options (docs/PACK_FORMAT.md, "Polestar's own extra
 -- packs"). A route choice of ours may offer one of Polestar's experimental
--- guides (an extra `next` line). Their pack loads on demand and stays off
--- until the player wants it, so Polestar_Guides carries an index of the
+-- guides (an extra `next` line). Their pack loads on demand (at login while
+-- it is shown, Guides.OWN_EXTRA; switched off, it stays out), so Polestar_Guides carries an index of the
 -- guides our route choices offer (Polestar.RegisterExperimental, written by
 -- `forge guide compile`): each as a guide header without steps (title, who
 -- it is for, levels, zone, pitch, pros, cons and their name tokens), with
@@ -2011,9 +2083,11 @@ ns.OnLogin(function()
 	for name in pairs(partsWaiting) do loadParts(name) end
 	Own.loadForSaved()
 	Guides.ScanInstalled()
-	-- The packs that load on demand and are switched on: their addons load
-	-- now, before the Engine reopens the saved tabs.
+	-- The packs that load on demand and are switched on (Polestar's extra
+	-- packs unless switched off): their addons load now, before the Engine
+	-- reopens the saved tabs.
 	Own.loadDemandAll()
+	for id in pairs(Guides.OWN_EXTRA) do Own.extraShown[id] = packShown(id) end
 	-- The imported guides, now that every community addon has registered and
 	-- every installed one is listed (an addon keeps its ids: Import.Load
 	-- leaves out an imported guide under an addon's id).

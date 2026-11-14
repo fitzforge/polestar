@@ -1,14 +1,15 @@
 //! Experimental route options (Engine "Route choice"; Core/Guides.lua, Polestar.RegisterExperimental): a guide of
 //! ours whose `next` also names one of Polestar's experimental guides offers it in the route choice. Its pack loads
-//! on demand and is off, so the option comes from the experimental index Polestar_Guides carries (levels to the
-//! route's top, travel, quests, pitch, the guide of ours it rejoins); choosing it switches the pack on, which loads
-//! it, and the route goes on there and back to ours where its last guide hands over. It is never recommended and
-//! never taken by itself: with behavior.routeChoice "recommended", with only it left, in the hand-in plan and in
-//! the chain's needs the route is the same as without it. Each option says where it goes on ("Then"), a detour
+//! on demand: at login while it is shown (the default, Guides.OWN_EXTRA), and not at all once the player switched
+//! it off, when the option comes from the experimental index Polestar_Guides carries (levels to the route's top,
+//! travel, quests, pitch, the guide of ours it rejoins); choosing it then switches the pack on, which loads it, and
+//! the route goes on there and back to ours where its last guide hands over. It is never recommended and never
+//! taken by itself, on or off: with behavior.routeChoice "recommended", with only it left, in the hand-in plan and
+//! in the chain's needs the route is the same as without it. Each option says where it goes on ("Then"), a detour
 //! names the zone it travels through, and a shared guide goes on by the character's faction. The real compiled
-//! guides' default route is the same with the offers as without them, and the experimental pack's notes say no
-//! install or setting is needed. Real Core manifest, stub world; the experimental pack is a fixture addon the
-//! client loads on demand (stub_packs.lua).
+//! guides' default route is the same with the offers as without them, and every zone is offered to each side it
+//! is for. Real Core manifest, stub world; the experimental pack is a fixture addon the client loads on demand
+//! (stub_packs.lua).
 
 use forge_addontest::dsl::{compile_with, our_manifest, write_test_pack_offering};
 use forge_addontest::run::{addons_dir, lua_string, root};
@@ -109,6 +110,9 @@ Polestar.RegisterGuide({ id = "polestar-experimental/shen", pack = "polestar-exp
 	{ goals = { { t = "turnin", quest = 9601, title = "Strange Pylons", map = 2652, x = 21, y = 20 } } },
 } })
 "#;
+
+// The experimental guides switched off by the player (Options, Guide: Show experimental guides), saved.
+const OFF: &str = "PolestarDB = { schema = 1, settings = { behavior = { experimentalGuides = false } } }\n";
 
 const HELPERS: &str = r#"
 E, G, w = Polestar.Engine, Polestar.Guides, stub.world
@@ -211,12 +215,12 @@ fn offered_from_the_index_while_its_pack_is_off_beside_the_one_other_option() {
 		end
 		r.offeredBy = E.RouteChoiceFor("test/stv") or false
 		emit(r)"#;
-	let out = run(true, "nil", "", script);
+	let out = run(true, "nil", OFF, script);
 	// The choice is asked though only one option is ours: the window must not skip it.
 	assert_eq!(out["asked"], json!(["ROUTE_CHOICE test/badlands"]), "{out}");
 	assert_eq!(out["guide"], "test/badlands");
 	assert_eq!(out["pending"], "test/badlands");
-	assert_eq!(out["loads"], 0, "nothing of the pack loads to offer it");
+	assert_eq!(out["loads"], 0, "switched off, nothing of the pack loads to offer it");
 	assert_eq!(out["options"], json!(["test/stv*", "polestar-experimental/glades-1 (experimental)"]));
 	assert_eq!(out["recommended"], "test/stv");
 	assert_eq!(out["joinsAt"], "Feralas", "both meet again in Feralas: the Riverglades' route rejoins where Stranglethorn Vale goes on");
@@ -233,10 +237,41 @@ fn offered_from_the_index_while_its_pack_is_off_beside_the_one_other_option() {
 	assert_eq!(out["offeredBy"], "test/badlands", "/polestar path can offer it again from Stranglethorn Vale");
 
 	// Not installed (or turned off in the AddOns list): nothing to offer, the route goes on as before.
-	let none = run(false, "nil", "", script);
+	let none = run(false, "nil", OFF, script);
 	assert_eq!(none["asked"], json!(["GUIDE_CHANGED test/stv"]), "{none}");
 	assert_eq!(none["guide"], "test/stv");
 	assert_eq!(none["options"], json!(["test/stv*"]), "{none}");
+}
+
+// On, as it is by default: the pack loaded at login, its zone still offered beside ours and never recommended, the
+// card's levels the route's (the index's) as when it is off.
+#[test]
+fn on_by_default_its_guides_are_in_and_the_choice_is_the_same() {
+	let out = run(
+		true,
+		"nil",
+		"",
+		r#"
+		local r = { loadedAtLogin = loads(), shown = G.PackShown("polestar-experimental"), inMenu = G.Get(GLADES) ~= nil }
+		w.setLevel(40); w.moveTo(1418, 4, 45)
+		E.SetGuide("test/badlands"); flush(); takeLog()
+		endBadlands()
+		local c = E.GetRouteChoice("test/badlands")
+		r.asked, r.options, r.recommended = takeLog(), optionIds(c), c.recommended
+		local g = option(c, GLADES)
+		r.levels, r.guide = { g.minLevel, g.maxLevel }, E.GetGuide().id
+		Polestar.Set("behavior.routeChoice", "recommended")
+		E.SetGuide("test/badlands"); flush(); takeLog()
+		r.recommendedNext = E.NextGuide("test/badlands") or false
+		emit(r)"#,
+	);
+	assert_eq!((out["loadedAtLogin"].clone(), out["shown"].clone(), out["inMenu"].clone()), (json!(1), json!(true), json!(true)), "{out}");
+	assert_eq!(out["asked"], json!(["ROUTE_CHOICE test/badlands"]), "{out}");
+	assert_eq!(out["options"], json!(["test/stv*", "polestar-experimental/glades-1 (experimental)"]));
+	assert_eq!(out["recommended"], "test/stv");
+	assert_eq!(out["levels"], json!([37, 43]));
+	assert_eq!(out["guide"], "test/badlands", "asked, never taken by itself");
+	assert_eq!(out["recommendedNext"], "test/stv", "\"Take the recommended zone\" goes on to ours");
 }
 
 #[test]
@@ -244,12 +279,12 @@ fn choosing_it_switches_the_pack_on_loads_it_and_continues_there_in_a_fight_once
 	let out = run(
 		true,
 		"nil",
-		"",
+		OFF,
 		r#"
 		w.setLevel(40); w.moveTo(1418, 4, 45)
 		E.SetGuide("test/badlands"); flush(); finish(1); takeLog()
 		local r = { chose = E.ChooseRoute("test/badlands", GLADES) }; flush()
-		r.after = { guide = E.GetGuide().id, loads = loads(), on = PolestarDB.packs["polestar-experimental"].on, saved = PolestarCharDB.routes["test/badlands"],
+		r.after = { guide = E.GetGuide().id, loads = loads(), on = Polestar.Get("behavior.experimentalGuides"), saved = PolestarCharDB.routes["test/badlands"],
 			log = takeLog(), pending = E.PendingRouteChoice() or false }
 		emit(r)"#,
 	);
@@ -258,13 +293,13 @@ fn choosing_it_switches_the_pack_on_loads_it_and_continues_there_in_a_fight_once
 		out["after"],
 		json!({ "guide": "polestar-experimental/glades-1", "loads": 1, "on": true, "saved": "polestar-experimental/glades-1",
 			"log": ["GUIDE_CHANGED polestar-experimental/glades-1", "ROUTE_CHOSEN test/badlands polestar-experimental/glades-1"], "pending": false }),
-		"no install, no setting: the choice switches the pack on, loads it and opens its guide"
+		"switched off, no install, no setting: the choice switches the guides on, loads them and opens its guide"
 	);
 
 	let fight = run(
 		true,
 		"nil",
-		"",
+		OFF,
 		r#"
 		w.setLevel(40); w.moveTo(1418, 4, 45)
 		E.SetGuide("test/badlands"); flush(); finish(1); takeLog()
@@ -307,7 +342,7 @@ fn never_recommended_never_taken_by_itself_and_never_in_the_plan_until_chosen() 
 	let rec = run(
 		true,
 		"nil",
-		"",
+		OFF,
 		r#"
 		Polestar.Set("behavior.routeChoice", "recommended")
 		w.setLevel(43); w.moveTo(2548, 50, 20)
@@ -406,7 +441,11 @@ fn our_route(data: &forge_guide::data::Data, offers: bool) -> forge_addontest::d
 	assert_eq!(compiled.errors, Vec::<String>::new());
 	let index = if offers {
 		let mut diag = forge_guide::diag::Diagnostics::new();
-		let index = forge_guide::project::experimental_index(&compiled.guides, &forge_guide::project::read_extras(root(), data), data, &mut diag);
+		let extras = forge_guide::project::read_extras(root(), data);
+		let index = forge_guide::project::experimental_index(&compiled.guides, &extras, data, &mut diag);
+		// Every zone has its way in for each side it is for (Riverglades both, Shen'dralas both, Mount Hyjal the
+		// Alliance).
+		forge_guide::project::experimental_offered_everywhere(&compiled.guides, &extras, &mut diag);
 		assert!(!diag.has_errors(), "{:?}", diag.sorted());
 		index
 	} else {
@@ -508,10 +547,22 @@ fn the_real_route_compiled_with_the_offers_and_without_them_has_the_same_default
 			}
 		}
 	}
-	assert_eq!(offered.len(), 3, "the three offers: {offered:?}");
+	assert_eq!(offered.len(), 5, "the five offers: {offered:?}");
 	for (race, faction, offers) in [
-		("Orc", "Horde", json!(["forever/horde/30-40/06-badlands -> polestar-experimental/riverglades-horde-1", "forever/horde/40-50/03-feralas -> polestar-experimental/shendralas"])),
-		("Human", "Alliance", json!(["forever/alliance/50-60/04-western-plaguelands -> polestar-experimental/hyjal-1"])),
+		(
+			"Orc",
+			"Horde",
+			json!(["forever/horde/30-40/06-badlands -> polestar-experimental/riverglades-horde-1", "forever/horde/40-50/02-feralas -> polestar-experimental/shendralas"]),
+		),
+		(
+			"Human",
+			"Alliance",
+			json!([
+				"forever/alliance/30-40/06-badlands -> polestar-experimental/riverglades-alliance-1",
+				"forever/alliance/40-50/02-badlands -> polestar-experimental/shendralas",
+				"forever/alliance/50-60/04-western-plaguelands -> polestar-experimental/hyjal-1"
+			]),
+		),
 	] {
 		let (a, b) = (route_of(&with, race, faction), route_of(&without, race, faction));
 		assert!(a["route"].as_object().unwrap().len() > 20, "{race}: the guides are in");
@@ -526,14 +577,15 @@ fn the_real_route_compiled_with_the_offers_and_without_them_has_the_same_default
 	}
 }
 
-// What players read about the experimental pack outside the game's route choice: its AddOns-list notes (the TOC,
-// in English, from experimental/pack.json) say it loads when they pick one of its zones where a guide offers it,
-// so there is nothing to install or switch on first.
+// What players read about the experimental pack outside the game: its AddOns-list notes (the TOC, in English,
+// from experimental/pack.json) say its guides are listed with Polestar's own, so there is nothing to install or
+// switch on first.
 #[test]
 fn the_experimental_pack_says_no_install_or_setting_is_needed() {
 	let pack: Value = serde_json::from_str(&std::fs::read_to_string(root().join("experimental/pack.json")).unwrap()).unwrap();
 	let notes = pack["notes"].as_str().unwrap();
-	assert!(notes.contains("Loads when you pick one of its zones where a guide offers it"), "{notes}");
+	assert!(notes.contains("listed with Polestar's own guides"), "{notes}");
+	assert!(!notes.contains("Community guides"), "no switch to find: {notes}");
 	let toc = std::fs::read_to_string(addons_dir().join(EXP).join(format!("{EXP}.toc"))).unwrap();
 	assert!(toc.lines().any(|l| l == format!("## Notes: {notes}")), "addon/{EXP} carries experimental/pack.json's notes: rebuild it with `forge guide compile experimental`");
 }
