@@ -44,12 +44,42 @@ test('runFiles runs each file in its own process, one at a time while memory is 
 	assert.match(lines.at(-1), /^2 of 3 files passed/);
 });
 
+test('runFiles rejects invalid job counts, including when no files are selected', async (t) => {
+	const fs = require('node:fs');
+	const { runFiles } = require('../tools/testsel');
+	const { tmpdir } = require('./helpers/tmp');
+	const dir = tmpdir('polestar-testsel-jobs-');
+	const file = path.join(dir, 'fail.test.js');
+	fs.writeFileSync(file, "throw new Error('fixture ran');\n");
+	for (const jobs of [0, -1, 1.5, NaN, Infinity, '1', '', null]) {
+		await t.test(`rejects ${typeof jobs} ${String(jobs)}`, async () => {
+			for (const files of [[file], []]) {
+				const lines = [];
+				let timer;
+				try {
+					// A stalled runner must fail the assertion instead of leaving a pending promise.
+					const deadline = new Promise((_, reject) => {
+						timer = setTimeout(() => reject(new Error('runFiles did not settle')), 1000);
+					});
+					await assert.rejects(Promise.race([runFiles(files, { jobs, cwd: dir, log: (m) => lines.push(m) }), deadline]), {
+						name: 'RangeError', message: 'testsel: jobs needs a positive integer',
+					});
+					assert.deepEqual(lines, [], 'invalid jobs must fail before running tests');
+				} finally {
+					clearTimeout(timer);
+				}
+			}
+		});
+	}
+});
+
 test('CLI validates job counts and still runs tests with valid or default jobs', async (t) => {
 	const fs = require('node:fs');
 	const { spawnSync } = require('node:child_process');
 	const { tmpdir } = require('./helpers/tmp');
 	const dir = tmpdir('polestar-testsel-cli-');
 	// A small project exercises the real CLI without recursively running this test.
+	// Keep this list in sync with the runner's local requires.
 	for (const file of ['tools/testsel.js', 'tools/lib/requires.js']) {
 		fs.mkdirSync(path.dirname(path.join(dir, file)), { recursive: true });
 		fs.copyFileSync(path.join(ROOT, file), path.join(dir, file));
