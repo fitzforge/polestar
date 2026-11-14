@@ -17,64 +17,64 @@ return {
 	-- Step 2: Lord Grayson Shadowbreaker
 	-- {spell:23214} Summon Charger · {area:2279} Stratholme · {area:2057} Scholomance · {item:14047} Runecloth · {item:8836} Arthas' Tears · {npc:6171} Duthorian Rall
 	-- plural, as words: Arcanite Bars = {item:12360} Arcanite Bar
-	["The {spell:23214} chain is long: {area:2279}, Dire Maul West and {area:2057} with a group, 350 gold in donations, and materials worth several hundred more (6 Arcanite Bars, 40 {item:14047}, 10 {item:8836}, two diamonds). Start saving early. Lord Grayson stands in the Cathedral of Light, {npc:6171} nearby."] = "",
+	["The {spell:23214} chain is long: {area:2279}, Dire Maul West and {area:2057} with a group, 350 gold in donations, and materials worth several hundred more (6 Arcanite Bars, 40 {item:14047}, 10 {item:8836}, two diamonds). Start saving early. Lord Grayson stands in the Cathedral of Light, {npc:6171} nearby."] = "La cadena de {spell:23214} es larga: {area:2279}, La Masacre Oeste y {area:2057} en grupo, 350 de oro en donaciones y materiales por varios cientos más (6 barras de arcanita, 40 {item:14047}, 10 {item:8836}, dos diamantes). Empieza a ahorrar temprano. Lord Grayson está en la Catedral de la Luz, y {npc:6171} cerca.",
 	-- {npc:6171} Duthorian Rall
 	["{npc:6171}, Cathedral of Light"] = "{npc:6171}, Catedral de la Luz",
 
 	-- Step 3: High Priest Rohan
 	-- {npc:11406} High Priest Rohan · {object:32386} Hall of Mysteries (no name in this language: may be words) · {zone:1455} Ironforge · {object:32362} Mystic Ward (no name in this language: may be words)
-	["{npc:11406}, the priest trainer, walks about the {object:32386} in {zone:1455}'s {object:32362}. He gives you his censer for a donation of 150 gold, taken at the hand-in. Keep the censer."] = "",
+	["{npc:11406}, the priest trainer, walks about the {object:32386} in {zone:1455}'s {object:32362}. He gives you his censer for a donation of 150 gold, taken at the hand-in. Keep the censer."] = "{npc:11406}, el instructor de sacerdotes, camina por {object:32386} en {object:32362} de {zone:1455}. Te da su incensario por una donación de 150 de oro, que se cobra al entregar. Guarda el incensario.",
 	-- {npc:11406} High Priest Rohan
 	["{npc:11406}: 150 gold"] = "{npc:11406}: 150 de oro",
 
 	-- Step 4: Back to Lord Grayson
 	["Back to Lord Grayson"] = "Vuelve con Lord Grisillo",
 	-- {item:18752} Exorcism Censer · {area:2627} Terrordale
-	["Lord Grayson blesses the censer into the {item:18752} for {area:2627}."] = "",
+	["Lord Grayson blesses the censer into the {item:18752} for {area:2627}."] = "Lord Grayson bendice el incensario y lo convierte en el {item:18752} para {area:2627}.",
 
 	-- Step 5: Exorcising Terrordale
 	-- {area:2627} Terrordale · {zone:1423} Eastern Plaguelands · {area:2279} Stratholme · {object:179747} Terrordale Haunting Spirit (no name in this language: may be words) · {item:18752} Exorcism Censer · {spell:7713} Wailing Dead · {spell:2878} Turn Undead
 	-- plural, as words: Terrordale Spirits = {npc:14564} Terrordale Spirit
-	["{area:2627} lies in the far north-west of the {zone:1423}, west of the {area:2279} gates. Stand inside a green glowing patch on the ground (a {object:179747}; some are inside the ruined houses) and use the {item:18752}: up to three Terrordale Spirits (level 59-60) rise and attack. Their {spell:7713} lowers all your stats by 30%: fight them one at a time and use {spell:2878}. The patches come back quickly; several paladins can work side by side."] = "",
+	["{area:2627} lies in the far north-west of the {zone:1423}, west of the {area:2279} gates. Stand inside a green glowing patch on the ground (a {object:179747}; some are inside the ruined houses) and use the {item:18752}: up to three Terrordale Spirits (level 59-60) rise and attack. Their {spell:7713} lowers all your stats by 30%: fight them one at a time and use {spell:2878}. The patches come back quickly; several paladins can work side by side."] = "{area:2627} está en el extremo noroeste de {zone:1423}, al oeste de las puertas de {area:2279}. Párate dentro de una mancha verde brillante en el suelo (un {object:179747}; algunas están dentro de las casas en ruinas) y usa el {item:18752}: se levantan hasta tres espíritus de Valle del Terror (nivel 59-60) y atacan. Su {spell:7713} baja todas tus estadísticas un 30%: pelea contra ellos de uno en uno y usa {spell:2878}. Las manchas vuelven rápido; varios paladines pueden trabajar uno al lado del otro.",
 	-- {item:18752} Exorcism Censer
-	["{item:18752}, inside a green patch"] = "",
+	["{item:18752}, inside a green patch"] = "{item:18752}, dentro de una mancha verde",
 	-- plural, as words: Terrordale Spirits = {npc:14564} Terrordale Spirit
-	["Terrordale Spirits x25"] = "",
+	["Terrordale Spirits x25"] = "Espíritus de Valle del Terror x25",
 
 	-- Step 6: Lord Grayson Shadowbreaker
-	["Lord Grayson takes the censer back."] = "",
+	["Lord Grayson takes the censer back."] = "Lord Grayson recupera el incensario.",
 
 	-- Step 7: Grimand Elmore
 	-- {npc:1416} Grimand Elmore · {zone:1453} Stormwind · {object:28027} Dwarven District · {item:18753} Arcanite Barding
-	["{npc:1416} works in {zone:1453}'s {object:28027}. He forges the {item:18753} from your materials and 150 gold."] = "",
+	["{npc:1416} works in {zone:1453}'s {object:28027}. He forges the {item:18753} from your materials and 150 gold."] = "{npc:1416} trabaja en {object:28027} de {zone:1453}. Forja la {item:18753} con tus materiales y 150 de oro.",
 
 	-- Step 8: Grimand Elmore's materials
 	-- {npc:1416} Grimand Elmore
 	["{npc:1416}'s materials"] = "Materiales de {npc:1416}",
 	-- {item:14047} Runecloth · {area:2255} Everlook · {area:2577} Dire Maul · {item:8836} Arthas' Tears · {skill:182} Herbalism · {area:3197} Chillwind Camp · {item:12360} Arcanite Bar · {item:12359} Thorium Bar · {item:12363} Arcane Crystal
-	["{item:14047} drops from humanoids of level 50 and up ({area:2255}'s Bruisers, the Scarlet Crusade in the Plaguelands, the {area:2577} ogres). {item:8836} is a Plaguelands herb ({skill:182} 220), common around {area:3197}. An {item:12360} is an alchemist's transmute from a {item:12359} and an {item:12363}, once every two days per alchemist: ask a guild alchemist early, or buy the bars. The Auction House sells all three."] = "",
+	["{item:14047} drops from humanoids of level 50 and up ({area:2255}'s Bruisers, the Scarlet Crusade in the Plaguelands, the {area:2577} ogres). {item:8836} is a Plaguelands herb ({skill:182} 220), common around {area:3197}. An {item:12360} is an alchemist's transmute from a {item:12359} and an {item:12363}, once every two days per alchemist: ask a guild alchemist early, or buy the bars. The Auction House sells all three."] = "El {item:14047} lo sueltan los humanoides de nivel 50 o más (los matones de {area:2255}, la Cruzada Escarlata de las Tierras de la Peste, los ogros de {area:2577}). Las {item:8836} son una hierba de las Tierras de la Peste ({skill:182} 220), común alrededor de {area:3197}. Una {item:12360} es una transmutación de alquimista a partir de una {item:12359} y un {item:12363}, una vez cada dos días por alquimista: pídeselo temprano a un alquimista de la hermandad, o compra las barras. La casa de subastas vende los tres.",
 	-- {item:14047} Runecloth
-	["{item:14047} x40"] = "",
+	["{item:14047} x40"] = "{item:14047} x40",
 	-- {item:8836} Arthas' Tears
-	["{item:8836} x10"] = "",
+	["{item:8836} x10"] = "{item:8836} x10",
 	-- plural, as words: Arcanite Bars = {item:12360} Arcanite Bar
-	["Arcanite Bars x6: an alchemist, or the Trade District Auction House"] = "",
+	["Arcanite Bars x6: an alchemist, or the Trade District Auction House"] = "Barras de arcanita x6: un alquimista, o la casa de subastas del Distrito de Mercaderes",
 
 	-- Step 9: Stratholme Holy Water
 	-- {area:2279} Stratholme · {zone:1423} Eastern Plaguelands
 	-- plural, as words: Stratholme Supply Crates = {object:181085} Stratholme Supply Crate
-	["{area:2279} is a dungeon for a group of five at 58-60, at the north end of the {zone:1423}. Stratholme Supply Crates along the streets of both halves hold the Holy Water, one to three each; they come back after three minutes. Some crates let out a swarm of plagued rats or maggots: be ready. The main gate (the Scarlet half) needs no key."] = "",
+	["{area:2279} is a dungeon for a group of five at 58-60, at the north end of the {zone:1423}. Stratholme Supply Crates along the streets of both halves hold the Holy Water, one to three each; they come back after three minutes. Some crates let out a swarm of plagued rats or maggots: be ready. The main gate (the Scarlet half) needs no key."] = "{area:2279} es una mazmorra para un grupo de cinco de nivel 58-60, en el extremo norte de {zone:1423}. Las cajas de suministros de Stratholme a lo largo de las calles de las dos mitades tienen el agua bendita, de una a tres cada una; vuelven a los tres minutos. Algunas cajas sueltan un enjambre de ratas o larvas apestadas: prepárate. La puerta principal (la mitad Escarlata) no necesita llave.",
 	-- plural, as words: Stratholme Supply Crates = {object:181085} Stratholme Supply Crate
-	["Stratholme Supply Crates, inside"] = "",
+	["Stratholme Supply Crates, inside"] = "Cajas de suministros de Stratholme, adentro",
 
 	-- Step 10: Grimand Elmore
 	-- {npc:1416} Grimand Elmore · {item:18753} Arcanite Barding
-	["Bring the materials and 150 gold, taken at the hand-in. {npc:1416} walks to his forge and hands you the {item:18753}."] = "",
+	["Bring the materials and 150 gold, taken at the hand-in. {npc:1416} walks to his forge and hands you the {item:18753}."] = "Lleva los materiales y 150 de oro, que se cobran al entregar. {npc:1416} camina a su forja y te da la {item:18753}.",
 	-- {npc:1416} Grimand Elmore
 	["{npc:1416}: 150 gold"] = "{npc:1416}: 150 de oro",
 
 	-- Step 11: Lord Grayson Shadowbreaker
-	["Lord Grayson keeps the barding for now: you get it back with the next quest."] = "",
+	["Lord Grayson keeps the barding for now: you get it back with the next quest."] = "Lord Grayson se queda con la barda por ahora: la recuperas con la siguiente misión.",
 	-- {npc:928} Lord Grayson Shadowbreaker · {item:18753} Arcanite Barding
 	["{npc:928}: the {item:18753}"] = "{npc:928}: la {item:18753}",
 
@@ -83,38 +83,38 @@ return {
 	["Enriched Manna Biscuits"] = "Galletas enriquecidas con maná",
 	-- {object:2160} The Argent Dawn · {object:92525} Argent Dawn · {npc:10857} Argent Quartermaster Lightspark · {area:3197} Chillwind Camp · {npc:11536} Quartermaster Miranda Breechlock · {area:2268} Light's Hope Chapel
 	-- plural, as words: Enriched Manna Biscuits = {item:13724} Enriched Manna Biscuit
-	["{object:2160} quartermasters sell Enriched Manna Biscuits, five for 60 silver, once the {object:92525} is Friendly with you: {npc:10857} at {area:3197} or {npc:11536} at {area:2268}. Scourgestones and the Plaguelands quests raise the standing."] = "",
+	["{object:2160} quartermasters sell Enriched Manna Biscuits, five for 60 silver, once the {object:92525} is Friendly with you: {npc:10857} at {area:3197} or {npc:11536} at {area:2268}. Scourgestones and the Plaguelands quests raise the standing."] = "Los intendentes de {object:2160} venden galletas de maná enriquecidas, cinco por 60 de plata, una vez que estás en Amistoso con {object:92525}: {npc:10857} en {area:3197} o {npc:11536} en {area:2268}. Las piedras de la Plaga y las misiones de las Tierras de la Peste suben la reputación.",
 	-- {npc:10857} Argent Quartermaster Lightspark · {area:3197} Chillwind Camp
 	-- plural, as words: Enriched Manna Biscuits = {item:13724} Enriched Manna Biscuit
 	["Enriched Manna Biscuits: {npc:10857}, {area:3197}"] = "Galletas enriquecidas con maná: {npc:10857}, {area:3197}",
 
 	-- Step 13: Merideth Carlson
 	-- {npc:2357} Merideth Carlson · {area:271} Southshore · {quest:7645} Manna-Enriched Horse Feed
-	["{npc:2357} breeds horses in {area:271}'s stable. She makes the {quest:7645} from the 20 biscuits and 50 gold, taken at the hand-in."] = "",
+	["{npc:2357} breeds horses in {area:271}'s stable. She makes the {quest:7645} from the 20 biscuits and 50 gold, taken at the hand-in."] = "{npc:2357} cría caballos en el establo de {area:271}. Prepara el {quest:7645} con las 20 galletas y 50 de oro, que se cobran al entregar.",
 
 	-- Step 14: Dire Maul: Tendris Warpwood
 	-- {area:2577} Dire Maul · {zone:1444} Feralas · {item:18249} Crescent Key · {npc:11489} Tendris Warpwood · {npc:11459} Ironbark Protector · {quest:7643} Ancient Equine Spirit · {item:18753} Arcanite Barding
-	["{area:2577} lies in central {zone:1444}. From the gate at the foot of the ruins, walk up through the outer courtyards to the West wing's door at their north end; it needs a {item:18249} (from Pusillin in Dire Maul East) or a rogue's lockpicking. {npc:11489} (level 60 elite) stands at the far end of the West wing's first courtyard. Once attacked he calls every {npc:11459} still alive in the courtyard: kill them first. His death frees the {quest:7643}: talk to it to give it the horse feed and the {item:18753}, and it blesses the barding. A group of five at 60."] = "",
-	["Dire Maul West's door"] = "",
+	["{area:2577} lies in central {zone:1444}. From the gate at the foot of the ruins, walk up through the outer courtyards to the West wing's door at their north end; it needs a {item:18249} (from Pusillin in Dire Maul East) or a rogue's lockpicking. {npc:11489} (level 60 elite) stands at the far end of the West wing's first courtyard. Once attacked he calls every {npc:11459} still alive in the courtyard: kill them first. His death frees the {quest:7643}: talk to it to give it the horse feed and the {item:18753}, and it blesses the barding. A group of five at 60."] = "{area:2577} está en el centro de {zone:1444}. Desde la puerta al pie de las ruinas, sube por los patios exteriores hasta la puerta del ala Oeste, en su extremo norte; necesita una {item:18249} (de Pusillin, en La Masacre Este) o la ganzúa de un pícaro. {npc:11489} (élite de nivel 60) está al fondo del primer patio del ala Oeste. Cuando lo atacas llama a todos los {npc:11459} que sigan vivos en el patio: mátalos primero. Su muerte libera al {quest:7643}: háblale para darle el forraje y la {item:18753}, y bendice la barda. Un grupo de cinco a nivel 60.",
+	["Dire Maul West's door"] = "La puerta de La Masacre Oeste",
 	-- {npc:11489} Tendris Warpwood
 	["{npc:11489}, inside the West wing"] = "{npc:11489}, dentro del ala oeste",
 
 	-- Step 16: Two diamonds
 	["Two diamonds"] = "Dos diamantes",
 	-- {item:12800} Azerothian Diamond · {item:18335} Pristine Black Diamond · {npc:14695} Lord Blackwood
-	["An {item:12800} comes from Thorium veins and obsidian, about one vein in a hundred; a {item:18335} drops rarely from elites of level 59 and up (Revanchion and {npc:14695} about one kill in nine and one in a hundred). The Auction House is the usual source of both."] = "",
+	["An {item:12800} comes from Thorium veins and obsidian, about one vein in a hundred; a {item:18335} drops rarely from elites of level 59 and up (Revanchion and {npc:14695} about one kill in nine and one in a hundred). The Auction House is the usual source of both."] = "Un {item:12800} sale de vetas de torio y de obsidiana, más o menos una veta de cada cien; un {item:18335} lo sueltan muy de vez en cuando los élites de nivel 59 o más (Revanchion y {npc:14695}, más o menos una muerte de cada nueve y una de cada cien). La casa de subastas es la fuente habitual de ambos.",
 
 	-- Step 17: Lord Grayson Shadowbreaker
 	-- {item:18804} Lord Grayson's Satchel · {item:18746} Divination Scryer · {item:18792} Blessed Arcanite Barding
-	["Lord Grayson hands you {item:18804}: open it for the {item:18746} and the {item:18792}. Keep both."] = "",
+	["Lord Grayson hands you {item:18804}: open it for the {item:18746} and the {item:18792}. Keep both."] = "Lord Grayson te da la {item:18804}: ábrela para sacar el {item:18746} y la {item:18792}. Guarda los dos.",
 	-- {item:18792} Blessed Arcanite Barding
-	["{item:18792}, from the satchel"] = "",
+	["{item:18792}, from the satchel"] = "{item:18792}, de la cartera",
 
 	-- Step 18: The Great Ossuary
 	-- {area:2057} Scholomance · {area:2298} Caer Darrow · {zone:1422} Western Plaguelands · {item:13704} Skeleton Key · {object:179746} The Great Ossuary · {item:18746} Divination Scryer · {spell:1105} Seal of Wisdom · {npc:14516} Death Knight Darkreaver · {item:18749} Charger's Lost Soul · {item:18792} Blessed Arcanite Barding · {npc:14568} Darkreaver's Fallen Charger
-	["{area:2057} lies under {area:2298}, the island town in the south-east of the {zone:1422}; the door needs the {item:13704} (The Key to {area:2057}). Clear the {object:179746}, Rattlegore's room in the basement, then use the {item:18746} at its centre. Four waves of spirits come, each ending with an Aspect: players judge them with {spell:1105}, Justice, Righteousness and then Light, which stuns them. {npc:14516} (level 62 elite) comes after the last; he mind-controls players. Loot the {item:18749}, use it inside the Ossuary to redeem it, and give it and the {item:18792} to {npc:14568}. If the group wipes, the gates lock and the scryer is gone: abandon the quest and take it again from Lord Grayson for a new satchel. A group of five at 60. Again Into the {object:179746}, after the mount, lets you fight him again."] = "",
+	["{area:2057} lies under {area:2298}, the island town in the south-east of the {zone:1422}; the door needs the {item:13704} (The Key to {area:2057}). Clear the {object:179746}, Rattlegore's room in the basement, then use the {item:18746} at its centre. Four waves of spirits come, each ending with an Aspect: players judge them with {spell:1105}, Justice, Righteousness and then Light, which stuns them. {npc:14516} (level 62 elite) comes after the last; he mind-controls players. Loot the {item:18749}, use it inside the Ossuary to redeem it, and give it and the {item:18792} to {npc:14568}. If the group wipes, the gates lock and the scryer is gone: abandon the quest and take it again from Lord Grayson for a new satchel. A group of five at 60. Again Into the {object:179746}, after the mount, lets you fight him again."] = "{area:2057} está debajo de {area:2298}, el pueblo isleño del sureste de {zone:1422}; la puerta necesita la {item:13704} (La llave de {area:2057}). Despeja {object:179746}, la sala de Traquesangre en el sótano, y usa el {item:18746} en su centro. Llegan cuatro oleadas de espíritus, cada una terminada por un Aspecto: los jugadores los juzgan con {spell:1105}, Justicia, Rectitud y luego Luz, que los aturde. {npc:14516} (élite de nivel 62) llega después del último; controla mentalmente a los jugadores. Saquea el {item:18749}, úsala dentro del Osario para redimirla, y dásela con la {item:18792} a {npc:14568}. Si el grupo muere entero, las puertas se cierran y el visor desaparece: abandona la misión y tómala otra vez con Lord Grayson para recibir otra cartera. Un grupo de cinco a nivel 60. Otra vez a {object:179746}, después de la montura, te deja pelear contra él otra vez.",
 	-- {item:18749} Charger's Lost Soul · {object:179746} The Great Ossuary
-	["{item:18749}, inside the {object:179746}"] = "",
+	["{item:18749}, inside the {object:179746}"] = "{item:18749}, dentro de {object:179746}",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["An {item:12800} comes from Thorium veins, a {item:18335} from the elites of the {zone:1422}, both rarely: the Auction House is the usual source."] = "Un {item:12800} sale de los filones de torio y un {item:18335} de los élites de {zone:1422}, ambos rara vez: lo habitual es la casa de subastas.",

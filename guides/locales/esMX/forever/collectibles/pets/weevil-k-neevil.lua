@@ -8,33 +8,33 @@
 return {
 	-- Step 1: My Little Friends
 	-- {npc:217412} Amaryllis Webb · {zone:1435} Swamp of Sorrows · {zone:1417} Arathi Highlands · {zone:1443} Desolace
-	["{npc:217412}, a Forsaken bug collector, keeps her menagerie in western {zone:1435}. She hands you an Entomology Starter Kit: open it for the tools that catch the three bugs. The bugs are far apart (northern Stranglethorn, {zone:1417} and {zone:1443}), so do them while you pass. If you lose the kit, she sells another for 50s."] = "",
+	["{npc:217412}, a Forsaken bug collector, keeps her menagerie in western {zone:1435}. She hands you an Entomology Starter Kit: open it for the tools that catch the three bugs. The bugs are far apart (northern Stranglethorn, {zone:1417} and {zone:1443}), so do them while you pass. If you lose the kit, she sells another for 50s."] = "{npc:217412}, una coleccionista de bichos Renegada, tiene su colección en el oeste de {zone:1435}. Te da un kit de entomología para principiantes: ábrelo para sacar las herramientas que atrapan los tres bichos. Los bichos están lejos entre sí (norte de Tuercespina, {zone:1417} y {zone:1443}), así que atrápalos cuando pases. Si pierdes el kit, vende otro por 50s.",
 
 	-- Step 2: Arbor Tarantula in Stranglethorn Vale
 	-- {npc:217588} Arbor Tarantula · {zone:1434} Stranglethorn Vale
-	["{npc:217588} in {zone:1434}"] = "",
+	["{npc:217588} in {zone:1434}"] = "{npc:217588} en {zone:1434}",
 	-- plural, as words: Arbor Tarantulas = {npc:217588} Arbor Tarantula
-	["The Arbor Tarantulas sit in northern Stranglethorn. Use the kit's tool on one to catch it."] = "",
+	["The Arbor Tarantulas sit in northern Stranglethorn. Use the kit's tool on one to catch it."] = "Las tarántulas arbóreas están en el norte de Tuercespina. Usa la herramienta del kit en una para atraparla.",
 
 	-- Step 3: Hay Weevil in Arathi Highlands
 	-- {npc:217589} Hay Weevil · {zone:1417} Arathi Highlands
-	["{npc:217589} in {zone:1417}"] = "",
+	["{npc:217589} in {zone:1417}"] = "{npc:217589} en {zone:1417}",
 	-- {zone:1417} Arathi Highlands
 	-- plural, as words: Hay Weevils = {npc:217589} Hay Weevil
-	["The Hay Weevils crawl in the north-west of {zone:1417}. Use the kit's tool on one."] = "",
+	["The Hay Weevils crawl in the north-west of {zone:1417}. Use the kit's tool on one."] = "Los gorgojos del heno se arrastran por el noroeste de {zone:1417}. Usa la herramienta del kit en uno.",
 
 	-- Step 4: Flesh Picker in Desolace
 	-- {npc:217590} Flesh Picker · {zone:1443} Desolace
-	["{npc:217590} in {zone:1443}"] = "",
+	["{npc:217590} in {zone:1443}"] = "{npc:217590} en {zone:1443}",
 	-- {area:596} Kodo Graveyard · {zone:1443} Desolace
 	-- plural, as words: Flesh Pickers = {npc:217590} Flesh Picker
-	["The Flesh Pickers feed in the {area:596} in the middle of southern {zone:1443}. Use the kit's tool on one."] = "",
+	["The Flesh Pickers feed in the {area:596} in the middle of southern {zone:1443}. Use the kit's tool on one."] = "Los picacarnes se alimentan en {area:596}, en medio del sur de {zone:1443}. Usa la herramienta del kit en uno.",
 
 	-- Step 5: Back to Amaryllis Webb
 	-- {npc:217412} Amaryllis Webb
-	["Back to {npc:217412}"] = "",
+	["Back to {npc:217412}"] = "De vuelta con {npc:217412}",
 	-- {npc:217412} Amaryllis Webb · {item:280456} Weevil K. Neevil
-	["Hand {npc:217412} the three specimens: she gives you {item:280456} and 35s."] = "",
+	["Hand {npc:217412} the three specimens: she gives you {item:280456} and 35s."] = "Dale los tres especímenes a {npc:217412}: te da {item:280456} y 35s.",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["{npc:217412} gives you an Entomology Starter Kit: use its items to catch an {npc:217588}, a Hay Weevil Specimen and a {npc:217590}. This quest is named as the weevil's source but gives only money as its reward; the pet may come from the {npc:217589} you catch. If you lose the kit, she sells another."] = "{npc:217412} te da un kit de entomología: usa sus objetos para atrapar un {npc:217588}, un espécimen de gorgojo y un {npc:217590}. Esta misión figura como origen del gorgojo, pero solo da dinero como recompensa; la mascota puede salir del {npc:217589} que atrapes. Si pierdes el kit, ella vende otro.",
