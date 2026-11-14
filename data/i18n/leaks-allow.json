@@ -29,6 +29,7 @@
 		"Questie",
 		"Baganator",
 		"Pawn",
+		"Forever Leveling BiS",
 		"ForeverDB",
 		"pfQuest",
 		"DingDB",
@@ -48,6 +49,7 @@
 		"Cillian Berragan",
 		"Fitz",
 		"shagu",
+		"Timearc",
 		"The Inter Project Authors",
 		"The Cinzel Project Authors",
 		"SIL Open Font License",
@@ -144,7 +146,8 @@
 		"down",
 		"ui",
 		"trail",
-		"explore"
+		"explore",
+		"spec"
 	],
 	"locales": {
 		"deDE": [
