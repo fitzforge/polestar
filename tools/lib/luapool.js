@@ -45,6 +45,7 @@ class Worker {
 				this.job.reject(new Error(`Lua pool worker exited (${code}):\n${this.err}\n${this.buf}`));
 			}
 			this.job = null;
+			this.onFree();
 		});
 	}
 
@@ -106,7 +107,10 @@ class LuaPool {
 				this.workers = this.workers.filter((x) => !x.dead);
 				if (this.workers.length >= this.size) return;
 				w = new Worker();
-				w.onFree = () => this.pump();
+				w.onFree = () => {
+					// A worker retired by close must not start replacement work.
+					if (this.workers.includes(w)) this.pump();
+				};
 				this.workers.push(w);
 			}
 			w.run(this.queue.shift());

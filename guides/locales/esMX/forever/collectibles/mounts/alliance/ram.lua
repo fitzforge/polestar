@@ -12,15 +12,15 @@ return {
 	-- Step 1: Learn to ride
 	["Learn to ride"] = "Aprende a montar",
 	-- {area:803} Amberstill Ranch · {area:131} Kharanos · {zone:1432} Loch Modan · {npc:4772} Ultham Ironhorn · {npc:1261} Veron Amberstill · {skill:762} Riding · {faction:47} Ironforge
-	["{area:803} is east of {area:131} on the road to {zone:1432}; {npc:4772} stands beside {npc:1261}'s rams. At 40 {npc:4772} teaches {skill:762} to Dwarves for 100g (10% less at Honored with {faction:47}), and it comes with a ram. Other races learn {skill:762}, with their own first mount, at their own race's riding trainer."] = "",
+	["{area:803} is east of {area:131} on the road to {zone:1432}; {npc:4772} stands beside {npc:1261}'s rams. At 40 {npc:4772} teaches {skill:762} to Dwarves for 100g (10% less at Honored with {faction:47}), and it comes with a ram. Other races learn {skill:762}, with their own first mount, at their own race's riding trainer."] = "{area:803} está al este de {area:131}, en el camino a {zone:1432}; {npc:4772} está junto a los carneros de {npc:1261}. A nivel 40 {npc:4772} enseña {skill:762} a los enanos por 100 de oro (10% menos en Honorable con {faction:47}), y viene con un carnero. Las demás razas aprenden {skill:762}, con su propia primera montura, con el instructor de equitación de su raza.",
 	-- {npc:4772} Ultham Ironhorn
 	["{npc:4772}, riding trainer"] = "{npc:4772}, instructor de equitación",
 
 	-- Step 2: Ram Riding for other races
 	-- {spell:826} Ram Riding
-	["{spell:826} for other races"] = "",
+	["{spell:826} for other races"] = "{spell:826} para otras razas",
 	-- {spell:826} Ram Riding · {skill:762} Riding · {npc:4772} Ultham Ironhorn · {faction:47} Ironforge
-	["Any Alliance race can buy these rams, but riding one also takes {spell:826}, which only Dwarves get with {skill:762}. {npc:4772} teaches it to other races once they are Exalted with {faction:47} (the Ironforge Reputation guide shows the way). Until then, don't buy a ram for this character."] = "",
+	["Any Alliance race can buy these rams, but riding one also takes {spell:826}, which only Dwarves get with {skill:762}. {npc:4772} teaches it to other races once they are Exalted with {faction:47} (the Ironforge Reputation guide shows the way). Until then, don't buy a ram for this character."] = "Cualquier raza de la Alianza puede comprar estos carneros, pero para montar uno también hace falta {spell:826}, que solo los enanos reciben con {skill:762}. {npc:4772} se la enseña a las demás razas una vez que están en Exaltado con {faction:47} (la guía de reputación de Forjaz muestra el camino). Hasta entonces, no le compres un carnero a este personaje.",
 
 	-- Step 3: Pick a colour
 	["Pick a colour"] = "Elige un color",

@@ -173,7 +173,7 @@ Modules fire their own (`TABS_CHANGED`, `ROUTE_*`, `TRAIN_DUE`,
 `CLASS_TRAINED`, `GUIDE_OUTLEVELED`, `QUESTDB_*`, `CODEX_LOADED`,
 `ITEMDB_LOADED`, `GEAR_UPDATED`, `FLIGHT_STARTED`/`FLIGHT_ENDED`,
 `FLIGHT_MARK_CHANGED`, `QOL_HEARTH_CHANGED`, `QOL_XP_UPDATED`, `MOUNT_SPOTTED`, `RARE_SPOTTED`,
-`RARES_HISTORY`, `SHOW_LOOKUP`, `SHOW_DUNGEON`, `SHOW_RARES`), documented
+`RARE_NAMED`, `RARES_HISTORY`, `SHOW_LOOKUP`, `SHOW_DUNGEON`, `SHOW_RARES`), documented
 with their module.
 
 ### Settings
@@ -9825,7 +9825,9 @@ Polestar.Rares.FounderSighting(unit, source, guid)  -- a player unit from Detect
   (`NAME_PLATE_UNIT_ADDED` + `UnitClassification` "rare" | "rareelite"),
   target (`PLAYER_TARGET_CHANGED`) and mouseover (`UPDATE_MOUSEOVER_UNIT`).
   A unit counts when the client calls it rare or the Codex (if loaded) knows
-  its NPC as one. Secret values read as unknown. Event payloads only: a GUID
+  its NPC as one. Secret values read as unknown, and a name that is empty or
+  the client's "Unknown" placeholder (`UNKNOWNOBJECT`, a creature not cached
+  yet) reads as no name (`Detect.NameOf`). Event payloads only: a GUID
   is looked at once per 3 s, except a confirmed alive-to-dead transition;
   unchanged dead observations remain throttled. The full vignette scan runs
   at most every 2 s and never in combat. Nothing is detected inside instances.
@@ -9838,6 +9840,10 @@ Polestar.Rares.FounderSighting(unit, source, guid)  -- a player unit from Detect
   against current settings, instance and cooldown state before marking it
   alerted. An observed death cancels a held sighting only when both have the
   same known creature GUID; historical deaths and NPC ids alone never cancel it.
+  A sighting without a name takes the Codex's, else the history's from an
+  earlier sighting, else alerts as "Unknown rare" marked `unnamed`. A later
+  sighting that alerts nothing (cooldown, combat hold) and carries the name
+  sends `RARE_NAMED(key, name)`, and the card showing that rare unnamed takes it.
 - **History**: account-wide per realm, `PolestarDB.rares.history[realm][key]`
   (`"rare:<npc>"`, `"treasure:<object>"`, `"name:<name>"` without an id), at
   most 400 entries; the cooldown reads `alerted` (epoch seconds), so it
@@ -9855,7 +9861,9 @@ Polestar.Rares.FounderSighting(unit, source, guid)  -- a player unit from Detect
   [@target]` where the client has `SLASH_PING1`, always, as the rare button
   does; the Target button and step key ping mobs only with `qol.pingTarget`,
   off by default, never for a raid member without lead or assist:
-  `Buttons.QuestPingLine`; the mob's `/tm` with `qol.markTarget`); for the founder it runs `Buttons.FounderMacro`. Its
+  `Buttons.QuestPingLine`; the mob's `/tm` with `qol.markTarget`); for the founder it runs `Buttons.FounderMacro`.
+  An `unnamed` alert has no Target until `RARE_NAMED` names it (the card keeps
+  its time left; no second sound). Its
   macro and its anchor to the card are set only out of combat;
   `PLAYER_REGEN_DISABLED` (before the lockdown) lets go of it, so the card
   can still move and close in a fight, where Target shows disabled with a
@@ -11030,6 +11038,15 @@ and the session files written); resession leaves an archive whose stamp
 matches and whose session files are all there as it is, so a rerun with the
 same forge is quick and a forge with changed recording code sessions every
 archive again (`--all` does every archive whatever the stamps say).
+
+`record draft <session|file> [--data dir]` resolves schema 2 flight-point and
+flight-destination node IDs, and hearth-bind innkeeper NPC IDs, through
+`<data>/travel.json` (default `data/forever`). Schema 1's recorded place names
+still take precedence. Missing or ambiguous travel references leave author
+comments naming the recorded IDs; an unresolved flight still ends its step.
+The author must resolve those comments before using the draft. A session with
+only unresolved travel events cannot produce a guide. The draft library accepts
+the same optional reference data as `draftGuide(session, { travel })`.
 
 `record trail <session|file> [--out file.json]` writes a session's `/psrec
 trail` runs as `[{ label, start, end, reason, points: [{ t, map, x, y, speed,

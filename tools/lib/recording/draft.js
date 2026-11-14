@@ -62,6 +62,15 @@ function town(name) {
 	return String(name).split(',')[0].trim();
 }
 
+// Schema 2 records identities instead of place names. Never guess a place
+// when the reference is missing or ambiguous (including an unrecorded ID).
+function travelName(rows, key, id, name) {
+	if (!Number.isSafeInteger(id) || id <= 0 || !Array.isArray(rows)) return null;
+	const matches = rows.filter((row) => row[key] === id);
+	const value = matches.length === 1 ? matches[0][name] : null;
+	return typeof value === 'string' && value.trim() ? value : null;
+}
+
 function num(v) {
 	return Math.min(100, Math.max(0, v)).toFixed(1);
 }
@@ -152,7 +161,8 @@ function abandonedIndices(events) {
 
 // session -> { id, name, text }. `pack`: the id of the guide pack the draft
 // belongs to; another pack's drafts are `<pack>/draft/...`, ours `draft/...`.
-function draftGuide(session, { pack = 'guides' } = {}) {
+// `travel`: optional travel.json for schema 2's node and innkeeper identities.
+function draftGuide(session, { pack = 'guides', travel = null } = {}) {
 	const events = Array.isArray(session.events) ? session.events : [];
 	const maps = session.maps || {};
 	const char = session.char || {};
@@ -197,6 +207,13 @@ function draftGuide(session, { pack = 'guides' } = {}) {
 	const items = [];
 	const titleOf = (q) => (titles.has(q) ? ` ${quote(titles.get(q))}` : '');
 	const notAccepted = (q) => (accepted.has(q) ? [] : [`# quest ${q} was accepted before this recording`]);
+	let unresolvedTravel = 0;
+	const unresolved = (action, kind, id, ev, closes = false) => {
+		const identity = Number.isSafeInteger(id) && id > 0 ? id : 'unknown';
+		const where = Number.isSafeInteger(ev.map) && ev.map > 0 ? ` on map ${ev.map}${at(ev)}` : '';
+		items.push({ cat: 'comment', line: `# TODO: resolve recorded ${action} (${kind} ${identity})${where} using travel data`, closes });
+		unresolvedTravel++;
+	};
 	let zoneMap = null;
 	events.forEach((ev, i) => {
 		if (!live(i)) return;
@@ -221,12 +238,18 @@ function draftGuide(session, { pack = 'guides' } = {}) {
 				hub(line + at(ev), ev.npcName || ev.objName || titles.get(ev.q), notAccepted(ev.q));
 				break;
 			}
-			case 'fp':
-				if (ev.location) hub(`getfp ${quote(ev.location)}${ev.npc !== undefined ? ` npc ${ev.npc}` : ''}${at(ev)}`, ev.npcName || ev.location);
+			case 'fp': {
+				const location = ev.location || travelName(travel?.taxi?.nodes, 'id', ev.node, 'name');
+				if (location) hub(`getfp ${quote(location)}${ev.npc !== undefined ? ` npc ${ev.npc}` : ''}${at(ev)}`, ev.npcName || location);
+				else unresolved('flight point', 'taxi node', ev.node, ev);
 				break;
-			case 'bind':
-				if (ev.location) hub(`sethome ${quote(ev.location)}${at(ev)}`, ev.location);
+			}
+			case 'bind': {
+				const location = ev.location || travelName(travel?.inns, 'npc', ev.npc, 'location');
+				if (location) hub(`sethome ${quote(location)}${!ev.location ? ` npc ${ev.npc}` : ''}${at(ev)}`, location);
+				else unresolved('hearth bind', 'innkeeper NPC', ev.npc, ev);
 				break;
+			}
 			case 'trainer': {
 				const cls = className(char.class);
 				hub(`train${ev.npc !== undefined ? ` ${ev.npc}` : ''}${at(ev)}${cls ? ` only ${cls}` : ''}`, ev.npcName);
@@ -235,9 +258,12 @@ function draftGuide(session, { pack = 'guides' } = {}) {
 			case 'vendor':
 				hub(`vendor${ev.npc !== undefined ? ` ${ev.npc}` : ''}${at(ev)}`, ev.npcName);
 				break;
-			case 'taxi':
-				if (ev.to) items.push({ cat: 'travel', t: ev.t, map: zoneMap, line: `fly ${quote(town(ev.to))}`, who: `Fly to ${ev.to}`, comments: [] });
+			case 'taxi': {
+				const destination = ev.to || travelName(travel?.taxi?.nodes, 'id', ev.toNode, 'name');
+				if (destination) items.push({ cat: 'travel', t: ev.t, map: zoneMap, line: `fly ${quote(town(destination))}`, who: `Fly to ${destination}`, comments: [] });
+				else unresolved('flight destination', 'taxi node', ev.toNode, ev, true);
 				break;
+			}
 			case 'mark':
 				if (ev.text) items.push({ cat: 'note', t: ev.t, ...pos, line: `note ${quote(ev.text)}` });
 				break;
@@ -292,6 +318,7 @@ function draftGuide(session, { pack = 'guides' } = {}) {
 	for (const item of items) {
 		if (item.cat === 'comment') {
 			(cur ? cur.lines : loose).push(item.line);
+			if (cur && item.closes) cur.closed = true;
 			continue;
 		}
 		if (item.cat === 'note' || item.cat === 'travel') {
@@ -321,7 +348,7 @@ function draftGuide(session, { pack = 'guides' } = {}) {
 		if (typeof item.t === 'number') cur.last = item.t;
 		if (item.cat === 'travel') cur.closed = true;
 	}
-	if (!cur) throw new Error(`session ${session.session} has no quest, travel or mark events to draft`);
+	if (!cur) throw new Error(`session ${session.session} has no quest, travel or mark events to draft${unresolvedTravel ? '; unresolved travel events need travel data' : ''}`);
 	cur.lines.push(...loose);
 
 	// Header.
