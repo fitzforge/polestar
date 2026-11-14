@@ -244,7 +244,7 @@ local GOAL = rec({
 	objs = list(rec({ text = S, count = N })), startItem = N, startItemName = S, carriedTo = S,
 })
 -- A step's `when` predicates and a `next` option's (format 4; Guides.Validate checks each kind's keys).
-local WHEN = rec({ k = S, neg = B, op = S, n = N, frac = N, q = NL, item = N, spell = N, name = S, label = S, area = N, node = N, map = N, skillLine = N, minLevel = N, pre = LN, preAll = LN, closedBy = LN, parent = N })
+local WHEN = rec({ k = S, neg = B, op = S, n = N, frac = N, q = NL, item = N, spell = N, name = S, label = S, area = N, node = N, map = N, all = B, skillLine = N, minLevel = N, pre = LN, preAll = LN, closedBy = LN, parent = N })
 -- A step's picture: read so a string carries the guide as its addon does, but
 -- an imported guide has no addon folder holding the file, so it shows none.
 local IMAGE = rec({ file = S, w = N, h = N })
@@ -252,7 +252,7 @@ local STEP = rec({ title = S, note = S, image = IMAGE, label = S, only = ONLY, w
 local GUIDE = rec({
 	id = S, title = S, faction = S, races = LS, classes = LS, minLevel = N, maxLevel = N, category = S, folder = S, keywords = LS,
 	collects = LN, reward = list(rec({ item = N, itemName = S, quality = N, choice = B, spell = N, spellName = S, text = S })),
-	why = S, zone = N, zoneName = S, next = S, nextChoices = LS, nextWhen = { map = list(WHEN) }, pitch = S, pros = LS, cons = LS, author = S, version = N, group = B,
+	why = S, zone = N, zoneName = S, dungeonAll = { idmap = rec({ minutes = N, xp = N }) }, next = S, nextChoices = LS, nextWhen = { map = list(WHEN) }, pitch = S, pros = LS, cons = LS, author = S, version = N, group = B,
 	names = { map = SM }, written = { map = SM }, sections = list(rec({ skill = S, skillLine = N, from = N, to = N })), steps = list(STEP),
 })
 local PAYLOAD = rec({ format = N, license = S, guide = GUIDE, frames = { idmap = rec({ c = N, left = N, right = N, top = N, bottom = N }) } })

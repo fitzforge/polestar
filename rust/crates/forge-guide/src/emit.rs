@@ -39,7 +39,7 @@ pub fn header(lang: &str, command: &str, sources: &str) -> String {
 
 // ------------------------------------------------------------ emit.js
 
-pub const GUIDE_KEYS: [&str; 29] = [
+pub const GUIDE_KEYS: [&str; 30] = [
 	"id",
 	"pack",
 	"title",
@@ -56,6 +56,7 @@ pub const GUIDE_KEYS: [&str; 29] = [
 	"why",
 	"zone",
 	"zoneName",
+	"dungeonAll",
 	"next",
 	"nextChoices",
 	"nextWhen",
@@ -75,8 +76,9 @@ pub const STEP_KEYS: [&str; 10] = ["title", "note", "image", "label", "only", "w
 /// A step's picture: its path in the pack's addon folder (no extension) and its size in pixels.
 pub const IMAGE_KEYS: [&str; 3] = ["file", "w", "h"];
 /// A step's `when` predicates and a `next` option's (`nextWhen`, format 4), in this key order (`node`, a
-/// `taxi` predicate's flight master, sits where no other predicate has a value).
-pub const WHEN_KEYS: [&str; 19] = ["k", "neg", "op", "n", "frac", "q", "item", "spell", "name", "label", "area", "node", "map", "skillLine", "minLevel", "pre", "preAll", "closedBy", "parent"];
+/// `taxi` predicate's flight master, sits where no other predicate has a value; `all`, a dungeon's every-quest
+/// step, follows the dungeon's `map`).
+pub const WHEN_KEYS: [&str; 20] = ["k", "neg", "op", "n", "frac", "q", "item", "spell", "name", "label", "area", "node", "map", "all", "skillLine", "minLevel", "pre", "preAll", "closedBy", "parent"];
 // Keys only the profession/reputation/exploration/achievement verbs use sit
 // where no other goal has a value, so adding them left older output unchanged.
 // `z` (heights.js) follows y, `node` and `area` (places.js) precede map: a
@@ -665,6 +667,10 @@ fn emit_guide(guide: &V, source_rel: &V, deferred: bool, packed: bool) -> String
 			// guide id -> its predicates, in the order of nextChoices.
 			let parts: Vec<String> = v.keys().iter().map(|id| format!("[{}] = {}", lua_string(id), list(&v.get(id), Some(&WHEN_KEYS), 2))).collect();
 			out.push(format!("\t\t\tnextWhen = {{ {} }},", parts.join(", ")));
+		} else if k == "dungeonAll" {
+			// Instance map id -> what that dungeon's every-quest steps add: { minutes, xp } (resolve.rs dungeon_all).
+			let parts: Vec<String> = sorted_keys(&v).iter().map(|m| format!("[{m}] = {}", inline(&v.get(m), &Keys::Fixed(&["minutes", "xp"]), 2))).collect();
+			out.push(format!("\t\t\tdungeonAll = {{ {} }},", parts.join(", ")));
 		} else if k == "names" || k == "written" {
 			// The English of the texts' name tokens (tools/lib/dsl/tokens.js), "kind:id" -> name;
 			// written: the author's words of a text that spells a name otherwise, tokenised text -> words.
@@ -775,6 +781,12 @@ pub fn guide_data(guide: &V) -> V {
 			let m = Obj::new();
 			for t in sorted_keys(&v) {
 				m.set(&t, v.get(&t).to_js_string());
+			}
+			out.set(k, m);
+		} else if k == "dungeonAll" {
+			let m = Obj::new();
+			for id in sorted_keys(&v) {
+				m.set(&id, data_inline(&v.get(&id), &Keys::Fixed(&["minutes", "xp"]), 2));
 			}
 			out.set(k, m);
 		} else if v.is_arr() {

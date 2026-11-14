@@ -133,3 +133,52 @@ fn a_dungeons_steps_leave_the_solo_routes_placing_alone_and_the_runners_steps_fo
 	// A `when !dungeon` step is the solo route's own: the steps after it are placed from it.
 	assert_eq!(kill_at(&["step One", "  goto 45,34", "step Alone", "  when !dungeon \"Ragefire Chasm\"", "  goto 52,27", "step Two", "  kill 6"]), json!([52.3, 26.8]));
 }
+
+// `when dungeon "<Name>" all`: a step of the dungeon's every-quest route (the quests off the way), which the engine
+// takes while the dungeon runs unless the player chose only the quests on the way. `!dungeon` takes no `all`.
+#[test]
+fn when_dungeon_all_marks_a_step_of_the_every_quest_route_and_takes_no_bang() {
+	let text = guide_text(&["step Extra", "  when dungeon \"Ragefire Chasm\" all", "  accept 783", "step Bare", "  when dungeon Ragefire Chasm ALL", "  accept 7"]);
+	let (ast, errors) = parse(&text);
+	assert!(errors.is_empty(), "{errors:?}");
+	let s = plain(&ast)["steps"].clone();
+	assert_eq!(s[0]["when"], json!([{ "k": "dungeon", "all": true, "name": "Ragefire Chasm", "line": line_of(&text, "when dungeon \"Ragefire Chasm\" all") }]));
+	assert_eq!(s[1]["when"][0]["name"], "Ragefire Chasm", "a bare name takes `all` too");
+	assert_eq!(s[1]["when"][0]["all"], true);
+	let bang = guide_text(&["step One", "  when !dungeon \"Ragefire Chasm\" all", "  accept 783"]);
+	let (_, errors) = parse(&bang);
+	assert_eq!(
+		errors,
+		vec![format!(
+			"{}: `!dungeon` takes no `all`: `all` marks a step of the dungeon's every-quest route, and a player who skips the dungeon takes none of them",
+			line_of(&bang, "when !dungeon \"Ragefire Chasm\" all")
+		)]
+	);
+}
+
+#[test]
+fn the_emitted_every_quest_predicate_carries_all_after_the_map_id() {
+	let r = compile_with(&guide_text(&["step One", "  when dungeon \"Ragefire Chasm\" all", "  accept 783"]), &dungeon_data());
+	assert!(r.errors.is_empty(), "{}", r.text);
+	assert_eq!(r.steps()[0]["when"], json!([{ "k": "dungeon", "name": "Ragefire Chasm", "map": 389, "all": true }]));
+	assert_match(&emit(&r.guides), r#"\n\t\t\t\t\twhen = \{ \{ k = "dungeon", name = "Ragefire Chasm", map = 389, all = true \} \},\n"#);
+}
+
+// The guide that holds a dungeon's run carries what that dungeon's every-quest steps add, from the run's record in
+// data/dungeon-runs.json (`allQuests`: their minutes and XP), by the instance's map id: the guide window's "Only
+// quests on my way" says what it saves. A run without `allQuests`, or another guide's, adds nothing.
+#[test]
+fn the_guide_holding_a_run_carries_its_every_quest_minutes_and_xp_from_the_dungeon_runs_record() {
+	let mut data = dungeon_data();
+	data.dungeon_runs = v(&json!({ "runs": [
+		{ "dungeon": "Ragefire Chasm", "faction": "Horde", "run": { "guide": "t/main" }, "allQuests": { "minutes": 14, "xp": 23100, "quests": [5723, 5725] } },
+		{ "dungeon": "The Deadmines", "faction": "Alliance", "run": { "guide": "t/main" } },
+		{ "dungeon": "Ragefire Chasm", "faction": "Horde", "run": { "guide": "t/other" }, "allQuests": { "minutes": 9, "xp": 4000 } },
+	] }));
+	let r = compile_with(&guide_text(&["step One", "  when dungeon \"Ragefire Chasm\"", "  accept 783"]), &data);
+	assert!(r.errors.is_empty(), "{}", r.text);
+	assert_eq!(plain(&r.guides[0].get("dungeonAll")), json!({ "389": { "minutes": 14, "xp": 23100 } }));
+	assert_match(&emit(&r.guides), r#"\n\t\t\tdungeonAll = \{ \[389\] = \{ minutes = 14, xp = 23100 \} \},\n"#);
+	let none = compile_with(&guide_text(&["step One", "  accept 783"]), &dungeon_data());
+	assert!(none.guides[0].get("dungeonAll").is_nullish(), "no record read: no dungeonAll");
+}
