@@ -739,15 +739,16 @@ end
 -- How far a frame's own drawing reaches past each of its edges, in its
 -- units: a soft shadow (the house look's, 12 over the top and 20 under the
 -- bottom), a skin's border, glow or corner marks, a part hung outside it.
--- Read off the anchors that tie its regions and its children to it, and off
--- where they and their children's regions stand; up to REACH_MAX, past which
--- nothing a look draws goes (a frame's content hung far from it is not its
+-- Read off the anchors that tie its regions and its children to it (up to
+-- REACH_ANCHORED: Umbra's deep shadow reaches 58 under the window), and off
+-- where they and their children's regions stand (up to REACH_SEEN, past
+-- which what stands there is content hung away from the frame, not its
 -- drawing).
-local REACH_MAX = 48
+local REACH_ANCHORED, REACH_SEEN = 128, 48
 local function reach(o)
 	local r = { top = 0, bottom = 0, left = 0, right = 0 }
-	local function grow(side, d)
-		if d > r[side] and d <= REACH_MAX then r[side] = d end
+	local function grow(side, d, most)
+		if d > r[side] and d <= (most or REACH_SEEN) then r[side] = d end
 	end
 	local function byPoints(x)
 		for i = 1, (x.GetNumPoints and x:GetNumPoints() or 0) do
@@ -756,10 +757,10 @@ local function reach(o)
 				dx, dy = tonumber(dx) or 0, tonumber(dy) or 0
 				local xh, xw = x:GetHeight() or 0, x:GetWidth() or 0
 				-- An edge past the frame's own (a shadow's), or a part standing on its far side.
-				if rp:find("TOP") then grow("top", p:find("TOP") and dy or p:find("BOTTOM") and dy + xh or 0) end
-				if rp:find("BOTTOM") then grow("bottom", p:find("BOTTOM") and -dy or p:find("TOP") and xh - dy or 0) end
-				if rp:find("LEFT") then grow("left", p:find("LEFT") and -dx or p:find("RIGHT") and xw - dx or 0) end
-				if rp:find("RIGHT") then grow("right", p:find("RIGHT") and dx or p:find("LEFT") and dx + xw or 0) end
+				if rp:find("TOP") then grow("top", p:find("TOP") and dy or p:find("BOTTOM") and dy + xh or 0, REACH_ANCHORED) end
+				if rp:find("BOTTOM") then grow("bottom", p:find("BOTTOM") and -dy or p:find("TOP") and xh - dy or 0, REACH_ANCHORED) end
+				if rp:find("LEFT") then grow("left", p:find("LEFT") and -dx or p:find("RIGHT") and xw - dx or 0, REACH_ANCHORED) end
+				if rp:find("RIGHT") then grow("right", p:find("RIGHT") and dx or p:find("LEFT") and dx + xw or 0, REACH_ANCHORED) end
 			end
 		end
 	end
@@ -875,6 +876,10 @@ function CT.Place(animate)
 		end
 		side = side or "below"
 		CT.side = side
+		-- Beside the window, nothing of it is under the card however the screen
+		-- moves it, so the screen keeps the card whole (a window reaching past
+		-- the screen's top would take a top-aligned card with it).
+		f:SetClampedToScreen(side == "left" or side == "right")
 		local g = gap[side] / k
 		if side == "above" then
 			Anim.Anchor(f, "BOTTOMLEFT", edge, "TOPLEFT", 0, g)
