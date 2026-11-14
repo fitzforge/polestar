@@ -2324,7 +2324,7 @@ do
 			zoneName = "Riverglades",
 			next = "polestar-experimental/riverglades-horde-2",
 			pitch = "Forever's new zone south of the {zone:1418}: the Horde fort of {area:16743} and about 70 quests from level 40, then back to {area:340} for {zone:1444}.",
-			pros = { "Reaches level 60 about an hour sooner than the {zone:1434} route", "Replaces {zone:1434} and the {zone:1435} with one zone and one hub", "You ride in from {area:340} through the {zone:1418}' southern edge, and come back out at {area:340} for {zone:1444} & {zone:1446}" },
+			pros = { "Reaches level 60 about 40 minutes sooner than the {zone:1434} route", "Replaces {zone:1434} and the {zone:1435} with one zone and one hub", "You ride in from {area:340} through the {zone:1418}' southern edge, and come back out at {area:340} for {zone:1444} & {zone:1446}" },
 			cons = { "Experimental: written from players' recordings and not yet checked end to end in the game", "Skips {zone:1434} and the {zone:1435}: their quests left in your log can be abandoned, and {area:75}'s flight path waits until later", "Its later quests are for levels 43-45, a few levels above you when you reach them: pull carefully", "Elite camps, and a few quests that need a group (each behind a group choice)" },
 			author = "Polestar",
 			version = 1,
