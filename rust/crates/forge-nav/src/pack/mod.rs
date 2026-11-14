@@ -405,13 +405,14 @@ pub fn pack_nav(i: &PackIn) -> Result<Pack, String> {
 					s.clusters, s.floors, s.dropped_floors, s.entrances, s.edges, s.dropped, s.jumps, s.drops, s.climbs, s.arcs, s.closed, s.areas
 				));
 				log(&format!(
-					"grid joins {c}: {} ways ({} his maps make already, {} refused), {} floors, {} arcs, {} entrances, {} edges, {} components joined, in {} clusters",
-					j.ways, j.walkable, j.refused, j.floors, j.arcs, j.entrances, j.edges, j.merged, j.clusters
+					"grid joins {c}: {} ways ({} his maps make already, {} refused, {} with a fall that hurts kept, his maps making no other way), {} floors, {} arcs, {} entrances, {} edges, {} components joined, in {} clusters",
+					j.ways, j.walkable, j.refused, j.falls, j.floors, j.arcs, j.entrances, j.edges, j.merged, j.clusters
 				));
 				cg.areas = used;
 				let mut lj = json!({ "floors": s.floors, "droppedFloors": s.dropped_floors, "jumps": s.jumps, "drops": s.drops, "climbs": s.climbs, "arcs": s.arcs, "droppedEdges": s.dropped, "closedSteps": s.closed, "areaSurfaces": s.areas });
 				if !ways.is_empty() {
-					lj["joins"] = json!({ "ways": j.ways, "refused": j.refused, "floors": j.floors, "arcs": j.arcs, "entrances": j.entrances, "edges": j.edges, "components": j.merged });
+					lj["joins"] =
+						json!({ "ways": j.ways, "refused": j.refused, "falls": j.falls, "floors": j.floors, "arcs": j.arcs, "entrances": j.entrances, "edges": j.edges, "components": j.merged });
 				}
 				if i.places.is_some() {
 					log(&format!(

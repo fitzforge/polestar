@@ -662,7 +662,11 @@ forge nav check
   give each entrance of one an edge to each of the other, past the 63 an entrance holds); an entrance still past 63
   keeps its edges across the cluster's borders, then its cheapest, his and the join's alike; and the components the
   way joins become one. A way that climbs a face his maps lack, or that leaves his maps, is refused, and a lift ride
-  is left to the lift chokepoints; each is logged. A way his maps already make
+  is left to the lift chokepoints; each is logged. A way with a fall his maps lack that hurts (over 14.57 yd, the
+  height a fall starts to hurt, as for the ledge drops below) goes in only where his maps make no other way between
+  its ends that the router finds (8 times the straight line plus 2000 yd): players are not walked off a ledge that
+  hurts them where another way exists. A fall kept is logged ("falls N yd at x,y") and counted (`falls` in
+  PACK.json's `leffe.joins`), for an in-game check. A way his maps already make
   adds nothing, so a later pack of his that has the way changes nothing. PACK.json's `leffe.joins` counts what was
   added. Add a pair only when players walk it in the game (recordings, an in-game check, a report) and the walking
   maps have no way, or a long detour, between its ends.
