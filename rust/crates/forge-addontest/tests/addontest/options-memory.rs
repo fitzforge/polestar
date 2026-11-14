@@ -74,6 +74,9 @@ const LOGIN_BASE: f64 = 11003.0;
 /// the character may have the flight path; the timed hand-in pulled forward), UI/GuideFrameBanner.lua +5 (the flight
 /// map notice, #2189), Nav/Danger.lua +3, UI/Report.lua +2, Core/Compat.lua, Maps/TravelPins.lua and
 /// Maps/RouteLines.lua +2. None of it can load later: the planner runs as soon as a guide step has a target.
+/// The Barrow Dens' five travel chains in Nav/TravelData.lua (#1919, #1341, #2005: the arrow's way out of and into
+/// the Stormrage Barrow Dens and the Ban'ethil Barrow Den, every node with its floor's height) add 54 KiB (11,613 ->
+/// 11,667 KiB at dev-040's 5fe81cc6e, 2026-11-14), within it.
 const LOGIN: f64 = LOGIN_BASE + 1192.0;
 /// Loaded, 1,790 KiB on 2026-11-11 (760 on 2026-11-10): the Look pages' previews and the toasts and trackers
 /// pages moved in (1,110), then the settings-only widgets, every module's rows, Unlock mode, the profile

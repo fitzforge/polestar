@@ -142,6 +142,23 @@ const FLOORS = [
 		target: (g) => g.t === 'goto' && g.area === 288 && g.x === 28.5 && g.y === 55,
 		z: 21.3, // the miners' kill goal it leads to
 	},
+	{
+		// dloyd (#1945): the arrow led straight over the hill above the Vul'Gol Ogre Mound to Zzarc' Vul, below ground.
+		guide: 'forever/alliance/07-thousand-needles.guide',
+		target: (g) => g.t === 'collect' && g.item === 1968, // the Ogre's Monocle, from Zzarc' Vul
+		z: 13.7, // Zzarc' Vul's spawn (spawnz.json)
+	},
+	...[
+		[280502, 429], // the Relic of the Fang
+		[280679, 439], // the Relic of the Claw
+		[280680, 431], // the Relic of the Silent Shadow
+	].map(([item, z]) => ({
+		// ddos (#2005), Jaesais (#1919): the relics lie deep in the Stormrage Barrow Dens, and the arrow aimed at the hill
+		// above them. Their objects have no spawn data: data/goal-heights.json's records, from players' recordings.
+		guide: 'forever/class/druid/cat-form.guide',
+		target: (g) => g.t === 'collect' && g.item === item && g.quest === 98342,
+		z,
+	})),
 ];
 
 for (const c of FLOORS) {

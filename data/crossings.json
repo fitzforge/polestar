@@ -1103,6 +1103,120 @@
 				{ "map": 1453, "x": 60.48, "y": 12.4, "z": 92, "radius": 8 },
 				{ "map": 1453, "x": 63.75, "y": 8.49, "z": 92, "radius": 10 }
 			]
+		},
+		{
+			"id": "stormrage-barrow-dens",
+			"name": "Stormrage Barrow Dens",
+			"open": "mouth",
+			"note": "The Stormrage Barrow Dens: the walking maps join the den to the world nowhere, so the arrow pointed through the den's wall at the next goal outside (#1919). The nodes follow Polestar's walking grid's way from the mouth down the spiral ramp and the tunnel to the alcoves of the Relic of the Claw and the Relic of the Silent Shadow, their heights from it; players' recorded walks (25 passes, 2026-11-05 to 2026-11-12) go in at the same mouth and down the same tunnel.",
+			"nodes": [
+				{ "map": 1450, "x": 71.17, "y": 61.77, "z": 464, "radius": 12 },
+				{ "map": 1450, "x": 72.07, "y": 62.59, "z": 464, "radius": 5 },
+				{ "map": 1450, "x": 72.85, "y": 62.66, "z": 459, "radius": 5 },
+				{ "map": 1450, "x": 72.6, "y": 61.91, "z": 455, "radius": 5 },
+				{ "map": 1450, "x": 72.07, "y": 62.04, "z": 451, "radius": 5 },
+				{ "map": 1450, "x": 72.34, "y": 62.99, "z": 446, "radius": 5 },
+				{ "map": 1450, "x": 73.6, "y": 64.89, "z": 441, "radius": 8 },
+				{ "map": 1450, "x": 74.59, "y": 64.75, "z": 438, "radius": 6 },
+				{ "map": 1450, "x": 74.77, "y": 65.02, "z": 436, "radius": 5 },
+				{ "map": 1450, "x": 74.87, "y": 65.83, "z": 432, "radius": 5 },
+				{ "map": 1450, "x": 74.96, "y": 66.24, "z": 440, "radius": 5 },
+				{ "map": 1450, "x": 75.23, "y": 67.05, "z": 439, "radius": 8 }
+			]
+		},
+		{
+			"id": "stormrage-barrow-dens-west",
+			"name": "Stormrage Barrow Dens",
+			"open": "mouth",
+			"note": "The Stormrage Barrow Dens, west branch: the same way in as stormrage-barrow-dens, then west over the bridge to the alcove of the Relic of the Fang (Polestar's walking grid's way, its heights; #1919).",
+			"nodes": [
+				{ "map": 1450, "x": 71.17, "y": 61.77, "z": 464, "radius": 12 },
+				{ "map": 1450, "x": 72.07, "y": 62.59, "z": 464, "radius": 5 },
+				{ "map": 1450, "x": 72.85, "y": 62.66, "z": 459, "radius": 5 },
+				{ "map": 1450, "x": 72.6, "y": 61.91, "z": 455, "radius": 5 },
+				{ "map": 1450, "x": 72.07, "y": 62.04, "z": 451, "radius": 5 },
+				{ "map": 1450, "x": 72.34, "y": 62.99, "z": 446, "radius": 5 },
+				{ "map": 1450, "x": 73.6, "y": 64.89, "z": 441, "radius": 8 },
+				{ "map": 1450, "x": 74.59, "y": 64.75, "z": 438, "radius": 6 },
+				{ "map": 1450, "x": 74.68, "y": 65.42, "z": 435, "radius": 5 },
+				{ "map": 1450, "x": 74.32, "y": 65.56, "z": 430, "radius": 5 },
+				{ "map": 1450, "x": 73.24, "y": 66.24, "z": 428, "radius": 6 },
+				{ "map": 1450, "x": 72.43, "y": 65.97, "z": 429, "radius": 8 }
+			]
+		},
+		{
+			"id": "banethil-barrow-den",
+			"name": "Ban'ethil Barrow Den",
+			"open": "mouth",
+			"note": "Ban'ethil Barrow Den: no walk of the walking maps (nor of Polestar's walking grid) joins the den to the hollow outside: at its mouth the two are cut apart on several floor levels, so inside the den the arrow pointed through the rock at the next goal, and from outside it sent players round the hills (#1341). The mouth node stands where players' recorded walks go in (151 passes, 2026-11-04 to 2026-11-12, as the guide's own way in at 44.3,57.9); the nodes after it follow the grid's way through the den down to Oben Rageclaw, their heights from it.",
+			"nodes": [
+				{ "map": 1438, "x": 44.46, "y": 57.61, "z": 1329, "radius": 8 },
+				{ "map": 1438, "x": 44.17, "y": 58.16, "z": 1316, "radius": 5 },
+				{ "map": 1438, "x": 43.97, "y": 58.3, "z": 1313, "radius": 5 },
+				{ "map": 1438, "x": 43.5, "y": 58.56, "z": 1310, "radius": 5 },
+				{ "map": 1438, "x": 43.06, "y": 59.02, "z": 1304, "radius": 5 },
+				{ "map": 1438, "x": 43.13, "y": 59.57, "z": 1302, "radius": 5 },
+				{ "map": 1438, "x": 43.39, "y": 59.94, "z": 1301, "radius": 5 },
+				{ "map": 1438, "x": 43.9, "y": 59.72, "z": 1297, "radius": 5 },
+				{ "map": 1438, "x": 43.88, "y": 60.13, "z": 1291, "radius": 5 },
+				{ "map": 1438, "x": 43.43, "y": 60.68, "z": 1289, "radius": 5 },
+				{ "map": 1438, "x": 43.19, "y": 60.74, "z": 1285, "radius": 5 },
+				{ "map": 1438, "x": 42.94, "y": 61.3, "z": 1282, "radius": 5 },
+				{ "map": 1438, "x": 43.15, "y": 61.85, "z": 1278, "radius": 5 },
+				{ "map": 1438, "x": 43.6, "y": 61.9, "z": 1273, "radius": 5 },
+				{ "map": 1438, "x": 44.05, "y": 61.5, "z": 1271, "radius": 5 },
+				{ "map": 1438, "x": 44.21, "y": 61.54, "z": 1275, "radius": 5 },
+				{ "map": 1438, "x": 44.5, "y": 61.4, "z": 1280, "radius": 5 },
+				{ "map": 1438, "x": 44.87, "y": 61.3, "z": 1279, "radius": 6 },
+				{ "map": 1438, "x": 44.95, "y": 61.6, "z": 1280, "radius": 8 }
+			]
+		},
+		{
+			"id": "banethil-barrow-den-east",
+			"name": "Ban'ethil Barrow Den",
+			"open": "mouth",
+			"note": "Ban'ethil Barrow Den, east room: the same way in as banethil-barrow-den, then east to the chest of the Gnarlpine Fang above the entrance hall (Polestar's walking grid's way, its heights; #1341).",
+			"nodes": [
+				{ "map": 1438, "x": 44.46, "y": 57.61, "z": 1329, "radius": 8 },
+				{ "map": 1438, "x": 44.17, "y": 58.16, "z": 1316, "radius": 5 },
+				{ "map": 1438, "x": 43.97, "y": 58.3, "z": 1313, "radius": 5 },
+				{ "map": 1438, "x": 43.5, "y": 58.56, "z": 1310, "radius": 5 },
+				{ "map": 1438, "x": 43.06, "y": 59.02, "z": 1304, "radius": 5 },
+				{ "map": 1438, "x": 43.13, "y": 59.57, "z": 1302, "radius": 5 },
+				{ "map": 1438, "x": 43.39, "y": 59.94, "z": 1301, "radius": 5 },
+				{ "map": 1438, "x": 44.05, "y": 59.45, "z": 1296, "radius": 5 },
+				{ "map": 1438, "x": 44.25, "y": 59.15, "z": 1294, "radius": 5 },
+				{ "map": 1438, "x": 44.37, "y": 58.6, "z": 1291, "radius": 8 }
+			]
+		},
+		{
+			"id": "banethil-barrow-den-lower",
+			"name": "Ban'ethil Barrow Den",
+			"open": "mouth",
+			"note": "Ban'ethil Barrow Den, lower rooms: the same way in as banethil-barrow-den to the hall before Oben Rageclaw, then north under the Rune of Nesting's ledge and down to the chest of the Sapphire of Sky (Polestar's walking grid's way, its heights; a node between the ledge and the room under it holds both; #1341).",
+			"nodes": [
+				{ "map": 1438, "x": 44.46, "y": 57.61, "z": 1329, "radius": 8 },
+				{ "map": 1438, "x": 44.17, "y": 58.16, "z": 1316, "radius": 5 },
+				{ "map": 1438, "x": 43.97, "y": 58.3, "z": 1313, "radius": 5 },
+				{ "map": 1438, "x": 43.5, "y": 58.56, "z": 1310, "radius": 5 },
+				{ "map": 1438, "x": 43.06, "y": 59.02, "z": 1304, "radius": 5 },
+				{ "map": 1438, "x": 43.13, "y": 59.57, "z": 1302, "radius": 5 },
+				{ "map": 1438, "x": 43.39, "y": 59.94, "z": 1301, "radius": 5 },
+				{ "map": 1438, "x": 43.9, "y": 59.72, "z": 1297, "radius": 5 },
+				{ "map": 1438, "x": 43.88, "y": 60.13, "z": 1291, "radius": 5 },
+				{ "map": 1438, "x": 43.43, "y": 60.68, "z": 1289, "radius": 5 },
+				{ "map": 1438, "x": 43.19, "y": 60.74, "z": 1285, "radius": 5 },
+				{ "map": 1438, "x": 42.94, "y": 61.3, "z": 1282, "radius": 5 },
+				{ "map": 1438, "x": 43.15, "y": 61.85, "z": 1278, "radius": 5 },
+				{ "map": 1438, "x": 43.6, "y": 61.9, "z": 1273, "radius": 5 },
+				{ "map": 1438, "x": 44.05, "y": 61.5, "z": 1271, "radius": 5 },
+				{ "map": 1438, "x": 44.21, "y": 61.23, "z": 1270, "radius": 5 },
+				{ "map": 1438, "x": 44.25, "y": 60.93, "z": 1285, "radius": 6 },
+				{ "map": 1438, "x": 44.21, "y": 60.68, "z": 1266, "radius": 5 },
+				{ "map": 1438, "x": 44.33, "y": 60.87, "z": 1266, "radius": 5 },
+				{ "map": 1438, "x": 44.37, "y": 62.15, "z": 1256, "radius": 6 },
+				{ "map": 1438, "x": 44.7, "y": 62.46, "z": 1256, "radius": 8 }
+			]
 		}
 	],
 	"areas": [

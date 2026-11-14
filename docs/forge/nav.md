@@ -648,10 +648,33 @@ forge nav check
   the maps taken from his (default all three); the others are the grid's, byte for byte, so one
   continent can go back to our grid if his maps walk it wrong. About 90 s for the three maps.
   The rules are in [ARCHITECTURE.md](../ARCHITECTURE.md), "Leffe's navigation maps in game".
+- **Grid joins** (`pack/joins.rs`; the pairs in `pack/joins.json`, compiled in): places players walk between that
+  our grid joins and his maps do not (a mine they cut off from its mouth, a tower's top, Felwood's road, Darkcloud
+  Pinnacle's rope bridges). With `--leffe`, each pair of a map taken from his is routed on our grid both ways (the
+  guide bake's drawn way; a pair it walks one way only goes back along the same cells unless a step back rises over
+  the walk slope, 50 degrees, or 1 yd: the Shadowprey inn's door, a step our grid takes only down) and put into his
+  clusters where they lack it: each cell of the way stands on his surface
+  nearest its height (within 3.5 yd), else on a floor of ours added after the cell's floors (our surface's value,
+  class and area, so every entrance keeps its layer); a step his maps cannot make within 40 yd of walking becomes an
+  arc inside a cluster, or an entrance on each side of a cluster border with an edge between them; each entrance of
+  a cluster the way changed gets an edge to every entrance it then reaches for less, priced as the router prices
+  the grid, unless the cluster's edges already lead there for no more (an inn opened to its village would otherwise
+  give each entrance of one an edge to each of the other, past the 63 an entrance holds); an entrance still past 63
+  keeps its edges across the cluster's borders, then its cheapest, his and the join's alike; and the components the
+  way joins become one. A way that climbs a face his maps lack, or that leaves his maps, is refused, and a lift ride
+  is left to the lift chokepoints; each is logged. A way with a fall his maps lack that hurts (over 14.57 yd, the
+  height a fall starts to hurt, as for the ledge drops below) goes in only where his maps make no other way between
+  its ends that the router finds (8 times the straight line plus 2000 yd): players are not walked off a ledge that
+  hurts them where another way exists. A fall kept is logged ("falls N yd at x,y") and counted (`falls` in
+  PACK.json's `leffe.joins`), for an in-game check. A way his maps already make
+  adds nothing, so a later pack of his that has the way changes nothing. PACK.json's `leffe.joins` counts what was
+  added. Add a pair only when players walk it in the game (recordings, an in-game check, a report) and the walking
+  maps have no way, or a long detour, between its ends.
 - Ground no player reaches is left out of his maps (`pack/reach.rs`, Shortest Path Forever v1.33's rule,
   ported): a walk is followed from every fixed place (flight masters and inns by their NPC's spawn in
   `data/forever/spawnz.json`, boat, zeppelin, tram and lift landings and portal ends from `travel.json`, the travel
-  chains' nodes in `data/crossings.json`), the way the router walks (steps, links, arcs, ledge drops, the graph's
+  chains' nodes in `data/crossings.json`, and the two ends of each grid join's ways, where the join leads into ground
+  his maps cut off), the way the router walks (steps, links, arcs, ledge drops, the graph's
   kept edges), and a surface it never reaches goes: a floor is dropped, a base cell loses its surface, an entrance on
   it goes. PACK.json's `leffe` entry counts them (`places`, `unplaced`, `unreachedFloors`, `unreachedBases`,
   `unreachedEntrances`). On with `--ground reached` (off by default until measured on the walking-map judges).

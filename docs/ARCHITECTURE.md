@@ -5359,7 +5359,13 @@ walk stays inside one zone; between zones it goes only through
   Deeprun Tram's Stormwind end lies down its building, under the Keep's Royal
   Gallery, and `deeprun-tram-stormwind` (from players' recorded walks in)
   takes the walk to the building's door first, not across from the street to
-  the point under the Keep (#1242);
+  the point under the Keep (#1242). A den the walking maps join to the world
+  nowhere is led out the same way: the Stormrage Barrow Dens
+  (`stormrage-barrow-dens`, `-west`, #1919) and the Ban'ethil Barrow Den
+  (`banethil-barrow-den`, `-east`, `-lower`, #1341), one chain per branch
+  sharing the way in, each node with its floor's height, so a player at a
+  relic or at Oben Rageclaw is routed back to the mouth, never through the
+  rock, and one on the hill above is not held by them;
 - an area: a box of a zone's map no walk joins to the rest of the zone. It is
   a zone of its own, reached by no crossing, only by portals, ships and
   flights. Rut'theran Village, `rutheran-village`, lies on Teldrassil's map at
@@ -11315,6 +11321,14 @@ fileDataID from wago.tools into `data/sources/casc` (local, never shipped):
   (`Nav/Walk.lua` canSearch, `Path.Resident`), so a journey to the other continent keeps the planner's straight
   estimate for the walks there (their danger unweighed, `Nav/Danger.lua`) until the player arrives and that part loads
   with the first search there.
+  Where our grid joins two places players walk between and his maps do not (`pack/joins.rs`, the pairs of
+  `pack/joins.json`: caves and mines his maps cut off from their mouths, Felwood's road, the top of Brill's zeppelin
+  tower, Darkcloud Pinnacle's rope bridges), our grid's way goes in: his surface where he has one near the way's
+  height, else a floor of ours after the cell's floors, an arc for each step he lacks inside a cluster, an entrance
+  each side and an edge across a cluster border, edges from each entrance of a changed cluster to those it then
+  reaches for less where the cluster's edges do not already lead there for no more (an entrance's edges across a
+  border always stay), and one component for the components joined (docs/forge/nav.md, "Grid joins"). A way with a
+  fall that hurts (over 14.57 yd) that his maps lack goes in only where his maps make no other way between its ends.
   The router gives up on a walk past 8 times the straight line plus 2000 yd (`Path.lua` DETOUR): a start on
   ground his maps join to the world only far away no longer searches most of a continent.
   Three rules ported from Shortest Path Forever v1.33.0, each off until measured on the walking-map judges
