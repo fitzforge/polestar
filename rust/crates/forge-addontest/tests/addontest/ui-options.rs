@@ -552,7 +552,8 @@ fn search_finds_settings_by_label_and_help_across_pages_registered_ones_included
 	// Page and tab (a result card's title adds its section).
 	let mut titles: Vec<String> = out["arrow"]["titles"].as_array().unwrap().iter().map(|v| tab_of(v.as_str().unwrap())).collect();
 	titles.dedup();
-	assert!(in_order(&titles[..2], &["Guide  \u{b7}  Window", "Guide  \u{b7}  Arrow & routes"]), "the best groups first: {titles:?}");
+	// Show arrow, every word of its label asked for, first; then the arrow's other rows by page.
+	assert!(in_order(&titles[..2], &["Guide  \u{b7}  Arrow & routes", "Guide  \u{b7}  Window"]), "the best groups first: {titles:?}");
 	assert!(titles.contains(&"Map  \u{b7}  Guide & quests".to_string()) && titles.contains(&"Gamepad  \u{b7}  Key bindings".to_string()), "{titles:?}");
 	assert!(!titles.iter().any(|t| t.starts_with("Appearance")), "{titles:?}");
 	assert_eq!(out["arrow"]["title"], "Search");
@@ -1327,6 +1328,159 @@ fn search_on_a_german_client_matches_german_labels_and_the_english_terms_and_lab
 	assert_eq!(out["stone"]["key"], "buttons.hearthSize");
 }
 
+// Questions as players type them into the settings search (0.4.0), each with the setting it asks about. The
+// question and request words (how, where, why, can, do, does, I, my, make, get, change, ...) are filler, an English
+// ending comes off a word ("accepting", "repairing"), and the setting comes first in the dropdown (an inline setting,
+// such as Arrow colour on the arrow's Size row, as itself). Several answers: any of them, split by "|".
+const QUESTIONS: &[(&str, &str)] = &[
+	("how do I hide the arrow", "nav.arrow"),
+	("where is the arrow size", "nav.arrowScale"),
+	("why does it close quest windows", "behavior.closeSkipped"),
+	// Polestar has no one switch for every sound: each of its sound switches is an answer.
+	("can I turn off sounds", "nav.arrivalSound|behavior.whileHereSound|nav.alertSound|rares.sound|ui.classCardSound"),
+	("how do I stop auto accepting quests?", "behavior.autoAccept"),
+	("how do I make the arrow bigger?", "nav.arrowScale"),
+	("how do I change the colour of the arrow", "nav.arrowColor"),
+	("how can I make the window see through", "ui.opacity"),
+	("where do I change the font?", "ui.font"),
+	("why does it sell my grey items", "qol.sellJunk"),
+	("how do I stop it repairing", "qol.autoRepair"),
+	("can I hide the minimap button?", "maps.minimapButton"),
+	("how do I show coordinates on the minimap", "maps.minimapCoords"),
+	("where are the route lines", "nav.routeLines"),
+	("can I skip grey quests", "behavior.skipGrey"),
+	("how do I make the text bigger", "ui.textSize"),
+	("how do I lock the window", "ui.locked"),
+	("what is dynamic questing", "behavior.whileHere"),
+	("how do I hide the game's quest tracker?", "qol.hideQuestTracker"),
+	("can I get rid of the floating button", "ui.launcher"),
+	("where can I change the window scale", "ui.scale"),
+	("can it accept summons for me", "qol.acceptSummon"),
+	("how do I stop it picking a guide for me", "behavior.autoSelectGuide"),
+	("why is the window hidden in dungeons", "ui.instance"),
+	("how do I turn on reduce motion", "ui.reduceMotion"),
+	("where is the xp tracker?", "qol.xpTracker"),
+	("is there a way to hide combat errors", "qol.hideErrors"),
+	("can you show the whole step", "ui.wholeStep"),
+	("how do I make the arrow stop pulsing", "nav.arrowPulse"),
+	("where can I set trainer reminders", "behavior.trainReminder"),
+	("show me the quest levels", "qol.questLevels"),
+	("I don't want it to turn in quests", "behavior.autoTurnin"),
+];
+
+// The first setting row of the dropdown for each question (and the three best, for a failure's message).
+fn first_settings(before: &str, questions: &[&str]) -> Value {
+	let list: Vec<String> = questions.iter().map(|q| format!("{q:?}")).collect();
+	run_mods(
+		before,
+		&format!(
+			r#"local out = {{}}
+		for i, q in ipairs({{ {} }}) do
+			local m = O.Matches(q, 8)
+			local best = {{}}
+			for j = 1, math.min(3, #m.settings) do best[j] = m.settings[j].control.key or m.settings[j].text end
+			out[i] = {{ first = best[1] or false, best = best }}
+		end
+		emit(out)"#,
+			list.join(", ")
+		),
+	)
+}
+
+fn assert_first(out: &Value, cases: &[(&str, &str)]) {
+	let wrong: Vec<String> = cases
+		.iter()
+		.enumerate()
+		.filter(|(i, (_, keys))| !keys.split('|').any(|key| out[*i]["first"] == key))
+		.map(|(i, (q, key))| format!("{q:?}: wanted {key}, got {}", out[i]["best"]))
+		.collect();
+	eprintln!("questions with the right setting first: {}/{}", cases.len() - wrong.len(), cases.len());
+	assert!(wrong.is_empty(), "{} of {} questions:\n{}", wrong.len(), cases.len(), wrong.join("\n"));
+}
+
+#[test]
+fn a_players_question_puts_the_setting_it_asks_about_first() {
+	let qs: Vec<&str> = QUESTIONS.iter().map(|(q, _)| *q).collect();
+	assert_first(&first_settings("", &qs), QUESTIONS);
+}
+
+// On a translated client its own question words are filler too (English stays filler on every client), a Spanish
+// "¿" or a Chinese "？" is punctuation, and Chinese question words come out of the unspaced text.
+#[test]
+fn a_question_in_the_clients_own_language_puts_the_setting_first() {
+	for (locale, q, key) in [
+		("deDE", "Wie kann ich graue Gegenstände verkaufen?", "qol.sellJunk"),
+		("deDE", "Wo ist die Textgröße?", "ui.textSize"),
+		("frFR", "Comment est-ce que je verrouille la fenêtre ?", "ui.locked"),
+		("esES", "¿Cómo puedo vender objetos grises?", "qol.sellJunk"),
+		("esMX", "¿Dónde está el tamaño del texto?", "ui.textSize"),
+		("ptBR", "Como posso travar a janela?", "ui.locked"),
+		("ruRU", "Можно ли продавать серые предметы?", "qol.sellJunk"),
+		("ruRU", "Как мне закрепить окно?", "ui.locked"),
+		("koKR", "창 잠금 어디에 있나요?", "ui.locked"),
+		("zhCN", "怎么锁定窗口？", "ui.locked"),
+		("zhTW", "如何鎖定視窗？", "ui.locked"),
+		("deDE", "how do I lock the window", "ui.locked"),
+	] {
+		let out = first_settings(&format!("function GetLocale() return \"{locale}\" end\n{}", forge_addontest::shipped_strings(locale)), &[q]);
+		assert_first(&out, &[(q, key)]);
+	}
+}
+
+// `/polestar ask <question>` (and `/ps ask`) opens the settings with the question in the search box, the box holding
+// the keyboard and the dropdown open on what it finds, the asked-about setting first; `ask` alone readies the box.
+#[test]
+fn polestar_ask_opens_the_settings_with_the_question_in_the_box_and_the_dropdown_open() {
+	let out = run_mods(
+		"",
+		&format!(
+			"{DROP_HELPERS}{}",
+			r#"
+		local function state()
+			local first
+			for _, r in ipairs(D.Rows()) do if r.kind == "setting" then first = r.key break end end
+			return { shown = PolestarOptions:IsShown(), text = box():GetText(), focus = stub.focus == box(), open = D.Shown(),
+				first = first or false, placeholder = box().Placeholder:IsShown(), clear = box().Clear:IsShown() }
+		end
+		Polestar.RunCommand("ask how do I hide the arrow?")
+		local asked = state()
+		PolestarOptions:Hide()
+		SlashCmdList.POLESTAR("ask  where is the arrow size  ")
+		local slash = state()
+		D.Hide()
+		box():ClearFocus()
+		Polestar.RunCommand("ask")
+		local empty = state()
+		emit({ asked = asked, slash = slash, empty = empty, ps = SLASH_POLESTAR3, sameFn = SlashCmdList.POLESTAR == Polestar.RunCommand })"#
+		),
+	);
+	assert_eq!(
+		out["asked"],
+		json!({ "shown": true, "text": "how do I hide the arrow?", "focus": true, "open": true, "first": "nav.arrow", "placeholder": false, "clear": true })
+	);
+	assert_eq!(out["slash"]["text"], "where is the arrow size", "the question's outer spaces trimmed");
+	assert_eq!(out["slash"]["open"], true);
+	assert_eq!(out["slash"]["first"], "nav.arrowScale");
+	assert_eq!(out["empty"], json!({ "shown": true, "text": "", "focus": true, "open": false, "first": false, "placeholder": true, "clear": false }));
+	assert_eq!(out["ps"], "/ps", "/ps is /polestar's short name, so /ps ask works too");
+	assert_eq!(out["sameFn"], true);
+}
+
+// The box says it takes questions: the longest wording that fits shows ("Ask or search: how do I hide the arrow?"),
+// a shorter one in a narrow window.
+#[test]
+fn the_search_box_placeholder_invites_a_question() {
+	let out = run_mods(
+		"",
+		r#"
+		UI.ShowOptions("guide")
+		local box = PolestarOptions.Search
+		emit({ text = box.Placeholder:GetText(), list = box.psPlaceholders })"#,
+	);
+	assert_eq!(out["list"], json!(["Ask or search: how do I hide the arrow?", "Ask or search settings", "Search settings"]));
+	assert!(includes(&out["list"], out["text"].as_str().unwrap()), "{}", out["text"]);
+}
+
 // One Chinese, Korean or Cyrillic character is a whole meaningful fragment inside a translated
 // label; the 4-byte floor that keeps "lag" out of "flag" must not reject its UTF-8 bytes.
 #[test]
@@ -1416,19 +1570,26 @@ fn typing_in_the_search_box_opens_a_dropdown_under_it_with_the_best_settings_in_
 		local list = PolestarOptionsMatches
 		local point, rel, relPoint = list:GetPoint(1)
 		-- The search's own results, the best first across their groups (one its section's on/off stops after an
-		-- equally good one that works).
+		-- equally good one that works), each as the setting that matched (an inline one on its row when it matched
+		-- better), once.
 		local groups, count = O.Search("minimap icon")
 		local flat = {}
 		for gi, g in ipairs(groups) do
-			for ci, c in ipairs(g.controls) do flat[#flat + 1] = { key = c.key or O.LabelOf(c), score = c.psScore, stopped = c.psStopped, at = gi * 1000 + ci } end
+			for ci, c in ipairs(g.controls) do
+				local s = c.psVia or c
+				flat[#flat + 1] = { key = s.key or O.LabelOf(s), score = c.psScore, stopped = c.psStopped, at = gi * 1000 + ci }
+			end
 		end
 		table.sort(flat, function(a, b)
 			if a.score ~= b.score then return a.score > b.score end
 			if a.stopped ~= b.stopped then return not a.stopped end
 			return a.at < b.at
 		end)
-		local want, got, kinds = {}, {}, {}
-		for i = 1, math.min(8, #flat) do want[i] = flat[i].key end
+		local want, got, kinds, listed = {}, {}, {}, {}
+		for _, f in ipairs(flat) do
+			if #want == 8 then break end
+			if not listed[f.key] then listed[f.key] = true; want[#want + 1] = f.key end
+		end
 		local rows = D.Rows()
 		for i, r in ipairs(rows) do
 			kinds[i] = r.kind
@@ -1688,9 +1849,9 @@ fn typing_a_page_tab_or_section_name_offers_it_over_the_settings_and_picking_it_
 			["page", format!("Go to page: {}", lit("Arrow")), "Look"],
 			["section", format!("Section: {}", lit("Arrow")), "Guide  \u{b7}  Arrow & routes"],
 			["section", format!("Section: {}", lit("Arrow")), "Arrow  \u{b7}  Look"],
-			["setting", format!("Keep the {} when hidden", lit("arrow")), "Guide  \u{b7}  Window"]
+			["setting", format!("Show {}", lit("arrow")), "Guide  \u{b7}  Arrow & routes"]
 		]),
-		"the page first (its sidebar group under it), then its sections, then the settings"
+		"the page first (its sidebar group under it), then its sections, then the settings, Show arrow (named whole) the first"
 	);
 	assert_eq!(out["page"], json!(["arrow", false, ""]), "a click on the page's row opens it");
 	assert_eq!(out["flight"], json!(["section", format!("Section: {} {}", lit("Flight"), lit("timer")), "Trackers  \u{b7}  Travel"]));
@@ -1814,6 +1975,62 @@ fn the_dropdown_is_drawn_in_every_look_with_its_panel_its_inks_and_its_lit_row()
 			v,
 			&json!({ "skin": key, "words": true, "label": true, "where": true, "lit": !game, "wash": true, "bar": !game }),
 			"{key}: the look's panel and inks; a game look draws its own lit row"
+		);
+	}
+}
+
+// The page never shows through the dropdown (Classic let the rows under it show, 0.4.0): in every look the list
+// stands on the look's menu ground at full strength, under whatever the look draws (a translucent tile, the client's
+// menu art, a skin's paper), 3 in from its edge; and the game looks paint it as the menu it is, not as a card inside
+// the window (Classic's card box was 60% grey).
+#[test]
+fn the_dropdown_is_opaque_in_every_look_the_page_never_shows_through() {
+	let out = run_opts(
+		&format!(
+			"{DROP_HELPERS}{}",
+			r#"
+		local T = Polestar.Theme
+		UI.ShowOptions("guide")
+		local out = {}
+		for _, key in ipairs(T.SKIN_ORDER) do
+			Polestar.Set("ui.skin", key)
+			stub.advance(0.1)
+			typed("arrow")
+			local list = PolestarOptionsMatches
+			local b = list.Backing
+			local layer, sub = b:GetDrawLayer()
+			local r, g, bb, a = b:GetVertexColor()
+			local mr, mg, mb = T.Color("menuBg")
+			-- Every other ground of the list's own lies over it; the darkest-drawn of them, its alpha.
+			local under, tile = true, nil
+			for _, t in ipairs({ list:GetRegions() }) do
+				local l, s = t:GetDrawLayer()
+				if t ~= b and t:IsShown() and l == "BACKGROUND" then
+					if s <= sub then under = false end
+					if s == -6 then tile = select(4, t:GetVertexColor()) end
+				end
+			end
+			local _, _, _, x1, y1 = b:GetPoint(1)
+			local _, _, _, x2, y2 = b:GetPoint(2)
+			out[key] = { shown = b:IsShown(), layer = layer, sub = sub, alpha = a * (b:GetAlpha() or 1), under = under,
+				colour = math.abs(r - mr) + math.abs(g - mg) + math.abs(bb - mb) < 0.01, inset = { x1, y1, x2, y2 },
+				menuTile = key ~= "classic" or (tile ~= nil and tile > 0.9) }
+			press("ESCAPE")
+		end
+		emit(out)"#
+		),
+		"",
+		"",
+		LOOK_PAGE,
+	);
+	let looks = out.as_object().unwrap();
+	assert_eq!(looks.len(), 6, "{out}");
+	for (key, v) in looks {
+		assert_eq!(
+			v,
+			&json!({ "shown": true, "layer": "BACKGROUND", "sub": -8, "alpha": 1, "under": true, "colour": true,
+				"inset": [3, -3, -3, 3], "menuTile": true }),
+			"{key}: the menu ground at full strength under the look's own panel; Classic's tooltip, not the card box"
 		);
 	}
 }

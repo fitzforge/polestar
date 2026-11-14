@@ -1886,8 +1886,9 @@ end
 -- the whole word, its start, a typo off (one letter for 4-7 letters, two for
 -- 8 or more) or inside it (4 bytes for ASCII: "lag" is not in "flag"; a
 -- query word still holding non-ASCII text after folding, such as one Chinese
--- character, has no floor); filler words ("the", "turn", "off") only add to a
--- match. The label counts most, then the search terms and key, then the
+-- character, has no floor); filler words ("the", "turn", "off", and the
+-- words of a question: "how do I", "where is") only add to a match; a word
+-- matching nothing tries its English stem, then its synonyms. The label counts most, then the search terms and key, then the
 -- section, tab and page, then the help; typos and inside-a-word matches least.
 -- A query starting with a page's name looks on that page for the rest
 -- (scopeOf). The dropdown asks O.Matches and O.MatchSpans (further down).
@@ -1922,10 +1923,20 @@ end
 local SPELLING = { color = "colour", colors = "colours", gray = "grey", meter = "metre", meters = "metres",
 	center = "centre", behavior = "behaviour", favorite = "favourite", coords = "coordinates" }
 
--- Words a question carries ("how do I turn off the tracker"): they add to a
--- control's score when one of its words is the same, and are not required.
+-- Words a question or a request carries ("how do I turn off the tracker?",
+-- "where is the arrow size", "why does it close quest windows", "can you
+-- show me ..."): they add to a control's score when one of its words is the
+-- same, and are not required. English always (players type it on every
+-- client), and the client's own language's question words (QUESTION, below).
+-- A contraction's pieces ("don't": don, t) are filler too.
 local FILLER = {}
-for w in ("a an the of to in on at and or for my me i is it how do can turn off enable disable toggle set setting settings option options where want"):gmatch("%S+") do FILLER[w] = true end
+for w in ([[a an the of to in on at and or for my me i is it how do can turn off enable disable toggle set setting settings
+	option options where want show does did are am be was what why when which who make get change find stop go there way you your
+	we us please would could should will need just this that its from anymore s t m d ll re ve don doesn didn won isn aren
+	cant dont doesnt wont isnt im ive]]):gmatch("%S+") do FILLER[w] = true end
+-- Those asking to switch something on or off: a toggle comes before a
+-- slider or a choice that matches as well (scoreOf, SWITCH).
+for w in ("off enable disable toggle stop show"):gmatch("%S+") do FILLER[w] = "switch" end
 
 -- Hint words a player types for a kind of change, and the words settings
 -- use for it: a query word that matches nothing of a control's own tries
@@ -1940,7 +1951,7 @@ local SYNONYMS = {
 	"pin pins marker markers icon icons numbered mark marks medallion blip blips",
 	"border borders edge edges frame outline",
 	"background backing ground bg backdrop",
-	"sound sounds audio chime ding noise",
+	"sound sounds audio chime ding noise mute muted quiet silence silent",
 	"hide hidden show shown visible visibility",
 	"animation animations motion animated effects",
 	"arrow pointer compass dart",
@@ -1960,10 +1971,58 @@ for _, group in ipairs(SYNONYMS) do
 		SYN[w] = list
 	end
 end
--- Phrases read as one hint word.
-local PHRASES = { { "see%W*through", "seethrough" }, { "step%W*numbers?", "numbered" } }
--- A synonym's match counts this share of the word's own.
-local SYN_SHARE = 0.6
+-- Phrases read as one hint word. First the punctuation a question carries
+-- outside ASCII (¿ ¡ « » quotes, dashes, the ellipsis, CJK ？！，。、：；
+-- and brackets) as spaces, so "¿cómo" is "como" and "箭头？" is "箭头".
+local PHRASES = { { "\194[\161\171\183\187\191]", " " }, { "\226\128[\147\148\152\153\156\157\158\166]", " " },
+	{ "\227\128[\129\130]", " " }, { "\239\188[\129\136\137\140\154\155\159]", " " },
+	{ "see%W*through", "seethrough" }, { "step%W*numbers?", "numbered" },
+	{ "%f[%w]get%W+rid%W+of%f[%W]", "hide" }, { "%f[%w]show%W+me%f[%W]", "me" }, { "%f[%w]turn%W*in(s?)%f[%W]", "turnin%1" } }
+-- The question and request words of each client language Polestar is
+-- translated into, folded as the matcher folds (lower case, Latin accents
+-- off: "où" is "ou", "können" "konnen"), filler on that client. Chinese
+-- writes no spaces: its question words (`split`) are taken out of the query
+-- before it is cut into words, the longest first, so "箭头在哪里" asks for
+-- "箭头". docs/ARCHITECTURE.md, "Settings search", lists them.
+do
+	local spanish = [[como donde por porque que cual cuales cuando puedo puede puedes se yo me mi mis el la los las lo un una
+		unos unas de del al es esta estan hay hago hace hacer quiero quisiera cambiar poner encontrar activar desactivar y o en con para]]
+	local QUESTION = {
+		deDE = [[wie wo warum wieso weshalb was welche welcher welches wann kann kannst konnen konnte ich mich mir mein meine meinen
+			meinem meiner man ist sind gibt es der die das den dem des ein eine einen einem einer zu um mal bitte will mochte soll
+			muss andern einstellen finden finde machen mache schalte schalten aus an ab ausschalten abschalten einschalten
+			aktivieren deaktivieren und oder im in am auf fur von]],
+		frFR = [[comment ou pourquoi quand quel quelle quels quelles que qu quoi est ce c je j me m moi mon ma mes on peut peux
+			puis pouvoir il y t faire fait changer modifier regler trouver mettre veux voudrais faut le la les l un une des du de d
+			au aux en pour sur dans et activer desactiver]],
+		esES = spanish, esMX = spanish,
+		ptBR = [[como onde por porque que qual quais quando posso pode eu me meu minha meus minhas o os as um uma de do da dos
+			das no na nos nas e esta fica faco faz fazer quero mudar alterar trocar achar encontrar ativar desativar ligar
+			desligar em com para]],
+		ruRU = [[как где почему зачем что чтобы какой какая какие когда я мне меня мой моя моё мои можно могу ли это сделать
+			изменить поменять найти хочу включить выключить отключить настроить и в на у с к по для а]],
+		koKR = [[어떻게 어디 어디에 어디서 어디에서 어디있나요 왜 무엇 뭐 무슨 언제 내 나 제 저 수 있나요 있어요 있습니까
+			있을까요 하나요 해요 하려면 하는 방법 좀]],
+		zhCN = { split = [[在哪里 在哪儿 为什么 能不能 怎么样 怎么办 怎么 怎样 如何 哪里 哪儿 在哪 为啥 什么 我的 可以 能否 请问
+			一下 吗 呢 我 把]] },
+		zhTW = { split = [[在哪裡 在哪兒 為什麼 能不能 怎麼樣 怎麼辦 怎麼 怎樣 如何 哪裡 哪兒 在哪 為啥 什麼 我的 可以 能否 請問
+			一下 嗎 呢 我 把]] },
+	}
+	local own = QUESTION[GetLocale and GetLocale() or "enUS"]
+	if type(own) == "string" then
+		for w in own:gmatch("%S+") do FILLER[w] = true end
+	elseif own then
+		for w in own.split:gmatch("%S+") do PHRASES[#PHRASES + 1] = { w, " " } end
+	end
+end
+-- On and off words read as the toggle's own word, at the word's own weight:
+-- "hide the arrow" asks for Show arrow, off.
+local OPPOSITE = { hide = "show shown", hidden = "shown show", hiding = "show shown", unhide = "show shown" }
+-- A synonym's match counts this share of the word's own, a filler word's
+-- (scoreOf) this; a control whose label's words were all asked about (the
+-- label is the answer, not a longer one holding the words) COVER more.
+-- A toggle, asked to switch something on or off, SWITCH more.
+local SYN_SHARE, FILLER_SHARE, COVER, SWITCH = 0.6, 0.1, 50, 30
 
 local LABEL, KEY, TERMS, PLACE, HELP = 1, 2, 3, 4, 5
 -- By field, the score of a match inside a word, a typo off, the word's start, the whole word.
@@ -1984,14 +2043,18 @@ local function englishOf(s)
 	return s and english[s]
 end
 
+-- Neighbours are joined within a comma's part ("tiny text, bigger" joins no
+-- "textbigger").
 local function addWords(words, fields, text, field, join)
 	if type(text) ~= "string" or text == "" then return end
-	local prev
-	for word in fold(text):gmatch("[%w\128-\255]+") do
-		local w = SPELLING[word] or word
-		words[#words + 1], fields[#fields + 1] = w, field
-		if join and prev then words[#words + 1], fields[#fields + 1] = prev .. w, field end
-		prev = w
+	for part in fold(text):gmatch("[^,]+") do
+		local prev
+		for word in part:gmatch("[%w\128-\255]+") do
+			local w = SPELLING[word] or word
+			words[#words + 1], fields[#fields + 1] = w, field
+			if join and prev then words[#words + 1], fields[#fields + 1] = prev .. w, field end
+			prev = w
+		end
 	end
 end
 
@@ -2001,9 +2064,25 @@ local function searchTokens(c)
 	local label = labelOf(c) or ""
 	local s = c.psFind
 	if s and s.label == label then return s end
-	s = { label = label, words = {}, fields = {} }
+	s = { label = label, words = {}, fields = {}, covers = {} }
 	local w, f = s.words, s.fields
 	addWords(w, f, label, LABEL, true)
+	-- What names it whole (scoreOf's COVER): its label's words, its English
+	-- label's and each of its search terms' of two words or more (one word is
+	-- a hint, not a name), filler aside.
+	local function cover(text, least)
+		local list = {}
+		for word in fold(text):gmatch("[%w\128-\255]+") do
+			word = SPELLING[word] or word
+			if not FILLER[word] then list[#list + 1] = word end
+		end
+		if #list >= least then s.covers[#s.covers + 1] = list end
+	end
+	cover(label, 1)
+	if englishOf(label) then cover(englishOf(label), 1) end
+	if type(c.search) == "string" then
+		for term in c.search:gmatch("[^,]+") do cover(term, 2) end
+	end
 	addWords(w, f, c.search, TERMS, true)
 	if type(c.key) == "string" then addWords(w, f, (c.key:match("[^.]+$"):gsub("(%l)(%u)", "%1 %2")), KEY, true) end
 	addWords(w, f, englishOf(label), TERMS, true)
@@ -2076,12 +2155,18 @@ local function kindOf(m, t)
 	return k
 end
 
-local qwords, qfiller, qpairs, qsyn, seen = {}, {}, {}, {}, {}
+local qwords, qfiller, qpairs, qsyn, qstem, seen = {}, {}, {}, {}, {}, {}
+-- A word's other forms, then its synonyms (formSays).
+local qforms = { qstem, qsyn }
 
 -- The query's words into qwords (memos) and qfiller, each word joined to
--- the one before into qpairs, a hint word's synonyms into qsyn. -> count
+-- the one before into qpairs, a hint word's synonyms into qsyn, its other
+-- forms into qstem: the word its English ending comes off ("accepting"
+-- accept, "stopping" stop, "sounds" sound, "closed" clos) and its OPPOSITE.
+-- -> count
 local function parseQuery(q)
 	local n, needed, prev = 0, 0, nil
+	qwords.onoff = false
 	local text = fold(q or "")
 	for _, ph in ipairs(PHRASES) do text = text:gsub(ph[1], ph[2]) end
 	for word in text:gmatch("[%w\128-\255]+") do
@@ -2089,7 +2174,19 @@ local function parseQuery(q)
 		n = n + 1
 		qwords[n], qfiller[n] = wordMemo(w), FILLER[w] or false
 		qpairs[n] = prev and wordMemo(prev .. w) or false
-		local syn = SYN[w]
+		local stem = #w >= 5 and not find(w, "[\128-\255]") and (w:match("^(.+)ing$") or w:match("^(.+)ed$")) or nil
+		if stem then
+			local base, last = stem:match("^(.+)(%a)%2$")
+			if base then stem = base .. last end
+		elseif #w >= 5 and not find(w, "[\128-\255]") then
+			stem = w:match("^(.+[^s])s$")
+		end
+		if stem and #stem < 3 then stem = nil end
+		local forms = {}
+		if stem then forms[1] = wordMemo(stem) end
+		for o in (OPPOSITE[w] or ""):gmatch("%S+") do forms[#forms + 1] = wordMemo(o) end
+		qstem[n] = forms[1] and forms or false
+		local syn = SYN[w] or (stem and (SYN[stem] or SYN[stem .. "e"]))
 		if syn then
 			local list = {}
 			for i, o in ipairs(syn) do list[i] = wordMemo(o) end
@@ -2098,6 +2195,7 @@ local function parseQuery(q)
 			qsyn[n] = false
 		end
 		if not FILLER[w] then needed = needed + 1 end
+		if FILLER[w] == "switch" or OPPOSITE[w] then qwords.onoff = true end
 		prev = w
 	end
 	if needed == 0 then
@@ -2106,16 +2204,16 @@ local function parseQuery(q)
 	return n
 end
 
--- A word's best match through its synonyms: a whole word or a word's start
--- of the control's own (its help aside), at SYN_SHARE of the score.
-local function synonymScore(list, tw, tf)
+-- A word's best match through its synonyms (or its stem): a whole word or a
+-- word's start of the control's own (its help aside), at `share` of the score.
+local function synonymScore(list, tw, tf, share)
 	local best = 0
 	for _, sm in ipairs(list) do
 		for j = 1, #tw do
 			if tf[j] ~= HELP then
 				local k = kindOf(sm, tw[j])
 				if k >= 3 then
-					local v = floor(SCORE[tf[j]][k] * SYN_SHARE)
+					local v = floor(SCORE[tf[j]][k] * share)
 					if v > best then best = v end
 				end
 			end
@@ -2124,11 +2222,27 @@ local function synonymScore(list, tw, tf)
 	return best
 end
 
--- A control's score for the query, 0 when a word it needs matches nothing.
+-- Does query word i say word t through its other forms or synonyms (whole
+-- or its start)?
+local function formSays(i, t)
+	for _, list in ipairs(qforms) do
+		local forms = list[i]
+		if forms then
+			for _, sm in ipairs(forms) do
+				if kindOf(sm, t) >= 3 then return true end
+			end
+		end
+	end
+	return false
+end
+
+-- A control's score for the query, 0 when a word it needs matches nothing;
+-- and what its words alone make of it (no COVER or SWITCH: the page scope's
+-- fair match).
 local function scoreOf(c, nw)
 	local s = searchTokens(c)
 	local tw, tf = s.words, s.fields
-	local total = 0
+	local total, bonus = 0, qwords.onoff and c.kind == "toggle" and SWITCH or 0
 	for i = 1, nw do
 		local m, filler, best, phrase = qwords[i], qfiller[i], 0, 0
 		local pair = qpairs[i]
@@ -2143,11 +2257,41 @@ local function scoreOf(c, nw)
 				if pk > phrase then phrase = pk end
 			end
 		end
-		if best == 0 and not filler and qsyn[i] then best = synonymScore(qsyn[i], tw, tf) end
+		-- Its other forms whole beat the word's own typo ("sounds": sound, not a typo of it).
+		if not filler and qstem[i] then
+			local v = synonymScore(qstem[i], tw, tf, 1)
+			if v > best then best = v end
+		end
+		if best == 0 and not filler and qsyn[i] then best = synonymScore(qsyn[i], tw, tf, SYN_SHARE) end
 		if best == 0 and not filler then return 0 end
+		-- A filler word's match, and a pair with one in it, count FILLER_SHARE:
+		-- they tell two settings apart, never outrank the words asked about
+		-- ("the" in "Hide the arrow with the guide").
+		if filler then best = floor(best * FILLER_SHARE) end
+		if filler or (i > 1 and qfiller[i - 1]) then phrase = floor(phrase * FILLER_SHARE) end
 		total = total + best + phrase
 	end
-	return total
+	-- Named whole: each word of its label, or of one of its search terms,
+	-- one a query word asks for (whole or its start, or through the word's
+	-- other forms or synonyms; a typo is too loose: "slow" is not "Glow").
+	for _, cover in ipairs(s.covers) do
+		local all = true
+		for _, cw in ipairs(cover) do
+			local said = false
+			for i = 1, nw do
+				if not qfiller[i] and (kindOf(qwords[i], cw) >= 3 or formSays(i, cw)) then
+					said = true
+					break
+				end
+			end
+			if not said then
+				all = false
+				break
+			end
+		end
+		if all then return total + bonus + COVER, total end
+	end
+	return total + bonus, total
 end
 
 -- The best match first; one its section's on/off stops after an equal one
@@ -2229,7 +2373,7 @@ local function collect(nw, only)
 				-- The section's toggle is a result of its own; a control is
 				-- found by its words and by those of its extras and cog. A
 				-- reference (Essentials) is found at its home.
-				local list, best
+				local list, best, fair
 				local cands = {}
 				if s.toggle and not rawget(s.toggle, "ref") then cands[1] = s.toggle end
 				for _, c in ipairs(s.controls) do
@@ -2238,21 +2382,23 @@ local function collect(nw, only)
 				for _, c in ipairs(cands) do
 					order = order + 1
 					if available(c) and not (c.key and seen[c.key]) then
-						local score = 0
+						local score, words, via = 0, 0, nil
 						eachSetting(c, function(x)
 							if x == c or available(x) then
-								local v = scoreOf(x, nw)
-								if v > score then score = v end
+								local v, w = scoreOf(x, nw)
+								if v > score then score, words, via = v, w or 0, x end
 							end
 						end)
 						if score > 0 then
 							if c.key then seen[c.key] = true end
-							c.psScore, c.psOrder = score, order
+							-- psVia: an extra or a cog's setting that matched better than the row's own.
+							c.psScore, c.psOrder, c.psVia = score, order, via ~= c and via or nil
 							-- Stopped by its section's on/off: after the ones that work.
 							c.psStopped = s.toggle ~= c and sectionOff(s)
 							list = list or {}
 							list[#list + 1] = c
 							if not best or score > best then best = score end
+							if not fair or words > fair then fair = words end
 						end
 					end
 				end
@@ -2262,7 +2408,7 @@ local function collect(nw, only)
 					local title = p.name
 					if t.name ~= "" then title = title .. "  \194\183  " .. t.name end
 					if s.name ~= "" and s.name ~= t.name then title = title .. "  \194\183  " .. s.name end
-					groups[#groups + 1] = { title = title, controls = list, best = best, order = #groups + 1, section = s,
+					groups[#groups + 1] = { title = title, controls = list, best = best, fair = fair, order = #groups + 1, section = s,
 						off = list[1].psStopped and true or false }
 					count = count + #list
 				end
@@ -2331,9 +2477,10 @@ local function scopeOf(nw)
 	return page, table.concat(rest, " ")
 end
 
--- A page's own results stand when its best one is a fair match: on average
--- each word whole in the setting's place, or its start in the setting's own
--- words. A word found only in a help text, or a typo, looks everywhere.
+-- A page's own results stand when its best one is a fair match by its words
+-- alone (no COVER or SWITCH): on average each word whole in the setting's
+-- place, or its start in the setting's own words. A word found only in a
+-- help text, or a typo, looks everywhere.
 local SCOPE_FLOOR = 50
 
 -- -> { { title = "Page · Tab", controls = { ... } }, ... }, count, suggestions, page
@@ -2353,7 +2500,9 @@ function O.Search(q)
 		local groups, count = collect(rw, page)
 		if count > 0 then
 			table.sort(groups, byBest)
-			if groups[1].best >= SCOPE_FLOOR * max(1, needed) then return groups, count, nil, page end
+			local fair = 0
+			for _, g in ipairs(groups) do fair = max(fair, g.fair) end
+			if fair >= SCOPE_FLOOR * max(1, needed) then return groups, count, nil, page end
 		end
 		nw = parseQuery(q)
 	end
@@ -2381,7 +2530,7 @@ end
 
 -- Where in `text` the query's words match, by the matcher's own test (a word
 -- whole, its start, a typo off or inside it; two of its words run together;
--- a hint word's synonym when the word itself matches nothing), filler words
+-- its stem or a hint word's synonym when the word itself matches nothing), filler words
 -- aside: byte ranges of `text`, { { from, to }, ... } in order. The search's
 -- dropdown lights them in a label (UI/SearchDropdown.lua).
 function O.MatchSpans(text, q)
@@ -2424,14 +2573,9 @@ function O.MatchSpans(text, q)
 		end
 	end
 	for i = 1, nw do
-		if not hit[i] and not qfiller[i] and qsyn[i] then
+		if not hit[i] and not qfiller[i] and (qstem[i] or qsyn[i]) then
 			for _, wd in ipairs(words) do
-				for _, sm in ipairs(qsyn[i]) do
-					if kindOf(sm, wd.f) >= 3 then
-						marks[#marks + 1] = { wd.s, wd.e }
-						break
-					end
-				end
+				if formSays(i, wd.f) then marks[#marks + 1] = { wd.s, wd.e } end
 			end
 		end
 	end
@@ -3444,11 +3588,19 @@ function O.Matches(q, n)
 		if a.g ~= b.g then return a.g < b.g end
 		return a.i < b.i
 	end)
-	for i = 1, min(#flat, n - #out.places) do
-		local c = flat[i].c
-		local where = c.page and c.page.name or ""
-		if c.tab and c.tab ~= "" then where = where .. "  \194\183  " .. c.tab end
-		out.settings[i] = { control = c, text = labelOf(c) or "", where = where }
+	-- Each the setting that matched (an extra or a cog's on its row, when it
+	-- matched better: "the arrow's colour" is Arrow colour, on the Size row),
+	-- once.
+	local listed = {}
+	for _, f in ipairs(flat) do
+		if #out.settings >= n - #out.places then break end
+		local c = f.c.psVia or f.c
+		if not (c.key and listed[c.key]) then
+			if c.key then listed[c.key] = true end
+			local where = c.page and c.page.name or ""
+			if c.tab and c.tab ~= "" then where = where .. "  \194\183  " .. c.tab end
+			out.settings[#out.settings + 1] = { control = c, text = labelOf(c) or "", where = where }
+		end
 	end
 	return out
 end
@@ -3582,7 +3734,9 @@ end
 -- dragged by its header (or sidebar), kept on the screen.
 local function build()
 	win = W.Shell("PolestarOptions", {
-		title = GUIDE, tagline = L["Settings"], scalePath = "ui.menuScale", searchPlaceholder = L["Search settings"],
+		-- The box takes a question as well as a word: the longest wording that fits shows.
+		title = GUIDE, tagline = L["Settings"], scalePath = "ui.menuScale",
+		searchPlaceholder = { L["Ask or search: how do I hide the arrow?"], L["Ask or search settings"], L["Search settings"] },
 		headerSearch = true,
 		-- Typing opens the dropdown under the box; the page stays until a row
 		-- is picked, or Enter or See all opens the results page. An emptied
@@ -3741,12 +3895,25 @@ local function build()
 	end
 end
 
--- Open the settings window (the hub, open or not, stays where it is).
-function UI.ShowOptions(section)
+-- Open the settings window (the hub, open or not, stays where it is), with
+-- a question asked (`ask`, /polestar ask) in its search box.
+function UI.ShowOptions(section, ask)
 	if not win then build() end
 	applySize()
 	win:Show()
 	O.Select(section or (current and current.key) or pageList[1].key)
+	if ask then O.Ask(ask) end
+end
+
+-- A question asked from chat: its words in the header's box, which takes
+-- the keyboard, and the dropdown open on what they find, as if typed (no
+-- words: the box ready to type in).
+function O.Ask(q)
+	if not win then return end
+	q = tostring(q or ""):match("^%s*(.-)%s*$")
+	setBoxText(q)
+	win.Search:SetFocus()
+	if q ~= "" then O.Dropdown.Show(q) end
 end
 
 -- A new font measures every label, value and description anew: the

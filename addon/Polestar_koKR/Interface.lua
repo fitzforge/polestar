@@ -273,6 +273,7 @@ L["Hide or show everything Polestar shows (hide arrow: keep the arrow when hidde
 -- L["Pause the guide"] = ""
 -- L["Mark as junk"] = ""
 -- L["Mark to keep"] = ""
+-- L["Find a setting by asking, such as: how do I hide the arrow?"] = ""
 
 -- Theme/Theme.lua
 L["Dusk"] = "황혼"
@@ -2458,6 +2459,8 @@ L["Your manual check-offs and skipped steps in the current guide are cleared fro
 -- L["Count my other characters' materials"] = ""
 -- L["What your other characters of this realm and side hold counts toward what is still to get. Their counts show under a material either way; mail them over yourself."] = ""
 -- L["Materials window"] = ""
+-- L["Ask or search: how do I hide the arrow?"] = ""
+-- L["Ask or search settings"] = ""
 
 -- Rares/Rares.lua
 L["Raid warning"] = "공격대 경보"

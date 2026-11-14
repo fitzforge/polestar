@@ -88,6 +88,9 @@ ns.RegisterCommand("hide", function(rest)
 end, L["Hide or show everything Polestar shows (hide arrow: keep the arrow when hidden)"], true)
 ns.RegisterCommand("guides", function() ns.Fire("SHOW_PICKER") end, L["Choose a guide"])
 ns.RegisterCommand("options", function(rest) ns.Fire("SHOW_OPTIONS", rest ~= "" and rest or nil) end, L["Open settings"])
+-- A question in the player's own words: the settings open with it in their
+-- search box and its dropdown on the settings it finds (/ps ask too).
+ns.RegisterCommand("ask", function(rest) ns.Fire("SHOW_OPTIONS", nil, rest or "") end, L["Find a setting by asking, such as: how do I hide the arrow?"])
 ns.RegisterCommand("debug", function()
 	ns.debug = not ns.debug
 	ns.Print(L["Debug output"], ns.debug and L["on"] or L["off"])

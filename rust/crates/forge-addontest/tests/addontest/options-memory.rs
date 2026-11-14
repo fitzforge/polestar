@@ -87,6 +87,8 @@ const LOGIN: f64 = LOGIN_BASE + 1192.0;
 /// lists' filter, the colour favourites, the callouts, the dialogs' typed word, the profile keys and the rows' reset
 /// arrow): 1,974 measured on its own base. All of 0.4.0's merges together: 1,950 on 2026-11-13; the budget is that
 /// and about 5 % (Fitz, 2026-11-12, as for the login).
+/// Then the search answering questions (#2178, +15: 1,905 to 1,920 on 2026-11-13, on its own base): the question words of English and the
+/// client's language, the stems, the label and search-term cover and /polestar ask.
 const LOADED: f64 = 2048.0;
 /// Opened on its first page, 4,124 KiB (1,890 on 2026-11-10; 3,485 with the Look pages' previews; 3,888 with
 /// the rest moved in, then the pages' +155, then the hero previews' +67, then the Buttons and single-alert
@@ -97,14 +99,16 @@ const LOADED: f64 = 2048.0;
 /// the search's dropdown (its 4,322 and the batch's 155). Raised with the base's rows to that figure and about 5 %
 /// (Fitz, 2026-11-12, as for the login). With the settings polish and the reset arrow (#2063), 4,500 measured on its
 /// own base. All of 0.4.0's merges together: 4,670 with the base's rows on 2026-11-13; the budget with the base's
-/// rows is that and about 5 %.
+/// rows is that and about 5 %. Then the search answering questions (#2178), +15 (4,363 to 4,378 with the base rows,
+/// 2026-11-13, on its own base).
 const OPENED: f64 = 4809.0;
 /// Peak, 3,964 KiB (1,190 on 2026-11-10; 2,359 with the Look pages): the files that moved in compile with the
 /// collector stopped (+1,000, to 3,365), then the pages' (+430, their files' compile with the collector stopped),
 /// then the hero previews' (+150, the same), then the Buttons and single-alert scenes and the Accent lights'
 /// (+68, the same, to 4,034), then the search's dropdown (+108, the same: 4,084 to 4,192 on 2026-11-13). With
 /// the settings polish, 4,446 measured on 2026-11-13 (budget raised to it). All of 0.4.0's merges together: 4,376 on
-/// 2026-11-13; the budget is that and about 5 %.
+/// 2026-11-13; the budget is that and about 5 %. Then the search answering questions (#2178: +34, the same: 4,228 to
+/// 4,262 on 2026-11-13, on its own base).
 const PEAK: f64 = 4595.0;
 
 /// What the base itself puts in the opened window, not the overhaul's cost: 0.3.7's three rows on the first
@@ -197,6 +201,19 @@ emit({ said = said, during = during, shown = _G.PolestarOptions ~= nil and Poles
 	assert_eq!(out["shown"], true, "it opens when the fight ends");
 	assert_eq!(out["page"], "map", "on the page last asked for");
 	assert_eq!(out["loads"], 1);
+}
+
+// /polestar ask in a fight: the settings open with the question when it ends.
+#[test]
+fn a_question_asked_in_combat_opens_with_the_settings_when_combat_ends() {
+	let out = run(r#"
+stub.inCombat = true
+Polestar.RunCommand("ask how do I hide the arrow")
+local during = Polestar.UI.Options ~= nil
+stub.inCombat = false
+stub.fire("PLAYER_REGEN_ENABLED")
+emit({ during = during, shown = PolestarOptions:IsShown(), text = PolestarOptions.Search:GetText(), open = Polestar.UI.Options.Dropdown.Shown() })"#);
+	assert_eq!(out, serde_json::json!({ "during": false, "shown": true, "text": "how do I hide the arrow", "open": true }));
 }
 
 #[test]
