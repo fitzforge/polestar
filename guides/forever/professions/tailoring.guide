@@ -259,9 +259,9 @@ step Ironweb Spider Silk (Alliance)
 
 step Ironweb Spider Silk (Horde)
   only Horde
-  zone Un'Goro Crater
-  tip 124 Ironweb Spider Silk for Runecloth Shoulders: it drops from Sand Skitterer (level 55-56) at the marked spot.
-  collect 14227 x124 @9.7,36.3 era gather levels 55-56
+  zone Silithus
+  tip 124 Ironweb Spider Silk for Runecloth Shoulders: it drops from Rock Stalker (level 57-59) at the marked spot.
+  collect 14227 x124 @24.7,81.8 era gather levels 57-59
 
 step Runecloth Belt to 234
   zone Azeroth
