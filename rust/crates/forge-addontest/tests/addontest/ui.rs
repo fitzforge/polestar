@@ -2502,27 +2502,29 @@ fn party_dungeon_banner_offers_run_it_this_time_or_not_now_and_cannot_be_dismiss
 	assert_eq!(not_now, json!({ "answered": { "map": 43, "run": false }, "after": false }));
 }
 
-// At a chosen dungeon's run, outside it (Engine.DungeonRun), the banner's link is "No group? Skip it"
-// (Engine.SkipDungeon); the quests kept in the log are named once after, until closed. Inside the instance the
-// link is gone. A few steps before a run (Engine.DungeonSoon) the window says to start looking for a group, until
-// closed for that dungeon.
+// At a chosen dungeon's run, outside it (Engine.DungeonRun), a solo player answers I'm in a group or Skip this one
+// (Engine.SkipDungeon, the second link); the quests kept in the log are named once after, with Clean up quest log
+// for the unfinished ones, until closed. Inside the instance the banner is gone. A few steps before a run
+// (Engine.DungeonSoon) the window says to start looking for a group, until closed for that dungeon; without the
+// game's Group Finder button it has no link. (The door in a party, Find a group, and the kept quests' wording:
+// dungeons-onboarding.rs.)
 #[test]
-fn dungeon_route_no_group_skip_it_at_the_run_names_the_quests_kept_soon_says_to_look_for_a_group() {
+fn dungeon_route_at_the_run_im_in_a_group_or_skip_this_one_names_the_quests_kept_soon_says_to_look_for_a_group() {
 	let out = run(r#"
 		uistub.dungeonRun = { map = 36, name = "The Deadmines" }
 		uistub.dungeonKept = { "Oh Brother. . .", "Red Silk Bandanas" }
 		uistub.openTabs(TABS, 1)
 		local B = GF.parts.banner
-		local atRun = { B.Text:GetText(), B.Jump.Label:GetText(), B.Close:IsShown(), B.Jump.psDefault == true }
+		local atRun = { B.Text:GetText(), B.Jump.Label:GetText(), B.Later:IsShown() and B.Later.Label:GetText(), B.Close:IsShown(), B.Jump.psDefault == true }
 		local realInside = Polestar.Compat.IsInInstance
 		Polestar.Compat.IsInInstance = function() return true end
 		GF.Layout()
 		local inside = B:IsShown() and B.psKind or false
 		Polestar.Compat.IsInInstance = realInside
 		GF.Layout()
-		B.Jump:Click()
+		B.Later:Click()
 		local call = lastCall("SkipDungeon")
-		local keptText, keptClose = B:IsShown() and B.Text:GetText(), B.Close:IsShown()
+		local keptText, keptLink, keptClose = B:IsShown() and B.Text:GetText(), B.Jump:IsShown() and B.Jump.Label:GetText(), B.Close:IsShown()
 		B.Close:Click()
 		local gone = B:IsShown()
 		uistub.dungeonRun = nil
@@ -2533,13 +2535,14 @@ fn dungeon_route_no_group_skip_it_at_the_run_names_the_quests_kept_soon_says_to_
 		GF.Layout()
 		local oneAhead = B.Text:GetText()
 		B.Close:Click()
-		emit({ atRun = atRun, inside = inside, call = call, kept = keptText, keptClose = keptClose, gone = gone, soon = soon, oneAhead = oneAhead, soonAfter = B:IsShown() })"#)
+		emit({ atRun = atRun, inside = inside, call = call, kept = keptText, keptLink = keptLink, keptClose = keptClose, gone = gone, soon = soon, oneAhead = oneAhead, soonAfter = B:IsShown() })"#)
 	.remove(0);
 	assert_eq!(
 		out["atRun"],
 		json!([
-			"The Deadmines: a group of five runs it in about an hour.\nNo group? Skip it: the guide goes on with the solo route, and its quests stay in your log.",
-			"No group? Skip it",
+			"The Deadmines: a group of five runs it in about an hour.\nNo group? Skip this one: its quests stay in your log, and finished ones are still handed in.",
+			"I'm in a group",
+			"Skip this one",
 			false,
 			true
 		])
@@ -2547,6 +2550,7 @@ fn dungeon_route_no_group_skip_it_at_the_run_names_the_quests_kept_soon_says_to_
 	assert_eq!(out["inside"], false, "inside the instance the run's banner is gone");
 	assert_eq!(out["call"], json!(["SkipDungeon", 36]));
 	assert_eq!(out["kept"], "Kept in your log: “Oh Brother. . .”, “Red Silk Bandanas”\nIf you run it later, the dungeon's page has a hand-in guide for them.");
+	assert_eq!(out["keptLink"], "Clean up quest log", "unfinished: they can go from the log");
 	assert_eq!(out["keptClose"], true);
 	assert_eq!(out["gone"], false);
 	assert_eq!(out["soon"], json!([true, "Wailing Caverns in 3 steps: start looking for a group.", false, true]));

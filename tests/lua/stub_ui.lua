@@ -648,6 +648,7 @@ function Engine.DungeonChosen(map) return Engine.DungeonAnswer(map) == true end
 function Engine.ChooseDungeon(map, answer)
 	record("ChooseDungeon", map, answer)
 	Polestar.CharState().dungeons[map] = answer
+	Polestar.Fire("DUNGEON_ANSWERED", map, answer)
 end
 uistub.dungeonQuestion, uistub.dungeonRun, uistub.dungeonSoon, uistub.dungeonKept = nil, nil, nil, {}
 function Engine.DungeonQuestion()
@@ -670,6 +671,42 @@ end
 -- steps for ({ [map] = true }, Engine.GuideDungeons).
 uistub.guideDungeons = {}
 function Engine.GuideDungeons() return uistub.guideDungeons end
+-- uistub.dungeonsAhead: the dungeons ahead on the route, in route order
+-- (Engine.DungeonsAhead's rows: { map, name, level, runMap, pickMap,
+-- pickMaps, picks, inLog, here, allQuests }; the answer and Only quests on my
+-- way are read live). uistub.dungeonQuestsInLog: what
+-- Engine.DungeonQuestsInLog answers ({ { quest, title, ready } }; nil: no
+-- such list, as an engine without it).
+uistub.dungeonsAhead, uistub.dungeonQuestsInLog = {}, nil
+function Engine.DungeonsAhead(limit)
+	local out = {}
+	for i, d in ipairs(uistub.dungeonsAhead) do
+		if i > (limit or 5) then break end
+		local c = {}
+		for k, v in pairs(d) do c[k] = v end
+		c.answer = Engine.DungeonAnswer(d.map)
+		c.wayOnly = Engine.DungeonWayOnly(d.map)
+		out[i] = c
+	end
+	return out
+end
+-- "Only quests on my way" per dungeon (CharState().dungeonsWayOnly), told as an answer.
+function Engine.DungeonWayOnly(map) return Polestar.CharState().dungeonsWayOnly[map] == true end
+function Engine.ChooseDungeonWayOnly(map, on)
+	record("ChooseDungeonWayOnly", map, on)
+	Polestar.CharState().dungeonsWayOnly[map] = on and true or nil
+	Polestar.Fire("DUNGEON_ANSWERED", map, Engine.DungeonAnswer(map))
+end
+function Engine.DungeonQuestsInLog(map)
+	record("DungeonQuestsInLog", map)
+	return uistub.dungeonQuestsInLog
+end
+function Engine.DungeonName(map)
+	for _, d in ipairs(uistub.dungeonsAhead) do
+		if d.map == map then return d.name end
+	end
+	return nil
+end
 -- Group quests (`when group`): uistub.groupQuestion = { quest, title } is the
 -- one the live step waits on until answered; answers per character
 -- (CharState().groupQuests). uistub.groupQuests: the character's guides'

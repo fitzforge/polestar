@@ -53,6 +53,8 @@ mod dsl_verbs;
 mod dungeons_attune;
 #[path = "dungeons-e2e.rs"]
 mod dungeons_e2e;
+#[path = "dungeons-onboarding.rs"]
+mod dungeons_onboarding;
 #[path = "dungeons-pickup.rs"]
 mod dungeons_pickup;
 #[path = "dungeons-runtime.rs"]
