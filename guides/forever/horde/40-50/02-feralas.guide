@@ -258,9 +258,26 @@ step Fly to Gadgetzan
   fly "Gadgetzan"
   zone Tanaris
 
+step Gadgetzan
+  when taxi "Gadgetzan"
+  zone Tanaris
+  tip Flown in: Gadgetzan's quests first, by the flight master, then the Mirage Raceway is a short ride north over the Tanaris border.
+  accept 992                            -- Senior Surveyor Fizzledowser
+  turnin 2864                           -- Tran'rek
+  accept 1690                           -- Chief Engineer Bilgewhizzle
+  accept 1707                           -- Spigot Operator Luglunket
+
+step Gadgetzan
+  when taxi "Gadgetzan"
+  when dungeon "Zul'Farrak"
+  zone Tanaris
+  tip For your Zul'Farrak run, in the next guide: Tran'rek wants scarab shells, and Trenton Lighthammer, a short walk from the flight master, Troll Temper from the Sandfury trolls.
+  accept 2865                           -- Tran'rek
+  accept 3042                           -- Trenton Lighthammer
+
 step Mirage Raceway
   zone Thousand Needles
-  tip Flown in to Gadgetzan: the raceway is a short ride north over the Tanaris border, and Gadgetzan's quests wait for your way back.
+  tip Flown in to Gadgetzan: the raceway is a short ride north over the Tanaris border.
   tip The road from Freewind Post to Tanaris runs past the Mirage Raceway on the Shimmering Flats: Fizzle Brassbolts is in the gnomes' camp beside the track, Pozzik and Zamek by the goblins' camp. Pozzik first, then Zamek, who runs off to keep Rizzle busy; then take Rizzle's plans from the gnomes' camp and bring them back to Pozzik.
   turnin 1137                           -- Fizzle Brassbolts: News for Fizzle, from Martek in the Badlands
   accept 1190                           -- Pozzik
@@ -273,6 +290,7 @@ step Mirage Raceway
   turnin 1194                           -- Pozzik
 
 step To Gadgetzan
+  when !taxi "Gadgetzan"
   zone Tanaris
   goto 50.2,27.5 "Gadgetzan"
 
