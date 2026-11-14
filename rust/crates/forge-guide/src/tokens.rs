@@ -1044,17 +1044,64 @@ fn junk_spell(name: &str) -> bool {
 	false
 }
 
-/// The Forever client build folder the data was built from, when it holds every file of `files`.
+/// The Forever client build the data was built from (its meta's client tables source) and that source's
+/// name, which lists the tables read; None when the data names no build.
 #[cfg(feature = "native")]
-fn pinned_build_dir(data: &Data, files: &[&str]) -> Option<std::path::PathBuf> {
+fn pinned_build(data: &Data) -> Option<(String, String)> {
 	let sources = if data.meta.truthy() { data.meta.get("sources") } else { V::Undef };
 	let src = or_empty(&sources).into_iter().find(|x| x.truthy() && x.get("name").to_js_string().starts_with("World of Warcraft: Forever client tables"))?;
 	let rev = src.get("revision");
 	let rev = if rev.truthy() { rev.to_js_string() } else { String::new() };
 	static RE: LazyLock<regex::Regex> = LazyLock::new(|| class_re(r"[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+"));
 	let m = RE.find(&rev)?;
-	let dir = path_join(data.dir.as_deref()?, &["..", "sources", "wago", m.as_str()]);
+	Some((m.as_str().to_string(), src.get("name").to_js_string()))
+}
+
+/// That build's folder in the sources beside the data (`<data>/../sources/wago/<build>`).
+#[cfg(feature = "native")]
+fn build_dir(data: &Data, build: &str) -> Option<std::path::PathBuf> {
+	Some(path_join(data.dir.as_deref()?, &["..", "sources", "wago", build]))
+}
+
+/// The Forever client build folder the data was built from, when it holds every file of `files`.
+#[cfg(feature = "native")]
+fn pinned_build_dir(data: &Data, files: &[&str]) -> Option<std::path::PathBuf> {
+	let dir = build_dir(data, &pinned_build(data)?.0)?;
 	files.iter().all(|f| dir.join(f).exists()).then_some(dir)
+}
+
+/// The reference data built from a Forever client build has, in the sources beside it, the tables of that
+/// build the compile reads: AreaTable (places by ID) unless its client tables source lists the tables it
+/// read without it, and SpellName and SkillLineAbility (spell tokens) when it lists SpellName. Without
+/// them the guide texts read differently: spell names stay words and places miss their area, so a compile
+/// writes other texts and good translations read as stale. Ok when the data names no build. Err: the
+/// build, the folder and the missing tables. The node side: tools/lib/data/pinned.js.
+#[cfg(feature = "native")]
+pub fn check_pinned_tables(data: &Data) -> Result<(), String> {
+	let Some((build, name)) = pinned_build(data) else { return Ok(()) };
+	let Some(dir) = build_dir(data, &build) else { return Ok(()) };
+	let listed: Vec<&str> = name.split_once('(').and_then(|(_, rest)| rest.split_once(')')).map(|(list, _)| list.split(',').map(str::trim).collect()).unwrap_or_default();
+	let mut need = Vec::new();
+	if listed.contains(&"SpellName") {
+		need.extend(["SpellName.csv", "SkillLineAbility.csv"]);
+	}
+	if listed.is_empty() || listed.contains(&"AreaTable") {
+		need.push("AreaTable.csv");
+	}
+	let missing: Vec<&str> = need.into_iter().filter(|f| !dir.join(f).exists()).collect();
+	if missing.is_empty() {
+		return Ok(());
+	}
+	Err(format!(
+		"the reference data was built from Forever client build {build}, but {} lacks {}: the guide texts would read differently (spell names as words, places without their area) and their translations as stale. Put the sources the data was built with beside it, or rebuild the data with `forge data build`",
+		dir.display(),
+		missing.join(", ")
+	))
+}
+
+#[cfg(not(feature = "native"))]
+pub fn check_pinned_tables(_data: &Data) -> Result<(), String> {
+	Ok(())
 }
 
 /// node's `path.join` (lexical normalisation).
