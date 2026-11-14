@@ -308,7 +308,10 @@ accept) or the run asks; the dungeon's other steps follow the answer, and with
 none yet the solo route. An answer changes only the steps still ahead: like
 any `when`, a step the route has passed keeps its outcome. A step of a dungeon
 the character skips (and a `when !dungeon` step of one they run) has no step
-number, so the solo route's numbers stay as they are.
+number, so the solo route's numbers stay as they are. A city dungeon is its
+faction's only (Ragefire Chasm and the Ruins of Lordaeron the Horde's, The
+Hall of Thanes and the Stockade the Alliance's): for the other faction its
+steps never apply, whatever the answers, so its guides never carry them.
 
 A run is three parts. Its quests are picked up in `when dungeon` steps on
 stops the route makes anyway; the run itself is one `when dungeon` step, also

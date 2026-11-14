@@ -803,6 +803,32 @@ function Own.groupOpen(step, q)
 	return not takes
 end
 
+-- City dungeons (Fitz, 2026-11-14): an instance whose way in is inside a
+-- faction's capital, or under it (the Ruins of Lordaeron, the Undercity's),
+-- is that faction's only. The other faction never runs it, is never asked
+-- about it, never sees it in Dungeons in my route or the hub's For your level
+-- (Dungeons.EnemyCapital), and is never offered it by a party. By the
+-- instance's Map id and by its Codex key: the side it belongs to.
+local CITY_DUNGEONS = {
+	[389] = "H", ["ragefire-chasm"] = "H", -- Ragefire Chasm, in Orgrimmar
+	[2999] = "H", ["ruins-of-lordaeron"] = "H", -- the Ruins of Lordaeron, the Undercity's
+	[3065] = "A", ["the-hall-of-thanes"] = "A", -- The Hall of Thanes, in Ironforge
+	[34] = "A", ["stormwind-stockade"] = "A", -- the Stockade, in Stormwind
+}
+
+-- Whether dungeon `id` (its instance's Map id, or its Codex key) is a city
+-- dungeon of the other faction for side `side` ("A" | "H"; nil: this
+-- character's).
+function Engine.EnemyCityDungeon(id, side)
+	local own = id ~= nil and CITY_DUNGEONS[id]
+	if not own then return false end
+	if side == nil then
+		local f = Compat().GetPlayerFaction()
+		side = f == "Alliance" and "A" or f == "Horde" and "H" or nil
+	end
+	return side ~= nil and side ~= own
+end
+
 -- `when dungeon "<Name>"`: the player's answer to "run this dungeon in the
 -- route?": true (run it), false (skip it), nil (ask). The answer given for
 -- this dungeon, per character (CharState().dungeons[map], Engine.ChooseDungeon:
@@ -810,9 +836,10 @@ end
 -- answer for every dungeon (behavior.dungeons, "Dungeons in my route": "run",
 -- "ask": none, anything else Skip, the default, so the solo route is what a
 -- player gets until they choose). A dungeon the compiler found no Map id for
--- is never run.
+-- is never run, nor is a city dungeon of the other faction
+-- (Engine.EnemyCityDungeon), whatever the answers.
 function Own.dungeonAnswer(map)
-	if type(map) ~= "number" then return false end
+	if type(map) ~= "number" or Engine.EnemyCityDungeon(map) then return false end
 	local answer = ns.CharState().dungeons[map]
 	if answer ~= nil then return answer == true end
 	local all = ns.Get("behavior.dungeons")
@@ -8911,9 +8938,11 @@ end
 function Engine.DungeonAnswer(map) return Own.dungeonAnswer(map) end
 
 -- The answer for one dungeon: true runs it, false skips it, nil follows the
--- answer for every dungeon (behavior.dungeons).
+-- answer for every dungeon (behavior.dungeons). Never Run for a city dungeon
+-- of the other faction (Engine.EnemyCityDungeon).
 function Engine.ChooseDungeon(map, answer)
 	if type(map) ~= "number" or (answer ~= nil and answer ~= true and answer ~= false) then return end
+	if answer == true and Engine.EnemyCityDungeon(map) then return end
 	ns.CharState().dungeons[map] = answer
 	Own.dungeonGen = Own.dungeonGen + 1
 	ns.Fire("DUNGEON_ANSWERED", map, answer)
@@ -9063,6 +9092,10 @@ function Engine.GuideDungeons()
 				end
 			end
 		end
+	end
+	-- Never a city dungeon of the other faction (Engine.EnemyCityDungeon).
+	for map in pairs(out) do
+		if Engine.EnemyCityDungeon(map) then out[map] = nil end
 	end
 	Own.guideDungeons = { n = #list, out = out }
 	return out
