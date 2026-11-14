@@ -733,6 +733,12 @@ fn lower_after(rest: &[char]) -> bool {
 	p > 0 && p < rest.len() && is_ll(rest[p])
 }
 
+/// The lower-case word `lower_after` saw: /^[ \t]+(\p{Ll}[\p{L}'’-]*)/u's group, as tokens.js reads it.
+fn word_after(rest: &[char]) -> String {
+	let p = rest.iter().take_while(|c| sp_tab(**c)).count();
+	rest[p..].iter().enumerate().take_while(|(n, c)| if *n == 0 { is_ll(**c) } else { c.is_alphabetic() || matches!(c, '\'' | '’' | '-') }).map(|(_, c)| *c).collect()
+}
+
 /// One index of a lookup: a name index, or one consulted only right after "cast" or "your".
 #[derive(Clone, Copy)]
 pub enum Ix<'a> {
@@ -1332,10 +1338,10 @@ enum Part {
 	Tok { token: String, name: Option<String>, used: Used },
 }
 
-/// text -> { text, used, plurals }: the names `indexes` know replaced by tokens, where `accept(entry)` allows;
-/// tokens already in the text are kept (and listed, `author`); `plurals`: names that stand there in their
-/// English plural.
-pub fn tokenise_text(text: &str, indexes: &[Ix], accept: &mut dyn FnMut(&Entry) -> bool) -> Tokenised {
+/// text -> { text, used, plurals }: the names `indexes` know replaced by tokens, where `accept(entry, rest)` allows
+/// (`rest`: the text after the name, its first 40 UTF-16 units); tokens already in the text are kept (and listed,
+/// `author`); `plurals`: names that stand there in their English plural.
+pub fn tokenise_text(text: &str, indexes: &[Ix], accept: &mut dyn FnMut(&Entry, &[char]) -> bool) -> Tokenised {
 	let t = u16s(text);
 	let mut parts: Vec<Part> = Vec::new();
 	let mut plurals = Vec::new();
@@ -1359,7 +1365,8 @@ pub fn tokenise_text(text: &str, indexes: &[Ix], accept: &mut dyn FnMut(&Entry) 
 		if !unit_word(if i == 0 { None } else { Some(t[i - 1]) }) {
 			let e = longest_at(indexes, &t, i, false);
 			if let Some(e) = &e {
-				if accept(e) {
+				let end = (i + e.name16.len()).min(t.len());
+				if accept(e, &chars16(&t[end..(end + 40).min(t.len())])) {
 					flush(&mut parts, &mut plain);
 					parts.push(Part::Tok {
 						token: format!("{{{}:{}}}", e.kind, num_str(e.id)),
@@ -1456,6 +1463,8 @@ pub fn tokenise_guides(guides: &[V], data: &Data) -> V {
 	let bump = |o: &Obj, k: &str| o.set(k, o.get(k).num() + 1.0);
 	let problems = Arr::new();
 	let aliases = Arr::new();
+	// An object of the step's own goals before a lower-case word in its title (the lint warns).
+	let title_objects = Arr::new();
 	let mut out = Vec::new();
 	for guide in guides {
 		let base = guide_index(guide, data, &common, &mut ctx);
@@ -1505,8 +1514,23 @@ pub fn tokenise_guides(guides: &[V], data: &Data) -> V {
 		let mut seen: FxHashMap<String, String> = FxHashMap::default();
 		let mut written: FxHashMap<String, String> = FxHashMap::default();
 		let gid = guide.get("id");
-		let mut replace = |text: &str, holder: &V, key: &TextKey, indexes: &[Ix], ln: f64, names: &mut FxHashMap<String, String>| {
-			let mut r = tokenise_text(text, indexes, &mut |e: &Entry| {
+		// A step's title takes the token of an object no goal of the step names only where the object's name
+		// stands alone (`title` is Some): before a lower-case word it describes a kind of thing ("Dark Iron
+		// dwarves", whose object "Dark Iron" would put its name in the title on a translated client), while
+		// "Trade District" or "Boat to Auberdine" alone is that object's name. An object of the step's own goals
+		// there keeps its token, and `title` gets its id, words and the lower-case word after them.
+		let kept = |own_objects: bool, e: &Entry, rest: &[char]| !own_objects || e.kind != "object" || e.prio.floor() == STEP || !lower_after(rest);
+		let mut replace = |text: &str, holder: &V, key: &TextKey, indexes: &[Ix], ln: f64, names: &mut FxHashMap<String, String>, mut title: Option<&mut Vec<(f64, String, String)>>| {
+			let own_objects = title.is_some();
+			let mut r = tokenise_text(text, indexes, &mut |e: &Entry, rest: &[char]| {
+				if !kept(own_objects, e, rest) {
+					return false;
+				}
+				if let Some(list) = title.as_deref_mut() {
+					if e.kind == "object" && lower_after(rest) && !list.iter().any(|(id, ..)| *id == e.id) {
+						list.push((e.id, e.name.clone(), word_after(rest)));
+					}
+				}
 				let k = key_of(e.kind, e.id);
 				names.entry(k).or_insert_with(|| if e.next.is_some() { e.english.clone() } else { e.name.clone() });
 				true
@@ -1520,7 +1544,15 @@ pub fn tokenise_guides(guides: &[V], data: &Data) -> V {
 				}
 			}
 			if seen.get(&r.text).is_some_and(|s| *s != fill_tokens_map(text, names)) {
-				r = tokenise_text(text, indexes, &mut |e: &Entry| {
+				r = tokenise_text(text, indexes, &mut |e: &Entry, rest: &[char]| {
+					if !kept(own_objects, e, rest) {
+						return false;
+					}
+					if let Some(list) = title.as_deref_mut() {
+						if e.kind == "object" && lower_after(rest) && !list.iter().any(|(id, ..)| *id == e.id) {
+							list.push((e.id, e.name.clone(), word_after(rest)));
+						}
+					}
 					if e.next.is_some() {
 						return false;
 					}
@@ -1584,7 +1616,7 @@ pub fn tokenise_guides(guides: &[V], data: &Data) -> V {
 			// forEachText reads each field when it reaches it; replace writes only the field it was given.
 			for_each_text(&copy, false, &mut |text, holder, key, _, _| texts.push((text.to_string(), holder.clone(), key.clone())));
 			for (text, holder, key) in texts {
-				replace(&text, &holder, &key, &gi, guide_line, &mut names);
+				replace(&text, &holder, &key, &gi, guide_line, &mut names, None);
 			}
 		}
 		let orig_steps = guide.get("steps").items();
@@ -1596,7 +1628,23 @@ pub fn tokenise_guides(guides: &[V], data: &Data) -> V {
 			for f in STEP_FIELDS {
 				let v = step.get(f);
 				if let Some(s) = str_(&v) {
-					replace(s, step, &TextKey::Field(f), &indexes, step_line, &mut names);
+					// A title's object of the step's own goals before a lower-case word keeps its token, and
+					// the author hears of it.
+					let mut before: Vec<(f64, String, String)> = Vec::new();
+					replace(s, step, &TextKey::Field(f), &indexes, step_line, &mut names, (f == "title").then_some(&mut before));
+					let now = step.get(f).to_js_string();
+					for (id, name, word) in before {
+						let id = num_str(id);
+						if !now.contains(&format!("{{object:{id}}}")) {
+							continue;
+						}
+						title_objects.push(obj! {
+							"guide" => guide.clone(),
+							"line" => V::Num(step_line),
+							"message" => format!("the title's \"{name}\" is the token of object {id}, which the step's goals name, though \"{word}\" follows it in lower case: a translated client shows the object's name there"),
+							"hint" => format!("reword the title if \"{name} {word}\" means a kind of thing rather than that object"),
+						});
+					}
 				}
 			}
 			let orig_goals = orig.get("goals").items();
@@ -1610,7 +1658,7 @@ pub fn tokenise_guides(guides: &[V], data: &Data) -> V {
 				for f in goal_fields(goal) {
 					let v = goal.get(f);
 					if let Some(s) = str_(&v) {
-						replace(s, goal, &TextKey::Field(f), &indexes, ln, &mut names);
+						replace(s, goal, &TextKey::Field(f), &indexes, ln, &mut names, None);
 					}
 				}
 			}
@@ -1638,5 +1686,5 @@ pub fn tokenise_guides(guides: &[V], data: &Data) -> V {
 		out.push(copy);
 	}
 	let stats = obj! { "replaced" => replaced, "bySource" => by_source, "dropped" => dropped };
-	obj! { "guides" => out, "stats" => stats, "problems" => problems, "aliases" => aliases }.into()
+	obj! { "guides" => out, "stats" => stats, "problems" => problems, "aliases" => aliases, "titleObjects" => title_objects }.into()
 }

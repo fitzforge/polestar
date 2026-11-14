@@ -243,12 +243,14 @@ function compileSources(sources, data, diag = new Diagnostics(), opts = {}) {
 
 // Gives each guide `_localised`: the copy Guides.lua holds, its prose with
 // name tokens (tokens.js), which the pack's translations are keyed by. A token
-// its author wrote that the data does not know is an error. -> tokens.js's
-// stats.
+// its author wrote that the data does not know is an error; a step title's
+// object of the step's own goals before a lower-case word is a warning. ->
+// tokens.js's stats.
 function localise(guides, data, diag) {
 	const r = tokeniseGuides(guides, data);
 	guides.forEach((g, i) => hidden(g, '_localised', r.guides[i]));
 	for (const p of r.problems) diag.error(p.guide._ast.file, p.line, p.message, 'write a name token as {kind:id}, kind one of npc object item quest zone area spell faction skill, with an id the data has');
+	for (const t of r.titleObjects) diag.warn(t.guide._ast.file, t.line, t.message, t.hint);
 	return r.stats;
 }
 

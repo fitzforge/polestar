@@ -194,6 +194,59 @@ test('a name inside a longer proper name the data lacks stays words', () => {
 	assert.equal(r.guides[0]._localised.steps[0].note, 'Young Kobold Vermin Runts sit by {npc:197}; Kobold Vermin Chiefs too, and {npc:6}.');
 });
 
+// "Dark Iron dwarves: kill these as you meet them" took the token of an object
+// named "Dark Iron" that no goal of its step names, so a translated client read
+// "Черное Железо dwarves: ...". Such an object's name stays words before a
+// lower-case word; alone ("Trade District", a sign's name) it is the token.
+// The same guide goes through forge (guide_cli.rs).
+test("a step's title takes the token of an object its goals do not name only where the name stands alone, not before a lower-case word", () => {
+	const dir = packDir();
+	const guide = [
+		'guide texts/main',
+		'title Elwynn Forest',
+		'faction Alliance',
+		'levels 1-10',
+		'zone Elwynn Forest',
+		'',
+		'step Marshal McBride',
+		'  accept 7',
+		'',
+		'step Copper Vein hills: kill as you go',
+		'  kill 6 quest 7 -- the Copper Vein spots draw Kobold Vermin',
+		'',
+		'step Battered Chest',
+		'  interact 2843',
+		'',
+		'step Kobold Crate',
+		'  goto 48,32',
+		'',
+		'step Battered Chest lids open easily',
+		'  interact 2843',
+		'',
+		'step Marshal McBride',
+		'  turnin 7',
+		'',
+	].join('\n');
+	fs.writeFileSync(path.join(dir, 'guides', 'main.guide'), guide);
+	const r = build(dir);
+	const steps = r.guides[0]._localised.steps;
+	assert.equal(steps[1].title, 'Copper Vein hills: kill as you go', 'an object no goal of the step names stays words in its title');
+	assert.equal(steps[1].goals[0].note, 'the {object:1731} spots draw {npc:6}', "the step's note still names it by its token");
+	assert.equal(steps[2].title, '{object:2843}', 'the title of a step whose goal is the object is its token');
+	assert.equal(steps[3].title, '{object:1617}', "an object's name alone is its token, as a city district's sign names the district");
+	// The step's own object before a lower-case word keeps its token, and the lint warns the author.
+	assert.equal(steps[4].title, '{object:2843} lids open easily');
+	assert.deepEqual(
+		r.diag.warnings.filter((d) => /the title's/.test(d.message)).map((d) => [d.message, d.hint]),
+		[
+			[
+				'the title\'s "Battered Chest" is the token of object 2843, which the step\'s goals name, though "lids" follows it in lower case: a translated client shows the object\'s name there',
+				'reword the title if "Battered Chest lids" means a kind of thing rather than that object',
+			],
+		],
+	);
+});
+
 test('a translation may name a plural the English keeps as words by its singular token', () => {
 	const { textProblems } = require('../tools/lib/i18n/guides');
 	assert.deepEqual(textProblems('Kill the Kobold Vermins.', 'Bandidos ({npc:6}) ×8', ['npc:6']), []);

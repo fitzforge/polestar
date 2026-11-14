@@ -141,7 +141,9 @@ pub fn compile_checked(sources: &[Source], data: &Data, opts: &CompileOpts) -> R
 	Ok(compiled)
 }
 
-/// localise: gives each guide `_localised` (its prose with name tokens); -> tokens.js's stats.
+/// localise: gives each guide `_localised` (its prose with name tokens); a token its author wrote that the data does
+/// not know is an error, a step title's object of the step's own goals before a lower-case word a warning; ->
+/// tokens.js's stats.
 pub fn localise(guides: &[V], data: &Data, diag: &mut Diagnostics) -> V {
 	let r = crate::tokens::tokenise_guides(guides, data);
 	let loc = r.get("guides");
@@ -155,6 +157,9 @@ pub fn localise(guides: &[V], data: &Data, diag: &mut Diagnostics) -> V {
 			p.get("message").to_js_string(),
 			Some("write a name token as {kind:id}, kind one of npc object item quest zone area spell faction skill, with an id the data has".into()),
 		);
+	}
+	for t in r.get("titleObjects").items() {
+		diag.warn(&t.get("guide").hidden("_ast").get("file").to_js_string(), t.get("line").num(), t.get("message").to_js_string(), Some(t.get("hint").to_js_string()));
 	}
 	r.get("stats")
 }
