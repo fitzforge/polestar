@@ -15,7 +15,7 @@ const fs = require('node:fs');
 const path = require('node:path');
 const { needs } = require('./helpers/data');
 const { compileSources, compileProject, OFFICIAL_DIR } = require('../tools/lib/dsl/project');
-const { loadData } = require('../tools/lib/dsl/data');
+const { loadData, Data } = require('../tools/lib/dsl/data');
 const { parseGuide } = require('../tools/lib/dsl/parse');
 const { Diagnostics } = require('../tools/lib/dsl/diag');
 const { loadCorrections } = require('../tools/lib/data/corrections');
@@ -8865,6 +8865,130 @@ test('Level sweep: accepts below their minimum level are moved or gated', { skip
 	const all = headers();
 	assert.ok(all['forever/horde/40-50/04-tanaris'].min <= 46, 'Tanaris starts at 46: every start enters it at 45.96');
 	assert.ok(all['forever/horde/02-the-barrens'].min <= 14, 'the Barrens start at 14: Orc and Troll Rogues, Mages and Priests enter them at 13.99');
+});
+
+test('Bear Form approaches follow completed visits without dropping carried work (#2306)', async (t) => {
+	const file = path.join(OFFICIAL_DIR, 'forever/class/druid/bear-form.guide');
+	const text = fs.readFileSync(file, 'utf8');
+	const diag = new Diagnostics();
+	const ast = parseGuide(text, file, diag);
+	assert.deepEqual(diag.errors, []);
+	const lines = text.split('\n');
+	const zones = new Data({ zones: {
+		1450: { id: 1450, name: 'Moonglade' }, 1457: { id: 1457, name: 'Darnassus' },
+		1416: { id: 1416, name: 'Alterac Mountains' }, 1412: { id: 1412, name: 'Mulgore' },
+	} });
+	const islandStates = [
+		['chain untaken', [], [], false],
+		['94006 held', [94006], [], false],
+		['94006 handed in, final untaken', [], [94006], false],
+		['94638 held', [94638], [94006], false],
+		['94638 handed in', [], [94006, 94638], true],
+	];
+	const visits = [
+		{ name: 'later Night Elf doorway', quest: 6001, race: 'NightElf', faction: 'Alliance', point: [1457, 35.8, 11.6], states: [
+			['visit untaken', [], [], false],
+			['5931 held', [5931], [], false],
+			['5931 handed in, 6001 untaken', [], [5931], false],
+			['6001 held', [6001], [5931], true],
+			['6001 handed in', [], [5931, 6001], true],
+		] },
+		{ name: 'first Night Elf doorway', quest: 5921, race: 'NightElf', faction: 'Alliance', point: [1457, 35.8, 11.6], states: [
+			['visit untaken', [], [], false],
+			['5921 held without a letter', [5921], [], true],
+			['5921 handed in without a letter', [], [5921], true],
+			...[5923, 5924, 5925].flatMap((letter) => [
+				[`${letter} letter held, 5921 untaken`, [letter], [], false],
+				[`${letter} letter and 5921 held`, [letter, 5921], [], false],
+				[`${letter} letter held after 5921 hand-in`, [letter], [5921], false],
+			]),
+		] },
+		{ name: 'Alliance skyboat', race: 'Skyborne', faction: 'Alliance', point: [1416, 12.5, 51.8], states: islandStates },
+		{ name: 'Horde skyboat', race: 'Skyborne', faction: 'Horde', point: [1412, 34.3, 25.8], states: islandStates },
+	];
+	for (const visit of visits) {
+		const identifies = visit.quest
+			? (s) => s.goals.some((g) => g.verb === 'accept' && g.quest === visit.quest)
+			: (s) => s.title.startsWith('Skyboat') && s.only.factions.includes(visit.faction);
+		assert.equal(ast.steps.filter(identifies).length, 1, `${visit.name} has one source block`);
+		const approach = (s) => s.goals.length === 1 && s.goals[0].verb === 'goto';
+		let end = ast.steps.findIndex(identifies) + (visit.quest ? 0 : 1);
+		// Trainer hand-ins can sit between the entrance and its quest pickup.
+		if (visit.quest) while (end > 0 && !approach(ast.steps[end - 1])) end--;
+		let start = end - 1;
+		// Include every contiguous approach to exercise their interaction on arrival.
+		if (visit.quest) while (start > 0 && approach(ast.steps[start - 1])) start--;
+		assert.ok(start >= 0 && end < ast.steps.length);
+		// Compile the actual approaches, retaining the guide header and restrictions. A sentinel
+		// task exposes whether the Engine leaves it, without optional quest/reference data.
+		const source = [
+			...lines.slice(0, ast.steps[0].line - 1),
+			...lines.slice(ast.steps[start].line - 1, ast.steps[end].line - 1),
+			'step Continue after the visit', '  task "Continue"',
+		].join('\n');
+		const compiled = compileSources([{ file, text: source }], zones);
+		assert.deepEqual(compiled.diag.list, []);
+		const pack = writeTestPack(compiled.guides, zones);
+		const loads = pack.scripts.map((f) => `assert(loadfile(${JSON.stringify(f)}))("Polestar_Guides", ns)`).join('\n');
+		const continuation = compiled.guides[0].steps.length;
+		const snapshot = 'emit({step=E.GetStepIndex(), point=E.GetWaypoint()})';
+		const runState = (held, completed, after = '') => runAddon({
+			stubs: ['stub_world.lua'],
+			addons: [{ name: 'Polestar', files: ['Core/Core.xml'] }],
+			saved: { Polestar: 'PolestarDB = {schema=1, settings={behavior={autoSelectGuide=false}}}' },
+			before: `local w = stub.world
+				w.race, w.raceName, w.faction, w.class, w.className = "${visit.race}", "${visit.race}", "${visit.faction}", "DRUID", "Druid"
+				w.level = 10
+				w.addMap(1450, {name="Moonglade", c=1, left=-1381.25, right=-3689.583, top=8491.666, bottom=6952.083})
+				w.addMap(1457, {name="Darnassus", c=1, left=2938.363, right=1880.03, top=10238.316, bottom=9532.587})
+				w.moveTo(1450, 40, 50)`,
+			script: `do local ns = {}
+				${loads}
+				end
+				local w = stub.world
+				${held.map((q) => `w.accept(${q}, {})`).join('\n')}
+				w.complete({${completed.join(',')}})
+				stub.login(); stub.advance(0.5)
+				local E = Polestar.Engine
+				E.SetGuide("forever/class/druid/bear-form"); stub.advance(0.5)
+				${snapshot}
+				${after}`,
+		}).emitted;
+		const atDoor = (out) => {
+			assert.ok(out.step >= 1 && out.step < continuation, 'the approach stays active');
+			assert.deepEqual([out.point.map, out.point.x, out.point.y], visit.point, 'retain the original doorway or port');
+		};
+		try {
+			for (const [state, held, completed, continues] of visit.states) {
+				await t.test(`${visit.name}: ${state}`, () => {
+					const [out] = runState(held, completed);
+					if (continues) assert.equal(out.step, continuation, 'a finished visit removes its approach');
+					else atDoor(out);
+				});
+			}
+			if (visit.quest === 5921) {
+				for (const [name, held, action] of [
+					['arrive with a letter', [5925], ''],
+					['arrive without a letter', [], ''],
+					['abandon the letter before arrival', [5925], 'w.abandon(5925)'],
+					['take a letter before arrival', [], 'w.accept(5925, {})'],
+					['abandon Moonglade while carrying a letter', [5925, 5921], 'w.abandon(5921)'],
+				]) {
+					await t.test(`first Night Elf doorway: ${name}`, () => {
+						const [before, changed, arrived] = runState(held, [], `
+							${action}
+							stub.advance(0.5); ${snapshot}
+							w.moveTo(1457, 35.8, 11.6); stub.advance(2); ${snapshot}`);
+						atDoor(before);
+						atDoor(changed);
+						assert.equal(arrived.step, continuation, 'one arrival completes the approach, even when both reasons apply');
+					});
+				}
+			}
+		} finally {
+			fs.rmSync(pack.dir, { recursive: true, force: true });
+		}
+	}
 });
 
 // FlyHifiGuy's report (#1327): on Trial of the Lake (28/29, a 30-minute quest timer) a teleport reset the trial, and the
