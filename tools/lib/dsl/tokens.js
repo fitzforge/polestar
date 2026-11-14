@@ -643,7 +643,9 @@ function selfNote(goal, data) {
 // guide, line, words, token, english, text }], each name matched without its
 // "The" or "City", or by its first name; titleObjects: [{ guide, line,
 // message, hint }], the step titles where an object the step's goals name
-// stands before a lower-case word (its token stays: the lint warns).
+// stands before a lower-case word other than "and" or "or" (its token stays:
+// the lint warns).
+const JOINS_NAMES = new Set(['and', 'or']);
 function tokeniseGuides(guides, data) {
 	const common = commonWords(guides);
 	const { idx: world, abilities } = worldIndex(data, common);
@@ -739,7 +741,8 @@ function tokeniseGuides(guides, data) {
 						? (e, rest) => {
 								if (!ownObjects(e, rest)) return false;
 								const w = e.kind === 'object' && /^[ \t]+(\p{Ll}[\p{L}'’-]*)/u.exec(rest);
-								if (w && !before.has(e.id)) before.set(e.id, [e.name, w[1]]);
+								// "and" or "or" after it ends the object's name ("Supply Crate and Defias Bandit"): no kind of thing.
+								if (w && !JOINS_NAMES.has(w[1]) && !before.has(e.id)) before.set(e.id, [e.name, w[1]]);
 								return true;
 							}
 						: undefined;

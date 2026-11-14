@@ -198,6 +198,8 @@ test('a name inside a longer proper name the data lacks stays words', () => {
 // named "Dark Iron" that no goal of its step names, so a translated client read
 // "Черное Железо dwarves: ...". Such an object's name stays words before a
 // lower-case word; alone ("Trade District", a sign's name) it is the token.
+// "and" or "or" after the step's own object ends its name, as the route drafter
+// joins a step's names ("Supply Crate and Defias Bandit"): no warning.
 // The same guide goes through forge (guide_cli.rs).
 test("a step's title takes the token of an object its goals do not name only where the name stands alone, not before a lower-case word", () => {
 	const dir = packDir();
@@ -223,6 +225,12 @@ test("a step's title takes the token of an object its goals do not name only whe
 		'step Battered Chest lids open easily',
 		'  interact 2843',
 		'',
+		'step Battered Chest and Kobold Crate',
+		'  interact 2843',
+		'',
+		'step Battered Chest or Kobold Crate',
+		'  interact 2843',
+		'',
 		'step Marshal McBride',
 		'  turnin 7',
 		'',
@@ -236,6 +244,9 @@ test("a step's title takes the token of an object its goals do not name only whe
 	assert.equal(steps[3].title, '{object:1617}', "an object's name alone is its token, as a city district's sign names the district");
 	// The step's own object before a lower-case word keeps its token, and the lint warns the author.
 	assert.equal(steps[4].title, '{object:2843} lids open easily');
+	// "and" or "or" after it: the object itself, its token and no warning.
+	assert.equal(steps[5].title, '{object:2843} and {object:1617}');
+	assert.equal(steps[6].title, '{object:2843} or {object:1617}');
 	assert.deepEqual(
 		r.diag.warnings.filter((d) => /the title's/.test(d.message)).map((d) => [d.message, d.hint]),
 		[

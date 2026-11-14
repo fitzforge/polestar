@@ -739,6 +739,12 @@ fn word_after(rest: &[char]) -> String {
 	rest[p..].iter().enumerate().take_while(|(n, c)| if *n == 0 { is_ll(**c) } else { c.is_alphabetic() || matches!(c, '\'' | '’' | '-') }).map(|(_, c)| *c).collect()
 }
 
+/// "and" or "or" after a title's object ends its name ("Supply Crate and Defias Bandit"): no kind of thing, no
+/// warning (tokens.js's JOINS_NAMES).
+fn joins_names(word: &str) -> bool {
+	matches!(word, "and" | "or")
+}
+
 /// One index of a lookup: a name index, or one consulted only right after "cast" or "your".
 #[derive(Clone, Copy)]
 pub enum Ix<'a> {
@@ -1575,7 +1581,10 @@ pub fn tokenise_guides(guides: &[V], data: &Data) -> V {
 				}
 				if let Some(list) = title.as_deref_mut() {
 					if e.kind == "object" && lower_after(rest) && !list.iter().any(|(id, ..)| *id == e.id) {
-						list.push((e.id, e.name.clone(), word_after(rest)));
+						let word = word_after(rest);
+						if !joins_names(&word) {
+							list.push((e.id, e.name.clone(), word));
+						}
 					}
 				}
 				let k = key_of(e.kind, e.id);
@@ -1597,7 +1606,10 @@ pub fn tokenise_guides(guides: &[V], data: &Data) -> V {
 					}
 					if let Some(list) = title.as_deref_mut() {
 						if e.kind == "object" && lower_after(rest) && !list.iter().any(|(id, ..)| *id == e.id) {
-							list.push((e.id, e.name.clone(), word_after(rest)));
+							let word = word_after(rest);
+							if !joins_names(&word) {
+								list.push((e.id, e.name.clone(), word));
+							}
 						}
 					}
 					if e.next.is_some() {

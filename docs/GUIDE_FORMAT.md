@@ -845,8 +845,9 @@ an object no goal of the step names stays words before a lower-case word:
 ("Trade District", a city's sign) it is that object's token. An object the
 step's goals name is its token there too, and compile and lint warn when a
 lower-case word follows it: reword the title if the words mean a kind of
-thing. You may write a token yourself, `{npc:240}`: its kind and id must be
-in the data.
+thing. "and" or "or" after it end its name ("Supply Crate and Defias
+Bandit") and draw no warning. You may write a token yourself, `{npc:240}`:
+its kind and id must be in the data.
 `i18n guides stats` counts the tokens, by kind and by where the compiler
 found them.
 
