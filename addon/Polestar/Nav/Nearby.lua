@@ -7,7 +7,7 @@
 -- Portions Copyright (C) 2026 Cillian Berragan (Shortest Path Forever, GPL-3.0-or-later); adapted for Polestar, 2026-10-15.
 --
 --   /polestar near <kind> [profession]   kinds: trainer, class, repair, reagents, vendor,
---                                        innkeeper, bank, mailbox, auction, flight, stable;
+--                                        innkeeper, bank, mailbox, auction, flight, stable, transmog;
 --                                        `/polestar near mining` = trainer mining
 --   Nearby.Find(kind, line) -> place, seconds | nil, reason
 --       reason "kind" | "combat" | "none" | a Codex failure: "missing" (not installed, or no
@@ -81,6 +81,7 @@ local KINDS = {
 	{ key = "auction", role = "auctioneer", label = L["Auction house"] },
 	{ key = "flight", role = "flightmaster", label = L["Flight master"], stop = "flightmaster" },
 	{ key = "stable", role = "stablemaster", label = L["Stable master"] },
+	{ key = "transmogrifier", role = "transmogrifier", label = L["Transmogrifier"] },
 }
 local BY_KEY = {}
 for _, k in ipairs(KINDS) do BY_KEY[k.key] = k end
@@ -90,6 +91,7 @@ local ALIAS = {
 	drink = "food", water = "food", arrow = "arrows", bullet = "bullets", ammo = "arrows",
 	bow = "ranged", bows = "ranged", gun = "ranged", guns = "ranged", crossbow = "ranged",
 	mail = "mailbox", post = "mailbox", goods = "general", supplies = "general",
+	transmog = "transmogrifier",
 }
 Nearby.KINDS = KINDS
 
@@ -465,7 +467,7 @@ function Nearby.Go(key, line)
 	if not place then
 		local why = seconds
 		if why == "kind" then
-			ns.Print(L["Usage: /polestar near trainer [profession] | class | weapon | repair | reagents | vendor | food | general | arrows | bullets | ranged | innkeeper | bank | mailbox | auction | flight | stable"])
+			ns.Print(L["Usage: /polestar near trainer [profession] | class | weapon | repair | reagents | vendor | food | general | arrows | bullets | ranged | innkeeper | bank | mailbox | auction | flight | stable | transmog"])
 		elseif why == "combat" then
 			ns.Print(L["Nearby services can be looked up after combat."])
 		elseif why == "missing" then
@@ -504,7 +506,7 @@ function Nearby.Command(rest)
 	local text = lower((rest or ""):match("^%s*(.-)%s*$"))
 	local word, more = text:match("^(%S+)%s*(.-)$")
 	if not word then
-		ns.Print(L["Usage: /polestar near trainer [profession] | class | weapon | repair | reagents | vendor | food | general | arrows | bullets | ranged | innkeeper | bank | mailbox | auction | flight | stable"])
+		ns.Print(L["Usage: /polestar near trainer [profession] | class | weapon | repair | reagents | vendor | food | general | arrows | bullets | ranged | innkeeper | bank | mailbox | auction | flight | stable | transmog"])
 		return
 	end
 	local key = ALIAS[word] or word
@@ -571,7 +573,7 @@ Nearby.AddMenu = addMenu
 -- profession trainer when it has none), then the rest. Each entry is
 -- { key, line, label, icon }, for Nearby.Go(key, line); the vendor and the
 -- weapon master are pages of their own (`page`, `weapons`).
-local BUTTON_ORDER = { "vendor", "repair", "innkeeper", "flight", "class", "trainer", "weapon", "-", "reagents", "bank", "mailbox", "auction", "stable" }
+local BUTTON_ORDER = { "vendor", "repair", "innkeeper", "flight", "class", "trainer", "weapon", "-", "reagents", "bank", "mailbox", "auction", "stable", "transmogrifier" }
 local ICONS = { vendor = "icon-vendor", repair = "icon-buy", innkeeper = "icon-sethome", flight = "icon-fly",
 	class = "icon-train", trainer = "icon-skill", weapon = "icon-train" }
 
@@ -616,7 +618,7 @@ ns.OnLogin(function()
 end)
 
 ns.RegisterCommand("near", Nearby.Command,
-	L["Point the arrow at the nearest trainer, class trainer, repair, reagents, vendor, innkeeper, bank, mailbox, auction house, flight or stable master"], true)
+	L["Point the arrow at the nearest trainer, class trainer, repair, reagents, vendor, innkeeper, bank, mailbox, auction house, flight, stable master or transmogrifier"], true)
 
 if ns.RegisterOptions then
 	-- Also on Quality of Life > Travel > Nearby services: one setting, a fresh

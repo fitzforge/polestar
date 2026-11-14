@@ -58,6 +58,8 @@ local chunks = {}
 local indexes = {} -- kind -> search blob
 local cache = {} -- group -> { [id] = record | false } (weak values)
 local roleCache = {} -- role -> { npcId, ... }
+-- Older Codex packs predate Forever's transmogrifier flag.
+local TRANSMOGRIFIERS = { [270513] = true, [270581] = true, [270582] = true }
 local followUps = {} -- questId -> { follow-up questId, ... }
 local meta
 local announced = false
@@ -313,6 +315,11 @@ local function decodeNpc(group, id, s)
 	if t[6] and t[6] ~= "" then
 		local r, m = split(t[6], ",")
 		for i = 1, m do roles[i] = unesc(r[i]) end
+	end
+	if TRANSMOGRIFIERS[id] then
+		local found
+		for _, role in ipairs(roles) do if role == "transmogrifier" then found = true; break end end
+		if not found then roles[#roles + 1] = "transmogrifier" end
 	end
 	return {
 		id = id, name = nameOf(group, id),
@@ -684,6 +691,14 @@ function Codex.WithRole(role)
 	local hit = roleCache[role]
 	if hit then return hit end
 	hit = numbers(nameOf("role", role))
+	if role == "transmogrifier" then
+		local seen = {}
+		for _, id in ipairs(hit) do seen[id] = true end
+		for id in pairs(TRANSMOGRIFIERS) do
+			if not seen[id] and Codex.Npc(id) then hit[#hit + 1] = id end
+		end
+		table.sort(hit)
+	end
 	roleCache[role] = hit
 	return hit
 end

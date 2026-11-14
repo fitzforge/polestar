@@ -510,7 +510,7 @@ fn services_keep_close_spawns_spirit_guides_and_fill_only_missing_service_sides(
 	let pts = json!([[30, 40], [30.1, 40.1]]);
 	let npc = |flags: i64, side: &str| json!({ "name": "Fixture Service", "minLevel": 10, "spawns": { "12": pts }, "npcFlags": flags, "friendlyToFaction": side });
 	let store = Store {
-		npcs: json!({ "2": npc(4, "H"), "3": npc(4, "H"), "4": npc(0, "A"), "812": npc(96, "AH") }),
+		npcs: json!({ "2": npc(4, "H"), "3": npc(4, "H"), "4": npc(0, "A"), "812": npc(96, "AH"), "815": npc(536870913, "A") }),
 		objects: json!({ "813": { "name": "Mailbox", "factionID": 35, "spawns": { "12": pts } }, "814": { "name": "Fixture Stone", "spawns": { "12": pts } } }),
 		..Default::default()
 	};
@@ -518,6 +518,7 @@ fn services_keep_close_spawns_spirit_guides_and_fill_only_missing_service_sides(
 	let (n, o) = (b.read("npcs"), b.read("objects"));
 	assert_eq!((&n["2"]["faction"], &n["3"]["faction"], &n["4"]["faction"]), (&json!("AH"), &json!("H"), &Value::Null));
 	assert_eq!(n["812"]["roles"], json!(["spirithealer"]));
+	assert_eq!((&n["815"]["roles"], &n["815"]["faction"]), (&json!(["transmogrifier"]), &json!("A")));
 	for e in [&n["3"], &n["812"], &o["813"]] {
 		let sp = &e["spawns"]["1429"];
 		assert_eq!(sp["pts"].as_array().unwrap().len(), 1);
