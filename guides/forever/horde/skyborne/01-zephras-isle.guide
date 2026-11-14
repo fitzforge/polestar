@@ -761,7 +761,8 @@ step Ansekhwa
 
 step Into Mulgore
   zone Mulgore
-  goto 42.1,20.2 "Into Mulgore"
+  tip Take Thunder Bluff's west lift down: the road at its foot runs south-east across Mulgore to the Barrens.
+  goto 37.6,33.0 "Into Mulgore"
 
 step Into The Barrens
   zone The Barrens
