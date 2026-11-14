@@ -287,7 +287,7 @@ step Tiragarde Keep
 step Razor Hill
   tip Back north-west to Razor Hill: Gar'Thok first, then Furl in the watchtower, then Orgnil and Turroc on the way out east to the shore.
   turnin 784                          -- Gar'Thok
-  turnin 830 optional
+  turnin 830
   accept 831
   accept 825
   turnin 791                          -- Furl Scornbrow

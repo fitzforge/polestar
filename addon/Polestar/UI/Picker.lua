@@ -559,7 +559,44 @@ local function nextFact(g, byId)
 	return g.next and named(g.next) or nil
 end
 
-local function load(id, inNewTab)
+local LEAVE_POPUP = "POLESTAR_LEAVE_HANDINS"
+
+-- Loading guide `id` in place of the active leveling guide, while the route
+-- still hands in finished quests before it (RoutePlan.LeftBehind): asks once
+-- in the game's own popup (Load / Cancel). True when it asked. With the
+-- gamepad interface, whose focus owns the game's dialogs, chat says it
+-- instead and the guide loads.
+local function askLeave(id)
+	local E, Plan = ns.Engine, ns.RoutePlan
+	local cur = E.GetGuide and E.GetGuide()
+	if not (cur and cur.id ~= id and (cur.category == nil or cur.category == "Leveling") and Plan and Plan.LeftBehind) then return false end
+	local left = Plan.LeftBehind(id)
+	if not (left and left.n > 0) then return false end
+	local target = ns.Guides.Get(id)
+	local what = left.n == 1 and L["1 finished quest in your log is handed in on the route before %s"]:format(target and target.title or id)
+		or L["%d finished quests in your log are handed in on the route before %s"]:format(left.n, target and target.title or id)
+	if left.xp > 0 then what = string.format(L["%s (%d XP)"], what, left.xp) end
+	if ns.GamepadUI() then
+		ns.Print(what .. ". " .. L["They stay in your log, and the guide lists who takes each in."])
+		return false
+	end
+	if not (StaticPopupDialogs and StaticPopup_Show) then return false end
+	StaticPopupDialogs[LEAVE_POPUP] = StaticPopupDialogs[LEAVE_POPUP] or {
+		text = "%s",
+		button1 = L["Load guide"],
+		button2 = CANCEL,
+		OnAccept = function(_, data) P.Load(data, false, true) end,
+		timeout = 0,
+		whileDead = true,
+		hideOnEscape = true,
+		preferredIndex = 3,
+	}
+	StaticPopup_Show(LEAVE_POPUP, what .. ". " .. L["Load it anyway? They stay in your log, and the guide lists who takes each in."], nil, id)
+	return true
+end
+
+-- asked: the player has answered askLeave already.
+local function load(id, inNewTab, asked)
 	local E = ns.Engine
 	if not (E and id) then return end
 	if inNewTab and E.OpenTab then
@@ -568,6 +605,7 @@ local function load(id, inNewTab)
 			return
 		end
 	elseif E.SetGuide then
+		if not asked and askLeave(id) then return end
 		E.SetGuide(id)
 	end
 	ns.Set("ui.shown", true)
@@ -621,8 +659,9 @@ local function suggestions(byId, tabs, openIndex)
 	for _, t in ipairs(tabs or {}) do
 		local h = byId[t.guideId]
 		if h then
+			-- Never an experimental offer: the route choice window offers it.
 			for _, c in ipairs(type(h.nextChoices) == "table" and h.nextChoices or { h.next }) do
-				if offered(h.id, c) then add(c, true) end
+				if offered(h.id, c) and not (G and G.ExperimentalOffer and G.ExperimentalOffer(h, c)) then add(c, true) end
 			end
 		end
 	end
@@ -775,6 +814,10 @@ local function paintRow(r, g, note, width, title)
 	r.Title:SetWidth(0) -- measured below from scratch, as the note
 	r.Title:SetText(title or g.title or g.id)
 	W.Color(r.Title, sel and "text" or ((done or gate) and "textDim" or "text"))
+	-- On the selected row's wash the muted range and tab note go a step up,
+	-- so they keep 4.5:1 there as on the plain ground.
+	W.Color(r.Range, sel and "textDim" or "textMuted")
+	W.Color(r.Note, sel and "textDim" or "textMuted")
 	local lv = UI.LevelRange(g.minLevel, g.maxLevel)
 	r.Range:SetText(lv and ("(" .. lv .. ")") or "")
 	local groupW = g.group == true and (W.SetChip(r.Group, L["Group"], "dungeon") + 6) or 0
@@ -1147,13 +1190,18 @@ local function buildDetails()
 		P.ToggleFavorite(P.Selected())
 	end, 14)
 	d.Star:SetPoint("RIGHT", win.Close, "LEFT", -4, 0)
-	-- On a bright painting the two glyphs need a dark ground of their own:
-	-- 4 past the pair at either end, 2 above and below.
+	-- On a bright painting the glyphs need a dark ground of their own: 4 past
+	-- them at either end, 2 above and below. In the game's looks the close is
+	-- the frame's own, on its corner (W.FrameClose), and the ground holds the
+	-- star alone, still clear of that corner.
 	d.Scrim = W.Pill(d.Art.Over, 68, 32)
-	d.Scrim:SetPoint("TOPRIGHT", win.Close, "TOPRIGHT", 4, 2)
 	W.Painter(d.Scrim, function(p)
 		local r, g, b = Theme.Color("scrim")
 		p:SetColor(r, g, b, 0.6)
+		local alone = Theme.Kit() ~= nil
+		p:SetWidth(alone and 36 or 68)
+		p:ClearAllPoints()
+		p:SetPoint("TOPRIGHT", alone and d.Star or win.Close, "TOPRIGHT", 4, 2)
 	end)
 	d.Scrim:SetFrameLevel(d.Art.Over:GetFrameLevel())
 	win.Close:SetFrameLevel(d.Scrim:GetFrameLevel() + 2)
@@ -1753,16 +1801,6 @@ function P.FootItems(onOptions)
 	return items
 end
 
--- Open `to` where `from` stands when switching between the hub and the
--- settings: their top-left corners meet, so the rail stays put.
-function P.TakePlace(to, from)
-	local left, top = from:GetLeft(), from:GetTop()
-	if not (left and top) then return end
-	local k = from:GetEffectiveScale() / to:GetEffectiveScale()
-	to:ClearAllPoints()
-	to:SetPoint("TOPLEFT", UIParent, "BOTTOMLEFT", left * k, top * k)
-end
-
 -- The rail: every section, Options at its foot with the foot sections above it.
 local function renderRail()
 	P.railShown = W.ShellRail(win, P.RailItems(), P.FootItems(function() if UI.ShowOptions then UI.ShowOptions() end end),
@@ -2170,6 +2208,13 @@ local function build()
 		segButtons[i] = b
 	end
 	win.factionButtons = segButtons
+	-- The tabs end 8 short of it (W.ShellTabs: the game looks' wider tabs give
+	-- up their padding before they would run under it).
+	win.psTabRoom = function()
+		local filter = -2
+		for _, b in ipairs(segButtons) do filter = filter + b:GetWidth() + 2 end
+		return MID_W - 2 * (SH.pad - 12) - filter - 8
+	end
 
 	buildDetails()
 	win:HookScript("OnShow", function() P.Render() end)
@@ -2233,14 +2278,12 @@ function UI.ShowPicker(opts)
 		local open = tabs and active and tabs[active] and tabs[active].guideId
 		if open then P.SetCollapsed(P.FolderOf(open), false) end
 	end
-	local settings = UI.Options and UI.Options.frame
+	-- The settings window is a window of its own: it stays where it is.
 	if win:IsShown() then
 		P.Render()
 	else
-		if settings and settings:IsShown() then P.TakePlace(win, settings) end
 		win:Show()
 	end
-	if settings then settings:Hide() end
 end
 
 -- A new font measures the rail, the sidebar and the details' label column

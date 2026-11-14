@@ -372,6 +372,55 @@ fn the_minimap_redraws_only_when_something_changed_and_its_line_pool_never_shrin
 	assert!(f(&out["limit"]) <= 600.0);
 }
 
+// The game redraws the minimap every frame; a line laid out less often lags the terrain under it and jumps to
+// catch up (jitter at 60+ fps). It follows the pins' sampling of the view, so standing still reads the player's
+// position no more often than the 10 Hz drivers do, and moving reads it once a frame (PR #1800 review).
+#[test]
+fn the_minimap_line_follows_every_rendered_frame_while_the_view_changes_and_reads_nothing_extra_standing_still() {
+	let out = painted(
+		r#"
+		Polestar.Set("nav.travel", false)
+		nav.viewRadius = 200
+		nav.place(0, 0)
+		target(0, -600)
+		stub.advance(1)
+		local C = Polestar.Compat
+		local reads, orig = {}, C.GetPlayerWorldPosition
+		C.GetPlayerWorldPosition = function(...)
+			local file = debug.getinfo(2, "S").source:match("([%w]+)%.lua$") or "?"
+			reads[file] = (reads[file] or 0) + 1
+			return orig(...)
+		end
+		local strokes = R.GetStrokes("minimap")
+		local function frame()
+			strokes.x1[1] = 12345
+			stub.advance(1 / 144)
+			return strokes.x1[1] ~= 12345 and 1 or 0
+		end
+		local r = { moving = 0, still = 0 }
+		stub.fire("PLAYER_STARTED_MOVING")              -- as the client does when the player sets off
+		for i = 1, 24 do                                 -- 24 frames at 144 fps, a step each
+			nav.place(0, -i * 0.05)
+			r.moving = r.moving + frame()
+		end
+		r.movingLine, r.movingPins = reads.RouteLines or 0, reads.Pins or 0
+		stub.advance(1)                                  -- the drivers settle
+		for _ = 1, 24 do r.still = r.still + frame() end
+		reads = {}
+		for _ = 1, 144 do stub.advance(1 / 144) end      -- one still second at 144 fps
+		r.stillLine, r.stillPins = reads.RouteLines or 0, reads.Pins or 0
+		emit(r)"#,
+	);
+	assert_eq!(out["moving"], 24, "one layout per rendered frame while moving");
+	assert_eq!(out["movingLine"], 0, "moving, the line draws from the pins' reads");
+	// 24 frames are a sixth of a second: the 10 Hz watcher ticks once or twice among them.
+	let pins = f(&out["movingPins"]);
+	assert!((24.0..=26.0).contains(&pins), "which read the position once a frame ({pins} in 24)");
+	assert_eq!(out["still"], 0, "nothing redrawn while the view holds still");
+	assert!(f(&out["stillLine"]) <= 10.0, "still, the line reads the position at its 10 Hz ({} a second)", out["stillLine"]);
+	assert!(f(&out["stillPins"]) <= 10.0, "and the pins at their watcher's 10 Hz ({} a second)", out["stillPins"]);
+}
+
 // The lines are Polestar's own frame on the canvas (Nav/MapCanvas.lua): nothing is acquired from the map or
 // released to it, so combat changes nothing.
 #[test]
@@ -550,6 +599,46 @@ emit({ before = before == nil, shown = f ~= nil and f:IsShown(), strokes = R.Get
 	assert_eq!(out["before"], true);
 	assert_eq!(out["shown"], true, "the lines show once the map addon loads");
 	assert!(f(&out["strokes"]) > 10.0);
+}
+
+// Another addon's map canvas, handed over with MapCanvas.Add (#1938), draws the route lines as the world map does: its
+// show and map changes reach the maps' view watcher, never the minimap's (#1800), which would take the canvas's
+// arguments for the minimap's view.
+#[test]
+fn a_map_canvas_another_addon_adds_draws_the_route_lines_as_the_world_map_does() {
+	let out = painted(
+		r#"
+		local errors = 0
+		geterrorhandler = function() return function() errors = errors + 1 end end
+		Polestar.Set("nav.travel", false)
+		nav.viewRadius = 200
+		nav.place(0, 0)
+		target(0, -600)
+		local own = stub.newMapCanvas("TestAddonWorldMap")
+		own.mapID = 9000
+		own:GetCanvas():SetSize(1000, 1000)
+		Polestar.MapCanvas.Add(own)
+		own:Show()
+		stub.runMapFrame(own, 0)
+		nav.showWorldMap(9000)
+		stub.advance(0.3)
+		-- The strokes of RouteLines' frame on a map's canvas (its pin: a projection and strokes of its own).
+		local function strokesOn(map)
+			local canvas = map:GetCanvas()
+			for _, f in ipairs(stub.frames) do
+				if rawget(f, "projection") and rawget(f, "strokes") and f:IsVisible() then
+					local p = f.parent
+					while p and p ~= canvas do p = p.parent end
+					if p then return f.strokes.n end
+				end
+			end
+			return 0
+		end
+		emit({ own = strokesOn(own), world = R.GetStrokes("world").n, minimap = R.GetStrokes("minimap").n, errors = errors })"#,
+	);
+	assert!(f(&out["world"]) > 10.0 && f(&out["minimap"]) > 3.0, "the world map and the minimap draw the walk: {out}");
+	assert!(f(&out["own"]) > 10.0, "the added canvas draws it too: {out}");
+	assert_eq!(out["errors"], 0, "no listener error: {out}");
 }
 
 #[test]
@@ -864,7 +953,7 @@ fn line_style_a_walk_is_one_piece_a_segment_end_to_end_over_a_soft_shadow_a_roun
 	assert!(arms.iter().all(|s| f(&s["under"]) == 0.0 && near(f(&s["alpha"]), 0.6) && near(f(&s["width"]), 1.5)));
 	let first = arms.iter().map(|s| f(&s["ax"])).fold(f64::INFINITY, f64::min);
 	assert!((first - (100.0 + CHEVRON_SPACING / 2.0)).abs() < 3.0, "the first chevron half a spacing in ({first})");
-	assert_eq!(out["thick"], 8, "the thickness kept in range");
+	assert_eq!(out["thick"], 12, "the thickness kept in range (2-12 px since 0.3.7's Route lines page)");
 }
 
 #[test]
@@ -1364,45 +1453,6 @@ fn each_style_keeps_its_own_minimap_size_the_line_half_the_dots_80_percent_the_s
 	assert_eq!(out["sparkle"], 1.5, "the sparkles at 150 %");
 	assert_eq!(out["sparkleAt1"], 1);
 	assert_eq!(out["others"], json!([0.5, 0.8]), "each style's size its own");
-}
-
-// The window's "Minimap size" slider shows and sets the chosen style's size; right-click puts that style's default
-// back.
-#[test]
-fn the_minimap_size_slider_follows_the_chosen_style() {
-	let out = emitted(&RunAddon {
-		stubs: vec!["stub_ui.lua"],
-		addons: vec![Addon::files("Polestar", &["Core/Core.xml", "Theme/Theme.xml", "Maps/RouteSparkle.lua", "UI/UI.xml"])],
-		script: r#"
-Polestar.RegisterDefaults("nav", { routeLines = true, lineStyle = "line", lineWidth = 4, dotColor = "route", minimapRouteAlpha = 1, minimapRouteSize = 1,
-	minimapLineSize = 0.5, minimapDotsSize = 0.8, minimapSparkleSize = 1.5 })
-Polestar.RegisterDefaults("nav", Polestar.RouteSparkle.DEFAULTS)
-Polestar.RouteLines = { SIZE_KEYS = { line = "minimapLineSize", dots = "minimapDotsSize", sparkle = "minimapSparkleSize" },
-	STYLE_CHOICES = { { value = "line", label = "Line" }, { value = "dots", label = "Dots" }, { value = "sparkle", label = "Sparkles" } } }
-uistub.install()
-stub.login()
-Polestar.UI.ShowLineStyle()
-local slider = Polestar.UI.LineStyleControls()["nav.minimapRouteSize"]
-local function shows() return slider.Slider:GetValue() end
-local r = { line = shows() }
-Polestar.Set("nav.lineStyle", "dots")
-r.dots = shows()
-Polestar.Set("nav.lineStyle", "sparkle")
-r.sparkle = shows()
-stub.RunScript(slider.Slider, "OnValueChanged", 1.0, true)
-r.after = { Polestar.Get("nav.minimapLineSize"), Polestar.Get("nav.minimapDotsSize"), Polestar.Get("nav.minimapSparkleSize") }
-slider:Click("RightButton")
-r.reset = Polestar.Get("nav.minimapSparkleSize")
-r.max = select(2, slider.Slider:GetMinMaxValues())
-emit(r)"#
-			.into(),
-		..Default::default()
-	})
-	.remove(0);
-	assert_eq!([&out["line"], &out["dots"], &out["sparkle"]], [&json!(0.5), &json!(0.8), &json!(1.5)], "the slider follows the style");
-	assert_eq!(out["after"], json!([0.5, 0.8, 1]), "only the sparkles' size changed");
-	assert_eq!(out["reset"], 1.5);
-	assert_eq!(out["max"], 1.5, "the size stops at 150 %");
 }
 
 // A size saved before the sizes were per style is kept, as every style's own; with none saved the defaults apply.

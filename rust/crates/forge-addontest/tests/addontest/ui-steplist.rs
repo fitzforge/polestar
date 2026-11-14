@@ -209,9 +209,176 @@ fn the_step_number_opens_every_step_in_place_of_the_card_marks_the_live_one_and_
 	let (copen, cclicked) = (&compact["open"], &compact["clicked"]);
 	assert_eq!((copen["list"].clone(), copen["card"].clone()), (json!(true), json!(false)), "{copen}");
 	assert_eq!((copen["n"].clone(), copen["first"].clone()), (json!(4), json!("1 \u{b7} Deputy Willem")), "{copen}");
-	assert!(copen["h"].as_f64().unwrap() >= 120.0, "{copen}");
+	assert!(copen["h"].as_f64().unwrap() > 0.0, "{copen}");
 	assert_eq!(compact["step"], 1);
 	assert_eq!((cclicked["list"].clone(), cclicked["card"].clone()), (json!(false), json!(true)), "{cclicked}");
+}
+
+// Browsing swaps the content of the existing window: a long list scrolls inside it, and a short list leaves
+// spare space. Neither case changes the height the player was already using (#1835).
+fn browser_heights(guide: &str) -> Vec<serde_json::Value> {
+	run_guide(
+		compile_guide(guide),
+		r#"
+				stub.login()
+				stub.advance(0.5)
+				local GF, SL = Polestar.UI.GuideFrame, Polestar.UI.StepList
+				for _, compact in ipairs({ false, true }) do
+					for _, growUp in ipairs({ false, true }) do
+						Polestar.Set("ui.compact", compact)
+						Polestar.Set("ui.growUp", growUp)
+						stub.advance(0.5)
+						local before = GF.frame:GetHeight()
+						SL.Toggle(true)
+						stub.advance(0.3)
+						local opened = GF.frame:GetHeight()
+						local sc = SL.scroll
+						local content, view, bar = sc.psContent, sc.psView, sc.Bar:IsShown()
+						Polestar.Widgets.ScrollTo(sc, content)
+						local scrolled = sc:GetVerticalScroll()
+						GF.Render()
+						stub.advance(0.3)
+						local refreshed = GF.frame:GetHeight()
+						SL.Toggle(false)
+						stub.advance(0.3)
+						local closed = GF.frame:GetHeight()
+						SL.Toggle(true)
+						stub.advance(0.3)
+						local reopened = GF.frame:GetHeight()
+						SL.Toggle(false)
+						stub.advance(0.3)
+						emit({ compact = compact, growUp = growUp, before = before, opened = opened, refreshed = refreshed,
+							closed = closed, reopened = reopened, content = content, view = view, bar = bar, scrolled = scrolled })
+					end
+				end"#,
+	)
+}
+
+#[test]
+fn a_long_step_browser_keeps_the_window_height_and_scrolls_in_normal_and_compact_modes() {
+	let out = browser_heights(GUIDE);
+	assert_eq!(out.len(), 4);
+	for state in &out {
+		for stage in ["opened", "refreshed", "closed", "reopened"] {
+			assert_eq!(state[stage], state["before"], "{stage}: {state}");
+		}
+		assert!(state["content"].as_f64().unwrap() > state["view"].as_f64().unwrap(), "{state}");
+		assert_eq!(state["bar"], true, "{state}");
+		assert!(state["scrolled"].as_f64().unwrap() > 0.0, "{state}");
+	}
+}
+
+#[test]
+fn a_one_goal_browser_keeps_a_small_window_height_and_its_card_accessible() {
+	let mut guide = GUIDE.split("step Deputy Willem").next().unwrap().to_owned();
+	guide.push_str("step Deputy Willem\n  accept 783\n");
+	let out = browser_heights(&guide);
+	assert_eq!(out.len(), 4);
+	for state in &out {
+		for stage in ["opened", "refreshed", "closed", "reopened"] {
+			assert_eq!(state[stage], state["before"], "{stage}: {state}");
+		}
+		let view = state["view"].as_f64().unwrap();
+		let content = state["content"].as_f64().unwrap();
+		assert!(view > 0.0 && view < 120.0, "a small window is not enlarged to the old list minimum: {state}");
+		assert_eq!(state["bar"], content > view, "{state}");
+		assert_eq!(state["scrolled"].as_f64().unwrap(), (content - view).max(0.0), "the whole card remains reachable: {state}");
+	}
+}
+
+#[test]
+fn a_short_step_browser_keeps_the_window_height_instead_of_shrinking_to_its_cards() {
+	let mut guide = GUIDE.split("step Deputy Willem").next().unwrap().to_owned();
+	guide.push_str("step A long step\n");
+	for i in 1..=18 {
+		guide.push_str(&format!("  goto 47.6,35.1 \"Destination {i}\"\n"));
+	}
+	let out = browser_heights(&guide);
+	assert_eq!(out.len(), 4);
+	for state in &out {
+		for stage in ["opened", "refreshed", "closed", "reopened"] {
+			assert_eq!(state[stage], state["before"], "{stage}: {state}");
+		}
+		assert!(state["content"].as_f64().unwrap() < state["view"].as_f64().unwrap(), "{state}");
+		assert_eq!(state["bar"], false, "{state}");
+		assert_eq!(state["scrolled"], 0, "{state}");
+	}
+}
+
+#[test]
+fn a_browser_near_the_top_of_the_screen_keeps_the_grow_upward_window_s_minimum_body_height() {
+	let out = run_script(
+		r#"
+				stub.login()
+				stub.advance(0.5)
+				local GF, SL = Polestar.UI.GuideFrame, Polestar.UI.StepList
+				Polestar.Set("ui.growUp", true)
+				Polestar.Set("ui.barsBottom", true)
+				local top = UIParent:GetTop()
+				Polestar.Set("ui.pos", { 1500, top - 120 })
+				stub.advance(0.3)
+				local before = GF.frame:GetHeight()
+				SL.Toggle(true)
+				stub.advance(0.3)
+				local opened = GF.frame:GetHeight()
+				Polestar.Set("ui.pos", { 1500, top - 100 })
+				stub.advance(0.3)
+				local tighter = GF.frame:GetHeight()
+				Polestar.Set("ui.pos", { 1500, top - 120 })
+				stub.advance(0.3)
+				local back = GF.frame:GetHeight()
+				local point, _, _, _, bottom = GF.frame:GetPoint(1)
+				SL.Toggle(false)
+				stub.advance(0.3)
+				emit({ before = before, opened = opened, tighter = tighter, back = back, closed = GF.frame:GetHeight(),
+					point = point, bottom = bottom, pinned = top - 120 })"#,
+	);
+	let state = &out[0];
+	assert!(state["before"].as_f64().unwrap() > 120.0, "the window retains its minimum body even with less room: {state}");
+	for stage in ["opened", "tighter", "back", "closed"] {
+		assert_eq!(state[stage], state["before"], "{stage}: {state}");
+	}
+	assert_eq!(state["point"], "BOTTOMLEFT", "{state}");
+	assert_eq!(state["bottom"], state["pinned"], "the browser keeps the pinned bottom edge: {state}");
+}
+
+#[test]
+fn opening_the_browser_during_a_goal_fold_keeps_its_height_and_closing_resumes_normal_sizing() {
+	let out = run_script(
+		r#"
+				stub.login()
+				stub.advance(0.5)
+				local GF, SL = Polestar.UI.GuideFrame, Polestar.UI.StepList
+				stub.world.accept(783)
+				stub.advance(0.5)
+				stub.world.turnIn(783)
+				stub.advance(0.8)
+				local folding, before = GF.Folding(), GF.frame:GetHeight()
+				SL.Toggle(true)
+				local heights = { GF.frame:GetHeight() }
+				for i = 1, 12 do
+					stub.advance(0.05)
+					heights[#heights + 1] = GF.frame:GetHeight()
+				end
+				-- Choosing a different step closes the browser and lets the card fit its new contents.
+				local r = SL.rows[3]
+				r:GetScript("OnClick")(r)
+				stub.advance(0.5)
+				local closed, card, step = GF.frame:GetHeight(), GF.parts.card:IsShown(), Polestar.Engine.GetStepIndex()
+				SL.Toggle(true)
+				stub.advance(0.3)
+				emit({ folding = folding, before = before, heights = heights, closed = closed, card = card, step = step,
+					reopened = GF.frame:GetHeight() })"#,
+	);
+	let state = &out[0];
+	assert_eq!(state["folding"], true, "the browser opens during an active goal fold: {state}");
+	for height in state["heights"].as_array().unwrap() {
+		assert_eq!(height, &state["before"], "the hidden card's fold must not resize the browser: {state}");
+	}
+	assert_eq!(state["card"], true, "{state}");
+	assert_eq!(state["step"], 4, "{state}");
+	assert_ne!(state["closed"], state["before"], "the selected card resumes fitting its contents: {state}");
+	assert_eq!(state["reopened"], state["closed"], "reopening captures the new card's height: {state}");
 }
 
 /// Only the player's own close closes the list. When the window hides (Alt-Z, combat, the setting), the client runs
@@ -324,4 +491,410 @@ fn a_profession_guide_s_skill_ranges_head_their_cards_the_current_one_in_the_acc
 		"{}",
 		out[0]
 	);
+}
+
+const SKIPS: &str = r#"guide forever/alliance/human/02-skips
+title Skips
+faction Alliance
+race Human
+levels 1-6
+zone Elwynn Forest
+
+step Marshal McBride
+  accept 7
+
+step Deputy Willem
+  when !turnedin 783
+  accept 783
+
+step For Mages only
+  only Mage
+  when level>=50
+  goto 47.0,40.0 "Mage trainer"
+
+step Marshal McBride again
+  when !turnedin 783
+  turnin 783
+
+step Not yet
+  when level>=50
+  goto 48.0,42.0 "Northshire Abbey"
+
+step Kobold camp
+  kill 6 x10 quest 7.1
+
+step Late catch-up
+  when !turnedin 783
+  goto 48.0,42.0 "Northshire Abbey"
+
+step Back to the abbey
+  turnin 7
+
+step Last catch-up
+  when !turnedin 783
+  goto 48.0,42.0 "Northshire Abbey"
+"#;
+
+/// Login (with A Threat Within handed in when `done`), load the guide, define `snap(tag)`: the open list's
+/// cards (number/title tab, step, lines, a run card's steps and summary, the section head).
+fn skips_prelude(done: bool) -> String {
+	prelude(SKIPS_ID, if done { "stub.world.complete({ 783 })" } else { "" })
+}
+
+const SKIPS_ID: &str = "forever/alliance/human/02-skips";
+
+/// Login after `setup`, load guide `id`, define `snap(tag)` (see skips_prelude).
+fn prelude(id: &str, setup: &str) -> String {
+	format!(
+		r#"
+				{}
+				stub.login()
+				stub.advance(0.5)
+				local E = Polestar.Engine
+				local SL = Polestar.UI.StepList
+				E.SetGuide("{}")
+				stub.advance(0.5)
+				local function plain(s) return (s or ""):gsub("|c%x%x%x%x%x%x%x%x", ""):gsub("|r", "") end
+				local function snap(tag)
+					local cards = {{}}
+					for i = 1, SL.n do
+						local r = SL.rows[i]
+						local lines = {{}}
+						for j = 1, r.psN do lines[j] = plain(r.G[j].Text:GetText()) end
+						cards[i] = {{ step = r.psIndex or false, tab = plain(r.Tab:GetText()), lines = lines,
+							run = r.psRun and r.psRun.steps or false, summary = r.psSummary or false,
+							head = r.Head:IsShown() and plain(r.Head:GetText()) or false,
+							more = r.More:IsShown() and r.More:GetText() or false, h = r:GetHeight(), shown = r:IsShown() }}
+					end
+					emit({{ tag = tag, n = SL.n, cards = cards }})
+				end"#,
+		setup, id
+	)
+}
+
+fn tabs(o: &serde_json::Value) -> Vec<serde_json::Value> {
+	o["cards"].as_array().unwrap().iter().map(|c| c["tab"].clone()).collect()
+}
+
+const DONE_TABS: [&str; 6] =
+	["1 \u{b7} Marshal McBride", "2\u{2013}4 \u{b7} Skipped for you", "5 \u{b7} Kobold camp", "6 \u{b7} Skipped for you", "7 \u{b7} Back to the abbey", "8 \u{b7} Skipped for you"];
+
+#[test]
+fn steps_that_keep_their_number_but_do_not_apply_share_one_card_per_run_that_says_why() {
+	// #1940: a player who handed in A Threat Within in an earlier guide opens this one; the catch-up steps for it
+	// (`when !turnedin 783`) keep their numbers but do not apply. The list used to jump from 1 to 5 with no word.
+	let out = run_guide(
+		compile_guide(SKIPS),
+		&(skips_prelude(true)
+			+ r#"
+				SL.Toggle(true)
+				stub.advance(0.3)
+				snap("open")
+				-- A click on a run's card does nothing: there is no one step to look at.
+				local before = E.GetStepIndex()
+				local r = SL.rows[2]
+				r:GetScript("OnClick")(r)
+				stub.advance(0.3)
+				emit({ tag = "clicked", open = SL.frame:IsShown(), same = E.GetStepIndex() == before })
+				-- Every look and the compact window draw the same cards.
+				for _, skin in ipairs({ "hearth", "forever", "blizzard", "classic", "halo", "polestar" }) do
+					Polestar.Set("ui.skin", skin)
+					stub.advance(0.3)
+					SL.Toggle(true)
+					stub.advance(0.3)
+					snap(skin)
+				end
+				Polestar.Set("ui.compact", true)
+				stub.advance(0.3)
+				SL.Toggle(true)
+				stub.advance(0.3)
+				snap("compact")"#),
+	);
+	let open = &out[0];
+	let want: Vec<serde_json::Value> = DONE_TABS.iter().map(|t| json!(t)).collect();
+	assert_eq!(tabs(open), want, "{open}");
+	// A run: no step of its own, a line per distinct reason in order, its steps (not the one hidden for this
+	// character, which has no number) for the hover, and how many.
+	let run = &open["cards"][1];
+	assert_eq!(run["step"], false, "{run}");
+	assert_eq!(run["lines"], json!(["Only before \u{201c}A Threat Within\u{201d} is handed in", "Only from level 50"]), "{run}");
+	assert_eq!(run["run"], json!(["2 \u{b7} Deputy Willem", "3 \u{b7} Marshal McBride again", "4 \u{b7} Not yet"]), "{run}");
+	assert_eq!(run["summary"], "These 3 steps do not apply to you now", "{run}");
+	// A one-step run, and the guide's last steps as a run at the end.
+	let one = &open["cards"][3];
+	assert_eq!((one["run"].clone(), one["summary"].clone()), (json!(["6 \u{b7} Late catch-up"]), json!("This step does not apply to you now")), "{one}");
+	assert_eq!(open["cards"][5]["run"], json!(["8 \u{b7} Last catch-up"]), "{open}");
+	let steps: Vec<_> = open["cards"].as_array().unwrap().iter().map(|c| c["step"].clone()).collect();
+	assert_eq!(steps, vec![json!(1), json!(false), json!(6), json!(false), json!(8), json!(false)]);
+	assert_eq!((out[1]["open"].clone(), out[1]["same"].clone()), (json!(true), json!(true)), "{}", out[1]);
+	for o in &out[2..] {
+		assert_eq!(tabs(o), want, "{}: {o}", o["tag"]);
+		let (run, one) = (&o["cards"][1], &o["cards"][3]);
+		assert_eq!((run["shown"].clone(), run["lines"].as_array().map_or(0, |a| a.len())), (json!(true), 2), "{}: {run}", o["tag"]);
+		assert!(run["h"].as_f64().unwrap() > one["h"].as_f64().unwrap(), "{}: two reasons are taller than one: {o}", o["tag"]);
+	}
+}
+
+#[test]
+fn a_step_that_does_not_apply_and_says_no_why_ends_the_run() {
+	// A step `na` with no reason (Own.gone) has no card, as before; the runs on either side are separate cards, so
+	// a card's numbers never name a step it does not list.
+	let out = run_guide(
+		compile_guide(SKIPS),
+		&(skips_prelude(true)
+			+ r#"
+				local view = E.GetStepView
+				E.GetStepView = function(i)
+					local v = view(i)
+					if v and v.title == "Marshal McBride again" then v.why = nil end
+					return v
+				end
+				SL.Toggle(true)
+				stub.advance(0.3)
+				snap("open")"#),
+	);
+	let o = &out[0];
+	assert_eq!(&tabs(o)[..3], &[json!("1 \u{b7} Marshal McBride"), json!("2 \u{b7} Skipped for you"), json!("4 \u{b7} Skipped for you")], "{o}");
+	assert_eq!((o["cards"][1]["run"].clone(), o["cards"][2]["run"].clone()), (json!(["2 \u{b7} Deputy Willem"]), json!(["4 \u{b7} Not yet"])), "{o}");
+}
+
+#[test]
+fn the_open_list_follows_a_later_step_whose_when_starts_holding() {
+	// The list is open on the character with A Threat Within handed in; reaching level 50 makes "Not yet" apply,
+	// which changes neither the step on screen, the live step nor the steps done: its card leaves the run at once.
+	let out = run_guide(
+		compile_guide(SKIPS),
+		&(skips_prelude(true)
+			+ r#"
+				SL.Toggle(true)
+				stub.advance(0.3)
+				snap("before")
+				local at, live, done = E.GetStepIndex(), E.GetLiveStep(), E.GetProgress()
+				stub.world.setLevel(50)
+				stub.advance(0.5)
+				emit({ tag = "moved", at = E.GetStepIndex() ~= at, live = E.GetLiveStep() ~= live, done = E.GetProgress() ~= done })
+				snap("after")"#),
+	);
+	let want: Vec<serde_json::Value> = DONE_TABS.iter().map(|t| json!(t)).collect();
+	assert_eq!(tabs(&out[0]), want, "{}", out[0]);
+	assert_eq!(out[1], json!({ "tag": "moved", "at": false, "live": false, "done": false }));
+	assert_eq!(
+		tabs(&out[2]),
+		vec![
+			json!("1 \u{b7} Marshal McBride"),
+			json!("2\u{2013}3 \u{b7} Skipped for you"),
+			json!("4 \u{b7} Not yet"),
+			json!("5 \u{b7} Kobold camp"),
+			json!("6 \u{b7} Skipped for you"),
+			json!("7 \u{b7} Back to the abbey"),
+			json!("8 \u{b7} Skipped for you"),
+		],
+		"{}",
+		out[2]
+	);
+}
+
+#[test]
+fn a_character_every_step_applies_to_sees_each_as_its_own_card() {
+	// Behaviour unchanged (passes on next too): at level 50 with A Threat Within not handed in, every step this
+	// character can see applies and is its own card; the step hidden for it (index 3, `only Mage`) has none.
+	let out = run_guide(
+		compile_guide(SKIPS),
+		&(prelude(SKIPS_ID, "stub.world.level = 50")
+			+ r#"
+				SL.Toggle(true)
+				stub.advance(0.3)
+				snap("open")"#),
+	);
+	let steps: Vec<_> = out[0]["cards"].as_array().unwrap().iter().map(|c| c["step"].clone()).collect();
+	assert_eq!(steps, vec![json!(1), json!(2), json!(4), json!(5), json!(6), json!(7), json!(8), json!(9)], "{}", out[0]);
+}
+
+const SWAP: &str = r#"guide forever/alliance/human/03-swap
+title Swap
+faction Alliance
+race Human
+levels 1-12
+zone Elwynn Forest
+
+step Deputy Willem
+  accept 783
+
+step Under ten
+  when level<10
+  goto 48.0,42.0 "Northshire Abbey"
+
+step Ten and up
+  when level>=10
+  goto 47.0,40.0 "Northshire Vineyards"
+
+step Marshal McBride
+  turnin 783
+"#;
+
+#[test]
+fn the_open_list_follows_one_step_starting_to_apply_as_another_stops() {
+	// Level 10 turns "Under ten" off and "Ten and up" on in one go: the steps done, their total, the step on screen
+	// and the live step stay as they were, and the cards still trade places.
+	let out = run_guide(
+		compile_guide(SWAP),
+		&(prelude("forever/alliance/human/03-swap", "stub.world.level = 5")
+			+ r#"
+				SL.Toggle(true)
+				stub.advance(0.3)
+				snap("before")
+				local d0, t0 = E.GetProgress()
+				local at, live = E.GetStepIndex(), E.GetLiveStep()
+				stub.world.setLevel(10)
+				stub.advance(0.5)
+				local d1, t1 = E.GetProgress()
+				emit({ tag = "moved", at = E.GetStepIndex() ~= at, live = E.GetLiveStep() ~= live, done = d1 ~= d0, total = t1 ~= t0 })
+				snap("after")"#),
+	);
+	assert_eq!(tabs(&out[0]), vec![json!("1 \u{b7} Deputy Willem"), json!("2 \u{b7} Under ten"), json!("3 \u{b7} Skipped for you"), json!("4 \u{b7} Marshal McBride")], "{}", out[0]);
+	assert_eq!(out[1], json!({ "tag": "moved", "at": false, "live": false, "done": false, "total": false }));
+	assert_eq!(tabs(&out[2]), vec![json!("1 \u{b7} Deputy Willem"), json!("2 \u{b7} Skipped for you"), json!("3 \u{b7} Ten and up"), json!("4 \u{b7} Marshal McBride")], "{}", out[2]);
+	assert_eq!(out[2]["cards"][1]["lines"], json!(["Only below level 10"]), "{}", out[2]);
+}
+
+const CAPS: &str = r#"guide forever/alliance/human/04-caps
+title Caps
+faction Alliance
+race Human
+levels 1-60
+zone Elwynn Forest
+
+step Deputy Willem
+  accept 783
+
+step At 50
+  when level>=50
+  goto 48.0,42.0 "Northshire Abbey"
+
+step At 51
+  when level>=51
+  goto 48.0,42.0 "Northshire Abbey"
+
+step At 52
+  when level>=52
+  goto 48.0,42.0 "Northshire Abbey"
+
+step At 53
+  when level>=53
+  goto 48.0,42.0 "Northshire Abbey"
+
+step At 54
+  when level>=54
+  goto 48.0,42.0 "Northshire Abbey"
+
+step At 55
+  when level>=55
+  goto 48.0,42.0 "Northshire Abbey"
+
+step At 56
+  when level>=56
+  goto 48.0,42.0 "Northshire Abbey"
+
+step Marshal McBride
+  turnin 783
+"#;
+
+#[test]
+fn a_run_with_more_reasons_than_a_card_holds_lists_six_then_more() {
+	let out = run_guide(
+		compile_guide(CAPS),
+		&(prelude("forever/alliance/human/04-caps", "")
+			+ r#"
+				SL.Toggle(true)
+				stub.advance(0.3)
+				snap("open")"#),
+	);
+	let run = &out[0]["cards"][1];
+	assert_eq!(run["tab"], "2\u{2013}8 \u{b7} Skipped for you", "{run}");
+	let lines: Vec<String> = (50..56).map(|n| format!("Only from level {n}")).collect();
+	assert_eq!(run["lines"], json!(lines), "{run}");
+	assert_eq!(run["more"], "+1 more", "{run}");
+}
+
+const SECTION_SKIPS: &str = r#"guide forever/professions/first-aid-skips
+title First Aid 1-75
+category Professions
+levels 1-60
+zone Elwynn Forest
+
+section First Aid 1-40
+
+step Learn First Aid
+  train First Aid Apprentice
+
+step Later
+  when level>=50
+  goto 48.0,42.0 "Northshire Abbey"
+
+section First Aid 40-75
+
+step Heavy Linen Bandage
+  learn 3276
+"#;
+
+#[test]
+fn a_run_before_a_skill_range_leaves_the_range_s_head_on_its_first_shown_step() {
+	let out = run_guide(
+		compile_guide(SECTION_SKIPS),
+		&(prelude("forever/professions/first-aid-skips", r#"stub.world.learnSkill(129, "First Aid", 45, 75)"#)
+			+ r#"
+				SL.Toggle(true)
+				stub.advance(0.3)
+				snap("open")"#),
+	);
+	let cards = out[0]["cards"].as_array().unwrap();
+	let heads: Vec<_> = cards.iter().map(|c| (c["tab"].clone(), c["head"].clone())).collect();
+	assert_eq!(
+		heads,
+		vec![(json!("1 \u{b7} Learn First Aid"), json!("First Aid 1-40")), (json!("2 \u{b7} Skipped for you"), json!(false)), (json!("3 \u{b7} Heavy Linen Bandage"), json!("First Aid 40-75")),],
+		"{}",
+		out[0]
+	);
+}
+
+#[test]
+fn a_step_s_gate_is_nil_when_it_applies_0_when_not_for_this_character_else_its_first_failing_when() {
+	// Engine.StepGate, which the list's redraw signature reads for every step: step 3 is `only Mage` with a `when`
+	// that fails too (0, not the predicate), step 5's only predicate fails (1).
+	let out = run_guide(
+		compile_guide(SKIPS),
+		&(skips_prelude(true)
+			+ r#"
+				local g = {}
+				for i = 1, 9 do g[i] = E.StepGate(i) or false end
+				emit({ gates = g })"#),
+	);
+	assert_eq!(out[0]["gates"], json!([false, 1, 0, 1, 1, false, 1, false, 1]), "{}", out[0]);
+}
+
+#[test]
+fn a_run_card_s_reasons_follow_names_that_arrive_while_the_list_is_open() {
+	// A quest's localized name can arrive after the list is drawn (Names: one redraw per burst, Names.revision);
+	// nothing else moves, and the run card's reason still takes the new name.
+	let out = run_guide(
+		compile_guide(SKIPS),
+		&(skips_prelude(true)
+			+ r#"
+				SL.Toggle(true)
+				stub.advance(0.3)
+				snap("before")
+				local view = E.GetStepView
+				E.GetStepView = function(i)
+					local v = view(i)
+					if v and v.why then v.why = v.why:gsub("A Threat Within", "Une menace interne") end
+					return v
+				end
+				-- What Names' redraw does for a burst of arrivals: the revision, then STEP_UPDATED.
+				Polestar.Names.revision = Polestar.Names.revision + 1
+				Polestar.Fire("STEP_UPDATED", E.GetStepIndex())
+				stub.advance(0.3)
+				snap("after")"#),
+	);
+	assert_eq!(out[0]["cards"][1]["lines"][0], "Only before \u{201c}A Threat Within\u{201d} is handed in", "{}", out[0]);
+	assert_eq!(out[1]["cards"][1]["lines"][0], "Only before \u{201c}Une menace interne\u{201d} is handed in", "{}", out[1]);
 }

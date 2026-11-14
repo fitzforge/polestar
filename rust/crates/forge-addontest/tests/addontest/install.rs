@@ -1,9 +1,10 @@
 //! A mixed install (Core/Data.lua, Data.CheckInstall): Polestar folders from different versions, the usual
 //! cause when something works for one player and not another until they reinstall. At login every Polestar_*
 //! folder in the AddOns list, loaded or not, is compared with Polestar's own version and one chat line names
-//! the odd ones; the report (UI/Report.lua) carries the same fact. Polestar_Recorder ships in a zip of its own
-//! and community addons are never named Polestar_*, so neither counts; a folder without a version is unknown,
-//! not a mismatch. The stub's default TOC version is "0.1.0-test" for every addon, Polestar included.
+//! the odd ones; the report (UI/Report.lua) carries the same fact. Polestar_Experimental ships in the release
+//! zip (off until a player switches it on) and is compared like the rest; Polestar_Recorder ships in a zip of
+//! its own and community addons are never named Polestar_*, so neither counts; a folder without a version is
+//! unknown, not a mismatch. The stub's default TOC version is "0.1.0-test" for every addon, Polestar included.
 
 use forge_addontest::{emitted, is_match, Addon, RunAddon};
 use serde_json::Value;
@@ -36,8 +37,11 @@ const RELEASE: &[&str] = &[
 	"Polestar_QuestDB",
 	"Polestar_ItemDB",
 	"Polestar_Nav",
+	"Polestar_Experimental",
 	"Polestar_Nav_EK",
 	"Polestar_Nav_Kalimdor",
+	"Polestar_Options",
+	"Polestar_Looks",
 	"Polestar_deDE",
 	"Polestar_zhCN",
 ];
@@ -78,16 +82,17 @@ fn said(out: &Value) -> Vec<String> {
 #[test]
 fn a_mixed_install_names_every_folder_from_another_version_once_loaded_or_not_with_how_to_reinstall() {
 	// Folders Polestar loads only for another race, another language or on demand, left from an older zip.
-	let out = login(&with(&["Polestar_Guides_Orc=0.3.4", "Polestar_Nav_EK=0.3.4", "Polestar_zhCN=0.3.3"]));
+	let out = login(&with(&["Polestar_Guides_Orc=0.3.4", "Polestar_Nav_EK=0.3.4", "Polestar_zhCN=0.3.3", "Polestar_Experimental=0.3.4"]));
 	let stale: Vec<&str> = out["stale"].as_str().unwrap().split(',').collect();
-	for s in ["Polestar_Guides_Orc 0.3.4", "Polestar_Nav_EK 0.3.4", "Polestar_zhCN 0.3.3"] {
+	for s in ["Polestar_Guides_Orc 0.3.4", "Polestar_Nav_EK 0.3.4", "Polestar_zhCN 0.3.3", "Polestar_Experimental 0.3.4"] {
 		assert!(stale.contains(&s), "{s} in {stale:?}");
 	}
-	assert_eq!(stale.len(), 3, "{stale:?}");
+	assert_eq!(stale.len(), 4, "{stale:?}");
 	let said = said(&out);
 	assert_eq!(said.len(), 1, "one line: {said:?}");
 	assert!(is_match(&said[0], r"Polestar\|r: Your install is mixed or incomplete \(Polestar 0\.1\.0-test, "), "{}", said[0]);
 	assert!(is_match(&said[0], r"Polestar_Guides_Orc 0\.3\.4") && is_match(&said[0], r"Polestar_Nav_EK 0\.3\.4") && is_match(&said[0], r"Polestar_zhCN 0\.3\.3"), "{}", said[0]);
+	assert!(is_match(&said[0], r"Polestar_Experimental 0\.3\.4"), "{}", said[0]);
 	assert!(is_match(&said[0], r#"delete every Polestar folder in Interface/AddOns.*Polestar Client.*CurseForge app.*not "Source code""#), "{}", said[0]);
 }
 
@@ -108,6 +113,19 @@ fn a_folder_without_a_version_is_unknown_not_a_mismatch_and_so_is_polestar_witho
 	let out = login(&with(&["Polestar="]));
 	assert_eq!(out["stale"], "");
 	assert!(said(&out).is_empty(), "{:?}", said(&out));
+}
+
+// The game's looks and Hearth (Polestar_Looks) load on demand but ship in every release, as the settings window
+// does: a copy without the folder is named at login (picking one of those looks would quietly keep Polestar's).
+#[test]
+fn a_copy_without_the_game_looks_folder_is_named_at_login_as_a_missing_settings_window_is() {
+	let without: Vec<String> = RELEASE.iter().filter(|n| **n != "Polestar_Looks").map(|s| s.to_string()).collect();
+	let out = login(&without);
+	assert_eq!(out["missing"], "Polestar_Looks");
+	assert_eq!(out["stale"], "");
+	let said = said(&out);
+	assert_eq!(said.len(), 1, "one line: {said:?}");
+	assert!(is_match(&said[0], r"Polestar_Looks not installed"), "{}", said[0]);
 }
 
 #[test]

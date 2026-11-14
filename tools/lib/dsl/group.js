@@ -5,10 +5,12 @@
 //
 // eliteWork(goal, sides, data) — elite work (also the Leveling-guide elite
 //   rule in validate.js).
+// eliteNear(goal, sides, data) — an object's work among hostile elites.
 // groupOf(goal, explicit, sides, data) — the goal's compiled `group`.
 // dungeonNamed(data, name) — the dungeon a `when dungeon` names.
 
 const SOLO = require('../sim/solo');
+const { worldPos } = require('./candidates');
 
 // An elite is an npcs.json rank 1-3 (elite, rare elite, boss) hostile to a
 // side the goal applies to; a friendly one is a talk credit (Questie encodes
@@ -70,13 +72,93 @@ function placed(data, kind, id) {
 	return ['npc', 'object'].some((k) => Object.keys(drops[k] || {}).some((src) => data.spawns(k, Number(src)).length > 0));
 }
 
+// Elites at an object's work (#1778: Berard's Bookshelf in Pyrewood Village,
+// beside Apothecary Berard, 16 elite, among the village's elite Watchers,
+// Sentries and Elders), as the Codex build marks Lookup's quest objectives
+// (forge-data codex/elites.rs): an `interact`, or a `collect` of an item only
+// objects give (one an npc drops is eliteWork's), whose object's spawn points
+// (every one, those the cap left out too) have, at least half of them, an
+// elite (rank 1-3) hostile to a side the goal applies to within NEAR yards.
+// Not one of no real level, nor one of no side that gives or takes a quest
+// or has a role (a friendly NPC whose side the data lacks: Keeper Remulos).
+// -> { rank, lvl } (the highest among them; lvl 0 when unknown) | null
+const NEAR = 40;
+const MAX_LEVEL = 63;
+const eliteGrids = new WeakMap(); // data -> Map("c,gx,gy" -> [{ wx, wy, rank, lvl, faction }])
+function eliteGrid(data) {
+	let grid = eliteGrids.get(data);
+	if (grid) return grid;
+	grid = new Map();
+	const givers = new Set();
+	for (const q of Object.values(data.quests || {})) {
+		for (const end of ['start', 'end']) for (const n of (q && q[end] && q[end].npc) || []) givers.add(Number(n));
+	}
+	for (const n of Object.values(data.npcs || {})) {
+		if (!n || !ELITE_RANKS.has(Number(n.rank))) continue;
+		const lvl = topLevel(n);
+		if (lvl > MAX_LEVEL || n.faction === 'AH') continue;
+		if (!n.faction && (givers.has(Number(n.id)) || (n.roles && n.roles.length))) continue;
+		for (const s of data.spawns('npc', n.id)) {
+			for (const p of [...s.pts, ...s.more]) {
+				const w = worldPos(data, s.map, p[0], p[1], s.f);
+				if (!w) continue;
+				const key = `${w.c},${Math.floor(w.wx / NEAR)},${Math.floor(w.wy / NEAR)}`;
+				if (!grid.has(key)) grid.set(key, []);
+				grid.get(key).push({ wx: w.wx, wy: w.wy, rank: Number(n.rank), lvl, faction: n.faction });
+			}
+		}
+	}
+	eliteGrids.set(data, grid);
+	return grid;
+}
+
+function eliteNear(goal, sides, data) {
+	if (goal.quest === undefined) return null;
+	let sources;
+	if (goal.t === 'interact' && goal.object !== undefined) sources = [Number(goal.object)];
+	else if (goal.t === 'collect' && goal.item !== undefined && !goal.candidates) {
+		const drops = (data.item(goal.item) || {}).drops || {};
+		if (Object.keys(drops.npc || {}).length) return null;
+		sources = Object.keys(drops.object || {}).map(Number);
+	} else return null;
+	const pts = [];
+	for (const id of sources) {
+		for (const s of data.spawns('object', id)) for (const p of [...s.pts, ...s.more]) pts.push(worldPos(data, s.map, p[0], p[1], s.f));
+	}
+	const placed = pts.filter(Boolean);
+	if (!placed.length) return null;
+	const grid = eliteGrid(data);
+	let hits = 0;
+	let rank = 0;
+	let lvl = 0;
+	for (const w of placed) {
+		let hit = false;
+		const gx = Math.floor(w.wx / NEAR);
+		const gy = Math.floor(w.wy / NEAR);
+		for (let dx = -1; dx <= 1; dx++) {
+			for (let dy = -1; dy <= 1; dy++) {
+				for (const e of grid.get(`${w.c},${gx + dx},${gy + dy}`) || []) {
+					if (Math.hypot(e.wx - w.wx, e.wy - w.wy) > NEAR || !hostileTo(e.faction, sides)) continue;
+					hit = true;
+					rank = Math.max(rank, e.rank);
+					lvl = Math.max(lvl, e.lvl);
+				}
+			}
+		}
+		if (hit) hits++;
+	}
+	return hits >= Math.ceil(placed.length / 2) ? { rank, lvl } : null;
+}
+
 const RUN = new Set(['dungeon', 'raid']);
 
 // The goal's compiled `group`: the author's `group [N]` (explicit: { size? })
 // wins; else the dungeon or raid of the goal's quest (the solo filter's
 // instance rule, SOLO.instanceQuest) or of the instance map the goal is
-// placed on; else elite work. -> { kind: 'group', size? } | { kind:
-// 'dungeon' | 'raid', name, map (its Map.csv id) } | { kind: 'elite', rank, lvl? } | null
+// placed on; else elite work; else an object's work among elites (`near`:
+// the guide menu's "Group" chip leaves it out). -> { kind: 'group', size? } |
+// { kind: 'dungeon' | 'raid', name, map (its Map.csv id) } | { kind: 'elite',
+// rank, lvl?, near? } | null
 function groupOf(goal, explicit, sides, data) {
 	if (explicit) return explicit.size !== undefined ? { kind: 'group', size: explicit.size } : { kind: 'group' };
 	const inst = data.instances;
@@ -86,8 +168,10 @@ function groupOf(goal, explicit, sides, data) {
 		if (run && RUN.has(run.kind)) return run.map ? { kind: run.kind, name: run.name, map: run.map } : { kind: run.kind, name: run.name };
 	}
 	const elite = eliteWork(goal, sides, data);
-	if (!elite) return null;
-	return elite.lvl > 0 ? { kind: 'elite', rank: elite.rank, lvl: elite.lvl } : { kind: 'elite', rank: elite.rank };
+	if (elite) return elite.lvl > 0 ? { kind: 'elite', rank: elite.rank, lvl: elite.lvl } : { kind: 'elite', rank: elite.rank };
+	const near = eliteNear(goal, sides, data);
+	if (!near) return null;
+	return near.lvl > 0 ? { kind: 'elite', rank: near.rank, lvl: near.lvl, near: true } : { kind: 'elite', rank: near.rank, near: true };
 }
 
 // The dungeon a name stands for, from the same instance tables: its Map.csv
@@ -111,4 +195,4 @@ function dungeonNamed(data, name) {
 	return { name: runs.find((r) => r.map === map).name, map };
 }
 
-module.exports = { eliteWork, groupOf, isElite, isRare, hostileTo, dungeonNamed };
+module.exports = { eliteWork, eliteNear, groupOf, isElite, isRare, hostileTo, dungeonNamed };

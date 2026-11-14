@@ -112,7 +112,7 @@ step Dolanaar
   label dn-dolanaar
   zone Teldrassil
   tip Optional: the village on the road to Darnassus, about 1,250 reputation in 45 minutes at 60. Forever pays these old quests in full at any level. Skip this step to skip the hub.
-  turnin 2159 optional
+  turnin 2159
   accept 475
   accept 2438
   accept 932

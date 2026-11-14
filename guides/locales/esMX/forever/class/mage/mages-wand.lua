@@ -11,15 +11,15 @@ return {
 
 	-- Step 1: Journey to the Marsh (Stormwind)
 	-- {npc:5497} Jennea Cannon · {zone:1453} Stormwind · {object:2101} Mage Quarter · {npc:6546} Tabetha · {zone:1455} Ironforge
-	["{npc:5497} at the top of the Wizard's Sanctum, {zone:1453}'s {object:2101}, sends you to {npc:6546}; Bink in {zone:1455} gives the same quest."] = "",
+	["{npc:5497} at the top of the Wizard's Sanctum, {zone:1453}'s {object:2101}, sends you to {npc:6546}; Bink in {zone:1455} gives the same quest."] = "{npc:5497}, en lo alto del Santuario del Mago, {object:2101} de {zone:1453}, te manda con {npc:6546}; Bink en {zone:1455} da la misma misión.",
 
 	-- Step 2: Journey to the Marsh (Orgrimmar)
 	-- {npc:5885} Deino · {zone:1454} Orgrimmar · {object:173161} Darkbriar Lodge (no name in this language: may be words) · {npc:6546} Tabetha · {npc:4568} Anastasia Hartwell · {zone:1458} Undercity · {npc:3048} Ursyn Ghull · {zone:1456} Thunder Bluff
-	["{npc:5885}, one of {zone:1454}'s mage trainers in {object:173161}, sends you to {npc:6546}; {npc:4568} in the {zone:1458} and {npc:3048} in {zone:1456} give the same quest."] = "",
+	["{npc:5885}, one of {zone:1454}'s mage trainers in {object:173161}, sends you to {npc:6546}; {npc:4568} in the {zone:1458} and {npc:3048} in {zone:1456} give the same quest."] = "{npc:5885}, una de las instructoras de magos de {zone:1454} en {object:173161}, te manda con {npc:6546}; {npc:4568} en {zone:1458} y {npc:3048} en {zone:1456} dan la misma misión.",
 
 	-- Step 3: Tabetha
 	-- {npc:6546} Tabetha · {area:508} Stonemaul Ruins · {zone:1413} Barrens
-	["{npc:6546}, a hermit, lives in a cottage deep in the marsh west of Theramore, just north of the {area:508}. Level 38-41 elites roam the east side of her farm, and swimming in passes level 42 Muckshells: come in from the west along the road from the {zone:1413}. Her cottage is no refuge: mobs follow you inside. Take both her quests."] = "",
+	["{npc:6546}, a hermit, lives in a cottage deep in the marsh west of Theramore, just north of the {area:508}. Level 38-41 elites roam the east side of her farm, and swimming in passes level 42 Muckshells: come in from the west along the road from the {zone:1413}. Her cottage is no refuge: mobs follow you inside. Take both her quests."] = "{npc:6546}, una ermitaña, vive en una cabaña en lo profundo del pantano al oeste de Theramore, justo al norte de {area:508}. Élites de nivel 38-41 rondan el lado este de su granja, y si llegas nadando pasas por conchalodos de nivel 42: llega desde el oeste, por el camino que viene de {zone:1413}. Su cabaña no es refugio: los enemigos te siguen adentro. Toma sus dos misiones.",
 
 	-- Step 4: Magus Tirth
 	-- {npc:6548} Magus Tirth · {area:439} Shimmering Flats · {zone:1441} Thousand Needles
@@ -27,24 +27,24 @@ return {
 
 	-- Step 5: "Plucky" Johnson
 	["\"Plucky\" Johnson"] = "\"Plucky\" Johnson",
-	["Tirth's apprentice is \"Plucky\" Johnson, a small grey chicken pecking around the foot of the race track's lookout tower; at night type /target plucky. Target him and type /beckon (not /chicken or /wave): he turns human for a moment. Talk to him and ask for the phrase. Do not attack him. If he is gone, he is back within 5 minutes."] = "",
+	["Tirth's apprentice is \"Plucky\" Johnson, a small grey chicken pecking around the foot of the race track's lookout tower; at night type /target plucky. Target him and type /beckon (not /chicken or /wave): he turns human for a moment. Talk to him and ask for the phrase. Do not attack him. If he is gone, he is back within 5 minutes."] = "El aprendiz de Tirth es Johnson «el Valiente», un pollito gris que picotea al pie de la torre de vigía de la pista de carreras; de noche escribe /target plucky. Selecciónalo y escribe /beckon (no /chicken ni /wave): se vuelve humano por un momento. Háblale y pídele la frase. No lo ataques. Si no está, vuelve en 5 minutos.",
 
 	-- Step 6: Witherbark trolls and the Bolt Charged Bramble
 	-- {item:7272} Bolt Charged Bramble
-	["Witherbark trolls and the {item:7272}"] = "",
+	["Witherbark trolls and the {item:7272}"] = "Los trols Secacorteza y {item:7272}",
 	-- {area:321} Hammerfall · {item:7273} Witherbark Totem Stick · {area:336} Circle of Outer Binding · {item:7272} Bolt Charged Bramble
-	["The Witherbark trolls (level 30-36) hold the villages in south-eastern Arathi and south of {area:321}; every kind of them drops a {item:7273} about two times in five: you need ten. Then go to the {area:336} (the outer one, not the Inner circle). Three elementals (level 33-39) stand around its middle stone: pull them one at a time and clear them first. Stand at the middle stone and use a totem stick; about ten seconds later the {item:7272} forms on the stone: click it. If you die before you pick it up, the bramble and the sticks are lost and you need ten more."] = "",
+	["The Witherbark trolls (level 30-36) hold the villages in south-eastern Arathi and south of {area:321}; every kind of them drops a {item:7273} about two times in five: you need ten. Then go to the {area:336} (the outer one, not the Inner circle). Three elementals (level 33-39) stand around its middle stone: pull them one at a time and clear them first. Stand at the middle stone and use a totem stick; about ten seconds later the {item:7272} forms on the stone: click it. If you die before you pick it up, the bramble and the sticks are lost and you need ten more."] = "Los trols Secacorteza (nivel 30-36) ocupan las aldeas del sureste de Arathi y al sur de {area:321}; todos sueltan un {item:7273} más o menos dos de cada cinco veces: necesitas diez. Luego ve a {area:336} (el exterior, no el círculo interior). Tres elementales (nivel 33-39) están alrededor de su piedra central: atráelos de a uno y despéjalos primero. Párate en la piedra central y usa una vara tótem; unos diez segundos después {item:7272} se forma sobre la piedra: haz clic en ella. Si mueres antes de recogerla, la zarza y las varas se pierden y necesitas diez más.",
 	-- {area:336} Circle of Outer Binding
-	["at the middle stone of the {area:336}"] = "",
+	["at the middle stone of the {area:336}"] = "en la piedra central de {area:336}",
 
 	-- Step 7: Jade
 	-- {npc:6546} Tabetha · {item:1529} Jade · {area:271} Southshore
 	-- plural, as words: Torn Fin Coastrunners = {npc:2375} Torn Fin Coastrunner
-	["{npc:6546} also wants one {item:1529}, a green gem. Miners sometimes find one in ore veins; the Auction House sells it; the Torn Fin Coastrunners on the coast south-west of {area:271} drop one about every fifth kill. Do not sell it to a vendor by mistake."] = "",
+	["{npc:6546} also wants one {item:1529}, a green gem. Miners sometimes find one in ore veins; the Auction House sells it; the Torn Fin Coastrunners on the coast south-west of {area:271} drop one about every fifth kill. Do not sell it to a vendor by mistake."] = "{npc:6546} también quiere un {item:1529}, una gema verde. Los mineros a veces encuentran uno en las vetas; la casa de subastas lo vende; los corredores de costa Aleta Rasgada de la costa al suroeste de {area:271} sueltan uno más o menos cada cinco muertes. No lo vendas a un vendedor por error.",
 
 	-- Step 8: Rituals of Power
 	-- {area:796} Scarlet Monastery · {zone:1420} Tirisfal Glades · {npc:6487} Arcanist Doan · {item:5535} Compendium of the Fallen
-	["Tirth sold the book to the Scarlet Crusade. The {area:796} stands in north-eastern {zone:1420}; take the Library wing with a group of five. The book is in the last long hallway, the one that ends in {npc:6487}'s round room: on the left-hand shelf as you face his room, next to the {item:5535}. Take the thick, highlighted blue book sticking out of the shelf; a magnifying-glass cursor means a book you can only read."] = "",
+	["Tirth sold the book to the Scarlet Crusade. The {area:796} stands in north-eastern {zone:1420}; take the Library wing with a group of five. The book is in the last long hallway, the one that ends in {npc:6487}'s round room: on the left-hand shelf as you face his room, next to the {item:5535}. Take the thick, highlighted blue book sticking out of the shelf; a magnifying-glass cursor means a book you can only read."] = "Tirth le vendió el libro a la Cruzada Escarlata. {area:796} está en el noreste de {zone:1420}; haz el ala de la Biblioteca con un grupo de cinco. El libro está en el último pasillo largo, el que termina en la sala redonda de {npc:6487}: en el estante de la izquierda mirando hacia su sala, al lado de {item:5535}. Toma el libro azul grueso y resaltado que sobresale del estante; un cursor de lupa indica un libro que solo se puede leer.",
 	-- {quest:1951} Rituals of Power
 	["{quest:1951}: Scarlet Monastery Library"] = "{quest:1951}: biblioteca del Monasterio Escarlata",
 
@@ -52,7 +52,7 @@ return {
 	-- {npc:6546} Tabetha
 	["{npc:6546}'s ritual"] = "El ritual de {npc:6546}",
 	-- {npc:6546} Tabetha
-	["Back to {npc:6546}. With both quests handed in she starts the ritual: wait a few seconds, then talk to her again and pick your wand: Icefury (frost), Nether Force (arcane) or Ragefire (fire)."] = "",
+	["Back to {npc:6546}. With both quests handed in she starts the ritual: wait a few seconds, then talk to her again and pick your wand: Icefury (frost), Nether Force (arcane) or Ragefire (fire)."] = "De vuelta con {npc:6546}. Con las dos misiones entregadas empieza el ritual: espera unos segundos, luego vuelve a hablarle y elige tu varita: Furia de Hielo (escarcha), Fuerza Abisal (arcano) o Fuego Iracundo (fuego).",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Back to {npc:6546}"] = "Regresa con {npc:6546}",

@@ -5,6 +5,7 @@ faction Horde
 levels 45-47
 zone Feralas
 next forever/horde/40-50/04-tanaris
+next polestar-experimental/shendralas
 
 # Forge's route search orders the quests of this guide and its guide writer writes the steps.
 # Fixes go into data/route-fixes.json, data/guide-fixes.json or forever-db/corrections, never
@@ -18,12 +19,12 @@ step Zeppelin to Undercity
 step Apothecary Zinge
   zone Undercity
   accept 232
-  turnin 232
+  turnin 232                            -- Alessandro Luca
   accept 238
+  turnin 728                            -- Keeper Bel'dugur, on the way back to Zinge
   turnin 238
   accept 243
   collect 8523                          -- the Field Testing Kit from these errands: keep it, Tanaris Field Sampling hands it back in Gadgetzan
-  turnin 728
 
 # ---------------------------------------------------------------- The Undercity
 
@@ -143,6 +144,7 @@ step Brackenwall Village
 
 step Dustwallow Marsh
   zone Dustwallow Marsh
+  when onquest 625
   goto 31.1,66.1 "Dustwallow Marsh"
 
 step The Musty Scroll
@@ -179,6 +181,13 @@ step Onyxia's eggs
   goto 53.4,74.7 "Dragon caves"
   interact 20359 quest 1172.1
 
+step Level 45.37
+  when !group 1173
+  when level<45.37
+  tip Overlord Mok'Morokk's challenge, back in Brackenwall, needs a group of three. Alone, grind the Firemane scouts here on the Wyrmbog's northern edge to level 45.37 before you ride back north, so you don't come back down for it. Or, with a group, run the Zul'Farrak dungeon or the Uldaman dungeon instead.
+  goto 37.5,68.3 map 1445 "Firemane Scout"
+  level 45.37 grind 4329               -- grind on Firemane Scout
+
 step Brackenwall Village
   tip Ride back north to Brackenwall.
   turnin 1172                           -- Draz'Zilb, below ground
@@ -190,13 +199,6 @@ step Challenge Overlord Mok'Morokk
   accept 1173                           -- Overlord Mok'Morokk
   complete 1173
   turnin 1173                           -- Draz'Zilb, below ground
-
-step Level 45.41
-  when !group 1173
-  when level<45.41
-  tip If you skipped Challenge Overlord Mok'Morokk, grind here to level 45.41 to stay on the route's plan. Or, with a group, run the Zul'Farrak dungeon or the Uldaman dungeon instead.
-  goto 37.5,68.3 map 1445 "Firemane Scout"
-  level 45.41 grind 4329               -- grind on Firemane Scout
 
 step Fly to Camp Mojache
   zone Dustwallow Marsh
@@ -225,7 +227,7 @@ step Zorbin Fandazzle
 
 step Rogue Vale screechers
   tip Rogue Vale opens just north of Zorbin's dock. Kill a Rogue Vale Screecher, use Yeh'kinya's Bramble on its body and kill the spirit that rises.
-  use 10699 "Yeh'kinya's Bramble" @45.0,38.0
+  use 10699 "Yeh'kinya's Bramble" quest 3520.1 @45.0,38.0
   kill 8612 quest 3520.1
 
 step The Forgotten Coast: kill these as you meet them

@@ -359,8 +359,6 @@ return {
 	["{npc:1560}, in the inn"] = "{npc:1560}, en la posada",
 	-- {npc:2128} Cain Firesong · {npc:4568} Anastasia Hartwell · {zone:1458} Undercity
 	["{npc:2128}: {npc:4568} in the {zone:1458} takes it"] = "{npc:2128}: lo recoge {npc:4568}, en {zone:1458}",
-	-- {npc:5724} Ageron Kargal · {npc:5675} Carendin Halgar · {zone:1458} Undercity
-	["{npc:5724}: {npc:5675} in the {zone:1458} takes it"] = "{npc:5724}: lo recoge {npc:5675}, en {zone:1458}",
 	-- {npc:1738} Deathguard Terrence · {area:159} Brill
 	["{npc:1738}, if you were below 10 on the last {area:159} visit"] = "",
 
@@ -371,8 +369,6 @@ return {
 	-- Step 66: Carendin Halgar
 	-- {area:159} Brill · {area:153} Ruins of Lordaeron · {zone:1458} Undercity · {npc:5675} Carendin Halgar · {object:36082} Magic Quarter
 	["Walk south from {area:159} to the {area:153} and down into the {zone:1458}. {npc:5675} stands in the {object:36082}. The Scarlet camp is just west of the ruins."] = "Camina al sur desde {area:159} hasta {area:153} y baja a {zone:1458}. {npc:5675} está en el {object:36082}. El campamento Escarlata está justo al oeste de las ruinas.",
-	-- {npc:5675} Carendin Halgar · {quest:1473} Creature of the Void
-	["{npc:5675}: he offers {quest:1473} only once this is handed in"] = "{npc:5675}: solo ofrece {quest:1473} cuando hayas entregado esta",
 
 	-- Step 67: Anastasia Hartwell
 	-- {area:159} Brill · {area:153} Ruins of Lordaeron · {zone:1458} Undercity · {npc:4568} Anastasia Hartwell · {object:36082} Magic Quarter

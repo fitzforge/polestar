@@ -7,7 +7,7 @@
 -- The comments are rewritten by sync.
 return {
 	-- Guide
-	["Starts now at 20 at your trainer; four armor pieces at 30 (hauberk, helm, gauntlets, legguards), a shield on the way."] = "",
+	["Starts now at 20 at your trainer; four armor pieces at 30 (hauberk, helm, gauntlets, legguards), a shield on the way."] = "现在20级即可从训练师处开始；30级获得四件护甲（胸甲、头盔、护手、腿甲），途中还会获得一面盾牌。",
 
 	-- Step 1: Speak with Ruga (Orgrimmar)
 	-- {npc:3354} Sorek · {object:172958} Valley of Honor · {npc:6394} Ruga Ragetotem · {area:378} Camp Taurajo

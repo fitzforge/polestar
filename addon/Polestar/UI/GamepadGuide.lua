@@ -11,11 +11,12 @@
 --   to compact mode, B gives the gamepad back. Out of combat only; a fight
 --   ends it. A window that showed on its own (a route choice, the welcome)
 --   waits for the same binding before it takes the gamepad.
--- * The Gamepad options page: button names, window navigation, hints, and a
---   binding row per Polestar action (a key, a button, or a chord). No action
---   gets a button or a chord unasked: every combination of LB or RB is the
---   game's own with its gamepad interface on, and the minimap button opens
---   the options there.
+-- * The Gamepad options page (its rows: the settings' addon,
+--   Polestar_Options/UI/GuideOptions.lua): button names, window navigation,
+--   hints, and a binding row per Polestar action (a key, a button, or a
+--   chord), drawn here (G.BindingRow). No action gets a button or a chord
+--   unasked: every combination of LB or RB is the game's own with its
+--   gamepad interface on, and the minimap button opens the options there.
 
 local ADDON, ns = ...
 local G = ns.Gamepad
@@ -295,44 +296,3 @@ ns.RegisterEvent("UPDATE_BINDINGS", refreshRows)
 ns.On("SETTING_CHANGED", function(path)
 	if path == "gamepad.glyphs" or path == "gamepad" or path == "" then refreshRows() end
 end)
-
----------------------------------------------------------------------------
--- The Gamepad options page
----------------------------------------------------------------------------
-
-local PAGE, NAV, KEYS = L["Gamepad"], L["Navigation"], L["Key bindings"]
-local ORDER = 75
-
-ns.RegisterOptions({
-	page = PAGE, key = "gamepad", icon = "gamepad", order = ORDER,
-	subtitle = L["Play Polestar with a gamepad: its windows, its buttons and your bindings. The bindings take keys too."],
-	tab = NAV, section = L["Your gamepad"],
-	controls = {
-		{ kind = "dropdown", key = "gamepad.glyphs", label = L["Button names"],
-			help = L["The names and shapes Polestar shows for your gamepad's buttons. Automatic reads them off the gamepad."],
-			choices = {
-				{ value = "auto", label = L["Automatic"] },
-				{ value = "xbox", label = L["Xbox (A, B, X, Y)"] },
-				{ value = "playstation", label = L["PlayStation (shapes)"] },
-			} },
-		{ kind = "toggle", key = "gamepad.navigate", label = L["Navigate Polestar's windows"], search = "controller, gamepad, steam deck, console, joystick",
-			help = L["While a Polestar window is open, the D-pad moves through it, A selects, B closes, LB and RB change tabs, Y restores a default. Out of combat; the game gets every button back when the window closes."] },
-		{ kind = "toggle", key = "gamepad.hints", label = L["Button hints"],
-			help = L["A bar under the window says what each button does, and B sits on the close button."] },
-		{ kind = "toggle", key = "gamepad.withMouse", label = L["Use with the keyboard and mouse"],
-			help = L["Off, Polestar uses the gamepad only with the game's gamepad interface (Options, Gamepad, Enable Gamepad UI). On, also with the keyboard and mouse interface, while the gamepad is turned on in the game's options and plugged in."] },
-	},
-})
-
-local SECTIONS = { guide = L["The guide"], windows = L["Windows"], buttons = L["Quest buttons"] }
-local HELP = {
-	POLESTAR_FOCUS = L["The guide window holds the gamepad until B: the D-pad picks a line, A points the arrow there or uses the item, X shows its details, LB and RB change steps, Y minimizes the window. A window that opened by itself, such as a route choice, waits for this button before it takes the gamepad."],
-	["CLICK PolestarStepButton:LeftButton"] = L["Step action: NPC, quest item, mob or Hearthstone"],
-	["CLICK PolestarTravelButton:LeftButton"] = L["Use the route's Hearthstone or teleport"],
-}
-for _, a in ipairs(G.ACTIONS) do
-	ns.RegisterOptions({
-		page = PAGE, key = "gamepad", icon = "gamepad", order = ORDER, tab = KEYS, section = SECTIONS[a.section],
-		controls = { { kind = "binding", action = a.action, label = a.label, help = HELP[a.action] } },
-	})
-end

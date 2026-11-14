@@ -52,7 +52,7 @@ return {
 
 	-- Step 11: Thelsamar
 	-- {zone:1427} Searing Gorge · {area:144} Thelsamar
-	["Set your hearth here: the {zone:1427} guide starts from {area:144}."] = "",
+	["Set your hearth here: the {zone:1427} guide starts from {area:144}."] = "在这里绑定炉石：{zone:1427}指南从{area:144}开始。",
 
 	-- Step 12: Fly to Menethil Harbor
 	-- {area:150} Menethil Harbor
@@ -141,7 +141,7 @@ return {
 	-- Step 36: The Bloodsail captains
 	["The Bloodsail captains"] = "血帆船长",
 	-- {area:35} Booty Bay · {npc:2550} Captain Stillwater · {npc:2548} Captain Keelhaul · {npc:2546} Fleet Master Firallon
-	["The three Bloodsail ships lie at anchor off the coast just south of {area:35}: {npc:2550} (45) and {npc:2548} (46) on the nearer decks, {npc:2546} (48) on the flagship, each with a crew of 42-45 pirates. Swim out, clear each deck from the edge and pull one at a time."] = "",
+	["The three Bloodsail ships lie at anchor off the coast just south of {area:35}: {npc:2550} (45) and {npc:2548} (46) on the nearer decks, {npc:2546} (48) on the flagship, each with a crew of 42-45 pirates. Swim out, clear each deck from the edge and pull one at a time."] = "三艘血帆海盗船停泊在{area:35}正南方的近海：{npc:2550}（45级）和{npc:2548}（46级）在较近的两艘船上，{npc:2546}（48级）在旗舰上，每艘船都有42-45级的海盗船员。游过去，从甲板边缘开始清理，一次引一个。",
 
 	-- Step 38: Monogrammed Sash
 	-- {quest:8552} The Monogrammed Sash

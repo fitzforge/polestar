@@ -476,14 +476,16 @@ Approximate, on 8 threads; yours will differ.
 | one customized CCH metric | about 0.7 GB per continent, base walks only |
 | Leffe's decoded map pieces | a byte-bounded cache: 4,096 MB in `forge build`'s walks stage (a faction's walks read about 3.5 GB of them; with 2,048 MB each piece was decoded about nine times), 2,048 MB for its legs and on `forge walks walks`' hybrid; `POLESTAR_LEFFE_NAV_CACHE_MB` for `forge walks walks` with `POLESTAR_NAV=leffe` (default 1,024) |
 | pairs sent to the walker at once | 150,000 |
-| peak memory, one faction | about 5-6 GB on one backend; 13-15 GB on the hybrid, whose two passes run at once |
+| peak memory, one faction | about 5-6 GB on one backend; 13-18 GB on the hybrid, whose two passes run at once (an Alliance rebuild from changed data reached 17.8 GB at 6 threads); about half with `--walks-serial` |
 | a faction from an empty store | tens of minutes on our grid, longer on Leffe's maps or the hybrid |
 | a faction after a quest fix | a few minutes: only the new pairs are routed |
 
 `forge build --threads N` (default 8) sets the threads; on the hybrid each of its two passes has N
-of its own. `forge walks walks` uses 8. If a machine runs out of memory, lower `--threads` first.
-With `forge walks walks` on Leffe's maps alone you can also lower `POLESTAR_LEFFE_NAV_CACHE_MB`;
-`forge build` keeps the walks stage's cache at 4,096 MB.
+of its own. `forge walks walks` uses 8. If a machine runs out of memory, build one faction at a time
+(`--starts`), add `--walks-serial` (the hybrid's two passes one after the other: about half the peak, a
+longer walks stage, the same walks), then lower `--threads` and `--leffe-cache <MB>` (Leffe's decoded maps,
+default 4,096: smaller decodes pieces again, slower, the same walks). `forge walks walks` takes
+`POLESTAR_WALKS_SERIAL=1`, and `POLESTAR_LEFFE_NAV_CACHE_MB` with `POLESTAR_NAV=leffe`.
 
 ## Running it
 
@@ -646,6 +648,23 @@ forge nav check
   the maps taken from his (default all three); the others are the grid's, byte for byte, so one
   continent can go back to our grid if his maps walk it wrong. About 90 s for the three maps.
   The rules are in [ARCHITECTURE.md](../ARCHITECTURE.md), "Leffe's navigation maps in game".
+- Ground no player reaches is left out of his maps (`pack/reach.rs`, Shortest Path Forever v1.33's rule,
+  ported): a walk is followed from every fixed place (flight masters and inns by their NPC's spawn in
+  `data/forever/spawnz.json`, boat, zeppelin, tram and lift landings and portal ends from `travel.json`, the travel
+  chains' nodes in `data/crossings.json`), the way the router walks (steps, links, arcs, ledge drops, the graph's
+  kept edges), and a surface it never reaches goes: a floor is dropped, a base cell loses its surface, an entrance on
+  it goes. PACK.json's `leffe` entry counts them (`places`, `unplaced`, `unreachedFloors`, `unreachedBases`,
+  `unreachedEntrances`). On with `--ground reached` (off by default until measured on the walking-map judges).
+- Ledge drops (`pack/drops.rs`, Shortest Path Forever v1.31's rule on our grid's falls): a fall of our grid of 2 to
+  14.57 yd (the height a fall starts to hurt) into the ledge's cell or one beside it, inside one tile, becomes a
+  one-way arc between his surfaces nearest the two heights (within 3.5 yd), priced as the walk across plus the time
+  free fall takes at run speed, where his maps have no step or link between them (`ledgeDrops` in PACK.json).
+  On with `--ledges on` (off by default until measured).
+- Spawn heights where floors overlap (`pack/spawns.rs`, Shortest Path Forever v1.30's rule): every NPC spawn and
+  every spawn of an object a quest starts at, ends at or names (`data/forever/spawnz.json`, `quests.json`) whose
+  surface has another more than 10 yd above or below within a cell gets its height in the maps' `spawn` field (per
+  cluster "x y z ..." in whole yards; `spawnHeights` in PACK.json); `Routing/Path.lua` walks a goal without a height
+  within 8 yd of one to that spawn's floor first. On with `--spawns on` (off by default until measured).
 - `--dir` is the grid (format 4: it needs each surface's slope), `--layers` the ground layers
   (default `data/local/nav-layers`, below), `--out` the addon folder (default `addon/Polestar_Nav`),
   `--cells` the cells per ADT tile (default 128, 4.17 yd), `--date` the date in the generated headers

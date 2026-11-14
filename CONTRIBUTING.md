@@ -41,7 +41,8 @@ package them. You can help without touching any code.
 
 The in-game report (the bug in the guide window) fills in most of this for
 you: the guide, the step and its goals, your position, your race, class and
-level, the versions and any errors Polestar caught. Add what is wrong.
+level, the versions, the settings you changed from their defaults and any
+errors Polestar caught. Add what is wrong.
 
 - The guide and the step as the guide window shows them (the guide's title
   and the step's number and text).
@@ -61,15 +62,24 @@ report goes through the same steps before anything changes:
 
 1. **Check the version and install.** The report's first line names the
    Polestar version. Is the step still the same on the coming release?
-2. **Reproduce it.** In the data (`data/forever/*.json`, the compiled guide),
+2. **Rule out a setting they changed.** The report's Settings section, at
+   the end of its details, lists every setting that differs from its
+   default in the profile the player uses (and whether that profile is the
+   character's own, its class's or the account's), the ones that change
+   what Polestar does first, the looks summed up in one line. "Settings:
+   all defaults" rules settings out. A long list ends with "+N more" and a
+   packed line; on an issue filed from Discord the bot unfolds every
+   setting, with its default, under "Settings". Try the step with the
+   settings that could explain it before calling it a bug.
+3. **Reproduce it.** In the data (`data/forever/*.json`, the compiled guide),
    in the test client (`tests/`, see tests/README.md) or in the game. A
    report that can't be reproduced gets an answer saying so, and why.
-3. **Check it against the sources.** The game's own data, Forever's quest
+4. **Check it against the sources.** The game's own data, Forever's quest
    data, recordings. A player's memory of Classic is not a source: Forever
    changed many quests.
-4. **Fix it only if it is real,** with a test that fails before the fix and
+5. **Fix it only if it is real,** with a test that fails before the fix and
    passes after it (or, for a guide, lint and `playtest`).
-5. **Credit the reporter** in the fix's changelog entry, "(thanks <name>)",
+6. **Credit the reporter** in the fix's changelog entry, "(thanks <name>)",
    and tell them which release carries the fix.
 
 ## Before you start
@@ -243,11 +253,12 @@ A few tests skip automatically when the reference data (`data/forever`) or
 Lua 5.1 is missing. [tests/README.md](tests/README.md) describes the suite;
 [docs/SUITE.md](docs/SUITE.md) what is in and out of scope.
 
-**You do not commit** `addon/Polestar_Guides/Guides.lua`, `docs/preview/*.svg`,
-the locale files in `addon/Polestar*/`, or `addon/Polestar/Media/*.tga` unless
-your change is to the generator itself (a texture generator in `tools/media/`,
-the preview renderer in `tools/preview/`, or the compiler in `tools/lib/dsl/`).
-The maintainer regenerates those after merging your PR.
+**You do not commit** `addon/Polestar_Guides/Guides.lua`, `addon/Polestar_Experimental/`
+(compiled from `experimental/`), `docs/preview/*.svg`, the locale files in
+`addon/Polestar*/`, or `addon/Polestar/Media/*.tga` unless your change is to
+the generator itself (a texture generator in `tools/media/`, the preview
+renderer in `tools/preview/`, or the compiler in `tools/lib/dsl/`). The
+maintainer regenerates those after merging your PR.
 
 ## Code changes
 
@@ -335,6 +346,27 @@ your request matches it; to be sure, name it: "use polestar-triage on #123".
 - Plain messages that describe the change for the players or authors it
   affects (for example "Westfall: turn in at Sentinel Hill before the farms"), not
   how it was made.
+- Commit messages, branch names, pull request titles and descriptions are
+  public for good: a pushed commit stays readable by its SHA even after a
+  force-push. Like every file in the repository (`tests/wording.test.js`),
+  they name no other guide product and never say a route was compared with,
+  follows or matches another guide; a route's reasons are our own (walking,
+  levels, quest data, players' recordings). Drop such a clause rather than
+  swap in another word for it. The words are in `tools/lib/public-text.json`;
+  guides and the fix records' own words (a route fix's `why`, a correction's
+  `note`) are held to the full list, like messages.
+  The *Public text* check reads every pull request's title, description,
+  branch name and commits. To check each message before the commit is made,
+  turn on the repository's hooks once per clone:
+
+  ```sh
+  git config core.hooksPath tools/hooks
+  ```
+
+  `tools/hooks/commit-msg` then refuses a message that breaks the rule and
+  names the line and rule; `tools/hooks/pre-push` checks the branch name and
+  every commit a push would publish. `node tools/public-text.js <file>`
+  checks any text the same way.
 - Behaviour changes come with tests that show the behaviour.
 - Each change brings its changelog entry as a file of its own in
   `changes/` (a fragment), not an edit to CHANGELOG.md: with many pull

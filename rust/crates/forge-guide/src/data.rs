@@ -98,6 +98,14 @@ pub struct Data {
 	pub travel: V,
 	/// spawnz.json ({ npc, object } -> id -> [[instance map, x, y, z]]) or Null.
 	pub spawnz: V,
+	/// data/goal-heights.json's `points` (beside the data folder: its parent's goal-heights.json), or Null: the
+	/// floor a goal at that point is done on where no NPC or object says (heights.rs point_height).
+	pub goal_heights: V,
+	/// data/recorded/quests.json (`forge record learn`: players' recorded objective spots, beside the data folder:
+	/// its parent's recorded/quests.json), or Null; read by recorded.rs.
+	pub recorded: V,
+	/// The counted voters each recorded spot needs (data/recorded/meta.json `thresholds.spotVoters`).
+	pub spot_voters: f64,
 	/// moves.json ({ npc } -> id -> [[instance map, x, y, centre x, centre y, radius]]: the ground a
 	/// walking creature's spawn covers, world yards) or Null.
 	pub moves: V,
@@ -152,6 +160,9 @@ impl Data {
 			races: t("races"),
 			travel: t("travel"),
 			spawnz,
+			goal_heights: V::Null,
+			recorded: V::Null,
+			spot_voters: crate::recorded::SPOT_VOTERS,
 			moves,
 			instances: if raw.instances.is_nullish() { V::Null } else { raw.instances },
 			areas: if raw.areas.is_nullish() { V::Null } else { raw.areas },
@@ -548,7 +559,24 @@ pub fn load_data(dir: &std::path::Path) -> Result<Data, String> {
 	let sources = dir.join("..").join("sources");
 	let instances = crate::solo::load_instances(&sources);
 	let areas = crate::areas::load_areas(&sources);
-	Data::from_texts(&texts, instances, areas, Some(dir.to_string_lossy().into_owned()))
+	let mut data = Data::from_texts(&texts, instances, areas, Some(dir.to_string_lossy().into_owned()))?;
+	// (The folder's own parent, not `<data>/..`: data/forever may be a link to another checkout's.)
+	let beside = dir.parent().unwrap_or(dir);
+	let read = |file: std::path::PathBuf| -> Result<Option<V>, String> {
+		match std::fs::read_to_string(&file) {
+			Ok(text) => parse_json(&text).map(Some).map_err(|e| format!("{}: {e}", file.display())),
+			Err(_) => Ok(None),
+		}
+	};
+	if let Some(doc) = read(beside.join("goal-heights.json"))? {
+		data.goal_heights = doc.get("points");
+	}
+	if let Some(doc) = read(beside.join("recorded").join("quests.json"))? {
+		data.recorded = doc;
+		let need = read(beside.join("recorded").join("meta.json"))?.map(|m| m.get("thresholds").get("spotVoters").num()).filter(|n| *n >= 1.0);
+		data.spot_voters = need.unwrap_or(crate::recorded::SPOT_VOTERS);
+	}
+	Ok(data)
 }
 
 /// Whether dir holds any core file.

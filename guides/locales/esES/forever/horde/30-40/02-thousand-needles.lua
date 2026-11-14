@@ -34,8 +34,8 @@ return {
 	["{npc:3412}'s workshop is in the {object:172958}. {quest:2841} is {area:133}'s last boss: great XP if you run it with a group. Run it whenever your group is ready; hand it in on a later {zone:1454} stop."] = "",
 
 	-- Step 6: Gnomeregan
-	-- {area:133} Gnomeregan · {npc:7800} Mekgineer Thermaplugg · {item:9153} Rig Blueprints
-	["Run {area:133} with a group when it suits you: {npc:7800} at the end drops his Safe Combination; open his safe behind the northern bomb pillar for the {item:9153}."] = "",
+	-- {area:133} Gnomeregan · {npc:7800} Mekgineer Thermaplugg · {item:210323} Safe Combination · {item:9153} Rig Blueprints
+	["Run {area:133} with a group when it suits you: {npc:7800} at the end drops his {item:210323}; open his safe behind the northern bomb pillar for the {item:9153}."] = "",
 
 	-- Step 7: Orgrimmar flight master
 	-- {zone:1454} Orgrimmar

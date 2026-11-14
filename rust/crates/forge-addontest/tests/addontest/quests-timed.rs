@@ -247,7 +247,7 @@ fn a_delivery_ready_at_the_accept_counts_down_from_the_guides_limit_and_its_fail
 // 0.3.7 (Apothecary Zamah, taken with 42:00 left on the Barrens route, which never goes to Thunder Bluff): a
 // timed quest no guide step takes counts down from the quest database's limit (QuestDB.TimeLimit, Polestar_QuestDB's
 // 20th quest field) when the client reports no timer, and the guide window's While-here panel opens with a row for it:
-// "Apothecary Zamah <hourglass> 44:59 left / Thunder Bluff ~6 min · this guide doesn't go there" (read here with the
+// "Apothecary Zamah <hourglass> 44:59 left / Thunder Bluff ≈6 min · this guide doesn't go there" (read here with the
 // icon stripped: two spaces). A click points the arrow at
 // the ender with its height (Nav.SetTarget), a right-click hides the row until the timer ends; in combat the row
 // never comes or goes (it catches up when the fight ends). The guide's own timed quest gets no such row.
@@ -316,7 +316,7 @@ fn a_timed_quest_the_route_never_hands_in_counts_down_from_the_quest_database_an
 	assert_eq!(out["arrow"], true, "the arrow counts it down too");
 	let row = s(&out["row"]);
 	assert!(row.starts_with("Apothecary Zamah  44:5"), "{row}");
-	assert!(row.contains(" left / Thunder Bluff ~6 min · this guide doesn't go there"), "{row}");
+	assert!(row.contains(" left / Thunder Bluff ≈6 min · this guide doesn't go there"), "{row}");
 	assert_eq!(out["label"], "Timed quest", "only the off-route row: the panel says what it is");
 	assert_eq!(out["target"], serde_json::json!([1456, 22.81, 20.89, 21.5, "Apothecary Zamah"]), "the arrow to Zamah, with his height");
 	assert!(s(&out["later"]).contains("44:2"), "the row counts down: {}", out["later"]);

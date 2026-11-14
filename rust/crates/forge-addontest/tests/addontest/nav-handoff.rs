@@ -1,16 +1,31 @@
 //! Hand-off to Shortest Path Forever (addon/Polestar/Nav/Handoff.lua): with it installed, Polestar's target goes
 //! to it through its public API and every guidance surface of Polestar's steps aside, so the two never guide at
-//! once. A fake ShortestPathForever.API, written to its docs/api.md (v1.16.0: version 1, minor 1 with Subscribe,
-//! false in combat, with Journeys off or for invalid input, Ended's reasons, Subscribe's next-frame callbacks),
-//! stands in for the addon. Runs the real Core/Init.lua, Core/Data.lua, Theme, Nav/Nav.xml, the route lines and
+//! once. A fake ShortestPathForever.API, written to its docs/api.md (v1.33.0: version 1, minor 3 with Subscribe and
+//! Journey, false in combat, with Journeys off or for invalid input, CurrentStop and Ended answering nil and "none"
+//! when there is nothing to say, Ended's reasons, Subscribe's next-frame callbacks; 1.34.0 publishes version 2, minor
+//! 0, without the peer and leaderboard members Polestar never calls), stands in for the addon; its own Shift- and
+//! Alt-click planning on the world map (Journey/JourneyInput.lua) is SPF_CLICKS. Runs the real
+//! Core/Init.lua, Core/Data.lua, Theme, Nav/Nav.xml, the route lines and
 //! the journey panel against tests/lua/stub_nav.lua (map 9000 "Testshire": 2000 yd across, 20 yd per map
 //! percent, origin at its centre; the travel world's boat runs from Testshire Docks to Farland).
 
 use forge_addontest::{emitted, Addon, RunAddon};
 use serde_json::{json, Value};
 
-const FILES: [&str; 9] =
-	["Core/Init.lua", "Core/Data.lua", "Theme/Theme.xml", "Nav/Nav.xml", "Maps/FlightPaths.lua", "Maps/RouteStrokes.lua", "Maps/RouteLines.lua", "UI/UI.lua", "UI/JourneyPanel.lua"];
+// The rows are the settings' addon's (Polestar_Options/Nav/Options.lua, UI/GuideOptions.lua: the journey's).
+const FILES: [&str; 11] = [
+	"Core/Init.lua",
+	"Core/Data.lua",
+	"Theme/Theme.xml",
+	"Nav/Nav.xml",
+	"Maps/FlightPaths.lua",
+	"Maps/RouteStrokes.lua",
+	"Maps/RouteLines.lua",
+	"UI/UI.lua",
+	"UI/JourneyPanel.lua",
+	"../Polestar_Options/Nav/Options.lua",
+	"../Polestar_Options/UI/GuideOptions.lua",
+];
 
 // Before any addon file: the fake Compat from Init.lua on (Data.lua and UI.lua read it at load), addon loading
 // recorded, a fake walking engine, the world map's click handlers recorded, and the player's death state.
@@ -57,7 +72,7 @@ end
 // journey waits behind it); subscribers hear of changes on the next frame.
 const SPF: &str = r#"
 spf = { calls = {}, ended = {}, subs = {}, journeys = true, reads = 0, guided = false }
-local A = { version = 1, minor = 1 }
+local A = { version = 1, minor = 3 }
 ShortestPathForever = { API = A }
 local function number(v) return type(v) == "number" and v == v and math.abs(v) < math.huge end
 local function point(map, x, y)
@@ -114,7 +129,11 @@ end
 function A.Navigate(owner, map, x, y, title, kind)
 	return A.NavigateRoute(owner, { { map = map, x = x, y = y, title = title, kind = kind } })
 end
-function A.CurrentStop(owner) spf.reads = spf.reads + 1; return spf.owner == owner and spf.index or nil end
+function A.CurrentStop(owner)
+	spf.reads = spf.reads + 1
+	if spf.owner == owner then return spf.index end
+	return nil, "none"
+end
 function A.Cancel(owner)
 	table.insert(spf.calls, { op = "cancel", owner = owner })
 	if spf.owner ~= owner then return false end
@@ -123,7 +142,18 @@ function A.Cancel(owner)
 	return true
 end
 function A.Active() spf.reads = spf.reads + 1; return spf.corpse or (spf.owner ~= nil and spf.guided) end
-function A.Ended(owner) return spf.ended[owner] end
+function A.Ended(owner)
+	if spf.ended[owner] then return spf.ended[owner], 0 end
+	return nil, "none"
+end
+-- The journey under way, whoever's (owner absent for the player's own, "ShortestPathForever" here), or nil, "none".
+function A.Journey()
+	spf.reads = spf.reads + 1
+	if not spf.owner then return nil, "none" end
+	local s = spf.stops and spf.stops[spf.index or 1] or {}
+	local owner = spf.owner ~= "ShortestPathForever" and spf.owner or nil
+	return { owner = owner, goal = { map = s.map, x = s.x, y = s.y, title = s.title }, legs = {}, index = 1, guided = spf.guided, secondsLeft = 60 }
+end
 function A.Subscribe(cb)
 	if type(cb) ~= "function" then error("callback must be a function", 2) end
 	table.insert(spf.subs, cb)
@@ -168,10 +198,27 @@ function spf.last()
 end
 "#;
 
-// Minor 0: the same API without Subscribe.
+// Minor 0: the same API without Subscribe (minor 1) and Journey (minor 3).
 fn spf_minor0() -> String {
-	format!("{SPF}\nShortestPathForever.API.minor = nil\nShortestPathForever.API.Subscribe = nil\n")
+	format!("{SPF}\nShortestPathForever.API.minor = nil\nShortestPathForever.API.Subscribe = nil\nShortestPathForever.API.Journey = nil\n")
 }
+
+// Another API version: 2 (1.34.0) only dropped the peer and leaderboard members Polestar never calls.
+fn spf_version(version: u32) -> String {
+	format!("{SPF}\nShortestPathForever.API.version = {version}\nShortestPathForever.API.minor = 0\n")
+}
+
+// Its own world map planning (Journey/JourneyInput.lua): an Alt-click over the map (GLOBAL_MOUSE_DOWN) starts a
+// journey of the player's own while its Journeys are on. Its frame hears the event before Polestar's: it loads first.
+const SPF_CLICKS: &str = r#"
+spf.clickFrame = CreateFrame("Frame")
+spf.clickFrame:RegisterEvent("GLOBAL_MOUSE_DOWN")
+spf.clickFrame:SetScript("OnEvent", function(_, _, button)
+	if spf.journeys and button == "LeftButton" and IsAltKeyDown() and not IsShiftKeyDown() and WorldMapFrame:IsShown() then
+		spf.replace("ShortestPathForever")
+	end
+end)
+"#;
 
 const PRELUDE: &str = r#"
 local N, nav = Polestar.Nav, stub.nav
@@ -900,16 +947,35 @@ const GREYED: [&str; 25] = [
 const OPTIONS: &str = r#"
 Polestar.Set("nav.routeLines", false) -- trailDots' own condition out of the way
 Polestar.Set("nav.tomtom", true)
--- The options window's own widgets, every page that holds a nav option.
+-- The options window's own widgets, every page that holds a nav option (its
+-- addon loads where the test loads UI.xml's loader).
+if Polestar.UI.LoadOptions then Polestar.UI.LoadOptions() end
 local O, W = Polestar.UI.Options, Polestar.Widgets
+-- The travel button under the arrow sits beside the Hearthstone in the button set, in three places.
+local TRAVEL_AT = { { "buttons", "Action buttons" }, { "questing", "Buttons" }, { "qualityoflife", "Travel" } }
 local function controls()
 	local out = {}
 	Polestar.UI.ShowOptions("guide")
-	for _, at in ipairs({ { "guide", "Arrow & routes" }, { "appearance", "Arrow" }, { "map", "Guide & quests" }, { "integrations" } }) do
-		O.Select(at[1], at[2])
-		for key, w in pairs(O.Controls(at[1], at[2])) do out[key] = w end
+	local at = { { "guide", "Arrow & routes" }, { "map", "Guide & quests" }, { "integrations" }, TRAVEL_AT[1] }
+	-- The Arrow page (Look group): every tab.
+	for _, p in ipairs(O.Pages()) do
+		if p.key == "arrow" then for _, t in ipairs(p.tabs) do at[#at + 1] = { "arrow", t } end end
+	end
+	for _, a in ipairs(at) do
+		O.Select(a[1], a[2])
+		for key, w in pairs(O.Controls(a[1], a[2])) do out[key] = w end
 	end
 	return out
+end
+-- The travel button's row in each of its places: greyed there, or "missing".
+local function travelGreyed()
+	local r = {}
+	for _, a in ipairs(TRAVEL_AT) do
+		O.Select(a[1], a[2])
+		local w = O.Controls(a[1], a[2])["nav.castPrompt"]
+		r[a[1]] = w and not W.Enabled(w) or (not w and "missing")
+	end
+	return r
 end
 local function greyed(keys)
 	local cs, r = controls(), {}
@@ -942,9 +1008,13 @@ fn while_it_guides_the_options_that_do_nothing_there_are_greyed_out_and_say_why_
 		local cs = controls()
 		emit({ greyed = greyed(${GREYED}), kept = greyed({ "nav.distanceUnit", "nav.shareTransit", "nav.worldPins", "nav.followTomTom", "nav.nearbyMenu" }),
 			why = cs["nav.mapPlan"].psControl.help:find("Greyed out while Shortest Path Forever guides", 1, true) ~= nil,
+			travel = travelGreyed(),
+			travelWhy = cs["nav.castPrompt"].psControl.help:find("Greyed out while Shortest Path Forever guides", 1, true) ~= nil,
 			whyNoHelp = cs["nav.arrowScale"].psControl.help ~= nil })"#
 			.replace("${GREYED}", &lua_list(&GREYED));
-	let files: Vec<&str> = FILES.iter().copied().filter(|f| !f.starts_with("UI/")).chain(["UI/UI.xml"]).collect();
+	// The whole UI: the settings' addon loads as the window opens, its rows with it; the QoL module too, whose rows
+	// hold the travel button's beside the Hearthstone in the button set.
+	let files: Vec<&str> = FILES.iter().copied().filter(|f| !f.starts_with("UI/") && !f.starts_with("../")).chain(["Core/Compat.lua", "QoL/QoL.xml", "UI/UI.xml"]).collect();
 	let on = run(&script, Opts { files: files.clone(), ..Default::default() });
 	let without = run(&script, Opts { spf: None, files, ..Default::default() });
 	let all = |v: bool| Value::Object(GREYED.iter().map(|k| (k.to_string(), json!(v))).collect());
@@ -956,6 +1026,10 @@ fn while_it_guides_the_options_that_do_nothing_there_are_greyed_out_and_say_why_
 	);
 	assert_eq!(on["why"], true);
 	assert_eq!(on["whyNoHelp"], true);
+	// The travel button under the arrow, beside the Hearthstone in the button set: greyed with its why in each place.
+	assert_eq!(on["travel"], json!({ "buttons": true, "questing": true, "qualityoflife": true }));
+	assert_eq!(on["travelWhy"], true);
+	assert_eq!(without["travel"], json!({ "buttons": false, "questing": false, "qualityoflife": false }));
 	assert_eq!(without["greyed"], all(false));
 	assert_eq!(without["kept"], on["kept"]);
 }
@@ -1052,6 +1126,52 @@ fn without_subscribe_minor_0_his_journey_is_noticed_on_nav_s_tick() {
 		Opts { saved: FRESH, spf: Some(&spf), ..Default::default() },
 	);
 	assert_eq!(out, json!([true, false]));
+}
+
+// Shortest Path Forever 1.34.0 publishes version 2, minor 0; its docs/api.md: callers accept versions 1 and 2 and
+// reject future versions. Polestar accepted only 1, so with 1.34.0 the option vanished, nothing was handed off, and
+// Polestar's arrow no longer stepped aside for a journey the player started there.
+#[test]
+fn version_2_is_the_same_api_the_option_shows_the_stop_goes_and_polestar_steps_aside_for_his_journey() {
+	let spf = spf_version(2);
+	let out = run(
+		r#"
+		nav.setWaypoint(copy(FARLAND))
+		local c = spf.last()
+		emit({ shown = option().needs(), handedOff = N.HandedOff(), owner = c and c.owner or false, sent = sent(), subscribed = #spf.subs, arrow = arrowShown() })
+	"#,
+		Opts { spf: Some(&spf), ..Default::default() },
+	);
+	assert_eq!(out, json!({ "shown": true, "handedOff": true, "owner": "Polestar", "sent": 1, "subscribed": 1, "arrow": false }));
+	let yielded = run(
+		r#"
+		nav.setWaypoint(copy(FARLAND))
+		spf.replace("ShortestPathForever")
+		stub.runTimers()
+		local during = { N.HandedOff(), arrowShown() }
+		spf.arrive()
+		stub.runTimers()
+		emit({ during = during, after = { N.HandedOff(), arrowShown() }, sent = sent() })
+	"#,
+		Opts { saved: FRESH, spf: Some(&spf), ..Default::default() },
+	);
+	assert_eq!(yielded, json!({ "during": [true, false], "after": [false, true], "sent": 0 }));
+}
+
+#[test]
+fn a_future_version_counts_as_not_installed_nothing_is_sent_or_asked_and_polestar_guides() {
+	let spf = spf_version(3);
+	let out = run(
+		r#"
+		nav.setWaypoint(copy(FARLAND))
+		spf.replace("ShortestPathForever")
+		stub.runTimers()
+		stub.advance(1.5)
+		emit({ shown = option().needs(), handedOff = N.HandedOff(), sent = sent(), cancels = spf.cancels(), subscribed = #spf.subs, asked = spf.reads, arrow = arrowShown() })
+	"#,
+		Opts { spf: Some(&spf), ..Default::default() },
+	);
+	assert_eq!(out, json!({ "shown": false, "handedOff": false, "sent": 0, "cancels": 0, "subscribed": 0, "asked": 0, "arrow": true }));
 }
 
 // A journey of Polestar's left running in Shortest Path Forever from 0.2.4, which handed off by default (Ruling
@@ -1193,4 +1313,145 @@ fn a_reload_in_combat_with_a_0_2_4_journey_left_over_polestar_steps_aside_until_
 	);
 	assert_eq!(out["fight"], json!([true, false, "Polestar", ""]), "in the fight: his leftover guides alone");
 	assert_eq!(out["after"], json!([false, true, false, 1]), "after it: cancelled once, Polestar guides");
+}
+
+// D23 (Shortest Path Forever v1.33 and 1.34 beside Polestar): its own Alt-click on the world map plans a journey of the
+// player's own while Polestar guides (the hand-off off, the default). Polestar planned the same click as well: its
+// arrow sat on the clicked spot, and once that journey ended it guided the spot instead of the guide.
+#[test]
+fn d23_a_map_click_shortest_path_forever_plans_itself_is_its_own_polestar_keeps_the_guide_s_target_and_guides_it_after_that_journey() {
+	for (version, api) in [(1, SPF.to_string()), (2, spf_version(2))] {
+		let spf = format!("{api}{SPF_CLICKS}");
+		let out = run(
+			r#"
+		nav.setWaypoint(copy(FARLAND))
+		local r = {}
+		nav.showWorldMap(9000)
+		WorldMapFrame.ScrollContainer.IsMouseOver = function() return true end
+		local function altClick()
+			stub.keys.alt = true
+			stub.fire("GLOBAL_MOUSE_DOWN", "LeftButton")
+			stub.keys.alt = false
+			stub.runTimers()
+			stub.advance(0.3)
+		end
+		altClick()
+		r.click = { N.GetTarget().label == "Farland camp", N.IsOverride() and true or false, spf.owner or false, N.HandedOff() }
+		spf.arrive()
+		stub.runTimers()
+		stub.advance(0.3)
+		r.after = { N.GetTarget().label == "Farland camp", N.HandedOff(), arrowShown() }
+		-- Its Journeys off: it plans nothing, and Polestar's Alt-click plans the spot as before.
+		spf.journeys = false
+		altClick()
+		r.off = { N.GetTarget().label == "Farland camp", N.IsOverride() and true or false, spf.owner or false }
+		emit(r)
+	"#,
+			Opts { saved: FRESH, spf: Some(&spf), ..Default::default() },
+		);
+		assert_eq!(out["click"], json!([true, false, "ShortestPathForever", true]), "API version {version}: its journey guides; Polestar's target is still the guide's");
+		assert_eq!(out["after"], json!([true, false, true]), "API version {version}: that journey over, Polestar guides the guide's target");
+		assert_eq!(out["off"], json!([false, true, false]), "API version {version}: with its Journeys off Polestar plans the click");
+	}
+}
+
+// D23: handing off, the player's own journey (or another addon's) replaced Polestar's, and when that one ended
+// nothing guided at all until the guide's next step: Polestar stayed stepped aside, its target never sent again.
+#[test]
+fn d23_a_target_another_journey_replaced_goes_back_once_no_journey_runs_one_the_player_cleared_stays_cleared() {
+	for (version, spf) in [(1, SPF.to_string()), (2, spf_version(2))] {
+		let out = run(
+			r#"
+		nav.setWaypoint(copy(FARLAND))
+		local r = { sent = sent() }
+		spf.replace("ShortestPathForever")
+		stub.runTimers()
+		stub.advance(0.3)
+		r.replaced = { sent(), spf.owner, N.HandedOff(), arrowShown() }
+		spf.arrive()
+		stub.runTimers()
+		stub.advance(0.3)
+		r.back = { sent(), spf.owner or false, N.HandedOff(), arrowShown() }
+		-- Another addon's journey replaces it, and the player clears that one: back again.
+		spf.replace("Questie")
+		stub.runTimers()
+		spf.clear()
+		stub.runTimers()
+		stub.advance(0.3)
+		r.cleared = { sent(), spf.owner or false }
+		-- The player clears Polestar's own journey: it stays cleared until the target changes.
+		spf.clear()
+		stub.runTimers()
+		stub.advance(3)
+		r.own = { sent(), spf.owner or false }
+		emit(r)
+	"#,
+			Opts { spf: Some(&spf), ..Default::default() },
+		);
+		assert_eq!(out["sent"], 1, "API version {version}");
+		assert_eq!(out["replaced"], json!([1, "ShortestPathForever", true, false]), "API version {version}: the player's journey guides; nothing is sent over it");
+		assert_eq!(out["back"], json!([2, "Polestar", true, false]), "API version {version}: it ended: Polestar's target goes back");
+		assert_eq!(out["cleared"], json!([3, "Polestar"]), "API version {version}: another addon's journey cleared: back again");
+		assert_eq!(out["own"], json!([3, false]), "API version {version}: Polestar's own journey cleared stays cleared");
+	}
+}
+
+// D23 with "Blizzard waypoint" on: stepping aside for Shortest Path Forever, Polestar cleared the game's pin; its
+// guide keeps the pin it found (Polestar's) to put back later and reads a pin cleared under it as the player taking
+// over, so it stopped guiding the moment Polestar handed it the target. And a pin someone else set over Polestar's was
+// cleared with Polestar's target.
+#[test]
+fn d23_the_game_s_pin_is_left_to_its_guide_when_polestar_steps_aside_and_a_pin_someone_else_set_is_never_cleared() {
+	const PIN: &str = r#"
+		local pin
+		local set, clear = C_Map.SetUserWaypoint, C_Map.ClearUserWaypoint
+		function C_Map.SetUserWaypoint(point) pin = point; set(point) end
+		function C_Map.ClearUserWaypoint() pin = nil; clear() end
+		function C_Map.GetUserWaypoint() return pin end
+		local function clears()
+			local n = 0
+			for _, w in ipairs(nav.userWaypoints) do if w[1] == "clear" then n = n + 1 end end
+			return n
+		end
+		Polestar.Set("nav.blizzardWaypoint", true)
+		nav.userWaypoints = {}
+	"#;
+	for (version, spf) in [(1, SPF.to_string()), (2, spf_version(2))] {
+		let handed = run(
+			&format!(
+				r#"{PIN}
+		nav.setWaypoint(copy(FARLAND))
+		local r = {{ handed = {{ N.HandedOff(), #nav.userWaypoints }} }}
+		spf.noWay()
+		stub.runTimers()
+		stub.advance(0.3)
+		r.ours = {{ N.HandedOff(), pin ~= nil, clears() }}
+		spf.guide()
+		stub.runTimers()
+		stub.advance(0.3)
+		r.back = {{ N.HandedOff(), pin ~= nil, clears() }}
+		emit(r)
+	"#
+			),
+			Opts { spf: Some(&spf), ..Default::default() },
+		);
+		assert_eq!(handed["handed"], json!([true, 0]), "API version {version}: handed off: no pin of Polestar's");
+		assert_eq!(handed["ours"], json!([false, true, 0]), "API version {version}: no way there: Polestar guides with its pin");
+		assert_eq!(handed["back"], json!([true, true, 0]), "API version {version}: its guidance back: the pin is its guide's, not cleared");
+	}
+	let other = run(
+		&format!(
+			r#"{PIN}
+		nav.setWaypoint(copy(FARLAND))
+		local r = {{ ours = {{ pin ~= nil, clears() }} }}
+		C_Map.SetUserWaypoint({{ uiMapID = 9000, position = {{ x = 0.1, y = 0.1, GetXY = function(p) return p.x, p.y end }} }})
+		nav.setWaypoint(nil)
+		r.other = {{ pin ~= nil, clears() }}
+		emit(r)
+	"#
+		),
+		Opts { saved: FRESH, ..Default::default() },
+	);
+	assert_eq!(other["ours"], json!([true, 0]), "Polestar guides with its pin");
+	assert_eq!(other["other"], json!([true, 0]), "the pin set over it is not Polestar's to clear");
 }

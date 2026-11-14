@@ -31,7 +31,7 @@ pub struct Goal {
 	#[serde(default)]
 	pub npc: Option<u32>,
 	/// A `train` goal: whether it is `train class` (None: not recorded, as before: a `train` goal
-	/// without an npc is). `train Cooking` is not (RevNightElf: it became a class training at
+	/// without an npc is). `train Cooking` is not (start-zone review: it became a class training at
 	/// Dolanaar).
 	#[serde(default)]
 	pub class: Option<bool>,

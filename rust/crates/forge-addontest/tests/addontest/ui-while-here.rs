@@ -42,9 +42,12 @@ local function line()
 	return { shown = H:IsShown(), text = r and plain(r.Text:GetText()) or false, label = H.Label:GetText(), sub = r and r.Sub:GetText() or false,
 		dist = r and r.Dist:GetText() or false, top = H:IsShown() and top(H) or false, after = GF.parts.after:IsShown() and top(GF.parts.after) or false }
 end
+-- What the toast says: its header, then its line, as shown (the house look's band over the card, else the card).
 local function toast()
 	local t = PolestarWhileHereToast
-	return t and t:IsShown() and plain(t.Text:GetText()) or false
+	if not (t and t:IsShown()) then return false end
+	local p = (t.psHouse and t.psHouse:IsShown()) and t.psHouse or t
+	return plain(p.Head:GetText()) .. " / " .. plain(p.Text:GetText())
 end
 "#;
 
@@ -106,15 +109,59 @@ fn the_line_slides_in_between_the_goals_and_then_a_click_points_the_arrow_a_righ
 	assert_eq!(gone["target"], json!([1, 1]), "the arrow is back on the step's wolves");
 }
 
+// Show in quest log: where the client can open the quest log at a quest, a right-click opens a menu, the quest log at
+// the line's quest and "Not now", which dismisses it as the right-click did on its own; the tooltip says so.
+#[test]
+fn a_right_click_offers_show_in_quest_log_and_not_now() {
+	let out = run(
+		"",
+		r#"
+		local opened = {}
+		QuestMapFrame_OpenToQuestDetails = function(q) opened[#opened + 1] = q end
+		local function menu()
+			local out = {}
+			for _, r in ipairs(PolestarMenu.rows) do if r:IsShown() then out[#out + 1] = r.Text:GetText() end end
+			return out
+		end
+		local function pick(text) for _, r in ipairs(PolestarMenu.rows) do if r:IsShown() and r.Text:GetText() == text then r:Click() end end end
+		w.moveTo(1429, 47.6, 37.6); stub.advance(1.05)
+		local R = row(1)
+		stub.RunScript(R, "OnEnter")
+		local tip = GameTooltip.lines[#GameTooltip.lines]
+		R:GetScript("OnClick")(R, "RightButton")
+		local items = menu()
+		pick("Show in quest log")
+		local kept = E.GetWhileHere() ~= nil
+		R:GetScript("OnClick")(R, "RightButton")
+		pick("Not now"); stub.advance(0.6)
+		emit({ tip = tip, items = items, opened = opened, kept = kept, gone = E.GetWhileHere() == nil, shown = H:IsShown() })
+	"#,
+	);
+	assert_eq!(
+		out[0],
+		json!({
+			"tip": "Right-click: show in quest log, or not now around here (twice: for the rest of this zone).",
+			"items": ["Show in quest log", "Not now"],
+			"opened": [7],
+			"kept": true,
+			"gone": true,
+			"shown": false,
+		})
+	);
+}
+
 // Fitz, 0.3.5: the line was an amber strip cut mid-word ("Collect Fungal Spores fr…"). It is its own section now: a
 // panel in the player's accent, dulled into the window ground so the text still reads at 7:1, following an accent
 // change live, with a "While you're here" label, then the suggestion as a goal row, its glyph, distance and close
 // button on the first line; in a narrow window the text wraps onto another line and the panel grows, never cut.
+// Since 0.3.8 the house look draws a raised card instead (ui-look-glow.rs); every other look keeps this panel, here
+// Halo's.
 #[test]
 fn the_suggestion_is_a_goal_row_in_a_dulled_accent_panel_that_follows_the_accent_and_wraps_in_a_narrow_window_never_cut() {
 	let out = run(
 		"",
 		r#"
+		Polestar.Set("ui.skin", "halo")
 		w.moveTo(1429, 47.6, 37.6); stub.advance(1.1)
 		local T = Polestar.Theme
 		local R = row(1)
@@ -158,12 +205,14 @@ fn the_suggestion_is_a_goal_row_in_a_dulled_accent_panel_that_follows_the_accent
 
 // Fitz, 0.3.5: in the transparent style the panel was a solid box over the world. There it is a light tint of
 // the accent, well below opaque, its text outlined like the window's other text; back in the standard style it
-// takes its dulled accent ground again.
+// takes its dulled accent ground again. In every look but the house look (a light shade there, ui-look-glow.rs),
+// here Halo.
 #[test]
 fn in_the_transparent_style_the_panel_is_a_light_accent_tint_with_outlined_text_not_an_opaque_box() {
 	let out = run(
 		"",
 		r#"
+		Polestar.Set("ui.skin", "halo")
 		w.moveTo(1429, 47.6, 37.6); stub.advance(1.1)
 		local T = Polestar.Theme
 		local function paint() local r, g, b, a = H.Panel:GetVertexColor(); return { r, g, b, a } end
@@ -288,9 +337,11 @@ fn with_the_window_hidden_one_small_toast_says_it_once() {
 		emit({ again = again, after = toast(), engine = E.GetWhileHere() == nil })
 	"#,
 	);
-	assert_eq!(out[0], json!({ "line": false, "toast": "Kill Kobold Vermin, 2 more  \u{b7}  50 yd" }));
+	// The house look's toast: the distance rides the header, the line under it.
+	let said = "While you're here  \u{b7}  50 yd / Kill Kobold Vermin, 2 more";
+	assert_eq!(out[0], json!({ "line": false, "toast": said }));
 	assert_eq!(out[1], json!(false));
-	assert_eq!(out[2], json!({ "again": "Kill Kobold Vermin, 2 more  \u{b7}  50 yd", "after": false, "engine": true }));
+	assert_eq!(out[2], json!({ "again": said, "after": false, "engine": true }));
 }
 
 // Fitz, 0.3.5: in the compact window the panel did not show at all. It shows in every mode and style of the window,
@@ -489,6 +540,7 @@ fn the_options_sit_in_the_window_tab_on_by_default_the_radius_from_60_to_400_yar
 		"",
 		"",
 		r#"
+		Polestar.UI.LoadOptions()
 		local UI, O = Polestar.UI, Polestar.UI.Options
 		UI.ShowOptions("guide")
 		local c = O.Controls("guide", "Window")
@@ -517,6 +569,7 @@ fn the_hand_ins_slider_sets_their_seconds_out_of_the_way_apart_from_how_close() 
 		"",
 		"",
 		r#"
+		Polestar.UI.LoadOptions()
 		local UI, O = Polestar.UI, Polestar.UI.Options
 		UI.ShowOptions("guide")
 		local c = O.Controls("guide", "Window")
@@ -610,4 +663,47 @@ fn on_a_flight_nothing_shows_and_a_line_from_before_takeoff_comes_back_quietly()
 	assert_eq!(out[1], json!({ "rows": "2:1", "chimes": 1 }), "landed in reach: once, with a chime");
 	assert_eq!(out[2], json!({ "rows": "", "marks": 0 }), "flying again: hidden");
 	assert_eq!(out[3], json!({ "rows": "2:1", "chimes": 1, "pinging": false }), "landed after five minutes: back, quietly");
+}
+
+// A line that changes in place (its count), a second row that still fits the panel's height, or a
+// WHILE_HERE_CHANGED with the same lines, lays out only the panel and repaints the strings' shades: the window's
+// other parts stand where they were. The panel going lays out the window: "Then:" moves up.
+#[test]
+fn a_line_changing_at_the_same_height_lays_out_only_its_panel_and_the_panel_going_lays_out_the_window() {
+	let out = run_with(
+		"",
+		r#"Polestar.Set("behavior.whileHereRadius", 150)"#,
+		r#"
+		w.moveTo(1429, 47.6, 37.6); stub.advance(1.1)
+		local layouts, shades = 0, 0
+		local lay, paint = GF.Layout, GF.PaintShades
+		GF.Layout = function(...) layouts = layouts + 1; return lay(...) end
+		GF.PaintShades = function(...) shades = shades + 1; return paint(...) end
+		local before = line()
+		local height = H:GetHeight()
+		Polestar.Fire("WHILE_HERE_CHANGED")
+		local same = { line = line(), layouts = layouts, shades = shades, height = H:GetHeight() }
+		w.progress(7, 1, 9); stub.advance(0.6)
+		local counted = line()
+		layouts = 0
+		w.moveTo(1429, 49.8, 36.0); stub.advance(1.1)
+		local two = { rows = H.Rows[2] and H.Rows[2]:IsShown() or false, height = H:GetHeight(), after = line().after }
+		layouts = 0
+		w.moveTo(1429, 47.6, 70.0); stub.advance(1.1)
+		local gone = { shown = H:IsShown(), layouts = layouts, after = line().after }
+		emit({ before = before, height = height, same = same, counted = counted, two = two, gone = gone })"#,
+	);
+	let o = &out[0];
+	assert_eq!(o["same"]["line"], o["before"], "the same lines: the panel and \"Then:\" as they were: {o}");
+	assert_eq!(o["same"]["layouts"], 0, "only the panel laid out: {o}");
+	assert_eq!(o["same"]["shades"], 1, "the shades repainted once: {o}");
+	assert_eq!(o["same"]["height"], o["height"]);
+	assert_eq!(o["counted"]["text"], "Kill Kobold Vermin  9/10", "the count changes in place: {o}");
+	assert_eq!(o["counted"]["after"], o["before"]["after"], "\"Then:\" where it was: {o}");
+	assert_eq!(o["two"]["rows"], true, "{o}");
+	assert_eq!(o["two"]["height"], o["height"], "two rows fit the panel's height: {o}");
+	assert_eq!(o["two"]["after"], o["before"]["after"], "\"Then:\" where it was: {o}");
+	assert_eq!(o["gone"]["shown"], false, "{o}");
+	assert!(o["gone"]["layouts"].as_i64().unwrap() >= 1, "the panel going lays out the window: {o}");
+	assert!(o["gone"]["after"].as_f64().unwrap() > o["before"]["after"].as_f64().unwrap(), "\"Then:\" moved up into the gap: {o}");
 }

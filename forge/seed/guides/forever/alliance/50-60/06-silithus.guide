@@ -180,10 +180,6 @@ step Cenarion Hold
 
 # ---------------------------------------------------------------- Silithus
 
-step Cenarion Hold
-  zone Silithus
-  sethome "Cenarion Hold"
-
 step Southwind Village
   tip Ride east to the ruins of Southwind Village. The Dusty Reliquary lies among the ruined buildings, watched by Tortured Sentinels.
   collect 22201 quest 5527.1          -- Dusty Reliquary; inside
@@ -194,10 +190,10 @@ step Hermit Ortell
   accept 8279
 
 step Bronzebeard's Encampment
-  tip Ride south-west to the dwarves' camp near the southern mountains and question Frankal Stonebridge and Rutgar Glyphshaper. Noggle's satchel lies in the sand just south-east of the camp.
+  tip Ride south-west to the dwarves' camp near the southern mountains and question Frankal Stonebridge and Rutgar Glyphshaper. Noggle's satchel lies in the sand south-east of the camp, where Deathclasp, an elite scorpid, patrols: grab it while he is away.
   collect 20379 quest 8282.1          -- Noggle's Satchel
-  kill 15171 quest 8304.1
-  kill 15170 quest 8304.2
+  talk 15171 quest 8304.1
+  talk 15170 quest 8304.2
 
 step The Twilight Post
   tip Twilight Keeper Exeter holds the cultists' camp in the far south-west.
@@ -539,6 +535,7 @@ step Tirion Fordring (optional)
 
 step Eastern Plaguelands
   zone Eastern Plaguelands
+  when onquest 5845
   goto 71.3,34.0 "Eastern Plaguelands"
 
 step Of Lost Honor
@@ -546,13 +543,12 @@ step Of Lost Honor
 
 step Tirion Fordring
   zone Eastern Plaguelands
-  turnin 5845 optional
+  turnin 5845                         -- Of Lost Honor: the route takes it and fetches the Symbol, so its hand-in holds
   accept 5846
 
 step Egan
   zone Eastern Plaguelands
   tip Cross the river east of Tirion's hut into Terrordale: Egan stands by Augustus' ruined hut.
-  goto 11.4,26.6 "Egan"
   turnin 5281
 
 step The Marris Stead

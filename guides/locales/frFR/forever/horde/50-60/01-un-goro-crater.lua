@@ -22,8 +22,8 @@ return {
 	["{npc:9998}, at the refuge entrance"] = "{npc:9998}, à l'entrée du refuge",
 	-- {npc:9618} Karna Remtravel
 	["{npc:9618}, just outside"] = "{npc:9618}, juste dehors",
-	-- {quest:3761} Un'Goro Soil
-	["From here on pick up every Power Crystal (blue, green, red, yellow) and every {quest:3761} pile you pass: 25 soil in all, 20 for Hamuul and 5 for Pestlezugg."] = "Dès maintenant, ramassez chaque Cristal de puissance (bleu, vert, rouge, jaune) et chaque tas de {quest:3761} sur votre route : 25 terres en tout, 20 pour Hamuul et 5 pour Pestlezugg.",
+	-- {npc:271301} Power Crystal · {quest:3761} Un'Goro Soil
+	["From here on pick up every {npc:271301} (blue, green, red, yellow) and every {quest:3761} pile you pass: 25 soil in all, 20 for Hamuul and 5 for Pestlezugg."] = "",
 
 	-- Step 4: Lakkari Tar Pits
 	-- {item:11834} Super Sticky Tar
@@ -37,6 +37,7 @@ return {
 	["grind on Pterrordax"] = "tuez en boucle : ptérreurdactyles",
 
 	-- Step 6: Power Crystals and soil
+	-- plural, as words: Power Crystals = {npc:271301} Power Crystal
 	["Power Crystals and soil"] = "Cristaux de puissance et terre",
 	-- {area:537} Fire Plume Ridge
 	["The crystal clusters stand all over the crater, many around {area:537}. Take a few extra of each colour for the pylons."] = "Les amas de cristaux se dressent partout dans le cratère, beaucoup autour de {area:537}. Prenez-en quelques-uns de plus de chaque couleur pour les pylônes.",
@@ -276,6 +277,7 @@ return {
 	-- ["Follow the road east through the {area:28} and across the river into the {area:139}; leave it north for {area:2627}, the ruined town in the north-west. {npc:12384} sits in a hut at its edge."] = "Suivez la route vers l'est à travers les {area:28} et traversez la rivière pour entrer dans les {area:139} ; quittez-les vers le nord pour {area:2627}, la ville en ruine au nord-ouest. {npc:12384} est assis dans une hutte à sa lisière.",
 	-- ["Follow the road east through the {zone:1422} and across the river into the {zone:1423}; leave it north for {area:2627}, the ruined town in the north-west. {npc:12384} sits in a hut at its edge."] = "Suivez la route vers l'est à travers les {zone:1422} et traversez la rivière vers les {zone:1423} ; quittez-la vers le nord pour {area:2627}, la ville en ruine du nord-ouest. {npc:12384} est assis dans une cabane à sa lisière.",
 	-- ["Free Darrowshire Spirits: talk to them"] = "Libérez des Esprits de Darrowshire ({npc:11064}) : parlez-leur",
+	-- ["From here on pick up every Power Crystal (blue, green, red, yellow) and every {quest:3761} pile you pass: 25 soil in all, 20 for Hamuul and 5 for Pestlezugg."] = "Dès maintenant, ramassez chaque Cristal de puissance (bleu, vert, rouge, jaune) et chaque tas de {quest:3761} sur votre route : 25 terres en tout, 20 pour Hamuul et 5 pour Pestlezugg.",
 	-- ["From the {area:1938} ride west to the long ramp that winds down into {area:490}, then follow the crater's north wall to {area:541}, a camp in the cliff caves. Everyone here is neutral."] = "Depuis le {area:1938}, allez vers l'ouest jusqu'à la longue rampe qui descend en serpentant dans le {area:490}, puis suivez la paroi nord du cratère jusqu'à {area:541}, un camp dans les grottes de la falaise. Tout le monde ici est neutre.",
 	-- ["Gorillas"] = "Gorilles",
 	-- ["Hearth to {area:2268}"] = "Pierre de foyer vers la {area:2268}",

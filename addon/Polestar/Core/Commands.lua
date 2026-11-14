@@ -25,6 +25,10 @@ BINDING_NAME_POLESTAR_REPORT = L["Report a problem"]
 BINDING_NAME_POLESTAR_NEXT_WAYPOINT = L["Next waypoint"]
 BINDING_NAME_POLESTAR_PREV_WAYPOINT = L["Previous waypoint"]
 BINDING_NAME_POLESTAR_REOPEN_TAB = L["Reopen closed tab"]
+BINDING_NAME_POLESTAR_PAUSE = L["Pause the guide"]
+-- The item under the cursor (QoL/Marks.lua, Marks.Press).
+BINDING_NAME_POLESTAR_MARK_JUNK = L["Mark as junk"]
+BINDING_NAME_POLESTAR_MARK_KEEP = L["Mark to keep"]
 -- Labels for the QoL secure buttons' CLICK bindings (QoL/Buttons.lua). The
 -- client looks these names up as globals; they contain spaces and a colon,
 -- so they can only be set through _G.
@@ -58,6 +62,11 @@ ns.Bindings = {
 	NextWaypoint = function() Engine.CycleWaypoint(1) end,
 	PrevWaypoint = function() Engine.CycleWaypoint(-1) end,
 	ReopenTab = function() ns.RunCommand("reopen") end,
+	-- Pause or resume (Core/Pause.lua); it leaves hiding as it is.
+	Pause = function() ns.TogglePaused() end,
+	-- Junk or keep mark on the item under the cursor, or off again.
+	MarkJunk = function() local M = ns.QoL and ns.QoL.Marks; if M then M.Press("junk") end end,
+	MarkKeep = function() local M = ns.QoL and ns.QoL.Marks; if M then M.Press("keep") end end,
 }
 
 local function needGuide()
@@ -188,9 +197,11 @@ ns.RegisterCommand("path", function()
 	end
 end, L["Choose (or change) where to level next"])
 
-ns.RegisterCommand("welcome", function()
-	ns.Fire("SHOW_WELCOME")
-end, L["Show the welcome again"])
+-- Install (UI/Welcome.lua): every page, whenever asked; `welcome`, its name
+-- before, still opens it.
+local function showInstall() ns.Fire("SHOW_WELCOME") end
+ns.RegisterCommand("install", showInstall, L["Set Polestar up again, a page at a time (Install)"])
+ns.RegisterCommand("welcome", showInstall, L["Opens Install, as /polestar install does"])
 
 ns.RegisterCommand("whatsnew", function()
 	ns.Fire("SHOW_WHATSNEW")

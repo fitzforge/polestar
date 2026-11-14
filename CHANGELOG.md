@@ -5950,7 +5950,7 @@ hash them under a different set each build, so the data, world and routes keys n
   after its v1 step before (when only the route's added quests are written
   since): the Shamans' Ironforge training and the Night Elf Druids' flight to
   Sentinel Hill straight after the Stormwind stop, not after Theocritus in
-  Elwynn (Rev15A1 B1, B2).
+  Elwynn (c15 review B1, B2).
 - Classes away on a detour come back only to a step of theirs: the Shamans in
   Ironforge are not walked to the other classes' Goldshire training (B3).
 - Classes away in a city with their trainer train there before the route's

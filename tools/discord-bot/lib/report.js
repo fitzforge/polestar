@@ -9,6 +9,8 @@
 // field by its position and its numbers. A post without a report still
 // parses: all of it is the description and `details` is null.
 
+const zlib = require('node:zlib');
+
 const SEP = ' \u00b7 ';
 
 const LOCALE = /^([a-z]{2}[A-Z]{2}|\?)$/;
@@ -19,6 +21,23 @@ const GUIDE_ID = /[(（]([a-z0-9_-]+(?:\/[a-z0-9_.-]+)+)[)）]/i;
 const POSITION = /map (\d+) @(-?[\d.]+),(-?[\d.]+)/;
 const ERROR_LINE = /^\s+(\d+)x (.*)$/;
 const FENCE = /(^|\n)(`{3,})[^\n`]*\n([\s\S]*?)\n?\2(?=\n|$)/g;
+
+// The Settings section (Report.lua, settingsSection), at the end of the
+// details: its first line, found by its English words after the translated
+// label ("Settings: profile Raid (character) · 23 changed", or "Settings:
+// all defaults"); the list (key=value for a switch, else key=default->value,
+// joined by spaces); the looks line; "+N more #<Adler-32 of them all, one a
+// line>"; and the packed line, the settings the list leaves out one a line in
+// the import strings' envelope, !PSR1!<Adler-32>!<base64 of zlib>: with the
+// list, every setting.
+const SETTINGS_HEAD = /[:：]\s*(?:profile (.+) \((character|class|account)\) · )?(?:all defaults|(\d+) changed)$/;
+const SETTING = /^([A-Za-z][\w-]*(?:\.[\w-]+)+)=(\S+)$/;
+const SETTINGS_MORE = /^\+(\d+) more #([0-9a-f]{8})$/;
+const SETTINGS_PACKED = /^!PSR1!([0-9a-f]{8})!([A-Za-z0-9+/]+={0,2})$/;
+const TO = '->';
+// What a packed line may unfold to at most: the bytes of every setting a
+// profile holds are a few kilobytes.
+const PACKED_MAX = 64 * 1024;
 
 // Where a label's colon is in `s`, from `from` on: -1 when there is none.
 function colonAt(s, from = 0) {
@@ -52,8 +71,9 @@ function parseVersions(line, out) {
 
 // The details lines, in the order R.Details writes them: versions,
 // character, guide (or none), step (or none), goals, arrow, where, packs,
-// errors. Lines Report.lua leaves out shift the rest, so each is found by
-// its shape relative to the guide line.
+// errors, the quest log, the Settings section. Lines Report.lua leaves out
+// shift the rest, so each is found by its shape relative to the guide line,
+// and the Settings section by its first line's words.
 function parseDetails(lines) {
 	const out = { lines };
 	parseVersions(lines[0], out);
@@ -113,7 +133,93 @@ function parseDetails(lines) {
 		const e = l.match(ERROR_LINE);
 		if (e) out.errors.push({ count: Number(e[1]), message: e[2] });
 	}
+	parseSettings(lines, out);
 	return out;
+}
+
+// Adler-32 of a buffer as 8 hex digits, as the addon writes it (Core/Import.lua).
+function adler32(buf) {
+	let a = 1;
+	let b = 0;
+	for (const x of buf) {
+		a = (a + x) % 65521;
+		b = (b + a) % 65521;
+	}
+	return b.toString(16).padStart(4, '0') + a.toString(16).padStart(4, '0');
+}
+
+// One setting as the list writes it -> { key, value, default } or null. A
+// switch (on/off) has the other one as its default.
+function parseSetting(token) {
+	const m = token.match(SETTING);
+	if (!m) return null;
+	const [, key, rest] = m;
+	const at = rest.indexOf(TO);
+	if (at !== -1) return { key, value: rest.slice(at + TO.length), default: rest.slice(0, at) };
+	if (rest === 'on' || rest === 'off') return { key, value: rest, default: rest === 'on' ? 'off' : 'on' };
+	return { key, value: rest, default: null };
+}
+
+// The packed line's settings as written, one a line, or null when it does not
+// unfold to lines whose Adler-32 is `sum`.
+function unpack(sum, body) {
+	if (body.length > PACKED_MAX * 2) return null;
+	let raw;
+	try {
+		raw = zlib.inflateSync(Buffer.from(body, 'base64'), { maxOutputLength: PACKED_MAX });
+	} catch {
+		return null;
+	}
+	return adler32(raw) === sum ? raw.toString('utf8').split('\n') : null;
+}
+
+// out.settings = { count, profile?, source?, entries: [{ key, value, default }],
+// looks?, more?, hash?, unfolded?, damaged? }: the list as shown or, when a
+// packed line carries the rest and the list with it has the Adler-32 after
+// "+N more", every setting (`unfolded`; `damaged` when a packed line is there
+// and does not unfold). Reports from before the section have none.
+function parseSettings(lines, out) {
+	let at = -1;
+	let head = null;
+	for (let i = lines.length - 1; i > 0 && at === -1; i--) {
+		if (/^[\s[>]/.test(lines[i])) continue;
+		head = lines[i].match(SETTINGS_HEAD);
+		if (head) at = i;
+	}
+	if (at === -1) return;
+	const s = { count: head[3] ? Number(head[3]) : 0, entries: [] };
+	if (head[1]) {
+		s.profile = head[1];
+		s.source = head[2];
+	}
+	const listed = [];
+	let i = at + 1;
+	for (; i < lines.length; i++) {
+		const tokens = lines[i].split(' ');
+		if (!tokens.every((t) => parseSetting(t))) break;
+		listed.push(...tokens);
+	}
+	s.entries = listed.map(parseSetting);
+	if (i < lines.length && lines[i].startsWith('looks: ')) s.looks = lines[i++].slice('looks: '.length);
+	const more = i < lines.length && lines[i].match(SETTINGS_MORE);
+	if (more) {
+		s.more = Number(more[1]);
+		s.hash = more[2];
+		i++;
+	}
+	const packed = i < lines.length && lines[i].match(SETTINGS_PACKED);
+	if (packed) {
+		const rest = unpack(packed[1], packed[2]);
+		const all = rest && [...listed, ...rest];
+		const entries = all && all.map(parseSetting);
+		if (entries && entries.every(Boolean) && s.hash && adler32(Buffer.from(all.join('\n'), 'utf8')) === s.hash) {
+			s.entries = entries;
+			s.unfolded = true;
+		} else {
+			s.damaged = true;
+		}
+	}
+	out.settings = s;
 }
 
 // { description, details, block } from a message's content. `block` is the
@@ -136,4 +242,4 @@ function parseReport(content) {
 	return { description: cleanDescription(text), details: null, block: null };
 }
 
-module.exports = { parseReport, SEP };
+module.exports = { parseReport, parseSetting, adler32, SEP };

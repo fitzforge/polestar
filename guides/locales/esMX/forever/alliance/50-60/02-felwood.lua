@@ -22,7 +22,7 @@ return {
 	-- {npc:9528} Arathandris Silversky · {npc:11554} Grazle
 	["{npc:9528}, in the ruins just east of {npc:11554}"] = "{npc:9528}, en las ruinas justo al este de {npc:11554}",
 	-- {npc:9116} Eridan Bluewind
-	["{npc:9116}, inside"] = "",
+	["{npc:9116}, inside"] = "{npc:9116}, adentro",
 
 	-- Step 4: Grazle
 	-- {npc:11554} Grazle · {area:2479} Emerald Sanctuary
@@ -38,7 +38,7 @@ return {
 	-- {item:9328} Super Snapper FX · {area:1417} Sunken Temple · {area:2100} Maraudon
 	["If you skipped The Horn of the Beast or The {item:9328}, grind here to level 52.58 to stay on the route's plan. Or, with a group, run the {area:1417} dungeon or the {area:2100} dungeon instead."] = "",
 	-- {npc:7153} Deadwood Warrior
-	["grind on {npc:7153}"] = "",
+	["grind on {npc:7153}"] = "sube de nivel con {npc:7153}",
 
 	-- Step 7: Grazle
 	-- {npc:15395} Nafien · {zone:1448} Felwood
@@ -49,7 +49,7 @@ return {
 	-- {area:1763} Jaedenar · {area:1417} Sunken Temple · {area:2100} Maraudon
 	["Top up here to level 52.69 before the hand-ins at {area:1763}: they take you to level 53. Or, with a group, run the {area:1417} dungeon or the {area:2100} dungeon instead."] = "",
 	-- {npc:7155} Deadwood Pathfinder
-	["grind on {npc:7155}"] = "",
+	["grind on {npc:7155}"] = "sube de nivel con {npc:7155}",
 
 	-- Step 9: Jadefire Glen
 	-- {npc:9454} Xavathras · {spell:7992} Slowing Poison
@@ -65,7 +65,7 @@ return {
 	-- plural, as words: Tainted Oozes = {npc:7092} Tainted Ooze
 	["{item:11949}: Tainted Oozes slide about {area:1763}'s fel pools"] = "",
 	-- {npc:7125} Jaedenar Hound
-	["grind on {npc:7125}"] = "",
+	["grind on {npc:7125}"] = "sube de nivel con {npc:7125}",
 
 	-- Step 12: Level 52.9
 	["Level 52.9"] = "",
@@ -98,9 +98,9 @@ return {
 
 	-- Step 20: Timbermaw Hold
 	-- {npc:11558} Kernda
-	["Step into the cave: {npc:11558} stands just inside."] = "",
+	["Step into the cave: {npc:11558} stands just inside."] = "Entra a la cueva: {npc:11558} está justo en la entrada.",
 	-- {npc:11558} Kernda
-	["{npc:11558}: the Timbermaw speak to you only from Neutral; walks around here: look inside the circle on the map"] = "",
+	["{npc:11558}: the Timbermaw speak to you only from Neutral; walks around here: look inside the circle on the map"] = "{npc:11558}: los Fauces de Madera solo te hablan desde Neutral; da vueltas por aquí: búscala dentro del círculo del mapa",
 
 	-- Step 21: Jadefire Run: kill these as you meet them
 	-- {area:2618} Jadefire Run

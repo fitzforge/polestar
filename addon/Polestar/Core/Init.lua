@@ -193,6 +193,9 @@ function ns.Errors() return errors end
 -- folder (Polestar_Mob_Markers, #1123) is not ours. `where` is the first line
 -- of our code under the blocked call (the event fires inside it), since the
 -- game names a namespaced or anonymous frame's function only "UNKNOWN()".
+-- With none of ours under it, the game's own code made the call, tainted by
+-- ours earlier: `where` is then "via <function> <the game's file:line>", the
+-- blocked function and the line of the game's code that called it.
 local MAX_BLOCKED = 5
 local blocked = {}
 local function ownAddon(addon)
@@ -209,6 +212,16 @@ local function blockedSite()
 		local rel = path:gsub("\\", "/")
 		-- This handler and the event dispatch in this file.
 		if rel ~= ADDON .. "/Core/Init.lua" then return rel .. ":" .. line end
+	end
+	-- The C function nearest above the game's first line is the blocked one.
+	local fn
+	for l in stack:gmatch("[^\n]+") do
+		fn = l:match("^%[C%]: in function [`']([^`']+)'") or fn
+		local path, line = l:match("Interface[/\\]([^:\"%]\n]-%.lua)\"?%]?:(%d+)")
+		if path then
+			path = path:gsub("\\", "/"):gsub("^AddOns/", "")
+			if not path:find("^Polestar") then return "via " .. (fn and (fn .. " ") or "") .. path .. ":" .. line end
+		end
 	end
 	return nil
 end
@@ -247,6 +260,16 @@ local function raise(err)
 	geterrorhandler()(err)
 end
 
+-- Moments: one more for each timer, script or game event Polestar handles
+-- (ns.Safe, the event frame), each message it sends (ns.Fire) and each
+-- change the Engine is asked to weigh (Engine.RequestUpdate). Between two
+-- reads of ns.Moment() that give the same number in the same frame, nothing
+-- Polestar knows of has changed: Engine.GetStepView(i, true) shares one view
+-- among the readers of such a moment.
+local serial = 0
+function ns.Moment() return serial end
+function ns.NewMoment() serial = serial + 1 end
+
 -- Run a callback; report its error without stopping the caller's loop.
 local function call(fn, ...)
 	local ok, err = pcall(fn, ...)
@@ -262,7 +285,10 @@ ns.SafeCall = call
 -- the client would otherwise run bare.
 function ns.Safe(fn)
 	if fn == nil then return nil end
-	return function(...) call(fn, ...) end
+	return function(...)
+		serial = serial + 1
+		call(fn, ...)
+	end
 end
 
 -- C_Timer's After, NewTicker and NewTimer with the callback through ns.Safe.
@@ -435,6 +461,112 @@ function ns.PlaySoundFile(file, channel, arrow)
 	return PlaySoundFile(file, channel)
 end
 
+---------------------------------------------------------------------------
+-- Pause (docs/ARCHITECTURE.md, "Pause"): one switch per character, apart
+-- from hiding, that makes the guide step aside on the way to a dungeon and
+-- inside it, and resumes by itself once the player is back out alive. It
+-- pauses what Polestar shows and steers with, not the Engine, which keeps
+-- following the quest log. While paused, the arrow drops the Engine's own
+-- waypoint (Nav.lua's apply; a hold and points the player picks still
+-- show), the guide window and what goes with it (ns.GuideShown) go, and so
+-- do the window's nudges (the while-here toast and chime). With pause.map
+-- the step's map pins go too, with pause.automation the quest automation
+-- waits. It never writes ui.shown, nav.arrow, hidden or a behavior.*
+-- setting, so resuming restores everything by itself, and it leaves hiding
+-- as it is (and hiding leaves it).
+--
+-- PolestarCharDB.pause = { state = "armed" | "inside", at, map }: "armed"
+-- paused outside (at: ns.Now() then), "inside" in a dungeon, raid,
+-- battleground or arena (map: its instance map id, when the client gives
+-- it); nil not paused. Core/Pause.lua watches the way in and out and
+-- resumes, and ends an armed pause two hours after `at` wherever the player
+-- is (a timer); POLESTAR_PAUSED(state | nil, why) says it changed.
+---------------------------------------------------------------------------
+
+-- Instances that count, as the guide window's instance rule has them.
+local DUNGEON_KINDS = { party = true, raid = true, pvp = true, arena = true }
+local pauseState -- the saved table while paused, else nil
+
+function ns.Paused() return pauseState and pauseState.state or nil end
+
+-- Whether the pause takes `part` now: "arrow" (the Engine's waypoint and
+-- everything keyed off it), "window" (the guide window and ns.GuideShown),
+-- "nagging" (the while-here toast and chime) while paused; "map" (the
+-- step's pins) and "automation" (quest accept and turn-in) only with their
+-- setting on as well.
+function ns.PauseHides(part)
+	if not pauseState then return false end
+	if part == "arrow" or part == "window" or part == "nagging" then return true end
+	if part == "map" or part == "automation" then return ns.Get("pause." .. part) and true or false end
+	return false
+end
+
+-- -> true, instance map id (or nil) inside an instance that counts; false outside.
+function ns.PauseInside()
+	local C = ns.Compat
+	if not (C and C.IsInInstance) then return false end
+	local ok, inside, kind = pcall(C.IsInInstance)
+	if not (ok and inside and DUNGEON_KINDS[kind]) then return false end
+	local map
+	if C.GetInstanceMapID then
+		local okMap, id = pcall(C.GetInstanceMapID)
+		if okMap and type(id) == "number" then map = id end
+	end
+	return true, map
+end
+
+-- The pause's clock, for Core/Pause.lua too: Compat.Now() (server seconds),
+-- time() when the Compat in place has no Now (the test harnesses' stand-ins).
+function ns.Now()
+	local C = ns.Compat
+	local n = C and C.Now and C.Now()
+	if type(n) ~= "number" then n = time and time() or 0 end
+	return n
+end
+
+-- Pause (true) or resume. Paused inside an instance that counts it is
+-- "inside" there, elsewhere "armed" (an armed pause keeps the time it was
+-- armed). Paused again as it is, nothing changes; "armed" to "inside", or into another
+-- instance, fires POLESTAR_PAUSED again. `why`: what paused or resumed it
+-- ("hand", "entered", "left", "expired", "window"), passed on with
+-- POLESTAR_PAUSED for Core/Pause.lua's chat lines.
+function ns.SetPaused(on, why)
+	local new
+	if on then
+		local inside, map = ns.PauseInside()
+		if inside then
+			new = { state = "inside", map = map, at = pauseState and pauseState.at or ns.Now() }
+		elseif pauseState then
+			new = pauseState -- outside while paused: as it is ("inside" ends only through the watcher, by `on` false)
+		else
+			new = { state = "armed", at = ns.Now() }
+		end
+		if pauseState and new.state == pauseState.state and new.map == pauseState.map then return end
+	else
+		if not pauseState then return end
+	end
+	local guide = ns.GuideShown()
+	pauseState = new
+	ns.CharState().pause = new
+	ns.Fire("POLESTAR_PAUSED", new and new.state or nil, why)
+	if ns.GuideShown() ~= guide then ns.Fire("GUIDE_SHOWN", not guide) end
+end
+
+function ns.TogglePaused(why) ns.SetPaused(not pauseState, why or "hand") end
+
+-- The character's saved state, as the addon loads (ADDON_LOADED). It fires
+-- no POLESTAR_PAUSED: Core/Pause.lua times a loaded armed pause from ns.OnInit.
+local function loadPause()
+	local s = ns.CharState().pause
+	if type(s) == "table" and (s.state == "armed" or s.state == "inside") then
+		if type(s.at) ~= "number" then s.at = ns.Now() end
+		pauseState = s
+	else
+		pauseState = nil
+		ns.CharState().pause = nil
+	end
+end
+
 local function compact(list)
 	local j = 0
 	for i = 1, #list do
@@ -477,6 +609,7 @@ function ns.Off(h)
 end
 
 function ns.Fire(msg, ...)
+	serial = serial + 1
 	local list = listeners[msg]
 	if not list then return end
 	busDepth = busDepth + 1
@@ -490,6 +623,10 @@ function ns.Fire(msg, ...)
 		for _, l in pairs(listeners) do compact(l) end
 	end
 end
+
+-- Whether a message is being handed out now (one of its handlers runs):
+-- Polestar.API refuses calls made from there (docs/API.md).
+function ns.Dispatching() return busDepth > 0 end
 
 ---------------------------------------------------------------------------
 -- Game events, all through one hidden frame.
@@ -542,6 +679,7 @@ function ns.UnregisterEvent(event, fn)
 end
 
 eventFrame:SetScript("OnEvent", function(_, event, ...)
+	serial = serial + 1
 	local list = gameHandlers[event]
 	if not list then return end
 	eventDepth = eventDepth + 1
@@ -625,6 +763,12 @@ function ns.GetDefault(path)
 	return lookup(defaults, keysOf(path))
 end
 
+-- The value a setting holds itself, nil while it is at its default (what
+-- Set(path, value) puts back exactly: undo, a frame's place before a move).
+function ns.GetStored(path)
+	return lookup(DB().settings, keysOf(path))
+end
+
 function ns.Set(path, value)
 	local keys = keysOf(path)
 	local node = DB().settings
@@ -648,10 +792,10 @@ end
 -- and the rare and transport alerts go with it, the arrow only with
 -- nav.hideArrowWithGuide on (Nav.HiddenWithGuide). An instance hide
 -- (ui.instance "hide") takes them too; a combat hide leaves them. Hiding
--- Polestar takes them all.
+-- Polestar takes them all, and so does the pause (ns.PauseHides).
 local awayInside = false
 function ns.GuideShown()
-	return not hidden and ns.GuideWindowOn()
+	return not hidden and not ns.PauseHides("window") and ns.GuideWindowOn()
 end
 
 -- The window's own on/off and instance wait, Polestar hidden or not: what
@@ -668,6 +812,72 @@ function ns.SetGuideAwayInside(away)
 	if away == awayInside then return end
 	awayInside = away
 	ns.Fire("GUIDE_SHOWN", ns.GuideShown())
+end
+
+---------------------------------------------------------------------------
+-- Out of sight. Some UI addons follow the guide's steps in their own quest
+-- tracker and route, and keep one arrow on screen by turning Polestar's
+-- guide window and arrow down to nothing (a scale far below a pixel, alpha
+-- 0) instead of hiding them. Both still read as shown here, so the window's
+-- toggle would turn off a window nobody sees, and the action buttons with
+-- it. Told by the scale alone: Polestar never sets its own that low (the
+-- window's scale is 0.6 at least, the arrow's 0.5), while the player's own
+-- fades take the window and the arrow to alpha 0 in combat or 0.03 at rest.
+---------------------------------------------------------------------------
+
+local SIGHT_SCALE = 0.2
+local sight = { pending = false } -- .window, .arrow: the frames ns.WatchSight watches
+
+-- Shown, but kept out of sight by another addon.
+function ns.OutOfSight(frame)
+	return frame ~= nil and frame:IsShown() and frame:GetScale() < SIGHT_SCALE or false
+end
+
+-- Says which of the window and the arrow another addon keeps out of sight
+-- and how to get them back. -> true when it said so.
+function ns.SayOutOfSight()
+	local window, arrow = ns.OutOfSight(sight.window), ns.OutOfSight(sight.arrow)
+	if not (window or arrow) then return false end
+	DB().sightTold = true
+	if window and arrow then
+		ns.Print(L["Another addon is keeping the guide window and the arrow out of sight. Some UI addons show the guide's steps in their own quest tracker and route instead: turn that off in that addon to get Polestar's back."])
+	elseif window then
+		ns.Print(L["Another addon is keeping the guide window out of sight. Some UI addons show the guide's steps in their own quest tracker instead: turn that off in that addon to get it back."])
+	else
+		ns.Print(L["Another addon is keeping the arrow out of sight. Some UI addons lead the way with their own arrow or route instead: turn that off in that addon to get it back."])
+	end
+	return true
+end
+
+-- The first time on this account: a notice at the top of the screen for 12
+-- seconds and the chat line. The window's toggle and the arrow's commands
+-- say it again whenever they are used on what is out of sight.
+function sight.check()
+	sight.pending = false
+	if DB().sightTold or hidden then return end
+	if not (ns.OutOfSight(sight.window) or ns.OutOfSight(sight.arrow)) then return end
+	local alerts = ns.Nav and ns.Nav.alerts
+	if alerts and alerts.ShowNotice then
+		alerts.ShowNotice(L["Polestar is out of sight"], L["Another addon is hiding the guide window or the arrow. The chat says how to get it back."], 12)
+	end
+	ns.SayOutOfSight()
+end
+function sight.soon()
+	if sight.pending then return end
+	sight.pending = true
+	ns.After(0, sight.check)
+end
+function sight.scale(_, s) if type(s) == "number" and s < SIGHT_SCALE then sight.soon() end end
+function sight.show(self) if ns.OutOfSight(self) then sight.soon() end end
+
+-- One of Polestar's frames another addon may take out of sight (role
+-- "window" or "arrow"): a post-hook on its SetScale and its OnShow notice the
+-- moment it happens, looked at a frame later. Called once the frame's own
+-- OnShow is set: the client's SetScript drops a hooked script.
+function ns.WatchSight(frame, role)
+	sight[role] = frame
+	hooksecurefunc(frame, "SetScale", sight.scale)
+	frame:HookScript("OnShow", sight.show)
 end
 
 -- Forget stored values for one section (or all), back to defaults.
@@ -692,7 +902,7 @@ function ns.CharState()
 	if type(s.skipped) ~= "table" then s.skipped = {} end
 	-- Per guide, per step: true when its `when` held as the route passed it, or it was unskipped (Engine.lua, Own.latchWhen, Own.keep; a failed one is stored in `skipped`); an unskipped step's `skipto` takes no jump.
 	if type(s.when) ~= "table" then s.when = {} end
-	-- Map id -> true: the dungeons the player chose to run in leveling guides (`when dungeon`; Engine.ChooseDungeon).
+	-- Map id -> true (run it) | false (skip it): the player's answer for a dungeon in leveling guides (`when dungeon`; Engine.ChooseDungeon); none: behavior.dungeons answers ("Dungeons in my route").
 	if type(s.dungeons) ~= "table" then s.dungeons = {} end
 	-- Quest id -> "do" | "skip": the player's answer at a group quest in leveling guides (`when group`; Engine.AnswerGroup).
 	if type(s.groupQuests) ~= "table" then s.groupQuests = {} end
@@ -746,7 +956,11 @@ local function onAddonLoaded(_, name)
 	DB()
 	newCharacter = type(PolestarCharDB) ~= "table"
 	ns.CharState()
+	-- The character's settings profile into PolestarDB.settings and the
+	-- settings migrations, before anything reads a setting (Core/Profiles.lua).
+	if ns.Profiles and ns.Profiles.Load then call(ns.Profiles.Load) end
 	loadHidden()
+	loadPause()
 	initialized = true
 	local queue = initQueue
 	initQueue = nil
@@ -840,6 +1054,7 @@ end
 if not gamepadUI then
 	SLASH_POLESTAR1 = "/polestar"
 	SLASH_POLESTAR2 = "/pole"
+	SLASH_POLESTAR3 = "/ps"
 	SlashCmdList.POLESTAR = ns.RunCommand
 end
 if not gamepadUI and not SLASH_POLESTAR_RL1 then

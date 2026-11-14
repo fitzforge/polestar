@@ -200,9 +200,7 @@ return {
 
 	-- Step 41: Helcular's Grave
 	-- {area:271} Southshore
-	-- plural, as words: Southshore Guards = {npc:2386} Southshore Guard
-	["Head east to {area:271}'s graveyard, on the north-east edge of the town: Helcular's grave lies among the others. Come at it from the north, down the slope above the town. Southshore Guards (55) stand at the graveyard's north-west corner and south-east of the grave: walk in between them, hand the quest in and leave the way you came."] = "Siga para leste até o cemitério de {area:271}, na ponta nordeste da vila: o túmulo de Helcular fica entre os outros. Chegue pelo norte, descendo a encosta acima da vila. Guardas da Costa Sul (55) ficam no canto noroeste do cemitério e a sudeste do túmulo: passe entre eles, entregue a missão e saia pelo mesmo caminho por onde veio.",
-	["North of Southshore's graveyard"] = "Ao norte do cemitério da Costa Sul",
+	["Head east to {area:271}'s graveyard, on the north-east edge of the town: Helcular's grave lies among the others. Come at it from the north and keep away from the town's guards."] = "Siga para leste até o cemitério de {area:271}, na ponta nordeste da vila: o túmulo de Helcular fica entre os outros. Chegue pelo norte e fique longe dos guardas da vila.",
 
 	-- Step 42: Daggerspine naga
 	["Daggerspine naga"] = "Nagas Espinhadaga",
@@ -343,7 +341,6 @@ return {
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Follow the road north out of {area:272} into the Alterac foothills. {quest:535} waits by the Syndicate camp; hand him the stout."] = "Siga a estrada para o norte saindo de {area:272} até o sopé de Alterac. {quest:535} espera perto do acampamento da Camarilha; entregue-lhe a cerveja.",
 	-- ["Head back north to {area:272}, east of {area:271}."] = "Volte ao norte até {area:272}, a leste de {area:271}.",
-	-- ["Head east to {area:271}'s graveyard, on the north-east edge of the town: Helcular's grave lies among the others. Come at it from the north and keep away from the town's guards."] = "Siga para leste até o cemitério de {area:271}, na ponta nordeste da vila: o túmulo de Helcular fica entre os outros. Chegue pelo norte e fique longe dos guardas da vila.",
 	-- ["South-west, the Cave and Ferocious Yetis (30-32) fill the {area:277} in the hills west of {area:272}; about one in sixteen carries the rod."] = "A sudoeste, os Yetis das Cavernas e Yetis Ferozes (30-32) enchem {area:277}, nas colinas a oeste de {area:272}; cerca de um em cada dezesseis carrega o bastão.",
 	-- ["The Syndicate Footpads and Thieves (32-34) around the camps west of the road carry the missives; about one in three drops one."] = "Os Salteadores e Ladrões da Camarilha (32-34) em volta dos acampamentos a oeste da estrada levam as missivas; cerca de um em três deixa cair uma.",
 	-- ["The keg stands with a few others at the Syndicate camp on the south-east coast of {area:287}."] = "O barril fica com alguns outros no acampamento da Camarilha na costa sudeste de {area:287}.",

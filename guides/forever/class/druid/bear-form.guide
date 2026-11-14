@@ -82,7 +82,7 @@ step Mathrengyl Bearwalker
   only NightElf
   zone Darnassus
   tip Mathrengyl Bearwalker stands upstairs in the druids' building of the Cenarion Enclave. He teaches you Teleport: Moonglade with the quest (it stays in your spellbook, Balance tab).
-  turnin 5925 optional                  -- or whichever of the three letters you carry
+  turnin 5925                           -- or whichever of the three letters you carry
   accept 5921
 
 step Moonglade
@@ -137,7 +137,7 @@ step Turak Runetotem
   only Tauren
   zone Thunder Bluff
   tip Turak Runetotem stands in the druids' hut on Elder Rise, over the rope bridges east of the lifts. He teaches you Teleport: Moonglade with the quest (it stays in your spellbook, Balance tab).
-  turnin 5928 optional                  -- or whichever of the three letters you carry
+  turnin 5928                           -- or whichever of the three letters you carry
   accept 5922
 
 step Moonglade

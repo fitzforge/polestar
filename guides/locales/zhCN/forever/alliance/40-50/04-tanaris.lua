@@ -58,7 +58,7 @@ return {
 	-- {npc:7881} Stoley
 	["{npc:7881}, inside"] = "{npc:7881}：在屋内",
 	-- {area:35} Booty Bay · {zone:1425} Hinterlands
-	["\"Sea Wolf\" MacKinley in {area:35}: the route takes you there at the end of the {zone:1425} guide, keep it"] = "",
+	["\"Sea Wolf\" MacKinley in {area:35}: the route takes you there at the end of the {zone:1425} guide, keep it"] = "{area:35}的“海狼”马克基雷：路线会在{zone:1425}指南结束时前往那里，先保留任务",
 
 	-- Step 11: Noonshade Ruins
 	["Careful: Thieves cast Disarm. Rogues stay hidden with Sneak. Assassins use Execute when your health is at 20% or lower."] = "注意：窃贼会缴械，游荡者会潜行隐藏，刺客会在你生命值降到 20% 或以下时使用斩杀。",
@@ -107,7 +107,7 @@ return {
 
 	-- Step 21: Gadgetzan
 	-- {area:976} Gadgetzan · {npc:11758} Andi Lynn
-	["Ride back west to {area:976}: {npc:11758} stands on the east side of town, where you come in."] = "",
+	["Ride back west to {area:976}: {npc:11758} stands on the east side of town, where you come in."] = "向西骑行返回{area:976}：{npc:11758}就在进城处的镇子东侧。",
 	-- {npc:5594} Alchemist Pestlezugg
 	["{npc:5594}, inside"] = "{npc:5594}：在屋内",
 

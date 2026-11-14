@@ -179,6 +179,44 @@ fn issue_1823_on_a_long_trip_a_class_teleport_must_also_save_a_fifth_of_the_way_
 	assert_eq!(out["fifth"], json!(["teleport", 423]), "119 s saved, over a fifth of 542 s: the teleport");
 }
 
+// #1823 (a Gnome Mage on Pygmy Venom Web Spiders, one left to kill): the arrow on another of the goal's spawn areas
+// sent him to cast Teleport: Stormwind, though the spiders were where he stood. While the player stands in one of the
+// target's spawn areas (the Engine's waypoint `spots`) or within 100 yards of its edge, the way to another one is
+// walked: no teleport, Hearthstone or flight. Farther from them, the teleport or flight as before.
+#[test]
+fn issue_1823_in_or_near_one_of_a_goal_s_spawn_areas_the_way_to_another_is_walked_never_by_teleport_or_flight() {
+	let out = run(r#"
+		local r = {}
+		local landing = { name = "Testshire", c = 0, wx = -500, wy = -500, map = 9002, x = 75, y = 75 }
+		Polestar.Transit = { Now = function() return 0 end, Teleports = function()
+			return { { spell = 3561, name = "Teleport: Testshire", cast = 10, ready = 0, to = landing } } end }
+		-- The arrow on the spot by the landing (map 75,74); another of the goal's spots at (600, 600) (map 20,20).
+		local SPOTS = { { x = 75, y = 74, r = 50 }, { x = 20, y = 20, r = 50 } }
+		local function spiders(wx, wy, spots, x, y)
+			nav.place(wx, wy)
+			local t = N.SetTarget(9000, x or 75, y or 74, "Spiders")
+			t.spots = spots
+			T.Replan()
+			return route()
+		end
+		r.inside = spiders(600, 600, SPOTS)
+		r.arrow = N.Sample()                              -- what the arrow shows there
+		r.near = spiders(600, 740, SPOTS)                -- 90 yd past that spot's edge
+		r.away = spiders(600, -600, SPOTS)               -- farther than 100 yd from every spot
+		r.single = spiders(600, 600, nil)                -- a target with one place
+		-- No teleport; flights known: from the spot beside West Hold (0, 700) to the one beside East Hold (0, -780).
+		Polestar.Transit = nil
+		known(1, 2)
+		r.flight = spiders(0, 700, { { x = 89, y = 50, r = 40 }, { x = 15, y = 50, r = 40 } }, 89, 50)
+		emit(r)"#);
+	assert_eq!(out["inside"], json!(["walk|Spiders"]), "in another spot of the goal: walked");
+	assert_ne!(out["arrow"], "instruction", "the arrow leads the walk, never asks for the cast");
+	assert_eq!(out["near"], json!(["walk|Spiders"]), "near one: walked");
+	assert_eq!(out["away"], json!(["teleport|Cast Teleport: Testshire", "walk|Spiders"]), "away from them: the teleport");
+	assert_eq!(out["single"], json!(["teleport|Cast Teleport: Testshire", "walk|Spiders"]), "a target with no spawn areas: as before");
+	assert_eq!(out["flight"], json!(["walk|Spiders"]), "no flight from beside West Hold either");
+}
+
 #[test]
 fn a_walk_in_portal_goes_one_way_only() {
 	let out = run(r#"
@@ -338,6 +376,103 @@ fn skipping_another_leg_moves_on_to_the_next_flights_list_every_node_they_hop() 
 		emit(r)"#);
 	assert_eq!(out["stops"], json!([2, 1, 2]));
 	assert_eq!(out["after"], json!(["fly|Fly to East Hold", "walk|Kobolds"]));
+}
+
+// #1890: from Stormwind the route flew to Sentinel Hill, and on landing it planned the flight back, over and over. The
+// plan made on landing never flies back to the flight master the flight left from, for this target: here the walks
+// from East Hold into the target are priced dearer once landed (a walk the engine measured), as Sentinel Hill's were.
+// The route's flight leg names that flight master; a flight taken without the route leaves from the one beside the
+// player. A flight that comes down where it took off never got away: that flight master stays in the plans. Another
+// target may fly there again.
+#[test]
+fn issue_1890_after_landing_the_route_never_flies_back_to_the_flight_master_it_left_from_another_target_may() {
+	let out = run(r#"
+		local r, dear = {}, false
+		-- Once landed, the walks from beside East Hold into the quest cost far more than their yards.
+		T.WalkCostHook(function(walk, cost)
+			if dear and math.abs(walk.from.wy + 800) < 60 and math.abs(walk.to.wy + 700) < 2 then return cost + 10000 end
+		end)
+		local function fly(fromY)
+			nav.place(0, fromY)
+			N.Sample()                                    -- at the flight master: the flight is the current leg
+			nav.taxi = true
+			N.Refresh()                                   -- take-off
+			nav.place(0, -800)
+			dear = true
+			nav.taxi = false
+			N.Refresh()                                   -- landed at East Hold: planned again
+			local after = route()
+			dear = false
+			return after
+		end
+		known(1, 2)
+		nav.place(0, 700)
+		target(0, -700, "Kobolds")
+		r.planned = route()
+		r.landed = fly(790)
+		-- A flight the route did not ask for: from West Hold, with the route walking.
+		target(0, -701, "Kobolds")
+		local walkTo = route()
+		dear = true
+		nav.place(0, 790)
+		nav.taxi = true
+		N.Refresh()
+		nav.place(0, -800)
+		nav.taxi = false
+		N.Refresh()
+		r.own = route()
+		dear = false
+		-- Another target: the flight to West Hold again.
+		target(0, 780, "Wolves")
+		r.other = route()
+		-- A flight that comes down where it took off: it never got away, and West Hold stays in the plans.
+		target(0, -702, "Kobolds")
+		nav.place(0, 790)
+		N.Sample()
+		nav.taxi = true
+		N.Refresh()
+		nav.taxi = false
+		N.Refresh()
+		r.stayed = route()
+		r.walkTo = walkTo[1]
+		emit(r)"#);
+	assert_eq!(out["planned"], json!(["walk|Walk to the flight master", "fly|Fly to East Hold", "walk|Kobolds"]));
+	assert_eq!(out["landed"], json!(["walk|Kobolds"]), "never the flight back to West Hold");
+	assert_eq!(out["walkTo"], "walk|Kobolds", "from beside East Hold the route walks: no flight asked for");
+	assert_eq!(out["own"], json!(["walk|Kobolds"]), "a flight taken without the route: the flight master beside the player");
+	assert_eq!(out["other"], json!(["fly|Fly to West Hold", "walk|Wolves"]), "another target may fly there again");
+	assert_eq!(out["stayed"], json!(["fly|Fly to East Hold", "walk|Kobolds"]), "a flight that never got away: West Hold stays");
+}
+
+// The same for a ride (#1890's sweep): once a boat, zeppelin, tram or portal has arrived, the plans for this target
+// never take it back, however the walks from its far end come to be priced.
+#[test]
+fn issue_1890_after_a_ride_arrives_the_route_never_rides_it_back_another_target_may() {
+	let out = run(r#"
+		local r, dear = {}, false
+		N.RegisterTravelData({ build = "test", taxi = {}, flights = {}, inns = {},
+			transports = { { id = "tram-test", kind = "tram", faction = 1, ab = 100, ba = 100, waitA = 30, waitB = 30,
+				a = { "Northgate", 0, 900, 0, 9000, 50, 5 }, b = { "Southgate", 0, -900, 0, 9000, 50, 95 } } } }, true)
+		T.WalkCostHook(function(walk, cost)
+			if dear and math.abs(walk.from.wx + 900) < 60 and math.abs(walk.to.wx + 950) < 2 then return cost + 10000 end
+		end)
+		nav.place(890, 0)
+		target(-950, 0, "South")
+		r.planned = route()
+		nav.place(-900, 0)                                -- the tram has arrived at Southgate
+		N.Sample()
+		dear = true
+		T.Replan()
+		r.arrived = route()
+		dear = false
+		target(-950, 1, "Other")                          -- another target: the tram again
+		nav.place(890, 0)
+		T.Replan()
+		r.other = route()[1]
+		emit(r)"#);
+	assert_eq!(out["planned"], json!(["tram|Take the tram to Southgate", "walk|South"]));
+	assert_eq!(out["arrived"], json!(["walk|South"]), "never the tram back to Northgate");
+	assert_eq!(out["other"], "tram|Take the tram to Southgate", "another target may ride it again");
 }
 
 #[test]
@@ -629,6 +764,37 @@ fn issue_1327_no_hearthstone_while_a_quest_timer_runs_it_comes_back_when_the_tim
 		.replace("@TIMER@", TIMER));
 	assert_eq!(out["timed"], "walk|Walk to the boat");
 	assert_eq!(out["ended"], "hearth|Hearth to Testshire Inn: saves 10 min");
+}
+
+// Barrens, Free From the Hold (Fitz, 0.3.7.1): on the escort out of Northwatch Hold the arrow said to hearth, which
+// leaves the escorted NPC behind and fails the quest. While the live step's escort runs (Engine.EscortRunning,
+// tested in engine-failed-quest.rs) the route walks: no Hearthstone, no boat; once it ends, both come back.
+#[test]
+fn an_escort_walks_no_hearthstone_and_no_ride_until_it_ends() {
+	let out = run(r#"
+		local running = false
+		Polestar.Engine = { EscortRunning = function() return running end }
+		local function escort(on)
+			running = on
+			stub.fire("QUEST_LOG_UPDATE")
+		end
+		local r = {}
+		nav.items[6948] = 1
+		nav.bind = "Testshire Inn"
+		nav.useTravelWorld(nil, 400)
+		nav.place(900, 0)                         -- the target's continent, a long walk from it: the Hearthstone pays
+		target(-520, -690, "Innkeeper quest")
+		r.free = route()[1]
+		escort(true)
+		N.Refresh()
+		r.escort = route()
+		escort(false)
+		N.Refresh()
+		r.ended = route()[1]
+		emit(r)"#);
+	assert_eq!(out["free"].as_str().map(|s| s.starts_with("hearth|")), Some(true), "without the escort the Hearthstone pays: {out}");
+	assert_eq!(out["escort"], json!(["walk|Innkeeper quest"]), "walks with the escort: {out}");
+	assert_eq!(out["ended"], out["free"], "the escort done: the Hearthstone comes back");
 }
 
 #[test]

@@ -11,7 +11,8 @@
 -- Colours: Nav.RGB(name) and Nav.Wash(role) read Polestar.Theme's tokens
 -- (accent, success, the arrow's arrow/arrowNear and their legible *Text
 -- forms, text, textDim, place, ink, shade; the ink washes), with a
--- fallback palette only for when Theme is not loaded.
+-- fallback palette only for when Theme is not loaded; on a light palette
+-- the text ones are the palette's paper, to read over the world.
 
 local ADDON, ns = ...
 local L = ns.L
@@ -45,6 +46,8 @@ ns.RegisterDefaults("nav", {
 	tomtom = true,
 	useTomTomArrow = false,
 	blizzardWaypoint = false,
+	-- Hide the arrow while an addon following Polestar shows the target itself (Nav.API.Follow, `shows`).
+	arrowToFollower = false,
 	arrivalSound = true,
 	-- How distances read: "yards" (the game's unit) or "metres" (ns.FormatDistance).
 	distanceUnit = "yards",
@@ -102,18 +105,53 @@ local function themeColor(name)
 	if ok and type(r) == "number" and type(g) == "number" and type(b) == "number" then return r, g, b end
 end
 
+-- A light palette (a parchment skin: dark ink on paper) can't colour text
+-- the 3D world shows through: its ink vanishes over a night zone. Nav's
+-- text (the arrow's lines, the leg prompts' lines on the game's dark
+-- tooltip) then takes the palette's paper, outlined and shadowed in its
+-- ink, and its coloured lines are lifted toward the paper until they read
+-- on a night zone (WORLD_NIGHT) at the subject colours' floor (4.5:1).
+local WORLD_NIGHT = { 0.086, 0.098, 0.122 }
+local PAPER_TEXT, LIFTED = { "text", "textDim" }, { "place", "arrowText", "arrowNearText" }
+local function overTheWorld(T)
+	local ok, light = pcall(function() return T.IsLightPalette(T.Palette()) end)
+	if not (ok and light) then return end
+	local pr, pg, pb = themeColor("panel")
+	if not pb then return end
+	-- The ink (the palette's text, read above) goes to the shadow first.
+	local ink, shade = palette.text, palette.shade
+	shade[1], shade[2], shade[3] = ink[1], ink[2], ink[3]
+	for _, name in ipairs(PAPER_TEXT) do
+		local c = palette[name]
+		c[1], c[2], c[3] = pr, pg, pb
+	end
+	for _, name in ipairs(LIFTED) do
+		local c = palette[name]
+		for _ = 1, 24 do
+			if T.Contrast(c, WORLD_NIGHT) >= 4.5 then break end
+			c[1], c[2], c[3] = c[1] + (pr - c[1]) * 0.15, c[2] + (pg - c[2]) * 0.15, c[3] + (pb - c[3]) * 0.15
+		end
+	end
+end
+
 local function refreshPalette()
 	for name, fb in pairs(FALLBACK) do
 		local r, g, b = themeColor(name)
 		local c = palette[name]
 		c[1], c[2], c[3] = r or fb[1], g or fb[2], b or fb[3]
 	end
+	local T = ns.Theme
+	if type(T) == "table" and T.IsLightPalette and T.Palette and T.Contrast then overTheWorld(T) end
 end
 
 function Nav.RGB(name)
 	local c = palette[name] or palette.text
 	return c[1], c[2], c[3]
 end
+
+-- (): the theme's colours read again, as on every theme change; the skin
+-- picker's cards read another skin's while they paint its arrow.
+Nav.ReadPalette = refreshPalette
 
 -- An ink wash at one of the house alphas (Theme.Wash): r, g, b, a.
 function Nav.Wash(role)
@@ -212,8 +250,15 @@ local function announce()
 	if not ok then error(err, 0) end
 end
 
+-- The Engine's waypoint as the arrow may take it: not while dismissed, nor
+-- while paused (Pause takes the arrow; a hold and a picked point still show).
+local function engineTarget()
+	if dismissed or ns.PauseHides("arrow") then return nil end
+	return engineWp
+end
+
 local function apply(shouldAnnounce)
-	local new = hold or override or (not dismissed and engineWp) or nil
+	local new = hold or override or engineTarget() or nil
 	-- Held: a step, the guide's waypoint or a picked point changing under the
 	-- hold changes nothing shown (no replan, no second chime) until Nav.Unhold.
 	if hold and new == target then return end
@@ -637,6 +682,12 @@ ns.On("SETTING_CHANGED", function(path)
 end)
 ns.On("GUIDE_SHOWN", function() Nav.Refresh() end) -- an instance hide (ns.GuideShown)
 ns.On("POLESTAR_HIDDEN", function() Nav.Refresh() end) -- the arrow and its travel button (ns.ArrowHidden)
+-- Paused or resumed: the Engine's waypoint goes or comes back (a hold or
+-- a picked point over it stays as it is: no second chime).
+ns.On("POLESTAR_PAUSED", function()
+	if not (hold or override) and engineTarget() ~= target then apply(true) end
+	Nav.Refresh()
+end)
 
 local function situationChanged()
 	if target and not tC then resolve() end
@@ -713,18 +764,32 @@ function Nav.HiddenWithGuide()
 end
 
 -- A command that asked for the arrow while something hides it still takes
--- effect: says why nothing shows yet.
+-- effect: says why nothing shows yet, another addon keeping it out of sight
+-- included (ns.OutOfSight).
+local function arrowOutOfSight()
+	return Nav.arrow ~= nil and ns.OutOfSight(Nav.arrow.frame)
+end
 function Nav.SayGuideHidden()
 	if ns.ArrowHidden() then
 		ns.Print(L["Polestar is hidden, the arrow with it: \"Keep the arrow when hidden\" in the minimap button's menu keeps it."])
 	elseif Nav.HiddenWithGuide() then
 		ns.Print(L["The guide is hidden and \"Hide the arrow with the guide\" is on, so the arrow is hidden too: /polestar show brings them back."])
+	elseif ns.PauseHides("arrow") and not (hold or override) then
+		ns.Print(L["Polestar is paused: the arrow follows the guide again once you leave the dungeon alive, or after /polestar resume."])
+	elseif arrowOutOfSight() then
+		ns.SayOutOfSight()
 	end
 end
 
 -- The arrow on or off (nav.arrow): /polestar arrow, the minimap button's menu.
+-- One that is on but kept out of sight stays on: the toggle says why it is
+-- not seen, as the window's does.
 function Nav.ToggleArrow()
 	if not ns.Get("nav.arrow") and Nav.SayHandedOff() then return end
+	if ns.Get("nav.arrow") and arrowOutOfSight() then
+		ns.SayOutOfSight()
+		return
+	end
 	ns.Set("nav.arrow", not ns.Get("nav.arrow"))
 	if ns.Get("nav.arrow") then Nav.SayGuideHidden() end
 end

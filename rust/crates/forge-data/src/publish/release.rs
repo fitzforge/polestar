@@ -173,7 +173,7 @@ fn notice(m: &Meta) -> String {
 	s.push_str("- **CMaNGOS classic-db** (https://github.com/cmangos/classic-db), GPL-3.0.\n");
 	s.push_str("- **VMaNGOS** values (through pfQuest) and **Factoruide** data (https://github.com/Factoruide), GPL-2.0-or-later.\n");
 	s.push_str("- **ForeverTDB**, the Forever TrinityCore world database (https://github.com/advocaite/TrinityCore/tree/forever), GPL-2.0.\n");
-	s.push_str("- **QuestieDB** (Questie team), credited per its maintainer; Questie is moving to GPL-3.0.\n");
+	s.push_str("- **QuestieDB** (Questie team), credited per its maintainer; Questie is moving to GPL-3.0. The quest\n  objective lines in `corrections/quests.json` are the game's words as QuestieDB, EG Link's client\n  data and players' recordings hold them.\n");
 	s.push_str("- **World of Warcraft: Forever client tables**, read from the game client.\n");
 	s.push_str("- **pfQuest** (https://github.com/shagu/pfQuest), MIT licence:\n\n");
 	let mit = m.pfquest_notice.clone().unwrap_or_else(|| "MIT License\n\nCopyright (c) 2017-2021 Eric Mauser (Shagu)".into());
@@ -181,7 +181,7 @@ fn notice(m: &Meta) -> String {
 		s.push_str(&format!("    {l}\n").replace("    \n", "\n"));
 	}
 	s.push_str(
-		"\n## Disclaimer\n\nWorld of Warcraft and Blizzard Entertainment are trademarks or registered trademarks of Blizzard\nEntertainment, Inc. in the U.S. and/or other countries. This data set is not made, endorsed or\nsupported by Blizzard Entertainment. Names, ids and numbers describe the game for players; no game\nassets or game text beyond names and titles are included.\n",
+		"\n## Disclaimer\n\nWorld of Warcraft and Blizzard Entertainment are trademarks or registered trademarks of Blizzard\nEntertainment, Inc. in the U.S. and/or other countries. This data set is not made, endorsed or\nsupported by Blizzard Entertainment. Names, ids and numbers describe the game for players. No game\nassets are included. The game's own text is limited to names, titles and the quest objective lines\nthe corrections carry; that text is Blizzard's and neither of this data set's licences covers it.\n",
 	);
 	s
 }
@@ -195,7 +195,7 @@ fn readme() -> String {
 	let tier: Vec<String> = TABLES.iter().filter(|t| !t.own_layer).map(|t| format!("`data/{}.jsonl`", t.name)).collect();
 	let own: Vec<String> = TABLES.iter().filter(|t| t.own_layer).map(|t| format!("`data/{}.jsonl`", t.name)).collect();
 	format!(
-		"# Polestar quest data for World of Warcraft: Forever\n\nOne row per line in data/*.jsonl; each table's JSON Schema is in schema/, and datapackage.json\nlists every file with its size, sha256 and licence. index.json names the version and client build.\n\n## Licences\n\n- **GPL-3.0** (LICENSE): the database tables {}.\n- **CC BY 4.0** (LICENSE-CC-BY-4.0.txt): our own layer: the quest step and mechanic text in {},\n  the schemas under schema/, and corrections/.\n\nCredits for the sources are in NOTICE.md.\n\n## Disclaimer\n\nWorld of Warcraft names and game data © Blizzard Entertainment; this project is not affiliated with\nor endorsed by Blizzard.\n",
+		"# Polestar quest data for World of Warcraft: Forever\n\nOne row per line in data/*.jsonl; each table's JSON Schema is in schema/, and datapackage.json\nlists every file with its size, sha256 and licence. index.json names the version and client build.\n\n## Licences\n\n- **GPL-3.0** (LICENSE): the database tables {}.\n- **CC BY 4.0** (LICENSE-CC-BY-4.0.txt): our own layer: the quest step and mechanic text in {},\n  the schemas under schema/, and the notes and sources in corrections/.\n\nNeither licence covers the game's own words, which stay Blizzard's: the names and titles in the\ntables, and the quest objective lines in corrections/quests.json.\n\nCredits for the sources are in NOTICE.md.\n\n## Disclaimer\n\nWorld of Warcraft names and game data © Blizzard Entertainment; this project is not affiliated with\nor endorsed by Blizzard.\n",
 		tier.join(", "),
 		own.join(" and ")
 	)

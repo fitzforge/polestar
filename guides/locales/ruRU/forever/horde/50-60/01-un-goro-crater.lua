@@ -22,8 +22,8 @@ return {
 	["{npc:9998}, at the refuge entrance"] = "{npc:9998}, у входа в лагерь",
 	-- {npc:9618} Karna Remtravel
 	["{npc:9618}, just outside"] = "{npc:9618}, сразу снаружи",
-	-- {quest:3761} Un'Goro Soil
-	["From here on pick up every Power Crystal (blue, green, red, yellow) and every {quest:3761} pile you pass: 25 soil in all, 20 for Hamuul and 5 for Pestlezugg."] = "Отсюда собирайте все кристаллы силы (синие, зеленые, красные, желтые) и все кучи земли ({quest:3761}) по пути: всего 25 земли – 20 для Хамуула и 5 для Пестычинса.",
+	-- {npc:271301} Power Crystal · {quest:3761} Un'Goro Soil
+	["From here on pick up every {npc:271301} (blue, green, red, yellow) and every {quest:3761} pile you pass: 25 soil in all, 20 for Hamuul and 5 for Pestlezugg."] = "",
 
 	-- Step 4: Lakkari Tar Pits
 	-- {item:11834} Super Sticky Tar
@@ -37,6 +37,7 @@ return {
 	["grind on Pterrordax"] = "",
 
 	-- Step 6: Power Crystals and soil
+	-- plural, as words: Power Crystals = {npc:271301} Power Crystal
 	["Power Crystals and soil"] = "Кристаллы силы и земля",
 	-- {area:537} Fire Plume Ridge
 	["The crystal clusters stand all over the crater, many around {area:537}. Take a few extra of each colour for the pylons."] = "Кристаллы растут по всему кратеру, много – вокруг места {area:537}. Возьмите по несколько лишних каждого цвета для пилонов.",
@@ -273,6 +274,7 @@ return {
 	-- ["Follow the road east through the {area:28} and across the river into the {area:139}; leave it north for {area:2627}, the ruined town in the north-west. {npc:12384} sits in a hut at its edge."] = "Езжайте по дороге на восток через край {area:28} и за реку в край {area:139}; сверните на север сюда: {area:2627} – разрушенный город на северо-западе. {npc:12384} сидит в хижине на его краю.",
 	-- ["Follow the road east through the {zone:1422} and across the river into the {zone:1423}; leave it north for {area:2627}, the ruined town in the north-west. {npc:12384} sits in a hut at its edge."] = "Езжайте по дороге на восток через край {zone:1422} и за реку в край {zone:1423}; сверните на север сюда: {area:2627} – разрушенный город на северо-западе. {npc:12384} сидит в хижине на его краю.",
 	-- ["Free Darrowshire Spirits: talk to them"] = "Освободите духов Дарроушира: поговорите с ними",
+	-- ["From here on pick up every Power Crystal (blue, green, red, yellow) and every {quest:3761} pile you pass: 25 soil in all, 20 for Hamuul and 5 for Pestlezugg."] = "Отсюда собирайте все кристаллы силы (синие, зеленые, красные, желтые) и все кучи земли ({quest:3761}) по пути: всего 25 земли – 20 для Хамуула и 5 для Пестычинса.",
 	-- ["From the {area:1938} ride west to the long ramp that winds down into {area:490}, then follow the crater's north wall to {area:541}, a camp in the cliff caves. Everyone here is neutral."] = "От места {area:1938} езжайте на запад к длинному извилистому спуску в край {area:490}, затем вдоль северной стены кратера сюда: {area:541} – лагерь в пещерах скалы. Все здесь нейтральны.",
 	-- ["Gorillas"] = "Гориллы",
 	-- ["Into {area:490}"] = "В край {area:490}",

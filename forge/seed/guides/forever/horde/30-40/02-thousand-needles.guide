@@ -13,14 +13,14 @@ next forever/horde/30-40/03-stranglethorn-vale
 # Lightening (1176), A Bump in the Road (1175), Family Tree (5361), Alliance Relations (1436),
 # Martek the Exiled (1106), Hate the Hatefury (97265), Rocket Car Parts (1110), Salt Flat Venom
 # (1104), Hemet Nesingwary (5762).
-# Left out: Bodyguard for Hire (5821), Claim Rackmore's Treasure! (6161), Gelkis Alliance (1368),
-# Bone Collector (5501).
+# Left out: Bodyguard for Hire (5821), Gelkis Alliance (1368), Bone Collector (5501).
+# Claim Rackmore's Treasure (6161) is taken at Rackmore's Log by Azore's tower on the one walk north along the coast.
 # Hate the Hatefury is optional (#1314): nobody has been recorded taking it, and Aka'rai was never seen, even by players passing her spot.
 
 # The Shimmering Flats at 33-34, then Desolace's 33-36 quests at 34-35. Desolace's 38-40 quests
 # (Melizza and the ghost-o-plasm, Taiga's portals, the centaur totems) come on a short second
-# visit at 38, from Ratchet, in forever/horde/30-40/04-dustwallow-marsh, as both other orders
-# leave them for a later visit; the Hand of Iruxos and the Book of the Ancients are done here.
+# visit at 38, from Ratchet, in forever/horde/30-40/04-dustwallow-marsh, at the quests' own level
+# (38-40) instead of 3-6 levels above the player; the Hand of Iruxos and the Book of the Ancients are done here.
 #
 # Flow: the Undercity (where the previous guide ends) -> zeppelin to Orgrimmar (Hunter and
 # Shaman training) -> fly to Freewind Post -> Moktar Krin -> the Mirage
@@ -28,9 +28,9 @@ next forever/horde/30-40/03-stranglethorn-vale
 # vultures -> the
 # raceway -> Freewind Post (Family Tree) -> fly to Sun Rock Retreat -> ride into
 # Desolace: Scrabblescrew's Camp, Ghost Walker Post -> the Kodo Graveyard -> Shadowprey Village
-# (flight path, bind) -> the clam beds and Sar'theris Strand -> Ethel Rethor -> Thunder Axe
-# Fortress -> Ethel Rethor and the Book of the Ancients -> Sargeron -> Kolkar Village -> Ghost
-# Walker Post -> Shadowprey, where the next guide flies to Orgrimmar.
+# (flight path, bind) -> Ethel Rethor -> Thunder Axe Fortress -> Ethel Rethor -> Rackmore's Log,
+# the clam beds, Sar'theris Strand and the Book of the Ancients (one walk north) -> Azore -> Sargeron
+# -> Kolkar Village -> Ghost Walker Post -> Shadowprey, where the next guide flies to Orgrimmar.
 #
 # Optional extras:
 # - The Corrupter (1480): the Flayed Demon Skin that starts it drops at 1-5% from the Burning
@@ -45,9 +45,6 @@ next forever/horde/30-40/03-stranglethorn-vale
 #   would be a walk back north from the graveyard and back for 2,250 XP.
 # - Gelkis Alliance and Magram Alliance (1368, 1367) need Friendly standing with the clan,
 #   earned only by killing the rival clan, and their follow-ups go with them.
-# - Claim Rackmore's Treasure! (6161): its two keys drop at 10-15% from crabs south of
-#   Shadowprey and naga on the northern coast, and the chest sits on an island off the far
-#   north.
 #
 # Class training: Hunters and Shamans in Orgrimmar at the start, Druids in Thunder Bluff on the
 # flight to Freewind Post. Shamans hand the Shard of Water to Islen Waterseer by Ratchet on the
@@ -73,7 +70,7 @@ step Zeppelin to Orgrimmar
 
 step Alliance Relations
   zone Orgrimmar
-  tip The zeppelin lands at the tower outside Orgrimmar's main gate. Craven Drok waits in the Drag; Keldran stands in the Valley of Spirits on the west side of the city.
+  tip The zeppelin lands at the tower outside Orgrimmar's main gate. Craven Drok walks the Drag: if he isn't at the arrow, look along its streets to the south-west. Keldran stands in the Valley of Spirits on the west side of the city.
   accept 1431                         -- Craven Drok: offered from level 30
   turnin 1431                         -- Keldran
   accept 1432                         -- for Takata Steelblade in Desolace, later in this guide
@@ -89,16 +86,6 @@ step Searn Firewarder
   zone Orgrimmar
   tip Searn Firewarder stands in the Valley of Wisdom.
   accept 1531                         -- Searn Firewarder: for Prate Cloudseer by Freewind Post, later in this guide
-
-step Nogg
-  when dungeon "Gnomeregan"
-  zone Orgrimmar
-  tip Nogg's workshop is in the Valley of Honor. Rig Wars is Gnomeregan's last boss: great XP if you run it with a group. Run it whenever your group is ready; hand it in on a later Orgrimmar stop.
-  accept 2841                         -- Nogg
-
-step Gnomeregan
-  when dungeon "Gnomeregan"
-  note Run Gnomeregan with a group when it suits you: Mekgineer Thermaplugg at the end drops his Safe Combination; open his safe behind the northern bomb pillar for the Rig Blueprints.
 
 step Orgrimmar flight master
   zone Orgrimmar
@@ -287,29 +274,15 @@ step Shadowprey Village
   accept 6142                         -- Mai'Lahii
   getfp "Shadowprey Village"          -- Thalon, at the village's south-west end
 
-step Clam beds
-  zone Desolace
-  tip Head north up the coast. Giant Softshell Clams lie in the shallows and the Enraged Reef Crawlers walk the beach: each clam you open on the sea floor, and some crawlers, give a Soft-shelled Clam. Open each one in your bags for its meat.
-  interact 177784 quest 6142.1 @30.6,31.9 map 1443 -- Giant Softshell Clams, on the sea floor
-  use 15874 quest 6142.1 @30.6,31.9 map 1443 -- Soft-shelled Clam: open it in your bags
-  collect 15924 quest 6142            -- Underwater
-
-step Sar'theris Strand
-  zone Desolace
-  tip Keep north to Sar'theris Strand. The Slitherblade Myrmidons, Naga and Sorceresses hold the beach; pull them one at a time.
-  kill 4714 quest 6143.1
-  kill 4711 quest 6143.2
-  kill 4712 quest 6143.3
-
 step Ethel Rethor
   zone Desolace
-  tip Azore Aldamort waits in the ruined tower of Ethel Rethor, inland to the east.
+  tip Head north along the coast, then inland to the ruined tower of Ethel Rethor: Azore Aldamort waits inside. The coast's clams and naga come after Thunder Axe Fortress, on one walk north to Ranazjar Isle.
   accept 5741                         -- Azore Aldamort
 
 step Thunder Axe Fortress
   zone Desolace
   tip Head east to Thunder Axe Fortress. Beat a Burning Blade cultist down, then use the Burning Gem on it before it dies to fill one Infused Burning Gem. The Burning Blade Seer stands on the fortress's top floor with the Sceptre. The cultists also drop a Flayed Demon Skin now and then (1-5%); if one drops, read it. Hand of Iruxos: clear the middle of the largest building, then use the Demon Pick on the red Hand of Iruxos Crystal there. A Demon Spirit (37) comes out: kill it for the Demon Box.
-  collect 6435 quest 1435
+  collect 6435 quest 1435 @55.0,26.5
   collect 15750 quest 5741 @55.2,30.1 -- On the top floor
   use 14523 quest 5381.1 @55.0,26.7 map 1443 -- Demon Pick, on the Hand of Iruxos Crystal
   collect 13542 quest 5381
@@ -322,14 +295,38 @@ step Ethel Rethor
   turnin 5741                         -- Azore Aldamort
   accept 6027
 
+step Rackmore's Log
+  zone Desolace
+  tip Rackmore's Log lies on the ground just south-west of Azore's tower, on the way down to the shore: read it. Its two keys drop only while you have the quest.
+  accept 6161 object 177787           -- Rackmore's Log
+
+step Clam beds
+  zone Desolace
+  tip West to the shore. Giant Softshell Clams lie in the shallows and the Enraged Reef Crawlers walk the beach: each clam you open on the sea floor, and some crawlers, give a Soft-shelled Clam. Open each one in your bags for its meat.
+  tip The Drysnap Crawlers and Pincers on the same beach carry Rackmore's Silver Key, about one in seven.
+  interact 177784 quest 6142.1 @30.6,31.9 map 1443 -- Giant Softshell Clams, on the sea floor
+  use 15874 quest 6142.1 @30.6,31.9 map 1443 -- Soft-shelled Clam: open it in your bags
+  collect 15924 quest 6142            -- Underwater
+  collect 15878 quest 6161.1 @33.4,30.1 map 1443 -- Rackmore's Silver Key, from the Drysnap crabs
+
+step Sar'theris Strand
+  zone Desolace
+  tip Keep north to Sar'theris Strand. The Slitherblade Myrmidons, Naga and Sorceresses hold the beach; pull them one at a time. Any Slitherblade can drop Rackmore's Golden Key.
+  kill 4714 quest 6143.1
+  kill 4711 quest 6143.2
+  kill 4712 quest 6143.3
+  collect 15881 quest 6161.2          -- Rackmore's Golden Key, from the Slitherblade naga
+
 step The Book of the Ancients
   zone Desolace
-  tip The Slitherblade naga hold the coast north of Ethel Rethor. Swim out to Ranazjar Isle off the far northern tip and use the Gem of the Serpent on the Serpent Statue: Lord Kragaru (38) rises; kill him for the Book of the Ancients. He is well above you: rest to full first.
+  tip Swim out to Ranazjar Isle off the far northern tip and use the Gem of the Serpent on the Serpent Statue: Lord Kragaru (38) rises; kill him for the Book of the Ancients. He is well above you: rest to full first. Rackmore's Chest stands on the shore beside the statue: open it with both keys.
   use 15766 quest 6027.1 @28.2,6.7 map 1443 -- Gem of the Serpent, on the Serpent Statue
   collect 15803 quest 6027
+  turnin 6161 @30.0,8.7 map 1443     -- Rackmore's Chest
 
 step Azore Aldamort
   zone Desolace
+  tip Back south to Azore's tower.
   turnin 6027
 
 # ---------------------------------------------------------------- North-east

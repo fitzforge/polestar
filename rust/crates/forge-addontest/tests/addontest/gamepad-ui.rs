@@ -51,8 +51,10 @@ fn load(gamepad: bool, cvar: Option<&str>) -> Value {
 		Some(c) => {
 			let s = serde_json::to_string(c).unwrap();
 			String::from("C_CVar = C_CVar or {}\ndo\n\tlocal get = C_CVar.GetCVar\n\tC_CVar.GetCVar = function(name) if name == \"InputDeviceInterfaceStyle\" then return ")
-				+ &s + " end return get and get(name) end\n\tlocal global = GetCVar\n\tGetCVar = function(name) if name == \"InputDeviceInterfaceStyle\" then return "
-				+ &s + " end return global and global(name) end\nend"
+				+ &s
+				+ " end return get and get(name) end\n\tlocal global = GetCVar\n\tGetCVar = function(name) if name == \"InputDeviceInterfaceStyle\" then return "
+				+ &s
+				+ " end return global and global(name) end\nend"
 		}
 		None => String::new(),
 	};
@@ -117,6 +119,7 @@ const REACHES: &[&str] = &[
 	"OpenWorldMap",
 	"ToggleWorldMap",
 	"ToggleQuestLog",
+	"QuestMapFrame_OpenToQuestDetails",
 	"CloseAllWindows",
 	"AddDataProvider",
 	"AddCanvasClickHandler",
@@ -133,22 +136,24 @@ const REACHES: &[&str] = &[
 
 // file -> lines that reach, why it is safe with the gamepad interface
 const ALLOWED: &[(&str, usize, &str)] = &[
-	("Polestar/Core/Init.lua", 9, "ns.CloseOnEscape (and taking Polestar's windows out of the list while Polestar is hidden) and the /polestar and /rl registrations, none with the gamepad interface"),
-	("Polestar/Core/Compat.lua", 4, "Compat.OpenWorldMap opens nothing with the gamepad interface; Compat.AskAbandonQuest shows the game's abandon dialog only without it"),
+	("Polestar/Core/Init.lua", 10, "ns.CloseOnEscape (and taking Polestar's windows out of the list while Polestar is hidden) and the /polestar (/polestar, /pole, /ps) and /rl registrations, none with the gamepad interface"),
+	("Polestar/Core/Profiles.lua", 1, "a profile's key (P.ApplyKeys): override bindings on Polestar's own hidden button, never in a fight; a gamepad button is left out while the game's gamepad interface holds the buttons"),
+	("Polestar/Core/Compat.lua", 5, "Compat.OpenWorldMap and Compat.OpenQuestLog open nothing with the gamepad interface; Compat.AskAbandonQuest shows the game's abandon dialog only without it"),
 	("Polestar/Dungeons/Dungeons.lua", 1, "through Compat.OpenWorldMap"),
-	("Polestar/Nav/Journey.lua", 6, "the map's canvas click handler and /way, neither with the gamepad interface; wayTaken only reads"),
+	("Polestar/Nav/Journey.lua", 8, "the map's canvas click handler and /way, neither with the gamepad interface, and the same handler on the maps MapCanvas.Add hands over; wayTaken only reads"),
 	("Polestar/Nav/Nearby.lua", 3, "the tracking menus, not with the gamepad interface"),
 	("Polestar/Maps/Services.lua", 3, "the service tracking menus, not with the gamepad interface"),
 	("Polestar/UI/QuestLinks.lua", 3, "the quest menus, not with the gamepad interface"),
-	("Polestar/UI/GuideFrame.lua", 2, "the quest log menu's pin entry, not with the gamepad interface"),
+	("Polestar/UI/GuideFrameMenu.lua", 2, "the quest log menu's pin entry, not with the gamepad interface"),
 	("Polestar/QoL/QoL.lua", 2, "dialogs closed for the player (QoL.ClosePopup), never with the gamepad interface (its focus owns them)"),
 	("Polestar/Quests/DeleteWarning.lua", 2, "a line added to the delete dialog, never with the gamepad interface (its focus owns the dialogs)"),
 	("Polestar/Quests/SellWarning.lua", 4, "the buyback question, never with the gamepad interface (its focus owns the dialogs)"),
 	("Polestar/Quests/Party.lua", 4, "the party's sync-to-my-guide prompt, never with the gamepad interface (its focus owns the dialogs; chat says so instead)"),
+	("Polestar/UI/Picker.lua", 3, "the guide menu's leave-the-route's-hand-ins question, never with the gamepad interface (its focus owns the dialogs; chat says so instead and the guide loads)"),
 	("Polestar/UI/Packs.lua", 3, "the turn-Polestar-Guides-on question at login, never with the gamepad interface (its focus owns the dialogs; the guide window's button stays)"),
 	("Polestar/QoL/Toggles.lua", 3, "the error-message setting, which does nothing with the gamepad interface"),
 	("Polestar/UI/GameMenu.lua", 1, "the game menu's Polestar button closes the menu (HideUIPanel); never with the gamepad interface, which gets no button"),
-	("Polestar/UI/Options.lua", 2, "closing the game's Settings panel, never with the gamepad interface or in combat"),
+	("Polestar/UI/OptionsLoader.lua", 2, "closing the game's Settings panel, never with the gamepad interface or in combat"),
 	("Polestar/UI/Gamepad.lua", 3, "a window's override bindings, only with the keyboard and mouse interface; the gamepad interface's focused window only read (a field, never a call)"),
 	("Polestar/QoL/Buttons.lua", 4, "the step key's interact stage binds its keys over, never with the gamepad interface; Buttons.PingLine only reads the client's /ping word (SLASH_PING1, a string) for a macro the player's own click runs"),
 	("Polestar_Recorder/Commands.lua", 3, "/psrec, not with the gamepad interface"),

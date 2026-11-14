@@ -11,7 +11,7 @@ use std::path::{Path, PathBuf};
 use forge_data::run;
 use serde_json::{json, Map, Value};
 
-use super::fixture_build::{fixture, options, Built};
+use super::fixture_build::{fixture, options, repo, Built};
 
 // ---------------------------------------------------------------- a minimal CBOR encoder
 
@@ -208,9 +208,9 @@ fn quests() -> Value {
 			"preQuestSingle": [100], "exclusiveTo": [102, 105], "breadcrumbs": [103], "childQuests": [104], "requiredSkill": [393, 1]
 		},
 		"102": { "name": "Fixture Altar", "questLevel": 4, "requiredLevel": 2, "startedBy": [[], [500]], "finishedBy": [[], [500]], "preQuestSingle": [101, 102, 100] },
-		// The Forever-only pair below has ids no real quest or correction uses, so the checkout's corrections
-		// (which every build here applies) never touch it: 90460 mirrors Coming of Age's shape and its Skyborne
-		// mask (2^32 + 2^33).
+		// The Forever-only pair below has ids no real quest or correction uses (the builds here read the fixture's
+		// own corrections; the one test about ours reads the checkout's): 90460 mirrors Coming of Age's shape and
+		// its Skyborne mask (2^32 + 2^33).
 		"90461": { "name": "The Missing Scholar", "questLevel": 5, "requiredLevel": 2, "startedBy": { "2": [700] } },
 		"90460": {
 			"name": "Coming of Age", "questLevel": 1, "requiredLevel": 1, "requiredRaces": 12884901888u64,
@@ -303,6 +303,11 @@ fn write_questie(dir: &Path, store: &Store) -> PathBuf {
 	for (e, f) in [("Quest", "questMeta.lua"), ("Npc", "npcMeta.lua"), ("Object", "objectMeta.lua"), ("Item", "itemMeta.lua")] {
 		w(&format!("src/meta/{f}"), &meta_lua(e));
 	}
+	// the correction config every release has; this store declares no Dynamic Corrections
+	w(
+		"src/config.lua",
+		"local _, LibQuestieDB = ...\nlocal config = { enumFiles = {}, ownedCorrections = {} }\nconfig.flavorByName = { Forever = { name = \"Forever\", expansion = \"Forever\", rules = \"Classic\" } }\nfunction config.correctionApplies(spec, flavor) return spec.owned == flavor.name end\nif LibQuestieDB then LibQuestieDB.config = config end\nreturn config\n",
+	);
 	w("support/Forever/QuestXP/xpDB-classic.lua", "local QuestXP = QuestieLoader:ImportModule(\"QuestXP\");\nQuestXP.db = {\n  [100] = {1, 85},\n  [101] = {3, 170},\n  [90460] = {1, 40},\n}\n");
 	w("support/Forever/DropTables/classicItemDrops.lua", &drops_lua("  [50] = { [3] = 12.5, [4] = 20 },\n", "  [50] = { [4] = 70.0 },\n"));
 	w("support/Forever/DropTables/itemDropCorrections.lua", DROP_FIXES);
@@ -467,6 +472,9 @@ fn refuses_a_store_that_is_not_baked_forever_and_a_chunk_missing_a_part() {
 	let text = std::fs::read_to_string(&toc).unwrap();
 	std::fs::write(&toc, text.replace("## X-Flavor: Forever", "## X-Flavor: Era")).unwrap();
 	assert!(forge_data::questie::read_questie(&dir, &|_| {}).err().unwrap().contains("flavor Era, not Forever"));
+	std::fs::write(&toc, text.replace("## X-Mode: baked", "## X-Mode: source")).unwrap();
+	assert!(forge_data::questie::read_questie(&dir, &|_| {}).err().unwrap().contains("not a baked store (X-Mode source): use a QuestieDB release"));
+	assert!(forge_data::questie::read_questie(&dir.join("src"), &|_| {}).err().unwrap().contains("use a QuestieDB release"), "a folder without the store");
 	let cut: Vec<&str> = text.split("\r\n").filter(|l| !l.starts_with("## X-Quest-90460-S-2:")).collect();
 	std::fs::write(&toc, cut.join("\r\n")).unwrap();
 	assert!(forge_data::questie::read_questie(&dir, &|_| {}).err().unwrap().contains("declares 2 parts but part 2 is missing"));
@@ -654,7 +662,8 @@ fn our_corrections_apply_over_the_store() {
 		)],
 		..Default::default()
 	};
-	let q = build("corrections", &store).read("quests");
+	// The checkout's own corrections, which the other builds here leave out (fixture_build::options).
+	let q = build_with("corrections", &store, &|o| o.corrections = repo().join("forever-db/corrections")).read("quests");
 	assert_eq!((&q["377"]["xp"], &q["1486"]["xp"]), (&json!(4400), &json!(3100)), "dungeon quests' Forever XP over the store's QuestXP");
 	for id in ["377", "1486"] {
 		assert!(q[id]["source"].as_array().unwrap().contains(&json!("polestar-correction")), "{id} is tagged");

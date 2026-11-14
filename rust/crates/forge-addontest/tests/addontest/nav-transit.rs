@@ -212,6 +212,49 @@ fn c5_a_ride_is_timed_when_the_client_reports_its_height_as_0_along_a_track_up_i
 	assert_eq!(out[0], "you", "timed from the ride, matched on the ground plane");
 }
 
+// The skycutter from Zephras Isle to Dalaran is no taxi to the client (players' recordings: `pos` breadcrumbs, written
+// only off a taxi, every 2 s for about 70 s, 40-60 yd apart, with GetUnitSpeed 0 and not falling) and no transport
+// the timetables know: Transit.Carried says the player is carried from the second sample that moved them with no
+// speed of their own, never for a teleport (one jump), a walk, a fall or a taxi, and ends at the first sample they
+// move on their own or stand still.
+#[test]
+fn carried_the_position_moving_with_no_speed_of_the_player_s_own_two_samples_running_never_a_teleport_a_walk_a_fall_or_a_taxi() {
+	let out = lua(r#"
+		local P = { x = 0, y = 0 }
+		function UnitPosition() return P.x, P.y, 0, 0 end
+		OWN, FALL, TAXI = 0, false, false
+		function GetUnitSpeed() return OWN, 7, 0, 0 end
+		function IsFalling() return FALL end
+		function UnitOnTaxi() return TAXI end
+		local function step(dx) P.x = P.x + dx; stub.advance(1); return T.Carried() end
+		local r = {}
+		r.still = step(0)
+		r.ride = { step(25), step(25), step(25) }
+		r.stops = step(0)
+		r.teleport = { step(500), step(0) }
+		OWN = 7
+		r.walk = { step(7), step(7), step(7) }
+		OWN, FALL = 0, true
+		r.fall = { step(25), step(25), step(25) }
+		FALL, TAXI = false, true
+		r.taxi = { step(25), step(25), step(25) }
+		TAXI = false
+		r.again = { step(25), step(25), step(25) }
+		OWN = 7
+		r.walksOff = step(25)
+		emit(r)
+	"#);
+	assert_eq!(out[0]["still"], false);
+	assert_eq!(out[0]["ride"], json!([false, true, true]), "carried from the second sample that moved the player");
+	assert_eq!(out[0]["stops"], false, "standing still: off");
+	assert_eq!(out[0]["teleport"], json!([false, false]), "one jump is no ride");
+	assert_eq!(out[0]["walk"], json!([false, false, false]), "walking: the player's own speed");
+	assert_eq!(out[0]["fall"], json!([false, false, false]), "falling");
+	assert_eq!(out[0]["taxi"], json!([false, false, false]), "a taxi is the taxi's own state");
+	assert_eq!(out[0]["again"], json!([false, true, true]));
+	assert_eq!(out[0]["walksOff"], false, "moving on their own: off at once");
+}
+
 #[test]
 fn lifts_found_near_a_crossing_listed_untimed_average_captions_then_timed_either_landing_when_the_side_is_unknown_k3() {
 	let out = lua(r#"

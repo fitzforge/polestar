@@ -335,6 +335,7 @@ step Cliffspring River
 
 step The Tower of Althalaxx
   tip East of Buzzbox 323, Balthule Shadowstrike hides at the foot of the tower among the Dark Strand Fanatics. Keep his letter for Delgren in Ashenvale.
+  tip Careful: Dark Strand Voidcallers (28-29) with their voidwalkers and Athrikus Narassin (31) stand in the tower itself: take the parchments from the Fanatics south of it and keep away from the tower.
   turnin 965                                  -- Balthule Shadowstrike
   accept 966
   collect 5348 quest 966 @55.8,25.9 map 1439 -- Worn Parchment: Dark Strand Fanatics
@@ -352,7 +353,7 @@ step The northern Blackwood camp
   collect 12341                               -- Blackwood Fruit Sample
   collect 12342                               -- Blackwood Grain Sample
   use 12347 quest 4763.1 @52.5,33.4           -- By the bonfire closest to the river: summons Xabraxxis
-  collect 12355 quest 4763                    -- Talisman of Corruption, in Xabraxxis' Demon Bag
+  collect 12355 quest 4763 -- After using the Filled Cleansing Bowl, kill Xabraxxis, then click his Demon Bag on the ground to collect the talisman. If Xabraxxis despawns before you get it, retake the quest for a new bowl.
 
 step The cave and the Den Mother
   tip Careful: If you attack one cub, the other cubs and often the mother join the fight, so expect to take on several at the same time.

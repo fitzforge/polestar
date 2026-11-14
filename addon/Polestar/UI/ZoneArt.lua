@@ -6,12 +6,15 @@
 -- client without the API) the night band stands in. Used by the route choice
 -- cards and the guide menu's details pane.
 --
---   ZoneArt.Create(parent, width, height[, ground]) -> art
+--   ZoneArt.Create(parent, width, height[, ground[, fade]]) -> art
 --     A width x height band (the caller anchors it). ground: the palette
---     colour the bottom fade runs into (default "panelAlt"). art.Over sits
---     above the painting for text and chips; art.psZoom overrides ZA.ZOOM,
---     art.psDesat ZA.DESAT; art.psTint ({ r, g, b }) is multiplied into
---     every tile (the welcome engraves a painting into its night sky).
+--     colour the bottom fade runs into (default "panelAlt"), or a function
+--     answering it on each repaint (a card whose ground the look paints its
+--     own way); fade: how much of the height it covers (default 0.62).
+--     art.Over sits above the painting for text and chips; art.psZoom
+--     overrides ZA.ZOOM, art.psDesat ZA.DESAT; art.psTint ({ r, g, b }) is
+--     multiplied into every tile (the welcome engraves a painting into its
+--     night sky).
 --     After a Paint, art.psCanvas = { left, top, width, height }: where the
 --     whole layer lies in the band (nil while the band stands in), so a
 --     caller can place map percent on the painting.
@@ -57,7 +60,7 @@ function ZA.RegisterOverlays(build, arts)
 	ZA.overlaysBuild = build
 end
 
-function ZA.Create(parent, width, height, ground)
+function ZA.Create(parent, width, height, ground, fadeShare)
 	local a = CreateFrame("Frame", nil, parent)
 	a:SetSize(width, height)
 	a.psW, a.psH = width, height
@@ -71,7 +74,7 @@ function ZA.Create(parent, width, height, ground)
 	a.Over = CreateFrame("Frame", nil, a)
 	a.Over:SetAllPoints(a)
 	a.Over:SetFrameLevel(a.Canvas:GetFrameLevel() + 1)
-	local fade = floor(height * FADE)
+	local fade = floor(height * (fadeShare or FADE))
 	a.Fade = a.Over:CreateTexture(nil, "BACKGROUND")
 	a.Fade:SetTexture(Theme.Media("white"))
 	a.Fade:SetPoint("BOTTOMLEFT", a, "BOTTOMLEFT", 0, 0)
@@ -86,7 +89,7 @@ function ZA.Create(parent, width, height, ground)
 	a.psFocusY = (TOP_SHADE + height - fade) / 2
 	ground = ground or "panelAlt"
 	W.Painter(a, function(self)
-		local r, g, b = Theme.Color(ground)
+		local r, g, b = Theme.Color(type(ground) == "function" and ground() or ground)
 		local sr, sg, sb = Theme.Color("shade")
 		if self.Fade.SetGradient and CreateColor then
 			self.Fade:SetGradient("VERTICAL", CreateColor(r, g, b, 1), CreateColor(r, g, b, 0))

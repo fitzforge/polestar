@@ -54,7 +54,7 @@
 //   packages [{ key, zone, zoneName, band, quests, steps: [[kind, quest, task, pt]] }]
 //   grind    { spacing: [yards by mob level] }
 //   starts   { Race: { zone, pt, quest } }
-//   zoneMin  { map: level }  P10 of the zone's hostile normal-rank spawns (tools/lib/maps/zonelevels.js)
+//   zoneMin  { map: level }  P10 of the zone's hostile normal-rank spawns, or its danger floor where a low pocket pulls the P10 under the ground walks cross (tools/lib/maps/zonelevels.js)
 //   danger   [{ region, gx0, gy0, nx, ny, cell, z: [map per cell, 0 = unknown] }]
 //            which zone each 200-yard cell belongs to (most NPC spawns, gaps
 //            filled from neighbours up to 3 cells): the travel-safety check
@@ -101,7 +101,7 @@ const { isEscort } = require('../dsl/escort');
 const RULES = require('./rules');
 const { readObjectFacts, objectFactsFile } = require('../travel/cmangos');
 
-const BUILDER_VERSION = 30;
+const BUILDER_VERSION = 31;
 // Yards: a mount vendor this close to a riding trainer is its stop's optional mount buy.
 const RIDE_PAIR_YD = 60;
 
@@ -731,6 +731,9 @@ function buildWorld(data, opts = {}) {
 	const rides = [];
 	for (const t of travel.transports || []) {
 		if (!(t.faction & fbit)) continue;
+		// Zephras Isle's airships are the world's Skyborne exits (below: one way, the landings checked in game);
+		// the addon's planner rides them from travel.json.
+		if (t.kind === 'airship') continue;
 		// The dock: the deck where a ship lying off its pier is boarded (travel build's `board`), else the stop;
 		// its height is the deck's, else the stop's (the floor the router walks to).
 		const da = t.a.board || t.a;
@@ -1998,7 +2001,10 @@ function buildWorld(data, opts = {}) {
 
 	// ---- travel safety: zone levels and the zone of each 200-yard cell ----
 	const zoneMin = {};
-	for (const [id, z] of Object.entries(zoneLevels(data.npcs || {}, zones))) if (Number.isFinite(z.min)) zoneMin[id] = z.min;
+	for (const [id, z] of Object.entries(zoneLevels(data.npcs || {}, zones))) {
+		const level = z.danger !== undefined ? z.danger : z.min;
+		if (Number.isFinite(level)) zoneMin[id] = level;
+	}
 	const cellCount = new Map(); // region -> Map(cell key -> Map(map -> spawns))
 	for (const raw of Object.values(data.npcs || {})) {
 		for (const [map, sp] of Object.entries((raw && raw.spawns) || {})) {

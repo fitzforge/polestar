@@ -22,7 +22,7 @@ return {
 	-- {area:484} Freewind Post · {area:392} Ratchet · {npc:5901} Islen Waterseer
 	["Fly from {area:484} to {area:392}. {npc:5901} camps on the coast a short walk south of the town; fly on to the Crossroads from {area:392}."] = "从 {area:484} 飞往 {area:392}。{npc:5901} 在镇子南边不远的海岸扎营；随后从 {area:392} 飞往十字路口。",
 	-- {npc:5901} Islen Waterseer · {item:6637} Water Sapta
-	["{npc:5901}: your {item:6637}, for the brazier"] = "",
+	["{npc:5901}: your {item:6637}, for the brazier"] = "{npc:5901}：用于火盆的{item:6637}",
 
 	-- Step 4: Fly to the Crossroads
 	["Fly to the Crossroads"] = "飞往十字路口",
@@ -66,7 +66,7 @@ return {
 
 	-- Step 13: The Undercity
 	-- {quest:515} Elixir of Agony · {item:3388} Lesser Troll's Blood Elixir · {skill:171} Alchemy · {area:287} Hillsbrad
-	["{quest:515} needs a {item:3388}, an {skill:171} item: buy one at the auction house if you can (or ask an alchemist). The quest text says Strong, but it takes a {item:3388}. No elixir: skip the Elixir steps in {area:287}."] = "",
+	["{quest:515} needs a {item:3388}, an {skill:171} item: buy one at the auction house if you can (or ask an alchemist). The quest text says Strong, but it takes a {item:3388}. No elixir: skip the Elixir steps in {area:287}."] = "{quest:515} 需要一瓶 {item:3388}，这是 {skill:171} 制作的物品：尽量从拍卖行购买（或找炼金师制作）。任务文本虽然写着“Strong”（强力），实际需要的是 {item:3388}。没有药剂就跳过 {area:287} 的苦楚药剂系列步骤。",
 	-- {item:3388} Lesser Troll's Blood Elixir · {quest:515} Elixir of Agony
 	["{item:3388}: auction house or an alchemist, for {quest:515}."] = "{item:3388}：拍卖行或炼金术士，用于{quest:515}。",
 
@@ -82,7 +82,7 @@ return {
 	-- {area:228} Sepulcher · {object:113791} Brazier of Everfount · {npc:5895} Minor Manifestation of Water · {item:7813} Shard of Water · {npc:5901} Islen Waterseer · {area:272} Tarren Mill
 	["Fly to the {area:228}. The {object:113791} stands on the hill just south-west of it: beat the Corrupt Manifestation of Water beside it, place its bracers in the brazier, speak to the {npc:5895} and keep the {item:7813} for {npc:5901}. Fly on to {area:272} from the {area:228}."] = "飞往 {area:228}。{object:113791} 位于其西南侧的山坡上：击败旁边的堕落的水之魂，将其护腕放入火盆，与 {npc:5895} 交谈，并保留 {item:7813}，之后交给 {npc:5901}。再从 {area:228} 飞往 {area:272}。",
 	-- {item:6637} Water Sapta
-	["{item:6637}: drink it by the standing stone to see the elemental"] = "",
+	["{item:6637}: drink it by the standing stone to see the elemental"] = "{item:6637}：在立石旁喝下，即可看见元素",
 	-- {npc:5901} Islen Waterseer
 	["for {npc:5901}, next guide"] = "交给 {npc:5901}，见下一篇指南",
 
@@ -159,7 +159,7 @@ return {
 	-- {npc:2410} Magus Wordeen Voidglare
 	["{npc:2410}, inside: offered from level 30"] = "{npc:2410}，在屋内：30 级起可接",
 	-- {npc:2410} Magus Wordeen Voidglare · {quest:93680} Key to the City · {item:279469} Grimy Key
-	["{npc:2410}: {quest:93680}, the {item:279469} is by the traitors"] = "",
+	["{npc:2410}: {quest:93680}, the {item:279469} is by the traitors"] = "{npc:2410}：{quest:93680}，{item:279469}在叛徒附近",
 	-- {npc:2437} Keeper Bel'varil
 	["{npc:2437}, inside: offered from level 30"] = "{npc:2437}，在屋内：30 级起可接",
 	-- {npc:2770} Tallow · {npc:2771} Drum Fel · {area:321} Hammerfall
@@ -182,9 +182,9 @@ return {
 	["The {area:279} crater"] = "{area:279} 巨坑",
 	-- {area:279} Dalaran · {npc:2411} Ricter · {npc:2412} Alina · {npc:2413} Dermot · {npc:2414} Kegan Darkmar
 	-- plural, as words: Worn Stone Tokens = {item:3714} Worn Stone Token
-	["Head west along the foot of the mountains to the violet dome of {area:279}. {npc:2411}, {npc:2412} and {npc:2413} (33-34) stand together inside the crater's eastern rim, {npc:2414} (35) a little west of them; each carries one Bloodstone piece. The Shield Guards and Theurgists (31-33) around them drop the Worn Stone Tokens. Careful: Many guards stand in linked pairs and others patrol alone around the camp."] = "",
+	["Head west along the foot of the mountains to the violet dome of {area:279}. {npc:2411}, {npc:2412} and {npc:2413} (33-34) stand together inside the crater's eastern rim, {npc:2414} (35) a little west of them; each carries one Bloodstone piece. The Shield Guards and Theurgists (31-33) around them drop the Worn Stone Tokens. Careful: Many guards stand in linked pairs and others patrol alone around the camp."] = "沿山脚向西前往{area:279}的紫色穹顶。{npc:2411}、{npc:2412}和{npc:2413}（33-34级）聚在坑内东侧边缘，{npc:2414}（35级）在他们稍西侧；每人携带一件血石物品。周围的达拉然持盾守卫和达拉然法师（31-33级）会掉落用旧的石雕。注意：很多守卫两人联动，也有其他守卫在营地周围独自巡逻。",
 	-- {item:279469} Grimy Key
-	["{item:279469}: an object to loot, by the traitors"] = "",
+	["{item:279469}: an object to loot, by the traitors"] = "{item:279469}：在叛徒旁边的可拾取物体中",
 
 	-- Step 39: Azurelode Mine
 	-- {area:287} Hillsbrad · {area:288} Azurelode Mine · {npc:2305} Foreman Bonds · {npc:2450} Miner Hackett
@@ -200,9 +200,7 @@ return {
 
 	-- Step 41: Helcular's Grave
 	-- {area:271} Southshore
-	-- plural, as words: Southshore Guards = {npc:2386} Southshore Guard
-	["Head east to {area:271}'s graveyard, on the north-east edge of the town: Helcular's grave lies among the others. Come at it from the north, down the slope above the town. Southshore Guards (55) stand at the graveyard's north-west corner and south-east of the grave: walk in between them, hand the quest in and leave the way you came."] = "向东前往{area:271}东北边缘的墓地：赫尔库拉的坟墓就在其中。从北侧沿镇子上方的山坡下来接近。南海镇卫兵（55级）站在墓地西北角和坟墓东南方：从他们中间走进去，交还任务后原路离开。",
-	["North of Southshore's graveyard"] = "南海镇墓地以北",
+	["Head east to {area:271}'s graveyard, on the north-east edge of the town: Helcular's grave lies among the others. Come at it from the north and keep away from the town's guards."] = "向东前往 {area:271} 东北边缘的墓地：赫尔库拉的坟墓就在其中。从北侧接近，避开镇上的卫兵。",
 
 	-- Step 42: Daggerspine naga
 	["Daggerspine naga"] = "刺脊纳迦",
@@ -227,7 +225,7 @@ return {
 	-- {npc:2410} Magus Wordeen Voidglare
 	["{npc:2410}, inside"] = "{npc:2410}：在屋内",
 	-- {npc:2410} Magus Wordeen Voidglare · {quest:545} Dalaran Patrols
-	["{npc:2410}: he offers {quest:545} after it"] = "",
+	["{npc:2410}: he offers {quest:545} after it"] = "{npc:2410}：之后他会提供{quest:545}",
 	-- {npc:2437} Keeper Bel'varil
 	["{npc:2437}: for the 38-39 visit to Alterac"] = "{npc:2437}：留到 38-39 级前往奥特兰克时完成",
 	-- {npc:2410} Magus Wordeen Voidglare
@@ -239,9 +237,9 @@ return {
 
 	-- Step 46: Elixir of Agony with a group
 	-- {quest:515} Elixir of Agony
-	["{quest:515} with a group"] = "",
+	["{quest:515} with a group"] = "组队完成{quest:515}",
 	-- {area:290} Dun Garok · {area:271} Southshore
-	["Lydon's next errand is a keg of Shindigger Stout from the cellar of {area:290}, the elite dwarven keep south-east of {area:271}: take it only if you go there with a group."] = "",
+	["Lydon's next errand is a keg of Shindigger Stout from the cellar of {area:290}, the elite dwarven keep south-east of {area:271}: take it only if you go there with a group."] = "药剂师林度恩的下一个任务需要从{area:290}的地窖取一桶矿工烈酒。那里是{area:271}东南侧的精英矮人要塞；只有组队前往时才接取。",
 
 	-- Step 47: Battle of Hillsbrad with a group
 	-- {quest:539} Battle of Hillsbrad
@@ -266,7 +264,7 @@ return {
 	-- Step 52: Shindigger keg
 	["Shindigger keg"] = "矿工烈酒酒桶",
 	-- {area:290} Dun Garok · {area:271} Southshore · {npc:2304} Captain Ironhill
-	["The Kegs of Shindigger Stout stand in the cellar of {area:290}, the dwarven keep south-east of {area:271}, beside {npc:2304} (32); every dwarf there is elite (28-32)."] = "",
+	["The Kegs of Shindigger Stout stand in the cellar of {area:290}, the dwarven keep south-east of {area:271}, beside {npc:2304} (32); every dwarf there is elite (28-32)."] = "装有矿工烈酒的酒桶放在{area:290}的地窖里，就在{npc:2304}（32级）旁边。这座矮人要塞位于{area:271}东南边，里面的矮人全是精英（28-32级）。",
 	["Below ground"] = "在地下",
 
 	-- Step 53: Back to Tarren Mill
@@ -283,7 +281,7 @@ return {
 	-- Step 55: Boulderfist camp
 	-- {area:272} Tarren Mill · {area:1057} Thoradin's Wall · {area:313} Northfold Manor
 	-- plural, as words: Boulderfist Ogres = {npc:2562} Boulderfist Ogre
-	["Head east out of {area:272} through {area:1057} and follow the road east. The Boulderfist Ogres and Enforcers (32-34) camp south of the road, south of {area:313}; the Enforcers stay in the cave there."] = "",
+	["Head east out of {area:272} through {area:1057} and follow the road east. The Boulderfist Ogres and Enforcers (32-34) camp south of the road, south of {area:313}; the Enforcers stay in the cave there."] = "从{area:272}向东出发，穿过{area:1057}后沿路继续向东。石拳食人魔和石拳执行者（32-34级）的营地在路南、{area:313}以南；石拳执行者待在那里的洞穴中。",
 
 	-- Step 56: Level 31
 	["Level 31"] = "31 级",
@@ -295,14 +293,14 @@ return {
 
 	-- Step 57: Hammerfall
 	-- {npc:2851} Urda · {npc:15126} Rutherford Twing · {quest:8263} Defiler's Basic Care Package · {zone:1461} Arathi Basin
-	["The orc stronghold at the eastern end of the road. {npc:2851}, the wind rider master, stands by the gate.\n{npc:15126} offers the {quest:8263} only once you are Friendly with the Defilers ({zone:1461}): skip it if he doesn't offer it."] = "",
+	["The orc stronghold at the eastern end of the road. {npc:2851}, the wind rider master, stands by the gate.\n{npc:15126} offers the {quest:8263} only once you are Friendly with the Defilers ({zone:1461}): skip it if he doesn't offer it."] = "道路东端的兽人要塞。双足飞龙管理员 {npc:2851} 站在大门旁。\n只有你在 污染者（{zone:1461}）的声望达到友善，{npc:15126} 才会提供 {quest:8263}：若他没有提供，就跳过。",
 	-- {npc:2792} Gor'mul
 	["{npc:2792}, by the gate"] = "{npc:2792}，在大门旁",
 	-- {npc:2706} Tor'gan · {area:272} Tarren Mill
 	["{npc:2706}: its Syndicate are by the road in from {area:272}, on the 38-39 visit"] = "{npc:2706}：所需的辛迪加成员在从 {area:272} 过来的路旁，留到 38-39 级再来时完成",
 
 	-- Step 58: Witherbark Village
-	["South of Hammerfall, the Witherbark trolls hold the village in the hills. Axe Throwers guard the outer huts; the Witch Doctors and Headhunters hold the heart of the village. Careful: All three troll types flee for help at 15% health, which can pull more trolls from the nearby camps."] = "",
+	["South of Hammerfall, the Witherbark trolls hold the village in the hills. Axe Throwers guard the outer huts; the Witch Doctors and Headhunters hold the heart of the village. Careful: All three troll types flee for help at 15% health, which can pull more trolls from the nearby camps."] = "落锤镇南边，枯木巨魔占据山中的村庄。枯木掷斧者守在外围小屋，枯木巫医和枯木猎头者守在村庄深处。小心：这三种巨魔都会在生命值降到15%时逃跑求援，可能引来附近营地的更多巨魔。",
 
 	-- Step 59: Highland raptors and Plains Creepers
 	-- plural, as words: Plains Creepers = {npc:2563} Plains Creeper
@@ -344,7 +342,6 @@ return {
 	-- ["Follow the road north out of {area:272} into the Alterac foothills. {quest:535} waits by the Syndicate camp; hand him the stout."] = "沿道路向北离开{area:272}，进入奥特兰克山麓。{quest:535}在辛迪加营地旁等候；把南海镇烈酒交给他。",
 	-- ["Head back north to {area:272}, east of {area:271}."] = "向北返回 {area:272}，位于 {area:271} 东侧。",
 	-- ["Head east out of {area:272} through {area:1057} and follow the road east. The Boulderfist Ogres and Enforcers (32-34) camp south of the road, south-east of {area:313}."] = "从 {area:272} 向东出发，穿过 {area:1057}，沿路继续向东。石拳食人魔和石拳执行者（32-34 级）的营地在路南，位于 {area:313} 东南侧。",
-	-- ["Head east to {area:271}'s graveyard, on the north-east edge of the town: Helcular's grave lies among the others. Come at it from the north and keep away from the town's guards."] = "向东前往 {area:271} 东北边缘的墓地：赫尔库拉的坟墓就在其中。从北侧接近，避开镇上的卫兵。",
 	-- ["Head west along the foot of the mountains to the violet dome of {area:279}. {npc:2411}, {npc:2412} and {npc:2413} (33-34) stand together inside the crater's eastern rim, {npc:2414} (35) a little west of them; each carries one Bloodstone piece. The Shield Guards and Theurgists (31-32) around them drop the Worn Stone Tokens.\nCareful: Many guards stand in linked pairs and others patrol alone around the camp."] = "沿山脚向西前往 {area:279} 的紫色穹顶。{npc:2411}、{npc:2412} 和 {npc:2413}（33—34级）聚在坑内东侧边缘，{npc:2414}（35级）在他们稍西侧；每人携带一件血石物品。周围的 达拉然持盾守卫 和 达拉然法师（31—32级）会掉落用旧的石雕。\n小心：很多守卫两人联动，也有其他守卫在营地周围独自巡逻。",
 	-- ["South-east of Hammerfall, the Witherbark trolls hold the village in the hills. Axe Throwers guard the outer huts; the Witch Doctors and Headhunters hold the heart of the village.\nCareful: All three troll types flee for help at 15% health, which can pull more trolls from the nearby camps."] = "落锤镇东南侧，枯木巨魔占据山中的村庄。枯木掷斧者守在外围小屋，枯木巫医和枯木猎头者守在村庄深处。\n小心：这三种巨魔都会在生命值降到 15% 时逃跑求援，可能引来附近营地的更多巨魔。",
 	-- ["South-west, the Cave and Ferocious Yetis (30-31) fill the {area:277} in the hills west of {area:272}; about one in sixteen carries the rod."] = "向西南走，洞穴雪人和凶恶的雪人（30-31 级）遍布 {area:272} 西侧山中的 {area:277}；约每十六只中有一只携带魔棒。",

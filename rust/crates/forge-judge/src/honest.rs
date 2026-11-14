@@ -20,7 +20,9 @@
 //! With [`HonestOpts::legacy`] the output is the JS's row for row (persona duplicates, the R3 cloth warning,
 //! R5's missed buy lines). Without it: findings deduplicated across personas and chains, every start's chain
 //! played through the shared guides, the "unflagged quest item" R3 warning demoted to info, `buy` lines
-//! covering the knowledge base's buy steps, and the rules R6-R10 ([`rules`]):
+//! covering the knowledge base's buy steps, R3 taking the objective items of a quest the chain hands in
+//! `direct` as obtainable with no quest in the log, a `direct` hand-in giving its reward items, and the
+//! rules R6-R10 ([`rules`]):
 //!
 //! - R6 race/class/faction gating from the data: the quest's masks exclude the persona and no `only` gates
 //!   the line (fail); an `only` on a quest the data opens to everyone (warn).
@@ -523,6 +525,9 @@ fn play_chain_in(ctx: &world::Ctx, chain: &[&V], persona: &Persona, kb: Option<&
 fn play_chain_with(ctx: &world::Ctx, chain: &[&V], persona: &Persona, kb: Option<&Kb>, report: Option<&FxHashSet<String>>, opts: &HonestOpts, trace: &mut Option<Vec<TraceRow>>) -> Vec<Finding> {
 	let mut w = world::World::new(ctx, persona.clone(), kb, opts);
 	w.trace = trace.take();
+	if !opts.legacy {
+		w.direct = play::direct_turnins(chain, persona);
+	}
 	for g in chain {
 		let reporting = report.is_none_or(|r| r.contains(&guide_id(g)));
 		play::play_guide(&mut w, g, reporting);

@@ -235,7 +235,7 @@ step Eastvale
   label sw-eastvale
   zone Elwynn Forest
   tip Optional: eastern Elwynn, around Guard Thomas on the bridge and the Tower of Azora, about 1,000 reputation in 40 minutes at 60. Forever pays these old quests in full at any level. Skip this step to skip the hub.
-  turnin 35 optional
+  turnin 35
   accept 37
   accept 52
   accept 83

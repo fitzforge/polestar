@@ -9,15 +9,19 @@ const FILES: &[&str] = &["Core/Core.xml", "Theme/Theme.xml", "UI/UI.xml"];
 const OPEN_SANS_REGULAR: &str = "Interface\\AddOns\\Polestar\\Media\\Fonts\\OpenSans-Regular.ttf";
 const OPEN_SANS_BOLD: &str = "Interface\\AddOns\\Polestar\\Media\\Fonts\\OpenSans-Bold.ttf";
 
-fn run_with(script: &str, before: &str) -> Value {
+fn run_files(files: &[&str], script: &str, before: &str) -> Value {
 	emitted(&RunAddon {
 		stubs: vec!["stub_ui.lua"],
 		before: before.into(),
-		addons: vec![Addon::files("Polestar", FILES)],
+		addons: vec![Addon::files("Polestar", files)],
 		script: format!("uistub.install()\nstub.login()\nlocal T, W = Polestar.Theme, Polestar.Widgets\n{script}"),
 		..Default::default()
 	})
 	.remove(0)
+}
+
+fn run_with(script: &str, before: &str) -> Value {
+	run_files(FILES, script, before)
 }
 
 fn run(script: &str) -> Value {
@@ -92,7 +96,8 @@ fn every_colour_scheme_keeps_the_text_ladder_legible_on_every_ground_7_1_primary
 
 // Colours from outside the palette go through Theme.Legible: the client's item qualities (Poor..Artifact) and
 // quest difficulty colours. A dimmed name keeps that colour (its chip says why), so each must read at 4.5:1 on
-// the lightest place a name sits, a selected row on the panel.
+// the lightest place a name sits, a selected row on the panel, and on the darker of the window and panel grounds
+// (where a light scheme's dark text reads worst).
 #[test]
 fn item_quality_and_quest_difficulty_colours_lifted_read_at_4_5_1_on_a_selected_row_in_every_scheme() {
 	let out = run(r#"
@@ -103,16 +108,19 @@ fn item_quality_and_quest_difficulty_colours_lifted_read_at_4_5_1_on_a_selected_
 		local out = {}
 		for _, key in ipairs(T.SCHEME_ORDER) do
 			Polestar.Set("ui.scheme", key)
-			local o = { ground = T.LightestGround(), panel = T.Palette().panel, lifted = {}, epic = { Polestar.UI.Lookup.QualityColor(4) } }
+			local o = { ground = T.LightestGround(), panel = T.Palette().panel, bg = T.Palette().bg, lifted = {}, epic = { Polestar.UI.Lookup.QualityColor(4) } }
 			for i, c in ipairs(OUTSIDE) do o.lifted[i] = { T.Legible(c[1], c[2], c[3]) } end
 			out[key] = o
 		end
 		emit(out)"#);
 	for (key, o) in out.as_object().unwrap() {
 		assert!(lum(&o["ground"]) > lum(&o["panel"]), "{key}: a selected row is lighter than the panel");
+		let darker = if lum(&o["bg"]) <= lum(&o["panel"]) { &o["bg"] } else { &o["panel"] };
 		for (i, c) in o["lifted"].as_array().unwrap().iter().enumerate() {
 			let r = contrast(c, &o["ground"]);
 			assert!(r >= 4.5, "{key}: outside colour {} reads {r:.2}:1 on a selected row", i + 1);
+			let d = contrast(c, darker);
+			assert!(d >= 4.5, "{key}: outside colour {} reads {d:.2}:1 on the darker ground", i + 1);
 		}
 		let epic = contrast(&o["epic"], &o["ground"]);
 		assert!(epic >= 4.5, "{key}: an epic name (the retired Reins of the Frostsaber) reads {epic:.2}:1");
@@ -346,8 +354,9 @@ fn ellesmereui_an_optional_scheme_and_follow_toggles_never_a_lock() {
 		Polestar.UI.ShowOptions("integrations")
 		Polestar.UI.Options.Controls("integrations")["ui.matchAccent"]:Click()
 		local rematched = { accent = Polestar.Get("ui.accent"), live = { T.Accent() } }
-		Polestar.UI.ShowOptions("appearance")
-		look = Polestar.UI.Options.Controls("appearance")
+		Polestar.UI.ShowOptions("theme")
+		Polestar.UI.Options.Select("theme", "Text")
+		look = Polestar.UI.Options.Controls("theme", "Text")
 		local font = look["ui.font"]
 		local fontLabel = font.Button.Label:GetText()
 		font.Button:Click()
@@ -396,6 +405,75 @@ fn ellesmereui_an_optional_scheme_and_follow_toggles_never_a_lock() {
 	assert_eq!(out["inter"]["font"], json!(["Interface\\AddOns\\Polestar\\Media\\Fonts\\Inter-Medium.ttf", 13, ""]));
 	assert_eq!(out["inter"]["label"], "Inter");
 	assert_eq!(out["refollow"], json!(["Interface\\AddOns\\EllesmereUI\\media\\fonts\\Expressway.ttf", 13, ""]));
+}
+
+// ErgoBars (a whole UI for Forever) offers the skinning contract EllesmereUI does, as ErgoBarsLooks: the same
+// RegisterSkin(name, fn), fn(S) at PLAYER_LOGIN with S.GetAccentColor, S.GetPanelColor, S.GetFont and S.OnLooksChanged.
+const ERGOBARS: &str = r#"
+stub.ergo = { accent = { 0.96, 0.55, 0.73 }, handlers = {}, waiting = {} }
+local S = {
+	GetAccentColor = function() return stub.ergo.accent[1], stub.ergo.accent[2], stub.ergo.accent[3] end,
+	GetPanelColor = function() return 0.06, 0.06, 0.07, 0.9 end,
+	GetFont = function() return "Interface\\AddOns\\ErgoBars\\media\\fonts\\NotoSans-Regular.ttf", "OUTLINE" end,
+	OnLooksChanged = function(fn) table.insert(stub.ergo.handlers, fn) end,
+}
+ErgoBarsLooks = { version = 1, RegisterSkin = function(name, fn)
+	stub.ergo.registered = name
+	if stub.loggedIn then fn(S) else table.insert(stub.ergo.waiting, fn) end
+	return true
+end }
+local drain = CreateFrame("Frame")
+drain:RegisterEvent("PLAYER_LOGIN")
+drain:SetScript("OnEvent", function() for _, fn in ipairs(stub.ergo.waiting) do fn(S) end end)
+stub.addonsLoaded.ErgoBars = true
+"#;
+
+#[test]
+fn ergobars_follows_its_accent_panel_and_font_through_the_same_contract_as_ellesmereui_named_ergobars() {
+	let out = run_with(
+		r#"
+		local fs = UIParent:CreateFontString()
+		T.Font(fs, "body")
+		local before = { T.Accent() }
+		stub.ergo.accent = { 0.2, 0.6, 1 }
+		for _, fn in ipairs(stub.ergo.handlers) do fn() end
+		local after = { T.Accent() }
+		local schemes = T.SchemeChoices()
+		local label
+		for _, c in ipairs(schemes) do if c.value == "ellesmere" then label = c.text end end
+		Polestar.Set("ui.scheme", "ellesmere")
+		local ground = { T.Color("bg") }
+		Polestar.Set("ui.matchFont", true)
+		local font = { fs:GetFont() }
+		Polestar.UI.ShowOptions("appearance")
+		local note = Polestar.UI.Options.Controls("appearance")["ui.accent"].Note:GetText()
+		emit({ registered = stub.ergo.registered, provider = T.SkinProvider(), follows = T.IsEllesmere(), before = before,
+			after = after, schemes = schemes, label = label, ground = ground, font = font, note = note })"#,
+		ERGOBARS,
+	);
+	assert_eq!(out["registered"], "Polestar");
+	assert_eq!(out["provider"], "ErgoBars");
+	assert_eq!(out["follows"], true);
+	assert_eq!(round(&out["before"]), vec![0.96, 0.55, 0.73], "its accent by default, as EllesmereUI's");
+	assert_eq!(round(&out["after"]), vec![0.2, 0.6, 1.0], "S.OnLooksChanged repaints it");
+	assert_eq!(values(&out["schemes"]), json!(["dusk", "night", "graphite", "ellesmere"]));
+	assert_eq!(out["label"], "ErgoBars", "the scheme is named for the UI it follows");
+	assert_eq!(out["ground"][3], 0.9, "the scheme takes its panel's opacity");
+	assert_eq!(out["font"], json!(["Interface\\AddOns\\ErgoBars\\media\\fonts\\NotoSans-Regular.ttf", 13, "OUTLINE"]));
+	assert_eq!(out["note"], "ErgoBars", "the swatch says where the accent comes from");
+}
+
+#[test]
+fn with_ellesmereui_and_ergobars_both_on_ellesmereui_is_followed_and_ergobars_never_asked() {
+	let out = run_with(
+		r#"emit({ provider = T.SkinProvider(), eui = stub.skinRegistered or false, ergo = stub.ergo.registered or false,
+			accent = { T.Accent() } })"#,
+		&format!("stub.withEllesmere()\n{ERGOBARS}"),
+	);
+	assert_eq!(out["provider"], "EllesmereUI");
+	assert_eq!(out["eui"], "Polestar");
+	assert_eq!(out["ergo"], false);
+	assert_eq!(round(&out["accent"]), vec![0.05, 0.82, 0.62]);
 }
 
 #[test]
@@ -512,7 +590,9 @@ fn anim_onupdate_exists_only_while_a_tween_runs_retargeting_reuses_the_record() 
 	assert_eq!(out["active"], 0);
 }
 
-// Every texture the UI sets must exist on disk, or the client draws a green box.
+// Every texture the UI sets must exist on disk, or the client draws a green box. The skin picker's cards
+// (Theme/SkinPicker.lua) draw each of the game's looks in the client's own art (Theme/GameSkins.lua) whatever skin
+// is in use: there, and only there, the client's files stand beside Polestar's own.
 #[test]
 fn every_texture_the_ui_shows_and_every_goal_verb_icon_exists_as_a_valid_tga() {
 	let verbs = [
@@ -523,11 +603,23 @@ fn every_texture_the_ui_shows_and_every_goal_verb_icon_exists_as_a_valid_tga() {
 	let script = String::new()
 		+ r#"
 		local GF, UI = Polestar.UI.GuideFrame, Polestar.UI
-		local seen = {}
+		local seen, cardArt = {}, {}
+		local OWN = "Interface\\AddOns\\Polestar\\Media\\UI\\"
+		-- A picker card's frames: the frame a card (or a skin's window alone) is drawn on carries psSkinCard.
+		local function onCard(f)
+			while f do
+				if rawget(f, "psSkinCard") then return true end
+				f = f.parent
+			end
+			return false
+		end
 		local function collect()
 			for _, f in ipairs(stub.frames) do
 				for _, r in ipairs(f.regions) do
-					if type(r.texture) == "string" then seen[r.texture] = true end
+					local t = r.texture
+					if type(t) == "string" then
+						if t:sub(1, #OWN) ~= OWN and onCard(f) then cardArt[t] = true else seen[t] = true end
+					end
 				end
 			end
 		end
@@ -542,6 +634,7 @@ fn every_texture_the_ui_shows_and_every_goal_verb_icon_exists_as_a_valid_tga() {
 		uistub.complete(); collect()
 		Polestar.Engine.SetGuide(nil); collect()
 		UI.ShowPicker(); collect()
+		UI.LoadOptions()
 		for _, p in ipairs(UI.Options.Pages()) do
 			UI.ShowOptions(p.key); collect()
 			for _, t in ipairs(p.tabs) do UI.Options.Select(p.key, t); collect() end
@@ -549,16 +642,24 @@ fn every_texture_the_ui_shows_and_every_goal_verb_icon_exists_as_a_valid_tga() {
 		for _, v in ipairs({ "#
 		+ &list
 		+ r#" }) do seen[T.VerbIcon(v)] = true end
-		local out = {}
+		local out, art = {}, {}
 		for p in pairs(seen) do out[#out + 1] = p end
+		for p in pairs(cardArt) do art[#art + 1] = p end
 		table.sort(out)
-		emit(out)"#;
-	let paths = run(&script);
-	let paths: Vec<&str> = paths.as_array().unwrap().iter().map(|p| p.as_str().unwrap()).collect();
+		table.sort(art)
+		emit({ seen = out, cardArt = art })"#;
+	let out = run(&script);
+	let list = |k: &str| -> Vec<String> { out[k].as_array().cloned().unwrap_or_default().iter().map(|p| p.as_str().unwrap().to_string()).collect() };
+	let (paths, card_art) = (list("seen"), list("cardArt"));
+	let paths: Vec<&str> = paths.iter().map(|p| p.as_str()).collect();
 	let prefix = "Interface\\AddOns\\Polestar\\Media\\UI\\";
 	let ours: Vec<&str> = paths.iter().filter_map(|p| p.strip_prefix(prefix)).collect();
 	let others: Vec<&str> = paths.iter().copied().filter(|p| !p.starts_with(prefix)).collect();
 	assert_eq!(others, Vec::<&str>::new(), "the UI only uses its own textures");
+	assert!(!card_art.is_empty(), "the game looks' picker cards draw the client's art");
+	for p in &card_art {
+		assert!(p.starts_with("Interface\\") && !p.starts_with("Interface\\AddOns\\"), "a picker card draws the client's own files, never another addon's: {p}");
+	}
 	for v in verbs {
 		assert!(ours.contains(&format!("icon-{v}").as_str()));
 	}
@@ -663,8 +764,9 @@ fn skins_polestar_by_default_halo_and_hearth_bring_their_tokens_fonts_sizes_and_
 		out.haloInter = (T.FontSpec("body"))
 		Polestar.Set("ui.font", nil)
 		Polestar.Set("ui.skin", "hearth")
-		out.bliz = { key = T.SkinKey(), title = c("title"), text = c("text"), success = c("success"), arrive = c("arrive"),
-			selected = c("selected"), row = T.Metric("row", 40), font = (T.FontSpec("body")), menuRow = T.Metric("menuRow", 26) }
+		out.hearth = { key = T.SkinKey(), title = c("title"), text = c("text"), textMuted = c("textMuted"), accent = c("accent"), ember = c("ember"),
+			success = c("success"), selected = c("selected"), windowEdge = c("windowEdge"), npc = c("npc"), game = T.GameSkin(),
+			row = T.Metric("row", 40), font = (T.FontSpec("body")), menuRow = T.Metric("menuRow", 26), foot = T.Metric("guideFoot", 26) }
 		Polestar.Set("ui.skin", "nonsense")
 		out.unknown = T.SkinKey()
 		Polestar.Set("ui.skin", "forever")
@@ -683,7 +785,7 @@ fn skins_polestar_by_default_halo_and_hearth_bring_their_tokens_fonts_sizes_and_
 	assert_eq!(round(&h["quest"]), vec![1.0, 0.878, 0.478, 1.0], "#FFE07A");
 	assert_eq!(round(&h["veil"]), vec![0.031, 0.024, 0.016, 0.6], "#080604 at 60 %");
 	assert_eq!(round(&h["veilWindow"])[3], 0.84);
-	assert_eq!(round(&h["menuBg"])[3], 0.97);
+	assert_eq!(round(&h["menuBg"])[3], 1.0, "menus solid");
 	assert_eq!(round(&h["accentLine"]), vec![1.0, 0.82, 0.0, 0.35]);
 	assert_eq!(round(&h["manual"]), vec![0.706, 0.612, 1.0, 1.0], "#B49CFF");
 	assert_eq!(round(&h["skipped"]), vec![0.361, 0.784, 0.839, 1.0], "#5CC8D6");
@@ -693,29 +795,37 @@ fn skins_polestar_by_default_halo_and_hearth_bring_their_tokens_fonts_sizes_and_
 	assert_eq!(h["icon"], "flag", "the report flag");
 	assert_eq!(round(&out["ownAccent"])[..3], [0.2, 0.6, 1.0], "your own accent wins in a skin");
 	assert_eq!(out["haloInter"], "Interface\\AddOns\\Polestar\\Media\\Fonts\\Inter-Medium.ttf", "a font picked by hand wins");
-	let b = &out["bliz"];
+	let b = &out["hearth"];
 	assert_eq!(b["key"], "hearth");
-	assert_eq!(round(&b["title"]), vec![1.0, 0.82, 0.0, 1.0], "NORMAL_FONT_COLOR");
-	assert_eq!(round(&b["text"]), vec![1.0, 1.0, 1.0, 1.0], "HIGHLIGHT_FONT_COLOR");
-	assert_eq!(round(&b["success"]), vec![0.118, 1.0, 0.0, 1.0], "#1EFF00");
-	assert_eq!(round(&b["arrive"]), vec![0.345, 0.753, 0.29, 1.0], "#58C04A");
-	assert_eq!(round(&b["selected"]), vec![0.431, 0.588, 1.0, 0.28], "the options list's blue selection");
-	assert_eq!(b["row"], 28);
-	assert_eq!(b["menuRow"], 22);
+	assert_eq!(round(&b["title"]), vec![1.0, 0.851, 0.627, 1.0], "the firelit gold, #FFD9A0");
+	assert_eq!(round(&b["text"]), vec![0.961, 0.914, 0.827, 1.0], "parchment, #F5E9D3, not white");
+	assert_eq!(round(&b["textMuted"]), vec![0.702, 0.616, 0.475, 1.0], "#B39D79");
+	assert_eq!(round(&b["accent"]), vec![1.0, 0.58, 0.251, 1.0], "the ember accent, #FF9440");
+	assert_eq!(round(&b["ember"]), vec![1.0, 0.478, 0.18, 1.0], "the ember light, #FF7A2E");
+	assert_eq!(round(&b["success"]), vec![0.561, 0.839, 0.431, 1.0], "a leaf green, #8FD66E");
+	assert_eq!(round(&b["selected"]), vec![1.0, 0.58, 0.251, 0.12], "an ember wash marks the selected row");
+	assert_eq!(round(&b["windowEdge"]), vec![0.478, 0.29, 0.133, 1.0], "a copper hairline, #7A4A22");
+	assert_eq!(round(&b["npc"]), vec![0.58, 0.79, 1.0, 1.0], "the shared subject colours stay");
+	assert_eq!(b["game"], false, "Hearth draws Polestar's own controls");
+	assert_eq!(b["row"], 32);
+	assert_eq!(b["menuRow"], 24);
+	assert_eq!(b["foot"], 20, "the house's slim footer, not the game's 14-high status bar");
 	assert_eq!(b["font"], "Fonts\\FRIZQT__.TTF", "the game's font");
 	assert_eq!(out["unknown"], "polestar", "an unknown skin is the house style");
 	assert_eq!(out["savedForever"], "forever", "a saved \"forever\" choice draws the WoW Forever skin again (#306)");
 }
 
 #[test]
-fn skins_a_window_repaints_from_the_house_style_to_halo_veil_no_fill_to_hearth_gradient_and_back_live() {
+fn skins_a_window_repaints_from_the_house_style_to_halo_veil_no_fill_to_hearth_board_ember_light_and_back_live() {
 	let out = run(r#"
 		-- A window of Polestar's own (frames a test makes stand for the game's).
 		Polestar.UI.ShowOptions()
 		local f = PolestarOptions
 		local function state()
 			local d = f.psSkin
+			local k = d.kit or {}
 			return { bg = d.bg ~= nil and d.bg:IsShown(), veil = d.veil ~= nil and d.veil:IsShown(),
+				board = k.board ~= nil and k.board:IsShown(), ember = k.ember ~= nil and k.ember:IsShown(),
 				border = f.psBorder ~= nil and f.psBorder[1]:IsShown(), shadow = f.psShadow ~= nil and f.psShadow:IsShown() }
 		end
 		local out = { house = state() }
@@ -725,15 +835,33 @@ fn skins_a_window_repaints_from_the_house_style_to_halo_veil_no_fill_to_hearth_g
 		local _, _, _, a = v.parts[5]:GetVertexColor()
 		out.veilAlpha = a
 		Polestar.Set("ui.skin", "hearth")
-		out.bliz = state()
+		out.hearth = state()
+		local k = f.psSkin.kit
+		out.emberColor = { k.ember:GetVertexColor() }
+		out.emberBlend = k.ember.blend
+		out.emberCoords = k.ember.texCoord
+		out.emberHeight = k.ember:GetHeight()
+		out.borderColor = { f.psBorder[1]:GetVertexColor() }
 		Polestar.Set("ui.skin", "polestar")
 		out.back = state()
 		emit(out)"#);
-	assert_eq!(out["house"], json!({ "bg": true, "veil": false, "border": true, "shadow": true }));
-	assert_eq!(out["halo"], json!({ "bg": false, "veil": true, "border": false, "shadow": false }), "Halo: the soft veil alone");
+	let house = json!({ "bg": true, "veil": false, "board": false, "ember": false, "border": true, "shadow": true });
+	assert_eq!(out["house"], house);
+	assert_eq!(out["halo"], json!({ "bg": false, "veil": true, "board": false, "ember": false, "border": false, "shadow": false }), "Halo: the soft veil alone");
 	assert_eq!((out["veilAlpha"].as_f64().unwrap() * 100.0).round() / 100.0, 0.84, "the big windows' veil");
-	assert_eq!(json!({ "bg": out["bliz"]["bg"].clone(), "veil": out["bliz"]["veil"].clone() }), json!({ "bg": true, "veil": false }));
-	assert_eq!(out["back"], out["house"], "back to the house style, as it was");
+	assert_eq!(
+		out["hearth"],
+		json!({ "bg": false, "veil": false, "board": true, "ember": true, "border": true, "shadow": true }),
+		"Hearth: its own gradient board (the house fill stays flat and hidden), the ember light, the copper hairline and the house shadow"
+	);
+	let ember = round(&out["emberColor"]);
+	assert_eq!(&ember[..3], &[1.0, 0.478, 0.18], "the light is the ember token");
+	assert!((0.1..=0.2).contains(&ember[3]), "a big window glows softly ({})", ember[3]);
+	assert_eq!(out["emberBlend"], "ADD");
+	assert_eq!(round(&out["emberCoords"]), vec![0.0, 1.0, 0.5, 1.0], "the lower half of the glow: brightest at the top edge, fading down");
+	assert_eq!(out["emberHeight"], 120);
+	assert_eq!(round(&out["borderColor"])[..3], [0.478, 0.29, 0.133], "the copper hairline by default");
+	assert_eq!(out["back"], house, "back to the house style, as it was");
 }
 
 // #353: Polestar's faces have no Chinese or Hangul; text with them takes the client's font for that script,
@@ -814,7 +942,7 @@ fn guiding_stars_a_chinese_contributor_name_is_drawn_in_a_chinese_font_on_every_
 	}
 }
 
-// The game's looks (Theme/GameSkins.lua): each draws its own art source, and a window taken through all three
+// The game's looks (Polestar_Looks/GameSkins.lua): each draws its own art source, and a window taken through all three
 // comes back to the house style as it was.
 #[test]
 fn skins_wow_forever_draws_the_client_s_atlas_blizzard_the_retail_sheet_classic_the_vanilla_dialog_a_window_goes_through_them_and_back() {
@@ -844,7 +972,8 @@ fn skins_wow_forever_draws_the_client_s_atlas_blizzard_the_retail_sheet_classic_
 		out.blizzardCorner = f.psSkin.kit.metalArt[1].texture
 		Polestar.Set("ui.skin", "classic")
 		out.classic = state()
-		out.classicEdge = f.psSkin.kit.dialog.backdrop and f.psSkin.kit.dialog.backdrop.edgeFile
+		out.classicEdge = f.psSkin.kit.dialogArt and f.psSkin.kit.dialogArt[1]:IsShown() and f.psSkin.kit.dialogArt[1].texture
+		out.classicPlate = f.psSkin.kit.plate:IsShown() and f.psSkin.kit.plate.texture
 		Polestar.Set("ui.skin", "polestar")
 		out.back = state()
 		out.houseGame = T.GameSkin()
@@ -858,20 +987,24 @@ fn skins_wow_forever_draws_the_client_s_atlas_blizzard_the_retail_sheet_classic_
 	assert_eq!(out["game"], true);
 	assert_eq!(out["close"], json!({ "frame": true, "shell": false }), "the close button sits on the frame corner");
 	assert_eq!(out["drag"], true, "the title bar drags the window");
-	assert_eq!(out["blizzardCorner"], 2406979, "Blizzard: the retail sheet by file ID (Theme/GameArt.lua)");
+	assert_eq!(out["blizzardCorner"], 2406979, "Blizzard: the retail sheet by file ID (Polestar_Looks/GameArt.lua)");
 	assert_eq!(out["forever"]["metal"], true);
 	assert_eq!(out["blizzard"]["metal"], true);
 	assert_eq!(json!({ "metal": out["classic"]["metal"].clone(), "dialog": out["classic"]["dialog"].clone() }), json!({ "metal": false, "dialog": true }), "Classic: the dialog box, no metal");
-	assert_eq!(out["classicEdge"], "Interface\\DialogFrame\\UI-DialogBox-Border");
+	assert_eq!(out["classicEdge"], "Interface\\DialogFrame\\UI-DialogBox-Border", "Classic: the dialog border drawn piece by piece from its edge file");
+	assert_eq!(out["classicPlate"], "Interface\\DialogFrame\\UI-DialogBox-Header", "Classic: the header plate on the top edge");
 	assert_eq!(out["back"], out["house"], "back to the house style, as it was");
 	assert_eq!(out["houseGame"], false);
 }
 
-// #312: Forever's tab art is an outline. On the guide window's strip its top and left run along the window's
-// edge, which left the active tab's right side as a lone line; there the active tab is the Settings list's
-// selected row, the resting tabs keep their art, and the Options tabs keep theirs.
+// #312: Forever's tab art is an outline. On the guide window's strip its top and left ran along the window's
+// edge, which left the active tab's right side as a lone line. The strip is 30 high there and every tab's
+// outline stops 6 under the window's edge (the frame's 3-unit line, then air) and 5 in from the tab's sides,
+// so it rises from the strip's foot and closes as a tab does: the active one in the active outline, the rest
+// 3 lower in theirs; the Settings divider runs along the strip's foot; the Options tabs keep the client's own
+// sizes.
 #[test]
-fn skins_on_forever_the_guide_strip_marks_the_active_tab_with_the_selected_row_art_not_a_half_drawn_outline_312() {
+fn skins_on_forever_the_guide_strip_s_tabs_keep_their_outline_clear_of_the_window_s_edge_312() {
 	let out = run_with(
 		r#"
 		T._testShowHidden = true
@@ -880,13 +1013,18 @@ fn skins_on_forever_the_guide_strip_marks_the_active_tab_with_the_selected_row_a
 		uistub.openTabs({ { uistub.elwynn, 3 }, { uistub.tailoring, 2 } }, 1)
 		local function art(b)
 			local k = b.psSkin and b.psSkin.kit or {}
-			local lit, three = k.tabLit, k.tabArt
+			local lit, three, host = k.tabLit, k.tabArt, k.tab
+			local _, _, _, x = host:GetPoint(1)
 			return { lit = lit ~= nil and lit:IsShown() and lit.atlas or lit and lit:IsShown() and lit.texture or false,
-				outline = three ~= nil and three[2]:IsShown() and three[2].texture or false }
+				outline = three ~= nil and three[2]:IsShown() and three[2].texture or false,
+				h = host:GetHeight(), clear = b:GetHeight() - host:GetHeight(), inset = x }
 		end
-		local out = { active = art(GF.tabs[1]), rest = art(GF.tabs[2]) }
+		local out = { active = art(GF.tabs[1]), rest = art(GF.tabs[2]), strip = GF.parts.strip:GetHeight() }
+		local line = GF.parts.strip.psSkin.kit.stripLine
+		local p, _, rp, x = line:GetPoint(1)
+		out.line = { line:IsShown() and line.texture, p, rp, x, line:GetHeight() }
 		uistub.openTabs({ { uistub.elwynn, 3 }, { uistub.tailoring, 2 } }, 2)
-		out.moved = { first = art(GF.tabs[1]), second = art(GF.tabs[2]) }
+		out.moved = { first = art(GF.tabs[1]).outline, second = art(GF.tabs[2]).outline }
 		-- the Options tabs are not on the window's edge: the tab outline as the client draws it
 		Polestar.UI.ShowOptions("guide")
 		out.options = {}
@@ -898,13 +1036,16 @@ fn skins_on_forever_the_guide_strip_marks_the_active_tab_with_the_selected_row_a
 			return { file = "atlas:" .. name, leftTexCoord = 0, rightTexCoord = 1, topTexCoord = 0, bottomTexCoord = 1, width = 7, height = 26 }
 		end }"#,
 	);
-	assert_eq!(out["active"], json!({ "lit": "atlas:Options_List_Active", "outline": false }));
-	assert_eq!(out["rest"], json!({ "lit": false, "outline": "atlas:Options_Tab_Middle" }));
-	assert_eq!(out["moved"], json!({ "first": { "lit": false, "outline": "atlas:Options_Tab_Middle" }, "second": { "lit": "atlas:Options_List_Active", "outline": false } }));
+	assert_eq!(out["strip"], 30, "Forever's strip is 30 high");
+	assert_eq!(out["active"], json!({ "lit": false, "outline": "atlas:Options_Tab_Active_Middle", "h": 24, "clear": 6, "inset": 5 }), "the active outline 6 under the edge, 5 in");
+	assert_eq!(out["rest"], json!({ "lit": false, "outline": "atlas:Options_Tab_Middle", "h": 21, "clear": 9, "inset": 5 }), "a resting tab 3 lower");
+	assert_eq!(out["line"], json!(["atlas:Options_HorizontalDivider", "BOTTOMLEFT", "BOTTOMLEFT", 4, 1]), "the Settings divider along the strip's foot");
+	assert_eq!(out["moved"], json!({ "first": "atlas:Options_Tab_Middle", "second": "atlas:Options_Tab_Active_Middle" }));
 	let options = out["options"].as_array().unwrap();
 	assert!(options.len() > 1);
-	assert!(options.iter().all(|t| t["lit"] == false && truthy(&t["outline"])), "outline tabs");
-	assert!(options.iter().any(|t| t["outline"] == "atlas:Options_Tab_Active_Middle"), "the active one in the active outline");
+	assert!(options.iter().all(|t| t["lit"] == false && truthy(&t["outline"]) && t["inset"] == 0), "outline tabs at the client's own place");
+	assert!(options.iter().any(|t| t["outline"] == "atlas:Options_Tab_Active_Middle" && t["h"] == 26), "the active one in the active outline, 26 high");
+	assert!(options.iter().any(|t| t["outline"] == "atlas:Options_Tab_Middle" && t["h"] == 23), "a resting one 23 high");
 }
 
 // #306: three Forever-skin guide-window bugs confirmed in game by Fitz (rc1).
@@ -940,6 +1081,113 @@ fn skins_forever_hover_plates_use_add_blend_306c() {
 	assert_eq!(out["cardBlend"], "ADD", "cardLit ADD");
 	assert_eq!(out["navBlend"], "ADD", "navHover ADD");
 	assert_eq!(out["platBlend"], "ADD", "plateLit ADD");
+}
+
+// Classic (Polestar_Looks/GameSkins.lua, 0.3.7): the vanilla files composed as the client composes them, every backdrop
+// drawn piece by piece from its edge file (no BackdropTemplate frame, so the previews draw it too). The settings
+// window wears the dialog box with its header plate and its boxed sidebar; the guide window is a chat frame (the
+// tooltip tile under the chat tab's rim, its tabs cut from the chat tab sheet, the XP bar's purple progress in the
+// cast bar's frame); a toast and a menu are the game's tooltip; the slider wears its own border; the palette
+// keeps the text ladder legible; back in the house style every piece is hidden.
+#[test]
+fn skins_classic_draws_the_dialog_box_the_chat_frame_and_the_tooltip_from_the_vanilla_files_with_no_backdrop_frames() {
+	// Nav too: its transport alert is the toast it checks (uistub.realNav: the stub's Nav stands in for it).
+	let out = run_files(
+		&["Core/Core.xml", "Theme/Theme.xml", "Nav/Nav.xml", "UI/UI.xml"],
+		r#"
+		T._testShowHidden = true
+		local GF = Polestar.UI.GuideFrame
+		Polestar.Set("ui.skin", "classic")
+		local out = { pal = T.Palette(), bg = { T.Color("bg") } }
+		local function shown(t) return t ~= nil and t:IsShown() and (t.texture or true) or false end
+		-- the settings window: the dialog box, its plate, the boxed sidebar
+		Polestar.UI.ShowOptions("guide")
+		local f = PolestarOptions
+		local k = f.psSkin.kit
+		out.dialog = { edge = shown(k.dialogArt and k.dialogArt[5]), coords = k.dialogArt and #k.dialogArt[5].texCoord, tile = shown(k.dialogTile),
+			plate = shown(k.plate), title = k.title:GetText(), close = k.closeButton:IsShown(), shellClose = f.Close:IsShown() }
+		local sk = f.Sidebar.psSkin.kit
+		out.sidebar = { edge = shown(sk.tipEdge and sk.tipEdge[1]), tile = shown(sk.tipBg), grey = sk.tipEdge and { sk.tipEdge[1]:GetVertexColor() } }
+		-- no BackdropTemplate frame anywhere in the kits
+		local backdrops = 0
+		for _, fr in ipairs(stub.frames) do if rawget(fr, "backdrop") then backdrops = backdrops + 1 end end
+		out.backdrops = backdrops
+		-- the guide window: the chat frame
+		uistub.openTabs({ { uistub.elwynn, 3 }, { uistub.tailoring, 2 } }, 1)
+		local g = PolestarGuideFrame
+		local gk = g.psSkin.kit
+		out.guide = { rim = gk.rim ~= nil and gk.rim[1]:IsShown() and gk.rim[1].texture, tipEdge = shown(gk.tipEdge and gk.tipEdge[1]),
+			tile = g.psSkin.bg.texture, tiled = g.psSkin.bg:GetHorizTile() }
+		local function tab(b)
+			local tk = b.psSkin and b.psSkin.kit or {}
+			return { art = shown(tk.tabArt and tk.tabArt[2]), alpha = tk.tab and tk.tab:GetAlpha(), h = tk.tab and tk.tab:GetHeight() }
+		end
+		out.tabs = { active = tab(GF.tabs[1]), rest = tab(GF.tabs[2]) }
+		local bar = GF.parts.foot.Status
+		out.bar = { fill = bar:GetStatusBarTexture().texture, color = { bar:GetStatusBarTexture():GetVertexColor() },
+			frame = shown(bar.psSkin.kit.statusNine and bar.psSkin.kit.statusNine[1]) }
+		-- the current goal: the quest log's gold title highlight, as light at half strength
+		for _, r in ipairs(GF.rows or {}) do
+			local t = r.psSkin and r.psSkin.kit and r.psSkin.kit.rowLit
+			if t and t:IsShown() then out.lit = { tex = t.texture, alpha = select(4, t:GetVertexColor()), blend = t.blend } end
+		end
+		-- a toast: the tooltip; a menu: the tooltip in the panel colour
+		uistub.realNav.alerts.ShowSample()
+		local a = PolestarAlert.psSkin.kit
+		-- the chat tab's rim is eight pieces in the kit store (a house rim, a single texture, is not it)
+		local chatRim = type(a.rim) == "table" and a.rim[1] ~= nil and a.rim[1].IsShown and a.rim[1]:IsShown() or false
+		out.toast = { tipEdge = shown(a.tipEdge and a.tipEdge[1]), rim = chatRim }
+		stub.RunScript(GF.menuButton, "OnClick", "LeftButton")
+		local m = PolestarMenu.psSkin.kit
+		out.menu = { edge = shown(m.tipEdge and m.tipEdge[1]), tile = shown(m.tipBg) }
+		-- a slider row in the settings window: its own border and tile, the round thumb
+		local slider
+		for _, fr in ipairs(stub.frames) do if rawget(fr, "Slider") and rawget(fr, "Thumb") and fr.psSkin and fr.psSkin.kit and fr.psSkin.kit.trackEdge then slider = fr end end
+		out.slider = slider and { edge = shown(slider.psSkin.kit.trackEdge[1]), tile = shown(slider.psSkin.kit.trackTile), tiled = slider.psSkin.kit.trackTile:GetHorizTile(), thumb = slider.Thumb.texture } or false
+		-- back to the house style: every piece hidden
+		Polestar.Set("ui.skin", "polestar")
+		local function anyShown(t)
+			if type(t) ~= "table" then return false end
+			if t.IsShown then return t:IsShown() end
+			for _, v in pairs(t) do if anyShown(v) then return true end end
+			return false
+		end
+		out.back = { options = anyShown(k), guide = anyShown(gk), toast = anyShown(a) }
+		emit(out)"#,
+		"",
+	);
+	assert_legible("classic", &out["pal"]);
+	assert_eq!(round(&out["bg"]), vec![0.051, 0.051, 0.11, 0.92], "the tooltip's navy as its tile draws it");
+	assert_eq!(out["dialog"]["edge"], "Interface\\DialogFrame\\UI-DialogBox-Border", "the dialog border's top edge");
+	assert_eq!(out["dialog"]["coords"], 8, "the top edge lies on its side in the strip: the corner form of SetTexCoord");
+	assert_eq!(out["dialog"]["tile"], "Interface\\DialogFrame\\UI-DialogBox-Background");
+	assert_eq!(out["dialog"]["plate"], "Interface\\DialogFrame\\UI-DialogBox-Header");
+	assert_eq!(out["dialog"]["title"], "Polestar");
+	assert_eq!(json!({ "close": out["dialog"]["close"].clone(), "shell": out["dialog"]["shellClose"].clone() }), json!({ "close": true, "shell": false }));
+	assert_eq!(out["sidebar"]["edge"], "Interface\\Tooltips\\UI-Tooltip-Border", "the sidebar is the options list's box");
+	assert_eq!(out["sidebar"]["tile"], "Interface\\Tooltips\\UI-Tooltip-Background");
+	assert_eq!(round(&out["sidebar"]["grey"]), vec![0.4, 0.4, 0.4, 1.0], "at 40 % grey");
+	assert_eq!(out["backdrops"], 0, "no BackdropTemplate frames");
+	assert_eq!(out["guide"]["rim"], "Interface\\ChatFrame\\ChatFrameTab", "the chat tab's rim round the guide window");
+	assert_eq!(out["guide"]["tipEdge"], false, "no tooltip border on the guide window");
+	assert_eq!(out["guide"]["tile"], "Interface\\Tooltips\\UI-Tooltip-Background");
+	assert_eq!(out["guide"]["tiled"], true, "the tile repeats");
+	assert_eq!(out["tabs"]["active"]["art"], "Interface\\ChatFrame\\ChatFrameTab", "the strip's tabs are chat tabs");
+	assert_eq!(out["tabs"]["active"]["alpha"], 1.0);
+	assert_eq!(out["tabs"]["rest"]["alpha"], 0.55, "the resting tabs fade as the chat frame's do");
+	assert!(out["tabs"]["active"]["h"].as_f64().unwrap() > out["tabs"]["rest"]["h"].as_f64().unwrap(), "the active tab stands taller");
+	assert_eq!(out["bar"]["fill"], "Interface\\TargetingFrame\\UI-StatusBar");
+	assert_eq!(round(&out["bar"]["color"]), vec![0.58, 0.0, 0.55, 1.0], "the XP bar's purple");
+	assert_eq!(out["bar"]["frame"], "Interface\\CastingBar\\UI-CastingBar-Border", "in the cast bar's frame");
+	assert_eq!(out["lit"], json!({ "tex": "Interface\\QuestFrame\\UI-QuestTitleHighlight", "alpha": 0.5, "blend": "ADD" }), "the lit goal at half the game's strength, so its tip lines read");
+	assert_eq!(out["toast"], json!({ "tipEdge": "Interface\\Tooltips\\UI-Tooltip-Border", "rim": false }), "a toast is a tooltip");
+	assert_eq!(out["menu"]["edge"], "Interface\\Tooltips\\UI-Tooltip-Border", "a menu is a tooltip");
+	assert_eq!(out["menu"]["tile"], "Interface\\Tooltips\\UI-Tooltip-Background");
+	assert_eq!(out["slider"]["edge"], "Interface\\Buttons\\UI-SliderBar-Border", "the options slider's border");
+	assert_eq!(out["slider"]["tile"], "Interface\\Buttons\\UI-SliderBar-Background");
+	assert_eq!(out["slider"]["tiled"], true);
+	assert_eq!(out["slider"]["thumb"], "Interface\\Buttons\\UI-SliderBar-Button-Horizontal");
+	assert_eq!(out["back"], json!({ "options": false, "guide": false, "toast": false }), "back in the house style, every piece is hidden");
 }
 
 // #306 in game (Forever, after the border fix): the guide window's progress bar showed no fill, its frame
@@ -981,7 +1229,7 @@ fn skins_forever_s_progress_bar_draws_its_own_fill_to_the_bar_s_value_the_frame_
 		out.edgeLevel = F.psSkin.kit.edge:GetFrameLevel() - F:GetFrameLevel()
 		do
 			local p, rel, rp = F.psSkin.kit.edge:GetPoint(1)
-			out.edgeTop = { p, rel == F.psStrip, rp }
+			out.edgeTop = { p, rel == F, rp }
 		end
 		out.pad = { T.Metric("guidePad", 14), T.Metric("guideLitInset", 4) }
 		local lit, row
@@ -999,9 +1247,10 @@ fn skins_forever_s_progress_bar_draws_its_own_fill_to_the_bar_s_value_the_frame_
 			local p, _, rp, _, y = row.Check:GetPoint(1)
 			out.tickAnchor = { p, rp, y }
 		end
-		-- back to the house style: the bar's own fill again
+		-- to Hearth: the game's bar put away, the house's slim line in its place, Hearth's own sizes
 		Polestar.Set("ui.skin", "hearth")
-		out.hearth = { own = b:GetStatusBarTexture():GetAlpha(), fill = k.statusFill:IsShown(), pad = T.Metric("guidePad", 14), lit = T.Metric("guideLitInset", 4) }
+		out.hearth = { bar = b:IsShown(), line = GF.parts.foot.Line:IsShown(), lineH = GF.parts.foot.Line:GetHeight(),
+			pad = T.Metric("guidePad", 14), lit = T.Metric("guideLitInset", 4) }
 		emit(out)"#,
 		r#"C_Texture = { GetAtlasInfo = function(name)
 			local size = { ["Legacy-Progressbar-Frame"] = { 262, 52 }, ["Legacy-Progressbar-Fill"] = { 234, 24 }, ["Legacy-Progressbar-BG"] = { 234, 24 } }
@@ -1018,13 +1267,220 @@ fn skins_forever_s_progress_bar_draws_its_own_fill_to_the_bar_s_value_the_frame_
 	assert_eq!(out["tick"]["big"], 26, "the Settings panel box as before");
 	assert!((out["tick"]["small"].as_f64().unwrap() - 15.0 * 26.0 / 18.0).abs() < 1e-9, "a 15 box: the art in the same proportion");
 	assert_eq!(out["edgeLevel"], 0, "the border's frame at the window's level: the content draws over its inner shade");
-	assert_eq!(out["edgeTop"], json!(["TOPLEFT", true, "BOTTOMLEFT"]), "the border hangs from the tab strip's foot, so it follows the strip into and out of compact mode");
+	assert_eq!(out["edgeTop"], json!(["TOPLEFT", true, "TOPLEFT"]), "the border runs round the whole window, tab strip included (#312)");
 	assert_eq!(out["pad"], json!([18, 10]), "Forever pads its rows and the lit goal clear of the border");
 	assert_eq!(out["lit"], 10, "the current goal lit 10 in");
 	assert!(out["tickRight"].as_f64().unwrap() <= -(10.0 + 10.0), "the tick box's art ends 10 or more inside the lit goal's outline ({})", out["tickRight"]);
 	assert_eq!(out["tickAnchor"], json!(["RIGHT", "RIGHT", 0]), "the tick box on the row's middle");
 	assert_eq!(out["textTop"], -8, "the lit goal's lines start 8 below its top, not 4");
-	assert_eq!(out["hearth"], json!({ "own": 1, "fill": false, "pad": 12, "lit": 4 }), "Hearth: the bar's own fill back, its own sizes");
+	assert_eq!(out["hearth"], json!({ "bar": false, "line": true, "lineH": 3, "pad": 12, "lit": 4 }), "Hearth: the game's bar put away, the house's slim line, its own sizes");
+}
+
+// A skin drawn from a game look with an art tint (Skin API 2's artTint, here a variant's) dims the guide
+// window's lit goal and every piece of its progress bar (the fill, the frame, the ground under it) as it does
+// the frames: drawn tinted, tinted again on every repaint, and back as drawn on the plain look. Each piece:
+// its colour, alpha and grey (hundredths).
+#[test]
+fn a_skin_s_art_tint_dims_the_guide_window_s_lit_goal_and_progress_bar_in_every_game_look_and_leaves_with_it() {
+	let out = run_with(
+		r#"
+		local GF = Polestar.UI.GuideFrame
+		local DUSK = { tint = { 0.5, 0.5, 1 }, brightness = -0.5, desaturate = 0.8 }
+		T.RegisterSkin("dusk", { api = 2, name = "Dusk", addon = "Test", base = "polestar", defaultVariant = "flat", variants = {
+			{ id = "flat", name = "Flat" },
+			{ id = "forever", name = "WoW Forever, dusk", base = "forever", artTint = DUSK },
+			{ id = "blizzard", name = "Blizzard, dusk", base = "blizzard", artTint = DUSK },
+			{ id = "classic", name = "Classic, dusk", base = "classic", artTint = DUSK },
+		} })
+		uistub.openTabs({ { uistub.elwynn, 3 } }, 1)
+		local function piece(t)
+			if not (t and t:IsShown()) then return false end
+			local r, g, b, a = t:GetVertexColor()
+			local function h(x) return math.floor(x * 255 + 0.5) end
+			return { string.format("%02x%02x%02x", h(r), h(g), h(b)), math.floor(a * 100 + 0.5), math.floor((t.desaturation or 0) * 100 + 0.5) }
+		end
+		local function pieces()
+			local bar = GF.parts.foot.Status
+			bar:SetWidth(200)
+			bar:SetValue(0.5)
+			local k = bar.psSkin.kit
+			local lit, frame
+			for _, r in ipairs(GF.rows) do
+				local t = r.psSkin and r.psSkin.kit and r.psSkin.kit.rowLit
+				if t and t:IsShown() then lit = t end
+			end
+			for _, key in ipairs({ "statusArt", "statusShadow", "statusNine" }) do
+				local p = k[key] and k[key][1]
+				if p and p:IsShown() then frame = p end
+			end
+			-- Forever draws its own fill (the bar's is unseen); Blizzard and Classic colour the bar's.
+			local fill = k.statusFill and k.statusFill:IsShown() and k.statusFill or bar:GetStatusBarTexture()
+			return { lit = piece(lit), fill = piece(fill), frame = piece(frame), ground = piece(bar.Bg) }
+		end
+		local out = {}
+		for _, look in ipairs({ "forever", "blizzard", "classic" }) do
+			Polestar.Set("ui.skin", look)
+			local plain = pieces()
+			Polestar.Set("ui.skinVariants.dusk", look)
+			Polestar.Set("ui.skin", "dusk")
+			local dusk = pieces()
+			GF.Render()
+			local again = pieces()
+			Polestar.Set("ui.skin", look)
+			out[look] = { plain = plain, dusk = dusk, again = again, back = pieces() }
+			Polestar.Set("ui.skin", "polestar")
+		end
+		emit(out)"#,
+		r#"C_Texture = { GetAtlasInfo = function(name)
+			return { file = "atlas:" .. name, leftTexCoord = 0, rightTexCoord = 1, topTexCoord = 0, bottomTexCoord = 1, width = 234, height = 24 }
+		end }"#,
+	);
+	// The tint: 0.5, 0.5, 1 at half the brightness, 80 % grey. White art turns 404080.
+	let white = |a: u32| json!(["ffffff", a, 0]);
+	let dusk = |a: u32| json!(["404080", a, 80]);
+	let want = |plain: [Value; 4], dusk: [Value; 4]| {
+		let v = |p: &[Value; 4]| json!({ "lit": p[0], "fill": p[1], "frame": p[2], "ground": p[3] });
+		json!({ "plain": v(&plain), "dusk": v(&dusk), "again": v(&dusk), "back": v(&plain) })
+	};
+	assert_eq!(out["forever"], want([white(100), white(100), white(100), white(100)], [dusk(100), dusk(100), dusk(100), dusk(100)]), "Forever");
+	// Blizzard: the flat grey selected row, the bar's gold fill (no frame round it), the light strip under it at 10 %.
+	assert_eq!(
+		out["blizzard"],
+		want([json!(["2a2a2a", 100, 0]), json!(["ffd100", 100, 0]), json!(false), white(10)], [json!(["0b0b15", 100, 80]), json!(["403400", 100, 80]), json!(false), dusk(10)]),
+		"Blizzard"
+	);
+	// Classic: the quest title's light at half, the XP bar's purple, its half-black trough.
+	assert_eq!(
+		out["classic"],
+		want([white(50), json!(["94008c", 100, 0]), white(100), json!(["000000", 50, 0])], [dusk(50), json!(["250046", 100, 80]), dusk(100), json!(["000000", 50, 80])]),
+		"Classic"
+	);
+}
+
+// A guide window tab's close button: the red button 14 high in WoW Forever and Classic (Classic's art, whose button
+// fills 19 of its 32 units, drawn bigger to match), on the middle of the tab's art where the tab has art: WoW
+// Forever's outline and Classic's chat tab stand lower than the strip's middle, and the tab's glyph (with the title
+// and range after it) moves down with them. Blizzard's close is its glyph, as the damage meter's header buttons
+// are; its resting tab is its label alone.
+#[test]
+fn a_tab_s_close_button_is_the_same_size_in_every_game_look_on_the_middle_of_the_tab_s_art() {
+	let out = run_with(
+		r#"
+		local GF = Polestar.UI.GuideFrame
+		uistub.openTabs({ { uistub.elwynn, 3 }, { uistub.tailoring, 2 } }, 1)
+		local out = {}
+		for _, look in ipairs({ "forever", "blizzard", "classic" }) do
+			Polestar.Set("ui.skin", look)
+			local function tab(b)
+				local art = b.Close.psSkin and b.Close.psSkin.kit and b.Close.psSkin.kit.closeN
+				local ink = look == "classic" and 19 / 32 or 1
+				local _, rel = b.Close:GetPoint(1)
+				local button = art and art:IsShown() and math.floor(art:GetHeight() * ink * 100 + 0.5) / 100 or { glyph = b.Close.Icon:GetAlpha() }
+				return { button = button, onArt = rel == b.psSkin.kit.tab, glyph = select(5, b.Icon:GetPoint(1)) }
+			end
+			out[look] = { active = tab(GF.tabs[1]), rest = tab(GF.tabs[2]) }
+		end
+		emit(out)"#,
+		r#"C_Texture = { GetAtlasInfo = function(name)
+			return { file = "atlas:" .. name, leftTexCoord = 0, rightTexCoord = 1, topTexCoord = 0, bottomTexCoord = 1, width = 18, height = 19 }
+		end }"#,
+	);
+	let on = |art: bool, glyph: Value| json!({ "button": 14, "onArt": art, "glyph": glyph });
+	let bare = |art: bool| json!({ "button": { "glyph": 1 }, "onArt": art, "glyph": 0 });
+	assert_eq!(out["forever"], json!({ "active": on(true, json!(-3)), "rest": on(true, json!(-4.5)) }), "Forever: a 30 strip, outlines 24 and 21 high");
+	assert_eq!(out["blizzard"], json!({ "active": bare(true), "rest": bare(false) }), "Blizzard: the glyph alone");
+	assert_eq!(out["classic"], json!({ "active": on(true, json!(-2)), "rest": on(true, json!(-3.5)) }), "Classic: a 28 strip, chat tabs 24 and 21 high");
+}
+
+// Blizzard's tab close is its glyph alone, shown the way every kit glyph is: from a look that hid it under its red
+// button (WoW Forever), the glyph stays shown when something colours it again (in the client a texture's alpha and
+// its colour's alpha are one value), dims with its button when disabled and comes back when enabled.
+#[test]
+fn blizzard_s_tab_close_glyph_stays_shown_after_a_look_that_hid_it_and_dims_with_its_button() {
+	let out = run(r#"
+		local GF = Polestar.UI.GuideFrame
+		uistub.openTabs({ { uistub.elwynn, 3 }, { uistub.tailoring, 2 } }, 1)
+		Polestar.Set("ui.skin", "forever")
+		Polestar.Set("ui.skin", "blizzard")
+		local b = GF.tabs[1].Close
+		local function drawn() return math.floor(select(4, b.Icon:GetVertexColor()) * 1000 + 0.5) / 1000 end
+		local out = { shown = drawn() }
+		W.Recolor(b.Icon)
+		out.recoloured = drawn()
+		W.SetIconState(b, false, false)
+		out.disabled = drawn()
+		W.SetIconState(b, false, true)
+		out.enabled = drawn()
+		emit(out)"#);
+	assert_eq!(out, json!({ "shown": 1, "recoloured": 1, "disabled": 0.35, "enabled": 1 }), "the glyph shown, recoloured, disabled and back");
+}
+
+// Blizzard is the game's own damage meter, not WoW Forever in grey: the guide window's ground is the meter's window
+// art (no fill under it), its header flat charcoal over the tab strip and the navigator, its parts parted by grey
+// hairlines, its selected row (the active tab, the current goal) flat grey, the navigator's buttons, a tab's close
+// and a heads-up card's close their glyphs alone, nothing under the focus; WoW Forever keeps its black body, its
+// square plates, its bronze rods and its gold-lit goal.
+#[test]
+fn skins_blizzard_s_guide_window_is_the_damage_meter_apart_from_wow_forever_s() {
+	let out = run_with(
+		r#"
+		local GF = Polestar.UI.GuideFrame
+		uistub.openTabs({ { uistub.elwynn, 3 } }, 1)
+		local F = PolestarGuideFrame
+		-- A heads-up card's close (UI/ClassToast.lua): the same 24 button.
+		local card = Polestar.Widgets.IconButton(UIParent, "close", 24)
+		local function hex(t)
+			if not (t and t:IsShown()) then return false end
+			local r, g, b = t:GetVertexColor()
+			local function h(x) return math.floor(x * 255 + 0.5) end
+			return string.format("%02x%02x%02x", h(r), h(g), h(b))
+		end
+		local function look()
+			local k = F.psSkin.kit
+			local prev = GF.parts.nav.Prev
+			local plate = prev.psSkin and prev.psSkin.kit and prev.psSkin.kit.plate
+			local header = GF.parts.person.psSkin and GF.parts.person.psSkin.kit and GF.parts.person.psSkin.kit.header
+			local strip = GF.parts.strip.psSkin and GF.parts.strip.psSkin.kit or {}
+			local lit
+			for _, r in ipairs(GF.rows) do
+				local t = r.psSkin and r.psSkin.kit and r.psSkin.kit.rowLit
+				if t and t:IsShown() then lit = t end
+			end
+			local tab = GF.tabs[1].psSkin.kit
+			local close = GF.tabs[1].Close
+			local closeArt = close.psSkin and close.psSkin.kit and close.psSkin.kit.closeN
+			local sr, sg, sb, sa = Polestar.Theme.Color("separator")
+			return { ground = k.meterArt ~= nil and k.meterArt[1]:IsShown() and k.meterArt[1].texture or false,
+				fill = F.psSkin.bg ~= nil and F.psSkin.bg:IsShown(), plate = plate ~= nil and plate:IsShown(),
+				glyph = prev.Icon:GetAlpha(), header = header ~= nil and header[2]:IsShown(),
+				bar = strip.stripHost ~= nil and strip.stripHost:IsShown() and hex(strip.stripFill), lit = lit and (lit.texture == Polestar.Theme.Media("white") and hex(lit) or "art") or false,
+				tab = tab.tabLit and tab.tabLit:IsShown() and hex(tab.tabLit) or false,
+				close = closeArt ~= nil and closeArt:IsShown() and "art" or close.Icon:GetAlpha(),
+				card = card.psSkin and card.psSkin.kit and card.psSkin.kit.closeN and card.psSkin.kit.closeN:IsShown() and "art" or card.Icon:GetAlpha(),
+				pct = math.floor(select(4, GF.parts.foot.Status.Pct:GetTextColor()) * 100 + 0.5),
+				separator = string.format("%02x%02x%02x%s", math.floor(sr * 255 + 0.5), math.floor(sg * 255 + 0.5), math.floor(sb * 255 + 0.5), sa == 1 and "" or "~") }
+		end
+		Polestar.Set("ui.skin", "blizzard")
+		local out = { blizzard = look() }
+		Polestar.Set("ui.skin", "forever")
+		out.forever = look()
+		emit(out)"#,
+		r#"C_Texture = { GetAtlasInfo = function(name)
+			return { file = "atlas:" .. name, leftTexCoord = 0, rightTexCoord = 1, topTexCoord = 0, bottomTexCoord = 1, width = 110, height = 110 }
+		end }"#,
+	);
+	assert_eq!(
+		out["blizzard"],
+		json!({ "ground": 7499559, "fill": false, "plate": false, "glyph": 1, "header": false, "bar": "1f1f1f", "lit": "2a2a2a", "tab": "2a2a2a",
+			"close": 1, "card": 1, "pct": 90, "separator": "3a3a3a" }),
+		"the meter's window"
+	);
+	assert_eq!(
+		out["forever"],
+		json!({ "ground": false, "fill": true, "plate": true, "glyph": 1, "header": true, "bar": false, "lit": "art", "tab": false, "close": "art",
+			"card": "art", "pct": 100, "separator": "ae9d81~" }),
+		"the Settings panel's parts"
+	);
 }
 
 #[test]
@@ -1043,4 +1499,131 @@ fn text_size_scales_every_role_at_once_apart_from_the_window_scale_within_80_to_
 	assert_eq!(out["spec"], true);
 	assert!((out["capped"].as_f64().unwrap() - 1.4).abs() < 0.05, "at most 140%: {}", out["capped"]);
 	assert_eq!(out["scale"], 1, "the window scale is left alone");
+}
+
+// The game looks (WoW Forever, Blizzard, Classic) and Hearth's painters live in a part loaded on demand
+// (Polestar_Looks): on the house look nothing of it is loaded and the kit calls draw nothing; the first of them
+// painted loads it, once, with every look's kit, painter and art table; back on the house look no kit is in use.
+#[test]
+fn the_game_looks_and_hearth_load_on_demand_the_first_time_one_is_painted_and_only_once() {
+	let out = run(r#"
+		local loads = 0
+		local load = C_AddOns.LoadAddOn
+		function C_AddOns.LoadAddOn(name, ...)
+			if name == "Polestar_Looks" then loads = loads + 1 end
+			return load(name, ...)
+		end
+		local house = { loaded = stub.addonsLoaded.Polestar_Looks == true, kits = T.KITS ~= nil, kit = T.Kit() ~= nil,
+			hearth = T.SKIN_PAINT.hearth ~= nil, forever = T.SKIN_PAINT.forever ~= nil, art = Polestar.GameArt ~= nil,
+			tab = T.KitTab(CreateFrame("Button"), "x"), loads = loads }
+		Polestar.Set("ui.skin", "hearth")
+		local hearth = { loads = loads, loaded = stub.addonsLoaded.Polestar_Looks == true, painter = T.SKIN_PAINT.hearth ~= nil,
+			kit = T.Kit() ~= nil }
+		Polestar.Set("ui.skin", "classic")
+		local classic = { loads = loads, kit = T.Kit() ~= nil and T.Kit() == T.KITS.classic, forever = T.SKIN_PAINT.forever ~= nil,
+			blizzard = T.SKIN_PAINT.blizzard ~= nil, art = Polestar.GameArt ~= nil }
+		Polestar.Set("ui.skin", "polestar")
+		emit({ house = house, hearth = hearth, classic = classic, back = { loads = loads, kit = T.Kit() ~= nil } })"#);
+	assert_eq!(
+		out["house"],
+		json!({ "loaded": false, "kits": false, "kit": false, "hearth": false, "forever": false, "art": false, "tab": false, "loads": 0 }),
+		"the house look loads nothing of the game looks"
+	);
+	assert_eq!(out["hearth"], json!({ "loads": 1, "loaded": true, "painter": true, "kit": false }), "Hearth brings the part in, with no kit");
+	assert_eq!(out["classic"], json!({ "loads": 1, "kit": true, "forever": true, "blizzard": true, "art": true }), "a game look finds it in, loaded once");
+	assert_eq!(out["back"], json!({ "loads": 1, "kit": false }));
+}
+
+// The game looks' part missing or turned off in the AddOns list (Polestar_Looks): picking one of them keeps
+// Polestar's own look whole (its sizes, its controls: a switch keeps its pill), never the look's controls on
+// Polestar's frames with nothing drawn where the look's art would be.
+#[test]
+fn without_the_game_looks_part_polestar_s_own_look_stands_in_whole() {
+	let out = run(r#"
+		local load = C_AddOns.LoadAddOn
+		function C_AddOns.LoadAddOn(name, ...)
+			if name == "Polestar_Looks" then return false, "DISABLED" end
+			return load(name, ...)
+		end
+		local sw = W.Switch(UIParent, function() return true end, function() end)
+		Polestar.Set("ui.skin", "blizzard")
+		sw:Refresh()
+		local out = { id = T.SkinId(), key = T.SkinKey(), game = T.GameSkin(), kit = T.Kit() ~= nil,
+			pill = sw.Track.parts[1]:IsShown(), knob = sw.Knob:IsShown() }
+		Polestar.Set("ui.skin", "hearth")
+		out.hearth = T.SkinKey()
+		emit(out)"#);
+	assert_eq!(out["id"], "blizzard", "the choice is kept for when the part is back");
+	assert_eq!(
+		json!({ "key": out["key"], "game": out["game"], "kit": out["kit"], "pill": out["pill"], "knob": out["knob"], "hearth": out["hearth"] }),
+		json!({ "key": "polestar", "game": false, "kit": false, "pill": true, "knob": true, "hearth": "polestar" })
+	);
+}
+
+#[test]
+fn the_guide_window_s_text_takes_its_own_size_and_the_rest_of_polestar_s_text_the_general_one() {
+	let out = run(r#"
+		local guide = PolestarGuideFrame:CreateFontString()
+		T.Font(guide, "title")
+		local nested = CreateFrame("Frame", nil, CreateFrame("Frame", nil, PolestarGuideFrame)):CreateFontString()
+		T.Font(nested, "body")
+		local other = UIParent:CreateFontString()
+		T.Font(other, "title")
+		local _, base = other:GetFont()
+		local _, nestedBase = nested:GetFont()
+		Polestar.Set("ui.guideTextSize", 1.2)
+		local _, guideGrown = guide:GetFont()
+		local _, nestedGrown = nested:GetFont()
+		local _, otherKept = other:GetFont()
+		Polestar.Set("ui.textSize", 0.8)
+		local _, guideKept = guide:GetFont()
+		local _, otherShrunk = other:GetFont()
+		Polestar.Set("ui.guideTextSize", 3)
+		local _, guideCapped = guide:GetFont()
+		emit({ base = base, guideGrown = guideGrown / base, nestedGrown = nestedGrown / nestedBase, otherKept = otherKept / base,
+			guideKept = guideKept / base, otherShrunk = otherShrunk / base, guideCapped = guideCapped / base,
+			default = Polestar.GetDefault("ui.guideTextSize") })"#);
+	assert_eq!(out["default"], 1);
+	assert!((out["guideGrown"].as_f64().unwrap() - 1.2).abs() < 0.05, "the guide window's text grows with its own size: {}", out["guideGrown"]);
+	assert!((out["nestedGrown"].as_f64().unwrap() - 1.2).abs() < 0.05, "deeper in the window too: {}", out["nestedGrown"]);
+	assert_eq!(out["otherKept"], 1, "the rest of Polestar's text is left alone");
+	assert!((out["guideKept"].as_f64().unwrap() - 1.2).abs() < 0.05, "the general size leaves the guide window alone: {}", out["guideKept"]);
+	assert!((out["otherShrunk"].as_f64().unwrap() - 0.8).abs() < 0.05, "the general size still sizes the rest: {}", out["otherShrunk"]);
+	assert!((out["guideCapped"].as_f64().unwrap() - 1.4).abs() < 0.05, "at most 140%: {}", out["guideCapped"]);
+}
+
+#[test]
+fn settings_from_before_the_guide_text_size_keep_the_guide_window_s_text_at_the_general_size_once() {
+	let script = r#"emit({ guide = Polestar.Get("ui.guideTextSize"), general = Polestar.Get("ui.textSize"), v = PolestarDB.guideTextSizeV })"#;
+	let old = run_with(script, "PolestarDB = { schema = 1, settings = { ui = { textSize = 1.2 } } }");
+	assert_eq!(old["guide"], 1.2, "the size the guide window had before");
+	assert_eq!(old["general"], 1.2);
+	assert_eq!(old["v"], 1);
+	let reset = run_with(script, "PolestarDB = { schema = 1, guideTextSizeV = 1, settings = { ui = { textSize = 1.2 } } }");
+	assert_eq!(reset["guide"], 1, "once only: a guide size reset afterwards stays at the default");
+	let own = run_with(script, "PolestarDB = { schema = 1, settings = { ui = { textSize = 1.2, guideTextSize = 0.9 } } }");
+	assert_eq!(own["guide"], 0.9, "a guide size of the player's own stays");
+	let fresh = run_with(script, "");
+	assert_eq!(fresh["guide"], 1);
+	assert_eq!(fresh["v"], 1, "a fresh install is marked too, so a general size set later is not copied");
+}
+
+#[test]
+fn the_class_quest_card_in_the_guide_window_keeps_the_general_text_size() {
+	let out = run(r#"
+		-- The card as UI/ClassCard.lua draws it into the guide window (its parts.card, a frame of the window's).
+		local card = Polestar.UI.ClassCard.NewCard(Polestar.UI.GuideFrame.parts.card)
+		local inCard = card.Title
+		local guide = PolestarGuideFrame:CreateFontString()
+		T.Font(guide, "title")
+		local _, base = inCard:GetFont()
+		Polestar.Set("ui.guideTextSize", 1.4)
+		local _, cardGuide = inCard:GetFont()
+		local _, guideGuide = guide:GetFont()
+		Polestar.Set("ui.textSize", 0.8)
+		local _, cardGeneral = inCard:GetFont()
+		emit({ cardGuide = cardGuide / base, guideGuide = guideGuide / base, cardGeneral = cardGeneral / base })"#);
+	assert_eq!(out["cardGuide"], 1, "the guide size leaves the card alone");
+	assert!((out["guideGuide"].as_f64().unwrap() - 1.4).abs() < 0.05, "and sizes the window around it: {}", out["guideGuide"]);
+	assert!((out["cardGeneral"].as_f64().unwrap() - 0.8).abs() < 0.05, "the card follows the general size: {}", out["cardGeneral"]);
 }

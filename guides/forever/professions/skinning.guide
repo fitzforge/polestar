@@ -93,18 +93,18 @@ step Beasts 1-10: Zephras Isle (1-50)
   only Skyborne
   zone Zephras Isle
   tip Kill and skin Cloudrunner (6), Galestrider (5), Highlands Ursera (7), Hippogryph Protector (6), Hippogryph Youth (6), Juvenile Vuldren (1), Ornery Galestrider (8), Prideclaw (5), Scrawny Ursera (3), Shadowgale Shriekling (10), Shriekling Fledgling (8), Ursera Scavenger (4), Vuldren (6), Vuldren Alpha (10), Windsong Crawler (8) along the loop until Skinning 50; loot each corpse, then skin it, and skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above. Zone level 1-15. Expect about 60 beasts for these 49 points.
-  goto 38.9,54.3 live "Hippogryph Youth, Prideclaw" r 30
-  goto 35.7,55.9 live "Hippogryph Protector, Hippogryph Youth" r 30
-  goto 45.5,67.8 live "Prideclaw, Vuldren" r 30
-  goto 51.4,78.6 live "Ornery Galestrider, Vuldren Alpha" r 30
-  goto 55.0,72.4 live "Ornery Galestrider, Vuldren Alpha" r 30
-  goto 59.3,67.3 live "Ornery Galestrider, Vuldren Alpha" r 30
-  goto 54.4,60.4 live "Prideclaw, Galestrider" r 30
-  goto 50.1,63.9 live "Prideclaw, Galestrider" r 30
-  goto 45.4,59.2 live "Galestrider, Vuldren" r 30
-  goto 42.8,49.7 live "Prideclaw, Vuldren" r 30
-  goto 44.2,39.1 live "Prideclaw, Galestrider" r 30
-  goto 39.8,45.3 live "Prideclaw, Galestrider" r 30
+  goto 39.4,53.6 live "Hippogryph Youth, Prideclaw" r 30
+  goto 35.9,55.8 live "Hippogryph Protector, Hippogryph Youth" r 30
+  goto 45.4,67.6 live "Prideclaw, Galestrider" r 30
+  goto 51.8,79.4 live "Ornery Galestrider, Vuldren Alpha" r 30
+  goto 55.4,72.6 live "Ornery Galestrider, Vuldren Alpha" r 30
+  goto 58.0,63.8 live "Ornery Galestrider, Vuldren Alpha" r 30
+  goto 53.1,61.6 live "Prideclaw, Highlands Ursera" r 30
+  goto 45.8,59.2 live "Galestrider, Cloudrunner" r 30
+  goto 49.1,52.7 live "Prideclaw, Galestrider" r 30
+  goto 43.3,48.4 live "Prideclaw, Vuldren" r 30
+  goto 44.1,39.8 live "Prideclaw, Galestrider" r 30
+  goto 39.7,45.6 live "Prideclaw, Galestrider" r 30
   skill Skinning 50
 
 step Beasts 1-9: Durotar (1-50)
@@ -129,18 +129,18 @@ step Beasts 1-9: Mulgore (1-50)
   only Tauren
   zone Mulgore
   tip Kill and skin Adult Plainstrider (6), Battleboar (3), Elder Plainstrider (8), Flatland Cougar (7), Flatland Prowler (9), Kodo Calf (7), Mountain Cougar (3), Plainstrider (1), Prairie Stalker (7), Prairie Wolf (5), Prairie Wolf Alpha (9) along the loop until Skinning 50; loot each corpse, then skin it, and skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above. A quest here needs Skinning: Gathering Leather (level 8, Veren Tallstrider). Zone level 1-10. Expect about 60 beasts for these 49 points.
-  goto 46.8,29.0 "Prairie Wolf Alpha, Elder Plainstrider" r 30
-  goto 45.0,16.4 "Flatland Prowler, Elder Plainstrider" r 30
-  goto 50.8,14.1 "Flatland Prowler, Prairie Wolf Alpha" r 30
   goto 53.6,22.1 "Flatland Prowler, Elder Plainstrider" r 30
-  goto 54.0,35.5 "Flatland Cougar, Elder Plainstrider" r 30
-  goto 51.9,42.6 "Prairie Stalker, Flatland Cougar" r 30
-  goto 54.0,82.8 "Battleboar, Plainstrider" r 30
-  goto 56.9,90.1 "Battleboar, Mountain Cougar" r 30
-  goto 50.6,89.2 "Mountain Cougar, Plainstrider" r 30
-  goto 44.2,87.4 "Mountain Cougar, Plainstrider" r 30
-  goto 48.7,79.6 "Plainstrider" r 30
+  goto 50.8,14.1 "Flatland Prowler, Prairie Wolf Alpha" r 30
+  goto 45.0,16.4 "Flatland Prowler, Elder Plainstrider" r 30
+  goto 46.8,29.0 "Prairie Wolf Alpha, Elder Plainstrider" r 30
   goto 47.2,37.8 "Prairie Stalker, Flatland Cougar" r 30
+  goto 48.7,79.6 "Plainstrider" r 30
+  goto 44.2,87.4 "Mountain Cougar, Plainstrider" r 30
+  goto 50.6,89.2 "Mountain Cougar, Plainstrider" r 30
+  goto 56.9,90.1 "Battleboar, Mountain Cougar" r 30
+  goto 54.0,82.8 "Battleboar, Plainstrider" r 30
+  goto 51.9,42.6 "Prairie Stalker, Flatland Cougar" r 30
+  goto 54.0,35.5 "Flatland Cougar, Elder Plainstrider" r 30
   skill Skinning 50
 
 step Beasts 1-9: Tirisfal Glades (1-50)
@@ -207,13 +207,13 @@ step Beasts 10-16: Loch Modan (50-100)
 step Beasts 11-19: Darkshore (50-100)
   only NightElf
   zone Darkshore
-  tip Kill and skin Moonstalker Runt (11), Thistle Bear (11), Rabid Thistle Bear (13), Moonstalker (14), Grizzled Thistle Bear (16, needs 60), Moonstalker Sire (17, needs 70), Ghostpaw Runner (19, needs 90), Moonstalker Matriarch (19, needs 90) along the loop until Skinning 100; loot each corpse, then skin it, and skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above. Zone level 10-20. Expect about 120 beasts for these 50 points.
+  tip Kill and skin Thistle Bear (11), Rabid Thistle Bear (13), Moonstalker (14), Grizzled Thistle Bear (16, needs 60), Moonstalker Runt (16, needs 60), Moonstalker Sire (17, needs 70), Ghostpaw Runner (19, needs 90), Moonstalker Matriarch (19, needs 90) along the loop until Skinning 100; loot each corpse, then skin it, and skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above. Zone level 10-20. Expect about 100 beasts for these 50 points.
   goto 39.9,36.5 "Thistle Bear, Moonstalker Runt" r 30
-  goto 44.7,25.1 "Thistle Bear, Moonstalker Runt" r 30
+  goto 44.9,26.2 "Thistle Bear, Moonstalker Runt" r 30
   goto 49.3,28.9 "Rabid Thistle Bear, Moonstalker" r 30
-  goto 53.0,28.1 "Rabid Thistle Bear, Moonstalker" r 30
-  goto 49.0,34.8 "Rabid Thistle Bear, Thistle Bear" r 30
-  goto 45.0,31.9 "Thistle Bear, Rabid Thistle Bear" r 30
+  goto 45.3,32.6 "Thistle Bear, Rabid Thistle Bear" r 30
+  goto 43.4,43.0 "Thistle Bear, Moonstalker Runt" r 30
+  goto 44.5,56.0 "Moonstalker Runt, Thistle Bear" r 30
   goto 43.2,67.5 "Rabid Thistle Bear, Moonstalker" r 30
   goto 43.3,82.0 "Moonstalker Sire, Grizzled Thistle Bear" r 30
   goto 38.9,80.4 "Grizzled Thistle Bear, Moonstalker" r 30
@@ -333,22 +333,22 @@ step Expert Skinning
   tip Expert Skinning raises the cap to 225; it needs skill 125 and no character level, and costs 50s: train it as soon as you reach 125. The arrow picks the nearest Skinning trainer of your faction.
   train Skinning Expert
 
-step Beasts 21-27: Hillsbrad Foothills (125-150)
+step Beasts 21-29: Hillsbrad Foothills (125-150)
   only Human,Dwarf,Gnome,Skyborne,Alliance
   zone Hillsbrad Foothills
-  tip Kill and skin Gray Bear (21), Vicious Gray Bear (22), Starving Mountain Lion (23), Elder Gray Bear (25), Feral Mountain Lion (27, needs 135) along the loop until Skinning 150; loot each corpse, then skin it, and skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above. Zone level 20-30. Expect about 30 beasts for these 25 points.
-  goto 52.5,46.0 "Vicious Gray Bear, Starving Mountain Lion" r 30
-  goto 53.0,36.9 "Starving Mountain Lion, Vicious Gray Bear" r 30
-  goto 61.9,34.9 "Gray Bear, Starving Mountain Lion" r 30
-  goto 73.3,30.3 "Elder Gray Bear, Vicious Gray Bear" r 30
-  goto 86.9,38.8 "Elder Gray Bear" r 30
+  tip Kill and skin Gray Bear (21), Vicious Gray Bear (22), Starving Mountain Lion (23), Elder Gray Bear (25), Feral Mountain Lion (27, needs 135), Snapjaw (29, needs 145) along the loop until Skinning 150; loot each corpse, then skin it, and skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above. Zone level 20-30. Expect about 30 beasts for these 25 points.
+  goto 54.1,47.2 "Vicious Gray Bear, Starving Mountain Lion" r 30
   goto 75.5,52.5 "Elder Gray Bear, Vicious Gray Bear" r 30
-  goto 71.5,63.7 "Elder Gray Bear, Feral Mountain Lion" r 30
-  goto 42.6,52.1 "Elder Gray Bear, Starving Mountain Lion" r 30
-  goto 35.4,60.4 "Elder Gray Bear" r 30
-  goto 24.1,53.1 "Elder Gray Bear, Gray Bear" r 30
-  goto 26.9,36.9 "Elder Gray Bear, Gray Bear" r 30
+  goto 86.9,38.8 "Elder Gray Bear" r 30
+  goto 76.6,32.5 "Elder Gray Bear, Vicious Gray Bear" r 30
+  goto 68.7,22.4 "Elder Gray Bear, Gray Bear" r 30
+  goto 66.6,34.0 "Gray Bear, Snapjaw" r 30
+  goto 57.2,28.8 "Gray Bear, Starving Mountain Lion" r 30
+  goto 53.0,36.9 "Starving Mountain Lion, Vicious Gray Bear" r 30
   goto 40.9,39.3 "Vicious Gray Bear, Starving Mountain Lion" r 30
+  goto 24.1,53.1 "Elder Gray Bear, Gray Bear" r 30
+  goto 35.4,60.4 "Elder Gray Bear" r 30
+  goto 42.6,52.1 "Elder Gray Bear, Starving Mountain Lion" r 30
   skill Skinning 150
 
 step Beasts 19-29: Ashenvale (125-150)
@@ -387,22 +387,22 @@ step Beasts 19-29: Ashenvale (125-150)
   goto 45.7,62.8 "Ashenvale Bear, Shadowhorn Stag" r 30
   skill Skinning 150
 
-step Beasts 21-27: Hillsbrad Foothills (125-150)
+step Beasts 21-29: Hillsbrad Foothills (125-150)
   only Undead
   zone Hillsbrad Foothills
-  tip Kill and skin Gray Bear (21), Vicious Gray Bear (22), Starving Mountain Lion (23), Elder Gray Bear (25), Feral Mountain Lion (27, needs 135) along the loop until Skinning 150; loot each corpse, then skin it, and skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above. Zone level 20-30. Expect about 30 beasts for these 25 points.
-  goto 61.9,34.9 "Gray Bear, Starving Mountain Lion" r 30
+  tip Kill and skin Gray Bear (21), Vicious Gray Bear (22), Starving Mountain Lion (23), Elder Gray Bear (25), Feral Mountain Lion (27, needs 135), Snapjaw (29, needs 145) along the loop until Skinning 150; loot each corpse, then skin it, and skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above. Zone level 20-30. Expect about 30 beasts for these 25 points.
+  goto 57.2,28.8 "Gray Bear, Starving Mountain Lion" r 30
   goto 53.0,36.9 "Starving Mountain Lion, Vicious Gray Bear" r 30
   goto 40.9,39.3 "Vicious Gray Bear, Starving Mountain Lion" r 30
-  goto 26.9,36.9 "Elder Gray Bear, Gray Bear" r 30
   goto 24.1,53.1 "Elder Gray Bear, Gray Bear" r 30
   goto 35.4,60.4 "Elder Gray Bear" r 30
   goto 42.6,52.1 "Elder Gray Bear, Starving Mountain Lion" r 30
-  goto 52.5,46.0 "Vicious Gray Bear, Starving Mountain Lion" r 30
-  goto 71.5,63.7 "Elder Gray Bear, Feral Mountain Lion" r 30
+  goto 54.1,47.2 "Vicious Gray Bear, Starving Mountain Lion" r 30
   goto 75.5,52.5 "Elder Gray Bear, Vicious Gray Bear" r 30
   goto 86.9,38.8 "Elder Gray Bear" r 30
-  goto 73.3,30.3 "Elder Gray Bear, Vicious Gray Bear" r 30
+  goto 76.6,32.5 "Elder Gray Bear, Vicious Gray Bear" r 30
+  goto 68.7,22.4 "Elder Gray Bear, Gray Bear" r 30
+  goto 66.6,34.0 "Gray Bear, Snapjaw" r 30
   skill Skinning 150
 
 # ---------------------------------------------------------------- Skinning 150-175
@@ -410,15 +410,15 @@ section Skinning 150-175
 
 step Beasts 21-33: Alterac Mountains (150-175)
   zone Alterac Mountains
-  tip Kill and skin Gray Bear (21), Elder Gray Bear (25), Cave Yeti (30), Snapjaw (30), Ferocious Yeti (31, needs 155), Mountain Lion (32, needs 160), Mountain Yeti (32, needs 160), Giant Yeti (33, needs 165), Hulking Mountain Lion (33, needs 165) along the loop until Skinning 175; loot each corpse, then skin it, and skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above. Zone level 30-40. Expect about 30 beasts for these 25 points.
+  tip Kill and skin Gray Bear (21), Elder Gray Bear (25), Snapjaw (29), Cave Yeti (30), Ferocious Yeti (31, needs 155), Mountain Lion (32, needs 160), Mountain Yeti (32, needs 160), Giant Yeti (33, needs 165), Hulking Mountain Lion (33, needs 165) along the loop until Skinning 175; loot each corpse, then skin it, and skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above. Zone level 30-40. Expect about 40 beasts for these 25 points.
   goto 40.2,92.3 "Cave Yeti, Ferocious Yeti" r 30
   goto 31.7,82.3 "Mountain Lion, Elder Gray Bear" r 30
+  goto 23.4,76.6 "Elder Gray Bear" r 30
   goto 37.8,68.6 "Giant Yeti, Mountain Yeti" r 30
   goto 30.0,58.6 "Giant Yeti, Mountain Yeti" r 30
   goto 17.0,51.3 "Snapjaw" r 30
   goto 24.1,44.2 "Snapjaw" r 30
   goto 31.1,36.3 "Snapjaw, Giant Yeti" r 30
-  goto 32.0,10.9 "Snapjaw" r 30
   goto 36.0,24.1 "Snapjaw, Hulking Mountain Lion" r 30
   goto 81.0,55.5 "Snapjaw, Hulking Mountain Lion" r 30
   goto 74.5,65.0 "Snapjaw, Mountain Lion" r 30
@@ -467,21 +467,15 @@ step Beasts 35-41: Swamp of Sorrows (200-225)
 # ---------------------------------------------------------------- Skinning 225-250
 section Skinning 225-250
 
-step Beasts 42-49: The Hinterlands (225-250)
-  zone The Hinterlands
-  tip Kill and skin Vicious Owlbeast (42), Silvermane Wolf (43), Primitive Owlbeast (44), Savage Owlbeast (46, needs 230), Silvermane Stalker (47, needs 235), Saltwater Snapjaw (49, needs 245) along the loop until Skinning 250; loot each corpse, then skin it, and skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above. Zone level 40-50. Expect about 40 beasts for these 25 points.
-  goto 62.0,51.1 "Savage Owlbeast, Silvermane Stalker" r 30
-  goto 51.1,59.3 "Savage Owlbeast, Primitive Owlbeast" r 30
-  goto 42.0,56.2 "Primitive Owlbeast" r 30
-  goto 34.3,59.3 "Silvermane Wolf, Vicious Owlbeast" r 30
-  goto 27.9,66.0 "Vicious Owlbeast, Silvermane Wolf" r 30
-  goto 27.1,57.4 "Vicious Owlbeast, Silvermane Wolf" r 30
-  goto 36.9,48.6 "Silvermane Wolf, Primitive Owlbeast" r 30
-  goto 54.1,50.4 "Savage Owlbeast, Silvermane Stalker" r 30
-  goto 55.3,43.8 "Savage Owlbeast, Silvermane Stalker" r 30
-  goto 61.9,43.1 "Savage Owlbeast, Silvermane Stalker" r 30
-  goto 68.0,53.5 "Silvermane Stalker, Savage Owlbeast" r 30
-  goto 72.0,58.7 "Silvermane Stalker" r 30
+step Beasts 45-48: Azshara (225-250)
+  zone Azshara
+  tip Kill and skin Mosshoof Runner (45), Thunderhead Hippogryph (46, needs 230), Thunderhead Stagwing (48, needs 240) along the loop until Skinning 250; loot each corpse, then skin it, and skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above. Zone level 45-55. Expect about 30 beasts for these 25 points.
+  goto 18.6,54.3 "Thunderhead Hippogryph, Mosshoof Runner" r 30
+  goto 16.1,51.3 "Thunderhead Hippogryph" r 30
+  goto 21.4,49.2 "Mosshoof Runner, Thunderhead Hippogryph" r 30
+  goto 22.1,57.8 "Mosshoof Runner, Thunderhead Hippogryph" r 30
+  goto 20.3,67.8 "Thunderhead Hippogryph, Mosshoof Runner" r 30
+  goto 18.6,63.1 "Thunderhead Hippogryph, Mosshoof Runner" r 30
   skill Skinning 250
 
 # ---------------------------------------------------------------- Skinning 250-275

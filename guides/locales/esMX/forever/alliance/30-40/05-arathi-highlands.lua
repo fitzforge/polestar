@@ -10,7 +10,7 @@ return {
 	-- {area:42} Darkshire
 	["Fly to {area:42}"] = "Vuela a {area:42}",
 	-- {area:35} Booty Bay
-	["{area:35} flight master"] = "",
+	["{area:35} flight master"] = "Maestro de vuelo de {area:35}",
 
 	-- Step 3: Watcher Biggs
 	-- {npc:5476} Watcher Biggs · {npc:217412} Amaryllis Webb · {quest:93176} My Little Friends
@@ -111,9 +111,9 @@ return {
 	["The Syndicate hold the farm north-west of {area:320}.\nCareful: Syndicate Highwaymen are level 30-31 and can cast Sneak while out of combat, so they are often stealthed and hard to spot."] = "",
 
 	-- Step 27: Hay Weevil
-	-- {quest:681} Northfold Manor · {npc:217412} Amaryllis Webb
+	-- {quest:681} Northfold Manor · {npc:217412} Amaryllis Webb · {item:213565} Entomology Starter Kit
 	-- plural, as words: Hay Weevils = {npc:217589} Hay Weevil
-	["Hay Weevils crawl about the north end of {quest:681}'s farm: catch one with the tool from {npc:217412}'s Entomology Starter Kit."] = "",
+	["Hay Weevils crawl about the north end of {quest:681}'s farm: catch one with the tool from {npc:217412}'s {item:213565}."] = "",
 
 	-- Step 28: Shards of Myzrael
 	-- {quest:681} Northfold Manor · {area:333} Circle of East Binding · {area:314} Go'Shek Farm
@@ -253,7 +253,7 @@ return {
 	-- {area:280} Strahnbrad · {item:3706} Ensorcelled Parchment · {npc:2320} Nagaz · {quest:537} Dark Council
 	-- plural, as words: Crushridge Maulers = {npc:2254} Crushridge Mauler · Crushridge Ogres = {npc:2252} Crushridge Ogre
 	["The Crushridge ogres hold the hills north of {area:280}. Farther north, a worn wooden chest holds the {item:3706}; {npc:2320} of the {quest:537} stands right by it.\nThe Crushridge Maulers, Mages, Enforcers and Warmongers (36-39) are elite; the Crushridge Ogres and Brutes (34-35) are not and drop the knucklebones too: pull one at a time, or group up."] = "",
-	["Inside"] = "",
+	["Inside"] = "Adentro",
 
 	-- Step 58: Dalaran
 	-- {area:279} Dalaran · {zone:1421} Silverpine Forest · {npc:269127} Image of Archmage Modera

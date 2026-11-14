@@ -110,6 +110,8 @@ fn focus_mode_on_the_quest_item_s_line_a_is_the_item_button_s_own_secure_click_y
 fn combat_the_gamepad_goes_back_to_the_game_before_the_lockdown_nothing_is_set_in_a_fight_and_focus_mode_cannot_start_in_one() {
 	let out = run(r#"
 		uistub.setGuide(uistub.elwynn, 3)
+		-- The settings window's addon loads nowhere near a fight (UI/OptionsLoader.lua): here it was opened before.
+		UI.LoadOptions()
 		G.StartFocus()
 		stub.fire("PLAYER_REGEN_DISABLED")
 		stub.inCombat = true
@@ -238,6 +240,48 @@ fn options_with_a_gamepad_down_moves_a_switches_a_toggle_y_restores_its_default_
 	assert!((after - (before + step)).abs() < 1e-9, "one step right: {slider}");
 }
 
+// Settings layout v2: a row's inline extras and its cog are widgets of their own to the gamepad, right after their
+// row; A on the cog opens its popup, which takes the gamepad until B gives it back to the window.
+#[test]
+fn options_with_a_gamepad_the_focus_reaches_a_row_s_inline_extras_and_its_cog_and_a_on_the_cog_opens_its_popup() {
+	let out = run_with(
+		r#"
+		UI.ShowOptions("padfake")
+		stub.advance(0.3)
+		local seen = {}
+		for _ = 1, 6 do
+			seen[#seen + 1] = focused(PolestarOptions)
+			stub.press("PADDDOWN")
+		end
+		local cog
+		for _ = 1, 8 do
+			local w = G.Focused(PolestarOptions)
+			if w and w.psControl and w.Dot then cog = w break end
+			stub.press("PADDUP")
+		end
+		stub.press("PAD1")
+		emit({ seen = seen, cog = cog ~= nil, popup = PolestarOptionsMore ~= nil and PolestarOptionsMore:IsShown(), owner = G.owner == PolestarOptionsMore })
+		stub.press("PAD2")
+		emit({ popup = PolestarOptionsMore:IsShown(), owner = G.owner == PolestarOptions })
+	"#,
+		"",
+		r#"Polestar.RegisterDefaults("padfake", { on = true, size = 1, tint = false, glow = true, rim = false })
+		Polestar.RegisterOptions({ page = "Pad fake", key = "padfake", section = "Pins",
+			toggle = { kind = "toggle", key = "padfake.on", label = "Pins" },
+			controls = { { kind = "slider", key = "padfake.size", label = "Size", min = 0.5, max = 2, step = 0.05,
+				extras = { { kind = "color", key = "padfake.tint", label = "Tint" }, { kind = "toggle", key = "padfake.glow", label = "Glow" } },
+				more = { { kind = "toggle", key = "padfake.rim", label = "Rim" } } } } })"#,
+		true,
+	);
+	let seen: Vec<&str> = out[0]["seen"].as_array().unwrap().iter().map(|v| v.as_str().unwrap_or("")).collect();
+	let at = seen.iter().position(|s| *s == "Size").expect("the row is reached");
+	assert_eq!(seen[at + 1..at + 4], ["Tint", "Glow", "More: Size"], "then its extras and its cog: {seen:?}");
+	assert_eq!(out[0]["cog"], true);
+	assert_eq!(out[0]["popup"], true, "A on the cog opens its popup");
+	assert_eq!(out[0]["owner"], true, "which takes the gamepad");
+	assert_eq!(out[1], json!({ "popup": false, "owner": true }), "B closes it and the window has the gamepad back");
+}
+
 #[test]
 fn turning_navigate_polestar_s_windows_off_with_the_gamepad_gives_every_button_back_at_once() {
 	let out = run(r#"
@@ -334,6 +378,36 @@ fn a_menu_over_a_window_holds_the_gamepad_until_b_then_the_window_has_it_back_wh
 	"#);
 	assert_eq!(out[0], json!({ "menu": true, "owner": true, "line": "Automatic" }));
 	assert_eq!(out[1], json!({ "menu": false, "owner": true, "line": "Button names", "options": true }));
+}
+
+// The settings search's dropdown (typed with a keyboard) holds the gamepad while it is open: the D-pad moves
+// through its rows, A opens the focused one and the window has the gamepad back; B closes it.
+#[test]
+fn the_settings_search_dropdown_holds_the_gamepad_while_open_a_opens_a_row_b_closes_it() {
+	let out = run(r#"
+		UI.ShowOptions("guide")
+		stub.advance(0.3)
+		local box = PolestarOptions.Search
+		local function typed(q) box:SetFocus(); box:SetText(q); stub.RunScript(box, "OnTextChanged", true); stub.advance(0.1) end
+		typed("minimap icon")
+		local rows = UI.Options.Dropdown.Rows()
+		local r = { owner = G.owner == PolestarOptionsMatches, first = G.Focused(PolestarOptionsMatches) and G.Focused(PolestarOptionsMatches).psIndex }
+		stub.press("PADDDOWN")
+		local at = G.Focused(PolestarOptionsMatches)
+		r.down = at and at.psIndex
+		local page = rows[r.down] and rows[r.down].where
+		stub.press("PAD1")
+		r.opened = { shown = PolestarOptionsMatches:IsShown(), owner = G.owner == PolestarOptions, page = UI.Options.page.name == (page or ""):match("^(.-)  \194\183  ") }
+		typed("minimap icon")
+		stub.press("PAD2")
+		r.back = { shown = PolestarOptionsMatches:IsShown(), owner = G.owner == PolestarOptions, window = PolestarOptions:IsShown() }
+		emit(r)
+	"#);
+	assert_eq!(out[0]["owner"], true, "the open list takes the gamepad");
+	assert_eq!(out[0]["first"], 1, "on its first row");
+	assert_eq!(out[0]["down"], 2);
+	assert_eq!(out[0]["opened"], json!({ "shown": false, "owner": true, "page": true }), "A opens that row's setting; the window has the gamepad back");
+	assert_eq!(out[0]["back"], json!({ "shown": false, "owner": true, "window": true }), "B closes the list, not the window");
 }
 
 #[test]
@@ -552,9 +626,11 @@ fn an_error_in_a_binding_row_as_a_fight_starts_still_gives_every_button_back_fir
 	);
 }
 
-// Forever's gamepad interface (ns.GamepadUI), on as the addon loads.
+// Forever's gamepad interface (ns.GamepadUI), on as the addon loads, with its own binding context active (as
+// Blizzard_Gamepad turns it on).
 const GAMEPAD_UI: &str = r#"Enum.InputDeviceInterfaceType = { Mkb = 0, Gamepad = 1 }
-C_InputInterfaceStyle = { GetCurrentStyle = function() return 1 end }"#;
+C_InputInterfaceStyle = { GetCurrentStyle = function() return 1 end }
+stub.pad.gamepadOn = true"#;
 
 #[test]
 fn with_the_gamepad_interface_no_override_binding_is_set_the_window_s_frame_alone_reads_its_buttons_and_a_on_the_quest_item_s_line_is_no_secure_click() {
@@ -596,6 +672,76 @@ fn with_the_gamepad_interface_no_chord_is_bound_unasked_and_a_chord_on_lb_or_rb_
 		true,
 	);
 	assert_eq!(out[0], json!({ "chord": false, "rb": "gamepad", "lb": "gamepad", "face": "gamepad", "lt": false }));
+}
+
+// olidammara (#688): with the gamepad interface on, a quest button bound on the Gamepad page went into the default
+// binding context, under the interface's own, and did nothing in play. A gamepad button binds in the interface's
+// context now (in the binding set in use), its row names what runs in play, and the keyboard and mouse
+// interface's bindings stay as they were.
+#[test]
+fn with_the_gamepad_interface_a_quest_button_binds_in_the_interface_s_own_binding_context_and_the_other_bindings_stay() {
+	let out = run_with(
+		r#"
+		local TARGET = "CLICK PolestarTargetButton:LeftButton"
+		pad.saved.PADRSTICK, pad.saved.T = TARGET, TARGET
+		pad.gamepad.PADRSTICK, pad.gamepad.PAD4 = "GAMEPADACTIONBUTTON1", "GAMEPADACTIONBUTTON2"
+		UI.ShowOptions("gamepad")
+		UI.Options.Select("gamepad", "Key bindings")
+		local row = UI.Options.Controls("gamepad", "Key bindings")["Target quest mob"]
+		local shown = row.Keys.psKeys
+		row:Click()
+		stub.press("PAD3")
+		emit({ shown = shown, x = pad.gamepad.PAD3 or false, default = pad.saved.PAD3 or false, rs = pad.saved.PADRSTICK or false, t = pad.saved.T or false, saves = pad.saves, now = row.Keys.psKeys })
+		row:Click()
+		stub.press("PAD4")
+		local asks = row.Value:GetText()
+		row:Click()
+		stub.press("PAD2")
+		local route = stub.press("PAD4")
+		emit({ asks = asks, y = pad.gamepad.PAD4, x = pad.gamepad.PAD3 or false, rs = pad.saved.PADRSTICK or false, t = pad.saved.T or false, route = route, ran = pad.ran[#pad.ran] })
+		local unbound = G.Unbind(TARGET, true)
+		emit({ unbound = unbound, y = pad.gamepad.PAD4 or false, rs = pad.saved.PADRSTICK or false, t = pad.saved.T or false, game = pad.gamepad.PADRSTICK })
+		stub.inCombat = true
+		local saves = pad.saves
+		emit({ bound = G.Bind(TARGET, "PAD1"), a = pad.gamepad.PAD1 or false, saves = pad.saves - saves })
+	"#,
+		GAMEPAD_UI,
+		"",
+		true,
+	);
+	assert_eq!(
+		out[0],
+		json!({ "shown": "T", "x": "CLICK PolestarTargetButton:LeftButton", "default": false, "rs": "CLICK PolestarTargetButton:LeftButton", "t": "CLICK PolestarTargetButton:LeftButton", "saves": 1, "now": "PAD3" }),
+		"RS runs the interface's own action: the row shows the key that works"
+	);
+	assert!(is_match(text(&out[1]["asks"]), r"^The game's gamepad setup uses Y\. A again"));
+	assert_eq!(out[1]["y"], "CLICK PolestarTargetButton:LeftButton");
+	assert_eq!(
+		json!([out[1]["x"].clone(), out[1]["rs"].clone(), out[1]["t"].clone()]),
+		json!([false, "CLICK PolestarTargetButton:LeftButton", "CLICK PolestarTargetButton:LeftButton"]),
+		"Y replaces X in the interface's context only"
+	);
+	assert_eq!(json!([out[1]["route"].clone(), out[1]["ran"].clone()]), json!(["game", "CLICK PolestarTargetButton:LeftButton"]));
+	assert_eq!(out[2], json!({ "unbound": true, "y": false, "rs": "CLICK PolestarTargetButton:LeftButton", "t": "CLICK PolestarTargetButton:LeftButton", "game": "GAMEPADACTIONBUTTON1" }));
+	assert_eq!(out[3], json!({ "bound": false, "a": false, "saves": 0 }));
+}
+
+// Without the gamepad interface (the keyboard and mouse interface with a gamepad), a button binds in the default
+// context as before; what the gamepad interface's context holds stays for it.
+#[test]
+fn with_the_keyboard_and_mouse_interface_a_quest_button_binds_as_before_and_the_gamepad_interface_s_bindings_stay() {
+	let out = run(r#"
+		local TARGET = "CLICK PolestarTargetButton:LeftButton"
+		pad.gamepad.PAD3, pad.saved.PADRSTICK = TARGET, TARGET
+		UI.ShowOptions("gamepad")
+		UI.Options.Select("gamepad", "Key bindings")
+		local row = UI.Options.Controls("gamepad", "Key bindings")["Target quest mob"]
+		local shown = row.Keys.psKeys
+		row:Click()
+		stub.press("PAD1")
+		emit({ shown = shown, a = pad.saved.PAD1 or false, rs = pad.saved.PADRSTICK or false, x = pad.gamepad.PAD3 or false, saves = pad.saves, now = G.KeyText(TARGET) })
+	"#);
+	assert_eq!(out[0], json!({ "shown": "PADRSTICK", "a": "CLICK PolestarTargetButton:LeftButton", "rs": false, "x": "CLICK PolestarTargetButton:LeftButton", "saves": 1, "now": "A" }));
 }
 
 #[test]
@@ -683,4 +829,25 @@ fn the_welcome_s_route_style_cards_the_d_pad_reaches_them_a_picks_one_y_puts_bal
 			balanced = PolestarWelcome.Styles[2].psSelected or false, roads = card and card.psSelected or false })
 	"#);
 	assert_eq!(out[0], json!({ "reached": true, "picked": ["roads", true], "reset": "balanced", "balanced": true, "roads": false }), "Y puts Balanced back and moves the pick to its card");
+}
+
+#[test]
+fn installs_option_cards_the_d_pad_reaches_them_a_picks_one_y_puts_the_default_back() {
+	let out = run(r#"
+		uistub.groupQuests = { { quest = 101, title = "Elite" } }
+		UI.Welcome.Show("groups")
+		stub.advance(0.3)
+		local card
+		for _ = 1, 20 do
+			local w = G.Focused(PolestarWelcome)
+			if w and w.psValue == "do" then card = w break end
+			stub.press("PADDDOWN")
+		end
+		stub.press("PAD1")
+		local picked = { Polestar.Get("behavior.groupQuests"), card and card.psSelected or false }
+		stub.press("PAD4")
+		emit({ reached = card ~= nil, picked = picked, reset = Polestar.Get("behavior.groupQuests"),
+			ask = PolestarWelcome.GroupQuests.cards[1].psSelected or false, card = card and card.psSelected or false })
+	"#);
+	assert_eq!(out[0], json!({ "reached": true, "picked": ["do", true], "reset": "ask", "ask": true, "card": false }), "Y puts Ask me at each back and moves the pick to its card");
 }

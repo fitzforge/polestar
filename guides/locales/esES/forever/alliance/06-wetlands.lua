@@ -237,50 +237,54 @@ return {
 	-- plural, as words: Withered Ancients = {npc:3919} Withered Ancient
 	["The Crazed and Withered Ancients north of the moonwell carry the {item:5475}; the worn chest it opens stands among them."] = "Los Ancianos enloquecidos y los Ancianos marchitos al norte del pozo de la luna llevan la {item:5475}; el cofre gastado que abre está entre ellos.",
 
-	-- Step 44: Anilia
+	-- Step 43: The Howling Vale
+	-- {area:419} Howling Vale
+	["Take the tunnel into the {area:419}; the tome lies in the ruins at its west end."] = "Entra por el túnel en {area:419}; el tomo está en las ruinas de su extremo oeste.",
+
+	-- Step 45: Anilia
 	-- {area:429} Xavian · {npc:3920} Anilia
 	["Follow the road east to the satyr camps of {area:429}; {npc:3920} hides at their edge."] = "Sigue el camino hacia el este hasta los campamentos sátiros de {area:429}; {npc:3920} se esconde en su borde.",
 
-	-- Step 45: Geltharis
+	-- Step 46: Geltharis
 	-- {npc:4619} Geltharis · {area:429} Xavian
 	["{npc:4619} leads the {area:429} satyrs; he carries the branch."] = "{npc:4619} lidera a los sátiros de {area:429}; él lleva la rama.",
 
-	-- Step 46: Forest Song
+	-- Step 47: Forest Song
 	-- {area:2358} Forest Song · {npc:3848} Kayneth Stillwind · {npc:221269} Maseara Autumnmoon
 	["{area:2358}, the Night Elf outpost at the eastern end of the road: {npc:3848} stands there, {npc:221269} a few steps east of her."] = "{area:2358}, el puesto de los elfos de la noche en el extremo este del camino: allí está {npc:3848}, y {npc:221269} a unos pasos al este de ella.",
 	-- {npc:221269} Maseara Autumnmoon · {area:430} Satyrnaar
 	["{npc:221269}: her husband's trail in {area:430}, on the way back from the lake"] = "{npc:221269}: el rastro de su marido en {area:430}, de vuelta del lago",
 
-	-- Step 47: The Dor'Danil Barrow Den: kill these as you meet them
+	-- Step 48: The Dor'Danil Barrow Den: kill these as you meet them
 	-- {area:432} The Dor'Danil Barrow Den
 	["{area:432}: kill these as you meet them"] = "",
 	-- {area:2358} Forest Song
 	["The Forsaken's camp lies in the woods south of {area:2358}.\nRusty chests lie around the Shadethicket furbolg camps west of the Forsaken; open them until one holds the pommel.\nCareful: Non-elite Forsaken of about level 28-30 guard the camp. Some of them are stealthed, and the ones around the table often aggro together."] = "",
 
-	-- Step 48: Fallen Sky Lake
+	-- Step 49: Fallen Sky Lake
 	-- {npc:3931} Shadethicket Oracle · {quest:1035} Fallen Sky Lake · {object:669176} Gleaming Crescent Pendant (no name in this language: may be words)
 	["The {npc:3931} walks the shore of {quest:1035}, south-west of the chests; the {object:669176} lies north of the lake, on the way.\nCareful: Other mobs, some of them underwater, sit near the island. Clear them first so they don't join the fight when you pull the Oracle."] = "",
 	-- {object:669176} Gleaming Crescent Pendant (no name in this language: may be words) · {npc:3961} Maliynn · {area:415} Astranaar
 	["{object:669176}: for {npc:3961} in {area:415}"] = "{object:669176}: para {npc:3961} en {area:415}",
 
-	-- Step 49: Satyrnaar
-	-- {area:430} Satyrnaar · {area:2358} Forest Song · {object:19901} Circle of Imprisonment · {item:281014} Vine-Wrapped Scroll · {area:428} Night Run
+	-- Step 50: Satyrnaar
+	-- {area:430} Satyrnaar · {area:2358} Forest Song · {object:19901} Circle of Imprisonment · {object:673431} Kurothel's Knapsack (no name in this language: may be words) · {item:281014} Vine-Wrapped Scroll · {area:428} Night Run
 	-- plural, as words: Felmusk Rogues = {npc:3759} Felmusk Rogue
-	["North from the lake to the satyr camp of {area:430}, just west of {area:2358}: the {object:19901} stands in it, and Kurothel's Knapsack lies beside it with the {item:281014}.\nCareful: The Felmusk Rogues in {area:428} often go stealthed, and {area:430} has satyr casters."] = "Ve al norte desde el lago hasta el campamento sátiro de {area:430}, justo al oeste de {area:2358}: allí está el {object:19901}, y a su lado se encuentra la mochila de Kurothel con el {item:281014}.\nCuidado: los pícaros Almizcle Vil de {area:428} suelen ir en sigilo, y en {area:430} hay sátiros lanzadores de hechizos.",
-	-- {item:281014} Vine-Wrapped Scroll
-	["{item:281014}, from Kurothel's Knapsack"] = "{item:281014}, de la mochila de Kurothel",
+	["North from the lake to the satyr camp of {area:430}, just west of {area:2358}: the {object:19901} stands in it, and {object:673431} lies beside it with the {item:281014}.\nCareful: The Felmusk Rogues in {area:428} often go stealthed, and {area:430} has satyr casters."] = "",
+	-- {item:281014} Vine-Wrapped Scroll · {object:673431} Kurothel's Knapsack (no name in this language: may be words)
+	["{item:281014}, from {object:673431}"] = "",
 
-	-- Step 50: Kayneth Stillwind
+	-- Step 51: Kayneth Stillwind
 	-- {npc:3848} Kayneth Stillwind · {quest:1012} Insane Druids · {area:432} The Dor'Danil Barrow Den
 	["Optional: {npc:3848} also offers {quest:1012}, three level 32 druids deep in {area:432}, a cave of quickly respawning, stealthed mobs, and back to her afterwards. It is above your level here: take it only if you are grouped or want the extra XP; the guide doesn't need it."] = "",
 	-- {npc:221269} Maseara Autumnmoon
 	["{npc:221269}, a few steps east"] = "{npc:221269}, a unos pasos al este",
 
-	-- Step 51: The Dor'Danil Barrow Den's entrance
+	-- Step 52: The Dor'Danil Barrow Den's entrance
 	-- {area:432} The Dor'Danil Barrow Den
 	["{area:432}'s entrance"] = "",
 
-	-- Step 52: Insane druids
+	-- Step 53: Insane druids
 	["Insane druids"] = "Druidas dementes",
 	-- {area:432} The Dor'Danil Barrow Den · {npc:3940} Taneel Darkwood · {npc:3941} Uthil Mooncall · {npc:3942} Mavoris Cloudsbreak
 	["The three druids are inside {area:432}, apart from each other: go in at its mouth, south of the Forsaken camp, not over the hill above them. {npc:3940} is in the eastern halls, {npc:3941} deepest down at the north-east end and {npc:3942} at the western end.\nCareful: The den has many mobs that respawn quickly, including stealthed undead and patrols, so extra mobs often join a fight."] = "",
@@ -291,17 +295,12 @@ return {
 	-- {npc:3942} Mavoris Cloudsbreak · {area:432} The Dor'Danil Barrow Den
 	["{npc:3942}, inside {area:432}"] = "",
 
-	-- Step 54: Night Run
+	-- Step 55: Night Run
 	-- {object:19901} Circle of Imprisonment · {area:428} Night Run
 	["The second {object:19901} lies in the valley of {area:428}, on the way west."] = "El segundo {object:19901} está en el valle de {area:428}, de camino al oeste.",
 
-	-- Step 56: Hidden Shrine
+	-- Step 57: Hidden Shrine
 	["The shrine sits on the hill just south-east of the moonwell; follow the winding path up."] = "El santuario está en la colina justo al sureste del pozo de la luna; sube por el sendero sinuoso.",
-
-	-- Step 58: The Howling Vale
-	-- {area:419} Howling Vale · {npc:3792} Terrowulf Packlord
-	-- plural, as words: Terrowulf Fleshrippers = {npc:3789} Terrowulf Fleshripper
-	["Take the tunnel into the {area:419}; the tome lies in the ruins at its west end. Careful: Terrowulf Fleshrippers and Shadow Weavers (28-30) stand in tight packs around the tome, and the {npc:3792}, a level 32 rare, walks the vale. Pull the wolves one at a time from the tunnel and let the Packlord pass first."] = "Entra por el túnel en {area:419}; el tomo está en las ruinas de su extremo oeste. Cuidado: los desgarradores y tejesombras Luporror (28-30) forman manadas compactas alrededor del tomo, y el {npc:3792}, un raro de nivel 32, recorre el valle. Atrae a los lobos de uno en uno desde el túnel y deja pasar primero al Paqueñor.",
 
 	-- Step 59: Astranaar
 	-- {npc:3691} Raene Wolfrunner · {npc:3961} Maliynn · {npc:3894} Pelturas Whitemoon
@@ -385,10 +384,11 @@ return {
 	["Next: fly to {area:42}."] = "Siguiente: vuela a {area:42}.",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
-	-- ["Take the tunnel into the {area:419}; the tome lies in the ruins at its west end."] = "Entra por el túnel en {area:419}; el tomo está en las ruinas de su extremo oeste.",
+	-- ["North from the lake to the satyr camp of {area:430}, just west of {area:2358}: the {object:19901} stands in it, and Kurothel's Knapsack lies beside it with the {item:281014}.\nCareful: The Felmusk Rogues in {area:428} often go stealthed, and {area:430} has satyr casters."] = "Ve al norte desde el lago hasta el campamento sátiro de {area:430}, justo al oeste de {area:2358}: allí está el {object:19901}, y a su lado se encuentra la mochila de Kurothel con el {item:281014}.\nCuidado: los pícaros Almizcle Vil de {area:428} suelen ir en sigilo, y en {area:430} hay sátiros lanzadores de hechizos.",
 	-- ["The relics lie in the dig itself. {npc:1353}, a big Razormaw, prowls the raptor valley just west of it."] = "Las reliquias están en la propia excavación. {npc:1353}, un Tajobuche grande, merodea por el valle de los raptores, justo al oeste.",
 	-- ["{area:2358}, the Night Elf outpost at the eastern end of the road: {npc:3848} stands there."] = "{area:2358}, el puesto de los elfos de la noche en el extremo este del camino: allí está {npc:3848}.",
 	-- ["{item:15885}: join the two halves"] = "{item:15885}: une las dos mitades",
+	-- ["{item:281014}, from Kurothel's Knapsack"] = "{item:281014}, de la mochila de Kurothel",
 	-- ["{npc:3691}, in the inn"] = "{npc:3691}, en la posada",
 	-- ["{npc:3897}, a furbolg untouched by the corruption, sits south of the road below {area:421}."] = "{npc:3897}, un furbolg al que no ha tocado la corrupción, está sentado al sur del camino, bajo {area:421}.",
 }

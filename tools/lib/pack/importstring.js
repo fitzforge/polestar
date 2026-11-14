@@ -68,7 +68,7 @@ function crowded(g) {
 		return n > cap ? { at, n, cap } : null;
 	};
 	const quests = (v, at) => {
-		for (const k of ['pre', 'preAll', 'closedBy', 'preTitles', 'q']) {
+		for (const k of ['pre', 'preAll', 'closedBy', 'crumbs', 'endNpcs', 'preTitles', 'q']) {
 			const hit = over(v && v[k], LIMITS.pre, `${at}.${k}`);
 			if (hit) return hit;
 		}

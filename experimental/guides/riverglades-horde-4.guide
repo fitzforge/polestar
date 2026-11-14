@@ -1,0 +1,119 @@
+guide polestar-experimental/riverglades-horde-4
+title Riverglades 4: Clubtoe, Da'grosh and Twilight's Shroud (experimental)
+faction Horde
+levels 41-43
+zone Riverglades
+coords live
+folder Riverglades · Experimental
+why Forever's new zone, an alpha route written from players' recordings.
+keywords riverglades, rog'mar, sunnyglade, clubtoe, da'grosh, crag'rog, twilight's shroud, kargath, experimental, alpha
+next forever/horde/40-50/02-feralas
+
+# Polestar Experimental, Riverglades for the Horde, part 4 of 4 (2026-11-12). Hand-written from players'
+# recordings of the zone and Forever's quest data for titles, levels, objectives and places.
+# Order: the hearth to Rog'mar; Clubtoe's quests in Sunnyglade on the way west; Da'grosh's camp below Twilight's
+# Shroud, Crag'rog's cave, the Twilight cult's camps and ogre mine (levels 41-44); out through Twilight's Shroud to
+# Kargath (its flight path), where our Feralas & Tanaris guide picks up: the Riverglades take the place of our
+# Stranglethorn Vale & Swamp of Sorrows guide for the players who choose them at the end of the Badlands.
+# Offered only after another quest is handed in (players' recordings): The Wayward Warrior after Clugfist's Decree;
+# The Purple Ones and Sickening Lights after Digging for Answers; the second Purple Ones after the first; Twilight No
+# More! after the second Purple Ones; Rise Up! and Death to the Executioner after Rumblings of Discontent; It Is
+# Time, Brother... and Bring Me His Head after Carving a Path.
+# Elites, each behind a group choice: Chogg'Zac (41), Overlord Kilgar (46). The Twilight camps hold elites the route
+# never asks for: Twilight Enforcers (45) on patrol, Executioner Morg and Overlord Kilgar (46) in the fortress, the
+# Twilight Forgemaster (46, rare).
+# Left out on purpose:
+# - Spread the Word (95418) and Land of Giants (95420) after Chogg'Zac: back across the zone to Rog'mar and
+#   Bolder'ok.
+# - Death to the Executioner (95433): Executioner Morg is an elite (46), and the mace goes to Clugfist in Bolder'ok.
+# - A Token of Vengeance (94975), Tome of Twilight (94972), Eye of Mugg (94968) and Krol'dok Moulding (94973): their
+#   items come from the Krol'dok Stronghold dungeon.
+# - It Is Time, Brother... (95278): Da'grosh's message goes back to Krom'rosh in Rog'mar, and this route leaves the
+#   zone through Twilight's Shroud instead.
+
+step Hearth to Rog'mar
+  hearth "Rog'mar"
+
+step Rog'mar
+  tip Experimental route (alpha): if a step is wrong, tell us on Polestar's Discord or GitHub and name the step.
+  tip Krom'rosh in the middle of the fort: Clugfist's word sends him looking for Da'grosh, his warrior in the west.
+  turnin 95428                          -- Krom'rosh: Clugfist's Decree
+  accept 94744                          -- The Wayward Warrior: for Da'grosh, west of Sunnyglade
+
+step Neza Bloodsnout
+  when onquest 95882
+  turnin 95882
+
+step Clubtoe
+  tip West to Sunnyglade again: Clubtoe, a Twilight miner who wants out, waits at the town's eastern edge. Talk him round, then hand Tran'gul's quest in; one of the missing ogres stands a few steps west.
+  complete 94727 @49.9,46.9             -- talk Clubtoe round
+  turnin 94727
+  accept 95417                          -- The Purple Ones
+  accept 95602                          -- Sickening Lights
+  turnin 95417                          -- Twilight Brute, a few steps west
+  accept 95601                          -- The Purple Ones
+
+step The ritual grounds
+  tip The ritualists and their empowered brutes gather at the ritual circles in the middle of Sunnyglade: wreck five of the circles.
+  kill 261711 x5 quest 95601.1          -- Empowered Brute
+  kill 262169 x10 quest 95601.2         -- Twilight Ritualist
+  complete 95602 @47.7,49.9             -- destroy 5 Twilight Ritual Circles
+
+step Clubtoe
+  turnin 95601
+  turnin 95602
+
+step Chogg'Zac
+  when group 95427
+  tip Chogg'Zac, the two-headed ogre, is an elite (level 41) at the western edge of Sunnyglade: grouping up is advised.
+  accept 95427                          -- Clubtoe: Twilight No More!
+  collect 265750 quest 95427.2 @44.9,51.0  -- Chogg's Head
+  collect 265751 quest 95427.1 @44.9,51.0  -- Zac's Head
+  turnin 95427                          -- Clubtoe
+
+step Da'grosh
+  tip West out of Sunnyglade and on up the valley towards Twilight's Shroud: Da'grosh, Krom'rosh's wayward warrior, keeps a camp in the hills below the Twilight cult's fortress.
+  turnin 94744                          -- Da'grosh
+  accept 95431                          -- Rumblings of Discontent
+  accept 94745                          -- Carving a Path
+  accept 94748                          -- Break Their Chains
+
+step Crag'rog
+  tip Crag'rog, a Bolder'ok ogre, hides in the cave west of Da'grosh's camp.
+  turnin 95431                          -- Crag'rog
+  accept 95432                          -- Rise Up!
+
+step The Twilight camps
+  tip The cult's camps fill the valley south and west of Da'grosh. Free the captive Rog'mar Scouts as you find them. Twilight Enforcers (elites, level 45) patrol through the camps: watch where they walk before each pull. Overlord Kilgar and Executioner Morg (elites, 46) hold the fortress at the valley's head: pull the cultists away from them. Sergeant Riftan's Alliance camp sits at the valley's south end, and its Farholde Lookouts (level 46) attack the Horde: stay north of it.
+  kill 256795 x8 quest 94745.1          -- Twilight Fanatic
+  kill 256797 x8 quest 94745.2          -- Twilight Corrupter
+  kill 256799 x8 quest 94745.3          -- Twilight Champion
+  complete 94748 @29.4,40.5             -- free five captive Rog'mar Scouts
+
+step The ogre mine
+  tip North of the camps the cult works ogre miners in a mine: talk five of them into rising up against their masters.
+  complete 95432 @26.9,34.9             -- recruit five Ogre Miners
+
+step Crag'rog
+  turnin 95432
+
+step Da'grosh
+  turnin 94745
+  turnin 94748
+
+step Bring Me His Head
+  when group 94768
+  tip Overlord Kilgar is an elite (level 46) in the fortress at the head of the valley, with the Enforcers around him: grouping up is advised.
+  accept 94768                          -- Da'grosh
+  collect 265837 quest 94768.1 @26.1,43.9  -- Kilgar's Head
+  turnin 94768
+
+step Twilight's Shroud
+  tip The next guide flies from Kargath in the Badlands: north out of Da'grosh's valley and up through Twilight's Shroud, the way through to the Badlands.
+  goto 32.0,29.9 "Twilight's Shroud"
+
+step Kargath
+  tip Across the Badlands to Kargath, the Horde fortress built into the cliffs at the zone's western edge: its flight master stands at the foot of the fortress.
+  enter "Badlands"
+  zone Badlands
+  getfp "Kargath"

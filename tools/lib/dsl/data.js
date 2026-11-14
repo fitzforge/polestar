@@ -65,7 +65,11 @@ function loadData(dir) {
 	}
 	raw.instances = SOLO.loadInstances(path.join(dir, '..', 'sources'));
 	raw.areas = loadAreas(path.join(dir, '..', 'sources'));
-	return new Data(raw, { dir, missing });
+	const data = new Data(raw, { dir, missing });
+	// data/goal-heights.json beside the data folder (its own parent: data/forever may link elsewhere): heights.js pointHeight.
+	const heights = path.join(path.dirname(path.resolve(dir).replace(/[\\/]+$/, '')), 'goal-heights.json');
+	data.goalHeights = fs.existsSync(heights) ? JSON.parse(fs.readFileSync(heights, 'utf8')).points || null : null;
+	return data;
 }
 
 function lowerKey(s) {

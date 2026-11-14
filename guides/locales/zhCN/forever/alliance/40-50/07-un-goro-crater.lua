@@ -54,8 +54,8 @@ return {
 	["{npc:9618} stands just outside the refuge."] = "{npc:9618}站在避难所外面。",
 
 	-- Step 13: Marshal's Refuge
-	-- {object:157936} Un'Goro Dirt Pile
-	["Ride west back to the refuge.\nGive the elite devilsaurs and stegodons a wide berth. Pick up every Power Crystal and {object:157936} you pass from here on."] = "向西骑行返回营地。\n远离精英魔暴龙和剑龙，从这里开始，沿途遇到的能量水晶和{object:157936}都要拾取。",
+	-- {npc:271301} Power Crystal · {object:157936} Un'Goro Dirt Pile
+	["Ride west back to the refuge.\nGive the elite devilsaurs and stegodons a wide berth. Pick up every {npc:271301} and {object:157936} you pass from here on."] = "",
 	-- {npc:9998} Shizzle
 	["{npc:9998}, at the refuge entrance"] = "{npc:9998}，在避难所入口",
 	-- {npc:8737} Linken
@@ -152,7 +152,7 @@ return {
 	-- {npc:11406} High Priest Rohan · {zone:1447} Azshara
 	["{npc:11406}: for Ogtinc in {zone:1447}, keep it"] = "{npc:11406}：交给{zone:1447}的奥汀克，留着",
 	-- {npc:7312} Dink · {npc:8395} Sanath Lim-yo · {zone:1447} Azshara
-	["{npc:7312}, the mage trainer: for {npc:8395} in {zone:1447}, keep it"] = "",
+	["{npc:7312}, the mage trainer: for {npc:8395} in {zone:1447}, keep it"] = "法师训练师{npc:7312}：带给{zone:1447}的{npc:8395}，先留着",
 
 	-- Step 32: Fly to Astranaar
 	-- {area:442} Auberdine
@@ -187,6 +187,7 @@ return {
 	-- ["Ride south down the east side. Young Diemetradons graze the eastern jungle and {npc:9165} fly near the eastern cliffs; both drop {npc:9998}'s scales."] = "沿东侧向南骑行。幼双帆龙在东部丛林吃草，{npc:9165}在东部悬崖附近飞行；两者都掉落{npc:9998}要的鳞片。",
 	-- ["Ride south to {area:537} in the middle of the crater, then east into the eastern jungle. Crystal clusters stand all over the crater, many of them around {area:537}: take a few extra of each colour. {item:11316} Lashers and Threshers drop the petals; the expedition's {item:11113} sits at an abandoned camp in the eastern jungle."] = "向南骑行到环形山中央的{area:537}，然后向东进入东部丛林。水晶簇遍布环形山，很多在{area:537}周围：每种颜色多拿几个。{item:11316}鞭笞者和猛击者掉落花瓣；探险队的{item:11113}在东部丛林的一处废弃营地里。",
 	-- ["Ride west back to the refuge."] = "向西骑回避难所。",
+	-- ["Ride west back to the refuge.\nGive the elite devilsaurs and stegodons a wide berth. Pick up every Power Crystal and {object:157936} you pass from here on."] = "向西骑行返回营地。\n远离精英魔暴龙和剑龙，从这里开始，沿途遇到的能量水晶和{object:157936}都要拾取。",
 	-- ["Ride west from {npc:9619}: the silithid hive fills the south of the crater. Use the Scraping Vial on a hatchery, a chamber with hanging larvae. Gorishi wasps and workers drop {quest:3764}; {npc:9166} nest on the southern cliffs if you still need kills."] = "从{npc:9619}向西骑行：异种虫巢穴占据环形山南部。对孵化室（挂着幼虫的房间）使用采集瓶。格里什异种蝎和格里什工蝎掉落{quest:3764}；如果还需要击杀，{npc:9166}在南部悬崖筑巢。",
 	-- ["Ride west out of {area:976} to the long ramp down into {area:490}. {npc:9619} camps at the foot of the ramp, in the south-east corner of the crater."] = "向西骑出{area:976}，到达通往{area:490}的长坡道。{npc:9619}在坡道脚下扎营，位于环形山的东南角。",
 	-- ["Ride west past {area:541} and south down the western side to {area:543}: {npc:10302} the goblin sits by the water."] = "向西经过{area:541}，再沿西侧向南到{area:543}：地精{npc:10302}坐在水边。",

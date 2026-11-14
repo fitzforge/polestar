@@ -1,4 +1,4 @@
-//! The world builder (port of tools/lib/sim/world.js buildWorld, BUILDER_VERSION 30). Every
+//! The world builder (port of tools/lib/sim/world.js buildWorld, BUILDER_VERSION 31). Every
 //! step keeps the JS order of iteration and of floating-point operations, so the world equals
 //! the JS world bit for bit (docs/forge/internals.md, "How a port was checked"). Comments name the JS they port; the
 //! reasons behind each rule are documented in world.js.
@@ -21,7 +21,7 @@ use serde_json::{json, Value};
 use std::collections::BTreeMap;
 use std::rc::Rc;
 
-pub const BUILDER_VERSION: u32 = 30;
+pub const BUILDER_VERSION: u32 = 31;
 const RIDE_PAIR_YD: f64 = 60.0;
 const CITY_LIFT_FLOOR: [(&str, &str); 5] =
 	[("lift-thunder-bluff-north", "top"), ("lift-thunder-bluff-west", "top"), ("lift-undercity-east", "bottom"), ("lift-undercity-south", "bottom"), ("lift-undercity-west", "bottom")];
@@ -149,7 +149,7 @@ fn skyborne_exits(f: Faction) -> [Exit; 1] {
 pub const SKYBORNE_PORTAL_RIDE: &str = "portal-skyborne-stormwind";
 const SKYBORNE_PORTAL: (u32, (i64, f64, f64, u32)) = (631299, (0, -8840.6, 489.7, 1453));
 
-/// Zephras Isle's own portals (RevSkyA3, c13: Lorthuna's heights priced as a 546 yd walk up from the
+/// Zephras Isle's own portals (c13 review: Lorthuna's heights priced as a 546 yd walk up from the
 /// shrine): (object, ride name, arrival as isle map percent and z). The Portal To Rohashi Spires in the
 /// shrine's inner sanctum lands on the heights where Confront Lorthuna (93835) has its event, 325 yd
 /// above. (The Portal to Valanaar beside Lorthuna, 617084/617085, is left out until its arrival point
@@ -1026,6 +1026,11 @@ pub fn build_world(d: &GameData, opts: &BuildOptions, floors: &dyn Floors) -> Re
 		if !fac_ok(t.get("faction")) {
 			continue;
 		}
+		// Zephras Isle's airships are the world's Skyborne exits (skyborne_exits: one way, the landings
+		// checked in game); the addon's planner rides them from travel.json.
+		if t.get("kind").and_then(Value::as_str) == Some("airship") {
+			continue;
+		}
 		let (ta, tb) = (&t["a"], &t["b"]);
 		let da = ta.get("board").filter(|x| truthy(Some(x))).unwrap_or(ta);
 		let db = tb.get("board").filter(|x| truthy(Some(x))).unwrap_or(tb);
@@ -1842,7 +1847,7 @@ pub fn build_world(d: &GameData, opts: &BuildOptions, floors: &dyn Floors) -> Re
 					// A friendly vendor that sells the item, nearest the giver: bought there when that
 					// costs less than the best drop, priced as a sure drop (1) plus the walk (Look to
 					// the Stars' Bronze Tube from Herble beside Viktori in Darkshire, not a 1.9 % drop in
-					// Stonetalon carried for five levels: RevA1, c13).
+					// Stonetalon carried for five levels: c13 review).
 					// (An item a friendly NPC hands out stays a talk. Against a drop, vendors' spawns are
 					// read without making their sites: a drop that wins adds no vendor point; a buy adds
 					// every friendly vendor's, its alternatives.)
@@ -2879,9 +2884,11 @@ pub fn build_world(d: &GameData, opts: &BuildOptions, floors: &dyn Floors) -> Re
 	let grind_spacing: Vec<f64> = spacing.into_iter().map(|x| x.unwrap_or(f64::NAN)).collect();
 
 	// ---- travel safety ----
+	// Each zone's danger level: its lowest level, or its danger floor where a low pocket pulls that
+	// under the ground walks cross (zonelevels.rs DANGER_FLOORS, #1490).
 	let mut zone_min: BTreeMap<u32, f64> = BTreeMap::new();
 	for (id, z) in zone_levels(&d.npcs, &d.zones, &[]) {
-		if let Some(m) = z.min.filter(|m| m.is_finite()) {
+		if let Some(m) = z.danger_level().filter(|m| m.is_finite()) {
 			zone_min.insert(id, m);
 		}
 	}

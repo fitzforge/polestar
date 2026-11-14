@@ -17,9 +17,9 @@ return {
 
 	-- Step 2: The Venture Co. Mine
 	-- {zone:1412} Mulgore · {area:360} The Venture Co. Mine · {object:403041} Blasting Supplies (no name in this language: may be words)
-	["Ride down the lift and south-east across {zone:1412} to the {area:360}. Put on the disguise, then open the carts of {object:403041} inside the mine and on the slope outside it; stay on the upper levels where you can, the lower tunnels are packed. Five charges."] = "",
+	["Ride down the lift and south-east across {zone:1412} to the {area:360}. Put on the disguise, then open the carts of {object:403041} inside the mine and on the slope outside it; stay on the upper levels where you can, the lower tunnels are packed. Five charges."] = "乘升降梯下去，向东南穿过{zone:1412}前往{area:360}。穿上伪装，打开矿洞内以及洞外斜坡上的{object:403041}物资车；尽量留在上层，下层隧道怪物密集。共需五份炸药。",
 	-- {item:206157} Seaforium Mining Charge · {object:403041} Blasting Supplies (no name in this language: may be words)
-	["{item:206157}, from the {object:403041}"] = "",
+	["{item:206157}, from the {object:403041}"] = "{item:206157}，从{object:403041}取得",
 
 	-- Step 3: Boarton Shadetotem
 	-- {npc:205729} Boarton Shadetotem · {zone:1456} Thunder Bluff · {item:206176} Mortar and Pestle
@@ -31,25 +31,25 @@ return {
 	-- {area:819} Windfury Ridge · {zone:1456} Thunder Bluff · {item:206176} Mortar and Pestle
 	-- plural, as words: Windfury Cones = {item:206170} Windfury Cone
 	["Windfury Cones lie on the ground under the harpies' nest trees on {area:819}, north-west of {zone:1456}; the harpies do not drop them. The Windfury Sorceresses (level 9-10) and Matriarchs (10-11) there stand close together: pick the cones from the edges. Once you have eight, use the {item:206176} to grind them."] = "风怒球果 散落在{zone:1456}西北面{area:819}的鹰身人巢树下；鹰身人不会掉落。当地的风怒女巫（9-10级）和族母（10-11级）站得很密：从边缘拾取松果。收集8个后，使用{item:206176}研磨。",
-	["the mortar takes all eight"] = "",
+	["the mortar takes all eight"] = "研钵会一次消耗全部八个",
 	-- {item:206175} Pine Salve
-	["grind the eight cones into the {item:206175}"] = "",
+	["grind the eight cones into the {item:206175}"] = "将八个松果研磨成{item:206175}",
 
 	-- Step 5: Boarton Shadetotem
 	-- {npc:205729} Boarton Shadetotem · {item:206344} Knife Set
-	["Back to {npc:205729}. He hands you the {item:206344} for the last test."] = "",
+	["Back to {npc:205729}. He hands you the {item:206344} for the last test."] = "返回{npc:205729}处，他会交给{item:206344}，用于最后一项考验。",
 
 	-- Step 6: Raw Brilliant Smallfish
 	-- {item:6291} Raw Brilliant Smallfish · {npc:8674} Auctioneer Stampi · {npc:3028} Kah Mistrunner · {skill:356} Fishing · {npc:3029} Sewa Mistrunner · {item:6256} Fishing Pole · {item:6529} Shiny Bauble · {item:206344} Knife Set
-	["Buy a {item:6291} at the Auction House ({npc:8674}, north of the pool), or fish one yourself: {npc:3028} trains {skill:356} and {npc:3029} beside him sells the {item:6256} and a {item:6529}; the pool on the main mesa gives smallfish at any skill. Then use the {item:206344} on it, wherever you are."] = "",
+	["Buy a {item:6291} at the Auction House ({npc:8674}, north of the pool), or fish one yourself: {npc:3028} trains {skill:356} and {npc:3029} beside him sells the {item:6256} and a {item:6529}; the pool on the main mesa gives smallfish at any skill. Then use the {item:206344} on it, wherever you are."] = "在拍卖行购买一条{item:6291}（找水池北面的{npc:8674}），也可自己钓：{npc:3028}教授{skill:356}，身旁的{npc:3029}出售{item:6256}和{item:6529}；主台地的水池在任何技能等级都能钓到小鱼。随后对鱼使用{item:206344}，在哪里都可以。",
 	-- {item:6291} Raw Brilliant Smallfish
-	["{item:6291}: the Auction House, or the pool; the knife takes it"] = "",
+	["{item:6291}: the Auction House, or the pool; the knife takes it"] = "{item:6291}：去拍卖行购买，或在池塘里钓；使用刀具会消耗它",
 	-- {item:206345} Fish Chunks · {npc:205729} Boarton Shadetotem
-	["fillet the smallfish into {item:206345} (where players did it, on the way back to {npc:205729})"] = "",
+	["fillet the smallfish into {item:206345} (where players did it, on the way back to {npc:205729})"] = "将小鱼切成{item:206345}（玩家在回{npc:205729}处的途中完成此步骤）",
 
 	-- Step 7: Boarton Shadetotem
 	-- {npc:205729} Boarton Shadetotem · {item:277988} Hoof-Holstered Blade · {item:278002} Valley Cosh
-	["Take your weapon from {npc:205729}: the {item:277988} or the {item:278002}."] = "",
+	["Take your weapon from {npc:205729}: the {item:277988} or the {item:278002}."] = "从{npc:205729}处领取武器：{item:277988}或{item:278002}。",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Back to {npc:205729}. He hands you the {item:206344}: the fish must be filleted in front of him."] = "回到{npc:205729}处。他会给你{item:206344}：必须在他面前把鱼切成鱼片。",

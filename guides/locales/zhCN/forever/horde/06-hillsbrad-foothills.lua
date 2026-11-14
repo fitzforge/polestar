@@ -99,7 +99,7 @@ return {
 	-- Step 15: The western peak
 	["The western peak"] = "西边的山峰",
 	-- {area:287} Hillsbrad
-	["From {area:287} town climb the mountain to the north, right up to its top on the Alterac border: the western vial goes there, not on the lower slope."] = "",
+	["From {area:287} town climb the mountain to the north, right up to its top on the Alterac border: the western vial goes there, not on the lower slope."] = "从{area:287}镇向北爬山，一直爬到奥特兰克边界的山顶：西边的药瓶要放在那里，别放在较低的山坡上。",
 
 	-- Step 16: Back to Tarren Mill
 	-- {area:272} Tarren Mill
@@ -164,13 +164,13 @@ return {
 
 	-- Step 29: Trial of the Sea Lion
 	-- {spell:18960} Teleport: Moonglade · {area:2362} Shrine of Remulos · {npc:11802} Dendrite Starblaze · {area:2361} Nighthaven
-	["Cast {spell:18960}. Join the two pendant halves at the {area:2362}, on the north-west shore of the lake, before you see {npc:11802} in {area:2361}. {npc:11802} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."] = "",
+	["Cast {spell:18960}. Join the two pendant halves at the {area:2362}, on the north-west shore of the lake, before you see {npc:11802} in {area:2361}. {npc:11802} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."] = "施放{spell:18960}，先在湖西北岸的{area:2362}合并两半吊坠，再去{area:2361}找{npc:11802}。{npc:11802}在所在建筑的楼上：从屋内上楼，箭头无法区分楼层。",
 	-- {item:15885} Pendant of the Sea Lion · {area:2362} Shrine of Remulos
 	["{item:15885}: use a half at the {area:2362}"] = "{item:15885}：在{area:2362}使用其中一半",
 
 	-- Step 30: Aquatic Form
 	-- {quest:31} Aquatic Form · {npc:11802} Dendrite Starblaze · {npc:11798} Bunthen Plainswind · {area:2361} Nighthaven · {area:1638} Thunder Bluff · {npc:3033} Turak Runetotem · {area:1639} Elder Rise
-	["Take {quest:31} from {npc:11802}, who stands upstairs in his building. Then {npc:11798} in {area:2361} flies druids to {area:1638}: {npc:3033} is on {area:1639}."] = "",
+	["Take {quest:31} from {npc:11802}, who stands upstairs in his building. Then {npc:11798} in {area:2361} flies druids to {area:1638}: {npc:3033} is on {area:1639}."] = "从建筑楼上的{npc:11802}处接取{quest:31}。然后到{area:2361}找{npc:11798}，他可将德鲁伊送往{area:1638}：{npc:3033}位于{area:1639}。",
 	-- {npc:11798} Bunthen Plainswind · {area:2361} Nighthaven
 	["{npc:11798} in {area:2361} flies druids there"] = "{area:2361}的{npc:11798}载德鲁伊飞往那里",
 
@@ -190,7 +190,7 @@ return {
 
 	-- Step 33: Orgrimmar
 	-- {zone:1454} Orgrimmar
-	["The middle of {zone:1454}"] = "",
+	["The middle of {zone:1454}"] = "{zone:1454}中央",
 
 	-- Step 34: Orgrimmar
 	["Train before you fly on: the next guide flies from here to the Crossroads."] = "继续飞行前先训练：下一份指南会从这里飞往十字路口。",

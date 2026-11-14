@@ -584,9 +584,10 @@ fn the_options_offer_show_the_whole_step_and_a_maximum_height_in_guide_window() 
 	.remove(0);
 	assert_eq!(out["defaults"], json!({ "whole": false, "max": 0.5 }), "one person at a time and half the screen by default");
 	assert_eq!(out["widgets"], json!({ "whole": true, "max": true }));
-	assert_eq!(out["found"]["ui.wholeStep"], json!({ "title": "Guide  \u{b7}  Window", "kind": "toggle", "label": "Show the whole step" }));
-	assert_eq!(out["found"]["ui.maxHeight"], json!({ "title": "Guide  \u{b7}  Window", "kind": "slider", "min": 0.3, "max": 0.9, "label": "Maximum height" }));
-	assert!(is_match(text(&out["found"]["ui.maxHeight"]["title"]), "Window$"));
+	// Search result cards are titled page · tab · section.
+	assert_eq!(out["found"]["ui.wholeStep"], json!({ "title": "Guide  \u{b7}  Window  \u{b7}  What it shows", "kind": "toggle", "label": "Show the whole step" }));
+	assert_eq!(out["found"]["ui.maxHeight"], json!({ "title": "Guide  \u{b7}  Window  \u{b7}  What it shows", "kind": "slider", "min": 0.3, "max": 0.9, "label": "Maximum height" }));
+	assert!(is_match(text(&out["found"]["ui.maxHeight"]["title"]), "What it shows$"));
 }
 
 // A town hub of eight persons (Darkshore's Auberdine has seventeen): past three lines the rest share one.
@@ -1024,4 +1025,43 @@ fn a_count_never_splits_across_two_lines_at_any_width() {
 	assert_eq!(out["split"], "", "no count starts on one line and ends on the next");
 	assert!(f(&out["counts"]) > 300.0, "the counts on screen were all measured: {}", out["counts"]);
 	assert!(f(&out["moved"]) > 0.0, "some count had to move to the next line at some width: {}", out["moved"]);
+}
+
+// At the height cap the goals area ends on a whole row, in every look: never half a goal's second line ("Kreenig
+// Snarlsnout's Tusk" cut through). Its height is the top of a row (or the whole content), at caps 0.3 to 0.4, widths
+// 260 and 560 and scales 0.64, 1 and 1.5, unless the room is under three lines (CARD.minView), its floor.
+#[test]
+fn at_the_height_cap_the_goals_area_ends_on_a_whole_row_in_every_look() {
+	let out = run(r#"
+		local s = brewnall()
+		local out = {}
+		for _, look in ipairs({ "polestar", "halo" }) do
+			Polestar.Set("ui.skin", look)
+			for _, cap in ipairs({ 0.3, 0.35, 0.4 }) do
+				for _, width in ipairs({ 260, 560 }) do
+					for _, scale in ipairs({ 0.64, 1, 1.5 }) do
+						Polestar.Set("ui.maxHeight", cap)
+						Polestar.Set("ui.wholeStep", true)
+						Polestar.Set("ui.width", width)
+						Polestar.Set("ui.scale", scale)
+						uistub.setGuide(uistub.elwynn, s)
+						stub.advance(1)
+						local goals = GF.parts.goals
+						local view, whole = goals.psViewH, math.abs(goals.psContentH - goals.psViewH) < 0.5
+						for _, item in ipairs(GF.CardItems()) do
+							if math.abs(GF.ItemTop(item) - view) < 0.5 then whole = true end
+						end
+						out[#out + 1] = { at = look .. " " .. cap .. " " .. width .. " x" .. scale, whole = whole, floor = view == GF.CARD.minView,
+							over = goals.psOver }
+					end
+				end
+			end
+		end
+		emit(out)"#)
+	.remove(0);
+	let cases = out.as_array().unwrap();
+	assert!(cases.iter().filter(|c| c["over"] == true && c["floor"] == false).count() >= 20, "the step is cut by the cap in most cases: {out}");
+	for c in cases {
+		assert!(c["whole"] == true || c["floor"] == true, "{}: the area ends on a whole row", c["at"]);
+	}
 }

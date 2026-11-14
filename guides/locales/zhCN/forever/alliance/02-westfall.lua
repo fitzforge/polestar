@@ -123,7 +123,7 @@ return {
 
 	-- Step 25: High Priestess Laurena
 	-- {npc:376} High Priestess Laurena · {object:2098} Cathedral Square · {npc:1646} Baros Alexston
-	["{npc:376} is in the Cathedral of Light, across {object:2098} from {npc:1646}."] = "",
+	["{npc:376} is in the Cathedral of Light, across {object:2098} from {npc:1646}."] = "{npc:376}在光明大教堂内，与{npc:1646}隔着{object:2098}相对。",
 
 	-- Step 26: Dungar Longdrink
 	-- {npc:352} Dungar Longdrink

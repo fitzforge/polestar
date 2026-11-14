@@ -83,7 +83,7 @@ return {
 	-- Step 10: Back at the Hold
 	["Back at the Hold"] = "",
 	-- {npc:15189} Beetix Ficklespragg
-	["{npc:15189} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."] = "",
+	["{npc:15189} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."] = "{npc:15189} está en el piso de arriba de su edificio: sube por dentro, la flecha no distingue los pisos.",
 
 	-- Step 11: Stonelash and Dredge Crushers
 	-- plural, as words: Dredge Crushers = {npc:11741} Dredge Crusher
@@ -99,7 +99,7 @@ return {
 	-- {npc:15190} Noggle Ficklespragg
 	["{npc:15190} and Proudhorn"] = "",
 	-- {npc:15189} Beetix Ficklespragg · {npc:15190} Noggle Ficklespragg
-	["{npc:15189} and {npc:15190} stand upstairs in their building: go up inside, the arrow cannot tell the floors apart."] = "",
+	["{npc:15189} and {npc:15190} stand upstairs in their building: go up inside, the arrow cannot tell the floors apart."] = "{npc:15189} y {npc:15190} están en el piso de arriba de su edificio: sube por dentro, la flecha no distingue los pisos.",
 
 	-- Step 13: The Ravaged Twilight Camp
 	-- {area:3100} Ravaged Twilight Camp
@@ -135,7 +135,7 @@ return {
 	-- {area:3425} Cenarion Hold
 	["Back to {area:3425} with news"] = "",
 	-- {npc:15190} Noggle Ficklespragg
-	["{npc:15190} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."] = "",
+	["{npc:15190} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."] = "{npc:15190} está en el piso de arriba de su edificio: sube por dentro, la flecha no distingue los pisos.",
 	["Natalia, elite: group up"] = "",
 
 	-- Step 20: Rubbings and brains

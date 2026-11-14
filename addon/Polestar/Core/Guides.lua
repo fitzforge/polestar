@@ -203,7 +203,7 @@ end
 -- chunk stays well inside Lua 5.1's cap on locals.
 local KEYS = {
 	only = { "classes", "races", "factions" },
-	goalNumbers = { "skillLine", "untilSkill", "yellow", "grey", "criteria", "level", "profLine", "profRank", "lvl", "grind", "limit" },
+	goalNumbers = { "skillLine", "untilSkill", "yellow", "grey", "criteria", "level", "profLine", "profRank", "lvl", "grind", "limit", "xp" },
 	goalRanks = { "rank", "qlvl" },
 	rewardLists = { "items", "choices" },
 	guideMaps = { "names", "written" },
@@ -267,6 +267,9 @@ local function checkWhen(list)
 		elseif k == "knows" then
 			-- A spell id (format 5).
 			if not isNum(p.spell) then return false end
+		elseif k == "taxi" then
+			-- A flight point by name, with its taxi node when the compiler knew it (format 10).
+			if not (isStr(p.name) and (p.node == nil or isNum(p.node))) then return false end
 		elseif not (WHEN_PLACE[k] and isStr(p.name)) then
 			return false
 		end
@@ -307,6 +310,9 @@ end
 -- `spots` builds the same tables the compiler had (Own.PACKED) and keeps
 -- them on the goal, so a spot is one table for the session (the Engine keys
 -- its pick and visits by it); a goal nobody reads keeps only its string.
+-- An exact point (`r` 0: the target stands right there, #1944; a goal can
+-- hold 40) is built smaller, about 110 bytes: the array { x, y, z? }, which
+-- Own.POINT reads by name (its `r` reads 0), with its `alt` and `lvl`.
 -- Goals whose spots read the same on the same map and frame (a kill and the
 -- grind or farm step after it on one mob, a camp a route comes back to) share
 -- one list (Own.spotsShared, by the interned string: no copy): a fifth of the
@@ -317,7 +323,6 @@ local strfind, strbyte, gmatch = string.find, string.byte, string.gmatch
 local SEMICOLON = 59
 -- x, y, z (may be empty), r: the fields every spot has.
 local SPOT_HEAD = "^%-?%d+%.?%d*,%-?%d+%.?%d*,%-?%d*%.?%d*,%d+%.?%d*"
-local SPOT_FIELDS = { "x", "y", "z", "r", "n", "alt", "lvl" }
 
 -- Whether s is packed spots, checked without building anything (validation
 -- runs over every goal at registration).
@@ -343,24 +348,38 @@ function Own.spotsPackedOk(s)
 	end
 end
 
+-- An exact point's fields by name (see the header).
+Own.POINT = { __index = function(p, k)
+	if k == "x" then return p[1] elseif k == "y" then return p[2] elseif k == "z" then return p[3] elseif k == "r" then return 0 end
+end }
+
 -- Packed spots -> { { x, y, z?, r, n?, alt?, lvl? }, ... }, or nil when a
--- value is not a number.
+-- value is not a number. A spot's fields are set one by one: a constructor
+-- naming all five would size every table for eight.
 function Own.unpackSpots(s)
 	local out = {}
 	for rec in gmatch(s, "[^;]+") do
-		local spot, i = {}, 0
+		local i, x, y, z, r, n, alt, lvl = 0
 		for f in gmatch(rec .. ",", "([^,]*),") do
 			i = i + 1
 			if f ~= "" then
 				if i == 6 then
-					spot.alt = true
+					alt = true
 				else
 					local v = tonumber(f)
 					if not v then return nil end
-					spot[SPOT_FIELDS[i]] = v
+					if i == 1 then x = v elseif i == 2 then y = v elseif i == 3 then z = v elseif i == 4 then r = v elseif i == 5 then n = v else lvl = v end
 				end
 			end
 		end
+		local spot
+		if r == 0 then
+			spot = setmetatable(z and { x, y, z } or { x, y }, Own.POINT)
+		else
+			spot = {}
+			spot.x, spot.y, spot.z, spot.r, spot.n = x, y, z, r, n
+		end
+		spot.alt, spot.lvl = alt, lvl
 		out[#out + 1] = spot
 	end
 	return out
@@ -404,6 +423,25 @@ function Own.packedGoals(steps)
 	for _, step in ipairs(steps) do
 		for _, goal in ipairs(step.goals) do
 			if rawget(goal, "spotsPacked") ~= nil and getmetatable(goal) == nil then setmetatable(goal, Own.PACKED) end
+		end
+	end
+end
+
+-- A `train class` goal keeps to its step's zone (`zone`, the Engine's pickFor)
+-- only in Polestar's own packs (an id reserved for Polestar; the imported
+-- guides are players'), whose guides train each race in its own town. A
+-- community pack's or an imported guide's step can't know the player's race
+-- (the Protection Paladin pack's training steps in Dun Morogh and Ironforge
+-- sent Human paladins to the Dwarf trainers), so its goals go to the nearest
+-- trainer of the player's class the arrow can reach instead: they are keys of
+-- Guides.AnyTrainer (weak), and pickFor leaves their zone aside. The goal
+-- keeps its zone, as written (a shared string carries it, #1364).
+Guides.AnyTrainer = setmetatable({}, { __mode = "k" })
+function Own.trainZones(steps, r)
+	if r and Guides.RESERVED[r.id] and not r.imported then return end
+	for _, step in ipairs(steps) do
+		for _, goal in ipairs(step.goals) do
+			if goal.t == "train" and goal.class and rawget(goal, "zone") ~= nil then Guides.AnyTrainer[goal] = true end
 		end
 	end
 end
@@ -486,6 +524,8 @@ local function checkGoal(goal)
 	if goal.pre ~= nil and type(goal.pre) ~= "table" then return "bad pre" end
 	if goal.preAll ~= nil and type(goal.preAll) ~= "table" then return "bad preAll" end
 	if goal.closedBy ~= nil and type(goal.closedBy) ~= "table" then return "bad closedBy" end
+	if goal.crumbs ~= nil and type(goal.crumbs) ~= "table" then return "bad crumbs" end
+	if goal.endNpcs ~= nil and type(goal.endNpcs) ~= "table" then return "bad endNpcs" end
 	if goal.parent ~= nil and not isNum(goal.parent) then return "bad parent" end
 	if goal.rewards ~= nil then
 		local r = goal.rewards
@@ -646,9 +686,22 @@ Guides.Validate = validate
 ---------------------------------------------------------------------------
 
 -- Every format Polestar has shipped (docs/PACK_FORMAT.md, "Versioning").
-Guides.FORMATS = { [1] = true, [2] = true, [3] = true, [4] = true, [5] = true, [6] = true, [7] = true, [8] = true, [9] = true }
-Guides.RESERVED = { guides = true, forever = true, lookup = true, draft = true, polestar = true, imported = true }
+Guides.FORMATS = { [1] = true, [2] = true, [3] = true, [4] = true, [5] = true, [6] = true, [7] = true, [8] = true, [9] = true, [10] = true }
+-- Pack ids only Polestar's own packs may give (forge-guide's RESERVED_IDS and
+-- format.js's have the same): a pack registering one is refused, unless it
+-- comes from the addon the id belongs to (RESERVED_ADDON: ours,
+-- Polestar_Guides, and our experimental guides, Polestar_Experimental).
+-- Lookup's and the imported guides' packs register as their files load,
+-- before any pack can.
+Guides.RESERVED = { guides = true, forever = true, lookup = true, draft = true, polestar = true, imported = true, ["polestar-experimental"] = true }
 local OFFICIAL_ADDON = "Polestar_Guides"
+local RESERVED_ADDON = { guides = OFFICIAL_ADDON, ["polestar-experimental"] = "Polestar_Experimental" }
+
+-- Is pack id `id` reserved, and `addon` not the addon it belongs to?
+local function reservedAgainst(id, addon)
+	return Guides.RESERVED[id] ~= nil and not (addon ~= nil and RESERVED_ADDON[id] == addon)
+end
+
 local REQUIRED_META = { "addon", "title", "author", "version", "license" }
 local OPTIONAL_META = { "website", "source", "notes" }
 
@@ -804,7 +857,7 @@ function ns.RegisterPack(meta)
 	if not validPackId(id) then
 		return refuse(r, (L["Pack id %s is not valid: 2 to 32 lower-case letters, digits or hyphens, starting with a letter or digit."]):format(escape(r.id)))
 	end
-	if Guides.RESERVED[id] and not (id == "guides" and addon == OFFICIAL_ADDON) then
+	if reservedAgainst(id, addon) then
 		loadingRefused = r
 		return refuse(r, (L["Pack id %s is reserved for Polestar."]):format(id))
 	end
@@ -815,6 +868,8 @@ function ns.RegisterPack(meta)
 			escape(tostring(holder.addon or "?")), escape(tostring(addon or "?"))))
 	end
 	packs[id] = r
+	-- An addon the client loads on demand: its pack is off until switched on.
+	if type(addon) == "string" and Own.isDemand(addon) then Own.markDemand(id, addon) end
 	if type(meta.format) ~= "number" then return refuse(r, L["The pack is missing format."]) end
 	if not Guides.FORMATS[meta.format] then
 		local needs = type(addon) == "string" and C_AddOns and C_AddOns.GetAddOnMetadata
@@ -882,6 +937,7 @@ function Guides.Steps(def)
 	end
 	Own.stepImages(list, packs[def.pack])
 	Own.packedGoals(list)
+	Own.trainZones(list, packs[def.pack])
 	rawset(def, "steps", list)
 	ns.GuideTexts.PrepareSteps(def)
 	escapeTree(list, {}, ID_KEYS)
@@ -979,6 +1035,7 @@ function ns.RegisterGuide(def)
 	if not deferred then
 		Own.stepImages(def.steps, r)
 		Own.packedGoals(def.steps)
+		Own.trainZones(def.steps, r)
 	end
 	-- The texts in the client's language (GuideTexts), then escaped like the
 	-- rest. While the pack's files load its names stay English: the pack's
@@ -1042,7 +1099,8 @@ function ns.RegisterMapFrames(frames, packId)
 end
 
 ---------------------------------------------------------------------------
--- Switching packs off and on (account-wide: PolestarDB.packs[id].off)
+-- Switching packs off and on (account-wide: PolestarDB.packs[id].off, and
+-- .on for a pack that loads on demand)
 ---------------------------------------------------------------------------
 
 local function packState(id)
@@ -1052,11 +1110,20 @@ local function packState(id)
 	return type(p) == "table" and p or nil
 end
 
--- Is pack `id` shown? Internal packs always are.
+-- Packs whose addon the client loads only on demand (## LoadOnDemand: 1;
+-- Polestar's own Polestar_Experimental is one): pack id -> its addon. Such a
+-- pack is off until the player switches it on on the Community guides page;
+-- its addon loads then, and at every login while it stays on
+-- (Own.loadDemand), so one left off costs its row and nothing more.
+Own.demand = {}
+
+-- Is pack `id` shown? Internal packs always are; one that loads on demand
+-- only once switched on.
 function Guides.PackShown(id)
 	local r = packs[id]
 	if r and r.internal then return true end
 	local p = packState(id)
+	if Own.demand[id] then return p ~= nil and p.on == true end
 	return not (p and p.off)
 end
 local packShown = Guides.PackShown
@@ -1078,13 +1145,29 @@ local function syncStatus(r)
 end
 
 -- Hides or shows pack `id`'s guides; fires PACKS_CHANGED(id) when that changes.
+-- Switching on a pack that loads on demand loads its addon (never in combat:
+-- then once the fight ends), and its guides come in.
 function Guides.SetPackShown(id, shown)
 	if type(id) ~= "string" or (packs[id] and packs[id].internal) then return end
 	shown = shown and true or false
 	if packShown(id) == shown then return end
 	local db = ns.DB()
 	if type(db.packs) ~= "table" then db.packs = {} end
-	if shown then
+	local demand = Own.demand[id] ~= nil
+	if demand then
+		-- Off unless kept on.
+		local p = db.packs[id]
+		if shown then
+			if type(p) ~= "table" then
+				p = {}
+				db.packs[id] = p
+			end
+			p.on, p.off = true, nil
+		elseif type(p) == "table" then
+			p.on = nil
+			if next(p) == nil then db.packs[id] = nil end
+		end
+	elseif shown then
 		local p = db.packs[id]
 		if type(p) == "table" then
 			p.off = nil
@@ -1095,6 +1178,7 @@ function Guides.SetPackShown(id, shown)
 		db.packs[id].off = true
 	end
 	if packs[id] then syncStatus(packs[id]) end
+	if demand and shown and Own.loadDemand(id) and ns.IsLoggedIn() then ns.Fire("GUIDES_REGISTERED") end
 	ns.Fire("PACKS_CHANGED", id)
 end
 
@@ -1139,6 +1223,60 @@ end
 
 local installed = {} -- addon name -> record made from its TOC
 
+-- Does the client load addon `name` only on demand (## LoadOnDemand: 1)?
+function Own.isDemand(name)
+	local f = C_AddOns and C_AddOns.IsAddOnLoadOnDemand
+	if not f then return false end
+	local ok, v = pcall(f, name)
+	return ok and ns.Compat.Readable(v) == true
+end
+
+-- Pack `id` comes from on-demand addon `name` (Own.demand): the first such
+-- addon, never for an id reserved for another addon or one a pack that loaded
+-- with the game holds.
+function Own.markDemand(id, name)
+	if Own.demand[id] or reservedAgainst(id, name) then return end
+	local holder = packs[id]
+	if holder and holder.addon ~= name then return end
+	Own.demand[id] = name
+end
+
+Own.demandFailed = {} -- addon -> why it did not load (Data.Pack's reason)
+Own.demandWaiting = {} -- pack id -> true while its load waits for the fight to end
+
+-- Loads the addon of on-demand pack `id` when it is switched on, listed from
+-- its TOC (not in yet) and the client can load it, never in combat (Data.Pack;
+-- PLAYER_REGEN_ENABLED loads it after the fight). Its files register the pack
+-- and its guides, and the scan then lists it as registered, or says why it did
+-- not load. -> whether guides came in
+function Own.loadDemand(id)
+	local name = Own.demand[id]
+	local r = name and installed[name]
+	if not r then return false end
+	syncStatus(r)
+	if r.status ~= "on" then return false end
+	local count = #order
+	local ok, reason = ns.Data.Pack(name)
+	if reason == "combat" then
+		Own.demandWaiting[id] = true
+		return false
+	end
+	Own.demandWaiting[id] = nil
+	if not ok then Own.demandFailed[name] = reason or "unknown" end
+	Guides.ScanInstalled()
+	return #order > count
+end
+
+-- Every on-demand pack switched on, in id order (login). -> whether guides came in
+function Own.loadDemandAll()
+	local ids = {}
+	for id in pairs(Own.demand) do ids[#ids + 1] = id end
+	table.sort(ids)
+	local came = false
+	for _, id in ipairs(ids) do came = Own.loadDemand(id) or came end
+	return came
+end
+
 local function meta(addon, field)
 	local v = C_AddOns.GetAddOnMetadata(addon, field)
 	return type(v) == "string" and v ~= "" and v or nil
@@ -1171,8 +1309,9 @@ end
 -- compiler writes its Title as "Polestar Community: <title>" for the AddOns
 -- list (community addons built before that say "Polestar Pack: <title>");
 -- here it reads as the pack's own title, as a registered pack's does.
--- Priority: too-new > disabled > not-loaded > broken.
-local function fromToc(r, name, reason, enabled)
+-- Priority: too-new > disabled > loads on demand (`demand`: off until the
+-- player switches it on, then on until its addon is in) > not-loaded > broken.
+local function fromToc(r, name, reason, enabled, demand)
 	local title = meta(name, "Title")
 	if title then title = title:gsub("^Polestar Community: ", ""):gsub("^Polestar Pack: ", "") end
 	r.title = escape(title or name)
@@ -1184,13 +1323,17 @@ local function fromToc(r, name, reason, enabled)
 	local needs = meta(name, "X-Polestar-Needs")
 	r.needs = needs and escape(needs) or nil
 	r.reason = nil
+	local failed = Own.demandFailed[name]
 	if r.format and not Guides.FORMATS[r.format] then
 		r.status = "too-new"
 		r.reason = tooNewReason(r.needs)
 	elseif reason == "DISABLED" or not enabled then
 		r.status = "disabled"
+	elseif demand and not failed and not C_AddOns.IsAddOnLoaded(name) then
+		r.status = packShown(r.id) and "on" or "off"
 	elseif not C_AddOns.IsAddOnLoaded(name) then
 		r.status = "not-loaded"
+		if failed then reason = failed:upper() end
 		local text = type(reason) == "string" and reason ~= "" and (_G["ADDON_" .. reason] or reason) or nil
 		r.reason = text and escape(text) or nil
 	else
@@ -1209,6 +1352,7 @@ function Guides.ScanInstalled()
 		local name, _, _, _, reason = A.GetAddOnInfo(i)
 		local id = type(name) == "string" and meta(name, "X-Polestar-Pack") or nil
 		if id then
+			if reason == "DEMAND_LOADED" or Own.isDemand(name) then Own.markDemand(id, name) end
 			local r = registeredBy(name)
 			if r then
 				if installed[name] then
@@ -1220,6 +1364,7 @@ function Guides.ScanInstalled()
 				r = installed[name]
 				if not r then
 					r = newRecord({ id = id }, name)
+					r.tocOnly = true -- its guides are not in: how many is not known
 					installed[name] = r
 				end
 				local enabled = true
@@ -1227,7 +1372,7 @@ function Guides.ScanInstalled()
 					local ok, state = pcall(A.GetAddOnEnableState, name, player)
 					enabled = not (ok and state == 0)
 				end
-				fromToc(r, name, reason, enabled)
+				fromToc(r, name, reason, enabled, Own.demand[id] == name)
 			end
 		end
 	end
@@ -1245,6 +1390,8 @@ local loggedIn = false
 
 local function relocalise(packId)
 	local changed = false
+	-- The experimental index ships in our pack (Polestar.RegisterExperimental).
+	if packId == nil or packId == "guides" then Own.refreshExperimental() end
 	for id, def in pairs(guides) do
 		if (packId == nil or def.pack == packId) and GuideTexts.Refresh(def) then
 			changed = true
@@ -1367,6 +1514,18 @@ ns.RegisterEvent("PLAYER_REGEN_ENABLED", function()
 			for name in pairs(partsWaiting) do loadParts(name) end
 		end)
 	end
+	-- On-demand packs switched on during a fight (Own.loadDemand).
+	if next(Own.demandWaiting) then
+		local ids = {}
+		for id in pairs(Own.demandWaiting) do ids[#ids + 1] = id end
+		table.sort(ids)
+		local came = false
+		for _, id in ipairs(ids) do came = Own.loadDemand(id) or came end
+		if loggedIn then
+			if came then ns.Fire("GUIDES_REGISTERED") end
+			for _, id in ipairs(ids) do ns.Fire("PACKS_CHANGED", id) end
+		end
+	end
 end)
 
 ---------------------------------------------------------------------------
@@ -1387,6 +1546,35 @@ function Guides.Replace(id, g2)
 	guides[id] = g2
 	if headers[id] then headers[id].stepCount = #g2.steps end
 	return true
+end
+
+-- Registered guide `id` with `steps` in place of its own, for the session
+-- (Engine.ReplaceSteps, from Polestar.API.ReplaceSteps): the steps are
+-- checked as RegisterGuide checks them and get their pictures, their texts in
+-- the client's language and their escaping as at registration; the guide's
+-- other fields are its own as registered, in a new table, so every per-guide
+-- cache starts over. Baked legs walk the old steps: the new guide has none
+-- (an empty `legs`, so none is looked up by its id either). The step tables
+-- are taken, not copied. Polestar's own guides are refused.
+-- -> the new guide | nil, reason
+function Guides.ReplaceSteps(id, steps)
+	local def = Guides.Get(id)
+	if not def then return nil, "unknown guide" end
+	if def.pack == "guides" then return nil, "Polestar's own guide" end
+	if type(steps) ~= "table" or #steps == 0 then return nil, "no steps" end
+	local err = Own.validateSteps(steps)
+	if err then return nil, err end
+	local g = {}
+	for k, v in pairs(def.base or def) do
+		if k ~= "steps" and k ~= "stepsSrc" and k ~= "stepCount" then g[k] = v end
+	end
+	g.steps, g.legs = steps, {}
+	Own.stepImages(steps, packs[def.pack])
+	Own.packedGoals(steps)
+	ns.GuideTexts.PrepareSteps(g)
+	escapeTree(steps, {}, ID_KEYS)
+	Guides.Replace(id, g)
+	return g
 end
 
 function Guides.List()
@@ -1419,15 +1607,20 @@ local function guideStart(g)
 end
 Guides.Start = guideStart
 
+-- Packs never suggested and never part of the route, whatever Suggest
+-- guides from says: Polestar's experimental guides (Polestar_Experimental,
+-- alpha) are followed only when the player opens one from the guide menu.
+Guides.NEVER_SUGGESTED = { ["polestar-experimental"] = true }
+
 -- Shown guides whose route choice (`nextChoices`) offers `id` now (an
 -- option with `when` only while it holds: Engine.RouteOffered), in
--- registration order.
+-- registration order; never one of a NEVER_SUGGESTED pack.
 function Guides.OfferedBy(id)
 	local out = {}
 	local E = ns.Engine
 	for i = 1, #order do
 		local g = guides[order[i]]
-		if g.nextChoices and visible(g) then
+		if g.nextChoices and visible(g) and not Guides.NEVER_SUGGESTED[g.pack] then
 			for _, c in ipairs(g.nextChoices) do
 				if c == id then
 					if not (E and E.RouteOffered) or E.RouteOffered(g.id, id) then out[#out + 1] = g end
@@ -1439,6 +1632,110 @@ function Guides.OfferedBy(id)
 	return out
 end
 
+---------------------------------------------------------------------------
+-- Experimental route options (docs/PACK_FORMAT.md, "Polestar's own extra
+-- packs"). A route choice of ours may offer one of Polestar's experimental
+-- guides (an extra `next` line). Their pack loads on demand and stays off
+-- until the player wants it, so Polestar_Guides carries an index of the
+-- guides our route choices offer (Polestar.RegisterExperimental, written by
+-- `forge guide compile`): each as a guide header without steps (title, who
+-- it is for, levels, zone, pitch, pros, cons and their name tokens), with
+-- its route until it rejoins ours: its top level (`topLevel`), the quests
+-- it takes (`questIds`), where it starts (`start`: its first located goal;
+-- `focus`: its first on its zone's map), the zone it travels through first
+-- when that is not its own (`viaMap`, `via`: its English name) and our
+-- guides it rejoins (`joins`). The route choice shows such an option from
+-- the index until its guide is in (Engine, routeOptions); choosing it
+-- switches the pack on (Guides.SetPackShown), which loads it.
+---------------------------------------------------------------------------
+
+Own.experimental = {} -- guide id -> its index entry (texts in the client's language)
+Own.EXP_KEYS = {
+	strings = { "title", "faction", "zoneName", "pitch", "via" },
+	numbers = { "minLevel", "maxLevel", "zone", "topLevel", "viaMap" },
+	lists = { "races", "classes", "pros", "cons", "joins" },
+	maps = { "names", "written" },
+}
+
+function Own.expPoint(p)
+	if type(p) ~= "table" or not (isNum(p.map) and isNum(p.x) and isNum(p.y)) then return nil end
+	return { map = p.map, x = p.x, y = p.y, f = isStr(p.f) and p.f or nil }
+end
+
+-- list: { entry, ... }, each for a guide of a pack never suggested (ours:
+-- Polestar_Guides' Guides.lua, after its guides). Fields of the wrong type
+-- are left out; an entry without id, pack or title is dropped.
+function ns.RegisterExperimental(list)
+	if type(list) ~= "table" then return end
+	local K = Own.EXP_KEYS
+	for _, e in ipairs(list) do
+		if type(e) == "table" and isStr(e.id) and isStr(e.pack) and Guides.NEVER_SUGGESTED[e.pack] and ownsId(e.pack, e.id) and isStr(e.title) then
+			local def = { id = e.id, pack = e.pack, category = "Leveling" }
+			for _, k in ipairs(K.strings) do if isStr(e[k]) then def[k] = e[k] end end
+			for _, k in ipairs(K.numbers) do if isNum(e[k]) then def[k] = e[k] end end
+			for _, k in ipairs(K.lists) do
+				if type(e[k]) == "table" then
+					local l = {}
+					for _, v in ipairs(e[k]) do if isStr(v) then l[#l + 1] = v end end
+					def[k] = l
+				end
+			end
+			for _, k in ipairs(K.maps) do
+				if type(e[k]) == "table" then
+					local m = {}
+					for t, v in pairs(e[k]) do if isStr(t) and isStr(v) then m[t] = v end end
+					def[k] = m
+				end
+			end
+			if type(e.questIds) == "table" then
+				local q = {}
+				for _, v in ipairs(e.questIds) do if isNum(v) then q[#q + 1] = v end end
+				def.questIds = q
+			end
+			def.start, def.focus = Own.expPoint(e.start), Own.expPoint(e.focus)
+			def.steps = {}
+			-- Its texts as a guide's: English names until the names are in
+			-- (Own.refreshExperimental), escaped as at registration.
+			ns.GuideTexts.Prepare(def, false)
+			escapeTree(def, {}, ID_KEYS)
+			Own.experimental[e.id] = def
+		end
+	end
+end
+
+-- The index entries' texts again, once the names or a texts addon came in.
+function Own.refreshExperimental()
+	for _, def in pairs(Own.experimental) do ns.GuideTexts.Refresh(def) end
+end
+
+-- The index entry of experimental guide `id` (a header with no steps; see
+-- above), or nil.
+function Guides.Experimental(id)
+	return id and Own.experimental[id] or nil
+end
+
+-- Whether option `id` of guide `from`'s `next` leads from outside a pack
+-- never suggested into one (an experimental guide, registered or only in
+-- the index): an offer the player takes or leaves, never the route by
+-- itself. An experimental guide's own `next` is its route.
+function Guides.ExperimentalOffer(from, id)
+	if type(from) ~= "table" or not id or Guides.NEVER_SUGGESTED[from.pack] then return false end
+	local g = guides[id]
+	if g then return Guides.NEVER_SUGGESTED[g.pack] == true end
+	return Own.experimental[id] ~= nil
+end
+
+-- Whether experimental guide `id`'s pack can bring it in when switched on
+-- (Guides.SetPackShown): installed and enabled, and either not loaded yet or
+-- loaded with that guide (hidden while it is off).
+function Guides.ExperimentalLoadable(id)
+	local e = Own.experimental[id]
+	local r = e and Guides.Pack(e.pack)
+	if not (r and accepted(r)) then return false end
+	if r.tocOnly then return true end
+	return guides[id] ~= nil
+end
+
 local function hasLeveling(r)
 	for _, id in ipairs(r.guides) do
 		local g = guides[id]
@@ -1448,11 +1745,11 @@ local function hasLeveling(r)
 end
 
 -- Can pack `id` be where suggestions come from? Registered, not internal,
--- shown, with leveling guides. Ours always can.
+-- shown, with leveling guides, never one of NEVER_SUGGESTED. Ours always can.
 local function canSuggest(id)
 	if id == "guides" then return true end
 	local r = type(id) == "string" and packs[id]
-	return r and not r.internal and not r.imported and packVisible(r) and hasLeveling(r) or false
+	return r and not r.internal and not r.imported and not Guides.NEVER_SUGGESTED[id] and packVisible(r) and hasLeveling(r) or false
 end
 
 -- The packs suggestions can come from, ours ("guides") first, then the
@@ -1698,6 +1995,9 @@ ns.OnLogin(function()
 	for name in pairs(partsWaiting) do loadParts(name) end
 	Own.loadForSaved()
 	Guides.ScanInstalled()
+	-- The packs that load on demand and are switched on: their addons load
+	-- now, before the Engine reopens the saved tabs.
+	Own.loadDemandAll()
 	-- The imported guides, now that every community addon has registered and
 	-- every installed one is listed (an addon keeps its ids: Import.Load
 	-- leaves out an imported guide under an addon's id).

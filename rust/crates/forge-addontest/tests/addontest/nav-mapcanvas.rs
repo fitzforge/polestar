@@ -175,11 +175,14 @@ fn run(style: &str, script: &str) -> Value {
 // own read and called only through securecallfunction, as it is meant for addons. Nav/Pins.lua's viewRect reads
 // where the scroll frame (the canvas's parent) and the canvas sit on screen (GetParent, GetLeft, GetTop,
 // GetRight, GetBottom, GetEffectiveScale) to draw the objective areas only around what the view shows (#1622).
+// Maps/WorldMap.lua's info bar lists the map's own child frames (GetChildren) to keep its text clear of the buttons
+// in the view's bottom corners, reading only their size, place and visibility, again only when the scroll frame's
+// size (GetSize) changed.
 fn reads() -> Value {
 	json!({
-		"WorldMapFrame": ["AddCanvasClickHandler", "GetCanvas", "GetCanvasScale", "GetCanvasZoomPercent", "GetGlobalAlpha", "GetGlobalPinScale", "GetMapID",
+		"WorldMapFrame": ["AddCanvasClickHandler", "GetCanvas", "GetCanvasScale", "GetCanvasZoomPercent", "GetChildren", "GetGlobalAlpha", "GetGlobalPinScale", "GetMapID",
 			"GetNormalizedCursorPosition", "GetPinFrameLevelsManager", "HasZoomLevels", "IsCanvasMouseFocus", "IsShown", "ScrollContainer"],
-		"WorldMapFrame.ScrollContainer": ["GetBottom", "GetEffectiveScale", "GetFrameLevel", "GetLeft", "GetRight", "GetTop"],
+		"WorldMapFrame.ScrollContainer": ["GetBottom", "GetEffectiveScale", "GetFrameLevel", "GetLeft", "GetRight", "GetSize", "GetTop"],
 		"WorldMapFrame.canvas": ["GetEffectiveScale", "GetHeight", "GetLeft", "GetParent", "GetTop", "GetWidth"],
 		"WorldMapFrame.pinFrameLevelsManager": ["GetValidFrameLevel"],
 		"BattlefieldMapFrame": ["GetCanvas", "GetCanvasScale", "GetCanvasZoomPercent", "GetGlobalAlpha", "GetGlobalPinScale", "GetMapID",
@@ -268,4 +271,55 @@ emit({ open = open, reported = reported, broken = broken, fine = fine })
 	assert_eq!(r["open"]["broken"], 1, "the erroring listener is not called again while the map stays open");
 	assert!(r["open"]["fine"].as_f64().unwrap() >= 5.0, "the other listener ticks every frame");
 	assert_eq!(r["reported"], 2, "called again, and reported again, once the map reopens");
+}
+
+// Another addon's map canvas (Polestar: UI's world map), handed over with MapCanvas.Add: Polestar's drawings show
+// on it as on the world map, with frames of their own, it is only read, and hiding Polestar takes them off it.
+#[test]
+fn a_map_canvas_another_addon_adds_shows_polestars_drawings_is_only_read_and_hides_with_polestar() {
+	let r = run(
+		"keyboard and mouse",
+		r#"
+local P, M = Polestar.Pins, Polestar.MapCanvas
+Polestar.Set("maps.coords", true)
+P.SetLayer("test.marks", { { map = 9000, x = 30, y = 30, tooltip = "A mark" } })
+local own = stub.newMapCanvas("PolestarUIWorldMapCanvas")
+own.mapID = 9000
+stub.guardMap(own)
+M.Add(own)
+M.Add(own)            -- once is enough
+M.Add(WorldMapFrame)  -- the world map is watched already
+own:Show()
+stub.runMapFrame(own, 0.1)
+local function under(f, canvas)
+	local p = f.parent
+	while p do
+		if p == canvas then return true end
+		p = p.parent
+	end
+	return false
+end
+local function marks(map)
+	local n = 0
+	for _, f in ipairs(stub.frames) do
+		if under(f, map:GetCanvas()) and f:IsVisible() and P.WorldPinOf(f) and P.WorldPinOf(f).pin.tooltip == "A mark" then n = n + 1 end
+	end
+	return n
+end
+local shown = marks(own)
+local onWorldMap = marks(WorldMapFrame)
+Polestar.SetHidden(true)
+local hidden = marks(own)
+Polestar.SetHidden(false)
+stub.runMapFrame(own, 0.1)
+emit({ shown = shown, onWorldMap = onWorldMap, hidden = hidden, back = marks(own),
+	writes = table.concat(stub.mapWrites, "; "), under = table.concat(stub.underGameFrames, "; ") })
+"#,
+	);
+	assert_eq!(r["writes"], "", "nothing written into the added map");
+	assert_eq!(r["under"], "", "every frame on it is made with no parent, then set under it");
+	assert_eq!(r["shown"], 1, "the mark on the added map");
+	assert_eq!(r["onWorldMap"], 0, "a frame of its own: the closed world map shows none");
+	assert_eq!(r["hidden"], 0, "hiding Polestar takes it off");
+	assert_eq!(r["back"], 1, "and shows it again");
 }
