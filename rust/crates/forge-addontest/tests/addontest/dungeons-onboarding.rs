@@ -387,7 +387,7 @@ fn the_dungeon_card_offers_add_to_my_route_for_a_dungeon_the_route_can_still_tak
 		local onRoute = { m2.act.label, m2.more and m2.more.label or false, m2.giver }
 		local m3 = DT.Model({ key = "the-deadmines", name = "The Deadmines", level = 20, take = 2, minLevel = 17, maxLevel = 26 })
 		-- Ragefire Chasm, Orgrimmar's, for an Alliance character: even listed ahead, never Add to my route.
-		UnitFactionGroup = function(unit) if unit == "player" then return "Alliance", "Alliance" end end
+		Polestar.Compat.GetPlayerFaction = function() return "Alliance" end
 		uistub.dungeonsAhead = { { map = 389, name = "Ragefire Chasm", level = 15, runMap = 1454, pickMap = 1454, pickMaps = { 1454 }, picks = 1, inLog = 0, here = true } }
 		local m4 = DT.Model({ key = "ragefire-chasm", name = "Ragefire Chasm", level = 15, take = 1, minLevel = 13, maxLevel = 18 })
 		emit({ offered = offered, call = call, onRoute = onRoute, offRoute = m3.act.label, city = m4.act.label })"#);

@@ -180,6 +180,32 @@ fn hearth_controls_are_planks_switches_grooves_and_recesses_in_polestar_s_own_ar
 	assert_eq!(m["row"], 24);
 }
 
+// A button made primary after it was laid (W.RepaintButton: a confirm's action, as Every dungeon quest's warning)
+// is drawn as one laid primary: the accent fill with dark ink, no plank over it; made plain again, a plank.
+#[test]
+fn hearth_draws_a_button_made_primary_after_it_was_laid_with_the_accent_not_a_plank() {
+	let out = run(r#"
+		Polestar.Set("ui.skin", "hearth")
+		local function plank(b)
+			local d, k = b.psSkin, b.psSkin.kit or {}
+			return { board = k.board ~= nil and k.board:IsShown(), fill = d.bg ~= nil and d.bg:IsShown(), fillColor = d.bg and { d.bg:GetVertexColor() } or false,
+				label = { b.Label:GetTextColor() } }
+		end
+		W.Modal({ title = "Every dungeon quest", text = "Be ready for more travelling.", action = "Every quest", cancel = "Only quests on my way" })
+		local a = PolestarModal.Box.Action
+		local modal = plank(a)
+		a.psPrimary = false
+		W.RepaintButton(a)
+		emit({ modal = modal, plain = plank(a) })"#);
+	let m = &out["modal"];
+	assert_eq!(m["board"], false, "no plank over the action");
+	assert_eq!(m["fill"], true);
+	assert_eq!(rgb(&m["fillColor"]), [1.0, 0.58, 0.251], "the ember accent fills it");
+	assert_eq!(rgb(&m["label"]), [0.122, 0.071, 0.039], "dark ink on it (onAccent)");
+	assert_eq!(out["plain"]["board"], true, "made plain again: a plank");
+	assert_eq!(out["plain"]["fill"], false);
+}
+
 #[test]
 fn hearth_s_transparent_style_puts_the_board_and_light_away_and_a_switch_to_a_game_look_hides_them_for_its_art() {
 	let out = run(r#"

@@ -85,7 +85,8 @@ Polestar.Set("behavior.dungeons", "skip")`,
 };
 
 // The settings window alone, on a page and tab; a few dungeons answered one by one.
-const SETTINGS = (page, tab) => `if PolestarNavArrow then PolestarNavArrow:Hide() end
+const SETTINGS = (page, tab) => `Polestar.DB().dungeonQuestsWarned = true
+if PolestarNavArrow then PolestarNavArrow:Hide() end
 if PolestarGuideFrame then PolestarGuideFrame:Hide() end
 Polestar.Set("behavior.dungeons", "ask")
 local s = Polestar.CharState()
