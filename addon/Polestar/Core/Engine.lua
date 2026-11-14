@@ -12121,14 +12121,19 @@ for _, event in ipairs({ "ZONE_CHANGED_NEW_AREA", "PLAYER_ENTERING_WORLD" }) do
 		end
 	end)
 end
+-- A Dynamic Questing setting, or all of them at once (a profile switch,
+-- Reset all: SETTING_CHANGED "" or "behavior"): the suggestions are weighed
+-- again.
 ns.On("SETTING_CHANGED", function(path)
-	if type(path) == "string" and path:sub(1, 18) == "behavior.whileHere" then
+	if type(path) ~= "string" then return end
+	local all = path == "" or path == "behavior"
+	if all or path:sub(1, 18) == "behavior.whileHere" then
 		Own.hereDirty = true
 		-- A hand-in turned away for its detour is weighed again at the new seconds.
-		if path == "behavior.whileHereTurninSeconds" then
+		if all or path == "behavior.whileHereTurninSeconds" then
 			for goal in pairs(Own.hereWalked) do Own.hereWalked[goal] = nil end
 		end
-		if path == "behavior.whileHere" and not ns.Get(path) and Own.hereClear(false) then evaluate() end
+		if (all or path == "behavior.whileHere") and not ns.Get("behavior.whileHere") and Own.hereClear(false) then evaluate() end
 		requestUpdate()
 	end
 end)
