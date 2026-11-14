@@ -28,7 +28,8 @@
 //            height: a spawn's (spawnz.json) or travel end's, else the walking grid's floor
 //            (gridFloor; null off the grid); `heights` counts each source
 //   nodes    transport nodes: flight masters usable by the faction and docks
-//   taxi     [[a, b, seconds]] flights between nodes (both must be known)
+//   taxi     [[a, b, yards]] flights between nodes (both must be known): the taxi path's length,
+//            which the sim flies at its flightSpeed
 //   rides    [[a, b, seconds, wait, id]] boats, zeppelins, trams (both ways);
 //            the Zephras Isle exits one way only (isle -> mainland)
 //   inns     [{ name, pt }]
@@ -101,7 +102,8 @@ const { isEscort } = require('../dsl/escort');
 const RULES = require('./rules');
 const { readObjectFacts, objectFactsFile } = require('../travel/cmangos');
 
-const BUILDER_VERSION = 31;
+// 32: taxi edges are the path's yards (forge-world's), not travel.json's `cost` (the price in copper).
+const BUILDER_VERSION = 32;
 // Yards: a mount vendor this close to a riding trainer is its stop's optional mount buy.
 const RIDE_PAIR_YD = 60;
 
@@ -721,7 +723,10 @@ function buildWorld(data, opts = {}) {
 	for (const l of travel.taxi.legs || []) {
 		const a = nodeByTaxi.get(l.from);
 		const b = nodeByTaxi.get(l.to);
-		if (a != null && b != null) taxi.push([a, b, l.cost]);
+		// The path's length (yards): the sim prices the flight at its flightSpeed. Not `cost`, the TaxiPath's
+		// price in copper, which this builder read as seconds up to version 31 (Orgrimmar to Thunder Bluff
+		// 50 s, Everlook to Orgrimmar 1020 s).
+		if (a != null && b != null) taxi.push([a, b, l.yards]);
 	}
 	// A transport or portal end's height: its board point's own if it has one, else the end's.
 	const endZ = (end) => {

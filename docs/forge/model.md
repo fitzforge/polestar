@@ -167,10 +167,14 @@ cheaper. The network uses only flight paths the character knows: each flight cos
 character recorded in game, the addon's learned flight times from boarding to landing: Orgrimmar to
 Thunder Bluff and back, the Crossroads to Orgrimmar, Ratchet to the Crossroads, 6745, 6213, 4252 and
 2041 yd in 225, 207, 142 and 69 s, 29.9 yd/s overall, each within 1 s of the model; left out one at a
-time, the others give 29.9-30.0) plus `flightOverhead` (an estimate: the talk, take-off and landing
-are outside the recorded times). (v1 read the TaxiPath's `cost`, its price in copper, as seconds:
-Orgrimmar to Thunder Bluff 50 s, Everlook to Orgrimmar 1020 s; forge-sim's JS-parity test keeps
-the golden v1 world at 1 yd/s); a boat, zeppelin or tram costs its ride plus its wait × `transportWait`. Network
+time, the others give 29.9-30.0; players' recordings agree: 4,558 direct flights by 376 people took
+their path's yards at 29.8 yd/s, the median flight within 0.1 s of yards / 30, and 351 flights over two
+legs the same, with no stop at the node between) plus `flightOverhead` (an estimate: the talk, take-off
+and landing are outside the recorded times). (The JS sim, v1, read the TaxiPath's `cost`, its price in
+copper, as seconds up to its world builder 31: Orgrimmar to Thunder Bluff 50 s, Everlook to Orgrimmar
+1020 s, 1.6 to 155 yd/s over the 288 legs; since builder 32 it flies the yards at `flightSpeed` too.
+forge-sim's JS-parity test keeps the golden v1 world, built before that, at 1 yd/s); a boat, zeppelin
+or tram costs its ride plus its wait × `transportWait`. Network
 legs carry no danger.
 
 Flight paths are learned when a step stops within 200 yd of a flight master (one talk). A training

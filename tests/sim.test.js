@@ -385,6 +385,32 @@ test('dungeons: only in the dungeon family; a run gives party-shared elite XP an
 
 // ---------------------------------------------------------------- starts and travel safety
 
+// travel.json's taxi leg `cost` is the TaxiPath's price in copper; the world builder read it as the flight's seconds
+// up to version 31 (Orgrimmar to Thunder Bluff 50 s, Everlook to Orgrimmar 1020 s).
+test('a flight takes its taxi path\'s yards at flightSpeed, not the leg\'s price in copper', () => {
+	const data = syn.makeData();
+	// Two Horde flight masters 6,000 yd apart; the path between them 3,000 yd, its price 5 copper.
+	data.travel.taxi.nodes.push(
+		{ id: 901, name: 'Vale Roost', c: 1, wx: 500, wy: -500, map: syn.VALE, faction: 2 },
+		{ id: 902, name: 'Far Roost', c: 1, wx: 6500, wy: -500, map: syn.VALE, faction: 2 },
+	);
+	data.travel.taxi.legs.push({ path: 1, from: 901, to: 902, yards: 3000, cost: 5 }, { path: 2, from: 902, to: 901, yards: 3000, cost: 5 });
+	const w = buildWorld(data, { faction: 'Horde', bandWidth: 5, extraStarts: syn.START });
+	w.questXp = syn.questXpRows();
+	const node = (id) => w.nodes.findIndex((n) => n.taxi === id);
+	const [a, b] = [node(901), node(902)];
+	assert.deepEqual(w.taxi, [[a, b, 3000], [b, a, 3000]]);
+	const { run, p, ev } = setup({ world: w });
+	assert.equal(p.flightSpeed, 30);
+	const tr = ev.travel;
+	assert.deepEqual(tr.taxiFrom[a], [[b, 100]]);
+	// Both flight paths known: a to b is the flight's 100 s and its overhead, not 5 s (6,000 yd on foot take longer).
+	const bit = (n) => 2 ** run.fpBit[n];
+	const once = tr.learn(tr.base[0], bit(a), a, false);
+	const both = tr.learn(once, bit(a) + bit(b), b, false);
+	assert.ok(Math.abs(both[a * run.N + b] - (100 + p.flightOverhead)) < 1e-3, `a to b ${both[a * run.N + b]} s`);
+});
+
 test('Zephras Isle is Skyborne-only: its quests are closed to other races, its exit is one way', () => {
 	const w = rulesWorld();
 	const orc = setup({ world: w });
