@@ -443,10 +443,10 @@
 				}
 			],
 			"leftOut": {
-				"5726": "Hidden Enemies (5726-5730): Thrall's Lieutenant's Insignia from Skull Rock's cultists, then three walks between Thrall and Neeru Fireblade",
-				"5725": "The Power to Destroy...: Varimathras in the Royal Quarter, off this guide's Apothecarium stop; the route's next Undercity stop is at ~25",
-				"5722": "Searching for the Lost Satchel (with 5724): Rahauro in Thunder Bluff, first on the route at 27",
-				"5723": "Testing an Enemy's Strength: Rahauro in Thunder Bluff, first on the route at 27"
+				"5726": "Hidden Enemies (5726-5730): Thrall, in Grommash Hold, is on the route before the run only for Skyborne (Orcs and Trolls pass 21 yd off at Nazgrel, Tauren 106 yd, the Undead 308 yd), and after it only for Skyborne at ~29; the Lieutenant's Insignia drops at Skull Rock only while 5726 is held, and after the Thrall stop the route passes Skull Rock no nearer than 109 yd, at the zeppelin tower; the chain then adds five walks between Thrall and Neeru Fireblade, 276 yd apart",
+				"5725": "The Power to Destroy...: Varimathras, in the Royal Quarter, is 148 yd off this guide's Undercity stop before the run (Skyborne pass him at Sylvanas, 17 yd); after it the route's first stop at him is 30-40/01-hillsbrad-foothills' at ~31.7, 15 levels over the quest, and 06-hillsbrad-foothills' Undercity stop at ~25 is 163 yd off",
+				"5722": "Searching for the Lost Satchel (with 5724): Rahauro in Thunder Bluff; before the run only Tauren and Skyborne pass Thunder Bluff, 68 yd off him at the closest (the Druids' Turak Runetotem), and after it the route's first stop at him is 40-50/06-azshara's at ~50",
+				"5723": "Testing an Enemy's Strength: Rahauro in Thunder Bluff, as 5722"
 			},
 			"budget": {
 				"flow": "off -> on (flow audit, Warrior every start, dynamic 037, straight lines): 03-silverpine-forest +0.2 km (Orgrimmar: the Cleft of Shadow), +2.8 min, hub visits +0; passed givers hub +0.2 (Neeru at 12 on the first Orgrimmar stop: level 16 is 3+ over there, the level rule wins); other guides only level-lead effects; solo route identical (65/65)"
