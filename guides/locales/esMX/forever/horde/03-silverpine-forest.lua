@@ -62,7 +62,7 @@ return {
 
 	-- Step 12: Sayoc
 	-- {spell:197} Two-Handed Axes · {npc:11868} Sayoc · {object:172958} Valley of Honor
-	["While you're here: learn {spell:197} from {npc:11868} ({object:172958}, 10 silver); two-handers level a Warrior fastest."] = "Mientras estás aquí: aprende {spell:197} con {npc:11868} ({object:172958}, 10 de plata); las armas a dos manos suben más rápido a un Guerrero.",
+	["While you're here: learn {spell:197} from {npc:11868} ({object:172958}, 10 silver); two-handers level a Warrior fastest."] = "Mientras estás aquí: aprende {spell:197} con {npc:11868} ({object:172958}, 10 de plata); con armas a dos manos, un guerrero sube de nivel más rápido.",
 
 	-- Step 13: Hanashi
 	-- {npc:2704} Hanashi · {object:172958} Valley of Honor
@@ -275,7 +275,7 @@ return {
 
 	-- Step 61: Sayoc
 	-- {spell:197} Two-Handed Axes · {npc:11868} Sayoc · {object:172958} Valley of Honor
-	["While you're here: learn {spell:197} from {npc:11868} ({object:172958}, 10 silver); two-handers level a Paladin fastest."] = "Mientras estás aquí: aprende {spell:197} con {npc:11868} ({object:172958}, 10 de plata); las armas a dos manos suben más rápido a un Paladín.",
+	["While you're here: learn {spell:197} from {npc:11868} ({object:172958}, 10 silver); two-handers level a Paladin fastest."] = "Mientras estás aquí: aprende {spell:197} con {npc:11868} ({object:172958}, 10 de plata); con armas a dos manos, un paladín sube de nivel más rápido.",
 
 	-- Step 63: Valley of Wisdom
 	-- {npc:268684} Thra · {npc:268682} Migi · {object:172957} Valley of Wisdom · {area:379} Far Watch Post
