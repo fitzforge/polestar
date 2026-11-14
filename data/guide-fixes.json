@@ -10952,6 +10952,80 @@
 				"ref": "npcs.json 235912 Ancient Irontree Walker 59, rank elite, spawns at Felwood 47.0-50.3,23.9-28.8; 14524 Vartrus the Ancient 63 at 47.78,24.08; 7132 Toxic Horror 48.1-51.1,22.5-27.4"
 			},
 			"issue": 1575
+		},
+		{
+			"id": "durotar-rezlak-storm-orb-split",
+			"faction": "Horde",
+			"at": {
+				"quest": 97281,
+				"goal": "turnin"
+			},
+			"split": {
+				"title": "Rezlak"
+			},
+			"note": "Durotar (Orc and Troll): A Simmering Storm (97281), from the Dull Storm Orb the Dustwind harpies drop, was handed in to Rezlak on the stop that hands in Securing the Lines (835), with the follow-up's accept (97282), both as optional lines: once 835 was in, nothing held the step, so a player with the orb's quest walked on to Thunder Ridge, where Stormy Potential's organs showed n/a. The hand-in and the accept get a step of their own right after that stop (shown only while 97281 is carried: durotar-rezlak-storm-orb-when), where the hand-in holds the route; Stormy Potential's accept stays optional there, an extra after a chance drop (#807).",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#2268's pattern, in the Durotar guides: Rezlak's hand-in of A Simmering Storm (97281, from the Dull Storm Orb) and the accept of Stormy Potential (97282) were optional lines on the stop that hands in Securing the Lines (835); once 835 was in, nothing held the step, and Thunder Ridge's Charged Thunder Lizard Organs (97282.1) showed n/a"
+				},
+				{
+					"kind": "questie",
+					"ref": "quest 97281 started by the Dull Storm Orb (277661), ended by Rezlak (3293); 97282 started and ended by Rezlak, after 97281"
+				},
+				{
+					"kind": "recording",
+					"ref": "players' recordings to 2026-11-14: A Simmering Storm in 39 recordings, Stormy Potential in 49"
+				}
+			]
+		},
+		{
+			"id": "durotar-rezlak-storm-orb-when",
+			"faction": "Horde",
+			"at": {
+				"quest": 97281,
+				"goal": "turnin"
+			},
+			"when": "onquest 97281",
+			"note": "Durotar (Orc and Troll): the Rezlak step of durotar-rezlak-storm-orb-split shows only while A Simmering Storm (97281) is in the log; there its hand-in holds the route before Thunder Ridge, with Stormy Potential's accept (97282) offered beside it, optional (#807). A player who never got the orb does not see it.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#2268's pattern, in the Durotar guides: Rezlak's hand-in of A Simmering Storm (97281, from the Dull Storm Orb) and the accept of Stormy Potential (97282) were optional lines on the stop that hands in Securing the Lines (835); once 835 was in, nothing held the step, and Thunder Ridge's Charged Thunder Lizard Organs (97282.1) showed n/a"
+				},
+				{
+					"kind": "questie",
+					"ref": "quest 97281 started by the Dull Storm Orb (277661), ended by Rezlak (3293); 97282 started and ended by Rezlak, after 97281"
+				},
+				{
+					"kind": "recording",
+					"ref": "players' recordings to 2026-11-14: A Simmering Storm in 39 recordings, Stormy Potential in 49"
+				}
+			]
+		},
+		{
+			"id": "durotar-rezlak-stormy-potential-when",
+			"faction": "Horde",
+			"at": {
+				"quest": 97282,
+				"goal": "turnin"
+			},
+			"when": "onquest 97282",
+			"note": "Durotar (Orc and Troll): Stormy Potential (97282) is offered only on the Rezlak step of a player carrying A Simmering Storm (durotar-rezlak-storm-orb-when), so its hand-in to Rezlak after Thunder Ridge waits for the quest in the log, as the guide check asks of a turn-in whose accept has a `when`.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#2268's pattern, in the Durotar guides: Rezlak's hand-in of A Simmering Storm (97281, from the Dull Storm Orb) and the accept of Stormy Potential (97282) were optional lines on the stop that hands in Securing the Lines (835); once 835 was in, nothing held the step, and Thunder Ridge's Charged Thunder Lizard Organs (97282.1) showed n/a"
+				},
+				{
+					"kind": "questie",
+					"ref": "quest 97281 started by the Dull Storm Orb (277661), ended by Rezlak (3293); 97282 started and ended by Rezlak, after 97281"
+				},
+				{
+					"kind": "recording",
+					"ref": "players' recordings to 2026-11-14: A Simmering Storm in 39 recordings, Stormy Potential in 49"
+				}
+			]
 		}
 	]
 }

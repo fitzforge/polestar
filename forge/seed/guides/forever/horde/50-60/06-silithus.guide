@@ -98,9 +98,9 @@ step Twilight Outpost
 
 step Level 58
   when level<58
-  tip Commander Mar'alith's Dearest Natalia, at Cenarion Hold, needs level 58: top up on the Twilight Avengers, Geolords and Stonecallers west of the outpost. Or, with a group, run the Blackrock Spire dungeon (Lower) or the Scholomance dungeon instead.
-  goto 33.8,47.8 map 1451 "Twilight Avenger"
-  level 58 grind 11880                -- grind on Twilight Avenger
+  tip Commander Mar'alith's Dearest Natalia, at Cenarion Hold, needs level 58: top up on the Dredge Crushers (57-58) west of the outpost, and leave the Twilight Avengers, Geolords and Stonecallers (57-61) around them be. Or, with a group, run the Blackrock Spire dungeon (Lower) or the Scholomance dungeon instead.
+  goto 33.5,48.3 map 1451 "Dredge Crusher"
+  level 58 grind 11741                -- grind on Dredge Crusher
 
 step Cenarion Hold
   tip Beetix and Noggle Ficklespragg stand upstairs in their building: go up inside, the arrow cannot tell the floors apart.

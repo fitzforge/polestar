@@ -272,9 +272,9 @@ step Scrabblescrew's Camp
 step Level 33
   when level<33
   zone Desolace
-  tip Shadowprey's Hand of Iruxos and the coast's naga want 33. Below that? The Scorpashi Lashers on the slopes north of Smeed's camp are on your way west: kill them until level 33. Or, with a group, run the Razorfen Kraul dungeon instead.
-  goto 59.9,54.6 map 1443 "Scorpashi Lashers"
-  level 33 grind 4697                 -- grind on Scorpashi Lasher
+  tip Shadowprey's Hand of Iruxos and the coast's naga want 33. Below that? The Kolkar centaurs (30-32) of Kolkar Village, a short way east of Smeed's camp, are the nearest camp at your level: kill them until level 33. The Scorpashi Lashers (34-35) on the slopes north of the camp are higher. Or, with a group, run the Razorfen Kraul dungeon instead.
+  goto 70.5,47.0 map 1443 "Kolkar Village"
+  level 33 grind 4635                 -- grind on Kolkar Windchaser
 
 # ---------------------------------------------------------------- The west coast
 

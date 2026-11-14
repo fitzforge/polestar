@@ -7898,8 +7898,10 @@ for (const [guide, quests] of Object.entries(ALLIANCE_VOLUME)) test(`${guide}: A
 // on mobs no open quest wanted are folded into the quest step whose kills they were next to, where those mobs give at
 // least as much experience; the last one before 60 moves to mobs of the player's level.
 test('Horde 40-60: grind steps sit on mobs an open quest needs', { skip }, () => {
+	// (The level 53.02 top-up on the Diseased Grizzlies, 55-56, is a stand-alone one to 53 on the Carrion Lurkers,
+	// 52-53, on the way to Mulgris before them: the danger gate's grind rule, #2207, wants a camp at most a level over
+	// the player, and the quest mobs nearby, the wolves (53-54) and the bears, are both higher.)
 	const cases = [
-		['forever/horde/50-60/02-felwood.guide', 53, (g) => g.t === 'kill' && g.quest === 4985, 'Diseased Grizzlies (The Wildlife Suffers Too)', /^\s+level 53\.02\b/],
 		['forever/horde/50-60/02-felwood.guide', 54, (g) => g.t === 'kill' && g.quest === 4120, "Irontree Woods (Talo's grizzlies and ravagers)", /^\s+level 54\.21\b/],
 		['forever/horde/50-60/02-felwood.guide', 54, (g) => g.t === 'kill' && g.quest === 8461, 'Felpaw Village (Deadwood of the North)', /^\s+level 54\.54\b/],
 		['forever/horde/50-60/01-un-goro-crater.guide', 52, (g) => g.t === 'collect' && g.quest === 4300, 'the Marshlands ravasaurs (Bone-Bladed Weapons)', /^\s+level 52\b/],
@@ -13981,4 +13983,51 @@ test('Silverpine Forest (Horde): Zor Lonetree on the way to the Valley of Wisdom
 	assert.ok(migi >= 0 && zor < migi, 'Zor before Thra and Migi on the last Valley of Wisdom stop');
 	const steps = compiled('forever/horde/03-silverpine-forest.guide').steps;
 	assert.equal(steps[steps.length - 1].title, 'Valley of Wisdom', 'the guide ends in the Valley of Wisdom');
+});
+
+// #2268's pattern in Durotar (Orc and Troll): A Simmering Storm (97281, from the Dull Storm Orb) and Stormy
+// Potential's accept (97282) were optional lines on the Rezlak stop that hands in Securing the Lines (835): once 835
+// was in, nothing held the step, and a player carrying the orb's quest walked on without handing it in. Its hand-in
+// now holds a step of its own, for carriers only; Stormy Potential stays an optional extra there (#807).
+test('Durotar: Rezlak waits for the Dull Storm Orb\'s quest and its follow-up before Thunder Ridge', { skip }, () => {
+	for (const guide of ['forever/horde/orc/01-durotar.guide', 'forever/horde/troll/01-durotar.guide']) {
+		const list = goals(guide);
+		const hand = at(list, 'turnin 97281', is('turnin', 97281));
+		const { step } = list[hand];
+		assert.ok((step.when || []).some((p) => p.k === 'onquest' && !p.neg && p.q.includes(97281)), `${guide}: only while 97281 is carried`);
+		assert.ok(!list[hand].goal.optional, `${guide}: the hand-in holds the step`);
+		const take = at(list, 'accept 97282', is('accept', 97282));
+		assert.equal(list[take].s, list[hand].s, `${guide}: the follow-up's accept on the same step`);
+		assert.ok(list[take].goal.optional, `${guide}: Stormy Potential stays an optional extra (#807)`);
+		assert.ok(list[hand].s > list[at(list, 'turnin 835', is('turnin', 835))].s, `${guide}: right after Securing the Lines`);
+		assert.ok(hand < at(list, 'Thunder Ridge organs', (g) => g.t === 'collect' && g.quest === 97282), `${guide}: before Thunder Ridge`);
+		const back = list[at(list, 'turnin 97282', is('turnin', 97282))].step;
+		assert.ok((back.when || []).some((p) => p.k === 'onquest' && !p.neg && p.q.includes(97282)), `${guide}: the hand-in waits for 97282 in the log`);
+	}
+});
+
+// The danger gate's grind rule (#2207): a top-up whose camp stands 2+ levels over the player when it starts. Five Horde
+// top-ups move to a camp at most a level over the player, at the same place or a short ride off; the top-up on the
+// Diseased Grizzlies (55-56) becomes one to 53 on the Carrion Lurkers (52-53) on the way to Mulgris, who sends you to
+// the bears, so they are fought at 53.
+test('Horde grind top-ups stand on camps at most a level over the player (#2207)', { skip }, () => {
+	for (const [guide, title, npc] of [
+		['forever/horde/07-ashenvale.guide', 'Level 29.49', 4100],
+		['forever/horde/30-40/02-thousand-needles.guide', 'Level 33', 4635],
+		['forever/horde/50-60/02-felwood.guide', 'Level 52.63', 1821],
+		['forever/horde/50-60/03-winterspring.guide', 'Level 55.04', 7458],
+		['forever/horde/50-60/06-silithus.guide', 'Level 58', 11741],
+	]) {
+		const step = compiled(guide).steps.find((s) => s.title === title);
+		assert.ok(step, `${guide}: ${title}`);
+		const goal = step.goals.find((g) => g.t === 'level');
+		assert.equal(goal && goal.grind, npc, `${guide}: ${title} grinds on npc ${npc}`);
+	}
+	const fel = compiled('forever/horde/50-60/02-felwood.guide').steps;
+	const bears = fel.find((s) => s.title === 'Diseased Grizzlies');
+	assert.ok(bears && !bears.goals.some((g) => g.t === 'level'), 'no top-up on the Diseased Grizzlies');
+	const lurkers = fel.find((s) => s.title === 'Level 53');
+	assert.equal(lurkers && (lurkers.goals.find((g) => g.t === 'level') || {}).grind, 1821, 'the level 53 top-up on the Carrion Lurkers');
+	const mulgris = fel.findIndex((s) => s.goals.some((g) => g.t === 'turnin' && g.quest === 4984));
+	assert.ok(fel.indexOf(lurkers) === mulgris - 1 && mulgris === fel.indexOf(bears) - 1, 'on the way to Mulgris, whose hand-in sends you to the bears');
 });
