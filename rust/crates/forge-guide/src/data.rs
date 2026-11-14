@@ -106,6 +106,9 @@ pub struct Data {
 	pub recorded: V,
 	/// The counted voters each recorded spot needs (data/recorded/meta.json `thresholds.spotVoters`).
 	pub spot_voters: f64,
+	/// data/dungeon-runs.json (the record of the dungeons injected into the leveling route), or Null: its runs'
+	/// `allQuests` go into the compiled guide that holds each run (emit.rs `dungeonAll`).
+	pub dungeon_runs: V,
 	/// moves.json ({ npc } -> id -> [[instance map, x, y, centre x, centre y, radius]]: the ground a
 	/// walking creature's spawn covers, world yards) or Null.
 	pub moves: V,
@@ -167,6 +170,7 @@ impl Data {
 			goal_heights: V::Null,
 			recorded: V::Null,
 			spot_voters: crate::recorded::SPOT_VOTERS,
+			dungeon_runs: V::Null,
 			moves,
 			instances: if raw.instances.is_nullish() { V::Null } else { raw.instances },
 			areas: if raw.areas.is_nullish() { V::Null } else { raw.areas },
@@ -573,6 +577,9 @@ pub fn load_data(dir: &std::path::Path) -> Result<Data, String> {
 			Err(_) => Ok(None),
 		}
 	};
+	if let Some(doc) = read(beside.join("dungeon-runs.json"))? {
+		data.dungeon_runs = doc;
+	}
 	if let Some(doc) = read(beside.join("goal-heights.json"))? {
 		data.goal_heights = doc.get("points");
 	}
