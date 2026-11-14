@@ -6828,6 +6828,36 @@
 				}
 			],
 			"issue": 1867
+		},
+		{
+			"id": "2284-gregory-victor-triage-accept",
+			"faction": "Horde",
+			"at": {
+				"quest": 97539,
+				"goal": "accept"
+			},
+			"goalNote": "If Doctor Gregory Victor offers nothing, another player is running his First Aid quest Triage and he is busy with the wounded. Wait a few minutes and talk to him again.",
+			"note": "#2284: the doctor hides his quests while someone runs Triage (6622), so the accept looks missing. Say why, and that it comes back.",
+			"source": {
+				"kind": "in-game-check",
+				"ref": "#2284: DoofusRoofus's report that Doctor Gregory Victor did not offer Silky Sutures; players on the quest's Wowhead page confirm he stops offering and taking it while another player runs his First Aid quest Triage (6622), and does again a few minutes later"
+			},
+			"issue": 2284
+		},
+		{
+			"id": "2284-gregory-victor-triage-turnin",
+			"faction": "Horde",
+			"at": {
+				"quest": 97539,
+				"goal": "turnin"
+			},
+			"goalNote": "If he won't take the silk, another player is running Triage: wait a few minutes and talk to him again.",
+			"note": "#2284: the same Triage block on the hand-in.",
+			"source": {
+				"kind": "in-game-check",
+				"ref": "#2284: DoofusRoofus's report that Doctor Gregory Victor did not offer Silky Sutures; players on the quest's Wowhead page confirm he stops offering and taking it while another player runs his First Aid quest Triage (6622), and does again a few minutes later"
+			},
+			"issue": 2284
 		}
 	]
 }
