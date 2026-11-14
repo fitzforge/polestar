@@ -6520,8 +6520,26 @@ local function persist()
 	end
 end
 
+-- Whether step s holds a goal not done yet only because its quest is above
+-- the character's level for now (unavailableFor's "level" mark). The route
+-- passes such a step and comes back to it on the level-up, so progress does
+-- not count it done: on a fresh character nearly every later step is one
+-- (#2257).
+function Own.levelWaits(s)
+	local goals = guide.steps[s].goals
+	for g = 1, #goals do
+		local goal = goals[g]
+		if Own.holds(s, goal) and goalApplies(goal) and not goalDone(s, g, goal) then
+			local u = unavailableFor(goal)
+			if u and u.reason == "level" then return true end
+		end
+	end
+	return false
+end
+
 -- Done and total applicable steps of the loaded tab; steps the player skipped
--- count as done. Counting runs the done rules over every step after the
+-- count as done, steps waiting on a level do not (Own.levelWaits). Counting
+-- runs the done rules over every step after the
 -- current one, so the result is kept on the tab until the next evaluation
 -- (or until its guide or current step moves): the tab tooltip and the guide
 -- menu ask for it on every repaint (Engine.GetTabs(true)).
@@ -6536,7 +6554,7 @@ local function progressLoaded()
 	for s, step in ipairs(guide.steps) do
 		if stepApplies(step) and not hidden[s] then
 			total = total + 1
-			if (not computed or s < computed) or isSkipped(s) or stepDone(s) then done = done + 1 end
+			if (not computed or s < computed) or isSkipped(s) or (stepDone(s) and not Own.levelWaits(s)) then done = done + 1 end
 		end
 	end
 	if t then
