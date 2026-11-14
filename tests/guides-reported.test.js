@@ -11987,3 +11987,17 @@ test('Alliance 50-60/01: the Broodling Essence step warns of the Malfunctioning 
 	const fixes = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', 'guide-fixes.json'), 'utf8')).fixes;
 	assert.ok(fixes.some((f) => f.at && f.at.quest === 4726 && f.at.objective === 1 && /Malfunctioning Reaver/.test(f.tip || '')), 'and its record');
 });
+
+// 0.4.0 route-feel audit (Alliance Felwood): the route reaches Xavaric at the far end of Jadefire Run for his Flute;
+// he is killed for Further Corruption (4906) there, not after the other satyrs on a walk back (6.3 min on every branch).
+test('Alliance 50-60/02: Xavaric killed when the route reaches him for the Flute of Xavaric', { skip }, () => {
+	const fel = goals('forever/alliance/50-60/02-felwood.guide');
+	const xav = at(fel, 'kill Xavaric', (g) => g.t === 'kill' && g.quest === 4906 && g.oi === 4);
+	const flute = at(fel, 'collect 11668', (g) => g.t === 'collect' && g.item === 11668);
+	assert.equal(fel[xav].s, fel[flute].s, 'the same step');
+	assert.ok(xav < flute, 'killed before the flute is looted');
+	for (const oi of [1, 2, 3]) assert.ok(xav < at(fel, `kill 4906.${oi}`, (g) => g.t === 'kill' && g.quest === 4906 && g.oi === oi), `before the other satyrs (4906.${oi})`);
+	const rf = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', 'route-fixes.json'), 'utf8')).deliberate.together;
+	assert.ok(rf.some((r) => r.a[0] === 'task' && r.a[1] === 4906 && r.a[2] === 3 && r.b[0] === 'accept' && r.b[1] === 939), 'its record');
+});
+
