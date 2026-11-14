@@ -644,7 +644,10 @@
 		] },
 		"1004": { "tests": [
 			{ "node": "tests/guides-reported.test.js", "test": "Bill's report (#1004): a town's bind never sends you back to the giver you just left" },
-			{ "node": "tests/guides-reported.test.js", "test": "Every Horde route (Bill, #1004): the Ratchet bind never sends you back to where you stood before it" }
+			{ "node": "tests/guides-reported.test.js", "test": "Every Horde route (Bill, #1004): the Ratchet bind never sends you back to where you stood before it" },
+			{ "node": "tests/guides-reported.test.js", "test": "The Barrens (Horde 14-21): one bind, at the Crossroads; Ratchet and Camp Taurajo are not bound (0.4.0 audit)" },
+			{ "seed": "Bill's report (#1004): a town's bind never sends you back to the giver you just left" },
+			{ "seed": "The Barrens (Horde 14-21): one bind, at the Crossroads; Ratchet and Camp Taurajo are not bound (0.4.0 audit)" }
 		] },
 		"1018": { "tests": [
 			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/alts.rs", "test": "on_forever_whose_names_carry_a_surname_the_entry_is_filed_under_the_full_name_and_a_0_3_3_entry_moves_to_it_1018" },
@@ -1144,7 +1147,8 @@
 			{ "cargo": "forge-guide", "target": "guide", "file": "rust/crates/forge-guide/tests/guide/dsl_heights.rs", "test": "a_goto_takes_the_height_of_the_goal_it_leads_to_in_its_step_or_the_next_within_15_yards_1786" }
 		] },
 		"1792": { "tests": [
-			{ "node": "tests/guides-reported.test.js", "test": "${REDRIDGE}: nikilok's report (#1792): no Bronze Tube from Herble; Gearcutter Cogspinner's on the Ironforge stop before, optional" }
+			{ "node": "tests/guides-reported.test.js", "test": "${REDRIDGE}: nikilok's report (#1792): no Bronze Tube from Herble; Gearcutter Cogspinner's on the Ironforge stop before, optional" },
+			{ "seed": "{REDRIDGE}: nikilok's report (#1792): no Bronze Tube from Herble; Gearcutter Cogspinner's on the Ironforge stop before, optional" }
 		] },
 		"1801": { "tests": [
 			{ "node": "tests/client-still.test.js", "test": "minimized, in the tray or a hidden page: still at once; back in sight: moving again" },
