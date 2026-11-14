@@ -278,6 +278,17 @@ function M.Keys()
 	return out
 end
 
+-- The name of the frame whose place setting `path` is (a spec's keys: a
+-- profile string's Window positions name it so), or nil.
+function M.KeyLabel(path)
+	for _, key in ipairs(order) do
+		for _, k in ipairs(specs[key].keys or {}) do
+			if k == path then return specs[key].label end
+		end
+	end
+	return nil
+end
+
 local function enabled(spec)
 	if not spec.enabled then return true end
 	return spec.enabled() and true or false
