@@ -315,11 +315,7 @@ fn a_string_holds_the_categories_ticked_and_an_import_takes_only_the_ones_picked
 	assert_eq!(out["pos"], json!(["nav.arrowPos", "rares.toastPoint", "ui.pos"]));
 	assert_eq!(out["posOrder"], json!(["positions"]));
 	assert_eq!(out["none"], "Tick at least one part to put in the string.");
-	assert_eq!(
-		out["allOrder"],
-		json!(["skin", "fonts", "window", "arrow", "routes", "quests", "hud", "gear", "dungeons", "positions"]),
-		"every category, settings in it or not"
-	);
+	assert_eq!(out["allOrder"], json!(["skin", "fonts", "window", "arrow", "routes", "quests", "hud", "gear", "dungeons", "positions"]), "every category, settings in it or not");
 	assert_eq!(out["unticked"], "Nothing to apply: every part of the string is unticked.");
 	assert_eq!(out["ok"], true);
 	assert_eq!(out["undoFor"], "Fresh");
@@ -908,10 +904,7 @@ fn the_share_tab_makes_a_string_of_the_parts_ticked_and_imports_the_parts_picked
 		],
 		"every category but Window positions ticked to start with"
 	);
-	assert_eq!(
-		out["opened"]["note"],
-		"Window positions stay out unless you tick them: on another screen, frames you dragged can land in odd places."
-	);
+	assert_eq!(out["opened"]["note"], "Window positions stay out unless you tick them: on another screen, frames you dragged can land in odd places.");
 	assert_eq!(out["listed"], json!(["Scale: 120%"]), "the Guide window's list: its setting and value");
 	assert_eq!(out["folded"], false);
 	assert_eq!(out["made"]["exported"].as_str().map(|s| &s[..6]), Some("!PSS1!"));
