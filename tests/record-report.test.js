@@ -150,6 +150,86 @@ test('per-guide totals and the ranked lists', () => {
 	assert.deepEqual(r.detours.map((x) => [x.guide, x.step, x.medianYards, x.medianXp]), [[G, 5, 1040, 0]]);
 });
 
+// A synthetic 1000-yard map makes each percentage point ten yards.
+function movementReport(events, schema = 2) {
+	return buildReport([{ ...session('Movement', 1791300000, events), schema, maps: { 1429: { left: 0, right: 1000, top: 0, bottom: 1000 } } }]);
+}
+
+const remotePoints = [
+	{ e: 'poi', q: 7, done: false },
+	{ e: 'treasure', object: 10 },
+	{ e: 'rare', npc: 6, src: 'v' },
+];
+
+for (const point of remotePoints) {
+	test(`${point.e} map points do not invent travel or detours for a stationary player`, () => {
+		const r = movementReport([
+			step(0, 'step', G, 1, 1, 0),
+			{ ...point, t: 200, ...at, x: 90 },
+			{ e: 'pos', t: 400, ...at },
+			step(600, 'step', G, 2, 1, 100),
+		]);
+		const row = stepRow(r, G, 1);
+		assert.equal(row.medianYards, 0);
+		assert.deepEqual(r.detours, []);
+		// The sighting still supplies an event timestamp: skipping it entirely
+		// would join two gaps and discard 100 seconds through the idle cap.
+		assert.equal(row.medianTime, 600);
+		assert.equal(row.xp, 100);
+	});
+}
+
+test('schema-1 rare vignettes are remote points too', () => {
+	const r = movementReport([
+		step(0, 'step', G, 1, 1, 0),
+		{ e: 'rare', src: 'vignette', npc: 6, t: 200, ...at, x: 90 },
+		{ e: 'pos', t: 400, ...at },
+		step(600, 'step', G, 2, 1, 100),
+	], 1);
+	assert.equal(stepRow(r, G, 1).medianYards, 0);
+	assert.deepEqual(r.detours, []);
+});
+
+test('travel continues from the last player position through remote sightings', () => {
+	const r = movementReport([
+		step(0, 'step', G, 1, 1, 0),
+		{ e: 'pos', t: 100, ...at, x: 60 },
+		...remotePoints.map((point, i) => ({ ...point, t: 150 + 50 * i, ...at, x: [90, 5, 10][i] })),
+		{ e: 'pos', t: 300, ...at, x: 70 },
+		step(400, 'step', G, 2, 1, 100, { x: 70 }),
+	]);
+	assert.equal(stepRow(r, G, 1).medianYards, 200);
+	assert.deepEqual(r.detours, []);
+});
+
+test('a quest point on another map does not break the player position trail', () => {
+	const r = movementReport([
+		step(0, 'step', G, 1, 1, 0),
+		{ e: 'poi', t: 100, map: 1430, x: 90, y: 50, q: 7 },
+		{ e: 'pos', t: 200, ...at, x: 70 },
+		step(300, 'step', G, 2, 1, 100, { x: 70 }),
+	]);
+	assert.equal(stepRow(r, G, 1).medianYards, 200);
+});
+
+test('creature sightings made at the player position still measure travel', () => {
+	const sightings = [
+		{ schema: 2, e: 'unit', src: 'target' },
+		{ schema: 2, e: 'unitx' },
+		...['p', 't', 'm'].map((src) => ({ schema: 2, e: 'rare', src })),
+		...['nameplate', 'target', 'mouseover'].map((src) => ({ schema: 1, e: 'rare', src })),
+	];
+	for (const { schema, ...point } of sightings) {
+		const r = movementReport([
+			step(0, 'step', G, 1, 1, 0),
+			{ ...point, t: 100, ...at, x: 60, npc: 6 },
+			{ e: 'pos', t: 200, ...at },
+			step(300, 'step', G, 2, 1, 100),
+		], schema);
+		assert.equal(stepRow(r, G, 1).medianYards, 200, JSON.stringify(point));
+	}
+});
+
 test('--guide narrows the report; the text report names steps, revisits and open passes', () => {
 	const r = buildReport(SESSIONS(), { guide: 'MINING' });
 	assert.deepEqual(r.guides.map((g) => g.id), [G2]);
@@ -195,4 +275,115 @@ test('sessions without Polestar (no step snapshots) report nothing instead of fa
 	const r = buildReport([plain]);
 	assert.deepEqual([r.guides, r.steps, r.slowest], [[], [], []]);
 	assert.match(formatReport(r), /No guide steps recorded/);
+});
+
+test('completion ends a step at its final time, XP and position before unrelated play', () => {
+	const r = buildReport([session('Done', 1, [
+		step(0, 'login', G, 1, 1, 0, { combat: true }),
+		step(60, 'complete', G, null, 1, 100, { x: 51 }),
+		{ t: 80, e: 'death', ...at },
+		{ t: 90, e: 'turnin', q: 7, ...at },
+		step(120, 'guide', G2, 1, 1, 200),
+		step(180, 'step', G2, 2, 1, 300),
+	])]);
+	const last = stepRow(r, G, 1);
+	assert.deepEqual(
+		{ time: last.totalTime, xp: last.xp, yards: last.medianYards, deaths: last.deaths, turnins: last.turnins, combat: last.combatShare, passes: last.passes, open: last.open },
+		{ time: 60, xp: 100, yards: 52, deaths: 0, turnins: 0, combat: 1, passes: 1, open: 0 },
+	);
+	const run = r.guides.find((g) => g.id === G).runs[0];
+	assert.deepEqual({ time: run.time, xp: run.xp, completed: run.completed }, { time: 60, xp: 100, completed: true });
+	assert.equal(stepRow(r, G2, 1).totalTime, 60);
+	assert.equal(stepRow(r, G2, 1).xp, 100);
+	assert.equal(r.unattributedTime, 60, 'play between completion and the next guide is retained');
+	assert.equal(r.guides.reduce((sum, g) => sum + g.runs.reduce((n, run) => n + run.time, 0), 0) + r.unattributedTime, 180);
+});
+
+for (const order of ['before', 'after']) {
+	test(`a terminal snapshot ${order} completion does not restart the completed guide's time`, () => {
+		const terminal = step(60, 'step', G, null, 1, 100);
+		const complete = step(60, 'complete', G, null, 1, 100);
+		const events = [
+			step(0, 'login', G, 1, 1, 0),
+			...(order === 'before' ? [terminal, complete] : [complete, terminal]),
+			{ t: 120, e: 'pos', ...at },
+		];
+		const r = buildReport([
+			session('Done', 1, events),
+			// A reload or tab switch can snapshot the completed guide without a step.
+			session('Done', 1000, [
+				step(0, 'login', G, null, 1, 200),
+				{ t: 60, e: 'pos', ...at },
+				step(120, 'guide', G2, 1, 1, 250),
+				step(180, 'step', G2, 2, 1, 300),
+			]),
+		]);
+		const g = r.guides.find((g) => g.id === G);
+		assert.equal(g.completedRuns, 1);
+		assert.deepEqual({ time: g.runs[0].time, xp: g.runs[0].xp }, { time: 60, xp: 100 });
+		assert.deepEqual({ passes: stepRow(r, G, 1).passes, open: stepRow(r, G, 1).open }, { passes: 1, open: 0 });
+		assert.equal(stepRow(r, G2, 1).totalTime, 60);
+		assert.equal(stepRow(r, G2, 1).xp, 50);
+		assert.equal(r.unattributedTime, 180, 'both snapshot orders retain play without counting the offline gap');
+	});
+}
+
+test('unattributed play after completion preserves AFK state and the idle cap', () => {
+	for (const { before = [], after, expected } of [
+		{ after: [{ t: 80, e: 'afk', on: true }, { t: 160, e: 'afk', on: false }, { t: 200, e: 'pos', ...at }], expected: 60 },
+		{ before: [{ t: 40, e: 'afk', on: true }], after: [{ t: 160, e: 'afk', on: false }, { t: 200, e: 'pos', ...at }], expected: 40 },
+		{ after: [{ t: 660, e: 'pos', ...at }], expected: 300 },
+		{ after: [], expected: 0 },
+	]) {
+		const r = buildReport([session('Done', 1, [
+			step(0, 'login', G, 1, 1, 0), ...before,
+			step(60, 'complete', G, null, 1, 100), ...after,
+		])]);
+		assert.equal(r.unattributedTime, expected);
+		assert.equal(stepRow(r, G, 1).xp, 100, 'later unassigned play cannot change the completed step');
+	}
+});
+
+test('a background guide completion leaves the active guide segment running', () => {
+	const r = buildReport([session('Tabs', 1, [
+		step(0, 'login', G, 1, 1, 0),
+		step(30, 'guide', G2, 1, 1, 50),
+		step(60, 'complete', G, null, 1, 100),
+		step(120, 'step', G2, 2, 1, 200),
+	])]);
+	assert.deepEqual(
+		{ time: stepRow(r, G, 1).totalTime, xp: stepRow(r, G, 1).xp, passes: stepRow(r, G, 1).passes },
+		{ time: 30, xp: 50, passes: 1 },
+	);
+	assert.deepEqual(
+		{ time: stepRow(r, G2, 1).totalTime, xp: stepRow(r, G2, 1).xp },
+		{ time: 90, xp: 150 },
+	);
+});
+
+test('reopening an actual step after completion starts a new pass', () => {
+	const r = buildReport([session('Repeat', 1, [
+		step(0, 'login', G, 1, 1, 0),
+		step(60, 'complete', G, null, 1, 100),
+		step(60, 'step', G, null, 1, 100),
+		step(120, 'guide', G, 1, 1, 200),
+		step(180, 'complete', G, null, 1, 300),
+	])]);
+	const row = stepRow(r, G, 1);
+	assert.deepEqual({ passes: row.passes, open: row.open, time: row.totalTime, xp: row.xp }, { passes: 2, open: 0, time: 120, xp: 200 });
+	const run = r.guides[0].runs[0];
+	assert.deepEqual({ time: run.time, xp: run.xp }, { time: 120, xp: 200 });
+});
+
+test('completion without an XP snapshot does not borrow XP from the next session', () => {
+	const r = buildReport([
+		session('NoXp', 1, [
+			step(0, 'login', G, 1, 1, 0),
+			{ t: 30, e: 'accept', lvl: 1, xp: 50 },
+			{ t: 60, e: 'step', reason: 'complete', guide: G },
+		]),
+		session('NoXp', 1000, [step(0, 'login', G2, 1, 1, 200)]),
+	]);
+	assert.equal(stepRow(r, G, 1).xp, 50);
+	assert.equal(stepRow(r, G, 1).totalTime, 60);
 });

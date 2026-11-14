@@ -435,10 +435,13 @@ end
 -- A button joins: `opts.force` shows it while hidden (when `opts.enabled()`,
 -- if given, says it is on); `opts.wanted(b)` says the guide shows it now
 -- (default: it has a secure action); `opts.icon()` stands in for its icon
--- while it is shown for binding.
+-- while it is shown for binding; `opts.command` binds another binding than
+-- its own click (the target list's Polestar mark stands in for the hidden
+-- target button).
 function QB.Add(b, opts)
 	if byButton[b] or not (b and b.GetName and b:GetName()) then return end
-	local e = { button = b, command = "CLICK " .. b:GetName() .. ":LeftButton", opts = opts or {} }
+	opts = opts or {}
+	local e = { button = b, command = opts.command or ("CLICK " .. b:GetName() .. ":LeftButton"), opts = opts }
 	e.hl = newHighlight(b)
 	entries[#entries + 1] = e
 	byButton[b] = e

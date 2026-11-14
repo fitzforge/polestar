@@ -14,7 +14,7 @@ return {
 	-- {npc:2934} Keeper Bel'dugur
 	["{npc:2934}, on the way back to Zinge"] = "{npc:2934}, auf dem Rückweg zu Zinge",
 	-- {item:8523} Field Testing Kit · {area:976} Gadgetzan
-	["the {item:8523} from these errands: keep it, Tanaris Field Sampling hands it back in {area:976}"] = "",
+	["the {item:8523} from these errands: keep it, Tanaris Field Sampling hands it back in {area:976}"] = "{item:8523} von diesen Aufträgen: behalte es, Tanaris Field Sampling gibt es in {area:976} zurück",
 
 	-- Step 3: Undercity
 	-- {npc:7825} Oran Snakewrithe · {object:36126} Royal Quarter
@@ -23,7 +23,7 @@ return {
 	-- Step 4: Riding at 40
 	["Riding at 40"] = "Reiten mit 40",
 	-- {npc:4773} Velma Warnam · {area:159} Brill · {npc:4731} Zachariah Post · {object:3202} Grom'gol (no name in this language: may be words)
-	["Riding needs level 40 and costs 100 gold; learning it gives you a mount. Each race learns it from its own race's trainer: yours is {npc:4773} in {area:159}, a short ride north of the zeppelin towers, with {npc:4731}'s skeletal horses (20 gold each) beside her. Ride back to the towers for the {object:3202} zeppelin."] = "",
+	["Riding needs level 40 and costs 100 gold; learning it gives you a mount. Each race learns it from its own race's trainer: yours is {npc:4773} in {area:159}, a short ride north of the zeppelin towers, with {npc:4731}'s skeletal horses (20 gold each) beside her. Ride back to the towers for the {object:3202} zeppelin."] = "Reiten erfordert Stufe 40 und kostet 100 Gold; wenn du es lernst, bekommst du ein Reittier. Jede Rasse lernt es bei ihrem eigenen Rassenlehrer: deine ist {npc:4773} in {area:159}, ein kurzes Stück nördlich der Zeppelintürme, mit den Skelettpferden von {npc:4731} (je 20 Gold) neben ihr. Reite zurück zu den Türmen für den Zeppelin nach {object:3202}.",
 	-- {npc:4773} Velma Warnam
 	["{npc:4773}, riding trainer"] = "{npc:4773}, Reitlehrer",
 	-- {npc:4731} Zachariah Post · {npc:4773} Velma Warnam · {area:159} Brill
@@ -37,15 +37,15 @@ return {
 	-- {area:75} Stonard
 	["Fly to {area:75}"] = "Flieg nach {area:75}",
 	-- {object:3202} Grom'gol (no name in this language: may be words)
-	["{object:3202} flight master"] = "",
+	["{object:3202} flight master"] = "Flugmeister von {object:3202}",
 
 	-- Step 7: Stonard
 	-- {npc:5591} Dar · {area:75} Stonard · {npc:1443} Fel'zerul
-	["Coming from Stranglethorn, you carry these already. Starting here: {npc:5591} stands inside {area:75}'s great hall and {npc:1443} on its top floor."] = "",
+	["Coming from Stranglethorn, you carry these already. Starting here: {npc:5591} stands inside {area:75}'s great hall and {npc:1443} on its top floor."] = "Wenn du aus Stranglethorn kommst, hast du diese schon. Ab hier: {npc:5591} steht in der großen Halle von {area:75} und {npc:1443} im obersten Stock.",
 	-- {npc:5591} Dar
-	["{npc:5591}, inside"] = "",
+	["{npc:5591}, inside"] = "{npc:5591}, drinnen",
 	-- {npc:1443} Fel'zerul
-	["{npc:1443}, on the top floor"] = "",
+	["{npc:1443}, on the top floor"] = "{npc:1443}, im obersten Stock",
 
 	-- Step 8: A Soggy Scroll
 	["Ride west along the road; the scroll lies at the water's edge in the swamp's far west."] = "Reite auf der Straße nach Westen; die Schriftrolle liegt am Wasser im äußersten Westen des Sumpfs.",
@@ -55,7 +55,7 @@ return {
 	-- Step 9: Sawtooth crocolisks
 	["Sawtooth crocolisks"] = "Sägezahnkrokilisken",
 	-- {area:75} Stonard
-	["The crocolisks wallow in the pools around Galen's old camp, just north of {area:75}, on the way back east; about one in four drops a flank."] = "",
+	["The crocolisks wallow in the pools around Galen's old camp, just north of {area:75}, on the way back east; about one in four drops a flank."] = "Die Krokolisken suhlen sich in den Tümpeln rund um Galens altes Lager, direkt nördlich von {area:75}, auf dem Rückweg nach Osten; etwa jede vierte lässt eine Flanke fallen.",
 
 	-- Step 10: Pool of Tears
 	-- {area:75} Stonard · {quest:1424} Pool of Tears
@@ -63,14 +63,14 @@ return {
 
 	-- Step 11: Misty Reed Post
 	-- {npc:5592} Tok'Kar
-	["Follow the road south-east to the small Horde post on the shore. {npc:5592} takes the crocolisk flanks from the last swamp visit."] = "",
+	["Follow the road south-east to the small Horde post on the shore. {npc:5592} takes the crocolisk flanks from the last swamp visit."] = "Folge der Straße nach Südosten zum kleinen Posten der Horde am Ufer. {npc:5592} nimmt die Krokoliskenflanken vom letzten Sumpfbesuch.",
 
 	-- Step 12: The Forbidding Sea: kill these as you meet them
 	-- {area:2403} The Forbidding Sea
-	["{area:2403}: kill these as you meet them"] = "",
+	["{area:2403}: kill these as you meet them"] = "{area:2403}: töte diese, wenn du sie triffst",
 	-- plural, as words: Monstrous Crawlers = {npc:1088} Monstrous Crawler
-	["The snappers line the strand south of the post.\nThe Monstrous Crawlers walk the beaches of the east coast, few and far between: kill every one you see, the ones on the ride down from the pool too."] = "",
-	["Underwater"] = "",
+	["The snappers line the strand south of the post.\nThe Monstrous Crawlers walk the beaches of the east coast, few and far between: kill every one you see, the ones on the ride down from the pool too."] = "Die Snapper säumen den Strand südlich des Postens.\nDie Monstrous Crawlers laufen an den Stränden der Ostküste, nur vereinzelt: Töte jeden, den du siehst, auch die auf dem Ritt hinab vom Teich.",
+	["Underwater"] = "Unter Wasser",
 
 	-- Step 14: Murlocs of the Misty Reed
 	["Murlocs of the Misty Reed"] = "Murlocs am Nebelschilf",
@@ -79,7 +79,7 @@ return {
 	["Below ground"] = "Unter der Erde",
 
 	-- Step 16: Continued Threat
-	["The same murloc shore again: Inkspewers east of the post, Flesheaters around the western huts, and the Oracles among both."] = "",
+	["The same murloc shore again: Inkspewers east of the post, Flesheaters around the western huts, and the Oracles among both."] = "Dieselbe Murloc-Küste noch einmal: Inkspewers östlich des Postens, Flesheaters rund um die westlichen Hütten und die Oracles unter beiden.",
 
 	-- Step 18: Stonard
 	-- {npc:5598} Atal'ai Exile · {zone:1425} Hinterlands
@@ -87,7 +87,7 @@ return {
 
 	-- Step 19: To Camp Mojache
 	-- {area:1099} Camp Mojache
-	["To {area:1099}"] = "",
+	["To {area:1099}"] = "Nach {area:1099}",
 
 	-- Step 20: Camp Mojache
 	-- {zone:1425} Hinterlands
@@ -95,35 +95,35 @@ return {
 
 	-- Step 21: Fly to Brackenwall Village
 	-- {area:496} Brackenwall Village
-	["Fly to {area:496}"] = "",
+	["Fly to {area:496}"] = "Flieg nach {area:496}",
 	-- {area:1099} Camp Mojache
-	["{area:1099} flight master"] = "",
+	["{area:1099} flight master"] = "Flugmeister in {area:1099}",
 
 	-- Step 22: Brackenwall Village
 	-- {npc:4500} Overlord Mok'Morokk · {npc:4502} Tharg · {npc:4501} Draz'Zilb · {area:511} Wyrmbog
-	["{npc:4500}, {npc:4502} and {npc:4501} (below ground) are in the village; their quests are for the {area:511} on this trip."] = "",
+	["{npc:4500}, {npc:4502} and {npc:4501} (below ground) are in the village; their quests are for the {area:511} on this trip."] = "{npc:4500}, {npc:4502} und {npc:4501} (unterirdisch) sind im Dorf; ihre Quests sind für {area:511} bei diesem Besuch.",
 	-- {npc:4501} Draz'Zilb
-	["{npc:4501}, below ground"] = "",
+	["{npc:4501}, below ground"] = "{npc:4501}, unterirdisch",
 
 	-- Step 23: Dustwallow Marsh
 	-- {object:2555} Musty Scroll
-	["The {object:2555}"] = "",
+	["The {object:2555}"] = "{object:2555}",
 
 	-- Step 24: The Musty Scroll
 	-- {object:2555} Musty Scroll
-	["Ride south-west to the {object:2555}."] = "",
+	["Ride south-west to the {object:2555}."] = "Reite nach Südwesten zu {object:2555}.",
 	-- {object:2555} Musty Scroll
 	["the {object:2555}"] = "{object:2555}",
 	-- {area:498} Bloodfen Burrow
-	["Inside {area:498}"] = "",
+	["Inside {area:498}"] = "In {area:498}",
 
 	-- Step 25: The Dragonmurk: kill these as you meet them
 	-- {area:510} The Dragonmurk
-	["{area:510}: kill these as you meet them"] = "",
+	["{area:510}: kill these as you meet them"] = "{area:510}: töte diese, wenn du sie triffst",
 	-- {area:511} Wyrmbog
-	["East through the {area:511}: the Firemane scouts and ash tails roam its northern edge with the Searing hatchlings and whelps; the scalebanes guard the dragon caves further south-east. Mok'Morokk's snuff, grog and strongbox lie in the dragonkin camps."] = "",
+	["East through the {area:511}: the Firemane scouts and ash tails roam its northern edge with the Searing hatchlings and whelps; the scalebanes guard the dragon caves further south-east. Mok'Morokk's snuff, grog and strongbox lie in the dragonkin camps."] = "Weiter östlich durch {area:511}: Die Firemane-Späher und Aschenschwänze streifen mit den Searing-Jungtieren und Welpen am Nordrand umher; die Scalebane bewachen die Drachenhöhlen weiter südöstlich. Mok'Morokks Schnupftabak, Grog und Truhe liegen in den Lagern der Drachkin.",
 	-- {npc:4329} Firemane Scout · {area:510} The Dragonmurk
-	["{npc:4329} walks around {area:510}: look inside the circle on the map"] = "",
+	["{npc:4329} walks around {area:510}: look inside the circle on the map"] = "{npc:4329} läuft um {area:510} herum: schau in den Kreis auf der Karte",
 
 	-- Step 26: Brackenwall Village
 	["Ride back north to Brackenwall."] = "Reite zurück nach Norden nach Brackenwall.",
@@ -139,17 +139,17 @@ return {
 	-- {npc:4500} Overlord Mok'Morokk · {area:511} Wyrmbog · {area:978} Zul'Farrak · {area:1517} Uldaman
 	["{npc:4500}'s challenge, back in Brackenwall, needs a group of three. Alone, grind the Firemane scouts here on the {area:511}'s northern edge to level 45.37 before you ride back north, so you don't come back down for it. Or, with a group, run the {area:978} dungeon or the {area:1517} dungeon instead."] = "Die Herausforderung von {npc:4500}, zurück in Brackenwall, braucht eine Dreiergruppe. Allein grindest du hier am Nordrand von {area:511} die Späher der Feuermähnen bis Stufe 45.37, bevor du zurück nach Norden reitest, damit du dafür nicht noch einmal herunterkommen musst. Oder lauf mit einer Gruppe stattdessen den Dungeon {area:978} oder den Dungeon {area:1517}.",
 	-- {npc:4329} Firemane Scout
-	["grind on {npc:4329}"] = "",
+	["grind on {npc:4329}"] = "grinde {npc:4329}",
 
 	-- Step 30: Challenge Overlord Mok'Morokk
 	-- {quest:1173} Challenge Overlord Mok'Morokk · {npc:4500} Overlord Mok'Morokk · {npc:4501} Draz'Zilb
-	["These are elite mobs: grouping up is encouraged, look for people to do it with. {quest:1173} needs a group of 3. Skip it if you are alone: the route has you grind the XP back.\n{npc:4500} is elite: grouping up is advised. Beat him down until he gives up, then report to {npc:4501}."] = "",
+	["These are elite mobs: grouping up is encouraged, look for people to do it with. {quest:1173} needs a group of 3. Skip it if you are alone: the route has you grind the XP back.\n{npc:4500} is elite: grouping up is advised. Beat him down until he gives up, then report to {npc:4501}."] = "Das sind Elite-Mobs: Sich zu gruppieren ist empfohlen, such dir Leute dafür. {quest:1173} braucht eine Gruppe von 3. Überspring sie, wenn du allein bist: Die Route lässt dich die EP wieder erarbeiten.\n{npc:4500} ist Elite: Gruppe empfohlen. Prügle ihn nieder, bis er aufgibt, und melde dich dann bei {npc:4501}.",
 
 	-- Step 31: Fly to Camp Mojache
 	-- {area:1099} Camp Mojache
 	["Fly to {area:1099}"] = "Flieg zum {area:1099}",
 	-- {area:496} Brackenwall Village
-	["{area:496} flight master"] = "",
+	["{area:496} flight master"] = "Flugmeister von {area:496}",
 
 	-- Step 32: Sprite darters and forest walkers
 	["Sprite darters and forest walkers"] = "Grimmlingflitzer und Waldgänger",
@@ -168,11 +168,11 @@ return {
 	-- Step 35: Rogue Vale screechers
 	["Rogue Vale screechers"] = "Kreischer",
 	-- {npc:14637} Zorbin Fandazzle · {npc:5308} Rogue Vale Screecher · {item:10699} Yeh'kinya's Bramble
-	["Rogue Vale opens just north of {npc:14637}'s dock. Kill a {npc:5308}, use {item:10699} on its body and kill the spirit that rises."] = "",
+	["Rogue Vale opens just north of {npc:14637}'s dock. Kill a {npc:5308}, use {item:10699} on its body and kill the spirit that rises."] = "Rogue Vale beginnt direkt nördlich von {npc:14637}s Dock. Töte einen {npc:5308}, benutze {item:10699} an seinem Körper und töte den Geist, der sich erhebt.",
 
 	-- Step 36: Forgotten Coast: kill these as you meet them
 	-- {area:1108} Forgotten Coast
-	["{area:1108}: kill these as you meet them"] = "",
+	["{area:1108}: kill these as you meet them"] = "{area:1108}: Töte diese, sobald sie dir begegnen",
 	-- {item:18904} Zorbin's Ultra-Shrinker
 	["Sea elementals and sea sprays wash along the shore around the dock. Zap the giants with {item:18904} first: shrunken, they lose their elite strength. Shore striders wade in the water; the land walkers and cliff giants roam the hills further north."] = "Meereselementare und Meeresschauer spülen um den Steg am Ufer entlang. Schrumpfe die Riesen zuerst mit {item:18904}: Geschrumpft verlieren sie ihre Elitestärke. Uferschreiter waten im Wasser; die Landgänger und Klippenriesen streifen weiter nördlich durch die Hügel.",
 
@@ -183,13 +183,13 @@ return {
 	-- Step 38: Rage Scar yetis
 	["Rage Scar yetis"] = "Wutschrammyetis",
 	-- {quest:7738} Perfect Yeti Hide
-	["On the way back south-east from the harpies, the Rage Scar yetis live around the caves in the hills by the road. Any of them can also drop a {quest:7738}, which starts a quest of its own."] = "",
+	["On the way back south-east from the harpies, the Rage Scar yetis live around the caves in the hills by the road. Any of them can also drop a {quest:7738}, which starts a quest of its own."] = "Auf dem Rückweg nach Südosten von den Harpyien leben die Rage Scar Yetis bei den Höhlen in den Hügeln an der Straße. Jeder von ihnen kann auch {quest:7738} fallen lassen, das eine eigene Quest startet.",
 	-- {quest:7738} Perfect Yeti Hide
 	["{quest:7738}, a rare drop"] = "{quest:7738}, eine seltene Beute",
 
 	-- Step 39: Camp Mojache
 	-- {npc:7854} Jangdor Swiftstrider
-	["{npc:7854}, inside"] = "",
+	["{npc:7854}, inside"] = "{npc:7854}, drinnen",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Fly to {object:3202}"] = "Flieg nach {object:3202}",

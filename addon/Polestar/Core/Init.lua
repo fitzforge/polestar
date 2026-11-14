@@ -914,6 +914,10 @@ function ns.CharState()
 	if type(s.guideEnds) ~= "table" or s.guideEndsV ~= 2 then
 		s.guideEnds, s.guideEndsV = {}, 2
 	end
+	-- Guide id -> true: the guides the player finished, every step done (Engine.lua, the completion in
+	-- evaluateLoaded), kept over a reload or relog for the guide list's check (Engine.GetGuideState); a
+	-- reset forgets it, and so does a pack update that changes the guide's steps (checkShape).
+	if type(s.guideDone) ~= "table" then s.guideDone = {} end
 	return s
 end
 

@@ -17,6 +17,7 @@ local TARGET = "CLICK PolestarTargetButton:LeftButton"
 _G["BINDING_NAME_" .. TARGET] = "Target quest mob"
 local function set(key, v) Polestar.Set("qol." .. key, v); stub.runTimers() end
 local function look(b) return { shown = b:IsShown(), alpha = b:GetAlpha() or 1, label = b.Label and b.Label:GetText() or "" } end
+set("targetSimple", true) -- the single target button; the list's Polestar mark: qol-target-list.rs
 "#;
 
 fn run(script: &str) -> Vec<Value> {

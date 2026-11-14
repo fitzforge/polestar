@@ -18,7 +18,7 @@ local QoL = ns.QoL
 local Buttons = QoL and QoL.Buttons
 local Theme, W = ns.Theme, ns.Widgets
 local L = ns.L
-if not (Buttons and Buttons.NewFace and ns.RegisterOptions and Theme and W) then return end
+if not (Buttons and Buttons.NewFace and Buttons.NewListFaces and ns.RegisterOptions and Theme and W) then return end
 
 local floor, min, max = math.floor, math.min, math.max
 
@@ -41,6 +41,14 @@ local SWITCH = { item = "itemButton", hearth = "hearthButton", target = "targetB
 -- The room between two elements side by side; the travel button (Nav/Prompts.lua's SIZE);
 -- a name's line over or under a button (the preset cards).
 local APART, TRAVEL, NAME_H = 56, 36, 18
+-- The target list beside the target button (unless Simple target button is
+-- on): its first row close (green), the second with a count, the third an
+-- NPC's (Buttons.PaintListFaces' entries).
+local LIST_DEMO = {
+	{ name = L["Rot Hide Mongrel"], verb = "kill", cur = 3, max = 8, near = true },
+	{ name = L["Scarlet Warrior"], verb = "kill", cur = 0, max = 5 },
+	{ name = L["Executor Zygand"], verb = "turnin" },
+}
 
 -- The player's own binding for a button, else a stand-in so the key text
 -- setting shows.
@@ -82,6 +90,8 @@ local function newSet(f, combat)
 	target.aList = { L["Rot Hide Mongrel"], L["Scarlet Warrior"], L["Executor Zygand"] }
 	target.aVerbs = { "kill", "collect", "turnin" }
 	target.aIds, target.aMarks, target.aCycle = {}, { false, false, false }, 1
+	-- The target list's mark and rows, drawn by the live list's code (#1704).
+	set.rows = Buttons.NewListFaces(set.group, #LIST_DEMO)
 	return set
 end
 
@@ -109,7 +119,20 @@ local function setContent(self, set)
 		b:SetShown(QoL.On(SWITCH[b.psKind]) and true or false)
 	end
 	set.group:SetAlpha(Buttons.Alpha(set.combat))
-	local at = Buttons.Offsets()
+	-- Beside the target list (Simple target button off) the target button is
+	-- hidden and the list's mark and rows stand there, as on the screen (#1704).
+	local rows = set.rows
+	local listed = QoL.On("targetButton") and not QoL.On("targetSimple")
+	if listed then
+		target:Hide()
+		Buttons.PaintListFaces(rows, target, LIST_DEMO)
+	else
+		for _, r in ipairs(rows.rows) do r:Hide() end
+	end
+	rows.mark:SetShown(listed and true or false)
+	-- The set's slots from its offsets (the rare button clear of the rows).
+	local n = listed and #LIST_DEMO or 0
+	local at = Buttons.Offsets(n)
 	local x0, x1, y0, y1 = math.huge, -math.huge, math.huge, -math.huge
 	local bx0, bx1, by0, by1 = math.huge, -math.huge, math.huge, -math.huge
 	local function grow(l, r, b, t) x0, x1, y0, y1 = min(x0, l), max(x1, r), min(y0, b), max(y1, t) end
@@ -131,6 +154,14 @@ local function setContent(self, set)
 				else grow(o[1], o[1] + h + 6 + lw, o[2] - lh / 2, o[2] + lh / 2) end
 			end
 		end
+	end
+	if listed then
+		-- The mark in the target button's slot, the rows hanging to their side.
+		local o, h = at.target, Buttons.Size("target") / 2
+		grow(o[1] - h, o[1] + h, o[2] - h, o[2] + h)
+		bx0, bx1, by0, by1 = min(bx0, o[1] - h), max(bx1, o[1] + h), min(by0, o[2] - h), max(by1, o[2] + h)
+		local r0, r1, r2, r3 = Buttons.ListRect(n)
+		grow(o[1] + r0, o[1] + r1, o[2] + r2, o[2] + r3)
 	end
 	set.box:SetShown(bx0 <= bx1)
 	if bx0 > bx1 then return nil end
@@ -238,6 +269,16 @@ local function buildActionBand(view)
 	local names = { fo.target.Label, fo.rare.Label, ff.target.Label, ff.rare.Label }
 	local keys = { fo.hearth.Hotkey, fo.item.Hotkey, fo.target.Hotkey, ff.hearth.Hotkey, ff.item.Hotkey, ff.target.Hotkey }
 	local all = both("bag", "hearth", "item", "target", "rare")
+	-- The target lists' marks and rows (#1704) light with the target button and take the buttons' looks.
+	local lists = {}
+	for _, s in ipairs({ idle, fight }) do
+		lists[#lists + 1] = s.rows.mark
+		for _, r in ipairs(s.rows.rows) do lists[#lists + 1] = r end
+	end
+	for _, p in ipairs(lists) do all[#all + 1] = p end
+	f:Light("qol.targetButton", unpack(lists))
+	f:Light("qol.targetSimple", unpack(lists))
+	f:Light("buttons.targetSize", idle.rows.mark, fight.rows.mark)
 	local boxes = { idle.box, fight.box }
 	for key, parts in pairs({
 		["qol.buttonScale"] = boxes, ["buttons.layout"] = boxes, ["buttons.spacing"] = boxes,
@@ -257,6 +298,7 @@ local function buildActionBand(view)
 		f:Light(key, unpack(parts))
 	end
 	f.Faces = function() return fo, ff.item end
+	f.List = function() return idle.rows, fight.rows end
 	f.Travel = function() return travel end
 	f.Pick = function(v)
 		if v ~= nil then pick = v end
@@ -354,6 +396,8 @@ local function buildEssentialsBand(view)
 	}) do
 		f:Light(key, unpack(parts))
 	end
+	f:Light("qol.targetButton", set.rows.mark, unpack(set.rows.rows))
+	f:Light("buttons.targetSize", set.rows.mark)
 	local lb, mb
 	if launcher then
 		lb = launcher(CreateFrame("Button", nil, f))
@@ -366,6 +410,7 @@ local function buildEssentialsBand(view)
 		for _, key in ipairs({ "maps.minimapButtonSize", "maps.minimapButton", "maps.minimapButtonIcon" }) do f:Light(key, mb) end
 	end
 	f.Faces = function() return faces, lb, mb end
+	f.List = function() return set.rows end
 	f.Pick = function(v)
 		if v ~= nil then pick = v end
 		return pick
@@ -472,7 +517,7 @@ local SPECS = {
 		sizeRow("item", L["Quest item"], L["The quest item button's size, before the scale. The switch beside it shows or hides the button."],
 			"qol.itemButton", L["A button for the current step's quest item, with count, cooldown and range. Bind it under Key Bindings > AddOns."]),
 		sizeRow("target", L["Target"], L["The target button's size, before the scale. The switch beside it shows or hides the button."],
-			"qol.targetButton", L["Targets the current step's mobs by name, or the NPCs it sends you to when it has no mob; each click moves to the next name. Bindable."]),
+			"qol.targetButton", L["Lists the current step's mobs, or the NPCs it sends you to when it has no mob, with their portraits and what they drop; click a name to target that one. Its key binding targets the first one close by."]),
 		hearthRow,
 		travelRow,
 		sizeRow("rare", L["Rare"], L["The rare button's size, before the scale. The switch beside it shows or hides the button."],
@@ -532,8 +577,9 @@ local SPECS = {
 		{ kind = "toggle", key = "qol.targetPlate", label = L["Who it targets"], info = true,
 			help = L["The target button's icon shows what you do next: talk, accept, turn in, kill or loot, a skull for an elite, rare or boss, or their face once you have seen them. Their name sits beside it, green for a friendly NPC, red for a mob, gold for an elite or rare, with small icons for the names after it. The cog sets those icons' size."],
 			search = "target icon, target name, portrait, npc name, elite, boss, plate, show who it targets",
-			disabled = function() return not QoL.On("targetButton") end,
+			disabled = function() return not (QoL.On("targetButton") and QoL.On("targetSimple")) end,
 			more = { { kind = "slider", key = "buttons.miniSize", label = L["Next names' icons"], min = 8, max = 32, step = 1, format = px, new = NEW,
+				disabled = function() return not (QoL.On("targetButton") and QoL.On("targetSimple")) end,
 				help = L["The small icons for the names after the next one, under the target's name, and the action badge on a face."],
 				search = "small icons, mini icons, next targets, badge size, queue" } } },
 		{ kind = "toggle", key = "buttons.hotkey", label = L["Key binding"], new = NEW,
@@ -590,7 +636,10 @@ if O and O.PresetCards and O.Ref then
 	local R = O.Ref
 	-- A preset's card: the Hearthstone, quest item and target buttons as the
 	-- set lines them up with the preset's values, drawn by the buttons' own
-	-- face code (Buttons.NewFace, Size, Paint, Offsets, Alpha) and fitted in.
+	-- face code (Buttons.NewFace, Size, Paint, Offsets, Alpha) and fitted in;
+	-- unless Simple target button is on, the target list's mark and rows in
+	-- the target button's place (Buttons.NewListFaces, PaintListFaces), as
+	-- on the screen. art.psGroup.rows: the list's faces, for the tests.
 	local function drawSetCard(art, _, values)
 		local cw, ch = art:GetWidth(), art:GetHeight()
 		if not (cw and cw > 0) then cw = W.CARD_W - 2 end
@@ -612,10 +661,13 @@ if O and O.PresetCards and O.Ref then
 			for i, key in ipairs({ "H", "E", "T" }) do g.faces[i].Hotkey:SetText(key) end
 			local t = g.faces[3]
 			t.aList, t.aVerbs, t.aIds, t.aMarks, t.aCycle = { L["Kobold Vermin"] }, { "kill" }, {}, { false }, 1
+			g.rows = Buttons.NewListFaces(g, #LIST_DEMO)
 			art.psGroup = g
 		end
 		O.WithSettings(values, function()
-			local at = Buttons.Offsets()
+			local listed = not QoL.On("targetSimple")
+			local n = listed and #LIST_DEMO or 0
+			local at = Buttons.Offsets(n)
 			local x0, x1, y0, y1 = math.huge, -math.huge, math.huge, -math.huge
 			for _, b in ipairs(g.faces) do
 				local size = Buttons.Size(b.psKind)
@@ -627,10 +679,21 @@ if O and O.PresetCards and O.Ref then
 				b:SetPoint("CENTER", g, "CENTER", o[1], o[2])
 				x0, x1, y0, y1 = min(x0, o[1] - h), max(x1, o[1] + h), min(y0, o[2] - h), max(y1, o[2] + h)
 			end
-			-- The target's name beside it, on its side: the card holds it too.
+			-- The target list in the target button's place; else the target's
+			-- name beside it, on its side: the card holds either.
 			local tb, o = g.faces[3], at.target
+			local rows = g.rows
+			tb:SetShown(not listed)
+			rows.mark:SetShown(listed)
+			if not listed then
+				for _, r in ipairs(rows.rows) do r:Hide() end
+			end
 			local lw, side, h = tb.Label:GetStringWidth() + 6, ns.Get("qol.buttonTextSide"), Buttons.Size("target") / 2
-			if side == "left" then
+			if listed then
+				Buttons.PaintListFaces(rows, tb, LIST_DEMO)
+				local r0, r1, r2, r3 = Buttons.ListRect(n)
+				x0, x1, y0, y1 = min(x0, o[1] + r0), max(x1, o[1] + r1), min(y0, o[2] + r2), max(y1, o[2] + r3)
+			elseif side == "left" then
 				x0 = min(x0, o[1] - h - lw)
 			elseif side == "above" or side == "below" then
 				x0, x1 = min(x0, o[1] - lw / 2), max(x1, o[1] + lw / 2)

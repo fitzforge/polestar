@@ -36,5 +36,8 @@ return {
 	["{item:1041} is in the client (20g) but our data has no vendor selling it."] = "{item:1041} ist im Client vorhanden (20g), aber unsere Daten kennen keinen Händler, der es verkauft.",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["Any Horde race can buy these wolves, but riding one also takes Wolf Riding, which only Orcs get with {skill:762}. {npc:4752} teaches it to other races once they are Exalted with {faction:76} (the Orgrimmar Reputation guide shows the way). Until then, don't buy a wolf for this character."] = "Jede Hordenrasse kann diese Wölfe kaufen, aber um einen zu reiten, braucht man auch Wolfreiten, das nur Orcs mit {skill:762} bekommen. {npc:4752} lehrt es andere Rassen, sobald sie bei {faction:76} Ehrfürchtig sind (der Ruf-Guide für Orgrimmar zeigt den Weg). Bis dahin kaufe für diesen Charakter keinen Wolf.",
+	-- ["Wolf {skill:762} for other races"] = "Wolf-{skill:762} für andere Rassen",
 	-- ["{npc:4752} and {npc:3362}'s kennel are in {zone:1454}'s {object:172958}. At 40 {npc:4752} teaches {skill:762} (100g per Blizzard's designers), and learning it gives you a mount. The Forever client lets every Horde race ride these."] = "Der Zwinger von {npc:4752} und {npc:3362} ist in {object:172958} in {zone:1454}. Mit 40 lehrt dich {npc:4752} {skill:762} (100g laut den Designern von Blizzard), und wenn du es lernst, bekommst du ein Reittier. Im Forever-Client dürfen alle Völker der Horde diese reiten.",
+	-- ["{npc:4752}, Wolf Riding"] = "{npc:4752}, Wolfreiten",
 }

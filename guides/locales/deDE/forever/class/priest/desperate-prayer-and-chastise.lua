@@ -110,7 +110,21 @@ return {
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["At 10, go to {npc:11406} in the {object:32386}, in {zone:1455}'s {object:32362}. Forever's quest text names Rohan, but the quest data has {npc:376} in {zone:1453}'s Cathedral of Light take it: try Rohan first, then Laurena (the {area:2257} links the cities)."] = "Geh mit Stufe 10 zu {npc:11406} in der {object:32386} im {object:32362} in {zone:1455}. Der Questtext von Forever nennt Rohan, laut Questdaten nimmt sie aber {npc:376} in der Kathedrale des Lichts in {zone:1453} an: Versuch es zuerst bei Rohan, dann bei Laurena ({area:2257} verbindet die Städte).",
+	-- ["At 20 in {zone:1453}, {npc:376} at the altar of the Cathedral of Light hands you a Chastise letter for {npc:11406} in {zone:1455} (the {area:2257} from the {object:28027})."] = "Mit Stufe 20 in {zone:1453} gibt dir {npc:376} am Altar der Kathedrale des Lichts einen Züchtigen-Brief für {npc:11406} in {zone:1455} (die {area:2257} vom {object:28027} aus).",
+	-- ["At 20 in {zone:1457}, {npc:11401}, on the upper balcony of the Temple of the Moon beside {npc:7999}, hands you a Chastise letter for {npc:11406} in {zone:1455}."] = "Mit Stufe 20 in {zone:1457} gibt dir {npc:11401} auf dem oberen Balkon des Mondtempels neben {npc:7999} einen Züchtigen-Brief für {npc:11406} in {zone:1455}.",
+	-- ["At 20, {npc:11406} in the {object:32386} teaches Chastise with a quest he gives and takes back at once. Forever renamed it from {quest:5641}: Chastise damages a humanoid and roots it for 2 seconds (instant, 2-minute cooldown), and every priest now trains Fear Ward."] = "Mit Stufe 20 bringt dir {npc:11406} in der {object:32386} Züchtigen mit einer Quest bei, die er gibt und sofort wieder zurücknimmt. Forever hat es von {quest:5641} umbenannt: Züchtigen schadet einem Humanoiden und schlägt ihn 2 Sekunden lang fest (sofort, 2 Minuten Cooldown), und jeder Priester lernt jetzt Furchtzauberschutz.",
 	-- ["At 20, {npc:11406} teaches {quest:5641}. {npc:376} in {zone:1453} and {npc:11401} in {zone:1457} send you to him with a quest of the same name."] = "Mit Stufe 20 lehrt {npc:11406} {quest:5641}. {npc:376} in {zone:1453} und {npc:11401} in {zone:1457} schicken dich mit einer gleichnamigen Quest zu ihm.",
+	-- ["Chastise: Alathea's letter"] = "Züchtigen: Alatheas Brief",
+	-- ["Chastise: Laurena's letter"] = "Züchtigen: Laurenas Brief",
+	-- ["Chastise: {npc:11401}"] = "Züchtigen: {npc:11401}",
+	-- ["Chastise: {npc:11406}"] = "Züchtigen: {npc:11406}",
+	-- ["Chastise: {npc:376}"] = "Züchtigen: {npc:376}",
+	-- ["Hand Laurena's letter to {npc:11406} in the {object:32386}, {zone:1455}'s {object:32362}: he teaches Chastise."] = "Gib Laurenas Brief an {npc:11406} in der {object:32386} ab, der {object:32362} von {zone:1455}: Er bringt dir Züchtigen bei.",
 	-- ["If Rohan did not take it: {npc:376} is in the Cathedral of Light. Take the {area:2257} from {object:171524}."] = "Falls Rohan sie nicht angenommen hat: {npc:376} ist in der Kathedrale des Lichts. Nimm in {object:171524} die Bahn {area:2257}.",
+	-- ["The Dwarf priest spells: {quest:5634} at 10, Chastise (new in Forever) at 20. Free, no objectives."] = "Die Zauber der Zwergen-Priester: {quest:5634} mit Stufe 10, Züchtigen (neu in Forever) mit Stufe 20. Kostenlos, keine Ziele.",
 	-- ["The Human and Dwarf priest spells: {quest:5634} at 10, {quest:5641} for Dwarves at 20."] = "Die Priesterzauber der Menschen und Zwerge: {quest:5634} mit Stufe 10, {quest:5641} für Zwerge mit Stufe 20.",
+	-- ["{npc:11401}: take her Chastise letter"] = "{npc:11401}: Ihren Züchtigen-Brief annehmen",
+	-- ["{npc:11406}: Chastise"] = "{npc:11406}: Züchtigen",
+	-- ["{npc:376}: take her Chastise letter"] = "{npc:376}: Ihren Züchtigen-Brief annehmen",
+	-- ["{quest:5634} and Chastise"] = "{quest:5634} und Züchtigen",
 }

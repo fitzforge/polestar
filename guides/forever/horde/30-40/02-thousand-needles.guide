@@ -135,6 +135,13 @@ step Prate Cloudseer
 
 # ---------------------------------------------------------------- The Shimmering Flats
 
+step Stormheart
+  when group 97985
+  zone Thousand Needles
+  tip These are elite mobs: grouping up is encouraged, look for people to do it with. Stormheart is a level 30 elite: most classes solo it at level 32, but you may need help. Skip it if you are alone: the route has you grind the XP back.
+  tip Stormheart walks the canyon road east of Freewind Post's lift, on the way to the salt flats: kill him for his heart.
+  collect 279186 quest 97985          -- Stormheart's Still-beating Heart, from Stormheart
+
 step Moktar Krin
   zone Thousand Needles
   tip Take the lift down and follow the canyon east. Moktar Krin camps on the north-western edge of the salt flats.

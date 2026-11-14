@@ -966,6 +966,34 @@ fn mergecodex_tags_vendors_by_what_they_sell_food_arrows_bullets_bows_and_guns()
 	assert_eq!(codex["npcs"]["4730"]["roles"], json!(["sells:arrows", "sells:bullets", "sells:food", "sells:general", "sells:ranged", "vendor"]));
 }
 
+// #1820: pfQuest lists Innkeeper Thulbek (5814) at Grom'gol as a Hunter's Boomstick (2511) seller and
+// a repairer; he sells food and drink only. With forever-db/corrections applied, Nearby services finds
+// him for food, never for bows and guns or repairs.
+#[test]
+fn innkeeper_thulbek_at_gromgol_sells_food_and_no_guns_and_does_not_repair() {
+	let mut s = synthetic();
+	let base = like(s.client.items.values().next().unwrap(), "");
+	s.forever["npcs"]["5814"] = json!({ "id": 5814, "name": "Innkeeper Thulbek", "level": 28, "faction": "H", "roles": ["innkeeper", "repair", "vendor"], "subName": "Innkeeper", "spawns": { "1434": { "f": "e", "pts": [[31.49, 29.75]] } }, "source": ["pfquest", "questie-forever"] });
+	for (id, class_id, subclass_id, name) in [(2511, 2.0, 3.0, "Hunter's Boomstick"), (159, 0.0, 5.0, "Refreshing Spring Water")] {
+		s.forever["items"][id.to_string()] = json!({ "id": id, "name": name, "drops": { "npc": {}, "object": {} }, "vendors": [5814], "source": ["pfquest"] });
+		let mut it = like(&base, name);
+		it.class_id = Some(class_id);
+		it.subclass_id = Some(subclass_id);
+		it.inventory_type = Some(0.0);
+		it.quality = Some(1.0);
+		it.buy_price = Some(10.0);
+		(it.learn, it.use_, it.req_skill, it.min_faction) = (None, None, None, None);
+		s.client.items.insert(id, it);
+	}
+	let i = inputs(s);
+	let corrections = forge_data::corrections::load(&forge_data::corrections::locate(root())).unwrap();
+	let none = V::obj();
+	let f = &i.forever;
+	forge_data::corrections::apply(&corrections, f.quests.as_obj().unwrap(), f.npcs.as_obj().unwrap(), none.as_obj().unwrap(), f.items.as_obj().unwrap(), true);
+	let codex = codex_json(&merge_codex(&i));
+	assert_eq!(codex["npcs"]["5814"]["roles"], json!(["innkeeper", "sells:food", "vendor"]));
+}
+
 // General goods go by the vendor's title: their items tell nothing, cooks sell
 // the same flint and wood. "General Trade Goods" sellers are trade suppliers.
 #[test]

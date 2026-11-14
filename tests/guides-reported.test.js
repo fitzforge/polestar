@@ -12865,3 +12865,73 @@ test('Trek to Ashenvale (#1089): the step that takes it from Sentinel Selarin sa
 		.map(({ guide, step }) => `${guide} "${step.title}": accept 990 with no word that Selarin respawns`);
 	assert.deepEqual(silent, []);
 });
+
+// #1933: Thundering Hearts (97985) was in no Horde guide. Calder Gray gives it and takes it back in the Undercity's
+// Apothecarium; Stormheart, who carries the heart, walks the canyon floor east of Freewind Post. The route takes it
+// on the Undercity stop that ends the 30-40 Hillsbrad guide, right after Varimathras (550), from where the Thousand
+// Needles guide leaves (the 0.4.0 rebuild applies the record).
+test('route-fixes takes Thundering Hearts on the Undercity stop before Thousand Needles (#1933)', { skip }, () => {
+	const { overrides } = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', 'route-fixes.json'), 'utf8'));
+	const rec = overrides.include.find((r) => r.q === 97985);
+	assert.ok(rec && /#1933/.test(`${rec.issue}`), 'route-fixes includes 97985 for #1933');
+	assert.deepEqual(rec.after, ['turnin', 550], 'its accept goes right after Varimathras');
+	assert.ok(!overrides.skip.some((r) => r.q === 97985), 'no skip record leaves it out');
+	// The anchor is the route's last hand-in before the Thousand Needles guide, in the city Calder Gray stands in.
+	const hills = goals('forever/horde/30-40/01-hillsbrad-foothills.guide');
+	const last = hills.filter(({ goal }) => goal.t === 'turnin').pop();
+	assert.ok(last.goal.t === 'turnin' && last.goal.quest === 550 && last.goal.map === 1458, "Varimathras's hand-in in the Undercity closes the Hillsbrad guide's quests");
+	assert.equal(compiled('forever/horde/30-40/01-hillsbrad-foothills.guide').next.replace(/\.guide$/, ''), 'forever/horde/30-40/02-thousand-needles', 'the Thousand Needles guide comes next');
+});
+
+// #1933, written into the guides by hand for 0.4.0, as the writer lays out the record above: Stormheart is an elite
+// the data knows, so the quest is a group family (`when group 97985`, the player chooses it, the solo route skips
+// it): Calder Gray's accept on a step of its own after Varimathras (whose step shows only with 550 in the log),
+// Stormheart's heart with the family's tip on the canyon road from Freewind Post's lift before Moktar Krin, and
+// the hand-in on the next Undercity stop, the one the Arathi guide opens with, before its flight to Tarren Mill.
+test('Thundering Hearts: taken after Varimathras, the heart on the way to Moktar Krin, handed in on the next Undercity stop (#1933)', { skip }, () => {
+	const H = (g) => `forever/horde/30-40/${g}.guide`;
+	const group = (step) => (step.when || []).some((p) => p.k === 'group' && !p.neg && [].concat(p.q).includes(97985));
+	const hills = goals(H('01-hillsbrad-foothills'));
+	const take = at(hills, 'accept 97985', is('accept', 97985));
+	assert.ok(take > at(hills, 'turnin 550', is('turnin', 550)), 'the accept comes after Varimathras');
+	assert.ok(group(hills[take].step) && hills[take].goal.map === 1458, 'the accept, in the Undercity, for a player who chooses the group quest');
+	const needles = goals(H('02-thousand-needles'));
+	const heart = at(needles, "Stormheart's heart", (g) => g.t === 'collect' && g.item === 279186 && g.quest === 97985);
+	assert.ok(group(needles[heart].step), 'the heart, behind the same choice');
+	assert.ok(heart < at(needles, 'turnin 1146', is('turnin', 1146)), 'the heart comes on the way to Moktar Krin');
+	const arathi = goals(H('05-arathi-highlands'));
+	const back = at(arathi, 'turnin 97985', is('turnin', 97985));
+	assert.ok(arathi[back].goal.map === 1458 && back < at(arathi, 'the flight to Tarren Mill', (g) => g.t === 'fly'), 'handed in on the Undercity stop, before the flight');
+});
+
+// Almighty972 (#2151): "Ca n'indique pas le bon endroit pour ramasser les
+// étoffe de lin" on the Human Paladin's Tome of Divinity. Only pfQuest lists
+// Lisan Pierce (1414), a Stormwind NPC, as a Linen Cloth dropper (100%), so the
+// arrow went to her; QuestieDB does not. General Marcus Jonathan (466) is the
+// same case for Runecloth. Both are friendly to the Alliance players these
+// guides are for (forever-db/corrections/items.json removeDrops). Without them
+// the nearest dropper to a city step is still a mob of the wrong level or in
+// another city, so the cloth goals in a city point at its Auction House, as
+// the steps' tips say (Auctioneer Fitch 8719, Auctioneer Redmuse 8720).
+test('#2151: Linen Cloth and Runecloth goals in Alliance guides lead to the Auction House, not to a Stormwind NPC', { skip }, () => {
+	const auction = [8719, 8720];
+	for (const [guide, quest, item, npc] of [
+		['forever/class/paladin/tome-of-divinity.guide', 1644, 2589, 1414],
+		['forever/class/paladin/tome-of-divinity.guide', 1648, 2589, 1414],
+		['forever/class/mage/manaweave-robe.guide', 1921, 2589, 1414],
+		['forever/collectibles/mounts/alliance/paladin-charger.guide', 7642, 14047, 466],
+		['forever/alliance/50-60/06-silithus.guide', undefined, 14047, 466],
+	]) {
+		const found = goals(guide).filter(({ goal }) => goal.t === 'collect' && goal.quest === quest && goal.item === item);
+		assert.ok(found.length > 0, `${guide}: the ${item} collect for ${quest} is in the guide`);
+		for (const { goal } of found) {
+			const ids = (goal.fromNpcs || []).map((n) => n.npc);
+			assert.ok(!ids.includes(npc), `${guide} ${quest}: npc ${npc} is not named as a dropper (${ids.join(', ')})`);
+			const near = auction.some((a) => {
+				const spawn = data.npcs[a].spawns[goal.map];
+				return spawn && yards(goal, { map: goal.map, x: spawn.pts[0][0], y: spawn.pts[0][1] }) <= 15;
+			});
+			assert.ok(near, `${guide} ${quest}: the arrow at ${goal.map} ${goal.x},${goal.y} is at an Auction House`);
+		}
+	}
+});

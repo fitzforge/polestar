@@ -10,7 +10,7 @@ return {
 	-- {area:2240} Mirage Raceway · {area:439} Shimmering Flats · {zone:1441} Thousand Needles · {npc:4454} Fizzle Brassbolts
 	["The {area:2240} lies on the {area:439} in south-east {zone:1441}: {npc:4454} is in the gnomes' camp beside the track, Zamek by the goblin camp."] = "{area:2240} liegt auf {area:439} im Südosten von {zone:1441}: {npc:4454} ist im Lager der Gnome neben der Strecke, Zamek beim Goblinlager.",
 	-- {npc:4454} Fizzle Brassbolts · {quest:1137} News for Fizzle · {zone:1418} Badlands
-	["{npc:4454}: {quest:1137}, from Martek in the {zone:1418}"] = "",
+	["{npc:4454}: {quest:1137}, from Martek in the {zone:1418}"] = "{npc:4454}: {quest:1137}, von Martek in {zone:1418}",
 
 	-- Step 4: Gadgetzan
 	-- {area:439} Shimmering Flats · {zone:1446} Tanaris · {area:976} Gadgetzan
@@ -30,38 +30,38 @@ return {
 	-- {npc:7847} Caliph Scorpidsting · {area:976} Gadgetzan
 	["The same poster: {npc:7847} comes much later, after {area:976}"] = "Derselbe Steckbrief: {npc:7847} kommt viel später, nach {area:976}",
 	-- {npc:7882} Security Chief Bilgewhizzle
-	["{npc:7882}, inside"] = "",
+	["{npc:7882}, inside"] = "{npc:7882}, drinnen",
 	-- {npc:7881} Stoley
-	["{npc:7881}, in the port's tavern; inside"] = "",
+	["{npc:7881}, in the port's tavern; inside"] = "{npc:7881}, in der Taverne des Hafens; drinnen",
 
 	-- Step 6: Noonshade Ruins: kill these as you meet them
 	-- {area:1937} Noonshade Ruins
-	["{area:1937}: kill these as you meet them"] = "",
+	["{area:1937}: kill these as you meet them"] = "{area:1937}: Töte diese, sobald sie dir begegnen",
 	-- {area:976} Gadgetzan
 	-- plural, as words: Wastewander Rogues = {npc:5615} Wastewander Rogue
-	["Ride back west toward {area:976}. The Wastewander bandits and thieves hold the dunes on the way; any of them can carry a water pouch.\nCareful: Wastewander Rogues (level 43-44) move stealthed, so they can approach unseen."] = "",
+	["Ride back west toward {area:976}. The Wastewander bandits and thieves hold the dunes on the way; any of them can carry a water pouch.\nCareful: Wastewander Rogues (level 43-44) move stealthed, so they can approach unseen."] = "Reite zurück nach Westen in Richtung {area:976}. Die Wastewander-Banditen und -Diebe halten die Dünen auf dem Weg; jeder von ihnen kann einen Wasserbeutel tragen.\nVorsicht: Wastewander Rogues (Stufe 43-44) bewegen sich getarnt, sodass sie sich unbemerkt nähern können.",
 
 	-- Step 8: Waterspring Field
 	-- {area:976} Gadgetzan · {npc:7847} Caliph Scorpidsting
 	-- plural, as words: Wastewander Rogues = {npc:5615} Wastewander Rogue
-	["The tougher Wastewander rogues, shadow mages and assassins camp south-east of {area:976}, south of the bandits. Leave {npc:7847} in the middle of the southern camp for later.\nCareful: Wastewander Rogues keep Sneak up while out of combat, so hidden rogues can join a fight you start at a camp."] = "",
+	["The tougher Wastewander rogues, shadow mages and assassins camp south-east of {area:976}, south of the bandits. Leave {npc:7847} in the middle of the southern camp for later.\nCareful: Wastewander Rogues keep Sneak up while out of combat, so hidden rogues can join a fight you start at a camp."] = "Die stärkeren Wastewander-Schurken, -Schattenmagier und -Assassinen lagern südöstlich von {area:976}, südlich der Banditen. Lass {npc:7847} in der Mitte des südlichen Lagers für später übrig.\nVorsicht: Wastewander Rogues bleiben außerhalb des Kampfes im Schleichen, sodass versteckte Schurken in einen Kampf eingreifen können, den du an einem Lager beginnst.",
 
 	-- Step 9: Lost Rigger Cove: kill these as you meet them
 	-- {area:1336} Lost Rigger Cove
-	["{area:1336}: kill these as you meet them"] = "",
+	["{area:1336}: kill these as you meet them"] = "{area:1336}: Töte diese, sobald sie dir begegnen",
 	-- {npc:7883} Andre Firebeard · {npc:7881} Stoley
-	["Follow the coast south to the pirate cove. Southsea pirates crowd the beach and the boats: work along the edge and pull one at a time. {npc:7883} stands on the far side; {npc:7881}'s stolen cargo lies in the camp.\nCareful: Two or three pirates stand with {npc:7883}, and many more pirates from the town join the fight once it starts."] = "",
+	["Follow the coast south to the pirate cove. Southsea pirates crowd the beach and the boats: work along the edge and pull one at a time. {npc:7883} stands on the far side; {npc:7881}'s stolen cargo lies in the camp.\nCareful: Two or three pirates stand with {npc:7883}, and many more pirates from the town join the fight once it starts."] = "Folge der Küste nach Süden zur Piratenbucht. Südmeerpiraten drängen sich am Strand und auf den Booten: Arbeite dich am Rand entlang und zieh einzeln. {npc:7883} steht auf der anderen Seite; die gestohlene Fracht von {npc:7881} liegt im Lager.\nVorsicht: Zwei oder drei Piraten stehen bei {npc:7883}, und viele weitere Piraten aus der Stadt greifen in den Kampf ein, sobald er beginnt.",
 	-- {quest:2873} Stoley's Shipment
-	["{quest:2873}; upstairs"] = "",
+	["{quest:2873}; upstairs"] = "{quest:2873}; oben",
 
 	-- Step 10: Steamwheedle Port
 	-- {npc:7881} Stoley
-	["{npc:7881}, inside"] = "",
+	["{npc:7881}, inside"] = "{npc:7881}, drinnen",
 	-- {area:35} Booty Bay · {zone:1425} Hinterlands
-	["\"Sea Wolf\" MacKinley in {area:35}: the route takes you there at the end of the {zone:1425} guide, keep it"] = "",
+	["\"Sea Wolf\" MacKinley in {area:35}: the route takes you there at the end of the {zone:1425} guide, keep it"] = "„Sea Wolf“ MacKinley in {area:35}: Die Route bringt dich am Ende des Guides für {zone:1425} dorthin, behalte es",
 
 	-- Step 11: Noonshade Ruins
-	["Careful: Thieves cast Disarm. Rogues stay hidden with Sneak. Assassins use Execute when your health is at 20% or lower."] = "",
+	["Careful: Thieves cast Disarm. Rogues stay hidden with Sneak. Assassins use Execute when your health is at 20% or lower."] = "Vorsicht: Diebe wirken Entwaffnen. Schurken bleiben mit Schleichen versteckt. Assassinen benutzen Hinrichten, wenn deine Gesundheit bei 20 % oder darunter liegt.",
 
 	-- Step 13: The pool by Sandsorrow Watch
 	-- {area:979} Sandsorrow Watch
@@ -82,22 +82,22 @@ return {
 	-- Step 17: The Noxious Lair
 	-- {npc:4196} Silithid Swarm
 	-- plural, as words: Centipaar Swarmers = {npc:5457} Centipaar Swarmer
-	["Ride north-west to the Centipaar hive in the dunes. Any Centipaar can drop insect parts.\nCareful: Centipaar Swarmers cast {npc:4196} both in and out of combat, which brings small adds that interrupt you."] = "",
+	["Ride north-west to the Centipaar hive in the dunes. Any Centipaar can drop insect parts.\nCareful: Centipaar Swarmers cast {npc:4196} both in and out of combat, which brings small adds that interrupt you."] = "Reite nach Nordwesten zum Centipaar-Bau in den Dünen. Jeder Centipaar kann Insektenteile fallen lassen.\nVorsicht: Centipaar Swarmers wirken {npc:4196} sowohl im als auch außerhalb des Kampfes, was kleine Adds bringt, die dich unterbrechen.",
 
 	-- Step 18: Dunemaul Compound
 	-- {npc:12046} Gor'marok the Ravager
 	["Ride south-west to the ogre compound. Brutes and Enforcers (46-48) fill it; {npc:12046} (49) stands in the middle with guards around him: clear them first."] = "Reite nach Südwesten zum Lager der Oger. Schläger und Vollstrecker (46-48) füllen es; {npc:12046} (49) steht mit Wachen um sich herum in der Mitte: Räum sie zuerst weg.",
 	-- {npc:12046} Gor'marok the Ravager
-	["{npc:12046}, below ground"] = "",
+	["{npc:12046}, below ground"] = "{npc:12046}, unter der Erde",
 	-- {npc:5474} Dunemaul Brute
-	["grind on {npc:5474}"] = "",
+	["grind on {npc:5474}"] = "Grinde an {npc:5474}",
 
 	-- Step 19: Thistleshrub Valley: kill these as you meet them
 	-- {quest:3362} Thistleshrub Valley
-	["{quest:3362}: kill these as you meet them"] = "",
+	["{quest:3362}: kill these as you meet them"] = "{quest:3362}: Töte diese, sobald sie dir begegnen",
 	-- {quest:3362} Thistleshrub Valley
 	-- plural, as words: Gnarled Thistleshrubs = {npc:5490} Gnarled Thistleshrub
-	["Ride south into {quest:3362}. The Dew Collectors drop the glands; only some are full, so keep the Laden one. Gnarled Thistleshrubs and Rootshapers share the valley. The Thistleshrubs are 48-50, above you: pull one at a time.\nCareful: The other thistleshrub mobs in the area are level 49-50 and wander a lot, so you can easily pull extra mobs."] = "",
+	["Ride south into {quest:3362}. The Dew Collectors drop the glands; only some are full, so keep the Laden one. Gnarled Thistleshrubs and Rootshapers share the valley. The Thistleshrubs are 48-50, above you: pull one at a time.\nCareful: The other thistleshrub mobs in the area are level 49-50 and wander a lot, so you can easily pull extra mobs."] = "Reite nach Süden in {quest:3362}. Die Dew Collectors lassen die Drüsen fallen; nur manche sind voll, also behalte die Laden. Gnarled Thistleshrubs und Rootshapers teilen sich das Tal. Die Thistleshrubs sind 48-50, über deiner Stufe: Zieh einzeln.\nVorsicht: Die anderen Thistleshrub-Mobs im Gebiet sind Stufe 49-50 und wandern viel umher, sodass du leicht zusätzliche Mobs ziehst.",
 
 	-- Step 20: Tooga's escort
 	-- {npc:5955} Tooga
@@ -107,20 +107,20 @@ return {
 
 	-- Step 21: Gadgetzan
 	-- {area:976} Gadgetzan · {npc:11758} Andi Lynn
-	["Ride back west to {area:976}: {npc:11758} stands on the east side of town, where you come in."] = "",
+	["Ride back west to {area:976}: {npc:11758} stands on the east side of town, where you come in."] = "Reite zurück nach Westen nach {area:976}: {npc:11758} steht an der Ostseite der Stadt, wo du hereinkommst.",
 	-- {npc:5594} Alchemist Pestlezugg
-	["{npc:5594}, inside"] = "",
+	["{npc:5594}, inside"] = "{npc:5594}, drinnen",
 
 	-- Step 22: Caliph Scorpidsting
 	-- {area:985} Waterspring Field · {npc:7847} Caliph Scorpidsting
 	-- plural, as words: Wastewander Rogues = {npc:5615} Wastewander Rogue
-	["Ride south-east to {area:985}. {npc:7847} stands in the middle of the southern Wastewander camp: clear around him first.\nCareful: Two stealthed Wastewander Rogues travel with him wherever he goes. At his spawn camp, two shadowmages and their minions are close enough to join a fight with him. Out by the towers you can fight him without them."] = "",
+	["Ride south-east to {area:985}. {npc:7847} stands in the middle of the southern Wastewander camp: clear around him first.\nCareful: Two stealthed Wastewander Rogues travel with him wherever he goes. At his spawn camp, two shadowmages and their minions are close enough to join a fight with him. Out by the towers you can fight him without them."] = "Reite nach Südosten zum {area:985}. {npc:7847} steht in der Mitte des südlichen Wastewander-Lagers: Räum zuerst um ihn herum.\nVorsicht: Zwei getarnte Wastewander Rogues begleiten ihn, wohin er auch geht. An seinem Spawn-Lager sind zwei Schattenmagier und ihre Diener nah genug, um in einen Kampf mit ihm einzugreifen. Draußen bei den Türmen kannst du ihn ohne sie bekämpfen.",
 
 	-- Step 23: The Gaping Chasm
 	-- {area:1938} Broken Pillar · {area:981} The Gaping Chasm
-	["Ride south past the {area:1938} to the {area:981}, the Hazzali tunnels; Scrimshank's gear lies deep inside.\nCareful: One bug guards the gear. Many bugs patrol the tunnels, some of them level 50, so fights often pull extra adds."] = "",
+	["Ride south past the {area:1938} to the {area:981}, the Hazzali tunnels; Scrimshank's gear lies deep inside.\nCareful: One bug guards the gear. Many bugs patrol the tunnels, some of them level 50, so fights often pull extra adds."] = "Reite südlich am {area:1938} vorbei zum {area:981}, den Tunneln der Hazzali; die Ausrüstung von Scrimshank liegt tief drinnen.\nVorsicht: Ein Käfer bewacht die Ausrüstung. Viele Käfer patrouillieren in den Tunneln, einige davon Stufe 50, sodass Kämpfe oft zusätzliche Adds ziehen.",
 	-- {item:8593} Scrimshank's Surveying Gear
-	["{item:8593}; below ground"] = "",
+	["{item:8593}; below ground"] = "{item:8593}; unter der Erde",
 
 	-- Step 24: Gadgetzan
 	-- {zone:1457} Darnassus
@@ -129,7 +129,7 @@ return {
 	-- Step 25: Fly to Theramore
 	["Fly to Theramore"] = "Flieg nach Theramore",
 	-- {area:976} Gadgetzan
-	["{area:976} flight master"] = "",
+	["{area:976} flight master"] = "Flugmeister von {area:976}",
 
 	-- Step 26: Boat to Menethil Harbor
 	-- {area:150} Menethil Harbor
@@ -137,18 +137,18 @@ return {
 
 	-- Step 27: Fly to Aerie Peak
 	-- {area:348} Aerie Peak
-	["Fly to {area:348}"] = "",
+	["Fly to {area:348}"] = "Flieg nach {area:348}",
 	-- {area:150} Menethil Harbor
-	["{area:150} flight master"] = "",
+	["{area:150} flight master"] = "Flugmeister von {area:150}",
 
 	-- Step 28: Aerie Peak
 	-- {npc:5636} Gryphon Master Talonaxe
-	["{npc:5636}, beside the flight master"] = "",
+	["{npc:5636}, beside the flight master"] = "{npc:5636}, neben dem Flugmeister",
 	-- {npc:7884} Fraggar Thundermantle
-	["{npc:7884}, inside"] = "",
+	["{npc:7884}, inside"] = "{npc:7884}, drinnen",
 
 	-- Step 31: Sprinkle's Secret Ingredient
-	["Underwater"] = "",
+	["Underwater"] = "Unter Wasser",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Fly from {area:976} to Theramore, take the boat to {area:150} and fly to {area:1537}. Train."] = "Flieg von {area:976} nach Theramore, nimm das Boot zum Ort {area:150} und flieg nach {area:1537}. Trainiere.",

@@ -1,4 +1,23 @@
 {
+	"2589": {
+		"removeDrops": {
+			"npc": [
+				1245,
+				1414
+			]
+		},
+		"source": [
+			{
+				"kind": "pfquest",
+				"ref": "units of item 2589: npcs 1245 and 1414, both at 100"
+			},
+			{
+				"kind": "questie",
+				"ref": "npcDrops of item 2589: a data build without pfQuest's entries has neither npc 1245 nor 1414"
+			}
+		],
+		"note": "Lisan Pierce (1414) is a Stormwind NPC and Kogan Forgestone (1245) a Kharanos NPC, both friendly to the Alliance. Only pfQuest lists them for Linen Cloth, at 100%, so the Tome of Divinity (1644, 1648) and Gathering Materials (1921) goals sent players to Lisan instead of to the humanoids that drop it (#2151), and the Dwarf's tip named Kogan the same way."
+	},
 	"5359": {
 		"removeDrops": {
 			"object": [
@@ -10,6 +29,24 @@
 			"ref": "objectDrops of item 5359"
 		},
 		"note": "Lorgalis Manuscript comes only from the Pitted Iron Chest 13949 in Blackfathom Deeps, the one container QuestieDB lists. pfQuest also lists the Document Chest 176344 (Barrens/Thousand Needles), a different quest's chest."
+	},
+	"14047": {
+		"removeDrops": {
+			"npc": [
+				466
+			]
+		},
+		"source": [
+			{
+				"kind": "pfquest",
+				"ref": "units of item 14047: npc 466 at 85.71"
+			},
+			{
+				"kind": "questie",
+				"ref": "npcDrops of item 14047: a data build without pfQuest's entry has no npc 466"
+			}
+		],
+		"note": "General Marcus Jonathan (466) guards Stormwind's gate and is friendly to the Alliance. Only pfQuest lists him for Runecloth, so Collection of Goods (7642) and the Silithus Runecloth goal named him as the dropper. Same pattern as Lisan Pierce and Linen Cloth (#2151)."
 	},
 	"20519": {
 		"removeDrops": {

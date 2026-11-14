@@ -6,15 +6,15 @@
 -- So does a guide that has gone past every step for a quest you never accepted:
 -- nothing ahead needs the item, and the mark clears.
 --
--- Three bag views (qol.questBagMarks, which hides only the marks: the sale,
+-- Four bag views (qol.questBagMarks, which hides only the marks: the sale,
 -- delete and buyback guards ask Q.IsItemNeeded whatever it says), the way
 -- Gear/Bags.lua draws its arrows: the client's bags, where each container
 -- frame's UpdateItems is
 -- post-hooked on the frame itself (ContainerFrameMixin's functions are copied
 -- onto each frame as it is made) and the mark is a texture on the item
 -- button, top-right, kept here by button, nothing written into the button's
--- table; Baganator, as a corner widget; and EllesmereUI Bags, as an item
--- overlay painter.
+-- table; Baganator and BagSmith, as corner widgets; and EllesmereUI Bags,
+-- as an item overlay painter.
 
 local ADDON, ns = ...
 
@@ -100,7 +100,7 @@ local function hookBags()
 end
 
 ---------------------------------------------------------------------------
--- Baganator and EllesmereUI Bags (as Gear/Bags.lua draws its arrows there)
+-- Bag addons (as Gear/Bags.lua draws its arrows there)
 ---------------------------------------------------------------------------
 
 local function needed(link)
@@ -108,22 +108,23 @@ local function needed(link)
 	return id and Q.IsItemNeeded(id) or false
 end
 
--- Baganator: a corner widget, top-right, which it hides and places itself.
+-- Baganator and BagSmith: a corner widget, top-right, placed by the addon.
 local WIDGET = "polestar_quest_needed"
-local baganator = false
+local registeredBags = {}
 
-local function baganatorAPI()
-	local B = _G.Baganator
+local function cornerAPI(name)
+	local B = _G[name]
 	local API = type(B) == "table" and B.API
 	if type(API) == "table" and API.RegisterCornerWidget then return API end
 	return nil
 end
 
-local function registerBaganator()
-	if baganator then return true end
-	local API = baganatorAPI()
+local function registerBag(name)
+	if registeredBags[name] then return true end
+	local API = cornerAPI(name)
 	if not API then return false end
-	baganator = true
+	registeredBags[name] = true
+	local options = name == "BagSmith" and { listRows = true } or nil
 	API.RegisterCornerWidget(ns.L["Polestar quest items"], WIDGET, function(_, details)
 		return isOn() and needed(type(details) == "table" and details.itemLink or nil)
 	end, function(button)
@@ -131,17 +132,21 @@ local function registerBaganator()
 		t:SetSize(SIZE, SIZE)
 		t:SetTexture(ICON)
 		return t
-	end, { corner = "top_right", priority = 1 })
+	end, { corner = "top_right", priority = 1 }, nil, options)
 	return true
 end
 
 local function onAddonLoaded(_, name)
-	if name == "Baganator" and registerBaganator() then
+	if name ~= "Baganator" and name ~= "BagSmith" then return end
+	registerBag(name)
+	if registeredBags.Baganator and registeredBags.BagSmith then
 		ns.UnregisterEvent("ADDON_LOADED", onAddonLoaded)
 	end
 end
 
-if not registerBaganator() then ns.RegisterEvent("ADDON_LOADED", onAddonLoaded) end
+registerBag("Baganator")
+registerBag("BagSmith")
+if not (registeredBags.Baganator and registeredBags.BagSmith) then ns.RegisterEvent("ADDON_LOADED", onAddonLoaded) end
 
 -- EllesmereUI Bags replaces the client's bag frames and runs the painters
 -- registered with EUI_Bags.RegisterItemOverlayIcon(name, fn(button, data)) on
@@ -213,10 +218,17 @@ function Q.RedrawBagMarks()
 	for button, link in pairs(painted) do
 		if button:IsVisible() then markEllesmere(button, link or nil) end
 	end
-	local API = baganator and baganatorAPI()
-	if API and API.RequestItemButtonsRefresh and (not API.IsCornerWidgetActive or API.IsCornerWidgetActive(WIDGET)) then
-		local reasons = Baganator.Constants and Baganator.Constants.RefreshReason
-		API.RequestItemButtonsRefresh(reasons and reasons.ItemWidgets and { reasons.ItemWidgets } or nil)
+	for name in pairs(registeredBags) do
+		local API = cornerAPI(name)
+		if API and API.RequestItemButtonsRefresh and (not API.IsCornerWidgetActive or API.IsCornerWidgetActive(WIDGET)) then
+			local B = _G[name]
+			local reasons = name == "Baganator" and B.Constants and B.Constants.RefreshReason
+			if name == "BagSmith" then
+				API.RequestItemButtonsRefresh()
+			else
+				API.RequestItemButtonsRefresh(reasons and reasons.ItemWidgets and { reasons.ItemWidgets } or nil)
+			end
+		end
 	end
 end
 

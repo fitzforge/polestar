@@ -1431,18 +1431,28 @@ end
 
 -- The quest buttons (QoL/Buttons.lua): the holder is the quest item button's
 -- slot, the others laid out round it (Buttons.Offsets: a column or a row,
--- each at its own size); the box covers them all. Its spot is the
--- character's (qol.buttonPos), in the holder's units (qol.buttonScale).
+-- each at its own size); the box covers them all, and the target list's rows
+-- beside the target button while they show (Buttons.ListRect). Its spot is
+-- the character's (qol.buttonPos), in the holder's units (qol.buttonScale).
 local B = ns.QoL and ns.QoL.Buttons
 if B and B.SavedPos and B.SetPosition and B.Offsets and B.Size then
 	local function k() return M.Ratio(B.Holder(), ns.Get("qol.buttonScale") or 1) end
 	-- The set's edges from the holder's centre, in button pixels.
 	local function edges()
 		local x0, x1, y0, y1 = 0, 0, 0, 0
-		for kind, o in pairs(B.Offsets()) do
+		local n = B.ListRows and B.ListRows() or 0
+		local at = B.Offsets(n)
+		for kind, o in pairs(at) do
 			local h = B.Size(kind) / 2
 			x0, x1 = min(x0, o[1] - h), max(x1, o[1] + h)
 			y0, y1 = min(y0, o[2] - h), max(y1, o[2] + h)
+		end
+		local r0, r1, r2, r3
+		if B.ListRect then r0, r1, r2, r3 = B.ListRect(n) end
+		if r0 then
+			local t = at.target
+			x0, x1 = min(x0, t[1] + r0), max(x1, t[1] + r1)
+			y0, y1 = min(y0, t[2] + r2), max(y1, t[2] + r3)
 		end
 		return x0, x1, y0, y1
 	end

@@ -28,7 +28,8 @@ next forever/horde/30-40/06-badlands
 # Class training: the Undercity at the start for Warriors, Paladins, Rogues, Priests, Mages
 # and Warlocks (Hunters, Shamans and Druids trained on the way to Orgrimmar).
 #
-# Carried on: Trollbane (638) from Stranglethorn; Foul Magics (671) from the first Arathi
+# Carried on: Trollbane (638) from Stranglethorn; Thundering Hearts (97985) from Thousand Needles,
+# for Calder Gray on the Undercity stop; Foul Magics (671) from the first Arathi
 # visit; Martek the Exiled (1106) and Sunken Treasure (669) for later on the route.
 
 # ---------------------------------------------------------------- The Undercity
@@ -42,6 +43,11 @@ step Undercity trainers
   zone Undercity
   tip Train while you are in the Undercity: the trainers stand in the War Quarter, the Rogues' Quarter and the Magic Quarter (Paladins: Garen Largo).
   train class
+
+step Calder Gray
+  zone Undercity
+  tip Calder Gray stands in the Apothecarium.
+  turnin 97985                        -- Calder Gray: Stormheart's heart from Thousand Needles
 
 step Fly to Tarren Mill
   zone Undercity

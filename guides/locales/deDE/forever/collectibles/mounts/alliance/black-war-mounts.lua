@@ -28,6 +28,11 @@ return {
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["100g"] = "100g",
+	-- ["Black War Tiger, Tiger Riding, 100g"] = "Black War Tiger, Tigerreiten, 100g",
 	-- ["Forever's PvP ranks come from {spell:1299382} earned in battlegrounds and world PvP, with a weekly cap; Commander (rank 11) unlocks the Black War mounts. Polestar cannot read your rank, so this step waits for level 40 and the riding skill."] = "In Forever kommen PvP-Ränge aus {spell:1299382}, die du in Schlachtfeldern und im Welt-PvP verdienst, mit wöchentlicher Obergrenze; Kommandant (Rang 11) schaltet die schwarzen Kriegsreittiere frei. Polestar kann deinen Rang nicht auslesen, daher wartet dieser Schritt auf Stufe 40 und die Reitfertigkeit.",
+	-- ["Rank Points come from battlegrounds, PvP quests and the season's weekly tasks, with a weekly cap; Commander (rank 11) unlocks the Black War mounts. The Player vs. Player tab of your character pane shows your rank and what you may buy. {skill:762} one at full speed needs Journeyman {skill:762} (level 60). Polestar cannot read your rank, so this step waits for level 60 and Journeyman {skill:762}."] = "Rangpunkte stammen aus Schlachtfeldern, PvP-Quests und den Wochenaufgaben der Saison, mit einem Wochenlimit; Kommandant (Rang 11) schaltet die Schwarzen Kriegsreittiere frei. Der Spieler-gegen-Spieler-Reiter deines Charakterfensters zeigt deinen Rang und was du kaufen darfst. Um eines davon mit voller Geschwindigkeit zu reiten ({skill:762}), brauchst du Geselle in {skill:762} (Stufe 60). Polestar kann deinen Rang nicht lesen, deshalb wartet dieser Schritt auf Stufe 60 und Geselle in {skill:762}.",
+	-- ["{item:18243}, Mechanostrider Piloting, 100g"] = "{item:18243}, Roboschreiterlenken, 100g",
+	-- ["{item:18244}, Ram Riding, 100g"] = "{item:18244}, Widderreiten, 100g",
 	-- ["{npc:12783} sells the mounts in the {area:2918} in {zone:1453}'s {object:2100}, beside the other honor quartermasters such as {npc:12805}. The Forever client lists each at 100g; choose one."] = "{npc:12783} verkauft die Reittiere in der {area:2918} in der {object:2100} von {zone:1453}, neben den anderen Ehren-Rüstmeistern wie {npc:12805}. Der Forever-Client listet jedes für 100g; wähle eins.",
+	-- ["{npc:14332}, Horse Riding, 100g"] = "{npc:14332}, Pferdreiten, 100g",
 }

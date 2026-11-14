@@ -14,6 +14,7 @@ mod automation_close_skipped;
 mod automation_profession_quests;
 #[path = "automation-spoken.rs"]
 mod automation_spoken;
+mod bagsmith;
 #[path = "class-quests.rs"]
 mod class_quests;
 #[path = "class-skip.rs"]
@@ -343,6 +344,8 @@ mod qol_loot_track;
 mod qol_quickbind;
 #[path = "qol-spells.rs"]
 mod qol_spells;
+#[path = "qol-target-list.rs"]
+mod qol_target_list;
 #[path = "quest-links.rs"]
 mod quest_links;
 #[path = "questdb-memory.rs"]
