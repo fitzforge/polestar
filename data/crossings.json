@@ -1095,16 +1095,6 @@
 			]
 		},
 		{
-			"id": "deeprun-tram-stormwind",
-			"name": "Deeprun Tram",
-			"open": "mouth",
-			"note": "The Deeprun Tram's Stormwind end lies down its building in the Dwarven District, past its door (66.5,34.0 on the game's map), under the Keep's Royal Gallery: the walking grid lets a walk from the street south of the door cut across to it, and the arrow led up into the Keep (#1242, #1829). The nodes follow players' recorded walks in (203 entries: outdoors to the door, then indoors north-east to the platform); heights from Polestar's walking grid (the tram floor, 92).",
-			"nodes": [
-				{ "map": 1453, "x": 60.48, "y": 12.4, "z": 92, "radius": 8 },
-				{ "map": 1453, "x": 63.75, "y": 8.49, "z": 92, "radius": 10 }
-			]
-		},
-		{
 			"id": "wizards-sanctum-tower",
 			"name": "Wizard's Sanctum",
 			"open": "mouth",
@@ -1112,6 +1102,16 @@
 			"nodes": [
 				{ "map": 1453, "x": 38.18, "y": 81.5, "z": 147, "radius": 5 },
 				{ "map": 1453, "x": 37.23, "y": 82.7, "z": 148.6, "radius": 5 }
+			]
+		},
+		{
+			"id": "deeprun-tram-stormwind",
+			"name": "Deeprun Tram",
+			"open": "mouth",
+			"note": "The Deeprun Tram's Stormwind end lies down its building in the Dwarven District, past its door (66.5,34.0 on the game's map), under the Keep's Royal Gallery: the walking grid lets a walk from the street south of the door cut across to it, and the arrow led up into the Keep (#1242, #1829). The nodes follow players' recorded walks in (203 entries: outdoors to the door, then indoors north-east to the platform); heights from Polestar's walking grid (the tram floor, 92).",
+			"nodes": [
+				{ "map": 1453, "x": 60.48, "y": 12.4, "z": 92, "radius": 8 },
+				{ "map": 1453, "x": 63.75, "y": 8.49, "z": 92, "radius": 10 }
 			]
 		}
 	],
