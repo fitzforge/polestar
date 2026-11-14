@@ -79,6 +79,39 @@ Polestar.RegisterGuide({
 		} },
 	},
 })
+Polestar.RegisterGuide({
+	id = "test/gated", pack = "test", title = "Gated", minLevel = 1, maxLevel = 30,
+	steps = {
+		{ title = "Scout Riell", when = { DM, { k = "level", op = ">=", n = 12 } }, goals = {
+			{ t = "accept", quest = 214, title = "Red Silk Bandanas", npc = 6670, npcName = "Scout Riell", map = 1429, x = 48.0, y = 42.0 },
+		} },
+		{ title = "Marshal McBride", goals = {
+			{ t = "accept", quest = 7, title = "Kobold Camp Cleanup", npc = 197, npcName = "Marshal McBride", map = 1429, x = 48.9, y = 41.6 },
+		} },
+		{ title = "The Deadmines", when = { DM, { k = "onquest", q = { 214 } }, { k = "level", op = ">=", n = 13, frac = 0.5 } }, goals = {
+			{ t = "enter", location = "The Deadmines", map = 1429, x = 42.0, y = 70.0 },
+			{ t = "complete", quest = 214, title = "Red Silk Bandanas" },
+		} },
+		{ title = "Goldshire", goals = {
+			{ t = "turnin", quest = 7, title = "Kobold Camp Cleanup", npc = 197, npcName = "Marshal McBride", map = 1429, x = 48.9, y = 41.6 },
+		} },
+	},
+})
+local RFC = { k = "dungeon", name = "Ragefire Chasm", map = 389 }
+Polestar.RegisterGuide({
+	id = "test/city", pack = "test", title = "City", minLevel = 1, maxLevel = 30,
+	steps = {
+		{ title = "Orgrimmar", when = { RFC }, goals = {
+			{ t = "accept", quest = 5761, title = "Slaying the Beast", npc = 3216, npcName = "Neeru Fireblade", map = 1429, x = 50.0, y = 50.0 },
+		} },
+		{ title = "Ragefire Chasm", when = { RFC, { k = "onquest", q = { 5761 } } }, goals = {
+			{ t = "enter", location = "Ragefire Chasm", map = 1429, x = 51.0, y = 51.0 },
+		} },
+		{ title = "Goldshire", goals = {
+			{ t = "goto", map = 1429, x = 42.1, y = 65.9, label = "Goldshire" },
+		} },
+	},
+})
 "#;
 
 // `trace` records the live step after each action; `take(q)` accepts quest q (its objective open) and settles.
@@ -306,6 +339,46 @@ fn dungeon_route_a_stop_shared_with_the_solo_route_asks_before_the_prerequisite_
 	assert_eq!(skip[1], json!({ "at": 3, "asked": false, "total": 3, "s2": "skipped", "s3": "current" }));
 	let go = run_with(escort, saved("run"), script);
 	assert_eq!(go[1], json!({ "at": 2, "asked": false, "total": 3, "s2": "current", "s3": "na" }));
+}
+
+/// Fitz, 2026-11-13: never send a player to a dungeon too low. A dungeon's steps carry its floor (`when
+/// level>=`, a point inside a level allowed): below it a pick-up doesn't apply and Ask doesn't ask, and the run
+/// is passed for the solo route, in Run mode too (Own.dungeonOpenNow reads the step's own conditions first).
+#[test]
+fn dungeon_route_a_level_gate_holds_back_the_pick_up_the_question_and_the_run() {
+	let saved = |route: &str| Some(json!({ "schema": 1, "guide": "test/gated", "_route": route }));
+	let low = run(saved("ask"), "emit({ at = at(), asked = asked(), s1 = st(1) })");
+	assert_eq!(low[0], json!({ "at": 2, "asked": false, "s1": "skipped" }), "level 10 under the pick-up's 12: nothing asked, the solo step is live");
+	let at_gate = run_with("w.setLevel(12)", saved("ask"), "emit({ at = at(), asked = asked() })");
+	assert_eq!(at_gate[0]["at"], 1, "at the gate the pick-up holds the route");
+	assert_eq!(at_gate[0]["asked"]["map"], 36, "and asks");
+	let run_low = run_with("w.setLevel(13); w.setXP(100, 1000); w.onQuest(214, { 1 })", saved("run"), r#"take(7); emit({ at = at(), s3 = st(3) })"#);
+	assert_eq!(run_low[0], json!({ "at": 4, "s3": "skipped" }), "Run mode, 13.1 under the run's 13.5: the run is passed for the solo route");
+	let run_at = run_with("w.setLevel(13); w.setXP(600, 1000); w.onQuest(214, { 1 })", saved("run"), r#"take(7); emit({ at = at(), s3 = st(3) })"#);
+	assert_eq!(run_at[0], json!({ "at": 3, "s3": "current" }), "13.6: the run applies");
+}
+
+// Fitz, 2026-11-14: a city dungeon is its faction's only (Engine.EnemyCityDungeon). The stub's Human Warrior
+// (Alliance) on a guide with Ragefire Chasm's steps (Orgrimmar's): on Run them nothing of it applies, on Ask me
+// nothing is asked, Run it for it is refused and Dungeons in my route never lists it; the Stockade (Stormwind's)
+// is the Alliance's own.
+#[test]
+fn dungeon_route_a_city_dungeon_of_the_other_faction_is_never_run_asked_listed_or_offered() {
+	let saved = |route: &str| Some(json!({ "schema": 1, "guide": "test/city", "_route": route }));
+	let script = r#"
+		local before = { at = at(), asked = asked(), answer = E.DungeonAnswer(389),
+			listed = E.GuideDungeons()[389] or false, enemy = E.EnemyCityDungeon(389), own = E.EnemyCityDungeon(34), key = E.EnemyCityDungeon("ragefire-chasm") }
+		E.ChooseDungeon(389, true); flush()
+		emit({ before = before, chosen = E.DungeonChosen(389), at = at() })"#;
+	let run_them = run(saved("run"), script);
+	assert_eq!(
+		run_them[0]["before"],
+		json!({ "at": 3, "asked": false, "answer": false, "listed": false, "enemy": true, "own": false, "key": true }),
+		"Run them: none of Ragefire Chasm's steps applies, nothing is asked or listed"
+	);
+	assert_eq!((run_them[0]["chosen"].clone(), run_them[0]["at"].clone()), (json!(false), json!(3)), "Run it for it is refused");
+	let ask = run(saved("ask"), "emit({ at = at(), asked = asked() })");
+	assert_eq!(ask[0], json!({ "at": 3, "asked": false }), "Ask me never asks about it");
 }
 
 // Held back (the switch off, as it ships): Run them saved for every dungeon and Run it for the Deadmines, yet the

@@ -42,8 +42,8 @@ function flush() stub.advance(0.25) end
 function state() local v = E.GetStepView(2); return { live = E.GetLiveStep(), status = v.status } end
 "#;
 
-const RFC: &str = r#"{ { k = "dungeon", name = "Ragefire Chasm", map = 389 } }"#;
-const NOT_RFC: &str = r#"{ { k = "dungeon", name = "Ragefire Chasm", map = 389, neg = true } }"#;
+const BFD: &str = r#"{ { k = "dungeon", name = "Blackfathom Deeps", map = 48 } }"#;
+const NOT_BFD: &str = r#"{ { k = "dungeon", name = "Blackfathom Deeps", map = 48, neg = true } }"#;
 const DEFAULT_SAVED: &str = r#"PolestarCharDB = { schema = 1, guide = "test/dungeon" }"#;
 
 fn run(when: &str, saved: &str, login: &str, script: &str) -> Vec<Value> {
@@ -59,24 +59,24 @@ fn run(when: &str, saved: &str, login: &str, script: &str) -> Vec<Value> {
 }
 
 fn chosen_saved() -> String {
-	format!("PolestarCharDB = {}", lua_value(&json!({ "schema": 1, "guide": "test/dungeon", "dungeons": { "389": true } })))
+	format!("PolestarCharDB = {}", lua_value(&json!({ "schema": 1, "guide": "test/dungeon", "dungeons": { "48": true } })))
 }
 
 #[test]
 fn by_default_no_dungeon_is_chosen_a_when_dungeon_step_is_passed_a_when_dungeon_step_applies() {
-	let out = run(RFC, DEFAULT_SAVED, "", "emit(state()); emit({ dungeons = PolestarCharDB.dungeons, chosen = E.DungeonChosen(389) })");
+	let out = run(BFD, DEFAULT_SAVED, "", "emit(state()); emit({ dungeons = PolestarCharDB.dungeons, chosen = E.DungeonChosen(48) })");
 	assert_eq!(out[0], json!({ "live": 3, "status": "skipped" }));
 	assert_eq!(out[1], json!({ "dungeons": {}, "chosen": false }));
-	let not = run(NOT_RFC, DEFAULT_SAVED, "", "emit(state())");
+	let not = run(NOT_BFD, DEFAULT_SAVED, "", "emit(state())");
 	assert_eq!(not[0], json!({ "live": 2, "status": "current" }));
 }
 
 #[test]
 fn choosing_the_dungeon_before_the_route_reaches_the_step_makes_it_apply_and_the_choice_is_saved_per_character() {
-	let out = run(RFC, &chosen_saved(), "", r#"emit(state()); stub.fire("PLAYER_LOGOUT"); emit(PolestarCharDB.dungeons)"#);
+	let out = run(BFD, &chosen_saved(), "", r#"emit(state()); stub.fire("PLAYER_LOGOUT"); emit(PolestarCharDB.dungeons)"#);
 	assert_eq!(out[0], json!({ "live": 2, "status": "current" }));
-	assert_eq!(out[1], json!({ "389": true }));
-	let not = run(NOT_RFC, &chosen_saved(), "", "emit(state())");
+	assert_eq!(out[1], json!({ "48": true }));
+	let not = run(NOT_BFD, &chosen_saved(), "", "emit(state())");
 	assert_eq!(not[0], json!({ "live": 3, "status": "skipped" }));
 }
 
@@ -84,7 +84,7 @@ fn choosing_the_dungeon_before_the_route_reaches_the_step_makes_it_apply_and_the
 fn a_choice_re_evaluates_the_guide_at_once_choosedungeon_map_false_takes_it_back() {
 	// Before the quest log is read nothing is stored, so step 2 is decided live: it applies while chosen, and
 	// does not (na) once taken back.
-	let out = run(RFC, DEFAULT_SAVED, "E.ChooseDungeon(389, true); stub.advance(0.25); emit(state()); E.ChooseDungeon(389, false); stub.advance(0.25); emit(state())", "");
+	let out = run(BFD, DEFAULT_SAVED, "E.ChooseDungeon(48, true); stub.advance(0.25); emit(state()); E.ChooseDungeon(48, false); stub.advance(0.25); emit(state())", "");
 	assert_eq!(out[0], json!({ "live": 2, "status": "current" }));
 	assert_eq!(out[1], json!({ "live": 3, "status": "na" }));
 }
@@ -92,12 +92,12 @@ fn a_choice_re_evaluates_the_guide_at_once_choosedungeon_map_false_takes_it_back
 #[test]
 fn a_step_the_route_has_passed_keeps_its_stored_outcome_when_the_choice_changes_later() {
 	let out = run(
-		RFC,
+		BFD,
 		DEFAULT_SAVED,
 		"",
 		r#"
 			emit(state())
-			E.ChooseDungeon(389, true); flush()
+			E.ChooseDungeon(48, true); flush()
 			emit(state())
 			stub.fire("PLAYER_LOGOUT")
 			emit({ skipped = PolestarCharDB.skipped, dungeons = PolestarCharDB.dungeons })
@@ -105,7 +105,7 @@ fn a_step_the_route_has_passed_keeps_its_stored_outcome_when_the_choice_changes_
 	);
 	assert_eq!(out[0], json!({ "live": 3, "status": "skipped" }));
 	assert_eq!(out[1], json!({ "live": 3, "status": "skipped" }));
-	assert_eq!(out[2], json!({ "skipped": { "test/dungeon": { "2": true } }, "dungeons": { "389": true } }));
+	assert_eq!(out[2], json!({ "skipped": { "test/dungeon": { "2": true } }, "dungeons": { "48": true } }));
 }
 
 #[test]
@@ -119,11 +119,11 @@ fn a_dungeon_the_compiler_found_no_map_id_for_is_never_chosen_dungeon_never_hold
 			local G = Polestar.Guides.Get("test/dungeon")
 			local out = {}
 			local function check(label, pred) PolestarCharDB.when["test/dungeon"] = nil; PolestarCharDB.skipped["test/dungeon"] = nil; G.steps[2].when = { pred }; flush(); out[#out + 1] = label .. "=" .. E.GetStepView(2).status end
-			check("chosen", { k = "dungeon", name = "Ragefire Chasm", map = 389 })
+			check("chosen", { k = "dungeon", name = "Blackfathom Deeps", map = 48 })
 			check("other", { k = "dungeon", name = "The Deadmines", map = 36 })
 			check("!other", { k = "dungeon", name = "The Deadmines", map = 36, neg = true })
-			check("no map", { k = "dungeon", name = "Ragefire Chasmm" })
-			check("!no map", { k = "dungeon", name = "Ragefire Chasmm", neg = true })
+			check("no map", { k = "dungeon", name = "Blackfathom Deepss" })
+			check("!no map", { k = "dungeon", name = "Blackfathom Deepss", neg = true })
 			emit(out)
 		"#,
 	);
@@ -131,14 +131,14 @@ fn a_dungeon_the_compiler_found_no_map_id_for_is_never_chosen_dungeon_never_hold
 }
 
 // Options lists only the dungeons the character's guides have steps for (Engine.GuideDungeons, 0.3.6 plan:
-// "Options page lists only dungeons with steps"): Ragefire Chasm from a guide whose steps are read, The
+// "Options page lists only dungeons with steps"): Blackfathom Deeps from a guide whose steps are read, The
 // Deadmines from a compiled guide whose steps are still source (not read for this), never a `!dungeon`
 // step's Wailing Caverns nor a Horde guide's Gnomeregan for this Human.
 #[test]
 fn guide_dungeons_are_the_maps_of_this_characters_guides_when_dungeon_steps_read_from_compiled_source_too() {
 	let guides = r#"
 Polestar.RegisterGuide({ id = "test/read", pack = "test", title = "Read", faction = "Alliance", minLevel = 1, maxLevel = 20, steps = {
-	{ title = "Run", when = { { k = "dungeon", name = "Ragefire Chasm", map = 389 } }, goals = { { t = "note", text = "in" } } },
+	{ title = "Run", when = { { k = "dungeon", name = "Blackfathom Deeps", map = 48 } }, goals = { { t = "note", text = "in" } } },
 	{ title = "Solo", when = { { k = "dungeon", neg = true, name = "Wailing Caverns", map = 43 } }, goals = { { t = "note", text = "out" } } },
 } })
 Polestar.RegisterGuide({ id = "test/deferred", pack = "test", title = "Deferred", faction = "Alliance", minLevel = 1, maxLevel = 20, stepCount = 2,
@@ -166,7 +166,7 @@ emit({ maps = maps, read = rawget(Polestar.Guides.Get("test/deferred"), "steps")
 		..Default::default()
 	})
 	.remove(0);
-	assert_eq!(out["maps"], json!([36, 389]));
+	assert_eq!(out["maps"], json!([36, 48]));
 	assert_eq!(out["read"], false, "the compiled guide's steps are not read for the list");
 }
 
