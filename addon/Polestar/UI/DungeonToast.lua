@@ -147,9 +147,11 @@ function DT.Candidates(level, mode, questId)
 	if #list > 0 then upgradeSeen(level) end
 	local told, out = seen(), {}
 	for _, d in ipairs(list) do
-		local min, max = d.minLevel, d.maxLevel
-		local best = d.kind == "dungeon" and (mode == "any" or told[d.key] ~= true) and min and level >= min and (not max or level <= max)
-			and (d.quests[side] or 0) > 0 and (mode ~= "turnin" or onPage(d.key, questId)) and (Dg.BestAt(d.key) or min)
+		-- From the dungeon's floor (Dungeons.List), as the hub's "For your level": never the card for a
+		-- dungeon the route would still hold back (Fitz, 2026-11-13).
+		local min, max, from = d.minLevel, d.maxLevel, d.floor or d.minLevel
+		local best = d.kind == "dungeon" and (mode == "any" or told[d.key] ~= true) and from and level >= from and (not max or level <= max)
+			and (d.quests[side] or 0) > 0 and (mode ~= "turnin" or onPage(d.key, questId)) and math.max(Dg.BestAt(d.key) or from, from)
 		if best and level >= best and (mode ~= "login" or recent(d, level, best)) then
 			local plan = Dg.PickupPlan(d.key, true)
 			local take = plan and #plan.take or 0

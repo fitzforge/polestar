@@ -26,6 +26,10 @@
 //!   ranks over an accept per person, vouched evidence ranks first, and the first recorded breaks a
 //!   tie), with `voters` and `trusted` (`minVoters` people agree on it, or a vouched one recorded
 //!   it).
+//! - `dungeons`: per instance map, the people whose first run there killed a boss (entries less
+//!   than 4 hours apart are one run) and the 25th and 90th percentile of their level when that run
+//!   entered (with the XP bar's share). The journal reads the 25th for a dungeon's floor, the level
+//!   the guides' dungeon steps start at, and both for the check on the Group Finder's range.
 //!
 //! The merge (`codex::merge`) adds a recorded fact under the provenance `recordings`, by one rule: it
 //! changes what the Codex says only when it is `trusted`; otherwise it only confirms another input
@@ -53,6 +57,17 @@ fn pos_int(v: &V) -> Option<i64> {
 	(n.is_finite() && n > 0.0 && n.fract() == 0.0).then_some(n as i64)
 }
 
+/// Seconds between two entries of one instance that still make one run (a death's walk back, a
+/// disconnect), as the audit's recordings index splits them.
+const RUN_GAP: f64 = 4.0 * 3600.0;
+
+/// The value at share `p` of sorted `xs`, linear between neighbours (numpy's default).
+fn quantile(xs: &[f64], p: f64) -> f64 {
+	let k = (xs.len() - 1) as f64 * p;
+	let (lo, hi) = (k.floor() as usize, k.ceil() as usize);
+	xs[lo] + (xs[hi] - xs[lo]) * (k - lo as f64)
+}
+
 #[derive(Default)]
 struct Loot {
 	/// person -> loot windows of this source.
@@ -70,6 +85,8 @@ struct Gather {
 	loot: [BTreeMap<i64, Loot>; 2],
 	vendors: BTreeMap<i64, BTreeMap<i64, BTreeSet<usize>>>,
 	rewards: BTreeMap<i64, IndexMap<String, (u8, V)>>,
+	/// instance map -> person -> (start, level) of their first run that killed a boss.
+	dungeons: BTreeMap<i64, IndexMap<usize, (f64, f64)>>,
 	counted: usize,
 }
 
@@ -95,8 +112,50 @@ impl Gather {
 			None => self.people.insert_full(person.to_string()).0,
 		};
 		let schema2 = rec.get("schema").as_num() == Some(2.0);
+		// The level with the XP bar's share, as the session goes (the recordings index's reading), and
+		// the instance run the player is in: its map, its first entry's time and level.
+		let started = rec.get("started").as_num().filter(|t| t.is_finite()).unwrap_or(0.0);
+		let (mut lvl, mut xp, mut xp_max) = (0.0f64, 0.0f64, 0.0f64);
+		let mut run: Option<(i64, f64, f64)> = None;
 		for ev in rec.get("events").items() {
-			match ev.get("e").as_str() {
+			let e = ev.get("e");
+			let e = e.as_str();
+			if matches!(e, Some("session" | "step" | "turnin" | "accept" | "level")) {
+				if let Some(l) = ev.get("lvl").as_num().filter(|l| *l > 0.0) {
+					if e == Some("level") {
+						xp = 0.0;
+					}
+					lvl = l;
+				}
+			}
+			if matches!(e, Some("xp" | "step")) {
+				if let Some(m) = ev.get("xpMax").as_num().filter(|m| *m > 0.0) {
+					xp = ev.get("xp").as_num().unwrap_or(0.0);
+					xp_max = m;
+				}
+			}
+			let at = started + ev.get("t").as_num().unwrap_or(0.0);
+			match e {
+				Some("enter") => {
+					if let Some(inst) = pos_int(&ev.get("inst")).filter(|_| lvl > 0.0) {
+						if !run.is_some_and(|(i, t0, _)| i == inst && at - t0 < RUN_GAP) {
+							run = Some((inst, at, lvl + if xp_max > 0.0 { (xp / xp_max).clamp(0.0, 0.999) } else { 0.0 }));
+						}
+					}
+				}
+				Some("encounter") if ev.get("ok").truthy() => {
+					if let (Some(inst), Some((i, t0, level))) = (pos_int(&ev.get("inst")), run) {
+						if inst == i {
+							let e = self.dungeons.entry(inst).or_default().entry(p).or_insert((t0, level));
+							if t0 < e.0 {
+								*e = (t0, level);
+							}
+						}
+					}
+				}
+				_ => {}
+			}
+			match e {
 				Some("slain") => {
 					if let Some(npc) = pos_int(&ev.get("npc")).filter(|_| !ev.get("denied").truthy()) {
 						*self.kills.entry(npc).or_default().entry(p).or_insert(0.0) += 1.0;
@@ -207,6 +266,18 @@ impl Gather {
 			rw.set(&q.to_string(), V::Obj(e));
 		}
 		out.set("rewards", V::Obj(rw));
+		let dg = Obj::new();
+		for (inst, by) in &self.dungeons {
+			let mut levels: Vec<f64> = by.values().map(|&(_, l)| l).collect();
+			levels.sort_by(|a, b| a.total_cmp(b));
+			let round = |x: f64| (x * 100.0).round() / 100.0;
+			let e = Obj::new();
+			e.set("people", levels.len());
+			e.set("p25", round(quantile(&levels, 0.25)));
+			e.set("p90", round(quantile(&levels, 0.90)));
+			dg.set(&inst.to_string(), V::Obj(e));
+		}
+		out.set("dungeons", V::Obj(dg));
 		V::Obj(out)
 	}
 }
@@ -344,19 +415,28 @@ pub fn source_meta(rec: &V) -> Option<V> {
 	}
 	let m = rec.get("meta");
 	let o = Obj::new();
-	o.set("name", "Polestar Recorder sessions (data/codex/recorded.json): loot, merchant and quest reward windows");
+	let dungeons = rec.get("dungeons").len();
 	o.set(
-		"version",
-		V::str(&format!(
-			"{} sessions of {} counted players; {} NPCs, {} objects, {} vendors, {} quests",
-			m.get("counted").to_js_string(),
-			m.get("voters").to_js_string(),
-			rec.get("drops").len(),
-			rec.get("objects").len(),
-			rec.get("vendors").len(),
-			rec.get("rewards").len()
-		)),
+		"name",
+		if dungeons > 0 {
+			"Polestar Recorder sessions (data/codex/recorded.json): loot, merchant and quest reward windows, and dungeon entry levels"
+		} else {
+			"Polestar Recorder sessions (data/codex/recorded.json): loot, merchant and quest reward windows"
+		},
 	);
+	let mut version = format!(
+		"{} sessions of {} counted players; {} NPCs, {} objects, {} vendors, {} quests",
+		m.get("counted").to_js_string(),
+		m.get("voters").to_js_string(),
+		rec.get("drops").len(),
+		rec.get("objects").len(),
+		rec.get("vendors").len(),
+		rec.get("rewards").len()
+	);
+	if dungeons > 0 {
+		version.push_str(&format!(", {dungeons} dungeons"));
+	}
+	o.set("version", V::str(&version));
 	o.set("licence", "Polestar's own recordings: CC BY 4.0; facts only, no player data");
 	Some(V::Obj(o))
 }
