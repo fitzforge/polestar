@@ -191,13 +191,14 @@ fn no_data_compiles_guides_that_give_every_name_themselves() {
 /// A step's title takes the token of an object no goal of the step names only where the name stands alone:
 /// "Copper Vein" before "hills" stays words (its note still names it by its token), "Kobold Crate" alone is its
 /// token, as is the object of the step's own goal; that one before a lower-case word keeps its token, and compile
-/// and lint warn (tests/guide-texts.test.js, the same guide through the JS compiler).
+/// and lint warn, but not before "and" or "or", which end its name as the route drafter joins a step's names
+/// (tests/guide-texts.test.js, the same guide through the JS compiler).
 #[test]
 fn a_step_title_takes_an_unnamed_objects_token_only_where_its_name_stands_alone() {
 	let guides = tmp("title-objects");
 	std::fs::write(
 		guides.join("a.guide"),
-		"guide forever/a\ntitle Elwynn Forest\nfaction Alliance\nlevels 1-10\nzone Elwynn Forest\n\nstep Marshal McBride\n  accept 7\n\nstep Copper Vein hills: kill as you go\n  kill 6 quest 7 -- the Copper Vein spots draw Kobold Vermin\n\nstep Battered Chest\n  interact 2843\n\nstep Kobold Crate\n  goto 48,32\n\nstep Battered Chest lids open easily\n  interact 2843\n\nstep Marshal McBride\n  turnin 7\n",
+		"guide forever/a\ntitle Elwynn Forest\nfaction Alliance\nlevels 1-10\nzone Elwynn Forest\n\nstep Marshal McBride\n  accept 7\n\nstep Copper Vein hills: kill as you go\n  kill 6 quest 7 -- the Copper Vein spots draw Kobold Vermin\n\nstep Battered Chest\n  interact 2843\n\nstep Kobold Crate\n  goto 48,32\n\nstep Battered Chest lids open easily\n  interact 2843\n\nstep Battered Chest and Kobold Crate\n  interact 2843\n\nstep Battered Chest or Kobold Crate\n  interact 2843\n\nstep Marshal McBride\n  turnin 7\n",
 	)
 	.unwrap();
 	let out = tmp("title-objects-out");
@@ -219,9 +220,18 @@ fn a_step_title_takes_an_unnamed_objects_token_only_where_its_name_stands_alone(
 		"{}",
 		r.stderr
 	);
+	// "and" or "or" after it: the object itself, its token and no warning.
+	assert!(lua.contains("title = \"{object:2843} and {object:1617}\""), "{lua}");
+	assert!(lua.contains("title = \"{object:2843} or {object:1617}\""), "{lua}");
+	for word in ["and", "or"] {
+		assert!(!r.stderr.contains(&format!("though \"{word}\" follows it")), "{}", r.stderr);
+	}
 	let lint = forge(&["lint", "--guides", guides.to_str().unwrap(), "--data", &data_dir()]);
 	assert_eq!(lint.status, 0, "a warning only: {}", lint.stderr);
 	assert!(lint.stderr.contains("reword the title if \"Battered Chest lids\" means a kind of thing rather than that object"), "{}", lint.stderr);
+	for word in ["and", "or"] {
+		assert!(!lint.stderr.contains(&format!("though \"{word}\" follows it")), "{}", lint.stderr);
+	}
 }
 
 #[test]
