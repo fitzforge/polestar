@@ -300,6 +300,8 @@ register(QOL, L["Trackers"], L["Experience"], {
 	{ kind = "toggle", key = "qol.xpTargetMark", label = L["Guide level on the XP bar"],
 		help = L["A mark at the end of the game's XP bar with the level the guide wants you to reach before it moves on, and how many levels away that is when it is more than one."],
 		search = "experience bar, exp bar, target level" },
+	{ kind = "toggle", key = "qol.questXPOverlay", label = L["Completed quest XP"],
+		help = L["Shows XP from completed quests you can turn in on the game's XP bar and in its tooltip."], search = "quest xp, experience bar, turn in" },
 	{ kind = "toggle", key = "qol.boostedRest", label = L["Boosted Rest status"],
 		help = L["How long the campfire's Boosted Rest lasts and the Cozy Sleeping Bag's cooldown, under the guide window's XP line; your party's Boosted Rest in the party panel."],
 		search = "boosted rest, campfire, sit, rested, sleeping bag, camp, cozy sleeping bag" },

@@ -57,6 +57,7 @@ local function xpBar()
 	end
 	return nil
 end
+Mark.Bar = xpBar
 
 -- PLAYER_LEVEL_UP's level: UnitLevel can lag the event.
 local levelSeen = 0

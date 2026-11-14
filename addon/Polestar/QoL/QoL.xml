@@ -11,6 +11,7 @@
 	<Script file="Hearth.lua"/>
 	<Script file="XP.lua"/>
 	<Script file="XPMark.lua"/>
+	<Script file="QuestXP.lua"/>
 	<Script file="Rest.lua"/>
 	<Script file="Vendor.lua"/>
 	<Script file="Buy.lua"/>
