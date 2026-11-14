@@ -678,7 +678,7 @@ fn sorted_strings(v: &Value) -> Vec<String> {
 }
 
 #[test]
-fn every_maps_setting_is_registered_with_a_label_and_help_map_features_on_the_map_page_flights_and_instances_under_quality_of_life() {
+fn every_maps_setting_is_registered_with_a_label_and_help_map_features_on_the_map_page_flights_and_instances_under_quality_of_life_freedoom_arcade_under_integrations() {
 	let out = run(r#"
 		local pages, missing = {}, {}
 		for _, spec in ipairs(Polestar.Widgets.OptionsRegistry) do
@@ -697,7 +697,9 @@ fn every_maps_setting_is_registered_with_a_label_and_help_map_features_on_the_ma
 	assert_eq!(out["missing"], "");
 	let mut pages: Vec<&str> = out["pages"].as_object().unwrap().keys().map(String::as_str).collect();
 	pages.sort();
-	assert_eq!(pages, vec!["Map", "Quality of Life"]);
+	assert_eq!(pages, vec!["Integrations", "Map", "Quality of Life"]);
+	// Freedoom Arcade's offer on flights is with the other addons Polestar works with (Maps/Arcade.lua).
+	assert_eq!(sorted_strings(&out["pages"]["Integrations"]), vec!["maps.flightArcade"]);
 	let mut want: Vec<String> = [
 		"maps.coords",
 		"maps.dockPins",

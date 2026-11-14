@@ -569,9 +569,10 @@ mod tests {
 	#[test]
 	fn the_shipped_credits_json_credits_the_ideas_the_changelog_credits_in_the_order_they_shipped() {
 		// The changelog's "idea by" credits: PRDesrochers on #293 (0.2.6), aronjanosch's #954 (0.3.3),
-		// CDVolvik's target portraits #1012 (0.3.6), IgorMagals's #724 (0.3.7).
+		// CDVolvik's target portraits #1012 (0.3.6), IgorMagals's #724 (0.3.7), petllama's Freedoom Arcade on flights
+		// #2228 (0.4.0).
 		let src = read_source(&Path::new(env!("CARGO_MANIFEST_DIR")).join("../../..").join(SOURCE)).unwrap();
-		let want = [("PRDesrochers", 293), ("aronjanosch", 954), ("CDVolvik", 1012), ("IgorMagals", 724)].map(|(n, r)| (n.to_string(), r));
+		let want = [("PRDesrochers", 293), ("aronjanosch", 954), ("CDVolvik", 1012), ("IgorMagals", 724), ("petllama", 2228)].map(|(n, r)| (n.to_string(), r));
 		assert_eq!(ideas(&src), want, "{:?}", src.ideas);
 	}
 

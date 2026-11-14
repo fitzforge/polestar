@@ -151,11 +151,11 @@ T.Show({ t = "kill", here = "goal", verb = "Kill", subject = "Kobold Vermin", ya
 	},
 	{
 		// Freedoom Arcade on a flight (Maps/Arcade.lua): the card asking to play, under the timer.
-		key: 'hud-arcade-ask', title: 'the flight timer and the card asking to play Freedoom Arcade (0.4.0)', family: 'guide', roots: ['PolestarFlightTimer'], files: P.MODULE_FILES, needs: 'Polestar.Arcade',
+		key: 'hud-arcade-ask', title: 'the flight timer and the card asking to play Freedoom Arcade (0.4.0)', family: 'guide', roots: ['PolestarFlightTimer', 'PolestarArcadeOffer'], files: P.MODULE_FILES, needs: 'Polestar.Arcade',
 		script: 'local f = PolestarFlightTimer; f.Dest:SetText("Stormwind"); f.Time:SetText("4:12"); Polestar.Widgets.SetProgress(f.Progress, 0.25); f:Show(); Polestar.Arcade.ShowCard("ask")',
 	},
 	{
-		key: 'hud-arcade-row', title: 'the flight timer and its Play Freedoom Arcade row (0.4.0)', family: 'guide', roots: ['PolestarFlightTimer'], files: P.MODULE_FILES, needs: 'Polestar.Arcade',
+		key: 'hud-arcade-row', title: 'the flight timer and its Play Freedoom Arcade row (0.4.0)', family: 'guide', roots: ['PolestarFlightTimer', 'PolestarArcadeOffer'], files: P.MODULE_FILES, needs: 'Polestar.Arcade',
 		script: 'local f = PolestarFlightTimer; f.Dest:SetText("Stormwind"); f.Time:SetText("4:12"); Polestar.Widgets.SetProgress(f.Progress, 0.25); f:Show(); Polestar.Arcade.ShowCard("row")',
 	},
 	{

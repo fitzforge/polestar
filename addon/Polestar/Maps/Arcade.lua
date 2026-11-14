@@ -35,7 +35,7 @@ local STANDALONE, BUNDLED = "FreedoomArcade", "Polestar_Arcade"
 local MIN_LEFT = 60 -- seconds of flight left to offer a game
 local LANDING = 10  -- seconds before arrival: the game is put away
 local TICK = 0.5
-local PROMPT_W, PAD, BTN_H = 320, 12, 24
+local PROMPT_W, MAX_LINE, PAD, BTN_H = 320, 380, 12, 24
 
 ns.RegisterDefaults("maps", { flightArcade = true })
 
@@ -212,8 +212,13 @@ local function build()
 	local W, Theme = ns.Widgets, ns.Theme
 	local parent = timer()
 	if not (W and Theme and parent) then return nil end
-	local f = CreateFrame("Frame", "PolestarArcadeOffer", parent)
+	-- A window of its own on Polestar's layer, under the timer at the timer's
+	-- scale, going when the timer goes.
+	local f = CreateFrame("Frame", "PolestarArcadeOffer", ns.UIParent)
+	f:SetFrameStrata(parent:GetFrameStrata())
+	f:SetClampedToScreen(true)
 	f:EnableMouse(true)
+	parent:HookScript("OnHide", function() f:Hide() end)
 	f.psLight = true
 	Theme.Skin(f, "window")
 	f:Hide()
@@ -252,24 +257,35 @@ local function build()
 	row:SetPoint("BOTTOMRIGHT", f, "BOTTOMRIGHT", -4, 3)
 	f.Row = row
 
+	-- Sized to its words in the look's type (a skin's may be larger): the
+	-- buttons to their labels, the card to the widest of its lines, the
+	-- question wrapping past MAX_LINE.
 	function f.Layout(self)
 		local mode = self.mode
+		self:SetScale(parent:GetScale())
 		self:ClearAllPoints()
 		self:SetPoint("TOP", parent, "BOTTOM", 0, -6)
 		q:SetShown(mode == "ask")
 		row:SetShown(mode == "row")
+		local pw = floor(parent:GetWidth() + 0.5)
 		if mode == "ask" then
 			q.Title:SetText(L["Do you want to play Doom while waiting?"])
 			q.By:SetText(L["Freedoom Arcade by petllama"])
 			q.NeverText:SetText(L["Don't ask again"])
-			q.Never:SetChecked(false)
-			local w = max(PROMPT_W, floor(parent:GetWidth() + 0.5))
+			W.SetButtonText(q.Play, ns.LC("a game", "Play"))
+			W.SetButtonText(q.Later, L["Not now"])
+			local foot = PAD + 18 + 6 + q.NeverText:GetStringWidth() + 12 + q.Later:GetWidth() + 6 + q.Play:GetWidth() + PAD
+			local head = PAD + 24 + max(q.By:GetStringWidth(), math.min(q.Title:GetStringWidth(), MAX_LINE)) + PAD
+			local w = math.ceil(max(PROMPT_W, pw, foot, head))
 			self:SetWidth(w)
 			q.Title:SetWidth(w - 2 * PAD - 24)
-			local h = PAD + q.Title:GetStringHeight() + 3 + q.By:GetStringHeight() + 12 + BTN_H + PAD
-			self:SetHeight(floor(h + 0.5))
+			q.By:SetWidth(w - 2 * PAD - 24)
+			local h = PAD + q.Title:GetStringHeight() + 3 + q.By:GetStringHeight() + 12 + max(BTN_H, q.Play:GetHeight()) + PAD
+			self:SetHeight(math.ceil(h))
 		else
-			self:SetWidth(floor(parent:GetWidth() + 0.5))
+			W.SetButtonText(row, L["Play Freedoom Arcade"])
+			-- The row's button fills the card: the card holds its label, glyph and padding.
+			self:SetWidth(max(pw, math.ceil(row.Label:GetStringWidth() + 19 + 2 * Theme.Metric("buttonPad", 16) + 8)))
 			self:SetHeight(BTN_H + 6)
 		end
 	end
@@ -281,6 +297,7 @@ local function show(mode)
 	if not card then card = build() end
 	if not card then return end
 	card.mode = mode
+	if mode == "ask" then card.Ask.Never:SetChecked(false) end
 	card:Layout()
 	card:Show()
 end
