@@ -96,11 +96,12 @@ end
 
 -- The Target button's macro for alert a: the founder's wave
 -- (Buttons.FounderMacro), else a rare's (not a treasure, nor the options'
--- placeholder sample), by its name; nil without QoL's buttons or for a name
--- that cannot be a macro line.
+-- placeholder sample, nor an unnamed alert whose "Unknown rare" is only a
+-- title), by its name; nil without QoL's buttons or for a name that cannot
+-- be a macro line.
 function T.TargetMacro(a)
 	local B = ns.QoL and ns.QoL.Buttons
-	if type(a) ~= "table" or a.kind == "treasure" or (a.source == "sample" and not a.id) then return nil end
+	if type(a) ~= "table" or a.kind == "treasure" or a.unnamed or (a.source == "sample" and not a.id) then return nil end
 	if a.kind == "founder" then return B and B.FounderMacro and B.FounderMacro(a.name) or nil end
 	if not (B and B.RareCardMacro) then return nil end
 	return B.RareCardMacro(a.name)
@@ -427,6 +428,20 @@ ns.RegisterEvent("PLAYER_REGEN_ENABLED", function()
 end)
 
 function T.Current() return current end
+
+-- The card that went up without the rare's name (Rares.AlertOf: unnamed)
+-- takes it from a later sighting of the same rare: its title, and its
+-- Target button (out of combat; a fight's end arms it). The timer goes on.
+ns.On("RARE_NAMED", function(key, name)
+	if not (f and current and current.unnamed and f:IsShown()) or current.key ~= key then return end
+	current.name, current.unnamed = name, nil
+	local left = f.psLeft
+	T.Show(current)
+	-- T.Show starts the timer over; keep the time left, line included (it
+	-- stands still while the cursor is on the card).
+	f.psLeft = left
+	W.SetProgress(f.Timer, max(0, left) / (f.psTotal or 1), f:GetWidth() - 2)
+end)
 
 -- Not while Polestar is hidden (Rares.lua sends none then either): a
 -- sighting is news, not something to show after.
