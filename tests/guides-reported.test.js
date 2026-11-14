@@ -12767,3 +12767,16 @@ test('Alliance Mount Hyjal: the quest log never holds more than 40 with what the
 	}
 	assert.ok(peak <= 40, `the log peaks at ${peak} (${where})`);
 });
+
+// chiboman (#2253, 0.3.7.2, Human Paladin 38): "Galen's Escape" pulls the Fallow Sanctuary's Lost One Riftseekers (37-38)
+// and their pets onto Galen; too hard alone at 38, and the step gave no warning. Players' recordings: 20 people, 11 of 19
+// finished on the first try, 8 failed the first escort at 36-39 and 5 of those finished on a retry. The step warns, says
+// how to keep the attackers on the player, and that a failed escort is taken again at the cage.
+test(`${ARATHI}: Galen's Escape warns of the Lost Ones the escort pulls onto Galen (#2253)`, { skip }, () => {
+	const list = goals(ARATHI);
+	const { step } = list[at(list, 'accept 1393', is('accept', 1393))];
+	const tips = [].concat(step.note || []).join(' ');
+	assert.match(tips, /Careful: on the walk out the camp's Lost One Riftseekers \(37-38\) and their pets/);
+	assert.match(tips, /take it again at his cage/);
+	assert.ok(JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', 'guide-fixes.json'), 'utf8')).fixes.some((f) => f.id === '2253-galens-escape-careful'), 'a record the build keeps');
+});

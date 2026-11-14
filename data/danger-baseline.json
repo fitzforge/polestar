@@ -2196,6 +2196,19 @@
 			"evidence": "route level 34.1; 12 spawns 36+; recordings (2026-11-11): done by 15 people at 34-38 (median 36), 1 people died within 60 yd (median level 36), 2 abandoned"
 		},
 		{
+			"key": "forever/alliance/30-40/04-stranglethorn-vale.guide|level 34 grind 1085|grind",
+			"guide": "forever/alliance/30-40/04-stranglethorn-vale.guide",
+			"goal": "level 34 grind 1085",
+			"kind": "grind",
+			"title": "Level 34",
+			"level": 33.3,
+			"mobs": [
+				"Elder Stranglethorn Tiger 34-35 x11 (the grind mob)"
+			],
+			"reason": "the level model starts this top-up at 33.3, but players reach Stranglethorn above it (30-40/04 starts at a median level of 34.4, 35 people), and the step holds only below 34. Few grind here: 4 people killed Elder Stranglethorn Tigers (34-35) below 34, 9 at 33-35, and 1 of those 9 died 3 times right after an elder tiger kill. The other camps by the step are no safer in the recordings: at 33-35, 2 of the 12 people on the Stranglethorn Tigers (32-33) died to them and 2 of the 11 on the Stranglethorn Raptors (33-34) died right after a raptor kill. The elder tigers are Tiger Mastery's camp, which the step before works",
+			"evidence": "route level 33.3 to 34; Elder Stranglethorn Tiger 34-35 x11 (the grind mob); recordings (archive to 2026-11-12): Elder Stranglethorn Tigers killed below 34 by 4 people (48 kills), at 33-35 by 9 (120 kills), 3 deaths at 33-35 right after an elder tiger kill (1 person); 30-40/04 entered at a median level of 34.41 (35 people)"
+		},
+		{
 			"key": "forever/alliance/30-40/04b-stranglethorn-vale.guide|kill 192.1|over",
 			"guide": "forever/alliance/30-40/04b-stranglethorn-vale.guide",
 			"goal": "kill 192.1",
