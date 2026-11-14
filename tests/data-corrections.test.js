@@ -269,6 +269,15 @@ test('Dalaran Patrols waits for both Prison Break In and Key to the City, Shrewd
 	assert.deepEqual(blocks(97287), { all: [], any: [96984] }, 'Magus Wordeen Voidglare: Shrewd Negotiations');
 });
 
+// Ataxia (#2337): Nerlokh offers Khan Jehn only once his Valley of Bones chain is done, ending with Checking Things Out
+// (93122), whose quest data names Khan Jehn as its next quest; the data had no prerequisite, so the quest read as open
+// from the first visit to him (0.3.7.2's centaur reputation guide sent players to take it there).
+test('Khan Jehn waits for Checking Things Out, the end of Nerlokh\'s chain (#2337)', () => {
+	const blocks = (id) => blockingPrereqs({ id, start: { npc: [253177] }, ...corrections.quests[id].set });
+	assert.deepEqual(blocks(93128), { all: [93122], any: [] }, 'Nerlokh: Khan Jehn');
+	assert.equal(corrections.quests[93128].set.races, null, 'still open to every race');
+});
+
 test('Daniel Stitchsong stands at the reported Three Corners spot in live coordinates (#1966)', () => {
 	assert.deepEqual(corrections.npcs[256734]?.addSpawns, {
 		1433: { f: 'l', pts: [[9.96, 72.71]] },

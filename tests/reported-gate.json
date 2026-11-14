@@ -1242,6 +1242,9 @@
 		] },
 		"2327": { "tests": [
 			{ "node": "tests/guides-reported.test.js", "test": "#2327: a leveling guide that ends on the way into another zone drops that step once you are there" }
+		] },
+		"2337": { "tests": [
+			{ "node": "tests/data-corrections.test.js", "test": "Khan Jehn waits for Checking Things Out, the end of Nerlokh's chain (#2337)" }
 		] }
 	},
 	"seedDrift": {}
