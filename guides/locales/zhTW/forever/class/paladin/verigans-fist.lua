@@ -8,15 +8,15 @@
 return {
 	-- Guide
 	-- {spell:5502} Sense Undead
-	["The Alliance paladin's rare two-handed mace for the 20s, with a shield and {spell:5502} on the way."] = "",
+	["The Alliance paladin's rare two-handed mace for the 20s, with a shield and {spell:5502} on the way."] = "聯盟聖騎士20多級的稀有雙手錘，途中還能拿到一面盾牌和{spell:5502}。",
 
 	-- Step 1: The Tome of Valor (Ironforge)
 	-- {npc:6179} Tiza Battleforge · {object:32386} Hall of Mysteries · {object:32362} Mystic Ward · {item:6776} Tome of Valor · {npc:6171} Duthorian Rall · {zone:1453} Stormwind · {area:2257} Deeprun Tram · {zone:1455} Ironforge
-	["At 20 {npc:6179}, upstairs in the {object:32386} in the {object:32362}, gives you the {item:6776}. Right-click it: it sends you to {npc:6171} in {zone:1453}'s Cathedral of Light. Take the {area:2257} from {zone:1455} to {zone:1453}."] = "",
+	["At 20 {npc:6179}, upstairs in the {object:32386} in the {object:32362}, gives you the {item:6776}. Right-click it: it sends you to {npc:6171} in {zone:1453}'s Cathedral of Light. Take the {area:2257} from {zone:1455} to {zone:1453}."] = "20級時，{object:32362}{object:32386}樓上的{npc:6179}會給你{item:6776}。右鍵點擊它：它會引導你去找{zone:1453}光明大教堂的{npc:6171}。從{zone:1455}搭{area:2257}前往{zone:1453}。",
 
 	-- Step 2: The Tome of Valor
 	-- {npc:6171} Duthorian Rall · {item:6776} Tome of Valor
-	["{npc:6171} stands in the Cathedral of Light. Humans get the {item:6776} from him. Right-click the book to start its quest and hand it straight back to him."] = "",
+	["{npc:6171} stands in the Cathedral of Light. Humans get the {item:6776} from him. Right-click the book to start its quest and hand it straight back to him."] = "{npc:6171}在光明大教堂裡。人類會從他那裡拿到{item:6776}。右鍵點擊這本書開始任務，然後直接交還給他。",
 	-- {item:6776} Tome of Valor
 	["Right-click the {item:6776}"] = "",
 
@@ -33,7 +33,7 @@ return {
 
 	-- Step 5: Jordan Stilwell
 	-- {npc:6181} Jordan Stilwell · {zone:1455} Ironforge · {item:6996} Jordan's Weapon Notes
-	["{npc:6181} works outside the gates of {zone:1455}, not inside. He gives you {item:6996}: four parts, in any order. Keep the notes."] = "",
+	["{npc:6181} works outside the gates of {zone:1455}, not inside. He gives you {item:6996}: four parts, in any order. Keep the notes."] = "{npc:6181}在{zone:1455}大門外工作，不是在城內。他會給你{item:6996}：四個部件，順序不限。留著這些筆記。",
 
 	-- Step 6: Bailor Stonehand
 	-- {npc:6241} Bailor Stonehand · {area:144} Thelsamar
@@ -49,12 +49,12 @@ return {
 	-- {npc:6241} Bailor Stonehand
 	["Back to {npc:6241}"] = "回到{npc:6241}那裡",
 	-- {npc:6241} Bailor Stonehand · {item:6993} Jordan's Refined Ore Shipment
-	["{npc:6241} turns the ore into {item:6993}, the part Jordan wants."] = "",
+	["{npc:6241} turns the ore into {item:6993}, the part Jordan wants."] = "{npc:6241}會把礦石做成{item:6993}，也就是喬丹要的部件。",
 
 	-- Step 9: Whitestone Oak Lumber
 	-- {area:1581} Deadmines · {area:20} Moonbrook
 	-- plural, as words: Goblin Woodcarvers = {npc:641} Goblin Woodcarver
-	["{area:1581} is a group of five under {area:20}; the instance portal is at the bottom of the {area:20} mine. The Goblin Woodcarvers (elite, level 18-19) in the mast room with Sneed drop the lumber every time."] = "",
+	["{area:1581} is a group of five under {area:20}; the instance portal is at the bottom of the {area:20} mine. The Goblin Woodcarvers (elite, level 18-19) in the mast room with Sneed drop the lumber every time."] = "{area:1581}是位於{area:20}地底的五人副本；副本傳送門在{area:20}礦坑底部。桅杆室裡與斯尼德在一起的哥布林木匠（精英，18-19級）每次都會掉落木材。",
 	-- {area:1581} Deadmines · {area:20} Moonbrook
 	["{area:1581}, in the {area:20} mine"] = "{area:1581}，在{area:20}礦坑內",
 	-- plural, as words: Goblin Woodcarvers = {npc:641} Goblin Woodcarver
@@ -84,22 +84,15 @@ return {
 
 	-- Step 14: Verigan's Fist
 	-- {npc:6181} Jordan Stilwell · {zone:1455} Ironforge
-	["Bring the four parts to {npc:6181} outside {zone:1455}. Accept his last quest and wait by him while he forges the mace at his anvil."] = "",
+	["Bring the four parts to {npc:6181} outside {zone:1455}. Accept his last quest and wait by him while he forges the mace at his anvil."] = "把四個部件交給{zone:1455}外的{npc:6181}。接下他的最後一個任務，在他用鐵砧鍛造戰錘時在旁邊等候。",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
-	-- ["At 20 {npc:6179} in the {object:32362} gives you the {item:6776}; it sends you to {npc:6171} in {zone:1453}'s Cathedral of Light. Take the tram from {zone:1455} to {zone:1453}."] = "20 級時，{object:32362}的{npc:6179}會給你{item:6776}；它會引導你去找{zone:1453}光明大教堂的{npc:6171}。從{zone:1455}搭地鐵前往{zone:1453}。",
-	-- ["Bring the four parts to {npc:6181} outside {zone:1455}."] = "把四個部件交給{zone:1455}外的{npc:6181}。",
 	-- ["Protect {npc:6182}"] = "保護{npc:6182}",
-	-- ["The Alliance paladin's rare two-handed mace for the 20s, with a shield on the way."] = "聯盟聖騎士 20 多級的稀有雙手錘，途中還能拿到一面盾牌。",
 	-- ["The Blackfathom naga by the entrance of {area:2797} on {zone:1440}'s north-west coast drop the {item:6995}. They are elite: grouping up is advised."] = "{zone:1440}西北海岸{area:2797}入口附近的黑暗深淵納迦會掉落{item:6995}。牠們是精英：建議組隊。",
 	-- ["The ore crate lies by the trees in the middle of the Mo'grosh ogre camp in north-east {zone:1432}. The Mo'grosh ogres are elite: grouping up is advised."] = "礦石箱在{zone:1432}東北部莫格羅什巨魔營地中央的樹旁。莫格羅什巨魔是精英：建議組隊。",
 	-- ["from the {item:6776}"] = "來自{item:6776}",
-	-- ["{area:1581} is a group of five under {area:20}; the instance portal is inside the {area:20} mine. The Goblin Woodcarvers in the Mast Room, with Sneed, drop the lumber."] = "{area:1581}是位於{area:20}地底的五人副本；副本傳送門在{area:20}礦坑內。桅杆室裡與斯尼德在一起的哥布林木匠會掉落木材。",
 	-- ["{area:236} is a level 20-30 dungeon in southern {zone:1421}. The hammer lies on a box inside the stables, at the far end of the courtyard before the ramp up."] = "{area:236}是位於{zone:1421}南部的 20-30 級地城。錘子放在馬廄內的箱子上，就在庭院盡頭、上坡道之前。",
 	-- ["{npc:3649} is in {area:442}."] = "{npc:3649}在{area:442}。",
-	-- ["{npc:6171} stands in the Cathedral of Light. Right-click the {item:6776} to start its quest."] = "{npc:6171}在光明大教堂裡。右鍵點擊{item:6776}開始任務。",
-	-- ["{npc:6181} stands outside the gates of {zone:1455}. He gives you {item:6996}, which list the four parts."] = "{npc:6181}站在{zone:1455}大門外。他會給你{item:6996}，上面列出四個部件。",
 	-- ["{npc:6182}'s farmhouse stands on the south-west coast of {zone:1436}. Waves of Defias attack it during her quest: keep her alive, and heal her if she needs it."] = "{npc:6182}的農舍位於{zone:1436}西南海岸。她的任務期間，迪菲亞會一波波來襲：保住她的性命，必要時治療她。",
 	-- ["{npc:6241} is in {area:144}."] = "{npc:6241}在{area:144}。",
-	-- ["{npc:6241} turns the ore into {item:6993}."] = "{npc:6241}會把礦石做成{item:6993}。",
 }

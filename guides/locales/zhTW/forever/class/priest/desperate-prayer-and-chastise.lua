@@ -10,7 +10,7 @@ return {
 	-- {quest:5634} Desperate Prayer · {quest:5641} Chastise
 	["{quest:5634} and {quest:5641}"] = "{quest:5634}與{quest:5641}",
 	-- {quest:5634} Desperate Prayer · {quest:5641} Chastise
-	["The Dwarf priest spells: {quest:5634} at 10, {quest:5641} (new in Forever) at 20. Free, no objectives."] = "",
+	["The Dwarf priest spells: {quest:5634} at 10, {quest:5641} (new in Forever) at 20. Free, no objectives."] = "矮人的牧師法術：10級的{quest:5634}，20級的{quest:5641}（Forever 新增）。免費，沒有任務目標。",
 
 	-- Step 1: Desperate Prayer: Maxan Anvol
 	-- {npc:1226} Maxan Anvol · {area:2102} Thunderbrew Distillery · {area:131} Kharanos · {quest:5634} Desperate Prayer · {npc:11406} High Priest Rohan · {zone:1455} Ironforge
@@ -112,5 +112,4 @@ return {
 	-- ["At 10, go to {npc:11406} in the {object:32386}, in {zone:1455}'s {object:32362}. Forever's quest text names Rohan, but the quest data has {npc:376} in {zone:1453}'s Cathedral of Light take it: try Rohan first, then Laurena (the {area:2257} links the cities)."] = "10級時，到{zone:1455}{object:32362}的{object:32386}找{npc:11406}。Forever 的任務文字寫的是洛漢，但任務資料顯示由{zone:1453}光明大教堂的{npc:376}接收：先試洛漢，再試勞瑞娜（{area:2257}連接兩座城市）。",
 	-- ["At 20, {npc:11406} teaches {quest:5641}. {npc:376} in {zone:1453} and {npc:11401} in {zone:1457} send you to him with a quest of the same name."] = "20級時，{npc:11406}會教你{quest:5641}。{zone:1453}的{npc:376}和{zone:1457}的{npc:11401}會用同名任務派你去找他。",
 	-- ["If Rohan did not take it: {npc:376} is in the Cathedral of Light. Take the {area:2257} from {object:171524}."] = "如果洛漢沒有接收：{npc:376}在光明大教堂。從{object:171524}搭乘{area:2257}。",
-	-- ["The Human and Dwarf priest spells: {quest:5634} at 10, {quest:5641} for Dwarves at 20."] = "人類和矮人的牧師法術：10級的{quest:5634}，以及矮人20級的{quest:5641}。",
 }

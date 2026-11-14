@@ -20,13 +20,13 @@ return {
 
 	-- Step 3: Enchanting 1-75: Auction House
 	-- {skill:333} Enchanting
-	["{skill:333} 1-75: Auction House"] = "",
+	["{skill:333} 1-75: Auction House"] = "{skill:333} 1-75：拍卖行",
 	-- {item:10940} Strange Dust
-	["What 1-75 takes that the Auction House sells: 51 {item:10940}. The counts drop by what your bags, bank and mail hold."] = "",
+	["What 1-75 takes that the Auction House sells: 51 {item:10940}. The counts drop by what your bags, bank and mail hold."] = "1-75阶段所需材料中拍卖行有售的：51个{item:10940}。背包、银行和邮箱中已有的数量会自动扣除。",
 
 	-- Step 4: Strange Dust
 	-- {item:10940} Strange Dust · {spell:7420} Enchant Chest - Inferior Stamina · {skill:333} Enchanting
-	["51 {item:10940} for {spell:7420}: {skill:333}: disenchant green items of item level 5-20."] = "",
+	["51 {item:10940} for {spell:7420}: {skill:333}: disenchant green items of item level 5-20."] = "为{spell:7420}准备51个{item:10940}：{skill:333}：分解物品等级5-20的绿色物品。",
 
 	-- Step 5: Enchant Bracer - Inferior Stamina to 25
 	-- {spell:7418} Enchant Bracer - Inferior Stamina
@@ -45,7 +45,7 @@ return {
 	-- {spell:7420} Enchant Chest - Inferior Stamina
 	["{spell:7420} to 75"] = "{spell:7420}练到75",
 	-- {spell:7420} Enchant Chest - Inferior Stamina · {item:10940} Strange Dust · {item:10938} Lesser Magic Essence · {spell:7423} Minor Absorption
-	["{spell:7420} is orange at 25 (yellow 70, green 90, grey 110): about 51 crafts to 75. Each takes 1 {item:10940}. One {item:10940} a craft: the dust most level 5-20 greens break into, armour above all. {item:10938} (from weapons) does the same job through Bracer - Minor Deflect or Chest - {spell:7423} if you have more of it. Enchant any item for that slot in your bags, even a grey one."] = "",
+	["{spell:7420} is orange at 25 (yellow 70, green 90, grey 110): about 51 crafts to 75. Each takes 1 {item:10940}. One {item:10940} a craft: the dust most level 5-20 greens break into, armour above all. {item:10938} (from weapons) does the same job through Bracer - Minor Deflect or Chest - {spell:7423} if you have more of it. Enchant any item for that slot in your bags, even a grey one."] = "{spell:7420}在25时为橙色（70变黄，90变绿，110变灰）：约制作51次可升至75。每次需要1个{item:10940}。每次一个{item:10940}：多数物品等级5-20的绿色装备都能分解出这种粉尘，尤其是护甲。如果{item:10938}（主要来自武器）更多，也可用护腕 - 初级偏斜或胸甲 - {spell:7423}完成这一阶段。背包里对应部位的任意物品都能附魔，即使是灰色物品。",
 
 	-- Step 8: Journeyman Enchanting
 	-- {skill:333} Enchanting
@@ -55,37 +55,37 @@ return {
 
 	-- Step 9: Enchanting 75-150: vendor goods
 	-- {skill:333} Enchanting
-	["{skill:333} 75-150: vendor goods"] = "",
+	["{skill:333} 75-150: vendor goods"] = "{skill:333} 75-150：商人材料",
 	-- {item:10938} Lesser Magic Essence
-	["Buy the whole bracket's share in one go: 4 {item:10938} (32s). The arrow picks the nearest seller of your faction. {item:10938}: no vendor of the other faction sells it; that side gathers or buys it at the Auction House (next steps)."] = "",
+	["Buy the whole bracket's share in one go: 4 {item:10938} (32s). The arrow picks the nearest seller of your faction. {item:10938}: no vendor of the other faction sells it; that side gathers or buys it at the Auction House (next steps)."] = "一次买齐本阶段的用量：4个{item:10938}（32银币）。箭头会指向本阵营最近的商人。{item:10938}：另一阵营没有商人出售；该阵营需要自己获取或在拍卖行购买（见后续步骤）。",
 
 	-- Step 10: Enchanting 75-150: Auction House
 	-- {skill:333} Enchanting
-	["{skill:333} 75-150: Auction House"] = "",
+	["{skill:333} 75-150: Auction House"] = "{skill:333} 75-150：拍卖行",
 	-- {item:1210} Shadowgem · {item:6338} Silver Rod · {item:10938} Lesser Magic Essence · {item:10940} Strange Dust · {item:11083} Soul Dust
-	["What 75-150 takes that the Auction House sells: 1 {item:1210}, 1 {item:6338}, 4 {item:10938}, 121 {item:10940} and 20 {item:11083}. The counts drop by what your bags, bank and mail hold."] = "",
+	["What 75-150 takes that the Auction House sells: 1 {item:1210}, 1 {item:6338}, 4 {item:10938}, 121 {item:10940} and 20 {item:11083}. The counts drop by what your bags, bank and mail hold."] = "75-150阶段所需材料中拍卖行有售的：1个{item:1210}、1个{item:6338}、4个{item:10938}、121个{item:10940}和20个{item:11083}。背包、银行和邮箱中已有的数量会自动扣除。",
 
 	-- Step 11: Shadowgem
 	-- {item:1210} Shadowgem · {item:6339} Runed Silver Rod · {object:1731} Copper Vein · {object:1732} Tin Vein · {object:1733} Silver Vein
-	["1 {item:1210} for {item:6339}: {item:1210} turns up in about one {object:1731}, {object:1732} or {object:1733} in 100: keep the ones you find while mining."] = "",
+	["1 {item:1210} for {item:6339}: {item:1210} turns up in about one {object:1731}, {object:1732} or {object:1733} in 100: keep the ones you find while mining."] = "为{item:6339}准备1个{item:1210}：约每100个{object:1731}、{object:1732}或{object:1733}出一个{item:1210}：留着采矿时找到的。",
 
 	-- Step 12: Silver Rod
 	-- {item:6338} Silver Rod · {item:6339} Runed Silver Rod · {skill:164} Blacksmithing
-	["1 {item:6338} for {item:6339}: {skill:164}: {item:6338}."] = "",
+	["1 {item:6338} for {item:6339}: {skill:164}: {item:6338}."] = "为{item:6339}准备1个{item:6338}：{skill:164}：制作{item:6338}。",
 
 	-- Step 13: Strange Dust
 	-- {item:10940} Strange Dust · {spell:7420} Enchant Chest - Inferior Stamina · {spell:7771} Enchant Cloak - Minor Protection · {item:6339} Runed Silver Rod · {skill:333} Enchanting
-	["121 {item:10940} for {spell:7420}, {spell:7771} and {item:6339}: {skill:333}: disenchant green items of item level 5-20."] = "",
+	["121 {item:10940} for {spell:7420}, {spell:7771} and {item:6339}: {skill:333}: disenchant green items of item level 5-20."] = "为{spell:7420}、{spell:7771}和{item:6339}准备121个{item:10940}：{skill:333}：分解物品等级5-20的绿色物品。",
 
 	-- Step 14: Soul Dust
 	-- {item:11083} Soul Dust · {spell:13501} Enchant Bracer - Lesser Stamina · {skill:333} Enchanting
-	["20 {item:11083} for {spell:13501}: {skill:333}: disenchant green items of item level 21-30."] = "",
+	["20 {item:11083} for {spell:13501}: {skill:333}: disenchant green items of item level 21-30."] = "为{spell:13501}准备20个{item:11083}：{skill:333}：分解物品等级21-30的绿色物品。",
 
 	-- Step 15: Enchant Chest - Inferior Stamina to 90
 	-- {spell:7420} Enchant Chest - Inferior Stamina
 	["{spell:7420} to 90"] = "制作{spell:7420}，提升至 90",
 	-- {spell:7420} Enchant Chest - Inferior Stamina · {item:10940} Strange Dust · {item:10938} Lesser Magic Essence · {spell:7423} Minor Absorption
-	["{spell:7420} is yellow at 75 (yellow 70, green 90, grey 110): about 22 crafts to 90. Each takes 1 {item:10940}. One {item:10940} a craft: the dust most level 5-20 greens break into, armour above all. {item:10938} (from weapons) does the same job through Bracer - Minor Deflect or Chest - {spell:7423} if you have more of it. Enchant any item for that slot in your bags, even a grey one."] = "",
+	["{spell:7420} is yellow at 75 (yellow 70, green 90, grey 110): about 22 crafts to 90. Each takes 1 {item:10940}. One {item:10940} a craft: the dust most level 5-20 greens break into, armour above all. {item:10938} (from weapons) does the same job through Bracer - Minor Deflect or Chest - {spell:7423} if you have more of it. Enchant any item for that slot in your bags, even a grey one."] = "{spell:7420} 在技能 75 时为黄色（70 变黄、90 变绿、110 变灰）：约制作 22 次可到 90。每次需要 1 个 {item:10940}。每次只用一个 {item:10940}：多数 5-20 级绿色物品，尤其是护甲，分解后都会获得这种尘。如果手头 {item:10938}（来自武器）更多，也可以通过“附魔护腕 - 初级偏斜”或“附魔胸甲 - {spell:7423}”达到同样目的。对背包中对应部位的任意装备附魔即可，灰色品质也行。",
 
 	-- Step 16: Enchant Cloak - Minor Protection to 130
 	-- {spell:7771} Enchant Cloak - Minor Protection
@@ -103,20 +103,20 @@ return {
 	-- {spell:13501} Enchant Bracer - Lesser Stamina
 	["{spell:13501} to 150"] = "{spell:13501}练到150",
 	-- {spell:13501} Enchant Bracer - Lesser Stamina · {item:11083} Soul Dust · {item:6339} Runed Silver Rod · {item:10938} Lesser Magic Essence · {skill:333} Enchanting
-	["{spell:13501} is orange at 130 (yellow 155, green 175, grey 195): about 20 crafts to 150, a point every craft. Each takes 1 {item:11083}. One {item:11083} a craft (level 21-30 greens). Make the {item:6339} first: the recipe needs it in your bags, so keep it there. {item:10938} (4 for 75-150): Alliance: {skill:333}: disenchant green items of item level 5-15; or the Auction House. Enchant any item for that slot in your bags, even a grey one. {skill:333} 150 is a Legacy System milestone."] = "",
+	["{spell:13501} is orange at 130 (yellow 155, green 175, grey 195): about 20 crafts to 150, a point every craft. Each takes 1 {item:11083}. One {item:11083} a craft (level 21-30 greens). Make the {item:6339} first: the recipe needs it in your bags, so keep it there. {item:10938} (4 for 75-150): Alliance: {skill:333}: disenchant green items of item level 5-15; or the Auction House. Enchant any item for that slot in your bags, even a grey one. {skill:333} 150 is a Legacy System milestone."] = "{spell:13501}在技能130时为橙色（155变黄，175变绿，195变灰）：约制作20次可到150，每次涨一点。每次需要1个{item:11083}。也就是每次1个{item:11083}（来自21-30级绿色物品）。先制作{item:6339}：使用此配方时需将它保留在背包中。{item:10938}（75-150需4个）：联盟：用{skill:333}分解物品等级5-15的绿色物品，或从拍卖行购买。背包中对应装备栏位的任意物品均可用于附魔，灰色物品也行。{skill:333}150是传承系统的一个里程碑。",
 
 	-- Step 19: Enchanting 150-225: Auction House
 	-- {skill:333} Enchanting
-	["{skill:333} 150-225: Auction House"] = "",
+	["{skill:333} 150-225: Auction House"] = "{skill:333} 150-225：拍卖行",
 	-- {item:5500} Iridescent Pearl · {item:7971} Black Pearl · {item:11082} Greater Astral Essence · {item:11083} Soul Dust · {item:11128} Golden Rod · {item:11135} Greater Mystic Essence · {item:11137} Vision Dust · {item:11144} Truesilver Rod
-	["What 150-225 takes that the Auction House sells: 1 {item:5500}, 1 {item:7971}, 1 {item:11082}, 71 {item:11083}, 1 {item:11128}, 1 {item:11135}, 21 {item:11137} and 1 {item:11144}. The counts drop by what your bags, bank and mail hold."] = "",
+	["What 150-225 takes that the Auction House sells: 1 {item:5500}, 1 {item:7971}, 1 {item:11082}, 71 {item:11083}, 1 {item:11128}, 1 {item:11135}, 21 {item:11137} and 1 {item:11144}. The counts drop by what your bags, bank and mail hold."] = "150-225阶段所需材料中拍卖行有售的：1个{item:5500}、1个{item:7971}、1个{item:11082}、71个{item:11083}、1个{item:11128}、1个{item:11135}、21个{item:11137}和1个{item:11144}。背包、银行和邮箱中已有的数量会自动扣除。",
 
 	-- Step 20: Iridescent Pearl (Alliance)
 	-- {item:5500} Iridescent Pearl
 	["{item:5500} (Alliance)"] = "{item:5500}（联盟）",
 	-- {item:5500} Iridescent Pearl · {item:11130} Runed Golden Rod
 	-- plural, as words: Giant Clams = {object:2744} Giant Clam
-	["1 {item:5500} for {item:11130}: open the Giant Clams at the marked spot."] = "",
+	["1 {item:5500} for {item:11130}: open the Giant Clams at the marked spot."] = "为 {item:11130} 准备 1 个 {item:5500}：打开标记位置的巨型蚌壳获取。",
 
 	-- Step 21: Iridescent Pearl (Horde)
 	-- {item:5500} Iridescent Pearl
@@ -124,27 +124,27 @@ return {
 
 	-- Step 22: Greater Astral Essence
 	-- {item:11082} Greater Astral Essence · {item:11130} Runed Golden Rod · {skill:333} Enchanting
-	["1 {item:11082} for {item:11130}: {skill:333}: disenchant green items of item level 16-25."] = "",
+	["1 {item:11082} for {item:11130}: {skill:333}: disenchant green items of item level 16-25."] = "为{item:11130}准备1个{item:11082}：{skill:333}：分解物品等级16-25的绿色物品。",
 
 	-- Step 23: Soul Dust
 	-- {item:11083} Soul Dust · {item:11130} Runed Golden Rod · {spell:13501} Enchant Bracer - Lesser Stamina · {spell:13637} Enchant Boots - Lesser Agility · {skill:333} Enchanting
-	["71 {item:11083} for {item:11130}, {spell:13501} and {spell:13637}: {skill:333}: disenchant green items of item level 21-30."] = "",
+	["71 {item:11083} for {item:11130}, {spell:13501} and {spell:13637}: {skill:333}: disenchant green items of item level 21-30."] = "为{item:11130}、{spell:13501}和{spell:13637}准备71个{item:11083}：{skill:333}：分解物品等级21-30的绿色物品。",
 
 	-- Step 24: Golden Rod
 	-- {item:11128} Golden Rod · {item:11130} Runed Golden Rod · {skill:164} Blacksmithing
-	["1 {item:11128} for {item:11130}: {skill:164}: {item:11128}."] = "",
+	["1 {item:11128} for {item:11130}: {skill:164}: {item:11128}."] = "为{item:11130}准备1个{item:11128}：{skill:164}：制作{item:11128}。",
 
 	-- Step 25: Greater Mystic Essence
 	-- {item:11135} Greater Mystic Essence · {item:11145} Runed Truesilver Rod · {skill:333} Enchanting
-	["1 {item:11135} for {item:11145}: {skill:333}: disenchant green items of item level 26-35."] = "",
+	["1 {item:11135} for {item:11145}: {skill:333}: disenchant green items of item level 26-35."] = "为{item:11145}准备1个{item:11135}：{skill:333}：分解物品等级26-35的绿色物品。",
 
 	-- Step 26: Vision Dust
 	-- {item:11137} Vision Dust · {item:11145} Runed Truesilver Rod · {spell:13746} Enchant Cloak - Greater Defense · {skill:333} Enchanting
-	["21 {item:11137} for {item:11145} and {spell:13746}: {skill:333}: disenchant green items of item level 31-40."] = "",
+	["21 {item:11137} for {item:11145} and {spell:13746}: {skill:333}: disenchant green items of item level 31-40."] = "为{item:11145}和{spell:13746}准备21个{item:11137}：{skill:333}：分解物品等级31-40的绿色物品。",
 
 	-- Step 27: Truesilver Rod
 	-- {item:11144} Truesilver Rod · {item:11145} Runed Truesilver Rod · {skill:164} Blacksmithing
-	["1 {item:11144} for {item:11145}: {skill:164}: {item:11144}."] = "",
+	["1 {item:11144} for {item:11145}: {skill:164}: {item:11144}."] = "为{item:11145}准备1个{item:11144}：{skill:164}：制作{item:11144}。",
 
 	-- Step 28: Expert Enchanting
 	-- {skill:333} Enchanting
@@ -156,7 +156,7 @@ return {
 	-- {spell:13501} Enchant Bracer - Lesser Stamina
 	["{spell:13501} to 160"] = "制作{spell:13501}，提升至 160",
 	-- {spell:13501} Enchant Bracer - Lesser Stamina · {item:11083} Soul Dust · {item:11130} Runed Golden Rod
-	["{spell:13501} is orange at 150 (yellow 155, green 175, grey 195): about 11 crafts to 160. Each takes 1 {item:11083}. One {item:11083} a craft (level 21-30 greens). Make the {item:11130} now, while it still gives a point: a later recipe needs it in your bags, so keep it there. Enchant any item for that slot in your bags, even a grey one."] = "",
+	["{spell:13501} is orange at 150 (yellow 155, green 175, grey 195): about 11 crafts to 160. Each takes 1 {item:11083}. One {item:11083} a craft (level 21-30 greens). Make the {item:11130} now, while it still gives a point: a later recipe needs it in your bags, so keep it there. Enchant any item for that slot in your bags, even a grey one."] = "{spell:13501}在技能150时为橙色（155变黄，175变绿，195变灰）：约制作11次可到160。每次需要1个{item:11083}。也就是每次1个{item:11083}（来自21-30级绿色物品）。趁现在还能涨点，制作{item:11130}：之后的配方要求背包里有它，请保留在背包中。背包中对应装备栏位的任意物品均可用于附魔，灰色物品也行。",
 
 	-- Step 30: Enchanting recipes at 160
 	-- {skill:333} Enchanting
@@ -180,7 +180,7 @@ return {
 	-- {spell:13746} Enchant Cloak - Greater Defense
 	["{spell:13746} to 225"] = "{spell:13746}练到225",
 	-- {spell:13746} Enchant Cloak - Greater Defense · {item:11137} Vision Dust · {item:11145} Runed Truesilver Rod · {item:7971} Black Pearl · {skill:333} Enchanting
-	["{spell:13746} is orange at 205 (yellow 225, green 245, grey 265): about 20 crafts to 225, a point every craft. Each takes 1 {item:11137}. One {item:11137} a craft (level 31-40 greens). Make the {item:11145} first: the recipe needs it in your bags, so keep it there. {item:7971} (1 for 150-225): {item:7971} is a rare drop (no mob gives it one time in 50): buy it at the Auction House, or keep the ones you find. Enchant any item for that slot in your bags, even a grey one. {skill:333} 225 is a Legacy System milestone."] = "",
+	["{spell:13746} is orange at 205 (yellow 225, green 245, grey 265): about 20 crafts to 225, a point every craft. Each takes 1 {item:11137}. One {item:11137} a craft (level 31-40 greens). Make the {item:11145} first: the recipe needs it in your bags, so keep it there. {item:7971} (1 for 150-225): {item:7971} is a rare drop (no mob gives it one time in 50): buy it at the Auction House, or keep the ones you find. Enchant any item for that slot in your bags, even a grey one. {skill:333} 225 is a Legacy System milestone."] = "{spell:13746}在技能205时为橙色（225变黄，245变绿，265变灰）：约制作20次可到225，每次涨一点。每次需要1个{item:11137}。也就是每次1个{item:11137}（来自31-40级绿色物品）。先制作{item:11145}：使用此配方时需将它保留在背包中。{item:7971}（150-225需1个）：{item:7971}掉落稀有（没有怪物的掉率达到五十分之一），可从拍卖行购买，或保留途中找到的。背包中对应装备栏位的任意物品均可用于附魔，灰色物品也行。{skill:333}225是传承系统的一个里程碑。",
 
 	-- Step 34: Artisan Enchanting
 	-- {skill:333} Enchanting
@@ -204,41 +204,41 @@ return {
 
 	-- Step 38: Enchanting 225-300: Auction House
 	-- {skill:333} Enchanting
-	["{skill:333} 225-300: Auction House"] = "",
+	["{skill:333} 225-300: Auction House"] = "{skill:333} 225-300：拍卖行",
 	-- {item:8831} Purple Lotus · {item:11137} Vision Dust · {item:11176} Dream Dust
-	["What 225-300 takes that the Auction House sells: 34 {item:8831}, 39 {item:11137} and 208 {item:11176}. The counts drop by what your bags, bank and mail hold."] = "",
+	["What 225-300 takes that the Auction House sells: 34 {item:8831}, 39 {item:11137} and 208 {item:11176}. The counts drop by what your bags, bank and mail hold."] = "225-300阶段所需材料中拍卖行有售的：34个{item:8831}、39个{item:11137}和208个{item:11176}。背包、银行和邮箱中已有的数量会自动扣除。",
 
 	-- Step 39: Purple Lotus (Alliance)
 	-- {item:8831} Purple Lotus
 	["{item:8831} (Alliance)"] = "{item:8831}（联盟）",
 	-- {item:8831} Purple Lotus · {item:20747} Lesser Mana Oil · {skill:182} Herbalism · {zone:1425} The Hinterlands · {zone:1444} Feralas · {zone:1447} Azshara
-	["34 {item:8831} for {item:20747}: {skill:182}: {item:8831} (skill 210) in {zone:1425} (40-50), {zone:1444} (40-50) and {zone:1447} (45-55). The densest patch of {item:8831} in {zone:1425} is marked."] = "",
+	["34 {item:8831} for {item:20747}: {skill:182}: {item:8831} (skill 210) in {zone:1425} (40-50), {zone:1444} (40-50) and {zone:1447} (45-55). The densest patch of {item:8831} in {zone:1425} is marked."] = "为{item:20747}准备34个{item:8831}：通过{skill:182}在{zone:1425}（40-50级）、{zone:1444}（40-50级）和{zone:1447}（45-55级）采集{item:8831}（需要技能210）。已标记{zone:1425}中{item:8831}最密集的区域。",
 
 	-- Step 40: Purple Lotus (Horde)
 	-- {item:8831} Purple Lotus
 	["{item:8831} (Horde)"] = "{item:8831}（部落）",
 	-- {item:8831} Purple Lotus · {item:20747} Lesser Mana Oil · {skill:182} Herbalism · {zone:1425} The Hinterlands · {zone:1444} Feralas · {zone:1447} Azshara
-	["34 {item:8831} for {item:20747}: {skill:182}: {item:8831} (skill 210) in {zone:1425} (40-50), {zone:1444} (40-50) and {zone:1447} (45-55). The densest patch of {item:8831} in {zone:1444} is marked."] = "",
+	["34 {item:8831} for {item:20747}: {skill:182}: {item:8831} (skill 210) in {zone:1425} (40-50), {zone:1444} (40-50) and {zone:1447} (45-55). The densest patch of {item:8831} in {zone:1444} is marked."] = "准备34个{item:8831}制作{item:20747}：{skill:182}：在{zone:1425}（40-50级）、{zone:1444}（40-50级）和{zone:1447}（45-55级）采集{item:8831}（技能210）。已标记{zone:1444}中{item:8831}最密集的位置。",
 
 	-- Step 41: Vision Dust
 	-- {item:11137} Vision Dust · {spell:13815} Enchant Gloves - Agility · {skill:333} Enchanting
-	["39 {item:11137} for {spell:13815}: {skill:333}: disenchant green items of item level 31-40."] = "",
+	["39 {item:11137} for {spell:13815}: {skill:333}: disenchant green items of item level 31-40."] = "为{spell:13815}准备39个{item:11137}：{skill:333}：分解物品等级31-40的绿色物品。",
 
 	-- Step 42: Dream Dust
 	-- {item:11176} Dream Dust · {item:20747} Lesser Mana Oil · {spell:20017} Enchant Shield - Greater Stamina · {skill:333} Enchanting
-	["208 {item:11176} for {item:20747} and {spell:20017}: {skill:333}: disenchant green items of item level 41-50."] = "",
+	["208 {item:11176} for {item:20747} and {spell:20017}: {skill:333}: disenchant green items of item level 41-50."] = "为{item:20747}和{spell:20017}准备208个{item:11176}：{skill:333}：分解物品等级41-50的绿色物品。",
 
 	-- Step 43: Enchant Gloves - Agility to 253
 	-- {spell:13815} Enchant Gloves - Agility
 	["{spell:13815} to 253"] = "制作{spell:13815}，提升至 253",
 	-- {spell:13815} Enchant Gloves - Agility · {item:11137} Vision Dust · {npc:11073} Annora
-	["{spell:13815} is orange at 225 (yellow 230, green 250, grey 270): about 39 crafts to 253. Each takes 1 {item:11137}. {npc:11073} teaches it with Artisan: learn it on that visit. {item:11137} again; bring about 40. Enchant any item for that slot in your bags, even a grey one."] = "",
+	["{spell:13815} is orange at 225 (yellow 230, green 250, grey 270): about 39 crafts to 253. Each takes 1 {item:11137}. {npc:11073} teaches it with Artisan: learn it on that visit. {item:11137} again; bring about 40. Enchant any item for that slot in your bags, even a grey one."] = "{spell:13815}在225时为橙色（230变黄，250变绿，270变灰）：约制作39次可升至253。每次需要1个{item:11137}。{npc:11073}在教授大师级时也会教这个配方：那次就一起学。继续使用{item:11137}，带约40个。背包里对应部位的任意物品都能附魔，即使是灰色物品。",
 
 	-- Step 44: Lesser Mana Oil to 275
 	-- {item:20747} Lesser Mana Oil
 	["{item:20747} to 275"] = "制作{item:20747}，提升至 275",
 	-- {item:20747} Lesser Mana Oil · {item:11176} Dream Dust · {item:8831} Purple Lotus · {item:8925} Crystal Vial · {npc:15419} Kania · {area:3425} Cenarion Hold · {zone:1451} Silithus
-	["{item:20747} is orange at 253 (yellow 260, green 270, grey 280): about 34 crafts to 275. Each takes 1 {item:11176}, 1 {item:8831} and 1 {item:8925}. One {item:11176} (level 41-50 greens) and one {item:8831} (herbalists) a craft; the oil sells well. {npc:15419} sells the formula at the inn of {area:3425} ({zone:1451}): fly there, the mobs around it are level 55 and up."] = "",
+	["{item:20747} is orange at 253 (yellow 260, green 270, grey 280): about 34 crafts to 275. Each takes 1 {item:11176}, 1 {item:8831} and 1 {item:8925}. One {item:11176} (level 41-50 greens) and one {item:8831} (herbalists) a craft; the oil sells well. {npc:15419} sells the formula at the inn of {area:3425} ({zone:1451}): fly there, the mobs around it are level 55 and up."] = "{item:20747}在技能253时为橙色（260变黄，270变绿，280变灰）：约制作34次可到275。每次需要1个{item:11176}、1个{item:8831}和1个{item:8925}。也就是每次1个{item:11176}（来自41-50级绿色物品）及1个{item:8831}（草药师采集）；这种油很好卖。{npc:15419}在{area:3425}（{zone:1451}）的旅店出售公式：飞过去，周围怪物为55级及以上。",
 	["from the recipe in your bags"] = "使用背包里的配方",
 
 	-- Step 45: Enchant Shield - Greater Stamina to 300
@@ -248,9 +248,6 @@ return {
 	["{spell:20017} is orange at 275 (yellow 285, green 305, grey 325): about 29 crafts to 300. Each takes 6 {item:11176}. Six {item:11176} a craft: the dearest stretch, so disenchant every level 41-50 green you find. Enchant any item for that slot in your bags, even a grey one. {skill:333} 300 is a Legacy System milestone."] = "{spell:20017}在275时为橙色（285变黄，305变绿，325变灰）：约制作29次可升至300。每次需要6个{item:11176}。每次六个{item:11176}：这是最贵的一段，因此分解所有找到的41-50级绿色装备。背包里对应部位的任意物品都能附魔，即使是灰色物品。{skill:333}300是传承系统的里程碑。",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
-	-- ["1 {item:5500} for {item:11130}: open the Giant Clams at the marked spot, or buy it at the Auction House."] = "为 {item:11130} 准备 1 个 {item:5500}：打开标记位置的巨型蚌壳获取，或在拍卖行购买。",
-	-- ["34 {item:8831} for {item:20747}: {skill:182}: {item:8831} (skill 210) in {zone:1425} (40-50), {zone:1444} (40-50) and {zone:1447} (45-55); or the Auction House. The densest patch of {item:8831} in {zone:1425} is marked."] = "为{item:20747}准备34个{item:8831}：通过{skill:182}在{zone:1425}（40-50级）、{zone:1444}（40-50级）和{zone:1447}（45-55级）采集{item:8831}（需要技能210），或在拍卖行购买。已标记{zone:1425}中{item:8831}最密集的区域。",
-	-- ["34 {item:8831} for {item:20747}: {skill:182}: {item:8831} (skill 210) in {zone:1425} (40-50), {zone:1444} (40-50) and {zone:1447} (45-55); or the Auction House. The densest patch of {item:8831} in {zone:1444} is marked."] = "准备34个{item:8831}制作{item:20747}：{skill:182}：在{zone:1425}（40-50级）、{zone:1444}（40-50级）和{zone:1447}（45-55级）采集{item:8831}（技能210）；或从拍卖行购买。已标记{zone:1444}中{item:8831}最密集的位置。",
 	-- ["Apprentice {skill:333}"] = "初级{skill:333}",
 	-- ["Apprentice {skill:333} lets you craft up to 75 for 10c, at any character level. Not every {skill:333} trainer teaches it: Alliance {npc:3606} ({zone:1438}), {npc:11068} ({zone:1453}), {npc:257004} (Zephras Isle), {npc:5157} ({zone:1455}), {npc:11072} ({zone:1429}), {npc:11070} ({zone:1457}), {npc:1317} ({zone:1453}), {npc:257020} (Zephras Isle), {npc:4213} ({zone:1457}), {npc:11065} ({zone:1455}), {npc:5158} ({zone:1455}) and {npc:7949} ({zone:1444}); Horde {npc:257004} (Zephras Isle), {npc:3345} ({zone:1454}), {npc:11074} ({zone:1442}), Jhag ({zone:1454}), {npc:4616} ({zone:1458}), {npc:11067} ({zone:1458}), {npc:11071} ({zone:1456}), {npc:257020} (Zephras Isle), {npc:3011} ({zone:1456}) and {npc:5695} ({zone:1420}). The arrow picks the nearest of your faction. Buy a {item:6217} and {item:247786} from an enchanting supplies vendor (in the capitals and on Zephras Isle; the starting-area trainers have none beside them, and the next step's arrow picks the nearest). From now on, disenchant every green you do not wear: that is where the dust and essences come from. Two starter quests teach Disenchant on a quest item: An Enchanting Lesson from {npc:11072} ({area:91}, {zone:1429}) and A Pain in the Neck from {npc:266881} ({area:367}, {zone:1411}). 1-75 takes about 50c of recipes and 4s 44c of vendor goods, plus 51 {item:10940} to gather or buy."] = "初级{skill:333}允许你将技能练至75，学习费用10铜，没有角色等级要求。并非所有{skill:333}训练师都会教：联盟有{npc:3606}（{zone:1438}）、{npc:11068}（{zone:1453}）、{npc:257004}（泽风岛）、{npc:5157}（{zone:1455}）、{npc:11072}（{zone:1429}）、{npc:11070}（{zone:1457}）、{npc:1317}（{zone:1453}）、{npc:257020}（泽风岛）、{npc:4213}（{zone:1457}）、{npc:11065}（{zone:1455}）、{npc:5158}（{zone:1455}）和{npc:7949}（{zone:1444}）；部落有{npc:257004}（泽风岛）、{npc:3345}（{zone:1454}）、{npc:11074}（{zone:1442}）、夏格（{zone:1454}）、{npc:4616}（{zone:1458}）、{npc:11067}（{zone:1458}）、{npc:11071}（{zone:1456}）、{npc:257020}（泽风岛）、{npc:3011}（{zone:1456}）和{npc:5695}（{zone:1420}）。箭头会选择本阵营最近的训练师。向附魔供应商购买一个{item:6217}和一个{item:247786}（各大主城和泽风岛都有；初始地区训练师旁没有供应商，下一步箭头会选择最近的一位）。从现在起，分解所有不穿的绿色装备：粉尘和精华都由此而来。两个入门任务会教你对任务物品使用分解：{npc:11072}（{zone:1429}的{area:91}）的附魔一课，以及{npc:266881}（{zone:1411}的{area:367}）的“脖子上的麻烦”。1-75约需50铜学习配方、4银44铜购买商人物品，另需收集或购买51个{item:10940}。",
 	-- ["Artisan needs character level 35 and {skill:333} 200; it raises the cap to 300. Materials for 225-300 are worth about 30s in all."] = "专家级需要角色等级35和{skill:333} 200，可将上限提高到300。225-300的材料总价约30银。",
@@ -284,7 +281,6 @@ return {
 	-- ["{item:1210} (Alliance)"] = "{item:1210}（联盟）",
 	-- ["{item:1210} (Horde)"] = "{item:1210}（部落）",
 	-- ["{item:1210} comes from {object:1731} nodes ({skill:186}); this is the densest cluster in the data. The Auction House works too."] = "{item:1210}来自{object:1731}（{skill:186}）；这里是数据中最密集的矿点。拍卖行也能买到。",
-	-- ["{item:20747} is orange at 253 (yellow 260, green 270, grey 280): about 34 crafts to 275. Each takes 1 {item:11176}, 1 {item:8831} and 1 {item:8925}. One {item:11176} (level 41-50 greens) and one {item:8831} (herbalists) a craft; the oil sells well. {npc:15419} sells the formula at the inn of {area:3425} ({zone:1451}): fly there, the mobs around it are level 55 and up. {item:11176} (208 for 225-300): {skill:333}: disenchant green items of item level 41-50; or the Auction House."] = "{item:20747}在技能253时为橙色（260变黄，270变绿，280变灰）：约制作34次可到275。每次需要1个{item:11176}、1个{item:8831}和1个{item:8925}。也就是每次1个{item:11176}（来自41-50级绿色物品）及1个{item:8831}（草药师采集）；这种油很好卖。{npc:15419}在{area:3425}（{zone:1451}）的旅店出售公式：飞过去，周围怪物为55级及以上。{item:11176}（225-300需208个）：用{skill:333}分解物品等级41-50的绿色物品，或从拍卖行购买。",
 	-- ["{item:7971} (Alliance)"] = "{item:7971}（联盟）",
 	-- ["{item:7971} (Horde)"] = "{item:7971}（部落）",
 	-- ["{item:8153} (Alliance)"] = "{item:8153}（联盟）",
@@ -315,13 +311,9 @@ return {
 	-- ["{spell:13501} to 180"] = "{spell:13501}练到180",
 	-- ["{spell:13637} to 200"] = "{spell:13637}练到200",
 	-- ["{spell:13661} to 225"] = "{spell:13661}练到225",
-	-- ["{spell:13746} is orange at 205 (yellow 225, green 245, grey 265): about 20 crafts to 225, a point every craft. Each takes 1 {item:11137}. One {item:11137} a craft (level 31-40 greens). Make the {item:11145} first: the recipe needs it in your bags, so keep it there. {item:7971} (1 for 150-225): {item:7971} is a rare drop (no mob gives it one time in 50): buy it at the Auction House, or keep the ones you find. {item:11135} (1 for 150-225): {skill:333}: disenchant green items of item level 26-35; or the Auction House. {item:11137} (21 for 150-225): {skill:333}: disenchant green items of item level 31-40; or the Auction House. {item:11144} (1 for 150-225): {skill:164}: {item:11144}; or the Auction House. Enchant any item for that slot in your bags, even a grey one. {skill:333} 225 is a Legacy System milestone."] = "{spell:13746}在技能205时为橙色（225变黄，245变绿，265变灰）：约制作20次可到225，每次涨一点。每次需要1个{item:11137}。也就是每次1个{item:11137}（来自31-40级绿色物品）。先制作{item:11145}：使用此配方时需将它保留在背包中。{item:7971}（150-225需1个）：{item:7971}掉落稀有（没有怪物的掉率达到五十分之一），可从拍卖行购买，或保留途中找到的。{item:11135}（150-225需1个）：用{skill:333}分解物品等级26-35的绿色物品，或从拍卖行购买。{item:11137}（150-225需21个）：用{skill:333}分解物品等级31-40的绿色物品，或从拍卖行购买。{item:11144}（150-225需1个）：通过{skill:164}制作{item:11144}，或从拍卖行购买。背包中对应装备栏位的任意物品均可用于附魔，灰色物品也行。{skill:333}225是传承系统的一个里程碑。",
 	-- ["{spell:13746} to 255"] = "{spell:13746}练到255",
-	-- ["{spell:13815} is orange at 225 (yellow 230, green 250, grey 270): about 39 crafts to 253. Each takes 1 {item:11137}. {npc:11073} teaches it with Artisan: learn it on that visit. {item:11137} again; bring about 40. {item:11137} (39 for 225-300): {skill:333}: disenchant green items of item level 31-40; or the Auction House. Enchant any item for that slot in your bags, even a grey one."] = "{spell:13815}在225时为橙色（230变黄，250变绿，270变灰）：约制作39次可升至253。每次需要1个{item:11137}。{npc:11073}在教授大师级时也会教这个配方：那次就一起学。继续使用{item:11137}，带约40个。{item:11137}（225-300阶段需要39个）：{skill:333}：分解物品等级31-40的绿色装备；或从拍卖行购买。背包里对应部位的任意物品都能附魔，即使是灰色物品。",
 	-- ["{spell:13935} to 292"] = "{spell:13935}练到292",
 	-- ["{spell:13948} to 300"] = "{spell:13948}练到300",
-	-- ["{spell:7420} is orange at 25 (yellow 70, green 90, grey 110): about 51 crafts to 75. Each takes 1 {item:10940}. One {item:10940} a craft: the dust most level 5-20 greens break into, armour above all. {item:10938} (from weapons) does the same job through Bracer - Minor Deflect or Chest - {spell:7423} if you have more of it. {item:10940} (51 for 1-75): {skill:333}: disenchant green items of item level 5-20; or the Auction House. Enchant any item for that slot in your bags, even a grey one."] = "{spell:7420}在25时为橙色（70变黄，90变绿，110变灰）：约制作51次可升至75。每次需要1个{item:10940}。每次一个{item:10940}：多数物品等级5-20的绿色装备都能分解出这种粉尘，尤其是护甲。如果{item:10938}（主要来自武器）更多，也可用护腕 - 初级偏斜或胸甲 - {spell:7423}完成这一阶段。{item:10940}（1-75阶段需要51个）：{skill:333}：分解物品等级5-20的绿色装备；或从拍卖行购买。背包里对应部位的任意物品都能附魔，即使是灰色物品。",
-	-- ["{spell:7420} is yellow at 75 (yellow 70, green 90, grey 110): about 22 crafts to 90. Each takes 1 {item:10940}. One {item:10940} a craft: the dust most level 5-20 greens break into, armour above all. {item:10938} (from weapons) does the same job through Bracer - Minor Deflect or Chest - {spell:7423} if you have more of it. {item:10940} (121 for 75-150): {skill:333}: disenchant green items of item level 5-20; or the Auction House. Enchant any item for that slot in your bags, even a grey one."] = "{spell:7420} 在技能 75 时为黄色（70 变黄、90 变绿、110 变灰）：约制作 22 次可到 90。每次需要 1 个 {item:10940}。每次只用一个 {item:10940}：多数 5-20 级绿色物品，尤其是护甲，分解后都会获得这种尘。如果手头 {item:10938}（来自武器）更多，也可以通过“附魔护腕 - 初级偏斜”或“附魔胸甲 - {spell:7423}”达到同样目的。{item:10940}（75-150 阶段需 121 个）：通过 {skill:333} 分解物品等级 5-20 的绿色物品，或在拍卖行购买。对背包中对应部位的任意装备附魔即可，灰色品质也行。",
 	-- ["{spell:7426} to 120"] = "{spell:7426}练到120",
 	-- ["{spell:7428} to 75"] = "{spell:7428}练到75",
 	-- ["{spell:7428} to 90"] = "{spell:7428}练到90",

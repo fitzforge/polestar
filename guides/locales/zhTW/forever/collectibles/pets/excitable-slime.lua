@@ -10,7 +10,7 @@ return {
 	-- {item:278265} Nutritious Slime Sludge · {npc:4612} Boyle · {zone:1458} Undercity
 	["Buy {item:278265} from {npc:4612} in the {zone:1458} canals first (25 copper for a stack of 5): you hand it in as soon as the slime offers its quest."] = "",
 	-- {item:278265} Nutritious Slime Sludge · {npc:4612} Boyle
-	["{item:278265}: {npc:4612}, in the canals"] = "",
+	["{item:278265}: {npc:4612}, in the canals"] = "{item:278265}：{npc:4612}，在運河中",
 
 	-- Step 2: WRIGGLE.
 	-- {npc:269452} Excitable Slime · {npc:4612} Boyle · {quest:97583} WRIGGLE.
@@ -18,5 +18,4 @@ return {
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Find the {npc:269452}, a critter in the {zone:1458} canals, and /dance with it until it offers WRIGGLE. Buy {item:278265} from a vendor in the canals and bring it back; if the slime seems tired, dance with it again."] = "在{zone:1458}的運河中找到小動物{npc:269452}，對牠 /dance，直到牠提供任務。向運河裡的商人購買{item:278265}並帶回來；如果史萊姆看起來累了，就再對牠跳舞。",
-	-- ["{item:278265}: {npc:4612}, in the canals beside the slime"] = "{item:278265}：{npc:4612}，在運河中史萊姆旁邊",
 }

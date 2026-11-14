@@ -8,23 +8,23 @@
 return {
 	-- Step 1: Auberdine
 	-- {npc:3649} Thundris Windweaver · {npc:3702} Alanndarian Nightsong · {npc:2913} Archaeologist Hollee · {npc:3693} Terenthis · {npc:3694} Sentinel Selarin
-	["From the dock, up to the north end of the village first ({npc:3649}, {npc:3702} by the moonwell, {npc:2913}), then down the main street: the WANTED poster outside the inn, {npc:3693} at its east end, where the road leaves south. {npc:3694} stands beside {npc:3693} by the flight master; if she isn't there, she has been killed and respawns shortly: wait a moment."] = "",
+	["From the dock (or the inn, if you used your Hearthstone), up to the north end of the village first ({npc:3649}, {npc:3702} by the moonwell, {npc:2913}), then down the main street: the WANTED poster outside the inn, {npc:3693} at its east end, where the road leaves south. {npc:3694} stands beside {npc:3693} by the flight master; if she isn't there, she has been killed and respawns shortly: wait a moment."] = "",
 	-- {npc:3649} Thundris Windweaver · {npc:1646} Baros Alexston
 	["{npc:3649}, north end of the village: {npc:1646}'s reply"] = "",
 	["The WANTED poster"] = "현상수배 포스터",
 	-- {npc:3694} Sentinel Selarin · {npc:3693} Terenthis · {npc:3691} Raene Wolfrunner · {area:415} Astranaar
 	["{npc:3694}, beside {npc:3693}: for {npc:3691} in {area:415}, in the next guide"] = "",
 
-	-- Step 3: Onu
-	-- {quest:948} Onu · {npc:270269} Arbal · {npc:11218} Kerlonian Evershade
-	["{quest:948} is the ancient at the Grove; {npc:270269} and {npc:11218} sleep beside him."] = "",
-
-	-- Step 4: Lunar Fungus and Earthroot
+	-- Step 2: Lunar Fungus and Earthroot
 	-- {item:15851} Lunar Fungus · {item:2449} Earthroot
 	["{item:15851} and {item:2449}"] = "{item:15851}와(과) {item:2449}",
 	-- {area:442} Auberdine · {item:2449} Earthroot · {skill:182} Herbalism · {zone:1439} Darkshore · {zone:1453} Stormwind · {npc:1313} Maria Lumere
 	-- plural, as words: Lunar Fungal Blooms = {object:177750} Lunar Fungal Bloom
-	["The Lunar Fungal Blooms grow in the moonkin caves in the hills just east of {area:442}; the moonkin there are irritable. {item:2449} needs {skill:182}: herbalists pick it all over {zone:1439}, anyone else brings it from {zone:1453} ({npc:1313}) or the Auction House."] = "달버섯은 {area:442} 바로 동쪽 언덕의 달빛야수 동굴에서 자랍니다. 그곳의 달빛야수는 성미가 사납습니다. {item:2449}에는 {skill:182}이(가) 필요합니다: 약초 채집가는 {zone:1439} 곳곳에서 캘 수 있고, 그 외에는 {zone:1453}({npc:1313})이나 경매장에서 구해 오십시오.",
+	["On the way south to the Grove: the Lunar Fungal Blooms grow in the moonkin caves in the hills just east of {area:442}, a short way off the road; the moonkin there are irritable. {item:2449} needs {skill:182}: herbalists pick it all over {zone:1439}, anyone else brings it from {zone:1453} ({npc:1313}) or the Auction House."] = "남쪽의 숲으로 가는 길에: 달버섯은 {area:442} 바로 동쪽 언덕, 길에서 조금 떨어진 달빛야수 동굴에서 자랍니다. 그곳의 달빛야수는 성미가 사납습니다. {item:2449}에는 {skill:182}이(가) 필요합니다: 약초 채집가는 {zone:1439} 곳곳에서 캘 수 있고, 그 외에는 {zone:1453}({npc:1313})이나 경매장에서 구해 오십시오.",
+
+	-- Step 4: Onu
+	-- {quest:948} Onu · {npc:270269} Arbal · {npc:11218} Kerlonian Evershade
+	["{quest:948} is the ancient at the Grove; {npc:270269} and {npc:11218} sleep beside him."] = "",
 
 	-- Step 5: The Grove of the Ancients
 	-- {quest:952} Grove of the Ancients
@@ -77,16 +77,20 @@ return {
 	-- {item:15826} Curative Animal Salve
 	["She gives you the {item:15826}"] = "그녀가 {item:15826}을(를) 줍니다",
 
-	-- Step 13: On the way
+	-- Step 13: Gershala Nightwhisper
+	-- {area:2797} Blackfathom Deeps · {area:414} Zoram Strand · {npc:8997} Gershala Nightwhisper · {npc:3693} Terenthis
+	["For your {area:2797} run, on the {area:414} in the next guide: {npc:8997} stands a short walk west of {npc:3693}."] = "{area:2797} 공략용(다음 가이드의 {area:414}): {npc:8997}은(는) {npc:3693}에서 서쪽으로 조금 걸어가면 서 있습니다.",
+
+	-- Step 14: On the way
 	["On the way"] = "",
 
-	-- Step 14: The naga
+	-- Step 15: The naga
 	["The naga"] = "나가",
-	-- {area:443} Ruins of Mathystra · {quest:951} Mathystra Relics
+	-- {area:443} Ruins of Mathystra · {quest:951} Mathystra Relics · {npc:270294} Baron Marinous
 	-- plural, as words: Stormscale Myrmidons = {npc:2181} Stormscale Myrmidon
-	["Follow the coast north-east to the {area:443}. {quest:951} lie among the ruins; Stormscale Myrmidons, Sorceresses and Warriors hold them, and Stormscale Beastmistresses walk the shore."] = "해안을 따라 북동쪽의 {area:443}(으)로 가십시오. {quest:951}은(는) 폐허 곳곳에 있고, 폭풍비늘일족 미르미돈, 폭풍비늘일족 여마법사, 폭풍비늘일족 전사가 지키고 있으며, 폭풍비늘 야수조련사가 해안을 거닙니다.",
+	["Follow the coast north-east to the {area:443}. {quest:951} lie among the ruins; Stormscale Myrmidons, Sorceresses and Warriors hold them, and Stormscale Beastmistresses walk the shore. Careful: {npc:270294}, an elite naga (21), walks the ruins among them: pull the naga away from him, or fight him at full health."] = "해안을 따라 북동쪽의 {area:443}(으)로 가십시오. {quest:951}은(는) 폐허 곳곳에 있고, 폭풍비늘일족 미르미돈, 폭풍비늘일족 여마법사, 폭풍비늘일족 전사가 지키고 있으며, 폭풍비늘 야수조련사가 해안을 거닙니다. 주의: 정예 나가인 {npc:270294}(21)이(가) 그들 사이로 폐허를 돌아다닙니다. 나가를 그에게서 떼어 끌어오거나, 생명력이 가득 찬 상태로 그와 싸우십시오.",
 
-	-- Step 15: The Ruins of Mathystra
+	-- Step 16: The Ruins of Mathystra
 	-- {area:443} Ruins of Mathystra
 	["The {area:443}"] = "{area:443}",
 	-- {npc:6667} Gelkak Gyromast
@@ -94,20 +98,20 @@ return {
 	["{npc:6667} hides on the little island off the ruins. The key pieces drop from Giant Foreststriders (top), Greymist murlocs (middle) and Raging Reef Crawlers (bottom)."] = "{npc:6667}은(는) 폐허 앞바다의 작은 섬에 숨어 있습니다. 열쇠 조각은 거대한 숲타조(윗부분), 잿빛안개멀록(가운데), 사나운 모래톱게(아랫부분)에게서 떨어집니다.",
 	["Underwater"] = "",
 
-	-- Step 16: Strange Lockbox
+	-- Step 17: Strange Lockbox
 	-- {item:15883} Half Pendant of Aquatic Agility · {object:177792} Strange Lockbox
 	["{item:15883}: the {object:177792} under the water off the north coast, west of the ruins"] = "{item:15883}: 폐허 서쪽, 북쪽 해안 앞바다 물속의 {object:177792}",
 
-	-- Step 17: Mist's Edge: kill these as you meet them
+	-- Step 18: Mist's Edge: kill these as you meet them
 	-- {area:452} Mist's Edge
 	["{area:452}: kill these as you meet them"] = "",
 
-	-- Step 18: Back south
+	-- Step 19: Back south
 	["Back south"] = "다시 남쪽으로",
 	-- {npc:3616} Onu
 	["{npc:3616}, at the Grove"] = "{npc:3616}, 고대정령의 숲에서",
 
-	-- Step 19: Volcor
+	-- Step 20: Volcor
 	-- {npc:3692} Volcor · {area:449} Master's Glaive · {npc:3693} Terenthis · {area:442} Auberdine
 	["{npc:3692} hides in the hills east of the {area:449}. Help him back to the road; he fights on his way out. {npc:3693} takes the escort in {area:442} on the next visit there."] = "",
 	-- {npc:3692} Volcor · {area:455} Blackwood Den
@@ -118,42 +122,50 @@ return {
 	-- {npc:12298} Sickly Deer
 	["Cure {npc:12298}"] = "",
 
-	-- Step 21: Auberdine flight master
+	-- Step 22: Auberdine flight master
 	-- {area:442} Auberdine
 	["{area:442} flight master"] = "",
 
-	-- Step 22: The Great Cat Spirit
+	-- Step 23: The Great Cat Spirit
 	-- {area:442} Auberdine · {area:702} Rut'theran Village · {npc:4217} Mathrengyl Bearwalker · {area:1658} Cenarion Enclave
 	["Night Elves fly from {area:442} to {area:702}; Skyborne take the boat from the {area:442} dock and learn the Rut'theran flight path there. Take the portal up to {npc:4217} in the {area:1658}."] = "나이트 엘프는 {area:442}에서 {area:702}(으)로 날아가십시오. 스카이본은 {area:442} 부두에서 배를 타고 가서 그곳의 루테란 비행 경로를 익히십시오. 차원문을 타고 {area:1658}의 {npc:4217}에게 올라가십시오.",
 
-	-- Step 25: Moonglade
+	-- Step 26: Moonglade
 	-- {spell:18960} Teleport: Moonglade
 	["Cast {spell:18960}"] = "",
 
-	-- Step 26: Dendrite Starblaze
+	-- Step 27: Dendrite Starblaze
 	-- {spell:18960} Teleport: Moonglade · {npc:11802} Dendrite Starblaze · {area:2361} Nighthaven
 	["Cast {spell:18960}. {npc:11802} stands upstairs in his building in {area:2361}: go up inside, the arrow cannot tell the floors apart. Learn the flight path there if you do not have it."] = "",
 
-	-- Step 27: Dendrite Starblaze
+	-- Step 28: Dendrite Starblaze
 	-- {npc:11802} Dendrite Starblaze · {area:2361} Nighthaven
 	["{npc:11802} stands upstairs in his building in {area:2361}: go up inside, the arrow cannot tell the floors apart."] = "",
-	-- {npc:11802} Dendrite Starblaze
-	["{npc:11802}: the welcome from Sheldras"] = "{npc:11802}: 셸드라스 문트리의 환영 인사",
+	-- {npc:11802} Dendrite Starblaze · {npc:5504} Sheldras Moontree
+	["{npc:11802}: the welcome from {npc:5504}"] = "{npc:11802}: {npc:5504}의 환영 인사",
 
-	-- Step 29: The relics of the Barrow Dens
+	-- Step 30: The relics of the Barrow Dens
 	["The relics of the Barrow Dens"] = "지하굴의 성물",
 	-- {quest:98394} The Great Cat Spirit · {npc:272054} Avatar of Saeyleenan · {area:493} Moonglade · {area:2363} Stormrage Barrow Dens
 	["{quest:98394} (Night Elves) and the {npc:272054} (Skyborne) wait in southern {area:493}. The three relics lie in the {area:2363}, east of them. Reports from the first weeks say a relic gives no loot while another player is looting it: wait a moment and try again."] = "{quest:98394}(나이트 엘프)와(과) {npc:272054}(스카이본)이(가) {area:493} 남쪽에서 기다립니다. 세 유물은 그 동쪽의 {area:2363}에 있습니다. 첫 몇 주의 제보에 따르면 다른 플레이어가 유물을 획득하는 중에는 아무것도 나오지 않습니다: 잠시 기다렸다가 다시 시도하십시오.",
 
-	-- Step 30: Back to Dendrite Starblaze
+	-- Step 31: Trial of the Sea Lion
+	-- {zone:1436} Westfall · {zone:1439} Darkshore · {area:2362} Shrine of Remulos · {npc:11802} Dendrite Starblaze · {spell:499} Cat Form
+	["Both half pendants in your bags (the {zone:1436} half from your last {zone:1436} visit, the {zone:1439} half from the north coast): stand by the {area:2362} on the north-west shore of the lake and use a half to join them, then take the pendant to {npc:11802} with the {spell:499} hand-in. {npc:11802} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."] = "반쪽 펜던트 두 개를 모두 가방에 가지고({zone:1436} 반쪽은 지난번 {zone:1436} 방문 때, {zone:1439} 반쪽은 북쪽 해안에서 얻음) 호수 북서쪽 기슭의 {area:2362} 옆에 서서 반쪽 하나를 사용해 합치십시오. 그런 다음 {spell:499} 제출 때 함께 펜던트를 {npc:11802}에게 가져가십시오. {npc:11802}은(는) 건물 위층에 서 있습니다. 건물 안에서 올라가십시오. 화살표는 층을 구분하지 못합니다.",
+	-- {item:15885} Pendant of the Sea Lion · {area:2362} Shrine of Remulos
+	["{item:15885}: join the halves at the {area:2362}"] = "{item:15885}: {area:2362}에서 반쪽 합치기",
+	-- {npc:11802} Dendrite Starblaze · {quest:5061} Aquatic Form · {npc:4217} Mathrengyl Bearwalker
+	["{npc:11802}: {quest:5061}, for {npc:4217}"] = "{npc:11802}: {quest:5061}, {npc:4217}에게",
+
+	-- Step 32: Back to Dendrite Starblaze
 	-- {npc:11802} Dendrite Starblaze
 	["Back to {npc:11802}"] = "{npc:11802}에게 돌아가기",
 	-- {npc:11802} Dendrite Starblaze · {area:2361} Nighthaven · {npc:11800} Silva Fil'naveth · {area:702} Rut'theran Village
 	["Back to {npc:11802} in {area:2361}, then {npc:11800} there flies Druids straight to {area:702}. {npc:11802} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."] = "",
 
-	-- Step 32: To Darnassus
+	-- Step 35: To Darnassus
 	-- {npc:4217} Mathrengyl Bearwalker · {area:442} Auberdine · {zone:1440} Ashenvale
-	["Take the portal up to {npc:4217}, then fly back to {area:442} for the road south to {zone:1440}."] = "",
+	["Take the portal up to {npc:4217}, then fly back to {area:442} for the road south to {zone:1440}. {npc:4217} is a Druid trainer: learn your new spells from him."] = "",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Moonstalker Sires prowl the woods around the glaive. The {object:10076} and the {object:12666} sit at the bottom of the crater; {npc:3584} stands on its north side."] = "덩치큰 달표범이 글레이브 주변 숲을 배회합니다. {object:10076}와(과) {object:12666}은(는) 구덩이 바닥에 있고, {npc:3584}은(는) 구덩이 북쪽에 서 있습니다.",

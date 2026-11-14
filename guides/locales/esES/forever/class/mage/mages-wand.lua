@@ -11,11 +11,11 @@ return {
 
 	-- Step 1: Journey to the Marsh (Stormwind)
 	-- {npc:5497} Jennea Cannon · {zone:1453} Stormwind · {object:2101} Mage Quarter · {npc:6546} Tabetha · {zone:1455} Ironforge
-	["{npc:5497} at the top of the Wizard's Sanctum, {zone:1453}'s {object:2101}, sends you to {npc:6546}; Bink in {zone:1455} gives the same quest."] = "",
+	["{npc:5497} at the top of the Wizard's Sanctum, {zone:1453}'s {object:2101}, sends you to {npc:6546}; Bink in {zone:1455} gives the same quest."] = "{npc:5497}, en lo alto del Sagrario del Mago, en {object:2101} de {zone:1453}, te envía con {npc:6546}; Bink, en {zone:1455}, da la misma misión.",
 
 	-- Step 2: Journey to the Marsh (Orgrimmar)
 	-- {npc:5885} Deino · {zone:1454} Orgrimmar · {object:173161} Darkbriar Lodge (no name in this language: may be words) · {npc:6546} Tabetha · {npc:4568} Anastasia Hartwell · {zone:1458} Undercity · {npc:3048} Ursyn Ghull · {zone:1456} Thunder Bluff
-	["{npc:5885}, one of {zone:1454}'s mage trainers in {object:173161}, sends you to {npc:6546}; {npc:4568} in the {zone:1458} and {npc:3048} in {zone:1456} give the same quest."] = "",
+	["{npc:5885}, one of {zone:1454}'s mage trainers in {object:173161}, sends you to {npc:6546}; {npc:4568} in the {zone:1458} and {npc:3048} in {zone:1456} give the same quest."] = "{npc:5885}, uno de los instructores de magos de {zone:1454}, en {object:173161}, te envía con {npc:6546}; {npc:4568} en {zone:1458} y {npc:3048} en {zone:1456} dan la misma misión.",
 
 	-- Step 3: Tabetha
 	-- {npc:6546} Tabetha · {area:508} Stonemaul Ruins · {zone:1413} Barrens
@@ -60,7 +60,5 @@ return {
 	-- ["Tirth sold the book to the Scarlet Brotherhood. The {area:796} stands in north-eastern {zone:1420}; take the Library wing. The book juts out of the wall on the left as you enter the Athenaeum, before {npc:6487}."] = "Tirth vendió el libro a los Escarlata. {area:796} está en el noreste de {zone:1420}; entra en el ala de la Biblioteca. El libro sobresale de la pared a la izquierda al entrar en la última sala, antes de {npc:6487}.",
 	-- ["Tirth's apprentice is \"Plucky\" Johnson, a small grey chicken by the race track. Target him and type /beckon: he turns human for a moment, long enough to talk to him."] = "El aprendiz de Tirth es \"Desplumado\" Johnson, un pollito gris junto a la pista de carreras. Selecciónalo y escribe /llamar: se vuelve humano un momento, lo justo para hablar con él.",
 	-- ["Witherbark trolls"] = "Trols Secacorteza",
-	-- ["{npc:5497} in the Wizard's Sanctum, {zone:1453}'s {object:2101}, sends you to {npc:6546}; Bink in {zone:1455} gives the same quest."] = "{npc:5497}, en la torre de {object:2101} de {zone:1453}, te envía con {npc:6546}; Bink, en {zone:1455}, da la misma misión.",
-	-- ["{npc:5885}, one of {zone:1454}'s mage trainers, sends you to {npc:6546}; {npc:4568} in the {zone:1458} and {npc:3048} in {zone:1456} give the same quest."] = "{npc:5885}, uno de los instructores de magos de {zone:1454}, te envía con {npc:6546}; {npc:4568} en {zone:1458} y {npc:3048} en {zone:1456} dan la misma misión.",
 	-- ["{npc:6546}, a hermit, lives in a cottage deep in the marsh west of Theramore, just north of the {area:508}."] = "{npc:6546}, una ermitaña, vive en una casita en lo hondo del pantano al oeste de Theramore, justo al norte de {area:508}.",
 }

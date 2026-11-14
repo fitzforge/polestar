@@ -7,7 +7,7 @@
 -- The comments are rewritten by sync.
 return {
 	-- Guide
-	["Starts now at 20 at your trainer; four armor pieces at 30 (hauberk, helm, gauntlets, legguards), a shield on the way."] = "",
+	["Starts now at 20 at your trainer; four armor pieces at 30 (hauberk, helm, gauntlets, legguards), a shield on the way."] = "Commence dès maintenant au niveau 20 chez votre maître ; quatre pièces d'armure au niveau 30 (haubert, heaume, gantelets, jambières), un bouclier en chemin.",
 
 	-- Step 1: Speak with Ruga (Orgrimmar)
 	-- {npc:3354} Sorek · {object:172958} Valley of Honor · {npc:6394} Ruga Ragetotem · {area:378} Camp Taurajo
@@ -34,7 +34,7 @@ return {
 
 	-- Step 6: Thun'grim Firegaze
 	-- {npc:5878} Thun'grim Firegaze · {area:1699} Thorn Hill · {quest:1838} Brutal Armor · {item:7587} Thun'grim's Instructions
-	["{npc:5878}'s hut sits on top of {area:1699}, east of the Crossroads: climb the broad ridge on the north or east side. {quest:1838} is a level 30 quest; take it now and gather on the way. {item:7587} list where each material comes from."] = "",
+	["{npc:5878}'s hut sits on top of {area:1699}, east of the Crossroads: climb the broad ridge on the north or east side. {quest:1838} is a level 30 quest; take it now and gather on the way. {item:7587} list where each material comes from."] = "La hutte de {npc:5878} se dresse au sommet de la {area:1699}, à l'est de la Croisée : montez par la large crête du côté nord ou est. {quest:1838} est une quête de niveau 30 ; prenez-la maintenant et récoltez en chemin. Les {item:7587} indiquent d'où vient chaque matériau.",
 
 	-- Step 7: Windshear Mine
 	-- {area:2160} Windshear Mine · {area:461} Windshear Crag · {area:460} Sun Rock Retreat · {spell:116} Frostbolt
@@ -107,7 +107,6 @@ return {
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Back to {npc:5878} beside the road east of the {area:380}. {quest:1848} is the first piece; he then sends you to three crafters for the rest."] = "Retournez voir {npc:5878} au bord de la route à l'est de {area:380}. {quest:1848} est la première pièce ; il vous envoie ensuite voir trois artisans pour le reste.",
 	-- ["Fly to {area:378}. South of the camp the Silithid Mounds dot the {area:390}: the silithid there carry the Twitching Antennae."] = "Prenez un vol pour {area:378}. Au sud du camp, les Antres des silithides parsèment {area:390} : les silithides qui s'y trouvent portent les Antennes mobiles.",
-	-- ["Four armor pieces at 30 (hauberk, helm, gauntlets, legguards) and a shield on the way."] = "Quatre pièces d'armure au niveau 30 (haubert, heaume, gantelets, jambières) et un bouclier en chemin.",
 	-- ["Miners smelt Iron Bars from {item:2772} ({skill:186} 125); everyone else buys them at the auction house in {zone:1454}."] = "Les mineurs fondent les Barres de fer à partir de {item:2772} ({skill:186} 125) ; les autres les achètent à l'hôtel des ventes d'{zone:1454}.",
 	-- ["Roogug is an elite quilboar (level 28) inside {area:1717}, the dungeon at the south end of the {zone:1413}; a five-player dungeon: needs a group of five, his guards come with him. Inside take the left path at the first fork, cross the vine bridge over the pig pens, go past the room with the big cauldron: he waits in the room on the right. He casts {spell:403} and calls Earth Rumblers. The vial always drops."] = "Roogug est un huran élite (niveau 28) dans le {area:1717}, le donjon au sud des {zone:1413} ; un donjon à cinq joueurs : il faut un groupe de cinq, ses gardes viennent avec lui. À l'intérieur, prenez à gauche au premier embranchement, traversez le pont de lianes au-dessus des enclos à cochons, dépassez la salle au grand chaudron : il attend dans la salle de droite. Il lance {spell:403} et appelle des Grondeurs de terre. La fiole tombe toujours.",
 	-- ["Roogug is an elite quilboar inside {area:1717}, the dungeon at the south end of the {zone:1413}; he drops the {item:6841}. {area:1717} is a dungeon: grouping up is advised."] = "Roogug est un huran élite dans {area:1717}, le donjon au sud de {zone:1413} ; il lâche la {item:6841}. {area:1717} est un donjon : mieux vaut former un groupe.",
@@ -129,6 +128,5 @@ return {
 	-- ["{item:7127} from the Hillsbrad Miners"] = "{item:7127} sur les Mineurs d'Hillsbrad ({npc:2269})",
 	-- ["{item:7127} from the {area:287} Miners"] = "{item:7127} sur les Mineurs d'{area:287}",
 	-- ["{npc:5878} camps beside the road east of the {area:380}. {quest:1838} is a level 30 quest; you can take it now and gather for it on the way."] = "{npc:5878} campe au bord de la route à l'est de {area:380}. {quest:1838} est une quête de niveau 30 ; vous pouvez la prendre maintenant et rassembler ce qu'il faut en chemin.",
-	-- ["{npc:5878}'s hut sits on top of {area:1699}, east of the {area:380}: climb the broad ridge on the north or east side. {quest:1838} is a level 30 quest; take it now and gather on the way. {item:7587} list where each material comes from."] = "La hutte de {npc:5878} se dresse au sommet de la {area:1699}, à l'est de la {area:380} : montez par la large crête du côté nord ou est. {quest:1838} est une quête de niveau 30 ; prenez-la maintenant et récoltez en chemin. Les {item:7587} indiquent d'où vient chaque matériau.",
 	-- ["{npc:6408} is in {area:367} on the {zone:1411} coast."] = "{npc:6408} est à {area:367}, sur la côte de {zone:1411}.",
 }

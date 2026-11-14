@@ -12,19 +12,19 @@ return {
 
 	-- Step 1: An Imp's Request (Stormwind)
 	-- {npc:461} Demisette Cloyce · {object:2164} Slaughtered Lamb · {object:2101} Mage Quarter · {npc:14470} Impsy · {zone:1448} Felwood · {item:14256} Felcloth
-	["At 50 {npc:461} in the {object:2164}, in the {object:2101}, sends you to {npc:14470} in {zone:1448} with a piece of {item:14256}."] = "",
+	["At 50 {npc:461} in the {object:2164}, in the {object:2101}, sends you to {npc:14470} in {zone:1448} with a piece of {item:14256}."] = "50級時，{object:2101}{object:2164}的{npc:461}會派你帶著一塊{item:14256}去找{zone:1448}的{npc:14470}。",
 
 	-- Step 2: An Imp's Request (Ironforge)
 	-- {npc:5172} Briarthorn · {zone:1455} Ironforge · {npc:14470} Impsy · {zone:1448} Felwood · {item:14256} Felcloth
-	["At 50 {npc:5172} in {zone:1455} sends you to {npc:14470} in {zone:1448} with a piece of {item:14256}."] = "",
+	["At 50 {npc:5172} in {zone:1455} sends you to {npc:14470} in {zone:1448} with a piece of {item:14256}."] = "50級時，{zone:1455}的{npc:5172}會派你帶著一塊{item:14256}去找{zone:1448}的{npc:14470}。",
 
 	-- Step 3: An Imp's Request (Orgrimmar)
 	-- {npc:3326} Zevrost · {object:172960} Cleft of Shadow · {npc:14470} Impsy · {zone:1448} Felwood · {item:14256} Felcloth
-	["At 50 {npc:3326} in the {object:172960} sends you to {npc:14470} in {zone:1448} with a piece of {item:14256}."] = "",
+	["At 50 {npc:3326} in the {object:172960} sends you to {npc:14470} in {zone:1448} with a piece of {item:14256}."] = "50級時，{object:172960}的{npc:3326}會派你帶著一塊{item:14256}去找{zone:1448}的{npc:14470}。",
 
 	-- Step 4: An Imp's Request (Undercity)
 	-- {npc:4563} Kaal Soulreaper · {object:36082} Magic Quarter · {npc:14470} Impsy · {zone:1448} Felwood · {item:14256} Felcloth
-	["At 50 {npc:4563} in the {object:36082} sends you to {npc:14470} in {zone:1448} with a piece of {item:14256}."] = "",
+	["At 50 {npc:4563} in the {object:36082} sends you to {npc:14470} in {zone:1448} with a piece of {item:14256}."] = "50級時，{object:36082}的{npc:4563}會派你帶著一塊{item:14256}去找{zone:1448}的{npc:14470}。",
 
 	-- Step 5: Felcloth
 	-- {item:14256} Felcloth · {zone:1448} Felwood · {quest:8419} An Imp's Request · {npc:14470} Impsy · {quest:8420} Hot and Itchy
@@ -69,10 +69,6 @@ return {
 	["Choose the {item:20536} (staff), the {item:20534} (off-hand) or the {item:20530}."] = "",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
-	-- ["At 50 {npc:3326} in the {object:172960} sends you to {npc:14470} in {zone:1448}."] = "50級時，{object:172960}的{npc:3326}會派你去找{zone:1448}的{npc:14470}。",
-	-- ["At 50 {npc:4563} in the {object:36082} sends you to {npc:14470} in {zone:1448}."] = "50級時，{object:36082}的{npc:4563}會派你去找{zone:1448}的{npc:14470}。",
-	-- ["At 50 {npc:461} in the {object:2164}, in the {object:2101}, sends you to {npc:14470} in {zone:1448}."] = "50級時，{object:2101}{object:2164}的{npc:461}會派你去找{zone:1448}的{npc:14470}。",
-	-- ["At 50 {npc:5172} in {zone:1455} sends you to {npc:14470} in {zone:1448}."] = "50級時，{zone:1455}的{npc:5172}會派你去找{zone:1448}的{npc:14470}。",
 	-- ["The Irontree treants in northern {zone:1448} drop the {item:20613}; the Tainted Oozes around {area:1763} the {item:20614}."] = "{zone:1448}北部的鐵木樹人會掉落{item:20613}；{area:1763}周圍的被污染的軟泥怪會掉落{item:20614}。",
 	-- ["The six troll guardians of the {area:1417}, a level 50 dungeon, each drop a Voodoo Feather: bring a group of five. The temple stands in the middle of the {area:74}; swim down into it to reach the entrance."] = "{area:1417}（50級地城）的六名食人妖守護者各掉落一根巫毒羽毛：找五人小隊一起去。神廟位於{area:74}中央；游下去即可到達入口。",
 	-- ["{npc:14470} waits beside {npc:14469} in central {zone:1448}, just east of {area:1763}. This chain is {npc:14470}'s own and is not part of the Dreadsteed chain; Niby and {npc:14470} also give the {item:18762} chain here."] = "{npc:14470}在{zone:1448}中部、{area:1763}東邊不遠處，待在{npc:14469}旁邊。此任務鏈是{npc:14470}自己的，不屬於恐懼戰馬任務鏈；尼比和{npc:14470}也在這裡提供{item:18762}任務鏈。",

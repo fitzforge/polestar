@@ -194,14 +194,14 @@ return {
 	-- Step 31: Far Watch Post
 	-- {faction:76} Orgrimmar · {zone:1413} Barrens · {npc:3337} Kargal Battlescar · {quest:809} Ak'Zeloth · {area:379} Far Watch Post
 	["Run out of {faction:76}'s west gate and over the bridge into the {zone:1413}. {npc:3337} and {quest:809} stand at {area:379}."] = "",
-	-- {quest:842} Crossroads Conscription · {npc:3338} Sergra Darkthorn
-	["{quest:842}, +100: to {npc:3338}"] = "",
+	-- {quest:842} Crossroads Conscription · {quest:860} Sergra Darkthorn
+	["{quest:842}, +100: to {quest:860}"] = "",
 
 	-- Step 33: The Crossroads (optional hub)
 	-- {area:380} The Crossroads
 	["{area:380} (optional hub)"] = "",
-	-- {area:380} The Crossroads · {faction:76} Orgrimmar · {npc:3338} Sergra Darkthorn · {npc:3464} Gazrog · {npc:3429} Thork · {npc:3449} Darsok Swiftdagger · {npc:267310} Gur'ak · {npc:3432} Mankrik
-	["Forever pays these old quests in full at any level. {area:380}: about 1,500 {faction:76} reputation in 70 minutes, {faction:76}'s only. {npc:3338}, {npc:3464}, {npc:3429}, {npc:3449} and {npc:267310} stand in the town, {npc:3432} by the inn."] = "",
+	-- {area:380} The Crossroads · {faction:76} Orgrimmar · {quest:860} Sergra Darkthorn · {npc:3464} Gazrog · {npc:3429} Thork · {npc:3449} Darsok Swiftdagger · {npc:267310} Gur'ak · {npc:3432} Mankrik
+	["Forever pays these old quests in full at any level. {area:380}: about 1,500 {faction:76} reputation in 70 minutes, {faction:76}'s only. {quest:860}, {npc:3464}, {npc:3429}, {npc:3449} and {npc:267310} stand in the town, {npc:3432} by the inn."] = "",
 
 	-- Step 34: Around the Crossroads
 	["Around the Crossroads"] = "",

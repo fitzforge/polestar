@@ -12,7 +12,7 @@ return {
 
 	-- Step 1: Uthel'nay (Orgrimmar)
 	-- {npc:7311} Uthel'nay · {zone:1454} Orgrimmar · {object:173161} Darkbriar Lodge (no name in this language: may be words) · {object:172961} Valley of Spirits · {zone:1420} Tirisfal Glades
-	["{npc:7311} is one of {zone:1454}'s mage trainers, in {object:173161} in the {object:172961}. Then take the zeppelin to {zone:1420} from the tower outside {zone:1454}'s main gate."] = "",
+	["{npc:7311} is one of {zone:1454}'s mage trainers, in {object:173161} in the {object:172961}. Then take the zeppelin to {zone:1420} from the tower outside {zone:1454}'s main gate."] = "{npc:7311} es uno de los instructores de magos de {zone:1454}, en {object:173161}, en {object:172961}. Después toma el zepelín a {zone:1420} desde la torre de fuera de la puerta principal de {zone:1454}.",
 
 	-- Step 2: Cain Firesong (Brill)
 	-- {npc:2128} Cain Firesong · {area:159} Brill · {area:2119} Gallows' End Tavern
@@ -20,7 +20,7 @@ return {
 
 	-- Step 3: Anastasia Hartwell
 	-- {npc:4568} Anastasia Hartwell · {object:36082} Magic Quarter · {item:7247} Chest of Containment Coffers · {item:7308} Cantation of Manifestation
-	["{npc:4568} stands in the {object:36082}. The {item:7247} and the {item:7308} lie on the ledge behind her (both come back 5 minutes after someone takes them). You hand both in at the end, so keep them."] = "",
+	["{npc:4568} stands in the {object:36082}. The {item:7247} and the {item:7308} lie on the ledge behind her (both come back 5 minutes after someone takes them). You hand both in at the end, so keep them."] = "{npc:4568} está en {object:36082}. {item:7247} y {item:7308} están en la cornisa detrás de ella (ambos vuelven a aparecer 5 minutos después de que alguien los coja). Entregas los dos al final, así que guárdalos.",
 
 	-- Step 4: The alchemist shop
 	["The alchemist shop"] = "La tienda del alquimista",
@@ -52,6 +52,4 @@ return {
 	-- ["Humanoids drop {item:2589}; the Undercity Auction House sells it."] = "Los humanoides sueltan {item:2589}; la casa de subastas de Entrañas lo vende.",
 	-- ["Leave the {zone:1458} and follow the road south through {zone:1421}. The {area:279} mages hold {area:233}, south-east of the {area:228}; every {npc:1867}, Mage, Protector, Warder, Conjuror, Watcher and Wizard can drop a {item:7293}."] = "Sal de {zone:1458} y sigue el camino hacia el sur por {zone:1421}. Los magos de {area:279} controlan {area:233}, al sureste de {area:228}; cualquier {npc:1867}, mago, protector, guardián, conjurador, vigía o hechicero puede soltar una {item:7293}.",
 	-- ["{npc:2128} is the {area:159} mage trainer."] = "{npc:2128} es el instructor de magos de {area:159}.",
-	-- ["{npc:4568} stands in the {object:36082}. The {item:7247} and the {item:7308} lie behind her."] = "{npc:4568} está en {object:36082}. {item:7247} y {item:7308} están detrás de ella.",
-	-- ["{npc:7311} is one of {zone:1454}'s mage trainers. Then take the zeppelin to {zone:1420} from the tower outside {zone:1454}'s main gate."] = "{npc:7311} es uno de los instructores de magos de {zone:1454}. Después toma el zepelín a {zone:1420} desde la torre de fuera de la puerta principal de {zone:1454}.",
 }

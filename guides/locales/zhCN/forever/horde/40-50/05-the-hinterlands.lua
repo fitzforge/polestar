@@ -116,8 +116,8 @@ return {
 
 	-- Step 25: Level 49.02
 	["Level 49.02"] = "等级 49.02",
-	-- {quest:7816} Gammerita, Mon! · {area:354} Jintha'Alor · {area:2100} Maraudon
-	["If you skipped {quest:7816} or the {area:354} group quests, grind here to level 49.02 to stay on the route's plan. Or, with a group, run the {area:2100} dungeon instead."] = "如果跳过了{quest:7816}或{area:354}的组队任务，就在这里刷到49.02级，以跟上路线进度。也可以组队去{area:2100}副本。",
+	-- {quest:7816} Gammerita, Mon! · {area:354} Jintha'Alor
+	["If you skipped {quest:7816} or the {area:354} group quests, grind here to level 49.02 to stay on the route's plan."] = "如果跳过了{quest:7816}或{area:354}的组队任务，就在这里刷到49.02级，以跟上路线进度。",
 	-- {npc:2505} Saltwater Snapjaw
 	["grind on {npc:2505}"] = "击杀{npc:2505}刷经验",
 
@@ -125,21 +125,27 @@ return {
 	-- {area:353} Shadra'Alor
 	["South-west again, the exile hides by the ruins of {area:353}."] = "再次向西南，流放者躲在{area:353}的废墟旁。",
 
-	-- Step 28: Grim Message
+	-- Step 27: Grim Message
 	-- {item:15002} Nimboya's Pike
 	["South of the lodge the Witherbark trolls hold their villages. Every one of them carries a skull: with twenty, use {item:15002} to make the Laden Pike, then plant it inside the village."] = "在旅舍南边，枯木巨魔占据着他们的村庄。他们每个都携带头皮：收集到二十个后，使用{item:15002}做成尼姆布亚的长矛，然后把它插在村子里。",
 
-	-- Step 29: Aerie Peak
+	-- Step 28: Aerie Peak
 	-- {area:348} Aerie Peak
 	["Ride all the way west to the Wildhammer town of {area:348} and place the message by the well in its centre. The town is full of Alliance guards: get in, place it and get out."] = "一路向西骑到蛮锤矮人的城镇{area:348}，把警告放在镇中央的水井旁。镇上全是联盟守卫：进去，放好，然后离开。",
 	-- {area:348} Aerie Peak
 	["{area:348} well"] = "{area:348}水井",
 
-	-- Step 31: Fly to Stonard
+	-- Step 30: Fly to Stonard
 	-- {area:75} Stonard
 	["Fly to {area:75}"] = "飞往{area:75}",
 	-- {area:3317} Revantusk Village
 	["{area:3317} flight master"] = "{area:3317}的飞行管理员",
+
+	-- Step 31: To Stonard
+	-- {area:75} Stonard
+	["To {area:75}"] = "前往{area:75}",
+	-- {area:75} Stonard · {object:3202} Grom'gol · {zone:1431} Duskwood · {zone:1430} Deadwind Pass
+	["No flight path to {area:75} yet: the arrow takes the quickest way there (by the {object:3202} flight and the road through {zone:1431} and {zone:1430}). Learn {area:75}'s flight path when you arrive."] = "还没有{area:75}的飞行路线：箭头会带你走最快的路（乘{object:3202}的航班，再沿路穿过{zone:1431}和{zone:1430}）。到达后学习{area:75}的飞行路线。",
 
 	-- Step 32: Fel'zerul
 	["On the top floor"] = "在最顶层",

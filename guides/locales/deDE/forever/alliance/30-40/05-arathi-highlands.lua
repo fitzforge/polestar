@@ -6,6 +6,10 @@
 -- A token marked "no name in this language" would show in English: write that name in German words instead.
 -- The comments are rewritten by sync.
 return {
+	-- Guide
+	-- {area:327} Faldir's Cove · {npc:2768} Professor Phizzlethorpe · {npc:2306} Baron Vardus
+	["For characters of 36 to 38, but {area:327} and the Alterac Syndicate quests are level 40: on purpose, for their experience. {npc:2768}'s two water elementals (40) are immune to frost, and {npc:2306} (40) waits among his Syndicate: pull them one at a time."] = "Für Charaktere der Stufe 36 bis 38, aber {area:327} und die Quests des Syndikats von Alterac sind Stufe 40: absichtlich, wegen ihrer EP. Die zwei Wasserelementare von {npc:2768} (40) sind immun gegen Frost, und {npc:2306} (40) wartet inmitten seines Syndikats: Zieh sie einzeln.",
+
 	-- Step 1: Fly to Darkshire
 	-- {area:42} Darkshire
 	["Fly to {area:42}"] = "Flieg nach {area:42}",
@@ -40,7 +44,8 @@ return {
 
 	-- Step 9: Galen Goodward
 	-- {npc:5391} Galen Goodward
-	["{npc:5391} is caged at the north end of the sanctuary. Free him and keep him alive on the walk out; his strongbox waits by the road afterwards."] = "{npc:5391} ist am Nordende des Refugiums eingesperrt. Befreie ihn und halte ihn auf dem Weg hinaus am Leben; seine Geldkassette wartet danach an der Straße.",
+	-- plural, as words: Lost One Riftseekers = {npc:762} Lost One Riftseeker · Lost Ones = {npc:254797} Lost One
+	["{npc:5391} is caged at the north end of the sanctuary. Free him and keep him alive on the walk out; his strongbox waits by the road afterwards. Careful: on the walk out the camp's Lost One Riftseekers (37-38) and their pets, with the Lost Ones around them, turn on {npc:5391}: clear the cage and the start of his path first, stay beside him and pull every attacker onto yourself. Many players lose him the first time; if he dies, abandon the quest and take it again at his cage."] = "{npc:5391} ist am Nordende des Refugiums eingesperrt. Befreie ihn und halte ihn auf dem Weg hinaus am Leben; seine Geldkassette wartet danach an der Straße. Vorsicht: Auf dem Weg hinaus greifen die Kluftsucher der Verlorenen (37-38) des Lagers und ihre Tiere, mit den Verlorenen um sie herum, {npc:5391} an: Räum zuerst den Käfig und den Anfang seines Wegs frei, bleib neben ihm und zieh jeden Angreifer auf dich. Viele Spieler verlieren ihn beim ersten Mal; stirbt er, brich die Quest ab und nimm sie an seinem Käfig erneut an.",
 
 	-- Step 10: The Harborage
 	-- {npc:5391} Galen Goodward · {area:657} The Harborage
@@ -113,7 +118,7 @@ return {
 	-- Step 27: Hay Weevil
 	-- {quest:681} Northfold Manor · {npc:217412} Amaryllis Webb · {item:213565} Entomology Starter Kit
 	-- plural, as words: Hay Weevils = {npc:217589} Hay Weevil
-	["Hay Weevils crawl about the north end of {quest:681}'s farm: catch one with the tool from {npc:217412}'s {item:213565}."] = "",
+	["Hay Weevils crawl about the north end of {quest:681}'s farm: catch one with the tool from {npc:217412}'s {item:213565}."] = "Hay Weevils kriechen am Nordende der Farm von {quest:681} umher: Fang eines mit dem Werkzeug aus dem {item:213565} von {npc:217412}.",
 
 	-- Step 28: Shards of Myzrael
 	-- {quest:681} Northfold Manor · {area:333} Circle of East Binding · {area:314} Go'Shek Farm
@@ -235,8 +240,8 @@ return {
 	["The tomes lie in the ruined keep west of {area:280}; Argus Shadow Mages hold the ruins.\nCareful: Crushridge Warmongers call nearby allies within 15 yd once they fall below half health.\nThe Crushridge Maulers, Mages, Enforcers and Warmongers (36-39) are elite; the Crushridge Ogres and Brutes (34-35) are not and carry the tomes too: pull one at a time, or group up."] = "Die Folianten liegen in der zerstörten Festung westlich von {area:280}; Argus Shadow Mages halten die Ruinen.\nVorsicht: Crushridge Warmongers rufen nahe Verbündete im Umkreis von 15 Metern, sobald sie unter die Hälfte ihrer Gesundheit fallen.\nDie Crushridge Maulers, Mages, Enforcers und Warmongers (36-39) sind Elites; die Crushridge Ogres und Brutes (34-35) nicht und tragen die Folianten ebenfalls: Zieh einzeln, oder bilde eine Gruppe.",
 	-- {item:3658} Recovered Tome
 	["{item:3658}: Crushridge ogres"] = "{item:3658}: Crushridge-Oger",
-	-- {item:3659} Worn Leather Book · {object:1760} Weathered Bookcase
-	["{item:3659}: the {object:1760}; inside"] = "{item:3659}: {object:1760}; drinnen",
+	-- {item:3659} Worn Leather Book · {object:1760} Weathered Bookcase · {quest:540} Preserving Knowledge
+	["{item:3659}: the {object:1760}, beside Muckrake (40, elite): get it with a group, or abandon {quest:540}; inside"] = "{item:3659}: {object:1760} neben Muckrake (40, Elite): Hol es mit einer Gruppe oder brich {quest:540} ab; drinnen",
 
 	-- Step 54: Ruins of Alterac: kill these as you meet them
 	-- {npc:2417} Grel'borg the Miser
@@ -261,33 +266,54 @@ return {
 	-- {npc:2542} Catelyn the Blade · {area:35} Booty Bay
 	["For {npc:2542} in {area:35}: keep it"] = "Für {npc:2542} in {area:35}: behalten",
 
-	-- Step 60: Southshore
+	-- Step 59: Image of Archmage Modera
+	-- {npc:269127} Image of Archmage Modera · {quest:92458} Heart of Disruption · {item:277507} Dalaran Sewer Key
+	["For your City of Dalaran run, next: the {npc:269127} wants the arcane remnants in the city thinned out and a mote from the heart of the disruption. {quest:92458} brings the {item:277507}, which opens the grate."] = "Für deinen Run durch die City of Dalaran, als Nächstes: {npc:269127} will, dass du die arkanen Überreste in der Stadt ausdünnst, und ein Partikel aus dem Herzen der Störung. {quest:92458} bringt dir {item:277507}, der das Gitter öffnet.",
+
+	-- Step 60: City of Dalaran
+	["City of Dalaran"] = "City of Dalaran",
+	-- {quest:92457} Starving Arcane · {item:251961} Arcane Mote · {quest:92458} Heart of Disruption
+	-- plural, as words: Seeking Remnants = {npc:247003} Seeking Remnant · Saturated Remnants = {npc:247001} Saturated Remnant
+	["The City of Dalaran is a dungeon for a group of five at about level 28 to 33: at your level it goes quickly. Its way in is the sewer grate in the city's western wall, by the lake, 30 yards from Modera's camp.\nInside: the Seeking Remnants, Saturated Remnants and Mana Echoes are Modera's {quest:92457}; the {item:251961} for {quest:92458} drops inside too."] = "Die City of Dalaran ist ein Dungeon für eine Gruppe aus fünf Spielern, etwa Stufe 28 bis 33: Auf deiner Stufe geht er schnell. Der Weg hinein ist das Kanalgitter in der Westmauer der Stadt, am See, 30 Meter von Moderas Lager.\nDrinnen: Die Seeking Remnants, Saturated Remnants und Mana Echoes sind für Moderas {quest:92457}; {item:251961} für {quest:92458} droppt ebenfalls drinnen.",
+	-- {quest:92457} Starving Arcane
+	["{quest:92457}: the remnants and echoes, inside"] = "{quest:92457}: die Überreste und Echos, drinnen",
+	-- {quest:92458} Heart of Disruption · {item:251961} Arcane Mote
+	["{quest:92458}: the {item:251961}, inside"] = "{quest:92458}: {item:251961}, drinnen",
+
+	-- Step 61: Image of Archmage Modera
+	["Back out of the grate to Modera's camp on the lake shore."] = "Durch das Gitter zurück nach draußen zu Moderas Lager am Seeufer.",
+
+	-- Step 64: Southshore
 	-- {npc:1440} Milton Sheaf · {zone:1453} Stormwind
 	["For {npc:1440} in {zone:1453}: keep it"] = "Für {npc:1440} in {zone:1453}: behalten",
 	-- {npc:2277} Loremaster Dibbs
 	["{npc:2277}: the parchment"] = "{npc:2277}: das Pergament",
 
-	-- Step 61: Bartolo Ginsetti
+	-- Step 65: Bartolo Ginsetti
 	-- {npc:2438} Bartolo Ginsetti · {npc:2381} Micha Yance · {item:2321} Fine Thread
 	["{npc:2438} stands between the flight master and the inn; {npc:2381} beside him sells {item:2321} if you have none."] = "{npc:2438} steht zwischen dem Flugmeister und dem Gasthaus; {npc:2381} neben ihm verkauft {item:2321}, falls du keinen hast.",
 	-- {item:2321} Fine Thread · {npc:2381} Micha Yance
 	["{item:2321}, from {npc:2381}"] = "{item:2321}, von {npc:2381}",
 
-	-- Step 64: Ironforge
+	-- Step 68: Ironforge
 	-- {npc:1356} Prospector Stormpike · {object:32356} Hall of Explorers (no name in this language: may be words) · {npc:1344} Prospector Ironband · {zone:1432} Loch Modan
 	["{npc:1356}, {object:32356}: for {npc:1344} in {zone:1432}, next"] = "{npc:1356}, {object:32356}: für {npc:1344} in {zone:1432}, als Nächstes",
 
-	-- Step 65: To Thelsamar
+	-- Step 69: Fly to Thelsamar
+	-- {area:144} Thelsamar
+	["Fly to {area:144}"] = "Flieg nach {area:144}",
+
+	-- Step 70: To Thelsamar
 	-- {area:144} Thelsamar
 	["To {area:144}"] = "Nach {area:144}",
-
-	-- Step 66: Thelsamar
 	-- {zone:1455} Ironforge · {zone:1426} Dun Morogh · {zone:1432} Loch Modan · {area:144} Thelsamar
 	["From {zone:1455} take the tunnel east through {zone:1426} into {zone:1432} and follow the road to {area:144}."] = "Nimm von {zone:1455} aus den Tunnel nach Osten durch {zone:1426} nach {zone:1432} und folge der Straße nach {area:144}.",
+
+	-- Step 71: Thelsamar
 	-- {npc:1470} Ghak Healtouch
 	["{npc:1470}, below ground"] = "{npc:1470}, unter der Erde",
 
-	-- Step 67: Prospector Ironband
+	-- Step 72: Prospector Ironband
 	["South-east along the loch to the dig site."] = "Nach Südosten am See entlang zur Ausgrabungsstätte.",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
@@ -301,7 +327,6 @@ return {
 	-- ["From {area:42} follow the road east through {zone:1430} into the {zone:1435}; Biggs guards the road junction just inside it. {npc:217412} stands a short way north of him."] = "Folge von {area:42} aus der Straße nach Osten durch {zone:1430} in {zone:1435}; Biggs bewacht die Straßenkreuzung gleich hinter der Grenze. {npc:217412} steht ein kurzes Stück nördlich von ihm.",
 	-- ["From {zone:1455} take the tunnel east through {zone:1426} into {area:38} and follow the road to {area:144}."] = "Nimm von {zone:1455} aus den Tunnel nach Osten durch {zone:1426} nach {area:38} und folge der Straße nach {area:144}.",
 	-- ["Gyll, {area:35}"] = "Gyll, {area:35}",
-	-- ["Hay Weevils crawl about the north end of {quest:681}'s farm: catch one with the tool from {npc:217412}'s Entomology Starter Kit."] = "Hay Weevils kriechen am Nordende der Farm von {quest:681} umher: Fang eines mit dem Werkzeug aus dem Entomology Starter Kit von {npc:217412}.",
 	-- ["Head back north-east past {area:320}; {npc:2712} and {npc:2713} camp in the hills north of {area:314}."] = "Geh zurück nach Nordosten an {area:320} vorbei; {npc:2712} und {npc:2713} lagern in den Hügeln nördlich von {area:314}.",
 	-- ["Head back south from the eastern circle; {npc:2712} and {npc:2713} camp in the hills just north of {area:314}."] = "Geh vom östlichen Steinkreis zurück nach Süden; {npc:2712} und {npc:2713} lagern in den Hügeln direkt nördlich von {area:314}.",
 	-- ["Head north past {area:314}; the shards glitter on the hill by the {area:333}."] = "Geh nach Norden an {area:314} vorbei; die Splitter glitzern auf dem Hügel bei {area:333}.",

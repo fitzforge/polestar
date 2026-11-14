@@ -27,16 +27,16 @@ return {
 	["{npc:6171}, Cathedral of Light"] = "{npc:6171}, Kathedrale des Lichts",
 
 	-- Step 5: The Tome of Divinity
-	-- {npc:6171} Duthorian Rall · {item:6775} Tome of Divinity · {item:2589} Linen Cloth
-	["{npc:6171} stands inside the Cathedral of Light. He hands you the {item:6775}: right-click it in your bags to start the next quest. If the book says the quest is already done, destroy it and ask {npc:6171} for a new copy. Bring 10 {item:2589} for the next step if you have it."] = "{npc:6171} steht in der Kathedrale des Lichts. Er gibt dir {item:6775}: Klicke es in deinen Taschen mit der rechten Maustaste an, um die nächste Quest zu beginnen. Wenn im Buch steht, dass die Quest schon erledigt ist, zerstöre es und bitte {npc:6171} um ein neues Exemplar. Bring für den nächsten Schritt 10 {item:2589} mit, falls du welches hast.",
-	-- {item:6775} Tome of Divinity
-	["Right-click the {item:6775}"] = "Klicke {item:6775} mit der rechten Maustaste an",
+	-- {npc:6171} Duthorian Rall · {quest:2998} Tome of Divinity · {item:2589} Linen Cloth
+	["{npc:6171} stands inside the Cathedral of Light. He hands you the {quest:2998}: right-click it in your bags to start the next quest. If the book says the quest is already done, destroy it and ask {npc:6171} for a new copy. Bring 10 {item:2589} for the next step if you have it."] = "{npc:6171} steht in der Kathedrale des Lichts. Er gibt dir {quest:2998}: Klicke es in deinen Taschen mit der rechten Maustaste an, um die nächste Quest zu beginnen. Wenn im Buch steht, dass die Quest schon erledigt ist, zerstöre es und bitte {npc:6171} um ein neues Exemplar. Bring für den nächsten Schritt 10 {item:2589} mit, falls du welches hast.",
+	-- {quest:2998} Tome of Divinity
+	["Right-click the {quest:2998}"] = "Klicke {quest:2998} mit der rechten Maustaste an",
 
 	-- Step 6: Stephanie Turner
 	-- {npc:6174} Stephanie Turner · {object:2096} Trade District · {item:2589} Linen Cloth · {zone:1436} Westfall
 	["{npc:6174} stands at a corner in the middle of the {object:2096}, outside a general goods store. She wants 10 {item:2589}: humanoids drop it (Riverpaw gnolls in {zone:1436} about every other kill, Defias and kobolds a little less), or buy it at the Auction House a few steps away in the {object:2096}."] = "{npc:6174} steht an einer Ecke mitten im {object:2096}, vor einem Gemischtwarenladen. Sie will 10 {item:2589}: Humanoide lassen es fallen (Riverpaw-Gnolle in {zone:1436} etwa bei jedem zweiten Kill, Defias und Kobolde etwas seltener), oder kaufe es im Auktionshaus, ein paar Schritte entfernt im {object:2096}.",
 	-- {item:2589} Linen Cloth
-	["{item:2589} x10"] = "{item:2589} x10",
+	["{item:2589} x10: humanoids, or the Auction House"] = "{item:2589} x10: Humanoide oder das Auktionshaus",
 
 	-- Step 7: The Symbol of Life
 	-- {item:6866} Symbol of Life
@@ -70,15 +70,15 @@ return {
 	["{npc:6179}, upstairs in the {object:32386}"] = "{npc:6179}, oben im {object:32386}",
 
 	-- Step 14: The Tome of Divinity
-	-- {npc:6179} Tiza Battleforge · {object:32386} Hall of Mysteries (no name in this language: may be words) · {object:32362} Mystic Ward (no name in this language: may be words) · {item:6916} Tome of Divinity · {item:2589} Linen Cloth
-	["{npc:6179} stands upstairs in the {object:32386}, in the {object:32362}: take the ramp at the back of the hall. She hands you the {item:6916}: right-click it in your bags to start the next quest. If the book says the quest is already done, destroy it and ask {npc:6179} for a new copy. Bring 10 {item:2589} for the next step if you have it."] = "{npc:6179} steht oben im {object:32386}, in {object:32362}: Nimm die Rampe am Ende der Halle. Sie gibt dir {item:6916}: Klicke es in deinen Taschen mit der rechten Maustaste an, um die nächste Quest zu beginnen. Wenn im Buch steht, dass die Quest schon erledigt ist, zerstöre es und bitte {npc:6179} um ein neues Exemplar. Bring für den nächsten Schritt 10 {item:2589} mit, falls du welches hast.",
-	-- {item:6916} Tome of Divinity
-	["Right-click the {item:6916}"] = "Klicke {item:6916} mit der rechten Maustaste an",
+	-- {npc:6179} Tiza Battleforge · {object:32386} Hall of Mysteries (no name in this language: may be words) · {object:32362} Mystic Ward (no name in this language: may be words) · {quest:2997} Tome of Divinity · {item:2589} Linen Cloth
+	["{npc:6179} stands upstairs in the {object:32386}, in the {object:32362}: take the ramp at the back of the hall. She hands you the {quest:2997}: right-click it in your bags to start the next quest. If the book says the quest is already done, destroy it and ask {npc:6179} for a new copy. Bring 10 {item:2589} for the next step if you have it."] = "{npc:6179} steht oben im {object:32386}, in {object:32362}: Nimm die Rampe am Ende der Halle. Sie gibt dir {quest:2997}: Klicke es in deinen Taschen mit der rechten Maustaste an, um die nächste Quest zu beginnen. Wenn im Buch steht, dass die Quest schon erledigt ist, zerstöre es und bitte {npc:6179} um ein neues Exemplar. Bring für den nächsten Schritt 10 {item:2589} mit, falls du welches hast.",
+	-- {quest:2997} Tome of Divinity
+	["Right-click the {quest:2997}"] = "Klicke {quest:2997} mit der rechten Maustaste an",
 
 	-- Step 15: John Turner
-	-- {npc:6175} John Turner · {item:2589} Linen Cloth · {npc:1245} Kogan Forgestone · {area:131} Kharanos
+	-- {npc:6175} John Turner · {item:2589} Linen Cloth · {zone:1432} Loch Modan
 	-- plural, as words: Dark Iron Ambushers = {npc:1981} Dark Iron Ambusher
-	["{npc:6175} walks the outer ring of the Commons, past the front gate, the bank and the Auction House. He wants 10 {item:2589}: humanoids drop it ({npc:1245} in {area:131} every time, Dark Iron Ambushers about two kills in five), or buy it at the Auction House on his ring."] = "{npc:6175} geht auf dem äußeren Ring der Commons entlang, am Haupttor, der Bank und dem Auktionshaus vorbei. Er will 10 {item:2589}: Humanoide lassen es fallen ({npc:1245} in {area:131} jedes Mal, Dark Iron Ambushers in etwa zwei von fünf Kills), oder kaufe es im Auktionshaus auf seinem Ring.",
+	["{npc:6175} walks the outer ring of the Commons, past the front gate, the bank and the Auction House. He wants 10 {item:2589}: humanoids drop it (in {zone:1432} the Dark Iron Ambushers, Tunnel Rat kobolds and Stonesplinter troggs about two kills in five), or buy it at the Auction House on his ring."] = "{npc:6175} geht auf dem äußeren Ring der Commons entlang, am Haupttor, der Bank und dem Auktionshaus vorbei. Er will 10 {item:2589}: Humanoide lassen es fallen (in {zone:1432} die Dark Iron Ambushers, Tunnel-Rat-Kobolde und Stonesplinter-Troggs in etwa zwei von fünf Kills), oder kaufe es im Auktionshaus auf seinem Ring.",
 
 	-- Step 16: The Symbol of Life
 	-- {object:32386} Hall of Mysteries (no name in this language: may be words) · {npc:6179} Tiza Battleforge · {item:6866} Symbol of Life · {npc:6178} Muiredon Battleforge · {npc:6177} Narm Faulk
@@ -103,5 +103,6 @@ return {
 	["Back up to the {object:32386}: {npc:6178} takes the script, {npc:6179} teaches you {spell:7328}."] = "Zurück nach oben in den {object:32386}: {npc:6178} nimmt das Schriftstück, {npc:6179} bringt dir {spell:7328} bei.",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["{item:2589} x10"] = "{item:2589} x10",
 	-- ["{npc:6172} lies dead on {area:56}, the island in {area:86} in eastern Elwynn, on top of one of the mounds around the stone circle. Target his body and use the {item:6866} to raise him, then speak to him. If another paladin just raised him, his body is back within about three minutes. The Defias Rogue Wizards on the island (level 9-10) cast Frostbolt from far off: they stand apart, so pull one at a time."] = "{npc:6172} liegt tot auf {area:56}, der Insel im {area:86} im Osten von Elwynn, auf einem der Hügel um den Steinkreis. Wähl seine Leiche an und benutze {item:6866}, um ihn zu erwecken, und sprich ihn dann an. Hat ihn gerade ein anderer Paladin erweckt, ist seine Leiche nach etwa drei Minuten wieder da. Die Defias Rogue Wizards auf der Insel (Stufe 9-10) wirken Frostblitz aus großer Entfernung: Sie stehen weit auseinander, also zieh sie einzeln.",
 }

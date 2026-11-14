@@ -28,12 +28,12 @@ return {
 	["The adult tigers prowl the hills just south and west of the camp."] = "Les tigres adultes rôdent dans les collines juste au sud et à l'ouest du camp.",
 
 	-- Step 9: Level 33.2
-	["Level 33.2"] = "",
+	["Level 33.2"] = "Niveau 33.2",
 	-- {area:796} Scarlet Monastery
 	-- plural, as words: Stranglethorn Tigers = {npc:682} Stranglethorn Tiger
-	["The jungle's quests climb to 37 from here: short of 33.2? Keep on the Stranglethorn Tigers in the hills just south and west of the camp until level 33.2. Or, with a group, run the {area:796} dungeon (Library) instead."] = "",
+	["The jungle's quests climb to 37 from here: short of 33.2? Keep on the Stranglethorn Tigers in the hills just south and west of the camp until level 33.2. Or, with a group, run the {area:796} dungeon (Library) instead."] = "Les quêtes de la jungle montent jusqu'au niveau 37 à partir d'ici : pas encore 33.2 ? Continuez sur les Tigres de Strangleronce dans les collines juste au sud et à l'ouest du camp jusqu'au niveau 33.2. Ou, en groupe, faites plutôt le donjon {area:796} (Bibliothèque).",
 	-- {npc:682} Stranglethorn Tiger
-	["grind on {npc:682}"] = "",
+	["grind on {npc:682}"] = "tuez en boucle : {npc:682}",
 
 	-- Step 10: Ajeck Rouack
 	-- {area:99} Rebel Camp
@@ -48,7 +48,7 @@ return {
 
 	-- Step 12: Sir S. J. Erlgadin
 	-- {area:99} Rebel Camp
-	["Back east to Nesingwary's camp on the way north to the {area:99}."] = "",
+	["Back east to Nesingwary's camp on the way north to the {area:99}."] = "Retournez à l'est au camp de Nesingwary, sur le chemin du {area:99} au nord.",
 
 	-- Step 13: Rebel Camp
 	-- {npc:738} Private Thorsen · {quest:215} Jungle Secrets · {quest:200} Bookie Herod
@@ -59,28 +59,29 @@ return {
 	-- {npc:469} Lieutenant Doren
 	["{npc:469}, in the hut"] = "{npc:469}, dans la hutte",
 	-- {npc:469} Lieutenant Doren · {quest:200} Bookie Herod · {area:101} Kurzen's Compound
-	["{npc:469}: {quest:200}'s records lie at the edge of {area:101}, next"] = "",
+	["{npc:469}: {quest:200}'s records lie at the edge of {area:101}, next"] = "{npc:469} : les archives de {quest:200} se trouvent en bordure de {area:101}, ensuite",
 	-- {npc:770} Corporal Kaleb · {npc:773} Krazek · {area:35} Booty Bay
-	["{npc:770}: for {npc:773} in {area:35}, later in this guide"] = "",
+	["{npc:770}: for {npc:773} in {area:35}, later in this guide"] = "{npc:770} : pour {npc:773} à {area:35}, plus loin dans ce guide",
 
 	-- Step 14: Kurzen's Compound: kill these as you meet them
 	-- {area:101} Kurzen's Compound
 	["{area:101}: kill these as you meet them"] = "{area:101} : tuez-les au passage",
 	-- {area:99} Rebel Camp · {quest:200} Bookie Herod
-	["The Kurzen rebels hold the camp east of the {area:99}; work its outer edge, where Jungle Fighters and Medicine Men stand, and loot the supply crates by the tents. {quest:200}'s records lie in a hut on the compound's west side."] = "",
+	-- plural, as words: Kurzen Elites = {npc:939} Kurzen Elite
+	["The Kurzen rebels hold the camp east of the {area:99}; work its outer edge, where Jungle Fighters and Medicine Men stand, and loot the supply crates by the tents. {quest:200}'s records lie in a hut on the compound's west side. Careful: Kurzen Elites and Witch Doctors (36) hold the compound's eastern half, by the cave: stay on its west side."] = "Les rebelles de Kurzen tiennent le camp à l'est de {area:99} ; restez sur son pourtour, où se tiennent les Guerriers de la jungle et les Guérisseurs, et fouillez les caisses de ravitaillement près des tentes. Les archives de {quest:200} se trouvent dans une hutte du côté ouest du camp. Attention : les Élites et les Sorciers-docteurs de Kurzen (36) tiennent la moitié est du camp, près de la grotte : restez du côté ouest.",
 	-- {object:287} Bookie Herod's Records
-	["{object:287}, in the hut"] = "",
-	["The strongbox is deeper in, by the cave: on the northern loop (04b)"] = "",
+	["{object:287}, in the hut"] = "{object:287}, dans la hutte",
+	["The strongbox is deeper in, by the cave: on the northern loop (04b)"] = "Le coffre est plus loin à l'intérieur, près de la grotte : lors de la boucle nord (04b)",
 	-- {item:2634} Venom Fern Extract · {object:263} Kurzen Supplies
 	["{item:2634}, from a {object:263} crate"] = "{item:2634}, dans une caisse de {object:263}",
 
 	-- Step 15: Level 33.6
-	["Level 33.6"] = "",
+	["Level 33.6"] = "Niveau 33.6",
 	-- {area:796} Scarlet Monastery
 	-- plural, as words: Kurzen Jungle Fighters = {npc:937} Kurzen Jungle Fighter
-	["Short of 33.6? Keep on the Kurzen Jungle Fighters and Medicine Men around the compound's outer edge until level 33.6. Or, with a group, run the {area:796} dungeon (Library) instead."] = "",
+	["Short of 33.6? Keep on the Kurzen Jungle Fighters and Medicine Men around the compound's outer edge until level 33.6. Or, with a group, run the {area:796} dungeon (Library) instead."] = "Pas encore 33.6 ? Continuez sur les Guerriers de la jungle de Kurzen et les Guérisseurs autour du pourtour du camp jusqu'au niveau 33.6. Ou, en groupe, faites plutôt le donjon {area:796} (Bibliothèque).",
 	-- {npc:937} Kurzen Jungle Fighter
-	["grind on {npc:937}"] = "",
+	["grind on {npc:937}"] = "tuez en boucle : {npc:937}",
 
 	-- Step 17: Stranglethorn Vale: kill these as you meet them
 	-- {zone:1434} Stranglethorn Vale
@@ -88,11 +89,11 @@ return {
 	["Careful: Troll camps are close to the tiger area, and trolls can join a fight if you pull carelessly.\nCareful: The raptor nest has young raptors that join the fight when you attack the adults."] = "Attention : des camps de trolls sont proches du territoire des tigres, et les trolls peuvent se joindre au combat si vous attirez sans précaution.\nAttention : le nid des raptors abrite de jeunes raptors qui se joignent au combat quand vous attaquez les adultes.",
 
 	-- Step 18: Level 34
-	["Level 34"] = "",
+	["Level 34"] = "Niveau 34",
 	-- {area:796} Scarlet Monastery
-	["The quests from here on are 37: if you are short of 34, keep on the elder tigers in the hills south-west of Nesingwary's camp until level 34. Or, with a group, run the {area:796} dungeon (Library or Armory) instead."] = "",
+	["The quests from here on are 37: if you are short of 34, keep on the elder tigers in the hills south-west of Nesingwary's camp until level 34. Or, with a group, run the {area:796} dungeon (Library or Armory) instead."] = "Les quêtes suivantes sont de niveau 37 : s'il vous manque des niveaux pour atteindre 34, continuez sur les anciens tigres dans les collines au sud-ouest du camp de Nesingwary jusqu'au niveau 34. Ou, en groupe, faites plutôt le donjon {area:796} (Bibliothèque ou Armurerie).",
 	-- {npc:1085} Elder Stranglethorn Tiger
-	["grind on {npc:1085}"] = "",
+	["grind on {npc:1085}"] = "tuez en boucle : {npc:1085}",
 
 	-- Step 19: Nesingwary's Expedition
 	-- {npc:716} Barnil Stonepot · {item:2755} Green Hills of Stranglethorn
@@ -121,12 +122,12 @@ return {
 	-- {npc:773} Krazek
 	["{npc:773}, in the tavern; upstairs"] = "{npc:773}, dans la taverne ; à l'étage",
 	-- {npc:773} Krazek · {npc:770} Corporal Kaleb
-	["{npc:773}, from {npc:770}"] = "",
+	["{npc:773}, from {npc:770}"] = "{npc:773}, de la part de {npc:770}",
 	-- {npc:737} Kebok
 	["{npc:737}, in the tavern"] = "{npc:737}, dans la taverne",
 	-- {npc:737} Kebok
 	-- plural, as words: Tumbled Crystals = {item:4106} Tumbled Crystal
-	["{npc:737}: the Tumbled Crystals, on the northern loop"] = "",
+	["{npc:737}: the Tumbled Crystals, on the northern loop"] = "{npc:737} : les Cristaux réduits, lors de la boucle nord",
 	-- {npc:2496} Baron Revilgaz
 	["{npc:2496}, upstairs in the tavern"] = "{npc:2496}, à l'étage de la taverne",
 
@@ -141,7 +142,7 @@ return {
 	["{area:301}: kill these as you meet them"] = "{area:301} : tuez-les au passage",
 	-- {area:108} Sentinel Hill · {zone:1436} Westfall · {area:310} Crystalvein Mine
 	-- plural, as words: Crystal Spine Basilisks = {npc:689} Crystal Spine Basilisk
-	["From {area:108} the way leads south out of {zone:1436} into Stranglethorn's north-west, to the {area:310} near the coast; the Crystal Spine Basilisks around it drop the shards.\nThe haunted island lies just off the coast south-west of the mine: just reach it. The Bloodscalp trolls hold the ruins on the coast to the north."] = "",
+	["From {area:108} the way leads south out of {zone:1436} into Stranglethorn's north-west, to the {area:310} near the coast; the Crystal Spine Basilisks around it drop the shards.\nThe haunted island lies just off the coast south-west of the mine: just reach it. The Bloodscalp trolls hold the ruins on the coast to the north."] = "Depuis {area:108}, le chemin mène au sud hors de {zone:1436}, dans le nord-ouest de Strangleronce, jusqu'à {area:310}, près de la côte ; les Basilics à échine cristalline des environs lâchent les éclats.\nL'île hantée se trouve juste au large de la côte, au sud-ouest de la mine : il suffit de l'atteindre. Les trolls Bloodscalp tiennent les ruines sur la côte, au nord.",
 	["The haunted island"] = "L'île hantée",
 
 	-- Step 25: River crocolisks
@@ -152,7 +153,7 @@ return {
 
 	-- Step 26: Private Thorsen
 	-- {npc:738} Private Thorsen · {area:99} Rebel Camp
-	["{npc:738} spends most of his time at the top of the {area:99}'s path, by the huts, and now and then walks down it to the road and back (about eight minutes). If he isn't at the arrow, look along that path."] = "",
+	["{npc:738} spends most of his time at the top of the {area:99}'s path, by the huts, and now and then walks down it to the road and back (about eight minutes). If he isn't at the arrow, look along that path."] = "{npc:738} passe la plupart de son temps en haut du chemin de {area:99}, près des huttes, et de temps en temps le descend jusqu'à la route avant de remonter (environ huit minutes). S'il n'est pas à la flèche, cherchez-le le long de ce chemin.",
 
 	-- Step 27: Nesingwary's Expedition
 	-- {quest:201} Investigate the Camp
@@ -163,13 +164,13 @@ return {
 	["{npc:2495}, inside"] = "{npc:2495}, à l'intérieur",
 	-- {npc:2495} Drizzlik
 	-- plural, as words: Snapjaw Crocolisks = {npc:1152} Snapjaw Crocolisk
-	["{npc:2495}: the Snapjaw Crocolisks, on the northern loop"] = "",
+	["{npc:2495}: the Snapjaw Crocolisks, on the northern loop"] = "{npc:2495} : les Crocilisques Gueule d'acier, lors de la boucle nord",
 	-- {npc:773} Krazek
 	["{npc:773}, upstairs"] = "{npc:773}, à l'étage",
 	-- {npc:737} Kebok
 	["{npc:737}, upstairs"] = "{npc:737}, à l'étage",
 	-- {npc:2496} Baron Revilgaz
-	["{npc:2496}: the water elementals rise around the haunted island, on the northern loop"] = "",
+	["{npc:2496}: the water elementals rise around the haunted island, on the northern loop"] = "{npc:2496} : les élémentaires d'eau surgissent autour de l'île hantée, lors de la boucle nord",
 
 	-- Step 29: Fly to Stormwind
 	-- {zone:1453} Stormwind
@@ -177,12 +178,12 @@ return {
 
 	-- Step 31: Collin Mauren
 	-- {npc:4078} Collin Mauren · {object:2164} Slaughtered Lamb · {object:2101} Mage Quarter
-	["{npc:4078} is in the {object:2164}, in the {object:2101}."] = "",
+	["{npc:4078} is in the {object:2164}, in the {object:2101}."] = "{npc:4078} est dans {object:2164}, dans {object:2101}.",
 
-	-- Step 32: Druid training
-	["Druid training"] = "Entraînement de druide",
-	-- {npc:5504} Sheldras Moontree · {zone:1453} Stormwind · {object:2101} Mage Quarter
-	["{npc:5504}, the druid trainer, stands in {zone:1453}, north-west of the {object:2101}."] = "",
+	-- Step 32: Class training
+	["Class training"] = "Entraînement de classe",
+	-- {object:2096} Trade District · {object:2100} Old Town · {object:2101} Mage Quarter · {npc:5504} Sheldras Moontree · {zone:1455} Ironforge
+	["Your level 34 ranks: the class trainers stand around the {object:2096}, {object:2100}, the Cathedral and the {object:2101}; {npc:5504}, the druid trainer, stands north-west of the {object:2101}. Shamans train in {zone:1455}, later in 30-40."] = "Vos rangs de niveau 34 : les maîtres de classe se trouvent autour de {object:2096}, de {object:2100}, de la cathédrale et de {object:2101} ; {npc:5504}, le maître des druides, se tient au nord-ouest de {object:2101}. Les chamans s'entraînent à {zone:1455}, plus tard dans 30-40.",
 
 	-- Step 34: Fly to Astranaar
 	-- {area:415} Astranaar
@@ -192,13 +193,13 @@ return {
 
 	-- Step 35: Heartswood
 	-- {area:415} Astranaar · {quest:1738} Heartswood · {area:413} Maestra's Post · {quest:65602} What Is Love? · {item:190309} Wooden Figurine
-	["From {area:415} head north-west into the hills: the {quest:1738} is a glowing tree north of the road to {area:413}. If you took {quest:65602}, the {item:190309} lies in a house among the trees north of {area:413} (26.6,22.0). Then take the road west to Stonetalon."] = "",
+	["From {area:415} head north-west into the hills: the {quest:1738} is a glowing tree north of the road to {area:413}. If you took {quest:65602}, the {item:190309} lies in a house among the trees north of {area:413} (26.6,22.0). Then take the road west to Stonetalon."] = "Depuis {area:415}, allez au nord-ouest dans les collines : {quest:1738} est un arbre lumineux au nord de la route du {area:413}. Si vous avez pris {quest:65602}, la {item:190309} se trouve dans une maison parmi les arbres au nord du {area:413} (26.6,22.0). Prenez ensuite la route vers l'ouest jusqu'aux Serres-Rocheuses.",
 	-- {item:190309} Wooden Figurine · {area:413} Maestra's Post
 	["{item:190309}, north of {area:413}"] = "{item:190309}, au nord de {area:413}",
 
 	-- Step 36: Stonetalon Mountains
 	-- {area:608} Nijel's Point
-	["The road to {area:608}"] = "",
+	["The road to {area:608}"] = "La route du {area:608}",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["\"Sea Wolf\" MacKinley, on the top floor"] = "« Loup de mer » MacKinley, au dernier étage",
@@ -221,7 +222,6 @@ return {
 	-- ["Take the road north; {npc:738} patrols it, the camp sits in the hills to the west."] = "Prenez la route vers le nord ; {npc:738} y patrouille, le camp se trouve dans les collines à l'ouest.",
 	-- ["Take the road north; {npc:738} stands on it, the camp sits in the hills to the west."] = "Prenez la route vers le nord ; {npc:738} s'y tient, le camp se trouve dans les collines à l'ouest.",
 	-- ["The Bloodscalp trolls hold the ruins on the coast west of Nesingwary's camp."] = "Les trolls Bloodscalp tiennent les ruines sur la côte à l'ouest du camp de Nesingwary.",
-	-- ["The Kurzen rebels hold the camp east of the {area:99}; work its outer edge, where Jungle Fighters and Medicine Men stand, and loot the supply crates by the tents."] = "Les rebelles de Kurzen tiennent le camp à l'est de {area:99} ; restez sur son pourtour, où se tiennent les Guerriers de la jungle et les Guérisseurs, et fouillez les caisses de ravitaillement près des tentes.",
 	-- ["The Skullsplitter trolls hold the ruins east of the road between Nesingwary and {object:3202}."] = "Les trolls Skullsplitter tiennent les ruines à l'est de la route entre Nesingwary et {object:3202}.",
 	-- ["The jungle ruins"] = "Les ruines de la jungle",
 	-- ["The ore drops from Drywhisker kobolds in {zone:1417}"] = "Le minerai tombe des kobolds Sèche-moustache des {zone:1417}",
@@ -239,7 +239,6 @@ return {
 	-- ["{npc:2859}, on the top floor by the docks"] = "{npc:2859}, au dernier étage près des quais",
 	-- ["{npc:684} on the way"] = "{npc:684} en chemin",
 	-- ["{npc:687} on the way"] = "{npc:687} en chemin",
-	-- ["{npc:770}: for {npc:773} in {area:35}"] = "{npc:770} : pour {npc:773} à {area:35}",
 	-- ["{npc:773}, in the tavern"] = "{npc:773}, dans la taverne",
 	-- ["{npc:941}, below ground"] = "{npc:941}, sous terre",
 	-- ["{object:287}, upstairs"] = "{object:287}, à l'étage",

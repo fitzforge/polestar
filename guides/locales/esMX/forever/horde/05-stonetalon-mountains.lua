@@ -113,32 +113,52 @@ return {
 	-- {npc:246152} Shari Stilwell · {area:159} Brill
 	["{npc:246152} trains Paladins in {area:159}, a short walk north up the road from the zeppelin towers. Come back down the same road for Silverpine."] = "{npc:246152} entrena a los paladines en {area:159}, a poca distancia al norte por el camino desde las torres de zepelín. Regresa por el mismo camino para ir a Bosque de Argénteos.",
 
-	-- Step 22: Strange Lockbox
-	-- {area:240} Dead Field · {object:177790} Strange Lockbox · {item:15882} Half Pendant of Aquatic Endurance · {area:228} Sepulcher
-	["From the zeppelin towers, run south into Silverpine and west past the {area:240} to the coast: the {object:177790} lies at the bottom of very deep water there, beside an air fissure where you can breathe. Watch your breath on the way down. It holds the {item:15882} for Trial of the Sea Lion. Then on to the {area:228}."] = "Desde las torres del zepelín, corre al sur hacia Bosque de Argénteos y al oeste pasando {area:240} hasta la costa: {object:177790} está en el fondo de aguas muy profundas, junto a una fisura de aire donde puedes respirar. Cuida tu aliento al bajar. Contiene {item:15882} para Prueba del león marino. Luego sigue hasta {area:228}.",
-	-- {item:15882} Half Pendant of Aquatic Endurance · {object:177790} Strange Lockbox
-	["{item:15882}, from the {object:177790}"] = "{item:15882}, de {object:177790}",
+	-- Step 22: Morbin Lightbane
+	-- {area:153} Ruins of Lordaeron · {zone:1458} Undercity · {object:36126} Royal Quarter · {npc:266484} Morbin Lightbane · {npc:10181} Lady Sylvanas Windrunner
+	["For your {area:153} run: the zeppelin lands beside the ruins. Walk into the {zone:1458} through them and down to the {object:36126}: {npc:266484} stands there, near {npc:10181}."] = "Para tu recorrido por {area:153}: el zepelín aterriza junto a las ruinas. Entra en {zone:1458} a través de ellas y baja hasta {object:36126}: {npc:266484} está ahí, cerca de {npc:10181}.",
 
-	-- Step 23: Sepulcher
-	-- {area:228} Sepulcher · {object:177790} Strange Lockbox · {npc:2121} Shadow Priest Allister · {npc:1937} Apothecary Renferrel
-	["Down the road through Silverpine to the {area:228}: from the zeppelin towers, south through Tirisfal; from the {object:177790}, south-east from the coast to the road. {npc:2121} and {npc:1937} stand by the crypt entrance."] = "Baja por el camino a través de Bosque de Argénteos hasta {area:228}: desde las torres de zepelín, al sur a través de Tirisfal; desde {object:177790}, al sureste desde la costa hasta el camino. {npc:2121} y {npc:1937} están junto a la entrada de la cripta.",
+	-- Step 23: Ruins of Lordaeron
+	-- {area:153} Ruins of Lordaeron · {zone:1458} Undercity · {item:268580} Intact Limbs · {npc:266484} Morbin Lightbane · {npc:250660} The Baron · {item:280438} Abominable Head · {npc:2055} Master Apothecary Faranell · {npc:256102} Crest of Lordaeron · {npc:7825} Oran Snakewrithe
+	["The {area:153} is a dungeon for a group of five, about levels 15 to 22, in the ruined city above the {zone:1458}: its portal is in the ruins you walked through.\nInside: every undead can drop {item:268580} for {npc:266484}, so clear as you go. {npc:250660} can drop an {item:280438}, which starts a quest for {npc:2055}, and a {npc:256102} found inside starts one for {npc:7825}: both are in the {zone:1458}, on this route's next stop there."] = "{area:153} es una mazmorra para un grupo de cinco, de nivel 15 a 22 más o menos, en la ciudad en ruinas encima de {zone:1458}: su portal está en las ruinas por las que pasaste.\nAdentro: cualquier no-muerto puede soltar {item:268580} para {npc:266484}, así que limpia a tu paso. {npc:250660} puede soltar una {item:280438}, que inicia una misión para {npc:2055}, y un {npc:256102} que encuentras adentro inicia una para {npc:7825}: ambos están en {zone:1458}, en la siguiente parada de esta ruta allí.",
+	-- {quest:92421} Light's Justice · {item:268580} Intact Limbs
+	["{quest:92421}: the {item:268580}, inside"] = "{quest:92421}: {item:268580}, adentro",
+
+	-- Step 24: The Sepulcher
+	-- {zone:1421} Silverpine Forest · {area:228} The Sepulcher
+	["Out of the ruins, take the road south through Tirisfal into {zone:1421} and on to the {area:228}."] = "Al salir de las ruinas, toma el camino al sur a través de Tirisfal hasta {zone:1421} y sigue hasta {area:228}.",
+
+	-- Step 25: Strange Lockbox
+	-- {area:240} Dead Field · {object:177844} Strange Lockbox · {item:15882} Half Pendant of Aquatic Endurance · {area:228} The Sepulcher
+	["From the zeppelin towers, run south into Silverpine and west past the {area:240} to the coast: the {object:177844} lies at the bottom of very deep water there, beside an air fissure where you can breathe. Watch your breath on the way down. It holds the {item:15882} for Trial of the Sea Lion. Then on to the {area:228}."] = "Desde las torres del zepelín, corre al sur hacia Bosque de Argénteos y al oeste pasando {area:240} hasta la costa: {object:177844} está en el fondo de aguas muy profundas, junto a una fisura de aire donde puedes respirar. Cuida tu aliento al bajar. Contiene {item:15882} para Prueba del león marino. Luego sigue hasta {area:228}.",
+	-- {item:15882} Half Pendant of Aquatic Endurance · {object:177844} Strange Lockbox
+	["{item:15882}, from the {object:177844}"] = "{item:15882}, de {object:177844}",
+
+	-- Step 26: The Sepulcher
+	-- {area:228} The Sepulcher · {object:177844} Strange Lockbox · {npc:2121} Shadow Priest Allister · {npc:1937} Apothecary Renferrel
+	["Down the road through Silverpine to the {area:228}: from the zeppelin towers, south through Tirisfal; from the {object:177844}, south-east from the coast to the road. {npc:2121} and {npc:1937} stand by the crypt entrance."] = "Baja por el camino a través de Bosque de Argénteos hasta {area:228}: desde las torres de zepelín, al sur a través de Tirisfal; desde {object:177844}, al sureste desde la costa hasta el camino. {npc:2121} y {npc:1937} están junto a la entrada de la cripta.",
 	-- {npc:1937} Apothecary Renferrel · {area:272} Tarren Mill
 	["{npc:1937}: Lydon in {area:272}, next guide"] = "{npc:1937}: Lydon en {area:272}, en la siguiente guía",
 	-- {npc:2121} Shadow Priest Allister · {quest:516} Beren's Peril · {area:233} Ambermill
 	["{npc:2121}: {quest:516}, south-east of {area:233}"] = "{npc:2121}: {quest:516}, al sureste de {area:233}",
 
-	-- Step 24: Deathguard Podrig
+	-- Step 27: Deathguard Podrig
 	-- {npc:6389} Deathguard Podrig · {item:16210} Gordon's Crate · {zone:1458} Undercity
 	["{npc:6389} stands just west of the crypt entrance: hand him {item:16210} from the {zone:1458}."] = "{npc:6389} está justo al oeste de la entrada de la cripta: entrégale {item:16210} de {zone:1458}.",
 
-	-- Step 25: Silverpine Forest: kill these as you meet them
+	-- Step 28: High Executor Hadrec
+	-- {area:236} Shadowfang Keep · {area:287} Hillsbrad · {npc:1952} High Executor Hadrec
+	["For your {area:236} run, at the end of the {area:287} guide: {npc:1952} stands below ground in the crypt."] = "Para tu recorrido por {area:236}, al final de la guía de {area:287}: {npc:1952} está bajo tierra en la cripta.",
+	-- {npc:1952} High Executor Hadrec
+	["{npc:1952}, below ground"] = "{npc:1952}, bajo tierra",
+
+	-- Step 29: Silverpine Forest: kill these as you meet them
 	-- {zone:1421} Silverpine Forest
 	["{zone:1421}: kill these as you meet them"] = "{zone:1421}: mata a estos según te los encuentres",
 	-- {area:233} Ambermill · {quest:516} Beren's Peril
-	-- plural, as words: Dalaran Watchers = {npc:1888} Dalaran Watcher · Ravenclaw Drudgers = {npc:1974} Ravenclaw Drudger
-	["South down the road past Pyrewood: Dalaran Watchers and Wizards patrol the roads around {area:233}, and south-west of the town the Ravenclaw Drudgers and Guardians haunt the ruins of {quest:516} in the south-east of the forest."] = "Al sur por el camino pasando Piroleña: los vigías y magos de Dalaran patrullan los caminos alrededor de {area:233}, y al suroeste del pueblo los braceros y guardianes Garracuervo rondan las ruinas de {quest:516} en el sureste del bosque.",
+	-- plural, as words: Dalaran Watchers = {npc:1888} Dalaran Watcher · Ravenclaw Drudgers = {npc:1974} Ravenclaw Drudger · High Order Mages = {npc:254294} High Order Mage
+	["South down the road past Pyrewood: Dalaran Watchers and Wizards patrol the roads around {area:233}, and south-west of the town the Ravenclaw Drudgers and Guardians haunt the ruins of {quest:516} in the south-east of the forest. Careful: High Order Mages (30) walk the same roads among the Watchers and Wizards: leave them."] = "Al sur por el camino pasando Piroleña: los vigías y magos de Dalaran patrullan los caminos alrededor de {area:233}, y al suroeste del pueblo los braceros y guardianes Garracuervo rondan las ruinas de {quest:516} en el sureste del bosque. Cuidado: los magos de la Alta Orden (30) recorren los mismos caminos entre los vigías y magos: déjalos en paz.",
 
-	-- Step 26: Beren's Peril
+	-- Step 30: Beren's Peril
 	-- {quest:516} Beren's Peril · {npc:1973} Ravenclaw Guardian · {item:271343} Note Scrap · {object:645153} Offering Stone
 	["The Ravenclaw undead haunt the ruins of {quest:516}, east of the road in the south-east of the forest; a {npc:1973} drops the {item:271343} that leads to the {object:645153}.\nAn elite spirit (20) often stands beside the {object:645153}: pull the Ravenclaws away from the stone before you fight them."] = "Los no-muertos Garracuervo rondan las ruinas de {quest:516}, al este del camino en el sureste del bosque; un {npc:1973} suelta {item:271343}, que lleva hasta {object:645153}.\nUn espíritu élite (20) suele estar junto a {object:645153}: aleja a los Garracuervo de la piedra antes de pelear con ellos.",
 	-- {item:271343} Note Scrap · {npc:1973} Ravenclaw Guardian
@@ -149,19 +169,19 @@ return {
 	-- plural, as words: Tortured Souls = {item:271350} Tortured Soul
 	["{item:271350}, from the Tortured Souls among the ruins; below ground"] = "{item:271350}, de las almas torturadas entre las ruinas; bajo tierra",
 
-	-- Step 27: The Offering of Blood
+	-- Step 31: The Offering of Blood
 	-- {item:210713} Tortured Soul · {object:645153} Offering Stone · {quest:95883} The Tortured Soul
 	["The quest hands you a {item:210713}: use it beside the {object:645153} to offer your blood, then kill the elite spirit that answers.\n{quest:95883} is elite: grouping up is advised."] = "La misión te da {item:210713}: úsalo junto a {object:645153} para ofrecer tu sangre y luego mata al espíritu élite que responde.\n{quest:95883} es élite: se recomienda agruparse.",
 	-- {item:210713} Tortured Soul · {object:645153} Offering Stone
 	["{item:210713}, beside the {object:645153}: summons the elite spirit"] = "{item:210713}, junto a {object:645153}: invoca al espíritu élite",
 
-	-- Step 28: Into Hillsbrad
+	-- Step 32: Into Hillsbrad
 	-- {area:287} Hillsbrad
 	["Into {area:287}"] = "Hacia {area:287}",
 	-- {area:285} Southpoint Tower
 	["The road east to {area:285}"] = "El camino al este hacia {area:285}",
 
-	-- Step 29: Southpoint Tower
+	-- Step 33: Southpoint Tower
 	-- {area:287} Hillsbrad · {npc:2214} Deathstalker Lesh · {area:285} Southpoint Tower
 	["Back on the road south. Where it turns east into {area:287}, {npc:2214} waits at {area:285}."] = "De vuelta en el camino al sur. Donde gira al este hacia {area:287}, {npc:2214} espera en {area:285}.",
 	-- {npc:2214} Deathstalker Lesh · {area:272} Tarren Mill

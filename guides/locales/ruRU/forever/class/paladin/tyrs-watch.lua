@@ -38,11 +38,11 @@ return {
 
 	-- Step 6: Murlocs at the Gates
 	-- {area:16881} Shadowvale
-	["The Vile Fin murlocs (level 9-11) lurk on the bluffs along the road east of the keep and in the camps around the lake to the south-west, on the way down to {area:16881}."] = "",
+	["The Vile Fin murlocs (level 9-11) lurk on the bluffs along the road east of the keep and in the camps around the lake to the south-west, on the way down to {area:16881}."] = "Мурлоки из племени Злобного Плавника (9-11-й уровень) скрываются на утесах вдоль дороги к востоку от крепости и в лагерях вокруг озера к юго-западу, по пути вниз: {area:16881}.",
 	-- plural, as words: Vile Fin Attackers = {npc:250283} Vile Fin Attacker
-	["Vile Fin Attackers x8"] = "",
+	["Vile Fin Attackers x8"] = "Налетчики из племени Злобного Плавника x8",
 	-- plural, as words: Vile Fin Seers = {npc:250282} Vile Fin Seer
-	["Vile Fin Seers x8"] = "",
+	["Vile Fin Seers x8"] = "Провидцы из племени Злобного Плавника x8",
 
 	-- Step 7: Touring the Grounds
 	-- {npc:246349} Breton Samuels · {npc:246389} Hilda the Breaker · {npc:246394} Ander Solliden · {npc:246393} Jorin Croge · {npc:246378} Danitha Morr
@@ -52,15 +52,15 @@ return {
 
 	-- Step 8: Danitha Morr
 	-- {npc:246378} Danitha Morr · {npc:246393} Jorin Croge · {quest:91317} The Tarnished
-	["{npc:246378} leads the order from inside the keep; {npc:246393} stands beside it. {quest:91317} need level 9."] = "",
+	["{npc:246378} leads the order from inside the keep; {npc:246393} stands beside it. {quest:91317} need level 9."] = "{npc:246378} руководит орденом из крепости; {npc:246393} стоит рядом с ней. Для заданий {quest:91317} нужен 9-й уровень.",
 
 	-- Step 9: Shadowvale
 	-- {quest:91317} The Tarnished · {area:16881} Shadowvale · {area:16616} Whispering Forest · {npc:259431} Rudolph Gelhardt
 	["{quest:91317} (level 8-9) hold the ruined village of {area:16881} in the {area:16616}, south-west of the keep. Commander {npc:259431} (level 10) stands on the upper floor of a house, with Drudges below him: clear the ground floor first."] = "",
 	-- plural, as words: Tarnished Drudges = {npc:259434} Tarnished Drudge
-	["Tarnished Drudges x8"] = "",
+	["Tarnished Drudges x8"] = "Порочные чернорабочие x8",
 	-- plural, as words: Tarnished Zealots = {npc:259433} Tarnished Zealot
-	["Tarnished Zealots x6"] = "",
+	["Tarnished Zealots x6"] = "Порочные фанатики x6",
 
 	-- Step 10: The crypt under Shadowvale
 	-- {area:16881} Shadowvale
@@ -100,7 +100,7 @@ return {
 
 	-- Step 16: A Lesson in Divinity
 	-- {npc:246378} Danitha Morr · {item:2589} Linen Cloth · {zone:1458} Undercity
-	["{npc:246378} offers the first Lesson in Divinity at level 12. Bring 10 {item:2589} if you have it: the {zone:1458} asks for it next."] = "",
+	["{npc:246378} offers the first Lesson in Divinity at level 12. Bring 10 {item:2589} if you have it: the {zone:1458} asks for it next."] = "{npc:246378} дает первый урок божественности на 12-м уровне. Если есть, захватите {item:2589} (10 шт.): следом их попросят в городе {zone:1458}.",
 
 	-- Step 17: The Undercity
 	-- {area:159} Brill · {area:153} Ruins of Lordaeron · {zone:1458} Undercity · {npc:10181} Lady Sylvanas Windrunner · {object:36126} Royal Quarter · {npc:257648} Tanis Alderwood · {object:36078} Trade Quarter
@@ -109,7 +109,7 @@ return {
 	-- Step 18: Linen Cloth
 	-- {npc:257648} Tanis Alderwood · {item:2589} Linen Cloth
 	-- plural, as words: Scarlet Zealots = {npc:1537} Scarlet Zealot
-	["{npc:257648} needs 10 {item:2589}. Humanoids drop it: the Scarlet Zealots and Friars of the glades about three kills in ten. The Undercity Auction House sells it too."] = "",
+	["{npc:257648} needs 10 {item:2589}. Humanoids drop it: the Scarlet Zealots and Friars of the glades about three kills in ten. The Undercity Auction House sells it too."] = "{npc:257648} нужно 10 шт.: {item:2589}. Она падает с гуманоидов: с ревнителей и келейников Алого ордена в долине – примерно в трех случаях из десяти. Ее также продают на аукционе Подгорода.",
 	-- {item:2589} Linen Cloth
 	["{item:2589} x10"] = "",
 
@@ -117,7 +117,7 @@ return {
 	-- {item:6866} Symbol of Life
 	["The {item:6866}"] = "{item:6866}",
 	-- {area:16602} Bandarion Keep · {npc:246378} Danitha Morr · {item:6866} Symbol of Life · {npc:257655} Deathguard Billmuth
-	["Back to {area:16602}. {npc:246378} gives you the {item:6866}; {npc:257655} waits downstairs in the keep. If you lose the symbol, {npc:246378} gives you another."] = "",
+	["Back to {area:16602}. {npc:246378} gives you the {item:6866}; {npc:257655} waits downstairs in the keep. If you lose the symbol, {npc:246378} gives you another."] = "Назад. Цель: {area:16602}. {npc:246378} даст вам {item:6866}; {npc:257655} ждет внизу в крепости. Если вы потеряете символ, {npc:246378} даст вам другой.",
 	-- {npc:257655} Deathguard Billmuth
 	["{npc:257655}, downstairs"] = "",
 
@@ -134,26 +134,16 @@ return {
 
 	-- Step 23: Redemption
 	-- {area:16602} Bandarion Keep · {npc:246378} Danitha Morr · {spell:7328} Redemption
-	["Back to {area:16602}, across the whole glades: Billmuth downstairs takes the plans, then {npc:246378}, back upstairs in the keep, teaches you {spell:7328}."] = "",
+	["Back to {area:16602}, across the whole glades: Billmuth downstairs takes the plans, then {npc:246378}, back upstairs in the keep, teaches you {spell:7328}."] = "Назад через всю долину. Цель: {area:16602}. Билмут внизу примет планы, затем {npc:246378}, снова наверху в крепости, научит вас: {spell:7328}.",
 	-- {npc:246378} Danitha Morr · {spell:7328} Redemption
 	["{npc:246378}, back upstairs: {spell:7328}"] = "",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
-	-- ["Back to {area:16602}. {npc:246378} gives you the {item:6866}; {npc:257655} waits downstairs in the keep."] = "Назад. Цель: {area:16602}. {npc:246378} даст вам {item:6866}; {npc:257655} ждет внизу в крепости.",
-	-- ["Back to {area:16602}: Billmuth takes the plans, {npc:246378} teaches you {spell:7328}."] = "Назад. Цель: {area:16602}. Билмут примет планы, {npc:246378} научит вас: {spell:7328}.",
-	-- ["Tarnished Drudges"] = "Порочные чернорабочие",
-	-- ["Tarnished Zealots"] = "Порочные фанатики",
 	-- ["The Scarlet Crusaders camped around {area:812} carry the attack plans."] = "Планы атаки – у крестоносцев Алого ордена, стоящих лагерем вокруг места {area:812}.",
-	-- ["The Vile Fin murlocs lurk on the bluffs along the road east of the keep and in the camps around the lake to the west."] = "Мурлоки из племени Злобного Плавника скрываются на утесах вдоль дороги к востоку от крепости и в лагерях вокруг озера к западу.",
 	-- ["Tyr's Watch and {spell:7328}"] = "Дозор Тира и {spell:7328}",
-	-- ["Vile Fin Attackers"] = "Налетчики из племени Злобного Плавника",
-	-- ["Vile Fin Seers"] = "Провидцы из племени Злобного Плавника",
 	-- ["{area:16602} stands on the bluffs north-west of the {area:156}. {npc:246349} waits at the gate."] = "{area:16602} стоит на утесах к северо-западу (ориентир: {area:156}). {npc:246349} ждет у ворот.",
 	-- ["{area:812} is at the far east end of the glades. Use the {item:6866} on {npc:257663}, then speak to him. If you lose the symbol, {npc:246378} gives you another."] = "{area:812} – в дальнем восточном конце лесов. Используйте {item:6866} на цели {npc:257663}, затем поговорите с ним. Если потеряете символ, {npc:246378} даст новый.",
 	-- ["{npc:246152}, who trains Paladins in {area:159}, sends you to the order's keep on the west coast."] = "{npc:246152}, учитель паладинов ({area:159}), отправит вас в крепость ордена на западном побережье.",
-	-- ["{npc:246378} leads the order from inside the keep; {npc:246393} stands beside it."] = "{npc:246378} руководит орденом из крепости; {npc:246393} стоит рядом с ней.",
-	-- ["{npc:246378} offers the first Lesson in Divinity at level 12."] = "{npc:246378} дает первый урок божественности на 12-м уровне.",
-	-- ["{npc:257648} needs 10 {item:2589}. Scarlet Zealots and Scarlet Friars drop it about three times in ten; bring it along if you already carry some."] = "{npc:257648} нужно 10 шт.: {item:2589}. С ревнителей и келейников из Алого ордена она падает примерно в трех случаях из десяти; если у вас уже есть, захватите с собой.",
 	-- ["{object:181686}, in the root cellar"] = "{object:181686}, в погребе",
 	-- ["{object:554626}, in the root cellar"] = "{object:554626}, в погребе",
 	-- ["{quest:91317} hold the ruined village of {area:16881} in the {area:16616}, south-west of the keep. The {item:246213} is piled in the root cellar of one of its houses; Commander {npc:259431} walks among his Tarnished."] = "{quest:91317}: они занимают разрушенную деревню ({area:16881}, {area:16616}) к юго-западу от крепости. {item:246213} сложены в погребе одного из домов; среди своих порочных ходит командир {npc:259431}.",

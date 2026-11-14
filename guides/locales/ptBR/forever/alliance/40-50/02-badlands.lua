@@ -86,8 +86,6 @@ return {
 	["{quest:1450}, inside"] = "{quest:1450}, lá dentro",
 	-- {npc:7884} Fraggar Thundermantle
 	["{npc:7884}, inside"] = "{npc:7884}, lá dentro",
-	-- {npc:7744} Innkeeper Thulfram
-	["{npc:7744}; below ground"] = "{npc:7744}; no subsolo",
 
 	-- Step 19: Rhapsody Shindigger
 	-- {npc:5634} Rhapsody Shindigger · {area:348} Aerie Peak
@@ -95,8 +93,8 @@ return {
 
 	-- Step 20: Witherbark villages
 	["Witherbark villages"] = "Aldeias Cascasseca",
-	-- {npc:5634} Rhapsody Shindigger
-	["The first two cages stand together in the Witherbark village south of {npc:5634}; the third is in the next village to the east. Every Witherbark troll can drop a necklace."] = "As duas primeiras jaulas ficam juntas na aldeia Cascasseca ao sul de {npc:5634}; a terceira está na aldeia seguinte, a leste. Qualquer troll Cascasseca pode soltar um colar.",
+	-- {npc:5634} Rhapsody Shindigger · {npc:270772} Witch Doctor Ti'ik
+	["The first two cages stand together in the Witherbark village south of {npc:5634}; the third is in the next village to the east. Every Witherbark troll can drop a necklace.\nCareful: {npc:270772} (49) and his Hexed Larvae (45) keep to the huts of the western village, around 25,64: take the necklaces from the trolls outside."] = "As duas primeiras jaulas ficam juntas na aldeia Cascasseca ao sul de {npc:5634}; a terceira está na aldeia seguinte, a leste. Qualquer troll Cascasseca pode soltar um colar.\nCuidado: {npc:270772} (49) e suas Larvas Enfeitiçadas (45) ficam nas cabanas da aldeia oeste, por volta de 25,64: pegue os colares dos trolls de fora.",
 
 	-- Step 21: Aerie Peak
 	-- {npc:5636} Gryphon Master Talonaxe
@@ -155,5 +153,6 @@ return {
 	-- ["{npc:5634}'s cocktail needs parts from Kalimdor: skip it."] = "O coquetel de {npc:5634} precisa de ingredientes de Kalimdor: pule.",
 	-- ["{npc:5636}, beside the flight master at the top"] = "{npc:5636}, ao lado do mestre de voo, no alto",
 	-- ["{npc:7744}: the last guide binds here, so this usually ticks at once; below ground"] = "{npc:7744}: o guia anterior vincula a Pedra de Regresso aqui, então isso costuma marcar na hora; no subterrâneo",
+	-- ["{npc:7744}; below ground"] = "{npc:7744}; no subsolo",
 	-- ["{npc:7884} keeps paying for necklaces: hand in any extras"] = "{npc:7884} continua pagando pelos colares: entregue os que sobrarem",
 }

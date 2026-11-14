@@ -43,12 +43,12 @@ return {
 	-- Step 6: Back to the Sepulcher
 	-- {area:228} Sepulcher
 	["Back to the {area:228}"] = "Zurück zum {area:228}",
-	-- {npc:259620} Lumina Windsinger · {npc:248840} Trevan Rol · {area:228} Sepulcher · {quest:95034} The Debt
-	["{npc:259620} waits beside {npc:248840} in the {area:228} (a different {npc:259620} from the one you escorted). For {quest:95034}, click through every line of her story."] = "{npc:259620} wartet neben {npc:248840} im {area:228} (ein anderer {npc:259620} als der, den du eskortiert hast). Klick für {quest:95034} jede Zeile ihrer Geschichte durch.",
-	-- {npc:259620} Lumina Windsinger · {area:228} Sepulcher
-	["{npc:259620}, the {area:228}"] = "{npc:259620}, das {area:228}",
-	-- {npc:259620} Lumina Windsinger
-	["{npc:259620}: hear her story to the end"] = "{npc:259620}: hör ihre Geschichte bis zum Ende",
+	-- {npc:248840} Trevan Rol · {area:228} Sepulcher · {quest:95034} The Debt
+	["Lumina waits beside {npc:248840} in the {area:228} (a different Lumina from the one you escorted). For {quest:95034}, click through every line of her story."] = "Lumina wartet neben {npc:248840} im {area:228} (eine andere Lumina als die, die du eskortiert hast). Klick für {quest:95034} jede Zeile ihrer Geschichte durch.",
+	-- {npc:248755} Lumina Windsinger · {area:228} Sepulcher
+	["{npc:248755}, the {area:228}"] = "{npc:248755}, im {area:228}",
+	-- {npc:248755} Lumina Windsinger
+	["{npc:248755}: hear her story to the end"] = "{npc:248755}: hör ihre Geschichte bis zum Ende",
 
 	-- Step 7: A Moon-Kissed Blade
 	-- {npc:259620} Lumina Windsinger · {quest:95140} Old Fire-Eye · {npc:248840} Trevan Rol
@@ -112,6 +112,8 @@ return {
 	-- Step 17: Old Fire-Eye
 	-- {item:268484} Moonsilver Blade · {quest:95140} Old Fire-Eye · {area:228} Sepulcher · {area:17065} Gilneas
 	["Equip the {item:268484}. {quest:95140}, the great worgen, roams the woods south of the {area:228} toward the gates of {area:17065}. He is elite (level 25): the guide waits for level 22 first, and grouping up is encouraged; players have killed him from 22 up, one needed a second, another soloed him at 25. A purple shield guards him until your first swing with the blade lands: a message tells you it broke."] = "Rüste {item:268484} aus. {quest:95140}, der große Worgen, streift durch die Wälder südlich von {area:228} in Richtung der Tore von {area:17065}. Er ist Elite (Stufe 25): Der Guide wartet zuerst auf Stufe 22, und sich zu gruppieren ist empfehlenswert; Spieler haben ihn ab Stufe 22 getötet, einer brauchte einen zweiten, ein anderer hat ihn solo auf Stufe 25 geschafft. Ein violetter Schild schützt ihn, bis dein erster Schlag mit der Klinge trifft: Eine Meldung verrät dir, dass er zerbrochen ist.",
+	-- {npc:259620} Lumina Windsinger · {area:228} Sepulcher
+	["{npc:259620}, the {area:228}"] = "{npc:259620}, das {area:228}",
 	-- {quest:95140} Old Fire-Eye · {item:268484} Moonsilver Blade
 	["{quest:95140}, with the {item:268484} equipped"] = "{quest:95140}, mit ausgerüstetem {item:268484}",
 

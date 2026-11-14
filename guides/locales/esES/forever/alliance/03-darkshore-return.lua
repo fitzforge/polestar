@@ -8,23 +8,23 @@
 return {
 	-- Step 1: Auberdine
 	-- {npc:3649} Thundris Windweaver · {npc:3702} Alanndarian Nightsong · {npc:2913} Archaeologist Hollee · {npc:3693} Terenthis · {npc:3694} Sentinel Selarin
-	["From the dock, up to the north end of the village first ({npc:3649}, {npc:3702} by the moonwell, {npc:2913}), then down the main street: the WANTED poster outside the inn, {npc:3693} at its east end, where the road leaves south. {npc:3694} stands beside {npc:3693} by the flight master; if she isn't there, she has been killed and respawns shortly: wait a moment."] = "",
+	["From the dock (or the inn, if you used your Hearthstone), up to the north end of the village first ({npc:3649}, {npc:3702} by the moonwell, {npc:2913}), then down the main street: the WANTED poster outside the inn, {npc:3693} at its east end, where the road leaves south. {npc:3694} stands beside {npc:3693} by the flight master; if she isn't there, she has been killed and respawns shortly: wait a moment."] = "",
 	-- {npc:3649} Thundris Windweaver · {npc:1646} Baros Alexston
 	["{npc:3649}, north end of the village: {npc:1646}'s reply"] = "",
 	["The WANTED poster"] = "El cartel de SE BUSCA",
 	-- {npc:3694} Sentinel Selarin · {npc:3693} Terenthis · {npc:3691} Raene Wolfrunner · {area:415} Astranaar
 	["{npc:3694}, beside {npc:3693}: for {npc:3691} in {area:415}, in the next guide"] = "",
 
-	-- Step 3: Onu
-	-- {quest:948} Onu · {npc:270269} Arbal · {npc:11218} Kerlonian Evershade
-	["{quest:948} is the ancient at the Grove; {npc:270269} and {npc:11218} sleep beside him."] = "",
-
-	-- Step 4: Lunar Fungus and Earthroot
+	-- Step 2: Lunar Fungus and Earthroot
 	-- {item:15851} Lunar Fungus · {item:2449} Earthroot
 	["{item:15851} and {item:2449}"] = "{item:15851} y {item:2449}",
 	-- {area:442} Auberdine · {item:2449} Earthroot · {skill:182} Herbalism · {zone:1439} Darkshore · {zone:1453} Stormwind · {npc:1313} Maria Lumere
 	-- plural, as words: Lunar Fungal Blooms = {object:177750} Lunar Fungal Bloom
-	["The Lunar Fungal Blooms grow in the moonkin caves in the hills just east of {area:442}; the moonkin there are irritable. {item:2449} needs {skill:182}: herbalists pick it all over {zone:1439}, anyone else brings it from {zone:1453} ({npc:1313}) or the Auction House."] = "Las Flores de hongo lunar crecen en las cuevas de los lechúcicos, en las colinas justo al este de {area:442}; los lechúcicos de allí son irritables. {item:2449} requiere {skill:182}: los herboristas la recogen por toda {zone:1439}; los demás la traen de {zone:1453} ({npc:1313}) o de la casa de subastas.",
+	["On the way south to the Grove: the Lunar Fungal Blooms grow in the moonkin caves in the hills just east of {area:442}, a short way off the road; the moonkin there are irritable. {item:2449} needs {skill:182}: herbalists pick it all over {zone:1439}, anyone else brings it from {zone:1453} ({npc:1313}) or the Auction House."] = "De camino al sur hacia el Páramo: las Flores de hongo lunar crecen en las cuevas de los lechúcicos, en las colinas justo al este de {area:442}, un poco apartadas del camino; los lechúcicos de allí son irritables. {item:2449} requiere {skill:182}: los herboristas la recogen por toda {zone:1439}; los demás la traen de {zone:1453} ({npc:1313}) o de la casa de subastas.",
+
+	-- Step 4: Onu
+	-- {quest:948} Onu · {npc:270269} Arbal · {npc:11218} Kerlonian Evershade
+	["{quest:948} is the ancient at the Grove; {npc:270269} and {npc:11218} sleep beside him."] = "",
 
 	-- Step 5: The Grove of the Ancients
 	-- {quest:952} Grove of the Ancients
@@ -77,16 +77,20 @@ return {
 	-- {item:15826} Curative Animal Salve
 	["She gives you the {item:15826}"] = "Te da el {item:15826}",
 
-	-- Step 13: On the way
+	-- Step 13: Gershala Nightwhisper
+	-- {area:2797} Blackfathom Deeps · {area:414} Zoram Strand · {npc:8997} Gershala Nightwhisper · {npc:3693} Terenthis
+	["For your {area:2797} run, on the {area:414} in the next guide: {npc:8997} stands a short walk west of {npc:3693}."] = "Para tu incursión en {area:2797}, en {area:414} en la siguiente guía: {npc:8997} está un poco al oeste de {npc:3693}.",
+
+	-- Step 14: On the way
 	["On the way"] = "",
 
-	-- Step 14: The naga
+	-- Step 15: The naga
 	["The naga"] = "Los naga",
-	-- {area:443} Ruins of Mathystra · {quest:951} Mathystra Relics
+	-- {area:443} Ruins of Mathystra · {quest:951} Mathystra Relics · {npc:270294} Baron Marinous
 	-- plural, as words: Stormscale Myrmidons = {npc:2181} Stormscale Myrmidon
-	["Follow the coast north-east to the {area:443}. {quest:951} lie among the ruins; Stormscale Myrmidons, Sorceresses and Warriors hold them, and Stormscale Beastmistresses walk the shore."] = "Sigue la costa hacia el noreste hasta las {area:443}. {quest:951}: están entre las ruinas, custodiadas por Myrmidones, Hechiceras y Guerreros Escama Tormentosa, y las Maestras de bestias Escama Tormentosa recorren la orilla.",
+	["Follow the coast north-east to the {area:443}. {quest:951} lie among the ruins; Stormscale Myrmidons, Sorceresses and Warriors hold them, and Stormscale Beastmistresses walk the shore. Careful: {npc:270294}, an elite naga (21), walks the ruins among them: pull the naga away from him, or fight him at full health."] = "Sigue la costa hacia el noreste hasta las {area:443}. {quest:951}: están entre las ruinas, custodiadas por Myrmidones, Hechiceras y Guerreros Escama Tormentosa, y las Maestras de bestias Escama Tormentosa recorren la orilla. Cuidado: {npc:270294}, un naga élite (21), recorre las ruinas entre ellos: atrae a los nagas lejos de él, o enfréntate a él con la salud al máximo.",
 
-	-- Step 15: The Ruins of Mathystra
+	-- Step 16: The Ruins of Mathystra
 	-- {area:443} Ruins of Mathystra
 	["The {area:443}"] = "Las {area:443}",
 	-- {npc:6667} Gelkak Gyromast
@@ -94,20 +98,20 @@ return {
 	["{npc:6667} hides on the little island off the ruins. The key pieces drop from Giant Foreststriders (top), Greymist murlocs (middle) and Raging Reef Crawlers (bottom)."] = "{npc:6667} se esconde en el islote frente a las ruinas. Las piezas de la llave las sueltan los Zancudos del bosque gigantes (arriba), los múrlocs Brumagris (centro) y los Reptadores Correarrecifes enfurecidos (abajo).",
 	["Underwater"] = "",
 
-	-- Step 16: Strange Lockbox
+	-- Step 17: Strange Lockbox
 	-- {item:15883} Half Pendant of Aquatic Agility · {object:177792} Strange Lockbox
 	["{item:15883}: the {object:177792} under the water off the north coast, west of the ruins"] = "{item:15883}: {object:177792} bajo el agua frente a la costa norte, al oeste de las ruinas",
 
-	-- Step 17: Mist's Edge: kill these as you meet them
+	-- Step 18: Mist's Edge: kill these as you meet them
 	-- {area:452} Mist's Edge
 	["{area:452}: kill these as you meet them"] = "",
 
-	-- Step 18: Back south
+	-- Step 19: Back south
 	["Back south"] = "De vuelta al sur",
 	-- {npc:3616} Onu
 	["{npc:3616}, at the Grove"] = "{npc:3616}, en el Páramo",
 
-	-- Step 19: Volcor
+	-- Step 20: Volcor
 	-- {npc:3692} Volcor · {area:449} Master's Glaive · {npc:3693} Terenthis · {area:442} Auberdine
 	["{npc:3692} hides in the hills east of the {area:449}. Help him back to the road; he fights on his way out. {npc:3693} takes the escort in {area:442} on the next visit there."] = "",
 	-- {npc:3692} Volcor · {area:455} Blackwood Den
@@ -118,42 +122,50 @@ return {
 	-- {npc:12298} Sickly Deer
 	["Cure {npc:12298}"] = "",
 
-	-- Step 21: Auberdine flight master
+	-- Step 22: Auberdine flight master
 	-- {area:442} Auberdine
 	["{area:442} flight master"] = "",
 
-	-- Step 22: The Great Cat Spirit
+	-- Step 23: The Great Cat Spirit
 	-- {area:442} Auberdine · {area:702} Rut'theran Village · {npc:4217} Mathrengyl Bearwalker · {area:1658} Cenarion Enclave
 	["Night Elves fly from {area:442} to {area:702}; Skyborne take the boat from the {area:442} dock and learn the Rut'theran flight path there. Take the portal up to {npc:4217} in the {area:1658}."] = "Los elfos de la noche vuelan de {area:442} a {area:702}; los cielonatos toman el barco en el muelle de {area:442} y descubren allí la ruta de vuelo de Rut'theran. Toma el portal para subir hasta {npc:4217} en el {area:1658}.",
 
-	-- Step 25: Moonglade
+	-- Step 26: Moonglade
 	-- {spell:18960} Teleport: Moonglade
 	["Cast {spell:18960}"] = "",
 
-	-- Step 26: Dendrite Starblaze
+	-- Step 27: Dendrite Starblaze
 	-- {spell:18960} Teleport: Moonglade · {npc:11802} Dendrite Starblaze · {area:2361} Nighthaven
 	["Cast {spell:18960}. {npc:11802} stands upstairs in his building in {area:2361}: go up inside, the arrow cannot tell the floors apart. Learn the flight path there if you do not have it."] = "",
 
-	-- Step 27: Dendrite Starblaze
+	-- Step 28: Dendrite Starblaze
 	-- {npc:11802} Dendrite Starblaze · {area:2361} Nighthaven
 	["{npc:11802} stands upstairs in his building in {area:2361}: go up inside, the arrow cannot tell the floors apart."] = "",
-	-- {npc:11802} Dendrite Starblaze
-	["{npc:11802}: the welcome from Sheldras"] = "{npc:11802}: la bienvenida de Sheldras Moontree",
+	-- {npc:11802} Dendrite Starblaze · {npc:5504} Sheldras Moontree
+	["{npc:11802}: the welcome from {npc:5504}"] = "{npc:11802}: la bienvenida de {npc:5504}",
 
-	-- Step 29: The relics of the Barrow Dens
+	-- Step 30: The relics of the Barrow Dens
 	["The relics of the Barrow Dens"] = "Las reliquias del Túmulo",
 	-- {quest:98394} The Great Cat Spirit · {npc:272054} Avatar of Saeyleenan · {area:493} Moonglade · {area:2363} Stormrage Barrow Dens
 	["{quest:98394} (Night Elves) and the {npc:272054} (Skyborne) wait in southern {area:493}. The three relics lie in the {area:2363}, east of them. Reports from the first weeks say a relic gives no loot while another player is looting it: wait a moment and try again."] = "{quest:98394} (elfos de la noche) y el {npc:272054} (Cielonato) esperan en el sur de {area:493}. Las tres reliquias están en las {area:2363}, al este. Según informes de las primeras semanas, una reliquia no da botín mientras otro jugador la está despojando: espera un momento y vuelve a intentarlo.",
 
-	-- Step 30: Back to Dendrite Starblaze
+	-- Step 31: Trial of the Sea Lion
+	-- {zone:1436} Westfall · {zone:1439} Darkshore · {area:2362} Shrine of Remulos · {npc:11802} Dendrite Starblaze · {spell:499} Cat Form
+	["Both half pendants in your bags (the {zone:1436} half from your last {zone:1436} visit, the {zone:1439} half from the north coast): stand by the {area:2362} on the north-west shore of the lake and use a half to join them, then take the pendant to {npc:11802} with the {spell:499} hand-in. {npc:11802} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."] = "Con las dos mitades del colgante en tus bolsas (la de {zone:1436} de tu última visita a {zone:1436}, la de {zone:1439} de la costa norte): ponte junto a {area:2362}, en la orilla noroeste del lago, y usa una mitad para unirlas; luego lleva el colgante a {npc:11802} con la entrega de {spell:499}. {npc:11802} está en el piso de arriba de su edificio: sube por dentro, la flecha no distingue los pisos.",
+	-- {item:15885} Pendant of the Sea Lion · {area:2362} Shrine of Remulos
+	["{item:15885}: join the halves at the {area:2362}"] = "{item:15885}: une las mitades en {area:2362}",
+	-- {npc:11802} Dendrite Starblaze · {quest:5061} Aquatic Form · {npc:4217} Mathrengyl Bearwalker
+	["{npc:11802}: {quest:5061}, for {npc:4217}"] = "{npc:11802}: {quest:5061}, para {npc:4217}",
+
+	-- Step 32: Back to Dendrite Starblaze
 	-- {npc:11802} Dendrite Starblaze
 	["Back to {npc:11802}"] = "De vuelta con {npc:11802}",
 	-- {npc:11802} Dendrite Starblaze · {area:2361} Nighthaven · {npc:11800} Silva Fil'naveth · {area:702} Rut'theran Village
 	["Back to {npc:11802} in {area:2361}, then {npc:11800} there flies Druids straight to {area:702}. {npc:11802} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."] = "",
 
-	-- Step 32: To Darnassus
+	-- Step 35: To Darnassus
 	-- {npc:4217} Mathrengyl Bearwalker · {area:442} Auberdine · {zone:1440} Ashenvale
-	["Take the portal up to {npc:4217}, then fly back to {area:442} for the road south to {zone:1440}."] = "",
+	["Take the portal up to {npc:4217}, then fly back to {area:442} for the road south to {zone:1440}. {npc:4217} is a Druid trainer: learn your new spells from him."] = "",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Moonstalker Sires prowl the woods around the glaive. The {object:10076} and the {object:12666} sit at the bottom of the crater; {npc:3584} stands on its north side."] = "Los Señores Acechalunas merodean por el bosque alrededor de la guja. El {object:10076} y el {object:12666} están en el fondo del cráter; {npc:3584} está en su lado norte.",

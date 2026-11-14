@@ -15,7 +15,7 @@ return {
 	-- {area:133} Gnomeregan · {npc:9616} Laris Geardawdle · {quest:4262} Overmaster Pyron
 	["400 {area:133} reputation from {npc:9616}'s ooze jars and {quest:4262} (level 52-54)"] = "400 репутации ({area:133}) за банки со слизью для NPC {npc:9616} и задание {quest:4262} (уровень 52-54)",
 	-- {area:133} Gnomeregan · {zone:1426} Dun Morogh · {zone:1455} Ironforge
-	["About 3,000 {area:133} reputation from low-level quests in {zone:1426}, paid to {zone:1455} too"] = "",
+	["About 3,000 {area:133} reputation from low-level quests in {zone:1426}, paid to {zone:1455} too"] = "Около 3000 репутации ({area:133}) за задания низкого уровня (зона {zone:1426}), идет и в {zone:1455}",
 
 	-- Step 1: Bubulo Acerbus, the cloth quartermaster
 	-- {npc:14724} Bubulo Acerbus
@@ -170,7 +170,6 @@ return {
 	["Revered to Exalted is 21,000 reputation: 420 turn-ins, 8,400 {item:14047}. At Exalted, {npc:7955} at {area:189} in {zone:1426} sells her mechanostriders to other races in Classic; the Mechanostrider and Swift Mechanostrider guides cover them."] = "",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
-	-- ["About 3,000 {area:133} reputation from low-level quests in {zone:1426}, paid to {zone:1455} too (in Classic, a fifth of it at 60)"] = "Около 3000 репутации ({area:133}) за задания низкого уровня (зона {zone:1426}), идет и в {zone:1455} (в Classic на 60 уровне — пятая часть)",
 	-- ["Dark Adepts and Shadowmages (level 58-60) drop it here; every Scourge kill here also counts toward the {object:92525} (see that guide). The Auction House works too."] = "Добыча здесь: адепты Тьмы ({npc:8546}) и темные маги (уровень 58-60); каждое убийство Плети здесь также дает репутацию ({object:92525}, см. тот гайд). Подойдет и аукцион.",
 	-- ["Dunemaul ogres (level 45-48) drop it here. The Auction House works too."] = "Добыча здесь: огры из клана Песчаного Молота (уровень 45-48). Подойдет и аукцион.",
 	-- ["Keep handing in {quest:7812} until {faction:54} is Exalted. {item:14047}: Dark Adepts and Shadowmages (level 58-60) in {zone:1423}, or the Auction House."] = "Сдавайте задание {quest:7812}, пока репутация ({faction:54}) не дойдет до превознесения. {item:14047}: Адепты Тьмы и темные маги (уровень 58-60) – зона {zone:1423}, или аукцион.",

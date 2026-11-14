@@ -20,13 +20,13 @@ return {
 
 	-- Step 3: Enchanting 1-75: Auction House
 	-- {skill:333} Enchanting
-	["{skill:333} 1-75: Auction House"] = "",
+	["{skill:333} 1-75: Auction House"] = "{skill:333} 1-75: Casa de Leilões",
 	-- {item:10940} Strange Dust
-	["What 1-75 takes that the Auction House sells: 51 {item:10940}. The counts drop by what your bags, bank and mail hold."] = "",
+	["What 1-75 takes that the Auction House sells: 51 {item:10940}. The counts drop by what your bags, bank and mail hold."] = "O que 1-75 exige e a Casa de Leilões vende: 51 {item:10940}. As contagens diminuem conforme o que suas bolsas, seu banco e sua correspondência guardam.",
 
 	-- Step 4: Strange Dust
 	-- {item:10940} Strange Dust · {spell:7420} Enchant Chest - Inferior Stamina · {skill:333} Enchanting
-	["51 {item:10940} for {spell:7420}: {skill:333}: disenchant green items of item level 5-20."] = "",
+	["51 {item:10940} for {spell:7420}: {skill:333}: disenchant green items of item level 5-20."] = "51 {item:10940} para {spell:7420}: {skill:333}: desencantar itens verdes de nível de item 5-20.",
 
 	-- Step 5: Enchant Bracer - Inferior Stamina to 25
 	-- {spell:7418} Enchant Bracer - Inferior Stamina
@@ -45,7 +45,7 @@ return {
 	-- {spell:7420} Enchant Chest - Inferior Stamina
 	["{spell:7420} to 75"] = "{spell:7420} até 75",
 	-- {spell:7420} Enchant Chest - Inferior Stamina · {item:10940} Strange Dust · {item:10938} Lesser Magic Essence · {spell:7423} Minor Absorption
-	["{spell:7420} is orange at 25 (yellow 70, green 90, grey 110): about 51 crafts to 75. Each takes 1 {item:10940}. One {item:10940} a craft: the dust most level 5-20 greens break into, armour above all. {item:10938} (from weapons) does the same job through Bracer - Minor Deflect or Chest - {spell:7423} if you have more of it. Enchant any item for that slot in your bags, even a grey one."] = "",
+	["{spell:7420} is orange at 25 (yellow 70, green 90, grey 110): about 51 crafts to 75. Each takes 1 {item:10940}. One {item:10940} a craft: the dust most level 5-20 greens break into, armour above all. {item:10938} (from weapons) does the same job through Bracer - Minor Deflect or Chest - {spell:7423} if you have more of it. Enchant any item for that slot in your bags, even a grey one."] = "{spell:7420} é laranja em 25 (amarelo 70, verde 90, cinza 110): cerca de 51 criações até 75. Cada uma usa 1 {item:10940}. Um {item:10940} por criação: o pó em que a maioria dos itens verdes de nível 5 a 20 se desfaz, sobretudo armaduras. {item:10938} (de armas) faz o mesmo serviço com Braçadeiras - Desviar Menor ou Torso - {spell:7423}, se você tiver mais dele. Encante qualquer item daquele espaço nas suas bolsas, até um cinza.",
 
 	-- Step 8: Journeyman Enchanting
 	-- {skill:333} Enchanting
@@ -55,37 +55,37 @@ return {
 
 	-- Step 9: Enchanting 75-150: vendor goods
 	-- {skill:333} Enchanting
-	["{skill:333} 75-150: vendor goods"] = "",
+	["{skill:333} 75-150: vendor goods"] = "{skill:333} 75-150: itens de vendedor",
 	-- {item:10938} Lesser Magic Essence
-	["Buy the whole bracket's share in one go: 4 {item:10938} (32s). The arrow picks the nearest seller of your faction. {item:10938}: no vendor of the other faction sells it; that side gathers or buys it at the Auction House (next steps)."] = "",
+	["Buy the whole bracket's share in one go: 4 {item:10938} (32s). The arrow picks the nearest seller of your faction. {item:10938}: no vendor of the other faction sells it; that side gathers or buys it at the Auction House (next steps)."] = "Compre a parte de toda a faixa de uma vez: 4 {item:10938} (32s). A seta escolhe o vendedor mais próximo da sua facção. {item:10938}: nenhum vendedor da outra facção vende; esse lado coleta ou compra na Casa de Leilões (próximas etapas).",
 
 	-- Step 10: Enchanting 75-150: Auction House
 	-- {skill:333} Enchanting
-	["{skill:333} 75-150: Auction House"] = "",
+	["{skill:333} 75-150: Auction House"] = "{skill:333} 75-150: Casa de Leilões",
 	-- {item:1210} Shadowgem · {item:6338} Silver Rod · {item:10938} Lesser Magic Essence · {item:10940} Strange Dust · {item:11083} Soul Dust
-	["What 75-150 takes that the Auction House sells: 1 {item:1210}, 1 {item:6338}, 4 {item:10938}, 121 {item:10940} and 20 {item:11083}. The counts drop by what your bags, bank and mail hold."] = "",
+	["What 75-150 takes that the Auction House sells: 1 {item:1210}, 1 {item:6338}, 4 {item:10938}, 121 {item:10940} and 20 {item:11083}. The counts drop by what your bags, bank and mail hold."] = "O que 75-150 exige e a Casa de Leilões vende: 1 {item:1210}, 1 {item:6338}, 4 {item:10938}, 121 {item:10940} e 20 {item:11083}. As contagens diminuem conforme o que suas bolsas, seu banco e sua correspondência guardam.",
 
 	-- Step 11: Shadowgem
 	-- {item:1210} Shadowgem · {item:6339} Runed Silver Rod · {object:1731} Copper Vein · {object:1732} Tin Vein · {object:1733} Silver Vein
-	["1 {item:1210} for {item:6339}: {item:1210} turns up in about one {object:1731}, {object:1732} or {object:1733} in 100: keep the ones you find while mining."] = "",
+	["1 {item:1210} for {item:6339}: {item:1210} turns up in about one {object:1731}, {object:1732} or {object:1733} in 100: keep the ones you find while mining."] = "1 {item:1210} para {item:6339}: {item:1210} aparece em cerca de um {object:1731}, {object:1732} ou {object:1733} em 100: guarde os que encontrar ao minerar.",
 
 	-- Step 12: Silver Rod
 	-- {item:6338} Silver Rod · {item:6339} Runed Silver Rod · {skill:164} Blacksmithing
-	["1 {item:6338} for {item:6339}: {skill:164}: {item:6338}."] = "",
+	["1 {item:6338} for {item:6339}: {skill:164}: {item:6338}."] = "1 {item:6338} para {item:6339}: {skill:164}: {item:6338}.",
 
 	-- Step 13: Strange Dust
 	-- {item:10940} Strange Dust · {spell:7420} Enchant Chest - Inferior Stamina · {spell:7771} Enchant Cloak - Minor Protection · {item:6339} Runed Silver Rod · {skill:333} Enchanting
-	["121 {item:10940} for {spell:7420}, {spell:7771} and {item:6339}: {skill:333}: disenchant green items of item level 5-20."] = "",
+	["121 {item:10940} for {spell:7420}, {spell:7771} and {item:6339}: {skill:333}: disenchant green items of item level 5-20."] = "121 {item:10940} para {spell:7420}, {spell:7771} e {item:6339}: {skill:333}: desencantar itens verdes de nível de item 5-20.",
 
 	-- Step 14: Soul Dust
 	-- {item:11083} Soul Dust · {spell:13501} Enchant Bracer - Lesser Stamina · {skill:333} Enchanting
-	["20 {item:11083} for {spell:13501}: {skill:333}: disenchant green items of item level 21-30."] = "",
+	["20 {item:11083} for {spell:13501}: {skill:333}: disenchant green items of item level 21-30."] = "20 {item:11083} para {spell:13501}: {skill:333}: desencantar itens verdes de nível de item 21-30.",
 
 	-- Step 15: Enchant Chest - Inferior Stamina to 90
 	-- {spell:7420} Enchant Chest - Inferior Stamina
 	["{spell:7420} to 90"] = "{spell:7420} até 90",
 	-- {spell:7420} Enchant Chest - Inferior Stamina · {item:10940} Strange Dust · {item:10938} Lesser Magic Essence · {spell:7423} Minor Absorption
-	["{spell:7420} is yellow at 75 (yellow 70, green 90, grey 110): about 22 crafts to 90. Each takes 1 {item:10940}. One {item:10940} a craft: the dust most level 5-20 greens break into, armour above all. {item:10938} (from weapons) does the same job through Bracer - Minor Deflect or Chest - {spell:7423} if you have more of it. Enchant any item for that slot in your bags, even a grey one."] = "",
+	["{spell:7420} is yellow at 75 (yellow 70, green 90, grey 110): about 22 crafts to 90. Each takes 1 {item:10940}. One {item:10940} a craft: the dust most level 5-20 greens break into, armour above all. {item:10938} (from weapons) does the same job through Bracer - Minor Deflect or Chest - {spell:7423} if you have more of it. Enchant any item for that slot in your bags, even a grey one."] = "{spell:7420} é amarela em 75 (amarelo 70, verde 90, cinza 110): cerca de 22 criações até 90. Cada uma usa 1 {item:10940}. Um {item:10940} por criação: o pó em que a maioria dos itens verdes de nível 5 a 20 se desfaz, sobretudo armaduras. {item:10938} (de armas) faz o mesmo serviço com Braçadeiras - Desviar Menor ou Torso - {spell:7423}, se você tiver mais dele. Encante qualquer item daquele espaço nas suas bolsas, até um cinza.",
 
 	-- Step 16: Enchant Cloak - Minor Protection to 130
 	-- {spell:7771} Enchant Cloak - Minor Protection
@@ -103,20 +103,20 @@ return {
 	-- {spell:13501} Enchant Bracer - Lesser Stamina
 	["{spell:13501} to 150"] = "{spell:13501} até 150",
 	-- {spell:13501} Enchant Bracer - Lesser Stamina · {item:11083} Soul Dust · {item:6339} Runed Silver Rod · {item:10938} Lesser Magic Essence · {skill:333} Enchanting
-	["{spell:13501} is orange at 130 (yellow 155, green 175, grey 195): about 20 crafts to 150, a point every craft. Each takes 1 {item:11083}. One {item:11083} a craft (level 21-30 greens). Make the {item:6339} first: the recipe needs it in your bags, so keep it there. {item:10938} (4 for 75-150): Alliance: {skill:333}: disenchant green items of item level 5-15; or the Auction House. Enchant any item for that slot in your bags, even a grey one. {skill:333} 150 is a Legacy System milestone."] = "",
+	["{spell:13501} is orange at 130 (yellow 155, green 175, grey 195): about 20 crafts to 150, a point every craft. Each takes 1 {item:11083}. One {item:11083} a craft (level 21-30 greens). Make the {item:6339} first: the recipe needs it in your bags, so keep it there. {item:10938} (4 for 75-150): Alliance: {skill:333}: disenchant green items of item level 5-15; or the Auction House. Enchant any item for that slot in your bags, even a grey one. {skill:333} 150 is a Legacy System milestone."] = "{spell:13501} é laranja em 130 (amarelo 155, verde 175, cinza 195): cerca de 20 criações até 150, um ponto a cada criação. Cada uma usa 1 {item:11083}. Um {item:11083} por criação (itens verdes de nível 21-30). Faça primeiro o {item:6339}: a receita o exige nas bolsas, então mantenha-o lá. {item:10938} (4 para 75-150): Aliança: {skill:333}: desencantar itens verdes de nível de item 5-15; ou a Casa de Leilões. Encante qualquer item daquele espaço nas suas bolsas, até um cinza. {skill:333} 150 é um marco do Sistema de Legado.",
 
 	-- Step 19: Enchanting 150-225: Auction House
 	-- {skill:333} Enchanting
-	["{skill:333} 150-225: Auction House"] = "",
+	["{skill:333} 150-225: Auction House"] = "{skill:333} 150-225: Casa de Leilões",
 	-- {item:5500} Iridescent Pearl · {item:7971} Black Pearl · {item:11082} Greater Astral Essence · {item:11083} Soul Dust · {item:11128} Golden Rod · {item:11135} Greater Mystic Essence · {item:11137} Vision Dust · {item:11144} Truesilver Rod
-	["What 150-225 takes that the Auction House sells: 1 {item:5500}, 1 {item:7971}, 1 {item:11082}, 71 {item:11083}, 1 {item:11128}, 1 {item:11135}, 21 {item:11137} and 1 {item:11144}. The counts drop by what your bags, bank and mail hold."] = "",
+	["What 150-225 takes that the Auction House sells: 1 {item:5500}, 1 {item:7971}, 1 {item:11082}, 71 {item:11083}, 1 {item:11128}, 1 {item:11135}, 21 {item:11137} and 1 {item:11144}. The counts drop by what your bags, bank and mail hold."] = "O que 150-225 exige e a Casa de Leilões vende: 1 {item:5500}, 1 {item:7971}, 1 {item:11082}, 71 {item:11083}, 1 {item:11128}, 1 {item:11135}, 21 {item:11137} e 1 {item:11144}. As contagens diminuem conforme o que suas bolsas, seu banco e sua correspondência guardam.",
 
 	-- Step 20: Iridescent Pearl (Alliance)
 	-- {item:5500} Iridescent Pearl
 	["{item:5500} (Alliance)"] = "{item:5500} (Aliança)",
 	-- {item:5500} Iridescent Pearl · {item:11130} Runed Golden Rod
 	-- plural, as words: Giant Clams = {object:2744} Giant Clam
-	["1 {item:5500} for {item:11130}: open the Giant Clams at the marked spot."] = "",
+	["1 {item:5500} for {item:11130}: open the Giant Clams at the marked spot."] = "1 {item:5500} para {item:11130}: abra os Mariscos Gigantes no local marcado.",
 
 	-- Step 21: Iridescent Pearl (Horde)
 	-- {item:5500} Iridescent Pearl
@@ -124,27 +124,27 @@ return {
 
 	-- Step 22: Greater Astral Essence
 	-- {item:11082} Greater Astral Essence · {item:11130} Runed Golden Rod · {skill:333} Enchanting
-	["1 {item:11082} for {item:11130}: {skill:333}: disenchant green items of item level 16-25."] = "",
+	["1 {item:11082} for {item:11130}: {skill:333}: disenchant green items of item level 16-25."] = "1 {item:11082} para {item:11130}: {skill:333}: desencantar itens verdes de nível de item 16-25.",
 
 	-- Step 23: Soul Dust
 	-- {item:11083} Soul Dust · {item:11130} Runed Golden Rod · {spell:13501} Enchant Bracer - Lesser Stamina · {spell:13637} Enchant Boots - Lesser Agility · {skill:333} Enchanting
-	["71 {item:11083} for {item:11130}, {spell:13501} and {spell:13637}: {skill:333}: disenchant green items of item level 21-30."] = "",
+	["71 {item:11083} for {item:11130}, {spell:13501} and {spell:13637}: {skill:333}: disenchant green items of item level 21-30."] = "71 {item:11083} para {item:11130}, {spell:13501} e {spell:13637}: {skill:333}: desencantar itens verdes de nível de item 21-30.",
 
 	-- Step 24: Golden Rod
 	-- {item:11128} Golden Rod · {item:11130} Runed Golden Rod · {skill:164} Blacksmithing
-	["1 {item:11128} for {item:11130}: {skill:164}: {item:11128}."] = "",
+	["1 {item:11128} for {item:11130}: {skill:164}: {item:11128}."] = "1 {item:11128} para {item:11130}: {skill:164}: {item:11128}.",
 
 	-- Step 25: Greater Mystic Essence
 	-- {item:11135} Greater Mystic Essence · {item:11145} Runed Truesilver Rod · {skill:333} Enchanting
-	["1 {item:11135} for {item:11145}: {skill:333}: disenchant green items of item level 26-35."] = "",
+	["1 {item:11135} for {item:11145}: {skill:333}: disenchant green items of item level 26-35."] = "1 {item:11135} para {item:11145}: {skill:333}: desencantar itens verdes de nível de item 26-35.",
 
 	-- Step 26: Vision Dust
 	-- {item:11137} Vision Dust · {item:11145} Runed Truesilver Rod · {spell:13746} Enchant Cloak - Greater Defense · {skill:333} Enchanting
-	["21 {item:11137} for {item:11145} and {spell:13746}: {skill:333}: disenchant green items of item level 31-40."] = "",
+	["21 {item:11137} for {item:11145} and {spell:13746}: {skill:333}: disenchant green items of item level 31-40."] = "21 {item:11137} para {item:11145} e {spell:13746}: {skill:333}: desencantar itens verdes de nível de item 31-40.",
 
 	-- Step 27: Truesilver Rod
 	-- {item:11144} Truesilver Rod · {item:11145} Runed Truesilver Rod · {skill:164} Blacksmithing
-	["1 {item:11144} for {item:11145}: {skill:164}: {item:11144}."] = "",
+	["1 {item:11144} for {item:11145}: {skill:164}: {item:11144}."] = "1 {item:11144} para {item:11145}: {skill:164}: {item:11144}.",
 
 	-- Step 28: Expert Enchanting
 	-- {skill:333} Enchanting
@@ -156,7 +156,7 @@ return {
 	-- {spell:13501} Enchant Bracer - Lesser Stamina
 	["{spell:13501} to 160"] = "{spell:13501} até 160",
 	-- {spell:13501} Enchant Bracer - Lesser Stamina · {item:11083} Soul Dust · {item:11130} Runed Golden Rod
-	["{spell:13501} is orange at 150 (yellow 155, green 175, grey 195): about 11 crafts to 160. Each takes 1 {item:11083}. One {item:11083} a craft (level 21-30 greens). Make the {item:11130} now, while it still gives a point: a later recipe needs it in your bags, so keep it there. Enchant any item for that slot in your bags, even a grey one."] = "",
+	["{spell:13501} is orange at 150 (yellow 155, green 175, grey 195): about 11 crafts to 160. Each takes 1 {item:11083}. One {item:11083} a craft (level 21-30 greens). Make the {item:11130} now, while it still gives a point: a later recipe needs it in your bags, so keep it there. Enchant any item for that slot in your bags, even a grey one."] = "{spell:13501} é laranja em 150 (amarelo 155, verde 175, cinza 195): cerca de 11 criações até 160. Cada uma usa 1 {item:11083}. Um {item:11083} por criação (itens verdes de nível 21-30). Faça o {item:11130} agora, enquanto ainda dá ponto: uma receita futura o exige nas bolsas, então mantenha-o lá. Encante qualquer item daquele espaço nas suas bolsas, até um cinza.",
 
 	-- Step 30: Enchanting recipes at 160
 	-- {skill:333} Enchanting
@@ -180,7 +180,7 @@ return {
 	-- {spell:13746} Enchant Cloak - Greater Defense
 	["{spell:13746} to 225"] = "{spell:13746} até 225",
 	-- {spell:13746} Enchant Cloak - Greater Defense · {item:11137} Vision Dust · {item:11145} Runed Truesilver Rod · {item:7971} Black Pearl · {skill:333} Enchanting
-	["{spell:13746} is orange at 205 (yellow 225, green 245, grey 265): about 20 crafts to 225, a point every craft. Each takes 1 {item:11137}. One {item:11137} a craft (level 31-40 greens). Make the {item:11145} first: the recipe needs it in your bags, so keep it there. {item:7971} (1 for 150-225): {item:7971} is a rare drop (no mob gives it one time in 50): buy it at the Auction House, or keep the ones you find. Enchant any item for that slot in your bags, even a grey one. {skill:333} 225 is a Legacy System milestone."] = "",
+	["{spell:13746} is orange at 205 (yellow 225, green 245, grey 265): about 20 crafts to 225, a point every craft. Each takes 1 {item:11137}. One {item:11137} a craft (level 31-40 greens). Make the {item:11145} first: the recipe needs it in your bags, so keep it there. {item:7971} (1 for 150-225): {item:7971} is a rare drop (no mob gives it one time in 50): buy it at the Auction House, or keep the ones you find. Enchant any item for that slot in your bags, even a grey one. {skill:333} 225 is a Legacy System milestone."] = "{spell:13746} é laranja em 205 (amarelo 225, verde 245, cinza 265): cerca de 20 criações até 225, um ponto a cada criação. Cada uma usa 1 {item:11137}. Um {item:11137} por criação (itens verdes de nível 31-40). Faça primeiro o {item:11145}: a receita o exige nas bolsas, então mantenha-o lá. {item:7971} (1 para 150-225): {item:7971} é um saque raro (nenhum monstro dá um a cada 50): compre na Casa de Leilões, ou guarde os que encontrar. Encante qualquer item daquele espaço nas suas bolsas, até um cinza. {skill:333} 225 é um marco do Sistema de Legado.",
 
 	-- Step 34: Artisan Enchanting
 	-- {skill:333} Enchanting
@@ -204,41 +204,41 @@ return {
 
 	-- Step 38: Enchanting 225-300: Auction House
 	-- {skill:333} Enchanting
-	["{skill:333} 225-300: Auction House"] = "",
+	["{skill:333} 225-300: Auction House"] = "{skill:333} 225-300: Casa de Leilões",
 	-- {item:8831} Purple Lotus · {item:11137} Vision Dust · {item:11176} Dream Dust
-	["What 225-300 takes that the Auction House sells: 34 {item:8831}, 39 {item:11137} and 208 {item:11176}. The counts drop by what your bags, bank and mail hold."] = "",
+	["What 225-300 takes that the Auction House sells: 34 {item:8831}, 39 {item:11137} and 208 {item:11176}. The counts drop by what your bags, bank and mail hold."] = "O que 225-300 exige e a Casa de Leilões vende: 34 {item:8831}, 39 {item:11137} e 208 {item:11176}. As contagens diminuem conforme o que suas bolsas, seu banco e sua correspondência guardam.",
 
 	-- Step 39: Purple Lotus (Alliance)
 	-- {item:8831} Purple Lotus
 	["{item:8831} (Alliance)"] = "{item:8831} (Aliança)",
 	-- {item:8831} Purple Lotus · {item:20747} Lesser Mana Oil · {skill:182} Herbalism · {zone:1425} The Hinterlands · {zone:1444} Feralas · {zone:1447} Azshara
-	["34 {item:8831} for {item:20747}: {skill:182}: {item:8831} (skill 210) in {zone:1425} (40-50), {zone:1444} (40-50) and {zone:1447} (45-55). The densest patch of {item:8831} in {zone:1425} is marked."] = "",
+	["34 {item:8831} for {item:20747}: {skill:182}: {item:8831} (skill 210) in {zone:1425} (40-50), {zone:1444} (40-50) and {zone:1447} (45-55). The densest patch of {item:8831} in {zone:1425} is marked."] = "34 {item:8831} para {item:20747}: {skill:182}: {item:8831} (perícia 210) em {zone:1425} (40-50), {zone:1444} (40-50) e {zone:1447} (45-55). O maior aglomerado de {item:8831} em {zone:1425} está marcado.",
 
 	-- Step 40: Purple Lotus (Horde)
 	-- {item:8831} Purple Lotus
 	["{item:8831} (Horde)"] = "{item:8831} (Horda)",
 	-- {item:8831} Purple Lotus · {item:20747} Lesser Mana Oil · {skill:182} Herbalism · {zone:1425} The Hinterlands · {zone:1444} Feralas · {zone:1447} Azshara
-	["34 {item:8831} for {item:20747}: {skill:182}: {item:8831} (skill 210) in {zone:1425} (40-50), {zone:1444} (40-50) and {zone:1447} (45-55). The densest patch of {item:8831} in {zone:1444} is marked."] = "",
+	["34 {item:8831} for {item:20747}: {skill:182}: {item:8831} (skill 210) in {zone:1425} (40-50), {zone:1444} (40-50) and {zone:1447} (45-55). The densest patch of {item:8831} in {zone:1444} is marked."] = "34 {item:8831} para {item:20747}: {skill:182}: {item:8831} (perícia 210) em {zone:1425} (40-50), {zone:1444} (40-50) e {zone:1447} (45-55). O maior aglomerado de {item:8831} em {zone:1444} está marcado.",
 
 	-- Step 41: Vision Dust
 	-- {item:11137} Vision Dust · {spell:13815} Enchant Gloves - Agility · {skill:333} Enchanting
-	["39 {item:11137} for {spell:13815}: {skill:333}: disenchant green items of item level 31-40."] = "",
+	["39 {item:11137} for {spell:13815}: {skill:333}: disenchant green items of item level 31-40."] = "39 {item:11137} para {spell:13815}: {skill:333}: desencantar itens verdes de nível de item 31-40.",
 
 	-- Step 42: Dream Dust
 	-- {item:11176} Dream Dust · {item:20747} Lesser Mana Oil · {spell:20017} Enchant Shield - Greater Stamina · {skill:333} Enchanting
-	["208 {item:11176} for {item:20747} and {spell:20017}: {skill:333}: disenchant green items of item level 41-50."] = "",
+	["208 {item:11176} for {item:20747} and {spell:20017}: {skill:333}: disenchant green items of item level 41-50."] = "208 {item:11176} para {item:20747} e {spell:20017}: {skill:333}: desencantar itens verdes de nível de item 41-50.",
 
 	-- Step 43: Enchant Gloves - Agility to 253
 	-- {spell:13815} Enchant Gloves - Agility
 	["{spell:13815} to 253"] = "{spell:13815} até 253",
 	-- {spell:13815} Enchant Gloves - Agility · {item:11137} Vision Dust · {npc:11073} Annora
-	["{spell:13815} is orange at 225 (yellow 230, green 250, grey 270): about 39 crafts to 253. Each takes 1 {item:11137}. {npc:11073} teaches it with Artisan: learn it on that visit. {item:11137} again; bring about 40. Enchant any item for that slot in your bags, even a grey one."] = "",
+	["{spell:13815} is orange at 225 (yellow 230, green 250, grey 270): about 39 crafts to 253. Each takes 1 {item:11137}. {npc:11073} teaches it with Artisan: learn it on that visit. {item:11137} again; bring about 40. Enchant any item for that slot in your bags, even a grey one."] = "{spell:13815} é laranja em 225 (amarelo 230, verde 250, cinza 270): cerca de 39 criações até 253. Cada uma usa 1 {item:11137}. {npc:11073} ensina junto com Artífice: aprenda nessa visita. {item:11137} de novo; leve cerca de 40. Encante qualquer item daquele espaço nas suas bolsas, até um cinza.",
 
 	-- Step 44: Lesser Mana Oil to 275
 	-- {item:20747} Lesser Mana Oil
 	["{item:20747} to 275"] = "{item:20747} até 275",
 	-- {item:20747} Lesser Mana Oil · {item:11176} Dream Dust · {item:8831} Purple Lotus · {item:8925} Crystal Vial · {npc:15419} Kania · {area:3425} Cenarion Hold · {zone:1451} Silithus
-	["{item:20747} is orange at 253 (yellow 260, green 270, grey 280): about 34 crafts to 275. Each takes 1 {item:11176}, 1 {item:8831} and 1 {item:8925}. One {item:11176} (level 41-50 greens) and one {item:8831} (herbalists) a craft; the oil sells well. {npc:15419} sells the formula at the inn of {area:3425} ({zone:1451}): fly there, the mobs around it are level 55 and up."] = "",
+	["{item:20747} is orange at 253 (yellow 260, green 270, grey 280): about 34 crafts to 275. Each takes 1 {item:11176}, 1 {item:8831} and 1 {item:8925}. One {item:11176} (level 41-50 greens) and one {item:8831} (herbalists) a craft; the oil sells well. {npc:15419} sells the formula at the inn of {area:3425} ({zone:1451}): fly there, the mobs around it are level 55 and up."] = "{item:20747} é laranja em 253 (amarelo 260, verde 270, cinza 280): cerca de 34 criações até 275. Cada uma usa 1 {item:11176}, 1 {item:8831} e 1 {item:8925}. Um {item:11176} (itens verdes de nível 41-50) e um {item:8831} (herboristas) por criação; o óleo vende bem. {npc:15419} vende a fórmula na estalagem de {area:3425} ({zone:1451}): vá voando, os monstros ao redor são de nível 55 ou mais.",
 	["from the recipe in your bags"] = "pela receita nas suas bolsas",
 
 	-- Step 45: Enchant Shield - Greater Stamina to 300
@@ -248,9 +248,6 @@ return {
 	["{spell:20017} is orange at 275 (yellow 285, green 305, grey 325): about 29 crafts to 300. Each takes 6 {item:11176}. Six {item:11176} a craft: the dearest stretch, so disenchant every level 41-50 green you find. Enchant any item for that slot in your bags, even a grey one. {skill:333} 300 is a Legacy System milestone."] = "{spell:20017} é laranja em 275 (amarelo 285, verde 305, cinza 325): cerca de 29 criações até 300. Cada uma usa 6 {item:11176}. Seis {item:11176} por criação: o trecho mais caro, então desencante todo item verde de nível 41-50 que encontrar. Encante qualquer item daquele espaço nas suas bolsas, até um cinza. {skill:333} 300 é um marco do Sistema de Legado.",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
-	-- ["1 {item:5500} for {item:11130}: open the Giant Clams at the marked spot, or buy it at the Auction House."] = "1 {item:5500} para {item:11130}: abra os Mariscos Gigantes no local marcado, ou compre na Casa de Leilões.",
-	-- ["34 {item:8831} for {item:20747}: {skill:182}: {item:8831} (skill 210) in {zone:1425} (40-50), {zone:1444} (40-50) and {zone:1447} (45-55); or the Auction House. The densest patch of {item:8831} in {zone:1425} is marked."] = "34 {item:8831} para {item:20747}: {skill:182}: {item:8831} (perícia 210) em {zone:1425} (40-50), {zone:1444} (40-50) e {zone:1447} (45-55); ou a Casa de Leilões. O maior aglomerado de {item:8831} em {zone:1425} está marcado.",
-	-- ["34 {item:8831} for {item:20747}: {skill:182}: {item:8831} (skill 210) in {zone:1425} (40-50), {zone:1444} (40-50) and {zone:1447} (45-55); or the Auction House. The densest patch of {item:8831} in {zone:1444} is marked."] = "34 {item:8831} para {item:20747}: {skill:182}: {item:8831} (perícia 210) em {zone:1425} (40-50), {zone:1444} (40-50) e {zone:1447} (45-55); ou a Casa de Leilões. O maior aglomerado de {item:8831} em {zone:1444} está marcado.",
 	-- ["Apprentice {skill:333}"] = "{skill:333} (Aprendiz)",
 	-- ["Apprentice {skill:333} lets you craft up to 75 for 10c, at any character level. Not every {skill:333} trainer teaches it: Alliance {npc:3606} ({zone:1438}), {npc:11068} ({zone:1453}), {npc:257004} (Zephras Isle), {npc:5157} ({zone:1455}), {npc:11072} ({zone:1429}), {npc:11070} ({zone:1457}), {npc:1317} ({zone:1453}), {npc:257020} (Zephras Isle), {npc:4213} ({zone:1457}), {npc:11065} ({zone:1455}), {npc:5158} ({zone:1455}) and {npc:7949} ({zone:1444}); Horde {npc:257004} (Zephras Isle), {npc:3345} ({zone:1454}), {npc:11074} ({zone:1442}), Jhag ({zone:1454}), {npc:4616} ({zone:1458}), {npc:11067} ({zone:1458}), {npc:11071} ({zone:1456}), {npc:257020} (Zephras Isle), {npc:3011} ({zone:1456}) and {npc:5695} ({zone:1420}). The arrow picks the nearest of your faction. Buy a {item:6217} and {item:247786} from an enchanting supplies vendor (in the capitals and on Zephras Isle; the starting-area trainers have none beside them, and the next step's arrow picks the nearest). From now on, disenchant every green you do not wear: that is where the dust and essences come from. Two starter quests teach Disenchant on a quest item: An Enchanting Lesson from {npc:11072} ({area:91}, {zone:1429}) and A Pain in the Neck from {npc:266881} ({area:367}, {zone:1411}). 1-75 takes about 50c of recipes and 4s 44c of vendor goods, plus 51 {item:10940} to gather or buy."] = "{skill:333} Aprendiz permite fabricar até 75 por 10c, em qualquer nível de personagem. Nem todo instrutor de {skill:333} ensina: Aliança {npc:3606} ({zone:1438}), {npc:11068} ({zone:1453}), {npc:257004} (Ilha de Zefras), {npc:5157} ({zone:1455}), {npc:11072} ({zone:1429}), {npc:11070} ({zone:1457}), {npc:1317} ({zone:1453}), {npc:257020} (Ilha de Zefras), {npc:4213} ({zone:1457}), {npc:11065} ({zone:1455}), {npc:5158} ({zone:1455}) e {npc:7949} ({zone:1444}); Horda {npc:257004} (Ilha de Zefras), {npc:3345} ({zone:1454}), {npc:11074} ({zone:1442}), Jhag ({zone:1454}), {npc:4616} ({zone:1458}), {npc:11067} ({zone:1458}), {npc:11071} ({zone:1456}), {npc:257020} (Ilha de Zefras), {npc:3011} ({zone:1456}) e {npc:5695} ({zone:1420}). A seta escolhe o mais próximo da sua facção. Compre um {item:6217} e {item:247786} de um vendedor de suprimentos de encantamento (nas capitais e na Ilha de Zefras; os instrutores das áreas iniciais não têm nenhum por perto, e a seta da próxima etapa escolhe o mais próximo). A partir de agora, desencante todo item verde que você não usar: é de onde vêm os pós e as essências. Duas missões iniciais ensinam Desencantar num item de missão: An Enchanting Lesson, de {npc:11072} ({area:91}, {zone:1429}), e A Pain in the Neck, de {npc:266881} ({area:367}, {zone:1411}). De 1 a 75 gasta cerca de 50c em receitas e 4s 44c em itens de vendedor, mais 51 {item:10940} para coletar ou comprar.",
 	-- ["Artisan needs character level 35 and {skill:333} 200; it raises the cap to 300. Materials for 225-300 are worth about 30s in all."] = "Artífice requer nível de personagem 35 e {skill:333} 200; eleva o limite para 300. Os materiais de 225-300 valem cerca de 30p no total.",
@@ -284,7 +281,6 @@ return {
 	-- ["{item:1210} (Alliance)"] = "{item:1210} (Aliança)",
 	-- ["{item:1210} (Horde)"] = "{item:1210} (Horda)",
 	-- ["{item:1210} comes from {object:1731} nodes ({skill:186}); this is the densest cluster in the data. The Auction House works too."] = "{item:1210} sai de {object:1731} ({skill:186}); este é o maior aglomerado nos dados. A casa de leilões também serve.",
-	-- ["{item:20747} is orange at 253 (yellow 260, green 270, grey 280): about 34 crafts to 275. Each takes 1 {item:11176}, 1 {item:8831} and 1 {item:8925}. One {item:11176} (level 41-50 greens) and one {item:8831} (herbalists) a craft; the oil sells well. {npc:15419} sells the formula at the inn of {area:3425} ({zone:1451}): fly there, the mobs around it are level 55 and up. {item:11176} (208 for 225-300): {skill:333}: disenchant green items of item level 41-50; or the Auction House."] = "{item:20747} é laranja em 253 (amarelo 260, verde 270, cinza 280): cerca de 34 criações até 275. Cada uma usa 1 {item:11176}, 1 {item:8831} e 1 {item:8925}. Um {item:11176} (itens verdes de nível 41-50) e um {item:8831} (herboristas) por criação; o óleo vende bem. {npc:15419} vende a fórmula na estalagem de {area:3425} ({zone:1451}): vá voando, os monstros ao redor são de nível 55 ou mais. {item:11176} (208 para 225-300): {skill:333}: desencantar itens verdes de nível de item 41-50; ou a Casa de Leilões.",
 	-- ["{item:7971} (Alliance)"] = "{item:7971} (Aliança)",
 	-- ["{item:7971} (Horde)"] = "{item:7971} (Horda)",
 	-- ["{item:8153} (Alliance)"] = "{item:8153} (Aliança)",
@@ -315,13 +311,9 @@ return {
 	-- ["{spell:13501} to 180"] = "{spell:13501} até 180",
 	-- ["{spell:13637} to 200"] = "{spell:13637} até 200",
 	-- ["{spell:13661} to 225"] = "{spell:13661} até 225",
-	-- ["{spell:13746} is orange at 205 (yellow 225, green 245, grey 265): about 20 crafts to 225, a point every craft. Each takes 1 {item:11137}. One {item:11137} a craft (level 31-40 greens). Make the {item:11145} first: the recipe needs it in your bags, so keep it there. {item:7971} (1 for 150-225): {item:7971} is a rare drop (no mob gives it one time in 50): buy it at the Auction House, or keep the ones you find. {item:11135} (1 for 150-225): {skill:333}: disenchant green items of item level 26-35; or the Auction House. {item:11137} (21 for 150-225): {skill:333}: disenchant green items of item level 31-40; or the Auction House. {item:11144} (1 for 150-225): {skill:164}: {item:11144}; or the Auction House. Enchant any item for that slot in your bags, even a grey one. {skill:333} 225 is a Legacy System milestone."] = "{spell:13746} é laranja em 205 (amarelo 225, verde 245, cinza 265): cerca de 20 criações até 225, um ponto a cada criação. Cada uma usa 1 {item:11137}. Um {item:11137} por criação (itens verdes de nível 31-40). Faça primeiro o {item:11145}: a receita o exige nas bolsas, então mantenha-o lá. {item:7971} (1 para 150-225): {item:7971} é um saque raro (nenhum monstro dá um a cada 50): compre na Casa de Leilões, ou guarde os que encontrar. {item:11135} (1 para 150-225): {skill:333}: desencantar itens verdes de nível de item 26-35; ou a Casa de Leilões. {item:11137} (21 para 150-225): {skill:333}: desencantar itens verdes de nível de item 31-40; ou a Casa de Leilões. {item:11144} (1 para 150-225): {skill:164}: {item:11144}; ou a Casa de Leilões. Encante qualquer item daquele espaço nas suas bolsas, até um cinza. {skill:333} 225 é um marco do Sistema de Legado.",
 	-- ["{spell:13746} to 255"] = "{spell:13746} até 255",
-	-- ["{spell:13815} is orange at 225 (yellow 230, green 250, grey 270): about 39 crafts to 253. Each takes 1 {item:11137}. {npc:11073} teaches it with Artisan: learn it on that visit. {item:11137} again; bring about 40. {item:11137} (39 for 225-300): {skill:333}: disenchant green items of item level 31-40; or the Auction House. Enchant any item for that slot in your bags, even a grey one."] = "{spell:13815} é laranja em 225 (amarelo 230, verde 250, cinza 270): cerca de 39 criações até 253. Cada uma usa 1 {item:11137}. {npc:11073} ensina junto com Artífice: aprenda nessa visita. {item:11137} de novo; leve cerca de 40. {item:11137} (39 para 225-300): {skill:333}: desencantar itens verdes de nível de item 31-40; ou a Casa de Leilões. Encante qualquer item daquele espaço nas suas bolsas, até um cinza.",
 	-- ["{spell:13935} to 292"] = "{spell:13935} até 292",
 	-- ["{spell:13948} to 300"] = "{spell:13948} até 300",
-	-- ["{spell:7420} is orange at 25 (yellow 70, green 90, grey 110): about 51 crafts to 75. Each takes 1 {item:10940}. One {item:10940} a craft: the dust most level 5-20 greens break into, armour above all. {item:10938} (from weapons) does the same job through Bracer - Minor Deflect or Chest - {spell:7423} if you have more of it. {item:10940} (51 for 1-75): {skill:333}: disenchant green items of item level 5-20; or the Auction House. Enchant any item for that slot in your bags, even a grey one."] = "{spell:7420} é laranja em 25 (amarelo 70, verde 90, cinza 110): cerca de 51 criações até 75. Cada uma usa 1 {item:10940}. Um {item:10940} por criação: o pó em que a maioria dos itens verdes de nível 5 a 20 se desfaz, sobretudo armaduras. {item:10938} (de armas) faz o mesmo serviço com Braçadeiras - Desviar Menor ou Torso - {spell:7423}, se você tiver mais dele. {item:10940} (51 para 1-75): {skill:333}: desencantar itens verdes de nível de item 5-20; ou a Casa de Leilões. Encante qualquer item daquele espaço nas suas bolsas, até um cinza.",
-	-- ["{spell:7420} is yellow at 75 (yellow 70, green 90, grey 110): about 22 crafts to 90. Each takes 1 {item:10940}. One {item:10940} a craft: the dust most level 5-20 greens break into, armour above all. {item:10938} (from weapons) does the same job through Bracer - Minor Deflect or Chest - {spell:7423} if you have more of it. {item:10940} (121 for 75-150): {skill:333}: disenchant green items of item level 5-20; or the Auction House. Enchant any item for that slot in your bags, even a grey one."] = "{spell:7420} é amarela em 75 (amarelo 70, verde 90, cinza 110): cerca de 22 criações até 90. Cada uma usa 1 {item:10940}. Um {item:10940} por criação: o pó em que a maioria dos itens verdes de nível 5 a 20 se desfaz, sobretudo armaduras. {item:10938} (de armas) faz o mesmo serviço com Braçadeiras - Desviar Menor ou Torso - {spell:7423}, se você tiver mais dele. {item:10940} (121 para 75-150): {skill:333}: desencantar itens verdes de nível de item 5-20; ou a Casa de Leilões. Encante qualquer item daquele espaço nas suas bolsas, até um cinza.",
 	-- ["{spell:7426} to 120"] = "{spell:7426} até 120",
 	-- ["{spell:7428} to 75"] = "{spell:7428} até 75",
 	-- ["{spell:7428} to 90"] = "{spell:7428} até 90",

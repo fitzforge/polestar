@@ -8,7 +8,7 @@
 return {
 	-- Guide
 	["Fire Hardened Armor"] = "Armure en acier trempé",
-	["Starts now at 20 with a shield; a hauberk at 28, then a coif, leggings and gauntlets from three smiths."] = "",
+	["Starts now at 20 with a shield; a hauberk at 28, then a coif, leggings and gauntlets from three smiths."] = "Commence dès maintenant au niveau 20 avec un bouclier ; un haubert au niveau 28, puis une coiffe, des jambières et des gantelets de trois forgerons.",
 
 	-- Step 1: Yorus Barleybrew (Stormwind)
 	-- {npc:5479} Wu Shen · {npc:5480} Ilsa Corbin · {object:2100} Old Town · {quest:1698} Yorus Barleybrew
@@ -97,12 +97,11 @@ return {
 
 	-- Step 19: Iron Coral
 	-- {quest:1708} Iron Coral · {area:150} Menethil Harbor · {item:5996} Draught of Water Breathing
-	["The {quest:1708} grows on the sea floor just south of {area:150}, by the murloc huts and a wrecked boat: eight there and two south-east of the harbor, each back in 3 minutes, so you will wait for respawns to reach 20. The murlocs can net you underwater: watch your breath, and a {item:5996} removes the risk."] = "",
+	["The {quest:1708} grows on the sea floor just south of {area:150}, by the murloc huts and a wrecked boat: eight there and two south-east of the harbor, each back in 3 minutes, so you will wait for respawns to reach 20. The murlocs can net you underwater: watch your breath, and a {item:5996} removes the risk."] = "Le {quest:1708} pousse au fond de la mer juste au sud de {area:150}, près des huttes des murlocs et d'un bateau naufragé : huit à cet endroit et deux au sud-est du port, chacun de retour en 3 minutes, vous devrez donc attendre des réapparitions pour arriver à 20. Les murlocs peuvent vous prendre au filet sous l'eau : surveillez votre souffle ; un {item:5996} élimine le risque.",
 	-- {item:6848} Searing Coral · {quest:1708} Iron Coral
 	["{item:6848}, from {quest:1708}"] = "{item:6848}, sur le {quest:1708}",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
-	-- ["A hauberk at 28, a coif, leggings and gauntlets from three smiths, and a shield on the way."] = "Un haubert au niveau 28, une coiffe, des jambières et des gantelets de trois forgerons, et un bouclier en chemin.",
 	-- ["A hauberk at 28, a coif, leggings or gauntlets by race, and a shield on the way."] = "Un haubert au niveau 28, une coiffe, des jambières ou des gantelets selon la race, et un bouclier en chemin.",
 	-- ["At 20, {npc:5479} in {object:2100}, beside the Pig and Whistle, sends you to {quest:1698} in Redridge."] = "Au niveau 20, {npc:5479}, dans la {object:2100} à côté de la taverne du Cochon siffleur, vous envoie voir {quest:1698} dans les Carmines.",
 	-- ["Back to {npc:5413} in the {object:28027}. He sends you on to a smith of your own race."] = "Retournez voir {npc:5413} dans le {object:28027}. Il vous envoie chez un forgeron de votre race.",
@@ -114,7 +113,6 @@ return {
 	-- ["The Nightbane worgen of {zone:1431} drop the {quest:1705}. {npc:6170} walks in the far south-east of {zone:1431} and carries the {item:6845}."] = "Les worgens Plaie-de-nuit du {zone:1431} laissent tomber le {quest:1705}. {npc:6170} rôde à l'extrême sud-est du {zone:1431} et porte la {item:6845}.",
 	-- ["The chimaeras live south-west of {area:460} in the {area:465}: you need 12 Charred Horns from the Fledgling (level 25-27) and Young Chimaeras (23-25), four kills in five, and the {item:6840} from the {npc:6167} (28, the big one), also four in five. Only three Fledglings, two Young and one Matriarch live there, each back in 5 minutes, so expect to wait. Fledglings and the Matriarch spit {spell:3396}, the Young cast {spell:403}. Alliance: fly to {area:467} and head south."] = "Les chimères vivent au sud-ouest de la {area:460}, dans le {area:465} : il vous faut 12 Cornes carbonisées, sur les Oisillons (niveau 25-27) et les Jeunes chimères (23-25), quatre fois sur cinq, et la {item:6840} sur la {npc:6167} (28, la grande), quatre fois sur cinq aussi. Seuls trois Oisillons, deux Jeunes et une Matriarche vivent là, chacun de retour en 5 minutes : attendez-vous à patienter. Les Oisillons et la Matriarche crachent {spell:3396}, les Jeunes lancent {spell:403}. Alliance : volez jusqu'au {area:467} et allez vers le sud.",
 	-- ["The {quest:1708} grows along the {zone:1437}' west coast, south of {area:150}."] = "Le {quest:1708} pousse le long de la côte ouest des {zone:1437}, au sud de {area:150}.",
-	-- ["The {quest:1708} grows on the sea floor just south of {area:150}, by the murloc huts and a wrecked boat: eight there and two south-east of the harbor, each back in 3 minutes, so you will wait for respawns to reach 20. The murlocs can net you underwater: watch your breath, and an {item:5996} removes the risk."] = "Le {quest:1708} pousse au fond de la mer juste au sud de {area:150}, près des huttes des murlocs et d'un bateau naufragé : huit à cet endroit et deux au sud-est du port, chacun de retour en 3 minutes, vous devrez donc attendre des réapparitions pour arriver à 20. Les murlocs peuvent vous prendre au filet sous l'eau : surveillez votre souffle ; un {item:5996} élimine le risque.",
 	-- ["The {quest:1710} lie along the western edge of {zone:1441}."] = "Les {quest:1710} se trouvent le long du bord ouest de {zone:1441}.",
 	-- ["{item:6839} from the young chimaeras"] = "{item:6839} sur les jeunes chimères",
 	-- ["{item:6840} from the {npc:6167}"] = "{item:6840} sur la {npc:6167}",

@@ -28,40 +28,63 @@ return {
 	-- {zone:1413} Barrens
 	["The chain opens at level 14. A burned-out campfire in the southern {zone:1413}, with a nailed plank beside it."] = "A cadeia abre no nível 14. Uma fogueira apagada no sul de {zone:1413}, com uma tábua pregada ao lado.",
 
-	-- Step 4: Its twin in Westfall
+	-- Step 4: Along the coast to Westfall
+	-- {zone:1436} Westfall
+	["Along the coast to {zone:1436}"] = "Pela costa até {zone:1436}",
+	-- {object:3202} Grom'gol (no name in this language: may be words) · {zone:1436} Westfall · {zone:1431} Duskwood
+	["From {object:3202} follow Stranglethorn's west coast north to {zone:1436}, swimming where the beach runs out. It is shorter than the jungle road north and keeps you clear of Stranglethorn's level 30+ beasts and of {zone:1431}."] = "De {object:3202}, siga a costa oeste da Selva do Espinhaço para o norte até {zone:1436}, nadando onde a praia acaba. É mais curto que a estrada da selva para o norte e mantém você longe das feras de nível 30+ da Selva do Espinhaço e de {zone:1431}.",
+	["Stranglethorn's west coast"] = "Costa oeste da Selva do Espinhaço",
+
+	-- Step 5: Its twin in Westfall
 	-- {zone:1436} Westfall
 	["Its twin in {zone:1436}"] = "Sua gêmea em {zone:1436}",
 	-- {zone:1436} Westfall
 	["The note's \"twin land\" is {zone:1436}: the same burned-out campfire stands in western {zone:1436}."] = "A \"terra gêmea\" do bilhete é {zone:1436}: a mesma fogueira apagada fica no oeste de {zone:1436}.",
 
-	-- Step 5: Round Honor's Stand
-	-- {area:1702} Honor's Stand
-	["Round {area:1702}"] = "Contornando {area:1702}",
-	-- {area:1702} Honor's Stand
-	["The road west runs through {area:1702}, a Horde post; this way goes round it."] = "A estrada para oeste passa por {area:1702}, um posto da Horda; este caminho dá a volta.",
-	["North of Honor's Stand"] = "Ao norte do Posto da Honra",
+	-- Step 6: Stonetalon from the north
+	["Stonetalon from the north"] = "Torres de Pedra pelo norte",
+	-- {zone:1413} Barrens · {area:1702} Honor's Stand · {area:2539} Malaka'jin · {area:460} Sun Rock Retreat · {area:467} Stonetalon Peak · {area:415} Astranaar · {area:1276} Talondeep Path · {zone:1440} Ashenvale
+	["{zone:1413}' way into Stonetalon runs through {area:1702}, and the road on to the hills passes {area:2539} and {area:460}: all Horde posts. Come in from the north instead. With the {area:467} flight path, fly there and follow the road south. Otherwise fly to {area:415} and walk south-west to the {area:1276}, the tunnel from {zone:1440} into Stonetalon."] = "O caminho de {zone:1413} até Torres de Pedra passa por {area:1702}, e a estrada até as colinas passa por {area:2539} e {area:460}: todos postos da Horda. Entre pelo norte. Com a rota de voo de {area:467}, voe até lá e siga a estrada para o sul. Senão, voe para {area:415} e caminhe para sudoeste até {area:1276}, o túnel de {zone:1440} para Torres de Pedra.",
 
-	-- Step 6: Stonetalon Mountains
+	-- Step 7: Stonetalon Mountains
 	-- {area:460} Sun Rock Retreat · {zone:1442} Stonetalon Mountains · {object:424005} Pocket Litter
 	["The next hideout is a small camp in the hills north-west of {area:460}, in the middle of the {zone:1442}. Leave the road where a path climbs west into the hills and follow it to the camp; the {object:424005} lies on a crate beside its tent."] = "O próximo esconderijo é um pequeno acampamento nas colinas a noroeste de {area:460}, no meio de {zone:1442}. Saia da estrada onde uma trilha sobe para oeste pelas colinas e siga até o acampamento; {object:424005} está sobre um caixote ao lado da tenda.",
 	["Path into the hills"] = "Trilha para as colinas",
 
-	-- Step 7: A hundred paces north
+	-- Step 8: A hundred paces north
 	["A hundred paces north"] = "Cem passos para o norte",
 	-- {object:424012} Mound of Dirt
 	["Walk north through the camp and drop carefully down the steep slope to the {object:424012} on the ledge below. A missed jump only slides you down: hug the cliff and walk back up."] = "Ande para o norte pelo acampamento e desça com cuidado a encosta íngreme até {object:424012}, na saliência abaixo. Um pulo errado só faz você escorregar para baixo: cole no penhasco e suba de volta andando.",
 
-	-- Step 8: The dam in Loch Modan
+	-- Step 9: Tarren Mill on the way
+	-- {area:272} Tarren Mill
+	["{area:272} on the way"] = "{area:272} no caminho",
+	-- {area:272} Tarren Mill · {zone:1432} Loch Modan · {area:1057} Thoradin's Wall · {zone:1437} Wetlands
+	["Passing {area:272} on the way to {zone:1432}? Set your Hearthstone here: after the dam, it brings you back next to {area:1057} instead of the long walk through the {zone:1437} and Arathi. Skip this step to keep your Hearthstone where it is."] = "Passando por {area:272} a caminho de {zone:1432}? Vincule sua Pedra de Regresso aqui: depois da represa, ela traz você de volta para perto de {area:1057}, em vez da longa caminhada por {zone:1437} e Arathi. Pule esta etapa para manter a Pedra de Regresso onde está.",
+
+	-- Step 10: The dam in Loch Modan
 	-- {zone:1432} Loch Modan
 	["The dam in {zone:1432}"] = "A represa em {zone:1432}",
 	-- {area:146} Stonewrought Dam
 	["The figurine is on a ledge just below the top of the {area:146}, on its north face. Step off slowly; walking backwards keeps you from overshooting the ledge."] = "A estatueta fica numa saliência logo abaixo do topo de {area:146}, na face norte. Desça devagar; andar de costas evita que você passe da saliência.",
 
-	-- Step 9: Thoradin's Wall
-	-- {zone:1437} Wetlands · {area:880} Thandol Span · {area:1057} Thoradin's Wall · {area:287} Hillsbrad
-	["Careful: off the dam's ledge you land in the river below it, in the {zone:1437}. Climb out on its west bank well before the waterfall at about 65,77: the fall kills. Then head north-west to the road and follow it north over {area:880} into Arathi.\nAt the gate in {area:1057} between Arathi and {area:287}, turn north and follow the wall on the {area:287} side to a fallen cart leaning against it. Jump up the cart and its ladder onto the wall, then over the rocks to the hidden camp. Some characters cannot fit under the cargo netting at the camp; another race or a smaller form gets through."] = "Cuidado: da saliência da represa você cai no rio logo abaixo, em {zone:1437}. Saia pela margem oeste bem antes da cachoeira, por volta de 65,77: a queda mata. Depois siga para noroeste até a estrada e continue por ela para o norte, por {area:880}, até Arathi.\nNo portão de {area:1057}, entre Arathi e {area:287}, vire para o norte e siga a muralha pelo lado de {area:287} até uma carroça caída encostada nela. Suba pela carroça e pela escada até a muralha e depois passe pelas pedras até o acampamento escondido. Alguns personagens não cabem embaixo da rede de carga do acampamento; outra raça ou uma forma menor passa.",
+	-- Step 11: Out of the river
+	["Out of the river"] = "Saindo do rio",
+	-- {zone:1437} Wetlands · {area:880} Thandol Span · {area:272} Tarren Mill
+	["Careful: off the dam's ledge you land in the river below it, in the {zone:1437}. Climb out on its west bank well before the waterfall at about 65,77: the fall kills. Then head north-west to the road and follow it north over {area:880} into Arathi, or hearth if your Hearthstone is set at {area:272}."] = "Cuidado: ao sair da beirada da represa, você cai no rio abaixo dela, em {zone:1437}. Saia pela margem oeste bem antes da cachoeira, por volta de 65,77: a queda mata. Depois siga para noroeste até a estrada e siga-a para o norte por {area:880} até Arathi, ou use a Pedra de Regresso se ela estiver vinculada a {area:272}.",
+	["West bank, before the waterfall"] = "Margem oeste, antes da cachoeira",
+	["West bank"] = "Margem oeste",
+
+	-- Step 12: Thoradin's Wall
+	-- {area:1057} Thoradin's Wall · {area:287} Hillsbrad
+	["At the gate in {area:1057} between Arathi and {area:287}, turn north and follow the wall on the {area:287} side to a fallen cart leaning against it. Jump up the cart and its ladder onto the wall, then over the rocks to the hidden camp. Some characters cannot fit under the cargo netting at the camp; another race or a smaller form gets through."] = "No portão de {area:1057}, entre Arathi e {area:287}, vire para o norte e siga a muralha pelo lado de {area:287} até uma carroça caída encostada nela. Suba pela carroça e pela escada até a muralha e depois passe pelas pedras até o acampamento escondido. Alguns personagens não cabem embaixo da rede de carga do acampamento; outra raça ou uma forma menor passa.",
 	["Fallen cart"] = "Carroça caída",
 
-	-- Step 10: The hidden camp
+	-- Step 13: The hidden camp
 	["The hidden camp"] = "O acampamento escondido",
+
+	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["North of Honor's Stand"] = "Ao norte do Posto da Honra",
+	-- ["Round {area:1702}"] = "Contornando {area:1702}",
+	-- ["The road west runs through {area:1702}, a Horde post; this way goes round it."] = "A estrada para oeste passa por {area:1702}, um posto da Horda; este caminho dá a volta.",
 }

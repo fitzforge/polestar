@@ -100,8 +100,8 @@ return {
 	["{npc:6786} stands on the road at the valley's eastern exit."] = "{npc:6786}站在山谷东侧出口的路上。",
 
 	-- Step 20: Sen'jin Village
-	-- {area:367} Sen'jin Village
-	["Follow the road east out of the valley to {area:367} on the coast."] = "沿道路向东离开山谷，到海岸边的{area:367}。",
+	-- {area:367} Sen'jin Village · {area:362} Razor Hill
+	["Follow the road east out of the valley to {area:367} on the coast.\nCareful: Ukorsbane (8) is elite and walks among the Ridgeshade spiders in the camp south of {area:362}: pull the spiders away from him."] = "沿道路向东离开山谷，到海岸边的{area:367}。\n小心：Ukorsbane（8级）是精英，在{area:362}南边营地的Ridgeshade蜘蛛之间走动：把蜘蛛从他身边引开。",
 	-- {npc:266881} Pa'zula
 	-- plural, as words: Hexed Pendants = {item:275724} Hexed Pendant
 	["{npc:266881}: enchanters only, the residue is disenchanted from Hexed Pendants"] = "{npc:266881}：仅限附魔师，残渣通过分解{item:275724}获得",
@@ -115,14 +115,20 @@ return {
 	["{npc:265809} camps just south of {area:362}. Sit by his campfire (/sit) until the {spell:1229451} buff appears. With a profession learned, {npc:265809} also offers its Camping 101, which its trainer takes: in {area:362} or in {zone:1454} at the start of the next guide."] = "{npc:265809}在{area:362}南面不远处扎营。坐在他的营火旁（/sit），直到出现{spell:1229451}增益效果。学会一项专业技能后，{npc:265809}还会提供对应的露营 101 任务，交给该专业的训练师：在{area:362}，或在下篇指南开头的{zone:1454}。",
 
 	-- Step 22: Camping 101: Mining
+	-- {npc:3175} Krunn · {skill:186} Mining
+	["{npc:3175} takes it once your {skill:186} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "{npc:3175}会在你的{skill:186}技能达到20后接收：在那之前去采集或制作，指南会同时继续进行。",
 	-- {npc:265809} Brakk · {npc:3175} Krunn
 	["{npc:265809}: for {npc:3175}"] = "{npc:265809}：交给{npc:3175}",
 
 	-- Step 23: Camping 101: Engineering
+	-- {npc:11025} Mukdrak · {skill:202} Engineering
+	["{npc:11025} takes it once your {skill:202} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "{npc:11025}会在你的{skill:202}技能达到20后接收：在那之前去采集或制作，指南会同时继续进行。",
 	-- {npc:265809} Brakk · {npc:11025} Mukdrak
 	["{npc:265809}: for {npc:11025}"] = "{npc:265809}：交给{npc:11025}",
 
 	-- Step 24: Camping 101: First Aid
+	-- {npc:5943} Rawrk · {skill:129} First Aid
+	["{npc:5943} takes it once your {skill:129} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "{npc:5943}会在你的{skill:129}技能达到20后接收：在那之前去采集或制作，指南会同时继续进行。",
 	-- {npc:265809} Brakk · {npc:5943} Rawrk
 	["{npc:265809}: for {npc:5943}"] = "{npc:265809}：交给{npc:5943}",
 
@@ -255,7 +261,7 @@ return {
 	-- {npc:3118} Dustwind Storm Witch · {npc:6491} Spirit Healer
 	["Die to the mobs at 52.0,21.4 ({npc:3118}): a death there sends you to this graveyard. Release your spirit and take the {npc:6491}'s resurrection."] = "在52.0,21.4让怪物（{npc:3118}）杀死你：在那里死亡会被送到这座墓地。释放灵魂，并接受{npc:6491}的复活。",
 
-	-- Step 62: Thunder Ridge: kill these as you meet them
+	-- Step 63: Thunder Ridge: kill these as you meet them
 	-- {area:369} Thunder Ridge
 	["{area:369}: kill these as you meet them"] = "{area:369}：沿途遇到就击杀",
 	-- {area:369} Thunder Ridge · {npc:3293} Rezlak · {area:362} Razor Hill · {npc:3099} Dire Mottled Boar · {item:15908} Taming Rod
@@ -264,22 +270,17 @@ return {
 	-- {item:15908} Taming Rod
 	["Tame it with the {item:15908}"] = "用{item:15908}驯服它",
 
-	-- Step 63: Misha Tor'kren
+	-- Step 64: Misha Tor'kren
 	-- {area:814} Southfury River · {item:4891} Kron's Amulet
 	["Misha's hut stands south of the lizards. The crocolisks along the {area:814} to the west carry {item:4891}."] = "米莎·托克伦的小屋在蜥蜴南边。西边{area:814}沿岸的鳄鱼带着{item:4891}。",
 
-	-- Step 65: Heglan Shadeeye
+	-- Step 66: Heglan Shadeeye
 	-- {npc:275657} Heglan Shadeeye · {area:362} Razor Hill
 	["{npc:275657} stands on the shore east of {area:362}. The trident, banner and dagger lie on the beach around him."] = "{npc:275657}站在{area:362}东边的岸上。三叉戟、旗帜和匕首在他周围的海滩上。",
 
-	-- Step 67: Paladin trainer
+	-- Step 68: Paladin trainer
 	-- {npc:246344} Alodan the Hopeful · {zone:1456} Thunder Bluff · {area:362} Razor Hill
 	["{npc:246344} in {zone:1456}; {area:362} has no paladin trainer"] = "前往{zone:1456}找{npc:246344}；{area:362}没有圣骑士训练师",
-
-	-- Step 68: Mage trainer
-	["Mage trainer"] = "法师训练师",
-	-- {npc:5884} Mai'ah · {zone:1411} Durotar · {area:362} Razor Hill
-	["{npc:5884} in {zone:1411}; {area:362} has no mage trainer"] = "{zone:1411} 的 {npc:5884}；{area:362} 没有法师训练师",
 
 	-- Step 69: Druid trainer
 	-- {npc:3034} Sheal Runetotem · {zone:1412} Mulgore · {area:362} Razor Hill
@@ -317,7 +318,7 @@ return {
 
 	-- Step 78: Skull Rock
 	-- {quest:827} Skull Rock · {item:4871} Searing Collar · {npc:3204} Gazz'uz · {item:4903} Eye of Burning Shadow
-	["Burning Blade cultists hold the caves of {quest:827}; any of them drops a {item:4871}. {npc:3204}, a level 14 warlock, stands deep inside and drops the {item:4903}."] = "火刃氏族祭司占据着{quest:827}的洞穴；任何一个都会掉落{item:4871}。{npc:3204}是14级术士，站在洞穴深处，掉落{item:4903}。",
+	["Burning Blade cultists hold the caves of {quest:827}; any of them drops a {item:4871}. {npc:3204}, a level 14 warlock, stands deep inside and drops the {item:4903}.\nCareful: voidwalkers fight beside the Burning Blade cultists in {quest:827} and {npc:3204} (14) waits at the back with his own: pull one cultist at a time near the entrance for the collars. The {item:4903} is optional: leave {npc:3204} unless you are 13 or have a friend."] = "火刃氏族祭司占据着{quest:827}的洞穴；任何一个都会掉落{item:4871}。{npc:3204}是14级术士，站在洞穴深处，掉落{item:4903}。\n小心：在{quest:827}里，虚空行者与火刃祭司并肩作战，{npc:3204}（14级）带着他自己的虚空行者在最深处等着：在入口附近一次引一个祭司来收集项圈。{item:4903}是可选的：除非你已13级或有朋友同行，否则别碰{npc:3204}。",
 
 	-- Step 79: Tablet of Verga
 	-- {object:58595} Burning Blade Stash · {area:817} Skull Rock
@@ -371,14 +372,15 @@ return {
 	["{zone:1454}'s {object:172982}"] = "{zone:1454}的{object:172982}",
 
 	-- Step 91: The Binding
-	-- {npc:5875} Gan'rul Bloodeye · {object:172960} Cleft of Shadow · {object:172982} Valley of Strength · {item:6535} Tablet of Verga · {item:7464} Glyphs of Summoning
-	["{npc:5875} stands in the {object:172960}, the canyon under the {object:172982}. Hand him the {item:6535}, then use the {item:7464} on the summoning circle beside him and defeat the voidwalker to bind it."] = "{npc:5875}站在{object:172960}，也就是{object:172982}下方的峡谷里。把{item:6535}交给他，然后在他旁边的召唤法阵上使用{item:7464}，击败虚空行者以束缚它。",
+	-- {npc:5875} Gan'rul Bloodeye · {object:172960} Cleft of Shadow · {object:172982} Valley of Strength · {item:6535} Tablet of Verga · {item:7464} Glyphs of Summoning · {zone:1454} Orgrimmar
+	["{npc:5875} stands in the {object:172960}, the canyon under the {object:172982}. Hand him the {item:6535}, then use the {item:7464} on the summoning circle beside him and defeat the voidwalker to bind it.\nCareful: the voidwalker you summon hits hard and it is the fight Warlocks die to most in {zone:1454}: start at full health and mana, send your imp in, keep Corruption and Immolate on it, and use a healthstone if you have one."] = "{npc:5875}站在{object:172960}，也就是{object:172982}下方的峡谷里。把{item:6535}交给他，然后在他旁边的召唤法阵上使用{item:7464}，击败虚空行者以束缚它。\n小心：召唤出的虚空行者攻击很重，这是术士在{zone:1454}最常阵亡的一战：满血满蓝再开始，先派小鬼上去，在它身上保持腐蚀术和献祭，有治疗石就用。",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Back east to the shore north of {npc:275657}. Spitelash Scouts and Attendants hold the beach below {area:370}. Hunters: tame a {npc:3107} on the beach."] = "向东回到{npc:275657}北边的海岸。{npc:275662}和其他恶鞭纳迦占据着{area:370}下方的海滩。猎人：在海滩上驯服一只{npc:3107}。",
 	-- ["Back south to {area:362}."] = "向南返回{area:362}。",
 	-- ["Back to {npc:5875} in the {object:172960}. Use the {item:7464} on the summoning circle there and defeat the voidwalker to bind it."] = "回到{object:172960}找{npc:5875}。在那里的召唤法阵上使用{item:7464}，击败虚空行者以束缚它。",
 	-- ["Into {zone:1454}"] = "进入{zone:1454}",
+	-- ["Mage trainer"] = "法师训练师",
 	-- ["Thunder Lizards and Lightning Hides graze on {area:369} across the bridge; any of them can drop a {item:6486}."] = "{npc:3130}和{npc:3131}在桥对面的{area:369}上吃草；任何一只都可能掉落{item:6486}。",
 	-- ["Thunder Lizards and Lightning Hides graze on {area:369}, beside the road north to {zone:1454}; any of them can drop a {item:6486}. {npc:5810} takes it when the next guide passes {area:379}."] = "雷霆蜥蜴和闪电蜥蜴在{area:369}活动，就在向北通往{zone:1454}的道路旁；它们都有可能掉落{item:6486}。下篇指南经过{area:379}时，再交给{npc:5810}。",
 	-- ["Thunder Lizards and Lightning Hides graze on {area:369}, just west and south-west of {npc:3293}.\nFizzle holds the Burning Blade camp on {area:369}, north-west of {area:362}. Hunters: tame a {npc:3099} with the {item:15908} on the way.\nCareful: Burning Blade cultists surround Fizzle, some linked so they aggro in pairs, and they respawn quickly."] = "雷霆蜥蜴和闪电蜥蜴在 {npc:3293} 西面及西南面不远处的 {area:369} 吃草。\n费索 占据着 {area:362} 西北面 {area:369} 的火刃营地。猎人：途中用 {item:15908} 驯服一只 {npc:3099}。\n小心：费索 周围有火刃教徒，部分敌人两两联动，会一起进入战斗，而且刷新很快。",
@@ -397,4 +399,5 @@ return {
 	-- ["{npc:3337}, beside {npc:5810}"] = "{npc:3337}，在{npc:5810}旁边",
 	-- ["{npc:3706}, beside {npc:3139}: the {item:16606}"] = "{npc:3706}，在{npc:3139}旁边：{item:16606}",
 	-- ["{npc:3706}, in the barracks with {npc:3139}"] = "{npc:3706}，在兵营里，和{npc:3139}在一起",
+	-- ["{npc:5884} in {zone:1411}; {area:362} has no mage trainer"] = "{zone:1411} 的 {npc:5884}；{area:362} 没有法师训练师",
 }

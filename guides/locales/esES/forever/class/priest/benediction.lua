@@ -38,12 +38,11 @@ return {
 	-- {item:18659} Splinter of Nordrassil · {item:18646} The Eye of Divinity · {item:18665} The Eye of Shadow · {item:18608} Benediction
 	["With the {item:18659}, {item:18646} and {item:18665} in your bags, use the splinter wherever you are: it becomes {item:18608}. Use {item:18608} to turn it into Anathema, the shadow staff, and back (a 30-minute cooldown)."] = "",
 	-- {item:18659} Splinter of Nordrassil · {item:18608} Benediction
-	["Use the {item:18659} with both Eyes in your bags: {item:18608}"] = "",
+	["Use the {item:18659} with both Eyes in your bags: {item:18608}"] = "Usa {item:18659} con ambos Ojos en tus bolsas: {item:18608}",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Equip {item:18646} to see {npc:14494}, a ghost on the mountainside in the north-west of the {zone:1423}. Come with full mana, Major Mana Potions and {item:8956}: if you fail, the event takes about two hours to return."] = "Equípate {item:18646} para ver a {npc:14494}, un fantasma en la ladera del noroeste de {zone:1423}. Ven con el maná lleno, pociones de maná sublimes y {item:8956}: si fallas, el evento tarda unas dos horas en volver.",
 	-- ["Save 50 peasants before 15 die. Kill the skeletons that attack them, cure their diseases (the purple ones first) and heal the wounded with {spell:139}. Friends may buff you beforehand but must stay out of the fight, or a demon appears and kills everyone."] = "Salva a 50 campesinos antes de que mueran 15. Mata a los esqueletos que los atacan, cura sus enfermedades (primero los morados) y sana a los heridos con {spell:139}. Tus amigos pueden darte beneficios antes, pero deben quedarse fuera del combate o aparecerá un demonio que matará a todos.",
-	-- ["With both Eyes in your bags: {item:18608}"] = "Con ambos Ojos en tus bolsas: {item:18608}",
 	-- ["You need {item:18646} first: it comes from the {object:179703} after {npc:12018} in {area:2717}. {item:18665} drops from elite demons ({npc:12397}, a world boss, always; Doomguard Commanders and Manahounds rarely); it binds when equipped, so buying one works too."] = "Primero necesitas {item:18646}: sale de {object:179703} tras {npc:12018} en {area:2717}. {item:18665} lo sueltan demonios élite ({npc:12397}, un jefe del mundo, siempre; los comandantes guardia apocalíptico y los canes de maná, rara vez); se liga al equiparlo, así que también puedes comprarlo.",
 	-- ["{npc:14494}'s splinter and the two Eyes make {item:18608}, the epic priest staff that turns into Anathema."] = "La astilla de {npc:14494} y los dos Ojos forman {item:18608}, el bastón épico de sacerdote que se convierte en Anatema.",
 }

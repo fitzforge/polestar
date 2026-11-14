@@ -12,7 +12,7 @@ return {
 	-- {npc:15188} Cenarion Emissary Blackhoof · {object:172957} Valley of Wisdom · {zone:1451} Silithus
 	["{npc:15188}, {object:172957}: keep it for {zone:1451}"] = "{npc:15188}, {object:172957} : gardez-la pour {zone:1451}",
 	-- {npc:4485} Belgrom Rockmaul · {object:172958} Valley of Honor · {zone:1447} Azshara · {npc:8576} Ag'tor Bloodfist · {area:1237} Valormok
-	["{npc:4485}, {object:172958}: carried from the first {zone:1447} visit, else take it here for {npc:8576} in {area:1237}"] = "",
+	["{npc:4485}, {object:172958}: carried from the first {zone:1447} visit, else take it here for {npc:8576} in {area:1237}"] = "{npc:4485}, {object:172958} : rapportée de la première visite d'{zone:1447}, sinon prenez-la ici pour {npc:8576} à {area:1237}",
 
 	-- Step 2: Fly to Ratchet
 	-- {area:392} Ratchet
@@ -35,19 +35,19 @@ return {
 	-- {npc:256386} Dokimi
 	["{npc:256386}'s crates"] = "Les caisses de {npc:256386}",
 	-- {npc:256386} Dokimi · {area:1237} Valormok
-	["Ride north up the road to the Crossroads; {npc:256386} stands there. Open each crate she hands you and bring back what is inside. Fly on to {area:1237} from the Crossroads."] = "",
+	["Ride north up the road to the Crossroads; {npc:256386} stands there. Open each crate she hands you and bring back what is inside. Fly on to {area:1237} from the Crossroads."] = "Remontez la route vers le nord jusqu'à la Croisée ; {npc:256386} s'y tient. Ouvrez chaque caisse qu'elle vous remet et rapportez-lui ce qu'elle contient. Prenez ensuite un vol depuis la Croisée pour {area:1237}.",
 
 	-- Step 6: Fly to Valormok
 	-- {area:1237} Valormok
 	["Fly to {area:1237}"] = "Prendre un vol pour {area:1237}",
-	["Crossroads flight master"] = "",
+	["Crossroads flight master"] = "Maître de vol de la Croisée",
 
 	-- Step 8: Ruins of Eldarath
 	["Ride east to the ruins on the coast. Fill Cuely's four vials at the tide pools along the shore; Spitelash naga patrol between them."] = "Allez à l'est jusqu'aux ruines sur la côte. Remplissez les quatre fioles du Chimiste Cuely aux bassins le long du rivage ; des nagas Fouette-bile patrouillent entre eux.",
 
 	-- Step 9: Thalassian Base Camp
-	-- {area:1227} Bay of Storms
-	["The blood elves camp on the cliffs in the north-east, by the {area:1227}."] = "Les elfes de sang campent sur les falaises au nord-est, près de {area:1227}.",
+	-- {area:1227} Bay of Storms · {npc:250023} Blackmaw Thrall
+	["The blood elves camp on the cliffs in the north-east, by the {area:1227}.\nCareful: a {npc:250023}, a level 55-57 elite, stands at the west edge of the camp: work the blood elves from its east side."] = "Les elfes de sang campent sur les falaises au nord-est, près de {area:1227}.\nAttention : un {npc:250023}, un élite de niveau 55-57, se tient à la lisière ouest du camp : occupez-vous des elfes de sang par le côté est.",
 
 	-- Step 10: Magus Rimtori's camp
 	-- {npc:8578} Magus Rimtori
@@ -88,7 +88,7 @@ return {
 
 	-- Step 18: Chemist Cuely
 	-- {npc:8390} Chemist Cuely · {npc:8393} Thersa Windsong
-	["{npc:8390} and {npc:8393} work in the Apothecarium."] = "",
+	["{npc:8390} and {npc:8393} work in the Apothecarium."] = "{npc:8390} et {npc:8393} travaillent dans l'Apothicarium.",
 	-- {npc:8393} Thersa Windsong
 	["{npc:8393}, beside him"] = "{npc:8393}, à côté de lui",
 
@@ -111,7 +111,7 @@ return {
 
 	-- Step 26: The Bulwark
 	-- {zone:1458} Undercity · {area:152} The Bulwark · {zone:1422} Western Plaguelands
-	["Ride east out of the {zone:1458} along the road; the {area:152} guards the way into the {zone:1422}."] = "",
+	["Ride east out of the {zone:1458} along the road; the {area:152} guards the way into the {zone:1422}."] = "Sortez de {zone:1458} vers l'est par la route ; {area:152} garde l'accès aux {zone:1422}.",
 
 	-- Step 28: Felstone Field
 	-- {npc:10778} Janice Felstone · {area:152} The Bulwark · {npc:11075} Cauldron Lord Bilemaw
@@ -140,6 +140,5 @@ return {
 	-- ["Zeppelin tower"] = "Tour des zeppelins",
 	-- ["{npc:11044}, in the Apothecarium"] = "{npc:11044}, dans l'Apothicarium",
 	-- ["{npc:11044}, in the {object:36072}"] = "{npc:11044}, dans {object:36072}",
-	-- ["{npc:256386} stands in the {area:380}. Open each crate she hands you and bring back what is inside."] = "{npc:256386} se tient à {area:380}. Ouvrez chaque caisse qu'elle vous remet et rapportez-lui ce qu'elle contient.",
 	-- ["{quest:5050} goes back to {npc:10778} in the {area:28}: keep it."] = "{quest:5050} se rend à {npc:10778}, dans {area:28} : gardez-la.",
 }

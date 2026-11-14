@@ -55,7 +55,7 @@ return {
 
 	-- Step 13: Marshal's Refuge
 	-- {npc:271301} Power Crystal · {object:157936} Un'Goro Dirt Pile
-	["Ride west back to the refuge.\nGive the elite devilsaurs and stegodons a wide berth. Pick up every {npc:271301} and {object:157936} you pass from here on."] = "",
+	["Ride west back to the refuge.\nGive the elite devilsaurs and stegodons a wide berth. Pick up every {npc:271301} and {object:157936} you pass from here on."] = "向西骑行返回营地。\n远离精英魔暴龙和剑龙，从这里开始，沿途遇到的{npc:271301}和{object:157936}都要拾取。",
 	-- {npc:9998} Shizzle
 	["{npc:9998}, at the refuge entrance"] = "{npc:9998}，在避难所入口",
 	-- {npc:8737} Linken
@@ -88,47 +88,43 @@ return {
 	["Ride east to {area:1943}, where the robot stands among the gorillas. Stay out of the deep cave there."] = "向东骑行到{area:1943}，机器人站在猩猩中间。别进那里的深洞。",
 	["Below ground"] = "在地下",
 
-	-- Step 19: Level 49.51
-	["Level 49.51"] = "等级 49.51",
-	-- {area:541} Marshal's Refuge · {area:2100} Maraudon
-	["Top up here to level 49.51 before the hand-ins at {area:541}: they take you to level 50. Or, with a group, run the {area:2100} dungeon instead."] = "在这里补到49.51级，再去{area:541}交任务，交完会升到50级。也可以组队去{area:2100}副本。",
-	["Pterrordax"] = "翼手龙",
-	["grind on Pterrordax"] = "反复击杀翼手龙补足经验",
-
-	-- Step 20: Crate of Foodstuffs
+	-- Step 19: Crate of Foodstuffs
 	-- {npc:9165} Fledgling Pterrordax · {npc:9998} Shizzle
 	-- plural, as words: Young Diemetradons = {npc:9162} Young Diemetradon
 	["Ride south down the east side. Young Diemetradons graze the eastern jungle and {npc:9165} fly near the eastern cliffs; both drop {npc:9998}'s scales. The crate sits at the abandoned camp in the eastern jungle."] = "沿东侧向南骑行，幼双帆龙在东侧丛林活动，{npc:9165}在东侧峭壁附近飞行，两者都会掉落{npc:9998}所需的鳞片。箱子位于东侧丛林的废弃营地内。",
 
-	-- Step 21: Eastern Pylon
+	-- Step 20: Eastern Pylon
 	["Eastern Pylon"] = "东部水晶塔",
 	["The pylon stands on the eastern cliffs."] = "水晶塔立在东部悬崖上。",
 
-	-- Step 22: The Gorishi hive
+	-- Step 21: The Gorishi hive
 	["The Gorishi hive"] = "格里什虫巢",
 	-- {npc:9619} Torwa Pathfinder · {quest:3764} Un'Goro Soil · {spell:8137} Silithid Pox · {spell:14120} Tunneler Acid
 	-- plural, as words: Gorishi Workers = {npc:6552} Gorishi Worker
 	["Ride south-west past {npc:9619}: the silithid hive fills the south of the crater. Use the Scraping Vial on a hatchery, a chamber with hanging larvae. Gorishi wasps and workers drop {quest:3764}; Pterrordax nest on the southern cliffs if you still need kills.\nCareful: Gorishi silithids are level 51-54 and cast {spell:8137} or {spell:14120} in melee; Gorishi Workers have a 50% chance to call for help within 25 yd once they fall below 45% health."] = "骑行向西南，经过 {npc:9619}：异种虫巢遍布环形山南部。对孵化室使用未使用的采集瓶，孵化室就是悬挂着幼虫的洞室。格里什黄蜂和格里什工蝎会掉落 {quest:3764}；若击杀数量还不够，南侧悬崖上也有翼手龙栖息。\n小心：格里什异种虫为 51-54 级，近战时会施放 {spell:8137} 或 {spell:14120}；格里什工蝎的生命值降至 45% 以下时，有 50% 的概率呼叫 25 码内的同伴前来援助。",
-	-- {npc:9167} Frenzied Pterrordax
-	["grind on {npc:9167}"] = "反复击杀{npc:9167}补足经验",
 
-	-- Step 23: Bones and equipment
+	-- Step 22: Bones and equipment
 	["Bones and equipment"] = "骨头和设备",
 	-- {item:11112} Research Equipment
 	-- plural, as words: Dinosaur Bones = {item:11114} Dinosaur Bone
 	["Dinosaur Bones lie on the ground in the south-west, among the stegodons: those are elite, pick the bones up around them and take the rest from Diemetradons. The expedition's {item:11112} lies in the south-west jungle."] = "恐龙骨头散落在西南部的地面上，在剑龙之间：剑龙是精英，在它们周围捡骨头，其余的从双帆龙身上获取。探险队的{item:11112}在西南部丛林中。",
-	-- {npc:9164} Elder Diemetradon
-	["grind on {npc:9164}"] = "反复击杀{npc:9164}补足经验",
 
-	-- Step 24: Western Pylon
+	-- Step 23: Western Pylon
 	["Western Pylon"] = "西部水晶塔",
 	-- {npc:9167} Frenzied Pterrordax
 	["The pylon stands on the western cliffs. {npc:9167} fly over the whole west side."] = "水晶塔立在西部悬崖上。{npc:9167}在整个西侧上空飞行。",
 
-	-- Step 25: Marshal's Refuge
+	-- Step 24: Marshal's Refuge
 	["Ride north along the western jungle back to the refuge."] = "沿西部丛林向北骑回避难所。",
 	-- {npc:9998} Shizzle
 	["{npc:9998}, at the refuge's entrance"] = "{npc:9998}，在避难所入口",
+
+	-- Step 25: Level 49.79
+	["Level 49.79"] = "等级 49.79",
+	-- {area:541} Marshal's Refuge
+	["Still short of level 49.79 after the refuge's hand-ins? Top up on the Pterrordax on the slopes east of {area:541} before you leave the crater."] = "在避难所交完任务后仍不到49.79级？离开环形山前，在{area:541}东边的山坡上击杀翼手龙补足经验。",
+	["Pterrordax"] = "翼手龙",
+	["grind on Pterrordax"] = "反复击杀翼手龙补足经验",
 
 	-- Step 26: Fly to Astranaar
 	-- {area:415} Astranaar
@@ -138,30 +134,24 @@ return {
 	-- {area:541} Marshal's Refuge
 	["{area:541} flight master"] = "{area:541}飞行管理员",
 
-	-- Step 27: To Stoutlager Inn
-	-- {area:2101} Stoutlager Inn
-	["To {area:2101}"] = "前往{area:2101}",
+	-- Step 27: To Ironforge
+	-- {zone:1455} Ironforge
+	["To {zone:1455}"] = "前往{zone:1455}",
 
-	-- Step 28: Fly to Ironforge
-	-- {area:1537} Ironforge
-	["Fly to {area:1537}"] = "飞往{area:1537}",
-	-- {area:144} Thelsamar
-	["{area:144} flight master"] = "{area:144}的飞行管理员",
-
-	-- Step 29: Mystic Ward
+	-- Step 28: Mystic Ward
 	-- {npc:11406} High Priest Rohan · {zone:1447} Azshara
 	["{npc:11406}: for Ogtinc in {zone:1447}, keep it"] = "{npc:11406}：交给{zone:1447}的奥汀克，留着",
 	-- {npc:7312} Dink · {npc:8395} Sanath Lim-yo · {zone:1447} Azshara
 	["{npc:7312}, the mage trainer: for {npc:8395} in {zone:1447}, keep it"] = "法师训练师{npc:7312}：带给{zone:1447}的{npc:8395}，先留着",
 
-	-- Step 32: Fly to Astranaar
+	-- Step 31: Fly to Astranaar
 	-- {area:442} Auberdine
 	["{area:442} flight master"] = "{area:442}的飞行管理员",
 
-	-- Step 33: Level 50.4
+	-- Step 32: Level 50.4
 	["Level 50.4"] = "等级 50.4",
-	-- {area:3137} Talrendis Point · {area:2100} Maraudon · {area:1417} Sunken Temple
-	["Top up here to level 50.4 before the hand-ins at {area:3137}: they take you to level 51. Or, with a group, run the {area:2100} dungeon or the {area:1417} dungeon instead."] = "在这里补到50.4级，再去{area:3137}交任务，交完会升到51级。也可以组队去{area:2100}副本或{area:1417}副本。",
+	-- {area:3137} Talrendis Point
+	["Top up here to level 50.4 before the hand-ins at {area:3137}: they take you to level 51."] = "在这里补到50.4级，再去{area:3137}交任务，交完会升到51级。",
 	-- {npc:6116} Highborne Apparition
 	["grind on {npc:6116}"] = "反复击杀{npc:6116}补足经验",
 
@@ -172,6 +162,7 @@ return {
 	-- ["Cross the south of the crater to {npc:9619} by the ramp."] = "穿过环形山南部，到坡道旁找{npc:9619}。",
 	-- ["Escort {npc:9999}"] = "护送{npc:9999}",
 	-- ["Fly from {area:144} to {area:1537}."] = "从{area:144}飞往{area:1537}。",
+	-- ["Fly to {area:1537}"] = "飞往{area:1537}",
 	-- ["Four rune rubbings in {zone:1447}: keep it"] = "{zone:1447}的四个符文拓片：留着",
 	-- ["From {area:144} fly to {area:150}, take the boat to Theramore and fly on to {area:976}. {npc:9619}'s first quest in the crater needs level 48: finish the level here if you are short."] = "从{area:144}飞往{area:150}，乘船前往塞拉摩，再飞往{area:976}。{npc:9619}在环形山的第一个任务需要48级：等级不够就在这里练满。",
 	-- ["Grind to 50"] = "刷到50级",
@@ -187,7 +178,6 @@ return {
 	-- ["Ride south down the east side. Young Diemetradons graze the eastern jungle and {npc:9165} fly near the eastern cliffs; both drop {npc:9998}'s scales."] = "沿东侧向南骑行。幼双帆龙在东部丛林吃草，{npc:9165}在东部悬崖附近飞行；两者都掉落{npc:9998}要的鳞片。",
 	-- ["Ride south to {area:537} in the middle of the crater, then east into the eastern jungle. Crystal clusters stand all over the crater, many of them around {area:537}: take a few extra of each colour. {item:11316} Lashers and Threshers drop the petals; the expedition's {item:11113} sits at an abandoned camp in the eastern jungle."] = "向南骑行到环形山中央的{area:537}，然后向东进入东部丛林。水晶簇遍布环形山，很多在{area:537}周围：每种颜色多拿几个。{item:11316}鞭笞者和猛击者掉落花瓣；探险队的{item:11113}在东部丛林的一处废弃营地里。",
 	-- ["Ride west back to the refuge."] = "向西骑回避难所。",
-	-- ["Ride west back to the refuge.\nGive the elite devilsaurs and stegodons a wide berth. Pick up every Power Crystal and {object:157936} you pass from here on."] = "向西骑行返回营地。\n远离精英魔暴龙和剑龙，从这里开始，沿途遇到的能量水晶和{object:157936}都要拾取。",
 	-- ["Ride west from {npc:9619}: the silithid hive fills the south of the crater. Use the Scraping Vial on a hatchery, a chamber with hanging larvae. Gorishi wasps and workers drop {quest:3764}; {npc:9166} nest on the southern cliffs if you still need kills."] = "从{npc:9619}向西骑行：异种虫巢穴占据环形山南部。对孵化室（挂着幼虫的房间）使用采集瓶。格里什异种蝎和格里什工蝎掉落{quest:3764}；如果还需要击杀，{npc:9166}在南部悬崖筑巢。",
 	-- ["Ride west out of {area:976} to the long ramp down into {area:490}. {npc:9619} camps at the foot of the ramp, in the south-east corner of the crater."] = "向西骑出{area:976}，到达通往{area:490}的长坡道。{npc:9619}在坡道脚下扎营，位于环形山的东南角。",
 	-- ["Ride west past {area:541} and south down the western side to {area:543}: {npc:10302} the goblin sits by the water."] = "向西经过{area:541}，再沿西侧向南到{area:543}：地精{npc:10302}坐在水边。",
@@ -201,10 +191,14 @@ return {
 	-- ["The pylon stands on the slope east of the refuge. {npc:9166} circle the slopes around it: they count for {npc:9997} and drop {npc:9998}'s scales."] = "水晶塔立在避难所东边的山坡上。{npc:9166}在周围山坡上盘旋：它们计入{npc:9997}的任务，并掉落{npc:9998}要的鳞片。",
 	-- ["The relics are in the {zone:1428}: keep it"] = "圣物在{zone:1428}：留着",
 	-- ["The wooden sign beside {npc:9997}"] = "{npc:9997}旁边的木牌",
+	-- ["Top up here to level 49.51 before the hand-ins at {area:541}: they take you to level 50. Or, with a group, run the {area:2100} dungeon instead."] = "在这里补到49.51级，再去{area:541}交任务，交完会升到50级。也可以组队去{area:2100}副本。",
 	-- ["Xiggs waits in the {object:32359}."] = "西格斯在{object:32359}等候。",
 	-- ["grind on the Wastewanderers or Dunemaul ogres around {area:976}"] = "在{area:976}周围刷废土强盗或砂槌食人魔",
 	-- ["grind on {npc:5458} at {area:982}, {zone:1446}"] = "在{zone:1446}的{area:982}刷{npc:5458}",
 	-- ["grind on {npc:6514} at {area:1943}, {zone:1449}"] = "在{zone:1449}的{area:1943}刷{npc:6514}",
+	-- ["grind on {npc:9164}"] = "反复击杀{npc:9164}补足经验",
+	-- ["grind on {npc:9167}"] = "反复击杀{npc:9167}补足经验",
+	-- ["{area:144} flight master"] = "{area:144}的飞行管理员",
 	-- ["{area:978} (optional)"] = "{area:978}（可选）",
 	-- ["{item:11834} from {npc:6518} and {npc:6519}, 60 yd south"] = "{item:11834}从{npc:6518}和{npc:6519}身上获取，在南边60码处",
 	-- ["{npc:6734}: the last guide hearths you here, so this usually ticks at once"] = "{npc:6734}：上一份指南用炉石把你送到这里，所以这一步通常会立即完成",

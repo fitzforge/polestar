@@ -17,8 +17,8 @@ return {
 	-- Step 3: Fly to Camp Taurajo
 	-- {area:378} Camp Taurajo
 	["Fly to {area:378}"] = "Лететь: {area:378}",
-	-- {zone:1456} Thunder Bluff · {area:378} Camp Taurajo · {zone:1412} Mulgore
-	["{zone:1456} first: two of its elders give quests worked on this guide's and the next guide's walks. Fly to {area:378}; from there it is a walk west into {zone:1412} and north to the bluffs."] = "Сначала {zone:1456}: двое старейшин выдают там задания, которые выполняются по ходу этого и следующего гайдов. Летите сюда: {area:378}; оттуда идите на запад в зону {zone:1412} и на север к утесам.",
+	-- {zone:1456} Thunder Bluff · {area:378} Camp Taurajo · {zone:1412} Mulgore · {zone:1413} The Barrens
+	["{zone:1456} first: two of its elders give quests worked on this guide's and the next guide's walks. Fly to {area:378}; from there it is a walk west into {zone:1412} and north to the bluffs, and {zone:1456}'s flight path brings you straight back to {area:378}, where the southern {zone:1413} begin."] = "Сначала {zone:1456}: двое старейшин выдают там задания, которые выполняются по ходу этого и следующего гайдов. Летите сюда: {area:378}; оттуда идите на запад в зону {zone:1412} и на север к утесам, а маршрут полета ({zone:1456}) вернет вас прямо сюда: {area:378}, где начинается южная часть зоны {zone:1413}.",
 
 	-- Step 4: To Thunder Bluff
 	-- {zone:1456} Thunder Bluff
@@ -36,117 +36,26 @@ return {
 	-- {npc:4721} Zangen Stonehoof · {zone:1440} Ashenvale
 	["{npc:4721}: the phial comes from {zone:1440}, next guide"] = "{npc:4721}: склянка – в зоне {zone:1440}, следующий гайд",
 
-	-- Step 6: Fly to Crossroads
-	["Fly to Crossroads"] = "",
-	-- {npc:2995} Tal · {zone:1456} Thunder Bluff
-	["Fly to the Crossroads from the wind rider master: {npc:2995} on {zone:1456}'s central rise."] = "Летите на Перекрестки у распорядителя ветрокрылов: {npc:2995} на центральном возвышении ({zone:1456}).",
+	-- Step 6: Fly to Camp Taurajo
+	-- {area:378} Camp Taurajo · {npc:2995} Tal · {zone:1456} Thunder Bluff
+	["Fly to {area:378}: {npc:2995} on {zone:1456}'s central rise, or the Crossroads' wind rider master if you start this guide there."] = "Летите сюда – {area:378}: {npc:2995} на центральном возвышении ({zone:1456}) или распорядитель ветрокрылов на Перекрестках, если вы начинаете этот гайд там.",
 
-	-- Step 7: Seereth Stonebreak
-	-- {npc:4049} Seereth Stonebreak
-	["Follow the road west past Regthar's bunkers: {npc:4049} camps beside it at the edge of Stonetalon."] = "Идите по дороге на запад мимо бункеров Регтара: {npc:4049} стоит лагерем у дороги на краю Когтистых гор.",
-	-- {npc:4049} Seereth Stonebreak · {npc:4074} XT:9 · {npc:4073} XT:4 · {npc:4201} Ziz Fizziks
-	["{npc:4049}: {npc:4074} and {npc:4073} roam east of {npc:4201}, on the way up"] = "{npc:4049}: {npc:4074} и {npc:4073} бродят к востоку от NPC {npc:4201}, по пути наверх",
-
-	-- Step 8: The road west
-	["The road west"] = "",
-	-- {npc:4049} Seereth Stonebreak
-	["The road west past {npc:4049}'s camp"] = "Дорога на запад мимо лагеря ({npc:4049})",
-
-	-- Step 9: Malaka'jin
-	-- {npc:4049} Seereth Stonebreak · {npc:3995} Witch Doctor Jin'Zil · {area:2539} Malaka'jin · {area:1076} Webwinder Path
-	["Follow the road west past Regthar's bunkers and {npc:4049}'s camp into Stonetalon: {npc:3995} waits below ground in {area:2539}, at the foot of the {area:1076}."] = "Идите по дороге на запад мимо бункеров Регтара и лагеря ({npc:4049}) в Когтистые горы: {npc:3995} ждет под землей здесь: {area:2539}, у подножия тропы ({area:1076}).",
-	-- {npc:3995} Witch Doctor Jin'Zil
-	["{npc:3995}, below ground"] = "",
-
-	-- Step 10: Shredding Machines
-	-- {area:1076} Webwinder Path · {npc:4201} Ziz Fizziks · {area:461} Windshear Crag · {npc:4074} XT:9 · {npc:4073} XT:4
-	["Up the {area:1076} to {npc:4201}' hut, then east along the road toward {area:461}: {npc:4074} patrols the road just east of the fork, {npc:4073} the slopes further north-east below the crag. Both are lone shredder robots; they roam, so follow the road until you meet them."] = "Вверх по тропе ({area:1076}) к хижине ({npc:4201}), затем на восток по дороге к месту {area:461}: {npc:4074} патрулирует дорогу чуть восточнее развилки, {npc:4073} – склоны дальше к северо-востоку под утесом. Оба – одиночные роботы-крошшеры; они бродят, так что идите по дороге, пока не встретите их.",
-
-	-- Step 11: Sun Rock Retreat
-	-- {area:1076} Webwinder Path · {npc:4201} Ziz Fizziks · {area:460} Sun Rock Retreat · {npc:4073} XT:4
-	["Up the {area:1076} past {npc:4201} and west to {area:460}; coming from {npc:4073}, back west past Ziz's hut."] = "Вверх по тропе ({area:1076}) мимо NPC {npc:4201} и на запад к месту {area:460}; если идете от NPC {npc:4073} – обратно на запад мимо хижины Зиза.",
-	-- {npc:11862} Tsunaman · {npc:12736} Je'neu Sancrea
-	["{npc:11862}: {npc:12736} at Zoram'gar, next guide"] = "",
-	-- {npc:11860} Maggran Earthbinder · {npc:12576} Grish Longrunner · {area:1718} Great Lift
-	["{npc:11860}: {npc:12576} is at the {area:1718}, later in this guide"] = "",
-	-- {npc:11860} Maggran Earthbinder
-	-- plural, as words: Glittering Sunstones = {item:277936} Glittering Sunstone
-	["{npc:11860}: Glittering Sunstones from the Bloodfury harpies"] = "{npc:11860}: сверкающие солнечные камни ({item:277936}) с гарпий из стаи Кровавой Ярости",
-	-- {npc:4198} Braelyn Firehand
-	["{npc:4198}, outside the gate"] = "{npc:4198}, за воротами",
-
-	-- Step 12: Tammra Windfield
-	-- {npc:11864} Tammra Windfield
-	["{npc:11864} stands by the bonfire inside Sun Rock: Makaba's news that Kaya is alive is for her."] = "{npc:11864} стоит у костра в Солнечном Камне: весть Макабы о том, что Кайя жива, предназначена ей.",
-
-	-- Step 13: Gaea Seeds
-	-- plural, as words: Gaea Seeds = {item:16205} Gaea Seed
-	["Gaea Seeds"] = "Семена Геи ({item:16205})",
-	-- {area:464} Mirkfallon Lake
-	-- plural, as words: Gaea Seeds = {item:16205} Gaea Seed
-	["The Gaea Seeds lie in the grass around the southern shore of {area:464}, north of Sun Rock.\nCareful: Pridewings around the lake can aggro as a linked group."] = "",
-
-	-- Step 14: Mirkweed
-	-- {object:667362} Mirkweed · {area:464} Mirkfallon Lake
-	-- plural, as words: Dried Mirkweed Piles = {object:667364} Dried Mirkweed Pile
-	["The {object:667362} grows on the bottom of {area:464}, off the same southern shore: dive to the plants and the Dried Mirkweed Piles; both give pods. Watch your breath."] = "{object:667362} растет на дне озера ({area:464}), у того же южного берега: ныряйте к растениям и кучам сушеной мутной травы – и то и другое дает стручки. Следите за дыханием.",
-
-	-- Step 15: Stonetalon Mountains: kill these as you meet them
-	-- {zone:1442} Stonetalon Mountains
-	["{zone:1442}: kill these as you meet them"] = "",
-	-- {area:467} Stonetalon Peak
-	-- plural, as words: Antlered Coursers = {npc:4018} Antlered Courser · Sap Beasts = {npc:4020} Sap Beast · Twilight Runners = {npc:4067} Twilight Runner · Fey Dragons = {npc:4016} Fey Dragon
-	["Follow the road north toward {area:467}. Antlered Coursers graze along the way; the Sap Beasts, Twilight Runners and Fey Dragons roam the woods below the Peak, and the Cenarion druids hold the grove there."] = "Идите по дороге на север к месту {area:467}. По пути пасутся беговые олени-рогачи ({npc:4018}); сокотвари ({npc:4020}), сумеречные бегуны ({npc:4067}) и волшебные дракончики ({npc:4016}) бродят в лесу под пиком, а кенарийские друиды занимают рощу там.",
-
-	-- Step 16: Sun Rock Retreat
-	-- {npc:4198} Braelyn Firehand · {zone:1440} Ashenvale
-	["{npc:4198}'s next quest, Ordanus, is on the Alliance side of {zone:1440}. Skip it."] = "Следующее задание {npc:4198}, «Гордан», – на стороне Альянса в зоне {zone:1440}. Пропустите его.",
-
-	-- Step 17: The Charred Vale: kill these as you meet them
-	-- {area:465} The Charred Vale
-	["{area:465}: kill these as you meet them"] = "",
-	-- {area:465} The Charred Vale · {item:16312} Incendrites
-	-- plural, as words: Gaea Seeds = {item:16205} Gaea Seed
-	["South-west of Sun Rock lies the burned {area:465}. Plant the Gaea Seeds in the dirt mounds on the valley floor; the fire elementals drop {item:16312}. Bloodfury Harpies and Ambushers nest on the north side, Slayers and Roguefeathers to the south."] = "К юго-западу от Солнечного Камня лежит выжженная {area:465}. Посадите семена Геи в земляные курганы на дне долины; с огненных элементалей падают {item:16312}. Гарпии и душительницы из стаи Кровавой Ярости гнездятся на севере, душегубки и бродяжницы – на юге.",
-	-- {item:277936} Glittering Sunstone
-	["{item:277936}, from any Bloodfury harpy"] = "{item:277936}, с любой гарпии из стаи Кровавой Ярости",
-	-- plural, as words: Gaea Dirt Mounds = {object:177929} Gaea Dirt Mound
-	["Gaea Dirt Mounds"] = "Земляные курганы Геи ({object:177929})",
-
-	-- Step 18: Sun Rock Retreat
-	-- {npc:11861} Mor'rogal · {npc:11862} Tsunaman
-	["{npc:11861}, beside {npc:11862}"] = "{npc:11861}, рядом с NPC {npc:11862}",
-	-- {npc:11862} Tsunaman
-	["{npc:11862}, up on the ledge"] = "{npc:11862}, наверху на уступе",
-
-	-- Step 19: Malaka'jin
-	-- {area:1076} Webwinder Path · {area:2539} Malaka'jin
-	["Head back down the {area:1076} to {area:2539}."] = "",
-
-	-- Step 20: Seereth Stonebreak
-	-- {area:2539} Malaka'jin · {npc:4049} Seereth Stonebreak · {area:378} Camp Taurajo
-	["East along the road from {area:2539} to {npc:4049}'s camp, on the way to {area:378}."] = "На восток по дороге от места {area:2539} к лагерю ({npc:4049}), по пути к месту {area:378}.",
-
-	-- Step 21: To Camp Taurajo
-	-- {area:378} Camp Taurajo
-	["To {area:378}"] = "",
-
-	-- Step 22: Camp Taurajo
-	-- {area:2539} Malaka'jin · {npc:4049} Seereth Stonebreak · {area:378} Camp Taurajo
-	["From {area:2539} follow the road east to {npc:4049}'s camp, then south-east across the plains to {area:378}."] = "От места {area:2539} идите по дороге на восток к лагерю ({npc:4049}), затем на юго-восток через равнины к месту {area:378}.",
+	-- Step 7: Camp Taurajo
+	-- {area:378} Camp Taurajo · {npc:3433} Tatternack Steelforge · {npc:3387} Jorn Skyseer · {npc:3430} Mangletooth
+	["The flight lands at {area:378}'s wind rider master. {npc:3433} stands at the north edge of the camp, {npc:3387} and {npc:3430} (in the cage) in the middle."] = "Полет заканчивается у распорядителя полетов ({area:378}). {npc:3433} стоит у северного края лагеря, {npc:3387} и {npc:3430} (в клетке) – в центре.",
 	-- {npc:3433} Tatternack Steelforge
 	["{npc:3433}, at the north edge of the camp"] = "{npc:3433}, у северного края лагеря",
 	-- {npc:3430} Mangletooth
 	["{npc:3430}, in the cage"] = "{npc:3430}, в клетке",
 
-	-- Step 23: Grunt Logmar
+	-- Step 8: Grunt Logmar
 	-- {npc:5911} Grunt Logmar · {npc:268623} Outraged Pillager
 	-- plural, as words: Encroaching Soldiers = {npc:268622} Encroaching Soldier
 	["{npc:5911} stands by the flight master. His {npc:268623} (23) is elite: grouping up is advised; the two Encroaching Soldiers are not."] = "",
 	-- {npc:5911} Grunt Logmar · {npc:3341} Gann Stonespire
 	["{npc:5911}: the soldiers and the pillager camp just east of {npc:3341}, on the way south"] = "",
 
-	-- Step 25: Brine
+	-- Step 10: Brine
 	-- {npc:5899} Brine · {area:378} Camp Taurajo · {area:359} Bael Modan
 	["{npc:5899}'s hut stands on the ridge above the quilboar watering hole, south of {area:378}, on the way to {area:359}."] = "Хижина ({npc:5899}) стоит на гребне над водопоем свинобразов, к югу от места {area:378}, по пути в {area:359}.",
 	-- {npc:5899} Brine · {area:272} Tarren Mill
@@ -154,7 +63,7 @@ return {
 	-- {npc:5899} Brine · {zone:1440} Ashenvale
 	["{npc:5899}: the blue waterskin is filled in {zone:1440}, next guide"] = "{npc:5899}: синий бурдюк наполняется в зоне {zone:1440}, следующий гайд",
 
-	-- Step 26: Gann Stonespire
+	-- Step 11: Gann Stonespire
 	-- {npc:3341} Gann Stonespire · {area:359} Bael Modan · {npc:14242} Sulhasa
 	["{npc:3341} walks the road south toward {area:359}, between about 46,75 and 46,81: if he isn't at the arrow, follow the road until you meet him. {npc:14242} sits up in the tree just east of the road at 47.9,77.5."] = "",
 	-- {npc:3341} Gann Stonespire · {area:1701} Blackthorn Ridge
@@ -162,85 +71,193 @@ return {
 	-- {npc:14242} Sulhasa · {npc:3341} Gann Stonespire
 	["{npc:14242}, up in the tree just east of {npc:3341}"] = "{npc:14242}, на дереве чуть восточнее {npc:3341}",
 
-	-- Step 27: Wrongly Blamed, Justly Corrected
+	-- Step 12: Wrongly Blamed, Justly Corrected
 	-- {npc:14242} Sulhasa · {npc:268623} Outraged Pillager
 	-- plural, as words: Encroaching Soldiers = {npc:268622} Encroaching Soldier
 	["A few steps east of {npc:14242}'s tree, a small camp: two Encroaching Soldiers and the {npc:268623} for Logmar. The {npc:268623} is elite: grouping up is advised."] = "",
 
-	-- Step 28: Bael Modan
+	-- Step 13: Bael Modan
 	-- {area:359} Bael Modan · {npc:3392} Prospector Khazgorm
-	["South of Gann, the Bael'dun dwarves dig at {area:359}. Excavators and Foremen work the pit; {npc:3392} (26) carries the journal: pull him alone.\nCareful: Excavators (level 21-22) and Foremen (level 22-23) run off for help once they fall to 15% health, so more dwarves can join the fight."] = "",
+	["South of Gann, the Bael'dun dwarves dig at {area:359}. Excavators and Foremen work the pit; {npc:3392} (26) carries the journal: pull him alone.\nCareful: Excavators (level 21-22) and Foremen (level 22-23) run off for help once they fall to 15% health, so more dwarves can join the fight."] = "К югу от Ганна дворфы Бейл'дана ведут раскопки ({area:359}). В котловане работают землечерпы и старшины; дневник – у NPC {npc:3392} (26): выманите его одного.\nОсторожно: землечерпы (21-22-й уровень) и старшины (22-23-й уровень) при 15% здоровья убегают за подмогой, так что в бой могут вступить другие дворфы.",
 	-- {npc:3375} Bael'dun Foreman · {area:359} Bael Modan
 	["{npc:3375} walks around {area:359}: look inside the circle on the map"] = "",
 
-	-- Step 29: Blackthorn Ridge
+	-- Step 14: Blackthorn Ridge
 	-- {area:1701} Blackthorn Ridge · {npc:3436} Kuz · {npc:3434} Nak · {npc:3435} Lok Orcbane · {npc:5859} Hagg Taurenbane · {quest:885} Washte Pawne · {spell:1752} Sinister Strike
 	-- plural, as words: Razormane Stalkers = {npc:3457} Razormane Stalker
-	["West of Gann, the Razormane hold {area:1701}. {npc:3436} is on the east side, {npc:3434} to the south, {npc:3435} at the west end. Lok (25) and the Warfrenzies (24-25) are a few levels above you; {npc:5859}, a rare elite, sometimes walks the ridge: leave him. Pathfinders and Stalkers drop the Backstabber, Seers the Wand, Warfrenzies the War Shield. {quest:885}, a rare red wind serpent, flies over the ridge: its feather starts a quest.\nCareful: Razormane Stalkers move around in stealth and hit with {spell:1752}, so they can join a fight without warning."] = "",
+	["West of Gann, the Razormane hold {area:1701}. {npc:3436} is on the east side, {npc:3434} to the south, {npc:3435} at the west end. Lok (25) and the Warfrenzies (24-25) are a few levels above you; {npc:5859}, a rare elite, sometimes walks the ridge: leave him. Pathfinders and Stalkers drop the Backstabber, Seers the Wand, Warfrenzies the War Shield. {quest:885}, a rare red wind serpent, flies over the ridge: its feather starts a quest.\nCareful: Razormane Stalkers move around in stealth and hit with {spell:1752}, so they can join a fight without warning."] = "К западу от Ганна племя Иглогривых занимает {area:1701}. {npc:3436} – на восточной стороне, {npc:3434} – на юге, {npc:3435} – в западном конце. Лок (25) и бешенеры (24-25) на несколько уровней выше вас; по гребню иногда ходит редкий элитный {npc:5859}: не трогайте его. Кинжал падает с землепроходцев и ловчих, жезл – с ясновидцев, боевой щит – с бешенеров. Над гребнем летает редкий красный ветрокрылый змей {quest:885}: его перо начинает задание.\nОсторожно: ловчие Иглогривых передвигаются в незаметности и бьют приемом {spell:1752}, так что могут вмешаться в бой без предупреждения.",
 
-	-- Step 30: Field to Clear
+	-- Step 15: Field to Clear
 	-- {npc:3341} Gann Stonespire · {npc:3238} Stormhide
-	-- plural, as words: Hecklefang Stalkers = {npc:4128} Hecklefang Stalker
-	["On the way back east to {npc:3341}: Hecklefang Stalkers and {npc:3238} lizards roam the plain between the ridge and his camp."] = "",
+	-- plural, as words: Hecklefang Stalkers = {npc:4128} Hecklefang Stalker · Qiraji Lieutenants = {npc:15806} Qiraji Lieutenant
+	["On the way back east to {npc:3341}: Hecklefang Stalkers and {npc:3238} lizards roam the plain between the ridge and his camp. Careful: Qiraji Lieutenants (28, elite) sometimes stand on that plain: give them a wide berth."] = "",
 	-- {npc:4128} Hecklefang Stalker · {area:1156} Southern Barrens
 	["{npc:4128} walks around {area:1156}: look inside the circle on the map"] = "",
 
-	-- Step 32: Bael'dun fortress
+	-- Step 17: Bael'dun fortress
 	["Bael'dun fortress"] = "Крепость Бейл'дана",
+	-- {npc:3414} General Twinbraid
 	-- plural, as words: Bael'dun Soldiers = {npc:3376} Bael'dun Soldier
-	["The Bael'dun Soldiers, Riflemen and Officers guard the fortress on the east side of the dig; all three items drop from them.\nCareful: Riflemen (level 24-25) Shoot from 5-30 yd, so nearby ones can join a fight from range."] = "",
+	["The Bael'dun Soldiers, Riflemen and Officers guard the fortress on the east side of the dig; all three items drop from them. {npc:3414} (30) and his Officers stand on the bottom floor: work the soldiers and riflemen on the upper levels and keep away from him.\nCareful: Riflemen (level 24-25) Shoot from 5-30 yd, so nearby ones can join a fight from range."] = "",
 
-	-- Step 34: The flying machine
+	-- Step 19: The flying machine
 	["The flying machine"] = "Летательная машина",
 	-- {item:5021} Explosive Stick of Gann · {npc:3341} Gann Stonespire
 	["The dwarves' flying machine sits on its platform inside the dig site. Use the {item:5021} that {npc:3341} gave you on it."] = "Летательная машина дворфов стоит на площадке внутри раскопок. Используйте на ней {item:5021}, полученную от NPC {npc:3341}.",
 
-	-- Step 36: Great Lift
-	-- {area:1718} Great Lift
-	["The top of the {area:1718}"] = "",
+	-- Step 21: To Camp Taurajo
+	-- {area:378} Camp Taurajo
+	["To {area:378}"] = "",
+	-- {area:378} Camp Taurajo
+	["North up the road to {area:378}: your hearthstone takes you there if it is ready."] = "На север по дороге: {area:378}. Камень возвращения перенесет вас туда, если он готов.",
 
-	-- Step 37: Great Lift
-	-- {npc:12576} Grish Longrunner · {area:1718} Great Lift
-	["South-west of Bael Modan, {npc:12576} waits at the top of the {area:1718}."] = "",
-
-	-- Step 38: The Great Lift
-	-- {area:1718} Great Lift
-	["The {area:1718}"] = "{area:1718}",
-	-- {npc:10079} Brave Moonhorn · {area:1718} Great Lift · {npc:12576} Grish Longrunner
-	["{npc:10079} stands at the top of the {area:1718}, beside {npc:12576}."] = "{npc:10079} стоит наверху ({area:1718}), рядом с NPC {npc:12576}.",
-	-- {npc:10079} Brave Moonhorn
-	["{npc:10079}, at the top of the lift"] = "{npc:10079}, наверху у подъемника",
-
-	-- Step 41: Grunt Logmar
+	-- Step 23: Grunt Logmar
 	-- {npc:5911} Grunt Logmar
 	["{npc:5911}, beside the flight master"] = "",
 
-	-- Step 42: Fly to Crossroads
+	-- Step 24: Fly to Crossroads
+	["Fly to Crossroads"] = "",
 	-- {area:378} Camp Taurajo
 	["{area:378} flight master"] = "",
 
-	-- Step 43: The Crossroads
+	-- Step 25: The Crossroads
 	-- {npc:3429} Thork
 	["{npc:3429}, at the top of the tower"] = "{npc:3429}, на вершине башни",
 
-	-- Step 44: Fly to Ratchet
+	-- Step 26: Fly to Ratchet
 	-- {area:392} Ratchet
 	["Fly to {area:392}"] = "Лететь: {area:392}",
 	["Crossroads flight master"] = "",
 
-	-- Step 45: Sputtervalve
-	-- {npc:3442} Sputtervalve
-	["{npc:3442} stands beside the flight master you land at."] = "{npc:3442} стоит рядом с распорядителем полетов, у которого вы приземлитесь.",
+	-- Step 27: Sputtervalve
+	-- {npc:3442} Sputtervalve · {npc:4201} Ziz Fizziks · {area:1076} Webwinder Path
+	["{npc:3442} stands beside the flight master you land at. His new orders go back to {npc:4201} on the {area:1076}, later in this guide."] = "{npc:3442} стоит рядом с распорядителем полетов, у которого вы приземлитесь. Его новые приказы позже в этом гайде вернутся к NPC {npc:4201} на тропе ({area:1076}).",
 	-- {npc:3442} Sputtervalve · {quest:1094} Further Instructions · {npc:4201} Ziz Fizziks
 	["{npc:3442}: {quest:1094}, from {npc:4201}"] = "{npc:3442}: {quest:1094}, от NPC {npc:4201}",
+	-- {npc:3442} Sputtervalve · {npc:4201} Ziz Fizziks · {area:1076} Webwinder Path
+	["{npc:3442}: for {npc:4201}, on the way up the {area:1076}"] = "{npc:3442}: для NPC {npc:4201}, по пути вверх ({area:1076})",
 
-	-- Step 46: Merchant Coast
+	-- Step 28: Mebok Mizzyrix
+	-- {area:718} Wailing Caverns · {npc:3446} Mebok Mizzyrix
+	["{area:718} quests still in your log: {npc:3446} stands beside the WANTED poster, Bigglefuzz on the dock by the flight master."] = "Задания для подземелья {area:718} еще в журнале: {npc:3446} стоит рядом с плакатом «РАЗЫСКИВАЕТСЯ», Бигглфазз – на причале у распорядителя полетов.",
+
+	-- Step 29: Crane Operator Bigglefuzz
+	-- {npc:3665} Crane Operator Bigglefuzz
+	["{npc:3665}, on the dock"] = "{npc:3665}, на пристани",
+
+	-- Step 30: Merchant Coast
 	-- {quest:874} Mahren Skyseer · {area:392} Ratchet
 	["{quest:874} camps on the shore just north of {area:392}'s flight master."] = "",
 
-	-- Step 47: Isha Awak
+	-- Step 31: Isha Awak
 	-- {quest:873} Isha Awak · {area:391} Merchant Coast · {npc:3388} Mahren Skyseer
 	["{quest:873}, a big threshadon, swims in the shallows off the {area:391}, east of {npc:3388}."] = "{quest:873}, большой трешадон, плавает на мелководье у места {area:391}, к востоку от {npc:3388}.",
+
+	-- Step 33: Seereth Stonebreak
+	-- {npc:4049} Seereth Stonebreak
+	["Follow the road west past Regthar's bunkers: {npc:4049} camps beside it at the edge of Stonetalon."] = "Идите по дороге на запад мимо бункеров Регтара: {npc:4049} стоит лагерем у дороги на краю Когтистых гор.",
+	-- {npc:4049} Seereth Stonebreak · {npc:4074} XT:9 · {npc:4073} XT:4 · {npc:4201} Ziz Fizziks
+	["{npc:4049}: {npc:4074} and {npc:4073} roam east of {npc:4201}, on the way up"] = "{npc:4049}: {npc:4074} и {npc:4073} бродят к востоку от NPC {npc:4201}, по пути наверх",
+
+	-- Step 34: The road west
+	["The road west"] = "",
+	-- {npc:4049} Seereth Stonebreak
+	["The road west past {npc:4049}'s camp"] = "Дорога на запад мимо лагеря ({npc:4049})",
+
+	-- Step 35: Malaka'jin
+	-- {npc:4049} Seereth Stonebreak · {npc:3995} Witch Doctor Jin'Zil · {area:2539} Malaka'jin · {area:1076} Webwinder Path
+	["Follow the road on west past {npc:4049}'s camp into Stonetalon: {npc:3995} waits below ground in {area:2539}, at the foot of the {area:1076}."] = "Идите дальше по дороге на запад мимо лагеря ({npc:4049}) в Когтистые горы: {npc:3995} ждет под землей здесь: {area:2539}, у подножия тропы ({area:1076}).",
+	-- {npc:3995} Witch Doctor Jin'Zil
+	["{npc:3995}, below ground"] = "",
+
+	-- Step 36: Ziz Fizziks
+	-- {area:1076} Webwinder Path · {npc:4201} Ziz Fizziks · {area:461} Windshear Crag · {npc:3442} Sputtervalve
+	["Up the {area:1076} to {npc:4201}' hut, where the road forks east to {area:461}: {npc:3442}'s orders are for him."] = "Вверх по тропе ({area:1076}) к хижине NPC {npc:4201}, где дорога сворачивает на восток к месту {area:461}: приказы NPC {npc:3442} – для него.",
+	-- {npc:4201} Ziz Fizziks
+	["{npc:4201}, inside"] = "{npc:4201}, внутри",
+	-- {npc:4201} Ziz Fizziks · {npc:4202} Gerenzo Wrenchwhistle · {area:461} Windshear Crag
+	["{npc:4201}: {npc:4202}, at the top of the Venture Co. tower on {area:461}"] = "{npc:4201}: {npc:4202}, наверху башни Торговой компании ({area:461})",
+
+	-- Step 37: Shredding Machines
+	-- {npc:4201} Ziz Fizziks · {area:461} Windshear Crag · {npc:4074} XT:9 · {npc:4073} XT:4
+	["From {npc:4201}' hut east along the road toward {area:461}: {npc:4074} patrols the road just east of the fork, {npc:4073} the slopes further north-east below the crag. Both are lone shredder robots; they roam, so follow the road until you meet them."] = "От хижины ({npc:4201}) на восток по дороге к месту {area:461}: {npc:4074} патрулирует дорогу чуть восточнее развилки, {npc:4073} – склоны дальше к северо-востоку под утесом. Оба – одиночные роботы-крошшеры; они бродят, так что идите по дороге, пока не встретите их.",
+
+	-- Step 38: Gerenzo Wrenchwhistle
+	-- {npc:4073} XT:4 · {quest:1096} Gerenzo Wrenchwhistle · {area:461} Windshear Crag
+	["A short walk north of {npc:4073}, {quest:1096} (27) stands at the top of the Venture Co. tower on {area:461}: clear the Venture Co. on the way up. His Mechanical Arm is for Ziz."] = "Чуть севернее NPC {npc:4073}, на вершине башни Торговой компании ({area:461}), стоит {quest:1096} (27): по пути наверх перебейте людей Торговой компании. Его механическая рука нужна Зизу.",
+	-- {item:5736} Gerenzo's Mechanical Arm · {quest:1096} Gerenzo Wrenchwhistle
+	["{item:5736}, from {quest:1096}"] = "{item:5736}, падает с цели {quest:1096}",
+
+	-- Step 39: Ziz Fizziks
+	-- {npc:4201} Ziz Fizziks
+	["Back west to {npc:4201}' hut, on the way to Sun Rock."] = "Назад на запад к хижине NPC {npc:4201}, по пути к Солнечному Камню.",
+
+	-- Step 40: Sun Rock Retreat
+	-- {npc:4201} Ziz Fizziks · {area:460} Sun Rock Retreat
+	["West from {npc:4201}' hut to {area:460}."] = "От хижины ({npc:4201}) на запад к месту {area:460}.",
+	-- {npc:11862} Tsunaman · {npc:12736} Je'neu Sancrea
+	["{npc:11862}: {npc:12736} at Zoram'gar, next guide"] = "",
+	-- {npc:11860} Maggran Earthbinder · {area:1718} Great Lift · {zone:1441} Thousand Needles
+	["{npc:11860}: Grish is at the {area:1718}, on the next guide's way into {zone:1441}"] = "{npc:11860}: Гриш – здесь: {area:1718}, на пути в зону {zone:1441} в следующем гайде",
+	-- {npc:11860} Maggran Earthbinder
+	-- plural, as words: Glittering Sunstones = {item:277936} Glittering Sunstone
+	["{npc:11860}: Glittering Sunstones from the Bloodfury harpies"] = "{npc:11860}: сверкающие солнечные камни ({item:277936}) с гарпий из стаи Кровавой Ярости",
+	-- {npc:4198} Braelyn Firehand
+	["{npc:4198}, outside the gate"] = "{npc:4198}, за воротами",
+
+	-- Step 41: Tammra Windfield
+	-- {npc:11864} Tammra Windfield
+	["{npc:11864} stands by the bonfire inside Sun Rock: Makaba's news that Kaya is alive is for her."] = "{npc:11864} стоит у костра в Солнечном Камне: весть Макабы о том, что Кайя жива, предназначена ей.",
+
+	-- Step 42: Gaea Seeds
+	-- plural, as words: Gaea Seeds = {item:16205} Gaea Seed
+	["Gaea Seeds"] = "Семена Геи ({item:16205})",
+	-- {area:464} Mirkfallon Lake
+	-- plural, as words: Gaea Seeds = {item:16205} Gaea Seed
+	["The Gaea Seeds lie in the grass around the southern shore of {area:464}, north of Sun Rock.\nCareful: Pridewings around the lake can aggro as a linked group."] = "",
+
+	-- Step 43: Mirkweed
+	-- {object:667362} Mirkweed · {area:464} Mirkfallon Lake
+	-- plural, as words: Dried Mirkweed Piles = {object:667364} Dried Mirkweed Pile
+	["The {object:667362} grows on the bottom of {area:464}, off the same southern shore: dive to the plants and the Dried Mirkweed Piles; both give pods. Watch your breath."] = "{object:667362} растет на дне озера ({area:464}), у того же южного берега: ныряйте к растениям и кучам сушеной мутной травы – и то и другое дает стручки. Следите за дыханием.",
+
+	-- Step 44: Stonetalon Mountains: kill these as you meet them
+	-- {zone:1442} Stonetalon Mountains
+	["{zone:1442}: kill these as you meet them"] = "",
+	-- {area:467} Stonetalon Peak
+	-- plural, as words: Antlered Coursers = {npc:4018} Antlered Courser · Sap Beasts = {npc:4020} Sap Beast · Twilight Runners = {npc:4067} Twilight Runner · Fey Dragons = {npc:4016} Fey Dragon
+	["Follow the road north toward {area:467}. Antlered Coursers graze along the way; the Sap Beasts, Twilight Runners and Fey Dragons roam the woods below the Peak, and the Cenarion druids hold the grove there."] = "Идите по дороге на север к месту {area:467}. По пути пасутся беговые олени-рогачи ({npc:4018}); сокотвари ({npc:4020}), сумеречные бегуны ({npc:4067}) и волшебные дракончики ({npc:4016}) бродят в лесу под пиком, а кенарийские друиды занимают рощу там.",
+
+	-- Step 45: Sun Rock Retreat
+	-- {npc:4198} Braelyn Firehand · {zone:1440} Ashenvale
+	["{npc:4198}'s next quest, Ordanus, is on the Alliance side of {zone:1440}. Skip it."] = "Следующее задание {npc:4198}, «Гордан», – на стороне Альянса в зоне {zone:1440}. Пропустите его.",
+
+	-- Step 46: The Charred Vale: kill these as you meet them
+	-- {area:465} The Charred Vale
+	["{area:465}: kill these as you meet them"] = "",
+	-- {area:465} The Charred Vale · {item:16312} Incendrites
+	-- plural, as words: Gaea Seeds = {item:16205} Gaea Seed · Burning Destroyers = {npc:4038} Burning Destroyer · Scorched Basilisks = {npc:4041} Scorched Basilisk
+	["South-west of Sun Rock lies the burned {area:465}. Plant the Gaea Seeds in the dirt mounds on the valley floor; the fire elementals drop {item:16312}. Bloodfury Harpies and Ambushers nest on the north side, Slayers and Roguefeathers to the south. Careful: the Burning Destroyers, Scorched Basilisks and Bloodfury Storm Witches here are level 27 and the valley floor is crowded: pull one at a time and keep to its edges."] = "К юго-западу от Солнечного Камня лежит выжженная {area:465}. Посадите семена Геи в земляные курганы на дне долины; с огненных элементалей падают {item:16312}. Гарпии и душительницы из стаи Кровавой Ярости гнездятся на севере, душегубки и бродяжницы – на юге. Осторожно: пылающие разрушители, опаленные василиски и ведьмы бури из стаи Кровавой Ярости здесь 27-го уровня, а на дне долины тесно: выманивайте по одному и держитесь ее краев.",
+	-- {item:277936} Glittering Sunstone
+	["{item:277936}, from any Bloodfury harpy"] = "{item:277936}, с любой гарпии из стаи Кровавой Ярости",
+	-- plural, as words: Gaea Dirt Mounds = {object:177929} Gaea Dirt Mound
+	["Gaea Dirt Mounds"] = "Земляные курганы Геи ({object:177929})",
+
+	-- Step 47: Sun Rock Retreat
+	-- {npc:11861} Mor'rogal · {npc:11862} Tsunaman
+	["{npc:11861}, beside {npc:11862}"] = "{npc:11861}, рядом с NPC {npc:11862}",
+	-- {npc:11862} Tsunaman
+	["{npc:11862}, up on the ledge"] = "{npc:11862}, наверху на уступе",
+
+	-- Step 48: Malaka'jin
+	-- {area:1076} Webwinder Path · {area:2539} Malaka'jin
+	["Head back down the {area:1076} to {area:2539}."] = "",
+
+	-- Step 49: Seereth Stonebreak
+	-- {area:2539} Malaka'jin · {npc:4049} Seereth Stonebreak
+	["East along the road from {area:2539} to {npc:4049}'s camp."] = "На восток по дороге от места {area:2539} к лагерю ({npc:4049}).",
+	-- {area:2897} Zoram'gar Outpost · {area:378} Camp Taurajo
+	["The next guide flies to {area:2897}: hearth to {area:378} if your hearthstone is ready, or walk on east to the Crossroads' flight master."] = "Следующий гайд летит сюда: {area:2897}. Вернитесь камнем возвращения в {area:378}, если он готов, или идите дальше на восток к распорядителю полетов на Перекрестке.",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Assist {npc:261366}: stay by him when {npc:261367} and the {area:21} marines come up the ridge"] = "Помогите NPC {npc:261366}: держитесь рядом, когда на гребень поднимутся {npc:261367} и солдаты ({area:21})",
@@ -261,6 +278,7 @@ return {
 	-- ["Fly to {area:1638} and train your level 20 ranks: {npc:3033} is on {area:1639}."] = "Летите сюда: {area:1638} – и изучите ранги 20-го уровня: {npc:3033} – здесь: {area:1639}.",
 	-- ["Fly to {area:1638} to train: {npc:3033} is on {area:1639}."] = "Летите сюда: {area:1638} – на обучение: {npc:3033} – здесь: {area:1639}.",
 	-- ["Follow the {area:458} south to {area:378}."] = "Идите по дороге ({area:458}) на юг. Цель: {area:378}.",
+	-- ["From {area:2539} follow the road east to {npc:4049}'s camp, then south-east across the plains to {area:378}."] = "От места {area:2539} идите по дороге на восток к лагерю ({npc:4049}), затем на юго-восток через равнины к месту {area:378}.",
 	-- ["He gives you the {item:15826}"] = "Он даст вам {item:15826}",
 	-- ["He offers {quest:1838} next (1838, level 30): it needs {area:1717} and sends you all over Kalimdor and the Eastern Kingdoms. The Warrior class guide {quest:1838} covers it."] = "Затем он предложит {quest:1838} (1838, 30-й уровень): для него нужно место {area:1717}, и оно отправит вас по всему Калимдору и Восточным королевствам. Его описывает классовый гайд воина «{quest:1838}».",
 	-- ["Hearth to the {area:380}"] = "Вернуться камнем: {area:380}",
@@ -275,7 +293,6 @@ return {
 	-- ["Ride north from the {area:380} to {area:384} and fill the {item:15842} at the {object:19464}, then back to {npc:3448} in the {area:380}. No {skill:182}? {npc:3490} beside him sells {item:2449}, three at a time until he restocks."] = "Езжайте на север от места {area:380}. Цель: {area:384}. Наполните {item:15842} ({object:19464}), затем назад: {npc:3448} ({area:380}). Нет навыка {skill:182}? {npc:3490} рядом с ним продает {item:2449} – по три штуки, пока не обновит запас.",
 	-- ["Savannah Patriarchs roam the plains east of the hills, and the Sprung Traps lie among them. {quest:876} leads the Witchwing harpies in the hills to the west."] = "Патриархи саванны бродят по равнинам к востоку от холмов, среди них лежат сработавшие ловушки. {quest:876} ведет гарпий из стаи Зачарованного Крыла на холмах к западу.",
 	-- ["South of Camp Taurajo the Silithid Mounds dot the {area:390}; the eggs lie in them, and Silithid Swarmers come out to defend them. Silithid Harvesters are rare: if you see one, kill it for its head."] = "К югу от Лагеря Таурахо по местности {area:390} разбросаны курганы силитидов; в них лежат яйца, а на защиту выходят членистоноги Силитида. Силитиды-жнецы редки: если увидите одного, убейте его ради головы.",
-	-- ["South of Gann, the Bael'dun dwarves dig at {area:359}. Excavators and Foremen work the pit; {npc:3392} (26) carries the journal: pull him alone."] = "К югу от Ганна дворфы Бейл'дана ведут раскопки ({area:359}). В котловане работают землечерпы и старшины; дневник – у NPC {npc:3392} (26): выманите его одного.",
 	-- ["Stay stealthed: {npc:7287} carries the key to the tower; Gallywix and his lockbox are at the top. Gallywix is elite: grouping up is advised."] = "Оставайтесь незаметными: ключ от башни – у NPC {npc:7287}; Нервотреп и его денежный ящик – наверху. Нервотреп – элита: лучше собрать группу.",
 	-- ["Sunscale Scytheclaws hunt the plains south of the {area:380}, around the {area:1697}; they drop the horns. Hand them in on your next pass through {area:392}."] = "Яркочешуйчатые смертехваты охотятся на равнинах к югу (ориентир: {area:380}), вокруг места {area:1697}; с них падают рога. Сдайте их, когда в следующий раз будете здесь: {area:392}.",
 	-- ["Tauren: the {npc:11957} waits on the southern hill above the bridge. Skyborne: the {npc:272054} stands south of the twin bridges. Then the dens east of the lake: leave your form, click the statue at the entrance for five minutes of stealth, keep clear of the spirits inside and take one of each relic; the {item:280680} lies at the foot of the white cat statue."] = "Таурены: {npc:11957} ждет на южном холме над мостом. Небеснорожденные: {npc:272054} стоит к югу от двух мостов. Затем – логова к востоку от озера: выйдите из облика, щелкните по статуе у входа, чтобы получить пять минут незаметности, держитесь подальше от духов внутри и возьмите по одной реликвии каждого вида; {item:280680} лежит у подножия статуи белой кошки.",
@@ -297,7 +314,6 @@ return {
 	-- ["Twitching Antennae"] = "Дергающиеся усики",
 	-- ["Twitching Antennae from the silithid"] = "Дергающиеся усики с силитидов",
 	-- ["Venture Co. tower"] = "Башня Торговой компании",
-	-- ["West of Gann, the Razormane hold {area:1701}. {npc:3436} is on the east side, {npc:3434} to the south, {npc:3435} at the west end. Lok (25) and the Warfrenzies (24-25) are a few levels above you; {npc:5859}, a rare elite, sometimes walks the ridge: leave him. Pathfinders and Stalkers drop the Backstabber, Seers the Wand, Warfrenzies the War Shield. {npc:3238} lizards and Hecklefang Stalkers roam the plain between {npc:3341} and the ridge. {quest:885}, a rare red wind serpent, flies over the ridge: its feather starts a quest."] = "К западу от {npc:3341} племя Иглогривых занимает {area:1701}. {npc:3436} – на восточной стороне, {npc:3434} – на юге, {npc:3435} – в западном конце. Лок (25) и бешенеры (24-25) на несколько уровней выше вас; по гребню иногда ходит редкий элитный {npc:5859}: не трогайте его. Кинжал падает с землепроходцев и ловчих, жезл – с ясновидцев, боевой щит – с бешенеров. Ящеры ({npc:3238}) и многозубые ловцы бродят по равнине между Ганном и гребнем. Над гребнем летает редкий красный ветрокрылый змей {quest:885}: его перо начинает задание.",
 	-- ["Wizzlecrank drives his shredder out of the camp: stay with him and kill whatever attacks him. {npc:3442} takes it in {area:392}."] = "Он выводит свой крошшер из лагеря: держитесь рядом и убивайте всех, кто на него нападает. Задание принимает {npc:3442} ({area:392}).",
 	-- ["grind on Thunderhawk Hatchlings south-west of the {area:380}"] = "убивайте птенцов грозового змея к юго-западу (ориентир: {area:380})",
 	-- ["{area:385}, on the coast further south. The Theramore Marines and Preservers (15-16) drop the medals; {npc:3393} (20) and the two cannoneers (19) stand in the keep and on its walls, and they are why the hold waits until now."] = "{area:385}, на побережье дальше к югу. Медали падают с тераморских стражей бухты и оберегательниц (15-16); {npc:3393} (20) и двое канониров (19) стоят в крепости и на ее стенах – поэтому крепость и ждала до сих пор.",
@@ -305,6 +321,7 @@ return {
 	-- ["{item:15885}: use a half at the {area:2362}"] = "{item:15885}: используйте половинку здесь: {area:2362}",
 	-- ["{item:2449} from {npc:3490}; herbalists pick it on the plains"] = "{item:2449}: продает {npc:3490}; травники собирают на равнинах",
 	-- ["{item:2449}: herbalists pick it here"] = "{item:2449}: травники собирают здесь",
+	-- ["{npc:10079} stands at the top of the {area:1718}, beside {npc:12576}."] = "{npc:10079} стоит наверху ({area:1718}), рядом с NPC {npc:12576}.",
 	-- ["{npc:11798} in {area:2361} flies druids there"] = "{npc:11798} ({area:2361}) отправляет туда друидов по воздуху",
 	-- ["{npc:11802}: the welcome from {npc:3033}"] = "{npc:11802}: приветствие от {npc:3033}",
 	-- ["{npc:12296}: use the {item:15826} on them; they roam the plains all around the {area:380}"] = "{npc:12296}: используйте на них {item:15826}; они бродят по равнинам вокруг места {area:380}",

@@ -9,7 +9,7 @@ return {
 	-- Guide
 	["Poisons (Horde)"] = "",
 	-- {item:7676} Thistle Tea
-	["Forever teaches Poisons through this chain, not the trainer; the {item:7676} recipe comes with it."] = "",
+	["Forever teaches Poisons through this chain, not the trainer; the {item:7676} recipe comes with it."] = "Forever enseña Venenos con esta cadena, no el instructor; la receta de {item:7676} viene con ella.",
 
 	-- Step 1: Lockpicking practice
 	["Lockpicking practice"] = "",
@@ -66,7 +66,6 @@ return {
 	-- ["At 20 {npc:3401} stands in the {object:172960}, the canyon under the {object:172982}. Target him and type /salute."] = "A nivel 20 {npc:3401} está en {object:172960}, el cañón bajo {object:172982}. Selecciónalo y escribe /salute.",
 	-- ["Fly back to {zone:1454}."] = "Vuelve volando a {zone:1454}.",
 	-- ["Fly to the {area:380} and ride north to the Venture Co. tower north of the {area:382}. In sight of the tower, fire the {item:8051} twice, then /salute {npc:7233} before he attacks you."] = "Vuela a {area:380} y cabalga al norte hasta la torre de Ventura y Cía. al norte de {area:382}. A la vista de la torre, dispara la {item:8051} dos veces y luego haz /salute a {npc:7233} antes de que te ataque.",
-	-- ["Forever teaches {spell:2842} through this chain, not the trainer; the {item:7676} recipe comes with it."] = "Forever enseña {spell:2842} con esta cadena, no el instructor; la receta de {item:7676} viene con ella.",
 	-- ["Stay stealthed. {npc:7287} carries the tower key; Gallywix (elite) and his lockbox are at the top of the tower. Kill two each of the drones, patrollers and lookouts around it."] = "Permanece en sigilo. {npc:7287} lleva la llave de la torre; Gallywix (élite) y su caja fuerte están en lo alto de la torre. Mata a dos de cada: zánganos, patrulleros y vigías de los alrededores.",
 	-- ["Take the zeppelin from {zone:1454} to the {zone:1458} and ride south through {zone:1421} to {area:272} in {area:287}. {npc:2391} stands in {area:272}; wait beside him while he brews the cure."] = "Toma el zepelín de {zone:1454} a {zone:1458} y cabalga al sur por {zone:1421} hasta {area:272}, en {area:287}. {npc:2391} está en {area:272}; espera a su lado mientras prepara la cura.",
 	-- ["{item:8051}, twice, in sight of the tower"] = "{item:8051}, dos veces, a la vista de la torre",

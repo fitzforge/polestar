@@ -18,10 +18,10 @@ return {
 	["{npc:5497} stands at the top of the Wizard's Sanctum, the violet tower of the {object:2101}; the portal near the top of the spiral ramp takes you to her."] = "{npc:5497} se tient au sommet du Sanctuaire des sorciers, la tour violette du {object:2101} ; le portail près du haut de la rampe en spirale vous mène à elle.",
 
 	-- Step 3: High Sorcerer Andromath (Skyborne)
-	-- {npc:5694} High Sorcerer Andromath
-	["{npc:5694} (Skyborne)"] = "{npc:5694} (Éolides)",
-	-- {zone:1453} Stormwind · {object:2101} Mage Quarter · {npc:5694} High Sorcerer Andromath · {npc:5497} Jennea Cannon
-	["You do not need a letter: at 26 climb the Wizard's Sanctum, the violet tower of {zone:1453}'s {object:2101}. {npc:5694} waits on the spiral walkway, just past the door of the portal room near the top, and has the quest for you. ({npc:5497} may also offer you {npc:5694}, the pointer quest; it is only a pointer and you can skip it.)"] = "Vous n'avez pas besoin de lettre : au niveau 26, montez dans le Sanctuaire des sorciers, la tour violette du {object:2101} de {zone:1453}. {npc:5694} attend sur la passerelle en spirale, juste après la porte de la salle des portails, près du sommet, et a la quête pour vous. ({npc:5497} peut aussi vous proposer {npc:5694}, la quête d'orientation ; ce n'est qu'une indication et vous pouvez la passer.)",
+	-- {quest:1939} High Sorcerer Andromath
+	["{quest:1939} (Skyborne)"] = "{quest:1939} (Éolides)",
+	-- {zone:1453} Stormwind · {object:2101} Mage Quarter · {quest:1939} High Sorcerer Andromath · {npc:5497} Jennea Cannon
+	["You do not need a letter: at 26 climb the Wizard's Sanctum, the violet tower of {zone:1453}'s {object:2101}. {quest:1939} waits on the spiral walkway, just past the door of the portal room near the top, and has the quest for you. ({npc:5497} may also offer you {quest:1939}, the pointer quest; it is only a pointer and you can skip it.)"] = "Vous n'avez pas besoin de lettre : au niveau 26, montez dans le Sanctuaire des sorciers, la tour violette du {object:2101} de {zone:1453}. {quest:1939} attend sur la passerelle en spirale, juste après la porte de la salle des portails, près du sommet, et a la quête pour vous. ({npc:5497} peut aussi vous proposer {quest:1939}, la quête d'orientation ; ce n'est qu'une indication et vous pouvez la passer.)",
 
 	-- Step 4: High Sorcerer Andromath
 	-- {quest:1939} High Sorcerer Andromath

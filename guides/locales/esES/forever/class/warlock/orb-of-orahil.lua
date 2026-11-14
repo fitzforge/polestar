@@ -28,12 +28,12 @@ return {
 
 	-- Step 5: Menara Voidrender
 	-- {npc:6266} Menara Voidrender · {npc:6251} Strahad Farsan · {area:392} Ratchet
-	["{npc:6266} and her two acolytes stand in {npc:6251}'s tower on the hill above {area:392}."] = "",
+	["{npc:6266} and her two acolytes stand in {npc:6251}'s tower on the hill above {area:392}."] = "{npc:6266} y sus dos acólitos están en la torre de {npc:6251}, en la colina sobre {area:392}.",
 
 	-- Step 6: Choose an acolyte
 	["Choose an acolyte"] = "Elige un acólito",
 	-- {npc:6254} Acolyte Wytula · {item:15106} Staff of Dar'Orahil · {npc:6252} Acolyte Magaz · {item:15105} Staff of Noh'Orahil
-	["Pick one acolyte: you can take only one of their quests. {npc:6254}'s felhound path ends with the Orb or {item:15106}, the shadow versions; {npc:6252}'s infernal path with the Orb or {item:15105}, much the same items on the fire side. Most warlocks lean on shadow, but compare the four in their tooltips first. The guide follows the one you take. Keep the ruby or the emerald: it is handed back."] = "",
+	["Pick one acolyte: you can take only one of their quests. {npc:6254}'s felhound path ends with the Orb or {item:15106}, the shadow versions; {npc:6252}'s infernal path with the Orb or {item:15105}, much the same items on the fire side. Most warlocks lean on shadow, but compare the four in their tooltips first. The guide follows the one you take. Keep the ruby or the emerald: it is handed back."] = "Elige un acólito: solo puedes aceptar una de sus misiones. El camino del manáfago de {npc:6254} acaba con el orbe o {item:15106}, las versiones de sombras; el camino del infernal de {npc:6252}, con el orbe o {item:15105}, objetos muy parecidos del lado del fuego. La mayoría de brujos se inclina por las sombras, pero compara antes los cuatro en sus descripciones. La guía sigue el que elijas. Guarda el rubí o la esmeralda: se devuelve.",
 	-- {npc:6254} Acolyte Wytula · {item:12647} Felhas Ruby
 	["{npc:6254}: she gives you the {item:12647}"] = "{npc:6254}: te da {item:12647}",
 	-- {npc:6252} Acolyte Magaz · {item:12646} Infus Emerald
@@ -47,14 +47,14 @@ return {
 	-- plural, as words: Burning Blade Summoners = {npc:4668} Burning Blade Summoner
 	["{item:7291}, from the Burning Blade Summoners"] = "{item:7291}, de los Invocadores Filo Ardiente",
 	-- {item:12648} Imprisoned Felhound Spirit · {npc:4678} Mana Eater · {npc:4681} Mage Hunter · {npc:4685} Ley Hunter
-	["{item:12648}, from a {npc:4678}, {npc:4681} or {npc:4685}"] = "",
+	["{item:12648}, from a {npc:4678}, {npc:4681} or {npc:4685}"] = "{item:12648}, de un {npc:4678}, {npc:4681} o {npc:4685}",
 	-- {item:12649} Imprisoned Infernal Spirit · {npc:4676} Lesser Infernal
 	["{item:12649}, from a {npc:4676}"] = "{item:12649}, de un {npc:4676}",
 
 	-- Step 8: The demon's spirit
 	["The demon's spirit"] = "El espíritu del demonio",
 	-- {npc:6266} Menara Voidrender · {area:392} Ratchet
-	["Back to {npc:6266} in the tower above {area:392} with the spirit and the gem first: her orb follows from it."] = "",
+	["Back to {npc:6266} in the tower above {area:392} with the spirit and the gem first: her orb follows from it."] = "Primero vuelve con {npc:6266} a la torre sobre {area:392} con el espíritu y la gema: su orbe viene después.",
 
 	-- Step 9: Tabetha
 	-- {npc:6546} Tabetha · {zone:1445} Dustwallow Marsh · {zone:1413} Barrens · {npc:6549} Demon of the Orb · {spell:710} Banish
@@ -64,7 +64,7 @@ return {
 	-- {item:15108} Orb of Dar'Orahil
 	["The {item:15108}"] = "{item:15108}",
 	-- {npc:6266} Menara Voidrender · {area:392} Ratchet · {item:15108} Orb of Dar'Orahil
-	["Back to {npc:6266} in the tower above {area:392} with the cleansed orb. On the felhound path, accept her last quest and wait beside her while she completes the {item:15108} (do not attack her: the quest log calls it a kill), then speak to her again and pick the off-hand orb or the staff."] = "",
+	["Back to {npc:6266} in the tower above {area:392} with the cleansed orb. On the felhound path, accept her last quest and wait beside her while she completes the {item:15108} (do not attack her: the quest log calls it a kill), then speak to her again and pick the off-hand orb or the staff."] = "Vuelve con {npc:6266} a la torre sobre {area:392} con el orbe purificado. En el camino del manáfago, acepta su última misión y espera a su lado mientras termina {item:15108} (no la ataques: el registro de misiones lo llama matar); luego vuelve a hablar con ella y elige el orbe de mano izquierda o el bastón.",
 	-- {npc:6266} Menara Voidrender
 	["Wait beside {npc:6266} while she makes the orb"] = "",
 
@@ -72,16 +72,10 @@ return {
 	-- {item:15107} Orb of Noh'Orahil
 	["The {item:15107}"] = "{item:15107}",
 	-- {npc:6266} Menara Voidrender · {item:15107} Orb of Noh'Orahil
-	["On the infernal path, accept her last quest and wait beside {npc:6266} while she completes the {item:15107}, then speak to her again and pick the off-hand orb or the staff."] = "",
+	["On the infernal path, accept her last quest and wait beside {npc:6266} while she completes the {item:15107}, then speak to her again and pick the off-hand orb or the staff."] = "En el camino del infernal, acepta su última misión y espera junto a {npc:6266} mientras termina {item:15107}; luego vuelve a hablar con ella y elige el orbe de mano izquierda o el bastón.",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
-	-- ["Back to {npc:6266} in the tower above {area:392} with the cleansed orb. On the felhound path, wait while she completes the {item:15108}, then speak to her again."] = "Vuelve con {npc:6266} a la torre sobre {area:392} con el orbe purificado. En el camino del manáfago, espera mientras termina {item:15108} y luego vuelve a hablar con ella.",
-	-- ["Back to {npc:6266} in the tower above {area:392} with the spirit first: {npc:6546}'s cleansing follows it."] = "Primero vuelve con {npc:6266} a la torre sobre {area:392} con el espíritu: la purificación de {npc:6546} viene después.",
-	-- ["On the infernal path, wait while {npc:6266} completes the {item:15107}, then speak to her again."] = "En el camino del infernal, espera mientras {npc:6266} termina {item:15107} y luego vuelve a hablar con ella.",
-	-- ["Pick one acolyte: you can take only one of their quests. {npc:6254}'s felhound path ends with the Orb or {item:15106}, {npc:6252}'s infernal path with the Orb or {item:15105}. The guide follows the one you take."] = "Elige un acólito: solo puedes aceptar una de sus misiones. El camino del manáfago de {npc:6254} acaba con el orbe o {item:15106}; el camino del infernal de {npc:6252}, con el orbe o {item:15105}. La guía sigue el que elijas.",
 	-- ["The demons of {area:602}, in southern {zone:1443}, have all you need. Burning Blade Summoners carry the {item:7291}. On the felhound path, use the {item:12647} on a {npc:4678}, a felhound, and kill it for its spirit; on the infernal path, use the {item:12646} on a {npc:4676} and kill it."] = "Los demonios del {area:602}, en el sur de {zone:1443}, tienen todo lo que necesitas. Los Invocadores Filo Ardiente llevan {item:7291}. En el camino del manáfago, usa {item:12647} en un {npc:4678}, un manáfago, y mátalo para conseguir su espíritu; en el camino del infernal, usa {item:12646} en un {npc:4676} y mátalo.",
 	-- ["Wait for the orb"] = "Espera el orbe",
-	-- ["{item:12648}, from a {npc:4678}"] = "{item:12648}, de un {npc:4678}",
-	-- ["{npc:6266} and her two acolytes stand in the tower on the hill above {area:392}, beside {npc:6251}."] = "{npc:6266} y sus dos acólitos están en la torre de la colina sobre {area:392}, junto a {npc:6251}.",
 	-- ["{npc:6546} lives at her farm in western {zone:1445}. She calls the {npc:6549} out of the {item:7291}; it is elite: grouping up is advised."] = "{npc:6546} vive en su granja del oeste del {zone:1445}. Saca al {npc:6549} del {item:7291}; es de élite: se recomienda ir en grupo.",
 }

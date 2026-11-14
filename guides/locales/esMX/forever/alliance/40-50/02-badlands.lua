@@ -86,8 +86,6 @@ return {
 	["{quest:1450}, inside"] = "{quest:1450}, adentro",
 	-- {npc:7884} Fraggar Thundermantle
 	["{npc:7884}, inside"] = "{npc:7884}, adentro",
-	-- {npc:7744} Innkeeper Thulfram
-	["{npc:7744}; below ground"] = "{npc:7744}; bajo tierra",
 
 	-- Step 19: Rhapsody Shindigger
 	-- {npc:5634} Rhapsody Shindigger · {area:348} Aerie Peak
@@ -95,8 +93,8 @@ return {
 
 	-- Step 20: Witherbark villages
 	["Witherbark villages"] = "Aldeas Secacorteza",
-	-- {npc:5634} Rhapsody Shindigger
-	["The first two cages stand together in the Witherbark village south of {npc:5634}; the third is in the next village to the east. Every Witherbark troll can drop a necklace."] = "Las dos primeras jaulas están juntas en la aldea Secacorteza al sur de {npc:5634}; la tercera está en la siguiente aldea al este. Cualquier trol Secacorteza puede soltar un collar.",
+	-- {npc:5634} Rhapsody Shindigger · {npc:270772} Witch Doctor Ti'ik
+	["The first two cages stand together in the Witherbark village south of {npc:5634}; the third is in the next village to the east. Every Witherbark troll can drop a necklace.\nCareful: {npc:270772} (49) and his Hexed Larvae (45) keep to the huts of the western village, around 25,64: take the necklaces from the trolls outside."] = "Las dos primeras jaulas están juntas en la aldea Secacorteza al sur de {npc:5634}; la tercera está en la siguiente aldea al este. Cualquier trol Secacorteza puede soltar un collar.\nCuidado: {npc:270772} (49) y sus Larvas embrujadas (45) se quedan en las chozas de la aldea del oeste, alrededor de 25,64: consigue los collares de los trols de afuera.",
 
 	-- Step 21: Aerie Peak
 	-- {npc:5636} Gryphon Master Talonaxe
@@ -154,5 +152,6 @@ return {
 	-- ["{npc:2888} camps by himself in {area:1898}, south-east of the digsite."] = "{npc:2888} acampa solo en {area:1898}, al sureste de la excavación.",
 	-- ["{npc:5634}'s cocktail needs parts from Kalimdor: skip it."] = "El cóctel de {npc:5634} requiere piezas de Kalimdor: omítelo.",
 	-- ["{npc:5636}, beside the flight master at the top"] = "{npc:5636}, junto al maestro de vuelo en la cima",
+	-- ["{npc:7744}; below ground"] = "{npc:7744}; bajo tierra",
 	-- ["{npc:7884} keeps paying for necklaces: hand in any extras"] = "{npc:7884} sigue pagando por collares: entrega los que te sobren",
 }

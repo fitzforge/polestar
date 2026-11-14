@@ -54,6 +54,10 @@ return {
 	["14 areas to discover here, levels 36-44. Flight paths: {area:16724} in the south-east (Alliance), {area:16743} in the middle (Horde)."] = "",
 	-- {zone:1418} Badlands · {area:345} Agmond's End · {zone:2548} Riverglades · {area:16685} Twilight's Shroud · {area:2417} Blackrock Pass · {area:977} Steamwheedle Port · {zone:1446} Tanaris · {area:16727} Powderfuse Port · {area:17780} Krol'dok Stronghold
 	["From the south of the {zone:1418}, past {area:345}, a way leads down into the {zone:2548} by {area:16685}. (The {zone:2548} also open off northern Redridge through {area:2417}, and a ship runs from {area:977} in {zone:1446} to {area:16727}, the neutral goblin port on its coast.) {area:17780} is an ogre clan's outdoor dungeon."] = "",
+	-- {area:16724} Farholde Keep · {npc:257087} Gretchen Mayberry
+	["Flight path here: {area:16724} ({npc:257087})."] = "此處的飛行路線：{area:16724}（{npc:257087}）。",
+	-- {area:16743} Rog'mar
+	["Flight path here: {area:16743} (Grakna)."] = "此處的飛行路線：{area:16743}（葛拉克娜）。",
 
 	-- Step 9: Swamp of Sorrows (1/2)
 	["11 areas to discover here, levels 36-43."] = "這裡有11個區域要發現，等級36-43。",
@@ -70,7 +74,7 @@ return {
 	-- {zone:1435} Swamp of Sorrows · {zone:1430} Deadwind Pass · {zone:1431} Duskwood · {zone:1434} Stranglethorn Vale
 	["Ride west out of the {zone:1435} through {zone:1430} (level 50+ creatures off the road) into {zone:1431} and take the road south into northern {zone:1434}."] = "",
 	-- {zone:1454} Orgrimmar · {zone:1458} Undercity · {area:117} Grom'gol Base Camp
-	["Or take the zeppelin from {zone:1454} or the {zone:1458} to {area:117}."] = "",
+	["Or take the zeppelin from {zone:1454} or the {zone:1458} to {area:117}."] = "或從{zone:1454}或{zone:1458}搭飛艇前往{area:117}。",
 	-- {area:35} Booty Bay
 	["Flight path here: {area:35} (Gyll)."] = "此處飛行路線：{area:35}（蓋爾）。",
 	-- {area:35} Booty Bay · {object:3202} Grom'gol
@@ -88,6 +92,5 @@ return {
 	-- ["Fly to {area:42} (or {zone:1453}) and take the road south out of {zone:1431} into northern {zone:1434}."] = "飛往{area:42}（或{zone:1453}），沿道路從{zone:1431}向南進入{zone:1434}北部。",
 	-- ["Go back north into {zone:1431} and follow its road east through {zone:1430} (level 50+ creatures off the road) into the {zone:1435}."] = "回到北邊的{zone:1431}，沿其道路向東穿過{zone:1430}（路外有50級以上的生物）進入{zone:1435}。",
 	-- ["Picks up in {zone:1424}, where the 1-30 guide leaves the Horde and passes the Alliance. 15 areas to discover here, levels 27-39."] = "從{zone:1424}接續，1-30指南在那裡與部落分開、經過聯盟。這裡有15個區域要發現，等級27-39。",
-	-- ["Take the zeppelin from {zone:1454} or the {zone:1458} to {area:117}."] = "從{zone:1454}或{zone:1458}搭飛艇前往{area:117}。",
 	-- ["The {zone:2548} lie east of the {zone:1418} and the {zone:1428}: the way in is the fork east off the {zone:1433} road (a ship also runs from {zone:1446} to {area:16727}, the neutral goblin port on its coast). {area:17780} is an ogre clan's outdoor dungeon."] = "{zone:2548}位於{zone:1418}和{zone:1428}的東邊：入口是{zone:1433}道路向東的岔路（也有船從{zone:1446}開往其海岸上的中立哥布林港口{area:16727}）。{area:17780}是一個巨魔氏族的野外地城。",
 }

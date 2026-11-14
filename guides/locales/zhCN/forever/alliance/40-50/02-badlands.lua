@@ -86,8 +86,6 @@ return {
 	["{quest:1450}, inside"] = "{quest:1450}：在屋内",
 	-- {npc:7884} Fraggar Thundermantle
 	["{npc:7884}, inside"] = "{npc:7884}：在屋内",
-	-- {npc:7744} Innkeeper Thulfram
-	["{npc:7744}; below ground"] = "{npc:7744}；在地下",
 
 	-- Step 19: Rhapsody Shindigger
 	-- {npc:5634} Rhapsody Shindigger · {area:348} Aerie Peak
@@ -95,8 +93,8 @@ return {
 
 	-- Step 20: Witherbark villages
 	["Witherbark villages"] = "枯木村庄",
-	-- {npc:5634} Rhapsody Shindigger
-	["The first two cages stand together in the Witherbark village south of {npc:5634}; the third is in the next village to the east. Every Witherbark troll can drop a necklace."] = "前两个笼子一起在{npc:5634}南边的枯木村庄里；第三个在东边的下一个村庄里。每个枯木巨魔都可能掉落项链。",
+	-- {npc:5634} Rhapsody Shindigger · {npc:270772} Witch Doctor Ti'ik
+	["The first two cages stand together in the Witherbark village south of {npc:5634}; the third is in the next village to the east. Every Witherbark troll can drop a necklace.\nCareful: {npc:270772} (49) and his Hexed Larvae (45) keep to the huts of the western village, around 25,64: take the necklaces from the trolls outside."] = "前两个笼子一起在{npc:5634}南边的枯木村庄里；第三个在东边的下一个村庄里。每个枯木巨魔都可能掉落项链。\n小心：{npc:270772}（49级）和他的妖术幼虫（45级）待在西边村庄的小屋周围，约在25,64：从外面的巨魔身上拿项链。",
 
 	-- Step 21: Aerie Peak
 	-- {npc:5636} Gryphon Master Talonaxe
@@ -155,5 +153,6 @@ return {
 	-- ["{npc:5634}'s cocktail needs parts from Kalimdor: skip it."] = "{npc:5634}的鸡尾酒需要卡利姆多的材料：跳过。",
 	-- ["{npc:5636}, beside the flight master at the top"] = "{npc:5636}，在顶层飞行管理员旁边",
 	-- ["{npc:7744}: the last guide binds here, so this usually ticks at once; below ground"] = "{npc:7744}在地下；上份指南已经在这里绑定炉石，通常会立即标记完成",
+	-- ["{npc:7744}; below ground"] = "{npc:7744}；在地下",
 	-- ["{npc:7884} keeps paying for necklaces: hand in any extras"] = "{npc:7884}会继续收购项链：交上多余的",
 }

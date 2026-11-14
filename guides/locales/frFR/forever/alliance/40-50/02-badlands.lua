@@ -9,7 +9,7 @@ return {
 	-- Step 2: Valley of Fangs
 	-- {npc:2817} Rigglefuzz
 	-- plural, as words: Blue Pearls = {item:4611} Blue Pearl
-	["{npc:2817}: Blue Pearls from Stranglethorn"] = "",
+	["{npc:2817}: Blue Pearls from Stranglethorn"] = "{npc:2817} : Perles bleues de Strangleronce",
 	-- {npc:2817} Rigglefuzz
 	["{npc:2817}'s next quest pays no experience: skip it."] = "La quête suivante de {npc:2817} ne rapporte pas d'expérience : passez-la.",
 
@@ -34,7 +34,7 @@ return {
 
 	-- Step 8: Ironband's Excavation Site
 	-- {zone:1432} Loch Modan
-	["Ride north through the pass into {zone:1432} and east along the south shore to Ironband's camp."] = "",
+	["Ride north through the pass into {zone:1432} and east along the south shore to Ironband's camp."] = "Chevauchez vers le nord par le col jusqu'au {zone:1432}, puis vers l'est le long de la rive sud jusqu'aux Excavations de Baguefer.",
 
 	-- Step 9: Into Badlands
 	-- {zone:1418} Badlands
@@ -46,7 +46,7 @@ return {
 
 	-- Step 11: The Uldaman dig
 	-- {area:1517} Uldaman · {zone:1418} Badlands
-	["Back through the pass: the Stonevault troggs dig outside {area:1517} at the {zone:1418}' northern edge. The carved urns and the magenta mushroom clusters sit in their caves and tunnels, outside the dungeon itself."] = "",
+	["Back through the pass: the Stonevault troggs dig outside {area:1517} at the {zone:1418}' northern edge. The carved urns and the magenta mushroom clusters sit in their caves and tunnels, outside the dungeon itself."] = "Repassez le col : les troggs Cavepierre creusent devant {area:1517}, à la lisière nord des {zone:1418}. Les urnes sculptées et les touffes de champignons magenta se trouvent dans leurs grottes et leurs tunnels, hors du donjon lui-même.",
 	-- {item:8047} Magenta Fungus Cap
 	["{item:8047}; below ground"] = "{item:8047} ; sous terre",
 	-- {object:2743} Carved Stone Urn
@@ -54,14 +54,14 @@ return {
 
 	-- Step 12: Back to Loch Modan
 	-- {zone:1432} Loch Modan
-	["Back to {zone:1432}"] = "",
+	["Back to {zone:1432}"] = "Retour au {zone:1432}",
 
 	-- Step 13: Ironband's Excavation Site
 	["Ride back north to Ironband's camp."] = "Revenez vers le nord jusqu'aux Excavations de Baguefer.",
 
 	-- Step 14: Thelsamar
 	-- {area:144} Thelsamar
-	["Ride west along the loch to {area:144}."] = "",
+	["Ride west along the loch to {area:144}."] = "Chevauchez vers l'ouest le long du lac jusqu'à {area:144}.",
 	-- {npc:1470} Ghak Healtouch
 	["{npc:1470}, below ground"] = "{npc:1470}, sous terre",
 
@@ -73,7 +73,7 @@ return {
 
 	-- Step 16: Southshore
 	-- {npc:3980} Raleigh the Devout
-	["{npc:3980} preaches by the inn."] = "",
+	["{npc:3980} preaches by the inn."] = "{npc:3980} prêche près de l'auberge.",
 	-- {npc:3980} Raleigh the Devout
 	["{npc:3980}, upstairs"] = "{npc:3980}, à l'étage",
 	-- {area:796} Scarlet Monastery
@@ -86,8 +86,6 @@ return {
 	["{quest:1450}, inside"] = "{quest:1450}, à l'intérieur",
 	-- {npc:7884} Fraggar Thundermantle
 	["{npc:7884}, inside"] = "{npc:7884}, à l'intérieur",
-	-- {npc:7744} Innkeeper Thulfram
-	["{npc:7744}; below ground"] = "{npc:7744} ; sous terre",
 
 	-- Step 19: Rhapsody Shindigger
 	-- {npc:5634} Rhapsody Shindigger · {area:348} Aerie Peak
@@ -95,8 +93,8 @@ return {
 
 	-- Step 20: Witherbark villages
 	["Witherbark villages"] = "Villages de Fanécorce",
-	-- {npc:5634} Rhapsody Shindigger
-	["The first two cages stand together in the Witherbark village south of {npc:5634}; the third is in the next village to the east. Every Witherbark troll can drop a necklace."] = "Les deux premières cages se trouvent ensemble dans le village de Fanécorce au sud de {npc:5634} ; la troisième est dans le village suivant, à l'est. Chaque troll Witherbark peut lâcher un collier.",
+	-- {npc:5634} Rhapsody Shindigger · {npc:270772} Witch Doctor Ti'ik
+	["The first two cages stand together in the Witherbark village south of {npc:5634}; the third is in the next village to the east. Every Witherbark troll can drop a necklace.\nCareful: {npc:270772} (49) and his Hexed Larvae (45) keep to the huts of the western village, around 25,64: take the necklaces from the trolls outside."] = "Les deux premières cages se trouvent ensemble dans le village de Fanécorce au sud de {npc:5634} ; la troisième est dans le village suivant, à l'est. Chaque troll Witherbark peut lâcher un collier.\nAttention : {npc:270772} (49) et ses Larves maléficiées (45) restent près des huttes du village de l'ouest, vers 25,64 : prenez les colliers sur les trolls de l'extérieur.",
 
 	-- Step 21: Aerie Peak
 	-- {npc:5636} Gryphon Master Talonaxe
@@ -132,10 +130,9 @@ return {
 	-- {quest:3631} Summon Felsteed
 	["Warlock: {quest:3631}"] = "Démoniste : {quest:3631}",
 	-- {zone:1413} Barrens · {area:392} Ratchet · {npc:6251} Strahad Farsan
-	["From Theramore, ride north into the {zone:1413} to {area:392}, or fly if you know its flight path. {npc:6251} teaches in the house by the bank."] = "",
+	["From Theramore, ride north into the {zone:1413} to {area:392}, or fly if you know its flight path. {npc:6251} teaches in the house by the bank."] = "Depuis Theramore, chevauchez vers le nord dans {zone:1413} jusqu'à {area:392}, ou volez-y si vous connaissez son trajet aérien. {npc:6251} enseigne dans la maison près de la banque.",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
-	-- ["Blue Pearls from Stranglethorn"] = "Perles bleues de Strangleronce",
 	-- ["Fly to {area:144}"] = "Prendre un vol pour {area:144}",
 	-- ["Fly to {area:392}; {npc:6251} teaches in the house by the bank. Fly back to Theramore afterwards."] = "Volez jusqu'à {area:392} ; {npc:6251} enseigne dans la maison près de la banque. Revenez ensuite à Theramore en vol.",
 	-- ["Fly to {area:608}, ride south through {zone:1443} into {zone:1444} and follow the road to the dock on the {area:1108}; the boat crosses to {area:1116}, where the next guide starts."] = "Volez jusqu'à {area:608}, descendez vers le sud à travers {zone:1443} jusqu'en {zone:1444} et suivez la route jusqu'au quai de {area:1108} ; le bateau rejoint {area:1116}, où commence le guide suivant.",
@@ -158,6 +155,7 @@ return {
 	-- ["{npc:5634}'s cocktail needs parts from Kalimdor: skip it."] = "Le cocktail de {npc:5634} demande des ingrédients de Kalimdor : passez-le.",
 	-- ["{npc:5636}, beside the flight master at the top"] = "{npc:5636}, à côté du maître de vol au sommet",
 	-- ["{npc:7744}: the last guide binds here, so this usually ticks at once; below ground"] = "{npc:7744} : le guide précédent vous fait lier votre pierre de foyer ici, donc ceci se coche généralement tout de suite ; sous terre",
+	-- ["{npc:7744}; below ground"] = "{npc:7744} ; sous terre",
 	-- ["{npc:7884} keeps paying for necklaces: hand in any extras"] = "{npc:7884} paie toujours les colliers : rendez ceux en trop",
 	-- ["{zone:1455} flight master"] = "Maître de vol de {zone:1455}",
 }

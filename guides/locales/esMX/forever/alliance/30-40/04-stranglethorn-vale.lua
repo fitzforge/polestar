@@ -67,7 +67,8 @@ return {
 	-- {area:101} Kurzen's Compound
 	["{area:101}: kill these as you meet them"] = "{area:101}: mata a estos según te los encuentres",
 	-- {area:99} Rebel Camp · {quest:200} Bookie Herod
-	["The Kurzen rebels hold the camp east of the {area:99}; work its outer edge, where Jungle Fighters and Medicine Men stand, and loot the supply crates by the tents. {quest:200}'s records lie in a hut on the compound's west side."] = "Los rebeldes de Kurzen ocupan el campamento al este de {area:99}; recorre su borde exterior, donde están los combatientes de la jungla y los curanderos, y saquea las cajas de suministros junto a las tiendas. Los registros de {quest:200} están en una choza del lado oeste del complejo.",
+	-- plural, as words: Kurzen Elites = {npc:939} Kurzen Elite
+	["The Kurzen rebels hold the camp east of the {area:99}; work its outer edge, where Jungle Fighters and Medicine Men stand, and loot the supply crates by the tents. {quest:200}'s records lie in a hut on the compound's west side. Careful: Kurzen Elites and Witch Doctors (36) hold the compound's eastern half, by the cave: stay on its west side."] = "Los rebeldes de Kurzen ocupan el campamento al este de {area:99}; recorre su borde exterior, donde están los combatientes de la jungla y los curanderos, y saquea las cajas de suministros junto a las tiendas. Los registros de {quest:200} están en una choza del lado oeste del complejo. Cuidado: los élites y médicos brujos de Kurzen (36) ocupan la mitad este del complejo, junto a la cueva: quédate en su lado oeste.",
 	-- {object:287} Bookie Herod's Records
 	["{object:287}, in the hut"] = "{object:287}, en la choza",
 	["The strongbox is deeper in, by the cave: on the northern loop (04b)"] = "La caja fuerte está más adentro, junto a la cueva: en el circuito del norte (04b)",
@@ -179,10 +180,10 @@ return {
 	-- {npc:4078} Collin Mauren · {object:2164} Slaughtered Lamb · {object:2101} Mage Quarter
 	["{npc:4078} is in the {object:2164}, in the {object:2101}."] = "{npc:4078} está en {object:2164}, en {object:2101}.",
 
-	-- Step 32: Druid training
-	["Druid training"] = "Entrenamiento de druida",
-	-- {npc:5504} Sheldras Moontree · {zone:1453} Stormwind · {object:2101} Mage Quarter
-	["{npc:5504}, the druid trainer, stands in {zone:1453}, north-west of the {object:2101}."] = "{npc:5504}, el instructor de druidas, está en {zone:1453}, al noroeste de {object:2101}.",
+	-- Step 32: Class training
+	["Class training"] = "Entrenamiento de clase",
+	-- {object:2096} Trade District · {object:2100} Old Town · {object:2101} Mage Quarter · {npc:5504} Sheldras Moontree · {zone:1455} Ironforge
+	["Your level 34 ranks: the class trainers stand around the {object:2096}, {object:2100}, the Cathedral and the {object:2101}; {npc:5504}, the druid trainer, stands north-west of the {object:2101}. Shamans train in {zone:1455}, later in 30-40."] = "Tus rangos de nivel 34: los instructores de clase están alrededor de {object:2096}, {object:2100}, la Catedral y {object:2101}; {npc:5504}, el instructor de druidas, está al noroeste de {object:2101}. Los chamanes entrenan en {zone:1455}, más adelante en 30-40.",
 
 	-- Step 34: Fly to Astranaar
 	-- {area:415} Astranaar

@@ -26,7 +26,7 @@ return {
 
 	-- Step 5: Nijel's Point
 	-- {npc:5642} Vahlarriel Demonslayer · {area:599} Thunder Axe Fortress
-	["{npc:5642}: the Burning Blade in {area:599}, where her search leads"] = "",
+	["{npc:5642}: the Burning Blade in {area:599}, where her search leads"] = "{npc:5642} : la Lame ardente à {area:599}, où mènent ses recherches",
 
 	-- Step 6: Azore Aldamort
 	-- {npc:11863} Azore Aldamort · {area:599} Thunder Axe Fortress
@@ -47,7 +47,7 @@ return {
 	-- {npc:5643} Tyranis Malem
 	["{npc:5643} and the Seer"] = "{npc:5643} et le Prophète",
 	-- {npc:5643} Tyranis Malem · {npc:13019} Burning Blade Seer · {npc:5642} Vahlarriel Demonslayer
-	["Her brother {npc:5643} (36) walks the fortress with the Burning Blade cultists (30-33): pull him alone. The {npc:13019} keeps the sceptre in the fortress's main building. {npc:5642} wants four of each kind of cultist on the way."] = "",
+	["Her brother {npc:5643} (36) walks the fortress with the Burning Blade cultists (30-33): pull him alone. The {npc:13019} keeps the sceptre in the fortress's main building. {npc:5642} wants four of each kind of cultist on the way."] = "Son frère {npc:5643} (36) arpente la forteresse avec les sectateurs de la Lame ardente (30-33) : attirez-le seul. {npc:13019} garde le sceptre dans le bâtiment principal de la forteresse. {npc:5642} veut quatre sectateurs de chaque sorte en chemin.",
 	-- {item:6767} Tyranis' Pendant
 	["{item:6767}; inside"] = "{item:6767} ; à l'intérieur",
 	-- {quest:5741} Sceptre of Light
@@ -69,11 +69,11 @@ return {
 	-- Step 12: Kodo Graveyard
 	-- {npc:11596} Smeed Scrabblescrew · {item:13892} Kodo Kombobulator · {npc:4702} Ancient Kodo
 	-- plural, as words: Aged Kodos = {npc:4700} Aged Kodo · Scorpashi Lashers = {npc:4697} Scorpashi Lasher
-	["Use {npc:11596}'s {item:13892} on an Aged, Dying or {npc:4702}: it becomes a tamed kodo that follows you. Walk it back to {npc:11596}'s camp; there, talk to the kodo: that counts it and lets you tame the next. Five kodos, one at a time; Aged Kodos also drop the hides, and the Scorpashi Lashers that hunt around the graveyard carry the venom."] = "",
+	["Use {npc:11596}'s {item:13892} on an Aged, Dying or {npc:4702}: it becomes a tamed kodo that follows you. Walk it back to {npc:11596}'s camp; there, talk to the kodo: that counts it and lets you tame the next. Five kodos, one at a time; Aged Kodos also drop the hides, and the Scorpashi Lashers that hunt around the graveyard carry the venom."] = "Utilisez le {item:13892} de {npc:11596} sur un Kodo âgé, un Kodo mourant ou un {npc:4702} : il devient un kodo apprivoisé qui vous suit. Ramenez-le au camp de {npc:11596} ; là, parlez au kodo : cela le compte et vous permet d'apprivoiser le suivant. Cinq kodos, un à la fois ; les Kodos âgés lâchent aussi les peaux, et les Flagelleurs scorpashi qui chassent autour du cimetière portent le venin.",
 	-- {npc:4702} Ancient Kodo
-	["on an Aged, Dying or {npc:4702} in the graveyard; don't kill it"] = "",
+	["on an Aged, Dying or {npc:4702} in the graveyard; don't kill it"] = "sur un Kodo âgé, un Kodo mourant ou un {npc:4702} dans le cimetière ; ne le tuez pas",
 	-- {npc:11596} Smeed Scrabblescrew
-	["the tamed kodo, at {npc:11596}'s camp: talk to it, five times"] = "",
+	["the tamed kodo, at {npc:11596}'s camp: talk to it, five times"] = "le kodo apprivoisé, au camp de {npc:11596} : parlez-lui, cinq fois",
 
 	-- Step 14: Kolkar Village
 	-- {area:609} Kolkar Village · {npc:5752} Corporal Melkins
@@ -102,7 +102,6 @@ return {
 	-- ["From {area:415} ride north-west into the hills: the {quest:1738} is a glowing tree north of the road to {area:413}. If you took {quest:65602}, the {item:190309} lies in a house among the trees north of {area:413} (26.6,22.0). Then back past {area:415} to the {area:1276}."] = "Depuis {area:415}, partez au nord-ouest dans les collines : {quest:1738} est un arbre lumineux au nord de la route de {area:413}. Si vous avez pris {quest:65602}, {item:190309} se trouve dans une maison parmi les arbres au nord de {area:413} (26.6,22.0). Revenez ensuite par {area:415} jusqu'à {area:1276}.",
 	-- ["From {zone:1455}'s {npc:1573}"] = "Depuis {npc:1573} à {zone:1455}",
 	-- ["Hearth to {area:608}"] = "Pierre de foyer vers {area:608}",
-	-- ["Her brother {npc:5643} (36) walks the fortress with the Burning Blade cultists (30-33): pull him alone. The {npc:13019} keeps the sceptre in the fortress's main building."] = "Son frère {npc:5643} (36) arpente la forteresse avec les sectateurs de la Lame ardente (30-33) : attirez-le seul. {npc:13019} garde le sceptre dans le bâtiment principal de la forteresse.",
 	-- ["Scorpashi venom"] = "Venin scorpashi",
 	-- ["Take the boat to {area:442} from Menethil's docks."] = "Prenez le bateau pour {area:442} aux quais du Port de Menethil.",
 	-- ["Take the boat to {area:442} from Menethil's docks. {npc:3649} stands in {area:442}, north of the flight master."] = "Prenez le bateau pour {area:442} aux quais du Port de Menethil. {npc:3649} se tient à {area:442}, au nord du maître de vol.",

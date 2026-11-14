@@ -16,7 +16,7 @@ return {
 
 	-- Step 3: Dendrite Starblaze
 	-- {spell:18960} Teleport: Moonglade · {npc:11802} Dendrite Starblaze · {area:2361} Nighthaven
-	["Cast {spell:18960}. {npc:11802} stands upstairs in his building in {area:2361}: go up inside, the arrow cannot tell the floors apart. Learn the flight path there if you do not have it."] = "",
+	["Cast {spell:18960}. {npc:11802} stands upstairs in his building in {area:2361}: go up inside, the arrow cannot tell the floors apart. Learn the flight path there if you do not have it."] = "{spell:18960}을(를) 시전하세요. {npc:11802}은(는) {area:2361}에 있는 자기 건물 위층에 서 있습니다. 건물 안에서 올라가세요. 화살표는 층을 구분하지 못합니다. 비행 경로가 없다면 그곳에서 배우세요.",
 
 	-- Step 4: The relics of the Barrow Dens
 	["The relics of the Barrow Dens"] = "지하굴의 성물",
@@ -31,7 +31,7 @@ return {
 
 	-- Step 6: Cenarion Enclave
 	-- {npc:4217} Mathrengyl Bearwalker · {area:1658} Cenarion Enclave · {spell:768} Cat Form
-	["Take the portal up to {npc:4217}, upstairs in the {area:1658}: he teaches you {spell:768}."] = "",
+	["Take the portal up to {npc:4217}, upstairs in the {area:1658}: he teaches you {spell:768}."] = "차원문을 타고 {area:1658}의 위층에 있는 {npc:4217}에게 올라가십시오. 그가 {spell:768}을(를) 가르쳐 줍니다.",
 
 	-- Step 8: The Great Cat Spirit
 	-- {npc:3033} Turak Runetotem · {area:1639} Elder Rise · {spell:1066} Aquatic Form · {npc:11802} Dendrite Starblaze · {area:493} Moonglade
@@ -53,15 +53,12 @@ return {
 
 	-- Step 12: To Thunder Bluff
 	-- {npc:3033} Turak Runetotem · {area:1639} Elder Rise · {spell:768} Cat Form
-	["{npc:3033} on {area:1639} teaches you {spell:768}."] = "",
+	["{npc:3033} on {area:1639} teaches you {spell:768}."] = "{area:1639}의 {npc:3033}이(가) {spell:768}을(를) 가르쳐 줍니다.",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Back to {npc:11802} in {area:2361}, then fly to {area:702}."] = "{area:2361}의 {npc:11802}에게 돌아간 뒤 {area:702}(으)로 비행하십시오.",
 	-- ["Back to {npc:11802} in {area:2361}, then take {npc:11798}'s flight to {area:1638}."] = "{area:2361}의 {npc:11802}에게 돌아간 뒤 {npc:11798}의 비행편으로 {area:1638}에 가십시오.",
 	-- ["Cast {spell:18960}. {npc:11802} is in {area:2361}."] = "{spell:18960}을(를) 시전하세요. {npc:11802}은(는) {area:2361}에 있습니다.",
-	-- ["Cast {spell:18960}. {npc:11802} is in {area:2361}; learn the flight path there if you do not have it."] = "{spell:18960}을(를) 시전하세요. {npc:11802}은(는) {area:2361}에 있습니다. 비행 경로가 없다면 그곳에서 배우세요.",
-	-- ["Take the portal up to {npc:4217} in the {area:1658}."] = "차원문을 타고 {area:1658}의 {npc:4217}에게 올라가십시오.",
-	-- ["{npc:3033} stands on {area:1639}."] = "{npc:3033}은(는) {area:1639}에 있습니다.",
 	-- ["{npc:4217} stands in the {area:1658}. Skyborne without the Rut'theran flight path: take the boat from {area:442}."] = "{npc:4217}은(는) {area:1658}에 있습니다. 루테란 비행 경로가 없는 스카이본이라면 {area:442}에서 배를 타십시오.",
 	-- ["{quest:98342} (Tauren) waits on the southern hill above the bridge, the {npc:272054} (Skyborne) south of the twin bridges. The relics lie in the {area:2363} east of the lake: leave your form, click the statue at the entrance for five minutes of stealth, keep clear of the spirits inside and take one of each relic; the {item:280680} lies at the foot of the white cat statue. A relic gives no loot while another player is looting it: wait a moment and try again."] = "{quest:98342}(타우렌)은(는) 다리 위 남쪽 언덕에서, {npc:272054}(스카이본)은(는) 쌍둥이 다리 남쪽에서 기다립니다. 성물은 호수 동쪽 {area:2363}에 있습니다. 변신을 풀고, 입구의 석상을 클릭해 5분 동안 은신한 뒤, 안의 정령을 피해 성물을 하나씩 챙기십시오. {item:280680}은(는) 흰 고양이 석상 발치에 있습니다. 다른 플레이어가 전리품을 획득하는 동안에는 성물에서 아무것도 얻을 수 없으니 잠시 기다렸다가 다시 시도하십시오.",
 	-- ["{quest:98394} (Night Elves) waits on the southern hill above the bridge, the {npc:272054} (Skyborne) south of the twin bridges. The relics lie in the {area:2363} east of the lake: leave your form, click the statue at the entrance for five minutes of stealth, keep clear of the spirits inside and take one of each relic; the {item:280680} lies at the foot of the white cat statue. A relic gives no loot while another player is looting it: wait a moment and try again."] = "{quest:98394}(나이트 엘프)은(는) 다리 위 남쪽 언덕에서, {npc:272054}(스카이본)은(는) 쌍둥이 다리 남쪽에서 기다립니다. 성물은 호수 동쪽 {area:2363}에 있습니다. 변신을 풀고, 입구의 석상을 클릭해 5분 동안 은신한 뒤, 안의 정령을 피해 성물을 하나씩 챙기십시오. {item:280680}은(는) 흰 고양이 석상 발치에 있습니다. 다른 플레이어가 전리품을 획득하는 동안에는 성물에서 아무것도 얻을 수 없으니 잠시 기다렸다가 다시 시도하십시오.",

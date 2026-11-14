@@ -32,7 +32,7 @@ return {
 	-- Step 5: Northshire Abbey
 	["Inside"] = "",
 	-- {npc:247229} Daniel
-	["{npc:247229}, in the library; inside"] = "",
+	["{npc:247229}, in the library; inside"] = "{npc:247229}, 도서관, 안",
 
 	-- Step 6: Echo Ridge Mine: kill these as you meet them
 	-- {area:34} Echo Ridge Mine
@@ -45,7 +45,7 @@ return {
 	-- {npc:248415} Tordrin Sternblade · {npc:198} Khelden Bremen
 	["{npc:248415} stands behind the Abbey, by the stables. {npc:198}, the mage trainer, stands upstairs in the Abbey: take the stairs inside, the arrow cannot tell the floors apart."] = "",
 	-- {npc:911} Llane Beshere
-	["{npc:911}, the warrior trainer; inside"] = "",
+	["{npc:911}, the warrior trainer; inside"] = "{npc:911}, 전사 상급자, 안",
 	-- {npc:925} Brother Sammuel
 	["{npc:925}, the paladin trainer"] = "{npc:925}, 성기사 상급자",
 	-- {npc:248415} Tordrin Sternblade
@@ -139,22 +139,32 @@ return {
 	["Sit (/sit) by his campfire until you have {spell:1229451}"] = "{spell:1229451} 효과를 얻을 때까지 그의 모닥불 옆에 앉으세요(/앉기)",
 
 	-- Step 24: Camping 101: Skinning
+	-- {npc:6306} Helene Peltskinner · {skill:393} Skinning
+	["{npc:6306} takes it once your {skill:393} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "{skill:393} 숙련도가 20이 되면 {npc:6306}이(가) 받습니다. 그때까지 채집하거나 제작하십시오. 그동안 가이드는 계속 진행됩니다.",
 	-- {npc:263399} Sam Sarsaparilla · {npc:6306} Helene Peltskinner
 	["{npc:263399}: for {npc:6306} on the lake shore"] = "{npc:263399}: 호숫가의 {npc:6306}에게",
 
 	-- Step 25: Camping 101: Leatherworking
+	-- {npc:1632} Adele Fielder · {skill:165} Leatherworking
+	["{npc:1632} takes it once your {skill:165} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "{skill:165} 숙련도가 20이 되면 {npc:1632}이(가) 받습니다. 그때까지 채집하거나 제작하십시오. 그동안 가이드는 계속 진행됩니다.",
 	-- {npc:263399} Sam Sarsaparilla · {npc:1632} Adele Fielder
 	["{npc:263399}: for {npc:1632} on the lake shore"] = "{npc:263399}: 호숫가의 {npc:1632}에게",
 
 	-- Step 26: Camping 101: Fishing
+	-- {npc:1651} Lee Brown · {skill:356} Fishing
+	["{npc:1651} takes it once your {skill:356} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "{skill:356} 숙련도가 20이 되면 {npc:1651}이(가) 받습니다. 그때까지 채집하거나 제작하십시오. 그동안 가이드는 계속 진행됩니다.",
 	-- {npc:263399} Sam Sarsaparilla · {npc:1651} Lee Brown
 	["{npc:263399}: for {npc:1651} on the lake shore"] = "{npc:263399}: 호숫가의 {npc:1651}에게",
 
 	-- Step 27: Camping 101: First Aid
+	-- {npc:2329} Michelle Belle · {skill:129} First Aid
+	["{npc:2329} takes it once your {skill:129} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "{skill:129} 숙련도가 20이 되면 {npc:2329}이(가) 받습니다. 그때까지 채집하거나 제작하십시오. 그동안 가이드는 계속 진행됩니다.",
 	-- {npc:263399} Sam Sarsaparilla · {npc:2329} Michelle Belle
 	["{npc:263399}: for {npc:2329} in the Lion's Pride Inn"] = "{npc:263399}: 사자무리 여관의 {npc:2329}에게",
 
 	-- Step 28: Camping 101: Blacksmithing
+	-- {npc:514} Smith Argus · {skill:164} Blacksmithing
+	["{npc:514} takes it once your {skill:164} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "{skill:164} 숙련도가 20이 되면 {npc:514}이(가) 받습니다. 그때까지 채집하거나 제작하십시오. 그동안 가이드는 계속 진행됩니다.",
 	-- {npc:263399} Sam Sarsaparilla · {npc:514} Smith Argus · {area:87} Goldshire
 	["{npc:263399}: for {npc:514} at the {area:87} smithy"] = "{npc:263399}: {area:87} 대장간의 {npc:514}에게",
 
@@ -172,7 +182,7 @@ return {
 	-- {npc:6306} Helene Peltskinner · {npc:383} Jason Mathers · {npc:1651} Lee Brown · {area:18} Crystal Lake
 	["{npc:6306}, {npc:383} and {npc:1651} stand on the shore of {area:18} east of town."] = "{npc:6306}, {npc:383}, {npc:1651}은(는) 마을 동쪽 {area:18} 호숫가에 있습니다.",
 	-- {npc:6306} Helene Peltskinner
-	["{npc:6306}: skinners only, the pelts are skinned; inside"] = "",
+	["{npc:6306}: skinners only, the pelts are skinned; inside"] = "{npc:6306}: 무두질 전용, 가죽은 무두질로 얻습니다. 안",
 
 	-- Step 33: Crystal Lake
 	-- plural, as words: Fishing Traps = {object:694772} Fishing Trap
@@ -215,7 +225,7 @@ return {
 	["He stands by the river west of the farm."] = "그는 농장 서쪽 강가에 있습니다.",
 
 	-- Step 43: The Stonefield Farm
-	["The Stonefield farm is west of the mine. Ma and \"Auntie\" Bernice stand by the house.\nShe sits inside the farmhouse."] = "",
+	["The Stonefield farm is west of the mine. Ma and \"Auntie\" Bernice stand by the house.\nShe sits inside the farmhouse."] = "스톤필드 농장은 광산 서쪽에 있습니다.\n그녀는 농가 안에 앉아 있습니다. 스톤필드 부인과 버니스 \"아줌마\"가 집 옆에 있습니다.",
 
 	-- Step 44: Billy Maclure
 	-- {area:64} Maclure Vineyards
@@ -226,7 +236,7 @@ return {
 	["{zone:1429}: kill these as you meet them"] = "",
 	-- {object:694855} Overgrown Duskweed
 	-- plural, as words: Stonetusk Boars = {npc:113} Stonetusk Boar
-	["{object:694855} grows in the fields around the vineyards and the Stonefield farm; Stonetusk Boars around them give the blood.\nStonetusk Boars graze between the vineyards and the farm."] = "",
+	["{object:694855} grows in the fields around the vineyards and the Stonefield farm; Stonetusk Boars around them give the blood.\nStonetusk Boars graze between the vineyards and the farm."] = "{object:694855}은(는) 포도밭과 스톤필드 농장 주변 밭에서 자라며, 주변의 돌엄니멧돼지가 피를 줍니다.\n돌엄니멧돼지는 포도밭과 농장 사이에서 풀을 뜯습니다.",
 	-- {item:286215} Vial of Animal Blood
 	-- plural, as words: Stonetusk Boars = {npc:113} Stonetusk Boar
 	["{item:286215}: Stonetusk Boars"] = "{item:286215}: 돌엄니멧돼지",
@@ -289,9 +299,9 @@ return {
 	["Head east out of {area:87} along the lake shore. {npc:383} stands on the shore north-east of town."] = "",
 
 	-- Step 58: Crystal Lake: kill these as you meet them
-	-- {area:91} Tower of Azora
+	-- {area:91} Tower of Azora · {npc:276180} Elder Finseer · {npc:261} Guard Thomas
 	-- plural, as words: Prowlers = {npc:118} Prowler
-	["The murlocs on the east shore drop the kelp. Skinners: Gray Forest Wolves roam the woods between the lake and the {area:91}; Prowlers further east give pelts too."] = "동쪽 기슭의 멀록이 해초를 떨어뜨립니다. 무두질: 회색 숲늑대가 호수와 {area:91} 사이 숲을 돌아다니며, 더 동쪽의 굶주린 늑대도 가죽을 줍니다.",
+	["The murlocs on the east shore drop the kelp. Skinners: Gray Forest Wolves roam the woods between the lake and the {area:91}; Prowlers further east give pelts too.\nCareful: {npc:276180}, a level 11 rare murloc, walks the river by {npc:261}' bridge, east of the Prowlers' woods: leave him be."] = "동쪽 기슭의 멀록이 해초를 떨어뜨립니다. 무두질: 회색 숲늑대가 호수와 {area:91} 사이 숲을 돌아다니며, 더 동쪽의 굶주린 늑대도 가죽을 줍니다.\n주의: 11레벨 희귀 멀록인 {npc:276180}이(가) 굶주린 늑대 숲 동쪽, {npc:261}의 다리 옆 강을 따라 돌아다닙니다. 건드리지 마세요.",
 	-- plural, as words: Crystal Kelp Fronds = {item:1256} Crystal Kelp Frond
 	["Crystal Kelp Fronds"] = "투명한 해초 잎",
 
@@ -311,7 +321,7 @@ return {
 	["{quest:91733} and {npc:330}"] = "{quest:91733}와(과) {npc:330}",
 	-- {item:247813} Waterlogged Saw · {npc:330} Princess · {area:62} Brackwell Pumpkin Patch · {npc:390} Porcine Entourage · {npc:248278} Croaky
 	-- plural, as words: Prowlers = {npc:118} Prowler · Young Forest Bears = {npc:822} Young Forest Bear
-	["The {item:247813}, Axe and Toolbox lie in the river south of the bridge. {npc:330}, a big boar, roots in the {area:62} west of the river with her {npc:390}: pull the piglets away first. Kill Prowlers and Young Forest Bears on the way. Careful: {npc:248278} is a level 11 elite on the murloc shore. Only go for his head with a group or once you're level 10; otherwise leave him: it's optional."] = "",
+	["The {item:247813}, Axe and Toolbox lie in the river south of the bridge. {npc:330}, a big boar, roots in the {area:62} west of the river with her {npc:390}: pull the piglets away first. Kill Prowlers and Young Forest Bears on the way. Careful: {npc:248278} is a level 11 elite on the murloc shore. Only go for his head with a group or once you're level 10; otherwise leave him: it's optional."] = "{item:247813}, 도끼, 연장통은 다리 남쪽 강에 있습니다. 큰 멧돼지인 {npc:330}은(는) 강 서쪽 {area:62}에서 {npc:390}와(과) 함께 땅을 파헤칩니다. 새끼 돼지부터 떼어 내십시오. 가는 길에 굶주린 늑대와 새끼 숲곰을 처치하십시오. 주의: {npc:248278}은(는) 멀록 해안의 11레벨 정예입니다. 파티가 있거나 10레벨이 된 뒤에만 그의 머리를 노리십시오. 아니면 건드리지 마십시오. 선택 사항입니다.",
 
 	-- Step 62: Croaky
 	-- {npc:248278} Croaky · {quest:91740} Croaky's Head
@@ -366,7 +376,7 @@ return {
 	-- Step 73: Guard Thomas
 	-- {area:91} Tower of Azora
 	-- plural, as words: Prowlers = {npc:118} Prowler · Young Forest Bears = {npc:822} Young Forest Bear
-	["Follow the road east past the {area:91} to the bridge. Finish the Prowlers and Young Forest Bears around the river south of it."] = "",
+	["Follow the road east past the {area:91} to the bridge. Finish the Prowlers and Young Forest Bears around the river south of it."] = "길을 따라 동쪽으로 {area:91}을(를) 지나 다리로 가십시오. 다리 남쪽 강 주변의 굶주린 늑대와 새끼 숲곰을 마저 처치하십시오.",
 
 	-- Step 75: Stone Cairn Lake
 	-- plural, as words: Defias Rogue Wizards = {npc:474} Defias Rogue Wizard
@@ -387,7 +397,7 @@ return {
 	-- {npc:253} William Pestle
 	["{npc:253}, back in the inn"] = "{npc:253}, 다시 여관 안",
 	-- {npc:377} Priestess Josetta · {npc:376} High Priestess Laurena · {zone:1453} Stormwind
-	["{npc:377}: {npc:376} in {zone:1453} takes it"] = "",
+	["{npc:377}: {npc:376} in {zone:1453} takes it"] = "{npc:377}: {zone:1453}의 {npc:376}이(가) 받습니다",
 	-- {npc:328} Zaldimar Wefhellt · {npc:5497} Jennea Cannon · {zone:1453} Stormwind
 	["{npc:328}: {npc:5497} in {zone:1453} takes it"] = "{npc:328}: {zone:1453}의 {npc:5497}이(가) 받습니다",
 	-- {npc:6121} Remen Marcot · {npc:6122} Gakin the Darkbinder · {zone:1453} Stormwind
@@ -468,12 +478,12 @@ return {
 	-- {npc:963} Deputy Rainer · {npc:234} Gryan Stoutmantle · {area:108} Sentinel Hill
 	["{npc:963}: for {npc:234} at {area:108}"] = "{npc:963}: {area:108}의 {npc:234}를 위해",
 	-- {npc:955} Sergeant De Vries · {item:247824} Thunder Applejack
-	["{npc:955}: he wants your {item:247824}; inside"] = "",
+	["{npc:955}: he wants your {item:247824}; inside"] = "{npc:955}: {item:247824}을(를) 원합니다. 안",
 
 	-- Step 92: Forest's Edge
 	-- {zone:1436} Westfall
 	-- plural, as words: Riverpaw Runts = {npc:97} Riverpaw Runt
-	["Riverpaw Runts and Outrunners hold the hills south of the garrison, along the {zone:1436} border."] = "",
+	["Riverpaw Runts and Outrunners hold the hills south of the garrison, along the {zone:1436} border."] = "갈퀴발일족 심부름꾼과 갈퀴발일족 길잡이가 주둔지 남쪽, {zone:1436} 경계를 따라 언덕을 차지하고 있습니다.",
 	-- plural, as words: Painted Gnoll Armbands = {item:782} Painted Gnoll Armband
 	["Painted Gnoll Armbands"] = "놀의 화려한 완장",
 
@@ -483,7 +493,6 @@ return {
 	-- ["Back to the Cathedral of Light."] = "빛의 대성당으로 돌아가십시오.",
 	-- ["Bait ingredients"] = "미끼 재료",
 	-- ["Boar meat"] = "멧돼지 고기",
-	-- ["Follow the road east past the {area:91} to the bridge."] = "길을 따라 동쪽으로 {area:91}을(를) 지나 다리로 가십시오.",
 	-- ["Follow the road north from {area:87} into {zone:1453}. {npc:6171} and {npc:6173} are in the Cathedral of Light; {npc:6174} stands in {object:2100} and asks for ten {item:2589} (humanoids drop it; the Auction House sells it)."] = "길을 따라 북쪽으로 {area:87}에서 {zone:1453}(으)로 가십시오. {npc:6171}와(과) {npc:6173}은(는) 빛의 대성당에 있으며, {npc:6174}은(는) {object:2100}에서 {item:2589} 10개를 요구합니다(인간형 몹이 떨어뜨리고, 경매장에서도 판매합니다).",
 	-- ["Follow the road south out of the valley to {area:87}. {npc:295} is in the Lion's Pride Inn; {npc:240} stands outside the smithy across the road, {npc:253} at the inn's front and {npc:241} by the road south of it."] = "길을 따라 남쪽으로 골짜기를 빠져나가 {area:87}(으)로 가십시오. {npc:295}은(는) 사자무리 여관에, {npc:240}은(는) 길 건너 대장간 밖에, {npc:253}은(는) 여관 앞에, {npc:241}은(는) 그 남쪽 길가에 있습니다.",
 	-- ["Follow the road west back to {area:87}."] = "길을 따라 서쪽 {area:87}(으)로 돌아가십시오.",
@@ -501,14 +510,11 @@ return {
 	-- ["Ride back out through {area:87} and east along the road to the {area:62}. {npc:881} (level 9) stands by its farmhouse."] = "{area:87}을(를) 지나 다시 나가 동쪽 길을 따라 {area:62}(으)로 가십시오. {npc:881}(9레벨)은(는) 농가 옆에 있습니다.",
 	-- ["Ride back out through {area:87} and east along the road to the {area:62}. {quest:1688} (level 9) stands by its farmhouse."] = "{area:87}을(를) 지나 다시 나가 동쪽 길을 따라 {area:62}(으)로 가십시오. {quest:1688}(9레벨)은(는) 농가 옆에 있습니다.",
 	-- ["Ride back out through {area:87} and east to {area:86}. {npc:6172} lies south of the lake: use the {item:6866} on him. The Defias Rogue Wizards around him carry the {item:6846}."] = "{area:87}을(를) 지나 다시 나가 동쪽 {area:86}(으)로 가십시오. {npc:6172}은(는) 호수 남쪽에 쓰러져 있으니 {item:6866}을(를) 사용하십시오. 주변의 데피아즈단 견습마술사가 {item:6846}을(를) 가지고 있습니다.",
-	-- ["Riverpaw Runts and Outrunners hold the hills south of the garrison, along the {zone:1436} border. {npc:100}, a level 12 gnoll, walks among them and carries the {item:1307}: right-click it."] = "갈퀴발일족 심부름꾼과 갈퀴발일족 길잡이가 주둔지 남쪽, {zone:1436} 경계를 따라 언덕을 차지하고 있습니다. 12레벨 놀 {npc:100}이(가) 그들 사이를 걸으며 {item:1307}을(를) 가지고 있으니 오른쪽 클릭하십시오.",
 	-- ["She sits inside the farmhouse."] = "그녀는 농가 안에 앉아 있습니다.",
 	-- ["Speak with {npc:1430}"] = "{npc:1430}와(과) 대화",
 	-- ["Stonetusk Boars graze between the vineyards and the farm."] = "돌엄니멧돼지가 포도밭과 농장 사이에서 풀을 뜯습니다.",
-	-- ["The Stonefield farm is west of the mine. Ma and \"Auntie\" Bernice stand by the house."] = "스톤필드 농장은 광산 서쪽에 있습니다. 스톤필드 부인과 버니스 \"아줌마\"가 집 옆에 있습니다.",
 	-- ["The mine is south-west of the gnoll camps. {item:247816} lie near the entrance; Kobold Geomancers hold the tunnels."] = "광산은 놀 야영지 남서쪽에 있습니다. {item:247816}은(는) 입구 근처에 있으며, 코볼트 흙점쟁이가 터널을 차지하고 있습니다.",
 	-- ["The murloc camp"] = "멀록 야영지",
-	-- ["The {item:247813}, Axe and Toolbox lie in the river south of the bridge. {npc:330}, a big boar, roots in the {area:62} west of the river with her {npc:390}: pull the piglets away first. Kill Prowlers and Young Forest Bears on the way."] = "{item:247813}, 도끼, 연장통은 다리 남쪽 강에 있습니다. 큰 멧돼지인 {npc:330}은(는) 강 서쪽 {area:62}에서 {npc:390}와(과) 함께 땅을 파헤칩니다. 새끼 돼지부터 떼어 내십시오. 가는 길에 굶주린 늑대와 새끼 숲곰을 처치하십시오.",
 	-- ["Torn Murloc Fins"] = "찢어진 멀록 지느러미",
 	-- ["Use the {item:6866} on {npc:6172}"] = "{npc:6172}에게 {item:6866} 사용",
 	-- ["{area:18} and the wolves"] = "{area:18}와(과) 늑대",
@@ -519,7 +525,6 @@ return {
 	-- ["{npc:1632}: Camping 101, leatherworkers"] = "{npc:1632}: 야영 기초, 가죽세공",
 	-- ["{npc:1651}: Camping 101, fishers"] = "{npc:1651}: 야영 기초, 낚시",
 	-- ["{npc:2329}, in the inn: Camping 101, {skill:129}"] = "{npc:2329}, 여관 안: 야영 기초, {skill:129}",
-	-- ["{npc:247229}, in the library"] = "{npc:247229}, 도서관 안",
 	-- ["{npc:248277} keeps watch at {area:798}, east of the murloc shore. Then head north-west back to the bridge."] = "{npc:248277}은(는) 멀록 해안 동쪽 {area:798}에서 경계를 서고 있습니다. 그다음 북서쪽으로 다리까지 돌아가십시오.",
 	-- ["{npc:248415} stands behind the Abbey, by the stables."] = "{npc:248415}은(는) 대성당 뒤 마구간 옆에 있습니다.",
 	-- ["{npc:263399} camps north-east of the inn; {npc:6306}, {npc:1632}, {npc:383} and {npc:1651} stand on the shore of {area:18} east of town. With a profession learned, Sam also offers its Camping 101, which its trainer takes: skinning, leatherworking and fishing here on the shore, {skill:129} and blacksmithing in {area:87}."] = "{npc:263399}은(는) 여관 북동쪽에 야영하고 있으며, {npc:6306}, {npc:1632}, {npc:383}, {npc:1651}은(는) 마을 동쪽 {area:18} 호숫가에 있습니다. 전문 기술을 배웠다면 샘이 해당 기술의 야영 기초 퀘스트도 주며, 이는 해당 기술 상급자가 받습니다. 무두질, 가죽세공, 낚시는 이곳 호숫가에서, {skill:129}와(과) 대장기술은 {area:87}에서 받습니다.",
@@ -529,14 +534,9 @@ return {
 	-- ["{npc:263399}, leatherworkers: for {npc:1632}"] = "{npc:263399}, 가죽세공: {npc:1632}에게",
 	-- ["{npc:263399}, skinners: for {npc:6306}"] = "{npc:263399}, 무두질: {npc:6306}에게",
 	-- ["{npc:263399}, {skill:129}: for {npc:2329} in the inn"] = "{npc:263399}, {skill:129}: 여관의 {npc:2329}에게",
-	-- ["{npc:377}: {npc:376} in {zone:1453} takes both"] = "{npc:377}: {zone:1453}의 {npc:376}이(가) 둘 다 받습니다",
 	-- ["{npc:514}, at the smithy across the road: Camping 101, blacksmiths"] = "{npc:514}, 길 건너 대장간: 야영 기초, 대장기술",
 	-- ["{npc:6171}: Redemption"] = "{npc:6171}: 구원",
 	-- ["{npc:6306}: Camping 101, skinners; inside"] = "{npc:6306}: 야영 기초, 무두질; 실내",
-	-- ["{npc:6306}: skinners only, the pelts are skinned"] = "{npc:6306}: 무두질 전용, 가죽은 무두질로 얻습니다",
-	-- ["{npc:911}, the warrior trainer"] = "{npc:911}, 전사 상급자",
 	-- ["{npc:927}: {npc:6171} in {zone:1453} takes it"] = "{npc:927}: {zone:1453}의 {npc:6171}이(가) 받습니다",
-	-- ["{npc:955}: he wants your {item:247824}"] = "{npc:955}: {item:247824}을(를) 원합니다",
-	-- ["{object:694855} grows in the fields around the vineyards and the Stonefield farm; Stonetusk Boars around them give the blood."] = "{object:694855}은(는) 포도밭과 스톤필드 농장 주변 밭에서 자라며, 주변의 돌엄니멧돼지가 피를 줍니다.",
 	-- ["{quest:87} is inside the {area:57}, not on the hill above it: go in at the mouth and keep left to the back of the mine floor; don't take the stairs up. Defias Bandits around the vineyards drop a {item:1972} now and then: right-click it."] = "{quest:87}은(는) 언덕 위가 아니라 {area:57} 안에 있습니다. 입구로 들어가 왼쪽을 따라 광산 바닥 안쪽까지 가십시오. 위층 계단은 오르지 마십시오. 포도밭 주변의 데피아즈단 좀도둑이 가끔 {item:1972}을(를) 떨어뜨리니 오른쪽 클릭하십시오.",
 }

@@ -73,7 +73,7 @@ return {
 
 	-- Step 10: Thendal Grove: kill these as you meet them
 	-- {npc:250926} Scrawny Ursera · {npc:252095} Hanaa Nightwind · {npc:251115} Urs'anah
-	["{npc:250926} prowl the slopes south-west of the village, on the way to {npc:252095}.\nThe Ursera den is west of the village. {npc:251115}, their matriarch, sits at its far end."] = "",
+	["{npc:250926} prowl the slopes south-west of the village, on the way to {npc:252095}.\nThe Ursera den is west of the village. {npc:251115}, their matriarch, sits at its far end."] = "{npc:250926}은(는) {npc:252095}에게 가는 길, 마을 남서쪽 비탈을 배회합니다.\n우르세라 굴은 마을 서쪽에 있습니다. 그들의 어미인 {npc:251115}은(는) 굴 맨 안쪽에 있습니다.",
 	["Below ground"] = "지하",
 
 	-- Step 11: Back to Thendal Village
@@ -82,15 +82,15 @@ return {
 
 	-- Step 12: Hanaa Nightwind
 	-- {npc:252095} Hanaa Nightwind · {area:16622} Thendal Grove · {npc:256935} Malduko Cloudcrush
-	["{npc:252095} waits in {area:16622}, south-west of the village. The Al'Aketh camp is just beyond her; {npc:256935} leads it.\nCareful: {npc:256935} casts shocks; drag him clear of the other cultists before fighting so they don't join in."] = "",
+	["{npc:252095} waits in {area:16622}, south-west of the village. The Al'Aketh camp is just beyond her; {npc:256935} leads it.\nCareful: {npc:256935} casts shocks; drag him clear of the other cultists before fighting so they don't join in."] = "{npc:252095}은(는) 마을 남서쪽 {area:16622}에서 기다립니다. 알아케스 야영지는 그 바로 너머에 있으며, {npc:256935}이(가) 이끕니다.\n주의: {npc:256935}은(는) 충격 주문을 시전합니다. 다른 신도가 끼어들지 않도록 싸우기 전에 떨어뜨려 끌어내십시오.",
 	-- {item:251924} Signet of Akir · {npc:252095} Hanaa Nightwind
 	["{item:251924}: the Al'Aketh in {npc:252095}'s camp carry it"] = "",
 
 	-- Step 13: Windshaper Boro
 	-- {area:16635} Thendal Village
-	["Back to Boro in {area:16635} with the Signet."] = "",
+	["Back to Boro in {area:16635} with the Signet."] = "인장을 가지고 {area:16635}의 보로에게 돌아가세요.",
 	-- {item:6635} Earth Sapta · {area:16988} Rise of Spirits · {npc:251166} Minor Manifestation of Earth
-	["drink the {item:6635} at the {area:16988}, just east of the village, to see the {npc:251166}"] = "",
+	["drink the {item:6635} at the {area:16988}, just east of the village, to see the {npc:251166}"] = "마을 바로 동쪽 {area:16988}에서 {item:6635}을(를) 마시고 {npc:251166}을(를) 보세요",
 	-- {npc:251374} Windshaper Boro · {npc:5873} Stoneskin Totem · {item:5175} Earth Totem
 	["{npc:251374}: {npc:5873} and your {item:5175}"] = "{npc:251374}: {npc:5873}와(과) {item:5175}",
 
@@ -102,13 +102,41 @@ return {
 	-- {npc:263664} Raan Wildwind · {spell:1229451} Boosted Rest
 	["/sit by {npc:263664}'s campfire until you get {spell:1229451}"] = "{spell:1229451}을(를) 얻을 때까지 {npc:263664}의 모닥불 옆에서 /앉기 하세요",
 
+	-- Step 15: Camping 101: Skinning
+	-- {npc:257024} Mendalass Tattermend · {skill:393} Skinning
+	["{npc:257024} takes it once your {skill:393} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "{skill:393} 숙련도가 20이 되면 {npc:257024}이(가) 받습니다. 그때까지 채집하거나 제작하십시오. 그동안 가이드는 계속 진행됩니다.",
+
+	-- Step 16: Camping 101: First Aid
+	-- {npc:257018} Naleeia Tattermend · {skill:129} First Aid
+	["{npc:257018} takes it once your {skill:129} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "{skill:129} 숙련도가 20이 되면 {npc:257018}이(가) 받습니다. 그때까지 채집하거나 제작하십시오. 그동안 가이드는 계속 진행됩니다.",
+
+	-- Step 17: Camping 101: Leatherworking
+	-- {npc:251993} Indari Sunseam · {skill:165} Leatherworking
+	["{npc:251993} takes it once your {skill:165} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "{skill:165} 숙련도가 20이 되면 {npc:251993}이(가) 받습니다. 그때까지 채집하거나 제작하십시오. 그동안 가이드는 계속 진행됩니다.",
+
+	-- Step 18: Camping 101: Mining
+	-- {npc:257022} Messana Crestwind · {skill:186} Mining
+	["{npc:257022} takes it once your {skill:186} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "{skill:186} 숙련도가 20이 되면 {npc:257022}이(가) 받습니다. 그때까지 채집하거나 제작하십시오. 그동안 가이드는 계속 진행됩니다.",
+
+	-- Step 19: Camping 101: Alchemy
+	-- {npc:257019} Nyassa Swiftdraught · {skill:171} Alchemy
+	["{npc:257019} takes it once your {skill:171} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "{skill:171} 숙련도가 20이 되면 {npc:257019}이(가) 받습니다. 그때까지 채집하거나 제작하십시오. 그동안 가이드는 계속 진행됩니다.",
+
+	-- Step 20: Camping 101: Blacksmithing
+	-- {npc:251913} Aedi Thriceforged · {skill:164} Blacksmithing
+	["{npc:251913} takes it once your {skill:164} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "{skill:164} 숙련도가 20이 되면 {npc:251913}이(가) 받습니다. 그때까지 채집하거나 제작하십시오. 그동안 가이드는 계속 진행됩니다.",
+
+	-- Step 21: Camping 101: Fishing
+	-- {npc:251992} Fenn Fairweather · {skill:356} Fishing
+	["{npc:251992} takes it once your {skill:356} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "{skill:356} 숙련도가 20이 되면 {npc:251992}이(가) 받습니다. 그때까지 채집하거나 제작하십시오. 그동안 가이드는 계속 진행됩니다.",
+
 	-- Step 22: Shen'dar Village
 	-- {npc:251905} Zerril Softbreeze
 	["{npc:251905}: Camping 101 asks you to learn it"] = "",
 
 	-- Step 30: Shen'dar Village: kill these as you meet them
 	-- {area:16624} Shen'dar Village
-	["{area:16624}: kill these as you meet them"] = "",
+	["{area:16624}: kill these as you meet them"] = "{area:16624}: 만나는 대로 처치하세요",
 	-- {area:16624} Shen'dar Village · {item:5469} Strider Meat · {npc:251905} Zerril Softbreeze
 	-- plural, as words: Prideclaws = {npc:251245} Prideclaw · Small Eggs = {item:6889} Small Egg
 	["Prideclaws and Galestriders share the meadows around {area:16624}; the Galestriders graze thickest just west of it. They drop both the Small Eggs and the {item:5469} for {npc:251905}."] = "",
@@ -122,7 +150,7 @@ return {
 	-- Step 32: Shen'dar Highlands: kill these as you meet them
 	-- {area:16623} Shen'dar Highlands
 	["{area:16623}: kill these as you meet them"] = "",
-	["The apprentices practise north-east of the village.\nThe bandit camps are north-east of the village; \"Badwind\" Bennic holds the top camp. Bandits carry the stolen windstones."] = "",
+	["The apprentices practise north-east of the village.\nThe bandit camps are north-east of the village; \"Badwind\" Bennic holds the top camp. Bandits carry the stolen windstones."] = "수습생들은 마을 북동쪽에서 수련합니다.\n좀도둑 야영지는 마을 북동쪽에 있으며, \"사악한 바람\" 베닉이 가장 위쪽 야영지를 차지하고 있습니다. 좀도둑들이 훔친 바람석을 지니고 있습니다.",
 
 	-- Step 33: Shen'dar bounty board
 	["Shen'dar bounty board"] = "",
@@ -164,7 +192,7 @@ return {
 
 	-- Step 42: Shen'dar Highlands: kill these as you meet them
 	-- {area:17674} West Pylon Watchtower · {quest:92529} Falaath Village · {item:263493} Hippogryph Down
-	["The hippogryph nests are north-west of the {area:17674}, west of {quest:92529}. The Matriarch sits at their western end; {item:263493} lies on the ground around the nests."] = "",
+	["The hippogryph nests are north-west of the {area:17674}, west of {quest:92529}. The Matriarch sits at their western end; {item:263493} lies on the ground around the nests."] = "히포그리프 둥지는 {area:17674} 북서쪽, {quest:92529} 서쪽에 있으며, 히포그리프 어미는 둥지 서쪽 끝에 있습니다. {item:263493}은(는) 둥지 주변 땅에 있습니다.",
 
 	-- Step 44: Fendaal Windstone
 	-- {area:16638} Valanaar · {npc:273017} Fendaal Windstone · {quest:98512} Al'Aketh Assassins
@@ -187,8 +215,6 @@ return {
 	["Skyhoppers hop about the fields just west of Valennia."] = "하늘폴짝이는 발레니아 바로 서쪽 들판을 뛰어다닙니다.",
 
 	-- Step 48: Ayessa Dawnsinger
-	-- {npc:260628} Valennia Stormfist
-	["{npc:260628}, upstairs"] = "",
 	-- {npc:251968} Ayessa Dawnsinger
 	["talk to {npc:251968}"] = "{npc:251968}와(과) 대화하세요",
 	-- {npc:252382} Sessaria Skystride · {npc:251968} Ayessa Dawnsinger · {quest:97243} Call of Fire
@@ -229,7 +255,7 @@ return {
 	-- plural, as words: Hungry Bandits = {npc:252802} Hungry Bandit
 	["Hungry Bandits"] = "",
 	-- {npc:268592} Olariaan Swiftburn
-	["{npc:268592}, at the Shrine of Flames just south-east of the orchard"] = "",
+	["{npc:268592}, at the Shrine of Flames just south-east of the orchard"] = "{npc:268592}, 과수원 바로 남동쪽 불꽃의 제단",
 
 	-- Step 54: Gustberry Lowlands: kill these as you meet them
 	-- {area:16626} Gustberry Lowlands
@@ -248,7 +274,7 @@ return {
 	-- {npc:252389} Quel'ana Quickgale · {item:15908} Taming Rod
 	["tame one with {npc:252389}'s first {item:15908} while you are among them"] = "",
 	-- {npc:254588} Windsong Crawler
-	["Tame {npc:254588}"] = "",
+	["Tame {npc:254588}"] = "{npc:254588} 길들이기",
 
 	-- Step 57: Enchanted Gyrozephyr
 	-- {area:16624} Shen'dar Village · {area:16625} Windsong Lake
@@ -292,14 +318,14 @@ return {
 	-- {area:17675} East Pylon Watchtower
 	["The {area:17675}"] = "{area:17675}",
 	-- {area:17675} East Pylon Watchtower · {npc:252666} Commander Belguilos
-	["Head north-east to the {area:17675}. The Al'Aketh camp is just west of it, with {npc:252666} at its north end. Every cultist can drop a windstone charm."] = "",
+	["Head north-east to the {area:17675}. The Al'Aketh camp is just west of it, with {npc:252666} at its north end. Every cultist can drop a windstone charm."] = "북동쪽 {area:17675}(으)로 가세요. 알아케스 야영지는 그 바로 서쪽에 있으며, {npc:252666}은(는) 야영지 북쪽 끝에 있습니다. 신도는 모두 알아케스 바람석 부적을 떨어뜨릴 수 있습니다.",
 	-- {npc:268602} Skypriest Faladiel
-	["{npc:268602}, on the hill west of the falls just north of the watchtower"] = "",
+	["{npc:268602}, on the hill west of the falls just north of the watchtower"] = "{npc:268602}, 감시탑 바로 북쪽 폭포 서쪽 언덕",
 
 	-- Step 68: The turncoat
 	["The turncoat"] = "배신자",
 	-- {area:16626} Gustberry Lowlands · {area:16638} Valanaar · {npc:273017} Fendaal Windstone
-	["The turncoat's house is in the {area:16626} north-west of {area:16638}, just north of {npc:273017}."] = "",
+	["The turncoat's house is in the {area:16626} north-west of {area:16638}, just north of {npc:273017}."] = "배신자의 집은 {area:16638} 북서쪽 {area:16626}, {npc:273017} 바로 북쪽에 있습니다.",
 	["search the dead cultist in the house"] = "집 안의 죽은 신도를 뒤지세요",
 	-- {npc:253372} Dead Cultist
 	["{npc:253372}, inside"] = "",
@@ -398,7 +424,7 @@ return {
 
 	-- Step 92: Seena Skybreaker
 	-- {npc:252377} Seena Skybreaker · {npc:256083} Riaani Nightwind · {area:16638} Valanaar
-	["{npc:252377} stands beside {npc:256083}, just north-west of {area:16638}."] = "",
+	["{npc:252377} stands beside {npc:256083}, just north-west of {area:16638}."] = "{npc:252377}은(는) {area:16638} 바로 북서쪽, {npc:256083} 옆에 있습니다.",
 
 	-- Step 93: Valanaar
 	-- {npc:251968} Ayessa Dawnsinger · {area:16638} Valanaar · {zone:1412} Mulgore · {npc:259119} Alaana Stormwalker
@@ -414,9 +440,9 @@ return {
 	-- {npc:259119} Alaana Stormwalker
 	["You leave the isle for good. {npc:259119} waits where the airship lands."] = "이제 섬을 완전히 떠납니다. {npc:259119}이(가) 비행선이 내리는 곳에서 기다립니다.",
 	-- {npc:259119} Alaana Stormwalker · {zone:1454} Orgrimmar
-	["{npc:259119}: keep it: Thrall in {zone:1454}, at the start of the next guide"] = "",
-	-- {npc:259118} Muln Earthfury · {npc:3033} Turak Runetotem · {zone:1456} Thunder Bluff
-	["{npc:259118}, by the landing: for {npc:3033} in {zone:1456}"] = "착륙장 옆의 {npc:259118}: {zone:1456}의 {npc:3033}에게",
+	["{npc:259119}: keep it: Thrall in {zone:1454}, at the start of the next guide"] = "{npc:259119}: 보관하세요. 다음 가이드 시작에 {zone:1454}의 스랄",
+	-- {npc:253957} Muln Earthfury · {npc:3033} Turak Runetotem · {zone:1456} Thunder Bluff
+	["{npc:253957}, by the landing: for {npc:3033} in {zone:1456}"] = "착륙장 옆의 {npc:253957}: {zone:1456}의 {npc:3033}에게",
 
 	-- Step 97: Clarice Foster
 	-- {npc:5543} Clarice Foster · {area:2197} Pools of Vision · {area:1640} Spirit Rise
@@ -436,7 +462,7 @@ return {
 
 	-- Step 100: Turak Runetotem
 	-- {npc:3033} Turak Runetotem · {area:1639} Elder Rise · {spell:18960} Teleport: Moonglade · {npc:11802} Dendrite Starblaze · {spell:499} Cat Form
-	["{npc:3033} trains druids on {area:1639}. He teaches you {spell:18960}; {npc:11802}'s welcome waits for your {spell:499} trip at about 21 (forever/horde/02-the-barrens)."] = "",
+	["{npc:3033} trains druids on {area:1639}. He teaches you {spell:18960}; {npc:11802}'s welcome waits for your {spell:499} trip at about 21 (forever/horde/02-the-barrens)."] = "{npc:3033}은(는) {area:1639}에서 드루이드를 가르칩니다. 그에게서 {spell:18960}을(를) 배우세요. {npc:11802}의 환영 인사는 21레벨쯤 {spell:499} 여정 때 받습니다(forever/horde/02-the-barrens).",
 
 	-- Step 101: Hunter Rise
 	-- {item:278078} Prepared Incense · {area:1641} Hunter Rise
@@ -455,16 +481,22 @@ return {
 	-- Step 105: Into Mulgore
 	-- {zone:1412} Mulgore
 	["Into {zone:1412}"] = "",
+	-- {zone:1456} Thunder Bluff · {zone:1412} Mulgore · {zone:1413} Barrens
+	["Take {zone:1456}'s west lift down: the road at its foot runs south-east across {zone:1412} to the {zone:1413}."] = "{zone:1456}의 서쪽 승강기를 타고 내려가십시오. 그 아래 길은 남동쪽으로 {zone:1412}을(를) 가로질러 {zone:1413}까지 이어집니다.",
 
-	-- Step 106: Into The Barrens
-	-- {zone:1413} The Barrens
+	-- Step 106: Into Barrens
+	-- {zone:1413} Barrens
 	["Into {zone:1413}"] = "",
 
-	-- Step 108: The Crossroads
-	-- {npc:3615} Devrak · {area:380} The Crossroads · {zone:1421} Silverpine Forest · {zone:1413} The Barrens
+	-- Step 107: Camp Taurajo
+	-- {zone:1412} Mulgore · {area:458} Gold Road · {area:378} Camp Taurajo · {npc:10378} Omusa Thunderhorn · {npc:3418} Kirge Sternhorn
+	["The road from {zone:1412} meets the {area:458} at {area:378}: {npc:10378}, the wind rider master, stands beside {npc:3418} on your way north to the Crossroads."] = "{zone:1412}에서 오는 길은 {area:378}에서 {area:458}와(과) 만납니다. 와이번 조련사 {npc:10378}은(는) 북쪽 크로스로드로 가는 길에 {npc:3418} 옆에 서 있습니다.",
+
+	-- Step 109: The Crossroads
+	-- {npc:3615} Devrak · {area:380} The Crossroads · {zone:1421} Silverpine Forest · {zone:1413} Barrens
 	["Learn the flight path from {npc:3615} on the tower platform. {area:380}' own quests come after {zone:1421}, in the {zone:1413} guide."] = "",
 
-	-- Step 109: To Orgrimmar
+	-- Step 110: To Orgrimmar
 	-- {zone:1454} Orgrimmar
 	["To {zone:1454}"] = "{zone:1454}(으)로",
 	-- {area:379} Far Watch Post · {area:815} Southfury River · {zone:1411} Durotar · {zone:1454} Orgrimmar · {quest:95350} Welcome to Azeroth · {zone:1420} Tirisfal Glades · {zone:1421} Silverpine Forest
@@ -473,11 +505,9 @@ return {
 	["{zone:1454}'s {object:172982}"] = "",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
-	-- ["Back to {area:16624} with what you found."] = "찾은 것을 가지고 {area:16624}(으)로 돌아가세요.",
 	-- ["Back to {npc:268592}, then west into the {area:16623}: {npc:268605}'s home is in the hills south of the Windsong Crawlers' lakes."] = "{npc:268592}에게 돌아간 뒤 서쪽 {area:16623}(으)로 가세요. {npc:268605}의 집은 바람노래 집게발 호수 남쪽 언덕에 있습니다.",
 	-- ["Bandit Highwaymen"] = "산적 노상강도",
 	-- ["Climb the watchtower in the village, jump off the top and use {spell:1259416} to float down."] = "마을의 감시탑에 올라 꼭대기에서 뛰어내린 뒤 {spell:1259416}(으)로 천천히 내려오세요.",
-	-- ["Faladiel stands on the hill west of the falls, north of {area:16638}."] = "하늘사제 팔라디엘은 {area:16638} 북쪽, 폭포 서쪽 언덕에 있습니다.",
 	-- ["Follow the road south to {area:16624}, in the middle of the isle."] = "길을 따라 남쪽으로 섬 한가운데의 {area:16624}에 가세요.",
 	-- ["High Order Apprentices"] = "{npc:257521}",
 	-- ["Hippogryph nests"] = "히포그리프 둥지",
@@ -488,10 +518,8 @@ return {
 	-- ["On the way north, back to {npc:255853} by the falls."] = "북쪽으로 가는 길에 폭포 옆의 {npc:255853}에게 돌아가세요.",
 	-- ["Prideclaws and Galestriders"] = "무리발톱과 돌풍타조",
 	-- ["Prideclaws and Galestriders share the meadows south of the village. Keep the {item:5469} for {npc:251905}; the eggs come later from the hippogryphs."] = "무리발톱과 돌풍타조가 마을 남쪽 초원에 함께 있습니다. {item:5469}은(는) {npc:251905}에게 줄 것이니 챙겨 두세요. 알은 나중에 히포그리프에게서 얻습니다.",
-	-- ["Ride north-east to the {area:17675}. The Al'Aketh camp is just west of it, with {npc:252666} at its north end. Every cultist can drop a windstone charm."] = "북동쪽 {area:17675}(으)로 가세요. 알아케스 야영지는 그 바로 서쪽에 있으며, {npc:252666}은(는) 야영지 북쪽 끝에 있습니다. 신도는 모두 알아케스 바람석 부적을 떨어뜨릴 수 있습니다.",
 	-- ["Rorian: {quest:92485}"] = "로리안: {quest:92485}",
 	-- ["Sit by {npc:263664}'s campfire (type /sit) until you get the {spell:1229451} buff, then find {npc:251905} at the cook fire."] = "{spell:1229451} 효과를 얻을 때까지 {npc:263664}의 모닥불 옆에 앉은 뒤(/앉기 입력), 요리용 불가의 {npc:251905}을(를) 찾으세요.",
-	-- ["Take the Torch of Dormant Flame to {npc:268592} at the Shrine of Flames, south-west of {area:16638} in the {area:16626}."] = "희미한 불씨의 횃불을 {area:16638} 남서쪽 {area:16626}에 있는 불꽃의 제단의 {npc:268592}에게 가져가세요.",
 	-- ["Take the portal up to the {area:16630} and join {npc:252475} and {npc:251968} against the High Priestess."] = "차원문을 타고 {area:16630}(으)로 올라가 {npc:252475}, {npc:251968}와(과) 함께 대여사제 로르투나와 싸우세요.",
 	-- ["Take the road south-east to {area:16638}, the Skyborne town on the south coast. {npc:257006} and {npc:252448} stand at its western edge."] = "남동쪽 길을 따라 남쪽 해안의 스카이본 마을 {area:16638}(으)로 가세요. {npc:257006}와(과) {npc:252448}이(가) 마을 서쪽 끝에 있습니다.",
 	-- ["Talk to {npc:251902}"] = "{npc:251902}와(과) 대화하세요",
@@ -505,22 +533,18 @@ return {
 	-- ["The Ursera den is west of the village. {npc:251115}, their matriarch, sits at its far end."] = "우르세라 굴은 마을 서쪽에 있습니다. 우르세라의 어미 {npc:251115}은(는) 굴 맨 안쪽에 있습니다.",
 	-- ["The airship"] = "비행선",
 	-- ["The apprentices practise north-east of the village."] = "수습생들은 마을 북동쪽에서 수련합니다.",
-	-- ["The bandit camps are north-east of the village; \"Badwind\" Bennic holds the top camp. Bandits carry the stolen windstones."] = "좀도둑 야영지는 마을 북동쪽에 있으며, \"사악한 바람\" 베닉이 가장 위쪽 야영지를 차지하고 있습니다. 좀도둑들이 훔친 바람석을 지니고 있습니다.",
 	-- ["The crawlers scuttle along the shore south-west of town."] = "게들은 마을 남서쪽 해안을 따라 종종걸음 칩니다.",
 	-- ["The hermit lives at {area:16625}'s west shore. {item:257128} cones grow south of him; the Wind Hollows drift east of the lake."] = "은둔자는 {area:16625} 서쪽 물가에 삽니다. {item:257128} 솔방울은 그 남쪽에 자라고, {npc:251676}은(는) 호수 동쪽을 떠다닙니다.",
 	-- ["The highland bandits"] = "고원 좀도둑",
 	-- ["The highwaymen hold the hills north-east of the orchard. More {object:616466} lie near the road to {area:16638}."] = "노상강도는 과수원 북동쪽 언덕을 차지하고 있습니다. {area:16638}(으)로 가는 길 근처에 {object:616466}이(가) 더 있습니다.",
 	-- ["The highwaymen hold the hills north-east of the orchard. More {object:616468} lie near the road to {area:16638}."] = "노상강도는 과수원 북동쪽 언덕을 차지하고 있습니다. {area:16638}(으)로 가는 길 근처에 {object:616468}이(가) 더 있습니다.",
-	-- ["The hippogryph nests are north-west of the tower, west of {quest:92529}; the Matriarch sits at the western end. {item:263493} lies on the ground around them, and the hippogryphs drop the Small Eggs."] = "히포그리프 둥지는 탑 북서쪽, {quest:92529} 서쪽에 있으며, 히포그리프 어미는 서쪽 끝에 있습니다. {item:263493}은(는) 둥지 주변 땅에 있고, 히포그리프가 {item:6889}을(를) 떨어뜨립니다.",
 	-- ["The refugees' belongings lie along the north shore of {area:16625}; {npc:259013} is at its north-west end."] = "피난민의 소지품은 {area:16625} 북쪽 물가를 따라 놓여 있고, {npc:259013}은(는) 북서쪽 끝에 있습니다.",
-	-- ["The turncoat's house is in the {area:16626} north-west of {area:16638}. {npc:273017} waits nearby; his assassins lurk around the house."] = "배신자의 집은 {area:16638} 북서쪽 {area:16626}에 있습니다. {npc:273017}이(가) 근처에서 기다리고, 그의 암살자들이 집 주변에 숨어 있습니다.",
 	-- ["The watchtower"] = "감시탑",
 	-- ["Walk north to {area:16624}; finish the {item:5469} on the Galestriders along the way if you are short."] = "북쪽 {area:16624}(으)로 가세요. {item:5469}이(가) 모자라면 가는 길에 돌풍타조를 잡아 채우세요.",
 	-- ["Wind Hollows and {object:616466}"] = "{npc:251676}와(과) {object:616466}",
 	-- ["Wind Hollows and {object:616467}"] = "바람의 유령과 {object:616467}",
 	-- ["Wind Hollows drift over the lowlands around {area:16638}. The first {object:616466} lie west of the orchard road."] = "{npc:251676}은(는) {area:16638} 주변 저지대를 떠다닙니다. 첫 {object:616466}은(는) 과수원 길 서쪽에 있습니다.",
 	-- ["Wind Hollows drift over the lowlands around {area:16638}. The first {object:616467} lie west of the orchard road."] = "바람의 유령은 {area:16638} 주변 저지대를 떠다닙니다. 첫 {object:616467}은(는) 과수원 길 서쪽에 있습니다.",
-	-- ["Windsong Crawlers"] = "{npc:254588}",
 	-- ["With {skill:129} learned, {npc:263664} also offers its Camping 101: {npc:257018}, in Shen'dar, takes it."] = "{skill:129}을(를) 배우면 {npc:263664}이(가) 해당 야영 101 퀘스트도 줍니다. 셴다르의 {npc:257018}에게 완료하세요.",
 	-- ["With {skill:164} learned, {npc:263664} also offers its Camping 101: {npc:251913}, in Shen'dar, takes it."] = "{skill:164}을(를) 배우면 {npc:263664}이(가) 해당 야영 101 퀘스트도 줍니다. 셴다르의 {npc:251913}에게 완료하세요.",
 	-- ["With {skill:165} learned, {npc:263664} also offers its Camping 101: {npc:251993}, in Shen'dar, takes it."] = "{skill:165}을(를) 배우면 {npc:263664}이(가) 해당 야영 101 퀘스트도 줍니다. 셴다르의 {npc:251993}에게 완료하세요.",
@@ -530,20 +554,13 @@ return {
 	-- ["With {skill:393} learned, {npc:263664} also offers its Camping 101: {npc:257024}, in Shen'dar, takes it."] = "{skill:393}을(를) 배우면 {npc:263664}이(가) 해당 야영 101 퀘스트도 줍니다. 셴다르의 {npc:257024}에게 완료하세요.",
 	-- ["talk to {npc:251905}"] = "{npc:251905}와(과) 대화하세요",
 	-- ["{area:1638} is beside the landing: ride up a lift and learn the flight path from {npc:2995}, the wind rider master."] = "{area:1638}은(는) 착륙장 옆에 있습니다. 승강기를 타고 올라가 와이번 조련사 {npc:2995}에게서 비행 경로를 배우세요.",
-	-- ["{area:16624}, last time"] = "마지막으로 {area:16624}",
-	-- ["{npc:250926} prowl the slopes south-west of the village, on the way to {npc:252095}."] = "{npc:250926}은(는) {npc:252095}에게 가는 길, 마을 남서쪽 비탈을 배회합니다.",
-	-- ["{npc:251374} sends you to the {area:16988}, just east of the village: drink the {item:6635} there to see the {npc:251166}, then take the {item:6656} back to him."] = "{npc:251374}이(가) 마을 바로 동쪽 {area:16988}(으)로 보냅니다. 그곳에서 {item:6635}을(를) 마셔 {npc:251166}을(를) 보고, {item:6656}을(를) 그에게 가져가세요.",
 	-- ["{npc:251374} stands in the village."] = "{npc:251374}은(는) 마을에 있습니다.",
 	-- ["{npc:251374}, at the village centre"] = "마을 한가운데의 {npc:251374}",
-	-- ["{npc:252095} waits in {area:16622}, south-west of the village. The Al'Aketh camp is just beyond her; {npc:256935} leads it."] = "{npc:252095}은(는) 마을 남서쪽 {area:16622}에서 기다립니다. 알아케스 야영지는 그 바로 너머에 있으며, {npc:256935}이(가) 이끕니다.",
 	-- ["{npc:252359} stands on {area:16638}'s east side."] = "{npc:252359}은(는) {area:16638} 동쪽에 있습니다.",
-	-- ["{npc:252377} stands in the middle of {area:16638}."] = "{npc:252377}은(는) {area:16638} 한가운데에 있습니다.",
 	-- ["{npc:252382} stands on {area:16638}'s west side."] = "{npc:252382}은(는) {area:16638} 서쪽에 있습니다.",
 	-- ["{npc:252389} in {area:16638} hands you a {item:15908} three times: tame a {npc:254588} by the lakes north-west of town, an {npc:251707} in the fields west of town and a {npc:250874} at {area:16663}, returning to her after each. {npc:254411} stands beside her."] = "{area:16638}의 {npc:252389}이(가) {item:15908}을(를) 세 번 줍니다. 마을 북서쪽 호숫가의 {npc:254588}, 마을 서쪽 들판의 {npc:251707}, {area:16663}의 {npc:250874}을(를) 길들이고, 매번 그녀에게 돌아가세요. {npc:254411}은(는) 그녀 옆에 있습니다.",
 	-- ["{npc:255853} waits by the falls just north of the watchtower."] = "{npc:255853}은(는) 감시탑 바로 북쪽 폭포 옆에서 기다립니다.",
 	-- ["{npc:258443} roams the slopes just south of the turncoat's house."] = "{npc:258443}은(는) 배신자의 집 바로 남쪽 비탈을 배회합니다.",
-	-- ["{npc:259119}: keep it, Thrall in {zone:1454} comes two guides later"] = "{npc:259119}: 보관하세요. {zone:1454}의 스랄은 두 가이드 뒤에 나옵니다",
 	-- ["{npc:263664}'s campfire"] = "{npc:263664}의 모닥불",
-	-- ["{npc:3033} trains druids on {area:1639}. He teaches you {spell:18960}; {npc:11802}'s welcome waits for your {spell:499} trip at about 23 (forever/horde/04-the-barrens)."] = "{npc:3033}은(는) {area:1639}에서 드루이드를 가르칩니다. 그에게서 {spell:18960}을(를) 배우세요. {npc:11802}의 환영 인사는 23레벨쯤 {spell:499} 여정 때 받습니다(forever/horde/04-the-barrens).",
 	-- ["{npc:3615}, the wind rider master"] = "와이번 조련사 {npc:3615}",
 }

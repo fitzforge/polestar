@@ -6,6 +6,10 @@
 -- A token marked "no name in this language" would show in English: write that name in Russian words instead.
 -- The comments are rewritten by sync.
 return {
+	-- Guide
+	-- {area:327} Faldir's Cove · {npc:2768} Professor Phizzlethorpe · {npc:2306} Baron Vardus
+	["For characters of 36 to 38, but {area:327} and the Alterac Syndicate quests are level 40: on purpose, for their experience. {npc:2768}'s two water elementals (40) are immune to frost, and {npc:2306} (40) waits among his Syndicate: pull them one at a time."] = "Для персонажей 36-38-го уровня, но {area:327} и задания Синдиката Альтерака – 40-го уровня: это сделано намеренно, ради опыта. Два водяных элементаля NPC {npc:2768} (40) невосприимчивы к магии льда, а {npc:2306} (40) ждет среди своих людей из Синдиката: выманивайте их по одному.",
+
 	-- Step 1: Fly to Darkshire
 	-- {area:42} Darkshire
 	["Fly to {area:42}"] = "Летите сюда: {area:42}",
@@ -40,7 +44,8 @@ return {
 
 	-- Step 9: Galen Goodward
 	-- {npc:5391} Galen Goodward
-	["{npc:5391} is caged at the north end of the sanctuary. Free him and keep him alive on the walk out; his strongbox waits by the road afterwards."] = "{npc:5391} заперт в клетке в северной части святилища. Освободите его и не дайте ему погибнуть по пути наружу; затем его сундук будет ждать у дороги.",
+	-- plural, as words: Lost One Riftseekers = {npc:762} Lost One Riftseeker · Lost Ones = {npc:254797} Lost One
+	["{npc:5391} is caged at the north end of the sanctuary. Free him and keep him alive on the walk out; his strongbox waits by the road afterwards. Careful: on the walk out the camp's Lost One Riftseekers (37-38) and their pets, with the Lost Ones around them, turn on {npc:5391}: clear the cage and the start of his path first, stay beside him and pull every attacker onto yourself. Many players lose him the first time; if he dies, abandon the quest and take it again at his cage."] = "{npc:5391} заперт в клетке в северной части святилища. Освободите его и не дайте ему погибнуть по пути наружу; затем его сундук будет ждать у дороги. Осторожно: на обратном пути искатели разломов из Заблудших (37-38) из лагеря и их питомцы, вместе с окружающими их Заблудшими, нападают на NPC {npc:5391}: сначала расчистите клетку и начало его пути, держитесь рядом с ним и перетягивайте каждого нападающего на себя. Многие игроки теряют его в первый раз; если он погибнет, откажитесь от задания и возьмите его снова у клетки.",
 
 	-- Step 10: The Harborage
 	-- {npc:5391} Galen Goodward · {area:657} The Harborage
@@ -137,7 +142,7 @@ return {
 	-- Step 31: Stones of Binding
 	-- {area:320} Refuge Pointe · {object:2702} Stone of Inner Binding
 	-- plural, as words: Burning Exiles = {npc:2760} Burning Exile · Thundering Exiles = {npc:2762} Thundering Exile · Cresting Exiles = {npc:2761} Cresting Exile
-	["Each key lies at one of the Highlands' standing-stone circles: east of the shards, near {area:320} and in the west. The {object:2702} stands west of {area:320}.\nCareful: Each center stone is guarded by around three elementals near level 39 that attack together if you click the stone without clearing them: Burning Exiles at West, Thundering Exiles at Outer, Cresting Exiles at East."] = "",
+	["Each key lies at one of the Highlands' standing-stone circles: east of the shards, near {area:320} and in the west. The {object:2702} stands west of {area:320}.\nCareful: Each center stone is guarded by around three elementals near level 39 that attack together if you click the stone without clearing them: Burning Exiles at West, Thundering Exiles at Outer, Cresting Exiles at East."] = "Каждый ключ лежит у одного из кругов стоячих камней нагорья: к востоку от осколков, у места {area:320} и на западе. {object:2702} стоит к западу от места {area:320}.\nОсторожно: каждый центральный камень охраняют около трех элементалей примерно 39-го уровня, которые нападают вместе, если щелкнуть по камню, не перебив их: пылающие изгои – у западного, грохочущие изгнанники – у внешнего, морские изгои – у восточного.",
 
 	-- Step 32: Witherbark Village
 	-- {object:2691} Stone of East Binding · {area:314} Go'Shek Farm · {area:317} Witherbark Village
@@ -161,7 +166,7 @@ return {
 	-- {npc:2713} Kinelory
 	["{npc:2713}'s errand"] = "Поручение: {npc:2713}",
 	-- {npc:2713} Kinelory · {area:314} Go'Shek Farm
-	["Stay with {npc:2713} while she sneaks into {area:314} and back; Horde orcs jump you on the way.\nCareful: Orcs that drop to low health run away. {npc:2713} follows them and can pull more mobs, so kill or slow runners fast."] = "",
+	["Stay with {npc:2713} while she sneaks into {area:314} and back; Horde orcs jump you on the way.\nCareful: Orcs that drop to low health run away. {npc:2713} follows them and can pull more mobs, so kill or slow runners fast."] = "Держитесь рядом с NPC {npc:2713}, пока она пробирается сюда: {area:314} и обратно; по пути на вас нападут орки Орды.\nОсторожно: орки при малом здоровье убегают. {npc:2713} преследует их и может привлечь других противников, так что быстро убивайте или замедляйте беглецов.",
 
 	-- Step 38: Quae
 	-- {npc:2711} Phin Odelic · {area:271} Southshore
@@ -174,7 +179,7 @@ return {
 	["{npc:2789}: {npc:2793}'s cave comes after {area:327}"] = "",
 
 	-- Step 41: Faldir's Cove
-	["South along the west coast to the goblins' cove; Lolo keeps watch on the rocks above it."] = "",
+	["South along the west coast to the goblins' cove; Lolo keeps watch on the rocks above it."] = "На юг вдоль западного побережья к бухте гоблинов; Дозорный Лоло следит за ней со скал.",
 
 	-- Step 42: Phizzlethorpe
 	["Phizzlethorpe"] = "Физзлторп",
@@ -205,7 +210,7 @@ return {
 
 	-- Step 46: Kor'gresh Coldrage
 	-- {area:327} Faldir's Cove · {npc:2793} Kor'gresh Coldrage
-	["East from {area:327} through the southern hills: {npc:2793}, an ogre mage, holds the cave at the southern end of the Witherbark valley."] = "",
+	["East from {area:327} through the southern hills: {npc:2793}, an ogre mage, holds the cave at the southern end of the Witherbark valley."] = "К востоку от места {area:327} через южные холмы: {npc:2793}, огр-маг, удерживает пещеру в южном конце долины Сухокожих.",
 	-- {item:4525} Trelane's Wand of Invocation
 	["{item:4525}; below ground"] = "",
 
@@ -235,8 +240,8 @@ return {
 	["The tomes lie in the ruined keep west of {area:280}; Argus Shadow Mages hold the ruins.\nCareful: Crushridge Warmongers call nearby allies within 15 yd once they fall below half health.\nThe Crushridge Maulers, Mages, Enforcers and Warmongers (36-39) are elite; the Crushridge Ogres and Brutes (34-35) are not and carry the tomes too: pull one at a time, or group up."] = "",
 	-- {item:3658} Recovered Tome
 	["{item:3658}: Crushridge ogres"] = "{item:3658}: огры из клана Раздробленного Хребта",
-	-- {item:3659} Worn Leather Book · {object:1760} Weathered Bookcase
-	["{item:3659}: the {object:1760}; inside"] = "",
+	-- {item:3659} Worn Leather Book · {object:1760} Weathered Bookcase · {quest:540} Preserving Knowledge
+	["{item:3659}: the {object:1760}, beside Muckrake (40, elite): get it with a group, or abandon {quest:540}; inside"] = "{item:3659}: {object:1760}, рядом с Muckrake (40, элитный): берите его с группой или откажитесь от задания {quest:540}; внутри",
 
 	-- Step 54: Ruins of Alterac: kill these as you meet them
 	-- {npc:2417} Grel'borg the Miser
@@ -252,7 +257,7 @@ return {
 	["Crushridge ogres"] = "Огры из клана Раздробленного Хребта",
 	-- {area:280} Strahnbrad · {item:3706} Ensorcelled Parchment · {npc:2320} Nagaz · {quest:537} Dark Council
 	-- plural, as words: Crushridge Maulers = {npc:2254} Crushridge Mauler · Crushridge Ogres = {npc:2252} Crushridge Ogre
-	["The Crushridge ogres hold the hills north of {area:280}. Farther north, a worn wooden chest holds the {item:3706}; {npc:2320} of the {quest:537} stands right by it.\nThe Crushridge Maulers, Mages, Enforcers and Warmongers (36-39) are elite; the Crushridge Ogres and Brutes (34-35) are not and drop the knucklebones too: pull one at a time, or group up."] = "",
+	["The Crushridge ogres hold the hills north of {area:280}. Farther north, a worn wooden chest holds the {item:3706}; {npc:2320} of the {quest:537} stands right by it.\nThe Crushridge Maulers, Mages, Enforcers and Warmongers (36-39) are elite; the Crushridge Ogres and Brutes (34-35) are not and drop the knucklebones too: pull one at a time, or group up."] = "Огры из клана Раздробленного Хребта удерживают холмы к северу от места {area:280}. Дальше на север в потертом деревянном сундуке лежит {item:3706}; {npc:2320} ({quest:537}) стоит прямо рядом.\nМолотобойцы, маги, силовики и поджигатели войны из клана Раздробленного Хребта (36-39) – элитные; простые огры и громилы клана (34-35) – нет, и с них тоже падают костяшки: выманивайте по одному или соберите группу.",
 	["Inside"] = "Внутри",
 
 	-- Step 58: Dalaran
@@ -261,38 +266,58 @@ return {
 	-- {npc:2542} Catelyn the Blade · {area:35} Booty Bay
 	["For {npc:2542} in {area:35}: keep it"] = "Для NPC {npc:2542} ({area:35}): сохраните",
 
-	-- Step 60: Southshore
+	-- Step 59: Image of Archmage Modera
+	-- {npc:269127} Image of Archmage Modera · {quest:92458} Heart of Disruption · {item:277507} Dalaran Sewer Key
+	["For your City of Dalaran run, next: the {npc:269127} wants the arcane remnants in the city thinned out and a mote from the heart of the disruption. {quest:92458} brings the {item:277507}, which opens the grate."] = "Для похода в Город Даларан, следующий шаг: {npc:269127} просит проредить магические остатки в городе и добыть частицу из сердца искажения. Задание {quest:92458} дает {item:277507}: он открывает решетку.",
+
+	-- Step 60: City of Dalaran
+	["City of Dalaran"] = "Город Даларан",
+	-- {quest:92457} Starving Arcane · {item:251961} Arcane Mote · {quest:92458} Heart of Disruption
+	-- plural, as words: Seeking Remnants = {npc:247003} Seeking Remnant · Saturated Remnants = {npc:247001} Saturated Remnant
+	["The City of Dalaran is a dungeon for a group of five at about level 28 to 33: at your level it goes quickly. Its way in is the sewer grate in the city's western wall, by the lake, 30 yards from Modera's camp.\nInside: the Seeking Remnants, Saturated Remnants and Mana Echoes are Modera's {quest:92457}; the {item:251961} for {quest:92458} drops inside too."] = "Город Даларан – подземелье для группы из пяти игроков, примерно 28-33-й уровень: на вашем уровне оно проходится быстро. Вход – решетка канализации в западной стене города, у озера, в 30 ярдах от лагеря Модеры.\nВнутри: ищущие остатки, насыщенные остатки и отголоски маны нужны для задания Модеры {quest:92457}; {item:251961} для задания {quest:92458} тоже падает внутри.",
+	-- {quest:92457} Starving Arcane
+	["{quest:92457}: the remnants and echoes, inside"] = "{quest:92457}: остатки и отголоски, внутри",
+	-- {quest:92458} Heart of Disruption · {item:251961} Arcane Mote
+	["{quest:92458}: the {item:251961}, inside"] = "",
+
+	-- Step 61: Image of Archmage Modera
+	["Back out of the grate to Modera's camp on the lake shore."] = "Выберитесь обратно через решетку к лагерю Модеры на берегу озера.",
+
+	-- Step 64: Southshore
 	-- {npc:1440} Milton Sheaf · {zone:1453} Stormwind
 	["For {npc:1440} in {zone:1453}: keep it"] = "Для NPC {npc:1440} ({zone:1453}): сохраните",
 	-- {npc:2277} Loremaster Dibbs
 	["{npc:2277}: the parchment"] = "",
 
-	-- Step 61: Bartolo Ginsetti
+	-- Step 65: Bartolo Ginsetti
 	-- {npc:2438} Bartolo Ginsetti · {npc:2381} Micha Yance · {item:2321} Fine Thread
 	["{npc:2438} stands between the flight master and the inn; {npc:2381} beside him sells {item:2321} if you have none."] = "",
 	-- {item:2321} Fine Thread · {npc:2381} Micha Yance
 	["{item:2321}, from {npc:2381}"] = "",
 
-	-- Step 64: Ironforge
+	-- Step 68: Ironforge
 	-- {npc:1356} Prospector Stormpike · {object:32356} Hall of Explorers · {npc:1344} Prospector Ironband · {zone:1432} Loch Modan
 	["{npc:1356}, {object:32356}: for {npc:1344} in {zone:1432}, next"] = "",
 
-	-- Step 65: To Thelsamar
+	-- Step 69: Fly to Thelsamar
+	-- {area:144} Thelsamar
+	["Fly to {area:144}"] = "Летите сюда: {area:144}",
+
+	-- Step 70: To Thelsamar
 	-- {area:144} Thelsamar
 	["To {area:144}"] = "",
-
-	-- Step 66: Thelsamar
 	-- {zone:1455} Ironforge · {zone:1426} Dun Morogh · {zone:1432} Loch Modan · {area:144} Thelsamar
 	["From {zone:1455} take the tunnel east through {zone:1426} into {zone:1432} and follow the road to {area:144}."] = "Из города {zone:1455} идите через туннель на восток через зону {zone:1426} в зону {zone:1432} и по дороге сюда: {area:144}.",
+
+	-- Step 71: Thelsamar
 	-- {npc:1470} Ghak Healtouch
 	["{npc:1470}, below ground"] = "",
 
-	-- Step 67: Prospector Ironband
+	-- Step 72: Prospector Ironband
 	["South-east along the loch to the dig site."] = "На юго-восток вдоль озера к раскопкам.",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["A {npc:2434} lurks unseen on the edge of {area:271}; kill him and read the contract he carries."] = "{npc:2434} незаметно прячется на окраине места {area:271}; убейте его и прочитайте контракт, который он несет.",
-	-- ["Each key lies at one of the Highlands' standing-stone circles: east of the shards, near {area:320} and in the west. The {object:2702} stands west of {area:320}."] = "Каждый ключ лежит у одного из кругов стоячих камней нагорья: к востоку от осколков, у места {area:320} и на западе. {object:2702} стоит к западу от места {area:320}.",
 	-- ["East along the road to the {area:76}. {npc:256028} mobs drop the crystals; Noboru walks the ruins and drops his cudgel."] = "На восток по дороге сюда: {area:76}. Кристаллы падают с противников {npc:256028}; Нобору бродит по руинам и оставляет свою дубину.",
 	-- ["East to the Witherbark trolls in the hills south of {area:314}; Witch Doctors stand in the village, Shadow Hunters guard the far end of the valley. Every troll here can drop a tusk."] = "На восток к троллям из племени Сухокожих на холмах к югу от места {area:314}; знахари стоят в деревне, темные охотники охраняют дальний конец долины. Клык может выпасть с любого тролля здесь.",
 	-- ["Ebenezer Rustlocke"] = "Эбенезер Ржавый Засов",
@@ -307,10 +332,8 @@ return {
 	-- ["Ride back north-east past {area:320}; {npc:2712} and {npc:2713} camp in the hills north of {area:314}."] = "Скачите обратно на северо-восток мимо места {area:320}; {npc:2712} и {npc:2713} стоят лагерем на холмах к северу от места {area:314}.",
 	-- ["Shaman training"] = "Обучение шамана",
 	-- ["South-west to the Kirin Tor camp on the lake shore west of {area:279}, just over the border into {area:130}: the {npc:269127} stands there. Archmage Ansirem stands south-east of it, by the dome."] = "На юго-запад к лагерю Кирин-Тора на берегу озера к западу от места {area:279}, сразу за границей зоны {area:130}: там стоит {npc:269127}. Верховный маг Ансарем стоит к юго-востоку от него, у купола.",
-	-- ["Stay with {npc:2713} while she sneaks into {area:314} and back; Horde orcs jump you on the way."] = "Держитесь рядом с NPC {npc:2713}, пока она пробирается сюда: {area:314} и обратно; по пути на вас нападут орки Орды.",
 	-- ["Subdue the succubus"] = "Подчините суккуба",
 	-- ["Summon Succubus"] = "Призыв суккуба",
-	-- ["The Crushridge ogres hold the hills north of {area:280}. Farther north, a worn wooden chest holds the {item:3706}; {npc:2320} of the {quest:537} stands right by it."] = "Огры из клана Раздробленного Хребта удерживают холмы к северу от места {area:280}. Дальше на север в потертом деревянном сундуке лежит {item:3706}; {npc:2320} ({quest:537}) стоит прямо рядом.",
 	-- ["The Drywhisker kobolds dig in the gorge east of {area:321} (Horde); skirt the town to the north. They drop both the motes and Krazek's ore."] = "Кобольды из племени Сухоусов копают в ущелье к востоку от места {area:321} (Орда); обойдите город с севера. С них падают и частицы, и руда для Кразека.",
 	-- ["The Syndicate hold the farm north-west of {area:320}. A {npc:217589} crawls about the farm: catch one with {npc:217412}'s Entomology Starter Kit, then tick it off."] = "Синдикат удерживает ферму к северо-западу от места {area:320}. По ферме ползает {npc:217589}: поймайте одного с помощью набора энтомолога от NPC {npc:217412}, затем отметьте его.",
 	-- ["The Witherbark trolls live in the hills south of {area:314}; Witch Doctors stand in the village, Shadow Hunters guard the far end of the valley."] = "Тролли из племени Сухокожих живут на холмах к югу от места {area:314}; знахари стоят в деревне, темные охотники охраняют дальний конец долины.",
@@ -319,11 +342,9 @@ return {
 	-- ["The wrecked caravan lies off the road near Biggs."] = "Разбитый караван лежит в стороне от дороги рядом с Биггсом.",
 	-- ["The wrecks"] = "Обломки кораблей",
 	-- ["Walk back onto the span: Ebenezer lies under its Arathi end."] = "Вернитесь на мост: Эбенезер лежит под ним со стороны Нагорья Арати.",
-	-- ["West along the coast to the goblins' cove; Lolo keeps watch on the rocks above it."] = "На запад вдоль побережья к бухте гоблинов; Дозорный Лоло следит за ней со скал.",
 	-- ["{item:2321} for {npc:2438}'s cloak, from {npc:2381}, if you have none"] = "{item:2321} для плаща {npc:2438}, у NPC {npc:2381}, если у вас ее нет",
 	-- ["{item:3659}: the {object:1760}"] = "{item:3659}: {object:1760}",
 	-- ["{npc:217589}: catch it, for {quest:93176}"] = "{npc:217589}: поймайте для задания {quest:93176}",
 	-- ["{npc:252085}, in the City of Dalaran"] = "{npc:252085}, в городе Даларан",
-	-- ["{npc:2793}, an ogre mage, holds the cave at the southern end of the Witherbark valley."] = "{npc:2793}, огр-маг, удерживает пещеру в южном конце долины Сухокожих.",
 	-- ["{zone:1453} has no shaman trainer: take the {area:2257} from the {object:28027} to {zone:1455} and train with {npc:258098}. {npc:1573} in the {object:32372} flies to {area:271} too."] = "В городе {zone:1453} нет учителя шаманов: сядьте на поезд ({area:2257}) в месте {object:28027} до города {zone:1455} и обучитесь у NPC {npc:258098}. {npc:1573} ({object:32372}) тоже летает сюда: {area:271}.",
 }

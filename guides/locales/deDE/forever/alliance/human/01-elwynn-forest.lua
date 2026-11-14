@@ -139,22 +139,32 @@ return {
 	["Sit (/sit) by his campfire until you have {spell:1229451}"] = "Setz dich (/sit) an sein Lagerfeuer, bis du {spell:1229451} hast",
 
 	-- Step 24: Camping 101: Skinning
+	-- {npc:6306} Helene Peltskinner · {skill:393} Skinning
+	["{npc:6306} takes it once your {skill:393} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "{npc:6306} nimmt sie entgegen, sobald deine Fertigkeit in {skill:393} 20 beträgt: Sammle oder stelle bis dahin her, der Guide geht inzwischen weiter.",
 	-- {npc:263399} Sam Sarsaparilla · {npc:6306} Helene Peltskinner
 	["{npc:263399}: for {npc:6306} on the lake shore"] = "{npc:263399}: für {npc:6306} am Seeufer",
 
 	-- Step 25: Camping 101: Leatherworking
+	-- {npc:1632} Adele Fielder · {skill:165} Leatherworking
+	["{npc:1632} takes it once your {skill:165} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "{npc:1632} nimmt sie entgegen, sobald deine Fertigkeit in {skill:165} 20 beträgt: Sammle oder stelle bis dahin her, der Guide geht inzwischen weiter.",
 	-- {npc:263399} Sam Sarsaparilla · {npc:1632} Adele Fielder
 	["{npc:263399}: for {npc:1632} on the lake shore"] = "{npc:263399}: für {npc:1632} am Seeufer",
 
 	-- Step 26: Camping 101: Fishing
+	-- {npc:1651} Lee Brown · {skill:356} Fishing
+	["{npc:1651} takes it once your {skill:356} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "{npc:1651} nimmt sie entgegen, sobald deine Fertigkeit in {skill:356} 20 beträgt: Sammle oder stelle bis dahin her, der Guide geht inzwischen weiter.",
 	-- {npc:263399} Sam Sarsaparilla · {npc:1651} Lee Brown
 	["{npc:263399}: for {npc:1651} on the lake shore"] = "{npc:263399}: für {npc:1651} am Seeufer",
 
 	-- Step 27: Camping 101: First Aid
+	-- {npc:2329} Michelle Belle · {skill:129} First Aid
+	["{npc:2329} takes it once your {skill:129} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "{npc:2329} nimmt sie entgegen, sobald deine Fertigkeit in {skill:129} 20 beträgt: Sammle oder stelle bis dahin her, der Guide geht inzwischen weiter.",
 	-- {npc:263399} Sam Sarsaparilla · {npc:2329} Michelle Belle
 	["{npc:263399}: for {npc:2329} in the Lion's Pride Inn"] = "{npc:263399}: für {npc:2329} im Gasthaus „Zur Höhle des Löwen“",
 
 	-- Step 28: Camping 101: Blacksmithing
+	-- {npc:514} Smith Argus · {skill:164} Blacksmithing
+	["{npc:514} takes it once your {skill:164} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "{npc:514} nimmt sie entgegen, sobald deine Fertigkeit in {skill:164} 20 beträgt: Sammle oder stelle bis dahin her, der Guide geht inzwischen weiter.",
 	-- {npc:263399} Sam Sarsaparilla · {npc:514} Smith Argus · {area:87} Goldshire
 	["{npc:263399}: for {npc:514} at the {area:87} smithy"] = "{npc:263399}: für {npc:514} an der Schmiede in {area:87}",
 
@@ -289,9 +299,9 @@ return {
 	["Head east out of {area:87} along the lake shore. {npc:383} stands on the shore north-east of town."] = "Geh aus {area:87} nach Osten am Seeufer entlang. {npc:383} steht am Ufer nordöstlich der Stadt.",
 
 	-- Step 58: Crystal Lake: kill these as you meet them
-	-- {area:91} Tower of Azora
+	-- {area:91} Tower of Azora · {npc:276180} Elder Finseer · {npc:261} Guard Thomas
 	-- plural, as words: Prowlers = {npc:118} Prowler
-	["The murlocs on the east shore drop the kelp. Skinners: Gray Forest Wolves roam the woods between the lake and the {area:91}; Prowlers further east give pelts too."] = "Die Murlocs am Ostufer lassen den Tang fallen. Kürschner: Graue Forstwölfe streifen durch die Wälder zwischen dem See und {area:91}; Streuner weiter östlich liefern ebenfalls Felle.",
+	["The murlocs on the east shore drop the kelp. Skinners: Gray Forest Wolves roam the woods between the lake and the {area:91}; Prowlers further east give pelts too.\nCareful: {npc:276180}, a level 11 rare murloc, walks the river by {npc:261}' bridge, east of the Prowlers' woods: leave him be."] = "Die Murlocs am Ostufer lassen den Tang fallen. Kürschner: Graue Forstwölfe streifen durch die Wälder zwischen dem See und {area:91}; Streuner weiter östlich liefern ebenfalls Felle.\nVorsicht: {npc:276180}, ein seltener Murloc der Stufe 11, läuft den Fluss bei der Brücke von {npc:261} entlang, östlich des Walds der Streuner: Lass ihn in Ruhe.",
 	-- plural, as words: Crystal Kelp Fronds = {item:1256} Crystal Kelp Frond
 	["Crystal Kelp Fronds"] = "Kristalltangwedel",
 

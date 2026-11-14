@@ -8,23 +8,23 @@
 return {
 	-- Step 1: Auberdine
 	-- {npc:3649} Thundris Windweaver · {npc:3702} Alanndarian Nightsong · {npc:2913} Archaeologist Hollee · {npc:3693} Terenthis · {npc:3694} Sentinel Selarin
-	["From the dock, up to the north end of the village first ({npc:3649}, {npc:3702} by the moonwell, {npc:2913}), then down the main street: the WANTED poster outside the inn, {npc:3693} at its east end, where the road leaves south. {npc:3694} stands beside {npc:3693} by the flight master; if she isn't there, she has been killed and respawns shortly: wait a moment."] = "从码头先到村庄北端（{npc:3649}、月亮井旁的{npc:3702}，以及{npc:2913}），再沿主街往下走：旅店外有通缉告示，{npc:3693}在主街东端、道路向南出村的位置。{npc:3694}站在飞行管理员旁的{npc:3693}身边；如果她不在，说明刚被击杀，稍等片刻就会刷新。",
+	["From the dock (or the inn, if you used your Hearthstone), up to the north end of the village first ({npc:3649}, {npc:3702} by the moonwell, {npc:2913}), then down the main street: the WANTED poster outside the inn, {npc:3693} at its east end, where the road leaves south. {npc:3694} stands beside {npc:3693} by the flight master; if she isn't there, she has been killed and respawns shortly: wait a moment."] = "从码头（如果用了炉石，则从旅店）先到村庄北端（{npc:3649}、月亮井旁的{npc:3702}，以及{npc:2913}），再沿主街往下走：旅店外有通缉告示，{npc:3693}在主街东端、道路向南出村的位置。{npc:3694}站在飞行管理员旁的{npc:3693}身边；如果她不在，说明刚被击杀，稍等片刻就会刷新。",
 	-- {npc:3649} Thundris Windweaver · {npc:1646} Baros Alexston
 	["{npc:3649}, north end of the village: {npc:1646}'s reply"] = "{npc:3649}，在村庄北端：{npc:1646}的回信",
 	["The WANTED poster"] = "通缉布告",
 	-- {npc:3694} Sentinel Selarin · {npc:3693} Terenthis · {npc:3691} Raene Wolfrunner · {area:415} Astranaar
 	["{npc:3694}, beside {npc:3693}: for {npc:3691} in {area:415}, in the next guide"] = "{npc:3694}就在{npc:3693}旁边：交给{area:415}的{npc:3691}，见下一篇指南",
 
-	-- Step 3: Onu
-	-- {quest:948} Onu · {npc:270269} Arbal · {npc:11218} Kerlonian Evershade
-	["{quest:948} is the ancient at the Grove; {npc:270269} and {npc:11218} sleep beside him."] = "{quest:948}是古树之林中的古树，{npc:270269}和{npc:11218}在他旁边沉睡。",
-
-	-- Step 4: Lunar Fungus and Earthroot
+	-- Step 2: Lunar Fungus and Earthroot
 	-- {item:15851} Lunar Fungus · {item:2449} Earthroot
 	["{item:15851} and {item:2449}"] = "{item:15851}和{item:2449}",
 	-- {area:442} Auberdine · {item:2449} Earthroot · {skill:182} Herbalism · {zone:1439} Darkshore · {zone:1453} Stormwind · {npc:1313} Maria Lumere
 	-- plural, as words: Lunar Fungal Blooms = {object:177750} Lunar Fungal Bloom
-	["The Lunar Fungal Blooms grow in the moonkin caves in the hills just east of {area:442}; the moonkin there are irritable. {item:2449} needs {skill:182}: herbalists pick it all over {zone:1439}, anyone else brings it from {zone:1453} ({npc:1313}) or the Auction House."] = "{object:177750}生长在{area:442}东边山丘上的枭兽洞穴里；那里的枭兽很暴躁。{item:2449}需要{skill:182}：草药师在{zone:1439}各处都能采到，其他人从{zone:1453}（{npc:1313}）或拍卖行带来。",
+	["On the way south to the Grove: the Lunar Fungal Blooms grow in the moonkin caves in the hills just east of {area:442}, a short way off the road; the moonkin there are irritable. {item:2449} needs {skill:182}: herbalists pick it all over {zone:1439}, anyone else brings it from {zone:1453} ({npc:1313}) or the Auction House."] = "往南前往林地的途中：月光蘑菇花生长在{area:442}东边山丘上的枭兽洞穴里，离大路不远；那里的枭兽很暴躁。{item:2449}需要{skill:182}：草药师在{zone:1439}各处都能采到，其他人从{zone:1453}（{npc:1313}）或拍卖行带来。",
+
+	-- Step 4: Onu
+	-- {quest:948} Onu · {npc:270269} Arbal · {npc:11218} Kerlonian Evershade
+	["{quest:948} is the ancient at the Grove; {npc:270269} and {npc:11218} sleep beside him."] = "{quest:948}是古树之林中的古树，{npc:270269}和{npc:11218}在他旁边沉睡。",
 
 	-- Step 5: The Grove of the Ancients
 	-- {quest:952} Grove of the Ancients
@@ -77,16 +77,20 @@ return {
 	-- {item:15826} Curative Animal Salve
 	["She gives you the {item:15826}"] = "她会给你{item:15826}",
 
-	-- Step 13: On the way
+	-- Step 13: Gershala Nightwhisper
+	-- {area:2797} Blackfathom Deeps · {area:414} Zoram Strand · {npc:8997} Gershala Nightwhisper · {npc:3693} Terenthis
+	["For your {area:2797} run, on the {area:414} in the next guide: {npc:8997} stands a short walk west of {npc:3693}."] = "为{area:2797}之行做准备，在下一份指南的{area:414}：{npc:8997}站在{npc:3693}西边不远处。",
+
+	-- Step 14: On the way
 	["On the way"] = "顺路完成",
 
-	-- Step 14: The naga
+	-- Step 15: The naga
 	["The naga"] = "纳迦",
-	-- {area:443} Ruins of Mathystra · {quest:951} Mathystra Relics
+	-- {area:443} Ruins of Mathystra · {quest:951} Mathystra Relics · {npc:270294} Baron Marinous
 	-- plural, as words: Stormscale Myrmidons = {npc:2181} Stormscale Myrmidon
-	["Follow the coast north-east to the {area:443}. {quest:951} lie among the ruins; Stormscale Myrmidons, Sorceresses and Warriors hold them, and Stormscale Beastmistresses walk the shore."] = "沿海岸向东北到{area:443}。{quest:951}散落在废墟中；雷鳞侍从、雷鳞巫师和雷鳞战士占据着那里，雷鳞兽王在岸边巡逻。",
+	["Follow the coast north-east to the {area:443}. {quest:951} lie among the ruins; Stormscale Myrmidons, Sorceresses and Warriors hold them, and Stormscale Beastmistresses walk the shore. Careful: {npc:270294}, an elite naga (21), walks the ruins among them: pull the naga away from him, or fight him at full health."] = "沿海岸向东北到{area:443}。{quest:951}散落在废墟中；雷鳞侍从、雷鳞巫师和雷鳞战士占据着那里，雷鳞兽王在岸边巡逻。小心：精英纳迦{npc:270294}（21级）在它们之间的废墟中走动：把纳迦从他身边引开，或满血再和他打。",
 
-	-- Step 15: The Ruins of Mathystra
+	-- Step 16: The Ruins of Mathystra
 	-- {area:443} Ruins of Mathystra
 	["The {area:443}"] = "{area:443}",
 	-- {npc:6667} Gelkak Gyromast
@@ -94,20 +98,20 @@ return {
 	["{npc:6667} hides on the little island off the ruins. The key pieces drop from Giant Foreststriders (top), Greymist murlocs (middle) and Raging Reef Crawlers (bottom)."] = "{npc:6667}躲在废墟外的小岛上。钥匙碎片掉落自凶猛的森林陆行鸟（上段）、灰雾鱼人（中段）和狂暴暗礁蟹（下段）。",
 	["Underwater"] = "在水下",
 
-	-- Step 16: Strange Lockbox
+	-- Step 17: Strange Lockbox
 	-- {item:15883} Half Pendant of Aquatic Agility · {object:177792} Strange Lockbox
 	["{item:15883}: the {object:177792} under the water off the north coast, west of the ruins"] = "{item:15883}：在废墟西边、北部海岸外水下的{object:177792}",
 
-	-- Step 17: Mist's Edge: kill these as you meet them
+	-- Step 18: Mist's Edge: kill these as you meet them
 	-- {area:452} Mist's Edge
 	["{area:452}: kill these as you meet them"] = "{area:452}：沿途击杀以下目标",
 
-	-- Step 18: Back south
+	-- Step 19: Back south
 	["Back south"] = "返回南方",
 	-- {npc:3616} Onu
 	["{npc:3616}, at the Grove"] = "{npc:3616}，在古树之林",
 
-	-- Step 19: Volcor
+	-- Step 20: Volcor
 	-- {npc:3692} Volcor · {area:449} Master's Glaive · {npc:3693} Terenthis · {area:442} Auberdine
 	["{npc:3692} hides in the hills east of the {area:449}. Help him back to the road; he fights on his way out. {npc:3693} takes the escort in {area:442} on the next visit there."] = "{npc:3692} 藏在 {area:449} 东侧的山中。护送他返回道路；途中他会参与战斗。下次回到 {area:442} 时，找 {npc:3693} 交护送任务。",
 	-- {npc:3692} Volcor · {area:455} Blackwood Den
@@ -118,42 +122,50 @@ return {
 	-- {npc:12298} Sickly Deer
 	["Cure {npc:12298}"] = "治愈{npc:12298}",
 
-	-- Step 21: Auberdine flight master
+	-- Step 22: Auberdine flight master
 	-- {area:442} Auberdine
 	["{area:442} flight master"] = "{area:442}的飞行管理员",
 
-	-- Step 22: The Great Cat Spirit
+	-- Step 23: The Great Cat Spirit
 	-- {area:442} Auberdine · {area:702} Rut'theran Village · {npc:4217} Mathrengyl Bearwalker · {area:1658} Cenarion Enclave
 	["Night Elves fly from {area:442} to {area:702}; Skyborne take the boat from the {area:442} dock and learn the Rut'theran flight path there. Take the portal up to {npc:4217} in the {area:1658}."] = "暗夜精灵从{area:442}飞往{area:702}；天裔乘{area:442}码头的船前往，并在那里学习鲁瑟兰村的飞行路线。乘传送门上去找{area:1658}的{npc:4217}。",
 
-	-- Step 25: Moonglade
+	-- Step 26: Moonglade
 	-- {spell:18960} Teleport: Moonglade
 	["Cast {spell:18960}"] = "施放{spell:18960}",
 
-	-- Step 26: Dendrite Starblaze
+	-- Step 27: Dendrite Starblaze
 	-- {spell:18960} Teleport: Moonglade · {npc:11802} Dendrite Starblaze · {area:2361} Nighthaven
 	["Cast {spell:18960}. {npc:11802} stands upstairs in his building in {area:2361}: go up inside, the arrow cannot tell the floors apart. Learn the flight path there if you do not have it."] = "施放{spell:18960}。{npc:11802}在{area:2361}他所在建筑的楼上：从室内上去，箭头无法区分楼层。如果还没有那里的飞行路线，就去学习。",
 
-	-- Step 27: Dendrite Starblaze
+	-- Step 28: Dendrite Starblaze
 	-- {npc:11802} Dendrite Starblaze · {area:2361} Nighthaven
 	["{npc:11802} stands upstairs in his building in {area:2361}: go up inside, the arrow cannot tell the floors apart."] = "{npc:11802}在{area:2361}他所在建筑的楼上：从室内上去，箭头无法区分楼层。",
-	-- {npc:11802} Dendrite Starblaze
-	["{npc:11802}: the welcome from Sheldras"] = "{npc:11802}：沙德拉斯·月树的问候",
+	-- {npc:11802} Dendrite Starblaze · {npc:5504} Sheldras Moontree
+	["{npc:11802}: the welcome from {npc:5504}"] = "{npc:11802}：{npc:5504}的问候",
 
-	-- Step 29: The relics of the Barrow Dens
+	-- Step 30: The relics of the Barrow Dens
 	["The relics of the Barrow Dens"] = "兽穴的圣物",
 	-- {quest:98394} The Great Cat Spirit · {npc:272054} Avatar of Saeyleenan · {area:493} Moonglade · {area:2363} Stormrage Barrow Dens
 	["{quest:98394} (Night Elves) and the {npc:272054} (Skyborne) wait in southern {area:493}. The three relics lie in the {area:2363}, east of them. Reports from the first weeks say a relic gives no loot while another player is looting it: wait a moment and try again."] = "{quest:98394}（暗夜精灵）和{npc:272054}（天裔）在{area:493}南部等候。三件遗物在它们东边的{area:2363}里。最初几周的报告称：其他玩家正在拾取某件遗物时，你拾取不到东西：稍等片刻再试。",
 
-	-- Step 30: Back to Dendrite Starblaze
+	-- Step 31: Trial of the Sea Lion
+	-- {zone:1436} Westfall · {zone:1439} Darkshore · {area:2362} Shrine of Remulos · {npc:11802} Dendrite Starblaze · {spell:499} Cat Form
+	["Both half pendants in your bags (the {zone:1436} half from your last {zone:1436} visit, the {zone:1439} half from the north coast): stand by the {area:2362} on the north-west shore of the lake and use a half to join them, then take the pendant to {npc:11802} with the {spell:499} hand-in. {npc:11802} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."] = "两半坠饰都在背包里（{zone:1436}那一半来自你上次去{zone:1436}，{zone:1439}那一半来自北部海岸）：站在湖西北岸的{area:2362}旁，使用其中一半将两者合并，然后把坠饰交给{npc:11802}，完成{spell:499}任务。{npc:11802}在他所在建筑的楼上：从室内上去，箭头无法区分楼层。",
+	-- {item:15885} Pendant of the Sea Lion · {area:2362} Shrine of Remulos
+	["{item:15885}: join the halves at the {area:2362}"] = "{item:15885}：在{area:2362}合并两半坠饰",
+	-- {npc:11802} Dendrite Starblaze · {quest:5061} Aquatic Form · {npc:4217} Mathrengyl Bearwalker
+	["{npc:11802}: {quest:5061}, for {npc:4217}"] = "{npc:11802}：{quest:5061}，交给{npc:4217}",
+
+	-- Step 32: Back to Dendrite Starblaze
 	-- {npc:11802} Dendrite Starblaze
 	["Back to {npc:11802}"] = "回到{npc:11802}处",
 	-- {npc:11802} Dendrite Starblaze · {area:2361} Nighthaven · {npc:11800} Silva Fil'naveth · {area:702} Rut'theran Village
 	["Back to {npc:11802} in {area:2361}, then {npc:11800} there flies Druids straight to {area:702}. {npc:11802} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."] = "返回{area:2361}的{npc:11802}，然后那里的{npc:11800}会把德鲁伊直接送到{area:702}。{npc:11802}在他所在建筑的楼上：从室内上去，箭头无法区分楼层。",
 
-	-- Step 32: To Darnassus
+	-- Step 35: To Darnassus
 	-- {npc:4217} Mathrengyl Bearwalker · {area:442} Auberdine · {zone:1440} Ashenvale
-	["Take the portal up to {npc:4217}, then fly back to {area:442} for the road south to {zone:1440}."] = "通过传送门上去找 {npc:4217}，再飞回 {area:442}，沿路向南前往 {zone:1440}。",
+	["Take the portal up to {npc:4217}, then fly back to {area:442} for the road south to {zone:1440}. {npc:4217} is a Druid trainer: learn your new spells from him."] = "通过传送门上去找 {npc:4217}，再飞回 {area:442}，沿路向南前往 {zone:1440}。{npc:4217} 是德鲁伊训练师：向他学习新法术。",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["From the dock, up to the north end of the village first ({npc:3702} by the moonwell, {npc:2913}), then down the main street: the WANTED poster outside the inn, {npc:3693} at its east end, where the road leaves south."] = "从码头先上行到村庄北端（{npc:3702} 在月亮井旁，还有 {npc:2913}），再沿主街往下走：通缉告示在旅店外，{npc:3693} 在主街东端、道路向南出村的位置。",

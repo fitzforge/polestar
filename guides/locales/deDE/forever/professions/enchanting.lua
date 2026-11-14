@@ -20,13 +20,13 @@ return {
 
 	-- Step 3: Enchanting 1-75: Auction House
 	-- {skill:333} Enchanting
-	["{skill:333} 1-75: Auction House"] = "",
+	["{skill:333} 1-75: Auction House"] = "{skill:333} 1-75: Auktionshaus",
 	-- {item:10940} Strange Dust
-	["What 1-75 takes that the Auction House sells: 51 {item:10940}. The counts drop by what your bags, bank and mail hold."] = "",
+	["What 1-75 takes that the Auction House sells: 51 {item:10940}. The counts drop by what your bags, bank and mail hold."] = "Was du für 1-75 brauchst und das Auktionshaus verkauft: 51 {item:10940}. Die Zahlen sinken um das, was du schon in Taschen, Bank und Post hast.",
 
 	-- Step 4: Strange Dust
 	-- {item:10940} Strange Dust · {spell:7420} Enchant Chest - Inferior Stamina · {skill:333} Enchanting
-	["51 {item:10940} for {spell:7420}: {skill:333}: disenchant green items of item level 5-20."] = "",
+	["51 {item:10940} for {spell:7420}: {skill:333}: disenchant green items of item level 5-20."] = "51 {item:10940} für {spell:7420}: {skill:333}: grüne Gegenstände der Gegenstandsstufe 5-20 entzaubern.",
 
 	-- Step 5: Enchant Bracer - Inferior Stamina to 25
 	-- {spell:7418} Enchant Bracer - Inferior Stamina
@@ -45,7 +45,7 @@ return {
 	-- {spell:7420} Enchant Chest - Inferior Stamina
 	["{spell:7420} to 75"] = "{spell:7420} bis 75",
 	-- {spell:7420} Enchant Chest - Inferior Stamina · {item:10940} Strange Dust · {item:10938} Lesser Magic Essence · {spell:7423} Minor Absorption
-	["{spell:7420} is orange at 25 (yellow 70, green 90, grey 110): about 51 crafts to 75. Each takes 1 {item:10940}. One {item:10940} a craft: the dust most level 5-20 greens break into, armour above all. {item:10938} (from weapons) does the same job through Bracer - Minor Deflect or Chest - {spell:7423} if you have more of it. Enchant any item for that slot in your bags, even a grey one."] = "",
+	["{spell:7420} is orange at 25 (yellow 70, green 90, grey 110): about 51 crafts to 75. Each takes 1 {item:10940}. One {item:10940} a craft: the dust most level 5-20 greens break into, armour above all. {item:10938} (from weapons) does the same job through Bracer - Minor Deflect or Chest - {spell:7423} if you have more of it. Enchant any item for that slot in your bags, even a grey one."] = "{spell:7420} ist bei 25 orange (gelb 70, grün 90, grau 110): etwa 51 Herstellungen bis 75. Jede benötigt 1 {item:10940}. Ein {item:10940} pro Herstellung: der Staub, in den die meisten grünen Gegenstände der Stufen 5-20 zerfallen, vor allem Rüstung. {item:10938} (aus Waffen) erfüllt dieselbe Aufgabe über Bracer - Minor Deflect oder Chest - {spell:7423}, falls du davon mehr hast. Verzauber irgendeinen Gegenstand für diesen Platz in deinen Taschen, auch einen grauen.",
 
 	-- Step 8: Journeyman Enchanting
 	-- {skill:333} Enchanting
@@ -55,37 +55,37 @@ return {
 
 	-- Step 9: Enchanting 75-150: vendor goods
 	-- {skill:333} Enchanting
-	["{skill:333} 75-150: vendor goods"] = "",
+	["{skill:333} 75-150: vendor goods"] = "{skill:333} 75-150: Händlerwaren",
 	-- {item:10938} Lesser Magic Essence
-	["Buy the whole bracket's share in one go: 4 {item:10938} (32s). The arrow picks the nearest seller of your faction. {item:10938}: no vendor of the other faction sells it; that side gathers or buys it at the Auction House (next steps)."] = "",
+	["Buy the whole bracket's share in one go: 4 {item:10938} (32s). The arrow picks the nearest seller of your faction. {item:10938}: no vendor of the other faction sells it; that side gathers or buys it at the Auction House (next steps)."] = "Kauf den Bedarf für den ganzen Bereich auf einmal: 4 {item:10938} (32s). Der Pfeil wählt den nächsten Händler deiner Fraktion. {item:10938}: Kein Händler der anderen Fraktion verkauft es; diese Seite sammelt es oder kauft es im Auktionshaus (nächste Schritte).",
 
 	-- Step 10: Enchanting 75-150: Auction House
 	-- {skill:333} Enchanting
-	["{skill:333} 75-150: Auction House"] = "",
+	["{skill:333} 75-150: Auction House"] = "{skill:333} 75-150: Auktionshaus",
 	-- {item:1210} Shadowgem · {item:6338} Silver Rod · {item:10938} Lesser Magic Essence · {item:10940} Strange Dust · {item:11083} Soul Dust
-	["What 75-150 takes that the Auction House sells: 1 {item:1210}, 1 {item:6338}, 4 {item:10938}, 121 {item:10940} and 20 {item:11083}. The counts drop by what your bags, bank and mail hold."] = "",
+	["What 75-150 takes that the Auction House sells: 1 {item:1210}, 1 {item:6338}, 4 {item:10938}, 121 {item:10940} and 20 {item:11083}. The counts drop by what your bags, bank and mail hold."] = "Was du für 75-150 brauchst und das Auktionshaus verkauft: 1 {item:1210}, 1 {item:6338}, 4 {item:10938}, 121 {item:10940} und 20 {item:11083}. Die Zahlen sinken um das, was du schon in Taschen, Bank und Post hast.",
 
 	-- Step 11: Shadowgem
 	-- {item:1210} Shadowgem · {item:6339} Runed Silver Rod · {object:1731} Copper Vein · {object:1732} Tin Vein · {object:1733} Silver Vein
-	["1 {item:1210} for {item:6339}: {item:1210} turns up in about one {object:1731}, {object:1732} or {object:1733} in 100: keep the ones you find while mining."] = "",
+	["1 {item:1210} for {item:6339}: {item:1210} turns up in about one {object:1731}, {object:1732} or {object:1733} in 100: keep the ones you find while mining."] = "1 {item:1210} für {item:6339}: {item:1210} taucht in etwa jedem hundertsten {object:1731}, {object:1732} oder {object:1733} auf: Behalte die, die du beim Abbauen findest.",
 
 	-- Step 12: Silver Rod
 	-- {item:6338} Silver Rod · {item:6339} Runed Silver Rod · {skill:164} Blacksmithing
-	["1 {item:6338} for {item:6339}: {skill:164}: {item:6338}."] = "",
+	["1 {item:6338} for {item:6339}: {skill:164}: {item:6338}."] = "1 {item:6338} für {item:6339}: {skill:164}: {item:6338}.",
 
 	-- Step 13: Strange Dust
 	-- {item:10940} Strange Dust · {spell:7420} Enchant Chest - Inferior Stamina · {spell:7771} Enchant Cloak - Minor Protection · {item:6339} Runed Silver Rod · {skill:333} Enchanting
-	["121 {item:10940} for {spell:7420}, {spell:7771} and {item:6339}: {skill:333}: disenchant green items of item level 5-20."] = "",
+	["121 {item:10940} for {spell:7420}, {spell:7771} and {item:6339}: {skill:333}: disenchant green items of item level 5-20."] = "121 {item:10940} für {spell:7420}, {spell:7771} und {item:6339}: {skill:333}: grüne Gegenstände der Gegenstandsstufe 5-20 entzaubern.",
 
 	-- Step 14: Soul Dust
 	-- {item:11083} Soul Dust · {spell:13501} Enchant Bracer - Lesser Stamina · {skill:333} Enchanting
-	["20 {item:11083} for {spell:13501}: {skill:333}: disenchant green items of item level 21-30."] = "",
+	["20 {item:11083} for {spell:13501}: {skill:333}: disenchant green items of item level 21-30."] = "20 {item:11083} für {spell:13501}: {skill:333}: grüne Gegenstände der Gegenstandsstufe 21-30 entzaubern.",
 
 	-- Step 15: Enchant Chest - Inferior Stamina to 90
 	-- {spell:7420} Enchant Chest - Inferior Stamina
 	["{spell:7420} to 90"] = "{spell:7420} bis 90",
 	-- {spell:7420} Enchant Chest - Inferior Stamina · {item:10940} Strange Dust · {item:10938} Lesser Magic Essence · {spell:7423} Minor Absorption
-	["{spell:7420} is yellow at 75 (yellow 70, green 90, grey 110): about 22 crafts to 90. Each takes 1 {item:10940}. One {item:10940} a craft: the dust most level 5-20 greens break into, armour above all. {item:10938} (from weapons) does the same job through Bracer - Minor Deflect or Chest - {spell:7423} if you have more of it. Enchant any item for that slot in your bags, even a grey one."] = "",
+	["{spell:7420} is yellow at 75 (yellow 70, green 90, grey 110): about 22 crafts to 90. Each takes 1 {item:10940}. One {item:10940} a craft: the dust most level 5-20 greens break into, armour above all. {item:10938} (from weapons) does the same job through Bracer - Minor Deflect or Chest - {spell:7423} if you have more of it. Enchant any item for that slot in your bags, even a grey one."] = "{spell:7420} ist bei 75 gelb (gelb 70, grün 90, grau 110): etwa 22 Herstellungen bis 90. Jede benötigt 1 {item:10940}. Ein {item:10940} pro Herstellung: der Staub, in den die meisten grünen Gegenstände der Stufen 5-20 zerfallen, vor allem Rüstung. {item:10938} (aus Waffen) erfüllt dieselbe Aufgabe über Bracer - Minor Deflect oder Chest - {spell:7423}, falls du davon mehr hast. Verzauber irgendeinen Gegenstand für diesen Platz in deinen Taschen, auch einen grauen.",
 
 	-- Step 16: Enchant Cloak - Minor Protection to 130
 	-- {spell:7771} Enchant Cloak - Minor Protection
@@ -103,20 +103,20 @@ return {
 	-- {spell:13501} Enchant Bracer - Lesser Stamina
 	["{spell:13501} to 150"] = "{spell:13501} bis 150",
 	-- {spell:13501} Enchant Bracer - Lesser Stamina · {item:11083} Soul Dust · {item:6339} Runed Silver Rod · {item:10938} Lesser Magic Essence · {skill:333} Enchanting
-	["{spell:13501} is orange at 130 (yellow 155, green 175, grey 195): about 20 crafts to 150, a point every craft. Each takes 1 {item:11083}. One {item:11083} a craft (level 21-30 greens). Make the {item:6339} first: the recipe needs it in your bags, so keep it there. {item:10938} (4 for 75-150): Alliance: {skill:333}: disenchant green items of item level 5-15; or the Auction House. Enchant any item for that slot in your bags, even a grey one. {skill:333} 150 is a Legacy System milestone."] = "",
+	["{spell:13501} is orange at 130 (yellow 155, green 175, grey 195): about 20 crafts to 150, a point every craft. Each takes 1 {item:11083}. One {item:11083} a craft (level 21-30 greens). Make the {item:6339} first: the recipe needs it in your bags, so keep it there. {item:10938} (4 for 75-150): Alliance: {skill:333}: disenchant green items of item level 5-15; or the Auction House. Enchant any item for that slot in your bags, even a grey one. {skill:333} 150 is a Legacy System milestone."] = "{spell:13501} ist bei 130 orange (gelb 155, grün 175, grau 195): etwa 20 Herstellungen bis 150, ein Punkt pro Herstellung. Jede benötigt 1 {item:11083}. Ein {item:11083} pro Herstellung (grüne Gegenstände der Stufen 21-30). Stell zuerst {item:6339} her: Das Rezept braucht sie in deinen Taschen, behalte sie also dort. {item:10938} (4 für 75-150): Allianz: {skill:333}: grüne Gegenstände der Gegenstandsstufe 5-15 entzaubern; oder im Auktionshaus. Verzauber irgendeinen Gegenstand für diesen Platz in deinen Taschen, auch einen grauen. {skill:333} 150 ist ein Meilenstein des Vermächtnissystems.",
 
 	-- Step 19: Enchanting 150-225: Auction House
 	-- {skill:333} Enchanting
-	["{skill:333} 150-225: Auction House"] = "",
+	["{skill:333} 150-225: Auction House"] = "{skill:333} 150-225: Auktionshaus",
 	-- {item:5500} Iridescent Pearl · {item:7971} Black Pearl · {item:11082} Greater Astral Essence · {item:11083} Soul Dust · {item:11128} Golden Rod · {item:11135} Greater Mystic Essence · {item:11137} Vision Dust · {item:11144} Truesilver Rod
-	["What 150-225 takes that the Auction House sells: 1 {item:5500}, 1 {item:7971}, 1 {item:11082}, 71 {item:11083}, 1 {item:11128}, 1 {item:11135}, 21 {item:11137} and 1 {item:11144}. The counts drop by what your bags, bank and mail hold."] = "",
+	["What 150-225 takes that the Auction House sells: 1 {item:5500}, 1 {item:7971}, 1 {item:11082}, 71 {item:11083}, 1 {item:11128}, 1 {item:11135}, 21 {item:11137} and 1 {item:11144}. The counts drop by what your bags, bank and mail hold."] = "Was du für 150-225 brauchst und das Auktionshaus verkauft: 1 {item:5500}, 1 {item:7971}, 1 {item:11082}, 71 {item:11083}, 1 {item:11128}, 1 {item:11135}, 21 {item:11137} und 1 {item:11144}. Die Zahlen sinken um das, was du schon in Taschen, Bank und Post hast.",
 
 	-- Step 20: Iridescent Pearl (Alliance)
 	-- {item:5500} Iridescent Pearl
 	["{item:5500} (Alliance)"] = "{item:5500} (Allianz)",
 	-- {item:5500} Iridescent Pearl · {item:11130} Runed Golden Rod
 	-- plural, as words: Giant Clams = {object:2744} Giant Clam
-	["1 {item:5500} for {item:11130}: open the Giant Clams at the marked spot."] = "",
+	["1 {item:5500} for {item:11130}: open the Giant Clams at the marked spot."] = "1 {item:5500} für {item:11130}: Öffne die Giant Clams an der markierten Stelle.",
 
 	-- Step 21: Iridescent Pearl (Horde)
 	-- {item:5500} Iridescent Pearl
@@ -124,27 +124,27 @@ return {
 
 	-- Step 22: Greater Astral Essence
 	-- {item:11082} Greater Astral Essence · {item:11130} Runed Golden Rod · {skill:333} Enchanting
-	["1 {item:11082} for {item:11130}: {skill:333}: disenchant green items of item level 16-25."] = "",
+	["1 {item:11082} for {item:11130}: {skill:333}: disenchant green items of item level 16-25."] = "1 {item:11082} für {item:11130}: {skill:333}: grüne Gegenstände der Gegenstandsstufe 16-25 entzaubern.",
 
 	-- Step 23: Soul Dust
 	-- {item:11083} Soul Dust · {item:11130} Runed Golden Rod · {spell:13501} Enchant Bracer - Lesser Stamina · {spell:13637} Enchant Boots - Lesser Agility · {skill:333} Enchanting
-	["71 {item:11083} for {item:11130}, {spell:13501} and {spell:13637}: {skill:333}: disenchant green items of item level 21-30."] = "",
+	["71 {item:11083} for {item:11130}, {spell:13501} and {spell:13637}: {skill:333}: disenchant green items of item level 21-30."] = "71 {item:11083} für {item:11130}, {spell:13501} und {spell:13637}: {skill:333}: grüne Gegenstände der Gegenstandsstufe 21-30 entzaubern.",
 
 	-- Step 24: Golden Rod
 	-- {item:11128} Golden Rod · {item:11130} Runed Golden Rod · {skill:164} Blacksmithing
-	["1 {item:11128} for {item:11130}: {skill:164}: {item:11128}."] = "",
+	["1 {item:11128} for {item:11130}: {skill:164}: {item:11128}."] = "1 {item:11128} für {item:11130}: {skill:164}: {item:11128}.",
 
 	-- Step 25: Greater Mystic Essence
 	-- {item:11135} Greater Mystic Essence · {item:11145} Runed Truesilver Rod · {skill:333} Enchanting
-	["1 {item:11135} for {item:11145}: {skill:333}: disenchant green items of item level 26-35."] = "",
+	["1 {item:11135} for {item:11145}: {skill:333}: disenchant green items of item level 26-35."] = "1 {item:11135} für {item:11145}: {skill:333}: grüne Gegenstände der Gegenstandsstufe 26-35 entzaubern.",
 
 	-- Step 26: Vision Dust
 	-- {item:11137} Vision Dust · {item:11145} Runed Truesilver Rod · {spell:13746} Enchant Cloak - Greater Defense · {skill:333} Enchanting
-	["21 {item:11137} for {item:11145} and {spell:13746}: {skill:333}: disenchant green items of item level 31-40."] = "",
+	["21 {item:11137} for {item:11145} and {spell:13746}: {skill:333}: disenchant green items of item level 31-40."] = "21 {item:11137} für {item:11145} und {spell:13746}: {skill:333}: grüne Gegenstände der Gegenstandsstufe 31-40 entzaubern.",
 
 	-- Step 27: Truesilver Rod
 	-- {item:11144} Truesilver Rod · {item:11145} Runed Truesilver Rod · {skill:164} Blacksmithing
-	["1 {item:11144} for {item:11145}: {skill:164}: {item:11144}."] = "",
+	["1 {item:11144} for {item:11145}: {skill:164}: {item:11144}."] = "1 {item:11144} für {item:11145}: {skill:164}: {item:11144}.",
 
 	-- Step 28: Expert Enchanting
 	-- {skill:333} Enchanting
@@ -156,7 +156,7 @@ return {
 	-- {spell:13501} Enchant Bracer - Lesser Stamina
 	["{spell:13501} to 160"] = "{spell:13501} bis 160",
 	-- {spell:13501} Enchant Bracer - Lesser Stamina · {item:11083} Soul Dust · {item:11130} Runed Golden Rod
-	["{spell:13501} is orange at 150 (yellow 155, green 175, grey 195): about 11 crafts to 160. Each takes 1 {item:11083}. One {item:11083} a craft (level 21-30 greens). Make the {item:11130} now, while it still gives a point: a later recipe needs it in your bags, so keep it there. Enchant any item for that slot in your bags, even a grey one."] = "",
+	["{spell:13501} is orange at 150 (yellow 155, green 175, grey 195): about 11 crafts to 160. Each takes 1 {item:11083}. One {item:11083} a craft (level 21-30 greens). Make the {item:11130} now, while it still gives a point: a later recipe needs it in your bags, so keep it there. Enchant any item for that slot in your bags, even a grey one."] = "{spell:13501} ist bei 150 orange (gelb 155, grün 175, grau 195): etwa 11 Herstellungen bis 160. Jede benötigt 1 {item:11083}. Ein {item:11083} pro Herstellung (grüne Gegenstände der Stufen 21-30). Stell {item:11130} jetzt her, solange sie noch einen Punkt gibt: Ein späteres Rezept braucht sie in deinen Taschen, behalte sie also dort. Verzauber irgendeinen Gegenstand für diesen Platz in deinen Taschen, auch einen grauen.",
 
 	-- Step 30: Enchanting recipes at 160
 	-- {skill:333} Enchanting
@@ -180,7 +180,7 @@ return {
 	-- {spell:13746} Enchant Cloak - Greater Defense
 	["{spell:13746} to 225"] = "{spell:13746} bis 225",
 	-- {spell:13746} Enchant Cloak - Greater Defense · {item:11137} Vision Dust · {item:11145} Runed Truesilver Rod · {item:7971} Black Pearl · {skill:333} Enchanting
-	["{spell:13746} is orange at 205 (yellow 225, green 245, grey 265): about 20 crafts to 225, a point every craft. Each takes 1 {item:11137}. One {item:11137} a craft (level 31-40 greens). Make the {item:11145} first: the recipe needs it in your bags, so keep it there. {item:7971} (1 for 150-225): {item:7971} is a rare drop (no mob gives it one time in 50): buy it at the Auction House, or keep the ones you find. Enchant any item for that slot in your bags, even a grey one. {skill:333} 225 is a Legacy System milestone."] = "",
+	["{spell:13746} is orange at 205 (yellow 225, green 245, grey 265): about 20 crafts to 225, a point every craft. Each takes 1 {item:11137}. One {item:11137} a craft (level 31-40 greens). Make the {item:11145} first: the recipe needs it in your bags, so keep it there. {item:7971} (1 for 150-225): {item:7971} is a rare drop (no mob gives it one time in 50): buy it at the Auction House, or keep the ones you find. Enchant any item for that slot in your bags, even a grey one. {skill:333} 225 is a Legacy System milestone."] = "{spell:13746} ist bei 205 orange (gelb 225, grün 245, grau 265): etwa 20 Herstellungen bis 225, ein Punkt pro Herstellung. Jede benötigt 1 {item:11137}. Ein {item:11137} pro Herstellung (grüne Gegenstände der Stufen 31-40). Stell zuerst die {item:11145} her: Das Rezept braucht sie in deinen Taschen, behalte sie also dort. {item:7971} (1 für 150-225): {item:7971} ist eine seltene Beute (kein Mob lässt sie öfter als einmal in 50 fallen): Kauf sie im Auktionshaus oder behalte die, die du findest. Verzauber irgendeinen Gegenstand für diesen Platz in deinen Taschen, auch einen grauen. {skill:333} 225 ist ein Meilenstein des Vermächtnissystems.",
 
 	-- Step 34: Artisan Enchanting
 	-- {skill:333} Enchanting
@@ -204,41 +204,41 @@ return {
 
 	-- Step 38: Enchanting 225-300: Auction House
 	-- {skill:333} Enchanting
-	["{skill:333} 225-300: Auction House"] = "",
+	["{skill:333} 225-300: Auction House"] = "{skill:333} 225-300: Auktionshaus",
 	-- {item:8831} Purple Lotus · {item:11137} Vision Dust · {item:11176} Dream Dust
-	["What 225-300 takes that the Auction House sells: 34 {item:8831}, 39 {item:11137} and 208 {item:11176}. The counts drop by what your bags, bank and mail hold."] = "",
+	["What 225-300 takes that the Auction House sells: 34 {item:8831}, 39 {item:11137} and 208 {item:11176}. The counts drop by what your bags, bank and mail hold."] = "Was du für 225-300 brauchst und das Auktionshaus verkauft: 34 {item:8831}, 39 {item:11137} und 208 {item:11176}. Die Zahlen sinken um das, was du schon in Taschen, Bank und Post hast.",
 
 	-- Step 39: Purple Lotus (Alliance)
 	-- {item:8831} Purple Lotus
 	["{item:8831} (Alliance)"] = "{item:8831} (Allianz)",
 	-- {item:8831} Purple Lotus · {item:20747} Lesser Mana Oil · {skill:182} Herbalism · {zone:1425} The Hinterlands · {zone:1444} Feralas · {zone:1447} Azshara
-	["34 {item:8831} for {item:20747}: {skill:182}: {item:8831} (skill 210) in {zone:1425} (40-50), {zone:1444} (40-50) and {zone:1447} (45-55). The densest patch of {item:8831} in {zone:1425} is marked."] = "",
+	["34 {item:8831} for {item:20747}: {skill:182}: {item:8831} (skill 210) in {zone:1425} (40-50), {zone:1444} (40-50) and {zone:1447} (45-55). The densest patch of {item:8831} in {zone:1425} is marked."] = "34 {item:8831} für {item:20747}: {skill:182}: {item:8831} (Fertigkeit 210) in {zone:1425} (40-50), {zone:1444} (40-50) und {zone:1447} (45-55). Das dichteste Vorkommen von {item:8831} in {zone:1425} ist markiert.",
 
 	-- Step 40: Purple Lotus (Horde)
 	-- {item:8831} Purple Lotus
 	["{item:8831} (Horde)"] = "{item:8831} (Horde)",
 	-- {item:8831} Purple Lotus · {item:20747} Lesser Mana Oil · {skill:182} Herbalism · {zone:1425} The Hinterlands · {zone:1444} Feralas · {zone:1447} Azshara
-	["34 {item:8831} for {item:20747}: {skill:182}: {item:8831} (skill 210) in {zone:1425} (40-50), {zone:1444} (40-50) and {zone:1447} (45-55). The densest patch of {item:8831} in {zone:1444} is marked."] = "",
+	["34 {item:8831} for {item:20747}: {skill:182}: {item:8831} (skill 210) in {zone:1425} (40-50), {zone:1444} (40-50) and {zone:1447} (45-55). The densest patch of {item:8831} in {zone:1444} is marked."] = "34 {item:8831} für {item:20747}: {skill:182}: {item:8831} (Fertigkeit 210) in {zone:1425} (40-50), {zone:1444} (40-50) und {zone:1447} (45-55). Das dichteste Vorkommen von {item:8831} in {zone:1444} ist markiert.",
 
 	-- Step 41: Vision Dust
 	-- {item:11137} Vision Dust · {spell:13815} Enchant Gloves - Agility · {skill:333} Enchanting
-	["39 {item:11137} for {spell:13815}: {skill:333}: disenchant green items of item level 31-40."] = "",
+	["39 {item:11137} for {spell:13815}: {skill:333}: disenchant green items of item level 31-40."] = "39 {item:11137} für {spell:13815}: {skill:333}: grüne Gegenstände der Gegenstandsstufe 31-40 entzaubern.",
 
 	-- Step 42: Dream Dust
 	-- {item:11176} Dream Dust · {item:20747} Lesser Mana Oil · {spell:20017} Enchant Shield - Greater Stamina · {skill:333} Enchanting
-	["208 {item:11176} for {item:20747} and {spell:20017}: {skill:333}: disenchant green items of item level 41-50."] = "",
+	["208 {item:11176} for {item:20747} and {spell:20017}: {skill:333}: disenchant green items of item level 41-50."] = "208 {item:11176} für {item:20747} und {spell:20017}: {skill:333}: grüne Gegenstände der Gegenstandsstufe 41-50 entzaubern.",
 
 	-- Step 43: Enchant Gloves - Agility to 253
 	-- {spell:13815} Enchant Gloves - Agility
 	["{spell:13815} to 253"] = "{spell:13815} bis 253",
 	-- {spell:13815} Enchant Gloves - Agility · {item:11137} Vision Dust · {npc:11073} Annora
-	["{spell:13815} is orange at 225 (yellow 230, green 250, grey 270): about 39 crafts to 253. Each takes 1 {item:11137}. {npc:11073} teaches it with Artisan: learn it on that visit. {item:11137} again; bring about 40. Enchant any item for that slot in your bags, even a grey one."] = "",
+	["{spell:13815} is orange at 225 (yellow 230, green 250, grey 270): about 39 crafts to 253. Each takes 1 {item:11137}. {npc:11073} teaches it with Artisan: learn it on that visit. {item:11137} again; bring about 40. Enchant any item for that slot in your bags, even a grey one."] = "{spell:13815} ist bei 225 orange (gelb 230, grün 250, grau 270): etwa 39 Herstellungen bis 253. Jede benötigt 1 {item:11137}. {npc:11073} bringt es mit der Meisterstufe bei: Lerne es bei diesem Besuch. Wieder {item:11137}; bring etwa 40 mit. Verzauber irgendeinen Gegenstand für diesen Platz in deinen Taschen, auch einen grauen.",
 
 	-- Step 44: Lesser Mana Oil to 275
 	-- {item:20747} Lesser Mana Oil
 	["{item:20747} to 275"] = "{item:20747} bis 275",
 	-- {item:20747} Lesser Mana Oil · {item:11176} Dream Dust · {item:8831} Purple Lotus · {item:8925} Crystal Vial · {npc:15419} Kania · {area:3425} Cenarion Hold · {zone:1451} Silithus
-	["{item:20747} is orange at 253 (yellow 260, green 270, grey 280): about 34 crafts to 275. Each takes 1 {item:11176}, 1 {item:8831} and 1 {item:8925}. One {item:11176} (level 41-50 greens) and one {item:8831} (herbalists) a craft; the oil sells well. {npc:15419} sells the formula at the inn of {area:3425} ({zone:1451}): fly there, the mobs around it are level 55 and up."] = "",
+	["{item:20747} is orange at 253 (yellow 260, green 270, grey 280): about 34 crafts to 275. Each takes 1 {item:11176}, 1 {item:8831} and 1 {item:8925}. One {item:11176} (level 41-50 greens) and one {item:8831} (herbalists) a craft; the oil sells well. {npc:15419} sells the formula at the inn of {area:3425} ({zone:1451}): fly there, the mobs around it are level 55 and up."] = "{item:20747} ist bei 253 orange (gelb 260, grün 270, grau 280): etwa 34 Herstellungen bis 275. Jede benötigt 1 {item:11176}, 1 {item:8831} und 1 {item:8925}. Ein {item:11176} (grüne Gegenstände der Stufen 41-50) und ein {item:8831} (von Kräuterkundigen) pro Herstellung; das Öl verkauft sich gut. {npc:15419} verkauft die Formel im Gasthaus von {area:3425} ({zone:1451}): Flieg hin, die Mobs in der Umgebung sind Stufe 55 und höher.",
 	["from the recipe in your bags"] = "aus dem Rezept in deinen Taschen",
 
 	-- Step 45: Enchant Shield - Greater Stamina to 300
@@ -248,9 +248,6 @@ return {
 	["{spell:20017} is orange at 275 (yellow 285, green 305, grey 325): about 29 crafts to 300. Each takes 6 {item:11176}. Six {item:11176} a craft: the dearest stretch, so disenchant every level 41-50 green you find. Enchant any item for that slot in your bags, even a grey one. {skill:333} 300 is a Legacy System milestone."] = "{spell:20017} ist bei 275 orange (gelb 285, grün 305, grau 325): etwa 29 Herstellungen bis 300. Jede benötigt 6 {item:11176}. Sechs {item:11176} pro Herstellung: die teuerste Strecke, entzaubere also jeden grünen Gegenstand der Stufen 41-50, den du findest. Verzauber irgendeinen Gegenstand für diesen Platz in deinen Taschen, auch einen grauen. {skill:333} 300 ist ein Meilenstein des Vermächtnissystems.",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
-	-- ["1 {item:5500} for {item:11130}: open the Giant Clams at the marked spot, or buy it at the Auction House."] = "1 {item:5500} für {item:11130}: Öffne die Giant Clams an der markierten Stelle oder kauf sie im Auktionshaus.",
-	-- ["34 {item:8831} for {item:20747}: {skill:182}: {item:8831} (skill 210) in {zone:1425} (40-50), {zone:1444} (40-50) and {zone:1447} (45-55); or the Auction House. The densest patch of {item:8831} in {zone:1425} is marked."] = "34 {item:8831} für {item:20747}: {skill:182}: {item:8831} (Fertigkeit 210) in {zone:1425} (40-50), {zone:1444} (40-50) und {zone:1447} (45-55); oder im Auktionshaus. Das dichteste Vorkommen von {item:8831} in {zone:1425} ist markiert.",
-	-- ["34 {item:8831} for {item:20747}: {skill:182}: {item:8831} (skill 210) in {zone:1425} (40-50), {zone:1444} (40-50) and {zone:1447} (45-55); or the Auction House. The densest patch of {item:8831} in {zone:1444} is marked."] = "34 {item:8831} für {item:20747}: {skill:182}: {item:8831} (Fertigkeit 210) in {zone:1425} (40-50), {zone:1444} (40-50) und {zone:1447} (45-55); oder im Auktionshaus. Das dichteste Vorkommen von {item:8831} in {zone:1444} ist markiert.",
 	-- ["Apprentice {skill:333}"] = "{skill:333} (Lehrling)",
 	-- ["Apprentice {skill:333} lets you craft up to 75 for 10c, at any character level. Not every {skill:333} trainer teaches it: Alliance {npc:3606} ({zone:1438}), {npc:11068} ({zone:1453}), {npc:257004} (Zephras Isle), {npc:11070} ({zone:1457}), {npc:257020} (Zephras Isle) and {npc:11065} ({zone:1455}); Horde {npc:257004} (Zephras Isle), Jhag ({zone:1454}), {npc:11067} ({zone:1458}), {npc:11071} ({zone:1456}), {npc:257020} (Zephras Isle), {npc:266881} ({zone:1411}) and {npc:5695} ({zone:1420}). The arrow picks the nearest of your faction. Buy a {item:6217} and {item:247786} from an enchanting supplies vendor (in the capitals and on Zephras Isle; the starting-area trainers have none beside them, and the next step's arrow picks the nearest). From now on, disenchant every green you do not wear: that is where the dust and essences come from. Two starter quests teach Disenchant on a quest item: An Enchanting Lesson from {npc:11072} ({area:91}, {zone:1429}) and A Pain in the Neck from {npc:266881} ({area:367}, {zone:1411}). 1-75 takes about 50c of recipes and 4s 44c of vendor goods, plus 51 {item:10940} to gather or buy."] = "Die Lehrlingsstufe von {skill:333} erlaubt dir, bis 75 herzustellen, für 10c, auf jeder Charakterstufe. Nicht jeder {skill:333}-Lehrer bringt sie bei: Allianz {npc:3606} ({zone:1438}), {npc:11068} ({zone:1453}), {npc:257004} (Zephras Isle), {npc:11070} ({zone:1457}), {npc:257020} (Zephras Isle) und {npc:11065} ({zone:1455}); Horde {npc:257004} (Zephras Isle), Jhag ({zone:1454}), {npc:11067} ({zone:1458}), {npc:11071} ({zone:1456}), {npc:257020} (Zephras Isle), {npc:266881} ({zone:1411}) und {npc:5695} ({zone:1420}). Der Pfeil wählt den nächsten deiner Fraktion. Kauf eine {item:6217} und {item:247786} bei einem Händler für Verzauberbedarf (in den Hauptstädten und auf Zephras Isle; die Lehrer in den Startgebieten haben keinen in ihrer Nähe, und der Pfeil des nächsten Schritts wählt den nächsten). Ab jetzt entzauberst du jedes grüne Stück, das du nicht trägst: Daher kommen Staub und Essenzen. Zwei Startquests lehren Entzaubern an einem Questgegenstand: An Enchanting Lesson von {npc:11072} ({area:91}, {zone:1429}) und A Pain in the Neck von {npc:266881} ({area:367}, {zone:1411}). 1-75 kostet etwa 50c an Rezepten und 4s 44c an Händlerwaren, dazu 51 {item:10940} zum Sammeln oder Kaufen.",
 	-- ["Apprentice {skill:333} lets you craft up to 75 for 10c, at any character level. Not every {skill:333} trainer teaches it: Alliance {npc:3606} ({zone:1438}), {npc:11068} ({zone:1453}), {npc:257004} (Zephras Isle), {npc:5157} ({zone:1455}), {npc:11072} ({zone:1429}), {npc:11070} ({zone:1457}), {npc:1317} ({zone:1453}), {npc:257020} (Zephras Isle), {npc:4213} ({zone:1457}), {npc:11065} ({zone:1455}), {npc:5158} ({zone:1455}) and {npc:7949} ({zone:1444}); Horde {npc:257004} (Zephras Isle), {npc:3345} ({zone:1454}), {npc:11074} ({zone:1442}), Jhag ({zone:1454}), {npc:4616} ({zone:1458}), {npc:11067} ({zone:1458}), {npc:11071} ({zone:1456}), {npc:257020} (Zephras Isle), {npc:3011} ({zone:1456}) and {npc:5695} ({zone:1420}). The arrow picks the nearest of your faction. Buy a {item:6217} and {item:247786} from an enchanting supplies vendor (in the capitals and on Zephras Isle; the starting-area trainers have none beside them, and the next step's arrow picks the nearest). From now on, disenchant every green you do not wear: that is where the dust and essences come from. Two starter quests teach Disenchant on a quest item: An Enchanting Lesson from {npc:11072} ({area:91}, {zone:1429}) and A Pain in the Neck from {npc:266881} ({area:367}, {zone:1411}). 1-75 takes about 50c of recipes and 4s 44c of vendor goods, plus 51 {item:10940} to gather or buy."] = "Die Lehrlingsstufe von {skill:333} erlaubt dir, bis 75 herzustellen, für 10c, auf jeder Charakterstufe. Nicht jeder {skill:333}-Lehrer bringt sie bei: Allianz {npc:3606} ({zone:1438}), {npc:11068} ({zone:1453}), {npc:257004} (Zephras Isle), {npc:5157} ({zone:1455}), {npc:11072} ({zone:1429}), {npc:11070} ({zone:1457}), {npc:1317} ({zone:1453}), {npc:257020} (Zephras Isle), {npc:4213} ({zone:1457}), {npc:11065} ({zone:1455}), {npc:5158} ({zone:1455}) und {npc:7949} ({zone:1444}); Horde {npc:257004} (Zephras Isle), {npc:3345} ({zone:1454}), {npc:11074} ({zone:1442}), Jhag ({zone:1454}), {npc:4616} ({zone:1458}), {npc:11067} ({zone:1458}), {npc:11071} ({zone:1456}), {npc:257020} (Zephras Isle), {npc:3011} ({zone:1456}) und {npc:5695} ({zone:1420}). Der Pfeil wählt den nächsten deiner Fraktion. Kauf eine {item:6217} und {item:247786} bei einem Verzauberbedarfshändler (in den Hauptstädten und auf Zephras Isle; bei den Lehrern in den Startgebieten gibt es keinen in der Nähe, und der Pfeil im nächsten Schritt wählt den nächsten). Entzaubere ab jetzt jeden grünen Gegenstand, den du nicht trägst: Daher stammen die Stäube und Essenzen. Zwei Startquests bringen dir Entzaubern an einem Questgegenstand bei: An Enchanting Lesson von {npc:11072} ({area:91}, {zone:1429}) und A Pain in the Neck von {npc:266881} ({area:367}, {zone:1411}). 1-75 kostet etwa 50c an Rezepten und 4s 44c an Händlerwaren, dazu 51 {item:10940} zum Sammeln oder Kaufen.",
@@ -285,7 +282,6 @@ return {
 	-- ["{item:1210} (Alliance)"] = "{item:1210} (Allianz)",
 	-- ["{item:1210} (Horde)"] = "{item:1210} (Horde)",
 	-- ["{item:1210} comes from {object:1731} nodes ({skill:186}); this is the densest cluster in the data. The Auction House works too."] = "{item:1210} stammt aus Vorkommen von {object:1731} ({skill:186}); das ist die dichteste Ansammlung in den Daten. Das Auktionshaus geht auch.",
-	-- ["{item:20747} is orange at 253 (yellow 260, green 270, grey 280): about 34 crafts to 275. Each takes 1 {item:11176}, 1 {item:8831} and 1 {item:8925}. One {item:11176} (level 41-50 greens) and one {item:8831} (herbalists) a craft; the oil sells well. {npc:15419} sells the formula at the inn of {area:3425} ({zone:1451}): fly there, the mobs around it are level 55 and up. {item:11176} (208 for 225-300): {skill:333}: disenchant green items of item level 41-50; or the Auction House."] = "{item:20747} ist bei 253 orange (gelb 260, grün 270, grau 280): etwa 34 Herstellungen bis 275. Jede benötigt 1 {item:11176}, 1 {item:8831} und 1 {item:8925}. Ein {item:11176} (grüne Gegenstände der Stufen 41-50) und ein {item:8831} (von Kräuterkundigen) pro Herstellung; das Öl verkauft sich gut. {npc:15419} verkauft die Formel im Gasthaus von {area:3425} ({zone:1451}): Flieg hin, die Mobs in der Umgebung sind Stufe 55 und höher. {item:11176} (208 für 225-300): {skill:333}: grüne Gegenstände der Gegenstandsstufe 41-50 entzaubern; oder im Auktionshaus.",
 	-- ["{item:7971} (Alliance)"] = "{item:7971} (Allianz)",
 	-- ["{item:7971} (Horde)"] = "{item:7971} (Horde)",
 	-- ["{item:8153} (Alliance)"] = "{item:8153} (Allianz)",
@@ -316,15 +312,11 @@ return {
 	-- ["{spell:13501} to 180"] = "{spell:13501} bis 180",
 	-- ["{spell:13637} to 200"] = "{spell:13637} bis 200",
 	-- ["{spell:13661} to 225"] = "{spell:13661} bis 225",
-	-- ["{spell:13746} is orange at 205 (yellow 225, green 245, grey 265): about 20 crafts to 225, a point every craft. Each takes 1 {item:11137}. One {item:11137} a craft (level 31-40 greens). Make the {item:11145} first: the recipe needs it in your bags, so keep it there. {item:7971} (1 for 150-225): {item:7971} is a rare drop (no mob gives it one time in 50): buy it at the Auction House, or keep the ones you find. {item:11135} (1 for 150-225): {skill:333}: disenchant green items of item level 26-35; or the Auction House. {item:11137} (21 for 150-225): {skill:333}: disenchant green items of item level 31-40; or the Auction House. {item:11144} (1 for 150-225): {skill:164}: {item:11144}; or the Auction House. Enchant any item for that slot in your bags, even a grey one. {skill:333} 225 is a Legacy System milestone."] = "{spell:13746} ist bei 205 orange (gelb 225, grün 245, grau 265): etwa 20 Herstellungen bis 225, ein Punkt pro Herstellung. Jede benötigt 1 {item:11137}. Ein {item:11137} pro Herstellung (grüne Gegenstände der Stufen 31-40). Stell zuerst die {item:11145} her: Das Rezept braucht sie in deinen Taschen, behalte sie also dort. {item:7971} (1 für 150-225): {item:7971} ist eine seltene Beute (kein Mob lässt sie öfter als einmal in 50 fallen): Kauf sie im Auktionshaus oder behalte die, die du findest. {item:11135} (1 für 150-225): {skill:333}: grüne Gegenstände der Gegenstandsstufe 26-35 entzaubern; oder im Auktionshaus. {item:11137} (21 für 150-225): {skill:333}: grüne Gegenstände der Gegenstandsstufe 31-40 entzaubern; oder im Auktionshaus. {item:11144} (1 für 150-225): {skill:164}: {item:11144}; oder im Auktionshaus. Verzauber irgendeinen Gegenstand für diesen Platz in deinen Taschen, auch einen grauen. {skill:333} 225 ist ein Meilenstein des Vermächtnissystems.",
 	-- ["{spell:13746} to 255"] = "{spell:13746} bis 255",
-	-- ["{spell:13815} is orange at 225 (yellow 230, green 250, grey 270): about 39 crafts to 253. Each takes 1 {item:11137}. {npc:11073} teaches it with Artisan: learn it on that visit. {item:11137} again; bring about 40. {item:11137} (39 for 225-300): {skill:333}: disenchant green items of item level 31-40; or the Auction House. Enchant any item for that slot in your bags, even a grey one."] = "{spell:13815} ist bei 225 orange (gelb 230, grün 250, grau 270): etwa 39 Herstellungen bis 253. Jede benötigt 1 {item:11137}. {npc:11073} bringt es mit der Meisterstufe bei: Lerne es bei diesem Besuch. Wieder {item:11137}; bring etwa 40 mit. {item:11137} (39 für 225-300): {skill:333}: grüne Gegenstände der Gegenstandsstufe 31-40 entzaubern; oder im Auktionshaus. Verzauber irgendeinen Gegenstand für diesen Platz in deinen Taschen, auch einen grauen.",
 	-- ["{spell:13935} to 292"] = "{spell:13935} bis 292",
 	-- ["{spell:13948} to 300"] = "{spell:13948} bis 300",
 	-- ["{spell:7420} is orange at 25 (yellow 70, green 90, grey 110): about 51 crafts to 75. Each takes 1 {item:10940}. One {item:10940} a craft: the dust most level 5-20 greens break into, armour above all. {item:10938} (from weapons) does the same job through Bracer - Minor Deflect or Chest - {spell:7423} if you have more of it. {item:10940} (51 for 1-75): {skill:333}: disenchant green items of item level 5-20; or the Auction House. Enchant any item for that slot in your bags, even a grey one."] = "{spell:7420} ist bei 25 orange (gelb 70, grün 90, grau 110): etwa 51 Herstellungen bis 75. Jede benötigt 1 {item:10940}. Ein {item:10940} pro Herstellung: der Staub, in den die meisten grünen Gegenstände der Stufen 5-20 zerfallen, vor allem Rüstung. {item:10938} (aus Waffen) erfüllt dieselbe Aufgabe über Bracer - Minor Deflect oder Chest - {spell:7423}, falls du davon mehr hast. {item:10940} (51 für 1-75): {skill:333}: grüne Gegenstände der Gegenstandsstufe 5-20 entzaubern; oder im Auktionshaus. Verzauber irgendeinen Gegenstand für diesen Platz in deinen Taschen, auch einen grauen.",
 	-- ["{spell:7420} is yellow at 75 (yellow 70, green 90, grey 110): about 22 crafts to 90. Each takes 1 {item:10940}. One {item:10940} a craft: the dust most level 5-20 greens break into, armour above all. {item:10938} (from weapons) does the same job through Bracer - Minor Deflect or Chest - {spell:7423} if you have more of it. {item:10940} (121 for 75-150): {skill:333}: disenchant green items of item level 5-20; or the Auction House. Enchant any item for that slot in your bags, even a grey one."] = "{spell:7420} ist bei 75 gelb (gelb 70, grün 90, grau 110): etwa 22 Herstellungen bis 90. Jede benötigt 1 {item:10940}. Ein {item:10940} pro Herstellung: der Staub, in den die meisten grünen Gegenstände der Stufen 5-20 zerfallen, vor allem Rüstung. {item:10938} (aus Waffen) erfüllt dieselbe Aufgabe über Bracer - Minor Deflect oder Chest - {spell:7423}, falls du davon mehr hast. {item:10940} (121 für 75-150): {skill:333}: grüne Gegenstände der Gegenstandsstufe 5-20 entzaubern; oder im Auktionshaus. Verzauber irgendeinen Gegenstand für diesen Platz in deinen Taschen, auch einen grauen.",
-	-- ["{spell:7420} is orange at 25 (yellow 70, green 90, grey 110): about 51 crafts to 75. Each takes 1 {item:10940}. One {item:10940} a craft: the dust most level 5-20 greens break into, armour above all. {item:10938} (from weapons) does the same job through Bracer - Minor Deflect or Chest - Minor Absorption if you have more of it. {item:10940} (51 for 1-75): {skill:333}: disenchant green items of item level 5-20; or the Auction House. Enchant any item for that slot in your bags, even a grey one."] = "{spell:7420} ist bei 25 orange (gelb 70, grün 90, grau 110): etwa 51 Herstellungen bis 75. Jede benötigt 1 {item:10940}. Ein {item:10940} pro Herstellung: der Staub, in den die meisten grünen Gegenstände der Stufen 5-20 zerfallen, vor allem Rüstung. {item:10938} (aus Waffen) erfüllt dieselbe Aufgabe über Bracer - Minor Deflect oder Chest - Minor Absorption, falls du davon mehr hast. {item:10940} (51 für 1-75): {skill:333}: grüne Gegenstände der Gegenstandsstufe 5-20 entzaubern; oder im Auktionshaus. Verzauber irgendeinen Gegenstand für diesen Platz in deinen Taschen, auch einen grauen.",
-	-- ["{spell:7420} is yellow at 75 (yellow 70, green 90, grey 110): about 22 crafts to 90. Each takes 1 {item:10940}. One {item:10940} a craft: the dust most level 5-20 greens break into, armour above all. {item:10938} (from weapons) does the same job through Bracer - Minor Deflect or Chest - Minor Absorption if you have more of it. {item:10940} (121 for 75-150): {skill:333}: disenchant green items of item level 5-20; or the Auction House. Enchant any item for that slot in your bags, even a grey one."] = "{spell:7420} ist bei 75 gelb (gelb 70, grün 90, grau 110): etwa 22 Herstellungen bis 90. Jede benötigt 1 {item:10940}. Ein {item:10940} pro Herstellung: der Staub, in den die meisten grünen Gegenstände der Stufen 5-20 zerfallen, vor allem Rüstung. {item:10938} (aus Waffen) erfüllt dieselbe Aufgabe über Bracer - Minor Deflect oder Chest - Minor Absorption, falls du davon mehr hast. {item:10940} (121 für 75-150): {skill:333}: grüne Gegenstände der Gegenstandsstufe 5-20 entzaubern; oder im Auktionshaus. Verzauber irgendeinen Gegenstand für diesen Platz in deinen Taschen, auch einen grauen.",
 	-- ["{spell:7426} to 120"] = "{spell:7426} bis 120",
 	-- ["{spell:7428} to 75"] = "{spell:7428} bis 75",
 	-- ["{spell:7428} to 90"] = "{spell:7428} bis 90",

@@ -38,7 +38,7 @@ return {
 
 	-- Step 8: Shady Rest Inn
 	-- {area:378} Camp Taurajo · {area:403} Shady Rest Inn
-	["Head east from {area:378} along the road into the marsh. The burned-out {area:403} stands beside it just past the border; the shield, the badge and the hoofprints are in and beside the ruin."] = "",
+	["Head east from {area:378} along the road into the marsh. The burned-out {area:403} stands beside it just past the border; the shield, the badge and the hoofprints are in and beside the ruin."] = "Ve al este desde {area:378} por el camino hacia el pantano. La {area:403} quemada está junto a él, justo pasada la frontera; el escudo, la insignia y las huellas de pezuña están dentro y al lado de la ruina.",
 
 	-- Step 10: Brackenwall Village
 	["Take the road north at the fork to the ogre village of Brackenwall."] = "En el cruce, toma el camino del norte hasta el poblado ogro de Murohelecho.",
@@ -52,7 +52,7 @@ return {
 	-- Step 12: Stinky Ignatz
 	["Stinky Ignatz"] = "Ignatz el \"Apestoso\"",
 	-- {area:502} Witch Hill
-	["Head north to {area:502}. Stinky stands at the foot of the hill; escort him while he gathers Bogbean Leaves just south of it."] = "",
+	["Head north to {area:502}. Stinky stands at the foot of the hill; escort him while he gathers Bogbean Leaves just south of it."] = "Ve al norte hasta {area:502}. Apestoso está al pie de la colina; escóltalo mientras recoge hojas de cienagrana justo al sur.",
 
 	-- Step 13: Mirefin murlocs
 	["Mirefin murlocs"] = "Múrlocs Ancalodo",
@@ -76,7 +76,7 @@ return {
 
 	-- Step 17: Swamp Eye Jarl
 	-- {area:497} Swamplight Manor
-	["Head east back to the {area:497}."] = "",
+	["Head east back to the {area:497}."] = "Vuelve al este a la {area:497}.",
 	-- {object:20985} Loose Dirt · {npc:4791} Nazeer Bloodpike
 	["{object:20985}, now that {npc:4791} has read the report"] = "{object:20985}, ahora que {npc:4791} ha leído el informe",
 	-- {item:3853} Moonsteel Broadsword · {skill:164} Blacksmithing
@@ -84,7 +84,7 @@ return {
 
 	-- Step 18: The Theramore Docks
 	-- {area:513} Theramore Isle · {object:20925} Captain's Footlocker
-	["South-east from the manor to {area:513}: the {object:20925} lies on the sea floor off the docks on the isle's east side. Swim in and out and keep off the piers and the town: Theramore's guards are level 53-57."] = "Al sureste desde la mansión hasta {area:513}: {object:20925} está en el fondo del mar frente a los muelles del lado este de la isla. Entra y sal a nado y mantente lejos de los muelles y del pueblo: los guardias de Theramore son de nivel 53-57.",
+	["South-east from the manor to {area:513}: the {object:20925} lies on the sea floor off the docks on the isle's east side. Swim in and out and keep off the piers and the town: Theramore's guards are level 53-57, and a death here is a long run back from the spirit healer."] = "Al sureste desde la mansión hasta {area:513}: {object:20925} está en el fondo del mar frente a los muelles del lado este de la isla. Entra y sal a nado y mantente lejos de los muelles y del pueblo: los guardias de Theramore son de nivel 53-57, y morir aquí supone una larga carrera de vuelta desde el Ángel de la Resurrección.",
 	["Underwater"] = "",
 
 	-- Step 19: Brackenwall Village
@@ -95,8 +95,8 @@ return {
 
 	-- Step 20: Level 37.5
 	["Level 37.5"] = "",
-	-- {zone:1443} Desolace · {area:1316} Razorfen Downs · {area:796} Scarlet Monastery
-	["{zone:1443}'s last quests and Alterac are 38-41. Still below 37.5 after Brackenwall's hand-ins? The Darkmist spiders and Lurkers (35-38) by the cavern north-west of the village are the closest: kill them until level 37.5. Or, with a group, run the {area:1316} dungeon or the {area:796} dungeon (Armory) instead."] = "",
+	-- {zone:1443} Desolace
+	["{zone:1443}'s last quests and Alterac are 38-41. Still below 37.5 after Brackenwall's hand-ins? The Darkmist spiders and Lurkers (35-38) by the cavern north-west of the village are the closest: kill them until level 37.5."] = "",
 	["Darkmist cavern"] = "",
 	-- {npc:4377} Darkmist Lurker
 	["grind on {npc:4377}"] = "",
@@ -133,10 +133,12 @@ return {
 	-- Step 27: Ghost Walker Post
 	-- {npc:5412} Gurda Wildmane · {npc:5395} Felgur Twocuts
 	["North to the post; {npc:5412} stands beside {npc:5395}."] = "",
+	-- {npc:5395} Felgur Twocuts · {quest:1366} Centaur Bounty
+	["{npc:5395}: his {quest:1366}, from the same Maraudine"] = "{npc:5395}: su {quest:1366}, de los mismos Maraudine",
 
 	-- Step 28: Valley of Spears
 	-- {area:607} Valley of Spears · {item:254432} Carved Centaur Totem · {npc:5395} Felgur Twocuts · {quest:1366} Centaur Bounty
-	["West of the post, the Maraudine centaurs hold the {area:607}. Every Maraudine can drop a {item:254432} and an ear for {npc:5395}'s {quest:1366}."] = "",
+	["West of the post, the Maraudine centaurs hold the {area:607}. Every Maraudine can drop a {item:254432} and an ear for {npc:5395}'s {quest:1366}. Stay with the Maraudine (36-39) in the valley: the Magram's village in the south-east has the same drops, but its Necromancers (42-43) and Guardians (39-41) are well above you."] = "",
 
 	-- Step 29: Melizza Brimbuzzle
 	-- {npc:12277} Melizza Brimbuzzle
@@ -149,17 +151,17 @@ return {
 	-- Step 31: The Valley of Bones
 	-- {area:2657} Valley of Bones
 	["The {area:2657}"] = "{area:2657}",
-	-- {area:2657} Valley of Bones · {item:15848} Crate of Ghost Magnets
-	-- plural, as words: Undead Ravagers = {npc:11561} Undead Ravager · Magrami Spectres = {npc:11560} Magrami Spectre
-	["Head south-east to the bone fields of the {area:2657}, where Undead Ravagers roam. At the far south-east, use the {item:15848} to draw the Magrami Spectres: they drop the ghost-o-plasm."] = "",
+	-- {area:2657} Valley of Bones · {zone:1443} Desolace · {item:15848} Crate of Ghost Magnets
+	-- plural, as words: Undead Ravagers = {npc:11561} Undead Ravager · Magrami Spectres = {npc:11560} Magrami Spectre · Magram Necrokhans = {npc:253274} Magram Necrokhan
+	["Head south-east to the bone fields of the {area:2657}, where Undead Ravagers roam, at {zone:1443}'s southern edge. Use the {item:15848} at the arrow to draw the Magrami Spectres: they drop the ghost-o-plasm.\nCareful: Magram Necrokhans and Corpsefeeders (45, elite) walk the bone fields just west of the arrow, well above you: use the crate at the arrow, on the valley's eastern side, and pull the spectres away from them."] = "",
 
 	-- Step 32: Hornizz Brimbuzzle
 	-- {area:596} Kodo Graveyard
-	["North to the goblin camp on the west side of the {area:596}."] = "",
+	["North to the goblin camp on the west side of the {area:596}."] = "Al norte, hasta el campamento goblin del lado oeste de {area:596}.",
 
 	-- Step 34: Shadowprey
 	["Shadowprey"] = "",
-	["West to Shadowprey."] = "",
+	["West to Shadowprey."] = "Ve al oeste a la Aldea Cazasombras.",
 
 	-- Step 35: Thunder Bluff
 	-- {area:2408} Shadowprey Village · {area:1638} Thunder Bluff · {npc:3033} Turak Runetotem · {area:1639} Elder Rise · {zone:1454} Orgrimmar
@@ -196,17 +198,13 @@ return {
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Darkfang spiders"] = "Arañas Colmilloumbrío",
 	-- ["For {npc:2519} at {object:3202}, in the next guide"] = "Para {npc:2519} en {object:3202}, en la siguiente guía",
-	-- ["Hearth to Shadowprey"] = "Usa la piedra de hogar para ir a la Aldea Cazasombras",
 	-- ["Hearth to {area:392}"] = "Usa la piedra de hogar para ir a {area:392}",
 	-- ["Kodo bones and ghosts"] = "Huesos de kodo y fantasmas",
 	-- ["Maraudine totems"] = "Tótems Maraudine",
 	-- ["Pick up the kodo bones scattered across the graveyard, and use the {item:15848} among the bones: the ghosts it draws drop the ghost-o-plasm."] = "Recoge los huesos de kodo esparcidos por el cementerio y usa el {item:15848} entre los huesos: los fantasmas que atrae sueltan el ectoplasma.",
 	-- ["Ride back west to Brackenwall with the head."] = "Vuelve al oeste a Murohelecho con la cabeza.",
-	-- ["Ride east back to the {area:497}."] = "Vuelve al este a la {area:497}.",
-	-- ["Ride east from {area:378} along the road into the marsh. The burned-out {area:403} stands beside it just past the border; the shield, the badge and the hoofprints are in and beside the ruin."] = "Ve al este desde {area:378} por el camino hacia el pantano. La {area:403} quemada está junto a él, justo pasada la frontera; el escudo, la insignia y las huellas de pezuña están dentro y al lado de la ruina.",
 	-- ["Ride east to {area:602}. Use the Rod of Banishing by each demon portal to close six of them."] = "Ve al este hasta {area:602}. Usa la Rod of Banishing junto a cada portal demoníaco para cerrar seis.",
 	-- ["Ride north from the coven to {npc:5412} at {area:597}."] = "Ve al norte desde el aquelarre hasta {npc:5412}, en {area:597}.",
-	-- ["Ride north to {area:502}. Stinky stands at the foot of the hill; escort him while he gathers Bogbean Leaves just south of it."] = "Ve al norte hasta {area:502}. Apestoso está al pie de la colina; escóltalo mientras recoge hojas de cienagrana justo al sur.",
 	-- ["Ride north up the road to the hut by the road north of the graveyard."] = "Ve al norte por el camino hasta la cabaña junto al camino, al norte del cementerio.",
 	-- ["Ride north-east to the {area:607}. {npc:12277} is held in the Maraudine centaur camp; free her and escort her out east of the valley."] = "Ve al noreste hasta {area:607}. {npc:12277} está retenida en el campamento de centauros Maraudine; libérala y escóltala fuera del valle, hacia el este.",
 	-- ["Ride on south-west to Shadowprey."] = "Sigue al suroeste hasta la Aldea Cazasombras.",
@@ -217,7 +215,6 @@ return {
 	-- ["The Burning Blade hold the fortress north-west of {area:2407}. Use the {item:14523} on the {npc:11876} in the fortress to get the {item:13542}."] = "Los Filo Ardiente ocupan la fortaleza al noroeste de {area:2407}. Usa el {item:14523} sobre el {npc:11876} de la fortaleza para conseguir la {item:13542}.",
 	-- ["The Darkmist spiders swarm the cavern mouth north-west of Brackenwall; every kind drops eyes."] = "Las arañas Niebla Negra pululan en la entrada de la cueva al noroeste de Murohelecho; todas sueltan ojos.",
 	-- ["The Slitherblade naga hold the coast north of {area:2405}, up to {area:598}. {npc:12369} guards the {quest:6027} at the far northern tip."] = "Las nagas Filozante ocupan la costa al norte de {area:2405}, hasta {area:598}. {npc:12369} guarda {quest:6027} en la punta norte.",
-	-- ["The caravan ends at {npc:11596}'s camp on the east side of the {area:596}."] = "La caravana termina en el campamento de {npc:11596}, en el lado este de {area:596}.",
 	-- ["The next guide takes you back to {zone:1434}."] = "La siguiente guía te lleva de vuelta a {zone:1434}.",
 	-- ["{npc:11626}'s caravan stops on the road at the edge of {area:602}. Escort it east past the coven; demons attack it twice."] = "La caravana de {npc:11626} se detiene en el camino al borde de {area:602}. Escóltala al este, más allá del aquelarre; los demonios la atacan dos veces.",
 	-- ["{npc:3391}: for {npc:4631} in {area:35}, on the first {area:35} stop of 40-50"] = "{npc:3391}: para {npc:4631} en {area:35}, en la primera parada en {area:35} de la guía 40-50",

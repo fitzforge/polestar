@@ -8,7 +8,7 @@
 return {
 	-- Step 1: My Little Friends
 	-- {npc:217412} Amaryllis Webb · {zone:1435} Swamp of Sorrows · {item:213565} Entomology Starter Kit · {zone:1417} Arathi Highlands · {zone:1443} Desolace
-	["{npc:217412}, a Forsaken bug collector, keeps her menagerie in western {zone:1435}. She hands you an {item:213565}: open it for the tools that catch the three bugs. The bugs are far apart (northern Stranglethorn, {zone:1417} and {zone:1443}), so do them while you pass. If you lose the kit, she sells another for 50s."] = "",
+	["{npc:217412}, a Forsaken bug collector, keeps her menagerie in western {zone:1435}. She hands you an {item:213565}: open it for the tools that catch the three bugs. The bugs are far apart (northern Stranglethorn, {zone:1417} and {zone:1443}), so do them while you pass. If you lose the kit, she sells another for 50s."] = "{npc:217412}, une collectionneuse d'insectes réprouvée, garde sa ménagerie dans l'ouest du {zone:1435}. Elle vous remet un {item:213565} : ouvrez-le pour obtenir les outils qui capturent les trois insectes. Les insectes sont loin les uns des autres (nord de Strangleronce, {zone:1417} et {zone:1443}) : capturez-les quand vous passez par là. Si vous perdez le kit, elle en vend un autre pour 50 pa.",
 
 	-- Step 2: Arbor Tarantula in Stranglethorn Vale
 	-- {npc:217588} Arbor Tarantula · {zone:1434} Stranglethorn Vale
@@ -38,5 +38,4 @@ return {
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["{npc:217412} gives you an Entomology Starter Kit: use its items to catch an {npc:217588}, a Hay Weevil Specimen and a {npc:217590}. This quest is named as the weevil's source but gives only money as its reward; the pet may come from the {npc:217589} you catch. If you lose the kit, she sells another."] = "{npc:217412} vous donne un Kit d’entomologiste novice : utilisez ses objets pour attraper {npc:217588}, un spécimen de charançon des foins et {npc:217590}. Cette quête est indiquée comme source du charançon mais ne rapporte que de l'argent ; la mascotte peut venir du {npc:217589} que vous attrapez. Si vous perdez le kit, elle en vend un autre.",
-	-- ["{npc:217412}, a Forsaken bug collector, keeps her menagerie in western {zone:1435}. She hands you an Entomology Starter Kit: open it for the tools that catch the three bugs. The bugs are far apart (northern Stranglethorn, {zone:1417} and {zone:1443}), so do them while you pass. If you lose the kit, she sells another for 50s."] = "{npc:217412}, une collectionneuse d'insectes réprouvée, garde sa ménagerie dans l'ouest du {zone:1435}. Elle vous remet un kit d'entomologiste débutant : ouvrez-le pour obtenir les outils qui capturent les trois insectes. Les insectes sont loin les uns des autres (nord de Strangleronce, {zone:1417} et {zone:1443}) : capturez-les quand vous passez par là. Si vous perdez le kit, elle en vend un autre pour 50 pa.",
 }

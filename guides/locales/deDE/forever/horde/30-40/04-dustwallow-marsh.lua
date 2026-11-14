@@ -84,7 +84,7 @@ return {
 
 	-- Step 18: The Theramore Docks
 	-- {area:513} Theramore Isle · {object:20925} Captain's Footlocker
-	["South-east from the manor to {area:513}: the {object:20925} lies on the sea floor off the docks on the isle's east side. Swim in and out and keep off the piers and the town: Theramore's guards are level 53-57."] = "Vom Gutshaus nach Südosten zu {area:513}: {object:20925} liegt auf dem Meeresgrund vor den Docks an der Ostseite der Insel. Schwimm hinein und wieder hinaus und halte dich von den Piers und der Stadt fern: Die Wachen von Theramore sind Stufe 53-57.",
+	["South-east from the manor to {area:513}: the {object:20925} lies on the sea floor off the docks on the isle's east side. Swim in and out and keep off the piers and the town: Theramore's guards are level 53-57, and a death here is a long run back from the spirit healer."] = "Vom Gutshaus nach Südosten zu {area:513}: {object:20925} liegt auf dem Meeresgrund vor den Docks an der Ostseite der Insel. Schwimm hinein und wieder hinaus und halte dich von den Piers und der Stadt fern: Die Wachen von Theramore sind Stufe 53-57, und ein Tod hier bedeutet einen langen Weg zurück vom Geistheiler.",
 	["Underwater"] = "Unter Wasser",
 
 	-- Step 19: Brackenwall Village
@@ -95,8 +95,8 @@ return {
 
 	-- Step 20: Level 37.5
 	["Level 37.5"] = "Stufe 37,5",
-	-- {zone:1443} Desolace · {area:1316} Razorfen Downs · {area:796} Scarlet Monastery
-	["{zone:1443}'s last quests and Alterac are 38-41. Still below 37.5 after Brackenwall's hand-ins? The Darkmist spiders and Lurkers (35-38) by the cavern north-west of the village are the closest: kill them until level 37.5. Or, with a group, run the {area:1316} dungeon or the {area:796} dungeon (Armory) instead."] = "Die letzten Quests von {zone:1443} und Alterac sind 38-41. Nach den Abgaben in Brackenwall noch unter 37,5? Die Spinnen und Lauerer der Darkmist (35-38) bei der Höhle nordwestlich des Dorfes sind am nächsten: Töte sie, bis du Stufe 37,5 bist. Oder lauf mit einer Gruppe stattdessen den Dungeon {area:1316} oder den Dungeon {area:796} (Waffenkammer).",
+	-- {zone:1443} Desolace
+	["{zone:1443}'s last quests and Alterac are 38-41. Still below 37.5 after Brackenwall's hand-ins? The Darkmist spiders and Lurkers (35-38) by the cavern north-west of the village are the closest: kill them until level 37.5."] = "Die letzten Quests von {zone:1443} und Alterac sind 38-41. Nach den Abgaben in Brackenwall noch unter 37,5? Die Spinnen und Lauerer der Darkmist (35-38) bei der Höhle nordwestlich des Dorfes sind am nächsten: Töte sie, bis du Stufe 37,5 bist.",
 	["Darkmist cavern"] = "Höhle der Darkmist",
 	-- {npc:4377} Darkmist Lurker
 	["grind on {npc:4377}"] = "grinde an {npc:4377}",
@@ -133,10 +133,12 @@ return {
 	-- Step 27: Ghost Walker Post
 	-- {npc:5412} Gurda Wildmane · {npc:5395} Felgur Twocuts
 	["North to the post; {npc:5412} stands beside {npc:5395}."] = "Nach Norden zum Posten; {npc:5412} steht neben {npc:5395}.",
+	-- {npc:5395} Felgur Twocuts · {quest:1366} Centaur Bounty
+	["{npc:5395}: his {quest:1366}, from the same Maraudine"] = "{npc:5395}: {quest:1366}, von denselben Maraudine",
 
 	-- Step 28: Valley of Spears
 	-- {area:607} Valley of Spears · {item:254432} Carved Centaur Totem · {npc:5395} Felgur Twocuts · {quest:1366} Centaur Bounty
-	["West of the post, the Maraudine centaurs hold the {area:607}. Every Maraudine can drop a {item:254432} and an ear for {npc:5395}'s {quest:1366}."] = "Westlich des Postens halten die Zentauren der Maraudine das {area:607}. Jeder Maraudine kann ein {item:254432} und ein Ohr für die {quest:1366} von {npc:5395} fallen lassen.",
+	["West of the post, the Maraudine centaurs hold the {area:607}. Every Maraudine can drop a {item:254432} and an ear for {npc:5395}'s {quest:1366}. Stay with the Maraudine (36-39) in the valley: the Magram's village in the south-east has the same drops, but its Necromancers (42-43) and Guardians (39-41) are well above you."] = "Westlich des Postens halten die Zentauren der Maraudine das {area:607}. Jeder Maraudine kann ein {item:254432} und ein Ohr für die {quest:1366} von {npc:5395} fallen lassen. Bleib bei den Maraudine (36-39) im Tal: Das Dorf der Magram im Südosten hat dieselbe Beute, aber seine Nekromanten (42-43) und Wächter (39-41) sind weit über deiner Stufe.",
 
 	-- Step 29: Melizza Brimbuzzle
 	-- {npc:12277} Melizza Brimbuzzle
@@ -149,9 +151,9 @@ return {
 	-- Step 31: The Valley of Bones
 	-- {area:2657} Valley of Bones
 	["The {area:2657}"] = "Das {area:2657}",
-	-- {area:2657} Valley of Bones · {item:15848} Crate of Ghost Magnets
-	-- plural, as words: Undead Ravagers = {npc:11561} Undead Ravager · Magrami Spectres = {npc:11560} Magrami Spectre
-	["Head south-east to the bone fields of the {area:2657}, where Undead Ravagers roam. At the far south-east, use the {item:15848} to draw the Magrami Spectres: they drop the ghost-o-plasm."] = "Geh nach Südosten zu den Knochenfeldern des {area:2657}, wo Untote Verwüster umherstreifen. Benutze ganz im Südosten die {item:15848}, um die Magrami-Gespenster anzulocken: Sie lassen das Ghost-o-Plasma fallen.",
+	-- {area:2657} Valley of Bones · {zone:1443} Desolace · {item:15848} Crate of Ghost Magnets
+	-- plural, as words: Undead Ravagers = {npc:11561} Undead Ravager · Magrami Spectres = {npc:11560} Magrami Spectre · Magram Necrokhans = {npc:253274} Magram Necrokhan
+	["Head south-east to the bone fields of the {area:2657}, where Undead Ravagers roam, at {zone:1443}'s southern edge. Use the {item:15848} at the arrow to draw the Magrami Spectres: they drop the ghost-o-plasm.\nCareful: Magram Necrokhans and Corpsefeeders (45, elite) walk the bone fields just west of the arrow, well above you: use the crate at the arrow, on the valley's eastern side, and pull the spectres away from them."] = "Geh nach Südosten zu den Knochenfeldern des {area:2657}, wo Untote Verwüster umherstreifen, am Südrand von {zone:1443}. Benutze die {item:15848} am Pfeil, um die Magrami-Gespenster anzulocken: Sie lassen das Ghost-o-Plasma fallen.\nVorsicht: Nekrokhane und Leichenfresser der Magram (45, Elite) laufen über die Knochenfelder direkt westlich des Pfeils, weit über deiner Stufe: Benutze die Kiste am Pfeil, auf der Ostseite des Tals, und zieh die Gespenster von ihnen weg.",
 
 	-- Step 32: Hornizz Brimbuzzle
 	-- {area:596} Kodo Graveyard

@@ -55,7 +55,7 @@ return {
 
 	-- Step 12: Cenarion Enclave
 	-- {npc:4217} Mathrengyl Bearwalker · {area:1658} Cenarion Enclave · {spell:8946} Cure Poison
-	["{npc:4217}, upstairs in the {area:1658}, teaches you {spell:8946}."] = "",
+	["{npc:4217}, upstairs in the {area:1658}, teaches you {spell:8946}."] = "{npc:4217}, наверху ({area:1658}), обучит вас заклинанию {spell:8946}.",
 
 	-- Step 14: Lessons Anew
 	-- {npc:3033} Turak Runetotem · {area:1639} Elder Rise · {npc:262560} Hana Lighthoof · {zone:1412} Mulgore · {skill:182} Herbalism · {npc:3490} Hula'mahi · {item:2449} Earthroot
@@ -65,7 +65,7 @@ return {
 
 	-- Step 15: Dendrite Starblaze
 	-- {spell:18960} Teleport: Moonglade · {npc:11802} Dendrite Starblaze · {item:15842} Empty Dreadmist Peak Sampler · {npc:11798} Bunthen Plainswind · {area:1638} Thunder Bluff
-	["Cast {spell:18960}: {npc:11802} stands upstairs in the building beside you. He hands you the {item:15842}. {npc:11798} flies druids to {area:1638}; fly on to the Crossroads from there."] = "",
+	["Cast {spell:18960}: {npc:11802} stands upstairs in the building beside you. He hands you the {item:15842}. {npc:11798} flies druids to {area:1638}; fly on to the Crossroads from there."] = "Примените {spell:18960}: {npc:11802} стоит наверху в здании рядом с вами. Он вручит вам {item:15842}. {npc:11798} отвозит друидов сюда: {area:1638}; оттуда летите дальше к Перекрестку.",
 
 	-- Step 16: Dreadmist Peak
 	-- {area:384} Dreadmist Peak · {object:19464} Dreadmist Peak Pool · {item:15842} Empty Dreadmist Peak Sampler
@@ -76,7 +76,7 @@ return {
 
 	-- Step 17: Tonga Runetotem
 	-- {npc:3448} Tonga Runetotem · {skill:182} Herbalism · {npc:3490} Hula'mahi · {item:2449} Earthroot
-	["{npc:3448} stands in the Crossroads. No {skill:182}? {npc:3490}, a few steps away by the wind rider master, sells {item:2449} for 80 copper each, three at a time until he restocks."] = "",
+	["{npc:3448} stands in the Crossroads. No {skill:182}? {npc:3490}, a few steps away by the wind rider master, sells {item:2449} for 80 copper each, three at a time until he restocks."] = "{npc:3448} стоит на Перекрестке. Нет навыка {skill:182}? {npc:3490} в нескольких шагах, у распорядителя полетов, продает {item:2449} по 80 медных за штуку – по три штуки, пока не пополнит запас.",
 	-- {item:2449} Earthroot
 	["{item:2449}; herbalists pick it on the plains"] = "{item:2449}; травники собирают его на равнинах",
 
@@ -107,14 +107,13 @@ return {
 
 	-- Step 22: Power over Poison
 	-- {npc:3033} Turak Runetotem · {area:1639} Elder Rise · {spell:8946} Cure Poison
-	["{npc:3033} on {area:1639} teaches you {spell:8946}."] = "",
+	["{npc:3033} on {area:1639} teaches you {spell:8946}."] = "{npc:3033} ({area:1639}) обучит вас заклинанию {spell:8946}.",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Back in {area:442}."] = "Снова здесь: {area:442}.",
 	-- ["Cast {spell:18960} and see {npc:11802}, then fly to {area:702} and take the portal up to {zone:1457}."] = "Примените {spell:18960} и поговорите: {npc:11802}. Затем летите сюда: {area:702} – и поднимитесь через портал: {zone:1457}.",
 	-- ["Cast {spell:18960} and see {npc:11802}, then take {npc:11798}'s flight to {area:1638}."] = "Примените {spell:18960} и поговорите: {npc:11802}. Затем летите с помощью персонажа {npc:11798} сюда: {area:1638}.",
 	-- ["Cast {spell:18960}. {npc:11802} is in {area:2361}. Then fly to {area:442}."] = "Примените {spell:18960}. {npc:11802} – здесь: {area:2361}. Затем летите сюда: {area:442}.",
-	-- ["Cast {spell:18960}. {npc:11802} is in {area:2361}. {npc:11798} flies druids to {area:1638}; fly on to the {area:380} from there."] = "Примените {spell:18960}. {npc:11802} – здесь: {area:2361}. {npc:11798} отвозит друидов сюда: {area:1638}; оттуда летите дальше: {area:380}.",
 	-- ["From the {area:380} ride north to {area:384} and fill the {item:15842} at the {object:19464}."] = "Из места {area:380} езжайте на север: {area:384} – и наполните {item:15842} здесь: {object:19464}.",
 	-- ["Lost Barrens Kodos roam the plains north and west of the {area:380} and around the {area:388}; each drops a horn. Herbalists find {item:2449} all over the northern {zone:1413}."] = "Потерявшиеся степные кодо бродят по равнинам к северу и западу от места {area:380} и вокруг места {area:388}; с каждого падает рог. Травники находят {item:2449} по всему северу зоны {zone:1413}.",
 	-- ["Ride north-east from {area:442} to {area:445} and fill the {item:15844} at the mouth of the cave by the falls."] = "Езжайте на северо-восток ({area:442} → {area:445}) и наполните {item:15844} у входа в пещеру у водопада.",
@@ -123,7 +122,4 @@ return {
 	-- ["Use the {item:15826} on {npc:12298}. They roam {zone:1439} from the {area:456} in the north to the {zone:1440} border in the south."] = "Примените {item:15826} на них: {npc:12298}. Они бродят по зоне {zone:1439} от реки ({area:456}) на севере до границы зоны {zone:1440} на юге.",
 	-- ["{npc:12296}: use the salve on them"] = "{npc:12296}: примените на них мазь",
 	-- ["{npc:12298}: use the salve on them"] = "{npc:12298}: примените на них мазь",
-	-- ["{npc:3033} stands on {area:1639}."] = "{npc:3033} стоит здесь: {area:1639}.",
-	-- ["{npc:3448} stands in the {area:380}. No {skill:182}? {npc:3490}, a few steps away, sells {item:2449}, three at a time until he restocks."] = "{npc:3448} стоит здесь: {area:380}. Нет навыка {skill:182}? {npc:3490} в нескольких шагах продает {item:2449} – по три штуки, пока не пополнит запас.",
-	-- ["{npc:4217} stands in the {area:1658}."] = "{npc:4217} стоит здесь: {area:1658}.",
 }

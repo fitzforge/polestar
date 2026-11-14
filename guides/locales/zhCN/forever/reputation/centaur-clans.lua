@@ -18,7 +18,7 @@ return {
 	-- Step 1: Pick your clan
 	["Pick your clan"] = "选择氏族",
 	-- {zone:1443} Desolace · {npc:5396} Captain Pentigast · {area:608} Nijel's Point · {quest:1382} Strange Alliance · {quest:1385} Brutal Politics · {npc:5412} Gurda Wildmane · {quest:1368} Gelkis Alliance · {quest:1367} Magram Alliance · {quest:93224} Carved Centaur Totems
-	["The Gelkis (south-west {zone:1443}) and the Magram (south-east) are at war: every kill of one clan gives the other 20 and costs its own clan 100, and every quest of one clan costs the other five times what it pays (Buying Friendship: 3,000 for yours, 15,000 off the other), so you can only climb with one. Both start Neutral. Forever's quests are worth far more than kills now. Alliance: {npc:5396} at {area:608} offers {quest:1382} (Gelkis) and {quest:1385} (Magram). Horde: {npc:5412} offers {quest:1368} and {quest:1367}. Take the one of your clan, and {quest:93224}: each clan's Buying Friendship (3,000) is offered once you bring the totems back. Then tick the task. The guide goes on with the Gelkis; take the Magram's quests instead and it goes to the Magram half. Forever pays these quests in full at any level."] = "",
+	["The Gelkis (south-west {zone:1443}) and the Magram (south-east) are at war: every kill of one clan gives the other 20 and costs its own clan 100, and every quest of one clan costs the other five times what it pays (Buying Friendship: 3,000 for yours, 15,000 off the other), so you can only climb with one. Both start Neutral. Forever's quests are worth far more than kills now. Alliance: {npc:5396} at {area:608} offers {quest:1382} (Gelkis) and {quest:1385} (Magram). Horde: {npc:5412} offers {quest:1368} and {quest:1367}. Take the one of your clan, and {quest:93224}: each clan's Buying Friendship (3,000) is offered once you bring the totems back. Then tick the task. The guide goes on with the Gelkis; take the Magram's quests instead and it goes to the Magram half. Forever pays these quests in full at any level."] = "吉尔吉斯（{zone:1443} 西南）与玛格拉姆（东南）正在交战：每杀一名某部族成员，会给另一部族增加 20 点声望，同时扣除被杀部族 100 点；而每完成一个部族的任务，另一部族都会被扣除该任务奖励五倍的声望（“收买友谊”：你的部族获得 3,000 点，另一方扣除 15,000 点），因此只能提升其中一方。两者初始都是中立。现在无限的任务奖励远高于击杀。联盟：{area:608} 的 {npc:5396} 提供 {quest:1382}（吉尔吉斯）和 {quest:1385}（玛格拉姆）。部落：{npc:5412} 提供 {quest:1368} 和 {quest:1367}。接受你所选部族的任务和 {quest:93224}：带回图腾后，就会提供该部族的“收买友谊”（3,000 点）。然后勾选此项。指南接下来按吉尔吉斯路线进行；改接玛格拉姆的任务，就会跳到玛格拉姆部分。无限中，这些任务在任何等级都给予全额奖励。",
 	-- {quest:1382} Strange Alliance
 	["{quest:1382}: Gelkis"] = "{quest:1382}：吉尔吉斯",
 	["Take the quests of one clan"] = "接取一个氏族的任务",
@@ -79,91 +79,91 @@ return {
 
 	-- Step 10: Gelkis: Uthek the Wise sends you to the valley
 	-- {npc:5397} Uthek the Wise
-	["Gelkis: {npc:5397} sends you to the valley"] = "",
+	["Gelkis: {npc:5397} sends you to the valley"] = "吉尔吉斯：{npc:5397}派你前往山谷",
 	-- {npc:5397} Uthek the Wise · {npc:253177} Nerlokh · {quest:93034} Valley of Bones · {zone:1443} Desolace · {zone:2652} Shen'dralas · {quest:92811} Economic Warfare
-	["At Honored and level 35, {npc:5397} sends you east to {npc:253177}, a Gelkis scout at the western mouth of the {quest:93034}, where the south of {zone:1443} runs into {zone:2652}. The valley steps follow Forever's quest data: nobody who records their play has done these quests yet, so a spot or the order may be off. Every valley quest asks you to stay Honored with the Gelkis, and each costs the Magram five times what it pays. Honored to Revered is 12,000; the valley pays 10,625 of it, {quest:92811} the rest."] = "",
+	["At Honored and level 35, {npc:5397} sends you east to {npc:253177}, a Gelkis scout at the western mouth of the {quest:93034}, where the south of {zone:1443} runs into {zone:2652}. The valley steps follow Forever's quest data: nobody who records their play has done these quests yet, so a spot or the order may be off. Every valley quest asks you to stay Honored with the Gelkis, and each costs the Magram five times what it pays. Honored to Revered is 12,000; the valley pays 10,625 of it, {quest:92811} the rest."] = "达到尊敬且角色35级后，{npc:5397}会派你向东去找{npc:253177}，他是一名吉尔吉斯斥候，位于{quest:93034}西侧入口，也就是{zone:1443}南部与{zone:2652}相接之处。山谷部分的步骤依据无限的任务数据：目前还没有记录游戏过程的玩家做过这些任务，因此地点或顺序可能有误。每个山谷任务都要求你保持吉尔吉斯尊敬，并且每个任务都会扣除玛格拉姆该任务奖励五倍的声望。尊敬到崇敬需要12,000；山谷任务提供其中10,625，其余由{quest:92811}补足。",
 
 	-- Step 11: Gelkis: Nerlokh
 	-- {npc:253177} Nerlokh
-	["Gelkis: {npc:253177}"] = "",
+	["Gelkis: {npc:253177}"] = "吉尔吉斯：{npc:253177}",
 	-- {npc:253177} Nerlokh · {npc:11559} Outcast Necromancer
 	-- plural, as words: Undead Ravagers = {npc:11561} Undead Ravager
-	["From the quest data: {npc:253177} waits at the valley's western mouth. He wants six Undead Ravagers put to rest and the ritual garb of an {npc:11559}: the outcasts are Gelkis exiles who took up the Magram's necromancy."] = "",
+	["From the quest data: {npc:253177} waits at the valley's western mouth. He wants six Undead Ravagers put to rest and the ritual garb of an {npc:11559}: the outcasts are Gelkis exiles who took up the Magram's necromancy."] = "根据任务数据：{npc:253177}在山谷西侧入口等候。他要你让六只亡灵劫掠者安息，并取得一件{npc:11559}的仪式长袍：这些流放者是学了玛格拉姆死灵术的吉尔吉斯流亡者。",
 
 	-- Step 12: Gelkis: the valley's mouth
-	["Gelkis: the valley's mouth"] = "",
+	["Gelkis: the valley's mouth"] = "吉尔吉斯：山谷入口",
 	-- {quest:92846} Outcast Necromancers · {npc:253177} Nerlokh · {npc:253136} Orgrul
 	-- plural, as words: Undead Ravagers = {npc:11561} Undead Ravager
-	["From the quest data: the Undead Ravagers and the {quest:92846} fill the valley from {npc:253177} north-east to {npc:253136}'s post at its northern mouth; players have met them all along it. {npc:253136}'s Magram are hostile to a friend of the Gelkis. Corpsefeeders, elite and level 45, walk the valley and attack anyone."] = "",
+	["From the quest data: the Undead Ravagers and the {quest:92846} fill the valley from {npc:253177} north-east to {npc:253136}'s post at its northern mouth; players have met them all along it. {npc:253136}'s Magram are hostile to a friend of the Gelkis. Corpsefeeders, elite and level 45, walk the valley and attack anyone."] = "根据任务数据：亡灵劫掠者和{quest:92846}遍布山谷，从{npc:253177}向东北一直到山谷北侧入口{npc:253136}的哨点；玩家在沿途都遇到过它们。{npc:253136}手下的玛格拉姆对吉尔吉斯的朋友怀有敌意。食尸者（45级，精英）在山谷中走动，会攻击任何人。",
 
 	-- Step 13: Gelkis: Facing the Truth
 	-- {quest:93041} Facing the Truth
-	["Gelkis: {quest:93041}"] = "",
+	["Gelkis: {quest:93041}"] = "吉尔吉斯：{quest:93041}",
 	-- {npc:253177} Nerlokh · {item:255941} Gelkis Necromantic Garb · {npc:5397} Uthek the Wise · {item:255945} Accursed Skull
-	["From the quest data: {npc:253177} gives you a {item:255941} to show {npc:5397}, with an {item:255945} you find yourself: a freshly cursed skull, hoarded in the jaws of one of the valley's giant skeletons. The game's data has no spot for it."] = "",
+	["From the quest data: {npc:253177} gives you a {item:255941} to show {npc:5397}, with an {item:255945} you find yourself: a freshly cursed skull, hoarded in the jaws of one of the valley's giant skeletons. The game's data has no spot for it."] = "根据任务数据：{npc:253177}会给你一件{item:255941}，让你连同自己找到的{item:255945}一起拿给{npc:5397}看：那是一颗刚被诅咒的头骨，藏在山谷中某具巨型骷髅的颌骨里。游戏数据中没有它的位置。",
 	-- {item:255945} Accursed Skull
-	["{item:255945}: in a giant skeleton's jaws"] = "",
+	["{item:255945}: in a giant skeleton's jaws"] = "{item:255945}：在巨型骷髅的颌骨里",
 
 	-- Step 14: Gelkis: Uthek the Wise and Mulara
 	-- {npc:5397} Uthek the Wise · {npc:253713} Mulara
-	["Gelkis: {npc:5397} and {npc:253713}"] = "",
+	["Gelkis: {npc:5397} and {npc:253713}"] = "吉尔吉斯：{npc:5397}和{npc:253713}",
 	-- {npc:5397} Uthek the Wise · {area:606} Gelkis Village · {npc:253713} Mulara · {npc:253140} Molkar · {quest:92812} Economic Warfare
-	["From the quest data: back west to {npc:5397} in {area:606}. She needs Tears of Theradras: {npc:253713}, the Voice of Theradras, keeps them in the cave in the south of the village, past {npc:253140}. Ask her for them on {npc:5397}'s behalf and bring three back. {npc:253140} takes {quest:92812} on the way."] = "",
+	["From the quest data: back west to {npc:5397} in {area:606}. She needs Tears of Theradras: {npc:253713}, the Voice of Theradras, keeps them in the cave in the south of the village, past {npc:253140}. Ask her for them on {npc:5397}'s behalf and bring three back. {npc:253140} takes {quest:92812} on the way."] = "根据任务数据：向西返回{area:606}的{npc:5397}处。她需要瑟莱德丝之泪：瑟莱德丝之声{npc:253713}把它们保存在村子南部的洞穴里，要经过{npc:253140}。代表{npc:5397}向她索取，带回三颗。途中{npc:253140}会接收{quest:92812}。",
 	-- {npc:253713} Mulara
-	["{npc:253713}, in the cave"] = "",
-	["three Tears of Theradras"] = "",
+	["{npc:253713}, in the cave"] = "{npc:253713}，在洞穴里",
+	["three Tears of Theradras"] = "三颗瑟莱德丝之泪",
 
 	-- Step 15: Gelkis: Test Your Theory
 	-- {quest:93045} Test Your Theory
-	["Gelkis: {quest:93045}"] = "",
+	["Gelkis: {quest:93045}"] = "吉尔吉斯：{quest:93045}",
 	-- {npc:5397} Uthek the Wise · {item:6071} Draenethyst Crystal · {item:256061} Uthek's Draenethyst Staff · {item:255945} Accursed Skull · {npc:253177} Nerlokh
-	["From the quest data: {npc:5397} gives you her staff and a {item:6071}. Put them together into {item:256061}, take it to the ritual site by the pond just east of the village and dispel the curse on the {item:255945}. Then east again to {npc:253177}."] = "",
+	["From the quest data: {npc:5397} gives you her staff and a {item:6071}. Put them together into {item:256061}, take it to the ritual site by the pond just east of the village and dispel the curse on the {item:255945}. Then east again to {npc:253177}."] = "根据任务数据：{npc:5397}会给你她的法杖和一颗{item:6071}。把它们组合成{item:256061}，带到村子东边不远处水池旁的仪式地点，驱散{item:255945}上的诅咒。然后再向东去找{npc:253177}。",
 	-- {item:255945} Accursed Skull
-	["dispel the {item:255945} by the pond"] = "",
+	["dispel the {item:255945} by the pond"] = "在水池旁驱散{item:255945}的诅咒",
 
 	-- Step 16: Gelkis: back to Nerlokh
 	-- {npc:253177} Nerlokh
-	["Gelkis: back to {npc:253177}"] = "",
+	["Gelkis: back to {npc:253177}"] = "吉尔吉斯：返回{npc:253177}处",
 	-- {npc:253177} Nerlokh · {item:271794} Centaur Spear · {item:271795} Wanderer's Broadsword · {item:271799} Desert Crawler's Claw
-	["From the quest data: {npc:253177} pays 500 and your pick of three weapons for level 35: {item:271794} (polearm), {item:271795} (two-handed sword) or {item:271799} (dagger). Then he has two jobs deeper in the valley."] = "",
+	["From the quest data: {npc:253177} pays 500 and your pick of three weapons for level 35: {item:271794} (polearm), {item:271795} (two-handed sword) or {item:271799} (dagger). Then he has two jobs deeper in the valley."] = "根据任务数据：{npc:253177}奖励500声望，以及三件35级武器任选其一：{item:271794}（长柄武器）、{item:271795}（双手剑）或{item:271799}（匕首）。之后他在山谷更深处还有两项任务。",
 
 	-- Step 17: Gelkis: the heart of the valley
-	["Gelkis: the heart of the valley"] = "",
+	["Gelkis: the heart of the valley"] = "吉尔吉斯：山谷中心",
 	-- {npc:253177} Nerlokh · {npc:253446} Haggard Bones · {item:256061} Uthek's Draenethyst Staff
 	-- plural, as words: Gelkis Captives = {npc:253431} Gelkis Captive · Magram Necrokhans = {npc:253274} Magram Necrokhan
-	["From the quest data: east of {npc:253177}, in the heart of the valley, the Magram hold Gelkis Captives: free five. Among them lie {npc:253446}, failed summons stuck in the ground: lay eight to rest with {item:256061}, which the quest gives you. Corpsefeeders and Magram Necrokhans, elite and level 45, walk the valley and attack a friend of the Gelkis: let them pass before you pull."] = "",
+	["From the quest data: east of {npc:253177}, in the heart of the valley, the Magram hold Gelkis Captives: free five. Among them lie {npc:253446}, failed summons stuck in the ground: lay eight to rest with {item:256061}, which the quest gives you. Corpsefeeders and Magram Necrokhans, elite and level 45, walk the valley and attack a friend of the Gelkis: let them pass before you pull."] = "根据任务数据：在{npc:253177}东边的山谷中心，玛格拉姆关押着吉尔吉斯俘虏：解救五名。他们之间散落着{npc:253446}，那是卡在地里的失败召唤物：用任务给你的{item:256061}让八具安息。玛格拉姆食尸者和玛格拉姆死灵可汗（45级，精英）在山谷中走动，会攻击吉尔吉斯的朋友：等它们走过再拉怪。",
 	-- {npc:253446} Haggard Bones
-	["Lay {npc:253446} to rest"] = "",
+	["Lay {npc:253446} to rest"] = "让{npc:253446}安息",
 	-- plural, as words: Gelkis Captives = {npc:253431} Gelkis Captive
-	["free five Gelkis Captives"] = "",
+	["free five Gelkis Captives"] = "解救五名吉尔吉斯俘虏",
 
 	-- Step 18: Gelkis: Checking Things Out
 	-- {quest:93122} Checking Things Out
-	["Gelkis: {quest:93122}"] = "",
+	["Gelkis: {quest:93122}"] = "吉尔吉斯：{quest:93122}",
 	-- {npc:253177} Nerlokh · {zone:2652} Shen'dralas · {area:16675} Magram Front · {area:16676} Outcast Hideaway
-	["From the quest data: {npc:253177}'s next order takes you deeper into {zone:2652} to scout two places: the {area:16675}, a Magram camp south-east of the valley, and the {area:16676}, the exiles' camp west of the Shen'dralar town, further south."] = "",
+	["From the quest data: {npc:253177}'s next order takes you deeper into {zone:2652} to scout two places: the {area:16675}, a Magram camp south-east of the valley, and the {area:16676}, the exiles' camp west of the Shen'dralar town, further south."] = "根据任务数据：{npc:253177}的下一个命令让你深入{zone:2652}侦察两个地点：山谷东南方的玛格拉姆营地{area:16675}，以及更南边、辛德拉城镇西边的流放者营地{area:16676}。",
 
 	-- Step 19: Gelkis: the Magram Front and the Outcast Hideaway
 	-- {area:16675} Magram Front · {area:16676} Outcast Hideaway
-	["Gelkis: the {area:16675} and the {area:16676}"] = "",
+	["Gelkis: the {area:16675} and the {area:16676}"] = "吉尔吉斯：{area:16675}和{area:16676}",
 	-- {area:16675} Magram Front · {area:16676} Outcast Hideaway · {npc:254040} Rokren · {npc:253177} Nerlokh
 	-- plural, as words: Outcast Necrokhans = {npc:253275} Outcast Necrokhan
-	["From the quest data: walk into the Magram camp at the {area:16675}, then south-west into the {area:16676}, where Outcast Necrokhans, elite and level 45, stand guard. In a tent there {npc:254040}, a Gelkis the outcasts hold, asks you to get him out: escort him clear of the hideaway, then tell {npc:253177}."] = "",
+	["From the quest data: walk into the Magram camp at the {area:16675}, then south-west into the {area:16676}, where Outcast Necrokhans, elite and level 45, stand guard. In a tent there {npc:254040}, a Gelkis the outcasts hold, asks you to get him out: escort him clear of the hideaway, then tell {npc:253177}."] = "根据任务数据：走进{area:16675}的玛格拉姆营地，再向西南进入{area:16676}，那里有45级精英流放者死灵可汗把守。那里的一顶帐篷中，被流放者关押的吉尔吉斯人{npc:254040}请你救他出去：护送他离开藏身处，然后告诉{npc:253177}。",
 	-- {npc:254040} Rokren
-	["escort {npc:254040} out of the hideaway"] = "",
+	["escort {npc:254040} out of the hideaway"] = "护送{npc:254040}离开藏身处",
 
 	-- Step 20: Gelkis: Nerlokh's last order
 	-- {npc:253177} Nerlokh
-	["Gelkis: {npc:253177}'s last order"] = "",
+	["Gelkis: {npc:253177}'s last order"] = "吉尔吉斯：{npc:253177}的最后命令",
 	-- {npc:253177} Nerlokh
-	["From the quest data: with the Magram's warriors busy at the Front, {npc:253177} sees a chance at their khan."] = "",
+	["From the quest data: with the Magram's warriors busy at the Front, {npc:253177} sees a chance at their khan."] = "根据任务数据：趁玛格拉姆的战士们忙于前线，{npc:253177}看到了对付他们可汗的机会。",
 
 	-- Step 21: Gelkis: Khan Jehn
 	-- {npc:5601} Khan Jehn
 	["Gelkis: {npc:5601}"] = "吉尔吉斯：{npc:5601}。",
 	-- {npc:5601} Khan Jehn · {area:604} Magram Village · {npc:253177} Nerlokh · {npc:5397} Uthek the Wise · {item:271801} Abandoned Ferocity · {item:271802} Bludgeon of Betrayed Virtues · {item:271805} Thrice-Damned Effigy
 	-- plural, as words: Magram Necrokhans = {npc:253274} Magram Necrokhan
-	["From the quest data: {npc:5601} (level 37) leads the Magram from the west side of {area:604}, north-east of {npc:253177}. The village is hostile to a friend of the Gelkis, and two Magram Necrokhans, elite and level 45, stand a little west of the khan. {npc:5397} pays 6,000, a title, and your pick of three rare level 35 weapons: {item:271801} (two-handed axe: Strength, Stamina, Agility), {item:271802} (one-handed mace: Strength, Stamina, Agility) or {item:271805} (off-hand: Spirit, Intellect, Stamina). The quest costs the Magram 30,000."] = "",
+	["From the quest data: {npc:5601} (level 37) leads the Magram from the west side of {area:604}, north-east of {npc:253177}. The village is hostile to a friend of the Gelkis, and two Magram Necrokhans, elite and level 45, stand a little west of the khan. {npc:5397} pays 6,000, a title, and your pick of three rare level 35 weapons: {item:271801} (two-handed axe: Strength, Stamina, Agility), {item:271802} (one-handed mace: Strength, Stamina, Agility) or {item:271805} (off-hand: Spirit, Intellect, Stamina). The quest costs the Magram 30,000."] = "根据任务数据：{npc:5601}（37级）在 {area:604} 西侧、{npc:253177} 东北方统领玛格拉姆。该村庄对吉尔吉斯的朋友怀有敌意，可汗西边不远处还站着两名45级精英玛格拉姆死灵可汗。{npc:5397} 会奖励6,000点声望、一个头衔，以及三件35级稀有武器中的一件：{item:271801}（双手斧：力量、耐力、敏捷）、{item:271802}（单手锤：力量、耐力、敏捷）或 {item:271805}（副手：精神、智力、耐力）。该任务会扣除玛格拉姆30,000声望。",
 
 	-- Step 22: Gelkis: totems to Exalted
 	["Gelkis: totems to Exalted"] = "吉尔吉斯：交图腾到崇拜",
@@ -213,99 +213,99 @@ return {
 
 	-- Step 29: Magram: Warug sends you to the valley
 	-- {npc:5398} Warug
-	["Magram: {npc:5398} sends you to the valley"] = "",
+	["Magram: {npc:5398} sends you to the valley"] = "玛格拉姆：{npc:5398}派你前往山谷",
 	-- {quest:92743} A Conqueror's Crown · {npc:5398} Warug · {npc:253136} Orgrul · {area:604} Magram Village · {quest:92841} Valley of Bones · {quest:92811} Economic Warfare
-	["At Honored and level 35, after {quest:92743}, {npc:5398} sends you to {npc:253136} at the south end of {area:604}, the northern mouth of the {quest:92841}. The valley steps follow Forever's quest data: nobody who records their play has done these quests yet, so a spot or the order may be off. Every valley quest asks you to stay Honored with the Magram, and each costs the Gelkis five times what it pays. Honored to Revered is 12,000; the valley pays 11,125 of it, {quest:92811} the rest."] = "",
+	["At Honored and level 35, after {quest:92743}, {npc:5398} sends you to {npc:253136} at the south end of {area:604}, the northern mouth of the {quest:92841}. The valley steps follow Forever's quest data: nobody who records their play has done these quests yet, so a spot or the order may be off. Every valley quest asks you to stay Honored with the Magram, and each costs the Gelkis five times what it pays. Honored to Revered is 12,000; the valley pays 11,125 of it, {quest:92811} the rest."] = "达到尊敬且角色35级后，完成{quest:92743}，{npc:5398}会派你去{area:604}南端、{quest:92841}北侧入口处的{npc:253136}。山谷部分的步骤依据无限的任务数据：目前还没有记录游戏过程的玩家做过这些任务，因此地点或顺序可能有误。每个山谷任务都要求你保持玛格拉姆尊敬，并且每个任务都会扣除吉尔吉斯该任务奖励五倍的声望。尊敬到崇敬需要12,000；山谷任务提供其中11,125，其余由{quest:92811}补足。",
 
 	-- Step 30: Magram: Orgrul
 	-- {npc:253136} Orgrul
-	["Magram: {npc:253136}"] = "",
+	["Magram: {npc:253136}"] = "玛格拉姆：{npc:253136}",
 	-- {npc:253136} Orgrul · {quest:92846} Outcast Necromancers
 	-- plural, as words: Undead Ravagers = {npc:11561} Undead Ravager
-	["From the quest data: {npc:253136} wants bones from the valley's Undead Ravagers (the quest log counts them in hundreds) and six {quest:92846} dead: Gelkis exiles meddling with the Magram's new magic."] = "",
+	["From the quest data: {npc:253136} wants bones from the valley's Undead Ravagers (the quest log counts them in hundreds) and six {quest:92846} dead: Gelkis exiles meddling with the Magram's new magic."] = "根据任务数据：{npc:253136}需要山谷中亡灵劫掠者的骨头（任务日志以百为单位计数），并要你杀死六名{quest:92846}：他们是插手玛格拉姆新魔法的吉尔吉斯流放者。",
 
 	-- Step 31: Magram: the valley's mouth
-	["Magram: the valley's mouth"] = "",
+	["Magram: the valley's mouth"] = "玛格拉姆：山谷入口",
 	-- {quest:92846} Outcast Necromancers · {npc:253136} Orgrul · {npc:253177} Nerlokh
 	-- plural, as words: Undead Ravagers = {npc:11561} Undead Ravager
-	["From the quest data: the Undead Ravagers and the {quest:92846} fill the valley from {npc:253136} south-west to {npc:253177}'s post at its western mouth; players have met them all along it. {npc:253177} is a Gelkis scout. Corpsefeeders, elite and level 45, walk the valley and attack anyone."] = "",
+	["From the quest data: the Undead Ravagers and the {quest:92846} fill the valley from {npc:253136} south-west to {npc:253177}'s post at its western mouth; players have met them all along it. {npc:253177} is a Gelkis scout. Corpsefeeders, elite and level 45, walk the valley and attack anyone."] = "根据任务数据：亡灵劫掠者和{quest:92846}遍布山谷，从{npc:253136}向西南一直到山谷西侧入口{npc:253177}的哨点；玩家在沿途都遇到过它们。{npc:253177}是一名吉尔吉斯斥候。食尸者（45级，精英）在山谷中走动，会攻击任何人。",
 	-- plural, as words: Gently Cursed Bones = {item:254663} Gently Cursed Bone · Undead Ravagers = {npc:11561} Undead Ravager
-	["Gently Cursed Bones: Undead Ravagers"] = "",
+	["Gently Cursed Bones: Undead Ravagers"] = "轻度诅咒的骨头：亡灵劫掠者",
 
 	-- Step 32: Magram: Corrupting Tears
 	-- {quest:92847} Corrupting Tears
-	["Magram: {quest:92847}"] = "",
+	["Magram: {quest:92847}"] = "玛格拉姆：{quest:92847}",
 	-- {npc:253136} Orgrul · {item:254841} Petrified Bark · {item:254840} Imbued Tears · {npc:5398} Warug
-	["From the quest data: {npc:253136} wants three {item:254841} from the valley's accursed trees (the game's data has no spot for them) and three {item:254840}: {npc:5398} keeps the crystals you took from the Gelkis, so ask him."] = "",
+	["From the quest data: {npc:253136} wants three {item:254841} from the valley's accursed trees (the game's data has no spot for them) and three {item:254840}: {npc:5398} keeps the crystals you took from the Gelkis, so ask him."] = "根据任务数据：{npc:253136}需要三块来自山谷中受诅咒树木的{item:254841}（游戏数据中没有它们的位置）和三份{item:254840}：{npc:5398}保管着你从吉尔吉斯那里拿来的水晶，所以去问他。",
 	-- {item:254841} Petrified Bark
-	["{item:254841}: the valley's accursed trees"] = "",
+	["{item:254841}: the valley's accursed trees"] = "{item:254841}：山谷中受诅咒的树木",
 
 	-- Step 33: Magram: Proof of Concept
 	-- {quest:92873} Proof of Concept
-	["Magram: {quest:92873}"] = "",
+	["Magram: {quest:92873}"] = "玛格拉姆：{quest:92873}",
 	-- {npc:253136} Orgrul · {item:254870} Rudimentary Necromancy Staff
 	-- plural, as words: Nascent Undead Ravagers = {npc:253360} Nascent Undead Ravager · Well Cursed Bones = {item:254842} Well Cursed Bone
-	["From the quest data: {npc:253136} gives you a {item:254870}. He laid out two skeletons on the hill just east of his post: put the staff to use there, and the Nascent Undead Ravagers give the Well Cursed Bones."] = "",
+	["From the quest data: {npc:253136} gives you a {item:254870}. He laid out two skeletons on the hill just east of his post: put the staff to use there, and the Nascent Undead Ravagers give the Well Cursed Bones."] = "根据任务数据：{npc:253136}会给你一根{item:254870}。他在哨点东边不远的山丘上摆好了两具骷髅：在那里使用法杖，新生的亡灵劫掠者会给你精心诅咒的骨头。",
 	-- plural, as words: Well Cursed Bones = {item:254842} Well Cursed Bone · Nascent Undead Ravagers = {npc:253360} Nascent Undead Ravager
-	["Well Cursed Bones: Nascent Undead Ravagers"] = "",
+	["Well Cursed Bones: Nascent Undead Ravagers"] = "精心诅咒的骨头：新生的亡灵劫掠者",
 
 	-- Step 34: Magram: Orgrul's next tasks
 	-- {npc:253136} Orgrul
-	["Magram: {npc:253136}'s next tasks"] = "",
+	["Magram: {npc:253136}'s next tasks"] = "玛格拉姆：{npc:253136}的后续任务",
 	-- {npc:253136} Orgrul · {item:271796} Blade of the Magram Clan · {item:271797} Staff of Revelations · {item:271798} Desperate Barrier
-	["From the quest data: {npc:253136} pays 500 and your pick of three items for level 35: {item:271796} (one-handed sword), {item:271797} (staff) or {item:271798} (shield)."] = "",
+	["From the quest data: {npc:253136} pays 500 and your pick of three items for level 35: {item:271796} (one-handed sword), {item:271797} (staff) or {item:271798} (shield)."] = "根据任务数据：{npc:253136}奖励500声望，以及三件35级物品任选其一：{item:271796}（单手剑）、{item:271797}（法杖）或{item:271798}（盾牌）。",
 
 	-- Step 35: Magram: the heart of the valley
-	["Magram: the heart of the valley"] = "",
+	["Magram: the heart of the valley"] = "玛格拉姆：山谷中心",
 	-- {npc:253136} Orgrul · {npc:253446} Haggard Bones
 	-- plural, as words: Gelkis Captives = {npc:253431} Gelkis Captive · Magram Necrokhans = {npc:253274} Magram Necrokhan
-	["From the quest data: south-east of {npc:253136}, in the heart of the valley, the Magram keep Gelkis Captives: kill five. The {npc:253446} there are failed summons stuck in the ground: raise ten with the Enhanced Necromancy Staff Orgrul gave you, and kill the ones that fight back. Corpsefeeders, elite and level 45, walk the valley and attack anyone; the Magram Necrokhans, elite too, leave a friend of the Magram alone."] = "",
+	["From the quest data: south-east of {npc:253136}, in the heart of the valley, the Magram keep Gelkis Captives: kill five. The {npc:253446} there are failed summons stuck in the ground: raise ten with the Enhanced Necromancy Staff Orgrul gave you, and kill the ones that fight back. Corpsefeeders, elite and level 45, walk the valley and attack anyone; the Magram Necrokhans, elite too, leave a friend of the Magram alone."] = "根据任务数据：在{npc:253136}东南方的山谷中心，玛格拉姆关押着吉尔吉斯俘虏：杀死五名。那里的{npc:253446}是卡在地里的失败召唤物：用奥格鲁尔给你的强化死灵法杖复活十具，并杀死反抗的那些。食尸者（45级，精英）在山谷中走动，会攻击任何人；同为精英的玛格拉姆死灵可汗不会理会玛格拉姆的朋友。",
 	-- {npc:253446} Haggard Bones
-	["Raise or slay {npc:253446}"] = "",
+	["Raise or slay {npc:253446}"] = "复活或杀死{npc:253446}",
 
 	-- Step 36: Magram: Bristleback Retreat
 	-- {quest:93066} Bristleback Retreat
-	["Magram: {quest:93066}"] = "",
+	["Magram: {quest:93066}"] = "玛格拉姆：{quest:93066}",
 	-- {npc:253136} Orgrul · {quest:93066} Bristleback Retreat
-	["From the quest data: back to {npc:253136}, then east to {quest:93066} for his next order."] = "",
+	["From the quest data: back to {npc:253136}, then east to {quest:93066} for his next order."] = "根据任务数据：返回{npc:253136}处，然后向东前往{quest:93066}，接受他的下一个命令。",
 
 	-- Step 37: Magram: the quilboar
-	["Magram: the quilboar"] = "",
+	["Magram: the quilboar"] = "玛格拉姆：野猪人",
 	-- {quest:93066} Bristleback Retreat · {npc:253527} Kog'thug the Brave · {npc:255678} Quolga the Wise · {npc:253851} Hagiak · {area:16675} Magram Front
-	["From the quest data: the Bristleback quilboar hold {quest:93066}, east of the valley. {npc:253527} (elite, level 43) and {npc:255678} (elite, level 42) lead them: leave those two be. Then report to {npc:253851} at the {area:16675}, south of the Retreat."] = "",
+	["From the quest data: the Bristleback quilboar hold {quest:93066}, east of the valley. {npc:253527} (elite, level 43) and {npc:255678} (elite, level 42) lead them: leave those two be. Then report to {npc:253851} at the {area:16675}, south of the Retreat."] = "根据任务数据：刺背野猪人占据着山谷东边的{quest:93066}。{npc:253527}（精英，43级）和{npc:255678}（精英，42级）是他们的首领：别去招惹这两个。然后向那里南边{area:16675}的{npc:253851}报到。",
 
 	-- Step 38: Magram: Hagiak at the Magram Front
 	-- {npc:253851} Hagiak · {area:16675} Magram Front
-	["Magram: {npc:253851} at the {area:16675}"] = "",
+	["Magram: {npc:253851} at the {area:16675}"] = "玛格拉姆：{area:16675}的{npc:253851}",
 	-- {npc:253851} Hagiak · {area:16676} Outcast Hideaway
-	["From the quest data: {npc:253851} sends you south-west to the {area:16676}, the exiles' camp west of the Shen'dralar town."] = "",
+	["From the quest data: {npc:253851} sends you south-west to the {area:16676}, the exiles' camp west of the Shen'dralar town."] = "根据任务数据：{npc:253851}派你向西南前往{area:16676}，也就是辛德拉城镇西边的流放者营地。",
 
 	-- Step 39: Magram: the Outcast Hideaway
 	-- {area:16676} Outcast Hideaway
-	["Magram: the {area:16676}"] = "",
+	["Magram: the {area:16676}"] = "玛格拉姆：{area:16676}",
 	-- {item:256892} Stolen Supplies · {quest:92846} Outcast Necromancers · {npc:253136} Orgrul · {npc:253177} Nerlokh
 	-- plural, as words: Outcast Scouts = {npc:254283} Outcast Scout · Outcast Necrokhans = {npc:253275} Outcast Necrokhan
-	["From the quest data: Outcast Scouts and Marauders hold the hideaway, with Outcast Necrokhans, elite and level 45, among them. The {item:256892} are crates in its west. The quest wants {quest:92846} here too; players have met them only in the valley between {npc:253136} and {npc:253177} so far, so take them there if the hideaway has none."] = "",
+	["From the quest data: Outcast Scouts and Marauders hold the hideaway, with Outcast Necrokhans, elite and level 45, among them. The {item:256892} are crates in its west. The quest wants {quest:92846} here too; players have met them only in the valley between {npc:253136} and {npc:253177} so far, so take them there if the hideaway has none."] = "根据任务数据：流放者斥候和流放者掠夺者占据着藏身处，其间还有45级精英流放者死灵可汗。{item:256892}是藏身处西部的箱子。任务在这里也要求击杀{quest:92846}；到目前为止，玩家只在{npc:253136}和{npc:253177}之间的山谷里见过它们，所以如果藏身处没有，就去那里击杀。",
 	-- {item:256892} Stolen Supplies
-	["{item:256892}: crates"] = "",
+	["{item:256892}: crates"] = "{item:256892}：箱子",
 
 	-- Step 40: Magram: back to Hagiak
 	-- {npc:253851} Hagiak
-	["Magram: back to {npc:253851}"] = "",
+	["Magram: back to {npc:253851}"] = "玛格拉姆：返回{npc:253851}处",
 
 	-- Step 41: Magram: Orgrul's ritual
 	-- {npc:253136} Orgrul
-	["Magram: {npc:253136}'s ritual"] = "",
+	["Magram: {npc:253136}'s ritual"] = "玛格拉姆：{npc:253136}的仪式",
 	-- {quest:93196} Khan Jehn · {npc:253136} Orgrul
-	["From the quest data: {quest:93196} has been slain by outsiders working for the Gelkis, and {npc:253136} means to raise him."] = "",
+	["From the quest data: {quest:93196} has been slain by outsiders working for the Gelkis, and {npc:253136} means to raise him."] = "根据任务数据：{quest:93196}已被为吉尔吉斯效力的外来者杀死，{npc:253136}打算复活他。",
 
 	-- Step 42: Magram: Khan Jehn
 	-- {quest:93196} Khan Jehn
 	["Magram: {quest:93196}"] = "玛格拉姆：{quest:93196}",
 	-- {item:257517} Ultimate Necromancy Staff · {area:604} Magram Village · {quest:93196} Khan Jehn · {item:271800} Scavenged Magram Armament · {item:271803} Greatstaff of the Necrokhans · {item:271804} Soulsplatter Mace
-	["From the quest data: take the {item:257517} to the ritual site, a tent by the lake in the middle of {area:604}, and raise {quest:93196}. The risen khan takes the quest: 6,000, a title, and your pick of three rare level 35 weapons: {item:271800} (polearm: Stamina, attack power, Agility), {item:271803} (staff: Intellect, Stamina, Spirit) or {item:271804} (main-hand mace: Intellect, Stamina, Spirit). The quest costs the Gelkis 30,000."] = "",
+	["From the quest data: take the {item:257517} to the ritual site, a tent by the lake in the middle of {area:604}, and raise {quest:93196}. The risen khan takes the quest: 6,000, a title, and your pick of three rare level 35 weapons: {item:271800} (polearm: Stamina, attack power, Agility), {item:271803} (staff: Intellect, Stamina, Spirit) or {item:271804} (main-hand mace: Intellect, Stamina, Spirit). The quest costs the Gelkis 30,000."] = "根据任务数据：把{item:257517}带到仪式地点，即{area:604}中央湖边的一顶帐篷，复活{quest:93196}。复活的可汗接收任务：奖励6,000声望、一个头衔，以及三件35级精良武器任选一件：{item:271800}（长柄武器：耐力、攻击强度、敏捷）、{item:271803}（法杖：智力、耐力、精神）或{item:271804}（主手锤：智力、耐力、精神）。该任务会扣除吉尔吉斯30,000声望。",
 	-- {quest:93196} Khan Jehn
-	["raise {quest:93196} at the tent by the lake"] = "",
+	["raise {quest:93196} at the tent by the lake"] = "在湖边帐篷复活{quest:93196}",
 
 	-- Step 43: Magram: totems to Exalted
 	["Magram: totems to Exalted"] = "玛格拉姆：交图腾至崇拜",
@@ -326,8 +326,5 @@ return {
 	-- ["Friendly to Honored is 6,000; after the clan's quests you are about 4,000 into it, so 2,000 to go. {npc:253140}'s {quest:92812} takes 5 Carved Centaur Totems for 750, again and again: three turn-ins, 15 totems. The Maraudine centaurs (level 36-40) of western {zone:1443} drop them; the totems do not bind, so the auction house is the other source. Magram kills add 20 each, but Forever's kill data stops them at the end of Friendly, 1 short of Honored. At Friendly the village also has three craft orders for 1,000 each: Halea wants 3 Greater Mystic Essences, {npc:253140} a {item:10008} (tailoring) and Talra a {item:5739} (leatherworking). Legacy Diplomat adds up to 10%."] = "友善到尊敬需要6,000；完成氏族任务后约已有4,000，还差2,000。{npc:253140}的{quest:92812}每次收取5个雕刻半人马图腾，奖励750声望，可反复交还：共需三次、15个图腾。{zone:1443}西部的玛洛迪半人马（36-40级）会掉落；图腾不绑定，因此也可从拍卖行购买。每杀一个玛格拉姆半人马增加20，但无限服的击杀数据将上限设在友善末尾，距尊敬还差1点。友善时，村里还会开放三项制作订单，每项奖励1,000：Halea需要3个强效秘法精华，{npc:253140}需要一件{item:10008}（裁缝），Talra需要一件{item:5739}（制皮）。传承的外交家最多增加10%。",
 	-- ["Gelkis: the {quest:93034}"] = "吉尔吉斯：{quest:93034}",
 	-- ["Magram: the {quest:92841}"] = "玛格拉姆：{quest:92841}",
-	-- ["The Gelkis (south-west {zone:1443}) and the Magram (south-east) are at war: every kill of one clan gives the other 20 and costs its own clan 100, so you can only climb with one. Both start Neutral. Forever's quests are worth far more than kills now, and the choice quests no longer cost the other clan anything. Alliance: {npc:5396} at {area:608} offers {quest:1382} (Gelkis) and {quest:1385} (Magram). Horde: {npc:5412} offers {quest:1368} and {quest:1367}. Take the one of your clan, and {quest:93224}: each clan's Buying Friendship (3,000) is offered once you bring the totems back. Then tick the task. The guide goes on with the Gelkis; take the Magram's quests instead and it goes to the Magram half. Forever pays these quests in full at any level."] = "吉尔吉斯（{zone:1443} 西南）与玛格拉姆（东南）正在交战：每杀一名某部族成员，会给另一部族增加 20 点声望，同时扣除被杀部族 100 点，因此只能提升其中一方。两者初始都是中立。现在无限的任务奖励远高于击杀，而且选择部族的任务已不会扣除另一方声望。联盟：{area:608} 的 {npc:5396} 提供 {quest:1382}（吉尔吉斯）和 {quest:1385}（玛格拉姆）。部落：{npc:5412} 提供 {quest:1368} 和 {quest:1367}。接受你所选部族的任务和 {quest:93224}：带回图腾后，就会提供该部族的“收买友谊”（3,000 点）。然后勾选此项。指南接下来按吉尔吉斯路线进行；改接玛格拉姆的任务，就会跳到玛格拉姆部分。无限中，这些任务在任何等级都给予全额奖励。",
 	-- ["The Gelkis (south-west {zone:1443}) and the Magram (south-east) are at war: every kill of one clan gives the other 20 and costs its own clan 100, so you can only climb with one. Both start Neutral. Forever's quests are worth far more than kills now, and the choice quests no longer cost the other clan anything. Alliance: {npc:5396} at {area:608} offers {quest:1382} (Gelkis) and {quest:1385} (Magram). Horde: {npc:5412}, east of Shadowprey, offers {quest:1368} and {quest:1367}. Take the one of your clan and its Buying Friendship (3,000 for carrying a tote of totems), then tick the task. The guide goes on with the Gelkis; take the Magram's quests instead and it jumps to the Magram half. Do the clan's quests by level 50 if you can: in Classic a quest pays less once it is 6 or more levels below you, down to a fifth."] = "吉尔吉斯（{zone:1443} 西南）与玛格拉姆（东南）正在交战：每杀一名某部族成员，会给另一部族增加 20 点声望，同时扣除被杀部族 100 点，因此只能提升其中一方。两者初始都是中立。现在无限的任务奖励远高于击杀，而且选择部族的任务已不会扣除另一方声望。联盟：{area:608} 的 {npc:5396} 提供 {quest:1382}（吉尔吉斯）和 {quest:1385}（玛格拉姆）。部落：葬影村东边的 {npc:5412} 提供 {quest:1368} 和 {quest:1367}。接受所选部族的任务及其“收买友谊”任务（携带一袋图腾，奖励 3,000 点），然后勾选此项。指南接下来按吉尔吉斯路线进行；改接玛格拉姆任务，就会跳到玛格拉姆部分。尽量在 50 级之前完成部族任务：经典怀旧服中，任务等级比你低 6 级及以上时，奖励会减少，最低只有五分之一。",
-	-- ["The ritual site is a tent by the lake in the middle of {area:604}. {npc:253136} pays 6,000, a title, and your pick of three rare level 35 weapons: {item:271800} (polearm: Stamina, attack power, Agility), {item:271803} (staff: Intellect, Stamina, Spirit) or {item:271804} (main-hand mace: Intellect, Stamina, Spirit)."] = "仪式地点是{area:604}中央湖边的一顶帐篷。{npc:253136}奖励6,000声望、一个头衔，以及三件35级精良武器任选一件：{item:271800}（长柄武器：耐力、攻击强度、敏捷）、{item:271803}（法杖：智力、耐力、精神）或{item:271804}（主手锤：智力、耐力、精神）。",
-	-- ["{npc:5601} (level 37) leads the Magram from the west side of {area:604}, with his bodyguards. The kill costs the Magram 500. {npc:5397} pays 6,000, a title, and your pick of three rare level 35 weapons: {item:271801} (two-handed axe: Strength, Stamina, Agility), {item:271802} (one-handed mace: Strength, Stamina, Agility) or {item:271805} (off-hand: Spirit, Intellect, Stamina)."] = "{npc:5601}（37级）带着保镖，在 {area:604} 西侧统领玛格拉姆。击杀他会降低500点玛格拉姆声望。{npc:5397} 会奖励6,000点声望、一个头衔，以及三件35级稀有武器中的一件：{item:271801}（双手斧：力量、耐力、敏捷）、{item:271802}（单手锤：力量、耐力、敏捷）或 {item:271805}（副手：精神、智力、耐力）。",
 }

@@ -6,6 +6,10 @@
 -- A token marked "no name in this language" would show in English: write that name in Chinese (simplified) words instead.
 -- The comments are rewritten by sync.
 return {
+	-- Guide
+	-- {area:327} Faldir's Cove · {npc:2768} Professor Phizzlethorpe · {npc:2306} Baron Vardus
+	["For characters of 36 to 38, but {area:327} and the Alterac Syndicate quests are level 40: on purpose, for their experience. {npc:2768}'s two water elementals (40) are immune to frost, and {npc:2306} (40) waits among his Syndicate: pull them one at a time."] = "适合36-38级角色，但{area:327}和奥特兰克辛迪加的任务是40级：这是有意为之，为了它们的经验。{npc:2768}的两个水元素（40级）免疫冰霜，{npc:2306}（40级）在他的辛迪加手下之中等着：一次只拉一个。",
+
 	-- Step 1: Fly to Darkshire
 	-- {area:42} Darkshire
 	["Fly to {area:42}"] = "飞往{area:42}",
@@ -40,7 +44,8 @@ return {
 
 	-- Step 9: Galen Goodward
 	-- {npc:5391} Galen Goodward
-	["{npc:5391} is caged at the north end of the sanctuary. Free him and keep him alive on the walk out; his strongbox waits by the road afterwards."] = "{npc:5391}被关在避难所北端的笼子里。救出他，并在护送他出去时保护他存活；之后他的保险箱就在路边。",
+	-- plural, as words: Lost One Riftseekers = {npc:762} Lost One Riftseeker · Lost Ones = {npc:254797} Lost One
+	["{npc:5391} is caged at the north end of the sanctuary. Free him and keep him alive on the walk out; his strongbox waits by the road afterwards. Careful: on the walk out the camp's Lost One Riftseekers (37-38) and their pets, with the Lost Ones around them, turn on {npc:5391}: clear the cage and the start of his path first, stay beside him and pull every attacker onto yourself. Many players lose him the first time; if he dies, abandon the quest and take it again at his cage."] = "{npc:5391}被关在避难所北端的笼子里。救出他，并在护送他出去时保护他存活；之后他的保险箱就在路边。小心：护送出去时，营地里的失落寻隙者（37-38级）和它们的宠物，连同周围的失落者，会攻击{npc:5391}：先清理笼子和他路线的起点，紧跟在他身边，把所有攻击者都拉到自己身上。很多玩家第一次会让他死掉；如果他死了，放弃任务，再到他的笼子处重新接。",
 
 	-- Step 10: The Harborage
 	-- {npc:5391} Galen Goodward · {area:657} The Harborage
@@ -113,7 +118,7 @@ return {
 	-- Step 27: Hay Weevil
 	-- {quest:681} Northfold Manor · {npc:217412} Amaryllis Webb · {item:213565} Entomology Starter Kit
 	-- plural, as words: Hay Weevils = {npc:217589} Hay Weevil
-	["Hay Weevils crawl about the north end of {quest:681}'s farm: catch one with the tool from {npc:217412}'s {item:213565}."] = "",
+	["Hay Weevils crawl about the north end of {quest:681}'s farm: catch one with the tool from {npc:217412}'s {item:213565}."] = "干草象鼻虫在{quest:681}农场的北端爬行：用{npc:217412}的{item:213565}中的工具捕捉一只。",
 
 	-- Step 28: Shards of Myzrael
 	-- {quest:681} Northfold Manor · {area:333} Circle of East Binding · {area:314} Go'Shek Farm
@@ -235,8 +240,8 @@ return {
 	["The tomes lie in the ruined keep west of {area:280}; Argus Shadow Mages hold the ruins.\nCareful: Crushridge Warmongers call nearby allies within 15 yd once they fall below half health.\nThe Crushridge Maulers, Mages, Enforcers and Warmongers (36-39) are elite; the Crushridge Ogres and Brutes (34-35) are not and carry the tomes too: pull one at a time, or group up."] = "书籍位于{area:280}以西的城堡废墟内，由暗影大法师占据。\n注意：破碎岭好战者生命值低于一半时，会召唤15码内的盟友支援。\n破碎岭虐待者、破碎岭法师、破碎岭执行者和破碎岭好战者（36-39级）是精英；破碎岭食人魔和破碎岭蛮兵（34-35级）不是精英，也携带这些书籍：逐个拉怪，或组队。",
 	-- {item:3658} Recovered Tome
 	["{item:3658}: Crushridge ogres"] = "{item:3658}：破碎岭食人魔",
-	-- {item:3659} Worn Leather Book · {object:1760} Weathered Bookcase
-	["{item:3659}: the {object:1760}; inside"] = "{item:3659}：在{object:1760}内寻找",
+	-- {item:3659} Worn Leather Book · {object:1760} Weathered Bookcase · {quest:540} Preserving Knowledge
+	["{item:3659}: the {object:1760}, beside Muckrake (40, elite): get it with a group, or abandon {quest:540}; inside"] = "{item:3659}：{object:1760}，在Muckrake（40级，精英）旁边：组队去拿，或放弃{quest:540}；在里面",
 
 	-- Step 54: Ruins of Alterac: kill these as you meet them
 	-- {npc:2417} Grel'borg the Miser
@@ -261,33 +266,54 @@ return {
 	-- {npc:2542} Catelyn the Blade · {area:35} Booty Bay
 	["For {npc:2542} in {area:35}: keep it"] = "交给{area:35}的{npc:2542}：保留它",
 
-	-- Step 60: Southshore
+	-- Step 59: Image of Archmage Modera
+	-- {npc:269127} Image of Archmage Modera · {quest:92458} Heart of Disruption · {item:277507} Dalaran Sewer Key
+	["For your City of Dalaran run, next: the {npc:269127} wants the arcane remnants in the city thinned out and a mote from the heart of the disruption. {quest:92458} brings the {item:277507}, which opens the grate."] = "为接下来的达拉然城之行做准备：{npc:269127}要你削减城中的奥术残余，并从扰动核心取得一颗微粒。{quest:92458}会给你{item:277507}，用来打开栅栏。",
+
+	-- Step 60: City of Dalaran
+	["City of Dalaran"] = "达拉然城",
+	-- {quest:92457} Starving Arcane · {item:251961} Arcane Mote · {quest:92458} Heart of Disruption
+	-- plural, as words: Seeking Remnants = {npc:247003} Seeking Remnant · Saturated Remnants = {npc:247001} Saturated Remnant
+	["The City of Dalaran is a dungeon for a group of five at about level 28 to 33: at your level it goes quickly. Its way in is the sewer grate in the city's western wall, by the lake, 30 yards from Modera's camp.\nInside: the Seeking Remnants, Saturated Remnants and Mana Echoes are Modera's {quest:92457}; the {item:251961} for {quest:92458} drops inside too."] = "达拉然城是适合28-33级左右五人小队的地下城：以你的等级会打得很快。入口是城市西墙的下水道栅栏，在湖边，离茉德拉的营地30码。\n副本内：搜寻残余、饱和残余和法力回响是茉德拉的{quest:92457}的目标；{quest:92458}要的{item:251961}也在副本内掉落。",
+	-- {quest:92457} Starving Arcane
+	["{quest:92457}: the remnants and echoes, inside"] = "{quest:92457}：残余和回响，在副本内",
+	-- {quest:92458} Heart of Disruption · {item:251961} Arcane Mote
+	["{quest:92458}: the {item:251961}, inside"] = "{quest:92458}：{item:251961}，在里面",
+
+	-- Step 61: Image of Archmage Modera
+	["Back out of the grate to Modera's camp on the lake shore."] = "从栅栏出来，返回湖岸边茉德拉的营地。",
+
+	-- Step 64: Southshore
 	-- {npc:1440} Milton Sheaf · {zone:1453} Stormwind
 	["For {npc:1440} in {zone:1453}: keep it"] = "交给{zone:1453}的{npc:1440}：保留它",
 	-- {npc:2277} Loremaster Dibbs
 	["{npc:2277}: the parchment"] = "{npc:2277}：羊皮纸",
 
-	-- Step 61: Bartolo Ginsetti
+	-- Step 65: Bartolo Ginsetti
 	-- {npc:2438} Bartolo Ginsetti · {npc:2381} Micha Yance · {item:2321} Fine Thread
 	["{npc:2438} stands between the flight master and the inn; {npc:2381} beside him sells {item:2321} if you have none."] = "{npc:2438}站在飞行管理员与旅店之间；如果没有{item:2321}，可向他身旁的{npc:2381}购买。",
 	-- {item:2321} Fine Thread · {npc:2381} Micha Yance
 	["{item:2321}, from {npc:2381}"] = "{item:2321}，向{npc:2381}购买",
 
-	-- Step 64: Ironforge
+	-- Step 68: Ironforge
 	-- {npc:1356} Prospector Stormpike · {object:32356} Hall of Explorers · {npc:1344} Prospector Ironband · {zone:1432} Loch Modan
 	["{npc:1356}, {object:32356}: for {npc:1344} in {zone:1432}, next"] = "{npc:1356}，在{object:32356}：交给{zone:1432}的{npc:1344}，接下来会去",
 
-	-- Step 65: To Thelsamar
+	-- Step 69: Fly to Thelsamar
+	-- {area:144} Thelsamar
+	["Fly to {area:144}"] = "飞往{area:144}",
+
+	-- Step 70: To Thelsamar
 	-- {area:144} Thelsamar
 	["To {area:144}"] = "前往{area:144}",
-
-	-- Step 66: Thelsamar
 	-- {zone:1455} Ironforge · {zone:1426} Dun Morogh · {zone:1432} Loch Modan · {area:144} Thelsamar
 	["From {zone:1455} take the tunnel east through {zone:1426} into {zone:1432} and follow the road to {area:144}."] = "从{zone:1455}出发，穿过{zone:1426}向东的隧道进入{zone:1432}，沿道路前往{area:144}。",
+
+	-- Step 71: Thelsamar
 	-- {npc:1470} Ghak Healtouch
 	["{npc:1470}, below ground"] = "{npc:1470}：在地下",
 
-	-- Step 67: Prospector Ironband
+	-- Step 72: Prospector Ironband
 	["South-east along the loch to the dig site."] = "沿湖向东南前往挖掘场（铁环挖掘场）。",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
@@ -302,7 +328,6 @@ return {
 	-- ["From {area:42} follow the road east through {zone:1430} into the {zone:1435}; Biggs guards the road junction just inside it. {npc:217412} stands a short way north of him."] = "从{area:42}沿道路向东穿过{zone:1430}进入{zone:1435}；卫兵比格斯守在刚进入的岔路口。{npc:217412}站在他北边不远处。",
 	-- ["From {zone:1455} take the tunnel east through {zone:1426} into {area:38} and follow the road to {area:144}."] = "从{zone:1455}出发，穿过{zone:1426}向东的隧道进入{area:38}，沿道路前往{area:144}。",
 	-- ["Gyll, {area:35}"] = "盖尔，{area:35}",
-	-- ["Hay Weevils crawl about the north end of {quest:681}'s farm: catch one with the tool from {npc:217412}'s Entomology Starter Kit."] = "干草象鼻虫在{quest:681}农场的北端爬行：用{npc:217412}的昆虫学入门工具包中的工具捕捉一只。",
 	-- ["Head back north-east past {area:320}; {npc:2712} and {npc:2713} camp in the hills north of {area:314}."] = "向东北返回，经过{area:320}；{npc:2712}和{npc:2713}在{area:314}北侧山丘扎营。",
 	-- ["Head back south from the eastern circle; {npc:2712} and {npc:2713} camp in the hills just north of {area:314}."] = "从东边的石环向南返回；{npc:2712}和{npc:2713}在{area:314}北侧不远的山丘扎营。",
 	-- ["Head north past {area:314}; the shards glitter on the hill by the {area:333}."] = "向北经过{area:314}；碎片在{area:333}旁的山丘上闪闪发光。",

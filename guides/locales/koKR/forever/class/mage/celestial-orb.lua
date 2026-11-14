@@ -13,15 +13,15 @@ return {
 
 	-- Step 1: Return to the Marsh (Stormwind)
 	-- {npc:5497} Jennea Cannon · {zone:1453} Stormwind · {object:2101} Mage Quarter · {npc:6546} Tabetha · {zone:1455} Ironforge
-	["{npc:5497} at the top of the Wizard's Sanctum, {zone:1453}'s {object:2101}, sends you back to {npc:6546}; Bink in {zone:1455} gives the same quest."] = "",
+	["{npc:5497} at the top of the Wizard's Sanctum, {zone:1453}'s {object:2101}, sends you back to {npc:6546}; Bink in {zone:1455} gives the same quest."] = "{zone:1453} {object:2101}의 마법사의 성소 꼭대기에 있는 {npc:5497}이(가) 당신을 {npc:6546}에게 다시 보냅니다. {zone:1455}의 빙크도 같은 퀘스트를 줍니다.",
 
 	-- Step 2: Return to the Marsh (Orgrimmar)
 	-- {npc:5885} Deino · {zone:1454} Orgrimmar · {object:173161} Darkbriar Lodge (no name in this language: may be words) · {npc:6546} Tabetha · {npc:4568} Anastasia Hartwell · {zone:1458} Undercity · {npc:3048} Ursyn Ghull · {zone:1456} Thunder Bluff
-	["{npc:5885}, one of {zone:1454}'s mage trainers in {object:173161}, sends you back to {npc:6546}; {npc:4568} in the {zone:1458} and {npc:3048} in {zone:1456} give the same quest."] = "",
+	["{npc:5885}, one of {zone:1454}'s mage trainers in {object:173161}, sends you back to {npc:6546}; {npc:4568} in the {zone:1458} and {npc:3048} in {zone:1456} give the same quest."] = "{zone:1454}의 {object:173161}에 있는 마법사 상급자 중 하나인 {npc:5885}이(가) 당신을 {npc:6546}에게 다시 보냅니다. {zone:1458}의 {npc:4568}와(과) {zone:1456}의 {npc:3048}도 같은 퀘스트를 줍니다.",
 
 	-- Step 3: Tabetha
 	-- {npc:6546} Tabetha · {area:508} Stonemaul Ruins
-	["{npc:6546}'s cottage is deep in the marsh west of Theramore, just north of the {area:508}; come in from the west road, the elites roam its east side."] = "",
+	["{npc:6546}'s cottage is deep in the marsh west of Theramore, just north of the {area:508}; come in from the west road, the elites roam its east side."] = "{npc:6546}의 오두막은 테라모어 서쪽 늪 깊숙한 곳, {area:508} 바로 북쪽에 있습니다. 서쪽 길로 들어가십시오. 정예 몹은 동쪽을 돌아다닙니다.",
 
 	-- Step 4: The Infernal Orb
 	-- {area:602} Mannoroc Coven · {zone:1443} Desolace · {area:2408} Shadowprey Village · {item:7291} Infernal Orb · {spell:686} Shadow Bolt · {zone:1412} Mulgore · {zone:1456} Thunder Bluff
@@ -60,8 +60,5 @@ return {
 	-- ["Back to {npc:6546}. She opens a mana rift beside her cottage: kill twelve {quest:1957} within ten minutes."] = "{npc:6546}에게 돌아가세요. 그녀가 오두막 옆에 마나 균열을 엽니다. 10분 안에 {quest:1957} 12마리를 처치하세요.",
 	-- ["The Burning Blade Summoners work the {area:602} in southern {zone:1443}; any of them carries an {item:7291}."] = "불타는칼날단 소환사는 {zone:1443} 남부의 {area:602}에서 활동합니다. 누구든 {item:7291}을(를) 지니고 있습니다.",
 	-- ["{area:1517} is a dungeon in the northern {zone:1418}, by the {object:178824}: a group of five. Defeat the {npc:7023} inside for its power source."] = "{area:1517}은(는) {zone:1418} 북부, {object:178824} 옆에 있는 5인 던전입니다. 안에서 {npc:7023}을(를) 물리치고 동력원을 얻으세요.",
-	-- ["{npc:5497} in the Wizard's Sanctum, {zone:1453}'s {object:2101}, sends you back to {npc:6546}; Bink in {zone:1455} gives the same quest."] = "{zone:1453} {object:2101}의 마법사의 성소에 있는 {npc:5497}이(가) 당신을 {npc:6546}에게 다시 보냅니다. {zone:1455}의 빙크도 같은 퀘스트를 줍니다.",
-	-- ["{npc:5885}, one of {zone:1454}'s mage trainers, sends you back to {npc:6546}; {npc:4568} in the {zone:1458} and {npc:3048} in {zone:1456} give the same quest."] = "{zone:1454}의 마법사 상급자 중 하나인 {npc:5885}이(가) 당신을 {npc:6546}에게 다시 보냅니다. {zone:1458}의 {npc:4568}와(과) {zone:1456}의 {npc:3048}도 같은 퀘스트를 줍니다.",
 	-- ["{npc:6546} draws the demon out of the orb beside her cottage. The {npc:6549} is elite: grouping up is advised. You have three minutes before it slips back into the orb."] = "{npc:6546}이(가) 오두막 옆에서 구슬 속 악마를 끌어냅니다. {npc:6549}은(는) 정예이니 파티를 권장합니다. 악마가 구슬로 돌아가기까지 3분이 있습니다.",
-	-- ["{npc:6546}'s cottage is deep in the marsh west of Theramore, just north of the {area:508}."] = "{npc:6546}의 오두막은 테라모어 서쪽 늪 깊숙한 곳, {area:508} 바로 북쪽에 있습니다.",
 }

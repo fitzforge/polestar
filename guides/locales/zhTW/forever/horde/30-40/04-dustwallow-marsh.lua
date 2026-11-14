@@ -38,7 +38,7 @@ return {
 
 	-- Step 8: Shady Rest Inn
 	-- {area:378} Camp Taurajo · {area:403} Shady Rest Inn
-	["Head east from {area:378} along the road into the marsh. The burned-out {area:403} stands beside it just past the border; the shield, the badge and the hoofprints are in and beside the ruin."] = "",
+	["Head east from {area:378} along the road into the marsh. The burned-out {area:403} stands beside it just past the border; the shield, the badge and the hoofprints are in and beside the ruin."] = "從{area:378}沿著道路向東進入沼澤。燒毀的{area:403}就在過了邊界不遠的路旁；盾牌、徽章和蹄印都在廢墟裡和廢墟旁。",
 
 	-- Step 10: Brackenwall Village
 	["Take the road north at the fork to the ogre village of Brackenwall."] = "在岔路往北走，前往巨魔村莊蕨牆村。",
@@ -52,7 +52,7 @@ return {
 	-- Step 12: Stinky Ignatz
 	["Stinky Ignatz"] = "伊格納茲",
 	-- {area:502} Witch Hill
-	["Head north to {area:502}. Stinky stands at the foot of the hill; escort him while he gathers Bogbean Leaves just south of it."] = "",
+	["Head north to {area:502}. Stinky stands at the foot of the hill; escort him while he gathers Bogbean Leaves just south of it."] = "向北前往{area:502}。伊格納茲站在山腳下；他在山南邊採集泥豆葉時護送他。",
 
 	-- Step 13: Mirefin murlocs
 	["Mirefin murlocs"] = "黑鰭魚人",
@@ -76,7 +76,7 @@ return {
 
 	-- Step 17: Swamp Eye Jarl
 	-- {area:497} Swamplight Manor
-	["Head east back to the {area:497}."] = "",
+	["Head east back to the {area:497}."] = "向東回到{area:497}。",
 	-- {object:20985} Loose Dirt · {npc:4791} Nazeer Bloodpike
 	["{object:20985}, now that {npc:4791} has read the report"] = "{object:20985}，現在{npc:4791}已經讀過報告了",
 	-- {item:3853} Moonsteel Broadsword · {skill:164} Blacksmithing
@@ -84,7 +84,7 @@ return {
 
 	-- Step 18: The Theramore Docks
 	-- {area:513} Theramore Isle · {object:20925} Captain's Footlocker
-	["South-east from the manor to {area:513}: the {object:20925} lies on the sea floor off the docks on the isle's east side. Swim in and out and keep off the piers and the town: Theramore's guards are level 53-57."] = "從莊園往東南前往{area:513}：{object:20925}在島嶼東側碼頭外的海底。游進去再游出來，遠離碼頭和城鎮：希拉摩的守衛是53-57級。",
+	["South-east from the manor to {area:513}: the {object:20925} lies on the sea floor off the docks on the isle's east side. Swim in and out and keep off the piers and the town: Theramore's guards are level 53-57, and a death here is a long run back from the spirit healer."] = "從莊園往東南前往{area:513}：{object:20925}在島嶼東側碼頭外的海底。游進去再游出來，遠離碼頭和城鎮：希拉摩的守衛是53-57級，在這裡死掉的話，從靈魂醫者那裡跑回來要很久。",
 	["Underwater"] = "",
 
 	-- Step 19: Brackenwall Village
@@ -95,8 +95,8 @@ return {
 
 	-- Step 20: Level 37.5
 	["Level 37.5"] = "",
-	-- {zone:1443} Desolace · {area:1316} Razorfen Downs · {area:796} Scarlet Monastery
-	["{zone:1443}'s last quests and Alterac are 38-41. Still below 37.5 after Brackenwall's hand-ins? The Darkmist spiders and Lurkers (35-38) by the cavern north-west of the village are the closest: kill them until level 37.5. Or, with a group, run the {area:1316} dungeon or the {area:796} dungeon (Armory) instead."] = "",
+	-- {zone:1443} Desolace
+	["{zone:1443}'s last quests and Alterac are 38-41. Still below 37.5 after Brackenwall's hand-ins? The Darkmist spiders and Lurkers (35-38) by the cavern north-west of the village are the closest: kill them until level 37.5."] = "",
 	["Darkmist cavern"] = "",
 	-- {npc:4377} Darkmist Lurker
 	["grind on {npc:4377}"] = "",
@@ -133,10 +133,12 @@ return {
 	-- Step 27: Ghost Walker Post
 	-- {npc:5412} Gurda Wildmane · {npc:5395} Felgur Twocuts
 	["North to the post; {npc:5412} stands beside {npc:5395}."] = "",
+	-- {npc:5395} Felgur Twocuts · {quest:1366} Centaur Bounty
+	["{npc:5395}: his {quest:1366}, from the same Maraudine"] = "{npc:5395}：他的{quest:1366}，來自同一批瑪勞登",
 
 	-- Step 28: Valley of Spears
 	-- {area:607} Valley of Spears · {item:254432} Carved Centaur Totem · {npc:5395} Felgur Twocuts · {quest:1366} Centaur Bounty
-	["West of the post, the Maraudine centaurs hold the {area:607}. Every Maraudine can drop a {item:254432} and an ear for {npc:5395}'s {quest:1366}."] = "",
+	["West of the post, the Maraudine centaurs hold the {area:607}. Every Maraudine can drop a {item:254432} and an ear for {npc:5395}'s {quest:1366}. Stay with the Maraudine (36-39) in the valley: the Magram's village in the south-east has the same drops, but its Necromancers (42-43) and Guardians (39-41) are well above you."] = "",
 
 	-- Step 29: Melizza Brimbuzzle
 	-- {npc:12277} Melizza Brimbuzzle
@@ -149,17 +151,17 @@ return {
 	-- Step 31: The Valley of Bones
 	-- {area:2657} Valley of Bones
 	["The {area:2657}"] = "{area:2657}",
-	-- {area:2657} Valley of Bones · {item:15848} Crate of Ghost Magnets
-	-- plural, as words: Undead Ravagers = {npc:11561} Undead Ravager · Magrami Spectres = {npc:11560} Magrami Spectre
-	["Head south-east to the bone fields of the {area:2657}, where Undead Ravagers roam. At the far south-east, use the {item:15848} to draw the Magrami Spectres: they drop the ghost-o-plasm."] = "",
+	-- {area:2657} Valley of Bones · {zone:1443} Desolace · {item:15848} Crate of Ghost Magnets
+	-- plural, as words: Undead Ravagers = {npc:11561} Undead Ravager · Magrami Spectres = {npc:11560} Magrami Spectre · Magram Necrokhans = {npc:253274} Magram Necrokhan
+	["Head south-east to the bone fields of the {area:2657}, where Undead Ravagers roam, at {zone:1443}'s southern edge. Use the {item:15848} at the arrow to draw the Magrami Spectres: they drop the ghost-o-plasm.\nCareful: Magram Necrokhans and Corpsefeeders (45, elite) walk the bone fields just west of the arrow, well above you: use the crate at the arrow, on the valley's eastern side, and pull the spectres away from them."] = "",
 
 	-- Step 32: Hornizz Brimbuzzle
 	-- {area:596} Kodo Graveyard
-	["North to the goblin camp on the west side of the {area:596}."] = "",
+	["North to the goblin camp on the west side of the {area:596}."] = "向北前往{area:596}西側的哥布林營地。",
 
 	-- Step 34: Shadowprey
 	["Shadowprey"] = "",
-	["West to Shadowprey."] = "",
+	["West to Shadowprey."] = "向西前往葬影村。",
 
 	-- Step 35: Thunder Bluff
 	-- {area:2408} Shadowprey Village · {area:1638} Thunder Bluff · {npc:3033} Turak Runetotem · {area:1639} Elder Rise · {zone:1454} Orgrimmar
@@ -196,17 +198,13 @@ return {
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Darkfang spiders"] = "暗牙蜘蛛",
 	-- ["For {npc:2519} at {object:3202}, in the next guide"] = "交給{object:3202}的{npc:2519}，在下一份指南",
-	-- ["Hearth to Shadowprey"] = "用爐石回葬影村",
 	-- ["Hearth to {area:392}"] = "用爐石回{area:392}",
 	-- ["Kodo bones and ghosts"] = "科多獸骨與幽靈",
 	-- ["Maraudine totems"] = "瑪洛迪圖騰",
 	-- ["Pick up the kodo bones scattered across the graveyard, and use the {item:15848} among the bones: the ghosts it draws drop the ghost-o-plasm."] = "撿起散落在墳場各處的科多獸骨，並在骨頭之間使用{item:15848}：它吸引來的幽靈會掉落幽靈電漿。",
 	-- ["Ride back west to Brackenwall with the head."] = "帶著頭顱向西騎回蕨牆村。",
-	-- ["Ride east back to the {area:497}."] = "向東騎回{area:497}。",
-	-- ["Ride east from {area:378} along the road into the marsh. The burned-out {area:403} stands beside it just past the border; the shield, the badge and the hoofprints are in and beside the ruin."] = "從{area:378}沿著道路向東騎進沼澤。燒毀的{area:403}就在過了邊界不遠的路旁；盾牌、徽章和蹄印都在廢墟裡和廢墟旁。",
 	-- ["Ride east to {area:602}. Use the Rod of Banishing by each demon portal to close six of them."] = "向東騎往{area:602}。在每個惡魔傳送門旁使用放逐之杖，關閉其中六個。",
 	-- ["Ride north from the coven to {npc:5412} at {area:597}."] = "從集會所向北騎往{area:597}的{npc:5412}。",
-	-- ["Ride north to {area:502}. Stinky stands at the foot of the hill; escort him while he gathers Bogbean Leaves just south of it."] = "向北騎往{area:502}。伊格納茲站在山腳下；他在山南邊採集泥豆葉時護送他。",
 	-- ["Ride north up the road to the hut by the road north of the graveyard."] = "沿著道路向北騎，前往墳場北邊路旁的小屋。",
 	-- ["Ride north-east to the {area:607}. {npc:12277} is held in the Maraudine centaur camp; free her and escort her out east of the valley."] = "向東北騎往{area:607}。{npc:12277}被關在瑪洛迪半人馬的營地裡；釋放她，並護送她往東離開山谷。",
 	-- ["Ride on south-west to Shadowprey."] = "繼續向西南騎往葬影村。",
@@ -217,7 +215,6 @@ return {
 	-- ["The Burning Blade hold the fortress north-west of {area:2407}. Use the {item:14523} on the {npc:11876} in the fortress to get the {item:13542}."] = "燃刃氏族佔據{area:2407}西北方的堡壘。對堡壘中的{npc:11876}使用{item:14523}，取得{item:13542}。",
 	-- ["The Darkmist spiders swarm the cavern mouth north-west of Brackenwall; every kind drops eyes."] = "暗霧蜘蛛聚集在蕨牆村西北方的洞穴入口；每一種都會掉落眼球。",
 	-- ["The Slitherblade naga hold the coast north of {area:2405}, up to {area:598}. {npc:12369} guards the {quest:6027} at the far northern tip."] = "滑刃納迦佔據{area:2405}北邊直到{area:598}的海岸。{npc:12369}守護著最北端的{quest:6027}。",
-	-- ["The caravan ends at {npc:11596}'s camp on the east side of the {area:596}."] = "商隊的終點是{area:596}東側{npc:11596}的營地。",
 	-- ["The next guide takes you back to {zone:1434}."] = "下一份指南會帶你回到{zone:1434}。",
 	-- ["{npc:11626}'s caravan stops on the road at the edge of {area:602}. Escort it east past the coven; demons attack it twice."] = "{npc:11626}的商隊停在{area:602}邊緣的道路上。護送商隊向東經過集會所；惡魔會攻擊兩次。",
 	-- ["{npc:3391}: for {npc:4631} in {area:35}, on the first {area:35} stop of 40-50"] = "{npc:3391}：交給{area:35}的{npc:4631}，在40-50級第一次前往{area:35}時",

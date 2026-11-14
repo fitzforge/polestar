@@ -47,7 +47,7 @@ return {
 	-- {npc:5643} Tyranis Malem
 	["{npc:5643} and the Seer"] = "{npc:5643}與先知",
 	-- {npc:5643} Tyranis Malem · {npc:13019} Burning Blade Seer · {npc:5642} Vahlarriel Demonslayer
-	["Her brother {npc:5643} (36) walks the fortress with the Burning Blade cultists (30-33): pull him alone. The {npc:13019} keeps the sceptre in the fortress's main building. {npc:5642} wants four of each kind of cultist on the way."] = "",
+	["Her brother {npc:5643} (36) walks the fortress with the Burning Blade cultists (30-33): pull him alone. The {npc:13019} keeps the sceptre in the fortress's main building. {npc:5642} wants four of each kind of cultist on the way."] = "她的哥哥{npc:5643}（36級）和燃刃氏族教徒（30-33級）一起在要塞裡走動：單獨把他拉出來。{npc:13019}把權杖放在要塞的主建築裡。{npc:5642}要你在途中每種教徒各殺四個。",
 	-- {item:6767} Tyranis' Pendant
 	["{item:6767}; inside"] = "",
 	-- {quest:5741} Sceptre of Light
@@ -98,7 +98,6 @@ return {
 	-- ["From {area:415} head south-west to the {area:1276}, a tunnel through the mountains into Stonetalon."] = "從{area:415}向西南前往{area:1276}，這是一條穿過山脈通往石爪山脈的隧道。",
 	-- ["From {area:415} ride north-west into the hills: the {quest:1738} is a glowing tree north of the road to {area:413}. If you took {quest:65602}, the {item:190309} lies in a house among the trees north of {area:413} (26.6,22.0). Then back past {area:415} to the {area:1276}."] = "從{area:415}向西北騎進山丘：{quest:1738}是前往{area:413}道路北邊一棵發光的樹。如果你接了{quest:65602}，{item:190309}在{area:413}北邊樹林中的一間房子裡（26.6,22.0）。然後經過{area:415}回到{area:1276}。",
 	-- ["From {zone:1455}'s {npc:1573}"] = "來自{zone:1455}的{npc:1573}",
-	-- ["Her brother {npc:5643} (36) walks the fortress with the Burning Blade cultists (30-33): pull him alone. The {npc:13019} keeps the sceptre in the fortress's main building."] = "她的哥哥{npc:5643}（36級）和燃刃氏族教徒（30-33級）一起在要塞裡走動：單獨把他拉出來。{npc:13019}把權杖放在要塞的主建築裡。",
 	-- ["Scorpashi venom"] = "荒土蠍毒液",
 	-- ["Take the boat to {area:442} from Menethil's docks."] = "在米奈希爾的碼頭搭船前往{area:442}。",
 	-- ["Take the boat to {area:442} from Menethil's docks. {npc:3649} stands in {area:442}, north of the flight master."] = "在米奈希爾的碼頭搭船前往{area:442}。{npc:3649}站在{area:442}飛行管理員的北邊。",

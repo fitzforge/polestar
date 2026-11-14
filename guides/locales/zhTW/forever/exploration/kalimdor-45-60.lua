@@ -31,7 +31,7 @@ return {
 	-- Step 5: Silithus
 	["7 areas to discover here, level 55."] = "這裡有7個區域要發現，等級55。",
 	-- {zone:1451} Silithus · {zone:1449} Un'Goro Crater · {area:3425} Cenarion Hold
-	["{zone:1451} is west of {zone:1449}, through the pass in its north-west. {area:3425} is neutral."] = "",
+	["{zone:1451} is west of {zone:1449}, through the pass in its north-west. {area:3425} is neutral."] = "{zone:1451}在{zone:1449}西邊，穿過它西北部的山口。{area:3425}是中立的。",
 	-- {area:3425} Cenarion Hold · {npc:15177} Cloud Skydancer
 	["Flight path here: {area:3425} ({npc:15177})."] = "此處飛行路線：{area:3425}（{npc:15177}）。",
 	-- {area:3425} Cenarion Hold · {npc:15178} Runk Windtamer
@@ -81,11 +81,9 @@ return {
 	["Flight path here: {area:2255} (Yugrek)."] = "此處飛行路線：{area:2255}（尤格雷克）。",
 
 	-- Step 14: Mount Hyjal (1/2)
-	["9 areas to discover here. Its creatures are level 54-60."] = "",
+	["9 areas to discover here. Its creatures are level 54-60."] = "這裡有9個區域要發現。這裡的生物是54-60級。",
 	-- {zone:2482} Mount Hyjal · {zone:1452} Winterspring · {area:2256} Darkwhisper Gorge
 	["{zone:2482} is reached from {zone:1452} through {area:2256} in the south. It is Forever's endgame leveling zone."] = "從{zone:1452}經由南部的{area:2256}前往{zone:2482}。這是Forever的終局升級區域。",
-
-	-- No longer in the guide (its English changed or it went away): reuse or delete.
-	-- ["9 areas to discover here."] = "這裡有9個區域要發現。",
-	-- ["{zone:1451} is west of {zone:1449}. {area:3425} is neutral."] = "{zone:1451}在{zone:1449}西邊。{area:3425}是中立的。",
+	-- {area:16849} Summit of Eternity · {npc:41861} Fayran Elthas · {area:16853} Tainted Foothills
+	["Flight paths here: {area:16849} ({npc:41861}), {area:16853} (Bluebell)."] = "此處的飛行路線：{area:16849}（{npc:41861}）、{area:16853}（藍鈴）。",
 }

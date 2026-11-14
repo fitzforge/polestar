@@ -111,8 +111,8 @@ return {
 
 	-- Step 18: Dungeons: level 15-25
 	["Dungeons: level 15-25"] = "Dungeons: Stufe 15-25",
-	-- {area:2437} Ragefire Chasm · {area:16919} Hall of Thanes · {zone:1455} Ironforge
-	["The final boss of every level 15-25 dungeon earns one point together. {area:2437} and Forever's {area:16919} (in {zone:1455}) count as one: either final boss does. Tick each boss off when you kill it, and check the in-game Legacy panel for the list."] = "Der letzte Boss jedes Dungeons der Stufen 15-25 bringt zusammen einen Punkt. {area:2437} und Forevers {area:16919} (in {zone:1455}) zählen als einer: Einer der beiden Endbosse genügt. Hake jeden Boss ab, wenn du ihn getötet hast, und sieh im Vermächtnis-Fenster im Spiel nach der Liste.",
+	-- {area:2437} Ragefire Chasm · {area:16919} Hall of Thanes · {zone:1455} Ironforge · {area:153} Ruins of Lordaeron · {zone:1458} Undercity · {zone:1454} Orgrimmar
+	["The final boss of every level 15-25 dungeon earns one point together. {area:2437} and Forever's {area:16919} (in {zone:1455}) count as one: either final boss does. Tick each boss off when you kill it, and check the in-game Legacy panel for the list.\nAlliance: the {area:153}'s entrance is in the ruins beside the {zone:1458}, among Horde guards: go with a group. {area:2437} is inside {zone:1454}: the {area:16919} counts for it. Horde: the {area:16919} is inside {zone:1455}: {area:2437} counts for it."] = "Der letzte Boss jedes Dungeons der Stufen 15-25 bringt zusammen einen Punkt. {area:2437} und Forevers {area:16919} (in {zone:1455}) zählen als einer: Einer der beiden Endbosse genügt. Hake jeden Boss ab, wenn du ihn getötet hast, und sieh im Vermächtnis-Fenster im Spiel nach der Liste.\nAllianz: Der Eingang von {area:153} liegt in den Ruinen neben {zone:1458}, zwischen Wachen der Horde: Geh mit einer Gruppe hin. {area:2437} liegt in {zone:1454}: {area:16919} zählt dafür. Horde: {area:16919} liegt in {zone:1455}: {area:2437} zählt dafür.",
 	-- {area:2437} Ragefire Chasm · {npc:11519} Bazzalan · {area:16919} Hall of Thanes
 	["{area:2437}: {npc:11519} (or {area:16919})"] = "{area:2437}: {npc:11519} (oder {area:16919})",
 	-- {area:16919} Hall of Thanes · {npc:261319} Durgen Dirgehammer · {area:2437} Ragefire Chasm
@@ -126,11 +126,12 @@ return {
 
 	-- Step 19: Dungeons: level 26-45
 	["Dungeons: level 26-45"] = "Dungeons: Stufe 26-45",
-	-- {area:17780} Krol'dok Stronghold · {zone:2548} Riverglades
-	["The final boss of every level 26-45 dungeon earns one point together. The Drowned City and {area:17780} (in the {zone:2548}) are new in Forever and not in our data: tick them off yourself."] = "Der letzte Boss jedes Dungeons der Stufen 26-45 bringt zusammen einen Punkt. Die Drowned City und {area:17780} (in den {zone:2548}) sind neu in Forever und nicht in unseren Daten: Hake sie selbst ab.",
+	-- {area:16550} The Drowned City · {area:17780} Krol'dok Stronghold · {zone:2548} Riverglades
+	["The final boss of every level 26-45 dungeon earns one point together. {area:16550} and {area:17780} (in the {zone:2548}) are new in Forever and not in our data: tick them off yourself."] = "Der letzte Boss jedes Dungeons der Stufen 26-45 bringt zusammen einen Punkt. {area:16550} und {area:17780} (in den {zone:2548}) sind neu in Forever und nicht in unseren Daten: Hake sie selbst ab.",
 	-- {zone:1416} Alterac Mountains · {npc:246020} Shade of the Archmage
 	["City of Dalaran (Forever's, {zone:1416}): {npc:246020}"] = "City of Dalaran (von Forever, {zone:1416}): {npc:246020}",
-	["the final boss of the Drowned City"] = "der letzte Boss der Drowned City",
+	-- {area:16550} The Drowned City
+	["the final boss of the {area:16550}"] = "der letzte Boss von {area:16550}",
 	-- {area:796} Scarlet Monastery
 	["{area:796}: Graveyard"] = "{area:796}: Friedhof",
 	-- {area:796} Scarlet Monastery
@@ -144,9 +145,10 @@ return {
 
 	-- Step 20: Dungeons: level 46-60
 	["Dungeons: level 46-60"] = "Dungeons: Stufe 46-60",
-	-- {area:1216} Blackmaw Hold · {area:16985} Shaper's Terrace
-	["The final boss of every level 46-60 dungeon earns one point together. Alcaz Prison, {area:1216} and the {area:16985} are new in Forever and not in our data: tick them off yourself."] = "Der letzte Boss jedes Dungeons der Stufen 46-60 bringt zusammen einen Punkt. Alcaz Prison, {area:1216} und die {area:16985} sind neu in Forever und nicht in unseren Daten: Hake sie selbst ab.",
-	["the final boss of Alcaz Prison"] = "der letzte Boss von Alcaz Prison",
+	-- {area:16620} Alcaz Prison · {area:1216} Blackmaw Hold · {area:16985} Shaper's Terrace
+	["The final boss of every level 46-60 dungeon earns one point together. {area:16620}, {area:1216} and the {area:16985} are new in Forever and not in our data: tick them off yourself."] = "Der letzte Boss jedes Dungeons der Stufen 46-60 bringt zusammen einen Punkt. {area:16620}, {area:1216} und die {area:16985} sind neu in Forever und nicht in unseren Daten: Hake sie selbst ab.",
+	-- {area:16620} Alcaz Prison
+	["the final boss of {area:16620}"] = "der letzte Boss von {area:16620}",
 	-- {area:1216} Blackmaw Hold
 	["the final boss of {area:1216}"] = "der letzte Boss von {area:1216}",
 	-- {area:1583} Blackrock Spire

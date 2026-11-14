@@ -46,30 +46,27 @@ return {
 	-- {area:86} Stone Cairn Lake · {quest:91725} Stolen Enchanting Supplies
 	["Riverpaw gnolls camp in the hills west of {area:86}; the {quest:91725} lie in their camps."] = "갈퀴발일족 놀이 {area:86} 서쪽 언덕에 야영하며, {quest:91725}은(는) 그들의 야영지에 있습니다.",
 
-	-- Step 8: The Jasperlode Mine's entrance
-	-- {area:54} Jasperlode Mine
-	["The {area:54}'s entrance"] = "",
-
-	-- Step 9: Jasperlode Mine: kill these as you meet them
-	-- {area:54} Jasperlode Mine
-	["{area:54}: kill these as you meet them"] = "",
-	-- {item:247816} Mining Tools · {npc:471} Mother Fang · {npc:248474} Geosculptor Yip
-	-- plural, as words: Kobold Geomancers = {npc:476} Kobold Geomancer · Mine Spiders = {npc:43} Mine Spider
-	["The mine is south-west of the gnoll camps. {item:247816} lie near the entrance; Kobold Geomancers hold the tunnels.\nCareful: {npc:471} (7-10), the Mine Spiders (7-9) and {npc:248474} (7) are elites deep in the mine: pull the kobolds one at a time near the entrance and back out if an elite comes; they're easier with a friend."] = "광산은 놀 야영지 남서쪽에 있습니다. {item:247816}은(는) 입구 근처에 있고, 터널은 코볼트 흙점쟁이가 지키고 있습니다.\n주의: {npc:471}(7-10), 굴거미(7-9), {npc:248474}(7)은(는) 광산 깊숙한 곳의 정예입니다. 입구 근처에서 코볼트를 하나씩 끌어오고, 정예가 다가오면 물러나세요. 친구와 함께하면 더 쉽습니다.",
-	-- {npc:476} Kobold Geomancer · {area:54} Jasperlode Mine
-	["{npc:476} walks around {area:54}: look inside the circle on the map"] = "",
-
-	-- Step 10: The Tower of Azora
+	-- Step 8: The Tower of Azora
 	["Follow the hills south to the tower."] = "언덕을 따라 남쪽 탑으로 가십시오.",
 
-	-- Step 11: Downstream
+	-- Step 9: Downstream
 	-- {item:247813} Waterlogged Saw
 	-- plural, as words: Prowlers = {npc:118} Prowler · Young Forest Bears = {npc:822} Young Forest Bear
 	["East along the road, then into the river south of the bridge: the {item:247813}, Axe and Toolbox lie in it. Prowlers and Young Forest Bears roam its banks."] = "",
 
-	-- Step 14: Goldshire
+	-- Step 10: Surena Caledon
+	-- {npc:6122} Gakin the Darkbinder · {quest:1689} The Binding · {item:6810} Surena's Choker · {npc:881} Surena Caledon · {area:62} Brackwell Pumpkin Patch
+	["{npc:6122}'s {quest:1689} needs {item:6810}: {npc:881} (level 9) stands by the farmhouse of the {area:62}, just south of the river."] = "{npc:6122}의 {quest:1689}에는 {item:6810}이(가) 필요합니다. {npc:881}(9레벨)은(는) 강 바로 남쪽, {area:62}의 농가 옆에 서 있습니다.",
+
+	-- Step 13: Goldshire
 	-- {area:87} Goldshire · {zone:1436} Westfall · {npc:240} Marshal Dughan
 	["Follow the road west to {area:87}, on the way to {zone:1436}: {npc:240} stands outside the inn."] = "",
+
+	-- Step 14: The Binding
+	-- {area:87} Goldshire · {zone:1453} Stormwind · {npc:6122} Gakin the Darkbinder · {object:2164} Slaughtered Lamb · {object:2101} Mage Quarter · {item:6928} Bloodstone Choker · {zone:1436} Westfall
+	["North along the road from {area:87} to {zone:1453}: {npc:6122} waits in the cellar of the {object:2164}, in the {object:2101}. Use the {item:6928} at the summoning circle there and defeat the voidwalker it calls, then back south through {area:87} to {zone:1436}."] = "{area:87}에서 길을 따라 북쪽 {zone:1453}(으)로 가십시오. {npc:6122}은(는) {object:2101}에 있는 {object:2164}의 지하실에서 기다립니다. 그곳 소환진에서 {item:6928}을(를) 사용해 불러낸 공허방랑자를 물리친 뒤, {area:87}을(를) 지나 남쪽 {zone:1436}(으)로 돌아가십시오.",
+	-- {npc:5676} Summoned Voidwalker · {item:6928} Bloodstone Choker
+	["{npc:5676}: use the {item:6928} at the circle"] = "{npc:5676}: 소환진에서 {item:6928} 사용",
 
 	-- Step 15: The Jansen Stead
 	-- {zone:1436} Westfall · {object:2724} Sack of Oats
@@ -105,7 +102,7 @@ return {
 	-- {npc:878} Scout Galiaan · {npc:523} Thor
 	["{npc:878}, beside {npc:523}"] = "",
 	-- {npc:523} Thor · {zone:1453} Stormwind
-	["{npc:523}: the free flight he offers goes to {zone:1453}"] = "",
+	["{npc:523}: the free flight he offers goes to {zone:1453}"] = "{npc:523}: 그가 제공하는 무료 비행은 {zone:1453}(으)로 갑니다",
 
 	-- Step 21: Osric Strang
 	-- {npc:279} Morgan Pestle · {object:2096} Trade District
@@ -121,15 +118,20 @@ return {
 	-- {npc:1646} Baros Alexston · {object:2098} Cathedral Square · {zone:1436} Westfall
 	["{npc:1646}, {object:2098}: his compass is in his old house in {zone:1436}"] = "",
 
-	-- Step 25: High Priestess Laurena
+	-- Step 24: Class trainer
+	["Class trainer"] = "직업 상급자",
+	-- {object:2100} Old Town · {object:2098} Cathedral Square · {object:2101} Mage Quarter · {object:28027} Dwarven District
+	["While you're in the city: Warriors and Rogues train in {object:2100}, Paladins and Priests in the Cathedral of Light across {object:2098}, Mages and Warlocks in the {object:2101}, Hunters in the {object:28027}."] = "도시에 있는 동안: 전사와 도적은 {object:2100}, 성기사와 사제는 {object:2098} 건너편 빛의 대성당, 마법사와 흑마법사는 {object:2101}, 사냥꾼은 {object:28027}에서 훈련합니다.",
+
+	-- Step 26: High Priestess Laurena
 	-- {npc:376} High Priestess Laurena · {object:2098} Cathedral Square · {npc:1646} Baros Alexston
 	["{npc:376} is in the Cathedral of Light, across {object:2098} from {npc:1646}."] = "",
 
-	-- Step 26: Dungar Longdrink
+	-- Step 27: Dungar Longdrink
 	-- {npc:352} Dungar Longdrink
 	["{npc:352}, the gryphon master"] = "",
 
-	-- Step 27: Sentinel Hill
+	-- Step 28: Sentinel Hill
 	-- {npc:234} Gryan Stoutmantle · {npc:821} Captain Danuvin · {npc:491} Quartermaster Lewis · {npc:878} Scout Galiaan · {npc:523} Thor
 	["{npc:234} and {npc:821} stand at the top of the stone tower. {npc:491} is in the tower, {npc:878} on the south side of the hill, next to the inn and {npc:523} the gryphon master."] = "{npc:234}와(과) {npc:821}은(는) 돌탑 꼭대기에 있습니다. {npc:491}은(는) 탑 안에, {npc:878}은(는) 언덕 남쪽의 여관과 그리폰 조련사 {npc:523} 옆에 있습니다.",
 	-- {npc:491} Quartermaster Lewis · {zone:1453} Stormwind
@@ -137,50 +139,50 @@ return {
 	-- {npc:253092} Alba Fairmoon · {npc:878} Scout Galiaan
 	["{npc:253092}, beside {npc:878}"] = "{npc:253092}, {npc:878} 옆",
 
-	-- Step 29: Goretusk Livers as you go
+	-- Step 30: Goretusk Livers as you go
 	-- plural, as words: Goretusk Livers = {item:723} Goretusk Liver
 	["Goretusk Livers as you go"] = "",
 	-- plural, as words: Goretusks = {npc:157} Goretusk · Young Goretusks = {npc:454} Young Goretusk
 	["Goretusks and Young Goretusks root along every leg of this loop: kill the ones you pass for the pie's livers."] = "",
 
-	-- Step 30: Stringy Vulture Meat as you go
+	-- Step 31: Stringy Vulture Meat as you go
 	-- {item:729} Stringy Vulture Meat
 	["{item:729} as you go"] = "",
 	["Fleshrippers circle the fields along this loop: kill the ones you pass for the stew's meat."] = "",
 	-- {item:729} Stringy Vulture Meat
 	["{item:729}: Fleshrippers"] = "{item:729}: 식인독수리",
 
-	-- Step 31: Red Leather Bandanas as you go
+	-- Step 32: Red Leather Bandanas as you go
 	-- {quest:153} Red Leather Bandanas
 	["{quest:153} as you go"] = "",
 	-- {item:829} Red Leather Bandana · {object:290} Furlbrow's Wardrobe
 	["Every Defias on this loop can drop a {item:829}: the Trappers and Smugglers, and the guards at {object:290}."] = "",
 
-	-- Step 32: Defias Trappers and Smugglers
+	-- Step 33: Defias Trappers and Smugglers
 	-- plural, as words: Defias Trappers = {npc:504} Defias Trapper
 	["Defias Trappers and Smugglers"] = "",
 	-- {area:108} Sentinel Hill · {area:918} Molsen Farm
 	-- plural, as words: Defias Trappers = {npc:504} Defias Trapper
 	["North-west from {area:108} toward {area:918}: Defias Trappers and Smugglers camp in the fields between them."] = "",
 
-	-- Step 33: Molsen Farm's well
+	-- Step 34: Molsen Farm's well
 	-- {area:918} Molsen Farm
 	["{area:918}'s well"] = "",
 	["Fill the vial at the farm's well"] = "농장 우물에서 약병 채우기",
 
-	-- Step 34: Molsen Farm's Harvest Watchers
+	-- Step 35: Molsen Farm's Harvest Watchers
 	-- {area:918} Molsen Farm
 	-- plural, as words: Harvest Watchers = {npc:114} Harvest Watcher
 	["{area:918}'s Harvest Watchers"] = "",
 	-- {area:918} Molsen Farm · {item:732} Okra · {item:255155} Precessive Autocognition Assembly · {npc:573} Foe Reaper 4000
 	-- plural, as words: Harvest Watchers = {npc:114} Harvest Watcher
-	["Harvest Watchers and Golems work the fields around {area:918}; they drop the isosprings, gyrostabilizers, {item:732} and sometimes a {item:255155}. {npc:573}, a level 20 rare, walks here: leave it alone."] = "",
+	["Harvest Watchers and Golems work the fields around {area:918}; they drop the isosprings, gyrostabilizers, {item:732} and sometimes a {item:255155}. {npc:573}, a level 20 rare, walks here: leave it alone."] = "허수아비골렘 보초와 허수아비골렘이 {area:918} 주변 밭에서 일하며, 골렘 등가용수철, 허수아비골렘 회전안정기, {item:732}, 가끔 {item:255155}을(를) 떨어뜨립니다. 20레벨 희귀 몹 {npc:573}이(가) 이곳을 돌아다니니 건드리지 마십시오.",
 	-- plural, as words: Harvest Watchers = {npc:114} Harvest Watcher
 	["Harvest Watchers"] = "허수아비골렘 보초",
 	-- {item:814} Flask of Oil · {npc:392} Captain Grayson · {area:115} Westfall Lighthouse
 	["{item:814}: keep five for {npc:392} at the {area:115}, later on the route"] = "{item:814}: 경로 후반에 {area:115}의 {npc:392}에게 줄 5개를 남겨 두세요",
 
-	-- Step 35: The gnoll hills
+	-- Step 36: The gnoll hills
 	["The gnoll hills"] = "놀 언덕",
 	-- {area:111} Jangolode Mine · {area:916} The Jansen Stead
 	-- plural, as words: Riverpaw Gnolls = {npc:117} Riverpaw Gnoll
@@ -188,58 +190,58 @@ return {
 	-- plural, as words: Gnoll Paws = {item:725} Gnoll Paw
 	["Gnoll Paws"] = "놀의 앞발",
 
-	-- Step 36: The Longshore murlocs
+	-- Step 37: The Longshore murlocs
 	-- {area:2} Longshore
 	["The {area:2} murlocs"] = "",
 	-- {area:916} The Jansen Stead
 	-- plural, as words: Murloc Coastrunners = {npc:126} Murloc Coastrunner
-	["Murloc Coastrunners and Raiders line the north coast from above the mine east toward the {area:916}: work along the beach eastward. They flee at low health: pull one at a time."] = "",
+	["Murloc Coastrunners and Raiders line the north coast from above the mine east toward the {area:916}: work along the beach eastward. They flee at low health: pull one at a time."] = "멀록 길잡이와 멀록 약탈꾼이 광산 위쪽에서 동쪽 {area:916}까지 북쪽 해안에 늘어서 있습니다. 해변을 따라 동쪽으로 나아가십시오. 생명력이 낮으면 도망치니 하나씩 끌어오십시오.",
 	-- plural, as words: Longshore Murloc Gills = {item:254548} Longshore Murloc Gill
 	["Longshore Murloc Gills"] = "기나긴 해안 멀록 아가미",
 
-	-- Step 37: Furlbrow's Wardrobe
+	-- Step 38: Furlbrow's Wardrobe
 	-- {object:290} Furlbrow's Wardrobe · {area:916} The Jansen Stead · {npc:502} Benny Blaanco
 	["{object:290} stands in the ruined house east of the mine, on the way to the {area:916}.\nCareful: Two Defias stand guard inside, one of them the level 15 named {npc:502}. They are linked, so attacking either one brings both."] = "",
 	-- {object:290} Furlbrow's Wardrobe
 	["{object:290}; inside"] = "",
 
-	-- Step 38: The Jansen Stead
+	-- Step 39: The Jansen Stead
 	["Sacks of Oats in the fields around the farm"] = "",
 	["Fill the vial at the well"] = "우물에서 약병 채우기",
 
-	-- Step 39: Finish the Goretusk Livers
+	-- Step 40: Finish the Goretusk Livers
 	-- plural, as words: Goretusk Livers = {item:723} Goretusk Liver
 	["Finish the Goretusk Livers"] = "",
 	-- {area:107} Saldean's Farm
 	-- plural, as words: Young Goretusks = {npc:454} Young Goretusk
 	["Still short of eight? Young Goretusks root in the fields just west of {area:107}."] = "",
 
-	-- Step 40: Finish the Stringy Vulture Meat
+	-- Step 41: Finish the Stringy Vulture Meat
 	-- {item:729} Stringy Vulture Meat
 	["Finish the {item:729}"] = "",
 	-- {area:107} Saldean's Farm
 	-- plural, as words: Young Fleshrippers = {npc:199} Young Fleshripper
 	["Still short of three? Young Fleshrippers circle the fields north-west of {area:107}."] = "",
 
-	-- Step 42: Finish the Red Leather Bandanas
+	-- Step 43: Finish the Red Leather Bandanas
 	-- {quest:153} Red Leather Bandanas
 	["Finish the {quest:153}"] = "",
 	-- {area:108} Sentinel Hill
 	-- plural, as words: Defias Trappers = {npc:504} Defias Trapper
 	["Still short of fifteen? Defias Trappers camp in the fields just west of {area:108}."] = "",
 
-	-- Step 43: Sentinel Hill
+	-- Step 44: Sentinel Hill
 	-- {npc:266} Wiley the Black · {area:69} Lakeshire
 	["For {npc:266} in {area:69}, Redridge"] = "붉은마루 산맥 {area:69}의 {npc:266}에게",
 
-	-- Step 44: Jangolode Mine
+	-- Step 45: Jangolode Mine
 	-- {area:918} Molsen Farm
 	-- plural, as words: Kobold Diggers = {npc:1236} Kobold Digger
 	["Back north past {area:918} to the mine: Kobold Diggers work inside."] = "{area:918}을(를) 지나 다시 북쪽의 광산으로 가십시오. 코볼트 채굴꾼이 안에서 일합니다.",
 	-- plural, as words: Kobold Diggers = {npc:1236} Kobold Digger
 	["Kobold Diggers"] = "코볼트 채굴꾼",
 
-	-- Step 45: The Gold Coast Quarry
+	-- Step 46: The Gold Coast Quarry
 	-- {area:113} Gold Coast Quarry
 	["The {area:113}"] = "{area:113}",
 	-- {area:918} Molsen Farm
@@ -248,7 +250,7 @@ return {
 	-- plural, as words: Riverpaw Miners = {npc:1426} Riverpaw Miner
 	["Riverpaw Miners"] = "갈퀴발일족 광부",
 
-	-- Step 46: Moonbrook: kill these as you meet them
+	-- Step 47: Moonbrook: kill these as you meet them
 	-- {area:20} Moonbrook
 	["{area:20}: kill these as you meet them"] = "",
 	-- {area:108} Sentinel Hill · {area:20} Moonbrook · {object:1166} Alexston's Chest · {area:219} Alexston Farmstead · {npc:1646} Baros Alexston · {area:113} Gold Coast Quarry
@@ -257,44 +259,79 @@ return {
 	-- {item:2998} A Simple Compass · {object:1166} Alexston's Chest
 	["{item:2998}, from {object:1166}"] = "",
 
-	-- Step 49: High Priestess Laurena
-	-- {zone:1453} Stormwind · {npc:376} High Priestess Laurena
-	["Walk to {zone:1453}. {npc:376} is in the Cathedral of Light."] = "",
+	-- Step 48: Sentinel Hill
+	-- {npc:523} Thor
+	["{npc:523}, on the south side of the hill"] = "{npc:523}, 언덕 남쪽",
 
-	-- Step 51: The Tome of Divinity
+	-- Step 50: High Priestess Laurena
+	-- {npc:376} High Priestess Laurena
+	["{npc:376} is in the Cathedral of Light."] = "{npc:376}은(는) 빛의 대성당에 있습니다.",
+
+	-- Step 52: The Tome of Divinity
 	-- {npc:6171} Duthorian Rall · {npc:6173} Gazin Tenorm · {npc:6174} Stephanie Turner · {object:2096} Trade District · {item:2589} Linen Cloth
 	["{npc:6171} and {npc:6173} are in the Cathedral of Light; {npc:6174} stands in the {object:2096} and asks for ten {item:2589} (humanoids drop it; the Auction House sells it)."] = "",
-	-- {item:6775} Tome of Divinity
-	["Right-click the {item:6775} he gives you"] = "",
+	-- {quest:2998} Tome of Divinity
+	["Right-click the {quest:2998} he gives you"] = "",
 	-- {npc:6172} Henze Faulk · {area:86} Stone Cairn Lake
 	["{npc:6172}, by {area:86} in Elwynn, on the road to Redridge"] = "",
 
-	-- Step 52: Stormwind
+	-- Step 53: Stormwind
 	-- {zone:1453} Stormwind · {object:28027} Dwarven District
 	["{zone:1453}'s {object:28027}"] = "",
 
-	-- Step 53: Tram to Ironforge
+	-- Step 54: Tram to Ironforge
 	-- {zone:1455} Ironforge
 	["Tram to {zone:1455}"] = "",
 
-	-- Step 54: Shaman training
+	-- Step 55: Shaman training
 	["Shaman training"] = "주술사 수련",
 	-- {zone:1453} Stormwind · {area:2257} Deeprun Tram · {object:28027} Dwarven District · {zone:1455} Ironforge · {npc:258098} Eldrun Stormbreaker
 	["Head to {zone:1453}. It has no shaman trainer: take the {area:2257} from the {object:28027} to {zone:1455}, train with {npc:258098}, then ride the tram back for the boat."] = "{zone:1453}으로 가세요. 샤먼 훈련사가 없습니다: {object:28027}에서 {area:2257}을 타고 {zone:1455}로 가서 {npc:258098}에게 훈련받고, 배를 위해 트램을 타고 돌아오세요.",
 
-	-- Step 55: Stormwind
-	-- {area:1519} Stormwind · {object:2100} Old Town · {object:2101} Mage Quarter · {object:28027} Dwarven District
-	["Walk to {area:1519}, or fly if you know its flight path. Trainers: {object:2100} (Warriors, Rogues), the Cathedral (Paladins, Priests), the {object:2101} (Mages, Warlocks), the {object:28027} (Hunters), the Park (Druids)."] = "",
+	-- Step 56: Tram to Ironforge
+	-- {area:16919} Hall of Thanes · {area:2257} Deeprun Tram · {object:28027} Dwarven District · {zone:1455} Ironforge
+	["For your {area:16919} run: the {area:2257} from the {object:28027} to {zone:1455}."] = "{area:16919} 공략용: {object:28027}에서 {zone:1455}행 {area:2257}.",
+
+	-- Step 57: Thom Filch and Afadra Dunwall
+	-- {npc:265003} Thom Filch · {npc:264943} Afadra Dunwall
+	["{npc:265003} and {npc:264943}"] = "{npc:265003}와(과) {npc:264943}",
+	-- {area:16919} Hall of Thanes · {npc:265003} Thom Filch · {npc:264943} Afadra Dunwall · {object:171709} High Seat
+	["For your {area:16919} run: {npc:265003} and {npc:264943} stand a few steps apart on the city's west side, west of the {object:171709}. The hall's door is a short walk further west."] = "{area:16919} 공략용: {npc:265003}와(과) {npc:264943}은(는) 도시 서쪽, {object:171709} 서쪽에서 서로 몇 걸음 떨어져 서 있습니다. 전당 입구는 서쪽으로 조금 더 걸어가면 있습니다.",
+
+	-- Step 58: Hall of Thanes
+	-- {area:16919} Hall of Thanes · {zone:1455} Ironforge · {npc:264943} Afadra Dunwall · {npc:261319} Durgen Dirgehammer · {object:147516} Dark Iron · {npc:265002} Ghostly Attendant · {npc:261306} Faldrim Anvilmar · {item:281030} Treaty of Understanding
+	-- plural, as words: Enraged Apparitions = {npc:263389} Enraged Apparition · Tormented Souls = {npc:263390} Tormented Soul · Dwarven Heirlooms = {item:274289} Dwarven Heirloom
+	["{area:16919} is a dungeon for a group of five at about level 15 to 16, under {zone:1455}. Its door is on the west side of the city, a short walk west of {npc:264943}.\nInside: the Enraged Apparitions and Tormented Souls are {npc:264943}'s, the Dwarven Heirlooms Thom's, and {npc:261319}, the {object:147516} commander deep in the vaults, carries the head King Magni wants. A {npc:265002} inside gives An Ancient Grudge, for {npc:261306}, and takes it back there; a {item:281030} found inside starts a quest for King Magni."] = "{area:16919}은(는) {zone:1455} 아래에 있는 약 15~16레벨 5인 파티용 던전입니다. 입구는 도시 서쪽, {npc:264943}에서 서쪽으로 조금 걸어가면 있습니다.\n내부: Enraged Apparition과 Tormented Soul은 {npc:264943}의 퀘스트, Dwarven Heirloom은 톰의 퀘스트용이며, 금고 깊숙한 곳의 {object:147516} 지휘관 {npc:261319}이(가) 국왕 마그니가 원하는 머리를 지니고 있습니다. 내부의 {npc:265002}이(가) {npc:261306}에게 가는 'An Ancient Grudge'를 주며, 그곳에서 다시 받아 갑니다. 내부에서 찾은 {item:281030}은(는) 국왕 마그니에게 가는 퀘스트를 시작합니다.",
+	-- {quest:96403} Important Heirlooms
+	["{quest:96403}: the heirlooms, inside"] = "{quest:96403}: 가보, 내부",
+	-- {quest:96394} The Restless Dead
+	["{quest:96394}, inside"] = "{quest:96394}, 내부",
+	-- {quest:96393} Old Ironforge Incursion · {npc:261319} Durgen Dirgehammer
+	["{quest:96393}: {npc:261319}, inside"] = "{quest:96393}: {npc:261319}, 내부",
+
+	-- Step 61: King Magni Bronzebeard
+	-- {quest:96393} Old Ironforge Incursion · {object:171709} High Seat
+	["{quest:96393}: King Magni sits on the {object:171709}, east of the hall's door."] = "{quest:96393}: 국왕 마그니는 전당 입구 동쪽의 {object:171709}에 앉아 있습니다.",
+
+	-- Step 63: Back to Stormwind
+	-- {zone:1453} Stormwind
+	["Back to {zone:1453}"] = "",
+	-- {object:171524} Tinker Town · {zone:1453} Stormwind · {object:28027} Dwarven District
+	["Ride the tram back from {object:171524} to {zone:1453}'s {object:28027}."] = "지하철을 타고 {object:171524}에서 {zone:1453}의 {object:28027}(으)로 돌아가십시오.",
+	-- {zone:1453} Stormwind
+	["Tram to {zone:1453}"] = "지하철을 타고 {zone:1453}(으)로",
+
+	-- Step 64: Stormwind
+	-- {object:2100} Old Town · {object:2101} Mage Quarter · {object:28027} Dwarven District
+	["Trainers: {object:2100} (Warriors, Rogues), the Cathedral (Paladins, Priests), the {object:2101} (Mages, Warlocks), the {object:28027} (Hunters), the Park (Druids)."] = "상급자: {object:2100}(전사, 도적), 대성당(성기사, 사제), {object:2101}(마법사, 흑마법사), {object:28027}(사냥꾼), 공원(드루이드).",
 	["In through the main gate (already done if you are in the city)"] = "",
 	["Level 12, 14 and 16 spells"] = "12, 14, 16레벨 주문",
 
-	-- Step 56: Back to Stormwind
-	-- {zone:1453} Stormwind
-	["Back to {zone:1453}"] = "",
+	-- Step 65: Back to Stormwind
 	-- {zone:1453} Stormwind · {object:28027} Dwarven District
 	["Ride the tram back: it comes out in {zone:1453}'s {object:28027}, where the errands below start."] = "",
 
-	-- Step 57: Stormwind
+	-- Step 66: Stormwind
 	-- {item:2449} Earthroot · {zone:1439} Darkshore · {npc:1313} Maria Lumere
 	["{item:2449} for Gathering the Cure (6123) in {zone:1439}: {npc:1313}, Alchemy Supplies; herbalists pick it there instead"] = "{zone:1439}의 약재 모으기(6123)에 필요한 {item:2449}: {npc:1313}, 연금술 용품. 약초채집가는 대신 그곳에서 채집하세요",
 	-- {npc:1416} Grimand Elmore · {npc:1343} Mountaineer Stormpike · {zone:1432} Loch Modan
@@ -304,27 +341,27 @@ return {
 	-- {npc:5497} Jennea Cannon · {quest:1861} Mirror Lake
 	["{npc:5497}, Wizard's Sanctum: {quest:1861}"] = "{npc:5497}, 마법사의 성소: {quest:1861}",
 
-	-- Step 59: Woo Ping
+	-- Step 68: Woo Ping
 	-- {spell:202} Two-Handed Swords · {npc:11867} Woo Ping · {object:2096} Trade District
 	["While you're here: learn {spell:202} from {npc:11867} ({object:2096}, 10 silver); two-handers level a Warrior fastest."] = "",
 
-	-- Step 60: Woo Ping
+	-- Step 69: Woo Ping
 	-- {spell:202} Two-Handed Swords · {npc:11867} Woo Ping · {object:2096} Trade District
 	["While you're here: learn {spell:202} from {npc:11867} ({object:2096}, 10 silver); two-handers level a Paladin fastest."] = "",
 
-	-- Step 61: Woo Ping
+	-- Step 70: Woo Ping
 	-- {npc:11867} Woo Ping · {object:2096} Trade District
 	["While you're here: learn Staves from {npc:11867} ({object:2096}, 10 silver); a Hunter's melee weapon is mostly its stats, and two-handers carry the most."] = "",
 
-	-- Step 62: Woo Ping
+	-- Step 71: Woo Ping
 	-- {npc:11867} Woo Ping · {object:2096} Trade District
 	["While you're here: learn Swords from {npc:11867} ({object:2096}, 10 silver); a sword in the main hand levels a Rogue steadily."] = "",
 
-	-- Step 63: Woo Ping
+	-- Step 72: Woo Ping
 	-- {npc:11867} Woo Ping · {object:2096} Trade District
 	["While you're here: learn Staves from {npc:11867} ({object:2096}, 10 silver); a staff carries more spell stats than a one-hander while you level."] = "",
 
-	-- Step 65: Fishin' Time
+	-- Step 74: Fishin' Time
 	-- {npc:5494} Catherine Leland · {object:2096} Trade District · {npc:267118} Gilbert Gray
 	["{npc:5494} sells fishing supplies along the canal just west of the {object:2096}; {npc:267118} fishes at the harbor, on the way to the boat."] = "{npc:5494}은(는) {object:2096} 바로 서쪽 운하를 따라 낚시 용품을 판매합니다. {npc:267118}은(는) 배로 가는 길의 항구에서 낚시를 합니다.",
 	-- {item:6529} Shiny Bauble · {npc:5494} Catherine Leland
@@ -334,9 +371,7 @@ return {
 	-- ["Back to {area:108}"] = "{area:108}(으)로 돌아가기",
 	-- ["Defias Pathstalkers and Knuckledusters walk {area:20}; Highwaymen (level 17) patrol the hills south and east of it in pairs: pull them apart. {area:1581} entrance in the smithy is a group dungeon."] = "데피아즈단 정찰병과 데피아즈단 복면강도가 {area:20}을(를) 돌아다니고, 데피아즈단 노상강도(17레벨)가 남쪽과 동쪽 언덕을 둘씩 순찰합니다. 떼어서 상대하십시오. 대장간 안의 {area:1581} 입구는 파티 던전입니다.",
 	-- ["Defias Pillagers and Looters hold the farms west of {area:108}, between the coast road and {area:20}."] = "데피아즈단 강탈자와 데피아즈단 약탈자가 해안 도로와 {area:20} 사이, {area:108} 서쪽 농장들을 차지하고 있습니다.",
-	-- ["Fly or ride to {zone:1453}. Trainers: {object:2100} (Warriors, Rogues), the Cathedral (Paladins, Priests), the {object:2101} (Mages, Warlocks), the Park (Druids)."] = "{zone:1453}(으)로 날아가거나 말을 타고 가세요. 상급자: {object:2100}(전사, 도적), 대성당(성기사, 사제), {object:2101}(마법사, 흑마법사), 공원(드루이드).",
 	-- ["Fly or ride to {zone:1453}. Trainers: {object:2100} (Warriors, Rogues), the Cathedral (Paladins, Priests), the {object:2101} (Mages, Warlocks), the Park (Druids). {npc:11026} works in the {object:28027}, {npc:279} in the {object:2096}."] = "{zone:1453}(으)로 날아가거나 말을 타고 가세요. 상급자: {object:2100}(전사, 도적), 대성당(성기사, 사제), {object:2101}(마법사, 흑마법사), 공원(드루이드). {npc:11026}은(는) {object:28027}에서, {npc:279}은(는) {object:2096}에서 일합니다.",
-	-- ["Fly or ride to {zone:1453}. {npc:376} is in the Cathedral of Light."] = "{zone:1453}(으)로 비행하거나 이동하십시오. {npc:376}은(는) 빛의 대성당에 있습니다.",
 	-- ["Fly or ride to {zone:1453}. {npc:5480} trains warriors in {object:2100}; {npc:6089} and {npc:6090} stand together by the {object:2152} there. {npc:6090} fights you for his mug."] = "{zone:1453}(으)로 비행하거나 이동하십시오. {npc:5480}은(는) {object:2100}에서 전사를 가르치며, {npc:6089}와(과) {npc:6090}은(는) 그곳 {object:2152} 옆에 함께 있습니다. {npc:6090}이(가) 자기 잔을 걸고 결투를 합니다.",
 	-- ["Fly or walk to {zone:1453}. Trainers: {object:2100} (Warriors, Rogues), the Cathedral (Paladins, Priests), the {object:2101} (Mages, Warlocks), the Park (Druids)."] = "{zone:1453}으로 날아가거나 걸어가세요. 훈련사: {object:2100} (전사, 도적), 대성당 (성기사, 사제), {object:2101} (마법사, 흑마법사), 공원 (드루이드).",
 	-- ["Fly or walk to {zone:1453}. {npc:376} is in the Cathedral of Light."] = "{zone:1453}으로 날아가거나 걸어가세요. {npc:376}은 빛의 대성당에 있습니다.",
@@ -347,7 +382,6 @@ return {
 	-- ["Further north along the road. The Furlbrows sit by their burned farm. Collect the oats from the Sacks of Oats in the fields as you go and fill the vial at the stead's well."] = "길을 따라 더 북쪽으로 가십시오. 펄브로우 부부가 불탄 농장 옆에 앉아 있습니다. 가는 길에 밭의 귀리 부대에서 귀리를 모으고, 농장 우물에서 약병을 채우십시오.",
 	-- ["Further north along the road. The Furlbrows sit by their burned farm. Collect the oats from the Sacks of Oats in the fields as you go."] = "길을 따라 더 북쪽으로 가십시오. 펄브로우 부부가 불탄 농장 옆에 앉아 있습니다. 가는 길에 밭의 귀리 부대에서 귀리를 모으십시오.",
 	-- ["Hearthstone on cooldown? Follow the road north-east."] = "귀환석이 재사용 대기 중이라면 북동쪽 길을 따라가십시오.",
-	-- ["Murloc Coastrunners and Raiders line the beach north of the mine. They flee at low health: pull one at a time."] = "멀록 길잡이와 멀록 약탈꾼이 광산 북쪽 해변에 늘어서 있습니다. 생명력이 낮으면 도망치니 하나씩 끌어오십시오.",
 	-- ["North of Molsen Farm. Defias Trappers and Smugglers camp outside the mine, Kobold Diggers work inside. {object:290} stands by the ruined house east of the mine."] = "몰센 농장 북쪽입니다. 데피아즈단 덫사냥꾼과 데피아즈단 밀수업자가 광산 밖에 진을 치고, 코볼트 채굴꾼이 안에서 일합니다. {object:290}은(는) 광산 동쪽의 폐가 옆에 있습니다.",
 	-- ["North of Molsen Farm. Defias Trappers and Smugglers camp outside the mine. {object:290} stands by the ruined house east of the mine."] = "몰센 농장 북쪽입니다. 데피아즈단 덫사냥꾼과 데피아즈단 밀수업자가 광산 밖에 진을 치고 있습니다. {object:290}은(는) 광산 동쪽의 폐가 옆에 있습니다.",
 	-- ["Only if he takes the isosprings alone"] = "그가 골렘 등가용수철만 받을 때만",
@@ -357,15 +391,14 @@ return {
 	-- ["Sacks of Oats"] = "귀리 부대",
 	-- ["The gnoll hills"] = "놀 언덕",
 	-- ["The mine is south-west of the gnoll camps. {item:247816} lie near the entrance; Kobold Geomancers hold the tunnels."] = "광산은 놀 야영지 남서쪽에 있습니다. {item:247816}은(는) 입구 근처에 있으며, 코볼트 흙점쟁이가 터널을 차지하고 있습니다.",
+	-- ["The mine is south-west of the gnoll camps. {item:247816} lie near the entrance; Kobold Geomancers hold the tunnels.\nCareful: {npc:471} (7-10), the Mine Spiders (7-9) and {npc:248474} (7) are elites deep in the mine: pull the kobolds one at a time near the entrance and back out if an elite comes; they're easier with a friend."] = "광산은 놀 야영지 남서쪽에 있습니다. {item:247816}은(는) 입구 근처에 있고, 터널은 코볼트 흙점쟁이가 지키고 있습니다.\n주의: {npc:471}(7-10), 굴거미(7-9), {npc:248474}(7)은(는) 광산 깊숙한 곳의 정예입니다. 입구 근처에서 코볼트를 하나씩 끌어오고, 정예가 다가오면 물러나세요. 친구와 함께하면 더 쉽습니다.",
 	-- ["The north coast"] = "북쪽 해안",
 	-- ["The western farms"] = "서쪽 농장들",
 	-- ["West of Molsen Farm, toward the coast. Riverpaw Miners work the quarry."] = "몰센 농장 서쪽, 해안 방향입니다. 갈퀴발일족 광부가 채석장에서 일합니다.",
-	-- ["West of Saldean's. Harvest Watchers and Golems work the fields; they drop the isosprings, gyrostabilizers, {item:732} and sometimes a {item:255155}. {npc:573}, a level 20 rare, walks here: leave it alone. Keep killing Goretusks and Fleshrippers on every leg of this loop."] = "살딘 농장 서쪽입니다. 허수아비골렘 보초와 허수아비골렘이 밭에서 일하며, 골렘 등가용수철, 허수아비골렘 회전안정기, {item:732}, 가끔 {item:255155}을(를) 떨어뜨립니다. 20레벨 희귀 몹 {npc:573}이(가) 이곳을 돌아다니니 건드리지 마십시오. 이 경로의 모든 구간에서 뿔엄니멧돼지와 식인독수리를 계속 처치하십시오.",
 	-- ["Young Goretusks and Fleshrippers roam the fields around the farm: start on livers and the stew's meat on the way back."] = "새끼 뿔엄니멧돼지와 식인독수리가 농장 주변 밭을 돌아다닙니다. 돌아가는 길에 간과 스튜용 고기를 모으기 시작하십시오.",
 	-- ["{area:20} and the Defias hills"] = "{area:20}와(과) 데피아즈단 언덕",
 	-- ["{item:254676}, from the crates around {area:20}"] = "{item:254676}, {area:20} 주변 상자에서",
 	-- ["{npc:234} and {npc:821} stand at the top of the stone tower. {npc:491} is in the tower, {npc:878} and {npc:253092} on the south side of the hill, next to the inn and {npc:523} the gryphon master."] = "{npc:234}와(과) {npc:821}은(는) 돌탑 꼭대기에 있습니다. {npc:491}은(는) 탑 안에, {npc:878}와(과) {npc:253092}은(는) 언덕 남쪽의 여관과 그리폰 조련사 {npc:523} 옆에 있습니다.",
 	-- ["{npc:237}; Humans took it from {npc:963} in Elwynn"] = "{npc:237}; 인간이 엘윈의 {npc:963}에게서 빼앗았습니다",
-	-- ["{npc:523}; skip the free flight it offers"] = "{npc:523}; 제공되는 무료 비행은 건너뛰십시오",
 	-- ["{quest:153}: every Defias drops them"] = "{quest:153}: 모든 데피아즈단이 떨어뜨립니다",
 }

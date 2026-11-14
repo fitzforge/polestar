@@ -111,8 +111,8 @@ return {
 
 	-- Step 18: Dungeons: level 15-25
 	["Dungeons: level 15-25"] = "地下城：15-25级",
-	-- {area:2437} Ragefire Chasm · {area:16919} Hall of Thanes · {zone:1455} Ironforge
-	["The final boss of every level 15-25 dungeon earns one point together. {area:2437} and Forever's {area:16919} (in {zone:1455}) count as one: either final boss does. Tick each boss off when you kill it, and check the in-game Legacy panel for the list."] = "击败所有 15-25 级地下城的最终首领，合计获得一点。{area:2437} 和无限的 {area:16919}（位于 {zone:1455}）算作同一个：击败任意一处的最终首领即可。每击杀一个首领就将其勾选，并在游戏内的传承面板查看列表。",
+	-- {area:2437} Ragefire Chasm · {area:16919} Hall of Thanes · {zone:1455} Ironforge · {area:153} Ruins of Lordaeron · {zone:1458} Undercity · {zone:1454} Orgrimmar
+	["The final boss of every level 15-25 dungeon earns one point together. {area:2437} and Forever's {area:16919} (in {zone:1455}) count as one: either final boss does. Tick each boss off when you kill it, and check the in-game Legacy panel for the list.\nAlliance: the {area:153}'s entrance is in the ruins beside the {zone:1458}, among Horde guards: go with a group. {area:2437} is inside {zone:1454}: the {area:16919} counts for it. Horde: the {area:16919} is inside {zone:1455}: {area:2437} counts for it."] = "击败所有 15-25 级地下城的最终首领，合计获得一点。{area:2437} 和无限的 {area:16919}（位于 {zone:1455}）算作同一个：击败任意一处的最终首领即可。每击杀一个首领就将其勾选，并在游戏内的传承面板查看列表。\n联盟：{area:153} 的入口在 {zone:1458} 旁的废墟里，周围有部落卫兵：请组队前往。{area:2437} 位于 {zone:1454} 城内：{area:16919} 可以代替它。部落：{area:16919} 位于 {zone:1455} 城内：{area:2437} 可以代替它。",
 	-- {area:2437} Ragefire Chasm · {npc:11519} Bazzalan · {area:16919} Hall of Thanes
 	["{area:2437}: {npc:11519} (or {area:16919})"] = "{area:2437}：{npc:11519}（或 {area:16919}）",
 	-- {area:16919} Hall of Thanes · {npc:261319} Durgen Dirgehammer · {area:2437} Ragefire Chasm
@@ -126,11 +126,12 @@ return {
 
 	-- Step 19: Dungeons: level 26-45
 	["Dungeons: level 26-45"] = "地下城：26-45级",
-	-- {area:17780} Krol'dok Stronghold · {zone:2548} Riverglades
-	["The final boss of every level 26-45 dungeon earns one point together. The Drowned City and {area:17780} (in the {zone:2548}) are new in Forever and not in our data: tick them off yourself."] = "所有26-45级地下城的最终首领全部击败后，共计一点。沉没之城和{area:17780}（位于{zone:2548}）是无限服新增内容，未收录在我们的数据中：请自行勾选完成。",
+	-- {area:16550} The Drowned City · {area:17780} Krol'dok Stronghold · {zone:2548} Riverglades
+	["The final boss of every level 26-45 dungeon earns one point together. {area:16550} and {area:17780} (in the {zone:2548}) are new in Forever and not in our data: tick them off yourself."] = "所有26-45级地下城的最终首领全部击败后，共计一点。{area:16550}和{area:17780}（位于{zone:2548}）是无限服新增内容，未收录在我们的数据中：请自行勾选完成。",
 	-- {zone:1416} Alterac Mountains · {npc:246020} Shade of the Archmage
 	["City of Dalaran (Forever's, {zone:1416}): {npc:246020}"] = "达拉然城（无限版本，{zone:1416}）：{npc:246020}",
-	["the final boss of the Drowned City"] = "沉没之城的最终首领",
+	-- {area:16550} The Drowned City
+	["the final boss of the {area:16550}"] = "{area:16550}的最终首领",
 	-- {area:796} Scarlet Monastery
 	["{area:796}: Graveyard"] = "{area:796}：墓地",
 	-- {area:796} Scarlet Monastery
@@ -144,9 +145,10 @@ return {
 
 	-- Step 20: Dungeons: level 46-60
 	["Dungeons: level 46-60"] = "地下城：46-60级",
-	-- {area:1216} Blackmaw Hold · {area:16985} Shaper's Terrace
-	["The final boss of every level 46-60 dungeon earns one point together. Alcaz Prison, {area:1216} and the {area:16985} are new in Forever and not in our data: tick them off yourself."] = "击败所有 46-60 级地下城的最终首领，合计获得一点。奥卡兹监狱、{area:1216} 和 {area:16985} 是无限新增内容，尚未收录在我们的数据中：请自行勾选。",
-	["the final boss of Alcaz Prison"] = "奥卡兹监狱 的最终首领",
+	-- {area:16620} Alcaz Prison · {area:1216} Blackmaw Hold · {area:16985} Shaper's Terrace
+	["The final boss of every level 46-60 dungeon earns one point together. {area:16620}, {area:1216} and the {area:16985} are new in Forever and not in our data: tick them off yourself."] = "击败所有 46-60 级地下城的最终首领，合计获得一点。{area:16620}、{area:1216} 和 {area:16985} 是无限新增内容，尚未收录在我们的数据中：请自行勾选。",
+	-- {area:16620} Alcaz Prison
+	["the final boss of {area:16620}"] = "{area:16620} 的最终首领",
 	-- {area:1216} Blackmaw Hold
 	["the final boss of {area:1216}"] = "{area:1216} 的最终首领",
 	-- {area:1583} Blackrock Spire

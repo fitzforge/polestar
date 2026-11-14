@@ -10,7 +10,7 @@ return {
 	-- {quest:5634} Desperate Prayer · {quest:5641} Chastise
 	["{quest:5634} and {quest:5641}"] = "{quest:5634} y {quest:5641}",
 	-- {quest:5634} Desperate Prayer · {quest:5641} Chastise
-	["The Dwarf priest spells: {quest:5634} at 10, {quest:5641} (new in Forever) at 20. Free, no objectives."] = "",
+	["The Dwarf priest spells: {quest:5634} at 10, {quest:5641} (new in Forever) at 20. Free, no objectives."] = "Los hechizos de sacerdote enano: {quest:5634} a nivel 10, {quest:5641} (nuevo en Forever) a nivel 20. Gratis, sin objetivos.",
 
 	-- Step 1: Desperate Prayer: Maxan Anvol
 	-- {npc:1226} Maxan Anvol · {area:2102} Thunderbrew Distillery · {area:131} Kharanos · {quest:5634} Desperate Prayer · {npc:11406} High Priest Rohan · {zone:1455} Ironforge
@@ -112,5 +112,4 @@ return {
 	-- ["At 10, go to {npc:11406} in the {object:32386}, in {zone:1455}'s {object:32362}. Forever's quest text names Rohan, but the quest data has {npc:376} in {zone:1453}'s Cathedral of Light take it: try Rohan first, then Laurena (the {area:2257} links the cities)."] = "A nivel 10, ve con {npc:11406} en {object:32386}, en {object:32362} de {zone:1455}. El texto de la misión de Forever nombra a Rohan, pero según los datos la entrega {npc:376} en la Catedral de la Luz de {zone:1453}: prueba primero con Rohan y luego con Laurena ({area:2257} une ambas ciudades).",
 	-- ["At 20, {npc:11406} teaches {quest:5641}. {npc:376} in {zone:1453} and {npc:11401} in {zone:1457} send you to him with a quest of the same name."] = "A nivel 20, {npc:11406} enseña {quest:5641}. {npc:376} en {zone:1453} y {npc:11401} en {zone:1457} te envían con él con una misión del mismo nombre.",
 	-- ["If Rohan did not take it: {npc:376} is in the Cathedral of Light. Take the {area:2257} from {object:171524}."] = "Si Rohan no la aceptó: {npc:376} está en la Catedral de la Luz. Toma {area:2257} desde {object:171524}.",
-	-- ["The Human and Dwarf priest spells: {quest:5634} at 10, {quest:5641} for Dwarves at 20."] = "Los hechizos de sacerdote humano y enano: {quest:5634} a nivel 10, {quest:5641} para enanos a nivel 20.",
 }

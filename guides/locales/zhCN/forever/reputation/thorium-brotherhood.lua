@@ -22,8 +22,7 @@ return {
 	["{npc:14621} is elite"] = "{npc:14621}是精英",
 
 	-- Step 2: Golems and Dark Iron dwarves
-	-- {object:147516} Dark Iron
-	["Golems and {object:147516} dwarves"] = "魔像和{object:147516}的矮人",
+	["Golems and Dark Iron dwarves"] = "魔像和黑铁矮人",
 	-- {area:1446} Thorium Point · {item:18959} Smithing Tuyere · {item:18960} Lookout's Spyglass
 	-- plural, as words: Heavy War Golems = {npc:5854} Heavy War Golem · Dark Iron Taskmasters = {npc:5846} Dark Iron Taskmaster · Dark Iron Steamsmiths = {npc:5840} Dark Iron Steamsmith · Dark Iron Lookouts = {npc:8566} Dark Iron Lookout
 	["Heavy War Golems and the Dark Iron Taskmasters and Slavers work all over the floor of the Cauldron below {area:1446}. The {item:18959} drops from Dark Iron Steamsmiths at the furnaces in the middle, the {item:18960} from Dark Iron Lookouts on the southern ridges: about one in ten of each."] = "重型作战傀儡、黑铁工头和黑铁奴隶贩子遍布 {area:1446} 下方大熔炉的底部。{item:18959} 由中部熔炉旁的黑铁锻造师掉落，{item:18960} 由南部山脊上的黑铁哨兵掉落：两者掉率均约为十分之一。",
@@ -35,8 +34,8 @@ return {
 	["{item:18960}, Dark Iron Lookouts"] = "{item:18960}，来自黑铁哨兵。",
 
 	-- Step 3: Searing Lava Spiders
-	-- plural, as words: Searing Lava Spiders = {npc:5858} Searing Lava Spider
-	["Searing Lava Spiders"] = "{npc:5858}",
+	-- plural, as words: Searing Lava Spiders = {npc:5857} Searing Lava Spider
+	["Searing Lava Spiders"] = "{npc:5857}",
 	["The spiders roam the lava pools and plateaus of the south-west."] = "蜘蛛在西南部的熔岩池和高地上游荡。",
 
 	-- Step 4: The Slag Pit
@@ -155,13 +154,12 @@ return {
 	-- {npc:12944} Lokhtos Darkbargainer
 	["{npc:12944} to Exalted"] = "向 {npc:12944} 交还任务，提升至崇拜。",
 	-- {item:17012} Core Leather · {item:11370} Dark Iron Ore · {npc:227939} The Molten Core · {item:19165} Flarecore Leggings · {item:19157} Chromatic Gauntlets · {item:19162} Corehound Belt · {item:19163} Molten Belt · {item:17013} Dark Iron Leggings · {item:19164} Dark Iron Gauntlets · {item:16988} Fiery Chain Shoulders · {item:19166} Black Amnesty · {item:273577} Enchant Weapon - Mighty Intellect · {item:19170} Ebon Hand · {item:20039} Dark Iron Boots
-	["Revered to Exalted is 21,000 more: 105 cores or Bloods, 280 {item:17012} or 4,200 {item:11370}. {npc:227939} materials come from the raid, so a guild or the auction house does most of the work. Revered opens {item:19165} 9g, {item:19157} 9g, {item:19162} 9g, {item:19163} 9g, {item:17013} 18g, {item:19164} 8g, {item:16988} 20g, {item:19166} 7g, Blackfury 7g and {item:273577} 10g. Exalted opens the epic weapon plans {item:19170}, Blackguard and Nightfall (12g each) and {item:20039} 8g."] = "",
+	["Revered to Exalted is 21,000 more: 105 cores or Bloods, 280 {item:17012} or 4,200 {item:11370}. {npc:227939} materials come from the raid, so a guild or the auction house does most of the work. Revered opens {item:19165} 9g, {item:19157} 9g, {item:19162} 9g, {item:19163} 9g, {item:17013} 18g, {item:19164} 8g, {item:16988} 20g, {item:19166} 7g, Blackfury 7g and {item:273577} 10g. Exalted opens the epic weapon plans {item:19170}, Blackguard and Nightfall (12g each) and {item:20039} 8g."] = "从崇敬到崇拜还需21,000：105个核心或鲜血、280张 {item:17012}，或4,200块 {item:11370}。{npc:227939} 材料来自团队副本，因此主要靠公会或拍卖行解决。崇敬后可购买 {item:19165} 9金币、{item:19157} 9金币、{item:19162} 9金币、{item:19163} 9金币、{item:17013} 18金币、{item:19164} 8金币、{item:16988} 20金币、{item:19166} 7金币、黑色怒火 7金币和 {item:273577} 10金币。崇拜后可购买史诗武器图纸 {item:19170}、黑色卫士和德拉克·奈特弗（各12金币），以及 {item:20039} 8金币。",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Back to Burninate"] = "回到博恩奈特处",
 	-- ["Keep turning in {area:2717} materials and {item:11099} at Lokhtos until Exalted."] = "继续在罗克图斯处交还{area:2717}材料和{item:11099}，直到崇拜。",
 	-- ["Restoring Fiery Flux Supplies repeats in three versions: {item:3356}, Iron Bars or {item:4234}, each with Coal and an {item:18944}. Incendosaurs (level 47-49) in the north of {zone:1427} drop a scale every time; Burninate himself sells Coal."] = "“炽热助熔剂的补给”有三个可重复版本：{item:3356}、{item:3575}或{item:4234}，每个都需要煤块和一个{item:18944}。{zone:1427}北部的熏火龙（47-49级）每次都会掉落鳞片；博恩奈特本人出售煤块。",
-	-- ["Revered to Exalted is 21,000 more: 105 cores or Bloods, 280 {item:17012} or 4,200 {item:11370}. The {area:2717} materials come from the raid, so a guild or the auction house does most of the work. Revered opens {item:19165} 9g, {item:19157} 9g, {item:19162} 9g, {item:19163} 9g, {item:17013} 18g, {item:19164} 8g, {item:16988} 20g, {item:19166} 7g, Blackfury 7g and {item:273577} 10g. Exalted opens the epic weapon plans {item:19170}, Blackguard and Nightfall (12g each) and {item:20039} 8g."] = "从崇敬到崇拜还需21,000：105个核心或鲜血、280张 {item:17012}，或4,200块 {item:11370}。{area:2717} 材料来自团队副本，因此主要靠公会或拍卖行解决。崇敬后可购买 {item:19165} 9金币、{item:19157} 9金币、{item:19162} 9金币、{item:19163} 9金币、{item:17013} 18金币、{item:19164} 8金币、{item:16988} 20金币、{item:19166} 7金币、黑色怒火 7金币和 {item:273577} 10金币。崇拜后可购买史诗武器图纸 {item:19170}、黑色卫士和德拉克·奈特弗（各12金币），以及 {item:20039} 8金币。",
 	-- ["The plans lie in the {area:1443} of the Cauldron, guarded by {object:147516} dwarves. {object:147516} dwarves also drop {item:18945}, which Burninate takes for Gaining Acceptance."] = "图纸在大熔炉的{area:1443}中，由{object:147516}矮人看守。{object:147516}矮人还会掉落{item:18945}，博恩奈特会收下它用于“获得信任”任务。",
 	-- ["The {area:2717} materials carry the rest: Fiery Cores drop from Firewalkers, Flameguards and Firelords, and Lava Cores from Lava Elementals, Lava Reavers and Molten Destroyers there. {item:11382} comes from Molten Destroyers and rarely elsewhere."] = "剩下的靠{area:2717}的材料：炽热之核由那里的火焰行者、烈焰守卫和火焰之王掉落，熔岩之核由熔岩元素、熔岩掠夺者和熔核摧毁者掉落。{item:11382}来自熔核摧毁者，其他地方很少掉落。",
 	-- ["{area:1446} is the scaffolded camp on the north-west rim of the Cauldron, with a flight point. Everyone starts Neutral with the Brotherhood. These seven quests (level 48 to 50) pay 100 reputation each: 700 in all, 800 with the pillow below. In Classic a quest pays less once it is 6 or more levels below you, only 20 each at 60, so do them while you level through {zone:1427} if you can; your first turn-in shows which. {npc:14624}'s {quest:7722} also opens his {item:18942} turn-ins, so it is needed at any level. The numbers in this guide leave out the Legacy perk Diplomat, which adds up to 10%."] = "{area:1446} 是大熔炉西北边缘搭着脚手架的营地，设有飞行点。所有人与兄弟会的起始声望都是中立。这七个任务（48到50级）各奖励100点声望：总计700点，加上下方的枕头任务则为800点。经典版中，任务比你低6级或更多时奖励会减少，60级时每个只有20点，所以尽量在 {zone:1427} 练级时完成；首次交还即可判断。{npc:14624} 的 {quest:7722} 还会开启他接受 {item:18942} 的交还任务，因此无论多少级都需要做。本指南的数值未计入传承特长外交家，它最多可增加10%。",

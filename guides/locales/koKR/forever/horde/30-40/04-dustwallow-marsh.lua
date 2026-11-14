@@ -38,7 +38,7 @@ return {
 
 	-- Step 8: Shady Rest Inn
 	-- {area:378} Camp Taurajo · {area:403} Shady Rest Inn
-	["Head east from {area:378} along the road into the marsh. The burned-out {area:403} stands beside it just past the border; the shield, the badge and the hoofprints are in and beside the ruin."] = "",
+	["Head east from {area:378} along the road into the marsh. The burned-out {area:403} stands beside it just past the border; the shield, the badge and the hoofprints are in and beside the ruin."] = "{area:378}에서 길을 따라 동쪽으로 늪지대에 들어가세요. 불타 버린 {area:403}은(는) 경계를 막 지난 길가에 있습니다. 방패, 휘장, 발굽 자국은 폐허 안과 옆에 있습니다.",
 
 	-- Step 10: Brackenwall Village
 	["Take the road north at the fork to the ogre village of Brackenwall."] = "갈림길에서 북쪽 길로 가서 오우거 마을인 담쟁이 마을로 가세요.",
@@ -52,7 +52,7 @@ return {
 	-- Step 12: Stinky Ignatz
 	["Stinky Ignatz"] = "말썽꾼 이그나츠",
 	-- {area:502} Witch Hill
-	["Head north to {area:502}. Stinky stands at the foot of the hill; escort him while he gathers Bogbean Leaves just south of it."] = "",
+	["Head north to {area:502}. Stinky stands at the foot of the hill; escort him while he gathers Bogbean Leaves just south of it."] = "북쪽의 {area:502}(으)로 가세요. 이그나츠는 언덕 기슭에 서 있습니다. 그 바로 남쪽에서 진흙콩 잎을 모으는 동안 그를 호위하세요.",
 
 	-- Step 13: Mirefin murlocs
 	["Mirefin murlocs"] = "진흙아가미멀록",
@@ -76,7 +76,7 @@ return {
 
 	-- Step 17: Swamp Eye Jarl
 	-- {area:497} Swamplight Manor
-	["Head east back to the {area:497}."] = "",
+	["Head east back to the {area:497}."] = "동쪽의 {area:497}(으)로 돌아가세요.",
 	-- {object:20985} Loose Dirt · {npc:4791} Nazeer Bloodpike
 	["{object:20985}, now that {npc:4791} has read the report"] = "{npc:4791}이(가) 보고서를 읽은 뒤의 {object:20985}",
 	-- {item:3853} Moonsteel Broadsword · {skill:164} Blacksmithing
@@ -84,7 +84,7 @@ return {
 
 	-- Step 18: The Theramore Docks
 	-- {area:513} Theramore Isle · {object:20925} Captain's Footlocker
-	["South-east from the manor to {area:513}: the {object:20925} lies on the sea floor off the docks on the isle's east side. Swim in and out and keep off the piers and the town: Theramore's guards are level 53-57."] = "저택에서 남동쪽으로 {area:513}까지 가세요. {object:20925}은(는) 섬 동쪽 부두 앞바다 해저에 있습니다. 헤엄쳐 들어갔다 나오고 부두와 마을은 피하세요. 테라모어 경비병은 53-57 레벨입니다.",
+	["South-east from the manor to {area:513}: the {object:20925} lies on the sea floor off the docks on the isle's east side. Swim in and out and keep off the piers and the town: Theramore's guards are level 53-57, and a death here is a long run back from the spirit healer."] = "저택에서 남동쪽으로 {area:513}까지 가세요. {object:20925}은(는) 섬 동쪽 부두 앞바다 해저에 있습니다. 헤엄쳐 들어갔다 나오고 부두와 마을은 피하세요. 테라모어 경비병은 53-57 레벨이며, 여기서 죽으면 영혼의 치유사에게서 먼 길을 달려와야 합니다.",
 	["Underwater"] = "",
 
 	-- Step 19: Brackenwall Village
@@ -95,8 +95,8 @@ return {
 
 	-- Step 20: Level 37.5
 	["Level 37.5"] = "",
-	-- {zone:1443} Desolace · {area:1316} Razorfen Downs · {area:796} Scarlet Monastery
-	["{zone:1443}'s last quests and Alterac are 38-41. Still below 37.5 after Brackenwall's hand-ins? The Darkmist spiders and Lurkers (35-38) by the cavern north-west of the village are the closest: kill them until level 37.5. Or, with a group, run the {area:1316} dungeon or the {area:796} dungeon (Armory) instead."] = "",
+	-- {zone:1443} Desolace
+	["{zone:1443}'s last quests and Alterac are 38-41. Still below 37.5 after Brackenwall's hand-ins? The Darkmist spiders and Lurkers (35-38) by the cavern north-west of the village are the closest: kill them until level 37.5."] = "",
 	["Darkmist cavern"] = "",
 	-- {npc:4377} Darkmist Lurker
 	["grind on {npc:4377}"] = "",
@@ -133,10 +133,12 @@ return {
 	-- Step 27: Ghost Walker Post
 	-- {npc:5412} Gurda Wildmane · {npc:5395} Felgur Twocuts
 	["North to the post; {npc:5412} stands beside {npc:5395}."] = "",
+	-- {npc:5395} Felgur Twocuts · {quest:1366} Centaur Bounty
+	["{npc:5395}: his {quest:1366}, from the same Maraudine"] = "{npc:5395}: 같은 마라우딘에게서 얻는 그의 {quest:1366}",
 
 	-- Step 28: Valley of Spears
 	-- {area:607} Valley of Spears · {item:254432} Carved Centaur Totem · {npc:5395} Felgur Twocuts · {quest:1366} Centaur Bounty
-	["West of the post, the Maraudine centaurs hold the {area:607}. Every Maraudine can drop a {item:254432} and an ear for {npc:5395}'s {quest:1366}."] = "",
+	["West of the post, the Maraudine centaurs hold the {area:607}. Every Maraudine can drop a {item:254432} and an ear for {npc:5395}'s {quest:1366}. Stay with the Maraudine (36-39) in the valley: the Magram's village in the south-east has the same drops, but its Necromancers (42-43) and Guardians (39-41) are well above you."] = "",
 
 	-- Step 29: Melizza Brimbuzzle
 	-- {npc:12277} Melizza Brimbuzzle
@@ -149,17 +151,17 @@ return {
 	-- Step 31: The Valley of Bones
 	-- {area:2657} Valley of Bones
 	["The {area:2657}"] = "{area:2657}",
-	-- {area:2657} Valley of Bones · {item:15848} Crate of Ghost Magnets
-	-- plural, as words: Undead Ravagers = {npc:11561} Undead Ravager · Magrami Spectres = {npc:11560} Magrami Spectre
-	["Head south-east to the bone fields of the {area:2657}, where Undead Ravagers roam. At the far south-east, use the {item:15848} to draw the Magrami Spectres: they drop the ghost-o-plasm."] = "",
+	-- {area:2657} Valley of Bones · {zone:1443} Desolace · {item:15848} Crate of Ghost Magnets
+	-- plural, as words: Undead Ravagers = {npc:11561} Undead Ravager · Magrami Spectres = {npc:11560} Magrami Spectre · Magram Necrokhans = {npc:253274} Magram Necrokhan
+	["Head south-east to the bone fields of the {area:2657}, where Undead Ravagers roam, at {zone:1443}'s southern edge. Use the {item:15848} at the arrow to draw the Magrami Spectres: they drop the ghost-o-plasm.\nCareful: Magram Necrokhans and Corpsefeeders (45, elite) walk the bone fields just west of the arrow, well above you: use the crate at the arrow, on the valley's eastern side, and pull the spectres away from them."] = "",
 
 	-- Step 32: Hornizz Brimbuzzle
 	-- {area:596} Kodo Graveyard
-	["North to the goblin camp on the west side of the {area:596}."] = "",
+	["North to the goblin camp on the west side of the {area:596}."] = "북쪽으로 {area:596} 서쪽의 고블린 야영지로 가세요.",
 
 	-- Step 34: Shadowprey
 	["Shadowprey"] = "",
-	["West to Shadowprey."] = "",
+	["West to Shadowprey."] = "서쪽 그늘수렵 마을로",
 
 	-- Step 35: Thunder Bluff
 	-- {area:2408} Shadowprey Village · {area:1638} Thunder Bluff · {npc:3033} Turak Runetotem · {area:1639} Elder Rise · {zone:1454} Orgrimmar
@@ -196,17 +198,13 @@ return {
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Darkfang spiders"] = "검은송곳니 거미",
 	-- ["For {npc:2519} at {object:3202}, in the next guide"] = "다음 가이드에서 {object:3202}의 {npc:2519}에게",
-	-- ["Hearth to Shadowprey"] = "귀환석으로 그늘수렵 마을에 가기",
 	-- ["Hearth to {area:392}"] = "귀환석으로 {area:392}에 가기",
 	-- ["Kodo bones and ghosts"] = "코도 뼈와 유령",
 	-- ["Maraudine totems"] = "마라우돈일족 토템",
 	-- ["Pick up the kodo bones scattered across the graveyard, and use the {item:15848} among the bones: the ghosts it draws drop the ghost-o-plasm."] = "묘지 곳곳에 흩어진 코도 뼈를 줍고, 뼈 사이에서 {item:15848}을(를) 사용하세요. 끌려온 유령이 유령 원형질을 떨어뜨립니다.",
 	-- ["Ride back west to Brackenwall with the head."] = "머리를 가지고 서쪽의 담쟁이 마을로 돌아가세요.",
-	-- ["Ride east back to the {area:497}."] = "동쪽의 {area:497}(으)로 돌아가세요.",
-	-- ["Ride east from {area:378} along the road into the marsh. The burned-out {area:403} stands beside it just past the border; the shield, the badge and the hoofprints are in and beside the ruin."] = "{area:378}에서 길을 따라 동쪽으로 늪지대에 들어가세요. 불타 버린 {area:403}은(는) 경계를 막 지난 길가에 있습니다. 방패, 휘장, 발굽 자국은 폐허 안과 옆에 있습니다.",
 	-- ["Ride east to {area:602}. Use the Rod of Banishing by each demon portal to close six of them."] = "동쪽의 {area:602}(으)로 가세요. 악마 차원문마다 추방의 막대를 사용해 여섯 개를 닫으세요.",
 	-- ["Ride north from the coven to {npc:5412} at {area:597}."] = "소굴에서 북쪽으로 {area:597}의 {npc:5412}에게 가세요.",
-	-- ["Ride north to {area:502}. Stinky stands at the foot of the hill; escort him while he gathers Bogbean Leaves just south of it."] = "북쪽의 {area:502}(으)로 가세요. 이그나츠는 언덕 기슭에 서 있습니다. 그 바로 남쪽에서 진흙콩 잎을 모으는 동안 그를 호위하세요.",
 	-- ["Ride north up the road to the hut by the road north of the graveyard."] = "길을 따라 북쪽으로 묘지 북쪽 길가의 오두막으로 가세요.",
 	-- ["Ride north-east to the {area:607}. {npc:12277} is held in the Maraudine centaur camp; free her and escort her out east of the valley."] = "북동쪽의 {area:607}(으)로 가세요. {npc:12277}은(는) 마라우돈일족 켄타우로스 야영지에 붙잡혀 있습니다. 풀어 주고 골짜기 동쪽 밖까지 호위하세요.",
 	-- ["Ride on south-west to Shadowprey."] = "계속 남서쪽의 그늘수렵 마을로 가세요.",
@@ -217,7 +215,6 @@ return {
 	-- ["The Burning Blade hold the fortress north-west of {area:2407}. Use the {item:14523} on the {npc:11876} in the fortress to get the {item:13542}."] = "불타는 칼날단이(가) {area:2407} 북서쪽 요새를 차지하고 있습니다. 요새 안의 {npc:11876}에게 {item:14523}을(를) 사용해 {item:13542}을(를) 얻으세요.",
 	-- ["The Darkmist spiders swarm the cavern mouth north-west of Brackenwall; every kind drops eyes."] = "암흑안개 거미는 담쟁이 마을 북서쪽 동굴 입구에 몰려 있습니다. 모든 종류가 눈알을 떨어뜨립니다.",
 	-- ["The Slitherblade naga hold the coast north of {area:2405}, up to {area:598}. {npc:12369} guards the {quest:6027} at the far northern tip."] = "뱀갈퀴일족 나가는 {area:2405} 북쪽부터 {area:598}까지 해안을 차지하고 있습니다. {npc:12369}이(가) 북쪽 맨 끝에서 {quest:6027}을(를) 지키고 있습니다.",
-	-- ["The caravan ends at {npc:11596}'s camp on the east side of the {area:596}."] = "대상단은 {area:596} 동쪽의 {npc:11596} 야영지에서 끝납니다.",
 	-- ["The next guide takes you back to {zone:1434}."] = "다음 가이드는 다시 {zone:1434}(으)로 안내합니다.",
 	-- ["{npc:11626}'s caravan stops on the road at the edge of {area:602}. Escort it east past the coven; demons attack it twice."] = "{npc:11626}의 대상단은 {area:602} 가장자리 길에 멈춰 있습니다. 동쪽으로 소굴을 지날 때까지 호위하세요. 악마가 두 번 습격합니다.",
 	-- ["{npc:3391}: for {npc:4631} in {area:35}, on the first {area:35} stop of 40-50"] = "{npc:3391}: 40-50 가이드에서 처음 {area:35}에 들를 때 {area:35}의 {npc:4631}에게",

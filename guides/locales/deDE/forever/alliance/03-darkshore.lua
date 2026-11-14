@@ -96,11 +96,11 @@ return {
 
 	-- Step 15: A Lesson to Learn
 	-- {area:442} Auberdine · {area:702} Rut'theran Village · {npc:4217} Mathrengyl Bearwalker · {area:1658} Cenarion Enclave
-	["Fly from {area:442} to {area:702} and take the portal up to {npc:4217} in the {area:1658}."] = "Flieg von {area:442} nach {area:702} und nimm das Portal hinauf zu {npc:4217} im Gebiet {area:1658}.",
+	["Night Elves fly from {area:442} to {area:702}; Skyborne take the boat from the {area:442} dock and learn the Rut'theran flight path. Then take the portal up to {npc:4217} in the {area:1658}."] = "Nachtelfen fliegen von {area:442} nach {area:702}; Himmelsgeborene nehmen das Boot von der Anlegestelle in {area:442} und holen sich die Flugroute von Rut'theran. Nimm dann das Portal hinauf zu {npc:4217} im Gebiet {area:1658}.",
 
 	-- Step 18: Moonglade
 	-- {spell:18960} Teleport: Moonglade
-	["Cast {spell:18960}"] = "",
+	["Cast {spell:18960}"] = "Wirke {spell:18960}",
 
 	-- Step 19: Trial of the Lake
 	-- {npc:11802} Dendrite Starblaze · {area:2361} Nighthaven · {area:656} Lake Elune'ara · {area:2362} Shrine of Remulos · {npc:11799} Tajarri · {quest:29} Trial of the Lake · {area:442} Auberdine
@@ -190,8 +190,8 @@ return {
 	-- {area:456} Cliffspring River · {item:12347} Filled Cleansing Bowl · {item:12346} Empty Cleansing Bowl · {object:174795} Auberdine Moonwell · {item:12355} Talisman of Corruption
 	["The furbolg camp south of the {area:456} keeps its Nut, Fruit and Grain Stores by the bonfires. With a sample of each and the {item:12347} in your bags (the {item:12346} is filled at the {object:174795}), use the bowl by the bonfire closest to the river: it summons Xabraxxis, the satyr corruptor, and the {item:12355} lies in his Demon Bag."] = "Das Furbolglager südlich des {area:456} hat seine Nuss-, Frucht- und Getreidevorräte an den Lagerfeuern. Hast du von jedem eine Probe und {item:12347} in der Tasche (die {item:12346} wird an der {object:174795} gefüllt), benutze die Schale am Lagerfeuer, das dem Fluss am nächsten ist: Sie beschwört Xabraxxis, den Satyr-Verderber, und {item:12355} liegt in seinem Dämonenbeutel.",
 	["By the bonfire closest to the river: summons Xabraxxis"] = "Am Lagerfeuer, das dem Fluss am nächsten ist: beschwört Xabraxxis",
-	-- {item:12355} Talisman of Corruption · {object:177624} Xabraxxis' Demon Bag
-	["{item:12355}, in {object:177624}"] = "{item:12355}, in {object:177624}",
+	-- {item:12347} Filled Cleansing Bowl
+	["After using the {item:12347}, kill Xabraxxis, then click his Demon Bag on the ground to collect the talisman. If Xabraxxis despawns before you get it, retake the quest for a new bowl."] = "Töte nach dem Benutzen von {item:12347} Xabraxxis und klicke dann seinen Dämonenbeutel am Boden an, um den Talisman zu nehmen. Verschwindet Xabraxxis, bevor du ihn hast, nimm die Quest erneut an, um eine neue Schale zu bekommen.",
 
 	-- Step 34: The cave and the Den Mother
 	["Careful: If you attack one cub, the other cubs and often the mother join the fight, so expect to take on several at the same time."] = "Vorsicht: Wenn du ein Junges angreifst, greifen die anderen Jungen und oft auch die Mutter in den Kampf ein, rechne also damit, gleichzeitig gegen mehrere zu kämpfen.",
@@ -207,7 +207,6 @@ return {
 	-- ["Back to {npc:11802}"] = "Zurück zu {npc:11802}",
 	-- ["Back to {npc:11802} in {area:2361}, then fly to {area:702} (by way of {area:442})."] = "Zurück zu {npc:11802} in {area:2361}, dann flieg nach {area:702} (über {area:442}).",
 	-- ["Boat to {zone:1453}"] = "Boot nach {zone:1453}",
-	-- ["Cast Teleport: {zone:1450}"] = "Wirke Teleportieren: {zone:1450}",
 	-- ["Cast {spell:18960}. {npc:11802} is in {area:2361}. Shrine Baubles lie in the containers on the floor of {area:656}, below {area:2361}: take one to the {area:2362} in the north-west, use it there and speak to {npc:11799}. Then fly back to {area:442} from {area:2361}."] = "Wirke {spell:18960}. {npc:11802} ist in {area:2361}. Schrein-Schmuckstücke liegen in den Behältern am Grund von {area:656}, unterhalb von {area:2361}: Bring eines zum {area:2362} im Nordwesten, benutze es dort und sprich mit {npc:11799}. Flieg dann von {area:2361} zurück nach {area:442}.",
 	-- ["Cast {spell:18960}. {npc:11802} is in {area:2361}; learn the flight path there if you do not have it."] = "Wirke {spell:18960}. {npc:11802} ist in {area:2361}; hol dir dort die Flugroute, falls du sie noch nicht hast.",
 	-- ["Escort her out of the glaive; Therysil takes the turn-in in {zone:1440}"] = "Eskortiere sie aus der Gleve; Therysil nimmt die Abgabe in {zone:1440} entgegen",
@@ -248,6 +247,7 @@ return {
 	-- ["Two wrecks lie on the sea floor in the bay north of {area:442}; each holds a lockbox. Reef Crawlers and Encrusted Tide Crawlers line this shore."] = "Zwei Wracks liegen auf dem Meeresgrund in der Bucht nördlich von {area:442}; in jedem steckt eine Schließkassette. Riffkriecher und Verkrustete Gezeitenkriecher säumen dieses Ufer.",
 	-- ["{area:450} lies on the coast south of {npc:10323}'s beach. Protect the prospector while he searches for the fossil."] = "{area:450} liegt an der Küste südlich des Strands von {npc:10323}. Beschütze den Ausgrabungsleiter, während er nach dem Fossil sucht.",
 	-- ["{item:12289}, on the beach west of the docks"] = "{item:12289}, am Strand westlich der Anlegestelle",
+	-- ["{item:12355}, in {object:177624}"] = "{item:12355}, in {object:177624}",
 	-- ["{item:15851} and {item:2449}"] = "{item:15851} und {item:2449}",
 	-- ["{item:15883}: the {object:177790} under the water off the north coast, west of the ruins"] = "{item:15883}: die {object:177790} unter Wasser vor der Nordküste, westlich der Ruinen",
 	-- ["{item:15883}: the {object:177792} under the water off the north coast, west of the ruins"] = "{item:15883}: die {object:177792} unter Wasser vor der Nordküste, westlich der Ruinen",

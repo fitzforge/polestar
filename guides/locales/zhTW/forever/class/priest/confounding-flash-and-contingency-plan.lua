@@ -10,7 +10,7 @@ return {
 	-- {quest:94817} Confounding Flash · {quest:94818} Contingency Plan
 	["{quest:94817} and {quest:94818}"] = "{quest:94817}與{quest:94818}",
 	-- {quest:94817} Confounding Flash · {quest:94818} Contingency Plan
-	["The Gnome priest spells, new in Forever: {quest:94817} at 10, {quest:94818} at 20. Free, no objectives."] = "",
+	["The Gnome priest spells, new in Forever: {quest:94817} at 10, {quest:94818} at 20. Free, no objectives."] = "地精的牧師法術，Forever 新增：10級的{quest:94817}，20級的{quest:94818}。免費，沒有任務目標。",
 
 	-- Step 1: Confounding Flash: Maxan Anvol
 	-- {npc:1226} Maxan Anvol · {area:2102} Thunderbrew Distillery · {area:131} Kharanos · {quest:94817} Confounding Flash · {npc:258785} High Priestess Mims · {zone:1455} Ironforge
@@ -93,5 +93,4 @@ return {
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["At 10, go to {npc:258785} in the {object:32386}, in {zone:1455}'s {object:32362}. {npc:1226} in {area:131}, {npc:377} in {area:87} and {npc:376} in {zone:1453} send you to her with a quest of the same name (its text may say {zone:1453}: Mims is in {zone:1455})."] = "10級時，到{zone:1455}{object:32362}的{object:32386}找{npc:258785}。{area:131}的{npc:1226}、{area:87}的{npc:377}和{zone:1453}的{npc:376}會用同名任務派你去找她（任務文字可能寫{zone:1453}：敏絲在{zone:1455}）。",
 	-- ["At 20, {npc:258785} teaches {quest:94818}. {npc:376} in {zone:1453} sends you to her with a quest of the same name."] = "20級時，{npc:258785}會教你{quest:94818}。{zone:1453}的{npc:376}會用同名任務派你去找她。",
-	-- ["The Gnome priest spells, new in Forever: one at 10, one at 20."] = "地精的牧師法術，Forever 新增：10級一個，20級一個。",
 }

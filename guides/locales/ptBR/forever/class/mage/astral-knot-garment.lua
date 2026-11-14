@@ -18,10 +18,10 @@ return {
 	["{npc:5497} stands at the top of the Wizard's Sanctum, the violet tower of the {object:2101}; the portal near the top of the spiral ramp takes you to her."] = "{npc:5497} fica no topo do Sacrário dos Teurgos, a torre violeta do {object:2101}; o portal perto do alto da rampa em espiral leva você até ela.",
 
 	-- Step 3: High Sorcerer Andromath (Skyborne)
-	-- {npc:5694} High Sorcerer Andromath
-	["{npc:5694} (Skyborne)"] = "{npc:5694} (Celonatos)",
-	-- {zone:1453} Stormwind · {object:2101} Mage Quarter · {npc:5694} High Sorcerer Andromath · {npc:5497} Jennea Cannon
-	["You do not need a letter: at 26 climb the Wizard's Sanctum, the violet tower of {zone:1453}'s {object:2101}. {npc:5694} waits on the spiral walkway, just past the door of the portal room near the top, and has the quest for you. ({npc:5497} may also offer you {npc:5694}, the pointer quest; it is only a pointer and you can skip it.)"] = "Você não precisa de carta: no nível 26, suba o Sacrário dos Teurgos, a torre violeta do {object:2101} de {zone:1453}. {npc:5694} espera na passarela em espiral, logo depois da porta da sala dos portais perto do topo, e tem a missão para você. ({npc:5497} também pode oferecer {npc:5694}, a missão de indicação; é só uma indicação e dá para pular.)",
+	-- {quest:1939} High Sorcerer Andromath
+	["{quest:1939} (Skyborne)"] = "{quest:1939} (Celonatos)",
+	-- {zone:1453} Stormwind · {object:2101} Mage Quarter · {quest:1939} High Sorcerer Andromath · {npc:5497} Jennea Cannon
+	["You do not need a letter: at 26 climb the Wizard's Sanctum, the violet tower of {zone:1453}'s {object:2101}. {quest:1939} waits on the spiral walkway, just past the door of the portal room near the top, and has the quest for you. ({npc:5497} may also offer you {quest:1939}, the pointer quest; it is only a pointer and you can skip it.)"] = "Você não precisa de carta: no nível 26, suba o Sacrário dos Teurgos, a torre violeta do {object:2101} de {zone:1453}. {quest:1939} espera na passarela em espiral, logo depois da porta da sala dos portais perto do topo, e tem a missão para você. ({npc:5497} também pode oferecer {quest:1939}, a missão de indicação; é só uma indicação e dá para pular.)",
 
 	-- Step 4: High Sorcerer Andromath
 	-- {quest:1939} High Sorcerer Andromath

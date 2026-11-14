@@ -16,98 +16,50 @@ return {
 	-- plural, as words: Green Sludges = {npc:2655} Green Sludge · Jade Oozes = {npc:2656} Jade Ooze
 	["Ride north to {area:351} in the middle of the {zone:1425}. Green Sludges and Jade Oozes crawl all around it.\nCareful: Panthers move around the area in stealth."] = "Cavalgue para o norte até {area:351}, no meio de {zone:1425}. Lodos Verdes e Gosmas Jade rastejam em toda a volta.\nCuidado: panteras andam furtivas pela área.",
 
-	-- Step 3: Aerie Peak
+	-- Step 3: Wildkin feathers
+	["Wildkin feathers"] = "Penas de Coruscante",
+	-- {npc:7916} Erelas Ambersky · {zone:1425} The Hinterlands · {area:348} Aerie Peak · {area:351} Skulk Rock
+	-- plural, as words: Wildkin Feathers = {item:10819} Wildkin Feather
+	["{npc:7916}'s Wildkin Feathers lie on the ground across the {zone:1425}, south and east of {area:348}, where the owlbeasts roam: pick them up as you ride between the altar and {area:351}."] = "As Penas de Coruscante de {npc:7916} ficam no chão por {zone:1425}, ao sul e a leste de {area:348}, onde as ferujas vagam: pegue-as enquanto cavalga entre o altar e {area:351}.",
+
+	-- Step 4: Aerie Peak
 	["Inside"] = "Lá dentro",
 	-- {npc:5636} Gryphon Master Talonaxe
 	["{npc:5636}, inside"] = "{npc:5636}, lá dentro",
 	-- {quest:2990} Thadius Grimshade · {area:1438} Nethergarde Keep
 	["for {quest:2990} at {area:1438}, later"] = "para {quest:2990} em {area:1438}, depois",
 
-	-- Step 4: Fly to Ironforge
+	-- Step 5: Fly to Ironforge
 	-- {area:1537} Ironforge
 	["Fly to {area:1537}"] = "Voe para {area:1537}",
 	-- {area:348} Aerie Peak
 	["{area:348} flight master"] = "Mestre de voo de {area:348}",
 
-	-- Step 5: Class trainer
+	-- Step 6: Class trainer
 	["Class trainer"] = "Instrutor de classe",
 
-	-- Step 6: Tram to Stormwind
+	-- Step 7: Ironforge inn
+	-- {area:1537} Ironforge
+	["{area:1537} inn"] = "Estalagem de {area:1537}",
+	-- {object:26486} Stonefire Tavern (no name in this language: may be words) · {zone:1427} Searing Gorge · {area:144} Thelsamar
+	["Set your hearth at the {object:26486}: the {zone:1427} guide starts with the hearth back here and the gryphon to {area:144}."] = "Defina sua Pedra de Regresso em {object:26486}: o guia de {zone:1427} começa usando a Pedra de Regresso para voltar aqui e pegando o grifo para {area:144}.",
+
+	-- Step 8: Tram to Stormwind
 	-- {zone:1453} Stormwind
 	["Tram to {zone:1453}"] = "Metrô para {zone:1453}",
 
-	-- Step 8: Fly to Lakeshire
-	-- {area:69} Lakeshire
-	["Fly to {area:69}"] = "Voe para {area:69}",
+	-- Step 10: Fly to Darkshire
+	-- {area:42} Darkshire
+	["Fly to {area:42}"] = "Voar para {area:42}",
 	-- {zone:1453} Stormwind
 	["{zone:1453} flight master"] = "Mestre de voo de {zone:1453}",
 
-	-- Step 9: Morgan's Vigil flight master
-	-- {area:2418} Morgan's Vigil
-	["{area:2418} flight master"] = "Mestre de voo de {area:2418}",
-
-	-- Step 10: Fly to Thelsamar
-	-- {area:144} Thelsamar
-	["Fly to {area:144}"] = "Voe para {area:144}",
-
-	-- Step 11: Thelsamar
-	-- {zone:1427} Searing Gorge · {area:144} Thelsamar
-	["Set your hearth here: the {zone:1427} guide starts from {area:144}."] = "Defina sua Pedra de Regresso aqui: o guia de {zone:1427} começa em {area:144}.",
-
-	-- Step 12: Fly to Menethil Harbor
-	-- {area:150} Menethil Harbor
-	["Fly to {area:150}"] = "Voe para {area:150}",
-	-- {area:144} Thelsamar
-	["{area:144} flight master"] = "Mestre de voo de {area:144}",
-
-	-- Step 15: Rut'theran Village
-	-- {npc:7907} Daryn Lightwind · {npc:7916} Erelas Ambersky
-	["{npc:7907} stands upstairs, above {npc:7916}: go up inside, the arrow cannot tell the floors apart."] = "{npc:7907} fica no andar de cima, acima de {npc:7916}: suba por dentro, a seta não diferencia os andares.",
-	-- {npc:7907} Daryn Lightwind · {zone:1446} Tanaris
-	["{npc:7907}'s next errand goes to {zone:1446}: skip it."] = "A próxima tarefa de {npc:7907} vai para {zone:1446}: pule.",
-	-- {npc:7916} Erelas Ambersky · {zone:1428} Burning Steppes
-	["{npc:7916}: keep it, the feathers come at the end of the {zone:1428} guide"] = "{npc:7916}: guarde-a; as penas vêm no fim do guia de {zone:1428}",
-	["the book on her table"] = "o livro na mesa dela",
-
-	-- Step 17: Temple of the Moon
-	["Temple of the Moon"] = "Templo da Lua",
-	-- {zone:1457} Darnassus
-	["Step through the portal into {zone:1457}. The Temple of the Moon is in the south of the city."] = "Atravesse o portal para {zone:1457}. O Templo da Lua fica no sul da cidade.",
-	-- {npc:7740} Gracina Spiritmight
-	["{npc:7740}, beside her"] = "{npc:7740}, ao lado dela",
-
-	-- Step 21: Cenarion Enclave
-	-- {npc:3516} Arch Druid Fandral Staghelm
-	["{npc:3516}, at the top of the tree"] = "{npc:3516}, no alto da árvore",
-
-	-- Step 23: Cenarion Enclave
-	-- {zone:1449} Un'Goro Crater
-	["the soil comes from {zone:1449}, later"] = "o solo vem de {zone:1449}, depois",
-
-	-- Step 24: Portal to Teldrassil
-	-- {zone:1438} Teldrassil
-	["Portal to {zone:1438}"] = "Portal para {zone:1438}",
-
-	-- Step 25: Fly to Auberdine
-	-- {area:442} Auberdine
-	["Fly to {area:442}"] = "Voe para {area:442}",
-	-- {area:702} Rut'theran Village
-	["{area:702} flight master"] = "Mestre de voo de {area:702}",
-
-	-- Step 26: Boat to Stormwind Harbor
-	-- {area:17203} Stormwind Harbor
-	["Boat to {area:17203}"] = "Barco para {area:17203}",
-
-	-- Step 27: Fly to Darkshire
-	-- {area:42} Darkshire
-	["Fly to {area:42}"] = "Voar para {area:42}",
-
-	-- Step 30: The bloodmages
+	-- Step 13: The bloodmages
 	["The bloodmages"] = "Os Magos Sangrentos",
 	-- {zone:1419} Blasted Lands · {area:1438} Nethergarde Keep
 	["The bloodmages' camp is the first stop beside the road into the {zone:1419}, north-west of {area:1438}."] = "O acampamento dos magos sangrentos é a primeira parada ao lado da estrada que entra em {zone:1419}, a noroeste de {area:1438}.",
 
-	-- Step 31: Nethergarde Keep
+	-- Step 14: Nethergarde Keep
 	-- {item:6091} Crate of Power Stones · {area:42} Darkshire
 	["Ride on east along the road to the keep first: the {item:6091} expires an hour after {area:42}, and the bloodmages' beasts take longer than that."] = "Siga primeiro pela estrada para o leste até a fortaleza: o {item:6091} expira uma hora depois de {area:42}, e as feras dos Magos Sangrentos levam mais tempo que isso.",
 	-- {quest:2990} Thadius Grimshade
@@ -117,37 +69,37 @@ return {
 	-- {npc:5385} Watcher Mahar Ba
 	["{npc:5385}, upstairs"] = "{npc:5385}, no andar de cima",
 
-	-- Step 32: Blasted Lands: kill these as you meet them
+	-- Step 15: Blasted Lands: kill these as you meet them
 	-- {zone:1419} Blasted Lands
 	["{zone:1419}: kill these as you meet them"] = "{zone:1419}: vá matando estes pelo caminho",
-	-- {npc:5982} Black Slayer · {spell:5416} Venom Sting · {npc:8301} Clack the Reaver
+	-- {npc:5982} Black Slayer · {spell:5416} Venom Sting · {npc:8301} Clack the Reaver · {npc:221740} Calefactus the Unleashed · {npc:247015} Vek'zol
 	-- plural, as words: Starving Snickerfangs = {npc:5984} Starving Snickerfang · Scorpok Stingers = {npc:5988} Scorpok Stinger · Ashmane Boars = {npc:5992} Ashmane Boar · Redstone Basilisks = {npc:5990} Redstone Basilisk
-	["Ride west: Starving Snickerfangs roam the dry hills just south of the bloodmages' camp; Scorpok Stingers (level 50) scuttle across the middle of the north. {npc:5982} vultures circle over all of it. Pull one at a time.\nAshmane Boars and Redstone Basilisks share the slopes south-west of the keep. Keep clear of the Helboars further south: they are level 52.\nCareful: Scorpok Stingers use {spell:5416}; {npc:8301} adds Knockdown."] = "Cavalgue para oeste: as Rasgarrindos Famintas andam pelas colinas secas logo ao sul do acampamento dos magos sangrentos; os Aguilhantes Escorpóde (nível 50) correm pelo meio do norte. Abutres {npc:5982} rondam por cima de tudo. Puxe um de cada vez.\nJavalis Jubacinza e Basiliscos Itarrubra dividem as encostas a sudoeste da fortaleza. Passe longe dos Javiltuscos mais ao sul: são nível 52.\nCuidado: os Aguilhantes Escorpóde usam {spell:5416}; {npc:8301} ainda derruba você.",
+	["Ride west: Starving Snickerfangs roam the dry hills just south of the bloodmages' camp; Scorpok Stingers (level 50) scuttle across the middle of the north. {npc:5982} vultures circle over all of it. Pull one at a time.\nAshmane Boars and Redstone Basilisks share the slopes south-west of the keep. Keep clear of the Helboars further south: they are level 52.\nCareful: Scorpok Stingers use {spell:5416}; {npc:8301} adds Knockdown.\nCareful: two elites roam here: {npc:221740} (50) in the middle of the zone around 44,34, and {npc:247015} (55) on the ridge around 39,32. When you see one, hunt somewhere else."] = "Cavalgue para oeste: as Rasgarrindos Famintas andam pelas colinas secas logo ao sul do acampamento dos magos sangrentos; os Aguilhantes Escorpóde (nível 50) correm pelo meio do norte. Abutres {npc:5982} rondam por cima de tudo. Puxe um de cada vez.\nJavalis Jubacinza e Basiliscos Itarrubra dividem as encostas a sudoeste da fortaleza. Passe longe dos Javiltuscos mais ao sul: são nível 52.\nCuidado: os Aguilhantes Escorpóde usam {spell:5416}; {npc:8301} ainda derruba você.\nCuidado: dois elites vagam por aqui: {npc:221740} (50) no meio da zona, por volta de 44,34, e {npc:247015} (55) na serra, por volta de 39,32. Quando vir um deles, cace em outro lugar.",
 
-	-- Step 33: The bloodmages
+	-- Step 16: The bloodmages
 	["The bloodmages' second tier pays for the same parts with a buff item and no experience: skip it."] = "A segunda etapa dos Magos Sangrentos paga pelas mesmas partes com um item de bônus e sem experiência: pule.",
 
-	-- Step 34: Fly to Booty Bay
+	-- Step 17: Fly to Booty Bay
 	-- {area:35} Booty Bay
 	["Fly to {area:35}"] = "Voe até {area:35}",
 	-- {area:1438} Nethergarde Keep
 	["{area:1438} flight master"] = "Mestre de voo de {area:1438}",
 
-	-- Step 35: Booty Bay
+	-- Step 18: Booty Bay
 	["\"Sea Wolf\" MacKinley, on the top floor"] = "MacKinley \"Lobo do Mar\", no último andar",
 	-- {npc:2487} Fleet Master Seahorn
 	["{npc:2487}, top floor"] = "{npc:2487}, último andar",
 
-	-- Step 36: The Bloodsail captains
+	-- Step 19: The Bloodsail captains
 	["The Bloodsail captains"] = "Os capitães da Vela Sangrenta",
 	-- {area:35} Booty Bay · {npc:2550} Captain Stillwater · {npc:2548} Captain Keelhaul · {npc:2546} Fleet Master Firallon
 	["The three Bloodsail ships lie at anchor off the coast just south of {area:35}: {npc:2550} (45) and {npc:2548} (46) on the nearer decks, {npc:2546} (48) on the flagship, each with a crew of 42-45 pirates. Swim out, clear each deck from the edge and pull one at a time."] = "Os três navios da Vela Sangrenta estão ancorados ao largo da costa, logo ao sul de {area:35}: {npc:2550} (45) e {npc:2548} (46) nos conveses mais próximos, {npc:2546} (48) na nau capitânia, cada um com uma tripulação de 42-45 piratas. Nade até lá, limpe cada convés a partir da borda e puxe um de cada vez.",
 
-	-- Step 38: Monogrammed Sash
+	-- Step 21: Monogrammed Sash
 	-- {quest:8552} The Monogrammed Sash
 	["These are elite mobs: grouping up is encouraged, look for people to do it with. {quest:8552} needs a group of 2. Skip it if you are alone: the route has you grind the XP back."] = "São monstros elite: vale a pena formar grupo, procure gente para ir junto. {quest:8552} pede um grupo de 2. Se estiver sozinho, pule: a rota faz você recuperar a XP matando monstros.",
 
-	-- Step 42: Facing Negolash
+	-- Step 25: Facing Negolash
 	-- {npc:1494} Negolash
 	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:1494} (level 52 elite) needs a group of 2. Skip it if you are alone: the route has you grind the XP back."] = "São monstros elite: vale a pena formar grupo, procure gente para ir junto. {npc:1494} (elite nível 52) pede um grupo de 2. Se estiver sozinho, pule: a rota faz você recuperar a XP matando monstros.",
 
@@ -156,13 +108,19 @@ return {
 	-- ["Back to {area:144}"] = "De volta a {area:144}",
 	-- ["Back to {area:38}"] = "De volta a {area:38}",
 	-- ["Boars and basilisks"] = "Javalis e basiliscos",
+	-- ["Boat to {area:17203}"] = "Barco para {area:17203}",
 	-- ["Fly from {area:144} to {area:150}, take the boat to {area:442} and fly to {area:702}."] = "Voe de {area:144} para {area:150}, pegue o barco para {area:442} e voe para {area:702}.",
 	-- ["Fly from {area:348} to {area:42}."] = "Voe de {area:348} para {area:42}.",
+	-- ["Fly to {area:144}"] = "Voe para {area:144}",
+	-- ["Fly to {area:150}"] = "Voe para {area:150}",
+	-- ["Fly to {area:442}"] = "Voe para {area:442}",
+	-- ["Fly to {area:69}"] = "Voe para {area:69}",
 	-- ["Hearth to {area:144}. The {zone:1427} guide starts at {area:1446}: from here, ride south into the {zone:1418}, west past the Horde town of {area:340} and up the trail into the gorge."] = "Use a Pedra de Regresso para {area:144}. O guia de {zone:1427} começa em {area:1446}: daqui, cavalgue para o sul até {zone:1418}, para o oeste passando pela cidade da Horda, {area:340}, e suba a trilha até a garganta.",
 	-- ["Hearth to {area:348}."] = "Use a Pedra de Regresso para {area:348}.",
 	-- ["Hearthstone on cooldown? Ride back north-west."] = "Pedra de Regresso em recarga? Cavalgue de volta para o noroeste.",
 	-- ["Into {area:3}"] = "Rumo a {area:3}",
 	-- ["Portal to {area:141}"] = "Portal para {area:141}",
+	-- ["Portal to {zone:1438}"] = "Portal para {zone:1438}",
 	-- ["Ride back east to {area:1438} and fly to {area:144}."] = "Cavalgue de volta para o leste até {area:1438} e voe para {area:144}.",
 	-- ["Ride back north to Ironband's camp."] = "Cavalgue de volta para o norte até o acampamento de Bandaferro.",
 	-- ["Ride back west along the loch to {area:144}."] = "Volte para oeste pelo lago até {area:144}.",
@@ -173,10 +131,22 @@ return {
 	-- ["Ride south-east to the {area:355}, the stepped Vilebranch temple in the south of the {zone:1425}, and climb to the top. Qiaga and {npc:8636} (elite, 50) stand up there: touch the top and come straight back down."] = "Cavalgue para o sudeste até {area:355}, o templo escalonado Ramatorpe no sul das {zone:1425}, e suba até o topo. Qiaga e {npc:8636} (elite, 50) ficam lá em cima: toque o topo e desça logo.",
 	-- ["Ride west: Starving Snickerfangs roam the dry hills just south of the bloodmages' camp; Scorpok Stingers (level 50) scuttle across the middle of the north. {npc:5982} vultures circle over all of it. Pull one at a time."] = "Cavalgue para o oeste: Rasgarrindos Famintas vagam pelas colinas secas logo ao sul do acampamento dos Magos Sangrentos; Aguilhantes Escorpódes (nível 50) correm pelo meio do norte. Abutres {npc:5982} circulam sobre tudo. Puxe um de cada vez.",
 	-- ["Scorpoks and snickerfangs"] = "Escorpódes e rasgarrindos",
+	-- ["Step through the portal into {zone:1457}. The Temple of the Moon is in the south of the city."] = "Atravesse o portal para {zone:1457}. O Templo da Lua fica no sul da cidade.",
+	-- ["Temple of the Moon"] = "Templo da Lua",
 	-- ["The druid trainers stand in the Enclave; {zone:1455} has none"] = "Os instrutores de druida ficam no Enclave; {zone:1455} não tem nenhum",
 	-- ["The {area:1517} dig"] = "A escavação de {area:1517}",
+	-- ["the book on her table"] = "o livro na mesa dela",
+	-- ["the soil comes from {zone:1449}, later"] = "o solo vem de {zone:1449}, depois",
+	-- ["{area:144} flight master"] = "Mestre de voo de {area:144}",
+	-- ["{area:2418} flight master"] = "Mestre de voo de {area:2418}",
+	-- ["{area:702} flight master"] = "Mestre de voo de {area:702}",
 	-- ["{item:8047}; below ground"] = "{item:8047}; no subterrâneo",
 	-- ["{npc:1470}, below ground"] = "{npc:1470}, no subterrâneo",
+	-- ["{npc:3516}, at the top of the tree"] = "{npc:3516}, no alto da árvore",
+	-- ["{npc:7740}, beside her"] = "{npc:7740}, ao lado dela",
 	-- ["{npc:7744}: the last guide binds here, so this usually ticks at once"] = "{npc:7744}: o guia anterior vincula você aqui, então isto costuma ser marcado na hora",
+	-- ["{npc:7907} stands upstairs, above {npc:7916}: go up inside, the arrow cannot tell the floors apart."] = "{npc:7907} fica no andar de cima, acima de {npc:7916}: suba por dentro, a seta não diferencia os andares.",
+	-- ["{npc:7907}'s next errand goes to {zone:1446}: skip it."] = "A próxima tarefa de {npc:7907} vai para {zone:1446}: pule.",
+	-- ["{npc:7916}: keep it, the feathers come at the end of the {zone:1428} guide"] = "{npc:7916}: guarde-a; as penas vêm no fim do guia de {zone:1428}",
 	-- ["{object:2743}; below ground"] = "{object:2743}; no subterrâneo",
 }

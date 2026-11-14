@@ -12,7 +12,7 @@ return {
 
 	-- Step 1: The Hinterlands (1/2)
 	-- {zone:1425} The Hinterlands · {zone:1424} Hillsbrad Foothills · {zone:1415} Eastern Kingdoms
-	["Starts in the {zone:1425}, north-east of {zone:1424}. The last area of this guide completes the {zone:1415} map. 14 areas to discover here, levels 41-49."] = "",
+	["Starts in the {zone:1425}, north-east of {zone:1424}. The last area of this guide completes the {zone:1415} map. 14 areas to discover here, levels 41-49."] = "Начинается здесь: {zone:1425}, к северо-востоку от зоны {zone:1424}. Последняя местность этого гайда завершает карту ({zone:1415}). Здесь нужно открыть 14 местностей, 41-49 уровни.",
 	["Exploring the entire world map on one character is a Forever Legacy Challenge (1 account-wide Legacy Point)."] = "Исследование всей карты мира одним персонажем – испытание наследия Forever (1 очко наследия на всю учетную запись).",
 	-- {area:348} Aerie Peak · {area:271} Southshore · {zone:1424} Hillsbrad Foothills · {zone:1425} The Hinterlands
 	["Fly to {area:348} if you have it; otherwise fly to {area:271} and walk north-east from {zone:1424} into the {zone:1425}."] = "Летите сюда: {area:348}, если маршрут есть; иначе летите сюда: {area:271} – и идите на северо-восток ({zone:1424} → {zone:1425}).",
@@ -43,7 +43,7 @@ return {
 	-- Step 4: Burning Steppes (1/2)
 	["10 areas to discover here, levels 50-59."] = "Здесь нужно открыть 10 местностей, 50-59 уровни.",
 	-- {area:254} Blackrock Mountain · {zone:1427} Searing Gorge · {zone:1428} Burning Steppes · {area:2418} Morgan's Vigil
-	["Cross {area:254} from the south of the {zone:1427} into the {zone:1428}: stay on the chain path inside, past the dungeon entrances. {area:2418} (Alliance) is in the east."] = "",
+	["Cross {area:254} from the south of the {zone:1427} into the {zone:1428}: stay on the chain path inside, past the dungeon entrances. {area:2418} (Alliance) is in the east."] = "Пересеките место {area:254} с юга зоны {zone:1427} в зону {zone:1428}: внутри держитесь цепного пути, мимо входов в подземелья. {area:2418} (Альянс) – на востоке.",
 	-- {area:2418} Morgan's Vigil · {npc:2299} Borgus Stoutarm
 	["Flight path here: {area:2418} ({npc:2299})."] = "Маршрут полета здесь: {area:2418} ({npc:2299}).",
 	-- {area:251} Flame Crest
@@ -57,7 +57,7 @@ return {
 	["high-level undead around the tower: discover it from the road"] = "вокруг башни нежить высокого уровня: откройте местность с дороги",
 
 	-- Step 7: Blasted Lands (1/2)
-	["9 areas to discover here, levels 46-63."] = "",
+	["9 areas to discover here, levels 46-63."] = "Здесь нужно открыть 9 местностей, 46-63 уровни.",
 	-- {zone:1430} Deadwind Pass · {zone:1435} Swamp of Sorrows · {zone:1419} Blasted Lands · {area:1438} Nethergarde Keep
 	["Ride east out of {zone:1430} into the {zone:1435} and take the road south into the {zone:1419}; {area:1438} (Alliance) stands just inside."] = "",
 	-- {area:1438} Nethergarde Keep · {npc:8609} Alexandra Constantine
@@ -67,9 +67,9 @@ return {
 	-- Step 9: Western Plaguelands (1/2)
 	["13 areas to discover here, levels 46-57."] = "Здесь нужно открыть 13 местностей, 46-57 уровни.",
 	-- {area:3197} Chillwind Camp · {area:271} Southshore · {zone:1416} Alterac Mountains · {zone:1422} Western Plaguelands
-	["Fly to {area:3197} if you have it; otherwise fly to {area:271} and ride north through the {zone:1416} to {area:3197} in southern {zone:1422}."] = "",
+	["Fly to {area:3197} if you have it; otherwise fly to {area:271} and ride north through the {zone:1416} to {area:3197} in southern {zone:1422}."] = "Летите сюда: {area:3197}, если этот маршрут у вас есть; иначе летите сюда: {area:271} – и езжайте на север через зону {zone:1416}: {area:3197}, юг зоны {zone:1422}.",
 	-- {area:272} Tarren Mill · {zone:1416} Alterac Mountains · {zone:1422} Western Plaguelands · {zone:1420} Tirisfal Glades · {area:813} The Bulwark
-	["Fly to {area:272} and ride north through the {zone:1416} into southern {zone:1422}, or go east from {zone:1420} past {area:813}."] = "",
+	["Fly to {area:272} and ride north through the {zone:1416} into southern {zone:1422}, or go east from {zone:1420} past {area:813}."] = "Летите сюда: {area:272} – и езжайте на север через зону {zone:1416} на юг зоны {zone:1422} или идите от зоны {zone:1420} на восток мимо места {area:813}.",
 	-- {area:3197} Chillwind Camp · {npc:12596} Bibilfaz Featherwhistle
 	["Flight path here: {area:3197} ({npc:12596})."] = "Маршрут полета здесь: {area:3197} ({npc:12596}).",
 
@@ -83,12 +83,7 @@ return {
 	["Flight path here: {area:2268} (Georgia)."] = "Маршрут полета здесь: {area:2268} (Георгия).",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
-	-- ["14 areas to discover here, levels 41-49."] = "Здесь нужно открыть 14 местностей, 41-49 уровни.",
 	-- ["Continue west into {zone:1431}, north to {zone:1433} and take the pass north out of Redridge into the {zone:1428}; {area:2418} (Alliance) is near the top."] = "Идите дальше на запад: {zone:1431}, на север: {zone:1433} – и через перевал на север из Красногорья: {zone:1428}; {area:2418} (Альянс) – недалеко от вершины.",
-	-- ["Cross {area:254} from the western {zone:1428} into the {zone:1427}: stay on the chain path inside, past the dungeon entrances."] = "Пересеките место {area:254} с запада зоны {zone:1428} в зону {zone:1427}: внутри держитесь цепного пути, мимо входов в подземелья.",
 	-- ["Go back north through the {zone:1435} and west into {zone:1430}."] = "Вернитесь на север через зону {zone:1435} и идите на запад: {zone:1430}.",
-	-- ["Starts where the 30-45 guide ends, in the {zone:1435}. The last area of this guide completes the {zone:1415} map. 9 areas to discover here, levels 46-63."] = "Начинается там, где заканчивается гайд 30-45: {zone:1435}. Последняя местность этого гайда завершает карту ({zone:1415}). Здесь нужно открыть 9 местностей, 46-63 уровни.",
 	-- ["The {zone:1419} are south of the {zone:1435}; the road arrives at {area:1438} (Alliance)."] = "{zone:1419} – к югу от зоны {zone:1435}; дорога приводит сюда: {area:1438} (Альянс).",
-	-- ["Walk back to {zone:1424} and north through the {zone:1416} to {area:3197} in southern {zone:1422}."] = "Вернитесь сюда: {zone:1424} – и идите на север через зону {zone:1416}: {area:3197}, юг зоны {zone:1422}.",
-	-- ["Walk back to {zone:1424} and north through the {zone:1416}, or from {zone:1420} east past {area:813}, into {zone:1422}."] = "Вернитесь сюда: {zone:1424} – и идите на север через зону {zone:1416} (или от зоны {zone:1420} на восток мимо места {area:813}) в зону {zone:1422}.",
 }

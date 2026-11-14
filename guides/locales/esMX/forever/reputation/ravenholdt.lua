@@ -30,12 +30,10 @@ return {
 	["{npc:266216} is inside {area:275}, the Syndicate fortress east of {area:271}. Stealth past the guards in the courtyard."] = "{npc:266216} está dentro de {area:275}, la fortaleza del Sindicato al este de {area:271}. Pasa a los guardias del patio en sigilo.",
 
 	-- Step 4: Strahnbrad: Barton
-	-- {area:280} Strahnbrad
-	["{area:280}: Barton"] = "{area:280}: Barton",
-	-- {area:280} Strahnbrad
-	["Barton hides in a house in {area:280}, among stealthed Syndicate. Pick his pocket for the report; Distract turns him around if you are under his level."] = "Barton se esconde en una casa de {area:280}, entre miembros del Sindicato en sigilo. Róbale el informe de los bolsillos; Distraer lo hace darse vuelta si estás por debajo de su nivel.",
-	-- {item:275482} Barton's Scouting Report
-	["{item:275482}: pickpocket Barton"] = "{item:275482}: roba del bolsillo a Barton",
+	-- {npc:266357} Barton · {area:280} Strahnbrad
+	["{npc:266357} hides in a house in {area:280}, among stealthed Syndicate. Pick his pocket for the report; Distract turns him around if you are under his level."] = "{npc:266357} se esconde en una casa de {area:280}, entre miembros del Sindicato en sigilo. Róbale el informe de los bolsillos; Distraer lo hace darse vuelta si estás por debajo de su nivel.",
+	-- {item:275482} Barton's Scouting Report · {npc:266357} Barton
+	["{item:275482}: pickpocket {npc:266357}"] = "{item:275482}: roba del bolsillo a {npc:266357}",
 
 	-- Step 5: Northfold Manor: a uniform
 	-- {area:313} Northfold Manor
@@ -119,4 +117,7 @@ return {
 	["{item:16885}: pickpocket level 50+ humanoids, {area:1445}"] = "{item:16885}: roba bolsillos de humanoides de nivel 50+, {area:1445}",
 	-- {npc:6707} Fahrad
 	["{npc:6707}: 50 per five boxes, handed in from his window"] = "{npc:6707}: 50 por cada cinco cajas, se entrega desde su ventana",
+
+	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["{area:280}: Barton"] = "{area:280}: Barton",
 }

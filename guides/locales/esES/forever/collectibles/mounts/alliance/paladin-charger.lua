@@ -39,14 +39,14 @@ return {
 	-- {item:18752} Exorcism Censer
 	["{item:18752}, inside a green patch"] = "",
 	-- plural, as words: Terrordale Spirits = {npc:14564} Terrordale Spirit
-	["Terrordale Spirits x25"] = "",
+	["Terrordale Spirits x25"] = "Espíritus del Valle del Terror x25",
 
 	-- Step 6: Lord Grayson Shadowbreaker
 	["Lord Grayson takes the censer back."] = "",
 
 	-- Step 7: Grimand Elmore
 	-- {npc:1416} Grimand Elmore · {zone:1453} Stormwind · {object:28027} Dwarven District · {item:18753} Arcanite Barding
-	["{npc:1416} works in {zone:1453}'s {object:28027}. He forges the {item:18753} from your materials and 150 gold."] = "",
+	["{npc:1416} works in {zone:1453}'s {object:28027}. He forges the {item:18753} from your materials and 150 gold."] = "{npc:1416} trabaja en {object:28027} de {zone:1453}. Forja el {item:18753} con tus materiales y 150 de oro.",
 
 	-- Step 8: Grimand Elmore's materials
 	-- {npc:1416} Grimand Elmore
@@ -58,7 +58,7 @@ return {
 	-- {item:8836} Arthas' Tears
 	["{item:8836} x10"] = "",
 	-- plural, as words: Arcanite Bars = {item:12360} Arcanite Bar
-	["Arcanite Bars x6: an alchemist, or the Trade District Auction House"] = "",
+	["Arcanite Bars x6: an alchemist, or the Trade District Auction House"] = "Lingotes de arcanita x6: un alquimista o la casa de subastas del Distrito de Mercaderes",
 
 	-- Step 9: Stratholme Holy Water
 	-- {area:2279} Stratholme · {zone:1423} Eastern Plaguelands
@@ -83,14 +83,14 @@ return {
 	["Enriched Manna Biscuits"] = "Galletas de maná enriquecido",
 	-- {object:2160} The Argent Dawn · {object:92525} Argent Dawn · {npc:10857} Argent Quartermaster Lightspark · {area:3197} Chillwind Camp · {npc:11536} Quartermaster Miranda Breechlock · {area:2268} Light's Hope Chapel
 	-- plural, as words: Enriched Manna Biscuits = {item:13724} Enriched Manna Biscuit
-	["{object:2160} quartermasters sell Enriched Manna Biscuits, five for 60 silver, once the {object:92525} is Friendly with you: {npc:10857} at {area:3197} or {npc:11536} at {area:2268}. Scourgestones and the Plaguelands quests raise the standing."] = "",
+	["{object:2160} quartermasters sell Enriched Manna Biscuits, five for 60 silver, once the {object:92525} is Friendly with you: {npc:10857} at {area:3197} or {npc:11536} at {area:2268}. Scourgestones and the Plaguelands quests raise the standing."] = "Los intendentes de {object:2160} venden Galletas de maná enriquecidas, cinco por 60 de plata, cuando eres Amistoso con {object:92525}: {npc:10857} en {area:3197} o {npc:11536} en {area:2268}. Las piedras de la Plaga y las misiones de las Tierras de la Peste suben la reputación.",
 	-- {npc:10857} Argent Quartermaster Lightspark · {area:3197} Chillwind Camp
 	-- plural, as words: Enriched Manna Biscuits = {item:13724} Enriched Manna Biscuit
 	["Enriched Manna Biscuits: {npc:10857}, {area:3197}"] = "Galletas de maná enriquecido: {npc:10857}, {area:3197}",
 
 	-- Step 13: Merideth Carlson
 	-- {npc:2357} Merideth Carlson · {area:271} Southshore · {quest:7645} Manna-Enriched Horse Feed
-	["{npc:2357} breeds horses in {area:271}'s stable. She makes the {quest:7645} from the 20 biscuits and 50 gold, taken at the hand-in."] = "",
+	["{npc:2357} breeds horses in {area:271}'s stable. She makes the {quest:7645} from the 20 biscuits and 50 gold, taken at the hand-in."] = "{npc:2357} cría caballos en el establo de {area:271}. Hace {quest:7645} con las 20 galletas y 50 de oro, que se cobran al entregarla.",
 
 	-- Step 14: Dire Maul: Tendris Warpwood
 	-- {area:2577} Dire Maul · {zone:1444} Feralas · {item:18249} Crescent Key · {npc:11489} Tendris Warpwood · {npc:11459} Ironbark Protector · {quest:7643} Ancient Equine Spirit · {item:18753} Arcanite Barding
@@ -118,10 +118,8 @@ return {
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["An {item:12800} comes from Thorium veins, a {item:18335} from the elites of the {zone:1422}, both rarely: the Auction House is the usual source."] = "Un {item:12800} sale de los filones de torio y un {item:18335} de los élites de {zone:1422}, ambos rara vez: lo habitual es la casa de subastas.",
-	-- ["Arcanite Bars: the Auction House"] = "Lingotes de arcanita: la casa de subastas",
 	-- ["Bring 150 gold for {npc:1416} along with the materials."] = "Lleva 150 de oro para {npc:1416} junto con los materiales.",
 	-- ["Supply Crates, inside"] = "Cajones de suministro, dentro",
-	-- ["Terrordale Spirits"] = "Espíritus del Valle del Terror",
 	-- ["The {spell:23214} chain is long: it takes you through {area:2279}, {area:2577} and {area:2057}, and costs about 350 gold in donations on top of the materials. Lord Grayson stands in the Cathedral of Light."] = "La cadena de {spell:23214} es larga: te lleva por {area:2279}, {area:2577} y {area:2057}, y cuesta unos 350 de oro en donativos además de los materiales. Lord Grisillo está en la catedral.",
 	-- ["he hands you the {item:18746}"] = "te da el {item:18746}",
 	-- ["{area:2057} lies under {area:2298}, the island town in the south-east of the {zone:1422}. Use the {item:18746} in the heart of the {object:179746}'s basement, defeat the spirits it calls and then {npc:14516}, and give his Fallen Charger the {item:18799} and the {item:18792}. All are elite: bring a group. If the attempt fails, Lord Grayson gives you a new scryer through Again Into the {object:179746}."] = "{area:2057} está bajo {area:2298}, el pueblo de la isla del sureste de {zone:1422}. Usa el {item:18746} en el centro del sótano de El Gran Osario, derrota a los espíritus que invoca y luego a {npc:14516}, y dale a su Arremetedor Atracoscuro {item:18799} y {item:18792}. Todos son élite: lleva un grupo. Si fallas, Lord Grisillo te da un nuevo arúspice con la misión El regreso a El Gran Osario.",
@@ -130,7 +128,4 @@ return {
 	-- ["{area:2627} lies in the far north-west of the {zone:1423}, by the {zone:1422} border. Use the {item:18752} there to drive out the spirits, then defeat them."] = "{area:2627} está en el extremo noroeste de {zone:1423}, junto a la frontera de {zone:1422}. Usa allí el {item:18752} para expulsar a los espíritus y luego derrótalos.",
 	-- ["{item:14047} drops from humanoids around level 50 and up; {item:8836} is an herb of the Plaguelands and {zone:1448}; Arcanite Bars are an {skill:171} transmute. The Auction House in {zone:1453}'s {object:2096} sells all three, and so do crafters."] = "{item:14047} cae de humanoides de nivel 50 o más; {item:8836} es una hierba de las Tierras de la Peste y de {zone:1448}; los Lingotes de arcanita son una transmutación de {skill:171}. La casa de subastas de {object:2096} de {zone:1453} vende los tres, y también los artesanos.",
 	-- ["{npc:11406} is in {zone:1455}'s {object:32362}. Bring 150 gold: the censer is yours for a donation."] = "{npc:11406} está en {object:32362} de {zone:1455}. Lleva 150 de oro: el incensario es tuyo a cambio de un donativo.",
-	-- ["{npc:1416} works in {zone:1453}'s {object:28027}."] = "{npc:1416} trabaja en {object:28027} de {zone:1453}.",
-	-- ["{npc:2357} breeds horses in {area:271}. She also wants 50 gold."] = "{npc:2357} cría caballos en {area:271}. También quiere 50 de oro.",
-	-- ["{object:2160} quartermasters sell the biscuits in fives once the {object:92525} is Friendly with you: {npc:10857} at {area:3197}, {npc:11536} at {area:2268}, {npc:10856} at the {area:813}."] = "Los intendentes de {object:2160} venden las galletas de cinco en cinco cuando eres Amistoso con {object:92525}: {npc:10857} en {area:3197}, {npc:11536} en {area:2268} y {npc:10856} en {area:813}.",
 }

@@ -16,14 +16,14 @@ return {
 	-- Step 2: Alchemy 1-75: vendor goods
 	-- {skill:171} Alchemy
 	["{skill:171} 1-75: vendor goods"] = "",
-	-- {item:3371} Empty Vial · {zone:1453} Stormwind City · {npc:1286} Edna Mullby · {npc:1325} Jasper Fel · {zone:1454} Orgrimmar · {npc:3367} Felika · {npc:3348} Kor'geld · {npc:3334} Rekkul
-	["Buy the whole bracket's share in one go: 82 {item:3371} (3s 28c); about 3s 28c in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:1286}, Eldraeith and {npc:1325}; {zone:1454}: {npc:3367}, {npc:3348} and {npc:3334})."] = "",
+	-- {item:3371} Empty Vial · {zone:1453} Stormwind City · {npc:1286} Edna Mullby · {npc:5503} Eldraeith · {npc:1325} Jasper Fel · {zone:1454} Orgrimmar · {npc:3367} Felika · {npc:3348} Kor'geld · {npc:3334} Rekkul
+	["Buy the whole bracket's share in one go: 82 {item:3371} (3s 28c); about 3s 28c in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:1286}, {npc:5503} and {npc:1325}; {zone:1454}: {npc:3367}, {npc:3348} and {npc:3334})."] = "",
 
 	-- Step 3: Alchemy 1-75: Auction House
 	-- {skill:171} Alchemy
-	["{skill:171} 1-75: Auction House"] = "",
+	["{skill:171} 1-75: Auction House"] = "{skill:171} 1-75: casa de subastas",
 	-- {item:765} Silverleaf · {item:2447} Peacebloom
-	["What 1-75 takes that the Auction House sells: 82 {item:765} and 110 {item:2447}. The counts drop by what your bags, bank and mail hold."] = "",
+	["What 1-75 takes that the Auction House sells: 82 {item:765} and 110 {item:2447}. The counts drop by what your bags, bank and mail hold."] = "Lo que necesitas para el tramo 1-75 y vende la casa de subastas: 82 {item:765} y 110 {item:2447}. Las cantidades bajan según lo que tengas en las bolsas, el banco y el correo.",
 
 	-- Step 4: Silverleaf (Elwynn Forest)
 	-- {item:765} Silverleaf · {item:5997} Elixir of Minor Defense · {skill:182} Herbalism · {zone:1429} Elwynn Forest
@@ -96,14 +96,14 @@ return {
 	-- Step 20: Alchemy 75-150: vendor goods
 	-- {skill:171} Alchemy
 	["{skill:171} 75-150: vendor goods"] = "",
-	-- {item:3371} Empty Vial · {item:3372} Leaded Vial · {zone:1453} Stormwind City · {npc:1286} Edna Mullby · {npc:1325} Jasper Fel · {zone:1454} Orgrimmar · {npc:3367} Felika · {npc:3348} Kor'geld · {npc:3334} Rekkul
-	["Buy the whole bracket's share in one go: 77 {item:3371} (3s 8c) and 15 {item:3372} (6s); about 9s 8c in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:1286}, Eldraeith and {npc:1325}; {zone:1454}: {npc:3367}, {npc:3348} and {npc:3334})."] = "",
+	-- {item:3371} Empty Vial · {item:3372} Leaded Vial · {zone:1453} Stormwind City · {npc:1286} Edna Mullby · {npc:5503} Eldraeith · {npc:1325} Jasper Fel · {zone:1454} Orgrimmar · {npc:3367} Felika · {npc:3348} Kor'geld · {npc:3334} Rekkul
+	["Buy the whole bracket's share in one go: 77 {item:3371} (3s 8c) and 15 {item:3372} (6s); about 9s 8c in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:1286}, {npc:5503} and {npc:1325}; {zone:1454}: {npc:3367}, {npc:3348} and {npc:3334})."] = "",
 
 	-- Step 21: Alchemy 75-150: Auction House
 	-- {skill:171} Alchemy
-	["{skill:171} 75-150: Auction House"] = "",
+	["{skill:171} 75-150: Auction House"] = "{skill:171} 75-150: casa de subastas",
 	-- {item:785} Mageroyal · {item:2450} Briarthorn · {item:2453} Bruiseweed
-	["What 75-150 takes that the Auction House sells: 77 {item:785}, 152 {item:2450} and 54 {item:2453}. The counts drop by what your bags, bank and mail hold."] = "",
+	["What 75-150 takes that the Auction House sells: 77 {item:785}, 152 {item:2450} and 54 {item:2453}. The counts drop by what your bags, bank and mail hold."] = "Lo que necesitas para el tramo 75-150 y vende la casa de subastas: 77 {item:785}, 152 {item:2450} y 54 {item:2453}. Las cantidades bajan según lo que tengas en las bolsas, el banco y el correo.",
 
 	-- Step 22: Mageroyal (Westfall)
 	-- {item:785} Mageroyal · {spell:2331} Minor Mana Potion · {spell:3171} Elixir of Wisdom · {skill:182} Herbalism · {zone:1436} Westfall
@@ -171,15 +171,15 @@ return {
 
 	-- Step 38: Minor Mana Potion to 90
 	-- {spell:2331} Minor Mana Potion
-	["{spell:2331} to 90"] = "",
+	["{spell:2331} to 90"] = "{spell:2331} hasta 90",
 	-- {spell:2331} Minor Mana Potion · {item:785} Mageroyal · {item:2447} Peacebloom · {item:3371} Empty Vial · {spell:3171} Elixir of Wisdom
 	["{spell:2331} is yellow at 75 (yellow 65, green 85, grey 105): about 28 crafts to 90. Each takes 1 {item:785}, 1 {item:2447} and 1 {item:3371}. The trainer teaches it from 25. It is yellow already, so count on about two crafts a point until {spell:3171} takes over at 90. {item:785} grows in the 10-25 zones."] = "",
 
 	-- Step 39: Alchemy recipes at 90
 	-- {skill:171} Alchemy
-	["{skill:171} recipes at 90"] = "",
+	["{skill:171} recipes at 90"] = "Recetas de {skill:171} a 90",
 	-- {skill:171} Alchemy · {spell:3171} Elixir of Wisdom
-	["Back to an {skill:171} trainer: {spell:3171} (from 90)."] = "",
+	["Back to an {skill:171} trainer: {spell:3171} (from 90)."] = "Vuelve con un instructor de {skill:171}: {spell:3171} (desde 90).",
 
 	-- Step 40: Elixir of Wisdom to 135
 	-- {spell:3171} Elixir of Wisdom
@@ -189,7 +189,7 @@ return {
 
 	-- Step 41: Alchemy recipes at 135
 	-- {skill:171} Alchemy
-	["{skill:171} recipes at 135"] = "",
+	["{skill:171} recipes at 135"] = "Recetas de {skill:171} a 135",
 	-- {skill:171} Alchemy · {spell:3176} Lesser Troll's Blood Elixir
 	["Back to an {skill:171} trainer: {spell:3176} (from 125)."] = "",
 
@@ -202,14 +202,14 @@ return {
 	-- Step 43: Alchemy 150-225: vendor goods
 	-- {skill:171} Alchemy
 	["{skill:171} 150-225: vendor goods"] = "",
-	-- {item:3372} Leaded Vial · {zone:1453} Stormwind City · {npc:1286} Edna Mullby · {npc:1325} Jasper Fel · {zone:1454} Orgrimmar · {npc:3367} Felika · {npc:3348} Kor'geld · {npc:3334} Rekkul
-	["Buy the whole bracket's share in one go: 83 {item:3372} (33s 20c); about 33s 20c in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:1286}, Eldraeith and {npc:1325}; {zone:1454}: {npc:3367}, {npc:3348} and {npc:3334})."] = "",
+	-- {item:3372} Leaded Vial · {zone:1453} Stormwind City · {npc:1286} Edna Mullby · {npc:5503} Eldraeith · {npc:1325} Jasper Fel · {zone:1454} Orgrimmar · {npc:3367} Felika · {npc:3348} Kor'geld · {npc:3334} Rekkul
+	["Buy the whole bracket's share in one go: 83 {item:3372} (33s 20c); about 33s 20c in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:1286}, {npc:5503} and {npc:1325}; {zone:1454}: {npc:3367}, {npc:3348} and {npc:3334})."] = "",
 
 	-- Step 44: Alchemy 150-225: Auction House
 	-- {skill:171} Alchemy
-	["{skill:171} 150-225: Auction House"] = "",
+	["{skill:171} 150-225: Auction House"] = "{skill:171} 150-225: casa de subastas",
 	-- {item:3355} Wild Steelbloom · {item:3356} Kingsblood · {item:3820} Stranglekelp · {item:3821} Goldthorn
-	["What 150-225 takes that the Auction House sells: 40 {item:3355}, 39 {item:3356}, 39 {item:3820} and 40 {item:3821}. The counts drop by what your bags, bank and mail hold."] = "",
+	["What 150-225 takes that the Auction House sells: 40 {item:3355}, 39 {item:3356}, 39 {item:3820} and 40 {item:3821}. The counts drop by what your bags, bank and mail hold."] = "Lo que necesitas para el tramo 150-225 y vende la casa de subastas: 40 {item:3355}, 39 {item:3356}, 39 {item:3820} y 40 {item:3821}. Las cantidades bajan según lo que tengas en las bolsas, el banco y el correo.",
 
 	-- Step 45: Wild Steelbloom (Alliance)
 	-- {object:1623} Wild Steelbloom
@@ -273,7 +273,7 @@ return {
 
 	-- Step 55: Alchemy recipes at 160
 	-- {skill:171} Alchemy
-	["{skill:171} recipes at 160"] = "",
+	["{skill:171} recipes at 160"] = "Recetas de {skill:171} a 160",
 	-- {spell:3452} Mana Potion
 	["Still at the Expert trainer: {spell:3452} (from 160)."] = "",
 
@@ -285,7 +285,7 @@ return {
 
 	-- Step 57: Alchemy recipes at 195
 	-- {skill:171} Alchemy
-	["{skill:171} recipes at 195"] = "",
+	["{skill:171} recipes at 195"] = "Recetas de {skill:171} a 195",
 	-- {spell:11450} Elixir of Defense
 	["Still at the Expert trainer: {spell:11450} (from 195)."] = "",
 
@@ -298,8 +298,8 @@ return {
 	-- Step 59: Alchemy 225-300: vendor goods
 	-- {skill:171} Alchemy
 	["{skill:171} 225-300: vendor goods"] = "",
-	-- {item:3372} Leaded Vial · {item:8925} Crystal Vial · {zone:1453} Stormwind City · {npc:1286} Edna Mullby · {npc:1325} Jasper Fel · {zone:1454} Orgrimmar · {npc:3367} Felika · {npc:3348} Kor'geld · {npc:3334} Rekkul
-	["Buy the whole bracket's share in one go: 51 {item:3372} (20s 40c) and 86 {item:8925} (4g 30s); about 4g 50s 40c in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:1286}, Eldraeith and {npc:1325}; {zone:1454}: {npc:3367}, {npc:3348} and {npc:3334})."] = "",
+	-- {item:3372} Leaded Vial · {item:8925} Crystal Vial · {zone:1453} Stormwind City · {npc:1286} Edna Mullby · {npc:5503} Eldraeith · {npc:1325} Jasper Fel · {zone:1454} Orgrimmar · {npc:3367} Felika · {npc:3348} Kor'geld · {npc:3334} Rekkul
+	["Buy the whole bracket's share in one go: 51 {item:3372} (20s 40c) and 86 {item:8925} (4g 30s); about 4g 50s 40c in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:1286}, {npc:5503} and {npc:1325}; {zone:1454}: {npc:3367}, {npc:3348} and {npc:3334})."] = "",
 
 	-- Step 60: Recipe: Elixir of Superior Defense
 	-- {item:13478} Recipe: Elixir of Superior Defense · {item:13445} Elixir of Greater Defense · {skill:171} Alchemy · {npc:5178} Soolie Berryfizz · {zone:1455} Ironforge · {npc:3348} Kor'geld · {zone:1454} Orgrimmar
@@ -307,9 +307,9 @@ return {
 
 	-- Step 61: Alchemy 225-300: Auction House
 	-- {skill:171} Alchemy
-	["{skill:171} 225-300: Auction House"] = "",
+	["{skill:171} 225-300: Auction House"] = "{skill:171} 225-300: casa de subastas",
 	-- {item:8836} Arthas' Tears · {item:8838} Sungrass · {item:13422} Stonescale Eel
-	["What 225-300 takes that the Auction House sells: 43 {item:8836}, 43 {item:8838} and 43 {item:13422}. The counts drop by what your bags, bank and mail hold."] = "",
+	["What 225-300 takes that the Auction House sells: 43 {item:8836}, 43 {item:8838} and 43 {item:13422}. The counts drop by what your bags, bank and mail hold."] = "Lo que necesitas para el tramo 225-300 y vende la casa de subastas: 43 {item:8836}, 43 {item:8838} y 43 {item:13422}. Las cantidades bajan según lo que tengas en las bolsas, el banco y el correo.",
 
 	-- Step 62: Arthas' Tears (Alliance)
 	-- {item:8836} Arthas' Tears
@@ -361,7 +361,7 @@ return {
 	-- {skill:171} Alchemy
 	["{skill:171} recipes at 230"] = "Recetas de {skill:171} a 230",
 	-- {spell:11460} Draught of Detect Undead
-	["Still at the Artisan trainer: {spell:11460} (from 230)."] = "",
+	["Still at the Artisan trainer: {spell:11460} (from 230)."] = "Sigue con el instructor de artesano: {spell:11460} (desde 230).",
 
 	-- Step 71: Draught of Detect Undead to 265
 	-- {item:9154} Draught of Detect Undead
@@ -372,9 +372,9 @@ return {
 
 	-- Step 72: Alchemy recipes at 265
 	-- {skill:171} Alchemy
-	["{skill:171} recipes at 265"] = "",
+	["{skill:171} recipes at 265"] = "Recetas de {skill:171} a 265",
 	-- {spell:17551} Stonescale Oil
-	["Still at the Artisan trainer: {spell:17551} (from 250)."] = "",
+	["Still at the Artisan trainer: {spell:17551} (from 250)."] = "Sigue con el instructor de artesano: {spell:17551} (desde 250).",
 
 	-- Step 73: Elixir of Greater Defense to 300
 	-- {item:13445} Elixir of Greater Defense
@@ -387,12 +387,9 @@ return {
 	-- ["Apprentice {skill:171}"] = "{skill:171} de aprendiz",
 	-- ["Artisan needs character level 35 and {skill:171} 200; it raises the cap to 300. Materials for 225-300 are worth about 7g 80s in all."] = "Artesano requiere nivel de personaje 35 y {skill:171} 200; sube el tope a 300. Los materiales de 225-300 valen unos 7g 80s en total.",
 	-- ["Back to an {skill:171} trainer: {spell:11447} is taught from {skill:171} 190."] = "Vuelve con un instructor de {skill:171}: {spell:11447} se enseña a partir de {skill:171} 190.",
-	-- ["Back to an {skill:171} trainer: {spell:11450} is taught from {skill:171} 215."] = "Vuelve con un instructor de {skill:171}: {spell:11450} se enseña a partir de {skill:171} 215.",
-	-- ["Back to an {skill:171} trainer: {spell:11460} is taught from {skill:171} 245."] = "Vuelve con un instructor de {skill:171}: {spell:11460} se enseña a partir de {skill:171} 245.",
 	-- ["Back to an {skill:171} trainer: {spell:1244645} is taught from {skill:171} 85."] = "Vuelve con un instructor de {skill:171}: {spell:1244645} se enseña a partir de {skill:171} 85.",
 	-- ["Back to an {skill:171} trainer: {spell:1244647} is taught from {skill:171} 175."] = "Vuelve con un instructor de {skill:171}: {spell:1244647} se enseña a partir de {skill:171} 175.",
 	-- ["Back to an {skill:171} trainer: {spell:1244648} is taught from {skill:171} 230."] = "Vuelve con un instructor de {skill:171}: {spell:1244648} se enseña a partir de {skill:171} 230.",
-	-- ["Back to an {skill:171} trainer: {spell:17551} is taught from {skill:171} 250."] = "Vuelve con un instructor de {skill:171}: {spell:17551} se enseña a partir de {skill:171} 250.",
 	-- ["Back to an {skill:171} trainer: {spell:7845} is taught from {skill:171} 165."] = "Vuelve con un instructor de {skill:171}: {spell:7845} se enseña a partir de {skill:171} 165.",
 	-- ["Expert needs character level 20 and {skill:171} 125; it raises the cap to 225. Materials for 150-225 are worth about 3g 65s in all."] = "Experto requiere nivel de personaje 20 y {skill:171} 125; sube el tope a 225. Los materiales de 150-225 valen unos 3g 65s en total.",
 	-- ["Fish {object:180582}; this is where the data has most of them. The Auction House works too."] = "Pesca en {object:180582}; aquí es donde más hay según los datos. También sirve la Casa de subastas.",
@@ -462,15 +459,9 @@ return {
 	-- ["{item:785} (Horde)"] = "{item:785} (Horda)",
 	-- ["{npc:1958} (level 17-18) drop it here. The Auction House works too."] = "Los {npc:1958} (nivel 17-18) lo sueltan aquí. También sirve la Casa de subastas.",
 	-- ["{npc:513} (level 14-15) drop it here. The Auction House works too."] = "Los {npc:513} (nivel 14-15) lo sueltan aquí. También sirve la Casa de subastas.",
-	-- ["{skill:171} recipes at 165"] = "Recetas de {skill:171} a 165",
-	-- ["{skill:171} recipes at 175"] = "Recetas de {skill:171} a 175",
-	-- ["{skill:171} recipes at 200"] = "Recetas de {skill:171} a 200",
-	-- ["{skill:171} recipes at 215"] = "Recetas de {skill:171} a 215",
-	-- ["{skill:171} recipes at 250"] = "Recetas de {skill:171} a 250",
 	-- ["{skill:171} recipes at 259"] = "Recetas de {skill:171} a 259",
 	-- ["{skill:171} recipes at 85"] = "Recetas de {skill:171} a 85",
 	-- ["{skill:171} runs alongside leveling. Forever's Legacy System rewards crafting professions at skill 150, 225 and 300 (the Journeyman, Expert and Artisan caps), so each of those checkpoints counts. Materials for 1-75 are worth about 68s in all."] = "{skill:171} se sube a la vez que el nivel. El sistema de Legado de Forever recompensa las profesiones de fabricación con habilidad 150, 225 y 300 (los topes de oficial, experto y artesano), así que cada uno de esos hitos cuenta. Los materiales de 1-75 valen unos 68s en total.",
 	-- ["{spell:11447} to 215"] = "{spell:11447} hasta 215",
-	-- ["{spell:2331} to 85"] = "{spell:2331} hasta 85",
 	-- ["{spell:7845} to 175"] = "{spell:7845} hasta 175",
 }

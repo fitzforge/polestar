@@ -129,109 +129,111 @@ return {
 	-- {npc:11897} Duskwing
 	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:11897} is a level 60 elite: most classes solo it at level 62, but you may need help. Skip it if you are alone: the route has you grind the XP back."] = "这些是精英怪：建议组队，找人一起做。{npc:11897} 是 60 级精英：多数职业在 62 级能单人击败，但你可能需要帮助。独自一人就跳过：路线会让你打怪补回这部分经验。",
 
-	-- Step 29: Fly to Undercity
-	-- {area:1497} Undercity
-	["Fly to {area:1497}"] = "飞往{area:1497}",
+	-- Step 29: Class trainer
+	["Class trainer"] = "职业训练师",
+	-- {zone:1454} Orgrimmar · {zone:1447} Azshara
+	["Hearth to {zone:1454}: the Hearthstone is still bound there from the {zone:1447} guide (Mages teleport). Train before the flight."] = "用炉石回{zone:1454}：炉石自{zone:1447}指南起仍绑定在那里（法师可传送）。坐飞机前先训练。",
 
-	-- Step 30: Zeppelin to Orgrimmar
-	-- {zone:1454} Orgrimmar
-	["Zeppelin to {zone:1454}"] = "乘飞艇前往{zone:1454}",
-
-	-- Step 31: Fly to Bloodvenom Post
+	-- Step 30: Fly to Bloodvenom Post
 	-- {area:1997} Bloodvenom Post
 	["Fly to {area:1997}"] = "飞往{area:1997}",
+	-- {zone:1454} Orgrimmar · {zone:1447} Azshara
+	["Hearth to {zone:1454}: the Hearthstone is still bound there from the {zone:1447} guide (Mages teleport). Then the flight master."] = "用炉石回{zone:1454}：炉石自{zone:1447}指南起仍绑定在那里（法师可传送）。然后去找飞行管理员。",
 	-- {zone:1454} Orgrimmar
 	["{zone:1454} flight master"] = "{zone:1454}飞行管理员",
 
-	-- Step 32: Fly to Thunder Bluff
+	-- Step 31: Fly to Thunder Bluff
 	-- {area:1638} Thunder Bluff
 	["Fly to {area:1638}"] = "飞往{area:1638}",
+	-- {zone:1454} Orgrimmar · {zone:1447} Azshara
+	["Hearth to {zone:1454}: the Hearthstone is still bound there from the {zone:1447} guide. Then the flight master."] = "用炉石回{zone:1454}：炉石自{zone:1447}指南起仍绑定在那里。然后去找飞行管理员。",
 
-	-- Step 33: Thunder Bluff
+	-- Step 32: Thunder Bluff
 	-- {npc:3033} Turak Runetotem · {area:1639} Elder Rise · {npc:246344} Alodan the Hopeful
 	["{npc:3033} (Druids) trains on {area:1639}, {npc:246344} (Paladins) in the city too."] = "{npc:3033}（德鲁伊）在{area:1639}提供训练，{npc:246344}（圣骑士）也在城里。",
 	-- {npc:3033} Turak Runetotem · {area:1639} Elder Rise · {npc:246344} Alodan the Hopeful
 	["{npc:3033} on {area:1639}; {npc:246344}"] = "{area:1639}的{npc:3033}；{npc:246344}",
 
-	-- Step 34: Fly to Bloodvenom Post
+	-- Step 33: Fly to Bloodvenom Post
 	-- {zone:1456} Thunder Bluff
 	["{zone:1456} flight master"] = "{zone:1456}飞行管理员",
 
-	-- Step 36: Deadwood Cauldron
+	-- Step 35: Deadwood Cauldron
 	-- {area:1762} Felpaw Village · {area:1769} Timbermaw Hold
 	["Ride north up the road. The cauldron stands in {area:1762}, just south-west of {area:1769}; the Deadwood furbolgs there are hostile."] = "沿路向北骑行。大锅在{area:1769}西南不远处的{area:1762}；那里的死木熊怪是敌对的。",
 
-	-- Step 37: Kernda
+	-- Step 36: Kernda
 	-- {quest:8471} Winterfall Ritual Totem · {npc:11558} Kernda · {zone:1448} Felwood · {area:1769} Timbermaw Hold
 	["Only if a {quest:8471} dropped for you: {npc:11558} waits at the {zone:1448} entrance of {area:1769}, and speaks to you only at Neutral with the Timbermaw."] = "仅当你掉落了{quest:8471}时：{npc:11558}在{area:1769}的{zone:1448}入口处等候，只有你在木喉要塞声望达到中立时才会和你说话。",
 	-- {npc:11558} Kernda
 	["{npc:11558} walks around here: look inside the circle on the map"] = "{npc:11558}在附近巡逻，请在地图标示的圆圈内寻找",
 
-	-- Step 39: Rabine Saturna
+	-- Step 38: Rabine Saturna
 	-- {area:1769} Timbermaw Hold · {zone:1450} Moonglade · {npc:11801} Rabine Saturna · {area:2361} Nighthaven
 	["Go through {area:1769} and take the {zone:1450} branch of the tunnel. {npc:11801} is in {area:2361}."] = "穿过{area:1769}，走隧道通往{zone:1450}的岔路。{npc:11801}在{area:2361}。",
 
-	-- Step 40: Class trainer
-	["Class trainer"] = "职业训练师",
-
-	-- Step 41: Rabine Saturna
+	-- Step 39: Rabine Saturna
 	-- {zone:1451} Silithus
 	["Both quests lead to {zone:1451}: keep them."] = "两个任务都通往{zone:1451}：留着它们。",
 
-	-- Step 43: Donova Snowden
+	-- Step 40: Salfa
+	-- {zone:1452} Winterspring · {npc:11556} Salfa
+	["Back through the tunnel and take the {zone:1452} exit: {npc:11556} stands right where it comes out."] = "穿过隧道回去，走{zone:1452}出口：{npc:11556}就站在出口处。",
+
+	-- Step 42: Donova Snowden
 	-- {zone:1452} Winterspring · {area:2246} Frostfire Hot Springs
-	["Back through the tunnel and take the {zone:1452} exit, then ride south to {area:2246}."] = "穿过隧道回去，走{zone:1452}出口，然后向南骑往{area:2246}。",
+	["From the tunnel's {zone:1452} exit, ride south to {area:2246}."] = "从隧道的{zone:1452}出口向南骑往{area:2246}。",
 	-- {quest:5086} Toxic Horrors · {zone:1448} Felwood
 	["{quest:5086} are in {zone:1448}, on a later trip: keep it."] = "{quest:5086}在{zone:1448}，以后才会去，先保留任务。",
 
-	-- Step 44: Moontouched Owlbeasts
+	-- Step 43: Moontouched Owlbeasts
 	-- plural, as words: Moontouched Owlbeasts = {npc:7453} Moontouched Owlbeast
 	["Moontouched Owlbeasts"] = "月光枭兽",
 	-- {area:2255} Everlook · {area:2241} Frostsaber Rock
 	-- plural, as words: Moontouched Owlbeasts = {npc:7453} Moontouched Owlbeast
-	["Ride east to {area:2255} and north out of it; the Moontouched Owlbeasts roam the hills of {area:2241}'s southern slopes. Pull them one at a time."] = "向东骑往{area:2255}，再从那里向北出去；月光枭兽在{area:2241}南坡的山丘上游荡。一次引一只。",
+	["Ride east to {area:2255} and north out of it; the Moontouched Owlbeasts roam the hills of {area:2241}'s southern slopes. Pull them one at a time.\nCareful: Hailspite, level 60 elites, gather in the snowfields south-east of {area:2255}, where a few Moontouched Owlbeasts roam too: stay on the slopes north of town."] = "向东骑往{area:2255}，再从那里向北出去；月光枭兽在{area:2241}南坡的山丘上游荡。一次引一只。\n小心：60级精英Hailspite聚集在{area:2255}东南方的雪原上，那里也有少量月光枭兽游荡：待在镇子北边的山坡上。",
 
-	-- Step 46: Fly to Gadgetzan
+	-- Step 45: Fly to Gadgetzan
 	-- {area:976} Gadgetzan
 	["Fly to {area:976}"] = "飞往{area:976}",
 	-- {area:2255} Everlook
 	["{area:2255} flight master"] = "{area:2255}的飞行管理员",
 
-	-- Step 47: Gaeriyan
+	-- Step 46: Gaeriyan
 	-- {item:11243} Videre Elixir · {area:976} Gadgetzan · {npc:9299} Gaeriyan
 	["Drink the {item:11243} at the graveyard just east of {area:976}: it kills you, and only as a ghost can you see {npc:9299}, in a rocky crevice in the hills due north of it. Talk to him there, then run back to your body and resurrect: the Conspicuous Gravestone he sends you to stands in that graveyard."] = "在{area:976}东边不远处的墓地喝下{item:11243}：它会杀死你，只有以鬼魂形态才能看到{npc:9299}，他在墓地正北方山丘中的一道岩缝里。在那里和他交谈，然后跑回尸体处复活：他让你去找的显眼的墓碑就在那片墓地里。",
 
-	-- Step 48: Sprinkle
+	-- Step 47: Sprinkle
 	-- {item:12928} Umi's Mechanical Yeti · {npc:7583} Sprinkle · {area:976} Gadgetzan · {npc:10977} Quixxil · {npc:10978} Legacki
 	["Use {item:12928} on {npc:7583}, the goblin girl in {area:976}. {npc:10977} and {npc:10978} are scared later in the route."] = "对{area:976}的地精女孩{npc:7583}使用{item:12928}。{npc:10977}和{npc:10978}在路线后面再吓唬。",
 	-- {npc:7583} Sprinkle · {item:12928} Umi's Mechanical Yeti
 	["Scare {npc:7583} with {item:12928}"] = "用{item:12928}吓唬{npc:7583}",
 
-	-- Step 49: Gaeriyan
+	-- Step 48: Gaeriyan
 	-- {quest:3914} Linken's Sword · {npc:8737} Linken
 	["{quest:3914} goes back to {npc:8737} in Un'Goro: keep it."] = "{quest:3914}要交还给安戈洛的{npc:8737}：留着它。",
 
-	-- Step 50: Marvon Rivetseeker
+	-- Step 49: Marvon Rivetseeker
 	-- {npc:7771} Marvon Rivetseeker · {area:1336} Lost Rigger Cove · {area:976} Gadgetzan
 	["{npc:7771} camps by the {area:1336} road, south of {area:976}."] = "{npc:7771}在{area:976}南边通往{area:1336}的路旁扎营。",
 
-	-- Step 51: Fly to Marshal's Refuge
+	-- Step 50: Fly to Marshal's Refuge
 	-- {area:541} Marshal's Refuge
 	["Fly to {area:541}"] = "飞往{area:541}",
 	-- {area:976} Gadgetzan
 	["{area:976} flight master"] = "{area:976}的飞行管理员",
 
-	-- Step 52: Marshal's Refuge
+	-- Step 51: Marshal's Refuge
 	-- {area:541} Marshal's Refuge · {npc:9997} Spraggle Frock · {npc:8737} Linken
 	["The flight lands at {area:541}: {npc:9997} stands beside the flight master, and {npc:8737} by the cave a few steps away. {npc:9997}'s work is in Un'Goro on the next guide's way back north."] = "飞行落点在{area:541}：{npc:9997}站在飞行管理员旁，{npc:8737}在几步外的洞穴边。{npc:9997}的差事要到安戈洛环形山完成，下份指南向北返回时会顺路去。",
 	-- {quest:3941} A Gnome's Assistance · {npc:9117} J.D. Collie · {area:541} Marshal's Refuge
 	["{quest:3941} goes to {npc:9117} in the cave here, on the next guide's return to {area:541}: keep it."] = "{quest:3941}要交给这里洞穴中的{npc:9117}，下一份指南返回{area:541}时再交，先保留任务。",
 
-	-- Step 53: Layo Starstrike
+	-- Step 52: Layo Starstrike
 	-- {area:3077} Valor's Rest · {zone:1451} Silithus · {npc:13220} Layo Starstrike
 	["The pass from Un'Goro comes out at {area:3077}, the graveyard in north-east {zone:1451}. {npc:13220} stands among the graves."] = "从安戈洛环形山出来的山口通往{area:3077}，那是{zone:1451}东北部的墓地。{npc:13220}站在坟墓之间。",
 
-	-- Step 54: The Spirits of Southwind
+	-- Step 53: The Spirits of Southwind
 	-- {area:2738} Southwind Village · {object:179565} Dusty Reliquary · {quest:1123} Rabine Saturna
 	["Ride south-west to the ruins of {area:2738}. The {object:179565} for {quest:1123} sits inside one of the ruined houses."] = "向西南骑到{area:2738}的废墟，{quest:1123}所需的{object:179565}就在一栋破屋内。",
 
@@ -242,6 +244,7 @@ return {
 	-- ["Fly to the {zone:1458}, take the zeppelin to {zone:1454} and fly on to {area:1638}."] = "飞往{zone:1458}，乘飞艇前往{zone:1454}，再继续飞往{area:1638}。",
 	-- ["Fly to {area:1099}"] = "飞往{area:1099}",
 	-- ["Fly to {area:1099}. The hippogryph nests are in the south of {zone:1444}; each holds an egg for the {object:142071}."] = "飞往{area:1099}。角鹰兽的巢在{zone:1444}南部；每个巢里都有一个蛋，用于{object:142071}。",
+	-- ["Fly to {area:1497}"] = "飞往{area:1497}",
 	-- ["Fly to {area:541}, then ride south-west through Un'Goro to the pass into {zone:1451}. The next guide opens at {area:3077}, where the pass comes out."] = "飞往{area:541}，然后向西南穿过安戈洛环形山，前往进入{zone:1451}的山口。下一个指南从山口出口处的{area:3077}开始。",
 	-- ["Go through {area:1769} and take the {area:493} branch of the tunnel. {npc:11801} is in {area:2361}."] = "穿过{area:1769}，走隧道通往{area:493}的岔路。{npc:11801}在{area:2361}。",
 	-- ["Hameya hides among the Mossflayer trolls of {area:2273}, in the north-east corner."] = "哈米亚躲在东北角{area:2273}的烂苔巨魔中间。",
@@ -267,6 +270,7 @@ return {
 	-- ["The {object:142071} machine"] = "{object:142071}机器",
 	-- ["The {object:177675} is just behind the {area:2261}."] = "{object:177675}就在{area:2261}后面。",
 	-- ["Upstairs"] = "在楼上",
+	-- ["Zeppelin to {zone:1454}"] = "乘飞艇前往{zone:1454}",
 	-- ["{area:1099} flight master"] = "{area:1099}的飞行管理员",
 	-- ["{item:15447} spoils within ten minutes: kill the town's Scourge quickly and grind the seven pieces with the {item:15454} at once."] = "{item:15447}十分钟内就会变质：快速杀死镇上的天灾军团，然后立刻用{item:15454}把七块研磨好。",
 	-- ["{npc:10778}'s farm is the first one east of the {area:152}. Jabbering Ghouls on the farm carry the other half of her charm; {npc:11075} guards the cauldron in the field.\nCareful: One or two undead usually fight alongside him, and more cauldron lords can attack after you use the cauldron."] = "{npc:10778}的农场是{area:152}以东第一座农场。农场里的喋喋不休的食尸鬼携带她护符的另一半；{npc:11075}守着田里的大锅。\n小心：通常有一两只亡灵与他并肩战斗，使用大锅后还可能有更多护锅者来袭。",

@@ -15,9 +15,9 @@ return {
 
 	-- Step 2: Blacksmithing 1-75: Auction House
 	-- {skill:164} Blacksmithing
-	["{skill:164} 1-75: Auction House"] = "",
+	["{skill:164} 1-75: Auction House"] = "{skill:164} 1-75: casa de subastas",
 	-- {item:2835} Rough Stone
-	["What 1-75 takes that the Auction House sells: 286 {item:2835}. The counts drop by what your bags, bank and mail hold."] = "",
+	["What 1-75 takes that the Auction House sells: 286 {item:2835}. The counts drop by what your bags, bank and mail hold."] = "Lo que necesitas para el tramo 1-75 y vende la casa de subastas: 286 {item:2835}. Las cantidades bajan según lo que tengas en las bolsas, el banco y el correo.",
 
 	-- Step 3: Rough Stone (Elwynn Forest)
 	-- {item:2835} Rough Stone · {spell:2660} Rough Sharpening Stone · {spell:3320} Rough Grinding Stone · {skill:186} Mining · {object:1731} Copper Vein · {zone:1429} Elwynn Forest
@@ -49,13 +49,13 @@ return {
 
 	-- Step 10: Rough Sharpening Stone to 35
 	-- {spell:2660} Rough Sharpening Stone
-	["{spell:2660} to 35"] = "",
+	["{spell:2660} to 35"] = "{spell:2660} hasta 35",
 	-- {spell:2660} Rough Sharpening Stone · {item:2835} Rough Stone
 	["{spell:2660} is orange at 1 (yellow 15, green 35, grey 55): about 42 crafts to 35. Each takes 1 {item:2835}. One {item:2835} a craft, a point every craft to 15."] = "",
 
 	-- Step 11: Blacksmithing recipes at 35
 	-- {skill:164} Blacksmithing
-	["{skill:164} recipes at 35"] = "",
+	["{skill:164} recipes at 35"] = "Recetas de {skill:164} a 35",
 	-- {skill:164} Blacksmithing · {spell:3320} Rough Grinding Stone · {spell:1230171} Sharpening Wheel · {item:2835} Rough Stone · {item:2840} Copper Bar
 	["Back to a {skill:164} trainer: {spell:3320} (from 25, 1s). Also learn {spell:1230171} (1s): Forever's {skill:164} camp item, 1 {item:2835} and 1 {item:2840}, placed at a campsite beside a campfire for its buff. The Camping 101: {skill:164} quest from your starting area's camping guide (after The Great Outdoors) sends you to a blacksmithing trainer who teaches it free."] = "",
 
@@ -74,15 +74,15 @@ return {
 	-- Step 14: Blacksmithing 75-150: vendor goods
 	-- {skill:164} Blacksmithing
 	["{skill:164} 75-150: vendor goods"] = "",
-	-- {item:5956} Blacksmith Hammer · {zone:1453} Stormwind City · {npc:5519} Billibub Cogspinner · {npc:1286} Edna Mullby · {npc:5512} Kaita Deepforge · {zone:1454} Orgrimmar · {npc:3367} Felika · {npc:5817} Shimra
-	["Buy the whole bracket's share in one go: {item:5956} (a tool: one, kept in your bags, 18c); about 18c in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:5519}, {npc:1286} and {npc:5512}; {zone:1454}: {npc:3367}, {npc:5817} and Sovik)."] = "",
+	-- {item:5956} Blacksmith Hammer · {zone:1453} Stormwind City · {npc:5519} Billibub Cogspinner · {npc:1286} Edna Mullby · {npc:5512} Kaita Deepforge · {zone:1454} Orgrimmar · {npc:3367} Felika · {npc:5817} Shimra · {npc:3413} Sovik
+	["Buy the whole bracket's share in one go: {item:5956} (a tool: one, kept in your bags, 18c); about 18c in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:5519}, {npc:1286} and {npc:5512}; {zone:1454}: {npc:3367}, {npc:5817} and {npc:3413})."] = "",
 	["a tool, keep it in your bags"] = "",
 
 	-- Step 15: Blacksmithing 75-150: Auction House
 	-- {skill:164} Blacksmithing
-	["{skill:164} 75-150: Auction House"] = "",
+	["{skill:164} 75-150: Auction House"] = "{skill:164} 75-150: casa de subastas",
 	-- {item:2836} Coarse Stone · {item:2838} Heavy Stone · {item:2840} Copper Bar · {item:2841} Bronze Bar
-	["What 75-150 takes that the Auction House sells: 256 {item:2836}, 28 {item:2838}, 210 {item:2840} and 320 {item:2841}. The counts drop by what your bags, bank and mail hold."] = "",
+	["What 75-150 takes that the Auction House sells: 256 {item:2836}, 28 {item:2838}, 210 {item:2840} and 320 {item:2841}. The counts drop by what your bags, bank and mail hold."] = "Lo que necesitas para el tramo 75-150 y vende la casa de subastas: 256 {item:2836}, 28 {item:2838}, 210 {item:2840} y 320 {item:2841}. Las cantidades bajan según lo que tengas en las bolsas, el banco y el correo.",
 
 	-- Step 16: Coarse Stone (Westfall)
 	-- {item:2836} Coarse Stone · {spell:2672} Patterned Bronze Bracers · {skill:186} Mining · {object:1732} Tin Vein · {zone:1436} Westfall
@@ -118,11 +118,11 @@ return {
 
 	-- Step 25: Copper Bar
 	-- {item:2840} Copper Bar · {spell:2666} Runed Copper Belt · {skill:186} Mining · {item:2770} Copper Ore
-	["210 {item:2840} for {spell:2666}: {skill:186}: smelt {item:2770}."] = "",
+	["210 {item:2840} for {spell:2666}: {skill:186}: smelt {item:2770}."] = "210 {item:2840} para {spell:2666}: {skill:186}: funde {item:2770}.",
 
 	-- Step 26: Bronze Bar
 	-- {item:2841} Bronze Bar · {spell:2672} Patterned Bronze Bracers · {skill:186} Mining · {item:2840} Copper Bar · {item:3576} Tin Bar
-	["320 {item:2841} for {spell:2672}: {skill:186}: smelt {item:2840} and {item:3576}."] = "",
+	["320 {item:2841} for {spell:2672}: {skill:186}: smelt {item:2840} and {item:3576}."] = "320 {item:2841} para {spell:2672}: {skill:186}: funde {item:2840} y {item:3576}.",
 
 	-- Step 27: Rough Grinding Stone to 83
 	-- {spell:3320} Rough Grinding Stone
@@ -141,7 +141,7 @@ return {
 	-- {skill:164} Blacksmithing
 	["{skill:164} recipes at 100"] = "Recetas de {skill:164} a 100",
 	-- {skill:164} Blacksmithing · {spell:2674} Heavy Sharpening Stone
-	["Back to a {skill:164} trainer: {spell:2674} (from 100, 10s)."] = "",
+	["Back to a {skill:164} trainer: {spell:2674} (from 100, 10s)."] = "Vuelve a un instructor de {skill:164}: {spell:2674} (desde 100, 10 p).",
 
 	-- Step 30: Heavy Sharpening Stone to 113
 	-- {spell:2674} Heavy Sharpening Stone
@@ -152,9 +152,9 @@ return {
 
 	-- Step 31: Blacksmithing recipes at 113
 	-- {skill:164} Blacksmithing
-	["{skill:164} recipes at 113"] = "",
+	["{skill:164} recipes at 113"] = "Recetas de {skill:164} a 113",
 	-- {skill:164} Blacksmithing · {spell:2672} Patterned Bronze Bracers
-	["Back to a {skill:164} trainer: {spell:2672} (from 95, 5s)."] = "",
+	["Back to a {skill:164} trainer: {spell:2672} (from 95, 5s)."] = "Vuelve a un instructor de {skill:164}: {spell:2672} (desde 95, 5 p).",
 
 	-- Step 32: Patterned Bronze Bracers to 150
 	-- {spell:2672} Patterned Bronze Bracers
@@ -177,9 +177,9 @@ return {
 
 	-- Step 35: Blacksmithing 150-225: Auction House
 	-- {skill:164} Blacksmithing
-	["{skill:164} 150-225: Auction House"] = "",
+	["{skill:164} 150-225: Auction House"] = "{skill:164} 150-225: casa de subastas",
 	-- {item:2838} Heavy Stone · {item:3575} Iron Bar · {item:3859} Steel Bar · {item:3860} Mithril Bar · {item:7912} Solid Stone
-	["What 150-225 takes that the Auction House sells: 234 {item:2838}, 168 {item:3575}, 195 {item:3859}, 320 {item:3860} and 30 {item:7912}. The counts drop by what your bags, bank and mail hold."] = "",
+	["What 150-225 takes that the Auction House sells: 234 {item:2838}, 168 {item:3575}, 195 {item:3859}, 320 {item:3860} and 30 {item:7912}. The counts drop by what your bags, bank and mail hold."] = "Lo que necesitas para el tramo 150-225 y vende la casa de subastas: 234 {item:2838}, 168 {item:3575}, 195 {item:3859}, 320 {item:3860} y 30 {item:7912}. Las cantidades bajan según lo que tengas en las bolsas, el banco y el correo.",
 
 	-- Step 36: Heavy Stone (Alliance)
 	-- {item:2838} Heavy Stone
@@ -195,15 +195,15 @@ return {
 
 	-- Step 38: Iron Bar
 	-- {item:3575} Iron Bar · {spell:3501} Green Iron Bracers · {skill:186} Mining · {item:2772} Iron Ore
-	["168 {item:3575} for {spell:3501}: {skill:186}: smelt {item:2772}."] = "",
+	["168 {item:3575} for {spell:3501}: {skill:186}: smelt {item:2772}."] = "168 {item:3575} para {spell:3501}: {skill:186}: funde {item:2772}.",
 
 	-- Step 39: Steel Bar
 	-- {item:3859} Steel Bar · {item:6040} Golden Scale Bracers · {skill:186} Mining · {item:3575} Iron Bar
-	["195 {item:3859} for {item:6040}: {skill:186}: smelt {item:3575} and Coal."] = "",
+	["195 {item:3859} for {item:6040}: {skill:186}: smelt {item:3575} and Coal."] = "195 {item:3859} para {item:6040}: {skill:186}: funde {item:3575} y carbón.",
 
 	-- Step 40: Mithril Bar
 	-- {item:3860} Mithril Bar · {item:7930} Heavy Mithril Breastplate · {skill:186} Mining · {item:3858} Mithril Ore
-	["320 {item:3860} for {item:7930}: {skill:186}: smelt {item:3858}."] = "",
+	["320 {item:3860} for {item:7930}: {skill:186}: smelt {item:3858}."] = "320 {item:3860} para {item:7930}: {skill:186}: funde {item:3858}.",
 
 	-- Step 41: Solid Stone (Alliance)
 	-- {item:7912} Solid Stone
@@ -228,7 +228,7 @@ return {
 	-- {skill:164} Blacksmithing
 	["{skill:164} recipes at 175"] = "Recetas de {skill:164} a 175",
 	-- {skill:164} Blacksmithing · {spell:9918} Solid Sharpening Stone
-	["Back to a {skill:164} trainer: {spell:9918} (from 175)."] = "",
+	["Back to a {skill:164} trainer: {spell:9918} (from 175)."] = "Vuelve a un instructor de {skill:164}: {spell:9918} (desde 175).",
 
 	-- Step 45: Solid Sharpening Stone to 185
 	-- {item:7964} Solid Sharpening Stone
@@ -241,20 +241,20 @@ return {
 	-- {skill:164} Blacksmithing
 	["{skill:164} recipes at 185"] = "Recetas de {skill:164} a 185",
 	-- {skill:164} Blacksmithing · {spell:7223} Golden Scale Bracers
-	["Back to a {skill:164} trainer: {spell:7223} (from 160)."] = "",
+	["Back to a {skill:164} trainer: {spell:7223} (from 160)."] = "Vuelve a un instructor de {skill:164}: {spell:7223} (desde 160).",
 
 	-- Step 47: Golden Scale Bracers to 205
 	-- {item:6040} Golden Scale Bracers
-	["{item:6040} to 205"] = "",
+	["{item:6040} to 205"] = "{item:6040} hasta 205",
 	-- {item:6040} Golden Scale Bracers · {item:3859} Steel Bar · {spell:3337} Heavy Grinding Stone · {item:3575} Iron Bar · {skill:186} Mining · {npc:5164} Grumnus Steelshaper · {zone:1455} Ironforge · {npc:11177} Okothos Ironrager · {zone:1454} Orgrimmar · {spell:9788} Armorsmith · {item:7936} Ornate Mithril Boots · {item:7935} Ornate Mithril Breastplate · {npc:11146} Ironus Coldsteel · {npc:11178} Borgosh Corebender · {item:3853} Moonsteel Broadsword · {npc:2482} Zarena Cromwind · {area:35} Booty Bay · {item:3855} Massive Iron Axe
 	-- plural, as words: Steel Bars = {item:3859} Steel Bar · Heavy Grinding Stones = {spell:3337} Heavy Grinding Stone · Ornate Mithril Helms = {item:7937} Ornate Mithril Helm · Moonsteel Broadswords = {item:3853} Moonsteel Broadsword · Massive Iron Axes = {item:3855} Massive Iron Axe · Heavy Mithril Axes = {item:7940} Heavy Mithril Axe · Big Black Maces = {item:7945} Big Black Mace
 	["{item:6040} is yellow at 185 (yellow 185, green 197, grey 210): about 39 crafts to 205. Each takes 5 {item:3859} and 2 {spell:3337}. Make the 78 {spell:3337} first. Steel Bars are smelted from an {item:3575} and a Coal ({skill:186} 165; Coal from trade and blacksmithing suppliers), so each bracer is five of each. Each bracer takes two Heavy Grinding Stones: make them first. Specialisation (optional): at 200 and character level 40, {npc:5164} ({zone:1455}) or {npc:11177} ({zone:1454}) starts The Art of the {spell:9788}: 4 Ornate Mithril Helms, 2 {item:7936} and an {item:7935}, whose plans come from a Mithril Order quest chain. {npc:11146} ({zone:1455}) or {npc:11178} ({zone:1454}) starts The Way of the Weaponsmith: 4 Moonsteel Broadswords, 4 Massive Iron Axes, 2 Heavy Mithril Axes and 2 Big Black Maces; on Forever the {item:3853} plans ({npc:2482}, {area:35}) and {item:3855} plans bind when picked up, so buy and use them yourself. You can take only one; neither is needed for 300, and the beta never tested them (it stopped at level 30). Needs an anvil nearby."] = "",
 
 	-- Step 48: Blacksmithing recipes at 205
 	-- {skill:164} Blacksmithing
-	["{skill:164} recipes at 205"] = "",
-	-- {skill:164} Blacksmithing · {spell:9959} Heavy Mithril Breastplate
-	["Back to a {skill:164} trainer: {spell:9959} (from 205)."] = "",
+	["{skill:164} recipes at 205"] = "Recetas de {skill:164} a 205",
+	-- {spell:9959} Heavy Mithril Breastplate · {npc:2836} Brikk Keencraft · {zone:1434} Stranglethorn Vale · {skill:164} Blacksmithing
+	["{spell:9959} (from 205) is taught only by the Artisan trainers: Alliance {npc:2836} ({zone:1434}); Horde {npc:2836} ({zone:1434}). You can train Artisan there now if you are level 35 (it needs {skill:164} 200), which saves the trip at 225."] = "{spell:9959} (desde 205) solo lo enseñan los instructores de artesano: Alianza, {npc:2836} ({zone:1434}); Horda, {npc:2836} ({zone:1434}). Si eres de nivel 35, puedes aprender artesano allí ahora (requiere {skill:164} 200), lo que te ahorra el viaje a 225.",
 
 	-- Step 49: Heavy Mithril Breastplate to 225
 	-- {item:7930} Heavy Mithril Breastplate
@@ -279,17 +279,17 @@ return {
 
 	-- Step 53: Blacksmithing 225-300: Auction House
 	-- {skill:164} Blacksmithing
-	["{skill:164} 225-300: Auction House"] = "",
+	["{skill:164} 225-300: Auction House"] = "{skill:164} 225-300: casa de subastas",
 	-- {item:1210} Shadowgem · {item:3860} Mithril Bar · {item:4304} Thick Leather · {item:7909} Aquamarine · {item:7910} Star Ruby · {item:7912} Solid Stone · {item:7971} Black Pearl · {item:8170} Rugged Leather · {item:12359} Thorium Bar · {item:12365} Dense Stone · {item:12799} Large Opal
-	["What 225-300 takes that the Auction House sells: 44 {item:1210}, 596 {item:3860}, 142 {item:4304}, 19 {item:7909}, 19 {item:7910}, 44 {item:7912}, 11 {item:7971}, 206 {item:8170}, 2026 {item:12359}, 801 {item:12365} and 10 {item:12799}. The counts drop by what your bags, bank and mail hold."] = "",
+	["What 225-300 takes that the Auction House sells: 44 {item:1210}, 596 {item:3860}, 142 {item:4304}, 19 {item:7909}, 19 {item:7910}, 44 {item:7912}, 11 {item:7971}, 206 {item:8170}, 2026 {item:12359}, 801 {item:12365} and 10 {item:12799}. The counts drop by what your bags, bank and mail hold."] = "Lo que necesitas para el tramo 225-300 y vende la casa de subastas: 44 {item:1210}, 596 {item:3860}, 142 {item:4304}, 19 {item:7909}, 19 {item:7910}, 44 {item:7912}, 11 {item:7971}, 206 {item:8170}, 2026 {item:12359}, 801 {item:12365} y 10 {item:12799}. Las cantidades bajan según lo que tengas en las bolsas, el banco y el correo.",
 
 	-- Step 54: Shadowgem
 	-- {item:1210} Shadowgem · {item:7945} Big Black Mace · {object:1731} Copper Vein · {object:1732} Tin Vein · {object:1733} Silver Vein
-	["44 {item:1210} for {item:7945}: {item:1210} turns up in about one {object:1731}, {object:1732} or {object:1733} in 100: keep the ones you find while mining."] = "",
+	["44 {item:1210} for {item:7945}: {item:1210} turns up in about one {object:1731}, {object:1732} or {object:1733} in 100: keep the ones you find while mining."] = "44 {item:1210} para {item:7945}: {item:1210} sale más o menos en uno de cada 100 {object:1731}, {object:1732} o {object:1733}: guarda los que encuentres al extraer.",
 
 	-- Step 55: Mithril Bar
 	-- {item:3860} Mithril Bar · {item:7933} Heavy Mithril Boots · {item:7945} Big Black Mace · {skill:186} Mining · {item:3858} Mithril Ore
-	["596 {item:3860} for {item:7933} and {item:7945}: {skill:186}: smelt {item:3858}."] = "",
+	["596 {item:3860} for {item:7933} and {item:7945}: {skill:186}: smelt {item:3858}."] = "596 {item:3860} para {item:7933} y {item:7945}: {skill:186}: funde {item:3858}.",
 
 	-- Step 56: Thick Leather (Alliance)
 	-- {item:4304} Thick Leather
@@ -305,11 +305,11 @@ return {
 
 	-- Step 58: Aquamarine
 	-- {item:7909} Aquamarine · {quest:7654} Imperial Plate Boots · {object:2047} Truesilver Deposit · {object:123309} Ooze Covered Truesilver Deposit
-	["19 {item:7909} for {quest:7654}: {item:7909} turns up in about one {object:2047} or {object:123309} in 500: keep the ones you find while mining."] = "",
+	["19 {item:7909} for {quest:7654}: {item:7909} turns up in about one {object:2047} or {object:123309} in 500: keep the ones you find while mining."] = "19 {item:7909} para {quest:7654}: {item:7909} sale más o menos en uno de cada 500 {object:2047} o {object:123309}: guarda los que encuentres al extraer.",
 
 	-- Step 59: Star Ruby
 	-- {item:7910} Star Ruby · {quest:7654} Imperial Plate Boots · {object:2047} Truesilver Deposit · {object:123309} Ooze Covered Truesilver Deposit
-	["19 {item:7910} for {quest:7654}: {item:7910} turns up in about one {object:2047} or {object:123309} in 143: keep the ones you find while mining."] = "",
+	["19 {item:7910} for {quest:7654}: {item:7910} turns up in about one {object:2047} or {object:123309} in 143: keep the ones you find while mining."] = "19 {item:7910} para {quest:7654}: {item:7910} sale más o menos en uno de cada 143 {object:2047} o {object:123309}: guarda los que encuentres al extraer.",
 
 	-- Step 60: Solid Stone (Alliance)
 	-- {item:7912} Solid Stone · {item:7945} Big Black Mace · {skill:186} Mining · {object:2040} Mithril Deposit · {zone:1425} The Hinterlands · {zone:1444} Feralas · {zone:1447} Azshara
@@ -323,7 +323,7 @@ return {
 	-- {item:8170} Rugged Leather
 	["{item:8170} (Alliance)"] = "{item:8170} (Alianza)",
 	-- {item:8170} Rugged Leather · {item:12773} Ornate Thorium Handaxe · {item:12775} Huge Thorium Battleaxe · {skill:393} Skinning · {npc:8598} Frenzied Plaguehound · {npc:8596} Plaguehound Runt
-	["206 {item:8170} for {item:12773} and {item:12775}: {skill:393}: beasts of level 48-60. Skin {npc:8598}, Plaguehound and {npc:8596} here (level 48-60); the {skill:393} guide routes this."] = "",
+	["206 {item:8170} for {item:12773} and {item:12775}: {skill:393}: beasts of level 48-60. Skin {npc:8598}, Plaguehound and {npc:8596} here (level 48-60); the {skill:393} guide routes this."] = "206 {item:8170} para {item:12773} y {item:12775}: {skill:393}: bestias de nivel 48-60. Despelleja aquí a {npc:8598}, Can de la Peste y {npc:8596} (nivel 48-60); la guía de {skill:393} marca la ruta.",
 
 	-- Step 63: Rugged Leather (Horde)
 	-- {item:8170} Rugged Leather
@@ -333,7 +333,7 @@ return {
 
 	-- Step 64: Thorium Bar
 	-- {item:12359} Thorium Bar · {item:12773} Ornate Thorium Handaxe · {item:12775} Huge Thorium Battleaxe · {quest:7654} Imperial Plate Boots · {skill:186} Mining · {item:10620} Thorium Ore
-	["2026 {item:12359} for {item:12773}, {item:12775} and {quest:7654}: {skill:186}: smelt {item:10620}."] = "",
+	["2026 {item:12359} for {item:12773}, {item:12775} and {quest:7654}: {skill:186}: smelt {item:10620}."] = "2026 {item:12359} para {item:12773}, {item:12775} y {quest:7654}: {skill:186}: funde {item:10620}.",
 
 	-- Step 65: Dense Stone (Alliance)
 	-- {item:12365} Dense Stone
@@ -349,7 +349,7 @@ return {
 
 	-- Step 67: Large Opal
 	-- {item:12799} Large Opal · {item:12773} Ornate Thorium Handaxe · {object:175404} Rich Thorium Vein · {object:177388} Ooze Covered Rich Thorium Vein · {object:180215} Hakkari Thorium Vein
-	["10 {item:12799} for {item:12773}: {item:12799} turns up in about one {object:175404}, {object:177388} or {object:180215} in 143: keep the ones you find while mining."] = "",
+	["10 {item:12799} for {item:12773}: {item:12799} turns up in about one {object:175404}, {object:177388} or {object:180215} in 143: keep the ones you find while mining."] = "10 {item:12799} para {item:12773}: {item:12799} sale más o menos en uno de cada 143 {object:175404}, {object:177388} o {object:180215}: guarda los que encuentres al extraer.",
 
 	-- Step 68: Dense Weightstone to 235
 	-- {item:12643} Dense Weightstone
@@ -359,7 +359,7 @@ return {
 
 	-- Step 69: Heavy Mithril Boots to 247
 	-- {item:7933} Heavy Mithril Boots
-	["{item:7933} to 247"] = "",
+	["{item:7933} to 247"] = "{item:7933} hasta 247",
 	-- {item:7933} Heavy Mithril Boots · {item:3860} Mithril Bar · {item:4304} Thick Leather
 	-- plural, as words: Mithril Bars = {item:3860} Mithril Bar · Mithril Deposits = {object:2040} Mithril Deposit
 	["{item:7933} is yellow at 235 (yellow 230, green 240, grey 250): about 30 crafts to 247. Each takes 14 {item:3860} and 4 {item:4304}. Mithril Bars from Mithril Deposits; {item:4304} from skinners or the Auction House. Needs an anvil nearby."] = "",
@@ -380,7 +380,7 @@ return {
 
 	-- Step 72: Huge Thorium Battleaxe to 285
 	-- {item:12775} Huge Thorium Battleaxe
-	["{item:12775} to 285"] = "",
+	["{item:12775} to 285"] = "{item:12775} hasta 285",
 	-- {item:12775} Huge Thorium Battleaxe · {item:12359} Thorium Bar · {item:12644} Dense Grinding Stone · {item:8170} Rugged Leather · {npc:11278} Magnus Frostwake · {area:2298} Caer Darrow · {zone:1422} Western Plaguelands · {quest:7654} Imperial Plate Boots
 	-- plural, as words: Thorium Bars = {item:12359} Thorium Bar · Dense Grinding Stones = {item:12644} Dense Grinding Stone
 	["{item:12775} is orange at 255 (yellow 280, green 292, grey 305): about 31 crafts to 285. Each takes 40 {item:12359}, 6 {item:12644} and 6 {item:8170}. Make the 186 {item:12644} first. Plans from {npc:11278} ({area:2298}, {zone:1422}), unlimited stock, but they bind when picked up. Forty Thorium Bars and six Dense Grinding Stones a craft: the dearest stretch, so stop where the {quest:7654} take over. Other ways through: world-drop plans from the Auction House (the Radiant pieces: about 820 Thorium Bars and 190 Hearts of Fire for the Radiant route) or the Merchant's Favor sets. Needs an anvil nearby."] = "",
@@ -397,19 +397,14 @@ return {
 	["{item:12426} is orange at 285 (yellow 290, green 300, grey 310): about 19 crafts to 300. Each takes 34 {item:12359}, 1 {item:7910} and 1 {item:7909}. About 34 Thorium Bars a craft against the battleaxe's 40 and its grinding stones, orange to 290. Below character level 50 {npc:14567} has no quest for you: keep making Huge Thorium Battleaxes to 300 instead (yellow to 292, grey at 305: about twice the Thorium Bars). Needs an anvil nearby. {skill:164} 300 is a Legacy System milestone."] = "",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
-	-- ["206 {item:8170} for {item:12773} and {item:12775}: {skill:393}: beasts of level 48-60; or the Auction House. Skin {npc:8598}, Plaguehound and {npc:8596} here (level 48-60); the {skill:393} guide routes this."] = "206 {item:8170} para {item:12773} y {item:12775}: {skill:393}: bestias de nivel 48-60; o la casa de subastas. Despelleja aquí a {npc:8598}, Can de la Peste y {npc:8596} (nivel 48-60); la guía de {skill:393} marca la ruta.",
 	-- ["Apprentice {skill:164}"] = "{skill:164} de aprendiz",
 	-- ["Artisan needs character level 35 and {skill:164} 200; it raises the cap to 300. Materials for 225-300 are worth about 942g in all."] = "Artesano requiere nivel de personaje 35 y {skill:164} 200; sube el tope a 300. Los materiales para 225-300 valen unos 942g en total.",
 	-- ["Back to a {skill:164} trainer: {spell:16639} is taught from {skill:164} 230."] = "Vuelve a un instructor de {skill:164}: {spell:16639} se aprende a partir de {skill:164} 230.",
 	-- ["Back to a {skill:164} trainer: {spell:16640} is taught from {skill:164} 230."] = "Vuelve a un instructor de {skill:164}: {spell:16640} se aprende a partir de {skill:164} 230.",
 	-- ["Back to a {skill:164} trainer: {spell:2666} is taught from {skill:164} 80."] = "Vuelve a un instructor de {skill:164}: {spell:2666} se aprende a partir de {skill:164} 80.",
 	-- ["Back to a {skill:164} trainer: {spell:2668} is taught from {skill:164} 95."] = "Vuelve a un instructor de {skill:164}: {spell:2668} se aprende a partir de {skill:164} 95.",
-	-- ["Back to a {skill:164} trainer: {spell:2672} is taught from {skill:164} 120."] = "Vuelve a un instructor de {skill:164}: {spell:2672} se aprende a partir de {skill:164} 120.",
 	-- ["Back to a {skill:164} trainer: {spell:3117} is taught from {skill:164} 100."] = "Vuelve a un instructor de {skill:164}: {spell:3117} se aprende a partir de {skill:164} 100.",
-	-- ["Back to a {skill:164} trainer: {spell:3320} is taught from {skill:164} 45."] = "Vuelve a un instructor de {skill:164}: {spell:3320} se aprende a partir de {skill:164} 45.",
-	-- ["Back to a {skill:164} trainer: {spell:7223} is taught from {skill:164} 185."] = "Vuelve a un instructor de {skill:164}: {spell:7223} se aprende a partir de {skill:164} 185.",
 	-- ["Back to a {skill:164} trainer: {spell:9916} is taught from {skill:164} 200."] = "Vuelve a un instructor de {skill:164}: {spell:9916} se aprende a partir de {skill:164} 200.",
-	-- ["Back to a {skill:164} trainer: {spell:9918} is taught from {skill:164} 175."] = "Vuelve a un instructor de {skill:164}: {spell:9918} se aprende a partir de {skill:164} 175.",
 	-- ["Back to a {skill:164} trainer: {spell:9920}, {spell:9935} are taught from {skill:164} 210."] = "Vuelve a un instructor de {skill:164}: {spell:9920}, {spell:9935} se aprenden a partir de {skill:164} 210.",
 	-- ["Back to a {skill:164} trainer: {spell:9968} is taught from {skill:164} 230."] = "Vuelve a un instructor de {skill:164}: {spell:9968} se aprende a partir de {skill:164} 230.",
 	-- ["Back to a {skill:164} trainer: {spell:9985} is taught from {skill:164} 155."] = "Vuelve a un instructor de {skill:164}: {spell:9985} se aprende a partir de {skill:164} 155.",
@@ -445,7 +440,6 @@ return {
 	-- ["Yellow until 65, green until 85: not every craft gives a point."] = "Amarilla hasta 65, verde hasta 85: no todas las fabricaciones dan un punto.",
 	-- ["Yellow until 65, green until 85: not every craft gives a point. 75 is the Apprentice cap."] = "Amarillo hasta 65, verde hasta 85: no todas las fabricaciones dan punto. 75 es el tope de aprendiz.",
 	-- ["{item:12365} comes from {object:324} nodes ({skill:186}); this is the densest cluster in the data. The Auction House works too."] = "{item:12365} se obtiene de los nodos de {object:324} ({skill:186}); esta es la zona con más nodos según los datos. También puedes comprarlo en la casa de subastas.",
-	-- ["{item:12775} to 300"] = "{item:12775} hasta 300",
 	-- ["{item:2319} (Alliance)"] = "{item:2319} (Alianza)",
 	-- ["{item:2319} (Horde)"] = "{item:2319} (Horda)",
 	-- ["{item:250562} to 268"] = "{item:250562} hasta 268",
@@ -457,11 +451,9 @@ return {
 	-- ["{item:2836} comes from {object:1732} nodes ({skill:186}); this is the densest cluster in the data. The Auction House works too."] = "{item:2836} se obtiene de los nodos de {object:1732} ({skill:186}); esta es la zona con más nodos según los datos. También puedes comprarlo en la casa de subastas.",
 	-- ["{item:2838} comes from {object:1735} nodes ({skill:186}); this is the densest cluster in the data. The Auction House works too."] = "{item:2838} se obtiene de los nodos de {object:1735} ({skill:186}); esta es la zona con más nodos según los datos. También puedes comprarlo en la casa de subastas.",
 	-- ["{item:5956}: a tool, keep it in your bags"] = "{item:5956}: es una herramienta, guárdala en tus bolsas",
-	-- ["{item:6040} to 200"] = "{item:6040} hasta 200",
 	-- ["{item:7912} comes from {object:2040} nodes ({skill:186}); this is the densest cluster in the data. The Auction House works too."] = "{item:7912} se obtiene de los nodos de {object:2040} ({skill:186}); esta es la zona con más nodos según los datos. También puedes comprarlo en la casa de subastas.",
 	-- ["{item:7922} to 225"] = "{item:7922} hasta 225",
 	-- ["{item:7931} to 230"] = "{item:7931} hasta 230",
-	-- ["{item:7933} to 244"] = "{item:7933} hasta 244",
 	-- ["{item:7956} to 175"] = "{item:7956} hasta 175",
 	-- ["{item:7963} to 210"] = "{item:7963} hasta 210",
 	-- ["{item:8831} (Alliance)"] = "{item:8831} (Alianza)",
@@ -469,13 +461,10 @@ return {
 	-- ["{skill:164} materials for 150-225"] = "Materiales de {skill:164} para 150-225",
 	-- ["{skill:164} materials for 225-300"] = "Materiales de {skill:164} para 225-300",
 	-- ["{skill:164} materials for 75-150"] = "Materiales de {skill:164} para 75-150",
-	-- ["{skill:164} recipes at 112"] = "Recetas de {skill:164} a 112",
 	-- ["{skill:164} recipes at 121"] = "Recetas de {skill:164} a 121",
 	-- ["{skill:164} recipes at 155"] = "Recetas de {skill:164} a 155",
-	-- ["{skill:164} recipes at 200"] = "Recetas de {skill:164} a 200",
 	-- ["{skill:164} recipes at 210"] = "Recetas de {skill:164} a 210",
 	-- ["{skill:164} recipes at 230"] = "Recetas de {skill:164} a 230",
-	-- ["{skill:164} recipes at 235"] = "Recetas de {skill:164} a 235",
 	-- ["{skill:164} recipes at 268"] = "Recetas de {skill:164} a 268",
 	-- ["{skill:164} recipes at 45"] = "Recetas de {skill:164} a 45",
 	-- ["{skill:164} recipes at 83"] = "Recetas de {skill:164} a 83",
@@ -489,7 +478,6 @@ return {
 	-- ["{skill:186}: smelt {item:3858} (or the Auction House)"] = "{skill:186}: funde {item:3858} (o cómpralo en la casa de subastas)",
 	-- ["{skill:202}: {item:249432} (or the Auction House)"] = "{skill:202}: {item:249432} (o cómpralo en la casa de subastas)",
 	-- ["{skill:393} (or the Auction House)"] = "{skill:393} (o cómpralo en la casa de subastas)",
-	-- ["{spell:2660} to 45"] = "{spell:2660} hasta 45",
 	-- ["{spell:2668} to 121"] = "{spell:2668} hasta 121",
 	-- ["{spell:3117} to 112"] = "{spell:3117} hasta 112",
 	-- ["{spell:3333} to 155"] = "{spell:3333} hasta 155",

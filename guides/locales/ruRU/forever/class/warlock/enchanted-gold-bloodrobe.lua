@@ -12,15 +12,15 @@ return {
 
 	-- Step 1: In Search of Menara Voidrender (Stormwind)
 	-- {npc:461} Demisette Cloyce · {object:2164} Slaughtered Lamb · {object:2101} Mage Quarter · {npc:6266} Menara Voidrender · {area:392} Ratchet · {item:5770} Robes of Arcana · {item:3577} Gold Bar
-	["At 31 {npc:461} in the {object:2164}, in the {object:2101}, sends you to {npc:6266} in {area:392}. Buy a {item:5770} and a {item:3577} first (next steps) to save a trip."] = "",
+	["At 31 {npc:461} in the {object:2164}, in the {object:2101}, sends you to {npc:6266} in {area:392}. Buy a {item:5770} and a {item:3577} first (next steps) to save a trip."] = "На 31-м уровне {npc:461} ({object:2164}, {object:2101}) отправляет вас к персонажу {npc:6266} ({area:392}). Чтобы не ходить лишний раз, сначала купите {item:5770} и {item:3577} (следующие шаги).",
 
 	-- Step 2: In Search of Menara Voidrender (Ironforge)
 	-- {npc:5172} Briarthorn · {zone:1455} Ironforge · {npc:6266} Menara Voidrender · {area:392} Ratchet · {item:5770} Robes of Arcana · {item:3577} Gold Bar
-	["At 31 {npc:5172} in {zone:1455} sends you to {npc:6266} in {area:392}. Buy a {item:5770} and a {item:3577} first (next steps) to save a trip."] = "",
+	["At 31 {npc:5172} in {zone:1455} sends you to {npc:6266} in {area:392}. Buy a {item:5770} and a {item:3577} first (next steps) to save a trip."] = "На 31-м уровне {npc:5172} ({zone:1455}) отправляет вас к персонажу {npc:6266} ({area:392}). Чтобы не ходить лишний раз, сначала купите {item:5770} и {item:3577} (следующие шаги).",
 
 	-- Step 3: In Search of Menara Voidrender (Orgrimmar)
 	-- {npc:3326} Zevrost · {object:172960} Cleft of Shadow · {npc:6266} Menara Voidrender · {area:392} Ratchet · {item:5770} Robes of Arcana · {item:3577} Gold Bar
-	["At 31 {npc:3326} in the {object:172960} sends you to {npc:6266} in {area:392}. Buy a {item:5770} and a {item:3577} first (next steps) to save a trip."] = "",
+	["At 31 {npc:3326} in the {object:172960} sends you to {npc:6266} in {area:392}. Buy a {item:5770} and a {item:3577} first (next steps) to save a trip."] = "На 31-м уровне {npc:3326} ({object:172960}) отправляет вас к персонажу {npc:6266} ({area:392}). Чтобы не ходить лишний раз, сначала купите {item:5770} и {item:3577} (следующие шаги).",
 
 	-- Step 4: In Search of Menara Voidrender (Undercity)
 	-- {npc:4563} Kaal Soulreaper · {object:36082} Magic Quarter · {npc:6266} Menara Voidrender · {area:392} Ratchet · {zone:1420} Tirisfal Glades · {zone:1411} Durotar · {item:5770} Robes of Arcana · {item:3577} Gold Bar
@@ -81,17 +81,13 @@ return {
 
 	-- Step 14: The Completed Robe
 	-- {npc:6266} Menara Voidrender · {item:6265} Soul Shard
-	["Back to {npc:6266} with the thread, the coals and a {item:6265}. Then wait beside her while she works the robe (do not attack her: the quest log calls it a kill), and speak to her again."] = "",
+	["Back to {npc:6266} with the thread, the coals and a {item:6265}. Then wait beside her while she works the robe (do not attack her: the quest log calls it a kill), and speak to her again."] = "Вернитесь к {npc:6266} с нитью, углями и предметом {item:6265}. Затем подождите рядом с ней, пока она работает над одеянием (не атакуйте ее: в журнале заданий это названо убийством), и снова поговорите с ней.",
 	-- {npc:6266} Menara Voidrender
 	["Wait beside {npc:6266} while she finishes the robe"] = "",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["A rare cloth robe for your 30s, which {npc:6266} makes from the parts you bring her."] = "Редкое тканевое одеяние для 30-х уровней; {npc:6266} создает его из принесенных вами частей.",
-	-- ["At 31 {npc:3326} in the {object:172960} sends you to {npc:6266} in {area:392}."] = "На 31-м уровне {npc:3326} ({object:172960}) отправляет вас к персонажу {npc:6266} ({area:392}).",
 	-- ["At 31 {npc:4563} in the {object:36082} sends you to {npc:6266} in {area:392}. The zeppelin from {zone:1420} flies to {zone:1411}."] = "На 31-м уровне {npc:4563} ({object:36082}) отправляет вас к персонажу {npc:6266} ({area:392}). Дирижабль летит: {zone:1420} → {zone:1411}.",
-	-- ["At 31 {npc:461} in the {object:2164}, in the {object:2101}, sends you to {npc:6266} in {area:392}."] = "На 31-м уровне {npc:461} ({object:2164}, {object:2101}) отправляет вас к персонажу {npc:6266} ({area:392}).",
-	-- ["At 31 {npc:5172} in {zone:1455} sends you to {npc:6266} in {area:392}."] = "На 31-м уровне {npc:5172} ({zone:1455}) отправляет вас к персонажу {npc:6266} ({area:392}).",
-	-- ["Back to {npc:6266} with the thread, the coal and a {item:6265}. Wait while she completes the robe, then speak to her again."] = "Вернитесь к {npc:6266} с нитью, углем и предметом {item:6265}. Подождите, пока она закончит одеяние, затем снова поговорите с ней.",
 	-- ["Bring {npc:6266} a {item:5770}: tailors sew it from a pattern that drops; otherwise buy one at the Auction House. Her next errand needs a {item:3577}: smelted from {item:2776}, or from the Auction House."] = "Принесите {npc:6266} предмет {item:5770}: портные шьют его по выкройке, которая падает с врагов; иначе купите на аукционе. Для следующего поручения нужен {item:3577}: выплавьте из предмета {item:2776} или купите на аукционе.",
 	-- ["The Burning Exiles, fire elementals in western {zone:1417}, drop the coal."] = "Уголь падает с пылающих изгоев – огненных элементалей на западе зоны {zone:1417}.",
 	-- ["The Hatefury satyrs of {area:603}, in north-eastern {zone:1443}, carry the blood; the Lesser Infernals of Mannoroc Coven, in the south, the stone."] = "Кровь носят сатиры из племени Ярой Ненависти ({area:603}, северо-восток зоны {zone:1443}), камень – младшие инферналы на юге (Поле Маннорок).",

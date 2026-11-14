@@ -61,13 +61,14 @@ return {
 	-- {npc:469} Lieutenant Doren · {quest:200} Bookie Herod · {area:101} Kurzen's Compound
 	["{npc:469}: {quest:200}'s records lie at the edge of {area:101}, next"] = "",
 	-- {npc:770} Corporal Kaleb · {npc:773} Krazek · {area:35} Booty Bay
-	["{npc:770}: for {npc:773} in {area:35}, later in this guide"] = "",
+	["{npc:770}: for {npc:773} in {area:35}, later in this guide"] = "{npc:770}: {area:35}의 {npc:773}에게, 이 가이드 후반",
 
 	-- Step 14: Kurzen's Compound: kill these as you meet them
 	-- {area:101} Kurzen's Compound
 	["{area:101}: kill these as you meet them"] = "",
 	-- {area:99} Rebel Camp · {quest:200} Bookie Herod
-	["The Kurzen rebels hold the camp east of the {area:99}; work its outer edge, where Jungle Fighters and Medicine Men stand, and loot the supply crates by the tents. {quest:200}'s records lie in a hut on the compound's west side."] = "",
+	-- plural, as words: Kurzen Elites = {npc:939} Kurzen Elite
+	["The Kurzen rebels hold the camp east of the {area:99}; work its outer edge, where Jungle Fighters and Medicine Men stand, and loot the supply crates by the tents. {quest:200}'s records lie in a hut on the compound's west side. Careful: Kurzen Elites and Witch Doctors (36) hold the compound's eastern half, by the cave: stay on its west side."] = "쿠르젠 반란군이 {area:99} 동쪽 야영지를 차지하고 있습니다. 쿠르젠 밀림전사와 쿠르젠 약사가 서 있는 바깥쪽부터 처리하고, 천막 옆 보급품 상자를 뒤지세요. {quest:200}의 장부는 주둔지 서쪽 오두막에 있습니다. 주의: 쿠르젠 정예병과 쿠르젠 주술사(36)가 동굴 옆 주둔지 동쪽 절반을 차지하고 있으니 서쪽에 머무르세요.",
 	-- {object:287} Bookie Herod's Records
 	["{object:287}, in the hut"] = "",
 	["The strongbox is deeper in, by the cave: on the northern loop (04b)"] = "",
@@ -111,15 +112,15 @@ return {
 	-- {object:3202} Grom'gol · {area:35} Booty Bay
 	["Follow the main road south the length of the jungle, past the {object:3202} turn-off, to {area:35} on the southern cape."] = "큰길을 따라 밀림을 끝까지 남쪽으로 가서 {object:3202} 갈림길을 지나 남쪽 곶의 {area:35}에 도착하세요.",
 	-- {npc:2495} Drizzlik
-	["{npc:2495}, by the bank; inside"] = "",
+	["{npc:2495}, by the bank; inside"] = "{npc:2495}, 은행, 안",
 	-- {npc:2498} Crank Fizzlebub
 	["{npc:2498}, inside"] = "",
 	-- {npc:6807} Innkeeper Skindle · {object:56910} The Salty Sailor Tavern
 	["{npc:6807}, {object:56910}; upstairs"] = "",
 	-- {npc:2832} Nixxrax Fillamug · {object:56910} The Salty Sailor Tavern
-	["{npc:2832}, in the {object:56910}; upstairs"] = "",
+	["{npc:2832}, in the {object:56910}; upstairs"] = "{npc:2832}, {object:56910}, 위층",
 	-- {npc:773} Krazek
-	["{npc:773}, in the tavern; upstairs"] = "",
+	["{npc:773}, in the tavern; upstairs"] = "{npc:773}, 선술집, 위층",
 	-- {npc:773} Krazek · {npc:770} Corporal Kaleb
 	["{npc:773}, from {npc:770}"] = "",
 	-- {npc:737} Kebok
@@ -179,10 +180,10 @@ return {
 	-- {npc:4078} Collin Mauren · {object:2164} Slaughtered Lamb · {object:2101} Mage Quarter
 	["{npc:4078} is in the {object:2164}, in the {object:2101}."] = "",
 
-	-- Step 32: Druid training
-	["Druid training"] = "드루이드 수련",
-	-- {npc:5504} Sheldras Moontree · {zone:1453} Stormwind · {object:2101} Mage Quarter
-	["{npc:5504}, the druid trainer, stands in {zone:1453}, north-west of the {object:2101}."] = "",
+	-- Step 32: Class training
+	["Class training"] = "직업 수련",
+	-- {object:2096} Trade District · {object:2100} Old Town · {object:2101} Mage Quarter · {npc:5504} Sheldras Moontree · {zone:1455} Ironforge
+	["Your level 34 ranks: the class trainers stand around the {object:2096}, {object:2100}, the Cathedral and the {object:2101}; {npc:5504}, the druid trainer, stands north-west of the {object:2101}. Shamans train in {zone:1455}, later in 30-40."] = "",
 
 	-- Step 34: Fly to Astranaar
 	-- {area:415} Astranaar
@@ -215,17 +216,12 @@ return {
 	-- ["Take the road north; {npc:738} patrols it, the camp sits in the hills to the west."] = "길을 따라 북쪽으로 가세요. {npc:738}은(는) 길을 순찰하고, 야영지는 서쪽 언덕에 있습니다.",
 	-- ["Take the road north; {npc:738} stands on it, the camp sits in the hills to the west."] = "길을 따라 북쪽으로 가세요. {npc:738}은(는) 길 위에 서 있고, 야영지는 서쪽 언덕에 있습니다.",
 	-- ["The Bloodscalp trolls hold the ruins on the coast west of Nesingwary's camp."] = "붉은머리부족 트롤은 네싱워리 야영지 서쪽 해안의 폐허를 차지하고 있습니다.",
-	-- ["The Kurzen rebels hold the camp east of the {area:99}; work its outer edge, where Jungle Fighters and Medicine Men stand, and loot the supply crates by the tents."] = "쿠르젠 반란군이 {area:99} 동쪽 야영지를 차지하고 있습니다. 쿠르젠 밀림전사와 쿠르젠 약사가 서 있는 바깥쪽부터 처리하고, 천막 옆 보급품 상자를 뒤지세요.",
 	-- ["The Skullsplitter trolls hold the ruins east of the road between Nesingwary and {object:3202}."] = "백골가루부족 트롤은 네싱워리와 {object:3202} 사이 길 동쪽의 폐허를 차지하고 있습니다.",
 	-- ["The jungle ruins"] = "밀림의 폐허",
 	-- ["The ore drops from Drywhisker kobolds in {zone:1417}"] = "광석은 {zone:1417}의 마른수염 코볼트가 떨어뜨립니다",
 	-- ["Thorsen patrols the road north of camp, toward the {area:99}."] = "토르센은 야영지 북쪽, {area:99} 방향 길을 순찰합니다.",
 	-- ["Walk back north; the {area:310} lies west of the road in the middle of the jungle. The Crystal Spine Basilisks there drop the shards."] = "북쪽으로 걸어 돌아가세요. {area:310}은(는) 밀림 한가운데, 길 서쪽에 있습니다. 그곳의 {npc:689}이(가) 파편을 떨어뜨립니다.",
 	-- ["{area:1537} has no druid trainer: take the {area:2257} from {object:171524} to {zone:1453} and train with {npc:5504}."] = "{area:1537}에는 드루이드 상급자가 없습니다. {object:171524}에서 {area:2257}을(를) 타고 {zone:1453}(으)로 가서 {npc:5504}에게 배우세요.",
-	-- ["{npc:2495}, by the bank"] = "{npc:2495}, 은행 옆",
-	-- ["{npc:2832}, in the {object:56910}"] = "{npc:2832}, {object:56910} 안",
 	-- ["{npc:2859}, on the top floor by the docks"] = "{npc:2859}, 부두 옆 꼭대기 층",
-	-- ["{npc:770}: for {npc:773} in {area:35}"] = "{npc:770}: {area:35}의 {npc:773}에게",
-	-- ["{npc:773}, in the tavern"] = "{npc:773}, 선술집 안",
 	-- ["{quest:207}: four troll legends"] = "{quest:207}: 트롤 전설 4개",
 }

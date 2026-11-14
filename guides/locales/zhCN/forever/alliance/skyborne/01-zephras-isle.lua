@@ -91,38 +91,56 @@ return {
 	["/sit by {npc:263664}'s campfire until you get {spell:1229451}"] = "在{npc:263664}的篝火旁/sit，直到获得{spell:1229451}",
 
 	-- Step 15: Camping 101: Alchemy
+	-- {npc:257019} Nyassa Swiftdraught · {skill:171} Alchemy
+	["{npc:257019} takes it once your {skill:171} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "{npc:257019}会在你的{skill:171}技能达到20后接收：在那之前去采集或制作，指南会同时继续进行。",
 	-- {npc:263664} Raan Wildwind · {npc:257019} Nyassa Swiftdraught
 	["{npc:263664}: for {npc:257019}"] = "{npc:263664}：交给{npc:257019}",
 
 	-- Step 16: Camping 101: Blacksmithing
+	-- {npc:251913} Aedi Thriceforged · {skill:164} Blacksmithing
+	["{npc:251913} takes it once your {skill:164} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "{npc:251913}会在你的{skill:164}技能达到20后接收：在那之前去采集或制作，指南会同时继续进行。",
 	-- {npc:263664} Raan Wildwind · {npc:251913} Aedi Thriceforged
 	["{npc:263664}: for {npc:251913}"] = "{npc:263664}：交给{npc:251913}",
 
 	-- Step 17: Camping 101: First Aid
+	-- {npc:257018} Naleeia Tattermend · {skill:129} First Aid
+	["{npc:257018} takes it once your {skill:129} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "{npc:257018}会在你的{skill:129}技能达到20后接收：在那之前去采集或制作，指南会同时继续进行。",
 	-- {npc:263664} Raan Wildwind · {npc:257018} Naleeia Tattermend
 	["{npc:263664}: for {npc:257018}"] = "{npc:263664}：交给{npc:257018}",
 
 	-- Step 18: Camping 101: Fishing
+	-- {npc:251992} Fenn Fairweather · {skill:356} Fishing
+	["{npc:251992} takes it once your {skill:356} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "{npc:251992}会在你的{skill:356}技能达到20后接收：在那之前去采集或制作，指南会同时继续进行。",
 	-- {npc:263664} Raan Wildwind · {npc:251992} Fenn Fairweather
 	["{npc:263664}: for {npc:251992}"] = "{npc:263664}：交给{npc:251992}",
 
 	-- Step 19: Camping 101: Leatherworking
+	-- {npc:251993} Indari Sunseam · {skill:165} Leatherworking
+	["{npc:251993} takes it once your {skill:165} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "{npc:251993}会在你的{skill:165}技能达到20后接收：在那之前去采集或制作，指南会同时继续进行。",
 	-- {npc:263664} Raan Wildwind · {npc:251993} Indari Sunseam
 	["{npc:263664}: for {npc:251993}"] = "{npc:263664}：交给{npc:251993}",
 
 	-- Step 20: Camping 101: Mining
+	-- {npc:257022} Messana Crestwind · {skill:186} Mining
+	["{npc:257022} takes it once your {skill:186} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "{npc:257022}会在你的{skill:186}技能达到20后接收：在那之前去采集或制作，指南会同时继续进行。",
 	-- {npc:263664} Raan Wildwind · {npc:257022} Messana Crestwind
 	["{npc:263664}: for {npc:257022}"] = "{npc:263664}：交给{npc:257022}",
 
 	-- Step 21: Camping 101: Skinning
+	-- {npc:257024} Mendalass Tattermend · {skill:393} Skinning
+	["{npc:257024} takes it once your {skill:393} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "{npc:257024}会在你的{skill:393}技能达到20后接收：在那之前去采集或制作，指南会同时继续进行。",
 	-- {npc:263664} Raan Wildwind · {npc:257024} Mendalass Tattermend
 	["{npc:263664}: for {npc:257024}"] = "{npc:263664}：交给{npc:257024}",
 
 	-- Step 22: Camping 101: Tailoring
+	-- {npc:251991} Taleen Shimmerthread · {skill:197} Tailoring
+	["{npc:251991} takes it once your {skill:197} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "{npc:251991}会在你的{skill:197}技能达到20后接收：在那之前去采集或制作，指南会同时继续进行。",
 	-- {npc:263664} Raan Wildwind · {npc:251991} Taleen Shimmerthread
 	["{npc:263664}: for {npc:251991}"] = "{npc:263664}：交给{npc:251991}",
 
 	-- Step 23: Camping 101: Enchanting
+	-- {npc:257020} Nasalanna Windsinger · {skill:333} Enchanting
+	["{npc:257020} takes it once your {skill:333} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "{npc:257020}会在你的{skill:333}技能达到20后接收：在那之前去采集或制作，指南会同时继续进行。",
 	-- {npc:263664} Raan Wildwind · {npc:257020} Nasalanna Windsinger
 	["{npc:263664}: for {npc:257020}"] = "{npc:263664}：交给{npc:257020}",
 
@@ -194,8 +212,8 @@ return {
 
 	-- Step 46: Warlock trainer
 	["Warlock trainer"] = "术士训练师",
-	-- {item:2450} Briarthorn · {zone:1455} Ironforge · {area:16624} Shen'dar Village
-	["{item:2450} in {zone:1455}; {area:16624} has no warlock trainer"] = "",
+	-- {npc:5172} Briarthorn · {zone:1455} Ironforge · {area:16624} Shen'dar Village
+	["{npc:5172} in {zone:1455}; {area:16624} has no warlock trainer"] = "{zone:1455}有{npc:5172}；{area:16624}没有术士训练师",
 
 	-- Step 47: Falaath Village
 	-- {npc:257065} Missionary Jasaan · {quest:92529} Falaath Village · {spell:1254832} Mark of Akir
@@ -246,8 +264,6 @@ return {
 	-- {area:16638} Valanaar
 	-- plural, as words: Skyhoppers = {npc:251727} Skyhopper
 	["Skyhoppers swarm the fields west of {area:16638}."] = "天空跳跃者成群出没于{area:16638}西边的田野。",
-	-- {npc:260628} Valennia Stormfist
-	["{npc:260628}, upstairs"] = "{npc:260628}，在楼上",
 
 	-- Step 60: The road to Valanaar
 	-- {area:16638} Valanaar
@@ -378,8 +394,8 @@ return {
 	["{npc:258098} in {zone:1455}; {area:16638} has no shaman trainer"] = "前往{zone:1455}找{npc:258098}；{area:16638}没有萨满祭司训练师",
 
 	-- Step 84: Warlock trainer
-	-- {item:2450} Briarthorn · {zone:1455} Ironforge · {area:16638} Valanaar
-	["{item:2450} in {zone:1455}; {area:16638} has no warlock trainer"] = "",
+	-- {npc:5172} Briarthorn · {zone:1455} Ironforge · {area:16638} Valanaar
+	["{npc:5172} in {zone:1455}; {area:16638} has no warlock trainer"] = "{zone:1455}有{npc:5172}；{area:16638}没有术士训练师",
 
 	-- Step 85: Desperate times
 	-- {npc:253844} Valennia Stormfist
@@ -488,27 +504,38 @@ return {
 	-- {npc:1646} Baros Alexston · {object:2098} Cathedral Square · {zone:1436} Westfall
 	["{npc:1646} stands in {object:2098}, on the way from the Keep to the main gate: his compass is in his old house in {zone:1436}, on the way."] = "{npc:1646}站在从要塞到正门途中的{object:2098}：他的罗盘在{zone:1436}的旧居中，之后顺路去取。",
 
-	-- Step 106: Woo Ping
+	-- Step 106: Stormwind trainers
+	-- {zone:1453} Stormwind
+	["{zone:1453} trainers"] = "{zone:1453}的训练师",
+	-- {zone:1453} Stormwind · {object:2100} Old Town · {object:28027} Dwarven District · {object:2101} Mage Quarter · {npc:5504} Sheldras Moontree
+	["Level 14 spells while you're in {zone:1453}: warriors and rogues train in {object:2100}, hunters in the {object:28027}, mages in the Wizard's Sanctum of the {object:2101}. Druids train with {npc:5504} below."] = "趁在{zone:1453}学习14级技能：战士和潜行者在{object:2100}学习，猎人在{object:28027}，法师在{object:2101}的法师圣殿。德鲁伊在下面找{npc:5504}学习。",
+
+	-- Step 107: Woo Ping
 	-- {spell:202} Two-Handed Swords · {npc:11867} Woo Ping · {object:2096} Trade District
 	["While you're here: learn {spell:202} from {npc:11867} ({object:2096}, 10 silver); two-handers level a Warrior fastest."] = "顺便：找{npc:11867}学习{spell:202}（{object:2096}，10银币）；双手武器能让战士升级最快。",
 
-	-- Step 107: Woo Ping
+	-- Step 108: Woo Ping
 	-- {npc:11867} Woo Ping · {object:2096} Trade District
 	["While you're here: learn Staves from {npc:11867} ({object:2096}, 10 silver); a Hunter's melee weapon is mostly its stats, and two-handers carry the most."] = "顺便：在{npc:11867}处学习法杖（{object:2096}，10银币）；猎人的近战武器主要看属性，而双手武器属性最多。",
 
-	-- Step 108: Woo Ping
+	-- Step 109: Woo Ping
 	-- {npc:11867} Woo Ping · {object:2096} Trade District
 	["While you're here: learn Swords from {npc:11867} ({object:2096}, 10 silver); a sword in the main hand levels a Rogue steadily."] = "顺便：在{npc:11867}处学习剑（{object:2096}，10银币）；主手持剑能让潜行者稳定升级。",
 
-	-- Step 110: Sheldras Moontree
+	-- Step 111: Sheldras Moontree
 	-- {npc:5504} Sheldras Moontree · {zone:1453} Stormwind · {spell:18960} Teleport: Moonglade · {npc:11802} Dendrite Starblaze · {spell:499} Cat Form · {zone:1439} Darkshore
 	["{npc:5504}, {zone:1453}'s druid trainer, teaches you {spell:18960}. {npc:11802}'s welcome waits for your {spell:499} trip at the end of {zone:1439}."] = "{zone:1453}的德鲁伊训练师{npc:5504}会教你{spell:18960}。{npc:11802}的问候要等到{zone:1439}结尾的{spell:499}之旅时再去。",
 
-	-- Step 112: Jennea Cannon
+	-- Step 112: Druid trainer
+	["Druid trainer"] = "德鲁伊训练师",
+	-- {npc:5504} Sheldras Moontree
+	["Level 14 spells while you're with {npc:5504}."] = "趁在{npc:5504}处学习14级技能。",
+
+	-- Step 114: Jennea Cannon
 	-- {npc:5497} Jennea Cannon · {object:2101} Mage Quarter · {quest:1861} Mirror Lake
 	["{npc:5497} stands in the Wizard's Sanctum, the tower of the {object:2101}; she gives you a flask for the {quest:1861} waterfall."] = "{npc:5497}站在{object:2101}的塔楼巫师圣殿里；她会给你一个瓶子，用于{quest:1861}的瀑布。",
 
-	-- Step 113: Mirror Lake
+	-- Step 115: Mirror Lake
 	-- {zone:1453} Stormwind · {quest:1861} Mirror Lake · {zone:1436} Westfall · {item:7207} Jennea's Flask
 	["Leave {zone:1453} by the main gate. The {quest:1861} waterfall is south-west of the gates, on the way west to {zone:1436}: fill {item:7207} at its base."] = "从正门离开{zone:1453}。{quest:1861}瀑布在城门西南边，就在西去{zone:1436}的路上：在瀑布底部装满{item:7207}。",
 
@@ -572,6 +599,7 @@ return {
 	-- ["{npc:257022}, beside her: Camping 101, miners"] = "{npc:257022}，在她旁边：露营 101，采矿者",
 	-- ["{npc:257024}: Camping 101, skinners"] = "{npc:257024}：露营 101，剥皮者",
 	-- ["{npc:259084} stands beside the Skyborne Portal where the zeppelin lands. The portal takes you to {zone:1453}."] = "{npc:259084}站在飞艇降落处的天裔传送门旁。传送门会把你送到{zone:1453}。",
+	-- ["{npc:260628}, upstairs"] = "{npc:260628}，在楼上",
 	-- ["{npc:263664}, alchemists: for {npc:257019}"] = "{npc:263664}，炼金师：交给{npc:257019}",
 	-- ["{npc:263664}, blacksmiths: for {npc:251913}"] = "{npc:263664}，锻造师：交给{npc:251913}",
 	-- ["{npc:263664}, enchanters: for {npc:257020}"] = "{npc:263664}，附魔师：交给{npc:257020}",

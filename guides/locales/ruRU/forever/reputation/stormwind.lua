@@ -15,7 +15,7 @@ return {
 	-- {faction:72} Stormwind · {area:3197} Chillwind Camp · {zone:1428} Burning Steppes
 	["About 1,150 {faction:72} reputation from level 52-58 quests at {area:3197} and in the {zone:1428}"] = "Около 1150 репутации ({faction:72}) за задания уровня 52-58: {area:3197} и зона {zone:1428}",
 	-- {faction:72} Stormwind · {area:717} Stockade
-	["About 4,500 {faction:72} reputation from low-level quests in Elwynn and the {area:717}"] = "",
+	["About 4,500 {faction:72} reputation from low-level quests in Elwynn and the {area:717}"] = "Около 4500 репутации ({faction:72}) за задания низкого уровня в Элвиннском лесу и в подземелье {area:717}",
 
 	-- Step 1: Clavicus Knavingham, the cloth quartermaster
 	-- {npc:14722} Clavicus Knavingham
@@ -275,7 +275,6 @@ return {
 	["Revered to Exalted is 21,000 reputation: 420 turn-ins, 8,400 {item:14047}. At Exalted, {npc:384} at {area:88} sells her horses to other races in Classic; the Horse and Swift Horse guides cover them."] = "",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
-	-- ["About 4,500 {faction:72} reputation from low-level quests in Elwynn and the {area:717} (in Classic, a fifth of it at 60)"] = "Около 4500 репутации ({faction:72}) за задания низкого уровня в Элвиннском лесу и в подземелье {area:717} (в Classic на 60 уровне – пятая часть)",
 	-- ["Dark Adepts and Shadowmages (level 58-60) drop it here; every Scourge kill here also counts toward the {object:92525} (see that guide). The Auction House works too."] = "Добыча здесь: адепты Тьмы ({npc:8546}) и темные маги (уровень 58-60); каждое убийство Плети здесь также дает репутацию ({object:92525}, см. тот гайд). Подойдет и аукцион.",
 	-- ["Dunemaul ogres (level 45-48) drop it here. The Auction House works too."] = "Добыча здесь: огры из клана Песчаного Молота (уровень 45-48). Подойдет и аукцион.",
 	-- ["Keep handing in {quest:7796} until {faction:72} is Exalted. {item:14047}: Dark Adepts and Shadowmages (level 58-60) in {zone:1423}, or the Auction House."] = "Сдавайте задание {quest:7796}, пока репутация ({faction:72}) не дойдет до превознесения. {item:14047}: Адепты Тьмы и темные маги (уровень 58-60) – зона {zone:1423}, или аукцион.",

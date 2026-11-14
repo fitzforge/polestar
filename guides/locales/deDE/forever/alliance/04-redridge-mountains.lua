@@ -8,10 +8,10 @@
 return {
 	-- Step 1: Stormwind
 	-- {zone:1429} Elwynn Forest · {quest:174} Look to the Stars · {area:42} Darkshire · {item:4371} Bronze Tube · {npc:3133} Herble Baubbletump · {object:2096} Trade District
-	["Train, then leave by the main gate and follow the road east through {zone:1429}.\n{quest:174} in {area:42} needs a {item:4371}. Its vendors keep only one or two, and {npc:3133} in {area:42} is nearly always sold out: buy one at the Auction House in the {object:2096} on your way out. An engineer can make one too."] = "",
+	["Train, then leave by the main gate and follow the road east through {zone:1429}.\n{quest:174} in {area:42} needs a {item:4371}. Its vendors keep only one or two, and {npc:3133} in {area:42} is nearly always sold out: buy one at the Auction House in the {object:2096} on your way out. An engineer can make one too."] = "Lerne bei den Lehrern, verlass dann die Stadt durch das Haupttor und folge der Straße nach Osten durch {zone:1429}.\n{quest:174} in {area:42} braucht eine {item:4371}. Ihre Händler haben nur eine oder zwei, und {npc:3133} in {area:42} ist fast immer ausverkauft: Kauf eine im Auktionshaus im {object:2096} auf dem Weg hinaus. Ein Ingenieur kann auch eine herstellen.",
 	["Level 18 and 20 spells"] = "Zauber der Stufen 18 und 20",
 	-- {item:4371} Bronze Tube · {quest:174} Look to the Stars · {area:42} Darkshire
-	["{item:4371}: the Auction House, for {quest:174} in {area:42}"] = "",
+	["{item:4371}: the Auction House, for {quest:174} in {area:42}"] = "{item:4371}: das Auktionshaus, für {quest:174} in {area:42}",
 
 	-- Step 2: Woo Ping
 	-- {npc:11867} Woo Ping · {object:2096} Trade District
@@ -21,41 +21,26 @@ return {
 	-- {npc:11867} Woo Ping · {object:2096} Trade District
 	["While you're here: learn Polearms from {npc:11867} ({object:2096}, 1 gold); a Hunter's melee weapon is mostly its stats, and two-handers carry the most."] = "Wenn du schon hier bist: Lerne Stangenwaffen bei {npc:11867} ({object:2096}, 1 Gold); die Nahkampfwaffe eines Jägers besteht vor allem aus ihren Werten, und Zweihandwaffen haben davon am meisten.",
 
-	-- Step 4: Tram to Ironforge
-	-- {zone:1455} Ironforge
-	["Tram to {zone:1455}"] = "Tiefenbahn nach {zone:1455}",
-
-	-- Step 5: Shaman training
-	["Shaman training"] = "Schamanentraining",
-	-- {zone:1453} Stormwind · {area:2257} Deeprun Tram · {object:28027} Dwarven District · {zone:1455} Ironforge · {npc:258098} Eldrun Stormbreaker
-	["{zone:1453} has no shaman trainer: take the {area:2257} from the {object:28027} to {zone:1455}, train with {npc:258098}, then ride the tram back."] = "{zone:1453} hat keinen Schamanenlehrer: Nimm {area:2257} vom {object:28027} nach {zone:1455}, trainiere bei {npc:258098} und fahr dann mit der Bahn zurück.",
-
-	-- Step 6: Fly to Sentinel Hill
+	-- Step 4: Fly to Sentinel Hill
 	-- {area:108} Sentinel Hill
 	["Fly to {area:108}"] = "Flieg nach {area:108}",
 	-- {zone:1453} Stormwind
 	["{zone:1453} flight master"] = "Flugmeister von {zone:1453}",
 
-	-- Step 7: Half Pendant of Aquatic Endurance
+	-- Step 5: Half Pendant of Aquatic Endurance
 	-- {area:108} Sentinel Hill · {object:177790} Strange Lockbox
 	["Fly to {area:108} and head north-west to the coast: the {object:177790} lies on the sea floor off the shore. Then head east along the road through Elwynn."] = "Flieg nach {area:108} und geh nach Nordwesten zur Küste: Die {object:177790} liegt auf dem Meeresgrund vor dem Ufer. Geh dann an der Straße entlang nach Osten durch den Wald von Elwynn.",
 	-- {item:15882} Half Pendant of Aquatic Endurance · {object:177790} Strange Lockbox
 	["{item:15882}: the {object:177790}"] = "{item:15882}: {object:177790}",
 
-	-- Step 8: Back to Elwynn Forest
-	-- {zone:1429} Elwynn Forest
-	["Back to {zone:1429}"] = "Zurück nach {zone:1429}",
-	-- {zone:1429} Elwynn Forest
-	["The road into {zone:1429}"] = "Die Straße nach {zone:1429}",
-
-	-- Step 9: Elwynn Forest
+	-- Step 6: Elwynn Forest
 	-- {area:91} Tower of Azora
 	["The {area:91}"] = "{area:91}",
 
-	-- Step 10: Theocritus
+	-- Step 7: Theocritus
 	["On the top floor"] = "Im obersten Stockwerk",
 
-	-- Step 11: Henze Faulk
+	-- Step 8: Henze Faulk
 	-- {area:91} Tower of Azora · {area:86} Stone Cairn Lake · {npc:6172} Henze Faulk · {item:6866} Symbol of Life · {item:6846} Defias Script
 	-- plural, as words: Defias Rogue Wizards = {npc:474} Defias Rogue Wizard
 	["On the road east, past the {area:91}, head north from the bridge to {area:86}. {npc:6172} lies south of the lake: use the {item:6866} on him. The Defias Rogue Wizards around him carry the {item:6846}."] = "Geh auf der Straße nach Osten am {area:91} vorbei und von der Brücke nach Norden zu {area:86}. {npc:6172} liegt südlich des Sees: Benutze den {item:6866} an ihm. Die Defias Rogue Wizards um ihn herum tragen das {item:6846}.",
@@ -65,13 +50,13 @@ return {
 	-- plural, as words: Defias Rogue Wizards = {npc:474} Defias Rogue Wizard
 	["{item:6846}: Defias Rogue Wizards"] = "{item:6846}: Abtrünnige Hexer der Defias",
 
-	-- Step 12: Three Corners
+	-- Step 9: Three Corners
 	-- {area:1002} Three Corners · {zone:1431} Duskwood
 	["The road east through Elwynn crosses into Redridge at {area:1002}, where the roads to Redridge, {zone:1431} and Elwynn meet: south to {zone:1431} first."] = "Die Straße nach Osten durch den Wald von Elwynn führt bei {area:1002} nach Rotkammgebirge, wo sich die Straßen nach Rotkammgebirge, {zone:1431} und Elwynn treffen: Geh zuerst nach Süden in den {zone:1431}.",
 
-	-- Step 14: Darkshire
-	-- {area:1002} Three Corners · {zone:1431} Duskwood · {area:42} Darkshire · {item:4371} Bronze Tube · {quest:174} Look to the Stars · {npc:3133} Herble Baubbletump · {npc:276} Viktori Prism'Antras
-	["Follow the road south from {area:1002} into {zone:1431}; {area:42} lies on the east side of the forest.\nNo {item:4371} for {quest:174}? {npc:3133}, in the house beside {npc:276}, is nearly always sold out. Without one, right-click the quest in the guide window and skip it."] = "",
+	-- Step 11: Darkshire
+	-- {area:1002} Three Corners · {zone:1431} Duskwood · {area:42} Darkshire
+	["Follow the road south from {area:1002} into {zone:1431}; {area:42} lies on the east side of the forest."] = "Folge der Straße von {area:1002} nach Süden in den {zone:1431}; {area:42} liegt auf der Ostseite des Waldes.",
 	-- {npc:2409} Felicia Maline
 	["{npc:2409}, at the north end of town"] = "{npc:2409}, am Nordende des Orts",
 	-- {npc:265} Madame Eva
@@ -90,10 +75,20 @@ return {
 	["{npc:633}, at the south end of town; inside"] = "{npc:633}, am Südende der Stadt; drinnen",
 	-- {npc:633} Elaine Carevin · {npc:288} Jitters · {quest:163} Raven Hill
 	["{npc:633}: {npc:288}, at {quest:163}"] = "{npc:633}: {npc:288}, bei {quest:163}",
+
+	-- Step 12: Viktori Prism'Antras
+	-- {npc:276} Viktori Prism'Antras · {quest:174} Look to the Stars · {item:4371} Bronze Tube
+	["{npc:276} is in her house at the east end of town. {quest:174} needs a {item:4371}, so this step shows only while you carry one: without a tube the guide passes {npc:276} and her chain."] = "{npc:276} ist in ihrem Haus am Ostende der Stadt. {quest:174} braucht {item:4371}, daher erscheint dieser Schritt nur, solange du eine dabeihast: Ohne Röhre geht der Guide an {npc:276} und ihrer Questreihe vorbei.",
 	-- {npc:276} Viktori Prism'Antras
 	["{npc:276}, inside"] = "{npc:276}, drinnen",
+
+	-- Step 13: Viktori Prism'Antras
 	-- {npc:302} Blind Mary
 	["For {npc:302}, on the hill south-east of town"] = "Für {npc:302}, auf dem Hügel südöstlich der Stadt",
+
+	-- Step 14: Councilman Millstipe
+	-- {area:717} Stockade · {zone:1453} Stormwind · {npc:270} Councilman Millstipe
+	["For your {area:717} run, in {zone:1453} at about 29: {npc:270} is in the town hall. Keep it until then."] = "Für deinen Run durch {area:717}, in {zone:1453} auf etwa Stufe 29: {npc:270} ist im Rathaus. Behalte die Quest bis dahin.",
 
 	-- Step 15: Tranquil Gardens Cemetery: kill these as you meet them
 	-- {area:121} Tranquil Gardens Cemetery
@@ -178,10 +173,14 @@ return {
 	["Murloc Flesheaters and Tidecallers line the south shore of {area:68}, just east of the gryphons and the bridge. Any of them can carry a fin."] = "Murloc Flesheaters und Tidecallers säumen das Südufer von {area:68}, direkt östlich der Greifen und der Brücke. Jeder von ihnen kann eine Flosse tragen.",
 
 	-- Step 29: Lakeshire
-	-- {npc:381} Dockmaster Baren · {npc:900} Bailiff Conacher · {npc:342} Martie Jainrose · {npc:382} Marshal Marris · {quest:98386} Alther's Mill
-	["Cross the long bridge north into town: {npc:381} on the docks, {npc:900} in the town hall, {npc:342} in her garden at the west end. {npc:382}'s Blackrock quests and {quest:98386} came with you from your first Redridge visit."] = "Überquere die lange Brücke nach Norden in den Ort: {npc:381} an den Docks, {npc:900} im Rathaus, {npc:342} in ihrem Garten am Westende. {npc:382}s Blackrock-Quests und {quest:98386} hast du von deinem ersten Besuch im Rotkammgebirge mitgebracht.",
+	-- {npc:381} Dockmaster Baren · {npc:900} Bailiff Conacher · {npc:342} Martie Jainrose · {npc:382} Marshal Marris · {npc:341} Foreman Oslow · {quest:98386} Alther's Mill
+	["Cross the long bridge north into town: {npc:381} on the docks, {npc:900} in the town hall, {npc:342} in her garden at the west end. {npc:382} and {npc:341} stand at the north end of the bridge: the Blackrock camps' quests and {quest:98386} are worked on this visit's loop east of the lake."] = "Überquere die lange Brücke nach Norden in den Ort: {npc:381} an den Docks, {npc:900} im Rathaus, {npc:342} in ihrem Garten am Westende. {npc:382} und {npc:341} stehen am Nordende der Brücke: Die Quests zu den Blackrock-Lagern und {quest:98386} erledigst du auf der Runde dieses Besuchs östlich des Sees.",
 	-- {npc:415} Verner Osgood
 	["{npc:415}, by the road at the north end of the bridge"] = "{npc:415}, an der Straße am Nordende der Brücke",
+	-- {npc:382} Marshal Marris
+	["{npc:382}, at the north end of the bridge"] = "{npc:382}, am Nordende der Brücke",
+	-- {npc:341} Foreman Oslow
+	["{npc:341}, beside him"] = "{npc:341}, neben ihm",
 	-- {npc:900} Bailiff Conacher
 	["{npc:900}, in the town hall"] = "{npc:900}, im Rathaus",
 	["The Wanted poster by the inn"] = "Der Steckbrief beim Gasthaus",
@@ -271,6 +270,7 @@ return {
 	["Next: the gryphon to {area:42} for {zone:1431}'s second loop (05-duskwood)."] = "Als Nächstes: der Greif nach {area:42} für die zweite Runde durch den {zone:1431} (05-duskwood).",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["Back to {zone:1429}"] = "Zurück nach {zone:1429}",
 	-- ["Bellygrub"] = "Stopfwanst",
 	-- ["Cross the long bridge north into town. {npc:341} and {npc:382} stand at the north end of the bridge, {npc:900} in the town hall, {npc:381} and {npc:266} on the docks, {npc:343} at the inn, {npc:342} in her garden at the west end."] = "Überquere die lange Brücke nach Norden in den Ort. {npc:341} und {npc:382} stehen am Nordende der Brücke, {npc:900} im Rathaus, {npc:381} und {npc:266} an den Docks, {npc:343} im Gasthaus, {npc:342} in ihrem Garten am Westende.",
 	-- ["East past the mill and across the river. Shadowhide gnolls fill the valley; {npc:703} (26, well above you) leads them at its north end: clear his escort first and fight him at full health. Stay out of {area:2099} to the south: its orcs are elite."] = "Nach Osten an der Mühle vorbei und über den Fluss. Gnolle der Schattenfelle füllen das Tal; {npc:703} (26, deutlich über dir) führt sie an dessen Nordende an: Räum zuerst seine Begleiter weg und kämpfe mit voller Gesundheit gegen ihn. Bleib aus {area:2099} im Süden fern: Dessen Orcs sind Elite.",
@@ -288,18 +288,19 @@ return {
 	-- ["Only once {quest:97914} is handed in: for {npc:3649}, back in {area:442} (06-ashenvale)"] = "Erst wenn {quest:97914} abgegeben ist: für {npc:3649}, zurück in {area:442} (06-ashenvale)",
 	-- ["Redridge Mongrels and other gnolls hold the hills east of {area:1002}, north of the road; Redridge Thrashers prowl among them, Poachers camp south of the road. Dire Condors and Great Goretusks roam the same hills."] = "Bastarde der Rotkammgnolle und andere Gnolle halten die Hügel östlich von {area:1002}, nördlich der Straße; Hauer der Rotkammgnolle streifen zwischen ihnen umher, Wilderer lagern südlich der Straße. Terrorkondore und Große Geiferzähne streifen durch dieselben Hügel.",
 	-- ["Redridge Mongrels and other gnolls hold the hills east of {area:1002}, north of the road; Redridge Thrashers prowl among them, Poachers camp south of the road. Redridge Brutes, for the Iron Pikes and Rivets, hold the hills further north; Dire Condors and Great Goretusks roam the hills east of them."] = "Bastarde der Rotkammgnolle und andere Gnolle halten die Hügel östlich von {area:1002}, nördlich der Straße; Hauer der Rotkammgnolle streifen zwischen ihnen umher, Wilderer lagern südlich der Straße. Schläger der Rotkammgnolle, für die Eisenspitzen und Nieten, halten die Hügel weiter nördlich; Terrorkondore und Große Geiferzähne streifen durch die Hügel östlich davon.",
+	-- ["Shaman training"] = "Schamanentraining",
 	-- ["South down the valley's east side to the Blackrock camps east of {area:2099}. Renegades, Grunts and Outrunners fill them; keep east of the keep, whose orcs are elite."] = "Südlich das Tal entlang seiner Ostseite zu den Blackrock-Lagern östlich von {area:2099}. Abtrünnige, Grunzer und Läufer füllen sie; halte dich östlich der Feste, deren Orcs Elite sind.",
 	-- ["Swim east from the bridge into {area:68}; the chest lies on the lake bed."] = "Schwimm von der Brücke nach Osten in {area:68}; die Truhe liegt auf dem Seegrund.",
 	-- ["The Wanted poster by the inn: {npc:703}, in {area:1000}"] = "Der Steckbrief am Gasthaus: {npc:703}, im {area:1000}",
 	-- ["The road from Elwynn enters Redridge at {area:1002}. {npc:464} stands where the roads to Redridge and {zone:1431} meet."] = "Die Straße aus dem Wald von Elwynn erreicht das Rotkammgebirge bei {area:1002}. {npc:464} steht dort, wo sich die Straßen ins Rotkammgebirge und nach {zone:1431} treffen.",
+	-- ["The road into {zone:1429}"] = "Die Straße nach {zone:1429}",
 	-- ["The {area:442} boat docks at {area:17203}. Walk up into the city for training and {npc:1646}, then leave by the main gate and follow the road east through {zone:1429}."] = "Das Schiff aus {area:442} legt im {area:17203} an. Geh in die Stadt hinauf zum Training und zu {npc:1646}, verlass sie dann durchs Haupttor und folge der Straße nach Osten durch den {zone:1429}.",
-	-- ["Train, then leave by the main gate and follow the road east through {zone:1429}.\nLook to the Stars in {area:42} needs a {item:4371}. Its vendors keep only one or two, and {npc:3133} in {area:42} is nearly always sold out: buy one at the Auction House in the {object:2096} on your way out. An engineer can make one too."] = "Lerne bei den Lehrern, verlass dann die Stadt durch das Haupttor und folge der Straße nach Osten durch {zone:1429}.\nLook to the Stars in {area:42} braucht eine {item:4371}. Ihre Händler haben nur eine oder zwei, und {npc:3133} in {area:42} ist fast immer ausverkauft: Kauf eine im Auktionshaus im {object:2096} auf dem Weg hinaus. Ein Ingenieur kann auch eine herstellen.",
+	-- ["Tram to {zone:1455}"] = "Tiefenbahn nach {zone:1455}",
 	-- ["{item:1075}: any Shadowhide gnoll"] = "{item:1075}: jeder Gnoll der Schattenfelle",
 	-- ["{item:280911}: Redridge Thrashers"] = "{item:280911}: Hauer der Rotkammgnolle",
 	-- ["{item:3014}: any Blackrock orc"] = "{item:3014}: jeder Orc der Blackrock",
 	-- ["{item:3014}: the Blackrock Renegades at the mill"] = "{item:3014}: die Renegaten der Blackrock bei der Mühle",
 	-- ["{item:4371}, from {npc:3133}, if you have none"] = "{item:4371}, von {npc:3133}, falls du keine hast",
-	-- ["{item:4371}: the Auction House, for Look to the Stars in {area:42}"] = "{item:4371}: das Auktionshaus, für Look to the Stars in {area:42}",
 	-- ["{npc:1646}: Thundris' letter from {area:442}"] = "{npc:1646}: Thundris' Brief aus {area:442}",
 	-- ["{npc:266}, by the docks"] = "{npc:266}, an den Docks",
 	-- ["{npc:332} is at SI:7 in {object:2100}, {npc:6122} in the {object:2164}'s cellar in the {object:2101}, {npc:376} in the Cathedral of Light."] = "{npc:332} ist bei SI:7 in {object:2100}, {npc:6122} im Keller von {object:2164} in {object:2101}, {npc:376} in der Kathedrale des Lichts.",
@@ -313,4 +314,5 @@ return {
 	-- ["{npc:6122}: {npc:6244} in the {zone:1413} takes it, later"] = "{npc:6122}: {npc:6244} in {zone:1413} nimmt sie an, später",
 	-- ["{zone:1431} is next: follow the road west to {area:1002}, then south to {area:42}."] = "Als Nächstes {zone:1431}: Folge der Straße nach Westen bis {area:1002}, dann nach Süden nach {area:42}.",
 	-- ["{zone:1453} class quests"] = "Klassenquests in {zone:1453}",
+	-- ["{zone:1453} has no shaman trainer: take the {area:2257} from the {object:28027} to {zone:1455}, train with {npc:258098}, then ride the tram back."] = "{zone:1453} hat keinen Schamanenlehrer: Nimm {area:2257} vom {object:28027} nach {zone:1455}, trainiere bei {npc:258098} und fahr dann mit der Bahn zurück.",
 }

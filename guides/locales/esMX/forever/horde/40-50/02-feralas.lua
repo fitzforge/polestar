@@ -6,11 +6,17 @@
 -- A token marked "no name in this language" would show in English: write that name in Spanish (Latin America) words instead.
 -- The comments are rewritten by sync.
 return {
-	-- Step 2: Fly to Grom'gol
+	-- Step 1: Fly to Grom'gol
 	-- {object:3202} Grom'gol (no name in this language: may be words)
 	["Fly to {object:3202}"] = "Vuela a {object:3202}",
 	-- {area:75} Stonard
 	["{area:75} flight master"] = "Maestro de vuelo de {area:75}",
+
+	-- Step 2: Fly to Grom'gol
+	-- {zone:2548} Riverglades · {area:340} Kargath
+	["Coming from the {zone:2548}: {area:340}'s flight master stands at the foot of the fortress."] = "Si vienes de {zone:2548}: el maestro de vuelo de {area:340} está al pie de la fortaleza.",
+	-- {area:340} Kargath
+	["{area:340} flight master"] = "Maestro de vuelo de {area:340}",
 
 	-- Step 3: Zeppelin to Orgrimmar
 	-- {zone:1454} Orgrimmar
@@ -63,19 +69,31 @@ return {
 	-- {zone:1456} Thunder Bluff
 	["{zone:1456} flight master"] = "Maestro de vuelo de {zone:1456}",
 
-	-- Step 16: Ratchet for the Felsteed
+	-- Step 15: Fly to Gadgetzan
+	-- {area:976} Gadgetzan
+	["Fly to {area:976}"] = "Vuela a {area:976}",
+
+	-- Step 18: Ratchet for the Felsteed
 	-- {area:392} Ratchet
 	["{area:392} for the Felsteed"] = "{area:392} para el corcel vil",
 	-- {zone:1454} Orgrimmar · {area:392} Ratchet · {npc:6251} Strahad Farsan
 	["Fly from {zone:1454} to {area:392}; {npc:6251} stands on the hill above the docks."] = "Vuela de {zone:1454} a {area:392}; {npc:6251} está en la colina sobre los muelles.",
 
-	-- Step 17: Fly to Freewind Post
+	-- Step 19: Fly to Freewind Post
 	-- {area:392} Ratchet
 	["{area:392} flight master"] = "Maestro de vuelo de {area:392}",
 
-	-- Step 20: Mirage Raceway
-	-- {area:484} Freewind Post · {zone:1446} Tanaris · {area:2240} Mirage Raceway · {area:439} Shimmering Flats · {npc:4454} Fizzle Brassbolts · {npc:4630} Pozzik · {npc:4709} Zamek
-	["The road from {area:484} to {zone:1446} runs past the {area:2240} on the {area:439}: {npc:4454} is in the gnomes' camp beside the track, {npc:4630} and {npc:4709} by the goblins' camp. {npc:4630} first, then {npc:4709}, who runs off to keep Rizzle busy; then take Rizzle's plans from the gnomes' camp and bring them back to {npc:4630}."] = "El camino de {area:484} a {zone:1446} pasa por {area:2240} en {area:439}: {npc:4454} está en el campamento de los gnomos junto a la pista, {npc:4630} y {npc:4709} junto al campamento de los goblins. Primero {npc:4630}, luego {npc:4709}, que sale corriendo a entretener a Rizzle; después toma los planos de Rizzle del campamento de los gnomos y llévaselos a {npc:4630}.",
+	-- Step 25: Gadgetzan
+	-- {area:976} Gadgetzan · {area:2240} Mirage Raceway · {zone:1446} Tanaris
+	["Flown in: {area:976}'s quests first, by the flight master, then the {area:2240} is a short ride north over the {zone:1446} border."] = "Si llegaste volando: primero las misiones de {area:976}, junto al maestro de vuelo; luego {area:2240} está a poca distancia a caballo al norte, cruzando la frontera de {zone:1446}.",
+
+	-- Step 26: Gadgetzan
+	-- {area:978} Zul'Farrak · {quest:2864} Tran'rek · {npc:7804} Trenton Lighthammer · {quest:3042} Troll Temper
+	["For your {area:978} run, in the next guide: {quest:2864} wants scarab shells, and {npc:7804}, a short walk from the flight master, {quest:3042} from the Sandfury trolls."] = "Para tu recorrido por {area:978}, en la siguiente guía: {quest:2864} quiere caparazones de escarabajo, y {npc:7804}, a poca distancia del maestro de vuelo, {quest:3042} de los trols Furiarena.",
+
+	-- Step 27: Mirage Raceway
+	-- {area:976} Gadgetzan · {zone:1446} Tanaris · {area:484} Freewind Post · {area:2240} Mirage Raceway · {area:439} Shimmering Flats · {npc:4454} Fizzle Brassbolts · {npc:4630} Pozzik · {npc:4709} Zamek
+	["Flown in to {area:976}: the raceway is a short ride north over the {zone:1446} border.\nThe road from {area:484} to {zone:1446} runs past the {area:2240} on the {area:439}: {npc:4454} is in the gnomes' camp beside the track, {npc:4630} and {npc:4709} by the goblins' camp. {npc:4630} first, then {npc:4709}, who runs off to keep Rizzle busy; then take Rizzle's plans from the gnomes' camp and bring them back to {npc:4630}."] = "Si llegaste volando a {area:976}: el circuito de carreras está a poca distancia a caballo al norte, cruzando la frontera de {zone:1446}.\nEl camino de {area:484} a {zone:1446} pasa por {area:2240} en {area:439}: {npc:4454} está en el campamento de los gnomos junto a la pista, {npc:4630} y {npc:4709} junto al campamento de los goblins. Primero {npc:4630}, luego {npc:4709}, que sale corriendo a entretener a Rizzle; después toma los planos de Rizzle del campamento de los gnomos y llévaselos a {npc:4630}.",
 	-- {npc:4454} Fizzle Brassbolts · {quest:1137} News for Fizzle · {zone:1418} Badlands
 	["{npc:4454}: {quest:1137}, from Martek in the {zone:1418}"] = "{npc:4454}: {quest:1137}, de parte de Martek en {zone:1418}",
 	-- {npc:4630} Pozzik · {item:5852} Fuel Regulator Blueprints · {npc:2496} Baron Revilgaz
@@ -83,15 +101,15 @@ return {
 	-- {npc:4706} Razzeric · {npc:4630} Pozzik
 	["{npc:4706}, beside {npc:4630}"] = "{npc:4706}, junto a {npc:4630}",
 
-	-- Step 21: To Gadgetzan
+	-- Step 28: To Gadgetzan
 	-- {area:976} Gadgetzan
 	["To {area:976}"] = "Hacia {area:976}",
 
-	-- Step 22: Gadgetzan
+	-- Step 29: Gadgetzan
 	-- {area:976} Gadgetzan · {zone:1446} Tanaris
 	["{area:976} is the walled goblin town just past the {zone:1446} border."] = "{area:976} es el pueblo goblin amurallado justo después de la frontera de {zone:1446}.",
 
-	-- Step 23: Noonshade Ruins: kill these as you meet them
+	-- Step 31: Noonshade Ruins: kill these as you meet them
 	-- {area:1937} Noonshade Ruins
 	["{area:1937}: kill these as you meet them"] = "{area:1937}: mata a estos según te los encuentres",
 	-- {area:976} Gadgetzan
@@ -99,7 +117,7 @@ return {
 	["The bandits and thieves camp in the dunes east of {area:976}. Every Wastewander can carry a water pouch: keep ten, five for each of Luglunket's bounties.\nCareful: Wastewander Rogues (level 43-44) move stealthed, so they can approach unseen."] = "Los bandidos y ladrones acampan en las dunas al este de {area:976}. Cualquier Erramundos puede llevar una bolsa de agua: guarda diez, cinco para cada recompensa de Luglunket.\nCuidado: Los pícaros Erramundos (nivel 43-44) se mueven en sigilo, así que pueden acercarse sin que los veas.",
 	["water pouches in your bags"] = "faltriqueras de agua en tus bolsas",
 
-	-- Step 25: Steamwheedle Port
+	-- Step 33: Steamwheedle Port
 	["Ride north-east to the goblin harbour on the coast."] = "Cabalga al noreste hasta el puerto goblin de la costa.",
 	-- {npc:7882} Security Chief Bilgewhizzle
 	["{npc:7882}, inside"] = "{npc:7882}, adentro",
@@ -108,31 +126,31 @@ return {
 	-- {npc:8579} Yeh'kinya · {zone:1444} Feralas
 	["{npc:8579}: the screechers live in {zone:1444}, on the next {zone:1444} visit"] = "{npc:8579}: los chilladores viven en {zone:1444}, en la próxima visita a {zone:1444}",
 
-	-- Step 26: Lost Rigger Cove: kill these as you meet them
+	-- Step 34: Lost Rigger Cove: kill these as you meet them
 	-- {area:1336} Lost Rigger Cove
 	["{area:1336}: kill these as you meet them"] = "{area:1336}: mata a estos según te los encuentres",
 	-- {npc:7883} Andre Firebeard
 	["South along the coast, the Southsea pirates hold the cove. {npc:7883} and the stolen cargo are on the docks at its far end. Any pirate can drop a hat, the kidnappers most often.\nCareful: Two or three pirates stand with {npc:7883}, and many more pirates from the town join the fight once it starts."] = "Al sur por la costa, los piratas de los Mares del Sur ocupan la cala. {npc:7883} y la carga robada están en los muelles del extremo. Cualquier pirata puede soltar un sombrero, los secuestradores con más frecuencia.\nCuidado: Dos o tres piratas están con {npc:7883}, y muchos más piratas del pueblo se unen a la pelea cuando empieza.",
 	["Upstairs"] = "Arriba",
 
-	-- Step 27: Waterspring Field: kill these as you meet them
+	-- Step 35: Waterspring Field: kill these as you meet them
 	-- {area:985} Waterspring Field
 	["{area:985}: kill these as you meet them"] = "{area:985}: mata a estos según te los encuentres",
 	-- {area:976} Gadgetzan · {npc:7847} Caliph Scorpidsting
 	-- plural, as words: Wastewander Rogues = {npc:5615} Wastewander Rogue
 	["The shadow mages, rogues and assassins camp south-east of {area:976}.\nSouth-east of Gadgetzan the Wastewander bandits camp in the dunes; {npc:7847} stands in the eastern camp.\nCareful: Wastewander Rogues keep Sneak up while out of combat, so hidden rogues can join a fight you start at a camp.\nCareful: Two stealthed Wastewander Rogues travel with him wherever he goes. At his spawn camp, two shadowmages and their minions are close enough to join a fight with him. Out by the towers you can fight him without them."] = "Los magos de las sombras, pícaros y asesinos acampan al sureste de {area:976}.\nAl sureste de Gadgetzan, los bandidos Erramundos acampan en las dunas; {npc:7847} está en el campamento del este.\nCuidado: Los pícaros Erramundos mantienen Acechar fuera de combate, así que pícaros ocultos pueden unirse a una pelea que empieces en un campamento.\nCuidado: Dos pícaros Erramundos en sigilo lo acompañan a donde vaya. En su campamento de aparición, dos magos de las sombras y sus esbirros están lo bastante cerca para unirse a la pelea. Afuera, junto a las torres, puedes pelear con él sin ellos.",
 
-	-- Step 28: Steamwheedle Port
+	-- Step 36: Steamwheedle Port
 	-- {npc:7881} Stoley · {npc:15165} Haughty Modiste · {area:1336} Lost Rigger Cove · {area:976} Gadgetzan
 	["Ride north-east back to the port: {npc:7881}, the {npc:15165} and the Security Chief take what {area:1336} gave you. {area:976} is west of it."] = "Vuelve al noreste, al puerto: {npc:7881}, {npc:15165} y el Jefe de seguridad reciben lo que te dio {area:1336}. {area:976} está al oeste.",
 	-- {area:35} Booty Bay
 	["for {area:35}, around level 50"] = "para {area:35}, alrededor del nivel 50",
 
-	-- Step 30: Fly to Freewind Post
+	-- Step 38: Fly to Freewind Post
 	-- {area:976} Gadgetzan
 	["{area:976} flight master"] = "Maestro de vuelo de {area:976}",
 
-	-- Step 32: Camp Mojache
+	-- Step 40: Camp Mojache
 	-- {npc:7777} Rok Orhan · {area:1099} Camp Mojache
 	["{npc:7777} walks around {area:1099}: look inside the circle on the map"] = "{npc:7777} da vueltas por {area:1099}: búscalo dentro del círculo del mapa",
 	-- {npc:8115} Witch Doctor Uzer'i · {zone:1454} Orgrimmar
@@ -140,39 +158,41 @@ return {
 	-- {npc:7854} Jangdor Swiftstrider
 	["{npc:7854}, inside"] = "{npc:7854}, adentro",
 
-	-- Step 33: Gordunni Outpost
-	["North of the gnolls the ogres hold a hilltop outpost; pull the ogre-magi to you. The cobalt is in the dirt mounds around the outpost, and the scroll lies on the ground inside it."] = "Al norte de los gnolls, los ogros ocupan una avanzada en una colina; atrae a los ogros magos hacia ti. El cobalto está en los montículos de tierra alrededor de la avanzada y el pergamino está en el suelo, adentro.",
+	-- Step 41: Gordunni Outpost
+	-- {npc:222233} Ohk'zi
+	["North of the gnolls the ogres hold a hilltop outpost; pull the ogre-magi to you. The cobalt is in the dirt mounds around the outpost, and the scroll lies on the ground inside it.\nCareful: {npc:222233} (level 43, elite) stands in the outpost: pull the ogres out to you, away from him."] = "Al norte de los gnolls, los ogros ocupan una avanzada en una colina; atrae a los ogros magos hacia ti. El cobalto está en los montículos de tierra alrededor de la avanzada y el pergamino está en el suelo, adentro.\nCuidado: {npc:222233} (nivel 43, élite) está en la avanzada: atrae a los ogros hacia ti, lejos de él.",
 
-	-- Step 34: Woodpaw north camp
+	-- Step 42: Woodpaw north camp
 	["Woodpaw north camp"] = "Campamento norte Zarpaleña",
 	["The Woodpaw gnolls camp in the hills just north-west of Mojache; any of them can drop a mane.\nCareful: Every Woodpaw gnoll except the Alpha runs off for help at 15% health, which can pull more gnolls into the fight."] = "Los gnolls Zarpaleña acampan en las colinas justo al noroeste de Mojache; cualquiera puede soltar una melena.\nCuidado: Todos los gnolls Zarpaleña, salvo el alfa, huyen a pedir ayuda al 15 % de salud, lo que puede atraer más gnolls a la pelea.",
 
-	-- Step 35: Camp Mojache
+	-- Step 43: Camp Mojache
 	-- {quest:2863} Alpha Strike
 	["{quest:2863}: one hour from now"] = "{quest:2863}: una hora a partir de ahora",
 
-	-- Step 36: Feralas: kill these as you meet them
+	-- Step 44: Feralas: kill these as you meet them
 	-- {zone:1444} Feralas
 	["{zone:1444}: kill these as you meet them"] = "{zone:1444}: mata a estos según te los encuentres",
 	["The sprite darters flit over the grove just west of Mojache; nearly every one drops a wing. The Woodpaw alphas lead the camps south-west of it: kill them within the hour.\nCareful: Most Alphas sit in small tent camps with 2-4 other gnolls that join the fight, and other gnolls patrol between the camps."] = "Los dardos duende revolotean sobre la arboleda justo al oeste de Mojache; casi todos sueltan un ala. Los alfas Zarpaleña dirigen los campamentos al suroeste: mátalos antes de que pase la hora.\nCuidado: La mayoría de los alfas están en pequeños campamentos de tiendas con 2-4 gnolls más que se unen a la pelea, y otros gnolls patrullan entre los campamentos.",
 
-	-- Step 38: Grimtotem camp
+	-- Step 46: Grimtotem camp
 	["Grimtotem camp"] = "Campamento Tótem Siniestro",
-	["The Grimtotem tauren camp beside the sprite darters' grove; raiders, naturalists and shamans all carry horns."] = "El campamento tauren Tótem Siniestro, junto a la arboleda de los duendes dardo; los asaltantes, naturalistas y chamanes llevan cuernos.",
+	-- {npc:222286} Namida Grimtotem
+	["The Grimtotem tauren camp beside the sprite darters' grove; raiders, naturalists and shamans all carry horns.\nCareful: {npc:222286} (level 43, elite) stands in the camp: pull the raiders and shamans away from her."] = "El campamento tauren Tótem Siniestro, junto a la arboleda de los duendes dardo; los asaltantes, naturalistas y chamanes llevan cuernos.\nCuidado: {npc:222286} (nivel 43, élite) está en el campamento: atrae a los asaltantes y chamanes lejos de ella.",
 
-	-- Step 39: Woodpaw battle map
+	-- Step 47: Woodpaw battle map
 	["Woodpaw battle map"] = "Mapa de batalla Zarpaleña",
 	["The battle map lies in the Woodpaw camp south of Mojache."] = "El mapa de batalla está en el campamento Zarpaleña al sur de Mojache.",
 
-	-- Step 40: Camp Mojache
+	-- Step 48: Camp Mojache
 	-- {zone:1454} Orgrimmar
 	["for {zone:1454}, around level 45"] = "para {zone:1454}, alrededor del nivel 45",
 
-	-- Step 41: The Writhing Deep
+	-- Step 49: The Writhing Deep
 	-- {quest:7731} Stinglasher
 	["The Zukk'ash hive burrows into the hills south-east of the camp; {quest:7731} waits in its deepest chamber."] = "La colmena Zukk'ash se adentra en las colinas al sureste del campamento; {quest:7731} espera en su cámara más profunda.",
 
-	-- Step 42: Ruins of Isildien: kill these as you meet them
+	-- Step 50: Ruins of Isildien: kill these as you meet them
 	-- {area:2522} Ruins of Isildien
 	["{area:2522}: kill these as you meet them"] = "{area:2522}: mata a estos según te los encuentres",
 	-- {area:1105} Feral Scar Vale
@@ -180,29 +200,29 @@ return {
 	-- {npc:5234} Gordunni Mauler · {area:2522} Ruins of Isildien
 	["{npc:5234} walks around {area:2522}: look inside the circle on the map"] = "{npc:5234} da vueltas por {area:2522}: búscalo dentro del círculo del mapa",
 
-	-- Step 43: Feral Scar Vale yetis
+	-- Step 51: Feral Scar Vale yetis
 	-- {area:1105} Feral Scar Vale
 	["{area:1105} yetis"] = "Yetis de {area:1105}",
 	-- {area:1105} Feral Scar Vale
 	["North-west of the ruins, the yetis den in {area:1105}; every yeti there can drop a thick hide."] = "Al noroeste de las ruinas, los yetis tienen su guarida en {area:1105}; cualquier yeti de ahí puede soltar un pellejo grueso.",
 
-	-- Step 44: Homing Robot OOX-22/FE
+	-- Step 52: Homing Robot OOX-22/FE
 	-- {zone:1444} Feralas · {area:1105} Feral Scar Vale · {area:1108} Forgotten Coast · {area:35} Booty Bay
 	["Only with the distress beacon: any beast, gnoll or ogre in {zone:1444} can drop it, about one kill in a hundred; use it to start the quest. The robot sits in a small cave on the north side of {area:1105}, just north-west of the ruins. Escort it to the dock on the {area:1108}; yetis and gorillas ambush you on the way. Its reward waits in {area:35} for a later visit.\nCareful: Three ambushes spawn during the escort, and the robot warns you before each one. The first is 3 yetis, just after the robot leaves the cave and climbs toward the road. The second is 3 gorillas, on the path that runs along the cliff. The third is about 4 gnolls, one of them a caster, where the route turns off toward the dock."] = "Solo con la baliza de socorro: cualquier bestia, gnoll u ogro de {zone:1444} puede soltarla, más o menos una vez cada cien; úsala para empezar la misión. El robot está en una pequeña cueva en el lado norte de {area:1105}, justo al noroeste de las ruinas. Escóltalo hasta el muelle de {area:1108}; yetis y gorilas te emboscan en el camino. Su recompensa espera en {area:35} para una visita posterior.\nCuidado: Aparecen tres emboscadas durante la escolta, y el robot te avisa antes de cada una. La primera son 3 yetis, justo después de que el robot sale de la cueva y sube hacia el camino. La segunda son 3 gorilas, en el sendero que corre junto al acantilado. La tercera son unos 4 gnolls, uno de ellos lanzador de hechizos, donde la ruta se desvía hacia el muelle.",
 
-	-- Step 45: Camp Mojache
+	-- Step 53: Camp Mojache
 	-- {zone:1444} Feralas
 	["the Rage Scar yetis, on the next visit to {zone:1444}"] = "los yetis Cicatriz de Ira, en la próxima visita a {zone:1444}",
 	-- {npc:7875} Hadoken Swiftstrider · {npc:7010} Zilzibin Drumlore · {zone:1454} Orgrimmar
 	["{npc:7875}: for {npc:7010} in {zone:1454}"] = "{npc:7875}: para {npc:7010} en {zone:1454}",
 
-	-- Step 46: Fly to Orgrimmar
+	-- Step 54: Fly to Orgrimmar
 	-- {area:1637} Orgrimmar
 	["Fly to {area:1637}"] = "Vuela a {area:1637}",
 	-- {area:1099} Camp Mojache
 	["{area:1099} flight master"] = "Maestro de vuelo de {area:1099}",
 
-	-- Step 47: Orgrimmar
+	-- Step 55: Orgrimmar
 	-- {zone:1454} Orgrimmar · {object:172960} Cleft of Shadow · {object:172958} Valley of Honor
 	["Fly to {zone:1454}. From the flight master: the {object:172960}, then the Drag, then the {object:172958}."] = "Vuela a {zone:1454}. Desde el maestro de vuelo: {object:172960}, luego la Calle Mayor, luego {object:172958}.",
 	-- {npc:7010} Zilzibin Drumlore

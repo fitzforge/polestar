@@ -17,9 +17,9 @@ return {
 
 	-- Step 2: The Venture Co. Mine
 	-- {zone:1412} Mulgore · {area:360} The Venture Co. Mine · {object:403041} Blasting Supplies (no name in this language: may be words)
-	["Ride down the lift and south-east across {zone:1412} to the {area:360}. Put on the disguise, then open the carts of {object:403041} inside the mine and on the slope outside it; stay on the upper levels where you can, the lower tunnels are packed. Five charges."] = "",
+	["Ride down the lift and south-east across {zone:1412} to the {area:360}. Put on the disguise, then open the carts of {object:403041} inside the mine and on the slope outside it; stay on the upper levels where you can, the lower tunnels are packed. Five charges."] = "Спуститесь на подъемнике и идите на юго-восток через {zone:1412} к {area:360}. Наденьте маскировку, затем обыщите тележки с {object:403041} внутри рудника и на склоне снаружи; по возможности держитесь верхних ярусов, нижние туннели переполнены. Пять зарядов.",
 	-- {item:206157} Seaforium Mining Charge · {object:403041} Blasting Supplies (no name in this language: may be words)
-	["{item:206157}, from the {object:403041}"] = "",
+	["{item:206157}, from the {object:403041}"] = "{item:206157}: из {object:403041}",
 
 	-- Step 3: Boarton Shadetotem
 	-- {npc:205729} Boarton Shadetotem · {zone:1456} Thunder Bluff · {item:206176} Mortar and Pestle
@@ -50,8 +50,4 @@ return {
 	-- Step 7: Boarton Shadetotem
 	-- {npc:205729} Boarton Shadetotem · {item:277988} Hoof-Holstered Blade · {item:278002} Valley Cosh
 	["Take your weapon from {npc:205729}: the {item:277988} or the {item:278002}."] = "",
-
-	-- No longer in the guide (its English changed or it went away): reuse or delete.
-	-- ["Loot 5 Seaforium Mining Charges from the {object:403041}"] = "Добудьте 5 сефориевых горных зарядов из {object:403041}",
-	-- ["Ride down the lift and south-east across {zone:1412} to the {area:360}. Put on the disguise, then open the carts of {object:403041} inside the mine and on the slope outside its far side; stay on the upper levels where you can, the lower tunnels are packed. Five charges."] = "Спуститесь на подъемнике и идите на юго-восток через {zone:1412} к {area:360}. Наденьте маскировку, затем обыщите тележки с {object:403041} внутри рудника и на склоне за его дальней стороной; по возможности держитесь верхних ярусов, нижние туннели переполнены. Пять зарядов.",
 }

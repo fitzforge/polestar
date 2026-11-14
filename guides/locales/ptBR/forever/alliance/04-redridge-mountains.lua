@@ -21,41 +21,26 @@ return {
 	-- {npc:11867} Woo Ping · {object:2096} Trade District
 	["While you're here: learn Polearms from {npc:11867} ({object:2096}, 1 gold); a Hunter's melee weapon is mostly its stats, and two-handers carry the most."] = "Já que está aqui: aprenda Armas de Haste com {npc:11867} ({object:2096}, 1 ouro); a arma corpo a corpo do Caçador vale pelos atributos, e as de duas mãos são as que mais trazem.",
 
-	-- Step 4: Tram to Ironforge
-	-- {zone:1455} Ironforge
-	["Tram to {zone:1455}"] = "Metrô para {zone:1455}",
-
-	-- Step 5: Shaman training
-	["Shaman training"] = "Treino de xamã",
-	-- {zone:1453} Stormwind · {area:2257} Deeprun Tram · {object:28027} Dwarven District · {zone:1455} Ironforge · {npc:258098} Eldrun Stormbreaker
-	["{zone:1453} has no shaman trainer: take the {area:2257} from the {object:28027} to {zone:1455}, train with {npc:258098}, then ride the tram back."] = "{zone:1453} não tem instrutor de xamã: pegue o {area:2257} no {object:28027} até {zone:1455}, treine com {npc:258098} e volte de metrô.",
-
-	-- Step 6: Fly to Sentinel Hill
+	-- Step 4: Fly to Sentinel Hill
 	-- {area:108} Sentinel Hill
 	["Fly to {area:108}"] = "Voe para {area:108}",
 	-- {zone:1453} Stormwind
 	["{zone:1453} flight master"] = "Mestre de voo de {zone:1453}",
 
-	-- Step 7: Half Pendant of Aquatic Endurance
+	-- Step 5: Half Pendant of Aquatic Endurance
 	-- {area:108} Sentinel Hill · {object:177790} Strange Lockbox
 	["Fly to {area:108} and head north-west to the coast: the {object:177790} lies on the sea floor off the shore. Then head east along the road through Elwynn."] = "Voe até {area:108} e vá para noroeste até a costa: {object:177790} está no fundo do mar perto da praia. Depois siga para leste pela estrada, por Elwynn.",
 	-- {item:15882} Half Pendant of Aquatic Endurance · {object:177790} Strange Lockbox
 	["{item:15882}: the {object:177790}"] = "{item:15882}: o {object:177790}",
 
-	-- Step 8: Back to Elwynn Forest
-	-- {zone:1429} Elwynn Forest
-	["Back to {zone:1429}"] = "De volta a {zone:1429}",
-	-- {zone:1429} Elwynn Forest
-	["The road into {zone:1429}"] = "A estrada para {zone:1429}",
-
-	-- Step 9: Elwynn Forest
+	-- Step 6: Elwynn Forest
 	-- {area:91} Tower of Azora
 	["The {area:91}"] = "{area:91}",
 
-	-- Step 10: Theocritus
+	-- Step 7: Theocritus
 	["On the top floor"] = "No último andar",
 
-	-- Step 11: Henze Faulk
+	-- Step 8: Henze Faulk
 	-- {area:91} Tower of Azora · {area:86} Stone Cairn Lake · {npc:6172} Henze Faulk · {item:6866} Symbol of Life · {item:6846} Defias Script
 	-- plural, as words: Defias Rogue Wizards = {npc:474} Defias Rogue Wizard
 	["On the road east, past the {area:91}, head north from the bridge to {area:86}. {npc:6172} lies south of the lake: use the {item:6866} on him. The Defias Rogue Wizards around him carry the {item:6846}."] = "Na estrada para leste, depois de {area:91}, saia da ponte para o norte até {area:86}. {npc:6172} está caído ao sul do lago: use o {item:6866} nele. Os Teurgos Proscritos Défias em volta dele carregam a {item:6846}.",
@@ -65,13 +50,13 @@ return {
 	-- plural, as words: Defias Rogue Wizards = {npc:474} Defias Rogue Wizard
 	["{item:6846}: Defias Rogue Wizards"] = "{item:6846}: Teurgos Proscritos Défias",
 
-	-- Step 12: Three Corners
+	-- Step 9: Three Corners
 	-- {area:1002} Three Corners · {zone:1431} Duskwood
 	["The road east through Elwynn crosses into Redridge at {area:1002}, where the roads to Redridge, {zone:1431} and Elwynn meet: south to {zone:1431} first."] = "A estrada para leste por Elwynn cruza para Cristarrubra em {area:1002}, onde se encontram as estradas para Cristarrubra, {zone:1431} e Elwynn: primeiro ao sul, até {zone:1431}.",
 
-	-- Step 14: Darkshire
-	-- {area:1002} Three Corners · {zone:1431} Duskwood · {area:42} Darkshire · {item:4371} Bronze Tube · {quest:174} Look to the Stars · {npc:3133} Herble Baubbletump · {npc:276} Viktori Prism'Antras
-	["Follow the road south from {area:1002} into {zone:1431}; {area:42} lies on the east side of the forest.\nNo {item:4371} for {quest:174}? {npc:3133}, in the house beside {npc:276}, is nearly always sold out. Without one, right-click the quest in the guide window and skip it."] = "Siga a estrada para o sul a partir de {area:1002} até {zone:1431}; {area:42} fica no lado leste da floresta.\nSem {item:4371} para {quest:174}? {npc:3133}, na casa ao lado de {npc:276}, quase sempre está sem estoque. Sem ele, clique com o botão direito na missão na janela do guia e pule-a.",
+	-- Step 11: Darkshire
+	-- {area:1002} Three Corners · {zone:1431} Duskwood · {area:42} Darkshire
+	["Follow the road south from {area:1002} into {zone:1431}; {area:42} lies on the east side of the forest."] = "Siga a estrada para o sul a partir de {area:1002} até {zone:1431}; {area:42} fica no lado leste da floresta.",
 	-- {npc:2409} Felicia Maline
 	["{npc:2409}, at the north end of town"] = "{npc:2409}, no extremo norte da cidade",
 	-- {npc:265} Madame Eva
@@ -90,10 +75,20 @@ return {
 	["{npc:633}, at the south end of town; inside"] = "{npc:633}, na ponta sul da cidade; lá dentro",
 	-- {npc:633} Elaine Carevin · {npc:288} Jitters · {quest:163} Raven Hill
 	["{npc:633}: {npc:288}, at {quest:163}"] = "{npc:633}: {npc:288}, em {quest:163}",
+
+	-- Step 12: Viktori Prism'Antras
+	-- {npc:276} Viktori Prism'Antras · {quest:174} Look to the Stars · {item:4371} Bronze Tube
+	["{npc:276} is in her house at the east end of town. {quest:174} needs a {item:4371}, so this step shows only while you carry one: without a tube the guide passes {npc:276} and her chain."] = "{npc:276} está na casa dela, no extremo leste da cidade. {quest:174} precisa de um {item:4371}, então esta etapa só aparece enquanto você carrega um: sem o tubo, o guia passa direto por {npc:276} e pela sequência dela.",
 	-- {npc:276} Viktori Prism'Antras
 	["{npc:276}, inside"] = "{npc:276}, lá dentro",
+
+	-- Step 13: Viktori Prism'Antras
 	-- {npc:302} Blind Mary
 	["For {npc:302}, on the hill south-east of town"] = "Para {npc:302}, no morro a sudeste da cidade",
+
+	-- Step 14: Councilman Millstipe
+	-- {area:717} Stockade · {zone:1453} Stormwind · {npc:270} Councilman Millstipe
+	["For your {area:717} run, in {zone:1453} at about 29: {npc:270} is in the town hall. Keep it until then."] = "Para a masmorra {area:717}, em {zone:1453}, por volta do nível 29: {npc:270} está na prefeitura. Guarde-a até lá.",
 
 	-- Step 15: Tranquil Gardens Cemetery: kill these as you meet them
 	-- {area:121} Tranquil Gardens Cemetery
@@ -178,10 +173,14 @@ return {
 	["Murloc Flesheaters and Tidecallers line the south shore of {area:68}, just east of the gryphons and the bridge. Any of them can carry a fin."] = "Carniceiros e Chamarés Murloc ocupam a margem sul de {area:68}, logo a leste dos grifos e da ponte. Qualquer um deles pode carregar uma nadadeira.",
 
 	-- Step 29: Lakeshire
-	-- {npc:381} Dockmaster Baren · {npc:900} Bailiff Conacher · {npc:342} Martie Jainrose · {npc:382} Marshal Marris · {quest:98386} Alther's Mill
-	["Cross the long bridge north into town: {npc:381} on the docks, {npc:900} in the town hall, {npc:342} in her garden at the west end. {npc:382}'s Blackrock quests and {quest:98386} came with you from your first Redridge visit."] = "Atravesse a ponte longa para o norte, em direção à cidade: {npc:381}, nas docas, {npc:900}, na prefeitura, e {npc:342}, na horta dela, na ponta oeste. As missões Rocha Negra de {npc:382} e {quest:98386} vieram com você desde a sua primeira visita a Cristarrubra.",
+	-- {npc:381} Dockmaster Baren · {npc:900} Bailiff Conacher · {npc:342} Martie Jainrose · {npc:382} Marshal Marris · {npc:341} Foreman Oslow · {quest:98386} Alther's Mill
+	["Cross the long bridge north into town: {npc:381} on the docks, {npc:900} in the town hall, {npc:342} in her garden at the west end. {npc:382} and {npc:341} stand at the north end of the bridge: the Blackrock camps' quests and {quest:98386} are worked on this visit's loop east of the lake."] = "Atravesse a ponte longa para o norte, em direção à cidade: {npc:381}, nas docas, {npc:900}, na prefeitura, e {npc:342}, na horta dela, na ponta oeste. {npc:382} e {npc:341} ficam na ponta norte da ponte: as missões dos acampamentos Rocha Negra e {quest:98386} são feitas no circuito desta visita, a leste do lago.",
 	-- {npc:415} Verner Osgood
 	["{npc:415}, by the road at the north end of the bridge"] = "{npc:415}, junto à estrada, no extremo norte da ponte",
+	-- {npc:382} Marshal Marris
+	["{npc:382}, at the north end of the bridge"] = "{npc:382}, no extremo norte da ponte",
+	-- {npc:341} Foreman Oslow
+	["{npc:341}, beside him"] = "{npc:341}, ao lado dele",
 	-- {npc:900} Bailiff Conacher
 	["{npc:900}, in the town hall"] = "{npc:900}, na prefeitura",
 	["The Wanted poster by the inn"] = "O cartaz de procura-se perto da estalagem",
@@ -271,6 +270,7 @@ return {
 	["Next: the gryphon to {area:42} for {zone:1431}'s second loop (05-duskwood)."] = "Em seguida: o grifo até {area:42} para o segundo circuito de {zone:1431} (05-duskwood).",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["Back to {zone:1429}"] = "De volta a {zone:1429}",
 	-- ["Bellygrub"] = "Ronquifuça",
 	-- ["Cross the long bridge north into town. {npc:341} and {npc:382} stand at the north end of the bridge, {npc:900} in the town hall, {npc:381} and {npc:266} on the docks, {npc:343} at the inn, {npc:342} in her garden at the west end."] = "Atravesse a ponte comprida para o norte até a vila. {npc:341} e {npc:382} ficam na ponta norte da ponte, {npc:900} na prefeitura, {npc:381} e {npc:266} nas docas, {npc:343} na estalagem, {npc:342} na horta dela, no extremo oeste.",
 	-- ["Cross the long bridge north into town: {npc:381} on the docks, {npc:900} in the town hall, the innkeeper in the inn, {npc:342} in her garden at the west end. {npc:382}'s Blackrock quests and {quest:98386} came with you from your first Redridge visit."] = "Atravesse a ponte longa para o norte, em direção à cidade: {npc:381}, nas docas, {npc:900}, na prefeitura, o estalajadeiro, na estalagem, e {npc:342}, na horta dela, na ponta oeste. As missões Rocha Negra de {npc:382} e {quest:98386} vieram com você desde a sua primeira visita a Cristarrubra.",
@@ -285,11 +285,14 @@ return {
 	-- ["Lake murlocs"] = "Murlocs do lago",
 	-- ["Murloc Flesheaters and Tidecallers line the south shore east of the bridge. Any of them can carry a {item:1467} or a fin."] = "Carniceiros Murloc e Chamarés ocupam a margem sul a leste da ponte. Qualquer um deles pode levar um {item:1467} ou uma barbatana.",
 	-- ["Redridge Mongrels and other gnolls hold the hills east of {area:1002}, north of the road; Redridge Thrashers prowl among them, Poachers camp south of the road. Dire Condors and Great Goretusks roam the same hills."] = "Mestiços de Cristarrubra e outros gnolls ocupam as colinas a leste de {area:1002}, ao norte da estrada; Espancadores de Cristarrubra rondam entre eles, Caçadores Ilegais acampam ao sul da estrada. Condores Hediondos e Grandes Goretuscos vagam pelas mesmas colinas.",
+	-- ["Shaman training"] = "Treino de xamã",
 	-- ["Swim east from the bridge into {area:68}; the chest lies on the lake bed."] = "Nade a leste da ponte para dentro do {area:68}; o baú está no fundo do lago.",
 	-- ["The Wanted poster by the inn: {npc:703}, in {area:1000}"] = "O cartaz de PROCURA-SE perto da estalagem: {npc:703}, em {area:1000}",
 	-- ["The road from Elwynn enters Redridge at {area:1002}. {npc:464} stands where the roads to Redridge and {zone:1431} meet."] = "A estrada de Elwynn entra em Cristarrubra em {area:1002}. {npc:464} fica onde se encontram as estradas para Cristarrubra e {zone:1431}.",
+	-- ["The road into {zone:1429}"] = "A estrada para {zone:1429}",
 	-- ["The {area:442} boat docks at {area:17203}. Walk up into the city for training and {npc:1646}, then leave by the main gate and follow the road east through {zone:1429}."] = "O navio de {area:442} atraca em {area:17203}. Suba até a cidade para treinar e falar com {npc:1646}, depois saia pelo portão principal e siga a estrada a leste por {zone:1429}.",
 	-- ["Train, then leave by the main gate and follow the road east through {area:12}."] = "Treine, depois saia pelo portão principal e siga a estrada para leste por {area:12}.",
+	-- ["Tram to {zone:1455}"] = "Metrô para {zone:1455}",
 	-- ["{area:68}: kill these as you meet them"] = "{area:68}: vá matando estes pelo caminho",
 	-- ["{item:1075}: any Shadowhide gnoll"] = "{item:1075}: qualquer gnoll Umbrapele",
 	-- ["{item:280911}: Redridge Thrashers"] = "{item:280911}: Espancadores de Cristarrubra",
@@ -308,4 +311,5 @@ return {
 	-- ["{npc:6122}: {npc:6244} in the {zone:1413} takes it, later"] = "{npc:6122}: {npc:6244} em {zone:1413} a recebe, mais tarde",
 	-- ["{zone:1431} is next: follow the road west to {area:1002}, then south to {area:42}."] = "{zone:1431} é a próxima: siga a estrada a oeste até {area:1002}, depois ao sul até {area:42}.",
 	-- ["{zone:1453} class quests"] = "Missões de classe em {zone:1453}",
+	-- ["{zone:1453} has no shaman trainer: take the {area:2257} from the {object:28027} to {zone:1455}, train with {npc:258098}, then ride the tram back."] = "{zone:1453} não tem instrutor de xamã: pegue o {area:2257} no {object:28027} até {zone:1455}, treine com {npc:258098} e volte de metrô.",
 }

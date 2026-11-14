@@ -87,6 +87,8 @@ return {
 
 	-- Step 19: Grimtotem tauren
 	["Grimtotem tauren"] = "Tauren der Grimmtotem",
+	-- {npc:222286} Namida Grimtotem
+	["Careful: {npc:222286}, an elite of level 43, stands at the camp's north-east edge, around 67,39: pull the Naturalists, Raiders and Shamans away from her."] = "Vorsicht: {npc:222286}, ein Elite der Stufe 43, steht am Nordostrand des Lagers, bei etwa 67,39: Zieh die Naturalists, Raiders und Shamans von ihr weg.",
 
 	-- Step 20: Jer'kai Moonweaver
 	-- {zone:1457} Darnassus
@@ -100,32 +102,30 @@ return {
 	-- {object:164954} Zukk'ash Pod
 	["{object:164954}, inside"] = "{object:164954}, drinnen",
 
-	-- Step 22: High Wilderness: kill these as you meet them
+	-- Step 22: Grind to 45
+	["Grind to 45"] = "Grinde bis 45",
+	-- {area:1105} Feral Scar Vale · {area:978} Zul'Farrak
+	["Ride west into {area:1105}: its yetis are 43-45. The Rage Scar yetis in the hills to the north are 46-48, so they wait until you are 45. Or, with a group, run the {area:978} dungeon instead."] = "Reite nach Westen in das {area:1105}: Seine Yetis sind 43-45. Die Yetis von Rage Scar in den Hügeln im Norden sind 46-48, also warten sie, bis du 45 bist. Oder lauf mit einer Gruppe stattdessen den Dungeon {area:978}.",
+	-- {npc:5292} Feral Scar Yeti · {area:1105} Feral Scar Vale · {zone:1444} Feralas
+	["grind on {npc:5292} at {area:1105}, {zone:1444}"] = "grinde an {npc:5292} im {area:1105}, {zone:1444}",
+
+	-- Step 23: High Wilderness: kill these as you meet them
 	-- {area:1136} High Wilderness
 	["{area:1136}: kill these as you meet them"] = "{area:1136}: Töte diese, sobald sie dir begegnen",
-	-- {quest:7735} Pristine Yeti Hide · {npc:7852} Pratt McGrubben · {npc:14637} Zorbin Fandazzle · {area:978} Zul'Farrak
-	["Ride back west along the road, then north into the Rage Scar hills. Every yeti here can drop a hide, and about one in thirty a {quest:7735}, which {npc:7852} pays for too.\n{npc:14637}'s quests on the coast need level 45: grind the yetis here until level 44.5, so the kills also bring {npc:7852}'s hides. Or, with a group, run the {area:978} dungeon instead."] = "Reite zurück nach Westen entlang der Straße, dann nach Norden in die Hügel von Rage Scar. Jeder Yeti hier kann ein Fell fallen lassen, und etwa jeder dreißigste einen {quest:7735}, den {npc:7852} ebenfalls bezahlt.\nDie Quests von {npc:14637} an der Küste brauchen Stufe 45: Grinde hier die Yetis bis Stufe 44,5, sodass die Kills auch die Felle für {npc:7852} bringen. Oder lauf mit einer Gruppe stattdessen den Dungeon {area:978}.",
-	-- {npc:5296} Rage Scar Yeti
-	["grind on {npc:5296}"] = "Grinde an {npc:5296}",
+	-- {area:1105} Feral Scar Vale · {quest:7735} Pristine Yeti Hide · {npc:7852} Pratt McGrubben
+	["Ride north out of {area:1105} into the Rage Scar hills. Every yeti here can drop a hide, and about one in thirty a {quest:7735}, which {npc:7852} pays for too.\nCareful: the Rage Scar yetis are level 46-48, still one to three above you at 45: take them from the edge of the hills, one at a time."] = "Reite aus {area:1105} nach Norden in die Hügel von Rage Scar. Jeder Yeti hier kann ein Fell fallen lassen, und etwa jeder dreißigste einen {quest:7735}, den {npc:7852} ebenfalls bezahlt.\nVorsicht: Die Yetis von Rage Scar sind Stufe 46-48, mit 45 noch eine bis drei Stufen über dir: Nimm sie dir einzeln vom Rand der Hügel aus vor.",
 
-	-- Step 23: Rage Scar Hold
+	-- Step 24: Rage Scar Hold
 	-- {quest:7735} Pristine Yeti Hide
 	["No {quest:7735} yet? Keep killing the Rage Scar yetis until one drops, then right-click it."] = "Noch keinen {quest:7735}? Töte weiter die Rage Scar Yetis, bis einer ihn fallen lässt, und klick ihn dann rechts an.",
 
-	-- Step 24: Feathermoon Stronghold
+	-- Step 25: Feathermoon Stronghold
 	-- {npc:7880} Ginro Hearthkindle
 	["{npc:7880} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."] = "{npc:7880} steht im Obergeschoss seines Gebäudes: Geh drinnen nach oben, der Pfeil kann die Stockwerke nicht unterscheiden.",
 
-	-- Step 25: Feathermoon Stronghold
+	-- Step 26: Feathermoon Stronghold
 	-- {npc:3936} Shandris Feathermoon · {zone:1457} Darnassus · {area:976} Gadgetzan
 	["{npc:3936} then asks you to carry news to {zone:1457}: skip it, {area:976} sends you there instead."] = "{npc:3936} bittet dich dann, Nachrichten nach {zone:1457} zu bringen: Überspring das, {area:976} schickt dich stattdessen dorthin.",
-
-	-- Step 27: Grind to 45
-	["Grind to 45"] = "Grinde bis 45",
-	-- {area:1105} Feral Scar Vale · {npc:14637} Zorbin Fandazzle · {area:978} Zul'Farrak · {area:1517} Uldaman
-	["Ride east into {area:1105}. {npc:14637}'s quests on the coast need level 45. Or, with a group, run the {area:978} dungeon or the {area:1517} dungeon instead."] = "Reite nach Osten in das {area:1105}. Die Quests von {npc:14637} an der Küste brauchen Stufe 45. Oder lauf mit einer Gruppe stattdessen den Dungeon {area:978} oder den Dungeon {area:1517}.",
-	-- {npc:5292} Feral Scar Yeti · {area:1105} Feral Scar Vale · {zone:1444} Feralas
-	["grind on {npc:5292} at {area:1105}, {zone:1444}"] = "grinde an {npc:5292} im {area:1105}, {zone:1444}",
 
 	-- Step 28: Zorbin Fandazzle
 	-- {area:1108} Forgotten Coast
@@ -165,6 +165,7 @@ return {
 	-- ["Swim south from the island to the {area:1121}. Hatecrest Serpent Guards and Sorceresses hold it; {npc:8136} (level 47) waits in the cave at its south end. Pull his guards first."] = "Schwimm von der Insel nach Süden zum Gebiet {area:1121}. Schlangenwachen und Zauberhexerinnen der Hasskämme halten es; {npc:8136} (Stufe 47) wartet in der Höhle an seinem Südende. Zieh zuerst seine Wachen.",
 	-- ["You end at the {area:1108} dock: the {zone:1446} guide starts with the trip east from here."] = "Du endest am Steg im Gebiet {area:1108}: Der Guide für {zone:1446} beginnt mit der Reise von hier nach Osten.",
 	-- ["grind on {npc:5292} at {area:1105}, {area:357}"] = "grinde an {npc:5292} im {area:1105}, {area:357}",
+	-- ["grind on {npc:5296}"] = "Grinde an {npc:5296}",
 	-- ["if you carry {quest:1100} from {zone:1441}"] = "falls du {quest:1100} aus {zone:1441} dabeihast",
 	-- ["{area:978} instead of grinding"] = "{area:978} statt Grinden",
 	-- ["{npc:7774} wanders the hills north of {npc:7765}, among the Northspring harpies; her bell is in the chest beside her."] = "{npc:7774} wandert durch die Hügel nördlich von {npc:7765}, zwischen den Harpyien der Nordschwingen; ihre Glocke liegt in der Truhe neben ihr.",

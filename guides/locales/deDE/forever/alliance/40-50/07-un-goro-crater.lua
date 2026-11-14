@@ -55,7 +55,7 @@ return {
 
 	-- Step 13: Marshal's Refuge
 	-- {npc:271301} Power Crystal · {object:157936} Un'Goro Dirt Pile
-	["Ride west back to the refuge.\nGive the elite devilsaurs and stegodons a wide berth. Pick up every {npc:271301} and {object:157936} you pass from here on."] = "",
+	["Ride west back to the refuge.\nGive the elite devilsaurs and stegodons a wide berth. Pick up every {npc:271301} and {object:157936} you pass from here on."] = "Reite zurück nach Westen zum Zufluchtsort.\nHalte weiten Abstand zu den Elite-Teufelssauriern und Stegodons. Heb von hier an jeden {npc:271301} und jeden {object:157936} auf, an dem du vorbeikommst.",
 	-- {npc:9998} Shizzle
 	["{npc:9998}, at the refuge entrance"] = "{npc:9998}, am Eingang der Zuflucht",
 	-- {npc:8737} Linken
@@ -88,47 +88,43 @@ return {
 	["Ride east to {area:1943}, where the robot stands among the gorillas. Stay out of the deep cave there."] = "Reite nach Osten zum {area:1943}, wo der Roboter zwischen den Gorillas steht. Bleib dort aus der tiefen Höhle fern.",
 	["Below ground"] = "Unter der Erde",
 
-	-- Step 19: Level 49.51
-	["Level 49.51"] = "Stufe 49,51",
-	-- {area:541} Marshal's Refuge · {area:2100} Maraudon
-	["Top up here to level 49.51 before the hand-ins at {area:541}: they take you to level 50. Or, with a group, run the {area:2100} dungeon instead."] = "Füll hier bis Stufe 49,51 auf, bevor du bei {area:541} abgibst: Dadurch erreichst du Stufe 50. Oder lauf mit einer Gruppe stattdessen den Dungeon {area:2100}.",
-	["Pterrordax"] = "Pterrordax",
-	["grind on Pterrordax"] = "Grinde an Pterrordax",
-
-	-- Step 20: Crate of Foodstuffs
+	-- Step 19: Crate of Foodstuffs
 	-- {npc:9165} Fledgling Pterrordax · {npc:9998} Shizzle
 	-- plural, as words: Young Diemetradons = {npc:9162} Young Diemetradon
 	["Ride south down the east side. Young Diemetradons graze the eastern jungle and {npc:9165} fly near the eastern cliffs; both drop {npc:9998}'s scales. The crate sits at the abandoned camp in the eastern jungle."] = "Reite an der Ostseite nach Süden. Young Diemetradons grasen im östlichen Dschungel, und {npc:9165} fliegen nahe den östlichen Klippen; beide lassen die Schuppen von {npc:9998} fallen. Die Kiste steht im verlassenen Lager im östlichen Dschungel.",
 
-	-- Step 21: Eastern Pylon
+	-- Step 20: Eastern Pylon
 	["Eastern Pylon"] = "Östlicher Kristallpylon",
 	["The pylon stands on the eastern cliffs."] = "Der Pylon steht auf den östlichen Klippen.",
 
-	-- Step 22: The Gorishi hive
+	-- Step 21: The Gorishi hive
 	["The Gorishi hive"] = "Der Gorishi-Bau",
 	-- {npc:9619} Torwa Pathfinder · {quest:3764} Un'Goro Soil · {spell:8137} Silithid Pox · {spell:14120} Tunneler Acid
 	-- plural, as words: Gorishi Workers = {npc:6552} Gorishi Worker
-	["Ride south-west past {npc:9619}: the silithid hive fills the south of the crater. Use the Scraping Vial on a hatchery, a chamber with hanging larvae. Gorishi wasps and workers drop {quest:3764}; Pterrordax nest on the southern cliffs if you still need kills.\nCareful: Gorishi silithids are level 51-54 and cast {spell:8137} or {spell:14120} in melee; Gorishi Workers have a 50% chance to call for help within 25 yd once they fall below 45% health."] = "",
-	-- {npc:9167} Frenzied Pterrordax
-	["grind on {npc:9167}"] = "Grinde an {npc:9167}",
+	["Ride south-west past {npc:9619}: the silithid hive fills the south of the crater. Use the Scraping Vial on a hatchery, a chamber with hanging larvae. Gorishi wasps and workers drop {quest:3764}; Pterrordax nest on the southern cliffs if you still need kills.\nCareful: Gorishi silithids are level 51-54 and cast {spell:8137} or {spell:14120} in melee; Gorishi Workers have a 50% chance to call for help within 25 yd once they fall below 45% health."] = "Reite südwestlich an {npc:9619} vorbei: Der Silithidenbau füllt den Süden des Kraters. Benutze das Scraping Vial an einer Brutstätte, einer Kammer mit hängenden Larven. Gorishi-Wespen und -Arbeiter lassen {quest:3764} fallen; Pterrordax nisten an den südlichen Klippen, falls du noch Kills brauchst.\nVorsicht: Gorishi-Silithiden sind Stufe 51-54 und wirken im Nahkampf {spell:8137} oder {spell:14120}; Gorishi Workers rufen mit 50 % Wahrscheinlichkeit Hilfe im Umkreis von 25 Metern, sobald sie unter 45 % Gesundheit fallen.",
 
-	-- Step 23: Bones and equipment
+	-- Step 22: Bones and equipment
 	["Bones and equipment"] = "Knochen und Ausrüstung",
 	-- {item:11112} Research Equipment
 	-- plural, as words: Dinosaur Bones = {item:11114} Dinosaur Bone
 	["Dinosaur Bones lie on the ground in the south-west, among the stegodons: those are elite, pick the bones up around them and take the rest from Diemetradons. The expedition's {item:11112} lies in the south-west jungle."] = "Dinosaurierknochen liegen im Südwesten auf dem Boden, zwischen den Stegodons: Die sind Elite, sammle die Knochen um sie herum auf und hol den Rest von Dimetrodons. Die {item:11112} der Expedition liegt im südwestlichen Dschungel.",
-	-- {npc:9164} Elder Diemetradon
-	["grind on {npc:9164}"] = "Grinde an {npc:9164}",
 
-	-- Step 24: Western Pylon
+	-- Step 23: Western Pylon
 	["Western Pylon"] = "Westlicher Kristallpylon",
 	-- {npc:9167} Frenzied Pterrordax
 	["The pylon stands on the western cliffs. {npc:9167} fly over the whole west side."] = "Der Pylon steht auf den westlichen Klippen. {npc:9167} fliegen über die ganze Westseite.",
 
-	-- Step 25: Marshal's Refuge
+	-- Step 24: Marshal's Refuge
 	["Ride north along the western jungle back to the refuge."] = "Reite durch den westlichen Dschungel nach Norden zurück zur Zuflucht.",
 	-- {npc:9998} Shizzle
 	["{npc:9998}, at the refuge's entrance"] = "{npc:9998}, am Eingang der Zuflucht",
+
+	-- Step 25: Level 49.79
+	["Level 49.79"] = "Stufe 49,79",
+	-- {area:541} Marshal's Refuge
+	["Still short of level 49.79 after the refuge's hand-ins? Top up on the Pterrordax on the slopes east of {area:541} before you leave the crater."] = "Nach den Abgaben in der Zuflucht noch unter Stufe 49,79? Hol dir den Rest an den Pterrordax an den Hängen östlich von {area:541}, bevor du den Krater verlässt.",
+	["Pterrordax"] = "Pterrordax",
+	["grind on Pterrordax"] = "Grinde an Pterrordax",
 
 	-- Step 26: Fly to Astranaar
 	-- {area:415} Astranaar
@@ -138,30 +134,24 @@ return {
 	-- {area:541} Marshal's Refuge
 	["{area:541} flight master"] = "Flugmeister in {area:541}",
 
-	-- Step 27: To Stoutlager Inn
-	-- {area:2101} Stoutlager Inn
-	["To {area:2101}"] = "Zum {area:2101}",
+	-- Step 27: To Ironforge
+	-- {zone:1455} Ironforge
+	["To {zone:1455}"] = "Zum {zone:1455}",
 
-	-- Step 28: Fly to Ironforge
-	-- {area:1537} Ironforge
-	["Fly to {area:1537}"] = "Flieg nach {area:1537}",
-	-- {area:144} Thelsamar
-	["{area:144} flight master"] = "Flugmeister in {area:144}",
-
-	-- Step 29: Mystic Ward
+	-- Step 28: Mystic Ward
 	-- {npc:11406} High Priest Rohan · {zone:1447} Azshara
 	["{npc:11406}: for Ogtinc in {zone:1447}, keep it"] = "{npc:11406}: für Ogtinc in {zone:1447}, behalte es",
 	-- {npc:7312} Dink · {npc:8395} Sanath Lim-yo · {zone:1447} Azshara
 	["{npc:7312}, the mage trainer: for {npc:8395} in {zone:1447}, keep it"] = "{npc:7312}, der Magierlehrer: für {npc:8395} in {zone:1447}, behalte es",
 
-	-- Step 32: Fly to Astranaar
+	-- Step 31: Fly to Astranaar
 	-- {area:442} Auberdine
 	["{area:442} flight master"] = "Flugmeister von {area:442}",
 
-	-- Step 33: Level 50.4
+	-- Step 32: Level 50.4
 	["Level 50.4"] = "Stufe 50,4",
-	-- {area:3137} Talrendis Point · {area:2100} Maraudon · {area:1417} Sunken Temple
-	["Top up here to level 50.4 before the hand-ins at {area:3137}: they take you to level 51. Or, with a group, run the {area:2100} dungeon or the {area:1417} dungeon instead."] = "Füll hier bis Stufe 50,4 auf, bevor du bei {area:3137} abgibst: Dadurch erreichst du Stufe 51. Oder lauf mit einer Gruppe stattdessen den Dungeon {area:2100} oder den Dungeon {area:1417}.",
+	-- {area:3137} Talrendis Point
+	["Top up here to level 50.4 before the hand-ins at {area:3137}: they take you to level 51."] = "Füll hier bis Stufe 50,4 auf, bevor du bei {area:3137} abgibst: Dadurch erreichst du Stufe 51.",
 	-- {npc:6116} Highborne Apparition
 	["grind on {npc:6116}"] = "Grinde an {npc:6116}",
 
@@ -171,6 +161,7 @@ return {
 	-- ["Cross the south of the crater to {npc:9619} by the ramp."] = "Durchquere den Süden des Kraters zu {npc:9619} an der Rampe.",
 	-- ["Escort {npc:9999}"] = "Eskortiere {npc:9999}",
 	-- ["Fly from {area:144} to {area:1537}."] = "Flieg von {area:144} nach {area:1537}.",
+	-- ["Fly to {area:1537}"] = "Flieg nach {area:1537}",
 	-- ["Four rune rubbings in {zone:1447}: keep it"] = "Vier Runenabriebe in {zone:1447}: Behalte es",
 	-- ["From {area:144} fly to {area:150}, take the boat to Theramore and fly on to {area:976}. {npc:9619}'s first quest in the crater needs level 48: finish the level here if you are short."] = "Flieg von {area:144} nach {area:150}, nimm das Boot nach Theramore und flieg weiter nach {area:976}. {npc:9619}s erste Quest im Krater erfordert Stufe 48: Mach die Stufe hier voll, falls dir etwas fehlt.",
 	-- ["Grind to 50"] = "Grinde bis 50",
@@ -184,9 +175,7 @@ return {
 	-- ["Ride north to {area:1943}, where the robot stands among the gorillas. Stay out of the deep cave there."] = "Reite nach Norden zum {area:1943}, wo der Roboter zwischen den Gorillas steht. Bleib dort aus der tiefen Höhle fern.",
 	-- ["Ride south along the eastern cliffs to {npc:9619} at the foot of the ramp."] = "Reite an den östlichen Klippen entlang nach Süden zu {npc:9619} am Fuß der Rampe.",
 	-- ["Ride south down the east side. Young Diemetradons graze the eastern jungle and {npc:9165} fly near the eastern cliffs; both drop {npc:9998}'s scales."] = "Reite an der Ostseite nach Süden. Junge Dimetrodons grasen im östlichen Dschungel, und {npc:9165} fliegen nahe den östlichen Klippen; beide lassen die Schuppen für {npc:9998} fallen.",
-	-- ["Ride south-west past {npc:9619}: the silithid hive fills the south of the crater. Use the Scraping Vial on a hatchery, a chamber with hanging larvae. Gorishi wasps and workers drop {quest:3764}; Pterrordax nest on the southern cliffs if you still need kills.\nCareful: Gorishi silithids are level 51-54 and cast Silithid Pox or Tunneler Acid in melee; Gorishi Workers have a 50% chance to call for help within 25 yd once they fall below 45% health."] = "Reite südwestlich an {npc:9619} vorbei: Der Silithidenbau füllt den Süden des Kraters. Benutze das Scraping Vial an einer Brutstätte, einer Kammer mit hängenden Larven. Gorishi-Wespen und -Arbeiter lassen {quest:3764} fallen; Pterrordax nisten an den südlichen Klippen, falls du noch Kills brauchst.\nVorsicht: Gorishi-Silithiden sind Stufe 51-54 und wirken im Nahkampf Silithiden-Pocken oder Tunnelsäure; Gorishi Workers rufen mit 50 % Wahrscheinlichkeit Hilfe im Umkreis von 25 Metern, sobald sie unter 45 % Gesundheit fallen.",
 	-- ["Ride west back to the refuge."] = "Reite nach Westen zurück zur Zuflucht.",
-	-- ["Ride west back to the refuge.\nGive the elite devilsaurs and stegodons a wide berth. Pick up every Power Crystal and {object:157936} you pass from here on."] = "Reite zurück nach Westen zum Zufluchtsort.\nHalte weiten Abstand zu den Elite-Teufelssauriern und Stegodons. Heb von hier an jeden Power Crystal und jeden {object:157936} auf, an dem du vorbeikommst.",
 	-- ["Ride west from {npc:9619}: the silithid hive fills the south of the crater. Use the Scraping Vial on a hatchery, a chamber with hanging larvae. Gorishi wasps and workers drop {quest:3764}; {npc:9166} nest on the southern cliffs if you still need kills."] = "Reite von {npc:9619} nach Westen: Der Silithidenbau füllt den Süden des Kraters. Benutze die Kratzphiole an einer Brutstätte, einer Kammer mit hängenden Larven. Wespen und Arbeiter der Gorishi lassen {quest:3764} fallen; {npc:9166} nisten an den Südklippen, falls dir noch Kills fehlen.",
 	-- ["Ride west out of {area:976} to the long ramp down into {area:490}. {npc:9619} camps at the foot of the ramp, in the south-east corner of the crater."] = "Reite nach Westen aus {area:976} hinaus zur langen Rampe hinab in den {area:490}. {npc:9619} lagert am Fuß der Rampe, in der Südostecke des Kraters.",
 	-- ["Ride west past {area:541} and south down the western side to {area:543}: {npc:10302} the goblin sits by the water."] = "Reite nach Westen an {area:541} vorbei und an der Westseite nach Süden zu {area:543}: {npc:10302}, der Goblin, sitzt am Wasser.",
@@ -200,10 +189,14 @@ return {
 	-- ["The pylon stands on the slope east of the refuge. {npc:9166} circle the slopes around it: they count for {npc:9997} and drop {npc:9998}'s scales."] = "Der Pylon steht am Hang östlich der Zuflucht. {npc:9166} kreisen über den Hängen darum: Sie zählen für {npc:9997} und lassen die Schuppen für {npc:9998} fallen.",
 	-- ["The relics are in the {zone:1428}: keep it"] = "Die Relikte sind in der {zone:1428}: Behalte es",
 	-- ["The wooden sign beside {npc:9997}"] = "Das Holzschild neben {npc:9997}",
+	-- ["Top up here to level 49.51 before the hand-ins at {area:541}: they take you to level 50. Or, with a group, run the {area:2100} dungeon instead."] = "Füll hier bis Stufe 49,51 auf, bevor du bei {area:541} abgibst: Dadurch erreichst du Stufe 50. Oder lauf mit einer Gruppe stattdessen den Dungeon {area:2100}.",
 	-- ["Xiggs waits in the {object:32359}."] = "Xiggs wartet im {object:32359}.",
 	-- ["grind on the Wastewanderers or Dunemaul ogres around {area:976}"] = "Grinde an den Wüstenläufern oder den Ogern der Dünenbrecher um {area:976}",
 	-- ["grind on {npc:5458} at {area:982}, {zone:1446}"] = "Grinde an {npc:5458} bei {area:982}, {zone:1446}",
 	-- ["grind on {npc:6514} at {area:1943}, {zone:1449}"] = "Grinde an {npc:6514} auf dem {area:1943}, {zone:1449}",
+	-- ["grind on {npc:9164}"] = "Grinde an {npc:9164}",
+	-- ["grind on {npc:9167}"] = "Grinde an {npc:9167}",
+	-- ["{area:144} flight master"] = "Flugmeister in {area:144}",
 	-- ["{area:978} (optional)"] = "{area:978} (optional)",
 	-- ["{npc:6734}: the last guide hearths you here, so this usually ticks at once"] = "{npc:6734}: Der letzte Guide bringt dich per Ruhestein hierher, daher ist das meist sofort abgehakt",
 	-- ["{npc:9117}, at the back of the cave"] = "{npc:9117}, hinten in der Höhle",

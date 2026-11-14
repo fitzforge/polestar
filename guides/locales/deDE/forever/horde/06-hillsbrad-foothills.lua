@@ -31,7 +31,8 @@ return {
 
 	-- Step 4: Hillsbrad Fields
 	-- {area:287} Hillsbrad · {npc:232} Farmer Ray · {npc:2403} Farmer Getz · {npc:2451} Farmer Kalaba
-	["The farms east of {area:287} town. {npc:232} works the field by the northern farmhouse, {npc:2403} the one further south-east; Farmhands and Farmers are everywhere. {npc:2451} tends the field south of the farms."] = "Die Höfe östlich des Orts {area:287}. {npc:232} bestellt das Feld beim nördlichen Bauernhaus, {npc:2403} das weiter südöstlich; Landarbeiter und Bauern von Hillsbrad sind überall. {npc:2451} pflegt das Feld südlich der Höfe.",
+	-- plural, as words: Kirin Tor Guards = {npc:246848} Kirin Tor Guard
+	["The farms east of {area:287} town. {npc:232} works the field by the northern farmhouse, {npc:2403} the one further south-east; Farmhands and Farmers are everywhere. {npc:2451} tends the field south of the farms. Careful: Kirin Tor Guards (55) stand north of the farms, on the road up toward Alterac: keep to the fields."] = "Die Höfe östlich des Orts {area:287}. {npc:232} bestellt das Feld beim nördlichen Bauernhaus, {npc:2403} das weiter südöstlich; Landarbeiter und Bauern von Hillsbrad sind überall. {npc:2451} pflegt das Feld südlich der Höfe. Vorsicht: Wachen der Kirin Tor (55) stehen nördlich der Höfe, an der Straße hinauf Richtung Alterac: Bleib auf den Feldern.",
 
 	-- Step 5: Mountain Lion Blood
 	["Careful: When one lion is attacked, nearby lions come to its aid, and the Vicious Black Bears sharing those fields can also join the fight."] = "Vorsicht: Wenn ein Löwe angegriffen wird, eilen nahe Löwen ihm zu Hilfe, und die Bösartigen Schwarzbären, die sich diese Felder teilen, können ebenfalls in den Kampf eingreifen.",
@@ -126,55 +127,83 @@ return {
 	-- {area:272} Tarren Mill
 	["{area:272} flight master"] = "Flugmeister von {area:272}",
 
-	-- Step 21: Fly to the Undercity
+	-- Step 21: Hadrec and Dalar Dawnweaver
+	-- {npc:1938} Dalar Dawnweaver
+	["Hadrec and {npc:1938}"] = "Hadrec und {npc:1938}",
+	-- {area:236} Shadowfang Keep · {npc:1952} High Executor Hadrec · {npc:1938} Dalar Dawnweaver
+	["For your {area:236} run: {npc:1952} stands below ground in the crypt, {npc:1938} just north of Allister."] = "Für deinen Run durch {area:236}: {npc:1952} steht unter der Erde in der Gruft, {npc:1938} gleich nördlich von Allister.",
+	-- {npc:1952} High Executor Hadrec
+	["{npc:1952}, below ground"] = "{npc:1952}, unter der Erde",
+
+	-- Step 22: Shadowfang Keep
+	-- {area:236} Shadowfang Keep · {area:228} The Sepulcher · {area:204} Pyrewood Village · {npc:4444} Deathstalker Vincent · {quest:1098} Deathstalkers in Shadowfang · {npc:3886} Razorclaw the Butcher · {npc:3887} Baron Silverlaine · {npc:4278} Commander Springvale · {npc:4279} Odo the Blindwatcher · {npc:4274} Fenrus the Devourer · {npc:3927} Wolf Master Nandos · {npc:4275} Archmage Arugal · {npc:1938} Dalar Dawnweaver
+	["{area:236} is a dungeon for a group of five, about levels 20 to 30, and a full run takes about an hour. Follow the road south from the {area:228}: the keep stands on the hill above {area:204}, its gate at the top of the path.\nInside: Rethilgore first; the Deathstalker freed from the cells after him opens the courtyard door, and {npc:4444} lies just inside the courtyard, to the right: hand {quest:1098} in to him there. Then {npc:3886}, {npc:3887}, {npc:4278}, {npc:4279}, {npc:4274} and {npc:3927}; {npc:4275} at the top drops his head for {npc:1938}."] = "{area:236} ist ein Dungeon für eine Gruppe aus fünf Spielern, etwa Stufe 20 bis 30; ein kompletter Run dauert etwa eine Stunde. Folge der Straße vom {area:228} nach Süden: Die Burg steht auf dem Hügel über {area:204}, ihr Tor oben am Pfad.\nDrinnen: Zuerst Rethilgore; der Todespirscher, den du danach aus den Zellen befreist, öffnet die Tür zum Hof, und {npc:4444} liegt gleich innerhalb des Hofs, rechts: Gib {quest:1098} dort bei ihm ab. Dann {npc:3886}, {npc:3887}, {npc:4278}, {npc:4279}, {npc:4274} und {npc:3927}; {npc:4275} ganz oben lässt seinen Kopf für {npc:1938} fallen.",
+	-- {quest:1014} Arugal Must Die · {item:5442} Head of Arugal
+	["{quest:1014}: the {item:5442}"] = "{quest:1014}: {item:5442}",
+
+	-- Step 23: Dalar Dawnweaver
+	-- {area:228} The Sepulcher · {npc:1938} Dalar Dawnweaver
+	["Back north up the road to the {area:228}: {npc:1938} stands just north of Allister."] = "Zurück nach Norden die Straße hinauf zum {area:228}: {npc:1938} steht gleich nördlich von Allister.",
+
+	-- Step 24: Fly to the Undercity
 	-- {area:1497} Undercity
 	["Fly to the {area:1497}"] = "Flieg nach {area:1497}",
 	-- {npc:2226} Karos Razok · {area:1497} Undercity
 	["Fly on from {npc:2226}, the bat handler just east of the crypt, to the {area:1497}."] = "Flieg von {npc:2226}, dem Fledermausführer direkt östlich der Krypta, weiter zur {area:1497}.",
 
-	-- Step 22: Aelthalyste
+	-- Step 25: Aelthalyste
 	-- {npc:4606} Aelthalyste · {object:36070} War Quarter
 	["{npc:4606} stands in the {object:36070}."] = "{npc:4606} steht im {object:36070}.",
 
-	-- Step 23: Master Apothecary Faranell
+	-- Step 26: Master Apothecary Faranell
 	-- {npc:2055} Master Apothecary Faranell
 	["{npc:2055}, in the Apothecarium"] = "{npc:2055}, im Apothekarium",
-	-- {area:287} Hillsbrad
-	["Keep it: the {area:287} coast, later on the route"] = "Behalte es: die Küste von {area:287}, später auf der Route",
 
-	-- Step 24: Archibald
+	-- Step 27: Master Apothecary Faranell
+	-- {item:280438} Abominable Head · {area:153} Ruins of Lordaeron
+	["The {item:280438} from the {area:153}: Faranell takes it here."] = "{item:280438} aus {area:153}: Faranell nimmt den Kopf hier entgegen.",
+
+	-- Step 28: Morbin Lightbane
+	-- {area:153} Ruins of Lordaeron · {npc:266484} Morbin Lightbane · {object:36126} Royal Quarter
+	["Your {area:153} limbs: {npc:266484} stands in the {object:36126}, just past the Apothecarium."] = "Deine Gliedmaßen aus {area:153}: {npc:266484} steht im {object:36126}, gleich hinter dem Apothekarium.",
+
+	-- Step 29: Oran Snakewrithe
+	-- {quest:95204} Crest of Lordaeron · {area:153} Ruins of Lordaeron · {npc:7825} Oran Snakewrithe
+	["The {quest:95204} from your {area:153} run: {npc:7825} takes it."] = "{quest:95204} aus deinem Run durch {area:153}: {npc:7825} nimmt das Wappen entgegen.",
+
+	-- Step 30: Archibald
 	-- {spell:202} Two-Handed Swords · {npc:11870} Archibald · {object:36070} War Quarter
-	["While you're here: learn {spell:202} from {npc:11870} ({object:36070}, 10 silver); two-handers level a Warrior fastest."] = "",
+	["While you're here: learn {spell:202} from {npc:11870} ({object:36070}, 10 silver); two-handers level a Warrior fastest."] = "Wenn du schon hier bist: Lerne {spell:202} bei {npc:11870} ({object:36070}, 10 Silber); Zweihandwaffen lassen einen Krieger am schnellsten leveln.",
 
-	-- Step 25: Archibald
+	-- Step 31: Archibald
 	-- {npc:11870} Archibald · {object:36070} War Quarter
 	["While you're here: learn Polearms from {npc:11870} ({object:36070}, 1 gold); two-handers level a Warrior fastest."] = "Wenn du schon hier bist: Lerne Stangenwaffen bei {npc:11870} ({object:36070}, 1 Gold); Zweihandwaffen lassen einen Krieger am schnellsten leveln.",
 
-	-- Step 26: Archibald
+	-- Step 32: Archibald
 	-- {spell:202} Two-Handed Swords · {npc:11870} Archibald · {object:36070} War Quarter
-	["While you're here: learn {spell:202} from {npc:11870} ({object:36070}, 10 silver); two-handers level a Paladin fastest."] = "",
+	["While you're here: learn {spell:202} from {npc:11870} ({object:36070}, 10 silver); two-handers level a Paladin fastest."] = "Wenn du schon hier bist: Lerne {spell:202} bei {npc:11870} ({object:36070}, 10 Silber); Zweihandwaffen lassen einen Paladin am schnellsten leveln.",
 
-	-- Step 27: Archibald
+	-- Step 33: Archibald
 	-- {npc:11870} Archibald · {object:36070} War Quarter
 	["While you're here: learn Polearms from {npc:11870} ({object:36070}, 1 gold); a Hunter's melee weapon is mostly its stats, and two-handers carry the most."] = "Wenn du schon hier bist: Lerne Stangenwaffen bei {npc:11870} ({object:36070}, 1 Gold); die Nahkampfwaffe eines Jägers besteht hauptsächlich aus ihren Werten, und Zweihandwaffen haben die meisten.",
 
-	-- Step 28: Archibald
+	-- Step 34: Archibald
 	-- {npc:11870} Archibald · {object:36070} War Quarter
 	["While you're here: learn Swords from {npc:11870} ({object:36070}, 10 silver); a sword in the main hand levels a Rogue steadily."] = "Wenn du schon hier bist: Lerne Schwerter bei {npc:11870} ({object:36070}, 10 Silber); ein Schwert in der Haupthand lässt einen Schurken stetig leveln.",
 
-	-- Step 29: Trial of the Sea Lion
+	-- Step 35: Trial of the Sea Lion
 	-- {spell:18960} Teleport: Moonglade · {area:2362} Shrine of Remulos · {npc:11802} Dendrite Starblaze · {area:2361} Nighthaven
-	["Cast {spell:18960}. Join the two pendant halves at the {area:2362}, on the north-west shore of the lake, before you see {npc:11802} in {area:2361}. {npc:11802} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."] = "",
+	["Cast {spell:18960}. Join the two pendant halves at the {area:2362}, on the north-west shore of the lake, before you see {npc:11802} in {area:2361}. {npc:11802} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."] = "Wirke {spell:18960}. Füge die beiden Anhängerhälften am {area:2362} am Nordwestufer des Sees zusammen, bevor du {npc:11802} in {area:2361} aufsuchst. {npc:11802} steht oben in seinem Gebäude: Geh drinnen nach oben, der Pfeil kann die Stockwerke nicht unterscheiden.",
 	-- {item:15885} Pendant of the Sea Lion · {area:2362} Shrine of Remulos
 	["{item:15885}: use a half at the {area:2362}"] = "{item:15885}: Benutze eine Hälfte beim {area:2362}",
 
-	-- Step 30: Aquatic Form
+	-- Step 36: Aquatic Form
 	-- {quest:31} Aquatic Form · {npc:11802} Dendrite Starblaze · {npc:11798} Bunthen Plainswind · {area:2361} Nighthaven · {area:1638} Thunder Bluff · {npc:3033} Turak Runetotem · {area:1639} Elder Rise
 	["Take {quest:31} from {npc:11802}, who stands upstairs in his building. Then {npc:11798} in {area:2361} flies druids to {area:1638}: {npc:3033} is on {area:1639}."] = "Nimm {quest:31} von {npc:11802} an, der oben in seinem Gebäude steht. Dann fliegt {npc:11798} in {area:2361} Druiden nach {area:1638}: {npc:3033} ist auf {area:1639}.",
 	-- {npc:11798} Bunthen Plainswind · {area:2361} Nighthaven
 	["{npc:11798} in {area:2361} flies druids there"] = "{npc:11798} in {area:2361} fliegt Druiden dorthin",
 
-	-- Step 31: Back to the Crossroads
+	-- Step 37: Back to the Crossroads
 	["Back to the Crossroads"] = "Zurück zum Wegekreuz",
 	-- {npc:3033} Turak Runetotem · {npc:3024} Tah Winterhoof · {npc:4721} Zangen Stonehoof
 	["Train with {npc:3033}. Before you fly on, {npc:3024} and {npc:4721}, a short walk east of the wind rider master, give two quests worked on the next guides' walks; then fly on to the Crossroads, where the next guide starts."] = "Trainiere bei {npc:3033}. Bevor du weiterfliegst, geben dir {npc:3024} und {npc:4721}, ein kurzes Stück östlich des Windreitermeisters, zwei Quests, die auf den Wegen der nächsten Guides erledigt werden; flieg dann weiter zum Wegekreuz, wo der nächste Guide beginnt.",
@@ -184,25 +213,25 @@ return {
 	-- plural, as words: Laughing Sisters = {npc:4054} Laughing Sister
 	["{npc:4721}: {quest:1195}, the phial from {zone:1440}'s Laughing Sisters"] = "{npc:4721}: {quest:1195}, die Phiole von den Lachenden Schwestern im {zone:1440}",
 
-	-- Step 32: Zeppelin to Orgrimmar
+	-- Step 38: Zeppelin to Orgrimmar
 	-- {zone:1454} Orgrimmar
 	["Zeppelin to {zone:1454}"] = "Zeppelin nach {zone:1454}",
 
-	-- Step 33: Orgrimmar
+	-- Step 39: Orgrimmar
 	-- {zone:1454} Orgrimmar
 	["The middle of {zone:1454}"] = "Die Mitte von {zone:1454}",
 
-	-- Step 34: Orgrimmar
+	-- Step 40: Orgrimmar
 	["Train before you fly on: the next guide flies from here to the Crossroads."] = "Lerne, bevor du weiterfliegst: Der nächste Guide fliegt von hier zum Wegekreuz.",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
-	-- ["Cast Teleport: {zone:1450}. Join the two pendant halves at the {area:2362}, on the north-west shore of the lake, before you see {npc:11802} in {area:2361}. {npc:11802} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."] = "Wirke Teleportieren: {zone:1450}. Füge die beiden Anhängerhälften am {area:2362} am Nordwestufer des Sees zusammen, bevor du {npc:11802} in {area:2361} aufsuchst. {npc:11802} steht oben in seinem Gebäude: Geh drinnen nach oben, der Pfeil kann die Stockwerke nicht unterscheiden.",
 	-- ["Drull and {npc:2238} are chained inside {area:275}'s courtyard buildings; open both locks."] = "Drull und {npc:2238} sind in Gebäuden im Hof der {area:275} angekettet; öffne beide Schlösser.",
 	-- ["Follow the road south to the dwarf dig site at {area:359}. {npc:3421} hides at the south edge of the dig; {object:3646} sits at the bottom of the excavation."] = "Folge der Straße nach Süden zur Ausgrabungsstätte der Zwerge bei {area:359}. {npc:3421} versteckt sich am Südrand der Grabung; {object:3646} steht ganz unten in der Ausgrabung.",
 	-- ["From {area:272} go south-east into the hills on the way to {area:275}. Rogues and Watchmen hold the camps along the way."] = "Geh von {area:272} nach Südosten in die Hügel auf dem Weg zur {area:275}. Schurken und Wachmänner des Syndikats halten die Lager unterwegs.",
 	-- ["From {zone:1454} (zeppelin from the towers outside the {zone:1458}) fly to {area:1638} and train on {area:1639}, then fly on to {area:378}."] = "Flieg von {zone:1454} (Zeppelin von den Türmen vor {zone:1458}) nach {area:1638}, trainiere im Ort {area:1639} und flieg dann weiter nach {area:378}.",
 	-- ["From {zone:1454} (zeppelin from the towers outside the {zone:1458}) fly to {area:378}."] = "Flieg von {zone:1454} (Zeppelin von den Türmen vor {zone:1458}) nach {area:378}.",
 	-- ["Hearth to {area:378} and fly to {area:392}. {quest:874} camps on the shore north of {area:392}."] = "Ruhestein nach {area:378} und flieg nach {area:392}. {quest:874} lagert am Ufer nördlich von {area:392}.",
+	-- ["Keep it: the {area:287} coast, later on the route"] = "Behalte es: die Küste von {area:287}, später auf der Route",
 	-- ["Masoj hides on the hillside above {area:290}, south of Durnholde, on the way down to the blossoms."] = "Masoj versteckt sich am Hang über {area:290}, südlich von Burg Durnholde, auf dem Weg hinunter zu den Blüten.",
 	-- ["No Gallywix yet? The Class guide Poisons (Horde) runs the chain from Shenthul again, with a group for Gallywix."] = "Noch kein Gallywix? Der Klassenguide Gifte (Horde) führt die Questreihe ab Shenthul erneut, mit einer Gruppe für Gallywix.",
 	-- ["No Gallywix yet? The Class guide {spell:2842} (Horde) runs the chain from Shenthul again, with a group for Gallywix."] = "Noch kein Gallywix? Der Klassenguide {spell:2842} (Horde) führt die Questreihe ab Shenthul erneut, mit einer Gruppe für Gallywix.",
@@ -219,8 +248,6 @@ return {
 	-- ["The {area:288} lies south of {area:287} town. Miners work the tunnels; {npc:2305} (30) and {npc:2450} (29) are deep inside."] = "Der Ort {area:288} liegt südlich des Orts {area:287}. Minenarbeiter von Hillsbrad arbeiten in den Stollen; {npc:2305} (30) und {npc:2450} (29) sind tief drinnen.",
 	-- ["The {quest:567} poster: its targets come up along the way"] = "Das Plakat {quest:567}: Seine Ziele triffst du unterwegs",
 	-- ["Town hall"] = "Rathaus",
-	-- ["While you're here: learn Two-Handed Swords from {npc:11870} ({object:36070}, 10 silver); two-handers level a Paladin fastest."] = "Wenn du schon hier bist: Lerne Zweihandschwerter bei {npc:11870} ({object:36070}, 10 Silber); Zweihandwaffen lassen einen Paladin am schnellsten leveln.",
-	-- ["While you're here: learn Two-Handed Swords from {npc:11870} ({object:36070}, 10 silver); two-handers level a Warrior fastest."] = "Wenn du schon hier bist: Lerne Zweihandschwerter bei {npc:11870} ({object:36070}, 10 Silber); Zweihandwaffen lassen einen Krieger am schnellsten leveln.",
 	-- ["You arrive bound at the {area:272} inn. Everyone stands around the town square."] = "Du kommst gebunden am Gasthaus von {area:272} an. Alle stehen rund um den Dorfplatz.",
 	-- ["{npc:2230}, next to Lydon"] = "{npc:2230}, neben Lydon",
 	-- ["{npc:2388}: the last guide binds here, so this usually ticks at once"] = "{npc:2388}: Der letzte Guide bindet dich hier, daher ist das meist sofort abgehakt",

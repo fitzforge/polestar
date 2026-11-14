@@ -52,7 +52,7 @@ return {
 	-- {faction:890} Silverwing Sentinels
 	["{faction:890} to Exalted"] = "{faction:890} hasta Exaltado",
 	-- {item:19546} Sentinel's Blade · {item:19554} Protector's Sword · {item:19562} Outrunner's Bow · {item:19570} Lorekeeper's Staff · {item:211498} Trainee's Sentinel Nightsaber
-	["Revered to Exalted is 21000 reputation, about 136 wins: half of the whole climb. Revered opens the weapons for levels 18 to 58: {item:19546} (dagger), {item:19554}, {item:19562} and {item:19570} (91s to 35g61s). Forever's quartermaster also sells level-25 versions of the four weapons, Resilient helms for level 20 (2g50s) and the {item:211498} mount (level 25, 10g) with no standing listed."] = "",
+	["Revered to Exalted is 21000 reputation, about 136 wins: half of the whole climb. Revered opens the weapons for levels 18 to 58: {item:19546} (dagger), {item:19554}, {item:19562} and {item:19570} (91s to 35g61s). Forever's quartermaster also sells level-25 versions of the four weapons, Resilient helms for level 20 (2g50s) and the {item:211498} mount (level 25, 10g) with no standing listed."] = "De Reverenciado a Exaltado son 21000 de reputación, unas 136 victorias: la mitad de toda la subida. Reverenciado desbloquea las armas para niveles 18 a 58: {item:19546} (daga), {item:19554}, {item:19562} y {item:19570} (de 91 de plata a 35 de oro 61 de plata). El intendente de Forever también vende versiones de nivel 25 de las cuatro armas, yelmos resistentes para nivel 20 (2 de oro 50 de plata) y la montura {item:211498} (nivel 25, 10 de oro) sin nivel de reputación indicado.",
 	-- {npc:14753} Illiyana Moonblaze
 	["{npc:14753}: Revered rewards"] = "{npc:14753}: recompensas de Reverenciado",
 
@@ -100,7 +100,7 @@ return {
 	-- {faction:889} Warsong Outriders
 	["{faction:889} to Exalted"] = "{faction:889} hasta Exaltado",
 	-- {item:19542} Scout's Blade · {item:19550} Legionnaire's Sword · {item:19558} Outrider's Bow · {item:19566} Advisor's Gnarled Staff · {item:211499} Trainee's Outrider Wolf
-	["Revered to Exalted is 21000 reputation, about 136 wins: half of the whole climb. Revered opens the weapons for levels 18 to 58: {item:19542} (dagger), {item:19550}, {item:19558} and {item:19566} (91s to 35g9s). Forever's quartermaster also sells level-25 versions of the four weapons, Resilient helms for level 20 (2g50s) and the {item:211499} mount (level 25, 10g) with no standing listed."] = "",
+	["Revered to Exalted is 21000 reputation, about 136 wins: half of the whole climb. Revered opens the weapons for levels 18 to 58: {item:19542} (dagger), {item:19550}, {item:19558} and {item:19566} (91s to 35g9s). Forever's quartermaster also sells level-25 versions of the four weapons, Resilient helms for level 20 (2g50s) and the {item:211499} mount (level 25, 10g) with no standing listed."] = "De Reverenciado a Exaltado son 21000 de reputación, unas 136 victorias: la mitad de toda la subida. Reverenciado desbloquea las armas para niveles 18 a 58: {item:19542} (daga), {item:19550}, {item:19558} y {item:19566} (de 91 de plata a 35 de oro 9 de plata). El intendente de Forever también vende versiones de nivel 25 de las cuatro armas, yelmos resistentes para nivel 20 (2 de oro 50 de plata) y la montura {item:211499} (nivel 25, 10 de oro) sin nivel de reputación indicado.",
 	-- {npc:14754} Kelm Hargunth
 	["{npc:14754}: Revered rewards"] = "{npc:14754}: recompensas de Reverenciado",
 

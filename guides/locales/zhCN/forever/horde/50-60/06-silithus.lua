@@ -78,10 +78,10 @@ return {
 	-- Step 16: Level 58
 	["Level 58"] = "58 级",
 	-- {npc:15181} Commander Mar'alith · {quest:8304} Dearest Natalia · {area:3425} Cenarion Hold · {area:1583} Blackrock Spire · {quest:838} Scholomance
-	-- plural, as words: Twilight Avengers = {npc:11880} Twilight Avenger
-	["{npc:15181}'s {quest:8304}, at {area:3425}, needs level 58: top up on the Twilight Avengers, Geolords and Stonecallers west of the outpost. Or, with a group, run the {area:1583} dungeon (Lower) or the {quest:838} dungeon instead."] = "{area:3425} 的 {npc:15181} 提供的 {quest:8304} 需要 58 级：击杀前哨站西侧的暮光复仇者、暮光地王和暮光唤石者补足经验。也可组队前往 {area:1583} 副本（下层）或 {quest:838} 副本。",
-	-- {npc:11880} Twilight Avenger
-	["grind on {npc:11880}"] = "击杀 {npc:11880} 刷经验",
+	-- plural, as words: Dredge Crushers = {npc:11741} Dredge Crusher · Twilight Avengers = {npc:11880} Twilight Avenger
+	["{npc:15181}'s {quest:8304}, at {area:3425}, needs level 58: top up on the Dredge Crushers (57-58) west of the outpost, and leave the Twilight Avengers, Geolords and Stonecallers (57-61) around them be. Or, with a group, run the {area:1583} dungeon (Lower) or the {quest:838} dungeon instead."] = "{area:3425} 的 {npc:15181} 提供的 {quest:8304} 需要 58 级：击杀前哨站西侧的掘泥摧毁者（57-58 级）补足经验，别去碰它们周围的暮光复仇者、暮光地王和暮光唤石者（57-61 级）。也可组队前往 {area:1583} 副本（下层）或 {quest:838} 副本。",
+	-- {npc:11741} Dredge Crusher
+	["grind on {npc:11741}"] = "击杀 {npc:11741} 刷经验",
 
 	-- Step 17: Cenarion Hold
 	-- {npc:15189} Beetix Ficklespragg · {npc:15190} Noggle Ficklespragg
@@ -244,90 +244,100 @@ return {
 	-- {npc:10667} Chromie
 	["The lockboxes sit in Andorhal's ruined houses around {npc:10667}'s inn. Careful: Ghouls and skeletons usually stand next to the boxes and attack when you come close. Searing ghouls also hurt anyone nearby and will break stealth."] = "锁箱放在{npc:10667}所在旅店周围的安多哈尔废弃房屋里。小心：食尸鬼和骷髅通常站在箱子旁，你靠近时会发动攻击。灼热食尸鬼还会伤害附近所有人，并会打破潜行。",
 
-	-- Step 63: Dalson's Tears
+	-- Step 62: High Executor Derrington
+	-- {quest:105} Alas, Andorhal · {npc:1852} Araj the Summoner
+	-- plural, as words: Skeletal Warlords = {npc:1788} Skeletal Warlord
+	["{quest:105}'s shard lies at {npc:1852}'s feet, in the middle of Andorhal: he is a level 61 elite with elite Skeletal Warlords about him, a fight for a group."] = "{quest:105}的碎片就在{npc:1852}脚下，位于安多哈尔中央：他是61级精英，周围还有精英骷髅督军，需要组队应战。",
+
+	-- Step 64: Dalson's Tears
 	-- {npc:11077} Cauldron Lord Malvinious · {area:200} Dalson's Tears
 	["East along the road, {npc:11077} guards the cauldron at {area:200}."] = "沿道路向东，{npc:11077}守着{area:200}的瘟疫之锅。",
 
-	-- Step 65: Redpath's Shield
+	-- Step 66: Redpath's Shield
 	-- {area:201} Gahrron's Withering · {npc:1855} Tirion Fordring
 	["The shield lies at {area:201}, south of {npc:1855}'s hut."] = "盾牌在{npc:1855}小屋南边的{area:201}。",
 
-	-- Step 66: Tirion Fordring
+	-- Step 67: Tirion Fordring
 	-- {npc:1855} Tirion Fordring · {area:2619} Thondroril River
 	["Ride east to {npc:1855}'s hut by the {area:2619} and hear him out."] = "向东骑往{area:2619}旁{npc:1855}的小屋，听他把话说完。",
 
-	-- Step 69: Scourge Champions
+	-- Step 70: Scourge Champions
 	-- plural, as words: Scourge Champions = {npc:8529} Scourge Champion
 	["Scourge Champions"] = "天灾勇士",
 	-- {area:2270} Noxious Glade · {npc:11063} Carlin Redpath · {item:13156} Mystic Crystal
 	-- plural, as words: Scourge Champions = {npc:8529} Scourge Champion
 	["Scourge Champions roam the {area:2270}, north of the chapel. Pass {npc:11063}'s {item:13156} over each one you kill: the skulls that resonate are the ones he wants."] = "天灾勇士在教堂北边的{area:2270}游荡。在你杀死的每一个身上晃一晃{npc:11063}的{item:13156}：产生共鸣的头骨就是他要的。",
 
-	-- Step 71: Hameya's scroll
+	-- Step 72: Hameya's scroll
 	["Hameya's scroll"] = "哈米亚的卷轴",
 	-- {area:2261} Undercroft · {area:2260} Marris Stead
 	["A torn scroll lies at the entrance of the {area:2261}, the crypt south of the {area:2260}."] = "一张破损的卷轴在{area:2260}南边的墓穴{area:2261}的入口处。",
 
-	-- Step 72: Pamela and the Undercroft
+	-- Step 73: Pamela and the Undercroft
 	-- {area:2261} Undercroft
 	["Pamela and the {area:2261}"] = "帕米拉和 {area:2261}",
 	-- {area:2262} Darrowshire · {npc:11886} Mercutio Filthgorger · {area:2261} Undercroft
 	["Ride to {area:2262} in the south-west; Pamela plays among the houses. {npc:11886} lurks in the {area:2261}, the crypt just west of the town.\nCareful: About four non-elite adds come with Mercutio. They walk to the grave instead of appearing on the spot."] = "骑马前往西南的 {area:2262}；帕米拉在房屋之间玩耍。{npc:11886} 潜伏在 {area:2261}，也就是镇子正西边的墓穴。\n小心：墨丘利奥会带来约四只非精英小怪。它们会走到墓前，而不是直接在原地出现。",
 
-	-- Step 74: Tirion Fordring
+	-- Step 75: Tirion Fordring
 	-- {npc:1855} Tirion Fordring
 	["Ride north-west to {npc:1855}'s hut."] = "向西北骑往{npc:1855}的小屋。",
 
-	-- Step 77: Level 59.14
+	-- Step 77: Alas, Andorhal
+	-- {npc:1852} Araj the Summoner · {object:177241} Araj's Phylactery
+	-- plural, as words: Skeletal Warlords = {npc:1788} Skeletal Warlord
+	["{npc:1852} (61, elite) stands in the middle of Andorhal among Skeletal Warlords (56-57, elite): kill him with your group, then take the shard from {object:177241} there."] = "{npc:1852}（61级，精英）站在安多哈尔中央，周围是骷髅督军（56-57级，精英）：和队伍一起杀死他，然后从那里的{object:177241}取得碎片。",
+
+	-- Step 78: Level 59.14
 	["Level 59.14"] = "等级 59.14",
 	-- {quest:6135} Duskwing, Oh How I Hate Thee... · {quest:838} Scholomance · {area:2279} Stratholme
 	["If you skipped {quest:6135}, grind here to level 59.14 to stay on the route's plan. Or, with a group, run the {quest:838} dungeon or the {area:2279} dungeon instead."] = "如果跳过了 {quest:6135}，就在此刷到 59.14 级，跟上路线规划。也可组队前往 {quest:838} 副本或 {area:2279} 副本。",
 	-- {npc:10717} Temporal Parasite
 	["grind on {npc:10717}"] = "击杀{npc:10717}刷经验",
 
-	-- Step 78: Chromie
+	-- Step 79: Chromie
 	-- {npc:10667} Chromie
 	["Ride south-west to {npc:10667} in Andorhal."] = "向西南骑往安多哈尔的{npc:10667}那里。",
 	-- {npc:10667} Chromie
 	["{npc:10667}'s Battle of Darrowshire ends against elites. Skip it."] = "{npc:10667}的达隆郡之战最后要对付精英。跳过它。",
 
-	-- Step 79: The Bulwark
+	-- Step 80: The Bulwark
 	-- {area:152} The Bulwark
 	["West to the {area:152}."] = "向西前往 {area:152}。",
 
-	-- Step 80: Into Eastern Plaguelands
+	-- Step 82: Into Eastern Plaguelands
 	-- {zone:1423} Eastern Plaguelands
 	["Into {zone:1423}"] = "进入{zone:1423}",
 
-	-- Step 81: Eastern Plaguelands
+	-- Step 83: Eastern Plaguelands
 	-- {quest:5845} Of Lost Honor
 	["The lake for {quest:5845}"] = "{quest:5845}所需的湖泊",
 
-	-- Step 82: Of Lost Honor
+	-- Step 84: Of Lost Honor
 	["Underwater"] = "在水下",
 
-	-- Step 83: Infiltrator Hameya
+	-- Step 85: Infiltrator Hameya
 	-- {area:2273} Zul'Mashar
 	["Hameya hides among the Mossflayer trolls of {area:2273}, in the north-east corner.\nCareful: The trolls along the path to {area:2273} are level 57-59. They run away at low health and call for help, so they often bring adds with them."] = "哈米亚 藏在东北角{area:2273}的烂苔巨魔之中。\n小心：通往{area:2273}的路上，巨魔为57-59级。它们低血量时会逃跑求援，经常引来额外怪物。",
 
-	-- Step 85: Hameya's mound
+	-- Step 87: Hameya's mound
 	["Hameya's mound"] = "哈米亚的土堆",
 	-- {npc:1855} Tirion Fordring · {area:2261} Undercroft · {object:177675} Mound of Dirt
 	["Ride south-east from {npc:1855} to the {area:2261}; the {object:177675} is just behind it."] = "从{npc:1855}处骑乘向东南前往{area:2261}，{object:177675}就在其后方。",
 
-	-- Step 86: Into Western Plaguelands
+	-- Step 88: Into Western Plaguelands
 	-- {zone:1422} Western Plaguelands
 	["Into {zone:1422}"] = "进入{zone:1422}",
 
-	-- Step 89: Target: Writhing Haunt
+	-- Step 91: Target: Writhing Haunt
 	-- {npc:11055} Shadow Priestess Vandis · {area:152} The Bulwark
 	["from the cauldron, for {npc:11055} at the {area:152}"] = "从大锅处取得，交给{area:152}的{npc:11055}",
 
-	-- Step 91: Target: Gahrron's Withering
+	-- Step 93: Target: Gahrron's Withering
 	-- {area:202} Writhing Haunt · {area:201} Gahrron's Withering · {npc:11078} Cauldron Lord Soulwrath
 	["Back east past the {area:202} to {area:201}, the farm under the eastern hills: {npc:11078} guards its cauldron. Kill him for the key, then use the cauldron."] = "向东返回，经过{area:202}后到达{area:201}，即东侧丘陵下的农场：{npc:11078}守着那里的瘟疫之锅。击杀他取得钥匙，再使用瘟疫之锅。",
 
-	-- Step 92: The Bulwark
+	-- Step 94: The Bulwark
 	-- {area:152} The Bulwark
 	["West to the {area:152} one last time."] = "最后一次向西返回{area:152}。",
 

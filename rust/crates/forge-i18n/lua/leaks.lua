@@ -3,9 +3,9 @@
 -- LEAKS = { locale = "ruRU" } set. It
 --   * makes the client answer in "its language": every name the client
 --     itself gives (quest titles, item, map, area, zone, spell, faction,
---     instance, class and race names, a few GlobalStrings) comes back as a
---     placeholder, ⟦q176⟧, that holds no word, so a word left on screen is
---     Polestar's;
+--     instance, class and race names, key names, a few GlobalStrings) comes
+--     back as a placeholder, ⟦q176⟧, that holds no word, so a word left on
+--     screen is Polestar's;
 --   * records every text the addons put up: font strings and buttons
 --     (SetText, SetFormattedText), tooltips, chat, error and popup texts,
 --     Settings panel names and menu entries, each with the scene it showed
@@ -132,6 +132,8 @@ for i, k in ipairs({ "FACTION_STANDING_LABEL1", "FACTION_STANDING_LABEL2", "FACT
 	"TRINKET0SLOT", "BACKSLOT", "MAINHANDSLOT", "SECONDARYHANDSLOT", "RANGEDSLOT", "ENCOUNTER_JOURNAL" }) do
 	_G[k] = P("g", i)
 end
+-- A key's name (Esc, Enter) is the client's own word for it.
+GetBindingText = function(key) if type(key) == "string" and key ~= "" then return P("k", key) end return key end
 
 ---------------------------------------------------------------------------
 -- What the addons put on screen.

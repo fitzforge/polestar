@@ -12,7 +12,7 @@ return {
 
 	-- Step 1: Devourer of Souls (Orgrimmar)
 	-- {npc:5875} Gan'rul Bloodeye · {object:172960} Cleft of Shadow · {object:172982} Valley of Strength · {npc:5909} Cazul · {npc:5675} Carendin Halgar · {zone:1458} Undercity · {quest:1472} Devourer of Souls · {zone:1454} Orgrimmar
-	["At 20 {npc:5875}, in the {object:172960} under the {object:172982}, sends you to {npc:5909} a few steps away. Two trainers start these demons, {npc:5875} here and {npc:5675} in the {zone:1458}, and you can take only one; this guide follows whichever {quest:1472} you took. {npc:5909} offers both of {zone:1454}'s branches: take both."] = "",
+	["At 20 {npc:5875}, in the {object:172960} under the {object:172982}, sends you to {npc:5909} a few steps away. Two trainers start these demons, {npc:5875} here and {npc:5675} in the {zone:1458}, and you can take only one; this guide follows whichever {quest:1472} you took. {npc:5909} offers both of {zone:1454}'s branches: take both."] = "20레벨에 {object:172982} 아래 {object:172960}의 {npc:5875}이(가) 몇 걸음 떨어진 {npc:5909}에게 보냅니다. 이 악마들은 여기의 {npc:5875}과 {zone:1458}의 {npc:5675}, 두 상급자가 시작하며 하나만 수락할 수 있습니다. 이 가이드는 수락한 {quest:1472}을(를) 따라갑니다. {npc:5909}은(는) {zone:1454}의 두 갈래를 모두 줍니다. 둘 다 받으십시오.",
 	["the succubus"] = "",
 	["the incubus"] = "",
 
@@ -22,7 +22,7 @@ return {
 
 	-- Step 3: Magar
 	-- {npc:3363} Magar · {object:173018} Magar's Cloth Goods · {object:172960} Cleft of Shadow · {zone:1440} Ashenvale
-	["{npc:3363} keeps {object:173018} on the main street east of the {object:172960}. He asks you to look for his mate Krilge in {zone:1440}."] = "",
+	["{npc:3363} keeps {object:173018} on the main street east of the {object:172960}. He asks you to look for his mate Krilge in {zone:1440}."] = "{npc:3363}은(는) {object:172960} 동쪽 큰길가의 {object:173018}을(를) 운영합니다. {zone:1440}에 있는 짝 Krilge를 찾아 달라고 합니다.",
 
 	-- Step 4: Gazrog
 	-- {npc:3464} Gazrog · {npc:4197} Ken'zigla · {area:2539} Malaka'jin · {zone:1442} Stonetalon Mountains
@@ -59,7 +59,7 @@ return {
 
 	-- Step 10: Devourer of Souls (Undercity)
 	-- {object:1661} The Undercity · {npc:5675} Carendin Halgar · {quest:1472} Devourer of Souls · {npc:5875} Gan'rul Bloodeye · {object:36082} Magic Quarter · {npc:5693} Godrick Farsan
-	["{object:1661}'s version, for warlocks who took {npc:5675}'s {quest:1472} instead of {npc:5875}'s. At 20 {npc:5675}, in the {object:36082}, sends you to {npc:5693} close by. {npc:5693} shows you an image of each quarry and offers both branches: take both."] = "",
+	["{object:1661}'s version, for warlocks who took {npc:5675}'s {quest:1472} instead of {npc:5875}'s. At 20 {npc:5675}, in the {object:36082}, sends you to {npc:5693} close by. {npc:5693} shows you an image of each quarry and offers both branches: take both."] = "{npc:5875} 대신 {npc:5675}의 {quest:1472}을(를) 수락한 흑마법사를 위한 {object:1661} 버전입니다. 20레벨에 {object:36082}의 {npc:5675}이 가까이 있는 {npc:5693}에게 보냅니다. {npc:5693}은(는) 각 사냥감의 환영을 보여 주고 두 갈래를 모두 줍니다. 둘 다 받으십시오.",
 
 	-- Step 11: Silverpine hearts
 	["Silverpine hearts"] = "",
@@ -67,14 +67,15 @@ return {
 	["{npc:185333} (level 22) works as a tailor for the {area:279} wizards at {area:233}, in eastern Silverpine: the wizards around her are hostile. {npc:5682} (level 20, not elite) patrols near the {area:230} in the far south. Both are Alliance-friendly humans: attacking them can flag you for PvP. Each drops her or his heart."] = "",
 
 	-- Step 12: Corma Villard
-	-- {npc:5683} Corma Villard · {zone:1437} Wetlands · {area:881} Thandol Span · {zone:1458} Undercity · {area:287} Hillsbrad · {zone:1417} Arathi Highlands
-	["{npc:5683} (level 22, not elite; Comar in older records) wanders the north of the {zone:1437} just past the {area:881}, to the right as you come off the bridge. From the {zone:1458} head through {area:287} and {zone:1417}, where the mobs are 30 and up. Attacking her flags you for PvP."] = "",
+	["Corma Villard"] = "코르마 빌라드",
+	-- {zone:1437} Wetlands · {area:881} Thandol Span · {zone:1458} Undercity · {area:287} Hillsbrad · {zone:1417} Arathi Highlands
+	["Corma Villard (level 22, not elite; Comar in older records) wanders the north of the {zone:1437} just past the {area:881}, to the right as you come off the bridge. From the {zone:1458} head through {area:287} and {zone:1417}, where the mobs are 30 and up. Attacking her flags you for PvP."] = "",
 
 	-- Step 13: The Binding: succubus (Undercity)
 	-- {quest:1474} The Binding · {zone:1458} Undercity
 	["{quest:1474}: succubus ({zone:1458})"] = "",
-	-- {npc:5675} Carendin Halgar · {npc:5683} Corma Villard · {item:6286} Pure Hearts
-	["Back to {npc:5675} with Dalin's and {npc:5683}'s hearts. He hands you the {item:6286}: go down to the summoning circle below him, stand on it and use them. Summon your voidwalker first and keep the fight on the circle, or the guards may kill her and the kill does not count. If she wins, use the hearts again; keep them, {npc:5675} takes them back."] = "",
+	-- {npc:5675} Carendin Halgar · {item:6286} Pure Hearts
+	["Back to {npc:5675} with Dalin's and Corma's hearts. He hands you the {item:6286}: go down to the summoning circle below him, stand on it and use them. Summon your voidwalker first and keep the fight on the circle, or the guards may kill her and the kill does not count. If she wins, use the hearts again; keep them, {npc:5675} takes them back."] = "",
 	-- {item:6286} Pure Hearts · {npc:5675} Carendin Halgar
 	["{item:6286}, on the circle below {npc:5675}"] = "",
 
@@ -92,15 +93,12 @@ return {
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["A second seducer demon, the male sayaad, and a soul shard bag to carry your shards."] = "두 번째 유혹 악마인 남성 사야드와, 영혼의 조각을 담을 영혼의 조각 가방입니다.",
-	-- ["At 20 {npc:5875}, in the {object:172960} under the {object:172982}, sends you to {npc:5909} a few steps away. Two trainers offer the incubus, {npc:5875} here and {npc:5675} in the {zone:1458}, and you can take only one: this guide follows whichever {quest:1472} you took."] = "20레벨에 {object:172982} 아래 {object:172960}의 {npc:5875}이(가) 몇 걸음 떨어진 {npc:5909}에게 보냅니다. 인큐버스는 여기의 {npc:5875}과 {zone:1458}의 {npc:5675}, 두 상급자가 제공하며 하나만 수락할 수 있습니다. 이 가이드는 수락한 {quest:1472}을(를) 따라갑니다.",
 	-- ["Back to {npc:5675} in the {object:36082}. Place the hearts at the summoning circle below him and defeat the incubus they call."] = "{object:36082}의 {npc:5675}에게 돌아가십시오. 그 아래 소환진에 심장을 놓고 소환된 인큐버스를 쓰러뜨리십시오.",
 	-- ["Back to {npc:5875} in the {object:172960}. Take the scarf to the summoning circle in {npc:3216}'s tent nearby and defeat the incubus it calls."] = "{object:172960}의 {npc:5875}에게 돌아가십시오. 근처 {npc:3216}의 천막 안 소환진으로 스카프를 가져가 소환된 인큐버스를 쓰러뜨리십시오.",
 	-- ["Incubus (Horde)"] = "인큐버스 (호드)",
 	-- ["{area:422} lies in southern {zone:1440}, south of {area:431}. The Shadethicket bog beasts around the lake drop the {item:190232}, about one in twenty."] = "{area:422}은(는) {zone:1440} 남부, {area:431} 남쪽에 있습니다. 호수 주변의 그늘덤불 늪괴물이 약 스무 번에 한 번 {item:190232}을(를) 떨어뜨립니다.",
 	-- ["{npc:185333} works as a tailor for the {area:279} wizards at {area:233}, in eastern {zone:1421}. Take her heart."] = "{npc:185333}은(는) {zone:1421} 동부 {area:233}에서 {area:279} 마법사들의 재봉사로 일합니다. 그녀의 심장을 가져가십시오.",
 	-- ["{npc:185334} works in {area:392}, on the {zone:1413} coast. Take the zeppelin to {zone:1411} and ride or fly on to {area:392}."] = "{npc:185334}은(는) {zone:1413} 해안의 {area:392}에서 일합니다. 비행선을 타고 {zone:1411}(으)로 간 뒤 {area:392}까지 이동하거나 비행하십시오.",
-	-- ["{npc:3363} keeps {object:173018}, east of the {object:172960} along the main street. He asks you to look for his mate, Krilge."] = "{npc:3363}은(는) {object:172960} 동쪽 큰길가의 {object:173018}을(를) 운영합니다. 짝인 Krilge를 찾아 달라고 합니다.",
 	-- ["{npc:5675}: he binds the incubus to you"] = "{npc:5675}: 인큐버스를 속박해 줍니다",
 	-- ["{npc:5875}: he binds the incubus to you"] = "{npc:5875}: 인큐버스를 속박해 줍니다",
-	-- ["{object:1661}'s version, for warlocks who took {npc:5675}'s {quest:1472} instead of {npc:5875}'s. At 20 {npc:5675}, in the {object:36082}, sends you to {npc:5693} in the Temple of the Damned, just north of him."] = "{npc:5875} 대신 {npc:5675}의 {quest:1472}을(를) 수락한 흑마법사를 위한 {object:1661} 버전입니다. 20레벨에 {object:36082}의 {npc:5675}이 그 바로 북쪽에 있는 {npc:5693}에게 보냅니다.",
 }

@@ -28,12 +28,12 @@ return {
 
 	-- Step 5: Menara Voidrender
 	-- {npc:6266} Menara Voidrender · {npc:6251} Strahad Farsan · {area:392} Ratchet
-	["{npc:6266} and her two acolytes stand in {npc:6251}'s tower on the hill above {area:392}."] = "",
+	["{npc:6266} and her two acolytes stand in {npc:6251}'s tower on the hill above {area:392}."] = "{npc:6266} и двое ее послушников стоят в башне NPC {npc:6251} на холме над местом {area:392}.",
 
 	-- Step 6: Choose an acolyte
 	["Choose an acolyte"] = "Выберите послушника",
 	-- {npc:6254} Acolyte Wytula · {item:15106} Staff of Dar'Orahil · {npc:6252} Acolyte Magaz · {item:15105} Staff of Noh'Orahil
-	["Pick one acolyte: you can take only one of their quests. {npc:6254}'s felhound path ends with the Orb or {item:15106}, the shadow versions; {npc:6252}'s infernal path with the Orb or {item:15105}, much the same items on the fire side. Most warlocks lean on shadow, but compare the four in their tooltips first. The guide follows the one you take. Keep the ruby or the emerald: it is handed back."] = "",
+	["Pick one acolyte: you can take only one of their quests. {npc:6254}'s felhound path ends with the Orb or {item:15106}, the shadow versions; {npc:6252}'s infernal path with the Orb or {item:15105}, much the same items on the fire side. Most warlocks lean on shadow, but compare the four in their tooltips first. The guide follows the one you take. Keep the ruby or the emerald: it is handed back."] = "Выберите одного послушника: можно взять только одно из их заданий. Путь гончей Скверны ({npc:6254}) заканчивается сферой или предметом {item:15106} – темными вариантами; путь инфернала ({npc:6252}) – сферой или предметом {item:15105}, почти такими же предметами огненной стороны. Большинство чернокнижников полагаются на тьму, но сначала сравните все четыре в подсказках. Гайд следует выбранному. Сохраните рубин или изумруд: его вернут.",
 	-- {npc:6254} Acolyte Wytula · {item:12647} Felhas Ruby
 	["{npc:6254}: she gives you the {item:12647}"] = "{npc:6254}: она даст вам {item:12647}",
 	-- {npc:6252} Acolyte Magaz · {item:12646} Infus Emerald
@@ -47,14 +47,14 @@ return {
 	-- plural, as words: Burning Blade Summoners = {npc:4668} Burning Blade Summoner
 	["{item:7291}, from the Burning Blade Summoners"] = "{item:7291}: призыватели из клана Пылающего Клинка",
 	-- {item:12648} Imprisoned Felhound Spirit · {npc:4678} Mana Eater · {npc:4681} Mage Hunter · {npc:4685} Ley Hunter
-	["{item:12648}, from a {npc:4678}, {npc:4681} or {npc:4685}"] = "",
+	["{item:12648}, from a {npc:4678}, {npc:4681} or {npc:4685}"] = "{item:12648}, добыча: {npc:4678}, {npc:4681} или {npc:4685}",
 	-- {item:12649} Imprisoned Infernal Spirit · {npc:4676} Lesser Infernal
 	["{item:12649}, from a {npc:4676}"] = "{item:12649}, добыча: {npc:4676}",
 
 	-- Step 8: The demon's spirit
 	["The demon's spirit"] = "Дух демона",
 	-- {npc:6266} Menara Voidrender · {area:392} Ratchet
-	["Back to {npc:6266} in the tower above {area:392} with the spirit and the gem first: her orb follows from it."] = "",
+	["Back to {npc:6266} in the tower above {area:392} with the spirit and the gem first: her orb follows from it."] = "Сначала вернитесь с духом и самоцветом в башню над местом {area:392}. Цель: {npc:6266}. Затем – ее сфера.",
 
 	-- Step 9: Tabetha
 	-- {npc:6546} Tabetha · {zone:1445} Dustwallow Marsh · {zone:1413} Barrens · {npc:6549} Demon of the Orb · {spell:710} Banish
@@ -64,7 +64,7 @@ return {
 	-- {item:15108} Orb of Dar'Orahil
 	["The {item:15108}"] = "{item:15108}",
 	-- {npc:6266} Menara Voidrender · {area:392} Ratchet · {item:15108} Orb of Dar'Orahil
-	["Back to {npc:6266} in the tower above {area:392} with the cleansed orb. On the felhound path, accept her last quest and wait beside her while she completes the {item:15108} (do not attack her: the quest log calls it a kill), then speak to her again and pick the off-hand orb or the staff."] = "",
+	["Back to {npc:6266} in the tower above {area:392} with the cleansed orb. On the felhound path, accept her last quest and wait beside her while she completes the {item:15108} (do not attack her: the quest log calls it a kill), then speak to her again and pick the off-hand orb or the staff."] = "Вернитесь с очищенной сферой к {npc:6266} в башню над местом {area:392}. На пути гончей Скверны примите ее последнее задание и подождите рядом с ней, пока она завершит {item:15108} (не атакуйте ее: в журнале заданий это названо убийством), затем снова поговорите с ней и выберите сферу для левой руки или посох.",
 	-- {npc:6266} Menara Voidrender
 	["Wait beside {npc:6266} while she makes the orb"] = "",
 
@@ -72,16 +72,10 @@ return {
 	-- {item:15107} Orb of Noh'Orahil
 	["The {item:15107}"] = "{item:15107}",
 	-- {npc:6266} Menara Voidrender · {item:15107} Orb of Noh'Orahil
-	["On the infernal path, accept her last quest and wait beside {npc:6266} while she completes the {item:15107}, then speak to her again and pick the off-hand orb or the staff."] = "",
+	["On the infernal path, accept her last quest and wait beside {npc:6266} while she completes the {item:15107}, then speak to her again and pick the off-hand orb or the staff."] = "На пути инфернала примите ее последнее задание и подождите рядом с NPC {npc:6266}, пока она завершит {item:15107}, затем снова поговорите с ней и выберите сферу для левой руки или посох.",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
-	-- ["Back to {npc:6266} in the tower above {area:392} with the cleansed orb. On the felhound path, wait while she completes the {item:15108}, then speak to her again."] = "Вернитесь с очищенной сферой к {npc:6266} в башню над местом {area:392}. На пути гончей Скверны подождите, пока она завершит {item:15108}, затем снова поговорите с ней.",
-	-- ["Back to {npc:6266} in the tower above {area:392} with the spirit first: {npc:6546}'s cleansing follows it."] = "Сначала вернитесь с духом в башню над местом {area:392}. Цель: {npc:6266}. Затем – очищение (это {npc:6546}).",
-	-- ["On the infernal path, wait while {npc:6266} completes the {item:15107}, then speak to her again."] = "На пути инфернала подождите, пока {npc:6266} завершит {item:15107}, затем снова поговорите с ней.",
-	-- ["Pick one acolyte: you can take only one of their quests. {npc:6254}'s felhound path ends with the Orb or {item:15106}, {npc:6252}'s infernal path with the Orb or {item:15105}. The guide follows the one you take."] = "Выберите одного послушника: можно взять только одно из их заданий. Путь гончей Скверны ({npc:6254}) заканчивается сферой или предметом {item:15106}, путь инфернала ({npc:6252}) – сферой или предметом {item:15105}. Гайд следует выбранному.",
 	-- ["The demons of {area:602}, in southern {zone:1443}, have all you need. Burning Blade Summoners carry the {item:7291}. On the felhound path, use the {item:12647} on a {npc:4678}, a felhound, and kill it for its spirit; on the infernal path, use the {item:12646} on a {npc:4676} and kill it."] = "Все нужное есть у демонов ({area:602}) на юге зоны {zone:1443}. {item:7291} – у призывателей из клана Пылающего Клинка. На пути гончей Скверны используйте {item:12647} на гончей Скверны ({npc:4678}) и убейте ее ради духа; на пути инфернала используйте {item:12646} на цели {npc:4676} и убейте ее.",
 	-- ["Wait for the orb"] = "Дождитесь сферы",
-	-- ["{item:12648}, from a {npc:4678}"] = "{item:12648}, добыча: {npc:4678}",
-	-- ["{npc:6266} and her two acolytes stand in the tower on the hill above {area:392}, beside {npc:6251}."] = "{npc:6266} и двое ее послушников стоят в башне на холме над местом {area:392}, рядом с NPC {npc:6251}.",
 	-- ["{npc:6546} lives at her farm in western {zone:1445}. She calls the {npc:6549} out of the {item:7291}; it is elite: grouping up is advised."] = "{npc:6546} живет на своей ферме на западе зоны {zone:1445}. Она вызовет из предмета {item:7291} демона ({npc:6549}); он элитный: лучше собрать группу.",
 }

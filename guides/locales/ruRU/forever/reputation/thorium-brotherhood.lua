@@ -22,8 +22,7 @@ return {
 	["{npc:14621} is elite"] = "",
 
 	-- Step 2: Golems and Dark Iron dwarves
-	-- {object:147516} Dark Iron
-	["Golems and {object:147516} dwarves"] = "",
+	["Golems and Dark Iron dwarves"] = "",
 	-- {area:1446} Thorium Point · {item:18959} Smithing Tuyere · {item:18960} Lookout's Spyglass
 	-- plural, as words: Heavy War Golems = {npc:5854} Heavy War Golem · Dark Iron Taskmasters = {npc:5846} Dark Iron Taskmaster · Dark Iron Steamsmiths = {npc:5840} Dark Iron Steamsmith · Dark Iron Lookouts = {npc:8566} Dark Iron Lookout
 	["Heavy War Golems and the Dark Iron Taskmasters and Slavers work all over the floor of the Cauldron below {area:1446}. The {item:18959} drops from Dark Iron Steamsmiths at the furnaces in the middle, the {item:18960} from Dark Iron Lookouts on the southern ridges: about one in ten of each."] = "",
@@ -35,7 +34,7 @@ return {
 	["{item:18960}, Dark Iron Lookouts"] = "",
 
 	-- Step 3: Searing Lava Spiders
-	-- plural, as words: Searing Lava Spiders = {npc:5858} Searing Lava Spider
+	-- plural, as words: Searing Lava Spiders = {npc:5857} Searing Lava Spider
 	["Searing Lava Spiders"] = "Большие лавовые пауки",
 	["The spiders roam the lava pools and plateaus of the south-west."] = "",
 
@@ -86,7 +85,7 @@ return {
 
 	-- Step 9: Fiery Flux to Friendly
 	-- {item:18942} Fiery Flux
-	["{item:18942} to Friendly"] = "",
+	["{item:18942} to Friendly"] = "{item:18942} до уровня «Дружелюбие»",
 	-- {item:3356} Kingsblood · {item:4234} Heavy Leather · {area:1446} Thorium Point · {item:2772} Iron Ore
 	-- plural, as words: Incendosaur Scales = {item:18944} Incendosaur Scale · Iron Bars = {item:3575} Iron Bar · Incendosaurs = {npc:9318} Incendosaur
 	["Neutral to Friendly is 3,000 reputation. Burninate takes Restoring Fiery Flux Supplies only while you are Neutral: 25 reputation for 2 Incendosaur Scales, 1 Coal and either 4 Iron Bars, 4 {item:3356} or 10 {item:4234}. These are level 60 quests, so they always pay in full. After the 700 from the {area:1446} quests that is 92 turn-ins: 184 scales (about 60 Incendosaurs), 92 Coal (Burninate sells it at 5 silver: 4g 60s) and 368 Iron Bars, 368 {item:3356} or 920 {item:4234}. If those quests paid you only 140 at 60, it is 115 turn-ins: 230 scales, 115 Coal (5g 75s) and 460 bars or {item:3356} or 1,150 {item:4234}. Miners smelt the bars from {item:2772}, herbalists pick {item:3356}, skinners get {item:4234} from beasts of level 28 to 40; all three sell on the Auction House. Pick whichever is cheapest for you, or mix them. Blacksmiths who did the Imperial Plate quests need 46 fewer turn-ins."] = "",
@@ -124,7 +123,7 @@ return {
 
 	-- Step 12: Lokhtos Darkbargainer to Revered
 	-- {npc:12944} Lokhtos Darkbargainer
-	["{npc:12944} to Revered"] = "",
+	["{npc:12944} to Revered"] = "{npc:12944} до уровня «Почтение»",
 	-- {npc:12944} Lokhtos Darkbargainer · {area:1584} Blackrock Depths · {item:11000} Shadowforge Key · {object:161460} Shadowforge Lock (no name in this language: may be words) · {item:17010} Fiery Core · {item:17011} Lava Core · {item:11382} Blood of the Mountain · {item:17012} Core Leather · {item:11370} Dark Iron Ore · {area:2717} Molten Core · {zone:1427} Searing Gorge · {zone:1428} Burning Steppes · {item:16980} Flarecore Mantle · {item:19156} Flarecore Robe · {item:19149} Lava Belt · {item:16984} Black Dragonscale Boots · {item:16989} Fiery Chain Girdle · {item:19148} Dark Iron Helm · {item:17015} Dark Iron Reaver · {item:17016} Dark Iron Destroyer · {item:273576} Enchant Weapon - Mighty Spirit
 	-- plural, as words: Dark Iron Deposits = {object:165658} Dark Iron Deposit
 	["Honored to Revered is 12,000 reputation, all of it from {npc:12944} in the Grim Guzzler, the tavern deep in {area:1584}. The way there: with the {item:11000}, open the East Garrison door near the entrance; without it, win the Ring of Law and climb to the East Garrison. Pull the {object:161460} there to lower the bridge to the Manufactory, the only way to the Guzzler. His Favor Amongst the Brotherhood turn-ins never stop counting: 1 {item:17010}, 1 {item:17011} or 1 {item:11382} for 200, 2 {item:17012} for 150, 10 {item:11370} for 50. To Revered that is 60 cores, 160 {item:17012} or 2,400 {item:11370}. The cores and the leather come only from the {area:2717}, which is not among the first raids Blizzard has announced for Forever; until it opens, {item:11370} is the way. Miners with 230 skill find Dark Iron Deposits around the Cauldron in {zone:1427}, across the {zone:1428} and inside {area:1584}, and a deposit now and then gives a {item:11382}; the ore also sells on the Auction House. Honored opens {item:16980} 18g, {item:19156} 6g, {item:19149} 6g, {item:16984} 16g, {item:16989} 9g, {item:19148} 6g, {item:17015} 22g, {item:17016} 22g and {item:273576} 8g."] = "",
@@ -168,8 +167,6 @@ return {
 	-- ["{faction:59} to Exalted"] = "{faction:59} до уровня «Превознесение»",
 	-- ["{faction:59} to Revered"] = "{faction:59} до уровня «Почтение»",
 	-- ["{item:11099}: Favor Amongst the Brotherhood, {item:11099} at Lokhtos, repeatable."] = "{item:11099}: «Покровительство братства» ({item:11099}) у Локтоса, повторяемое.",
-	-- ["{item:18942} supplies to Friendly"] = "Припасы ({item:18942}) до уровня «Дружелюбие»",
-	-- ["{npc:12944} to Honored"] = "{npc:12944} до уровня «Уважение»",
 	-- ["{npc:12944} trades in the Grim Guzzler inside {area:1584}. His Favor Amongst the Brotherhood turn-ins take {item:11099} (mined from Dark Iron Deposits with {skill:186}), {item:11382}, {item:17010}, {item:17011} and {item:17012}. {npc:14387} at the {area:1445} entrance offers attunement to the {area:2717}."] = "{npc:12944} торгует в «Угрюмом обжоре» ({area:1584}). Его задания «Покровительство братства» принимают {item:11099} (добывается из жил: {object:165658}; {skill:186}), {item:11382}, {item:17010}, {item:17011} и {item:17012}. {npc:14387} у входа ({area:1445}) дает допуск в рейд {area:2717}.",
 	-- ["{npc:14624}: Restoring Fiery Flux Supplies"] = "{npc:14624}: пополнение запасов огненного плавня",
 }

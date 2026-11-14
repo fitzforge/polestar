@@ -13,7 +13,7 @@ return {
 
 	-- Step 1: Seek out SI: 7
 	-- {npc:917} Keryn Sylvius · {area:87} Goldshire · {npc:332} Master Mathias Shaw · {zone:1453} Stormwind · {spell:921} Pick Pocket
-	["At 10 {npc:917}, the rogue trainer upstairs in the Lion's Pride Inn in {area:87}, gives you a package for {npc:332} in {zone:1453}. Train {spell:921} if you lack it: this chain needs it."] = "",
+	["At 10 {npc:917}, the rogue trainer upstairs in the Lion's Pride Inn in {area:87}, gives you a package for {npc:332} in {zone:1453}. Train {spell:921} if you lack it: this chain needs it."] = "10레벨에 {area:87} 여관 위층의 도적 상급자 {npc:917}이(가) {zone:1453}의 {npc:332}에게 전할 꾸러미를 줍니다. {spell:921}이(가) 없다면 배우십시오. 이 연계 퀘스트에 필요합니다.",
 
 	-- Step 2: Master Mathias Shaw
 	-- {zone:1453} Stormwind · {object:2100} Old Town
@@ -48,7 +48,7 @@ return {
 
 	-- Step 9: The Apple Falls
 	-- {npc:3599} Jannok Breezesong · {area:186} Dolanaar · {npc:4163} Syurna · {zone:1457} Darnassus
-	["At 10 {npc:3599}, the rogue trainer in the {area:186} inn, gives you a rose for {npc:4163} in {zone:1457}. If you lose the rose, abandon the quest and take it again."] = "",
+	["At 10 {npc:3599}, the rogue trainer in the {area:186} inn, gives you a rose for {npc:4163} in {zone:1457}. If you lose the rose, abandon the quest and take it again."] = "10레벨에 {area:186} 여관의 도적 상급자 {npc:3599}이(가) {zone:1457}의 {npc:4163}에게 전할 장미를 줍니다. 장미를 잃어버리면 퀘스트를 포기하고 다시 받으십시오.",
 
 	-- Step 10: Syurna
 	-- {zone:1457} Darnassus · {npc:4163} Syurna · {area:1658} Cenarion Enclave
@@ -65,8 +65,6 @@ return {
 	["Back to {npc:4163}"] = "{npc:4163}에게 돌아가기",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
-	-- ["At 10 {npc:3599}, the rogue trainer in {area:186}, gives you a rose for {npc:4163} in {zone:1457}."] = "10레벨에 {area:186}의 도적 상급자 {npc:3599}이(가) {zone:1457}의 {npc:4163}에게 전할 장미를 줍니다.",
-	-- ["At 10 {npc:917}, the rogue trainer in the Lion's Pride Inn in {area:87}, gives you a package for {npc:332} in {zone:1453}."] = "10레벨에 {area:87} 여관의 도적 상급자 {npc:917}이(가) {zone:1453}의 {npc:332}에게 전할 꾸러미를 줍니다.",
 	-- ["Ride north to {zone:1453}; Mathias Shaw is at SI:7 in {object:2100}."] = "북쪽 {zone:1453}(으)로 달려가십시오. 마티아스 쇼는 {object:2100}의 SI:7에 있습니다.",
 	-- ["Ride west to {zone:1457}. {npc:4163} stands in the north-west of the city."] = "서쪽 {zone:1457}(으)로 달려가십시오. {npc:4163}은(는) 도시 북서쪽에 있습니다.",
 	-- ["The {npc:6846} stands by the river at Elwynn's southern edge, south of {area:87}. He carries the shipping schedule."] = "{npc:6846}은(는) {area:87} 남쪽, 엘윈 숲 남쪽 끝 강가에 서 있습니다. 그가 운송 일정표를 가지고 있습니다.",

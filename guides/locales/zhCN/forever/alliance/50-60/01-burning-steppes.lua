@@ -81,63 +81,57 @@ return {
 	-- {zone:1447} Azshara · {npc:8392} Pilot Xiggs Fuselighter · {item:10444} Standard Issue Flare Gun
 	["Swim to the small island off the southern tip of {zone:1447}. If {npc:8392} isn't there, fire your {item:10444} to signal him, and wait for him to land."] = "游到{zone:1447}南端外的小岛。如果{npc:8392}不在那里，就发射你的{item:10444}向他发出信号，然后等他降落。",
 
-	-- Step 24: To Stoutlager Inn
-	-- {area:2101} Stoutlager Inn
-	["To {area:2101}"] = "前往{area:2101}",
+	-- Step 24: To Ironforge
+	-- {zone:1455} Ironforge
+	["To {zone:1455}"] = "前往{zone:1455}",
+	-- {zone:1455} Ironforge · {zone:1425} Hinterlands
+	["Your Hearthstone is set at {zone:1455} (the {zone:1425} guide binds it there): hearth back to the inn."] = "你的炉石绑定在{zone:1455}（{zone:1425}指南会把它绑在那里）：用炉石回到旅店。",
+	-- {zone:1455} Ironforge
+	["{zone:1455} inn"] = "{zone:1455}旅店",
 
-	-- Step 25: Fly to Ironforge
-	-- {area:1537} Ironforge
-	["Fly to {area:1537}"] = "飞往{area:1537}",
-	-- {area:144} Thelsamar
-	["{area:144} flight master"] = "{area:144}的飞行管理员",
-
-	-- Step 27: Royal Historian Archesonus
+	-- Step 26: Royal Historian Archesonus
 	-- {object:171709} High Seat
 	["Archesonus stands beside King Magni in the {object:171709}."] = "阿克瑟努斯站在{object:171709}中麦格尼国王旁边。",
 	-- {zone:1428} Burning Steppes
 	["The relics are in the {zone:1428}: keep it"] = "圣物在{zone:1428}：留着",
 
-	-- Step 28: Fly to Aerie Peak
+	-- Step 27: Fly to Aerie Peak
 	-- {area:348} Aerie Peak
 	["Fly to {area:348}"] = "飞往{area:348}",
 	-- {zone:1455} Ironforge
 	["{zone:1455} flight master"] = "{zone:1455}飞行管理员",
 
-	-- Step 29: Wildkin feathers
-	["Wildkin feathers"] = "枭兽羽毛",
-	-- {zone:1425} Hinterlands · {area:348} Aerie Peak
-	-- plural, as words: Wildkin Feathers = {item:10819} Wildkin Feather
-	["The Wildkin Feathers lie on the ground across the {zone:1425}, south and east of {area:348}, where the owlbeasts roam; the mobs here are well below you now."] = "枭兽羽毛散落于{zone:1425}各处地面，主要在{area:348}以南和以东的枭兽活动区域。这里怪物的等级现在远低于你。",
+	-- Step 28: Fly to Southshore
+	-- {area:271} Southshore
+	["Fly to {area:271}"] = "飞往{area:271}",
 
-	-- Step 30: The Super Snapper FX
+	-- Step 29: The Super Snapper FX
 	-- {npc:7977} Gammerita · {zone:1425} Hinterlands · {area:307} Overlook Cliffs
 	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:7977} (level 48 elite) needs a group of 2. Skip it if you are alone: the route has you grind the XP back.\n{npc:7977} walks the {zone:1425} shore below the {area:307}, from the arrow south to about 75,66 and north to about 82,52: if she isn't at the arrow, follow the shore."] = "这些是精英敌人，建议寻找其他玩家组队完成。{npc:7977}（48 级精英）需要 2 人小队。独自一人时可跳过，路线会安排刷怪补回经验。\n{npc:7977}在{area:307}下方的{zone:1425}海岸巡游，从箭头处向南约到75,66，向北约到82,52：如果她不在箭头处，就沿海岸寻找。",
 
-	-- Step 32: Fly to Southshore
-	-- {area:271} Southshore
-	["Fly to {area:271}"] = "飞往{area:271}",
+	-- Step 30: Fly to Southshore
 	-- {area:348} Aerie Peak
 	["{area:348} flight master"] = "{area:348}的飞行管理员",
 
-	-- Step 33: Western Plaguelands
+	-- Step 31: Western Plaguelands
 	-- {area:271} Southshore · {area:3197} Chillwind Camp
 	["Ride north from {area:271} up the road through Alterac to {area:3197}."] = "从{area:271}沿路骑马向北，穿过奥特兰克前往{area:3197}。",
 
-	-- Step 34: Chillwind Camp
+	-- Step 32: Chillwind Camp
 	-- {npc:10838} Commander Ashlam Valorfist
 	["{npc:10838} stands in the middle of the camp."] = "{npc:10838}站在营地中央。",
 
-	-- Step 35: Sorrow Hill: kill these as you meet them
+	-- Step 33: Sorrow Hill: kill these as you meet them
 	-- {area:197} Sorrow Hill
 	["{area:197}: kill these as you meet them"] = "{area:197}：沿途击杀以下目标",
 	-- {npc:10411} Eye of Naxxramas
 	-- plural, as words: Skeletal Flayers = {npc:1783} Skeletal Flayer · Slavering Ghouls = {npc:1791} Slavering Ghoul · Rockwing Gargoyles = {npc:10408} Rockwing Gargoyle
 	["Skeletal Flayers and Slavering Ghouls roam the fields north of the camp; all the Scourge here drop Scourgestones.\nCareful: These undead notice you from far away, and other undead nearby join the fight when one is pulled.\nCareful: The {npc:10411} (3 spawns, 15 min respawn) turns invisible when out of combat and calls in Rockwing Gargoyles once a fight starts."] = "骷髅剥皮者和被奴役的食尸鬼在营地北侧田野活动，这里的天灾亡灵都会掉落天灾石。\n注意：这些亡灵的警戒距离很远，拉到一只时，周围亡灵也会参战。\n注意：{npc:10411}有三个刷新点，每 15 分钟刷新一次，非战斗时会隐形，开战后召唤石翼石像鬼。",
 
-	-- Step 36: Chillwind Camp
+	-- Step 34: Chillwind Camp
 	["Ride back south to the camp."] = "向南骑回营地。",
 
-	-- Step 37: Janice Felstone
+	-- Step 35: Janice Felstone
 	-- {npc:10778} Janice Felstone · {area:199} Felstone Field · {area:200} Dalson's Tears
 	["{npc:10778}'s ghost wanders by the farmhouse of {area:199}, west of {area:200}; her parcel lies inside."] = "{npc:10778}的鬼魂在{area:200}西边、{area:199}的农舍旁游荡；她的包裹在屋里。",
 	["Upstairs"] = "在楼上",
@@ -146,24 +140,36 @@ return {
 	-- {zone:1453} Stormwind
 	["For {zone:1453}: keep it"] = "交给{zone:1453}：先留着",
 
-	-- Step 38: Felstone Field cauldron
+	-- Step 36: Felstone Field cauldron
 	-- {area:199} Felstone Field
 	["{area:199} cauldron"] = "{area:199}的大锅",
 	-- {npc:11075} Cauldron Lord Bilemaw · {area:199} Felstone Field
 	["{npc:11075} guards the cauldron in {area:199}, west of Andorhal."] = "{npc:11075}守卫着安多哈尔西边{area:199}的大锅。",
 
-	-- Step 40: Fly to Morgan's Vigil
+	-- Step 38: Fly to Morgan's Vigil
 	-- {area:2418} Morgan's Vigil
 	["Fly to {area:2418}"] = "飞往{area:2418}",
 	-- {area:3197} Chillwind Camp
 	["{area:3197} flight master"] = "{area:3197}的飞行管理员",
+
+	-- Step 39: Fly to Lakeshire
+	-- {area:69} Lakeshire
+	["Fly to {area:69}"] = "飞往{area:69}",
+
+	-- Step 40: Morgan's Vigil flight master
+	-- {area:2418} Morgan's Vigil
+	["{area:2418} flight master"] = "{area:2418}的飞行管理员",
+	-- {area:69} Lakeshire · {zone:1428} Burning Steppes · {area:2418} Morgan's Vigil
+	["Ride east out of {area:69} and up the pass into the {zone:1428}: {area:2418} stands at the top."] = "从{area:69}向东骑出，沿山口上行进入{zone:1428}：{area:2418}就在山顶。",
 
 	-- Step 41: Morgan's Vigil
 	-- {area:2418} Morgan's Vigil
 	["{area:2418} sits in the south-east of the Steppes, at the top of the pass up from Redridge."] = "{area:2418}位于燃烧平原东南部，从赤脊山上来的山口顶端。",
 
 	-- Step 42: Dreadmaul Rock
-	["The Firegut ogres hold the great rock north of the Vigil, with the Brutes on its east side."] = "火腹食人魔占据守望堡北边的巨石，火腹蛮兵在巨石东侧。",
+	-- {area:249} Dreadmaul Rock
+	-- plural, as words: Escaped Core Hounds = {npc:227746} Escaped Core Hound
+	["The Firegut ogres hold the great rock north of the Vigil, with the Brutes on its east side.\nCareful: Escaped Core Hounds (level 60) roam the Steppes, a few on the slopes west and south of {area:249}: pull the ogres on the rock itself and look around before each pull."] = "火腹食人魔占据守望堡北边的巨石，火腹蛮兵在巨石东侧。\n小心：逃脱的熔火恶犬（60级）在燃烧平原游荡，有几只在{area:249}西边和南边的山坡上：就在巨石上拉食人魔，每次拉怪前先观察四周。",
 	-- {npc:7034} Firegut Ogre Mage
 	["{npc:7034}, below ground"] = "{npc:7034}：在地下",
 	-- {npc:7033} Firegut Ogre · {npc:9177} Oralius · {quest:4283} FIFTY! YEP!
@@ -175,8 +181,8 @@ return {
 
 	-- Step 44: Level 52
 	["Level 52"] = "等级 52",
-	-- {area:249} Dreadmaul Rock · {area:251} Flame Crest · {area:1417} Sunken Temple · {area:2100} Maraudon
-	["Top up here to level 52 on the ogres of {area:249}, on the way to {area:251}: the hand-ins there take you to level 53. Or, with a group, run the {area:1417} dungeon or the {area:2100} dungeon instead."] = "前往{area:251}途中，在这里刷{area:249}的食人魔补到52级：交完那里的任务会升到53级。也可以组队去{area:1417}副本或{area:2100}副本。",
+	-- {area:249} Dreadmaul Rock · {area:251} Flame Crest · {area:1417} Sunken Temple
+	["Top up here to level 52 on the ogres of {area:249}, on the way to {area:251}: the hand-ins there take you to level 53. Or, with a group, run the {area:1417} dungeon instead."] = "前往{area:251}途中，在这里刷{area:249}的食人魔补到52级：交完那里的任务会升到53级。也可以组队去{area:1417}地下城。",
 	-- {npc:7034} Firegut Ogre Mage
 	["grind on {npc:7034}"] = "反复击杀{npc:7034}补足经验",
 
@@ -187,8 +193,8 @@ return {
 	-- Step 46: Ruins of Thaurissan: kill these as you meet them
 	-- {area:250} Ruins of Thaurissan
 	["{area:250}: kill these as you meet them"] = "{area:250}：沿途击杀以下目标",
-	-- {area:250} Ruins of Thaurissan · {area:251} Flame Crest · {object:147516} Dark Iron · {item:12284} Draco-Incarcinatrix 900 · {npc:7047} Black Broodling
-	["The relics are the carved stones scattered through the {area:250} around {area:251}: click them until the information is recovered.\nRead the tablet in the {object:147516} camp among the ruins, south-west of {area:251}, to copy the transcript.\nUse the {item:12284} on a {npc:7047} on the slopes east of {area:251} just before it dies, then loot the essence it leaves."] = "遗物是散落于{area:251}周围{area:250}的雕刻石块，反复点击直到取回信息。\n阅读{area:251}西南侧废墟中、{object:147516}营地里的石板，抄录内容。\n在{area:251}东侧山坡，将{npc:7047}打到濒死时对它使用{item:12284}，再拾取留下的精华。",
+	-- {area:250} Ruins of Thaurissan · {area:251} Flame Crest · {object:147516} Dark Iron · {item:12284} Draco-Incarcinatrix 900 · {npc:7047} Black Broodling · {npc:8981} Malfunctioning Reaver · {npc:7040} Black Dragonspawn
+	["The relics are the carved stones scattered through the {area:250} around {area:251}: click them until the information is recovered.\nRead the tablet in the {object:147516} camp among the ruins, south-west of {area:251}, to copy the transcript.\nUse the {item:12284} on a {npc:7047} on the slopes east of {area:251} just before it dies, then loot the essence it leaves.\nCareful: a {npc:8981} (level 56, rare) walks the slopes by the broodlings, and the {npc:7040} and Wyrmkin around them are elite: use the Incarcinatrix on a broodling at the edge and look around before each pull."] = "遗物是散落于{area:251}周围{area:250}的雕刻石块，反复点击直到取回信息。\n阅读{area:251}西南侧废墟中、{object:147516}营地里的石板，抄录内容。\n在{area:251}东侧山坡，将{npc:7047}打到濒死时对它使用{item:12284}，再拾取留下的精华。\n注意：一只{npc:8981}（56级，稀有）在小龙附近的山坡上走动，周围的{npc:7040}和龙人都是精英：在边缘对一只小龙使用龙灵采集器，每次拉怪前先观察四周。",
 
 	-- Step 47: Flame Crest
 	-- {quest:4808} Felnok Steelspring · {area:2255} Everlook · {zone:1452} Winterspring
@@ -207,14 +213,14 @@ return {
 
 	-- Step 52: Level 52.08
 	["Level 52.08"] = "等级 52.08",
-	-- {quest:4022} A Taste of Flame · {area:1417} Sunken Temple · {area:2100} Maraudon
-	["If you skipped {quest:4022}, grind here to level 52.08 to stay on the route's plan. Or, with a group, run the {area:1417} dungeon or the {area:2100} dungeon instead."] = "如果跳过了{quest:4022}，就在这里刷到52.08级，以跟上路线进度。也可以组队去{area:1417}副本或{area:2100}副本。",
+	-- {quest:4022} A Taste of Flame · {area:1417} Sunken Temple
+	["If you skipped {quest:4022}, grind here to level 52.08 to stay on the route's plan. Or, with a group, run the {area:1417} dungeon instead."] = "如果跳过了{quest:4022}，就在这里刷到52.08级，以跟上路线进度。也可以组队去{area:1417}地下城。",
 	-- {npc:9690} Ember Worg
 	["grind on {npc:9690}"] = "反复击杀{npc:9690}补足经验",
 
 	-- Step 53: Blackrock Stronghold
 	-- {npc:9176} Gor'tesh · {area:254} Blackrock Mountain · {area:251} Flame Crest
-	["{npc:9176} and the Blackrock orcs hold the camps and the stronghold at the foot of {area:254}, west of {area:251}. Pull them one at a time; every orc and worg may drop a medallion, so kill them until you have fifty.\nCareful: {npc:9176} has a guard linked to him that joins the fight, and a second soldier patrols close by; clear the patrol before pulling."] = "{npc:9176}和黑石兽人占据{area:251}以西、{area:254}山脚的营地与要塞。逐个拉怪，所有兽人和座狼均有几率掉落勋章，持续击杀直到收集五十枚。\n注意：{npc:9176}有一名联动守卫，会一同参战；附近还有第二名士兵巡逻，拉怪前先清理巡逻者。",
+	["{npc:9176} and the Blackrock orcs hold the camps and the stronghold at the foot of {area:254}, west of {area:251}. Pull them one at a time; every orc and worg may drop a medallion, so kill them until you have fifty.\nCareful: {npc:9176} has a guard linked to him that joins the fight, and a second soldier patrols close by; clear the patrol before pulling.\nCareful: Firesworn, level 60 fire elementals, wander the Steppes, some between the Blackrock camps: look before each pull and let them pass."] = "{npc:9176}和黑石兽人占据{area:251}以西、{area:254}山脚的营地与要塞。逐个拉怪，所有兽人和座狼均有几率掉落勋章，持续击杀直到收集五十枚。\n注意：{npc:9176}有一名联动守卫，会一同参战；附近还有第二名士兵巡逻，拉怪前先清理巡逻者。\n注意：Firesworn是60级的火元素，在燃烧平原上游荡，其中一些在黑石营地之间：每次拉怪前先看看，让它们走过去。",
 	-- {item:11467} Blackrock Medallion
 	["{item:11467}; inside"] = "{item:11467}：在屋内",
 
@@ -228,8 +234,6 @@ return {
 	-- Step 57: Fly to Nethergarde Keep
 	-- {area:1438} Nethergarde Keep
 	["Fly to {area:1438}"] = "飞往{area:1438}",
-	-- {area:2418} Morgan's Vigil
-	["{area:2418} flight master"] = "{area:2418}的飞行管理员",
 
 	-- Step 58: Ambassador Ardalan
 	-- {area:1438} Nethergarde Keep
@@ -243,11 +247,25 @@ return {
 	["Listen to his tale, then ride back south to Kum'isha."] = "听完他的故事后，向南骑回库米沙处。",
 
 	-- Step 62: Kum'isha the Collector
-	-- {area:2517} Rise of the Defiler · {zone:1419} Blasted Lands · {npc:7664} Razelikh the Defiler · {spell:2691} Mana Burn · {spell:8255} Strong Cleave · {object:141891} Razelikh's Tear (no name in this language: may be words) · {spell:10854} Flames of Chaos
+	-- {area:2517} Rise of the Defiler · {zone:1419} Blasted Lands · {npc:7664} Razelikh the Defiler · {spell:2691} Mana Burn · {spell:8255} Strong Cleave · {object:141891} Razelikh's Tear (no name in this language: may be words) · {spell:10854} Flames of Chaos · {npc:247015} Vek'zol
 	-- plural, as words: Imperfect Draenethyst Fragments = {item:10593} Imperfect Draenethyst Fragment
-	["Kum'isha waits at the {area:2517}, the hill south-west of the keep. The {zone:1419} mobs on the way drop the Imperfect Draenethyst Fragments; bring her what you have.\nCareful: Felcular, {npc:7664} and Ilifar are all level 60 elites. Razelikh casts {spell:2691}, {spell:8255} and Decimate, and as its health drops it adds {object:141891}, {spell:10854} and then Enrage at 15%."] = "收藏家库米沙在城堡西南侧山丘的{area:2517}等候。沿途{zone:1419}的怪物会掉落不完美的德莱尼水晶碎片，将收集到的交给她。\n注意：费尔库拉、{npc:7664}和伊利法尔都是 60 级精英。污染者拉瑟莱克会施放{spell:2691}、{spell:8255}和屠杀；生命值降低后还会陆续使用{object:141891}、{spell:10854}，并在 15% 时激怒。",
+	["Kum'isha waits at the {area:2517}, the hill south-west of the keep. The {zone:1419} mobs on the way drop the Imperfect Draenethyst Fragments; bring her what you have.\nCareful: Felcular, {npc:7664} and Ilifar are all level 60 elites. Razelikh casts {spell:2691}, {spell:8255} and Decimate, and as its health drops it adds {object:141891}, {spell:10854} and then Enrage at 15%.\nCareful: {npc:247015}, a level 55 elite, stands by Kum'isha's hill (about 50,35) and to the west (about 39,32): take the fragments from the mobs on the way from the keep, not beside him."] = "收藏家库米沙在城堡西南侧山丘的{area:2517}等候。沿途{zone:1419}的怪物会掉落不完美的德莱尼水晶碎片，将收集到的交给她。\n注意：费尔库拉、{npc:7664}和伊利法尔都是 60 级精英。污染者拉瑟莱克会施放{spell:2691}、{spell:8255}和屠杀；生命值降低后还会陆续使用{object:141891}、{spell:10854}，并在 15% 时激怒。\n注意：55级精英{npc:247015}站在库米沙的山丘旁（约50,35）以及西边（约39,32）：在从城堡过来的路上从怪物身上拿碎片，别在他旁边打。",
 	-- {npc:7363} Kum'isha the Collector
 	["{npc:7363} walks around here: look inside the circle on the map"] = "{npc:7363}在附近巡逻，请在地图标示的圆圈内寻找",
+
+	-- Step 63: To Ironforge
+	-- {zone:1455} Ironforge
+	["Hearth back to {zone:1455}'s inn."] = "用炉石返回{zone:1455}的旅店。",
+
+	-- Step 64: Fly to Thelsamar
+	-- {area:144} Thelsamar
+	["Fly to {area:144}"] = "飞往{area:144}",
+
+	-- Step 67: Fly to Ironforge
+	-- {area:1537} Ironforge
+	["Fly to {area:1537}"] = "飞往{area:1537}",
+	-- {area:144} Thelsamar
+	["{area:144} flight master"] = "{area:144}的飞行管理员",
 
 	-- Step 70: Royal Historian Archesonus
 	-- {object:171709} High Seat
@@ -267,7 +285,7 @@ return {
 	-- {zone:1452} Winterspring
 	["The wildkin are in {zone:1452}: keep it"] = "枭兽在{zone:1452}：留着",
 
-	-- Step 76: Darnassus
+	-- Step 77: Darnassus
 	-- {area:702} Rut'theran Village · {zone:1457} Darnassus · {npc:9047} Jenal · {area:1658} Cenarion Enclave
 	["The portal in {area:702} leads up to {zone:1457}: {npc:9047} waits in the {area:1658}, in the north of the city."] = "{area:702}的传送门通往{zone:1457}：{npc:9047}在城市北部的{area:1658}等候。",
 	-- {npc:9047} Jenal · {area:1658} Cenarion Enclave
@@ -275,11 +293,11 @@ return {
 	-- {zone:1455} Ironforge
 	["{zone:1455} has no druid trainer"] = "{zone:1455}没有德鲁伊训练师",
 
-	-- Step 77: Portal to Teldrassil
+	-- Step 78: Portal to Teldrassil
 	-- {zone:1438} Teldrassil
 	["Portal to {zone:1438}"] = "通往{zone:1438}的传送门",
 
-	-- Step 78: Daryn Lightwind
+	-- Step 79: Daryn Lightwind
 	-- {npc:7907} Daryn Lightwind · {npc:7916} Erelas Ambersky
 	["{npc:7907} stands upstairs, above {npc:7916}: go up inside, the arrow cannot tell the floors apart."] = "{npc:7907}在楼上，就在{npc:7916}上方：从室内上楼，箭头无法区分楼层。",
 
@@ -304,11 +322,13 @@ return {
 	-- ["Swim to the small island off the southern tip of {area:16}: {npc:8392} waits by the monument."] = "游到{area:16}南端外的小岛：{npc:8392}在纪念碑旁等候。",
 	-- ["Swim to the small island off the southern tip of {zone:1447}: {npc:8392} waits by the monument."] = "游到{zone:1447}南端外的小岛：{npc:8392}在雕像旁等候。",
 	-- ["Thaurissan Relics"] = "索瑞森遗物",
+	-- ["The Wildkin Feathers lie on the ground across the {zone:1425}, south and east of {area:348}, where the owlbeasts roam; the mobs here are well below you now."] = "枭兽羽毛散落于{zone:1425}各处地面，主要在{area:348}以南和以东的枭兽活动区域。这里怪物的等级现在远低于你。",
 	-- ["The relics are the carved stones scattered through the {area:250} around {area:251}: click them until the information is recovered."] = "遗物是散布在{area:251}周围{area:250}中的雕刻石块：点击它们直到收集完信息。",
 	-- ["The shrine lies in the south-west corner of {area:16}, south of {area:3137}."] = "神殿位于{area:16}西南角，{area:3137}南边。",
 	-- ["The {quest:4296}"] = "{quest:4296}",
 	-- ["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:7977} (level 48 elite) needs a group of 2. Skip it if you are alone: the route has you grind the XP back."] = "这些是精英敌人，建议寻找其他玩家组队完成。{npc:7977}（48 级精英）需要 2 人小队。独自一人时可跳过，路线会安排刷怪补回经验。",
 	-- ["Use the {item:12284} on a {npc:7047} on the slopes east of {area:251} just before it dies, then loot the essence it leaves."] = "在{area:251}东边山坡上的{npc:7047}快死时对它使用{item:12284}，然后拾取它留下的精华。",
+	-- ["Wildkin feathers"] = "枭兽羽毛",
 	-- ["{npc:5111}: the last guide binds here, so this usually ticks at once"] = "{npc:5111}：上一份指南在这里绑定炉石，所以这一步通常会立即完成",
 	-- ["{npc:7363} waits at the {area:2517}, the hill south-west of the keep. The {zone:1419} mobs on the way drop the Imperfect Draenethyst Fragments; bring her what you have."] = "{npc:7363}在城堡西南方的山丘{area:2517}等候。沿途的{zone:1419}怪物掉落不完美的德莱尼水晶碎片；把你有的都交给她。",
 	-- ["{npc:9176} and the Blackrock orcs hold the camps and the stronghold at the foot of {area:254}, west of {area:251}. Pull them one at a time; every orc and worg may drop a medallion, so kill them until you have fifty."] = "{npc:9176}和黑石兽人占据{area:251}西边、{area:254}脚下的营地和要塞。一次拉一个；每个兽人和座狼都可能掉落奖章，杀到凑够五十个为止。",

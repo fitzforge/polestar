@@ -102,6 +102,34 @@ return {
 	-- {npc:263664} Raan Wildwind · {spell:1229451} Boosted Rest
 	["/sit by {npc:263664}'s campfire until you get {spell:1229451}"] = "Usa /sit junto a la fogata de {npc:263664} hasta obtener {spell:1229451}",
 
+	-- Step 15: Camping 101: Skinning
+	-- {npc:257024} Mendalass Tattermend · {skill:393} Skinning
+	["{npc:257024} takes it once your {skill:393} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "{npc:257024} la recibe cuando tu habilidad de {skill:393} llegue a 20: recolecta o fabrica hasta entonces; mientras tanto, la guía sigue.",
+
+	-- Step 16: Camping 101: First Aid
+	-- {npc:257018} Naleeia Tattermend · {skill:129} First Aid
+	["{npc:257018} takes it once your {skill:129} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "{npc:257018} la recibe cuando tu habilidad de {skill:129} llegue a 20: recolecta o fabrica hasta entonces; mientras tanto, la guía sigue.",
+
+	-- Step 17: Camping 101: Leatherworking
+	-- {npc:251993} Indari Sunseam · {skill:165} Leatherworking
+	["{npc:251993} takes it once your {skill:165} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "{npc:251993} la recibe cuando tu habilidad de {skill:165} llegue a 20: recolecta o fabrica hasta entonces; mientras tanto, la guía sigue.",
+
+	-- Step 18: Camping 101: Mining
+	-- {npc:257022} Messana Crestwind · {skill:186} Mining
+	["{npc:257022} takes it once your {skill:186} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "{npc:257022} la recibe cuando tu habilidad de {skill:186} llegue a 20: recolecta o fabrica hasta entonces; mientras tanto, la guía sigue.",
+
+	-- Step 19: Camping 101: Alchemy
+	-- {npc:257019} Nyassa Swiftdraught · {skill:171} Alchemy
+	["{npc:257019} takes it once your {skill:171} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "{npc:257019} la recibe cuando tu habilidad de {skill:171} llegue a 20: recolecta o fabrica hasta entonces; mientras tanto, la guía sigue.",
+
+	-- Step 20: Camping 101: Blacksmithing
+	-- {npc:251913} Aedi Thriceforged · {skill:164} Blacksmithing
+	["{npc:251913} takes it once your {skill:164} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "{npc:251913} la recibe cuando tu habilidad de {skill:164} llegue a 20: recolecta o fabrica hasta entonces; mientras tanto, la guía sigue.",
+
+	-- Step 21: Camping 101: Fishing
+	-- {npc:251992} Fenn Fairweather · {skill:356} Fishing
+	["{npc:251992} takes it once your {skill:356} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "{npc:251992} la recibe cuando tu habilidad de {skill:356} llegue a 20: recolecta o fabrica hasta entonces; mientras tanto, la guía sigue.",
+
 	-- Step 22: Shen'dar Village
 	-- {npc:251905} Zerril Softbreeze
 	["{npc:251905}: Camping 101 asks you to learn it"] = "{npc:251905}: Campamento 101 te pide aprenderla",
@@ -187,8 +215,6 @@ return {
 	["Skyhoppers hop about the fields just west of Valennia."] = "Varios {npc:251727} saltan por los campos justo al oeste de Valennia.",
 
 	-- Step 48: Ayessa Dawnsinger
-	-- {npc:260628} Valennia Stormfist
-	["{npc:260628}, upstairs"] = "{npc:260628}, en el piso de arriba",
 	-- {npc:251968} Ayessa Dawnsinger
 	["talk to {npc:251968}"] = "habla con {npc:251968}",
 	-- {npc:252382} Sessaria Skystride · {npc:251968} Ayessa Dawnsinger · {quest:97243} Call of Fire
@@ -415,8 +441,8 @@ return {
 	["You leave the isle for good. {npc:259119} waits where the airship lands."] = "Dejas la isla para siempre. {npc:259119} espera donde aterriza la aeronave.",
 	-- {npc:259119} Alaana Stormwalker · {zone:1454} Orgrimmar
 	["{npc:259119}: keep it: Thrall in {zone:1454}, at the start of the next guide"] = "{npc:259119}: guárdala: Thrall en {zone:1454}, al inicio de la siguiente guía",
-	-- {npc:259118} Muln Earthfury · {npc:3033} Turak Runetotem · {zone:1456} Thunder Bluff
-	["{npc:259118}, by the landing: for {npc:3033} in {zone:1456}"] = "{npc:259118}, junto al aterrizaje: para {npc:3033} en {zone:1456}",
+	-- {npc:253957} Muln Earthfury · {npc:3033} Turak Runetotem · {zone:1456} Thunder Bluff
+	["{npc:253957}, by the landing: for {npc:3033} in {zone:1456}"] = "{npc:253957}, junto al aterrizaje: para {npc:3033} en {zone:1456}",
 
 	-- Step 97: Clarice Foster
 	-- {npc:5543} Clarice Foster · {area:2197} Pools of Vision · {area:1640} Spirit Rise
@@ -455,16 +481,22 @@ return {
 	-- Step 105: Into Mulgore
 	-- {zone:1412} Mulgore
 	["Into {zone:1412}"] = "Hacia {zone:1412}",
+	-- {zone:1456} Thunder Bluff · {zone:1412} Mulgore · {zone:1413} Barrens
+	["Take {zone:1456}'s west lift down: the road at its foot runs south-east across {zone:1412} to the {zone:1413}."] = "Baja por el elevador oeste de {zone:1456}: el camino al pie va al sureste a través de {zone:1412} hasta {zone:1413}.",
 
-	-- Step 106: Into The Barrens
-	-- {zone:1413} The Barrens
+	-- Step 106: Into Barrens
+	-- {zone:1413} Barrens
 	["Into {zone:1413}"] = "Hacia {zone:1413}",
 
-	-- Step 108: The Crossroads
-	-- {npc:3615} Devrak · {area:380} The Crossroads · {zone:1421} Silverpine Forest · {zone:1413} The Barrens
+	-- Step 107: Camp Taurajo
+	-- {zone:1412} Mulgore · {area:458} Gold Road · {area:378} Camp Taurajo · {npc:10378} Omusa Thunderhorn · {npc:3418} Kirge Sternhorn
+	["The road from {zone:1412} meets the {area:458} at {area:378}: {npc:10378}, the wind rider master, stands beside {npc:3418} on your way north to the Crossroads."] = "El camino de {zone:1412} se une a {area:458} en {area:378}: {npc:10378}, el maestro de jinetes del viento, está junto a {npc:3418} en tu camino al norte hacia el Cruce.",
+
+	-- Step 109: The Crossroads
+	-- {npc:3615} Devrak · {area:380} The Crossroads · {zone:1421} Silverpine Forest · {zone:1413} Barrens
 	["Learn the flight path from {npc:3615} on the tower platform. {area:380}' own quests come after {zone:1421}, in the {zone:1413} guide."] = "Aprende la ruta de vuelo con {npc:3615} en la plataforma de la torre. Las misiones propias de {area:380} vienen después de {zone:1421}, en la guía de {zone:1413}.",
 
-	-- Step 109: To Orgrimmar
+	-- Step 110: To Orgrimmar
 	-- {zone:1454} Orgrimmar
 	["To {zone:1454}"] = "A {zone:1454}",
 	-- {area:379} Far Watch Post · {area:815} Southfury River · {zone:1411} Durotar · {zone:1454} Orgrimmar · {quest:95350} Welcome to Azeroth · {zone:1420} Tirisfal Glades · {zone:1421} Silverpine Forest
@@ -543,6 +575,7 @@ return {
 	-- ["{npc:255853} waits by the falls just north of the watchtower."] = "{npc:255853} espera junto a la cascada justo al norte de la atalaya.",
 	-- ["{npc:258443} roams the slopes just south of the turncoat's house."] = "{npc:258443} recorre las laderas justo al sur de la casa del traidor.",
 	-- ["{npc:259119}: keep it, Thrall in {zone:1454} comes two guides later"] = "{npc:259119}: guárdala; Thrall, en {zone:1454}, llega dos guías después",
+	-- ["{npc:260628}, upstairs"] = "{npc:260628}, en el piso de arriba",
 	-- ["{npc:263664}'s campfire"] = "La fogata de {npc:263664}",
 	-- ["{npc:3033} trains druids on {area:1639}. He teaches you {spell:18960}; {npc:11802}'s welcome waits for your {spell:499} trip at about 23 (forever/horde/04-the-barrens)."] = "{npc:3033} entrena druidas en {area:1639}. Te enseña {spell:18960}; la bienvenida de {npc:11802} espera tu viaje de {spell:499} hacia el nivel 23 (forever/horde/04-the-barrens).",
 	-- ["{npc:3615}, the wind rider master"] = "{npc:3615}, el maestro de jinetes del viento",

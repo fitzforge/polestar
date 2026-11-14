@@ -43,7 +43,7 @@ return {
 
 	-- Step 7: Cenarion Enclave
 	-- {npc:4217} Mathrengyl Bearwalker · {area:1658} Cenarion Enclave · {quest:31} Aquatic Form
-	["Take the portal up to {npc:4217} in the {area:1658}. {quest:31}: swim fast and breathe underwater."] = "",
+	["Take the portal up to {npc:4217} in the {area:1658}. {quest:31}: swim fast and breathe underwater."] = "차원문을 타고 {area:1658}의 {npc:4217}에게 올라가세요. {quest:31}: 빠르게 헤엄치고 물속에서 숨을 쉽니다.",
 
 	-- Step 8: Aquatic Form
 	-- {npc:4217} Mathrengyl Bearwalker · {area:1658} Cenarion Enclave · {quest:5061} Aquatic Form
@@ -51,7 +51,7 @@ return {
 
 	-- Step 9: A Lesson to Learn
 	-- {npc:3033} Turak Runetotem · {area:1639} Elder Rise
-	["{npc:3033} stands in the druids' hut on {area:1639}."] = "",
+	["{npc:3033} stands in the druids' hut on {area:1639}."] = "{npc:3033}은(는) {area:1639}의 드루이드 오두막에 서 있습니다.",
 
 	-- Step 10: Trial of the Lake
 	-- {spell:18960} Teleport: Moonglade · {npc:11802} Dendrite Starblaze · {quest:28} Trial of the Lake · {npc:11799} Tajarri · {area:656} Lake Elune'ara · {area:2361} Nighthaven · {object:177524} Bubbly Fissure (no name in this language: may be words) · {item:15877} Shrine Bauble · {area:2362} Shrine of Remulos
@@ -59,8 +59,10 @@ return {
 	["Cast {spell:18960} to get here: {npc:11802} stands upstairs in the building beside where you land. {quest:28} runs on a 30-minute timer: once you accept it, no teleport or Hearthstone until {npc:11799} has it. Six Bauble Containers (vases) lie in narrow hollows deep on the floor of {area:656} below {area:2361}, often near the bubbling fissures (the {object:177524} in the middle of the lake refills your breath); each comes back three minutes after it is opened, and other druids take them too. Check the {item:15877} is in your bags before you surface: it fades five minutes after you loot it. Swim it straight to the {area:2362} on the north-west shore, use it inside the shrine grounds and speak to {npc:11799} by the tree."] = "",
 
 	-- Step 11: Half Pendant of Aquatic Agility
-	-- {npc:11798} Bunthen Plainswind · {area:1638} Thunder Bluff · {area:1637} Orgrimmar · {object:177792} Strange Lockbox · {area:382} Sludge Fen
-	["Take {npc:11798}'s flight to {area:1638} and fly on to {area:1637}. The {object:177792} lies underwater in the {area:382} pond, a short walk out of {area:1637}'s west gate, in front of a wooden wall. The Venture Co. there are quick to join a fight: come in from the west to avoid most of them."] = "",
+	-- {npc:11798} Bunthen Plainswind · {area:1638} Thunder Bluff · {area:1637} Orgrimmar · {object:177794} Strange Lockbox · {area:382} Sludge Fen
+	["Take {npc:11798}'s flight to {area:1638} and fly on to {area:1637}. The {object:177794} lies underwater in the {area:382} pond, a short walk out of {area:1637}'s west gate, in front of a wooden wall. The Venture Co. there are quick to join a fight: come in from the west to avoid most of them."] = "",
+	-- {item:15883} Half Pendant of Aquatic Agility · {object:177794} Strange Lockbox
+	["{item:15883}, from the {object:177794}"] = "{item:15883}: {object:177794}에서",
 
 	-- Step 12: Zeppelin to Undercity
 	-- {zone:1458} Undercity
@@ -69,8 +71,10 @@ return {
 	["Back through {area:1637} to the zeppelin towers outside its main gate: the zeppelin to the {zone:1458} lands in {zone:1420}, and {zone:1421} is south of the {zone:1458}."] = "",
 
 	-- Step 13: Half Pendant of Aquatic Endurance
-	-- {object:177790} Strange Lockbox · {area:228} Sepulcher · {spell:18960} Teleport: Moonglade
-	["The {object:177790} lies at the bottom of very deep water off the coast north-west of the {area:228}, beside an air fissure where you can breathe: watch your breath on the way down. Then {spell:18960} takes you straight back."] = "",
+	-- {object:177844} Strange Lockbox · {area:228} Sepulcher · {spell:18960} Teleport: Moonglade
+	["The {object:177844} lies at the bottom of very deep water off the coast north-west of the {area:228}, beside an air fissure where you can breathe: watch your breath on the way down. Then {spell:18960} takes you straight back."] = "",
+	-- {item:15882} Half Pendant of Aquatic Endurance · {object:177844} Strange Lockbox
+	["{item:15882}, from the {object:177844}"] = "{item:15882}: {object:177844}에서",
 
 	-- Step 14: Pendant of the Sea Lion
 	-- {spell:18960} Teleport: Moonglade · {area:2362} Shrine of Remulos · {item:15883} Half Pendant of Aquatic Agility · {zone:1450} Moonglade · {npc:11802} Dendrite Starblaze · {npc:11798} Bunthen Plainswind · {area:1638} Thunder Bluff
@@ -83,9 +87,7 @@ return {
 	-- ["Cast {spell:18960}. {npc:11802} is in {area:2361}. The Shrine Baubles lie on the bed of {area:656} and fade within minutes: swim one straight to the {area:2362} on the north-west shore, use it there and speak to {npc:11799}."] = "{spell:18960}을(를) 시전하세요. {npc:11802}은(는) {area:2361}에 있습니다. {item:15877}은(는) {area:656} 바닥에 있으며 몇 분 안에 사라집니다. 하나를 들고 북서쪽 기슭의 {area:2362}까지 곧장 헤엄쳐 가서 사용하고 {npc:11799}와(과) 대화하세요.",
 	-- ["Fly from {area:2361} to {area:442}. The {object:177792} lies under the water off the north coast, west of the {area:443}."] = "{area:2361}에서 {area:442}(으)로 날아가세요. {object:177792}은(는) {area:443} 서쪽, 북쪽 해안 앞 물속에 있습니다.",
 	-- ["Take the boat from {area:442} to {zone:1453} and fly to {area:108}. Ride north-west to the coast: the {object:177790} lies on the sea floor off the shore."] = "{area:442}에서 배를 타고 {zone:1453}(으)로 간 뒤 {area:108}(으)로 날아가세요. 북서쪽 해안으로 가면 {object:177790}이(가) 해안 앞바다 바닥에 있습니다.",
-	-- ["Take the portal up to {npc:4217} in the {area:1658}."] = "차원문을 타고 {area:1658}의 {npc:4217}에게 올라가세요.",
 	-- ["Take {npc:11798}'s flight to {zone:1456}, fly to {zone:1454} and take the zeppelin to {zone:1420}; {zone:1421} is south of the {zone:1458}. The {object:177790} lies on the coast west of the {area:240}, north of the {area:228}."] = "{npc:11798}의 비행편으로 {zone:1456}에 간 뒤, {zone:1454}(으)로 날아가 비행선을 타고 {zone:1420}(으)로 가세요. {zone:1421}은(는) {zone:1458} 남쪽에 있습니다. {object:177790}은(는) {area:228} 북쪽, {area:240} 서쪽 해안에 있습니다.",
 	-- ["The {object:177792} lies at the north edge of the {area:382}, by the Venture Co. tower, north of the {area:380}."] = "{object:177792}은(는) {area:380} 북쪽, {area:382} 북쪽 가장자리의 투자개발회사 탑 옆에 있습니다.",
-	-- ["{npc:3033} stands on {area:1639}."] = "{npc:3033}은(는) {area:1639}에 서 있습니다.",
 	-- ["{npc:4217} stands in the {area:1658}."] = "{npc:4217}은(는) {area:1658}에 서 있습니다.",
 }

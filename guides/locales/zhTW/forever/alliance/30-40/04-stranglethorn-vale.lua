@@ -61,13 +61,14 @@ return {
 	-- {npc:469} Lieutenant Doren · {quest:200} Bookie Herod · {area:101} Kurzen's Compound
 	["{npc:469}: {quest:200}'s records lie at the edge of {area:101}, next"] = "",
 	-- {npc:770} Corporal Kaleb · {npc:773} Krazek · {area:35} Booty Bay
-	["{npc:770}: for {npc:773} in {area:35}, later in this guide"] = "",
+	["{npc:770}: for {npc:773} in {area:35}, later in this guide"] = "{npc:770}：給{area:35}的{npc:773}，在本指南稍後",
 
 	-- Step 14: Kurzen's Compound: kill these as you meet them
 	-- {area:101} Kurzen's Compound
 	["{area:101}: kill these as you meet them"] = "",
 	-- {area:99} Rebel Camp · {quest:200} Bookie Herod
-	["The Kurzen rebels hold the camp east of the {area:99}; work its outer edge, where Jungle Fighters and Medicine Men stand, and loot the supply crates by the tents. {quest:200}'s records lie in a hut on the compound's west side."] = "",
+	-- plural, as words: Kurzen Elites = {npc:939} Kurzen Elite
+	["The Kurzen rebels hold the camp east of the {area:99}; work its outer edge, where Jungle Fighters and Medicine Men stand, and loot the supply crates by the tents. {quest:200}'s records lie in a hut on the compound's west side. Careful: Kurzen Elites and Witch Doctors (36) hold the compound's eastern half, by the cave: stay on its west side."] = "庫爾森叛軍佔據{area:99}東邊的營地；在外圍活動，那裡有庫爾森叢林戰士和庫爾森藥草師，並拾取帳篷旁的補給箱。{quest:200}的記錄在營地西側的一間小屋裡。小心：庫爾森精英和庫爾森巫醫（36級）佔據營地東半部的洞穴旁：待在營地西側。",
 	-- {object:287} Bookie Herod's Records
 	["{object:287}, in the hut"] = "",
 	["The strongbox is deeper in, by the cave: on the northern loop (04b)"] = "",
@@ -111,15 +112,15 @@ return {
 	-- {object:3202} Grom'gol · {area:35} Booty Bay
 	["Follow the main road south the length of the jungle, past the {object:3202} turn-off, to {area:35} on the southern cape."] = "沿主要道路向南穿過整片叢林，經過{object:3202}岔路，到達南端海角的{area:35}。",
 	-- {npc:2495} Drizzlik
-	["{npc:2495}, by the bank; inside"] = "",
+	["{npc:2495}, by the bank; inside"] = "{npc:2495}，在銀行旁；在裡面",
 	-- {npc:2498} Crank Fizzlebub
 	["{npc:2498}, inside"] = "",
 	-- {npc:6807} Innkeeper Skindle · {object:56910} The Salty Sailor Tavern
 	["{npc:6807}, {object:56910}; upstairs"] = "",
 	-- {npc:2832} Nixxrax Fillamug · {object:56910} The Salty Sailor Tavern
-	["{npc:2832}, in the {object:56910}; upstairs"] = "",
+	["{npc:2832}, in the {object:56910}; upstairs"] = "{npc:2832}，在{object:56910}；在樓上",
 	-- {npc:773} Krazek
-	["{npc:773}, in the tavern; upstairs"] = "",
+	["{npc:773}, in the tavern; upstairs"] = "{npc:773}，在酒館裡；在樓上",
 	-- {npc:773} Krazek · {npc:770} Corporal Kaleb
 	["{npc:773}, from {npc:770}"] = "",
 	-- {npc:737} Kebok
@@ -179,10 +180,10 @@ return {
 	-- {npc:4078} Collin Mauren · {object:2164} Slaughtered Lamb · {object:2101} Mage Quarter
 	["{npc:4078} is in the {object:2164}, in the {object:2101}."] = "",
 
-	-- Step 32: Druid training
-	["Druid training"] = "德魯伊訓練",
-	-- {npc:5504} Sheldras Moontree · {zone:1453} Stormwind · {object:2101} Mage Quarter
-	["{npc:5504}, the druid trainer, stands in {zone:1453}, north-west of the {object:2101}."] = "",
+	-- Step 32: Class training
+	["Class training"] = "職業訓練",
+	-- {object:2096} Trade District · {object:2100} Old Town · {object:2101} Mage Quarter · {npc:5504} Sheldras Moontree · {zone:1455} Ironforge
+	["Your level 34 ranks: the class trainers stand around the {object:2096}, {object:2100}, the Cathedral and the {object:2101}; {npc:5504}, the druid trainer, stands north-west of the {object:2101}. Shamans train in {zone:1455}, later in 30-40."] = "",
 
 	-- Step 34: Fly to Astranaar
 	-- {area:415} Astranaar
@@ -215,17 +216,12 @@ return {
 	-- ["Take the road north; {npc:738} patrols it, the camp sits in the hills to the west."] = "沿道路向北；{npc:738}在路上巡邏，營地在西邊的丘陵中。",
 	-- ["Take the road north; {npc:738} stands on it, the camp sits in the hills to the west."] = "沿道路向北；{npc:738}站在路上，營地在西邊的丘陵中。",
 	-- ["The Bloodscalp trolls hold the ruins on the coast west of Nesingwary's camp."] = "血頂食人妖佔據奈辛瓦里營地西邊海岸上的廢墟。",
-	-- ["The Kurzen rebels hold the camp east of the {area:99}; work its outer edge, where Jungle Fighters and Medicine Men stand, and loot the supply crates by the tents."] = "庫爾森叛軍佔據{area:99}東邊的營地；在外圍活動，那裡有庫爾森叢林戰士和庫爾森藥草師，並拾取帳篷旁的補給箱。",
 	-- ["The Skullsplitter trolls hold the ruins east of the road between Nesingwary and {object:3202}."] = "劈顱食人妖佔據奈辛瓦里與{object:3202}之間道路東邊的廢墟。",
 	-- ["The jungle ruins"] = "叢林廢墟",
 	-- ["The ore drops from Drywhisker kobolds in {zone:1417}"] = "礦石由{zone:1417}的枯鬚狗頭人掉落",
 	-- ["Thorsen patrols the road north of camp, toward the {area:99}."] = "列兵索爾森在營地北邊、朝{area:99}方向的道路上巡邏。",
 	-- ["Walk back north; the {area:310} lies west of the road in the middle of the jungle. The Crystal Spine Basilisks there drop the shards."] = "往北走回去；{area:310}在叢林中部的道路西邊。那裡的晶背蜥蜴會掉落碎片。",
 	-- ["{area:1537} has no druid trainer: take the {area:2257} from {object:171524} to {zone:1453} and train with {npc:5504}."] = "{area:1537}沒有德魯伊訓練師：從{object:171524}搭乘{area:2257}前往{zone:1453}，向{npc:5504}學習。",
-	-- ["{npc:2495}, by the bank"] = "{npc:2495}，在銀行旁",
-	-- ["{npc:2832}, in the {object:56910}"] = "{npc:2832}，在{object:56910}",
 	-- ["{npc:2859}, on the top floor by the docks"] = "{npc:2859}，在碼頭旁的頂樓",
-	-- ["{npc:770}: for {npc:773} in {area:35}"] = "{npc:770}：給{area:35}的{npc:773}",
-	-- ["{npc:773}, in the tavern"] = "{npc:773}，在酒館裡",
 	-- ["{quest:207}: four troll legends"] = "{quest:207}：四個食人妖傳說",
 }

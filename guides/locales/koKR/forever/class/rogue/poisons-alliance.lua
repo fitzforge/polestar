@@ -9,11 +9,11 @@ return {
 	-- Guide
 	["Poisons (Alliance)"] = "",
 	-- {item:7676} Thistle Tea
-	["Forever teaches Poisons through this chain, not the trainer; the {item:7676} recipe comes with it."] = "",
+	["Forever teaches Poisons through this chain, not the trainer; the {item:7676} recipe comes with it."] = "Forever에서는 독 조제를 상급자가 아니라 이 연계 퀘스트로 배웁니다. {item:7676} 제조법도 함께 얻습니다.",
 
 	-- Step 1: Mathias and the Defias
 	-- {npc:332} Master Mathias Shaw · {object:2100} Old Town · {npc:7024} Agent Kearnen · {zone:1436} Westfall
-	["At 20 {npc:332}, upstairs in the SI:7 building in {object:2100}, sends you to {npc:7024} in {zone:1436}. This chain is how you learn Poisons on Forever, so do not skip it."] = "",
+	["At 20 {npc:332}, upstairs in the SI:7 building in {object:2100}, sends you to {npc:7024} in {zone:1436}. This chain is how you learn Poisons on Forever, so do not skip it."] = "20레벨에 {object:2100} SI:7 건물 위층의 {npc:332}이(가) {zone:1436}의 {npc:7024}에게 보냅니다. Forever에서는 이 연계 퀘스트로 독 조제를 배우니 건너뛰지 마십시오.",
 
 	-- Step 2: Agent Kearnen
 	-- {npc:7053} Klaven Mortwake · {zone:1436} Westfall · {zone:1431} Duskwood · {item:8046} Kearnen's Journal
@@ -34,7 +34,7 @@ return {
 	-- plural, as words: Defias Tower Patrollers = {npc:7052} Defias Tower Patroller
 	["Sneak up the tower. Defias Tower Patrollers (23) and Sentries (24) guard the floors; an Ambush with a dagger kills them outright if you would rather clear them. {npc:7053}, a level 26 elite, waits on the top floor: Sap him, or bring a friend. The {object:123214} beside his desk needs Lockpicking of about 70-75 (practise on the boxes at {area:97} in Redridge first). A trick: while the Sentries are away, jump from the chair to the lamp to the bookshelf above the chest, step out of stealth and open the chest from there. Opening it poisons you with the {spell:9810}, which stops your stealth for a while and lets the drone see you; that is why the key comes first. Then get out."] = "",
 	-- {item:7908} Klaven Mortwake's Journal · {object:123214} Duskwood Chest
-	["{item:7908}: the {object:123214}, top floor"] = "",
+	["{item:7908}: the {object:123214}, top floor"] = "{object:123214} 꼭대기 층의 {item:7908}",
 
 	-- Step 5: Master Mathias Shaw
 	-- {zone:1453} Stormwind · {item:7676} Thistle Tea · {spell:8681} Instant Poison · {item:2928} Dust of Decay · {item:3371} Empty Vial · {npc:1325} Jasper Fel · {npc:1326} Sloan McCoy · {object:2100} Old Town
@@ -60,11 +60,8 @@ return {
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["/lay down"] = "/lay down",
-	-- ["At 20 {npc:332} at SI:7 in {object:2100} sends you to {npc:7024} in {zone:1436}."] = "20레벨에 {object:2100} SI:7의 {npc:332}이(가) {zone:1436}의 {npc:7024}에게 보냅니다.",
 	-- ["Everything is in {zone:1453}: the Gumps sell {item:3421}, the {item:8431} lies in the city, and the nearest vendors sell a {item:3372} and a {item:4371}."] = "모두 {zone:1453}에 있습니다: 검프 남매가 {item:3421}을(를) 팔고, {item:8431}은(는) 도시 안에 놓여 있으며, 가까운 상인이 {item:3372}와(과) {item:4371}을(를) 팝니다.",
-	-- ["Forever teaches {spell:2842} through this chain, not the trainer; the {item:7676} recipe comes with it."] = "Forever에서는 {spell:2842}을(를) 상급자가 아니라 이 연계 퀘스트로 배웁니다. {item:7676} 제조법도 함께 얻습니다.",
 	-- ["Ride north through Elwynn to {zone:1453}; Mathias Shaw is at SI:7 in {object:2100}."] = "엘윈 숲을 지나 북쪽 {zone:1453}(으)로 달려가십시오. 마티아스 쇼는 {object:2100}의 SI:7에 있습니다.",
-	-- ["{item:7908}, in the {object:123214}"] = "{object:123214} 안의 {item:7908}",
 	-- ["{npc:7024} watches {npc:7053}'s tower from the hills in the far east of {zone:1436}, by the {zone:1431} border. The {npc:7051} (level 23) guarding the tower carries its key; Klaven's journal is in the chest at the top."] = "{npc:7024}은(는) {zone:1436} 동쪽 끝, {zone:1431} 경계 근처 언덕에서 {npc:7053}의 탑을 감시합니다. 탑을 지키는 {npc:7051}(레벨 23)이(가) 열쇠를 가지고 있으며, 클라벤의 일지는 꼭대기의 상자에 있습니다.",
 	-- ["{npc:7207} works in the cellar of SI:7, the Barracks. Type /lay down beside him to be examined."] = "{npc:7207}은(는) SI:7 병영 지하실에 있습니다. 그 옆에서 /lay down을 입력해 진찰을 받으십시오.",
 	-- ["{spell:2842} (Alliance)"] = "{spell:2842} (얼라이언스)",

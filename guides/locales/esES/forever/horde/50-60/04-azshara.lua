@@ -35,7 +35,7 @@ return {
 	-- {npc:256386} Dokimi
 	["{npc:256386}'s crates"] = "Las cajas de {npc:256386}",
 	-- {npc:256386} Dokimi · {area:1237} Valormok
-	["Ride north up the road to the Crossroads; {npc:256386} stands there. Open each crate she hands you and bring back what is inside. Fly on to {area:1237} from the Crossroads."] = "",
+	["Ride north up the road to the Crossroads; {npc:256386} stands there. Open each crate she hands you and bring back what is inside. Fly on to {area:1237} from the Crossroads."] = "Cabalga al norte por el camino hasta el Cruce; {npc:256386} está allí. Abre cada caja que te dé y llévale lo que haya dentro. Desde el Cruce, sigue volando a {area:1237}.",
 
 	-- Step 6: Fly to Valormok
 	-- {area:1237} Valormok
@@ -46,14 +46,14 @@ return {
 	["Ride east to the ruins on the coast. Fill Cuely's four vials at the tide pools along the shore; Spitelash naga patrol between them."] = "Ve al este, a las ruinas de la costa. Llena los cuatro viales del químico Cuely en las pozas de marea de la orilla; los naga Látigo de Ira patrullan entre ellas.",
 
 	-- Step 9: Thalassian Base Camp
-	-- {area:1227} Bay of Storms
-	["The blood elves camp on the cliffs in the north-east, by the {area:1227}."] = "Los elfos de sangre acampan en los acantilados del noreste, junto a {area:1227}.",
+	-- {area:1227} Bay of Storms · {npc:250023} Blackmaw Thrall
+	["The blood elves camp on the cliffs in the north-east, by the {area:1227}.\nCareful: a {npc:250023}, a level 55-57 elite, stands at the west edge of the camp: work the blood elves from its east side."] = "Los elfos de sangre acampan en los acantilados del noreste, junto a {area:1227}.\nCuidado: un {npc:250023}, élite de nivel 55-57, está en el borde oeste del campamento: enfréntate a los elfos de sangre desde su lado este.",
 
 	-- Step 10: Magus Rimtori's camp
 	-- {npc:8578} Magus Rimtori
 	["{npc:8578}'s camp"] = "Campamento de {npc:8578}",
 	-- {object:151286} Kaldorei Tome of Summoning
-	["Rimtori's camp is at the east end of the base camp. Read the {object:151286} there, then kill the Magus.\nCareful: Which crystal is linked to Rimtori is random. Each of the other two summons a hostile infernal instead."] = "",
+	["Rimtori's camp is at the east end of the base camp. Read the {object:151286} there, then kill the Magus.\nCareful: Which crystal is linked to Rimtori is random. Each of the other two summons a hostile infernal instead."] = "El campamento de Rimtori está en el extremo este del campamento base. Lee {object:151286} allí y luego mata al Magus.\nCuidado: el cristal vinculado a Rimtori es aleatorio. Cada uno de los otros dos invoca en su lugar un infernal hostil.",
 
 	-- Step 11: Ag'tor Bloodfist
 	-- {area:1237} Valormok
@@ -84,7 +84,7 @@ return {
 
 	-- Step 17: Zeppelin to Undercity
 	-- {zone:1458} Undercity
-	["Zeppelin to {zone:1458}"] = "",
+	["Zeppelin to {zone:1458}"] = "Zepelín a {zone:1458}",
 
 	-- Step 18: Chemist Cuely
 	-- {npc:8390} Chemist Cuely · {npc:8393} Thersa Windsong
@@ -127,12 +127,9 @@ return {
 	-- ["In the {object:172958}."] = "En {object:172958}.",
 	-- ["In the {object:172961}. Have the Wool, Silk and Mageweave in your bags."] = "En {object:172961}. Lleva el paño de lana, el paño de seda y la tela de paño mágico en las bolsas.",
 	-- ["Open {object:149036} for the {item:10556}"] = "Abre {object:149036} para coger {item:10556}",
-	-- ["Rimtori's camp is at the east end of the base camp. Read the {object:151286} there, then kill the Magus."] = "El campamento de Rimtori está en el extremo este del campamento base. Lee {object:151286} allí y luego mata al Magus.",
 	-- ["The zeppelin tower stands just north-east of {zone:1454}'s main gate; take the {zone:1458} zeppelin."] = "La torre del zepelín está justo al noreste de la puerta principal de {zone:1454}; toma el zepelín a {zone:1458}.",
-	-- ["Zeppelin to the {zone:1458}"] = "Zepelín a {zone:1458}",
 	-- ["Zeppelin tower"] = "Torre del zepelín",
 	-- ["{npc:11044}, in the Apothecarium"] = "{npc:11044}, en El Apothecarium",
 	-- ["{npc:11044}, in the {object:36072}"] = "{npc:11044}, en {object:36072}",
-	-- ["{npc:256386} stands in the {area:380}. Open each crate she hands you and bring back what is inside."] = "{npc:256386} está en {area:380}. Abre cada caja que te dé y llévale lo que haya dentro.",
 	-- ["{quest:5050} goes back to {npc:10778} in the {area:28}: keep it."] = "{quest:5050} se entrega a {npc:10778} en {area:28}: guárdala.",
 }

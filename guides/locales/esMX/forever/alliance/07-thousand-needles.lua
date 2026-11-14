@@ -12,19 +12,23 @@ return {
 	-- {npc:840} Watcher Backus · {area:42} Darkshire
 	["{npc:840}, at the north entrance of town; walks around {area:42}: look inside the circle on the map"] = "{npc:840}, en la entrada norte del pueblo; recorre {area:42}: busca dentro del círculo del mapa",
 
-	-- Step 3: Nightbane Shadow Weavers
+	-- Step 3: Councilman Millstipe
+	-- {quest:377} Crime and Punishment · {area:717} Stockade · {npc:270} Councilman Millstipe
+	["{quest:377}, from your {area:717} run: {npc:270} is in the town hall, beside Commander Althea."] = "{quest:377}, de tu recorrido por {area:717}: {npc:270} está en el ayuntamiento, junto a la comandante Althea.",
+
+	-- Step 4: Nightbane Shadow Weavers
 	-- plural, as words: Nightbane Shadow Weavers = {npc:533} Nightbane Shadow Weaver
 	["Nightbane Shadow Weavers"] = "Tejesombras Penumbría",
 	-- {area:42} Darkshire
 	["The worgen hold the woods of Brightwood, west of {area:42} and north of the road. Pull them one at a time."] = "Los huargos ocupan el bosque de la Arboleda del Destello, al oeste de {area:42} y al norte del camino. Atráelos de uno en uno.",
 
-	-- Step 5: Nightbane Dark Runners
+	-- Step 6: Nightbane Dark Runners
 	-- plural, as words: Nightbane Dark Runners = {npc:205} Nightbane Dark Runner
 	["Nightbane Dark Runners"] = "Sombracechadores Penumbría",
 	-- {area:42} Darkshire
 	["The Dark Runners prowl the woods south of the road, west of {area:42}."] = "Los sombracechadores merodean por el bosque al sur del camino, al oeste de {area:42}.",
 
-	-- Step 7: Nightbane Vile Fangs and the Insane Ghoul
+	-- Step 8: Nightbane Vile Fangs and the Insane Ghoul
 	-- {npc:511} Insane Ghoul
 	-- plural, as words: Nightbane Vile Fangs = {npc:206} Nightbane Vile Fang
 	["Nightbane Vile Fangs and the {npc:511}"] = "Colmillovil Penumbría y {npc:511}",
@@ -33,13 +37,13 @@ return {
 	-- {item:1946} Mary's Looking Glass
 	["{item:1946}; inside"] = "{item:1946}; adentro",
 
-	-- Step 8: Darkshire
+	-- Step 9: Darkshire
 	-- {npc:276} Viktori Prism'Antras
 	["{npc:276}, inside"] = "{npc:276}, adentro",
 	-- {npc:661} Jonathan Carevin · {npc:633} Elaine Carevin
 	["{npc:661}, by {npc:633}'s house; inside"] = "{npc:661}, junto a la casa de {npc:633}; adentro",
 
-	-- Step 9: Vul'Gol Ogre Mound: kill these as you meet them
+	-- Step 10: Vul'Gol Ogre Mound: kill these as you meet them
 	-- {area:93} Vul'Gol Ogre Mound
 	["{area:93}: kill these as you meet them"] = "{area:93}: mata a estos según te los encuentres",
 	-- {area:42} Darkshire · {object:119} Abercrombie's Crate
@@ -48,30 +52,30 @@ return {
 	["Only if a {npc:272273} dropped {quest:96138}: right-click it"] = "Solo si un {npc:272273} soltó {quest:96138}: haz clic derecho en él",
 	["Below ground"] = "Bajo tierra",
 
-	-- Step 10: Defias Strongbox
+	-- Step 11: Defias Strongbox
 	-- {zone:1431} Duskwood · {area:94} Raven Hill · {zone:1436} Westfall
 	["The Defias camp lies in the south-west of {zone:1431}, south of {area:94} near the {zone:1436} border. The strongbox stands among the tents."] = "El campamento Defias está en el suroeste de {zone:1431}, al sur de {area:94}, cerca de la frontera de {zone:1436}. La caja fuerte está entre las tiendas.",
 	-- {item:5947} Defias Docket
 	["{item:5947}; inside"] = "{item:5947}; adentro",
 
-	-- Step 12: Raven Hill Cemetery: kill these as you meet them
+	-- Step 13: Raven Hill Cemetery: kill these as you meet them
 	-- {area:492} Raven Hill Cemetery
 	["{area:492}: kill these as you meet them"] = "{area:492}: mata a estos según te los encuentres",
 	-- {area:492} Raven Hill Cemetery · {npc:522} Mor'Ladim · {npc:311} Sven Yorgen
 	-- plural, as words: Plague Spreaders = {npc:604} Plague Spreader · Skeletal Raiders = {npc:1110} Skeletal Raider
 	["The Plague Spreaders walk the northern half of the {area:492}. {npc:522}, an elite, wanders the graves: keep away from him.\nSkeletal Raiders, Healers and Warders hold the west part of the cemetery, just east of {npc:311}'s camp.\nCareful: The skeletons in the catacombs are packed close together, so you can easily pull extra mobs."] = "Los propagadores de peste recorren la mitad norte de {area:492}. {npc:522}, un élite, deambula entre las tumbas: mantente lejos de él.\nLos asaltantes, sanadores y celadores esqueléticos ocupan la parte oeste del cementerio, justo al este del campamento de {npc:311}.\nCuidado: Los esqueletos de las catacumbas están muy juntos, así que es fácil atraer enemigos de más.",
 
-	-- Step 13: The Weathered Grave
+	-- Step 14: The Weathered Grave
 	-- {npc:311} Sven Yorgen · {npc:268} Sirra Von'Indi · {area:42} Darkshire
 	["The grave stands among the skeletons at the cemetery's north-west corner, on the way to {npc:311}. Its quest and the next are talk-only, to {npc:268} and Commander Althea in {area:42}: level 35 from level 28, but no fight."] = "La tumba está entre los esqueletos de la esquina noroeste del cementerio, de camino a {npc:311}. Su misión y la siguiente son solo de hablar, con {npc:268} y la comandante Althea en {area:42}: de nivel 35 desde el nivel 28, pero sin pelear.",
 
-	-- Step 14: Sven Yorgen's Camp
+	-- Step 15: Sven Yorgen's Camp
 	-- {npc:311} Sven Yorgen
 	["{npc:311}'s Camp"] = "Campamento de {npc:311}",
 	-- {npc:1212} Bishop Farthing · {zone:1453} Stormwind
 	["For {npc:1212} in {zone:1453}, in the next guide"] = "Para {npc:1212} en {zone:1453}, en la siguiente guía",
 
-	-- Step 15: Back to Darkshire
+	-- Step 16: Back to Darkshire
 	-- {area:42} Darkshire
 	["Back to {area:42}"] = "Regresa a {area:42}",
 	-- {npc:263} Lord Ello Ebonlocke
@@ -84,12 +88,12 @@ return {
 	-- {npc:482} Elling Trias · {zone:1453} Stormwind
 	["For {npc:482} in {zone:1453}, in the next guide"] = "Para {npc:482} en {zone:1453}, en la siguiente guía",
 
-	-- Step 16: Viktori Prism'Antras
+	-- Step 17: Viktori Prism'Antras
 	-- {npc:276} Viktori Prism'Antras
 	["{npc:276}'s house stands at the east end of town, on the way to the flight master."] = "La casa de {npc:276} está en el extremo este del pueblo, de camino al maestro de vuelo.",
 	["Inside"] = "Adentro",
 
-	-- Step 17: Fly to Menethil Harbor
+	-- Step 18: Fly to Menethil Harbor
 	-- {area:150} Menethil Harbor
 	["Fly to {area:150}"] = "Vuela a {area:150}",
 	-- {area:42} Darkshire

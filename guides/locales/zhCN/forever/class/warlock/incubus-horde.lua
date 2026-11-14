@@ -67,14 +67,15 @@ return {
 	["{npc:185333} (level 22) works as a tailor for the {area:279} wizards at {area:233}, in eastern Silverpine: the wizards around her are hostile. {npc:5682} (level 20, not elite) patrols near the {area:230} in the far south. Both are Alliance-friendly humans: attacking them can flag you for PvP. Each drops her or his heart."] = "{npc:185333}（22级）在银松森林东部的 {area:233} 为 {area:279} 的巫师担任裁缝：她周围的巫师是敌对的。{npc:5682}（20级，非精英）在最南端 {area:230} 附近巡逻。两者都是对联盟友善的人类：攻击可能使你进入PvP状态。他们各自掉落自己的心脏。",
 
 	-- Step 12: Corma Villard
-	-- {npc:5683} Corma Villard · {zone:1437} Wetlands · {area:881} Thandol Span · {zone:1458} Undercity · {area:287} Hillsbrad · {zone:1417} Arathi Highlands
-	["{npc:5683} (level 22, not elite; Comar in older records) wanders the north of the {zone:1437} just past the {area:881}, to the right as you come off the bridge. From the {zone:1458} head through {area:287} and {zone:1417}, where the mobs are 30 and up. Attacking her flags you for PvP."] = "{npc:5683}（22级，非精英；旧记录中称为Comar）在{zone:1437}北部、刚过{area:881}的地方游荡，下桥后往右找。从{zone:1458}出发，穿过{area:287}和{zone:1417}，沿途怪物都在30级及以上。攻击她会使你进入PvP状态。",
+	["Corma Villard"] = "科马·维拉德",
+	-- {zone:1437} Wetlands · {area:881} Thandol Span · {zone:1458} Undercity · {area:287} Hillsbrad · {zone:1417} Arathi Highlands
+	["Corma Villard (level 22, not elite; Comar in older records) wanders the north of the {zone:1437} just past the {area:881}, to the right as you come off the bridge. From the {zone:1458} head through {area:287} and {zone:1417}, where the mobs are 30 and up. Attacking her flags you for PvP."] = "科马·韦拉德（22级，非精英；旧记录中称为Comar）在{zone:1437}北部、刚过{area:881}的地方游荡，下桥后往右找。从{zone:1458}出发，穿过{area:287}和{zone:1417}，沿途怪物都在30级及以上。攻击她会使你进入PvP状态。",
 
 	-- Step 13: The Binding: succubus (Undercity)
 	-- {quest:1474} The Binding · {zone:1458} Undercity
 	["{quest:1474}: succubus ({zone:1458})"] = "{quest:1474}：魅魔（{zone:1458}）",
-	-- {npc:5675} Carendin Halgar · {npc:5683} Corma Villard · {item:6286} Pure Hearts
-	["Back to {npc:5675} with Dalin's and {npc:5683}'s hearts. He hands you the {item:6286}: go down to the summoning circle below him, stand on it and use them. Summon your voidwalker first and keep the fight on the circle, or the guards may kill her and the kill does not count. If she wins, use the hearts again; keep them, {npc:5675} takes them back."] = "带着达林和{npc:5683}的心脏返回{npc:5675}。他会给你{item:6286}：下到他下方的召唤法阵，站在阵中使用。先召出虚空行者，并将战斗保持在法阵内，否则卫兵可能杀掉她，导致击杀不算数。如果你输了，再次使用心脏即可；记得保留，{npc:5675}会收回。",
+	-- {npc:5675} Carendin Halgar · {item:6286} Pure Hearts
+	["Back to {npc:5675} with Dalin's and Corma's hearts. He hands you the {item:6286}: go down to the summoning circle below him, stand on it and use them. Summon your voidwalker first and keep the fight on the circle, or the guards may kill her and the kill does not count. If she wins, use the hearts again; keep them, {npc:5675} takes them back."] = "带着达林和科马的心脏返回{npc:5675}。他会给你{item:6286}：下到他下方的召唤法阵，站在阵中使用。先召出虚空行者，并将战斗保持在法阵内，否则卫兵可能杀掉她，导致击杀不算数。如果你输了，再次使用心脏即可；记得保留，{npc:5675}会收回。",
 	-- {item:6286} Pure Hearts · {npc:5675} Carendin Halgar
 	["{item:6286}, on the circle below {npc:5675}"] = "{item:6286}，在 {npc:5675} 下方的法阵上",
 

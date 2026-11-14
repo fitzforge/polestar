@@ -28,12 +28,12 @@ return {
 
 	-- Step 5: Menara Voidrender
 	-- {npc:6266} Menara Voidrender · {npc:6251} Strahad Farsan · {area:392} Ratchet
-	["{npc:6266} and her two acolytes stand in {npc:6251}'s tower on the hill above {area:392}."] = "",
+	["{npc:6266} and her two acolytes stand in {npc:6251}'s tower on the hill above {area:392}."] = "{npc:6266}와(과) 두 수행사제는 {area:392} 위 언덕의 {npc:6251}의 탑 안에 있습니다.",
 
 	-- Step 6: Choose an acolyte
 	["Choose an acolyte"] = "수행사제 고르기",
 	-- {npc:6254} Acolyte Wytula · {item:15106} Staff of Dar'Orahil · {npc:6252} Acolyte Magaz · {item:15105} Staff of Noh'Orahil
-	["Pick one acolyte: you can take only one of their quests. {npc:6254}'s felhound path ends with the Orb or {item:15106}, the shadow versions; {npc:6252}'s infernal path with the Orb or {item:15105}, much the same items on the fire side. Most warlocks lean on shadow, but compare the four in their tooltips first. The guide follows the one you take. Keep the ruby or the emerald: it is handed back."] = "",
+	["Pick one acolyte: you can take only one of their quests. {npc:6254}'s felhound path ends with the Orb or {item:15106}, the shadow versions; {npc:6252}'s infernal path with the Orb or {item:15105}, much the same items on the fire side. Most warlocks lean on shadow, but compare the four in their tooltips first. The guide follows the one you take. Keep the ruby or the emerald: it is handed back."] = "수행사제 하나를 고르십시오. 퀘스트는 한 명의 것만 수락할 수 있습니다. {npc:6254}의 지옥사냥개 경로는 보주 또는 {item:15106}(암흑 계열)(으)로, {npc:6252}의 지옥불정령 경로는 보주 또는 {item:15105}(으)로 끝나며, 후자는 화염 쪽의 거의 같은 아이템입니다. 대부분의 흑마법사는 암흑에 기울지만, 먼저 네 아이템의 툴팁을 비교하십시오. 가이드는 수락한 쪽을 따라갑니다. 루비나 에메랄드는 보관하십시오. 다시 돌려주게 됩니다.",
 	-- {npc:6254} Acolyte Wytula · {item:12647} Felhas Ruby
 	["{npc:6254}: she gives you the {item:12647}"] = "{npc:6254}: {item:12647}을(를) 줍니다",
 	-- {npc:6252} Acolyte Magaz · {item:12646} Infus Emerald
@@ -47,14 +47,14 @@ return {
 	-- plural, as words: Burning Blade Summoners = {npc:4668} Burning Blade Summoner
 	["{item:7291}, from the Burning Blade Summoners"] = "{item:7291}, 불타는칼날단 소환사에게서",
 	-- {item:12648} Imprisoned Felhound Spirit · {npc:4678} Mana Eater · {npc:4681} Mage Hunter · {npc:4685} Ley Hunter
-	["{item:12648}, from a {npc:4678}, {npc:4681} or {npc:4685}"] = "",
+	["{item:12648}, from a {npc:4678}, {npc:4681} or {npc:4685}"] = "{item:12648}, {npc:4678}, {npc:4681} 또는 {npc:4685}에게서",
 	-- {item:12649} Imprisoned Infernal Spirit · {npc:4676} Lesser Infernal
 	["{item:12649}, from a {npc:4676}"] = "{item:12649}, {npc:4676}에게서",
 
 	-- Step 8: The demon's spirit
 	["The demon's spirit"] = "악마의 영혼",
 	-- {npc:6266} Menara Voidrender · {area:392} Ratchet
-	["Back to {npc:6266} in the tower above {area:392} with the spirit and the gem first: her orb follows from it."] = "",
+	["Back to {npc:6266} in the tower above {area:392} with the spirit and the gem first: her orb follows from it."] = "먼저 영혼과 보석을 가지고 {area:392} 위 탑의 {npc:6266}에게 돌아가십시오. 그다음 그녀의 보주가 이어집니다.",
 
 	-- Step 9: Tabetha
 	-- {npc:6546} Tabetha · {zone:1445} Dustwallow Marsh · {zone:1413} Barrens · {npc:6549} Demon of the Orb · {spell:710} Banish
@@ -64,7 +64,7 @@ return {
 	-- {item:15108} Orb of Dar'Orahil
 	["The {item:15108}"] = "{item:15108}",
 	-- {npc:6266} Menara Voidrender · {area:392} Ratchet · {item:15108} Orb of Dar'Orahil
-	["Back to {npc:6266} in the tower above {area:392} with the cleansed orb. On the felhound path, accept her last quest and wait beside her while she completes the {item:15108} (do not attack her: the quest log calls it a kill), then speak to her again and pick the off-hand orb or the staff."] = "",
+	["Back to {npc:6266} in the tower above {area:392} with the cleansed orb. On the felhound path, accept her last quest and wait beside her while she completes the {item:15108} (do not attack her: the quest log calls it a kill), then speak to her again and pick the off-hand orb or the staff."] = "정화된 보주를 가지고 {area:392} 위 탑의 {npc:6266}에게 돌아가십시오. 지옥사냥개 경로라면 그녀의 마지막 퀘스트를 수락하고 그녀가 {item:15108}을(를) 완성할 때까지 곁에서 기다린 뒤(공격하지 마십시오. 퀘스트 목록에는 처치로 표시됩니다), 다시 대화해 보조장비 보주나 지팡이를 고르십시오.",
 	-- {npc:6266} Menara Voidrender
 	["Wait beside {npc:6266} while she makes the orb"] = "",
 
@@ -72,16 +72,10 @@ return {
 	-- {item:15107} Orb of Noh'Orahil
 	["The {item:15107}"] = "{item:15107}",
 	-- {npc:6266} Menara Voidrender · {item:15107} Orb of Noh'Orahil
-	["On the infernal path, accept her last quest and wait beside {npc:6266} while she completes the {item:15107}, then speak to her again and pick the off-hand orb or the staff."] = "",
+	["On the infernal path, accept her last quest and wait beside {npc:6266} while she completes the {item:15107}, then speak to her again and pick the off-hand orb or the staff."] = "지옥불정령 경로라면 그녀의 마지막 퀘스트를 수락하고 {npc:6266}이(가) {item:15107}을(를) 완성할 때까지 곁에서 기다린 뒤, 다시 대화해 보조장비 보주나 지팡이를 고르십시오.",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
-	-- ["Back to {npc:6266} in the tower above {area:392} with the cleansed orb. On the felhound path, wait while she completes the {item:15108}, then speak to her again."] = "정화된 보주를 가지고 {area:392} 위 탑의 {npc:6266}에게 돌아가십시오. 지옥사냥개 경로라면 그녀가 {item:15108}을(를) 완성할 때까지 기다린 뒤 다시 대화하십시오.",
-	-- ["Back to {npc:6266} in the tower above {area:392} with the spirit first: {npc:6546}'s cleansing follows it."] = "먼저 영혼을 가지고 {area:392} 위 탑의 {npc:6266}에게 돌아가십시오. 그다음 {npc:6546}의 정화가 이어집니다.",
-	-- ["On the infernal path, wait while {npc:6266} completes the {item:15107}, then speak to her again."] = "지옥불정령 경로라면 {npc:6266}이(가) {item:15107}을(를) 완성할 때까지 기다린 뒤 다시 대화하십시오.",
-	-- ["Pick one acolyte: you can take only one of their quests. {npc:6254}'s felhound path ends with the Orb or {item:15106}, {npc:6252}'s infernal path with the Orb or {item:15105}. The guide follows the one you take."] = "수행사제 하나를 고르십시오. 퀘스트는 한 명의 것만 수락할 수 있습니다. {npc:6254}의 지옥사냥개 경로는 보주 또는 {item:15106}(으)로, {npc:6252}의 지옥불정령 경로는 보주 또는 {item:15105}(으)로 끝납니다. 가이드는 수락한 쪽을 따라갑니다.",
 	-- ["The demons of {area:602}, in southern {zone:1443}, have all you need. Burning Blade Summoners carry the {item:7291}. On the felhound path, use the {item:12647} on a {npc:4678}, a felhound, and kill it for its spirit; on the infernal path, use the {item:12646} on a {npc:4676} and kill it."] = "{zone:1443} 남부 {area:602}의 악마들에게서 필요한 것을 모두 얻을 수 있습니다. 불타는칼날단 소환사가 {item:7291}을(를) 가지고 있습니다. 지옥사냥개 경로라면 지옥사냥개인 {npc:4678}에게 {item:12647}을(를) 사용하고 처치해 영혼을 얻으십시오. 지옥불정령 경로라면 {npc:4676}에게 {item:12646}을(를) 사용하고 처치하십시오.",
 	-- ["Wait for the orb"] = "보주 기다리기",
-	-- ["{item:12648}, from a {npc:4678}"] = "{item:12648}, {npc:4678}에게서",
-	-- ["{npc:6266} and her two acolytes stand in the tower on the hill above {area:392}, beside {npc:6251}."] = "{npc:6266}와(과) 두 수행사제는 {area:392} 위 언덕의 탑 안, {npc:6251} 옆에 있습니다.",
 	-- ["{npc:6546} lives at her farm in western {zone:1445}. She calls the {npc:6549} out of the {item:7291}; it is elite: grouping up is advised."] = "{npc:6546}은(는) {zone:1445} 서부의 농장에 삽니다. 그녀가 {item:7291}에서 {npc:6549}을(를) 불러냅니다. 정예이므로 파티를 권장합니다.",
 }

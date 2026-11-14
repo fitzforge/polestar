@@ -18,10 +18,10 @@ return {
 	["{npc:5497} stands at the top of the Wizard's Sanctum, the violet tower of the {object:2101}; the portal near the top of the spiral ramp takes you to her."] = "{npc:5497}位于{object:2101}紫色高塔、巫师圣殿的顶部。沿螺旋坡道上行，通过接近顶部的传送门即可到她身旁。",
 
 	-- Step 3: High Sorcerer Andromath (Skyborne)
-	-- {npc:5694} High Sorcerer Andromath
-	["{npc:5694} (Skyborne)"] = "{npc:5694}（天裔）",
-	-- {zone:1453} Stormwind · {object:2101} Mage Quarter · {npc:5694} High Sorcerer Andromath · {npc:5497} Jennea Cannon
-	["You do not need a letter: at 26 climb the Wizard's Sanctum, the violet tower of {zone:1453}'s {object:2101}. {npc:5694} waits on the spiral walkway, just past the door of the portal room near the top, and has the quest for you. ({npc:5497} may also offer you {npc:5694}, the pointer quest; it is only a pointer and you can skip it.)"] = "无需介绍信。26 级时前往{zone:1453}的{object:2101}，登上紫色高塔巫师圣殿。{npc:5694}在接近顶部的螺旋走道、刚经过传送门房间门口的位置，会直接提供任务。{npc:5497}也可能提供指向{npc:5694}的介绍任务，它只用于引路，可跳过。",
+	-- {quest:1939} High Sorcerer Andromath
+	["{quest:1939} (Skyborne)"] = "{quest:1939}（天裔）",
+	-- {zone:1453} Stormwind · {object:2101} Mage Quarter · {quest:1939} High Sorcerer Andromath · {npc:5497} Jennea Cannon
+	["You do not need a letter: at 26 climb the Wizard's Sanctum, the violet tower of {zone:1453}'s {object:2101}. {quest:1939} waits on the spiral walkway, just past the door of the portal room near the top, and has the quest for you. ({npc:5497} may also offer you {quest:1939}, the pointer quest; it is only a pointer and you can skip it.)"] = "无需介绍信。26 级时前往{zone:1453}的{object:2101}，登上紫色高塔巫师圣殿。{quest:1939}在接近顶部的螺旋走道、刚经过传送门房间门口的位置，会直接提供任务。{npc:5497}也可能提供指向{quest:1939}的介绍任务，它只用于引路，可跳过。",
 
 	-- Step 4: High Sorcerer Andromath
 	-- {quest:1939} High Sorcerer Andromath

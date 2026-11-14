@@ -22,7 +22,7 @@ return {
 
 	-- Step 3: Teleport: Thunder Bluff
 	-- {zone:1456} Thunder Bluff · {zone:1412} Mulgore · {zone:1454} Orgrimmar · {npc:5957} Birgitte Cranston · {area:2197} Pools of Vision · {area:1640} Spirit Rise · {spell:3566} Teleport: Thunder Bluff
-	["At 30. {zone:1456} is in {zone:1412}: fly there from {zone:1454} or the Crossroads. {npc:5957}, the portal trainer, stands with the mage trainers in the {area:2197}, the cave under {area:1640}: go down inside, the arrow cannot tell the floors apart. She teaches {spell:3566} for 80 silver."] = "",
+	["At 30. {zone:1456} is in {zone:1412}: fly there from {zone:1454} or the Crossroads. {npc:5957}, the portal trainer, stands with the mage trainers in the {area:2197}, the cave under {area:1640}: go down inside, the arrow cannot tell the floors apart. She teaches {spell:3566} for 80 silver."] = "На 30-м уровне. {zone:1456} находится в зоне {zone:1412}: летите туда из {zone:1454} или с Перекрестка. Учитель порталов {npc:5957} стоит рядом с учителями магов в локации {area:2197} – пещере под {area:1640}. Спуститесь внутрь: стрелка не различает этажи. Она обучает заклинанию {spell:3566} за 80 серебра.",
 
 	-- Step 4: Portals to Orgrimmar and the Undercity
 	-- {zone:1454} Orgrimmar · {zone:1458} Undercity
@@ -35,7 +35,4 @@ return {
 	-- Step 5: Portal: Thunder Bluff
 	-- {npc:5957} Birgitte Cranston · {area:2197} Pools of Vision · {area:1640} Spirit Rise · {zone:1456} Thunder Bluff · {spell:11420} Portal: Thunder Bluff · {spell:3566} Teleport: Thunder Bluff
 	["At 50 {npc:5957}, down in the {area:2197} under {area:1640} in {zone:1456}, teaches the last one, {spell:11420}, for 3 gold 20 silver. Use your {spell:3566} to get there."] = "На 50-м уровне {npc:5957} (внизу, в локации {area:2197} под {area:1640}, {zone:1456}) обучает последнему заклинанию — {spell:11420} — за 3 золота 20 серебра. Доберитесь туда с помощью {spell:3566}.",
-
-	-- No longer in the guide (its English changed or it went away): reuse or delete.
-	-- ["At 30. {zone:1456} is in {zone:1412}: fly there from {zone:1454} or the {area:380}. {npc:5957}, the portal trainer, stands with the mage trainers in the {area:2197}, the cave under {area:1640}: go down inside, the arrow cannot tell the floors apart. She teaches {spell:3566} for 80 silver."] = "На 30-м уровне. {zone:1456} находится в зоне {zone:1412}: летите туда из {zone:1454} или с {area:380}. Учитель порталов {npc:5957} стоит рядом с учителями магов в локации {area:2197} — пещере под {area:1640}. Спуститесь внутрь: стрелка не различает этажи. Она обучает заклинанию {spell:3566} за 80 серебра.",
 }

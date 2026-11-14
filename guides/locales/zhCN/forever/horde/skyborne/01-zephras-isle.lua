@@ -102,6 +102,34 @@ return {
 	-- {npc:263664} Raan Wildwind · {spell:1229451} Boosted Rest
 	["/sit by {npc:263664}'s campfire until you get {spell:1229451}"] = "在{npc:263664}的营火旁/sit，直到获得{spell:1229451}",
 
+	-- Step 15: Camping 101: Skinning
+	-- {npc:257024} Mendalass Tattermend · {skill:393} Skinning
+	["{npc:257024} takes it once your {skill:393} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "{npc:257024}会在你的{skill:393}技能达到20后接收：在那之前去采集或制作，指南会同时继续进行。",
+
+	-- Step 16: Camping 101: First Aid
+	-- {npc:257018} Naleeia Tattermend · {skill:129} First Aid
+	["{npc:257018} takes it once your {skill:129} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "{npc:257018}会在你的{skill:129}技能达到20后接收：在那之前去采集或制作，指南会同时继续进行。",
+
+	-- Step 17: Camping 101: Leatherworking
+	-- {npc:251993} Indari Sunseam · {skill:165} Leatherworking
+	["{npc:251993} takes it once your {skill:165} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "{npc:251993}会在你的{skill:165}技能达到20后接收：在那之前去采集或制作，指南会同时继续进行。",
+
+	-- Step 18: Camping 101: Mining
+	-- {npc:257022} Messana Crestwind · {skill:186} Mining
+	["{npc:257022} takes it once your {skill:186} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "{npc:257022}会在你的{skill:186}技能达到20后接收：在那之前去采集或制作，指南会同时继续进行。",
+
+	-- Step 19: Camping 101: Alchemy
+	-- {npc:257019} Nyassa Swiftdraught · {skill:171} Alchemy
+	["{npc:257019} takes it once your {skill:171} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "{npc:257019}会在你的{skill:171}技能达到20后接收：在那之前去采集或制作，指南会同时继续进行。",
+
+	-- Step 20: Camping 101: Blacksmithing
+	-- {npc:251913} Aedi Thriceforged · {skill:164} Blacksmithing
+	["{npc:251913} takes it once your {skill:164} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "{npc:251913}会在你的{skill:164}技能达到20后接收：在那之前去采集或制作，指南会同时继续进行。",
+
+	-- Step 21: Camping 101: Fishing
+	-- {npc:251992} Fenn Fairweather · {skill:356} Fishing
+	["{npc:251992} takes it once your {skill:356} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "{npc:251992}会在你的{skill:356}技能达到20后接收：在那之前去采集或制作，指南会同时继续进行。",
+
 	-- Step 22: Shen'dar Village
 	-- {npc:251905} Zerril Softbreeze
 	["{npc:251905}: Camping 101 asks you to learn it"] = "{npc:251905}：露营 101 要求你学习这项技能",
@@ -187,8 +215,6 @@ return {
 	["Skyhoppers hop about the fields just west of Valennia."] = "{npc:251727}在瓦伦妮亚·风暴之拳西边的田野里蹦跳。",
 
 	-- Step 48: Ayessa Dawnsinger
-	-- {npc:260628} Valennia Stormfist
-	["{npc:260628}, upstairs"] = "{npc:260628}，在楼上",
 	-- {npc:251968} Ayessa Dawnsinger
 	["talk to {npc:251968}"] = "与{npc:251968}交谈",
 	-- {npc:252382} Sessaria Skystride · {npc:251968} Ayessa Dawnsinger · {quest:97243} Call of Fire
@@ -415,8 +441,8 @@ return {
 	["You leave the isle for good. {npc:259119} waits where the airship lands."] = "你将永远离开这座岛。{npc:259119}在飞艇降落处等候。",
 	-- {npc:259119} Alaana Stormwalker · {zone:1454} Orgrimmar
 	["{npc:259119}: keep it: Thrall in {zone:1454}, at the start of the next guide"] = "{npc:259119}：保留任务，下篇指南开始时交给{zone:1454}的萨尔",
-	-- {npc:259118} Muln Earthfury · {npc:3033} Turak Runetotem · {zone:1456} Thunder Bluff
-	["{npc:259118}, by the landing: for {npc:3033} in {zone:1456}"] = "{npc:259118}，在降落处旁：交给{zone:1456}的{npc:3033}",
+	-- {npc:253957} Muln Earthfury · {npc:3033} Turak Runetotem · {zone:1456} Thunder Bluff
+	["{npc:253957}, by the landing: for {npc:3033} in {zone:1456}"] = "{npc:253957}，在降落处旁：交给{zone:1456}的{npc:3033}",
 
 	-- Step 97: Clarice Foster
 	-- {npc:5543} Clarice Foster · {area:2197} Pools of Vision · {area:1640} Spirit Rise
@@ -455,16 +481,22 @@ return {
 	-- Step 105: Into Mulgore
 	-- {zone:1412} Mulgore
 	["Into {zone:1412}"] = "进入{zone:1412}",
+	-- {zone:1456} Thunder Bluff · {zone:1412} Mulgore · {zone:1413} Barrens
+	["Take {zone:1456}'s west lift down: the road at its foot runs south-east across {zone:1412} to the {zone:1413}."] = "乘{zone:1456}西侧的升降梯下去：脚下的道路向东南穿过{zone:1412}通往{zone:1413}。",
 
-	-- Step 106: Into The Barrens
-	-- {zone:1413} The Barrens
+	-- Step 106: Into Barrens
+	-- {zone:1413} Barrens
 	["Into {zone:1413}"] = "进入{zone:1413}",
 
-	-- Step 108: The Crossroads
-	-- {npc:3615} Devrak · {area:380} The Crossroads · {zone:1421} Silverpine Forest · {zone:1413} The Barrens
+	-- Step 107: Camp Taurajo
+	-- {zone:1412} Mulgore · {area:458} Gold Road · {area:378} Camp Taurajo · {npc:10378} Omusa Thunderhorn · {npc:3418} Kirge Sternhorn
+	["The road from {zone:1412} meets the {area:458} at {area:378}: {npc:10378}, the wind rider master, stands beside {npc:3418} on your way north to the Crossroads."] = "来自{zone:1412}的道路在{area:378}与{area:458}交汇：双足飞龙管理员{npc:10378}站在{npc:3418}旁边，就在你北上前往十字路口的路上。",
+
+	-- Step 109: The Crossroads
+	-- {npc:3615} Devrak · {area:380} The Crossroads · {zone:1421} Silverpine Forest · {zone:1413} Barrens
 	["Learn the flight path from {npc:3615} on the tower platform. {area:380}' own quests come after {zone:1421}, in the {zone:1413} guide."] = "在高塔平台上向{npc:3615}开通飞行点。{area:380}本地的任务留到{zone:1421}之后，在{zone:1413}指南中再做。",
 
-	-- Step 109: To Orgrimmar
+	-- Step 110: To Orgrimmar
 	-- {zone:1454} Orgrimmar
 	["To {zone:1454}"] = "前往{zone:1454}",
 	-- {area:379} Far Watch Post · {area:815} Southfury River · {zone:1411} Durotar · {zone:1454} Orgrimmar · {quest:95350} Welcome to Azeroth · {zone:1420} Tirisfal Glades · {zone:1421} Silverpine Forest
@@ -550,6 +582,7 @@ return {
 	-- ["{npc:255853}: Bear Form"] = "{npc:255853}：熊形态",
 	-- ["{npc:258443} roams the slopes just south of the turncoat's house."] = "{npc:258443}在叛徒房子南边不远处的山坡上游荡。",
 	-- ["{npc:259119}: keep it, Thrall in {zone:1454} comes two guides later"] = "{npc:259119}：先留着，两份指南后到{zone:1454}交给萨尔",
+	-- ["{npc:260628}, upstairs"] = "{npc:260628}，在楼上",
 	-- ["{npc:263664}'s campfire"] = "{npc:263664}的营火",
 	-- ["{npc:3033} trains druids on {area:1639}. He teaches you {spell:18960}; {npc:11802}'s welcome waits for your {spell:499} trip at about 23 (forever/horde/04-the-barrens)."] = "{npc:3033}在{area:1639}训练德鲁伊。他会教你{spell:18960}；{npc:11802}的问候要等到你约23级的{spell:499}之旅时再去（forever/horde/04-the-barrens）。",
 	-- ["{npc:3615}, the wind rider master"] = "{npc:3615}，双足飞龙管理员",

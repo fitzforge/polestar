@@ -8,7 +8,7 @@
 return {
 	-- Guide
 	-- {zone:1447} Azshara · {area:1417} Sunken Temple
-	["Experience at 50 through {zone:1447} and the {area:1417}; Classic's item choice may be gone on Forever."] = "",
+	["Experience at 50 through {zone:1447} and the {area:1417}; Classic's item choice may be gone on Forever."] = "50級時經由{zone:1447}和{area:1417}取得經驗值；經典版的物品選擇在Forever中可能已經沒有了。",
 	["Experience"] = "經驗值",
 
 	-- Step 1: Magecraft (Stormwind)
@@ -17,11 +17,11 @@ return {
 
 	-- Step 2: Magecraft (Orgrimmar)
 	-- {npc:7311} Uthel'nay · {zone:1454} Orgrimmar · {object:173161} Darkbriar Lodge (no name in this language: may be words) · {npc:4567} Pierce Shackleton · {zone:1458} Undercity · {npc:3047} Archmage Shymm · {zone:1456} Thunder Bluff
-	["{npc:7311}, one of {zone:1454}'s mage trainers in {object:173161}, gives it; so do {npc:4567} in the {zone:1458} and {npc:3047} in {zone:1456}."] = "",
+	["{npc:7311}, one of {zone:1454}'s mage trainers in {object:173161}, gives it; so do {npc:4567} in the {zone:1458} and {npc:3047} in {zone:1456}."] = "{zone:1454}位於{object:173161}的法師訓練師之一{npc:7311}會提供它；{zone:1458}的{npc:4567}和{zone:1456}的{npc:3047}也會。",
 
 	-- Step 3: Sanath Lim-yo
 	-- {area:3137} Talrendis Point · {area:1237} Valormok · {npc:8395} Sanath Lim-yo · {zone:1447} Azshara · {area:1221} Ruins of Eldarath · {npc:8379} Archmage Xylem
-	["Fly to {area:3137} (Alliance) or {area:1237} (Horde). {npc:8395} camps below his master's tower, a short way east of {area:1237}: from the fork of {zone:1447}'s main road at the {area:1221}, head straight north to the cliffs. Get off your mount before he teleports you up, or the teleport may not take you. A trail with no enemies climbs to {npc:8379} at the top of the tower; an attendant at the top sends you back down, as often as you like."] = "",
+	["Fly to {area:3137} (Alliance) or {area:1237} (Horde). {npc:8395} camps below his master's tower, a short way east of {area:1237}: from the fork of {zone:1447}'s main road at the {area:1221}, head straight north to the cliffs. Get off your mount before he teleports you up, or the teleport may not take you. A trail with no enemies climbs to {npc:8379} at the top of the tower; an attendant at the top sends you back down, as often as you like."] = "飛往{area:3137}（聯盟）或{area:1237}（部落）。{npc:8395}在他師父的塔下紮營，位於{area:1237}東邊不遠處：從{zone:1447}主要道路在{area:1221}的岔路口，直接向北走到懸崖。他把你傳送上去之前先下坐騎，否則可能傳送不了。一條沒有敵人的小徑通往塔頂的{npc:8379}；塔頂有一名侍從會把你送回下面，次數不限。",
 	-- {npc:8379} Archmage Xylem
 	["{npc:8379}, in the tower"] = "{npc:8379}，在塔裡",
 
@@ -60,10 +60,7 @@ return {
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Back to {zone:1447}, {npc:8395} and the tower."] = "回到{zone:1447}，找{npc:8395}並上塔。",
-	-- ["Experience at 50 through {zone:1447} and the {area:1417}; Forever removed the Classic item choice."] = "50級時經由{zone:1447}和{area:1417}取得經驗值；Forever 移除了經典版的物品選擇。",
-	-- ["Fly to {area:3137} (Alliance) or {area:1237} (Horde). {npc:8395} camps below his master's tower: from the fork of {zone:1447}'s main road at the {area:1221}, head straight north to the cliffs. He teleports you up to {npc:8379}."] = "飛往{area:3137}（聯盟）或{area:1237}（部落）。{npc:8395}在他師父的塔下紮營：從{zone:1447}主要道路在{area:1221}的岔路口，直接向北走到懸崖。他會把你傳送上去找{npc:8379}。",
 	-- ["Morphaz, a green drake, waits deep in the {area:1477}, the {area:1417} in the {area:74}: a group of five, level 50-54. Kill him for the {item:20085}."] = "摩弗拉斯是一隻綠龍，在{area:74}中的{area:1417}，也就是{area:1477}深處等著：五人小隊，50-54級。擊殺他取得{item:20085}。",
 	-- ["The Spitelash Sirens walk the ruins and beaches around the {area:1221} and the bay; they carry the coral."] = "惡鞭海妖在{area:1221}和海灣周圍的遺跡與海灘上走動；她們身上帶著珊瑚。",
 	-- ["The blood elves camp along the cliffs of north-eastern {zone:1447}; Blood Elf Surveyors and Reclaimers drop the dust."] = "血精靈沿著{zone:1447}東北部的懸崖紮營；血精靈勘測員和血精靈搜尋者會掉落粉末。",
-	-- ["{npc:7311}, one of {zone:1454}'s mage trainers, gives it; so do {npc:4567} in the {zone:1458} and {npc:3047} in {zone:1456}."] = "{zone:1454}的法師訓練師之一{npc:7311}會提供它；{zone:1458}的{npc:4567}和{zone:1456}的{npc:3047}也會。",
 }

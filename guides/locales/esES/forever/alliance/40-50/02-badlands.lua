@@ -9,7 +9,7 @@ return {
 	-- Step 2: Valley of Fangs
 	-- {npc:2817} Rigglefuzz
 	-- plural, as words: Blue Pearls = {item:4611} Blue Pearl
-	["{npc:2817}: Blue Pearls from Stranglethorn"] = "",
+	["{npc:2817}: Blue Pearls from Stranglethorn"] = "{npc:2817}: Perlas azules de la Vega de Tuercespina",
 	-- {npc:2817} Rigglefuzz
 	["{npc:2817}'s next quest pays no experience: skip it."] = "La siguiente misión de {npc:2817} no da experiencia: omítela.",
 
@@ -86,8 +86,6 @@ return {
 	["{quest:1450}, inside"] = "",
 	-- {npc:7884} Fraggar Thundermantle
 	["{npc:7884}, inside"] = "",
-	-- {npc:7744} Innkeeper Thulfram
-	["{npc:7744}; below ground"] = "{npc:7744}; bajo tierra",
 
 	-- Step 19: Rhapsody Shindigger
 	-- {npc:5634} Rhapsody Shindigger · {area:348} Aerie Peak
@@ -95,12 +93,12 @@ return {
 
 	-- Step 20: Witherbark villages
 	["Witherbark villages"] = "Poblados Secacorteza",
-	-- {npc:5634} Rhapsody Shindigger
-	["The first two cages stand together in the Witherbark village south of {npc:5634}; the third is in the next village to the east. Every Witherbark troll can drop a necklace."] = "Las dos primeras jaulas están juntas en el poblado Secacorteza al sur de {npc:5634}; la tercera, en el siguiente poblado al este. Cualquier trol Secacorteza puede soltar un collar.",
+	-- {npc:5634} Rhapsody Shindigger · {npc:270772} Witch Doctor Ti'ik
+	["The first two cages stand together in the Witherbark village south of {npc:5634}; the third is in the next village to the east. Every Witherbark troll can drop a necklace.\nCareful: {npc:270772} (49) and his Hexed Larvae (45) keep to the huts of the western village, around 25,64: take the necklaces from the trolls outside."] = "Las dos primeras jaulas están juntas en el poblado Secacorteza al sur de {npc:5634}; la tercera, en el siguiente poblado al este. Cualquier trol Secacorteza puede soltar un collar.\nCuidado: {npc:270772} (49) y sus Larvas embrujadas (45) no salen de las chozas del poblado del oeste, hacia 25,64: consigue los collares de los trols de fuera.",
 
 	-- Step 21: Aerie Peak
 	-- {npc:5636} Gryphon Master Talonaxe
-	["{npc:5636}, beside the flight master at the top; inside"] = "",
+	["{npc:5636}, beside the flight master at the top; inside"] = "{npc:5636}, junto al maestro de vuelo, en lo alto; dentro",
 	-- {zone:1425} The Hinterlands
 	["Talonaxe's next task waits for a later {zone:1425} guide."] = "La siguiente tarea del Maestro de grifos Garracha espera a una guía posterior de {zone:1425}.",
 
@@ -135,7 +133,6 @@ return {
 	["From Theramore, ride north into the {zone:1413} to {area:392}, or fly if you know its flight path. {npc:6251} teaches in the house by the bank."] = "",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
-	-- ["Blue Pearls from Stranglethorn"] = "Perlas azules de la Vega de Tuercespina",
 	-- ["Fly to {area:392}; {npc:6251} teaches in the house by the bank. Fly back to Theramore afterwards."] = "Vuela a {area:392}; {npc:6251} enseña en la casa junto al banco. Después vuelve volando a Theramore.",
 	-- ["Fly to {area:608}, ride south through {zone:1443} into {zone:1444} and follow the road to the dock on the {area:1108}; the boat crosses to {area:1116}, where the next guide starts."] = "Vuela a {area:608}, cabalga al sur por {zone:1443} hasta {zone:1444} y sigue el camino hasta el muelle de {area:1108}; el barco cruza hasta {area:1116}, donde empieza la siguiente guía.",
 	-- ["On to Feathermoon"] = "Rumbo a Bastión Plumaluna",
@@ -153,6 +150,6 @@ return {
 	-- ["{npc:1573}, the {object:32372}"] = "{npc:1573}, {object:32372}",
 	-- ["{npc:2888} camps by himself in {area:1898}, south-east of the digsite."] = "{npc:2888} acampa solo en {area:1898}, al sureste de la excavación.",
 	-- ["{npc:5634}'s cocktail needs parts from Kalimdor: skip it."] = "El cubata de {npc:5634} requiere ingredientes de Kalimdor: omítelo.",
-	-- ["{npc:5636}, beside the flight master at the top"] = "{npc:5636}, junto al maestro de vuelo, en lo alto",
+	-- ["{npc:7744}; below ground"] = "{npc:7744}; bajo tierra",
 	-- ["{npc:7884} keeps paying for necklaces: hand in any extras"] = "{npc:7884} sigue pagando por los collares: entrega los que te sobren",
 }

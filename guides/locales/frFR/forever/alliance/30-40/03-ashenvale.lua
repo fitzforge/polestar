@@ -25,7 +25,7 @@ return {
 
 	-- Step 4: Deepwater Tavern
 	-- {quest:1248} The Missing Diplomat · {npc:4963} Mikhail
-	["Tapoke Jahn (34) slips out of the tavern once you take {quest:1248}: stay close behind him. He turns on you outside, a friend joins him, and he gives up once badly hurt. If you lose him the quest fails: abandon it and take it again from {npc:4963}."] = "",
+	["Tapoke Jahn (34) slips out of the tavern once you take {quest:1248}: stay close behind him. He turns on you outside, a friend joins him, and he gives up once badly hurt. If you lose him the quest fails: abandon it and take it again from {npc:4963}."] = "Tapoke Jahn (34) se faufile hors de la taverne dès que vous prenez {quest:1248} : restez juste derrière lui. Il se retourne contre vous dehors, un complice le rejoint, et il abandonne une fois gravement blessé. Si vous le perdez, la quête échoue : abandonnez-la et reprenez-la auprès de {npc:4963}.",
 
 	-- Step 5: Waterlogged Chest
 	["The wreck of the Flying Osprey lies in the shallows south of the keep."] = "L'épave du Flying Osprey repose dans les hauts-fonds au sud du donjon.",
@@ -37,7 +37,7 @@ return {
 
 	-- Step 7: Glorin Steelbrow
 	-- {npc:1416} Grimand Elmore · {zone:1453} Stormwind
-	["For {npc:1416} in {zone:1453}, after Stranglethorn"] = "",
+	["For {npc:1416} in {zone:1453}, after Stranglethorn"] = "Pour {npc:1416} à {zone:1453}, après Strangleronce",
 
 	-- Step 9: Theramore
 	["Theramore"] = "Theramore",
@@ -50,13 +50,13 @@ return {
 	-- {quest:1132} Fiora Longears
 	["{quest:1132}, inside the inn in the north of town"] = "{quest:1132}, dans l'auberge au nord de la ville",
 	-- {npc:4456} Fiora Longears · {area:415} Astranaar
-	["{npc:4456}'s next errand goes to {area:415}, off this route: leave it."] = "",
+	["{npc:4456}'s next errand goes to {area:415}, off this route: leave it."] = "La mission suivante de {npc:4456} mène à {area:415}, hors de cet itinéraire : laissez-la.",
 	-- {quest:1132} Fiora Longears · {zone:1441} Thousand Needles
-	["{quest:1132}: the wyverns are in {zone:1441}, later in this guide"] = "",
+	["{quest:1132}: the wyverns are in {zone:1441}, later in this guide"] = "{quest:1132} : les wyvernes sont à {zone:1441}, plus loin dans ce guide",
 
 	-- Step 10: The Shady Rest Inn
 	-- {zone:1413} Barrens
-	["Follow the road west out of Theramore to the burned inn on the road toward the {zone:1413}: the black shield lies in the ashes and the hoofprints are in the mud beside the inn."] = "",
+	["Follow the road west out of Theramore to the burned inn on the road toward the {zone:1413}: the black shield lies in the ashes and the hoofprints are in the mud beside the inn."] = "Suivez la route vers l'ouest hors de Theramore jusqu'à l'auberge incendiée, sur la route des {zone:1413} : le bouclier noir gît dans les cendres et les traces de sabots sont dans la boue à côté de l'auberge.",
 
 	-- Step 11: Into Barrens
 	-- {zone:1413} Barrens
@@ -72,13 +72,13 @@ return {
 
 	-- Step 13: Highperch
 	-- {area:485} Great Lift · {zone:1441} Thousand Needles · {area:482} Highperch
-	["Down the {area:485} into {zone:1441}, then west to the wyverns' cliffs at {area:482}. Every wyvern there can drop a venom sac."] = "",
+	["Down the {area:485} into {zone:1441}, then west to the wyverns' cliffs at {area:482}. Every wyvern there can drop a venom sac. Careful: wait on the platform until the lift is level with it before you step on, and stay on it until it stops; the drop beside it kills."] = "Descendez par le {area:485} jusqu'à {zone:1441}, puis à l'ouest jusqu'aux falaises des wyvernes à {area:482}. Chaque wyverne peut y lâcher une poche de venin. Attention : attendez sur la plate-forme que l'ascenseur soit à son niveau avant de monter, et restez dessus jusqu'à ce qu'il s'arrête ; la chute à côté est mortelle.",
 
 	-- Step 14: Thousand Needles
 	-- {area:484} Freewind Post
 	["East through the canyons. {area:484}, a Horde camp with guards, sits on the mesa here: keep to the canyon floor and give the foot of its lifts a wide berth."] = "Vers l'est à travers les canyons. {area:484}, un camp de la Horde gardé, se trouve sur le plateau ici : restez au fond du canyon et tenez-vous bien à l'écart du pied de ses ascenseurs.",
 	-- {area:482} Highperch
-	["The canyons east of {area:482}"] = "",
+	["The canyons east of {area:482}"] = "Les canyons à l'est de {area:482}",
 
 	-- Step 16: Mirage Raceway
 	-- {area:2240} Mirage Raceway
@@ -91,24 +91,24 @@ return {
 	["{area:2240}: kill these as you meet them"] = "{area:2240} : tuez-les au passage",
 	-- {object:19868} Rocket Car Rubble
 	-- plural, as words: Scorpid Reavers = {npc:4140} Scorpid Reaver · Salt Flats Scavengers = {npc:4154} Salt Flats Scavenger · Sparkleshell Snappers = {npc:4143} Sparkleshell Snapper · Saltstone Basilisks = {npc:4147} Saltstone Basilisk
-	["{object:19868} lies all over the flats. Scorpid Reavers and Salt Flats Scavengers roam the north half, Sparkleshell Snappers (tortoises) the whole flats. Saltstone Basilisks and Crystalhides hold the middle; the Gazers (34-35) only the far south."] = "",
+	["{object:19868} lies all over the flats. Scorpid Reavers and Salt Flats Scavengers roam the north half, Sparkleshell Snappers (tortoises) the whole flats. Saltstone Basilisks and Crystalhides hold the middle; the Gazers (34-35) only the far south."] = "Des {object:19868} jonchent toutes les salines. Des Ravageurs scorpides et des Charognards des salines parcourent la moitié nord, des Claqueurs Brillecoque (tortues) toutes les salines. Les Basilics du sel gemme et les Peaux-de-cristal tiennent le centre ; les Contemplateurs (34-35) seulement l'extrême sud.",
 	-- {npc:4078} Collin Mauren · {zone:1453} Stormwind
 	-- plural, as words: Saltstone Basilisks = {npc:4147} Saltstone Basilisk
-	["Crystalized Scale, from the Saltstone Basilisks: eight for {npc:4078} in {zone:1453}"] = "",
+	["Crystalized Scale, from the Saltstone Basilisks: eight for {npc:4078} in {zone:1453}"] = "Écailles cristallisées, sur les Basilics du sel gemme : huit pour {npc:4078} à {zone:1453}",
 
 	-- Step 18: Mirage Raceway
 	-- {npc:4454} Fizzle Brassbolts · {zone:1418} Badlands
-	["{npc:4454}: for Martek in the {zone:1418}, at the end of 30-40"] = "",
+	["{npc:4454}: for Martek in the {zone:1418}, at the end of 30-40"] = "{npc:4454} : pour Martek dans les {zone:1418}, à la fin de 30-40",
 
 	-- Step 19: Into Tanaris
 	-- {zone:1446} Tanaris
-	["Into {zone:1446}"] = "",
+	["Into {zone:1446}"] = "Vers {zone:1446}",
 	-- {area:439} Shimmering Flats · {zone:1446} Tanaris
-	["From the raceway follow the road south out of the {area:439} into {zone:1446}."] = "",
+	["From the raceway follow the road south out of the {area:439} into {zone:1446}."] = "Depuis le circuit, suivez la route vers le sud hors des {area:439} jusqu'à {zone:1446}.",
 
 	-- Step 20: Gadgetzan
 	-- {area:976} Gadgetzan · {npc:7823} Bera Stonehammer
-	["{area:976} is a short walk down the road; keep to it. {npc:7823}, the Alliance flight master, stands inside the walls."] = "",
+	["{area:976} is a short walk down the road; keep to it. {npc:7823}, the Alliance flight master, stands inside the walls."] = "{area:976} est à quelques pas en descendant la route ; restez-y. {npc:7823}, la maîtresse de vol de l'Alliance, se tient à l'intérieur des murs.",
 
 	-- Step 21: Fly to Theramore
 	["Fly to Theramore"] = "Volez jusqu'à Theramore",
@@ -117,7 +117,7 @@ return {
 
 	-- Step 22: Theramore
 	-- {npc:4456} Fiora Longears · {area:514} Foothold Citadel · {npc:4941} Caz Twosprocket
-	["{npc:4456} is in the north of town, Captain Vimes in {area:514}; {npc:4941} stands in the town."] = "",
+	["{npc:4456} is in the north of town, Captain Vimes in {area:514}; {npc:4941} stands in the town."] = "{npc:4456} est au nord de la ville, le capitaine Vimes à {area:514} ; {npc:4941} se tient en ville.",
 
 	-- Step 23: Boat to Menethil Harbor
 	-- {area:150} Menethil Harbor

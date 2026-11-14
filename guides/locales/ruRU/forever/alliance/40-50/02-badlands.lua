@@ -9,7 +9,7 @@ return {
 	-- Step 2: Valley of Fangs
 	-- {npc:2817} Rigglefuzz
 	-- plural, as words: Blue Pearls = {item:4611} Blue Pearl
-	["{npc:2817}: Blue Pearls from Stranglethorn"] = "",
+	["{npc:2817}: Blue Pearls from Stranglethorn"] = "{npc:2817}: Синие жемчужины из Тернистой долины",
 	-- {npc:2817} Rigglefuzz
 	["{npc:2817}'s next quest pays no experience: skip it."] = "{npc:2817}: следующее задание не дает опыта, пропустите его.",
 
@@ -86,8 +86,6 @@ return {
 	["{quest:1450}, inside"] = "",
 	-- {npc:7884} Fraggar Thundermantle
 	["{npc:7884}, inside"] = "",
-	-- {npc:7744} Innkeeper Thulfram
-	["{npc:7744}; below ground"] = "{npc:7744}; под землей",
 
 	-- Step 19: Rhapsody Shindigger
 	-- {npc:5634} Rhapsody Shindigger · {area:348} Aerie Peak
@@ -95,12 +93,12 @@ return {
 
 	-- Step 20: Witherbark villages
 	["Witherbark villages"] = "Деревни племени Сухокожих",
-	-- {npc:5634} Rhapsody Shindigger
-	["The first two cages stand together in the Witherbark village south of {npc:5634}; the third is in the next village to the east. Every Witherbark troll can drop a necklace."] = "Первые две клетки стоят рядом в деревне племени Сухокожих к югу от {npc:5634}; третья – в следующей деревне к востоку. Ожерелье может упасть с любого тролля из племени Сухокожих.",
+	-- {npc:5634} Rhapsody Shindigger · {npc:270772} Witch Doctor Ti'ik
+	["The first two cages stand together in the Witherbark village south of {npc:5634}; the third is in the next village to the east. Every Witherbark troll can drop a necklace.\nCareful: {npc:270772} (49) and his Hexed Larvae (45) keep to the huts of the western village, around 25,64: take the necklaces from the trolls outside."] = "Первые две клетки стоят рядом в деревне племени Сухокожих к югу от {npc:5634}; третья – в следующей деревне к востоку. Ожерелье может упасть с любого тролля из племени Сухокожих.\nОсторожно: {npc:270772} (49) и его проклятые личинки (45) держатся в хижинах западной деревни, примерно у 25,64: добывайте ожерелья с троллей снаружи.",
 
 	-- Step 21: Aerie Peak
 	-- {npc:5636} Gryphon Master Talonaxe
-	["{npc:5636}, beside the flight master at the top; inside"] = "",
+	["{npc:5636}, beside the flight master at the top; inside"] = "{npc:5636}, наверху рядом с распорядителем полетов; внутри",
 	-- {zone:1425} The Hinterlands
 	["Talonaxe's next task waits for a later {zone:1425} guide."] = "Следующее задание Разящего Когтя подождет до более позднего гайда по {zone:1425}.",
 
@@ -135,7 +133,6 @@ return {
 	["From Theramore, ride north into the {zone:1413} to {area:392}, or fly if you know its flight path. {npc:6251} teaches in the house by the bank."] = "С острова Терамор езжайте на север в зону {zone:1413}. Цель: {area:392}; если знаете этот маршрут полета, летите. {npc:6251} обучает в доме у банка.",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
-	-- ["Blue Pearls from Stranglethorn"] = "Синие жемчужины из Тернистой долины",
 	-- ["Fly to {area:392}; {npc:6251} teaches in the house by the bank. Fly back to Theramore afterwards."] = "Летите сюда: {area:392}; {npc:6251} обучает в доме у банка. Затем возвращайтесь на остров Терамор.",
 	-- ["Fly to {area:608}, ride south through {zone:1443} into {zone:1444} and follow the road to the dock on the {area:1108}; the boat crosses to {area:1116}, where the next guide starts."] = "Летите сюда: {area:608}; езжайте на юг через зону {zone:1443} в зону {zone:1444} и по дороге до причала ({area:1108}); корабль переправит вас сюда: {area:1116}. Там начинается следующий гайд.",
 	-- ["On to Feathermoon"] = "В Крепость Оперенной Луны",
@@ -153,6 +150,6 @@ return {
 	-- ["{npc:1573}, the {object:32372}"] = "{npc:1573}, {object:32372}",
 	-- ["{npc:2888} camps by himself in {area:1898}, south-east of the digsite."] = "{npc:2888} стоит лагерем в одиночестве ({area:1898}), к юго-востоку от раскопок.",
 	-- ["{npc:5634}'s cocktail needs parts from Kalimdor: skip it."] = "Для коктейля {npc:5634} нужны ингредиенты из Калимдора: пропустите задание.",
-	-- ["{npc:5636}, beside the flight master at the top"] = "{npc:5636}, наверху рядом с распорядителем полетов",
+	-- ["{npc:7744}; below ground"] = "{npc:7744}; под землей",
 	-- ["{npc:7884} keeps paying for necklaces: hand in any extras"] = "{npc:7884} продолжает платить за ожерелья: сдайте лишние",
 }
