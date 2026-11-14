@@ -166,15 +166,16 @@ Polestar.Widgets.Modal({ title = "Reset this guide?", text = "Your check-offs in
 	{ key: 'settings-theme', title: 'the settings window: Colour', ...scene('settings-theme.svg', 0) },
 	{ key: 'settings-guidewindow', title: 'the settings window: Window', ...scene('settings-guidewindow.svg', 0) },
 	{ key: 'settings-alerts', title: 'the settings window: Alerts', ...scene('settings-alerts.svg', 0) },
-	// The Profiles page's Share tab: a string made with the Guide window's list
-	// open; a friend's string pasted, its changes open (yours, theirs).
+	// The Profiles page's Share tab: Make a string's checklist with the Guide
+	// window's list open (the string made is left out: one long word in a
+	// copy box, which fit.js measures unbroken); a friend's string pasted, its
+	// changes open (yours, theirs).
 	{
-		key: 'settings-share', title: "the settings window: Profiles, Share (a string made, a category's list open)", roots: ['PolestarOptions'],
+		key: 'settings-share', title: "the settings window: Profiles, Share (Make a string's checklist, a category's list open)", roots: ['PolestarOptions'],
 		script: `${SHARE.MINE}
 Polestar.UI.ShowOptions("profiles")
 Polestar.UI.Options.Select("profiles", Polestar.L["Share"])
-Polestar.UI.Profiles.Open("export", "window")
-Polestar.UI.Profiles.Export()`,
+Polestar.UI.Profiles.Open("export", "window")`,
 	},
 	{
 		key: 'settings-share-import', title: "the settings window: Profiles, Share (a friend's string pasted, a category's changes open)", roots: ['PolestarOptions'],
