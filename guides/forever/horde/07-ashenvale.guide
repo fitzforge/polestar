@@ -36,10 +36,13 @@ next forever/horde/30-40/01-hillsbrad-foothills
 # Blackfathom Deeps (`when dungeon "Blackfathom Deeps"`, dungeons in the route): for a character who
 # chose it, Je'neu's Amongst the Ruins (6921) is taken on the first Zoram'gar stop and the run follows the
 # Sapphires, in the same tunnels as the portal, at about 27; the Strange Water Globe (6922) and the Damp Note (6564) start
-# inside, and Je'neu takes all three at once (`when complete`/`when onquest`). Left out: Blackfathom
-# Villainy (6561: Argent Guard Thaelrid gives it inside, a giver our data has no place for, and Bashana
-# Runetotem takes it on the Elder Rise, off this guide's Thunder Bluff stop; the run tip names it),
-# Allegiance to the Old Gods part 2 (6565, a second run) and the Warlock's Orb of Soran'ruk (1740, class guide).
+# inside, and Je'neu takes all three at once (`when complete`/`when onquest`). The every-quest route (`when
+# dungeon "Blackfathom Deeps" all`): Blackfathom Villainy (6561), which Argent Guard Thaelrid gives inside (a
+# giver our data has no place for: the run tip names it), goes to Bashana Runetotem on this guide's Thunder
+# Bluff stop, a walk up to the Elder Rise; the Warlock's Orb of Soran'ruk (1740, from Doan Karhan in
+# forever/horde/02-the-barrens) takes its three fragments here and goes back to Doan from the Camp Taurajo
+# landing. Left out: Allegiance to the Old Gods part 2 (6565: Je'neu offers it for the Damp Note found inside,
+# and Lorgus Jett is inside too, so it needs a second run).
 
 step Fly to Zoram'gar Outpost
   zone The Barrens
@@ -82,13 +85,14 @@ step Sapphires of Aku'Mai
 
 step Blackfathom Deeps
   when dungeon "Blackfathom Deeps"
-  when onquest 6921
+  when onquest 6921,1740
   when level>=24.5
   zone Ashenvale
   tip Blackfathom Deeps is a dungeon for a group of five, levels 24 to 32, and a full run takes about an hour. Its portal is a little further along the tunnels you are in, past the Sapphires.
   tip Inside: the Fathom Stone lies under the water of the Moonshrine Ruins' pool, beneath the walkway (clear the crabs first): open it for the Fathom Core, and Baron Aquanis comes; open the Strange Water Globe he drops for a quest for Je'neu. The Tide Priestesses sometimes drop a Damp Note: open it for another quest for Je'neu. Argent Guard Thaelrid, by a campfire in an underwater side room off Ghamoo-ra's room, offers Blackfathom Villainy (Twilight Lord Kelris' head, for Bashana Runetotem on Thunder Bluff's Elder Rise).
   enter "Blackfathom Deeps" @14.5,14.2
   complete 6921                       -- Amongst the Ruins: the Fathom Core, from the Fathom Stone
+  collect 6914 x3 quest 1740.1 @14.5,14.2 live -- Soran'ruk Fragments: the Twilight Acolytes around Kelris
 
 step Zoram'gar Outpost
   note Je'neu offers a Blackfathom Deeps quest next; leave it unless you have a group.
@@ -114,6 +118,13 @@ step Je'neu Sancrea
   zone Ashenvale
   tip Je'neu then offers the next part, Allegiance to the Old Gods: it is for a second run, so leave it.
   turnin 6564                         -- Je'neu Sancrea
+
+step Abandon Amongst the Ruins
+  when dungeon "Blackfathom Deeps"
+  when onquest 6921
+  when !complete 6921
+  tip Amongst the Ruins is still unfinished: without a Blackfathom Deeps run the route doesn't come back to the ruins, so abandon it.
+  abandon 6921                        -- Amongst the Ruins
 
 # ---------------------------------------------------------------- East along the road
 
@@ -338,6 +349,79 @@ step Tah Winterhoof
   tip Tah Winterhoof stands beside Zangen, east of Tal.
   turnin 97538                        -- Tah Winterhoof
 
+step Bashana Runetotem
+  when dungeon "Blackfathom Deeps" all
+  when complete 6561
+  when zone "Thunder Bluff"
+  zone Thunder Bluff
+  tip Bashana Runetotem is on the Elder Rise: Twilight Lord Kelris' head from Blackfathom Deeps.
+  turnin 6561                         -- Bashana Runetotem
+
+step Nara Wildmane
+  when dungeon "Wailing Caverns" all
+  when complete 914
+  when zone "Thunder Bluff"
+  zone Thunder Bluff
+  tip Nara Wildmane is in the great tent on the Elder Rise, beside Hamuul Runetotem.
+  turnin 914                          -- Nara Wildmane
+
+step Rahauro
+  when dungeon "Ragefire Chasm" all
+  when complete 5723
+  when zone "Thunder Bluff"
+  zone Thunder Bluff
+  tip Rahauro walks in front of the big tent on the Elder Rise.
+  turnin 5723                         -- Rahauro: Testing an Enemy's Strength
+
+step Rahauro
+  when dungeon "Ragefire Chasm" all
+  when onquest 5724
+  when zone "Thunder Bluff"
+  zone Thunder Bluff
+  turnin 5724                         -- Rahauro: Returning the Lost Satchel
+
+step Apothecary Zamah
+  when dungeon "Wailing Caverns" all
+  when complete 962
+  when zone "Thunder Bluff"
+  zone Thunder Bluff
+  tip Apothecary Zamah is in the Pools of Vision, the cave under the Spirit Rise.
+  turnin 962                          -- Apothecary Zamah
+
+step Abandon Blackfathom Villainy
+  when dungeon "Blackfathom Deeps" all
+  when onquest 6561
+  when !complete 6561
+  tip Blackfathom Villainy is still unfinished: the route doesn't go back into Blackfathom Deeps, so abandon it.
+  abandon 6561                        -- Blackfathom Villainy
+
+step Abandon Leaders of the Fang
+  when dungeon "Wailing Caverns" all
+  when onquest 914
+  when !complete 914
+  tip Leaders of the Fang is still unfinished: the route doesn't go back into the Wailing Caverns, so abandon it.
+  abandon 914                         -- Leaders of the Fang
+
+step Abandon Serpentbloom
+  when dungeon "Wailing Caverns" all
+  when onquest 962
+  when !complete 962
+  tip Serpentbloom is still unfinished: the route doesn't come back to the caverns, so abandon it.
+  abandon 962                         -- Serpentbloom
+
+step Abandon Testing an Enemy's Strength
+  when dungeon "Ragefire Chasm" all
+  when onquest 5723
+  when !complete 5723
+  tip Testing an Enemy's Strength is still unfinished: the route doesn't go back into Ragefire Chasm, so abandon it.
+  abandon 5723                        -- Testing an Enemy's Strength
+
+step Abandon Returning the Lost Satchel
+  when dungeon "Ragefire Chasm" all
+  when onquest 5724
+  tip Returning the Lost Satchel is still in your log: the route doesn't come back to Thunder Bluff for a long while, so abandon it.
+  abandon 5724                        -- Returning the Lost Satchel
+
 step Ansekhwa
   only Warrior
   zone Thunder Bluff
@@ -351,6 +435,22 @@ step Fly to Camp Taurajo
   goto 46.7,49.9 "Thunder Bluff flight master"
   fly "Camp Taurajo"
   zone The Barrens
+
+step Doan Karhan
+  only Warlock
+  when dungeon "Blackfathom Deeps" all
+  when complete 1740
+  zone The Barrens
+  tip Doan Karhan's tent is just north-east of Camp Taurajo, beside Takar the Seer: choose the off-hand Orb of Soran'ruk or the two-handed Staff of Soran'ruk.
+  turnin 1740                         -- Doan Karhan
+
+step Abandon The Orb of Soran'ruk
+  only Warlock
+  when dungeon "Blackfathom Deeps" all
+  when onquest 1740
+  when !complete 1740
+  tip The Orb of Soran'ruk is still unfinished: the fragments drop in Shadowfang Keep and Blackfathom Deeps, which the route doesn't run again, so abandon it (the Warlock class guide has it for another time).
+  abandon 1740                        -- The Orb of Soran'ruk
 
 step Brine
   only Shaman

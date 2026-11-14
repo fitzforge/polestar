@@ -274,6 +274,21 @@ step Thunder Bluff
   train class only Druid,Paladin
   note Un'Goro Soil is gathered in the next guide; Magatha's payment goes back to Jediga later.
 
+step Auld Stonespire
+  when dungeon "Razorfen Kraul" all
+  when complete 1102
+  when zone "Thunder Bluff"
+  zone Thunder Bluff
+  tip Auld Stonespire stands on the Hunter Rise: Charlga Razorflank's heart, from your Razorfen Kraul run.
+  turnin 1102                         -- Auld Stonespire
+
+step Abandon A Vengeful Fate
+  when dungeon "Razorfen Kraul" all
+  when onquest 1102
+  when !complete 1102
+  tip A Vengeful Fate is still unfinished: the route doesn't go back into Razorfen Kraul, so abandon it.
+  abandon 1102                        -- A Vengeful Fate
+
 step Fly to Camp Mojache
   zone Thunder Bluff
   goto 46.7,49.9 "Thunder Bluff flight master"

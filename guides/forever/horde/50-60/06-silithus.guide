@@ -505,6 +505,13 @@ step Eva Sarkhoff
   zone Western Plaguelands
   turnin 5382                         -- Eva Sarkhoff
 
+step Abandon Doctor Theolen Krastinov, the Butcher
+  when dungeon "Scholomance"
+  when onquest 5382
+  when !complete 5382
+  tip Doctor Theolen Krastinov, the Butcher is still unfinished: without a Scholomance run the route doesn't come back for him, so abandon it.
+  abandon 5382                        -- Doctor Theolen Krastinov, the Butcher
+
 step Target: Writhing Haunt
   collect 13197 quest 5233.1 @52.9,66.1 map 1422
   turnin 5233

@@ -18,6 +18,8 @@ next forever/horde/40-50/06-azshara
 # here and carries it through forever/horde/40-50/06-azshara. The temple's Group Finder minimum is 50, and this
 # stop comes at about 49.5, so the run is a detour from the last Kargath stop of
 # forever/horde/50-60/01-un-goro-crater, at about 52 (a flight to Stonard and back to the route).
+# With every quest of the temple (`when dungeon "Sunken Temple" all`), the Atal'ai Exile's Jammal'an the Prophet
+# (1446) is taken here too; its hand-in is a flight from Stonard to Revantusk Village after the run.
 
 step Fly to Tarren Mill
   zone Searing Gorge
@@ -199,6 +201,13 @@ step The Atal'ai Exile
   tip South-west again, the exile hides by the ruins of Shadra'Alor.
   turnin 1429                           -- Atal'ai Exile
   accept 1444
+
+step The Atal'ai Exile
+  when dungeon "Sunken Temple" all
+  when level>=46.7
+  zone The Hinterlands
+  tip For your Sunken Temple run, at about 52: the exile also wants Jammal'an the Prophet's head from the temple. He takes it back here, in the Hinterlands.
+  accept 1446                           -- Atal'ai Exile
 
 step Grim Message
   when onquest 2932

@@ -56,8 +56,10 @@ next forever/horde/06-hillsbrad-foothills
 # forever/horde/03-silverpine-forest) goes to Deathguard Podrig on the Sepulcher stop.
 #
 # Shadowfang Keep (`when dungeon "Shadowfang Keep"`): High Executor Hadrec's Deathstalkers in Shadowfang
-# (1098, level 25) is taken on the Sepulcher stop here, at about 22.8; the run is at the end of
-# forever/horde/06-hillsbrad-foothills.
+# (1098, level 25) and Dalar Dawnweaver's Arugal Must Die (1014) are taken on the Sepulcher stop here, at about
+# 22.8; the run is at the end of forever/horde/06-hillsbrad-foothills. Its every-quest route (`when dungeon
+# "Shadowfang Keep" all`) takes Keeper Bel'dugur's The Book of Ur (1013) in the Apothecarium on the way in from
+# the zeppelin, then the bat handler's flight to the Sepulcher.
 #
 # Ruins of Lordaeron (`when dungeon "Ruins of Lordaeron"`, dungeons in the route): for a character who
 # chose it, the zeppelin from Orgrimmar lands beside the ruins at about 22.5: Morbin Lightbane's Light's
@@ -66,11 +68,17 @@ next forever/horde/06-hillsbrad-foothills
 # end of forever/horde/06-hillsbrad-foothills (`when complete`), with the Abominable Head's Unending
 # Torment (97288, from The Baron inside) for Faranell and the Crest of Lordaeron (95204, found inside) for
 # Oran Snakewrithe (`when onquest`). Tabitha Heartweaver's A Frightened Request (92401) is taken on the last
-# Sepulcher stop of forever/horde/03-silverpine-forest (at about 16.6, from level 15), worked in the run, and
-# handed back on this guide's Sepulcher stop right after it (`when complete`). Left out: The Wrath of
-# Rath'mael (92422: Deathguard Kristof offers it after Rear Guard Patrol, 99156, which the route does not
-# take), The New Plague (95216: Theodore Griffs offers it after A Recipe For Death, 451, left out of the
-# Silverpine guide) and the rest of Unending Torment (97289-97292, Faranell's errands in the Undercity).
+# Sepulcher stop of forever/horde/03-silverpine-forest (from level 15), worked in the run, and handed back on
+# this guide's Sepulcher stop right after it (`when complete`). The every-quest route (`when dungeon "Ruins of
+# Lordaeron" all`) adds Deathguard Kristof's The Wrath of Rath'mael (92422) at the camp east of the ruins,
+# after Deathguard Linnea's two Rear Guard Patrols (356, which the Undead start already does, and 99156:
+# Balnir Farmstead and Riptear), and the rest of Unending Torment (97289-97292) on the next Undercity stop.
+# Left out: The New Plague (95216: Theodore Griffs offers it after A Recipe For Death, 447-451, whose lake moss
+# and Pyrewood journal lie on this guide's Silverpine road after the run, so Witherfang would need a second run).
+#
+# Satyr Horns (6441) is taken from Pixel on the Splintertree stop by a character who runs Wailing Caverns and
+# is 23 or more there (the dungeon's experience puts them over it one visit sooner); the satyrs wait for the
+# next Ashenvale visit at 26 either way.
 #
 # Class quests: Rogues take Deep Cover (2458, from Shenthul in Orgrimmar at 20) to Taskmaster Fizzule
 # by the Venture Co. tower north of the Sludge Fen on the way north, a short walk east of the road to
@@ -110,6 +118,13 @@ step Splintertree Post
   turnin 6383 direct
   note Senani's hunt targets (Ursangous, Shadumbra, Sharptalon) are for the next Ashenvale visit, at 26.
   vendor nearest
+
+step Pixel
+  when dungeon "Wailing Caverns"
+  when level>=23
+  zone Ashenvale
+  tip Ahead of the route: Pixel's Satyr Horns. The Xavian satyrs are on the next Ashenvale visit, at 26.
+  accept 6441                         -- Pixel
 
 step Va'xug Firefure
   tip On the way west, Va'xug Firefure is stuck in a ravine south of the main road, south-east of Astranaar. Shadowhorn Stags and Ashenvale Bears roam the woods all around it.
@@ -217,6 +232,13 @@ step Brill
   tip Shari Stilwell trains Paladins in Brill, a short walk north up the road from the zeppelin towers. Come back down the same road for Silverpine.
   train class
 
+step Keeper Bel'dugur
+  when dungeon "Shadowfang Keep" all
+  when level>=20.7
+  zone Undercity
+  tip For your Shadowfang Keep run, at the end of the Hillsbrad guide: walk into the Undercity through the ruins beside the zeppelin towers. Keeper Bel'dugur stands by a bridge in the Apothecarium and wants the Book of Ur from the keep.
+  accept 1013                         -- Keeper Bel'dugur
+
 step Morbin Lightbane
   when dungeon "Ruins of Lordaeron"
   when level>=17.9
@@ -224,9 +246,66 @@ step Morbin Lightbane
   tip For your Ruins of Lordaeron run: the zeppelin lands beside the ruins. Walk into the Undercity through them and down to the Royal Quarter: Morbin Lightbane stands there, near Lady Sylvanas Windrunner.
   accept 92421                        -- Morbin Lightbane
 
+step Deathguard Linnea
+  when dungeon "Ruins of Lordaeron" all
+  when level>=17.9
+  zone Tirisfal Glades
+  tip For your Ruins of Lordaeron run: back out through the ruins. Deathguard Linnea and Deathguard Kristof keep a camp a short walk east of them, on the road to Brill; Kristof's quest comes after Linnea's two Rear Guard Patrols.
+  accept 356                          -- Deathguard Linnea
+
+step Balnir Farmstead
+  when dungeon "Ruins of Lordaeron" all
+  when onquest 356
+  zone Tirisfal Glades
+  tip Bleeding Horrors and Wandering Spirits haunt Balnir Farmstead, east of the camp.
+  kill 1529 quest 356.1               -- Bleeding Horrors
+  kill 1532 quest 356.2               -- Wandering Spirits
+
+step Deathguard Linnea
+  when dungeon "Ruins of Lordaeron" all
+  when complete 356
+  zone Tirisfal Glades
+  turnin 356                          -- Deathguard Linnea
+
+step Deathguard Linnea
+  when dungeon "Ruins of Lordaeron" all
+  when level>=17.9
+  zone Tirisfal Glades
+  accept 99156                        -- Deathguard Linnea: Riptear's Heart
+
+step Riptear
+  when dungeon "Ruins of Lordaeron" all
+  when onquest 99156
+  zone Tirisfal Glades
+  tip Riptear, an elite abomination of level 13, wanders the east of Tirisfal near Venomweb Vale: follow the arrow and look around.
+  collect 286326 quest 99156.1        -- Riptear's Heart
+
+step Deathguard Linnea and Kristof
+  when dungeon "Ruins of Lordaeron" all
+  when complete 99156
+  when level>=17.9
+  zone Tirisfal Glades
+  tip Back to the camp: Linnea takes the heart, and Deathguard Kristof beside her wants the necromancer Rath'mael dead, in the ruins.
+  turnin 99156                        -- Deathguard Linnea
+  accept 92422                        -- Deathguard Kristof
+
+step Abandon Rear Guard Patrol
+  when dungeon "Ruins of Lordaeron" all
+  when onquest 356
+  when !complete 356
+  tip Rear Guard Patrol is still unfinished: the route leaves Tirisfal now, so abandon it.
+  abandon 356                         -- Rear Guard Patrol
+
+step Abandon Rear Guard Patrol
+  when dungeon "Ruins of Lordaeron" all
+  when onquest 99156
+  when !complete 99156
+  tip Rear Guard Patrol is still unfinished: the route leaves Tirisfal now, so abandon it.
+  abandon 99156                       -- Rear Guard Patrol
+
 step Ruins of Lordaeron
   when dungeon "Ruins of Lordaeron"
-  when onquest 92421,92401
+  when onquest 92421,92401,92422
   when level>=17.9
   zone Tirisfal Glades
   tip The Ruins of Lordaeron is a dungeon for a group of five, levels 15 to 22, in the ruined city above the Undercity: its portal is in the ruins you walked through.
@@ -234,6 +313,21 @@ step Ruins of Lordaeron
   enter "Ruins of Lordaeron" @63.2,67.5 live
   complete 92421 @63.2,67.5 live      -- Light's Justice: the Intact Limbs, inside
   complete 92401 @63.2,67.5 live      -- A Frightened Request: Edward Heartweaver's fate, inside
+  complete 92422 @63.2,67.5 live      -- The Wrath of Rath'mael: the necromancer, at the Lordamere Overlook inside
+
+step Deathguard Kristof
+  when dungeon "Ruins of Lordaeron" all
+  when complete 92422
+  zone Tirisfal Glades
+  tip Out of the ruins: Kristof's camp is a short walk east, on the road to Brill.
+  turnin 92422                        -- Deathguard Kristof
+
+step Abandon The Wrath of Rath'mael
+  when dungeon "Ruins of Lordaeron" all
+  when onquest 92422
+  when !complete 92422
+  tip The Wrath of Rath'mael is still unfinished: without a Ruins of Lordaeron run the route doesn't come back to the ruins, so abandon it.
+  abandon 92422                       -- The Wrath of Rath'mael
 
 # ---------------------------------------------------------------- Silverpine Forest
 
@@ -243,6 +337,15 @@ step The Sepulcher
   zone Silverpine Forest
   tip Out of the ruins, take the road south through Tirisfal into Silverpine Forest and on to the Sepulcher.
   goto 44.0,40.9 "The Sepulcher"
+
+step Fly to the Sepulcher
+  when dungeon "Shadowfang Keep" all
+  when zone "Undercity"
+  when level>=20.7
+  zone Undercity
+  tip From the Apothecarium the Undercity's bat handler is close: fly to the Sepulcher.
+  goto 63.1,48.3 "Undercity's bat handler"
+  fly "The Sepulcher"
 
 step Strange Lockbox
   only Tauren,Skyborne,Druid
@@ -285,6 +388,13 @@ step High Executor Hadrec
   zone Silverpine Forest
   tip For your Shadowfang Keep run, at the end of the Hillsbrad guide: High Executor Hadrec stands below ground in the crypt.
   accept 1098                         -- High Executor Hadrec, below ground
+
+step Dalar Dawnweaver
+  when dungeon "Shadowfang Keep"
+  when level>=20.7
+  zone Silverpine Forest
+  tip For your Shadowfang Keep run: Dalar Dawnweaver, by the crypt, wants Archmage Arugal dead.
+  accept 1014                         -- Dalar Dawnweaver
 
 step Silverpine Forest: kill these as you meet them
   zone Silverpine Forest

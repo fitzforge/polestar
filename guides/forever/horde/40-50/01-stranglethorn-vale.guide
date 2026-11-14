@@ -434,6 +434,13 @@ step Kin'weelay
   tip The Tablets of I'lalai from your Drowned City run: Kin'weelay, in the camp.
   turnin 95775 npc 2519                 -- Kin'weelay
 
+step Abandon The Drowned City
+  when dungeon "The Drowned City"
+  when onquest 95775
+  when !complete 95775
+  tip The Drowned City is still unfinished: without a run the route doesn't come back to the Vile Reef, so abandon it.
+  abandon 95775                         -- The Drowned City
+
 step Stranglethorn Vale
   zone Stranglethorn Vale
   goto 35.7,10.8 "Nesingwary's Expedition"

@@ -161,6 +161,13 @@ step The Musty Scroll
   turnin 625                            -- the Musty Scroll
   accept 626 optional                 -- Inside Bloodfen Burrow
 
+step Tabetha
+  when dungeon "Zul'Farrak" all
+  when level>=45.4
+  zone Dustwallow Marsh
+  tip For your Zul'Farrak run, in the next guide: Tabetha's hut stands in the marsh east of the road, on the way to the Wyrmbog. She wants the Tiara of the Deep from Hydromancer Velratha, by the pool where Gahz'rilla is summoned.
+  accept 2846                           -- Tabetha
+
 step The Dragonmurk: kill these as you meet them
   zone Dustwallow Marsh
   tip East through the Wyrmbog: the Firemane scouts and ash tails roam its northern edge with the Searing hatchlings and whelps; the scalebanes guard the dragon caves further south-east. Mok'Morokk's snuff, grog and strongbox lie in the dragonkin camps.

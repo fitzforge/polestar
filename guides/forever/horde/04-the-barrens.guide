@@ -97,6 +97,25 @@ step Fly to Camp Taurajo
   goto 45.3,63.7 "Orgrimmar flight master"
   fly "Camp Taurajo"
 
+step Fly to Thunder Bluff
+  only Orc,Troll,Undead,Warrior,Hunter,Rogue,Priest,Shaman,Mage,Warlock,Druid
+  zone The Barrens
+  when dungeon "Ragefire Chasm" all
+  when taxi "Thunder Bluff"
+  when !onquest 97538
+  tip You have Thunder Bluff's flight path from the Ragefire Chasm errand: fly on from Camp Taurajo instead of walking through Mulgore.
+  fly "Thunder Bluff"
+
+step Fly to Thunder Bluff
+  only Orc,Troll,Undead,Warrior,Hunter,Rogue,Priest,Shaman,Mage,Warlock,Druid
+  zone The Barrens
+  when dungeon "Wailing Caverns" all
+  when taxi "Thunder Bluff"
+  when !zone "Thunder Bluff"
+  when !onquest 97538
+  tip You have Thunder Bluff's flight path from the Wailing Caverns errand: fly on from Camp Taurajo instead of walking through Mulgore.
+  fly "Thunder Bluff"
+
 step To Thunder Bluff
   only Orc,Troll,Undead,Warrior,Hunter,Rogue,Priest,Shaman,Mage,Warlock,Druid
   zone Thunder Bluff
@@ -111,6 +130,37 @@ step Thunder Bluff
   getfp "Thunder Bluff" npc 2995      -- Tal
   accept 97538                        -- Tah Winterhoof: the Mirkweed grows in Mirkfallon Lake, by Sun Rock
   accept 1195 optional                -- Zangen Stonehoof: the phial comes from Ashenvale, next guide
+
+step Nara Wildmane
+  when dungeon "Wailing Caverns" all
+  when complete 914
+  when zone "Thunder Bluff"
+  zone Thunder Bluff
+  tip Nara Wildmane is in the great tent on the Elder Rise, beside Hamuul Runetotem.
+  turnin 914                          -- Nara Wildmane
+
+step Rahauro
+  when dungeon "Ragefire Chasm" all
+  when complete 5723
+  when zone "Thunder Bluff"
+  zone Thunder Bluff
+  tip Rahauro walks in front of the big tent on the Elder Rise.
+  turnin 5723                         -- Rahauro: Testing an Enemy's Strength
+
+step Rahauro
+  when dungeon "Ragefire Chasm" all
+  when onquest 5724
+  when zone "Thunder Bluff"
+  zone Thunder Bluff
+  turnin 5724                         -- Rahauro: Returning the Lost Satchel
+
+step Apothecary Zamah
+  when dungeon "Wailing Caverns" all
+  when complete 962
+  when zone "Thunder Bluff"
+  zone Thunder Bluff
+  tip Apothecary Zamah is in the Pools of Vision, the cave under the Spirit Rise.
+  turnin 962                          -- Apothecary Zamah
 
 step Fly to Camp Taurajo
   tip Fly to Camp Taurajo: Tal on Thunder Bluff's central rise, or the Crossroads' wind rider master if you start this guide there.
@@ -242,6 +292,14 @@ step Sputtervalve
   turnin 1094                         -- Sputtervalve: Further Instructions, from Ziz Fizziks
   accept 1095                         -- Sputtervalve: for Ziz Fizziks, on the way up the Webwinder Path
 
+step Sputtervalve
+  when dungeon "Wailing Caverns" all
+  when onquest 6981
+  when subzone "Ratchet"
+  zone The Barrens
+  tip The Glowing Shard from Mutanus: ask Sputtervalve about it.
+  talk 3442 quest 6981.1              -- Sputtervalve
+
 step Mebok Mizzyrix
   when dungeon "Wailing Caverns"
   when complete 1491
@@ -262,6 +320,24 @@ step Crane Operator Bigglefuzz
   zone The Barrens
   turnin 959                          -- Crane Operator Bigglefuzz, on the dock
 
+step Abandon Trouble at the Docks
+  when dungeon "Wailing Caverns"
+  when onquest 959
+  when !complete 959
+  tip Trouble at the Docks is still unfinished: the route doesn't come back to the caverns for the port, so abandon it.
+  abandon 959                         -- Trouble at the Docks
+
+step Mebok Mizzyrix
+  when dungeon "Razorfen Kraul" all
+  when subzone "Ratchet"
+  when level>=26
+  zone The Barrens
+  tip For your Razorfen Kraul run, at about 32: Mebok's Blueleaf Tubers. Take a Crate with Holes, a Snufflenose Command Stick and the Owner's Manual from beside him (read the manual); in the kraul the crate's gopher sniffs the tubers out.
+  accept 1221                         -- Mebok Mizzyrix
+  collect 5880 quest 1221.2           -- Crate With Holes
+  collect 6684 quest 1221.4           -- Snufflenose Command Stick
+  collect 5897 quest 1221.3           -- Snufflenose Owner's Manual
+
 step Merchant Coast
   zone The Barrens
   tip Mahren Skyseer camps on the shore just north of Ratchet's flight master.
@@ -274,6 +350,19 @@ step Isha Awak
 
 step The Tidus Stair
   turnin 873                          -- Mahren Skyseer
+
+step Falla Sagewind
+  when dungeon "Wailing Caverns" all
+  when complete 6981
+  zone The Barrens
+  tip On the way west: Falla Sagewind waits in a hut on the hilltop over the Wailing Caverns; a path of rocks south-west of the Crossroads' graveyard leads up to her.
+  turnin 6981                         -- Falla Sagewind
+
+step Abandon The Glowing Shard
+  when dungeon "Wailing Caverns" all
+  when onquest 6981
+  tip The Glowing Shard is still unfinished: the route doesn't come back to Ratchet and the caverns, so abandon it.
+  abandon 6981                        -- The Glowing Shard
 
 # ---------------------------------------------------------------- West: Seereth and Stonetalon
 

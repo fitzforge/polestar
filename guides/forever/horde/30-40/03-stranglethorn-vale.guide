@@ -24,6 +24,15 @@ step Thunder Bluff
   fly "Thunder Bluff"
   train class
 
+step Auld Stonespire
+  only Druid
+  when dungeon "Razorfen Kraul" all
+  when complete 1102
+  when zone "Thunder Bluff"
+  zone Thunder Bluff
+  tip Auld Stonespire stands on the Hunter Rise: Charlga Razorflank's heart, from your Razorfen Kraul run.
+  turnin 1102                         -- Auld Stonespire
+
 step Back to Orgrimmar
   only Druid
   zone Thunder Bluff
@@ -56,6 +65,13 @@ step Ratchet
   accept 1180                         -- Gazlowe: for Wharfmaster Lozgil in Booty Bay, where the boat goes
   turnin 1111                         -- Wharfmaster Dizzywig, on the docks
   note Dizzywig's parts go back to Kravel in the Shimmering Flats, off the route: leave them.
+
+step Mebok Mizzyrix
+  when dungeon "Razorfen Kraul" all
+  when complete 1221
+  zone The Barrens
+  tip The Blueleaf Tubers from your Razorfen Kraul run: Mebok stands below Gazlowe's house, towards the docks, and takes them with the crate and the stick.
+  turnin 1221                         -- Mebok Mizzyrix
 
 step Boat to Booty Bay
   zone The Barrens

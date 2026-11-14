@@ -61,7 +61,17 @@ next forever/horde/30-40/03-stranglethorn-vale
 # about 33: from Freewind Post, fly to Camp Taurajo, ride south to the kraul's entrance just west of the road to
 # the Great Lift, and after the run take the lift down and ride back to Freewind Post, where the guide goes on.
 # Players' recordings put people there at 33.2. The kraul's Small Scroll starts An Unholy Alliance (6522) for
-# Varimathras; both go back on the Undercity stop that opens forever/horde/30-40/05-arathi-highlands.
+# Varimathras; both go back on the Undercity stop that opens forever/horde/30-40/05-arathi-highlands. The
+# dungeon's every-quest route (`when dungeon "Razorfen Kraul" all`): Auld Stonespire's A Vengeful Fate (1102) on a
+# flight from Camp Taurajo to Thunder Bluff and back before the run (Auld takes Charlga's heart on the Thunder
+# Bluff stop of forever/horde/40-50/06-azshara); Mebok's Blueleaf Tubers (1221, from forever/horde/04-the-barrens)
+# with a hop to Ratchet for anyone who doesn't carry it yet; Prate Cloudseer's Elemental Aid (79360) for Shamans,
+# back to Rau Cliffrunner at Freewind Post after the run; Brutal Armor's Iron Bars (1838) from the Orgrimmar
+# auction house for Warriors, and Roogug's Vial of Phlogiston inside.
+#
+# A runner who comes back from the kraul above the Shimmering Flats' level takes the Saltstone Gazers on the way
+# into the southern flats, before the Crystalhides (the solo route's order the other way round), and hands
+# Kravel his Rocket Car Parts and takes his parts order as soon as the parts are in.
 #
 # Carried on: Parts of the Swarm (1148) for Korran at the Crossroads, Load Lightening's Goblin
 # Sponsorship (1178) for Gazlowe and Kravel's parts order (Wharfmaster Dizzywig, 1111) for the
@@ -80,6 +90,14 @@ step Alliance Relations
   accept 1431                         -- Craven Drok: offered from level 30
   turnin 1431                         -- Keldran
   accept 1432                         -- for Takata Steelblade in Desolace, later in this guide
+
+step Auction house
+  only Warrior
+  when dungeon "Razorfen Kraul" all
+  when onquest 1838
+  zone Orgrimmar
+  tip For Brutal Armor: ten Iron Bars. Miners smelt them from Iron Ore; anyone else buys them at the auction house in the Valley of Strength.
+  collect 3575 x10 quest 1838.3 @55.9,62.7 -- Iron Bars: Auctioneer Thathung
 
 step Orgrimmar trainers
   only Hunter,Shaman
@@ -103,6 +121,14 @@ step Thunder Bluff
   tip Fly from Orgrimmar to Thunder Bluff and train with Turak Runetotem on Elder Rise; fly on to Freewind Post from there.
   fly "Thunder Bluff"
   train class
+
+step Auld Stonespire
+  only Druid
+  when dungeon "Razorfen Kraul" all
+  when level>=31.1
+  zone Thunder Bluff
+  tip For your Razorfen Kraul run: Auld Stonespire, on the Hunter Rise, wants Charlga Razorflank's heart from the kraul.
+  accept 1102                         -- Auld Stonespire
 
 step Islen Waterseer
   only Shaman
@@ -140,26 +166,92 @@ step Prate Cloudseer
   turnin 1531                         -- Prate Cloudseer: your Air Totem
   note Prate also starts Elemental Aid (Razorfen Kraul), the 33-40 chain to The Tempest's Weapons: forever/class/shaman/call-of-air-horde.
 
+step Prate Cloudseer
+  only Shaman
+  when dungeon "Razorfen Kraul" all
+  when level>=31.1
+  zone Thousand Needles
+  tip For your Razorfen Kraul run: Prate's Elemental Aid wants what Charlga Razorflank carries.
+  accept 79360                        -- Prate Cloudseer
+
 # ---------------------------------------------------------------- Razorfen Kraul (dungeon runners)
 
 step Fly to Camp Taurajo
   when dungeon "Razorfen Kraul"
-  when onquest 1109
+  when onquest 1109,1221,79360,1838
   when level>=31.1
   zone Thousand Needles
   tip Your Razorfen Kraul run: fly from Freewind Post to Camp Taurajo; the kraul is south of the camp, in the thorny hills just west of the road to the Great Lift.
   goto 45.0,49.1 "Freewind Post flight master"
   fly "Camp Taurajo"
 
+step Fly to Thunder Bluff
+  when dungeon "Razorfen Kraul" all
+  when available 1102
+  when zone "The Barrens"
+  when level>=31.1
+  zone The Barrens
+  tip Auld Stonespire in Thunder Bluff wants Charlga Razorflank's heart from the kraul: fly there from Camp Taurajo and back.
+  fly "Thunder Bluff"
+
+step Auld Stonespire
+  when dungeon "Razorfen Kraul" all
+  when available 1102
+  when level>=31.1
+  zone Thunder Bluff
+  tip Auld Stonespire stands on the Hunter Rise.
+  accept 1102                         -- Auld Stonespire
+
+step Fly to Camp Taurajo
+  when dungeon "Razorfen Kraul" all
+  when zone "Thunder Bluff"
+  when level>=31.1
+  zone Thunder Bluff
+  goto 46.7,49.9 "Thunder Bluff flight master"
+  fly "Camp Taurajo"
+
+step Fly to Ratchet
+  when dungeon "Razorfen Kraul" all
+  when available 1221
+  when zone "The Barrens"
+  when level>=31.1
+  zone The Barrens
+  tip Mebok's Blueleaf Tubers for the kraul too: fly to Ratchet and back from Camp Taurajo.
+  fly "Ratchet"
+
+step Mebok Mizzyrix
+  when dungeon "Razorfen Kraul" all
+  when available 1221
+  when subzone "Ratchet"
+  when level>=31.1
+  zone The Barrens
+  tip Mebok stands beside the WANTED poster. Take a Crate with Holes, a Snufflenose Command Stick and the Owner's Manual from beside him, and read the manual.
+  accept 1221                         -- Mebok Mizzyrix
+  collect 5880 quest 1221.2           -- Crate With Holes
+  collect 6684 quest 1221.4           -- Snufflenose Command Stick
+  collect 5897 quest 1221.3           -- Snufflenose Owner's Manual
+
+step Fly to Camp Taurajo
+  when dungeon "Razorfen Kraul" all
+  when subzone "Ratchet"
+  when level>=31.1
+  zone The Barrens
+  goto 63.1,37.1 "Ratchet flight master"
+  fly "Camp Taurajo"
+
 step Razorfen Kraul
   when dungeon "Razorfen Kraul"
-  when onquest 1109
+  when onquest 1109,1221,1102,79360,1838
   when level>=31.1
   zone The Barrens
   tip Razorfen Kraul is a dungeon for a group of five, levels 29 to 38, and a full run takes about an hour. Ride south from Camp Taurajo down the road to the Great Lift: the entrance is in the thorny hills just west of it.
-  tip Inside: the Kraul Bats leave the Kraul Guano on the floor of their caves. Willix the Importer, a prisoner inside, offers an escort out of the kraul: it starts and ends with him. A Small Scroll inside starts An Unholy Alliance for Varimathras in the Undercity. The bosses: Roogug, Aggem Thorncurse, Death Speaker Jargba, Overlord Ramtusk, Agathelos the Raging and Charlga Razorflank.
+  tip Inside: the Kraul Bats leave the Kraul Guano on the floor of their caves. Willix the Importer, a prisoner inside, offers an escort out of the kraul: it starts and ends with him. A Small Scroll inside starts An Unholy Alliance for Varimathras in the Undercity. The bosses: Roogug (his Vial of Phlogiston is a Warrior's Brutal Armor's), Aggem Thorncurse, Death Speaker Jargba, Overlord Ramtusk, Agathelos the Raging and Charlga Razorflank (her heart for Auld Stonespire, her Tattered Note for a Shaman's Elemental Aid). For Blueleaf Tubers, open the Crate with Holes on the big green vine bridge (left at the first fork), then use the Command Stick on the gopher and stand still: a tuber plant appears under it.
   enter "Razorfen Kraul" @42.9,90.2
   complete 1109 @42.9,90.2            -- Going, Going, Guano!: the Kraul Guano, inside
+  complete 1221 @42.9,90.2            -- Blueleaf Tubers: six tubers, the gopher's
+  complete 1102 @42.9,90.2            -- A Vengeful Fate: Razorflank's Heart
+  complete 79360 @42.9,90.2           -- Elemental Aid: Charlga's Tattered Note
+  collect 6841 quest 1838.4 @42.9,90.2 -- Vial of Phlogiston: Roogug
 
 step The Great Lift
   when dungeon "Razorfen Kraul"
@@ -170,11 +262,25 @@ step The Great Lift
 
 step Freewind Post
   when dungeon "Razorfen Kraul"
-  when onquest 1109
+  when onquest 1109,1221,1102,79360,1838
   when level>=31.1
   zone Thousand Needles
   tip From the foot of the Great Lift, ride south-east to Freewind Post's lift and take it up: the guide goes on from there.
   goto 44.9,48.9 "Freewind Post's lift"
+
+step Rau Cliffrunner
+  when dungeon "Razorfen Kraul" all
+  when complete 79360
+  zone Thousand Needles
+  tip Rau Cliffrunner stands in Freewind Post: Charlga's Tattered Note. The rest of the chain is the Shaman class guide's, Call of Air.
+  turnin 79360                        -- Rau Cliffrunner
+
+step Abandon Elemental Aid
+  when dungeon "Razorfen Kraul" all
+  when onquest 79360
+  when !complete 79360
+  tip Elemental Aid is still unfinished: without a Razorfen Kraul run the route doesn't come back to the kraul, so abandon it (the Shaman class guide has it for another time).
+  abandon 79360                       -- Elemental Aid
 
 # ---------------------------------------------------------------- The Shimmering Flats
 
@@ -195,10 +301,27 @@ step Mirage Raceway
   accept 1175                         -- Trackmaster Zherin
 
 step The southern flats
+  when !dungeon "Razorfen Kraul"
   zone Thousand Needles
   tip South of the raceway, the Saltstone Crystalhides (32-33) and Gazers (34-35) roam the far end of the flats.
   kill 4151 quest 1175.2 @78.4,87.9 map 1441
   kill 4150 quest 1175.3 @77.1,88.4 map 1441
+
+step The southern flats
+  when dungeon "Razorfen Kraul"
+  zone Thousand Needles
+  tip South of the raceway, the Saltstone Gazers (34-35) and Crystalhides (32-33) roam the far end of the flats: the Gazers first, on the way in.
+  kill 4150 quest 1175.3 @77.1,88.4 map 1441
+  kill 4151 quest 1175.2 @78.4,87.9 map 1441
+
+step Kravel Koalbeard
+  when dungeon "Razorfen Kraul"
+  when complete 1110
+  when level>=31.1
+  zone Thousand Needles
+  tip The Rocket Car Parts are in: Kravel takes them at the raceway and gives his parts order for Ratchet.
+  turnin 1110                         -- Kravel Koalbeard
+  accept 1111                         -- Kravel Koalbeard: for Wharfmaster Dizzywig in Ratchet, later on the route
 
 step The Rustmaul Dig Site
   zone Thousand Needles

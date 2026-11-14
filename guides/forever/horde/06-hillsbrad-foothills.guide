@@ -31,13 +31,20 @@ next forever/horde/04-the-barrens
 # Hadrec's Deathstalkers in Shadowfang, 1098, is taken; he offers it again here), the run follows from
 # there, down the road south to the keep, and Dalar takes Arugal's head back at the Sepulcher before the
 # flight to the Undercity. Deathstalkers in Shadowfang is handed in inside, to Deathstalker Vincent in the
-# courtyard: the run step turns it in at the gate's place (the data has none inside). Left out: The Book of Ur
-# (1013: Keeper Bel'dugur in the Undercity, on the stop after the run) and the Warlock's Orb of
-# Soran'ruk (1740, class guide).
+# courtyard: the run step turns it in at the gate's place (the data has none inside). The every-quest route
+# (`when dungeon "Shadowfang Keep" all`) adds Keeper Bel'dugur's The Book of Ur (1013, taken on the way in from
+# the zeppelin in forever/horde/05-stonetalon-mountains), handed in on this guide's Undercity stop, and the
+# Warlock's Large Soran'ruk Fragment for The Orb of Soran'ruk (1740, finished in Blackfathom Deeps).
+#
+# Ahead of the route, for a character who ran the Ruins of Lordaeron and is 25 or more on the first Tarren
+# Mill stop: Dangerous! (567, the poster) and Elixir of Agony (509, Lydon), whose work is on this guide's walks.
 #
 # The Ruins of Lordaeron's hand-ins (Morbin Lightbane's Light's Justice, 92421; the Abominable Head's
 # Unending Torment, 97288; the Crest of Lordaeron, 95204) come on the Undercity stop (`when complete`/`when
 # onquest`): the run is in forever/horde/05-stonetalon-mountains, where the zeppelin lands beside the ruins.
+# Faranell's errands after the head, the rest of Unending Torment (97289-97292), are the every-quest route's:
+# all in the Undercity, on this stop. Varimathras takes The Power to Destroy... (5725, Ragefire Chasm's)
+# beside Morbin.
 #
 # Elixir of Agony (515) is not taken here: it needs a Lesser Troll's Blood Elixir (3388), an Alchemy potion no
 # vendor sells, and its hand-in waits for the Hillsbrad coast in forever/horde/30-40/01-hillsbrad-foothills,
@@ -67,6 +74,14 @@ step Tarren Mill
   accept 549                          -- The WANTED poster by the inn
   accept 498                          -- Krusk, inside
   sethome "Tarren Mill" npc 2388      -- Innkeeper Shay
+
+step Tarren Mill
+  when dungeon "Ruins of Lordaeron"
+  when level>=25
+  zone Hillsbrad Foothills
+  tip Ahead of the route, at 25 or more: the Dangerous! poster by the inn and Apothecary Lydon's Elixir of Agony. Their work is on this guide's walks.
+  accept 567                          -- The Dangerous! poster
+  accept 509                          -- Apothecary Lydon
 
 step Serge Hinott
   only Rogue
@@ -202,14 +217,16 @@ step Hadrec and Dalar
 
 step Shadowfang Keep
   when dungeon "Shadowfang Keep"
-  when onquest 1098,1014
+  when onquest 1098,1014,1013,1740
   when level>=22.8
   zone Silverpine Forest
   tip Shadowfang Keep is a dungeon for a group of five, levels 20 to 30, and a full run takes about an hour. Follow the road south from the Sepulcher: the keep stands on the hill above Pyrewood Village, its gate at the top of the path.
-  tip Inside: Rethilgore first; the Deathstalker freed from the cells after him opens the courtyard door, and Deathstalker Vincent lies just inside the courtyard, to the right: hand Deathstalkers in Shadowfang in to him there. Then Razorclaw the Butcher, Baron Silverlaine, Commander Springvale, Odo the Blindwatcher, Fenrus the Devourer and Wolf Master Nandos; Archmage Arugal at the top drops his head for Dalar.
+  tip Inside: Rethilgore first; the Deathstalker freed from the cells after him opens the courtyard door, and Deathstalker Vincent lies just inside the courtyard, to the right: hand Deathstalkers in Shadowfang in to him there. Then Razorclaw the Butcher, Baron Silverlaine, Commander Springvale, Odo the Blindwatcher, Fenrus the Devourer (the Book of Ur is on a shelf left of his room's door; four voidwalkers come a few seconds after he dies) and Wolf Master Nandos; Archmage Arugal at the top drops his head for Dalar.
   enter "Shadowfang Keep" @44.8,67.8
   turnin 1098 npc 4444 @44.8,67.8     -- Deathstalker Vincent, inside: the courtyard
   complete 1014                       -- Arugal Must Die: the Head of Arugal
+  complete 1013                       -- The Book of Ur: on a shelf left of the door in Fenrus the Devourer's round room
+  collect 6915 quest 1740.2 optional @44.8,67.8 live -- Large Soran'ruk Fragment: the Shadowfang Darksouls, one in five
 
 step Dalar Dawnweaver
   when dungeon "Shadowfang Keep"
@@ -223,6 +240,13 @@ step Abandon Deathstalkers in Shadowfang
   when onquest 1098
   tip Deathstalkers in Shadowfang is still in your log: without a Shadowfang Keep run at its level the route doesn't go back in to Deathstalker Vincent, so abandon it.
   abandon 1098                        -- Deathstalkers in Shadowfang
+
+step Abandon Arugal Must Die
+  when dungeon "Shadowfang Keep"
+  when onquest 1014
+  when !complete 1014
+  tip Arugal Must Die is still unfinished: without a Shadowfang Keep run the route doesn't come back to the keep, so abandon it.
+  abandon 1014                        -- Arugal Must Die
 
 step Fly to the Undercity
   zone Silverpine Forest
@@ -242,6 +266,20 @@ step Master Apothecary Faranell
   train class only Warrior,Paladin,Rogue,Priest,Mage,Warlock
   vendor nearest
 
+step Keeper Bel'dugur
+  when dungeon "Shadowfang Keep" all
+  when complete 1013
+  zone Undercity
+  tip Keeper Bel'dugur stands by a bridge in the Apothecarium.
+  turnin 1013                         -- Keeper Bel'dugur
+
+step Abandon The Book of Ur
+  when dungeon "Shadowfang Keep" all
+  when onquest 1013
+  when !complete 1013
+  tip The Book of Ur is still unfinished: without a Shadowfang Keep run the route doesn't come back to the keep, so abandon it.
+  abandon 1013                        -- The Book of Ur
+
 step Master Apothecary Faranell
   when dungeon "Ruins of Lordaeron"
   when onquest 97288
@@ -249,12 +287,95 @@ step Master Apothecary Faranell
   tip The Abominable Head from the Ruins of Lordaeron: Faranell takes it here.
   turnin 97288                        -- Master Apothecary Faranell, in the Apothecarium
 
+step Master Apothecary Faranell
+  when dungeon "Ruins of Lordaeron" all
+  when turnedin 97288
+  when level>=17.9
+  zone Undercity
+  tip Faranell has more to do with the Abominable Head: he puts the Head of the Baron in your bags for the Unfinished Abomination.
+  accept 97289                        -- Master Apothecary Faranell
+
+step Unfinished Abomination
+  when dungeon "Ruins of Lordaeron" all
+  when onquest 97289
+  when level>=17.9
+  zone Undercity
+  tip The Unfinished Abomination is Othmar's body, hanging in the room beside Faranell's, on the same floor.
+  turnin 97289                        -- Unfinished Abomination
+  accept 97290
+
+step Master Apothecary Faranell
+  when dungeon "Ruins of Lordaeron" all
+  when onquest 97290
+  when level>=17.9
+  zone Undercity
+  turnin 97290                        -- Master Apothecary Faranell
+  accept 97291
+
+step Unending Torment
+  when dungeon "Ruins of Lordaeron" all
+  when onquest 97291
+  zone Undercity
+  tip Three ingredients: a Toxic Skullcap from Tawny Grisette, who walks the upper inner ring of the Trade Quarter near the bat handler; the Blisterweed in the leftmost barrel behind the herbalism trainers; and an Essence of Agony from Ezekiel Graves, the poison vendor in the Rogues' Quarter (any class can buy it).
+  collect 281246 quest 97291.1 npc 4554 -- Toxic Skullcap: Tawny Grisette
+  collect 281300 quest 97291.2        -- Blisterweed
+  collect 8923 quest 97291.3 npc 4585 -- Essence of Agony: Ezekiel Graves
+
+step Master Apothecary Faranell
+  when dungeon "Ruins of Lordaeron" all
+  when complete 97291
+  when level>=17.9
+  zone Undercity
+  turnin 97291                        -- Master Apothecary Faranell
+  accept 97292
+
+step Othmar
+  when dungeon "Ruins of Lordaeron" all
+  when onquest 97292
+  zone Undercity
+  tip The huge pink worm hangs above Othmar's body, by the Unfinished Abomination: stand near it and use the Hissing Serum Faranell gave you. Clicking the worm or the body does nothing.
+  use 281327 quest 97292.1 @45.9,62.0 -- Hissing Serum
+
+step Master Apothecary Faranell
+  when dungeon "Ruins of Lordaeron" all
+  when complete 97292
+  zone Undercity
+  turnin 97292                        -- Master Apothecary Faranell
+
+step Abandon Unending Torment
+  when dungeon "Ruins of Lordaeron" all
+  when onquest 97291,97292
+  tip Unending Torment is still unfinished: the route leaves the Undercity now, so abandon it.
+  abandon 97291                       -- Unending Torment: the three ingredients
+  abandon 97292                       -- Unending Torment: the Hissing Serum
+
 step Morbin Lightbane
   when dungeon "Ruins of Lordaeron"
   when complete 92421
   zone Undercity
   tip Your Ruins of Lordaeron limbs: Morbin Lightbane stands in the Royal Quarter, just past the Apothecarium.
   turnin 92421                        -- Morbin Lightbane
+
+step Abandon Light's Justice
+  when dungeon "Ruins of Lordaeron"
+  when onquest 92421
+  when !complete 92421
+  tip Light's Justice is still unfinished: without a Ruins of Lordaeron run the route doesn't come back for the limbs, so abandon it.
+  abandon 92421                       -- Light's Justice
+
+step Varimathras
+  when dungeon "Ragefire Chasm" all
+  when complete 5725
+  zone Undercity
+  tip Varimathras stands beside Lady Sylvanas in the Royal Quarter: the two books from Ragefire Chasm.
+  turnin 5725                         -- Varimathras
+
+step Abandon The Power to Destroy...
+  when dungeon "Ragefire Chasm" all
+  when onquest 5725
+  when !complete 5725
+  tip The Power to Destroy... is still unfinished: without a Ragefire Chasm run the route doesn't go back for the books, so abandon it.
+  abandon 5725                        -- The Power to Destroy...
 
 step Oran Snakewrithe
   when dungeon "Ruins of Lordaeron"
@@ -325,6 +446,37 @@ step Aquatic Form
   accept 31                             -- Dendrite Starblaze
   fly "Thunder Bluff"                   -- Bunthen Plainswind in Nighthaven flies druids there
   turnin 31                             -- Turak Runetotem: Aquatic Form
+
+step Nara Wildmane
+  when dungeon "Wailing Caverns" all
+  when complete 914
+  when zone "Thunder Bluff"
+  zone Thunder Bluff
+  tip Nara Wildmane is in the great tent on the Elder Rise, beside Hamuul Runetotem.
+  turnin 914                          -- Nara Wildmane
+
+step Rahauro
+  when dungeon "Ragefire Chasm" all
+  when complete 5723
+  when zone "Thunder Bluff"
+  zone Thunder Bluff
+  tip Rahauro walks in front of the big tent on the Elder Rise.
+  turnin 5723                         -- Rahauro: Testing an Enemy's Strength
+
+step Rahauro
+  when dungeon "Ragefire Chasm" all
+  when onquest 5724
+  when zone "Thunder Bluff"
+  zone Thunder Bluff
+  turnin 5724                         -- Rahauro: Returning the Lost Satchel
+
+step Apothecary Zamah
+  when dungeon "Wailing Caverns" all
+  when complete 962
+  when zone "Thunder Bluff"
+  zone Thunder Bluff
+  tip Apothecary Zamah is in the Pools of Vision, the cave under the Spirit Rise.
+  turnin 962                          -- Apothecary Zamah
 
 step Back to the Crossroads
   only Tauren,Skyborne,Druid

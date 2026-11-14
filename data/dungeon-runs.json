@@ -225,6 +225,50 @@
 					},
 					"note": "Ratchet after Orgrimmar (~20): level 18, 3+ levels over earlier",
 					"gate": 20.3
+				},
+				{
+					"quest": 1489,
+					"after": {
+						"guide": "forever/horde/02-the-barrens",
+						"quest": 880,
+						"goal": "objective"
+					},
+					"gate": 20.3,
+					"all": true,
+					"note": "Tonga Runetotem"
+				},
+				{
+					"quest": 1490,
+					"after": {
+						"guide": "forever/horde/02-the-barrens",
+						"quest": 880,
+						"goal": "objective"
+					},
+					"gate": 20.3,
+					"all": true,
+					"note": "Thunder Bluff"
+				},
+				{
+					"quest": 914,
+					"after": {
+						"guide": "forever/horde/02-the-barrens",
+						"quest": 880,
+						"goal": "objective"
+					},
+					"gate": 20.3,
+					"all": true,
+					"note": "Thunder Bluff"
+				},
+				{
+					"quest": 962,
+					"after": {
+						"guide": "forever/horde/02-the-barrens",
+						"quest": 880,
+						"goal": "objective"
+					},
+					"gate": 20.3,
+					"all": true,
+					"note": "Apothecary Zamah"
 				}
 			],
 			"run": {
@@ -243,14 +287,22 @@
 					1486,
 					1487,
 					1491,
-					959
+					959,
+					914,
+					962
 				],
 				"optional": [
 					1486,
 					959
 				],
-				"guard": "onquest 1486,1487,1491,959",
-				"gate": 20.3
+				"guard": "onquest 1486,1487,1491,959,914,962",
+				"gate": 20.3,
+				"itemStarts": [
+					{
+						"quest": 6981,
+						"item": 10441
+					}
+				]
 			},
 			"handins": [
 				{
@@ -284,6 +336,61 @@
 					"note": "the same hop; both hand-ins only in Ratchet (`when subzone`), so a runner with this one done and Smart Drinks not takes it on 04-the-barrens' Ratchet stop"
 				},
 				{
+					"quest": 1489,
+					"guide": "forever/horde/02-the-barrens",
+					"after": {
+						"quest": 880,
+						"goal": "objective"
+					},
+					"when": "onquest",
+					"all": true,
+					"note": "Thunder Bluff"
+				},
+				{
+					"quest": 1490,
+					"guide": "forever/horde/02-the-barrens",
+					"after": {
+						"quest": 880,
+						"goal": "objective"
+					},
+					"when": "onquest",
+					"all": true,
+					"note": "Thunder Bluff"
+				},
+				{
+					"quest": 6981,
+					"guide": "forever/horde/02-the-barrens",
+					"after": {
+						"quest": 1825,
+						"goal": "turnin"
+					},
+					"when": "complete",
+					"all": true,
+					"note": "Falla Sagewind"
+				},
+				{
+					"quest": 914,
+					"guide": "forever/horde/06-hillsbrad-foothills",
+					"after": {
+						"quest": 31,
+						"goal": "turnin"
+					},
+					"when": "complete",
+					"all": true,
+					"note": "Nara Wildmane"
+				},
+				{
+					"quest": 962,
+					"guide": "forever/horde/06-hillsbrad-foothills",
+					"after": {
+						"quest": 31,
+						"goal": "turnin"
+					},
+					"when": "complete",
+					"all": true,
+					"note": "Apothecary Zamah"
+				},
+				{
 					"quest": 1491,
 					"guide": "forever/horde/04-the-barrens",
 					"after": {
@@ -298,13 +405,64 @@
 						"step": "Fly to Ratchet"
 					},
 					"note": "the fallback for a character still carrying it after the hop"
+				},
+				{
+					"quest": 914,
+					"guide": "forever/horde/04-the-barrens",
+					"after": {
+						"quest": 1195,
+						"goal": "accept"
+					},
+					"when": "complete",
+					"all": true,
+					"note": "Nara Wildmane"
+				},
+				{
+					"quest": 962,
+					"guide": "forever/horde/04-the-barrens",
+					"after": {
+						"quest": 1195,
+						"goal": "accept"
+					},
+					"when": "complete",
+					"all": true,
+					"note": "Apothecary Zamah"
+				},
+				{
+					"quest": 6981,
+					"guide": "forever/horde/04-the-barrens",
+					"after": {
+						"quest": 873,
+						"goal": "turnin"
+					},
+					"when": "complete",
+					"all": true,
+					"note": "Falla Sagewind"
+				},
+				{
+					"quest": 914,
+					"guide": "forever/horde/07-ashenvale",
+					"after": {
+						"quest": 97538,
+						"goal": "turnin"
+					},
+					"when": "complete",
+					"all": true,
+					"note": "Nara Wildmane"
+				},
+				{
+					"quest": 962,
+					"guide": "forever/horde/07-ashenvale",
+					"after": {
+						"quest": 97538,
+						"goal": "turnin"
+					},
+					"when": "complete",
+					"all": true,
+					"note": "Apothecary Zamah"
 				}
 			],
-			"leftOut": {
-				"962": "Serpentbloom starts in Thunder Bluff, not on the route before the run",
-				"914": "Leaders of the Fang: Hamuul and Nara in Thunder Bluff (1489, 1490)",
-				"6981": "The Glowing Shard: Sputtervalve in Ratchet, then Falla Sagewind; a Crossroads-Ratchet hop cost ~1.4 km, two flights and a hub visit (requirement A); named in the run tip"
-			},
+			"leftOut": {},
 			"runStop": [
 				1486,
 				1487
@@ -327,7 +485,59 @@
 					"when": "subzone Ratchet",
 					"note": "and back, on to the Crossroads stop's next step"
 				}
-			]
+			],
+			"takenEarlier": [
+				{
+					"quest": 880,
+					"guide": "forever/horde/02-the-barrens",
+					"goal": "turnin",
+					"after": {
+						"quest": 880,
+						"goal": "objective"
+					},
+					"gate": 20.3,
+					"all": true,
+					"note": "Tonga Runetotem takes Altered Beings on the Thunder Bluff errand's way out, before the route's Crossroads stop, and gives Hamuul Runetotem (1489)"
+				},
+				{
+					"quest": 6441,
+					"guide": "forever/horde/05-stonetalon-mountains",
+					"goal": "accept",
+					"after": {
+						"quest": 6383,
+						"goal": "turnin"
+					},
+					"gate": 23.0,
+					"note": "Pixel's Satyr Horns on the Splintertree trip of the run's Ashenvale leg, before 07-ashenvale's Splintertree stop takes it"
+				}
+			],
+			"checks": [
+				{
+					"status": "needs-ingame",
+					"at": "pickup",
+					"quest": 6981,
+					"what": "Sputtervalve in Ratchet is The Glowing Shard's first objective (a talk), then Falla Sagewind at the Wailing Caverns' oasis"
+				}
+			],
+			"allQuests": {
+				"minutes": 14.6,
+				"xp": 12500,
+				"quests": [
+					914,
+					962,
+					1489,
+					1490,
+					6981
+				]
+			},
+			"wayOnly": {
+				"quests": [
+					1486,
+					1487,
+					1491,
+					959
+				]
+			}
 		},
 		{
 			"dungeon": "Blackfathom Deeps",
@@ -342,6 +552,17 @@
 					},
 					"note": "first Zoram'gar stop",
 					"gate": 24.5
+				},
+				{
+					"quest": 1740,
+					"after": {
+						"guide": "forever/horde/02-the-barrens",
+						"quest": 883,
+						"goal": "turnin"
+					},
+					"gate": 20.0,
+					"all": true,
+					"note": "Doan Karhan, only Warlock"
 				}
 			],
 			"run": {
@@ -357,7 +578,8 @@
 					"y": 14.2
 				},
 				"objectives": [
-					6921
+					6921,
+					1740
 				],
 				"itemStarts": [
 					{
@@ -369,8 +591,11 @@
 						"item": 16790
 					}
 				],
-				"guard": "onquest 6921",
-				"gate": 24.5
+				"guard": "onquest 6921,1740",
+				"gate": 24.5,
+				"insideQuests": [
+					6561
+				]
 			},
 			"handins": [
 				{
@@ -398,22 +623,189 @@
 						"goal": "turnin"
 					},
 					"when": "onquest"
+				},
+				{
+					"quest": 6561,
+					"guide": "forever/horde/07-ashenvale",
+					"after": {
+						"quest": 97538,
+						"goal": "turnin"
+					},
+					"when": "complete",
+					"all": true,
+					"note": "Bashana Runetotem"
+				},
+				{
+					"quest": 1740,
+					"guide": "forever/horde/07-ashenvale",
+					"after": {
+						"step": "Fly to Camp Taurajo"
+					},
+					"when": "complete",
+					"all": true,
+					"note": "Doan Karhan, only Warlock"
 				}
 			],
 			"leftOut": {
-				"6565": "Allegiance to the Old Gods part 2: a second run",
-				"1740": "Warlock class quest",
-				"6561": "Blackfathom Villainy: Argent Guard Thaelrid gives it inside (no place in our data: an accept there fails the playtest's place check and the honest R2), and Bashana Runetotem takes it on the Elder Rise, off the route's Thunder Bluff stop; named in the run tip"
+				"6565": "Allegiance to the Old Gods part 2: Je'neu offers it once the Damp Note (6564) is handed in at Zoram'gar, after the run, and Lorgus Jett is inside: a second run"
 			},
 			"runStop": [],
 			"budget": {
 				"flow": "07-ashenvale walk +0.1 km, hub visits +0: the run is in the tunnels the Sapphires already take the player into"
+			},
+			"allQuests": {
+				"minutes": null,
+				"xp": 12950,
+				"quests": [
+					1740,
+					6561
+				]
+			},
+			"wayOnly": {
+				"quests": [
+					6921,
+					6922,
+					6564
+				]
 			}
 		},
 		{
 			"dungeon": "Ragefire Chasm",
 			"faction": "Horde",
-			"pickups": [],
+			"pickups": [
+				{
+					"quest": 5723,
+					"after": {
+						"guide": "forever/horde/tauren/01-mulgore",
+						"quest": 886,
+						"goal": "accept"
+					},
+					"gate": 11.2,
+					"all": true,
+					"note": "Rahauro"
+				},
+				{
+					"quest": 5722,
+					"after": {
+						"guide": "forever/horde/tauren/01-mulgore",
+						"quest": 886,
+						"goal": "accept"
+					},
+					"gate": 11.2,
+					"all": true,
+					"note": "Rahauro"
+				},
+				{
+					"quest": 5723,
+					"after": {
+						"guide": "forever/horde/skyborne/01-zephras-isle",
+						"quest": 97485,
+						"goal": "accept"
+					},
+					"gate": 13.6,
+					"all": true,
+					"note": "Rahauro"
+				},
+				{
+					"quest": 5722,
+					"after": {
+						"guide": "forever/horde/skyborne/01-zephras-isle",
+						"quest": 97485,
+						"goal": "accept"
+					},
+					"gate": 13.6,
+					"all": true,
+					"note": "Rahauro"
+				},
+				{
+					"quest": 5725,
+					"after": {
+						"guide": "forever/horde/03-silverpine-forest",
+						"quest": 93739,
+						"goal": "objective"
+					},
+					"gate": 13.8,
+					"all": true,
+					"note": "Varimathras"
+				},
+				{
+					"quest": 5726,
+					"after": {
+						"guide": "forever/horde/03-silverpine-forest",
+						"quest": 97249,
+						"goal": "accept"
+					},
+					"gate": 13.8,
+					"all": true,
+					"note": "Thrall"
+				},
+				{
+					"quest": 5723,
+					"after": {
+						"guide": "forever/horde/03-silverpine-forest",
+						"quest": 97249,
+						"goal": "accept"
+					},
+					"gate": 13.8,
+					"all": true,
+					"note": "Rahauro"
+				},
+				{
+					"quest": 5722,
+					"after": {
+						"guide": "forever/horde/03-silverpine-forest",
+						"quest": 97249,
+						"goal": "accept"
+					},
+					"gate": 13.8,
+					"all": true,
+					"note": "Rahauro"
+				},
+				{
+					"quest": 5727,
+					"after": {
+						"guide": "forever/horde/03-silverpine-forest",
+						"quest": 97249,
+						"goal": "accept"
+					},
+					"gate": 13.8,
+					"all": true,
+					"note": "Thrall"
+				},
+				{
+					"quest": 5728,
+					"after": {
+						"guide": "forever/horde/03-silverpine-forest",
+						"quest": 97249,
+						"goal": "accept"
+					},
+					"gate": 13.8,
+					"all": true,
+					"note": "Thrall"
+				},
+				{
+					"quest": 5729,
+					"after": {
+						"guide": "forever/horde/03-silverpine-forest",
+						"quest": 97326,
+						"goal": "turnin"
+					},
+					"gate": 13.8,
+					"all": true,
+					"note": "Thrall"
+				},
+				{
+					"quest": 5730,
+					"after": {
+						"guide": "forever/horde/03-silverpine-forest",
+						"quest": 97326,
+						"goal": "turnin"
+					},
+					"gate": 13.8,
+					"all": true,
+					"note": "Neeru Fireblade"
+				}
+			],
 			"runStop": [
 				5761
 			],
@@ -430,26 +822,222 @@
 					"y": 49.0
 				},
 				"objectives": [
-					5761
+					5761,
+					5728,
+					5723,
+					5722,
+					5725
 				],
-				"guard": "onquest 5761",
-				"gate": 13.8
+				"guard": "onquest 5761,5728,5723,5722,5725",
+				"gate": 13.8,
+				"insideQuests": [
+					5724
+				],
+				"insideEnds": [
+					{
+						"quest": 5722,
+						"npc": 11834
+					}
+				]
 			},
 			"handins": [
 				{
 					"quest": 5761,
 					"guide": "forever/horde/03-silverpine-forest",
 					"after": "run"
+				},
+				{
+					"quest": 5726,
+					"guide": "forever/horde/03-silverpine-forest",
+					"after": {
+						"quest": 97249,
+						"goal": "accept"
+					},
+					"when": "complete",
+					"all": true,
+					"note": "Thrall"
+				},
+				{
+					"quest": 5727,
+					"guide": "forever/horde/03-silverpine-forest",
+					"after": {
+						"quest": 97249,
+						"goal": "accept"
+					},
+					"when": "complete",
+					"all": true,
+					"note": "Thrall"
+				},
+				{
+					"quest": 5728,
+					"guide": "forever/horde/03-silverpine-forest",
+					"after": {
+						"quest": 97326,
+						"goal": "turnin"
+					},
+					"when": "complete",
+					"all": true,
+					"note": "Thrall"
+				},
+				{
+					"quest": 5729,
+					"guide": "forever/horde/03-silverpine-forest",
+					"after": {
+						"quest": 97326,
+						"goal": "turnin"
+					},
+					"when": "onquest",
+					"all": true,
+					"note": "Neeru Fireblade"
+				},
+				{
+					"quest": 5730,
+					"guide": "forever/horde/03-silverpine-forest",
+					"after": {
+						"quest": 97326,
+						"goal": "turnin"
+					},
+					"when": "onquest",
+					"all": true,
+					"note": "Thrall"
+				},
+				{
+					"quest": 5723,
+					"guide": "forever/horde/02-the-barrens",
+					"after": {
+						"quest": 880,
+						"goal": "objective"
+					},
+					"when": "complete",
+					"all": true,
+					"note": "Rahauro"
+				},
+				{
+					"quest": 5724,
+					"guide": "forever/horde/02-the-barrens",
+					"after": {
+						"quest": 880,
+						"goal": "objective"
+					},
+					"when": "onquest",
+					"all": true,
+					"note": "Rahauro"
+				},
+				{
+					"quest": 5725,
+					"guide": "forever/horde/06-hillsbrad-foothills",
+					"after": {
+						"quest": 513,
+						"goal": "turnin"
+					},
+					"when": "complete",
+					"all": true,
+					"note": "Varimathras"
+				},
+				{
+					"quest": 5723,
+					"guide": "forever/horde/06-hillsbrad-foothills",
+					"after": {
+						"quest": 31,
+						"goal": "turnin"
+					},
+					"when": "complete",
+					"all": true,
+					"note": "Rahauro"
+				},
+				{
+					"quest": 5724,
+					"guide": "forever/horde/06-hillsbrad-foothills",
+					"after": {
+						"quest": 31,
+						"goal": "turnin"
+					},
+					"when": "onquest",
+					"all": true,
+					"note": "Rahauro"
+				},
+				{
+					"quest": 5723,
+					"guide": "forever/horde/04-the-barrens",
+					"after": {
+						"quest": 1195,
+						"goal": "accept"
+					},
+					"when": "complete",
+					"all": true,
+					"note": "Rahauro"
+				},
+				{
+					"quest": 5724,
+					"guide": "forever/horde/04-the-barrens",
+					"after": {
+						"quest": 1195,
+						"goal": "accept"
+					},
+					"when": "onquest",
+					"all": true,
+					"note": "Rahauro"
+				},
+				{
+					"quest": 5723,
+					"guide": "forever/horde/07-ashenvale",
+					"after": {
+						"quest": 97538,
+						"goal": "turnin"
+					},
+					"when": "complete",
+					"all": true,
+					"note": "Rahauro"
+				},
+				{
+					"quest": 5724,
+					"guide": "forever/horde/07-ashenvale",
+					"after": {
+						"quest": 97538,
+						"goal": "turnin"
+					},
+					"when": "onquest",
+					"all": true,
+					"note": "Rahauro"
 				}
 			],
-			"leftOut": {
-				"5726": "Hidden Enemies (5726-5730): Thrall, in Grommash Hold, is on the route before the run only for Skyborne (Orcs and Trolls pass 21 yd off at Nazgrel, Tauren 106 yd, the Undead 308 yd), and after it only for Skyborne at ~29; the Lieutenant's Insignia drops at Skull Rock only while 5726 is held, and after the Thrall stop the route passes Skull Rock no nearer than 109 yd, at the zeppelin tower; the chain then adds five walks between Thrall and Neeru Fireblade, 276 yd apart",
-				"5725": "The Power to Destroy...: Varimathras, in the Royal Quarter, is 148 yd off this guide's Undercity stop before the run (Skyborne pass him at Sylvanas, 17 yd); after it the route's first stop at him is 30-40/01-hillsbrad-foothills' at ~31.7, 15 levels over the quest, and 06-hillsbrad-foothills' Undercity stop at ~25 is 163 yd off",
-				"5722": "Searching for the Lost Satchel (with 5724): Rahauro in Thunder Bluff; before the run only Tauren and Skyborne pass Thunder Bluff, 68 yd off him at the closest (the Druids' Turak Runetotem), and after it the route's first stop at him is 40-50/06-azshara's at ~50",
-				"5723": "Testing an Enemy's Strength: Rahauro in Thunder Bluff, as 5722"
-			},
+			"leftOut": {},
 			"budget": {
 				"flow": "off -> on (flow audit, Warrior every start, dynamic 037, straight lines): 03-silverpine-forest +0.2 km (Orgrimmar: the Cleft of Shadow), +2.8 min, hub visits +0; passed givers hub +0.2 (Neeru at 12 on the first Orgrimmar stop: level 16 is 3+ over there, the level rule wins); other guides only level-lead effects; solo route identical (65/65)"
+			},
+			"checks": [
+				{
+					"status": "needs-ingame",
+					"at": "run",
+					"quest": 5722,
+					"what": "Maur Grimtotem's corpse, inside, takes Searching for the Lost Satchel and gives Returning the Lost Satchel (5724)"
+				},
+				{
+					"status": "needs-ingame",
+					"at": "pickup",
+					"quest": 5726,
+					"what": "the Lieutenant's Insignia drops at Skull Rock while Hidden Enemies is held"
+				}
+			],
+			"allQuests": {
+				"minutes": 18.3,
+				"xp": 12920,
+				"quests": [
+					5722,
+					5723,
+					5725,
+					5726,
+					5727,
+					5728,
+					5729,
+					5730,
+					5724
+				]
+			},
+			"wayOnly": {
+				"quests": [
+					5761
+				]
 			}
 		},
 		{
@@ -465,6 +1053,80 @@
 					},
 					"note": "Tabitha Heartweaver, a short walk from the crypt on the last Sepulcher stop (~16.6; level 22 from 15): a carry to the run at ~23; gated at 15, the level the quest asks for (the floor less the levels planned gives 10.1)",
 					"gate": 15
+				},
+				{
+					"quest": 356,
+					"after": {
+						"guide": "forever/horde/05-stonetalon-mountains",
+						"step": "Brill"
+					},
+					"gate": 17.9,
+					"all": true,
+					"note": "Deathguard Linnea"
+				},
+				{
+					"quest": 99156,
+					"after": {
+						"guide": "forever/horde/05-stonetalon-mountains",
+						"step": "Brill"
+					},
+					"gate": 17.9,
+					"all": true,
+					"note": "Deathguard Linnea"
+				},
+				{
+					"quest": 92422,
+					"after": {
+						"guide": "forever/horde/05-stonetalon-mountains",
+						"step": "Brill"
+					},
+					"gate": 17.9,
+					"all": true,
+					"note": "Deathguard Linnea and Kristof"
+				},
+				{
+					"quest": 97289,
+					"after": {
+						"guide": "forever/horde/06-hillsbrad-foothills",
+						"quest": 513,
+						"goal": "turnin"
+					},
+					"gate": 17.9,
+					"all": true,
+					"note": "Master Apothecary Faranell"
+				},
+				{
+					"quest": 97290,
+					"after": {
+						"guide": "forever/horde/06-hillsbrad-foothills",
+						"quest": 513,
+						"goal": "turnin"
+					},
+					"gate": 17.9,
+					"all": true,
+					"note": "Unfinished Abomination"
+				},
+				{
+					"quest": 97291,
+					"after": {
+						"guide": "forever/horde/06-hillsbrad-foothills",
+						"quest": 513,
+						"goal": "turnin"
+					},
+					"gate": 17.9,
+					"all": true,
+					"note": "Master Apothecary Faranell"
+				},
+				{
+					"quest": 97292,
+					"after": {
+						"guide": "forever/horde/06-hillsbrad-foothills",
+						"quest": 513,
+						"goal": "turnin"
+					},
+					"gate": 17.9,
+					"all": true,
+					"note": "Master Apothecary Faranell"
 				}
 			],
 			"runStop": [
@@ -485,7 +1147,8 @@
 				},
 				"objectives": [
 					92421,
-					92401
+					92401,
+					92422
 				],
 				"itemStarts": [
 					{
@@ -497,10 +1160,47 @@
 						"item": 275521
 					}
 				],
-				"guard": "onquest 92421,92401",
+				"guard": "onquest 92421,92401,92422",
 				"gate": 17.9
 			},
 			"handins": [
+				{
+					"quest": 92401,
+					"guide": "forever/horde/05-stonetalon-mountains",
+					"after": {
+						"quest": 95981,
+						"goal": "accept"
+					},
+					"note": "the Sepulcher step right after the run (Tabitha ~95 yd from Renferrel)"
+				},
+				{
+					"quest": 356,
+					"guide": "forever/horde/05-stonetalon-mountains",
+					"after": {
+						"step": "Brill"
+					},
+					"when": "complete",
+					"all": true,
+					"note": "Deathguard Linnea"
+				},
+				{
+					"quest": 99156,
+					"guide": "forever/horde/05-stonetalon-mountains",
+					"after": {
+						"step": "Brill"
+					},
+					"when": "complete",
+					"all": true,
+					"note": "Deathguard Linnea and Kristof"
+				},
+				{
+					"quest": 92422,
+					"guide": "forever/horde/05-stonetalon-mountains",
+					"after": "run",
+					"when": "complete",
+					"all": true,
+					"note": "Deathguard Kristof"
+				},
 				{
 					"quest": 92421,
 					"guide": "forever/horde/06-hillsbrad-foothills",
@@ -531,19 +1231,52 @@
 					"when": "onquest"
 				},
 				{
-					"quest": 92401,
-					"guide": "forever/horde/05-stonetalon-mountains",
+					"quest": 97289,
+					"guide": "forever/horde/06-hillsbrad-foothills",
 					"after": {
-						"quest": 95981,
-						"goal": "accept"
+						"quest": 513,
+						"goal": "turnin"
 					},
-					"note": "the Sepulcher step right after the run (Tabitha ~95 yd from Renferrel)"
+					"when": "onquest",
+					"all": true,
+					"note": "Unfinished Abomination"
+				},
+				{
+					"quest": 97290,
+					"guide": "forever/horde/06-hillsbrad-foothills",
+					"after": {
+						"quest": 513,
+						"goal": "turnin"
+					},
+					"when": "onquest",
+					"all": true,
+					"note": "Master Apothecary Faranell"
+				},
+				{
+					"quest": 97291,
+					"guide": "forever/horde/06-hillsbrad-foothills",
+					"after": {
+						"quest": 513,
+						"goal": "turnin"
+					},
+					"when": "complete",
+					"all": true,
+					"note": "Master Apothecary Faranell"
+				},
+				{
+					"quest": 97292,
+					"guide": "forever/horde/06-hillsbrad-foothills",
+					"after": {
+						"quest": 513,
+						"goal": "turnin"
+					},
+					"when": "complete",
+					"all": true,
+					"note": "Master Apothecary Faranell"
 				}
 			],
 			"leftOut": {
-				"92422": "The Wrath of Rath'mael: Deathguard Kristof offers it after Rear Guard Patrol (99156), which the route does not take",
-				"95216": "The New Plague: Theodore Griffs offers it after A Recipe For Death (451), left out of 03-silverpine-forest",
-				"97289": "Unending Torment parts 2-5 (97289-97292): Faranell's chain in the Undercity after the Head, not on the route"
+				"95216": "The New Plague: Theodore Griffs offers it after A Recipe For Death (447, 450, 451: Apothecary Renferrel at the Sepulcher and Master Apothecary Faranell in the Undercity, the Silverpine ingredients between); before the run that chain walks Silverpine's ground twice over on top of 03-silverpine-forest's, and after it the route has left Tirisfal: a second run"
 			},
 			"budget": {
 				"flow": "flow audit (dynamic 037, Warrior, every start; off vs this dungeon): 05-stonetalon-mountains +2.4 km, +10.2 min, hub visits +1.0 (the Undercity: Morbin, the ruins, the walk on to the Sepulcher); 03-silverpine-forest +0.1 km (Tabitha's pick-up); 06-hillsbrad-foothills +0.3 km (the Undercity hand-ins); the run's XP takes 18 and 21 min off the written grinds of 30-40/02-thousand-needles and 30-40/04-dustwallow-marsh"
@@ -555,7 +1288,66 @@
 					"when": "!onquest 30",
 					"note": "the walk from the ruins to the Sepulcher, before the Druids' Strange Lockbox step (a Druid carrying Trial of the Sea Lion, 30, walks by the lockbox, and the Sepulcher step's tip takes them from there)"
 				}
-			]
+			],
+			"takenEarlier": [
+				{
+					"quest": 567,
+					"guide": "forever/horde/06-hillsbrad-foothills",
+					"goal": "accept",
+					"after": {
+						"quest": 498,
+						"goal": "accept"
+					},
+					"gate": 25.0,
+					"note": "Dangerous! from the Tarren Mill poster on the guide's first stop, before the solo route's later pass"
+				},
+				{
+					"quest": 509,
+					"guide": "forever/horde/06-hillsbrad-foothills",
+					"goal": "accept",
+					"after": {
+						"quest": 498,
+						"goal": "accept"
+					},
+					"gate": 25.0,
+					"note": "Elixir of Agony from Apothecary Lydon on the guide's first stop, before the solo route's later pass"
+				}
+			],
+			"checks": [
+				{
+					"status": "needs-ingame",
+					"at": "handin",
+					"quest": 97291,
+					"what": "Tawny Grisette (Toxic Skullcap) and Ezekiel Graves (Essence of Agony) sell to any class"
+				},
+				{
+					"status": "needs-ingame",
+					"at": "handin",
+					"quest": 97292,
+					"what": "the Hissing Serum is used beside the worm above Othmar's body, by Faranell"
+				}
+			],
+			"allQuests": {
+				"minutes": null,
+				"xp": 11440,
+				"quests": [
+					356,
+					92422,
+					99156,
+					97289,
+					97290,
+					97291,
+					97292
+				]
+			},
+			"wayOnly": {
+				"quests": [
+					92421,
+					92401,
+					97288,
+					95204
+				]
+			}
 		},
 		{
 			"dungeon": "Shadowfang Keep",
@@ -570,6 +1362,26 @@
 					},
 					"note": "the Sepulcher at ~22.8 (level 25, 2.2 over); the flow audit flagged Hadrec as a passed giver there (5/5 branches) without it",
 					"gate": 20.7
+				},
+				{
+					"quest": 1013,
+					"after": {
+						"guide": "forever/horde/05-stonetalon-mountains",
+						"step": "Brill"
+					},
+					"gate": 20.7,
+					"all": true,
+					"note": "Keeper Bel'dugur"
+				},
+				{
+					"quest": 1014,
+					"after": {
+						"guide": "forever/horde/05-stonetalon-mountains",
+						"quest": 6324,
+						"goal": "turnin"
+					},
+					"gate": 20.7,
+					"note": "Dalar Dawnweaver: an earlier pick-up, with the run's other pick-up on this guide"
 				}
 			],
 			"runStop": [
@@ -590,7 +1402,9 @@
 				},
 				"objectives": [
 					1098,
-					1014
+					1014,
+					1013,
+					1740
 				],
 				"insideEnds": [
 					{
@@ -598,22 +1412,46 @@
 						"npc": 4444
 					}
 				],
-				"guard": "onquest 1098,1014",
-				"gate": 22.8
+				"guard": "onquest 1098,1014,1013,1740",
+				"gate": 22.8,
+				"optional": [
+					1740
+				]
 			},
 			"handins": [
 				{
 					"quest": 1014,
 					"guide": "forever/horde/06-hillsbrad-foothills",
 					"after": "run"
+				},
+				{
+					"quest": 1013,
+					"guide": "forever/horde/06-hillsbrad-foothills",
+					"after": {
+						"quest": 513,
+						"goal": "turnin"
+					},
+					"when": "complete",
+					"all": true,
+					"note": "Keeper Bel'dugur"
 				}
 			],
-			"leftOut": {
-				"1013": "The Book of Ur: Keeper Bel'dugur in the Undercity, the stop after the run",
-				"1740": "Warlock class chain (class guide)"
-			},
+			"leftOut": {},
 			"budget": {
 				"flow": "06-hillsbrad-foothills +1.6 km, +6.2 min, hub visits +1 (the Sepulcher after the run), the Sepulcher <-> keep trip of the run; backtracks +1, avoidable 0; 05-stonetalon-mountains passed givers +0.2 (Dalar's 1014 at 22.8 on one branch: 3+ over, the level rule wins)"
+			},
+			"allQuests": {
+				"minutes": null,
+				"xp": 5600,
+				"quests": [
+					1013
+				]
+			},
+			"wayOnly": {
+				"quests": [
+					1098,
+					1014
+				]
 			}
 		},
 		{
@@ -1068,6 +1906,39 @@
 					},
 					"note": "Chief Engineer Bilgewhizzle, Gadgetzan's first stop of 04-tanaris (~46): level 47, 3 over on 02-feralas's stop",
 					"gate": 46.2
+				},
+				{
+					"quest": 2770,
+					"after": {
+						"guide": "forever/horde/40-50/02-feralas",
+						"quest": 1194,
+						"goal": "turnin"
+					},
+					"gate": 42.8,
+					"all": true,
+					"note": "Wizzle Brassbolts"
+				},
+				{
+					"quest": 2846,
+					"after": {
+						"guide": "forever/horde/40-50/03-feralas",
+						"quest": 626,
+						"goal": "accept"
+					},
+					"gate": 45.4,
+					"all": true,
+					"note": "Tabetha"
+				},
+				{
+					"quest": 3527,
+					"after": {
+						"guide": "forever/horde/40-50/04-tanaris",
+						"quest": 2605,
+						"goal": "accept"
+					},
+					"gate": 46.2,
+					"all": true,
+					"note": "Steamwheedle Port"
 				}
 			],
 			"runStop": [
@@ -1089,10 +1960,16 @@
 				"objectives": [
 					2865,
 					2768,
-					3042
+					3042,
+					3527,
+					2846,
+					2770
 				],
-				"guard": "onquest 2865,2768,3042",
-				"gate": 46.2
+				"guard": "onquest 2865,2768,3042,3527,2846,2770",
+				"gate": 46.2,
+				"optional": [
+					2770
+				]
 			},
 			"handins": [
 				{
@@ -1119,17 +1996,84 @@
 						"quest": 992,
 						"goal": "turnin"
 					}
+				},
+				{
+					"quest": 2846,
+					"guide": "forever/horde/40-50/04-tanaris",
+					"after": {
+						"quest": 82,
+						"goal": "accept"
+					},
+					"when": "complete",
+					"all": true,
+					"note": "Tabetha"
+				},
+				{
+					"quest": 2770,
+					"guide": "forever/horde/40-50/04-tanaris",
+					"after": {
+						"quest": 82,
+						"goal": "accept"
+					},
+					"when": "complete",
+					"all": true,
+					"note": "Wizzle Brassbolts"
+				},
+				{
+					"quest": 3527,
+					"guide": "forever/horde/40-50/04-tanaris",
+					"after": {
+						"quest": 3520,
+						"goal": "turnin"
+					},
+					"when": "complete",
+					"all": true,
+					"note": "Yeh'kinya"
 				}
 			],
 			"leftOut": {
-				"2770": "Gahz'rilla: Wizzle Brassbolts at the Mirage Raceway (40-50/02-feralas), level 50, 6 over there",
-				"3527": "The Prophecy of Mosh'aru: offered once Screecher Spirits (3520) is handed in at Steamwheedle Port, after the run",
-				"2936": "The Spider God: after Master Gadrin's chain (2933-2935), which this route leaves out",
-				"2846": "Tiara of the Deep: Tabetha in Dustwallow Marsh, off the route",
-				"351": "Find OOX-17/TN!: a rare beacon from the desert, not the dungeon"
+				"2936": "The Spider God: after Master Gadrin's chain (Venom Bottles, Undamaged Venom Sac, Consult Master Gadrin: 2933-2935), whose bottles and sacs are in the Hinterlands, which the route reaches after the run: a second run"
 			},
 			"budget": {
 				"flow": "flow audit (dynamic 037, off vs this dungeon): 40-50/02-feralas +0.3 km, +1.0 min, passed givers (hub) +1 (Bilgewhizzle's Divino-matic Rod, 3 over there, taken in 04-tanaris); 40-50/04-tanaris +0.6 km, +8.1 min, hub visits -1, passed enders -3, avoidable backtracks -1; 40-50/05-the-hinterlands 34 min shorter"
+			},
+			"takenEarlier": [
+				{
+					"quest": 3520,
+					"guide": "forever/horde/40-50/04-tanaris",
+					"goal": "turnin",
+					"after": {
+						"quest": 2605,
+						"goal": "accept"
+					},
+					"gate": 46.2,
+					"all": true,
+					"note": "Screecher Spirits handed in to Yeh'kinya in Steamwheedle Port before the run (the solo route hands it in when Tooga's escort reaches the port), for The Prophecy of Mosh'aru (3527)"
+				}
+			],
+			"checks": [
+				{
+					"status": "needs-ingame",
+					"at": "run",
+					"quest": 2770,
+					"what": "Gahz'rilla comes up only when the gong is struck with the Mallet of Zul'Farrak, which someone in the group has to bring: the run step's goal is optional"
+				}
+			],
+			"allQuests": {
+				"minutes": null,
+				"xp": 18400,
+				"quests": [
+					2770,
+					2846,
+					3527
+				]
+			},
+			"wayOnly": {
+				"quests": [
+					2865,
+					2768,
+					3042
+				]
 			}
 		},
 		{
@@ -1145,6 +2089,39 @@
 					},
 					"note": "Melisara, the Tarren Mill stop (~30.5), a short walk east of Magus Wordeen Voidglare",
 					"gate": 31.0
+				},
+				{
+					"quest": 96988,
+					"after": {
+						"guide": "forever/horde/30-40/01-hillsbrad-foothills",
+						"quest": 515,
+						"goal": "accept"
+					},
+					"gate": 30.2,
+					"all": true,
+					"note": "Doctor Martin Felben"
+				},
+				{
+					"quest": 92434,
+					"after": {
+						"guide": "forever/horde/30-40/01-hillsbrad-foothills",
+						"quest": 556,
+						"goal": "objective"
+					},
+					"gate": 31.0,
+					"all": true,
+					"note": "Magus Wordeen Voidglare"
+				},
+				{
+					"quest": 96984,
+					"after": {
+						"guide": "forever/horde/30-40/01-hillsbrad-foothills",
+						"quest": 556,
+						"goal": "objective"
+					},
+					"gate": 31.0,
+					"all": true,
+					"note": "Image of Archmage Modera"
 				}
 			],
 			"run": {
@@ -1162,12 +2139,14 @@
 					"source": "players' recordings: the sewer pipe north-west of the crater, where Horde players without Heart of Disruption (its Sewer Key) went in"
 				},
 				"objectives": [
-					96986
+					96986,
+					96988,
+					96984
 				],
 				"insideQuests": [
 					96987
 				],
-				"guard": "onquest 96986",
+				"guard": "onquest 96986,96988,96984",
 				"gate": 31
 			},
 			"handins": [
@@ -1179,14 +2158,104 @@
 						"goal": "turnin"
 					},
 					"note": "the next Tarren Mill stop"
+				},
+				{
+					"quest": 92434,
+					"guide": "forever/horde/30-40/01-hillsbrad-foothills",
+					"after": {
+						"quest": 556,
+						"goal": "objective"
+					},
+					"when": "onquest",
+					"all": true,
+					"note": "Image of Archmage Modera"
+				},
+				{
+					"quest": 96984,
+					"guide": "forever/horde/30-40/01-hillsbrad-foothills",
+					"after": {
+						"quest": 515,
+						"goal": "turnin"
+					},
+					"when": "complete",
+					"all": true,
+					"note": "Magus Wordeen Voidglare"
+				},
+				{
+					"quest": 96988,
+					"guide": "forever/horde/30-40/01-hillsbrad-foothills",
+					"after": {
+						"step": "Undercity trainers"
+					},
+					"when": "complete",
+					"all": true,
+					"note": "Doctor Martin Felben"
 				}
 			],
-			"leftOut": {
-				"96988": "Source of Power: Doctor Martin Felben in the Undercity, level 33, 3.5 levels over on the Undercity stop at 29.5",
-				"96984": "Heart of Disruption: after Blood in the Streets (92434), on the 38-39 visit"
-			},
+			"leftOut": {},
 			"budget": {
 				"flow": "flow audit (dynamic 037, off vs this dungeon): 30-40/01-hillsbrad-foothills +1.0 km, +4.5 min (the crater to the pipe and back), passed givers near +1, backtracks -1, hub visits +0; the run's XP takes 26 and 21 min off the written grind of 30-40/02-thousand-needles and 30-40/04-dustwallow-marsh"
+			},
+			"takenEarlier": [
+				{
+					"quest": 544,
+					"guide": "forever/horde/30-40/01-hillsbrad-foothills",
+					"goal": "turnin",
+					"after": {
+						"quest": 556,
+						"goal": "objective"
+					},
+					"gate": 31.0,
+					"all": true,
+					"note": "Prison Break In, handed in to Magus Wordeen Voidglare on the crater loop before the run, not on 30-40/01's Tarren Mill stop"
+				},
+				{
+					"quest": 93680,
+					"guide": "forever/horde/30-40/01-hillsbrad-foothills",
+					"goal": "turnin",
+					"after": {
+						"quest": 556,
+						"goal": "objective"
+					},
+					"gate": 31.0,
+					"all": true,
+					"note": "Key to the City, as 544"
+				},
+				{
+					"quest": 545,
+					"guide": "forever/horde/30-40/01-hillsbrad-foothills",
+					"goal": "accept",
+					"after": {
+						"quest": 556,
+						"goal": "objective"
+					},
+					"gate": 31.0,
+					"all": true,
+					"note": "Dalaran Patrols, taken and handed in on the crater loop before the run (the solo route takes it in 30-40/05-arathi-highlands); it opens Blood in the Streets (92434)"
+				}
+			],
+			"checks": [
+				{
+					"status": "needs-ingame",
+					"at": "pickup",
+					"quest": 92434,
+					"what": "Blood in the Streets is an event at the Dalaran crater's edge in Silverpine (68.6,45.6, where players' recordings complete it); the Image of Archmage Modera appears there and gives Heart of Disruption (96984)"
+				}
+			],
+			"allQuests": {
+				"minutes": null,
+				"xp": 19070,
+				"quests": [
+					92434,
+					96984,
+					96988
+				]
+			},
+			"wayOnly": {
+				"quests": [
+					96986,
+					96987
+				]
 			}
 		},
 		{
@@ -1202,6 +2271,48 @@
 					},
 					"note": "the WANTED poster, the first Kargath stop (~51)",
 					"gate": 52.0
+				},
+				{
+					"quest": 3906,
+					"after": {
+						"guide": "forever/horde/50-60/01-un-goro-crater",
+						"quest": 4061,
+						"goal": "accept"
+					},
+					"gate": 52.0,
+					"all": true,
+					"note": "Thunderheart and Vivian Lagrave"
+				},
+				{
+					"quest": 4134,
+					"after": {
+						"guide": "forever/horde/50-60/01-un-goro-crater",
+						"quest": 4061,
+						"goal": "accept"
+					},
+					"gate": 52.0,
+					"all": true,
+					"note": "Thunderheart and Vivian Lagrave"
+				},
+				{
+					"quest": 4136,
+					"after": {
+						"guide": "forever/horde/50-60/01-un-goro-crater",
+						"step": "Into the Searing Gorge"
+					},
+					"gate": 52.0,
+					"all": true,
+					"note": "Flame Crest"
+				},
+				{
+					"quest": 4123,
+					"after": {
+						"guide": "forever/horde/50-60/01-un-goro-crater",
+						"step": "Into the Searing Gorge"
+					},
+					"gate": 52.0,
+					"all": true,
+					"note": "Flame Crest"
 				}
 			],
 			"run": {
@@ -1216,16 +2327,16 @@
 					"y": 85.3
 				},
 				"objectives": [
-					4081
+					4081,
+					4134,
+					4123,
+					4136
 				],
-				"insideQuests": [
-					4201,
-					4083,
-					4295,
-					7604
-				],
-				"guard": "onquest 4081",
-				"gate": 52
+				"guard": "onquest 4081,4134,4123,4136",
+				"gate": 52,
+				"optional": [
+					4123
+				]
 			},
 			"handins": [
 				{
@@ -1236,18 +2347,107 @@
 						"goal": "turnin"
 					},
 					"note": "Warlord Goretooth, the last Kargath stop (~53)"
+				},
+				{
+					"quest": 4136,
+					"guide": "forever/horde/50-60/01-un-goro-crater",
+					"after": {
+						"quest": 4324,
+						"goal": "turnin"
+					},
+					"when": "complete",
+					"all": true,
+					"note": "Yuka Screwspigot"
+				},
+				{
+					"quest": 4123,
+					"guide": "forever/horde/50-60/01-un-goro-crater",
+					"after": {
+						"quest": 4324,
+						"goal": "turnin"
+					},
+					"when": "complete",
+					"all": true,
+					"note": "Maxwort Uberglint"
+				},
+				{
+					"quest": 3906,
+					"guide": "forever/horde/50-60/01-un-goro-crater",
+					"after": {
+						"quest": 4061,
+						"goal": "turnin"
+					},
+					"when": "complete",
+					"all": true,
+					"note": "Thunderheart"
+				},
+				{
+					"quest": 4134,
+					"guide": "forever/horde/50-60/01-un-goro-crater",
+					"after": {
+						"quest": 4061,
+						"goal": "turnin"
+					},
+					"when": "complete",
+					"all": true,
+					"note": "Shadowmage Vivian Lagrave"
 				}
 			],
 			"leftOut": {
-				"4082": "KILL ON SIGHT: High Ranking Dark Iron Officials: its poster offers it once 4081 is handed in, after the run",
-				"3906": "Disharmony of Flame: Overmaster Pyron, outside the dungeon; 3907, 3981 and 7201 come after it",
-				"4134": "Lost Thunderbrew Recipe: after Vivian Lagrave (4133), which the route does not take",
-				"4123": "The Heart of the Mountain: Maxwort Uberglint at Flame Crest, after the mountain",
-				"4136": "Ribbly Screwspigot: Yuka Screwspigot at Flame Crest, after the mountain",
-				"4063": "The Rise of the Machines: after 4062, which the route leaves out"
+				"4082": "KILL ON SIGHT: High Ranking Dark Iron Officials: its poster offers it once 4081 is handed in, after the run: a second run",
+				"3907": "Disharmony of Fire: Thunderheart offers it once Disharmony of Flame (3906) is handed in, after the run, for Lord Incendius inside: a second run",
+				"3981": "Commander Gor'shak: offered once 3906 is handed in, after the run; Gor'shak is inside: a second run",
+				"7201": "The Last Element: offered once 3906 is handed in, after the run; its essences drop inside: a second run",
+				"4063": "The Rise of the Machines part 3: Lotwil Veriatus offers it after part 2 (4062), which Theodora gives once part 1 (4061) is handed in on the last Kargath stop, after the run; its golem parts are inside: a second run",
+				"4201": "The Love Potion: Mistress Nagmara gives it inside, and the Gromsblood, Giant Silver Veins and Nagmara's Filled Vial it wants come from outside: a second run",
+				"4083": "The Spectral Chalice: an offering of ores inside that needs Mining 230",
+				"4295": "Rocknot's Ale: a repeatable turn-in inside, no experience",
+				"7604": "A Binding Contract: a level-60 Thorium Brotherhood contract for a Molten Core item (a raid)"
 			},
 			"budget": {
 				"flow": "flow audit (dynamic 037, off vs this dungeon): 50-60/01-un-goro-crater +0.1 km, +2.7 min, backtracks +1, hub visits +0; 50-60/02-felwood 13 min shorter"
+			},
+			"takenEarlier": [
+				{
+					"quest": 4324,
+					"guide": "forever/horde/50-60/01-un-goro-crater",
+					"goal": "turnin",
+					"after": {
+						"step": "Into the Searing Gorge"
+					},
+					"gate": 52.0,
+					"all": true,
+					"note": "Yuka Screwspigot handed in at Flame Crest on the walk there before the run (the solo route hands it in on its Flame Crest stop after the mountain), for Ribbly Screwspigot (4136)"
+				}
+			],
+			"checks": [
+				{
+					"status": "needs-ingame",
+					"at": "pickup",
+					"quest": 3906,
+					"what": "Overmaster Pyron walks the ramp in the quarry beside the portal, outside the dungeon"
+				},
+				{
+					"status": "needs-ingame",
+					"at": "run",
+					"quest": 4134,
+					"what": "smashing the Grim Guzzler's three ale kegs brings Hurley Blackbreath, who carries the recipe; Ribbly Screwspigot (4136) drinks in the bar"
+				}
+			],
+			"allQuests": {
+				"minutes": null,
+				"xp": 19050,
+				"quests": [
+					3906,
+					4123,
+					4134,
+					4136
+				]
+			},
+			"wayOnly": {
+				"quests": [
+					4081
+				]
 			}
 		},
 		{
@@ -1263,6 +2463,71 @@
 					},
 					"note": "Master Apothecary Faranell in the Apothecarium, on the closing Undercity stop (~33; level 33, from 30)",
 					"gate": 31.0
+				},
+				{
+					"quest": 1838,
+					"after": {
+						"guide": "forever/horde/02-the-barrens",
+						"quest": 1825,
+						"goal": "turnin"
+					},
+					"gate": 21.1,
+					"all": true,
+					"note": "Thun'grim Firegaze, only Warrior"
+				},
+				{
+					"quest": 1221,
+					"after": {
+						"guide": "forever/horde/04-the-barrens",
+						"quest": 1095,
+						"goal": "accept"
+					},
+					"gate": 26.0,
+					"all": true,
+					"note": "Mebok Mizzyrix"
+				},
+				{
+					"quest": 1102,
+					"after": {
+						"guide": "forever/horde/30-40/02-thousand-needles",
+						"step": "Thunder Bluff"
+					},
+					"gate": 31.1,
+					"all": true,
+					"note": "Auld Stonespire, only Druid"
+				},
+				{
+					"quest": 79360,
+					"after": {
+						"guide": "forever/horde/30-40/02-thousand-needles",
+						"quest": 1531,
+						"goal": "turnin"
+					},
+					"gate": 31.1,
+					"all": true,
+					"note": "Prate Cloudseer, only Shaman"
+				},
+				{
+					"quest": 1102,
+					"after": {
+						"guide": "forever/horde/30-40/02-thousand-needles",
+						"quest": 1531,
+						"goal": "turnin"
+					},
+					"gate": 31.1,
+					"all": true,
+					"note": "Auld Stonespire"
+				},
+				{
+					"quest": 1221,
+					"after": {
+						"guide": "forever/horde/30-40/02-thousand-needles",
+						"quest": 1531,
+						"goal": "turnin"
+					},
+					"gate": 31.1,
+					"all": true,
+					"note": "Mebok Mizzyrix"
 				}
 			],
 			"run": {
@@ -1277,7 +2542,11 @@
 					"y": 90.2
 				},
 				"objectives": [
-					1109
+					1109,
+					1221,
+					1102,
+					79360,
+					1838
 				],
 				"insideQuests": [
 					1144
@@ -1288,10 +2557,60 @@
 						"item": 17008
 					}
 				],
-				"guard": "onquest 1109",
+				"guard": "onquest 1109,1221,1102,79360,1838",
 				"gate": 31.1
 			},
 			"handins": [
+				{
+					"quest": 79360,
+					"guide": "forever/horde/30-40/02-thousand-needles",
+					"after": "run",
+					"when": "complete",
+					"all": true,
+					"note": "Rau Cliffrunner"
+				},
+				{
+					"quest": 1102,
+					"guide": "forever/horde/30-40/03-stranglethorn-vale",
+					"after": {
+						"step": "Thunder Bluff"
+					},
+					"when": "complete",
+					"all": true,
+					"note": "Auld Stonespire, only Druid"
+				},
+				{
+					"quest": 1221,
+					"guide": "forever/horde/30-40/03-stranglethorn-vale",
+					"after": {
+						"quest": 1111,
+						"goal": "turnin"
+					},
+					"when": "complete",
+					"all": true,
+					"note": "Mebok Mizzyrix"
+				},
+				{
+					"quest": 1221,
+					"guide": "forever/horde/30-40/04-dustwallow-marsh",
+					"after": {
+						"step": "Ratchet",
+						"quest": 1270,
+						"goal": "turnin"
+					},
+					"note": "Mebok, for anyone still carrying Blueleaf Tubers (no longer picked up: Ratchet at ~26.5 is 6 levels before the run, and it pays half by then)"
+				},
+				{
+					"quest": 1838,
+					"guide": "forever/horde/30-40/04-dustwallow-marsh",
+					"after": {
+						"quest": 1184,
+						"goal": "accept"
+					},
+					"when": "complete",
+					"all": true,
+					"note": "Thun'grim Firegaze, only Warrior"
+				},
 				{
 					"quest": 1109,
 					"guide": "forever/horde/30-40/05-arathi-highlands",
@@ -1310,25 +2629,68 @@
 					"note": "Varimathras, the same stop: the Small Scroll from inside"
 				},
 				{
-					"quest": 1221,
-					"guide": "forever/horde/30-40/04-dustwallow-marsh",
+					"quest": 1102,
+					"guide": "forever/horde/40-50/06-azshara",
 					"after": {
-						"step": "Ratchet",
-						"quest": 1270,
-						"goal": "turnin"
+						"quest": 3562,
+						"goal": "accept"
 					},
-					"note": "Mebok, for anyone still carrying Blueleaf Tubers (no longer picked up: Ratchet at ~26.5 is 6 levels before the run, and it pays half by then)"
+					"when": "complete",
+					"all": true,
+					"note": "Auld Stonespire"
 				}
 			],
 			"leftOut": {
-				"1221": "Blueleaf Tubers: Mebok's only Ratchet stop before the run is at ~26.5, 6 levels before it; by the hand-in it pays half",
-				"79360": "Elemental Aid: Rau Cliffrunner's Shaman chain (forever/class/shaman)",
-				"1102": "A Vengeful Fate: Auld Stonespire in Thunder Bluff, off the route at 33",
-				"1838": "Brutal Armor: Warrior class chain",
-				"1113": "Hearts of Zeal: Faranell's follow-up, a Scarlet Monastery quest"
+				"1113": "Hearts of Zeal: Master Apothecary Faranell's follow-up wants hearts from the Scarlet Monastery, which the Horde route does not run"
 			},
 			"budget": {
 				"flow": "flow audit (dynamic 037, Warrior, every start; off vs this dungeon): 30-40/02-thousand-needles +3.3 km, +10.4 min, backtracks +1.0 (the flight to Camp Taurajo, the ride to the kraul, the Great Lift and the ride back up to Freewind Post); 30-40/01-hillsbrad-foothills +0.2 km, hub visits +1.0 (Faranell in the Apothecarium); 30-40/05-arathi-highlands +0.1 km, hub visits +1.0 (the Undercity hand-ins); the run's XP takes 16 min off 40-50/01-stranglethorn-vale's written grind"
+			},
+			"takenEarlier": [
+				{
+					"quest": 1111,
+					"guide": "forever/horde/30-40/02-thousand-needles",
+					"goal": "accept",
+					"after": {
+						"quest": 1175,
+						"goal": "objective"
+					},
+					"gate": 31.1,
+					"note": "Kravel Koalbeard's Rocket Car Parts (1110) handed in and Wharfmaster Dizzywig (1111) taken at the Mirage Raceway on the way to the run, not on the guide's later raceway stop"
+				}
+			],
+			"soloWay": [
+				{
+					"guide": "forever/horde/30-40/02-thousand-needles",
+					"step": "The southern flats",
+					"guard": "!dungeon \"Razorfen Kraul\"",
+					"note": "the solo walk of the flats; a runner works the Gazers first, on the way back from the kraul"
+				}
+			],
+			"checks": [
+				{
+					"status": "needs-ingame",
+					"at": "pickup",
+					"quest": 1838,
+					"what": "Brutal Armor's Iron Bars come from the Auction House (or a blacksmith) and Roogug's Vial of Phlogiston from inside the kraul"
+				}
+			],
+			"allQuests": {
+				"minutes": null,
+				"xp": 21370,
+				"quests": [
+					1838,
+					1221,
+					1102,
+					79360
+				]
+			},
+			"wayOnly": {
+				"quests": [
+					1109,
+					6522,
+					1144
+				]
 			}
 		},
 		{
@@ -1385,6 +2747,17 @@
 					},
 					"note": "Fel'zerul in Stonard, where Return to Fel'Zerul is handed in (~49.5); carried through 40-50/06",
 					"gate": 46.7
+				},
+				{
+					"quest": 1446,
+					"after": {
+						"guide": "forever/horde/40-50/05-the-hinterlands",
+						"quest": 1444,
+						"goal": "accept"
+					},
+					"gate": 46.7,
+					"all": true,
+					"note": "The Atal'ai Exile"
 				}
 			],
 			"run": {
@@ -1400,13 +2773,20 @@
 					"y": 53.5
 				},
 				"objectives": [
-					1445
+					1445,
+					1446
 				],
 				"insideQuests": [
 					3373
 				],
-				"guard": "onquest 1445",
-				"gate": 50
+				"guard": "onquest 1445,1446",
+				"gate": 50,
+				"itemStarts": [
+					{
+						"quest": 3374,
+						"item": 10589
+					}
+				]
 			},
 			"handins": [
 				{
@@ -1414,12 +2794,25 @@
 					"guide": "forever/horde/50-60/01-un-goro-crater",
 					"after": "run",
 					"note": "Fel'zerul in Stonard, right after the run"
+				},
+				{
+					"quest": 3374,
+					"guide": "forever/horde/50-60/01-un-goro-crater",
+					"after": "run",
+					"when": "onquest",
+					"all": true,
+					"note": "Itharius"
+				},
+				{
+					"quest": 1446,
+					"guide": "forever/horde/50-60/01-un-goro-crater",
+					"after": "run",
+					"when": "complete",
+					"all": true,
+					"note": "The Atal'ai Exile"
 				}
 			],
-			"leftOut": {
-				"3374": "The Essence of Eranikus, its second part: Itharius in the Swamp of Sorrows, off every route stop",
-				"1446": "Jammal'an the Prophet: given and taken in the Hinterlands"
-			},
+			"leftOut": {},
 			"travel": [
 				{
 					"guide": "forever/horde/50-60/01-un-goro-crater",
@@ -1443,8 +2836,28 @@
 					"at": "run",
 					"quest": 1445,
 					"what": "the Fetishes of Hakkar drop inside the temple"
+				},
+				{
+					"status": "needs-ingame",
+					"at": "handin",
+					"quest": 3374,
+					"what": "Itharius waits south-west of Stonard; the Essence Font inside gives the Oathstone that starts 3374"
 				}
-			]
+			],
+			"allQuests": {
+				"minutes": null,
+				"xp": 7100,
+				"quests": [
+					1446,
+					3374
+				]
+			},
+			"wayOnly": {
+				"quests": [
+					1445,
+					3373
+				]
+			}
 		},
 		{
 			"dungeon": "Scholomance",

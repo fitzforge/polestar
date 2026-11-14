@@ -76,20 +76,25 @@ step Un'Goro Crater
 # Kargath's WANTED poster gives KILL ON SIGHT: Dark Iron Dwarves (4081) on the first Kargath stop, at 52 (the grind
 # in the crater ends there); the
 # run follows on the way through Blackrock Mountain to the Burning Steppes (the portal is down the walkways from
-# the bridge the route crosses), and Warlord Goretooth takes it on the last Kargath stop (`when complete`). Left
-# out: its follow-up poster (4082, offered once 4081 is handed in), Thunderheart's quests (3906 first: Overmaster
-# Pyron, outside the dungeon; 3907, 3981, 7201 after it), Lost Thunderbrew Recipe (4134: after Vivian Lagrave,
-# 4133, not taken), The Heart of the Mountain and Ribbly Screwspigot (4123, 4136: Maxwort Uberglint and Yuka
-# Screwspigot at Flame Crest, after the mountain), The Rise of the Machines (4063: after 4062, dropped above) and
-# the quests that start inside.
+# the bridge the route crosses), and Warlord Goretooth takes it on the last Kargath stop (`when complete`). The
+# every-quest route (`when dungeon "Blackrock Depths" all`): Thunderheart's Disharmony of Flame (3906: Overmaster
+# Pyron, on the ramp beside the portal, outside the dungeon) and Shadowmage Vivian Lagrave's Lost Thunderbrew
+# Recipe (4134) on the first Kargath stop, both handed in on the last; Yuka Screwspigot's Ribbly Screwspigot and
+# Maxwort Uberglint's The Heart of the Mountain (4136, 4123) at Flame Crest, reached through the mountain before
+# the run, and handed in there after it. Left out: the follow-up poster (4082, offered once 4081 is handed in),
+# Thunderheart's later quests (3907, 3981, 7201: offered once 3906 is in, after the run), The Rise of the Machines
+# (4063: after 4062, dropped above) and the quests given inside that want what only another visit brings.
 #
 # Sunken Temple (`when dungeon "Sunken Temple"`, dungeons in the route): a character who took Fel'zerul's The Temple
 # of Atal'Hakkar (1445) in forever/horde/40-50/05-the-hinterlands runs the temple from the last Kargath stop, at
 # about 52 (its Group Finder minimum is 50): a flight to Stonard, the ride east to the temple's door and back, the
 # hand-in to Fel'zerul, and a flight from Stonard to the Undercity, where the route goes on. A character without
 # the quest flies from Kargath with everyone. The Essence of Eranikus (3373) starts with a drop inside and ends at
-# the Essence Font inside (the run's tip names it). Left out: its second part (3374: Itharius in the Swamp of
-# Sorrows, off the route) and Jammal'an the Prophet (1446, given and taken in the Hinterlands).
+# the Essence Font inside (the run's tip names it). The every-quest route (`when dungeon "Sunken Temple" all`): its
+# second part (3374, started by the Oathstone the font gives) goes to Itharius, west of Stonard, after the run;
+# Jammal'an the Prophet (1446, taken from the Atal'ai Exile in forever/horde/40-50/05-the-hinterlands) goes back to
+# him by a flight from Stonard to Revantusk Village, and the route goes on from the Undercity by the flight from
+# Tarren Mill.
 #
 # Left open for later guides: The New Springs (980) and It's a Secret to
 # Everybody (3908, Donova Snowden), Marvon's Workshop (4147), Felnok
@@ -327,20 +332,50 @@ step The WANTED poster
   tip For your Blackrock Depths run, next, on the way through Blackrock Mountain: the WANTED poster in Kargath wants the Anvilrage dwarves inside thinned out.
   accept 4081 object 164867           -- WANTED
 
+step Thunderheart and Vivian Lagrave
+  when dungeon "Blackrock Depths" all
+  when level>=52
+  zone Badlands
+  tip For your Blackrock Depths run: Thunderheart and Shadowmage Vivian Lagrave stand together a short walk south of the flight master. Thunderheart wants Overmaster Pyron dead, on the ramp beside the portal; Vivian wants the Lost Thunderbrew Recipe from inside.
+  accept 3906                         -- Thunderheart
+  accept 4134                         -- Shadowmage Vivian Lagrave
+
 step Into the Searing Gorge
   zone Searing Gorge
   tip Take the pass out of Kargath's west side into the Searing Gorge, then ride south across the gorge to the long bridge into Blackrock Mountain. Inside, follow the chain walkways down and leave through the southern exit; stay off the paths to the dungeon portals.
   goto 34.8,83.0 "Bridge into Blackrock Mountain"
 
+step Flame Crest
+  when dungeon "Blackrock Depths" all
+  when onquest 4081
+  when level>=52
+  zone Burning Steppes
+  tip For your Blackrock Depths run, two more of its quests wait at Flame Crest, on the far side of the mountain: walk on through it now, past the portal, out to the Burning Steppes and east along the northern cliffs to the Horde camp. The run comes on the way back.
+  getfp "Flame Crest"
+  turnin 4324                         -- Yuka Screwspigot
+  accept 4136                         -- Yuka Screwspigot: Ribbly's head
+  accept 4123                         -- Maxwort Uberglint: the Heart of the Mountain
+
+step Overmaster Pyron
+  when dungeon "Blackrock Depths" all
+  when onquest 3906
+  when level>=52
+  zone Searing Gorge
+  tip Overmaster Pyron, an elite fire elemental of level 52, walks the ramp in the quarry beside the portal, outside the dungeon: kill him with your group.
+  kill 9026 quest 3906.1              -- Overmaster Pyron
+
 step Blackrock Depths
   when dungeon "Blackrock Depths"
-  when onquest 4081
+  when onquest 4081,4134,4123,4136
   when level>=52
   zone Searing Gorge
   tip Blackrock Depths is a dungeon for a group of five, levels 52 to 60, the biggest in the mountain: its Anvilrage dwarves are this quest's, and you need not go further in than they are. Its portal is deep inside the mountain, down the chain walkways from the bridge.
-  tip Inside: the Anvilrage Guardsmen, Wardens and Footmen. Then back out of the portal and on through the mountain's southern exit to the Burning Steppes.
+  tip Inside: the Anvilrage Guardsmen, Wardens and Footmen. In the Grim Guzzler, smashing its three kegs of Thunderbrew Lager brings Hurley Blackbreath, who carries Vivian's recipe, and Ribbly Screwspigot drinks among the patrons. The Heart of the Mountain is in the Vault's secret safe: the Dark Iron dwarves drop Relic Coffer Keys, the Vault's twelve coffers open with them, and Watchman Doomgrip comes when the last one is open. Then back out of the portal and on through the mountain's southern exit to the Burning Steppes.
   enter "Blackrock Depths" @34.8,85.3
   complete 4081 @34.8,85.3            -- KILL ON SIGHT: Dark Iron Dwarves: the Anvilrage dwarves, inside
+  complete 4134 @34.8,85.3            -- Lost Thunderbrew Recipe: Hurley Blackbreath, in the Grim Guzzler
+  complete 4136 @34.8,85.3            -- Ribbly Screwspigot: his head, in the Grim Guzzler
+  complete 4123 @34.8,85.3 optional   -- The Heart of the Mountain: the Lower Vault, twelve Relic Coffer Keys
 
 # ---------------------------------------------------------------- Burning Steppes
 
@@ -351,6 +386,34 @@ step Flame Crest
   accept 4296                         -- Maxwort Uberglint
   accept 4726                         -- Tinkee Steamboil
   turnin 4324                         -- Yuka Screwspigot
+
+step Yuka Screwspigot
+  when dungeon "Blackrock Depths" all
+  when complete 4136
+  zone Burning Steppes
+  tip Ribbly's head: Yuka Screwspigot, at Flame Crest.
+  turnin 4136                         -- Yuka Screwspigot
+
+step Maxwort Uberglint
+  when dungeon "Blackrock Depths" all
+  when complete 4123
+  zone Burning Steppes
+  tip The Heart of the Mountain: Maxwort Uberglint, at Flame Crest.
+  turnin 4123                         -- Maxwort Uberglint
+
+step Abandon Ribbly Screwspigot
+  when dungeon "Blackrock Depths" all
+  when onquest 4136
+  when !complete 4136
+  tip Ribbly Screwspigot is still unfinished: the route doesn't go back into Blackrock Depths, so abandon it.
+  abandon 4136                        -- Ribbly Screwspigot
+
+step Abandon The Heart of the Mountain
+  when dungeon "Blackrock Depths" all
+  when onquest 4123
+  when !complete 4123
+  tip The Heart of the Mountain is still unfinished: the route doesn't go back into Blackrock Depths, so abandon it.
+  abandon 4123                        -- The Heart of the Mountain
 
 step Sha'ni Proudtusk
   tip Follow the cliffs south to Dreadmaul Rock, the Firegut ogres' hill. Sha'ni Proudtusk's remains lie at its foot.
@@ -391,9 +454,44 @@ step Warlord Goretooth
   tip The Anvilrage dwarves of your Blackrock Depths run: Warlord Goretooth, in Kargath.
   turnin 4081                         -- Warlord Goretooth
 
+step Thunderheart
+  when dungeon "Blackrock Depths" all
+  when complete 3906
+  zone Badlands
+  tip Thunderheart stands a short walk south of the flight master.
+  turnin 3906                         -- Thunderheart
+
+step Shadowmage Vivian Lagrave
+  when dungeon "Blackrock Depths" all
+  when complete 4134
+  zone Badlands
+  tip Shadowmage Vivian Lagrave stands beside Thunderheart, a short walk south of the flight master.
+  turnin 4134                         -- Shadowmage Vivian Lagrave
+
+step Abandon KILL ON SIGHT: Dark Iron Dwarves
+  when dungeon "Blackrock Depths"
+  when onquest 4081
+  when !complete 4081
+  tip KILL ON SIGHT is still unfinished: without a Blackrock Depths run the route doesn't come back for the dwarves, so abandon it.
+  abandon 4081                        -- KILL ON SIGHT: Dark Iron Dwarves
+
+step Abandon Disharmony of Flame
+  when dungeon "Blackrock Depths" all
+  when onquest 3906
+  when !complete 3906
+  tip Disharmony of Flame is still unfinished: the route doesn't go back into the mountain for Pyron, so abandon it.
+  abandon 3906                        -- Disharmony of Flame
+
+step Abandon Lost Thunderbrew Recipe
+  when dungeon "Blackrock Depths" all
+  when onquest 4134
+  when !complete 4134
+  tip Lost Thunderbrew Recipe is still unfinished: the route doesn't go back into Blackrock Depths, so abandon it.
+  abandon 4134                        -- Lost Thunderbrew Recipe
+
 step Fly to Stonard
   when dungeon "Sunken Temple"
-  when onquest 1445
+  when onquest 1445,1446
   when level>=50
   zone Badlands
   tip Your Sunken Temple run: fly to Stonard. The temple stands in the swamp's eastern lake, a short ride east of Stonard.
@@ -402,13 +500,14 @@ step Fly to Stonard
 
 step The Sunken Temple
   when dungeon "Sunken Temple"
-  when onquest 1445
+  when onquest 1445,1446
   when level>=50
   zone Swamp of Sorrows
   tip The Sunken Temple is a dungeon for a group of five, levels 50 to 60. Its door is in the sunken temple in the eastern lake, the Pool of Tears.
-  tip Inside: the trolls carry the Fetishes of Hakkar for Fel'zerul. The Essence of Eranikus, a drop inside, starts a quest of its own.
+  tip Inside: the trolls carry the Fetishes of Hakkar for Fel'zerul, and Jammal'an the Prophet his head for the Atal'ai Exile. The Essence of Eranikus, from the Shade of Eranikus, starts a quest of its own: place it in the Essence Font in his lair, and the Oathstone it gives starts one for Itharius, west of Stonard.
   enter "Sunken Temple" @69.9,53.5
   complete 1445 @69.9,53.5            -- The Temple of Atal'Hakkar: twenty Fetishes of Hakkar, inside
+  complete 1446 @69.9,53.5            -- Jammal'an the Prophet: his head, inside
 
 step Fel'zerul
   when dungeon "Sunken Temple"
@@ -423,6 +522,52 @@ step Abandon The Temple of Atal'Hakkar
   when !complete 1445
   tip The Temple of Atal'Hakkar is still unfinished: without a Sunken Temple run at its level the route doesn't come back for the fetishes, so abandon it.
   abandon 1445                        -- The Temple of Atal'Hakkar
+
+step Itharius
+  when dungeon "Sunken Temple" all
+  when onquest 3374
+  zone Swamp of Sorrows
+  tip The Oathstone of Ysera's Dragonflight: Itharius waits west of Stonard.
+  turnin 3374                         -- Itharius
+
+step Abandon The Essence of Eranikus
+  when dungeon "Sunken Temple" all
+  when onquest 3374
+  tip The Essence of Eranikus is still in your log: the route leaves the Swamp of Sorrows now, so abandon it.
+  abandon 3374                        -- The Essence of Eranikus
+
+step Fly to Revantusk Village
+  when dungeon "Sunken Temple" all
+  when complete 1446
+  when level>=50
+  zone Swamp of Sorrows
+  tip Jammal'an's head goes back to the Atal'ai Exile in the Hinterlands: fly to Revantusk Village. The route goes on from the Undercity, by the flight from Tarren Mill.
+  goto 46.1,54.7 "Stonard flight master"
+  fly "Revantusk Village"
+
+step The Atal'ai Exile
+  when dungeon "Sunken Temple" all
+  when complete 1446
+  zone The Hinterlands
+  tip The exile hides by the ruins of Shadra'Alor, west across the Hinterlands from Revantusk.
+  turnin 1446                         -- Atal'ai Exile
+
+step Fly to Undercity
+  when dungeon "Sunken Temple" all
+  when zone "The Hinterlands"
+  when level>=50
+  zone Hillsbrad Foothills
+  tip West out of the Hinterlands into Hillsbrad and on to Tarren Mill's flight master.
+  goto 60.21,18.75 "Tarren Mill flight master"
+  fly "Undercity"
+  zone Undercity
+
+step Abandon Jammal'an the Prophet
+  when dungeon "Sunken Temple" all
+  when onquest 1446
+  when !complete 1446
+  tip Jammal'an the Prophet is still unfinished: without a Sunken Temple run the route doesn't go back for his head, so abandon it.
+  abandon 1446                        -- Jammal'an the Prophet
 
 step Fly to Undercity
   when dungeon "Sunken Temple"

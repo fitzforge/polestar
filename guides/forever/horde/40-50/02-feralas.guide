@@ -290,6 +290,13 @@ step Mirage Raceway
   accept 1194
   turnin 1194                           -- Pozzik
 
+step Wizzle Brassbolts
+  when dungeon "Zul'Farrak" all
+  when level>=42.8
+  zone Thousand Needles
+  tip For your Zul'Farrak run, in the next guide: Wizzle Brassbolts, in the gnomes' camp, wants Gahz'rilla's Electrified Scale. Gahz'rilla comes only when someone strikes the gong in Zul'Farrak with the Mallet of Zul'Farrak, made at Jintha'Alor in the Hinterlands, which the route doesn't take: it is for a group with one.
+  accept 2770                           -- Wizzle Brassbolts
+
 step To Gadgetzan
   when !taxi "Gadgetzan"
   zone Tanaris

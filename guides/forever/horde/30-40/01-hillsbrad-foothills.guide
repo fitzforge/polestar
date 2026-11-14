@@ -63,9 +63,14 @@ pitch For characters of 29 to 33, but most quests here are level 32-34, a few up
 # (Alterac 12.8,62.2, where players' recordings go in, Horde characters without the Dalaran Sewer Key
 # among them: the key comes only with Heart of Disruption, 96984, after Dalaran Patrols on the 38-39
 # visit), and Melisara takes it back on the next Tarren Mill stop (`when dungeon`, `when complete`). Rexxie Copperclutch's
-# Opportunistic Education (96987) starts and ends inside (the run tip names it). Left out: Source of Power
-# (96988: Doctor Martin Felben in the Undercity, level 33, 3.5 levels over on the Undercity stop at 29.5)
-# and Heart of Disruption (96984: after Blood in the Streets, 92434, on the 38-39 visit).
+# Opportunistic Education (96987) starts and ends inside (the run tip names it). The every-quest route (`when
+# dungeon "City of Dalaran" all`): Doctor Martin Felben's Source of Power (96988) on the opening Undercity stop,
+# handed in on the closing one; and Heart of Disruption (96984), which comes after Dalaran Patrols and Blood in
+# the Streets (545, 92434): after the crater, Prison Break In and Key to the City go back to Voidglare at once,
+# Dalaran Patrols is worked in the ruins outside the dome, Blood in the Streets takes the Grimy Key to the sewer
+# entrance by the lake, where the Image of Archmage Modera gives Heart of Disruption, and the run follows;
+# Voidglare takes the Arcane Mote on the next Tarren Mill stop. Warriors who run Razorfen Kraul get Brutal
+# Armor's Powdered Azurite from the Azurelode Mine's miners.
 #
 # Optional extras:
 # - Elixir of Agony (515, 517, 524): needs a Lesser Troll's Blood Elixir (item 3388; the quest
@@ -178,6 +183,13 @@ step Master Apothecary Faranell
   zone Undercity
   tip With a Lesser Troll's Blood Elixir in your bags, Master Apothecary Faranell offers Elixir of Agony in the Apothecarium; Apothecary Lydon takes the elixir in Tarren Mill.
   accept 515                          -- Master Apothecary Faranell
+
+step Doctor Martin Felben
+  when dungeon "City of Dalaran" all
+  when level>=30.2
+  zone Undercity
+  tip For your City of Dalaran run, later in this guide: Doctor Martin Felben, in the Apothecarium beside Faranell, wants six Cracked Sentry Cores from the city's Fragmented Sentries.
+  accept 96988                        -- Doctor Martin Felben
 
 step Garen Largo
   only Paladin
@@ -366,15 +378,62 @@ step The Dalaran crater
   collect 279469 quest 93680.1 @16.4,89.3 map 1416 -- Grimy Key: an object to loot, by the traitors
   collect 3714 quest 556
 
+step Magus Wordeen Voidglare
+  when dungeon "City of Dalaran" all
+  when complete 544
+  when complete 93680
+  when level>=31
+  zone Hillsbrad Foothills
+  tip For your City of Dalaran run: Heart of Disruption, which opens the city's sewers, comes after Voidglare's Dalaran Patrols and Blood in the Streets. Take the Bloodstones and the key back east to Tarren Mill now: Voidglare is inside.
+  turnin 544                          -- Magus Wordeen Voidglare
+  turnin 93680                        -- Magus Wordeen Voidglare
+  accept 545                          -- Magus Wordeen Voidglare: Dalaran Patrols
+
+step Dalaran's ruins
+  when dungeon "City of Dalaran" all
+  when onquest 545
+  zone Alterac Mountains
+  tip Dalaran Summoners and Elemental Slaves hold the ruins outside the dome, west of the crater's camp. Summoners (34-35) cast Fireball and call a Theurgist or a Shield Guard; Elemental Slaves (33-34) weaken as their health falls, and nature damage does nothing to them. Keep away from the dome's elite guards.
+  kill 2358 quest 545.1               -- Dalaran Summoners
+  kill 2359 quest 545.2               -- Elemental Slaves
+
+step Magus Wordeen Voidglare
+  when dungeon "City of Dalaran" all
+  when complete 545
+  when level>=31
+  zone Hillsbrad Foothills
+  tip Back to Voidglare in Tarren Mill: he sends you with the Grimy Key to the sewer entrance by the lake.
+  turnin 545                          -- Magus Wordeen Voidglare
+  accept 92434                        -- Magus Wordeen Voidglare: Blood in the Streets
+
+step Image of Archmage Modera
+  when dungeon "City of Dalaran" all
+  when onquest 92434
+  when level>=31
+  zone Silverpine Forest
+  tip West across Hillsbrad to Silverpine's shore of Lordamere Lake: the sewer entrance on Dalaran's edge won't open to the key alone, and the Image of Archmage Modera on the shore takes the quest and gives Heart of Disruption, with the city's sewer key. The pipe north-west of the crater is a short walk back east.
+  complete 92434 @68.6,45.6           -- Blood in the Streets: the sewer entrance by the lake
+  turnin 92434                        -- Image of Archmage Modera
+  accept 96984                        -- Image of Archmage Modera: Heart of Disruption
+
+step Abandon Blood in the Streets
+  when dungeon "City of Dalaran" all
+  when onquest 92434
+  when !complete 92434
+  tip Blood in the Streets is still unfinished: the route doesn't come back to the lake shore, so abandon it.
+  abandon 92434                       -- Blood in the Streets
+
 step City of Dalaran
   when dungeon "City of Dalaran"
-  when onquest 96986
+  when onquest 96986,96988,96984
   when level>=31
   zone Alterac Mountains
   tip The City of Dalaran is a dungeon for a group of five, levels 28 to 35, under the violet dome. Without the Dalaran Sewer Key, go in through the sewer pipe north-west of the crater: the arrow leads there.
-  tip Inside: Atrexis the Grave Knight is Melisara's. Rexxie Copperclutch, in the sewer, gives Opportunistic Education and takes it back there.
+  tip Inside: Atrexis the Grave Knight is Melisara's. Rexxie Copperclutch, in the sewer, gives Opportunistic Education and takes it back there. The Fragmented Sentries drop Felben's Cracked Sentry Cores, and the Shade of the Archmage the Arcane Mote for Heart of Disruption.
   enter "City of Dalaran" @12.8,62.2 live
   complete 96986 @12.8,62.2 live      -- The Grave Knight: Atrexis, inside
+  complete 96988 @12.8,62.2 live      -- Source of Power: six Cracked Sentry Cores, inside
+  complete 96984 @12.8,62.2 live      -- Heart of Disruption: the Arcane Mote, inside
 
 step Hillsbrad Foothills
   zone Hillsbrad Foothills
@@ -386,6 +445,14 @@ step Azurelode Mine
   kill 2269 quest 539.2
   kill 2450 quest 567.3
   kill 2305 quest 539.1               -- Inside Azurelode Mine
+
+step Azurelode Mine
+  only Warrior
+  when dungeon "Razorfen Kraul" all
+  when onquest 1838
+  zone Hillsbrad Foothills
+  tip For Brutal Armor: the Hillsbrad Miners in the tunnels drop Powdered Azurite, four times in five.
+  collect 7127 x10 quest 1838.2       -- Powdered Azurite
 
 step Torn Fin murlocs
   when onquest 515
@@ -440,6 +507,27 @@ step Melisara
   zone Hillsbrad Foothills
   tip The Grave Knight from your City of Dalaran run: Melisara, a short walk east of Magus Wordeen Voidglare.
   turnin 96986                        -- Melisara
+
+step Abandon The Grave Knight
+  when dungeon "City of Dalaran"
+  when onquest 96986
+  when !complete 96986
+  tip The Grave Knight is still unfinished: without a City of Dalaran run the route doesn't come back to the city, so abandon it.
+  abandon 96986                       -- The Grave Knight
+
+step Magus Wordeen Voidglare
+  when dungeon "City of Dalaran" all
+  when complete 96984
+  zone Hillsbrad Foothills
+  tip Heart of Disruption: Voidglare takes the Arcane Mote, inside.
+  turnin 96984                        -- Magus Wordeen Voidglare
+
+step Abandon Heart of Disruption
+  when dungeon "City of Dalaran" all
+  when onquest 96984
+  when !complete 96984
+  tip Heart of Disruption is still unfinished: without a City of Dalaran run the route doesn't come back to the city, so abandon it.
+  abandon 96984                       -- Heart of Disruption
 
 step Elixir of Agony with a group
   when group 517
@@ -581,3 +669,17 @@ step Master Apothecary Faranell
   zone Undercity
   tip For your Razorfen Kraul run at the start of the next guide: Faranell, in the Apothecarium, wants guano from the kraul's bats.
   accept 1109                         -- Master Apothecary Faranell
+
+step Doctor Martin Felben
+  when dungeon "City of Dalaran" all
+  when complete 96988
+  zone Undercity
+  tip Doctor Martin Felben stands beside Faranell in the Apothecarium: the Cracked Sentry Cores.
+  turnin 96988                        -- Doctor Martin Felben
+
+step Abandon Source of Power
+  when dungeon "City of Dalaran" all
+  when onquest 96988
+  when !complete 96988
+  tip Source of Power is still unfinished: without a City of Dalaran run the route doesn't come back for the cores, so abandon it.
+  abandon 96988                       -- Source of Power

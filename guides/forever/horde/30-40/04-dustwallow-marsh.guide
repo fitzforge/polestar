@@ -57,6 +57,22 @@ step Korran
   turnin 1148                         -- Korran
   accept 1184                         -- for Belgrom Rockmaul in Orgrimmar, at the end of this guide
 
+step Thun'grim Firegaze
+  only Warrior
+  when dungeon "Razorfen Kraul" all
+  when complete 1838
+  zone The Barrens
+  tip Brutal Armor: Thun'grim camps beside the road east of the Crossroads, a short walk from the flight master.
+  turnin 1838                         -- Thun'grim Firegaze
+
+step Abandon Brutal Armor
+  only Warrior
+  when dungeon "Razorfen Kraul" all
+  when onquest 1838
+  when !complete 1838
+  tip Brutal Armor is still unfinished: Roogug's vial is in Razorfen Kraul, which the route doesn't run again, so abandon it (the Warrior class guide has it for another time).
+  abandon 1838                        -- Brutal Armor
+
 step Fly to Camp Taurajo
   zone The Barrens
   goto 51.5,30.4 "Crossroads flight master"
@@ -187,6 +203,13 @@ step Mebok Mizzyrix
   zone The Barrens
   tip The Blueleaf Tubers from your Razorfen Kraul run: Mebok takes them with the crate and the stick.
   turnin 1221                         -- Mebok Mizzyrix
+
+step Abandon Blueleaf Tubers
+  when dungeon "Razorfen Kraul" all
+  when onquest 1221
+  when !complete 1221
+  tip Blueleaf Tubers is still unfinished: without a Razorfen Kraul run the route doesn't go back for the tubers, so abandon it.
+  abandon 1221                        -- Blueleaf Tubers
 
 step The Affray
   zone The Barrens

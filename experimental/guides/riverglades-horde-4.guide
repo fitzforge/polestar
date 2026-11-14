@@ -170,6 +170,14 @@ step Kreza Darkthorn
   when onquest 94973
   turnin 94973                          -- Kreza Darkthorn
 
+step Abandon Krol'dok Stronghold's quests
+  when dungeon "Krol'dok Stronghold"
+  when onquest 94975,94972,94968
+  tip Krol'dok Stronghold's quests still unfinished in your log: the route leaves the Riverglades now, so abandon them.
+  abandon 94975                         -- A Token of Vengeance
+  abandon 94972                         -- Tome of Twilight
+  abandon 94968                         -- Eye of Mugg
+
 step Twilight's Shroud
   tip The next guide flies from Kargath in the Badlands: north out of Da'grosh's valley and up through Twilight's Shroud, the way through to the Badlands.
   goto 32.0,29.9 "Twilight's Shroud"

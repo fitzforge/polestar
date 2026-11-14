@@ -726,6 +726,14 @@ step Traditions of the Bluff
   buy 278081 x1 npc 3005              -- Sinew Thread, from Mahu
   buy 278083 x1 npc 3027              -- Ceremonial Flint and Tinder, from Naal Mistrunner
 
+step Rahauro
+  when dungeon "Ragefire Chasm" all
+  when level>=13.6
+  zone Thunder Bluff
+  tip For your Ragefire Chasm run, in Orgrimmar at the end of the next guide: Rahauro walks in front of the big tent on the Elder Rise. He wants eight Ragefire Troggs and eight Ragefire Shamans, and Maur Grimtotem's satchel from his body in the chasm.
+  accept 5723                         -- Rahauro
+  accept 5722                         -- Rahauro
+
 step Turak Runetotem
   only Druid
   zone Thunder Bluff

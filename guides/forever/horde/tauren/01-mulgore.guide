@@ -525,6 +525,14 @@ step Elder Rise
   turnin 98435                        -- Arch Druid Hamuul Runetotem
   accept 886                          -- Arch Druid Hamuul Runetotem: for Tonga Runetotem at the Crossroads
 
+step Rahauro
+  when dungeon "Ragefire Chasm" all
+  when level>=11.2
+  zone Thunder Bluff
+  tip For your Ragefire Chasm run, in Orgrimmar at the end of the next guide: Rahauro walks in front of the big tent on the Elder Rise. He wants eight Ragefire Troggs and eight Ragefire Shamans, and Maur Grimtotem's satchel from his body in the chasm.
+  accept 5723                         -- Rahauro
+  accept 5722                         -- Rahauro
+
 step Turak Runetotem
   only Druid
   zone Thunder Bluff

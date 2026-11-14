@@ -12434,6 +12434,9 @@ test('guide-fixes says every Darkfang spider drops the Acidic Venom Sacs (#1985)
 const DUNGEON_RUNS = () => JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', 'dungeon-runs.json'), 'utf8')).runs;
 const dungeonKey = (s) => String(s).trim().toLowerCase().replace(/^the\s+/, '');
 const whenDungeonOf = (step, name) => (step.when || []).some((p) => p.k === 'dungeon' && !p.neg && dungeonKey(p.name) === dungeonKey(name));
+// A step of the dungeon's every-quest route (`when dungeon "<Name>" all`): the quests off the way, which a character
+// who chose "Only quests on my way" for that dungeon doesn't take.
+const whenAllOf = (step, name) => (step.when || []).some((p) => p.k === 'dungeon' && !p.neg && p.all && dungeonKey(p.name) === dungeonKey(name));
 const whenQuestOf = (step, kinds, quest) => (step.when || []).some((p) => kinds.includes(p.k) && !p.neg && [p.q].flat().includes(quest));
 // The lowest level a step applies at by its `when level>=`/`level>` predicates (a point inside a level counts), 1 without
 // one: forge-guide validate.rs `lowest_level`, rounded to a hundredth as the guide writes it.
@@ -12510,9 +12513,10 @@ test('dungeons in the route: the dungeons left out say why and have no steps in 
 });
 
 // The other way round: every `when dungeon` step of the leveling guides belongs to a recorded run (its dungeon
-// recorded for that guide's faction, and that guide named in the record), so no injected step is left without the
-// record a Forge round needs. Gnomeregan stays out of the route: its pick-up and hand-in guides on its Dungeons page
-// cover it, so no leveling guide has a step for it.
+// recorded for that guide's faction, and that guide named in the record: the run, a pick-up, a hand-in, a solo-route
+// quest a runner takes on an earlier pass (`takenEarlier`) or a solo step behind `when !dungeon` (`soloWay`)), so no
+// injected step is left without the record a Forge round needs. Gnomeregan stays out of the route: its pick-up and
+// hand-in guides on its Dungeons page cover it, so no leveling guide has a step for it.
 test('dungeons in the route: every `when dungeon` step of the leveling guides is explained by data/dungeon-runs.json', { skip }, () => {
 	const runs = DUNGEON_RUNS();
 	assert.ok(!runs.some((r) => dungeonKey(r.dungeon) === 'gnomeregan'), 'no Gnomeregan run is recorded');
@@ -12524,7 +12528,8 @@ test('dungeons in the route: every `when dungeon` step of the leveling guides is
 		for (const m of text.matchAll(/^\s*when dungeon "([^"]+)"/gm)) {
 			const name = dungeonKey(m[1]);
 			const ok = runs.some((r) => r.faction === faction && dungeonKey(r.dungeon) === name &&
-				[r.run.guide, ...(r.pickups || []).map((p) => (p.after && p.after.guide) || p.guide), ...(r.handins || []).map((h) => h.guide)].includes(id));
+				[r.run.guide, ...(r.pickups || []).map((p) => (p.after && p.after.guide) || p.guide), ...(r.handins || []).map((h) => h.guide),
+					...(r.takenEarlier || []).map((t) => t.guide), ...(r.soloWay || []).map((s) => s.guide)].includes(id));
 			if (!ok) bad.push(`${id}: ${m[1]}`);
 		}
 	}
@@ -12866,13 +12871,15 @@ test('Wailing Caverns (Horde): the Crossroads-Ratchet hop of 02-the-barrens is t
 // The Horde's two dungeon branches that leave the solo route's way (Razorfen Kraul from Freewind Post: a flight to
 // Camp Taurajo, the kraul, the Great Lift and back; the Sunken Temple from Kargath: a flight to Stonard, the temple,
 // a flight on to the Undercity): every travel step of the branch carries the run's gate, so a character under the
-// dungeon's floor never sets off for a run the route then passes.
+// dungeon's floor never sets off for a run the route then passes. The every-quest route's own legs there (`when
+// dungeon "<X>" all`: the hops from Camp Taurajo to Thunder Bluff and Ratchet for Auld Stonespire and Mebok, the
+// flight from Stonard to Revantusk Village for the Atal'ai Exile and back by Tarren Mill) carry it too.
 test('dungeons in the route: the Horde branches to Razorfen Kraul and the Sunken Temple travel only from the run\'s gate', { skip }, () => {
 	for (const [guide, dungeon, legs] of [['forever/horde/30-40/02-thousand-needles', 'Razorfen Kraul', 3], ['forever/horde/50-60/01-un-goro-crater', 'Sunken Temple', 2]]) {
 		const run = DUNGEON_RUNS().find((r) => r.faction === 'Horde' && dungeonKey(r.dungeon) === dungeonKey(dungeon));
 		assert.ok(run && run.run.gate != null, `${dungeon}: a gated run record`);
 		const travel = compiled(`${guide}.guide`).steps.filter((s) => whenDungeonOf(s, dungeon) && s.goals.length && s.goals.every((g) => g.t === 'goto' || g.t === 'fly'));
-		assert.equal(travel.length, legs, `${guide}: the branch's travel steps`);
+		assert.equal(travel.filter((s) => !whenAllOf(s, dungeon)).length, legs, `${guide}: the branch's travel steps (the quests on the way)`);
 		for (const s of travel) assert.equal(lowestLevel(s), run.run.gate, `${guide}: "${s.title}" is gated \`when level>=${run.run.gate}\``);
 	}
 });
@@ -12907,6 +12914,189 @@ test('dungeons in the route: a quest picked up under its run\'s gate is abandone
 			const drop = steps.slice(last + 1).find((s) => s.goals.some((g) => g.t === 'abandon' && g.quest === q));
 			assert.ok(drop && whenDungeonOf(drop, r.dungeon) && whenQuestOf(drop, ['onquest'], q), `${guide}: ${q} (${r.dungeon}, ${r.faction}) is abandoned after its last hand-in, behind \`when dungeon\` and \`when onquest ${q}\``);
 		}
+	}
+});
+
+// The every-quest route (Fitz, #2026: with dungeons on, the route takes every dungeon quest the character can do,
+// prerequisite chains included): a `when dungeon "<X>" all` step works only quests its run's record adds (`allQuests`,
+// whose minutes and XP the guide window shows for "Only quests on my way") or solo-route quests a runner takes on an
+// earlier pass (`takenEarlier`), so the opt-out drops exactly what the record counts; and every added quest is in the
+// guides: picked up (or started inside, or by an item from inside) and handed in (or turned in inside).
+test('dungeons in the route: every `when dungeon "<X>" all` step works the quests its run\'s record adds', { skip }, () => {
+	const runs = DUNGEON_RUNS();
+	const bad = [];
+	const seen = new Map(); // `${faction}|${dungeon}` -> { accepted: Set, handed: Set }
+	for (const guide of allGuides().filter((g) => /^forever\/(alliance|horde)\//.test(g))) {
+		const faction = guide.startsWith('forever/alliance/') ? 'Alliance' : 'Horde';
+		for (const [i, s] of compiled(guide).steps.entries()) {
+			const mine = runs.filter((r) => r.faction === faction && (whenAllOf(s, r.dungeon) || (whenDungeonOf(s, r.dungeon) && r.allQuests)));
+			for (const r of mine) {
+				const key = `${faction}|${r.dungeon}`;
+				if (!seen.has(key)) seen.set(key, { accepted: new Set(), handed: new Set() });
+				for (const g of s.goals) {
+					if (g.t === 'accept') seen.get(key).accepted.add(g.quest);
+					if (g.t === 'turnin') seen.get(key).handed.add(g.quest);
+				}
+			}
+			if (!(s.when || []).some((p) => p.k === 'dungeon' && p.all)) continue;
+			const ok = new Set(mine.filter((r) => whenAllOf(s, r.dungeon)).flatMap((r) => [...((r.allQuests || {}).quests || []), ...(r.takenEarlier || []).map((t) => t.quest)]));
+			for (const g of s.goals) if (g.quest && !ok.has(g.quest)) bad.push(`${guide} step ${i + 1} "${s.title}": ${g.t} ${g.quest}, not in its run's allQuests or takenEarlier`);
+		}
+	}
+	for (const r of runs.filter((x) => x.allQuests)) {
+		const { accepted, handed } = seen.get(`${r.faction}|${r.dungeon}`) || { accepted: new Set(), handed: new Set() };
+		const inside = new Set([...(r.run.insideQuests || []), ...(r.run.itemStarts || []).map((x) => x.quest)]);
+		const endsInside = new Set((r.run.insideEnds || []).map((x) => x.quest));
+		for (const q of r.allQuests.quests) {
+			if (!accepted.has(q) && !inside.has(q) && !(r.pickups || []).some((p) => p.quest === q)) bad.push(`${r.dungeon} (${r.faction}): ${q} is never picked up`);
+			if (!handed.has(q) && !endsInside.has(q)) bad.push(`${r.dungeon} (${r.faction}): ${q} is never handed in`);
+		}
+		assert.ok(r.allQuests.minutes != null && r.allQuests.xp != null, `${r.dungeon} (${r.faction}): allQuests has its minutes and XP`);
+		assert.ok(r.wayOnly && Array.isArray(r.wayOnly.quests), `${r.dungeon} (${r.faction}): wayOnly lists the quests on the way`);
+	}
+	assert.deepEqual(bad, []);
+});
+
+// Nothing stranded at 60, and the log within 40, with every dungeon and every quest of it (#2026): the Horde route
+// played from each start guide along its first `next`, every step for the character's race and class, every dungeon
+// step on (`when dungeon`, `when dungeon "<X>" all`; the solo twins behind `when !dungeon` not), other `when`
+// predicates taken as holding: accepts fill the log, hand-ins and abandons empty it. The log never holds more than
+// 40, and no quest a dungeon step took is still in it at the route's end.
+test('dungeons in the route (Horde): with every dungeon quest the log stays within 40 and nothing a dungeon step takes is left at 60', { skip }, () => {
+	const starts = { Orc: 'orc/01-durotar', Troll: 'troll/01-durotar', Tauren: 'tauren/01-mulgore', Scourge: 'undead/01-tirisfal-glades', Skyborne: 'skyborne/01-zephras-isle' };
+	const classes = ['WARRIOR', 'PALADIN', 'HUNTER', 'ROGUE', 'PRIEST', 'SHAMAN', 'MAGE', 'WARLOCK', 'DRUID'];
+	const fits = (only, race, cls) => !only || ((!only.races || only.races.includes(race)) && (!only.classes || only.classes.includes(cls)));
+	const guides = new Set(allGuides());
+	const bad = [];
+	for (const [race, start] of Object.entries(starts)) {
+		for (const cls of classes) {
+			const log = new Set();
+			const done = new Set();
+			const fromDungeon = new Set();
+			let peak = 0;
+			let at = '';
+			const visited = new Set();
+			for (let id = `forever/horde/${start}`; id && guides.has(`${id}.guide`) && !visited.has(id);) {
+				visited.add(id);
+				const g = compiled(`${id}.guide`);
+				for (const [i, s] of g.steps.entries()) {
+					if (!fits(s.only, race, cls) || (s.when || []).some((p) => p.k === 'dungeon' && p.neg)) continue;
+					const dungeon = (s.when || []).some((p) => p.k === 'dungeon');
+					for (const goal of s.goals) {
+						if (!goal.quest || !fits(goal.only, race, cls)) continue;
+						if (goal.t === 'accept' && !done.has(goal.quest)) {
+							log.add(goal.quest);
+							if (dungeon) fromDungeon.add(goal.quest);
+						} else if (goal.t === 'turnin' || goal.t === 'abandon') {
+							log.delete(goal.quest);
+							done.add(goal.quest);
+						}
+					}
+					if (log.size > peak) [peak, at] = [log.size, `${id} step ${i + 1}`];
+				}
+				id = String(g.next || (g.nextChoices || [])[0] || '').replace(/\.guide$/, '');
+			}
+			if (peak > 40) bad.push(`${race} ${cls}: ${peak} quests in the log at ${at}`);
+			const left = [...log].filter((q) => fromDungeon.has(q));
+			if (left.length) bad.push(`${race} ${cls}: still in the log at the end: ${left.join(', ')}`);
+		}
+	}
+	assert.deepEqual(bad, []);
+});
+
+// A class guide's tab and the route never send the player twice for one quest (#2026: class quests the route takes for
+// a dungeon run, as `only <Class>` steps, while forever/class/* has them too: Brutal Armor, The Orb of Soran'ruk,
+// Elemental Aid; Tiara of the Deep is also the Mage's Celestial Orb guide's). Every goal of such a quest, in either
+// guide, reads the character's quest state (an accept, a hand-in, a `complete` or an objective of the quest), which
+// the Engine keeps for the character, not per guide: done in one tab, it is done in the other. Played in the Engine
+// for an Orc Warrior who runs Razorfen Kraul: Brutal Armor taken, its Iron Bars in, then handed in.
+test('dungeons in the route: a class guide and the route read one quest state, so neither sends the player for what the other did', { skip }, () => {
+	const route = allGuides().filter((g) => /^forever\/(alliance|horde)\//.test(g));
+	const inDungeonSteps = new Set(route.flatMap((g) => compiled(g).steps.filter((s) => (s.when || []).some((p) => p.k === 'dungeon' && !p.neg)).flatMap((s) => s.goals.map((x) => x.quest).filter(Boolean))));
+	// Goals the Engine reads from the quest log, the quest history or the bags while the quest is held (goalDone).
+	const stateGoal = (g) => g.quest != null && ['accept', 'turnin', 'complete', 'abandon', 'collect', 'kill', 'interact', 'use', 'talk'].includes(g.t);
+	const shared = new Set();
+	const bad = [];
+	for (const guide of allGuides().filter((g) => g.startsWith('forever/class/'))) {
+		for (const s of compiled(guide).steps) {
+			for (const g of s.goals.filter((x) => x.quest && inDungeonSteps.has(x.quest))) {
+				shared.add(g.quest);
+				if (!stateGoal(g)) bad.push(`${guide}: ${g.t} ${g.quest} doesn't read the quest's state`);
+			}
+		}
+	}
+	for (const guide of route) {
+		for (const s of compiled(guide).steps) {
+			for (const g of s.goals.filter((x) => shared.has(x.quest))) if (!stateGoal(g)) bad.push(`${guide}: ${g.t} ${g.quest} doesn't read the quest's state`);
+		}
+	}
+	for (const q of [1838, 1740, 79360]) assert.ok(shared.has(q), `${q}: in a class guide and a dungeon step of the route`);
+	assert.deepEqual(bad, []);
+
+	data = data || loadData(DATA);
+	const CLASS = 'forever/class/warrior/brutal-armor';
+	const NEEDLES = 'forever/horde/30-40/02-thousand-needles';
+	const DUSTWALLOW = 'forever/horde/30-40/04-dustwallow-marsh';
+	const files = [CLASS, NEEDLES, DUSTWALLOW].map((id) => path.join(OFFICIAL_DIR, `${id}.guide`));
+	const { guides } = compileSources(files.map((file) => ({ file, text: fs.readFileSync(file, 'utf8') })), data);
+	const byId = new Map(guides.map((g) => [g.id, g]));
+	const where = (id, pred) => {
+		const steps = byId.get(id).steps;
+		for (let s = 0; s < steps.length; s++) {
+			const g = steps[s].goals.findIndex(pred);
+			if (g >= 0) return [s + 1, g + 1];
+		}
+		assert.fail(`${id}: no such goal`);
+	};
+	const bars = (g) => g.t === 'collect' && g.quest === 1838 && g.item === 3575;
+	const spots = {
+		classAccept: [CLASS, ...where(CLASS, is('accept', 1838))],
+		classBars: [CLASS, ...where(CLASS, bars)],
+		routeBars: [NEEDLES, ...where(NEEDLES, bars)],
+		classTurnin: [CLASS, ...where(CLASS, is('turnin', 1838))],
+		routeTurnin: [DUSTWALLOW, ...where(DUSTWALLOW, is('turnin', 1838))],
+	};
+	const { dir, scripts } = writeTestPack(guides, data);
+	try {
+		const loads = scripts.map((f) => `assert(loadfile(${JSON.stringify(f)}))("Polestar_Guides", ns)`).join('\n');
+		const read = (k) => `out.${k} = status(${JSON.stringify(spots[k][0])}, ${spots[k][1]}, ${spots[k][2]})`;
+		const { emitted } = runAddon({
+			stubs: ['stub_world.lua'],
+			before: `local w = stub.world
+				w.race, w.raceName, w.faction, w.class, w.className = "Orc", "Orc", "Horde", "WARRIOR", "Warrior"
+				w.level = 31`,
+			addons: [{ name: 'Polestar', files: ['Core/Core.xml'] }],
+			saved: { Polestar: 'PolestarDB = { schema = 1, settings = { behavior = { autoSelectGuide = false, dungeons = "run" } } }' },
+			script: `do local ns = {}
+				${loads}
+				end
+				stub.login(); stub.advance(0.5)
+				local E, w = Polestar.Engine, stub.world
+				local function status(id, s, g)
+					E.SetGuide(id); stub.advance(0.5)
+					return E.GetStepView(s).goals[g].status
+				end
+				local out = {}
+				w.accept(1838, { 15, 10, 10, 1 }); stub.advance(0.5)
+				${read('classAccept')}
+				out.before = { status(${JSON.stringify(CLASS)}, ${spots.classBars[1]}, ${spots.classBars[2]}), status(${JSON.stringify(NEEDLES)}, ${spots.routeBars[1]}, ${spots.routeBars[2]}) }
+				w.addItem(3575, 10); w.progress(1838, 3, 10); stub.advance(0.5)
+				${read('classBars')}
+				${read('routeBars')}
+				w.finish(1838); w.turnIn(1838); stub.advance(0.5)
+				${read('classTurnin')}
+				${read('routeTurnin')}
+				emit(out)`,
+		});
+		const out = emitted[0];
+		assert.equal(out.classAccept, 'done', 'Brutal Armor taken on the route: the class guide\'s accept is done');
+		assert.ok(!Object.values(out.before).includes('done'), `the Iron Bars still to get on both tabs: ${JSON.stringify(out.before)}`);
+		assert.equal(out.classBars, 'done', 'the Iron Bars in: done on the class guide\'s tab');
+		assert.equal(out.routeBars, 'done', 'the Iron Bars in: done on the route\'s Auction House step');
+		assert.equal(out.classTurnin, 'done', 'handed in: done on the class guide\'s tab');
+		assert.ok(['done', 'na'].includes(out.routeTurnin), `handed in: the route's hand-in step doesn't ask for it again (${out.routeTurnin})`);
+	} finally {
+		fs.rmSync(dir, { recursive: true, force: true });
 	}
 });
 
