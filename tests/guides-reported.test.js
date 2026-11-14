@@ -12893,6 +12893,23 @@ test('dungeons in the route: a quest handed in inside a dungeon is turned in on 
 	}
 });
 
+// Nothing left in the log at 60: a quest a run's record picks up before the run, gated under the run's own gate (a
+// player on the model's pace is asked; one who falls behind reaches the door under the floor and the run passes), is
+// abandoned after its last hand-in by a character who still carries it (played with every dungeon chosen, two Horde
+// characters reached the Wailing Caverns run at 19.9-20.05, under its 20.3, and kept Smart Drinks to 60).
+test('dungeons in the route: a quest picked up under its run\'s gate is abandoned after its last hand-in', { skip }, () => {
+	for (const r of DUNGEON_RUNS().filter((x) => x.run.gate != null)) {
+		for (const q of new Set((r.pickups || []).filter((p) => p.gate != null && p.gate < r.run.gate).map((p) => p.quest))) {
+			const guide = (r.handins || []).filter((h) => h.quest === q).map((h) => h.guide).pop() || r.run.guide;
+			const steps = compiled(`${guide}.guide`).steps;
+			const last = steps.map((s, i) => (s.goals.some(is('turnin', q)) ? i : -1)).filter((i) => i >= 0).pop();
+			assert.ok(last != null, `${guide}: ${q} is handed in`);
+			const drop = steps.slice(last + 1).find((s) => s.goals.some((g) => g.t === 'abandon' && g.quest === q));
+			assert.ok(drop && whenDungeonOf(drop, r.dungeon) && whenQuestOf(drop, ['onquest'], q), `${guide}: ${q} (${r.dungeon}, ${r.faction}) is abandoned after its last hand-in, behind \`when dungeon\` and \`when onquest ${q}\``);
+		}
+	}
+});
+
 // Krol'dok Stronghold for the Horde (Fitz, 2026-11-13): the Riverglades guides' dungeon, for a group of five, run at the
 // end of part 4 from its door north of Sunnyglade (37.2,43.9, where players' recordings go in), behind `when dungeon`
 // and its floor of 43 (the named exception in data/codex/levels.json). Each pick-up is gated at the floor less the

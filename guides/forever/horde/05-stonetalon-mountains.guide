@@ -265,6 +265,13 @@ step Tabitha Heartweaver
   tip What you learned of Edward Heartweaver in the ruins: Tabitha stands a short walk from the crypt.
   turnin 92401                        -- Tabitha Heartweaver
 
+step Abandon A Frightened Request
+  when dungeon "Ruins of Lordaeron"
+  when onquest 92401
+  when !complete 92401
+  tip A Frightened Request is still unfinished: without a Ruins of Lordaeron run at its level the route doesn't come back to the ruins, so abandon it.
+  abandon 92401                       -- A Frightened Request
+
 step Deathguard Podrig
   only Undead
   zone Silverpine Forest

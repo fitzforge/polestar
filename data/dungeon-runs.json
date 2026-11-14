@@ -463,8 +463,8 @@
 						"quest": 440,
 						"goal": "accept"
 					},
-					"note": "Tabitha Heartweaver, a short walk from the crypt on the last Sepulcher stop (~16.6; level 22 from 15): a carry to the run at ~23",
-					"gate": 10.1
+					"note": "Tabitha Heartweaver, a short walk from the crypt on the last Sepulcher stop (~16.6; level 22 from 15): a carry to the run at ~23; gated at 15, the level the quest asks for (the floor less the levels planned gives 10.1)",
+					"gate": 15
 				}
 			],
 			"runStop": [
@@ -1017,6 +1017,28 @@
 			"dungeon": "Zul'Farrak",
 			"faction": "Horde",
 			"pickups": [
+				{
+					"quest": 2865,
+					"after": {
+						"guide": "forever/horde/40-50/02-feralas",
+						"quest": 1707,
+						"goal": "accept",
+						"when": "taxi \"Gadgetzan\""
+					},
+					"note": "Tran'rek on the Gadgetzan landing stop of a character who flies in (the twin of the stop on the road, after the Mirage Raceway)",
+					"gate": 42.8
+				},
+				{
+					"quest": 3042,
+					"after": {
+						"guide": "forever/horde/40-50/02-feralas",
+						"quest": 1707,
+						"goal": "accept",
+						"when": "taxi \"Gadgetzan\""
+					},
+					"note": "Trenton Lighthammer on the Gadgetzan landing stop of a character who flies in (the twin of the stop on the road, after the Mirage Raceway)",
+					"gate": 42.8
+				},
 				{
 					"quest": 2865,
 					"after": {

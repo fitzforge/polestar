@@ -426,7 +426,7 @@ step The Sepulcher
 
 step Tabitha Heartweaver
   when dungeon "Ruins of Lordaeron"
-  when level>=10.1
+  when level>=15
   zone Silverpine Forest
   tip For your Ruins of Lordaeron run, later on from the Undercity: Tabitha Heartweaver, a short walk from the crypt, wants word of Edward Heartweaver, lost in the ruins.
   accept 92401                        -- Tabitha Heartweaver

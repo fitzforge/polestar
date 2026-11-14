@@ -148,6 +148,20 @@ step Trenton Lighthammer
 # from Tanaris (4450: the export never hands it in), Broken Alliances (782),
 # see above.
 
+step Abandon Scarab Shells
+  when dungeon "Zul'Farrak"
+  when onquest 2865
+  when !complete 2865
+  tip Scarab Shells is still unfinished: without a Zul'Farrak run at its level the route doesn't come back for the shells, so abandon it.
+  abandon 2865                        -- Scarab Shells
+
+step Abandon Troll Temper
+  when dungeon "Zul'Farrak"
+  when onquest 3042
+  when !complete 3042
+  tip Troll Temper is still unfinished: without a Zul'Farrak run at its level the route doesn't come back for the temper, so abandon it.
+  abandon 3042                        -- Troll Temper
+
 step Marvon Rivetseeker
   tip West along the road south; Marvon camps by the ruins at the Broken Pillar. Put on his Gahz'ridian Detector: it shows the buried ornaments, here and around the Dunemaul Compound.
   accept 3161

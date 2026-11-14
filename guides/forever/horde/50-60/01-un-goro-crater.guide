@@ -417,6 +417,13 @@ step Fel'zerul
   tip The Fetishes of Hakkar from your Sunken Temple run: back to Fel'zerul in Stonard.
   turnin 1445                         -- Fel'zerul
 
+step Abandon The Temple of Atal'Hakkar
+  when dungeon "Sunken Temple"
+  when onquest 1445
+  when !complete 1445
+  tip The Temple of Atal'Hakkar is still unfinished: without a Sunken Temple run at its level the route doesn't come back for the fetishes, so abandon it.
+  abandon 1445                        -- The Temple of Atal'Hakkar
+
 step Fly to Undercity
   when dungeon "Sunken Temple"
   when zone "Swamp of Sorrows"

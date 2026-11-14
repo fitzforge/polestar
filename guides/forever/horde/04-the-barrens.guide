@@ -249,6 +249,13 @@ step Mebok Mizzyrix
   tip Wailing Caverns quests still in your log: Mebok stands beside the WANTED poster, Bigglefuzz on the dock by the flight master.
   turnin 1491                         -- Mebok Mizzyrix
 
+step Abandon Smart Drinks
+  when dungeon "Wailing Caverns"
+  when onquest 1491
+  when !complete 1491
+  tip Smart Drinks is still unfinished: without a Wailing Caverns run at its level the route doesn't come back for the essences, so abandon it.
+  abandon 1491                        -- Smart Drinks
+
 step Crane Operator Bigglefuzz
   when dungeon "Wailing Caverns"
   when complete 959

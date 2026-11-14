@@ -218,6 +218,12 @@ step Dalar Dawnweaver
   tip Back north up the road to the Sepulcher: Dalar stands just north of Allister.
   turnin 1014                         -- Dalar Dawnweaver
 
+step Abandon Deathstalkers in Shadowfang
+  when dungeon "Shadowfang Keep"
+  when onquest 1098
+  tip Deathstalkers in Shadowfang is still in your log: without a Shadowfang Keep run at its level the route doesn't go back in to Deathstalker Vincent, so abandon it.
+  abandon 1098                        -- Deathstalkers in Shadowfang
+
 step Fly to the Undercity
   zone Silverpine Forest
   tip Fly on from Karos Razok, the bat handler just east of the crypt, to the Undercity.
