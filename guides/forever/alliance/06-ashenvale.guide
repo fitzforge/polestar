@@ -255,6 +255,13 @@ step Gershala Nightwhisper
   tip Your Blackfathom Deeps brain stems: Gershala Nightwhisper stands a short walk west of Terenthis, on the way to the dock.
   turnin 1275                         -- Gershala Nightwhisper
 
+step Abandon Researching the Corruption
+  when dungeon "Blackfathom Deeps"
+  when onquest 1275
+  when !complete 1275
+  tip Researching the Corruption is still unfinished: without a Blackfathom Deeps run at its level the route doesn't come back for it, so abandon it.
+  abandon 1275                        -- Researching the Corruption
+
 step Boat to Menethil Harbor
   zone Darkshore
   goto 32.4,43.8 "Boat to Menethil Harbor"
@@ -369,6 +376,13 @@ step Gerrig Bonegrip
   zone Ironforge
   tip The Lorgalis Manuscript from your Blackfathom Deeps run: Gerrig Bonegrip, in the Forlorn Cavern.
   turnin 971                          -- Gerrig Bonegrip
+
+step Abandon Knowledge in the Deeps
+  when dungeon "Blackfathom Deeps"
+  when onquest 971
+  when !complete 971
+  tip Knowledge in the Deeps is still unfinished: without a Blackfathom Deeps run at its level the route doesn't come back for it, so abandon it.
+  abandon 971                         -- Knowledge in the Deeps
 
 step Buliwyf Stonehand
   only Warrior

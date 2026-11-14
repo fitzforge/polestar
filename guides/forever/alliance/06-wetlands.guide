@@ -339,6 +339,13 @@ step James Halloran
   tip Your Excavation Site hides: James Halloran, by the docks.
   turnin 98815                        -- James Halloran
 
+step Abandon Highland Hides
+  when dungeon "Excavation Site: Wetlands"
+  when onquest 98815
+  when !complete 98815
+  tip Highland Hides is still unfinished: without an Excavation Site: Wetlands run at its level the route doesn't come back for it, so abandon it.
+  abandon 98815                       -- Highland Hides
+
 # ---------------------------------------------------------------- Ashenvale
 
 step Boat to Auberdine

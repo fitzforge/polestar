@@ -32,6 +32,13 @@ step Councilman Millstipe
   tip Crime and Punishment, from your Stockade run: Councilman Millstipe is in the town hall, beside Commander Althea.
   turnin 377                              -- Councilman Millstipe
 
+step Abandon Crime and Punishment
+  when dungeon "The Stockade"
+  when onquest 377
+  when !complete 377
+  tip Crime and Punishment is still unfinished: without a Stockade run at its level the route doesn't come back for it, so abandon it.
+  abandon 377                         -- Crime and Punishment
+
 # ---------------------------------------------------------------- Worgen
 
 step Nightbane Shadow Weavers

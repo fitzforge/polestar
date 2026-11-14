@@ -97,6 +97,12 @@ step Uldaman
   turnin 2398 npc 6906 @44.6,12.1     -- Baelog, inside
   complete 1360 @44.6,12.1            -- Reclaimed Treasures: Krom's chest, inside
 
+step Abandon The Lost Dwarves
+  when dungeon "Uldaman"
+  when onquest 2398
+  tip The Lost Dwarves is still in your log: without an Uldaman run at its level the route doesn't come back for it, so abandon it.
+  abandon 2398                        -- The Lost Dwarves
+
 step Back to Loch Modan
   zone Badlands
   goto 49.4,8.0 "Ironband's Excavation Site"
