@@ -1,7 +1,8 @@
 //! The Guiding Stars page's names (addon/Polestar/Core/Credits.lua): the supporters, kept by hand in
 //! data/credits.json in rank order (highest Ko-fi total first; amounts are never stored), the
-//! contributors, counted from the repository's pull requests on GitHub: the merged ones, and the closed
-//! ones whose commits were folded into the release (cherry-picked with their authorship kept), the bug
+//! contributors, counted from the repository's pull requests on GitHub: the merged ones, the closed
+//! ones whose commits were folded into the release (cherry-picked with their authorship kept), and the
+//! open ones the release ref carries at their exact head (batched into an integration branch), the bug
 //! reporters, counted from its issues (see [`useful_report`] for which reports count), the translators,
 //! from forge-guide's LOCALES (one source with the locale tooling), and the people whose idea shipped
 //! though someone else built it, kept by hand in data/credits.json `ideas`.
@@ -61,9 +62,11 @@ pub fn read_source(file: &Path) -> Result<Source, String> {
 	Ok(Source { supporters, exclude: strings("exclude")?, names, ideas })
 }
 
-/// One merged pull request: its author's login and when it merged (ISO time).
+/// One merged pull request (or one the release carries): its number, its author's login and when it
+/// merged (ISO time).
 #[derive(Clone, Debug)]
 pub struct Merged {
+	pub number: Option<u64>,
 	pub login: Option<String>,
 	pub merged_at: Option<String>,
 }
@@ -71,7 +74,7 @@ pub struct Merged {
 /// Every merged pull request of `repo`, through the GitHub CLI (`gh`, logged in).
 pub fn fetch_merged(repo: &str) -> Result<Vec<Merged>, String> {
 	let out = std::process::Command::new("gh")
-		.args(["pr", "list", "--repo", repo, "--state", "merged", "--limit", "5000", "--json", "author,mergedAt"])
+		.args(["pr", "list", "--repo", repo, "--state", "merged", "--limit", "5000", "--json", "number,author,mergedAt"])
 		.output()
 		.map_err(|e| format!("gh (the GitHub CLI) could not run: {e}"))?;
 	if !out.status.success() {
@@ -80,20 +83,25 @@ pub fn fetch_merged(repo: &str) -> Result<Vec<Merged>, String> {
 	parse_merged(&String::from_utf8_lossy(&out.stdout))
 }
 
-/// `gh pr list --json author,mergedAt` output.
+/// `gh pr list --json number,author,mergedAt` output.
 pub fn parse_merged(json: &str) -> Result<Vec<Merged>, String> {
 	let doc: Value = serde_json::from_str(json).map_err(|e| format!("gh pr list: {e}"))?;
 	let list = doc.as_array().ok_or("gh pr list: not a list")?;
 	Ok(list
 		.iter()
-		.map(|pr| Merged { login: pr.pointer("/author/login").and_then(Value::as_str).map(str::to_string), merged_at: pr.get("mergedAt").and_then(Value::as_str).map(str::to_string) })
+		.map(|pr| Merged {
+			number: pr.get("number").and_then(Value::as_u64),
+			login: pr.pointer("/author/login").and_then(Value::as_str).map(str::to_string),
+			merged_at: pr.get("mergedAt").and_then(Value::as_str).map(str::to_string),
+		})
 		.collect())
 }
 
-/// A pull request closed without merging: its author, when it closed, and its commits as
+/// A pull request closed without merging: its number, its author, when it closed, and its commits as
 /// (author email, headline). GitHub cuts a long headline and ends it with "…".
 #[derive(Clone, Debug)]
 pub struct Closed {
+	pub number: u64,
 	pub login: Option<String>,
 	pub closed_at: Option<String>,
 	pub commits: Vec<(String, String)>,
@@ -121,7 +129,7 @@ pub fn fetch_closed(repo: &str, exclude: &[String]) -> Result<Vec<Closed>, Strin
 			continue;
 		}
 		let view = gh(&["pr", "view", &number.to_string(), "--repo", repo, "--json", "commits"])?;
-		out.push(Closed { login, closed_at: pr.get("closedAt").and_then(Value::as_str).map(str::to_string), commits: parse_commits(&view) });
+		out.push(Closed { number, login, closed_at: pr.get("closedAt").and_then(Value::as_str).map(str::to_string), commits: parse_commits(&view) });
 	}
 	Ok(out)
 }
@@ -161,38 +169,47 @@ pub fn folded(closed: &[Closed], on_ref: &[(String, String)]) -> Vec<Merged> {
 				!head.is_empty() && on_ref.iter().any(|(e, s)| e == email && s.starts_with(head))
 			})
 		})
-		.map(|pr| Merged { login: pr.login.clone(), merged_at: pr.closed_at.clone() })
+		.map(|pr| Merged { number: Some(pr.number), login: pr.login.clone(), merged_at: pr.closed_at.clone() })
 		.collect()
 }
 
-/// An open pull request: its author and its head commit.
+/// An open pull request (drafts too): its number, its author, its head commit, and the issues it
+/// closes when it merges into the default branch.
 #[derive(Clone, Debug)]
 pub struct Open {
+	pub number: u64,
 	pub login: Option<String>,
 	pub head: String,
+	pub closes: Vec<u64>,
 }
 
-/// The open pull requests of `repo` by authors other than `exclude` (and bots), with their head
-/// commits, through the GitHub CLI.
-pub fn fetch_open(repo: &str, exclude: &[String]) -> Result<Vec<Open>, String> {
+/// Every open pull request of `repo`, through the GitHub CLI. Excluded authors and bots stay in the list:
+/// [`rank_contributors`] leaves them out, and the issues their pull requests fix still count.
+pub fn fetch_open(repo: &str) -> Result<Vec<Open>, String> {
 	let out = std::process::Command::new("gh")
-		.args(["pr", "list", "--repo", repo, "--state", "open", "--limit", "5000", "--json", "author,headRefOid"])
+		.args(["pr", "list", "--repo", repo, "--state", "open", "--limit", "5000", "--json", "number,author,headRefOid,closingIssuesReferences"])
 		.output()
 		.map_err(|e| format!("gh (the GitHub CLI) could not run: {e}"))?;
 	if !out.status.success() {
 		return Err(format!("gh pr list failed: {}", String::from_utf8_lossy(&out.stderr).trim()));
 	}
-	let doc: Value = serde_json::from_slice(&out.stdout).map_err(|e| format!("gh pr list: {e}"))?;
-	let skip: Vec<String> = exclude.iter().map(|l| l.to_lowercase()).collect();
+	parse_open(&String::from_utf8_lossy(&out.stdout))
+}
+
+/// `gh pr list --json number,author,headRefOid,closingIssuesReferences` output.
+pub fn parse_open(json: &str) -> Result<Vec<Open>, String> {
+	let doc: Value = serde_json::from_str(json).map_err(|e| format!("gh pr list: {e}"))?;
 	Ok(doc
 		.as_array()
 		.ok_or("gh pr list: not a list")?
 		.iter()
 		.filter_map(|pr| {
-			let login = pr.pointer("/author/login").and_then(Value::as_str)?;
-			let head = pr.get("headRefOid").and_then(Value::as_str)?;
-			let counted = !login.is_empty() && !skip.contains(&login.to_lowercase()) && !login.starts_with("app/") && !login.ends_with("[bot]");
-			counted.then(|| Open { login: Some(login.to_string()), head: head.to_lowercase() })
+			Some(Open {
+				number: pr.get("number").and_then(Value::as_u64)?,
+				login: pr.pointer("/author/login").and_then(Value::as_str).map(str::to_string),
+				head: pr.get("headRefOid").and_then(Value::as_str)?.to_lowercase(),
+				closes: pr.get("closingIssuesReferences").and_then(Value::as_array).into_iter().flatten().filter_map(|i| i.get("number").and_then(Value::as_u64)).collect(),
+			})
 		})
 		.collect())
 }
@@ -208,21 +225,33 @@ pub fn ref_ids(root: &Path, rev: &str) -> Result<Vec<(String, String)>, String> 
 
 /// The open pull requests folded into the release ref at their exact head: the head commit is on the
 /// ref (an integration branch merges it before the release reaches the branch that marks the pull
-/// request merged). Each counts as one pull request, at its head commit's date.
+/// request merged). A draft counts the same way, only when its head is on the ref; one whose head moved
+/// on after the merge doesn't. Each counts as one pull request, at its head commit's date.
 pub fn folded_open(open: &[Open], on_ref: &[(String, String)]) -> Vec<Merged> {
 	let at: std::collections::HashMap<&str, &str> = on_ref.iter().map(|(id, at)| (id.as_str(), at.as_str())).collect();
-	open.iter().filter_map(|pr| at.get(pr.head.as_str()).map(|t| Merged { login: pr.login.clone(), merged_at: Some(t.to_string()) })).collect()
+	open.iter().filter_map(|pr| at.get(pr.head.as_str()).map(|t| Merged { number: Some(pr.number), login: pr.login.clone(), merged_at: Some(t.to_string()) })).collect()
 }
 
-/// Contributors by merged or folded pull requests, most first; a tie goes to whoever merged first. Bots
-/// and excluded logins are left out; `names` maps a login to the name shown. -> (name, pull requests).
+/// The issues the release closes before GitHub does: those an open pull request folded into the ref
+/// ([`folded_open`]) closes once it merges into the default branch. [`useful_report`] counts an open
+/// one as closed by that fix.
+pub fn fixed_on_ref(open: &[Open], on_ref: &[(String, String)]) -> std::collections::HashSet<u64> {
+	let ids: std::collections::HashSet<&str> = on_ref.iter().map(|(id, _)| id.as_str()).collect();
+	open.iter().filter(|pr| ids.contains(pr.head.as_str())).flat_map(|pr| pr.closes.iter().copied()).collect()
+}
+
+/// Contributors by merged or folded pull requests, most first; a tie goes to whoever merged first. A
+/// pull request number listed twice (merged on GitHub and folded into the ref too) counts once, at its
+/// first listing. Bots and excluded logins are left out; `names` maps a login to the name shown. ->
+/// (name, pull requests).
 pub fn rank_contributors(prs: &[Merged], src: &Source) -> Vec<(String, usize)> {
 	let skip: Vec<String> = src.exclude.iter().map(|l| l.to_lowercase()).collect();
+	let mut seen = std::collections::HashSet::new();
 	// login, count, first merge; in order of first appearance.
 	let mut by: Vec<(String, usize, Option<String>)> = Vec::new();
 	for pr in prs {
 		let Some(login) = pr.login.as_deref().filter(|l| !l.is_empty()) else { continue };
-		if skip.contains(&login.to_lowercase()) || login.starts_with("app/") || login.ends_with("[bot]") {
+		if skip.contains(&login.to_lowercase()) || login.starts_with("app/") || login.ends_with("[bot]") || pr.number.is_some_and(|n| !seen.insert(n)) {
 			continue;
 		}
 		let i = by.iter().position(|c| c.0 == login).unwrap_or_else(|| {
@@ -245,6 +274,7 @@ pub fn rank_contributors(prs: &[Merged], src: &Source) -> Vec<(String, usize)> {
 /// One issue on GitHub: who filed it, what it says, and how it ended.
 #[derive(Clone, Debug, Default)]
 pub struct Issue {
+	pub number: u64,
 	pub author: Option<String>,
 	pub body: String,
 	pub created_at: Option<String>,
@@ -257,9 +287,11 @@ pub struct Issue {
 	pub closing_prs: usize,
 	/// The comments by the repository's owner, members and collaborators.
 	pub maintainer_comments: Vec<String>,
+	/// A pull request folded into the release ref closes it once it merges ([`fixed_on_ref`]).
+	pub fixed_on_ref: bool,
 }
 
-const ISSUE_FIELDS: &str = "author,body,createdAt,state,stateReason,labels,closedByPullRequestsReferences,comments";
+const ISSUE_FIELDS: &str = "number,author,body,createdAt,state,stateReason,labels,closedByPullRequestsReferences,comments";
 
 /// Every issue of `repo`, open or closed, through the GitHub CLI (`gh`, logged in).
 pub fn fetch_issues(repo: &str) -> Result<Vec<Issue>, String> {
@@ -273,7 +305,7 @@ pub fn fetch_issues(repo: &str) -> Result<Vec<Issue>, String> {
 	parse_issues(&String::from_utf8_lossy(&out.stdout))
 }
 
-/// `gh issue list --json author,body,createdAt,state,stateReason,labels,closedByPullRequestsReferences,comments` output.
+/// `gh issue list --json number,author,body,createdAt,state,stateReason,labels,closedByPullRequestsReferences,comments` output.
 pub fn parse_issues(json: &str) -> Result<Vec<Issue>, String> {
 	let doc: Value = serde_json::from_str(json).map_err(|e| format!("gh issue list: {e}"))?;
 	let list = doc.as_array().ok_or("gh issue list: not a list")?;
@@ -282,6 +314,7 @@ pub fn parse_issues(json: &str) -> Result<Vec<Issue>, String> {
 	Ok(list
 		.iter()
 		.map(|i| Issue {
+			number: i.get("number").and_then(Value::as_u64).unwrap_or_default(),
 			author: i.pointer("/author/login").and_then(Value::as_str).map(str::to_string),
 			body: text(i, "body").unwrap_or_default(),
 			created_at: text(i, "createdAt"),
@@ -290,6 +323,7 @@ pub fn parse_issues(json: &str) -> Result<Vec<Issue>, String> {
 			labels: i.get("labels").and_then(Value::as_array).map(|a| a.iter().filter_map(|l| text(l, "name")).collect()).unwrap_or_default(),
 			closing_prs: i.get("closedByPullRequestsReferences").and_then(Value::as_array).map_or(0, Vec::len),
 			maintainer_comments: i.get("comments").and_then(Value::as_array).map(|a| a.iter().filter(maintainer).filter_map(|c| text(c, "body")).collect()).unwrap_or_default(),
+			fixed_on_ref: false,
 		})
 		.collect())
 }
@@ -339,7 +373,9 @@ fn says_fixed(comment: &str) -> bool {
 ///   on the reporter).
 /// - Otherwise it counts when it is labelled `confirmed` (reproduced and checked: a real bug) or
 ///   `fix-merged`, or it was closed as completed by a fix: a pull request that closed it, a
-///   `released:*` label (the fix shipped), or a maintainer's comment saying it is fixed.
+///   `released:*` label (the fix shipped), or a maintainer's comment saying it is fixed. An open issue
+///   that a pull request folded into the release ref closes ([`fixed_on_ref`]) counts the same way:
+///   GitHub closes it when the release reaches the default branch, after the page is written.
 pub fn useful_report(issue: &Issue) -> bool {
 	let has = |l: &str| issue.labels.iter().any(|x| x == l);
 	let has_prefix = |p: &str| issue.labels.iter().any(|x| x.starts_with(p));
@@ -352,7 +388,10 @@ pub fn useful_report(issue: &Issue) -> bool {
 	if has("confirmed") || has("fix-merged") {
 		return true;
 	}
-	issue.state == "CLOSED" && issue.state_reason.as_deref() == Some("COMPLETED") && (issue.closing_prs > 0 || has_prefix("released:") || issue.maintainer_comments.iter().any(|c| says_fixed(c)))
+	(issue.state == "OPEN" && issue.fixed_on_ref)
+		|| issue.state == "CLOSED"
+			&& issue.state_reason.as_deref() == Some("COMPLETED")
+			&& (issue.closing_prs > 0 || has_prefix("released:") || issue.maintainer_comments.iter().any(|c| says_fixed(c)))
 }
 
 /// Bug reporters by useful reports ([`useful_report`]), most first; a tie goes to whoever reported
@@ -441,25 +480,26 @@ mod tests {
 	use super::*;
 
 	fn pr(login: &str, at: &str) -> Merged {
-		Merged { login: Some(login.into()), merged_at: Some(at.into()) }
+		Merged { number: None, login: Some(login.into()), merged_at: Some(at.into()) }
 	}
 
 	#[test]
 	fn a_closed_pull_request_counts_when_its_commit_was_folded_in_with_its_authorship() {
-		let closed = |login: &str, at: &str, commits: &[(&str, &str)]| Closed {
+		let closed = |number: u64, login: &str, at: &str, commits: &[(&str, &str)]| Closed {
+			number,
 			login: Some(login.into()),
 			closed_at: Some(at.into()),
 			commits: commits.iter().map(|(e, h)| (e.to_string(), h.to_string())).collect(),
 		};
 		let prs = [
 			// folded: same email, the ref's subject starts with the cut headline
-			closed("ann", "2026-11-08T10:00:00Z", &[("ann@x.org", "Translations: Brazilian Portuguese guide texts for the Horde leveling…")]),
+			closed(1, "ann", "2026-11-08T10:00:00Z", &[("ann@x.org", "Translations: Brazilian Portuguese guide texts for the Horde leveling…")]),
 			// folded under a reworded subject on a later commit of the same PR
-			closed("bob", "2026-11-08T11:00:00Z", &[("bob@x.org", "WIP"), ("bob@x.org", "Pace line: at a guide's end")]),
+			closed(2, "bob", "2026-11-08T11:00:00Z", &[("bob@x.org", "WIP"), ("bob@x.org", "Pace line: at a guide's end")]),
 			// closed, never landed
-			closed("cid", "2026-11-08T12:00:00Z", &[("cid@x.org", "Something we did not take")]),
+			closed(3, "cid", "2026-11-08T12:00:00Z", &[("cid@x.org", "Something we did not take")]),
 			// same headline, but the maintainer wrote it (authorship not kept): not the PR author's
-			closed("dee", "2026-11-08T13:00:00Z", &[("dee@x.org", "Gear: tools")]),
+			closed(4, "dee", "2026-11-08T13:00:00Z", &[("dee@x.org", "Gear: tools")]),
 		];
 		let on_ref = [
 			("ann@x.org".to_string(), "Translations: Brazilian Portuguese guide texts for the Horde leveling guides".to_string()),
@@ -475,16 +515,19 @@ mod tests {
 		assert_eq!(rank_contributors(&all, &src), [("bob".to_string(), 2), ("ann".into(), 1)]);
 	}
 
+	fn open(number: u64, login: &str, head: &str, closes: &[u64]) -> Open {
+		Open { number, login: Some(login.into()), head: head.into(), closes: closes.to_vec() }
+	}
+
 	#[test]
 	fn an_open_pull_request_counts_when_its_head_commit_is_on_the_release_ref() {
-		let open = |login: &str, head: &str| Open { login: Some(login.into()), head: head.into() };
 		let prs = [
 			// folded: the integration branch merged its exact head
-			open("ann", "aaaa"),
+			open(10, "ann", "aaaa", &[]),
 			// open, its head not on the ref (a later push, or never folded)
-			open("bob", "bbbb"),
-			// a second open pull request of the same author, folded too
-			open("ann", "cccc"),
+			open(11, "bob", "bbbb", &[]),
+			// a second open pull request of the same author (a draft: the list carries drafts too), folded too
+			open(12, "ann", "cccc", &[]),
 		];
 		let on_ref = [
 			("aaaa".to_string(), "2026-11-09T10:00:00+01:00".to_string()),
@@ -492,12 +535,84 @@ mod tests {
 			("dddd".to_string(), "2026-11-08T10:00:00+01:00".to_string()),
 		];
 		let got = folded_open(&prs, &on_ref);
-		assert_eq!(got.iter().map(|m| m.login.clone().unwrap()).collect::<Vec<_>>(), ["ann", "ann"]);
+		assert_eq!(got.iter().map(|m| (m.number, m.login.clone().unwrap())).collect::<Vec<_>>(), [(Some(10), "ann".to_string()), (Some(12), "ann".into())]);
 		assert_eq!(got[0].merged_at.as_deref(), Some("2026-11-09T10:00:00+01:00"));
 		// they rank with the merged ones
 		let all = [pr("bob", "2026-10-01T00:00:00Z")].into_iter().chain(got).collect::<Vec<_>>();
 		let src = Source { supporters: vec![], exclude: vec![], names: vec![], ideas: vec![] };
 		assert_eq!(rank_contributors(&all, &src), [("ann".to_string(), 2), ("bob".into(), 1)]);
+	}
+
+	#[test]
+	fn a_pull_request_merged_on_github_and_folded_into_the_ref_counts_once() {
+		let merged = parse_merged(r#"[{"number":10,"author":{"login":"ann"},"mergedAt":"2026-11-15T10:00:00Z"},{"number":3,"author":{"login":"bob"},"mergedAt":"2026-10-01T00:00:00Z"}]"#).unwrap();
+		// #10 merged between the two fetches: GitHub lists it merged and the open list still had it.
+		let on_ref = [("aaaa".to_string(), "2026-11-09T10:00:00+01:00".to_string()), ("cccc".to_string(), "2026-11-10T10:00:00+01:00".to_string())];
+		let all = merged.into_iter().chain(folded_open(&[open(10, "ann", "aaaa", &[]), open(12, "ann", "cccc", &[])], &on_ref)).collect::<Vec<_>>();
+		let src = Source { supporters: vec![], exclude: vec![], names: vec![], ideas: vec![] };
+		assert_eq!(rank_contributors(&all, &src), [("ann".to_string(), 2), ("bob".into(), 1)]);
+	}
+
+	#[test]
+	fn gh_open_output_parses_with_drafts_excluded_authors_and_the_issues_they_close() {
+		let got = parse_open(
+			r#"[{"number":2146,"author":{"login":"Ann"},"headRefOid":"ABCD","closingIssuesReferences":[{"number":1905,"repository":{"name":"polestar"}}]},
+			{"number":2150,"author":{"login":"fitzforge"},"headRefOid":"ef01","closingIssuesReferences":[]},
+			{"number":2151,"author":null,"headRefOid":"ef02"},
+			{"author":{"login":"x"},"headRefOid":"ef03"}]"#,
+		)
+		.unwrap();
+		assert_eq!(
+			got.iter().map(|o| (o.number, o.login.as_deref(), o.head.as_str(), o.closes.clone())).collect::<Vec<_>>(),
+			[(2146, Some("Ann"), "abcd", vec![1905]), (2150, Some("fitzforge"), "ef01", vec![]), (2151, None, "ef02", vec![]),]
+		);
+	}
+
+	/// A git repository in a temporary folder: `next` with one commit, `dev` with a contributor's branch
+	/// merged at its head, and `later`, a commit on the contributor's branch after that merge.
+	fn tiny_repo() -> (std::path::PathBuf, [String; 2]) {
+		let dir = std::env::temp_dir().join(format!("forge-credits-ref-{}", std::process::id()));
+		let _ = std::fs::remove_dir_all(&dir);
+		std::fs::create_dir_all(&dir).unwrap();
+		let git = |args: &[&str]| {
+			let out = std::process::Command::new("git").arg("-C").arg(&dir).args(["-c", "user.name=T", "-c", "user.email=t@x.org", "-c", "commit.gpgsign=false"]).args(args).output().unwrap();
+			assert!(out.status.success(), "git {args:?}: {}", String::from_utf8_lossy(&out.stderr));
+			String::from_utf8_lossy(&out.stdout).trim().to_string()
+		};
+		git(&["init", "-q", "-b", "next"]);
+		git(&["commit", "-q", "--allow-empty", "-m", "base"]);
+		git(&["checkout", "-q", "-b", "pr"]);
+		git(&["commit", "-q", "--allow-empty", "-m", "contributor's fix"]);
+		let head = git(&["rev-parse", "HEAD"]);
+		git(&["checkout", "-q", "-b", "dev", "next"]);
+		git(&["merge", "-q", "--no-ff", "-m", "batch", "pr"]);
+		git(&["checkout", "-q", "pr"]);
+		git(&["commit", "-q", "--allow-empty", "-m", "pushed after the batch"]);
+		let later = git(&["rev-parse", "HEAD"]);
+		git(&["checkout", "-q", "next"]);
+		(dir, [head, later])
+	}
+
+	#[test]
+	fn the_release_ref_decides_which_open_pull_requests_and_fixed_issues_count() {
+		let (dir, [head, later]) = tiny_repo();
+		let prs = [open(1, "ann", &head, &[100]), open(2, "bob", &later, &[101]), open(3, "fitzforge", &head, &[102])];
+		// The checkout is on next: nothing batched is on HEAD, so a release built from it has to name the ref.
+		let on_head = ref_ids(&dir, "HEAD").unwrap();
+		assert!(folded_open(&prs, &on_head).is_empty());
+		assert!(fixed_on_ref(&prs, &on_head).is_empty());
+		let on_dev = ref_ids(&dir, "dev").unwrap();
+		let got = folded_open(&prs, &on_dev);
+		// ann's head is on dev; bob's moved on after the batch, so his isn't; the maintainer's is but is excluded when ranked
+		assert_eq!(got.iter().map(|m| m.number.unwrap()).collect::<Vec<_>>(), [1, 3]);
+		let src = Source { supporters: vec![], exclude: vec!["fitzforge".into()], names: vec![], ideas: vec![] };
+		assert_eq!(rank_contributors(&got, &src), [("ann".to_string(), 1)]);
+		// The issues they close: the maintainer's pull request fixes a reporter's issue too.
+		let mut fixed: Vec<u64> = fixed_on_ref(&prs, &on_dev).into_iter().collect();
+		fixed.sort();
+		assert_eq!(fixed, [100, 102]);
+		assert!(ref_ids(&dir, "no-such-ref").is_err());
+		let _ = std::fs::remove_dir_all(&dir);
 	}
 
 	#[test]
@@ -667,6 +782,24 @@ mod tests {
 	}
 
 	#[test]
+	fn an_open_report_counts_when_a_pull_request_on_the_release_ref_fixes_it() {
+		let at = "2026-10-01T00:00:00Z";
+		let mut open_fix = discord("a", at, &["bug"]);
+		assert!(!useful_report(&open_fix), "open, unconfirmed, no fix on the ref");
+		open_fix.fixed_on_ref = true;
+		assert!(useful_report(&open_fix));
+		let mut waiting = discord("a", at, &["bug", "needs-info"]);
+		waiting.fixed_on_ref = true;
+		assert!(!useful_report(&waiting), "still waiting on the reporter");
+		let mut wish = github("ann", at, &["enhancement"]);
+		wish.fixed_on_ref = true;
+		assert!(!useful_report(&wish), "a feature request");
+		let mut not_planned = closed(discord("a", at, &["bug"]), "NOT_PLANNED");
+		not_planned.fixed_on_ref = true;
+		assert!(!useful_report(&not_planned), "closed as not planned");
+	}
+
+	#[test]
 	fn duplicates_rejections_feature_requests_and_needs_info_never_count() {
 		let at = "2026-10-01T00:00:00Z";
 		let mut dup = closed(discord("a", at, &["bug", "confirmed"]), "DUPLICATE");
@@ -716,13 +849,14 @@ mod tests {
 	#[test]
 	fn gh_issue_output_parses() {
 		let got = parse_issues(
-			r#"[{"author":{"login":"ann"},"body":"x","createdAt":"2026-10-01T00:00:00Z","state":"CLOSED","stateReason":"COMPLETED",
+			r#"[{"number":7,"author":{"login":"ann"},"body":"x","createdAt":"2026-10-01T00:00:00Z","state":"CLOSED","stateReason":"COMPLETED",
 			"labels":[{"name":"bug"}],"closedByPullRequestsReferences":[{"number":5}],
 			"comments":[{"author":{"login":"fitzforge"},"authorAssociation":"OWNER","body":"Fixed."},{"author":{"login":"ann"},"authorAssociation":"NONE","body":"fixed?"}]},
 			{"author":null,"body":"","createdAt":"2026-10-02T00:00:00Z","state":"OPEN","stateReason":"","labels":[],"closedByPullRequestsReferences":[],"comments":[]}]"#,
 		)
 		.unwrap();
 		assert_eq!(got[0].author.as_deref(), Some("ann"));
+		assert_eq!((got[0].number, got[1].number), (7, 0));
 		assert_eq!((got[0].state.as_str(), got[0].state_reason.as_deref(), got[0].closing_prs), ("CLOSED", Some("COMPLETED"), 1));
 		assert_eq!(got[0].labels, ["bug"]);
 		assert_eq!(got[0].maintainer_comments, ["Fixed."]);
