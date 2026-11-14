@@ -5129,7 +5129,10 @@ walk stays inside one zone; between zones it goes only through
   enter at the mouth and leave the way they came ("Follow the path out", or the
   node's `back` caption). A node may carry its floor's height (`z`): a start
   (with the player's floor, `Walk.Floor`, known and within 20 yd of it) or a
-  target (or one with no height at all) is then inside only on that floor. A
+  target (or one with no height at all) is then inside only on that floor; a
+  node marked `alone` (nothing walkable above or below it within its reach:
+  the Undercity's courtyard inside the Ruins' mouth) also holds a start whose
+  height is unknown, as with real paths off, where no floor is known (#2224). A
   hop between neighbouring nodes whose floors lie 20 yd or more apart within
   15 yd on the map is a lift: a `lift` leg ("Ride the elevator up/down",
   Transit's lift id and timetable), the walk to it "Walk to the lift". The

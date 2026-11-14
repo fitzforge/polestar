@@ -277,7 +277,9 @@ end
 --   crossings = { { id, a = { map, c, wx, wy, z, r }, b = { ... }, ab = caption a->b, ba = caption b->a, oneWay }, ... }
 --     (z: the height of the floor a walk to that end ends on, when given: the Undercity's entrance hall, not the city below)
 --   open = { zoneA, zoneB, oneWay (0/1), ... }   shared borders walkable anywhere
---   chains = { { id, name, open = "mouth"|"both", nodes = { { map, c, wx, wy, r, caption, back }, ... } }, ... } }
+--   chains = { { id, name, open = "mouth"|"both", nodes = { { map, c, wx, wy, z, r, caption, back, alone }, ... } }, ... } }
+--     (alone: nothing walkable above or below the node within its reach, so a start of unknown height there is on its
+--     floor: the Undercity's courtyard inside the Ruins' mouth)
 --   areas = { { id, name, map, c, top, bottom, left, right }, ... }   parts of a zone no walk joins to the rest of it
 --     (Rut'theran Village at the foot of Teldrassil, on the tree's map): a zone of their own, reached by no crossing,
 --     only by portals, ships and flights (#1761)
@@ -322,7 +324,7 @@ function Nav.RegisterCrossings(d)
 			local chain = { id = ch.id, name = ch.name, open = ch.open == "both" and "both" or "mouth", nodes = {} }
 			for k, e in ipairs(ch.nodes) do
 				local n = node(e)
-				n.caption, n.back, n.chain, n.idx = e.caption, e.back, chain, k
+				n.caption, n.back, n.chain, n.idx, n.alone = e.caption, e.back, chain, k, e.alone == true or nil
 				chain.nodes[k] = n
 			end
 			chains[#chains + 1] = chain
@@ -596,8 +598,10 @@ end
 -- The chain node past a mouth that a point is inside (within max(CAPTURE x radius, CAPTURE_MIN)), or nil.
 -- A node with a floor height (z) holds only a point on that floor (z within 20 yd: the Undercity's entrance hall, not
 -- the city under it); a point of unknown height, when one floor it may be on (`floors`: Walk.Floors) is within 20 yd
--- of it and none lies more than 20 yd below it (the hall and the gallery over it, never the city under it), or when
--- `loose` (a target: a map click), else not.
+-- of it and none lies more than 20 yd below it (the hall and the gallery over it, never the city under it), when the
+-- node has nothing walkable above or below it (`alone`: the courtyard inside the Ruins' mouth, where with real paths
+-- off, and so no floors, a player was routed down to the city's lift and back up, #2224), or when `loose` (a target:
+-- a map click), else not.
 local function onEvery(floors, h)
 	if not floors or not floors[1] then return false end
 	local near = false
@@ -615,7 +619,7 @@ local function insideChain(c, wx, wy, z, loose, floors)
 		local last = ch.open == "both" and #nodes - 1 or #nodes
 		for k = 2, last do
 			local nd = nodes[k]
-			local floorOK = not nd.z or (z and z - nd.z <= 20 and nd.z - z <= 20) or (z == nil and (loose or onEvery(floors, nd.z)))
+			local floorOK = not nd.z or (z and z - nd.z <= 20 and nd.z - z <= 20) or (z == nil and (loose or nd.alone or onEvery(floors, nd.z)))
 			if nd.c == c and floorOK then
 				local d = yards(c, wx, wy, nd.c, nd.wx, nd.wy)
 				local cap = nd.r * CAPTURE
